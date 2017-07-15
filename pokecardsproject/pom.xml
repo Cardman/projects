@@ -1,0 +1,56 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
+					http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<groupId>pokecardspro</groupId>
+	<artifactId>pokecardspro</artifactId>
+	<version>2.0</version>
+	<packaging>pom</packaging>
+
+	<modules>
+		<module>../resources</module>
+		<module>../bean</module>
+		<module>../util</module>
+		<module>../xml</module>
+		<!-- <module>../utilhelpertest</module>
+		<module>../utiltest</module> -->
+		<module>../serialize</module>
+		<module>../datacheck</module>
+		<module>../stream</module>
+		<!-- <module>../streamhelpertest</module>
+		<module>../streamtest</module> -->
+		<module>../formatconst</module>
+		<module>../maths</module>
+		<!-- <module>../mathstest</module> -->
+		<module>../expressionlanguage</module>
+		<!-- <module>../expressionlanguagehelpertest</module>
+		<module>../expressionlanguagetest</module> -->
+		<module>../images</module>
+		<module>../formathtml</module>
+		<!-- <module>../formathtmlhelpertest</module>
+		<module>../formathtmltest</module> -->
+		<module>../pokemoncore</module>
+		<!-- <module>../pokemoncorehelpertest</module>
+		<module>../pokemoncoretest</module> -->
+		<module>../guicommon</module>
+		<module>../pokemonbean</module>
+		<module>../network</module>
+		<module>../pokemongui</module>
+		<module>../cardgamescommon</module>
+		<module>../cardsgameresults</module>
+		<module>../belote</module>
+		<!-- <module>../belotetest</module> -->
+		<module>../president</module>
+		<!-- <module>../presidenttest</module> -->
+		<module>../tarot</module>
+		<!-- <module>../tarottest</module> -->
+		<module>../cardgamesunion</module>
+		<module>../cardgamesgui</module>
+		<module>../pokecards</module>
+		<module>../pokecardsmain</module>
+	</modules>
+ <build>
+ </build>
+ 
+</project>
