@@ -1,0 +1,259 @@
+package code.music.core;
+import java.math.BigDecimal;
+import java.math.MathContext;
+
+import jm.constants.Pitches;
+import jm.music.data.Note;
+import code.music.enums.Gamme;
+import code.serialize.XmlTransientable;
+import code.util.CustList;
+import code.util.annot.RwXml;
+import code.util.ints.Equallable;
+
+@RwXml
+public final class EvolvedNote implements XmlTransientable, Equallable<EvolvedNote> {
+
+    private static final String SEPARATOR = "/";
+    private static final String SEPARATOR_TIME = ",";
+    private static final String EMPTY_STRING = "";
+    private static final String PAUSE = "_";
+    private static final String DIESE = "#";
+    private static final int DELTA = 12;
+    private static boolean _displayDoubleValue_;
+    private transient Note note;
+    private Gamme value;
+    private int level;
+    private boolean diese;
+    private boolean pause;
+    private int durationNum;
+    private int durationDen;
+    private int dynamic = Note.DEFAULT_DYNAMIC;
+
+    @RwXml
+    private EvolvedNote() {
+    }
+
+    public EvolvedNote(Gamme _value, int _level, double _duration, int _dynamic) {
+        this(_value, _level, false, _duration, _dynamic);
+    }
+
+    public EvolvedNote(Gamme _value, int _level, boolean _diese, double _duration, int _dynamic) {
+        note = new Note(_value.getPitch() + DELTA * _level + diese(_diese), _duration);
+        note.setDuration(_duration);
+        value = _value;
+        dynamic = _dynamic;
+    }
+
+    public EvolvedNote(double _duration, int _dynamic) {
+        note = new Note(Pitches.REST, _duration);
+        note.setDuration(_duration);
+        pause = true;
+        dynamic = _dynamic;
+    }
+
+    public EvolvedNote(int _durationNum, int _durationDen, int _dynamic) {
+        durationNum = _durationNum;
+        durationDen = _durationDen;
+        dynamic = _dynamic;
+        pause = true;
+        afterLoad();
+    }
+
+    public EvolvedNote(Gamme _value, int _level, int _durationNum, int _durationDen, int _dynamic) {
+        this(_value, _level, false, _durationNum, _durationDen, _dynamic);
+    }
+
+    public EvolvedNote(Gamme _value, int _level, boolean _diese, int _durationNum, int _durationDen, int _dynamic) {
+        level = _level;
+        diese = _diese;
+        value = _value;
+        durationNum = _durationNum;
+        durationDen = _durationDen;
+        dynamic = _dynamic;
+        afterLoad();
+    }
+
+    public EvolvedNote(Note _note) {
+        note = _note;
+        pause = note.isRest();
+        diese = note.isSharp();
+        dynamic = note.getDynamic();
+        int v_ = _note.getPitch();
+        v_ -= diese(diese);
+        int level_ = v_ / DELTA;
+        level_--;
+        int gammePitch_ = v_ % DELTA;
+        gammePitch_ += DELTA;
+        level = level_;
+        double duration_ = note.getDuration();
+        BigDecimal durationCopy_ = new BigDecimal(duration_, MathContext.UNLIMITED);
+        durationDen = 1;
+        while (true) {
+            if (durationCopy_.remainder(BigDecimal.ONE).signum() == CustList.SIZE_EMPTY) {
+                break;
+            }
+            durationCopy_ = durationCopy_.multiply(new BigDecimal(2));
+            durationDen *= 2;
+        }
+        int durationCopyInt_ = durationCopy_.intValue();
+        durationNum = durationCopyInt_ / durationDen;
+        value = Gamme.getGammeByPitch(gammePitch_);
+        dynamic = _note.getDynamic();
+    }
+
+    public EvolvedNote(EvolvedNote _note) {
+        note = _note.getNote();
+        diese = _note.isDiese();
+        pause = _note.isPause();
+        level = _note.getLevel();
+        durationDen = _note.getDurationDen();
+        durationNum = _note.getDurationNum();
+        value = _note.getValue();
+        dynamic = _note.getDynamic();
+    }
+
+    private static int diese(boolean _d) {
+        if (_d) {
+            return 1;
+        }
+        return 0;
+    }
+
+    private static double getDouble(int _n, int _d) {
+        return (double)_n/(double)_d;
+    }
+
+    public static boolean isDisplayDoubleValue() {
+        return _displayDoubleValue_;
+    }
+
+    public static void setDisplayDoubleValue(boolean _displayDoubleValue) {
+        _displayDoubleValue_ = _displayDoubleValue;
+    }
+
+    public Gamme getValue() {
+        return value;
+    }
+
+    public Note getNote() {
+        return note;
+    }
+
+    public int getLevel() {
+        return level;
+    }
+
+    public boolean isDiese() {
+        return diese;
+    }
+
+    public boolean isPause() {
+        return pause;
+    }
+
+    public int getDurationNum() {
+        return durationNum;
+    }
+
+    public int getDurationDen() {
+        return durationDen;
+    }
+
+    public int getDynamic() {
+        return dynamic;
+    }
+
+    public void setValue(Gamme _value) {
+        value = _value;
+    }
+
+    public void setLevel(int _level) {
+        level = _level;
+    }
+
+    public void setDiese(boolean _diese) {
+        diese = _diese;
+    }
+
+    public void setPause(boolean _pause) {
+        pause = _pause;
+    }
+
+    public void setDurationNum(int _durationNum) {
+        durationNum = _durationNum;
+    }
+
+    public void setDurationDen(int _durationDen) {
+        durationDen = _durationDen;
+    }
+
+    public void setDynamic(int _dynamic) {
+        dynamic = _dynamic;
+    }
+
+    @Override
+    public boolean eq(EvolvedNote _obj) {
+        if (durationDen != _obj.durationDen) {
+            return false;
+        }
+        if (durationNum != _obj.durationNum) {
+            return false;
+        }
+        if (dynamic != _obj.dynamic) {
+            return false;
+        }
+        if (pause && _obj.pause || !pause && !_obj.pause) {
+            return true;
+        }
+        if (!diese && _obj.diese || diese && !_obj.diese) {
+            return false;
+        }
+        if (level != _obj.level) {
+            return false;
+        }
+        return value == _obj.value;
+    }
+
+    @Override
+    public String toString() {
+        String time_ = EMPTY_STRING;
+        if (_displayDoubleValue_) {
+            time_ += getDouble(durationNum, durationDen);
+        } else {
+            time_ += durationNum+SEPARATOR+durationDen;
+        }
+        if (pause) {
+            return PAUSE+time_+SEPARATOR_TIME+dynamic;
+        }
+        String diese_ = EMPTY_STRING;
+        if (diese) {
+            diese_ += DIESE;
+        }
+        return value.name()+diese_+level+SEPARATOR_TIME+time_+SEPARATOR_TIME+dynamic;
+    }
+
+    @Override
+    public void beforeSave() {
+    }
+
+    @Override
+    public void afterLoad() {
+        //pitch < MIN_PITCH && pitch > REST + 2
+        int pitch_;
+        if (pause) {
+            pitch_ = tryGetPitch(Pitches.REST);
+        } else {
+            pitch_ = tryGetPitch(value.getPitch() + DELTA * level + diese(diese));
+        }
+        note = new Note(pitch_, getDouble(durationNum, durationDen));
+        note.setDuration(getDouble(durationNum, durationDen));
+        note.setDynamic(dynamic);
+    }
+
+    private static int tryGetPitch(int _pitch) {
+        if (_pitch < Note.MIN_PITCH && _pitch > Note.REST + 2) {
+            throw new PitchExecption(_pitch);
+        }
+        return _pitch;
+    }
+}

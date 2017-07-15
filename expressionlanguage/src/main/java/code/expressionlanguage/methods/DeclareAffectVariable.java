@@ -1,0 +1,150 @@
+package code.expressionlanguage.methods;
+import org.w3c.dom.Element;
+
+import code.expressionlanguage.Argument;
+import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.ElUtil;
+import code.expressionlanguage.PageEl;
+import code.expressionlanguage.PrimitiveTypeUtil;
+import code.expressionlanguage.exceptions.DynamicCastClassException;
+import code.expressionlanguage.methods.exceptions.AlreadyDefinedVarException;
+import code.expressionlanguage.methods.exceptions.BadConstructorCall;
+import code.expressionlanguage.opers.Calculation;
+import code.expressionlanguage.opers.ExpressionLanguage;
+import code.expressionlanguage.opers.OperationNode;
+import code.expressionlanguage.variables.LocalVariable;
+import code.util.CustList;
+import code.util.NatTreeMap;
+import code.util.StringMap;
+
+public final class DeclareAffectVariable extends Leaf implements InitVariable {
+
+    private final String variableName;
+
+    private final String className;
+
+    private final String rightMember;
+
+    private CustList<OperationNode> opRight;
+//    private ExpressionLanguage rightEl;
+
+    DeclareAffectVariable(Element _el, ContextEl _importingPage, int _indexChild,
+            BracedBlock _m) {
+        super(_el, _importingPage, _indexChild, _m);
+        variableName = _el.getAttribute(ATTRIBUTE_VAR);
+        className = _el.getAttribute(ATTRIBUTE_CLASS);
+        rightMember = _el.getAttribute(ATTRIBUTE_EXPRESSION);
+    }
+
+    @Override
+    public NatTreeMap<String,String> getClassNames() {
+        NatTreeMap<String,String> tr_ = new NatTreeMap<String,String>();
+        tr_.put(ATTRIBUTE_CLASS, className);
+        return tr_;
+    }
+
+    @Override
+    public String getVariableName() {
+        return variableName;
+    }
+
+    @Override
+    public String getClassName() {
+        return className;
+    }
+
+    public ExpressionLanguage getRightEl() {
+//        return new ExpressionLanguage(rightMember, _cont, true, new Calculation(StepCalculation.RIGHT));
+        return new ExpressionLanguage(opRight);
+    }
+
+    public String getRightMember() {
+        return rightMember;
+    }
+
+    @Override
+    public void buildExpressionLanguage(ContextEl _cont) {
+        FunctionBlock f_ = getFunction();
+        PageEl page_ = _cont.getLastPage();
+//        page_.setProcessingNode(getAssociateElement());
+        page_.setProcessingAttribute(ATTRIBUTE_CLASS);
+//        page_.setLookForAttrValue(true);
+        page_.setOffset(0);
+//        try {
+//            ConstClasses.classForNameNotInit(className);
+//        } catch (RuntimeClassNotFoundException _0) {
+//            throw new RuntimeClassNotFoundException(_cont.joinPages());
+//        }
+//        Class<?> decl_ = ConstClasses.classForNameNotInit(className);
+        if (_cont.getLastPage().getLocalVars().contains(variableName)) {
+            page_.setProcessingAttribute(ATTRIBUTE_VAR);
+//            page_.setLookForAttrValue(true);
+            page_.setOffset(0);
+            throw new AlreadyDefinedVarException(variableName+RETURN_LINE+_cont.joinPages());
+        }
+        LocalVariable lv_ = new LocalVariable();
+        lv_.setClassName(className);
+        _cont.getLastPage().getLocalVars().put(variableName, lv_);
+        page_.setProcessingAttribute(ATTRIBUTE_EXPRESSION);
+//        page_.setLookForAttrValue(true);
+        page_.setOffset(0);
+//        opRight = ElUtil.getAnalyzedOperations(rightMember, _cont, f_.isStaticContext());
+        opRight = ElUtil.getAnalyzedOperations(rightMember, _cont, Calculation.staticCalculation(f_.isStaticContext()));
+//        ExpressionLanguage rightEl_ = new ExpressionLanguage(rightMember, _cont, true, new Calculation(StepCalculation.RIGHT));
+        if (!PrimitiveTypeUtil.canBeUseAsArgument(className, opRight.last().getResultClass().getName(), _cont.getClasses())) {
+            throw new DynamicCastClassException(_cont.joinPages());
+        }
+//        removeLocalVariablesFromParent();
+    }
+
+    @Override
+    boolean canBeLastOfBlockGroup() {
+        return false;
+    }
+
+    @Override
+    public void checkCallConstructor(ContextEl _cont) {
+        PageEl p_ = _cont.getLastPage();
+//        p_.setProcessingNode(getAssociateElement());
+        p_.setProcessingAttribute(ATTRIBUTE_EXPRESSION);
+//        p_.setLookForAttrValue(true);
+        for (OperationNode o: opRight) {
+            if (o.isSuperThis()) {
+                int off_ = o.getFullIndexInEl();
+                p_.setOffset(off_);
+                throw new BadConstructorCall(_cont.joinPages());
+            }
+        }
+    }
+
+    @Override
+    public String getTagName() {
+        return TAG_DECLARE_SET;
+    }
+
+    @Override
+    public void processEl(ContextEl _cont) {
+        PageEl ip_ = _cont.getLastPage();
+        ip_.setProcessingAttribute(ATTRIBUTE_EXPRESSION);
+//        ip_.setLookForAttrValue(true);
+        ip_.setOffset(0);
+        LocalVariable lv_ = new LocalVariable();
+        lv_.setClassName(getClassName());
+        String name_ = getVariableName();
+        StringMap<LocalVariable> map_ = ip_.getLocalVars();
+        ExpressionLanguage el_;
+        if (!ip_.getCurrentEls().isEmpty()) {
+            el_ = ip_.getCurrentEls().last();
+        } else {
+            el_ = getRightEl();
+            ip_.setCurrentBlock(this);
+            ip_.setCurrentEls(new CustList<ExpressionLanguage>(el_));
+        }
+        Argument arg_ = el_.calculateMember(_cont);
+        el_.setCurrentOper(null);
+        ip_.getCurrentEls().clear();
+        lv_.setStruct(arg_.getStruct());
+        map_.put(name_, lv_);
+        processBlock(_cont);
+    }
+}

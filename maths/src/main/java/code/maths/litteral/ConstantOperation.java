@@ -1,0 +1,253 @@
+package code.maths.litteral;
+import code.maths.MathList;
+import code.maths.Rate;
+import code.maths.exceptions.BadDivisionException;
+import code.maths.exceptions.FormatException;
+import code.maths.litteral.exceptions.EmptyPartException;
+import code.maths.litteral.exceptions.UndefinedVariableException;
+import code.util.CustList;
+import code.util.EntryCust;
+import code.util.StringList;
+import code.util.StringMap;
+
+public final class ConstantOperation extends OperationNode {
+//    private static final String EMPTY_STRING = "";
+
+    private static final String RETURN_LINE = "\n";
+
+    public ConstantOperation(String _el, int _index, StringMap<String> _importingPage, int _indexChild, MethodOperation _m, OperationsSequence _op) {
+        super(_el, _index, _importingPage, _indexChild, _m, _op);
+    }
+
+//    @Override
+//    boolean isFirstLeaf() {
+////        String str_ = getOperations().getValues().getValue(CustList.FIRST_INDEX).trim();
+////        return getIndexChild() == CustList.FIRST_INDEX && !str_.startsWith(String.valueOf(FIRST_VAR_ARG));
+//        return getIndexChild() == CustList.FIRST_INDEX;
+//    }
+//
+//    @Override
+//    boolean isRealLeaf() {
+//        return true;
+//    }
+
+    @Override
+    boolean isFirstChild() {
+        return getIndexChild() == CustList.FIRST_INDEX;
+    }
+
+    @Override
+    void analyze(CustList<OperationNode> _nodes, StringMap<String> _conf) {
+        analyzeCalculate();
+        if (getArgument() != null) {
+            String str_ = getOperations().getValues().getValue(CustList.FIRST_INDEX).trim();
+
+            for (EntryCust<String,String> v: _conf.entryList()) {
+                if (StringList.quickEq(str_, DELIMITER_STRING_BEGIN+v.getKey()+DELIMITER_STRING_END)) {
+                    MathList m_ = new MathList();
+                    for (String e: StringList.splitChars(v.getValue(), DELIMITER_STRING_SEP)) {
+                        if (e.isEmpty()) {
+                            continue;
+                        }
+                        m_.add(e);
+                    }
+                    getArgument().setObject(m_);
+                    break;
+                }
+            }
+            setResultClass(getArgument().getArgClass());
+            return;
+        }
+        String str_ = getOperations().getValues().getValue(CustList.FIRST_INDEX).trim();
+        if (_conf.contains(str_)) {
+            String value_ = _conf.getVal(str_);
+            if (Rate.isValid(value_)) {
+                setResultClass(MathType.RATE);
+                return;
+            }
+            if (value_.startsWith(String.valueOf(DELIMITER_STRING_BEGIN))) {
+                setResultClass(MathType.SET);
+                return;
+            }
+            setResultClass(MathType.BOOLEAN);
+//            setResultClass(new ClassMatching(ConstClasses.classForName(locVar_.getClassName(), false)));
+            return;
+        }
+        throw new UndefinedVariableException(str_, String.valueOf(getIndexInEl()));
+    }
+
+    @Override
+    void calculate(CustList<OperationNode> _nodes, StringMap<String> _conf) {
+        if (getArgument() != null) {
+            return;
+        }
+        String str_ = getOperations().getValues().getValue(CustList.FIRST_INDEX).trim();
+        Argument a_ = new Argument();
+        a_ = new Argument();
+        a_.setArgClass(getResultClass());
+        if (getResultClass() == MathType.RATE) {
+            try {
+                a_.setObject(Rate.newRate(_conf.getVal(str_)));
+            } catch (FormatException _0) {
+                throw new BadDivisionException(_0.getMessage()+RETURN_LINE+String.valueOf(getIndexInEl()));
+            }
+        } else if (getResultClass() == MathType.BOOLEAN) {
+            a_.setObject(StringList.quickEq(_conf.getVal(str_), TRUE_STRING));
+        } else {
+            MathList m_ = new MathList();
+            for (String e: StringList.splitChars(_conf.getVal(str_), DELIMITER_STRING_SEP)) {
+                if (e.isEmpty()) {
+                    continue;
+                }
+                m_.add(e);
+            }
+            a_.setObject(m_);
+        }
+        setArgument(a_);
+        setNextSiblingsArg(a_);
+//        PageEl ip_ = _conf.getImporting().last();
+//        if (str_.endsWith(GET_PARAM)) {
+//            String key_ = str_.substring(CustList.FIRST_INDEX, str_.length() - GET_PARAM.length());
+//            LocalVariable locVar_ = ip_.getParameters().getVal(key_);
+//            a_ = new Argument();
+////            a_.setArgClass(ConstClasses.classForName(locVar_.getClassName()));
+//            a_.setArgClass(getResultClass().getClazz());
+//            a_.setObject(locVar_.getElement());
+//            setArgument(a_);
+//            setNextSiblingsArg(a_);
+//            return;
+//        }
+//        if (str_.endsWith(GET_LOC_VAR)) {
+//            String key_ = str_.substring(CustList.FIRST_INDEX, str_.length() - GET_LOC_VAR.length());
+//            LocalVariable locVar_ = ip_.getLocalVars().getVal(key_);
+//            a_ = new Argument();
+////            a_.setArgClass(ConstClasses.classForName(locVar_.getClassName()));
+//            a_.setArgClass(getResultClass().getClazz());
+//            a_.setObject(locVar_.getElement());
+//            setArgument(a_);
+//            setNextSiblingsArg(a_);
+//            return;
+//        }
+//        if (str_.endsWith(GET_INDEX)) {
+//            String key_ = str_.substring(CustList.FIRST_INDEX, str_.length() - GET_INDEX.length());
+//            LoopVariable locVar_ = ip_.getVars().getVal(key_);
+//            a_ = new Argument();
+////            a_.setArgClass(ConstClasses.classForName(locVar_.getIndexClassName()));
+//            a_.setArgClass(getResultClass().getClazz());
+//            a_.setObject(locVar_.getIndex());
+//            setArgument(a_);
+//            setNextSiblingsArg(a_);
+//            return;
+//        }
+//        if (str_.endsWith(GET_ATTRIBUTE)) {
+//            String key_ = str_.substring(CustList.FIRST_INDEX, str_.length() - GET_ATTRIBUTE.length());
+//            LoopVariable locVar_ = ip_.getVars().getVal(key_);
+//            a_ = new Argument();
+////            a_.setArgClass(ConstClasses.classForName(locVar_.getClassName()));
+////            a_.setArgClass(ConstClasses.classForName(locVar_.getClassName()));
+//            a_.setArgClass(getResultClass().getClazz());
+//            a_.setObject(locVar_.getElement());
+//            setArgument(a_);
+//            setNextSiblingsArg(a_);
+//            return;
+//        }
+//        Argument arg_ = getPreviousArgument();
+////        Class<?> cl_ = arg_.getArgClass();
+//        Object obj_ = arg_.getObject();
+////        Field f_ = SerializeXmlObject.getDeclaredField(cl_, str_);
+//        setAccess(field);
+//        Object res_ = ConverterMethod.getField(field, obj_);
+//        a_ = new Argument();
+//        a_.setArgClass(field.getType());
+//        a_.setObject(res_);
+//        setArgument(a_);
+//        setNextSiblingsArg(a_);
+    }
+
+    private void analyzeCalculate() {
+        String str_ = getOperations().getValues().getValue(CustList.FIRST_INDEX).trim();
+//        if (isVararg()) {
+//            str_ = str_.substring(CustList.SECOND_INDEX);
+//            Argument a_ = new Argument();
+//            a_.setArgClass(ConstClasses.classForName(str_, false));
+//            setArgument(a_);
+//            return;
+//        }
+//        if (isFirstOptArg()) {
+//            str_ = str_.substring(CustList.FIRST_INDEX, str_.indexOf(FIRST_VAR_ARG)).trim();
+//        }
+        if (str_.isEmpty()) {
+            throw new EmptyPartException(String.valueOf(getIndexInEl()));
+        }
+        Argument a_ = new Argument();
+        if (StringList.quickEq(str_, TRUE_STRING)) {
+            a_.setArgClass(MathType.BOOLEAN);
+            a_.setObject(true);
+            setArgument(a_);
+            setNextSiblingsArg(a_);
+            return;
+        }
+        if (StringList.quickEq(str_, FALSE_STRING)) {
+            a_.setArgClass(MathType.BOOLEAN);
+            a_.setObject(false);
+            setArgument(a_);
+            setNextSiblingsArg(a_);
+            return;
+        }
+        if (StringList.quickEq(str_, EMPTY_SET)) {
+            a_.setArgClass(MathType.SET);
+//            a_.setObject(EMPTY_STRING+DELIMITER_STRING_BEGIN+DELIMITER_STRING_END);
+            a_.setObject(new MathList());
+            setArgument(a_);
+            setNextSiblingsArg(a_);
+            return;
+        }
+        if (str_.startsWith(String.valueOf(DELIMITER_STRING_BEGIN))) {
+            str_ = str_.substring(CustList.SECOND_INDEX, str_.lastIndexOf(DELIMITER_STRING_END));
+            if (str_.isEmpty()) {
+                a_.setArgClass(MathType.SET);
+//                a_.setObject(EMPTY_STRING+DELIMITER_STRING_BEGIN+DELIMITER_STRING_END);
+                a_.setObject(new MathList());
+                setArgument(a_);
+                setNextSiblingsArg(a_);
+                return;
+            }
+            MathList m_ = new MathList();
+            StringBuilder element_ = new StringBuilder();
+            boolean escaped_ = false;
+            for (char c: str_.toCharArray()) {
+                if (escaped_) {
+                    element_.append(c);
+                    escaped_ = false;
+                    continue;
+                }
+                if (c == ESCAPE_META_CHAR) {
+                    escaped_ = true;
+                    continue;
+                }
+                if (c == DELIMITER_STRING_SEP) {
+                    m_.add(element_.toString());
+                    element_ = new StringBuilder();
+                } else {
+                    element_.append(c);
+                }
+            }
+            m_.add(element_.toString());
+            a_.setArgClass(MathType.SET);
+            a_.setObject(m_);
+            setArgument(a_);
+            setNextSiblingsArg(a_);
+            return;
+        }
+        try {
+            setArgument(Argument.numberToArgument(str_));
+        } catch (RuntimeException _0) {
+        }
+    }
+
+    @Override
+    public OperationNode getFirstChild() {
+        return null;
+    }
+
+}
