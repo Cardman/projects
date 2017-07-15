@@ -1,0 +1,118 @@
+<html>
+<body>
+Here is the difference with playing by teams (Taker + possible called player versus Defense):<br/>
+<br/>
+Possible dealing are the following one:<br/>
+<ul>
+<li>18 cards per player and 6 at the dog; cards are dealt 3 by 3; for 4 players.</li>
+<li>24 cards per player and 6 at the dog; cards are dealt 3 by 3; for 3 players.</li>
+<li>15 cards per player and 3 at the dog; cards are dealt 3 by 3; for 5 players.</li>
+<li>14 cards per player and 8 at the dog; cards are dealt 2 by 2; for 5 players.</li>
+<li>12 cards per player and 6 at the dog; cards are dealt 2 by 2; for 6 players.</li>
+</ul>
+<br/>
+Playing one for one can be done after all players have declared "pass".<br/>
+<br/>
+In this case, the dog is hidden.<br/>
+<br/>
+The goal is to get the most cards as possible.<br/>
+<br/>
+Else the deal progresses like game by teams (Same declaring and same rules for playing cards.).<br/>
+<br/>
+&nbsp;Limit values to be achieved for a player are the following one:<br/>
+<br/>
+<ul>
+<li>56 points without Oulder.</li>
+<li>51 points with 1 Oulder in the tricks of the player.</li>
+<li>41 points with 2 Oulders in the tricks of the player.</li>
+<li>36 points with 3 Oulders in the tricks of the player.</li>
+</ul>
+<br/>
+&nbsp;At the end of deal, for sorting players, one processes in the following way:<br/>
+<br/>
+<br/>
+Difference points of a player = number of scored points in the tricks - limit value for the player.<br/>
+<br/>
+Players are sorted by their difference points, the player having the greatest difference is the best player.<br/>
+<br/>
+If two players have same difference points and have won tricks:<br/>
+&nbsp;Then the players are sorted by number of Oudlers in the tricks, the number of Oudlers must be the greatest as possible for winning.<br/>
+<br/>
+&nbsp;If besides, the number of Oudlers in the tricks of the two players is the same, then:<br/>
+<ol>
+<li>If this number is 0:<br/>
+&nbsp;&nbsp;&nbsp;Numbers of characters in the tricks of the two players is compared, the number of characters in the tricks of a player must be the greatest as possible for winning.<br/>
+&nbsp;&nbsp;&nbsp;If besides, the number of characters in the tricks of the two players is the same, then:<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;Won characters by the two players are compared, by firstly comparing the greatest characters.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;Comparison is stopped, if there is a difference of strength of card.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;If the characters have the same strength two by two for the two players,<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;the first player who has won a trick is before the other player.<br/>
+</li>
+<li>If this number is 1:<br/>
+&nbsp;&nbsp;&nbsp;Sorting on Oudlers is based in the following way from the most winning to the most loosing: Trump 21 - Excuse - Small.<br/>
+&nbsp;&nbsp;&nbsp;(Winning the Excuse is better than winning the Small,...)<br/>
+</li>
+</ol>
+<br/>
+If two players have same difference points but have not won any trick, there is dispute.<br/>
+<br/>
+<ul>
+<li>3 players<br/>
+&nbsp;&nbsp;Rate is worth from the winner to the looser:<br/>
+<ul>
+<li>1, 0, -1; if there is no dispute.</li>
+<li>2, -1, -1; if there is dispute.</li>
+</ul>
+</li>
+<li>4 players<br/>
+&nbsp;&nbsp;Rate is worth from the winner to the looser:<br/>
+<ul>
+<li>2, 1, -1, -2; if there is no dispute.</li>
+<li>3, 1, -2, -2; if there is dispute between two players exactly.</li>
+<li>6, -2, -2, -2; if there is dispute between three players exactly.</li>
+</ul>
+</li>
+<li>5 players<br/>
+&nbsp;&nbsp;Rate is worth from the winner to the looser:<br/>
+<ul>
+<li>2, 1, 0, -1, -2; if there is no dispute.</li>
+<li>3, 1, 0, -2, -2; if there is dispute between two players exactly.</li>
+<li>6, 0, -2, -2, -2; if there is dispute between three players exactly.</li>
+<li>8, -2, -2, -2, -2; if there is dispute between four players exactly.</li>
+</ul>
+</li>
+<li>6 players<br/>
+&nbsp;&nbsp;Rate is worth from the winner to the looser:<br/>
+<ul>
+<li>3, 2, 1, -1, -2, -3; if there is no dispute.</li>
+<li>3, 2, 1, 0, -3, -3; if there is dispute between two players exactly.</li>
+<li>4, 2, 0, -2, -2, -2; if there is dispute between three players exactly.</li>
+<li>8, 0, -2, -2, -2, -2; if there is dispute between four players exactly.</li>
+<li>10, -2, -2, -2, -2, -2; if there is dispute between five players exactly.</li>
+</ul>
+</li>
+</ul>
+<br/>
+A successful slam is by default 200 points. (The slam is regarded as not declared.)<br/>
+<br/>
+Score of a player = 4 x (Rate x (25 + Maximal difference points for players rounded to the greater integer + number of points in the dog rounded to the greater integer) + (number of players - 1) x Declaring points of player - Declaring of each one of other players).<br/>
+<br/>
+By teams of two players, rates are the following one:<br/>
+<br/>
+<ul>
+<li>4 players<br/>
+&nbsp;&nbsp;Rate is worth from the winner team to the looser team:<br/>
+<ul>
+<li>1, -1</li>
+</ul>
+</li>
+<li>6 players<br/>
+&nbsp;&nbsp;Rate is worth from the winner team to the looser team:<br/>
+<ul>
+<li>1, 0, -1; if there is no dispute.</li>
+<li>2, -1, -1; if there is dispute between two teams exactly.</li>
+</ul>
+</li>
+</ul>
+</body>
+</html>

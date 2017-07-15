@@ -1,0 +1,23 @@
+package cards.tarot.comparators;
+import java.util.Comparator;
+
+import code.util.Numbers;
+import cards.consts.Suit;
+import cards.tarot.HandTarot;
+
+public final class HandTarotCharLongLengthComparator implements Comparator<Suit> {
+
+    private HandTarot hand;
+
+    public HandTarotCharLongLengthComparator(HandTarot _hand) {
+        hand = _hand;
+    }
+
+    @Override
+    public int compare(Suit _suit1, Suit _suit2) {
+        HandTarot main1_ = hand.figures(_suit1);
+        HandTarot main2_ = hand.figures(_suit2);
+        return Numbers.compare(main2_.total(), main1_.total());
+    }
+
+}

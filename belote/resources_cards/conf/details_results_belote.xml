@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<cfg>
+	<java.lang.String class="cfg" field="firstUrl" value="resources_cards/classes//cards/belote/detailsresults.html"/>
+	<sm class="cfg" field="beans">
+		<java.lang.String class="util.Map" key="" value="details"/>
+		<b class="util.Map">
+			<null class="b" field="forms"/>
+			<java.lang.String class="b" field="scope" value="request"/>
+			<java.lang.String class="b" field="className" value="cards.belote.beans.DetailsResultsBeloteBean"/>
+		</b>
+	</sm>
+	<sm class="cfg" field="navigation"/>
+	<java.lang.String class="cfg" field="messagesFolder" value="resources_cards/messages"/>
+	<sm class="cfg" field="properties">
+		<java.lang.String class="util.Map" key="" value="msg"/>
+		<java.lang.String class="util.Map" value="messages_belote"/>
+	</sm>
+</cfg>

@@ -1,0 +1,3 @@
+cards.facade.enumerations.GameEnum.BELOTE:Belote
+cards.facade.enumerations.GameEnum.TAROT:Tarot
+cards.facade.enumerations.GameEnum.PRESIDENT:Pr&eacute;sident

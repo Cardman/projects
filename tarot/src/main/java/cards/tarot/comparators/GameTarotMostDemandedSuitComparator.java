@@ -1,0 +1,53 @@
+package cards.tarot.comparators;
+import java.util.Comparator;
+
+import code.util.CustList;
+import code.util.Numbers;
+import cards.consts.Suit;
+import cards.tarot.TrickTarot;
+
+public final class GameTarotMostDemandedSuitComparator implements Comparator<Suit> {
+
+    private CustList<TrickTarot> tricks;
+
+    private Numbers<Byte> players;
+
+    public GameTarotMostDemandedSuitComparator(CustList<TrickTarot> _tricks,
+            Numbers<Byte> _players) {
+        tricks = _tricks;
+        players = _players;
+    }
+
+    @Override
+    public int compare(Suit _suit1, Suit _suit2) {
+        boolean aussiHaut_ = true;
+        boolean permuter_ = false;
+        byte nbEntamesCouleur1_ = (byte) CustList.SIZE_EMPTY;
+        byte nbEntamesCouleur2_ = (byte) CustList.SIZE_EMPTY;
+        for(TrickTarot pli_: tricks){
+            if (!pli_.getVuParToutJoueur()) {
+                continue;
+            }
+            if (pli_.couleurDemandee() == _suit1 && players.containsObj(pli_.getEntameur())) {
+                nbEntamesCouleur1_++;
+            }
+            if (pli_.couleurDemandee() == _suit2 && players.containsObj(pli_.getEntameur())) {
+                nbEntamesCouleur2_++;
+            }
+        }
+        if (nbEntamesCouleur1_ != nbEntamesCouleur2_) {
+            aussiHaut_ = false;
+            if (nbEntamesCouleur1_ < nbEntamesCouleur2_) {
+                permuter_ = true;
+            }
+        }
+        if (permuter_) {
+            return CustList.SWAP_SORT;
+        }
+        if (aussiHaut_) {
+            return CustList.EQ_CMP;
+        }
+        return CustList.NO_SWAP_SORT;
+    }
+
+}

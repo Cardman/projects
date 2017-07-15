@@ -1,0 +1,10 @@
+div.borderedParagraphs {
+	/*border: solid 1px #FF0000;*/
+	border-width: 1px;
+	border-style: dotted;
+	border-color: #FF0000;
+}
+
+h1 {
+	color: #0000FF;
+}

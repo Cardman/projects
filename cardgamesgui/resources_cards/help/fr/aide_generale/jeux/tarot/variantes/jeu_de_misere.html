@@ -1,0 +1,117 @@
+<html>
+<body>
+Voici ce qui change par rapport au jeu d''&eacute;quipes (Preneur + &eacute;ventuel appel&eacute; versus D&eacute;fense):<br/>
+<br/>
+Les distributions possibles sont les suivantes:<br/>
+<ul>
+<li>18 cartes par joueur et 6 au chien; les cartes sont distribu&eacute;es 3 par 3; pour 4 joueurs.</li>
+<li>24 cartes par joueur et 6 au chien; les cartes sont distribu&eacute;es 3 par 3; pour 3 joueurs.</li>
+<li>15 cartes par joueur et 3 au chien; les cartes sont distribu&eacute;es 3 par 3; pour 5 joueurs.</li>
+<li>14 cartes par joueur et 8 au chien; les cartes sont distribu&eacute;es 2 par 2; pour 5 joueurs.</li>
+<li>12 cartes par joueur et 6 au chien; les cartes sont distribu&eacute;es 2 par 2; pour 6 joueurs.</li>
+</ul>
+<br/>
+On peut jouer les mis&egrave;res apr&egrave;s que tout le monde a pass&eacute;.<br/>
+<br/>
+Dans ce cas, le chien est cach&eacute;.<br/>
+<br/>
+Le but est de perdre toutes ses cartes, donc perdre l''Excuse au bout est astucieux, dans ce cas.<br/>
+<br/>
+Il n''y a pas d''annonce de poign&eacute;e, de mis&egrave;re, ni de primes (Petit au bout, chelem).<br/>
+<br/>
+Sinon le jeu se d&eacute;roule de la m&ecirc;me mani&egrave;re que le jeu d''&eacute;quipes (M&ecirc;mes r&egrave;gles pour le jeu de la carte.).<br/>
+<br/>
+&nbsp;Les valeurs limites &agrave; ne pas d&eacute;passer pour un joueur sont les suivantes:<br/>
+<br/>
+<ul>
+<li>56 points sans bout.</li>
+<li>51 points avec 1 bout dans les plis du joueur.</li>
+<li>41 points avec 2 bouts dans les plis du joueur.</li>
+<li>36 points avec 3 bouts dans les plis du joueur.</li>
+</ul>
+<br/>
+&nbsp;A la fin de la partie, pour d&eacute;signer le classement des joueurs, on proc&egrave;de de la mani&egrave;re suivante:<br/>
+<br/>
+<br/>
+Diff&eacute;rence d''un joueur = valeur limite pour le joueur - nombre de points marqu&eacute;s dans les plis.<br/>
+<br/>
+On classe les joueurs par leur diff&eacute;rence, la plus grande diff&eacute;rence pour le meilleur.<br/>
+<br/>
+Si deux joueurs ont m&ecirc;me diff&eacute;rence et ont fait des plis:<br/>
+&nbsp;Alors on les classe par le nombre de bouts dans les plis, il doit &ecirc;tre le plus petit possible pour gagner.<br/>
+<br/>
+&nbsp;Si de plus, le nombre de bouts dans les plis des deux joueurs est identique, alors:<br/>
+<ol>
+<li>Si ce nombre vaut 0:<br/>
+&nbsp;&nbsp;&nbsp;On compare les nombres de figures dans les plis des deux joueurs, le nombre de figures dans les plis d''un joueur doit &ecirc;tre le plus petit possible pour gagner.<br/>
+&nbsp;&nbsp;&nbsp;Si de plus, le nombre de figures dans les plis des deux joueurs est identique, alors:<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;On compare les figures ramass&eacute;es par les deux joueurs, en commen&ccedil;ant par les plus hautes.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;On s''arr&ecirc;te d&egrave;s qu''il y a une diff&eacute;rence de hauteur.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;Si les figures sont identiques en valeur deux &agrave; deux des deux joueurs, on regarde qui a fait le premier pli.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Celui qui a fait son premier pli en dernier passe devant.<br/>
+</li>
+<li>Si ce nombre vaut 1:<br/>
+&nbsp;&nbsp;&nbsp;On classe alors de la mani&egrave;re suivante du plus gagnant au plus perdant: Petit - Excuse - 21.<br/>
+&nbsp;&nbsp;&nbsp;(Il vaut mieux alors avoir le Petit que l''Excuse,...)<br/>
+</li>
+</ol>
+<br/>
+Si deux joueurs ont m&ecirc;me diff&eacute;rence mais n''ont pas fait des plis, il y a litige.<br/>
+<br/>
+<ul>
+<li>3 joueurs<br/>
+&nbsp;&nbsp;Coefficient vaut du gagnant au perdant:<br/>
+<ul>
+<li>1, 0, -1; s''il n''y a pas de litige.</li>
+<li>1, 1, -2; s''il y a litige.</li>
+</ul>
+</li>
+<li>4 joueurs<br/>
+&nbsp;&nbsp;Coefficient vaut du gagnant au perdant:<br/>
+<ul>
+<li>2, 1, -1, -2; s''il n''y a pas de litige.</li>
+<li>2, 2, -1, -3; s''il y a litige entre deux joueurs exactement.</li>
+<li>2, 2, 2, -6; s''il y a litige entre trois joueurs exactement.</li>
+</ul>
+</li>
+<li>5 joueurs<br/>
+&nbsp;&nbsp;Coefficient vaut du gagnant au perdant:<br/>
+<ul>
+<li>2, 1, 0, -1, -2; s''il n''y a pas de litige.</li>
+<li>2, 2, 0, -1, -3; s''il y a litige entre deux joueurs exactement.</li>
+<li>2, 2, 2, 0, -6; s''il y a litige entre trois joueurs exactement.</li>
+<li>2, 2, 2, 2, -8; s''il y a litige entre quatre joueurs exactement.</li>
+</ul>
+</li>
+<li>6 joueurs<br/>
+&nbsp;&nbsp;Coefficient vaut du gagnant au perdant:<br/>
+<ul>
+<li>3, 2, 1, -1, -2, -3; s''il n''y a pas de litige.</li>
+<li>3, 3, 0, -1, -2, -3; s''il y a litige entre deux joueurs exactement.</li>
+<li>2, 2, 2, 0, -2, -4; s''il y a litige entre trois joueurs exactement.</li>
+<li>2, 2, 2, 2, 0, -8; s''il y a litige entre quatre joueurs exactement.</li>
+<li>2, 2, 2, 2, 2, -10; s''il y a litige entre cinq joueurs exactement.</li>
+</ul>
+</li>
+</ul>
+Score d''un joueur = 4 x Coefficient x (25 + Diff&eacute;rence max pour les joueurs arrondie &agrave; l''entier sup&eacute;rieur + nombre points chien arrondi &agrave; l''entier sup&eacute;rieur)<br/>
+<br/>
+En &eacute;quipes de deux joueurs, les coefficients sont les suivants:<br/>
+<br/>
+<ul>
+<li>4 joueurs<br/>
+&nbsp;&nbsp;Coefficient vaut de l''&eacute;quipe gagnante &agrave; l''&eacute;quipe perdante:<br/>
+<ul>
+<li>1, -1</li>
+</ul>
+</li>
+<li>6 joueurs<br/>
+&nbsp;&nbsp;Coefficient vaut de l''&eacute;quipe gagnante &agrave; l''&eacute;quipe perdante:<br/>
+<ul>
+<li>1, 0, -1; s''il n''y a pas de litige.</li>
+<li>1, 1, -2; s''il y a litige entre deux &eacute;quipes exactement.</li>
+</ul>
+</li>
+</ul>
+</body>
+</html>

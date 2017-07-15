@@ -1,0 +1,62 @@
+cards.president.enumerations.CardPresident.HEART_KING:Roi de coeur
+cards.president.enumerations.CardPresident.HEART_QUEEN:Dame de coeur
+cards.president.enumerations.CardPresident.HEART_JACK:Valet de coeur
+cards.president.enumerations.CardPresident.HEART_10:10 de coeur
+cards.president.enumerations.CardPresident.HEART_9:9 de coeur
+cards.president.enumerations.CardPresident.HEART_8:8 de coeur
+cards.president.enumerations.CardPresident.HEART_7:7 de coeur
+cards.president.enumerations.CardPresident.HEART_6:6 de coeur
+cards.president.enumerations.CardPresident.HEART_5:5 de coeur
+cards.president.enumerations.CardPresident.HEART_4:4 de coeur
+cards.president.enumerations.CardPresident.HEART_3:3 de coeur
+cards.president.enumerations.CardPresident.HEART_2:2 de coeur
+cards.president.enumerations.CardPresident.HEART_1:As de coeur
+cards.president.enumerations.CardPresident.SPADE_KING:Roi de pique
+cards.president.enumerations.CardPresident.SPADE_QUEEN:Dame de pique
+cards.president.enumerations.CardPresident.SPADE_JACK:Valet de pique
+cards.president.enumerations.CardPresident.SPADE_10:10 de pique
+cards.president.enumerations.CardPresident.SPADE_9:9 de pique
+cards.president.enumerations.CardPresident.SPADE_8:8 de pique
+cards.president.enumerations.CardPresident.SPADE_7:7 de pique
+cards.president.enumerations.CardPresident.SPADE_6:6 de pique
+cards.president.enumerations.CardPresident.SPADE_5:5 de pique
+cards.president.enumerations.CardPresident.SPADE_4:4 de pique
+cards.president.enumerations.CardPresident.SPADE_3:3 de pique
+cards.president.enumerations.CardPresident.SPADE_2:2 de pique
+cards.president.enumerations.CardPresident.SPADE_1:As de pique
+cards.president.enumerations.CardPresident.DIAMOND_KING:Roi de carreau
+cards.president.enumerations.CardPresident.DIAMOND_QUEEN:Dame de carreau
+cards.president.enumerations.CardPresident.DIAMOND_JACK:Valet de carreau
+cards.president.enumerations.CardPresident.DIAMOND_10:10 de carreau
+cards.president.enumerations.CardPresident.DIAMOND_9:9 de carreau
+cards.president.enumerations.CardPresident.DIAMOND_8:8 de carreau
+cards.president.enumerations.CardPresident.DIAMOND_7:7 de carreau
+cards.president.enumerations.CardPresident.DIAMOND_6:6 de carreau
+cards.president.enumerations.CardPresident.DIAMOND_5:5 de carreau
+cards.president.enumerations.CardPresident.DIAMOND_4:4 de carreau
+cards.president.enumerations.CardPresident.DIAMOND_3:3 de carreau
+cards.president.enumerations.CardPresident.DIAMOND_2:2 de carreau
+cards.president.enumerations.CardPresident.DIAMOND_1:As de carreau
+cards.president.enumerations.CardPresident.CLUB_KING:Roi de tr&egrave;fle
+cards.president.enumerations.CardPresident.CLUB_QUEEN:Dame de tr&egrave;fle
+cards.president.enumerations.CardPresident.CLUB_JACK:Valet de tr&egrave;fle
+cards.president.enumerations.CardPresident.CLUB_10:10 de tr&egrave;fle
+cards.president.enumerations.CardPresident.CLUB_9:9 de tr&egrave;fle
+cards.president.enumerations.CardPresident.CLUB_8:8 de tr&egrave;fle
+cards.president.enumerations.CardPresident.CLUB_7:7 de tr&egrave;fle
+cards.president.enumerations.CardPresident.CLUB_6:6 de tr&egrave;fle
+cards.president.enumerations.CardPresident.CLUB_5:5 de tr&egrave;fle
+cards.president.enumerations.CardPresident.CLUB_4:4 de tr&egrave;fle
+cards.president.enumerations.CardPresident.CLUB_3:3 de tr&egrave;fle
+cards.president.enumerations.CardPresident.CLUB_2:2 de tr&egrave;fle
+cards.president.enumerations.CardPresident.CLUB_1:As de tr&egrave;fle
+cards.president.enumerations.EqualtyPlaying.FORBIDDEN:Aucune &eacute;galit&eacute; possible
+cards.president.enumerations.EqualtyPlaying.NO_SKIP:&Eacute;galit&eacute; possible qui ne saute pas le joueur "apte" suivant
+cards.president.enumerations.EqualtyPlaying.SKIP_ALWAYS_NEXT:Saute le joueur "apte" suivant
+cards.president.enumerations.EqualtyPlaying.SKIP_DIFF_NEXT_STOP:Le joueur "apte" suivant doit passer ou &eacute;galer
+cards.president.enumerations.Playing.CAN_PLAY:Peut jouer
+cards.president.enumerations.Playing.SKIPPED:Saut&eacute;
+cards.president.enumerations.Playing.PASS:Passe
+cards.president.enumerations.Playing.FINISH:Fini
+cards.president.enumerations.Playing.DO_NOT_EQUAL:N'&eacute;gale pas
+cards.president.enumerations.Playing.HAS_TO_EQUAL:Doit &eacute;galer

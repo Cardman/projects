@@ -1,0 +1,62 @@
+cards.president.enumerations.CardPresident.HEART_KING:Heart King
+cards.president.enumerations.CardPresident.HEART_QUEEN:Heart Queen
+cards.president.enumerations.CardPresident.HEART_JACK:Heart Jack
+cards.president.enumerations.CardPresident.HEART_10:Heart 10
+cards.president.enumerations.CardPresident.HEART_9:Heart 9
+cards.president.enumerations.CardPresident.HEART_8:Heart 8
+cards.president.enumerations.CardPresident.HEART_7:Heart 7
+cards.president.enumerations.CardPresident.HEART_6:Heart 6
+cards.president.enumerations.CardPresident.HEART_5:Heart 5
+cards.president.enumerations.CardPresident.HEART_4:Heart 4
+cards.president.enumerations.CardPresident.HEART_3:Heart 3
+cards.president.enumerations.CardPresident.HEART_2:Heart 2
+cards.president.enumerations.CardPresident.HEART_1:Heart Ace
+cards.president.enumerations.CardPresident.SPADE_KING:Spade King
+cards.president.enumerations.CardPresident.SPADE_QUEEN:Spade Queen
+cards.president.enumerations.CardPresident.SPADE_JACK:Spade Jack
+cards.president.enumerations.CardPresident.SPADE_10:Spade 10
+cards.president.enumerations.CardPresident.SPADE_9:Spade 9
+cards.president.enumerations.CardPresident.SPADE_8:Spade 8
+cards.president.enumerations.CardPresident.SPADE_7:Spade 7
+cards.president.enumerations.CardPresident.SPADE_6:Spade 6
+cards.president.enumerations.CardPresident.SPADE_5:Spade 5
+cards.president.enumerations.CardPresident.SPADE_4:Spade 4
+cards.president.enumerations.CardPresident.SPADE_3:Spade 3
+cards.president.enumerations.CardPresident.SPADE_2:Spade 2
+cards.president.enumerations.CardPresident.SPADE_1:Spade Ace
+cards.president.enumerations.CardPresident.DIAMOND_KING:Diamond King
+cards.president.enumerations.CardPresident.DIAMOND_QUEEN:Diamond Queen
+cards.president.enumerations.CardPresident.DIAMOND_JACK:Diamond Jack
+cards.president.enumerations.CardPresident.DIAMOND_10:Diamond 10
+cards.president.enumerations.CardPresident.DIAMOND_9:Diamond 9
+cards.president.enumerations.CardPresident.DIAMOND_8:Diamond 8
+cards.president.enumerations.CardPresident.DIAMOND_7:Diamond 7
+cards.president.enumerations.CardPresident.DIAMOND_6:Diamond 6
+cards.president.enumerations.CardPresident.DIAMOND_5:Diamond 5
+cards.president.enumerations.CardPresident.DIAMOND_4:Diamond 4
+cards.president.enumerations.CardPresident.DIAMOND_3:Diamond 3
+cards.president.enumerations.CardPresident.DIAMOND_2:Diamond 2
+cards.president.enumerations.CardPresident.DIAMOND_1:Diamond Ace
+cards.president.enumerations.CardPresident.CLUB_KING:Club King
+cards.president.enumerations.CardPresident.CLUB_QUEEN:Club Queen
+cards.president.enumerations.CardPresident.CLUB_JACK:Club Jack
+cards.president.enumerations.CardPresident.CLUB_10:Club 10
+cards.president.enumerations.CardPresident.CLUB_9:Club 9
+cards.president.enumerations.CardPresident.CLUB_8:Club 8
+cards.president.enumerations.CardPresident.CLUB_7:Club 7
+cards.president.enumerations.CardPresident.CLUB_6:Club 6
+cards.president.enumerations.CardPresident.CLUB_5:Club 5
+cards.president.enumerations.CardPresident.CLUB_4:Club 4
+cards.president.enumerations.CardPresident.CLUB_3:Club 3
+cards.president.enumerations.CardPresident.CLUB_2:Club 2
+cards.president.enumerations.CardPresident.CLUB_1:Club Ace
+cards.president.enumerations.EqualtyPlaying.FORBIDDEN:No possible equality
+cards.president.enumerations.EqualtyPlaying.NO_SKIP:Possible equality which does not skip the "able" next player
+cards.president.enumerations.EqualtyPlaying.SKIP_ALWAYS_NEXT:Skip the "able" next player
+cards.president.enumerations.EqualtyPlaying.SKIP_DIFF_NEXT_STOP:The "able" next player has to pass or equal
+cards.president.enumerations.Playing.CAN_PLAY:Can play
+cards.president.enumerations.Playing.SKIPPED:Skipped
+cards.president.enumerations.Playing.PASS:Pass
+cards.president.enumerations.Playing.FINISH:Finish
+cards.president.enumerations.Playing.DO_NOT_EQUAL:Does not equal
+cards.president.enumerations.Playing.HAS_TO_EQUAL:Has to equal

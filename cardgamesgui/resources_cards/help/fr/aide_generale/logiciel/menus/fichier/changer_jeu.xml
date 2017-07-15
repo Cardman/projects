@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<cfg>
+	<java.lang.String class="cfg" field="firstUrl" value="resources_cards/help//aide_generale/logiciel/menus/fichier/changer_jeu.html"/>
+	<sm class="cfg" field="beans"/>
+	<sm class="cfg" field="navigation"/>
+	<java.lang.String class="cfg" field="messagesFolder" value=""/>
+	<sm class="cfg" field="properties"/>
+</cfg>

@@ -1,0 +1,92 @@
+<html>
+<body>
+<ol>
+<li>Valeur des cartes<br/>
+<br/>
+<ol>
+<li>21 d''atout, Petit et Excuse: 4,5 points chacun (ces sont les 3 Bouts)</li>
+<li>Rois: 4,5 points chacun</li>
+<li>Dames: 3,5 points chacune</li>
+<li>Cavaliers: 2,5 points chacun</li>
+<li>Valets: 1,5 points chacun</li>
+<li>Cartes basses et atouts du 2 au 20: 0,5 point chacun</li>
+</ol>
+</li>
+<li>Calcul de scores<br/>
+<br/>
+&nbsp;Nb signifie "Nombre".<br/>
+&nbsp;+- signifie "Plus ou moins".<br/>
+&nbsp;pts signifie "points".<br/>
+&nbsp;"Plus ou moins 25" (+-25) signifie que:<br/>
+&nbsp;&nbsp;si le preneur r&eacute;ussit son contrat, cela vaut "plus 25",<br/>
+&nbsp;&nbsp;s''il chute, cela vaut "moins 25".<br/>
+<br/>
+<ol>
+<li>Petit au bout:<br/>
+<ul>
+<li>10 pts, si l''&eacute;quipe du preneur poss&egrave;de le Petit dans le dernier pli.</li>
+<li>-10 pts, si l''&eacute;quipe adverse du preneur poss&egrave;de le Petit dans le dernier pli.</li>
+<li>0 pts, sinon.</li>
+</ul>
+</li>
+<li>Poign&eacute;es d''atouts:<br/>
+<ol>
+<li>Simple: 20 pts, si l''annonceur gagne; -20 pts, sinon.</li>
+<li>Double: 30 pts, si l''annonceur gagne; -30 pts, sinon.</li>
+<li>Triple: 40 pts, si l''annonceur gagne; -40 pts, sinon.</li>
+</ol>
+</li>
+<li>chelem:<br/>
+<ol>
+<li>demand&eacute; r&eacute;ussi: 400 pts.</li>
+<li>non demand&eacute; r&eacute;ussi: 200 pts.</li>
+<li>demand&eacute; chut&eacute;: -200 pts.</li>
+<li>non demand&eacute; chut&eacute;: 0 pts.</li>
+</ol>
+</li>
+<li>Coefficients de contrat:<br/>
+<ol>
+<li>Petite: 1.</li>
+<li>Garde: 2.</li>
+<li>Garde Sans: 4.</li>
+<li>Garde Contre: 6.</li>
+</ol>
+</li>
+</ol>
+</li>
+<li>R&eacute;ussite d''un contrat:<br/>
+<br/>
+<ul>
+<li>56 points n&eacute;cessaires sans bout.</li>
+<li>51 points n&eacute;cessaires avec 1 bout dans les plis du preneur.</li>
+<li>41 points n&eacute;cessaires avec 2 bouts dans les plis du preneur.</li>
+<li>36 points n&eacute;cessaires avec 3 bouts dans les plis du preneur.</li>
+</ul>
+<br/>
+&nbsp;&nbsp;Total des points pour une partie: 91 points.<br/>
+&nbsp;&nbsp;Diff&eacute;rence = Nb pts r&eacute;alis&eacute;s par le preneur - Nb de pts n&eacute;cessaires pour gagner la partie, pour le preneur<br/>
+&nbsp;&nbsp;Score du preneur sans points d''annonces = +-25pts + Diff&eacute;rence + Petit au bout<br/>
+&nbsp;&nbsp;Annonces = Poign&eacute;es + Chelem<br/>
+&nbsp;&nbsp;Score total d''un d&eacute;fenseur = - (Score sans points d''annonces du preneur x Coefficient de contrat + Annonces preneur - Annonces d&eacute;fense)<br/>
+&nbsp;&nbsp;Score total du preneur = -3 x Score total d''un d&eacute;fenseur<br/>
+</li>
+</ol>
+<br/>
+Exemples:<br/>
+<br/>
+<ol>
+<li>Si le preneur marque 43 points avec 2 Bouts dans ses plis, en demandant une petite, sans annonces de poign&eacute;e pour les 4 joueurs, ni de chelem,<br/>
+&nbsp;&nbsp;si aucun des 4 joueurs n''a jou&eacute; le Petit au dernier tour,<br/>
+&nbsp;&nbsp;alors il gagne son contrat de 2 points et marque ((25+(43-41)+0)x1+0+0)x3=81 points de score, et chaque d&eacute;fenseur marque ((-25-(43-41)+0)x1+0+0)X1=-27 points de score.<br/>
+</li>
+<li>Si le preneur marque 43 points avec 1 Bout dans ses plis, en demandant une petite, sans annonces de poign&eacute;e pour les 4 joueurs, ni de chelem,<br/>
+&nbsp;&nbsp;si aucun des 4 joueurs n''a jou&eacute; le Petit au dernier tour,<br/>
+&nbsp;&nbsp;alors il chute son contrat de 8 points et marque ((-25+(43-51)+0)x1+0+0)x3=-99 points de score, et chaque d&eacute;fenseur marque ((25-(43-51)+0)x1+0+0)X1=33 points de score.<br/>
+</li>
+<li>Si le preneur marque 60 points avec 2 Bouts dans ses plis, en demandant une garde, avec une double poign&eacute;e, sans annonces de poign&eacute;e pour les d&eacute;fenseurs, ni de chelem pour personne,<br/>
+&nbsp;&nbsp;si le preneur a emmen&eacute; le Petit au bout sans se le faire prendre,<br/>
+&nbsp;&nbsp;alors il gagne son contrat de 19 points et marque ((25+(60-41)+10)x2+30+0)x3=414 points de score, et chaque d&eacute;fenseur marque ((-25-(60-41)-10)x2-30+0)X1=-138 points de score.<br/>
+</li>
+</ol>
+</body>
+</html>

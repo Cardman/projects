@@ -1,0 +1,55 @@
+package cards.tarot.comparators;
+import java.util.Comparator;
+
+import code.util.CustList;
+import cards.consts.Suit;
+import cards.tarot.HandTarot;
+import cards.tarot.enumerations.CardTarot;
+
+public final class GameStrengthGreatHandTarotComparator implements Comparator<Suit> {
+
+    private HandTarot hand;
+
+    public GameStrengthGreatHandTarotComparator(HandTarot _hand) {
+        hand = _hand;
+    }
+
+    @Override
+    public int compare(Suit _suit1, Suit _suit2) {
+        HandTarot main1_ = hand.couleur(_suit1);
+        HandTarot main2_ = hand.couleur(_suit2);
+        boolean aussiHaut_ = true;
+        boolean permuter_ = false;
+        int min_ = Math.min(main1_.total(), main2_.total());
+        for (int k = CustList.FIRST_INDEX; k < min_; k++) {
+            CardTarot carte1_ = main1_.carte(k);
+            CardTarot carte2_ = main2_.carte(k);
+            if (carte1_.strength(carte1_.couleur()) < carte2_
+                    .strength(carte2_.couleur())) {
+                permuter_ = true;
+                aussiHaut_ = false;
+                break;
+            }
+            if (carte1_.strength(carte1_.couleur()) > carte2_
+                    .strength(carte2_.couleur())) {
+                aussiHaut_ = false;
+            }
+        }
+        if (aussiHaut_) {
+            if (main1_.total() < main2_.total()) {
+                permuter_ = true;
+                aussiHaut_ = false;
+            } else if (main1_.total() > main2_.total()) {
+                aussiHaut_ = false;
+            }
+        }
+        if (permuter_) {
+            return CustList.SWAP_SORT;
+        }
+        if (aussiHaut_) {
+            return CustList.EQ_CMP;
+        }
+        return CustList.NO_SWAP_SORT;
+    }
+
+}

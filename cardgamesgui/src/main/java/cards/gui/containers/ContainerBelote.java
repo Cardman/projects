@@ -1,0 +1,249 @@
+package cards.gui.containers;
+import javax.swing.JPanel;
+import javax.swing.SwingConstants;
+
+import cards.belote.BidBeloteSuit;
+import cards.belote.HandBelote;
+import cards.belote.enumerations.BidBelote;
+import cards.belote.enumerations.CardBelote;
+import cards.consts.Suit;
+import cards.facade.enumerations.GameEnum;
+import cards.gui.MainWindow;
+import cards.gui.animations.LoadingVideo;
+import cards.gui.dialogs.FileConst;
+import cards.gui.labels.GraphicBeloteCard;
+import cards.gui.labels.LabelPoints;
+import cards.gui.labels.SuitLabel;
+import cards.gui.panels.CarpetBelote;
+import cards.main.LaunchingCards;
+import code.datacheck.ObjectComponents;
+import code.gui.LabelButton;
+import code.stream.StreamTextFile;
+import code.util.CustList;
+import code.util.Numbers;
+import code.util.StringList;
+
+public class ContainerBelote extends ContainerGame {
+
+    public static final String EMPTY="";
+    public static final char RETURN_LINE_CHAR='\n';
+    public static final String TAB="\t";
+
+    private JPanel panneauBoutonsJeuPoints;
+
+    /**Renvoie tous les scores de toutes les parties non solitaires*/
+    private CustList<Numbers<Long>> scores=new CustList<Numbers<Long>>();
+    /**Maximum des valeurs absolues des scores centr&eacute;s par rapport &agrave; la moyenne*/
+    private long maxAbsoluScore;
+    /**Est vrai si et seulement si une partie vient d'etre sauvegardee*/
+    private boolean partieSauvegardee;
+    /**Vrai si et seulement si au moins une partie aleatoire a ete jouee depuis le dernier passage dans le menu principal*/
+    private boolean partieAleatoireJouee;
+    private LoadingVideo animChargement;
+
+    private volatile boolean arretDemo;
+
+    private boolean canBid;
+    private boolean canCall;
+    private boolean canDiscard;
+    private boolean canExcludeTrumps;
+    private boolean canPlay;
+    private int pts;
+    private CustList<LabelPoints> pointsButtons = new CustList<LabelPoints>();
+    private CustList<SuitLabel> bidsButtons = new CustList<SuitLabel>();
+    private Suit suit = Suit.UNDEFINED;
+    private BidBelote bidType = BidBelote.FOLD;
+    private LabelButton bidOk;
+    private CardBelote carteSurvoleeBelote;
+    ContainerBelote(MainWindow _window) {
+        super(_window);
+    }
+
+    @Override
+    public boolean isSimple() {
+        return false;
+    }
+
+    public void setPoints(int _points) {
+        pts = _points;
+        for (LabelPoints l: pointsButtons) {
+            l.setSelected(_points);
+        }
+        for (LabelPoints l: pointsButtons) {
+            l.repaint();
+        }
+        if (getBidType().getCouleurDominante()) {
+            getBidOk().setEnabledLabel(true);
+        } else {
+            getBidOk().setEnabledLabel(getBidType().jouerDonne());
+        }
+        //ajouterTexteDansZone(pseudo()+INTRODUCTION_PTS+getPts()+RETURN_LINE_CHAR);
+    }
+
+    public void setBid(BidBeloteSuit _suit) {
+        setSuit(_suit.getCouleur());
+        setBidType(_suit.getEnchere());
+        BidBeloteSuit bid_ = new BidBeloteSuit();
+        bid_.setCouleur(suit);
+        bid_.setEnchere(bidType);
+        for (SuitLabel l: bidsButtons) {
+            l.setSelected(_suit);
+        }
+        for (SuitLabel l: bidsButtons) {
+            l.repaint();
+        }
+        getBidOk().setEnabledLabel(getPts() > 0);
+        //ajouterTexteDansZone(pseudo()+INTRODUCTION_PTS+bid_+RETURN_LINE_CHAR);
+    }
+
+    public static CustList<GraphicBeloteCard> getGraphicCards(Iterable<CardBelote> _hand) {
+        CustList<GraphicBeloteCard> list_;
+        list_ = new CustList<GraphicBeloteCard>();
+        boolean entered_ = false;
+        for(CardBelote c: _hand) {
+            GraphicBeloteCard carte_=new GraphicBeloteCard(c,SwingConstants.RIGHT,!entered_);
+            carte_.setPreferredSize(entered_);
+            list_.add(carte_);
+            entered_ = true;
+        }
+        return list_;
+    }
+
+    public void bid() {
+    }
+    public void fold() {
+    }
+    public void invertBeloteRebelote() {
+    }
+    public void invertBeloteDeclare() {
+    }
+    protected CustList<LabelPoints> getPointsButtons() {
+        return pointsButtons;
+    }
+    public CustList<SuitLabel> getBidsButtons() {
+        return bidsButtons;
+    }
+    public StringList pseudosBelote(byte _nbPlayers) {
+        StringList pseudosTwo_=new StringList();
+        pseudosTwo_.add(pseudo());
+        StringList pseudos_ = getPseudosJoueurs().getPseudosBelote();
+        pseudosTwo_.addAllElts(pseudos_.mid(0, _nbPlayers - 1));
+        return pseudosTwo_;
+    }
+    /**Permet de charger une main de distribution
+    a partir d'un fichier*/
+    protected static HandBelote chargerPileBelote() {
+        HandBelote pile_=(HandBelote)StreamTextFile.loadObject(LaunchingCards.getTempFolderSl()+FileConst.DECK_FOLDER+StreamTextFile.SEPARATEUR+GameEnum.BELOTE.name()+FileConst.DECK_EXT);
+        ObjectComponents.checkObjectNotNull(pile_);
+        return pile_;
+    }
+    public String pseudo() {
+        return getPseudosJoueurs().getPseudo();
+    }
+    public CarpetBelote tapisBelote() {
+        return getTapis().getTapisBelote();
+    }
+    protected LoadingVideo getAnimChargement() {
+        return animChargement;
+    }
+    protected void setAnimChargement(LoadingVideo _animChargement) {
+        animChargement = _animChargement;
+    }
+    public boolean isArretDemo() {
+        return arretDemo;
+    }
+    public void setArretDemo(boolean _arretDemo) {
+        arretDemo = _arretDemo;
+    }
+    public CustList<Numbers<Long>> getScores() {
+        return scores;
+    }
+    protected void setScores(CustList<Numbers<Long>> _scores) {
+        scores = _scores;
+    }
+    protected LabelButton getBidOk() {
+        return bidOk;
+    }
+    protected void setBidOk(LabelButton _bidOk) {
+        bidOk = _bidOk;
+    }
+    protected int getPts() {
+        return pts;
+    }
+    protected void setPts(int _pts) {
+        pts = _pts;
+    }
+    protected BidBelote getBidType() {
+        return bidType;
+    }
+    protected void setBidType(BidBelote _bidType) {
+        bidType = _bidType;
+    }
+    protected JPanel getPanneauBoutonsJeuPoints() {
+        return panneauBoutonsJeuPoints;
+    }
+    protected void setPanneauBoutonsJeuPoints(JPanel _panneauBoutonsJeuPoints) {
+        panneauBoutonsJeuPoints = _panneauBoutonsJeuPoints;
+    }
+    public boolean isCanPlay() {
+        return canPlay;
+    }
+    public void setCanPlay(boolean _canPlay) {
+        canPlay = _canPlay;
+    }
+    public CardBelote getCarteSurvoleeBelote() {
+        return carteSurvoleeBelote;
+    }
+    public void setCarteSurvoleeBelote(CardBelote _carteSurvoleeBelote) {
+        carteSurvoleeBelote = _carteSurvoleeBelote;
+    }
+    public boolean isCanBid() {
+        return canBid;
+    }
+    public void setCanBid(boolean _canBid) {
+        canBid = _canBid;
+    }
+    protected boolean isCanExcludeTrumps() {
+        return canExcludeTrumps;
+    }
+    protected void setCanExcludeTrumps(boolean _canExcludeTrumps) {
+        canExcludeTrumps = _canExcludeTrumps;
+    }
+    protected boolean isCanDiscard() {
+        return canDiscard;
+    }
+    protected void setCanDiscard(boolean _canDiscard) {
+        canDiscard = _canDiscard;
+    }
+    protected boolean isCanCall() {
+        return canCall;
+    }
+    protected void setCanCall(boolean _canCall) {
+        canCall = _canCall;
+    }
+    protected Suit getSuit() {
+        return suit;
+    }
+    protected void setSuit(Suit _suit) {
+        suit = _suit;
+    }
+    protected long getMaxAbsoluScore() {
+        return maxAbsoluScore;
+    }
+    protected void setMaxAbsoluScore(long _maxAbsoluScore) {
+        maxAbsoluScore = _maxAbsoluScore;
+    }
+    protected boolean isPartieSauvegardee() {
+        return partieSauvegardee;
+    }
+    protected void setPartieSauvegardee(boolean _partieSauvegardee) {
+        partieSauvegardee = _partieSauvegardee;
+    }
+    protected boolean isPartieAleatoireJouee() {
+        return partieAleatoireJouee;
+    }
+    protected void setPartieAleatoireJouee(boolean _partieAleatoireJouee) {
+        partieAleatoireJouee = _partieAleatoireJouee;
+    }
+}
+

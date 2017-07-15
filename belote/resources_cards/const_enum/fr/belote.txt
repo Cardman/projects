@@ -1,0 +1,57 @@
+cards.belote.enumerations.DeclaresBelote.UNDEFINED:Ind&eacute;termin&eacute;
+cards.belote.enumerations.DeclaresBelote.FOUR_1:Carr&eacute; as
+cards.belote.enumerations.DeclaresBelote.FOUR_KING:Carr&eacute; rois
+cards.belote.enumerations.DeclaresBelote.FOUR_QUEEN:Carr&eacute; dames
+cards.belote.enumerations.DeclaresBelote.FOUR_JACK:Carr&eacute; valets
+cards.belote.enumerations.DeclaresBelote.FOUR_10:Carr&eacute; dix
+cards.belote.enumerations.DeclaresBelote.FOUR_9:Carr&eacute; neuf
+cards.belote.enumerations.DeclaresBelote.FOUR_8:Carr&eacute; huit
+cards.belote.enumerations.DeclaresBelote.FOUR_7:Carr&eacute; sept
+cards.belote.enumerations.DeclaresBelote.HUNDRED:Suite avec cinq cartes de m&ecirc;me couleur
+cards.belote.enumerations.DeclaresBelote.FIFTY:Suite avec quatre cartes de m&ecirc;me couleur
+cards.belote.enumerations.DeclaresBelote.THIRTY:Suite avec trois cartes de m&ecirc;me couleur
+cards.belote.enumerations.DeclaresBeloteRebelote.BELOTE_REBELOTE:Belote rebelote
+cards.belote.enumerations.BeloteTrumpPartner.NO_UNDERTRUMP_NO_OVERTRUMP:Ni sur - coupe ni sous - coupe obligatoire
+cards.belote.enumerations.BeloteTrumpPartner.OVERTRUMP_ONLY:Sur - couper uniquement
+cards.belote.enumerations.BeloteTrumpPartner.UNDERTRUMP_ONLY:Sous - couper uniquement
+cards.belote.enumerations.BeloteTrumpPartner.UNDERTRUMP_OVERTRUMP:Sous - couper et sur - couper
+cards.belote.enumerations.BidBelote.FOLD:Passe
+cards.belote.enumerations.BidBelote.SUIT:Couleur
+cards.belote.enumerations.BidBelote.OTHER_SUIT:Autre couleur
+cards.belote.enumerations.BidBelote.NO_TRUMP:Sans atout
+cards.belote.enumerations.BidBelote.ALL_TRUMP:Tout atout
+cards.belote.enumerations.BonusBelote.LAST_TRICK:Dix de der
+cards.belote.enumerations.DealingBelote.CLASSIC_2_VS_2:2 contre 2
+cards.belote.enumerations.DealingBelote.COINCHE_2_VS_2:2 contre 2
+cards.belote.enumerations.CardBelote.HEART_JACK:Valet de coeur
+cards.belote.enumerations.CardBelote.HEART_9:9 de coeur
+cards.belote.enumerations.CardBelote.HEART_1:As de coeur
+cards.belote.enumerations.CardBelote.HEART_10:10 de coeur
+cards.belote.enumerations.CardBelote.HEART_KING:Roi de coeur
+cards.belote.enumerations.CardBelote.HEART_QUEEN:Dame de coeur
+cards.belote.enumerations.CardBelote.HEART_8:8 de coeur
+cards.belote.enumerations.CardBelote.HEART_7:7 de coeur
+cards.belote.enumerations.CardBelote.SPADE_JACK:Valet de pique
+cards.belote.enumerations.CardBelote.SPADE_9:9 de pique
+cards.belote.enumerations.CardBelote.SPADE_1:As de pique
+cards.belote.enumerations.CardBelote.SPADE_10:10 de pique
+cards.belote.enumerations.CardBelote.SPADE_KING:Roi de pique
+cards.belote.enumerations.CardBelote.SPADE_QUEEN:Dame de pique
+cards.belote.enumerations.CardBelote.SPADE_8:8 de pique
+cards.belote.enumerations.CardBelote.SPADE_7:7 de pique
+cards.belote.enumerations.CardBelote.DIAMOND_JACK:Valet de carreau
+cards.belote.enumerations.CardBelote.DIAMOND_9:9 de carreau
+cards.belote.enumerations.CardBelote.DIAMOND_1:As de carreau
+cards.belote.enumerations.CardBelote.DIAMOND_10:10 de carreau
+cards.belote.enumerations.CardBelote.DIAMOND_KING:Roi de carreau
+cards.belote.enumerations.CardBelote.DIAMOND_QUEEN:Dame de carreau
+cards.belote.enumerations.CardBelote.DIAMOND_8:8 de carreau
+cards.belote.enumerations.CardBelote.DIAMOND_7:7 de carreau
+cards.belote.enumerations.CardBelote.CLUB_JACK:Valet de tr&egrave;fle
+cards.belote.enumerations.CardBelote.CLUB_9:9 de tr&egrave;fle
+cards.belote.enumerations.CardBelote.CLUB_1:As de tr&egrave;fle
+cards.belote.enumerations.CardBelote.CLUB_10:10 de tr&egrave;fle
+cards.belote.enumerations.CardBelote.CLUB_KING:Roi de tr&egrave;fle
+cards.belote.enumerations.CardBelote.CLUB_QUEEN:Dame de tr&egrave;fle
+cards.belote.enumerations.CardBelote.CLUB_8:8 de tr&egrave;fle
+cards.belote.enumerations.CardBelote.CLUB_7:7 de tr&egrave;fle

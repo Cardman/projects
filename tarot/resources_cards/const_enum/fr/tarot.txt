@@ -1,0 +1,118 @@
+cards.tarot.enumerations.ChoiceTarot.SAVE_SMALL:Petit &agrave; sauver
+cards.tarot.enumerations.ChoiceTarot.HUNT_SMALL:Petit &agrave; chasser
+cards.tarot.enumerations.ChoiceTarot.LEAD_SMALL_BOUND:Petit &agrave; emmener au bout
+cards.tarot.enumerations.BidTarot.FOLD:Passe
+cards.tarot.enumerations.BidTarot.TAKE:Petite
+cards.tarot.enumerations.BidTarot.GUARD:Garde
+cards.tarot.enumerations.BidTarot.GUARD_WITHOUT:Garde sans
+cards.tarot.enumerations.BidTarot.GUARD_AGAINST:Garde contre
+cards.tarot.enumerations.BidTarot.SLAM:Chelem
+cards.tarot.enumerations.EndDealTarot.ATTACK_LOOSE:L'attaque perd
+cards.tarot.enumerations.EndDealTarot.ATTACK_WIN:L'attaque gagne
+cards.tarot.enumerations.EndDealTarot.ZERO:Match nul
+cards.tarot.enumerations.Miseres.TRUMP:Atout
+cards.tarot.enumerations.Miseres.POINT:Tete
+cards.tarot.enumerations.Miseres.CHARACTER:Figure
+cards.tarot.enumerations.Miseres.SUIT:Couleur
+cards.tarot.enumerations.Miseres.LOW_CARDS:Cartes basses
+cards.tarot.enumerations.ModeTarot.NORMAL:Normal
+cards.tarot.enumerations.ModeTarot.NORMAL_WITH_MISERE:Normal avec mis&egrave;re
+cards.tarot.enumerations.ModeTarot.NORMAL_WITH_ONE_FOR_ONE:Normal avec chacun pour soi
+cards.tarot.enumerations.ModeTarot.MISERE:Mis&egrave;re
+cards.tarot.enumerations.ModeTarot.ONE_FOR_ONE:Chacun pour soi
+cards.tarot.enumerations.Handfuls.NO:Aucune poign&eacute;e
+cards.tarot.enumerations.Handfuls.ONE:Poign&eacute;e
+cards.tarot.enumerations.Handfuls.TWO:Double Poign&eacute;e
+cards.tarot.enumerations.Handfuls.THREE:Triple Poign&eacute;e
+cards.tarot.enumerations.Handfuls.FOUR:Quadruple Poign&eacute;e
+cards.tarot.enumerations.BonusTarot.SLAM:Chelem
+cards.tarot.enumerations.BonusTarot.SMALL_BOUND:Petit au bout
+cards.tarot.enumerations.DealingTarot.DEAL_1_VS_2:1 contre 2
+cards.tarot.enumerations.DealingTarot.DEAL_1_VS_3:1 contre 3
+cards.tarot.enumerations.DealingTarot.DEAL_2_VS_2_WITHOUT_CALL:2 contre 2 sans appel
+cards.tarot.enumerations.DealingTarot.DEAL_2_VS_2_CALL_KING:2 contre 2 appel au roi
+cards.tarot.enumerations.DealingTarot.DEAL_2_VS_2_CALL_CHAR:2 contre 2 appel &agrave; la figure
+cards.tarot.enumerations.DealingTarot.DEAL_1_VS_4:1 contre 4
+cards.tarot.enumerations.DealingTarot.DEAL_2_VS_3_CALL_KING:2 contre 3 appel au roi
+cards.tarot.enumerations.DealingTarot.DEAL_2_VS_3_CALL_CHAR:2 contre 3 appel &agrave; la figure
+cards.tarot.enumerations.DealingTarot.DEAL_2_VS_4_WITHOUT_CALL:2 contre 4 sans appel
+cards.tarot.enumerations.DealingTarot.DEAL_2_VS_4_CALL_KING:2 contre 4 appel au roi
+cards.tarot.enumerations.DealingTarot.DEAL_2_VS_4_CALL_CHAR:2 contre 4 appel &agrave; la figure
+cards.tarot.enumerations.CardTarot.EXCUSE:Excuse
+cards.tarot.enumerations.CardTarot.TRUMP_21:21 d'atout
+cards.tarot.enumerations.CardTarot.TRUMP_20:20 d'atout
+cards.tarot.enumerations.CardTarot.TRUMP_19:19 d'atout
+cards.tarot.enumerations.CardTarot.TRUMP_18:18 d'atout
+cards.tarot.enumerations.CardTarot.TRUMP_17:17 d'atout
+cards.tarot.enumerations.CardTarot.TRUMP_16:16 d'atout
+cards.tarot.enumerations.CardTarot.TRUMP_15:15 d'atout
+cards.tarot.enumerations.CardTarot.TRUMP_14:14 d'atout
+cards.tarot.enumerations.CardTarot.TRUMP_13:13 d'atout
+cards.tarot.enumerations.CardTarot.TRUMP_12:12 d'atout
+cards.tarot.enumerations.CardTarot.TRUMP_11:11 d'atout
+cards.tarot.enumerations.CardTarot.TRUMP_10:10 d'atout
+cards.tarot.enumerations.CardTarot.TRUMP_9:9 d'atout
+cards.tarot.enumerations.CardTarot.TRUMP_8:8 d'atout
+cards.tarot.enumerations.CardTarot.TRUMP_7:7 d'atout
+cards.tarot.enumerations.CardTarot.TRUMP_6:6 d'atout
+cards.tarot.enumerations.CardTarot.TRUMP_5:5 d'atout
+cards.tarot.enumerations.CardTarot.TRUMP_4:4 d'atout
+cards.tarot.enumerations.CardTarot.TRUMP_3:3 d'atout
+cards.tarot.enumerations.CardTarot.TRUMP_2:2 d'atout
+cards.tarot.enumerations.CardTarot.TRUMP_1:1 d'atout
+cards.tarot.enumerations.CardTarot.HEART_KING:Roi de coeur
+cards.tarot.enumerations.CardTarot.HEART_QUEEN:Dame de coeur
+cards.tarot.enumerations.CardTarot.HEART_KNIGHT:Cavalier de coeur
+cards.tarot.enumerations.CardTarot.HEART_JACK:Valet de coeur
+cards.tarot.enumerations.CardTarot.HEART_10:10 de coeur
+cards.tarot.enumerations.CardTarot.HEART_9:9 de coeur
+cards.tarot.enumerations.CardTarot.HEART_8:8 de coeur
+cards.tarot.enumerations.CardTarot.HEART_7:7 de coeur
+cards.tarot.enumerations.CardTarot.HEART_6:6 de coeur
+cards.tarot.enumerations.CardTarot.HEART_5:5 de coeur
+cards.tarot.enumerations.CardTarot.HEART_4:4 de coeur
+cards.tarot.enumerations.CardTarot.HEART_3:3 de coeur
+cards.tarot.enumerations.CardTarot.HEART_2:2 de coeur
+cards.tarot.enumerations.CardTarot.HEART_1:As de coeur
+cards.tarot.enumerations.CardTarot.SPADE_KING:Roi de pique
+cards.tarot.enumerations.CardTarot.SPADE_QUEEN:Dame de pique
+cards.tarot.enumerations.CardTarot.SPADE_KNIGHT:Cavalier de pique
+cards.tarot.enumerations.CardTarot.SPADE_JACK:Valet de pique
+cards.tarot.enumerations.CardTarot.SPADE_10:10 de pique
+cards.tarot.enumerations.CardTarot.SPADE_9:9 de pique
+cards.tarot.enumerations.CardTarot.SPADE_8:8 de pique
+cards.tarot.enumerations.CardTarot.SPADE_7:7 de pique
+cards.tarot.enumerations.CardTarot.SPADE_6:6 de pique
+cards.tarot.enumerations.CardTarot.SPADE_5:5 de pique
+cards.tarot.enumerations.CardTarot.SPADE_4:4 de pique
+cards.tarot.enumerations.CardTarot.SPADE_3:3 de pique
+cards.tarot.enumerations.CardTarot.SPADE_2:2 de pique
+cards.tarot.enumerations.CardTarot.SPADE_1:As de pique
+cards.tarot.enumerations.CardTarot.DIAMOND_KING:Roi de carreau
+cards.tarot.enumerations.CardTarot.DIAMOND_QUEEN:Dame de carreau
+cards.tarot.enumerations.CardTarot.DIAMOND_KNIGHT:Cavalier de carreau
+cards.tarot.enumerations.CardTarot.DIAMOND_JACK:Valet de carreau
+cards.tarot.enumerations.CardTarot.DIAMOND_10:10 de carreau
+cards.tarot.enumerations.CardTarot.DIAMOND_9:9 de carreau
+cards.tarot.enumerations.CardTarot.DIAMOND_8:8 de carreau
+cards.tarot.enumerations.CardTarot.DIAMOND_7:7 de carreau
+cards.tarot.enumerations.CardTarot.DIAMOND_6:6 de carreau
+cards.tarot.enumerations.CardTarot.DIAMOND_5:5 de carreau
+cards.tarot.enumerations.CardTarot.DIAMOND_4:4 de carreau
+cards.tarot.enumerations.CardTarot.DIAMOND_3:3 de carreau
+cards.tarot.enumerations.CardTarot.DIAMOND_2:2 de carreau
+cards.tarot.enumerations.CardTarot.DIAMOND_1:As de carreau
+cards.tarot.enumerations.CardTarot.CLUB_KING:Roi de tr&egrave;fle
+cards.tarot.enumerations.CardTarot.CLUB_QUEEN:Dame de tr&egrave;fle
+cards.tarot.enumerations.CardTarot.CLUB_KNIGHT:Cavalier de tr&egrave;fle
+cards.tarot.enumerations.CardTarot.CLUB_JACK:Valet de tr&egrave;fle
+cards.tarot.enumerations.CardTarot.CLUB_10:10 de tr&egrave;fle
+cards.tarot.enumerations.CardTarot.CLUB_9:9 de tr&egrave;fle
+cards.tarot.enumerations.CardTarot.CLUB_8:8 de tr&egrave;fle
+cards.tarot.enumerations.CardTarot.CLUB_7:7 de tr&egrave;fle
+cards.tarot.enumerations.CardTarot.CLUB_6:6 de tr&egrave;fle
+cards.tarot.enumerations.CardTarot.CLUB_5:5 de tr&egrave;fle
+cards.tarot.enumerations.CardTarot.CLUB_4:4 de tr&egrave;fle
+cards.tarot.enumerations.CardTarot.CLUB_3:3 de tr&egrave;fle
+cards.tarot.enumerations.CardTarot.CLUB_2:2 de tr&egrave;fle
+cards.tarot.enumerations.CardTarot.CLUB_1:As de tr&egrave;fle

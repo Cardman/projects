@@ -1,0 +1,49 @@
+<html>
+<body>
+Voici ce qui change par rapport au jeu &agrave; 4 joueurs:<br/>
+<br/>
+<ol>
+<li>distribution<br/>
+&nbsp;&nbsp;chaque joueur poss&egrave;de 24 cartes et 6 constituent le chien,<br/>
+&nbsp;&nbsp;les cartes sont distribu&eacute;es 3 par 3.<br/>
+</li>
+<li>R&eacute;partition des &eacute;quipes<br/>
+&nbsp;&nbsp;Le preneur joue contre les deux autres joueurs.<br/>
+</li>
+<li>Annonces de poign&eacute;e:<br/>
+<ol>
+<li>simple poign&eacute;e: 12 atouts (y compris l''Excuse).</li>
+<li>poign&eacute;e double: 15 atouts (y compris l''Excuse).</li>
+<li>triple poign&eacute;e: 18 atouts (y compris l''Excuse).</li>
+</ol>
+</li>
+<li>Calcul des scores &agrave; la fin de la partie:<br/>
+&nbsp;&nbsp;Total des points pour une partie: 91 points<br/>
+&nbsp;&nbsp;Diff&eacute;rence = Nb pts r&eacute;alis&eacute;s par le preneur - Nb de pts n&eacute;cessaires pour gagner la partie, pour le preneur<br/>
+&nbsp;&nbsp;Score du preneur sans points d''annonces = +-25pts + Diff&eacute;rence + Petit au bout<br/>
+&nbsp;&nbsp;Annonces = Poign&eacute;es + Chelem + Eventuelles Mis&egrave;res<br/>
+&nbsp;&nbsp;Score total d''un d&eacute;fenseur = - (Score sans points d''annonces du preneur x Coefficient de contrat + Annonces preneur - Annonces d&eacute;fense)<br/>
+&nbsp;&nbsp;Score total du preneur = -2 x Score total d''un d&eacute;fenseur<br/>
+</li>
+</ol>
+<br/>
+&nbsp;En cas de r&eacute;ussite du contrat pour le preneur, et s''il marque un nombre non entier de points,<br/>
+&nbsp;&nbsp;alors sa diff&eacute;rence est arrondie &agrave; l''entier sup&eacute;rieur.<br/>
+<br/>
+&nbsp;En cas d''&eacute;chec du contrat pour le preneur, et s''il marque un nombre non entier de points,<br/>
+&nbsp;&nbsp;alors sa diff&eacute;rence est arrondie &agrave; l''entier sup&eacute;rieur.<br/>
+<br/>
+&nbsp;Exemples:<br/>
+<br/>
+<ol>
+<li>Si le preneur marque 43,5 points avec 2 Bouts dans ses plis, en demandant une petite, sans annonces de poign&eacute;e pour les 3 joueurs, ni de chelem,<br/>
+&nbsp;&nbsp;si aucun des 3 joueurs n''a jou&eacute; le Petit au dernier tour,<br/>
+&nbsp;&nbsp;alors il gagne son contrat de 3 points et marque ((25+(44-41)+0)x1+0+0+0)x2=56 points de score, et chaque d&eacute;fenseur marque ((-25-(43-41)+0)x1+0+0+0)X1=-28 points de score.<br/>
+</li>
+<li>Si le preneur marque 43,5 points avec 1 Bout dans ses plis, en demandant une petite, sans annonces de poign&eacute;e pour les 3 joueurs, ni de chelem,<br/>
+&nbsp;&nbsp;si aucun des 3 joueurs n''a jou&eacute; le Petit au dernier tour,<br/>
+&nbsp;&nbsp;alors il perd son contrat de 8 points et marque ((-25+(43-51)+0)x1+0+0+0)x2=-66 points de score, et chaque d&eacute;fenseur marque ((25-(43-51)+0)x1+0+0+0)X1=33 points de score.<br/>
+</li>
+</ol>
+</body>
+</html>
