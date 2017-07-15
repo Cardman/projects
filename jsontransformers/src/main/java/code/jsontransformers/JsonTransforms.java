@@ -1,4 +1,4 @@
-package code.serialize;
+package code.jsontransformers;
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 

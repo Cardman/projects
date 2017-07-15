@@ -1,4 +1,4 @@
-package code.serialize;
+package code.jsontransformers;
 import static code.util.opers.EquallableUtil.assertEq;
 
 import org.junit.Ignore;
