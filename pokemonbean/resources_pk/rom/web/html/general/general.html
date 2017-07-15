@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><html xmlns:c="javahtml" c:bean="gereral_data">
+	<head>
+		<title><c:message value="msg_generalhelp,title"/></title>
+		<link href="web/css/pokedex.css" rel="stylesheet" type="text/css"/>
+	</head>
+	<body>
+		<a c:command="web/html/index.html" href=""><c:message value="msg_generalhelp,index"/></a>
+		<br/>
+		<c:message value="msg_generalhelp,goal_0"/>
+		<ul>
+			<li>
+				<c:message value="msg_generalhelp,goal_0_0"/>
+			</li>
+			<li>
+				<c:message value="msg_generalhelp,goal_0_1"/>
+			</li>
+			<li>
+				<c:message value="msg_generalhelp,goal_0_2"/>
+			</li>
+			<li>
+				<c:message value="msg_generalhelp,goal_0_3">
+					<param value="maxLevel"/>
+				</c:message>
+			</li>
+			<li>
+				<c:message value="msg_generalhelp,goal_0_4"/>
+			</li>
+			<li>
+				<c:message value="msg_generalhelp,goal_0_5">
+					<param value="maxEv"/>
+				</c:message>
+			</li>
+			<li>
+				<c:message value="msg_generalhelp,goal_0_6">
+					<param value="happinessMax"/>
+				</c:message>
+			</li>
+		</ul>
+		<c:message value="msg_generalhelp,goal_0_7"/>
+		<c:message value="msg_generalhelp,goal_1">
+			<param value="begin"/>
+		</c:message>
+		<c:message value="msg_generalhelp,goal_2"/>
+		<div style="font-size: 0;">
+			<c:for key="p" map="miniMap" value="i">
+				<c:if condition="isFirstRow(p;;)">
+					<br/>
+				</c:if>
+				<a title="{getPlaceName(p;;)}"><c:img src="{getMiniMapImage(p;;)}"/></a>
+			</c:for>
+		</div>
+		<c:message value="msg_generalhelp,goal_3"/>
+		<c:img src="{unlockedCity}"/>
+		<br/>
+		<c:message value="msg_generalhelp,help_0"/>
+		<c:img src="{getImage()}"/>
+		<br/>
+		<c:message value="msg_pokemon_npc,name"/>
+		<a c:command="$clickName">{getName()}</a><br/>
+		<c:message value="msg_pokemon_npc,gender"/>
+		{getGender()}
+		<br/>
+		<c:message value="msg_pokemon_npc,level"/>
+		{getLevel()}
+		<br/>
+		<c:message value="msg_pokemon_npc,ability"/>
+		<a c:command="$clickAbility">{getAbility()}</a><br/>
+		<c:message value="msg_pokemon_npc,item"/>
+		<c:if condition="firstPokemonHasItem()">
+			<a c:command="$clickItem">{getItem()}</a><br/>
+		</c:if>
+		<c:if condition="!firstPokemonHasItem()">
+			<c:message value="msg_pokemon_npc,item_no"/><br/>
+		</c:if>
+		<c:message value="msg_pokemon_npc,moves"/>
+		<ul>
+			<c:for list="getMovesAtLevel()" var="m">
+				<li><a c:command="$clickMove({m;;})">{getMove(m;;)}</a></li>
+			</c:for>
+		</ul>
+		<c:message value="msg_generalhelp,help_1">
+			<param value="nbMaxTeam"/>
+		</c:message>
+		<c:message value="msg_generalhelp,help_2">
+			<param value="minLevel"/>
+			<param value="maxLevel"/>
+		</c:message>
+		<c:message value="msg_generalhelp,help_3">
+			<param value="nbMaxMoves"/>
+		</c:message>
+		<c:message value="msg_generalhelp,help_4">
+			<param value="maxPp"/>
+		</c:message>
+		<c:message value="msg_generalhelp,help_5"/>
+		<ul>
+			<li>
+				<c:message value="msg_generalhelp,help_5_0">
+					<param value="nbNecStepsIncrHappiness"/>
+				</c:message>
+			</li>
+			<li><c:message value="msg_generalhelp,help_5_1"/></li>
+			<li><c:message value="msg_generalhelp,help_5_2"/></li>
+			<li><c:message value="msg_generalhelp,help_5_3"/></li>
+			<li><c:message value="msg_generalhelp,help_5_4"/></li>
+		</ul>
+		<c:message value="msg_generalhelp,help_6"/>
+		<ul>
+			<li><c:message value="msg_generalhelp,help_6_0"/></li>
+			<li><c:message value="msg_generalhelp,help_6_1"/></li>
+			<li><c:message value="msg_generalhelp,help_6_2"/></li>
+			<li><c:message value="msg_generalhelp,help_6_3"/></li>
+			<li>
+				<c:message value="msg_generalhelp,help_6_4"/>
+				<ul>
+					<li>
+						<c:message value="msg_generalhelp,help_6_5">
+							<param value="nbMaxStepsSameEvoBase"/>
+						</c:message>
+					</li>
+					<li>
+						<c:message value="msg_generalhelp,help_6_6">
+							<param value="nbMaxSteps"/>
+						</c:message>
+					</li>
+				</ul>
+			</li>
+			<li><c:message value="msg_generalhelp,help_6_7"/></li>
+		</ul>
+		<c:message value="msg_generalhelp,help_6_8"/>
+		<ul>
+			<c:for list="pokemonDefaultEggGroup" var="p">
+				<li>
+					<a c:command="$clickPokemon({p;;})">{getTrPokemon(p;;)}</a>
+				</li>
+			</c:for>
+		</ul>
+		<c:message value="msg_generalhelp,help_6_9">
+			<param value="defaultMoney"/>
+		</c:message>
+		<c:if condition="!tm.isEmpty()">
+			<c:message value="msg_generalhelp,help_tm"/>
+			<table>
+				<thead>
+					<tr>
+						<th><c:message value="msg_generalhelp,help_tm_hm_move"/></th>
+						<th><c:message value="msg_generalhelp,help_tm_hm_price"/></th>
+					</tr>
+				</thead>
+				<tbody>
+					<c:for list="tm" var="m">
+						<tr>
+							<td>
+								<a c:command="$clickTm({m;;})">{getTrTm(m;;)}</a>
+							</td>
+							<td>
+								<c:if condition="getTmPrice(m;;).isEmpty()">
+									<c:message value="msg_generalhelp,help_tm_hm_price_no"/>
+								</c:if>
+								<c:if condition="!getTmPrice(m;;).isEmpty()">
+									{getTmPrice(m;;)}
+								</c:if>
+							</td>
+						</tr>
+					</c:for>
+				</tbody>
+			</table>
+		</c:if>
+		<c:if condition="!hm.isEmpty()">
+			<c:message value="msg_generalhelp,help_hm"/>
+			<ul>
+				<c:for list="hm" var="m">
+					<li>
+						<a c:command="$clickHm({m;;})">{getTrHm(m;;)}</a>
+					</li>
+				</c:for>
+			</ul>
+		</c:if>
+		<c:message value="msg_generalhelp,types_intro"/>
+		<table>
+			<thead>
+				<tr>
+					<th><c:message value="msg_generalhelp,types_name"/></th>
+					<th><c:message value="msg_generalhelp,types_image"/></th>
+					<th><c:message value="msg_generalhelp,types_coulour"/></th>
+				</tr>
+			</thead>
+			<tbody>
+				<c:for list="types" var="t">
+					<tr>
+						<td>{getTrType(t;;)}</td>
+						<td><c:img src="{getImageType(t;;)}"/></td>
+						<td><c:img src="{getColorType(t;;)}"/></td>
+					</tr>
+				</c:for>
+			</tbody>
+		</table>
+		<a c:command="web/html/index.html" href=""><c:message value="msg_generalhelp,index"/></a>
+	</body>
+</html>

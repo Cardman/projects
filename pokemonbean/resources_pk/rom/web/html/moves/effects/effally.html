@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><html xmlns:c="javahtml" c:bean="eff_ally">
+	<head>
+		<link href="web/css/moves.css" rel="stylesheet" type="text/css"/>
+	</head>
+	<body>
+		<p>
+			<c:message value="msg_effally,effect"/>
+			<c:import page="{effectBean}">
+				<c:package name="aiki.beans.moves.effects">
+					<c:class name="EffectBean">
+						<c:field name="index" value="index"/>
+						<c:field name="move" value="move"/>
+					</c:class>
+				</c:package>
+			</c:import>
+			<c:message value="msg_effally,mul_ally_damage">
+				<param value="multAllyDamage"/>
+			</c:message>
+		</p>
+	</body>
+</html>

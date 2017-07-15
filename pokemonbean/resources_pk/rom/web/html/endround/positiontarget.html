@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><html xmlns:c="javahtml" c:bean="end_positiontarget">
+	<head>
+		<link href="web/css/abilities.css" rel="stylesheet" type="text/css"/>
+	</head>
+	<body>
+		<c:import page="{endRoundHtml}">
+			<c:package name="aiki.beans.endround">
+				<c:class name="EffectEndRoundBean">
+					<c:field name="index" value="index"/>
+				</c:class>
+			</c:package>
+		</c:import>
+		<p>
+			<c:message value="msg_positiontarget,effect"/>
+			<c:if condition="!moves.isEmpty()">
+				<c:message value="msg_positiontarget,anticipe"/>
+				<ul>
+					<c:for list="moves" var="m">
+						<li>
+							<a c:command="$clickMove({m;;})" href="">{getTrMove(m;;)}</a>
+						</li>
+					</c:for>
+				</ul>
+				<br/>
+			</c:if>
+		</p>
+	</body>
+</html>

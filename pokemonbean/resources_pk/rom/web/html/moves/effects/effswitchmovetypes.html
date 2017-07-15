@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><html xmlns:c="javahtml" c:bean="eff_switchmovetypes">
+	<head>
+		<link href="web/css/moves.css" rel="stylesheet" type="text/css"/>
+	</head>
+	<body>
+		<p>
+			<c:message value="msg_effswitchmovetypes,effect"/>
+			<c:import page="{effectBean}">
+				<c:package name="aiki.beans.moves.effects">
+					<c:class name="EffectBean">
+						<c:field name="index" value="index"/>
+						<c:field name="move" value="move"/>
+					</c:class>
+				</c:package>
+			</c:import>
+			<c:if condition="!replacingTypes.isEmpty()">
+				<c:message value="msg_effswitchmovetypes,replacing_types"/>
+				<ul>
+					<c:for list="replacingTypes" var="s">
+						<li>{getTrReplacingTypes(s;;)}</li>
+					</c:for>
+				</ul>
+				<br/>
+			</c:if>
+			<c:if condition="!changeTypes.isEmpty()">
+				<c:if condition="!replacingTypes.isEmpty()">
+					<c:message value="msg_effswitchmovetypes,changing_type_possible"/>
+				</c:if>
+				<c:if condition="replacingTypes.isEmpty()">
+					<c:message value="msg_effswitchmovetypes,changing_type"/>
+				</c:if>
+				<table>
+					<thead>
+						<tr>
+							<th>
+								<c:message value="msg_effswitchmovetypes,old_type"/>
+							</th>
+							<th>
+								<c:message value="msg_effswitchmovetypes,new_type"/>
+							</th>
+						</tr>
+					</thead>
+					<tbody>
+						<c:for key="c" map="changeTypes" value="r">
+							<tr>
+								<td>{getTrChangedTypes(c;;)}</td>
+								<td>{r;}</td>
+							</tr>
+						</c:for>
+					</tbody>
+				</table>
+				<br/>
+			</c:if>
+		</p>
+	</body>
+</html>

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><html xmlns:c="javahtml" c:bean="eff_protectfromtypes">
+	<head>
+		<link href="web/css/moves.css" rel="stylesheet" type="text/css"/>
+	</head>
+	<body>
+		<p>
+			<c:message value="msg_effprotectfromtypes,effect"/>
+			<c:import page="{effectBean}">
+				<c:package name="aiki.beans.moves.effects">
+					<c:class name="EffectBean">
+						<c:field name="index" value="index"/>
+						<c:field name="move" value="move"/>
+					</c:class>
+				</c:package>
+			</c:import>
+			<c:message value="msg_effprotectfromtypes,immu_move_types"/>
+			<ul>
+				<c:for list="immuAgainstTypes" var="t">
+					<li>{getTrType(t;;)}</li>
+				</c:for>
+			</ul>
+		</p>
+	</body>
+</html>

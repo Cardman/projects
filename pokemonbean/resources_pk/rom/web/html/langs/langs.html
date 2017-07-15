@@ -1,0 +1,306 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><html xmlns:c="javahtml" c:bean="langs">
+	<head>
+		<title><c:message value="msg_lang,title"/></title>
+		<link href="web/css/pokedex.css" rel="stylesheet" type="text/css"/>
+	</head>
+	<body>
+		<a c:command="web/html/index.html" href=""><c:message value="msg_lang,index"/></a>
+		<a name="begin"><c:message value="msg_lang,translations"/></a>
+		<br/>
+		<c:message value="msg_lang,translations_genders"/>
+		<table>
+			<thead>
+				<tr>
+					<c:for list="languages" var="l">
+						<th>{getTrLang(l;;)}</th>
+					</c:for>
+				</tr>
+			</thead>
+			<tbody>
+				<c:for list="getKeysGenders()" var="k">
+					<tr>
+						<c:for list="getRowGender(k;;)" var="s">
+							<td>
+								{s;}
+							</td>
+						</c:for>
+					</tr>
+				</c:for>
+			</tbody>
+		</table>
+		<c:message value="msg_lang,translations_booleans"/>
+		<table>
+			<thead>
+				<tr>
+					<c:for list="languages" var="l">
+						<th>{getTrLang(l;;)}</th>
+					</c:for>
+				</tr>
+			</thead>
+			<tbody>
+				<c:for list="getKeysBooleans()" var="k">
+					<tr>
+						<c:for list="getRowBoolean(k;;)" var="s">
+							<td>
+								{s;}
+							</td>
+						</c:for>
+					</tr>
+				</c:for>
+			</tbody>
+		</table>
+		<c:message value="msg_lang,translations_envs"/>
+		<table>
+			<thead>
+				<tr>
+					<c:for list="languages" var="l">
+						<th>{getTrLang(l;;)}</th>
+					</c:for>
+				</tr>
+			</thead>
+			<tbody>
+				<c:for list="getKeysEnvironments()" var="k">
+					<tr>
+						<c:for list="getRowEnvironment(k;;)" var="s">
+							<td>
+								{s;}
+							</td>
+						</c:for>
+					</tr>
+				</c:for>
+			</tbody>
+		</table>
+		<c:message value="msg_lang,translations_statistics"/>
+		<table>
+			<thead>
+				<tr>
+					<c:for list="languages" var="l">
+						<th>{getTrLang(l;;)}</th>
+					</c:for>
+				</tr>
+			</thead>
+			<tbody>
+				<c:for list="getKeysStatistics()" var="k">
+					<tr>
+						<c:for list="getRowStatistic(k;;)" var="s">
+							<td>
+								{s;}
+							</td>
+						</c:for>
+					</tr>
+				</c:for>
+			</tbody>
+		</table>
+		<c:message value="msg_lang,translations_targets"/>
+		<table>
+			<thead>
+				<tr>
+					<c:for list="languages" var="l">
+						<th>{getTrLang(l;;)}</th>
+					</c:for>
+				</tr>
+			</thead>
+			<tbody>
+				<c:for list="getKeysTargets()" var="k">
+					<tr>
+						<c:for list="getRowTarget(k;;)" var="s">
+							<td>
+								{s;}
+							</td>
+						</c:for>
+					</tr>
+				</c:for>
+			</tbody>
+		</table>
+		<c:message value="msg_lang,translations_categories"/>
+		<table>
+			<thead>
+				<tr>
+					<c:for list="languages" var="l">
+						<th>{getTrLang(l;;)}</th>
+					</c:for>
+				</tr>
+			</thead>
+			<tbody>
+				<c:for list="getKeysCategories()" var="k">
+					<tr>
+						<c:for list="getRowCategory(k;;)" var="s">
+							<td>
+								{s;}
+							</td>
+						</c:for>
+					</tr>
+				</c:for>
+			</tbody>
+		</table>
+		<c:message value="msg_lang,translations_types"/>
+		<table>
+			<thead>
+				<tr>
+					<c:for list="languages" var="l">
+						<th>{getTrLang(l;;)}</th>
+					</c:for>
+				</tr>
+			</thead>
+			<tbody>
+				<c:for list="getKeysTypes()" var="k">
+					<tr>
+						<c:for list="getRowType(k;;)" var="s">
+							<td>
+								{s;}
+							</td>
+						</c:for>
+					</tr>
+				</c:for>
+			</tbody>
+		</table>
+		<c:message value="msg_lang,translations_pk"/>
+		<table>
+			<thead>
+				<tr>
+					<c:for list="languages" var="l">
+						<th>{getTrLang(l;;)}</th>
+					</c:for>
+				</tr>
+			</thead>
+			<tbody>
+				<c:for list="getKeysPokemon()" var="k">
+					<tr>
+						<c:for list="getRowPokemon(k;;)" var="s">
+							<td>
+								{s;}
+							</td>
+						</c:for>
+					</tr>
+				</c:for>
+			</tbody>
+		</table>
+		<c:message value="msg_lang,translations_mv"/>
+		<table>
+			<thead>
+				<tr>
+					<c:for list="languages" var="l">
+						<th>{getTrLang(l;;)}</th>
+					</c:for>
+				</tr>
+			</thead>
+			<tbody>
+				<c:for list="getKeysMoves()" var="k">
+					<tr>
+						<c:for list="getRowMove(k;;)" var="s">
+							<td>
+								{s;}
+							</td>
+						</c:for>
+					</tr>
+				</c:for>
+			</tbody>
+		</table>
+		<c:message value="msg_lang,translations_it"/>
+		<table>
+			<thead>
+				<tr>
+					<c:for list="languages" var="l">
+						<th>{getTrLang(l;;)}</th>
+					</c:for>
+				</tr>
+			</thead>
+			<tbody>
+				<c:for list="getKeysItems()" var="k">
+					<tr>
+						<c:for list="getRowItem(k;;)" var="s">
+							<td>
+								{s;}
+							</td>
+						</c:for>
+					</tr>
+				</c:for>
+			</tbody>
+		</table>
+		<c:message value="msg_lang,translations_ab"/>
+		<table>
+			<thead>
+				<tr>
+					<c:for list="languages" var="l">
+						<th>{getTrLang(l;;)}</th>
+					</c:for>
+				</tr>
+			</thead>
+			<tbody>
+				<c:for list="getKeysAbilities()" var="k">
+					<tr>
+						<c:for list="getRowAbility(k;;)" var="s">
+							<td>
+								{s;}
+							</td>
+						</c:for>
+					</tr>
+				</c:for>
+			</tbody>
+		</table>
+		<c:message value="msg_lang,translations_status"/>
+		<table>
+			<thead>
+				<tr>
+					<c:for list="languages" var="l">
+						<th>{getTrLang(l;;)}</th>
+					</c:for>
+				</tr>
+			</thead>
+			<tbody>
+				<c:for list="getKeysStatus()" var="k">
+					<tr>
+						<c:for list="getRowStatus(k;;)" var="s">
+							<td>
+								{s;}
+							</td>
+						</c:for>
+					</tr>
+				</c:for>
+			</tbody>
+		</table>
+		<c:message value="msg_lang,translations_math"/>
+		<table>
+			<thead>
+				<tr>
+					<c:for list="languages" var="l">
+						<th>{getTrLang(l;;)}</th>
+					</c:for>
+				</tr>
+			</thead>
+			<tbody>
+				<c:for list="getKeysMath()" var="k">
+					<tr>
+						<c:for list="getRowMath(k;;)" var="s">
+							<td>
+								{s;}
+							</td>
+						</c:for>
+					</tr>
+				</c:for>
+			</tbody>
+		</table>
+		<c:message value="msg_lang,translations_classes"/>
+		<table>
+			<thead>
+				<tr>
+					<c:for list="languages" var="l">
+						<th>{getTrLang(l;;)}</th>
+					</c:for>
+				</tr>
+			</thead>
+			<tbody>
+				<c:for list="getKeysDesc()" var="k">
+					<tr>
+						<c:for list="getRowDesc(k;;)" var="s">
+							<td>
+								{s;}
+							</td>
+						</c:for>
+					</tr>
+				</c:for>
+			</tbody>
+		</table>
+		<a c:command="web/html/langs/langs.html#begin" href=""><c:message value="msg_lang,return_begin"/></a>
+	</body>
+</html>

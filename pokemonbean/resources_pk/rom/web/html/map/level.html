@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><html xmlns:c="javahtml" c:bean="level_map">
+	<head>
+		<link href="web/css/pokedex.css" rel="stylesheet" type="text/css"/>
+		<title>
+			<c:if condition="possibleMultiLayer">
+				<c:message value="msg_levelmap,title_level_place">
+					<param value="placeName"/>
+					<param value="levelIndex"/>
+				</c:message>
+			</c:if>
+			<c:if condition="!possibleMultiLayer">
+				<c:if condition="outside">
+					<c:if condition="road">
+						<c:message value="msg_levelmap,title_out_road">
+							<param value="placeName"/>
+						</c:message>
+					</c:if>
+					<c:if condition="!road">
+						<c:message value="msg_levelmap,title_out_city">
+							<param value="placeName"/>
+						</c:message>
+					</c:if>
+				</c:if>
+				<c:if condition="!outside">
+					<c:if condition="gym">
+						<c:message value="msg_levelmap,title_gym">
+							<param value="placeName"/>
+						</c:message>
+					</c:if>
+					<c:if condition="pokemonCenter">
+						<c:message value="msg_levelmap,title_pk_center">
+							<param value="placeName"/>
+						</c:message>
+					</c:if>
+				</c:if>
+			</c:if>
+		</title>
+	</head>
+	<body>
+		<a c:command="web/html/index.html" href=""><c:message value="msg_levelmap,index"/></a><br/>
+		<a c:command="web/html/map/map.html" href=""><c:message value="msg_levelmap,map"/></a>
+		<div style="font-size: 0;">
+			<c:for key="p" map="tiles" value="b">
+				<c:if condition="isFirstRow(p;;)">
+					<br/>
+				</c:if>
+				<c:if condition="withoutTitle(p;;)">
+					<c:if condition="!isAccessibleByBeatingSomeTrainers(p;;)">
+						<a c:command="$clickTile({p;;})"><c:img border="0" src="{b;}"/></a>
+					</c:if>
+					<c:if condition="isAccessibleByBeatingSomeTrainers(p;;)">
+						<c:a c:command="$clickTile({p;;})" value="msg_levelmap,title_access"><c:img border="0" src="{b;}"/></c:a>
+					</c:if>
+				</c:if>
+				<c:if condition="isStorage(p;;)">
+					<c:a c:command="$clickTile({p;;})" value="msg_levelmap,title_storage"><c:img border="0" src="{b;}"/></c:a>
+				</c:if>
+				<c:if condition="isHealer(p;;)">
+					<c:a c:command="$clickTile({p;;})" value="msg_levelmap,title_heal"><c:img border="0" src="{b;}"/></c:a>
+				</c:if>
+				<c:if condition="isHost(p;;)">
+					<c:a c:command="$clickTile({p;;})" value="msg_levelmap,title_host"><c:img border="0" src="{b;}"/></c:a>
+				</c:if>
+				<c:if condition="isFossile(p;;)">
+					<c:a c:command="$clickTile({p;;})" value="msg_levelmap,title_fossile"><c:img border="0" src="{b;}"/></c:a>
+				</c:if>
+				<c:if condition="isMoveTutors(p;;)">
+					<c:a c:command="$clickTile({p;;})" value="msg_levelmap,title_mt"><c:img border="0" src="{b;}"/></c:a>
+				</c:if>
+			</c:for>
+		</div>
+		<br/>
+		<c:if condition="proponeTile">
+			<a c:command="$clickTile"><c:message value="msg_levelmap,click_tile"/></a><br/>
+		</c:if>
+		<c:if condition="proponeLink">
+			<a c:command="$clickLink"><c:message value="msg_levelmap,click_link"/></a><br/>
+		</c:if>
+		<c:if condition="seeArea">
+			<a c:command="$seeArea"><c:message value="msg_levelmap,see_area"/></a><br/>
+		</c:if>
+		<c:if condition="!dirs.isEmpty()">
+			<ul>
+				<c:for key="d" keyClassName="aiki.map.enums.Direction" map="dirs" value="e">
+					<li><a c:command="$clickLink({d;;})"><c:message value="msg_levelmap,{d;name()}"/></a></li>
+				</c:for>
+			</ul>
+		</c:if>
+	</body>
+</html>

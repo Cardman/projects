@@ -1,0 +1,114 @@
+CIBLE_EFFET	move	cib_eff__{0}	La cible est sous l''effet de l''attaque {0}
+GENRES_EGAUX	move	gr_eg	Les genres sont &eacute;gaux.
+PK_SAUVAGE_GENRE	item	pk_sauv_gr	Genre du pokemon sauvage
+LANCEUR_GENRE	move	cbt_nom	Genre du lanceur
+LANCEUR_PV_MAX	move	lanc_pv_max	Points de vie totaux du lanceur
+EXISTE_GENRE_ASSEXUE	move	exist_gr_assex	Il existe un genre assexu&eacute;.
+LANCEUR_EFFET	move	lanc_eff__{0}	Le lanceur est sous l''effet de l''attaque {0}
+CIBLE_STATUTS	move	cib_statuts	statuts de la cible
+CIBLE_TAILLE	move	cib_taille	Taille de la cible
+CIBLE_OBJET	move	cib_obj	Objet de la cible
+IMMU_TYPE_ATT_COMBATTANT_ENTRANT	type	immu_type_att_cbt__{0}	Le combattant envoy&eacute; est immunis&eacute; aux attaques de type {0}
+LANCEUR_DEGATS_RECUS_TOTAL_TOUR	move	lanc_deg_rec_tr	D&eacute;g&acirc;ts re&ccedil;us par le lanceur pendant le tour
+DEJA_CAPTURE	item	dej_cap	Pokemon d&eacute;j&agrave; captur&eacute;
+CIBLE_TYPES	move	cib_t	types de la cibles
+COMBATTANT_ENTRANT_TYPES	move	cbt_env_type	Types du combattant envoy&eacute;
+LANCEUR_STATUTS	move	lanc_statuts	statuts du lanceur
+PAS_PP_ATTAQUE_CIBLE	move	pas_pp_cible	La cible n''a pas de point de pouvoir pour son attaque
+SOMME_BOOST_POS_CIBLE	move	som_boost_pos_cib	Somme des boosts positifs de la cible
+ATTAQUE_NOM	move	att_nom	Nom de l''attaque
+LANCEUR_BOOST	statis	lanc_boost__{0}	{0} en terme de boost du lanceur
+ATTACK	move	att	Valeur de l''attaque du lanceur
+CIBLE_PV_RESTANTS	move	cib_pv_rest	Points de vie restants de la cible
+CIBLE_POSSEDE_STATUT_RELATION	status	cible_pseudo_st__{0}	La cible est alt&eacute;r&eacute;e du pseudo statut {0}
+ATTAQUE_TYPES	move	att_types	Types de l''attaque
+FIGHTER_OBJET	item	st_obj	Objet du possesseur
+LANCEUR_CLONE	move	lanc_clone	PV du clone du lanceur
+POWER	move	pow	Valeur de la puissance de l''attaque du lanceur
+PUISSANCE_BASE	item	puis_base	Puissance de base de l''attaque du possesseur
+MASSE_MOYENNE_PK	item	masse_moy_pk	Masse moyenne des pokemon
+LANCEUR_ATTAQUES_TYPES	move	lanc_att_types	Types des attaques du lanceur
+PK_UT_NIVEAU	item	pk_ut_niv	Niveau du pokemon du joueur
+DEFENSE	move	def	Valeur de la d&eacute;fense du lanceur
+PK_SAUVAGE_TYPES_BASE	item	pk_sauv_types	Types de base du pokemon sauvage
+LANCEUR_CAPACITE	move	lanc_capac	Capacit&eacute; courant du lanceur
+FIGHTER_NOM	item	cbt_nom	Nom du possesseur
+NB_UTILISATION_CONSECUTIF	item	nb_ut_cons	Nombre d''utilisations cons&eacute;cutives de l''attaque.
+FIGHTER_DER_JOUE	item	cbt_der_joue	Le possesseur a jou&eacute; en dernier
+TEMPS_TOUR	item	tps_tr	Temps de tour
+LANCEUR_ATTAQUES	move	lanc_att	Attaques du lanceur
+LANCEUR_BONHEUR	move	lanc_bonh	Bonheur du lanceur
+PK_SAUVAGE_PIERRES_EVOS	item	pk_sauv_ev	Pierres &eacute;volutives du pokemon sauvage
+CIBLE_BOOST	statis	cib_boost__{0}	{0} en terme de boost de la cible
+PAS_PARTENAIRE_ARRIERE	move	pas_part_arr	Pas de partenaire en arri&egrave;re
+LANCEUR_DISPARAIT	move	lanc_disp	Le lanceur dispara&icirc;t pendant le tour
+LANCEUR_JOUE	move	lanc_joue	Le lanceur a jou&eacute;
+LANCEUR_DEGATS_RECUS_TOTAL	move	lanc_deg_recu_tot	D&eacute;g&acirc;ts totaux re&ccedil;s par le lanceur
+LANCEUR_NB_UTILISATION	move	lanc_nb_ut__{0}	Nombre d''utilisation de l''attaque {0} du lanceur
+CIBLE_STATIS	statis	cib_statis__{0}	{0} en terme de base de statistique de la cible
+NB_UTILI_ATT_EQ_TOUR	move	nb_ut_att_eq_tr__{0}	Nombre d''utilisation de l''attaque {0} par l''&eacute;quipe
+NIVEAU	level	n	Niveau du pokemon
+EV	ev	ev	La valeur ev d''une statistique du pokemon
+IV	iv	iv	La valeur iv d''une statistique du pokemon
+BASE	base	base	La valeur de base d''une statistique du pokemon
+LANCEUR_TAILLE	move	lanc_taille	taille du lanceur
+LIEU_COMBAT	item	l_cbt	Environnement de combat
+CIBLE_GENRE	move	cib_gr	Genre de la cible
+CIBLE_ATTAQUE_CHOISIE	move	cib_att_choisie	Attaque choisie de la cible
+CIBLE_NB_UTILISATION	move	cib_nb_ut__{0}	Nombre d''utilisation de l''attaque {0} de la cible
+IMMU_TYPE_ATT_CIBLE	type	immu_type_att_cib__{0}	La cible est immunis&eacute;e aux attaques de type {0}
+CLIMATS	move	climats	Climats actifs
+CIBLE_CLONE	move	cib_clone	PV du clone de la cible
+CIBLE_ATTAQUES	move	cib_att	Attaques de la cible
+CIBLE_PV_MAX	move	cib_pv_max	Points de vie totaux de la cible
+LANCEUR_TYPES	move	lanc_t	types du lanceurs
+FIGHTER_TYPES	status	cbt_types	Types du combattant
+PAS_UTILIS_ATTAQUE_CIBLE	move	pas_ut_cib	Aucune attaque utilis&eacute;e par la cible
+ATTAQUE_CATEGORIE	move	att_cat	Cat&eacute;gorie de l''attaque du possesseur
+NB_KO_EQUIPE_LANCEUR	move	nb_ko_lanceur	Nombre de pokemon ko dans l''&eacute;quipe du lanceur
+CIBLE_CAPACITE	move	cib_capac	Capacit&eacute; courant de la cible
+CIBLE_DEGATS_RECUS_TOTAL_TOUR	move	cib_deg_rec_tr	D&eacute;g&acirc;ts re&ccedil;us par la cible pendant le tour
+LANCEUR_PP	move	lanc_pp__{0}	Points de pouvoir restants de l''attaque {0} du lanceur
+PAS_TOUR_TERRAIN	move	pas_tr	Vient d''entrer sur le terrain.
+FIGHTER_CLONE	status	cbt_clone	PV du clone du combattant
+CIBLE_NIVEAU	move	cib_niv	Niveau de la cible
+FIGHTER_STATUTS	item	st_cbt	Statuts du possesseur
+PK_SAUVAGE_MASSE	item	pk_sauv_mas	Masse du pokemon sauvage
+TYPES_ATTAQUES_RES_VIDE	move	types_att_res_vide	Pas de type r&eacute;sistant &agrave; la derni&egrave;re attaque subie.
+LANCEUR_STATIS	statis	lanc_statis__{0}	{0} en terme de base de statistique du lanceur
+CIBLE_DISPARAIT	move	cib_disp	La cible dispara&icirc;t pendant le tour
+LANCEUR_DEGATS_RECUS_TOUR	cat	lanc_deg_rec_tr__{0}	D&eacute;g&acirc;ts subis par le lanceur par des attaques de cat&eacute;gorie {0}.
+LANCEUR_MASSE	move	lanc_masse	Masse du lanceur
+COEFF_EFF_BASE_TYPES_COMBATTANT_ENTRANT	type	eff_base_cbt_envoye__{0}	Coefficient d''efficacit&eacute; du type {0} sur les types du combattant entrant
+LANCEUR_NOM	move	cbt_nom	Nom du lanceur
+PK_UT_GENRE	item	pk_ut_gr	Genre du pokemon du joueur
+FIGHTER_NB_UTILISATION	move	cbt_nb_ut__{0}	Nombre d''utilisation de l''attaque {0} du combattant
+NB_TOUR	move	nb_tr__{0}	nombre de tour de l''attaque {0}
+PAS_ATTAQUE_INVOC	move	pass_att_invok	Aucune attaque invoquable
+CIBLE_JOUE	move	cib_joue	La cible a jou&eacute;
+CIBLE_MASSE	move	cib_masse	Masse de la cible
+EQUIPE_ADV_COMBATTANT_ENTRANT_NB_UTILISATION	move	eq_adv_cbt_entr_nb_ut__{0}	Nombre d''utilisation de l''attaque {0} par les membres de l''&eacute;quipe adverse au combattant entrant.
+LANCEUR_OBJET	move	lanc_obj	Objet du lanceur
+LANCEUR_ATTAQUE_CHOISIE	move	lanc_att_choisie	Attaque choisie du lanceur
+PK_SAUVAGE_VITESSE	item	pk_sauv_vit	Vitesse de base du pokemon sauvage
+PAS_ATTAQUES_COPIABLES	move	pas_att_cop	Aucune attaque copiable
+NB_COMBATTANTS_TERRAIN	move	nb_cbts	Nombre de commbattants sur le terrain
+PK_SAUVAGE_NIVEAU	item	pk_sauv_niv	Niveau du pokemon sauvage
+LANCEUR_PV_RESTANTS	move	lanc_pv_rest	Points de vie restants du lanceur
+LANCEUR_NIVEAU	move	lanc_niv	Niveau du lanceur
+COEFF_EFF	item	coeff_eff	Coefficent d''efficacit&eacute; de l''attaque du possesseur
+LANCEUR_POSSEDE_STATUT_RELATION	status	cible_pseudo_st__{0}	Le lanceur est alt&eacute;r&eacute;e du pseudo statut {0}
+NB_TOUR_GLOBAL	move	nb_tr_gl__{0}	Nombre de tour de l''attaque {0}
+SOMME_BOOST_POS_LANCEUR	move	som_boost_pos_lanc	Somme des boosts positifs du lanceur
+PAS_PARTENAIRE_TERRAIN	move	pas_part	Pas de partenaire sur le terrain
+COMBATTANT_ENTRANT_CLONE	move	cbt_env_clone	Points de vie restants du clone du combattant envoy&eacute;
+AUCUN_BOOST_POSSIBLE	move	pas_boost	Aucun boost n''est possible pour la cible
+BASE_CAPT_PK	move	base_capt	Taux de capture de base du pokemon sauvage
+RATE_BALL_STATUS	move	tx_ball_statut	Produit entre le taux de capture de la balle et les taux des statuts du pokemon sauvage.
+FOE_PK_MAX_HP	move	pv_max	Points de vie totaux du pokemon sauvage.
+FOE_PK_REMOTE_HP	move	pv_restants	Points de vie restants du pokemon sauvage.
+PK_UT_VITESSE	move	pk_joueur_vit	Vitesse du premier pokemon du joueur.
+PK_SAUVAGE_VITESSE	move	pk_sauvage_vit	Vitesse du pokemon sauvage.
+NB_FLEES	move	nb_fuites	Nombre de tentatives de fuite.
+LEVEL_WINNER	move	niv_p	Niveau du combattant KO
+LEVEL_LOOSER	move	niv_g	Niveau du pokemon du joueur qui gagne des points

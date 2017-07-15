@@ -1,0 +1,13 @@
+ADJ_ADV	The closest foes
+ADJ_MULT	All closest fighters
+ADJ_UNIQ	A close fighter
+ALLIE	An ally
+ALLIES	Allies
+ANY_FOE	A foe
+AUTRE_UNIQ	A fighter other than the user
+GLOBALE	All fighters
+LANCEUR	The user
+PSEUDO_GLOBALE	All fighters but the user
+TOUS_ADV	All foes
+UNIQUE_IMPORTE	A fighter
+NOTHING	Nothing

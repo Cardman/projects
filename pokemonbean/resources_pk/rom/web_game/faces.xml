@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><cfg>
+	<java.lang.String class="cfg" field="firstUrl" value="web_game/html/difficulty.html"/>
+	<sm class="cfg" field="validators">
+		<java.lang.String class="util.Map" key="" value="rate_validator"/>
+		<aiki.beans.validators.RateValidator class="util.Map"/>
+		<java.lang.String class="util.Map" key="" value="short_validator"/>
+		<aiki.beans.validators.ShortValidator class="util.Map"/>
+	</sm>
+	<sm class="cfg" field="translators"/>
+	<sm class="cfg" field="beans">
+		<java.lang.String class="util.Map" key="" value="difficulty"/>
+		<b class="util.Map">
+			<java.lang.String class="b" field="scope" value="session"/>
+			<java.lang.String class="b" field="className" value="aiki.beans.game.DifficultyBean"/>
+		</b>
+	</sm>
+	<sm class="cfg" field="navigation"/>
+	<sm class="cfg" field="properties">
+		<java.lang.String class="util.Map" key="" value="msg_difficulty"/>
+		<java.lang.String class="util.Map" value="difficulty"/>
+	</sm>
+	<java.lang.String class="cfg" field="messagesFolder" value="web_game/messages"/>
+	<null class="cfg" field="mathFactory"/>
+	<java.lang.Integer class="cfg" field="tabWidth" value="4"/>
+	<java.lang.String class="cfg" field="namespaceUri" value="javahtml"/>
+	<hav class="cfg" field="accessValue"/>
+	<null class="cfg" field="filesConfName"/>
+	<null class="cfg" field="context"/>
+	<sm class="cfg" field="lateValidators"/>
+	<sm class="cfg" field="lateTranslators"/>
+</cfg>

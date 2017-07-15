@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><aiki.fight.items.HealingHpStatus>
+<r class="aiki.fight.items.HealingHpStatus" field="healedHpRate" value="1"/>
+<sl class="aiki.fight.items.HealingStatus" field="status"/>
+<java.lang.Boolean class="aiki.fight.items.HealingStatus" field="healingKo" value="false"/>
+<sm class="aiki.fight.items.HealingItem" field="happiness"/>
+<java.lang.Boolean class="aiki.fight.items.HealingItem" field="healingTeam" value="false"/>
+<java.lang.Integer class="aiki.fight.items.Item" field="price" value="2500"/>
+</aiki.fight.items.HealingHpStatus>

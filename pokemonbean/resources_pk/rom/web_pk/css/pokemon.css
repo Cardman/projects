@@ -1,0 +1,23 @@
+p{
+	text-indent:25px;
+}
+body{
+	text-align:justify;
+}
+td{
+	/*border:1;*/
+	border:1px solid black;
+}
+th{
+	background: yellow;
+	border:1px solid black;
+}
+table{
+	border-spacing:0;
+}
+h1{
+	color:red;
+}
+h2{
+	color:blue;
+}

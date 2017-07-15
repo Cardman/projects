@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><html xmlns:c="javahtml" c:bean="berry">
+	<head>
+		<title><c:message value="msg_item,title"><param value="displayName"/></c:message></title>
+		<link href="web/css/items.css" rel="stylesheet" type="text/css"/>
+	</head>
+	<body>
+		<p>
+			<c:import page="{itemBean}">
+				<c:package name="aiki.beans.items">
+					<c:class name="ItemBean">
+						<c:field name="name" value="name"/>
+					</c:class>
+				</c:package>
+			</c:import>
+			<c:if condition="!healHpBySuperEffMove.isZero()">
+				<c:message value="msg_berry,win_super_eff_time"/>
+				<c:message value="msg_berry,win_super_eff">
+					<param value="healHpBySuperEffMove"/>
+				</c:message>
+			</c:if>
+			<c:if condition="lawForAttackFirst">
+				<c:message value="msg_berry,sorting_users_time"/>
+				<c:message value="msg_berry,sorting_users"/>
+			</c:if>
+			<c:if condition="withoutFail">
+				<c:message value="msg_berry,without_fail_time"/>
+				<c:message value="msg_berry,without_fail"/>
+			</c:if>
+			<c:if condition="isHealingPp()">
+				<c:message value="msg_berry,heal_pp_time"/>
+				<c:message value="msg_berry,heal_pp">
+					<param value="healPp"/>
+				</c:message>
+			</c:if>
+			<c:if condition="!healHp.isZero()">
+				<c:message value="msg_berry,heal_hp_time"/>
+				<c:if condition="maxHpHealingHp.isZero()">
+					<c:message value="msg_berry,heal_hp_only_round_heal">
+						<param value="healHp"/>
+					</c:message>
+				</c:if>
+				<c:if condition="!maxHpHealingHp.isZero()">
+					<c:message value="msg_berry,heal_hp">
+						<param value="maxHpHealingHp"/>
+						<param value="healHp"/>
+					</c:message>
+				</c:if>
+			</c:if>
+			<c:if condition="!healHpRate.isZero()">
+				<c:message value="msg_berry,heal_hp_rate_time"/>
+				<c:if condition="maxHpHealingHpRate.isZero()">
+					<c:message value="msg_berry,heal_hp_rate_only_round_heal">
+						<param value="healHpRate"/>
+					</c:message>
+				</c:if>
+				<c:if condition="!maxHpHealingHpRate.isZero()">
+					<c:message value="msg_berry,heal_hp_rate">
+						<param value="maxHpHealingHpRate"/>
+						<param value="healHpRate"/>
+					</c:message>
+				</c:if>
+			</c:if>
+			<c:if condition="!multFoesDamage.isEmpty()">
+				<c:message value="msg_berry,mult_damage_foe_time"/>
+				<c:message value="msg_berry,mult_damage_foe"/>
+				<table>
+					<thead>
+						<tr>
+							<th><c:message value="msg_berry,mult_damage_foe_type"/></th>
+							<th><c:message value="msg_berry,mult_damage_foe_eff"/></th>
+							<th><c:message value="msg_berry,mult_damage_foe_rate"/></th>
+						</tr>
+					</thead>
+					<tbody>
+						<c:for key="s" map="multFoesDamage" value="b" varClassName="aiki.fight.util.EfficiencyRate">
+							<tr>
+								<td>{getTrMultFoesDamage(s;;)}</td>
+								<td>{b;getEff()}</td>
+								<td>{b;getHpRate()}</td>
+							</tr>
+						</c:for>
+					</tbody>
+				</table>
+				<br/>
+			</c:if>
+			<c:if condition="!multStat.isEmpty()">
+				<c:message value="msg_berry,mult_stat_time"/>
+				<c:message value="msg_berry,mult_stat"/>
+				<table>
+					<thead>
+						<tr>
+							<th><c:message value="msg_berry,mult_stat_key"/></th>
+							<th><c:message value="msg_berry,mult_stat_hp"/></th>
+							<th><c:message value="msg_berry,mult_stat_boost"/></th>
+						</tr>
+					</thead>
+					<tbody>
+						<c:for key="s" map="multStat" value="b" varClassName="aiki.fight.util.BoostHpRate">
+							<tr>
+								<td>{getTrMultStat(s;;)}</td>
+								<td>{b;getHpRate()}</td>
+								<td>{b;getBoost()}</td>
+							</tr>
+						</c:for>
+					</tbody>
+				</table>
+				<br/>
+			</c:if>
+			<c:if condition="!healStatus.isEmpty()">
+				<c:message value="msg_berry,heal_status_time"/>
+				<c:message value="msg_berry,heal_status"/>
+				<ul>
+					<c:for list="healStatus" var="s">
+						<li><a c:command="$clickStatus({s;;})" href="">{getTrStatus(s;;)}</a></li>
+					</c:for>
+				</ul>
+				<br/>
+			</c:if>
+			<c:if condition="!damageRateRecoilFoe.isEmpty()">
+				<c:message value="msg_berry,recoil_time"/>
+				<c:message value="msg_berry,recoil"/>
+				<table>
+					<thead>
+						<tr>
+							<th><c:message value="msg_berry,recoil_cat"/></th>
+							<th><c:message value="msg_berry,recoil_hp"/></th>
+						</tr>
+					</thead>
+					<tbody>
+						<c:for key="s" map="damageRateRecoilFoe" value="b">
+							<tr>
+								<td>{getTrCategRecoil(s;;)}</td>
+								<td>{b;}</td>
+							</tr>
+						</c:for>
+					</tbody>
+				</table>
+				<br/>
+			</c:if>
+			<c:if condition="!boostStatis.isEmpty()">
+				<c:message value="msg_berry,category_time"/>
+				<c:message value="msg_berry,category">
+					<param value="categoryBoosting"/>
+				</c:message>
+				<table>
+					<thead>
+						<tr>
+							<th><c:message value="msg_berry,category_stat"/></th>
+							<th><c:message value="msg_berry,category_boost"/></th>
+						</tr>
+					</thead>
+					<tbody>
+						<c:for key="s" map="boostStatis" value="b">
+							<tr>
+								<td>{getTrBoostStat(s;;)}</td>
+								<td>{b;}</td>
+							</tr>
+						</c:for>
+					</tbody>
+				</table>
+				<br/>
+			</c:if>
+		</p>
+	</body>
+</html>

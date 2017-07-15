@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><html xmlns:c="javahtml" c:bean="status_set">
+	<head>
+		<title><c:message value="msg_statusset,title"/></title>
+		<link href="web/css/abilities.css" rel="stylesheet" type="text/css"/>
+	</head>
+	<body>
+		<a c:command="web/html/index.html" href=""><c:message value="msg_statusset,index"/></a>
+		<br/>
+		<form action="" c:command="$search" method="post" name="searching">
+			<c:message value="msg_statusset,content"/>
+			<input c:varValue="typedStatus" name="typedStatus" type="text"/><br/>
+			<input type="submit" value="OK"/>
+		</form>
+		<br/>
+		<ul>
+			<c:for list="sortedStatus" var="a">
+				<li><a c:command="$clickStatus({a;;})" href="">{getTrStatus(a;;)}</a></li>
+			</c:for>
+		</ul>
+	</body>
+</html>

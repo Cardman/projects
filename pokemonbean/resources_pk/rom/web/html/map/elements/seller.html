@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><html xmlns:c="javahtml" c:bean="seller">
+	<head>
+		<link href="web/css/pokedex.css" rel="stylesheet" type="text/css"/>
+		<title>
+			<c:message value="msg_levelmap,title_seller"/>
+		</title>
+	</head>
+	<body>
+		<a c:command="web/html/index.html" href=""><c:message value="msg_levelmap,index"/></a>
+		<br/>
+		<a c:command="web/html/map/map.html" href=""><c:message value="msg_levelmap,map"/></a><br/>
+		<br/>
+		<a c:command="web/html/map/level.html" href=""><c:message value="msg_levelmap,level"/></a><br/>
+		<br/>
+		<c:if condition="!getItems().isEmpty()">
+			<ul>
+				<c:for list="getItems()" var="i">
+					<li><a c:command="$clickItem({i;;})">{getItem(i;;)}</a></li>
+				</c:for>
+			</ul>
+		</c:if>
+		<hr/>
+		<c:if condition="!getTm().isEmpty()">
+			<ul>
+				<c:for list="getTm()" var="i">
+					<li><a c:command="$clickTm({i;;})">{getTm(i;;)}</a></li>
+				</c:for>
+			</ul>
+		</c:if>
+	</body>
+</html>

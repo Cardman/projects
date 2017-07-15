@@ -1,0 +1,1238 @@
+package aiki.facade;
+import static code.util.opers.EquallableUtil.assertEq;
+import static org.junit.Assert.assertTrue;
+
+import org.junit.BeforeClass;
+import org.junit.Test;
+
+import code.util.EqList;
+import code.util.StringList;
+import code.util.pagination.SearchingMode;
+import code.util.pagination.SelectedBoolean;
+import aiki.facade.PaginationMove;
+import aiki.fight.moves.DamagingMoveData;
+import aiki.fight.moves.StatusMoveData;
+import aiki.fight.moves.enums.TargetChoice;
+import aiki.game.fight.InitializationDataBase;
+import aiki.util.SortingMove;
+
+@SuppressWarnings("static-method")
+public class PaginationMoveTest extends InitializationDataBase {
+
+    @BeforeClass
+    public static void initDataBase() {
+        InitializationDataBase.initDataBase();
+    }
+
+    @Test
+    public void match1Test() {
+        PaginationMove pagination_;
+        pagination_ = new PaginationMove();
+        pagination_.setTranslation(_data_, LANGUAGE);
+        pagination_.getCriteria().setSearchModeName(SearchingMode.META_CHARACTER);
+        pagination_.getCriteria().setContentOfName("E*");
+        assertTrue(pagination_.match(ECLAIR));
+    }
+
+    @Test
+    public void match2Test() {
+        PaginationMove pagination_;
+        pagination_ = new PaginationMove();
+        pagination_.setTranslation(_data_, LANGUAGE);
+        pagination_.getCriteria().setSearchModeName(SearchingMode.META_CHARACTER);
+        pagination_.getCriteria().setContentOfName("P*");
+        assertTrue(!pagination_.match(ECLAIR));
+    }
+
+    @Test
+    public void sortable1Test() {
+        PaginationMove pagination_;
+        pagination_ = new PaginationMove();
+        assertTrue(pagination_.sortable());
+    }
+
+    @Test
+    public void sortable2Test() {
+        PaginationMove pagination_;
+        pagination_ = new PaginationMove();
+        pagination_.setTranslation(_data_, LANGUAGE);
+        pagination_.getCmpName().setPriority(1);
+        assertTrue(pagination_.sortable());
+    }
+
+    @Test
+    public void sortable3Test() {
+        PaginationMove pagination_;
+        pagination_ = new PaginationMove();
+        pagination_.setTranslation(_data_, LANGUAGE);
+        pagination_.getCmpPrice().setPriority(1);
+        assertTrue(pagination_.sortable());
+    }
+
+    @Test
+    public void sortable4Test() {
+        PaginationMove pagination_;
+        pagination_ = new PaginationMove();
+        pagination_.setTranslation(_data_, LANGUAGE);
+        pagination_.getCmpName().setPriority(1);
+        pagination_.getCmpPrice().setPriority(1);
+        assertTrue(!pagination_.sortable());
+    }
+
+    @Test
+    public void sortable5Test() {
+        PaginationMove pagination_;
+        pagination_ = new PaginationMove();
+        pagination_.setTranslation(_data_, LANGUAGE);
+        pagination_.getCmpName().setPriority(1);
+        pagination_.getCmpDescription().setPriority(1);
+        assertTrue(!pagination_.sortable());
+    }
+
+    @Test
+    public void sortable6Test() {
+        PaginationMove pagination_;
+        pagination_ = new PaginationMove();
+        pagination_.setTranslation(_data_, LANGUAGE);
+        pagination_.getCmpName().setPriority(1);
+        pagination_.getCmpPrio().setPriority(1);
+        assertTrue(!pagination_.sortable());
+    }
+
+    @Test
+    public void sortable7Test() {
+        PaginationMove pagination_;
+        pagination_ = new PaginationMove();
+        pagination_.setTranslation(_data_, LANGUAGE);
+        pagination_.getCmpName().setPriority(1);
+        pagination_.getCmpPpp().setPriority(1);
+        assertTrue(!pagination_.sortable());
+    }
+
+    @Test
+    public void sortable8Test() {
+        PaginationMove pagination_;
+        pagination_ = new PaginationMove();
+        pagination_.setTranslation(_data_, LANGUAGE);
+        pagination_.getCmpName().setPriority(1);
+        pagination_.getCmpTargetChoice().setPriority(1);
+        assertTrue(!pagination_.sortable());
+    }
+
+    @Test
+    public void sort1Test() {
+        PaginationMove pagination_;
+        pagination_ = new PaginationMove();
+        pagination_.setTranslation(_data_, LANGUAGE);
+        SortingMove sorting_;
+        String itemName_;
+        sorting_ = new SortingMove();
+        sorting_.setName(ECLAIR);
+        sorting_.setKeyName(ECLAIR);
+        sorting_.setPp((short) 2);
+        sorting_.setMoveClass(0);
+        sorting_.setPrice(50);
+        sorting_.setPriority((byte) 0);
+        sorting_.setTargetChoice(TargetChoice.ANY_FOE);
+        sorting_.setIndex(0);
+        itemName_ = ECLAIR;
+        pagination_.getResults().put(sorting_, itemName_);
+        sorting_ = new SortingMove();
+        sorting_.setName(CHARGE);
+        sorting_.setKeyName(CHARGE);
+        sorting_.setPp((short) 2);
+        sorting_.setMoveClass(0);
+        sorting_.setPriority((byte) 1);
+        sorting_.setTargetChoice(TargetChoice.ADJ_ADV);
+        sorting_.setPrice(25);
+        sorting_.setIndex(1);
+        itemName_ = CHARGE;
+        pagination_.getResults().put(sorting_, itemName_);
+        pagination_.getCmpName().setIncreasing(SelectedBoolean.YES);
+        pagination_.getCmpName().setPriority(1);
+        pagination_.getCmpPpp().setIncreasing(SelectedBoolean.YES);
+        pagination_.getCmpPpp().setPriority(2);
+        pagination_.sort();
+        assertEq(2, pagination_.getResults().size());
+        EqList<SortingMove> sorted_;
+        sorted_ = new EqList<SortingMove>(pagination_.getResults().getKeys());
+        itemName_ = pagination_.getResults().getVal(sorted_.get(0));
+        assertEq(CHARGE, itemName_);
+        itemName_ = pagination_.getResults().getVal(sorted_.get(1));
+        assertEq(ECLAIR, itemName_);
+    }
+
+    @Test
+    public void sort2Test() {
+        PaginationMove pagination_;
+        pagination_ = new PaginationMove();
+        pagination_.setTranslation(_data_, LANGUAGE);
+        SortingMove sorting_;
+        String itemName_;
+        sorting_ = new SortingMove();
+        sorting_.setName(ECLAIR);
+        sorting_.setKeyName(ECLAIR);
+        sorting_.setPp((short) 2);
+        sorting_.setMoveClass(0);
+        sorting_.setPrice(50);
+        sorting_.setPriority((byte) 0);
+        sorting_.setTargetChoice(TargetChoice.ANY_FOE);
+        sorting_.setIndex(0);
+        itemName_ = ECLAIR;
+        pagination_.getResults().put(sorting_, itemName_);
+        sorting_ = new SortingMove();
+        sorting_.setName(CHARGE);
+        sorting_.setKeyName(CHARGE);
+        sorting_.setPp((short) 3);
+        sorting_.setMoveClass(0);
+        sorting_.setPriority((byte) 1);
+        sorting_.setTargetChoice(TargetChoice.ADJ_ADV);
+        sorting_.setPrice(25);
+        sorting_.setIndex(1);
+        itemName_ = CHARGE;
+        pagination_.getResults().put(sorting_, itemName_);
+        pagination_.getCmpName().setIncreasing(SelectedBoolean.YES);
+        pagination_.getCmpName().setPriority(1);
+        pagination_.getCmpPpp().setIncreasing(SelectedBoolean.YES);
+        pagination_.getCmpPpp().setPriority(2);
+        pagination_.sort();
+        assertEq(2, pagination_.getResults().size());
+        EqList<SortingMove> sorted_;
+        sorted_ = new EqList<SortingMove>(pagination_.getResults().getKeys());
+        itemName_ = pagination_.getResults().getVal(sorted_.get(0));
+        assertEq(ECLAIR, itemName_);
+        itemName_ = pagination_.getResults().getVal(sorted_.get(1));
+        assertEq(CHARGE, itemName_);
+    }
+
+    @Test
+    public void sort3Test() {
+        PaginationMove pagination_;
+        pagination_ = new PaginationMove();
+        pagination_.setTranslation(_data_, LANGUAGE);
+        SortingMove sorting_;
+        String itemName_;
+        sorting_ = new SortingMove();
+        sorting_.setName(ECLAIR);
+        sorting_.setKeyName(ECLAIR);
+        sorting_.setPp((short) 2);
+        sorting_.setMoveClass(0);
+        sorting_.setPrice(50);
+        sorting_.setPriority((byte) 0);
+        sorting_.setTargetChoice(TargetChoice.ANY_FOE);
+        sorting_.setIndex(0);
+        itemName_ = ECLAIR;
+        pagination_.getResults().put(sorting_, itemName_);
+        sorting_ = new SortingMove();
+        sorting_.setName(CHARGE);
+        sorting_.setKeyName(CHARGE);
+        sorting_.setPp((short) 3);
+        sorting_.setMoveClass(0);
+        sorting_.setPriority((byte) 1);
+        sorting_.setTargetChoice(TargetChoice.ADJ_ADV);
+        sorting_.setPrice(25);
+        sorting_.setIndex(1);
+        itemName_ = CHARGE;
+        pagination_.getResults().put(sorting_, itemName_);
+        pagination_.getCmpName().setIncreasing(SelectedBoolean.YES);
+        pagination_.getCmpName().setPriority(1);
+        pagination_.getCmpPrice().setIncreasing(SelectedBoolean.YES);
+        pagination_.getCmpPrice().setPriority(2);
+        pagination_.sort();
+        assertEq(2, pagination_.getResults().size());
+        EqList<SortingMove> sorted_;
+        sorted_ = new EqList<SortingMove>(pagination_.getResults().getKeys());
+        itemName_ = pagination_.getResults().getVal(sorted_.get(0));
+        assertEq(CHARGE, itemName_);
+        itemName_ = pagination_.getResults().getVal(sorted_.get(1));
+        assertEq(ECLAIR, itemName_);
+    }
+
+    @Test
+    public void sort4Test() {
+        PaginationMove pagination_;
+        pagination_ = new PaginationMove();
+        pagination_.setTranslation(_data_, LANGUAGE);
+        SortingMove sorting_;
+        String itemName_;
+        sorting_ = new SortingMove();
+        sorting_.setName(ECLAIR);
+        sorting_.setKeyName(ECLAIR);
+        sorting_.setPp((short) 2);
+        sorting_.setMoveClass(0);
+        sorting_.setPrice(50);
+        sorting_.setPriority((byte) 0);
+        sorting_.setTargetChoice(TargetChoice.ANY_FOE);
+        sorting_.setIndex(0);
+        itemName_ = ECLAIR;
+        pagination_.getResults().put(sorting_, itemName_);
+        sorting_ = new SortingMove();
+        sorting_.setName(CHARGE);
+        sorting_.setKeyName(CHARGE);
+        sorting_.setPp((short) 3);
+        sorting_.setMoveClass(0);
+        sorting_.setPriority((byte) 1);
+        sorting_.setTargetChoice(TargetChoice.ADJ_ADV);
+        sorting_.setPrice(25);
+        sorting_.setIndex(1);
+        itemName_ = CHARGE;
+        pagination_.getResults().put(sorting_, itemName_);
+        pagination_.getCmpName().setIncreasing(SelectedBoolean.YES);
+        pagination_.getCmpName().setPriority(1);
+        pagination_.getCmpPrio().setIncreasing(SelectedBoolean.YES);
+        pagination_.getCmpPrio().setPriority(2);
+        pagination_.sort();
+        assertEq(2, pagination_.getResults().size());
+        EqList<SortingMove> sorted_;
+        sorted_ = new EqList<SortingMove>(pagination_.getResults().getKeys());
+        itemName_ = pagination_.getResults().getVal(sorted_.get(0));
+        assertEq(ECLAIR, itemName_);
+        itemName_ = pagination_.getResults().getVal(sorted_.get(1));
+        assertEq(CHARGE, itemName_);
+    }
+
+    @Test
+    public void sort5Test() {
+        PaginationMove pagination_;
+        pagination_ = new PaginationMove();
+        pagination_.setTranslation(_data_, LANGUAGE);
+        SortingMove sorting_;
+        String itemName_;
+        sorting_ = new SortingMove();
+        sorting_.setName(ECLAIR);
+        sorting_.setKeyName(ECLAIR);
+        sorting_.setPp((short) 2);
+        sorting_.setMoveClass(1);
+        sorting_.setPrice(50);
+        sorting_.setPriority((byte) 0);
+        sorting_.setTargetChoice(TargetChoice.ANY_FOE);
+        sorting_.setIndex(0);
+        itemName_ = ECLAIR;
+        pagination_.getResults().put(sorting_, itemName_);
+        sorting_ = new SortingMove();
+        sorting_.setName(CHARGE);
+        sorting_.setKeyName(CHARGE);
+        sorting_.setPp((short) 3);
+        sorting_.setMoveClass(0);
+        sorting_.setPriority((byte) 1);
+        sorting_.setTargetChoice(TargetChoice.ADJ_ADV);
+        sorting_.setPrice(25);
+        sorting_.setIndex(1);
+        itemName_ = CHARGE;
+        pagination_.getResults().put(sorting_, itemName_);
+        pagination_.getCmpName().setIncreasing(SelectedBoolean.YES);
+        pagination_.getCmpName().setPriority(1);
+        pagination_.getCmpDescription().setIncreasing(SelectedBoolean.YES);
+        pagination_.getCmpDescription().setPriority(2);
+        pagination_.sort();
+        assertEq(2, pagination_.getResults().size());
+        EqList<SortingMove> sorted_;
+        sorted_ = new EqList<SortingMove>(pagination_.getResults().getKeys());
+        itemName_ = pagination_.getResults().getVal(sorted_.get(0));
+        assertEq(CHARGE, itemName_);
+        itemName_ = pagination_.getResults().getVal(sorted_.get(1));
+        assertEq(ECLAIR, itemName_);
+    }
+
+    @Test
+    public void sort6Test() {
+        PaginationMove pagination_;
+        pagination_ = new PaginationMove();
+        pagination_.setTranslation(_data_, LANGUAGE);
+        SortingMove sorting_;
+        String itemName_;
+        sorting_ = new SortingMove();
+        sorting_.setName(ECLAIR);
+        sorting_.setKeyName(ECLAIR);
+        sorting_.setPp((short) 2);
+        sorting_.setMoveClass(1);
+        sorting_.setPrice(50);
+        sorting_.setPriority((byte) 0);
+        sorting_.setTargetChoice(TargetChoice.ANY_FOE);
+        sorting_.setIndex(0);
+        itemName_ = ECLAIR;
+        pagination_.getResults().put(sorting_, itemName_);
+        sorting_ = new SortingMove();
+        sorting_.setName(CHARGE);
+        sorting_.setKeyName(CHARGE);
+        sorting_.setPp((short) 3);
+        sorting_.setMoveClass(0);
+        sorting_.setPriority((byte) 1);
+        sorting_.setTargetChoice(TargetChoice.ADJ_ADV);
+        sorting_.setPrice(25);
+        sorting_.setIndex(1);
+        itemName_ = CHARGE;
+        pagination_.getResults().put(sorting_, itemName_);
+        pagination_.getCmpName().setIncreasing(SelectedBoolean.YES);
+        pagination_.getCmpName().setPriority(1);
+        pagination_.getCmpTargetChoice().setIncreasing(SelectedBoolean.YES);
+        pagination_.getCmpTargetChoice().setPriority(2);
+        pagination_.sort();
+        assertEq(2, pagination_.getResults().size());
+        EqList<SortingMove> sorted_;
+        sorted_ = new EqList<SortingMove>(pagination_.getResults().getKeys());
+        itemName_ = pagination_.getResults().getVal(sorted_.get(0));
+        assertEq(CHARGE, itemName_);
+        itemName_ = pagination_.getResults().getVal(sorted_.get(1));
+        assertEq(ECLAIR, itemName_);
+    }
+
+    @Test
+    public void search1Test() {
+        PaginationMove pagination_;
+        pagination_ = new PaginationMove();
+        pagination_.setNbResultsPerPage(1);
+        pagination_.setTranslation(_data_, LANGUAGE);
+        StringList moves_;
+        moves_ = new StringList();
+        moves_.add(ECLAIR);
+        moves_.add(CHARGE);
+        moves_.add(PISTOLET_A_O);
+        moves_.add(SEISME);
+        moves_.add(ROUE_DE_FEU);
+        moves_.add(RELAIS);
+        moves_.add(FONCE);
+        moves_.add(JACKPOT);
+        pagination_.search(moves_, _data_);
+        assertEq(8, pagination_.getResults().size());
+        String itemName_;
+        EqList<SortingMove> sorted_;
+        SortingMove elt_;
+        sorted_ = new EqList<SortingMove>(pagination_.getResults().getKeys());
+        elt_ = sorted_.get(0);
+        itemName_ = pagination_.getResults().getVal(elt_);
+        assertEq(ECLAIR, itemName_);
+        assertEq(ECLAIR, elt_.getName());
+        assertEq(ECLAIR, elt_.getKeyName());
+        assertEq(0, elt_.getPriority());
+        assertEq(TargetChoice.AUTRE_UNIQ, elt_.getTargetChoice());
+        assertEq(0, elt_.getMoveClass());
+        assertEq(0, elt_.getPrice());
+        assertEq(50, elt_.getPp());
+        elt_ = sorted_.get(1);
+        itemName_ = pagination_.getResults().getVal(elt_);
+        assertEq(CHARGE, itemName_);
+        assertEq(CHARGE, elt_.getName());
+        assertEq(CHARGE, elt_.getKeyName());
+        assertEq(0, elt_.getPriority());
+        assertEq(TargetChoice.AUTRE_UNIQ, elt_.getTargetChoice());
+        assertEq(0, elt_.getMoveClass());
+        assertEq(2000, elt_.getPrice());
+        assertEq(30, elt_.getPp());
+        elt_ = sorted_.get(2);
+        itemName_ = pagination_.getResults().getVal(elt_);
+        assertEq(PISTOLET_A_O, itemName_);
+        assertEq(PISTOLET_A_O, elt_.getName());
+        assertEq(PISTOLET_A_O, elt_.getKeyName());
+        assertEq(0, elt_.getPriority());
+        assertEq(TargetChoice.AUTRE_UNIQ, elt_.getTargetChoice());
+        assertEq(0, elt_.getMoveClass());
+        assertEq(0, elt_.getPrice());
+        assertEq(20, elt_.getPp());
+        elt_ = sorted_.get(3);
+        itemName_ = pagination_.getResults().getVal(elt_);
+        assertEq(SEISME, itemName_);
+        assertEq(SEISME, elt_.getName());
+        assertEq(SEISME, elt_.getKeyName());
+        assertEq(0, elt_.getPriority());
+        assertEq(TargetChoice.PSEUDO_GLOBALE, elt_.getTargetChoice());
+        assertEq(0, elt_.getMoveClass());
+        assertEq(0, elt_.getPrice());
+        assertEq(10, elt_.getPp());
+        elt_ = sorted_.get(4);
+        itemName_ = pagination_.getResults().getVal(elt_);
+        assertEq(ROUE_DE_FEU, itemName_);
+        assertEq(ROUE_DE_FEU, elt_.getName());
+        assertEq(ROUE_DE_FEU, elt_.getKeyName());
+        assertEq(0, elt_.getPriority());
+        assertEq(TargetChoice.AUTRE_UNIQ, elt_.getTargetChoice());
+        assertEq(0, elt_.getMoveClass());
+        assertEq(0, elt_.getPrice());
+        assertEq(20, elt_.getPp());
+        elt_ = sorted_.get(5);
+        itemName_ = pagination_.getResults().getVal(elt_);
+        assertEq(RELAIS, itemName_);
+        assertEq(RELAIS, elt_.getName());
+        assertEq(RELAIS, elt_.getKeyName());
+        assertEq(0, elt_.getPriority());
+        assertEq(TargetChoice.LANCEUR, elt_.getTargetChoice());
+        assertEq(1, elt_.getMoveClass());
+        assertEq(0, elt_.getPrice());
+        assertEq(40, elt_.getPp());
+        elt_ = sorted_.get(6);
+        itemName_ = pagination_.getResults().getVal(elt_);
+        assertEq(FONCE, itemName_);
+        assertEq(FONCE, elt_.getName());
+        assertEq(FONCE, elt_.getKeyName());
+        assertEq(1, elt_.getPriority());
+        assertEq(TargetChoice.AUTRE_UNIQ, elt_.getTargetChoice());
+        assertEq(0, elt_.getMoveClass());
+        assertEq(0, elt_.getPrice());
+        assertEq(20, elt_.getPp());
+        elt_ = sorted_.get(7);
+        itemName_ = pagination_.getResults().getVal(elt_);
+        assertEq(JACKPOT, itemName_);
+        assertEq(JACKPOT, elt_.getName());
+        assertEq(JACKPOT, elt_.getKeyName());
+        assertEq(0, elt_.getPriority());
+        assertEq(TargetChoice.ADJ_UNIQ, elt_.getTargetChoice());
+        assertEq(0, elt_.getMoveClass());
+        assertEq(0, elt_.getPrice());
+        assertEq(20, elt_.getPp());
+        sorted_ = pagination_.getRendered();
+        assertEq(1, sorted_.size());
+        assertEq(ECLAIR, sorted_.get(0).getName());
+        assertEq(0, sorted_.get(0).getPrice());
+        assertEq(0, pagination_.getNumberPage());
+        assertEq(-1, pagination_.getLine());
+    }
+
+    @Test
+    public void search2Test() {
+        PaginationMove pagination_;
+        pagination_ = new PaginationMove();
+        pagination_.setNbResultsPerPage(1);
+        pagination_.setTranslation(_data_, LANGUAGE);
+        pagination_.getCriteria().setSelectedClass(StatusMoveData.MOVE);
+        StringList moves_;
+        moves_ = new StringList();
+        moves_.add(ECLAIR);
+        moves_.add(CHARGE);
+        moves_.add(PISTOLET_A_O);
+        moves_.add(SEISME);
+        moves_.add(ROUE_DE_FEU);
+        moves_.add(RELAIS);
+        moves_.add(FONCE);
+        moves_.add(JACKPOT);
+        pagination_.search(moves_, _data_);
+        assertEq(1, pagination_.getResults().size());
+        String itemName_;
+        EqList<SortingMove> sorted_;
+        SortingMove elt_;
+        sorted_ = new EqList<SortingMove>(pagination_.getResults().getKeys());
+        elt_ = sorted_.get(0);
+        itemName_ = pagination_.getResults().getVal(elt_);
+        assertEq(RELAIS, itemName_);
+        assertEq(RELAIS, elt_.getName());
+        assertEq(RELAIS, elt_.getKeyName());
+        assertEq(0, elt_.getPriority());
+        assertEq(TargetChoice.LANCEUR, elt_.getTargetChoice());
+        assertEq(1, elt_.getMoveClass());
+        assertEq(0, elt_.getPrice());
+        assertEq(40, elt_.getPp());
+        sorted_ = pagination_.getRendered();
+        assertEq(1, sorted_.size());
+        assertEq(RELAIS, sorted_.get(0).getName());
+        assertEq(0, sorted_.get(0).getPrice());
+        assertEq(0, pagination_.getNumberPage());
+        assertEq(-1, pagination_.getLine());
+    }
+
+    @Test
+    public void search3Test() {
+        PaginationMove pagination_;
+        pagination_ = new PaginationMove();
+        pagination_.setNbResultsPerPage(1);
+        pagination_.setTranslation(_data_, LANGUAGE);
+        pagination_.getCriteria().setSelectedClass(DamagingMoveData.MOVE);
+        StringList moves_;
+        moves_ = new StringList();
+        moves_.add(ECLAIR);
+        moves_.add(CHARGE);
+        moves_.add(PISTOLET_A_O);
+        moves_.add(SEISME);
+        moves_.add(ROUE_DE_FEU);
+        moves_.add(RELAIS);
+        moves_.add(FONCE);
+        moves_.add(JACKPOT);
+        pagination_.search(moves_, _data_);
+        assertEq(7, pagination_.getResults().size());
+        String itemName_;
+        EqList<SortingMove> sorted_;
+        SortingMove elt_;
+        sorted_ = new EqList<SortingMove>(pagination_.getResults().getKeys());
+        elt_ = sorted_.get(0);
+        itemName_ = pagination_.getResults().getVal(elt_);
+        assertEq(ECLAIR, itemName_);
+        assertEq(ECLAIR, elt_.getName());
+        assertEq(ECLAIR, elt_.getKeyName());
+        assertEq(0, elt_.getPriority());
+        assertEq(TargetChoice.AUTRE_UNIQ, elt_.getTargetChoice());
+        assertEq(0, elt_.getMoveClass());
+        assertEq(0, elt_.getPrice());
+        assertEq(50, elt_.getPp());
+        elt_ = sorted_.get(1);
+        itemName_ = pagination_.getResults().getVal(elt_);
+        assertEq(CHARGE, itemName_);
+        assertEq(CHARGE, elt_.getName());
+        assertEq(CHARGE, elt_.getKeyName());
+        assertEq(0, elt_.getPriority());
+        assertEq(TargetChoice.AUTRE_UNIQ, elt_.getTargetChoice());
+        assertEq(0, elt_.getMoveClass());
+        assertEq(2000, elt_.getPrice());
+        assertEq(30, elt_.getPp());
+        elt_ = sorted_.get(2);
+        itemName_ = pagination_.getResults().getVal(elt_);
+        assertEq(PISTOLET_A_O, itemName_);
+        assertEq(PISTOLET_A_O, elt_.getName());
+        assertEq(PISTOLET_A_O, elt_.getKeyName());
+        assertEq(0, elt_.getPriority());
+        assertEq(TargetChoice.AUTRE_UNIQ, elt_.getTargetChoice());
+        assertEq(0, elt_.getMoveClass());
+        assertEq(0, elt_.getPrice());
+        assertEq(20, elt_.getPp());
+        elt_ = sorted_.get(3);
+        itemName_ = pagination_.getResults().getVal(elt_);
+        assertEq(SEISME, itemName_);
+        assertEq(SEISME, elt_.getName());
+        assertEq(SEISME, elt_.getKeyName());
+        assertEq(0, elt_.getPriority());
+        assertEq(TargetChoice.PSEUDO_GLOBALE, elt_.getTargetChoice());
+        assertEq(0, elt_.getMoveClass());
+        assertEq(0, elt_.getPrice());
+        assertEq(10, elt_.getPp());
+        elt_ = sorted_.get(4);
+        itemName_ = pagination_.getResults().getVal(elt_);
+        assertEq(ROUE_DE_FEU, itemName_);
+        assertEq(ROUE_DE_FEU, elt_.getName());
+        assertEq(ROUE_DE_FEU, elt_.getKeyName());
+        assertEq(0, elt_.getPriority());
+        assertEq(TargetChoice.AUTRE_UNIQ, elt_.getTargetChoice());
+        assertEq(0, elt_.getMoveClass());
+        assertEq(0, elt_.getPrice());
+        assertEq(20, elt_.getPp());
+        elt_ = sorted_.get(5);
+        itemName_ = pagination_.getResults().getVal(elt_);
+        assertEq(FONCE, itemName_);
+        assertEq(FONCE, elt_.getName());
+        assertEq(FONCE, elt_.getKeyName());
+        assertEq(1, elt_.getPriority());
+        assertEq(TargetChoice.AUTRE_UNIQ, elt_.getTargetChoice());
+        assertEq(0, elt_.getMoveClass());
+        assertEq(0, elt_.getPrice());
+        assertEq(20, elt_.getPp());
+        elt_ = sorted_.get(6);
+        itemName_ = pagination_.getResults().getVal(elt_);
+        assertEq(JACKPOT, itemName_);
+        assertEq(JACKPOT, elt_.getName());
+        assertEq(JACKPOT, elt_.getKeyName());
+        assertEq(0, elt_.getPriority());
+        assertEq(TargetChoice.ADJ_UNIQ, elt_.getTargetChoice());
+        assertEq(0, elt_.getMoveClass());
+        assertEq(0, elt_.getPrice());
+        assertEq(20, elt_.getPp());
+        sorted_ = pagination_.getRendered();
+        assertEq(1, sorted_.size());
+        assertEq(ECLAIR, sorted_.get(0).getName());
+        assertEq(0, sorted_.get(0).getPrice());
+        assertEq(0, pagination_.getNumberPage());
+        assertEq(-1, pagination_.getLine());
+    }
+
+    /*@Test
+    public void search4Test() {
+        PaginationMove pagination_;
+        pagination_ = new PaginationMove();
+        pagination_.setNbResultsPerPage(1);
+        pagination_.setTranslation(data, LANGUAGE);
+        pagination_.getCriteria().setSelectedClass(StatusMoveData.class);
+        StringList moves_;
+        moves_ = new StringList();
+        moves_.add(ECLAIR);
+        moves_.add(CHARGE);
+        moves_.add(PISTOLET_A_O);
+        moves_.add(SEISME);
+        moves_.add(ROUE_DE_FEU);
+        moves_.add(RELAIS);
+        moves_.add(FONCE);
+        moves_.add(JACKPOT);
+        pagination_.search(moves_, data);
+    }*/
+
+    @Test
+    public void search5Test() {
+        PaginationMove pagination_;
+        pagination_ = new PaginationMove();
+        pagination_.setNbResultsPerPage(1);
+        pagination_.setTranslation(_data_, LANGUAGE);
+        pagination_.getCriteria().setTargetChoice(TargetChoice.PSEUDO_GLOBALE);
+        StringList moves_;
+        moves_ = new StringList();
+        moves_.add(ECLAIR);
+        moves_.add(CHARGE);
+        moves_.add(PISTOLET_A_O);
+        moves_.add(SEISME);
+        moves_.add(ROUE_DE_FEU);
+        moves_.add(RELAIS);
+        moves_.add(FONCE);
+        moves_.add(JACKPOT);
+        pagination_.search(moves_, _data_);
+        assertEq(1, pagination_.getResults().size());
+        String itemName_;
+        EqList<SortingMove> sorted_;
+        SortingMove elt_;
+        sorted_ = new EqList<SortingMove>(pagination_.getResults().getKeys());
+        elt_ = sorted_.get(0);
+        itemName_ = pagination_.getResults().getVal(elt_);
+        assertEq(SEISME, itemName_);
+        assertEq(SEISME, elt_.getName());
+        assertEq(SEISME, elt_.getKeyName());
+        assertEq(0, elt_.getPriority());
+        assertEq(TargetChoice.PSEUDO_GLOBALE, elt_.getTargetChoice());
+        assertEq(0, elt_.getMoveClass());
+        assertEq(0, elt_.getPrice());
+        assertEq(10, elt_.getPp());
+        sorted_ = pagination_.getRendered();
+        assertEq(1, sorted_.size());
+        assertEq(SEISME, sorted_.get(0).getName());
+        assertEq(0, sorted_.get(0).getPrice());
+        assertEq(0, pagination_.getNumberPage());
+        assertEq(-1, pagination_.getLine());
+    }
+
+    @Test
+    public void search6Test() {
+        PaginationMove pagination_;
+        pagination_ = new PaginationMove();
+        pagination_.setNbResultsPerPage(1);
+        pagination_.setTranslation(_data_, LANGUAGE);
+        pagination_.getCriteria().setMinPp(20);
+        StringList moves_;
+        moves_ = new StringList();
+        moves_.add(ECLAIR);
+        moves_.add(CHARGE);
+        moves_.add(PISTOLET_A_O);
+        moves_.add(SEISME);
+        moves_.add(ROUE_DE_FEU);
+        moves_.add(RELAIS);
+        moves_.add(FONCE);
+        moves_.add(JACKPOT);
+        pagination_.search(moves_, _data_);
+        assertEq(7, pagination_.getResults().size());
+        String itemName_;
+        EqList<SortingMove> sorted_;
+        SortingMove elt_;
+        sorted_ = new EqList<SortingMove>(pagination_.getResults().getKeys());
+        elt_ = sorted_.get(0);
+        itemName_ = pagination_.getResults().getVal(elt_);
+        assertEq(ECLAIR, itemName_);
+        assertEq(ECLAIR, elt_.getName());
+        assertEq(ECLAIR, elt_.getKeyName());
+        assertEq(0, elt_.getPriority());
+        assertEq(TargetChoice.AUTRE_UNIQ, elt_.getTargetChoice());
+        assertEq(0, elt_.getMoveClass());
+        assertEq(0, elt_.getPrice());
+        assertEq(50, elt_.getPp());
+        elt_ = sorted_.get(1);
+        itemName_ = pagination_.getResults().getVal(elt_);
+        assertEq(CHARGE, itemName_);
+        assertEq(CHARGE, elt_.getName());
+        assertEq(CHARGE, elt_.getKeyName());
+        assertEq(0, elt_.getPriority());
+        assertEq(TargetChoice.AUTRE_UNIQ, elt_.getTargetChoice());
+        assertEq(0, elt_.getMoveClass());
+        assertEq(2000, elt_.getPrice());
+        assertEq(30, elt_.getPp());
+        elt_ = sorted_.get(2);
+        itemName_ = pagination_.getResults().getVal(elt_);
+        assertEq(PISTOLET_A_O, itemName_);
+        assertEq(PISTOLET_A_O, elt_.getName());
+        assertEq(PISTOLET_A_O, elt_.getKeyName());
+        assertEq(0, elt_.getPriority());
+        assertEq(TargetChoice.AUTRE_UNIQ, elt_.getTargetChoice());
+        assertEq(0, elt_.getMoveClass());
+        assertEq(0, elt_.getPrice());
+        assertEq(20, elt_.getPp());
+        elt_ = sorted_.get(3);
+        itemName_ = pagination_.getResults().getVal(elt_);
+        assertEq(ROUE_DE_FEU, itemName_);
+        assertEq(ROUE_DE_FEU, elt_.getName());
+        assertEq(ROUE_DE_FEU, elt_.getKeyName());
+        assertEq(0, elt_.getPriority());
+        assertEq(TargetChoice.AUTRE_UNIQ, elt_.getTargetChoice());
+        assertEq(0, elt_.getMoveClass());
+        assertEq(0, elt_.getPrice());
+        assertEq(20, elt_.getPp());
+        elt_ = sorted_.get(4);
+        itemName_ = pagination_.getResults().getVal(elt_);
+        assertEq(RELAIS, itemName_);
+        assertEq(RELAIS, elt_.getName());
+        assertEq(RELAIS, elt_.getKeyName());
+        assertEq(0, elt_.getPriority());
+        assertEq(TargetChoice.LANCEUR, elt_.getTargetChoice());
+        assertEq(1, elt_.getMoveClass());
+        assertEq(0, elt_.getPrice());
+        assertEq(40, elt_.getPp());
+        elt_ = sorted_.get(5);
+        itemName_ = pagination_.getResults().getVal(elt_);
+        assertEq(FONCE, itemName_);
+        assertEq(FONCE, elt_.getName());
+        assertEq(FONCE, elt_.getKeyName());
+        assertEq(1, elt_.getPriority());
+        assertEq(TargetChoice.AUTRE_UNIQ, elt_.getTargetChoice());
+        assertEq(0, elt_.getMoveClass());
+        assertEq(0, elt_.getPrice());
+        assertEq(20, elt_.getPp());
+        elt_ = sorted_.get(6);
+        itemName_ = pagination_.getResults().getVal(elt_);
+        assertEq(JACKPOT, itemName_);
+        assertEq(JACKPOT, elt_.getName());
+        assertEq(JACKPOT, elt_.getKeyName());
+        assertEq(0, elt_.getPriority());
+        assertEq(TargetChoice.ADJ_UNIQ, elt_.getTargetChoice());
+        assertEq(0, elt_.getMoveClass());
+        assertEq(0, elt_.getPrice());
+        assertEq(20, elt_.getPp());
+        sorted_ = pagination_.getRendered();
+        assertEq(1, sorted_.size());
+        assertEq(ECLAIR, sorted_.get(0).getName());
+        assertEq(0, sorted_.get(0).getPrice());
+        assertEq(0, pagination_.getNumberPage());
+        assertEq(-1, pagination_.getLine());
+    }
+
+    @Test
+    public void search7Test() {
+        PaginationMove pagination_;
+        pagination_ = new PaginationMove();
+        pagination_.setNbResultsPerPage(1);
+        pagination_.setTranslation(_data_, LANGUAGE);
+        pagination_.getCriteria().setMaxPrice(1500);
+        StringList moves_;
+        moves_ = new StringList();
+        moves_.add(ECLAIR);
+        moves_.add(CHARGE);
+        moves_.add(PISTOLET_A_O);
+        moves_.add(SEISME);
+        moves_.add(ROUE_DE_FEU);
+        moves_.add(RELAIS);
+        moves_.add(FONCE);
+        moves_.add(JACKPOT);
+        pagination_.search(moves_, _data_);
+        assertEq(7, pagination_.getResults().size());
+        String itemName_;
+        EqList<SortingMove> sorted_;
+        SortingMove elt_;
+        sorted_ = new EqList<SortingMove>(pagination_.getResults().getKeys());
+        elt_ = sorted_.get(0);
+        itemName_ = pagination_.getResults().getVal(elt_);
+        assertEq(ECLAIR, itemName_);
+        assertEq(ECLAIR, elt_.getName());
+        assertEq(ECLAIR, elt_.getKeyName());
+        assertEq(0, elt_.getPriority());
+        assertEq(TargetChoice.AUTRE_UNIQ, elt_.getTargetChoice());
+        assertEq(0, elt_.getMoveClass());
+        assertEq(0, elt_.getPrice());
+        assertEq(50, elt_.getPp());
+        elt_ = sorted_.get(1);
+        itemName_ = pagination_.getResults().getVal(elt_);
+        assertEq(PISTOLET_A_O, itemName_);
+        assertEq(PISTOLET_A_O, elt_.getName());
+        assertEq(PISTOLET_A_O, elt_.getKeyName());
+        assertEq(0, elt_.getPriority());
+        assertEq(TargetChoice.AUTRE_UNIQ, elt_.getTargetChoice());
+        assertEq(0, elt_.getMoveClass());
+        assertEq(0, elt_.getPrice());
+        assertEq(20, elt_.getPp());
+        elt_ = sorted_.get(2);
+        itemName_ = pagination_.getResults().getVal(elt_);
+        assertEq(SEISME, itemName_);
+        assertEq(SEISME, elt_.getName());
+        assertEq(SEISME, elt_.getKeyName());
+        assertEq(0, elt_.getPriority());
+        assertEq(TargetChoice.PSEUDO_GLOBALE, elt_.getTargetChoice());
+        assertEq(0, elt_.getMoveClass());
+        assertEq(0, elt_.getPrice());
+        assertEq(10, elt_.getPp());
+        elt_ = sorted_.get(3);
+        itemName_ = pagination_.getResults().getVal(elt_);
+        assertEq(ROUE_DE_FEU, itemName_);
+        assertEq(ROUE_DE_FEU, elt_.getName());
+        assertEq(ROUE_DE_FEU, elt_.getKeyName());
+        assertEq(0, elt_.getPriority());
+        assertEq(TargetChoice.AUTRE_UNIQ, elt_.getTargetChoice());
+        assertEq(0, elt_.getMoveClass());
+        assertEq(0, elt_.getPrice());
+        assertEq(20, elt_.getPp());
+        elt_ = sorted_.get(4);
+        itemName_ = pagination_.getResults().getVal(elt_);
+        assertEq(RELAIS, itemName_);
+        assertEq(RELAIS, elt_.getName());
+        assertEq(RELAIS, elt_.getKeyName());
+        assertEq(0, elt_.getPriority());
+        assertEq(TargetChoice.LANCEUR, elt_.getTargetChoice());
+        assertEq(1, elt_.getMoveClass());
+        assertEq(0, elt_.getPrice());
+        assertEq(40, elt_.getPp());
+        elt_ = sorted_.get(5);
+        itemName_ = pagination_.getResults().getVal(elt_);
+        assertEq(FONCE, itemName_);
+        assertEq(FONCE, elt_.getName());
+        assertEq(FONCE, elt_.getKeyName());
+        assertEq(1, elt_.getPriority());
+        assertEq(TargetChoice.AUTRE_UNIQ, elt_.getTargetChoice());
+        assertEq(0, elt_.getMoveClass());
+        assertEq(0, elt_.getPrice());
+        assertEq(20, elt_.getPp());
+        elt_ = sorted_.get(6);
+        itemName_ = pagination_.getResults().getVal(elt_);
+        assertEq(JACKPOT, itemName_);
+        assertEq(JACKPOT, elt_.getName());
+        assertEq(JACKPOT, elt_.getKeyName());
+        assertEq(0, elt_.getPriority());
+        assertEq(TargetChoice.ADJ_UNIQ, elt_.getTargetChoice());
+        assertEq(0, elt_.getMoveClass());
+        assertEq(0, elt_.getPrice());
+        assertEq(20, elt_.getPp());
+        sorted_ = pagination_.getRendered();
+        assertEq(1, sorted_.size());
+        assertEq(ECLAIR, sorted_.get(0).getName());
+        assertEq(0, sorted_.get(0).getPrice());
+        assertEq(0, pagination_.getNumberPage());
+        assertEq(-1, pagination_.getLine());
+    }
+
+    @Test
+    public void search8Test() {
+        PaginationMove pagination_;
+        pagination_ = new PaginationMove();
+        pagination_.setNbResultsPerPage(1);
+        pagination_.setTranslation(_data_, LANGUAGE);
+        pagination_.getCriteria().setMaxPrio(0);
+        StringList moves_;
+        moves_ = new StringList();
+        moves_.add(ECLAIR);
+        moves_.add(CHARGE);
+        moves_.add(PISTOLET_A_O);
+        moves_.add(SEISME);
+        moves_.add(ROUE_DE_FEU);
+        moves_.add(RELAIS);
+        moves_.add(FONCE);
+        moves_.add(JACKPOT);
+        pagination_.search(moves_, _data_);
+        assertEq(7, pagination_.getResults().size());
+        String itemName_;
+        EqList<SortingMove> sorted_;
+        SortingMove elt_;
+        sorted_ = new EqList<SortingMove>(pagination_.getResults().getKeys());
+        elt_ = sorted_.get(0);
+        itemName_ = pagination_.getResults().getVal(elt_);
+        assertEq(ECLAIR, itemName_);
+        assertEq(ECLAIR, elt_.getName());
+        assertEq(ECLAIR, elt_.getKeyName());
+        assertEq(0, elt_.getPriority());
+        assertEq(TargetChoice.AUTRE_UNIQ, elt_.getTargetChoice());
+        assertEq(0, elt_.getMoveClass());
+        assertEq(0, elt_.getPrice());
+        assertEq(50, elt_.getPp());
+        elt_ = sorted_.get(1);
+        itemName_ = pagination_.getResults().getVal(elt_);
+        assertEq(CHARGE, itemName_);
+        assertEq(CHARGE, elt_.getName());
+        assertEq(CHARGE, elt_.getKeyName());
+        assertEq(0, elt_.getPriority());
+        assertEq(TargetChoice.AUTRE_UNIQ, elt_.getTargetChoice());
+        assertEq(0, elt_.getMoveClass());
+        assertEq(2000, elt_.getPrice());
+        assertEq(30, elt_.getPp());
+        elt_ = sorted_.get(2);
+        itemName_ = pagination_.getResults().getVal(elt_);
+        assertEq(PISTOLET_A_O, itemName_);
+        assertEq(PISTOLET_A_O, elt_.getName());
+        assertEq(PISTOLET_A_O, elt_.getKeyName());
+        assertEq(0, elt_.getPriority());
+        assertEq(TargetChoice.AUTRE_UNIQ, elt_.getTargetChoice());
+        assertEq(0, elt_.getMoveClass());
+        assertEq(0, elt_.getPrice());
+        assertEq(20, elt_.getPp());
+        elt_ = sorted_.get(3);
+        itemName_ = pagination_.getResults().getVal(elt_);
+        assertEq(SEISME, itemName_);
+        assertEq(SEISME, elt_.getName());
+        assertEq(SEISME, elt_.getKeyName());
+        assertEq(0, elt_.getPriority());
+        assertEq(TargetChoice.PSEUDO_GLOBALE, elt_.getTargetChoice());
+        assertEq(0, elt_.getMoveClass());
+        assertEq(0, elt_.getPrice());
+        assertEq(10, elt_.getPp());
+        elt_ = sorted_.get(4);
+        itemName_ = pagination_.getResults().getVal(elt_);
+        assertEq(ROUE_DE_FEU, itemName_);
+        assertEq(ROUE_DE_FEU, elt_.getName());
+        assertEq(ROUE_DE_FEU, elt_.getKeyName());
+        assertEq(0, elt_.getPriority());
+        assertEq(TargetChoice.AUTRE_UNIQ, elt_.getTargetChoice());
+        assertEq(0, elt_.getMoveClass());
+        assertEq(0, elt_.getPrice());
+        assertEq(20, elt_.getPp());
+        elt_ = sorted_.get(5);
+        itemName_ = pagination_.getResults().getVal(elt_);
+        assertEq(RELAIS, itemName_);
+        assertEq(RELAIS, elt_.getName());
+        assertEq(RELAIS, elt_.getKeyName());
+        assertEq(0, elt_.getPriority());
+        assertEq(TargetChoice.LANCEUR, elt_.getTargetChoice());
+        assertEq(1, elt_.getMoveClass());
+        assertEq(0, elt_.getPrice());
+        assertEq(40, elt_.getPp());
+        elt_ = sorted_.get(6);
+        itemName_ = pagination_.getResults().getVal(elt_);
+        assertEq(JACKPOT, itemName_);
+        assertEq(JACKPOT, elt_.getName());
+        assertEq(JACKPOT, elt_.getKeyName());
+        assertEq(0, elt_.getPriority());
+        assertEq(TargetChoice.ADJ_UNIQ, elt_.getTargetChoice());
+        assertEq(0, elt_.getMoveClass());
+        assertEq(0, elt_.getPrice());
+        assertEq(20, elt_.getPp());
+        sorted_ = pagination_.getRendered();
+        assertEq(1, sorted_.size());
+        assertEq(ECLAIR, sorted_.get(0).getName());
+        assertEq(0, sorted_.get(0).getPrice());
+        assertEq(0, pagination_.getNumberPage());
+        assertEq(-1, pagination_.getLine());
+    }
+
+    @Test
+    public void search9Test() {
+        PaginationMove pagination_;
+        pagination_ = new PaginationMove();
+        pagination_.setNbResultsPerPage(1);
+        pagination_.setTranslation(_data_, LANGUAGE);
+        pagination_.getCriteria().setContentOfType("NOR*");
+        pagination_.getCriteria().setSearchModeType(SearchingMode.META_CHARACTER);
+        StringList moves_;
+        moves_ = new StringList();
+        moves_.add(ECLAIR);
+        moves_.add(CHARGE);
+        moves_.add(PISTOLET_A_O);
+        moves_.add(SEISME);
+        moves_.add(ROUE_DE_FEU);
+        moves_.add(RELAIS);
+        moves_.add(FONCE);
+        moves_.add(JACKPOT);
+        pagination_.search(moves_, _data_);
+        assertEq(3, pagination_.getResults().size());
+        String itemName_;
+        EqList<SortingMove> sorted_;
+        SortingMove elt_;
+        sorted_ = new EqList<SortingMove>(pagination_.getResults().getKeys());
+        elt_ = sorted_.get(0);
+        itemName_ = pagination_.getResults().getVal(elt_);
+        assertEq(CHARGE, itemName_);
+        assertEq(CHARGE, elt_.getName());
+        assertEq(CHARGE, elt_.getKeyName());
+        assertEq(0, elt_.getPriority());
+        assertEq(TargetChoice.AUTRE_UNIQ, elt_.getTargetChoice());
+        assertEq(0, elt_.getMoveClass());
+        assertEq(2000, elt_.getPrice());
+        assertEq(30, elt_.getPp());
+        elt_ = sorted_.get(1);
+        itemName_ = pagination_.getResults().getVal(elt_);
+        assertEq(RELAIS, itemName_);
+        assertEq(RELAIS, elt_.getName());
+        assertEq(RELAIS, elt_.getKeyName());
+        assertEq(0, elt_.getPriority());
+        assertEq(TargetChoice.LANCEUR, elt_.getTargetChoice());
+        assertEq(1, elt_.getMoveClass());
+        assertEq(0, elt_.getPrice());
+        assertEq(40, elt_.getPp());
+        elt_ = sorted_.get(2);
+        itemName_ = pagination_.getResults().getVal(elt_);
+        assertEq(JACKPOT, itemName_);
+        assertEq(JACKPOT, elt_.getName());
+        assertEq(JACKPOT, elt_.getKeyName());
+        assertEq(0, elt_.getPriority());
+        assertEq(TargetChoice.ADJ_UNIQ, elt_.getTargetChoice());
+        assertEq(0, elt_.getMoveClass());
+        assertEq(0, elt_.getPrice());
+        assertEq(20, elt_.getPp());
+        sorted_ = pagination_.getRendered();
+        assertEq(1, sorted_.size());
+        assertEq(CHARGE, sorted_.get(0).getName());
+        assertEq(2000, sorted_.get(0).getPrice());
+        assertEq(0, pagination_.getNumberPage());
+        assertEq(-1, pagination_.getLine());
+    }
+
+    @Test
+    public void search10Test() {
+        PaginationMove pagination_;
+        pagination_ = new PaginationMove();
+        pagination_.setNbResultsPerPage(1);
+        pagination_.setTranslation(_data_, LANGUAGE);
+        pagination_.getCriteria().setContentOfName("J*");
+        pagination_.getCriteria().setSearchModeName(SearchingMode.META_CHARACTER);
+        StringList moves_;
+        moves_ = new StringList();
+        moves_.add(ECLAIR);
+        moves_.add(CHARGE);
+        moves_.add(PISTOLET_A_O);
+        moves_.add(SEISME);
+        moves_.add(ROUE_DE_FEU);
+        moves_.add(RELAIS);
+        moves_.add(FONCE);
+        moves_.add(JACKPOT);
+        pagination_.search(moves_, _data_);
+        assertEq(1, pagination_.getResults().size());
+        String itemName_;
+        EqList<SortingMove> sorted_;
+        SortingMove elt_;
+        sorted_ = new EqList<SortingMove>(pagination_.getResults().getKeys());
+        elt_ = sorted_.get(0);
+        itemName_ = pagination_.getResults().getVal(elt_);
+        assertEq(JACKPOT, itemName_);
+        assertEq(JACKPOT, elt_.getName());
+        assertEq(JACKPOT, elt_.getKeyName());
+        assertEq(0, elt_.getPriority());
+        assertEq(TargetChoice.ADJ_UNIQ, elt_.getTargetChoice());
+        assertEq(0, elt_.getMoveClass());
+        assertEq(0, elt_.getPrice());
+        assertEq(20, elt_.getPp());
+        sorted_ = pagination_.getRendered();
+        assertEq(1, sorted_.size());
+        assertEq(JACKPOT, sorted_.get(0).getName());
+        assertEq(0, sorted_.get(0).getPrice());
+        assertEq(0, pagination_.getNumberPage());
+        assertEq(-1, pagination_.getLine());
+    }
+
+    @Test
+    public void search11Test() {
+        PaginationMove pagination_;
+        pagination_ = new PaginationMove();
+        pagination_.setNbResultsPerPage(1);
+        pagination_.setTranslation(_data_, LANGUAGE);
+        pagination_.getCriteria().setContentOfName("Z*");
+        pagination_.getCriteria().setSearchModeName(SearchingMode.META_CHARACTER);
+        StringList moves_;
+        moves_ = new StringList();
+        moves_.add(ECLAIR);
+        moves_.add(CHARGE);
+        moves_.add(PISTOLET_A_O);
+        moves_.add(SEISME);
+        moves_.add(ROUE_DE_FEU);
+        moves_.add(RELAIS);
+        moves_.add(FONCE);
+        moves_.add(JACKPOT);
+        pagination_.search(moves_, _data_);
+        assertEq(0, pagination_.getResults().size());
+        EqList<SortingMove> sorted_;
+        sorted_ = pagination_.getRendered();
+        assertEq(0, sorted_.size());
+        assertEq(-1, pagination_.getNumberPage());
+        assertEq(-1, pagination_.getLine());
+    }
+
+    @Test
+    public void search12Test() {
+        PaginationMove pagination_;
+        pagination_ = new PaginationMove();
+        pagination_.setNbResultsPerPage(1);
+        pagination_.setTranslation(_data_, LANGUAGE);
+        pagination_.getCmpName().setPriority(1);
+        pagination_.getCmpTargetChoice().setPriority(1);
+        StringList moves_;
+        moves_ = new StringList();
+        moves_.add(ECLAIR);
+        moves_.add(CHARGE);
+        moves_.add(PISTOLET_A_O);
+        moves_.add(SEISME);
+        moves_.add(ROUE_DE_FEU);
+        moves_.add(RELAIS);
+        moves_.add(FONCE);
+        moves_.add(JACKPOT);
+        pagination_.search(moves_, _data_);
+        assertEq(8, pagination_.getResults().size());
+        String itemName_;
+        EqList<SortingMove> sorted_;
+        SortingMove elt_;
+        sorted_ = new EqList<SortingMove>(pagination_.getResults().getKeys());
+        elt_ = sorted_.get(0);
+        itemName_ = pagination_.getResults().getVal(elt_);
+        assertEq(ECLAIR, itemName_);
+        assertEq(ECLAIR, elt_.getName());
+        assertEq(ECLAIR, elt_.getKeyName());
+        assertEq(0, elt_.getPriority());
+        assertEq(TargetChoice.AUTRE_UNIQ, elt_.getTargetChoice());
+        assertEq(0, elt_.getMoveClass());
+        assertEq(0, elt_.getPrice());
+        assertEq(50, elt_.getPp());
+        elt_ = sorted_.get(1);
+        itemName_ = pagination_.getResults().getVal(elt_);
+        assertEq(CHARGE, itemName_);
+        assertEq(CHARGE, elt_.getName());
+        assertEq(CHARGE, elt_.getKeyName());
+        assertEq(0, elt_.getPriority());
+        assertEq(TargetChoice.AUTRE_UNIQ, elt_.getTargetChoice());
+        assertEq(0, elt_.getMoveClass());
+        assertEq(2000, elt_.getPrice());
+        assertEq(30, elt_.getPp());
+        elt_ = sorted_.get(2);
+        itemName_ = pagination_.getResults().getVal(elt_);
+        assertEq(PISTOLET_A_O, itemName_);
+        assertEq(PISTOLET_A_O, elt_.getName());
+        assertEq(PISTOLET_A_O, elt_.getKeyName());
+        assertEq(0, elt_.getPriority());
+        assertEq(TargetChoice.AUTRE_UNIQ, elt_.getTargetChoice());
+        assertEq(0, elt_.getMoveClass());
+        assertEq(0, elt_.getPrice());
+        assertEq(20, elt_.getPp());
+        elt_ = sorted_.get(3);
+        itemName_ = pagination_.getResults().getVal(elt_);
+        assertEq(SEISME, itemName_);
+        assertEq(SEISME, elt_.getName());
+        assertEq(SEISME, elt_.getKeyName());
+        assertEq(0, elt_.getPriority());
+        assertEq(TargetChoice.PSEUDO_GLOBALE, elt_.getTargetChoice());
+        assertEq(0, elt_.getMoveClass());
+        assertEq(0, elt_.getPrice());
+        assertEq(10, elt_.getPp());
+        elt_ = sorted_.get(4);
+        itemName_ = pagination_.getResults().getVal(elt_);
+        assertEq(ROUE_DE_FEU, itemName_);
+        assertEq(ROUE_DE_FEU, elt_.getName());
+        assertEq(ROUE_DE_FEU, elt_.getKeyName());
+        assertEq(0, elt_.getPriority());
+        assertEq(TargetChoice.AUTRE_UNIQ, elt_.getTargetChoice());
+        assertEq(0, elt_.getMoveClass());
+        assertEq(0, elt_.getPrice());
+        assertEq(20, elt_.getPp());
+        elt_ = sorted_.get(5);
+        itemName_ = pagination_.getResults().getVal(elt_);
+        assertEq(RELAIS, itemName_);
+        assertEq(RELAIS, elt_.getName());
+        assertEq(RELAIS, elt_.getKeyName());
+        assertEq(0, elt_.getPriority());
+        assertEq(TargetChoice.LANCEUR, elt_.getTargetChoice());
+        assertEq(1, elt_.getMoveClass());
+        assertEq(0, elt_.getPrice());
+        assertEq(40, elt_.getPp());
+        elt_ = sorted_.get(6);
+        itemName_ = pagination_.getResults().getVal(elt_);
+        assertEq(FONCE, itemName_);
+        assertEq(FONCE, elt_.getName());
+        assertEq(FONCE, elt_.getKeyName());
+        assertEq(1, elt_.getPriority());
+        assertEq(TargetChoice.AUTRE_UNIQ, elt_.getTargetChoice());
+        assertEq(0, elt_.getMoveClass());
+        assertEq(0, elt_.getPrice());
+        assertEq(20, elt_.getPp());
+        elt_ = sorted_.get(7);
+        itemName_ = pagination_.getResults().getVal(elt_);
+        assertEq(JACKPOT, itemName_);
+        assertEq(JACKPOT, elt_.getName());
+        assertEq(JACKPOT, elt_.getKeyName());
+        assertEq(0, elt_.getPriority());
+        assertEq(TargetChoice.ADJ_UNIQ, elt_.getTargetChoice());
+        assertEq(0, elt_.getMoveClass());
+        assertEq(0, elt_.getPrice());
+        assertEq(20, elt_.getPp());
+        sorted_ = pagination_.getRendered();
+        assertEq(1, sorted_.size());
+        assertEq(ECLAIR, sorted_.get(0).getName());
+        assertEq(0, sorted_.get(0).getPrice());
+        assertEq(0, pagination_.getNumberPage());
+        assertEq(-1, pagination_.getLine());
+    }
+}

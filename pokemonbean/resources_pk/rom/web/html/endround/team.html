@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><html xmlns:c="javahtml" c:bean="end_team">
+	<head>
+		<link href="web/css/abilities.css" rel="stylesheet" type="text/css"/>
+	</head>
+	<body>
+		<c:import page="{endRoundHtml}">
+			<c:package name="aiki.beans.endround">
+				<c:class name="EffectEndRoundBean">
+					<c:field name="index" value="index"/>
+				</c:class>
+			</c:package>
+		</c:import>
+		<p>
+			<c:if condition="!deleteAllStatus.isZero()">
+				<c:message value="msg_team,effect"/>
+				<c:message value="msg_team,owner">
+					<param value="deleteAllStatus"/>
+				</c:message>
+			</c:if>
+			<c:message value="msg_team,team">
+				<param value="deleteAllStatusAlly"/>
+			</c:message>
+		</p>
+	</body>
+</html>

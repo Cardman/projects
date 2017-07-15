@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><html xmlns:c="javahtml" c:bean="eff_copymove">
+	<head>
+		<link href="web/css/moves.css" rel="stylesheet" type="text/css"/>
+	</head>
+	<body>
+		<p>
+			<c:message value="msg_effcopymove,effect"/>
+			<c:message value="msg_effcopymove,no_effect">
+				<param value="getTrDefaultMove()"/>
+			</c:message>
+			<c:import page="{effectBean}">
+				<c:package name="aiki.beans.moves.effects">
+					<c:class name="EffectBean">
+						<c:field name="index" value="index"/>
+						<c:field name="move" value="move"/>
+					</c:class>
+				</c:package>
+			</c:import>
+			<c:if condition="copyMoveForUser()">
+				<c:message value="msg_effcopymove,copy_tmp_move">
+					<param value="displayName"/>
+					<param value="copyingMoveForUser"/>
+				</c:message>
+			</c:if>
+			<c:if condition="copyingMoveForUserDef">
+				<c:message value="msg_effcopymove,no_effect_2">
+					<param value="getTrDefaultMove()"/>
+				</c:message>
+				<c:if condition="!movesTransforming.isEmpty()">
+					<c:message value="msg_effcopymove,copy_def_move">
+						<param value="displayName"/>
+					</c:message>
+					<ul>
+						<c:for list="movesTransforming" var="m">
+							<li><a c:command="$clickMoveTrans({m;;})" href="">{getTrMoveTrans(m;;)}</a></li>
+						</c:for>
+					</ul>
+				</c:if>
+				<c:if condition="movesTransforming.isEmpty()">
+					<c:message value="msg_effcopymove,copy_def_move_without_trans">
+						<param value="displayName"/>
+					</c:message>
+				</c:if>
+				<br/>
+			</c:if>
+			<c:if condition="!movesNotToBeCopied.isEmpty()">
+				<c:message value="msg_effcopymove,moves_not_copied"/>
+				<ul>
+					<c:for list="movesNotToBeCopied" var="s">
+						<li><a c:command="$clickMove({s;;})" href="">{getTrMove(s;;)}</a></li>
+					</c:for>
+				</ul>
+				<br/>
+			</c:if>
+		</p>
+	</body>
+</html>

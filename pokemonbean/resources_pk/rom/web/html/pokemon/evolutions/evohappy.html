@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><html xmlns:c="javahtml" c:bean="evo_happy">
+	<head>
+		<link href="web/css/pokedex.css" rel="stylesheet" type="text/css"/>
+	</head>
+	<body>
+		<tr>
+			<td>
+				<a c:command="$clickEvo({index})" href="">{displayName}</a>
+			</td>
+			<td>
+				<c:message value="msg_evohappiness,happy">
+					<param value="displayBase"/>
+					<param value="min"/>
+				</c:message>
+			</td>
+		</tr>
+		<!--<c:message value="msg_evohappiness,base">
+			<param value="displayBase" />
+			<param>
+				<a href="" c:command="$clickEvo">{displayName}</a>
+			</param>
+		</c:message>
+		<c:message value="msg_evohappiness,happy">
+			<param value="displayBase" />
+			<param value="base" />
+		</c:message>-->
+	</body>
+</html>

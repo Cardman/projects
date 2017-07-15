@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><html xmlns:c="javahtml" c:bean="editpokemon">
+	<head>
+		<title><c:message value="msg_levelsimu,title_edit_pokemon_pl"/></title>
+		<link href="web/css/simulation.css" rel="stylesheet" type="text/css"/>
+	</head>
+	<body>
+		<a c:command="$cancel" href=""><c:message value="msg_levelsimu,cancel"/></a>
+		<c:message value="msg_simulation,name_pk"/> {translateName()}<br/>
+		<c:message value="msg_simulation,level_pk"/> {level}<br/>
+		<c:message value="msg_simulation,item_pk"/>: {translateItem()}<br/>
+		<form action="" c:command="$chooseItem" method="post" name="item">
+			<c:submit message="msg_simulation,item_pk"/>
+		</form>
+		<c:if condition="!namePk.isEmpty()">
+			<br/>
+			<form action="" c:command="$addMoves" method="post" name="adding_moves">
+				<c:submit message="msg_simulation,add"/>
+			</form>
+			<form action="" c:command="$deleteMoves" method="post" name="delete_moves">
+				<table>
+					<caption><c:message value="msg_moves,moves"/></caption>
+					<thead>
+						<tr>
+							<th><c:message value="msg_moves,name_h"/></th>
+							<th><c:message value="msg_moves,pp_h"/></th>
+							<th><c:message value="msg_moves,types_h"/></th>
+							<th><c:message value="msg_moves,cat_h"/></th>
+							<th><c:message value="msg_moves,damag_h"/></th>
+							<th><c:message value="msg_moves,direc_h"/></th>
+							<th><c:message value="msg_moves,prio_h"/></th>
+							<th><c:message value="msg_simulation,selected"/></th>
+						</tr>
+					</thead>
+					<tbody>
+						<c:for className="aiki.beans.facade.simulation.dto.SelectLineMove" list="moves" var="d">
+							<tr>
+								<td>{d;displayName}</td>
+								<td>{d;pp}</td>
+								<td>
+									<c:for list="d;getTypes()" var="t">
+										{t;} -
+									</c:for>
+								</td>
+								<td>{d;category}</td>
+								<td>
+									<c:if condition="d;isDamageMove()">
+										<c:message value="msg_moves,damaging"/>
+									</c:if>
+									<c:if condition="!d;isDamageMove()">
+										<c:message value="msg_moves,status"/>
+									</c:if>
+								</td>
+								<td>
+									<c:if condition="!d;isDamageMove()">
+										<c:message value="msg_moves,status_indirect"/>
+									</c:if>
+									<c:if condition="d;isDamageMove()">
+										<c:if condition="d;isDirect()">
+											<c:message value="msg_moves,damaging_direct"/>
+										</c:if>
+										<c:if condition="!d;isDirect()">
+											<c:message value="msg_moves,damaging_indirect"/>
+										</c:if>
+									</c:if>
+								</td>
+								<td>{d;priority}</td>
+								<td>
+									<input c:varValue="d;selected" name="d;selected" type="checkbox"/>
+								</td>
+							</tr>
+						</c:for>
+					</tbody>
+				</table>
+				<c:submit message="msg_simulation,remove"/>
+			</form>
+			<form action="" c:command="$edit" method="post" name="adding">
+				<c:message value="msg_simulation,exp_pk"/>
+				<input c:validator="positive_rate_validator" c:varValue="experience" id="experienceId" name="experience" type="text"/><span c:for="experienceId" class="errormessage" valueMessage="msg_simulation,rate_issue"> </span><br/>
+				<c:message value="msg_simulation,catching_ball"/>
+				<c:select className="java.lang.String" default="" map="balls" name="ball" update="" varValue="ball"/><br/>
+				<c:message value="msg_simulation,happiness_pk"/>
+				<input c:validator="short_validator" c:varValue="happiness" id="happinessId" name="happiness" type="text"/><span c:for="happinessId" class="errormessage" valueMessage="msg_simulation,short_issue"> </span><br/>
+				<c:message value="msg_simulation,remaining_hp"/>
+				<input c:validator="positive_rate_validator" c:varValue="remainingHp" id="remainingHpId" name="remainingHp" type="text"/><span c:for="remainingHpId" class="errormessage" valueMessage="msg_simulation,rate_issue"> </span><br/>
+				<c:message value="msg_simulation,heal_hp"/>
+				<input c:varValue="heal" name="heal" type="checkbox"/>
+				<br/>
+				<c:message value="msg_simulation,ev"/>
+				<br/>
+				<c:for key="s" map="ev" value="e" varClassName="aiki.beans.facade.simulation.dto.EvLine">
+					{getTranslatedStatistic(s;;)}: <input c:validator="short_validator" c:varValue="e;ev" id="id`s;;`" name="e;ev" type="text"/><span c:for="id`s;;`" class="errormessage" valueMessage="msg_simulation,short_issue"> </span><br/>
+				</c:for>
+				<br/>
+				<input type="submit" value="OK"/>
+			</form>
+		</c:if>
+	</body>
+</html>

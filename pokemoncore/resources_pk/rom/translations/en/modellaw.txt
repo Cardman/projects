@@ -1,0 +1,5 @@
+DECROISSANT	lowing
+CROISSANT	growing
+CONSTANT_MAX	max value
+UNIFORME	uniform
+CONSTANT_MIN	min value

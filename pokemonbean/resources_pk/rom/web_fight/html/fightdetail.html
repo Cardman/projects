@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><html xmlns:c="javahtml" c:bean="fight_detail">
+	<head>
+		<title><c:message value="msg_fight,title_detail_fight"/></title>
+		<link href="web_fight/css/fight.css" rel="stylesheet" type="text/css"/>
+	</head>
+	<body>
+		<a c:command="web_fight/html/fight.html"><c:message value="msg_team,fight"/></a><br/>
+		<a c:command="web_fight/html/fightdetail.html"><c:message value="msg_fight,refresh"/></a><br/>
+		<c:if condition="!sortedFighters.isEmpty()">
+			<c:message value="msg_fight,sorted_fighters_fct_choices"/>
+			<ul>
+				<c:for list="sortedFighters" var="f">
+					<li>{getFighter(f;;)}</li>
+				</c:for>
+			</ul>
+		</c:if>
+		<c:if condition="!sortedFightersWildFight.isEmpty()">
+			<c:message value="msg_fight,sorted_fighters_fct_choices_wild"/>
+			<c:for key="m" map="sortedFightersWildFight" value="f" varClassName="ls">
+				{m;}<br/>
+				<ul>
+					<c:for list="f;" var="p">
+						<li>{getFighter(m;;,p;;)}</li>
+					</c:for>
+				</ul>
+			</c:for>
+		</c:if>
+		<c:message value="msg_fight,damage_fct_choices"/>
+		<table>
+			<thead>
+				<tr>
+					<th><c:message value="msg_fight,damage_fct_choices_key_one"/></th>
+					<th><c:message value="msg_fight,damage_fct_choices_key_two"/></th>
+					<th><c:message value="msg_fight,damage_fct_choices_key_three"/></th>
+					<th><c:message value="msg_fight,damage_fct_choices_damage"/></th>
+				</tr>
+			</thead>
+			<tbody>
+				<c:for className="aiki.beans.facade.fight.KeyHypothesis" list="damage" var="d">
+					<tr>
+						<td>{d;getPlayerPokemon()}</td>
+						<td>{d;getMove()}</td>
+						<td>
+							{d;getTargetPokemon()}
+							<c:if condition="d;isBelongsToUser()">
+								<c:message value="msg_fight,damage_fct_choices_player"/>
+							</c:if>
+							<c:if condition="!d;isBelongsToUser()">
+								<c:message value="msg_fight,damage_fct_choices_foe"/>
+							</c:if>
+							 {d;getNumberTarget()}
+						</td>
+						<td>{d;getDamage()}</td>
+					</tr>
+				</c:for>
+			</tbody>
+		</table>
+		<c:if condition="!allyChoice.isEmpty()">
+			<c:message value="msg_fight,ally_choices"/>
+			<table>
+				<thead>
+					<tr>
+						<th><c:message value="msg_fight,ally_choices_key"/></th>
+						<th><c:message value="msg_fight,ally_choices_key_team"/></th>
+						<th><c:message value="msg_fight,ally_choices_key_place"/></th>
+						<th><c:message value="msg_fight,ally_choices_key_name"/></th>
+						<th><c:message value="msg_fight,ally_choices_value"/></th>
+						<th><c:message value="msg_fight,ally_choices_value_team"/></th>
+						<th><c:message value="msg_fight,ally_choices_value_place"/></th>
+						<th><c:message value="msg_fight,ally_choices_value_name"/></th>
+					</tr>
+				</thead>
+				<tbody>
+					<c:for key="m" keyClassName="aiki.game.fight.util.MoveTarget" map="allyChoice" value="a" varClassName="aiki.game.fight.util.MoveTarget">
+						<tr>
+							<td>{m;getMove()}</td>
+							<c:if condition="isFoeTargetChoiceTeam(m;;)">
+								<td><c:message value="msg_fight,ally_choices_foe"/></td>
+							</c:if>
+							<c:if condition="!isFoeTargetChoiceTeam(m;;)">
+								<td><c:message value="msg_fight,ally_choices_player"/></td>
+							</c:if>
+							<c:if condition="!isBackTargetChoiceTeam(m;;)">
+								<td>{m;getTarget().getPosition()}</td>
+								<td>{getTargetNameAllyChoiceCondition(m;;)}</td>
+							</c:if>
+							<c:if condition="isBackTargetChoiceTeam(m;;)">
+								<td><c:message value="msg_fight,ally_choices_no"/></td>
+								<td><c:message value="msg_fight,ally_choices_no"/></td>
+							</c:if>
+							<td>{a;getMove()}</td>
+							<c:if condition="isFoeTargetTeam(m;;)">
+								<td><c:message value="msg_fight,ally_choices_foe"/></td>
+							</c:if>
+							<c:if condition="!isFoeTargetTeam(m;;)">
+								<td><c:message value="msg_fight,ally_choices_player"/></td>
+							</c:if>
+							<c:if condition="!isBackTargetTeam(m;;)">
+								<td>{a;getTarget().getPosition()}</td>
+								<td>{getTargetNameAllyChoice(m;;)}</td>
+							</c:if>
+							<c:if condition="isBackTargetTeam(m;;)">
+								<td><c:message value="msg_fight,ally_choices_no"/></td>
+								<td><c:message value="msg_fight,ally_choices_no"/></td>
+							</c:if>
+						</tr>
+					</c:for>
+				</tbody>
+			</table>
+		</c:if>
+		<c:if condition="!foeChoices.isEmpty()">
+			<c:message value="msg_fight,foe_choices"/>
+			<table>
+				<thead>
+					<tr>
+						<th><c:message value="msg_fight,foe_choices_key"/></th>
+						<th><c:message value="msg_fight,foe_choices_key_name"/></th>
+						<th><c:message value="msg_fight,foe_choices_value"/></th>
+						<th><c:message value="msg_fight,foe_choices_value_team"/></th>
+						<th><c:message value="msg_fight,foe_choices_value_place"/></th>
+						<th><c:message value="msg_fight,foe_choices_value_name"/></th>
+					</tr>
+				</thead>
+				<tbody>
+					<c:for key="p" map="foeChoices" value="a" varClassName="aiki.game.fight.util.MoveTarget">
+						<tr>
+							<td>{p;}</td>
+							<td>{getFoeFighterName(p;;)}</td>
+							<td>{a;getMove()}</td>
+							<c:if condition="isChosenTarget(p;;)">
+								<c:if condition="isFoeTargetChTeam(p;;)">
+									<td><c:message value="msg_fight,foe_choices_foe"/></td>
+								</c:if>
+								<c:if condition="!isFoeTargetChTeam(p;;)">
+									<td><c:message value="msg_fight,foe_choices_player"/></td>
+								</c:if>
+								<td>{a;getTarget().getPosition()}</td>
+								<td>{getTargetNameFoeChoice(p;;)}</td>
+							</c:if>
+							<c:if condition="!isChosenTarget(p;;)">
+								<td><c:message value="msg_fight,foe_choices_no"/></td>
+								<td><c:message value="msg_fight,foe_choices_no"/></td>
+								<td><c:message value="msg_fight,foe_choices_no"/></td>
+							</c:if>
+						</tr>
+					</c:for>
+				</tbody>
+			</table>
+		</c:if>
+	</body>
+</html>

@@ -1,0 +1,33 @@
+div	Division
+puis	Power
+quot	Rate of the integer division
+mod	Remaining number of the integer division
+modtaux	Remaining number of the division
+abs	Absolute value
+ent	Integer part
+taux	Rational number
+troncature	Troncating
+num	Numerator
+den	Divider
+min	Minimum
+max	Maximum
+moy	Average
+var	Variance
+caracferme	Characteristic of the closed
+caracouvert	Characteristic of the opened
+caracsemiouvertg	Characteristic of the left half opened interval
+caracsemiouvertd	Characteristic of the right half opened interval
+caracgaucheouvert	Characteristic of the left opened interval
+caracdroiteouvert	Characteristic of the right opened interval
+caracgaucheferme	Characteristic of the closed left interval
+caracdroiteferme	Characteristic of the closed right interval
+sgn	Signum
+cardinal	Elements count
+inter	Intersect
+union	Union
+complementaire	Complement of
+inclusnum	Numeric include
+noninclusnum	Non numeric include
+egalnum	Numeric equality
+differentnum	Numeric difference
+vide	Empty set

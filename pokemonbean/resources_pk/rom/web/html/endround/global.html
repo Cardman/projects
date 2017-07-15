@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><html xmlns:c="javahtml" c:bean="end_global">
+	<head>
+		<link href="web/css/abilities.css" rel="stylesheet" type="text/css"/>
+	</head>
+	<body>
+		<c:import page="{endRoundHtml}">
+			<c:package name="aiki.beans.endround">
+				<c:class name="EffectEndRoundBean">
+					<c:field name="index" value="index"/>
+				</c:class>
+			</c:package>
+		</c:import>
+		<p>
+			<c:if condition="!damageEndRound.isZero()">
+				<c:message value="msg_effglobal,damage_end_round">
+					<param value="damageEndRound"/>
+				</c:message>
+			</c:if>
+			<c:if condition="!healingEndRoundGround.isZero()">
+				<c:message value="msg_effglobal,healing_end_round_ground">
+					<param value="healingEndRoundGround"/>
+				</c:message>
+			</c:if>
+			<c:if condition="!healingEndRound.isZero()">
+				<c:message value="msg_effglobal,healing_end_round">
+					<param value="healingEndRound"/>
+				</c:message>
+			</c:if>
+			<c:if condition="puttingKo">
+				<c:message value="msg_effglobal,putting_ko"/>
+			</c:if>
+			<c:if condition="!immuneTypes.isEmpty()">
+				<c:message value="msg_effglobal,immune_types"/>
+				<ul>
+					<c:for list="immuneTypes" var="t">
+						<li>{t;}</li>
+					</c:for>
+				</ul>
+				<br/>
+			</c:if>
+		</p>
+	</body>
+</html>

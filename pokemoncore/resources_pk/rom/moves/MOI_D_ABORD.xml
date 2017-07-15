@@ -1,0 +1,254 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><aiki.fight.moves.StatusMoveData>
+<java.lang.Boolean class="aiki.fight.moves.StatusMoveData" field="thievableMove" value="false"/>
+<java.lang.Boolean class="aiki.fight.moves.StatusMoveData" field="counterableMove" value="false"/>
+<java.lang.Boolean class="aiki.fight.moves.MoveData" field="notTranslated" value="false"/>
+<java.lang.Short class="aiki.fight.moves.MoveData" field="pp" value="20"/>
+<sl class="aiki.fight.moves.MoveData" field="types">
+<java.lang.String class="util.List" value="NORMAL"/>
+</sl>
+<sl class="aiki.fight.moves.MoveData" field="boostedTypes">
+<java.lang.String class="util.List" value="NORMAL"/>
+</sl>
+<java.lang.Byte class="aiki.fight.moves.MoveData" field="priority" value="0"/>
+<java.lang.String class="aiki.fight.moves.MoveData" field="accuracy" value="1"/>
+<l class="aiki.fight.moves.MoveData" field="effects">
+<aiki.fight.moves.effects.EffectInvoke class="util.List">
+<em class="aiki.fight.moves.effects.EffectInvoke" field="moveFctEnv"/>
+<java.lang.Boolean class="aiki.fight.moves.effects.EffectInvoke" field="invokingMoveButUser" value="false"/>
+<java.lang.Boolean class="aiki.fight.moves.effects.EffectInvoke" field="invokingTargetChosenMove" value="true"/>
+<java.lang.Boolean class="aiki.fight.moves.effects.EffectInvoke" field="invokingUserMoveWhileSleep" value="false"/>
+<java.lang.Boolean class="aiki.fight.moves.effects.EffectInvoke" field="invokingAllyMove" value="false"/>
+<java.lang.Boolean class="aiki.fight.moves.effects.EffectInvoke" field="invokingTargetSuccesfulMove" value="false"/>
+<java.lang.Boolean class="aiki.fight.moves.effects.EffectInvoke" field="invokingSufferedMove" value="false"/>
+<sm class="aiki.fight.moves.effects.EffectInvoke" field="invokingMoveByUserTypes"/>
+<sl class="aiki.fight.moves.effects.EffectInvoke" field="movesNotToBeInvoked">
+<java.lang.String class="util.List" value="PATIENCE"/>
+<java.lang.String class="util.List" value="FULMIFER"/>
+<java.lang.String class="util.List" value="EFFORT"/>
+<java.lang.String class="util.List" value="RIPOSTE"/>
+<java.lang.String class="util.List" value="VOILE_MIROIR"/>
+<java.lang.String class="util.List" value="TOUT_OU_RIEN"/>
+<java.lang.String class="util.List" value="ABRI"/>
+<java.lang.String class="util.List" value="ACIDARMURE"/>
+<java.lang.String class="util.List" value="ACUPRESSION"/>
+<java.lang.String class="util.List" value="ADAPTATION"/>
+<java.lang.String class="util.List" value="AFFUTAGE"/>
+<java.lang.String class="util.List" value="AIGUISAGE"/>
+<java.lang.String class="util.List" value="AIR_VEINARD"/>
+<java.lang.String class="util.List" value="A_LA_QUEUE"/>
+<java.lang.String class="util.List" value="ALLEGEMENT"/>
+<java.lang.String class="util.List" value="AMNESIE"/>
+<java.lang.String class="util.List" value="ANNEAU_HYDRO"/>
+<java.lang.String class="util.List" value="ANTI_BRUME"/>
+<java.lang.String class="util.List" value="ANTI_SOIN"/>
+<java.lang.String class="util.List" value="APPEL_DEFENS"/>
+<java.lang.String class="util.List" value="APPEL_SOINS"/>
+<java.lang.String class="util.List" value="APRES_VOUS"/>
+<java.lang.String class="util.List" value="ARMURE"/>
+<java.lang.String class="util.List" value="AROMATHERAPI"/>
+<java.lang.String class="util.List" value="ASSISTANCE"/>
+<java.lang.String class="util.List" value="ASTUCE_FORCE"/>
+<java.lang.String class="util.List" value="ATTERRISSAGE"/>
+<java.lang.String class="util.List" value="ATTRACTION"/>
+<java.lang.String class="util.List" value="AURORE"/>
+<java.lang.String class="util.List" value="AVALE"/>
+<java.lang.String class="util.List" value="BAILLEMENT"/>
+<java.lang.String class="util.List" value="BALANCE"/>
+<java.lang.String class="util.List" value="BARRAGE"/>
+<java.lang.String class="util.List" value="BERCEUSE"/>
+<java.lang.String class="util.List" value="BLABLA_DODO"/>
+<java.lang.String class="util.List" value="BOOST"/>
+<java.lang.String class="util.List" value="BOUCLIER"/>
+<java.lang.String class="util.List" value="BOUL_ARMURE"/>
+<java.lang.String class="util.List" value="BROUILLARD"/>
+<java.lang.String class="util.List" value="BRUME"/>
+<java.lang.String class="util.List" value="BUEE_NOIRE"/>
+<java.lang.String class="util.List" value="CAGE_ECLAIR"/>
+<java.lang.String class="util.List" value="CAMOUFLAGE"/>
+<java.lang.String class="util.List" value="CAUCHEMAR"/>
+<java.lang.String class="util.List" value="CHARGEUR"/>
+<java.lang.String class="util.List" value="CHARME"/>
+<java.lang.String class="util.List" value="CHATOUILLE"/>
+<java.lang.String class="util.List" value="CHGT_VITESSE"/>
+<java.lang.String class="util.List" value="CLAIRVOYANCE"/>
+<java.lang.String class="util.List" value="CLONAGE"/>
+<java.lang.String class="util.List" value="COGNOBIDON"/>
+<java.lang.String class="util.List" value="CONVERSION_2"/>
+<java.lang.String class="util.List" value="COPIE"/>
+<java.lang.String class="util.List" value="COPIE_TYPE"/>
+<java.lang.String class="util.List" value="COTOGARDE"/>
+<java.lang.String class="util.List" value="COUP_D_MAIN"/>
+<java.lang.String class="util.List" value="CROCO_LARME"/>
+<java.lang.String class="util.List" value="CROISSANCE"/>
+<java.lang.String class="util.List" value="CYCLONE"/>
+<java.lang.String class="util.List" value="DANSE_DRACO"/>
+<java.lang.String class="util.List" value="DANSE_FOLLE"/>
+<java.lang.String class="util.List" value="DANSE_LAMES"/>
+<java.lang.String class="util.List" value="DANSE_LUNE"/>
+<java.lang.String class="util.List" value="DANSE_PLUIE"/>
+<java.lang.String class="util.List" value="DANSE_PLUME"/>
+<java.lang.String class="util.List" value="DEPIT"/>
+<java.lang.String class="util.List" value="DETECTION"/>
+<java.lang.String class="util.List" value="DETREMPAGE"/>
+<java.lang.String class="util.List" value="DISTORSION"/>
+<java.lang.String class="util.List" value="DOUX_BAISER"/>
+<java.lang.String class="util.List" value="DOUX_PARFUM"/>
+<java.lang.String class="util.List" value="ECHANGE_PSY"/>
+<java.lang.String class="util.List" value="ECHANGE"/>
+<java.lang.String class="util.List" value="E_COQUE"/>
+<java.lang.String class="util.List" value="EMBARGO"/>
+<java.lang.String class="util.List" value="ENCORE"/>
+<java.lang.String class="util.List" value="ENROULEMENT"/>
+<java.lang.String class="util.List" value="ENTRAVE"/>
+<java.lang.String class="util.List" value="EXUVIATION"/>
+<java.lang.String class="util.List" value="FEU_FOLLET"/>
+<java.lang.String class="util.List" value="FLAIR"/>
+<java.lang.String class="util.List" value="FLASH"/>
+<java.lang.String class="util.List" value="FLATTERIE"/>
+<java.lang.String class="util.List" value="FORCE_COSMIK"/>
+<java.lang.String class="util.List" value="FORCE_NATURE"/>
+<java.lang.String class="util.List" value="GARDE_LARGE"/>
+<java.lang.String class="util.List" value="GAZ_TOXIK"/>
+<java.lang.String class="util.List" value="GLAS_DE_SOIN"/>
+<java.lang.String class="util.List" value="GONFLETTE"/>
+<java.lang.String class="util.List" value="GRAVITE"/>
+<java.lang.String class="util.List" value="GRELE"/>
+<java.lang.String class="util.List" value="GRIBOUILLE"/>
+<java.lang.String class="util.List" value="GRIMACE"/>
+<java.lang.String class="util.List" value="GRINCEMENT"/>
+<java.lang.String class="util.List" value="GROBISOU"/>
+<java.lang.String class="util.List" value="GRONDEMENT"/>
+<java.lang.String class="util.List" value="GROZ_YEUX"/>
+<java.lang.String class="util.List" value="HATE"/>
+<java.lang.String class="util.List" value="HURLEMENT"/>
+<java.lang.String class="util.List" value="HYPNOSE"/>
+<java.lang.String class="util.List" value="IMITATION"/>
+<java.lang.String class="util.List" value="INTERVERSION"/>
+<java.lang.String class="util.List" value="INTIMIDATION"/>
+<java.lang.String class="util.List" value="JET_DE_SABLE"/>
+<java.lang.String class="util.List" value="LAIT_A_BOIRE"/>
+<java.lang.String class="util.List" value="LANCE_BOUE"/>
+<java.lang.String class="util.List" value="LEVIKINESIE"/>
+<java.lang.String class="util.List" value="LILLIPUT"/>
+<java.lang.String class="util.List" value="LIRE_ESPRIT"/>
+<java.lang.String class="util.List" value="LUMIQUEUE"/>
+<java.lang.String class="util.List" value="MACHINATION"/>
+<java.lang.String class="util.List" value="MALEDICTION_1"/>
+<java.lang.String class="util.List" value="MALEDICTION_2"/>
+<java.lang.String class="util.List" value="MALEDICTION"/>
+<java.lang.String class="util.List" value="METRONOME"/>
+<java.lang.String class="util.List" value="MIMIQUE"/>
+<java.lang.String class="util.List" value="MIMI_QUEUE"/>
+<java.lang.String class="util.List" value="MOI_D_ABORD"/>
+<java.lang.String class="util.List" value="MORPHING"/>
+<java.lang.String class="util.List" value="MUR_DE_FER"/>
+<java.lang.String class="util.List" value="MUR_LUMIERE"/>
+<java.lang.String class="util.List" value="OEIL_MIRACLE"/>
+<java.lang.String class="util.List" value="ONDE_FOLIE"/>
+<java.lang.String class="util.List" value="ORAGE"/>
+<java.lang.String class="util.List" value="PAPILLODANSE"/>
+<java.lang.String class="util.List" value="PARA_SPORE"/>
+<java.lang.String class="util.List" value="PARESSE"/>
+<java.lang.String class="util.List" value="PAR_ICI"/>
+<java.lang.String class="util.List" value="PARTAGE_FORCE"/>
+<java.lang.String class="util.List" value="PARTAGE_GARDE"/>
+<java.lang.String class="util.List" value="PASSE_CADEAU"/>
+<java.lang.String class="util.List" value="PASSE_PASSE"/>
+<java.lang.String class="util.List" value="PERMUCOEUR"/>
+<java.lang.String class="util.List" value="PERMUFORCE"/>
+<java.lang.String class="util.List" value="PERMUGARDE"/>
+<java.lang.String class="util.List" value="PHOTOCOPIE"/>
+<java.lang.String class="util.List" value="PICOTS"/>
+<java.lang.String class="util.List" value="PICS_TOXIK"/>
+<java.lang.String class="util.List" value="PIEGE_DE_ROC"/>
+<java.lang.String class="util.List" value="PLENITUDE"/>
+<java.lang.String class="util.List" value="POLIROCHE"/>
+<java.lang.String class="util.List" value="POSSESSIF"/>
+<java.lang.String class="util.List" value="POUDRE_DODO"/>
+<java.lang.String class="util.List" value="POUDREFUREUR"/>
+<java.lang.String class="util.List" value="POUDRE_TOXIK"/>
+<java.lang.String class="util.List" value="PREVENTION"/>
+<java.lang.String class="util.List" value="PROTECTION"/>
+<java.lang.String class="util.List" value="PROVOC"/>
+<java.lang.String class="util.List" value="PUISSANCE"/>
+<java.lang.String class="util.List" value="RACINES"/>
+<java.lang.String class="util.List" value="RAYON_LUNE"/>
+<java.lang.String class="util.List" value="RAYON_SIMPLE"/>
+<java.lang.String class="util.List" value="RECYCLAGE"/>
+<java.lang.String class="util.List" value="REFLET_MAGIK"/>
+<java.lang.String class="util.List" value="REFLET"/>
+<java.lang.String class="util.List" value="REGARD_NOIR"/>
+<java.lang.String class="util.List" value="REGENERATION"/>
+<java.lang.String class="util.List" value="RELAIS"/>
+<java.lang.String class="util.List" value="RENGORGEMENT"/>
+<java.lang.String class="util.List" value="REPLI"/>
+<java.lang.String class="util.List" value="REPOS"/>
+<java.lang.String class="util.List" value="REQUIEM"/>
+<java.lang.String class="util.List" value="RUGISSEMENT"/>
+<java.lang.String class="util.List" value="RUNE_PROTECT"/>
+<java.lang.String class="util.List" value="SAISIE"/>
+<java.lang.String class="util.List" value="SECRETION"/>
+<java.lang.String class="util.List" value="SEDUCTION"/>
+<java.lang.String class="util.List" value="SIFFL_HERBE"/>
+<java.lang.String class="util.List" value="SOIN"/>
+<java.lang.String class="util.List" value="SOUCIGRAINE"/>
+<java.lang.String class="util.List" value="SOUVENIR"/>
+<java.lang.String class="util.List" value="SPORE_COTON"/>
+<java.lang.String class="util.List" value="SPORE"/>
+<java.lang.String class="util.List" value="STOCKAGE"/>
+<java.lang.String class="util.List" value="STRIDO_SON"/>
+<java.lang.String class="util.List" value="SUC_DIGESTIF"/>
+<java.lang.String class="util.List" value="SYNTHESE"/>
+<java.lang.String class="util.List" value="TELEKINESIE"/>
+<java.lang.String class="util.List" value="TELEPORT"/>
+<java.lang.String class="util.List" value="TEMPETESABLE"/>
+<java.lang.String class="util.List" value="TENACITE"/>
+<java.lang.String class="util.List" value="TEN_DANSE"/>
+<java.lang.String class="util.List" value="TOILE"/>
+<java.lang.String class="util.List" value="TOURMAGIK"/>
+<java.lang.String class="util.List" value="TOURMENTE"/>
+<java.lang.String class="util.List" value="TOURNIQUET"/>
+<java.lang.String class="util.List" value="TOXIK"/>
+<java.lang.String class="util.List" value="TROU_NOIR"/>
+<java.lang.String class="util.List" value="ULTRASON"/>
+<java.lang.String class="util.List" value="VAMPIGRAINE"/>
+<java.lang.String class="util.List" value="VANTARDISE"/>
+<java.lang.String class="util.List" value="VENT_ARRIERE"/>
+<java.lang.String class="util.List" value="VERROUILLAGE"/>
+<java.lang.String class="util.List" value="VIBRA_SOIN"/>
+<java.lang.String class="util.List" value="VOEU_SOIN"/>
+<java.lang.String class="util.List" value="VOEU"/>
+<java.lang.String class="util.List" value="VOL_MAGNETIK"/>
+<java.lang.String class="util.List" value="YOGA"/>
+<java.lang.String class="util.List" value="ZENITH"/>
+<java.lang.String class="util.List" value="ZONE_ETRANGE"/>
+<java.lang.String class="util.List" value="ZONE_MAGIQUE"/>
+</sl>
+<r class="aiki.fight.moves.effects.EffectInvoke" field="rateInvokationMove" value="3/2"/>
+<aiki.fight.moves.enums.TargetChoice class="aiki.fight.moves.effects.Effect" field="targetChoice" value="ADJ_UNIQ"/>
+<java.lang.String class="aiki.fight.moves.effects.Effect" field="fail" value="VAR__PAS_ATTAQUE_INVOC"/>
+<n class="aiki.fight.moves.effects.Effect" field="requiredSuccessfulEffects"/>
+</aiki.fight.moves.effects.EffectInvoke>
+</l>
+<java.lang.Short class="aiki.fight.moves.MoveData" field="nbPrepaRound" value="0"/>
+<java.lang.Boolean class="aiki.fight.moves.MoveData" field="disappearBeforeUse" value="false"/>
+<mcu class="aiki.fight.moves.MoveData" field="repeatRoundLaw"/>
+<java.lang.Short class="aiki.fight.moves.MoveData" field="rankIncrementNbRound" value="0"/>
+<java.lang.Boolean class="aiki.fight.moves.MoveData" field="rechargeRound" value="false"/>
+<java.lang.Boolean class="aiki.fight.moves.MoveData" field="constUserChoice" value="false"/>
+<java.lang.Boolean class="aiki.fight.moves.MoveData" field="stoppableMoveSolo" value="true"/>
+<java.lang.Boolean class="aiki.fight.moves.MoveData" field="stoppableMoveMulti" value="false"/>
+<java.lang.Boolean class="aiki.fight.moves.MoveData" field="stoppableMovePrio" value="false"/>
+<java.lang.Boolean class="aiki.fight.moves.MoveData" field="secEffectIfNoDamage" value="false"/>
+<sm class="aiki.fight.moves.MoveData" field="secEffectsByItem"/>
+<java.lang.Boolean class="aiki.fight.moves.MoveData" field="ignVarAccurUserNeg" value="true"/>
+<java.lang.Boolean class="aiki.fight.moves.MoveData" field="ignVarEvasTargetPos" value="true"/>
+<java.lang.Boolean class="aiki.fight.moves.MoveData" field="breakImmuTypeAbility" value="false"/>
+<sl class="aiki.fight.moves.MoveData" field="achieveDisappearedPkUsingMove"/>
+<aiki.fight.moves.enums.SwitchType class="aiki.fight.moves.MoveData" field="switchType" value="NOTHING"/>
+<sm class="aiki.fight.moves.MoveData" field="typesByOwnedItem"/>
+<sm class="aiki.fight.moves.MoveData" field="typesByWeather"/>
+<aiki.fight.moves.enums.TargetChoice class="aiki.fight.moves.MoveData" field="targetChoice" value="ADJ_UNIQ"/>
+<sl class="aiki.fight.moves.MoveData" field="deletedStatus"/>
+<sl class="aiki.fight.moves.MoveData" field="requiredStatus"/>
+</aiki.fight.moves.StatusMoveData>

@@ -1,0 +1,809 @@
+package aiki.game.fight;
+import code.maths.LgInt;
+import code.maths.Rate;
+import code.util.EqList;
+import code.util.Numbers;
+import code.util.StringList;
+import code.util.StringMap;
+import aiki.DataBase;
+import aiki.fight.enums.Statistic;
+import aiki.fight.moves.effects.Effect;
+import aiki.fight.moves.effects.EffectCopyMove;
+import aiki.fight.moves.effects.EffectInvoke;
+import aiki.fight.moves.effects.EffectTeamWhileSendFoe;
+import aiki.fight.util.TypesDuo;
+import aiki.game.UsesOfMove;
+
+final class FightValues {
+
+    private FightValues() {
+    }
+
+    static StringMap<String> calculateValuesFighter(Fight _fight,TeamPosition _fighter,DataBase _import){
+        _fight.setEnabledMessages(false);
+        Team equipeLanceur_=_fight.getTeams().getVal(_fighter.getTeam());
+        Fighter creatureCbtLanceur_=equipeLanceur_.getMembers().getVal(_fighter.getPosition());
+        StringMap<String> variables_ = new StringMap<String>();
+        variables_.put(DataBase.VAR_PREFIX+Fight.FIGHTER_GENRE, creatureCbtLanceur_.getCurrentGender().name());
+        for(String c:equipeLanceur_.getNbUsesMovesRound().getKeys()){
+            variables_.put(DataBase.VAR_PREFIX+Team.NB_UTILI_ATT_EQ_TOUR+DataBase.SEP_BETWEEN_KEYS+c,Integer.toString(equipeLanceur_.getNbUsesMovesRound().getVal(c)));
+        }
+        variables_.put(DataBase.VAR_PREFIX+Fight.FIGHTER_PV_RESTANTS,creatureCbtLanceur_.getRemainingHp().toString());
+        variables_.put(DataBase.VAR_PREFIX+Fight.FIGHTER_PV_MAX,creatureCbtLanceur_.pvMax().toString());
+        for(String c:creatureCbtLanceur_.getEnabledMoves().getKeys()){
+            variables_.put(DataBase.VAR_PREFIX+Fight.NB_TOUR+DataBase.SEP_BETWEEN_KEYS+c,String.valueOf(creatureCbtLanceur_.getEnabledMoves().getVal(c).getNbTurn()));
+        }
+        for(String c:creatureCbtLanceur_.getEnabledMovesProt().getKeys()){
+            variables_.put(DataBase.VAR_PREFIX+Fight.NB_TOUR+DataBase.SEP_BETWEEN_KEYS+c,String.valueOf(creatureCbtLanceur_.getEnabledMovesProt().getVal(c).getNbTurn()));
+        }
+        for(String c:creatureCbtLanceur_.getEnabledMovesUnprot().getKeys()){
+            variables_.put(DataBase.VAR_PREFIX+Fight.NB_TOUR+DataBase.SEP_BETWEEN_KEYS+c,String.valueOf(creatureCbtLanceur_.getEnabledMovesUnprot().getVal(c).getNbTurn()));
+        }
+        for(String c:creatureCbtLanceur_.getEnabledMovesEndRound().getKeys()){
+            variables_.put(DataBase.VAR_PREFIX+Fight.NB_TOUR+DataBase.SEP_BETWEEN_KEYS+c,String.valueOf(creatureCbtLanceur_.getEnabledMovesEndRound().getVal(c).getNbTurn()));
+        }
+        for(String c:creatureCbtLanceur_.getEnabledMovesConstChoices().getKeys()){
+            variables_.put(DataBase.VAR_PREFIX+Fight.NB_TOUR+DataBase.SEP_BETWEEN_KEYS+c,String.valueOf(creatureCbtLanceur_.getEnabledMovesConstChoices().getVal(c).getNbTurn()));
+        }
+        for(String c:creatureCbtLanceur_.getNbUsesMoves().getKeys()){
+            variables_.put(DataBase.VAR_PREFIX+Fighter.FIGHTER_NB_UTILISATION+DataBase.SEP_BETWEEN_KEYS+c,Integer.toString(creatureCbtLanceur_.getNbUsesMoves().getVal(c)));
+        }
+        for(Statistic c:creatureCbtLanceur_.getStatisBase().getKeys()){
+            variables_.put(DataBase.VAR_PREFIX+Fight.FIGHTER_STATIS+DataBase.SEP_BETWEEN_KEYS+c,creatureCbtLanceur_.getStatisBase().getVal(c).toString());
+        }
+        Rate sommeLanceurBoostsPositifs_=Rate.zero();
+        for(Statistic c:creatureCbtLanceur_.getStatisBoost().getKeys()){
+            byte boost_=creatureCbtLanceur_.getStatisBoost().getVal(c);
+            if(boost_>0){
+                sommeLanceurBoostsPositifs_.addNb(new Rate(boost_));
+            }
+            variables_.put(DataBase.VAR_PREFIX+Fight.FIGHTER_BOOST+DataBase.SEP_BETWEEN_KEYS+c,Integer.toString(boost_));
+        }
+        variables_.put(DataBase.VAR_PREFIX+Fight.SOMME_BOOST_POS_FIGHTER,sommeLanceurBoostsPositifs_.toString());
+        StringList attaquesGlobales_ = _import.getVarParamsMove(Fight.NB_TOUR_GLOBAL);
+        for(String c:attaquesGlobales_){
+            variables_.put(DataBase.VAR_PREFIX+Fight.NB_TOUR_GLOBAL+DataBase.SEP_BETWEEN_KEYS+c,String.valueOf(_fight.getEnabledMoves().getVal(c).getNbTurn()));
+        }
+        StringList clesLanceurAttaquesActuelles_=creatureCbtLanceur_.attaquesUtilisables();
+        variables_.put(DataBase.VAR_PREFIX+Fight.FIGHTER_ATTAQUES,clesLanceurAttaquesActuelles_.join(_import.getSepartorSetChar()));
+        variables_.put(DataBase.VAR_PREFIX+Fight.FIGHTER_ATTAQUE_CHOISIE,creatureCbtLanceur_.getFinalChosenMove());
+        StringList lanceurAttaquesActuellesTypes_ = new StringList();
+        for(String c:clesLanceurAttaquesActuelles_){
+            lanceurAttaquesActuellesTypes_.addAllElts(FightMoves.moveTypes(_fight, _fighter,c,_import));
+        }
+        lanceurAttaquesActuellesTypes_.removeDuplicates();
+        variables_.put(DataBase.VAR_PREFIX+Fight.FIGHTER_ATTAQUES_TYPES,lanceurAttaquesActuellesTypes_.join(_import.getSepartorSetChar()));
+        variables_.put(DataBase.VAR_PREFIX+Fight.FIGHTER_CLONE,creatureCbtLanceur_.getClone().toString());
+        Rate sommeLanceurDegatsSubis_=Rate.zero();
+        for(String c:creatureCbtLanceur_.getDamageSufferedCateg().getKeys()){
+            Rate deg_=creatureCbtLanceur_.getDamageSufferedCateg().getVal(c);
+            sommeLanceurDegatsSubis_.addNb(deg_);
+            variables_.put(DataBase.VAR_PREFIX+Fight.FIGHTER_DEGATS_RECUS+DataBase.SEP_BETWEEN_KEYS+c,deg_.toString());
+        }
+        variables_.put(DataBase.VAR_PREFIX+Fight.FIGHTER_DEGATS_RECUS_TOTAL,sommeLanceurDegatsSubis_.toString());
+        Rate sommeLanceurDegatsSubisTour_=Rate.zero();
+        for(String c:creatureCbtLanceur_.getDamageSufferedCategRound().getKeys()){
+            Rate deg_=creatureCbtLanceur_.getDamageSufferedCategRound().getVal(c);
+            sommeLanceurDegatsSubisTour_.addNb(deg_);
+            variables_.put(DataBase.VAR_PREFIX+Fight.FIGHTER_DEGATS_RECUS_TOUR+DataBase.SEP_BETWEEN_KEYS+c,deg_.toString());
+        }
+        variables_.put(DataBase.VAR_PREFIX+Fight.FIGHTER_DEGATS_RECUS_TOTAL_TOUR,sommeLanceurDegatsSubisTour_.toString());
+
+        if(creatureCbtLanceur_.isDisappeared()){
+            variables_.put(DataBase.VAR_PREFIX+Fight.FIGHTER_DISPARAIT,Fight.ONE);
+        }else{
+            variables_.put(DataBase.VAR_PREFIX+Fight.FIGHTER_DISPARAIT,Fight.ZERO);
+        }
+        if(creatureCbtLanceur_.isActed()){
+            variables_.put(DataBase.VAR_PREFIX+Fight.FIGHTER_JOUE,Fight.ONE);
+        }else{
+            variables_.put(DataBase.VAR_PREFIX+Fight.FIGHTER_JOUE,Fight.ZERO);
+        }
+        EqList<TeamPosition> cbts_=FightOrder.fightersHavingToAct(_fight,true,_import);
+        cbts_.addAllElts(FightOrder.fightersHavingToAct(_fight,false,_import));
+        cbts_.removeDuplicates();
+        if (cbts_.size() == 1) {
+            variables_.put(DataBase.VAR_PREFIX+Fight.FIGHTER_DER_JOUE,Fight.ONE);
+        } else {
+            variables_.put(DataBase.VAR_PREFIX+Fight.FIGHTER_DER_JOUE,Fight.ZERO);
+        }
+        variables_.put(DataBase.VAR_PREFIX+Fight.FIGHTER_NOM,creatureCbtLanceur_.getCurrentName());
+        variables_.put(DataBase.VAR_PREFIX+Fight.FIGHTER_MASSE,creatureCbtLanceur_.getWeight().toString());
+        variables_.put(DataBase.VAR_PREFIX+Fight.FIGHTER_TAILLE,creatureCbtLanceur_.getHeight().toString());
+        variables_.put(DataBase.VAR_PREFIX+Fight.FIGHTER_OBJET,creatureCbtLanceur_.getItem());
+        StringList statutsLanceur_ = new StringList();
+        for(String c:creatureCbtLanceur_.getStatusSet()){
+            if(!Numbers.eq(creatureCbtLanceur_.getStatusNbRoundShort(c), 0)){
+                statutsLanceur_.add(c);
+            }
+        }
+        variables_.put(DataBase.VAR_PREFIX+Fight.FIGHTER_STATUTS,statutsLanceur_.join(_import.getSepartorSetChar()));
+        variables_.put(DataBase.VAR_PREFIX+Fight.FIGHTER_TYPES,creatureCbtLanceur_.getTypes().join(_import.getSepartorSetChar()));
+        variables_.put(DataBase.VAR_PREFIX+Fight.CLIMATS,FightMoves.climatsActifs(_fight,_import).join(_import.getSepartorSetChar()));
+        //variables_.put(DataBase.VAR_PREFIX+Fight.CLIMAT_DOMINANT,climatDominant(_import));
+        StringList attaquesPp_ = _import.getVarParamsMove(Fight.FIGHTER_PP);
+        attaquesPp_.removeDuplicates();
+        for(String c:attaquesPp_){
+            if(!creatureCbtLanceur_.attaquesUtilisables().containsObj(c)){
+                variables_.put(DataBase.VAR_PREFIX+Fight.FIGHTER_PP+DataBase.SEP_BETWEEN_KEYS+c,Fight.ZERO);
+            }else{
+                short ppActuel_=creatureCbtLanceur_.powerPointsMove(c);
+                variables_.put(DataBase.VAR_PREFIX+Fight.FIGHTER_PP+DataBase.SEP_BETWEEN_KEYS+c,Integer.toString(ppActuel_));
+            }
+        }
+        for(String c:equipeLanceur_.getNbUsesMoves().getKeys()){
+            variables_.put(DataBase.VAR_PREFIX+Team.EQUIPE_NB_UTILISATION+DataBase.SEP_BETWEEN_KEYS+c,Integer.toString(equipeLanceur_.getNbUsesMoves().getVal(c)));
+        }
+        Team equipeAdvLanceur_=_fight.getTeams().getVal(Fight.foe(_fighter.getTeam()));
+        for(String c:equipeAdvLanceur_.getNbUsesMoves().getKeys()){
+            variables_.put(DataBase.VAR_PREFIX+Team.EQUIPE_ADV_NB_UTILISATION+DataBase.SEP_BETWEEN_KEYS+c,Integer.toString(equipeAdvLanceur_.getNbUsesMoves().getVal(c)));
+        }
+        variables_.put(DataBase.VAR_PREFIX+Fight.LIEU_COMBAT,_fight.getEnvType().name());
+        variables_.put(DataBase.VAR_PREFIX+Fight.FIGHTER_NIVEAU,Integer.toString(creatureCbtLanceur_.getLevel()));
+        variables_.put(DataBase.VAR_PREFIX+Fight.FIGHTER_BONHEUR,Integer.toString(creatureCbtLanceur_.getHappiness()));
+        variables_.put(DataBase.VAR_PREFIX+Fight.TEMPS_TOUR,_fight.getNbRounds().toString());
+        int nbCombattantsTerrain_=0;
+        for(byte c:_fight.getTeams().getKeys()){
+            for(byte c2_:_fight.getTeams().getVal(c).getMembers().getKeys()){
+                Fighter cbtEquipe_=_fight.getTeams().getVal(c).getMembers().getVal(c2_);
+                if(cbtEquipe_.estKo()){
+                    continue;
+                }
+                if(!cbtEquipe_.estArriere()){
+                    nbCombattantsTerrain_++;
+                }
+            }
+        }
+        variables_.put(DataBase.VAR_PREFIX+Fight.NB_COMBATTANTS_TERRAIN,Integer.toString(nbCombattantsTerrain_));
+        variables_.put(DataBase.VAR_PREFIX+Fight.NB_KO_EQUIPE_FIGHTER,Integer.toString(equipeLanceur_.getNbKoRound()+equipeLanceur_.getNbKoPreviousRound()));
+        variables_.put(DataBase.VAR_PREFIX+Fight.NB_KO_EQUIPE_ADV_FIGHTER,Integer.toString(equipeAdvLanceur_.getNbKoRound()+equipeAdvLanceur_.getNbKoPreviousRound()));
+        StringList coeffTypes_ = _import.getVarParamsMove(Fight.COEFF_EFF_BASE_TYPES_FIGHTER);
+        for(String e:coeffTypes_){
+            Rate coeffLanceur_=DataBase.defRateProduct();
+            for(String e2_:creatureCbtLanceur_.getTypes()){
+                coeffLanceur_.multiplyBy(_import.getTableTypes().getVal(new TypesDuo(e,e2_)));
+            }
+            variables_.put(DataBase.VAR_PREFIX+Fight.COEFF_EFF_BASE_TYPES_FIGHTER+DataBase.SEP_BETWEEN_KEYS+e,coeffLanceur_.toString());
+        }
+        _fight.setEnabledMessages(true);
+        return variables_;
+    }
+    static StringMap<String> calculateValues(Fight _fight,TeamPosition _lanceur,TeamPosition _cible,DataBase _import){
+        _fight.setEnabledMessages(false);
+        Team equipeCible_=_fight.getTeams().getVal(_cible.getTeam());
+        Fighter creatureCbtCible_=equipeCible_.getMembers().getVal(_cible.getPosition());
+        Team equipeLanceur_=_fight.getTeams().getVal(_lanceur.getTeam());
+        Fighter creatureCbtLanceur_=equipeLanceur_.getMembers().getVal(_lanceur.getPosition());
+        StringMap<String> variables_ = new StringMap<String>();
+        variables_.put(DataBase.VAR_PREFIX+Fight.CIBLE_GENRE, creatureCbtCible_.getCurrentGender().name());
+        variables_.put(DataBase.VAR_PREFIX+Fight.CIBLE_PV_RESTANTS,creatureCbtCible_.getRemainingHp().toString());
+        variables_.put(DataBase.VAR_PREFIX+Fight.CIBLE_PV_MAX,creatureCbtCible_.pvMax().toString());
+        for(String c:creatureCbtCible_.getNbUsesMoves().getKeys()){
+            variables_.put(DataBase.VAR_PREFIX+Fighter.CIBLE_NB_UTILISATION+DataBase.SEP_BETWEEN_KEYS+c,Integer.toString(creatureCbtCible_.getNbUsesMoves().getVal(c)));
+        }
+        for(Statistic c:creatureCbtCible_.getStatisBase().getKeys()){
+            variables_.put(DataBase.VAR_PREFIX+Fight.CIBLE_STATIS+DataBase.SEP_BETWEEN_KEYS+c,creatureCbtCible_.getStatisBase().getVal(c).toString());
+        }
+        Rate sommeCibleBoostsPositifs_=Rate.zero();
+        for(Statistic c:creatureCbtCible_.getStatisBoost().getKeys()){
+            byte boost_=creatureCbtCible_.getStatisBoost().getVal(c);
+            if(boost_>0){
+                sommeCibleBoostsPositifs_.addNb(new Rate(boost_));
+            }
+            variables_.put(DataBase.VAR_PREFIX+Fight.CIBLE_BOOST+DataBase.SEP_BETWEEN_KEYS+c,Integer.toString(boost_));
+        }
+        variables_.put(DataBase.VAR_PREFIX+Fight.SOMME_BOOST_POS_CIBLE,sommeCibleBoostsPositifs_.toString());
+        StringList clesCibleAttaquesActuelles_=creatureCbtCible_.attaquesUtilisables();
+        clesCibleAttaquesActuelles_.sort();
+        variables_.put(DataBase.VAR_PREFIX+Fight.CIBLE_ATTAQUES,clesCibleAttaquesActuelles_.join(_import.getSepartorSetChar()));
+        variables_.put(DataBase.VAR_PREFIX+Fight.CIBLE_ATTAQUE_CHOISIE,creatureCbtCible_.getFinalChosenMove());
+        StringList cibleAttaquesActuellesTypes_ = new StringList();
+        for(String c:clesCibleAttaquesActuelles_){
+            cibleAttaquesActuellesTypes_.addAllElts(FightMoves.moveTypes(_fight,_cible,c,_import));
+        }
+        cibleAttaquesActuellesTypes_.removeDuplicates();
+        cibleAttaquesActuellesTypes_.sort();
+        variables_.put(DataBase.VAR_PREFIX+Fight.CIBLE_ATTAQUES_TYPES,cibleAttaquesActuellesTypes_.join(_import.getSepartorSetChar()));
+        variables_.put(DataBase.VAR_PREFIX+Fight.CIBLE_CLONE,creatureCbtCible_.getClone().toString());
+        Rate sommeCibleDegatsSubis_=Rate.zero();
+        for(String c:creatureCbtCible_.getDamageSufferedCateg().getKeys()){
+            Rate deg_=creatureCbtCible_.getDamageSufferedCateg().getVal(c);
+            sommeCibleDegatsSubis_.addNb(deg_);
+            variables_.put(DataBase.VAR_PREFIX+Fight.CIBLE_DEGATS_RECUS+DataBase.SEP_BETWEEN_KEYS+c,deg_.toString());
+        }
+        variables_.put(DataBase.VAR_PREFIX+Fight.CIBLE_DEGATS_RECUS_TOTAL,sommeCibleDegatsSubis_.toString());
+        Rate sommeCibleDegatsSubisTour_=Rate.zero();
+        for(String c:creatureCbtCible_.getDamageSufferedCategRound().getKeys()){
+            Rate deg_=creatureCbtCible_.getDamageSufferedCategRound().getVal(c);
+            sommeCibleDegatsSubisTour_.addNb(deg_);
+            variables_.put(DataBase.VAR_PREFIX+Fight.CIBLE_DEGATS_RECUS_TOUR+DataBase.SEP_BETWEEN_KEYS+c,deg_.toString());
+        }
+        variables_.put(DataBase.VAR_PREFIX+Fight.CIBLE_DEGATS_RECUS_TOTAL_TOUR,sommeCibleDegatsSubisTour_.toString());
+        if(creatureCbtCible_.isDisappeared()){
+            variables_.put(DataBase.VAR_PREFIX+Fight.CIBLE_DISPARAIT,Fight.ONE);
+        }else{
+            variables_.put(DataBase.VAR_PREFIX+Fight.CIBLE_DISPARAIT,Fight.ZERO);
+        }
+        if(creatureCbtCible_.isActed()){
+            variables_.put(DataBase.VAR_PREFIX+Fight.CIBLE_JOUE,Fight.ONE);
+        }else{
+            variables_.put(DataBase.VAR_PREFIX+Fight.CIBLE_JOUE,Fight.ZERO);
+        }
+        variables_.put(DataBase.VAR_PREFIX+Fight.CIBLE_MASSE,creatureCbtCible_.getWeight().toString());
+        variables_.put(DataBase.VAR_PREFIX+Fight.CIBLE_TAILLE,creatureCbtCible_.getHeight().toString());
+        variables_.put(DataBase.VAR_PREFIX+Fight.CIBLE_CAPACITE,creatureCbtCible_.getCurrentAbility());
+        variables_.put(DataBase.VAR_PREFIX+Fight.CIBLE_OBJET,creatureCbtCible_.getItem());
+        StringList statutsCible_ = new StringList();
+        for(String c:creatureCbtCible_.getStatusSet()){
+            if(!Numbers.eq(creatureCbtCible_.getStatusNbRoundShort(c), 0)){
+                statutsCible_.add(c);
+            }
+        }
+        for (MoveTeamPosition s: creatureCbtCible_.getStatusRelatSet()) {
+            if(Numbers.eq(creatureCbtCible_.getStatusRelatNbRoundShort(s), 0)){
+                continue;
+            }
+            statutsCible_.add(s.getMove());
+        }
+        statutsCible_.removeDuplicates();
+        statutsCible_.sort();
+        variables_.put(DataBase.VAR_PREFIX+Fight.CIBLE_STATUTS,statutsCible_.join(_import.getSepartorSetChar()));
+        StringList types_ = new StringList(creatureCbtCible_.getTypes());
+        types_.sort();
+        variables_.put(DataBase.VAR_PREFIX+Fight.CIBLE_TYPES,types_.join(_import.getSepartorSetChar()));
+        StringList attaquesPp_ = _import.getVarParamsMove(Fight.CIBLE_PP);
+        attaquesPp_.removeDuplicates();
+        for(String c:attaquesPp_){
+            if(!creatureCbtCible_.attaquesUtilisables().containsObj(c)){
+                variables_.put(DataBase.VAR_PREFIX+Fight.CIBLE_PP+DataBase.SEP_BETWEEN_KEYS+c,Fight.ZERO);
+            }else{
+                short ppActuel_=creatureCbtCible_.powerPointsMove(c);
+                variables_.put(DataBase.VAR_PREFIX+Fight.CIBLE_PP+DataBase.SEP_BETWEEN_KEYS+c,Integer.toString(ppActuel_));
+            }
+        }
+        Team equipeAdvCible_=_fight.getTeams().getVal(Fight.foe(_cible.getTeam()));
+        variables_.put(DataBase.VAR_PREFIX+Fight.CIBLE_NIVEAU,Integer.toString(creatureCbtCible_.getLevel()));
+        variables_.put(DataBase.VAR_PREFIX+Fight.NB_KO_EQUIPE_CIBLE,Integer.toString(equipeCible_.getNbKoRound()+equipeCible_.getNbKoPreviousRound()));
+        variables_.put(DataBase.VAR_PREFIX+Fight.NB_KO_EQUIPE_ADV_CIBLE,Integer.toString(equipeAdvCible_.getNbKoRound()+equipeAdvCible_.getNbKoPreviousRound()));
+        StringList coeffTypes_ = _import.getVarParamsMove(Fight.COEFF_EFF_BASE_TYPES_CIBLE);
+        for(String e:coeffTypes_){
+            Rate coeffCible_=DataBase.defRateProduct();
+            for(String e2_:creatureCbtCible_.getTypes()){
+                coeffCible_.multiplyBy(_import.getTableTypes().getVal(new TypesDuo(e,e2_)));
+            }
+            variables_.put(DataBase.VAR_PREFIX+Fight.COEFF_EFF_BASE_TYPES_CIBLE+DataBase.SEP_BETWEEN_KEYS+e,coeffCible_.toString());
+        }
+        variables_.put(DataBase.VAR_PREFIX+Fight.LANCEUR_GENRE, creatureCbtLanceur_.getCurrentGender().name());
+        for(String c:equipeLanceur_.getNbUsesMovesRound().getKeys()){
+            variables_.put(DataBase.VAR_PREFIX+Team.NB_UTILI_ATT_EQ_TOUR+DataBase.SEP_BETWEEN_KEYS+c,Integer.toString(equipeLanceur_.getNbUsesMovesRound().getVal(c)));
+        }
+        variables_.put(DataBase.VAR_PREFIX+Fight.LANCEUR_PV_RESTANTS,creatureCbtLanceur_.getRemainingHp().toString());
+        variables_.put(DataBase.VAR_PREFIX+Fight.LANCEUR_PV_MAX,creatureCbtLanceur_.pvMax().toString());
+        for(String c:creatureCbtLanceur_.getEnabledMoves().getKeys()){
+            variables_.put(DataBase.VAR_PREFIX+Fight.NB_TOUR+DataBase.SEP_BETWEEN_KEYS+c,String.valueOf(creatureCbtLanceur_.getEnabledMoves().getVal(c).getNbTurn()));
+        }
+        for(String c:creatureCbtLanceur_.getEnabledMovesProt().getKeys()){
+            variables_.put(DataBase.VAR_PREFIX+Fight.NB_TOUR+DataBase.SEP_BETWEEN_KEYS+c,String.valueOf(creatureCbtLanceur_.getEnabledMovesProt().getVal(c).getNbTurn()));
+        }
+        for(String c:creatureCbtLanceur_.getEnabledMovesUnprot().getKeys()){
+            variables_.put(DataBase.VAR_PREFIX+Fight.NB_TOUR+DataBase.SEP_BETWEEN_KEYS+c,String.valueOf(creatureCbtLanceur_.getEnabledMovesUnprot().getVal(c).getNbTurn()));
+        }
+        for(String c:creatureCbtLanceur_.getEnabledMovesEndRound().getKeys()){
+            variables_.put(DataBase.VAR_PREFIX+Fight.NB_TOUR+DataBase.SEP_BETWEEN_KEYS+c,String.valueOf(creatureCbtLanceur_.getEnabledMovesEndRound().getVal(c).getNbTurn()));
+        }
+        for(String c:creatureCbtLanceur_.getEnabledMovesConstChoices().getKeys()){
+            variables_.put(DataBase.VAR_PREFIX+Fight.NB_TOUR+DataBase.SEP_BETWEEN_KEYS+c,String.valueOf(creatureCbtLanceur_.getEnabledMovesConstChoices().getVal(c).getNbTurn()));
+        }
+        for(String c:creatureCbtLanceur_.getNbUsesMoves().getKeys()){
+            variables_.put(DataBase.VAR_PREFIX+Fighter.LANCEUR_NB_UTILISATION+DataBase.SEP_BETWEEN_KEYS+c,Integer.toString(creatureCbtLanceur_.getNbUsesMoves().getVal(c)));
+        }
+        for(Statistic c:creatureCbtLanceur_.getStatisBase().getKeys()){
+            variables_.put(DataBase.VAR_PREFIX+Fight.LANCEUR_STATIS+DataBase.SEP_BETWEEN_KEYS+c,creatureCbtLanceur_.getStatisBase().getVal(c).toString());
+        }
+        Rate sommeLanceurBoostsPositifs_=Rate.zero();
+        for(Statistic c:creatureCbtLanceur_.getStatisBoost().getKeys()){
+            byte boost_=creatureCbtLanceur_.getStatisBoost().getVal(c);
+            if(boost_>0){
+                sommeLanceurBoostsPositifs_.addNb(new Rate(boost_));
+            }
+            variables_.put(DataBase.VAR_PREFIX+Fight.LANCEUR_BOOST+DataBase.SEP_BETWEEN_KEYS+c,Integer.toString(boost_));
+        }
+        variables_.put(DataBase.VAR_PREFIX+Fight.SOMME_BOOST_POS_LANCEUR,sommeLanceurBoostsPositifs_.toString());
+        StringList attaquesGlobales_ = _import.getVarParamsMove(Fight.NB_TOUR_GLOBAL);
+        for(String c:attaquesGlobales_){
+            variables_.put(DataBase.VAR_PREFIX+Fight.NB_TOUR_GLOBAL+DataBase.SEP_BETWEEN_KEYS+c,String.valueOf(_fight.getEnabledMoves().getVal(c).getNbTurn()));
+        }
+        StringList clesLanceurAttaquesActuelles_=creatureCbtLanceur_.attaquesUtilisables();
+        clesLanceurAttaquesActuelles_.sort();
+        variables_.put(DataBase.VAR_PREFIX+Fight.LANCEUR_ATTAQUES,clesLanceurAttaquesActuelles_.join(_import.getSepartorSetChar()));
+        variables_.put(DataBase.VAR_PREFIX+Fight.LANCEUR_ATTAQUE_CHOISIE,creatureCbtLanceur_.getFinalChosenMove());
+        StringList lanceurAttaquesActuellesTypes_ = new StringList();
+        for(String c:clesLanceurAttaquesActuelles_){
+            lanceurAttaquesActuellesTypes_.addAllElts(FightMoves.moveTypes(_fight, _lanceur,c,_import));
+        }
+        lanceurAttaquesActuellesTypes_.removeDuplicates();
+        lanceurAttaquesActuellesTypes_.sort();
+        variables_.put(DataBase.VAR_PREFIX+Fight.LANCEUR_ATTAQUES_TYPES,lanceurAttaquesActuellesTypes_.join(_import.getSepartorSetChar()));
+        variables_.put(DataBase.VAR_PREFIX+Fight.LANCEUR_CLONE,creatureCbtLanceur_.getClone().toString());
+        Rate sommeLanceurDegatsSubis_=Rate.zero();
+        for(String c:creatureCbtLanceur_.getDamageSufferedCateg().getKeys()){
+            Rate deg_=creatureCbtLanceur_.getDamageSufferedCateg().getVal(c);
+            sommeLanceurDegatsSubis_.addNb(deg_);
+            variables_.put(DataBase.VAR_PREFIX+Fight.LANCEUR_DEGATS_RECUS+DataBase.SEP_BETWEEN_KEYS+c,deg_.toString());
+        }
+        variables_.put(DataBase.VAR_PREFIX+Fight.LANCEUR_DEGATS_RECUS_TOTAL,sommeLanceurDegatsSubis_.toString());
+        Rate sommeLanceurDegatsSubisTour_=Rate.zero();
+        for(String c:creatureCbtLanceur_.getDamageSufferedCategRound().getKeys()){
+            Rate deg_=creatureCbtLanceur_.getDamageSufferedCategRound().getVal(c);
+            sommeLanceurDegatsSubisTour_.addNb(deg_);
+            variables_.put(DataBase.VAR_PREFIX+Fight.LANCEUR_DEGATS_RECUS_TOUR+DataBase.SEP_BETWEEN_KEYS+c,deg_.toString());
+        }
+        variables_.put(DataBase.VAR_PREFIX+Fight.LANCEUR_DEGATS_RECUS_TOTAL_TOUR,sommeLanceurDegatsSubisTour_.toString());
+
+        if(creatureCbtLanceur_.isDisappeared()){
+            variables_.put(DataBase.VAR_PREFIX+Fight.LANCEUR_DISPARAIT,Fight.ONE);
+        }else{
+            variables_.put(DataBase.VAR_PREFIX+Fight.LANCEUR_DISPARAIT,Fight.ZERO);
+        }
+        if(creatureCbtLanceur_.isActed()){
+            variables_.put(DataBase.VAR_PREFIX+Fight.LANCEUR_JOUE,Fight.ONE);
+        }else{
+            variables_.put(DataBase.VAR_PREFIX+Fight.LANCEUR_JOUE,Fight.ZERO);
+        }
+        EqList<TeamPosition> cbts_=FightOrder.fightersHavingToAct(_fight,true,_import);
+        cbts_.addAllElts(FightOrder.fightersHavingToAct(_fight,false,_import));
+        cbts_.removeDuplicates();
+        if (cbts_.size() == 1) {
+            variables_.put(DataBase.VAR_PREFIX+Fight.LANCEUR_DER_JOUE,Fight.ONE);
+        } else {
+            variables_.put(DataBase.VAR_PREFIX+Fight.LANCEUR_DER_JOUE,Fight.ZERO);
+        }
+        variables_.put(DataBase.VAR_PREFIX+Fight.LANCEUR_MASSE,creatureCbtLanceur_.getWeight().toString());
+        variables_.put(DataBase.VAR_PREFIX+Fight.LANCEUR_TAILLE,creatureCbtLanceur_.getHeight().toString());
+        variables_.put(DataBase.VAR_PREFIX+Fight.LANCEUR_CAPACITE,creatureCbtLanceur_.getCurrentAbility());
+        variables_.put(DataBase.VAR_PREFIX+Fight.LANCEUR_OBJET,creatureCbtLanceur_.getItem());
+        StringList statutsLanceur_ = new StringList();
+        for(String c:creatureCbtLanceur_.getStatusSet()){
+            if(creatureCbtLanceur_.getStatusNbRoundShort(c) != 0){
+                statutsLanceur_.add(c);
+            }
+        }
+        for (MoveTeamPosition s: creatureCbtLanceur_.getStatusRelatSet()) {
+            if(Numbers.eq(creatureCbtLanceur_.getStatusRelatNbRoundShort(s), 0)){
+                continue;
+            }
+            statutsLanceur_.add(s.getMove());
+        }
+        statutsLanceur_.removeDuplicates();
+        statutsLanceur_.sort();
+        variables_.put(DataBase.VAR_PREFIX+Fight.LANCEUR_STATUTS,statutsLanceur_.join(_import.getSepartorSetChar()));
+        types_ = new StringList(creatureCbtLanceur_.getTypes());
+        types_.sort();
+        variables_.put(DataBase.VAR_PREFIX+Fight.LANCEUR_TYPES,types_.join(_import.getSepartorSetChar()));
+        StringList weathers_ = FightMoves.climatsActifs(_fight,_import);
+        weathers_.sort();
+        variables_.put(DataBase.VAR_PREFIX+Fight.CLIMATS,weathers_.join(_import.getSepartorSetChar()));
+        //variables_.put(DataBase.VAR_PREFIX+Fight.CLIMAT_DOMINANT,climatDominant(_import));
+        attaquesPp_ = _import.getVarParamsMove(Fight.LANCEUR_PP);
+        attaquesPp_.removeDuplicates();
+        for(String c:attaquesPp_){
+            if(!creatureCbtLanceur_.attaquesUtilisables().containsObj(c)){
+                variables_.put(DataBase.VAR_PREFIX+Fight.LANCEUR_PP+DataBase.SEP_BETWEEN_KEYS+c,Fight.ZERO);
+            }else{
+                short ppActuel_=creatureCbtLanceur_.powerPointsMove(c);
+                variables_.put(DataBase.VAR_PREFIX+Fight.LANCEUR_PP+DataBase.SEP_BETWEEN_KEYS+c,Integer.toString(ppActuel_));
+            }
+        }
+        for(String c:equipeLanceur_.getNbUsesMoves().getKeys()){
+            variables_.put(DataBase.VAR_PREFIX+Team.EQUIPE_NB_UTILISATION+DataBase.SEP_BETWEEN_KEYS+c,Integer.toString(equipeLanceur_.getNbUsesMoves().getVal(c)));
+        }
+        Team equipeAdvLanceur_=_fight.getTeams().getVal(Fight.foe(_lanceur.getTeam()));
+        for(String c:equipeAdvLanceur_.getNbUsesMoves().getKeys()){
+            variables_.put(DataBase.VAR_PREFIX+Team.EQUIPE_ADV_NB_UTILISATION+DataBase.SEP_BETWEEN_KEYS+c,Integer.toString(equipeAdvLanceur_.getNbUsesMoves().getVal(c)));
+        }
+        variables_.put(DataBase.VAR_PREFIX+Fight.LIEU_COMBAT,_fight.getEnvType().name());
+        variables_.put(DataBase.VAR_PREFIX+Fight.LANCEUR_NIVEAU,Integer.toString(creatureCbtLanceur_.getLevel()));
+        variables_.put(DataBase.VAR_PREFIX+Fight.LANCEUR_BONHEUR,Integer.toString(creatureCbtLanceur_.getHappiness()));
+        variables_.put(DataBase.VAR_PREFIX+Fight.TEMPS_TOUR,_fight.getNbRounds().toString());
+        variables_.put(DataBase.VAR_PREFIX+Fight.RATE_EFF_MOVE_AGAINST_TARGET,FightSuccess.rateEffAgainstTargetMove(_fight,_lanceur, _cible, _import).toString());
+        int nbCombattantsTerrain_=0;
+        for(byte c:_fight.getTeams().getKeys()){
+            for(byte c2_:_fight.getTeams().getVal(c).getMembers().getKeys()){
+                Fighter cbtEquipe_=_fight.getTeams().getVal(c).getMembers().getVal(c2_);
+                if(cbtEquipe_.estKo()){
+                    continue;
+                }
+                if(!cbtEquipe_.estArriere()){
+                    nbCombattantsTerrain_++;
+                }
+            }
+        }
+        variables_.put(DataBase.VAR_PREFIX+Fight.NB_COMBATTANTS_TERRAIN,Integer.toString(nbCombattantsTerrain_));
+        variables_.put(DataBase.VAR_PREFIX+Fight.NB_KO_EQUIPE_LANCEUR,Integer.toString(equipeLanceur_.getNbKoRound()+equipeLanceur_.getNbKoPreviousRound()));
+        variables_.put(DataBase.VAR_PREFIX+Fight.NB_KO_EQUIPE_ADV_LANCEUR,Integer.toString(equipeAdvLanceur_.getNbKoRound()+equipeAdvLanceur_.getNbKoPreviousRound()));
+        coeffTypes_ = _import.getVarParamsMove(Fight.COEFF_EFF_BASE_TYPES_LANCEUR);
+        for(String e:coeffTypes_){
+            Rate coeffLanceur_=DataBase.defRateProduct();
+            for(String e2_:creatureCbtLanceur_.getTypes()){
+                coeffLanceur_.multiplyBy(_import.getTableTypes().getVal(new TypesDuo(e,e2_)));
+            }
+            variables_.put(DataBase.VAR_PREFIX+Fight.COEFF_EFF_BASE_TYPES_LANCEUR+DataBase.SEP_BETWEEN_KEYS+e,coeffLanceur_.toString());
+        }
+        _fight.setEnabledMessages(true);
+        return variables_;
+    }
+
+    static StringMap<String> calculateBooleanValues(
+            Fight _fight,
+            TeamPosition _lanceur,TeamPosition _cible,
+            String _move,int _noEffet,DataBase _import) {
+        _fight.setEnabledMessages(false);
+        Effect effet_ = _import.getMove(_move).getEffet(_noEffet);
+        StringMap<String> variables_ = new StringMap<String>();
+        StringList immuTypesIndiv_ = _import.getVarParamsMove(Fight.IMMU_TYPE_ATT_COMBATTANT_ENTRANT);
+        immuTypesIndiv_.removeDuplicates();
+        if(effet_ instanceof EffectTeamWhileSendFoe){
+            for(String e:immuTypesIndiv_){
+                if(FightSuccess.isProtectedAgainstMoveType(_fight,_lanceur,_cible,e,_import)){
+                    //protected against
+                    variables_.put(DataBase.VAR_PREFIX+Fight.IMMU_TYPE_ATT_COMBATTANT_ENTRANT+DataBase.SEP_BETWEEN_KEYS+e,_import.getTrueString());
+                }else{
+                    variables_.put(DataBase.VAR_PREFIX+Fight.IMMU_TYPE_ATT_COMBATTANT_ENTRANT+DataBase.SEP_BETWEEN_KEYS+e,_import.getFalseString());
+                }
+            }
+        }
+        if(effet_ instanceof EffectInvoke){
+            EffectInvoke effetInvoque_=(EffectInvoke)effet_;
+            StringList attaquesInvocables_=FightInvoke.invokableMoves(_fight,_lanceur,_cible,effetInvoque_,_import);
+            if(attaquesInvocables_.isEmpty()){
+                //invoke of attacks
+                variables_.put(DataBase.VAR_PREFIX+Fight.PAS_ATTAQUE_INVOC,_import.getTrueString());
+            }else{
+                variables_.put(DataBase.VAR_PREFIX+Fight.PAS_ATTAQUE_INVOC,_import.getFalseString());
+            }
+        }else{
+            variables_.put(DataBase.VAR_PREFIX+Fight.PAS_ATTAQUE_INVOC,_import.getFalseString());
+        }
+        if(effet_ instanceof EffectCopyMove){
+            EffectCopyMove effetCopieAtt_=(EffectCopyMove)effet_;
+            if(FightInvoke.copiableMoves(_fight, _lanceur,_cible, effetCopieAtt_, _import).isEmpty()){
+                //copy moves
+                variables_.put(DataBase.VAR_PREFIX+Fight.PAS_ATTAQUES_COPIABLES,_import.getTrueString());
+            }else{
+                variables_.put(DataBase.VAR_PREFIX+Fight.PAS_ATTAQUES_COPIABLES,_import.getFalseString());
+            }
+        }else{
+            variables_.put(DataBase.VAR_PREFIX+Fight.PAS_ATTAQUES_COPIABLES,_import.getFalseString());
+        }
+        variables_.putAllMap(calculateBasicBooleanValues(_fight,_lanceur,_cible,_import));
+        _fight.setEnabledMessages(true);
+        return variables_;
+    }
+
+    static StringMap<String> calculateBasicBooleanValues(
+            Fight _fight,
+            TeamPosition _lanceur,TeamPosition _cible,
+            DataBase _import) {
+        _fight.setEnabledMessages(false);
+        Fighter creatureCbtCible_ = _fight.getFighter(_cible);
+        Fighter creatureCbtLanceur_= _fight.getFighter(_lanceur);
+        StringMap<String> variables_ = new StringMap<String>();
+        StringMap<Boolean> enabled_ = new StringMap<Boolean>();
+        StringList moves_ = new StringList();
+        for (MoveTeamPosition s: creatureCbtCible_.getStatusRelatSet()) {
+            moves_.add(s.getMove());
+        }
+        moves_.removeDuplicates();
+        for (String m: moves_) {
+            boolean enabledLoc_ = false;
+            for (MoveTeamPosition s: creatureCbtCible_.getStatusRelatSet()) {
+                if (!StringList.quickEq(s.getMove(), m)) {
+                    continue;
+                }
+                if (creatureCbtCible_.getStatusRelatNbRoundShort(s) > 0) {
+                    enabledLoc_ = true;
+                    break;
+                }
+            }
+            enabled_.put(m, enabledLoc_);
+        }
+        for (String m: enabled_.getKeys()) {
+            if(enabled_.getVal(m)){
+                //enabled status relation
+                variables_.put(DataBase.VAR_PREFIX+Fight.CIBLE_POSSEDE_STATUT_RELATION+DataBase.SEP_BETWEEN_KEYS+m,_import.getTrueString());
+            }else{
+                variables_.put(DataBase.VAR_PREFIX+Fight.CIBLE_POSSEDE_STATUT_RELATION+DataBase.SEP_BETWEEN_KEYS+m,_import.getFalseString());
+            }
+        }
+        StringList effetsIndiv_ = _import.getVarParamsMove(Fight.CIBLE_EFFET);
+        /*
+        ENCORE,ATTERRISSAGE,ENTRAVE,REFLET_MAGIK
+        */
+        for(String c:effetsIndiv_){
+            if (creatureCbtCible_.getEnabledMoves().contains(c)) {
+                if(creatureCbtCible_.getEnabledMoves().getVal(c).isEnabled()){
+                    //enabled effect
+                    variables_.put(DataBase.VAR_PREFIX+Fight.CIBLE_EFFET+DataBase.SEP_BETWEEN_KEYS+c,_import.getTrueString());
+                }else{
+                    variables_.put(DataBase.VAR_PREFIX+Fight.CIBLE_EFFET+DataBase.SEP_BETWEEN_KEYS+c,_import.getFalseString());
+                }
+                continue;
+            }
+            if (creatureCbtCible_.getEnabledMovesProt().contains(c)) {
+                if(creatureCbtCible_.getEnabledMovesProt().getVal(c).isEnabled()){
+                    //enabled effect
+                    variables_.put(DataBase.VAR_PREFIX+Fight.CIBLE_EFFET+DataBase.SEP_BETWEEN_KEYS+c,_import.getTrueString());
+                }else{
+                    variables_.put(DataBase.VAR_PREFIX+Fight.CIBLE_EFFET+DataBase.SEP_BETWEEN_KEYS+c,_import.getFalseString());
+                }
+                continue;
+            }
+            if (creatureCbtCible_.getEnabledMovesUnprot().contains(c)) {
+                if(creatureCbtCible_.getEnabledMovesUnprot().getVal(c).isEnabled()){
+                    //enabled effect
+                    variables_.put(DataBase.VAR_PREFIX+Fight.CIBLE_EFFET+DataBase.SEP_BETWEEN_KEYS+c,_import.getTrueString());
+                }else{
+                    variables_.put(DataBase.VAR_PREFIX+Fight.CIBLE_EFFET+DataBase.SEP_BETWEEN_KEYS+c,_import.getFalseString());
+                }
+                continue;
+            }
+            if (creatureCbtCible_.getEnabledMovesEndRound().contains(c)) {
+                if(creatureCbtCible_.getEnabledMovesEndRound().getVal(c).isEnabled()){
+                    //enabled effect
+                    variables_.put(DataBase.VAR_PREFIX+Fight.CIBLE_EFFET+DataBase.SEP_BETWEEN_KEYS+c,_import.getTrueString());
+                }else{
+                    variables_.put(DataBase.VAR_PREFIX+Fight.CIBLE_EFFET+DataBase.SEP_BETWEEN_KEYS+c,_import.getFalseString());
+                }
+                continue;
+            }
+            if (creatureCbtCible_.getEnabledMovesForAlly().contains(c)) {
+                if(creatureCbtCible_.getEnabledMovesForAlly().getVal(c)){
+                    //enabled effect
+                    variables_.put(DataBase.VAR_PREFIX+Fight.CIBLE_EFFET+DataBase.SEP_BETWEEN_KEYS+c,_import.getTrueString());
+                }else{
+                    variables_.put(DataBase.VAR_PREFIX+Fight.CIBLE_EFFET+DataBase.SEP_BETWEEN_KEYS+c,_import.getFalseString());
+                }
+                continue;
+            }
+            if (creatureCbtCible_.getEnabledMovesConstChoices().contains(c)) {
+                if(creatureCbtCible_.getEnabledMovesConstChoices().getVal(c).isEnabled()){
+                    //enabled effect
+                    variables_.put(DataBase.VAR_PREFIX+Fight.CIBLE_EFFET+DataBase.SEP_BETWEEN_KEYS+c,_import.getTrueString());
+                }else{
+                    variables_.put(DataBase.VAR_PREFIX+Fight.CIBLE_EFFET+DataBase.SEP_BETWEEN_KEYS+c,_import.getFalseString());
+                }
+                continue;
+            }
+            if (_import.getMovesActingMoveUses().containsStr(c)) {
+                boolean enabledMove_ = false;
+                for (MoveTeamPosition m: creatureCbtCible_.getTrackingMoves().getKeys()) {
+                    if (!StringList.quickEq(m.getMove(), c)) {
+                        continue;
+                    }
+                    if (!creatureCbtCible_.getTrackingMoves().getVal(m).getActivity().isEnabled()) {
+                        continue;
+                    }
+                    enabledMove_ = true;
+                }
+                if (enabledMove_) {
+                    variables_.put(DataBase.VAR_PREFIX+Fight.CIBLE_EFFET+DataBase.SEP_BETWEEN_KEYS+c,_import.getTrueString());
+                } else {
+                    variables_.put(DataBase.VAR_PREFIX+Fight.CIBLE_EFFET+DataBase.SEP_BETWEEN_KEYS+c,_import.getFalseString());
+                }
+                continue;
+            }
+            if (StringList.quickEq(creatureCbtCible_.getLastSuccessfulMove(), c)) {
+                if (creatureCbtCible_.isSuccessfulMove()) {
+                    variables_.put(DataBase.VAR_PREFIX+Fight.CIBLE_EFFET+DataBase.SEP_BETWEEN_KEYS+c,_import.getTrueString());
+                } else {
+                    variables_.put(DataBase.VAR_PREFIX+Fight.CIBLE_EFFET+DataBase.SEP_BETWEEN_KEYS+c,_import.getFalseString());
+                }
+            } else {
+                variables_.put(DataBase.VAR_PREFIX+Fight.CIBLE_EFFET+DataBase.SEP_BETWEEN_KEYS+c,_import.getFalseString());
+            }
+        }
+        if(creatureCbtCible_.noPowerPointForLastUsedMove()){
+            //without pp
+            variables_.put(DataBase.VAR_PREFIX+Fight.PAS_PP_ATTAQUE_CIBLE,_import.getTrueString());
+        }else{
+            variables_.put(DataBase.VAR_PREFIX+Fight.PAS_PP_ATTAQUE_CIBLE,_import.getFalseString());
+        }
+        boolean pasUtiliseAttaqueCible_=true;
+        for(String c:creatureCbtCible_.getCurrentMovesSet()){
+            UsesOfMove pps_=creatureCbtCible_.getCurrentMove(c);
+            if(pps_.getCurrent()<pps_.getMax()){
+                pasUtiliseAttaqueCible_=false;
+                break;
+            }
+        }
+        if(pasUtiliseAttaqueCible_){
+            //without use of pp
+            variables_.put(DataBase.VAR_PREFIX+Fight.PAS_UTILIS_ATTAQUE_CIBLE,_import.getTrueString());
+        }else{
+            variables_.put(DataBase.VAR_PREFIX+Fight.PAS_UTILIS_ATTAQUE_CIBLE,_import.getFalseString());
+        }
+        StringList immuTypesIndiv_ = _import.getVarParamsMove(Fight.IMMU_TYPE_ATT_CIBLE);
+        immuTypesIndiv_.removeDuplicates();
+        for(String e:immuTypesIndiv_){
+            if(FightSuccess.isProtectedAgainstMoveType(_fight,_lanceur,_cible,e,_import)){
+                //protected against
+                variables_.put(DataBase.VAR_PREFIX+Fight.IMMU_TYPE_ATT_CIBLE+DataBase.SEP_BETWEEN_KEYS+e,_import.getTrueString());
+            }else{
+                variables_.put(DataBase.VAR_PREFIX+Fight.IMMU_TYPE_ATT_CIBLE+DataBase.SEP_BETWEEN_KEYS+e,_import.getFalseString());
+            }
+        }
+        boolean aucunBoostPossible_=true;
+        byte maxBoost_=(byte)_import.getMaxBoost();
+        for(Statistic c:creatureCbtCible_.getStatisBoost().getKeys()){
+            byte boost_=creatureCbtCible_.getStatisBoost().getVal(c);
+            if(boost_<maxBoost_){
+                aucunBoostPossible_=false;
+                break;
+            }
+        }
+        if(aucunBoostPossible_){
+            //no possible boost
+            variables_.put(DataBase.VAR_PREFIX+Fight.AUCUN_BOOST_POSSIBLE,_import.getTrueString());
+        }else{
+            variables_.put(DataBase.VAR_PREFIX+Fight.AUCUN_BOOST_POSSIBLE,_import.getFalseString());
+        }
+        effetsIndiv_ = _import.getVarParamsMove(Fight.LANCEUR_EFFET);
+        effetsIndiv_.removeDuplicates();
+        for(String c:effetsIndiv_){
+            if (creatureCbtLanceur_.getEnabledMoves().contains(c)) {
+                if(creatureCbtLanceur_.getEnabledMoves().getVal(c).isEnabled()){
+                    //enabled effect
+                    variables_.put(DataBase.VAR_PREFIX+Fight.LANCEUR_EFFET+DataBase.SEP_BETWEEN_KEYS+c,_import.getTrueString());
+                }else{
+                    variables_.put(DataBase.VAR_PREFIX+Fight.LANCEUR_EFFET+DataBase.SEP_BETWEEN_KEYS+c,_import.getFalseString());
+                }
+                continue;
+            }
+            if (creatureCbtLanceur_.getEnabledMovesProt().contains(c)) {
+                if(creatureCbtLanceur_.getEnabledMovesProt().getVal(c).isEnabled()){
+                    //enabled effect
+                    variables_.put(DataBase.VAR_PREFIX+Fight.LANCEUR_EFFET+DataBase.SEP_BETWEEN_KEYS+c,_import.getTrueString());
+                }else{
+                    variables_.put(DataBase.VAR_PREFIX+Fight.LANCEUR_EFFET+DataBase.SEP_BETWEEN_KEYS+c,_import.getFalseString());
+                }
+                continue;
+            }
+            if (creatureCbtLanceur_.getEnabledMovesUnprot().contains(c)) {
+                if(creatureCbtLanceur_.getEnabledMovesUnprot().getVal(c).isEnabled()){
+                    //enabled effect
+                    variables_.put(DataBase.VAR_PREFIX+Fight.LANCEUR_EFFET+DataBase.SEP_BETWEEN_KEYS+c,_import.getTrueString());
+                }else{
+                    variables_.put(DataBase.VAR_PREFIX+Fight.LANCEUR_EFFET+DataBase.SEP_BETWEEN_KEYS+c,_import.getFalseString());
+                }
+                continue;
+            }
+            if (creatureCbtLanceur_.getEnabledMovesEndRound().contains(c)) {
+                if(creatureCbtLanceur_.getEnabledMovesEndRound().getVal(c).isEnabled()){
+                    //enabled effect
+                    variables_.put(DataBase.VAR_PREFIX+Fight.LANCEUR_EFFET+DataBase.SEP_BETWEEN_KEYS+c,_import.getTrueString());
+                }else{
+                    variables_.put(DataBase.VAR_PREFIX+Fight.LANCEUR_EFFET+DataBase.SEP_BETWEEN_KEYS+c,_import.getFalseString());
+                }
+                continue;
+            }
+            if (creatureCbtLanceur_.getEnabledMovesForAlly().contains(c)) {
+                if(creatureCbtLanceur_.getEnabledMovesForAlly().getVal(c)){
+                    //enabled effect
+                    variables_.put(DataBase.VAR_PREFIX+Fight.LANCEUR_EFFET+DataBase.SEP_BETWEEN_KEYS+c,_import.getTrueString());
+                }else{
+                    variables_.put(DataBase.VAR_PREFIX+Fight.LANCEUR_EFFET+DataBase.SEP_BETWEEN_KEYS+c,_import.getFalseString());
+                }
+                continue;
+            }
+            if (creatureCbtLanceur_.getEnabledMovesConstChoices().contains(c)) {
+                if(creatureCbtLanceur_.getEnabledMovesConstChoices().getVal(c).isEnabled()){
+                    //enabled effect
+                    variables_.put(DataBase.VAR_PREFIX+Fight.LANCEUR_EFFET+DataBase.SEP_BETWEEN_KEYS+c,_import.getTrueString());
+                }else{
+                    variables_.put(DataBase.VAR_PREFIX+Fight.LANCEUR_EFFET+DataBase.SEP_BETWEEN_KEYS+c,_import.getFalseString());
+                }
+                continue;
+            }
+            if (_import.getMovesActingMoveUses().containsStr(c)) {
+                boolean enabledMove_ = false;
+                for (MoveTeamPosition m: creatureCbtLanceur_.getTrackingMoves().getKeys()) {
+                    if (!StringList.quickEq(m.getMove(), c)) {
+                        continue;
+                    }
+                    if (!creatureCbtLanceur_.getTrackingMoves().getVal(m).getActivity().isEnabled()) {
+                        continue;
+                    }
+                    enabledMove_ = true;
+                }
+                if (enabledMove_) {
+                    variables_.put(DataBase.VAR_PREFIX+Fight.LANCEUR_EFFET+DataBase.SEP_BETWEEN_KEYS+c,_import.getTrueString());
+                } else {
+                    variables_.put(DataBase.VAR_PREFIX+Fight.LANCEUR_EFFET+DataBase.SEP_BETWEEN_KEYS+c,_import.getFalseString());
+                }
+                continue;
+            }
+            if (StringList.quickEq(creatureCbtLanceur_.getLastSuccessfulMove(), c)) {
+                if (creatureCbtLanceur_.isSuccessfulMove()) {
+                    variables_.put(DataBase.VAR_PREFIX+Fight.LANCEUR_EFFET+DataBase.SEP_BETWEEN_KEYS+c,_import.getTrueString());
+                } else {
+                    variables_.put(DataBase.VAR_PREFIX+Fight.LANCEUR_EFFET+DataBase.SEP_BETWEEN_KEYS+c,_import.getFalseString());
+                }
+            } else {
+                variables_.put(DataBase.VAR_PREFIX+Fight.LANCEUR_EFFET+DataBase.SEP_BETWEEN_KEYS+c,_import.getFalseString());
+            }
+        }
+        if (!creatureCbtLanceur_.resistingTypes(_import).isEmpty()) {
+            variables_.put(DataBase.VAR_PREFIX+Fight.TYPES_ATTAQUES_RES_VIDE,_import.getFalseString());
+        } else {
+            //types of moves
+            variables_.put(DataBase.VAR_PREFIX+Fight.TYPES_ATTAQUES_RES_VIDE,_import.getTrueString());
+        }
+        int nbPartenairesArriere_ = FightOrder.nbBackPartners(_fight, _lanceur);
+        int nbPartenairesTerrain_ = FightOrder.nbFrontPartners(_fight, _lanceur);
+        int nbPartenaires_ = nbPartenairesArriere_ + nbPartenairesTerrain_;
+        if(nbPartenaires_==0){
+            //not partner
+            variables_.put(DataBase.VAR_PREFIX+Fight.PAS_PARTENAIRE,_import.getTrueString());
+        }else{
+            variables_.put(DataBase.VAR_PREFIX+Fight.PAS_PARTENAIRE,_import.getFalseString());
+        }
+        if(nbPartenairesArriere_==0){
+            //not back partner
+            variables_.put(DataBase.VAR_PREFIX+Fight.PAS_PARTENAIRE_ARRIERE,_import.getTrueString());
+        }else{
+            variables_.put(DataBase.VAR_PREFIX+Fight.PAS_PARTENAIRE_ARRIERE,_import.getFalseString());
+        }
+        if(nbPartenairesTerrain_==0){
+            //not front partner
+            variables_.put(DataBase.VAR_PREFIX+Fight.PAS_PARTENAIRE_TERRAIN,_import.getTrueString());
+        }else{
+            variables_.put(DataBase.VAR_PREFIX+Fight.PAS_PARTENAIRE_TERRAIN,_import.getFalseString());
+        }
+        if(creatureCbtLanceur_.getNbRounds().isZero()){
+            //back
+            variables_.put(DataBase.VAR_PREFIX+Fight.PAS_TOUR_TERRAIN,_import.getTrueString());
+        }else{
+            variables_.put(DataBase.VAR_PREFIX+Fight.PAS_TOUR_TERRAIN,_import.getFalseString());
+        }
+        if(creatureCbtLanceur_.estAssexue()||creatureCbtCible_.estAssexue()){
+            //opposite genders
+            variables_.put(DataBase.VAR_PREFIX+Fight.EXISTE_GENRE_ASSEXUE,_import.getTrueString());
+        }else{
+            variables_.put(DataBase.VAR_PREFIX+Fight.EXISTE_GENRE_ASSEXUE,_import.getFalseString());
+        }
+        if(creatureCbtLanceur_.getCurrentGender()==creatureCbtCible_.getCurrentGender()){
+            //same genders
+            variables_.put(DataBase.VAR_PREFIX+Fight.GENRES_EGAUX,_import.getTrueString());
+        }else{
+            variables_.put(DataBase.VAR_PREFIX+Fight.GENRES_EGAUX,_import.getFalseString());
+        }
+        _fight.setEnabledMessages(true);
+        return variables_;
+    }
+
+    static StringMap<String> calculateSendingVariables(
+            Fight _fight,
+            TeamPosition _lanceur,DataBase _import) {
+        _fight.setEnabledMessages(false);
+        StringMap<String> variables_ = new StringMap<String>();
+        Fighter creatureCbtLanceur_= _fight.getFighter(_lanceur);
+        Team equipeAdvCbtEnvoye_=_fight.getTeams().getVal(Fight.foe(_lanceur.getTeam()));
+        StringMap<LgInt> nbUtilisationsEntreeAdv_=equipeAdvCbtEnvoye_.getEnabledMovesWhileSendingFoeUses();
+        variables_.put(DataBase.VAR_PREFIX+Fight.COMBATTANT_ENTRANT_CLONE,creatureCbtLanceur_.getClone().toString());
+        variables_.put(DataBase.VAR_PREFIX+Fight.COMBATTANT_ENTRANT_TYPES,creatureCbtLanceur_.getTypes().join(_import.getSepartorSetChar()));
+        StringList coeffTypes_=_import.getVarParamsMove(Fight.COEFF_EFF_BASE_TYPES_COMBATTANT_ENTRANT);
+        for(String e:coeffTypes_){
+            Rate coeffEnvoye_=DataBase.defRateProduct();
+            for(String e2_:creatureCbtLanceur_.getTypes()){
+                coeffEnvoye_.multiplyBy(_import.getTableTypes().getVal(new TypesDuo(e,e2_)));
+            }
+            variables_.put(DataBase.VAR_PREFIX+Fight.COEFF_EFF_BASE_TYPES_COMBATTANT_ENTRANT+DataBase.SEP_BETWEEN_KEYS+e,coeffEnvoye_.toString());
+        }
+        StringList nbUtAdv_=_import.getVarParamsMove(Fight.EQUIPE_ADV_COMBATTANT_ENTRANT_NB_UTILISATION);
+        for(String e:nbUtAdv_){
+            variables_.put(DataBase.VAR_PREFIX+Fight.EQUIPE_ADV_COMBATTANT_ENTRANT_NB_UTILISATION+DataBase.SEP_BETWEEN_KEYS+e,nbUtilisationsEntreeAdv_.getVal(e).toString());
+        }
+        _fight.setEnabledMessages(true);
+        return variables_;
+    }
+}

@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><html xmlns:c="javahtml" c:bean="solution">
+	<head>
+		<link href="web/css/pokedex.css" rel="stylesheet" type="text/css"/>
+		<title><c:message value="msg_solution,title"/></title>
+	</head>
+	<body>
+		<a c:command="web/html/index.html" href=""><c:message value="msg_solution,index"/></a>
+		<c:for className="aiki.beans.facade.solution.dto.StepDto" list="steps" var="p">
+			{p;;}<br/>
+			<p>
+				<c:for key="pl" map="p;getPokemon()" value="pk" varClassName="ls">
+					<table>
+						<caption><b>{getPlace(p;;,pl;;)}</b></caption>
+						<thead>
+							<tr>
+								<th><c:message value="msg_solution,image"/></th>
+								<th><c:message value="msg_solution,name"/></th>
+								<th><c:message value="msg_solution,gender"/></th>
+							</tr>
+						</thead>
+						<tbody>
+							<c:for className="aiki.beans.facade.solution.dto.WildPokemonDto" list="pk;" var="l">
+								<tr>
+									<td><c:img src="{l;image}"/></td>
+									<td>{l;name}</td>
+									<td>{l;gender}</td>
+								</tr>
+							</c:for>
+						</tbody>
+					</table>
+				</c:for>
+				<c:if condition="!p;getNames().isEmpty()">
+					<ul>
+						<c:for className="aiki.beans.facade.solution.dto.PlaceTrainerDto" list="p;getNames()" var="pl">
+							<li>{pl;trainer} - {pl;place}</li>
+						</c:for>
+					</ul>
+				</c:if>
+				<!--{p;getPlace().getName()}<br/>
+				<c:if condition="isMultiLayer(p;;)">
+					<ul>
+						<c:for var="l" list="layers(p;;)">
+							<li>
+								<a c:command="$clickLevel({p;index},{l;;})">{l;;}</a>
+							</li>
+						</c:for>
+					</ul>
+				</c:if>
+				<c:if condition="!isMultiLayer(p;;)">
+					<a c:command="$clickLevel({p;index},0)"><c:message value="msg_levelmap,goLevel"/></a>
+				</c:if>-->
+			</p>
+			<br/>
+			<br/>
+		</c:for>
+	</body>
+</html>

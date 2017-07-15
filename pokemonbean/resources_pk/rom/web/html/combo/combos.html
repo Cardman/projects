@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><html xmlns:c="javahtml" c:bean="combos">
+	<head>
+		<title><c:message value="msg_combo,title"/></title>
+		<link href="web/css/abilities.css" rel="stylesheet" type="text/css"/>
+	</head>
+	<body>
+		<a c:command="web/html/index.html" href=""><c:message value="msg_combo,index"/></a>
+		<br/>
+		<c:for list="getCombosKey()" var="m">
+			<c:import page="{combo}">
+				<c:package name="aiki.beans.effects">
+					<c:class name="EffectComboBean">
+						<c:field name="combos" value="combos"/>
+						<c:field name="index" value="m;;"/>
+					</c:class>
+				</c:package>
+			</c:import>
+		</c:for>
+	</body>
+</html>

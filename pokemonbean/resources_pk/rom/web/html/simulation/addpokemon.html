@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><html xmlns:c="javahtml" c:bean="addpokemon">
+	<head>
+		<title><c:message value="msg_levelsimu,title_add_pokemon"/></title>
+		<link href="web/css/simulation.css" rel="stylesheet" type="text/css"/>
+	</head>
+	<body>
+		<a c:command="$cancel" href=""><c:message value="msg_levelsimu,cancel"/></a>
+		<c:if condition="!namePk.isEmpty()">
+			<c:message value="msg_simulation,name_pk"/> {namePk}<br/>
+			<form action="" c:command="$add" method="post" name="adding">
+				<fieldset>
+					<c:message value="msg_simulation,ability_pk"/>
+					<c:select className="java.lang.String" default="" map="abilities" name="ability" update="" varValue="ability"/><br/>
+					<c:message value="msg_simulation,gender_pk"/>
+					<c:select className="aiki.map.pokemon.enums.Gender" default="" map="genders" name="gender" update="" varValue="gender"/><br/>
+					<c:message value="msg_simulation,level_pk"/>
+					<input c:varValue="level" name="level" type="text"/><br/>
+					<c:submit message="msg_simulation,add_pk_player"/>
+				</fieldset>
+			</form>
+		</c:if>
+		<form action="" c:command="$search" method="post" name="searching">
+			<fieldset>
+				<c:message value="msg_pokedex,content_name"/>
+				<input c:varValue="typedName" name="typedName" type="text"/><br/>
+				<c:message value="msg_pokedex,content_type"/>
+				<input c:varValue="typedType" name="typedType" type="text"/><br/>
+				<c:message value="msg_pokedex,content_type_whole"/>
+				<input c:varValue="wholeWord" name="wholeWord" type="checkbox"/><br/>
+				<c:message value="msg_pokedex,has_evo"/>
+				<c:select className="sb" default="" map="booleans" name="hasEvo" update="" varValue="hasEvo"/><br/>
+				<c:message value="msg_pokedex,is_evo"/>
+				<c:select className="sb" default="" map="booleans" name="isEvo" update="" varValue="isEvo"/><br/>
+				<c:message value="msg_pokedex,leg"/>
+				<c:select className="sb" default="" map="booleans" name="isLeg" update="" varValue="isLeg"/><br/>
+				<c:submit message="msg_simulation,search_pk_player"/>
+			</fieldset>
+		</form>
+		<br/>
+		<table>
+			<caption><c:message value="msg_pokedex,pokedex"/></caption>
+			<thead>
+				<tr>
+					<th><c:message value="msg_pokedex,image"/></th>
+					<th><c:message value="msg_pokedex,name"/></th>
+					<th><c:message value="msg_pokedex,types"/></th>
+					<th><c:message value="msg_pokedex,evos"/></th>
+				</tr>
+			</thead>
+			<tbody>
+				<c:for className="aiki.beans.facade.dto.PokemonLine" list="pokedex" var="d">
+					<tr>
+						<td><c:img src="{getMiniImage(d;;)}"/></td>
+						<td><a c:command="$clickLink({d;;})" href="">{d;displayName}</a></td>
+						<td>
+							<c:for list="d;types" var="t">
+								{t;} -
+							</c:for>
+						</td>
+						<td>{d;evolutions}</td>
+					</tr>
+				</c:for>
+			</tbody>
+		</table>
+	</body>
+</html>

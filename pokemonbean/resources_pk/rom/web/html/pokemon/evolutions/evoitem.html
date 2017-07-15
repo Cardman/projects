@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><html xmlns:c="javahtml" c:bean="evo_item">
+	<head>
+		<link href="web/css/pokedex.css" rel="stylesheet" type="text/css"/>
+	</head>
+	<body>
+		<tr>
+			<td>
+				<a c:command="$clickEvo({index})" href="">{displayName}</a>
+			</td>
+			<td>
+				<c:message value="msg_evoitem,item">
+					<param value="displayBase"/>
+					<param value="item"/>
+					<param value="index"/>
+				</c:message>
+			</td>
+		</tr>
+	</body>
+</html>

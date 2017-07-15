@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><html xmlns:c="javahtml" c:bean="eff_batonpass">
+	<head>
+		<link href="web/css/moves.css" rel="stylesheet" type="text/css"/>
+	</head>
+	<body>
+		<p>
+			<c:message value="msg_effbatonpass,effect"/>
+			<c:import page="{effectBean}">
+				<c:package name="aiki.beans.moves.effects">
+					<c:class name="EffectBean">
+						<c:field name="index" value="index"/>
+						<c:field name="move" value="move"/>
+					</c:class>
+				</c:package>
+			</c:import>
+			<c:if condition="!moves.isEmpty()">
+				<c:message value="msg_effbatonpass,effect_2"/>
+				<ul>
+					<c:for list="moves" var="m">
+						<li><a c:command="$clickMove({m;;})" href="">{getTrMove(m;;)}</a></li>
+					</c:for>
+				</ul>
+			</c:if>
+		</p>
+	</body>
+</html>

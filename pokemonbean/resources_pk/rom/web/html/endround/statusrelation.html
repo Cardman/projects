@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><html xmlns:c="javahtml" c:bean="end_statusrelation">
+	<head>
+		<link href="web/css/abilities.css" rel="stylesheet" type="text/css"/>
+	</head>
+	<body>
+		<c:import page="{endRoundStatusHtml}">
+			<c:package name="aiki.beans.endround">
+				<c:class name="EffectEndRoundBean">
+					<c:field name="index" value="index"/>
+				</c:class>
+			</c:package>
+		</c:import>
+		<p>
+			<c:if condition="!thievedHpRateTargetToUser.isZero()">
+				<c:message value="msg_statusrelation,effect"/>
+				<c:message value="msg_statusrelation,thieved_hp_rate">
+					<param value="thievedHpRateTargetToUser"/>
+				</c:message>
+			</c:if>
+		</p>
+	</body>
+</html>

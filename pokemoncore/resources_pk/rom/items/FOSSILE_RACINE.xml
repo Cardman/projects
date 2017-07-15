@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><aiki.fight.items.Fossil>
+<java.lang.String class="aiki.fight.items.Fossil" field="pokemon" value="LILIA"/>
+<java.lang.Short class="aiki.fight.items.Fossil" field="level" value="5"/>
+<java.lang.Integer class="aiki.fight.items.Item" field="price" value="2000"/>
+</aiki.fight.items.Fossil>

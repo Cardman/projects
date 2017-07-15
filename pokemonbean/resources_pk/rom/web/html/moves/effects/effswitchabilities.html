@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><html xmlns:c="javahtml" c:bean="eff_switchabilities">
+	<head>
+		<link href="web/css/moves.css" rel="stylesheet" type="text/css"/>
+	</head>
+	<body>
+		<p>
+			<c:message value="msg_effswitchabilities,effect"/>
+			<c:import page="{effectBean}">
+				<c:package name="aiki.beans.moves.effects">
+					<c:class name="EffectBean">
+						<c:field name="index" value="index"/>
+						<c:field name="move" value="move"/>
+					</c:class>
+				</c:package>
+			</c:import>
+			<c:if condition="giveToTarget()">
+				<c:message value="msg_effswitchabilities,give_to_target"/>
+			</c:if>
+			<c:if condition="giveToUser()">
+				<c:message value="msg_effswitchabilities,give_to_user"/>
+			</c:if>
+			<c:if condition="giveConst()">
+				<c:if condition="isDefAbility()">
+					<c:set className="java.lang.Long" expression="^class(&quot;java.lang.Integer&quot;,index).longValue()" var="abilityIndex"/>
+					<c:message value="msg_effswitchabilities,give_const">
+						<param value="getTrAbility(^class(&quot;$long&quot;,index))"/>
+						<param value="index"/>
+					</c:message>
+				</c:if>
+				<c:if condition="!isDefAbility()">
+					<c:message value="msg_effswitchabilities,give_const_empty"/>
+				</c:if>
+			</c:if>
+			<c:if condition="switchAbilities()">
+				<c:message value="msg_effswitchabilities,swicth_abilities"/>
+			</c:if>
+		</p>
+	</body>
+</html>

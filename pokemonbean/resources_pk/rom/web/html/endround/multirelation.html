@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><html xmlns:c="javahtml" c:bean="end_multirelation">
+	<head>
+		<link href="web/css/abilities.css" rel="stylesheet" type="text/css"/>
+	</head>
+	<body>
+		<c:import page="{endRoundHtml}">
+			<c:package name="aiki.beans.endround">
+				<c:class name="EffectEndRoundBean">
+					<c:field name="index" value="index"/>
+				</c:class>
+			</c:package>
+		</c:import>
+		<p>
+			<c:if condition="!damageByStatus.isEmpty()">
+				<c:message value="msg_multirelation,effect"/>
+				<table>
+					<thead>
+						<tr>
+							<th><c:message value="msg_multirelation,damage_status_key"/></th>
+							<th><c:message value="msg_multirelation,damage_status_rate"/></th>
+						</tr>
+					</thead>
+					<tbody>
+						<c:for key="s" map="damageByStatus" value="r">
+							<tr>
+								<td><a c:command="$clickStatus({index},{s;;})" href="">{getTrStatus(s;;)}</a></td>
+								<td>{r;}</td>
+							</tr>
+						</c:for>
+					</tbody>
+				</table>
+				<br/>
+			</c:if>
+		</p>
+	</body>
+</html>

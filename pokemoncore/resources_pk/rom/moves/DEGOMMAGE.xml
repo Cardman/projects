@@ -1,0 +1,257 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><aiki.fight.moves.DamagingMoveData>
+<java.lang.String class="aiki.fight.moves.DamagingMoveData" field="category" value="PHYSIQUE"/>
+<java.lang.Boolean class="aiki.fight.moves.DamagingMoveData" field="direct" value="false"/>
+<java.lang.Boolean class="aiki.fight.moves.DamagingMoveData" field="cannotKo" value="false"/>
+<java.lang.Boolean class="aiki.fight.moves.DamagingMoveData" field="stoppableMoveKoSingle" value="true"/>
+<java.lang.Boolean class="aiki.fight.moves.MoveData" field="notTranslated" value="false"/>
+<java.lang.Short class="aiki.fight.moves.MoveData" field="pp" value="10"/>
+<sl class="aiki.fight.moves.MoveData" field="types">
+<java.lang.String class="util.List" value="TENEBRE"/>
+</sl>
+<sl class="aiki.fight.moves.MoveData" field="boostedTypes">
+<java.lang.String class="util.List" value="TENEBRE"/>
+</sl>
+<java.lang.Byte class="aiki.fight.moves.MoveData" field="priority" value="0"/>
+<java.lang.String class="aiki.fight.moves.MoveData" field="accuracy" value="1"/>
+<l class="aiki.fight.moves.MoveData" field="effects">
+<aiki.fight.moves.effects.EffectDamage class="util.List">
+<java.lang.Byte class="aiki.fight.moves.effects.EffectDamage" field="chRate" value="0"/>
+<java.lang.Boolean class="aiki.fight.moves.effects.EffectDamage" field="constDamage" value="false"/>
+<mcs class="aiki.fight.moves.effects.EffectDamage" field="damageLaw">
+<sm class="mcs" field="law"/>
+</mcs>
+<sm class="aiki.fight.moves.effects.EffectDamage" field="multDamageAgainst"/>
+<mcu class="aiki.fight.moves.effects.EffectDamage" field="chLaw"/>
+<mcu class="aiki.fight.moves.effects.EffectDamage" field="hitsLaw"/>
+<java.lang.String class="aiki.fight.moves.effects.EffectDamage" field="power" value="caracferme(cardinal(inter({VAR__LANCEUR_OBJET},{BAIE_ABRIKO;BAIE_ALGA;BAIE_BABIRI;BAIE_CERIZ;BAIE_CHARTI;BAIE_CHERIM;BAIE_CHOCCO;BAIE_COBABA;BAIE_DURIN;BAIE_ENIGMA;BAIE_FIGUY;BAIE_FRAIGO;BAIE_FRAIVE;BAIE_FRAMBY;BAIE_FRISTA;BAIE_GOWAV;BAIE_GRENA;BAIE_JABOCA;BAIE_JOUCA;BAIE_KEBIA;BAIE_KIKA;BAIE_KIWAN;BAIE_LAMPOU;BAIE_LANSAT;BAIE_LICHII;BAIE_LINGAN;BAIE_LONME;BAIE_MAGO;BAIE_MANGOU;BAIE_MARON;BAIE_MEPO;BAIE_MICLE;BAIE_MYRTE;BAIE_NANAB;BAIE_NANANA;BAIE_NANONE;BAIE_ORAN;BAIE_PALMA;BAIE_PANGA;BAIE_PAPAYA;BAIE_PARMA;BAIE_PECHA;BAIE_PITAYE;BAIE_POCPOC;BAIE_POMMO;BAIE_POMROZ;BAIE_PRINE;BAIE_QUALOT;BAIE_RABUTA;BAIE_RATAM;BAIE_REMU;BAIE_REPOI;BAIE_RESIN;BAIE_SAILAK;BAIE_SEDRA;BAIE_SIAM;BAIE_SITRUS;BAIE_STEKPA;BAIE_TAMATO;BAIE_TRONCI;BAIE_WIKI;BAIE_WILLIA;BAIE_YAPAP;BAIE_ZALIS;BANDEAU;BIZAR_ENCENS;CARAPACE_MUE;CEINTURE_PRO;ENCENS_DOUX;ENCENS_FLEUR;ENCENS_MER;ENCENS_PLEIN;ENCENS_PUR;ENCENS_ROC;ENCENS_VAGUE;ENCENS_VEINE;GRELOT_ZEN;HERBE_MENTAL;HERBE_POUV;LUNET_SAGES;MOUCH_SOIE;POUDRECLAIRE;POUDRE_METAL;POUDRE_VITE;RALENTIQUEUE;RESTES;ROCHE_LISSE;SABLE_DOUX;TISSU_FAUCHE})),1,1)*10+caracferme(cardinal(inter({VAR__LANCEUR_OBJET},{FOSSILE_ARMURE;FOSSILE_CRANE;FOSSILE_DOME;FOSSILE_GRIFFE;FOSSILE_PLAQUE;FOSSILE_PLUME;FOSSILE_RACINE;NAUTILE;OS_RARE;PIERRE_DURE;VIEIL_AMBRE})),1,1)*100+caracferme(cardinal(inter({VAR__LANCEUR_OBJET},{BALLE_FER})),1,1)*130+caracferme(cardinal(inter({VAR__LANCEUR_OBJET},{AIMANT;AMELIORATOR;ANTIDOTE;ANTIGEL;ANTI_BRULE;ANTI_PARA;BOUE_NOIRE;BOULE_FUMEE;CALCIUM;CARBONE;CENDRESACREE;CHARBON;CROC_RASOIR;CUILLERTORDU;EAU_FRAICHE;EAU_MYSTIQUE;ECAILLE_DRACO;ELIXIR;FER;GLACETERNEL;GRANDE_PERLE;GRELOT_COQUE;GROS_CHAMPI;GUERISON;HUILE;HUILE_MAX;HYPER_POTION;JUS_DE_BAIE;LAIT_MEUMEU;LENTILSCOPE;LIMONADE;LUMARGILE;MAX_ELIXIR;METRO;MORC_ETOILE;MULTI_EXP;OEUF_CHANCE;ORBE_FLAMME;ORBE_VIE;PEAU_METAL;PEPITE;PERLE;PETIT_CHAMPI;PIECE_RUNE;PIERRE_EAU;PIERRE_FEU;PIERRE_FOUDRE;PIERRE_LUNE;PIERRE_PLANTE;PIERRE_STASE;POTION;POTION_MAX;POUSS_ETOILE;PP_MAX;PP_PLUS;PROTEINE;PV_PLUS;RAPPEL;RAPPEL_MAX;REVEIL;ROCHE_ROYALE;RUNE_PURIF;RUNE_SORT;SODA_COOL;SUPER_POTION;TOTAL_SOIN;ZINC})),1,1)*30+caracferme(cardinal(inter({VAR__LANCEUR_OBJET},{POING_CHANCE;ROCHE_GLACE})),1,1)*40+inclusnum({VAR__LANCEUR_OBJET},vide)*5+caracferme(cardinal(inter({VAR__LANCEUR_OBJET},{APPAT_BALL;BALLON;BANDEAU_ETREINTE;BAND_CHOIX;BAND_MUSCLE;BAND_POUV;BIS_BALL;BOUTON_FUITE;BULBE;CARTE_ROUGE;CASQUE_BRUT;CEINT_FORCE;CEINT_NOIRE;CEINT_POUV;CHAINE_POUV;CHRONO_BALL;COMPET_BALL;COPAIN_BALL;ECAILLE_OCEAN;EVOLUROC;FAIBLO_BALL;FERRAILLE;FILET_BALL;GRAIN_MIRACL;GRIFFE_RASOIR;GROSSERACINE;HERBEBLANCHE;HONOR_BALL;HYPER_BALL;LENTIL_ZOOM;LENT_POUV;LOUPE;LOVE_BALL;LUNET_CHOIX;LUNET_NOIRES;LUNE_BALL;LUXE_BALL;MASSE_BALL;MASTER_BALL;MAX_REPOUSSE;MODULE_AQUA;MODULE_CHOC;MODULE_CRYO;MODULE_PYRO;MOUCH_CHOIX;NIVEAU_BALL;NOEUD_DESTIN;ORBE_PLATINE;ORBE_TOXIQUE;PIERRALLEGEE;PIERRE_GLACE;PIERRE_MOUSSE;PIERRE_SOLAIRE;PILE;PIQUANTS;POIDS_POUV;POIGN_POUV;POKE_BALL;POUDRE_ARG;PT_DE_MIRE;RAPIDE_BALL;REPOUSSE;ROCHE_ELECTRIQUE;SCUBA_BALL;SOIN_BALL;SOMBRE_BALL;SPEED_BALL;SUPER_BALL;SUPER_REPOUSSE})),1,1)*5+caracferme(cardinal(inter({VAR__LANCEUR_OBJET},{BEC_POINTU;CD_DOUTEUX})),1,1)*50+caracferme(cardinal(inter({VAR__LANCEUR_OBJET},{BATON;BRAC_MACHO;ORBE_ADAMANT;ORBE_PERLE;ROCHE_CHAUDE;ROCHE_HUMIDE})),1,1)*60+caracferme(cardinal(inter({VAR__LANCEUR_OBJET},{CROC_DRAGON;PIC_VENIN})),1,1)*70+caracferme(cardinal(inter({VAR__LANCEUR_OBJET},{ELECTRISEUR;MAGMARISEUR;PIERRE_AUBE;PIERRE_ECLAT;PIERRE_NUIT;PIERRE_OVALE;PROTECTEUR;VIVE_GRIFFE})),1,1)*80+caracferme(cardinal(inter({VAR__LANCEUR_OBJET},{ACCRO_GRIFFE;DENT_OCEAN;MASSE_OS;PLAQUESPRIT;PLAQUE_CIEL;PLAQUE_DRACO;PLAQUE_FANTO;PLAQUE_FER;PLAQUE_FLAM;PLAQUE_GLACE;PLAQUE_HERBE;PLAQUE_HYDRO;PLAQUE_OMBRE;PLAQUE_POING;PLAQUE_ROC;PLAQUE_TERRE;PLAQUE_TOXIC;PLAQUE_VOLT;PLAQUINSECT})),1,1)*90"/>
+<java.lang.Boolean class="aiki.fight.moves.effects.EffectDamage" field="randMax" value="false"/>
+<java.lang.Boolean class="aiki.fight.moves.effects.EffectDamage" field="summingUserTeamOkFighter" value="false"/>
+<el class="aiki.fight.moves.effects.EffectDamage" field="ignVarStatTargetPos"/>
+<el class="aiki.fight.moves.effects.EffectDamage" field="ignVarStatUserNeg"/>
+<java.lang.Boolean class="aiki.fight.moves.effects.EffectDamage" field="userAttack" value="true"/>
+<aiki.fight.enums.Statistic class="aiki.fight.moves.effects.EffectDamage" field="statisAtt" value="ATTACK"/>
+<java.lang.Boolean class="aiki.fight.moves.effects.EffectDamage" field="targetDefense" value="true"/>
+<aiki.fight.enums.Statistic class="aiki.fight.moves.effects.EffectDamage" field="statisDef" value="DEFENSE"/>
+<em class="aiki.fight.moves.effects.EffectDamage" field="boostStatisOnceKoFoe"/>
+<aiki.fight.moves.enums.TargetChoice class="aiki.fight.moves.effects.Effect" field="targetChoice" value="AUTRE_UNIQ"/>
+<java.lang.String class="aiki.fight.moves.effects.Effect" field="fail" value=""/>
+<n class="aiki.fight.moves.effects.Effect" field="requiredSuccessfulEffects"/>
+</aiki.fight.moves.effects.EffectDamage>
+<aiki.fight.moves.effects.EffectStatus class="util.List">
+<mcs class="aiki.fight.moves.effects.EffectStatus" field="lawStatus">
+<sm class="mcs" field="law">
+<java.lang.String class="util.Map" key="" value="BRULURE"/>
+<li class="util.Map" value="1"/>
+</sm>
+</mcs>
+<sl class="aiki.fight.moves.effects.EffectStatus" field="deletedStatus"/>
+<sm class="aiki.fight.moves.effects.EffectStatus" field="localFailStatus">
+<java.lang.String class="util.Map" key="" value="BRULURE"/>
+<java.lang.String class="util.Map" value="cardinal(inter({VAR__CIBLE_STATUTS},{BRULURE}))&gt;0|VAR__CIBLE_CLONE&gt;0|cardinal(inter({VAR__CIBLE_TYPES},{FEU}))&gt;0"/>
+</sm>
+<java.lang.Boolean class="aiki.fight.moves.effects.EffectStatus" field="koUserHealSubst" value="false"/>
+<java.lang.Boolean class="aiki.fight.moves.effects.EffectStatus" field="statusFromUser" value="false"/>
+<aiki.fight.moves.enums.TargetChoice class="aiki.fight.moves.effects.Effect" field="targetChoice" value="AUTRE_UNIQ"/>
+<java.lang.String class="aiki.fight.moves.effects.Effect" field="fail" value=""/>
+<n class="aiki.fight.moves.effects.Effect" field="requiredSuccessfulEffects">
+<java.lang.Integer class="util.List" value="0"/>
+</n>
+</aiki.fight.moves.effects.EffectStatus>
+<aiki.fight.moves.effects.EffectStatus class="util.List">
+<mcs class="aiki.fight.moves.effects.EffectStatus" field="lawStatus">
+<sm class="mcs" field="law">
+<java.lang.String class="util.Map" key="" value="POISON_GRAVE"/>
+<li class="util.Map" value="1"/>
+</sm>
+</mcs>
+<sl class="aiki.fight.moves.effects.EffectStatus" field="deletedStatus"/>
+<sm class="aiki.fight.moves.effects.EffectStatus" field="localFailStatus">
+<java.lang.String class="util.Map" key="" value="POISON_GRAVE"/>
+<java.lang.String class="util.Map" value="cardinal(inter({VAR__CIBLE_STATUTS},{SIMPLE_POISON;POISON_GRAVE}))&gt;0|VAR__CIBLE_CLONE&gt;0|cardinal(inter({VAR__CIBLE_TYPES},{POISON;ACIER}))&gt;0"/>
+</sm>
+<java.lang.Boolean class="aiki.fight.moves.effects.EffectStatus" field="koUserHealSubst" value="false"/>
+<java.lang.Boolean class="aiki.fight.moves.effects.EffectStatus" field="statusFromUser" value="false"/>
+<aiki.fight.moves.enums.TargetChoice class="aiki.fight.moves.effects.Effect" field="targetChoice" value="AUTRE_UNIQ"/>
+<java.lang.String class="aiki.fight.moves.effects.Effect" field="fail" value=""/>
+<n class="aiki.fight.moves.effects.Effect" field="requiredSuccessfulEffects">
+<java.lang.Integer class="util.List" value="0"/>
+</n>
+</aiki.fight.moves.effects.EffectStatus>
+<aiki.fight.moves.effects.EffectStatus class="util.List">
+<mcs class="aiki.fight.moves.effects.EffectStatus" field="lawStatus">
+<sm class="mcs" field="law">
+<java.lang.String class="util.Map" key="" value="PARALYSIE"/>
+<li class="util.Map" value="1"/>
+</sm>
+</mcs>
+<sl class="aiki.fight.moves.effects.EffectStatus" field="deletedStatus"/>
+<sm class="aiki.fight.moves.effects.EffectStatus" field="localFailStatus">
+<java.lang.String class="util.Map" key="" value="PARALYSIE"/>
+<java.lang.String class="util.Map" value="cardinal(inter({VAR__CIBLE_STATUTS},{PARALYSIE}))&gt;0|VAR__CIBLE_CLONE&gt;0"/>
+</sm>
+<java.lang.Boolean class="aiki.fight.moves.effects.EffectStatus" field="koUserHealSubst" value="false"/>
+<java.lang.Boolean class="aiki.fight.moves.effects.EffectStatus" field="statusFromUser" value="false"/>
+<aiki.fight.moves.enums.TargetChoice class="aiki.fight.moves.effects.Effect" field="targetChoice" value="AUTRE_UNIQ"/>
+<java.lang.String class="aiki.fight.moves.effects.Effect" field="fail" value=""/>
+<n class="aiki.fight.moves.effects.Effect" field="requiredSuccessfulEffects">
+<java.lang.Integer class="util.List" value="0"/>
+</n>
+</aiki.fight.moves.effects.EffectStatus>
+<aiki.fight.moves.effects.EffectStatus class="util.List">
+<mcs class="aiki.fight.moves.effects.EffectStatus" field="lawStatus">
+<sm class="mcs" field="law">
+<java.lang.String class="util.Map" key="" value="SIMPLE_POISON"/>
+<li class="util.Map" value="1"/>
+</sm>
+</mcs>
+<sl class="aiki.fight.moves.effects.EffectStatus" field="deletedStatus"/>
+<sm class="aiki.fight.moves.effects.EffectStatus" field="localFailStatus">
+<java.lang.String class="util.Map" key="" value="SIMPLE_POISON"/>
+<java.lang.String class="util.Map" value="cardinal(inter({VAR__CIBLE_STATUTS},{SIMPLE_POISON;POISON_GRAVE}))&gt;0|VAR__CIBLE_CLONE&gt;0|cardinal(inter({VAR__CIBLE_TYPES},{POISON;ACIER}))&gt;0"/>
+</sm>
+<java.lang.Boolean class="aiki.fight.moves.effects.EffectStatus" field="koUserHealSubst" value="false"/>
+<java.lang.Boolean class="aiki.fight.moves.effects.EffectStatus" field="statusFromUser" value="false"/>
+<aiki.fight.moves.enums.TargetChoice class="aiki.fight.moves.effects.Effect" field="targetChoice" value="AUTRE_UNIQ"/>
+<java.lang.String class="aiki.fight.moves.effects.Effect" field="fail" value=""/>
+<n class="aiki.fight.moves.effects.Effect" field="requiredSuccessfulEffects">
+<java.lang.Integer class="util.List" value="0"/>
+</n>
+</aiki.fight.moves.effects.EffectStatus>
+<aiki.fight.moves.effects.EffectStatus class="util.List">
+<mcs class="aiki.fight.moves.effects.EffectStatus" field="lawStatus">
+<sm class="mcs" field="law">
+<java.lang.String class="util.Map" key="" value="PEUR"/>
+<li class="util.Map" value="1"/>
+</sm>
+</mcs>
+<sl class="aiki.fight.moves.effects.EffectStatus" field="deletedStatus"/>
+<sm class="aiki.fight.moves.effects.EffectStatus" field="localFailStatus">
+<java.lang.String class="util.Map" key="" value="PEUR"/>
+<java.lang.String class="util.Map" value="VAR__CIBLE_CLONE&gt;0"/>
+</sm>
+<java.lang.Boolean class="aiki.fight.moves.effects.EffectStatus" field="koUserHealSubst" value="false"/>
+<java.lang.Boolean class="aiki.fight.moves.effects.EffectStatus" field="statusFromUser" value="false"/>
+<aiki.fight.moves.enums.TargetChoice class="aiki.fight.moves.effects.Effect" field="targetChoice" value="AUTRE_UNIQ"/>
+<java.lang.String class="aiki.fight.moves.effects.Effect" field="fail" value=""/>
+<n class="aiki.fight.moves.effects.Effect" field="requiredSuccessfulEffects">
+<java.lang.Integer class="util.List" value="0"/>
+</n>
+</aiki.fight.moves.effects.EffectStatus>
+<aiki.fight.moves.effects.EffectStatus class="util.List">
+<mcs class="aiki.fight.moves.effects.EffectStatus" field="lawStatus">
+<sm class="mcs" field="law">
+<java.lang.String class="util.Map" key="" value="PEUR"/>
+<li class="util.Map" value="1"/>
+</sm>
+</mcs>
+<sl class="aiki.fight.moves.effects.EffectStatus" field="deletedStatus"/>
+<sm class="aiki.fight.moves.effects.EffectStatus" field="localFailStatus">
+<java.lang.String class="util.Map" key="" value="PEUR"/>
+<java.lang.String class="util.Map" value="VAR__CIBLE_CLONE&gt;0"/>
+</sm>
+<java.lang.Boolean class="aiki.fight.moves.effects.EffectStatus" field="koUserHealSubst" value="false"/>
+<java.lang.Boolean class="aiki.fight.moves.effects.EffectStatus" field="statusFromUser" value="false"/>
+<aiki.fight.moves.enums.TargetChoice class="aiki.fight.moves.effects.Effect" field="targetChoice" value="AUTRE_UNIQ"/>
+<java.lang.String class="aiki.fight.moves.effects.Effect" field="fail" value=""/>
+<n class="aiki.fight.moves.effects.Effect" field="requiredSuccessfulEffects">
+<java.lang.Integer class="util.List" value="0"/>
+</n>
+</aiki.fight.moves.effects.EffectStatus>
+<aiki.fight.moves.effects.EffectStatus class="util.List">
+<mcs class="aiki.fight.moves.effects.EffectStatus" field="lawStatus">
+<sm class="mcs" field="law"/>
+</mcs>
+<sl class="aiki.fight.moves.effects.EffectStatus" field="deletedStatus">
+<java.lang.String class="util.List" value="AMOUR"/>
+</sl>
+<sm class="aiki.fight.moves.effects.EffectStatus" field="localFailStatus"/>
+<java.lang.Boolean class="aiki.fight.moves.effects.EffectStatus" field="koUserHealSubst" value="false"/>
+<java.lang.Boolean class="aiki.fight.moves.effects.EffectStatus" field="statusFromUser" value="false"/>
+<aiki.fight.moves.enums.TargetChoice class="aiki.fight.moves.effects.Effect" field="targetChoice" value="AUTRE_UNIQ"/>
+<java.lang.String class="aiki.fight.moves.effects.Effect" field="fail" value=""/>
+<n class="aiki.fight.moves.effects.Effect" field="requiredSuccessfulEffects">
+<java.lang.Integer class="util.List" value="0"/>
+</n>
+</aiki.fight.moves.effects.EffectStatus>
+<aiki.fight.moves.effects.EffectStatistic class="util.List">
+<em class="aiki.fight.moves.effects.EffectStatistic" field="statisVarRank"/>
+<em class="aiki.fight.moves.effects.EffectStatistic" field="localFailStatis"/>
+<r class="aiki.fight.moves.effects.EffectStatistic" field="evtRate" value="1"/>
+<el class="aiki.fight.moves.effects.EffectStatistic" field="copyBoost"/>
+<el class="aiki.fight.moves.effects.EffectStatistic" field="swapBoostStatis"/>
+<em class="aiki.fight.moves.effects.EffectStatistic" field="localFailSwapBoostStatis"/>
+<mce class="aiki.fight.moves.effects.EffectStatistic" field="lawBoost">
+<em class="mce" field="law"/>
+</mce>
+<el class="aiki.fight.moves.effects.EffectStatistic" field="cancelLowStat">
+<aiki.fight.enums.Statistic class="util.List" value="ATTACK"/>
+<aiki.fight.enums.Statistic class="util.List" value="DEFENSE"/>
+<aiki.fight.enums.Statistic class="util.List" value="SPECIAL_ATTACK"/>
+<aiki.fight.enums.Statistic class="util.List" value="SPECIAL_DEFENSE"/>
+<aiki.fight.enums.Statistic class="util.List" value="SPEED"/>
+<aiki.fight.enums.Statistic class="util.List" value="ACCURACY"/>
+<aiki.fight.enums.Statistic class="util.List" value="EVASINESS"/>
+</el>
+<el class="aiki.fight.moves.effects.EffectStatistic" field="cancelChgtStat"/>
+<aiki.fight.moves.enums.TargetChoice class="aiki.fight.moves.effects.Effect" field="targetChoice" value="AUTRE_UNIQ"/>
+<java.lang.String class="aiki.fight.moves.effects.Effect" field="fail" value=""/>
+<n class="aiki.fight.moves.effects.Effect" field="requiredSuccessfulEffects">
+<java.lang.Integer class="util.List" value="0"/>
+</n>
+</aiki.fight.moves.effects.EffectStatistic>
+</l>
+<java.lang.Short class="aiki.fight.moves.MoveData" field="nbPrepaRound" value="0"/>
+<java.lang.Boolean class="aiki.fight.moves.MoveData" field="disappearBeforeUse" value="false"/>
+<mcu class="aiki.fight.moves.MoveData" field="repeatRoundLaw"/>
+<java.lang.Short class="aiki.fight.moves.MoveData" field="rankIncrementNbRound" value="0"/>
+<java.lang.Boolean class="aiki.fight.moves.MoveData" field="rechargeRound" value="false"/>
+<java.lang.Boolean class="aiki.fight.moves.MoveData" field="constUserChoice" value="false"/>
+<java.lang.Boolean class="aiki.fight.moves.MoveData" field="stoppableMoveSolo" value="true"/>
+<java.lang.Boolean class="aiki.fight.moves.MoveData" field="stoppableMoveMulti" value="false"/>
+<java.lang.Boolean class="aiki.fight.moves.MoveData" field="stoppableMovePrio" value="false"/>
+<java.lang.Boolean class="aiki.fight.moves.MoveData" field="secEffectIfNoDamage" value="false"/>
+<sm class="aiki.fight.moves.MoveData" field="secEffectsByItem">
+<java.lang.String class="util.Map" key="" value="HERBEBLANCHE"/>
+<java.lang.String class="util.Map" key="" value="ROCHE_ROYALE"/>
+<java.lang.String class="util.Map" key="" value="PIC_VENIN"/>
+<java.lang.String class="util.Map" key="" value="ORBE_FLAMME"/>
+<java.lang.String class="util.Map" key="" value="AIMANT"/>
+<java.lang.String class="util.Map" key="" value="ORBE_TOXIQUE"/>
+<java.lang.String class="util.Map" key="" value="HERBE_MENTAL"/>
+<java.lang.String class="util.Map" key="" value="CROC_RASOIR"/>
+<n class="util.Map">
+<java.lang.Integer class="util.List" value="8"/>
+</n>
+<n class="util.Map">
+<java.lang.Integer class="util.List" value="6"/>
+</n>
+<n class="util.Map">
+<java.lang.Integer class="util.List" value="4"/>
+</n>
+<n class="util.Map">
+<java.lang.Integer class="util.List" value="1"/>
+</n>
+<n class="util.Map">
+<java.lang.Integer class="util.List" value="3"/>
+</n>
+<n class="util.Map">
+<java.lang.Integer class="util.List" value="2"/>
+</n>
+<n class="util.Map">
+<java.lang.Integer class="util.List" value="7"/>
+</n>
+<n class="util.Map">
+<java.lang.Integer class="util.List" value="5"/>
+</n>
+</sm>
+<java.lang.Boolean class="aiki.fight.moves.MoveData" field="ignVarAccurUserNeg" value="false"/>
+<java.lang.Boolean class="aiki.fight.moves.MoveData" field="ignVarEvasTargetPos" value="false"/>
+<java.lang.Boolean class="aiki.fight.moves.MoveData" field="breakImmuTypeAbility" value="false"/>
+<sl class="aiki.fight.moves.MoveData" field="achieveDisappearedPkUsingMove"/>
+<aiki.fight.moves.enums.SwitchType class="aiki.fight.moves.MoveData" field="switchType" value="NOTHING"/>
+<sm class="aiki.fight.moves.MoveData" field="typesByOwnedItem"/>
+<sm class="aiki.fight.moves.MoveData" field="typesByWeather"/>
+<aiki.fight.moves.enums.TargetChoice class="aiki.fight.moves.MoveData" field="targetChoice" value="AUTRE_UNIQ"/>
+<sl class="aiki.fight.moves.MoveData" field="deletedStatus"/>
+<sl class="aiki.fight.moves.MoveData" field="requiredStatus"/>
+</aiki.fight.moves.DamagingMoveData>

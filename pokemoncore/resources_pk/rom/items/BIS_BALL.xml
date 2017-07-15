@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><aiki.fight.items.Ball>
+<java.lang.String class="aiki.fight.items.Ball" field="catchingRate" value="2*VAR__DEJA_CAPTURE+1"/>
+<java.lang.Integer class="aiki.fight.items.Item" field="price" value="800"/>
+</aiki.fight.items.Ball>

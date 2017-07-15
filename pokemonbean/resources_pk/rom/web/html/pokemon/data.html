@@ -1,0 +1,291 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><html xmlns:c="javahtml" c:bean="pokemon">
+	<head>
+		<title><c:message value="msg_pkdata,title"><param value="displayName"/></c:message></title>
+		<link href="web/css/pokedex.css" rel="stylesheet" type="text/css"/>
+	</head>
+	<body>
+		<h1><c:message value="msg_pkdata,general"/> {displayName}</h1>
+			<br/>
+			<a c:command="$clickPokedex" href=""><c:message value="msg_pkdata,pokedex"/></a>
+			<br/>
+			<c:message value="msg_pkdata,name">
+				<param value="displayName"/>
+			</c:message>
+			<br/>
+			<c:message value="msg_pkdata,back"/>:<c:img src="{backImage}"/>
+			  <c:message value="msg_pkdata,front"/>:<c:img src="{frontImage}"/><br/>
+			<br/>
+			<c:message value="msg_pkdata,weight">
+				<param value="displayName"/>
+				<param value="weight"/>
+				<param value="roundWeight()"/>
+			</c:message>
+			<br/>
+			<c:message value="msg_pkdata,height">
+				<param value="displayName"/>
+				<param value="height"/>
+				<param value="roundHeight()"/>
+			</c:message>
+			<br/>
+			<c:message value="msg_pkdata,genders">
+				<param value="displayName"/>
+			</c:message>
+			<br/>
+			<ul>
+				<c:for list="possibleGenders" var="g">
+					<li>{g;}</li>
+				</c:for>
+			</ul>
+			<c:message value="msg_pkdata,types">
+				<param value="displayName"/>
+			</c:message>
+			<br/>
+			<ul>
+				<c:for list="types" var="t">
+					<li>{t;}</li>
+				</c:for>
+			</ul>
+			<br/>
+			<c:message value="msg_pkdata,abilities">
+				<param value="displayName"/>
+			</c:message>
+			<ul>
+				<c:for list="abilities" var="a">
+					<li>
+						<a c:command="$clickAbility({a;;})" href="">{getTrAbility(a;;)}</a>
+					</li>
+				</c:for>
+			</ul>
+			<br/>
+			<c:message value="msg_pkdata,catchingRate">
+				<param value="displayName"/>
+				<param value="catchingRate"/>
+			</c:message>
+			<br/>
+		<h1><c:message value="msg_pkdata,tree"/></h1>
+			<br/>
+			<c:if condition="!evolutions.isEmpty()">
+				<c:message value="msg_pkdata,evolutions">
+					<param value="displayName"/>
+				</c:message>
+				<table>
+					<caption><c:message value="msg_pkdata,evolutions_title"/></caption>
+					<thead>
+						<tr>
+							<th><c:message value="msg_pkdata,evolutions_key"/></th>
+							<th><c:message value="msg_pkdata,get_evo"/></th>
+						</tr>
+					</thead>
+					<tbody>
+						<c:for className="java.lang.String" list="evolutions" var="e">
+							<c:import page="{getPage(e;;)}">
+								<c:package name="aiki.beans.pokemon.evolutions">
+									<c:class name="EvolutionBean">
+										<c:field name="index" value="e;;"/>
+										<c:field name="name" value="e;"/>
+										<c:field name="base" value="name"/>
+									</c:class>
+								</c:package>
+							</c:import>
+						</c:for>
+					</tbody>
+				</table>
+				<br/>
+			</c:if>
+			<c:message value="msg_pkdata,base">
+				<param value="displayName"/>
+				<param value="evoBase"/>
+			</c:message>
+			<br/>
+			<br/>
+		<h1><c:message value="msg_pkdata,exp"/></h1>
+			<br/>
+			<c:message value="msg_pkdata,exp_growth">
+				<param value="displayName"/>
+				<param value="expEvo"/>
+			</c:message>
+			<ul>
+				<c:for key="k" map="mapVars" value="v">
+					<li>{k;} : {v;}</li>
+				</c:for>
+			</ul>
+			<br/>
+			<c:message value="msg_pkdata,pts_exp">
+				<param value="displayName"/>
+				<param value="expRate"/>
+			</c:message>
+			<br/>
+			<br/>
+		<h1><c:message value="msg_pkdata,statistics_title"/></h1>
+			<br/>
+			<c:message value="msg_pkdata,statistics">
+				<param value="displayName"/>
+			</c:message>
+			<table>
+				<caption><c:message value="msg_pkdata,statistics_title"/></caption>
+				<thead>
+					<tr>
+						<th><c:message value="msg_pkdata,statistics_key"/></th>
+						<th><c:message value="msg_pkdata,statistics_value"/></th>
+						<th><c:message value="msg_pkdata,statistics_ev"><param value="displayName"/></c:message></th>
+					</tr>
+				</thead>
+				<tbody>
+					<c:for list="statistics" var="s">
+						<tr>
+							<td>{s;}</td>
+							<td>{getBase(s;;)}</td>
+							<td>{getEv(s;;)}</td>
+						</tr>
+					</c:for>
+				</tbody>
+			</table>
+			<br/>
+			<br/>
+		<h1><c:message value="msg_pkdata,moves"/></h1>
+			<br/>
+			<c:message value="msg_pkdata,level_moves">
+				<param value="displayName"/>
+			</c:message>
+			<table>
+				<caption><c:message value="msg_pkdata,moves_levels"/></caption>
+				<thead>
+					<tr>
+						<th><c:message value="msg_pkdata,level"/></th>
+						<th><c:message value="msg_pkdata,move"/></th>
+					</tr>
+				</thead>
+				<tbody>
+					<c:for className="aiki.fight.util.LevelMove" list="levMoves" var="l">
+						<tr>
+							<td>{l;getLevel()}</td>
+							<td><a c:command="$clickMove({l;;})" href="">{l;getMove()}</a></td>
+						</tr>
+					</c:for>
+				</tbody>
+			</table>
+			<br/>
+			<br/>
+			<c:message value="msg_pkdata,technical_moves">
+				<param value="displayName"/>
+			</c:message>
+			<table>
+				<caption><c:message value="msg_pkdata,tm_title"/></caption>
+				<thead>
+					<tr>
+						<th><c:message value="msg_pkdata,tm_number"/></th>
+						<th><c:message value="msg_pkdata,tm_move"/></th>
+					</tr>
+				</thead>
+				<tbody>
+					<c:for key="l" map="technicalMoves" value="m">
+						<tr>
+							<td>{l;}</td>
+							<td><a c:command="$clickTechnicalMove({l;;})" href="">{m;}</a></td>
+						</tr>
+					</c:for>
+				</tbody>
+			</table>
+			<br/>
+			<br/>
+			<c:message value="msg_pkdata,hidden_moves">
+				<param value="displayName"/>
+			</c:message>
+			<table>
+				<caption><c:message value="msg_pkdata,hm_title"/></caption>
+				<thead>
+					<tr>
+						<th><c:message value="msg_pkdata,hm_number"/></th>
+						<th><c:message value="msg_pkdata,hm_move"/></th>
+					</tr>
+				</thead>
+				<tbody>
+					<c:for key="l" map="hiddenMoves" value="m">
+						<tr>
+							<td>{l;}</td>
+							<td><a c:command="$clickHiddenMove({l;;})" href="">{m;}</a></td>
+						</tr>
+					</c:for>
+				</tbody>
+			</table>
+			<br/>
+			<br/>
+			<c:message value="msg_pkdata,move_tutors">
+				<param value="displayName"/>
+			</c:message>
+			<ul>
+				<c:for list="moveTutors" var="m">
+					<li>
+						<a c:command="$clickMoveTutors({m;;})" href="">{getMoveTutor(m;;)}</a>
+					</li>
+				</c:for>
+			</ul>
+			<br/>
+		<h1><c:message value="msg_pkdata,egg"/></h1>
+			<!--<br/>
+			<c:message value="msg_pkdata,egg_groups">
+				<param value="displayName" />
+			</c:message>
+			<ul>
+				<c:for var="m" list="eggGroups">
+					<li>{m;}</li>
+				</c:for>
+			</ul>-->
+			<br/>
+			<c:message value="msg_pkdata,egg_groups_pk">
+				<param value="displayName"/>
+			</c:message>
+			<ul>
+				<c:for list="eggGroupsPk" var="p">
+					<li>
+						<a c:command="$clickEggPk({p;;})" href="">{getEggPk(p;;)}</a>
+					</li>
+				</c:for>
+			</ul>
+			<br/>
+			<c:message value="msg_pkdata,hatching">
+				<param value="displayName"/>
+				<param value="hatchingSteps"/>
+			</c:message>
+		<br/>
+		<c:if condition="isAppearing()">
+			<c:message value="msg_pkdata,where_catch">
+				<param value="displayName"/>
+			</c:message>
+			<ul>
+				<c:for className="aiki.beans.facade.map.dto.PlaceIndex" list="places" var="p">
+					<c:if condition="isAppearing(p;;)">
+						<li>
+							{p;getPlace().getName()}<br/>
+							<c:if condition="isMultiLayer(p;;)">
+								<ul>
+									<c:for list="layers(p;;)" var="l">
+										<c:if condition="isAppearing(p;;,l;;)">
+											<li>
+												<a c:command="$clickLevel({p;index},{l;;})">{l;;}</a>
+											</li>
+										</c:if>
+									</c:for>
+								</ul>
+							</c:if>
+							<c:if condition="!isMultiLayer(p;;)">
+								<c:if condition="isAppearing(p;;,0)">
+									<a c:command="$clickLevel({p;index},0)"><c:message value="msg_pkdata,goLevel"/></a>
+								</c:if>
+							</c:if>
+						</li>
+					</c:if>
+				</c:for>
+			</ul>
+			<div style="font-size: 0;">
+				<c:for key="p" map="images" value="i">
+					<c:if condition="isFirstRow(p;;)">
+						<br/>
+					</c:if>
+					<a title="{getPlaceName(p;;)}"><c:img src="{getMiniMapImage(p;;)}"/></a>
+				</c:for>
+			</div>
+		</c:if>
+		<a c:command="$clickPokedex" href=""><c:message value="msg_pkdata,pokedex"/></a>
+	</body>
+</html>

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><html xmlns:c="javahtml" c:bean="eff_switchitems">
+	<head>
+		<link href="web/css/moves.css" rel="stylesheet" type="text/css"/>
+	</head>
+	<body>
+		<p>
+			<c:message value="msg_effswitchitems,effect"/>
+			<c:import page="{effectBean}">
+				<c:package name="aiki.beans.moves.effects">
+					<c:class name="EffectBean">
+						<c:field name="index" value="index"/>
+						<c:field name="move" value="move"/>
+					</c:class>
+				</c:package>
+			</c:import>
+			<c:if condition="deleteTargetBerry()">
+				<c:message value="msg_effswitchitems,delete_berry"/>
+			</c:if>
+			<c:if condition="takeItem()">
+				<c:message value="msg_effswitchitems,take_item"/>
+			</c:if>
+			<c:if condition="removeTargetItem()">
+				<c:message value="msg_effswitchitems,remove_item"/>
+			</c:if>
+			<c:if condition="switchItems()">
+				<c:message value="msg_effswitchitems,switch_items"/>
+			</c:if>
+			<c:if condition="resuseLastItem()">
+				<c:message value="msg_effswitchitems,reuse_item"/>
+			</c:if>
+			<c:if condition="giveTargetItem()">
+				<c:message value="msg_effswitchitems,give_to_target"/>
+			</c:if>
+			<c:if condition="useItemAsPossible()()">
+				<c:message value="msg_effswitchitems,use_item_if_possible"/>
+			</c:if>
+		</p>
+	</body>
+</html>

@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><cfg>
+	<java.lang.String class="cfg" field="firstUrl" value="web_fight/html/fight.html"/>
+	<sm class="cfg" field="validators"/>
+	<sm class="cfg" field="translators"/>
+	<sm class="cfg" field="beans">
+		<java.lang.String class="util.Map" key="" value="fighter"/>
+		<b class="util.Map">
+			<java.lang.String class="b" field="scope" value="session"/>
+			<java.lang.String class="b" field="className" value="aiki.beans.fight.FighterBean"/>
+		</b>
+		<java.lang.String class="util.Map" key="" value="team"/>
+		<b class="util.Map">
+			<java.lang.String class="b" field="scope" value="session"/>
+			<java.lang.String class="b" field="className" value="aiki.beans.fight.TeamBean"/>
+		</b>
+		<java.lang.String class="util.Map" key="" value="fight"/>
+		<b class="util.Map">
+			<java.lang.String class="b" field="scope" value="session"/>
+			<java.lang.String class="b" field="className" value="aiki.beans.fight.FightBean"/>
+		</b>
+		<java.lang.String class="util.Map" key="" value="fight_detail"/>
+		<b class="util.Map">
+			<java.lang.String class="b" field="scope" value="session"/>
+			<java.lang.String class="b" field="className" value="aiki.beans.fight.FightCalculationBean"/>
+		</b>
+	</sm>
+	<sm class="cfg" field="navigation">
+		<java.lang.String class="util.Map" key="" value="fight.clickPlayer"/>
+		<sm class="util.Map">
+			<java.lang.String class="util.Map" key="" value="team"/>
+			<java.lang.String class="util.Map" value="web_fight/html/team.html"/>
+		</sm>
+		<java.lang.String class="util.Map" key="" value="fight.clickFoe"/>
+		<sm class="util.Map">
+			<java.lang.String class="util.Map" key="" value="team"/>
+			<java.lang.String class="util.Map" value="web_fight/html/team.html"/>
+		</sm>
+		<java.lang.String class="util.Map" key="" value="team.clickFighter()"/>
+		<sm class="util.Map">
+			<java.lang.String class="util.Map" key="" value="fighter"/>
+			<java.lang.String class="util.Map" value="web_fight/html/fighter.html"/>
+		</sm>
+		<java.lang.String class="util.Map" key="" value="fighter.clickFighter(,)"/>
+		<sm class="util.Map">
+			<java.lang.String class="util.Map" key="" value="fighter"/>
+			<java.lang.String class="util.Map" value="web_fight/html/fighter.html"/>
+		</sm>
+	</sm>
+	<sm class="cfg" field="properties">
+		<java.lang.String class="util.Map" key="" value="msg_fighter"/>
+		<java.lang.String class="util.Map" value="fighter"/>
+		<java.lang.String class="util.Map" key="" value="msg_fight"/>
+		<java.lang.String class="util.Map" value="fight"/>
+		<java.lang.String class="util.Map" key="" value="msg_team"/>
+		<java.lang.String class="util.Map" value="team"/>
+	</sm>
+	<java.lang.String class="cfg" field="messagesFolder" value="web_fight/messages"/>
+	<null class="cfg" field="mathFactory"/>
+	<java.lang.Integer class="cfg" field="tabWidth" value="4"/>
+	<java.lang.String class="cfg" field="namespaceUri" value="javahtml"/>
+	<hav class="cfg" field="accessValue"/>
+	<null class="cfg" field="filesConfName"/>
+	<null class="cfg" field="context"/>
+	<sm class="cfg" field="lateValidators"/>
+	<sm class="cfg" field="lateTranslators"/>
+</cfg>

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><html xmlns:c="javahtml" c:bean="ally">
+	<body>
+		<b><c:message value="msg_pokemon_npc,ally_team"/></b>
+		<c:for className="aiki.map.pokemon.PkTrainer" list="team" var="p">
+			<br/>
+			<c:img src="{getImage(p;;)}"/>
+			<br/>
+			<c:message value="msg_pokemon_npc,name"/>
+			<a c:command="$clickName({p;;})">{getName(p;;)}</a><br/>
+			<c:message value="msg_pokemon_npc,level"/>
+			{p;getLevel()}
+			<br/>
+			<c:message value="msg_pokemon_npc,ability"/>
+			<a c:command="$clickAbility({p;;})">{getAbility(p;;)}</a><br/>
+			<c:message value="msg_pokemon_npc,item"/>
+			<c:if condition="!p;getItem().isEmpty()">
+				<a c:command="$clickItem({p;;})">{getItem(p;;)}</a><br/>
+			</c:if>
+			<c:if condition="p;getItem().isEmpty()">
+				<c:message value="msg_pokemon_npc,item_no"/><br/>
+			</c:if>
+			<c:message value="msg_pokemon_npc,moves"/><br/>
+			<ul>
+				<c:for list="p;getMoves()" var="m">
+					<li><a c:command="$clickMove({p;;},{m;;})">{getMove(p;;,m;;)}</a></li>
+				</c:for>
+			</ul>
+			<br/>
+			<br/>
+		</c:for>
+	</body>
+</html>

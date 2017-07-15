@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><aiki.fight.pokemon.PokemonData>
+<java.lang.Integer class="aiki.fight.pokemon.PokemonData" field="number" value="113"/>
+<r class="aiki.fight.pokemon.PokemonData" field="weight" value="173/5"/>
+<sl class="aiki.fight.pokemon.PokemonData" field="types">
+<java.lang.String class="util.List" value="NORMAL"/>
+</sl>
+<em class="aiki.fight.pokemon.PokemonData" field="statistics">
+<aiki.fight.enums.Statistic class="util.Map" key="" value="ATTACK"/>
+<aiki.fight.enums.Statistic class="util.Map" key="" value="SPECIAL_ATTACK"/>
+<aiki.fight.enums.Statistic class="util.Map" key="" value="SPECIAL_DEFENSE"/>
+<aiki.fight.enums.Statistic class="util.Map" key="" value="HP"/>
+<aiki.fight.enums.Statistic class="util.Map" key="" value="DEFENSE"/>
+<aiki.fight.enums.Statistic class="util.Map" key="" value="SPEED"/>
+<aiki.fight.util.StatBaseEv class="util.Map" value="5;0"/>
+<aiki.fight.util.StatBaseEv class="util.Map" value="35;0"/>
+<aiki.fight.util.StatBaseEv class="util.Map" value="105;0"/>
+<aiki.fight.util.StatBaseEv class="util.Map" value="250;2"/>
+<aiki.fight.util.StatBaseEv class="util.Map" value="5;0"/>
+<aiki.fight.util.StatBaseEv class="util.Map" value="50;0"/>
+</em>
+<ql class="aiki.fight.pokemon.PokemonData" field="levMoves">
+<aiki.fight.util.LevelMove class="util.List" value="1;RUGISSEMENT"/>
+<aiki.fight.util.LevelMove class="util.List" value="1;ECRAS_FACE"/>
+<aiki.fight.util.LevelMove class="util.List" value="1;BOUL_ARMURE"/>
+<aiki.fight.util.LevelMove class="util.List" value="5;MIMI_QUEUE"/>
+<aiki.fight.util.LevelMove class="util.List" value="9;REGENERATION"/>
+<aiki.fight.util.LevelMove class="util.List" value="12;TORGNOLES"/>
+<aiki.fight.util.LevelMove class="util.List" value="16;E_COQUE"/>
+<aiki.fight.util.LevelMove class="util.List" value="20;PASSE_CADEAU"/>
+<aiki.fight.util.LevelMove class="util.List" value="23;LILLIPUT"/>
+<aiki.fight.util.LevelMove class="util.List" value="27;BELIER"/>
+<aiki.fight.util.LevelMove class="util.List" value="31;BERCEUSE"/>
+<aiki.fight.util.LevelMove class="util.List" value="34;DEGOMMAGE"/>
+<aiki.fight.util.LevelMove class="util.List" value="38;VIBRA_SOIN"/>
+<aiki.fight.util.LevelMove class="util.List" value="42;BOMB_OEUF"/>
+<aiki.fight.util.LevelMove class="util.List" value="46;MUR_LUMIERE"/>
+<aiki.fight.util.LevelMove class="util.List" value="50;VOEU_SOIN"/>
+<aiki.fight.util.LevelMove class="util.List" value="54;DAMOCLES"/>
+</ql>
+<aiki.fight.pokemon.enums.GenderRepartition class="aiki.fight.pokemon.PokemonData" field="genderRep" value="FEMALE"/>
+<sl class="aiki.fight.pokemon.PokemonData" field="abilities">
+<java.lang.String class="util.List" value="MEDIC_NATURE"/>
+<java.lang.String class="util.List" value="SERENITE"/>
+</sl>
+<sl class="aiki.fight.pokemon.PokemonData" field="moveTutors">
+<java.lang.String class="util.List" value="AROMATHERAPI"/>
+<java.lang.String class="util.List" value="BLABLA_DODO"/>
+<java.lang.String class="util.List" value="BOOST"/>
+<java.lang.String class="util.List" value="BOUE_BOMBE"/>
+<java.lang.String class="util.List" value="BOUL_ARMURE"/>
+<java.lang.String class="util.List" value="CAGE_ECLAIR"/>
+<java.lang.String class="util.List" value="CLONAGE"/>
+<java.lang.String class="util.List" value="COPIE"/>
+<java.lang.String class="util.List" value="COUD_BOUE"/>
+<java.lang.String class="util.List" value="COUP_D_BOULE"/>
+<java.lang.String class="util.List" value="DAMOCLES"/>
+<java.lang.String class="util.List" value="DERNIERECOUR"/>
+<java.lang.String class="util.List" value="DEVOREVE"/>
+<java.lang.String class="util.List" value="DYNAMOPOING"/>
+<java.lang.String class="util.List" value="E_COQUE"/>
+<java.lang.String class="util.List" value="EFFORT"/>
+<java.lang.String class="util.List" value="EXCUSE"/>
+<java.lang.String class="util.List" value="FRAPPE_ATLAS"/>
+<java.lang.String class="util.List" value="GLAS_DE_SOIN"/>
+<java.lang.String class="util.List" value="GRAVITE"/>
+<java.lang.String class="util.List" value="METRONOME"/>
+<java.lang.String class="util.List" value="PLAQUAGE"/>
+<java.lang.String class="util.List" value="POING_DE_FEU"/>
+<java.lang.String class="util.List" value="POING_ECLAIR"/>
+<java.lang.String class="util.List" value="POINGLACE"/>
+<java.lang.String class="util.List" value="PSYKOUD_BOUL"/>
+<java.lang.String class="util.List" value="RIPOSTE"/>
+<java.lang.String class="util.List" value="RONFLEMENT"/>
+<java.lang.String class="util.List" value="ROULADE"/>
+<java.lang.String class="util.List" value="TENACITE"/>
+<java.lang.String class="util.List" value="ULTIMAPOING"/>
+<java.lang.String class="util.List" value="ULTIMAWASHI"/>
+<java.lang.String class="util.List" value="VANTARDISE"/>
+<java.lang.String class="util.List" value="VENT_GLACE"/>
+<java.lang.String class="util.List" value="CADEAU"/>
+<java.lang.String class="util.List" value="COUP_D_MAIN"/>
+<java.lang.String class="util.List" value="DON_NATUREL"/>
+<java.lang.String class="util.List" value="ECHANGE"/>
+<java.lang.String class="util.List" value="IMPLORE"/>
+<java.lang.String class="util.List" value="MEGAPHONE"/>
+<java.lang.String class="util.List" value="PIEGE_DE_ROC"/>
+<java.lang.String class="util.List" value="QUEUE_DE_FER"/>
+<java.lang.String class="util.List" value="RECYCLAGE"/>
+<java.lang.String class="util.List" value="SAISIE"/>
+<java.lang.String class="util.List" value="VAMPIPOING"/>
+<java.lang.String class="util.List" value="FORCE"/>
+</sl>
+<n class="aiki.fight.pokemon.PokemonData" field="hiddenMoves">
+<java.lang.Short class="util.List" value="4"/>
+</n>
+<n class="aiki.fight.pokemon.PokemonData" field="technicalMoves">
+<java.lang.Short class="util.List" value="70"/>
+<java.lang.Short class="util.List" value="94"/>
+<java.lang.Short class="util.List" value="4"/>
+<java.lang.Short class="util.List" value="6"/>
+<java.lang.Short class="util.List" value="7"/>
+<java.lang.Short class="util.List" value="10"/>
+<java.lang.Short class="util.List" value="11"/>
+<java.lang.Short class="util.List" value="13"/>
+<java.lang.Short class="util.List" value="14"/>
+<java.lang.Short class="util.List" value="15"/>
+<java.lang.Short class="util.List" value="16"/>
+<java.lang.Short class="util.List" value="17"/>
+<java.lang.Short class="util.List" value="18"/>
+<java.lang.Short class="util.List" value="20"/>
+<java.lang.Short class="util.List" value="21"/>
+<java.lang.Short class="util.List" value="22"/>
+<java.lang.Short class="util.List" value="24"/>
+<java.lang.Short class="util.List" value="25"/>
+<java.lang.Short class="util.List" value="26"/>
+<java.lang.Short class="util.List" value="27"/>
+<java.lang.Short class="util.List" value="29"/>
+<java.lang.Short class="util.List" value="30"/>
+<java.lang.Short class="util.List" value="31"/>
+<java.lang.Short class="util.List" value="32"/>
+<java.lang.Short class="util.List" value="35"/>
+<java.lang.Short class="util.List" value="37"/>
+<java.lang.Short class="util.List" value="38"/>
+<java.lang.Short class="util.List" value="39"/>
+<java.lang.Short class="util.List" value="42"/>
+<java.lang.Short class="util.List" value="44"/>
+<java.lang.Short class="util.List" value="45"/>
+<java.lang.Short class="util.List" value="48"/>
+<java.lang.Short class="util.List" value="49"/>
+<java.lang.Short class="util.List" value="56"/>
+<java.lang.Short class="util.List" value="57"/>
+<java.lang.Short class="util.List" value="59"/>
+<java.lang.Short class="util.List" value="67"/>
+<java.lang.Short class="util.List" value="68"/>
+<java.lang.Short class="util.List" value="73"/>
+<java.lang.Short class="util.List" value="77"/>
+<java.lang.Short class="util.List" value="78"/>
+<java.lang.Short class="util.List" value="80"/>
+<java.lang.Short class="util.List" value="88"/>
+<java.lang.Short class="util.List" value="85"/>
+<java.lang.Short class="util.List" value="86"/>
+<java.lang.Short class="util.List" value="87"/>
+<java.lang.Short class="util.List" value="90"/>
+<java.lang.Short class="util.List" value="93"/>
+<java.lang.Short class="util.List" value="98"/>
+<java.lang.Short class="util.List" value="99"/>
+<java.lang.Short class="util.List" value="100"/>
+</n>
+<java.lang.String class="aiki.fight.pokemon.PokemonData" field="baseEvo" value="PTIRAVI"/>
+<sm class="aiki.fight.pokemon.PokemonData" field="evolutions">
+<java.lang.String class="util.Map" key="" value="LEUPHORIE"/>
+<aiki.fight.pokemon.evolution.EvolutionHappiness class="util.Map"/>
+</sm>
+<java.lang.Short class="aiki.fight.pokemon.PokemonData" field="catchingRate" value="30"/>
+<r class="aiki.fight.pokemon.PokemonData" field="height" value="11/10"/>
+<aiki.fight.pokemon.enums.ExpType class="aiki.fight.pokemon.PokemonData" field="expEvo" value="R"/>
+<java.lang.Long class="aiki.fight.pokemon.PokemonData" field="expRate" value="395"/>
+<sl class="aiki.fight.pokemon.PokemonData" field="eggGroups">
+<java.lang.String class="util.List" value="FEE"/>
+</sl>
+<li class="aiki.fight.pokemon.PokemonData" field="hatchingSteps" value="10240"/>
+<java.lang.Short class="aiki.fight.pokemon.PokemonData" field="happiness" value="70"/>
+<java.lang.Short class="aiki.fight.pokemon.PokemonData" field="happinessHatch" value="140"/>
+</aiki.fight.pokemon.PokemonData>

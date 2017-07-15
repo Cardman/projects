@@ -1,0 +1,4 @@
+TRES_DIFFICILE	Very hard
+DIFFICILE	Hard
+TRES_FACILE	Very easy
+FACILE	Easy

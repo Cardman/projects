@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><html xmlns:c="javahtml" c:bean="progressing">
+	<head>
+		<title><c:message value="msg_prog,title"/></title>
+		<link href="web_prog/css/difficulty.css" rel="stylesheet" type="text/css"/>
+	</head>
+	<body>
+		<c:if condition="finishedGame">
+			<c:img src="{heroImage}"/>
+			+
+			<c:img src="{heroImageOppositeSex}"/>
+			=
+			<c:img src="{endGameImage}"/>
+			<br/>
+		</c:if>
+		<c:if condition="!finishedGame">
+			<c:message value="msg_prog,nickname">
+				<param value="nickname"/>
+			</c:message>
+			<c:img src="{heroImage}"/>
+			<br/>
+		</c:if>
+		<a c:command="web_prog/html/gameprognotatall.html"><c:message value="msg_prog,titleNotAtAll"/></a><br/>
+		<a c:command="web_prog/html/gameprogpart.html"><c:message value="msg_prog,titlePart"/></a><br/>
+		<a c:command="web_prog/html/gameprogall.html"><c:message value="msg_prog,titleFull"/></a><br/>
+		<!--<c:message value="msg_prog,notCaughtPk"/>
+		<c:for key="k" value="m" map="notAtAllFamiliesBase" varClassName='ls'>
+			{k;}<br/>
+			<table>
+				<tbody>
+					<tr>
+						<td>
+							<c:message value="msg_prog,notCaughtPkCaughtNotPart"/>
+						</td>
+						<c:for var="l" list="m;" className='ls'>
+							<td>
+								<c:for var="e" list="l;">
+									<c:img src="{getImagePokemonNotAll(k;;,l;;,e;;)}"/>
+									{getTrPokemonNotAll(k;;,l;;,e;;)}
+								</c:for>
+							</td>
+						</c:for>
+					</tr>
+				</tbody>
+			</table>
+			<br/>
+		</c:for>
+		<hr/>
+		<c:for key="k" value="m" map="partialFamiliesBaseNotCaught" varClassName='ls'>
+			{k;}<br/>
+			<table>
+				<tbody>
+					<tr>
+						<td>
+							<c:message value="msg_prog,notCaughtPkCaughtNotPart"/>
+						</td>
+						<c:for var="l" list="m;" className='ls'>
+							<td>
+								<c:for var="e" list="l;">
+									<c:img src="{getImagePokemonPartialNot(k;;,l;;,e;;)}"/>
+									{getTrPokemonPartialNot(k;;,l;;,e;;)}
+								</c:for>
+							</td>
+						</c:for>
+					</tr>
+					<tr>
+						<td>
+							<c:message value="msg_prog,notCaughtPkCaughtPart"/>
+						</td>
+						<c:for var="l" list="m;" className='ls'>
+							<td>
+								<c:for var="e" list="getKeyPokemon(k;;,l;;)">
+									<c:img src="{getImagePokemonPartial(k;;,l;;,e;;)}"/>
+									{getTrPokemonPartial(k;;,l;;,e;;)}
+								</c:for>
+							</td>
+						</c:for>
+					</tr>
+				</tbody>
+			</table>
+			<br/>
+		</c:for>
+		<hr/>
+		<c:message value="msg_prog,caughtPk"/>
+		<c:for key="k" value="m" map="fullFamiliesBase" varClassName='ls'>
+			{k;}<br/>
+			<table>
+				<tbody>
+					<tr>
+						<td>
+							<c:message value="msg_prog,notCaughtPkCaughtPart"/>
+						</td>
+						<c:for var="l" list="m;" className='ls'>
+							<td>
+								<c:for var="e" list="l;">
+									<c:img src="{getImagePokemonFull(k;;,l;;,e;;)}"/>
+									{getTrPokemonFull(k;;,l;;,e;;)}
+								</c:for>
+							</td>
+						</c:for>
+					</tr>
+				</tbody>
+			</table>
+			<br/>
+		</c:for>-->
+		<c:message value="msg_prog,unBeatTrainer"/>
+		<ul>
+			<c:for className="aiki.fight.pokemon.TrainerPlaceNames" list="unBeatenImportantTrainers" var="p">
+				<li>
+					{p;getFirst()} - {p;getSecond()}
+				</li>
+			</c:for>
+		</ul>
+		<br/>
+		<c:message value="msg_prog,beatTrainer"/>
+		<ul>
+			<c:for className="aiki.fight.pokemon.TrainerPlaceNames" list="beatenImportantTrainers" var="p">
+				<li>
+					{p;getFirst()} - {p;getSecond()}
+				</li>
+			</c:for>
+		</ul>
+		<br/>
+		<table>
+			<caption><c:message value="msg_prog,otherTrainers"/></caption>
+			<thead>
+				<tr>
+					<th><c:message value="msg_prog,otherTrainersPlace"/></th>
+					<th><c:message value="msg_prog,otherTrainersNumber"/></th>
+				</tr>
+			</thead>
+			<tbody>
+				<c:for key="p" map="remainingOtherTrainerPlaces" value="n">
+					<tr>
+						<td>{getRemainingOtherTrainersPlaceName(p;;)}</td>
+						<td>{n;}</td>
+					</tr>
+				</c:for>
+			</tbody>
+		</table>
+		<br/>
+		<c:message value="msg_prog,unVisitPlace"/>
+		<ul>
+			<c:for list="unVisitedPlaces" var="p">
+				<li>{p;}</li>
+			</c:for>
+		</ul>
+		<br/>
+		<c:message value="msg_prog,visitPlace"/>
+		<ul>
+			<c:for list="visitedPlaces" var="p">
+				<li>{p;}</li>
+			</c:for>
+		</ul>
+		<br/>
+		<c:message value="msg_prog,nbRemPkLevel">
+			<param value="nbRemainingNotMaxLevel"/>
+		</c:message>
+		<br/>
+		<c:message value="msg_prog,nbRemPkHappiness">
+			<param value="nbRemainingNotMaxHappiness"/>
+		</c:message>
+		<br/>
+		<c:message value="msg_prog,nbRemEgg">
+			<param value="nbRemainingEggs"/>
+		</c:message>
+		<br/>
+		<c:message value="msg_prog,repel">
+			<param value="remainStepsRepel"/>
+		</c:message>
+		<br/>
+		<c:message value="msg_prog,money">
+			<param value="money"/>
+		</c:message>
+		<br/>
+	</body>
+</html>

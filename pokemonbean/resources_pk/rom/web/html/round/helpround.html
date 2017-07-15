@@ -1,0 +1,2148 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><html xmlns:c="javahtml" c:bean="help_fight">
+	<head>
+		<title><c:message value="msg_helpround,title"/></title>
+		<link href="web/css/pokedex.css" rel="stylesheet" type="text/css"/>
+	</head>
+	<body>
+		<a c:command="web/html/index.html" href=""><c:message value="msg_helpround,index"/></a>
+		<h1><a name="begin"><c:message value="msg_helpround,goal_title"/></a></h1>
+		<c:message value="msg_helpround,goal"/>
+		<c:message value="msg_helpround,goal_uses"/>
+		<c:message value="msg_helpround,goal_uses_1"/>
+		<c:message value="msg_helpround,goal_uses_2"/>
+		<c:message value="msg_helpround,goal_uses_3">
+			<param value="defaultBoostValue"/>
+		</c:message>
+		<h1><c:message value="msg_helpround,rules"/></h1>
+		<c:message value="msg_helpround,rules_1"/>
+		<c:message value="msg_helpround,rules_2"/>
+		<c:if condition="!privatingMoves.isEmpty()">
+			<c:message value="msg_helpround,rules_3"/>
+			<ul>
+				<c:for list="privatingMoves" var="a">
+					<li><a c:command="$clickPrivatingMoves({a;;})">{getTrPrivatingMoves(a;;)}</a></li>
+				</c:for>
+			</ul>
+		</c:if>
+		<c:message value="msg_helpround,rules_4"/>
+		<c:message value="msg_helpround,rules_5"/>
+		<c:if condition="!movesHealingSubstitute.isEmpty()">
+			<c:message value="msg_helpround,rules_6"/>
+			<ul>
+				<c:for list="movesHealingSubstitute" var="a">
+					<li><a c:command="$clickMovesHealingSubstitute({a;;})">{getTrMovesHealingSubstitute(a;;)}</a></li>
+				</c:for>
+			</ul>
+		</c:if>
+		<c:message value="msg_helpround,rules_7"/>
+		<c:message value="msg_helpround,rules_8"/>
+		<c:message value="msg_helpround,rules_8_1"/>
+		<c:message value="msg_helpround,rules_9"/>
+		<c:message value="msg_helpround,rules_10">
+			<param value="getTrDefaultMove()"/>
+		</c:message>
+		<h1><c:message value="msg_helpround,begin"/></h1>
+		<c:message value="msg_helpround,begin_0"/>
+		<c:message value="msg_helpround,begin_0_1"/>
+		<c:if condition="!abilitiesSentBeginWeather.isEmpty()">
+			<c:message value="msg_helpround,begin_1"/>
+			<ul>
+				<c:for list="abilitiesSentBeginWeather" var="a">
+					<li><a c:command="$clickAbilitiesSentBegin({a;;})">{getTrAbilitiesSentBegin(a;;)}</a></li>
+				</c:for>
+			</ul>
+		</c:if>
+		<c:if condition="!itemsSentBeginWeather.isEmpty()">
+			<c:message value="msg_helpround,begin_1_1"/>
+			<ul>
+				<c:for list="itemsSentBeginWeather" var="a">
+					<li><a c:command="$clickItemsSentBegin({a;;})">{getTrItemsSentBegin(a;;)}</a></li>
+				</c:for>
+			</ul>
+		</c:if>
+		<c:if condition="!itemsSentBeginOther.isEmpty()">
+			<c:message value="msg_helpround,begin_1_2"/>
+			<ul>
+				<c:for list="itemsSentBeginOther" var="a">
+					<li><a c:command="$clickItemsSentBeginOth({a;;})">{getTrItemsSentBeginOth(a;;)}</a></li>
+				</c:for>
+			</ul>
+		</c:if>
+		<c:message value="msg_helpround,begin_1_3"/>
+		<c:if condition="!abilitiesSentBeginWeather.isEmpty()">
+			<c:message value="msg_helpround,begin_2"/>
+			<ul>
+				<c:for list="abilitiesSentBeginWeather" var="a">
+					<li><a c:command="$clickAbilitiesSentBegin({a;;})">{getTrAbilitiesSentBegin(a;;)}</a></li>
+				</c:for>
+			</ul>
+		</c:if>
+		<c:if condition="!itemsSentBeginWeather.isEmpty()">
+			<c:message value="msg_helpround,begin_2_1"/>
+			<ul>
+				<c:for list="itemsSentBeginWeather" var="a">
+					<li><a c:command="$clickItemsSentBegin({a;;})">{getTrItemsSentBegin(a;;)}</a></li>
+				</c:for>
+			</ul>
+		</c:if>
+		<c:if condition="!itemsSentBeginOther.isEmpty()">
+			<c:message value="msg_helpround,begin_2_2"/>
+			<ul>
+				<c:for list="itemsSentBeginOther" var="a">
+					<li><a c:command="$clickItemsSentBeginOth({a;;})">{getTrItemsSentBeginOth(a;;)}</a></li>
+				</c:for>
+			</ul>
+		</c:if>
+		<c:message value="msg_helpround,begin_2_3"/>
+		<c:message value="msg_helpround,begin_2_4"/>
+		<c:if condition="!changingTypesAbilities.isEmpty()">
+			<c:message value="msg_helpround,begin_3"/>
+			<ul>
+				<c:for list="changingTypesAbilities" var="a">
+					<li><a c:command="$clickChangingTypesAbilities({a;;})">{getTrChangingTypesAbilities(a;;)}</a></li>
+				</c:for>
+			</ul>
+		</c:if>
+		<c:if condition="!copyAbilities.isEmpty()">
+			<c:message value="msg_helpround,begin_4"/>
+			<ul>
+				<c:for list="copyAbilities" var="a">
+					<li><a c:command="$clickCopyAbilities({a;;})">{getTrCopyAbilities(a;;)}</a></li>
+				</c:for>
+			</ul>
+		</c:if>
+		<c:if condition="!abilitiesSentStatis.isEmpty()">
+			<c:message value="msg_helpround,begin_4"/>
+			<ul>
+				<c:for list="abilitiesSentStatis" var="a">
+					<li><a c:command="$clickAbilitiesSentStatis({a;;})">{getTrAbilitiesSentStatis(a;;)}</a></li>
+				</c:for>
+			</ul>
+		</c:if>
+		<c:if condition="!changingTypesAbilities.isEmpty()">
+			<c:message value="msg_helpround,begin_5"/>
+			<ul>
+				<c:for list="changingTypesAbilities" var="a">
+					<li><a c:command="$clickChangingTypesAbilities({a;;})">{getTrChangingTypesAbilities(a;;)}</a></li>
+				</c:for>
+			</ul>
+		</c:if>
+		<c:if condition="!copyAbilities.isEmpty()">
+			<c:message value="msg_helpround,begin_6"/>
+			<ul>
+				<c:for list="copyAbilities" var="a">
+					<li><a c:command="$clickCopyAbilities({a;;})">{getTrCopyAbilities(a;;)}</a></li>
+				</c:for>
+			</ul>
+		</c:if>
+		<c:if condition="!abilitiesSentStatis.isEmpty()">
+			<c:message value="msg_helpround,begin_6"/>
+			<ul>
+				<c:for list="abilitiesSentStatis" var="a">
+					<li><a c:command="$clickAbilitiesSentStatis({a;;})">{getTrAbilitiesSentStatis(a;;)}</a></li>
+				</c:for>
+			</ul>
+		</c:if>
+		<h1><c:message value="msg_helpround,round"/></h1>
+		<c:message value="msg_helpround,intro_round"/>
+		<c:if condition="!substitutingMoves.isEmpty()">
+			<c:message value="msg_helpround,intro_round_next_1"/>
+			<ul>
+				<c:for list="substitutingMoves" var="a">
+					<li><a c:command="$clickSubstitutingMoves({a;;})">{getTrSubstitutingMoves(a;;)}</a></li>
+				</c:for>
+			</ul>
+			<c:message value="msg_helpround,intro_round_next_2"/>
+			<c:message value="msg_helpround,intro_round_next_3"/>
+		</c:if>
+		<h2><c:message value="msg_helpround,first_events"/></h2>
+		<c:message value="msg_helpround,first_events_0"/>
+		<c:message value="msg_helpround,first_events_1"/>
+		<c:message value="msg_helpround,first_events_2"/>
+		<c:message value="msg_helpround,first_events_3"/>
+		<c:message value="msg_helpround,first_events_4"/>
+		<c:message value="msg_helpround,first_events_5"/>
+		<h2><c:message value="msg_helpround,events_round"/></h2>
+		<c:message value="msg_helpround,events_round_1"/>
+		<c:message value="msg_helpround,events_round_2"/>
+		<ol>
+			<li><c:message value="msg_helpround,events_round_3"/></li>
+			<li><c:message value="msg_helpround,events_round_4"/></li>
+			<li><c:message value="msg_helpround,events_round_5"/></li>
+		</ol>
+		<h3>1. <c:message value="msg_helpround,events_round_3_0"/></h3>
+		<c:message value="msg_helpround,events_round_3_1"/>
+		<h3>2. <c:message value="msg_helpround,events_round_4_0"/></h3>
+		<c:message value="msg_helpround,events_round_4_1"/>
+		<h3>3. <c:message value="msg_helpround,events_round_5_0"/></h3>
+		<c:message value="msg_helpround,events_round_5_1"/>
+		<ol>
+			<li>
+				<c:message value="msg_helpround,events_round_5_2"/>
+				<c:if condition="!abilitiesPrio.isEmpty()">
+					<c:message value="msg_helpround,events_round_5_3"/>
+					<ul>
+						<c:for list="abilitiesPrio" var="a">
+							<li><a c:command="$clickAbilitiesPrio({a;;})">{getTrAbilitiesPrio(a;;)}</a></li>
+						</c:for>
+					</ul>
+				</c:if>
+			</li>
+			<c:if condition="!slowAbilities.isEmpty()">
+				<li>
+					<c:message value="msg_helpround,events_round_5_4"/>
+					<ul>
+						<c:for list="slowAbilities" var="a">
+							<li><a c:command="$clickSlowAbilities({a;;})">{getTrSlowAbilities(a;;)}</a></li>
+						</c:for>
+					</ul>
+				</li>
+			</c:if>
+			<c:if condition="!slowItems.isEmpty()">
+				<li>
+					<c:message value="msg_helpround,events_round_5_5"/>
+					<ul>
+						<c:for list="slowItems" var="a">
+							<li><a c:command="$clickSlowItems({a;;})">{getTrSlowItems(a;;)}</a></li>
+						</c:for>
+					</ul>
+				</li>
+			</c:if>
+			<c:if condition="!reverseSpeedMoves.isEmpty()">
+				<li>
+					<c:message value="msg_helpround,events_round_5_6"/>
+					<ul>
+						<c:for list="reverseSpeedMoves" var="a">
+							<li><a c:command="$clickReverseSpeedMoves({a;;})">{getTrReverseSpeedMoves(a;;)}</a></li>
+						</c:for>
+					</ul>
+				</li>
+			</c:if>
+			<c:if condition="reverseSpeedMoves.isEmpty()">
+				<li><c:message value="msg_helpround,events_round_5_6_1"/></li>
+			</c:if>
+			<c:if condition="!berrySpeed.isEmpty()">
+				<li>
+					<c:message value="msg_helpround,events_round_5_7"/>
+					<ul>
+						<c:for list="berrySpeed" var="a">
+							<li><a c:command="$clickBerrySpeed({a;;})">{getTrBerrySpeed(a;;)}</a></li>
+						</c:for>
+					</ul>
+				</li>
+			</c:if>
+			<c:if condition="!itemSpeed.isEmpty()">
+				<li>
+					<c:message value="msg_helpround,events_round_5_8"/>
+					<ul>
+						<c:for list="itemSpeed" var="a">
+							<li><a c:command="$clickItemSpeed({a;;})">{getTrItemSpeed(a;;)}</a></li>
+						</c:for>
+					</ul>
+				</li>
+			</c:if>
+		</ol>
+		<h2><c:message value="msg_helpround,round_process_heal"/></h2>
+		<c:message value="msg_helpround,round_process_heal_1"/>
+		<h2><c:message value="msg_helpround,round_process_switch"/></h2>
+		<c:if condition="!abilitiesSwitch.isEmpty()">
+			<c:message value="msg_helpround,round_process_switch_1"/>
+			<ul>
+				<c:for list="abilitiesSwitch" var="a">
+					<li><a c:command="$clickAbilitiesSwitch({a;;})">{getTrAbilitiesSwitch(a;;)}</a></li>
+				</c:for>
+			</ul>
+		</c:if>
+		<c:if condition="!deletedStatusSwitch.isEmpty()">
+			<c:message value="msg_helpround,round_process_switch_2"/>
+			<ul>
+				<c:for list="deletedStatusSwitch" var="a">
+					<li><a c:command="$clickDeletedStatusSwitch({a;;})">{getTrDeletedStatusSwitch(a;;)}</a></li>
+				</c:for>
+			</ul>
+		</c:if>
+		<h3><c:message value="msg_helpround,round_process_switch_3"/></h3>
+		<c:message value="msg_helpround,round_process_switch_3_0"/>
+		<c:if condition="!entryHazard.isEmpty()">
+			<c:message value="msg_helpround,round_process_switch_3_1"/>
+			<ul>
+				<c:for list="entryHazard" var="a">
+					<li><a c:command="$clickEntryHazard({a;;})">{getTrEntryHazard(a;;)}</a></li>
+				</c:for>
+			</ul>
+		</c:if>
+		<c:message value="msg_helpround,round_process_switch_3_2"/>
+		<h2><c:message value="msg_helpround,round_process_move"/></h2>
+		<c:if condition="!beginRoundStatus.isEmpty()">
+			<h3><c:message value="msg_helpround,round_process_move_status"/></h3>
+			<c:message value="msg_helpround,round_process_move_1"/>
+			<ul>
+				<c:for list="beginRoundStatus" var="a">
+					<li><a c:command="$clickBeginRoundStatus({a;;})">{getTrBeginRoundStatus(a;;)}</a></li>
+				</c:for>
+			</ul>
+			<c:if condition="!deleteStatusMove.isEmpty()">
+				<c:message value="msg_helpround,round_process_move_2"/>
+				<ul>
+					<c:for list="deleteStatusMove" var="a">
+						<li><a c:command="$clickDeleteStatusMove({a;;})">{getTrDeleteStatusMove(a;;)}</a></li>
+					</c:for>
+				</ul>
+			</c:if>
+			<c:message value="msg_helpround,round_process_move_3"/>
+			<c:if condition="!immuStatusAbility.isEmpty()">
+				<c:message value="msg_helpround,round_process_move_4"/>
+				<ul>
+					<c:for list="immuStatusAbility" var="a">
+						<li><a c:command="$clickImmuStatusAbility({a;;})">{getTrImmuStatusAbility(a;;)}</a></li>
+					</c:for>
+				</ul>
+			</c:if>
+			<c:if condition="hasLawForAttack()">
+				<c:message value="msg_helpround,round_process_move_5"/>
+				<ul>
+					<c:for list="beginRoundStatus" var="a">
+						<c:if condition="hasLawForAttack(a;;)">
+							<li><a c:command="$clickBeginRoundStatus({a;;})">{getTrBeginRoundStatus(a;;)}</a></li>
+						</c:if>
+					</c:for>
+				</ul>
+			</c:if>
+			<c:if condition="hasLawForHeal()">
+				<c:message value="msg_helpround,round_process_move_5_1"/>
+				<ul>
+					<c:for list="beginRoundStatus" var="a">
+						<c:if condition="hasLawForHeal(a;;)">
+							<li><a c:command="$clickBeginRoundStatus({a;;})">{getTrBeginRoundStatus(a;;)}</a></li>
+						</c:if>
+					</c:for>
+				</ul>
+			</c:if>
+			<c:if condition="!autoDamage.isEmpty()">
+				<c:message value="msg_helpround,round_process_move_6"/>
+				<c:message value="msg_helpround,round_process_move_6_1"/>
+				<table>
+					<thead>
+						<tr>
+							<th><c:message value="msg_helpround,round_process_move_6_1_key"/></th>
+							<th><c:message value="msg_helpround,round_process_move_6_1_value"/></th>
+						</tr>
+					</thead>
+					<tbody>
+						<c:for list="autoDamage" var="a">
+							<tr>
+								<td><a c:command="$clickAutoDamage({a;;})">{getTrAutoDamage(a;;)}</a></td>
+								<td>{getFomula(a;;)}</td>
+							</tr>
+						</c:for>
+					</tbody>
+				</table>
+				<c:if condition="!mapAutoDamage.isEmpty()">
+					<ul>
+						<c:for key="c" map="mapAutoDamage" value="r">
+							<li>{c;} : 
+								<c:message quoted="" value="msg_helpround,formula">
+									<param value="r;"/>
+								</c:message>
+							</li>
+						</c:for>
+					</ul>
+				</c:if>
+				<c:message value="msg_helpround,round_process_move_6_2"/>
+			</c:if>
+			<c:message value="msg_helpround,round_process_move_status_end"/>
+		</c:if>
+		<h3><c:message value="msg_helpround,round_process_move_prep"/></h3>
+		<c:message value="msg_helpround,round_process_move_before"/>
+		<c:if condition="!prepaRoundMoves.isEmpty()">
+			<c:message value="msg_helpround,round_process_move_before_1"/>
+			<c:message value="msg_helpround,round_process_move_before_2"/>
+			<ul>
+				<c:for list="prepaRoundMoves" var="a">
+					<li><a c:command="$clickPrepaRoundMoves({a;;})">{getTrPrepaRoundMoves(a;;)}</a></li>
+				</c:for>
+			</ul>
+			<c:if condition="!speedPreparingItems.isEmpty()">
+				<c:message value="msg_helpround,round_process_move_before_2_1"/>
+				<ul>
+					<c:for list="speedPreparingItems" var="a">
+						<li><a c:command="$clickSpeedPreparingItems({a;;})">{getTrSpeedPreparingItems(a;;)}</a></li>
+					</c:for>
+				</ul>
+			</c:if>
+			<c:if condition="!disappearingRoundMoves.isEmpty()">
+				<c:message value="msg_helpround,round_process_move_before_3"/>
+				<ul>
+					<c:for list="prepaRoundMoves" var="a">
+						<c:if condition="isDisappearingUser(a;;)">
+							<li><a c:command="$clickPrepaRoundMoves({a;;})">{getTrPrepaRoundMoves(a;;)}</a></li>
+						</c:if>
+					</c:for>
+				</ul>
+			</c:if>
+		</c:if>
+		<c:if condition="!rechargeMoves.isEmpty()">
+			<c:message value="msg_helpround,round_process_move_before_4"/>
+			<ul>
+				<c:for list="rechargeMoves" var="a">
+					<li><a c:command="$clickPrepaRoundMoves({a;;})">{getTrRechargeMoves(a;;)}</a></li>
+				</c:for>
+			</ul>
+			<c:if condition="!immuRecharging.isEmpty()">
+				<c:message value="msg_helpround,round_process_move_before_5"/>
+				<ul>
+					<c:for list="immuRecharging" var="a">
+						<li><a c:command="$clickImmuRecharging({a;;})">{getTrImmuRecharging(a;;)}</a></li>
+					</c:for>
+				</ul>
+			</c:if>
+		</c:if>
+		<c:if condition="!movesInvoking.isEmpty()">
+			<h3><c:message value="msg_helpround,round_process_move_invoke"/></h3>
+			<c:message value="msg_helpround,round_process_move_invoke_moves"/>
+			<ul>
+				<c:for list="movesInvoking" var="a">
+					<li><a c:command="$clickMovesInvoking({a;;})">{getTrMovesInvoking(a;;)}</a></li>
+				</c:for>
+			</ul>
+			<c:message value="msg_helpround,round_process_move_invoke_process"/>
+			<c:message value="msg_helpround,round_process_move_invoke_process_fail"/>
+		</c:if>
+		<h3><c:message value="msg_helpround,round_process_move_prep_final"/></h3>
+		<!-- rechargeMoves -->
+		<c:message value="msg_helpround,round_process_move_prep_final_1"/>
+		<c:message value="msg_helpround,round_process_move_prep_final_2"/>
+		<c:message value="msg_helpround,round_process_move_prep_final_3"/>
+		<c:if condition="!movesHealingSubstitute.isEmpty()">
+			<c:message value="msg_helpround,round_process_move_prep_final_4"/>
+			<ul>
+				<c:for list="movesHealingSubstitute" var="a">
+					<li><a c:command="$clickMovesHealingSubstitute({a;;})">{getTrMovesHealingSubstitute(a;;)}</a></li>
+				</c:for>
+			</ul>
+		</c:if>
+		<c:if condition="!copyMoveTypesAb.isEmpty()">
+			<c:message value="msg_helpround,round_process_move_prep_final_5"/>
+			<ul>
+				<c:for list="copyMoveTypesAb" var="a">
+					<li><a c:command="$clickCopyMoveTypesAb({a;;})">{getTrCopyMoveTypesAb(a;;)}</a></li>
+				</c:for>
+			</ul>
+		</c:if>
+		<c:if condition="!movesThieving.isEmpty()">
+			<c:message value="msg_helpround,round_process_move_prep_final_6"/>
+			<ul>
+				<c:for list="movesThieving" var="a">
+					<li><a c:command="$clickMovesThieving({a;;})">{getTrMovesThieving(a;;)}</a></li>
+				</c:for>
+			</ul>
+		</c:if>
+		<h3><c:message value="msg_helpround,round_process_move_final"/></h3>
+		<c:message value="msg_helpround,round_process_move_final_1"/>
+		<br/>
+		<c:message value="msg_helpround,round_process_move_final_2"/>
+		<c:if condition="!movesSecEffItems.isEmpty()">
+			<c:message value="msg_helpround,round_process_move_final_3"/>
+			<ul>
+				<c:for list="movesSecEffItems" var="a">
+					<li><a c:command="$clickMovesSecEffItems({a;;})">{getTrMovesSecEffItems(a;;)}</a></li>
+				</c:for>
+			</ul>
+		</c:if>
+		<c:message value="msg_helpround,round_process_move_final_4"/>
+		<c:if condition="!movesAttracting.isEmpty()">
+			<c:message value="msg_helpround,round_process_move_final_5"/>
+			<ul>
+				<c:for list="movesAttracting" var="a">
+					<li><a c:command="$clickMovesAttracting({a;;})">{getTrMovesAttracting(a;;)}</a></li>
+				</c:for>
+			</ul>
+		</c:if>
+		<c:if condition="movesAttracting.isEmpty()">
+			<c:message value="msg_helpround,round_process_move_final_5_1"/>
+		</c:if>
+		<c:if condition="!beginRoundStatusFoe.isEmpty()">
+			<c:message value="msg_helpround,round_process_move_final_6"/>
+			<ul>
+				<c:for list="beginRoundStatusFoe" var="a">
+					<li><a c:command="$clickBeginRoundStatusFoe({a;;})">{getTrBeginRoundStatusFoe(a;;)}</a></li>
+				</c:for>
+			</ul>
+			<c:message value="msg_helpround,round_process_move_final_7"/>
+		</c:if>
+		<c:if condition="!pressureAbilities.isEmpty()">
+			<c:message value="msg_helpround,round_process_move_final_8"/>
+			<ul>
+				<c:for list="pressureAbilities" var="a">
+					<li><a c:command="$clickPressureAbilities({a;;})">{getTrPressureAbilities(a;;)}</a></li>
+				</c:for>
+			</ul>
+		</c:if>
+		<c:message value="msg_helpround,round_process_move_final_9"/>
+		<c:message value="msg_helpround,round_process_move_final_10_1"/>
+		<!-- TODO explain processing for successful move -->
+		<c:message value="msg_helpround,round_process_move_final_10"/>
+		<!--<ol>
+			<li><c:message value="msg_helpround,round_process_move_final_succ_1"/></li>
+			<li><c:message value="msg_helpround,round_process_move_final_succ_2"/></li>
+			<li><c:message value="msg_helpround,round_process_move_final_succ_3"/></li>
+		</ol>-->
+		<c:if condition="!protectAbilities.isEmpty()">
+			<c:message value="msg_helpround,round_process_move_final_11"/>
+			<ul>
+				<c:for list="protectAbilities" var="a">
+					<li><a c:command="$clickProtectAbilities({a;;})">{getTrProtectAbilities(a;;)}</a></li>
+				</c:for>
+			</ul>
+		</c:if>
+		<c:if condition="!protectItems.isEmpty()">
+			<c:message value="msg_helpround,round_process_move_final_11_1"/>
+			<ul>
+				<c:for list="protectItems" var="a">
+					<li><a c:command="$clickProtectItems({a;;})">{getTrProtectItems(a;;)}</a></li>
+				</c:for>
+			</ul>
+		</c:if>
+		<c:if condition="!protectMoves.isEmpty()">
+			<c:message value="msg_helpround,round_process_move_final_11_2"/>
+			<ul>
+				<c:for list="protectMoves" var="a">
+					<li><a c:command="$clickProtectMoves({a;;})">{getTrProtectMoves(a;;)}</a></li>
+				</c:for>
+			</ul>
+		</c:if>
+		<c:if condition="!effMoves.isEmpty()">
+			<c:message value="msg_helpround,round_process_move_final_12"/>
+			<ul>
+				<c:for list="effMoves" var="a">
+					<li><a c:command="$clickEffMoves({a;;})">{getTrEffMoves(a;;)}</a></li>
+				</c:for>
+			</ul>
+		</c:if>
+		<c:message value="msg_helpround,round_process_move_final_13"/>
+		<c:message value="msg_helpround,round_process_move_final_14"/>
+		<c:if condition="!movesMirror.isEmpty()">
+			<c:message value="msg_helpround,round_process_move_final_15"/>
+			<ul>
+				<c:for list="movesMirror" var="a">
+					<li><a c:command="$clickMovesMirror({a;;})">{getTrMovesMirror(a;;)}</a></li>
+				</c:for>
+			</ul>
+			<c:message value="msg_helpround,round_process_move_final_16"/>
+		</c:if>
+		<c:message value="msg_helpround,round_process_move_final_16_1"/>
+		<ol>
+			<li>
+				<c:message value="msg_helpround,round_process_move_final_16_1_1"/>
+				<ol>
+					<c:if condition="!abilitiesPartStatis.isEmpty()">
+						<li>
+							<c:message value="msg_helpround,round_process_move_final_16_1_1_1"/>
+							<ul>
+								<c:for list="abilitiesPartStatis" var="a">
+									<li><a c:command="$clickAbilitiesPartStatis({a;;})">{getTrAbilitiesPartStatis(a;;)}</a></li>
+								</c:for>
+							</ul>
+						</li>
+					</c:if>
+					<c:if condition="immuStatisTeamMove()">
+						<li>
+							<c:message value="msg_helpround,round_process_move_final_16_1_1_2"/>
+							<ul>
+								<c:for list="movesTeam" var="a">
+									<c:if condition="immuStatisTeamMove(a;;)">
+										<li><a c:command="$clickMovesTeam({a;;})">{getTrMovesTeam(a;;)}</a></li>
+									</c:if>
+								</c:for>
+							</ul>
+						</li>
+					</c:if>
+					<c:if condition="!abilitiesFighterStatisVar.isEmpty()">
+						<li>
+							<c:message value="msg_helpround,round_process_move_final_16_1_1_3"/>
+							<ul>
+								<c:for list="abilitiesFighterStatisVar" var="a">
+									<li><a c:command="$clickAbilitiesFighterStatisVar({a;;})">{getTrAbilitiesFighterStatisVar(a;;)}</a></li>
+								</c:for>
+							</ul>
+						</li>
+					</c:if>
+					<!--
+						<li>
+							<c:message value="msg_helpround,round_process_move_final_16_1_1_4"/>
+							<ul>
+								<c:for var="a" list="itemsFighterStatis">
+									<li><a c:command="$clickItemsFighterStatis({a;;})">{getTrItemsFighterStatis(a;;)}</a></li>
+								</c:for>
+							</ul>
+						</li>
+					-->
+				</ol>
+			</li>
+			<li>
+				<c:message value="msg_helpround,round_process_move_final_16_1_2"/>
+				<c:if condition="!abilitiesRateStatis.isEmpty()">
+					<br/>
+					<c:message value="msg_helpround,round_process_move_final_16_1_2_1"/>
+					<ul>
+						<c:for list="abilitiesRateStatis" var="a">
+							<li><a c:command="$clickAbilitiesRateStatis({a;;})">{getTrAbilitiesRateStatis(a;;)}</a></li>
+						</c:for>
+					</ul>
+				</c:if>
+				<c:if condition="!comboEvtStat.isEmpty()">
+					<br/>
+					<c:message value="msg_helpround,round_process_move_final_16_1_2_2"/>
+					<ul>
+						<c:for list="comboEvtStat" var="a">
+							<li><a c:command="$clickComboEvtStat({a;;})">{getTrComboEvtStat(a;;)}</a></li>
+						</c:for>
+					</ul>
+				</c:if>
+			</li>
+			<c:if condition="!abilitiesFighterStatis.isEmpty()">
+				<li>
+					<c:message value="msg_helpround,round_process_move_final_16_1_3"/>
+					<ul>
+						<c:for list="abilitiesFighterStatis" var="a">
+							<li><a c:command="$clickAbilitiesFighterStatis({a;;})">{getTrAbilitiesFighterStatis(a;;)}</a></li>
+						</c:for>
+					</ul>
+				</li>
+			</c:if>
+			<c:if condition="!itemsFighterStatis.isEmpty()">
+				<li>
+					<c:message value="msg_helpround,round_process_move_final_16_1_4"/>
+					<ul>
+						<c:for list="itemsFighterStatis" var="a">
+							<li><a c:command="$clickItemsFighterStatis({a;;})">{getTrItemsFighterStatis(a;;)}</a></li>
+						</c:for>
+					</ul>
+				</li>
+			</c:if>
+		</ol>
+		<c:message value="msg_helpround,round_process_move_final_16_2"/>
+		<ol>
+			<c:if condition="!successfulStatus.isEmpty()">
+				<li>
+					<c:message value="msg_helpround,round_process_move_final_16_2_1"/>
+					<ul>
+						<c:for list="successfulStatus" var="a">
+							<li><a c:command="$clickSuccessfulStatus({a;;})">{getTrSuccessfulStatus(a;;)}</a></li>
+						</c:for>
+					</ul>
+				</li>
+			</c:if>
+			<c:if condition="!globalMovesStatus.isEmpty()">
+				<li>
+					<c:message value="msg_helpround,round_process_move_final_16_2_2"/>
+					<ul>
+						<c:for list="globalMovesStatus" var="a">
+							<li><a c:command="$clickGlobalMovesStatus({a;;})">{getTrGlobalMovesStatus(a;;)}</a></li>
+						</c:for>
+					</ul>
+				</li>
+			</c:if>
+			<c:if condition="!abilitiesPartStatus.isEmpty()">
+				<li>
+					<c:message value="msg_helpround,round_process_move_final_16_2_3"/>
+					<ul>
+						<c:for list="abilitiesPartStatus" var="a">
+							<li><a c:command="$clickAbilitiesPartStatus({a;;})">{getTrAbilitiesPartStatus(a;;)}</a></li>
+						</c:for>
+					</ul>
+				</li>
+			</c:if>
+			<c:if condition="immuStatusTeamMove()">
+				<li>
+					<c:message value="msg_helpround,round_process_move_final_16_2_4"/>
+					<ul>
+						<c:for list="movesTeam" var="a">
+							<c:if condition="immuStatusTeamMove(a;;)">
+								<li><a c:command="$clickMovesTeam({a;;})">{getTrMovesTeam(a;;)}</a></li>
+							</c:if>
+						</c:for>
+					</ul>
+				</li>
+			</c:if>
+			<c:if condition="!abilitiesFighterStatus.isEmpty()">
+				<li>
+					<c:message value="msg_helpround,round_process_move_final_16_2_5"/>
+					<ul>
+						<c:for list="abilitiesFighterStatus" var="a">
+							<li><a c:command="$clickAbilitiesFighterStatus({a;;})">{getTrAbilitiesFighterStatus(a;;)}</a></li>
+						</c:for>
+					</ul>
+				</li>
+			</c:if>
+			<c:if condition="!itemsFighterStatus.isEmpty()">
+				<li>
+					<c:message value="msg_helpround,round_process_move_final_16_2_6"/>
+					<ul>
+						<c:for list="itemsFighterStatus" var="a">
+							<li><a c:command="$clickItemsFighterStatus({a;;})">{getTrItemsFighterStatus(a;;)}</a></li>
+						</c:for>
+					</ul>
+				</li>
+			</c:if>
+			<li><c:message value="msg_helpround,round_process_move_final_16_2_7"/></li>
+			<c:if condition="!comboEvtStat.isEmpty()">
+				<li>
+					<c:message value="msg_helpround,round_process_move_final_16_2_8"/>
+					<ul>
+						<c:for list="comboEvtStat" var="a">
+							<li><a c:command="$clickComboEvtStat({a;;})">{getTrComboEvtStat(a;;)}</a></li>
+						</c:for>
+					</ul>
+				</li>
+			</c:if>
+		</ol>
+		<c:message value="msg_helpround,round_process_move_final_17"/>
+		<ol>
+			<li><c:message value="msg_helpround,round_process_move_final_18"/></li>
+			<li><c:message value="msg_helpround,round_process_move_final_19"/></li>
+			<li><c:message value="msg_helpround,round_process_move_final_20"/></li>
+			<li>
+				<c:message value="msg_helpround,round_process_move_final_20_0"/>
+				<c:for key="d" map="lawsRates" value="l" varClassName="ctm">
+					<ul>
+						<li>
+							{getTrLawRate(d;;)}<br/>
+							<table>
+								<thead>
+									<tr>
+										<th><c:message value="msg_helpround,round_process_move_final_20_1"/></th>
+										<th><c:message value="msg_helpround,round_process_move_final_20_2"/></th>
+									</tr>
+								</thead>
+								<tbody>
+									<c:for key="e" map="l;" value="r">
+										<tr>
+											<td>{e;}</td>
+											<td>{r;}</td>
+										</tr>
+									</c:for>
+								</tbody>
+							</table>
+						</li>
+					</ul>
+				</c:for>
+			</li>
+			<li><c:message value="msg_helpround,round_process_move_final_21"/></li>
+			<c:if condition="!movesProtAgainstKo.isEmpty()">
+				<li>
+					<c:message value="msg_helpround,round_process_move_final_22"/>
+					<ul>
+						<c:for list="movesProtAgainstKo" var="a">
+							<li><a c:command="$clickMovesProtAgainstKo({a;;})">{getTrMovesProtAgainstKo(a;;)}</a></li>
+						</c:for>
+					</ul>
+					<c:message quoted="" value="msg_helpround,round_process_move_final_22_1">
+						<param value="minHpNotKo"/>
+					</c:message>
+				</li>
+			</c:if>
+			<c:if condition="!itemsProtAgainstKo.isEmpty()">
+				<li>
+					<c:message value="msg_helpround,round_process_move_final_23"/>
+					<ul>
+						<c:for list="itemsProtAgainstKo" var="a">
+							<li><a c:command="$clickItemsProtAgainstKo({a;;})">{getTrItemsProtAgainstKo(a;;)}</a></li>
+						</c:for>
+					</ul>
+					<c:message quoted="" value="msg_helpround,round_process_move_final_23_1">
+						<param value="minHpNotKo"/>
+					</c:message>
+				</li>
+			</c:if>
+			<c:if condition="!movesCannotKo.isEmpty()">
+				<li>
+					<c:message value="msg_helpround,round_process_move_final_24"/>
+					<ul>
+						<c:for list="movesCannotKo" var="a">
+							<li><a c:command="$clickMovesCannotKo({a;;})">{getTrMovesCannotKo(a;;)}</a></li>
+						</c:for>
+					</ul>
+					<c:message quoted="" value="msg_helpround,round_process_move_final_24_1">
+						<param value="minHpNotKo"/>
+					</c:message>
+				</li>
+			</c:if>
+			<c:if condition="!itemsAbs.isEmpty()">
+				<li>
+					<c:message value="msg_helpround,round_process_move_final_25"/>
+					<ul>
+						<c:for list="itemsAbs" var="a">
+							<li><a c:command="$clickItemsAbs({a;;})">{getTrItemsAbs(a;;)}</a></li>
+						</c:for>
+					</ul>
+				</li>
+			</c:if>
+			<c:if condition="!abilitiesRevAbs.isEmpty()">
+				<li>
+					<c:message value="msg_helpround,round_process_move_final_26"/>
+					<ul>
+						<c:for list="abilitiesRevAbs" var="a">
+							<li><a c:command="$clickAbilitiesRevAbs({a;;})">{getTrAbilitiesRevAbs(a;;)}</a></li>
+						</c:for>
+					</ul>
+				</li>
+			</c:if>
+			<c:if condition="!abilitiesDamageStatis.isEmpty()">
+				<li>
+					<c:message value="msg_helpround,round_process_move_final_27"/>
+					<ul>
+						<c:for list="abilitiesDamageStatis" var="a">
+							<li><a c:command="$clickAbilitiesDamageStatis({a;;})">{getTrAbilitiesDamageStatis(a;;)}</a></li>
+						</c:for>
+					</ul>
+				</li>
+			</c:if>
+			<c:if condition="!abilitiesChangingTypesDamage.isEmpty()">
+				<li>
+					<c:message value="msg_helpround,round_process_move_final_28"/>
+					<ul>
+						<c:for list="abilitiesChangingTypesDamage" var="a">
+							<li><a c:command="$clickAbilitiesChangingTypesDamage({a;;})">{getTrAbilitiesChangingTypesDamage(a;;)}</a></li>
+						</c:for>
+					</ul>
+				</li>
+			</c:if>
+			<c:if condition="!abilitiesTakingItem.isEmpty()">
+				<li>
+					<c:message value="msg_helpround,round_process_move_final_29"/>
+					<ul>
+						<c:for list="abilitiesTakingItem" var="a">
+							<li><a c:command="$clickAbilitiesTakingItem({a;;})">{getTrAbilitiesTakingItem(a;;)}</a></li>
+						</c:for>
+					</ul>
+				</li>
+			</c:if>
+			<c:if condition="!abilitiesStatisVarUser.isEmpty()">
+				<li>
+					<c:message value="msg_helpround,round_process_move_final_30"/>
+					<ul>
+						<c:for list="abilitiesStatisVarUser" var="a">
+							<li><a c:command="$clickAbilitiesStatisVarUser({a;;})">{getTrAbilitiesStatisVarUser(a;;)}</a></li>
+						</c:for>
+					</ul>
+				</li>
+			</c:if>
+			<c:if condition="!abilitiesStatus.isEmpty()">
+				<li>
+					<c:message value="msg_helpround,round_process_move_final_31"/>
+					<ul>
+						<c:for list="abilitiesStatus" var="a">
+							<li><a c:command="$clickAbilitiesStatus({a;;})">{getTrAbilitiesStatus(a;;)}</a></li>
+						</c:for>
+					</ul>
+				</li>
+			</c:if>
+			<c:if condition="!abilitiesCopyAb.isEmpty()">
+				<li>
+					<c:message value="msg_helpround,round_process_move_final_32"/>
+					<ul>
+						<c:for list="abilitiesCopyAb" var="a">
+							<li><a c:command="$clickAbilitiesCopyAb({a;;})">{getTrAbilitiesCopyAb(a;;)}</a></li>
+						</c:for>
+					</ul>
+				</li>
+			</c:if>
+			<c:if condition="!recoilItems.isEmpty()">
+				<li>
+					<c:message value="msg_helpround,round_process_move_final_33"/>
+					<ul>
+						<c:for list="recoilItems" var="a">
+							<li><a c:command="$clickRecoilItems({a;;})">{getTrRecoilItems(a;;)}</a></li>
+						</c:for>
+					</ul>
+				</li>
+			</c:if>
+			<c:if condition="!recoilAbilities.isEmpty()">
+				<li>
+					<c:message value="msg_helpround,round_process_move_final_34"/>
+					<ul>
+						<c:for list="recoilAbilities" var="a">
+							<li><a c:command="$clickRecoilAbilities({a;;})">{getTrRecoilAbilities(a;;)}</a></li>
+						</c:for>
+					</ul>
+				</li>
+			</c:if>
+			<c:if condition="!abilitiesKoTarget.isEmpty()">
+				<li>
+					<c:message value="msg_helpround,round_process_move_final_35"/>
+					<ul>
+						<c:for list="abilitiesKoTarget" var="a">
+							<li><a c:command="$clickAbilitiesKoTarget({a;;})">{getTrAbilitiesKoTarget(a;;)}</a></li>
+						</c:for>
+					</ul>
+				</li>
+			</c:if>
+			<c:if condition="!movesKoTarget.isEmpty()">
+				<li>
+					<c:message value="msg_helpround,round_process_move_final_36"/>
+					<ul>
+						<c:for list="movesKoTarget" var="a">
+							<li><a c:command="$clickMovesKoTarget({a;;})">{getTrMovesKoTarget(a;;)}</a></li>
+						</c:for>
+					</ul>
+				</li>
+			</c:if>
+			<c:if condition="!berryUser.isEmpty()">
+				<li>
+					<c:message value="msg_helpround,round_process_move_final_37"/>
+					<ul>
+						<c:for list="berryUser" var="a">
+							<li><a c:command="$clickBerryUser({a;;})">{getTrBerryUser(a;;)}</a></li>
+						</c:for>
+					</ul>
+				</li>
+			</c:if>
+			<c:if condition="!berryTarget.isEmpty()">
+				<li>
+					<c:message value="msg_helpround,round_process_move_final_38"/>
+					<ul>
+						<c:for list="berryTarget" var="a">
+							<li><a c:command="$clickBerryTarget({a;;})">{getTrBerryTarget(a;;)}</a></li>
+						</c:for>
+					</ul>
+				</li>
+			</c:if>
+		</ol>
+		<c:message value="msg_helpround,round_process_move_final_39"/>
+		<h3><c:message value="msg_helpround,round_process_move_end"/></h3>
+		<c:message value="msg_helpround,round_process_move_end_1"/>
+		<c:message value="msg_helpround,round_process_move_end_1_1"/>
+		<c:if condition="!abilitiesEndRound.isEmpty()">
+			<c:message value="msg_helpround,round_process_move_end_2"/>
+			<ul>
+				<c:for list="abilitiesEndRound" var="a">
+					<li><a c:command="$clickAbilitiesEndRound({a;;})">{getTrAbilitiesEndRound(a;;)}</a></li>
+				</c:for>
+			</ul>
+		</c:if>
+		<c:if condition="!berryEndRound.isEmpty()">
+			<c:message value="msg_helpround,round_process_move_end_3"/>
+			<ul>
+				<c:for list="berryEndRound" var="a">
+					<li><a c:command="$clickBerryEndRound({a;;})">{getTrBerryEndRound(a;;)}</a></li>
+				</c:for>
+			</ul>
+		</c:if>
+		<!--<c:message value="msg_helpround,round_process_move_7"/>-->
+		<c:if condition="!substitutingMoves.isEmpty()">
+			<h2><c:message value="msg_helpround,events_after"/></h2>
+			<c:message value="msg_helpround,events_after_1"/>
+		</c:if>
+		<h2><c:message value="msg_helpround,events_between_user_round"/></h2>
+		<c:if condition="attackFirst()">
+			<c:message value="msg_helpround,events_between_user_round_1"/>
+			<ul>
+				<c:for list="movesChangingAttOrder" var="a">
+					<c:if condition="!attackLast(a;;)">
+						<li><a c:command="$clickMovesChangingAttOrder({a;;})">{getTrMovesChangingAttOrder(a;;)}</a></li>
+					</c:if>
+				</c:for>
+			</ul>
+			<c:message value="msg_helpround,events_between_user_round_2"/>
+		</c:if>
+		<c:if condition="attackLast()">
+			<c:message value="msg_helpround,events_between_user_round_3"/>
+			<ul>
+				<c:for list="movesChangingAttOrder" var="a">
+					<c:if condition="attackLast(a;;)">
+						<li><a c:command="$clickMovesChangingAttOrder({a;;})">{getTrMovesChangingAttOrder(a;;)}</a></li>
+					</c:if>
+				</c:for>
+			</ul>
+			<c:message value="msg_helpround,events_between_user_round_4"/>
+		</c:if>
+		<h1><c:message value="msg_helpround,end_round"/></h1>
+		<c:message value="msg_helpround,end_round_see"/>
+		<h1><c:message value="msg_helpround,win_exp"/></h1>
+		<c:message value="msg_helpround,win_exp_1"/>
+		<ul>
+			<li><c:message value="msg_helpround,win_exp_1_1"/></li>
+			<li><c:message value="msg_helpround,win_exp_1_2"/></li>
+			<li><c:message value="msg_helpround,win_exp_1_3"/></li>
+		</ul>
+		<c:message value="msg_helpround,win_exp_2"/>
+		<c:message value="msg_helpround,win_exp_2_0"/>
+		<table>
+			<thead>
+				<tr>
+					<th><c:message value="msg_helpround,win_exp_2_1"/></th>
+					<th><c:message value="msg_helpround,win_exp_2_2"/></th>
+				</tr>
+			</thead>
+			<tbody>
+				<c:for key="d" map="rates" value="f">
+					<tr>
+						<td>{getTrDifficulty(d;;)}</td>
+						<td>{f;}</td>
+					</tr>
+				</c:for>
+			</tbody>
+		</table>
+		<c:if condition="!varRates.isEmpty()">
+			<ul>
+				<c:for key="c" map="varRates" value="r">
+					<li>{c;} : 
+						<c:message quoted="" value="msg_helpround,formula">
+							<param value="r;"/>
+						</c:message>
+					</li>
+				</c:for>
+			</ul>
+		</c:if>
+		<c:message value="msg_helpround,win_exp_3"/>
+		<c:message value="msg_helpround,win_exp_4">
+			<param value="wonHappinessPointsLevel"/>
+		</c:message>
+		<h1><c:message value="msg_helpround,end_round_prop"/></h1>
+		<c:message value="msg_helpround,end_round_prop_1"/>
+		<ol>
+			<li><c:message value="msg_helpround,end_round_prop_1_1"/></li>
+			<li><c:message value="msg_helpround,end_round_prop_1_2"/></li>
+		</ol>
+		<c:message value="msg_helpround,end_round_prop_2"/>
+		<c:message value="msg_helpround,end_round_prop_2_1"/>
+		<c:message value="msg_helpround,end_round_prop_2_2"/>
+		<c:message value="msg_helpround,end_round_prop_3">
+			<param value="happinessPoints"/>
+		</c:message>
+		<h1><c:message value="msg_helpround,end_round_substituting"/></h1>
+		<c:message value="msg_helpround,end_round_substituting_1"/>
+		<c:message value="msg_helpround,end_round_substituting_2"/>
+		<c:message value="msg_helpround,end_round_substituting_3"/>
+		<c:message value="msg_helpround,end_round_substituting_4"/>
+		<c:message value="msg_helpround,end_round_substituting_5"/>
+		<h1><c:message value="msg_helpround,round_process_add_on_0"/></h1>
+		<c:message value="msg_helpround,round_process_add_on_0_1"/>
+		<c:message value="msg_helpround,round_process_add_on_0_1_1"/>
+		<ul>
+			<li><c:message value="msg_helpround,round_process_add_on_0_1_2"/></li>
+			<li><c:message value="msg_helpround,round_process_add_on_0_1_3"/></li>
+			<li><c:message value="msg_helpround,round_process_add_on_0_1_4"/></li>
+			<li><c:message value="msg_helpround,round_process_add_on_0_1_5"/></li>
+		</ul>
+		<c:message value="msg_helpround,round_process_add_on_0_2"/>
+		<c:message value="msg_helpround,round_process_add_on_0_2_1"/>
+		<ul>
+			<li><c:message value="msg_helpround,round_process_add_on_0_2_2"/></li>
+			<li><c:message value="msg_helpround,round_process_add_on_0_2_3"/></li>
+			<li><c:message value="msg_helpround,round_process_add_on_0_2_4"/></li>
+			<li><c:message value="msg_helpround,round_process_add_on_0_2_5"/></li>
+		</ul>
+		<h1><c:message value="msg_helpround,round_process_add_on_1"/></h1>
+		<c:message value="msg_helpround,round_process_add_on_1_0"/>
+		{damgeFormula}
+		<br/>
+		<c:if condition="!mapVar.isEmpty()">
+			<ul>
+				<c:for key="c" map="mapVar" value="r">
+					<li>{c;} : 
+						<c:message quoted="" value="msg_helpround,formula">
+							<param value="r;"/>
+						</c:message>
+					</li>
+				</c:for>
+			</ul>
+		</c:if>
+		<br/>
+		<c:message value="msg_helpround,round_process_add_on_1_0_0">
+			<param value="strongMove"/>
+		</c:message>
+		<c:if condition="withConstDamage()">
+			<c:message value="msg_helpround,round_process_add_on_1_1"/>
+			<ul>
+				<c:for list="damagingMoves" var="a">
+					<c:if condition="withConstDamage(a;;)">
+						<li><a c:command="$clickDamagingMoves({a;;})">{getTrDamagingMoves(a;;)}</a></li>
+					</c:if>
+				</c:for>
+			</ul>
+		</c:if>
+		<c:if condition="withRandDamage()">
+			<c:message value="msg_helpround,round_process_add_on_1_2"/>
+			<ul>
+				<c:for list="damagingMoves" var="a">
+					<c:if condition="withRandDamage(a;;)">
+						<li><a c:command="$clickDamagingMoves({a;;})">{getTrDamagingMoves(a;;)}</a></li>
+					</c:if>
+				</c:for>
+			</ul>
+		</c:if>
+		<c:if condition="withMultDamage()">
+			<c:message value="msg_helpround,round_process_add_on_1_3"/>
+			<ul>
+				<c:for list="damagingMoves" var="a">
+					<c:if condition="withMultDamage(a;;)">
+						<li><a c:command="$clickDamagingMoves({a;;})">{getTrDamagingMoves(a;;)}</a></li>
+					</c:if>
+				</c:for>
+			</ul>
+		</c:if>
+		<c:if condition="!itemsUserPower.isEmpty()">
+			<c:message value="msg_helpround,round_process_add_on_1_4"/>
+			<ul>
+				<c:for list="itemsUserPower" var="a">
+					<li><a c:command="$clickItemsUserPower({a;;})">{getTrItemsUserPower(a;;)}</a></li>
+				</c:for>
+			</ul>
+		</c:if>
+		<c:if condition="!movesUserPower.isEmpty()">
+			<c:message value="msg_helpround,round_process_add_on_1_5"/>
+			<ul>
+				<c:for list="movesUserPower" var="a">
+					<li><a c:command="$clickMovesUserPower({a;;})">{getTrMovesUserPower(a;;)}</a></li>
+				</c:for>
+			</ul>
+		</c:if>
+		<c:if condition="!movesTargetPower.isEmpty()">
+			<c:message value="msg_helpround,round_process_add_on_1_6"/>
+			<ul>
+				<c:for list="movesTargetPower" var="a">
+					<li><a c:command="$clickMovesTargetPower({a;;})">{getTrMovesTargetPower(a;;)}</a></li>
+				</c:for>
+			</ul>
+		</c:if>
+		<c:if condition="!abilitiesUserPower.isEmpty()">
+			<c:message value="msg_helpround,round_process_add_on_1_7"/>
+			<ul>
+				<c:for list="abilitiesUserPower" var="a">
+					<li><a c:command="$clickAbilitiesUserPower({a;;})">{getTrAbilitiesUserPower(a;;)}</a></li>
+				</c:for>
+			</ul>
+		</c:if>
+		<c:if condition="!movesUserAllyDamage.isEmpty()">
+			<c:message value="msg_helpround,round_process_add_on_1_8"/>
+			<ul>
+				<c:for list="movesUserAllyDamage" var="a">
+					<li><a c:command="$clickMovesUserAllyaDamage({a;;})">{getTrMovesUserAllyDamage(a;;)}</a></li>
+				</c:for>
+			</ul>
+		</c:if>
+		<c:if condition="!abilitiesTargetDamage.isEmpty()">
+			<c:message value="msg_helpround,round_process_add_on_1_10"/>
+			<ul>
+				<c:for list="abilitiesTargetDamage" var="a">
+					<li><a c:command="$clickAbilitiesTargetDamage({a;;})">{getTrAbilitiesTargetDamage(a;;)}</a></li>
+				</c:for>
+			</ul>
+		</c:if>
+		<c:if condition="!movesTargetTeamDamage.isEmpty()">
+			<c:message value="msg_helpround,round_process_add_on_1_11"/>
+			<ul>
+				<c:for list="movesTargetTeamDamage" var="a">
+					<li><a c:command="$clickMovesTargetTeamDamage({a;;})">{getTrMovesTargetTeamDamage(a;;)}</a></li>
+				</c:for>
+			</ul>
+			<c:if condition="!abilitiesUserIgnTargetTeam.isEmpty()">
+				<c:message value="msg_helpround,round_process_add_on_1_12"/>
+				<ul>
+					<c:for list="abilitiesUserIgnTargetTeam" var="a">
+						<li><a c:command="$clickAbilitiesUserIgnTargetTeam({a;;})">{getTrAbilitiesUserIgnTargetTeam(a;;)}</a></li>
+					</c:for>
+				</ul>
+			</c:if>
+		</c:if>
+		<c:if condition="!abilitiesGlobal.isEmpty()">
+			<c:message value="msg_helpround,round_process_add_on_1_13"/>
+			<ul>
+				<c:for list="abilitiesGlobal" var="a">
+					<li><a c:command="$clickAbilitiesGlobal({a;;})">{getTrAbilitiesGlobal(a;;)}</a></li>
+				</c:for>
+			</ul>
+		</c:if>
+		<c:if condition="!movesGlobal.isEmpty()">
+			<c:message value="msg_helpround,round_process_add_on_1_14"/>
+			<ul>
+				<c:for list="movesGlobal" var="a">
+					<li><a c:command="$clickMovesGlobal({a;;})">{getTrMovesGlobal(a;;)}</a></li>
+				</c:for>
+			</ul>
+		</c:if>
+		<c:if condition="!itemsUserDamage.isEmpty()">
+			<c:message value="msg_helpround,round_process_add_on_1_15"/>
+			<ul>
+				<c:for list="itemsUserDamage" var="a">
+					<li><a c:command="$clickItemsUserDamage({a;;})">{getTrItemsUserDamage(a;;)}</a></li>
+				</c:for>
+			</ul>
+		</c:if>
+		<c:if condition="!abilitiesUserDamage.isEmpty()">
+			<c:message value="msg_helpround,round_process_add_on_1_9"/>
+			<ul>
+				<c:for list="abilitiesUserDamage" var="a">
+					<li><a c:command="$clickAbilitiesUserDamage({a;;})">{getTrAbilitiesUserDamage(a;;)}</a></li>
+				</c:for>
+			</ul>
+		</c:if>
+		<c:if condition="!movesInvokDamage.isEmpty()">
+			<c:message value="msg_helpround,round_process_add_on_1_19"/>
+			<ul>
+				<c:for list="movesInvokDamage" var="a">
+					<li><a c:command="$clickMovesInvokDamage({a;;})">{getTrMovesInvokDamage(a;;)}</a></li>
+				</c:for>
+			</ul>
+		</c:if>
+		<c:if condition="!itemsTargetDamage.isEmpty()">
+			<c:message value="msg_helpround,round_process_add_on_1_16"/>
+			<ul>
+				<c:for list="itemsTargetDamage" var="a">
+					<li><a c:command="$clickItemsTargetDamage({a;;})">{getTrItemsTargetDamage(a;;)}</a></li>
+				</c:for>
+			</ul>
+		</c:if>
+		<c:if condition="!movesGlobalPrepaDamage.isEmpty()">
+			<c:message value="msg_helpround,round_process_add_on_1_20"/>
+			<ul>
+				<c:for list="movesGlobalPrepaDamage" var="a">
+					<li><a c:command="$clickMovesGlobalPrepaDamage({a;;})">{getTrMovesGlobalPrepaDamage(a;;)}</a></li>
+				</c:for>
+			</ul>
+		</c:if>
+		<c:if condition="!statusDamage.isEmpty()">
+			<c:message value="msg_helpround,round_process_add_on_1_18"/>
+			<ul>
+				<c:for list="statusDamage" var="a">
+					<li><a c:command="$clickStatusDamage({a;;})">{getTrStatusDamage(a;;)}</a></li>
+				</c:for>
+			</ul>
+		</c:if>
+		<c:if condition="!abilitiesUserTargetDamage.isEmpty()">
+			<c:message value="msg_helpround,round_process_add_on_1_17"/>
+			<ul>
+				<c:for list="abilitiesUserTargetDamage" var="a">
+					<li><a c:command="$clickAbilitiesUserTargetDamage({a;;})">{getTrAbilitiesUserTargetDamage(a;;)}</a></li>
+				</c:for>
+			</ul>
+		</c:if>
+		<c:message value="msg_helpround,round_process_add_on_1_21">
+			<param value="getStab()"/>
+		</c:message>
+		<c:if condition="!abilitiesUserStabDamage.isEmpty()">
+			<c:message value="msg_helpround,round_process_add_on_1_22"/>
+			<ul>
+				<c:for list="abilitiesUserStabDamage" var="a">
+					<li><a c:command="$clickAbilitiesUserStabDamage({a;;})">{getTrAbilitiesUserStabDamage(a;;)}</a></li>
+				</c:for>
+			</ul>
+		</c:if>
+		<h1><c:message value="msg_helpround,round_process_add_on_2"/></h1>
+		<c:message value="msg_helpround,round_process_add_on_2_7"/>
+		<c:if condition="!movesTypesDefItem.isEmpty()">
+			<c:message value="msg_helpround,round_process_add_on_2_0"/>
+			<ul>
+				<c:for list="movesTypesDefItem" var="a">
+					<li><a c:command="$clickMovesTypesDefItem({a;;})">{getTrMovesTypesDefItem(a;;)}</a></li>
+				</c:for>
+			</ul>
+			<!--<c:message value="msg_helpround,round_process_add_on_2_1"/>
+			<ul>
+				<c:for var="a" list="itemsTypesDef">
+					<li><a c:command="$clickItemsTypesDef({a;;})">{getTrItemsTypesDef(a;;)}</a></li>
+				</c:for>
+			</ul>-->
+		</c:if>
+		<c:if condition="!movesTypesDefWeather.isEmpty()">
+			<c:message value="msg_helpround,round_process_add_on_2_2"/>
+			<ul>
+				<c:for list="movesTypesDefWeather" var="a">
+					<li><a c:command="$clickMovesTypesDefWeather({a;;})">{getTrMovesTypesDefWeather(a;;)}</a></li>
+				</c:for>
+			</ul>
+		</c:if>
+		<c:if condition="!abilitiesTypeDefMoves.isEmpty()">
+			<c:message value="msg_helpround,round_process_add_on_2_3"/>
+			<ul>
+				<c:for list="abilitiesTypeDefMoves" var="a">
+					<li><a c:command="$clickAbilitiesTypeDefMoves({a;;})">{getTrAbilitiesTypeDefMoves(a;;)}</a></li>
+				</c:for>
+			</ul>
+		</c:if>
+		<c:if condition="!abilitiesTypeDefMoves.isEmpty()">
+			<c:message value="msg_helpround,round_process_add_on_2_4"/>
+			<ul>
+				<c:for list="abilitiesTypeDefMoves" var="a">
+					<li><a c:command="$clickAbilitiesChangeTypeMoves({a;;})">{getTrAbilitiesChangeTypeMoves(a;;)}</a></li>
+				</c:for>
+			</ul>
+		</c:if>
+		<c:if condition="!movesTypeDefMoves.isEmpty()">
+			<c:message value="msg_helpround,round_process_add_on_2_5"/>
+			<ul>
+				<c:for list="movesTypeDefMoves" var="a">
+					<li><a c:command="$clickMovesTypeDefMoves({a;;})">{getTrMovesTypeDefMoves(a;;)}</a></li>
+				</c:for>
+			</ul>
+		</c:if>
+		<c:if condition="!movesChangeTypeMoves.isEmpty()">
+			<c:message value="msg_helpround,round_process_add_on_2_6"/>
+			<ul>
+				<c:for list="movesChangeTypeMoves" var="a">
+					<li><a c:command="$clickMovesTypeDefMoves({a;;})">{getTrMovesChangeTypeMoves(a;;)}</a></li>
+				</c:for>
+			</ul>
+		</c:if>
+		<h1><c:message value="msg_helpround,round_process_add_on_3"/></h1>
+		<c:message value="msg_helpround,round_process_add_on_3_1"/>
+		<ul>
+			<c:if condition="!movesGlobalBreakImmu.isEmpty()">
+				<li>
+					<c:message value="msg_helpround,round_process_add_on_3_1_1"/>
+					<ul>
+						<c:for list="movesGlobalBreakImmu" var="a">
+							<li><a c:command="$clickMovesGlobalBreakImmu({a;;})">{getTrMovesGlobalBreakImmu(a;;)}</a></li>
+						</c:for>
+					</ul>
+				</li>
+			</c:if>
+			<c:if condition="!movesUnprotectingTypes.isEmpty()">
+				<li>
+					<c:message value="msg_helpround,round_process_add_on_3_1_2"/>
+					<ul>
+						<c:for list="movesUnprotectingTypes" var="a">
+							<li><a c:command="$clickMovesUnprotectingTypes({a;;})">{getTrMovesUnprotectingTypes(a;;)}</a></li>
+						</c:for>
+					</ul>
+				</li>
+			</c:if>
+			<c:if condition="!abilitiesBreakImmu.isEmpty()">
+				<li>
+					<c:message value="msg_helpround,round_process_add_on_3_1_3"/>
+					<ul>
+						<c:for list="abilitiesBreakImmu" var="a">
+							<li><a c:command="$clickAbilitiesBreakImmu({a;;})">{getTrAbilitiesBreakImmu(a;;)}</a></li>
+						</c:for>
+					</ul>
+				</li>
+			</c:if>
+			<c:if condition="!abilitiesBreakImmu.isEmpty()">
+				<li>
+					<c:message value="msg_helpround,round_process_add_on_3_1_4"/>
+					<ul>
+						<c:for list="itemsCancelImmu" var="a">
+							<li><a c:command="$clickItemsCancelImmu({a;;})">{getTrItemsCancelImmu(a;;)}</a></li>
+						</c:for>
+					</ul>
+				</li>
+			</c:if>
+		</ul>
+		<c:message value="msg_helpround,round_process_add_on_3_2"/>
+		<c:message value="msg_helpround,round_process_add_on_3_3"/>
+		<table>
+			<tr>
+				<td/>
+				<c:for list="types" var="t">
+					<td>{t;}</td>
+				</c:for>
+				<c:for key="k" keyClassName="aiki.fight.util.TypesDuo" map="efficiency" value="r">
+					<c:if condition="nextRowAfter(k;;)">
+						<c:tr_end/>
+						<c:tr_begin/>
+						<td>{k;getPokemonType()}</td>
+					</c:if>
+					<td>{r;}</td>
+				</c:for>
+			</tr>
+		</table>
+		<br/>
+		<h1><c:message value="msg_helpround,round_process_add_on_5"/></h1>
+		<c:message value="msg_helpround,round_process_add_on_5_1"/>
+		<c:message value="msg_helpround,round_process_add_on_5_2"/>
+		<c:if condition="!movesIgnLowAtt.isEmpty()">
+			<c:message value="msg_helpround,round_process_add_on_5_3"/>
+			<ul>
+				<c:for list="movesIgnLowAtt" var="a">
+					<li><a c:command="$clickMovesIgnLowAtt({a;;})">{getTrMovesIgnLowAtt(a;;)}</a></li>
+				</c:for>
+			</ul>
+		</c:if>
+		<c:if condition="movesIgnLowAtt.isEmpty()">
+			<c:message value="msg_helpround,round_process_add_on_5_3_1"/>
+		</c:if>
+		<c:message value="msg_helpround,round_process_add_on_5_4"/>
+		<c:message value="msg_helpround,round_process_add_on_5_5"/>
+		<c:if condition="!movesIgnIncDef.isEmpty()">
+			<c:message value="msg_helpround,round_process_add_on_5_6"/>
+			<ul>
+				<c:for list="movesIgnIncDef" var="a">
+					<li><a c:command="$clickMovesIgnIncDef({a;;})">{getTrMovesIgnIncDef(a;;)}</a></li>
+				</c:for>
+			</ul>
+		</c:if>
+		<c:if condition="movesIgnIncDef.isEmpty()">
+			<c:message value="msg_helpround,round_process_add_on_5_6_1"/>
+		</c:if>
+		<h1><c:message value="msg_helpround,round_process_add_on_6"/></h1>
+				<c:if condition="abilityBoostNormal()">
+			<c:message value="msg_helpround,round_process_add_on_6_1"/>
+			<ul>
+				<c:for list="abilitiesBoostingStat" var="a">
+					<c:if condition="abilityBoostNormal(a;;)">
+						<li><a c:command="$clickAbilitiesBoostingStat({a;;})">{getTrAbilitiesBoostingStat(a;;)}</a></li>
+					</c:if>
+				</c:for>
+			</ul>
+		</c:if>
+		<c:if condition="itemBoostNormal()">
+			<c:message value="msg_helpround,round_process_add_on_6_2"/>
+			<ul>
+				<c:for list="itemsBoostingStat" var="a">
+					<c:if condition="itemBoostNormal(a;;)">
+						<li><a c:command="$clickItemsBoostingStat({a;;})">{getTrItemsBoostingStat(a;;)}</a></li>
+					</c:if>
+				</c:for>
+			</ul>
+		</c:if>
+		<c:if condition="itemMultNormal()">
+			<c:message value="msg_helpround,round_process_add_on_6_3"/>
+			<ul>
+				<c:for list="itemsMultStat" var="a">
+					<c:if condition="itemMultNormal(a;;)">
+						<li><a c:command="$clickItemsMultStat({a;;})">{getTrItemsMultStat(a;;)}</a></li>
+					</c:if>
+				</c:for>
+			</ul>
+		</c:if>
+		<c:if condition="abilityMultNormal()">
+			<c:message value="msg_helpround,round_process_add_on_6_4"/>
+			<ul>
+				<c:for list="abilitiesMultStat" var="a">
+					<c:if condition="abilityMultNormal(a;;)">
+						<li><a c:command="$clickAbilitiesMultStat({a;;})">{getTrAbilitiesMultStat(a;;)}</a></li>
+					</c:if>
+				</c:for>
+			</ul>
+		</c:if>
+		<c:if condition="moveGlobalMultNormal()">
+			<c:message value="msg_helpround,round_process_add_on_6_5"/>
+			<ul>
+				<c:for list="movesGlobalMultStat" var="a">
+					<c:if condition="moveGlobalMultNormal(a;;)">
+						<li><a c:command="$clickMovesGlobalMultStat({a;;})">{getTrMovesGlobalMultStat(a;;)}</a></li>
+					</c:if>
+				</c:for>
+			</ul>
+		</c:if>
+		<c:if condition="moveTeamMultNormal()">
+			<c:message value="msg_helpround,round_process_add_on_6_6"/>
+			<ul>
+				<c:for list="movesTeamMultStat" var="a">
+					<c:if condition="moveTeamMultNormal(a;;)">
+						<li><a c:command="$clickMovesTeamMultStat({a;;})">{getTrMovesTeamMultStat(a;;)}</a></li>
+					</c:if>
+				</c:for>
+			</ul>
+		</c:if>
+		<c:if condition="abilityAllyMultNormal()">
+			<c:message value="msg_helpround,round_process_add_on_6_7"/>
+			<ul>
+				<c:for list="abilitiesAllyMultStat" var="a">
+					<c:if condition="abilityAllyMultNormal(a;;)">
+						<li><a c:command="$clickAbilitiesAllyMultStat({a;;})">{getTrAbilitiesAllyMultStat(a;;)}</a></li>
+					</c:if>
+				</c:for>
+			</ul>
+		</c:if>
+		<c:if condition="moveFoeTeamMultNormal()">
+			<c:message value="msg_helpround,round_process_add_on_6_8"/>
+			<ul>
+				<c:for list="movesFoeTeamMultStat" var="a">
+					<c:if condition="moveFoeTeamMultNormal(a;;)">
+						<li><a c:command="$clickFoeMovesTeamMultStat({a;;})">{getTrFoeMovesTeamMultStat(a;;)}</a></li>
+					</c:if>
+				</c:for>
+			</ul>
+		</c:if>
+		<c:if condition="statusMultNormal()">
+			<c:message value="msg_helpround,round_process_add_on_6_9"/>
+			<ul>
+				<c:for list="statusMultStat" var="a">
+					<c:if condition="statusMultNormal(a;;)">
+						<li><a c:command="$clickStatusMultStat({a;;})">{getTrStatusMultStat(a;;)}</a></li>
+					</c:if>
+				</c:for>
+			</ul>
+			<c:if condition="abilityImmuMultNormal()">
+				<c:message value="msg_helpround,round_process_add_on_6_10"/>
+				<ul>
+					<c:for list="abilitiesImmuMultStat" var="a">
+						<c:if condition="abilityImmuMultNormal(a;;)">
+							<li><a c:command="$clickAbilitiesImmuMultStat({a;;})">{getTrAbilitiesImmuMultStat(a;;)}</a></li>
+						</c:if>
+					</c:for>
+				</ul>
+			</c:if>
+		</c:if>
+		<c:if condition="comboMultNormal()">
+			<c:message value="msg_helpround,round_process_add_on_6_11"/>
+			<ul>
+				<c:for list="comboMultStat" var="a">
+					<c:if condition="comboMultNormal(a;;)">
+						<li><a c:command="$clickComboMultStat({a;;})">{getTrComboMultStat(a;;)}</a></li>
+					</c:if>
+				</c:for>
+			</ul>
+		</c:if>
+		<h1><c:message value="msg_helpround,round_process_add_on_7"/></h1>
+		<c:message value="msg_helpround,round_process_add_on_7_1"/>
+		<c:message value="msg_helpround,round_process_add_on_7_2"/>
+		<ul>
+			<c:for list="abilitiesBreakProtectMoves" var="a">
+				<li><a c:command="$clickAbilitiesBreakProtectMoves({a;;})">{getTrAbilitiesBreakProtectMoves(a;;)}</a></li>
+			</c:for>
+		</ul>
+		<c:message value="msg_helpround,round_process_add_on_7_3"/>
+		<c:if condition="!movesIgnAcc.isEmpty()">
+			<c:message value="msg_helpround,round_process_add_on_7_4"/>
+			<ul>
+				<c:for list="movesIgnAcc" var="a">
+					<li><a c:command="$clickMovesIgnAcc({a;;})">{getTrMovesIgnAcc(a;;)}</a></li>
+				</c:for>
+			</ul>
+		</c:if>
+		<c:if condition="movesIgnAcc.isEmpty()">
+			<c:message value="msg_helpround,round_process_add_on_7_4_1"/>
+		</c:if>
+		<c:message value="msg_helpround,round_process_add_on_7_5"/>
+		<c:if condition="!movesIgnEva.isEmpty()">
+			<c:message value="msg_helpround,round_process_add_on_7_6"/>
+			<ul>
+				<c:for list="movesIgnEva" var="a">
+					<li><a c:command="$clickMovesIgnEva({a;;})">{getTrMovesIgnEva(a;;)}</a></li>
+				</c:for>
+			</ul>
+		</c:if>
+		<c:message value="msg_helpround,round_process_add_on_7_8"/>
+		<c:message value="msg_helpround,round_process_add_on_7_10"/>
+		<ul>
+			<c:for list="movesGlobalAcc" var="a">
+				<li><a c:command="$clickMovesGlobalAcc({a;;})">{getTrMovesGlobalAcc(a;;)}</a></li>
+			</c:for>
+		</ul>
+		<c:if condition="abilityBoostAccuracy()">
+			<c:message value="msg_helpround,round_process_add_on_7_11"/>
+			<ul>
+				<c:for list="abilitiesBoostingStat" var="a">
+					<c:if condition="abilityBoostAccuracy(a;;)">
+						<li><a c:command="$clickAbilitiesBoostingStat({a;;})">{getTrAbilitiesBoostingStat(a;;)}</a></li>
+					</c:if>
+				</c:for>
+			</ul>
+		</c:if>
+		<c:if condition="itemBoostAccuracy()">
+			<c:message value="msg_helpround,round_process_add_on_7_12"/>
+			<ul>
+				<c:for list="itemsBoostingStat" var="a">
+					<c:if condition="itemBoostAccuracy(a;;)">
+						<li><a c:command="$clickItemsBoostingStat({a;;})">{getTrItemsBoostingStat(a;;)}</a></li>
+					</c:if>
+				</c:for>
+			</ul>
+		</c:if>
+		<c:if condition="itemMultAccuracy()">
+			<c:message value="msg_helpround,round_process_add_on_7_13"/>
+			<ul>
+				<c:for list="itemsMultStat" var="a">
+					<c:if condition="itemMultAccuracy(a;;)">
+						<li><a c:command="$clickItemsMultStat({a;;})">{getTrItemsMultStat(a;;)}</a></li>
+					</c:if>
+				</c:for>
+			</ul>
+		</c:if>
+		<c:if condition="abilityMultAccuracy()">
+			<c:message value="msg_helpround,round_process_add_on_7_14"/>
+			<ul>
+				<c:for list="abilitiesMultStat" var="a">
+					<c:if condition="abilityMultAccuracy(a;;)">
+						<li><a c:command="$clickAbilitiesMultStat({a;;})">{getTrAbilitiesMultStat(a;;)}</a></li>
+					</c:if>
+				</c:for>
+			</ul>
+		</c:if>
+		<c:if condition="moveGlobalMultAccuracy()">
+			<c:message value="msg_helpround,round_process_add_on_7_15"/>
+			<ul>
+				<c:for list="movesGlobalMultStat" var="a">
+					<c:if condition="moveGlobalMultAccuracy(a;;)">
+						<li><a c:command="$clickMovesGlobalMultStat({a;;})">{getTrMovesGlobalMultStat(a;;)}</a></li>
+					</c:if>
+				</c:for>
+			</ul>
+		</c:if>
+		<c:if condition="moveTeamMultAccuracy()">
+			<c:message value="msg_helpround,round_process_add_on_7_16"/>
+			<ul>
+				<c:for list="movesTeamMultStat" var="a">
+					<c:if condition="moveTeamMultAccuracy(a;;)">
+						<li><a c:command="$clickMovesTeamMultStat({a;;})">{getTrMovesTeamMultStat(a;;)}</a></li>
+					</c:if>
+				</c:for>
+			</ul>
+		</c:if>
+		<c:if condition="abilityAllyMultAccuracy()">
+			<c:message value="msg_helpround,round_process_add_on_7_17"/>
+			<ul>
+				<c:for list="abilitiesAllyMultStat" var="a">
+					<c:if condition="abilityAllyMultAccuracy(a;;)">
+						<li><a c:command="$clickAbilitiesAllyMultStat({a;;})">{getTrAbilitiesAllyMultStat(a;;)}</a></li>
+					</c:if>
+				</c:for>
+			</ul>
+		</c:if>
+		<c:if condition="moveFoeTeamMultAccuracy()">
+			<c:message value="msg_helpround,round_process_add_on_7_18"/>
+			<ul>
+				<c:for list="movesFoeTeamMultStat" var="a">
+					<c:if condition="moveFoeTeamMultAccuracy(a;;)">
+						<li><a c:command="$clickFoeMovesTeamMultStat({a;;})">{getTrFoeMovesTeamMultStat(a;;)}</a></li>
+					</c:if>
+				</c:for>
+			</ul>
+		</c:if>
+		<c:if condition="statusMultAccuracy()">
+			<c:message value="msg_helpround,round_process_add_on_7_19"/>
+			<ul>
+				<c:for list="statusMultStat" var="a">
+					<c:if condition="statusMultAccuracy(a;;)">
+						<li><a c:command="$clickStatusMultStat({a;;})">{getTrStatusMultStat(a;;)}</a></li>
+					</c:if>
+				</c:for>
+			</ul>
+			<c:if condition="abilityImmuMultAccuracy()">
+				<c:message value="msg_helpround,round_process_add_on_7_20"/>
+				<ul>
+					<c:for list="abilitiesImmuMultStat" var="a">
+						<c:if condition="abilityImmuMultAccuracy(a;;)">
+							<li><a c:command="$clickAbilitiesImmuMultStat({a;;})">{getTrAbilitiesImmuMultStat(a;;)}</a></li>
+						</c:if>
+					</c:for>
+				</ul>
+			</c:if>
+		</c:if>
+		<c:if condition="comboMultAccuracy()">
+			<c:message value="msg_helpround,round_process_add_on_7_21"/>
+			<ul>
+				<c:for list="comboMultStat" var="a">
+					<c:if condition="comboMultAccuracy(a;;)">
+						<li><a c:command="$clickComboMultStat({a;;})">{getTrComboMultStat(a;;)}</a></li>
+					</c:if>
+				</c:for>
+			</ul>
+		</c:if>
+		<c:if condition="abilityBoostEvasiness()">
+			<c:message value="msg_helpround,round_process_add_on_7_22"/>
+			<ul>
+				<c:for list="abilitiesBoostingStat" var="a">
+					<c:if condition="abilityBoostEvasiness(a;;)">
+						<li><a c:command="$clickAbilitiesBoostingStat({a;;})">{getTrAbilitiesBoostingStat(a;;)}</a></li>
+					</c:if>
+				</c:for>
+			</ul>
+		</c:if>
+		<c:if condition="itemBoostEvasiness()">
+			<c:message value="msg_helpround,round_process_add_on_7_23"/>
+			<ul>
+				<c:for list="itemsBoostingStat" var="a">
+					<c:if condition="itemBoostEvasiness(a;;)">
+						<li><a c:command="$clickItemsBoostingStat({a;;})">{getTrItemsBoostingStat(a;;)}</a></li>
+					</c:if>
+				</c:for>
+			</ul>
+		</c:if>
+		<c:if condition="itemMultEvasiness()">
+			<c:message value="msg_helpround,round_process_add_on_7_24"/>
+			<ul>
+				<c:for list="itemsMultStat" var="a">
+					<c:if condition="itemMultAccuracy(a;;)">
+						<li><a c:command="$clickItemsMultStat({a;;})">{getTrItemsMultStat(a;;)}</a></li>
+					</c:if>
+				</c:for>
+			</ul>
+		</c:if>
+		<c:if condition="abilityMultEvasiness()">
+			<c:message value="msg_helpround,round_process_add_on_7_25"/>
+			<ul>
+				<c:for list="abilitiesMultStat" var="a">
+					<c:if condition="abilityMultEvasiness(a;;)">
+						<li><a c:command="$clickAbilitiesMultStat({a;;})">{getTrAbilitiesMultStat(a;;)}</a></li>
+					</c:if>
+				</c:for>
+			</ul>
+		</c:if>
+		<c:if condition="moveGlobalMultEvasiness()">
+			<c:message value="msg_helpround,round_process_add_on_7_26"/>
+			<ul>
+				<c:for list="movesGlobalMultStat" var="a">
+					<c:if condition="moveGlobalMultEvasiness(a;;)">
+						<li><a c:command="$clickMovesGlobalMultStat({a;;})">{getTrMovesGlobalMultStat(a;;)}</a></li>
+					</c:if>
+				</c:for>
+			</ul>
+		</c:if>
+		<c:if condition="moveTeamMultEvasiness()">
+			<c:message value="msg_helpround,round_process_add_on_7_27"/>
+			<ul>
+				<c:for list="movesTeamMultStat" var="a">
+					<c:if condition="moveTeamMultEvasiness(a;;)">
+						<li><a c:command="$clickMovesTeamMultStat({a;;})">{getTrMovesTeamMultStat(a;;)}</a></li>
+					</c:if>
+				</c:for>
+			</ul>
+		</c:if>
+		<c:if condition="abilityAllyMultEvasiness()">
+			<c:message value="msg_helpround,round_process_add_on_7_28"/>
+			<ul>
+				<c:for list="abilitiesAllyMultStat" var="a">
+					<c:if condition="abilityAllyMultEvasiness(a;;)">
+						<li><a c:command="$clickAbilitiesAllyMultStat({a;;})">{getTrAbilitiesAllyMultStat(a;;)}</a></li>
+					</c:if>
+				</c:for>
+			</ul>
+		</c:if>
+		<c:if condition="moveFoeTeamMultEvasiness()">
+			<c:message value="msg_helpround,round_process_add_on_7_29"/>
+			<ul>
+				<c:for list="movesFoeTeamMultStat" var="a">
+					<c:if condition="moveFoeTeamMultEvasiness(a;;)">
+						<li><a c:command="$clickMovesFoeTeamMultStat({a;;})">{getTrMovesFoeTeamMultStat(a;;)}</a></li>
+					</c:if>
+				</c:for>
+			</ul>
+		</c:if>
+		<c:if condition="statusMultEvasiness()">
+			<c:message value="msg_helpround,round_process_add_on_7_30"/>
+			<ul>
+				<c:for list="statusMultStat" var="a">
+					<c:if condition="statusMultEvasiness(a;;)">
+						<li><a c:command="$clickStatusMultStat({a;;})">{getTrStatusMultStat(a;;)}</a></li>
+					</c:if>
+				</c:for>
+			</ul>
+			<c:if condition="abilityImmuMultEvasiness()">
+				<c:message value="msg_helpround,round_process_add_on_7_31"/>
+				<ul>
+					<c:for list="abilitiesImmuMultStat" var="a">
+						<c:if condition="abilityImmuMultEvasiness(a;;)">
+							<li><a c:command="$clickAbilitiesImmuMultStat({a;;})">{getTrAbilitiesImmuMultStat(a;;)}</a></li>
+						</c:if>
+					</c:for>
+				</ul>
+			</c:if>
+		</c:if>
+		<c:if condition="comboMultEvasiness()">
+			<c:message value="msg_helpround,round_process_add_on_7_32"/>
+			<ul>
+				<c:for list="comboMultStat" var="a">
+					<c:if condition="comboMultEvasiness(a;;)">
+						<li><a c:command="$clickComboMultStat({a;;})">{getTrComboMultStat(a;;)}</a></li>
+					</c:if>
+				</c:for>
+			</ul>
+		</c:if>
+		<h1><c:message value="msg_helpround,round_process_add_on_8"/></h1>
+		<c:if condition="immuChTeamMove()">
+			<c:message value="msg_helpround,round_process_add_on_8_1"/>
+			<ul>
+				<c:for list="movesTeam" var="a">
+					<c:if condition="immuChTeamMove(a;;)">
+						<li><a c:command="$clickMovesTeam({a;;})">{getTrMovesTeam(a;;)}</a></li>
+					</c:if>
+				</c:for>
+			</ul>
+			<c:if condition="!abilitiesUserIgnTargetTeam.isEmpty()">
+				<c:message value="msg_helpround,round_process_add_on_8_2"/>
+				<ul>
+					<c:for list="abilitiesUserIgnTargetTeam" var="a">
+						<li><a c:command="$clickAbilitiesUserIgnTargetTeam({a;;})">{getTrAbilitiesUserIgnTargetTeam(a;;)}</a></li>
+					</c:for>
+				</ul>
+			</c:if>
+		</c:if>
+		<c:if condition="!abilitiesImmuCh.isEmpty()">
+			<c:message value="msg_helpround,round_process_add_on_8_3"/>
+			<ul>
+				<c:for list="abilitiesImmuCh" var="a">
+					<li><a c:command="$clickAbilitiesImmuCh({a;;})">{getTrAbilitiesImmuCh(a;;)}</a></li>
+				</c:for>
+			</ul>
+		</c:if>
+		<c:if condition="abilityBoostCh()">
+			<c:message value="msg_helpround,round_process_add_on_8_5"/>
+			<ul>
+				<c:for list="abilitiesBoostingStat" var="a">
+					<c:if condition="abilityBoostCh(a;;)">
+						<li><a c:command="$clickAbilitiesBoostingStat({a;;})">{getTrAbilitiesBoostingStat(a;;)}</a></li>
+					</c:if>
+				</c:for>
+			</ul>
+		</c:if>
+		<c:if condition="itemBoostCh()">
+			<c:message value="msg_helpround,round_process_add_on_8_4"/>
+			<ul>
+				<c:for list="itemsBoostingStat" var="a">
+					<c:if condition="itemBoostCh(a;;)">
+						<li><a c:command="$clickItemsBoostingStat({a;;})">{getTrItemsBoostingStat(a;;)}</a></li>
+					</c:if>
+				</c:for>
+			</ul>
+		</c:if>
+		<c:if condition="!movesBoostCh.isEmpty()">
+			<c:message value="msg_helpround,round_process_add_on_8_6"/>
+			<ul>
+				<c:for list="movesBoostCh" var="a">
+					<li><a c:command="$clickMovesBoostCh({a;;})">{getTrMovesBoostCh(a;;)}</a></li>
+				</c:for>
+			</ul>
+		</c:if>
+		<c:if condition="!abilitesMultEvtCh.isEmpty()">
+			<c:message value="msg_helpround,round_process_add_on_8_7"/>
+			<ul>
+				<c:for list="abilitesMultEvtCh" var="a">
+					<li><a c:command="$clickAbilitiesMultEvtCh({a;;})">{getTrAbilitiesMultEvtCh(a;;)}</a></li>
+				</c:for>
+			</ul>
+		</c:if>
+		<c:if condition="!abilitesMultRateCh.isEmpty()">
+			<c:message value="msg_helpround,round_process_add_on_8_8"/>
+			<ul>
+				<c:for list="abilitesMultRateCh" var="a">
+					<li><a c:command="$clickAbilitiesMultRateCh({a;;})">{getTrAbilitiesMultRateCh(a;;)}</a></li>
+				</c:for>
+			</ul>
+		</c:if>
+		<h1><c:message value="msg_helpround,round_process_add_on_9"/></h1>
+		<c:if condition="abilityBoostSpeed()">
+			<c:message value="msg_helpround,round_process_add_on_9_1"/>
+			<ul>
+				<c:for list="abilitiesBoostingStat" var="a">
+					<c:if condition="abilityBoostSpeed(a;;)">
+						<li><a c:command="$clickAbilitiesBoostingStat({a;;})">{getTrAbilitiesBoostingStat(a;;)}</a></li>
+					</c:if>
+				</c:for>
+			</ul>
+		</c:if>
+		<c:if condition="itemBoostSpeed()">
+			<c:message value="msg_helpround,round_process_add_on_9_2"/>
+			<ul>
+				<c:for list="itemsBoostingStat" var="a">
+					<c:if condition="itemBoostSpeed(a;;)">
+						<li><a c:command="$clickItemsBoostingStat({a;;})">{getTrItemsBoostingStat(a;;)}</a></li>
+					</c:if>
+				</c:for>
+			</ul>
+		</c:if>
+		<c:if condition="itemMultSpeed()">
+			<c:message value="msg_helpround,round_process_add_on_9_3"/>
+			<ul>
+				<c:for list="itemsMultStat" var="a">
+					<c:if condition="itemMultSpeed(a;;)">
+						<li><a c:command="$clickItemsMultStat({a;;})">{getTrItemsMultStat(a;;)}</a></li>
+					</c:if>
+				</c:for>
+			</ul>
+		</c:if>
+		<c:if condition="abilityMultSpeed()">
+			<c:message value="msg_helpround,round_process_add_on_9_4"/>
+			<ul>
+				<c:for list="abilitiesMultStat" var="a">
+					<c:if condition="abilityMultSpeed(a;;)">
+						<li><a c:command="$clickAbilitiesMultStat({a;;})">{getTrAbilitiesMultStat(a;;)}</a></li>
+					</c:if>
+				</c:for>
+			</ul>
+		</c:if>
+		<c:if condition="moveGlobalMultSpeed()">
+			<c:message value="msg_helpround,round_process_add_on_9_5"/>
+			<ul>
+				<c:for list="movesGlobalMultStat" var="a">
+					<c:if condition="moveGlobalMultSpeed(a;;)">
+						<li><a c:command="$clickMovesGlobalMultStat({a;;})">{getTrMovesGlobalMultStat(a;;)}</a></li>
+					</c:if>
+				</c:for>
+			</ul>
+		</c:if>
+		<c:if condition="moveTeamMultSpeed()">
+			<c:message value="msg_helpround,round_process_add_on_9_6"/>
+			<ul>
+				<c:for list="movesTeamMultStat" var="a">
+					<c:if condition="moveTeamMultSpeed(a;;)">
+						<li><a c:command="$clickMovesTeamMultStat({a;;})">{getTrMovesTeamMultStat(a;;)}</a></li>
+					</c:if>
+				</c:for>
+			</ul>
+		</c:if>
+		<c:if condition="abilityAllyMultSpeed()">
+			<c:message value="msg_helpround,round_process_add_on_9_7"/>
+			<ul>
+				<c:for list="abilitiesAllyMultStat" var="a">
+					<c:if condition="abilityAllyMultSpeed(a;;)">
+						<li><a c:command="$clickAbilitiesAllyMultStat({a;;})">{getTrAbilitiesAllyMultStat(a;;)}</a></li>
+					</c:if>
+				</c:for>
+			</ul>
+		</c:if>
+		<c:if condition="moveFoeTeamMultSpeed()">
+			<c:message value="msg_helpround,round_process_add_on_9_8"/>
+			<ul>
+				<c:for list="movesFoeTeamMultStat" var="a">
+					<c:if condition="moveFoeTeamMultSpeed(a;;)">
+						<li><a c:command="$clickFoeMovesTeamMultStat({a;;})">{getTrFoeMovesTeamMultStat(a;;)}</a></li>
+					</c:if>
+				</c:for>
+			</ul>
+		</c:if>
+		<c:if condition="statusMultSpeed()">
+			<c:message value="msg_helpround,round_process_add_on_9_9"/>
+			<ul>
+				<c:for list="statusMultStat" var="a">
+					<c:if condition="statusMultSpeed(a;;)">
+						<li><a c:command="$clickStatusMultStat({a;;})">{getTrStatusMultStat(a;;)}</a></li>
+					</c:if>
+				</c:for>
+			</ul>
+			<c:if condition="abilityImmuMultSpeed()">
+				<c:message value="msg_helpround,round_process_add_on_9_10"/>
+				<ul>
+					<c:for list="abilitiesImmuMultStat" var="a">
+						<c:if condition="abilityImmuMultSpeed(a;;)">
+							<li><a c:command="$clickAbilitiesImmuMultStat({a;;})">{getTrAbilitiesImmuMultStat(a;;)}</a></li>
+						</c:if>
+					</c:for>
+				</ul>
+			</c:if>
+		</c:if>
+		<c:if condition="comboMultSpeed()">
+			<c:message value="msg_helpround,round_process_add_on_9_11"/>
+			<ul>
+				<c:for list="comboMultStat" var="a">
+					<c:if condition="comboMultSpeed(a;;)">
+						<li><a c:command="$clickComboMultStat({a;;})">{getTrComboMultStat(a;;)}</a></li>
+					</c:if>
+				</c:for>
+			</ul>
+		</c:if>
+		<h1><c:message value="msg_helpround,round_process_add_on_10"/></h1>
+		<c:message value="msg_helpround,round_process_add_on_10_1"/>
+		{rateFormula}
+		<br/>
+		<table>
+			<tbody>
+				<c:for key="b" map="boosts" value="r">
+					<tr>
+						<td>{b;}</td>
+						<td>{r;}</td>
+					</tr>
+				</c:for>
+			</tbody>
+		</table>
+		<c:message value="msg_helpround,round_process_add_on_10_2"/>
+		{rateFormulaCh}
+		<br/>
+		<table>
+			<tbody>
+				<c:for key="b" map="boostsCh" value="r">
+					<tr>
+						<td>{b;}</td>
+						<td>{r;}</td>
+					</tr>
+				</c:for>
+			</tbody>
+		</table>
+		<c:message value="msg_helpround,round_process_add_on_10_3"/>
+		<!-- TODO -->
+		<br/>
+		<h1><c:message value="msg_helpround,round_process_add_on_4"/></h1>
+		<c:message value="msg_helpround,round_process_add_on_4_0_0"/>
+		<ul>
+			<li>
+				<c:message value="msg_helpround,round_process_add_on_4_0"/>
+				<ul>
+					<c:for list="itemsCancelImmu" var="a">
+						<li><a c:command="$clickItemsCancelImmu({a;;})">{getTrItemsCancelImmu(a;;)}</a></li>
+					</c:for>
+				</ul>
+				<c:message value="msg_helpround,round_process_add_on_4_0_1"/>
+				<ul>
+					<c:for list="movesProtectingTypes" var="a">
+						<li><a c:command="$clickMovesProtectingTypes({a;;})">{getTrMovesProtectingTypes(a;;)}</a></li>
+					</c:for>
+				</ul>
+				<c:message value="msg_helpround,round_process_add_on_4_0_2"/>
+			</li>
+			<li>
+				<c:message value="msg_helpround,round_process_add_on_4_1"/>
+				<ul>
+					<c:for list="itemsCancelImmu" var="a">
+						<li><a c:command="$clickItemsCancelImmu({a;;})">{getTrItemsCancelImmu(a;;)}</a></li>
+					</c:for>
+				</ul>
+				<c:message value="msg_helpround,round_process_add_on_4_1_1"/>
+				<ul>
+					<c:for list="movesUnprotectingTypes" var="a">
+						<li><a c:command="$clickMovesUnprotectingTypes({a;;})">{getTrMovesUnprotectingTypes(a;;)}</a></li>
+					</c:for>
+				</ul>
+				<c:message value="msg_helpround,round_process_add_on_4_1_2"/>
+				<ul>
+					<c:for list="movesProtectingTypes" var="a">
+						<li><a c:command="$clickMovesProtectingTypes({a;;})">{getTrMovesProtectingTypes(a;;)}</a></li>
+					</c:for>
+				</ul>
+				<c:message value="msg_helpround,round_process_add_on_4_1_3"/>
+			</li>
+			<li>
+				<c:message value="msg_helpround,round_process_add_on_4_2"/>
+				<ul>
+					<c:for list="movesGlobalBreakImmu" var="a">
+						<li><a c:command="$clickMovesGlobalBreakImmu({a;;})">{getTrMovesGlobalBreakImmu(a;;)}</a></li>
+					</c:for>
+				</ul>
+				<c:message value="msg_helpround,round_process_add_on_4_2_1"/>
+			</li>
+			<li>
+				<c:message value="msg_helpround,round_process_add_on_4_3"/>
+				<ul>
+					<c:for list="movesGlobalBreakImmuAb" var="a">
+						<li><a c:command="$clickMovesGlobalBreakImmuAb({a;;})">{getTrMovesGlobalBreakImmuAb(a;;)}</a></li>
+					</c:for>
+				</ul>
+				<c:message value="msg_helpround,round_process_add_on_4_3_1"/>
+				<ul>
+					<c:for list="abilitiesBreakable" var="a">
+						<li><a c:command="$clickAbilitiesBreakable({a;;})">{getTrAbilitiesBreakable(a;;)}</a></li>
+					</c:for>
+				</ul>
+				<c:message value="msg_helpround,round_process_add_on_4_3_2"/>
+			</li>
+			<li>
+				<c:message value="msg_helpround,round_process_add_on_4_4"/>
+				<ul>
+					<c:for list="abilitiesImmuTypes" var="a">
+						<li><a c:command="$clickAbilitiesImmuTypes({a;;})">{getTrAbilitiesImmuTypes(a;;)}</a></li>
+					</c:for>
+				</ul>
+			</li>
+			<li>
+				<c:message value="msg_helpround,round_process_add_on_4_5"/>
+				<ul>
+					<c:for list="itemsImmuTypes" var="a">
+						<li><a c:command="$clickItemsImmuTypes({a;;})">{getTrItemsImmuTypes(a;;)}</a></li>
+					</c:for>
+				</ul>
+			</li>
+		</ul>
+		<c:message value="msg_helpround,round_process_add_on_4_6"/>
+		<ul>
+			<c:for list="abilitiesImmuAllies" var="a">
+				<li><a c:command="$clickAbilitiesImmuAllies({a;;})">{getTrAbilitiesImmuAllies(a;;)}</a></li>
+			</c:for>
+		</ul>
+		<c:message value="msg_helpround,round_process_add_on_4_6_1"/>
+		<c:message value="msg_helpround,round_process_add_on_4_7"/>
+		<ul>
+			<c:for list="abilitiesImmuAlliesDam" var="a">
+				<li><a c:command="$clickAbilitiesImmuAlliesDam({a;;})">{getTrAbilitiesImmuAlliesDam(a;;)}</a></li>
+			</c:for>
+		</ul>
+		<c:message value="msg_helpround,round_process_add_on_4_8"/>
+		<ul>
+			<c:for list="itemsCancelImmu" var="a">
+				<li><a c:command="$clickItemsCancelImmu({a;;})">{getTrItemsCancelImmu(a;;)}</a></li>
+			</c:for>
+		</ul>
+		<c:message value="msg_helpround,round_process_add_on_4_8_1"/>
+		<c:message value="msg_helpround,round_process_add_on_4_9"/>
+		<ul>
+			<c:for list="abilitiesImmu" var="a">
+				<li><a c:command="$clickAbilitiesImmu({a;;})">{getTrAbilitiesImmu(a;;)}</a></li>
+			</c:for>
+		</ul>
+		<c:message value="msg_helpround,round_process_add_on_4_10"/>
+		<ul>
+			<c:for list="itemsImmu" var="a">
+				<li><a c:command="$clickItemsImmu({a;;})">{getTrItemsImmu(a;;)}</a></li>
+			</c:for>
+		</ul>
+		<c:message value="msg_helpround,round_process_add_on_4_11"/>
+		<ul>
+			<c:for list="abilitiesImmuSecEffOther" var="a">
+				<li><a c:command="$clickAbilitiesImmuSecEffOther({a;;})">{getTrAbilitiesImmuSecEffOther(a;;)}</a></li>
+			</c:for>
+		</ul>
+		<c:message value="msg_helpround,round_process_add_on_4_11_1"/>
+		<ul>
+			<c:for list="abilitiesImmuSecEffOwner" var="a">
+				<li><a c:command="$clickAbilitiesImmuSecEffOwner({a;;})">{getTrAbilitiesImmuSecEffOwner(a;;)}</a></li>
+			</c:for>
+		</ul>
+		<c:message value="msg_helpround,round_process_add_on_4_12"/>
+		<ul>
+			<c:for list="abilitiesAchieveTarget" var="a">
+				<li><a c:command="$clickAbilitiesAchieveTarget({a;;})">{getTrAbilitiesAchieveTarget(a;;)}</a></li>
+			</c:for>
+		</ul>
+		<c:message value="msg_helpround,round_process_add_on_4_14"/>
+		<c:message value="msg_helpround,round_process_add_on_4_15"/>
+		<ul>
+			<c:for list="abilitiesBreakProtectMoves" var="a">
+				<li><a c:command="$clickAbilitiesBreakProtectMoves({a;;})">{getTrAbilitiesBreakProtectMoves(a;;)}</a></li>
+			</c:for>
+		</ul>
+		<c:message value="msg_helpround,round_process_add_on_4_16"/>
+		<ul>
+			<c:for list="movesProtecting" var="a">
+				<li><a c:command="$clickMovesProtecting({a;;})">{getTrMovesProtecting(a;;)}</a></li>
+			</c:for>
+		</ul>
+		<h1><c:message value="msg_helpround,round_process_add_on_12"/></h1>
+		<c:message value="msg_helpround,round_process_add_on_12_0"/>
+		{catchingFormula}
+		<br/>
+		<c:if condition="!varCatchingFormula.isEmpty()">
+			<ul>
+				<c:for key="c" map="varCatchingFormula" value="r">
+					<li>{c;} : 
+						<c:message quoted="" value="msg_helpround,formula">
+							<param value="r;"/>
+						</c:message>
+					</li>
+				</c:for>
+			</ul>
+		</c:if>
+		<c:message value="msg_helpround,round_process_add_on_12_1"/>
+		<c:message value="msg_helpround,round_process_add_on_12_2">
+			<param value="minHpNotKo"/>
+		</c:message>
+		<br/>
+		<h1><c:message value="msg_helpround,round_process_add_on_13"/></h1>
+		<c:message value="msg_helpround,round_process_add_on_13_0"/>
+		{fleeingFormula}
+		<br/>
+		<c:if condition="!varFleeingFormula.isEmpty()">
+			<ul>
+				<c:for key="c" map="varFleeingFormula" value="r">
+					<li>{c;} : 
+						<c:message quoted="" value="msg_helpround,formula">
+							<param value="r;"/>
+						</c:message>
+					</li>
+				</c:for>
+			</ul>
+		</c:if>
+		<br/>
+		<h1><c:message value="msg_helpround,round_process_add_on_14"/></h1>
+		<c:message value="msg_helpround,round_process_add_on_14_0"/>
+		<c:for list="statisticAnim" var="s">
+			{getTrStatistic(s;;)}<br/>
+			<c:img src="{getAnimStatistic(s;;)}"/><br/>
+		</c:for>
+		<br/>
+		<c:message value="msg_helpround,round_process_add_on_14_1"/>
+		<c:img src="{getAnimAbsorb()}"/><br/>
+		<a c:command="web/html/round/helpround.html#begin" href=""><c:message value="msg_helpround,return_begin"/></a>
+	</body>
+</html>

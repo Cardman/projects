@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><html xmlns:c="javahtml" c:bean="selectability">
+	<head>
+		<title><c:message value="msg_levelsimu,title_select_ability"/></title>
+		<link href="web/css/simulation.css" rel="stylesheet" type="text/css"/>
+	</head>
+	<body>
+		<a c:command="$cancel" href=""><c:message value="msg_levelsimu,cancel"/></a>
+		<br/>
+		<form action="" c:command="$search" method="post" name="searching">
+			<c:message value="msg_abilities,content"/>
+			<input c:varValue="typedAbility" name="typedAbility" type="text"/><br/>
+			<input type="submit" value="OK"/>
+		</form>
+		<br/>
+		<ul>
+			<c:for list="sortedAbilities" var="a">
+				<li><a c:command="$clickAbility({a;;})" href="">{getTrAbility(a;;)}</a></li>
+			</c:for>
+		</ul>
+	</body>
+</html>

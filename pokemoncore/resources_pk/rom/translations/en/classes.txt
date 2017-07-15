@@ -1,0 +1,14 @@
+dbpokemon.fight.items.EvolvingItem	Item that a pokemon holds in order to evolve
+dbpokemon.fight.items.Repel	Item that repels wild pokemon during a limited number steps
+dbpokemon.fight.items.Berry	Healing item with single use while held by a pokemon
+dbpokemon.fight.items.HealingHp	Item used for healing health points
+dbpokemon.fight.items.HealingHpStatus	Item used for healing health points and status
+dbpokemon.fight.items.SellingItem	Item, while sold, give to the player much money
+dbpokemon.fight.items.ItemForBattle	Item that a pokemon holds for a battle
+dbpokemon.fight.items.HealingStatus	Item used for healing from status conditions
+dbpokemon.fight.items.Ball	Useful item for catching a wild pokemon
+dbpokemon.fight.items.HealingItem	Item used for healing a pokemon or a team. It possibly give happiness to a pokemon.
+dbpokemon.fight.items.Fossil	Item able to revive a pokemon
+dbpokemon.fight.items.EvolvingStone	Item that is used on a pokemon in order to evolve
+dbpokemon.fight.items.Boost	Item that increases statistics of a pokemon
+dbpokemon.fight.items.HealingPp	Item used for healing power points (moves)

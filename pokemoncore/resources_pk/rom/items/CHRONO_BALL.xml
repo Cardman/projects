@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><aiki.fight.items.Ball>
+<java.lang.String class="aiki.fight.items.Ball" field="catchingRate" value="caracferme(VAR__TEMPS_TOUR,0,3)+3*caracferme(VAR__TEMPS_TOUR,4,7)+6*caracferme(VAR__TEMPS_TOUR,8,11)+10*caracferme(VAR__TEMPS_TOUR,12,14)+25*caracdroiteferme(VAR__TEMPS_TOUR,15)"/>
+<java.lang.Integer class="aiki.fight.items.Item" field="price" value="900"/>
+</aiki.fight.items.Ball>

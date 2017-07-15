@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><aiki.fight.abilities.AbilityData>
+<ql class="aiki.fight.abilities.AbilityData" field="breakFoeImmune"/>
+<java.lang.Boolean class="aiki.fight.abilities.AbilityData" field="forbidUseBerryAgainstFoes" value="false"/>
+<sm class="aiki.fight.abilities.AbilityData" field="chgtTypeByWeather"/>
+<java.lang.Boolean class="aiki.fight.abilities.AbilityData" field="chgtTypeByDamage" value="false"/>
+<r class="aiki.fight.abilities.AbilityData" field="recoilDamageFoe" value="0"/>
+<r class="aiki.fight.abilities.AbilityData" field="recoilDamageFoeByKoOwner" value="0"/>
+<java.lang.Integer class="aiki.fight.abilities.AbilityData" field="decreaseNecStepsHatch" value="0"/>
+<sm class="aiki.fight.abilities.AbilityData" field="divideStatusRound"/>
+<sm class="aiki.fight.abilities.AbilityData" field="healHpByWeather"/>
+<sl class="aiki.fight.abilities.AbilityData" field="ignAbility"/>
+<sl class="aiki.fight.abilities.AbilityData" field="ignFoeTeamMove"/>
+<java.lang.Boolean class="aiki.fight.abilities.AbilityData" field="ignFoeStatisBoost" value="false"/>
+<sl class="aiki.fight.abilities.AbilityData" field="immuMove"/>
+<el class="aiki.fight.abilities.AbilityData" field="immuLowStat"/>
+<ql class="aiki.fight.abilities.AbilityData" field="immuLowStatIfStatus"/>
+<java.lang.Boolean class="aiki.fight.abilities.AbilityData" field="immuCh" value="false"/>
+<sl class="aiki.fight.abilities.AbilityData" field="immuWeather"/>
+<java.lang.Boolean class="aiki.fight.abilities.AbilityData" field="immuDamageTrappingMoves" value="false"/>
+<java.lang.Boolean class="aiki.fight.abilities.AbilityData" field="immuDamageAllyMoves" value="false"/>
+<java.lang.Boolean class="aiki.fight.abilities.AbilityData" field="immuDamageRecoil" value="false"/>
+<sl class="aiki.fight.abilities.AbilityData" field="immuAbility"/>
+<sl class="aiki.fight.abilities.AbilityData" field="immuStatusBeginRound"/>
+<java.lang.Boolean class="aiki.fight.abilities.AbilityData" field="immuRechargeRound" value="false"/>
+<sm class="aiki.fight.abilities.AbilityData" field="immuStatus"/>
+<java.lang.Boolean class="aiki.fight.abilities.AbilityData" field="slowing" value="false"/>
+<sm class="aiki.fight.abilities.AbilityData" field="multDamageFoe"/>
+<r class="aiki.fight.abilities.AbilityData" field="multDamageCh" value="0"/>
+<r class="aiki.fight.abilities.AbilityData" field="multAllyDamage" value="0"/>
+<r class="aiki.fight.abilities.AbilityData" field="multSufferedDamageSuperEff" value="0"/>
+<java.lang.Boolean class="aiki.fight.abilities.AbilityData" field="immuSufferedDamageLowEff" value="false"/>
+<r class="aiki.fight.abilities.AbilityData" field="multEvtRateCh" value="0"/>
+<java.lang.Boolean class="aiki.fight.abilities.AbilityData" field="cancelSecEffectOther" value="false"/>
+<java.lang.Boolean class="aiki.fight.abilities.AbilityData" field="cancelSecEffectOwner" value="false"/>
+<r class="aiki.fight.abilities.AbilityData" field="multEvtRateSecEffectOwner" value="0"/>
+<java.lang.String class="aiki.fight.abilities.AbilityData" field="multPower" value=""/>
+<java.lang.String class="aiki.fight.abilities.AbilityData" field="multDamage" value=""/>
+<r class="aiki.fight.abilities.AbilityData" field="multStab" value="4/3"/>
+<em class="aiki.fight.abilities.AbilityData" field="bonusStatRank"/>
+<em class="aiki.fight.abilities.AbilityData" field="boostStatRankProtected"/>
+<em class="aiki.fight.abilities.AbilityData" field="boostStatRankEndRound"/>
+<em class="aiki.fight.abilities.AbilityData" field="multStatAlly"/>
+<em class="aiki.fight.abilities.AbilityData" field="multStatIfKoFoe"/>
+<em class="aiki.fight.abilities.AbilityData" field="multStatIfLowStat"/>
+<om class="aiki.fight.abilities.AbilityData" field="multStatIfCat"/>
+<om class="aiki.fight.abilities.AbilityData" field="multStatIfStatutRank"/>
+<om class="aiki.fight.abilities.AbilityData" field="multStatIfDamageCat"/>
+<om class="aiki.fight.abilities.AbilityData" field="multStatIfDamgeType"/>
+<em class="aiki.fight.abilities.AbilityData" field="multStat"/>
+<java.lang.Boolean class="aiki.fight.abilities.AbilityData" field="inflictingDamageInsteadOfSuffering" value="false"/>
+<r class="aiki.fight.abilities.AbilityData" field="multVarBoost" value="0"/>
+<java.lang.Integer class="aiki.fight.abilities.AbilityData" field="nbUsedPp" value="0"/>
+<java.lang.Boolean class="aiki.fight.abilities.AbilityData" field="nbHits" value="false"/>
+<java.lang.Boolean class="aiki.fight.abilities.AbilityData" field="breakProtection" value="false"/>
+<java.lang.Boolean class="aiki.fight.abilities.AbilityData" field="plate" value="false"/>
+<java.lang.Boolean class="aiki.fight.abilities.AbilityData" field="healedStatusBySwitch" value="false"/>
+<r class="aiki.fight.abilities.AbilityData" field="healedHpRateBySwitch" value="0"/>
+<sm class="aiki.fight.abilities.AbilityData" field="increasedPrio"/>
+<sm class="aiki.fight.abilities.AbilityData" field="increasedPrioTypes"/>
+<el class="aiki.fight.abilities.AbilityData" field="maxStatisticsIfCh"/>
+<mcs class="aiki.fight.abilities.AbilityData" field="singleStatus">
+<sm class="mcs" field="law"/>
+</mcs>
+<java.lang.Boolean class="aiki.fight.abilities.AbilityData" field="achievedDisappearedPk" value="false"/>
+<sm class="aiki.fight.abilities.AbilityData" field="forwardStatus"/>
+<sm class="aiki.fight.abilities.AbilityData" field="failStatus"/>
+<java.lang.String class="aiki.fight.abilities.AbilityData" field="typeForMoves" value=""/>
+<r class="aiki.fight.abilities.AbilityData" field="maxHpForUsingBerry" value="0"/>
+<java.lang.Boolean class="aiki.fight.abilities.AbilityData" field="mumy" value="false"/>
+<om class="aiki.fight.abilities.AbilityData" field="healHpByTypeIfWeather"/>
+<sm class="aiki.fight.abilities.AbilityData" field="immuMoveTypesByWeather"/>
+<l class="aiki.fight.abilities.AbilityData" field="effectEndRound"/>
+<l class="aiki.fight.abilities.AbilityData" field="effectSending"/>
+<sm class="aiki.fight.abilities.AbilityData" field="changingBoostTypes"/>
+<sl class="aiki.fight.abilities.AbilityData" field="immuAllyFromMoves"/>
+<sm class="aiki.fight.abilities.AbilityData" field="immuStatusTypes"/>
+<sm class="aiki.fight.abilities.AbilityData" field="immuLowStatisTypes"/>
+<em class="aiki.fight.abilities.AbilityData" field="lowStatFoeHit"/>
+<java.lang.Boolean class="aiki.fight.abilities.AbilityData" field="copyMovesTypes" value="false"/>
+<sm class="aiki.fight.abilities.AbilityData" field="multPowerMovesTypesGlobal"/>
+<java.lang.Boolean class="aiki.fight.abilities.AbilityData" field="reverseEffectsPowerMovesTypesGlobal" value="false"/>
+<r class="aiki.fight.abilities.AbilityData" field="healHpWhileUsingBerry" value="0"/>
+<java.lang.Boolean class="aiki.fight.abilities.AbilityData" field="takeItemByDamagingMove" value="false"/>
+<java.lang.Boolean class="aiki.fight.abilities.AbilityData" field="giveItemToAllyHavingUsed" value="false"/>
+</aiki.fight.abilities.AbilityData>

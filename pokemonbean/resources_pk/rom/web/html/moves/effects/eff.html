@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><html xmlns:c="javahtml" c:bean="eff">
+	<head>
+		<link href="web/css/moves.css" rel="stylesheet" type="text/css"/>
+	</head>
+	<body>
+		<c:message value="msg_eff,targets"/>
+		<!--{getMessageTarget()}-->
+		<c:message value="msg_eff,targets_{getTargetChoice()}"/><br/>
+		<c:if condition="!reasons.isEmpty()">
+			<p>
+				<c:message value="msg_eff,reasons"/>
+				<ul>
+					<c:for list="reasons" var="r">
+						<li>{r;}</li>
+					</c:for>
+				</ul>
+				<br/>
+				<ul>
+					<c:for key="c" map="mapVarsFail" value="r">
+						<li>{c;} :
+							<c:message quoted="" value="msg_eff,formula">
+								<param value="r;"/>
+							</c:message>
+						</li>
+					</c:for>
+				</ul>
+			</p>
+		</c:if>
+		<c:if condition="needSuccessFirstEffect">
+			<c:message value="msg_eff,need_sucess"/>
+		</c:if>
+	</body>
+</html>

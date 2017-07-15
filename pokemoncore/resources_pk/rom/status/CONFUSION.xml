@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><aiki.fight.status.StatusBeginRoundAutoDamage>
+<r class="aiki.fight.status.StatusBeginRoundAutoDamage" field="power" value="40"/>
+<aiki.fight.enums.Statistic class="aiki.fight.status.StatusBeginRoundAutoDamage" field="attack" value="ATTACK"/>
+<aiki.fight.enums.Statistic class="aiki.fight.status.StatusBeginRoundAutoDamage" field="defense" value="DEFENSE"/>
+<mcb class="aiki.fight.status.StatusBeginRound" field="lawForUsingAMove">
+<bm class="mcb" field="law">
+<java.lang.Boolean class="util.Map" key="" value="false"/>
+<java.lang.Boolean class="util.Map" key="" value="true"/>
+<li class="util.Map" value="1"/>
+<li class="util.Map" value="3"/>
+</bm>
+</mcb>
+<mcu class="aiki.fight.status.StatusBeginRound" field="lawForUsingAMoveNbRound"/>
+<mcb class="aiki.fight.status.StatusBeginRound" field="lawForUsingAMoveIfFoe">
+<bm class="mcb" field="law"/>
+</mcb>
+<mcb class="aiki.fight.status.StatusBeginRound" field="lawForFullHealIfMove">
+<bm class="mcb" field="law"/>
+</mcb>
+<aiki.fight.status.StatusType class="aiki.fight.status.Status" field="statusType" value="INDIVIDUEL"/>
+<r class="aiki.fight.status.Status" field="catchingRate" value="3"/>
+<l class="aiki.fight.status.Status" field="effectEndRound"/>
+<l class="aiki.fight.status.Status" field="effectsPartner"/>
+<java.lang.Boolean class="aiki.fight.status.Status" field="disabledEffIfSwitch" value="true"/>
+<java.lang.Integer class="aiki.fight.status.Status" field="incrementEndRound" value="0"/>
+<java.lang.Boolean class="aiki.fight.status.Status" field="incrementingEndRound" value="false"/>
+<em class="aiki.fight.status.Status" field="multStat"/>
+<java.lang.String class="aiki.fight.status.Status" field="fail" value=""/>
+</aiki.fight.status.StatusBeginRoundAutoDamage>

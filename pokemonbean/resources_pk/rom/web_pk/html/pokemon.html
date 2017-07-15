@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><html xmlns:c="javahtml" c:bean="pokemon">
+	<head>
+		<title><c:message value="msg_pokemon,title"><param value="name"/></c:message></title>
+		<link href="web_pk/css/pokemon.css" rel="stylesheet" type="text/css"/>
+	</head>
+	<body>
+		<c:message value="msg_pokemon,name">
+			<param value="name"/>
+		</c:message>
+		<c:img src="{image}"/>
+		<br/>
+		<c:if condition="!evolutions.isEmpty()">
+			<c:message value="msg_pokemon,evolutions"/>
+			<ul>
+				<c:for key="p" map="evolutions" value="e">
+					<li>
+						{getEvo(p;;)} 
+						<c:img src="{e;}"/>
+					</li>
+				</c:for>
+			</ul>
+		</c:if>
+		<c:message value="msg_pokemon,level">
+			<param value="level"/>
+		</c:message>
+		<c:message value="msg_pokemon,gender">
+			<param value="gender"/>
+		</c:message>
+		<c:message value="msg_pokemon,ability">
+			<param value="ability"/>
+		</c:message>
+		<c:if condition="!usedBallCatching.isEmpty()">
+			<c:message value="msg_pokemon,used_ball_catching">
+				<param value="usedBallCatching"/>
+			</c:message>
+		</c:if>
+		<c:if condition="!item.isEmpty()">
+			<c:message value="msg_pokemon,item">
+				<param value="item"/>
+			</c:message>
+		</c:if>
+		<c:if condition="item.isEmpty()">
+			<c:message value="msg_pokemon,item_no"/>
+		</c:if>
+		<c:message value="msg_pokemon,hp">
+			<param value="remainingHp"/>
+			<param value="remainingHpPerCent"/>
+			<param value="fullHp"/>
+		</c:message>
+		<c:message value="msg_pokemon,nickname">
+			<param value="nickname"/>
+		</c:message>
+		<c:message value="msg_pokemon,won_exp_last_level">
+			<param value="wonExpSinceLastLevel"/>
+		</c:message>
+		<c:message value="msg_pokemon,necessary_pts">
+			<param value="necessaryPointsNextLevel"/>
+		</c:message>
+		<c:message value="msg_pokemon,happiness">
+			<param value="happiness"/>
+		</c:message>
+		<c:message value="msg_pokemon,nb_steps">
+			<param value="nbStepsTeamLead"/>
+		</c:message>
+		<c:message value="msg_pokemon,types"/>
+		<ul>
+			<c:for list="types" var="t">
+				<li>{t;}</li>
+			</c:for>
+		</ul>
+		<c:if condition="!status.isEmpty()">
+			<c:message value="msg_pokemon,status"/>
+			<ul>
+				<c:for list="status" var="t">
+					<li>{t;}</li>
+				</c:for>
+			</ul>
+		</c:if>
+		<c:message value="msg_pokemon,moves"/>
+		<table>
+			<thead>
+				<tr>
+					<th><c:message value="msg_pokemon,moves_key"/></th>
+					<th><c:message value="msg_pokemon,moves_cur_pp"/></th>
+					<th><c:message value="msg_pokemon,moves_max_pp"/></th>
+				</tr>
+			</thead>
+			<tbody>
+				<c:for key="m" map="moves" value="a" varClassName="aiki.game.UsesOfMove">
+					<tr>
+						<td>{m;}</td>
+						<td>{a;getCurrent()}</td>
+						<td>{a;getMax()}</td>
+					</tr>
+				</c:for>
+			</tbody>
+		</table>
+		<c:message value="msg_pokemon,statistics"/>
+		<table>
+			<thead>
+				<tr>
+					<th><c:message value="msg_pokemon,statistics_key"/></th>
+					<th><c:message value="msg_pokemon,statistics_ev"/></th>
+					<th><c:message value="msg_pokemon,statistics_iv"/></th>
+					<th><c:message value="msg_pokemon,statistics_rate"/></th>
+				</tr>
+			</thead>
+			<tbody>
+				<c:for className="aiki.beans.facade.game.dto.StatisticInfoPkPlayer" list="statistics" var="s">
+					<tr>
+						<td>{s;getName()}</td>
+						<td>{s;getEv()}</td>
+						<td>{s;getIv()}</td>
+						<td>{s;getRate()}</td>
+					</tr>
+				</c:for>
+			</tbody>
+		</table>
+	</body>
+</html>

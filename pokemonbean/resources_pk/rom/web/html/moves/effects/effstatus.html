@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><html xmlns:c="javahtml" c:bean="eff_status">
+	<head>
+		<link href="web/css/moves.css" rel="stylesheet" type="text/css"/>
+	</head>
+	<body>
+		<p>
+			<c:message value="msg_effstatus,effect"/>
+			<c:import page="{effectBean}">
+				<c:package name="aiki.beans.moves.effects">
+					<c:class name="EffectBean">
+						<c:field name="index" value="index"/>
+						<c:field name="move" value="move"/>
+					</c:class>
+				</c:package>
+			</c:import>
+			<c:if condition="!lawStatus.isEmpty()">
+				<c:message value="msg_effstatus,law_status"/>
+				<table>
+					<thead>
+						<tr>
+							<th>
+								<c:message value="msg_effstatus,status"/>
+							</th>
+							<th>
+								<c:message value="msg_effstatus,fail"/>
+							</th>
+							<th>
+								<c:message value="msg_effstatus,rate_event"/>
+							</th>
+						</tr>
+					</thead>
+					<tbody>
+						<c:for key="c" map="lawStatus" value="r">
+							<tr>
+								<c:if condition="isStatus(c;;)">
+									<td><a c:command="$clickLink({index},{c;;})" href="">{getTrLink(c;;)}</a></td>
+								</c:if>
+								<c:if condition="!isStatus(c;;)">
+									<td><c:message value="msg_effstatus,other_status"/></td>
+								</c:if>
+								<td>{getFail(c;;)}</td>
+								<td>{r;}</td>
+							</tr>
+						</c:for>
+					</tbody>
+				</table>
+				<br/>
+				<c:if condition="!mapVarsStatus.isEmpty()">
+					<ul>
+						<c:for key="k" map="mapVarsStatus" value="v">
+							<li>{k;} :
+								<c:message quoted="" value="msg_effstatus,formula">
+									<param value="v;"/>
+								</c:message>
+							</li>
+						</c:for>
+					</ul>
+				</c:if>
+				<br/>
+			</c:if>
+			<c:if condition="!deletedStatus.isEmpty()">
+				<c:message value="msg_effstatus,deleted_status"/>
+				<ul>
+					<c:for list="deletedStatus" var="s">
+						<li><a c:command="$clickLinkDeleted({index},{s;;})" href="">{getTrLinkDeleted(s;;)}</a></li>
+					</c:for>
+				</ul>
+				<br/>
+			</c:if>
+			<c:if condition="koUserHealSubst">
+				<c:message value="msg_effstatus,ko_user"/>
+			</c:if>
+			<c:if condition="statusFromUser">
+				<c:message value="msg_effstatus,forward"/>
+			</c:if>
+		</p>
+	</body>
+</html>

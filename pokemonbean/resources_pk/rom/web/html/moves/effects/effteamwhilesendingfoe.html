@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><html xmlns:c="javahtml" c:bean="eff_teamwhilesendingfoe">
+	<head>
+		<link href="web/css/moves.css" rel="stylesheet" type="text/css"/>
+	</head>
+	<body>
+		<p>
+			<c:message value="msg_effteamwhilesendingfoe,effect"/>
+			<c:import page="{effectBean}">
+				<c:package name="aiki.beans.moves.effects">
+					<c:class name="EffectBean">
+						<c:field name="index" value="index"/>
+						<c:field name="move" value="move"/>
+					</c:class>
+				</c:package>
+			</c:import>
+			<c:if condition="!damageRateAgainstFoe.isEmpty()">
+				<c:message value="msg_effteamwhilesendingfoe,damage_rate_against_foe">
+					<param value="damageRateAgainstFoe"/>
+				</c:message>
+				<ul>
+					<c:for key="k" map="mapVarsDamageSentFoe" value="v">
+						<li>{k;} :
+							<c:message quoted="" value="msg_effteamwhilesendingfoe,formula">
+								<param value="v;"/>
+							</c:message>
+						</li>
+					</c:for>
+				</ul>
+				<br/>
+			</c:if>
+			<c:if condition="!statistics.isEmpty()">
+				<c:message value="msg_effteamwhilesendingfoe,statistics"/>
+				<table>
+					<thead>
+						<tr>
+							<th>
+								<c:message value="msg_effteamwhilesendingfoe,statistic"/>
+							</th>
+							<th>
+								<c:message value="msg_effteamwhilesendingfoe,boost"/>
+							</th>
+						</tr>
+					</thead>
+					<tbody>
+						<c:for key="s" map="statistics" value="b">
+							<tr>
+								<td>{getTranslatedStatistic(s;;)}</td>
+								<td>{b;}</td>
+							</tr>
+						</c:for>
+					</tbody>
+				</table>
+				<br/>
+			</c:if>
+			<c:if condition="!statusByNbUses.isEmpty()">
+				<c:message value="msg_effteamwhilesendingfoe,status_if_nb"/>
+				<table>
+					<thead>
+						<tr>
+							<th>
+								<c:message value="msg_effteamwhilesendingfoe,nb_uses"/>
+							</th>
+							<th>
+								<c:message value="msg_effteamwhilesendingfoe,status"/>
+							</th>
+						</tr>
+					</thead>
+					<tbody>
+						<c:for key="s" map="statusByNbUses" value="b">
+							<tr>
+								<td>{s;}</td>
+								<td><a c:command="$clickStatus({index},{s;;})" href="">{getTranslatedStatus(s;;)}</a></td>
+							</tr>
+						</c:for>
+					</tbody>
+				</table>
+				<br/>
+			</c:if>
+			<c:if condition="!reasonsSending.isEmpty()">
+				<p>
+					<c:message value="msg_effteamwhilesendingfoe,reasons_sending"/>
+					<ul>
+						<c:for list="reasonsSending" var="r">
+							<li>{r;}</li>
+						</c:for>
+					</ul>
+					<br/>
+					<ul>
+						<c:for key="c" map="mapVarsFailSending" value="r">
+							<li>{c;} :
+								<c:message quoted="" value="msg_effteamwhilesendingfoe,formula">
+									<param value="r;"/>
+								</c:message>
+							</li>
+						</c:for>
+					</ul>
+				</p>
+			</c:if>
+			<c:if condition="!deletedByFoeTypes.isEmpty()">
+				<c:message value="msg_effteamwhilesendingfoe,delete_status_if_types"/>
+				<ul>
+					<c:for list="deletedByFoeTypes" var="t">
+						<li>{getTranslatedType(t;;)}</li>
+					</c:for>
+				</ul>
+				<br/>
+			</c:if>
+		</p>
+	</body>
+</html>
