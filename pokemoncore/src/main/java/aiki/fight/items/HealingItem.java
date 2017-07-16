@@ -8,7 +8,7 @@ import code.util.annot.RwXml;
 @RwXml
 public class HealingItem extends Item {
 
-    public static final String ITEM = "dbpokemon.fight.items.HealingItem";
+    public static final String ITEM = "aiki.fight.items.HealingItem";
 
     private StringMap<Short> happiness;
     @CheckedData

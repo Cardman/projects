@@ -9,7 +9,7 @@ import code.util.annot.RwXml;
 @RwXml
 public final class HealingHpStatus extends HealingStatus {
 
-    public static final String ITEM = "dbpokemon.fight.items.HealingHpStatus";
+    public static final String ITEM = "aiki.fight.items.HealingHpStatus";
 
     private Rate healedHpRate;
 

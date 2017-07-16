@@ -200,7 +200,6 @@ public class DataBase implements WithMathFactory<Rate>{
     public static final String DASH_FILE_INFO = "-";
     /**The custom beans can be modified but they must have a common base package
     Avoid to recompile classes in standard packages like java, javax, and even projects core, gui ... */
-//    public static final String FOLDER_ROOT_BEANS = "dbpokemon/beans";
 //    public static final String JAVA_FILES_EXT = ".java";
     public static final int MAX_MULT_FIGHT = 4;
     public static final String IMAGES_FOLDER = "images";

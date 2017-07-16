@@ -19,7 +19,7 @@ import code.gui.SessionEditorPane;
 import code.util.StringMap;
 
 public final class DialogDifficulty extends Dialog {
-    private static final String DIALOG_ACCESS = "dbpokemon.gui.dialogs.DialogDifficulty";
+    private static final String DIALOG_ACCESS = "aiki.gui.dialogs.DialogDifficulty";
 
     private static final String TEXT = "0";
 

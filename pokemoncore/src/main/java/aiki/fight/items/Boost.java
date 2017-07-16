@@ -12,7 +12,7 @@ import code.util.annot.RwXml;
 @RwXml
 public final class Boost extends Item {
 
-    private static final String ITEM = "dbpokemon.fight.items.Boost";
+    private static final String ITEM = "aiki.fight.items.Boost";
 
     @CheckedData
     private Rate winPp;

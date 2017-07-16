@@ -63,7 +63,7 @@
 				<configuration>
 					<archive>
 						<manifest>
-							<mainClass>dbpokemon.main.MainClass</mainClass>
+							<mainClass>aiki.main.MainClass</mainClass>
 							<addDefaultImplementationEntries>true</addDefaultImplementationEntries>
 							<addDefaultSpecificationEntries>true</addDefaultSpecificationEntries>
 						</manifest>
@@ -87,7 +87,7 @@
 							<outfile>${project.build.directory}/Pokemon.exe</outfile>
 							<downloadUrl>http://java.com/download</downloadUrl>
 							<classPath>
-								<mainClass>dbpokemon.main.MainClass</mainClass>
+								<mainClass>aiki.main.MainClass</mainClass>
 								<preCp>anything</preCp>
 							</classPath>
 							<icon>resources_pk/pokemon.ico</icon>

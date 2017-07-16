@@ -105,7 +105,7 @@ public final class MainWindow extends NetGroupFrame {
     //implemented SettingInfosAfterCompiler
 
     public static final String OK = "ok";
-    private static final String DIALOG_ACCESS = "dbpokemon.gui.MainWindow";
+    private static final String DIALOG_ACCESS = "aiki.gui.MainWindow";
 
     private static final ProgressingDialogPokemon DIALOG = new ProgressingDialogPokemon();
     private static final String TITLE = "title";

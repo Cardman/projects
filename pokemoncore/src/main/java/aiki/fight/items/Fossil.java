@@ -8,7 +8,7 @@ import code.util.annot.RwXml;
 @RwXml
 public final class Fossil extends Item {
 
-    private static final String ITEM = "dbpokemon.fight.items.Fossil";
+    private static final String ITEM = "aiki.fight.items.Fossil";
 
     private String pokemon;
 

@@ -20,7 +20,7 @@ import code.util.annot.RwXml;
 @RwXml
 public final class ItemForBattle extends Item {
 
-    public static final String ITEM = "dbpokemon.fight.items.ItemForBattle";
+    public static final String ITEM = "aiki.fight.items.ItemForBattle";
 
     private StringList typesPk;
     @CheckedData

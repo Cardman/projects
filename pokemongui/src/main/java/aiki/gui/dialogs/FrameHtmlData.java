@@ -21,7 +21,7 @@ import aiki.Resources;
 import aiki.gui.MainWindow;
 
 public final class FrameHtmlData extends ChildFrame {
-    private static final String DIALOG_ACCESS = "dbpokemon.gui.dialogs.FrameHtmlData";
+    private static final String DIALOG_ACCESS = "aiki.gui.dialogs.FrameHtmlData";
 
     private static final String TEXT = "0";
 

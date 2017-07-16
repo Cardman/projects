@@ -32,7 +32,7 @@ import aiki.map.pokemon.PokemonPlayer;
 import aiki.map.pokemon.UsablePokemon;
 
 public class TeamPanel extends JPanel {
-    private static final String TEAM_PANEL = "dbpokemon.gui.components.walk.TeamPanel";
+    private static final String TEAM_PANEL = "aiki.gui.components.walk.TeamPanel";
 
     private static final String SPACE = " ";
 

@@ -13,7 +13,7 @@
 <iconLocation>resources_pk/pokemon.jpg</iconLocation>
 <initialMemoryHeap>-1</initialMemoryHeap>
 <jarLocation>target\Pokemon.jar</jarLocation>
-<mainClassName>dbpokemon.main.MainClass</mainClassName>
+<mainClassName>aiki.main.MainClass</mainClassName>
 <maximumMemoryHeap>1073741824</maximumMemoryHeap>
 <maximumVersion>1.7</maximumVersion>
 <minimumVersion>1.7</minimumVersion>

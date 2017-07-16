@@ -58,7 +58,7 @@ public class Player {
 
     private static StringMap<String> _messages_ = new StringMap<String>();
 
-    private static final String PLAYER = "dbpokemon.game.player.Player";
+    private static final String PLAYER = "aiki.game.player.Player";
 
     private static final String DEFAULT_NICKNAME_PREFIX = "TRUMP_";
 

@@ -8,7 +8,7 @@ import code.util.annot.RwXml;
 @RwXml
 public final class Repel extends Item {
 
-    private static final String ITEM = "dbpokemon.fight.items.Repel";
+    private static final String ITEM = "aiki.fight.items.Repel";
 
     private long steps;
 

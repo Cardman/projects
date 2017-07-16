@@ -7,7 +7,7 @@
 	<module name="TreeWalker">
         <module name="Indentation"/>
 		<module name="IllegalImport">
-		    <property name="illegalPkgs" value="sun, dbpokemon.beans"/>
+		    <property name="illegalPkgs" value="sun, aiki.beans"/>
 		</module>
 		<module name="Regexp">
 			<property name="illegalPattern" value="true" />

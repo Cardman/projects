@@ -17,7 +17,7 @@ import code.util.StringList;
 import code.util.StringMap;
 
 public final class SelectHealedMove extends Dialog {
-    private static final String DIALOG_ACCESS = "dbpokemon.gui.dialogs.SelectHealedMove";
+    private static final String DIALOG_ACCESS = "aiki.gui.dialogs.SelectHealedMove";
 
     private static final SelectHealedMove DIALOG = new SelectHealedMove();
 

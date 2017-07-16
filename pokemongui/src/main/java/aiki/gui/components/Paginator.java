@@ -46,12 +46,12 @@ public abstract class Paginator extends JPanel{
     protected static final String POKEMON = "Pokemon";
 
     protected static final String SPACES = SPACE + SPACE;
-    protected static final String ACCESS_EGG = "dbpokemon.gui.components.PaginatorEgg";
-    protected static final String ACCESS_HEALING_ITEM = "dbpokemon.gui.components.PaginatorHealingItem";
-    protected static final String ACCESS_ITEM = "dbpokemon.gui.components.PaginatorItem";
-    protected static final String ACCESS_MOVE = "dbpokemon.gui.components.PaginatorMove";
-    protected static final String ACCESS_POKEMON = "dbpokemon.gui.components.PaginatorPokemon";
-    private static final String ACCESS = "dbpokemon.gui.components.Paginator";
+    protected static final String ACCESS_EGG = "aiki.gui.components.PaginatorEgg";
+    protected static final String ACCESS_HEALING_ITEM = "aiki.gui.components.PaginatorHealingItem";
+    protected static final String ACCESS_ITEM = "aiki.gui.components.PaginatorItem";
+    protected static final String ACCESS_MOVE = "aiki.gui.components.PaginatorMove";
+    protected static final String ACCESS_POKEMON = "aiki.gui.components.PaginatorPokemon";
+    private static final String ACCESS = "aiki.gui.components.Paginator";
     private static final String ACCESS_SEARCH = "util.pagination.SearchingMode";
 
     private static final String BEGIN = "0";

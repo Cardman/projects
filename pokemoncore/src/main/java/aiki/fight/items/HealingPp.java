@@ -8,7 +8,7 @@ import code.util.annot.RwXml;
 @RwXml
 public final class HealingPp extends HealingItem {
 
-    public static final String ITEM = "dbpokemon.fight.items.HealingPp";
+    public static final String ITEM = "aiki.fight.items.HealingPp";
 
     private long healedMovePp;
     private long healingAllMovesFullpp;

@@ -7,7 +7,7 @@ import code.util.annot.RwXml;
 @RwXml
 public final class Ball extends Item {
 
-    public static final String ITEM = "dbpokemon.fight.items.Ball";
+    public static final String ITEM = "aiki.fight.items.Ball";
 
     private String catchingRate;
 

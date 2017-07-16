@@ -21,7 +21,7 @@ import code.util.EnumMap;
 import code.util.StringMap;
 
 public final class DialogServer extends Dialog implements AbstractDialogServer{
-    private static final String DIALOG_ACCESS = "dbpokemon.gui.dialogs.DialogServer";
+    private static final String DIALOG_ACCESS = "aiki.gui.dialogs.DialogServer";
 
     private static final DialogServer DIALOG = new DialogServer();
 

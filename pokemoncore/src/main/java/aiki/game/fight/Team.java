@@ -34,7 +34,7 @@ public final class Team {
     public static final String EQUIPE_ADV_NB_UTILISATION = "EQUIPE_ADV_NB_UTILISATION";
     public static final String NB_UTILI_ATT_EQ_TOUR = "NB_UTILI_ATT_EQ_TOUR";
 
-    private static final String TEAM = "dbpokemon.game.fight.Team";
+    private static final String TEAM = "aiki.game.fight.Team";
 
     private static final String CANCEL_USE_ITEM = "cancelUseItem";
 

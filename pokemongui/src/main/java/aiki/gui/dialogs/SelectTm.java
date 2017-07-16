@@ -17,7 +17,7 @@ import code.util.CustList;
 import code.util.StringMap;
 
 public final class SelectTm extends SelectDialog {
-    private static final String DIALOG_ACCESS = "dbpokemon.gui.dialogs.SelectTm";
+    private static final String DIALOG_ACCESS = "aiki.gui.dialogs.SelectTm";
 
     private static final SelectTm DIALOG = new SelectTm();
 

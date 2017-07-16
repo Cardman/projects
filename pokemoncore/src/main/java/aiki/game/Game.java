@@ -97,7 +97,7 @@ public class Game {
 
     private static final int NB_HOSTED_POKEMON = 2;
 
-    private static final String GAME = "dbpokemon.game.Game";
+    private static final String GAME = "aiki.game.Game";
 
     private static final String NO_BEATEN_TRAINER = "noBeatenTrainer";
 

@@ -14,7 +14,7 @@ import code.util.annot.RwXml;
 @RwXml
 public final class Berry extends Item {
 
-    public static final String ITEM = "dbpokemon.fight.items.Berry";
+    public static final String ITEM = "aiki.fight.items.Berry";
 
     @CheckedData
     private Rate healHpBySuperEffMove;

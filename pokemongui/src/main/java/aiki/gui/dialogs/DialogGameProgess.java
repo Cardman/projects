@@ -17,7 +17,7 @@ import code.gui.SessionEditorPane;
 import code.util.StringMap;
 
 public final class DialogGameProgess extends Dialog {
-    private static final String DIALOG_ACCESS = "dbpokemon.gui.dialogs.DialogGameProgess";
+    private static final String DIALOG_ACCESS = "aiki.gui.dialogs.DialogGameProgess";
 
     private static final String TEXT = "0";
 

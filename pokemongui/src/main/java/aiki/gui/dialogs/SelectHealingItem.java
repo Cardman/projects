@@ -17,7 +17,7 @@ import code.util.CustList;
 import code.util.StringMap;
 
 public final class SelectHealingItem extends SelectDialog {
-    private static final String DIALOG_ACCESS = "dbpokemon.gui.dialogs.SelectHealingItem";
+    private static final String DIALOG_ACCESS = "aiki.gui.dialogs.SelectHealingItem";
 
     private static final SelectHealingItem DIALOG = new SelectHealingItem();
 

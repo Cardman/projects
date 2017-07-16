@@ -52,7 +52,7 @@ public final class PokemonPlayer extends Pokemon implements UsablePokemon {
     private static StringMap<String> _messages_ = new StringMap<String>();
 
 //    private static final String CENT = Byte.toString(Fighter.RATE_CENT);
-    private static final String POKEMON_PLAYER = "dbpokemon.map.pokemon.PokemonPlayer";
+    private static final String POKEMON_PLAYER = "aiki.map.pokemon.PokemonPlayer";
 
     private static final String HAPPINESS = "happiness";
 

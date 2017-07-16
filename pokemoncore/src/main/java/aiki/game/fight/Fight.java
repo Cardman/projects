@@ -345,7 +345,7 @@ public final class Fight {
     static final String CREATE_CLONE = "createClone";
     static final String HELP_ALLY = "helpAlly";
 
-    private static final String FIGHT = "dbpokemon.game.fight.Fight";
+    private static final String FIGHT = "aiki.game.fight.Fight";
 
     private static final String SEPARATOR_COMMENTS = ", ";
 

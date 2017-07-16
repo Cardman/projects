@@ -14,7 +14,7 @@ import code.gui.LabelButton;
 import code.util.StringMap;
 
 public final class SoftParams extends Dialog {
-    private static final String DIALOG_ACCESS = "dbpokemon.gui.dialogs.SoftParams";
+    private static final String DIALOG_ACCESS = "aiki.gui.dialogs.SoftParams";
 
     private static final SoftParams DIALOG = new SoftParams();
     private static final String TITLE = "title";

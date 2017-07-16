@@ -4,7 +4,7 @@ import code.datacheck.CheckedData;
 @CheckedData
 public final class SellingItem extends Item {
 
-    private static final String ITEM = "dbpokemon.fight.items.SellingItem";
+    private static final String ITEM = "aiki.fight.items.SellingItem";
 
     @Override
     public String getItemType() {

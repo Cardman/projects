@@ -80,7 +80,7 @@ public final class Fighter {
 
     private static StringMap<String> _messages_ = new StringMap<String>();
 
-    private static final String FIGHTER = "dbpokemon.game.fight.Fighter";
+    private static final String FIGHTER = "aiki.game.fight.Fighter";
 
     private static final String WON_EV = "wonEv";
 

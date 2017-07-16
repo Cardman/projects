@@ -72,8 +72,8 @@ import aiki.main.VideoLoading;
 
 public class Battle extends ChildFrame {
 
-    private static final String BATTLE = "dbpokemon.gui.components.fight.Battle";
-    private static final String ACTION_TYPE = "dbpokemon.game.fight.enums.ActionType";
+    private static final String BATTLE = "aiki.gui.components.fight.Battle";
+    private static final String ACTION_TYPE = "aiki.game.fight.enums.ActionType";
 
     private static final String RETURN_LINE = "\n";
 

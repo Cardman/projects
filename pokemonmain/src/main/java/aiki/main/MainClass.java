@@ -1,4 +1,4 @@
-package dbpokemon.main;
+package aiki.main;
 
 import aiki.main.LaunchingPokemon;
 
