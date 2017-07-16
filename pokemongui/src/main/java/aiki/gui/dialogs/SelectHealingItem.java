@@ -32,7 +32,7 @@ public final class SelectHealingItem extends SelectDialog {
     private StringMap<String> messages;
 
     private SelectHealingItem() {
-    	setAccessFile(DIALOG_ACCESS);
+        setAccessFile(DIALOG_ACCESS);
     }
 
     public static void setSelectHealingItem(GroupFrame _parent, FacadeGame _facade) {

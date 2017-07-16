@@ -253,7 +253,7 @@ public final class MainWindow extends NetGroupFrame {
 //    private final boolean standalone;
 
     public MainWindow() {
-    	setAccessFile(DIALOG_ACCESS);
+        setAccessFile(DIALOG_ACCESS);
         setFocusable(true);
         setFocusableWindowState(true);
         facade = new FacadeGame();

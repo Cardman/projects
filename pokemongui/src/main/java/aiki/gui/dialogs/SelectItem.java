@@ -41,7 +41,7 @@ public final class SelectItem extends SelectDialog {
     private StringMap<String> messages;
 
     private SelectItem() {
-    	setAccessFile(DIALOG_ACCESS);
+        setAccessFile(DIALOG_ACCESS);
     }
 
     public static void setSelectItem(GroupFrame _parent, FacadeGame _facade, boolean _buy, boolean _sell) {

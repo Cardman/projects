@@ -51,7 +51,7 @@ public final class FileOpenDialog extends FileDialog implements SingleFileSelect
     private JLabel foundFiles = new JLabel();
 
     private FileOpenDialog(){
-    	setAccessFile(DIALOG_ACCESS);
+        setAccessFile(DIALOG_ACCESS);
         searchingPanel.setLayout(new BoxLayout(searchingPanel, BoxLayout.PAGE_AXIS));
     }
     public static void setFileOpenDialog(GroupFrame _w,String _language,boolean _currentFolderRoot, String _extension, String _folder, String... _excludedFolders) {

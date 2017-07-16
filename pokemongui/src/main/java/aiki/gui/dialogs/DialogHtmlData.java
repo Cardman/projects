@@ -33,7 +33,7 @@ public final class DialogHtmlData extends Dialog {
     private StringMap<String> messages;
 
     private DialogHtmlData() {
-    	setAccessFile(DIALOG_ACCESS);
+        setAccessFile(DIALOG_ACCESS);
     }
 
     @Override

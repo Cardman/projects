@@ -30,7 +30,7 @@ public final class DialogGameProgess extends Dialog {
     private StringMap<String> messages;
 
     private DialogGameProgess() {
-    	setAccessFile(DIALOG_ACCESS);
+        setAccessFile(DIALOG_ACCESS);
     }
 
     public static void setGameProgress(MainWindow _window, String _title, FacadeGame _facade) {

@@ -42,7 +42,7 @@ public final class DialogServer extends Dialog implements AbstractDialogServer{
     private EnumMap<IpType,String> messagesIpEnum;
 
     private DialogServer() {
-    	setAccessFile(DIALOG_ACCESS);
+        setAccessFile(DIALOG_ACCESS);
     }
 
     public static void setDialogServer(GroupFrame _fenetre) {

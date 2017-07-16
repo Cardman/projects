@@ -43,7 +43,7 @@ public final class ConsultHosts extends Dialog {
 //    private MainWindow window;
 
     private ConsultHosts() {
-    	setAccessFile(DIALOG_ACCESS);
+        setAccessFile(DIALOG_ACCESS);
     }
 
     public static void setConsultHosts(MainWindow _frame, FacadeGame _facade) {

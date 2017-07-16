@@ -32,7 +32,7 @@ public final class SelectTm extends SelectDialog {
     private StringMap<String> messages;
 
     private SelectTm() {
-    	setAccessFile(DIALOG_ACCESS);
+        setAccessFile(DIALOG_ACCESS);
     }
 
     public static void setSelectTm(GroupFrame _parent, FacadeGame _facade, boolean _buy) {

@@ -51,7 +51,7 @@ public final class SoftParams extends Dialog {
     private boolean ok;
 
     private SoftParams() {
-    	setAccessFile(DIALOG_ACCESS);
+        setAccessFile(DIALOG_ACCESS);
     }
 
     public static void setSoftParams(MainWindow _window, LoadingGame _loading) {

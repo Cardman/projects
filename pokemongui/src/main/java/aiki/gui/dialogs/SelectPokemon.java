@@ -40,7 +40,7 @@ public final class SelectPokemon extends SelectDialog {
     private StringMap<String> messages;
 
     private SelectPokemon() {
-    	setAccessFile(DIALOG_ACCESS);
+        setAccessFile(DIALOG_ACCESS);
     }
 
     public static void setSelectPokemon(MainWindow _parent, FacadeGame _facade, boolean _storage) {

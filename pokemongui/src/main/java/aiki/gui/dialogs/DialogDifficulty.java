@@ -38,7 +38,7 @@ public final class DialogDifficulty extends Dialog {
     private FacadeGame facade;
 
     private DialogDifficulty() {
-    	setAccessFile(DIALOG_ACCESS);
+        setAccessFile(DIALOG_ACCESS);
     }
 
     public static void setDialogDifficulty(MainWindow _window, String _title, FacadeGame _facade) {

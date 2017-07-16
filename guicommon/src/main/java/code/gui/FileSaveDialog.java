@@ -56,7 +56,7 @@ public final class FileSaveDialog extends FileDialog implements SingleFileSelect
     private StringMap<String> messages;
 
     private FileSaveDialog() {
-    	setAccessFile(DIALOG_ACCESS);
+        setAccessFile(DIALOG_ACCESS);
     }
 
     public static void setFileSaveDialog(GroupFrame _w,String _language,boolean _currentFolderRoot, String _extension, String _folder, String... _excludedFolders) {

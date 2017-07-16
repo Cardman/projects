@@ -32,7 +32,7 @@ public final class SelectEgg extends SelectDialog {
     private StringMap<String> messages;
 
     private SelectEgg() {
-    	setAccessFile(DIALOG_ACCESS);
+        setAccessFile(DIALOG_ACCESS);
     }
 
     public static void setSelectEgg(GroupFrame _parent, FacadeGame _facade) {

@@ -34,7 +34,7 @@ public final class SelectHealedMove extends Dialog {
     private StringMap<String> messages;
 
     private SelectHealedMove() {
-    	setAccessFile(DIALOG_ACCESS);
+        setAccessFile(DIALOG_ACCESS);
     }
 
     public static void setSelectHealedMove(GroupFrame _parent, FacadeGame _facade) {
