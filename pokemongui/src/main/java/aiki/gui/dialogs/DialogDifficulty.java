@@ -9,16 +9,14 @@ import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
 import javax.swing.WindowConstants;
 
-import code.gui.Dialog;
-import code.gui.LabelButton;
-import code.gui.SessionEditorPane;
-import code.stream.ExtractFromFiles;
-import code.util.StringMap;
-import code.util.consts.Constants;
 import aiki.Resources;
 import aiki.facade.FacadeGame;
 import aiki.gui.MainWindow;
 import aiki.gui.threads.AfterSettingDifficutyThread;
+import code.gui.Dialog;
+import code.gui.LabelButton;
+import code.gui.SessionEditorPane;
+import code.util.StringMap;
 
 public final class DialogDifficulty extends Dialog {
     private static final String DIALOG_ACCESS = "dbpokemon.gui.dialogs.DialogDifficulty";
@@ -40,6 +38,7 @@ public final class DialogDifficulty extends Dialog {
     private FacadeGame facade;
 
     private DialogDifficulty() {
+    	setAccessFile(DIALOG_ACCESS);
     }
 
     public static void setDialogDifficulty(MainWindow _window, String _title, FacadeGame _facade) {
@@ -51,7 +50,7 @@ public final class DialogDifficulty extends Dialog {
         facade = _facade;
         window = _window;
         //super(_window, true);
-        messages = ExtractFromFiles.getMessagesFromLocaleClass(Resources.MESSAGES_FOLDER, Constants.getLanguage(), DIALOG_ACCESS);
+        messages = getMessages(Resources.MESSAGES_FOLDER);
         setModal(true);
         setTitle(_title);
         setLocationRelativeTo(_window);

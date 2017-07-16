@@ -5,18 +5,16 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.WindowConstants;
 
-import code.gui.GroupFrame;
-import code.gui.LabelButton;
-import code.gui.events.ClosingDialogEvent;
-import code.stream.ExtractFromFiles;
-import code.util.CustList;
-import code.util.StringMap;
-import code.util.consts.Constants;
 import aiki.Resources;
 import aiki.facade.FacadeGame;
 import aiki.gui.MainWindow;
 import aiki.gui.components.PaginatorHealingItem;
 import aiki.gui.dialogs.events.ValidateSelectionEvent;
+import code.gui.GroupFrame;
+import code.gui.LabelButton;
+import code.gui.events.ClosingDialogEvent;
+import code.util.CustList;
+import code.util.StringMap;
 
 public final class SelectHealingItem extends SelectDialog {
     private static final String DIALOG_ACCESS = "dbpokemon.gui.dialogs.SelectHealingItem";
@@ -34,6 +32,7 @@ public final class SelectHealingItem extends SelectDialog {
     private StringMap<String> messages;
 
     private SelectHealingItem() {
+    	setAccessFile(DIALOG_ACCESS);
     }
 
     public static void setSelectHealingItem(GroupFrame _parent, FacadeGame _facade) {
@@ -42,7 +41,7 @@ public final class SelectHealingItem extends SelectDialog {
 
     private void init(GroupFrame _parent, FacadeGame _facade) {
         setDialogIcon(_parent);
-        messages = ExtractFromFiles.getMessagesFromLocaleClass(Resources.MESSAGES_FOLDER, Constants.getLanguage(), DIALOG_ACCESS);
+        messages = getMessages(Resources.MESSAGES_FOLDER);
         setTitle(messages.getVal(TITLE));
         facade = _facade;
 //        ok = false;

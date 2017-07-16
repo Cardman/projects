@@ -12,7 +12,6 @@ import code.gui.events.CancelSelectFileEvent;
 import code.gui.events.CreateFolderEvent;
 import code.gui.events.SubmitKeyEvent;
 import code.gui.events.SubmitMouseEvent;
-import code.stream.ExtractFromFiles;
 import code.stream.StreamTextFile;
 import code.util.StringList;
 import code.util.StringMap;
@@ -57,6 +56,7 @@ public final class FileSaveDialog extends FileDialog implements SingleFileSelect
     private StringMap<String> messages;
 
     private FileSaveDialog() {
+    	setAccessFile(DIALOG_ACCESS);
     }
 
     public static void setFileSaveDialog(GroupFrame _w,String _language,boolean _currentFolderRoot, String _extension, String _folder, String... _excludedFolders) {
@@ -70,7 +70,7 @@ public final class FileSaveDialog extends FileDialog implements SingleFileSelect
     }
 
     private void initSaveDialog() {
-        messages = ExtractFromFiles.getMessagesFromLocaleClass(GuiConstants.FOLDER_MESSAGES_GUI, Constants.getLanguage(), DIALOG_ACCESS);
+        messages = getMessages(GuiConstants.FOLDER_MESSAGES_GUI);
         getFileName().addActionListener(new SubmitKeyEvent(this));
         LabelButton action_ = new LabelButton(messages.getVal(SAVE));
         action_.addMouseListener(new SubmitMouseEvent(this));

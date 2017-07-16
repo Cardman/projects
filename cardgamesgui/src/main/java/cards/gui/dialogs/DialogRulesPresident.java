@@ -34,7 +34,7 @@ public final class DialogRulesPresident extends DialogPresident implements Dialo
         validated = false;
         Container container_=new Container();
         container_.setLayout(new BorderLayout());
-        initMessageName(DIALOG_ACCESS);
+        initMessageName();
         initJt(null, _enabledChangingNbPlayers, _nbPlayers);
 
         container_.add(getJt(),BorderLayout.CENTER);

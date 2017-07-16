@@ -14,7 +14,6 @@ import code.gui.events.SearchingEvent;
 import code.gui.events.StopSearchingEvent;
 import code.gui.events.SubmitKeyEvent;
 import code.gui.events.SubmitMouseEvent;
-import code.stream.ExtractFromFiles;
 import code.util.CustList;
 import code.util.StringList;
 import code.util.StringMap;
@@ -52,6 +51,7 @@ public final class FileOpenDialog extends FileDialog implements SingleFileSelect
     private JLabel foundFiles = new JLabel();
 
     private FileOpenDialog(){
+    	setAccessFile(DIALOG_ACCESS);
         searchingPanel.setLayout(new BoxLayout(searchingPanel, BoxLayout.PAGE_AXIS));
     }
     public static void setFileOpenDialog(GroupFrame _w,String _language,boolean _currentFolderRoot, String _extension, String _folder, String... _excludedFolders) {
@@ -63,7 +63,7 @@ public final class FileOpenDialog extends FileDialog implements SingleFileSelect
 //    private void initFileOpenDialog(GroupFrame _w,String _language,boolean _currentFolderRoot, String _extension, String _folder, String... _excludedFolders) {
 //    }
     private void initFileOpenDialog() {
-        messages = ExtractFromFiles.getMessagesFromLocaleClass(GuiConstants.FOLDER_MESSAGES_GUI, Constants.getLanguage(), DIALOG_ACCESS);
+        messages = getMessages(GuiConstants.FOLDER_MESSAGES_GUI);
         getFileName().addActionListener(new SubmitKeyEvent(this));
         LabelButton action_ = new LabelButton(messages.getVal(OPEN));
         action_.addMouseListener(new SubmitMouseEvent(this));

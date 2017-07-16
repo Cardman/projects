@@ -4,12 +4,6 @@ import java.awt.BorderLayout;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
-import code.gui.LabelButton;
-import code.gui.SessionEditorPane;
-import code.gui.events.ClosingDialogEvent;
-import code.stream.ExtractFromFiles;
-import code.util.StringMap;
-import code.util.consts.Constants;
 import aiki.Resources;
 import aiki.facade.FacadeGame;
 import aiki.gui.MainWindow;
@@ -17,6 +11,10 @@ import aiki.gui.components.PaginatorPokemon;
 import aiki.gui.dialogs.events.SeePkDetailEvent;
 import aiki.gui.dialogs.events.ValidateSelectionEvent;
 import aiki.map.pokemon.UsablePokemon;
+import code.gui.LabelButton;
+import code.gui.SessionEditorPane;
+import code.gui.events.ClosingDialogEvent;
+import code.util.StringMap;
 
 public final class SelectPokemon extends SelectDialog {
     private static final String DIALOG_ACCESS = "dbpokemon.gui.dialogs.SelectPokemon";
@@ -42,6 +40,7 @@ public final class SelectPokemon extends SelectDialog {
     private StringMap<String> messages;
 
     private SelectPokemon() {
+    	setAccessFile(DIALOG_ACCESS);
     }
 
     public static void setSelectPokemon(MainWindow _parent, FacadeGame _facade, boolean _storage) {
@@ -51,7 +50,7 @@ public final class SelectPokemon extends SelectDialog {
     private void init(MainWindow _parent, FacadeGame _facade, boolean _storage) {
         //super(_parent, true);
         setDialogIcon(_parent);
-        messages = ExtractFromFiles.getMessagesFromLocaleClass(Resources.MESSAGES_FOLDER, Constants.getLanguage(), DIALOG_ACCESS);
+        messages = getMessages(Resources.MESSAGES_FOLDER);
 //        window = _parent;
         setTitle(messages.getVal(TITLE));
         facade = _facade;

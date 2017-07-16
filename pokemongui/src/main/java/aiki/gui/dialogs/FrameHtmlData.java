@@ -40,7 +40,8 @@ public final class FrameHtmlData extends ChildFrame {
     private ProgressingWebDialog dialog;
 
     public FrameHtmlData(MainWindow _parent, String _title, SessionEditorPane _session) {
-        messages = ExtractFromFiles.getMessagesFromLocaleClass(Resources.MESSAGES_FOLDER, Constants.getLanguage(), DIALOG_ACCESS);
+    	setAccessFile(DIALOG_ACCESS);
+        messages = getMessages(Resources.MESSAGES_FOLDER);
         setDialogIcon(_parent);
         setLocationRelativeTo(_parent);
         setTitle(_title);

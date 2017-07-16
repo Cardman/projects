@@ -10,15 +10,6 @@ import javax.swing.JSpinner;
 import javax.swing.SpinnerListModel;
 import javax.swing.SpinnerNumberModel;
 
-import code.gui.LabelButton;
-import code.stream.ExtractFromFiles;
-import code.util.CustList;
-import code.util.EnumList;
-import code.util.EnumMap;
-import code.util.Numbers;
-import code.util.StringMap;
-import code.util.consts.Constants;
-import code.util.ints.Listable;
 import cards.consts.MixCardsChoice;
 import cards.gui.comboboxes.ComboBoxEnumCards;
 import cards.gui.comboboxes.ComboBoxMixCards;
@@ -35,6 +26,13 @@ import cards.tarot.enumerations.EndDealTarot;
 import cards.tarot.enumerations.Handfuls;
 import cards.tarot.enumerations.Miseres;
 import cards.tarot.enumerations.ModeTarot;
+import code.gui.LabelButton;
+import code.util.CustList;
+import code.util.EnumList;
+import code.util.EnumMap;
+import code.util.Numbers;
+import code.util.StringMap;
+import code.util.ints.Listable;
 
 public abstract class DialogTarot extends DialogCards implements DialogVaryingPlayerNumber {
 
@@ -249,8 +247,8 @@ public abstract class DialogTarot extends DialogCards implements DialogVaryingPl
         getJt().add(getMessages().getVal(REPARTITION),players);
     }
 
-    protected void initMessageName(String _access) {
-        setMessages(ExtractFromFiles.getMessagesFromLocaleClass(FileConst.FOLDER_MESSAGES_GUI, Constants.getLanguage(), _access));
+    protected void initMessageName() {
+        setMessages(getMessages(FileConst.FOLDER_MESSAGES_GUI));
     }
 
     /**Met en place le contenu de la boite de dialogue

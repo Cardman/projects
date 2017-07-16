@@ -8,15 +8,13 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.WindowConstants;
 
-import code.gui.Dialog;
-import code.gui.LabelButton;
-import code.gui.SessionEditorPane;
-import code.stream.ExtractFromFiles;
-import code.util.StringMap;
-import code.util.consts.Constants;
 import aiki.Resources;
 import aiki.facade.FacadeGame;
 import aiki.gui.MainWindow;
+import code.gui.Dialog;
+import code.gui.LabelButton;
+import code.gui.SessionEditorPane;
+import code.util.StringMap;
 
 public final class DialogGameProgess extends Dialog {
     private static final String DIALOG_ACCESS = "dbpokemon.gui.dialogs.DialogGameProgess";
@@ -32,6 +30,7 @@ public final class DialogGameProgess extends Dialog {
     private StringMap<String> messages;
 
     private DialogGameProgess() {
+    	setAccessFile(DIALOG_ACCESS);
     }
 
     public static void setGameProgress(MainWindow _window, String _title, FacadeGame _facade) {
@@ -41,7 +40,7 @@ public final class DialogGameProgess extends Dialog {
     private void init(MainWindow _window, String _title, FacadeGame _facade) {
         //super(_window, true);
         setDialogIcon(_window);
-        messages = ExtractFromFiles.getMessagesFromLocaleClass(Resources.MESSAGES_FOLDER, Constants.getLanguage(), DIALOG_ACCESS);
+        messages = getMessages(Resources.MESSAGES_FOLDER);
         setModal(true);
         setTitle(_title);
         setLocationRelativeTo(_window);

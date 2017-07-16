@@ -5,15 +5,13 @@ import javax.swing.JCheckBox;
 import javax.swing.JPanel;
 import javax.swing.WindowConstants;
 
-import code.gui.Dialog;
-import code.gui.LabelButton;
-import code.stream.ExtractFromFiles;
-import code.util.StringMap;
-import code.util.consts.Constants;
 import aiki.Resources;
 import aiki.game.params.LoadingGame;
 import aiki.gui.MainWindow;
 import aiki.gui.dialogs.events.ValidateSoftParams;
+import code.gui.Dialog;
+import code.gui.LabelButton;
+import code.util.StringMap;
 
 public final class SoftParams extends Dialog {
     private static final String DIALOG_ACCESS = "dbpokemon.gui.dialogs.SoftParams";
@@ -53,6 +51,7 @@ public final class SoftParams extends Dialog {
     private boolean ok;
 
     private SoftParams() {
+    	setAccessFile(DIALOG_ACCESS);
     }
 
     public static void setSoftParams(MainWindow _window, LoadingGame _loading) {
@@ -61,7 +60,7 @@ public final class SoftParams extends Dialog {
 
     private void init(MainWindow _window, LoadingGame _loading) {
         setDialogIcon(_window);
-        messages = ExtractFromFiles.getMessagesFromLocaleClass(Resources.MESSAGES_FOLDER, Constants.getLanguage(), DIALOG_ACCESS);
+        messages = getMessages(Resources.MESSAGES_FOLDER);
         ok = false;
         setTitle(messages.getVal(TITLE));
         setLocationRelativeTo(_window);

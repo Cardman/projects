@@ -5,18 +5,16 @@ import javax.swing.BoxLayout;
 import javax.swing.JPanel;
 import javax.swing.WindowConstants;
 
-import code.gui.Dialog;
-import code.gui.GroupFrame;
-import code.gui.LabelButton;
-import code.gui.events.ClosingDialogEvent;
-import code.stream.ExtractFromFiles;
-import code.util.StringList;
-import code.util.StringMap;
-import code.util.consts.Constants;
 import aiki.Resources;
 import aiki.comparators.TrMovesComparator;
 import aiki.facade.FacadeGame;
 import aiki.gui.components.walk.HealedMoveEvent;
+import code.gui.Dialog;
+import code.gui.GroupFrame;
+import code.gui.LabelButton;
+import code.gui.events.ClosingDialogEvent;
+import code.util.StringList;
+import code.util.StringMap;
 
 public final class SelectHealedMove extends Dialog {
     private static final String DIALOG_ACCESS = "dbpokemon.gui.dialogs.SelectHealedMove";
@@ -36,6 +34,7 @@ public final class SelectHealedMove extends Dialog {
     private StringMap<String> messages;
 
     private SelectHealedMove() {
+    	setAccessFile(DIALOG_ACCESS);
     }
 
     public static void setSelectHealedMove(GroupFrame _parent, FacadeGame _facade) {
@@ -44,7 +43,7 @@ public final class SelectHealedMove extends Dialog {
 
     private void init(GroupFrame _parent, FacadeGame _facade) {
         setDialogIcon(_parent);
-        messages = ExtractFromFiles.getMessagesFromLocaleClass(Resources.MESSAGES_FOLDER, Constants.getLanguage(), DIALOG_ACCESS);
+        messages = getMessages(Resources.MESSAGES_FOLDER);
         setTitle(messages.getVal(TITLE));
         facade = _facade;
         JPanel contentPane_ = new JPanel();

@@ -131,7 +131,7 @@ public final class EditorBelote extends DialogBelote implements SetterSelectedCa
         getJt().removeAll();
         Container container_=new Container();
         container_.setLayout(new BorderLayout());
-        initMessageName(DIALOG_ACCESS);
+        initMessageName();
         Numbers<Integer> decks_ = new Numbers<Integer>();
         //Panneau Distribution
         for(int b=FileConst.MIN_DEALS;b<=FileConst.MAX_DEALS;b++) {

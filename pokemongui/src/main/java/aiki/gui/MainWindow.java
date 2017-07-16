@@ -18,36 +18,6 @@ import javax.swing.JTextField;
 import javax.swing.KeyStroke;
 import javax.swing.WindowConstants;
 
-import code.gui.Clock;
-import code.gui.ConfirmDialog;
-import code.gui.FileOpenDialog;
-import code.gui.FileSaveDialog;
-import code.gui.GroupFrame;
-import code.gui.LabelButton;
-import code.gui.LanguageDialog;
-import code.gui.Menu;
-import code.gui.MenuItem;
-import code.gui.SessionEditorPane;
-import code.gui.SetStyle;
-import code.gui.SoftApplicationCore;
-import code.gui.ThreadInvoker;
-import code.gui.events.QuittingEvent;
-import code.images.ConverterBufferedImage;
-import code.network.AttemptConnecting;
-import code.network.BasicClient;
-import code.network.Exiting;
-import code.network.NetGroupFrame;
-import code.stream.ExtractFromFiles;
-import code.stream.StreamTextFile;
-import code.util.CustList;
-import code.util.EnumMap;
-import code.util.NatTreeMap;
-import code.util.Numbers;
-import code.util.PairNumber;
-import code.util.StringList;
-import code.util.StringMap;
-import code.util.consts.ConstFiles;
-import code.util.consts.Constants;
 import aiki.DataBase;
 import aiki.ImageHeroKey;
 import aiki.Resources;
@@ -101,6 +71,35 @@ import aiki.network.stream.NetPokemon;
 import aiki.network.stream.NewPlayer;
 import aiki.network.stream.Ok;
 import aiki.network.stream.Quit;
+import code.gui.Clock;
+import code.gui.ConfirmDialog;
+import code.gui.FileOpenDialog;
+import code.gui.FileSaveDialog;
+import code.gui.GroupFrame;
+import code.gui.LabelButton;
+import code.gui.LanguageDialog;
+import code.gui.Menu;
+import code.gui.MenuItem;
+import code.gui.SessionEditorPane;
+import code.gui.SetStyle;
+import code.gui.SoftApplicationCore;
+import code.gui.ThreadInvoker;
+import code.gui.events.QuittingEvent;
+import code.images.ConverterBufferedImage;
+import code.network.AttemptConnecting;
+import code.network.BasicClient;
+import code.network.Exiting;
+import code.network.NetGroupFrame;
+import code.stream.StreamTextFile;
+import code.util.CustList;
+import code.util.EnumMap;
+import code.util.NatTreeMap;
+import code.util.Numbers;
+import code.util.PairNumber;
+import code.util.StringList;
+import code.util.StringMap;
+import code.util.consts.ConstFiles;
+import code.util.consts.Constants;
 
 public final class MainWindow extends NetGroupFrame {
     //implemented SettingInfosAfterCompiler
@@ -254,6 +253,7 @@ public final class MainWindow extends NetGroupFrame {
 //    private final boolean standalone;
 
     public MainWindow() {
+    	setAccessFile(DIALOG_ACCESS);
         setFocusable(true);
         setFocusableWindowState(true);
         facade = new FacadeGame();
@@ -420,7 +420,7 @@ public final class MainWindow extends NetGroupFrame {
     }
     public void initMessages() {
         Game.initMessages();
-        _messages_ = ExtractFromFiles.getMessagesFromLocaleClass(Resources.MESSAGES_FOLDER, Constants.getLanguage(), DIALOG_ACCESS);
+        _messages_ = getMessages(Resources.MESSAGES_FOLDER);
         file.setText(_messages_.getVal(FILE));
         zipLoad.setText(_messages_.getVal(ZIP_LOAD));
         gameLoad.setText(_messages_.getVal(GAME_LOAD));

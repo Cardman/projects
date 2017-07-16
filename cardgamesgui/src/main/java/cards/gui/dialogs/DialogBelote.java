@@ -7,13 +7,6 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JSpinner;
 
-import code.stream.ExtractFromFiles;
-import code.util.CustList;
-import code.util.EnumList;
-import code.util.EnumMap;
-import code.util.StringMap;
-import code.util.consts.Constants;
-import code.util.ints.Listable;
 import cards.belote.RulesBelote;
 import cards.belote.enumerations.BeloteTrumpPartner;
 import cards.belote.enumerations.BidBelote;
@@ -22,6 +15,11 @@ import cards.belote.enumerations.DeclaresBelote;
 import cards.consts.MixCardsChoice;
 import cards.gui.comboboxes.ComboBoxEnumCards;
 import cards.gui.comboboxes.ComboBoxMixCards;
+import code.util.CustList;
+import code.util.EnumList;
+import code.util.EnumMap;
+import code.util.StringMap;
+import code.util.ints.Listable;
 
 public abstract class DialogBelote extends DialogCards {
 
@@ -158,8 +156,8 @@ public abstract class DialogBelote extends DialogCards {
     /**Met en place le contenu de la boite de dialogue
     Pour les jeux et les joueurs on a besoin d'onglets pour utiliser moins de place sur l'ecran*/
     public abstract void setDialogue();
-    protected void initMessageName(String _access) {
-        setMessages(ExtractFromFiles.getMessagesFromLocaleClass(FileConst.FOLDER_MESSAGES_GUI, Constants.getLanguage(), _access));
+    protected void initMessageName() {
+        setMessages(getMessages(FileConst.FOLDER_MESSAGES_GUI));
     }
     /**Enregistre les informations dans une variable et ferme la boite de dialogue*/
     protected void validateRules() {

@@ -3,9 +3,7 @@
 package code.gui;
 import code.gui.events.CancelSelectFileEvent;
 import code.gui.events.SubmitMouseEvent;
-import code.stream.ExtractFromFiles;
 import code.util.StringMap;
-import code.util.consts.Constants;
 
 /**
  */
@@ -20,9 +18,10 @@ public final class FolderOpenDialog extends FileDialog implements SingleFileSele
 
     private static final String OPEN = "open";
 
-    private StringMap<String> messages = ExtractFromFiles.getMessagesFromLocaleClass(GuiConstants.FOLDER_MESSAGES_GUI, Constants.getLanguage(),DIALOG_ACCESS);
+    private StringMap<String> messages;
 
     private FolderOpenDialog() {
+    	setAccessFile(DIALOG_ACCESS);
     }
     public static void setFolderOpenDialog(GroupFrame _w, String _language,
             boolean _currentFolderRoot) {
@@ -35,6 +34,7 @@ public final class FolderOpenDialog extends FileDialog implements SingleFileSele
     */
     private void initFolderOpenDialog(GroupFrame _w, String _language,
             boolean _currentFolderRoot) {
+    	messages = getMessages(GuiConstants.FOLDER_MESSAGES_GUI);
         init(_w, _language, _currentFolderRoot, false, EMPTY_STRING, EMPTY_STRING);
         LabelButton action_ = new LabelButton(messages.getVal(OPEN));
         action_.addMouseListener(new SubmitMouseEvent(this));

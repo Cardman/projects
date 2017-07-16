@@ -6,6 +6,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.WindowConstants;
 
+import aiki.Resources;
 import code.gui.AbstractDialogServer;
 import code.gui.Dialog;
 import code.gui.GroupFrame;
@@ -15,12 +16,9 @@ import code.gui.events.CreateServerEvent;
 import code.gui.events.JoinServerEvent;
 import code.network.ComboBoxIpType;
 import code.network.enums.IpType;
-import code.stream.ExtractFromFiles;
 import code.util.EnumList;
 import code.util.EnumMap;
 import code.util.StringMap;
-import code.util.consts.Constants;
-import aiki.Resources;
 
 public final class DialogServer extends Dialog implements AbstractDialogServer{
     private static final String DIALOG_ACCESS = "dbpokemon.gui.dialogs.DialogServer";
@@ -44,6 +42,7 @@ public final class DialogServer extends Dialog implements AbstractDialogServer{
     private EnumMap<IpType,String> messagesIpEnum;
 
     private DialogServer() {
+    	setAccessFile(DIALOG_ACCESS);
     }
 
     public static void setDialogServer(GroupFrame _fenetre) {
@@ -53,7 +52,7 @@ public final class DialogServer extends Dialog implements AbstractDialogServer{
         setDialogIcon(_fenetre);
         join = false;
         create = false;
-        messages = ExtractFromFiles.getMessagesFromLocaleClass(Resources.MESSAGES_FOLDER, Constants.getLanguage(), DIALOG_ACCESS);
+        messages = getMessages(Resources.MESSAGES_FOLDER);
 //        messagesIp = FormatHtml.getMessagesFromLocaleClass(Resources.MESSAGES_FOLDER, Constants.getLanguage(), IpType.class);
         messagesIpEnum = new EnumMap<IpType,String>();
 //        for (String i: messagesIp.getKeys()) {

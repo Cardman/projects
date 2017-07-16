@@ -5,15 +5,6 @@ import java.awt.GridLayout;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-import code.gui.Dialog;
-import code.gui.LabelButton;
-import code.gui.SessionEditorPane;
-import code.stream.ExtractFromFiles;
-import code.util.EqList;
-import code.util.NatTreeMap;
-import code.util.StringList;
-import code.util.StringMap;
-import code.util.consts.Constants;
 import aiki.Resources;
 import aiki.facade.FacadeGame;
 import aiki.game.HostPokemonDuo;
@@ -22,6 +13,13 @@ import aiki.gui.listeners.SelectHostedPokemon;
 import aiki.map.places.Place;
 import aiki.map.pokemon.PokemonPlayer;
 import aiki.util.Coords;
+import code.gui.Dialog;
+import code.gui.LabelButton;
+import code.gui.SessionEditorPane;
+import code.util.EqList;
+import code.util.NatTreeMap;
+import code.util.StringList;
+import code.util.StringMap;
 
 public final class ConsultHosts extends Dialog {
     private static final String DIALOG_ACCESS = "dbpokemon.gui.dialogs.ConsultHosts";
@@ -45,6 +43,7 @@ public final class ConsultHosts extends Dialog {
 //    private MainWindow window;
 
     private ConsultHosts() {
+    	setAccessFile(DIALOG_ACCESS);
     }
 
     public static void setConsultHosts(MainWindow _frame, FacadeGame _facade) {
@@ -53,7 +52,7 @@ public final class ConsultHosts extends Dialog {
 
     private void init(MainWindow _frame, FacadeGame _facade) {
         setDialogIcon(_frame);
-        messages = ExtractFromFiles.getMessagesFromLocaleClass(Resources.MESSAGES_FOLDER, Constants.getLanguage(), DIALOG_ACCESS);
+        messages = getMessages(Resources.MESSAGES_FOLDER);
         //super(_frame, true);
 //        window = _frame;
         setTitle(messages.getVal(TITLE));

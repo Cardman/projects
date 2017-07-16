@@ -31,7 +31,7 @@ public final class DialogRulesBelote extends DialogBelote implements DialogRules
         validated = false;
         Container container_=new Container();
         container_.setLayout(new BorderLayout());
-        initMessageName(DIALOG_ACCESS);
+        initMessageName();
         initJt(null);
 
         container_.add(getJt(),BorderLayout.CENTER);

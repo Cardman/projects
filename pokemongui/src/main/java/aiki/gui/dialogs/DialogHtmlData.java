@@ -10,14 +10,12 @@ import javax.swing.JTextField;
 import javax.swing.ToolTipManager;
 import javax.swing.WindowConstants;
 
+import aiki.Resources;
 import code.gui.Dialog;
 import code.gui.GroupFrame;
 import code.gui.LabelButton;
 import code.gui.SessionEditorPane;
-import code.stream.ExtractFromFiles;
 import code.util.StringMap;
-import code.util.consts.Constants;
-import aiki.Resources;
 
 public final class DialogHtmlData extends Dialog {
     private static final String DIALOG_ACCESS = "dbpokemon.gui.dialogs.DialogHtmlData";
@@ -35,6 +33,7 @@ public final class DialogHtmlData extends Dialog {
     private StringMap<String> messages;
 
     private DialogHtmlData() {
+    	setAccessFile(DIALOG_ACCESS);
     }
 
     @Override
@@ -78,7 +77,7 @@ public final class DialogHtmlData extends Dialog {
     }
 
     private void init(Window _parent, SessionEditorPane _session) {
-        messages = ExtractFromFiles.getMessagesFromLocaleClass(Resources.MESSAGES_FOLDER, Constants.getLanguage(), DIALOG_ACCESS);
+        messages = getMessages(Resources.MESSAGES_FOLDER);
         setLocationRelativeTo(_parent);
         session = _session;
         _session.setFrame(this);

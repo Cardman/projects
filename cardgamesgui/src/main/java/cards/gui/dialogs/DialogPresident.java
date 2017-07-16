@@ -8,14 +8,6 @@ import javax.swing.JPanel;
 import javax.swing.JSpinner;
 import javax.swing.SpinnerListModel;
 
-import code.stream.ExtractFromFiles;
-import code.util.EnumList;
-import code.util.EnumMap;
-import code.util.Numbers;
-import code.util.StringList;
-import code.util.StringMap;
-import code.util.consts.Constants;
-import code.util.ints.Listable;
 import cards.consts.MixCardsChoice;
 import cards.consts.Suit;
 import cards.gui.comboboxes.ComboBoxEnumCards;
@@ -25,6 +17,12 @@ import cards.gui.dialogs.events.ListenerPlayers;
 import cards.gui.dialogs.events.ListenerStacks;
 import cards.president.RulesPresident;
 import cards.president.enumerations.EqualtyPlaying;
+import code.util.EnumList;
+import code.util.EnumMap;
+import code.util.Numbers;
+import code.util.StringList;
+import code.util.StringMap;
+import code.util.ints.Listable;
 
 public abstract class DialogPresident extends DialogCards implements DialogVaryingPlayerNumber {
 
@@ -70,8 +68,8 @@ public abstract class DialogPresident extends DialogCards implements DialogVaryi
 
     public abstract void setDialogue(boolean _enabledChangingNbPlayers,int _nbPlayers);
 
-    protected void initMessageName(String _access) {
-        setMessages(ExtractFromFiles.getMessagesFromLocaleClass(FileConst.FOLDER_MESSAGES_GUI, Constants.getLanguage(), _access));
+    protected void initMessageName() {
+        setMessages(getMessages(FileConst.FOLDER_MESSAGES_GUI));
     }
 
     protected void initJt(JSpinner _nbGames, boolean _enabledChangingNbPlayers, int _nbPlayers) {
