@@ -4,15 +4,15 @@
 <java.lang.Boolean class="aiki.fight.moves.MoveData" field="notTranslated" value="false"/>
 <java.lang.Short class="aiki.fight.moves.MoveData" field="pp" value="5"/>
 <sl class="aiki.fight.moves.MoveData" field="types">
-<java.lang.String class="util.List" value="PSY"/>
+<java.lang.String class="a" value="PSY"/>
 </sl>
 <sl class="aiki.fight.moves.MoveData" field="boostedTypes">
-<java.lang.String class="util.List" value="PSY"/>
+<java.lang.String class="a" value="PSY"/>
 </sl>
 <java.lang.Byte class="aiki.fight.moves.MoveData" field="priority" value="0"/>
 <java.lang.String class="aiki.fight.moves.MoveData" field="accuracy" value="1"/>
 <l class="aiki.fight.moves.MoveData" field="effects">
-<aiki.fight.moves.effects.EffectGlobal class="util.List">
+<aiki.fight.moves.effects.EffectGlobal class="a">
 <java.lang.Boolean class="aiki.fight.moves.effects.EffectGlobal" field="priseEnComptePkLanceur" value="false"/>
 <java.lang.Boolean class="aiki.fight.moves.effects.EffectGlobal" field="weather" value="false"/>
 <java.lang.Boolean class="aiki.fight.moves.effects.EffectGlobal" field="canceledIfUsed" value="false"/>
@@ -26,23 +26,23 @@
 <r class="aiki.fight.moves.effects.EffectGlobal" field="healingEndRound" value="0"/>
 <r class="aiki.fight.moves.effects.EffectGlobal" field="healingEndRoundGround" value="0"/>
 <om class="aiki.fight.moves.effects.EffectGlobal" field="efficiencyMoves">
-<aiki.fight.util.TypesDuo class="util.Map" key="" value="SOL;VOL"/>
-<r class="util.Map" value="1"/>
+<aiki.fight.util.TypesDuo class="m" key="" value="SOL;VOL"/>
+<r class="m" value="1"/>
 </om>
 <sl class="aiki.fight.moves.effects.EffectGlobal" field="disableImmuAgainstTypes">
-<java.lang.String class="util.List" value="SOL"/>
+<java.lang.String class="a" value="SOL"/>
 </sl>
 <sl class="aiki.fight.moves.effects.EffectGlobal" field="cancelProtectingAbilities">
-<java.lang.String class="util.List" value="LEVITATION"/>
+<java.lang.String class="a" value="LEVITATION"/>
 </sl>
 <sl class="aiki.fight.moves.effects.EffectGlobal" field="unusableMoves">
-<java.lang.String class="util.List" value="ENVOL"/>
-<java.lang.String class="util.List" value="REBOND"/>
-<java.lang.String class="util.List" value="CHUTE_LIBRE"/>
-<java.lang.String class="util.List" value="PIED_SAUTE"/>
-<java.lang.String class="util.List" value="PIED_VOLTIGE"/>
-<java.lang.String class="util.List" value="LEVIKINESIE"/>
-<java.lang.String class="util.List" value="VOL_MAGNETIK"/>
+<java.lang.String class="a" value="ENVOL"/>
+<java.lang.String class="a" value="REBOND"/>
+<java.lang.String class="a" value="CHUTE_LIBRE"/>
+<java.lang.String class="a" value="PIED_SAUTE"/>
+<java.lang.String class="a" value="PIED_VOLTIGE"/>
+<java.lang.String class="a" value="LEVIKINESIE"/>
+<java.lang.String class="a" value="VOL_MAGNETIK"/>
 </sl>
 <sm class="aiki.fight.moves.effects.EffectGlobal" field="multDamagePrepaRound"/>
 <sl class="aiki.fight.moves.effects.EffectGlobal" field="movesUsedByTargetedFighters"/>

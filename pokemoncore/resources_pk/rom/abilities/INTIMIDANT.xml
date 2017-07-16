@@ -71,15 +71,15 @@
 <sm class="aiki.fight.abilities.AbilityData" field="immuMoveTypesByWeather"/>
 <l class="aiki.fight.abilities.AbilityData" field="effectEndRound"/>
 <l class="aiki.fight.abilities.AbilityData" field="effectSending">
-<aiki.fight.effects.EffectWhileSendingWithStatistic class="util.List">
+<aiki.fight.effects.EffectWhileSendingWithStatistic class="a">
 <aiki.fight.moves.effects.EffectStatistic class="aiki.fight.effects.EffectWhileSendingWithStatistic" field="effect">
 <em class="aiki.fight.moves.effects.EffectStatistic" field="statisVarRank">
-<aiki.fight.enums.Statistic class="util.Map" key="" value="ATTACK"/>
-<java.lang.Byte class="util.Map" value="-1"/>
+<aiki.fight.enums.Statistic class="m" key="" value="ATTACK"/>
+<java.lang.Byte class="m" value="-1"/>
 </em>
 <em class="aiki.fight.moves.effects.EffectStatistic" field="localFailStatis">
-<aiki.fight.enums.Statistic class="util.Map" key="" value="ATTACK"/>
-<java.lang.String class="util.Map" value="VAR__CIBLE_CLONE&gt;0"/>
+<aiki.fight.enums.Statistic class="m" key="" value="ATTACK"/>
+<java.lang.String class="m" value="VAR__CIBLE_CLONE&gt;0"/>
 </em>
 <r class="aiki.fight.moves.effects.EffectStatistic" field="evtRate" value="1"/>
 <el class="aiki.fight.moves.effects.EffectStatistic" field="copyBoost"/>

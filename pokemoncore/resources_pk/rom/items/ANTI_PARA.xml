@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?><aiki.fight.items.HealingStatus>
 <sl class="aiki.fight.items.HealingStatus" field="status">
-<java.lang.String class="util.List" value="PARALYSIE"/>
+<java.lang.String class="a" value="PARALYSIE"/>
 </sl>
 <java.lang.Boolean class="aiki.fight.items.HealingStatus" field="healingKo" value="false"/>
 <sm class="aiki.fight.items.HealingItem" field="happiness"/>

@@ -43,7 +43,7 @@
 <java.lang.Boolean class="aiki.fight.items.ItemForBattle" field="switchForceAdvSiTouche" value="false"/>
 <java.lang.Boolean class="aiki.fight.items.ItemForBattle" field="transfertObjSiContact" value="false"/>
 <l class="aiki.fight.items.ItemForBattle" field="effectEndRound">
-<aiki.fight.moves.effects.EffectEndRoundIndividual class="util.List">
+<aiki.fight.moves.effects.EffectEndRoundIndividual class="a">
 <r class="aiki.fight.moves.effects.EffectEndRoundIndividual" field="deleteAllStatus" value="0"/>
 <r class="aiki.fight.moves.effects.EffectEndRoundIndividual" field="recoilDamage" value="0"/>
 <r class="aiki.fight.moves.effects.EffectEndRoundIndividual" field="healHp" value="1/16"/>

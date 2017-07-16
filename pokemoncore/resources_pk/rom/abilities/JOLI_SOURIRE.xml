@@ -60,17 +60,17 @@
 <el class="aiki.fight.abilities.AbilityData" field="maxStatisticsIfCh"/>
 <mcs class="aiki.fight.abilities.AbilityData" field="singleStatus">
 <sm class="mcs" field="law">
-<java.lang.String class="util.Map" key="" value=""/>
-<java.lang.String class="util.Map" key="" value="AMOUR"/>
-<li class="util.Map" value="7"/>
-<li class="util.Map" value="3"/>
+<java.lang.String class="m" key="" value=""/>
+<java.lang.String class="m" key="" value="AMOUR"/>
+<li class="m" value="7"/>
+<li class="m" value="3"/>
 </sm>
 </mcs>
 <java.lang.Boolean class="aiki.fight.abilities.AbilityData" field="achievedDisappearedPk" value="false"/>
 <sm class="aiki.fight.abilities.AbilityData" field="forwardStatus"/>
 <sm class="aiki.fight.abilities.AbilityData" field="failStatus">
-<java.lang.String class="util.Map" key="" value="AMOUR"/>
-<java.lang.String class="util.Map" value="VAR__EXISTE_GENRE_ASSEXUE|VAR__GENRES_EGAUX|VAR__CIBLE_POSSEDE_STATUT_RELATION__AMOUR"/>
+<java.lang.String class="m" key="" value="AMOUR"/>
+<java.lang.String class="m" value="VAR__EXISTE_GENRE_ASSEXUE|VAR__GENRES_EGAUX|VAR__CIBLE_POSSEDE_STATUT_RELATION__AMOUR"/>
 </sm>
 <java.lang.String class="aiki.fight.abilities.AbilityData" field="typeForMoves" value=""/>
 <r class="aiki.fight.abilities.AbilityData" field="maxHpForUsingBerry" value="0"/>

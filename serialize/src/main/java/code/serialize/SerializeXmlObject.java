@@ -35,8 +35,8 @@ public final class SerializeXmlObject {
 
     public static final String RESOURCES_FOLDER = "resources_stream/classes";
     //TODO a const string instead
-    static final String LS_CLASS = "util.List";
-    static final String MP_CLASS = "util.Map";
+    static final String LS_CLASS = "a";
+    static final String MP_CLASS = "m";
 //    static final String LS_CLASS = CollectionsUtil.getListClass().getName();
 //    static final String MP_CLASS = CollectionsUtil.getMapClass().getName();
     private static final String SEPARATEUR = "/";

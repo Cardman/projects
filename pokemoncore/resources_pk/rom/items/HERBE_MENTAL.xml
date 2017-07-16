@@ -5,7 +5,7 @@
 <java.lang.Boolean class="aiki.fight.items.ItemForBattle" field="attackLast" value="false"/>
 <java.lang.Boolean class="aiki.fight.items.ItemForBattle" field="boostExp" value="false"/>
 <sl class="aiki.fight.items.ItemForBattle" field="immuStatus">
-<java.lang.String class="util.List" value="AMOUR"/>
+<java.lang.String class="a" value="AMOUR"/>
 </sl>
 <java.lang.Boolean class="aiki.fight.items.ItemForBattle" field="immuLowStatis" value="false"/>
 <sm class="aiki.fight.items.ItemForBattle" field="increasingMaxNbRoundTrap"/>

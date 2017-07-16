@@ -12,11 +12,11 @@
 <sl class="aiki.fight.abilities.AbilityData" field="ignFoeTeamMove"/>
 <java.lang.Boolean class="aiki.fight.abilities.AbilityData" field="ignFoeStatisBoost" value="false"/>
 <sl class="aiki.fight.abilities.AbilityData" field="immuMove">
-<java.lang.String class="util.List" value="JET_DE_SABLE"/>
-<java.lang.String class="util.List" value="TELEKINESIE"/>
+<java.lang.String class="a" value="JET_DE_SABLE"/>
+<java.lang.String class="a" value="TELEKINESIE"/>
 </sl>
 <el class="aiki.fight.abilities.AbilityData" field="immuLowStat">
-<aiki.fight.enums.Statistic class="util.List" value="ACCURACY"/>
+<aiki.fight.enums.Statistic class="a" value="ACCURACY"/>
 </el>
 <ql class="aiki.fight.abilities.AbilityData" field="immuLowStatIfStatus"/>
 <java.lang.Boolean class="aiki.fight.abilities.AbilityData" field="immuCh" value="false"/>

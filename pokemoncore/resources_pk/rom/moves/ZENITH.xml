@@ -4,15 +4,15 @@
 <java.lang.Boolean class="aiki.fight.moves.MoveData" field="notTranslated" value="false"/>
 <java.lang.Short class="aiki.fight.moves.MoveData" field="pp" value="5"/>
 <sl class="aiki.fight.moves.MoveData" field="types">
-<java.lang.String class="util.List" value="FEU"/>
+<java.lang.String class="a" value="FEU"/>
 </sl>
 <sl class="aiki.fight.moves.MoveData" field="boostedTypes">
-<java.lang.String class="util.List" value="FEU"/>
+<java.lang.String class="a" value="FEU"/>
 </sl>
 <java.lang.Byte class="aiki.fight.moves.MoveData" field="priority" value="0"/>
 <java.lang.String class="aiki.fight.moves.MoveData" field="accuracy" value="1"/>
 <l class="aiki.fight.moves.MoveData" field="effects">
-<aiki.fight.moves.effects.EffectGlobal class="util.List">
+<aiki.fight.moves.effects.EffectGlobal class="a">
 <java.lang.Boolean class="aiki.fight.moves.effects.EffectGlobal" field="priseEnComptePkLanceur" value="true"/>
 <java.lang.Boolean class="aiki.fight.moves.effects.EffectGlobal" field="weather" value="true"/>
 <java.lang.Boolean class="aiki.fight.moves.effects.EffectGlobal" field="canceledIfUsed" value="false"/>
@@ -21,7 +21,7 @@
 <r class="aiki.fight.moves.effects.EffectGlobal" field="multAccuracy" value="0"/>
 <java.lang.Boolean class="aiki.fight.moves.effects.EffectGlobal" field="unusableItem" value="false"/>
 <sl class="aiki.fight.moves.effects.EffectGlobal" field="preventStatus">
-<java.lang.String class="util.List" value="GEL"/>
+<java.lang.String class="a" value="GEL"/>
 </sl>
 <sl class="aiki.fight.moves.effects.EffectGlobal" field="immuneTypes"/>
 <r class="aiki.fight.moves.effects.EffectGlobal" field="damageEndRound" value="0"/>
@@ -37,14 +37,14 @@
 <sm class="aiki.fight.moves.effects.EffectGlobal" field="multPowerMoves"/>
 <om class="aiki.fight.moves.effects.EffectGlobal" field="multStatIfContainsType"/>
 <sl class="aiki.fight.moves.effects.EffectGlobal" field="cancelEffects">
-<java.lang.String class="util.List" value="GRELE"/>
-<java.lang.String class="util.List" value="TEMPETESABLE"/>
+<java.lang.String class="a" value="GRELE"/>
+<java.lang.String class="a" value="TEMPETESABLE"/>
 </sl>
 <sm class="aiki.fight.moves.effects.EffectGlobal" field="multDamageTypesMoves">
-<java.lang.String class="util.Map" key="" value="EAU"/>
-<java.lang.String class="util.Map" key="" value="FEU"/>
-<r class="util.Map" value="1/2"/>
-<r class="util.Map" value="3/2"/>
+<java.lang.String class="m" key="" value="EAU"/>
+<java.lang.String class="m" key="" value="FEU"/>
+<r class="m" value="1/2"/>
+<r class="m" value="3/2"/>
 </sm>
 <el class="aiki.fight.moves.effects.EffectGlobal" field="cancelChgtStat"/>
 <java.lang.String class="aiki.fight.moves.effects.EffectGlobal" field="invokedMoveTerrain" value=""/>
@@ -53,13 +53,13 @@
 <java.lang.String class="aiki.fight.moves.effects.Effect" field="fail" value=""/>
 <n class="aiki.fight.moves.effects.Effect" field="requiredSuccessfulEffects"/>
 </aiki.fight.moves.effects.EffectGlobal>
-<aiki.fight.moves.effects.EffectEndRoundGlobal class="util.List">
+<aiki.fight.moves.effects.EffectEndRoundGlobal class="a">
 <java.lang.String class="aiki.fight.moves.effects.EffectEndRound" field="failEndRound" value=""/>
 <java.lang.Integer class="aiki.fight.moves.effects.EffectEndRound" field="endRoundRank" value="32"/>
 <aiki.fight.moves.enums.TargetChoice class="aiki.fight.moves.effects.Effect" field="targetChoice" value="LANCEUR"/>
 <java.lang.String class="aiki.fight.moves.effects.Effect" field="fail" value=""/>
 <n class="aiki.fight.moves.effects.Effect" field="requiredSuccessfulEffects">
-<java.lang.Integer class="util.List" value="0"/>
+<java.lang.Integer class="a" value="0"/>
 </n>
 </aiki.fight.moves.effects.EffectEndRoundGlobal>
 </l>

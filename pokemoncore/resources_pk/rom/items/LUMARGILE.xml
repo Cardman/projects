@@ -32,10 +32,10 @@
 <em class="aiki.fight.items.ItemForBattle" field="multStat"/>
 <sm class="aiki.fight.items.ItemForBattle" field="increasingMaxNbRoundGlobalMove"/>
 <sm class="aiki.fight.items.ItemForBattle" field="increasingMaxNbRoundTeamMove">
-<java.lang.String class="util.Map" key="" value="PROTECTION"/>
-<java.lang.String class="util.Map" key="" value="MUR_LUMIERE"/>
-<java.lang.Short class="util.Map" value="3"/>
-<java.lang.Short class="util.Map" value="3"/>
+<java.lang.String class="m" key="" value="PROTECTION"/>
+<java.lang.String class="m" key="" value="MUR_LUMIERE"/>
+<java.lang.Short class="m" value="3"/>
+<java.lang.Short class="m" value="3"/>
 </sm>
 <sl class="aiki.fight.items.ItemForBattle" field="immuMoves"/>
 <sl class="aiki.fight.items.ItemForBattle" field="hatching"/>

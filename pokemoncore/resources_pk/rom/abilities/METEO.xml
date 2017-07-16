@@ -2,14 +2,14 @@
 <ql class="aiki.fight.abilities.AbilityData" field="breakFoeImmune"/>
 <java.lang.Boolean class="aiki.fight.abilities.AbilityData" field="forbidUseBerryAgainstFoes" value="false"/>
 <sm class="aiki.fight.abilities.AbilityData" field="chgtTypeByWeather">
-<java.lang.String class="util.Map" key="" value="GRELE"/>
-<java.lang.String class="util.Map" key="" value="ZENITH"/>
-<java.lang.String class="util.Map" key="" value="DANSE_PLUIE"/>
-<java.lang.String class="util.Map" key="" value="TEMPETESABLE"/>
-<java.lang.String class="util.Map" value="GLACE"/>
-<java.lang.String class="util.Map" value="FEU"/>
-<java.lang.String class="util.Map" value="EAU"/>
-<java.lang.String class="util.Map" value="ROCHE"/>
+<java.lang.String class="m" key="" value="GRELE"/>
+<java.lang.String class="m" key="" value="ZENITH"/>
+<java.lang.String class="m" key="" value="DANSE_PLUIE"/>
+<java.lang.String class="m" key="" value="TEMPETESABLE"/>
+<java.lang.String class="m" value="GLACE"/>
+<java.lang.String class="m" value="FEU"/>
+<java.lang.String class="m" value="EAU"/>
+<java.lang.String class="m" value="ROCHE"/>
 </sm>
 <java.lang.Boolean class="aiki.fight.abilities.AbilityData" field="chgtTypeByDamage" value="false"/>
 <r class="aiki.fight.abilities.AbilityData" field="recoilDamageFoe" value="0"/>

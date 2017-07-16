@@ -25,8 +25,8 @@
 <sm class="aiki.fight.abilities.AbilityData" field="immuStatus"/>
 <java.lang.Boolean class="aiki.fight.abilities.AbilityData" field="slowing" value="false"/>
 <sm class="aiki.fight.abilities.AbilityData" field="multDamageFoe">
-<java.lang.String class="util.Map" key="" value="FEU"/>
-<r class="util.Map" value="1/2"/>
+<java.lang.String class="m" key="" value="FEU"/>
+<r class="m" value="1/2"/>
 </sm>
 <r class="aiki.fight.abilities.AbilityData" field="multDamageCh" value="0"/>
 <r class="aiki.fight.abilities.AbilityData" field="multAllyDamage" value="0"/>
@@ -73,14 +73,14 @@
 <om class="aiki.fight.abilities.AbilityData" field="healHpByTypeIfWeather"/>
 <sm class="aiki.fight.abilities.AbilityData" field="immuMoveTypesByWeather"/>
 <l class="aiki.fight.abilities.AbilityData" field="effectEndRound">
-<aiki.fight.moves.effects.EffectEndRoundIndividual class="util.List">
+<aiki.fight.moves.effects.EffectEndRoundIndividual class="a">
 <r class="aiki.fight.moves.effects.EffectEndRoundIndividual" field="deleteAllStatus" value="0"/>
 <r class="aiki.fight.moves.effects.EffectEndRoundIndividual" field="recoilDamage" value="0"/>
 <r class="aiki.fight.moves.effects.EffectEndRoundIndividual" field="healHp" value="0"/>
 <sm class="aiki.fight.moves.effects.EffectEndRoundIndividual" field="healHpByOwnerTypes"/>
 <sm class="aiki.fight.moves.effects.EffectEndRoundIndividual" field="multDamageStatus">
-<java.lang.String class="util.Map" key="" value="BRULURE"/>
-<r class="util.Map" value="-2"/>
+<java.lang.String class="m" key="" value="BRULURE"/>
+<r class="m" value="-2"/>
 </sm>
 <java.lang.String class="aiki.fight.moves.effects.EffectEndRoundIndividual" field="userStatusEndRound" value=""/>
 <java.lang.String class="aiki.fight.moves.effects.EffectEndRound" field="failEndRound" value=""/>

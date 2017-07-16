@@ -76,8 +76,8 @@
 <sm class="aiki.fight.abilities.AbilityData" field="immuStatusTypes"/>
 <sm class="aiki.fight.abilities.AbilityData" field="immuLowStatisTypes"/>
 <em class="aiki.fight.abilities.AbilityData" field="lowStatFoeHit">
-<aiki.fight.enums.Statistic class="util.Map" key="" value="SPEED"/>
-<java.lang.Byte class="util.Map" value="-1"/>
+<aiki.fight.enums.Statistic class="m" key="" value="SPEED"/>
+<java.lang.Byte class="m" value="-1"/>
 </em>
 <java.lang.Boolean class="aiki.fight.abilities.AbilityData" field="copyMovesTypes" value="false"/>
 <sm class="aiki.fight.abilities.AbilityData" field="multPowerMovesTypesGlobal"/>

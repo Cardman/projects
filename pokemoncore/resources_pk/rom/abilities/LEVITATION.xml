@@ -12,10 +12,10 @@
 <sl class="aiki.fight.abilities.AbilityData" field="ignFoeTeamMove"/>
 <java.lang.Boolean class="aiki.fight.abilities.AbilityData" field="ignFoeStatisBoost" value="false"/>
 <sl class="aiki.fight.abilities.AbilityData" field="immuMove">
-<java.lang.String class="util.List" value="VOL_MAGNETIK"/>
-<java.lang.String class="util.List" value="LEVIKINESIE"/>
-<java.lang.String class="util.List" value="PICOTS"/>
-<java.lang.String class="util.List" value="PICS_TOXIK"/>
+<java.lang.String class="a" value="VOL_MAGNETIK"/>
+<java.lang.String class="a" value="LEVIKINESIE"/>
+<java.lang.String class="a" value="PICOTS"/>
+<java.lang.String class="a" value="PICS_TOXIK"/>
 </sl>
 <el class="aiki.fight.abilities.AbilityData" field="immuLowStat"/>
 <ql class="aiki.fight.abilities.AbilityData" field="immuLowStatIfStatus"/>
@@ -74,29 +74,29 @@
 <java.lang.Boolean class="aiki.fight.abilities.AbilityData" field="mumy" value="false"/>
 <om class="aiki.fight.abilities.AbilityData" field="healHpByTypeIfWeather"/>
 <sm class="aiki.fight.abilities.AbilityData" field="immuMoveTypesByWeather">
-<java.lang.String class="util.Map" key="" value=""/>
-<java.lang.String class="util.Map" key="" value="GRELE"/>
-<java.lang.String class="util.Map" key="" value="ZENITH"/>
-<java.lang.String class="util.Map" key="" value="DANSE_PLUIE"/>
-<java.lang.String class="util.Map" key="" value="ORAGE"/>
-<java.lang.String class="util.Map" key="" value="TEMPETESABLE"/>
-<sl class="util.Map">
-<java.lang.String class="util.List" value="SOL"/>
+<java.lang.String class="m" key="" value=""/>
+<java.lang.String class="m" key="" value="GRELE"/>
+<java.lang.String class="m" key="" value="ZENITH"/>
+<java.lang.String class="m" key="" value="DANSE_PLUIE"/>
+<java.lang.String class="m" key="" value="ORAGE"/>
+<java.lang.String class="m" key="" value="TEMPETESABLE"/>
+<sl class="m">
+<java.lang.String class="a" value="SOL"/>
 </sl>
-<sl class="util.Map">
-<java.lang.String class="util.List" value="SOL"/>
+<sl class="m">
+<java.lang.String class="a" value="SOL"/>
 </sl>
-<sl class="util.Map">
-<java.lang.String class="util.List" value="SOL"/>
+<sl class="m">
+<java.lang.String class="a" value="SOL"/>
 </sl>
-<sl class="util.Map">
-<java.lang.String class="util.List" value="SOL"/>
+<sl class="m">
+<java.lang.String class="a" value="SOL"/>
 </sl>
-<sl class="util.Map">
-<java.lang.String class="util.List" value="SOL"/>
+<sl class="m">
+<java.lang.String class="a" value="SOL"/>
 </sl>
-<sl class="util.Map">
-<java.lang.String class="util.List" value="SOL"/>
+<sl class="m">
+<java.lang.String class="a" value="SOL"/>
 </sl>
 </sm>
 <l class="aiki.fight.abilities.AbilityData" field="effectEndRound"/>

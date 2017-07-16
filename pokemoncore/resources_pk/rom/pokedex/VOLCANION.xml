@@ -2,94 +2,94 @@
 <java.lang.Integer class="aiki.fight.pokemon.PokemonData" field="number" value="721"/>
 <r class="aiki.fight.pokemon.PokemonData" field="weight" value="195"/>
 <sl class="aiki.fight.pokemon.PokemonData" field="types">
-<java.lang.String class="util.List" value="EAU"/>
-<java.lang.String class="util.List" value="FEU"/>
+<java.lang.String class="a" value="EAU"/>
+<java.lang.String class="a" value="FEU"/>
 </sl>
 <em class="aiki.fight.pokemon.PokemonData" field="statistics">
-<aiki.fight.enums.Statistic class="util.Map" key="" value="ATTACK"/>
-<aiki.fight.enums.Statistic class="util.Map" key="" value="SPECIAL_ATTACK"/>
-<aiki.fight.enums.Statistic class="util.Map" key="" value="SPECIAL_DEFENSE"/>
-<aiki.fight.enums.Statistic class="util.Map" key="" value="HP"/>
-<aiki.fight.enums.Statistic class="util.Map" key="" value="DEFENSE"/>
-<aiki.fight.enums.Statistic class="util.Map" key="" value="SPEED"/>
-<aiki.fight.util.StatBaseEv class="util.Map" value="110;0"/>
-<aiki.fight.util.StatBaseEv class="util.Map" value="130;3"/>
-<aiki.fight.util.StatBaseEv class="util.Map" value="90;0"/>
-<aiki.fight.util.StatBaseEv class="util.Map" value="80;0"/>
-<aiki.fight.util.StatBaseEv class="util.Map" value="120;0"/>
-<aiki.fight.util.StatBaseEv class="util.Map" value="70;0"/>
+<aiki.fight.enums.Statistic class="m" key="" value="ATTACK"/>
+<aiki.fight.enums.Statistic class="m" key="" value="SPECIAL_ATTACK"/>
+<aiki.fight.enums.Statistic class="m" key="" value="SPECIAL_DEFENSE"/>
+<aiki.fight.enums.Statistic class="m" key="" value="HP"/>
+<aiki.fight.enums.Statistic class="m" key="" value="DEFENSE"/>
+<aiki.fight.enums.Statistic class="m" key="" value="SPEED"/>
+<aiki.fight.util.StatBaseEv class="m" value="110;0"/>
+<aiki.fight.util.StatBaseEv class="m" value="130;3"/>
+<aiki.fight.util.StatBaseEv class="m" value="90;0"/>
+<aiki.fight.util.StatBaseEv class="m" value="80;0"/>
+<aiki.fight.util.StatBaseEv class="m" value="120;0"/>
+<aiki.fight.util.StatBaseEv class="m" value="70;0"/>
 </em>
 <ql class="aiki.fight.pokemon.PokemonData" field="levMoves">
-<aiki.fight.util.LevelMove class="util.List" value="1;BELIER"/>
-<aiki.fight.util.LevelMove class="util.List" value="1;BOUTEFEU"/>
-<aiki.fight.util.LevelMove class="util.List" value="1;JET_DE_VAPEUR"/>
-<aiki.fight.util.LevelMove class="util.List" value="8;BRUME"/>
-<aiki.fight.util.LevelMove class="util.List" value="11;BUEE_NOIRE"/>
-<aiki.fight.util.LevelMove class="util.List" value="15;NITROCHARGE"/>
-<aiki.fight.util.LevelMove class="util.List" value="21;VIBRAQUA"/>
-<aiki.fight.util.LevelMove class="util.List" value="28;ECRASEMENT"/>
-<aiki.fight.util.LevelMove class="util.List" value="32;EBULLITION"/>
-<aiki.fight.util.LevelMove class="util.List" value="40;BALL_METEO"/>
-<aiki.fight.util.LevelMove class="util.List" value="46;PLAQUAGE"/>
-<aiki.fight.util.LevelMove class="util.List" value="50;HYDROCANON"/>
-<aiki.fight.util.LevelMove class="util.List" value="58;BOUTEFEU"/>
-<aiki.fight.util.LevelMove class="util.List" value="65;SURCHAUFFE"/>
-<aiki.fight.util.LevelMove class="util.List" value="76;EXPLOSION"/>
-<aiki.fight.util.LevelMove class="util.List" value="85;JET_DE_VAPEUR"/>
+<aiki.fight.util.LevelMove class="a" value="1;BELIER"/>
+<aiki.fight.util.LevelMove class="a" value="1;BOUTEFEU"/>
+<aiki.fight.util.LevelMove class="a" value="1;JET_DE_VAPEUR"/>
+<aiki.fight.util.LevelMove class="a" value="8;BRUME"/>
+<aiki.fight.util.LevelMove class="a" value="11;BUEE_NOIRE"/>
+<aiki.fight.util.LevelMove class="a" value="15;NITROCHARGE"/>
+<aiki.fight.util.LevelMove class="a" value="21;VIBRAQUA"/>
+<aiki.fight.util.LevelMove class="a" value="28;ECRASEMENT"/>
+<aiki.fight.util.LevelMove class="a" value="32;EBULLITION"/>
+<aiki.fight.util.LevelMove class="a" value="40;BALL_METEO"/>
+<aiki.fight.util.LevelMove class="a" value="46;PLAQUAGE"/>
+<aiki.fight.util.LevelMove class="a" value="50;HYDROCANON"/>
+<aiki.fight.util.LevelMove class="a" value="58;BOUTEFEU"/>
+<aiki.fight.util.LevelMove class="a" value="65;SURCHAUFFE"/>
+<aiki.fight.util.LevelMove class="a" value="76;EXPLOSION"/>
+<aiki.fight.util.LevelMove class="a" value="85;JET_DE_VAPEUR"/>
 </ql>
 <aiki.fight.pokemon.enums.GenderRepartition class="aiki.fight.pokemon.PokemonData" field="genderRep" value="LEGENDARY"/>
 <sl class="aiki.fight.pokemon.PokemonData" field="abilities">
-<java.lang.String class="util.List" value="ABSORB_EAU"/>
+<java.lang.String class="a" value="ABSORB_EAU"/>
 </sl>
 <sl class="aiki.fight.pokemon.PokemonData" field="moveTutors">
-<java.lang.String class="util.List" value="COUPE"/>
-<java.lang.String class="util.List" value="FORCE"/>
+<java.lang.String class="a" value="COUPE"/>
+<java.lang.String class="a" value="FORCE"/>
 </sl>
 <n class="aiki.fight.pokemon.PokemonData" field="hiddenMoves">
-<java.lang.Short class="util.List" value="1"/>
-<java.lang.Short class="util.List" value="4"/>
+<java.lang.Short class="a" value="1"/>
+<java.lang.Short class="a" value="4"/>
 </n>
 <n class="aiki.fight.pokemon.PokemonData" field="technicalMoves">
-<java.lang.Short class="util.List" value="94"/>
-<java.lang.Short class="util.List" value="5"/>
-<java.lang.Short class="util.List" value="6"/>
-<java.lang.Short class="util.List" value="10"/>
-<java.lang.Short class="util.List" value="11"/>
-<java.lang.Short class="util.List" value="15"/>
-<java.lang.Short class="util.List" value="17"/>
-<java.lang.Short class="util.List" value="21"/>
-<java.lang.Short class="util.List" value="22"/>
-<java.lang.Short class="util.List" value="23"/>
-<java.lang.Short class="util.List" value="26"/>
-<java.lang.Short class="util.List" value="27"/>
-<java.lang.Short class="util.List" value="31"/>
-<java.lang.Short class="util.List" value="32"/>
-<java.lang.Short class="util.List" value="34"/>
-<java.lang.Short class="util.List" value="35"/>
-<java.lang.Short class="util.List" value="36"/>
-<java.lang.Short class="util.List" value="37"/>
-<java.lang.Short class="util.List" value="38"/>
-<java.lang.Short class="util.List" value="42"/>
-<java.lang.Short class="util.List" value="43"/>
-<java.lang.Short class="util.List" value="44"/>
-<java.lang.Short class="util.List" value="48"/>
-<java.lang.Short class="util.List" value="50"/>
-<java.lang.Short class="util.List" value="52"/>
-<java.lang.Short class="util.List" value="55"/>
-<java.lang.Short class="util.List" value="56"/>
-<java.lang.Short class="util.List" value="59"/>
-<java.lang.Short class="util.List" value="61"/>
-<java.lang.Short class="util.List" value="64"/>
-<java.lang.Short class="util.List" value="68"/>
-<java.lang.Short class="util.List" value="71"/>
-<java.lang.Short class="util.List" value="74"/>
-<java.lang.Short class="util.List" value="78"/>
-<java.lang.Short class="util.List" value="80"/>
-<java.lang.Short class="util.List" value="88"/>
-<java.lang.Short class="util.List" value="87"/>
-<java.lang.Short class="util.List" value="90"/>
-<java.lang.Short class="util.List" value="91"/>
-<java.lang.Short class="util.List" value="100"/>
+<java.lang.Short class="a" value="94"/>
+<java.lang.Short class="a" value="5"/>
+<java.lang.Short class="a" value="6"/>
+<java.lang.Short class="a" value="10"/>
+<java.lang.Short class="a" value="11"/>
+<java.lang.Short class="a" value="15"/>
+<java.lang.Short class="a" value="17"/>
+<java.lang.Short class="a" value="21"/>
+<java.lang.Short class="a" value="22"/>
+<java.lang.Short class="a" value="23"/>
+<java.lang.Short class="a" value="26"/>
+<java.lang.Short class="a" value="27"/>
+<java.lang.Short class="a" value="31"/>
+<java.lang.Short class="a" value="32"/>
+<java.lang.Short class="a" value="34"/>
+<java.lang.Short class="a" value="35"/>
+<java.lang.Short class="a" value="36"/>
+<java.lang.Short class="a" value="37"/>
+<java.lang.Short class="a" value="38"/>
+<java.lang.Short class="a" value="42"/>
+<java.lang.Short class="a" value="43"/>
+<java.lang.Short class="a" value="44"/>
+<java.lang.Short class="a" value="48"/>
+<java.lang.Short class="a" value="50"/>
+<java.lang.Short class="a" value="52"/>
+<java.lang.Short class="a" value="55"/>
+<java.lang.Short class="a" value="56"/>
+<java.lang.Short class="a" value="59"/>
+<java.lang.Short class="a" value="61"/>
+<java.lang.Short class="a" value="64"/>
+<java.lang.Short class="a" value="68"/>
+<java.lang.Short class="a" value="71"/>
+<java.lang.Short class="a" value="74"/>
+<java.lang.Short class="a" value="78"/>
+<java.lang.Short class="a" value="80"/>
+<java.lang.Short class="a" value="88"/>
+<java.lang.Short class="a" value="87"/>
+<java.lang.Short class="a" value="90"/>
+<java.lang.Short class="a" value="91"/>
+<java.lang.Short class="a" value="100"/>
 </n>
 <java.lang.String class="aiki.fight.pokemon.PokemonData" field="baseEvo" value="VOLCANION"/>
 <sm class="aiki.fight.pokemon.PokemonData" field="evolutions"/>

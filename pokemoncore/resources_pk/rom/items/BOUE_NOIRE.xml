@@ -43,15 +43,15 @@
 <java.lang.Boolean class="aiki.fight.items.ItemForBattle" field="switchForceAdvSiTouche" value="false"/>
 <java.lang.Boolean class="aiki.fight.items.ItemForBattle" field="transfertObjSiContact" value="false"/>
 <l class="aiki.fight.items.ItemForBattle" field="effectEndRound">
-<aiki.fight.moves.effects.EffectEndRoundIndividual class="util.List">
+<aiki.fight.moves.effects.EffectEndRoundIndividual class="a">
 <r class="aiki.fight.moves.effects.EffectEndRoundIndividual" field="deleteAllStatus" value="0"/>
 <r class="aiki.fight.moves.effects.EffectEndRoundIndividual" field="recoilDamage" value="0"/>
 <r class="aiki.fight.moves.effects.EffectEndRoundIndividual" field="healHp" value="0"/>
 <sm class="aiki.fight.moves.effects.EffectEndRoundIndividual" field="healHpByOwnerTypes">
-<java.lang.String class="util.Map" key="" value=""/>
-<java.lang.String class="util.Map" key="" value="POISON"/>
-<r class="util.Map" value="-1/8"/>
-<r class="util.Map" value="1/8"/>
+<java.lang.String class="m" key="" value=""/>
+<java.lang.String class="m" key="" value="POISON"/>
+<r class="m" value="-1/8"/>
+<r class="m" value="1/8"/>
 </sm>
 <sm class="aiki.fight.moves.effects.EffectEndRoundIndividual" field="multDamageStatus"/>
 <java.lang.String class="aiki.fight.moves.effects.EffectEndRoundIndividual" field="userStatusEndRound" value=""/>

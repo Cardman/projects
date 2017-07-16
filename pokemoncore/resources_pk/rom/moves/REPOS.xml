@@ -4,35 +4,35 @@
 <java.lang.Boolean class="aiki.fight.moves.MoveData" field="notTranslated" value="false"/>
 <java.lang.Short class="aiki.fight.moves.MoveData" field="pp" value="10"/>
 <sl class="aiki.fight.moves.MoveData" field="types">
-<java.lang.String class="util.List" value="PSY"/>
+<java.lang.String class="a" value="PSY"/>
 </sl>
 <sl class="aiki.fight.moves.MoveData" field="boostedTypes">
-<java.lang.String class="util.List" value="PSY"/>
+<java.lang.String class="a" value="PSY"/>
 </sl>
 <java.lang.Byte class="aiki.fight.moves.MoveData" field="priority" value="0"/>
 <java.lang.String class="aiki.fight.moves.MoveData" field="accuracy" value="1"/>
 <l class="aiki.fight.moves.MoveData" field="effects">
-<aiki.fight.moves.effects.EffectStatus class="util.List">
+<aiki.fight.moves.effects.EffectStatus class="a">
 <mcs class="aiki.fight.moves.effects.EffectStatus" field="lawStatus">
 <sm class="mcs" field="law">
-<java.lang.String class="util.Map" key="" value="SOMMEIL_REPOS"/>
-<li class="util.Map" value="1"/>
+<java.lang.String class="m" key="" value="SOMMEIL_REPOS"/>
+<li class="m" value="1"/>
 </sm>
 </mcs>
 <sl class="aiki.fight.moves.effects.EffectStatus" field="deletedStatus">
-<java.lang.String class="util.List" value="GEL"/>
-<java.lang.String class="util.List" value="PARALYSIE"/>
-<java.lang.String class="util.List" value="AMOUR"/>
-<java.lang.String class="util.List" value="BRULURE"/>
-<java.lang.String class="util.List" value="CONFUSION"/>
-<java.lang.String class="util.List" value="MAUDIT"/>
-<java.lang.String class="util.List" value="POISON_GRAVE"/>
-<java.lang.String class="util.List" value="SIMPLE_POISON"/>
-<java.lang.String class="util.List" value="VAMPIGRAINE_ST"/>
+<java.lang.String class="a" value="GEL"/>
+<java.lang.String class="a" value="PARALYSIE"/>
+<java.lang.String class="a" value="AMOUR"/>
+<java.lang.String class="a" value="BRULURE"/>
+<java.lang.String class="a" value="CONFUSION"/>
+<java.lang.String class="a" value="MAUDIT"/>
+<java.lang.String class="a" value="POISON_GRAVE"/>
+<java.lang.String class="a" value="SIMPLE_POISON"/>
+<java.lang.String class="a" value="VAMPIGRAINE_ST"/>
 </sl>
 <sm class="aiki.fight.moves.effects.EffectStatus" field="localFailStatus">
-<java.lang.String class="util.Map" key="" value="SOMMEIL_REPOS"/>
-<java.lang.String class="util.Map" value="cardinal(inter({VAR__LANCEUR_STATUTS},{SOMMEIL;SOMMEIL_REPOS}))&gt;0"/>
+<java.lang.String class="m" key="" value="SOMMEIL_REPOS"/>
+<java.lang.String class="m" value="cardinal(inter({VAR__LANCEUR_STATUTS},{SOMMEIL;SOMMEIL_REPOS}))&gt;0"/>
 </sm>
 <java.lang.Boolean class="aiki.fight.moves.effects.EffectStatus" field="koUserHealSubst" value="false"/>
 <java.lang.Boolean class="aiki.fight.moves.effects.EffectStatus" field="statusFromUser" value="false"/>
@@ -40,14 +40,14 @@
 <java.lang.String class="aiki.fight.moves.effects.Effect" field="fail" value="VAR__LANCEUR_PV_RESTANTS=VAR__LANCEUR_PV_MAX"/>
 <n class="aiki.fight.moves.effects.Effect" field="requiredSuccessfulEffects"/>
 </aiki.fight.moves.effects.EffectStatus>
-<aiki.fight.moves.effects.EffectFullHpRate class="util.List">
+<aiki.fight.moves.effects.EffectFullHpRate class="a">
 <r class="aiki.fight.moves.effects.EffectFullHpRate" field="leftUserHp" value="0"/>
 <java.lang.String class="aiki.fight.moves.effects.EffectFullHpRate" field="restoredHp" value="1"/>
 <r class="aiki.fight.moves.effects.EffectFullHpRate" field="closestFoeDamageRateHp" value="0"/>
 <aiki.fight.moves.enums.TargetChoice class="aiki.fight.moves.effects.Effect" field="targetChoice" value="LANCEUR"/>
 <java.lang.String class="aiki.fight.moves.effects.Effect" field="fail" value=""/>
 <n class="aiki.fight.moves.effects.Effect" field="requiredSuccessfulEffects">
-<java.lang.Integer class="util.List" value="0"/>
+<java.lang.Integer class="a" value="0"/>
 </n>
 </aiki.fight.moves.effects.EffectFullHpRate>
 </l>

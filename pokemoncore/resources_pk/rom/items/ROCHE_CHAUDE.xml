@@ -31,8 +31,8 @@
 <om class="aiki.fight.items.ItemForBattle" field="multStatPokemonRank"/>
 <em class="aiki.fight.items.ItemForBattle" field="multStat"/>
 <sm class="aiki.fight.items.ItemForBattle" field="increasingMaxNbRoundGlobalMove">
-<java.lang.String class="util.Map" key="" value="ZENITH"/>
-<java.lang.Short class="util.Map" value="3"/>
+<java.lang.String class="m" key="" value="ZENITH"/>
+<java.lang.Short class="m" value="3"/>
 </sm>
 <sm class="aiki.fight.items.ItemForBattle" field="increasingMaxNbRoundTeamMove"/>
 <sl class="aiki.fight.items.ItemForBattle" field="immuMoves"/>

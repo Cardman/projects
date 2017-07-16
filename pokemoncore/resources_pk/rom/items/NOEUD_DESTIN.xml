@@ -10,11 +10,11 @@
 <java.lang.Boolean class="aiki.fight.items.ItemForBattle" field="attacksSoon" value="false"/>
 <java.lang.Boolean class="aiki.fight.items.ItemForBattle" field="repellingWildPk" value="false"/>
 <sl class="aiki.fight.items.ItemForBattle" field="synchroStatus">
-<java.lang.String class="util.List" value="AMOUR"/>
+<java.lang.String class="a" value="AMOUR"/>
 </sl>
 <sm class="aiki.fight.items.ItemForBattle" field="failStatus">
-<java.lang.String class="util.Map" key="" value="AMOUR"/>
-<java.lang.String class="util.Map" value="VAR__EXISTE_GENRE_ASSEXUE|VAR__GENRES_EGAUX|VAR__CIBLE_POSSEDE_STATUT_RELATION__AMOUR"/>
+<java.lang.String class="m" key="" value="AMOUR"/>
+<java.lang.String class="m" value="VAR__EXISTE_GENRE_ASSEXUE|VAR__GENRES_EGAUX|VAR__CIBLE_POSSEDE_STATUT_RELATION__AMOUR"/>
 </sm>
 <r class="aiki.fight.items.ItemForBattle" field="protectAgainstKo" value="0"/>
 <r class="aiki.fight.items.ItemForBattle" field="protectAgainstKoIfFullHp" value="0"/>

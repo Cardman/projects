@@ -8,14 +8,14 @@
 <r class="aiki.fight.items.Berry" field="healHp" value="0"/>
 <r class="aiki.fight.items.Berry" field="maxHpHealingHp" value="0"/>
 <sl class="aiki.fight.items.Berry" field="healStatus">
-<java.lang.String class="util.List" value="SOMMEIL"/>
-<java.lang.String class="util.List" value="SOMMEIL_REPOS"/>
-<java.lang.String class="util.List" value="PARALYSIE"/>
-<java.lang.String class="util.List" value="BRULURE"/>
-<java.lang.String class="util.List" value="GEL"/>
-<java.lang.String class="util.List" value="SIMPLE_POISON"/>
-<java.lang.String class="util.List" value="POISON_GRAVE"/>
-<java.lang.String class="util.List" value="CONFUSION"/>
+<java.lang.String class="a" value="SOMMEIL"/>
+<java.lang.String class="a" value="SOMMEIL_REPOS"/>
+<java.lang.String class="a" value="PARALYSIE"/>
+<java.lang.String class="a" value="BRULURE"/>
+<java.lang.String class="a" value="GEL"/>
+<java.lang.String class="a" value="SIMPLE_POISON"/>
+<java.lang.String class="a" value="POISON_GRAVE"/>
+<java.lang.String class="a" value="CONFUSION"/>
 </sl>
 <r class="aiki.fight.items.Berry" field="healHpRate" value="0"/>
 <r class="aiki.fight.items.Berry" field="maxHpHealingHpRate" value="0"/>

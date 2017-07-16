@@ -73,12 +73,12 @@
 <l class="aiki.fight.abilities.AbilityData" field="effectSending"/>
 <sm class="aiki.fight.abilities.AbilityData" field="changingBoostTypes"/>
 <sl class="aiki.fight.abilities.AbilityData" field="immuAllyFromMoves">
-<java.lang.String class="util.List" value="PROVOC"/>
-<java.lang.String class="util.List" value="ENCORE"/>
-<java.lang.String class="util.List" value="ENTRAVE"/>
-<java.lang.String class="util.List" value="TOURMENTE"/>
-<java.lang.String class="util.List" value="ANTI_SOIN"/>
-<java.lang.String class="util.List" value="ATTRACTION"/>
+<java.lang.String class="a" value="PROVOC"/>
+<java.lang.String class="a" value="ENCORE"/>
+<java.lang.String class="a" value="ENTRAVE"/>
+<java.lang.String class="a" value="TOURMENTE"/>
+<java.lang.String class="a" value="ANTI_SOIN"/>
+<java.lang.String class="a" value="ATTRACTION"/>
 </sl>
 <sm class="aiki.fight.abilities.AbilityData" field="immuStatusTypes"/>
 <sm class="aiki.fight.abilities.AbilityData" field="immuLowStatisTypes"/>

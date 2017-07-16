@@ -8,8 +8,8 @@
 <java.lang.Integer class="aiki.fight.abilities.AbilityData" field="decreaseNecStepsHatch" value="0"/>
 <sm class="aiki.fight.abilities.AbilityData" field="divideStatusRound"/>
 <sm class="aiki.fight.abilities.AbilityData" field="healHpByWeather">
-<java.lang.String class="util.Map" key="" value="DANSE_PLUIE"/>
-<r class="util.Map" value="1/16"/>
+<java.lang.String class="m" key="" value="DANSE_PLUIE"/>
+<r class="m" value="1/16"/>
 </sm>
 <sl class="aiki.fight.abilities.AbilityData" field="ignAbility"/>
 <sl class="aiki.fight.abilities.AbilityData" field="ignFoeTeamMove"/>

@@ -15,8 +15,8 @@
 <r class="aiki.fight.items.ItemForBattle" field="protectAgainstKoIfFullHp" value="0"/>
 <r class="aiki.fight.items.ItemForBattle" field="drainedHpByDamageRate" value="0"/>
 <em class="aiki.fight.items.ItemForBattle" field="winEvFight">
-<aiki.fight.enums.Statistic class="util.Map" key="" value="DEFENSE"/>
-<java.lang.Short class="util.Map" value="4"/>
+<aiki.fight.enums.Statistic class="m" key="" value="DEFENSE"/>
+<java.lang.Short class="m" value="4"/>
 </em>
 <mcb class="aiki.fight.items.ItemForBattle" field="lawForAttackFirst">
 <bm class="mcb" field="law"/>

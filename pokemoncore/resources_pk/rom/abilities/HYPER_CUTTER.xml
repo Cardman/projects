@@ -13,7 +13,7 @@
 <java.lang.Boolean class="aiki.fight.abilities.AbilityData" field="ignFoeStatisBoost" value="false"/>
 <sl class="aiki.fight.abilities.AbilityData" field="immuMove"/>
 <el class="aiki.fight.abilities.AbilityData" field="immuLowStat">
-<aiki.fight.enums.Statistic class="util.List" value="ATTACK"/>
+<aiki.fight.enums.Statistic class="a" value="ATTACK"/>
 </el>
 <ql class="aiki.fight.abilities.AbilityData" field="immuLowStatIfStatus"/>
 <java.lang.Boolean class="aiki.fight.abilities.AbilityData" field="immuCh" value="false"/>

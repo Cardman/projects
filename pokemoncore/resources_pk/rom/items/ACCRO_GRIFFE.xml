@@ -7,20 +7,20 @@
 <sl class="aiki.fight.items.ItemForBattle" field="immuStatus"/>
 <java.lang.Boolean class="aiki.fight.items.ItemForBattle" field="immuLowStatis" value="false"/>
 <sm class="aiki.fight.items.ItemForBattle" field="increasingMaxNbRoundTrap">
-<java.lang.String class="util.Map" key="" value="VORTEX_MAGMA"/>
-<java.lang.String class="util.Map" key="" value="CLAQUOIR"/>
-<java.lang.String class="util.Map" key="" value="ETREINTE"/>
-<java.lang.String class="util.Map" key="" value="SIPHON"/>
-<java.lang.String class="util.Map" key="" value="LIGOTAGE"/>
-<java.lang.String class="util.Map" key="" value="TOURBI_SABLE"/>
-<java.lang.String class="util.Map" key="" value="DANSEFLAMME"/>
-<java.lang.Short class="util.Map" value="0"/>
-<java.lang.Short class="util.Map" value="0"/>
-<java.lang.Short class="util.Map" value="0"/>
-<java.lang.Short class="util.Map" value="0"/>
-<java.lang.Short class="util.Map" value="0"/>
-<java.lang.Short class="util.Map" value="0"/>
-<java.lang.Short class="util.Map" value="0"/>
+<java.lang.String class="m" key="" value="VORTEX_MAGMA"/>
+<java.lang.String class="m" key="" value="CLAQUOIR"/>
+<java.lang.String class="m" key="" value="ETREINTE"/>
+<java.lang.String class="m" key="" value="SIPHON"/>
+<java.lang.String class="m" key="" value="LIGOTAGE"/>
+<java.lang.String class="m" key="" value="TOURBI_SABLE"/>
+<java.lang.String class="m" key="" value="DANSEFLAMME"/>
+<java.lang.Short class="m" value="0"/>
+<java.lang.Short class="m" value="0"/>
+<java.lang.Short class="m" value="0"/>
+<java.lang.Short class="m" value="0"/>
+<java.lang.Short class="m" value="0"/>
+<java.lang.Short class="m" value="0"/>
+<java.lang.Short class="m" value="0"/>
 </sm>
 <java.lang.Boolean class="aiki.fight.items.ItemForBattle" field="attacksSoon" value="false"/>
 <java.lang.Boolean class="aiki.fight.items.ItemForBattle" field="repellingWildPk" value="false"/>

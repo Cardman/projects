@@ -38,8 +38,8 @@
 <r class="aiki.fight.abilities.AbilityData" field="multStab" value="0"/>
 <em class="aiki.fight.abilities.AbilityData" field="bonusStatRank"/>
 <em class="aiki.fight.abilities.AbilityData" field="boostStatRankProtected">
-<aiki.fight.enums.Statistic class="util.Map" key="" value="SPECIAL_ATTACK"/>
-<java.lang.Byte class="util.Map" value="1"/>
+<aiki.fight.enums.Statistic class="m" key="" value="SPECIAL_ATTACK"/>
+<java.lang.Byte class="m" value="1"/>
 </em>
 <em class="aiki.fight.abilities.AbilityData" field="boostStatRankEndRound"/>
 <em class="aiki.fight.abilities.AbilityData" field="multStatAlly"/>
@@ -72,29 +72,29 @@
 <java.lang.Boolean class="aiki.fight.abilities.AbilityData" field="mumy" value="false"/>
 <om class="aiki.fight.abilities.AbilityData" field="healHpByTypeIfWeather"/>
 <sm class="aiki.fight.abilities.AbilityData" field="immuMoveTypesByWeather">
-<java.lang.String class="util.Map" key="" value=""/>
-<java.lang.String class="util.Map" key="" value="GRELE"/>
-<java.lang.String class="util.Map" key="" value="ZENITH"/>
-<java.lang.String class="util.Map" key="" value="DANSE_PLUIE"/>
-<java.lang.String class="util.Map" key="" value="ORAGE"/>
-<java.lang.String class="util.Map" key="" value="TEMPETESABLE"/>
-<sl class="util.Map">
-<java.lang.String class="util.List" value="EAU"/>
+<java.lang.String class="m" key="" value=""/>
+<java.lang.String class="m" key="" value="GRELE"/>
+<java.lang.String class="m" key="" value="ZENITH"/>
+<java.lang.String class="m" key="" value="DANSE_PLUIE"/>
+<java.lang.String class="m" key="" value="ORAGE"/>
+<java.lang.String class="m" key="" value="TEMPETESABLE"/>
+<sl class="m">
+<java.lang.String class="a" value="EAU"/>
 </sl>
-<sl class="util.Map">
-<java.lang.String class="util.List" value="EAU"/>
+<sl class="m">
+<java.lang.String class="a" value="EAU"/>
 </sl>
-<sl class="util.Map">
-<java.lang.String class="util.List" value="EAU"/>
+<sl class="m">
+<java.lang.String class="a" value="EAU"/>
 </sl>
-<sl class="util.Map">
-<java.lang.String class="util.List" value="EAU"/>
+<sl class="m">
+<java.lang.String class="a" value="EAU"/>
 </sl>
-<sl class="util.Map">
-<java.lang.String class="util.List" value="EAU"/>
+<sl class="m">
+<java.lang.String class="a" value="EAU"/>
 </sl>
-<sl class="util.Map">
-<java.lang.String class="util.List" value="EAU"/>
+<sl class="m">
+<java.lang.String class="a" value="EAU"/>
 </sl>
 </sm>
 <l class="aiki.fight.abilities.AbilityData" field="effectEndRound"/>

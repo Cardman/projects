@@ -12,10 +12,10 @@
 <sl class="aiki.fight.abilities.AbilityData" field="ignFoeTeamMove"/>
 <java.lang.Boolean class="aiki.fight.abilities.AbilityData" field="ignFoeStatisBoost" value="false"/>
 <sl class="aiki.fight.abilities.AbilityData" field="immuMove">
-<java.lang.String class="util.List" value="IMITATION"/>
-<java.lang.String class="util.List" value="ECHANGE"/>
-<java.lang.String class="util.List" value="PASSE_PASSE"/>
-<java.lang.String class="util.List" value="TOURMAGIK"/>
+<java.lang.String class="a" value="IMITATION"/>
+<java.lang.String class="a" value="ECHANGE"/>
+<java.lang.String class="a" value="PASSE_PASSE"/>
+<java.lang.String class="a" value="TOURMAGIK"/>
 </sl>
 <el class="aiki.fight.abilities.AbilityData" field="immuLowStat"/>
 <ql class="aiki.fight.abilities.AbilityData" field="immuLowStatIfStatus"/>

@@ -30,8 +30,8 @@
 <em class="aiki.fight.items.ItemForBattle" field="multStatRank"/>
 <om class="aiki.fight.items.ItemForBattle" field="multStatPokemonRank"/>
 <em class="aiki.fight.items.ItemForBattle" field="multStat">
-<aiki.fight.enums.Statistic class="util.Map" key="" value="SPEED"/>
-<java.lang.String class="util.Map" value="3/2*cardinal(inter({VAR__FIGHTER_NOM},{METAMORPH}))+cardinal(complementaire({METAMORPH},{VAR__FIGHTER_NOM}))"/>
+<aiki.fight.enums.Statistic class="m" key="" value="SPEED"/>
+<java.lang.String class="m" value="3/2*cardinal(inter({VAR__FIGHTER_NOM},{METAMORPH}))+cardinal(complementaire({METAMORPH},{VAR__FIGHTER_NOM}))"/>
 </em>
 <sm class="aiki.fight.items.ItemForBattle" field="increasingMaxNbRoundGlobalMove"/>
 <sm class="aiki.fight.items.ItemForBattle" field="increasingMaxNbRoundTeamMove"/>

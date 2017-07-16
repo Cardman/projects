@@ -12,65 +12,65 @@
 <sl class="aiki.fight.abilities.AbilityData" field="ignFoeTeamMove"/>
 <java.lang.Boolean class="aiki.fight.abilities.AbilityData" field="ignFoeStatisBoost" value="false"/>
 <sl class="aiki.fight.abilities.AbilityData" field="immuMove">
-<java.lang.String class="util.List" value="PICOTS"/>
-<java.lang.String class="util.List" value="PIEGE_DE_ROC"/>
-<java.lang.String class="util.List" value="CAUCHEMAR"/>
-<java.lang.String class="util.List" value="MALEDICTION_2"/>
-<java.lang.String class="util.List" value="VAMPIGRAINE"/>
+<java.lang.String class="a" value="PICOTS"/>
+<java.lang.String class="a" value="PIEGE_DE_ROC"/>
+<java.lang.String class="a" value="CAUCHEMAR"/>
+<java.lang.String class="a" value="MALEDICTION_2"/>
+<java.lang.String class="a" value="VAMPIGRAINE"/>
 </sl>
 <el class="aiki.fight.abilities.AbilityData" field="immuLowStat"/>
 <ql class="aiki.fight.abilities.AbilityData" field="immuLowStatIfStatus"/>
 <java.lang.Boolean class="aiki.fight.abilities.AbilityData" field="immuCh" value="false"/>
 <sl class="aiki.fight.abilities.AbilityData" field="immuWeather">
-<java.lang.String class="util.List" value="GRELE"/>
-<java.lang.String class="util.List" value="TEMPETESABLE"/>
+<java.lang.String class="a" value="GRELE"/>
+<java.lang.String class="a" value="TEMPETESABLE"/>
 </sl>
 <java.lang.Boolean class="aiki.fight.abilities.AbilityData" field="immuDamageTrappingMoves" value="true"/>
 <java.lang.Boolean class="aiki.fight.abilities.AbilityData" field="immuDamageAllyMoves" value="false"/>
 <java.lang.Boolean class="aiki.fight.abilities.AbilityData" field="immuDamageRecoil" value="true"/>
 <sl class="aiki.fight.abilities.AbilityData" field="immuAbility">
-<java.lang.String class="util.List" value="MAUVAIS_REVE"/>
+<java.lang.String class="a" value="MAUVAIS_REVE"/>
 </sl>
 <sl class="aiki.fight.abilities.AbilityData" field="immuStatusBeginRound">
-<java.lang.String class="util.List" value="PARALYSIE"/>
+<java.lang.String class="a" value="PARALYSIE"/>
 </sl>
 <java.lang.Boolean class="aiki.fight.abilities.AbilityData" field="immuRechargeRound" value="false"/>
 <sm class="aiki.fight.abilities.AbilityData" field="immuStatus">
-<java.lang.String class="util.Map" key="" value=""/>
-<java.lang.String class="util.Map" key="" value="GRELE"/>
-<java.lang.String class="util.Map" key="" value="ZENITH"/>
-<java.lang.String class="util.Map" key="" value="DANSE_PLUIE"/>
-<java.lang.String class="util.Map" key="" value="ORAGE"/>
-<java.lang.String class="util.Map" key="" value="TEMPETESABLE"/>
-<sl class="util.Map">
-<java.lang.String class="util.List" value="BRULURE"/>
-<java.lang.String class="util.List" value="SIMPLE_POISON"/>
-<java.lang.String class="util.List" value="POISON_GRAVE"/>
+<java.lang.String class="m" key="" value=""/>
+<java.lang.String class="m" key="" value="GRELE"/>
+<java.lang.String class="m" key="" value="ZENITH"/>
+<java.lang.String class="m" key="" value="DANSE_PLUIE"/>
+<java.lang.String class="m" key="" value="ORAGE"/>
+<java.lang.String class="m" key="" value="TEMPETESABLE"/>
+<sl class="m">
+<java.lang.String class="a" value="BRULURE"/>
+<java.lang.String class="a" value="SIMPLE_POISON"/>
+<java.lang.String class="a" value="POISON_GRAVE"/>
 </sl>
-<sl class="util.Map">
-<java.lang.String class="util.List" value="BRULURE"/>
-<java.lang.String class="util.List" value="SIMPLE_POISON"/>
-<java.lang.String class="util.List" value="POISON_GRAVE"/>
+<sl class="m">
+<java.lang.String class="a" value="BRULURE"/>
+<java.lang.String class="a" value="SIMPLE_POISON"/>
+<java.lang.String class="a" value="POISON_GRAVE"/>
 </sl>
-<sl class="util.Map">
-<java.lang.String class="util.List" value="BRULURE"/>
-<java.lang.String class="util.List" value="SIMPLE_POISON"/>
-<java.lang.String class="util.List" value="POISON_GRAVE"/>
+<sl class="m">
+<java.lang.String class="a" value="BRULURE"/>
+<java.lang.String class="a" value="SIMPLE_POISON"/>
+<java.lang.String class="a" value="POISON_GRAVE"/>
 </sl>
-<sl class="util.Map">
-<java.lang.String class="util.List" value="BRULURE"/>
-<java.lang.String class="util.List" value="SIMPLE_POISON"/>
-<java.lang.String class="util.List" value="POISON_GRAVE"/>
+<sl class="m">
+<java.lang.String class="a" value="BRULURE"/>
+<java.lang.String class="a" value="SIMPLE_POISON"/>
+<java.lang.String class="a" value="POISON_GRAVE"/>
 </sl>
-<sl class="util.Map">
-<java.lang.String class="util.List" value="BRULURE"/>
-<java.lang.String class="util.List" value="SIMPLE_POISON"/>
-<java.lang.String class="util.List" value="POISON_GRAVE"/>
+<sl class="m">
+<java.lang.String class="a" value="BRULURE"/>
+<java.lang.String class="a" value="SIMPLE_POISON"/>
+<java.lang.String class="a" value="POISON_GRAVE"/>
 </sl>
-<sl class="util.Map">
-<java.lang.String class="util.List" value="BRULURE"/>
-<java.lang.String class="util.List" value="SIMPLE_POISON"/>
-<java.lang.String class="util.List" value="POISON_GRAVE"/>
+<sl class="m">
+<java.lang.String class="a" value="BRULURE"/>
+<java.lang.String class="a" value="SIMPLE_POISON"/>
+<java.lang.String class="a" value="POISON_GRAVE"/>
 </sl>
 </sm>
 <java.lang.Boolean class="aiki.fight.abilities.AbilityData" field="slowing" value="false"/>

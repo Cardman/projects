@@ -40,8 +40,8 @@
 <em class="aiki.fight.abilities.AbilityData" field="boostStatRankProtected"/>
 <em class="aiki.fight.abilities.AbilityData" field="boostStatRankEndRound"/>
 <em class="aiki.fight.abilities.AbilityData" field="multStatAlly">
-<aiki.fight.enums.Statistic class="util.Map" key="" value="ACCURACY"/>
-<r class="util.Map" value="2"/>
+<aiki.fight.enums.Statistic class="m" key="" value="ACCURACY"/>
+<r class="m" value="2"/>
 </em>
 <em class="aiki.fight.abilities.AbilityData" field="multStatIfKoFoe"/>
 <em class="aiki.fight.abilities.AbilityData" field="multStatIfLowStat"/>
@@ -50,8 +50,8 @@
 <om class="aiki.fight.abilities.AbilityData" field="multStatIfDamageCat"/>
 <om class="aiki.fight.abilities.AbilityData" field="multStatIfDamgeType"/>
 <em class="aiki.fight.abilities.AbilityData" field="multStat">
-<aiki.fight.enums.Statistic class="util.Map" key="" value="ACCURACY"/>
-<java.lang.String class="util.Map" value="2"/>
+<aiki.fight.enums.Statistic class="m" key="" value="ACCURACY"/>
+<java.lang.String class="m" value="2"/>
 </em>
 <java.lang.Boolean class="aiki.fight.abilities.AbilityData" field="inflictingDamageInsteadOfSuffering" value="false"/>
 <r class="aiki.fight.abilities.AbilityData" field="multVarBoost" value="0"/>

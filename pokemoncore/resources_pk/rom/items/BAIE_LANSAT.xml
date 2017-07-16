@@ -3,8 +3,8 @@
 <java.lang.Boolean class="aiki.fight.items.Berry" field="lawForAttackFirst" value="false"/>
 <sm class="aiki.fight.items.Berry" field="multFoesDamage"/>
 <em class="aiki.fight.items.Berry" field="multStat">
-<aiki.fight.enums.Statistic class="util.Map" key="" value="CRITICAL_HIT"/>
-<aiki.fight.util.BoostHpRate class="util.Map" value="1;1/3"/>
+<aiki.fight.enums.Statistic class="m" key="" value="CRITICAL_HIT"/>
+<aiki.fight.util.BoostHpRate class="m" value="1;1/3"/>
 </em>
 <java.lang.Boolean class="aiki.fight.items.Berry" field="withoutFail" value="false"/>
 <java.lang.Integer class="aiki.fight.items.Berry" field="healPp" value="0"/>

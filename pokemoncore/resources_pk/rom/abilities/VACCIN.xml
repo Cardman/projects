@@ -23,35 +23,35 @@
 <sl class="aiki.fight.abilities.AbilityData" field="immuStatusBeginRound"/>
 <java.lang.Boolean class="aiki.fight.abilities.AbilityData" field="immuRechargeRound" value="false"/>
 <sm class="aiki.fight.abilities.AbilityData" field="immuStatus">
-<java.lang.String class="util.Map" key="" value=""/>
-<java.lang.String class="util.Map" key="" value="GRELE"/>
-<java.lang.String class="util.Map" key="" value="ZENITH"/>
-<java.lang.String class="util.Map" key="" value="DANSE_PLUIE"/>
-<java.lang.String class="util.Map" key="" value="ORAGE"/>
-<java.lang.String class="util.Map" key="" value="TEMPETESABLE"/>
-<sl class="util.Map">
-<java.lang.String class="util.List" value="SIMPLE_POISON"/>
-<java.lang.String class="util.List" value="POISON_GRAVE"/>
+<java.lang.String class="m" key="" value=""/>
+<java.lang.String class="m" key="" value="GRELE"/>
+<java.lang.String class="m" key="" value="ZENITH"/>
+<java.lang.String class="m" key="" value="DANSE_PLUIE"/>
+<java.lang.String class="m" key="" value="ORAGE"/>
+<java.lang.String class="m" key="" value="TEMPETESABLE"/>
+<sl class="m">
+<java.lang.String class="a" value="SIMPLE_POISON"/>
+<java.lang.String class="a" value="POISON_GRAVE"/>
 </sl>
-<sl class="util.Map">
-<java.lang.String class="util.List" value="SIMPLE_POISON"/>
-<java.lang.String class="util.List" value="POISON_GRAVE"/>
+<sl class="m">
+<java.lang.String class="a" value="SIMPLE_POISON"/>
+<java.lang.String class="a" value="POISON_GRAVE"/>
 </sl>
-<sl class="util.Map">
-<java.lang.String class="util.List" value="SIMPLE_POISON"/>
-<java.lang.String class="util.List" value="POISON_GRAVE"/>
+<sl class="m">
+<java.lang.String class="a" value="SIMPLE_POISON"/>
+<java.lang.String class="a" value="POISON_GRAVE"/>
 </sl>
-<sl class="util.Map">
-<java.lang.String class="util.List" value="SIMPLE_POISON"/>
-<java.lang.String class="util.List" value="POISON_GRAVE"/>
+<sl class="m">
+<java.lang.String class="a" value="SIMPLE_POISON"/>
+<java.lang.String class="a" value="POISON_GRAVE"/>
 </sl>
-<sl class="util.Map">
-<java.lang.String class="util.List" value="SIMPLE_POISON"/>
-<java.lang.String class="util.List" value="POISON_GRAVE"/>
+<sl class="m">
+<java.lang.String class="a" value="SIMPLE_POISON"/>
+<java.lang.String class="a" value="POISON_GRAVE"/>
 </sl>
-<sl class="util.Map">
-<java.lang.String class="util.List" value="SIMPLE_POISON"/>
-<java.lang.String class="util.List" value="POISON_GRAVE"/>
+<sl class="m">
+<java.lang.String class="a" value="SIMPLE_POISON"/>
+<java.lang.String class="a" value="POISON_GRAVE"/>
 </sl>
 </sm>
 <java.lang.Boolean class="aiki.fight.abilities.AbilityData" field="slowing" value="false"/>

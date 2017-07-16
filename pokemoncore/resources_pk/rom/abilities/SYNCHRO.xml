@@ -63,30 +63,30 @@
 </mcs>
 <java.lang.Boolean class="aiki.fight.abilities.AbilityData" field="achievedDisappearedPk" value="false"/>
 <sm class="aiki.fight.abilities.AbilityData" field="forwardStatus">
-<java.lang.String class="util.Map" key="" value="POISON_GRAVE"/>
-<java.lang.String class="util.Map" key="" value="BRULURE"/>
-<java.lang.String class="util.Map" key="" value="SIMPLE_POISON"/>
-<java.lang.String class="util.Map" key="" value="SOMMEIL"/>
-<java.lang.String class="util.Map" key="" value="GEL"/>
-<java.lang.String class="util.Map" key="" value="PARALYSIE"/>
-<java.lang.String class="util.Map" value="SIMPLE_POISON"/>
-<java.lang.String class="util.Map" value="BRULURE"/>
-<java.lang.String class="util.Map" value="SIMPLE_POISON"/>
-<java.lang.String class="util.Map" value="SOMMEIL"/>
-<java.lang.String class="util.Map" value="GEL"/>
-<java.lang.String class="util.Map" value="PARALYSIE"/>
+<java.lang.String class="m" key="" value="POISON_GRAVE"/>
+<java.lang.String class="m" key="" value="BRULURE"/>
+<java.lang.String class="m" key="" value="SIMPLE_POISON"/>
+<java.lang.String class="m" key="" value="SOMMEIL"/>
+<java.lang.String class="m" key="" value="GEL"/>
+<java.lang.String class="m" key="" value="PARALYSIE"/>
+<java.lang.String class="m" value="SIMPLE_POISON"/>
+<java.lang.String class="m" value="BRULURE"/>
+<java.lang.String class="m" value="SIMPLE_POISON"/>
+<java.lang.String class="m" value="SOMMEIL"/>
+<java.lang.String class="m" value="GEL"/>
+<java.lang.String class="m" value="PARALYSIE"/>
 </sm>
 <sm class="aiki.fight.abilities.AbilityData" field="failStatus">
-<java.lang.String class="util.Map" key="" value="BRULURE"/>
-<java.lang.String class="util.Map" key="" value="SIMPLE_POISON"/>
-<java.lang.String class="util.Map" key="" value="SOMMEIL"/>
-<java.lang.String class="util.Map" key="" value="GEL"/>
-<java.lang.String class="util.Map" key="" value="PARALYSIE"/>
-<java.lang.String class="util.Map" value="cardinal(inter({VAR__CIBLE_STATUTS},{BRULURE}))&gt;0|VAR__CIBLE_CLONE&gt;0|cardinal(inter({VAR__CIBLE_TYPES},{FEU}))&gt;0"/>
-<java.lang.String class="util.Map" value="cardinal(inter({VAR__CIBLE_STATUTS},{SIMPLE_POISON;POISON_GRAVE}))&gt;0|VAR__CIBLE_CLONE&gt;0|cardinal(inter({VAR__CIBLE_TYPES},{POISON;ACIER}))&gt;0"/>
-<java.lang.String class="util.Map" value="cardinal(inter({VAR__CIBLE_STATUTS},{SOMMEIL;SOMMEIL_REPOS}))&gt;0|VAR__CIBLE_CLONE&gt;0"/>
-<java.lang.String class="util.Map" value="cardinal(inter({VAR__CIBLE_STATUTS},{GEL}))&gt;0|VAR__CIBLE_CLONE&gt;0|cardinal(inter({VAR__CIBLE_TYPES},{GLACE}))&gt;0"/>
-<java.lang.String class="util.Map" value="cardinal(inter({VAR__CIBLE_STATUTS},{PARALYSIE}))&gt;0|VAR__CIBLE_CLONE&gt;0"/>
+<java.lang.String class="m" key="" value="BRULURE"/>
+<java.lang.String class="m" key="" value="SIMPLE_POISON"/>
+<java.lang.String class="m" key="" value="SOMMEIL"/>
+<java.lang.String class="m" key="" value="GEL"/>
+<java.lang.String class="m" key="" value="PARALYSIE"/>
+<java.lang.String class="m" value="cardinal(inter({VAR__CIBLE_STATUTS},{BRULURE}))&gt;0|VAR__CIBLE_CLONE&gt;0|cardinal(inter({VAR__CIBLE_TYPES},{FEU}))&gt;0"/>
+<java.lang.String class="m" value="cardinal(inter({VAR__CIBLE_STATUTS},{SIMPLE_POISON;POISON_GRAVE}))&gt;0|VAR__CIBLE_CLONE&gt;0|cardinal(inter({VAR__CIBLE_TYPES},{POISON;ACIER}))&gt;0"/>
+<java.lang.String class="m" value="cardinal(inter({VAR__CIBLE_STATUTS},{SOMMEIL;SOMMEIL_REPOS}))&gt;0|VAR__CIBLE_CLONE&gt;0"/>
+<java.lang.String class="m" value="cardinal(inter({VAR__CIBLE_STATUTS},{GEL}))&gt;0|VAR__CIBLE_CLONE&gt;0|cardinal(inter({VAR__CIBLE_TYPES},{GLACE}))&gt;0"/>
+<java.lang.String class="m" value="cardinal(inter({VAR__CIBLE_STATUTS},{PARALYSIE}))&gt;0|VAR__CIBLE_CLONE&gt;0"/>
 </sm>
 <java.lang.String class="aiki.fight.abilities.AbilityData" field="typeForMoves" value=""/>
 <r class="aiki.fight.abilities.AbilityData" field="maxHpForUsingBerry" value="0"/>

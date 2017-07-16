@@ -25,10 +25,10 @@
 <sm class="aiki.fight.abilities.AbilityData" field="immuStatus"/>
 <java.lang.Boolean class="aiki.fight.abilities.AbilityData" field="slowing" value="false"/>
 <sm class="aiki.fight.abilities.AbilityData" field="multDamageFoe">
-<java.lang.String class="util.Map" key="" value="GLACE"/>
-<java.lang.String class="util.Map" key="" value="FEU"/>
-<r class="util.Map" value="1/2"/>
-<r class="util.Map" value="1/2"/>
+<java.lang.String class="m" key="" value="GLACE"/>
+<java.lang.String class="m" key="" value="FEU"/>
+<r class="m" value="1/2"/>
+<r class="m" value="1/2"/>
 </sm>
 <r class="aiki.fight.abilities.AbilityData" field="multDamageCh" value="0"/>
 <r class="aiki.fight.abilities.AbilityData" field="multAllyDamage" value="0"/>

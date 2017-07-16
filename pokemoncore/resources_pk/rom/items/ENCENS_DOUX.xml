@@ -30,14 +30,14 @@
 <em class="aiki.fight.items.ItemForBattle" field="multStatRank"/>
 <om class="aiki.fight.items.ItemForBattle" field="multStatPokemonRank"/>
 <em class="aiki.fight.items.ItemForBattle" field="multStat">
-<aiki.fight.enums.Statistic class="util.Map" key="" value="EVASINESS"/>
-<java.lang.String class="util.Map" value="21/20"/>
+<aiki.fight.enums.Statistic class="m" key="" value="EVASINESS"/>
+<java.lang.String class="m" value="21/20"/>
 </em>
 <sm class="aiki.fight.items.ItemForBattle" field="increasingMaxNbRoundGlobalMove"/>
 <sm class="aiki.fight.items.ItemForBattle" field="increasingMaxNbRoundTeamMove"/>
 <sl class="aiki.fight.items.ItemForBattle" field="immuMoves"/>
 <sl class="aiki.fight.items.ItemForBattle" field="hatching">
-<java.lang.String class="util.List" value="OKEOKE"/>
+<java.lang.String class="a" value="OKEOKE"/>
 </sl>
 <sl class="aiki.fight.items.ItemForBattle" field="immuTypes"/>
 <sl class="aiki.fight.items.ItemForBattle" field="immuWeather"/>

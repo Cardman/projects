@@ -41,8 +41,8 @@
 <em class="aiki.fight.abilities.AbilityData" field="boostStatRankEndRound"/>
 <em class="aiki.fight.abilities.AbilityData" field="multStatAlly"/>
 <em class="aiki.fight.abilities.AbilityData" field="multStatIfKoFoe">
-<aiki.fight.enums.Statistic class="util.Map" key="" value="ATTACK"/>
-<java.lang.Byte class="util.Map" value="1"/>
+<aiki.fight.enums.Statistic class="m" key="" value="ATTACK"/>
+<java.lang.Byte class="m" value="1"/>
 </em>
 <em class="aiki.fight.abilities.AbilityData" field="multStatIfLowStat"/>
 <om class="aiki.fight.abilities.AbilityData" field="multStatIfCat"/>

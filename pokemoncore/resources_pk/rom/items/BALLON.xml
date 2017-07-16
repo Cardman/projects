@@ -35,7 +35,7 @@
 <sl class="aiki.fight.items.ItemForBattle" field="immuMoves"/>
 <sl class="aiki.fight.items.ItemForBattle" field="hatching"/>
 <sl class="aiki.fight.items.ItemForBattle" field="immuTypes">
-<java.lang.String class="util.List" value="SOL"/>
+<java.lang.String class="a" value="SOL"/>
 </sl>
 <sl class="aiki.fight.items.ItemForBattle" field="immuWeather"/>
 <em class="aiki.fight.items.ItemForBattle" field="boostStatisSuperEff"/>

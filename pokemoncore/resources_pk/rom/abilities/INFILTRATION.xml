@@ -10,10 +10,10 @@
 <sm class="aiki.fight.abilities.AbilityData" field="healHpByWeather"/>
 <sl class="aiki.fight.abilities.AbilityData" field="ignAbility"/>
 <sl class="aiki.fight.abilities.AbilityData" field="ignFoeTeamMove">
-<java.lang.String class="util.List" value="PROTECTION"/>
-<java.lang.String class="util.List" value="MUR_LUMIERE"/>
-<java.lang.String class="util.List" value="RUNE_PROTECT"/>
-<java.lang.String class="util.List" value="BRUME"/>
+<java.lang.String class="a" value="PROTECTION"/>
+<java.lang.String class="a" value="MUR_LUMIERE"/>
+<java.lang.String class="a" value="RUNE_PROTECT"/>
+<java.lang.String class="a" value="BRUME"/>
 </sl>
 <java.lang.Boolean class="aiki.fight.abilities.AbilityData" field="ignFoeStatisBoost" value="false"/>
 <sl class="aiki.fight.abilities.AbilityData" field="immuMove"/>

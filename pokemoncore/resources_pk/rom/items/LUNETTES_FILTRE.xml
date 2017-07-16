@@ -33,12 +33,12 @@
 <sm class="aiki.fight.items.ItemForBattle" field="increasingMaxNbRoundGlobalMove"/>
 <sm class="aiki.fight.items.ItemForBattle" field="increasingMaxNbRoundTeamMove"/>
 <sl class="aiki.fight.items.ItemForBattle" field="immuMoves">
-<java.lang.String class="util.List" value="POUDRE_TOXIK"/>
+<java.lang.String class="a" value="POUDRE_TOXIK"/>
 </sl>
 <sl class="aiki.fight.items.ItemForBattle" field="hatching"/>
 <sl class="aiki.fight.items.ItemForBattle" field="immuTypes"/>
 <sl class="aiki.fight.items.ItemForBattle" field="immuWeather">
-<java.lang.String class="util.List" value="TEMPETESABLE"/>
+<java.lang.String class="a" value="TEMPETESABLE"/>
 </sl>
 <em class="aiki.fight.items.ItemForBattle" field="boostStatisSuperEff"/>
 <sm class="aiki.fight.items.ItemForBattle" field="boostStatisTypes"/>

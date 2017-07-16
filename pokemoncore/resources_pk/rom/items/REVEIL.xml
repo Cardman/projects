@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?><aiki.fight.items.HealingStatus>
 <sl class="aiki.fight.items.HealingStatus" field="status">
-<java.lang.String class="util.List" value="SOMMEIL"/>
-<java.lang.String class="util.List" value="SOMMEIL_REPOS"/>
+<java.lang.String class="a" value="SOMMEIL"/>
+<java.lang.String class="a" value="SOMMEIL_REPOS"/>
 </sl>
 <java.lang.Boolean class="aiki.fight.items.HealingStatus" field="healingKo" value="false"/>
 <sm class="aiki.fight.items.HealingItem" field="happiness"/>

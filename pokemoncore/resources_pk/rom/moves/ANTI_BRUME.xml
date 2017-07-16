@@ -4,22 +4,22 @@
 <java.lang.Boolean class="aiki.fight.moves.MoveData" field="notTranslated" value="false"/>
 <java.lang.Short class="aiki.fight.moves.MoveData" field="pp" value="15"/>
 <sl class="aiki.fight.moves.MoveData" field="types">
-<java.lang.String class="util.List" value="VOL"/>
+<java.lang.String class="a" value="VOL"/>
 </sl>
 <sl class="aiki.fight.moves.MoveData" field="boostedTypes">
-<java.lang.String class="util.List" value="VOL"/>
+<java.lang.String class="a" value="VOL"/>
 </sl>
 <java.lang.Byte class="aiki.fight.moves.MoveData" field="priority" value="0"/>
 <java.lang.String class="aiki.fight.moves.MoveData" field="accuracy" value="1"/>
 <l class="aiki.fight.moves.MoveData" field="effects">
-<aiki.fight.moves.effects.EffectTeam class="util.List">
+<aiki.fight.moves.effects.EffectTeam class="a">
 <java.lang.Boolean class="aiki.fight.moves.effects.EffectTeam" field="forbiddingHealing" value="false"/>
 <el class="aiki.fight.moves.effects.EffectTeam" field="forbiddenBoost">
-<aiki.fight.enums.Statistic class="util.List" value="EVASINESS"/>
+<aiki.fight.enums.Statistic class="a" value="EVASINESS"/>
 </el>
 <sl class="aiki.fight.moves.effects.EffectTeam" field="unusableMoves"/>
 <el class="aiki.fight.moves.effects.EffectTeam" field="cancelChgtStatFoeTeam">
-<aiki.fight.enums.Statistic class="util.List" value="EVASINESS"/>
+<aiki.fight.enums.Statistic class="a" value="EVASINESS"/>
 </el>
 <el class="aiki.fight.moves.effects.EffectTeam" field="cancelChgtStatTeam"/>
 <om class="aiki.fight.moves.effects.EffectTeam" field="multDamage"/>
@@ -29,13 +29,13 @@
 <java.lang.Boolean class="aiki.fight.moves.effects.EffectTeam" field="protectAgainstCh" value="false"/>
 <sl class="aiki.fight.moves.effects.EffectTeam" field="protectAgainstStatus"/>
 <sl class="aiki.fight.moves.effects.EffectTeam" field="disableFoeTeamEffects">
-<java.lang.String class="util.List" value="MUR_LUMIERE"/>
-<java.lang.String class="util.List" value="PROTECTION"/>
-<java.lang.String class="util.List" value="RUNE_PROTECT"/>
-<java.lang.String class="util.List" value="BRUME"/>
-<java.lang.String class="util.List" value="PICOTS"/>
-<java.lang.String class="util.List" value="PIEGE_DE_ROC"/>
-<java.lang.String class="util.List" value="PICS_TOXIK"/>
+<java.lang.String class="a" value="MUR_LUMIERE"/>
+<java.lang.String class="a" value="PROTECTION"/>
+<java.lang.String class="a" value="RUNE_PROTECT"/>
+<java.lang.String class="a" value="BRUME"/>
+<java.lang.String class="a" value="PICOTS"/>
+<java.lang.String class="a" value="PIEGE_DE_ROC"/>
+<java.lang.String class="a" value="PICS_TOXIK"/>
 </sl>
 <sl class="aiki.fight.moves.effects.EffectTeam" field="disableFoeTeamStatus"/>
 <aiki.fight.moves.enums.TargetChoice class="aiki.fight.moves.effects.Effect" field="targetChoice" value="LANCEUR"/>

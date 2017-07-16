@@ -57,8 +57,8 @@
 <r class="aiki.fight.abilities.AbilityData" field="healedHpRateBySwitch" value="0"/>
 <sm class="aiki.fight.abilities.AbilityData" field="increasedPrio"/>
 <sm class="aiki.fight.abilities.AbilityData" field="increasedPrioTypes">
-<java.lang.String class="util.Map" key="" value="VOL"/>
-<java.lang.Short class="util.Map" value="1"/>
+<java.lang.String class="m" key="" value="VOL"/>
+<java.lang.Short class="m" value="1"/>
 </sm>
 <el class="aiki.fight.abilities.AbilityData" field="maxStatisticsIfCh"/>
 <mcs class="aiki.fight.abilities.AbilityData" field="singleStatus">

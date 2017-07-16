@@ -4,18 +4,18 @@
 <java.lang.Boolean class="aiki.fight.moves.MoveData" field="notTranslated" value="false"/>
 <java.lang.Short class="aiki.fight.moves.MoveData" field="pp" value="25"/>
 <sl class="aiki.fight.moves.MoveData" field="types">
-<java.lang.String class="util.List" value="ELECTRIQUE"/>
+<java.lang.String class="a" value="ELECTRIQUE"/>
 </sl>
 <sl class="aiki.fight.moves.MoveData" field="boostedTypes">
-<java.lang.String class="util.List" value="ELECTRIQUE"/>
+<java.lang.String class="a" value="ELECTRIQUE"/>
 </sl>
 <java.lang.Byte class="aiki.fight.moves.MoveData" field="priority" value="1"/>
 <java.lang.String class="aiki.fight.moves.MoveData" field="accuracy" value="1"/>
 <l class="aiki.fight.moves.MoveData" field="effects">
-<aiki.fight.moves.effects.EffectSwitchMoveTypes class="util.List">
+<aiki.fight.moves.effects.EffectSwitchMoveTypes class="a">
 <sm class="aiki.fight.moves.effects.EffectSwitchMoveTypes" field="changeTypes">
-<java.lang.String class="util.Map" key="" value="NORMAL"/>
-<java.lang.String class="util.Map" value="ELECTRIQUE"/>
+<java.lang.String class="m" key="" value="NORMAL"/>
+<java.lang.String class="m" value="ELECTRIQUE"/>
 </sm>
 <sl class="aiki.fight.moves.effects.EffectSwitchMoveTypes" field="replacingTypes"/>
 <aiki.fight.moves.enums.TargetChoice class="aiki.fight.moves.effects.Effect" field="targetChoice" value="GLOBALE"/>

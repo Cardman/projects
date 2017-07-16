@@ -2,8 +2,8 @@
 <r class="aiki.fight.items.Berry" field="healHpBySuperEffMove" value="0"/>
 <java.lang.Boolean class="aiki.fight.items.Berry" field="lawForAttackFirst" value="false"/>
 <sm class="aiki.fight.items.Berry" field="multFoesDamage">
-<java.lang.String class="util.Map" key="" value="DRAGON"/>
-<aiki.fight.util.EfficiencyRate class="util.Map" value="1;1/2"/>
+<java.lang.String class="m" key="" value="DRAGON"/>
+<aiki.fight.util.EfficiencyRate class="m" value="1;1/2"/>
 </sm>
 <em class="aiki.fight.items.Berry" field="multStat"/>
 <java.lang.Boolean class="aiki.fight.items.Berry" field="withoutFail" value="false"/>

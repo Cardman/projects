@@ -17,10 +17,10 @@
 <em class="aiki.fight.items.ItemForBattle" field="winEvFight"/>
 <mcb class="aiki.fight.items.ItemForBattle" field="lawForAttackFirst">
 <bm class="mcb" field="law">
-<java.lang.Boolean class="util.Map" key="" value="false"/>
-<java.lang.Boolean class="util.Map" key="" value="true"/>
-<li class="util.Map" value="4"/>
-<li class="util.Map" value="1"/>
+<java.lang.Boolean class="m" key="" value="false"/>
+<java.lang.Boolean class="m" key="" value="true"/>
+<li class="m" value="4"/>
+<li class="m" value="1"/>
 </bm>
 </mcb>
 <r class="aiki.fight.items.ItemForBattle" field="multTrappingDamage" value="0"/>

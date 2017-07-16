@@ -44,7 +44,7 @@
 <java.lang.Boolean class="aiki.fight.items.ItemForBattle" field="transfertObjSiContact" value="false"/>
 <l class="aiki.fight.items.ItemForBattle" field="effectEndRound"/>
 <l class="aiki.fight.items.ItemForBattle" field="effectSending">
-<aiki.fight.effects.EffectWhileSending class="util.List">
+<aiki.fight.effects.EffectWhileSending class="a">
 <java.lang.Boolean class="aiki.fight.effects.EffectWhileSending" field="disableWeather" value="false"/>
 <java.lang.String class="aiki.fight.effects.EffectWhileSending" field="enabledWeather" value=""/>
 <java.lang.Boolean class="aiki.fight.effects.EffectWhileSending" field="copyingAbility" value="false"/>

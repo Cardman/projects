@@ -8,8 +8,8 @@
 <java.lang.Integer class="aiki.fight.abilities.AbilityData" field="decreaseNecStepsHatch" value="0"/>
 <sm class="aiki.fight.abilities.AbilityData" field="divideStatusRound"/>
 <sm class="aiki.fight.abilities.AbilityData" field="healHpByWeather">
-<java.lang.String class="util.Map" key="" value="ZENITH"/>
-<r class="util.Map" value="1/8"/>
+<java.lang.String class="m" key="" value="ZENITH"/>
+<r class="m" value="1/8"/>
 </sm>
 <sl class="aiki.fight.abilities.AbilityData" field="ignAbility"/>
 <sl class="aiki.fight.abilities.AbilityData" field="ignFoeTeamMove"/>
@@ -50,8 +50,8 @@
 <om class="aiki.fight.abilities.AbilityData" field="multStatIfDamageCat"/>
 <om class="aiki.fight.abilities.AbilityData" field="multStatIfDamgeType"/>
 <em class="aiki.fight.abilities.AbilityData" field="multStat">
-<aiki.fight.enums.Statistic class="util.Map" key="" value="SPECIAL_ATTACK"/>
-<java.lang.String class="util.Map" value="max(3/2*cardinal(inter({VAR__CLIMATS},{ZENITH}))+cardinal(complementaire({ZENITH},{VAR__CLIMATS})),1)"/>
+<aiki.fight.enums.Statistic class="m" key="" value="SPECIAL_ATTACK"/>
+<java.lang.String class="m" value="max(3/2*cardinal(inter({VAR__CLIMATS},{ZENITH}))+cardinal(complementaire({ZENITH},{VAR__CLIMATS})),1)"/>
 </em>
 <java.lang.Boolean class="aiki.fight.abilities.AbilityData" field="inflictingDamageInsteadOfSuffering" value="false"/>
 <r class="aiki.fight.abilities.AbilityData" field="multVarBoost" value="0"/>

@@ -70,7 +70,7 @@
 <om class="aiki.fight.abilities.AbilityData" field="healHpByTypeIfWeather"/>
 <sm class="aiki.fight.abilities.AbilityData" field="immuMoveTypesByWeather"/>
 <l class="aiki.fight.abilities.AbilityData" field="effectEndRound">
-<aiki.fight.moves.effects.EffectEndRoundIndividual class="util.List">
+<aiki.fight.moves.effects.EffectEndRoundIndividual class="a">
 <r class="aiki.fight.moves.effects.EffectEndRoundIndividual" field="deleteAllStatus" value="3/10"/>
 <r class="aiki.fight.moves.effects.EffectEndRoundIndividual" field="recoilDamage" value="0"/>
 <r class="aiki.fight.moves.effects.EffectEndRoundIndividual" field="healHp" value="0"/>

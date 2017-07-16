@@ -6,15 +6,15 @@
 <java.lang.Boolean class="aiki.fight.moves.MoveData" field="notTranslated" value="false"/>
 <java.lang.Short class="aiki.fight.moves.MoveData" field="pp" value="10"/>
 <sl class="aiki.fight.moves.MoveData" field="types">
-<java.lang.String class="util.List" value="TENEBRE"/>
+<java.lang.String class="a" value="TENEBRE"/>
 </sl>
 <sl class="aiki.fight.moves.MoveData" field="boostedTypes">
-<java.lang.String class="util.List" value="TENEBRE"/>
+<java.lang.String class="a" value="TENEBRE"/>
 </sl>
 <java.lang.Byte class="aiki.fight.moves.MoveData" field="priority" value="0"/>
 <java.lang.String class="aiki.fight.moves.MoveData" field="accuracy" value="1"/>
 <l class="aiki.fight.moves.MoveData" field="effects">
-<aiki.fight.moves.effects.EffectDamage class="util.List">
+<aiki.fight.moves.effects.EffectDamage class="a">
 <java.lang.Byte class="aiki.fight.moves.effects.EffectDamage" field="chRate" value="0"/>
 <java.lang.Boolean class="aiki.fight.moves.effects.EffectDamage" field="constDamage" value="false"/>
 <mcs class="aiki.fight.moves.effects.EffectDamage" field="damageLaw">
@@ -37,132 +37,132 @@
 <java.lang.String class="aiki.fight.moves.effects.Effect" field="fail" value=""/>
 <n class="aiki.fight.moves.effects.Effect" field="requiredSuccessfulEffects"/>
 </aiki.fight.moves.effects.EffectDamage>
-<aiki.fight.moves.effects.EffectStatus class="util.List">
+<aiki.fight.moves.effects.EffectStatus class="a">
 <mcs class="aiki.fight.moves.effects.EffectStatus" field="lawStatus">
 <sm class="mcs" field="law">
-<java.lang.String class="util.Map" key="" value="BRULURE"/>
-<li class="util.Map" value="1"/>
+<java.lang.String class="m" key="" value="BRULURE"/>
+<li class="m" value="1"/>
 </sm>
 </mcs>
 <sl class="aiki.fight.moves.effects.EffectStatus" field="deletedStatus"/>
 <sm class="aiki.fight.moves.effects.EffectStatus" field="localFailStatus">
-<java.lang.String class="util.Map" key="" value="BRULURE"/>
-<java.lang.String class="util.Map" value="cardinal(inter({VAR__CIBLE_STATUTS},{BRULURE}))&gt;0|VAR__CIBLE_CLONE&gt;0|cardinal(inter({VAR__CIBLE_TYPES},{FEU}))&gt;0"/>
+<java.lang.String class="m" key="" value="BRULURE"/>
+<java.lang.String class="m" value="cardinal(inter({VAR__CIBLE_STATUTS},{BRULURE}))&gt;0|VAR__CIBLE_CLONE&gt;0|cardinal(inter({VAR__CIBLE_TYPES},{FEU}))&gt;0"/>
 </sm>
 <java.lang.Boolean class="aiki.fight.moves.effects.EffectStatus" field="koUserHealSubst" value="false"/>
 <java.lang.Boolean class="aiki.fight.moves.effects.EffectStatus" field="statusFromUser" value="false"/>
 <aiki.fight.moves.enums.TargetChoice class="aiki.fight.moves.effects.Effect" field="targetChoice" value="AUTRE_UNIQ"/>
 <java.lang.String class="aiki.fight.moves.effects.Effect" field="fail" value=""/>
 <n class="aiki.fight.moves.effects.Effect" field="requiredSuccessfulEffects">
-<java.lang.Integer class="util.List" value="0"/>
+<java.lang.Integer class="a" value="0"/>
 </n>
 </aiki.fight.moves.effects.EffectStatus>
-<aiki.fight.moves.effects.EffectStatus class="util.List">
+<aiki.fight.moves.effects.EffectStatus class="a">
 <mcs class="aiki.fight.moves.effects.EffectStatus" field="lawStatus">
 <sm class="mcs" field="law">
-<java.lang.String class="util.Map" key="" value="POISON_GRAVE"/>
-<li class="util.Map" value="1"/>
+<java.lang.String class="m" key="" value="POISON_GRAVE"/>
+<li class="m" value="1"/>
 </sm>
 </mcs>
 <sl class="aiki.fight.moves.effects.EffectStatus" field="deletedStatus"/>
 <sm class="aiki.fight.moves.effects.EffectStatus" field="localFailStatus">
-<java.lang.String class="util.Map" key="" value="POISON_GRAVE"/>
-<java.lang.String class="util.Map" value="cardinal(inter({VAR__CIBLE_STATUTS},{SIMPLE_POISON;POISON_GRAVE}))&gt;0|VAR__CIBLE_CLONE&gt;0|cardinal(inter({VAR__CIBLE_TYPES},{POISON;ACIER}))&gt;0"/>
+<java.lang.String class="m" key="" value="POISON_GRAVE"/>
+<java.lang.String class="m" value="cardinal(inter({VAR__CIBLE_STATUTS},{SIMPLE_POISON;POISON_GRAVE}))&gt;0|VAR__CIBLE_CLONE&gt;0|cardinal(inter({VAR__CIBLE_TYPES},{POISON;ACIER}))&gt;0"/>
 </sm>
 <java.lang.Boolean class="aiki.fight.moves.effects.EffectStatus" field="koUserHealSubst" value="false"/>
 <java.lang.Boolean class="aiki.fight.moves.effects.EffectStatus" field="statusFromUser" value="false"/>
 <aiki.fight.moves.enums.TargetChoice class="aiki.fight.moves.effects.Effect" field="targetChoice" value="AUTRE_UNIQ"/>
 <java.lang.String class="aiki.fight.moves.effects.Effect" field="fail" value=""/>
 <n class="aiki.fight.moves.effects.Effect" field="requiredSuccessfulEffects">
-<java.lang.Integer class="util.List" value="0"/>
+<java.lang.Integer class="a" value="0"/>
 </n>
 </aiki.fight.moves.effects.EffectStatus>
-<aiki.fight.moves.effects.EffectStatus class="util.List">
+<aiki.fight.moves.effects.EffectStatus class="a">
 <mcs class="aiki.fight.moves.effects.EffectStatus" field="lawStatus">
 <sm class="mcs" field="law">
-<java.lang.String class="util.Map" key="" value="PARALYSIE"/>
-<li class="util.Map" value="1"/>
+<java.lang.String class="m" key="" value="PARALYSIE"/>
+<li class="m" value="1"/>
 </sm>
 </mcs>
 <sl class="aiki.fight.moves.effects.EffectStatus" field="deletedStatus"/>
 <sm class="aiki.fight.moves.effects.EffectStatus" field="localFailStatus">
-<java.lang.String class="util.Map" key="" value="PARALYSIE"/>
-<java.lang.String class="util.Map" value="cardinal(inter({VAR__CIBLE_STATUTS},{PARALYSIE}))&gt;0|VAR__CIBLE_CLONE&gt;0"/>
+<java.lang.String class="m" key="" value="PARALYSIE"/>
+<java.lang.String class="m" value="cardinal(inter({VAR__CIBLE_STATUTS},{PARALYSIE}))&gt;0|VAR__CIBLE_CLONE&gt;0"/>
 </sm>
 <java.lang.Boolean class="aiki.fight.moves.effects.EffectStatus" field="koUserHealSubst" value="false"/>
 <java.lang.Boolean class="aiki.fight.moves.effects.EffectStatus" field="statusFromUser" value="false"/>
 <aiki.fight.moves.enums.TargetChoice class="aiki.fight.moves.effects.Effect" field="targetChoice" value="AUTRE_UNIQ"/>
 <java.lang.String class="aiki.fight.moves.effects.Effect" field="fail" value=""/>
 <n class="aiki.fight.moves.effects.Effect" field="requiredSuccessfulEffects">
-<java.lang.Integer class="util.List" value="0"/>
+<java.lang.Integer class="a" value="0"/>
 </n>
 </aiki.fight.moves.effects.EffectStatus>
-<aiki.fight.moves.effects.EffectStatus class="util.List">
+<aiki.fight.moves.effects.EffectStatus class="a">
 <mcs class="aiki.fight.moves.effects.EffectStatus" field="lawStatus">
 <sm class="mcs" field="law">
-<java.lang.String class="util.Map" key="" value="SIMPLE_POISON"/>
-<li class="util.Map" value="1"/>
+<java.lang.String class="m" key="" value="SIMPLE_POISON"/>
+<li class="m" value="1"/>
 </sm>
 </mcs>
 <sl class="aiki.fight.moves.effects.EffectStatus" field="deletedStatus"/>
 <sm class="aiki.fight.moves.effects.EffectStatus" field="localFailStatus">
-<java.lang.String class="util.Map" key="" value="SIMPLE_POISON"/>
-<java.lang.String class="util.Map" value="cardinal(inter({VAR__CIBLE_STATUTS},{SIMPLE_POISON;POISON_GRAVE}))&gt;0|VAR__CIBLE_CLONE&gt;0|cardinal(inter({VAR__CIBLE_TYPES},{POISON;ACIER}))&gt;0"/>
+<java.lang.String class="m" key="" value="SIMPLE_POISON"/>
+<java.lang.String class="m" value="cardinal(inter({VAR__CIBLE_STATUTS},{SIMPLE_POISON;POISON_GRAVE}))&gt;0|VAR__CIBLE_CLONE&gt;0|cardinal(inter({VAR__CIBLE_TYPES},{POISON;ACIER}))&gt;0"/>
 </sm>
 <java.lang.Boolean class="aiki.fight.moves.effects.EffectStatus" field="koUserHealSubst" value="false"/>
 <java.lang.Boolean class="aiki.fight.moves.effects.EffectStatus" field="statusFromUser" value="false"/>
 <aiki.fight.moves.enums.TargetChoice class="aiki.fight.moves.effects.Effect" field="targetChoice" value="AUTRE_UNIQ"/>
 <java.lang.String class="aiki.fight.moves.effects.Effect" field="fail" value=""/>
 <n class="aiki.fight.moves.effects.Effect" field="requiredSuccessfulEffects">
-<java.lang.Integer class="util.List" value="0"/>
+<java.lang.Integer class="a" value="0"/>
 </n>
 </aiki.fight.moves.effects.EffectStatus>
-<aiki.fight.moves.effects.EffectStatus class="util.List">
+<aiki.fight.moves.effects.EffectStatus class="a">
 <mcs class="aiki.fight.moves.effects.EffectStatus" field="lawStatus">
 <sm class="mcs" field="law">
-<java.lang.String class="util.Map" key="" value="PEUR"/>
-<li class="util.Map" value="1"/>
+<java.lang.String class="m" key="" value="PEUR"/>
+<li class="m" value="1"/>
 </sm>
 </mcs>
 <sl class="aiki.fight.moves.effects.EffectStatus" field="deletedStatus"/>
 <sm class="aiki.fight.moves.effects.EffectStatus" field="localFailStatus">
-<java.lang.String class="util.Map" key="" value="PEUR"/>
-<java.lang.String class="util.Map" value="VAR__CIBLE_CLONE&gt;0"/>
+<java.lang.String class="m" key="" value="PEUR"/>
+<java.lang.String class="m" value="VAR__CIBLE_CLONE&gt;0"/>
 </sm>
 <java.lang.Boolean class="aiki.fight.moves.effects.EffectStatus" field="koUserHealSubst" value="false"/>
 <java.lang.Boolean class="aiki.fight.moves.effects.EffectStatus" field="statusFromUser" value="false"/>
 <aiki.fight.moves.enums.TargetChoice class="aiki.fight.moves.effects.Effect" field="targetChoice" value="AUTRE_UNIQ"/>
 <java.lang.String class="aiki.fight.moves.effects.Effect" field="fail" value=""/>
 <n class="aiki.fight.moves.effects.Effect" field="requiredSuccessfulEffects">
-<java.lang.Integer class="util.List" value="0"/>
+<java.lang.Integer class="a" value="0"/>
 </n>
 </aiki.fight.moves.effects.EffectStatus>
-<aiki.fight.moves.effects.EffectStatus class="util.List">
+<aiki.fight.moves.effects.EffectStatus class="a">
 <mcs class="aiki.fight.moves.effects.EffectStatus" field="lawStatus">
 <sm class="mcs" field="law">
-<java.lang.String class="util.Map" key="" value="PEUR"/>
-<li class="util.Map" value="1"/>
+<java.lang.String class="m" key="" value="PEUR"/>
+<li class="m" value="1"/>
 </sm>
 </mcs>
 <sl class="aiki.fight.moves.effects.EffectStatus" field="deletedStatus"/>
 <sm class="aiki.fight.moves.effects.EffectStatus" field="localFailStatus">
-<java.lang.String class="util.Map" key="" value="PEUR"/>
-<java.lang.String class="util.Map" value="VAR__CIBLE_CLONE&gt;0"/>
+<java.lang.String class="m" key="" value="PEUR"/>
+<java.lang.String class="m" value="VAR__CIBLE_CLONE&gt;0"/>
 </sm>
 <java.lang.Boolean class="aiki.fight.moves.effects.EffectStatus" field="koUserHealSubst" value="false"/>
 <java.lang.Boolean class="aiki.fight.moves.effects.EffectStatus" field="statusFromUser" value="false"/>
 <aiki.fight.moves.enums.TargetChoice class="aiki.fight.moves.effects.Effect" field="targetChoice" value="AUTRE_UNIQ"/>
 <java.lang.String class="aiki.fight.moves.effects.Effect" field="fail" value=""/>
 <n class="aiki.fight.moves.effects.Effect" field="requiredSuccessfulEffects">
-<java.lang.Integer class="util.List" value="0"/>
+<java.lang.Integer class="a" value="0"/>
 </n>
 </aiki.fight.moves.effects.EffectStatus>
-<aiki.fight.moves.effects.EffectStatus class="util.List">
+<aiki.fight.moves.effects.EffectStatus class="a">
 <mcs class="aiki.fight.moves.effects.EffectStatus" field="lawStatus">
 <sm class="mcs" field="law"/>
 </mcs>
 <sl class="aiki.fight.moves.effects.EffectStatus" field="deletedStatus">
-<java.lang.String class="util.List" value="AMOUR"/>
+<java.lang.String class="a" value="AMOUR"/>
 </sl>
 <sm class="aiki.fight.moves.effects.EffectStatus" field="localFailStatus"/>
 <java.lang.Boolean class="aiki.fight.moves.effects.EffectStatus" field="koUserHealSubst" value="false"/>
@@ -170,10 +170,10 @@
 <aiki.fight.moves.enums.TargetChoice class="aiki.fight.moves.effects.Effect" field="targetChoice" value="AUTRE_UNIQ"/>
 <java.lang.String class="aiki.fight.moves.effects.Effect" field="fail" value=""/>
 <n class="aiki.fight.moves.effects.Effect" field="requiredSuccessfulEffects">
-<java.lang.Integer class="util.List" value="0"/>
+<java.lang.Integer class="a" value="0"/>
 </n>
 </aiki.fight.moves.effects.EffectStatus>
-<aiki.fight.moves.effects.EffectStatistic class="util.List">
+<aiki.fight.moves.effects.EffectStatistic class="a">
 <em class="aiki.fight.moves.effects.EffectStatistic" field="statisVarRank"/>
 <em class="aiki.fight.moves.effects.EffectStatistic" field="localFailStatis"/>
 <r class="aiki.fight.moves.effects.EffectStatistic" field="evtRate" value="1"/>
@@ -184,19 +184,19 @@
 <em class="mce" field="law"/>
 </mce>
 <el class="aiki.fight.moves.effects.EffectStatistic" field="cancelLowStat">
-<aiki.fight.enums.Statistic class="util.List" value="ATTACK"/>
-<aiki.fight.enums.Statistic class="util.List" value="DEFENSE"/>
-<aiki.fight.enums.Statistic class="util.List" value="SPECIAL_ATTACK"/>
-<aiki.fight.enums.Statistic class="util.List" value="SPECIAL_DEFENSE"/>
-<aiki.fight.enums.Statistic class="util.List" value="SPEED"/>
-<aiki.fight.enums.Statistic class="util.List" value="ACCURACY"/>
-<aiki.fight.enums.Statistic class="util.List" value="EVASINESS"/>
+<aiki.fight.enums.Statistic class="a" value="ATTACK"/>
+<aiki.fight.enums.Statistic class="a" value="DEFENSE"/>
+<aiki.fight.enums.Statistic class="a" value="SPECIAL_ATTACK"/>
+<aiki.fight.enums.Statistic class="a" value="SPECIAL_DEFENSE"/>
+<aiki.fight.enums.Statistic class="a" value="SPEED"/>
+<aiki.fight.enums.Statistic class="a" value="ACCURACY"/>
+<aiki.fight.enums.Statistic class="a" value="EVASINESS"/>
 </el>
 <el class="aiki.fight.moves.effects.EffectStatistic" field="cancelChgtStat"/>
 <aiki.fight.moves.enums.TargetChoice class="aiki.fight.moves.effects.Effect" field="targetChoice" value="AUTRE_UNIQ"/>
 <java.lang.String class="aiki.fight.moves.effects.Effect" field="fail" value=""/>
 <n class="aiki.fight.moves.effects.Effect" field="requiredSuccessfulEffects">
-<java.lang.Integer class="util.List" value="0"/>
+<java.lang.Integer class="a" value="0"/>
 </n>
 </aiki.fight.moves.effects.EffectStatistic>
 </l>
@@ -211,37 +211,37 @@
 <java.lang.Boolean class="aiki.fight.moves.MoveData" field="stoppableMovePrio" value="false"/>
 <java.lang.Boolean class="aiki.fight.moves.MoveData" field="secEffectIfNoDamage" value="false"/>
 <sm class="aiki.fight.moves.MoveData" field="secEffectsByItem">
-<java.lang.String class="util.Map" key="" value="HERBEBLANCHE"/>
-<java.lang.String class="util.Map" key="" value="ROCHE_ROYALE"/>
-<java.lang.String class="util.Map" key="" value="PIC_VENIN"/>
-<java.lang.String class="util.Map" key="" value="ORBE_FLAMME"/>
-<java.lang.String class="util.Map" key="" value="AIMANT"/>
-<java.lang.String class="util.Map" key="" value="ORBE_TOXIQUE"/>
-<java.lang.String class="util.Map" key="" value="HERBE_MENTAL"/>
-<java.lang.String class="util.Map" key="" value="CROC_RASOIR"/>
-<n class="util.Map">
-<java.lang.Integer class="util.List" value="8"/>
+<java.lang.String class="m" key="" value="HERBEBLANCHE"/>
+<java.lang.String class="m" key="" value="ROCHE_ROYALE"/>
+<java.lang.String class="m" key="" value="PIC_VENIN"/>
+<java.lang.String class="m" key="" value="ORBE_FLAMME"/>
+<java.lang.String class="m" key="" value="AIMANT"/>
+<java.lang.String class="m" key="" value="ORBE_TOXIQUE"/>
+<java.lang.String class="m" key="" value="HERBE_MENTAL"/>
+<java.lang.String class="m" key="" value="CROC_RASOIR"/>
+<n class="m">
+<java.lang.Integer class="a" value="8"/>
 </n>
-<n class="util.Map">
-<java.lang.Integer class="util.List" value="6"/>
+<n class="m">
+<java.lang.Integer class="a" value="6"/>
 </n>
-<n class="util.Map">
-<java.lang.Integer class="util.List" value="4"/>
+<n class="m">
+<java.lang.Integer class="a" value="4"/>
 </n>
-<n class="util.Map">
-<java.lang.Integer class="util.List" value="1"/>
+<n class="m">
+<java.lang.Integer class="a" value="1"/>
 </n>
-<n class="util.Map">
-<java.lang.Integer class="util.List" value="3"/>
+<n class="m">
+<java.lang.Integer class="a" value="3"/>
 </n>
-<n class="util.Map">
-<java.lang.Integer class="util.List" value="2"/>
+<n class="m">
+<java.lang.Integer class="a" value="2"/>
 </n>
-<n class="util.Map">
-<java.lang.Integer class="util.List" value="7"/>
+<n class="m">
+<java.lang.Integer class="a" value="7"/>
 </n>
-<n class="util.Map">
-<java.lang.Integer class="util.List" value="5"/>
+<n class="m">
+<java.lang.Integer class="a" value="5"/>
 </n>
 </sm>
 <java.lang.Boolean class="aiki.fight.moves.MoveData" field="ignVarAccurUserNeg" value="false"/>

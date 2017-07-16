@@ -8,8 +8,8 @@
 <java.lang.Integer class="aiki.fight.abilities.AbilityData" field="decreaseNecStepsHatch" value="0"/>
 <sm class="aiki.fight.abilities.AbilityData" field="divideStatusRound"/>
 <sm class="aiki.fight.abilities.AbilityData" field="healHpByWeather">
-<java.lang.String class="util.Map" key="" value="GRELE"/>
-<r class="util.Map" value="1/16"/>
+<java.lang.String class="m" key="" value="GRELE"/>
+<r class="m" value="1/16"/>
 </sm>
 <sl class="aiki.fight.abilities.AbilityData" field="ignAbility"/>
 <sl class="aiki.fight.abilities.AbilityData" field="ignFoeTeamMove"/>
@@ -19,7 +19,7 @@
 <ql class="aiki.fight.abilities.AbilityData" field="immuLowStatIfStatus"/>
 <java.lang.Boolean class="aiki.fight.abilities.AbilityData" field="immuCh" value="false"/>
 <sl class="aiki.fight.abilities.AbilityData" field="immuWeather">
-<java.lang.String class="util.List" value="GRELE"/>
+<java.lang.String class="a" value="GRELE"/>
 </sl>
 <java.lang.Boolean class="aiki.fight.abilities.AbilityData" field="immuDamageTrappingMoves" value="false"/>
 <java.lang.Boolean class="aiki.fight.abilities.AbilityData" field="immuDamageAllyMoves" value="false"/>

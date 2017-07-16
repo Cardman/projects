@@ -60,17 +60,17 @@
 <el class="aiki.fight.abilities.AbilityData" field="maxStatisticsIfCh"/>
 <mcs class="aiki.fight.abilities.AbilityData" field="singleStatus">
 <sm class="mcs" field="law">
-<java.lang.String class="util.Map" key="" value=""/>
-<java.lang.String class="util.Map" key="" value="SIMPLE_POISON"/>
-<li class="util.Map" value="7"/>
-<li class="util.Map" value="3"/>
+<java.lang.String class="m" key="" value=""/>
+<java.lang.String class="m" key="" value="SIMPLE_POISON"/>
+<li class="m" value="7"/>
+<li class="m" value="3"/>
 </sm>
 </mcs>
 <java.lang.Boolean class="aiki.fight.abilities.AbilityData" field="achievedDisappearedPk" value="false"/>
 <sm class="aiki.fight.abilities.AbilityData" field="forwardStatus"/>
 <sm class="aiki.fight.abilities.AbilityData" field="failStatus">
-<java.lang.String class="util.Map" key="" value="SIMPLE_POISON"/>
-<java.lang.String class="util.Map" value="cardinal(inter({VAR__CIBLE_STATUTS},{SIMPLE_POISON;POISON_GRAVE}))&gt;0|VAR__CIBLE_CLONE&gt;0|cardinal(inter({VAR__CIBLE_TYPES},{POISON;ACIER}))&gt;0"/>
+<java.lang.String class="m" key="" value="SIMPLE_POISON"/>
+<java.lang.String class="m" value="cardinal(inter({VAR__CIBLE_STATUTS},{SIMPLE_POISON;POISON_GRAVE}))&gt;0|VAR__CIBLE_CLONE&gt;0|cardinal(inter({VAR__CIBLE_TYPES},{POISON;ACIER}))&gt;0"/>
 </sm>
 <java.lang.String class="aiki.fight.abilities.AbilityData" field="typeForMoves" value=""/>
 <r class="aiki.fight.abilities.AbilityData" field="maxHpForUsingBerry" value="0"/>

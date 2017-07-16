@@ -6,15 +6,15 @@
 <java.lang.Boolean class="aiki.fight.moves.MoveData" field="notTranslated" value="false"/>
 <java.lang.Short class="aiki.fight.moves.MoveData" field="pp" value="40"/>
 <sl class="aiki.fight.moves.MoveData" field="types">
-<java.lang.String class="util.List" value="NORMAL"/>
+<java.lang.String class="a" value="NORMAL"/>
 </sl>
 <sl class="aiki.fight.moves.MoveData" field="boostedTypes">
-<java.lang.String class="util.List" value="NORMAL"/>
+<java.lang.String class="a" value="NORMAL"/>
 </sl>
 <java.lang.Byte class="aiki.fight.moves.MoveData" field="priority" value="0"/>
 <java.lang.String class="aiki.fight.moves.MoveData" field="accuracy" value="1"/>
 <l class="aiki.fight.moves.MoveData" field="effects">
-<aiki.fight.moves.effects.EffectDamage class="util.List">
+<aiki.fight.moves.effects.EffectDamage class="a">
 <java.lang.Byte class="aiki.fight.moves.effects.EffectDamage" field="chRate" value="0"/>
 <java.lang.Boolean class="aiki.fight.moves.effects.EffectDamage" field="constDamage" value="false"/>
 <mcs class="aiki.fight.moves.effects.EffectDamage" field="damageLaw">
@@ -37,7 +37,7 @@
 <java.lang.String class="aiki.fight.moves.effects.Effect" field="fail" value=""/>
 <n class="aiki.fight.moves.effects.Effect" field="requiredSuccessfulEffects"/>
 </aiki.fight.moves.effects.EffectDamage>
-<aiki.fight.moves.effects.EffectTeam class="util.List">
+<aiki.fight.moves.effects.EffectTeam class="a">
 <java.lang.Boolean class="aiki.fight.moves.effects.EffectTeam" field="forbiddingHealing" value="false"/>
 <el class="aiki.fight.moves.effects.EffectTeam" field="forbiddenBoost"/>
 <sl class="aiki.fight.moves.effects.EffectTeam" field="unusableMoves"/>
@@ -50,17 +50,17 @@
 <java.lang.Boolean class="aiki.fight.moves.effects.EffectTeam" field="protectAgainstCh" value="false"/>
 <sl class="aiki.fight.moves.effects.EffectTeam" field="protectAgainstStatus"/>
 <sl class="aiki.fight.moves.effects.EffectTeam" field="disableFoeTeamEffects">
-<java.lang.String class="util.List" value="PICOTS"/>
-<java.lang.String class="util.List" value="PICS_TOXIK"/>
-<java.lang.String class="util.List" value="PIEGE_DE_ROC"/>
+<java.lang.String class="a" value="PICOTS"/>
+<java.lang.String class="a" value="PICS_TOXIK"/>
+<java.lang.String class="a" value="PIEGE_DE_ROC"/>
 </sl>
 <sl class="aiki.fight.moves.effects.EffectTeam" field="disableFoeTeamStatus">
-<java.lang.String class="util.List" value="VAMPIGRAINE_ST"/>
+<java.lang.String class="a" value="VAMPIGRAINE_ST"/>
 </sl>
 <aiki.fight.moves.enums.TargetChoice class="aiki.fight.moves.effects.Effect" field="targetChoice" value="LANCEUR"/>
 <java.lang.String class="aiki.fight.moves.effects.Effect" field="fail" value=""/>
 <n class="aiki.fight.moves.effects.Effect" field="requiredSuccessfulEffects">
-<java.lang.Integer class="util.List" value="0"/>
+<java.lang.Integer class="a" value="0"/>
 </n>
 </aiki.fight.moves.effects.EffectTeam>
 </l>

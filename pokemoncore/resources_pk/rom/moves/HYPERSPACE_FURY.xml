@@ -6,15 +6,15 @@
 <java.lang.Boolean class="aiki.fight.moves.MoveData" field="notTranslated" value="true"/>
 <java.lang.Short class="aiki.fight.moves.MoveData" field="pp" value="5"/>
 <sl class="aiki.fight.moves.MoveData" field="types">
-<java.lang.String class="util.List" value="TENEBRE"/>
+<java.lang.String class="a" value="TENEBRE"/>
 </sl>
 <sl class="aiki.fight.moves.MoveData" field="boostedTypes">
-<java.lang.String class="util.List" value="TENEBRE"/>
+<java.lang.String class="a" value="TENEBRE"/>
 </sl>
 <java.lang.Byte class="aiki.fight.moves.MoveData" field="priority" value="0"/>
 <java.lang.String class="aiki.fight.moves.MoveData" field="accuracy" value="1"/>
 <l class="aiki.fight.moves.MoveData" field="effects">
-<aiki.fight.moves.effects.EffectDamage class="util.List">
+<aiki.fight.moves.effects.EffectDamage class="a">
 <java.lang.Byte class="aiki.fight.moves.effects.EffectDamage" field="chRate" value="0"/>
 <java.lang.Boolean class="aiki.fight.moves.effects.EffectDamage" field="constDamage" value="false"/>
 <mcs class="aiki.fight.moves.effects.EffectDamage" field="damageLaw">
@@ -27,10 +27,10 @@
 <java.lang.Boolean class="aiki.fight.moves.effects.EffectDamage" field="randMax" value="false"/>
 <java.lang.Boolean class="aiki.fight.moves.effects.EffectDamage" field="summingUserTeamOkFighter" value="false"/>
 <el class="aiki.fight.moves.effects.EffectDamage" field="ignVarStatTargetPos">
-<aiki.fight.enums.Statistic class="util.List" value="EVASINESS"/>
+<aiki.fight.enums.Statistic class="a" value="EVASINESS"/>
 </el>
 <el class="aiki.fight.moves.effects.EffectDamage" field="ignVarStatUserNeg">
-<aiki.fight.enums.Statistic class="util.List" value="ACCURACY"/>
+<aiki.fight.enums.Statistic class="a" value="ACCURACY"/>
 </el>
 <java.lang.Boolean class="aiki.fight.moves.effects.EffectDamage" field="userAttack" value="true"/>
 <aiki.fight.enums.Statistic class="aiki.fight.moves.effects.EffectDamage" field="statisAtt" value="ATTACK"/>

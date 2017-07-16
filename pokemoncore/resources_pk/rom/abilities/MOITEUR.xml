@@ -12,9 +12,9 @@
 <sl class="aiki.fight.abilities.AbilityData" field="ignFoeTeamMove"/>
 <java.lang.Boolean class="aiki.fight.abilities.AbilityData" field="ignFoeStatisBoost" value="false"/>
 <sl class="aiki.fight.abilities.AbilityData" field="immuMove">
-<java.lang.String class="util.List" value="DESTRUCTION"/>
-<java.lang.String class="util.List" value="EXPLOSION"/>
-<java.lang.String class="util.List" value="TOUT_OU_RIEN"/>
+<java.lang.String class="a" value="DESTRUCTION"/>
+<java.lang.String class="a" value="EXPLOSION"/>
+<java.lang.String class="a" value="TOUT_OU_RIEN"/>
 </sl>
 <el class="aiki.fight.abilities.AbilityData" field="immuLowStat"/>
 <ql class="aiki.fight.abilities.AbilityData" field="immuLowStatIfStatus"/>

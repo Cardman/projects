@@ -43,8 +43,8 @@
 <em class="aiki.fight.abilities.AbilityData" field="multStatIfKoFoe"/>
 <em class="aiki.fight.abilities.AbilityData" field="multStatIfLowStat"/>
 <om class="aiki.fight.abilities.AbilityData" field="multStatIfCat">
-<aiki.fight.util.StatisticCategory class="util.Map" key="" value="EVASINESS;AUTRE"/>
-<r class="util.Map" value="2"/>
+<aiki.fight.util.StatisticCategory class="m" key="" value="EVASINESS;AUTRE"/>
+<r class="m" value="2"/>
 </om>
 <om class="aiki.fight.abilities.AbilityData" field="multStatIfStatutRank"/>
 <om class="aiki.fight.abilities.AbilityData" field="multStatIfDamageCat"/>

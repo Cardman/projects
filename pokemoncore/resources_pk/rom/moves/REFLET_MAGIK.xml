@@ -4,15 +4,15 @@
 <java.lang.Boolean class="aiki.fight.moves.MoveData" field="notTranslated" value="false"/>
 <java.lang.Short class="aiki.fight.moves.MoveData" field="pp" value="15"/>
 <sl class="aiki.fight.moves.MoveData" field="types">
-<java.lang.String class="util.List" value="PSY"/>
+<java.lang.String class="a" value="PSY"/>
 </sl>
 <sl class="aiki.fight.moves.MoveData" field="boostedTypes">
-<java.lang.String class="util.List" value="PSY"/>
+<java.lang.String class="a" value="PSY"/>
 </sl>
 <java.lang.Byte class="aiki.fight.moves.MoveData" field="priority" value="4"/>
 <java.lang.String class="aiki.fight.moves.MoveData" field="accuracy" value="1"/>
 <l class="aiki.fight.moves.MoveData" field="effects">
-<aiki.fight.moves.effects.EffectSwitchPointView class="util.List">
+<aiki.fight.moves.effects.EffectSwitchPointView class="a">
 <aiki.fight.moves.effects.enums.PointViewChangementType class="aiki.fight.moves.effects.EffectSwitchPointView" field="pointViewChangement" value="MIRROR_AGAINST_THROWER"/>
 <aiki.fight.moves.enums.TargetChoice class="aiki.fight.moves.effects.Effect" field="targetChoice" value="LANCEUR"/>
 <java.lang.String class="aiki.fight.moves.effects.Effect" field="fail" value=""/>

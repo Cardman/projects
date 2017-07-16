@@ -16,8 +16,8 @@
 <ql class="aiki.fight.abilities.AbilityData" field="immuLowStatIfStatus"/>
 <java.lang.Boolean class="aiki.fight.abilities.AbilityData" field="immuCh" value="false"/>
 <sl class="aiki.fight.abilities.AbilityData" field="immuWeather">
-<java.lang.String class="util.List" value="GRELE"/>
-<java.lang.String class="util.List" value="TEMPETESABLE"/>
+<java.lang.String class="a" value="GRELE"/>
+<java.lang.String class="a" value="TEMPETESABLE"/>
 </sl>
 <java.lang.Boolean class="aiki.fight.abilities.AbilityData" field="immuDamageTrappingMoves" value="false"/>
 <java.lang.Boolean class="aiki.fight.abilities.AbilityData" field="immuDamageAllyMoves" value="false"/>

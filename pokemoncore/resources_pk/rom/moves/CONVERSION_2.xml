@@ -4,15 +4,15 @@
 <java.lang.Boolean class="aiki.fight.moves.MoveData" field="notTranslated" value="false"/>
 <java.lang.Short class="aiki.fight.moves.MoveData" field="pp" value="30"/>
 <sl class="aiki.fight.moves.MoveData" field="types">
-<java.lang.String class="util.List" value="NORMAL"/>
+<java.lang.String class="a" value="NORMAL"/>
 </sl>
 <sl class="aiki.fight.moves.MoveData" field="boostedTypes">
-<java.lang.String class="util.List" value="NORMAL"/>
+<java.lang.String class="a" value="NORMAL"/>
 </sl>
 <java.lang.Byte class="aiki.fight.moves.MoveData" field="priority" value="0"/>
 <java.lang.String class="aiki.fight.moves.MoveData" field="accuracy" value="1"/>
 <l class="aiki.fight.moves.MoveData" field="effects">
-<aiki.fight.moves.effects.EffectSwitchTypes class="util.List">
+<aiki.fight.moves.effects.EffectSwitchTypes class="a">
 <em class="aiki.fight.moves.effects.EffectSwitchTypes" field="chgtTypeByEnv"/>
 <aiki.fight.moves.effects.enums.ConstValuesType class="aiki.fight.moves.effects.EffectSwitchTypes" field="constValuesType" value="TYPES_ATTAQUES_RES"/>
 <aiki.fight.moves.effects.enums.ExchangeType class="aiki.fight.moves.effects.EffectSwitchTypes" field="exchangeTypes" value="NOTHING"/>

@@ -2,8 +2,8 @@
 <cfg>
 	<java.lang.String class="cfg" field="firstUrl" value="resources_cards/classes//cards/tarot/detailsresults.html"/>
 	<sm class="cfg" field="beans">
-		<java.lang.String class="util.Map" key="" value="details"/>
-		<b class="util.Map">
+		<java.lang.String class="m" key="" value="details"/>
+		<b class="m">
 			<null class="b" field="forms"/>
 			<java.lang.String class="b" field="scope" value="request"/>
 			<java.lang.String class="b" field="className" value="cards.tarot.beans.DetailsResultsTarotBean"/>
@@ -12,7 +12,7 @@
 	<sm class="cfg" field="navigation"/>
 	<java.lang.String class="cfg" field="messagesFolder" value="resources_cards/messages"/>
 	<sm class="cfg" field="properties">
-		<java.lang.String class="util.Map" key="" value="msg"/>
-		<java.lang.String class="util.Map" value="messages_tarot"/>
+		<java.lang.String class="m" key="" value="msg"/>
+		<java.lang.String class="m" value="messages_tarot"/>
 	</sm>
 </cfg>

@@ -4,32 +4,32 @@
 <java.lang.Boolean class="aiki.fight.moves.MoveData" field="notTranslated" value="false"/>
 <java.lang.Short class="aiki.fight.moves.MoveData" field="pp" value="20"/>
 <sl class="aiki.fight.moves.MoveData" field="types">
-<java.lang.String class="util.List" value="NORMAL"/>
+<java.lang.String class="a" value="NORMAL"/>
 </sl>
 <sl class="aiki.fight.moves.MoveData" field="boostedTypes">
-<java.lang.String class="util.List" value="NORMAL"/>
+<java.lang.String class="a" value="NORMAL"/>
 </sl>
 <java.lang.Byte class="aiki.fight.moves.MoveData" field="priority" value="0"/>
 <java.lang.String class="aiki.fight.moves.MoveData" field="accuracy" value="19/20"/>
 <l class="aiki.fight.moves.MoveData" field="effects">
-<aiki.fight.moves.effects.EffectInvoke class="util.List">
+<aiki.fight.moves.effects.EffectInvoke class="a">
 <em class="aiki.fight.moves.effects.EffectInvoke" field="moveFctEnv">
-<aiki.map.levels.enums.EnvironmentType class="util.Map" key="" value="GRASS"/>
-<aiki.map.levels.enums.EnvironmentType class="util.Map" key="" value="ROCK"/>
-<aiki.map.levels.enums.EnvironmentType class="util.Map" key="" value="ROAD"/>
-<aiki.map.levels.enums.EnvironmentType class="util.Map" key="" value="WATER"/>
-<aiki.map.levels.enums.EnvironmentType class="util.Map" key="" value="NOTHING"/>
-<aiki.map.levels.enums.EnvironmentType class="util.Map" key="" value="SNOW"/>
-<aiki.map.levels.enums.EnvironmentType class="util.Map" key="" value="DESERT"/>
-<aiki.map.levels.enums.EnvironmentType class="util.Map" key="" value="BUILDING"/>
-<java.lang.String class="util.Map" value="CANON_GRAINE"/>
-<java.lang.String class="util.Map" value="EBOULEMENT"/>
-<java.lang.String class="util.Map" value="SEISME"/>
-<java.lang.String class="util.Map" value="HYDROCANON"/>
-<java.lang.String class="util.Map" value="BALL_OMBRE"/>
-<java.lang.String class="util.Map" value="BLIZZARD"/>
-<java.lang.String class="util.Map" value="SEISME"/>
-<java.lang.String class="util.Map" value="TRIPLATTAQUE"/>
+<aiki.map.levels.enums.EnvironmentType class="m" key="" value="GRASS"/>
+<aiki.map.levels.enums.EnvironmentType class="m" key="" value="ROCK"/>
+<aiki.map.levels.enums.EnvironmentType class="m" key="" value="ROAD"/>
+<aiki.map.levels.enums.EnvironmentType class="m" key="" value="WATER"/>
+<aiki.map.levels.enums.EnvironmentType class="m" key="" value="NOTHING"/>
+<aiki.map.levels.enums.EnvironmentType class="m" key="" value="SNOW"/>
+<aiki.map.levels.enums.EnvironmentType class="m" key="" value="DESERT"/>
+<aiki.map.levels.enums.EnvironmentType class="m" key="" value="BUILDING"/>
+<java.lang.String class="m" value="CANON_GRAINE"/>
+<java.lang.String class="m" value="EBOULEMENT"/>
+<java.lang.String class="m" value="SEISME"/>
+<java.lang.String class="m" value="HYDROCANON"/>
+<java.lang.String class="m" value="BALL_OMBRE"/>
+<java.lang.String class="m" value="BLIZZARD"/>
+<java.lang.String class="m" value="SEISME"/>
+<java.lang.String class="m" value="TRIPLATTAQUE"/>
 </em>
 <java.lang.Boolean class="aiki.fight.moves.effects.EffectInvoke" field="invokingMoveButUser" value="false"/>
 <java.lang.Boolean class="aiki.fight.moves.effects.EffectInvoke" field="invokingTargetChosenMove" value="false"/>

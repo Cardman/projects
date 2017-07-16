@@ -44,8 +44,8 @@
 <em class="aiki.fight.abilities.AbilityData" field="multStatIfLowStat"/>
 <om class="aiki.fight.abilities.AbilityData" field="multStatIfCat"/>
 <om class="aiki.fight.abilities.AbilityData" field="multStatIfStatutRank">
-<aiki.fight.util.StatisticStatus class="util.Map" key="" value="SPEED;PEUR"/>
-<java.lang.Byte class="util.Map" value="1"/>
+<aiki.fight.util.StatisticStatus class="m" key="" value="SPEED;PEUR"/>
+<java.lang.Byte class="m" value="1"/>
 </om>
 <om class="aiki.fight.abilities.AbilityData" field="multStatIfDamageCat"/>
 <om class="aiki.fight.abilities.AbilityData" field="multStatIfDamgeType"/>

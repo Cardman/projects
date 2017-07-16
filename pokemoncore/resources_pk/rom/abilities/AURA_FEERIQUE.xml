@@ -78,8 +78,8 @@
 <em class="aiki.fight.abilities.AbilityData" field="lowStatFoeHit"/>
 <java.lang.Boolean class="aiki.fight.abilities.AbilityData" field="copyMovesTypes" value="false"/>
 <sm class="aiki.fight.abilities.AbilityData" field="multPowerMovesTypesGlobal">
-<java.lang.String class="util.Map" key="" value="FEE"/>
-<r class="util.Map" value="3/2"/>
+<java.lang.String class="m" key="" value="FEE"/>
+<r class="m" value="3/2"/>
 </sm>
 <java.lang.Boolean class="aiki.fight.abilities.AbilityData" field="reverseEffectsPowerMovesTypesGlobal" value="false"/>
 <r class="aiki.fight.abilities.AbilityData" field="healHpWhileUsingBerry" value="0"/>

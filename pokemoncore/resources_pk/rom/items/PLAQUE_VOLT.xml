@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?><aiki.fight.items.ItemForBattle>
 <sl class="aiki.fight.items.ItemForBattle" field="typesPk">
-<java.lang.String class="util.List" value="ELECTRIQUE"/>
+<java.lang.String class="a" value="ELECTRIQUE"/>
 </sl>
 <java.lang.Boolean class="aiki.fight.items.ItemForBattle" field="cancelImmuType" value="false"/>
 <java.lang.Boolean class="aiki.fight.items.ItemForBattle" field="againstEvo" value="false"/>

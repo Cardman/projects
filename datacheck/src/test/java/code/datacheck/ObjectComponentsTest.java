@@ -64,8 +64,8 @@ public class ObjectComponentsTest {
     private static final String MY_SQUARE = MySquare.class.getName();
     private static final String TEMPLATE_LIST = TemplateList.class.getName();
 
-    private static final String LS_CLASS = "util.List";
-    private static final String MP_CLASS = "util.Map";
+    private static final String LS_CLASS = "a";
+    private static final String MP_CLASS = "m";
     private static final String REF_ARRAY = RefsArray.class.getName();
 
     @Test

@@ -4,15 +4,15 @@
 <java.lang.Boolean class="aiki.fight.moves.MoveData" field="notTranslated" value="false"/>
 <java.lang.Short class="aiki.fight.moves.MoveData" field="pp" value="10"/>
 <sl class="aiki.fight.moves.MoveData" field="types">
-<java.lang.String class="util.List" value="PSY"/>
+<java.lang.String class="a" value="PSY"/>
 </sl>
 <sl class="aiki.fight.moves.MoveData" field="boostedTypes">
-<java.lang.String class="util.List" value="PSY"/>
+<java.lang.String class="a" value="PSY"/>
 </sl>
 <java.lang.Byte class="aiki.fight.moves.MoveData" field="priority" value="-7"/>
 <java.lang.String class="aiki.fight.moves.MoveData" field="accuracy" value="1"/>
 <l class="aiki.fight.moves.MoveData" field="effects">
-<aiki.fight.moves.effects.EffectGlobal class="util.List">
+<aiki.fight.moves.effects.EffectGlobal class="a">
 <java.lang.Boolean class="aiki.fight.moves.effects.EffectGlobal" field="priseEnComptePkLanceur" value="false"/>
 <java.lang.Boolean class="aiki.fight.moves.effects.EffectGlobal" field="weather" value="false"/>
 <java.lang.Boolean class="aiki.fight.moves.effects.EffectGlobal" field="canceledIfUsed" value="true"/>
@@ -37,14 +37,14 @@
 <sl class="aiki.fight.moves.effects.EffectGlobal" field="cancelEffects"/>
 <sm class="aiki.fight.moves.effects.EffectGlobal" field="multDamageTypesMoves"/>
 <el class="aiki.fight.moves.effects.EffectGlobal" field="cancelChgtStat">
-<aiki.fight.enums.Statistic class="util.List" value="ATTACK"/>
-<aiki.fight.enums.Statistic class="util.List" value="DEFENSE"/>
-<aiki.fight.enums.Statistic class="util.List" value="SPECIAL_ATTACK"/>
-<aiki.fight.enums.Statistic class="util.List" value="SPECIAL_DEFENSE"/>
-<aiki.fight.enums.Statistic class="util.List" value="SPEED"/>
-<aiki.fight.enums.Statistic class="util.List" value="ACCURACY"/>
-<aiki.fight.enums.Statistic class="util.List" value="EVASINESS"/>
-<aiki.fight.enums.Statistic class="util.List" value="CRITICAL_HIT"/>
+<aiki.fight.enums.Statistic class="a" value="ATTACK"/>
+<aiki.fight.enums.Statistic class="a" value="DEFENSE"/>
+<aiki.fight.enums.Statistic class="a" value="SPECIAL_ATTACK"/>
+<aiki.fight.enums.Statistic class="a" value="SPECIAL_DEFENSE"/>
+<aiki.fight.enums.Statistic class="a" value="SPEED"/>
+<aiki.fight.enums.Statistic class="a" value="ACCURACY"/>
+<aiki.fight.enums.Statistic class="a" value="EVASINESS"/>
+<aiki.fight.enums.Statistic class="a" value="CRITICAL_HIT"/>
 </el>
 <java.lang.String class="aiki.fight.moves.effects.EffectGlobal" field="invokedMoveTerrain" value=""/>
 <sl class="aiki.fight.moves.effects.EffectGlobal" field="changedTypesTerrain"/>

@@ -34,7 +34,7 @@
 <sm class="aiki.fight.items.ItemForBattle" field="increasingMaxNbRoundTeamMove"/>
 <sl class="aiki.fight.items.ItemForBattle" field="immuMoves"/>
 <sl class="aiki.fight.items.ItemForBattle" field="hatching">
-<java.lang.String class="util.List" value="KORILLON"/>
+<java.lang.String class="a" value="KORILLON"/>
 </sl>
 <sl class="aiki.fight.items.ItemForBattle" field="immuTypes"/>
 <sl class="aiki.fight.items.ItemForBattle" field="immuWeather"/>

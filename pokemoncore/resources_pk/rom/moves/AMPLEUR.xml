@@ -6,15 +6,15 @@
 <java.lang.Boolean class="aiki.fight.moves.MoveData" field="notTranslated" value="false"/>
 <java.lang.Short class="aiki.fight.moves.MoveData" field="pp" value="30"/>
 <sl class="aiki.fight.moves.MoveData" field="types">
-<java.lang.String class="util.List" value="SOL"/>
+<java.lang.String class="a" value="SOL"/>
 </sl>
 <sl class="aiki.fight.moves.MoveData" field="boostedTypes">
-<java.lang.String class="util.List" value="SOL"/>
+<java.lang.String class="a" value="SOL"/>
 </sl>
 <java.lang.Byte class="aiki.fight.moves.MoveData" field="priority" value="0"/>
 <java.lang.String class="aiki.fight.moves.MoveData" field="accuracy" value="1"/>
 <l class="aiki.fight.moves.MoveData" field="effects">
-<aiki.fight.moves.effects.EffectDamage class="util.List">
+<aiki.fight.moves.effects.EffectDamage class="a">
 <java.lang.Byte class="aiki.fight.moves.effects.EffectDamage" field="chRate" value="0"/>
 <java.lang.Boolean class="aiki.fight.moves.effects.EffectDamage" field="constDamage" value="false"/>
 <mcs class="aiki.fight.moves.effects.EffectDamage" field="damageLaw">
@@ -53,7 +53,7 @@
 <java.lang.Boolean class="aiki.fight.moves.MoveData" field="ignVarEvasTargetPos" value="false"/>
 <java.lang.Boolean class="aiki.fight.moves.MoveData" field="breakImmuTypeAbility" value="false"/>
 <sl class="aiki.fight.moves.MoveData" field="achieveDisappearedPkUsingMove">
-<java.lang.String class="util.List" value="TUNNEL"/>
+<java.lang.String class="a" value="TUNNEL"/>
 </sl>
 <aiki.fight.moves.enums.SwitchType class="aiki.fight.moves.MoveData" field="switchType" value="NOTHING"/>
 <sm class="aiki.fight.moves.MoveData" field="typesByOwnedItem"/>

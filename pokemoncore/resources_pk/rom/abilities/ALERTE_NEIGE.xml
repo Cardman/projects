@@ -71,7 +71,7 @@
 <sm class="aiki.fight.abilities.AbilityData" field="immuMoveTypesByWeather"/>
 <l class="aiki.fight.abilities.AbilityData" field="effectEndRound"/>
 <l class="aiki.fight.abilities.AbilityData" field="effectSending">
-<aiki.fight.effects.EffectWhileSending class="util.List">
+<aiki.fight.effects.EffectWhileSending class="a">
 <java.lang.Boolean class="aiki.fight.effects.EffectWhileSending" field="disableWeather" value="false"/>
 <java.lang.String class="aiki.fight.effects.EffectWhileSending" field="enabledWeather" value="GRELE"/>
 <java.lang.Boolean class="aiki.fight.effects.EffectWhileSending" field="copyingAbility" value="false"/>

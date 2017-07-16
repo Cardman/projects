@@ -74,9 +74,9 @@
 <sm class="aiki.fight.abilities.AbilityData" field="changingBoostTypes"/>
 <sl class="aiki.fight.abilities.AbilityData" field="immuAllyFromMoves"/>
 <sm class="aiki.fight.abilities.AbilityData" field="immuStatusTypes">
-<java.lang.String class="util.Map" key="" value="FEE"/>
-<sl class="util.Map">
-<java.lang.String class="util.List" value="SOMMEIL"/>
+<java.lang.String class="m" key="" value="FEE"/>
+<sl class="m">
+<java.lang.String class="a" value="SOMMEIL"/>
 </sl>
 </sm>
 <sm class="aiki.fight.abilities.AbilityData" field="immuLowStatisTypes"/>

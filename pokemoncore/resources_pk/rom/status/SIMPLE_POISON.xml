@@ -2,7 +2,7 @@
 <aiki.fight.status.StatusType class="aiki.fight.status.Status" field="statusType" value="INDIVIDUEL"/>
 <r class="aiki.fight.status.Status" field="catchingRate" value="3/2"/>
 <l class="aiki.fight.status.Status" field="effectEndRound">
-<aiki.fight.moves.effects.EffectEndRoundSingleStatus class="util.List">
+<aiki.fight.moves.effects.EffectEndRoundSingleStatus class="a">
 <sm class="aiki.fight.moves.effects.EffectEndRoundSingleStatus" field="multDamageStatus"/>
 <java.lang.Boolean class="aiki.fight.moves.effects.EffectEndRoundSingleStatus" field="incrementingDamageByRounds" value="false"/>
 <r class="aiki.fight.moves.effects.EffectEndRoundStatus" field="inflictedRateHpTarget" value="1/8"/>

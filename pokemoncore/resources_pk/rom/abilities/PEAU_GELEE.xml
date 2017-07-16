@@ -72,8 +72,8 @@
 <l class="aiki.fight.abilities.AbilityData" field="effectEndRound"/>
 <l class="aiki.fight.abilities.AbilityData" field="effectSending"/>
 <sm class="aiki.fight.abilities.AbilityData" field="changingBoostTypes">
-<java.lang.String class="util.Map" key="" value="NORMAL"/>
-<aiki.fight.util.TypeDamageBoost class="util.Map" value="GLACE;13/10"/>
+<java.lang.String class="m" key="" value="NORMAL"/>
+<aiki.fight.util.TypeDamageBoost class="m" value="GLACE;13/10"/>
 </sm>
 <sl class="aiki.fight.abilities.AbilityData" field="immuAllyFromMoves"/>
 <sm class="aiki.fight.abilities.AbilityData" field="immuStatusTypes"/>

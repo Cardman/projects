@@ -14,7 +14,7 @@
 <sl class="aiki.fight.abilities.AbilityData" field="immuMove"/>
 <el class="aiki.fight.abilities.AbilityData" field="immuLowStat"/>
 <ql class="aiki.fight.abilities.AbilityData" field="immuLowStatIfStatus">
-<aiki.fight.util.StatisticStatus class="util.List" value="SPEED;PARALYSIE"/>
+<aiki.fight.util.StatisticStatus class="a" value="SPEED;PARALYSIE"/>
 </ql>
 <java.lang.Boolean class="aiki.fight.abilities.AbilityData" field="immuCh" value="false"/>
 <sl class="aiki.fight.abilities.AbilityData" field="immuWeather"/>
@@ -49,8 +49,8 @@
 <om class="aiki.fight.abilities.AbilityData" field="multStatIfDamageCat"/>
 <om class="aiki.fight.abilities.AbilityData" field="multStatIfDamgeType"/>
 <em class="aiki.fight.abilities.AbilityData" field="multStat">
-<aiki.fight.enums.Statistic class="util.Map" key="" value="SPEED"/>
-<java.lang.String class="util.Map" value="3/2*cardinal(inter({VAR__FIGHTER_STATUTS},{BRULURE;POISON_GRAVE;SOMMEIL_REPOS;SIMPLE_POISON;PARALYSIE;SOMMEIL;GEL}))+cardinal(complementaire({BRULURE;POISON_GRAVE;SOMMEIL_REPOS;SIMPLE_POISON;PARALYSIE;SOMMEIL;GEL},{VAR__FIGHTER_STATUTS}))"/>
+<aiki.fight.enums.Statistic class="m" key="" value="SPEED"/>
+<java.lang.String class="m" value="3/2*cardinal(inter({VAR__FIGHTER_STATUTS},{BRULURE;POISON_GRAVE;SOMMEIL_REPOS;SIMPLE_POISON;PARALYSIE;SOMMEIL;GEL}))+cardinal(complementaire({BRULURE;POISON_GRAVE;SOMMEIL_REPOS;SIMPLE_POISON;PARALYSIE;SOMMEIL;GEL},{VAR__FIGHTER_STATUTS}))"/>
 </em>
 <java.lang.Boolean class="aiki.fight.abilities.AbilityData" field="inflictingDamageInsteadOfSuffering" value="false"/>
 <r class="aiki.fight.abilities.AbilityData" field="multVarBoost" value="0"/>

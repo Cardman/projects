@@ -47,8 +47,8 @@
 <om class="aiki.fight.abilities.AbilityData" field="multStatIfDamageCat"/>
 <om class="aiki.fight.abilities.AbilityData" field="multStatIfDamgeType"/>
 <em class="aiki.fight.abilities.AbilityData" field="multStat">
-<aiki.fight.enums.Statistic class="util.Map" key="" value="EVASINESS"/>
-<java.lang.String class="util.Map" value="6/5*cardinal(inter({VAR__FIGHTER_STATUTS},{CONFUSION}))+cardinal(complementaire({CONFUSION},{VAR__FIGHTER_STATUTS}))"/>
+<aiki.fight.enums.Statistic class="m" key="" value="EVASINESS"/>
+<java.lang.String class="m" value="6/5*cardinal(inter({VAR__FIGHTER_STATUTS},{CONFUSION}))+cardinal(complementaire({CONFUSION},{VAR__FIGHTER_STATUTS}))"/>
 </em>
 <java.lang.Boolean class="aiki.fight.abilities.AbilityData" field="inflictingDamageInsteadOfSuffering" value="false"/>
 <r class="aiki.fight.abilities.AbilityData" field="multVarBoost" value="0"/>

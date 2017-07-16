@@ -6,41 +6,41 @@
 <java.lang.Boolean class="aiki.fight.moves.MoveData" field="notTranslated" value="false"/>
 <java.lang.Short class="aiki.fight.moves.MoveData" field="pp" value="15"/>
 <sl class="aiki.fight.moves.MoveData" field="types">
-<java.lang.String class="util.List" value="PSY"/>
+<java.lang.String class="a" value="PSY"/>
 </sl>
 <sl class="aiki.fight.moves.MoveData" field="boostedTypes">
-<java.lang.String class="util.List" value="PSY"/>
+<java.lang.String class="a" value="PSY"/>
 </sl>
 <java.lang.Byte class="aiki.fight.moves.MoveData" field="priority" value="0"/>
 <java.lang.String class="aiki.fight.moves.MoveData" field="accuracy" value="4/5"/>
 <l class="aiki.fight.moves.MoveData" field="effects">
-<aiki.fight.moves.effects.EffectDamage class="util.List">
+<aiki.fight.moves.effects.EffectDamage class="a">
 <java.lang.Byte class="aiki.fight.moves.effects.EffectDamage" field="chRate" value="0"/>
 <java.lang.Boolean class="aiki.fight.moves.effects.EffectDamage" field="constDamage" value="false"/>
 <mcs class="aiki.fight.moves.effects.EffectDamage" field="damageLaw">
 <sm class="mcs" field="law">
-<java.lang.String class="util.Map" key="" value="VAR__LANCEUR_NIVEAU*1/2"/>
-<java.lang.String class="util.Map" key="" value="VAR__LANCEUR_NIVEAU"/>
-<java.lang.String class="util.Map" key="" value="VAR__LANCEUR_NIVEAU*6/5"/>
-<java.lang.String class="util.Map" key="" value="VAR__LANCEUR_NIVEAU*3/5"/>
-<java.lang.String class="util.Map" key="" value="VAR__LANCEUR_NIVEAU*3/2"/>
-<java.lang.String class="util.Map" key="" value="VAR__LANCEUR_NIVEAU*9/10"/>
-<java.lang.String class="util.Map" key="" value="VAR__LANCEUR_NIVEAU*7/5"/>
-<java.lang.String class="util.Map" key="" value="VAR__LANCEUR_NIVEAU*13/10"/>
-<java.lang.String class="util.Map" key="" value="VAR__LANCEUR_NIVEAU*4/5"/>
-<java.lang.String class="util.Map" key="" value="VAR__LANCEUR_NIVEAU*11/10"/>
-<java.lang.String class="util.Map" key="" value="VAR__LANCEUR_NIVEAU*7/10"/>
-<li class="util.Map" value="1"/>
-<li class="util.Map" value="1"/>
-<li class="util.Map" value="1"/>
-<li class="util.Map" value="1"/>
-<li class="util.Map" value="1"/>
-<li class="util.Map" value="1"/>
-<li class="util.Map" value="1"/>
-<li class="util.Map" value="1"/>
-<li class="util.Map" value="1"/>
-<li class="util.Map" value="1"/>
-<li class="util.Map" value="1"/>
+<java.lang.String class="m" key="" value="VAR__LANCEUR_NIVEAU*1/2"/>
+<java.lang.String class="m" key="" value="VAR__LANCEUR_NIVEAU"/>
+<java.lang.String class="m" key="" value="VAR__LANCEUR_NIVEAU*6/5"/>
+<java.lang.String class="m" key="" value="VAR__LANCEUR_NIVEAU*3/5"/>
+<java.lang.String class="m" key="" value="VAR__LANCEUR_NIVEAU*3/2"/>
+<java.lang.String class="m" key="" value="VAR__LANCEUR_NIVEAU*9/10"/>
+<java.lang.String class="m" key="" value="VAR__LANCEUR_NIVEAU*7/5"/>
+<java.lang.String class="m" key="" value="VAR__LANCEUR_NIVEAU*13/10"/>
+<java.lang.String class="m" key="" value="VAR__LANCEUR_NIVEAU*4/5"/>
+<java.lang.String class="m" key="" value="VAR__LANCEUR_NIVEAU*11/10"/>
+<java.lang.String class="m" key="" value="VAR__LANCEUR_NIVEAU*7/10"/>
+<li class="m" value="1"/>
+<li class="m" value="1"/>
+<li class="m" value="1"/>
+<li class="m" value="1"/>
+<li class="m" value="1"/>
+<li class="m" value="1"/>
+<li class="m" value="1"/>
+<li class="m" value="1"/>
+<li class="m" value="1"/>
+<li class="m" value="1"/>
+<li class="m" value="1"/>
 </sm>
 </mcs>
 <sm class="aiki.fight.moves.effects.EffectDamage" field="multDamageAgainst"/>

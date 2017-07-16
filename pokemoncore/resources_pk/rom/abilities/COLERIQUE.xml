@@ -58,7 +58,7 @@
 <sm class="aiki.fight.abilities.AbilityData" field="increasedPrio"/>
 <sm class="aiki.fight.abilities.AbilityData" field="increasedPrioTypes"/>
 <el class="aiki.fight.abilities.AbilityData" field="maxStatisticsIfCh">
-<aiki.fight.enums.Statistic class="util.List" value="ATTACK"/>
+<aiki.fight.enums.Statistic class="a" value="ATTACK"/>
 </el>
 <mcs class="aiki.fight.abilities.AbilityData" field="singleStatus">
 <sm class="mcs" field="law"/>

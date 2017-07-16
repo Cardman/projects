@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?><aiki.fight.status.StatusBeginRound>
 <mcb class="aiki.fight.status.StatusBeginRound" field="lawForUsingAMove">
 <bm class="mcb" field="law">
-<java.lang.Boolean class="util.Map" key="" value="false"/>
-<li class="util.Map" value="1"/>
+<java.lang.Boolean class="m" key="" value="false"/>
+<li class="m" value="1"/>
 </bm>
 </mcb>
 <mcu class="aiki.fight.status.StatusBeginRound" field="lawForUsingAMoveNbRound"/>

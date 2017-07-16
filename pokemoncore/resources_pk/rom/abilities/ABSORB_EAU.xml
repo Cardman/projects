@@ -68,43 +68,43 @@
 <r class="aiki.fight.abilities.AbilityData" field="maxHpForUsingBerry" value="0"/>
 <java.lang.Boolean class="aiki.fight.abilities.AbilityData" field="mumy" value="false"/>
 <om class="aiki.fight.abilities.AbilityData" field="healHpByTypeIfWeather">
-<aiki.fight.util.WeatherType class="util.Map" key="" value=";EAU"/>
-<aiki.fight.util.WeatherType class="util.Map" key="" value="ORAGE;EAU"/>
-<aiki.fight.util.WeatherType class="util.Map" key="" value="TEMPETESABLE;EAU"/>
-<aiki.fight.util.WeatherType class="util.Map" key="" value="ZENITH;EAU"/>
-<aiki.fight.util.WeatherType class="util.Map" key="" value="GRELE;EAU"/>
-<aiki.fight.util.WeatherType class="util.Map" key="" value="DANSE_PLUIE;EAU"/>
-<r class="util.Map" value="1/4"/>
-<r class="util.Map" value="1/4"/>
-<r class="util.Map" value="1/4"/>
-<r class="util.Map" value="1/4"/>
-<r class="util.Map" value="1/4"/>
-<r class="util.Map" value="1/4"/>
+<aiki.fight.util.WeatherType class="m" key="" value=";EAU"/>
+<aiki.fight.util.WeatherType class="m" key="" value="ORAGE;EAU"/>
+<aiki.fight.util.WeatherType class="m" key="" value="TEMPETESABLE;EAU"/>
+<aiki.fight.util.WeatherType class="m" key="" value="ZENITH;EAU"/>
+<aiki.fight.util.WeatherType class="m" key="" value="GRELE;EAU"/>
+<aiki.fight.util.WeatherType class="m" key="" value="DANSE_PLUIE;EAU"/>
+<r class="m" value="1/4"/>
+<r class="m" value="1/4"/>
+<r class="m" value="1/4"/>
+<r class="m" value="1/4"/>
+<r class="m" value="1/4"/>
+<r class="m" value="1/4"/>
 </om>
 <sm class="aiki.fight.abilities.AbilityData" field="immuMoveTypesByWeather">
-<java.lang.String class="util.Map" key="" value=""/>
-<java.lang.String class="util.Map" key="" value="GRELE"/>
-<java.lang.String class="util.Map" key="" value="ZENITH"/>
-<java.lang.String class="util.Map" key="" value="DANSE_PLUIE"/>
-<java.lang.String class="util.Map" key="" value="ORAGE"/>
-<java.lang.String class="util.Map" key="" value="TEMPETESABLE"/>
-<sl class="util.Map">
-<java.lang.String class="util.List" value="EAU"/>
+<java.lang.String class="m" key="" value=""/>
+<java.lang.String class="m" key="" value="GRELE"/>
+<java.lang.String class="m" key="" value="ZENITH"/>
+<java.lang.String class="m" key="" value="DANSE_PLUIE"/>
+<java.lang.String class="m" key="" value="ORAGE"/>
+<java.lang.String class="m" key="" value="TEMPETESABLE"/>
+<sl class="m">
+<java.lang.String class="a" value="EAU"/>
 </sl>
-<sl class="util.Map">
-<java.lang.String class="util.List" value="EAU"/>
+<sl class="m">
+<java.lang.String class="a" value="EAU"/>
 </sl>
-<sl class="util.Map">
-<java.lang.String class="util.List" value="EAU"/>
+<sl class="m">
+<java.lang.String class="a" value="EAU"/>
 </sl>
-<sl class="util.Map">
-<java.lang.String class="util.List" value="EAU"/>
+<sl class="m">
+<java.lang.String class="a" value="EAU"/>
 </sl>
-<sl class="util.Map">
-<java.lang.String class="util.List" value="EAU"/>
+<sl class="m">
+<java.lang.String class="a" value="EAU"/>
 </sl>
-<sl class="util.Map">
-<java.lang.String class="util.List" value="EAU"/>
+<sl class="m">
+<java.lang.String class="a" value="EAU"/>
 </sl>
 </sm>
 <l class="aiki.fight.abilities.AbilityData" field="effectEndRound"/>

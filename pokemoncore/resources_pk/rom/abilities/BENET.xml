@@ -12,8 +12,8 @@
 <sl class="aiki.fight.abilities.AbilityData" field="ignFoeTeamMove"/>
 <java.lang.Boolean class="aiki.fight.abilities.AbilityData" field="ignFoeStatisBoost" value="false"/>
 <sl class="aiki.fight.abilities.AbilityData" field="immuMove">
-<java.lang.String class="util.List" value="ATTRACTION"/>
-<java.lang.String class="util.List" value="SEDUCTION"/>
+<java.lang.String class="a" value="ATTRACTION"/>
+<java.lang.String class="a" value="SEDUCTION"/>
 </sl>
 <el class="aiki.fight.abilities.AbilityData" field="immuLowStat"/>
 <ql class="aiki.fight.abilities.AbilityData" field="immuLowStatIfStatus"/>
@@ -26,29 +26,29 @@
 <sl class="aiki.fight.abilities.AbilityData" field="immuStatusBeginRound"/>
 <java.lang.Boolean class="aiki.fight.abilities.AbilityData" field="immuRechargeRound" value="false"/>
 <sm class="aiki.fight.abilities.AbilityData" field="immuStatus">
-<java.lang.String class="util.Map" key="" value=""/>
-<java.lang.String class="util.Map" key="" value="GRELE"/>
-<java.lang.String class="util.Map" key="" value="ZENITH"/>
-<java.lang.String class="util.Map" key="" value="DANSE_PLUIE"/>
-<java.lang.String class="util.Map" key="" value="ORAGE"/>
-<java.lang.String class="util.Map" key="" value="TEMPETESABLE"/>
-<sl class="util.Map">
-<java.lang.String class="util.List" value="AMOUR"/>
+<java.lang.String class="m" key="" value=""/>
+<java.lang.String class="m" key="" value="GRELE"/>
+<java.lang.String class="m" key="" value="ZENITH"/>
+<java.lang.String class="m" key="" value="DANSE_PLUIE"/>
+<java.lang.String class="m" key="" value="ORAGE"/>
+<java.lang.String class="m" key="" value="TEMPETESABLE"/>
+<sl class="m">
+<java.lang.String class="a" value="AMOUR"/>
 </sl>
-<sl class="util.Map">
-<java.lang.String class="util.List" value="AMOUR"/>
+<sl class="m">
+<java.lang.String class="a" value="AMOUR"/>
 </sl>
-<sl class="util.Map">
-<java.lang.String class="util.List" value="AMOUR"/>
+<sl class="m">
+<java.lang.String class="a" value="AMOUR"/>
 </sl>
-<sl class="util.Map">
-<java.lang.String class="util.List" value="AMOUR"/>
+<sl class="m">
+<java.lang.String class="a" value="AMOUR"/>
 </sl>
-<sl class="util.Map">
-<java.lang.String class="util.List" value="AMOUR"/>
+<sl class="m">
+<java.lang.String class="a" value="AMOUR"/>
 </sl>
-<sl class="util.Map">
-<java.lang.String class="util.List" value="AMOUR"/>
+<sl class="m">
+<java.lang.String class="a" value="AMOUR"/>
 </sl>
 </sm>
 <java.lang.Boolean class="aiki.fight.abilities.AbilityData" field="slowing" value="false"/>

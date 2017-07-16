@@ -8,7 +8,7 @@
 <r class="aiki.fight.items.Berry" field="healHp" value="0"/>
 <r class="aiki.fight.items.Berry" field="maxHpHealingHp" value="0"/>
 <sl class="aiki.fight.items.Berry" field="healStatus">
-<java.lang.String class="util.List" value="CONFUSION"/>
+<java.lang.String class="a" value="CONFUSION"/>
 </sl>
 <r class="aiki.fight.items.Berry" field="healHpRate" value="0"/>
 <r class="aiki.fight.items.Berry" field="maxHpHealingHpRate" value="0"/>
