@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>converterimages</groupId>
+	<artifactId>converterimages</artifactId>
+	<version>1.0-SNAPSHOT</version>
+	<packaging>jar</packaging>
+
+	<properties>
+		<jdk.version>1.6</jdk.version>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+	</properties>
+	<build>
+		<finalName>Converter</finalName>
+		<plugins>
+			<plugin>
+				<artifactId>maven-resources-plugin</artifactId>
+				<version>2.6</version>
+				<configuration>
+					<encoding>${project.build.sourceEncoding}</encoding>
+				</configuration>
+				<executions>
+					<execution>
+						<id>copy-resources</id>
+						<phase>validate</phase>
+						<goals>
+							<goal>copy-resources</goal>
+						</goals>
+						<configuration>
+							<outputDirectory>${basedir}/target/classes/exp</outputDirectory>
+							<includeEmptyDirs>true</includeEmptyDirs>
+							<resources>
+
+								<resource>
+									<directory>${basedir}/exp</directory>
+									<filtering>false</filtering>
+								</resource>
+
+							</resources>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+			<!-- <plugin>
+				<artifactId>maven-resources-plugin</artifactId>
+				<version>2.6</version>
+				<configuration>
+					<encoding>${project.build.sourceEncoding}</encoding>
+				</configuration>
+				<executions>
+					<execution>
+						<id>copy-resources</id>
+						<phase>validate</phase>
+						<goals>
+							<goal>copy-resources</goal>
+						</goals>
+						<configuration>
+							<outputDirectory>${basedir}/target/classes/resources_pk</outputDirectory>
+							<includeEmptyDirs>true</includeEmptyDirs>
+							<resources>
+
+								<resource>
+									<directory>${basedir}/resources_pk</directory>
+									<filtering>false</filtering>
+								</resource>
+
+							</resources>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin> -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>2.3.2</version>
+				<configuration>
+					<source>${jdk.version}</source>
+					<target>${jdk.version}</target>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-shade-plugin</artifactId>
+				<version>1.6</version>
+				<executions>
+					<execution>
+						<phase>package</phase>
+						<goals>
+							<goal>shade</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			<!-- <plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-checkstyle-plugin</artifactId>
+				<version>2.11</version>
+				<executions>
+					<execution>
+						<id>validate</id>
+						<phase>validate</phase>
+						<configuration>
+							<configLocation>checkstyle.xml</configLocation>
+							<encoding>UTF-8</encoding>
+							<consoleOutput>true</consoleOutput>
+							<failsOnError>true</failsOnError>
+							<linkXRef>false</linkXRef>
+						</configuration>
+						<goals>
+							<goal>check</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin> -->
+			<!-- <plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-dependency-plugin</artifactId>
+				<version>2.8</version>
+				<executions>
+					<execution>
+						<id>unpack-dependencies</id>
+						<phase>package</phase>
+						<goals>
+							<goal>unpack-dependencies</goal>
+						</goals>
+						<configuration>
+							<includes>**/*.properties,**/*.txt,**/*.html,**/*.xml,**/*.css</includes>
+							<excludes>**/*.class</excludes>
+							<outputDirectory>${basedir}/test</outputDirectory>
+							<overWriteReleases>false</overWriteReleases>
+							<overWriteSnapshots>true</overWriteSnapshots>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin> -->
+			<plugin>
+				<artifactId>maven-jar-plugin</artifactId>
+				<version>2.2</version>
+				<configuration>
+					<archive>
+						<manifest>
+							<mainClass>converterimages.main.MainClass</mainClass>
+							<addDefaultImplementationEntries>true</addDefaultImplementationEntries>
+							<addDefaultSpecificationEntries>true</addDefaultSpecificationEntries>
+						</manifest>
+					</archive>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>com.akathist.maven.plugins.launch4j</groupId>
+				<artifactId>launch4j-maven-plugin</artifactId>
+				<version>1.5.1</version>
+				<executions>
+					<execution>
+						<id>l4j-clui</id>
+						<phase>package</phase>
+						<goals>
+							<goal>launch4j</goal>
+						</goals>
+						<configuration>
+							<headerType>gui</headerType>
+							<jar>${project.build.directory}/Converter.jar</jar>
+							<outfile>${project.build.directory}/Converter.exe</outfile>
+							<downloadUrl>http://java.com/download</downloadUrl>
+							<classPath>
+								<mainClass>converterimages.main.MainClass</mainClass>
+								<preCp>anything</preCp>
+							</classPath>
+							<!-- <icon>resources_pk/pokemon.ico</icon> -->
+							<jre>
+								<!-- <minVersion>1.7.0</minVersion>
+								<jdkPreference>preferJre</jdkPreference> -->
+								<path>jdk</path>
+								<opts>
+									<opt>-Dfile.encoding=utf-8</opt>
+								</opts>
+								<!-- <opt>-Xmx1125m</opt> -->
+								<!-- <opt>-DgvSIG.confDir=../cfg</opt> -->
+							</jre>
+							<argLine>-Xmx1125m</argLine>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+	</build>
+	<dependencies>
+		<dependency>
+			<groupId>formathtml</groupId>
+			<artifactId>formathtml</artifactId>
+			<version>1.0-SNAPSHOT</version>
+		</dependency>
+		<dependency>
+			<groupId>guicommon</groupId>
+			<artifactId>guicommon</artifactId>
+			<version>1.0-SNAPSHOT</version>
+		</dependency>
+	</dependencies>
+</project>
