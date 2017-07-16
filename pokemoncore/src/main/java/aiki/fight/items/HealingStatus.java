@@ -24,7 +24,7 @@ public class HealingStatus extends HealingItem {
         if (!_data.getStatus().containsAllAsKeys(status)) {
             throw new DataException();
         }
-        if (getItemType().equals(ITEM)) {
+        if (StringList.quickEq(getItemType(), ITEM)) {
             if (healingKo) {
                 return;
             }
