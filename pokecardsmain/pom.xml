@@ -116,13 +116,25 @@
 						<phase>install</phase>
 						<configuration>
 							<tasks>
-								<copy todir="target/jre" overwrite="true"
+								<copy todir="target/int/jre" overwrite="true"
 									verbose="true" failonerror="true">
 									<fileset dir="${java.home}"/>
 								</copy>
 								<copy todir="target" overwrite="true"
                                     verbose="true" failonerror="true">
                                     <fileset file="../pokemoncore/target/rom.zip"/>
+                                </copy>
+                                <copy todir="target" overwrite="true"
+                                    verbose="true" failonerror="true">
+                                    <fileset file="../pokemongui/pokemon_port.ini"/>
+                                </copy>
+                                <copy todir="target" overwrite="true"
+                                    verbose="true" failonerror="true">
+                                    <fileset file="../cardgamesgui/cards_port.ini"/>
+                                </copy>
+                                <copy todir="target" overwrite="true"
+                                    verbose="true" failonerror="true">
+                                    <fileset file="../guicommon/language.txt"/>
                                 </copy>
 							</tasks>
 						</configuration>
