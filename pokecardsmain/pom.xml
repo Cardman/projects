@@ -33,16 +33,6 @@
 						<goals>
 							<goal>shade</goal>
 						</goals>
-						<configuration>
-							<filters>
-								<filter>
-									<artifact>*</artifact>
-						              <excludes>
-						                <exclude>org/w3c/dom/*</exclude>
-						              </excludes>
-								</filter>
-							</filters>
-						</configuration>
 					</execution>
 				</executions>
 			</plugin>
@@ -79,18 +69,13 @@
 						</manifest>
 					</archive>
 					<executions>
-					      <execution>
-					        <phase>package</phase>
-					        <goals>
-					          <goal>jar</goal>
-					        </goals>
-					        <configuration>
-					          <excludes>
-									<exclude>org/**/*</exclude>
-								</excludes>
-					        </configuration>
-					      </execution>
-					    </executions>
+						<execution>
+							<phase>package</phase>
+							<goals>
+								<goal>jar</goal>
+							</goals>
+						</execution>
+					</executions>
 				</configuration>
 			</plugin>
 			<plugin>
@@ -123,10 +108,35 @@
 					</execution>
 				</executions>
 			</plugin>
+			<plugin>
+				<artifactId>maven-antrun-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>moveFiles</id>
+						<phase>install</phase>
+						<configuration>
+							<tasks>
+								<copy todir="target/jre" overwrite="true"
+									verbose="true" failonerror="true">
+									<fileset dir="${java.home}"/>
+								</copy>
+								<copy todir="target" overwrite="true"
+                                    verbose="true" failonerror="true">
+                                    <fileset file="../pokemoncore/target/rom.zip"/>
+                                </copy>
+							</tasks>
+						</configuration>
+						<goals>
+							<goal>run</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
 		</plugins>
 		<pluginManagement>
 			<plugins>
-				<!--This plugin's configuration is used to store Eclipse m2e settings only. It has no influence on the Maven build itself.-->
+				<!--This plugin's configuration is used to store Eclipse m2e settings 
+					only. It has no influence on the Maven build itself. -->
 				<plugin>
 					<groupId>org.eclipse.m2e</groupId>
 					<artifactId>lifecycle-mapping</artifactId>
