@@ -23,6 +23,7 @@ import code.expressionlanguage.exceptions.UnwrappingException;
 import code.expressionlanguage.exceptions.VoidArgumentException;
 import code.expressionlanguage.methods.Classes;
 import code.expressionlanguage.methods.MethodBlock;
+import code.expressionlanguage.methods.RootedBlock;
 import code.expressionlanguage.methods.util.ArgumentsPair;
 import code.expressionlanguage.opers.util.ArgumentsGroup;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
@@ -644,6 +645,20 @@ public abstract class OperationNode implements SortedNode<OperationNode>, Operab
     private static CustList<ConstructorId> filterCtr(String _glClass, String _accessedClass, CustList<ConstructorId> _found, ContextEl _conf) {
         CustList<ConstructorId> accessible_ = new CustList<ConstructorId>();
         for (ConstructorId i: _found) {
+            boolean all_ = true;
+            for (ClassName c: i.getClassNames()) {
+                RootedBlock r_ = _conf.getClasses().getClassBody(c.getName());
+                if (r_ == null) {
+                    continue;
+                }
+                if (!_conf.getClasses().canAccessClass(_glClass, r_.getFullName())) {
+                    all_ = false;
+                    break;
+                }
+            }
+            if (!all_) {
+                continue;
+            }
             if (_conf.getClasses().canAccessConstructor(_glClass, _accessedClass, i)) {
                 accessible_.add(i);
             }
@@ -719,7 +734,6 @@ public abstract class OperationNode implements SortedNode<OperationNode>, Operab
         ClassMetaInfo custClass_ = null;
         String clCurName_ = _realClassName;
         custClass_ = classes_.getClassMetaInfo(clCurName_);
-        String glClass_ = _conf.getLastPage().getGlobalClass();
         MethodId id_ = _idMeth.getMethod();
         String stopClass_ = _idMeth.getClassName().getName();
         while (true) {
@@ -733,8 +747,8 @@ public abstract class OperationNode implements SortedNode<OperationNode>, Operab
             if (StringList.quickEq(clCurName_, stopClass_)) {
                 return clCurName_;
             }
-            if (!classes_.canAccessMethod(glClass_, clCurName_, id_) || !method_.isOverrideSuperMethod()) {
-                String superClass_ = custClass_.getSuperClass();
+            String superClass_ = custClass_.getSuperClass();
+            if (!method_.getOverridenClasses().containsStr(stopClass_)) {
                 custClass_ = classes_.getClassMetaInfo(superClass_);
                 clCurName_ = superClass_;
                 continue;
@@ -841,9 +855,30 @@ public abstract class OperationNode implements SortedNode<OperationNode>, Operab
         }
         throw new NoSuchDeclaredMethodException(traces_.join(RETURN_TAB)+RETURN_LINE+_conf.joinPages());
     }
-    protected static EqList<MethodId> filterMeth(String _glClass, String _accessedClass, CustList<MethodId> _found, ContextEl _conf) {
+    private static EqList<MethodId> filterMeth(String _glClass, String _accessedClass, CustList<MethodId> _found, ContextEl _conf) {
         EqList<MethodId> accessible_ = new EqList<MethodId>();
         for (MethodId i: _found) {
+            boolean all_ = true;
+            for (ClassName c: i.getClassNames()) {
+                RootedBlock r_ = _conf.getClasses().getClassBody(c.getName());
+                if (r_ == null) {
+                    continue;
+                }
+                if (!_conf.getClasses().canAccessClass(_glClass, r_.getFullName())) {
+                    all_ = false;
+                    break;
+                }
+            }
+            if (!all_) {
+                continue;
+            }
+            MethodBlock method_ = _conf.getClasses().getMethodBody(_accessedClass, i);
+            RootedBlock r_ = _conf.getClasses().getClassBody(method_.getReturnType());
+            if (r_ != null) {
+                if (!_conf.getClasses().canAccessClass(_glClass, r_.getFullName())) {
+                    continue;
+                }
+            }
             if (_conf.getClasses().canAccessMethod(_glClass, _accessedClass, i)) {
                 accessible_.add(i);
             }
