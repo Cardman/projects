@@ -31,6 +31,7 @@ import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.opers.util.ClassCategory;
 import code.expressionlanguage.opers.util.ClassField;
 import code.expressionlanguage.opers.util.ClassMetaInfo;
+import code.expressionlanguage.opers.util.ClassMethodId;
 import code.expressionlanguage.opers.util.ClassName;
 import code.expressionlanguage.opers.util.ConstructorId;
 import code.expressionlanguage.opers.util.FieldMetaInfo;
@@ -59,6 +60,7 @@ public final class FctOperation extends InvokingOperation {
 
     private ConstructorId constId;
 
+    private ClassMethodId classMethodId;
     private MethodId methodId;
     private MethodMetaInfo methodMetaInfo;
 
@@ -473,11 +475,15 @@ public final class FctOperation extends InvokingOperation {
                         return;
                     }
                 }
-                methodId = getDeclaredCustMethod(_conf, new ClassArgumentMatching(clCurName_), trimMeth_, ClassArgumentMatching.toArgArray(firstArgs_));
-                if (!classes_.canAccessMethod(glClass_, clCurName_, methodId)) {
+                ClassMethodId clMeth_ = getDeclaredCustMethod(_conf, new ClassArgumentMatching(clCurName_), trimMeth_, ClassArgumentMatching.toArgArray(firstArgs_));
+                methodId = clMeth_.getMethod();
+                String foundClass_ = clMeth_.getClassName().getName();
+                classMethodId = clMeth_;
+                if (!classes_.canAccessMethod(glClass_, foundClass_, methodId)) {
                     setRelativeOffsetPossibleLastPage(getIndexInEl()+off_, _conf);
                     throw new BadAccessException(methodId.getSignature()+RETURN_LINE+_conf.joinPages());
                 }
+                custClass_ = classes_.getClassMetaInfo(foundClass_);
                 MethodMetaInfo methodMetaInfo_ = custClass_.getMethods().getVal(methodId);
                 methodMetaInfo = methodMetaInfo_;
                 setResultClass(new ClassArgumentMatching(methodMetaInfo.getReturnType().getName()));
@@ -983,7 +989,7 @@ public final class FctOperation extends InvokingOperation {
                     }
                 }
             }
-            throw new CustomFoundMethodException(arg_, clCur_, methodId, firstArgs_);
+            throw new CustomFoundMethodException(arg_, classMethodId.getClassName().getName(), methodId, firstArgs_);
         }
         firstArgs_ = listArguments(chidren_, _nodes, true);
         //        if (classes_ != null) {
@@ -1519,7 +1525,7 @@ public final class FctOperation extends InvokingOperation {
                 }
             }
 //            Struct o_ = ProcessXmlMethod.calculateArgument(arg_, clCur_, methodId, firstArgs_, _conf).getStruct();
-            Argument argres_ = ProcessXmlMethod.calculateArgument(arg_, clCur_, methodId, firstArgs_, _conf);
+            Argument argres_ = ProcessXmlMethod.calculateArgument(arg_, classMethodId.getClassName().getName(), methodId, firstArgs_, _conf);
             // = getMethodThenInvoke(_conf, 0, obj_, clCur_, methodName, firstArgs_.toArray(new Argument[0]));
 //            argres_.setArgClassName(getResultClass().getName());
 //            argres_.setStruct(o_);

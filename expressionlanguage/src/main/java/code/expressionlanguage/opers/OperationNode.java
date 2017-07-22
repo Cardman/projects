@@ -27,6 +27,7 @@ import code.expressionlanguage.opers.util.ArgumentsGroup;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.opers.util.ClassMatching;
 import code.expressionlanguage.opers.util.ClassMetaInfo;
+import code.expressionlanguage.opers.util.ClassMethodId;
 import code.expressionlanguage.opers.util.ClassName;
 import code.expressionlanguage.opers.util.ConstructorId;
 import code.expressionlanguage.opers.util.ConstructorInfo;
@@ -712,7 +713,7 @@ public abstract class OperationNode implements SortedNode<OperationNode>, Operab
         //            throw new NoSuchDeclaredConstructorException(_0.getMessage()+RETURN_LINE+_conf.joinPages());
         //        }
     }
-    static MethodId getDeclaredCustMethod(ContextEl _conf, ClassArgumentMatching _class, String _name, ClassArgumentMatching... _argsClass) {
+    static ClassMethodId getDeclaredCustMethod(ContextEl _conf, ClassArgumentMatching _class, String _name, ClassArgumentMatching... _argsClass) {
         Classes classes_ = _conf.getClasses();
         if (classes_ == null) {
             return null;
@@ -759,11 +760,13 @@ public abstract class OperationNode implements SortedNode<OperationNode>, Operab
                 traces_.add(trace_);
                 String superClass_ = custClass_.getSuperClass();
                 custClass_ = classes_.getClassMetaInfo(superClass_);
+                clCurName_ = superClass_;
                 continue;
             }
             if (possibleMethods_.size() == CustList.ONE_ELEMENT) {
                 MethodId methodId_ = possibleMethods_.first();
-                return methodId_;
+                ClassMethodId cl_ = new ClassMethodId(new ClassName(clCurName_, false), methodId_);
+                return cl_;
             }
             possibleMethods_ = filterMeth(glClass_, clCurName_, possibleMethods_, _conf);
             if (possibleMethods_.isEmpty()) {
@@ -802,7 +805,8 @@ public abstract class OperationNode implements SortedNode<OperationNode>, Operab
             }
             if (!signatures_.first().getParameters().isError()) {
                 MethodId methodId_ = signatures_.first().getMethodId();
-                return methodId_;
+                ClassMethodId cl_ = new ClassMethodId(new ClassName(clCurName_, false), methodId_);
+                return cl_;
             }
             throw new AmbiguousChoiceCallingException(errors_.join(RETURN_LINE)+RETURN_LINE+_conf.joinPages());
         }
