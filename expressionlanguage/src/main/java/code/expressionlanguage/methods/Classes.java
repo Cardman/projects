@@ -50,6 +50,7 @@ import code.expressionlanguage.opers.util.MethodMetaInfo;
 import code.expressionlanguage.opers.util.MethodModifier;
 import code.expressionlanguage.opers.util.Struct;
 import code.expressionlanguage.variables.LocalVariable;
+import code.serialize.exceptions.BadAccessException;
 import code.util.CustList;
 import code.util.EntryCust;
 import code.util.EqList;
@@ -197,16 +198,6 @@ public final class Classes {
                 if (!StringList.isWord(className_)) {
                     throw new BadClassNameException(cl_.getFullName());
                 }
-                //TODO check while analyzing code
-                /*if (packagePrefix(cl_, UTIL)) {
-                    throw new BadClassNameException(cl_.getFullName());
-                }
-                if (packagePrefix(cl_, STREAM)) {
-                    throw new BadClassNameException(cl_.getFullName());
-                }
-                if (packagePrefix(cl_, EXPRESSIONLANGUAGE)) {
-                    throw new BadClassNameException(cl_.getFullName());
-                }*/
                 if (!cl_.getFullName().equalsIgnoreCase(file_)) {
                     throw new BadClassNameException(cl_.getFullName());
                 }
@@ -794,6 +785,35 @@ public final class Classes {
                 all_.addAllElts(bBl_.getAllSuperClasses());
             }
 //            all_.addAllElts(direct_);
+        }
+        for (EntryCust<ClassName, Block> e: classesBodies.entryList()) {
+            RootedBlock dBl_ = (RootedBlock) e.getValue();
+            String fullName_ = dBl_.getFullName();
+            StringList direct_ = dBl_.getDirectSuperClasses();
+            for (String b: direct_) {
+                if (StringList.quickEq(b, Object.class.getName())) {
+                    continue;
+                }
+                ClassBlock bBl_ = (ClassBlock) classesBodies.getVal(new ClassName(b, false));
+                AccessEnum acc_ = bBl_.getMaximumAccessConstructors(_context);
+                if (acc_.ordinal() <= AccessEnum.PROTECTED.ordinal()) {
+                    continue;
+                }
+                if (acc_ == AccessEnum.PACKAGE) {
+                    if (StringList.quickEq(dBl_.getPackageName(), bBl_.getPackageName())) {
+                        continue;
+                    }
+                }
+                BadInheritedClass inherit_;
+                inherit_ = new BadInheritedClass();
+                inherit_.setClassName(fullName_);
+                inherit_.setFileName(fullName_);
+                inherit_.setRc(new RowCol());
+                errorsDet.add(inherit_);
+            }
+        }
+        if (!errorsDet.isEmpty()) {
+            return;
         }
         for (String c: classesInheriting) {
             if (StringList.quickEq(c, Object.class.getName())) {

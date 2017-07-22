@@ -517,6 +517,9 @@ public final class InstanceOperation extends InvokingOperation {
                 ClassMetaInfo custClass_ = null;
                 custClass_ = classes_.getClassMetaInfo(realClassName_);
                 String glClass_ = _conf.getLastPage().getGlobalClass();
+                if (!classes_.canAccessClass(glClass_, realClassName_)) {
+                    throw new BadAccessException(realClassName_+RETURN_LINE+_conf.joinPages());
+                }
                 if (!classes_.canAccessConstructor(glClass_, realClassName_, constId)) {
                     throw new BadAccessException(constId.getSignature()+RETURN_LINE+_conf.joinPages());
                 }
@@ -574,6 +577,9 @@ public final class InstanceOperation extends InvokingOperation {
             ClassMetaInfo custClass_ = null;
             custClass_ = classes_.getClassMetaInfo(realClassName_);
             String glClass_ = _conf.getLastPage().getGlobalClass();
+            if (!classes_.canAccessClass(glClass_, realClassName_)) {
+                throw new BadAccessException(realClassName_+RETURN_LINE+_conf.joinPages());
+            }
             if (!classes_.canAccessConstructor(glClass_, realClassName_, constId)) {
                 throw new BadAccessException(constId.getSignature()+RETURN_LINE+_conf.joinPages());
             }

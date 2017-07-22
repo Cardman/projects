@@ -31,6 +31,7 @@ import code.expressionlanguage.opers.util.Struct;
 import code.expressionlanguage.variables.LocalVariable;
 import code.expressionlanguage.variables.LoopVariable;
 import code.serialize.ConverterMethod;
+import code.serialize.exceptions.BadAccessException;
 import code.util.CustList;
 import code.util.IdMap;
 import code.util.StringList;
@@ -2322,6 +2323,7 @@ public final class ConstantOperation extends OperationNode implements SettableEl
                 }
             }
             String classStr_ = StringList.removeAllSpaces(class_.toString());
+            String glClass_ = _cont.getLastPage().getGlobalClass();
             Classes classes_ = _cont.getClasses();
             ClassMetaInfo custClass_ = null;
             if (classes_ != null) {
@@ -2331,6 +2333,9 @@ public final class ConstantOperation extends OperationNode implements SettableEl
                 checkExist(_cont, classStr_, false, false, 0);
             } else {
                 //TODO exclude primitive
+                if (!classes_.canAccessClass(glClass_, classStr_)) {
+                    throw new BadAccessException(classStr_+RETURN_LINE+_cont.joinPages());
+                }
                 possibleInitClass = true;
             }
             a_ = new Argument();

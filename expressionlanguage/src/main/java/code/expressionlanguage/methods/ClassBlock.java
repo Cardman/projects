@@ -160,6 +160,23 @@ public final class ClassBlock extends BracedBlock implements RootedBlock {
 //        }
     }
 
+    public AccessEnum getMaximumAccessConstructors(ContextEl _cont) {
+        ClassMetaInfo curMeta_ = _cont.getClasses().getClassMetaInfo(getFullName());
+        ObjectNotNullMap<ConstructorId, ConstructorMetaInfo> c_;
+        c_ = curMeta_.getConstructors();
+        if (c_.isEmpty()) {
+            return AccessEnum.PUBLIC;
+        }
+        AccessEnum a_ = AccessEnum.PRIVATE;
+        for (EntryCust<ConstructorId, ConstructorMetaInfo> e: c_.entryList()) {
+            ConstructorBlock b_ = _cont.getClasses().getConstructorBody(getFullName(), e.getKey());
+            if (b_.getAccess().ordinal() < a_.ordinal()) {
+                a_ = b_.getAccess();
+            }
+        }
+        return a_;
+    }
+
     private boolean optionalCallConstr(ContextEl _cont) {
         ClassMetaInfo clMeta_ = _cont.getClasses().getClassMetaInfo(superClass);
         if (clMeta_ == null) {
@@ -171,6 +188,9 @@ public final class ClassBlock extends BracedBlock implements RootedBlock {
             return true;
         }
         for (EntryCust<ConstructorId, ConstructorMetaInfo> e: m_.entryList()) {
+            if (!_cont.getClasses().canAccessConstructor(getFullName(), superClass, e.getKey())) {
+                continue;
+            }
             if (e.getKey().getClassNames().isEmpty()) {
                 return true;
             }
