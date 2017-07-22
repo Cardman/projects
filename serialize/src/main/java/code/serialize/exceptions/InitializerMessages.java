@@ -14,12 +14,12 @@ final class InitializerMessages {
     private InitializerMessages() {
     }
 
-    static StringMap<StringMap<String>> getMessages(Class<?> _class) {
+    static StringMap<StringMap<String>> getMessages(String _class) {
         StringMap<StringMap<String>> allMessages_ = new StringMap<StringMap<String>>();
         for (String l: Constants.getAvailableLanguages()) {
-            String path_ = getPropertiesPath(SerializeXmlObject.RESOURCES_FOLDER, l, _class.getName());
-            String content_ = ResourceFiles.ressourceFichier(path_);
+            String path_ = getPropertiesPath(SerializeXmlObject.RESOURCES_FOLDER, l, _class);
             try {
+                String content_ = ResourceFiles.ressourceFichier(path_);
                 StringMap<String> messages_ = MessagesUtil.getMessages(content_);
                 allMessages_.put(l, messages_);
             } catch (RuntimeException _0) {

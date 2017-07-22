@@ -5,26 +5,21 @@ import code.util.consts.Constants;
 
 public class InexistingValueForEnum extends RuntimeException {
 
-    private static final String EMPTY_STRING = "";
     private static final String INEXISTING = "inexisting";
+    private static final String ACCESS = "stream.serialize.exceptions.InexistingValueForEnum";
+    private static final String EMPTY_STRING = "";
 
-    private static final StringMap<StringMap<String>> MESSAGES = InitializerMessages.getMessages(InexistingValueForEnum.class);
-
-    private String enumValueName;
-
-    private String enumName;
+    private static final StringMap<StringMap<String>> MESSAGES = InitializerMessages.getMessages(ACCESS);
 
     public InexistingValueForEnum(String _enumValueName, String _enumName) {
-        enumValueName = _enumValueName;
-        enumName = _enumName;
+        super(getMessage(_enumValueName, _enumName));
     }
 
-    @Override
-    public String getMessage() {
+    private static String getMessage(String _enumValueName, String _enumName) {
         try {
             StringMap<String> messages_ = MESSAGES.getVal(Constants.getLanguage());
-            return StringList.simpleFormat(messages_.getVal(INEXISTING), enumValueName, enumName);
-        } catch (RuntimeException _0) {
+            return StringList.simpleFormat(messages_.getVal(INEXISTING), _enumValueName, _enumName);
+        } catch (Exception _0) {
             return EMPTY_STRING;
         }
     }

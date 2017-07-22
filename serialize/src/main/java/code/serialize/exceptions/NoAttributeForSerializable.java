@@ -4,40 +4,31 @@ import code.util.StringMap;
 import code.util.consts.Constants;
 
 public class NoAttributeForSerializable extends RuntimeException {
+    private static final String ACCESS = "stream.serialize.exceptions.NoAttributeForSerializable";
 
-    private static final StringMap<StringMap<String>> MESSAGES = InitializerMessages.getMessages(NoAttributeForSerializable.class);
+    private static final StringMap<StringMap<String>> MESSAGES = InitializerMessages.getMessages(ACCESS);
 
     private static final String EMPTY_STRING = "";
     private static final String NO_ATTRIBUTE = "noAttribute";
     private static final String NO_ATTRIBUTE_NAME = "noAttributeName";
 
-    private boolean hasFieldName;
-
-    private String fieldName;
-
-    private String tagName;
-
     public NoAttributeForSerializable(String _tagName) {
-        hasFieldName = false;
-        tagName = _tagName;
+        super(getMessage(false, EMPTY_STRING, _tagName));
     }
 
 
     public NoAttributeForSerializable(String _fieldName, String _tagName) {
-        hasFieldName = true;
-        fieldName = _fieldName;
-        tagName = _tagName;
+        super(getMessage(true, _fieldName, _tagName));
     }
 
-    @Override
-    public String getMessage() {
+    private static String getMessage(boolean _hasFieldName, String _fieldName, String _tagName) {
         try {
             StringMap<String> messages_ = MESSAGES.getVal(Constants.getLanguage());
-            if (hasFieldName) {
-                return StringList.simpleFormat(messages_.getVal(NO_ATTRIBUTE_NAME), fieldName, tagName);
+            if (_hasFieldName) {
+                return StringList.simpleFormat(messages_.getVal(NO_ATTRIBUTE_NAME), _fieldName, _tagName);
             }
-            return StringList.simpleFormat(messages_.getVal(NO_ATTRIBUTE), tagName);
-        } catch (RuntimeException _0) {
+            return StringList.simpleFormat(messages_.getVal(NO_ATTRIBUTE), _tagName);
+        } catch (Exception _0) {
             return EMPTY_STRING;
         }
     }
