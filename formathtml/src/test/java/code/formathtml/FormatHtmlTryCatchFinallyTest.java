@@ -3,7 +3,6 @@ import static org.custommonkey.xmlunit.XMLAssert.assertXMLEqual;
 
 import java.io.IOException;
 
-import org.junit.Ignore;
 import org.junit.Test;
 import org.w3c.dom.Document;
 import org.xml.sax.SAXException;
@@ -12,6 +11,7 @@ import code.bean.Bean;
 import code.bean.translator.Translator;
 import code.expressionlanguage.exceptions.DivideZeroException;
 import code.expressionlanguage.exceptions.InvokeException;
+import code.expressionlanguage.methods.exceptions.BadTryException;
 import code.formathtml.classes.BeanOne;
 import code.formathtml.classes.MyTranslator;
 import code.util.StringMap;
@@ -728,8 +728,7 @@ public class FormatHtmlTryCatchFinallyTest {
         assertXmlEqualRuntime("<html xmlns:c='javahtml' xmlns='javahtml'><body>2FIRSTSECOND</body></html>", render_);
     }
 
-    @Ignore
-    @Test
+    @Test(expected=BadTryException.class)
     public void processHtml217Test() {
         String locale_ = "LOCALE";
         String folder_ = "messages";
@@ -762,8 +761,7 @@ public class FormatHtmlTryCatchFinallyTest {
         assertXmlEqualRuntime("<html xmlns:c='javahtml' xmlns='javahtml'><body>2</body></html>", render_);
     }
 
-    @Ignore
-    @Test
+    @Test(expected=BadTryException.class)
     public void processHtml218Test() {
         String locale_ = "LOCALE";
         String folder_ = "messages";
@@ -796,8 +794,7 @@ public class FormatHtmlTryCatchFinallyTest {
         assertXmlEqualRuntime("<html xmlns:c='javahtml' xmlns='javahtml'><body>Divide Zero</body></html>", render_);
     }
 
-    @Ignore
-    @Test
+    @Test(expected=BadTryException.class)
     public void processHtml219Test() {
         String locale_ = "LOCALE";
         String folder_ = "messages";

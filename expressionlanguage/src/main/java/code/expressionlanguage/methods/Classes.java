@@ -1030,6 +1030,80 @@ public final class Classes {
         return eqEl;
     }
 
+    public boolean canAccessField(String _className, String _accessedClass, String _name) {
+    	Block access_ = (Block) getClassBody(_accessedClass);
+    	CustList<Block> bl_ = getSortedDescNodes(access_);
+    	InfoBlock i_ = null;
+        for (Block b: bl_) {
+        	if (b instanceof InfoBlock) {
+        		if (StringList.quickEq(((InfoBlock)b).getFieldName(), _name)) {
+        			i_ = (InfoBlock)b;
+        		}
+        	}
+        }
+    	return canAccess(_className, i_);
+    }
+
+    public boolean canAccessConstructor(String _className, String _accessedClass, ConstructorId _id) {
+    	Block access_ = (Block) getClassBody(_accessedClass);
+    	CustList<Block> bl_ = getSortedDescNodes(access_);
+    	ConstructorBlock i_ = null;
+        for (Block b: bl_) {
+        	if (b instanceof ConstructorBlock) {
+        		if (((ConstructorBlock)b).getId().eq(_id)) {
+        			i_ = (ConstructorBlock)b;
+        		}
+        	}
+        }
+    	return canAccess(_className, i_);
+    }
+
+    public boolean canAccessMethod(String _className, String _accessedClass, MethodId _id) {
+    	Block access_ = (Block) getClassBody(_accessedClass);
+    	CustList<Block> bl_ = getSortedDescNodes(access_);
+    	MethodBlock i_ = null;
+        for (Block b: bl_) {
+        	if (b instanceof MethodBlock) {
+        		if (((MethodBlock)b).getId().eq(_id)) {
+        			i_ = (MethodBlock)b;
+        		}
+        	}
+        }
+    	return canAccess(_className, i_);
+    }
+
+    public boolean canAccessClass(String _className, String _accessedClass) {
+    	RootedBlock access_ = getClassBody(_accessedClass);
+    	return canAccess(_className, access_);
+    }
+
+    public boolean canAccess(String _className, AccessibleBlock _block) {
+    	if (_block.getAccess() == AccessEnum.PUBLIC) {
+    		return true;
+    	}
+    	RootedBlock root_ = getClassBody(_className);
+    	RootedBlock belong_ = _block.belong();
+		if (_block.getAccess() == AccessEnum.PROTECTED) {
+    		if (PrimitiveTypeUtil.canBeUseAsArgument(belong_.getFullName(), _className, this)) {
+    			return true;
+    		}
+    		if (StringList.quickEq(belong_.getPackageName(), root_.getPackageName())) {
+    			return true;
+    		}
+    		return false;
+    	}
+    	if (_block.getAccess() == AccessEnum.PACKAGE) {
+    		if (StringList.quickEq(belong_.getPackageName(), root_.getPackageName())) {
+    			return true;
+    		}
+    		return false;
+    	}
+    	if (StringList.quickEq(belong_.getFullName(), root_.getFullName())) {
+			return true;
+		}
+    	return false;
+    }
+
     public EqualsEl getNatEqEl() {
         return natEqEl;
     }
@@ -1072,7 +1146,6 @@ public final class Classes {
                 if (b instanceof InfoBlock) {
                     Argument argGl_ = new Argument();
                     argGl_.setArgClassName(c.getKey().getName());
-                    page_.setGlobalArgument(argGl_);
                     page_.setGlobalClass(c.getKey().getName());
                     InfoBlock method_ = (InfoBlock) b;
                     method_.buildExpressionLanguage(_context);
@@ -1080,7 +1153,6 @@ public final class Classes {
                 if (b instanceof AloneBlock) {
                     Argument argGl_ = new Argument();
                     argGl_.setArgClassName(c.getKey().getName());
-                    page_.setGlobalArgument(argGl_);
                     page_.setGlobalClass(c.getKey().getName());
                     AloneBlock method_ = (AloneBlock) b;
                     method_.buildInstructions(_context);
@@ -1111,7 +1183,6 @@ public final class Classes {
                 if (b instanceof Returnable) {
                     Argument argGl_ = new Argument();
                     argGl_.setArgClassName(c.getKey().getName());
-                    page_.setGlobalArgument(argGl_);
                     page_.setGlobalClass(c.getKey().getName());
                     Returnable method_ = (Returnable) b;
                     StringList params_ = method_.getParametersNames();
@@ -1143,7 +1214,6 @@ public final class Classes {
                 if (b instanceof InfoBlock) {
                     Argument argGl_ = new Argument();
                     argGl_.setArgClassName(c.getKey().getName());
-                    page_.setGlobalArgument(argGl_);
                     page_.setGlobalClass(c.getKey().getName());
                     InfoBlock method_ = (InfoBlock) b;
                     method_.checkCallConstructor(_context);
@@ -1151,7 +1221,6 @@ public final class Classes {
                 if (b instanceof AloneBlock) {
                     Argument argGl_ = new Argument();
                     argGl_.setArgClassName(c.getKey().getName());
-                    page_.setGlobalArgument(argGl_);
                     page_.setGlobalClass(c.getKey().getName());
                     AloneBlock method_ = (AloneBlock) b;
                     method_.checkConstrCalls(_context);
@@ -1159,7 +1228,6 @@ public final class Classes {
                 if (b instanceof Returnable) {
                     Argument argGl_ = new Argument();
                     argGl_.setArgClassName(c.getKey().getName());
-                    page_.setGlobalArgument(argGl_);
                     page_.setGlobalClass(c.getKey().getName());
                     Returnable method_ = (Returnable) b;
                     method_.checkConstrCalls(_context);

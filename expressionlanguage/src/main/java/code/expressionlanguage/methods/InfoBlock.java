@@ -1,6 +1,6 @@
 package code.expressionlanguage.methods;
 
-public interface InfoBlock extends WithEl {
+public interface InfoBlock extends WithEl, AccessibleBlock {
 
     boolean isStaticField();
 

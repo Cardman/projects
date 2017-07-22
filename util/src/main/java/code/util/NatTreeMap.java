@@ -1,6 +1,7 @@
 package code.util;
 import java.util.Comparator;
 
+import code.util.annot.CapacityInit;
 import code.util.comparators.NaturalComparator;
 import code.util.ints.Listable;
 import code.util.ints.ListableEntries;
@@ -26,7 +27,10 @@ public final class NatTreeMap<K extends Comparable<K>, V> extends AbsMap<K, V> i
     public NatTreeMap(NatTreeMap<K,V> _map) {
         putAllTreeMap(_map);
     }
-
+    @CapacityInit
+    public NatTreeMap(int _capacity) {
+    	super(_capacity);
+    }
 //    public NatTreeMap(SortedMap<K,V> _map) {
 //        putAll(_map);
 //    }

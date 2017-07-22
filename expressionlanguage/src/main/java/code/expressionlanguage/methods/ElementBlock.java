@@ -40,6 +40,11 @@ public final class ElementBlock extends Leaf implements InfoBlock{
     }
 
     @Override
+    public AccessEnum getAccess() {
+        return AccessEnum.PUBLIC;
+    }
+
+    @Override
     public boolean isStaticField() {
         return true;
     }
@@ -167,4 +172,9 @@ public final class ElementBlock extends Leaf implements InfoBlock{
         }
         processBlock(_cont);
     }
+
+	@Override
+	public RootedBlock belong() {
+		return (RootedBlock) getParent();
+	}
 }

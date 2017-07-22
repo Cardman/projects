@@ -31,6 +31,8 @@ public final class MethodBlock extends BracedBlock implements Returnable {
 
     private final boolean normalMethod;
 
+    private final AccessEnum access;
+
     public MethodBlock(Element _el, ContextEl _importingPage, int _indexChild,
             BracedBlock _m) {
         super(_el, _importingPage, _indexChild, _m);
@@ -65,6 +67,7 @@ public final class MethodBlock extends BracedBlock implements Returnable {
         finalMethod = StringList.quickEq(modifier_, VALUE_FINAL);
         abstractMethod = StringList.quickEq(modifier_, VALUE_ABSTRACT);
         normalMethod = StringList.quickEq(modifier_, VALUE_NORMAL);
+        access = AccessEnum.valueOf(_el.getAttribute(ATTRIBUTE_ACCESS));
     }
 
     public MethodModifier getModifier() {
@@ -79,6 +82,11 @@ public final class MethodBlock extends BracedBlock implements Returnable {
         }
         return MethodModifier.NORMAL;
     }
+
+    @Override
+	public AccessEnum getAccess() {
+		return access;
+	}
 
     public MethodId getId() {
         String name_ = getName();
@@ -351,4 +359,9 @@ public final class MethodBlock extends BracedBlock implements Returnable {
     public String getTagName() {
         return TAG_METHOD;
     }
+
+	@Override
+	public RootedBlock belong() {
+		return (RootedBlock) getParent();
+	}
 }

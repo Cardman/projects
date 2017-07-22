@@ -27,6 +27,8 @@ public final class FieldBlock extends Leaf implements InfoBlock {
 
     private final boolean staticField;
 
+    private final AccessEnum access;
+
     private CustList<OperationNode> opValue;
 
     public FieldBlock(Element _el, ContextEl _importingPage, int _indexChild,
@@ -36,8 +38,8 @@ public final class FieldBlock extends Leaf implements InfoBlock {
         className = _el.getAttribute(ATTRIBUTE_CLASS);
         value = _el.getAttribute(ATTRIBUTE_VALUE);
         staticField = _el.hasAttribute(ATTRIBUTE_STATIC);
+        access = AccessEnum.valueOf(_el.getAttribute(ATTRIBUTE_ACCESS));
     }
-
     public Struct getDefaultStruct() {
         Object value_ = PrimitiveTypeUtil.defaultValue(className);
         if (value.isEmpty()) {
@@ -55,6 +57,12 @@ public final class FieldBlock extends Leaf implements InfoBlock {
         }
         return new Struct(value_);
     }
+
+    @Override
+    public AccessEnum getAccess() {
+    	return access;
+    }
+
     public ExpressionLanguage getValueEl() {
 //        return new ExpressionLanguage(rightMember, _cont, true, new Calculation(StepCalculation.RIGHT));
         return new ExpressionLanguage(opValue);
@@ -199,4 +207,9 @@ public final class FieldBlock extends Leaf implements InfoBlock {
         }
         processBlock(_cont);
     }
+
+	@Override
+	public RootedBlock belong() {
+		return (RootedBlock) getParent();
+	}
 }

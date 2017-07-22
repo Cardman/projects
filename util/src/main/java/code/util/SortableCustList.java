@@ -1,6 +1,7 @@
 /**
     */
 package code.util;
+import code.util.annot.CapacityInit;
 import code.util.comparators.NatComparator;
 import code.util.ints.Cmp;
 import code.util.ints.Equallable;
@@ -30,6 +31,10 @@ public final class SortableCustList<T extends Cmp<T>> extends AbEqList<T> implem
         super(_c);
     }
 
+    @CapacityInit
+    private SortableCustList(int _capacity) {
+    	super(_capacity);
+    }
 //    public void removeComparableDuplicates() {
 //        //setModified();
 //        int i_ = FIRST_INDEX;

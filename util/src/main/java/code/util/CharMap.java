@@ -1,4 +1,5 @@
 package code.util;
+import code.util.annot.CapacityInit;
 import code.util.ints.ListableEntries;
 
 
@@ -16,6 +17,10 @@ public final class CharMap<V> extends AbsMap<Character,V> {
         putAllMap(_arg0);
     }
 
+    @CapacityInit
+    public CharMap(int _capacity) {
+    	super(_capacity);
+    }
 //    @Override
 //    CustList<EntryCust<Character,V>> getList() {
 //        return list;

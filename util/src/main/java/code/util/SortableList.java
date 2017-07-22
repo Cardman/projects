@@ -1,6 +1,7 @@
 /**
     */
 package code.util;
+import code.util.annot.CapacityInit;
 import code.util.comparators.NaturalComparator;
 import code.util.ints.Equallable;
 import code.util.ints.Listable;
@@ -28,6 +29,11 @@ public final class SortableList<T extends Comparable<T>> extends AbEqList<T> imp
     */
     public SortableList(Listable<? extends T> _c) {
         super(_c);
+    }
+
+    @CapacityInit
+    private SortableList(int _capacity) {
+    	super(_capacity);
     }
 //    public void removeComparableDuplicates() {
 //        //setModified();

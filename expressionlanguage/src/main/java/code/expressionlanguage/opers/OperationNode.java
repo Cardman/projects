@@ -520,10 +520,14 @@ public abstract class OperationNode implements SortedNode<OperationNode>, Operab
         ClassMetaInfo custClass_;
         Classes classes_ = _cont.getClasses();
         custClass_ = classes_.getClassMetaInfo(clCurName_);
+        String glClass_ = _cont.getLastPage().getGlobalClass();
         while (custClass_ != null) {
             for (EntryCust<String, FieldMetaInfo> e: custClass_.getFields().entryList()) {
                 if (!StringList.quickEq(e.getKey(), _name)) {
                     continue;
+                }
+                if (!_cont.getClasses().canAccessField(glClass_, clCurName_, _name)) {
+                	throw new BadAccessException(clCurName_+DOT+_name+RETURN_LINE+_cont.joinPages());
                 }
                 return e.getValue();
             }

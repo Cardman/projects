@@ -5,7 +5,7 @@ import code.util.EqList;
 import code.util.StringList;
 import code.xml.RowCol;
 
-public interface RootedBlock {
+public interface RootedBlock extends AccessibleBlock {
 
     String getFullName();
 

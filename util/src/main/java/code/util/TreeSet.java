@@ -1,6 +1,7 @@
 package code.util;
 import java.util.Comparator;
 
+import code.util.annot.CapacityInit;
 import code.util.annot.RwXml;
 import code.util.exceptions.NullComparatorException;
 import code.util.ints.SortableSet;
@@ -34,6 +35,11 @@ public final class TreeSet<E> extends AbEqList<E> implements SortableSet<E> {
 //        }
     }
 
+    @CapacityInit
+    private TreeSet(int _capacity) {
+    	super(_capacity);
+    	comparator = null;
+    }
 //    public TreeSet(Collection<? extends E> _c) {
 //        comparator = null;
 //        addAll(_c);

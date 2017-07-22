@@ -5,17 +5,12 @@ import static junitparams.JUnitParamsRunner.$;
 import junitparams.JUnitParamsRunner;
 import junitparams.Parameters;
 
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import code.maths.Rate;
 import code.maths.exceptions.BadDivisionException;
-import code.maths.litteral.Argument;
-import code.maths.litteral.MathType;
-import code.maths.litteral.MathUtil;
 import code.maths.litteral.exceptions.BadNumberArgumentException;
-import code.maths.litteral.exceptions.EvalutationException;
 import code.maths.litteral.exceptions.UndefinedFunctionException;
 import code.maths.litteral.exceptions.UndefinedVariableException;
 import code.util.StringMap;
@@ -381,8 +376,7 @@ public class MathUtilTest {
                 $("(-1:0+1)+1"));
     }
 
-    @Ignore
-    @Test(expected=EvalutationException.class)
+    @Test(expected=BadDivisionException.class)
     @Parameters(method="evaluateExpressionFail")
     public void evaluateExp_2FailTest(String _input) {
         MathUtil.processEl(_input, 0, false, new StringMap<String>());

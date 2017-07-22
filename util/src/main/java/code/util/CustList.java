@@ -6,6 +6,7 @@ import java.util.Comparator;
 import java.util.Iterator;
 import java.util.ListIterator;
 
+import code.util.annot.CapacityInit;
 import code.util.ints.Listable;
 
 public class CustList<T> implements Listable<T> {
@@ -40,12 +41,17 @@ public class CustList<T> implements Listable<T> {
             add(e);
         }
     }
-    
+
     public CustList(Listable<? extends T> _c) {
         list = new ArrayList<T>(_c.size());
         for (T e: _c) {
             add(e);
         }
+    }
+
+    @CapacityInit
+    protected CustList(int _capacity) {
+    	list = new ArrayList<T>(_capacity);
     }
 
 //    public CustList(Iterable<? extends T> _c) {

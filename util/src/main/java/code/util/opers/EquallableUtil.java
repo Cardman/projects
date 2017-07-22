@@ -5,7 +5,6 @@ import java.math.BigInteger;
 import code.util.BigIntegers;
 import code.util.GenericNumbers;
 import code.util.StringList;
-import code.util.ints.Equallable;
 
 public final class EquallableUtil {
     
@@ -16,19 +15,6 @@ public final class EquallableUtil {
     private static final String EXPECTED_BUT_WAS = "expected:{0} but was:{1}";
 
     private EquallableUtil() {
-    }
-    
-    public static void assertEq(Equallable<?> _expected, Equallable<?> _result) {
-        if (checkNullity(_expected, _result)) {
-            return;
-        }
-        Equallable<? super Equallable<?>> cast_;
-        cast_ = (Equallable<? super Equallable<?>>)_expected;
-        //This line fail if the arguments are not of the same class
-        if (cast_.eq(_result)) {
-            return;
-        }
-        assertError(_expected, _result);
     }
 
     public static void assertEq(StringList _expected, StringList _result) {

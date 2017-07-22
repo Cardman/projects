@@ -634,9 +634,8 @@ public final class ElUtil {
 //    }
     static void analyzeLeft(CustList<OperationNode> _nodes, ContextEl _context, boolean _staticContext, boolean _isEnumContext, String _op) {
         PageEl page_ = _context.getLastPage();
-        Argument arg_ = page_.getGlobalArgument();
         for (OperationNode e: _nodes) {
-            if (e.getPreviousResultClass() == null && arg_ != null) {
+            if (e.getPreviousResultClass() == null) {
                 e.setPreviousResultClass(new ClassArgumentMatching(page_.getGlobalClass()), _staticContext);
             }
             e.analyzeLeft(_nodes, _context, _isEnumContext, _op);
@@ -644,9 +643,8 @@ public final class ElUtil {
     }
     static void analyzeRight(CustList<OperationNode> _nodes, ContextEl _context, boolean _staticContext, boolean _isEnumContext, String _op) {
         PageEl page_ = _context.getLastPage();
-        Argument arg_ = page_.getGlobalArgument();
         for (OperationNode e: _nodes) {
-            if (e.getPreviousResultClass() == null && arg_ != null) {
+            if (e.getPreviousResultClass() == null) {
                 e.setPreviousResultClass(new ClassArgumentMatching(page_.getGlobalClass()), _staticContext);
             }
             e.analyzeRight(_nodes, _context, _isEnumContext, _op);
@@ -654,9 +652,8 @@ public final class ElUtil {
     }
     static void analyzeSetting(CustList<OperationNode> _nodes, ContextEl _context, boolean _staticContext, boolean _isEnumContext, String _op) {
         PageEl page_ = _context.getLastPage();
-        Argument arg_ = page_.getGlobalArgument();
         for (OperationNode e: _nodes) {
-            if (e.getPreviousResultClass() == null && arg_ != null) {
+            if (e.getPreviousResultClass() == null) {
                 e.setPreviousResultClass(new ClassArgumentMatching(page_.getGlobalClass()), _staticContext);
             }
             e.analyzeSetting(_nodes, _context, _isEnumContext, _op);

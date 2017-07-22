@@ -29,12 +29,20 @@ public final class EnumBlock extends BracedBlock implements RootedBlock {
 
     private final ObjectNotNullMap<ClassMethodId, Boolean> availableMethods = new ObjectNotNullMap<ClassMethodId, Boolean>();
 
+    private final AccessEnum access;
+
     public EnumBlock(Element _el, ContextEl _importingPage, int _indexChild,
             BracedBlock _m) {
         super(_el, _importingPage, _indexChild, _m);
         name = _el.getAttribute(ATTRIBUTE_NAME);
         packageName = _el.getAttribute(ATTRIBUTE_PACKAGE);
+        access = AccessEnum.valueOf(_el.getAttribute(ATTRIBUTE_ACCESS));
     }
+
+    @Override
+	public AccessEnum getAccess() {
+		return access;
+	}
 
     public ObjectNotNullMap<ClassMethodId, Boolean> getAvailableMethods() {
         return availableMethods;
@@ -131,4 +139,9 @@ public final class EnumBlock extends BracedBlock implements RootedBlock {
     public String getSuperClass() {
         return Enum.class.getName();
     }
+
+	@Override
+	public RootedBlock belong() {
+		return this;
+	}
 }

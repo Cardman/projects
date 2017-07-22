@@ -3,6 +3,7 @@ import java.util.Comparator;
 import java.util.Iterator;
 import java.util.ListIterator;
 
+import code.util.annot.CapacityInit;
 import code.util.comparators.NatComparator;
 import code.util.ints.Cmp;
 import code.util.ints.Listable;
@@ -27,6 +28,12 @@ public final class NatTreeSet<E extends Cmp<E>> extends AbEqList<E> implements S
     public NatTreeSet(Listable<? extends E> _c) {
         list = new SortableCustList<E>();
         list.addAllElts(_c);
+    }
+
+    @CapacityInit
+    private NatTreeSet(int _capacity) {
+    	super(_capacity);
+    	list = new SortableCustList<E>();
     }
 
     @Override

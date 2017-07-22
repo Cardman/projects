@@ -4554,14 +4554,13 @@ public class FormatHtmlTest {
         FormatHtml.processHtml(doc_, "bean_one", conf_, locale_, files_);
     }
 
-    @Ignore
     @Test(expected=RuntimeClassNotFoundException.class)
     public void processHtml6FailTest() {
         String locale_ = "LOCALE";
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
-        String html_ = "<html xmlns:c='javahtml'><body>{composite.formathtml^classe^Composite^integer}</body></html>";
+        String html_ = "<html xmlns:c='javahtml'><body>{^class(\"formathtml^classe^Composite\",composite).integer}</body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
         BeanOne bean_ = new BeanOne();
@@ -9312,6 +9311,7 @@ public class FormatHtmlTest {
         assertXmlEqualRuntime("<html xmlns:c='javahtml' xmlns='javahtml'><body> NEXT<form n-f=\"0\" action=\"\" c:command=\"go\">0</form><form n-f=\"1\" action=\"go\">0</form></body></html>", render_);
     }
 
+    //infinite loop
     @Ignore
     @Test
     public void processImports8Test() {
@@ -9344,6 +9344,8 @@ public class FormatHtmlTest {
         conf_.getProperties().put("msg_example", relative_);
         conf_.setTranslators(new StringMap<Translator>());
         conf_.getTranslators().put("trans", new MyTranslator());
+        conf_.setHtml(html_);
+        conf_.setDocument(XmlParser.parseSaxHtml(html_, false, true));
         String render_ = FormatHtml.processImports(html_, conf_, locale_, files_);
         assertXmlEqualRuntime("<html xmlns:c='javahtml' xmlns='javahtml'><body>HEAD<a href=\"\"/>HEAD<a href=\"\"/>HEAD<a href=\"\"/>HEAD<a href=\"\"/></body></html>", render_);
 //        assertEq("<html><body>HEAD<a href=\"\"/>HEAD<a href=\"\"/></body></html>", render_);
@@ -10618,7 +10620,6 @@ public class FormatHtmlTest {
 //        assertEq(0, beanTwo_.getForms().size());
     }
 
-    @Ignore
     @Test(expected=NoSuchDeclaredConstructorException.class)
     public void processImports4FailTest() {
         String locale_ = "LOCALE";

@@ -1,4 +1,5 @@
 package code.util;
+import code.util.annot.CapacityInit;
 import code.util.ints.Equallable;
 import code.util.ints.ListableEntries;
 
@@ -11,6 +12,10 @@ public final class ObjectNotNullMap<K extends Equallable<K>, V>  extends AbObjec
         putAllMap(_arg0);
     }
 
+    @CapacityInit
+    public ObjectNotNullMap(int _capacity) {
+    	super(_capacity);
+    }
 //    public static <T extends Equallable<T>> void deleteLineReturn(ObjectNotNullMap<T,String> _map) {
 //        for (EntryCust<T, String> e: _map.entryList()) {
 //            e.setValue(StringList.removeStrings(e.getValue(), Constants.RETURN_LINE));

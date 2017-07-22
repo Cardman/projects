@@ -1,6 +1,7 @@
 package code.util;
 import java.util.Comparator;
 
+import code.util.annot.CapacityInit;
 import code.util.comparators.ComparatorEnum;
 import code.util.ints.Equallable;
 import code.util.ints.Listable;
@@ -23,6 +24,11 @@ public final class EnumList<T extends Enum<T>> extends AbEqList<T> implements Eq
         for (T e: _class.getEnumConstants()) {
             add(e);
         }
+    }
+
+    @CapacityInit
+    private EnumList(int _capacity) {
+    	super(_capacity);
     }
 
     public void sort() {

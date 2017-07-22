@@ -6,17 +6,20 @@ import code.util.CustList;
 import code.util.EqList;
 import code.util.ObjectMap;
 import code.util.ObjectNotNullMap;
+import code.util.annot.CapacityInit;
 import code.util.annot.RwXml;
 
 @RwXml
 public final class MonteCarloNumber extends AbMonteCarlo<Rate> {
 
-    private ObjectNotNullMap<Rate,LgInt> law = new ObjectNotNullMap<Rate,LgInt>();
+    private ObjectNotNullMap<Rate,LgInt> law;
 
     public MonteCarloNumber() {
+    	law = new ObjectNotNullMap<Rate,LgInt>();
     }
 
     public MonteCarloNumber(Rate _event, Rate _rateEvent, Rate _otherEvent) {
+    	law = new ObjectNotNullMap<Rate,LgInt>();
         if (_rateEvent.greaterOrEqualsOne()) {
             addEvent(_event,LgInt.one());
         } else {
@@ -27,6 +30,10 @@ public final class MonteCarloNumber extends AbMonteCarlo<Rate> {
         deleteZeroEvents();
     }
 
+    @CapacityInit
+    private MonteCarloNumber(int _capacity) {
+    	law = new ObjectNotNullMap<Rate,LgInt>(_capacity);
+    }
     /**Retourne l'esperance d'une loi de probabilite.*/
     public Rate getAvg(){
         Rate sum_ = Rate.zero();

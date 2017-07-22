@@ -1,4 +1,5 @@
 package code.util;
+import code.util.annot.CapacityInit;
 import code.util.ints.Equallable;
 import code.util.ints.Listable;
 
@@ -13,6 +14,11 @@ public final class BooleanList extends AbEqList<Boolean> implements Equallable<B
     
     public BooleanList(Listable<? extends Boolean> _c) {
         super(_c);
+    }
+
+    @CapacityInit
+    private BooleanList(int _capacity) {
+    	super(_capacity);
     }
 
 //    public BooleanList(Iterable<? extends Boolean> _c) {

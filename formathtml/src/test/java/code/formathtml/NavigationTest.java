@@ -11,7 +11,6 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 
 import org.junit.BeforeClass;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.xml.sax.SAXException;
 
@@ -20,9 +19,6 @@ import code.bean.translator.Translator;
 import code.bean.validator.Validator;
 import code.expressionlanguage.PrimitiveTypeUtil;
 import code.expressionlanguage.exceptions.InvokeRedinedMethException;
-import code.formathtml.Configuration;
-import code.formathtml.HtmlPage;
-import code.formathtml.Navigation;
 import code.formathtml.classes.BeanFive;
 import code.formathtml.classes.BeanOne;
 import code.formathtml.classes.BeanSeven;
@@ -39,9 +35,9 @@ import code.formathtml.classes.Rate;
 import code.formathtml.classes.SimpleMathFactory;
 import code.formathtml.classes.UnselectedRadio;
 import code.formathtml.exceptions.FormNotFoundException;
-import code.formathtml.exceptions.SetterException;
 import code.formathtml.util.NodeContainer;
 import code.formathtml.util.NodeInformations;
+import code.serialize.exceptions.BadAccessException;
 import code.serialize.exceptions.NoSuchDeclaredMethodException;
 import code.util.CustList;
 import code.util.NatTreeMap;
@@ -7683,15 +7679,15 @@ public class NavigationTest {
         nav_.processFormRequest();
     }
 
-    @Ignore
-    @Test(expected=SetterException.class)
+//    @Ignore
+    @Test(expected=BadAccessException.class)
     public void processFormRequest7FailTest() {
         String locale_ = "LOCALE";
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
         String html_ = "<html c:bean=\"bean_two\" xmlns:c='javahtml' xmlns='javahtml'><body>HEAD<a c:command=\"$goToNullPage\" href=\"\"/></body></html>";
-        String htmlTwo_ = "<html bean=\"bean_one\"><body><form action=\"DELETE\" name=\"myform\" c:command=\"$go\"><input type=\"text\" c:className='"+PrimitiveTypeUtil.PRIM_INT+"' name=\"composite.privateInt\" varValue=\"composite.getPrivateInt()\"/></form></body></html>";
+        String htmlTwo_ = "<html c:bean=\"bean_one\" xmlns:c='javahtml' xmlns='javahtml'><body><form action=\"DELETE\" name=\"myform\" c:command=\"$go\"><input type=\"text\" c:className='"+PrimitiveTypeUtil.PRIM_INT+"' name=\"composite.privateInt\" varValue=\"composite.getPrivateInt()\"/></form></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
         files_.put("page1.html", html_);

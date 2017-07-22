@@ -1,4 +1,5 @@
 package code.util;
+import code.util.annot.CapacityInit;
 import code.util.ints.Equallable;
 import code.util.ints.Listable;
 
@@ -14,6 +15,11 @@ public final class EqList<T extends Equallable<T>> extends AbEqList<T> implement
     
     public EqList(Listable<? extends T> _c) {
         super(_c);
+    }
+
+    @CapacityInit
+    private EqList(int _capacity) {
+    	super(_capacity);
     }
 
 //    public EqList(Iterable<? extends T> _c) {

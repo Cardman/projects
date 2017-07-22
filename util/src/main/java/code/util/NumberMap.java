@@ -1,4 +1,5 @@
 package code.util;
+import code.util.annot.CapacityInit;
 import code.util.ints.Listable;
 import code.util.ints.ListableEntries;
 
@@ -14,6 +15,10 @@ public final class NumberMap<K extends Number, V> extends AbsMap<K, V> {
         putAllMap(_arg0);
     }
 
+    @CapacityInit
+    public NumberMap(int _capacity) {
+    	super(_capacity);
+    }
 //    @Override
 //    CustList<EntryCust<K,V>> getList() {
 //        return list;

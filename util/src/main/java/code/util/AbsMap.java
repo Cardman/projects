@@ -7,7 +7,14 @@ import code.util.ints.ListableEntries;
 public abstract class AbsMap<K, V> implements ListableEntries<K, V> {
 
     //list cannot be null, even by reflection
-    private final transient CustList<EntryCust<K,V>> list = new CustList<EntryCust<K,V>>();
+    private final transient CustList<EntryCust<K,V>> list;
+
+    protected AbsMap() {
+    	list = new CustList<EntryCust<K,V>>();
+    }
+    protected AbsMap(int _capacity) {
+    	list = new CustList<EntryCust<K,V>>(_capacity);
+    }
 
     K getKeyOrNull(EntryCust<K, V> _e) {
         if(_e == null) {

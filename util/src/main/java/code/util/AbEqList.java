@@ -14,6 +14,10 @@ public abstract class AbEqList<T> extends CustList<T> {
         super(_elements);
     }
 
+    protected AbEqList(int _capacity) {
+    	super(_capacity);
+    }
+
     public void removeAllElements(Listable<? extends T> _c) {
         for (T s: _c) {
             if (containsObj(s)) {

@@ -1,4 +1,5 @@
 package code.util;
+import code.util.annot.CapacityInit;
 import code.util.ints.ListableEntries;
 
 
@@ -16,6 +17,10 @@ public final class StringMap<V> extends AbsMap<String,V> {
         putAllMap(_arg0);
     }
 
+    @CapacityInit
+    public StringMap(int _capacity) {
+    	super(_capacity);
+    }
 //    @Override
 //    CustList<EntryCust<String,V>> getList() {
 //        return list;

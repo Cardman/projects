@@ -1,4 +1,5 @@
 package code.util;
+import code.util.annot.CapacityInit;
 import code.util.comparators.NaturalComparator;
 import code.util.exceptions.NullReplacingException;
 import code.util.ints.Equallable;
@@ -64,6 +65,11 @@ public final class StringList extends AbEqList<String> implements Equallable<Str
 
     public StringList(String... _strings) {
         super(_strings);
+    }
+
+    @CapacityInit
+    private StringList(int _capacity) {
+    	super(_capacity);
     }
 
     public static boolean equalsSet(Listable<String> _list1,Listable<String> _list2) {

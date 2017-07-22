@@ -1,4 +1,5 @@
 package code.util;
+import code.util.annot.CapacityInit;
 import code.util.ints.Equallable;
 import code.util.ints.ListableEntries;
 
@@ -10,6 +11,11 @@ public final class ReversibleMap<K extends Equallable<K>, V extends Equallable<V
 
     public ReversibleMap(ListableEntries<? extends K, ? extends V> _map) {
         putAllMap(_map);
+    }
+
+    @CapacityInit
+    public ReversibleMap(int _capacity) {
+    	super(_capacity);
     }
 
     public K getKey(V _v) {

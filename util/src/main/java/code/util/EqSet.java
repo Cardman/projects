@@ -1,4 +1,5 @@
 package code.util;
+import code.util.annot.CapacityInit;
 import code.util.annot.RwXml;
 import code.util.ints.Equallable;
 import code.util.ints.Listable;
@@ -14,6 +15,11 @@ public class EqSet<E extends Equallable<E>> extends AbEqList<E> implements Setta
 
     public EqSet(Listable<? extends E> _c) {
         super(_c);
+    }
+
+    @CapacityInit
+    private EqSet(int _capacity) {
+    	super(_capacity);
     }
 
     @Override

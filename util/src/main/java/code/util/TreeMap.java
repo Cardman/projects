@@ -1,6 +1,7 @@
 package code.util;
 import java.util.Comparator;
 
+import code.util.annot.CapacityInit;
 import code.util.annot.NullableField;
 import code.util.annot.RwXml;
 import code.util.exceptions.NullComparatorException;
@@ -26,6 +27,12 @@ public final class TreeMap<K, V> extends AbsMap<K, V> implements SortableMap<K, 
     @RwXml
     TreeMap() {
         comparator = null;
+    }
+
+    @CapacityInit
+    TreeMap(int _capacity) {
+    	super(_capacity);
+    	comparator = null;
     }
 
     public TreeMap(Comparator<K> _cmp) {

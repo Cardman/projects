@@ -1,4 +1,5 @@
 package code.util;
+import code.util.annot.CapacityInit;
 import code.util.ints.Equallable;
 import code.util.ints.Listable;
 
@@ -13,6 +14,11 @@ public final class CharList extends AbEqList<Character> implements Equallable<Ch
     
     public CharList(Listable<? extends Character> _c) {
         super(_c);
+    }
+
+    @CapacityInit
+    private CharList(int _capacity) {
+    	super(_capacity);
     }
 
 //    public CharList(Iterable<? extends Character> _c) {

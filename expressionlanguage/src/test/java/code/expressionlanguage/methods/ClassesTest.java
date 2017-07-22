@@ -8,11 +8,12 @@ import code.util.StringMap;
 
 @SuppressWarnings("static-method")
 public class ClassesTest {
+    private static final String PUBLIC_ACCESS = "PUBLIC";
 
     @Test(timeout=1000)
     public void initTest() {
-        String xml_ = "<class name='Ex' package='pkg'>\n";
-        xml_ += "<method name='exmeth' class='"+PrimitiveTypeUtil.PRIM_INT+"'>\n";
+        String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg'>\n";
+        xml_ += "<method access='"+PUBLIC_ACCESS+"' name='exmeth' class='"+PrimitiveTypeUtil.PRIM_INT+"'>\n";
         xml_ += "<return expression='1i+1i'/>\n";
         xml_ += "</method>\n";
         xml_ += "</class>";
@@ -31,8 +32,8 @@ public class ClassesTest {
 
     @Test(timeout=1000)
     public void init2Test() {
-        String xml_ = "<class name='Ex' package='pkg'>\n";
-        xml_ += "<method name='exmeth' class='"+PrimitiveTypeUtil.PRIM_INT+"'>\n";
+        String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg'>\n";
+        xml_ += "<method access='"+PUBLIC_ACCESS+"' name='exmeth' class='"+PrimitiveTypeUtil.PRIM_INT+"'>\n";
         xml_ += "<declare var='t' class='"+PrimitiveTypeUtil.PRIM_LONG+"'/>\n";
         xml_ += "<affect left='t;.' oper='=' right='8'/>\n";
 //        xml_ += "<return expression='1i+class(&quot;"+PrimitiveTypeUtil.PRIM_INT+"&quot;,t;.)'/>\n";

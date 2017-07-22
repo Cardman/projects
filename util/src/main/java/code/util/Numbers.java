@@ -1,4 +1,5 @@
 package code.util;
+import code.util.annot.CapacityInit;
 import code.util.comparators.ComparatorNatNumber;
 import code.util.ints.Equallable;
 import code.util.ints.Listable;
@@ -17,6 +18,12 @@ public final class Numbers<T extends Number> extends AbEqList<T> implements Equa
     public Numbers(T... _array) {
         super(_array);
     }
+
+    @CapacityInit
+    private Numbers(int _capacity) {
+    	super(_capacity);
+    }
+
     public static boolean equalsSetBytes(Listable<Byte> _list1,Listable<Byte> _list2) {
         for (Number c: _list2) {
             boolean contains_ = false;
@@ -179,11 +186,6 @@ public final class Numbers<T extends Number> extends AbEqList<T> implements Equa
         return CustList.EQ_CMP;
     }
 
-//    @Override
-//    public boolean containsObj(T _element) {
-//        // TODO Auto-generated method stub
-//        return contains(_element);
-//    }
     public EqList<Numbers<Integer>> getAllIndexes() {
         EqList<Numbers<Integer>> e_;
         e_ = new EqList<Numbers<Integer>>();
@@ -191,10 +193,12 @@ public final class Numbers<T extends Number> extends AbEqList<T> implements Equa
             return e_;
         }
         int f_ = first().intValue();
-        for (int i = 0; i < f_; i++) {
-            e_.add(new Numbers<Integer>(i));
-        }
         int sdims_ = size();
+        for (int i = 0; i < f_; i++) {
+        	Numbers<Integer> nbs_ = new Numbers<Integer>(sdims_);
+        	nbs_.add(i);
+            e_.add(nbs_);
+        }
         for (int i = 1; i < sdims_; i++) {
             EqList<Numbers<Integer>> newIndexes_;
             newIndexes_ = new EqList<Numbers<Integer>>();

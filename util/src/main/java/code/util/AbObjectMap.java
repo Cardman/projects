@@ -14,6 +14,9 @@ public abstract class AbObjectMap<K extends Equallable<K>, V> extends AbsMap<K, 
         putAllMap(_arg0);
     }
 
+    protected AbObjectMap(int _capacity) {
+    	super(_capacity);
+    }
 //    @Override
 //    CustList<EntryCust<K, V>> getList() {
 //        return list;

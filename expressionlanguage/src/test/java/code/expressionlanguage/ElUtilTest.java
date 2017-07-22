@@ -69,6 +69,7 @@ public class ElUtilTest {
     private static final String IONE = IOne.class.getName();
     private static final String MY_IMPL = MyImpl.class.getName();
     private static final String MY_IMPL_HAT = StringList.replace(MY_IMPL, ".", "^");
+    private static final String PUBLIC_ACCESS = "PUBLIC";
 
     @Test(timeout=1000)
     public void processEl1Test() {
@@ -1699,8 +1700,8 @@ public class ElUtilTest {
 
     @Test(timeout=1000)
     public void processEl102Test() {
-        String xml_ = "<class name='Ex' package='pkg'>\n";
-        xml_ += "<method modifier='static' name='exmeth' class='"+PrimitiveTypeUtil.PRIM_INT+"'>\n";
+        String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg'>\n";
+        xml_ += "<method access='"+PUBLIC_ACCESS+"' modifier='static' name='exmeth' class='"+PrimitiveTypeUtil.PRIM_INT+"'>\n";
         xml_ += "<declare var='t' class='"+PrimitiveTypeUtil.PRIM_LONG+"'/>\n";
         xml_ += "<affect left='t;.' oper='=' right='8'/>\n";
 //        xml_ += "<return expression='1i+class(&quot;int&quot;,t;.)'/>\n";
@@ -1723,8 +1724,8 @@ public class ElUtilTest {
 
     @Test(timeout=1000)
     public void processEl103Test() {
-        String xml_ = "<class name='Ex' package='pkg'>\n";
-        xml_ += "<method modifier='static' name='exmeth' class='"+PrimitiveTypeUtil.PRIM_INT+"' class0='"+PrimitiveTypeUtil.PRIM_INT+"' var0='e'>\n";
+        String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg'>\n";
+        xml_ += "<method access='"+PUBLIC_ACCESS+"' modifier='static' name='exmeth' class='"+PrimitiveTypeUtil.PRIM_INT+"' class0='"+PrimitiveTypeUtil.PRIM_INT+"' var0='e'>\n";
         xml_ += "<declare var='t' class='"+PrimitiveTypeUtil.PRIM_LONG+"'/>\n";
         xml_ += "<affect left='t;.' oper='=' right='8'/>\n";
 //        xml_ += "<return expression='1i+class(&quot;int&quot;,t;.)'/>\n";

@@ -1,4 +1,5 @@
 package code.util;
+import code.util.annot.CapacityInit;
 import code.util.annot.RwXml;
 import code.util.ints.Listable;
 import code.util.ints.Settable;
@@ -13,6 +14,11 @@ public final class IdSet<E> extends AbEqList<E> implements Settable<E> {
 
     public IdSet(Listable<? extends E> _c) {
         super(_c);
+    }
+
+    @CapacityInit
+    private IdSet(int _capacity) {
+    	super(_capacity);
     }
 
     @Override

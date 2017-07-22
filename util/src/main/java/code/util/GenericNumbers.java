@@ -3,6 +3,7 @@ import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.math.MathContext;
 
+import code.util.annot.CapacityInit;
 import code.util.comparators.NaturalComparator;
 import code.util.ints.Equallable;
 import code.util.ints.Listable;
@@ -18,6 +19,11 @@ public final class GenericNumbers extends CustList<BigDecimal> implements Equall
 
     public GenericNumbers(BigDecimal... _element) {
         super(_element);
+    }
+
+    @CapacityInit
+    private GenericNumbers(int _capacity) {
+    	super(_capacity);
     }
 
     public static boolean eq(BigDecimal _one, BigDecimal _two) {

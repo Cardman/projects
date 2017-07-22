@@ -20,6 +20,8 @@ public final class ConstructorBlock extends BracedBlock implements Returnable {
 
     private final boolean varargs;
 
+    private final AccessEnum access;
+
     private InstancingStep instancing;
     
     private ConstructorId constIdSameClass;
@@ -53,6 +55,7 @@ public final class ConstructorBlock extends BracedBlock implements Returnable {
             parametersNames.add(_el.getAttribute(ATTRIBUTE_VAR+i_));
             i_++;
         }
+        access = AccessEnum.valueOf(_el.getAttribute(ATTRIBUTE_ACCESS));
     }
 
     public ConstructorId getId() {
@@ -94,6 +97,11 @@ public final class ConstructorBlock extends BracedBlock implements Returnable {
     public boolean isVarargs() {
         return varargs;
     }
+
+    @Override
+	public AccessEnum getAccess() {
+		return access;
+	}
 
     @Override
     public void checkBlocksTree(ContextEl _cont) {
@@ -355,4 +363,9 @@ public final class ConstructorBlock extends BracedBlock implements Returnable {
     public String getName() {
         return EMPTY_STRING;
     }
+
+	@Override
+	public RootedBlock belong() {
+		return (RootedBlock) getParent();
+	}
 }

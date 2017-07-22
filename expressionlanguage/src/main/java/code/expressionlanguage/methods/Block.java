@@ -56,6 +56,7 @@ public abstract class Block extends Blockable implements SortedNode<Block> {
     protected static final String ATTRIBUTE_STEP = "step";
     protected static final String ATTRIBUTE_MODIFIER = "modifier";
     protected static final String ATTRIBUTE_SUPER_CLASS = "superclass";
+    protected static final String ATTRIBUTE_ACCESS = "access";
     
     protected static final String TAG_AFFECT = "affect";
     protected static final String TAG_BREAK = "break";
