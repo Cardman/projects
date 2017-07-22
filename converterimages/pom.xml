@@ -42,34 +42,6 @@
 					</execution>
 				</executions>
 			</plugin>
-			<!-- <plugin>
-				<artifactId>maven-resources-plugin</artifactId>
-				<version>2.6</version>
-				<configuration>
-					<encoding>${project.build.sourceEncoding}</encoding>
-				</configuration>
-				<executions>
-					<execution>
-						<id>copy-resources</id>
-						<phase>validate</phase>
-						<goals>
-							<goal>copy-resources</goal>
-						</goals>
-						<configuration>
-							<outputDirectory>${basedir}/target/classes/resources_pk</outputDirectory>
-							<includeEmptyDirs>true</includeEmptyDirs>
-							<resources>
-
-								<resource>
-									<directory>${basedir}/resources_pk</directory>
-									<filtering>false</filtering>
-								</resource>
-
-							</resources>
-						</configuration>
-					</execution>
-				</executions>
-			</plugin> -->
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
@@ -169,14 +141,10 @@
 							</classPath>
 							<!-- <icon>resources_pk/pokemon.ico</icon> -->
 							<jre>
-								<!-- <minVersion>1.7.0</minVersion>
-								<jdkPreference>preferJre</jdkPreference> -->
 								<path>jdk</path>
 								<opts>
 									<opt>-Dfile.encoding=utf-8</opt>
 								</opts>
-								<!-- <opt>-Xmx1125m</opt> -->
-								<!-- <opt>-DgvSIG.confDir=../cfg</opt> -->
 							</jre>
 							<argLine>-Xmx1125m</argLine>
 						</configuration>
