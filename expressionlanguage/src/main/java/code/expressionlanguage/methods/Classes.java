@@ -894,6 +894,7 @@ public final class Classes {
                                         err_.setId(m_);
                                         errorsDet.add(err_);
                                     }
+                                    mDer_.setOverrideSuperMethod(true);
                                 }
                             } else {
                                 if (base_.getModifier() != MethodModifier.STATIC) {

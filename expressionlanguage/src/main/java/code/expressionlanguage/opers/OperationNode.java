@@ -721,6 +721,7 @@ public abstract class OperationNode implements SortedNode<OperationNode>, Operab
         custClass_ = classes_.getClassMetaInfo(clCurName_);
         String glClass_ = _conf.getLastPage().getGlobalClass();
         MethodId id_ = _idMeth.getMethod();
+        String stopClass_ = _idMeth.getClassName().getName();
         while (true) {
             MethodBlock method_ = classes_.getMethodBody(clCurName_, id_);
             if (method_ == null) {
@@ -729,8 +730,10 @@ public abstract class OperationNode implements SortedNode<OperationNode>, Operab
                 clCurName_ = superClass_;
                 continue;
             }
-            if (!classes_.canAccessMethod(glClass_, clCurName_, id_)) {
-                //TODO if the found method does not override the method signature as parameter
+            if (StringList.quickEq(clCurName_, stopClass_)) {
+                return clCurName_;
+            }
+            if (!classes_.canAccessMethod(glClass_, clCurName_, id_) || !method_.isOverrideSuperMethod()) {
                 String superClass_ = custClass_.getSuperClass();
                 custClass_ = classes_.getClassMetaInfo(superClass_);
                 clCurName_ = superClass_;

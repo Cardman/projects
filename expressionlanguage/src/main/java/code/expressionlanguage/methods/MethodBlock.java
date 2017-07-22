@@ -33,6 +33,8 @@ public final class MethodBlock extends BracedBlock implements Returnable {
 
     private final AccessEnum access;
 
+    private boolean overrideSuperMethod;
+
     public MethodBlock(Element _el, ContextEl _importingPage, int _indexChild,
             BracedBlock _m) {
         super(_el, _importingPage, _indexChild, _m);
@@ -86,6 +88,14 @@ public final class MethodBlock extends BracedBlock implements Returnable {
     @Override
     public AccessEnum getAccess() {
         return access;
+    }
+
+    public boolean isOverrideSuperMethod() {
+        return overrideSuperMethod;
+    }
+
+    public void setOverrideSuperMethod(boolean _overrideSuperMethod) {
+        overrideSuperMethod = _overrideSuperMethod;
     }
 
     public MethodId getId() {
