@@ -99,9 +99,9 @@ public final class ConstructorBlock extends BracedBlock implements Returnable {
     }
 
     @Override
-	public AccessEnum getAccess() {
-		return access;
-	}
+    public AccessEnum getAccess() {
+        return access;
+    }
 
     @Override
     public void checkBlocksTree(ContextEl _cont) {
@@ -364,8 +364,8 @@ public final class ConstructorBlock extends BracedBlock implements Returnable {
         return EMPTY_STRING;
     }
 
-	@Override
-	public RootedBlock belong() {
-		return (RootedBlock) getParent();
-	}
+    @Override
+    public RootedBlock belong() {
+        return (RootedBlock) getParent();
+    }
 }

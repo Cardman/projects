@@ -26,7 +26,7 @@ public final class NatCmpTreeMap<K extends Cmp<K>, V> extends AbsMap<K, V> imple
     }
     @CapacityInit
     public NatCmpTreeMap(int _capacity) {
-    	super(_capacity);
+        super(_capacity);
     }
 //    public NatTreeMap(SortedMap<K,V> _map) {
 //        putAll(_map);

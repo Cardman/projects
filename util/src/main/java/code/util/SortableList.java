@@ -33,7 +33,7 @@ public final class SortableList<T extends Comparable<T>> extends AbEqList<T> imp
 
     @CapacityInit
     private SortableList(int _capacity) {
-    	super(_capacity);
+        super(_capacity);
     }
 //    public void removeComparableDuplicates() {
 //        //setModified();

@@ -152,7 +152,7 @@ public final class Game {
         return true;
     }
 
-	boolean isOutside(Rect _p, Soldier _u, int _x, int _y, Delta _d, DataBase _data) {
+    boolean isOutside(Rect _p, Soldier _u, int _x, int _y, Delta _d, DataBase _data) {
         //Polygon
         int xULeftTop_ = _u.getX();
         int yULeftTop_ = _u.getY();

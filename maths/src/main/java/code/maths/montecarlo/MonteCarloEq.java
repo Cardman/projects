@@ -14,11 +14,11 @@ public final class MonteCarloEq<E extends Equallable<E>> extends AbMonteCarlo<E>
     private ObjectNotNullMap<E,LgInt> law;
 
     public MonteCarloEq() {
-    	law = new ObjectNotNullMap<E,LgInt>();
+        law = new ObjectNotNullMap<E,LgInt>();
     }
 
     public MonteCarloEq(E _event, Rate _rateEvent, E _otherEvent) {
-    	law = new ObjectNotNullMap<E,LgInt>();
+        law = new ObjectNotNullMap<E,LgInt>();
         if (_rateEvent.greaterOrEqualsOne()) {
             addEvent(_event,LgInt.one());
         } else {
@@ -31,7 +31,7 @@ public final class MonteCarloEq<E extends Equallable<E>> extends AbMonteCarlo<E>
 
     @CapacityInit
     private MonteCarloEq(int _capacity) {
-    	law = new ObjectNotNullMap<E,LgInt>(_capacity);
+        law = new ObjectNotNullMap<E,LgInt>(_capacity);
     }
 
     @Override

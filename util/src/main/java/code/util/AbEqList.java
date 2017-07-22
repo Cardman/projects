@@ -15,7 +15,7 @@ public abstract class AbEqList<T> extends CustList<T> {
     }
 
     protected AbEqList(int _capacity) {
-    	super(_capacity);
+        super(_capacity);
     }
 
     public void removeAllElements(Listable<? extends T> _c) {

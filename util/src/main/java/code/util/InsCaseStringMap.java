@@ -18,7 +18,7 @@ public final class InsCaseStringMap<V> extends AbsMap<String,V> {
     }
     @CapacityInit
     public InsCaseStringMap(int _capacity) {
-    	super(_capacity);
+        super(_capacity);
     }
 //    @Override
 //    CustList<EntryCust<String,V>> getList() {

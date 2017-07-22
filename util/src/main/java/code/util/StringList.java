@@ -69,7 +69,7 @@ public final class StringList extends AbEqList<String> implements Equallable<Str
 
     @CapacityInit
     private StringList(int _capacity) {
-    	super(_capacity);
+        super(_capacity);
     }
 
     public static boolean equalsSet(Listable<String> _list1,Listable<String> _list2) {

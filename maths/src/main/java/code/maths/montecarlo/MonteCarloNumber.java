@@ -15,11 +15,11 @@ public final class MonteCarloNumber extends AbMonteCarlo<Rate> {
     private ObjectNotNullMap<Rate,LgInt> law;
 
     public MonteCarloNumber() {
-    	law = new ObjectNotNullMap<Rate,LgInt>();
+        law = new ObjectNotNullMap<Rate,LgInt>();
     }
 
     public MonteCarloNumber(Rate _event, Rate _rateEvent, Rate _otherEvent) {
-    	law = new ObjectNotNullMap<Rate,LgInt>();
+        law = new ObjectNotNullMap<Rate,LgInt>();
         if (_rateEvent.greaterOrEqualsOne()) {
             addEvent(_event,LgInt.one());
         } else {
@@ -32,7 +32,7 @@ public final class MonteCarloNumber extends AbMonteCarlo<Rate> {
 
     @CapacityInit
     private MonteCarloNumber(int _capacity) {
-    	law = new ObjectNotNullMap<Rate,LgInt>(_capacity);
+        law = new ObjectNotNullMap<Rate,LgInt>(_capacity);
     }
     /**Retourne l'esperance d'une loi de probabilite.*/
     public Rate getAvg(){

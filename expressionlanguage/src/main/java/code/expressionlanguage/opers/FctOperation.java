@@ -8,7 +8,6 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.CustEnum;
 import code.expressionlanguage.OperationsSequence;
 import code.expressionlanguage.PrimitiveTypeUtil;
-import code.expressionlanguage.exceptions.AmbiguousChoiceCallingException;
 import code.expressionlanguage.exceptions.BadNumberArgumentException;
 import code.expressionlanguage.exceptions.CustomFoundConstructorException;
 import code.expressionlanguage.exceptions.CustomFoundMethodException;
@@ -28,24 +27,18 @@ import code.expressionlanguage.methods.ProcessXmlMethod;
 import code.expressionlanguage.methods.exceptions.UndefinedConstructorException;
 import code.expressionlanguage.methods.util.ArgumentsPair;
 import code.expressionlanguage.methods.util.InstancingStep;
-import code.expressionlanguage.opers.util.ArgumentsGroup;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.opers.util.ClassCategory;
 import code.expressionlanguage.opers.util.ClassField;
-import code.expressionlanguage.opers.util.ClassMatching;
 import code.expressionlanguage.opers.util.ClassMetaInfo;
 import code.expressionlanguage.opers.util.ClassName;
 import code.expressionlanguage.opers.util.ConstructorId;
 import code.expressionlanguage.opers.util.FieldMetaInfo;
 import code.expressionlanguage.opers.util.MethodId;
-import code.expressionlanguage.opers.util.MethodInfo;
 import code.expressionlanguage.opers.util.MethodMetaInfo;
 import code.expressionlanguage.opers.util.MethodModifier;
-import code.expressionlanguage.opers.util.ParametersGroup;
-import code.expressionlanguage.opers.util.ParametersGroupComparator;
 import code.expressionlanguage.opers.util.Struct;
 import code.serialize.exceptions.BadAccessException;
-import code.serialize.exceptions.NoSuchDeclaredMethodException;
 import code.util.CustList;
 import code.util.EntryCust;
 import code.util.EqList;
@@ -356,6 +349,10 @@ public final class FctOperation extends InvokingOperation {
             String superClass_ = meta_.getSuperClass();
             constId = getDeclaredCustConstructor(_conf, new ClassArgumentMatching(superClass_), ClassArgumentMatching.toArgArray(firstArgs_));
             if (constId != null) {
+                String glClass_ = _conf.getLastPage().getGlobalClass();
+                if (!classes_.canAccessConstructor(glClass_, superClass_, constId)) {
+                    throw new BadAccessException(constId.getSignature()+RETURN_LINE+_conf.joinPages());
+                }
                 setResultClass(new ClassArgumentMatching(OperationNode.VOID_RETURN));
                 return;
             }
@@ -440,10 +437,10 @@ public final class FctOperation extends InvokingOperation {
         }
         if (classes_ != null) {
             String clCurName_ = clCur_.getName();
+            String glClass_ = _conf.getLastPage().getGlobalClass();
             ClassMetaInfo custClass_ = null;
             custClass_ = classes_.getClassMetaInfo(clCurName_);
             if (custClass_ != null) {
-                EqList<MethodId> possibleMethods_ = new EqList<MethodId>();
                 for (ClassArgumentMatching c:firstArgs_) {
                     if (c.matchVoid()) {
                         throw new VoidArgumentException(clCurName_+DOT+trimMeth_+RETURN_LINE+_conf.joinPages());
@@ -476,67 +473,15 @@ public final class FctOperation extends InvokingOperation {
                         return;
                     }
                 }
-                for (EntryCust<MethodId, MethodMetaInfo> e: custClass_.getMethods().entryList()) {
-                    if (!StringList.quickEq(e.getKey().getName(), trimMeth_)) {
-                        continue;
-                    }
-                    EqList<ClassName> params_ = e.getKey().getClassNames();
-                    ClassMatching[] p_ = new ClassMatching[params_.size()];
-                    int i_ = CustList.FIRST_INDEX;
-                    for (ClassName c: params_) {
-                        p_[i_] = new ClassMatching(c.getName());
-                        i_++;
-                    }
-                    if (!isPossibleMethod(_conf, p_, ClassArgumentMatching.toArgArray(firstArgs_))) {
-                        continue;
-                    }
-                    possibleMethods_.add(e.getKey());
+                methodId = getDeclaredCustMethod(_conf, new ClassArgumentMatching(clCurName_), trimMeth_, ClassArgumentMatching.toArgArray(firstArgs_));
+                if (!classes_.canAccessMethod(glClass_, clCurName_, methodId)) {
+                    setRelativeOffsetPossibleLastPage(getIndexInEl()+off_, _conf);
+                    throw new BadAccessException(methodId.getSignature()+RETURN_LINE+_conf.joinPages());
                 }
-                if (possibleMethods_.isEmpty()) {
-                    String trace_ = clCurName_+DOT+trimMeth_+PAR_LEFT;
-                    StringList classesNames_ = new StringList();
-                    for (ClassArgumentMatching c: firstArgs_) {
-                        classesNames_.add(c.getName());
-                    }
-                    trace_ += classesNames_.join(SEP_ARG);
-                    trace_ += PAR_RIGHT;
-                    throw new NoSuchDeclaredMethodException(trace_+RETURN_LINE+_conf.joinPages());
-                }
-                if (possibleMethods_.size() == CustList.ONE_ELEMENT) {
-                    methodId = possibleMethods_.first();
-                    MethodMetaInfo methodMetaInfo_ = custClass_.getMethods().getVal(methodId);
-                    methodMetaInfo = methodMetaInfo_;
-                    setResultClass(new ClassArgumentMatching(methodMetaInfo_.getReturnType().getName()));
-                    return;
-                }
-                ArgumentsGroup gr_ = new ArgumentsGroup(_conf.getClasses(), firstArgs_);
-                CustList<MethodInfo> signatures_ = new CustList<MethodInfo>();
-                for (MethodId m: possibleMethods_) {
-                    ParametersGroup p_ = new ParametersGroup();
-                    for (ClassName c: m.getClassNames()) {
-                        p_.add(new ClassMatching(c.getName()));
-                    }
-                    MethodInfo mloc_ = new MethodInfo();
-                    mloc_.setClassName(clCurName_);
-                    mloc_.setMethodId(m);
-                    mloc_.setParameters(p_);
-                    signatures_.add(mloc_);
-                }
-                signatures_.sortElts(new ParametersGroupComparator<MethodInfo>(gr_));
-                CustList<MethodInfo> errors_ = new CustList<MethodInfo>();
-                for (MethodInfo p : signatures_) {
-                    if (p.getParameters().isError()) {
-                        errors_.add(p);
-                    }
-                }
-                if (!signatures_.first().getParameters().isError()) {
-                    methodId = signatures_.first().getMethodId();
-                    MethodMetaInfo methodMetaInfo_ = custClass_.getMethods().getVal(methodId);
-                    methodMetaInfo = methodMetaInfo_;
-                    setResultClass(new ClassArgumentMatching(methodMetaInfo_.getReturnType().getName()));
-                    return;
-                }
-                throw new AmbiguousChoiceCallingException(errors_.join(RETURN_LINE)+RETURN_LINE+_conf.joinPages());
+                MethodMetaInfo methodMetaInfo_ = custClass_.getMethods().getVal(methodId);
+                methodMetaInfo = methodMetaInfo_;
+                setResultClass(new ClassArgumentMatching(methodMetaInfo.getReturnType().getName()));
+                return;
             }
         }
         if (firstArgs_.isEmpty()) {

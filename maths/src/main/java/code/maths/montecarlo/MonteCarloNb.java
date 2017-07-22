@@ -13,11 +13,11 @@ public final class MonteCarloNb<E extends Number> extends AbMonteCarlo<E> {
     private NumberMap<E,LgInt> law;
 
     public MonteCarloNb() {
-    	law = new NumberMap<E,LgInt>();
+        law = new NumberMap<E,LgInt>();
     }
 
     public MonteCarloNb(E _event, Rate _rateEvent, E _otherEvent) {
-    	law = new NumberMap<E,LgInt>();
+        law = new NumberMap<E,LgInt>();
         if (_rateEvent.greaterOrEqualsOne()) {
             addEvent(_event,LgInt.one());
         } else {
@@ -30,7 +30,7 @@ public final class MonteCarloNb<E extends Number> extends AbMonteCarlo<E> {
 
     @CapacityInit
     private MonteCarloNb(int _capacity) {
-    	law = new NumberMap<E,LgInt>(_capacity);
+        law = new NumberMap<E,LgInt>(_capacity);
     }
 
     @Override

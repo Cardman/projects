@@ -40,9 +40,9 @@ public final class EnumBlock extends BracedBlock implements RootedBlock {
     }
 
     @Override
-	public AccessEnum getAccess() {
-		return access;
-	}
+    public AccessEnum getAccess() {
+        return access;
+    }
 
     public ObjectNotNullMap<ClassMethodId, Boolean> getAvailableMethods() {
         return availableMethods;
@@ -140,8 +140,8 @@ public final class EnumBlock extends BracedBlock implements RootedBlock {
         return Enum.class.getName();
     }
 
-	@Override
-	public RootedBlock belong() {
-		return this;
-	}
+    @Override
+    public RootedBlock belong() {
+        return this;
+    }
 }

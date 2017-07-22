@@ -2,7 +2,7 @@ package code.expressionlanguage.methods;
 
 public interface AccessibleBlock {
 
-	AccessEnum getAccess();
+    AccessEnum getAccess();
 
-	RootedBlock belong();
+    RootedBlock belong();
 }

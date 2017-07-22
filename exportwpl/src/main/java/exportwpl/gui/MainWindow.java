@@ -33,17 +33,17 @@ import code.xml.StandardCharsets;
 public class MainWindow extends GroupFrame {
 
     private static final String END_ENCODE = ";";
-	private static final String BEGIN_ENCODE = "&#";
-	private static final String SRC = "src";
-	private static final String MEDIA = "media";
-	private static final String SEQ = "seq";
-	private static final String BODY = "body";
-	private static final String SMIL = "smil";
-	private static final String EMPTY_STRING = "";
-	private static final String WRITE_TO_FILE = "write to file";
-	private static final String SELECT_FILE = "select file";
-	private static final String SELECT_FOLDER = "select folder";
-	private JLabel folderLabel = new JLabel("songs:");
+    private static final String BEGIN_ENCODE = "&#";
+    private static final String SRC = "src";
+    private static final String MEDIA = "media";
+    private static final String SEQ = "seq";
+    private static final String BODY = "body";
+    private static final String SMIL = "smil";
+    private static final String EMPTY_STRING = "";
+    private static final String WRITE_TO_FILE = "write to file";
+    private static final String SELECT_FILE = "select file";
+    private static final String SELECT_FOLDER = "select folder";
+    private JLabel folderLabel = new JLabel("songs:");
     private JTextField folder = new JTextField(40);
     private JLabel fileLabel = new JLabel("file:");
     private JTextField file = new JTextField(40);

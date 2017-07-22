@@ -527,7 +527,7 @@ public abstract class OperationNode implements SortedNode<OperationNode>, Operab
                     continue;
                 }
                 if (!_cont.getClasses().canAccessField(glClass_, clCurName_, _name)) {
-                	throw new BadAccessException(clCurName_+DOT+_name+RETURN_LINE+_cont.joinPages());
+                    throw new BadAccessException(clCurName_+DOT+_name+RETURN_LINE+_cont.joinPages());
                 }
                 return e.getValue();
             }
@@ -566,6 +566,7 @@ public abstract class OperationNode implements SortedNode<OperationNode>, Operab
         if (custClass_ == null) {
             return null;
         }
+        String glClass_ = _conf.getLastPage().getGlobalClass();
         CustList<ConstructorId> possibleMethods_ = new CustList<ConstructorId>();
         for (ClassArgumentMatching c:_args) {
             if (c.matchVoid()) {
@@ -601,6 +602,18 @@ public abstract class OperationNode implements SortedNode<OperationNode>, Operab
         if (possibleMethods_.size() == CustList.ONE_ELEMENT) {
             return possibleMethods_.first();
         }
+        possibleMethods_ = filterCtr(glClass_, clCurName_, possibleMethods_, _conf);
+        if (possibleMethods_.isEmpty()) {
+            String trace_ = clCurName_+PAR_LEFT;
+            StringList classesNames_ = new StringList();
+            for (ClassArgumentMatching c: _args) {
+                classesNames_.add(c.getName());
+            }
+            trace_ += classesNames_.join(SEP_ARG);
+            trace_ += PAR_RIGHT;
+            //TODO bas access
+            throw new NoSuchDeclaredMethodException(trace_+RETURN_LINE+_conf.joinPages());
+        }
         ArgumentsGroup gr_ = new ArgumentsGroup(classes_, _args);
         //        ParametersGroupComparator<ConstructorInfo> cmp_ = new ParametersGroupComparator<ConstructorInfo>(gr_);
         CustList<ConstructorInfo> signatures_ = new CustList<ConstructorInfo>();
@@ -625,6 +638,15 @@ public abstract class OperationNode implements SortedNode<OperationNode>, Operab
             return signatures_.first().getConstr();
         }
         throw new AmbiguousChoiceCallingException(errors_.join(RETURN_LINE)+RETURN_LINE+_conf.joinPages());
+    }
+    private static CustList<ConstructorId> filterCtr(String _glClass, String _accessedClass, CustList<ConstructorId> _found, ContextEl _conf) {
+        CustList<ConstructorId> accessible_ = new CustList<ConstructorId>();
+        for (ConstructorId i: _found) {
+            if (_conf.getClasses().canAccessConstructor(_glClass, _accessedClass, i)) {
+                accessible_.add(i);
+            }
+        }
+        return accessible_;
     }
     static Constructor<?> getDeclaredConstructor(ContextEl _conf, int _offsetIncr, ClassArgumentMatching _class, ClassArgumentMatching..._args) {
         if (Modifier.isAbstract(_class.getClazz().getModifiers())) {
@@ -690,7 +712,7 @@ public abstract class OperationNode implements SortedNode<OperationNode>, Operab
         //            throw new NoSuchDeclaredConstructorException(_0.getMessage()+RETURN_LINE+_conf.joinPages());
         //        }
     }
-    static MethodMetaInfo getDeclaredCustMethod(ContextEl _conf, ClassArgumentMatching _class, String _name, ClassArgumentMatching... _argsClass) {
+    static MethodId getDeclaredCustMethod(ContextEl _conf, ClassArgumentMatching _class, String _name, ClassArgumentMatching... _argsClass) {
         Classes classes_ = _conf.getClasses();
         if (classes_ == null) {
             return null;
@@ -701,70 +723,99 @@ public abstract class OperationNode implements SortedNode<OperationNode>, Operab
         if (custClass_ == null) {
             return null;
         }
-        CustList<MethodId> possibleMethods_ = new CustList<MethodId>();
+        String glClass_ = _conf.getLastPage().getGlobalClass();
         for (ClassArgumentMatching c:_argsClass) {
             if (c.matchVoid()) {
                 throw new VoidArgumentException(clCurName_+DOT+_name+RETURN_LINE+_conf.joinPages());
             }
         }
-        for (EntryCust<MethodId, MethodMetaInfo> e: custClass_.getMethods().entryList()) {
-            if (!StringList.quickEq(e.getKey().getName(), _name)) {
+        StringList traces_ = new StringList();
+        while (custClass_ != null) {
+            CustList<MethodId> possibleMethods_ = new CustList<MethodId>();
+            for (EntryCust<MethodId, MethodMetaInfo> e: custClass_.getMethods().entryList()) {
+                if (!StringList.quickEq(e.getKey().getName(), _name)) {
+                    continue;
+                }
+                EqList<ClassName> params_ = e.getKey().getClassNames();
+                ClassMatching[] p_ = new ClassMatching[params_.size()];
+                int i_ = CustList.FIRST_INDEX;
+                for (ClassName c: params_) {
+                    p_[i_] = new ClassMatching(c.getName());
+                    i_++;
+                }
+                if (!isPossibleMethod(_conf, p_, _argsClass)) {
+                    continue;
+                }
+                possibleMethods_.add(e.getKey());
+            }
+            if (possibleMethods_.isEmpty()) {
+                String trace_ = clCurName_+DOT+_name+PAR_LEFT;
+                StringList classesNames_ = new StringList();
+                for (ClassArgumentMatching c: _argsClass) {
+                    classesNames_.add(c.getName());
+                }
+                trace_ += classesNames_.join(SEP_ARG);
+                trace_ += PAR_RIGHT;
+                traces_.add(trace_);
+                String superClass_ = custClass_.getSuperClass();
+                custClass_ = classes_.getClassMetaInfo(superClass_);
                 continue;
             }
-            EqList<ClassName> params_ = e.getKey().getClassNames();
-            ClassMatching[] p_ = new ClassMatching[params_.size()];
-            int i_ = CustList.FIRST_INDEX;
-            for (ClassName c: params_) {
-                p_[i_] = new ClassMatching(c.getName());
-                i_++;
+            if (possibleMethods_.size() == CustList.ONE_ELEMENT) {
+                MethodId methodId_ = possibleMethods_.first();
+                return methodId_;
             }
-            if (!isPossibleMethod(_conf, p_, _argsClass)) {
+            possibleMethods_ = filterMeth(glClass_, clCurName_, possibleMethods_, _conf);
+            if (possibleMethods_.isEmpty()) {
+                String trace_ = clCurName_+DOT+_name+PAR_LEFT;
+                StringList classesNames_ = new StringList();
+                for (ClassArgumentMatching c: _argsClass) {
+                    classesNames_.add(c.getName());
+                }
+                trace_ += classesNames_.join(SEP_ARG);
+                trace_ += PAR_RIGHT;
+                traces_.add(trace_);
+                String superClass_ = custClass_.getSuperClass();
+                custClass_ = classes_.getClassMetaInfo(superClass_);
                 continue;
             }
-            possibleMethods_.add(e.getKey());
-        }
-        if (possibleMethods_.isEmpty()) {
-            String trace_ = clCurName_+DOT+_name+PAR_LEFT;
-            StringList classesNames_ = new StringList();
-            for (ClassArgumentMatching c: _argsClass) {
-                classesNames_.add(c.getName());
+            ArgumentsGroup gr_ = new ArgumentsGroup(classes_, _argsClass);
+            //        ParametersGroupComparator<MethodInfo> cmp_ = new ParametersGroupComparator<MethodInfo>(gr_);
+            CustList<MethodInfo> signatures_ = new CustList<MethodInfo>();
+            for (MethodId m: possibleMethods_) {
+                ParametersGroup p_ = new ParametersGroup();
+                for (ClassName c: m.getClassNames()) {
+                    p_.add(new ClassMatching(c.getName()));
+                }
+                MethodInfo mloc_ = new MethodInfo();
+                mloc_.setClassName(clCurName_);
+                mloc_.setMethodId(m);
+                mloc_.setParameters(p_);
+                signatures_.add(mloc_);
             }
-            trace_ += classesNames_.join(SEP_ARG);
-            trace_ += PAR_RIGHT;
-            throw new NoSuchDeclaredMethodException(trace_+RETURN_LINE+_conf.joinPages());
-        }
-        if (possibleMethods_.size() == CustList.ONE_ELEMENT) {
-            MethodId methodId_ = possibleMethods_.first();
-            MethodMetaInfo methodMetaInfo_ = custClass_.getMethods().getVal(methodId_);
-            return methodMetaInfo_;
-        }
-        ArgumentsGroup gr_ = new ArgumentsGroup(classes_, _argsClass);
-        //        ParametersGroupComparator<MethodInfo> cmp_ = new ParametersGroupComparator<MethodInfo>(gr_);
-        CustList<MethodInfo> signatures_ = new CustList<MethodInfo>();
-        for (MethodId m: possibleMethods_) {
-            ParametersGroup p_ = new ParametersGroup();
-            for (ClassName c: m.getClassNames()) {
-                p_.add(new ClassMatching(c.getName()));
+            signatures_.sortElts(new ParametersGroupComparator<MethodInfo>(gr_));
+            CustList<MethodInfo> errors_ = new CustList<MethodInfo>();
+            for (MethodInfo p : signatures_) {
+                if (p.getParameters().isError()) {
+                    errors_.add(p);
+                }
             }
-            MethodInfo mloc_ = new MethodInfo();
-            mloc_.setClassName(clCurName_);
-            mloc_.setMethodId(m);
-            mloc_.setParameters(p_);
-            signatures_.add(mloc_);
+            if (!signatures_.first().getParameters().isError()) {
+                MethodId methodId_ = signatures_.first().getMethodId();
+                return methodId_;
+            }
+            throw new AmbiguousChoiceCallingException(errors_.join(RETURN_LINE)+RETURN_LINE+_conf.joinPages());
         }
-        signatures_.sortElts(new ParametersGroupComparator<MethodInfo>(gr_));
-        CustList<MethodInfo> errors_ = new CustList<MethodInfo>();
-        for (MethodInfo p : signatures_) {
-            if (p.getParameters().isError()) {
-                errors_.add(p);
+        throw new NoSuchDeclaredMethodException(traces_.join(RETURN_TAB)+RETURN_LINE+_conf.joinPages());
+    }
+    protected static EqList<MethodId> filterMeth(String _glClass, String _accessedClass, CustList<MethodId> _found, ContextEl _conf) {
+        EqList<MethodId> accessible_ = new EqList<MethodId>();
+        for (MethodId i: _found) {
+            if (_conf.getClasses().canAccessMethod(_glClass, _accessedClass, i)) {
+                accessible_.add(i);
             }
         }
-        if (!signatures_.first().getParameters().isError()) {
-            MethodId methodId_ = signatures_.first().getMethodId();
-            MethodMetaInfo methodMetaInfo_ = custClass_.getMethods().getVal(methodId_);
-            return methodMetaInfo_;
-        }
-        throw new AmbiguousChoiceCallingException(errors_.join(RETURN_LINE)+RETURN_LINE+_conf.joinPages());
+        return accessible_;
     }
     static Method getDeclaredMethod(ContextEl _cont, ClassArgumentMatching _class, String _name, ClassArgumentMatching... _argsClass) {
         Class<?> class_ = _class.getClazz();

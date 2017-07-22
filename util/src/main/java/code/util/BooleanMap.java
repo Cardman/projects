@@ -20,7 +20,7 @@ public final class BooleanMap<V> extends AbsMap<Boolean,V> {
 
     @CapacityInit
     public BooleanMap(int _capacity) {
-    	super(_capacity);
+        super(_capacity);
     }
 //    @Override
 //    CustList<EntryCust<Boolean,V>> getList() {

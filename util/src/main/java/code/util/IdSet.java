@@ -18,7 +18,7 @@ public final class IdSet<E> extends AbEqList<E> implements Settable<E> {
 
     @CapacityInit
     private IdSet(int _capacity) {
-    	super(_capacity);
+        super(_capacity);
     }
 
     @Override

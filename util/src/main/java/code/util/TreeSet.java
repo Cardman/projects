@@ -37,8 +37,8 @@ public final class TreeSet<E> extends AbEqList<E> implements SortableSet<E> {
 
     @CapacityInit
     private TreeSet(int _capacity) {
-    	super(_capacity);
-    	comparator = null;
+        super(_capacity);
+        comparator = null;
     }
 //    public TreeSet(Collection<? extends E> _c) {
 //        comparator = null;

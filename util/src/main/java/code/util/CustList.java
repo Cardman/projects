@@ -51,7 +51,7 @@ public class CustList<T> implements Listable<T> {
 
     @CapacityInit
     protected CustList(int _capacity) {
-    	list = new ArrayList<T>(_capacity);
+        list = new ArrayList<T>(_capacity);
     }
 
 //    public CustList(Iterable<? extends T> _c) {

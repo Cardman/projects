@@ -17,11 +17,11 @@ public final class MonteCarloString extends AbMonteCarlo<String> {
     private StringMap<LgInt> law;
 
     public MonteCarloString() {
-    	law = new StringMap<LgInt>();
+        law = new StringMap<LgInt>();
     }
 
     public MonteCarloString(String _event, Rate _rateEvent, String _otherEvent) {
-    	law = new StringMap<LgInt>();
+        law = new StringMap<LgInt>();
         if (_rateEvent.greaterOrEqualsOne()) {
             addEvent(_event,LgInt.one());
         } else {
@@ -34,7 +34,7 @@ public final class MonteCarloString extends AbMonteCarlo<String> {
 
     @CapacityInit
     private MonteCarloString(int _capacity) {
-    	law = new StringMap<LgInt>(_capacity);
+        law = new StringMap<LgInt>(_capacity);
     }
 
     @Override

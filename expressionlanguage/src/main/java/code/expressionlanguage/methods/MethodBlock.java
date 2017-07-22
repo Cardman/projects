@@ -84,9 +84,9 @@ public final class MethodBlock extends BracedBlock implements Returnable {
     }
 
     @Override
-	public AccessEnum getAccess() {
-		return access;
-	}
+    public AccessEnum getAccess() {
+        return access;
+    }
 
     public MethodId getId() {
         String name_ = getName();
@@ -360,8 +360,8 @@ public final class MethodBlock extends BracedBlock implements Returnable {
         return TAG_METHOD;
     }
 
-	@Override
-	public RootedBlock belong() {
-		return (RootedBlock) getParent();
-	}
+    @Override
+    public RootedBlock belong() {
+        return (RootedBlock) getParent();
+    }
 }

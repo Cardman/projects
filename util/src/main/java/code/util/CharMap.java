@@ -19,7 +19,7 @@ public final class CharMap<V> extends AbsMap<Character,V> {
 
     @CapacityInit
     public CharMap(int _capacity) {
-    	super(_capacity);
+        super(_capacity);
     }
 //    @Override
 //    CustList<EntryCust<Character,V>> getList() {

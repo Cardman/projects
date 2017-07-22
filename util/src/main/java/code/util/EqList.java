@@ -19,7 +19,7 @@ public final class EqList<T extends Equallable<T>> extends AbEqList<T> implement
 
     @CapacityInit
     private EqList(int _capacity) {
-    	super(_capacity);
+        super(_capacity);
     }
 
 //    public EqList(Iterable<? extends T> _c) {

@@ -10,10 +10,10 @@ public abstract class AbsMap<K, V> implements ListableEntries<K, V> {
     private final transient CustList<EntryCust<K,V>> list;
 
     protected AbsMap() {
-    	list = new CustList<EntryCust<K,V>>();
+        list = new CustList<EntryCust<K,V>>();
     }
     protected AbsMap(int _capacity) {
-    	list = new CustList<EntryCust<K,V>>(_capacity);
+        list = new CustList<EntryCust<K,V>>(_capacity);
     }
 
     K getKeyOrNull(EntryCust<K, V> _e) {

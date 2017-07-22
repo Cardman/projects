@@ -17,7 +17,7 @@ public final class NumberMap<K extends Number, V> extends AbsMap<K, V> {
 
     @CapacityInit
     public NumberMap(int _capacity) {
-    	super(_capacity);
+        super(_capacity);
     }
 //    @Override
 //    CustList<EntryCust<K,V>> getList() {

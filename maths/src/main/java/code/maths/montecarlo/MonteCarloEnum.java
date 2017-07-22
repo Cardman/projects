@@ -13,11 +13,11 @@ public class MonteCarloEnum<E extends Enum<E>> extends AbMonteCarlo<E> {
     private EnumMap<E,LgInt> law;
 
     public MonteCarloEnum() {
-    	law = new EnumMap<E,LgInt>();
+        law = new EnumMap<E,LgInt>();
     }
 
     public MonteCarloEnum(E _event, Rate _rateEvent, E _otherEvent) {
-    	law = new EnumMap<E,LgInt>();
+        law = new EnumMap<E,LgInt>();
         if (_rateEvent.greaterOrEqualsOne()) {
             addEvent(_event,LgInt.one());
         } else {
@@ -30,7 +30,7 @@ public class MonteCarloEnum<E extends Enum<E>> extends AbMonteCarlo<E> {
 
     @CapacityInit
     private MonteCarloEnum(int _capacity) {
-    	law = new EnumMap<E,LgInt>(_capacity);
+        law = new EnumMap<E,LgInt>(_capacity);
     }
 
     @Override

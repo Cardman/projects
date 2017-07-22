@@ -51,9 +51,9 @@ public final class ClassBlock extends BracedBlock implements RootedBlock {
     }
 
     @Override
-	public AccessEnum getAccess() {
-		return access;
-	}
+    public AccessEnum getAccess() {
+        return access;
+    }
 
     @Override
     public EqList<MethodId> getNormalMethods() {
@@ -227,8 +227,8 @@ public final class ClassBlock extends BracedBlock implements RootedBlock {
         return classes_;
     }
 
-	@Override
-	public RootedBlock belong() {
-		return this;
-	}
+    @Override
+    public RootedBlock belong() {
+        return this;
+    }
 }

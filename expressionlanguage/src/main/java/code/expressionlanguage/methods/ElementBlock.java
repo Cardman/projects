@@ -173,8 +173,8 @@ public final class ElementBlock extends Leaf implements InfoBlock{
         processBlock(_cont);
     }
 
-	@Override
-	public RootedBlock belong() {
-		return (RootedBlock) getParent();
-	}
+    @Override
+    public RootedBlock belong() {
+        return (RootedBlock) getParent();
+    }
 }

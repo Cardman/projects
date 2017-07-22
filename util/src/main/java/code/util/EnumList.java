@@ -28,7 +28,7 @@ public final class EnumList<T extends Enum<T>> extends AbEqList<T> implements Eq
 
     @CapacityInit
     private EnumList(int _capacity) {
-    	super(_capacity);
+        super(_capacity);
     }
 
     public void sort() {
