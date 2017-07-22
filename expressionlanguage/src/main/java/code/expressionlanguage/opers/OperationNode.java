@@ -645,20 +645,6 @@ public abstract class OperationNode implements SortedNode<OperationNode>, Operab
     private static CustList<ConstructorId> filterCtr(String _glClass, String _accessedClass, CustList<ConstructorId> _found, ContextEl _conf) {
         CustList<ConstructorId> accessible_ = new CustList<ConstructorId>();
         for (ConstructorId i: _found) {
-            boolean all_ = true;
-            for (ClassName c: i.getClassNames()) {
-                RootedBlock r_ = _conf.getClasses().getClassBody(c.getName());
-                if (r_ == null) {
-                    continue;
-                }
-                if (!_conf.getClasses().canAccessClass(_glClass, r_.getFullName())) {
-                    all_ = false;
-                    break;
-                }
-            }
-            if (!all_) {
-                continue;
-            }
             if (_conf.getClasses().canAccessConstructor(_glClass, _accessedClass, i)) {
                 accessible_.add(i);
             }
@@ -858,20 +844,6 @@ public abstract class OperationNode implements SortedNode<OperationNode>, Operab
     private static EqList<MethodId> filterMeth(String _glClass, String _accessedClass, CustList<MethodId> _found, ContextEl _conf) {
         EqList<MethodId> accessible_ = new EqList<MethodId>();
         for (MethodId i: _found) {
-            boolean all_ = true;
-            for (ClassName c: i.getClassNames()) {
-                RootedBlock r_ = _conf.getClasses().getClassBody(c.getName());
-                if (r_ == null) {
-                    continue;
-                }
-                if (!_conf.getClasses().canAccessClass(_glClass, r_.getFullName())) {
-                    all_ = false;
-                    break;
-                }
-            }
-            if (!all_) {
-                continue;
-            }
             MethodBlock method_ = _conf.getClasses().getMethodBody(_accessedClass, i);
             RootedBlock r_ = _conf.getClasses().getClassBody(method_.getReturnType());
             if (r_ != null) {
