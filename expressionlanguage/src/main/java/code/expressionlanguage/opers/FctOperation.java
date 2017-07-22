@@ -935,6 +935,7 @@ public final class FctOperation extends InvokingOperation {
         if (methodId != null) {
             firstArgs_ = listArguments(chidren_, _nodes, false);
 //            String className_ = methodMetaInfo.getClassName();
+            String classNameFound_;
             if (!methodMetaInfo.isStatic()) {
                 Object obj_ = arg_.getObject();
                 if (obj_ == null) {
@@ -963,6 +964,7 @@ public final class FctOperation extends InvokingOperation {
                         return argres_;
                     }
                 }
+                classNameFound_ = getDeclaredCustMethod(_conf, arg_.getObjectClassName(), classMethodId);
             } else {
                 ClassMetaInfo custClass_ = null;
                 String className_ = clCur_;
@@ -988,8 +990,9 @@ public final class FctOperation extends InvokingOperation {
                         return argres_;
                     }
                 }
+                classNameFound_ = classMethodId.getClassName().getName();
             }
-            throw new CustomFoundMethodException(arg_, classMethodId.getClassName().getName(), methodId, firstArgs_);
+            throw new CustomFoundMethodException(arg_, classNameFound_, methodId, firstArgs_);
         }
         firstArgs_ = listArguments(chidren_, _nodes, true);
         //        if (classes_ != null) {
@@ -1470,6 +1473,7 @@ public final class FctOperation extends InvokingOperation {
         String clCur_ = getPreviousResultClass().getName();
         if (methodId != null) {
             firstArgs_ = listArguments(chidren_, false);
+            String classNameFound_;
             if (!methodMetaInfo.isStatic()) {
                 Object obj_ = arg_.getObject();
                 if (obj_ == null) {
@@ -1498,6 +1502,7 @@ public final class FctOperation extends InvokingOperation {
                         return;
                     }
                 }
+                classNameFound_ = getDeclaredCustMethod(_conf, arg_.getObjectClassName(), classMethodId);
             } else {
                 ClassMetaInfo custClass_ = null;
                 String className_ = clCur_;
@@ -1523,9 +1528,10 @@ public final class FctOperation extends InvokingOperation {
                         return;
                     }
                 }
+                classNameFound_ = classMethodId.getClassName().getName();
             }
 //            Struct o_ = ProcessXmlMethod.calculateArgument(arg_, clCur_, methodId, firstArgs_, _conf).getStruct();
-            Argument argres_ = ProcessXmlMethod.calculateArgument(arg_, classMethodId.getClassName().getName(), methodId, firstArgs_, _conf);
+            Argument argres_ = ProcessXmlMethod.calculateArgument(arg_, classNameFound_, methodId, firstArgs_, _conf);
             // = getMethodThenInvoke(_conf, 0, obj_, clCur_, methodName, firstArgs_.toArray(new Argument[0]));
 //            argres_.setArgClassName(getResultClass().getName());
 //            argres_.setStruct(o_);

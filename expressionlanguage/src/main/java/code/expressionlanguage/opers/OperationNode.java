@@ -22,6 +22,7 @@ import code.expressionlanguage.exceptions.PrimitiveTypeException;
 import code.expressionlanguage.exceptions.UnwrappingException;
 import code.expressionlanguage.exceptions.VoidArgumentException;
 import code.expressionlanguage.methods.Classes;
+import code.expressionlanguage.methods.MethodBlock;
 import code.expressionlanguage.methods.util.ArgumentsPair;
 import code.expressionlanguage.opers.util.ArgumentsGroup;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
@@ -712,6 +713,31 @@ public abstract class OperationNode implements SortedNode<OperationNode>, Operab
         //            _conf.getLastPage().addToOffset(_offsetIncr);
         //            throw new NoSuchDeclaredConstructorException(_0.getMessage()+RETURN_LINE+_conf.joinPages());
         //        }
+    }
+    static String getDeclaredCustMethod(ContextEl _conf, String _realClassName, ClassMethodId _idMeth) {
+        Classes classes_ = _conf.getClasses();
+        ClassMetaInfo custClass_ = null;
+        String clCurName_ = _realClassName;
+        custClass_ = classes_.getClassMetaInfo(clCurName_);
+        String glClass_ = _conf.getLastPage().getGlobalClass();
+        MethodId id_ = _idMeth.getMethod();
+        while (true) {
+            MethodBlock method_ = classes_.getMethodBody(clCurName_, id_);
+            if (method_ == null) {
+                String superClass_ = custClass_.getSuperClass();
+                custClass_ = classes_.getClassMetaInfo(superClass_);
+                clCurName_ = superClass_;
+                continue;
+            }
+            if (!classes_.canAccessMethod(glClass_, clCurName_, id_)) {
+                //TODO if the found method does not override the method signature as parameter
+                String superClass_ = custClass_.getSuperClass();
+                custClass_ = classes_.getClassMetaInfo(superClass_);
+                clCurName_ = superClass_;
+                continue;
+            }
+            return clCurName_;
+        }
     }
     static ClassMethodId getDeclaredCustMethod(ContextEl _conf, ClassArgumentMatching _class, String _name, ClassArgumentMatching... _argsClass) {
         Classes classes_ = _conf.getClasses();

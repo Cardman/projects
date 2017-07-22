@@ -13,6 +13,7 @@ import code.expressionlanguage.methods.exceptions.AnalyzingErrorsException;
 import code.expressionlanguage.methods.exceptions.BadClassNameException;
 import code.expressionlanguage.methods.exceptions.BadFileNameException;
 import code.expressionlanguage.methods.exceptions.UnknownBlockException;
+import code.expressionlanguage.methods.util.BadAccessMethod;
 import code.expressionlanguage.methods.util.BadClassName;
 import code.expressionlanguage.methods.util.BadFieldName;
 import code.expressionlanguage.methods.util.BadFileName;
@@ -50,7 +51,6 @@ import code.expressionlanguage.opers.util.MethodMetaInfo;
 import code.expressionlanguage.opers.util.MethodModifier;
 import code.expressionlanguage.opers.util.Struct;
 import code.expressionlanguage.variables.LocalVariable;
-import code.serialize.exceptions.BadAccessException;
 import code.util.CustList;
 import code.util.EntryCust;
 import code.util.EqList;
@@ -80,6 +80,7 @@ public final class Classes {
     private static final String ATTRIBUTE_VAR = "var";
     private static final String ATTRIBUTE_CLASS = "class";
     private static final String ATTRIBUTE_MODIFIER = "modifier";
+    private static final String ATTRIBUTE_ACCESS = "access";
     private static final String ATTRIBUTE_SUPER_CLASS = "superclass";
     private static final String ATTRIBUTE_CLASS_INDEX = "classindex";
     private static final String ATTRIBUTE_CONDITION = "condition";
@@ -871,26 +872,42 @@ public final class Classes {
                             if (derive_.getModifier() != MethodModifier.STATIC) {
                                 if (base_.getModifier() == MethodModifier.STATIC) {
                                     MethodBlock mDer_ = getMethodBody(c, m_);
-                                    StaticInstanceOverriding err_;
-                                    err_ = new StaticInstanceOverriding();
-                                    err_.setFileName(c);
-                                    err_.setRc(mDer_.getAttributes().getVal(ATTRIBUTE_MODIFIER));
-                                    err_.setBaseClass(idBase_);
-                                    err_.setMethodeId(m_);
-                                    err_.setStaticBaseMethod(true);
-                                    errorsDet.add(err_);
+                                    if (canAccessMethod(c, s, m_)) {
+                                        StaticInstanceOverriding err_;
+                                        err_ = new StaticInstanceOverriding();
+                                        err_.setFileName(c);
+                                        err_.setRc(mDer_.getAttributes().getVal(ATTRIBUTE_MODIFIER));
+                                        err_.setBaseClass(idBase_);
+                                        err_.setMethodeId(m_);
+                                        err_.setStaticBaseMethod(true);
+                                        errorsDet.add(err_);
+                                    }
+                                } else if (canAccessMethod(c, s, m_)) {
+                                    MethodBlock mBase_ = getMethodBody(s, m_);
+                                    MethodBlock mDer_ = getMethodBody(c, m_);
+                                    if (mBase_.getAccess().ordinal() < mDer_.getAccess().ordinal()) {
+                                        //cannot hide method
+                                        BadAccessMethod err_;
+                                        err_ = new BadAccessMethod();
+                                        err_.setFileName(c);
+                                        err_.setRc(mDer_.getAttributes().getVal(ATTRIBUTE_ACCESS));
+                                        err_.setId(m_);
+                                        errorsDet.add(err_);
+                                    }
                                 }
                             } else {
                                 if (base_.getModifier() != MethodModifier.STATIC) {
                                     MethodBlock mDer_ = getMethodBody(c, m_);
-                                    StaticInstanceOverriding err_;
-                                    err_ = new StaticInstanceOverriding();
-                                    err_.setFileName(c);
-                                    err_.setRc(mDer_.getAttributes().getVal(ATTRIBUTE_MODIFIER));
-                                    err_.setBaseClass(idBase_);
-                                    err_.setMethodeId(m_);
-                                    err_.setStaticBaseMethod(false);
-                                    errorsDet.add(err_);
+                                    if (canAccessMethod(c, s, m_)) {
+                                        StaticInstanceOverriding err_;
+                                        err_ = new StaticInstanceOverriding();
+                                        err_.setFileName(c);
+                                        err_.setRc(mDer_.getAttributes().getVal(ATTRIBUTE_MODIFIER));
+                                        err_.setBaseClass(idBase_);
+                                        err_.setMethodeId(m_);
+                                        err_.setStaticBaseMethod(false);
+                                        errorsDet.add(err_);
+                                    }
                                 }
                             }
                         }
