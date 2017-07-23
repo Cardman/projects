@@ -734,7 +734,7 @@ public abstract class OperationNode implements SortedNode<OperationNode>, Operab
                 return clCurName_;
             }
             String superClass_ = custClass_.getSuperClass();
-            if (!method_.getOverridenClasses().containsStr(stopClass_)) {
+            if (!method_.getAllOverridenClasses().containsStr(stopClass_)) {
                 custClass_ = classes_.getClassMetaInfo(superClass_);
                 clCurName_ = superClass_;
                 continue;

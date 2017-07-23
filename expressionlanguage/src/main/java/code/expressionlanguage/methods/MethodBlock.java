@@ -32,8 +32,10 @@ public final class MethodBlock extends BracedBlock implements Returnable {
     private final boolean normalMethod;
 
     private final AccessEnum access;
-
+    
     private StringList overridenClasses;
+
+    private StringList allOverridenClasses;
 
     public MethodBlock(Element _el, ContextEl _importingPage, int _indexChild,
             BracedBlock _m) {
@@ -71,6 +73,7 @@ public final class MethodBlock extends BracedBlock implements Returnable {
         normalMethod = StringList.quickEq(modifier_, VALUE_NORMAL);
         access = AccessEnum.valueOf(_el.getAttribute(ATTRIBUTE_ACCESS));
         overridenClasses = new StringList();
+        allOverridenClasses = new StringList();
     }
 
     public MethodModifier getModifier() {
@@ -93,6 +96,10 @@ public final class MethodBlock extends BracedBlock implements Returnable {
 
     public StringList getOverridenClasses() {
         return overridenClasses;
+    }
+
+    public StringList getAllOverridenClasses() {
+        return allOverridenClasses;
     }
 
     public MethodId getId() {

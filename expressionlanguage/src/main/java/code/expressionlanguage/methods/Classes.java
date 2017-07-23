@@ -852,6 +852,23 @@ public final class Classes {
             for (Block b: getDirectChildren(bl_)) {
                 if (b instanceof MethodBlock) {
                     MethodBlock mDer_ = (MethodBlock) b;
+                    mDer_.getAllOverridenClasses().addAllElts(mDer_.getOverridenClasses());
+                    for (String s: mDer_.getOverridenClasses()) {
+                        MethodBlock mBase_ = getMethodBody(s, mDer_.getId());
+                        mDer_.getAllOverridenClasses().addAllElts(mBase_.getAllOverridenClasses());
+                    }
+                }
+            }
+        }
+        for (String c: classesInheriting) {
+            if (StringList.quickEq(c, Object.class.getName())) {
+                continue;
+            }
+            ClassName idBase_ = new ClassName(c, false);
+            ClassBlock bl_ = (ClassBlock) classesBodies.getVal(idBase_);
+            for (Block b: getDirectChildren(bl_)) {
+                if (b instanceof MethodBlock) {
+                    MethodBlock mDer_ = (MethodBlock) b;
                     String retDerive_ = mDer_.getReturnType();
                     MethodId id_ = mDer_.getId();
                     for (String o: mDer_.getOverridenClasses()) {
