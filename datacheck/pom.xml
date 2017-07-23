@@ -14,12 +14,6 @@
 	<packaging>jar</packaging>
 	<build>
 		<finalName>stream</finalName>
-		<resources>
-			<resource>
-				<directory>resources_stream</directory>
-				<targetPath>resources_stream</targetPath>
-			</resource>
-		</resources>
 		<plugins>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>

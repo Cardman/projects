@@ -66,7 +66,7 @@ public abstract class MoveData {
     private StringList requiredStatus;
 
     public void validate(DataBase _data) {
-        repeatRoundLaw.deleteZeroEvents();
+        repeatRoundLaw.checkEvents();
         if (targetChoice == TargetChoice.NOTHING) {
             throw new DataException();
         }

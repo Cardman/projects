@@ -820,15 +820,26 @@ public final class Classes {
             if (StringList.quickEq(c, Object.class.getName())) {
                 continue;
             }
-            ClassName idType_ = new ClassName(c, false);
-            ClassBlock bl_ = (ClassBlock) classesBodies.getVal(idType_);
+            ClassName idBase_ = new ClassName(c, false);
+            ClassBlock bl_ = (ClassBlock) classesBodies.getVal(idBase_);
             RootedBlock dBl_ = (RootedBlock) bl_;
+            StringList all_ = dBl_.getAllSuperClasses();
             for (Block b: getDirectChildren(bl_)) {
                 if (b instanceof MethodBlock) {
-                    MethodBlock m_ = (MethodBlock) b;
-                    MethodId mid_ = m_.getId();
-                    dBl_.getNormalMethods().add(mid_);
-                    bl_.getAvailableMethods().put(new ClassMethodId(idType_, mid_), true);
+                    for (String s: all_) {
+                        if (StringList.quickEq(s, Object.class.getName())) {
+                            continue;
+                        }
+                        MethodId mDer_ = ((MethodBlock) b).getId();
+                        MethodBlock m_ = getMethodBody(s, mDer_);
+                        if (m_ == null) {
+                            continue;
+                        }
+                        if (canAccessMethod(c, s, mDer_)) {
+                            ((MethodBlock) b).getOverridenClasses().add(s);
+                            break;
+                        }
+                    }
                 }
             }
         }
@@ -838,129 +849,69 @@ public final class Classes {
             }
             ClassName idBase_ = new ClassName(c, false);
             ClassBlock bl_ = (ClassBlock) classesBodies.getVal(idBase_);
-            RootedBlock dBl_ = (RootedBlock) bl_;
-//            for (Block b: TreeRetrieving.<Block>getDirectChildren(bl_)) {
-//                if (b instanceof MethodBlock) {
-//                    MethodBlock m_ = (MethodBlock) b;
-//                    dBl_.getNormalMethods().add(m_.getId());
-//                }
-//            }
-//            StringList all_ = dBl_.getDirectSuperClasses();
-            StringList all_ = dBl_.getAllSuperClasses();
-            ClassMetaInfo deriveClass_ = getClassMetaInfo(c);
-            for (String s: all_) {
-                if (StringList.quickEq(s, Object.class.getName())) {
-                    continue;
-                }
-                ClassName idType_ = new ClassName(s, false);
-                ClassBlock superCl_ = (ClassBlock) classesBodies.getVal(idType_);
-//                RootedBlock bBl_ = (RootedBlock) superCl_;
-                ClassMetaInfo baseClass_ = getClassMetaInfo(s);
-                for (ClassMethodId m: superCl_.getAvailableMethods().getKeys()) {
-                    boolean found_ = false;
-                    MethodId m_ = m.getMethod();
-                    for (ClassMethodId k: bl_.getAvailableMethods().getKeys()) {
-                        if (k.getMethod().eq(m_)) {
-                            found_ = true;
-                            break;
-                        }
-                    }
-                    if (found_) {
-                        MethodMetaInfo derive_ = deriveClass_.getMethods().getVal(m_);
-                        MethodMetaInfo base_ = baseClass_.getMethods().getVal(m_);
-                        if (derive_ != null && base_ != null) {
-                            if (derive_.getModifier() != MethodModifier.STATIC) {
-                                if (base_.getModifier() == MethodModifier.STATIC) {
-                                    MethodBlock mDer_ = getMethodBody(c, m_);
-                                    if (canAccessMethod(c, s, m_)) {
-                                        StaticInstanceOverriding err_;
-                                        err_ = new StaticInstanceOverriding();
-                                        err_.setFileName(c);
-                                        err_.setRc(mDer_.getAttributes().getVal(ATTRIBUTE_MODIFIER));
-                                        err_.setBaseClass(idBase_);
-                                        err_.setMethodeId(m_);
-                                        err_.setStaticBaseMethod(true);
-                                        errorsDet.add(err_);
-                                    }
-                                } else if (canAccessMethod(c, s, m_)) {
-                                    MethodBlock mBase_ = getMethodBody(s, m_);
-                                    MethodBlock mDer_ = getMethodBody(c, m_);
-                                    if (mBase_.getAccess().ordinal() < mDer_.getAccess().ordinal()) {
-                                        //cannot hide method
-                                        BadAccessMethod err_;
-                                        err_ = new BadAccessMethod();
-                                        err_.setFileName(c);
-                                        err_.setRc(mDer_.getAttributes().getVal(ATTRIBUTE_ACCESS));
-                                        err_.setId(m_);
-                                        errorsDet.add(err_);
-                                    }
-                                    mDer_.getOverridenClasses().add(s);
-                                }
-                            } else {
-                                if (base_.getModifier() != MethodModifier.STATIC) {
-                                    MethodBlock mDer_ = getMethodBody(c, m_);
-                                    if (canAccessMethod(c, s, m_)) {
-                                        StaticInstanceOverriding err_;
-                                        err_ = new StaticInstanceOverriding();
-                                        err_.setFileName(c);
-                                        err_.setRc(mDer_.getAttributes().getVal(ATTRIBUTE_MODIFIER));
-                                        err_.setBaseClass(idBase_);
-                                        err_.setMethodeId(m_);
-                                        err_.setStaticBaseMethod(false);
-                                        errorsDet.add(err_);
-                                    }
-                                }
+            for (Block b: getDirectChildren(bl_)) {
+                if (b instanceof MethodBlock) {
+                    MethodBlock mDer_ = (MethodBlock) b;
+                    String retDerive_ = mDer_.getReturnType();
+                    MethodId id_ = mDer_.getId();
+                    for (String o: mDer_.getOverridenClasses()) {
+                        MethodBlock mBase_ = getMethodBody(o, id_);
+                        String retBase_ = mBase_.getReturnType();
+                        if (mDer_.isStaticMethod()) {
+                            if (!mBase_.isStaticMethod()) {
+                                StaticInstanceOverriding err_;
+                                err_ = new StaticInstanceOverriding();
+                                err_.setFileName(c);
+                                err_.setRc(mDer_.getAttributes().getVal(ATTRIBUTE_MODIFIER));
+                                err_.setBaseClass(idBase_);
+                                err_.setMethodeId(id_);
+                                err_.setStaticBaseMethod(false);
+                                errorsDet.add(err_);
                             }
-                        }
-                        if (derive_ != null && base_ != null && derive_.getModifier() != MethodModifier.STATIC) {
-                            MethodBlock mDer_ = getMethodBody(c, m_);
-                            ClassName retDerive_ = derive_.getReturnType();
-                            ClassName retBase_ = base_.getReturnType();
-                            BadReturnTypeInherit err_;
-                            if (StringList.quickEq(retBase_.getName(), OperationNode.VOID_RETURN)) {
-                                if (!StringList.quickEq(retDerive_.getName(), OperationNode.VOID_RETURN)) {
+                        } else {
+                            if (mBase_.isStaticMethod()) {
+                                StaticInstanceOverriding err_;
+                                err_ = new StaticInstanceOverriding();
+                                err_.setFileName(c);
+                                err_.setRc(mDer_.getAttributes().getVal(ATTRIBUTE_MODIFIER));
+                                err_.setBaseClass(idBase_);
+                                err_.setMethodeId(id_);
+                                err_.setStaticBaseMethod(true);
+                                errorsDet.add(err_);
+                            } else if (mDer_.getAccess().ordinal() > mBase_.getAccess().ordinal()) {
+                                BadAccessMethod err_;
+                                err_ = new BadAccessMethod();
+                                err_.setFileName(c);
+                                err_.setRc(mDer_.getAttributes().getVal(ATTRIBUTE_ACCESS));
+                                err_.setId(id_);
+                                errorsDet.add(err_);
+                            } else if (StringList.quickEq(retBase_, OperationNode.VOID_RETURN)) {
+                                if (!StringList.quickEq(retDerive_, OperationNode.VOID_RETURN)) {
+                                    BadReturnTypeInherit err_;
                                     err_ = new BadReturnTypeInherit();
                                     err_.setFileName(c);
                                     err_.setRc(mDer_.getAttributes().getVal(ATTRIBUTE_CLASS));
-                                    err_.setReturnType(retDerive_.getName());
-                                    err_.setMethod(m_);
-                                    err_.setParentClass(s);
+                                    err_.setReturnType(retDerive_);
+                                    err_.setMethod(id_);
+                                    err_.setParentClass(o);
                                     errorsDet.add(err_);
                                     //throw ex
                                 }
                             } else if (!PrimitiveTypeUtil.canBeUseAsArgument(retBase_, retDerive_, this)) {
                                 //throw ex
+                                BadReturnTypeInherit err_;
                                 err_ = new BadReturnTypeInherit();
                                 err_.setFileName(c);
                                 err_.setRc(mDer_.getAttributes().getVal(ATTRIBUTE_CLASS));
-                                err_.setReturnType(retDerive_.getName());
-                                err_.setMethod(m_);
-                                err_.setParentClass(s);
+                                err_.setReturnType(retDerive_);
+                                err_.setMethod(id_);
+                                err_.setParentClass(o);
                                 errorsDet.add(err_);
                             }
-//                            System.out.println("pair "+c+" with "+s);
                         }
-//                        System.out.println(base_);
-//                        System.out.println(m.getSignature());
-//                        if (base_ == null) {
-//                            System.out.println(c);
-//                            System.out.println(s);
-//                        }
-//                        System.out.println(base_ == null || base_.getReturnType().eq(derive_.getReturnType()));
                     }
-//                    bl_.getAvailableMethods().put(new ClassMethodId(idType_, m), !found_);
-                    bl_.getAvailableMethods().put(m, !found_);
                 }
             }
-//            System.out.println();
-//            System.out.println(c);
-////            System.out.println(bl_.getAvailableMethods().size());
-////            System.out.println(bl_.getNormalMethods().size());
-//            for (ClassMethodId m: bl_.getAvailableMethods().getKeys()) {
-//                System.out.println(m.getClassName());
-//                System.out.println(m.getMethod().getSignature());
-//                System.out.println(bl_.getAvailableMethods().getVal(m));
-//            }
         }
     }
     //validate local variables names and loop variables names

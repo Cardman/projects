@@ -178,7 +178,7 @@ public class AbilityData {
         if (maxHpForUsingBerry.greaterOrEqualsOne()) {
             throw new DataException();
         }
-        singleStatus.deleteZeroEvents();
+        singleStatus.checkEvents();
         StringList events_ = new StringList(singleStatus.events());
         events_.removeObj(DataBase.EMPTY_STRING);
         if (!_data.getStatus().containsAllAsKeys(events_)) {

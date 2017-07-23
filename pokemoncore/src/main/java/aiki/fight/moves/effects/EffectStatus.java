@@ -21,7 +21,7 @@ public class EffectStatus extends Effect {
     @Override
     public void validate(DataBase _data) {
         super.validate(_data);
-        lawStatus.deleteZeroEvents();
+        lawStatus.checkEvents();
         if (!_data.getStatus().containsAllAsKeys(localFailStatus.getKeys())) {
             throw new DataException();
         }

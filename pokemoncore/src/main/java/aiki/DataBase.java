@@ -786,7 +786,9 @@ public class DataBase implements WithMathFactory<Rate>{
     public void validate() {
         imagesDimensions.clear();
         for (LawNumber v: lawsDamageRate.values()){
-            v.getLaw().deleteZeroEvents();
+            if (v.getLaw().events().isEmpty()) {
+                throw new DataException();
+            }
         }
 //        MonteCarloUtil.deleteZeroEventsDeeply(this,false);
         for (PokemonData pk_: pokedex.values()) {
@@ -2597,7 +2599,7 @@ public class DataBase implements WithMathFactory<Rate>{
 //                }
             }
 //            valeur_.setSecond(Short.parseShort(infos_.last()));
-            law_.deleteZeroEvents();
+            law_.checkEvents();
             lawsDamageRate.put(DifficultyModelLaw.valueOf(infos_.first()),new LawNumber(law_, Short.parseShort(infos_.last())));
         }
         expGrowth = new EnumMap<ExpType,String>();
@@ -3047,7 +3049,7 @@ public class DataBase implements WithMathFactory<Rate>{
 //                }
             }
 //            valeur_.setSecond(Short.parseShort(infos_.last()));
-            law_.deleteZeroEvents();
+            law_.checkEvents();
             lawsDamageRate.put(DifficultyModelLaw.valueOf(infos_.first()),new LawNumber(law_, Short.parseShort(infos_.last())));
         }
         expGrowth = new EnumMap<ExpType,String>();
@@ -3580,9 +3582,6 @@ public class DataBase implements WithMathFactory<Rate>{
         deleteLineReturn(animStatus);
         deleteLineReturn(typesImages);
         _perCentLoading_ += delta_;
-        for (LawNumber v: lawsDamageRate.values()){
-            v.getLaw().deleteZeroEvents();
-        }
 //        MonteCarloUtil.deleteZeroEventsDeeply(this,false);
         validateEvolutions();
         for (String i: maxiPkBack.values()) {
@@ -4897,7 +4896,7 @@ public class DataBase implements WithMathFactory<Rate>{
                             newLaw_.addEvent(s, eff_.getLawStatus().rate(s));
                         }
                     }
-                    newLaw_.deleteZeroEvents();
+                    newLaw_.checkEvents();
                     eff_.setLawStatus(newLaw_);
                 }
             }
@@ -4931,7 +4930,7 @@ public class DataBase implements WithMathFactory<Rate>{
                     law_.addEvent(e, a.getSingleStatus().rate(e));
                 }
             }
-            law_.deleteZeroEvents();
+            law_.checkEvents();
             a.setSingleStatus(law_);
             a.getForwardStatus().move(_oldName, _newName);
             replace(a.getForwardStatus(),_oldName, _newName);
@@ -5381,7 +5380,7 @@ public class DataBase implements WithMathFactory<Rate>{
                     for (String s: eff_.getDamageLaw().events()) {
                         newLaw_.addEvent(StringList.replaceWordsJoin(s, replace_), eff_.getDamageLaw().rate(s));
                     }
-                    newLaw_.deleteZeroEvents();
+                    newLaw_.checkEvents();
                     eff_.setDamageLaw(newLaw_);
                 }
                 if (e instanceof EffectTeamWhileSendFoe) {
@@ -6510,7 +6509,7 @@ public class DataBase implements WithMathFactory<Rate>{
                             return true;
                         }
                     }
-                    newLaw_.deleteZeroEvents();
+                    newLaw_.checkEvents();
                     eff_.setDamageLaw(newLaw_);
                 }
                 if (e instanceof EffectTeamWhileSendFoe) {

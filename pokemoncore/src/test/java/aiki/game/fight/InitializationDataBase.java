@@ -4,7 +4,6 @@ import javax.imageio.ImageIO;
 import aiki.DataBase;
 import aiki.fight.enums.Statistic;
 import aiki.fight.items.Item;
-import aiki.fight.items.ItemForBattle;
 import aiki.fight.moves.enums.TargetChoice;
 import aiki.fight.pokemon.enums.ExpType;
 import aiki.fight.util.TypesDuo;
@@ -888,8 +887,6 @@ public class InitializationDataBase {
         SerializeXmlObject.checkNullPointers(data_.getMap());
         SerializeXmlObject.checkNullPointers(data_.getCombos());
         data_.validateCore(false);
-        ItemForBattle it_ = (ItemForBattle) data_.getItem(VIVE_GRIFFE_TRUE_FALSE);
-        it_.getLawForAttackFirst().addEvent(false,new LgInt("0"));
         data_.validateConstants();
         data_.setCheckTranslation(false);
         CheckNumericStringsFight.validateNumericBooleanStrings(data_, false);

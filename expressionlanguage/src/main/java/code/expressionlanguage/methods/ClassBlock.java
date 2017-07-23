@@ -29,8 +29,6 @@ public final class ClassBlock extends BracedBlock implements RootedBlock {
 
     private final EqList<MethodId> normalMethods = new EqList<MethodId>();
 
-    private final ObjectNotNullMap<ClassMethodId, Boolean> availableMethods = new ObjectNotNullMap<ClassMethodId, Boolean>();
-
     private final AccessEnum access;
 
     public ClassBlock(Element _el, ContextEl _importingPage, int _indexChild,
@@ -44,10 +42,6 @@ public final class ClassBlock extends BracedBlock implements RootedBlock {
         }
         superClass = superClass_;
         access = AccessEnum.valueOf(_el.getAttribute(ATTRIBUTE_ACCESS));
-    }
-
-    public ObjectNotNullMap<ClassMethodId, Boolean> getAvailableMethods() {
-        return availableMethods;
     }
 
     @Override

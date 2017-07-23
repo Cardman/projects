@@ -27,7 +27,7 @@ public final class MonteCarloNumber extends AbMonteCarlo<Rate> {
             addEvent(_otherEvent, p_.getDiffDenNumerator());
             addEvent(_event, p_.getNumerator());
         }
-        deleteZeroEvents();
+        checkEvents();
     }
 
     @CapacityInit
@@ -212,6 +212,6 @@ public final class MonteCarloNumber extends AbMonteCarlo<Rate> {
 
     @Override
     public EqList<Rate> events() {
-        return new EqList<Rate>(super.events());
+        return law.getKeys();
     }
 }

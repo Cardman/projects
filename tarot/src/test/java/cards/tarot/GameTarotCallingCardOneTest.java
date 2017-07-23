@@ -1,6 +1,5 @@
 package cards.tarot;
 import static cards.tarot.EquallableTarotUtil.assertEq;
-import static code.util.opers.EquallableUtil.assertEq;
 import junitparams.JUnitParamsRunner;
 
 import org.junit.Test;

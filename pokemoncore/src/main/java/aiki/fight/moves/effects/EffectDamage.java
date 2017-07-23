@@ -61,9 +61,9 @@ public class EffectDamage extends Effect {
     @Override
     public void validate(DataBase _data) {
         super.validate(_data);
-        chLaw.deleteZeroEvents();
-        hitsLaw.deleteZeroEvents();
-        damageLaw.deleteZeroEvents();
+        chLaw.checkEvents();
+        hitsLaw.checkEvents();
+        damageLaw.checkEvents();
         if (getTargetChoice() == TargetChoice.LANCEUR) {
             throw new DataException();
         }

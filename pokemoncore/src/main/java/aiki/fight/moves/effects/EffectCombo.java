@@ -19,7 +19,7 @@ public class EffectCombo {
     private CustList<EffectTeam> teamMove;
 
     public void validate(DataBase _data) {
-        repeatedRoundsLaw.deleteZeroEvents();
+        repeatedRoundsLaw.checkEvents();
         if (!multEvtRateSecEff.isZeroOrGt()) {
             throw new DataException();
         }
