@@ -387,7 +387,11 @@ public final class StreamZipFile {
     }
 
     static String getContentOfZippedFile(ZipFile _zipFile, ZipEntry _entry) {
-        StringBuilder fileBuilder_ = new StringBuilder();
+        long estimated_ = _entry.getSize();
+        if (estimated_ < 0) {
+            estimated_ = 0;
+        }
+        StringBuilder fileBuilder_ = new StringBuilder((int) estimated_);
         InputStream stream_ = null;
         try {
             stream_ = _zipFile.getInputStream(_entry);

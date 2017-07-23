@@ -11,7 +11,6 @@ import java.io.InputStreamReader;
 import java.net.URL;
 import java.net.URLConnection;
 import java.nio.charset.Charset;
-import java.util.ArrayList;
 
 import javax.imageio.ImageIO;
 import javax.sound.sampled.AudioInputStream;
@@ -116,75 +115,58 @@ public final class ResourceFiles {
     }
 
     public static String ressourceFichier(String _filePath) {
+        return resourceTextFile(EMPTY_STRING, _filePath, false);
+    }
+
+    public static String ressourceFichierUrls(String _filePath, String... _resourcesFolder) {
+        String file_ = resourceTextFile(EMPTY_STRING, _filePath, true);
+        if (file_ != null) {
+            return file_;
+        }
+        for (String u: _resourcesFolder) {
+            file_ = resourceTextFile(u, _filePath, true);
+            if (file_ != null) {
+                return file_;
+            }
+        }
+        return EMPTY_STRING;
+    }
+
+    private static String resourceTextFile(String _url, String _filePath, boolean _returnNullFail) {
         String lignes_ = EMPTY_STRING;
-        String saut_ = LINE_RETURN;
+        try {
+            lignes_ = readFile(_url+_filePath, StandardCharsets.UTF_8.getName());
+            int ind_ = lignes_.indexOf(INVALID_CHARACTER);
+            if (ind_ >= 0) {
+                lignes_ = readFile(_url+_filePath, StandardCharsets.ISO_8859_1.getName());
+            }
+            return lignes_;
+        } catch (RuntimeException _0) {
+            if (_returnNullFail) {
+                return null;
+            }
+            return lignes_;
+        }
+    }
+
+    private static String readFile(String _file, String _encoding) {
         InputStream inputStream_ = null;
         InputStreamReader reader_ = null;
         BufferedReader br_ = null;
         try {
-//            InputStream in_ = ClassLoader.getSystemResourceAsStream(StreamZipFile.getInsensitiveCaseFileInJar(_filePath));
-            inputStream_ = ClassLoader.getSystemResourceAsStream(_filePath);
-            reader_ = new InputStreamReader(inputStream_, Charset.forName(StandardCharsets.UTF_8.getName()));
+            inputStream_ = ClassLoader.getSystemResourceAsStream(_file);
+            reader_ = new InputStreamReader(inputStream_, Charset.forName(StandardCharsets.ISO_8859_1.getName()));
             br_ = new BufferedReader(reader_);
-            lignes_ = readingFile(saut_, br_);
-            int ind_ = lignes_.indexOf(INVALID_CHARACTER);
-            if (ind_ >= 0) {
-                close(inputStream_, reader_, br_);
-//                in_ = ClassLoader.getSystemResourceAsStream(StreamZipFile.getInsensitiveCaseFileInJar(_filePath));
-                inputStream_ = ClassLoader.getSystemResourceAsStream(_filePath);
-                reader_ = new InputStreamReader(inputStream_, Charset.forName(StandardCharsets.ISO_8859_1.getName()));
-                br_ = new BufferedReader(reader_);
-                lignes_ = readingFile(saut_, br_);
-            }
-            return lignes_;
-        } catch (RuntimeException _0) {
-//            lignes_ = contentsOfFile(_filePath);
-            return lignes_;
+            return readingFile(LINE_RETURN, br_);
         } finally {
             close(inputStream_, reader_, br_);
         }
     }
 
-    public static String ressourceFichierUrls(String _filePath, String... _resourcesFolder) {
-        String lignes_ = EMPTY_STRING;
-        String saut_ = LINE_RETURN;
-        ArrayList<String> urls_ = new ArrayList<String>();
-        urls_.add(EMPTY_STRING);
-        for (String u: _resourcesFolder) {
-            urls_.add(u);
-        }
-        InputStream inputStream_ = null;
-        InputStreamReader reader_ = null;
-        BufferedReader br_ = null;
-        for (String u: urls_) {
-            try {
-                inputStream_ = ClassLoader.getSystemResourceAsStream(u+_filePath);
-                reader_ = new InputStreamReader(inputStream_, Charset.forName(StandardCharsets.UTF_8.getName()));
-                br_ = new BufferedReader(reader_);
-                lignes_ = readingFile(saut_, br_);
-                int ind_ = lignes_.indexOf(INVALID_CHARACTER);
-                if (ind_ >= 0) {
-                    close(inputStream_, reader_, br_);
-//                    in_ = ClassLoader.getSystemResourceAsStream(StreamZipFile.getInsensitiveCaseFileInJar(u+_filePath));
-                    inputStream_ = ClassLoader.getSystemResourceAsStream(u+_filePath);
-                    reader_ = new InputStreamReader(inputStream_, Charset.forName(StandardCharsets.ISO_8859_1.getName()));
-                    br_ = new BufferedReader(reader_);
-                    lignes_ = readingFile(saut_, br_);
-                }
-                return lignes_;
-            } catch (RuntimeException _0) {
-            } finally {
-                close(inputStream_, reader_, br_);
-            }
-        }
-//        lignes_ = contentsOfFile(_filePath);
-        return lignes_;
-    }
-
     public static BufferedImage resourceBufferedImage(String _nomFichier) {
         ByteArrayInputStream bis_ = null;
         try {
-            byte[] data_ = ResourceFiles.resourceFile(_nomFichier);
+            byte[] data_ = ResourceFiles.resourceFileAsBytes(_nomFichier);
             bis_ = new ByteArrayInputStream(data_);
             return ImageIO.read(bis_);
         } catch (RuntimeException _0) {
@@ -222,7 +204,7 @@ public final class ResourceFiles {
 
     public static ImageIcon ressourceIcon(String _nomFichier) {
         try {
-            byte[] data_ = ResourceFiles.resourceFile(_nomFichier);
+            byte[] data_ = ResourceFiles.resourceFileAsBytes(_nomFichier);
             return new ImageIcon(data_);
         } catch (RuntimeException _0) {
             _0.printStackTrace();
@@ -230,7 +212,7 @@ public final class ResourceFiles {
         }
     }
 
-    public static byte[] resourceFile(String _file) {
+    public static byte[] resourceFileAsBytes(String _file) {
         ClassLoader classLoader_;
         classLoader_ = ClassLoader.getSystemClassLoader();
         URL url_ = classLoader_.getResource(_file);

@@ -281,36 +281,33 @@ public final class StreamTextFile {
     }
 
     public static String contentsOfFile(String _nomFichier) {
-        String xmlRecords_ = EMPTY_STRING;
-        String saut_ = LINE_RETURN;
-        InputStream inputStream_ = null;
-        InputStreamReader reader_ = null;
-        BufferedReader br_ = null;
+        String file_ = EMPTY_STRING;
         try {
-            File file_ = new File(_nomFichier);
-            inputStream_ = new FileInputStream(file_);
-            reader_ = new InputStreamReader(inputStream_, Charset.forName(StandardCharsets.UTF_8.getName()));
-//            Reader reader_ = new InputStreamReader(inputStream_, StandardCharsets.ISO_8859_1);
-            br_ = new BufferedReader(reader_);
-            xmlRecords_ = readingFile(saut_, br_);
-            int ind_ = xmlRecords_.indexOf(INVALID_CHARACTER);
+            file_ = readFile(_nomFichier, StandardCharsets.UTF_8.getName());
+            int ind_ = file_.indexOf(INVALID_CHARACTER);
             if (ind_ >= 0) {
-                close(inputStream_, reader_, br_);
-                inputStream_ = new FileInputStream(file_);
-                reader_ = new InputStreamReader(inputStream_, Charset.forName(StandardCharsets.ISO_8859_1.getName()));
-                br_ = new BufferedReader(reader_);
-                xmlRecords_ = readingFile(saut_, br_);
+                file_ = readFile(_nomFichier, StandardCharsets.ISO_8859_1.getName());
             }
-            return xmlRecords_;
+            return file_;
         } catch (RuntimeException _0) {
             if (_showReadStackTrace_) {
                 _0.printStackTrace();
             }
             return null;
+        }
+    }
+
+    private static String readFile(String _filePath, String _encoding) {
+        InputStream inputStream_ = null;
+        InputStreamReader reader_ = null;
+        BufferedReader br_ = null;
+        try {
+            File file_ = new File(_filePath);
+            inputStream_ = new FileInputStream(file_);
+            reader_ = new InputStreamReader(inputStream_, Charset.forName(StandardCharsets.ISO_8859_1.getName()));
+            br_ = new BufferedReader(reader_);
+            return readingFile(LINE_RETURN, br_, file_.length());
         } catch (IOException _0) {
-            if (_showReadStackTrace_) {
-                _0.printStackTrace();
-            }
             return null;
         } finally {
             close(inputStream_, reader_, br_);
@@ -375,9 +372,9 @@ public final class StreamTextFile {
     @return
     @throws IOException*/
 
-    private static String readingFile(String _saut, BufferedReader _br) {
+    private static String readingFile(String _saut, BufferedReader _br, long _capacity) {
         try {
-            StringBuilder strBuilder_ = new StringBuilder();
+            StringBuilder strBuilder_ = new StringBuilder((int) _capacity);
             while (true) {
 
                 String ligne_ = _br.readLine();
