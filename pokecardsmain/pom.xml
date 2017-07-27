@@ -10,6 +10,7 @@
 	<properties>
 		<jdk.version>1.6</jdk.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<execut>C:/Program Files (x86)/Inno Setup 5/ISCC.exe</execut>
 	</properties>
 	<build>
 		<finalName>PokeCards</finalName>
@@ -116,30 +117,50 @@
 						<phase>install</phase>
 						<configuration>
 							<tasks>
-								<copy todir="target/int/jre" overwrite="true"
-									verbose="true" failonerror="true">
-									<fileset dir="${java.home}"/>
+								<copy todir="target/jre" overwrite="true" verbose="true"
+									failonerror="true">
+									<fileset dir="${java.home}" />
 								</copy>
-								<copy todir="target" overwrite="true"
-                                    verbose="true" failonerror="true">
-                                    <fileset file="../pokemoncore/target/rom.zip"/>
-                                </copy>
-                                <copy todir="target" overwrite="true"
-                                    verbose="true" failonerror="true">
-                                    <fileset file="../pokemongui/pokemon_port.ini"/>
-                                </copy>
-                                <copy todir="target" overwrite="true"
-                                    verbose="true" failonerror="true">
-                                    <fileset file="../cardgamesgui/cards_port.ini"/>
-                                </copy>
-                                <copy todir="target" overwrite="true"
-                                    verbose="true" failonerror="true">
-                                    <fileset file="../guicommon/language.txt"/>
-                                </copy>
+								<copy todir="target" overwrite="true" verbose="true"
+									failonerror="true">
+									<fileset file="../pokemoncore/target/rom.zip" />
+								</copy>
+								<copy todir="target" overwrite="true" verbose="true"
+									failonerror="true">
+									<fileset file="../pokemongui/pokemon_port.ini" />
+								</copy>
+								<copy todir="target" overwrite="true" verbose="true"
+									failonerror="true">
+									<fileset file="../cardgamesgui/cards_port.ini" />
+								</copy>
+								<copy todir="target" overwrite="true" verbose="true"
+									failonerror="true">
+									<fileset file="../guicommon/language.txt" />
+								</copy>
 							</tasks>
 						</configuration>
 						<goals>
 							<goal>run</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>exec-maven-plugin</artifactId>
+				<version>1.5.0</version>
+				<executions>
+					<execution>
+						<phase>install</phase>
+						<configuration>
+							<executable>${execut}</executable>
+						    <workingDirectory></workingDirectory>
+						    <arguments>
+						        <argument>install.iss</argument>
+						    </arguments>
+						</configuration>
+						<goals>
+						    <goal>exec</goal>
 						</goals>
 					</execution>
 				</executions>

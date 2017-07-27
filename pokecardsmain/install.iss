@@ -21,7 +21,7 @@ AppSupportURL={#MyAppURL}
 AppUpdatesURL={#MyAppURL}
 DefaultDirName={pf}\{#MyAppName}
 DisableProgramGroupPage=yes
-OutputDir=.
+OutputDir=target
 OutputBaseFilename=setup_poke_cards
 Compression=lzma
 SolidCompression=yes
@@ -34,12 +34,12 @@ Name: "fr"; MessagesFile: "compiler:Languages\French.isl"
 Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{cm:AdditionalIcons}"; Flags: unchecked
 
 [Files]
-Source: "language.txt"; DestDir: "{app}"; Flags: ignoreversion
-Source: "{#MyAppExeName}"; DestDir: "{app}"; Flags: ignoreversion
-Source: "int\*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs createallsubdirs
-Source: "cards_port.ini"; DestDir: "{app}"; Flags: ignoreversion
-Source: "pokemon_port.ini"; DestDir: "{app}"; Flags: ignoreversion
-Source: "rom.zip"; DestDir: "{app}"; Flags: ignoreversion
+Source: "target\language.txt"; DestDir: "{app}"; Flags: ignoreversion
+Source: "target\{#MyAppExeName}"; DestDir: "{app}"; Flags: ignoreversion
+Source: "target\jre\*"; DestDir: "{app}\target\jre"; Flags: ignoreversion recursesubdirs createallsubdirs
+Source: "target\cards_port.ini"; DestDir: "{app}"; Flags: ignoreversion
+Source: "target\pokemon_port.ini"; DestDir: "{app}"; Flags: ignoreversion
+Source: "target\rom.zip"; DestDir: "{app}"; Flags: ignoreversion
 ;Source: SaveStringToFile('language.txt', {language}, False); DestDir: "{app}";
 ; NOTE: Don't use "Flags: ignoreversion" on any shared system files
 
