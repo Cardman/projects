@@ -2440,7 +2440,9 @@ public final class GamePresident {
             if (tricksPlayers_.contains(noTrick_)) {
                 tricksPlayers_.getVal(noTrick_).add(p);
             } else {
-                tricksPlayers_.put(noTrick_, new Numbers<Byte>(p));
+                Numbers<Byte> p_ = new Numbers<Byte>();
+                p_.add(p);
+                tricksPlayers_.put(noTrick_, p_);
             }
         }
         Numbers<Byte> tricksCardsPlayers_;
