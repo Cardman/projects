@@ -10,6 +10,7 @@
 	<properties>
 		<jdk.version>1.6</jdk.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<!-- possible customization of executable: mvn clean install -Dexecut=path_to_executable -->
 		<execut>C:/Program Files (x86)/Inno Setup 5/ISCC.exe</execut>
 	</properties>
 	<build>
