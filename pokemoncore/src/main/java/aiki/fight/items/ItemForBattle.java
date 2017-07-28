@@ -74,10 +74,10 @@ public final class ItemForBattle extends Item {
     private EnumMap<Statistic,String> multStat;
     private StringMap<Short> increasingMaxNbRoundGlobalMove;
     private StringMap<Short> increasingMaxNbRoundTeamMove;
-    private StringList immuMoves = new StringList();
+    private StringList immuMoves;
     private StringList hatching;
     private StringList immuTypes;
-    private StringList immuWeather = new StringList();
+    private StringList immuWeather;
     private EnumMap<Statistic,Byte> boostStatisSuperEff;
     private StringMap<EnumMap<Statistic,Byte>> boostStatisTypes;
     @CheckedData

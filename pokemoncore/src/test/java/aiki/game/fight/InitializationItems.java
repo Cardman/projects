@@ -725,6 +725,8 @@ final class InitializationItems {
     private static ItemForBattle defaultObjetAttachableCombat() {
         ItemForBattle object_ = new ItemForBattle();
         object_.setTypesPk(new StringList());
+        object_.setImmuMoves(new StringList());
+        object_.setImmuWeather(new StringList());
         object_.setImmuStatus(new StringList());
         object_.setIncreasingMaxNbRoundTrap(new StringMap<Short>());
         object_.setSynchroStatus(new StringList());
