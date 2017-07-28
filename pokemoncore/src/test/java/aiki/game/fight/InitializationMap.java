@@ -433,7 +433,7 @@ final class InitializationMap {
         pk_.getLevel().getGerants().put(newPoint(8, 4), seller_);
         seller_ = new Seller();
         seller_.setItems(new StringList());
-        seller_.setTm(new Numbers<Short>((short)2));
+        seller_.setTm(tmNbTwo());
         seller_.setSell(SellType.TM);
         pk_.getLevel().getGerants().put(newPoint(8, 5), seller_);
         seller_ = new Seller();
@@ -441,6 +441,9 @@ final class InitializationMap {
         seller_.setTm(new Numbers<Short>());
         seller_.setSell(SellType.MOVE);
         pk_.getLevel().getGerants().put(newPoint(8, 6), seller_);
+    }
+    private static Numbers<Short> tmNbTwo() {
+        return new Numbers<Short>((short)2);
     }
 
     static void initBlockSecondRoad(DataBase _data) {
@@ -1178,7 +1181,7 @@ final class InitializationMap {
     static void initOtherCharactersFirstRoad(DataBase _data) {
         DataMap map_ = _data.getMap();
         Road road_ = (Road) map_.getPlaces().getVal((short) 0);
-        road_.addPerson(newCoords(0, 0, 0, 1), newDealerObject(new StringList(HYPER_BALL), new Numbers<Short>((short)5)));
+        road_.addPerson(newCoords(0, 0, 0, 1), newDealerObject(new StringList(HYPER_BALL), tmNbFive()));
         //map_.getTakenObjects().add(newCoords(0, 0, 0, 1));
 //        City city_ = (City) map_.getPlaces().getVal((short) 1);
 //        PokemonCenter pk_;
@@ -1206,6 +1209,9 @@ final class InitializationMap {
 //        pk_.getLevel().getGerants().put(newPoint(0, 4), newGerantPokemon(GeranceType.FOSSILE));
 //        pk_.getLevel().getGerants().put(newPoint(8, 4), newGerantPokemon(GeranceType.HOST));
         //map_.getHostPokemons().add(newCoords(3, 0, 2, 1, 8, 4));
+    }
+    private static Numbers<Short> tmNbFive() {
+        return new Numbers<Short>((short)5);
     }
 
 //    static void initObjects(DataBase _data) {

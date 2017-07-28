@@ -403,7 +403,9 @@ public class DataMap {
                 wildPokemonBeforeFirstLeague.getVal(keyPlaceLevel_).add(index_);
                 wildPokemonBeforeFirstLeague.getVal(keyPlaceLevel_).removeDuplicates();
             } else {
-                wildPokemonBeforeFirstLeague.put(keyPlaceLevel_, new Numbers<Integer>(index_));
+                Numbers<Integer> indexes_ = new Numbers<Integer>();
+                indexes_.add(index_);
+                wildPokemonBeforeFirstLeague.put(keyPlaceLevel_, indexes_);
             }
         }
         if (!ball_) {
