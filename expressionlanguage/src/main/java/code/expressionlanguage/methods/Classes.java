@@ -521,7 +521,7 @@ public final class Classes {
 //                        String base_ = PrimitiveTypeUtil.getComponentBaseType(classNameLoc_).getComponent();
                         String base_ = PrimitiveTypeUtil.getQuickComponentBaseType(classNameLoc_).getComponent();
                         if (classesBodies.contains(new ClassName(base_, false))) {
-                            if (!canAccessClass(className_, classNameLoc_)) {
+                            if (!canAccessClass(className_, base_)) {
                                 BadAccessClass err_ = new BadAccessClass();
                                 err_.setFileName(className_);
                                 err_.setRc(b_.getRowCol(0, _context.getTabWidth(), n.getKey()));
