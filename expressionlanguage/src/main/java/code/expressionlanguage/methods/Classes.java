@@ -13,6 +13,7 @@ import code.expressionlanguage.methods.exceptions.AnalyzingErrorsException;
 import code.expressionlanguage.methods.exceptions.BadClassNameException;
 import code.expressionlanguage.methods.exceptions.BadFileNameException;
 import code.expressionlanguage.methods.exceptions.UnknownBlockException;
+import code.expressionlanguage.methods.util.BadAccessClass;
 import code.expressionlanguage.methods.util.BadAccessMethod;
 import code.expressionlanguage.methods.util.BadClassName;
 import code.expressionlanguage.methods.util.BadFieldName;
@@ -492,7 +493,7 @@ public final class Classes {
                 if (b instanceof AloneBlock) {
                     continue;
                 }
-                //TODO constructors, static_blocks
+                //TODO intern classes
                 RowCol where_ = ((Block)b).getRowCol(0, _context.getTabWidth(), EMPTY_STRING);
                 String tagName_ = ((Block)b).getTagName();
                 UnexpectedTagName unexp_ = new UnexpectedTagName();
@@ -520,6 +521,13 @@ public final class Classes {
 //                        String base_ = PrimitiveTypeUtil.getComponentBaseType(classNameLoc_).getComponent();
                         String base_ = PrimitiveTypeUtil.getQuickComponentBaseType(classNameLoc_).getComponent();
                         if (classesBodies.contains(new ClassName(base_, false))) {
+                            if (!canAccessClass(className_, classNameLoc_)) {
+                                BadAccessClass err_ = new BadAccessClass();
+                                err_.setFileName(className_);
+                                err_.setRc(b_.getRowCol(0, _context.getTabWidth(), n.getKey()));
+                                err_.setId(classNameLoc_);
+                                errorsDet.add(err_);
+                            }
                             continue;
                         }
                         
