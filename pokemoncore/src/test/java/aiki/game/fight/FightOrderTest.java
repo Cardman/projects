@@ -2770,7 +2770,9 @@ public class FightOrderTest extends InitializationDataBase {
     }
 
     private Numbers<Byte> singleZero() {
-        return new Numbers<Byte>((byte)0);
+        Numbers<Byte> l_ = new Numbers<Byte>();
+        l_.add((byte)0);
+        return l_;
     }
 
     @Test

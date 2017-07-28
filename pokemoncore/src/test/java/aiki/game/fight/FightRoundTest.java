@@ -3517,7 +3517,9 @@ public class FightRoundTest extends InitializationDataBase {
     }
 
     private Numbers<Integer> singleZero() {
-        return new Numbers<Integer>(0);
+        Numbers<Integer> l_ = new Numbers<Integer>();
+        l_.add(0);
+        return l_;
     }
 
     @Test

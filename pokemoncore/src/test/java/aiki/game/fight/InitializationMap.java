@@ -443,7 +443,7 @@ final class InitializationMap {
         pk_.getLevel().getGerants().put(newPoint(8, 6), seller_);
     }
     private static Numbers<Short> tmNbTwo() {
-        return new Numbers<Short>((short)2);
+        return single((short)2);
     }
 
     static void initBlockSecondRoad(DataBase _data) {
@@ -1211,7 +1211,13 @@ final class InitializationMap {
         //map_.getHostPokemons().add(newCoords(3, 0, 2, 1, 8, 4));
     }
     private static Numbers<Short> tmNbFive() {
-        return new Numbers<Short>((short)5);
+        return single((short)5);
+    }
+
+    private static Numbers<Short> single((short) _nb) {
+        Numbers<Short> l_ = new Numbers<Short>();
+        l_.add(_nb);
+        return l_;
     }
 
 //    static void initObjects(DataBase _data) {
