@@ -224,7 +224,7 @@ public class ObjectComponentsTest {
         full_.setInterfMap(new StringMap<Boolean>());
         full_.setInterfList(new StringList());
         full_.setPrimitive(new Primitive("STR;NG"));
-        full_.setArrayLists(new Listable<?>[]{new StringList("EX"),new Numbers<Integer>(4)});
+        full_.setArrayLists(new Listable<?>[]{new StringList("EX"),new Numbers<Integer>(new Integer[]{4})});
         full_.setMyIntegers(new MyList<Integer>(5, 7));
         full_.setChecked(new StringList("ok","ko"));
         MyMap<Integer> map_;
@@ -298,7 +298,7 @@ public class ObjectComponentsTest {
         full_.setThree(new Pair<Pair<Boolean,StringMap<String>>,String>(new Pair<Boolean,StringMap<String>>(false,new StringMap<String>()),"ex"));
         full_.getThree().getFirst().getSecond().put("KEY", "VALUE");
         full_.setPrimitive(new Primitive("STR;NG"));
-        full_.setArrayLists(new Listable<?>[]{new StringList("EX"),new Numbers<Integer>(4)});
+        full_.setArrayLists(new Listable<?>[]{new StringList("EX"),new Numbers<Integer>(new Integer[]{4})});
         full_.setMyIntegers(new MyList<Integer>(5, 7));
         full_.setChecked(new StringList("ok","ko"));
         MyMap< Integer> map_;
@@ -370,7 +370,7 @@ public class ObjectComponentsTest {
         full_.setThree(new Pair<Pair<Boolean,StringMap<String>>,String>(new Pair<Boolean,StringMap<String>>(false,new StringMap<String>()),"ex"));
         full_.getThree().getFirst().getSecond().put("KEY", "VALUE");
         full_.setPrimitive(new Primitive("STR;NG"));
-        full_.setArrayLists(new Listable<?>[]{new StringList("EX"),new Numbers<Integer>(4)});
+        full_.setArrayLists(new Listable<?>[]{new StringList("EX"),new Numbers<Integer>(new Integer[]{4})});
         full_.setMyIntegers(new MyList<Integer>(5, 7));
         full_.setChecked(new StringList("ok","ko"));
         MyMap< Integer> map_;
@@ -455,7 +455,7 @@ public class ObjectComponentsTest {
         full_.setThree(new Pair<Pair<Boolean,StringMap<String>>,String>(new Pair<Boolean,StringMap<String>>(false,new StringMap<String>()),"ex"));
         full_.getThree().getFirst().getSecond().put("KEY", "VALUE");
         full_.setPrimitive(new Primitive("STR;NG"));
-        full_.setArrayLists(new Listable<?>[]{new StringList("EX"),new Numbers<Integer>(4)});
+        full_.setArrayLists(new Listable<?>[]{new StringList("EX"),new Numbers<Integer>(new Integer[]{4})});
         full_.setMyIntegers(new MyList<Integer>(5, 7));
         full_.setChecked(new StringList("ok","ko"));
         MyMap< Integer> map_;
@@ -535,7 +535,7 @@ public class ObjectComponentsTest {
         full_.setThree(new Pair<Pair<Boolean,StringMap<String>>,String>(new Pair<Boolean,StringMap<String>>(false,new StringMap<String>()),"ex"));
         full_.getThree().getFirst().getSecond().put("KEY", "VALUE");
         full_.setPrimitive(new Primitive("STR;NG"));
-        full_.setArrayLists(new Listable<?>[]{new StringList("EX"),new Numbers<Integer>(4)});
+        full_.setArrayLists(new Listable<?>[]{new StringList("EX"),new Numbers<Integer>(new Integer[]{4})});
         full_.setMyIntegers(new MyList<Integer>(5, 7));
         full_.setChecked(new StringList("ok","ko"));
         MyMap< Integer> map_;
@@ -617,7 +617,7 @@ public class ObjectComponentsTest {
         full_.setThree(new Pair<Pair<Boolean,StringMap<String>>,String>(new Pair<Boolean,StringMap<String>>(false,new StringMap<String>()),"ex"));
         full_.getThree().getFirst().getSecond().put("KEY", "VALUE");
         full_.setPrimitive(new Primitive("STR;NG"));
-        full_.setArrayLists(new Listable<?>[]{new StringList("EX"),new Numbers<Integer>(4)});
+        full_.setArrayLists(new Listable<?>[]{new StringList("EX"),new Numbers<Integer>(new Integer[]{4})});
         full_.setMyIntegers(new MyList<Integer>(5, 7));
         full_.setChecked(new StringList("ok","ko"));
         MyMap< Integer> map_;
@@ -823,7 +823,7 @@ public class ObjectComponentsTest {
         full_.setInterfMap(new StringMap<Boolean>());
         full_.setInterfList(new StringList());
         full_.setPrimitive(new Primitive("STR;NG"));
-        full_.setArrayLists(new Listable<?>[]{new StringList("EX"),new Numbers<Integer>(4)});
+        full_.setArrayLists(new Listable<?>[]{new StringList("EX"),new Numbers<Integer>(new Integer[]{4})});
         full_.setMyIntegers(new MyList<Integer>(5, 7));
         full_.setChecked(new StringList("ok","ko"));
         MyMap< Integer> map_;
@@ -997,7 +997,7 @@ public class ObjectComponentsTest {
         full_.setThree(new Pair<Pair<Boolean,StringMap<String>>,String>(new Pair<Boolean,StringMap<String>>(false,new StringMap<String>()),"ex"));
         full_.getThree().getFirst().getSecond().put("KEY", "VALUE");
         full_.setPrimitive(new Primitive("STR;NG"));
-        full_.setArrayLists(new Listable<?>[]{new StringList("EX"),new Numbers<Integer>(4)});
+        full_.setArrayLists(new Listable<?>[]{new StringList("EX"),new Numbers<Integer>(new Integer[]{4})});
         full_.setMyIntegers(new MyList<Integer>(5, 7));
         full_.setChecked(new StringList("ok","ko"));
         MyMap< Integer> map_;
@@ -1074,7 +1074,7 @@ public class ObjectComponentsTest {
         full_.setThree(new Pair<Pair<Boolean,StringMap<String>>,String>(new Pair<Boolean,StringMap<String>>(false,new StringMap<String>()),"ex"));
         full_.getThree().getFirst().getSecond().put("KEY", "VALUE");
         full_.setPrimitive(new Primitive("STR;NG"));
-        full_.setArrayLists(new Listable<?>[]{new StringList("EX"),new Numbers<Integer>(4)});
+        full_.setArrayLists(new Listable<?>[]{new StringList("EX"),new Numbers<Integer>(new Integer[]{4})});
         full_.setMyIntegers(new MyList<Integer>(5, 7));
         full_.setChecked(new StringList("ok","ko"));
         MyMap< Integer> map_;
@@ -1154,7 +1154,7 @@ public class ObjectComponentsTest {
         full_.setThree(new Pair<Pair<Boolean,StringMap<String>>,String>(new Pair<Boolean,StringMap<String>>(false,new StringMap<String>()),"ex"));
         full_.getThree().getFirst().getSecond().put("KEY", "VALUE");
         full_.setPrimitive(new Primitive("STR;NG"));
-        full_.setArrayLists(new Listable<?>[]{new StringList("EX"),new Numbers<Integer>(4)});
+        full_.setArrayLists(new Listable<?>[]{new StringList("EX"),new Numbers<Integer>(new Integer[]{4})});
         full_.setMyIntegers(new MyList<Integer>(5, 7));
         full_.setChecked(new StringList("ok","ko"));
         MyMap< Integer> map_;
@@ -1228,7 +1228,7 @@ public class ObjectComponentsTest {
         full_.setThree(new Pair<Pair<Boolean,StringMap<String>>,String>(new Pair<Boolean,StringMap<String>>(false,new StringMap<String>()),"ex"));
         full_.getThree().getFirst().getSecond().put("KEY", "VALUE");
         full_.setPrimitive(new Primitive("STR;NG"));
-        full_.setArrayLists(new Listable<?>[]{new StringList("EX"),new Numbers<Integer>(4)});
+        full_.setArrayLists(new Listable<?>[]{new StringList("EX"),new Numbers<Integer>(new Integer[]{4})});
         full_.setMyIntegers(new MyList<Integer>(5, 7));
         full_.setChecked(new StringList("ok","ko"));
         MyMap< Integer> map_;
@@ -1305,7 +1305,7 @@ public class ObjectComponentsTest {
         full_.setThree(new Pair<Pair<Boolean,StringMap<String>>,String>(new Pair<Boolean,StringMap<String>>(false,new StringMap<String>()),"ex"));
         full_.getThree().getFirst().getSecond().put("KEY", "VALUE");
         full_.setPrimitive(new Primitive("STR;NG"));
-        full_.setArrayLists(new Listable<?>[]{new StringList("EX"),new Numbers<Integer>(4)});
+        full_.setArrayLists(new Listable<?>[]{new StringList("EX"),new Numbers<Integer>(new Integer[]{4})});
         full_.setMyIntegers(new MyList<Integer>(5, 7));
         MyMap< Integer> map_;
         map_ = new MyMap< Integer>();
@@ -1375,7 +1375,7 @@ public class ObjectComponentsTest {
         full_.setThree(new Pair<Pair<Boolean,StringMap<String>>,String>(new Pair<Boolean,StringMap<String>>(false,new StringMap<String>()),"ex"));
         full_.getThree().getFirst().getSecond().put("KEY", "VALUE");
         full_.setPrimitive(new Primitive("STR;NG"));
-        full_.setArrayLists(new Listable<?>[]{new StringList("EX"),new Numbers<Integer>(4)});
+        full_.setArrayLists(new Listable<?>[]{new StringList("EX"),new Numbers<Integer>(new Integer[]{4})});
         full_.setMyIntegers(new MyList<Integer>(5, 7));
         full_.setListMaps(new CustList<ComplexMap<String,Character,Serializable>>(new ComplexMap<String,Character,Serializable>(new StringMap<Serializable>())));
         full_.setInterfMap(new StringMap<Boolean>());
@@ -1453,7 +1453,7 @@ public class ObjectComponentsTest {
         full_.setInterfList(new StringList());
         full_.getInterfMap().put(null, true);
         full_.setPrimitive(new Primitive("STR;NG"));
-        full_.setArrayLists(new Listable<?>[]{new StringList("EX"),new Numbers<Integer>(4)});
+        full_.setArrayLists(new Listable<?>[]{new StringList("EX"),new Numbers<Integer>(new Integer[]{4})});
         full_.setMyIntegers(new MyList<Integer>(5, 7));
         full_.setChecked(new StringList("ok","ko"));
         MyMap< Integer> map_;
@@ -1527,7 +1527,7 @@ public class ObjectComponentsTest {
         full_.setInterfList(new StringList());
         full_.getInterfMap().put("", null);
         full_.setPrimitive(new Primitive("STR;NG"));
-        full_.setArrayLists(new Listable<?>[]{new StringList("EX"),new Numbers<Integer>(4)});
+        full_.setArrayLists(new Listable<?>[]{new StringList("EX"),new Numbers<Integer>(new Integer[]{4})});
         full_.setMyIntegers(new MyList<Integer>(5, 7));
         full_.setChecked(new StringList("ok","ko"));
         MyMap<Integer> map_;
