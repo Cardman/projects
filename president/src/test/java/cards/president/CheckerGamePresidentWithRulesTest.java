@@ -2035,7 +2035,7 @@ public class CheckerGamePresidentWithRulesTest {
         g_ = new GamePresident(GameType.EDIT, d_, r_, rk_);
         g_.initCartesEchanges();
         g_.donnerMeilleuresCartes();
-        g_.giveWorstCards(new Numbers<Byte>(DealPresident.NUMERO_UTILISATEUR));
+        g_.giveWorstCards(user());
         //
         transientFields(g_);
         //
@@ -2055,6 +2055,12 @@ public class CheckerGamePresidentWithRulesTest {
         assertEq(0,g_.getTricks().size());
         assertEq(2,g_.getProgressingTrick().getEntameur());
         assertEq(0,g_.getProgressingTrick().getNombreDeCartesParJoueur());
+    }
+
+    private Numbers<Byte> user() {
+        Numbers<Byte> l_ = new Numbers<Byte>();
+        l_.add(DealPresident.NUMERO_UTILISATEUR);
+        return l_;
     }
 
     @Test
@@ -2096,7 +2102,7 @@ public class CheckerGamePresidentWithRulesTest {
         GamePresident g_ = new GamePresident(GameType.EDIT, d_, r_, rk_);
         g_.initCartesEchanges();
         g_.donnerMeilleuresCartes();
-        g_.giveWorstCards(new Numbers<Byte>(DealPresident.NUMERO_UTILISATEUR));
+        g_.giveWorstCards(user());
         //
         transientFields(g_);
         //
@@ -2161,7 +2167,7 @@ public class CheckerGamePresidentWithRulesTest {
         GamePresident g_ = new GamePresident(GameType.EDIT, d_, r_, rk_);
         g_.initCartesEchanges();
         g_.donnerMeilleuresCartes();
-        g_.giveWorstCards(new Numbers<Byte>(DealPresident.NUMERO_UTILISATEUR));
+        g_.giveWorstCards(user());
         //
         transientFields(g_);
         //
@@ -2234,7 +2240,7 @@ public class CheckerGamePresidentWithRulesTest {
         GamePresident g_ = new GamePresident(GameType.EDIT, d_, r_, rk_);
         g_.initCartesEchanges();
         g_.donnerMeilleuresCartes();
-        g_.giveWorstCards(new Numbers<Byte>(DealPresident.NUMERO_UTILISATEUR));
+        g_.giveWorstCards(user());
         //
         transientFields(g_);
         //
@@ -3734,7 +3740,7 @@ public class CheckerGamePresidentWithRulesTest {
         g_ = new GamePresident(GameType.EDIT, d_, r_, rk_);
         g_.initCartesEchanges();
         g_.donnerMeilleuresCartes();
-        g_.giveWorstCards(new Numbers<Byte>(DealPresident.NUMERO_UTILISATEUR));
+        g_.giveWorstCards(user());
         //
         transientFields(g_);
         //
@@ -4362,7 +4368,7 @@ public class CheckerGamePresidentWithRulesTest {
         GamePresident g_ = new GamePresident(GameType.EDIT, d_, r_, rk_);
         g_.initCartesEchanges();
         g_.donnerMeilleuresCartes();
-        g_.giveWorstCards(new Numbers<Byte>(DealPresident.NUMERO_UTILISATEUR));
+        g_.giveWorstCards(user());
         //
         transientFields(g_);
         //
@@ -4388,7 +4394,7 @@ public class CheckerGamePresidentWithRulesTest {
         GamePresident g_ = new GamePresident(GameType.EDIT, d_, r_, rk_);
         g_.initCartesEchanges();
         g_.donnerMeilleuresCartes();
-        g_.giveWorstCards(new Numbers<Byte>(DealPresident.NUMERO_UTILISATEUR));
+        g_.giveWorstCards(user());
         //
         transientFields(g_);
         //
@@ -4427,7 +4433,7 @@ public class CheckerGamePresidentWithRulesTest {
         GamePresident g_ = new GamePresident(GameType.EDIT, d_, r_, rk_);
         g_.initCartesEchanges();
         g_.donnerMeilleuresCartes();
-        g_.giveWorstCards(new Numbers<Byte>(DealPresident.NUMERO_UTILISATEUR));
+        g_.giveWorstCards(user());
         //
         transientFields(g_);
         //
@@ -4484,7 +4490,7 @@ public class CheckerGamePresidentWithRulesTest {
         GamePresident g_ = new GamePresident(GameType.EDIT, d_, r_, rk_);
         g_.initCartesEchanges();
         g_.donnerMeilleuresCartes();
-        g_.giveWorstCards(new Numbers<Byte>(DealPresident.NUMERO_UTILISATEUR));
+        g_.giveWorstCards(user());
         //
         HandPresident del_ = new HandPresident();
         del_.ajouter(CardPresident.DIAMOND_8);

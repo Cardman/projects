@@ -148,7 +148,7 @@ public class ContainerSinglePresident extends ContainerPresident implements
         }
         getHelpGame().setEnabled(true);
         if (partie_.availableSwitchingCards()) {
-            Numbers<Byte> l_ = partie_.getLoosers(new Numbers<Byte>(DealPresident.NUMERO_UTILISATEUR));
+            Numbers<Byte> l_ = partie_.getLoosers(user());
             if (!l_.isEmpty()) {
                 getReceivedCards().supprimerCartes();
                 getReceivedCards().ajouterCartes(partie_.getSwitchedCards().getVal(partie_.getMatchingWinner(DealPresident.NUMERO_UTILISATEUR)));
@@ -157,7 +157,7 @@ public class ContainerSinglePresident extends ContainerPresident implements
                 getGivenCards().ajouterCartes(partie_.getSwitchedCards().getVal(DealPresident.NUMERO_UTILISATEUR));
                 updateCardsInPanelPresidentGiven();
             }
-            Numbers<Byte> w_ = partie_.getWinners(new Numbers<Byte>(DealPresident.NUMERO_UTILISATEUR));
+            Numbers<Byte> w_ = partie_.getWinners(user());
             if (!w_.isEmpty()) {
                 getReceivedCards().supprimerCartes();
                 getReceivedCards().ajouterCartes(partie_.getSwitchedCards().getVal(partie_.getMatchingLoser(DealPresident.NUMERO_UTILISATEUR)));
@@ -183,6 +183,12 @@ public class ContainerSinglePresident extends ContainerPresident implements
         pack();
         animationPlaying = new AnimationCardPresident(this);
         animationPlaying.start();
+    }
+
+    private static Numbers<Byte> user() {
+        Numbers<Byte> l_ = new Numbers<Byte>();
+        l_.add(DealPresident.NUMERO_UTILISATEUR);
+        return l_;
     }
 
     public void addButtonsForDiscard() {
@@ -389,7 +395,7 @@ public class ContainerSinglePresident extends ContainerPresident implements
         game_.initCartesEchanges();
         game_.donnerMeilleuresCartes();
         if (game_.availableSwitchingCards()) {
-            Numbers<Byte> w_ = game_.getWinners(new Numbers<Byte>(DealPresident.NUMERO_UTILISATEUR));
+            Numbers<Byte> w_ = game_.getWinners(user());
             if (!w_.isEmpty()) {
                 game_.giveWorstCards(w_);
                 setCanDiscard(true);
@@ -406,7 +412,7 @@ public class ContainerSinglePresident extends ContainerPresident implements
                 return;
             }
             game_.giveWorstCards();
-            Numbers<Byte> l_ = game_.getLoosers(new Numbers<Byte>(DealPresident.NUMERO_UTILISATEUR));
+            Numbers<Byte> l_ = game_.getLoosers(user());
             if (!l_.isEmpty()) {
                 getReceivedCards().supprimerCartes();
                 getReceivedCards().ajouterCartes(game_.getSwitchedCards().getVal(game_.getMatchingWinner(DealPresident.NUMERO_UTILISATEUR)));

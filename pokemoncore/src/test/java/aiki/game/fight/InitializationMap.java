@@ -1214,7 +1214,7 @@ final class InitializationMap {
         return single((short)5);
     }
 
-    private static Numbers<Short> single((short) _nb) {
+    private static Numbers<Short> single(short _nb) {
         Numbers<Short> l_ = new Numbers<Short>();
         l_.add(_nb);
         return l_;
