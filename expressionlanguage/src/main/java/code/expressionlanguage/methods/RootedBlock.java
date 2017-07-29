@@ -26,4 +26,8 @@ public interface RootedBlock extends AccessibleBlock {
     Block getFirstChild();
 
     void validateConstructors(ContextEl _cont);
+
+    boolean isFinalType();
+    
+    boolean isAbstractType();
 }

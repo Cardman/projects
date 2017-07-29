@@ -386,6 +386,9 @@ public final class PrimitiveTypeUtil {
         if (clMatch_.isPrimitive()) {
             if (_arg.isPrimitive()) {
                 CustList<Class<?>> gt_ = PrimitiveTypeUtil.getOrdersGreaterEqThan(clMatch_);
+                if (isPureNumberClass(clMatch_) && _param == Number.class) {
+                    return true;
+                }
                 Class<?> prim_ = PrimitiveTypeUtil.toPrimitive(_param, true);
                 boolean contained_ = false;
                 for (Class<?> c: gt_) {
@@ -462,46 +465,47 @@ public final class PrimitiveTypeUtil {
         return toPrimitive(new ClassArgumentMatching(_className), false) != null;
     }
     public static boolean isPureNumberClass(ClassArgumentMatching _class) {
-        Class<?> cl_;
         try {
-            cl_ = _class.getClazz();
+            return isPureNumberClass(_class.getClazz());
         } catch (RuntimeClassNotFoundException _0) {
             return false;
         }
-        if (cl_ == double.class) {
+    }
+    public static boolean isPureNumberClass(Class<?> _class) {
+        if (_class == double.class) {
             return true;
         }
-        if (cl_ == Double.class) {
+        if (_class == Double.class) {
             return true;
         }
-        if (cl_ == float.class) {
+        if (_class == float.class) {
             return true;
         }
-        if (cl_ == Float.class) {
+        if (_class == Float.class) {
             return true;
         }
-        if (cl_ == long.class) {
+        if (_class == long.class) {
             return true;
         }
-        if (cl_ == Long.class) {
+        if (_class == Long.class) {
             return true;
         }
-        if (cl_ == int.class) {
+        if (_class == int.class) {
             return true;
         }
-        if (cl_ == Integer.class) {
+        if (_class == Integer.class) {
             return true;
         }
-        if (cl_ == short.class) {
+        if (_class == short.class) {
             return true;
         }
-        if (cl_ == Short.class) {
+        if (_class == Short.class) {
             return true;
         }
-        if (cl_ == byte.class) {
+        if (_class == byte.class) {
             return true;
         }
-        if (cl_ == Byte.class) {
+        if (_class == Byte.class) {
             return true;
         }
         return false;

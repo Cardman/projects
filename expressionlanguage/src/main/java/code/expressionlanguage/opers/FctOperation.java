@@ -9,6 +9,7 @@ import code.expressionlanguage.CustEnum;
 import code.expressionlanguage.OperationsSequence;
 import code.expressionlanguage.PrimitiveTypeUtil;
 import code.expressionlanguage.exceptions.AbstractMethodException;
+import code.expressionlanguage.exceptions.BadFormatPathException;
 import code.expressionlanguage.exceptions.BadNumberArgumentException;
 import code.expressionlanguage.exceptions.CustomFoundConstructorException;
 import code.expressionlanguage.exceptions.CustomFoundMethodException;
@@ -480,17 +481,31 @@ public final class FctOperation extends InvokingOperation {
                         return;
                     }
                 }
-                if (trimMeth_.startsWith(EXTERN_CLASS+SUPER_ACCESS+DOT)) {
+                boolean superClassAccess_ = true;
+                if (trimMeth_.contains(STATIC_CALL)) {
+                    StringList classMethod_ = StringList.splitStrings(trimMeth_, STATIC_CALL);
+                    if (classMethod_.size() != 2) {
+                        throw new BadFormatPathException(trimMeth_+RETURN_LINE+_conf.joinPages());
+                    }
+                    String className_ = classMethod_.first();
+                    className_ = StringList.removeAllSpaces(className_);
+                    className_ = className_.replace(EXTERN_CLASS, DOT_VAR);
+                    checkExist(_conf, className_, true, true, getIndexInEl()+off_);
+                    clCurName_ = className_;
+                    trimMeth_ = classMethod_.last();
+                    staticChoiceMethod = true;
+                    superClassAccess_ = false;
+                } else if (trimMeth_.startsWith(EXTERN_CLASS+SUPER_ACCESS+EXTERN_CLASS)) {
                     String superClass_ = custClass_.getSuperClass();
                     if (StringList.quickEq(superClass_, Object.class.getName())) {
                         throw new NoSuchDeclaredMethodException(trimMeth_+RETURN_LINE+_conf.joinPages());
                     }
-                    trimMeth_ = trimMeth_.substring((EXTERN_CLASS+SUPER_ACCESS+DOT).length());
+                    trimMeth_ = trimMeth_.substring((EXTERN_CLASS+SUPER_ACCESS+EXTERN_CLASS).length());
                     clCurName_ = superClass_;
                     staticChoiceMethod = true;
                     superAccessMethod = true;
                 }
-                ClassMethodId clMeth_ = getDeclaredCustMethod(_conf, new ClassArgumentMatching(clCurName_), trimMeth_, ClassArgumentMatching.toArgArray(firstArgs_));
+                ClassMethodId clMeth_ = getDeclaredCustMethod(_conf, new ClassArgumentMatching(clCurName_), trimMeth_, superClassAccess_, ClassArgumentMatching.toArgArray(firstArgs_));
                 methodId = clMeth_.getMethod();
                 String foundClass_ = clMeth_.getClassName().getName();
                 classMethodId = clMeth_;
@@ -504,7 +519,7 @@ public final class FctOperation extends InvokingOperation {
                     throw new StaticAccessException(_conf.joinPages());
                 }
                 if (staticChoiceMethod && methodMetaInfo_.getModifier() == MethodModifier.ABSTRACT) {
-                	setRelativeOffsetPossibleLastPage(getIndexInEl()+off_, _conf);
+                    setRelativeOffsetPossibleLastPage(getIndexInEl()+off_, _conf);
                     throw new AbstractMethodException(methodId.getSignature()+RETURN_LINE+_conf.joinPages());
                 }
                 methodMetaInfo = methodMetaInfo_;
@@ -959,8 +974,7 @@ public final class FctOperation extends InvokingOperation {
 //            String className_ = methodMetaInfo.getClassName();
             String classNameFound_;
             if (!methodMetaInfo.isStatic()) {
-                Object obj_ = arg_.getObject();
-                if (obj_ == null) {
+                if (arg_.isNull()) {
                     throw new NullObjectException(_conf.joinPages());
                 }
                 ClassMetaInfo custClass_ = null;
@@ -988,6 +1002,13 @@ public final class FctOperation extends InvokingOperation {
                 }
                 if (staticChoiceMethod) {
                     classNameFound_ = classMethodId.getClassName().getName();
+                    if (!superAccessMethod) {
+                        String argClassName_ = arg_.getObjectClassName();
+                        if (!PrimitiveTypeUtil.canBeUseAsArgument(classNameFound_, argClassName_, classes_)) {
+                            setRelativeOffsetPossibleLastPage(chidren_.last().getIndexInEl(), _conf);
+                            throw new DynamicCastClassException(argClassName_+RETURN_LINE+classNameFound_+RETURN_LINE+_conf.joinPages());
+                        }
+                    }
                 } else {
                     classNameFound_ = getDeclaredCustMethod(_conf, arg_.getObjectClassName(), classMethodId);
                 }
@@ -1501,8 +1522,7 @@ public final class FctOperation extends InvokingOperation {
             firstArgs_ = listArguments(chidren_, false);
             String classNameFound_;
             if (!methodMetaInfo.isStatic()) {
-                Object obj_ = arg_.getObject();
-                if (obj_ == null) {
+                if (arg_.isNull()) {
                     throw new NullObjectException(_conf.joinPages());
                 }
                 ClassMetaInfo custClass_ = null;
@@ -1530,6 +1550,13 @@ public final class FctOperation extends InvokingOperation {
                 }
                 if (staticChoiceMethod) {
                     classNameFound_ = classMethodId.getClassName().getName();
+                    if (!superAccessMethod) {
+                        String argClassName_ = arg_.getObjectClassName();
+                        if (!PrimitiveTypeUtil.canBeUseAsArgument(classNameFound_, argClassName_, classes_)) {
+                            setRelativeOffsetPossibleLastPage(chidren_.last().getIndexInEl(), _conf);
+                            throw new DynamicCastClassException(argClassName_+RETURN_LINE+classNameFound_+RETURN_LINE+_conf.joinPages());
+                        }
+                    }
                 } else {
                     classNameFound_ = getDeclaredCustMethod(_conf, arg_.getObjectClassName(), classMethodId);
                 }

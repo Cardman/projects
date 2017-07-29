@@ -6,7 +6,6 @@ import code.expressionlanguage.methods.exceptions.CyclicCallingException;
 import code.expressionlanguage.methods.exceptions.UndefinedSuperConstructorException;
 import code.expressionlanguage.methods.util.ConstructorEdge;
 import code.expressionlanguage.opers.util.ClassMetaInfo;
-import code.expressionlanguage.opers.util.ClassMethodId;
 import code.expressionlanguage.opers.util.ConstructorId;
 import code.expressionlanguage.opers.util.ConstructorMetaInfo;
 import code.expressionlanguage.opers.util.MethodId;
@@ -31,6 +30,10 @@ public final class ClassBlock extends BracedBlock implements RootedBlock {
 
     private final AccessEnum access;
 
+    private final boolean finalType;
+    
+    private final boolean abstractType;
+
     public ClassBlock(Element _el, ContextEl _importingPage, int _indexChild,
             BracedBlock _m) {
         super(_el, _importingPage, _indexChild, _m);
@@ -42,6 +45,9 @@ public final class ClassBlock extends BracedBlock implements RootedBlock {
         }
         superClass = superClass_;
         access = AccessEnum.valueOf(_el.getAttribute(ATTRIBUTE_ACCESS));
+        String modifier_ = _el.getAttribute(ATTRIBUTE_MODIFIER);
+        finalType = StringList.quickEq(modifier_, VALUE_FINAL);
+        abstractType = StringList.quickEq(modifier_, VALUE_ABSTRACT);
     }
 
     @Override
@@ -244,5 +250,15 @@ public final class ClassBlock extends BracedBlock implements RootedBlock {
     @Override
     public RootedBlock belong() {
         return this;
+    }
+
+    @Override
+    public boolean isFinalType() {
+        return finalType;
+    }
+
+    @Override
+    public boolean isAbstractType() {
+        return abstractType;
     }
 }

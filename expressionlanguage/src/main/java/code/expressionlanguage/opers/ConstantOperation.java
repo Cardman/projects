@@ -10,6 +10,8 @@ import code.expressionlanguage.ElUtil;
 import code.expressionlanguage.OperationsSequence;
 import code.expressionlanguage.PageEl;
 import code.expressionlanguage.PrimitiveTypeUtil;
+import code.expressionlanguage.exceptions.BadFormatPathException;
+import code.expressionlanguage.exceptions.DynamicCastClassException;
 import code.expressionlanguage.exceptions.EmptyPartException;
 import code.expressionlanguage.exceptions.ErrorCausingException;
 import code.expressionlanguage.exceptions.FinalMemberException;
@@ -305,8 +307,25 @@ public final class ConstantOperation extends OperationNode implements SettableEl
                 custClass_ = classes_.getClassMetaInfo(clCurName_);
                 if (custClass_ != null) {
                     String key_ = str_.substring(CustList.FIRST_INDEX, str_.length() - GET_FIELD.length());
+                    if (str_.startsWith(EXTERN_CLASS+SUPER_ACCESS+EXTERN_CLASS)) {
+                        key_ = str_.substring((EXTERN_CLASS+SUPER_ACCESS+EXTERN_CLASS).length(), str_.length() - GET_FIELD.length());
+                    }
+                    boolean superClassAccess_ = true;
+                    if (str_.contains(STATIC_CALL)) {
+                        StringList classMethod_ = StringList.splitStrings(str_, STATIC_CALL);
+                        if (classMethod_.size() != 2) {
+                            throw new BadFormatPathException(str_+RETURN_LINE+_conf.joinPages());
+                        }
+                        String className_ = classMethod_.first();
+                        className_ = StringList.removeAllSpaces(className_);
+                        className_ = className_.replace(EXTERN_CLASS, DOT_VAR);
+                        checkExist(_conf, className_, true, true, 0);
+                        clCurName_ = className_;
+                        key_ = classMethod_.last();
+                        superClassAccess_ = false;
+                    }
                     FieldMetaInfo e_;
-                    e_ = getDeclaredCustField(_conf, cl_, key_);
+                    e_ = getDeclaredCustField(_conf, cl_, superClassAccess_, key_);
                     fieldMetaInfo = e_;
                     if (isStaticAccess() && !e_.isStaticField()) {
                         throw new StaticAccessException(_conf.joinPages());
@@ -482,8 +501,25 @@ public final class ConstantOperation extends OperationNode implements SettableEl
                 custClass_ = classes_.getClassMetaInfo(clCurName_);
                 if (custClass_ != null) {
                     String key_ = str_.substring(CustList.FIRST_INDEX, str_.length() - GET_FIELD.length());
+                    if (str_.startsWith(EXTERN_CLASS+SUPER_ACCESS+EXTERN_CLASS)) {
+                        key_ = str_.substring((EXTERN_CLASS+SUPER_ACCESS+EXTERN_CLASS).length(), str_.length() - GET_FIELD.length());
+                    }
+                    boolean superClassAccess_ = true;
+                    if (str_.contains(STATIC_CALL)) {
+                        StringList classMethod_ = StringList.splitStrings(str_, STATIC_CALL);
+                        if (classMethod_.size() != 2) {
+                            throw new BadFormatPathException(str_+RETURN_LINE+_conf.joinPages());
+                        }
+                        String className_ = classMethod_.first();
+                        className_ = StringList.removeAllSpaces(className_);
+                        className_ = className_.replace(EXTERN_CLASS, DOT_VAR);
+                        checkExist(_conf, className_, true, true, 0);
+                        clCurName_ = className_;
+                        key_ = classMethod_.last();
+                        superClassAccess_ = false;
+                    }
                     FieldMetaInfo e_;
-                    e_ = getDeclaredCustField(_conf, cl_, key_);
+                    e_ = getDeclaredCustField(_conf, cl_, superClassAccess_, key_);
                     fieldMetaInfo = e_;
                     if (isStaticAccess() && !e_.isStaticField()) {
                         throw new StaticAccessException(_conf.joinPages());
@@ -866,8 +902,8 @@ public final class ConstantOperation extends OperationNode implements SettableEl
             return a_;
         }
         if (fieldId != null) {
+            Classes classes_ = _conf.getClasses();
             if (fieldMetaInfo.isStaticField()) {
-                Classes classes_ = _conf.getClasses();
                 Struct struct_ = classes_.getStaticField(fieldId);
                 a_ = new Argument();
 //                a_.setArgClassName(fieldMetaInfo.getType().getName());
@@ -877,6 +913,14 @@ public final class ConstantOperation extends OperationNode implements SettableEl
                 return a_;
             }
             Argument arg_ = _nodes.getVal(this).getPreviousArgument();
+            if (arg_.isNull()) {
+                throw new NullObjectException(_conf.joinPages());
+            }
+            String argClassName_ = arg_.getObjectClassName();
+            String classNameFound_ = fieldId.getClassName();
+            if (!PrimitiveTypeUtil.canBeUseAsArgument(classNameFound_, argClassName_, classes_)) {
+                throw new DynamicCastClassException(argClassName_+RETURN_LINE+classNameFound_+RETURN_LINE+_conf.joinPages());
+            }
             Struct struct_ = arg_.getStruct().getStruct(fieldId, field);
             a_ = new Argument();
 //            a_.setArgClassName(fieldMetaInfo.getType().getName());
@@ -1033,8 +1077,8 @@ public final class ConstantOperation extends OperationNode implements SettableEl
             return a_;
         }
         if (fieldId != null) {
+            Classes classes_ = _conf.getClasses();
             if (fieldMetaInfo.isStaticField()) {
-                Classes classes_ = _conf.getClasses();
                 Struct struct_ = classes_.getStaticField(fieldId);
                 a_ = new Argument();
 //                a_.setArgClassName(fieldMetaInfo.getType().getName());
@@ -1044,6 +1088,14 @@ public final class ConstantOperation extends OperationNode implements SettableEl
                 return a_;
             }
             Argument arg_ = _nodes.getVal(this).getPreviousArgument();
+            if (arg_.isNull()) {
+                throw new NullObjectException(_conf.joinPages());
+            }
+            String argClassName_ = arg_.getObjectClassName();
+            String classNameFound_ = fieldId.getClassName();
+            if (!PrimitiveTypeUtil.canBeUseAsArgument(classNameFound_, argClassName_, classes_)) {
+                throw new DynamicCastClassException(argClassName_+RETURN_LINE+classNameFound_+RETURN_LINE+_conf.joinPages());
+            }
             Struct struct_ = arg_.getStruct().getStruct(fieldId, field);
             a_ = new Argument();
 //            a_.setArgClassName(fieldMetaInfo.getType().getName());
@@ -1185,6 +1237,14 @@ public final class ConstantOperation extends OperationNode implements SettableEl
                     classes_.initializeStaticField(fieldId, res_.getStruct());
                 } else {
                     Argument arg_ = _nodes.getVal(this).getPreviousArgument();
+                    if (arg_.isNull()) {
+                        throw new NullObjectException(_conf.joinPages());
+                    }
+                    String argClassName_ = arg_.getObjectClassName();
+                    String classNameFound_ = fieldId.getClassName();
+                    if (!PrimitiveTypeUtil.canBeUseAsArgument(classNameFound_, argClassName_, classes_)) {
+                        throw new DynamicCastClassException(argClassName_+RETURN_LINE+classNameFound_+RETURN_LINE+_conf.joinPages());
+                    }
                     Struct structField_ = arg_.getStruct().getStruct(fieldId, field);
 //                    left_.setArgClassName(fieldMetaInfo.getType().getName());
 //                    left_.setStruct(structField_);
@@ -1639,8 +1699,8 @@ public final class ConstantOperation extends OperationNode implements SettableEl
         setRelativeOffsetPossibleLastPage(getIndexInEl()+off_, _conf);
         PageEl ip_ = _conf.getLastPage();
         if (fieldId != null) {
+            Classes classes_ = _conf.getClasses();
             if (fieldMetaInfo.isStaticField()) {
-                Classes classes_ = _conf.getClasses();
                 Struct struct_ = classes_.getStaticField(fieldId);
                 a_ = new Argument();
 //                a_.setArgClassName(fieldMetaInfo.getType().getName());
@@ -1650,7 +1710,16 @@ public final class ConstantOperation extends OperationNode implements SettableEl
                 return;
             }
 //            Struct struct_ = ip_.getGlobalArgument().getStruct().getStruct(fieldId, field);
-            Struct struct_ = getPreviousArgument().getStruct().getStruct(fieldId, field);
+            Argument previous_ = getPreviousArgument();
+            if (previous_.isNull()) {
+                throw new NullObjectException(_conf.joinPages());
+            }
+            String argClassName_ = previous_.getObjectClassName();
+            String classNameFound_ = fieldId.getClassName();
+            if (!PrimitiveTypeUtil.canBeUseAsArgument(classNameFound_, argClassName_, classes_)) {
+                throw new DynamicCastClassException(argClassName_+RETURN_LINE+classNameFound_+RETURN_LINE+_conf.joinPages());
+            }
+            Struct struct_ = previous_.getStruct().getStruct(fieldId, field);
             a_ = new Argument();
 //            a_.setArgClassName(fieldMetaInfo.getType().getName());
 //            a_.setStruct(struct_);
@@ -1788,8 +1857,8 @@ public final class ConstantOperation extends OperationNode implements SettableEl
         setRelativeOffsetPossibleLastPage(getIndexInEl()+off_, _conf);
         PageEl ip_ = _conf.getLastPage();
         if (fieldId != null) {
+            Classes classes_ = _conf.getClasses();
             if (fieldMetaInfo.isStaticField()) {
-                Classes classes_ = _conf.getClasses();
                 Struct struct_ = classes_.getStaticField(fieldId);
                 a_ = new Argument();
 //                a_.setArgClassName(fieldMetaInfo.getType().getName());
@@ -1798,8 +1867,17 @@ public final class ConstantOperation extends OperationNode implements SettableEl
                 setSimpleArgument(getArgument(), _conf);
                 return;
             }
+            Argument previous_ = getPreviousArgument();
+            if (previous_.isNull()) {
+                throw new NullObjectException(_conf.joinPages());
+            }
+            String argClassName_ = previous_.getObjectClassName();
+            String classNameFound_ = fieldId.getClassName();
+            if (!PrimitiveTypeUtil.canBeUseAsArgument(classNameFound_, argClassName_, classes_)) {
+                throw new DynamicCastClassException(argClassName_+RETURN_LINE+classNameFound_+RETURN_LINE+_conf.joinPages());
+            }
 //            Struct struct_ = ip_.getGlobalArgument().getStruct().getStruct(fieldId, field);
-            Struct struct_ = getPreviousArgument().getStruct().getStruct(fieldId, field);
+            Struct struct_ = previous_.getStruct().getStruct(fieldId, field);
             a_ = new Argument();
 //            a_.setArgClassName(fieldMetaInfo.getType().getName());
 //            a_.setStruct(struct_);
@@ -1940,14 +2018,23 @@ public final class ConstantOperation extends OperationNode implements SettableEl
                     res_ = NumericOperation.calculateAffect(left_, _conf, right_, _op);
                     classes_.initializeStaticField(fieldId, res_.getStruct());
                 } else {
+                    Argument previous_ = getPreviousArgument();
+                    if (previous_.isNull()) {
+                        throw new NullObjectException(_conf.joinPages());
+                    }
+                    String argClassName_ = previous_.getObjectClassName();
+                    String classNameFound_ = fieldId.getClassName();
+                    if (!PrimitiveTypeUtil.canBeUseAsArgument(classNameFound_, argClassName_, classes_)) {
+                        throw new DynamicCastClassException(argClassName_+RETURN_LINE+classNameFound_+RETURN_LINE+_conf.joinPages());
+                    }
 //                    Struct structField_ = ip_.getGlobalArgument().getStruct().getStruct(fieldId, field);
-                    Struct structField_ = getPreviousArgument().getStruct().getStruct(fieldId, field);
+                    Struct structField_ = previous_.getStruct().getStruct(fieldId, field);
 //                    left_.setArgClassName(fieldMetaInfo.getType().getName());
 //                    left_.setStruct(structField_);
                     left_.setStructArgClassName(structField_, fieldMetaInfo.getType().getName());
                     res_ = NumericOperation.calculateAffect(left_, _conf, right_, _op);
 //                    ip_.getGlobalArgument().getStruct().setStruct(fieldId, res_.getStruct());
-                    getPreviousArgument().getStruct().setStruct(fieldId, res_.getStruct());
+                    previous_.getStruct().setStruct(fieldId, res_.getStruct());
                 }
                 setSimpleArgument(getArgument(), _conf);
                 return;

@@ -56,7 +56,7 @@ public final class ConstructorId implements Equallable<ConstructorId> {
         }
         int len_ = classNames.size();
         for (int i = 0; i < len_; i++) {
-            if (!classNames.get(i).eq(classNames.get(i))) {
+            if (!classNames.get(i).eq(_obj.classNames.get(i))) {
                 return false;
             }
         }

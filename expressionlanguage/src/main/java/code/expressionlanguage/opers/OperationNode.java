@@ -26,9 +26,11 @@ import code.expressionlanguage.methods.MethodBlock;
 import code.expressionlanguage.methods.util.ArgumentsPair;
 import code.expressionlanguage.opers.util.ArgumentsGroup;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
+import code.expressionlanguage.opers.util.ClassCategory;
 import code.expressionlanguage.opers.util.ClassMatching;
 import code.expressionlanguage.opers.util.ClassMetaInfo;
 import code.expressionlanguage.opers.util.ClassMethodId;
+import code.expressionlanguage.opers.util.ClassMethodIdResult;
 import code.expressionlanguage.opers.util.ClassName;
 import code.expressionlanguage.opers.util.ConstructorId;
 import code.expressionlanguage.opers.util.ConstructorInfo;
@@ -39,6 +41,7 @@ import code.expressionlanguage.opers.util.MethodInfo;
 import code.expressionlanguage.opers.util.MethodMetaInfo;
 import code.expressionlanguage.opers.util.ParametersGroup;
 import code.expressionlanguage.opers.util.ParametersGroupComparator;
+import code.expressionlanguage.opers.util.SearchingMemberStatus;
 import code.expressionlanguage.opers.util.Struct;
 import code.serialize.exceptions.BadAccessException;
 import code.serialize.exceptions.NoSuchDeclaredConstructorException;
@@ -50,6 +53,7 @@ import code.util.EntryCust;
 import code.util.EqList;
 import code.util.IdMap;
 import code.util.NatTreeMap;
+import code.util.ObjectNotNullMap;
 import code.util.StringList;
 import code.util.consts.ConstClasses;
 import code.util.exceptions.NullObjectException;
@@ -518,7 +522,7 @@ public abstract class OperationNode implements SortedNode<OperationNode>, Operab
             }
         }
     }
-    static FieldMetaInfo getDeclaredCustField(ContextEl _cont,ClassArgumentMatching _class, String _name) {
+    static FieldMetaInfo getDeclaredCustField(ContextEl _cont,ClassArgumentMatching _class, boolean _superClass, String _name) {
         String clCurName_ = _class.getName();
         ClassMetaInfo custClass_;
         Classes classes_ = _cont.getClasses();
@@ -569,6 +573,9 @@ public abstract class OperationNode implements SortedNode<OperationNode>, Operab
         if (custClass_ == null) {
             return null;
         }
+        if (custClass_.isAbstractType() && custClass_.getCategory() != ClassCategory.ENUM) {
+            throw new AbstractClassConstructorException(_class.getName()+RETURN_LINE+_conf.joinPages());
+        }
         String glClass_ = _conf.getLastPage().getGlobalClass();
         CustList<ConstructorId> possibleMethods_ = new CustList<ConstructorId>();
         for (ClassArgumentMatching c:_args) {
@@ -576,7 +583,14 @@ public abstract class OperationNode implements SortedNode<OperationNode>, Operab
                 throw new VoidArgumentException(clCurName_+RETURN_LINE+_conf.joinPages());
             }
         }
-        for (EntryCust<ConstructorId, ConstructorMetaInfo> e: custClass_.getConstructors().entryList()) {
+        ObjectNotNullMap<ConstructorId, ConstructorMetaInfo> constructors_;
+        constructors_ = custClass_.getConstructors();
+        if (constructors_.isEmpty()) {
+            if (_args.length == 0) {
+                return new ConstructorId(clCurName_, new EqList<ClassName>());
+            }
+        }
+        for (EntryCust<ConstructorId, ConstructorMetaInfo> e: constructors_.entryList()) {
             EqList<ClassName> params_ = e.getKey().getClassNames();
             ClassMatching[] p_ = new ClassMatching[params_.size()];
             int i_ = CustList.FIRST_INDEX;
@@ -590,9 +604,6 @@ public abstract class OperationNode implements SortedNode<OperationNode>, Operab
             possibleMethods_.add(e.getKey());
         }
         if (possibleMethods_.isEmpty()) {
-            if (_args.length == 0) {
-                return new ConstructorId(clCurName_, new EqList<ClassName>());
-            }
             String trace_ = clCurName_+PAR_LEFT;
             StringList classesNames_ = new StringList();
             for (ClassArgumentMatching c: _args) {
@@ -730,6 +741,12 @@ public abstract class OperationNode implements SortedNode<OperationNode>, Operab
                 clCurName_ = superClass_;
                 continue;
             }
+            if (method_.isAbstractMethod()) {
+                String superClass_ = custClass_.getSuperClass();
+                custClass_ = classes_.getClassMetaInfo(superClass_);
+                clCurName_ = superClass_;
+                continue;
+            }
             if (StringList.quickEq(clCurName_, stopClass_)) {
                 return clCurName_;
             }
@@ -742,7 +759,7 @@ public abstract class OperationNode implements SortedNode<OperationNode>, Operab
             return clCurName_;
         }
     }
-    static ClassMethodId getDeclaredCustMethod(ContextEl _conf, ClassArgumentMatching _class, String _name, ClassArgumentMatching... _argsClass) {
+    static ClassMethodId getDeclaredCustMethod(ContextEl _conf, ClassArgumentMatching _class, String _name, boolean _superClass, ClassArgumentMatching... _argsClass) {
         Classes classes_ = _conf.getClasses();
         if (classes_ == null) {
             return null;
@@ -761,91 +778,117 @@ public abstract class OperationNode implements SortedNode<OperationNode>, Operab
         }
         StringList traces_ = new StringList();
         while (custClass_ != null) {
-            if (!classes_.canAccessClass(glClass_, clCurName_)) {
-                traces_.add(clCurName_);
-                String superClass_ = custClass_.getSuperClass();
-                custClass_ = classes_.getClassMetaInfo(superClass_);
-                continue;
-            }
-            CustList<MethodId> possibleMethods_ = new CustList<MethodId>();
-            for (EntryCust<MethodId, MethodMetaInfo> e: custClass_.getMethods().entryList()) {
-                if (!StringList.quickEq(e.getKey().getName(), _name)) {
-                    continue;
+            ClassMethodIdResult res_ = getDeclaredCustMethodByClass(_conf, new ClassArgumentMatching(clCurName_), _name, _argsClass);
+            if (res_.getStatus() == SearchingMemberStatus.ZERO) {
+                if (!classes_.canAccessClass(glClass_, clCurName_)) {
+                    traces_.add(clCurName_);
+                } else {
+                    String trace_ = clCurName_+DOT+_name+PAR_LEFT;
+                    StringList classesNames_ = new StringList();
+                    for (ClassArgumentMatching c: _argsClass) {
+                        classesNames_.add(c.getName());
+                    }
+                    trace_ += classesNames_.join(SEP_ARG);
+                    trace_ += PAR_RIGHT;
+                    traces_.add(trace_);
                 }
-                EqList<ClassName> params_ = e.getKey().getClassNames();
-                ClassMatching[] p_ = new ClassMatching[params_.size()];
-                int i_ = CustList.FIRST_INDEX;
-                for (ClassName c: params_) {
-                    p_[i_] = new ClassMatching(c.getName());
-                    i_++;
+                if (!_superClass) {
+                    break;
                 }
-                if (!isPossibleMethod(_conf, p_, _argsClass)) {
-                    continue;
-                }
-                possibleMethods_.add(e.getKey());
-            }
-            if (possibleMethods_.isEmpty()) {
-                String trace_ = clCurName_+DOT+_name+PAR_LEFT;
-                StringList classesNames_ = new StringList();
-                for (ClassArgumentMatching c: _argsClass) {
-                    classesNames_.add(c.getName());
-                }
-                trace_ += classesNames_.join(SEP_ARG);
-                trace_ += PAR_RIGHT;
-                traces_.add(trace_);
                 String superClass_ = custClass_.getSuperClass();
                 custClass_ = classes_.getClassMetaInfo(superClass_);
                 clCurName_ = superClass_;
                 continue;
             }
-            if (possibleMethods_.size() == CustList.ONE_ELEMENT) {
-                MethodId methodId_ = possibleMethods_.first();
-                ClassMethodId cl_ = new ClassMethodId(new ClassName(clCurName_, false), methodId_);
-                return cl_;
+            if (res_.getStatus() == SearchingMemberStatus.UNIQ) {
+                return res_.getId();
             }
-            possibleMethods_ = filterMeth(glClass_, clCurName_, possibleMethods_, _conf);
-            if (possibleMethods_.isEmpty()) {
-                String trace_ = clCurName_+DOT+_name+PAR_LEFT;
-                StringList classesNames_ = new StringList();
-                for (ClassArgumentMatching c: _argsClass) {
-                    classesNames_.add(c.getName());
-                }
-                trace_ += classesNames_.join(SEP_ARG);
-                trace_ += PAR_RIGHT;
-                traces_.add(trace_);
-                String superClass_ = custClass_.getSuperClass();
-                custClass_ = classes_.getClassMetaInfo(superClass_);
-                continue;
-            }
-            ArgumentsGroup gr_ = new ArgumentsGroup(classes_, _argsClass);
-            //        ParametersGroupComparator<MethodInfo> cmp_ = new ParametersGroupComparator<MethodInfo>(gr_);
-            CustList<MethodInfo> signatures_ = new CustList<MethodInfo>();
-            for (MethodId m: possibleMethods_) {
-                ParametersGroup p_ = new ParametersGroup();
-                for (ClassName c: m.getClassNames()) {
-                    p_.add(new ClassMatching(c.getName()));
-                }
-                MethodInfo mloc_ = new MethodInfo();
-                mloc_.setClassName(clCurName_);
-                mloc_.setMethodId(m);
-                mloc_.setParameters(p_);
-                signatures_.add(mloc_);
-            }
-            signatures_.sortElts(new ParametersGroupComparator<MethodInfo>(gr_));
-            CustList<MethodInfo> errors_ = new CustList<MethodInfo>();
-            for (MethodInfo p : signatures_) {
-                if (p.getParameters().isError()) {
-                    errors_.add(p);
-                }
-            }
-            if (!signatures_.first().getParameters().isError()) {
-                MethodId methodId_ = signatures_.first().getMethodId();
-                ClassMethodId cl_ = new ClassMethodId(new ClassName(clCurName_, false), methodId_);
-                return cl_;
-            }
-            throw new AmbiguousChoiceCallingException(errors_.join(RETURN_LINE)+RETURN_LINE+_conf.joinPages());
+            throw new AmbiguousChoiceCallingException(res_.getMethods().join(RETURN_LINE)+RETURN_LINE+_conf.joinPages());
         }
         throw new NoSuchDeclaredMethodException(traces_.join(RETURN_TAB)+RETURN_LINE+_conf.joinPages());
+    }
+    private static ClassMethodIdResult getDeclaredCustMethodByClass(ContextEl _conf, ClassArgumentMatching _class, String _name, ClassArgumentMatching... _argsClass) {
+        Classes classes_ = _conf.getClasses();
+        ClassMetaInfo custClass_ = null;
+        String clCurName_ = _class.getName();
+        custClass_ = classes_.getClassMetaInfo(clCurName_);
+        String glClass_ = _conf.getLastPage().getGlobalClass();
+        if (!classes_.canAccessClass(glClass_, clCurName_)) {
+            String superClass_ = custClass_.getSuperClass();
+            custClass_ = classes_.getClassMetaInfo(superClass_);
+            ClassMethodIdResult res_ = new ClassMethodIdResult();
+            res_.setStatus(SearchingMemberStatus.ZERO);
+            return res_;
+        }
+        CustList<MethodId> possibleMethods_ = new CustList<MethodId>();
+        for (EntryCust<MethodId, MethodMetaInfo> e: custClass_.getMethods().entryList()) {
+            if (!StringList.quickEq(e.getKey().getName(), _name)) {
+                continue;
+            }
+            EqList<ClassName> params_ = e.getKey().getClassNames();
+            ClassMatching[] p_ = new ClassMatching[params_.size()];
+            int i_ = CustList.FIRST_INDEX;
+            for (ClassName c: params_) {
+                p_[i_] = new ClassMatching(c.getName());
+                i_++;
+            }
+            if (!isPossibleMethod(_conf, p_, _argsClass)) {
+                continue;
+            }
+            possibleMethods_.add(e.getKey());
+        }
+        if (possibleMethods_.isEmpty()) {
+            ClassMethodIdResult res_ = new ClassMethodIdResult();
+            res_.setStatus(SearchingMemberStatus.ZERO);
+            return res_;
+        }
+        if (possibleMethods_.size() == CustList.ONE_ELEMENT) {
+            MethodId methodId_ = possibleMethods_.first();
+            ClassMethodId cl_ = new ClassMethodId(new ClassName(clCurName_, false), methodId_);
+            ClassMethodIdResult res_ = new ClassMethodIdResult();
+            res_.setStatus(SearchingMemberStatus.UNIQ);
+            res_.setId(cl_);
+            return res_;
+        }
+        possibleMethods_ = filterMeth(glClass_, clCurName_, possibleMethods_, _conf);
+        if (possibleMethods_.isEmpty()) {
+            ClassMethodIdResult res_ = new ClassMethodIdResult();
+            res_.setStatus(SearchingMemberStatus.ZERO);
+            return res_;
+        }
+        ArgumentsGroup gr_ = new ArgumentsGroup(classes_, _argsClass);
+        //        ParametersGroupComparator<MethodInfo> cmp_ = new ParametersGroupComparator<MethodInfo>(gr_);
+        CustList<MethodInfo> signatures_ = new CustList<MethodInfo>();
+        for (MethodId m: possibleMethods_) {
+            ParametersGroup p_ = new ParametersGroup();
+            for (ClassName c: m.getClassNames()) {
+                p_.add(new ClassMatching(c.getName()));
+            }
+            MethodInfo mloc_ = new MethodInfo();
+            mloc_.setClassName(clCurName_);
+            mloc_.setMethodId(m);
+            mloc_.setParameters(p_);
+            signatures_.add(mloc_);
+        }
+        signatures_.sortElts(new ParametersGroupComparator<MethodInfo>(gr_));
+        CustList<MethodInfo> errors_ = new CustList<MethodInfo>();
+        for (MethodInfo p : signatures_) {
+            if (p.getParameters().isError()) {
+                errors_.add(p);
+            }
+        }
+        if (!signatures_.first().getParameters().isError()) {
+            MethodId methodId_ = signatures_.first().getMethodId();
+            ClassMethodId cl_ = new ClassMethodId(new ClassName(clCurName_, false), methodId_);
+            ClassMethodIdResult res_ = new ClassMethodIdResult();
+            res_.setStatus(SearchingMemberStatus.UNIQ);
+            res_.setId(cl_);
+            return res_;
+        }
+        ClassMethodIdResult res_ = new ClassMethodIdResult();
+        res_.setStatus(SearchingMemberStatus.AMBIGUOUS);
+        res_.setMethods(errors_);
+        return res_;
     }
     private static EqList<MethodId> filterMeth(String _glClass, String _accessedClass, CustList<MethodId> _found, ContextEl _conf) {
         EqList<MethodId> accessible_ = new EqList<MethodId>();

@@ -13,6 +13,7 @@ import code.expressionlanguage.methods.exceptions.AnalyzingErrorsException;
 import code.expressionlanguage.methods.exceptions.BadClassNameException;
 import code.expressionlanguage.methods.exceptions.BadFileNameException;
 import code.expressionlanguage.methods.exceptions.UnknownBlockException;
+import code.expressionlanguage.methods.util.AbstractMethod;
 import code.expressionlanguage.methods.util.BadAccessClass;
 import code.expressionlanguage.methods.util.BadAccessMethod;
 import code.expressionlanguage.methods.util.BadClassName;
@@ -30,6 +31,7 @@ import code.expressionlanguage.methods.util.DuplicateField;
 import code.expressionlanguage.methods.util.DuplicateMethod;
 import code.expressionlanguage.methods.util.DuplicateParamName;
 import code.expressionlanguage.methods.util.EqualsEl;
+import code.expressionlanguage.methods.util.FinalMethod;
 import code.expressionlanguage.methods.util.FoundErrorInterpret;
 import code.expressionlanguage.methods.util.MissingReturnMethod;
 import code.expressionlanguage.methods.util.ReservedMethod;
@@ -49,7 +51,6 @@ import code.expressionlanguage.opers.util.ConstructorMetaInfo;
 import code.expressionlanguage.opers.util.FieldMetaInfo;
 import code.expressionlanguage.opers.util.MethodId;
 import code.expressionlanguage.opers.util.MethodMetaInfo;
-import code.expressionlanguage.opers.util.MethodModifier;
 import code.expressionlanguage.opers.util.Struct;
 import code.expressionlanguage.variables.LocalVariable;
 import code.util.CustList;
@@ -183,6 +184,13 @@ public final class Classes {
                 if (!(bl_ instanceof RootedBlock)) {
                     throw new XmlParseException();
                 }
+                int tabWidth_ = _context.getTabWidth();
+                ElementOffsetsNext e_ = _context.getElements();
+                ElementOffsetsNext ne_ = XmlParser.getIndexesOfElementOrAttribute(content_, e_, root_, tabWidth_);
+                bl_.setAttributes(ne_.getAttributes());
+                bl_.setEndHeader(ne_.getEndHeader());
+                bl_.setTabs(ne_.getTabs());
+                bl_.setOffsets(ne_.getOffsets());
                 RootedBlock cl_ = (RootedBlock) bl_;
                 String packageName_;
                 packageName_ = cl_.getPackageName();
@@ -208,7 +216,8 @@ public final class Classes {
                     throw new AlreadyExistingClassException(clNat_.getName());
                 } catch (RuntimeClassNotFoundException _0) {
                 }
-                CustList<Block> all_ = getSortedDescNodes((Block)cl_);
+                Block rootBl_ = (Block) cl_;
+                CustList<Block> all_ = getSortedDescNodes(rootBl_);
                 for (Block b: all_) {
                     b.setConf(null);
                     b.setupChars(content_);
@@ -407,13 +416,13 @@ public final class Classes {
                         errorsDet.add(undef_);
                     }
                 } else {
-                    Block super_ = classesBodies.getVal(b_);
-                    if (super_ instanceof EnumBlock) {
+                    RootedBlock super_ = (RootedBlock) classesBodies.getVal(b_);
+                    if (super_.isFinalType()) {
                         BadInheritedClass enum_;
                         enum_ = new BadInheritedClass();
                         String n_ = b_.getName();
                         enum_.setClassName(n_);
-                        enum_.setFileName(n_);
+                        enum_.setFileName(d_.getName());
                         enum_.setRc(new RowCol());
                         errorsDet.add(enum_);
                     }
@@ -868,17 +877,58 @@ public final class Classes {
                 }
             }
         }
+        StringList concreteClasses_ = new StringList();
         for (String c: classesInheriting) {
             if (StringList.quickEq(c, Object.class.getName())) {
                 continue;
             }
+            EqList<ClassMethodId> abstractMethods_ = new EqList<ClassMethodId>();
             ClassName idBase_ = new ClassName(c, false);
             ClassBlock bl_ = (ClassBlock) classesBodies.getVal(idBase_);
+            boolean concreteClass_ = false;
+            if (!bl_.isAbstractType()) {
+                concreteClasses_.add(c);
+                concreteClass_ = true;
+            }
+            StringList allSuperClass_ = bl_.getAllSuperClasses();
+            for (String s: allSuperClass_) {
+                ClassName idSuper_ = new ClassName(s, false);
+                ClassBlock superBl_ = (ClassBlock) classesBodies.getVal(idSuper_);
+                for (Block b: getDirectChildren(superBl_)) {
+                    if (b instanceof MethodBlock) {
+                        MethodBlock mDer_ = (MethodBlock) b;
+                        MethodId id_ = mDer_.getId();
+                        if (mDer_.isAbstractMethod()) {
+                            abstractMethods_.add(new ClassMethodId(idSuper_, id_));
+                        }
+                    }
+                }
+            }
             for (Block b: getDirectChildren(bl_)) {
                 if (b instanceof MethodBlock) {
                     MethodBlock mDer_ = (MethodBlock) b;
-                    String retDerive_ = mDer_.getReturnType();
                     MethodId id_ = mDer_.getId();
+                    if (mDer_.isAbstractMethod()) {
+                        if (concreteClass_) {
+                            AbstractMethod err_;
+                            err_ = new AbstractMethod();
+                            err_.setFileName(c);
+                            err_.setRc(mDer_.getAttributes().getVal(ATTRIBUTE_NAME));
+                            err_.setId(id_);
+                            err_.setClassName(c);
+                            errorsDet.add(err_);
+                        }
+                        if (mDer_.getFirstChild() != null) {
+                            AbstractMethod err_;
+                            err_ = new AbstractMethod();
+                            err_.setFileName(c);
+                            err_.setRc(mDer_.getAttributes().getVal(ATTRIBUTE_NAME));
+                            err_.setId(id_);
+                            err_.setClassName(c);
+                            errorsDet.add(err_);
+                        }
+                    }
+                    String retDerive_ = mDer_.getReturnType();
                     for (String o: mDer_.getOverridenClasses()) {
                         MethodBlock mBase_ = getMethodBody(o, id_);
                         String retBase_ = mBase_.getReturnType();
@@ -902,6 +952,14 @@ public final class Classes {
                                 err_.setBaseClass(idBase_);
                                 err_.setMethodeId(id_);
                                 err_.setStaticBaseMethod(true);
+                                errorsDet.add(err_);
+                            } else if (mBase_.isFinalMethod()) {
+                                FinalMethod err_;
+                                err_ = new FinalMethod();
+                                err_.setFileName(c);
+                                err_.setRc(mDer_.getAttributes().getVal(ATTRIBUTE_NAME));
+                                err_.setClassName(o);
+                                err_.setId(id_);
                                 errorsDet.add(err_);
                             } else if (mDer_.getAccess().ordinal() > mBase_.getAccess().ordinal()) {
                                 BadAccessMethod err_;
@@ -937,6 +995,36 @@ public final class Classes {
                     }
                 }
             }
+            if (concreteClass_) {
+                for (ClassMethodId m: abstractMethods_) {
+                    StringList allAssignable_ = new StringList(allSuperClass_);
+                    allAssignable_.add(c);
+                    boolean ok_ = false;
+                    for (String s: allAssignable_) {
+                        MethodBlock method_ = getMethodBody(s, m.getMethod());
+                        if (method_ == null) {
+                            continue;
+                        }
+                        if (!method_.getAllOverridenClasses().containsStr(m.getClassName().getName())) {
+                            continue;
+                        }
+                        ok_ = true;
+                        break;
+                    }
+                    if (!ok_) {
+                        AbstractMethod err_;
+                        err_ = new AbstractMethod();
+                        err_.setFileName(c);
+                        err_.setClassName(m.getClassName().getName());
+                        err_.setRc(bl_.getRowCol(0, _context.getTabWidth(), ATTRIBUTE_NAME));
+                        err_.setId(m.getMethod());
+                        errorsDet.add(err_);
+                    }
+                }
+            }
+        }
+        for (String c: concreteClasses_) {
+            
         }
     }
     //validate local variables names and loop variables names
@@ -1340,6 +1428,11 @@ public final class Classes {
                 }
                 if (b instanceof Returnable) {
                     Returnable method_ = (Returnable) b;
+                    if (method_ instanceof MethodBlock) {
+                        if (((MethodBlock)b).isAbstractMethod()) {
+                            continue;
+                        }
+                    }
                     CustList<Block> chSort_ = getSortedDescNodes(b);
                     CustList<Block> all_ = new CustList<Block>();
                     for (Block s: chSort_) {
@@ -1644,7 +1737,9 @@ public final class Classes {
             if (clblock_ instanceof EnumBlock) {
                 cat_ = ClassCategory.ENUM;
             }
-            return new ClassMetaInfo(clblock_.getSuperClass(), infosFields_,infos_, infosConst_, cat_);
+            boolean abs_ = clblock_.isAbstractType();
+            boolean final_ = clblock_.isFinalType();
+            return new ClassMetaInfo(clblock_.getSuperClass(), infosFields_,infos_, infosConst_, cat_, abs_, final_);
         }
         return null;
     }

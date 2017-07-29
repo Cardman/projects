@@ -18,15 +18,23 @@ public final class ClassMetaInfo {
 
     private final ClassCategory category;
 
+    private final boolean abstractType;
+
+    private final boolean finalType;
+
     public ClassMetaInfo(String _superClass,StringMap<FieldMetaInfo> _fields,
             ObjectNotNullMap<MethodId, MethodMetaInfo> _methods,
             ObjectNotNullMap<ConstructorId, ConstructorMetaInfo> _constructors,
-            ClassCategory _category) {
+            ClassCategory _category,
+            boolean _abstractType,
+            boolean _finalType) {
         superClass = _superClass;
         fields = _fields;
         methods = _methods;
         constructors = _constructors;
         category = _category;
+        abstractType = _abstractType;
+        finalType = _finalType;
     }
 
     public StringList getSuperClasses(ContextEl _cont) {
@@ -60,5 +68,13 @@ public final class ClassMetaInfo {
 
     public ObjectNotNullMap<ConstructorId, ConstructorMetaInfo> getConstructors() {
         return new ObjectNotNullMap<ConstructorId, ConstructorMetaInfo>(constructors);
+    }
+
+    public boolean isAbstractType() {
+        return abstractType;
+    }
+
+    public boolean isFinalType() {
+        return finalType;
     }
 }

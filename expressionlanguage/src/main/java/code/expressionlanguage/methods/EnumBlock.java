@@ -144,4 +144,14 @@ public final class EnumBlock extends BracedBlock implements RootedBlock {
     public RootedBlock belong() {
         return this;
     }
+
+    @Override
+    public boolean isFinalType() {
+        return true;
+    }
+
+    @Override
+    public boolean isAbstractType() {
+        return true;
+    }
 }
