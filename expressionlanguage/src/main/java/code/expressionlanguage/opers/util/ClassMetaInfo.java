@@ -1,14 +1,18 @@
 package code.expressionlanguage.opers.util;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.methods.Classes;
-import code.expressionlanguage.methods.RootedBlock;
+import code.expressionlanguage.methods.UniqueRootedBlock;
 import code.util.ObjectNotNullMap;
 import code.util.StringList;
 import code.util.StringMap;
 
 public final class ClassMetaInfo {
 
+    private static final String EMPTY_STRING = "";
+
     private final String superClass;
+
+    private final StringList superInterfaces = new StringList();
 
     private final StringMap<FieldMetaInfo> fields;
     
@@ -37,13 +41,27 @@ public final class ClassMetaInfo {
         finalType = _finalType;
     }
 
+    public ClassMetaInfo(StringList _superInterfaces,StringMap<FieldMetaInfo> _fields,
+            ObjectNotNullMap<FctConstraints, MethodMetaInfo> _methods,
+            ObjectNotNullMap<FctConstraints, ConstructorMetaInfo> _constructors,
+            ClassCategory _category) {
+        superInterfaces.addAllElts(_superInterfaces);
+        superClass = EMPTY_STRING;
+        fields = _fields;
+        methods = _methods;
+        constructors = _constructors;
+        category = _category;
+        abstractType = true;
+        finalType = false;
+    }
+
     public StringList getSuperClasses(ContextEl _cont) {
         StringList list_ = new StringList();
         String className_ = superClass;
         Classes classes_ = _cont.getClasses();
         list_.add(className_);
         while (!StringList.quickEq(className_, Object.class.getName())) {
-            RootedBlock clBl_ = classes_.getClassBody(className_);
+            UniqueRootedBlock clBl_ = (UniqueRootedBlock) classes_.getClassBody(className_);
             className_ = clBl_.getSuperClass();
             list_.add(className_);
         }
@@ -76,5 +94,9 @@ public final class ClassMetaInfo {
 
     public boolean isFinalType() {
         return finalType;
+    }
+
+    public StringList getSuperInterfaces() {
+        return new StringList(superInterfaces);
     }
 }

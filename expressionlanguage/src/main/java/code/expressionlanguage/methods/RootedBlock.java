@@ -9,8 +9,6 @@ public interface RootedBlock extends AccessibleBlock {
 
     String getName();
 
-    String getSuperClass();
-
     String getPackageName();
 
     StringList getAllSuperClasses();
@@ -20,8 +18,6 @@ public interface RootedBlock extends AccessibleBlock {
     RowCol getRowCol(int _offset, int _tabWidth,String _attribute);
 
     Block getFirstChild();
-
-    void validateConstructors(ContextEl _cont);
 
     boolean isFinalType();
     

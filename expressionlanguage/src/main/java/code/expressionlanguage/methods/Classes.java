@@ -1138,7 +1138,7 @@ public final class Classes {
 
     public boolean canAccessField(String _className, String _accessedClass, String _name) {
         Block access_ = (Block) getClassBody(_accessedClass);
-        CustList<Block> bl_ = getSortedDescNodes(access_);
+        CustList<Block> bl_ = getDirectChildren(access_);
         InfoBlock i_ = null;
         for (Block b: bl_) {
             if (b instanceof InfoBlock) {
@@ -1169,7 +1169,7 @@ public final class Classes {
 
     public boolean canAccessMethod(String _className, String _accessedClass, FctConstraints _id) {
         Block access_ = (Block) getClassBody(_accessedClass);
-        CustList<Block> bl_ = getSortedDescNodes(access_);
+        CustList<Block> bl_ = getDirectChildren(access_);
         MethodBlock i_ = null;
         for (Block b: bl_) {
             if (b instanceof MethodBlock) {
@@ -1352,7 +1352,9 @@ public final class Classes {
         }
         for (EntryCust<ClassName, Block> c: classesBodies.entryList()) {
             RootedBlock clblock_ = (RootedBlock) c.getValue();
-            clblock_.validateConstructors(_context);
+            if (clblock_ instanceof UniqueRootedBlock) {
+                ((UniqueRootedBlock)clblock_).validateConstructors(_context);
+            }
         }
     }
     //validate missing return
@@ -1768,13 +1770,18 @@ public final class Classes {
                     infosConst_.put(id_, met_);
                 }
             }
+            if (clblock_ instanceof InterfaceBlock) {
+                return new ClassMetaInfo(((InterfaceBlock)clblock_).getDirectSuperClasses(), infosFields_,infos_, infosConst_, ClassCategory.INTERFACE);
+            }
             ClassCategory cat_ = ClassCategory.CLASS;
             if (clblock_ instanceof EnumBlock) {
                 cat_ = ClassCategory.ENUM;
+            } else if (clblock_ instanceof InterfaceBlock) {
+                cat_ = ClassCategory.INTERFACE;
             }
             boolean abs_ = clblock_.isAbstractType();
             boolean final_ = clblock_.isFinalType();
-            return new ClassMetaInfo(clblock_.getSuperClass(), infosFields_,infos_, infosConst_, cat_, abs_, final_);
+            return new ClassMetaInfo(((UniqueRootedBlock) clblock_).getSuperClass(), infosFields_,infos_, infosConst_, cat_, abs_, final_);
         }
         return null;
     }
