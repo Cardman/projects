@@ -8,6 +8,7 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.CustEnum;
 import code.expressionlanguage.OperationsSequence;
 import code.expressionlanguage.PrimitiveTypeUtil;
+import code.expressionlanguage.exceptions.AbstractMethodException;
 import code.expressionlanguage.exceptions.BadNumberArgumentException;
 import code.expressionlanguage.exceptions.CustomFoundConstructorException;
 import code.expressionlanguage.exceptions.CustomFoundMethodException;
@@ -40,6 +41,7 @@ import code.expressionlanguage.opers.util.MethodMetaInfo;
 import code.expressionlanguage.opers.util.MethodModifier;
 import code.expressionlanguage.opers.util.Struct;
 import code.serialize.exceptions.BadAccessException;
+import code.serialize.exceptions.NoSuchDeclaredMethodException;
 import code.util.CustList;
 import code.util.EntryCust;
 import code.util.EqList;
@@ -69,6 +71,9 @@ public final class FctOperation extends InvokingOperation {
     private boolean superConstructorCall;
 
     private boolean otherConstructorClass;
+
+    private boolean staticChoiceMethod;
+    private boolean superAccessMethod;
 
     public FctOperation(String _el, int _index, ContextEl _importingPage,
             int _indexChild, MethodOperation _m, OperationsSequence _op) {
@@ -475,6 +480,16 @@ public final class FctOperation extends InvokingOperation {
                         return;
                     }
                 }
+                if (trimMeth_.startsWith(EXTERN_CLASS+SUPER_ACCESS+DOT)) {
+                    String superClass_ = custClass_.getSuperClass();
+                    if (StringList.quickEq(superClass_, Object.class.getName())) {
+                        throw new NoSuchDeclaredMethodException(trimMeth_+RETURN_LINE+_conf.joinPages());
+                    }
+                    trimMeth_ = trimMeth_.substring((EXTERN_CLASS+SUPER_ACCESS+DOT).length());
+                    clCurName_ = superClass_;
+                    staticChoiceMethod = true;
+                    superAccessMethod = true;
+                }
                 ClassMethodId clMeth_ = getDeclaredCustMethod(_conf, new ClassArgumentMatching(clCurName_), trimMeth_, ClassArgumentMatching.toArgArray(firstArgs_));
                 methodId = clMeth_.getMethod();
                 String foundClass_ = clMeth_.getClassName().getName();
@@ -485,6 +500,13 @@ public final class FctOperation extends InvokingOperation {
                 }
                 custClass_ = classes_.getClassMetaInfo(foundClass_);
                 MethodMetaInfo methodMetaInfo_ = custClass_.getMethods().getVal(methodId);
+                if (isStaticAccess() && methodMetaInfo_.getModifier() != MethodModifier.STATIC) {
+                    throw new StaticAccessException(_conf.joinPages());
+                }
+                if (staticChoiceMethod && methodMetaInfo_.getModifier() == MethodModifier.ABSTRACT) {
+                	setRelativeOffsetPossibleLastPage(getIndexInEl()+off_, _conf);
+                    throw new AbstractMethodException(methodId.getSignature()+RETURN_LINE+_conf.joinPages());
+                }
                 methodMetaInfo = methodMetaInfo_;
                 setResultClass(new ClassArgumentMatching(methodMetaInfo.getReturnType().getName()));
                 return;
@@ -964,7 +986,11 @@ public final class FctOperation extends InvokingOperation {
                         return argres_;
                     }
                 }
-                classNameFound_ = getDeclaredCustMethod(_conf, arg_.getObjectClassName(), classMethodId);
+                if (staticChoiceMethod) {
+                    classNameFound_ = classMethodId.getClassName().getName();
+                } else {
+                    classNameFound_ = getDeclaredCustMethod(_conf, arg_.getObjectClassName(), classMethodId);
+                }
             } else {
                 ClassMetaInfo custClass_ = null;
                 String className_ = clCur_;
@@ -1502,7 +1528,11 @@ public final class FctOperation extends InvokingOperation {
                         return;
                     }
                 }
-                classNameFound_ = getDeclaredCustMethod(_conf, arg_.getObjectClassName(), classMethodId);
+                if (staticChoiceMethod) {
+                    classNameFound_ = classMethodId.getClassName().getName();
+                } else {
+                    classNameFound_ = getDeclaredCustMethod(_conf, arg_.getObjectClassName(), classMethodId);
+                }
             } else {
                 ClassMetaInfo custClass_ = null;
                 String className_ = clCur_;

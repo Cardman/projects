@@ -23,7 +23,6 @@ import code.expressionlanguage.exceptions.UnwrappingException;
 import code.expressionlanguage.exceptions.VoidArgumentException;
 import code.expressionlanguage.methods.Classes;
 import code.expressionlanguage.methods.MethodBlock;
-import code.expressionlanguage.methods.RootedBlock;
 import code.expressionlanguage.methods.util.ArgumentsPair;
 import code.expressionlanguage.opers.util.ArgumentsGroup;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
@@ -109,6 +108,7 @@ public abstract class OperationNode implements SortedNode<OperationNode>, Operab
     protected static final String GET_PARAM = ";.;";
     protected static final String GET_FIELD = ";;;";
     protected static final String CURRENT_INTANCE = "^this";
+    protected static final String STATIC_CALL = "^^";
 
     protected static final String FCT = "(";
 
@@ -761,6 +761,12 @@ public abstract class OperationNode implements SortedNode<OperationNode>, Operab
         }
         StringList traces_ = new StringList();
         while (custClass_ != null) {
+            if (!classes_.canAccessClass(glClass_, clCurName_)) {
+                traces_.add(clCurName_);
+                String superClass_ = custClass_.getSuperClass();
+                custClass_ = classes_.getClassMetaInfo(superClass_);
+                continue;
+            }
             CustList<MethodId> possibleMethods_ = new CustList<MethodId>();
             for (EntryCust<MethodId, MethodMetaInfo> e: custClass_.getMethods().entryList()) {
                 if (!StringList.quickEq(e.getKey().getName(), _name)) {
@@ -844,13 +850,6 @@ public abstract class OperationNode implements SortedNode<OperationNode>, Operab
     private static EqList<MethodId> filterMeth(String _glClass, String _accessedClass, CustList<MethodId> _found, ContextEl _conf) {
         EqList<MethodId> accessible_ = new EqList<MethodId>();
         for (MethodId i: _found) {
-            MethodBlock method_ = _conf.getClasses().getMethodBody(_accessedClass, i);
-            RootedBlock r_ = _conf.getClasses().getClassBody(method_.getReturnType());
-            if (r_ != null) {
-                if (!_conf.getClasses().canAccessClass(_glClass, r_.getFullName())) {
-                    continue;
-                }
-            }
             if (_conf.getClasses().canAccessMethod(_glClass, _accessedClass, i)) {
                 accessible_.add(i);
             }

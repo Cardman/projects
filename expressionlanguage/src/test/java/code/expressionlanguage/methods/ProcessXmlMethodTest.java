@@ -5487,7 +5487,6 @@ public class ProcessXmlMethodTest {
         }
         Argument argGlLoc_ = new Argument();
         argGlLoc_.setArgClassName(_class);
-        //TODO call calculateArgument with one more param
         return ProcessXmlMethod.calculateArgument(argGlLoc_, _class, _method, _args, _cont);
     }
 
@@ -7123,7 +7122,7 @@ public class ProcessXmlMethodTest {
 //        assertEq(17, (Number)intern_.getInstance());
     }
 
-    @Test//(timeout=1000)
+    @Test
     public void instanceArgument31Test() {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = new ContextEl(50);
@@ -7135,38 +7134,28 @@ public class ProcessXmlMethodTest {
         xml_ += "</method>\n";
         xml_ += "</class>\n";
         files_.put("pkg/ExThree."+Classes.EXT, xml_);
+        xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExTwo' package='pkg'>\n";
+        xml_ += "<field access='"+PUBLIC_ACCESS+"' name='inst' class='"+PrimitiveTypeUtil.PRIM_INT+"' value='^new.pkg.ExThree().doubleValue()'/>\n";
+        xml_ += "</class>\n";
+        files_.put("pkg/ExTwo."+Classes.EXT, xml_);
         Classes.validateAll(files_, cont_);
         CustList<Argument> args_ = new CustList<Argument>();
-        ConstructorId id_ = getConstructorId("pkg.ExThree");
-        ProcessXmlMethod.initializeClass("pkg.ExThree", cont_);
+        ConstructorId id_ = getConstructorId("pkg.ExTwo");
+        ProcessXmlMethod.initializeClass("pkg.ExTwo", cont_);
         cont_.addPage(new PageEl());
         Argument ret_;
-        ret_ = ProcessXmlMethod.instanceArgument("pkg.ExThree", null, id_, args_, cont_);
-        cont_.getLastPage().setGlobalArgument(ret_);
-        Argument f_ = ProcessXmlMethod.calculateArgument(ret_, "pkg.ExThree", getMethodId("doubleValue"), new CustList<Argument>(), cont_);
-//        assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
+        ret_ = ProcessXmlMethod.instanceArgument("pkg.ExTwo", null, id_, args_, cont_);
         Struct str_ = ret_.getStruct();
         assertEq(CustBase.class.getName(), str_.getRealClassName());
-        assertEq("pkg.ExThree", str_.getClassName());
+        assertEq("pkg.ExTwo", str_.getClassName());
         Struct field_;
-        field_ = f_.getStruct();
+        field_ = str_.getFields().getVal(new ClassField("pkg.ExTwo", "inst"));
         assertEq(Integer.class.getName(), field_.getRealClassName());
         assertEq(Integer.class.getName(), field_.getClassName());
         assertEq(17, (Number)field_.getInstance());
-//        field_ = str_.getFields().getVal(new ClassField("pkg.ExTwo", "sec"));
-//        assertEq(Integer.class.getName(), field_.getRealClassName());
-//        assertEq(Integer.class.getName(), field_.getClassName());
-//        assertEq(24, (Number)field_.getInstance());
-//        field_ = str_.getFields().getVal(new ClassField("pkg.ExTwo", "third"));
-//        assertEq(CustBase.class.getName(), field_.getRealClassName());
-//        assertEq("pkg.ExThree", field_.getClassName());
-//        Struct intern_ = field_.getFields().getVal(new ClassField("pkg.ExThree", "ance"));
-//        assertEq(Integer.class.getName(), intern_.getRealClassName());
-//        assertEq(Integer.class.getName(), intern_.getClassName());
-//        assertEq(17, (Number)intern_.getInstance());
     }
 
-    @Test//(timeout=1000)
+    @Test
     public void instanceArgument32Test() {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = new ContextEl(50);
