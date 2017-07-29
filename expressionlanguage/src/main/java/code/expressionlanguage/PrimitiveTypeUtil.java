@@ -448,11 +448,13 @@ public final class PrimitiveTypeUtil {
         }
     }
     public static int getOrderClass(ClassMatching _class) {
-        try {
-            return getOrderClass(_class.getClazz());
-        } catch (RuntimeClassNotFoundException _0) {
-            return 0;
+        for (String c: _class.getClassName()) {
+            try {
+                return getOrderClass(ClassMatching.getSingleNativeClass(c));
+            } catch (RuntimeClassNotFoundException _0) {
+            }
         }
+        return 0;
     }
     public static boolean isPrimitiveType(String _className) {
         try {

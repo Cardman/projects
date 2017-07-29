@@ -135,19 +135,30 @@ public final class ClassArgumentMatching {
     }
 
     public boolean isAssignableFrom(ClassMatching _c, Classes _classes) {
-        AssignableFrom a_ = PrimitiveTypeUtil.isAssignableFromCust(className, _c.getName(), _classes);
-        if (a_ == AssignableFrom.YES) {
-            return true;
+        for (String c: _c.getClassName()) {
+            AssignableFrom a_ = PrimitiveTypeUtil.isAssignableFromCust(className, c, _classes);
+            if (a_ == AssignableFrom.YES) {
+                return true;
+            }
+            if (a_ == AssignableFrom.NO) {
+                continue;
+            }
+            try {
+                Class<?> cl_ = ConstClasses.classAliasForNameNotInit(PrimitiveTypeUtil.getArrayClass(className));
+                boolean inherit_ = false;
+                for (String o: _c.getClassName()) {
+                    if (cl_.isAssignableFrom(ClassMatching.getSingleNativeClass(o))) {
+                        inherit_ = true;
+                        break;
+                    }
+                }
+                if (inherit_) {
+                    return true;
+                }
+            } catch (RuntimeClassNotFoundException _0_) {
+            }
         }
-        if (a_ == AssignableFrom.NO) {
-            return false;
-        }
-        try {
-            Class<?> cl_ = ConstClasses.classAliasForNameNotInit(PrimitiveTypeUtil.getArrayClass(className));
-            return cl_.isAssignableFrom(_c.getClazz());
-        } catch (RuntimeClassNotFoundException _0_) {
-            return false;
-        }
+        return false;
     }
 
     public boolean isVariable() {

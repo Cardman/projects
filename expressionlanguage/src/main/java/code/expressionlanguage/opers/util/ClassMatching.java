@@ -6,73 +6,83 @@ import code.util.exceptions.RuntimeClassNotFoundException;
 
 public final class ClassMatching {
 
-    private String className;
+    private StringList className;
 //    private Class<?> clazz;
 
 //    public ClassMatching(Class<?> _clazz) {
 //        clazz = _clazz;
 //    }
 
-    public ClassMatching(String _className) {
+    public ClassMatching(StringList _className) {
         className = _className;
+//        clazz = ConstClasses.classForNameNotInit(_className);
+    }
+    
+    public ClassMatching(String _className) {
+        className = new StringList(_className);
 //        clazz = ConstClasses.classForNameNotInit(_className);
     }
 
     @Override
     public String toString() {
-        return className;
+        return className.toString();
     }
     
     public boolean matchClass(String _className) {
-        return StringList.quickEq(className, _className);
+        return StringList.equalsSet(className, new StringList(_className));
     }
     
     
     public boolean matchClass(Class<?> _class) {
-        return StringList.quickEq(className, _class.getName());
+        return StringList.equalsSet(className, new StringList(_class.getName()));
     }
     
 
     public boolean matchClass(ClassMatching _className) {
-        return StringList.quickEq(className, _className.className);
+//        return StringList.quickEq(className, _className.className);
+        return StringList.equalsSet(className, _className.className);
     }
 
-    public Class<?> getClazz() {
-        return ConstClasses.classAliasForNameNotInit(PrimitiveTypeUtil.getArrayClass(className));
-    }
+//    public Class<?> getClazz() {
+//        return ConstClasses.classAliasForNameNotInit(PrimitiveTypeUtil.getArrayClass(className));
+//    }
 
 //    public void setClazz(Class<?> _clazz) {
 //        clazz = _clazz;
 //    }
 
     public boolean isAssignableFrom(ClassMatching _c) {
-        if (StringList.quickEq(className, Object.class.getName())) {
-            return true;
+        for (String p: className) {
+            if (StringList.quickEq(p, Object.class.getName())) {
+                continue;
+            }
+            boolean ok_ = false;
+            for (String c: _c.getClassName()) {
+                Class<?> c_ = getSingleNativeClass(c);
+                Class<?> p_ = getSingleNativeClass(p);
+                if (p_.isAssignableFrom(c_)) {
+                    ok_  = true;
+                    break;
+                }
+            }
+            if (!ok_) {
+                return false;
+            }
         }
-        try {
-            Class<?> cur_ = getNativeClass();
-            Class<?> arg_ = _c.getNativeClass();
-            return cur_.isAssignableFrom(arg_);
-        } catch (RuntimeClassNotFoundException _0) {
-            return false;
-        }
-//        return clazz.isAssignableFrom(_c.clazz);
+        return true;
     }
 
     public boolean isPrimitive() {
-        if (className.startsWith(PrimitiveTypeUtil.PRIM)) {
+        if (className.first().startsWith(PrimitiveTypeUtil.PRIM)) {
             return true;
         }
         try {
-            return getNativeClass().isPrimitive();
+            return getSingleNativeClass().isPrimitive();
         } catch (RuntimeClassNotFoundException _0) {
             return false;
         }
     }
 
-    public String getName() {
-        return className;
-    }
 //
 //    public Class<?> getComponentType() {
 //        try {
@@ -82,8 +92,16 @@ public final class ClassMatching {
 //            return null;
 //        }
 //    }
+    
+    private Class<?> getSingleNativeClass() {
+        return ConstClasses.classAliasForNameNotInit(PrimitiveTypeUtil.getArrayClass(className.first()));
+    }
 
-    private Class<?> getNativeClass() {
-        return ConstClasses.classAliasForNameNotInit(PrimitiveTypeUtil.getArrayClass(className));
+    public static Class<?> getSingleNativeClass(String _className) {
+        return ConstClasses.classAliasForNameNotInit(PrimitiveTypeUtil.getArrayClass(_className));
+    }
+
+    public StringList getClassName() {
+        return className;
     }
 }

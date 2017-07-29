@@ -1009,7 +1009,14 @@ public abstract class OperationNode implements SortedNode<OperationNode>, Operab
                 }
                 continue;
             }
-            if (!PrimitiveTypeUtil.canBeUseAsArgument(_params[i].getName(), _argsClass[i].getName(), _context.getClasses())) {
+            boolean ok_ = true;
+            for (String t: _params[i].getClassName()) {
+                if (!PrimitiveTypeUtil.canBeUseAsArgument(t, _argsClass[i].getName(), _context.getClasses())) {
+                    ok_ = false;
+                    break;
+                }
+            }
+            if (!ok_) {
                 skip_ = true;
                 break;
             }
