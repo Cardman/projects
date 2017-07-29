@@ -23,10 +23,10 @@ public final class ParametersGroupComparator<T extends Parametrable> implements 
                 continue;
             }
             if (selected_.isVariable()) {
-                if (one_.isAssignableFrom(two_)) {
+                if (one_.isAssignableFrom(two_, selectedClasses.getClasses())) {
                     return CustList.SWAP_SORT;
                 }
-                if (two_.isAssignableFrom(one_)) {
+                if (two_.isAssignableFrom(one_, selectedClasses.getClasses())) {
                     return CustList.NO_SWAP_SORT;
                 }
                 _o1.getParameters().setError(true);
@@ -122,10 +122,10 @@ public final class ParametersGroupComparator<T extends Parametrable> implements 
                 _o2.getParameters().setError(true);
                 return CustList.NO_SWAP_SORT;
             }
-            if (one_.isAssignableFrom(two_)) {
+            if (one_.isAssignableFrom(two_, selectedClasses.getClasses())) {
                 return CustList.SWAP_SORT;
             }
-            if (two_.isAssignableFrom(one_)) {
+            if (two_.isAssignableFrom(one_, selectedClasses.getClasses())) {
                 return CustList.NO_SWAP_SORT;
             }
 //            if (!one_.getClazz().isInterface()) {

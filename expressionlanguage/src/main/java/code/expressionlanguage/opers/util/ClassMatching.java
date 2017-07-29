@@ -1,5 +1,6 @@
 package code.expressionlanguage.opers.util;
 import code.expressionlanguage.PrimitiveTypeUtil;
+import code.expressionlanguage.methods.Classes;
 import code.util.StringList;
 import code.util.consts.ConstClasses;
 import code.util.exceptions.RuntimeClassNotFoundException;
@@ -51,16 +52,14 @@ public final class ClassMatching {
 //        clazz = _clazz;
 //    }
 
-    public boolean isAssignableFrom(ClassMatching _c) {
+    public boolean isAssignableFrom(ClassMatching _c, Classes _classes) {
         for (String p: className) {
             if (StringList.quickEq(p, Object.class.getName())) {
                 continue;
             }
             boolean ok_ = false;
             for (String c: _c.getClassName()) {
-                Class<?> c_ = getSingleNativeClass(c);
-                Class<?> p_ = getSingleNativeClass(p);
-                if (p_.isAssignableFrom(c_)) {
+                if (PrimitiveTypeUtil.isAssignableFrom(p, c, _classes)) {
                     ok_  = true;
                     break;
                 }
