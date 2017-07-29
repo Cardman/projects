@@ -14,7 +14,7 @@ public final class ReversibleMap<K extends Equallable<K>, V extends Equallable<V
     }
 
     @CapacityInit
-    public ReversibleMap(int _capacity) {
+    public ReversibleMap(CollCapacity _capacity) {
         super(_capacity);
     }
 

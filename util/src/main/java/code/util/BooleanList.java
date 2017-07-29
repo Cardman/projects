@@ -17,7 +17,7 @@ public final class BooleanList extends AbEqList<Boolean> implements Equallable<B
     }
 
     @CapacityInit
-    private BooleanList(int _capacity) {
+    public BooleanList(CollCapacity _capacity) {
         super(_capacity);
     }
 

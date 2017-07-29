@@ -2,6 +2,7 @@ package code.maths.montecarlo;
 import code.maths.LgInt;
 import code.maths.NumDiffDenNum;
 import code.maths.Rate;
+import code.util.CollCapacity;
 import code.util.EqList;
 import code.util.ObjectNotNullMap;
 import code.util.annot.CapacityInit;
@@ -30,7 +31,7 @@ public final class MonteCarloEq<E extends Equallable<E>> extends AbMonteCarlo<E>
     }
 
     @CapacityInit
-    private MonteCarloEq(int _capacity) {
+    public MonteCarloEq(CollCapacity _capacity) {
         law = new ObjectNotNullMap<E,LgInt>(_capacity);
     }
 

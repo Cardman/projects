@@ -1915,13 +1915,13 @@ final class InitializationMoves {
         ficheAttaqueOff_.getBoostedTypes().add(TENEBRE);
         ficheAttaqueOff_.setAccuracy("1");
         ficheAttaqueOff_.setStoppableMoveSolo(true);
-        ficheAttaqueOff_.getSecEffectsByItem().put(HERBEBLANCHE,single(8));
+        ficheAttaqueOff_.getSecEffectsByItem().put(HERBEBLANCHE,new Numbers<Integer>(8));
         //validate ficheAttaqueOff_.getSecEffectsByItem().put("PIC_VENIN",new Numbers<Integer>(4));
-        ficheAttaqueOff_.getSecEffectsByItem().put(ROCHE_ROYALE,single(6));
-        ficheAttaqueOff_.getSecEffectsByItem().put(ORBE_FLAMME,single(1));
+        ficheAttaqueOff_.getSecEffectsByItem().put(ROCHE_ROYALE,new Numbers<Integer>(6));
+        ficheAttaqueOff_.getSecEffectsByItem().put(ORBE_FLAMME,new Numbers<Integer>(1));
         //validate ficheAttaqueOff_.getSecEffectsByItem().put("AIMANT",new Numbers<Integer>(3));
         //validate ficheAttaqueOff_.getSecEffectsByItem().put("ORBE_TOXIQUE",new Numbers<Integer>(2));
-        ficheAttaqueOff_.getSecEffectsByItem().put(HERBE_MENTAL,single(7));
+        ficheAttaqueOff_.getSecEffectsByItem().put(HERBE_MENTAL,new Numbers<Integer>(7));
         //validate ficheAttaqueOff_.getSecEffectsByItem().put("CROC_RASOIR",new Numbers<Integer>(5));
         ficheAttaqueOff_.setSwitchType(SwitchType.NOTHING);
         ficheAttaqueOff_.setTargetChoice(TargetChoice.AUTRE_UNIQ);
@@ -4494,12 +4494,6 @@ final class InitializationMoves {
         initSecondMoves(_data);
         initAllCombos(_data);
         //BALL_GLACE
-    }
-
-    private static Numbers<Integer> single(int _nb) {
-        Numbers<Integer> nb_ = new Numbers<Integer>();
-        nb_.add(_nb);
-        return nb_;
     }
 
     private static void initThirdMoves(DataBase _data) {

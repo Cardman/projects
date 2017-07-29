@@ -17,7 +17,7 @@ public final class CharList extends AbEqList<Character> implements Equallable<Ch
     }
 
     @CapacityInit
-    private CharList(int _capacity) {
+    public CharList(CollCapacity _capacity) {
         super(_capacity);
     }
 

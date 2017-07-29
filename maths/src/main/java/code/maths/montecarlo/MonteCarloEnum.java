@@ -2,6 +2,7 @@ package code.maths.montecarlo;
 import code.maths.LgInt;
 import code.maths.NumDiffDenNum;
 import code.maths.Rate;
+import code.util.CollCapacity;
 import code.util.EnumList;
 import code.util.EnumMap;
 import code.util.annot.CapacityInit;
@@ -29,7 +30,7 @@ public class MonteCarloEnum<E extends Enum<E>> extends AbMonteCarlo<E> {
     }
 
     @CapacityInit
-    private MonteCarloEnum(int _capacity) {
+    public MonteCarloEnum(CollCapacity _capacity) {
         law = new EnumMap<E,LgInt>(_capacity);
     }
 

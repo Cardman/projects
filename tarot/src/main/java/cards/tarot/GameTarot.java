@@ -12029,9 +12029,7 @@ public final class GameTarot {
 
     private Numbers<Byte> autresJoueurs(byte _numero) {
         byte nombreDeJoueurs_ = getNombreDeJoueurs();
-        Numbers<Byte> l_ = new Numbers<Byte>();
-        l_.add(_numero);
-        return autresJoueurs(l_, nombreDeJoueurs_);
+        return autresJoueurs(new Numbers<Byte>(_numero), nombreDeJoueurs_);
     }
 
     public Numbers<Byte> orderedPlayers(byte _leader) {

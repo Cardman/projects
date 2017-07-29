@@ -17,7 +17,7 @@ public final class IdList<T> extends AbEqList<T> implements Equallable<IdList<T>
     }
 
     @CapacityInit
-    private IdList(int _capacity) {
+    public IdList(CollCapacity _capacity) {
         super(_capacity);
     }
 //    public IdList(Iterable<? extends T> _c) {

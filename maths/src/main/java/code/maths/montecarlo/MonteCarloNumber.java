@@ -2,6 +2,7 @@ package code.maths.montecarlo;
 import code.maths.LgInt;
 import code.maths.NumDiffDenNum;
 import code.maths.Rate;
+import code.util.CollCapacity;
 import code.util.CustList;
 import code.util.EqList;
 import code.util.ObjectMap;
@@ -31,7 +32,7 @@ public final class MonteCarloNumber extends AbMonteCarlo<Rate> {
     }
 
     @CapacityInit
-    private MonteCarloNumber(int _capacity) {
+    public MonteCarloNumber(CollCapacity _capacity) {
         law = new ObjectNotNullMap<Rate,LgInt>(_capacity);
     }
     /**Retourne l'esperance d'une loi de probabilite.*/

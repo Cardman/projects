@@ -2,6 +2,7 @@ package code.maths.montecarlo;
 import code.maths.LgInt;
 import code.maths.NumDiffDenNum;
 import code.maths.Rate;
+import code.util.CollCapacity;
 import code.util.NumberMap;
 import code.util.Numbers;
 import code.util.annot.CapacityInit;
@@ -29,7 +30,7 @@ public final class MonteCarloNb<E extends Number> extends AbMonteCarlo<E> {
     }
 
     @CapacityInit
-    private MonteCarloNb(int _capacity) {
+    public MonteCarloNb(CollCapacity _capacity) {
         law = new NumberMap<E,LgInt>(_capacity);
     }
 

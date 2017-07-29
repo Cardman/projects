@@ -18,7 +18,7 @@ public final class IdMap<K,V> extends AbsMap<K,V> {
     }
 
     @CapacityInit
-    public IdMap(int _capacity) {
+    public IdMap(CollCapacity _capacity) {
         super(_capacity);
     }
 //    @Override

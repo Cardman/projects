@@ -12,7 +12,7 @@ public abstract class AbsMap<K, V> implements ListableEntries<K, V> {
     protected AbsMap() {
         list = new CustList<EntryCust<K,V>>();
     }
-    protected AbsMap(int _capacity) {
+    protected AbsMap(CollCapacity _capacity) {
         list = new CustList<EntryCust<K,V>>(_capacity);
     }
 

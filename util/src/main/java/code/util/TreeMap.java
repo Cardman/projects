@@ -30,9 +30,17 @@ public final class TreeMap<K, V> extends AbsMap<K, V> implements SortableMap<K, 
     }
 
     @CapacityInit
-    TreeMap(int _capacity) {
+    TreeMap(CollCapacity _capacity) {
         super(_capacity);
         comparator = null;
+    }
+
+    public TreeMap(CollCapacity _capacity, Comparator<K> _cmp) {
+        super(_capacity);
+        comparator = _cmp;
+        if (_cmp == null) {
+            throw new NullComparatorException();
+        }
     }
 
     public TreeMap(Comparator<K> _cmp) {

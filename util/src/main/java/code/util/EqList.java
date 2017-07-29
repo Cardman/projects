@@ -18,7 +18,7 @@ public final class EqList<T extends Equallable<T>> extends AbEqList<T> implement
     }
 
     @CapacityInit
-    private EqList(int _capacity) {
+    public EqList(CollCapacity _capacity) {
         super(_capacity);
     }
 

@@ -20,7 +20,7 @@ public final class BigIntegers extends CustList<BigInteger> implements Equallabl
     }
 
     @CapacityInit
-    private BigIntegers(int _capacity) {
+    public BigIntegers(CollCapacity _capacity) {
         super(_capacity);
     }
 

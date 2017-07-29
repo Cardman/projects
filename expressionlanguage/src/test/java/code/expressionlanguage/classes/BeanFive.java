@@ -50,7 +50,7 @@ public class BeanFive {
         for (EnumNumber e: EnumNumber.values()) {
             translations.put(e, Integer.toString(e.ordinal() + 1));
         }
-        numbers.put("ONE", new Numbers<Integer>(new Integer[]{1}));
+        numbers.put("ONE", new Numbers<Integer>(1));
         numbers.put("TWO", new Numbers<Integer>(2,3));
         numbers.put("THREE", new Numbers<Integer>(4,5,6));
     }

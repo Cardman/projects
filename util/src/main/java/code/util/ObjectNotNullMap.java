@@ -13,7 +13,7 @@ public final class ObjectNotNullMap<K extends Equallable<K>, V>  extends AbObjec
     }
 
     @CapacityInit
-    public ObjectNotNullMap(int _capacity) {
+    public ObjectNotNullMap(CollCapacity _capacity) {
         super(_capacity);
     }
 //    public static <T extends Equallable<T>> void deleteLineReturn(ObjectNotNullMap<T,String> _map) {

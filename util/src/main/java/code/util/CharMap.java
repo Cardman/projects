@@ -18,7 +18,7 @@ public final class CharMap<V> extends AbsMap<Character,V> {
     }
 
     @CapacityInit
-    public CharMap(int _capacity) {
+    public CharMap(CollCapacity _capacity) {
         super(_capacity);
     }
 //    @Override

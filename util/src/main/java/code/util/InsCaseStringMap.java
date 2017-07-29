@@ -17,7 +17,7 @@ public final class InsCaseStringMap<V> extends AbsMap<String,V> {
         putAllMap(_arg0);
     }
     @CapacityInit
-    public InsCaseStringMap(int _capacity) {
+    public InsCaseStringMap(CollCapacity _capacity) {
         super(_capacity);
     }
 //    @Override

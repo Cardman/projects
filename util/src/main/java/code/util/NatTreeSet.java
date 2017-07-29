@@ -31,7 +31,7 @@ public final class NatTreeSet<E extends Cmp<E>> extends AbEqList<E> implements S
     }
 
     @CapacityInit
-    private NatTreeSet(int _capacity) {
+    public NatTreeSet(CollCapacity _capacity) {
         super(_capacity);
         list = new SortableCustList<E>();
     }

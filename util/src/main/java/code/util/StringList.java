@@ -68,7 +68,7 @@ public final class StringList extends AbEqList<String> implements Equallable<Str
     }
 
     @CapacityInit
-    private StringList(int _capacity) {
+    public StringList(CollCapacity _capacity) {
         super(_capacity);
     }
 

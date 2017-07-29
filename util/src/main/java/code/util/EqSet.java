@@ -18,7 +18,7 @@ public class EqSet<E extends Equallable<E>> extends AbEqList<E> implements Setta
     }
 
     @CapacityInit
-    private EqSet(int _capacity) {
+    public EqSet(CollCapacity _capacity) {
         super(_capacity);
     }
 

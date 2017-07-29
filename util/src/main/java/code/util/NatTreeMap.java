@@ -28,7 +28,7 @@ public final class NatTreeMap<K extends Comparable<K>, V> extends AbsMap<K, V> i
         putAllTreeMap(_map);
     }
     @CapacityInit
-    public NatTreeMap(int _capacity) {
+    public NatTreeMap(CollCapacity _capacity) {
         super(_capacity);
     }
 //    public NatTreeMap(SortedMap<K,V> _map) {

@@ -2761,18 +2761,12 @@ public class FightOrderTest extends InitializationDataBase {
         trainer_.setMultiplicityFight((byte) 1);
         Fight fight_ = FightFacade.newFight();
         FightFacade.initFight(fight_,player_, diff_, trainer_, _data_);
-        EqList<TeamPosition> list_ = FightOrder.closestFightersAmongList(fight_,POKEMON_PLAYER_FIGHTER_ZERO, singleZero());
+        EqList<TeamPosition> list_ = FightOrder.closestFightersAmongList(fight_,POKEMON_PLAYER_FIGHTER_ZERO, new Numbers<Byte>((byte)0));
         assertEq(1,list_.size());
         assertTrue(list_.containsObj(POKEMON_FOE_FIGHTER_ZERO));
-        list_ = FightOrder.closestFightersAmongList(fight_,POKEMON_FOE_FIGHTER_ZERO, singleZero());
+        list_ = FightOrder.closestFightersAmongList(fight_,POKEMON_FOE_FIGHTER_ZERO, new Numbers<Byte>((byte)0));
         assertEq(1,list_.size());
         assertTrue(list_.containsObj(POKEMON_PLAYER_FIGHTER_ZERO));
-    }
-
-    private Numbers<Byte> singleZero() {
-        Numbers<Byte> l_ = new Numbers<Byte>();
-        l_.add((byte)0);
-        return l_;
     }
 
     @Test
@@ -3003,7 +2997,7 @@ public class FightOrderTest extends InitializationDataBase {
         list_ = FightOrder.closestFightersAmongList(fight_,POKEMON_PLAYER_FIGHTER_ZERO, new Numbers<Byte>((byte)3,(byte)2,(byte)1,(byte)0));
         assertEq(1,list_.size());
         assertTrue(list_.containsObj(POKEMON_FOE_FIGHTER_ZERO));
-        list_ = FightOrder.closestFightersAmongList(fight_,POKEMON_FOE_FIGHTER_ONE, singleZero());
+        list_ = FightOrder.closestFightersAmongList(fight_,POKEMON_FOE_FIGHTER_ONE, new Numbers<Byte>((byte)0));
         assertEq(1,list_.size());
         assertTrue(list_.containsObj(POKEMON_PLAYER_FIGHTER_ZERO));
     }

@@ -18,7 +18,7 @@ public final class EnumMap<K extends Enum<K>, V> extends AbsMap<K,V> {
         putAllMap(_arg0);
     }
     @CapacityInit
-    public EnumMap(int _capacity) {
+    public EnumMap(CollCapacity _capacity) {
         super(_capacity);
     }
 //    @Override

@@ -4,6 +4,7 @@ import code.maths.NumDiffDenNum;
 import code.maths.Rate;
 import code.util.BooleanList;
 import code.util.BooleanMap;
+import code.util.CollCapacity;
 import code.util.annot.CapacityInit;
 import code.util.annot.RwXml;
 
@@ -33,7 +34,7 @@ public final class MonteCarloBoolean extends AbMonteCarlo<Boolean> {
     }
 
     @CapacityInit
-    private MonteCarloBoolean(int _capacity) {
+    public MonteCarloBoolean(CollCapacity _capacity) {
         law = new BooleanMap<LgInt>(_capacity);
         
     }

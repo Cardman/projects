@@ -2777,7 +2777,7 @@ public class FightRoundTest extends InitializationDataBase {
         fighter_ = fight_.getFighter(target_);
         assertEq(new Rate("28114/1625"),fighter_.getRemainingHp());
         assertEq(new Rate("1786/1625"),fight_.getDamageByCurrentUser().getVal(target_));
-        FightRound.processEffectTargets(fight_, thrower_, thrower_, false, CustList.SECOND_INDEX, singleZero(), diff_, _data_);
+        FightRound.processEffectTargets(fight_, thrower_, thrower_, false, CustList.SECOND_INDEX, new Numbers<Integer>(0), diff_, _data_);
         assertEq(-1, fighter_.getStatisBoost().getVal(Statistic.ACCURACY).intValue());
         assertTrue(fight_.getAcceptableChoices());
     }
@@ -3183,7 +3183,7 @@ public class FightRoundTest extends InitializationDataBase {
         assertTrue(fighter_.estKo());
         assertTrue(!FightKo.endedFight(fight_, diff_));
         assertEq(new Rate("1"),fight_.getDamageByCurrentUser().getVal(target_));
-        FightRound.processEffectTargets(fight_, thrower_, thrower_, false, CustList.SECOND_INDEX, singleZero(), diff_, _data_);
+        FightRound.processEffectTargets(fight_, thrower_, thrower_, false, CustList.SECOND_INDEX, new Numbers<Integer>(0), diff_, _data_);
         assertEq(1, fight_.getSuccessfulEffects().size());
         assertTrue(fight_.getSuccessfulEffects().getVal(new NbEffectFighterCoords(0, target_)));
         assertTrue(fight_.getAcceptableChoices());
@@ -3238,7 +3238,7 @@ public class FightRoundTest extends InitializationDataBase {
         assertTrue(fight_.getSuccessfulEffects().getVal(new NbEffectFighterCoords(0, thrower_)));
         assertTrue(fight_.getAcceptableChoices());
         assertEq(LgInt.one(), fight_.getFoeTeam().getEnabledMovesWhileSendingFoeUses().getVal(PICOTS));
-        FightRound.processEffectTargets(fight_, thrower_, thrower_, false, CustList.SECOND_INDEX, singleZero(), diff_, _data_);
+        FightRound.processEffectTargets(fight_, thrower_, thrower_, false, CustList.SECOND_INDEX, new Numbers<Integer>(0), diff_, _data_);
         assertEq(3, fight_.getSuccessfulEffects().size());
         assertTrue(fight_.getSuccessfulEffects().getVal(new NbEffectFighterCoords(0, target_)));
         assertTrue(fight_.getSuccessfulEffects().getVal(new NbEffectFighterCoords(0, thrower_)));
@@ -3296,7 +3296,7 @@ public class FightRoundTest extends InitializationDataBase {
         assertTrue(!fight_.getSuccessfulEffects().getVal(new NbEffectFighterCoords(0, target_)));
         assertTrue(fight_.getAcceptableChoices());
         assertEq(LgInt.one(), fight_.getFoeTeam().getEnabledMovesWhileSendingFoeUses().getVal(PICOTS));
-        FightRound.processEffectTargets(fight_, thrower_, thrower_, false, CustList.SECOND_INDEX, singleZero(), diff_, _data_);
+        FightRound.processEffectTargets(fight_, thrower_, thrower_, false, CustList.SECOND_INDEX, new Numbers<Integer>(0), diff_, _data_);
         assertEq(1, fight_.getSuccessfulEffects().size());
         assertTrue(!fight_.getSuccessfulEffects().getVal(new NbEffectFighterCoords(0, target_)));
         assertTrue(fight_.getAcceptableChoices());
@@ -3510,16 +3510,10 @@ public class FightRoundTest extends InitializationDataBase {
         assertEq(new Rate("7144/1625"),fight_.getDamageByCurrentUser().getVal(target_));
         fighter_ = fight_.getFighter(thrower_);
         assertEq(new Rate("1"), fighter_.getRemainingHp());
-        FightRound.processEffectTargets(fight_, thrower_, thrower_, false, CustList.SECOND_INDEX, singleZero(), diff_, _data_);
+        FightRound.processEffectTargets(fight_, thrower_, thrower_, false, CustList.SECOND_INDEX, new Numbers<Integer>(0), diff_, _data_);
         fighter_ = fight_.getFighter(thrower_);
         assertEq(new Rate("5197/1625"), fighter_.getRemainingHp());
         assertTrue(fight_.getAcceptableChoices());
-    }
-
-    private Numbers<Integer> singleZero() {
-        Numbers<Integer> l_ = new Numbers<Integer>();
-        l_.add(0);
-        return l_;
     }
 
     @Test

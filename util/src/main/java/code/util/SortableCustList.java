@@ -32,7 +32,7 @@ public final class SortableCustList<T extends Cmp<T>> extends AbEqList<T> implem
     }
 
     @CapacityInit
-    private SortableCustList(int _capacity) {
+    public SortableCustList(CollCapacity _capacity) {
         super(_capacity);
     }
 //    public void removeComparableDuplicates() {

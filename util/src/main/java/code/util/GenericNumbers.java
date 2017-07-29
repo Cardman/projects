@@ -22,7 +22,7 @@ public final class GenericNumbers extends CustList<BigDecimal> implements Equall
     }
 
     @CapacityInit
-    private GenericNumbers(int _capacity) {
+    public GenericNumbers(CollCapacity _capacity) {
         super(_capacity);
     }
 

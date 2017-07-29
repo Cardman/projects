@@ -14,7 +14,7 @@ public abstract class AbEqList<T> extends CustList<T> {
         super(_elements);
     }
 
-    protected AbEqList(int _capacity) {
+    protected AbEqList(CollCapacity _capacity) {
         super(_capacity);
     }
 

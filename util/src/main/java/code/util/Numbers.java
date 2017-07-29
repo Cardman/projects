@@ -20,7 +20,7 @@ public final class Numbers<T extends Number> extends AbEqList<T> implements Equa
     }
 
     @CapacityInit
-    private Numbers(int _capacity) {
+    public Numbers(CollCapacity _capacity) {
         super(_capacity);
     }
 
@@ -195,8 +195,7 @@ public final class Numbers<T extends Number> extends AbEqList<T> implements Equa
         int f_ = first().intValue();
         int sdims_ = size();
         for (int i = 0; i < f_; i++) {
-            Numbers<Integer> nbs_ = new Numbers<Integer>(sdims_);
-            nbs_.add(i);
+            Numbers<Integer> nbs_ = new Numbers<Integer>(i);
             e_.add(nbs_);
         }
         for (int i = 1; i < sdims_; i++) {

@@ -18,7 +18,7 @@ public final class StringMap<V> extends AbsMap<String,V> {
     }
 
     @CapacityInit
-    public StringMap(int _capacity) {
+    public StringMap(CollCapacity _capacity) {
         super(_capacity);
     }
 //    @Override
