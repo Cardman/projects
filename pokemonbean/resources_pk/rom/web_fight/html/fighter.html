@@ -441,7 +441,6 @@
 						<c:if condition="!isFoeStatusRelatTeam(s;;)">
 							<td><c:message value="msg_fighter,status_rel_player"/></td>
 						</c:if>
-						<!--<td>{s;getTeamPosition().getPosition()}</td>-->
 						<td>{getStatusRelatTeam(s;;)}</td>
 						<c:if condition="isEnabled(s;;)">
 							<td><c:message value="msg_fighter,status_rel_enabled_y"/></td>
@@ -473,7 +472,6 @@
 						<c:if condition="!isFoePrivateMovesTeam(s;;)">
 							<td><c:message value="msg_fighter,private_moves_player"/></td>
 						</c:if>
-						<!--<td>{s;getTeamPosition().getPosition()}</td>-->
 						<td>{getIncrPrivateMovesTeam(s;;)}</td>
 						<td>{m;}</td>
 					</tr>
@@ -501,7 +499,6 @@
 						<c:if condition="!isFoeTrappingMovesTeam(s;;)">
 							<td><c:message value="msg_fighter,trapping_moves_player"/></td>
 						</c:if>
-						<!--<td>{s;getTeamPosition().getPosition()}</td>-->
 						<td>{getIncrTrappingMovesTeam(s;;)}</td>
 						<c:if condition="a;isEnabled()">
 							<td><c:message value="msg_fighter,trapping_moves_enabled_y"/></td>
@@ -541,7 +538,6 @@
 						<c:if condition="!isFoeTrackingMovesTeam(s;;)">
 							<td><c:message value="msg_fighter,tracking_moves_player"/></td>
 						</c:if>
-						<!--<td>{s;getTeamPosition().getPosition()}</td>-->
 						<td>{getIncrTrackingMovesTeam(s;;)}</td>
 						<td>{a;getMove()}</td>
 						<c:if condition="a;getActivity().isEnabled()">
@@ -580,7 +576,6 @@
 						<c:if condition="!isFoeIncrUserAccuracyTeam(s;;)">
 							<td><c:message value="msg_fighter,inc_accuracy_player"/></td>
 						</c:if>
-						<!--<td>{s;getTeamPosition().getPosition()}</td>-->
 						<td>{getIncrUserAccuracyTeam(s;;)}</td>
 						<c:if condition="a;">
 							<td><c:message value="msg_fighter,inc_accuracy_enabled_y"/></td>

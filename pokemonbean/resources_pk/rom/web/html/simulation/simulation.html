@@ -10,7 +10,6 @@
 	<body>
 		<a c:command="$quit" href=""><c:message value="msg_simulation,index"/></a>
 		<br/>
-		<!--{stepNumber}-->
 		<br/>
 		<c:if condition="isDiffState()">
 			<form action="" c:command="$validateDiffChoice" method="post">
@@ -125,7 +124,6 @@
 											</c:for>
 										</td>
 										<td>
-											<!--<input name="p;selected" c:varValue="p;selected" type="checkbox"/>-->
 											<input c:groupId="foePkTable" c:validator="selected_radio" c:varValue="p;index" name="selectedFoePk" type="radio"/>
 										</td>
 									</tr>
@@ -172,7 +170,6 @@
 											</c:for>
 										</td>
 										<td>
-											<!--<input name="p;selected" c:varValue="p;selected" type="checkbox"/>-->
 											<input c:groupId="allyPkTable" c:validator="selected_radio" c:varValue="p;index" name="selectedAllyPk" type="radio"/>
 										</td>
 									</tr>
@@ -270,7 +267,6 @@
 										</c:for>
 									</td>
 									<td>
-										<!--<input name="p;selected" c:varValue="p;selected" type="checkbox"/>-->
 										<input c:groupId="pkTable" c:validator="selected_radio" c:varValue="p;index" name="selectedPk" type="radio"/>
 									</td>
 								</tr>
@@ -1038,12 +1034,6 @@
 				</c:for>
 			</c:if>
 			<hr/>
-			<!-- commentArea -->
-			<!--<textarea rows="10" cols="50">
-				<c:for var="l" list="comments">
-					{l;}<span style="color:while;"> <br/></span>
-				</c:for>
-			</textarea>-->
 			
 			<br/>
 			<c:if condition="!teamAfterFight.isEmpty()">
@@ -1087,70 +1077,6 @@
 				</table>
 			</c:if>
 			<hr/>
-			<!--<c:if condition="proponeEvolutions()">
-				<c:for key="k" value="v" map="getEvolutionsAfterFight()" varClassName='ls'>
-					{k;}<br/>
-					<c:if condition="!v;isEmpty()">
-						<ul>
-							<c:for var="e" list="v;">
-								<li>{e;}</li>
-							</c:for>
-						</ul>
-					</c:if>
-					<br/>
-				</c:for>
-				<hr/>
-				<c:for key="k" value="v" map="getMovesNoEvoAfterFight()" varClassName='ls'>
-					{k;}<br/>
-					<c:if condition="!v;isEmpty()">
-						<ul>
-							<c:for var="e" list="v;">
-								<li>{e;}</li>
-							</c:for>
-						</ul>
-					</c:if>
-					<br/>
-				</c:for>
-				<hr/>
-				<c:for key="k" value="v" map="getAbilitiesAfterFight()" varClassName='ntm'>
-					{k;}<br/>
-					<c:if condition="!v;isEmpty()">
-						<ul>
-							<c:for key="j" value="u" map="v;" varClassName='ls'>
-								<li>
-									{j;}<br/>
-									<ul>
-										<c:for var="e" list="u;">
-											<li>{e;}</li>
-										</c:for>
-									</ul>
-								</li>
-							</c:for>
-						</ul>
-					</c:if>
-					<br/>
-				</c:for>
-				<hr/>
-				<c:for key="k" value="v" map="getMovesAfterFight()" varClassName='ntm'>
-					{k;}<br/>
-					<c:if condition="!v;isEmpty()">
-						<ul>
-							<c:for key="j" value="u" map="v;" varClassName='ls'>
-								<li>
-									{j;}<br/>
-									<ul>
-										<c:for var="e" list="u;">
-											<li>{e;}</li>
-										</c:for>
-									</ul>
-								</li>
-							</c:for>
-						</ul>
-					</c:if>
-					<br/>
-				</c:for>
-				<hr/>
-			</c:if>-->
 			<form action="" c:command="$changeFight" method="post" name="cancelsimu">
 				<c:submit message="msg_simulation,previous_button"/>
 			</form>

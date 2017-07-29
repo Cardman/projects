@@ -33,12 +33,6 @@
 					</tr>
 				</thead>
 				<tbody>
-					<!--<c:for var="l" list="typesByOwnedItem">
-						<tr>
-							<td>{l;item}</td>
-							<td>{l;type}</td>
-						</tr>
-					</c:for>-->
 					<c:for key="i" map="typesByOwnedItems" value="t">
 						<tr>
 							<c:if condition="isItem(i;;)">
@@ -63,12 +57,6 @@
 					</tr>
 				</thead>
 				<tbody>
-					<!--<c:for var="l" list="typesByWeather">
-						<tr>
-							<td>{l;weather}</td>
-							<td>{l;type}</td>
-						</tr>
-					</c:for>-->
 					<c:for key="i" map="typesByWeathers" value="t">
 						<tr>
 							<c:if condition="isWeather(i;;)">
@@ -93,12 +81,6 @@
 					</tr>
 				</thead>
 				<tbody>
-					<!--<c:for var="l" list="typesByOwnedItem">
-						<tr>
-							<td>{l;item}</td>
-							<td>{l;type}</td>
-						</tr>
-					</c:for>-->
 					<c:for key="i" map="typesByOwnedItems" value="t">
 						<tr>
 							<c:if condition="isItem(i;;)">
@@ -123,12 +105,6 @@
 					</tr>
 				</thead>
 				<tbody>
-					<!--<c:for var="l" list="typesByOwnedWeather">
-						<tr>
-							<td>{l;weather}</td>
-							<td>{l;type}</td>
-						</tr>
-					</c:for>-->
 					<c:for key="i" map="typesByWeathers" value="t">
 						<tr>
 							<c:if condition="isWeather(i;;)">
@@ -173,8 +149,8 @@
 		</c:if>
 		<h2><c:message value="msg_movedata,targets_title"/></h2>
 		<c:message value="msg_movedata,targets"/>
-		<c:message value="msg_movedata,targets_{targetChoice.name()}"/><!--{getMessageTarget()}--><br/>
-		<c:message value="msg_movedata,chosen_targets_{targetChoice.name()}"/><!--{getMessageChosenTarget()}-->
+		<c:message value="msg_movedata,targets_{targetChoice.name()}"/><br/>
+		<c:message value="msg_movedata,chosen_targets_{targetChoice.name()}"/>
 		<br/>
 		<h2><c:message value="msg_movedata,accuracy_title"/></h2>
 		<c:if condition="isConstAccuracy()">
@@ -336,8 +312,7 @@
 			<h2><c:message value="msg_movedata,effects_sec_dpt"/></h2>
 			<c:for key="e" map="secEffectsByItem" value="l" varClassName="ls">
 				<h3>{e;;} <a c:command="$clickItemSecEffect({e;;})" href="">{translateItemSecEffect(e;;)}</a></h3>
-				<!--<c:if condition="!isEndRoundEffect(e;;)">-->
-					<c:if condition="secEffectIfNoDamage">
+				    <c:if condition="secEffectIfNoDamage">
 						<c:message value="msg_movedata,effect_while_no_damage"/>
 					</c:if>
 					<br/>
@@ -353,7 +328,6 @@
 					</c:for>
 					<br/>
 					<br/>
-				<!--</c:if>-->
 			</c:for>
 			<c:for className="$int" list="effects" var="e">
 				<c:if condition="isEndRoundEffect(e;)">
