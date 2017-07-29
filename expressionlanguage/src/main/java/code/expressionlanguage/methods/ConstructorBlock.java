@@ -7,6 +7,7 @@ import code.expressionlanguage.methods.util.InstancingStep;
 import code.expressionlanguage.opers.OperationNode;
 import code.expressionlanguage.opers.util.ClassName;
 import code.expressionlanguage.opers.util.ConstructorId;
+import code.expressionlanguage.opers.util.FctConstraints;
 import code.util.CustList;
 import code.util.EqList;
 import code.util.NatTreeMap;
@@ -24,9 +25,11 @@ public final class ConstructorBlock extends BracedBlock implements Returnable {
 
     private InstancingStep instancing;
     
-    private ConstructorId constIdSameClass;
+    private FctConstraints constIdSameClass;
 
-    private ConstructorId constId;
+    private FctConstraints constId;
+
+    private FctConstraints constraints;
 
     public ConstructorBlock(Element _el, ContextEl _importingPage, int _indexChild,
             BracedBlock _m) {
@@ -321,11 +324,11 @@ public final class ConstructorBlock extends BracedBlock implements Returnable {
         return ch_.getNextSibling();
     }
 
-    public ConstructorId getConstIdSameClass() {
+    public FctConstraints getConstIdSameClass() {
         return constIdSameClass;
     }
 
-    public ConstructorId getConstId() {
+    public FctConstraints getConstId() {
         return constId;
     }
 
@@ -367,5 +370,15 @@ public final class ConstructorBlock extends BracedBlock implements Returnable {
     @Override
     public RootedBlock belong() {
         return (RootedBlock) getParent();
+    }
+
+    @Override
+    public FctConstraints getConstraints() {
+        return constraints;
+    }
+
+    @Override
+    public void setConstraints(FctConstraints _constraints) {
+        constraints = _constraints;
     }
 }

@@ -11,6 +11,8 @@ public final class MethodInfo implements Parametrable {
 
     private MethodId methodId;
 
+    private FctConstraints constraints;
+
     private Method method;
 
     private ParametersGroup parameters;
@@ -31,6 +33,14 @@ public final class MethodInfo implements Parametrable {
 
     public void setMethodId(MethodId _methodId) {
         methodId = _methodId;
+    }
+
+    public FctConstraints getConstraints() {
+        return constraints;
+    }
+
+    public void setConstraints(FctConstraints _constraints) {
+        constraints = _constraints;
     }
 
     public Method getMethod() {

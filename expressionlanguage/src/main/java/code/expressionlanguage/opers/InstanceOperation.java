@@ -24,14 +24,15 @@ import code.expressionlanguage.exceptions.StaticAccessException;
 import code.expressionlanguage.exceptions.UnwrappingException;
 import code.expressionlanguage.exceptions.VoidArgumentException;
 import code.expressionlanguage.methods.Classes;
+import code.expressionlanguage.methods.ConstructorBlock;
 import code.expressionlanguage.methods.ProcessXmlMethod;
 import code.expressionlanguage.methods.util.ArgumentsPair;
 import code.expressionlanguage.methods.util.InstancingStep;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.opers.util.ClassCategory;
 import code.expressionlanguage.opers.util.ClassMetaInfo;
-import code.expressionlanguage.opers.util.ConstructorId;
 import code.expressionlanguage.opers.util.DimComp;
+import code.expressionlanguage.opers.util.FctConstraints;
 import code.expressionlanguage.opers.util.Struct;
 import code.serialize.exceptions.BadAccessException;
 import code.util.CustList;
@@ -61,7 +62,7 @@ public final class InstanceOperation extends InvokingOperation {
 //    private boolean needPrevious;
     private Constructor<?> contructor;
 
-    private ConstructorId constId;
+    private FctConstraints constId;
 
     public InstanceOperation(String _el, int _index, ContextEl _importingPage,
             int _indexChild, MethodOperation _m, OperationsSequence _op) {
@@ -521,7 +522,8 @@ public final class InstanceOperation extends InvokingOperation {
                     throw new BadAccessException(realClassName_+RETURN_LINE+_conf.joinPages());
                 }
                 if (!classes_.canAccessConstructor(glClass_, realClassName_, constId)) {
-                    throw new BadAccessException(constId.getSignature()+RETURN_LINE+_conf.joinPages());
+                    ConstructorBlock ctr_ = classes_.getConstructorBody(realClassName_, constId);
+                    throw new BadAccessException(ctr_.getId().getSignature()+RETURN_LINE+_conf.joinPages());
                 }
                 if (custClass_.getCategory() == ClassCategory.ENUM) {
                     if (!_enumContext) {
@@ -581,7 +583,8 @@ public final class InstanceOperation extends InvokingOperation {
                 throw new BadAccessException(realClassName_+RETURN_LINE+_conf.joinPages());
             }
             if (!classes_.canAccessConstructor(glClass_, realClassName_, constId)) {
-                throw new BadAccessException(constId.getSignature()+RETURN_LINE+_conf.joinPages());
+                ConstructorBlock ctr_ = classes_.getConstructorBody(realClassName_, constId);
+                throw new BadAccessException(ctr_.getId().getSignature()+RETURN_LINE+_conf.joinPages());
             }
             if (custClass_.getCategory() == ClassCategory.ENUM) {
                 if (!_enumContext) {

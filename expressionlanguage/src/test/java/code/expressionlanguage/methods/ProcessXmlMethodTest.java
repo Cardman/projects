@@ -19,19 +19,17 @@ import code.expressionlanguage.PrimitiveTypeUtil;
 import code.expressionlanguage.classes.Ints;
 import code.expressionlanguage.classes.PickableList;
 import code.expressionlanguage.exceptions.StackOverFlow;
-import code.expressionlanguage.methods.Block;
-import code.expressionlanguage.methods.Classes;
-import code.expressionlanguage.methods.MethodBlock;
-import code.expressionlanguage.methods.ProcessXmlMethod;
 import code.expressionlanguage.methods.exceptions.UndefinedConstructorException;
 import code.expressionlanguage.opers.OperationNode;
 import code.expressionlanguage.opers.util.ClassField;
 import code.expressionlanguage.opers.util.ClassName;
 import code.expressionlanguage.opers.util.ConstructorId;
+import code.expressionlanguage.opers.util.FctConstraints;
 import code.expressionlanguage.opers.util.MethodId;
 import code.expressionlanguage.opers.util.Struct;
 import code.util.CustList;
 import code.util.EqList;
+import code.util.StringList;
 import code.util.StringMap;
 
 @SuppressWarnings("static-method")
@@ -2343,7 +2341,7 @@ public class ProcessXmlMethodTest {
         assertEq(1, (Number)ret_.getObject());
         assertEq(PrimitiveTypeUtil.PRIM_INT, ret_.getArgClassName());
     }
-    @Test(timeout=1000)
+    @Test
     public void calculateArgument1001Test() {
         String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg'>\n";
         xml_ += "<method access='"+PUBLIC_ACCESS+"' modifier='static' name='exmeth' class='"+PrimitiveTypeUtil.PRIM_INT+"'>\n";
@@ -5477,8 +5475,13 @@ public class ProcessXmlMethodTest {
     }
 
     static Argument calculateArgument(String _class, MethodId _method, CustList<Argument> _args, ContextEl _cont) {
+        EqList<StringList> constraints_ = new EqList<StringList>();
+        for (ClassName c: _method.getClassNames()) {
+            constraints_.add(new StringList(c.getName()));
+        }
+        FctConstraints fct_ = new FctConstraints(_method.getName(),constraints_);
         Classes classes_ = _cont.getClasses();
-        MethodBlock method_ = classes_.getMethodBody(_class, _method);
+        MethodBlock method_ = classes_.getMethodBody(_class, fct_);
         Block firstChild_ = method_.getFirstChild();
         if (firstChild_ == null) {
             Argument a_ = new Argument();
@@ -5487,7 +5490,7 @@ public class ProcessXmlMethodTest {
         }
         Argument argGlLoc_ = new Argument();
         argGlLoc_.setArgClassName(_class);
-        return ProcessXmlMethod.calculateArgument(argGlLoc_, _class, _method, _args, _cont);
+        return ProcessXmlMethod.calculateArgument(argGlLoc_, _class, fct_, _args, _cont);
     }
 
     @Test
@@ -5651,7 +5654,7 @@ public class ProcessXmlMethodTest {
         ConstructorId id_ = getConstructorId("pkg.Ex");
         ProcessXmlMethod.initializeClass("pkg.Ex", cont_);
         Argument ret_;
-        ret_ = ProcessXmlMethod.instanceArgument("pkg.Ex", null, id_, args_, cont_);
+        ret_ = instanceArgument("pkg.Ex", null, id_, args_, cont_);
         assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
         Struct str_ = ret_.getStruct();
         assertEq(CustBase.class.getName(), str_.getRealClassName());
@@ -5673,7 +5676,7 @@ public class ProcessXmlMethodTest {
         ConstructorId id_ = getConstructorId("pkg.Ex");
         ProcessXmlMethod.initializeClass("pkg.Ex", cont_);
         Argument ret_;
-        ret_ = ProcessXmlMethod.instanceArgument("pkg.Ex", null, id_, args_, cont_);
+        ret_ = instanceArgument("pkg.Ex", null, id_, args_, cont_);
         assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
         Struct str_ = ret_.getStruct();
         assertEq(CustBase.class.getName(), str_.getRealClassName());
@@ -5699,7 +5702,7 @@ public class ProcessXmlMethodTest {
         ConstructorId id_ = getConstructorId("pkg.Ex");
         ProcessXmlMethod.initializeClass("pkg.Ex", cont_);
         Argument ret_;
-        ret_ = ProcessXmlMethod.instanceArgument("pkg.Ex", null, id_, args_, cont_);
+        ret_ = instanceArgument("pkg.Ex", null, id_, args_, cont_);
         assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
         Struct str_ = ret_.getStruct();
         assertEq(CustBase.class.getName(), str_.getRealClassName());
@@ -5728,7 +5731,7 @@ public class ProcessXmlMethodTest {
         ConstructorId id_ = getConstructorId("pkg.Ex",PrimitiveTypeUtil.PRIM_INT);
         ProcessXmlMethod.initializeClass("pkg.Ex", cont_);
         Argument ret_;
-        ret_ = ProcessXmlMethod.instanceArgument("pkg.Ex", null, id_, args_, cont_);
+        ret_ = instanceArgument("pkg.Ex", null, id_, args_, cont_);
         assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
         Struct str_ = ret_.getStruct();
         assertEq(CustBase.class.getName(), str_.getRealClassName());
@@ -5765,7 +5768,7 @@ public class ProcessXmlMethodTest {
         ConstructorId id_ = getConstructorId("pkg.Ex",PrimitiveTypeUtil.PRIM_INT);
         ProcessXmlMethod.initializeClass("pkg.Ex", cont_);
         Argument ret_;
-        ret_ = ProcessXmlMethod.instanceArgument("pkg.Ex", null, id_, args_, cont_);
+        ret_ = instanceArgument("pkg.Ex", null, id_, args_, cont_);
         assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
         Struct str_ = ret_.getStruct();
         assertEq(CustBase.class.getName(), str_.getRealClassName());
@@ -5797,7 +5800,7 @@ public class ProcessXmlMethodTest {
         ConstructorId id_ = getConstructorId("pkg.Ex");
         ProcessXmlMethod.initializeClass("pkg.Ex", cont_);
         Argument ret_;
-        ret_ = ProcessXmlMethod.instanceArgument("pkg.Ex", null, id_, args_, cont_);
+        ret_ = instanceArgument("pkg.Ex", null, id_, args_, cont_);
         assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
         Struct str_ = ret_.getStruct();
         assertEq(CustBase.class.getName(), str_.getRealClassName());
@@ -5834,7 +5837,7 @@ public class ProcessXmlMethodTest {
         ConstructorId id_ = getConstructorId("pkg.Ex");
         ProcessXmlMethod.initializeClass("pkg.Ex", cont_);
         Argument ret_;
-        ret_ = ProcessXmlMethod.instanceArgument("pkg.Ex", null, id_, args_, cont_);
+        ret_ = instanceArgument("pkg.Ex", null, id_, args_, cont_);
         assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
         Struct str_ = ret_.getStruct();
         assertEq(CustBase.class.getName(), str_.getRealClassName());
@@ -5877,7 +5880,7 @@ public class ProcessXmlMethodTest {
         ConstructorId id_ = getConstructorId("pkg.Ex");
         ProcessXmlMethod.initializeClass("pkg.Ex", cont_);
         Argument ret_;
-        ret_ = ProcessXmlMethod.instanceArgument("pkg.Ex", null, id_, args_, cont_);
+        ret_ = instanceArgument("pkg.Ex", null, id_, args_, cont_);
         assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
         Struct str_ = ret_.getStruct();
         assertEq(CustBase.class.getName(), str_.getRealClassName());
@@ -5931,7 +5934,7 @@ public class ProcessXmlMethodTest {
         ConstructorId id_ = getConstructorId("pkg.Ex");
         ProcessXmlMethod.initializeClass("pkg.Ex", cont_);
         Argument ret_;
-        ret_ = ProcessXmlMethod.instanceArgument("pkg.Ex", null, id_, args_, cont_);
+        ret_ = instanceArgument("pkg.Ex", null, id_, args_, cont_);
         assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
         Struct str_ = ret_.getStruct();
         assertEq(CustBase.class.getName(), str_.getRealClassName());
@@ -5989,7 +5992,7 @@ public class ProcessXmlMethodTest {
         ConstructorId id_ = getConstructorId("pkg.Ex");
         ProcessXmlMethod.initializeClass("pkg.Ex", cont_);
         Argument ret_;
-        ret_ = ProcessXmlMethod.instanceArgument("pkg.Ex", null, id_, args_, cont_);
+        ret_ = instanceArgument("pkg.Ex", null, id_, args_, cont_);
         assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
         Struct str_ = ret_.getStruct();
         assertEq(CustBase.class.getName(), str_.getRealClassName());
@@ -6044,7 +6047,7 @@ public class ProcessXmlMethodTest {
         ConstructorId id_ = getConstructorId("pkg.Ex");
         ProcessXmlMethod.initializeClass("pkg.Ex", cont_);
         Argument ret_;
-        ret_ = ProcessXmlMethod.instanceArgument("pkg.Ex", null, id_, args_, cont_);
+        ret_ = instanceArgument("pkg.Ex", null, id_, args_, cont_);
         assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
         Struct str_ = ret_.getStruct();
         assertEq(CustBase.class.getName(), str_.getRealClassName());
@@ -6088,7 +6091,7 @@ public class ProcessXmlMethodTest {
         ConstructorId id_ = getConstructorId("pkg.Ex");
         ProcessXmlMethod.initializeClass("pkg.Ex", cont_);
         Argument ret_;
-        ret_ = ProcessXmlMethod.instanceArgument("pkg.Ex", null, id_, args_, cont_);
+        ret_ = instanceArgument("pkg.Ex", null, id_, args_, cont_);
         assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
         Struct str_ = ret_.getStruct();
         assertEq(CustBase.class.getName(), str_.getRealClassName());
@@ -6121,7 +6124,7 @@ public class ProcessXmlMethodTest {
         ConstructorId id_ = getConstructorId("pkg.Ex");
         ProcessXmlMethod.initializeClass("pkg.Ex", cont_);
         Argument ret_;
-        ret_ = ProcessXmlMethod.instanceArgument("pkg.Ex", null, id_, args_, cont_);
+        ret_ = instanceArgument("pkg.Ex", null, id_, args_, cont_);
         assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
         Struct str_ = ret_.getStruct();
         assertEq(CustBase.class.getName(), str_.getRealClassName());
@@ -6155,7 +6158,7 @@ public class ProcessXmlMethodTest {
         ConstructorId id_ = getConstructorId("pkg.Ex");
         ProcessXmlMethod.initializeClass("pkg.Ex", cont_);
         Argument ret_;
-        ret_ = ProcessXmlMethod.instanceArgument("pkg.Ex", null, id_, args_, cont_);
+        ret_ = instanceArgument("pkg.Ex", null, id_, args_, cont_);
         assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
         Struct str_ = ret_.getStruct();
         assertEq(CustBase.class.getName(), str_.getRealClassName());
@@ -6192,7 +6195,7 @@ public class ProcessXmlMethodTest {
         ConstructorId id_ = getConstructorId("pkg.Ex");
         ProcessXmlMethod.initializeClass("pkg.Ex", cont_);
         Argument ret_;
-        ret_ = ProcessXmlMethod.instanceArgument("pkg.Ex", null, id_, args_, cont_);
+        ret_ = instanceArgument("pkg.Ex", null, id_, args_, cont_);
         assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
         Struct str_ = ret_.getStruct();
         assertEq(CustBase.class.getName(), str_.getRealClassName());
@@ -6232,7 +6235,7 @@ public class ProcessXmlMethodTest {
         ConstructorId id_ = getConstructorId("pkg.Ex");
         ProcessXmlMethod.initializeClass("pkg.Ex", cont_);
         Argument ret_;
-        ret_ = ProcessXmlMethod.instanceArgument("pkg.Ex", null, id_, args_, cont_);
+        ret_ = instanceArgument("pkg.Ex", null, id_, args_, cont_);
         assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
         Struct str_ = ret_.getStruct();
         assertEq(CustBase.class.getName(), str_.getRealClassName());
@@ -6280,7 +6283,7 @@ public class ProcessXmlMethodTest {
         ConstructorId id_ = getConstructorId("pkg.Ex");
         ProcessXmlMethod.initializeClass("pkg.Ex", cont_);
         Argument ret_;
-        ret_ = ProcessXmlMethod.instanceArgument("pkg.Ex", null, id_, args_, cont_);
+        ret_ = instanceArgument("pkg.Ex", null, id_, args_, cont_);
         assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
         Struct str_ = ret_.getStruct();
         assertEq(CustBase.class.getName(), str_.getRealClassName());
@@ -6335,7 +6338,7 @@ public class ProcessXmlMethodTest {
         ConstructorId id_ = getConstructorId("pkg.Ex");
         ProcessXmlMethod.initializeClass("pkg.Ex", cont_);
         Argument ret_;
-        ret_ = ProcessXmlMethod.instanceArgument("pkg.Ex", null, id_, args_, cont_);
+        ret_ = instanceArgument("pkg.Ex", null, id_, args_, cont_);
         assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
         Struct str_ = ret_.getStruct();
         assertEq(CustBase.class.getName(), str_.getRealClassName());
@@ -6392,7 +6395,7 @@ public class ProcessXmlMethodTest {
         ConstructorId id_ = getConstructorId("pkg.Ex");
         ProcessXmlMethod.initializeClass("pkg.Ex", cont_);
         Argument ret_;
-        ret_ = ProcessXmlMethod.instanceArgument("pkg.Ex", null, id_, args_, cont_);
+        ret_ = instanceArgument("pkg.Ex", null, id_, args_, cont_);
         assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
         Struct str_ = ret_.getStruct();
         assertEq(CustBase.class.getName(), str_.getRealClassName());
@@ -6449,7 +6452,7 @@ public class ProcessXmlMethodTest {
         ConstructorId id_ = getConstructorId("pkg.Ex");
         ProcessXmlMethod.initializeClass("pkg.Ex", cont_);
         Argument ret_;
-        ret_ = ProcessXmlMethod.instanceArgument("pkg.Ex", null, id_, args_, cont_);
+        ret_ = instanceArgument("pkg.Ex", null, id_, args_, cont_);
         assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
         Struct str_ = ret_.getStruct();
         assertEq(CustBase.class.getName(), str_.getRealClassName());
@@ -6509,7 +6512,7 @@ public class ProcessXmlMethodTest {
         ConstructorId id_ = getConstructorId("pkg.Ex");
         ProcessXmlMethod.initializeClass("pkg.Ex", cont_);
         Argument ret_;
-        ret_ = ProcessXmlMethod.instanceArgument("pkg.Ex", null, id_, args_, cont_);
+        ret_ = instanceArgument("pkg.Ex", null, id_, args_, cont_);
         assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
         Struct str_ = ret_.getStruct();
         assertEq(CustBase.class.getName(), str_.getRealClassName());
@@ -6572,7 +6575,7 @@ public class ProcessXmlMethodTest {
         ConstructorId id_ = getConstructorId("pkg.Ex");
         ProcessXmlMethod.initializeClass("pkg.Ex", cont_);
         Argument ret_;
-        ret_ = ProcessXmlMethod.instanceArgument("pkg.Ex", null, id_, args_, cont_);
+        ret_ = instanceArgument("pkg.Ex", null, id_, args_, cont_);
         assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
         Struct str_ = ret_.getStruct();
         assertEq(CustBase.class.getName(), str_.getRealClassName());
@@ -6636,7 +6639,7 @@ public class ProcessXmlMethodTest {
         ConstructorId id_ = getConstructorId("pkg.Ex");
         ProcessXmlMethod.initializeClass("pkg.Ex", cont_);
         Argument ret_;
-        ret_ = ProcessXmlMethod.instanceArgument("pkg.Ex", null, id_, args_, cont_);
+        ret_ = instanceArgument("pkg.Ex", null, id_, args_, cont_);
         assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
         Struct str_ = ret_.getStruct();
         assertEq(CustBase.class.getName(), str_.getRealClassName());
@@ -6707,7 +6710,7 @@ public class ProcessXmlMethodTest {
         ConstructorId id_ = getConstructorId("pkg.Ex");
         ProcessXmlMethod.initializeClass("pkg.Ex", cont_);
         Argument ret_;
-        ret_ = ProcessXmlMethod.instanceArgument("pkg.Ex", null, id_, args_, cont_);
+        ret_ = instanceArgument("pkg.Ex", null, id_, args_, cont_);
         assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
         Struct str_ = ret_.getStruct();
         assertEq(CustBase.class.getName(), str_.getRealClassName());
@@ -6775,7 +6778,7 @@ public class ProcessXmlMethodTest {
         ConstructorId id_ = getConstructorId("pkg.Ex");
         ProcessXmlMethod.initializeClass("pkg.Ex", cont_);
         Argument ret_;
-        ret_ = ProcessXmlMethod.instanceArgument("pkg.Ex", null, id_, args_, cont_);
+        ret_ = instanceArgument("pkg.Ex", null, id_, args_, cont_);
         assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
         Struct str_ = ret_.getStruct();
         assertEq(CustBase.class.getName(), str_.getRealClassName());
@@ -6833,7 +6836,7 @@ public class ProcessXmlMethodTest {
         ConstructorId id_ = getConstructorId("pkg.Ex");
         ProcessXmlMethod.initializeClass("pkg.Ex", cont_);
         Argument ret_;
-        ret_ = ProcessXmlMethod.instanceArgument("pkg.Ex", null, id_, args_, cont_);
+        ret_ = instanceArgument("pkg.Ex", null, id_, args_, cont_);
         assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
         Struct str_ = ret_.getStruct();
         assertEq(CustBase.class.getName(), str_.getRealClassName());
@@ -6896,7 +6899,7 @@ public class ProcessXmlMethodTest {
         ConstructorId id_ = getConstructorId("pkg.Ex");
         ProcessXmlMethod.initializeClass("pkg.Ex", cont_);
         Argument ret_;
-        ret_ = ProcessXmlMethod.instanceArgument("pkg.Ex", null, id_, args_, cont_);
+        ret_ = instanceArgument("pkg.Ex", null, id_, args_, cont_);
         assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
         Struct str_ = ret_.getStruct();
         assertEq(CustBase.class.getName(), str_.getRealClassName());
@@ -6971,7 +6974,7 @@ public class ProcessXmlMethodTest {
         ConstructorId id_ = getConstructorId("pkg.Ex");
         ProcessXmlMethod.initializeClass("pkg.Ex", cont_);
         Argument ret_;
-        ret_ = ProcessXmlMethod.instanceArgument("pkg.Ex", null, id_, args_, cont_);
+        ret_ = instanceArgument("pkg.Ex", null, id_, args_, cont_);
         assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
         Struct str_ = ret_.getStruct();
         assertEq(CustBase.class.getName(), str_.getRealClassName());
@@ -7037,7 +7040,7 @@ public class ProcessXmlMethodTest {
         ConstructorId id_ = getConstructorId("pkg.Ex");
         ProcessXmlMethod.initializeClass("pkg.Ex", cont_);
         Argument ret_;
-        ret_ = ProcessXmlMethod.instanceArgument("pkg.Ex", null, id_, args_, cont_);
+        ret_ = instanceArgument("pkg.Ex", null, id_, args_, cont_);
         assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
         Struct str_ = ret_.getStruct();
         assertEq(CustBase.class.getName(), str_.getRealClassName());
@@ -7099,7 +7102,7 @@ public class ProcessXmlMethodTest {
         ConstructorId id_ = getConstructorId("pkg.ExTwo");
         ProcessXmlMethod.initializeClass("pkg.ExTwo", cont_);
         Argument ret_;
-        ret_ = ProcessXmlMethod.instanceArgument("pkg.ExTwo", null, id_, args_, cont_);
+        ret_ = instanceArgument("pkg.ExTwo", null, id_, args_, cont_);
 //        assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
         Struct str_ = ret_.getStruct();
         assertEq(CustBase.class.getName(), str_.getRealClassName());
@@ -7144,7 +7147,7 @@ public class ProcessXmlMethodTest {
         ProcessXmlMethod.initializeClass("pkg.ExTwo", cont_);
         cont_.addPage(new PageEl());
         Argument ret_;
-        ret_ = ProcessXmlMethod.instanceArgument("pkg.ExTwo", null, id_, args_, cont_);
+        ret_ = instanceArgument("pkg.ExTwo", null, id_, args_, cont_);
         Struct str_ = ret_.getStruct();
         assertEq(CustBase.class.getName(), str_.getRealClassName());
         assertEq("pkg.ExTwo", str_.getClassName());
@@ -7179,7 +7182,7 @@ public class ProcessXmlMethodTest {
         ProcessXmlMethod.initializeClass("pkg.ExOne", cont_);
         cont_.addPage(new PageEl());
         Argument ret_;
-        ret_ = ProcessXmlMethod.instanceArgument("pkg.ExOne", null, id_, args_, cont_);
+        ret_ = instanceArgument("pkg.ExOne", null, id_, args_, cont_);
 //        cont_.getLastPage().setGlobalArgument(ret_);
 //        Argument f_ = ProcessXmlMethod.calculateArgument("pkg.ExThree", getMethodId("doubleValue"), new CustList<Argument>(), cont_);
 //        assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
@@ -7223,7 +7226,7 @@ public class ProcessXmlMethodTest {
         ConstructorId id_ = getConstructorId("pkg.Ex");
         ProcessXmlMethod.initializeClass("pkg.Ex", cont_);
         Argument ret_;
-        ret_ = ProcessXmlMethod.instanceArgument("pkg.Ex", null, id_, args_, cont_);
+        ret_ = instanceArgument("pkg.Ex", null, id_, args_, cont_);
         assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
         Struct str_ = ret_.getStruct();
         assertEq(CustBase.class.getName(), str_.getRealClassName());
@@ -7257,7 +7260,7 @@ public class ProcessXmlMethodTest {
         ConstructorId id_ = getConstructorId("pkg.Ex");
         ProcessXmlMethod.initializeClass("pkg.Ex", cont_);
         Argument ret_;
-        ret_ = ProcessXmlMethod.instanceArgument("pkg.Ex", null, id_, args_, cont_);
+        ret_ = instanceArgument("pkg.Ex", null, id_, args_, cont_);
         assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
         Struct str_ = ret_.getStruct();
         assertEq(CustBase.class.getName(), str_.getRealClassName());
@@ -7308,7 +7311,7 @@ public class ProcessXmlMethodTest {
         ConstructorId id_ = getConstructorId("pkg.Ex",PrimitiveTypeUtil.PRIM_INT);
         ProcessXmlMethod.initializeClass("pkg.Ex", cont_);
         Argument ret_;
-        ret_ = ProcessXmlMethod.instanceArgument("pkg.Ex", null, id_, args_, cont_);
+        ret_ = instanceArgument("pkg.Ex", null, id_, args_, cont_);
         assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
         Struct str_ = ret_.getStruct();
         assertEq(CustBase.class.getName(), str_.getRealClassName());
@@ -7358,7 +7361,7 @@ public class ProcessXmlMethodTest {
         ConstructorId id_ = getConstructorId("pkg.Ex",PrimitiveTypeUtil.PRIM_INT);
         ProcessXmlMethod.initializeClass("pkg.Ex", cont_);
         Argument ret_;
-        ret_ = ProcessXmlMethod.instanceArgument("pkg.Ex", null, id_, args_, cont_);
+        ret_ = instanceArgument("pkg.Ex", null, id_, args_, cont_);
         assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
         Struct str_ = ret_.getStruct();
         assertEq(CustBase.class.getName(), str_.getRealClassName());
@@ -7408,7 +7411,7 @@ public class ProcessXmlMethodTest {
         ConstructorId id_ = getConstructorId("pkg.Ex",PrimitiveTypeUtil.PRIM_INT);
         ProcessXmlMethod.initializeClass("pkg.Ex", cont_);
         Argument ret_;
-        ret_ = ProcessXmlMethod.instanceArgument("pkg.Ex", null, id_, args_, cont_);
+        ret_ = instanceArgument("pkg.Ex", null, id_, args_, cont_);
         assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
         Struct str_ = ret_.getStruct();
         assertEq(CustBase.class.getName(), str_.getRealClassName());
@@ -7453,7 +7456,7 @@ public class ProcessXmlMethodTest {
         ConstructorId id_ = getConstructorId("pkg.Ex",PrimitiveTypeUtil.PRIM_INT);
         ProcessXmlMethod.initializeClass("pkg.Ex", cont_);
         Argument ret_;
-        ret_ = ProcessXmlMethod.instanceArgument("pkg.Ex", null, id_, args_, cont_);
+        ret_ = instanceArgument("pkg.Ex", null, id_, args_, cont_);
         assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
         Struct str_ = ret_.getStruct();
         assertEq(CustBase.class.getName(), str_.getRealClassName());
@@ -7494,7 +7497,7 @@ public class ProcessXmlMethodTest {
         ConstructorId id_ = getConstructorId("pkg.Ex",PrimitiveTypeUtil.PRIM_INT);
         ProcessXmlMethod.initializeClass("pkg.Ex", cont_);
         Argument ret_;
-        ret_ = ProcessXmlMethod.instanceArgument("pkg.Ex", null, id_, args_, cont_);
+        ret_ = instanceArgument("pkg.Ex", null, id_, args_, cont_);
         assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
         Struct str_ = ret_.getStruct();
         assertEq(CustBase.class.getName(), str_.getRealClassName());
@@ -7543,7 +7546,7 @@ public class ProcessXmlMethodTest {
         ConstructorId id_ = getConstructorId("pkg.Ex",PrimitiveTypeUtil.PRIM_INT);
         ProcessXmlMethod.initializeClass("pkg.Ex", cont_);
         Argument ret_;
-        ret_ = ProcessXmlMethod.instanceArgument("pkg.Ex", null, id_, args_, cont_);
+        ret_ = instanceArgument("pkg.Ex", null, id_, args_, cont_);
         assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
         Struct str_ = ret_.getStruct();
         assertEq(CustBase.class.getName(), str_.getRealClassName());
@@ -7586,7 +7589,7 @@ public class ProcessXmlMethodTest {
         ConstructorId id_ = getConstructorId("pkg.ExThree");
         ProcessXmlMethod.initializeClass("pkg.ExThree", cont_);
         Argument ret_;
-        ret_ = ProcessXmlMethod.instanceArgument("pkg.ExThree", null, id_, args_, cont_);
+        ret_ = instanceArgument("pkg.ExThree", null, id_, args_, cont_);
         assertTrue(cont_.getClasses().isInitialized("pkg.ExThree"));
         Struct str_ = ret_.getStruct();
         assertEq(CustBase.class.getName(), str_.getRealClassName());
@@ -7625,7 +7628,7 @@ public class ProcessXmlMethodTest {
         ConstructorId id_ = getConstructorId("pkgtwo.ExThree");
         ProcessXmlMethod.initializeClass("pkgtwo.ExThree", cont_);
         Argument ret_;
-        ret_ = ProcessXmlMethod.instanceArgument("pkgtwo.ExThree", null, id_, args_, cont_);
+        ret_ = instanceArgument("pkgtwo.ExThree", null, id_, args_, cont_);
         assertTrue(cont_.getClasses().isInitialized("pkgtwo.ExThree"));
         Struct str_ = ret_.getStruct();
         assertEq(CustBase.class.getName(), str_.getRealClassName());
@@ -7664,7 +7667,7 @@ public class ProcessXmlMethodTest {
         ConstructorId id_ = getConstructorId("pkgtwo.ExThree");
         ProcessXmlMethod.initializeClass("pkgtwo.ExThree", cont_);
         Argument ret_;
-        ret_ = ProcessXmlMethod.instanceArgument("pkgtwo.ExThree", null, id_, args_, cont_);
+        ret_ = instanceArgument("pkgtwo.ExThree", null, id_, args_, cont_);
         assertTrue(cont_.getClasses().isInitialized("pkgtwo.ExThree"));
         Struct str_ = ret_.getStruct();
         assertEq(CustBase.class.getName(), str_.getRealClassName());
@@ -7706,7 +7709,7 @@ public class ProcessXmlMethodTest {
         ConstructorId id_ = getConstructorId("pkg.ExThree");
         ProcessXmlMethod.initializeClass("pkg.ExThree", cont_);
         Argument ret_;
-        ret_ = ProcessXmlMethod.instanceArgument("pkg.ExThree", null, id_, args_, cont_);
+        ret_ = instanceArgument("pkg.ExThree", null, id_, args_, cont_);
         Struct str_ = ret_.getStruct();
         assertEq(CustBase.class.getName(), str_.getRealClassName());
         assertEq("pkg.ExThree", str_.getClassName());
@@ -7740,7 +7743,7 @@ public class ProcessXmlMethodTest {
         ConstructorId id_ = getConstructorId("pkg.ExThree");
         ProcessXmlMethod.initializeClass("pkg.ExThree", cont_);
         Argument ret_;
-        ret_ = ProcessXmlMethod.instanceArgument("pkg.ExThree", null, id_, args_, cont_);
+        ret_ = instanceArgument("pkg.ExThree", null, id_, args_, cont_);
         Struct str_ = ret_.getStruct();
         assertEq(CustBase.class.getName(), str_.getRealClassName());
         assertEq("pkg.ExThree", str_.getClassName());
@@ -7774,7 +7777,7 @@ public class ProcessXmlMethodTest {
         ConstructorId id_ = getConstructorId("pkg.ExThree");
         ProcessXmlMethod.initializeClass("pkg.ExThree", cont_);
         Argument ret_;
-        ret_ = ProcessXmlMethod.instanceArgument("pkg.ExThree", null, id_, args_, cont_);
+        ret_ = instanceArgument("pkg.ExThree", null, id_, args_, cont_);
         Struct str_ = ret_.getStruct();
         assertEq(CustBase.class.getName(), str_.getRealClassName());
         assertEq("pkg.ExThree", str_.getClassName());
@@ -7809,7 +7812,7 @@ public class ProcessXmlMethodTest {
         ConstructorId id_ = getConstructorId("pkg.ExThree");
         ProcessXmlMethod.initializeClass("pkg.ExThree", cont_);
         Argument ret_;
-        ret_ = ProcessXmlMethod.instanceArgument("pkg.ExThree", null, id_, args_, cont_);
+        ret_ = instanceArgument("pkg.ExThree", null, id_, args_, cont_);
         Struct str_ = ret_.getStruct();
         assertEq(CustBase.class.getName(), str_.getRealClassName());
         assertEq("pkg.ExThree", str_.getClassName());
@@ -7844,7 +7847,7 @@ public class ProcessXmlMethodTest {
         ConstructorId id_ = getConstructorId("pkg.ExThree");
         ProcessXmlMethod.initializeClass("pkg.ExThree", cont_);
         Argument ret_;
-        ret_ = ProcessXmlMethod.instanceArgument("pkg.ExThree", null, id_, args_, cont_);
+        ret_ = instanceArgument("pkg.ExThree", null, id_, args_, cont_);
         Struct str_ = ret_.getStruct();
         assertEq(CustBase.class.getName(), str_.getRealClassName());
         assertEq("pkg.ExThree", str_.getClassName());
@@ -7887,7 +7890,7 @@ public class ProcessXmlMethodTest {
         ConstructorId id_ = getConstructorId("pkg.ExThree");
         ProcessXmlMethod.initializeClass("pkg.ExThree", cont_);
         Argument ret_;
-        ret_ = ProcessXmlMethod.instanceArgument("pkg.ExThree", null, id_, args_, cont_);
+        ret_ = instanceArgument("pkg.ExThree", null, id_, args_, cont_);
         Struct str_ = ret_.getStruct();
         assertEq(CustBase.class.getName(), str_.getRealClassName());
         assertEq("pkg.ExThree", str_.getClassName());
@@ -7930,7 +7933,7 @@ public class ProcessXmlMethodTest {
         ConstructorId id_ = getConstructorId("pkg.ExThree");
         ProcessXmlMethod.initializeClass("pkg.ExThree", cont_);
         Argument ret_;
-        ret_ = ProcessXmlMethod.instanceArgument("pkg.ExThree", null, id_, args_, cont_);
+        ret_ = instanceArgument("pkg.ExThree", null, id_, args_, cont_);
         Struct str_ = ret_.getStruct();
         assertEq(CustBase.class.getName(), str_.getRealClassName());
         assertEq("pkg.ExThree", str_.getClassName());
@@ -7977,7 +7980,7 @@ public class ProcessXmlMethodTest {
         ConstructorId id_ = getConstructorId("pkg.ExThree");
         ProcessXmlMethod.initializeClass("pkg.ExThree", cont_);
         Argument ret_;
-        ret_ = ProcessXmlMethod.instanceArgument("pkg.ExThree", null, id_, args_, cont_);
+        ret_ = instanceArgument("pkg.ExThree", null, id_, args_, cont_);
         Struct str_ = ret_.getStruct();
         assertEq(CustBase.class.getName(), str_.getRealClassName());
         assertEq("pkg.ExThree", str_.getClassName());
@@ -8031,7 +8034,7 @@ public class ProcessXmlMethodTest {
 //        ConstructorId id_ = getConstructorId("pkg.Ex");
 //        ProcessXmlMethod.initializeClass("pkg.Ex", cont_);
 //        Argument ret_;
-//        ret_ = ProcessXmlMethod.instanceArgument("pkg.Ex", null, id_, args_, cont_);
+//        ret_ = instanceArgument("pkg.Ex", null, id_, args_, cont_);
 //        assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
 //        Struct str_ = ret_.getStruct();
 //        assertEq(CustBase.class.getName(), str_.getRealClassName());
@@ -8062,6 +8065,17 @@ public class ProcessXmlMethodTest {
 //        assertEq(Integer.class.getName(), intern_.getRealClassName());
 //        assertEq(Integer.class.getName(), intern_.getClassName());
 //        assertEq(17, intern_.getInstance());
+    }
+
+    public static Argument instanceArgument(String _class, Argument _global, ConstructorId _id, CustList<Argument> _args, ContextEl _cont) {
+        int len_ = _id.getClassNames().size();
+        EqList<StringList> constraints_ = new EqList<StringList>();
+        for (int i = CustList.FIRST_INDEX; i < len_; i++) {
+            String n_ = _id.getClassNames().get(i).getName();
+            constraints_.add(new StringList(n_));
+        }
+        FctConstraints id_ = new FctConstraints(_id.getName(),constraints_);
+        return ProcessXmlMethod.instanceArgument(_class, _global, id_, _args, _cont);
     }
 
     @Ignore

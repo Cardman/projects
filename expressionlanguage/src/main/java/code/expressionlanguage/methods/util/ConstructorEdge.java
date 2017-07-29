@@ -1,16 +1,16 @@
 package code.expressionlanguage.methods.util;
-import code.expressionlanguage.opers.util.ConstructorId;
+import code.expressionlanguage.opers.util.FctConstraints;
 import code.util.ints.GraphElement;
 
 public final class ConstructorEdge implements GraphElement<ConstructorEdge> {
 
-    private final ConstructorId id;
+    private final FctConstraints id;
 
-    public ConstructorEdge(ConstructorId _id) {
+    public ConstructorEdge(FctConstraints _id) {
         id = _id;
     }
 
-    public ConstructorId getId() {
+    public FctConstraints getId() {
         return id;
     }
 

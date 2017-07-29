@@ -22,6 +22,7 @@ import code.expressionlanguage.exceptions.PrimitiveTypeException;
 import code.expressionlanguage.exceptions.UnwrappingException;
 import code.expressionlanguage.exceptions.VoidArgumentException;
 import code.expressionlanguage.methods.Classes;
+import code.expressionlanguage.methods.ConstructorBlock;
 import code.expressionlanguage.methods.MethodBlock;
 import code.expressionlanguage.methods.util.ArgumentsPair;
 import code.expressionlanguage.opers.util.ArgumentsGroup;
@@ -32,9 +33,9 @@ import code.expressionlanguage.opers.util.ClassMetaInfo;
 import code.expressionlanguage.opers.util.ClassMethodId;
 import code.expressionlanguage.opers.util.ClassMethodIdResult;
 import code.expressionlanguage.opers.util.ClassName;
-import code.expressionlanguage.opers.util.ConstructorId;
 import code.expressionlanguage.opers.util.ConstructorInfo;
 import code.expressionlanguage.opers.util.ConstructorMetaInfo;
+import code.expressionlanguage.opers.util.FctConstraints;
 import code.expressionlanguage.opers.util.FieldMetaInfo;
 import code.expressionlanguage.opers.util.MethodId;
 import code.expressionlanguage.opers.util.MethodInfo;
@@ -430,7 +431,7 @@ public abstract class OperationNode implements SortedNode<OperationNode>, Operab
     }
 
     @Override
-    public ConstructorId getConstId() {
+    public FctConstraints getConstId() {
         return null;
     }
 
@@ -562,7 +563,7 @@ public abstract class OperationNode implements SortedNode<OperationNode>, Operab
         //        conf.getLastPage().addToOffset(getOperations().getValues().getKey(CustList.FIRST_INDEX));
         throw new NoSuchDeclaredFieldException(traces_.join(RETURN_TAB)+RETURN_LINE+_cont.joinPages());
     }
-    static ConstructorId getDeclaredCustConstructor(ContextEl _conf, ClassArgumentMatching _class, ClassArgumentMatching..._args) {
+    static FctConstraints getDeclaredCustConstructor(ContextEl _conf, ClassArgumentMatching _class, ClassArgumentMatching..._args) {
         Classes classes_ = _conf.getClasses();
         if (classes_ == null) {
             return null;
@@ -577,25 +578,25 @@ public abstract class OperationNode implements SortedNode<OperationNode>, Operab
             throw new AbstractClassConstructorException(_class.getName()+RETURN_LINE+_conf.joinPages());
         }
         String glClass_ = _conf.getLastPage().getGlobalClass();
-        CustList<ConstructorId> possibleMethods_ = new CustList<ConstructorId>();
+        CustList<FctConstraints> possibleMethods_ = new CustList<FctConstraints>();
         for (ClassArgumentMatching c:_args) {
             if (c.matchVoid()) {
                 throw new VoidArgumentException(clCurName_+RETURN_LINE+_conf.joinPages());
             }
         }
-        ObjectNotNullMap<ConstructorId, ConstructorMetaInfo> constructors_;
+        ObjectNotNullMap<FctConstraints, ConstructorMetaInfo> constructors_;
         constructors_ = custClass_.getConstructors();
         if (constructors_.isEmpty()) {
             if (_args.length == 0) {
-                return new ConstructorId(clCurName_, new EqList<ClassName>());
+                return new FctConstraints(clCurName_, new EqList<StringList>());
             }
         }
-        for (EntryCust<ConstructorId, ConstructorMetaInfo> e: constructors_.entryList()) {
-            EqList<ClassName> params_ = e.getKey().getClassNames();
+        for (EntryCust<FctConstraints, ConstructorMetaInfo> e: constructors_.entryList()) {
+            EqList<StringList> params_ = e.getKey().getConstraints();
             ClassMatching[] p_ = new ClassMatching[params_.size()];
             int i_ = CustList.FIRST_INDEX;
-            for (ClassName c: params_) {
-                p_[i_] = new ClassMatching(c.getName());
+            for (StringList c: params_) {
+                p_[i_] = new ClassMatching(c.first());
                 i_++;
             }
             if (!isPossibleMethod(_conf, p_, _args)) {
@@ -631,13 +632,15 @@ public abstract class OperationNode implements SortedNode<OperationNode>, Operab
         ArgumentsGroup gr_ = new ArgumentsGroup(classes_, _args);
         //        ParametersGroupComparator<ConstructorInfo> cmp_ = new ParametersGroupComparator<ConstructorInfo>(gr_);
         CustList<ConstructorInfo> signatures_ = new CustList<ConstructorInfo>();
-        for (ConstructorId m: possibleMethods_) {
+        for (FctConstraints m: possibleMethods_) {
             ParametersGroup p_ = new ParametersGroup();
-            for (ClassName c: m.getClassNames()) {
-                p_.add(new ClassMatching(c.getName()));
+            for (StringList c: m.getConstraints()) {
+                p_.add(new ClassMatching(c.first()));
             }
             ConstructorInfo mloc_ = new ConstructorInfo();
-            mloc_.setConstr(m);
+            ConstructorBlock ctr_ = classes_.getConstructorBody(clCurName_, m);
+            mloc_.setConstr(ctr_.getId());
+            mloc_.setConstraints(m);
             mloc_.setParameters(p_);
             signatures_.add(mloc_);
         }
@@ -649,13 +652,13 @@ public abstract class OperationNode implements SortedNode<OperationNode>, Operab
             }
         }
         if (!signatures_.first().getParameters().isError()) {
-            return signatures_.first().getConstr();
+            return signatures_.first().getConstraints();
         }
         throw new AmbiguousChoiceCallingException(errors_.join(RETURN_LINE)+RETURN_LINE+_conf.joinPages());
     }
-    private static CustList<ConstructorId> filterCtr(String _glClass, String _accessedClass, CustList<ConstructorId> _found, ContextEl _conf) {
-        CustList<ConstructorId> accessible_ = new CustList<ConstructorId>();
-        for (ConstructorId i: _found) {
+    private static CustList<FctConstraints> filterCtr(String _glClass, String _accessedClass, CustList<FctConstraints> _found, ContextEl _conf) {
+        CustList<FctConstraints> accessible_ = new CustList<FctConstraints>();
+        for (FctConstraints i: _found) {
             if (_conf.getClasses().canAccessConstructor(_glClass, _accessedClass, i)) {
                 accessible_.add(i);
             }
@@ -731,7 +734,7 @@ public abstract class OperationNode implements SortedNode<OperationNode>, Operab
         ClassMetaInfo custClass_ = null;
         String clCurName_ = _realClassName;
         custClass_ = classes_.getClassMetaInfo(clCurName_);
-        MethodId id_ = _idMeth.getMethod();
+        FctConstraints id_ = _idMeth.getConstraints();
         String stopClass_ = _idMeth.getClassName().getName();
         while (true) {
             MethodBlock method_ = classes_.getMethodBody(clCurName_, id_);
@@ -820,16 +823,16 @@ public abstract class OperationNode implements SortedNode<OperationNode>, Operab
             res_.setStatus(SearchingMemberStatus.ZERO);
             return res_;
         }
-        CustList<MethodId> possibleMethods_ = new CustList<MethodId>();
-        for (EntryCust<MethodId, MethodMetaInfo> e: custClass_.getMethods().entryList()) {
+        CustList<FctConstraints> possibleMethods_ = new CustList<FctConstraints>();
+        for (EntryCust<FctConstraints, MethodMetaInfo> e: custClass_.getMethods().entryList()) {
             if (!StringList.quickEq(e.getKey().getName(), _name)) {
                 continue;
             }
-            EqList<ClassName> params_ = e.getKey().getClassNames();
+            EqList<StringList> params_ = e.getKey().getConstraints();
             ClassMatching[] p_ = new ClassMatching[params_.size()];
             int i_ = CustList.FIRST_INDEX;
-            for (ClassName c: params_) {
-                p_[i_] = new ClassMatching(c.getName());
+            for (StringList c: params_) {
+                p_[i_] = new ClassMatching(c.first());
                 i_++;
             }
             if (!isPossibleMethod(_conf, p_, _argsClass)) {
@@ -843,8 +846,9 @@ public abstract class OperationNode implements SortedNode<OperationNode>, Operab
             return res_;
         }
         if (possibleMethods_.size() == CustList.ONE_ELEMENT) {
-            MethodId methodId_ = possibleMethods_.first();
-            ClassMethodId cl_ = new ClassMethodId(new ClassName(clCurName_, false), methodId_);
+            FctConstraints methodId_ = possibleMethods_.first();
+            MethodId id_ = classes_.getMethodBody(clCurName_, methodId_).getId();
+            ClassMethodId cl_ = new ClassMethodId(new ClassName(clCurName_, false), id_, methodId_);
             ClassMethodIdResult res_ = new ClassMethodIdResult();
             res_.setStatus(SearchingMemberStatus.UNIQ);
             res_.setId(cl_);
@@ -859,14 +863,16 @@ public abstract class OperationNode implements SortedNode<OperationNode>, Operab
         ArgumentsGroup gr_ = new ArgumentsGroup(classes_, _argsClass);
         //        ParametersGroupComparator<MethodInfo> cmp_ = new ParametersGroupComparator<MethodInfo>(gr_);
         CustList<MethodInfo> signatures_ = new CustList<MethodInfo>();
-        for (MethodId m: possibleMethods_) {
+        for (FctConstraints m: possibleMethods_) {
             ParametersGroup p_ = new ParametersGroup();
-            for (ClassName c: m.getClassNames()) {
-                p_.add(new ClassMatching(c.getName()));
+            for (StringList c: m.getConstraints()) {
+                p_.add(new ClassMatching(c.first()));
             }
             MethodInfo mloc_ = new MethodInfo();
             mloc_.setClassName(clCurName_);
-            mloc_.setMethodId(m);
+            MethodId id_ = classes_.getMethodBody(clCurName_, m).getId();
+            mloc_.setMethodId(id_);
+            mloc_.setConstraints(m);
             mloc_.setParameters(p_);
             signatures_.add(mloc_);
         }
@@ -879,7 +885,8 @@ public abstract class OperationNode implements SortedNode<OperationNode>, Operab
         }
         if (!signatures_.first().getParameters().isError()) {
             MethodId methodId_ = signatures_.first().getMethodId();
-            ClassMethodId cl_ = new ClassMethodId(new ClassName(clCurName_, false), methodId_);
+            FctConstraints constraints_ = signatures_.first().getConstraints();
+            ClassMethodId cl_ = new ClassMethodId(new ClassName(clCurName_, false), methodId_, constraints_);
             ClassMethodIdResult res_ = new ClassMethodIdResult();
             res_.setStatus(SearchingMemberStatus.UNIQ);
             res_.setId(cl_);
@@ -890,9 +897,9 @@ public abstract class OperationNode implements SortedNode<OperationNode>, Operab
         res_.setMethods(errors_);
         return res_;
     }
-    private static EqList<MethodId> filterMeth(String _glClass, String _accessedClass, CustList<MethodId> _found, ContextEl _conf) {
-        EqList<MethodId> accessible_ = new EqList<MethodId>();
-        for (MethodId i: _found) {
+    private static EqList<FctConstraints> filterMeth(String _glClass, String _accessedClass, CustList<FctConstraints> _found, ContextEl _conf) {
+        EqList<FctConstraints> accessible_ = new EqList<FctConstraints>();
+        for (FctConstraints i: _found) {
             if (_conf.getClasses().canAccessMethod(_glClass, _accessedClass, i)) {
                 accessible_.add(i);
             }

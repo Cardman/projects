@@ -1,6 +1,6 @@
 package code.expressionlanguage.opers;
 
-import code.expressionlanguage.opers.util.ConstructorId;
+import code.expressionlanguage.opers.util.FctConstraints;
 
 public interface Operable {
 
@@ -10,5 +10,5 @@ public interface Operable {
 
     boolean isOtherConstructorClass();
 
-    ConstructorId getConstId();
+    FctConstraints getConstId();
 }

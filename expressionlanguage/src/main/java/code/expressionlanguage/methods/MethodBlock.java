@@ -4,6 +4,7 @@ import org.w3c.dom.Element;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.PageEl;
 import code.expressionlanguage.opers.util.ClassName;
+import code.expressionlanguage.opers.util.FctConstraints;
 import code.expressionlanguage.opers.util.MethodId;
 import code.expressionlanguage.opers.util.MethodModifier;
 import code.util.CustList;
@@ -36,6 +37,8 @@ public final class MethodBlock extends BracedBlock implements Returnable {
     private StringList overridenClasses;
 
     private StringList allOverridenClasses;
+
+    private FctConstraints constraints;
 
     public MethodBlock(Element _el, ContextEl _importingPage, int _indexChild,
             BracedBlock _m) {
@@ -377,5 +380,15 @@ public final class MethodBlock extends BracedBlock implements Returnable {
     @Override
     public RootedBlock belong() {
         return (RootedBlock) getParent();
+    }
+
+    @Override
+    public FctConstraints getConstraints() {
+        return constraints;
+    }
+
+    @Override
+    public void setConstraints(FctConstraints _constraints) {
+        constraints = _constraints;
     }
 }

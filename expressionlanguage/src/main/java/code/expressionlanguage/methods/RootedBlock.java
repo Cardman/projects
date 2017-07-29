@@ -1,7 +1,5 @@
 package code.expressionlanguage.methods;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.opers.util.MethodId;
-import code.util.EqList;
 import code.util.StringList;
 import code.xml.RowCol;
 
@@ -20,8 +18,6 @@ public interface RootedBlock extends AccessibleBlock {
     StringList getDirectSuperClasses();
 
     RowCol getRowCol(int _offset, int _tabWidth,String _attribute);
-
-    EqList<MethodId> getNormalMethods();
 
     Block getFirstChild();
 

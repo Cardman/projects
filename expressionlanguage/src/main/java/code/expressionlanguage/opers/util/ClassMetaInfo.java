@@ -12,9 +12,9 @@ public final class ClassMetaInfo {
 
     private final StringMap<FieldMetaInfo> fields;
     
-    private final ObjectNotNullMap<MethodId, MethodMetaInfo> methods;
+    private final ObjectNotNullMap<FctConstraints, MethodMetaInfo> methods;
 
-    private final ObjectNotNullMap<ConstructorId, ConstructorMetaInfo> constructors;
+    private final ObjectNotNullMap<FctConstraints, ConstructorMetaInfo> constructors;
 
     private final ClassCategory category;
 
@@ -23,8 +23,8 @@ public final class ClassMetaInfo {
     private final boolean finalType;
 
     public ClassMetaInfo(String _superClass,StringMap<FieldMetaInfo> _fields,
-            ObjectNotNullMap<MethodId, MethodMetaInfo> _methods,
-            ObjectNotNullMap<ConstructorId, ConstructorMetaInfo> _constructors,
+            ObjectNotNullMap<FctConstraints, MethodMetaInfo> _methods,
+            ObjectNotNullMap<FctConstraints, ConstructorMetaInfo> _constructors,
             ClassCategory _category,
             boolean _abstractType,
             boolean _finalType) {
@@ -62,12 +62,12 @@ public final class ClassMetaInfo {
         return new StringMap<FieldMetaInfo>(fields);
     }
     
-    public ObjectNotNullMap<MethodId, MethodMetaInfo> getMethods() {
-        return new ObjectNotNullMap<MethodId, MethodMetaInfo>(methods);
+    public ObjectNotNullMap<FctConstraints, MethodMetaInfo> getMethods() {
+        return new ObjectNotNullMap<FctConstraints, MethodMetaInfo>(methods);
     }
 
-    public ObjectNotNullMap<ConstructorId, ConstructorMetaInfo> getConstructors() {
-        return new ObjectNotNullMap<ConstructorId, ConstructorMetaInfo>(constructors);
+    public ObjectNotNullMap<FctConstraints, ConstructorMetaInfo> getConstructors() {
+        return new ObjectNotNullMap<FctConstraints, ConstructorMetaInfo>(constructors);
     }
 
     public boolean isAbstractType() {

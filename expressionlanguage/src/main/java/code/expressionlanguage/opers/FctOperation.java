@@ -25,6 +25,7 @@ import code.expressionlanguage.exceptions.StaticAccessException;
 import code.expressionlanguage.exceptions.UnwrappingException;
 import code.expressionlanguage.exceptions.VoidArgumentException;
 import code.expressionlanguage.methods.Classes;
+import code.expressionlanguage.methods.ConstructorBlock;
 import code.expressionlanguage.methods.ProcessXmlMethod;
 import code.expressionlanguage.methods.exceptions.UndefinedConstructorException;
 import code.expressionlanguage.methods.util.ArgumentsPair;
@@ -36,8 +37,8 @@ import code.expressionlanguage.opers.util.ClassMetaInfo;
 import code.expressionlanguage.opers.util.ClassMethodId;
 import code.expressionlanguage.opers.util.ClassName;
 import code.expressionlanguage.opers.util.ConstructorId;
+import code.expressionlanguage.opers.util.FctConstraints;
 import code.expressionlanguage.opers.util.FieldMetaInfo;
-import code.expressionlanguage.opers.util.MethodId;
 import code.expressionlanguage.opers.util.MethodMetaInfo;
 import code.expressionlanguage.opers.util.MethodModifier;
 import code.expressionlanguage.opers.util.Struct;
@@ -61,10 +62,10 @@ public final class FctOperation extends InvokingOperation {
 
     private Method method;
 
-    private ConstructorId constId;
+    private FctConstraints constId;
 
     private ClassMethodId classMethodId;
-    private MethodId methodId;
+    private FctConstraints methodId;
     private MethodMetaInfo methodMetaInfo;
 
     private boolean ternary;
@@ -359,7 +360,8 @@ public final class FctOperation extends InvokingOperation {
             if (constId != null) {
                 String glClass_ = _conf.getLastPage().getGlobalClass();
                 if (!classes_.canAccessConstructor(glClass_, superClass_, constId)) {
-                    throw new BadAccessException(constId.getSignature()+RETURN_LINE+_conf.joinPages());
+                    ConstructorBlock ctr_ = classes_.getConstructorBody(clCurName_, constId);
+                    throw new BadAccessException(ctr_.getId().getSignature()+RETURN_LINE+_conf.joinPages());
                 }
                 setResultClass(new ClassArgumentMatching(OperationNode.VOID_RETURN));
                 return;
@@ -459,7 +461,7 @@ public final class FctOperation extends InvokingOperation {
                         if (isStaticAccess()) {
                             throw new StaticAccessException(_conf.joinPages());
                         }
-                        methodId = new MethodId(METH_NAME, new EqList<ClassName>());
+                        methodId = new FctConstraints(METH_NAME, new EqList<StringList>());
                         methodMetaInfo = new MethodMetaInfo(clCurName_, MethodModifier.NORMAL, new ClassName(String.class.getName(), false));
                         setResultClass(new ClassArgumentMatching(methodMetaInfo.getReturnType().getName()));
                         return;
@@ -468,13 +470,13 @@ public final class FctOperation extends InvokingOperation {
                         if (isStaticAccess()) {
                             throw new StaticAccessException(_conf.joinPages());
                         }
-                        methodId = new MethodId(METH_ORDINAL, new EqList<ClassName>());
+                        methodId = new FctConstraints(METH_ORDINAL, new EqList<StringList>());
                         methodMetaInfo = new MethodMetaInfo(clCurName_, MethodModifier.NORMAL, new ClassName(PrimitiveTypeUtil.PRIM_INT, false));
                         setResultClass(new ClassArgumentMatching(methodMetaInfo.getReturnType().getName()));
                         return;
                     }
                     if (StringList.quickEq(trimMeth_, METH_VALUES) && firstArgs_.isEmpty()) {
-                        methodId = new MethodId(METH_VALUES, new EqList<ClassName>());
+                        methodId = new FctConstraints(METH_VALUES, new EqList<StringList>());
                         ClassName ret_ = new ClassName(PrimitiveTypeUtil.getPrettyArrayType(clCurName_), false);
                         methodMetaInfo = new MethodMetaInfo(clCurName_, MethodModifier.NORMAL, ret_);
                         setResultClass(new ClassArgumentMatching(methodMetaInfo.getReturnType().getName()));
@@ -506,12 +508,12 @@ public final class FctOperation extends InvokingOperation {
                     superAccessMethod = true;
                 }
                 ClassMethodId clMeth_ = getDeclaredCustMethod(_conf, new ClassArgumentMatching(clCurName_), trimMeth_, superClassAccess_, ClassArgumentMatching.toArgArray(firstArgs_));
-                methodId = clMeth_.getMethod();
+                methodId = clMeth_.getConstraints();
                 String foundClass_ = clMeth_.getClassName().getName();
                 classMethodId = clMeth_;
                 if (!classes_.canAccessMethod(glClass_, foundClass_, methodId)) {
                     setRelativeOffsetPossibleLastPage(getIndexInEl()+off_, _conf);
-                    throw new BadAccessException(methodId.getSignature()+RETURN_LINE+_conf.joinPages());
+                    throw new BadAccessException(clMeth_.getMethod().getSignature()+RETURN_LINE+_conf.joinPages());
                 }
                 custClass_ = classes_.getClassMetaInfo(foundClass_);
                 MethodMetaInfo methodMetaInfo_ = custClass_.getMethods().getVal(methodId);
@@ -520,7 +522,7 @@ public final class FctOperation extends InvokingOperation {
                 }
                 if (staticChoiceMethod && methodMetaInfo_.getModifier() == MethodModifier.ABSTRACT) {
                     setRelativeOffsetPossibleLastPage(getIndexInEl()+off_, _conf);
-                    throw new AbstractMethodException(methodId.getSignature()+RETURN_LINE+_conf.joinPages());
+                    throw new AbstractMethodException(clMeth_.getMethod().getSignature()+RETURN_LINE+_conf.joinPages());
                 }
                 methodMetaInfo = methodMetaInfo_;
                 setResultClass(new ClassArgumentMatching(methodMetaInfo.getReturnType().getName()));
@@ -981,7 +983,7 @@ public final class FctOperation extends InvokingOperation {
                 String className_ = arg_.getStruct().getClassName();
                 custClass_ = classes_.getClassMetaInfo(className_);
                 if (custClass_.getCategory() == ClassCategory.ENUM) {
-                    if (methodId.eq(new MethodId(METH_NAME, new EqList<ClassName>()))) {
+                    if (methodId.eq(new FctConstraints(METH_NAME, new EqList<StringList>()))) {
                         CustEnum cen_ = (CustEnum) arg_.getStruct().getInstance();
                         String name_ = cen_.name();
                         Argument argres_ = new Argument();
@@ -990,7 +992,7 @@ public final class FctOperation extends InvokingOperation {
                         setSimpleArgument(argres_, _conf, _nodes);
                         return argres_;
                     }
-                    if (methodId.eq(new MethodId(METH_ORDINAL, new EqList<ClassName>()))) {
+                    if (methodId.eq(new FctConstraints(METH_ORDINAL, new EqList<StringList>()))) {
                         CustEnum cen_ = (CustEnum) arg_.getStruct().getInstance();
                         int name_ = cen_.ordinal();
                         Argument argres_ = new Argument();
@@ -1017,7 +1019,7 @@ public final class FctOperation extends InvokingOperation {
                 String className_ = clCur_;
                 custClass_ = classes_.getClassMetaInfo(className_);
                 if (custClass_.getCategory() == ClassCategory.ENUM) {
-                    if (methodId.eq(new MethodId(METH_VALUES, new EqList<ClassName>()))) {
+                    if (methodId.eq(new FctConstraints(METH_VALUES, new EqList<StringList>()))) {
                         CustList<Struct> enums_ = new CustList<Struct>();
                         for (EntryCust<String, FieldMetaInfo> e: custClass_.getFields().entryList()) {
                             if (e.getValue().isEnumElement()) {
@@ -1529,7 +1531,7 @@ public final class FctOperation extends InvokingOperation {
                 String className_ = arg_.getStruct().getClassName();
                 custClass_ = classes_.getClassMetaInfo(className_);
                 if (custClass_.getCategory() == ClassCategory.ENUM) {
-                    if (methodId.eq(new MethodId(METH_NAME, new EqList<ClassName>()))) {
+                    if (methodId.eq(new FctConstraints(METH_NAME, new EqList<StringList>()))) {
                         CustEnum cen_ = (CustEnum) arg_.getStruct().getInstance();
                         String name_ = cen_.name();
                         Argument argres_ = new Argument();
@@ -1538,7 +1540,7 @@ public final class FctOperation extends InvokingOperation {
                         setSimpleArgument(argres_, _conf);
                         return;
                     }
-                    if (methodId.eq(new MethodId(METH_ORDINAL, new EqList<ClassName>()))) {
+                    if (methodId.eq(new FctConstraints(METH_ORDINAL, new EqList<StringList>()))) {
                         CustEnum cen_ = (CustEnum) arg_.getStruct().getInstance();
                         int name_ = cen_.ordinal();
                         Argument argres_ = new Argument();
@@ -1565,7 +1567,7 @@ public final class FctOperation extends InvokingOperation {
                 String className_ = clCur_;
                 custClass_ = classes_.getClassMetaInfo(className_);
                 if (custClass_.getCategory() == ClassCategory.ENUM) {
-                    if (methodId.eq(new MethodId(METH_VALUES, new EqList<ClassName>()))) {
+                    if (methodId.eq(new FctConstraints(METH_VALUES, new EqList<StringList>()))) {
                         CustList<Struct> enums_ = new CustList<Struct>();
                         for (EntryCust<String, FieldMetaInfo> e: custClass_.getFields().entryList()) {
                             if (e.getValue().isEnumElement()) {
@@ -1712,7 +1714,7 @@ public final class FctOperation extends InvokingOperation {
     }
 
     @Override
-    public ConstructorId getConstId() {
+    public FctConstraints getConstId() {
         return constId;
     }
 

@@ -9,7 +9,7 @@ import code.expressionlanguage.opers.Calculation;
 import code.expressionlanguage.opers.ExpressionLanguage;
 import code.expressionlanguage.opers.OperationNode;
 import code.expressionlanguage.opers.util.ClassMetaInfo;
-import code.expressionlanguage.opers.util.ConstructorId;
+import code.expressionlanguage.opers.util.FctConstraints;
 import code.util.CustList;
 import code.util.NatTreeMap;
 
@@ -79,7 +79,7 @@ public final class Line extends Leaf implements StackableBlock {
 //        removeLocalVariablesFromParent();
     }
 
-    public ConstructorId getConstId() {
+    public FctConstraints getConstId() {
         return opExp.last().getConstId();
     }
 

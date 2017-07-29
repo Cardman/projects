@@ -46,8 +46,8 @@ import code.expressionlanguage.opers.util.ClassField;
 import code.expressionlanguage.opers.util.ClassMetaInfo;
 import code.expressionlanguage.opers.util.ClassMethodId;
 import code.expressionlanguage.opers.util.ClassName;
-import code.expressionlanguage.opers.util.ConstructorId;
 import code.expressionlanguage.opers.util.ConstructorMetaInfo;
+import code.expressionlanguage.opers.util.FctConstraints;
 import code.expressionlanguage.opers.util.FieldMetaInfo;
 import code.expressionlanguage.opers.util.MethodId;
 import code.expressionlanguage.opers.util.MethodMetaInfo;
@@ -672,7 +672,7 @@ public final class Classes {
         for (EntryCust<ClassName, Block> c: classesBodies.entryList()) {
             String className_ = c.getKey().getName();
 //            String xml_ = classesContent.getVal(className_);
-            EqList<MethodId> ids_ = new EqList<MethodId>();
+            EqList<FctConstraints> ids_ = new EqList<FctConstraints>();
             CustList<Block> bl_ = getDirectChildren(c.getValue());
             for (Block b: bl_) {
                 if (b instanceof Returnable) {
@@ -680,17 +680,24 @@ public final class Classes {
                     String name_ = method_.getName();
                     StringList types_ = method_.getParametersTypes();
                     int len_ = types_.size();
+                    EqList<StringList> constraints_ = new EqList<StringList>();
                     EqList<ClassName> pTypes_ = new EqList<ClassName>();
                     for (int i = CustList.FIRST_INDEX; i < len_; i++) {
                         String n_ = types_.get(i);
+                        constraints_.add(new StringList(n_));
                         pTypes_.add(new ClassName(n_, i + 1 == len_ && method_.isVarargs()));
                     }
 //                    if (len_ != method_.getParametersNames().size()) {
 //                        errors.add(c.getKey().getName());
 //                    }
+                    if (name_.isEmpty()) {
+                        name_ = className_;
+                    }
+                    FctConstraints fct_ = new FctConstraints(name_, constraints_);
+                    method_.setConstraints(fct_);
                     MethodId id_ = new MethodId(name_, pTypes_);
-                    for (MethodId m: ids_) {
-                        if (m.eq(id_)) {
+                    for (FctConstraints m: ids_) {
+                        if (m.eq(fct_)) {
                             RowCol r_ = method_.getRowCol(0, _context.getTabWidth(), EMPTY_STRING);
                             DuplicateMethod duplicate_;
                             duplicate_ = new DuplicateMethod();
@@ -738,7 +745,7 @@ public final class Classes {
                         }
                         i_++;
                     }
-                    ids_.add(id_);
+                    ids_.add(fct_);
                 }
             }
         }
@@ -847,7 +854,7 @@ public final class Classes {
                         if (StringList.quickEq(s, Object.class.getName())) {
                             continue;
                         }
-                        MethodId mDer_ = ((MethodBlock) b).getId();
+                        FctConstraints mDer_ = ((MethodBlock) b).getConstraints();
                         MethodBlock m_ = getMethodBody(s, mDer_);
                         if (m_ == null) {
                             continue;
@@ -871,7 +878,7 @@ public final class Classes {
                     MethodBlock mDer_ = (MethodBlock) b;
                     mDer_.getAllOverridenClasses().addAllElts(mDer_.getOverridenClasses());
                     for (String s: mDer_.getOverridenClasses()) {
-                        MethodBlock mBase_ = getMethodBody(s, mDer_.getId());
+                        MethodBlock mBase_ = getMethodBody(s, mDer_.getConstraints());
                         mDer_.getAllOverridenClasses().addAllElts(mBase_.getAllOverridenClasses());
                     }
                 }
@@ -899,7 +906,7 @@ public final class Classes {
                         MethodBlock mDer_ = (MethodBlock) b;
                         MethodId id_ = mDer_.getId();
                         if (mDer_.isAbstractMethod()) {
-                            abstractMethods_.add(new ClassMethodId(idSuper_, id_));
+                            abstractMethods_.add(new ClassMethodId(idSuper_, id_, mDer_.getConstraints()));
                         }
                     }
                 }
@@ -907,14 +914,14 @@ public final class Classes {
             for (Block b: getDirectChildren(bl_)) {
                 if (b instanceof MethodBlock) {
                     MethodBlock mDer_ = (MethodBlock) b;
-                    MethodId id_ = mDer_.getId();
+                    FctConstraints id_ = mDer_.getConstraints();
                     if (mDer_.isAbstractMethod()) {
                         if (concreteClass_) {
                             AbstractMethod err_;
                             err_ = new AbstractMethod();
                             err_.setFileName(c);
                             err_.setRc(mDer_.getAttributes().getVal(ATTRIBUTE_NAME));
-                            err_.setId(id_);
+                            err_.setId(mDer_.getId());
                             err_.setClassName(c);
                             errorsDet.add(err_);
                         }
@@ -923,7 +930,7 @@ public final class Classes {
                             err_ = new AbstractMethod();
                             err_.setFileName(c);
                             err_.setRc(mDer_.getAttributes().getVal(ATTRIBUTE_NAME));
-                            err_.setId(id_);
+                            err_.setId(mDer_.getId());
                             err_.setClassName(c);
                             errorsDet.add(err_);
                         }
@@ -939,7 +946,7 @@ public final class Classes {
                                 err_.setFileName(c);
                                 err_.setRc(mDer_.getAttributes().getVal(ATTRIBUTE_MODIFIER));
                                 err_.setBaseClass(idBase_);
-                                err_.setMethodeId(id_);
+                                err_.setMethodeId(mDer_.getId());
                                 err_.setStaticBaseMethod(false);
                                 errorsDet.add(err_);
                             }
@@ -950,7 +957,7 @@ public final class Classes {
                                 err_.setFileName(c);
                                 err_.setRc(mDer_.getAttributes().getVal(ATTRIBUTE_MODIFIER));
                                 err_.setBaseClass(idBase_);
-                                err_.setMethodeId(id_);
+                                err_.setMethodeId(mDer_.getId());
                                 err_.setStaticBaseMethod(true);
                                 errorsDet.add(err_);
                             } else if (mBase_.isFinalMethod()) {
@@ -959,14 +966,14 @@ public final class Classes {
                                 err_.setFileName(c);
                                 err_.setRc(mDer_.getAttributes().getVal(ATTRIBUTE_NAME));
                                 err_.setClassName(o);
-                                err_.setId(id_);
+                                err_.setId(mDer_.getId());
                                 errorsDet.add(err_);
                             } else if (mDer_.getAccess().ordinal() > mBase_.getAccess().ordinal()) {
                                 BadAccessMethod err_;
                                 err_ = new BadAccessMethod();
                                 err_.setFileName(c);
                                 err_.setRc(mDer_.getAttributes().getVal(ATTRIBUTE_ACCESS));
-                                err_.setId(id_);
+                                err_.setId(mDer_.getId());
                                 errorsDet.add(err_);
                             } else if (StringList.quickEq(retBase_, OperationNode.VOID_RETURN)) {
                                 if (!StringList.quickEq(retDerive_, OperationNode.VOID_RETURN)) {
@@ -975,7 +982,7 @@ public final class Classes {
                                     err_.setFileName(c);
                                     err_.setRc(mDer_.getAttributes().getVal(ATTRIBUTE_CLASS));
                                     err_.setReturnType(retDerive_);
-                                    err_.setMethod(id_);
+                                    err_.setMethod(mDer_.getId());
                                     err_.setParentClass(o);
                                     errorsDet.add(err_);
                                     //throw ex
@@ -987,7 +994,7 @@ public final class Classes {
                                 err_.setFileName(c);
                                 err_.setRc(mDer_.getAttributes().getVal(ATTRIBUTE_CLASS));
                                 err_.setReturnType(retDerive_);
-                                err_.setMethod(id_);
+                                err_.setMethod(mDer_.getId());
                                 err_.setParentClass(o);
                                 errorsDet.add(err_);
                             }
@@ -1001,7 +1008,7 @@ public final class Classes {
                     allAssignable_.add(c);
                     boolean ok_ = false;
                     for (String s: allAssignable_) {
-                        MethodBlock method_ = getMethodBody(s, m.getMethod());
+                        MethodBlock method_ = getMethodBody(s, m.getConstraints());
                         if (method_ == null) {
                             continue;
                         }
@@ -1022,9 +1029,6 @@ public final class Classes {
                     }
                 }
             }
-        }
-        for (String c: concreteClasses_) {
-            
         }
     }
     //validate local variables names and loop variables names
@@ -1146,13 +1150,13 @@ public final class Classes {
         return canAccess(_className, i_);
     }
 
-    public boolean canAccessConstructor(String _className, String _accessedClass, ConstructorId _id) {
+    public boolean canAccessConstructor(String _className, String _accessedClass, FctConstraints _id) {
         Block access_ = (Block) getClassBody(_accessedClass);
-        CustList<Block> bl_ = getSortedDescNodes(access_);
+        CustList<Block> bl_ = getDirectChildren(access_);
         ConstructorBlock i_ = null;
         for (Block b: bl_) {
             if (b instanceof ConstructorBlock) {
-                if (((ConstructorBlock)b).getId().eq(_id)) {
+                if (((ConstructorBlock)b).getConstraints().eq(_id)) {
                     i_ = (ConstructorBlock)b;
                 }
             }
@@ -1163,13 +1167,13 @@ public final class Classes {
         return canAccess(_className, i_);
     }
 
-    public boolean canAccessMethod(String _className, String _accessedClass, MethodId _id) {
+    public boolean canAccessMethod(String _className, String _accessedClass, FctConstraints _id) {
         Block access_ = (Block) getClassBody(_accessedClass);
         CustList<Block> bl_ = getSortedDescNodes(access_);
         MethodBlock i_ = null;
         for (Block b: bl_) {
             if (b instanceof MethodBlock) {
-                if (((MethodBlock)b).getId().eq(_id)) {
+                if (((MethodBlock)b).getConstraints().eq(_id)) {
                     i_ = (MethodBlock)b;
                 }
             }
@@ -1553,7 +1557,33 @@ public final class Classes {
         }
         return null;
     }
-    public MethodBlock getMethodBody(String _className, MethodId _methodId) {
+//    public MethodBlock getMethodBody(String _className, MethodId _methodId) {
+//        for (EntryCust<ClassName, Block> c: classesBodies.entryList()) {
+//            if (!StringList.quickEq(c.getKey().getName(), _className)) {
+//                continue;
+//            }
+//            CustList<Block> bl_ = getDirectChildren(c.getValue());
+//            for (Block b: bl_) {
+//                if (!(b instanceof MethodBlock)) {
+//                    continue;
+//                }
+//                MethodBlock method_ = (MethodBlock) b;
+//                String m_ = method_.getName();
+//                StringList p_ = method_.getParametersTypes();
+//                int len_ = p_.size();
+//                EqList<ClassName> pTypes_ = new EqList<ClassName>();
+//                for (int i = CustList.FIRST_INDEX; i < len_; i++) {
+//                    String n_ = p_.get(i);
+//                    pTypes_.add(new ClassName(n_, i + 1 == len_ && method_.isVarargs()));
+//                }
+//                if (new MethodId(m_, pTypes_).eq(_methodId)) {
+//                    return method_;
+//                }
+//            }
+//        }
+//        return null;
+//    }
+    public MethodBlock getMethodBody(String _className, FctConstraints _methodId) {
         for (EntryCust<ClassName, Block> c: classesBodies.entryList()) {
             if (!StringList.quickEq(c.getKey().getName(), _className)) {
                 continue;
@@ -1564,7 +1594,6 @@ public final class Classes {
                     continue;
                 }
                 MethodBlock method_ = (MethodBlock) b;
-                String m_ = method_.getName();
                 StringList p_ = method_.getParametersTypes();
                 int len_ = p_.size();
                 EqList<ClassName> pTypes_ = new EqList<ClassName>();
@@ -1572,14 +1601,14 @@ public final class Classes {
                     String n_ = p_.get(i);
                     pTypes_.add(new ClassName(n_, i + 1 == len_ && method_.isVarargs()));
                 }
-                if (new MethodId(m_, pTypes_).eq(_methodId)) {
-                    return method_;
+                if (method_.getConstraints().eq(_methodId)) {
+                    return method_; 
                 }
             }
         }
         return null;
     }
-    public ConstructorBlock getConstructorBody(String _className, ConstructorId _methodId) {
+    public ConstructorBlock getConstructorBody(String _className, FctConstraints _methodId) {
         for (EntryCust<ClassName, Block> c: classesBodies.entryList()) {
             if (!StringList.quickEq(c.getKey().getName(), _className)) {
                 continue;
@@ -1594,11 +1623,13 @@ public final class Classes {
                 StringList p_ = method_.getParametersTypes();
                 int len_ = p_.size();
                 EqList<ClassName> pTypes_ = new EqList<ClassName>();
+                EqList<StringList> constraints_ = new EqList<StringList>();
                 for (int i = CustList.FIRST_INDEX; i < len_; i++) {
                     String n_ = p_.get(i);
                     pTypes_.add(new ClassName(n_, i + 1 == len_ && method_.isVarargs()));
+                    constraints_.add(new StringList(n_));
                 }
-                if (new ConstructorId(m_, pTypes_).eq(_methodId)) {
+                if (new FctConstraints(m_, constraints_).eq(_methodId)) {
                     return method_;
                 }
             }
@@ -1678,12 +1709,12 @@ public final class Classes {
     }
     public ClassMetaInfo getClassMetaInfo(String _name) {
         for (EntryCust<ClassName, Block> c: classesBodies.entryList()) {
-            ObjectNotNullMap<MethodId, MethodMetaInfo> infos_;
-            infos_ = new ObjectNotNullMap<MethodId, MethodMetaInfo>();
+            ObjectNotNullMap<FctConstraints, MethodMetaInfo> infos_;
+            infos_ = new ObjectNotNullMap<FctConstraints, MethodMetaInfo>();
             StringMap<FieldMetaInfo> infosFields_;
             infosFields_ = new StringMap<FieldMetaInfo>();
-            ObjectNotNullMap<ConstructorId, ConstructorMetaInfo> infosConst_;
-            infosConst_ = new ObjectNotNullMap<ConstructorId, ConstructorMetaInfo>();
+            ObjectNotNullMap<FctConstraints, ConstructorMetaInfo> infosConst_;
+            infosConst_ = new ObjectNotNullMap<FctConstraints, ConstructorMetaInfo>();
             ClassName k_ = c.getKey();
             if (!StringList.quickEq(k_.getName(), _name)) {
                 continue;
@@ -1706,11 +1737,13 @@ public final class Classes {
                     StringList p_ = method_.getParametersTypes();
                     int len_ = p_.size();
                     EqList<ClassName> pTypes_ = new EqList<ClassName>();
+                    EqList<StringList> constraints_ = new EqList<StringList>();
                     for (int i = CustList.FIRST_INDEX; i < len_; i++) {
                         String n_ = p_.get(i);
                         pTypes_.add(new ClassName(n_, i + 1 == len_ && method_.isVarargs()));
+                        constraints_.add(new StringList(n_));
                     }
-                    MethodId id_ = new MethodId(m_, pTypes_);
+                    FctConstraints id_ = new FctConstraints(m_, constraints_);
                     String ret_ = method_.getReturnType();
                     ClassName clRet_ = new ClassName(ret_, false);
                     MethodMetaInfo met_ = new MethodMetaInfo(_name, method_.getModifier(), clRet_);
@@ -1722,11 +1755,13 @@ public final class Classes {
                     StringList p_ = method_.getParametersTypes();
                     int len_ = p_.size();
                     EqList<ClassName> pTypes_ = new EqList<ClassName>();
+                    EqList<StringList> constraints_ = new EqList<StringList>();
                     for (int i = CustList.FIRST_INDEX; i < len_; i++) {
                         String n_ = p_.get(i);
                         pTypes_.add(new ClassName(n_, i + 1 == len_ && method_.isVarargs()));
+                        constraints_.add(new StringList(n_));
                     }
-                    ConstructorId id_ = new ConstructorId(m_, pTypes_);
+                    FctConstraints id_ = new FctConstraints(m_, constraints_);
                     String ret_ = OperationNode.VOID_RETURN;
                     ClassName clRet_ = new ClassName(ret_, false);
                     ConstructorMetaInfo met_ = new ConstructorMetaInfo(clRet_);

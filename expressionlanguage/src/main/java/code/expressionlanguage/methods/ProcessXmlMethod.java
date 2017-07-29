@@ -25,10 +25,8 @@ import code.expressionlanguage.methods.util.InstancingStep;
 import code.expressionlanguage.opers.util.ClassCategory;
 import code.expressionlanguage.opers.util.ClassField;
 import code.expressionlanguage.opers.util.ClassMetaInfo;
-import code.expressionlanguage.opers.util.ClassName;
-import code.expressionlanguage.opers.util.ConstructorId;
+import code.expressionlanguage.opers.util.FctConstraints;
 import code.expressionlanguage.opers.util.FieldMetaInfo;
-import code.expressionlanguage.opers.util.MethodId;
 import code.expressionlanguage.opers.util.Struct;
 import code.expressionlanguage.stacks.RemovableVars;
 import code.expressionlanguage.stacks.TryBlockStack;
@@ -85,7 +83,7 @@ public final class ProcessXmlMethod {
         _cont.addPage(createInstancingClass(_class, _cont));
         loopCallings(_cont);
     }
-    public static Argument instanceArgument(String _class, Argument _global, ConstructorId _id, CustList<Argument> _args, ContextEl _cont) {
+    public static Argument instanceArgument(String _class, Argument _global, FctConstraints _id, CustList<Argument> _args, ContextEl _cont) {
 //        Classes classes_ = _cont.getClasses();
 //        ClassBlock class_ = classes_.getClassBody(_class);
         CallConstructor call_ = new CallConstructor();
@@ -127,7 +125,7 @@ public final class ProcessXmlMethod {
         return page_.getReturnedArgument();
     }
 
-    public static Argument calculateArgument(Argument _global, String _class, MethodId _method, CustList<Argument> _args, ContextEl _cont) {
+    public static Argument calculateArgument(Argument _global, String _class, FctConstraints _method, CustList<Argument> _args, ContextEl _cont) {
         Classes classes_ = _cont.getClasses();
         MethodBlock method_ = classes_.getMethodBody(_class, _method);
         Block firstChild_ = method_.getFirstChild();
@@ -299,12 +297,12 @@ public final class ProcessXmlMethod {
 
     private static PageEl createCallingMethod(CustomFoundMethodException _e, ContextEl _conf) {
         String cl_ = _e.getClassName();
-        MethodId id_ = _e.getId();
+        FctConstraints id_ = _e.getId();
         CustList<Argument> args_ = _e.getArguments();
         Argument gl_ = _e.getGl();
         return createCallingMethod(gl_, cl_, id_, args_, _conf);
     }
-    private static PageEl createCallingMethod(Argument _gl, String _class, MethodId _method, CustList<Argument> _args, ContextEl _conf) {
+    private static PageEl createCallingMethod(Argument _gl, String _class, FctConstraints _method, CustList<Argument> _args, ContextEl _conf) {
         Classes classes_ = _conf.getClasses();
         String cl_ = _class;
         PageEl pageLoc_ = new PageEl();
@@ -314,7 +312,7 @@ public final class ProcessXmlMethod {
         pageLoc_.setGlobalArgument(_gl);
         pageLoc_.setGlobalClass(_class);
         pageLoc_.setReadUrl(_class);
-        MethodId id_ = _method;
+        FctConstraints id_ = _method;
         MethodBlock methodLoc_ = classes_.getMethodBody(cl_, id_);
         StringList paramsLoc_ = methodLoc_.getParametersNames();
         StringList typesLoc_ = methodLoc_.getParametersTypes();
@@ -342,7 +340,7 @@ public final class ProcessXmlMethod {
     private static PageEl createInstancing(String _class, CallConstructor _call, CustList<Argument> _args, ContextEl _cont) {
         PageEl page_ = new PageEl();
         Argument global_ = _call.getArgument();
-        ConstructorId id_ = _call.getId();
+        FctConstraints id_ = _call.getId();
         InstancingStep in_ = _call.getInstancingStep();
         Classes classes_ = _cont.getClasses();
         RootedBlock class_ = classes_.getClassBody(_class);
@@ -961,7 +959,7 @@ public final class ProcessXmlMethod {
             String superClass_ = meta_.getSuperClass();
             if (!calledImpl_ && !StringList.quickEq(superClass_, Object.class.getName()) && !StringList.quickEq(superClass_, Enum.class.getName())) {
                 ip_.getCallingConstr().setCalledImplicitConstructor(true);
-                ConstructorId super_ = new ConstructorId(superClass_, new EqList<ClassName>());
+                FctConstraints super_ = new FctConstraints(superClass_, new EqList<StringList>());
                 StringList called_ = ip_.getCallingConstr().getCalledConstructors();
                 called_.add(superClass_);
                 Argument global_ = ip_.getGlobalArgument();

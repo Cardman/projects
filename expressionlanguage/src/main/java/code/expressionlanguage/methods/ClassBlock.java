@@ -6,9 +6,8 @@ import code.expressionlanguage.methods.exceptions.CyclicCallingException;
 import code.expressionlanguage.methods.exceptions.UndefinedSuperConstructorException;
 import code.expressionlanguage.methods.util.ConstructorEdge;
 import code.expressionlanguage.opers.util.ClassMetaInfo;
-import code.expressionlanguage.opers.util.ConstructorId;
 import code.expressionlanguage.opers.util.ConstructorMetaInfo;
-import code.expressionlanguage.opers.util.MethodId;
+import code.expressionlanguage.opers.util.FctConstraints;
 import code.util.EntryCust;
 import code.util.EqList;
 import code.util.NatTreeMap;
@@ -25,8 +24,6 @@ public final class ClassBlock extends BracedBlock implements RootedBlock {
     private final String superClass;
 
     private final StringList allSuperClasses = new StringList();
-
-    private final EqList<MethodId> normalMethods = new EqList<MethodId>();
 
     private final AccessEnum access;
 
@@ -56,11 +53,6 @@ public final class ClassBlock extends BracedBlock implements RootedBlock {
     }
 
     @Override
-    public EqList<MethodId> getNormalMethods() {
-        return normalMethods;
-    }
-
-    @Override
     public String getSuperClass() {
         return superClass;
     }
@@ -74,21 +66,21 @@ public final class ClassBlock extends BracedBlock implements RootedBlock {
     public void validateConstructors(ContextEl _cont) {
         boolean opt_ = optionalCallConstr(_cont);
         ClassMetaInfo curMeta_ = _cont.getClasses().getClassMetaInfo(getFullName());
-        ObjectNotNullMap<ConstructorId, ConstructorMetaInfo> c_;
+        ObjectNotNullMap<FctConstraints, ConstructorMetaInfo> c_;
         c_ = curMeta_.getConstructors();
-        for (EntryCust<ConstructorId, ConstructorMetaInfo> e: c_.entryList()) {
+        for (EntryCust<FctConstraints, ConstructorMetaInfo> e: c_.entryList()) {
             ConstructorBlock b_ = _cont.getClasses().getConstructorBody(getFullName(), e.getKey());
             b_.setupInstancingStep(_cont);
         }
-        for (EntryCust<ConstructorId, ConstructorMetaInfo> e: c_.entryList()) {
+        for (EntryCust<FctConstraints, ConstructorMetaInfo> e: c_.entryList()) {
             ConstructorBlock b_ = _cont.getClasses().getConstructorBody(getFullName(), e.getKey());
             if (b_.implicitConstr() && !opt_) {
                 throw new UndefinedSuperConstructorException(_cont.joinPages());
             }
         }
 //        List.<List<?>>equalsSet(null,null);
-        EqList<ConstructorId> l_ = new EqList<ConstructorId>();
-        for (EntryCust<ConstructorId, ConstructorMetaInfo> e: c_.entryList()) {
+        EqList<FctConstraints> l_ = new EqList<FctConstraints>();
+        for (EntryCust<FctConstraints, ConstructorMetaInfo> e: c_.entryList()) {
             ConstructorBlock b_ = _cont.getClasses().getConstructorBody(getFullName(), e.getKey());
             if (b_.getConstIdSameClass() != null) {
                 l_.add(e.getKey());
@@ -126,9 +118,9 @@ public final class ClassBlock extends BracedBlock implements RootedBlock {
 //        }
         Graph<ConstructorEdge> graph_;
         graph_ = new Graph<ConstructorEdge>();
-        for (ConstructorId f: l_) {
+        for (FctConstraints f: l_) {
             ConstructorBlock b_ = _cont.getClasses().getConstructorBody(getFullName(), f);
-            ConstructorId co_ = b_.getConstIdSameClass();
+            FctConstraints co_ = b_.getConstIdSameClass();
             ConstructorEdge f_ = new ConstructorEdge(f);
             ConstructorEdge t_ = new ConstructorEdge(co_);
             graph_.addSegment(f_, t_);
@@ -162,13 +154,13 @@ public final class ClassBlock extends BracedBlock implements RootedBlock {
 
     public AccessEnum getMaximumAccessConstructors(ContextEl _cont) {
         ClassMetaInfo curMeta_ = _cont.getClasses().getClassMetaInfo(getFullName());
-        ObjectNotNullMap<ConstructorId, ConstructorMetaInfo> c_;
+        ObjectNotNullMap<FctConstraints, ConstructorMetaInfo> c_;
         c_ = curMeta_.getConstructors();
         if (c_.isEmpty()) {
             return AccessEnum.PUBLIC;
         }
         AccessEnum a_ = AccessEnum.PRIVATE;
-        for (EntryCust<ConstructorId, ConstructorMetaInfo> e: c_.entryList()) {
+        for (EntryCust<FctConstraints, ConstructorMetaInfo> e: c_.entryList()) {
             ConstructorBlock b_ = _cont.getClasses().getConstructorBody(getFullName(), e.getKey());
             if (b_.getAccess().ordinal() < a_.ordinal()) {
                 a_ = b_.getAccess();
@@ -182,16 +174,16 @@ public final class ClassBlock extends BracedBlock implements RootedBlock {
         if (clMeta_ == null) {
             return true;
         }
-        ObjectNotNullMap<ConstructorId, ConstructorMetaInfo> m_;
+        ObjectNotNullMap<FctConstraints, ConstructorMetaInfo> m_;
         m_ = clMeta_.getConstructors();
         if (m_.isEmpty()) {
             return true;
         }
-        for (EntryCust<ConstructorId, ConstructorMetaInfo> e: m_.entryList()) {
+        for (EntryCust<FctConstraints, ConstructorMetaInfo> e: m_.entryList()) {
             if (!_cont.getClasses().canAccessConstructor(getFullName(), superClass, e.getKey())) {
                 continue;
             }
-            if (e.getKey().getClassNames().isEmpty()) {
+            if (e.getKey().getConstraints().isEmpty()) {
                 return true;
             }
         }

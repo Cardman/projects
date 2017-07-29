@@ -4,12 +4,15 @@ import code.util.ints.Equallable;
 public final class ClassMethodId implements Equallable<ClassMethodId> {
 
     private final ClassName className;
-
+    
     private final MethodId method;
 
-    public ClassMethodId(ClassName _className, MethodId _method) {
+    private final FctConstraints constraints;
+
+    public ClassMethodId(ClassName _className, MethodId _method, FctConstraints _constraints) {
         className = _className;
         method = _method;
+        constraints = _constraints;
     }
 
     public ClassName getClassName() {
@@ -18,6 +21,10 @@ public final class ClassMethodId implements Equallable<ClassMethodId> {
 
     public MethodId getMethod() {
         return method;
+    }
+
+    public FctConstraints getConstraints() {
+        return constraints;
     }
 
     @Override

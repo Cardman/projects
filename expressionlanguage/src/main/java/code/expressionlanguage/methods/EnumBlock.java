@@ -7,9 +7,8 @@ import code.expressionlanguage.methods.exceptions.CyclicCallingException;
 import code.expressionlanguage.methods.util.ConstructorEdge;
 import code.expressionlanguage.opers.util.ClassMetaInfo;
 import code.expressionlanguage.opers.util.ClassMethodId;
-import code.expressionlanguage.opers.util.ConstructorId;
 import code.expressionlanguage.opers.util.ConstructorMetaInfo;
-import code.expressionlanguage.opers.util.MethodId;
+import code.expressionlanguage.opers.util.FctConstraints;
 import code.util.EntryCust;
 import code.util.EqList;
 import code.util.NatTreeMap;
@@ -24,8 +23,6 @@ public final class EnumBlock extends BracedBlock implements RootedBlock {
     private final String packageName;
 
     private final StringList allSuperClasses = new StringList();
-
-    private final EqList<MethodId> normalMethods = new EqList<MethodId>();
 
     private final ObjectNotNullMap<ClassMethodId, Boolean> availableMethods = new ObjectNotNullMap<ClassMethodId, Boolean>();
 
@@ -50,14 +47,14 @@ public final class EnumBlock extends BracedBlock implements RootedBlock {
     @Override
     public void validateConstructors(ContextEl _cont) {
         ClassMetaInfo curMeta_ = _cont.getClasses().getClassMetaInfo(getFullName());
-        ObjectNotNullMap<ConstructorId, ConstructorMetaInfo> c_;
+        ObjectNotNullMap<FctConstraints, ConstructorMetaInfo> c_;
         c_ = curMeta_.getConstructors();
-        for (EntryCust<ConstructorId, ConstructorMetaInfo> e: c_.entryList()) {
+        for (EntryCust<FctConstraints, ConstructorMetaInfo> e: c_.entryList()) {
             ConstructorBlock b_ = _cont.getClasses().getConstructorBody(getFullName(), e.getKey());
             b_.setupInstancingStep(_cont);
         }
-        EqList<ConstructorId> l_ = new EqList<ConstructorId>();
-        for (EntryCust<ConstructorId, ConstructorMetaInfo> e: c_.entryList()) {
+        EqList<FctConstraints> l_ = new EqList<FctConstraints>();
+        for (EntryCust<FctConstraints, ConstructorMetaInfo> e: c_.entryList()) {
             ConstructorBlock b_ = _cont.getClasses().getConstructorBody(getFullName(), e.getKey());
             if (b_.getConstIdSameClass() != null) {
                 l_.add(e.getKey());
@@ -65,9 +62,9 @@ public final class EnumBlock extends BracedBlock implements RootedBlock {
         }
         Graph<ConstructorEdge> graph_;
         graph_ = new Graph<ConstructorEdge>();
-        for (ConstructorId f: l_) {
+        for (FctConstraints f: l_) {
             ConstructorBlock b_ = _cont.getClasses().getConstructorBody(getFullName(), f);
-            ConstructorId co_ = b_.getConstIdSameClass();
+            FctConstraints co_ = b_.getConstIdSameClass();
             ConstructorEdge f_ = new ConstructorEdge(f);
             ConstructorEdge t_ = new ConstructorEdge(co_);
             graph_.addSegment(f_, t_);
@@ -77,10 +74,6 @@ public final class EnumBlock extends BracedBlock implements RootedBlock {
             //TODO souligner
             throw new CyclicCallingException(_cont.joinPages());
         }
-    }
-    @Override
-    public EqList<MethodId> getNormalMethods() {
-        return normalMethods;
     }
 
     @Override

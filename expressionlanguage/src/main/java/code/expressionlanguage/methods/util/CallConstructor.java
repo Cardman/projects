@@ -1,14 +1,14 @@
 package code.expressionlanguage.methods.util;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.methods.ConstructorBlock;
-import code.expressionlanguage.opers.util.ConstructorId;
+import code.expressionlanguage.opers.util.FctConstraints;
 import code.util.StringList;
 
 public final class CallConstructor {
 
     private InstancingStep instancingStep = InstancingStep.NOTHING;
 
-    private ConstructorId id;
+    private FctConstraints id;
 
     private Argument argument;
 
@@ -30,11 +30,11 @@ public final class CallConstructor {
         instancingStep = _instancingStep;
     }
 
-    public ConstructorId getId() {
+    public FctConstraints getId() {
         return id;
     }
 
-    public void setId(ConstructorId _id) {
+    public void setId(FctConstraints _id) {
         id = _id;
     }
 
