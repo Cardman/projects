@@ -1801,4 +1801,18 @@ public final class InstanceOperation extends InvokingOperation {
         vs_.removeKey(vs_.firstKey());
         getChildren().putAllMap(vs_);
     }
+
+    @Override
+    boolean isCallMethodCtor() {
+        String className_ = methodName.trim().substring(INSTANCE.length()+2);
+        className_ = StringList.removeAllSpaces(className_);
+        String realClassName_;
+        if (className_.endsWith(ARR_DYN)) {
+            int len_ = className_.length();
+            realClassName_ = className_.substring(0, len_-ARR_DYN.length());
+        } else {
+            realClassName_ = className_;
+        }
+        return !realClassName_.startsWith(ARR);
+    }
 }

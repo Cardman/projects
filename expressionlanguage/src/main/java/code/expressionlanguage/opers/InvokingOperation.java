@@ -175,5 +175,7 @@ public abstract class InvokingOperation extends MethodOperation {
         }
         return firstArgs_;
     }
+
+    abstract boolean isCallMethodCtor();
 //    List<Arguem>
 }

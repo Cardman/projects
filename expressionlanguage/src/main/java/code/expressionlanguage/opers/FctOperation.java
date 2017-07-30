@@ -408,6 +408,11 @@ public final class FctOperation extends InvokingOperation {
                     throw new NullObjectException(_conf.joinPages());
                 }
                 str_ = StringList.removeAllSpaces(str_);
+                MethodOperation parent_ = getParent();
+                if (parent_ instanceof InvokingOperation) {
+                    //TODO multiple cast
+                    ((InvokingOperation)parent_).isCallMethodCtor();
+                }
                 checkExist(_conf, str_, true, true, chidren_.first().getIndexInEl()+1);
                 setResultClass(new ClassArgumentMatching(str_));
                 return;
@@ -1733,5 +1738,20 @@ public final class FctOperation extends InvokingOperation {
         NatTreeMap<Integer, String> vs_ = getOperations().getValues();
         vs_.removeKey(vs_.firstKey());
         getChildren().putAllMap(vs_);
+    }
+
+    @Override
+    boolean isCallMethodCtor() {
+        String trimMeth_ = methodName.trim();
+        if (StringList.quickEq(trimMeth_, EXTERN_CLASS+INSTANCEOF)) {
+            return false;
+        }
+        if (StringList.quickEq(trimMeth_, EXTERN_CLASS+CAST)) {
+            return false;
+        }
+        if (StringList.quickEq(trimMeth_,EXTERN_CLASS+BOOLEAN)) {
+            return false;
+        }
+        return true;
     }
 }
