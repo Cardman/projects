@@ -397,6 +397,67 @@ public final class Classes {
         }
         return list_;
     }
+    public static CustList<InterfaceNode> getSortedDescNodes(InterfaceNode _root) {
+        CustList<InterfaceNode> list_ = new CustList<InterfaceNode>();
+        if (_root == null) {
+            return list_;
+        }
+        InterfaceNode c_ = _root;
+        while (true) {
+            if (c_ == null) {
+                break;
+            }
+            list_.add(c_);
+            c_ = getNext(c_, _root);
+        }
+        return list_;
+    }
+
+    public static InterfaceNode getNext(InterfaceNode _current, InterfaceNode _root) {
+        InterfaceNode n_ = _current.getFirstChild();
+        if (n_ != null) {
+            return n_;
+        }
+        n_ = _current.getNextSibling();
+        if (n_ != null) {
+            return n_;
+        }
+        n_ = _current.getParent();
+        if (n_ == _root) {
+            return null;
+        }
+        if (n_ != null) {
+            InterfaceNode next_ = n_.getNextSibling();
+            while (next_ == null) {
+                InterfaceNode par_ = n_.getParent();
+                if (par_ == _root) {
+                    break;
+                }
+                if (par_ == null) {
+                    break;
+                }
+                next_ = par_.getNextSibling();
+                n_ = par_;
+            }
+            if (next_ != null) {
+                return next_;
+            }
+        }
+        return null;
+    }
+    public static CustList<InterfaceNode> getDirectChildren(InterfaceNode _element) {
+        CustList<InterfaceNode> list_ = new CustList<InterfaceNode>();
+        if (_element == null) {
+            return list_;
+        }
+        InterfaceNode firstChild_ = _element.getFirstChild();
+        InterfaceNode elt_ = firstChild_;
+        while (elt_ != null) {
+            list_.add(elt_);
+            elt_ = elt_.getNextSibling();
+        }
+        return list_;
+    }
     public void validateInheritingClasses(ContextEl _context) {
         PageEl page_ = new PageEl();
         _context.clearPages();
@@ -564,6 +625,126 @@ public final class Classes {
         for (ClassEdge c: elts_) {
             interfacesInheriting.add(c.getId().getName());
         }
+    }
+    public StringList getSortedSuperInterfaces(StringList _interfaces) {
+        StringList sortedSuperInterfaces_ = new StringList();
+        for (String i: _interfaces) {
+            StringList superInterfaces_ = new StringList(i);
+            StringList currentInterfaces_ = new StringList(i);
+            while (true) {
+                StringList nextInterfaces_ = new StringList();
+                for (String c: currentInterfaces_) {
+                    InterfaceBlock int_ = (InterfaceBlock) getClassBody(c);
+                    StringList directSuperInterfaces_ = int_.getDirectSuperClasses();
+                    for (String s:directSuperInterfaces_) {
+                        if (superInterfaces_.containsStr(s)) {
+                            continue;
+                        }
+                        superInterfaces_.add(s);
+                        nextInterfaces_.add(s);
+                    }
+                }
+                if (nextInterfaces_.isEmpty()) {
+                    break;
+                }
+                currentInterfaces_ = nextInterfaces_;
+            }
+            StringMap<InterfaceNode> is_ = new StringMap<InterfaceNode>();
+            InterfaceNode i_ = new InterfaceNode();
+            i_.setInterfaceName(superInterfaces_.first());
+            is_.put(superInterfaces_.first(), i_);
+            for (String s: superInterfaces_) {
+                InterfaceBlock int_ = (InterfaceBlock) getClassBody(s);
+                StringList directSuperInterfaces_ = int_.getDirectSuperClasses();
+                InterfaceNode current_ = is_.getVal(s);
+                for (String r: directSuperInterfaces_) {
+                    InterfaceNode intNode_ = is_.getVal(r);
+                    if (intNode_ != null) {
+                        continue;
+                    }
+                    InterfaceNode child_ = current_.getFirstChild();
+                    int index_ = CustList.FIRST_INDEX;
+                    if (child_ != null) {
+                        InterfaceNode loc_ = child_;
+                        while (true) {
+                            if (loc_ == null) {
+                                break;
+                            }
+                            index_++;
+                            InterfaceNode next_ = loc_.getNextSibling();
+                            if (next_ == null) {
+                                child_ = loc_;
+                            }
+                            loc_ = next_;
+                        }
+                    }
+                    InterfaceNode ic_ = new InterfaceNode();
+                    ic_.setParent(current_);
+                    ic_.setInterfaceName(r);
+                    is_.put(r, ic_);
+                    if (child_ == null) {
+                        ic_.setIndexChild(0);
+                        current_.setFirstChild(ic_);
+                        continue;
+                    }
+                    ic_.setIndexChild(index_);
+                    child_.setNextSibling(ic_);
+                }
+            }
+            CustList<InterfaceNode> all_ = new CustList<InterfaceNode>();
+            for (InterfaceNode s: getSortedDescNodes(i_)) {
+                all_.add(s);
+            }
+            int order_ = 0;
+            while (true) {
+                CustList<InterfaceNode> next_ = new CustList<InterfaceNode>();
+                for (InterfaceNode e: all_) {
+                    if (e.getOrder() > CustList.INDEX_NOT_FOUND_ELT) {
+                        continue;
+                    }
+                    InterfaceNode cur_ = e;
+                    boolean tonumber_ = true;
+                    while (cur_ != null) {
+                        int index_ = cur_.getIndexChild() - 1;
+                        if (index_ >= CustList.FIRST_INDEX) {
+                            CustList<InterfaceNode> sn_ = getDirectChildren(cur_.getParent());
+                            InterfaceNode s_ = sn_.get(index_);
+                            InterfaceNode prev_ = s_;
+                            if (prev_.getOrder() == CustList.INDEX_NOT_FOUND_ELT) {
+                                tonumber_ = false;
+                                break;
+                            }
+                        }
+                        cur_ = cur_.getParent();
+                    }
+                    if (!tonumber_) {
+                        continue;
+                    }
+                    CustList<InterfaceNode> list_ = getDirectChildren(e);
+                    if (!list_.isEmpty()) {
+                        InterfaceNode op_ = (InterfaceNode) list_.last();
+                        if (op_.getOrder() == CustList.INDEX_NOT_FOUND_ELT) {
+                            continue;
+                        }
+                    }
+                    next_.add(e);
+                }
+                if (next_.isEmpty()) {
+                    break;
+                }
+                for (InterfaceNode o: next_) {
+                    o.setOrder(order_);
+                    order_++;
+                }
+            }
+            all_.sortElts(new ComparatorInterfaceNode());
+            for (InterfaceNode j: all_) {
+                if (!sortedSuperInterfaces_.containsStr(j.getInterfaceName())) {
+                    sortedSuperInterfaces_.add(j.getInterfaceName());
+                }
+            }
+        }
+        return sortedSuperInterfaces_;
     }
     public void validateClassBodies(ContextEl _context) {
         PageEl page_ = new PageEl();

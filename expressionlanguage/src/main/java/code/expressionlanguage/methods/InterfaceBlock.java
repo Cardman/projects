@@ -27,7 +27,7 @@ public final class InterfaceBlock extends BracedBlock implements RootedBlock {
         superInterfaces = new StringList();
         int i_ = CustList.FIRST_INDEX;
         while (_el.hasAttribute(ATTRIBUTE_CLASS+i_)) {
-            superInterfaces.add(_el.getAttribute(ATTRIBUTE_VAR+i_));
+            superInterfaces.add(_el.getAttribute(ATTRIBUTE_CLASS+i_));
             i_++;
         }
         access = AccessEnum.valueOf(_el.getAttribute(ATTRIBUTE_ACCESS));
@@ -86,7 +86,7 @@ public final class InterfaceBlock extends BracedBlock implements RootedBlock {
 
     @Override
     public String getTagName() {
-        return TAG_CLASS;
+        return TAG_INTERFACE;
     }
 
     @Override

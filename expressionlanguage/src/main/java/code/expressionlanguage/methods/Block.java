@@ -79,6 +79,7 @@ public abstract class Block extends Blockable implements SortedNode<Block> {
     protected static final String TAG_FOREACH = "foreach";
     protected static final String TAG_IF = "if";
     protected static final String TAG_INSTANCE = "instance";
+    protected static final String TAG_INTERFACE = "interface";
     protected static final String TAG_LINE = "line";
     protected static final String TAG_METHOD = "method";
     protected static final String TAG_RETURN = "return";
@@ -991,6 +992,9 @@ public abstract class Block extends Blockable implements SortedNode<Block> {
         }
         if (StringList.quickEq(_el.getNodeName(),TAG_INSTANCE)) {
             return new InstanceBlock(_el, _conf, _indexChild, _m);
+        }
+        if (StringList.quickEq(_el.getNodeName(),TAG_INTERFACE)) {
+            return new InterfaceBlock(_el, _conf, _indexChild, _m);
         }
         if (StringList.quickEq(_el.getNodeName(),TAG_LINE)) {
             return new Line(_el, _conf, _indexChild, _m);
