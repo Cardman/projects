@@ -254,6 +254,47 @@ public class TemplatesTest {
     }
 
     @Test
+    public void isCorrectTemplate34Test() {
+        assertTrue(Templates.isCorrectTemplate(CMP_LIST+"<?>", new StringMap<StringList>(),null));
+    }
+
+    @Test
+    public void isCorrectTemplate35Test() {
+        Mapping m_ = new Mapping();
+        StringMap<StringList> t_ = new StringMap<StringList>();
+        t_.put("T", new StringList("java.lang.Enum<#T>"));
+        m_.setMapping(t_);
+        assertTrue(!Templates.isCorrectTemplate(ENUM_LIST+"<? ~ java.lang.Enum<#T>&"+CMP+"<#T>>", t_,null));
+    }
+
+    @Test
+    public void isCorrectTemplate36Test() {
+        Mapping m_ = new Mapping();
+        StringMap<StringList> t_ = new StringMap<StringList>();
+        t_.put("T", new StringList("java.lang.Enum<#T>"));
+        m_.setMapping(t_);
+        assertTrue(Templates.isCorrectTemplate(CUST_LIST+"<? ~ java.lang.Enum<#T>&java.lang.Enum<#T>>", t_,null));
+    }
+
+    @Test
+    public void isCorrectTemplate37Test() {
+        Mapping m_ = new Mapping();
+        StringMap<StringList> t_ = new StringMap<StringList>();
+        t_.put("T", new StringList("java.lang.Enum<#T>"));
+        m_.setMapping(t_);
+        assertTrue(Templates.isCorrectTemplate(CUST_LIST+"<"+CUST_LIST+"<? ~ java.lang.Enum<#T>&java.lang.Enum<#T>>>", t_,null));
+    }
+
+    @Test
+    public void isCorrectTemplate38Test() {
+        Mapping m_ = new Mapping();
+        StringMap<StringList> t_ = new StringMap<StringList>();
+        t_.put("T", new StringList("java.lang.Enum<#T>"));
+        m_.setMapping(t_);
+        assertTrue(Templates.isCorrectTemplate(CUST_LIST+"<? ~ java.lang.Enum<#T>&"+CMP+"<#T>>", t_,null));
+    }
+
+    @Test
     public void isCorrect1Test() {
         Mapping m_ = new Mapping();
         m_.setArg("java.lang.Object");
