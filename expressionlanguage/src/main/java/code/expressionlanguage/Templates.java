@@ -202,36 +202,14 @@ public final class Templates {
                     for (Matching n: p.getPairsArgParam()) {
                         String nextParam_ = n.getParam();
                         if (!nextParam_.startsWith(WILD_CARD)) {
-//                            if (nextParam_.startsWith(PREFIX_VAR_TYPE)) {
-//                                boolean ok_ = _m.inheritArgParam(nextParam_.substring(1), n.getArg().substring(1));
-////                                if (p.getMapping().contains(nextParam_.substring(1))) {
-////                                    if (n.getArg().startsWith(PREFIX_VAR_TYPE)) {
-////                                        if (!StringList.quickEq(nextParam_, n.getArg())) {
-////                                            return false;
-////                                        }
-////                                        continue;
-////                                    }
-////                                    for (String v: p.getMapping().getVal(nextParam_.substring(1))) {
-////                                        if (StringList.quickEq(v, n.getArg())) {
-////                                            ok_ = true;
-////                                            break;
-////                                        }
-////                                    }
-////                                    if (!ok_) {
-////                                        return false;
-////                                    }
-////                                    continue;
-////                                }
-//                                if (!ok_) {
-//                                    return false;
-//                                }
-//                                continue;
-//                            }
                             if (!StringList.quickEq(n.getParam(), n.getArg())) {
                                 return false;
                             }
                             
                         } else {
+                            if (StringList.quickEq(nextParam_, WILD_CARD)) {
+                                continue;
+                            }
                             String boundsParam_ = removeWildCard(nextParam_);
                             StringList typesParam_ = split(boundsParam_);
                             if (!n.getArg().startsWith(WILD_CARD)) {
@@ -243,6 +221,9 @@ public final class Templates {
                                     }
                                 }
                             } else {
+                                if (StringList.quickEq(n.getArg(), WILD_CARD)) {
+                                    continue;
+                                }
                                 String boundsArg_ = removeWildCard(n.getArg());
                                 StringList typesArg_ = split(boundsArg_);
                                 for (String d: typesArg_) {
@@ -261,79 +242,6 @@ public final class Templates {
             if (next_.getParamArgs().isEmpty()) {
                 return true;
             }
-//            for (Matching m: current_.getPairsArgParam()) {
-//                Mapping map_ = new Mapping();
-//                map_.setArg(m.getArg());
-//                map_.setParam(m.getParam());
-//                map_.setMapping(current_.getMapping());
-//                MappingPairs m_ = getMapping(map_, _classes);
-//                if (m_ == null) {
-//                    return false;
-//                }
-////                if (m_ == null) {
-////                    continue;
-////                }
-////                allNull_ = false;
-//                for (Matching n: m_.getPairsArgParam()) {
-//                    String nextParam_ = n.getParam();
-//                    if (!nextParam_.startsWith(WILD_CARD)) {
-//                        String paramType_ = n.getParam();
-//                        if (paramType_.startsWith(PREFIX_VAR_TYPE)) {
-//                            boolean ok_ = false;
-//                            if (m_.getMapping().contains(paramType_.substring(1))) {
-//                                for (String v: m_.getMapping().getVal(paramType_.substring(1))) {
-//                                    if (StringList.quickEq(v, n.getArg())) {
-//                                        ok_ = true;
-//                                        break;
-//                                    }
-//                                }
-//                                if (!ok_) {
-//                                    return false;
-//                                }
-//                                continue;
-//                            }
-//                        }
-//                        if (!StringList.quickEq(n.getParam(), n.getArg())) {
-//                            return false;
-//                        }
-//                        
-//                    } else {
-//                        String boundsParam_ = removeWildCard(nextParam_);
-//                        StringList typesParam_ = StringList.splitChars(boundsParam_, SEP_BOUNDS);
-//                        if (!n.getArg().startsWith(WILD_CARD)) {
-//                            for (String e: typesParam_) {
-//                                match_ = new Matching();
-//                                match_.setArg(n.getArg());
-//                                match_.setParam(e);
-//                                if (!visited_.getPairsArgParam().containsObj(match_)) {
-//                                    visited_.getPairsArgParam().add(match_);
-//                                    next_.getPairsArgParam().add(match_);
-//                                }
-//                            }
-//                        } else {
-//                            String boundsArg_ = removeWildCard(n.getArg());
-//                            StringList typesArg_ = StringList.splitChars(boundsArg_, SEP_BOUNDS);
-//                            for (String d: typesArg_) {
-//                                for (String e: typesParam_) {
-//                                    match_ = new Matching();
-//                                    match_.setArg(d);
-//                                    match_.setParam(e);
-//                                    if (!visited_.getPairsArgParam().containsObj(match_)) {
-//                                        visited_.getPairsArgParam().add(match_);
-//                                        next_.getPairsArgParam().add(match_);
-//                                    }
-//                                }
-//                            }
-//                        }
-//                    }
-//                }
-//            }
-//            if (next_.getPairsArgParam().isEmpty()) {
-//                return true;
-//            }
-//            if (allNull_) {
-//                return false;
-//            }
             current_ = next_;
         }
     }

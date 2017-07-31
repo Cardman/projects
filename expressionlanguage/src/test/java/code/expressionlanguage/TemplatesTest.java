@@ -505,7 +505,6 @@ public class TemplatesTest {
         assertTrue(Templates.isCorrect(m_,null));
     }
 
-//    @Ignore
     @Test
     public void isCorrect23Test() {
         Mapping m_ = new Mapping();
@@ -702,5 +701,65 @@ public class TemplatesTest {
         t_.put("S", new StringList("java.lang.Object"));
         m_.setMapping(t_);
         assertTrue(Templates.isCorrect(m_,null));
+    }
+
+    @Test
+    public void isCorrect40Test() {
+        Mapping m_ = new Mapping();
+        m_.setArg(CUST_LIST+"<?>");
+        m_.setParam(CUST_LIST+"<?>");
+        StringMap<StringList> t_ = new StringMap<StringList>();
+        m_.setMapping(t_);
+        assertTrue(Templates.isCorrect(m_,null));
+    }
+
+    @Test
+    public void isCorrect41Test() {
+        Mapping m_ = new Mapping();
+        m_.setArg(CUST_LIST+"<?>");
+        m_.setParam("java.lang.Iterable<?>");
+        StringMap<StringList> t_ = new StringMap<StringList>();
+        m_.setMapping(t_);
+        assertTrue(Templates.isCorrect(m_,null));
+    }
+
+    @Test
+    public void isCorrect42Test() {
+        Mapping m_ = new Mapping();
+        m_.setArg("java.lang.Iterable<?>");
+        m_.setParam(CUST_LIST+"<?>");
+        StringMap<StringList> t_ = new StringMap<StringList>();
+        m_.setMapping(t_);
+        assertTrue(!Templates.isCorrect(m_,null));
+    }
+
+    @Test
+    public void isCorrect43Test() {
+        Mapping m_ = new Mapping();
+        m_.setArg(CUST_LIST+"<?>");
+        m_.setParam(CUST_LIST+"<? ~ java.lang.Object>");
+        StringMap<StringList> t_ = new StringMap<StringList>();
+        m_.setMapping(t_);
+        assertTrue(Templates.isCorrect(m_,null));
+    }
+
+    @Test
+    public void isCorrect44Test() {
+        Mapping m_ = new Mapping();
+        m_.setArg(CUST_LIST+"<?>");
+        m_.setParam("java.lang.Iterable<? ~ java.lang.Object>");
+        StringMap<StringList> t_ = new StringMap<StringList>();
+        m_.setMapping(t_);
+        assertTrue(Templates.isCorrect(m_,null));
+    }
+
+    @Test
+    public void isCorrect45Test() {
+        Mapping m_ = new Mapping();
+        m_.setArg("java.lang.Iterable<?>");
+        m_.setParam(CUST_LIST+"<? ~ java.lang.Object>");
+        StringMap<StringList> t_ = new StringMap<StringList>();
+        m_.setMapping(t_);
+        assertTrue(!Templates.isCorrect(m_,null));
     }
 }
