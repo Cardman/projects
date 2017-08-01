@@ -6979,6 +6979,7 @@ public class ProcessXmlMethodTest {
         Struct str_ = ret_.getStruct();
         assertEq(CustBase.class.getName(), str_.getRealClassName());
         assertEq("pkg.Ex", str_.getClassName());
+        assertTrue(!str_.isJavaObject());
         Struct field_;
         field_ = str_.getFields().getVal(new ClassField("pkg.Ex", "inst"));
         assertEq(Integer.class.getName(), field_.getRealClassName());

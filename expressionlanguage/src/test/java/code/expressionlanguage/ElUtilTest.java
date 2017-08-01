@@ -2,6 +2,7 @@ package code.expressionlanguage;
 import static code.util.opers.EquallableUtil.assertEq;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
+import static org.junit.Assert.assertTrue;
 
 import java.lang.reflect.Field;
 
@@ -1088,6 +1089,7 @@ public class ElUtilTest {
         assertEq(2, ((Integer[])res_).length);
         assertNull( ((Integer[])res_)[0]);
         assertNull( ((Integer[])res_)[1]);
+        assertTrue(arg_.getStruct().isJavaObject());
     }
 
     @Test(timeout=1000)
@@ -1105,6 +1107,7 @@ public class ElUtilTest {
         assertEq(2, ((Integer[][])res_).length);
         assertNull(((Integer[][])res_)[0]);
         assertNull(((Integer[][])res_)[1]);
+        assertTrue(arg_.getStruct().isJavaObject());
 //        assertEq(2, ((Struct[][])res_).length);
 //        assertEq((Object)null, ((Struct[][])res_)[0]);
 //        assertEq((Object)null, ((Struct[][])res_)[1]);
