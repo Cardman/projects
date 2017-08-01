@@ -18,8 +18,6 @@ public final class Templates {
     private static final String TEMPLATE_SEP = ",";
     private static final String TEMPLATE_END = ">";
     private static final String TEMPLATE_BEGIN = "<";
-    private static final String INTERFACE_PREFIX = "interface ";
-    private static final String CLASS_PREFIX = "class ";
     private static final String WILD_CARD = "?";
     private static final String EXTENDS = "~";
     private static final char SEP_BOUNDS = '&';
@@ -41,23 +39,21 @@ public final class Templates {
             if (StringList.quickEq(arg_, WILD_CARD)) {
                 continue;
             }
-//            DimComp dimCompArg_ = PrimitiveTypeUtil.getComponentBaseType(arg_);
             DimComp dimCompArg_ = PrimitiveTypeUtil.getQuickComponentBaseType(arg_);
             int dimArg_ = dimCompArg_.getDim();
             String comp_ = dimCompArg_.getComponent();
             boolean lookInInherit_ = comp_.startsWith(PREFIX_VAR_TYPE);
             for (Type e: t.getBounds()) {
                 Mapping m_ = new Mapping();
-                String ext_ = extractFromPrefix(e.toString());
+                String typeBound_ = getName(e);
+                String ext_ = extractFromPrefix(typeBound_);
                 String param_ = format(_className, ext_, _classes);
                 m_.setParam(param_);
                 if (lookInInherit_ && _inherit.contains(comp_.substring(1))) {
                     boolean ok_ = false;
                     for (String v: _inherit.getVal(comp_.substring(1))) {
                         m_.setArg(v);
-//                        String boundArr_ = PrimitiveTypeUtil.getArrayType(v, dimArg_);
                         String boundArr_ = PrimitiveTypeUtil.getPrettyArrayType(v, dimArg_);
-//                        DimComp dimCompBoundArg_ = PrimitiveTypeUtil.getComponentBaseType(boundArr_);
                         DimComp dimCompBoundArg_ = PrimitiveTypeUtil.getQuickComponentBaseType(boundArr_);
                         int dimBoundArg_ = dimCompBoundArg_.getDim();
                         if (dimBoundArg_ > 0) {
@@ -77,7 +73,6 @@ public final class Templates {
                     continue;
                 }
                 
-//                DimComp dimCompParam_ = PrimitiveTypeUtil.getComponentBaseType(m_.getParam());
                 DimComp dimCompParam_ = PrimitiveTypeUtil.getQuickComponentBaseType(param_);
                 int dimParam_ = dimCompParam_.getDim();
                 if (dimArg_ > 0 && dimParam_ > 0) {
@@ -112,9 +107,6 @@ public final class Templates {
     static StringMap<String> getVarTypes(String _className, Classes _classes) {
         StringList types_ = StringList.getAllTypes(_className);
         String className_ = extractFromPrefix(types_.first());
-        if (className_.startsWith(WILD_CARD)) {
-            className_ = removeWildCard(className_);
-        }
         className_ = PrimitiveTypeUtil.getArrayClass(className_);
         Class<?> cl_ = ConstClasses.classAliasForNameNotInit(className_);
         int i_ = CustList.FIRST_INDEX;
@@ -173,13 +165,11 @@ public final class Templates {
         StringMap<StringList> generalMapping_ = _m.getMapping();
         match_.setArg(arg_);
         match_.setParam(param_);
-//        current_.setMapping(generalMapping_);
         current_.getPairsArgParam().add(match_);
         current_.getParamArgs().put(param_, new StringList(arg_));
         visited_.getPairsArgParam().add(match_);
         while (true) {
             MappingPairs next_ = new MappingPairs();
-//            boolean allNull_ = true;
             StringMap<StringList> paramArgs_;
             paramArgs_ = current_.getParamArgs();
             for (EntryCust<String, StringList> e: paramArgs_.entryList()) {
@@ -207,9 +197,6 @@ public final class Templates {
                             }
                             
                         } else {
-                            if (StringList.quickEq(nextParam_, WILD_CARD)) {
-                                continue;
-                            }
                             String boundsParam_ = removeWildCard(nextParam_);
                             StringList typesParam_ = split(boundsParam_);
                             if (!n.getArg().startsWith(WILD_CARD)) {
@@ -221,9 +208,6 @@ public final class Templates {
                                     }
                                 }
                             } else {
-                                if (StringList.quickEq(n.getArg(), WILD_CARD)) {
-                                    continue;
-                                }
                                 String boundsArg_ = removeWildCard(n.getArg());
                                 StringList typesArg_ = split(boundsArg_);
                                 for (String d: typesArg_) {
@@ -245,6 +229,45 @@ public final class Templates {
             current_ = next_;
         }
     }
+    private static EqList<StringList> getClassBounds(String _className, Classes _classes) {
+        String baseClass_ = extractFromPrefix(_className);
+        baseClass_ = PrimitiveTypeUtil.getArrayClass(baseClass_);
+        Class<?> cl_ = ConstClasses.classAliasForNameNotInit(baseClass_);
+        EqList<StringList> bounds_ = new EqList<StringList>();
+        StringMap<StringList> localBounds_ = new StringMap<StringList>();
+        for (TypeVariable<?> t: cl_.getTypeParameters()) {
+            StringList localBound_ = new StringList();
+            for (Type b: t.getBounds()) {
+                String typeString_ = getName(b);
+                String ext_ = extractFromPrefix(typeString_);
+                localBound_.add(ext_);
+            }
+            localBounds_.put(t.getName(), localBound_);
+        }
+        for (String t: localBounds_.getKeys()) {
+            StringList current_ = new StringList(t);
+            StringList classBounds_ = new StringList();
+            while (true) {
+                StringList next_ = new StringList();
+                for (String c: current_) {
+                    StringList bound_ = localBounds_.getVal(c);
+                    for (String n: bound_) {
+                        if (localBounds_.contains(n)) {
+                            next_.add(n);
+                        } else {
+                            classBounds_.add(n);
+                        }
+                    }
+                }
+                if (next_.isEmpty()) {
+                    break;
+                }
+                current_ = next_;
+            }
+            bounds_.add(classBounds_);
+        }
+        return bounds_;
+    }
     private static String removeWildCard(String _wildCard) {
         String sub_ = _wildCard.substring(1);
         sub_ = sub_.substring(sub_.indexOf(EXTENDS)+1);
@@ -253,11 +276,6 @@ public final class Templates {
 
     private static String extractFromPrefix(String _wildCard) {
         String str_ = _wildCard;
-        if (_wildCard.startsWith(CLASS_PREFIX)) {
-            str_ = _wildCard.substring(CLASS_PREFIX.length());
-        } else if (_wildCard.startsWith(INTERFACE_PREFIX)) {
-            str_ = _wildCard.substring(INTERFACE_PREFIX.length());
-        }
         StringList allTypes_ = StringList.getAllTypes(str_);
         int nbTypes_ = allTypes_.size();
         if (nbTypes_ == 1) {
@@ -278,21 +296,15 @@ public final class Templates {
     }
 
     private static MappingPairs getMapping(Mapping _m, Classes _classes) {
+        EqList<StringList> boundsArg_;
+        EqList<StringList> boundsParam_;
         String arg_ = _m.getArg();
         String param_ = _m.getParam();
         StringList typesArg_ = StringList.getAllTypes(arg_);
         StringList typesParam_ = StringList.getAllTypes(param_);
         String baseArg_ = typesArg_.first();
-        if (baseArg_.startsWith(WILD_CARD)) {
-            baseArg_ = removeWildCard(baseArg_);
-        }
         String baseParam_ = typesParam_.first();
-        if (baseParam_.startsWith(WILD_CARD)) {
-            baseParam_ = removeWildCard(baseParam_);
-        }
-//        DimComp dArg_ = PrimitiveTypeUtil.getComponentBaseType(arg_);
         DimComp dArg_ = PrimitiveTypeUtil.getQuickComponentBaseType(arg_);
-//        DimComp dParam_ = PrimitiveTypeUtil.getComponentBaseType(param_);
         DimComp dParam_ = PrimitiveTypeUtil.getQuickComponentBaseType(param_);
         String baseArrayParam_ = dParam_.getComponent();
         String baseArrayArg_ = dArg_.getComponent();
@@ -306,8 +318,6 @@ public final class Templates {
                 return null;
             }
             return_ = true;
-//            MappingPairs m_ = new MappingPairs();
-//            return m_;
         }
         if (baseArrayParam_.startsWith(PREFIX_VAR_TYPE)) {
             if (return_) {
@@ -318,29 +328,6 @@ public final class Templates {
                 return m_;
             }
             return null;
-//            if (_m.getMapping().contains(baseParam_.substring(1))) {
-//                boolean ok_ = false;
-//                for (String v: _m.getMapping().getVal(baseParam_.substring(1))) {
-//                    if (_m.getMapping().contains(v.substring(1))) {
-//                        if (_m.containsParamArg(v.substring(1), baseArg_)) {
-//                            ok_ = true;
-//                            break;
-//                        }
-//                        continue;
-//                    }
-//                    if (PrimitiveTypeUtil.canBeUseAsArgument(v, baseArg_, _classes)) {
-//                        ok_ = true;
-//                        break;
-//                    }
-//                }
-//                if (!ok_) {
-//                    return null;
-//                }
-//            }
-//            StringMap<StringList> map_ = buildMapping(arg_, param_);
-//            MappingPairs m_ = new MappingPairs();
-//            m_.setMapping(map_);
-//            return m_;
         }
         if (!baseArrayArg_.startsWith(PREFIX_VAR_TYPE)) {
             if (!PrimitiveTypeUtil.canBeUseAsArgument(baseParam_, baseArg_, _classes)) {
@@ -352,24 +339,29 @@ public final class Templates {
             return m_;
         }
         if (StringList.quickEq(baseArg_, baseParam_)) {
-//            StringMap<StringList> map_ = buildMapping(arg_, param_);
             int len_ = typesParam_.size();
             EqList<Matching> pairsArgParam_ = new EqList<Matching>();
+            boundsArg_ = getClassBounds(typesArg_.first(), _classes);
+            boundsParam_ = getClassBounds(typesParam_.first(), _classes);
             for (int i = CustList.SECOND_INDEX; i < len_; i++) {
                 Matching match_ = new Matching();
-                match_.setArg(typesArg_.get(i));
-                match_.setParam(typesParam_.get(i));
+                if (StringList.quickEq(typesArg_.get(i), WILD_CARD)) {
+                    match_.setArg(WILD_CARD+EXTENDS+boundsArg_.get(i-1).join(SEP_BOUNDS));
+                } else {
+                    match_.setArg(typesArg_.get(i));
+                }
+                if (StringList.quickEq(typesParam_.get(i), WILD_CARD)) {
+                    match_.setParam(WILD_CARD+EXTENDS+boundsParam_.get(i-1).join(SEP_BOUNDS));
+                } else {
+                    match_.setParam(typesParam_.get(i));
+                }
                 pairsArgParam_.add(match_);
             }
             MappingPairs m_ = new MappingPairs();
-//            m_.setMapping(map_);
             m_.setPairsArgParam(pairsArgParam_);
             return m_;
         }
-//        StringList curClasses_ = new StringList(arg_);
-//        StringList visitedClasses_ = new StringList(arg_);
 
-        //getArrayType
         StringList curClasses_ = new StringList(dArg_.getComponent());
         StringList visitedClasses_ = new StringList(dArg_.getComponent());
         String generic_ = null;
@@ -393,27 +385,20 @@ public final class Templates {
                     StringList allTypes_ = StringList.getAllTypes(c);
                     String baseClass_ = allTypes_.first();
                     baseClass_ = extractFromPrefix(baseClass_);
-                    if (baseClass_.startsWith(WILD_CARD)) {
-                        baseClass_ = removeWildCard(baseClass_);
-                    }
                     baseClass_ = PrimitiveTypeUtil.getArrayClass(baseClass_);
                     Class<?> cl_ = ConstClasses.classAliasForNameNotInit(baseClass_);
                     Class<?> superCl_ = cl_.getSuperclass();
                     if (superCl_ != null) {
                         String superClass_ = superCl_.getName();
-                        String geneSuperClass_ = cl_.getGenericSuperclass().toString();
+                        String geneSuperClass_ = getName(cl_.getGenericSuperclass());
                         geneSuperClass_ = format(c, geneSuperClass_, _classes);
-//                        geneSuperClass_ = PrimitiveTypeUtil.getComponentType(geneSuperClass_);
                         if (dParam_.getDim() > 0) {
-//                            if (StringList.quickEq(superClass_, PrimitiveTypeUtil.getComponentType(typesParam_.first())))
                             if (StringList.quickEq(superClass_, PrimitiveTypeUtil.getQuickComponentType(typesParam_.first()))) {
-//                                generic_ = PrimitiveTypeUtil.getArrayType(geneSuperClass_, dim_);
                                 generic_ = PrimitiveTypeUtil.getPrettyArrayType(geneSuperClass_, dim_);
                                 break;
                             }
                         } else {
                             if (StringList.quickEq(superClass_, typesParam_.first())) {
-//                                generic_ = PrimitiveTypeUtil.getArrayType(geneSuperClass_, dim_);
                                 generic_ = PrimitiveTypeUtil.getPrettyArrayType(geneSuperClass_, dim_);
                                 break;
                             }
@@ -426,19 +411,15 @@ public final class Templates {
                     int i_ = CustList.INDEX_NOT_FOUND_ELT;
                     for (Class<?> s: cl_.getInterfaces()) {
                         i_++;
-                        String geneSuperInterface_ = cl_.getGenericInterfaces()[i_].toString();
+                        String geneSuperInterface_ = getName(cl_.getGenericInterfaces()[i_]);
                         geneSuperInterface_ = format(c, geneSuperInterface_, _classes);
-//                        geneSuperInterface_ = PrimitiveTypeUtil.getComponentType(geneSuperInterface_);
                         if (dParam_.getDim() > 0) {
-//                            if (StringList.quickEq(s.getName(), PrimitiveTypeUtil.getComponentType(typesParam_.first())))
                             if (StringList.quickEq(s.getName(), PrimitiveTypeUtil.getQuickComponentType(typesParam_.first()))) {
-//                                generic_ = PrimitiveTypeUtil.getArrayType(geneSuperInterface_, dim_);
                                 generic_ = PrimitiveTypeUtil.getPrettyArrayType(geneSuperInterface_, dim_);
                                 break;
                             }
                         } else {
                             if (StringList.quickEq(s.getName(), typesParam_.first())) {
-//                                generic_ = PrimitiveTypeUtil.getArrayType(geneSuperInterface_, dim_);
                                 generic_ = PrimitiveTypeUtil.getPrettyArrayType(geneSuperInterface_, dim_);
                                 break;
                             }
@@ -463,12 +444,22 @@ public final class Templates {
         }
         int len_ = typesParam_.size();
         StringList foundSuperClass_ = StringList.getAllTypes(generic_);
+        boundsArg_ = getClassBounds(foundSuperClass_.first(), _classes);
+        boundsParam_ = getClassBounds(typesParam_.first(), _classes);
         EqList<Matching> pairsArgParam_ = new EqList<Matching>();
         len_ = foundSuperClass_.size();
         for (int i = CustList.SECOND_INDEX; i < len_; i++) {
             Matching match_ = new Matching();
-            match_.setArg(foundSuperClass_.get(i));
-            match_.setParam(typesParam_.get(i));
+            if (StringList.quickEq(foundSuperClass_.get(i), WILD_CARD)) {
+                match_.setArg(WILD_CARD+EXTENDS+boundsArg_.get(i-1).join(SEP_BOUNDS));
+            } else {
+                match_.setArg(foundSuperClass_.get(i));
+            }
+            if (StringList.quickEq(typesParam_.get(i), WILD_CARD)) {
+                match_.setParam(WILD_CARD+EXTENDS+boundsParam_.get(i-1).join(SEP_BOUNDS));
+            } else {
+                match_.setParam(typesParam_.get(i));
+            }
             pairsArgParam_.add(match_);
         }
         MappingPairs m_ = new MappingPairs();
@@ -499,28 +490,11 @@ public final class Templates {
         types_.add(_geneTypes.substring(begin_));
         return types_;
     }
-//    private static StringMap<StringList> buildMapping(String _arg, String _param) {
-//        StringList typesArg_ = StringList.getAllTypes(_arg);
-//        StringList typesParam_ = StringList.getAllTypes(_param);
-//        StringMap<StringList> mapping_ = new StringMap<StringList>();
-//        int len_ = typesParam_.size();
-//        for (int i = CustList.SECOND_INDEX; i < len_; i++) {
-//            String bounds_ = typesArg_.get(i);
-//            StringList boundList_ = new StringList();
-//            String typeParam_ = typesParam_.get(i);
-//            if (!typeParam_.startsWith(PREFIX_VAR_TYPE)) {
-//                continue;
-//            }
-//            if (bounds_.indexOf(SEP_BOUNDS) == CustList.INDEX_NOT_FOUND_ELT) {
-//                boundList_.add(bounds_);
-//                mapping_.put(typeParam_.substring(1), boundList_);
-//                continue;
-//            }
-//            for (String b: StringList.splitChars(bounds_, SEP_BOUNDS)) {
-//                boundList_.add(b);
-//            }
-//            mapping_.put(typeParam_.substring(1), boundList_);
-//        }
-//        return mapping_;
-//    }
+
+    private static String getName(Type _t) {
+        if (_t instanceof Class<?>) {
+            return ((Class<?>)_t).getName();
+        }
+        return _t.toString();
+    }
 }
