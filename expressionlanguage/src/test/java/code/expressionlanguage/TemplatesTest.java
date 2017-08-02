@@ -175,6 +175,13 @@ public class TemplatesTest {
     }
 
     @Test
+    public void eqTypes10Test() {
+        String first_ = TMPL+"<?~"+String.class.getName()+"&"+Integer.class.getName()+","+Integer.class.getName()+">";
+        String second_ = TMPL+"<?~"+String.class.getName()+","+Integer.class.getName()+">";
+        assertTrue(!Templates.eqTypes(first_, second_));
+    }
+
+    @Test
     public void isCorrectTemplate1Test() {
         assertTrue(Templates.isCorrectTemplate(ENUM_LIST+"<"+ENUM+">", new StringMap<StringList>(),null));
     }
