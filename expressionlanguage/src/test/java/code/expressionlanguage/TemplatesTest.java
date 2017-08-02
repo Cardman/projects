@@ -1,5 +1,6 @@
 package code.expressionlanguage;
 
+import static code.util.opers.EquallableUtil.assertEq;
 import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
@@ -8,6 +9,7 @@ import code.expressionlanguage.Mapping;
 import code.expressionlanguage.Templates;
 import code.expressionlanguage.classes.CmpList;
 import code.expressionlanguage.classes.CustBigInt;
+import code.expressionlanguage.classes.CustTemp;
 import code.expressionlanguage.classes.EnumNumber;
 import code.expressionlanguage.classes.GoodCmp;
 import code.expressionlanguage.classes.StrangeCmp;
@@ -51,6 +53,126 @@ public class TemplatesTest {
     private static final String ENUM_LIST = EnumList.class.getName();
     private static final String ENUM_MAP = EnumMap.class.getName();
     private static final String CMP = Cmp.class.getName();
+    private static final String TMPL = CustTemp.class.getName();
+
+    @Test
+    public void format1Test() {
+        String first_ = String.class.getName();
+        String second_ = Integer.class.getName();
+        assertEq(second_,Templates.format(first_, second_, null));
+    }
+
+    @Test
+    public void format2Test() {
+        String first_ = CUST_LIST+"<"+String.class.getName()+">";
+        String second_ = Integer.class.getName();
+        assertEq(second_,Templates.format(first_, second_, null));
+    }
+
+    @Test
+    public void format3Test() {
+        String first_ = CUST_LIST+"<E>";
+        String second_ = Integer.class.getName();
+        assertEq(second_,Templates.format(first_, second_, null));
+    }
+
+    @Test
+    public void format4Test() {
+        String first_ = CUST_LIST+"<#E>";
+        String second_ = Integer.class.getName();
+        assertEq(second_,Templates.format(first_, second_, null));
+    }
+
+    @Test
+    public void format5Test() {
+        String first_ = CUST_LIST+"<"+Integer.class.getName()+">";
+        String second_ = "T";
+        assertEq(Integer.class.getName(),Templates.format(first_, second_, null));
+    }
+
+    @Test
+    public void format6Test() {
+        String first_ = CUST_LIST+"<"+Integer.class.getName()+">";
+        String second_ = "#T";
+        assertEq(Integer.class.getName(),Templates.format(first_, second_, null));
+    }
+
+    @Test
+    public void format7Test() {
+        String first_ = CUST_LIST+"<#E>";
+        String second_ = "T";
+        assertEq("#E",Templates.format(first_, second_, null));
+    }
+
+    @Test
+    public void format8Test() {
+        String first_ = CUST_LIST+"<#E>";
+        String second_ = "#T";
+        assertEq("#E",Templates.format(first_, second_, null));
+    }
+
+    @Test
+    public void eqTypes1Test() {
+        String first_ = String.class.getName();
+        String second_ = Integer.class.getName();
+        assertTrue(!Templates.eqTypes(first_, second_));
+    }
+
+    @Test
+    public void eqTypes2Test() {
+        String first_ = CUST_LIST+"<"+String.class.getName()+">";
+        String second_ = CUST_LIST+"<"+Integer.class.getName()+">";
+        assertTrue(!Templates.eqTypes(first_, second_));
+    }
+
+    @Test
+    public void eqTypes3Test() {
+        String first_ = CUST_LIST+"<?~"+Integer.class.getName()+">";
+        String second_ = CUST_LIST+"<"+Integer.class.getName()+">";
+        assertTrue(!Templates.eqTypes(first_, second_));
+    }
+
+    @Test
+    public void eqTypes4Test() {
+        String first_ = CUST_LIST+"<"+Integer.class.getName()+">";
+        String second_ = CUST_LIST+"<?~"+Integer.class.getName()+">";
+        assertTrue(!Templates.eqTypes(first_, second_));
+    }
+
+    @Test
+    public void eqTypes5Test() {
+        String first_ = CUST_LIST+"<?~"+String.class.getName()+">";
+        String second_ = CUST_LIST+"<?~"+Integer.class.getName()+">";
+        assertTrue(!Templates.eqTypes(first_, second_));
+    }
+
+    @Test
+    public void eqTypes6Test() {
+        String first_ = TMPL+"<"+String.class.getName()+","+Integer.class.getName()+">";
+        String second_ = TMPL+"<"+Integer.class.getName()+","+String.class.getName()+">";
+        assertTrue(!Templates.eqTypes(first_, second_));
+    }
+
+    @Test
+    public void eqTypes7Test() {
+        String first_ = TMPL+"<?~"+String.class.getName()+"&"+Integer.class.getName()+","+String.class.getName()+">";
+        String second_ = TMPL+"<?~"+Integer.class.getName()+"&"+String.class.getName()+","+String.class.getName()+">";
+        assertTrue(Templates.eqTypes(first_, second_));
+    }
+
+    @Test
+    public void eqTypes8Test() {
+        String first_ = TMPL+"<"+String.class.getName()+","+Integer.class.getName()+">";
+        String second_ = TMPL+"<"+String.class.getName()+","+Integer.class.getName()+">";
+        assertTrue(Templates.eqTypes(first_, second_));
+    }
+
+    @Test
+    public void eqTypes9Test() {
+        String first_ = TMPL+"<?~"+String.class.getName()+"&"+String.class.getName()+","+Integer.class.getName()+">";
+        String second_ = TMPL+"<?~"+String.class.getName()+","+Integer.class.getName()+">";
+        assertTrue(Templates.eqTypes(first_, second_));
+    }
 
     @Test
     public void isCorrectTemplate1Test() {

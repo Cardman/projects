@@ -46,7 +46,7 @@ public final class Templates {
             for (Type e: t.getBounds()) {
                 Mapping m_ = new Mapping();
                 String typeBound_ = getName(e);
-                String ext_ = extractFromPrefix(typeBound_);
+                String ext_ = insertPrefixVarType(typeBound_);
                 String param_ = format(_className, ext_, _classes);
                 m_.setParam(param_);
                 if (lookInInherit_ && _inherit.contains(comp_.substring(1))) {
@@ -106,7 +106,7 @@ public final class Templates {
     }
     static StringMap<String> getVarTypes(String _className, Classes _classes) {
         StringList types_ = StringList.getAllTypes(_className);
-        String className_ = extractFromPrefix(types_.first());
+        String className_ = insertPrefixVarType(types_.first());
         className_ = PrimitiveTypeUtil.getArrayClass(className_);
         Class<?> cl_ = ConstClasses.classAliasForNameNotInit(className_);
         int i_ = CustList.FIRST_INDEX;
@@ -229,8 +229,69 @@ public final class Templates {
             current_ = next_;
         }
     }
+    static boolean eqTypes(String _one, String _two) {
+        StringList allTypesOne_ = StringList.getAllTypes(_one);
+        StringList allTypesTwo_ = StringList.getAllTypes(_two);
+        StringList currentOne_ = new StringList(allTypesOne_);
+        StringList currentTwo_ = new StringList(allTypesTwo_);
+        while (!currentOne_.isEmpty()) {
+            if (currentOne_.size() != currentTwo_.size()) {
+                return false;
+            }
+            if (!StringList.quickEq(currentOne_.first(), currentTwo_.first())) {
+                return false;
+            }
+            StringList nextOne_ = new StringList();
+            StringList nextTwo_ = new StringList();
+            int len_ = currentOne_.size();
+            for (int i = 1; i < len_; i++) {
+                String one_ = currentOne_.get(i);
+                String two_ = currentTwo_.get(i);
+                if (one_.startsWith(WILD_CARD)) {
+                    if (!two_.startsWith(WILD_CARD)) {
+                        return false;
+                    }
+                }
+                if (!one_.startsWith(WILD_CARD)) {
+                    if (two_.startsWith(WILD_CARD)) {
+                        return false;
+                    }
+                }
+                if (!one_.startsWith(WILD_CARD)) {
+                    if (!two_.startsWith(WILD_CARD)) {
+                        nextOne_.add(one_);
+                        nextTwo_.add(two_);
+                        continue;
+                    }
+                }
+                String subOne_ = removeWildCard(one_);
+                String subTwo_ = removeWildCard(two_);
+                StringList constrOne_ = new StringList();
+                StringList constrTwo_ = new StringList();
+                for (String t: split(subOne_)) {
+                    constrOne_.add(t);
+                }
+                for (String t: split(subTwo_)) {
+                    constrTwo_.add(t);
+                }
+                constrOne_.sort();
+                constrOne_.removeDuplicates();
+                constrTwo_.sort();
+                constrTwo_.removeDuplicates();
+                if (constrOne_.size() != constrTwo_.size()) {
+                    return false;
+                }
+                nextOne_.addAllElts(constrOne_);
+                nextTwo_.addAllElts(constrTwo_);
+            }
+            currentOne_ = nextOne_;
+            currentTwo_ = nextTwo_;
+        }
+        return true;
+    }
     private static EqList<StringList> getClassBounds(String _className, Classes _classes) {
-        String baseClass_ = extractFromPrefix(_className);
+        StringList allTypes_ = StringList.getAllTypes(_className);
+        String baseClass_ = insertPrefixVarType(allTypes_.first());
         baseClass_ = PrimitiveTypeUtil.getArrayClass(baseClass_);
         Class<?> cl_ = ConstClasses.classAliasForNameNotInit(baseClass_);
         EqList<StringList> bounds_ = new EqList<StringList>();
@@ -239,7 +300,7 @@ public final class Templates {
             StringList localBound_ = new StringList();
             for (Type b: t.getBounds()) {
                 String typeString_ = getName(b);
-                String ext_ = extractFromPrefix(typeString_);
+                String ext_ = insertPrefixVarType(typeString_);
                 localBound_.add(ext_);
             }
             localBounds_.put(t.getName(), localBound_);
@@ -255,7 +316,7 @@ public final class Templates {
                         if (localBounds_.contains(n)) {
                             next_.add(n);
                         } else {
-                            classBounds_.add(n);
+                            classBounds_.add(format(_className, n, _classes));
                         }
                     }
                 }
@@ -274,7 +335,7 @@ public final class Templates {
         return StringList.removeAllSpaces(sub_);
     }
 
-    private static String extractFromPrefix(String _wildCard) {
+    private static String insertPrefixVarType(String _wildCard) {
         String str_ = _wildCard;
         StringList allTypes_ = StringList.getAllTypes(str_);
         int nbTypes_ = allTypes_.size();
@@ -341,8 +402,8 @@ public final class Templates {
         if (StringList.quickEq(baseArg_, baseParam_)) {
             int len_ = typesParam_.size();
             EqList<Matching> pairsArgParam_ = new EqList<Matching>();
-            boundsArg_ = getClassBounds(typesArg_.first(), _classes);
-            boundsParam_ = getClassBounds(typesParam_.first(), _classes);
+            boundsArg_ = getClassBounds(arg_, _classes);
+            boundsParam_ = getClassBounds(param_, _classes);
             for (int i = CustList.SECOND_INDEX; i < len_; i++) {
                 Matching match_ = new Matching();
                 if (StringList.quickEq(typesArg_.get(i), WILD_CARD)) {
@@ -384,7 +445,7 @@ public final class Templates {
                 for (String c: curClasses_) {
                     StringList allTypes_ = StringList.getAllTypes(c);
                     String baseClass_ = allTypes_.first();
-                    baseClass_ = extractFromPrefix(baseClass_);
+                    baseClass_ = insertPrefixVarType(baseClass_);
                     baseClass_ = PrimitiveTypeUtil.getArrayClass(baseClass_);
                     Class<?> cl_ = ConstClasses.classAliasForNameNotInit(baseClass_);
                     Class<?> superCl_ = cl_.getSuperclass();
@@ -444,8 +505,8 @@ public final class Templates {
         }
         int len_ = typesParam_.size();
         StringList foundSuperClass_ = StringList.getAllTypes(generic_);
-        boundsArg_ = getClassBounds(foundSuperClass_.first(), _classes);
-        boundsParam_ = getClassBounds(typesParam_.first(), _classes);
+        boundsArg_ = getClassBounds(generic_, _classes);
+        boundsParam_ = getClassBounds(param_, _classes);
         EqList<Matching> pairsArgParam_ = new EqList<Matching>();
         len_ = foundSuperClass_.size();
         for (int i = CustList.SECOND_INDEX; i < len_; i++) {
