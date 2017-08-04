@@ -87,7 +87,7 @@ public class TemplatesTest {
     public void format5Test() {
         String first_ = CUST_LIST+"<"+Integer.class.getName()+">";
         String second_ = "T";
-        assertEq(Integer.class.getName(),Templates.format(first_, second_, null));
+        assertEq("T",Templates.format(first_, second_, null));
     }
 
     @Test
@@ -101,7 +101,7 @@ public class TemplatesTest {
     public void format7Test() {
         String first_ = CUST_LIST+"<#E>";
         String second_ = "T";
-        assertEq("#E",Templates.format(first_, second_, null));
+        assertEq("T",Templates.format(first_, second_, null));
     }
 
     @Test

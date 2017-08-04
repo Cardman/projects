@@ -47,6 +47,9 @@ public final class Templates {
                 Mapping m_ = new Mapping();
                 String typeBound_ = getName(e);
                 String ext_ = insertPrefixVarType(typeBound_);
+                if (!typeBound_.contains(SEP_CLASS)) {
+                    ext_ = PREFIX_VAR_TYPE + ext_;
+                }
                 String param_ = format(_className, ext_, _classes);
                 m_.setParam(param_);
                 if (lookInInherit_ && _inherit.contains(comp_.substring(1))) {
@@ -106,8 +109,7 @@ public final class Templates {
     }
     static StringMap<String> getVarTypes(String _className, Classes _classes) {
         StringList types_ = StringList.getAllTypes(_className);
-        String className_ = insertPrefixVarType(types_.first());
-        className_ = PrimitiveTypeUtil.getArrayClass(className_);
+        String className_ = PrimitiveTypeUtil.getArrayClass(types_.first());
         Class<?> cl_ = ConstClasses.classAliasForNameNotInit(className_);
         int i_ = CustList.FIRST_INDEX;
         StringMap<String> varTypes_ = new StringMap<String>();
@@ -150,8 +152,8 @@ public final class Templates {
                 int indexDiese_ = previous_.lastIndexOf(PREFIX_VAR_TYPE);
                 if (indexDiese_ != CustList.INDEX_NOT_FOUND_ELT) {
                     newList_.set(i - 1, previous_.substring(0, indexDiese_));
+                    newList_.set(i,_varTypes.getVal(type_));
                 }
-                newList_.set(i,_varTypes.getVal(type_));
             }
         }
         return newList_.join(EMPTY_STRING);
@@ -230,59 +232,64 @@ public final class Templates {
         }
     }
     static boolean eqTypes(String _one, String _two) {
-        StringList allTypesOne_ = StringList.getAllTypes(_one);
-        StringList allTypesTwo_ = StringList.getAllTypes(_two);
-        StringList currentOne_ = new StringList(allTypesOne_);
-        StringList currentTwo_ = new StringList(allTypesTwo_);
+        StringList currentOne_ = new StringList(_one);
+        StringList currentTwo_ = new StringList(_two);
         while (!currentOne_.isEmpty()) {
-            if (currentOne_.size() != currentTwo_.size()) {
-                return false;
-            }
-            if (!StringList.quickEq(currentOne_.first(), currentTwo_.first())) {
-                return false;
-            }
             StringList nextOne_ = new StringList();
             StringList nextTwo_ = new StringList();
             int len_ = currentOne_.size();
-            for (int i = 1; i < len_; i++) {
-                String one_ = currentOne_.get(i);
-                String two_ = currentTwo_.get(i);
-                if (one_.startsWith(WILD_CARD)) {
-                    if (!two_.startsWith(WILD_CARD)) {
-                        return false;
-                    }
-                }
-                if (!one_.startsWith(WILD_CARD)) {
-                    if (two_.startsWith(WILD_CARD)) {
-                        return false;
-                    }
-                }
-                if (!one_.startsWith(WILD_CARD)) {
-                    if (!two_.startsWith(WILD_CARD)) {
-                        nextOne_.add(one_);
-                        nextTwo_.add(two_);
-                        continue;
-                    }
-                }
-                String subOne_ = removeWildCard(one_);
-                String subTwo_ = removeWildCard(two_);
-                StringList constrOne_ = new StringList();
-                StringList constrTwo_ = new StringList();
-                for (String t: split(subOne_)) {
-                    constrOne_.add(t);
-                }
-                for (String t: split(subTwo_)) {
-                    constrTwo_.add(t);
-                }
-                constrOne_.sort();
-                constrOne_.removeDuplicates();
-                constrTwo_.sort();
-                constrTwo_.removeDuplicates();
-                if (constrOne_.size() != constrTwo_.size()) {
+            for (int i = 0; i < len_; i++) {
+                String cOne_ = currentOne_.get(i);
+                String cTwo_ = currentTwo_.get(i);
+                StringList allTypesOne_ = StringList.getAllTypes(cOne_);
+                StringList allTypesTwo_ = StringList.getAllTypes(cTwo_);
+                if (allTypesOne_.size() != allTypesTwo_.size()) {
                     return false;
                 }
-                nextOne_.addAllElts(constrOne_);
-                nextTwo_.addAllElts(constrTwo_);
+                if (!StringList.quickEq(allTypesOne_.first(), allTypesTwo_.first())) {
+                    return false;
+                }
+                int lenParam_ = allTypesOne_.size();
+                for (int j = 1; j < lenParam_; j++) {
+                    String one_ = allTypesOne_.get(j);
+                    String two_ = allTypesTwo_.get(j);
+                    if (one_.startsWith(WILD_CARD)) {
+                        if (!two_.startsWith(WILD_CARD)) {
+                            return false;
+                        }
+                    }
+                    if (!one_.startsWith(WILD_CARD)) {
+                        if (two_.startsWith(WILD_CARD)) {
+                            return false;
+                        }
+                    }
+                    if (!one_.startsWith(WILD_CARD)) {
+                        if (!two_.startsWith(WILD_CARD)) {
+                            nextOne_.add(one_);
+                            nextTwo_.add(two_);
+                            continue;
+                        }
+                    }
+                    String subOne_ = removeWildCard(one_);
+                    String subTwo_ = removeWildCard(two_);
+                    StringList constrOne_ = new StringList();
+                    StringList constrTwo_ = new StringList();
+                    for (String t: split(subOne_)) {
+                        constrOne_.add(t);
+                    }
+                    for (String t: split(subTwo_)) {
+                        constrTwo_.add(t);
+                    }
+                    constrOne_.sort();
+                    constrOne_.removeDuplicates();
+                    constrTwo_.sort();
+                    constrTwo_.removeDuplicates();
+                    if (constrOne_.size() != constrTwo_.size()) {
+                        return false;
+                    }
+                    nextOne_.addAllElts(constrOne_);
+                    nextTwo_.addAllElts(constrTwo_);
+                }
             }
             currentOne_ = nextOne_;
             currentTwo_ = nextTwo_;
@@ -291,8 +298,7 @@ public final class Templates {
     }
     private static EqList<StringList> getClassBounds(String _className, Classes _classes) {
         StringList allTypes_ = StringList.getAllTypes(_className);
-        String baseClass_ = insertPrefixVarType(allTypes_.first());
-        baseClass_ = PrimitiveTypeUtil.getArrayClass(baseClass_);
+        String baseClass_ = PrimitiveTypeUtil.getArrayClass(allTypes_.first());
         Class<?> cl_ = ConstClasses.classAliasForNameNotInit(baseClass_);
         EqList<StringList> bounds_ = new EqList<StringList>();
         StringMap<StringList> localBounds_ = new StringMap<StringList>();
@@ -316,7 +322,8 @@ public final class Templates {
                         if (localBounds_.contains(n)) {
                             next_.add(n);
                         } else {
-                            classBounds_.add(format(_className, n, _classes));
+                            String n_ = insertPrefixVarType(n);
+                            classBounds_.add(format(_className, n_, _classes));
                         }
                     }
                 }
@@ -445,13 +452,13 @@ public final class Templates {
                 for (String c: curClasses_) {
                     StringList allTypes_ = StringList.getAllTypes(c);
                     String baseClass_ = allTypes_.first();
-                    baseClass_ = insertPrefixVarType(baseClass_);
                     baseClass_ = PrimitiveTypeUtil.getArrayClass(baseClass_);
                     Class<?> cl_ = ConstClasses.classAliasForNameNotInit(baseClass_);
                     Class<?> superCl_ = cl_.getSuperclass();
                     if (superCl_ != null) {
                         String superClass_ = superCl_.getName();
                         String geneSuperClass_ = getName(cl_.getGenericSuperclass());
+                        geneSuperClass_ = insertPrefixVarType(geneSuperClass_);
                         geneSuperClass_ = format(c, geneSuperClass_, _classes);
                         if (dParam_.getDim() > 0) {
                             if (StringList.quickEq(superClass_, PrimitiveTypeUtil.getQuickComponentType(typesParam_.first()))) {
@@ -473,6 +480,7 @@ public final class Templates {
                     for (Class<?> s: cl_.getInterfaces()) {
                         i_++;
                         String geneSuperInterface_ = getName(cl_.getGenericInterfaces()[i_]);
+                        geneSuperInterface_ = insertPrefixVarType(geneSuperInterface_);
                         geneSuperInterface_ = format(c, geneSuperInterface_, _classes);
                         if (dParam_.getDim() > 0) {
                             if (StringList.quickEq(s.getName(), PrimitiveTypeUtil.getQuickComponentType(typesParam_.first()))) {

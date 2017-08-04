@@ -1066,7 +1066,7 @@ public abstract class OperationNode implements SortedNode<OperationNode>, Operab
             if (_need != null) {
                 a_.setStructArgClassName(new Struct(o_, _need.getStruct()));
             } else {
-                a_.setStructArgClassName(new Struct(o_));
+                a_.setStructArgClassName(new Struct(o_, PrimitiveTypeUtil.getAliasArrayClass(o_.getClass())));
             }
             //            a_.setArgClassName(a_.getObject().getClass().getName());
             return a_;
@@ -1115,7 +1115,7 @@ public abstract class OperationNode implements SortedNode<OperationNode>, Operab
             if (o_ == null) {
                 return new Struct();
             }
-            return new Struct(o_);
+            return new Struct(o_, PrimitiveTypeUtil.getAliasArrayClass(o_.getClass()));
         } catch (IllegalAccessException _0) {
             //            if (!_useNode) {
                 //                throw new BadAccessException(_0, _method.toString());

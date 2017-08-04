@@ -24,7 +24,6 @@ public final class Struct {
     public Struct(Object _instance) {
         this(_instance, _instance.getClass().getName());
     }
-    
 
     public Struct(Object _instance, Struct _parent) {
         this(_instance, _instance.getClass().getName(), new ObjectMap<ClassField,Struct>(), _parent);
