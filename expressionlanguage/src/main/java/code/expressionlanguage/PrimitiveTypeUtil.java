@@ -7,8 +7,13 @@ import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.opers.util.ClassMatching;
 import code.expressionlanguage.opers.util.ClassName;
 import code.expressionlanguage.opers.util.DimComp;
+import code.expressionlanguage.opers.util.IndexesComparator;
+import code.expressionlanguage.opers.util.Struct;
 import code.util.CustList;
+import code.util.EntryCust;
+import code.util.Numbers;
 import code.util.StringList;
+import code.util.TreeMap;
 import code.util.consts.ConstClasses;
 import code.util.exceptions.RuntimeClassNotFoundException;
 
@@ -41,6 +46,49 @@ public final class PrimitiveTypeUtil {
     private static final byte SHORT_CASTING = 2;
     private static final byte BYTE_CASTING = 1;
     private PrimitiveTypeUtil() {
+    }
+
+    public static Struct newCustomArray(String _className, Numbers<Integer> _dims) {
+        TreeMap<Numbers<Integer>,Struct> indexesArray_;
+        indexesArray_ = new TreeMap<Numbers<Integer>,Struct>(new IndexesComparator());
+        Struct[] instanceGl_ = new Struct[_dims.first()];
+        Struct output_ = new Struct(instanceGl_, PrimitiveTypeUtil.getPrettyArrayType(_className, _dims.size()));
+        Numbers<Integer> dims_ = new Numbers<Integer>();
+        indexesArray_.put(new Numbers<Integer>(), output_);
+        int glDim_ = _dims.size();
+        int i_ = CustList.FIRST_INDEX;
+        for (int i : _dims) {
+            dims_.add(i);
+            glDim_--;
+            if (glDim_ == 0) {
+                for (Numbers<Integer> k: dims_.getAllIndexes()) {
+                    indexesArray_.put(k, new Struct());
+                }
+                continue;
+            }
+            String formattedClass_ = PrimitiveTypeUtil.getPrettyArrayType(_className, glDim_);
+            for (Numbers<Integer> k: dims_.getAllIndexes()) {
+                Struct[] instance_ = new Struct[_dims.get(i_ + 1)];
+                Struct value_ = new Struct(instance_, formattedClass_);
+                indexesArray_.put(k, value_);
+            }
+            i_++;
+        }
+        for (EntryCust<Numbers<Integer>,Struct> e: indexesArray_.entryList()) {
+            Numbers<Integer> key_ = e.getKey();
+            Struct value_ = e.getValue();
+            if (key_.isEmpty()) {
+                continue;
+            }
+            Numbers<Integer> ind_ = new Numbers<Integer>(key_);
+            ind_.removeLast();
+            int lastIndex_ = key_.last();
+            Object instance_ = indexesArray_.getVal(ind_).getInstance();
+            if (instance_ != null) {
+                ((Struct[])instance_)[lastIndex_] = value_;
+            }
+        }
+        return output_;
     }
     public static String getPrettyArrayType(String _className, int _nb) {
         String cl_ = _className;
