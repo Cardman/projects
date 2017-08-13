@@ -1528,9 +1528,11 @@ public abstract class OperationNode implements SortedNode<OperationNode>, Operab
         if (getParent() instanceof DotOperation) {
             if (n_ instanceof ArrOperation) {
                 n_.getFirstChild().setPreviousArgument(_argument);
+                n_.getFirstChild().resetablePreviousArg = _resetable;
+            } else {
+                n_.setPreviousArgument(_argument);
+                n_.resetablePreviousArg = _resetable;
             }
-            n_.setPreviousArgument(_argument);
-            n_.resetablePreviousArg = _resetable;
         }
     }
 
@@ -1542,8 +1544,9 @@ public abstract class OperationNode implements SortedNode<OperationNode>, Operab
             if (getParent() instanceof DotOperation) {
                 if (n_ instanceof ArrOperation) {
                     n_.getFirstChild().setPreviousArgument(_argument);
+                } else {
+                    _nodes.getVal(n_).setPreviousArgument(_argument);
                 }
-                _nodes.getVal(n_).setPreviousArgument(_argument);
             }
         }
         setNextSiblingsArg(_argument, _conf, _nodes);
@@ -1556,8 +1559,9 @@ public abstract class OperationNode implements SortedNode<OperationNode>, Operab
             if (getParent() instanceof DotOperation) {
                 if (n_ instanceof ArrOperation) {
                     n_.getFirstChild().setPreviousArgument(_argument);
+                } else {
+                    n_.setPreviousArgument(_argument);
                 }
-                n_.setPreviousArgument(_argument);
             }
         }
         setNextSiblingsArg(_argument, _conf);
