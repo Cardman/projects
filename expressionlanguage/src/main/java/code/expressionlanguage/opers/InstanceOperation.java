@@ -399,7 +399,7 @@ public final class InstanceOperation extends InvokingOperation {
                 setSimpleArgument(a_, _conf, _nodes);
                 return a_;
             } else {
-            	String clArr_ = PrimitiveTypeUtil.getPrettyArrayType(realClassName_, args_.length);
+                String clArr_ = PrimitiveTypeUtil.getPrettyArrayType(realClassName_, args_.length);
                 a_.setStructArgClassName(new Struct(o_,clArr_));
                 setSimpleArgument(a_, _conf, _nodes);
                 return a_;
@@ -632,7 +632,7 @@ public final class InstanceOperation extends InvokingOperation {
                 setSimpleArgument(a_, _conf);
                 return;
             } else {
-            	a_.setStructArgClassName(new Struct(o_,type_));
+                a_.setStructArgClassName(new Struct(o_,type_));
                 setSimpleArgument(a_, _conf);
                 return;
             }
