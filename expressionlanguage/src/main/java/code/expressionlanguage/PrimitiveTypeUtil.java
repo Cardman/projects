@@ -238,29 +238,29 @@ public final class PrimitiveTypeUtil {
         }
         return compon_;
     }
-    public static Object convertObject(ClassArgumentMatching _match, Object _obj) {
+    public static Struct convertObject(ClassArgumentMatching _match, Object _obj) {
         if (_match.matchClass(PRIM_DOUBLE) || _match.matchClass(Double.class)) {
-            return ((Number)_obj).doubleValue();
+            return new Struct(((Number)_obj).doubleValue());
         }
         if (_match.matchClass(PRIM_FLOAT) || _match.matchClass(Float.class)) {
-            return ((Number)_obj).floatValue();
+            return new Struct(((Number)_obj).floatValue());
         }
         if (_match.matchClass(PRIM_LONG) || _match.matchClass(Long.class)) {
-            return ((Number)_obj).longValue();
+            return new Struct(((Number)_obj).longValue());
         }
         if (_match.matchClass(PRIM_INT) || _match.matchClass(Integer.class)) {
-            return ((Number)_obj).intValue();
+            return new Struct(((Number)_obj).intValue());
         }
         if (_match.matchClass(PRIM_SHORT) || _match.matchClass(Short.class)) {
-            return ((Number)_obj).shortValue();
+            return new Struct(((Number)_obj).shortValue());
         }
         if (_match.matchClass(PRIM_BYTE) || _match.matchClass(Byte.class)) {
-            return ((Number)_obj).shortValue();
+            return new Struct(((Number)_obj).shortValue());
         }
         if (_match.matchClass(PRIM_CHAR) || _match.matchClass(Character.class)) {
-            return ((Character)_obj).charValue();
+            return new Struct(((Character)_obj).charValue());
         }
-        return _obj;
+        return new Struct(_obj, getAliasArrayClass(_obj.getClass()));
     }
 
     public static String getPrettyArrayClass(String _class) {

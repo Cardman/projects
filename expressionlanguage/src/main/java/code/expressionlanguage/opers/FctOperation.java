@@ -903,8 +903,7 @@ public final class FctOperation extends InvokingOperation {
                 OperationNode oOne_ = chidren_.first();
                 OperationNode oTwo_ = chidren_.last();
                 Argument objArg_ = _nodes.getVal(oTwo_).getArgument();
-                Object o_ = objArg_.getObject();
-                if (o_ == null) {
+                if (objArg_.isNull()) {
                     Argument arg_ = new Argument();
                     arg_.setArgClassName(getResultClass().getName());
                     setSimpleArgument(arg_, _conf, _nodes);
@@ -936,24 +935,11 @@ public final class FctOperation extends InvokingOperation {
                 }
                 Argument arg_ = new Argument();
                 arg_.setArgClassName(paramName_);
-                arg_.setObject(PrimitiveTypeUtil.convertObject(resCl_, o_));
-//                if (resCl_.matchClass(double.class) || resCl_.matchClass(Double.class)) {
-//                    arg_.setObject(((Number)o_).doubleValue());
-//                } else if (resCl_.matchClass(float.class) || resCl_.matchClass(Float.class)) {
-//                    arg_.setObject(((Number)o_).floatValue());
-//                } else if (resCl_.matchClass(long.class) || resCl_.matchClass(Long.class)) {
-//                    arg_.setObject(((Number)o_).longValue());
-//                } else if (resCl_.matchClass(int.class) || resCl_.matchClass(Integer.class)) {
-//                    arg_.setObject(((Number)o_).intValue());
-//                } else if (resCl_.matchClass(short.class) || resCl_.matchClass(Short.class)) {
-//                    arg_.setObject(((Number)o_).shortValue());
-//                } else if (resCl_.matchClass(byte.class) || resCl_.matchClass(Byte.class)) {
-//                    arg_.setObject(((Number)o_).shortValue());
-//                } else if (resCl_.matchClass(char.class) || resCl_.matchClass(Character.class)) {
-//                    arg_.setObject(((Character)o_).charValue());
-//                } else {
-//                    arg_.setObject(o_);
-//                }
+                if (objArg_.getStruct().isJavaObject()) {
+                    arg_.setStruct(PrimitiveTypeUtil.convertObject(resCl_, objArg_.getObject()));
+                } else {
+                    arg_.setStruct(objArg_.getStruct());
+                }
                 setSimpleArgument(arg_, _conf, _nodes);
                 return arg_;
             }
@@ -1455,8 +1441,7 @@ public final class FctOperation extends InvokingOperation {
             }
             if (chidren_.size() == 2) {
                 Argument objArg_ = chidren_.last().getArgument();
-                Object o_ = objArg_.getObject();
-                if (o_ == null) {
+                if (objArg_.isNull()) {
                     Argument arg_ = new Argument();
                     arg_.setArgClassName(getResultClass().getName());
                     setSimpleArgument(arg_, _conf);
@@ -1487,24 +1472,11 @@ public final class FctOperation extends InvokingOperation {
                 }
                 Argument arg_ = new Argument();
                 arg_.setArgClassName(paramName_);
-                arg_.setObject(PrimitiveTypeUtil.convertObject(resCl_, o_));
-//                if (resCl_.matchClass(double.class) || resCl_.matchClass(Double.class)) {
-//                    arg_.setObject(((Number)o_).doubleValue());
-//                } else if (resCl_.matchClass(float.class) || resCl_.matchClass(Float.class)) {
-//                    arg_.setObject(((Number)o_).floatValue());
-//                } else if (resCl_.matchClass(long.class) || resCl_.matchClass(Long.class)) {
-//                    arg_.setObject(((Number)o_).longValue());
-//                } else if (resCl_.matchClass(int.class) || resCl_.matchClass(Integer.class)) {
-//                    arg_.setObject(((Number)o_).intValue());
-//                } else if (resCl_.matchClass(short.class) || resCl_.matchClass(Short.class)) {
-//                    arg_.setObject(((Number)o_).shortValue());
-//                } else if (resCl_.matchClass(byte.class) || resCl_.matchClass(Byte.class)) {
-//                    arg_.setObject(((Number)o_).shortValue());
-//                } else if (resCl_.matchClass(char.class) || resCl_.matchClass(Character.class)) {
-//                    arg_.setObject(((Character)o_).charValue());
-//                } else {
-//                    arg_.setObject(o_);
-//                }
+                if (objArg_.getStruct().isJavaObject()) {
+                    arg_.setStruct(PrimitiveTypeUtil.convertObject(resCl_, objArg_.getObject()));
+                } else {
+                    arg_.setStruct(objArg_.getStruct());
+                }
                 setSimpleArgument(arg_, _conf);
                 return;
             }

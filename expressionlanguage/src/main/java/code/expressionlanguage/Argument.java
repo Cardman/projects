@@ -239,14 +239,6 @@ public final class Argument {
         return StringList.quickEq(argClassName, _className);
     }
 
-//    public boolean matchObjClass(String _className) {
-//        String class_ = object.getClassName();
-//        if (class_ == null) {
-//            return true;
-//        }
-//        return StringList.quickEq(class_, _className);
-//    }
-
     public Struct getStruct() {
         return object;
     }

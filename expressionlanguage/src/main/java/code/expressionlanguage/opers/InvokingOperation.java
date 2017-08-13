@@ -10,6 +10,7 @@ import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.opers.util.Struct;
 import code.util.CustList;
 import code.util.IdMap;
+import code.util.Numbers;
 import code.util.consts.ConstClasses;
 
 public abstract class InvokingOperation extends MethodOperation {
@@ -40,13 +41,8 @@ public abstract class InvokingOperation extends MethodOperation {
                     firstArgs_.add(o.getResultClass());
                 }
             }
-//            Class<?> cl_ = _children.first().getArgument().getArgClass();
             String name_ = _children.first().getResultClass().getName();
             name_ = PrimitiveTypeUtil.getPrettyArrayType(name_);
-//            name_ = PrimitiveTypeUtil.getArrayType(name_);
-//            Class<?> cl_ = _children.first().getResultClass().getClazz();
-//            Object array_ = Array.newInstance(cl_, 0);
-//            ClassArgumentMatching clMatch_ = new ClassArgumentMatching(array_.getClass().getName());
             ClassArgumentMatching clMatch_ = new ClassArgumentMatching(name_);
             firstArgs_.add(clMatch_);
             return firstArgs_;
@@ -60,8 +56,6 @@ public abstract class InvokingOperation extends MethodOperation {
 
     static CustList<Argument> listArguments(CustList<OperationNode> _children, IdMap<OperationNode,ArgumentsPair> _nodes, boolean _nativeMethod) {
         if (!_children.isEmpty() && _children.first().isVararg()) {
-//            chidren_.first().
-//            Argument[] args_ = new Argument[chidren_.size()];
             CustList<Argument> firstArgs_ = new CustList<Argument>();
             CustList<Argument> optArgs_ = new CustList<Argument>();
             boolean opt_ = false;
@@ -80,35 +74,31 @@ public abstract class InvokingOperation extends MethodOperation {
                 }
             }
             Object array_;
+            Argument argRem_ = new Argument();
+            String g_ = _children.first().getResultClass().getName();
+            argRem_.setArgClassName(PrimitiveTypeUtil.getPrettyArrayType(g_));
             if (_nativeMethod) {
                 OperationNode o_ = _children.first();
                 String className_ = o_.getResultClass().getName();
                 if (className_.startsWith(PrimitiveTypeUtil.PRIM)) {
                     className_ = className_.substring(1);
                 }
-//                ArgumentsPair op_ = _nodes.getVal(o_);
-//                Argument varArg_ = op_.getArgument();
                 Class<?> cl_ = ConstClasses.classAliasForNameNotInit(PrimitiveTypeUtil.getArrayClass(className_));
-//                Class<?> cl_ = varArg_.getArgClass();
                 array_ = Array.newInstance(cl_, optArgs_.size());
                 int len_ = optArgs_.size();
                 for (int i = 0; i < len_; i++) {
                     Array.set(array_, i, optArgs_.get(i).getObject());
                 }
+                argRem_.setObject(array_);
             } else {
-                array_ = Array.newInstance(Struct.class, optArgs_.size());
+                Struct str_ = PrimitiveTypeUtil.newCustomArray(g_, new Numbers<Integer>(optArgs_.size()));
+                array_ = str_.getInstance();
                 int len_ = optArgs_.size();
                 for (int i = 0; i < len_; i++) {
                     Array.set(array_, i, optArgs_.get(i).getStruct());
                 }
+                argRem_.setStruct(str_);
             }
-            Argument argRem_ = new Argument();
-//            String g_ = _children.first().getArgument().getArgClassName();
-            String g_ = _children.first().getResultClass().getName();
-//          argRem_.setArgClassName(array_.getClass().getName());
-            argRem_.setArgClassName(PrimitiveTypeUtil.getPrettyArrayType(g_));
-//            argRem_.setArgClassName(array_.getClass().getName());
-            argRem_.setObject(array_);
             firstArgs_.add(argRem_);
             return firstArgs_;
         }
@@ -120,8 +110,6 @@ public abstract class InvokingOperation extends MethodOperation {
     }
     static CustList<Argument> listArguments(CustList<OperationNode> _children, boolean _nativeMethod) {
         if (!_children.isEmpty() && _children.first().isVararg()) {
-//            chidren_.first().
-//            Argument[] args_ = new Argument[chidren_.size()];
             CustList<Argument> firstArgs_ = new CustList<Argument>();
             CustList<Argument> optArgs_ = new CustList<Argument>();
             boolean opt_ = false;
@@ -139,33 +127,31 @@ public abstract class InvokingOperation extends MethodOperation {
                 }
             }
             Object array_;
+            Argument argRem_ = new Argument();
+            String g_ = _children.first().getResultClass().getName();
+            argRem_.setArgClassName(PrimitiveTypeUtil.getPrettyArrayType(g_));
             if (_nativeMethod) {
                 OperationNode op_ = _children.first();
                 String className_ = op_.getResultClass().getName();
                 if (className_.startsWith(PrimitiveTypeUtil.PRIM)) {
                     className_ = className_.substring(1);
                 }
-//                Argument varArg_ = op_.getArgument();
-//                Class<?> cl_ = varArg_.getArgClass();
                 Class<?> cl_ = ConstClasses.classAliasForNameNotInit(PrimitiveTypeUtil.getArrayClass(className_));
                 array_ = Array.newInstance(cl_, optArgs_.size());
                 int len_ = optArgs_.size();
                 for (int i = 0; i < len_; i++) {
                     Array.set(array_, i, optArgs_.get(i).getObject());
                 }
+                argRem_.setObject(array_);
             } else {
-                array_ = Array.newInstance(Struct.class, optArgs_.size());
+                Struct str_ = PrimitiveTypeUtil.newCustomArray(g_, new Numbers<Integer>(optArgs_.size()));
+                array_ = str_.getInstance();
                 int len_ = optArgs_.size();
                 for (int i = 0; i < len_; i++) {
                     Array.set(array_, i, optArgs_.get(i).getStruct());
                 }
+                argRem_.setStruct(str_);
             }
-            Argument argRem_ = new Argument();
-//            String g_ = _children.first().getArgument().getArgClassName();
-            String g_ = _children.first().getResultClass().getName();
-//            argRem_.setArgClassName(array_.getClass().getName());
-            argRem_.setArgClassName(PrimitiveTypeUtil.getPrettyArrayType(g_));
-            argRem_.setObject(array_);
             firstArgs_.add(argRem_);
             return firstArgs_;
         }
