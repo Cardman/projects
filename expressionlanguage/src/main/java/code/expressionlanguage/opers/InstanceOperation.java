@@ -365,15 +365,9 @@ public final class InstanceOperation extends InvokingOperation {
                     instanceClassName_ = PrimitiveTypeUtil.getPrettyArrayType(Struct.class.getName(), dim_);
                 }
             }
-            Class<?> cl_;
-            try {
-                cl_ = ConstClasses.classAliasForNameNotInit(PrimitiveTypeUtil.getArrayClass(instanceClassName_));
-            } catch (RuntimeClassNotFoundException _0_) {
-                throw new RuntimeClassNotFoundException(realClassName_+RETURN_LINE+_conf.joinPages());
-            }
-            Object o_ = Array.newInstance(cl_, args_);
             Argument a_ = new Argument();
             if (elts_) {
+                Object o_ = newClassicArray(_conf, instanceClassName_, realClassName_, args_);
                 int i_ = CustList.FIRST_INDEX;
                 for (OperationNode o: chidren_) {
                     Argument chArg_ = _nodes.getVal(o).getArgument();
@@ -399,6 +393,7 @@ public final class InstanceOperation extends InvokingOperation {
                 setSimpleArgument(a_, _conf, _nodes);
                 return a_;
             } else {
+                Object o_ = newClassicArray(_conf, instanceClassName_, realClassName_, args_);
                 String clArr_ = PrimitiveTypeUtil.getPrettyArrayType(realClassName_, args_.length);
                 a_.setStructArgClassName(new Struct(o_,clArr_));
                 setSimpleArgument(a_, _conf, _nodes);
@@ -598,16 +593,10 @@ public final class InstanceOperation extends InvokingOperation {
                     instanceClassName_ = PrimitiveTypeUtil.getPrettyArrayType(Struct.class.getName(), dim_);
                 }
             }
-            Class<?> cl_;
-            try {
-                cl_ = ConstClasses.classAliasForNameNotInit(PrimitiveTypeUtil.getArrayClass(instanceClassName_));
-            } catch (RuntimeClassNotFoundException _0_) {
-                throw new RuntimeClassNotFoundException(realClassName_+RETURN_LINE+_conf.joinPages());
-            }
-            Object o_ = Array.newInstance(cl_, args_);
-            String type_ = PrimitiveTypeUtil.getPrettyArrayType(realClassName_, args_.length);
             Argument a_ = new Argument();
             if (elts_) {
+                Object o_ = newClassicArray(_conf, instanceClassName_, realClassName_, args_);
+                String type_ = PrimitiveTypeUtil.getPrettyArrayType(realClassName_, args_.length);
                 int i_ = CustList.FIRST_INDEX;
                 for (OperationNode o: chidren_) {
                     Argument chArg_ = o.getArgument();
@@ -632,6 +621,8 @@ public final class InstanceOperation extends InvokingOperation {
                 setSimpleArgument(a_, _conf);
                 return;
             } else {
+                Object o_ = newClassicArray(_conf, instanceClassName_, realClassName_, args_);
+                String type_ = PrimitiveTypeUtil.getPrettyArrayType(realClassName_, args_.length);
                 a_.setStructArgClassName(new Struct(o_,type_));
                 setSimpleArgument(a_, _conf);
                 return;
@@ -753,6 +744,16 @@ public final class InstanceOperation extends InvokingOperation {
         }
         Argument a_ = newInstance(_conf, arg_, 0, contructor, Argument.toArgArray(firstArgs_));
         setSimpleArgument(a_, _conf);
+    }
+
+    static Object newClassicArray(ContextEl _conf, String _instanceClassName, String _realClassName,int[] _args) {
+        Class<?> cl_;
+        try {
+            cl_ = ConstClasses.classAliasForNameNotInit(PrimitiveTypeUtil.getArrayClass(_instanceClassName));
+        } catch (RuntimeClassNotFoundException _0_) {
+            throw new RuntimeClassNotFoundException(_realClassName+RETURN_LINE+_conf.joinPages());
+        }
+        return Array.newInstance(cl_, _args);
     }
 
     @Override
