@@ -417,6 +417,9 @@ public final class ArrOperation extends MethodOperation implements SettableElRes
         if (_struct.isNull()) {
             throw new NullObjectException(_conf.joinPages());
         }
+        if (_index == null) {
+            throw new NullObjectException(_conf.joinPages());
+        }
         Object arrayInst_ = _struct.getInstance();
         if (arrayInst_ instanceof Struct) {
             arrayInst_ = ((Struct)arrayInst_).getInstance();
@@ -434,6 +437,39 @@ public final class ArrOperation extends MethodOperation implements SettableElRes
             return new Struct(output_, PrimitiveTypeUtil.getAliasArrayClass(output_.getClass()));
         }
         return (Struct)output_;
+    }
+    void setElement(Struct _struct, Object _index, Struct _value, ContextEl _conf, int _indexEl) {
+        setRelativeOffsetPossibleLastPage(_indexEl, _conf);
+        if (_struct.isNull()) {
+            throw new NullObjectException(_conf.joinPages());
+        }
+        if (_index == null) {
+            throw new NullObjectException(_conf.joinPages());
+        }
+        Object arrayInst_ = _struct.getInstance();
+        if (arrayInst_ instanceof Struct) {
+            arrayInst_ = ((Struct)arrayInst_).getInstance();
+        }
+        int len_ = Array.getLength(arrayInst_);
+        int index_ = ((Number)_index).intValue();
+        if (index_ < 0 || index_ >= len_) {
+            throw new BadIndexException(String.valueOf(index_)+RETURN_LINE+_conf.joinPages());
+        }
+        if (_value.isNull()) {
+            if (_struct.isJavaObject()) {
+                Array.set(arrayInst_, index_, null);
+            } else {
+                Array.set(arrayInst_, index_, new Struct());
+            }
+            return;
+        }
+        if (_value.isJavaObject()) {
+            if (_struct.isJavaObject()) {
+                Array.set(arrayInst_, index_, _value.getInstance());
+                return;
+            }
+        }
+        Array.set(arrayInst_, index_, _value);
     }
     @Override
     void calculateChildren() {
