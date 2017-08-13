@@ -111,15 +111,8 @@ public final class ArrOperation extends MethodOperation implements SettableElRes
     public Argument calculateLeft(IdMap<OperationNode, ArgumentsPair> _nodes,
             ContextEl _conf, String _op) {
         CustList<OperationNode> chidren_ = getChildrenAmong();
-        Object array_;
-        String arrayClass_;
+        Struct array_;
         array_ = _nodes.getVal(chidren_.first()).getArgument().getStruct();
-        arrayClass_ = _nodes.getVal(chidren_.first()).getArgument().getObjectClassName();
-        if (!((Struct)array_).isNull()) {
-            if (((Struct)array_).getInstance().getClass().isArray()) {
-                array_ = ((Struct)array_).getInstance();
-            }
-        }
         setRelativeOffsetPossibleLastPage(chidren_.first().getIndexInEl(), _conf);
         OperationNode lastElement_ = null;
         if (resultCanBeSet()) {
@@ -128,35 +121,19 @@ public final class ArrOperation extends MethodOperation implements SettableElRes
         }
 
         for (int i = CustList.SECOND_INDEX; i < chidren_.size(); i++) {
-            if (array_ == null || (array_ instanceof Struct && ((Struct)array_).isNull())) {
-                throw new NullObjectException(_conf.joinPages());
-            }
-            setRelativeOffsetPossibleLastPage(chidren_.get(i).getIndexInEl(), _conf);
             OperationNode op_ = chidren_.get(i);
             Object o_ = _nodes.getVal(op_).getArgument().getObject();
-            if (o_ == null) {
-                throw new NullObjectException(_conf.joinPages());
-            }
-            int len_ = Array.getLength(array_);
-            int index_ = ((Number)o_).intValue();
-            if (index_ < 0 || index_ >= len_) {
-                throw new BadIndexException(String.valueOf(index_)+RETURN_LINE+_conf.joinPages());
-            }
-            array_ = Array.get(array_, index_);
-            if (array_ instanceof Struct) {
-                array_ = ((Struct)array_).getInstance();
-            }
-            arrayClass_ = PrimitiveTypeUtil.getQuickComponentType(arrayClass_);
+            array_ = getElement(array_, o_, _conf, chidren_.get(i).getIndexInEl());
         }
         if (lastElement_ != null) {
             Argument a_ = Argument.createVoid();
-            a_.setStruct(new Struct(array_, arrayClass_));
+            a_.setStruct(array_);
             setSimpleArgument(a_, _conf, _nodes);
             return a_;
         }
         Argument a_ = new Argument();
         a_.setArgClassName(getResultClass().getName());
-        a_.setStruct(new Struct(array_, arrayClass_));
+        a_.setStruct(array_);
         setSimpleArgument(a_, _conf, _nodes);
         return a_;
     }
@@ -164,40 +141,17 @@ public final class ArrOperation extends MethodOperation implements SettableElRes
     public Argument calculateRight(IdMap<OperationNode, ArgumentsPair> _nodes,
             ContextEl _conf, String _op) {
         CustList<OperationNode> chidren_ = getChildrenAmong();
-        Object array_;
-        String arrayClass_;
+        Struct array_;
         array_ = _nodes.getVal(chidren_.first()).getArgument().getStruct();
-        arrayClass_ = _nodes.getVal(chidren_.first()).getArgument().getObjectClassName();
-        if (!((Struct)array_).isNull()) {
-            if (((Struct)array_).getInstance().getClass().isArray()) {
-                array_ = ((Struct)array_).getInstance();
-            }
-        }
         setRelativeOffsetPossibleLastPage(chidren_.first().getIndexInEl(), _conf);
         for (int i = CustList.SECOND_INDEX; i < chidren_.size(); i++) {
-            if (array_ == null || (array_ instanceof Struct && ((Struct)array_).isNull())) {
-                throw new NullObjectException(_conf.joinPages());
-            }
-            setRelativeOffsetPossibleLastPage(chidren_.get(i).getIndexInEl(), _conf);
             OperationNode op_ = chidren_.get(i);
             Object o_ = _nodes.getVal(op_).getArgument().getObject();
-            if (o_ == null) {
-                throw new NullObjectException(_conf.joinPages());
-            }
-            int len_ = Array.getLength(array_);
-            int index_ = ((Number)o_).intValue();
-            if (index_ < 0 || index_ >= len_) {
-                throw new BadIndexException(String.valueOf(index_)+RETURN_LINE+_conf.joinPages());
-            }
-            array_ = Array.get(array_, index_);
-            if (array_ instanceof Struct) {
-                array_ = ((Struct)array_).getInstance();
-            }
-            arrayClass_ = PrimitiveTypeUtil.getQuickComponentType(arrayClass_);
+            array_ = getElement(array_, o_, _conf, chidren_.get(i).getIndexInEl());
         }
         Argument a_ = new Argument();
         a_.setArgClassName(getResultClass().getName());
-        a_.setStruct(new Struct(array_, arrayClass_));
+        a_.setStruct(array_);
         setSimpleArgument(a_, _conf, _nodes);
         return a_;
     }
@@ -206,15 +160,10 @@ public final class ArrOperation extends MethodOperation implements SettableElRes
             IdMap<OperationNode, ArgumentsPair> _nodes, ContextEl _conf,
             String _op) {
         CustList<OperationNode> chidren_ = getChildrenAmong();
-        Object array_;
+        Struct array_;
         String arrayClass_;
         array_ = _nodes.getVal(this).getArgument().getStruct();
         arrayClass_ = _nodes.getVal(this).getArgument().getObjectClassName();
-        if (!((Struct)array_).isNull()) {
-            if (((Struct)array_).getInstance().getClass().isArray()) {
-                array_ = ((Struct)array_).getInstance();
-            }
-        }
         setRelativeOffsetPossibleLastPage(chidren_.first().getIndexInEl(), _conf);
         PageEl ip_ = _conf.getLastPage();
         OperationNode lastElement_ = null;
@@ -223,40 +172,24 @@ public final class ArrOperation extends MethodOperation implements SettableElRes
             chidren_.removeLast();
         }
         if (lastElement_ != null) {
-            if (array_ == null || (array_ instanceof Struct && ((Struct)array_).isNull())) {
-                throw new NullObjectException(_conf.joinPages());
-            }
-            setRelativeOffsetPossibleLastPage(lastElement_.getIndexInEl(), _conf);
             Object o_ = _nodes.getVal(lastElement_).getArgument().getObject();
-            if (o_ == null) {
-                throw new NullObjectException(_conf.joinPages());
-            }
-            int len_ = Array.getLength(array_);
-            int index_ = ((Number)o_).intValue();
-            if (index_ < 0 || index_ >= len_) {
-                throw new BadIndexException(String.valueOf(index_)+RETURN_LINE+_conf.joinPages());
-            }
-            Object leftObj_ = Array.get(array_, index_);
+            Struct leftObj_ = getElement(array_, o_, _conf, lastElement_.getIndexInEl());
             Argument left_ = new Argument();
             //TODO generic class
             arrayClass_ = PrimitiveTypeUtil.getQuickComponentType(arrayClass_);
             left_.setArgClassName(arrayClass_);
-            left_.setStruct(new Struct(leftObj_, arrayClass_));
+            left_.setStruct(leftObj_);
             Argument right_ = ip_.getRightArgument();
             Argument res_;
             res_ = NumericOperation.calculateAffect(left_, _conf, right_, _op);
-            try {
-                Array.set(array_, index_, res_.getObject());
-            } catch (Exception _0) {
-                Array.set(array_, index_, res_.getStruct());
-            }
+            setElement(array_, o_, res_.getStruct(), _conf, lastElement_.getIndexInEl());
             Argument a_ = _nodes.getVal(this).getArgument();
             setSimpleArgument(a_, _conf, _nodes);
             return a_;
         }
         Argument a_ = new Argument();
         a_.setArgClassName(getResultClass().getName());
-        a_.setStruct(new Struct(array_, arrayClass_));
+        a_.setStruct(array_);
         setSimpleArgument(a_, _conf, _nodes);
         return a_;
     }
@@ -267,15 +200,8 @@ public final class ArrOperation extends MethodOperation implements SettableElRes
     public void calculateLeft(CustList<OperationNode> _nodes, ContextEl _conf,
             String _op) {
         CustList<OperationNode> chidren_ = getChildrenAmong(_nodes, false);
-        Object array_;
-        String arrayClass_;
+        Struct array_;
         array_ = chidren_.first().getArgument().getStruct();
-        arrayClass_ = chidren_.first().getArgument().getObjectClassName();
-        if (!((Struct)array_).isNull()) {
-            if (((Struct)array_).getInstance().getClass().isArray()) {
-                array_ = ((Struct)array_).getInstance();
-            }
-        }
         setRelativeOffsetPossibleLastPage(chidren_.first().getIndexInEl(), _conf);
         OperationNode lastElement_ = null;
         if (resultCanBeSet()) {
@@ -283,35 +209,18 @@ public final class ArrOperation extends MethodOperation implements SettableElRes
             chidren_.removeLast();
         }
         for (int i = CustList.SECOND_INDEX; i < chidren_.size(); i++) {
-            if (array_ == null || (array_ instanceof Struct && ((Struct)array_).isNull())) {
-                throw new NullObjectException(_conf.joinPages());
-            }
-            setRelativeOffsetPossibleLastPage(chidren_.get(i).getIndexInEl(), _conf);
             Object o_ = chidren_.get(i).getArgument().getObject();
-            if (o_ == null) {
-                throw new NullObjectException(_conf.joinPages());
-            }
-            int len_ = Array.getLength(array_);
-            int index_ = ((Number)o_).intValue();
-            if (index_ < 0 || index_ >= len_) {
-                throw new BadIndexException(String.valueOf(index_)+RETURN_LINE+_conf.joinPages());
-            }
-            array_ = Array.get(array_, index_);
-            if (array_ instanceof Struct) {
-                array_ = ((Struct)array_).getInstance();
-            }
-            arrayClass_ = PrimitiveTypeUtil.getQuickComponentType(arrayClass_);
+            array_ = getElement(array_, o_, _conf, chidren_.get(i).getIndexInEl());
         }
-
         if (lastElement_ != null) {
             Argument a_ = Argument.createVoid();
-            a_.setStruct(new Struct(array_, arrayClass_));
+            a_.setStruct(array_);
             setSimpleArgument(a_, _conf);
             return;
         }
         Argument a_ = new Argument();
         a_.setArgClassName(getResultClass().getName());
-        a_.setStruct(new Struct(array_, arrayClass_));
+        a_.setStruct(array_);
         setSimpleArgument(a_, _conf);
     }
 
@@ -319,39 +228,16 @@ public final class ArrOperation extends MethodOperation implements SettableElRes
     public void calculateRight(CustList<OperationNode> _nodes, ContextEl _conf,
             String _op) {
         CustList<OperationNode> chidren_ = getChildrenAmong(_nodes, false);
-        Object array_;
-        String arrayClass_;
+        Struct array_;
         array_ = chidren_.first().getArgument().getStruct();
-        arrayClass_ = chidren_.first().getArgument().getObjectClassName();
-        if (!((Struct)array_).isNull()) {
-            if (((Struct)array_).getInstance().getClass().isArray()) {
-                array_ = ((Struct)array_).getInstance();
-            }
-        }
         setRelativeOffsetPossibleLastPage(chidren_.first().getIndexInEl(), _conf);
         for (int i = CustList.SECOND_INDEX; i < chidren_.size(); i++) {
-            if (array_ == null || (array_ instanceof Struct && ((Struct)array_).isNull())) {
-                throw new NullObjectException(_conf.joinPages());
-            }
-            setRelativeOffsetPossibleLastPage(chidren_.get(i).getIndexInEl(), _conf);
             Object o_ = chidren_.get(i).getArgument().getObject();
-            if (o_ == null) {
-                throw new NullObjectException(_conf.joinPages());
-            }
-            int len_ = Array.getLength(array_);
-            int index_ = ((Number)o_).intValue();
-            if (index_ < 0 || index_ >= len_) {
-                throw new BadIndexException(String.valueOf(index_)+RETURN_LINE+_conf.joinPages());
-            }
-            array_ = Array.get(array_, index_);
-            if (array_ instanceof Struct) {
-                array_ = ((Struct)array_).getInstance();
-            }
-            arrayClass_ = PrimitiveTypeUtil.getQuickComponentType(arrayClass_);
+            array_ = getElement(array_, o_, _conf, chidren_.get(i).getIndexInEl());
         }
         Argument a_ = new Argument();
         a_.setArgClassName(getResultClass().getName());
-        a_.setStruct(new Struct(array_, arrayClass_));
+        a_.setStruct(array_);
         setSimpleArgument(a_, _conf);
     }
 
@@ -359,15 +245,10 @@ public final class ArrOperation extends MethodOperation implements SettableElRes
     public void calculateSetting(CustList<OperationNode> _nodes,
             ContextEl _conf, String _op) {
         CustList<OperationNode> chidren_ = getChildrenAmong(_nodes, false);
-        Object array_;
+        Struct array_;
         String arrayClass_;
         array_ = getArgument().getStruct();
         arrayClass_ = getArgument().getObjectClassName();
-        if (!((Struct)array_).isNull()) {
-            if (((Struct)array_).getInstance().getClass().isArray()) {
-                array_ = ((Struct)array_).getInstance();
-            }
-        }
         setRelativeOffsetPossibleLastPage(chidren_.first().getIndexInEl(), _conf);
         PageEl ip_ = _conf.getLastPage();
         OperationNode lastElement_ = null;
@@ -376,39 +257,24 @@ public final class ArrOperation extends MethodOperation implements SettableElRes
             chidren_.removeLast();
         }
         if (lastElement_ != null) {
-            if (array_ == null || (array_ instanceof Struct && ((Struct)array_).isNull())) {
-                throw new NullObjectException(_conf.joinPages());
-            }
             setRelativeOffsetPossibleLastPage(lastElement_.getIndexInEl(), _conf);
             Object o_ = lastElement_.getArgument().getObject();
-            if (o_ == null) {
-                throw new NullObjectException(_conf.joinPages());
-            }
-            int len_ = Array.getLength(array_);
-            int index_ = ((Number)o_).intValue();
-            if (index_ < 0 || index_ >= len_) {
-                throw new BadIndexException(String.valueOf(index_)+RETURN_LINE+_conf.joinPages());
-            }
-            Object leftObj_ = Array.get(array_, index_);
+            Struct leftObj_ = getElement(array_, o_, _conf, lastElement_.getIndexInEl());
             Argument left_ = new Argument();
             //TODO generic class
             arrayClass_ = PrimitiveTypeUtil.getQuickComponentType(arrayClass_);
             left_.setArgClassName(arrayClass_);
-            left_.setStruct(new Struct(leftObj_, arrayClass_));
+            left_.setStruct(leftObj_);
             Argument right_ = ip_.getRightArgument();
             Argument res_;
             res_ = NumericOperation.calculateAffect(left_, _conf, right_, _op);
-            try {
-                Array.set(array_, index_, res_.getObject());
-            } catch (Exception _0) {
-                Array.set(array_, index_, res_.getStruct());
-            }
+            setElement(array_, o_, res_.getStruct(), _conf, lastElement_.getIndexInEl());
             setSimpleArgument(getArgument(), _conf);
             return;
         }
         Argument a_ = new Argument();
         a_.setArgClassName(getResultClass().getName());
-        a_.setStruct(new Struct(array_, arrayClass_));
+        a_.setStruct(array_);
         setSimpleArgument(a_, _conf);
     }
 
@@ -421,9 +287,6 @@ public final class ArrOperation extends MethodOperation implements SettableElRes
             throw new NullObjectException(_conf.joinPages());
         }
         Object arrayInst_ = _struct.getInstance();
-        if (arrayInst_ instanceof Struct) {
-            arrayInst_ = ((Struct)arrayInst_).getInstance();
-        }
         int len_ = Array.getLength(arrayInst_);
         int index_ = ((Number)_index).intValue();
         if (index_ < 0 || index_ >= len_) {
@@ -447,9 +310,6 @@ public final class ArrOperation extends MethodOperation implements SettableElRes
             throw new NullObjectException(_conf.joinPages());
         }
         Object arrayInst_ = _struct.getInstance();
-        if (arrayInst_ instanceof Struct) {
-            arrayInst_ = ((Struct)arrayInst_).getInstance();
-        }
         int len_ = Array.getLength(arrayInst_);
         int index_ = ((Number)_index).intValue();
         if (index_ < 0 || index_ >= len_) {
