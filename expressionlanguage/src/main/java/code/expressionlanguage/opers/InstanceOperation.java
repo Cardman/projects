@@ -424,19 +424,7 @@ public final class InstanceOperation extends InvokingOperation {
             }
             realClassName_ = realClassName_.substring(ARR.length());
             realClassName_ = realClassName_.replace(EXTERN_CLASS, DOT_VAR);
-            boolean cust_ = false;
-            Classes classes_ = _conf.getClasses();
-            ClassMetaInfo custClass_ = null;
             instanceClassName_ = realClassName_;
-            if (classes_ != null) {
-                DimComp clCurName_ = PrimitiveTypeUtil.getQuickComponentBaseType(realClassName_);
-                custClass_ = classes_.getClassMetaInfo(clCurName_.getComponent());
-                if (custClass_ != null) {
-                    cust_ = true;
-                    int dim_ = clCurName_.getDim();
-                    instanceClassName_ = PrimitiveTypeUtil.getPrettyArrayType(Struct.class.getName(), dim_);
-                }
-            }
             Class<?> cl_;
             try {
                 if (instanceClassName_.startsWith(PrimitiveTypeUtil.PRIM)) {
@@ -454,17 +442,8 @@ public final class InstanceOperation extends InvokingOperation {
                 for (OperationNode o: chidren_) {
                     Argument chArg_ = _nodes.getVal(o).getArgument();
                     Struct str_ = chArg_.getStruct();
-                    if (cust_) {
-                        Array.set(o_, i_, str_);
-                    } else {
-                        Array.set(o_, i_, str_.getInstance());
-                    }
+                    Array.set(o_, i_, str_.getInstance());
                     i_++;
-                }
-            } else if (cust_ && o_ instanceof Struct[]) {
-                int len_ = chidren_.size();
-                for (int i = CustList.FIRST_INDEX; i < len_; i++) {
-                    Array.set(o_, i, new Struct());
                 }
             }
             a_.setStruct(new Struct(o_,PrimitiveTypeUtil.getPrettyArrayType(realClassName_, args_.length)));
@@ -652,19 +631,7 @@ public final class InstanceOperation extends InvokingOperation {
             }
             realClassName_ = realClassName_.substring(ARR.length());
             realClassName_ = realClassName_.replace(EXTERN_CLASS, DOT_VAR);
-            boolean cust_ = false;
-            Classes classes_ = _conf.getClasses();
-            ClassMetaInfo custClass_ = null;
             instanceClassName_ = realClassName_;
-            if (classes_ != null) {
-                DimComp clCurName_ = PrimitiveTypeUtil.getQuickComponentBaseType(realClassName_);
-                custClass_ = classes_.getClassMetaInfo(clCurName_.getComponent());
-                if (custClass_ != null) {
-                    cust_ = true;
-                    int dim_ = clCurName_.getDim();
-                    instanceClassName_ = PrimitiveTypeUtil.getPrettyArrayType(Struct.class.getName(), dim_);
-                }
-            }
             Class<?> cl_;
             try {
                 if (instanceClassName_.startsWith(PrimitiveTypeUtil.PRIM)) {
@@ -682,17 +649,8 @@ public final class InstanceOperation extends InvokingOperation {
                 for (OperationNode o: chidren_) {
                     Argument chArg_ = o.getArgument();
                     Struct str_ = chArg_.getStruct();
-                    if (cust_) {
-                        Array.set(o_, i_, str_);
-                    } else {
-                        Array.set(o_, i_, str_.getInstance());
-                    }
+                    Array.set(o_, i_, str_.getInstance());
                     i_++;
-                }
-            } else if (cust_ && o_ instanceof Struct[]) {
-                int len_ = chidren_.size();
-                for (int i = CustList.FIRST_INDEX; i < len_; i++) {
-                    Array.set(o_, i, new Struct());
                 }
             }
             a_.setStruct(new Struct(o_,PrimitiveTypeUtil.getPrettyArrayType(realClassName_, args_.length)));

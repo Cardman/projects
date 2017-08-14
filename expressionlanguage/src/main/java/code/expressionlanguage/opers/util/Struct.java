@@ -22,11 +22,11 @@ public final class Struct {
     }
     
     public Struct(Object _instance) {
-        this(_instance, _instance.getClass().getName());
+        this(_instance, PrimitiveTypeUtil.getAliasArrayClass(_instance.getClass()));
     }
 
     public Struct(Object _instance, Struct _parent) {
-        this(_instance, _instance.getClass().getName(), new ObjectMap<ClassField,Struct>(), _parent);
+        this(_instance, PrimitiveTypeUtil.getAliasArrayClass(_instance.getClass()), new ObjectMap<ClassField,Struct>(), _parent);
     }
 
     public Struct(Object _instance, String _className) {

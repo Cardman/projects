@@ -260,7 +260,7 @@ public final class PrimitiveTypeUtil {
         if (_match.matchClass(PRIM_CHAR) || _match.matchClass(Character.class)) {
             return new Struct(((Character)_obj).charValue());
         }
-        return new Struct(_obj, getAliasArrayClass(_obj.getClass()));
+        return new Struct(_obj);
     }
 
     public static String getPrettyArrayClass(String _class) {

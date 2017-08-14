@@ -612,7 +612,7 @@ public abstract class OperationNode implements SortedNode<OperationNode>, Operab
             }
             trace_ += classesNames_.join(SEP_ARG);
             trace_ += PAR_RIGHT;
-            throw new NoSuchDeclaredMethodException(trace_+RETURN_LINE+_conf.joinPages());
+            throw new NoSuchDeclaredConstructorException(trace_+RETURN_LINE+_conf.joinPages());
         }
         if (possibleMethods_.size() == CustList.ONE_ELEMENT) {
             return possibleMethods_.first();
@@ -627,7 +627,7 @@ public abstract class OperationNode implements SortedNode<OperationNode>, Operab
             trace_ += classesNames_.join(SEP_ARG);
             trace_ += PAR_RIGHT;
             //TODO bas access
-            throw new NoSuchDeclaredMethodException(trace_+RETURN_LINE+_conf.joinPages());
+            throw new NoSuchDeclaredConstructorException(trace_+RETURN_LINE+_conf.joinPages());
         }
         ArgumentsGroup gr_ = new ArgumentsGroup(classes_, _args);
         //        ParametersGroupComparator<ConstructorInfo> cmp_ = new ParametersGroupComparator<ConstructorInfo>(gr_);
@@ -1066,7 +1066,7 @@ public abstract class OperationNode implements SortedNode<OperationNode>, Operab
             if (_need != null) {
                 a_.setStructArgClassName(new Struct(o_, _need.getStruct()));
             } else {
-                a_.setStructArgClassName(new Struct(o_, PrimitiveTypeUtil.getAliasArrayClass(o_.getClass())));
+                a_.setStructArgClassName(new Struct(o_));
             }
             //            a_.setArgClassName(a_.getObject().getClass().getName());
             return a_;
@@ -1115,7 +1115,10 @@ public abstract class OperationNode implements SortedNode<OperationNode>, Operab
             if (o_ == null) {
                 return new Struct();
             }
-            return new Struct(o_, PrimitiveTypeUtil.getAliasArrayClass(o_.getClass()));
+            if (o_ instanceof Struct) {
+                return (Struct) o_;
+            }
+            return new Struct(o_);
         } catch (IllegalAccessException _0) {
             //            if (!_useNode) {
                 //                throw new BadAccessException(_0, _method.toString());

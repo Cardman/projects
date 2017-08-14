@@ -1040,7 +1040,7 @@ public final class ConstantOperation extends OperationNode implements SettableEl
         if (res_ == null) {
             a_.setStructArgClassName(new Struct(), field.getType().getName());
         } else {
-            a_.setStructArgClassName(new Struct(res_, PrimitiveTypeUtil.getAliasArrayClass(res_.getClass())), field.getType().getName());
+            a_.setStructArgClassName(new Struct(res_), field.getType().getName());
         }
         setSimpleArgument(a_, _conf, _nodes);
         return a_;
@@ -1192,7 +1192,7 @@ public final class ConstantOperation extends OperationNode implements SettableEl
         if (res_ == null) {
             a_.setStructArgClassName(new Struct(), field.getType().getName());
         } else {
-            a_.setStructArgClassName(new Struct(res_, PrimitiveTypeUtil.getAliasArrayClass(res_.getClass())), field.getType().getName());
+            a_.setStructArgClassName(new Struct(res_), field.getType().getName());
         }
         setSimpleArgument(a_, _conf, _nodes);
         return a_;
@@ -1260,7 +1260,7 @@ public final class ConstantOperation extends OperationNode implements SettableEl
                 if (field_ == null) {
                     left_.setStructArgClassName(new Struct(),field.getType().getName());
                 } else {
-                    left_.setStructArgClassName(new Struct(field_, PrimitiveTypeUtil.getAliasArrayClass(field_.getClass())),field.getType().getName());
+                    left_.setStructArgClassName(new Struct(field_),field.getType().getName());
                 }
                 res_ = NumericOperation.calculateAffect(left_, _conf, right_, _op);
                 ConverterMethod.setField(field, obj_, res_.getObject());
@@ -1401,7 +1401,7 @@ public final class ConstantOperation extends OperationNode implements SettableEl
             if (field_ == null) {
                 left_.setStructArgClassName(new Struct(), field.getType().getName());
             } else {
-                left_.setStructArgClassName(new Struct(field_, PrimitiveTypeUtil.getAliasArrayClass(field_.getClass())), field.getType().getName());
+                left_.setStructArgClassName(new Struct(field_), field.getType().getName());
             }
 //            left_.setObject(field_);
 //            left_.setArgClassName(field.getType().getName());
@@ -1423,7 +1423,7 @@ public final class ConstantOperation extends OperationNode implements SettableEl
         if (res_ == null) {
             a_.setStructArgClassName(new Struct(), field.getType().getName());
         } else {
-            a_.setStructArgClassName(new Struct(res_, PrimitiveTypeUtil.getAliasArrayClass(res_.getClass())), field.getType().getName());
+            a_.setStructArgClassName(new Struct(res_), field.getType().getName());
         }
         setSimpleArgument(a_, _conf, _nodes);
         return a_;
@@ -1828,7 +1828,7 @@ public final class ConstantOperation extends OperationNode implements SettableEl
         if (res_ == null) {
             a_.setStructArgClassName(new Struct(), fieldTypeName_);
         } else {
-            a_.setStructArgClassName(new Struct(res_, PrimitiveTypeUtil.getAliasArrayClass(res_.getClass())), fieldTypeName_);
+            a_.setStructArgClassName(new Struct(res_), fieldTypeName_);
         }
 //        a_.setArgClassName(field.getType().getName());
 //        a_.setObject(res_);
@@ -1974,7 +1974,7 @@ public final class ConstantOperation extends OperationNode implements SettableEl
         if (res_ == null) {
             a_.setStructArgClassName(new Struct(), fieldTypeName_);
         } else {
-            a_.setStructArgClassName(new Struct(res_, PrimitiveTypeUtil.getAliasArrayClass(res_.getClass())), fieldTypeName_);
+            a_.setStructArgClassName(new Struct(res_), fieldTypeName_);
         }
 //        a_.setArgClassName(field.getType().getName());
 //        a_.setObject(res_);
@@ -2048,7 +2048,7 @@ public final class ConstantOperation extends OperationNode implements SettableEl
             if (field_ == null) {
                 left_.setStructArgClassName(new Struct(), field.getType().getName());
             } else {
-                left_.setStructArgClassName(new Struct(field_, PrimitiveTypeUtil.getAliasArrayClass(field_.getClass())), field.getType().getName());
+                left_.setStructArgClassName(new Struct(field_), field.getType().getName());
             }
 //            left_.setObject(field_);
 //            left_.setArgClassName(field.getType().getName());
@@ -2192,7 +2192,7 @@ public final class ConstantOperation extends OperationNode implements SettableEl
         if (res_ == null) {
             a_.setStructArgClassName(new Struct(), fieldTypeName_);
         } else {
-            a_.setStructArgClassName(new Struct(res_, PrimitiveTypeUtil.getAliasArrayClass(res_.getClass())), fieldTypeName_);
+            a_.setStructArgClassName(new Struct(res_), fieldTypeName_);
         }
 //        a_.setArgClassName(field.getType().getName());
 //        a_.setObject(res_);
