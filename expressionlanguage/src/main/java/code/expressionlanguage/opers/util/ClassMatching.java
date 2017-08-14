@@ -93,11 +93,11 @@ public final class ClassMatching {
 //    }
     
     private Class<?> getSingleNativeClass() {
-        return ConstClasses.classAliasForNameNotInit(PrimitiveTypeUtil.getArrayClass(className.first()));
+        return ConstClasses.classForNameNotInit(PrimitiveTypeUtil.getArrayClass(className.first()));
     }
 
     public static Class<?> getSingleNativeClass(String _className) {
-        return ConstClasses.classAliasForNameNotInit(PrimitiveTypeUtil.getArrayClass(_className));
+        return ConstClasses.classForNameNotInit(PrimitiveTypeUtil.getArrayClass(_className));
     }
 
     public StringList getClassName() {

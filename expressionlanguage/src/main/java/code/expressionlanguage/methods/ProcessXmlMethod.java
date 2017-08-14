@@ -1661,7 +1661,7 @@ public final class ProcessXmlMethod {
             if (_className.startsWith(PrimitiveTypeUtil.PRIM)) {
                 return ConstClasses.getPrimitiveClass(_className.substring(1));
             }
-            return ConstClasses.classAliasForNameNotInit(PrimitiveTypeUtil.getArrayClass(_className));
+            return ConstClasses.classForNameNotInit(PrimitiveTypeUtil.getArrayClass(_className));
         } catch (RuntimeException _0) {
             _conf.getLastPage().addToOffset(_offest);
             throw new RuntimeClassNotFoundException(_className+RETURN_LINE+_conf.joinPages());

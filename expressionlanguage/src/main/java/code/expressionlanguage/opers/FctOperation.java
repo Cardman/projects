@@ -886,7 +886,7 @@ public final class FctOperation extends InvokingOperation {
                 str_ = PrimitiveTypeUtil.getArrayClass(str_);
                 Class<?> cl_;
                 try {
-                    cl_ = ConstClasses.classAliasForNameNotInit(str_);
+                    cl_ = ConstClasses.classForNameNotInit(str_);
                 } catch (RuntimeClassNotFoundException _0_) {
                     setRelativeOffsetPossibleLastPage(chidren_.first().getIndexInEl()+1, _conf);
                     throw new RuntimeClassNotFoundException(str_+RETURN_LINE+_conf.joinPages());
@@ -1024,7 +1024,7 @@ public final class FctOperation extends InvokingOperation {
                 if (StringList.quickEq(lang_, JAVA)) {
                     if (StringList.quickEq(method.getName(), JAVA_GET_CLASS)) {
                         Argument argres_ = new Argument();
-                        argres_.setObject(ConstClasses.classAliasForNameNotInit(PrimitiveTypeUtil.getArrayClass(arg_.getObjectClassName())));
+                        argres_.setObject(ConstClasses.classForNameNotInit(PrimitiveTypeUtil.getArrayClass(arg_.getObjectClassName())));
                         setSimpleArgument(argres_, _conf, _nodes);
                         return argres_;
                     }
@@ -1032,7 +1032,7 @@ public final class FctOperation extends InvokingOperation {
                 if (StringList.quickEq(lang_, CSHARP)) {
                     if (StringList.quickEq(method.getName(), CSHARP_GET_TYPE)) {
                         Argument argres_ = new Argument();
-                        argres_.setObject(ConstClasses.classAliasForNameNotInit(arg_.getObjectClassName()));
+                        argres_.setObject(ConstClasses.classForNameNotInit(arg_.getObjectClassName()));
                         setSimpleArgument(argres_, _conf, _nodes);
                         return argres_;
                     }
@@ -1108,7 +1108,7 @@ public final class FctOperation extends InvokingOperation {
                 str_ = PrimitiveTypeUtil.getArrayClass(str_);
                 Class<?> cl_;
                 try {
-                    cl_ = ConstClasses.classAliasForNameNotInit(str_);
+                    cl_ = ConstClasses.classForNameNotInit(str_);
                 } catch (RuntimeClassNotFoundException _0_) {
                     setRelativeOffsetPossibleLastPage(chidren_.first().getIndexInEl()+1, _conf);
                     throw new RuntimeClassNotFoundException(str_+RETURN_LINE+_conf.joinPages());
@@ -1247,7 +1247,7 @@ public final class FctOperation extends InvokingOperation {
                 if (StringList.quickEq(lang_, JAVA)) {
                     if (StringList.quickEq(method.getName(), JAVA_GET_CLASS)) {
                         Argument argres_ = new Argument();
-                        argres_.setObject(ConstClasses.classAliasForNameNotInit(PrimitiveTypeUtil.getArrayClass(arg_.getObjectClassName())));
+                        argres_.setObject(ConstClasses.classForNameNotInit(PrimitiveTypeUtil.getArrayClass(arg_.getObjectClassName())));
                         setSimpleArgument(argres_, _conf);
                         return;
                     }
@@ -1255,7 +1255,7 @@ public final class FctOperation extends InvokingOperation {
                 if (StringList.quickEq(lang_, CSHARP)) {
                     if (StringList.quickEq(method.getName(), CSHARP_GET_TYPE)) {
                         Argument argres_ = new Argument();
-                        argres_.setObject(ConstClasses.classAliasForNameNotInit(arg_.getObjectClassName()));
+                        argres_.setObject(ConstClasses.classForNameNotInit(arg_.getObjectClassName()));
                         setSimpleArgument(argres_, _conf);
                         return;
                     }

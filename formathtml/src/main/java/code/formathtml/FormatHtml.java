@@ -2395,7 +2395,7 @@ final class FormatHtml {
         LocalVariable ret_ = ExtractObject.getCurrentLocVariable(_conf, 0, _ip.getReturnedValues(), var_);
         Object elt_ = tryToGetObject(_conf, _ip, _set);
         String className_ = ret_.getClassName();
-        checkClass(_conf, _ip, ConstClasses.classAliasForNameNotInit(className_), elt_);
+        checkClass(_conf, _ip, ConstClasses.classForNameNotInit(className_), elt_);
         ret_.setElement(elt_);
     }
     private static void processSetClassNameParamTag(Configuration _conf, ImportingPage _ip,

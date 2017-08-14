@@ -104,7 +104,7 @@ public final class ObjectComponents {
                     sub_ = StringList.simpleFormat(FORMAT, sub_);
                     name_ = sub_;
                 }
-                Class<?> declClass_ = ConstClasses.classAliasForNameNotInit(name_);
+                Class<?> declClass_ = ConstClasses.classForNameNotInit(name_);
                 if (isPrimitive(declClass_)) {
                     if (obj_ == null) {
                         continue;
@@ -483,14 +483,14 @@ public final class ObjectComponents {
         StringList paramsTypesVar_ = new StringList(_paramsTypesVar);
         int i_ = CollectionsUtil.getFirstIndex();
         while (true) {
-            Class<?> class_ = ConstClasses.classAliasForNameNotInit(interfaces_.get(i_));
+            Class<?> class_ = ConstClasses.classForNameNotInit(interfaces_.get(i_));
 //            Class<?> class_ = Class.forName(interfaces_.get(i_));
 //            Class<?> class_ = Constants.classForNameKnownClasses(interfaces_.get(i_));
             if (i_ + 1 >= interfaces_.size()) {
                 break;
             }
             // i_ + 1 < interfaces_.size()
-            Class<?> superInterface_ = ConstClasses.classAliasForNameNotInit(interfaces_.get(i_ + 1));
+            Class<?> superInterface_ = ConstClasses.classForNameNotInit(interfaces_.get(i_ + 1));
 //            Class<?> superInterface_ = Class.forName(interfaces_.get(i_ + 1));
 //            Class<?> superInterface_ = Constants.classForNameKnownClasses(interfaces_.get(i_ + 1));
             String superClassName_ = getInterfaceName(class_, superInterface_);
@@ -561,7 +561,7 @@ public final class ObjectComponents {
         StringList newInterfaces_ = new StringList();
         while (true) {
             newInterfaces_ = new StringList();
-            Class<?> cl_ = ConstClasses.classAliasForNameNotInit(currentInterfaces_.first());
+            Class<?> cl_ = ConstClasses.classForNameNotInit(currentInterfaces_.first());
 //            Class<?> cl_ = Class.forName(currentInterfaces_.first());
 //            Class<?> cl_ = Constants.classForNameKnownClasses(currentInterfaces_.first());
             for (Class<?> interface_: cl_.getInterfaces()) {
@@ -600,7 +600,7 @@ public final class ObjectComponents {
     static boolean isPrimitive(String _type) {
         String className_ = getBaseType(_type);
         try {
-            Class<?> cl_ = ConstClasses.classAliasForNameNotInit(className_);
+            Class<?> cl_ = ConstClasses.classForNameNotInit(className_);
             if (cl_.isPrimitive()) {
                 return true;
             }

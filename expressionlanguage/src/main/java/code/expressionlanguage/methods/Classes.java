@@ -209,7 +209,7 @@ public final class Classes {
                     throw new BadClassNameException(cl_.getFullName());
                 }
                 try {
-                    Class<?> clNat_ = ConstClasses.classAliasForNameNotInit(file_);
+                    Class<?> clNat_ = ConstClasses.classForNameNotInit(file_);
                     throw new AlreadyExistingClassException(clNat_.getName());
                 } catch (RuntimeClassNotFoundException _0) {
                 }
@@ -830,7 +830,7 @@ public final class Classes {
                                 }
                             } else {
                                 classNameLoc_ = PrimitiveTypeUtil.getArrayClass(classNameLoc_);
-                                ConstClasses.classAliasForNameNotInit(classNameLoc_);
+                                ConstClasses.classForNameNotInit(classNameLoc_);
                             }
                         }
                     } catch (RuntimeClassNotFoundException _0) {

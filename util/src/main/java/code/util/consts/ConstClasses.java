@@ -142,6 +142,15 @@ public final class ConstClasses {
         return ConstClasses.classForNameNotInit(_className);
     }
     public static String resolve(String _alias) {
+        if (StringList.quickEq(_alias, ConstClasses.SELECTED_BOOLEAN)) {
+            return SelectedBoolean.class.getName();
+        }
+        if (StringList.quickEq(_alias, ConstClasses.LISTABLE_ALIAS)) {
+            return Listable.class.getName();
+        }
+        if (StringList.quickEq(_alias, ConstClasses.LISTABLE_ENTRIES_ALIAS)) {
+            return ListableEntries.class.getName();
+        }
         for (EntryCust<String,String> e: MAPPING.entryList()) {
             if (StringList.quickEq(e.getKey(), _alias)) {
                 return e.getValue();

@@ -82,7 +82,7 @@ public abstract class InvokingOperation extends MethodOperation {
                 if (className_.startsWith(PrimitiveTypeUtil.PRIM)) {
                     className_ = className_.substring(1);
                 }
-                Class<?> cl_ = ConstClasses.classAliasForNameNotInit(PrimitiveTypeUtil.getArrayClass(className_));
+                Class<?> cl_ = ConstClasses.classForNameNotInit(PrimitiveTypeUtil.getArrayClass(className_));
                 array_ = Array.newInstance(cl_, optArgs_.size());
                 int len_ = optArgs_.size();
                 for (int i = 0; i < len_; i++) {
@@ -134,7 +134,7 @@ public abstract class InvokingOperation extends MethodOperation {
                 if (className_.startsWith(PrimitiveTypeUtil.PRIM)) {
                     className_ = className_.substring(1);
                 }
-                Class<?> cl_ = ConstClasses.classAliasForNameNotInit(PrimitiveTypeUtil.getArrayClass(className_));
+                Class<?> cl_ = ConstClasses.classForNameNotInit(PrimitiveTypeUtil.getArrayClass(className_));
                 array_ = Array.newInstance(cl_, optArgs_.size());
                 int len_ = optArgs_.size();
                 for (int i = 0; i < len_; i++) {

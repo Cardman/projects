@@ -63,7 +63,7 @@ public final class ClassArgumentMatching {
         if (className.startsWith(PrimitiveTypeUtil.PRIM)) {
             return ConstClasses.getPrimitiveClass(className.substring(1));
         }
-        return ConstClasses.classAliasForNameNotInit(PrimitiveTypeUtil.getArrayClass(className));
+        return ConstClasses.classForNameNotInit(PrimitiveTypeUtil.getArrayClass(className));
     }
 
     public boolean isArray() {
@@ -88,7 +88,7 @@ public final class ClassArgumentMatching {
 
     public CustList<Class<?>> getDeclaredClasses() {
         try {
-            Class<?> cl_ = ConstClasses.classAliasForNameNotInit(PrimitiveTypeUtil.getArrayClass(className));
+            Class<?> cl_ = ConstClasses.classForNameNotInit(PrimitiveTypeUtil.getArrayClass(className));
             CustList<Class<?>> cls_ = new CustList<Class<?>>();
             for (Class<?> c: cl_.getDeclaredClasses()) {
                 cls_.add(c);
@@ -112,7 +112,7 @@ public final class ClassArgumentMatching {
                 Class<?> cl_ = ConstClasses.getPrimitiveClass(className.substring(1));
                 return cl_.isAssignableFrom(_arg.getClazz());
             }
-            Class<?> cl_ = ConstClasses.classAliasForNameNotInit(PrimitiveTypeUtil.getArrayClass(className));
+            Class<?> cl_ = ConstClasses.classForNameNotInit(PrimitiveTypeUtil.getArrayClass(className));
             return cl_.isAssignableFrom(_arg.getClazz());
         } catch (RuntimeClassNotFoundException _0) {
             return false;
@@ -129,7 +129,7 @@ public final class ClassArgumentMatching {
                 continue;
             }
             try {
-                Class<?> cl_ = ConstClasses.classAliasForNameNotInit(PrimitiveTypeUtil.getArrayClass(className));
+                Class<?> cl_ = ConstClasses.classForNameNotInit(PrimitiveTypeUtil.getArrayClass(className));
                 boolean inherit_ = false;
                 for (String o: _arg.getClassName()) {
                     if (cl_.isAssignableFrom(ClassMatching.getSingleNativeClass(o))) {
@@ -159,7 +159,7 @@ public final class ClassArgumentMatching {
             return true;
         }
         try {
-            Class<?> cl_ = ConstClasses.classAliasForNameNotInit(PrimitiveTypeUtil.getArrayClass(className));
+            Class<?> cl_ = ConstClasses.classForNameNotInit(PrimitiveTypeUtil.getArrayClass(className));
             return cl_.isPrimitive();
         } catch (RuntimeClassNotFoundException _0_) {
             return false;

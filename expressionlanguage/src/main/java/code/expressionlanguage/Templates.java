@@ -32,7 +32,7 @@ public final class Templates {
         int i_ = CustList.FIRST_INDEX;
         String className_ = types_.first();
         className_ = PrimitiveTypeUtil.getArrayClass(className_);
-        Class<?> cl_ = ConstClasses.classAliasForNameNotInit(className_);
+        Class<?> cl_ = ConstClasses.classForNameNotInit(className_);
         for (TypeVariable<?> t: cl_.getTypeParameters()) {
             i_++;
             String arg_ = types_.get(i_);
@@ -119,7 +119,7 @@ public final class Templates {
     static StringMap<String> getVarTypes(String _className, Classes _classes) {
         StringList types_ = StringList.getAllTypes(_className);
         String className_ = PrimitiveTypeUtil.getArrayClass(types_.first());
-        Class<?> cl_ = ConstClasses.classAliasForNameNotInit(className_);
+        Class<?> cl_ = ConstClasses.classForNameNotInit(className_);
         int i_ = CustList.FIRST_INDEX;
         StringMap<String> varTypes_ = new StringMap<String>();
         for (TypeVariable<?> t: cl_.getTypeParameters()) {
@@ -308,7 +308,7 @@ public final class Templates {
     private static EqList<StringList> getClassBounds(String _className, Classes _classes) {
         StringList allTypes_ = StringList.getAllTypes(_className);
         String baseClass_ = PrimitiveTypeUtil.getArrayClass(allTypes_.first());
-        Class<?> cl_ = ConstClasses.classAliasForNameNotInit(baseClass_);
+        Class<?> cl_ = ConstClasses.classForNameNotInit(baseClass_);
         EqList<StringList> bounds_ = new EqList<StringList>();
         StringMap<StringList> localBounds_ = new StringMap<StringList>();
         for (TypeVariable<?> t: cl_.getTypeParameters()) {
@@ -462,7 +462,7 @@ public final class Templates {
                     StringList allTypes_ = StringList.getAllTypes(c);
                     String baseClass_ = allTypes_.first();
                     baseClass_ = PrimitiveTypeUtil.getArrayClass(baseClass_);
-                    Class<?> cl_ = ConstClasses.classAliasForNameNotInit(baseClass_);
+                    Class<?> cl_ = ConstClasses.classForNameNotInit(baseClass_);
                     Class<?> superCl_ = cl_.getSuperclass();
                     if (superCl_ != null) {
                         String superClass_ = superCl_.getName();
