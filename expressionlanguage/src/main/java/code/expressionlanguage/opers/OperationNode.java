@@ -512,9 +512,6 @@ public abstract class OperationNode implements SortedNode<OperationNode>, Operab
                 } else {
                     ConstClasses.classAliasForNameNotInit(PrimitiveTypeUtil.getArrayClass(baseName_));
                 }
-                //                if (_checkVoid && cl_ == void.class) {
-                    //                    throw new VoidArgumentException(_cont.joinPages());
-                    //                }
             } catch (RuntimeClassNotFoundException _0) {
                 if (_setOffset) {
                     setRelativeOffsetPossibleLastPage(_offset, _cont);

@@ -68,12 +68,6 @@ public final class ClassArgumentMatching {
 
     public boolean isArray() {
         return className.startsWith(ARR_CLASS);
-//        try {
-//            Class<?> cl_ = ConstClasses.classForNameNotInit(className);
-//            return cl_.isArray();
-//        } catch (RuntimeClassNotFoundException _0) {
-//            return false;
-//        }
     }
     
     public boolean matchClass(ClassArgumentMatching _class) {
@@ -102,15 +96,6 @@ public final class ClassArgumentMatching {
             return cls_;
         } catch (RuntimeClassNotFoundException _0) {
             return new CustList<Class<?>>();
-        }
-    }
-
-    public boolean isInterface() {
-        try {
-            Class<?> cl_ = ConstClasses.classAliasForNameNotInit(PrimitiveTypeUtil.getArrayClass(className));
-            return cl_.isInterface();
-        } catch (RuntimeClassNotFoundException _0) {
-            return false;
         }
     }
 

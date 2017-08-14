@@ -1014,25 +1014,6 @@ public final class FctOperation extends InvokingOperation {
             throw new CustomFoundMethodException(arg_, classNameFound_, methodId, firstArgs_);
         }
         firstArgs_ = listArguments(chidren_, _nodes, true);
-        //        if (classes_ != null) {
-        //            custClass_ = classes_.getClassMetaInfo(clCur_);
-        //            if (custClass_ != null) {
-        //                throw new CustomFoundMethodException(clCur_, methodId, firstArgs_);
-        ////                if (_conf.isCallingXml()) {
-        //////                    methodMetaInfo
-        ////                    throw new CustomFoundMethodException(clCur_, methodId, firstArgs_);
-        ////                } else {
-        ////                    Object o_ = ProcessXmlMethod.calculateArgument(clCur_, methodId, firstArgs_, _conf).getObject();
-        ////                    Argument argres_ = new Argument();
-        ////                    // = getMethodThenInvoke(_conf, 0, obj_, clCur_, methodName, firstArgs_.toArray(new Argument[0]));
-        ////                    argres_.setArgClassName(getResultClass().getName());
-        ////                    argres_.setObject(o_);
-        ////                    setSimpleArgument(argres_, _conf, _nodes);
-        ////                    return argres_;
-        ////                }
-        //            }
-        //        }
-        //        if (arg_.getArgClassName())
         Object obj_ = arg_.getObject();
         if (!Modifier.isStatic(method.getModifiers()) && obj_ == null) {
             throw new NullObjectException(_conf.joinPages());
@@ -1251,42 +1232,11 @@ public final class FctOperation extends InvokingOperation {
                 }
                 classNameFound_ = classMethodId.getClassName().getName();
             }
-//            Struct o_ = ProcessXmlMethod.calculateArgument(arg_, clCur_, methodId, firstArgs_, _conf).getStruct();
             Argument argres_ = ProcessXmlMethod.calculateArgument(arg_, classNameFound_, methodId, firstArgs_, _conf);
-            // = getMethodThenInvoke(_conf, 0, obj_, clCur_, methodName, firstArgs_.toArray(new Argument[0]));
-//            argres_.setArgClassName(getResultClass().getName());
-//            argres_.setStruct(o_);
             setSimpleArgument(argres_, _conf);
             return;
         }
         firstArgs_ = listArguments(chidren_, true);
-        //        Classes classes_ = _conf.getClasses();
-        //        ClassMetaInfo custClass_ = null;
-        //        if (classes_ != null) {
-        //            custClass_ = classes_.getClassMetaInfo(clCur_);
-        //            if (custClass_ != null) {
-        ////                if (_conf.isCallingXml()) {
-        //////                    methodMetaInfo
-        ////                    throw new CustomFoundMethodException(clCur_, methodId, firstArgs_);
-        ////                } else {
-        ////                    Object o_ = ProcessXmlMethod.calculateArgument(clCur_, methodId, firstArgs_, _conf).getObject();
-        ////                    Argument argres_ = new Argument();
-        ////                    // = getMethodThenInvoke(_conf, 0, obj_, clCur_, methodName, firstArgs_.toArray(new Argument[0]));
-        ////                    argres_.setArgClassName(getResultClass().getName());
-        ////                    argres_.setObject(o_);
-        ////                    setSimpleArgument(argres_, _conf);
-        ////                    return;
-        ////                }
-        //                Object o_ = ProcessXmlMethod.calculateArgument(clCur_, methodId, firstArgs_, _conf).getObject();
-        //                Argument argres_ = new Argument();
-        //                // = getMethodThenInvoke(_conf, 0, obj_, clCur_, methodName, firstArgs_.toArray(new Argument[0]));
-        //                argres_.setArgClassName(getResultClass().getName());
-        //                argres_.setObject(o_);
-        //                setSimpleArgument(argres_, _conf);
-        //                return;
-        //            }
-        //        }
-        //        if (arg_.getArgClassName())
         Object obj_ = arg_.getObject();
         if (!Modifier.isStatic(method.getModifiers()) && obj_ == null) {
             throw new NullObjectException(_conf.joinPages());

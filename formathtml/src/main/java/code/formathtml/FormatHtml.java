@@ -7396,38 +7396,12 @@ final class FormatHtml {
         Element currentForNode_ = (Element) rw_.getRead();
         Element written_ = (Element) rw_.getWrite();
         boolean keyValue_ = false;
-//        StringMap<LocalVariable> varsLoc_ = _ip.getLocalVars();
         StringMap<LoopVariable> varsLoop_ = _ip.getVars();
-//        CustList<LoopHtmlStack> stacks_ = _ip.getStacks();
-//        NodeList forElements_ = currentForNode_.getElementsByTagName(FOR_BLOCK_TAG);
-//        int forNbs_ = forElements_.getLength();
-//        StringList vars_ = new StringList();
-//        for (int j = CustList.FIRST_INDEX; j < forNbs_; j++) {
-//            Element elt_ = (Element) forElements_.item(j);
-//            vars_.add(elt_.getAttribute(ATTRIBUTE_VAR));
-//            vars_.add(elt_.getAttribute(ATTRIBUTE_KEY));
-//            vars_.add(elt_.getAttribute(ATTRIBUTE_VALUE));
-//        }
-//        vars_.removeDuplicates();
-//        vars_.removeObj(EMPTY_STRING);
-//        int nbVars_ = vars_.size();
-//        vars_.removeObj(currentForNode_.getAttribute(ATTRIBUTE_VAR));
-//        vars_.removeObj(currentForNode_.getAttribute(ATTRIBUTE_KEY));
-//        vars_.removeObj(currentForNode_.getAttribute(ATTRIBUTE_VALUE));
-//        if (nbVars_ != vars_.size()) {
-//            String message_ = currentForNode_.getAttribute(ATTRIBUTE_VAR);
-//            message_ += SPACE_MESSAGE;
-//            message_ += currentForNode_.getAttribute(ATTRIBUTE_KEY);
-//            message_ += SPACE_MESSAGE;
-//            message_ += currentForNode_.getAttribute(ATTRIBUTE_VALUE);
-//            throw new AlreadyDefinedVarException(message_);
-//        }
         Object iterable_ = null;
         String var_ = currentForNode_.getAttribute(ATTRIBUTE_VAR);
         String key_ = currentForNode_.getAttribute(ATTRIBUTE_KEY);
         String value_ = currentForNode_.getAttribute(ATTRIBUTE_VALUE);
         ListableEntries<?,?> mapCast_ = null;
-//        String base_;
         String listMethod_ = null;
         long nbMaxIterations_ = 0;
         boolean iterationNb_ = false;
@@ -7436,12 +7410,9 @@ final class FormatHtml {
         Object realFromValue_ = 0;
         if (currentForNode_.hasAttribute(ATTRIBUTE_LIST)) {
             String listAttr_ = currentForNode_.getAttribute(ATTRIBUTE_LIST);
-//            listAttr_ = formatNumVariables(listAttr_, _conf, _ip.getLocalVars(), varsLoop_, _files);
-//            base_ = listAttr_;
             _ip.setProcessingAttribute(ATTRIBUTE_LIST);
             _ip.setLookForAttrValue(true);
             _ip.setOffset(0);
-//            Object it_ = ExtractObject.improvedExtractObject(_conf, listAttr_);
             Object it_ = ElUtil.processEl(listAttr_, 0, _conf.toContextEl()).getObject();
             if (it_ == null) {
                 _conf.getLastPage().addToOffset(listAttr_.length()+1);
@@ -7454,64 +7425,24 @@ final class FormatHtml {
             }
         } else if (currentForNode_.hasAttribute(ATTRIBUTE_MAP)) {
             String mapAttr_ = currentForNode_.getAttribute(ATTRIBUTE_MAP);
-//            mapAttr_ = formatNumVariables(mapAttr_, _conf, _ip.getLocalVars(), varsLoop_, _files);
-//            base_ = mapAttr_;
-//            if (StringList.eq(key_,value_)) {
-//                throw new KeyValueException(key_);
-//            }
             _ip.setProcessingAttribute(ATTRIBUTE_MAP);
             _ip.setLookForAttrValue(true);
             _ip.setOffset(0);
-//            Object o_ = ExtractObject.improvedExtractObject(_conf, mapAttr_);
             Object o_ = ElUtil.processEl(mapAttr_, 0, _conf.toContextEl()).getObject();
-//            if (currentForNode_.hasAttribute(ATTRIBUTE_ORDERED_KEYS)) {
-//                listMethod_ = currentForNode_.getAttribute(ATTRIBUTE_ORDERED_KEYS);
-//            }
-//            mapCast_ = (ListableEntries<?,?>) o_;
             mapCast_ = ExtractObject.castListableEntries(_conf, mapAttr_.length(), o_);
             if (o_ instanceof SortableMap) {
                 keyValue_ = true;
-//                getKeys(_conf, mapAttr_.length(), true, mapCast_);
                 iterable_ = ExtractObject.getKeys(_conf, false, mapAttr_.length(), mapCast_);
                 if (iterable_ == null) {
                     throw new NullObjectException(_conf.joinPages());
                 }
             } else {
-//                Listable<?> keys_ = mapCast_.getKeys();
-//                Listable<?> keys_ = ExtractObject.getKeys(_conf, listMethod_ == null, mapAttr_.length(), mapCast_);
                 Listable<?> keys_ = ExtractObject.getKeys(_conf, true, mapAttr_.length(), mapCast_);
-//                if (listMethod_ != null) {
-////                    _ip.setProcessingAttribute(ATTRIBUTE_ORDERED_KEYS);
-//                    _ip.setLookForAttrValue(true);
-//                    _ip.setOffset(0);
-////                    Object it_ = ExtractObject.improvedExtractObject(_conf, listMethod_+NO_PARAM_METHOD);
-//                    Object it_ = ElUtil.processEl(listMethod_+NO_PARAM_METHOD, 0, _conf.toContextEl()).getObject();
-//                    //ExtractObject.improvedExtractObject(_conf, listMethod_+NO_PARAM_METHOD);
-//                    if (it_ == null) {
-//                        _conf.getLastPage().addToOffset((listMethod_+NO_PARAM_METHOD).length());
-//                        throw new NullObjectException(_conf.joinPages());
-//                    }
-//                    iterable_ = ExtractObject.castIterable(_conf, (listMethod_+NO_PARAM_METHOD).length(), it_);
-//                } else {
-//                    keyValue_ = true;
-//                    iterable_ = keys_;
-//                    if (iterable_ == null) {
-//                        throw new NullObjectException(_conf.joinPages());
-//                    }
-//                }
                 keyValue_ = true;
                 iterable_ = keys_;
                 if (iterable_ == null) {
                     throw new NullObjectException(_conf.joinPages());
                 }
-//                if (listMethod_ == null) {
-//                    iterable_ = orderedList(keys_);
-//                } else {
-//                    _ip.setProcessingAttribute(ATTRIBUTE_ORDERED_KEYS);
-//                    _ip.setLookForAttrValue(true);
-//                    _ip.setOffset(0);
-//                    iterable_ = (Iterable<?>) improvedExtractObject(_conf, _ip.getLocalVars(), varsLoop_, listMethod_+NO_PARAM_METHOD);
-//                }
             }
             if (listMethod_ == null) {
                 listMethod_ = NULL_METHOD;
@@ -7562,9 +7493,6 @@ final class FormatHtml {
                     if (copyFrom_ >= toValue_ && !eq_) {
                         break;
                     }
-//                    if (copyFrom_ > toValue_ && eq_) {
-//                        break;
-//                    }
                     if (copyFrom_ > toValue_) {
                         //eq_
                         break;
@@ -7578,9 +7506,6 @@ final class FormatHtml {
                     if (copyFrom_ <= toValue_ && !eq_) {
                         break;
                     }
-//                    if (copyFrom_ < toValue_ && eq_) {
-//                        break;
-//                    }
                     if (copyFrom_ < toValue_) {
                         //eq_
                         break;
@@ -7599,16 +7524,12 @@ final class FormatHtml {
             if (length_ == CustList.SIZE_EMPTY) {
                 finished_ = true;
                 res_.setFinished(true);
-//                res_.setNextNode(getNextNodeWrite(_currentForNode, false));
-//                return res_;
             }
         } else if (iterable_.getClass().isArray()) {
             length_ = Array.getLength(iterable_);
             if (length_ == CustList.SIZE_EMPTY) {
                 finished_ = true;
                 res_.setFinished(true);
-//                res_.setNextNode(getNextNodeWrite(_currentForNode, false));
-//                return res_;
             }
         } else {
             if (keyValue_) {
@@ -7616,12 +7537,9 @@ final class FormatHtml {
             } else {
                 it_ = ExtractObject.iterator(_conf, (Iterable<?>) iterable_);
             }
-//            it_ = ExtractObject.iterator(_conf, (Iterable<?>) iterable_);
             if (!ExtractObject.hasNext(_conf, it_)) {
                 finished_ = true;
                 res_.setFinished(true);
-//                res_.setNextNode(getNextNodeWrite(_currentForNode, false));
-//                return res_;
             }
         }
         if (currentForNode_.getFirstChild() == null) {
@@ -7633,7 +7551,6 @@ final class FormatHtml {
         l_.setWriteNode(written_);
         l_.setIterator(it_, length_);
         l_.setKeyValue(keyValue_);
-//        stacks_.add(l_);
         _ip.addBlock(l_);
         if (finished_) {
             return;
@@ -7649,13 +7566,6 @@ final class FormatHtml {
         String indexClassName_;
         indexClassName_ = currentForNode_.getAttribute(ATTRIBUTE_INDEX_CLASS_NAME);
         ExtractObject.checkClassNotEmptyName(_conf, 0, indexClassName_);
-//        try {
-//            if (!indexClassName_.isEmpty()) {
-//                ConstClasses.classForName(indexClassName_);
-//            }
-//        } catch (RuntimeClassNotFoundException _0) {
-//            throw new RuntimeClassNotFoundException(indexClassName_+RETURN_LINE+_conf.joinPages());
-//        }
         String className_;
         if (iterationNb_) {
             LoopVariable lv_ = new LoopVariable();
@@ -7674,18 +7584,9 @@ final class FormatHtml {
             LoopVariable lv_ = new LoopVariable();
             className_ = currentForNode_.getAttribute(ATTRIBUTE_CLASS_NAME);
             ExtractObject.checkClassNotEmptyName(_conf, 0, className_);
-//            try {
-//                if (!className_.isEmpty()) {
-//                    ConstClasses.classForName(className_);
-//                }
-//            } catch (RuntimeClassNotFoundException _0) {
-//                throw new RuntimeClassNotFoundException(className_+RETURN_LINE+_conf.joinPages());
-//            }
             lv_.setClassName(className_);
             lv_.setIndexClassName(indexClassName_);
             lv_.setElement(int_);
-            //lv_.setBaseExpression(calcultateBase(base_, varsLoc_, varsLoop_));
-//            lv_.setList(iterable_);
             if (iterable_.getClass().isArray()) {
                 lv_.setArray(iterable_);
             } else {
@@ -7697,13 +7598,6 @@ final class FormatHtml {
             LoopVariable lv_ = new LoopVariable();
             className_ = currentForNode_.getAttribute(KEY_CLASS_NAME_ATTRIBUTE);
             ExtractObject.checkClassNotEmptyName(_conf, 0, className_);
-//            try {
-//                if (!className_.isEmpty()) {
-//                    ConstClasses.classForName(className_);
-//                }
-//            } catch (RuntimeClassNotFoundException _0) {
-//                throw new RuntimeClassNotFoundException(className_+RETURN_LINE+_conf.joinPages());
-//            }
             lv_.setClassName(className_);
             lv_.setIndexClassName(indexClassName_);
             if (keyValue_) {
@@ -7711,101 +7605,20 @@ final class FormatHtml {
             } else {
                 lv_.setElement(int_);
             }
-            //lv_.setBaseExpression(calcultateBase(base_, varsLoc_, varsLoop_));
             lv_.setMap(mapCast_);
             lv_.setExtendedExpression(listMethod_+GET_KEY);
             varsLoop_.put(key_, lv_);
             lv_ = new LoopVariable();
             className_ = currentForNode_.getAttribute(VAR_CLASS_NAME_ATTRIBUTE);
             ExtractObject.checkClassNotEmptyName(_conf, 0, className_);
-//            try {
-//                if (!className_.isEmpty()) {
-//                    ConstClasses.classForName(className_);
-//                }
-//            } catch (RuntimeClassNotFoundException _0) {
-//                throw new RuntimeClassNotFoundException(className_+RETURN_LINE+_conf.joinPages());
-//            }
             lv_.setClassName(className_);
             lv_.setIndexClassName(indexClassName_);
-//            lv_.setElement(mapCast_.get(int_));
             lv_.setElement(ExtractObject.castEntryCust(_conf, 0, int_).getValue());
-//            if (keyValue_) {
-//                lv_.setElement(ExtractObject.castEntryCust(_conf, 0, int_).getValue());
-//            } else {
-//                lv_.setElement(ExtractObject.getValue(_conf, 0, mapCast_, int_));
-//            }
-            //lv_.setBaseExpression(calcultateBase(base_, varsLoc_, varsLoop_));
             lv_.setMap(mapCast_);
             lv_.setExtendedExpression(listMethod_+GET_VALUE);
             varsLoop_.put(value_, lv_);
         }
-//        res_.setNextNode(getNextNode(_currentForNode, true));
-//        return res_;
     }
-
-//    private static String calcultateBase(String _base, Map<String,LocalVariable> _locVars, Map<String,LoopVariable> _vars) {
-//        if (_base.endsWith(GET_INDEX)) {
-//            return _base;
-//        } else if (_base.endsWith(GET_ATTRIBUTE)) {
-//            String oldVar_ = _base.substring(CustList.FIRST_INDEX, _base.length() - GET_ATTRIBUTE.length());
-//            return getCurrentExpression(_vars.getVal(oldVar_));
-//        } else if (_base.contains(GET_LOC_VAR)) {
-//            if (_base.endsWith(GET_LOC_VAR)) {
-//                String oldVar_ = _base.substring(CustList.FIRST_INDEX, _base.length() - GET_LOC_VAR.length());
-//                return _locVars.getVal(oldVar_).getExpression();
-//            } else {
-////                String oldVar_ = _base.substring(CustList.FIRST_INDEX, _base.indexOf(GET_ATTRIBUTE));
-////                String base_ = _locVars.getVal(oldVar_).getExpression();
-////                String command_ = _base.substring(_base.indexOf(GET_ATTRIBUTE) + 1);
-////                return base_ + DOT + command_;
-//                return _base;
-//            }
-//        } else if (_base.contains(GET_ATTRIBUTE)) {
-//            if (!_base.endsWith(GET_ATTRIBUTE)) {
-//                return _base;
-//            }
-//            String oldVar_ = _base.substring(CustList.FIRST_INDEX, _base.indexOf(GET_ATTRIBUTE));
-//            String base_ = getCurrentExpression(_vars.getVal(oldVar_));
-//            String command_ = _base.substring(_base.indexOf(GET_ATTRIBUTE) + 1);
-//            return base_ + DOT + command_;
-//        } else {
-//            return _base;
-//        }
-//    }
-//    private static String getCurrentExpression(LoopVariable _lv) {
-//        return _lv.getBaseExpression()+LEFT_GET_ARR+_lv.getIndex()+RIGHT_GET_ARR+_lv.getExtendedExpression();
-//    }
-//    static String formatIndexVariables(String _pattern, Map<String,LocalVariable> _locVars, Map<String,LoopVariable> _vars) {
-//        Map<String,String> fields_ = new Map<String,String>();
-//        //      for (String k: tokens_) {}
-////        Bean bean_ = (Bean) _vars.getVal(EMPTY_STRING).getElement();
-//        for (EntryCust<String, LoopVariable> v: _vars.entryList()) {
-//            if (v.getKey().isEmpty()) {
-//                continue;
-//            }
-//            Object o_ = v.getValue().getElement();
-//            fields_.put(LEFT_EL+v.getKey()+GET_ATTRIBUTE+RIGHT_EL, String.valueOf(o_));
-//            long index_ = v.getValue().getIndex();
-//            fields_.put(LEFT_EL+v.getKey()+GET_INDEX+RIGHT_EL, String.valueOf(index_));
-//        }
-//        for (EntryCust<String, LocalVariable> v: _locVars.entryList()) {
-//            Object o_ = v.getValue().getElement();
-//            fields_.put(LEFT_EL+v.getKey()+GET_LOC_VAR+RIGHT_EL, String.valueOf(o_));
-//        }
-////        for (String k: StringList.getFields(_pattern)) {
-////            if (!k.contains(TR)) {
-////                Object o_ = improvedExtractObject(_vars, k);
-////                fields_.put(LEFT_EL+k+RIGHT_EL, encodeXml(o_));
-////            } else {
-////                StringList infos_ = StringList.splitStrings(k, TR);
-////                Object o_ = improvedExtractObject(_vars, StringList.replaceEnd(infos_.first(),DOT));
-////                o_ = _conf.getTranslators().getVal(infos_.last()).getString(_pattern, _conf, _files, bean_, o_);
-////                fields_.put(LEFT_EL+k+RIGHT_EL, encodeXml(o_));
-////            }
-////        }
-////        return StringList.formatQuote(_pattern, fields_);
-//        return StringList.formatBasic(_pattern, fields_, false);
-//    }
 
     private static ParentElement getParentOfLastNode(Configuration _conf, Node _node, boolean _child) {
         Node n_ = _node.getFirstChild();

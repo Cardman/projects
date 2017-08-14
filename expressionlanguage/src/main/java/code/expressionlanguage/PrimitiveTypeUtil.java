@@ -14,7 +14,6 @@ import code.util.EntryCust;
 import code.util.Numbers;
 import code.util.StringList;
 import code.util.TreeMap;
-import code.util.consts.ConstClasses;
 import code.util.exceptions.RuntimeClassNotFoundException;
 
 public final class PrimitiveTypeUtil {
@@ -498,13 +497,6 @@ public final class PrimitiveTypeUtil {
             }
         }
         return 0;
-    }
-    public static boolean isPrimitiveType(String _className) {
-        try {
-            return ConstClasses.classAliasForNameNotInit(PrimitiveTypeUtil.getArrayClass(_className)).isPrimitive();
-        } catch (RuntimeClassNotFoundException _0) {
-            return false;
-        }
     }
     public static boolean isPrimitiveOrWrapper(String _className) {
         return toPrimitive(new ClassArgumentMatching(_className), false) != null;
