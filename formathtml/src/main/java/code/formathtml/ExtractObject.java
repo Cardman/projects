@@ -1223,7 +1223,7 @@ final class ExtractObject {
             }
             Struct srtOne_ = new Struct(_objOne);
             LocalVariable lvOne_ = new LocalVariable();
-            lvOne_.setClassName(srtOne_.getClassName());
+            lvOne_.setClassName(ConstClasses.resolve(srtOne_.getClassName()));
             lvOne_.setStruct(srtOne_);
             ip_.getLocalVars().put(tmp_+i_, lvOne_);
             String nameOne_ = tmp_+i_;
@@ -1233,7 +1233,7 @@ final class ExtractObject {
             }
             Struct srtTwo_ = new Struct(_objTwo);
             LocalVariable lvTwo_ = new LocalVariable();
-            lvTwo_.setClassName(srtTwo_.getClassName());
+            lvTwo_.setClassName(ConstClasses.resolve(srtTwo_.getClassName()));
             lvTwo_.setStruct(srtTwo_);
             ip_.getLocalVars().put(tmp_+i_, lvTwo_);
             String nameTwo_ = tmp_+i_;

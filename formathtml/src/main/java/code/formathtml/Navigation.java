@@ -1266,7 +1266,7 @@ public final class Navigation {
             Bean bean_ = (Bean) ConstClasses.classAliasForNameNotInit(_bean.getClassName()).newInstance();
             bean_.setDataBase(_bean.getDataBase());
             bean_.setForms(_bean.getForms());
-            bean_.setClassName(_bean.getClassName());
+            bean_.setClassName(ConstClasses.resolve(_bean.getClassName()));
             bean_.setLanguage(language);
 //            bean_.setNavigation(this);
             bean_.setScope(_bean.getScope());

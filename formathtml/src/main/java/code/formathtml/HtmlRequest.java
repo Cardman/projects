@@ -18,6 +18,7 @@ import code.util.CustList;
 import code.util.Numbers;
 import code.util.StringList;
 import code.util.StringMap;
+import code.util.consts.ConstClasses;
 import code.util.exceptions.NullObjectException;
 import code.util.opers.BaseListUtil;
 import code.xml.XmlParser;
@@ -87,7 +88,7 @@ final class HtmlRequest {
                 i_++;
             }
             LocalVariable locVar_ = new LocalVariable();
-            locVar_.setClassName(a.getObjectClassName());
+            locVar_.setClassName(ConstClasses.resolve(a.getObjectClassName()));
             locVar_.setStruct(a.getStruct());
             varNames_.add(tmp_+i_+GET_LOC_VAR);
             ip_.getLocalVars().put(tmp_+i_, locVar_);
@@ -258,8 +259,7 @@ final class HtmlRequest {
                     i_++;
                 }
                 LocalVariable locVar_ = new LocalVariable();
-//                locVar_.setClassName(arg_.getArgClass().getName());
-                locVar_.setClassName(className_);
+                locVar_.setClassName(ConstClasses.resolve(className_));
 //                locVar_.setElement(arg_.getObject());
                 locVar_.setElement(_attribute);
                 ip_.getLocalVars().put(tmp_+i_, locVar_);

@@ -1,4 +1,5 @@
 package code.util.consts;
+import code.util.EntryCust;
 import code.util.StringList;
 import code.util.StringMap;
 import code.util.exceptions.RuntimeClassNotFoundException;
@@ -140,7 +141,14 @@ public final class ConstClasses {
         }
         return ConstClasses.classForNameNotInit(_className);
     }
-    
+    public static String resolve(String _alias) {
+        for (EntryCust<String,String> e: MAPPING.entryList()) {
+            if (StringList.quickEq(e.getKey(), _alias)) {
+                return e.getValue();
+            }
+        }
+        return _alias;
+    }
     public static StringMap<String> getMapping() {
         return MAPPING;
     }

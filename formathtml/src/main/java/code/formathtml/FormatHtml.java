@@ -830,7 +830,7 @@ final class FormatHtml {
                             i_++;
                         }
                         LocalVariable lv_ = new LocalVariable();
-                        lv_.setClassName(classNameParam_);
+                        lv_.setClassName(ConstClasses.resolve(classNameParam_));
                         lv_.setStruct(argt_.getStruct());
                         ip_.getLocalVars().put(tmp_+i_, lv_);
                         ElUtil.processEl(methodName_+LEFT_PAR+tmp_+i_+GET_LOC_VAR+RIGHT_PAR, 0, _conf.toContextEl());
@@ -1046,7 +1046,7 @@ final class FormatHtml {
 //            ip_.setLookForAttrValue(true);
 //            ip_.setOffset(0);
             LocalVariable loc_ = new LocalVariable();
-            loc_.setClassName(className_);
+            loc_.setClassName(ConstClasses.resolve(className_));
             parameters_.put(var_, loc_);
 //            if (cl_.isPrimitive()) {
 //                ip_.setProcessingAttribute(EXPRESSION_ATTRIBUTE);
@@ -1551,7 +1551,7 @@ final class FormatHtml {
                             lv_.setStruct(new Struct(t_));
                         }
 //                        lv_.setElement(t_);
-                        lv_.setClassName(catchElement_.getAttribute(ATTRIBUTE_CLASS_NAME));
+                        lv_.setClassName(ConstClasses.resolve(catchElement_.getAttribute(ATTRIBUTE_CLASS_NAME)));
                         bkIp_.getCatchVars().put(var_, lv_);
                         bkIp_.getReadWrite().setRead(catchElement_.getFirstChild());
                         bkIp_.getReadWrite().setWrite(newCurrentNode_);
@@ -2411,7 +2411,7 @@ final class FormatHtml {
         _ip.setLookForAttrValue(true);
         Class<?> newClassRef_ = ExtractObject.classForName(_conf, 0, className_);
         checkClass(_conf, _ip, newClassRef_, elt_);
-        ret_.setClassName(className_);
+        ret_.setClassName(ConstClasses.resolve(className_));
     }
     private static void processSetTag(Configuration _conf, ImportingPage _ip,
             Element _set) {
@@ -3096,7 +3096,7 @@ final class FormatHtml {
                 throw new NotPrimitivableException(clMatch_.getName()+RETURN_LINE+_conf.joinPages());
             }
             LocalVariable loc_ = new LocalVariable();
-            loc_.setClassName(_className);
+            loc_.setClassName(ConstClasses.resolve(_className));
 //                    loc_.setExpression(expression_);
             try {
                 if (clMatch_.getClazz() == int.class) {
@@ -3123,7 +3123,7 @@ final class FormatHtml {
         }
         if (_object == null) {
             LocalVariable loc_ = new LocalVariable();
-            loc_.setClassName(_className);
+            loc_.setClassName(ConstClasses.resolve(_className));
 //                    loc_.setExpression(expression_);
             return loc_;
         }
@@ -3157,7 +3157,7 @@ final class FormatHtml {
 //        System.out.println(param_);
         if (PrimitiveTypeUtil.canBeUseAsArgument(param_, arg_, _conf.toContextEl().getClasses())) {
             LocalVariable loc_ = new LocalVariable();
-            loc_.setClassName(_className);
+            loc_.setClassName(ConstClasses.resolve(_className));
             loc_.setStruct(_object);
 //                    loc_.setExpression(expression_);
             return loc_;
@@ -7574,8 +7574,8 @@ final class FormatHtml {
                 className_ = long.class.getName();
             }
             Class<?> cl_ = ExtractObject.classForName(_conf, 0, className_);
-            lv_.setClassName(className_);
-            lv_.setIndexClassName(indexClassName_);
+            lv_.setClassName(ConstClasses.resolve(className_));
+            lv_.setIndexClassName(ConstClasses.resolve(indexClassName_));
             lv_.setElement(PrimitiveTypeUtil.convert(cl_, int_));
             lv_.setStep(stepValue_);
             lv_.setExtendedExpression(EMPTY_STRING);
@@ -7584,8 +7584,8 @@ final class FormatHtml {
             LoopVariable lv_ = new LoopVariable();
             className_ = currentForNode_.getAttribute(ATTRIBUTE_CLASS_NAME);
             ExtractObject.checkClassNotEmptyName(_conf, 0, className_);
-            lv_.setClassName(className_);
-            lv_.setIndexClassName(indexClassName_);
+            lv_.setClassName(ConstClasses.resolve(className_));
+            lv_.setIndexClassName(ConstClasses.resolve(indexClassName_));
             lv_.setElement(int_);
             if (iterable_.getClass().isArray()) {
                 lv_.setArray(iterable_);
@@ -7598,8 +7598,8 @@ final class FormatHtml {
             LoopVariable lv_ = new LoopVariable();
             className_ = currentForNode_.getAttribute(KEY_CLASS_NAME_ATTRIBUTE);
             ExtractObject.checkClassNotEmptyName(_conf, 0, className_);
-            lv_.setClassName(className_);
-            lv_.setIndexClassName(indexClassName_);
+            lv_.setClassName(ConstClasses.resolve(className_));
+            lv_.setIndexClassName(ConstClasses.resolve(indexClassName_));
             if (keyValue_) {
                 lv_.setElement(ExtractObject.castEntryCust(_conf, 0, int_).getKey());
             } else {
@@ -7611,8 +7611,8 @@ final class FormatHtml {
             lv_ = new LoopVariable();
             className_ = currentForNode_.getAttribute(VAR_CLASS_NAME_ATTRIBUTE);
             ExtractObject.checkClassNotEmptyName(_conf, 0, className_);
-            lv_.setClassName(className_);
-            lv_.setIndexClassName(indexClassName_);
+            lv_.setClassName(ConstClasses.resolve(className_));
+            lv_.setIndexClassName(ConstClasses.resolve(indexClassName_));
             lv_.setElement(ExtractObject.castEntryCust(_conf, 0, int_).getValue());
             lv_.setMap(mapCast_);
             lv_.setExtendedExpression(listMethod_+GET_VALUE);
