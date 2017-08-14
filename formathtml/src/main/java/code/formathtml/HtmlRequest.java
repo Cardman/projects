@@ -87,7 +87,7 @@ final class HtmlRequest {
                 i_++;
             }
             LocalVariable locVar_ = new LocalVariable();
-            locVar_.setClassName(a.getArgClassName());
+            locVar_.setClassName(a.getObjectClassName());
             locVar_.setStruct(a.getStruct());
             varNames_.add(tmp_+i_+GET_LOC_VAR);
             ip_.getLocalVars().put(tmp_+i_, locVar_);

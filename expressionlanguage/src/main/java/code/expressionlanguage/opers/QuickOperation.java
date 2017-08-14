@@ -68,7 +68,7 @@ public abstract class QuickOperation extends PrimitiveBoolOperation {
     }
 
     final void analyzeCommon(CustList<OperationNode> _nodes, ContextEl _conf, String _op) {
-        CustList<OperationNode> chidren_ = getChildrenAmong(_nodes, true);
+        CustList<OperationNode> chidren_ = getChildrenNodes();
         if (chidren_.size() < 2) {
             setRelativeOffsetPossibleLastPage(getIndexInEl(), _conf);
             throw new BadNumberValuesException(_conf.joinPages());
@@ -121,7 +121,7 @@ public abstract class QuickOperation extends PrimitiveBoolOperation {
     final Argument calculateCommon(
             IdMap<OperationNode, ArgumentsPair> _nodes, ContextEl _conf,
             String _op) {
-        CustList<OperationNode> chidren_ = getChildrenAmong();
+        CustList<OperationNode> chidren_ = getChildrenNodes();
         OperationNode last_ = chidren_.last();
         setRelativeOffsetPossibleLastPage(last_.getIndexInEl(), _conf);
         Argument a_ = _nodes.getVal(last_).getArgument();
@@ -158,7 +158,7 @@ public abstract class QuickOperation extends PrimitiveBoolOperation {
         calculateCommon(_nodes, _conf, _op);
     }
     final void calculateCommon(CustList<OperationNode> _nodes, ContextEl _conf, String _op) {
-        CustList<OperationNode> chidren_ = getChildrenAmong(_nodes, false);
+        CustList<OperationNode> chidren_ = getChildrenNodes();
         setRelativeOffsetPossibleLastPage(chidren_.last().getIndexInEl(), _conf);
         Argument a_ = chidren_.last().getArgument();
         if (a_.getObject() == null) {

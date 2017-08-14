@@ -28,7 +28,6 @@ public final class CmpOperation extends PrimitiveBoolOperation {
         if (StringList.quickEq(_a.getObjectClassName(), String.class.getName())) {
             if (StringList.quickEq(_b.getObjectClassName(), String.class.getName())) {
                 Argument a_ = new Argument();
-                a_.setArgClassName(PrimitiveTypeUtil.PRIM_BOOLEAN);
                 String first_ = (String)_a.getObject();
                 String second_ = (String)_b.getObject();
                 a_.setObject(first_.compareTo(second_) < EQ_CMP);
@@ -197,7 +196,6 @@ public final class CmpOperation extends PrimitiveBoolOperation {
             }
         }
         Argument a_ = new Argument();
-        a_.setArgClassName(PrimitiveTypeUtil.PRIM_BOOLEAN);
         a_.setObject(nb_);
         return a_;
     }
@@ -206,7 +204,6 @@ public final class CmpOperation extends PrimitiveBoolOperation {
         if (StringList.quickEq(_a.getObjectClassName(), String.class.getName())) {
             if (StringList.quickEq(_b.getObjectClassName(), String.class.getName())) {
                 Argument a_ = new Argument();
-                a_.setArgClassName(PrimitiveTypeUtil.PRIM_BOOLEAN);
                 String first_ = (String)_a.getObject();
                 String second_ = (String)_b.getObject();
                 a_.setObject(first_.compareTo(second_) > EQ_CMP);
@@ -375,38 +372,9 @@ public final class CmpOperation extends PrimitiveBoolOperation {
             }
         }
         Argument a_ = new Argument();
-        a_.setArgClassName(PrimitiveTypeUtil.PRIM_BOOLEAN);
         a_.setObject(nb_);
         return a_;
     }
-//    @Override
-//    public void analyze(CustList<OperationNode> _nodes, ContextEl _conf, Calculation _setting) {
-//        if (_setting.getStep() == StepCalculation.LEFT && getParent() == null) {
-//            setRelativeOffsetPossibleLastPage(getIndexInEl(), _conf);
-//            throw new SettingMemberException(_conf.joinPages());
-//        }
-//        CustList<OperationNode> chidren_ = getChildrenAmong(_nodes, true);
-//        if (chidren_.size() != 2) {
-//            setRelativeOffsetPossibleLastPage(getIndexInEl(), _conf);
-//            throw new BadNumberValuesException(_conf.joinPages());
-//        }
-//        ClassArgumentMatching first_ = chidren_.first().getResultClass();
-//        ClassArgumentMatching second_ = chidren_.last().getResultClass();
-//        if (first_.matchClass(String.class) && second_.matchClass(String.class)) {
-//            setResultClass(new ClassArgumentMatching(PrimitiveTypeUtil.PRIM_BOOLEAN));
-//            return;
-//        }
-//        ClassArgumentMatching classFirst_ = PrimitiveTypeUtil.toPrimitive(first_, true);
-//        ClassArgumentMatching classSecond_ = PrimitiveTypeUtil.toPrimitive(second_, true);
-//        if (classFirst_.isPrimitive()) {
-//            if (classSecond_.isPrimitive()) {
-//                setResultClass(new ClassArgumentMatching(PrimitiveTypeUtil.PRIM_BOOLEAN));
-//                return;
-//            }
-//        }
-//        setRelativeOffsetPossibleLastPage(getIndexInEl()+getOperations().getOperators().getKey(0), _conf);
-//        throw new NotComparableException(classFirst_+RETURN_LINE+classSecond_+RETURN_LINE+_conf.joinPages());
-//    }
 
     @Override
     public void analyzeLeft(CustList<OperationNode> _nodes, ContextEl _conf,
@@ -431,7 +399,7 @@ public final class CmpOperation extends PrimitiveBoolOperation {
     }
 
     void analyzeCommon(CustList<OperationNode> _nodes, ContextEl _conf, String _op) {
-        CustList<OperationNode> chidren_ = getChildrenAmong(_nodes, true);
+        CustList<OperationNode> chidren_ = getChildrenNodes();
         if (chidren_.size() != 2) {
             setRelativeOffsetPossibleLastPage(getIndexInEl(), _conf);
             throw new BadNumberValuesException(_conf.joinPages());
@@ -513,7 +481,7 @@ public final class CmpOperation extends PrimitiveBoolOperation {
     Argument calculateCommon(
             IdMap<OperationNode, ArgumentsPair> _nodes, ContextEl _conf,
             String _op) {
-        CustList<OperationNode> chidren_ = getChildrenAmong();
+        CustList<OperationNode> chidren_ = getChildrenNodes();
         OperationNode opOne_ = chidren_.first();
         OperationNode opTwo_ = chidren_.last();
         Argument first_ = _nodes.getVal(opOne_).getArgument();
@@ -627,7 +595,7 @@ public final class CmpOperation extends PrimitiveBoolOperation {
     }
 
     void calculateCommon(CustList<OperationNode> _nodes, ContextEl _conf, String _op) {
-        CustList<OperationNode> chidren_ = getChildrenAmong(_nodes, false);
+        CustList<OperationNode> chidren_ = getChildrenNodes();
         Argument first_ = chidren_.first().getArgument();
         if (first_.getObject() == null) {
             setRelativeOffsetPossibleLastPage(chidren_.first().getIndexInEl(), _conf);

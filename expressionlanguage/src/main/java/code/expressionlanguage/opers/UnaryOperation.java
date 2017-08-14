@@ -64,7 +64,7 @@ public final class UnaryOperation extends PrimitiveBoolOperation {
     }
 
     void analyzeCommon(CustList<OperationNode> _nodes, ContextEl _conf, String _op) {
-        CustList<OperationNode> chidren_ = getChildrenAmong(_nodes, true);
+        CustList<OperationNode> chidren_ = getChildrenNodes();
         if (chidren_.size() != 1) {
             setRelativeOffsetPossibleLastPage(getIndexInEl(), _conf);
             throw new BadNumberValuesException(_conf.joinPages());
@@ -135,7 +135,7 @@ public final class UnaryOperation extends PrimitiveBoolOperation {
     Argument calculateCommon(
             IdMap<OperationNode, ArgumentsPair> _nodes, ContextEl _conf,
             String _op) {
-        CustList<OperationNode> chidren_ = getChildrenAmong();
+        CustList<OperationNode> chidren_ = getChildrenNodes();
         int key_ = getOperations().getOperators().firstKey();
         OperationNode op_ = chidren_.first();
         Argument arg_ = _nodes.getVal(op_).getArgument();
@@ -145,7 +145,6 @@ public final class UnaryOperation extends PrimitiveBoolOperation {
         if (o_ == null) {
             throw new NullObjectException(_conf.joinPages());
         }
-        a_.setArgClassName(getResultClass().getName());
         if (StringList.quickEq(getOperations().getOperators().getVal(key_).trim(), UNARY_MINUS)) {
             if (o_ instanceof Character) {
                 a_.setObject(-((Character)o_));
@@ -232,7 +231,7 @@ public final class UnaryOperation extends PrimitiveBoolOperation {
     }
 
     void calculateCommon(CustList<OperationNode> _nodes, ContextEl _conf, String _op) {
-        CustList<OperationNode> chidren_ = getChildrenAmong(_nodes, false);
+        CustList<OperationNode> chidren_ = getChildrenNodes();
         int key_ = getOperations().getOperators().firstKey();
         Argument arg_ = chidren_.first().getArgument();
         Argument a_ = new Argument();
@@ -241,7 +240,6 @@ public final class UnaryOperation extends PrimitiveBoolOperation {
         if (o_ == null) {
             throw new NullObjectException(_conf.joinPages());
         }
-        a_.setArgClassName(getResultClass().getName());
         if (StringList.quickEq(getOperations().getOperators().getVal(key_).trim(), UNARY_MINUS)) {
             if (o_ instanceof Character) {
                 a_.setObject(-((Character)o_));

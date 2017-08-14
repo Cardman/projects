@@ -45,7 +45,7 @@ public final class DotOperation extends MethodOperation {
     }
 
     void analyzeCommon(CustList<OperationNode> _nodes, ContextEl _conf, String _op) {
-        CustList<OperationNode> chidren_ = getChildrenAmong(_nodes, true);
+        CustList<OperationNode> chidren_ = getChildrenNodes();
         if (chidren_.size() < 2) {
             setRelativeOffsetPossibleLastPage(getIndexInEl(), _conf);
             throw new BadNumberValuesException(_conf.joinPages());
@@ -82,7 +82,7 @@ public final class DotOperation extends MethodOperation {
     Argument calculateCommon(
             IdMap<OperationNode, ArgumentsPair> _nodes, ContextEl _conf,
             String _op) {
-        CustList<OperationNode> chidren_ = getChildrenAmong();
+        CustList<OperationNode> chidren_ = getChildrenNodes();
         OperationNode o_ = chidren_.last();
         Argument a_ = _nodes.getVal(o_).getArgument();
         setSimpleArgument(a_, _conf, _nodes);
@@ -114,7 +114,7 @@ public final class DotOperation extends MethodOperation {
     }
 
     void calculateCommon(CustList<OperationNode> _nodes, ContextEl _conf, String _op) {
-        CustList<OperationNode> chidren_ = getChildrenAmong(_nodes, false);
+        CustList<OperationNode> chidren_ = getChildrenNodes();
         setSimpleArgument(chidren_.last().getArgument(), _conf);
     }
     @Override

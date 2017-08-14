@@ -21,26 +21,9 @@ public abstract class MethodOperation extends OperationNode {
         calculateChildren();
     }
 
-    final CustList<OperationNode> getChildrenAmong() {
+    final CustList<OperationNode> getChildrenNodes() {
         CustList<OperationNode> chidren_ = new CustList<OperationNode>();
         for (OperationNode o: ElUtil.getDirectChildren(this)) {
-            chidren_.add((OperationNode)o);
-        }
-        return chidren_;
-    }
-
-    final CustList<OperationNode> getChildrenAmong(CustList<OperationNode> _nodes, boolean _analayze) {
-        CustList<OperationNode> chidren_ = new CustList<OperationNode>();
-        for (OperationNode o: ElUtil.getDirectChildren(this)) {
-//            if (o.getParent() == this) {
-//                if (_analayze && o.getResultClass() == null) {
-//                    throw new AnalyzingException();
-//                } else
-//                if (!_analayze && o.getArgument() == null) {
-//                    throw new EvalutationException();
-//                }
-//                chidren_.add((OperationNode)o);
-//            }
             chidren_.add((OperationNode)o);
         }
         return chidren_;

@@ -63,7 +63,7 @@ public abstract class NumericOperation extends MethodOperation {
     /**@throws InvokeRedinedMethException
     @throws NullObjectException*/
     static Argument calculateSum(Argument _a, ContextEl _cont, Argument _b) {
-        if (_a.matchArgClass(String.class.getName())) {
+        if (_a.getObject() instanceof String) {
             StringBuilder str_ = new StringBuilder();
             str_.append(_a.getObject());
             try {
@@ -72,11 +72,10 @@ public abstract class NumericOperation extends MethodOperation {
                 throw new InvokeRedinedMethException(SECOND+RETURN_LINE+_cont.joinPages(),new Struct(_0));
             }
             Argument a_ = new Argument();
-            a_.setArgClassName(String.class.getName());
             a_.setObject(str_.toString());
             return a_;
         }
-        if (_b.matchArgClass(String.class.getName())) {
+        if (_b.getObject() instanceof String) {
             StringBuilder str_ = new StringBuilder();
             try {
                 str_.append(_a.getObject());
@@ -85,7 +84,6 @@ public abstract class NumericOperation extends MethodOperation {
             }
             str_.append(_b.getObject());
             Argument a_ = new Argument();
-            a_.setArgClassName(String.class.getName());
             a_.setObject(str_.toString());
             return a_;
         }
@@ -95,7 +93,6 @@ public abstract class NumericOperation extends MethodOperation {
                 str_.append(_a.getObject());
                 str_.append(_b.getObject());
                 Argument a_ = new Argument();
-                a_.setArgClassName(String.class.getName());
                 a_.setObject(str_.toString());
                 return a_;
             }
@@ -253,7 +250,6 @@ public abstract class NumericOperation extends MethodOperation {
             }
         }
         Argument a_ = new Argument();
-        a_.setArgClassName(PrimitiveTypeUtil.PRIM+arg_.getName());
         a_.setObject(nb_);
         return a_;
     }
@@ -401,7 +397,6 @@ public abstract class NumericOperation extends MethodOperation {
             }
         }
         Argument a_ = new Argument();
-        a_.setArgClassName(PrimitiveTypeUtil.PRIM+arg_.getName());
         a_.setObject(nb_);
         return a_;
     }
@@ -549,7 +544,6 @@ public abstract class NumericOperation extends MethodOperation {
             }
         }
         Argument a_ = new Argument();
-        a_.setArgClassName(PrimitiveTypeUtil.PRIM+arg_.getName());
         a_.setObject(nb_);
         return a_;
     }
@@ -710,7 +704,6 @@ public abstract class NumericOperation extends MethodOperation {
             }
         }
         Argument a_ = new Argument();
-        a_.setArgClassName(PrimitiveTypeUtil.PRIM+arg_.getName());
         a_.setObject(nb_);
         return a_;
     }
@@ -871,7 +864,6 @@ public abstract class NumericOperation extends MethodOperation {
             }
         }
         Argument a_ = new Argument();
-        a_.setArgClassName(PrimitiveTypeUtil.PRIM+arg_.getName());
         a_.setObject(nb_);
         return a_;
     }
@@ -941,7 +933,7 @@ public abstract class NumericOperation extends MethodOperation {
     }
 
     final void analyzeCommon(CustList<OperationNode> _nodes, ContextEl _conf, String _op) {
-        CustList<OperationNode> chidren_ = getChildrenAmong(_nodes, true);
+        CustList<OperationNode> chidren_ = getChildrenNodes();
         if (chidren_.size() < 2) {
             setRelativeOffsetPossibleLastPage(getIndexInEl(), _conf);
             throw new BadNumberValuesException(_conf.joinPages());
@@ -1000,7 +992,7 @@ public abstract class NumericOperation extends MethodOperation {
     final Argument calculateCommon(
             IdMap<OperationNode, ArgumentsPair> _nodes, ContextEl _conf,
             String _op) {
-        CustList<OperationNode> chidren_ = getChildrenAmong();
+        CustList<OperationNode> chidren_ = getChildrenNodes();
         OperationNode o_ = chidren_.first();
         Argument a_ = _nodes.getVal(o_).getArgument();
         Argument r_;
@@ -1067,7 +1059,7 @@ public abstract class NumericOperation extends MethodOperation {
         calculateCommon(_nodes, _conf, _op);
     }
     final void calculateCommon(CustList<OperationNode> _nodes, ContextEl _conf, String _op) {
-        CustList<OperationNode> chidren_ = getChildrenAmong(_nodes, false);
+        CustList<OperationNode> chidren_ = getChildrenNodes();
         Argument a_ = chidren_.first().getArgument();
         Argument r_;
         int i_ = CustList.SECOND_INDEX;

@@ -27,6 +27,8 @@ public final class FieldBlock extends Leaf implements InfoBlock {
 
     private final boolean staticField;
 
+    private final boolean finalField;
+
     private final AccessEnum access;
 
     private CustList<OperationNode> opValue;
@@ -38,6 +40,7 @@ public final class FieldBlock extends Leaf implements InfoBlock {
         className = _el.getAttribute(ATTRIBUTE_CLASS);
         value = _el.getAttribute(ATTRIBUTE_VALUE);
         staticField = _el.hasAttribute(ATTRIBUTE_STATIC);
+        finalField = _el.hasAttribute(ATTRIBUTE_FINAL);
         access = AccessEnum.valueOf(_el.getAttribute(ATTRIBUTE_ACCESS));
     }
     public Struct getDefaultStruct() {
@@ -71,6 +74,11 @@ public final class FieldBlock extends Leaf implements InfoBlock {
     @Override
     public boolean isStaticField() {
         return staticField;
+    }
+
+    @Override
+    public boolean isFinalField() {
+        return finalField;
     }
 
     @Override

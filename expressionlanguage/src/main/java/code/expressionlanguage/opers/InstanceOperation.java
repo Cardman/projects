@@ -84,7 +84,7 @@ public final class InstanceOperation extends InvokingOperation {
 
     void analyzeCommon(CustList<OperationNode> _nodes, ContextEl _conf, boolean _enumContext, String _op) {
         Classes classes_ = _conf.getClasses();
-        CustList<OperationNode> chidren_ = getChildrenAmong(_nodes, true);
+        CustList<OperationNode> chidren_ = getChildrenNodes();
         int off_ = StringList.getFirstPrintableCharIndex(methodName);
         setRelativeOffsetPossibleLastPage(getIndexInEl()+off_, _conf);
         String className_ = methodName.trim().substring(INSTANCE.length()+2);
@@ -313,7 +313,7 @@ public final class InstanceOperation extends InvokingOperation {
     Argument calculateCommon(
             IdMap<OperationNode, ArgumentsPair> _nodes, ContextEl _conf,
             String _op) {
-        CustList<OperationNode> chidren_ = getChildrenAmong();
+        CustList<OperationNode> chidren_ = getChildrenNodes();
         int off_ = StringList.getFirstPrintableCharIndex(methodName);
         setRelativeOffsetPossibleLastPage(getIndexInEl()+off_, _conf);
         String className_ = methodName.trim().substring(INSTANCE.length()+2);
@@ -380,7 +380,7 @@ public final class InstanceOperation extends InvokingOperation {
                     i_++;
                 }
                 String clArr_ = PrimitiveTypeUtil.getPrettyArrayType(realClassName_, args_.length);
-                a_.setStructArgClassName(new Struct(o_,clArr_));
+                a_.setStruct(new Struct(o_,clArr_));
                 setSimpleArgument(a_, _conf, _nodes);
                 return a_;
             } else if (cust_) {
@@ -389,13 +389,13 @@ public final class InstanceOperation extends InvokingOperation {
                 for (int d: args_) {
                     dims_.add(d);
                 }
-                a_.setStructArgClassName(PrimitiveTypeUtil.newCustomArray(realClassName_, dims_));
+                a_.setStruct(PrimitiveTypeUtil.newCustomArray(realClassName_, dims_));
                 setSimpleArgument(a_, _conf, _nodes);
                 return a_;
             } else {
                 Object o_ = newClassicArray(_conf, instanceClassName_, realClassName_, args_);
                 String clArr_ = PrimitiveTypeUtil.getPrettyArrayType(realClassName_, args_.length);
-                a_.setStructArgClassName(new Struct(o_,clArr_));
+                a_.setStruct(new Struct(o_,clArr_));
                 setSimpleArgument(a_, _conf, _nodes);
                 return a_;
             }
@@ -447,7 +447,6 @@ public final class InstanceOperation extends InvokingOperation {
                 }
             }
             a_.setStruct(new Struct(o_,PrimitiveTypeUtil.getPrettyArrayType(realClassName_, args_.length)));
-            a_.setArgClassName(PrimitiveTypeUtil.getPrettyArrayType(realClassName_, args_.length));
             setSimpleArgument(a_, _conf, _nodes);
             return a_;
         }
@@ -520,7 +519,7 @@ public final class InstanceOperation extends InvokingOperation {
     }
 
     void calculateCommon(CustList<OperationNode> _nodes, ContextEl _conf, String _op) {
-        CustList<OperationNode> chidren_ = getChildrenAmong(_nodes, true);
+        CustList<OperationNode> chidren_ = getChildrenNodes();
         int off_ = StringList.getFirstPrintableCharIndex(methodName);
         setRelativeOffsetPossibleLastPage(getIndexInEl()+off_, _conf);
         String className_ = methodName.trim().substring(INSTANCE.length()+2);
@@ -587,7 +586,7 @@ public final class InstanceOperation extends InvokingOperation {
                     }
                     i_++;
                 }
-                a_.setStructArgClassName(new Struct(o_,type_));
+                a_.setStruct(new Struct(o_,type_));
                 setSimpleArgument(a_, _conf);
                 return;
             } else if (cust_) {
@@ -596,13 +595,13 @@ public final class InstanceOperation extends InvokingOperation {
                 for (int d: args_) {
                     dims_.add(d);
                 }
-                a_.setStructArgClassName(PrimitiveTypeUtil.newCustomArray(realClassName_, dims_));
+                a_.setStruct(PrimitiveTypeUtil.newCustomArray(realClassName_, dims_));
                 setSimpleArgument(a_, _conf);
                 return;
             } else {
                 Object o_ = newClassicArray(_conf, instanceClassName_, realClassName_, args_);
                 String type_ = PrimitiveTypeUtil.getPrettyArrayType(realClassName_, args_.length);
-                a_.setStructArgClassName(new Struct(o_,type_));
+                a_.setStruct(new Struct(o_,type_));
                 setSimpleArgument(a_, _conf);
                 return;
             }
@@ -654,8 +653,6 @@ public final class InstanceOperation extends InvokingOperation {
                 }
             }
             a_.setStruct(new Struct(o_,PrimitiveTypeUtil.getPrettyArrayType(realClassName_, args_.length)));
-            String type_ = PrimitiveTypeUtil.getPrettyArrayType(realClassName_, args_.length);
-            a_.setArgClassName(type_);
             setSimpleArgument(a_, _conf);
             return;
         }

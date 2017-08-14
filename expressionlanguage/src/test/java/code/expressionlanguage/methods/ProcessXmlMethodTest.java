@@ -6,7 +6,6 @@ import static org.junit.Assert.assertTrue;
 
 import java.lang.reflect.Array;
 
-import org.junit.Ignore;
 import org.junit.Test;
 
 import code.expressionlanguage.AccessValueEx;
@@ -48,7 +47,7 @@ public class ProcessXmlMethodTest {
     private static final String PACKAGE_ACCESS = "PACKAGE";
     private static final String PRIVATE_ACCESS = "PRIVATE";
 
-    @Test(timeout=1000)
+    @Test
     public void calculateArgument1Test() {
         String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg'>\n";
         xml_ += "<method access='"+PUBLIC_ACCESS+"' modifier='static' name='exmeth' class='"+PrimitiveTypeUtil.PRIM_INT+"'>\n";
@@ -75,10 +74,9 @@ public class ProcessXmlMethodTest {
         Argument ret_ = new Argument();
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
         assertEq(9, (Number)ret_.getObject());
-        assertEq(PrimitiveTypeUtil.PRIM_INT, ret_.getArgClassName());
     }
 
-    @Test(timeout=1000)
+    @Test
     public void calculateArgument2Test() {
         String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg'>\n";
         xml_ += "<method access='"+PUBLIC_ACCESS+"' modifier='static' name='exmeth' class='"+PrimitiveTypeUtil.PRIM_INT+"'>\n";
@@ -102,10 +100,9 @@ public class ProcessXmlMethodTest {
         Argument ret_;
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
         assertEq(11, (Number)ret_.getObject());
-        assertEq(PrimitiveTypeUtil.PRIM_INT, ret_.getArgClassName());
     }
 
-    @Test(timeout=1000)
+    @Test
     public void calculateArgument3Test() {
         String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg'>\n";
         xml_ += "<method access='"+PUBLIC_ACCESS+"' modifier='static' name='exmeth' class='"+PrimitiveTypeUtil.PRIM_INT+"'>\n";
@@ -130,11 +127,10 @@ public class ProcessXmlMethodTest {
         Argument ret_;
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
         assertEq(13, (Number)ret_.getObject());
-        assertEq(PrimitiveTypeUtil.PRIM_INT, ret_.getArgClassName());
     }
 
 
-    @Test(timeout=1000)
+    @Test
     public void calculateArgument4Test() {
         String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg'>\n";
         xml_ += "<method access='"+PUBLIC_ACCESS+"' modifier='static' name='exmeth' class='"+PrimitiveTypeUtil.PRIM_INT+"'>\n";
@@ -159,10 +155,9 @@ public class ProcessXmlMethodTest {
         Argument ret_;
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
         assertEq(13, (Number)ret_.getObject());
-        assertEq(PrimitiveTypeUtil.PRIM_INT, ret_.getArgClassName());
     }
 
-    @Test(timeout=1000)
+    @Test
     public void calculateArgument5Test() {
         String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg'>\n";
         xml_ += "<method access='"+PUBLIC_ACCESS+"' modifier='static' name='exmeth' class='"+PrimitiveTypeUtil.PRIM_INT+"'>\n";
@@ -187,10 +182,9 @@ public class ProcessXmlMethodTest {
         Argument ret_;
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
         assertEq(10, (Number)ret_.getObject());
-        assertEq(PrimitiveTypeUtil.PRIM_INT, ret_.getArgClassName());
     }
 
-    @Test(timeout=1000)
+    @Test
     public void calculateArgument6Test() {
         String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg'>\n";
         xml_ += "<method access='"+PUBLIC_ACCESS+"' modifier='static' name='exmeth' class='"+PrimitiveTypeUtil.PRIM_INT+"'>\n";
@@ -218,11 +212,9 @@ public class ProcessXmlMethodTest {
         Argument ret_;
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
         assertEq(22, (Number)ret_.getObject());
-        assertEq(PrimitiveTypeUtil.PRIM_INT, ret_.getArgClassName());
     }
 
-
-    @Test(timeout=1000)
+    @Test
     public void calculateArgument7Test() {
         String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg'>\n";
         xml_ += "<method access='"+PUBLIC_ACCESS+"' modifier='static' name='exmeth' class='"+PrimitiveTypeUtil.PRIM_INT+"'>\n";
@@ -248,11 +240,10 @@ public class ProcessXmlMethodTest {
         Argument ret_;
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
         assertEq(10, (Number)ret_.getObject());
-        assertEq(PrimitiveTypeUtil.PRIM_INT, ret_.getArgClassName());
     }
 
 
-    @Test(timeout=1000)
+    @Test
     public void calculateArgument8Test() {
         String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg'>\n";
         xml_ += "<method access='"+PUBLIC_ACCESS+"' modifier='static' name='exmeth' class='"+PrimitiveTypeUtil.PRIM_INT+"'>\n";
@@ -278,10 +269,9 @@ public class ProcessXmlMethodTest {
         Argument ret_;
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
         assertEq(17, (Number)ret_.getObject());
-        assertEq(PrimitiveTypeUtil.PRIM_INT, ret_.getArgClassName());
     }
 
-    @Test(timeout=1000)
+    @Test
     public void calculateArgument9Test() {
         String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg'>\n";
         xml_ += "<method access='"+PUBLIC_ACCESS+"' modifier='static' name='exmeth' class='"+PrimitiveTypeUtil.PRIM_INT+"'>\n";
@@ -308,10 +298,9 @@ public class ProcessXmlMethodTest {
         Argument ret_;
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
         assertEq(17, (Number)ret_.getObject());
-        assertEq(PrimitiveTypeUtil.PRIM_INT, ret_.getArgClassName());
     }
 
-    @Test(timeout=1000)
+    @Test
     public void calculateArgument10Test() {
         String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg'>\n";
         xml_ += "<method access='"+PUBLIC_ACCESS+"' modifier='static' name='exmeth' class='"+PrimitiveTypeUtil.PRIM_INT+"'>\n";
@@ -339,10 +328,9 @@ public class ProcessXmlMethodTest {
         Argument ret_;
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
         assertEq(13, (Number)ret_.getObject());
-        assertEq(PrimitiveTypeUtil.PRIM_INT, ret_.getArgClassName());
     }
 
-    @Test(timeout=1000)
+    @Test
     public void calculateArgument11Test() {
         String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg'>\n";
         xml_ += "<method access='"+PUBLIC_ACCESS+"' modifier='static' name='exmeth' class='"+PrimitiveTypeUtil.PRIM_INT+"'>\n";
@@ -368,10 +356,9 @@ public class ProcessXmlMethodTest {
         Argument ret_;
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
         assertEq(10, (Number)ret_.getObject());
-        assertEq(PrimitiveTypeUtil.PRIM_INT, ret_.getArgClassName());
     }
 
-    @Test(timeout=1000)
+    @Test
     public void calculateArgument12Test() {
         String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg'>\n";
         xml_ += "<method access='"+PUBLIC_ACCESS+"' modifier='static' name='exmeth' class='"+PrimitiveTypeUtil.PRIM_INT+"'>\n";
@@ -398,10 +385,9 @@ public class ProcessXmlMethodTest {
         Argument ret_;
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
         assertEq(0, (Number)ret_.getObject());
-        assertEq(PrimitiveTypeUtil.PRIM_INT, ret_.getArgClassName());
     }
 
-    @Test(timeout=1000)
+    @Test
     public void calculateArgument13Test() {
         String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg'>\n";
         xml_ += "<method access='"+PUBLIC_ACCESS+"' modifier='static' name='exmeth' class='"+PrimitiveTypeUtil.PRIM_INT+"'>\n";
@@ -429,10 +415,9 @@ public class ProcessXmlMethodTest {
         Argument ret_;
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
         assertEq(10,(Number) ret_.getObject());
-        assertEq(PrimitiveTypeUtil.PRIM_INT, ret_.getArgClassName());
     }
 
-    @Test(timeout=1000)
+    @Test
     public void calculateArgument14Test() {
         String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg'>\n";
         xml_ += "<method access='"+PUBLIC_ACCESS+"' modifier='static' name='exmeth' class='"+PrimitiveTypeUtil.PRIM_INT+"'>\n";
@@ -458,10 +443,9 @@ public class ProcessXmlMethodTest {
         Argument ret_;
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
         assertEq(0, (Number)ret_.getObject());
-        assertEq(PrimitiveTypeUtil.PRIM_INT, ret_.getArgClassName());
     }
 
-    @Test(timeout=1000)
+    @Test
     public void calculateArgument15Test() {
         String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg'>\n";
         xml_ += "<method access='"+PUBLIC_ACCESS+"' modifier='static' name='exmeth' class='"+PrimitiveTypeUtil.PRIM_INT+"'>\n";
@@ -490,10 +474,9 @@ public class ProcessXmlMethodTest {
         Argument ret_;
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
         assertEq(12, (Number)ret_.getObject());
-        assertEq(PrimitiveTypeUtil.PRIM_INT, ret_.getArgClassName());
     }
 
-    @Test(timeout=1000)
+    @Test
     public void calculateArgument16Test() {
         String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg'>\n";
         xml_ += "<method access='"+PUBLIC_ACCESS+"' modifier='static' name='catching' class='"+PrimitiveTypeUtil.PRIM_INT+"'>\n";
@@ -523,7 +506,6 @@ public class ProcessXmlMethodTest {
         Argument ret_ = new Argument();
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
         assertEq(1, (Number)ret_.getObject());
-        assertEq(PrimitiveTypeUtil.PRIM_INT, ret_.getArgClassName());
     }
 
     @Test
@@ -562,7 +544,6 @@ public class ProcessXmlMethodTest {
         Argument ret_ = new Argument();
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
         assertEq(2, (Number)ret_.getObject());
-        assertEq(PrimitiveTypeUtil.PRIM_INT, ret_.getArgClassName());
     }
 
     @Test
@@ -598,7 +579,6 @@ public class ProcessXmlMethodTest {
         Argument ret_ = new Argument();
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
         assertEq(1, (Number)ret_.getObject());
-        assertEq(PrimitiveTypeUtil.PRIM_INT, ret_.getArgClassName());
     }
 
     @Test
@@ -634,7 +614,6 @@ public class ProcessXmlMethodTest {
         Argument ret_ = new Argument();
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
         assertEq(1, (Number)ret_.getObject());
-        assertEq(PrimitiveTypeUtil.PRIM_INT, ret_.getArgClassName());
     }
 
     @Test
@@ -673,7 +652,6 @@ public class ProcessXmlMethodTest {
         Argument ret_ = new Argument();
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
         assertEq(1, (Number)ret_.getObject());
-        assertEq(PrimitiveTypeUtil.PRIM_INT, ret_.getArgClassName());
     }
 
     @Test
@@ -712,7 +690,6 @@ public class ProcessXmlMethodTest {
         Argument ret_ = new Argument();
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
         assertEq(2, (Number)ret_.getObject());
-        assertEq(PrimitiveTypeUtil.PRIM_INT, ret_.getArgClassName());
     }
 
     @Test
@@ -748,7 +725,6 @@ public class ProcessXmlMethodTest {
         Argument ret_ = new Argument();
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
         assertEq(2, (Number)ret_.getObject());
-        assertEq(PrimitiveTypeUtil.PRIM_INT, ret_.getArgClassName());
     }
 
 
@@ -788,7 +764,6 @@ public class ProcessXmlMethodTest {
         Argument ret_ = new Argument();
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
         assertEq(3, (Number)ret_.getObject());
-        assertEq(PrimitiveTypeUtil.PRIM_INT, ret_.getArgClassName());
     }
 
     @Test
@@ -824,10 +799,9 @@ public class ProcessXmlMethodTest {
         Argument ret_ = new Argument();
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
         assertEq(-1, (Number)ret_.getObject());
-        assertEq(PrimitiveTypeUtil.PRIM_INT, ret_.getArgClassName());
     }
 
-    @Test(timeout=1000)
+    @Test
     public void calculateArgument25Test() {
         String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg'>\n";
         xml_ += "<method access='"+PUBLIC_ACCESS+"' modifier='static' name='exmeth' class='"+PrimitiveTypeUtil.PRIM_INT+"'>\n";
@@ -855,10 +829,9 @@ public class ProcessXmlMethodTest {
         Argument ret_;
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
         assertEq(13, (Number)ret_.getObject());
-        assertEq(PrimitiveTypeUtil.PRIM_INT, ret_.getArgClassName());
     }
 
-    @Test(timeout=1000)
+    @Test
     public void calculateArgument26Test() {
         String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg'>\n";
         xml_ += "<method access='"+PUBLIC_ACCESS+"' modifier='static' name='exmeth' class='"+PrimitiveTypeUtil.PRIM_INT+"'>\n";
@@ -884,10 +857,9 @@ public class ProcessXmlMethodTest {
         Argument ret_;
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
         assertEq(17, (Number)ret_.getObject());
-        assertEq(PrimitiveTypeUtil.PRIM_INT, ret_.getArgClassName());
     }
 
-    @Test(timeout=1000)
+    @Test
     public void calculateArgument27Test() {
         String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg'>\n";
         xml_ += "<method access='"+PUBLIC_ACCESS+"' modifier='static' name='exmeth' class='"+PrimitiveTypeUtil.PRIM_INT+"'>\n";
@@ -916,10 +888,9 @@ public class ProcessXmlMethodTest {
         Argument ret_;
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
         assertEq(17, (Number)ret_.getObject());
-        assertEq(PrimitiveTypeUtil.PRIM_INT, ret_.getArgClassName());
     }
 
-    @Test(timeout=1000)
+    @Test
     public void calculateArgument28Test() {
         String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg'>\n";
         xml_ += "<method access='"+PUBLIC_ACCESS+"' modifier='static' name='exmeth' class='"+PrimitiveTypeUtil.PRIM_INT+"'>\n";
@@ -943,10 +914,9 @@ public class ProcessXmlMethodTest {
         Argument ret_;
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
         assertEq(10, (Number)ret_.getObject());
-        assertEq(PrimitiveTypeUtil.PRIM_INT, ret_.getArgClassName());
     }
 
-    @Test(timeout=1000)
+    @Test
     public void calculateArgument29Test() {
         String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg'>\n";
         xml_ += "<method access='"+PUBLIC_ACCESS+"' modifier='static' name='catching' class='"+PrimitiveTypeUtil.PRIM_INT+"'>\n";
@@ -977,10 +947,9 @@ public class ProcessXmlMethodTest {
         Argument ret_ = new Argument();
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
         assertEq(424, (Number)ret_.getObject());
-        assertEq(PrimitiveTypeUtil.PRIM_INT, ret_.getArgClassName());
     }
 
-    @Test(timeout=1000)
+    @Test
     public void calculateArgument30Test() {
         String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg'>\n";
         xml_ += "<method access='"+PUBLIC_ACCESS+"' modifier='static' name='catching' class='"+PrimitiveTypeUtil.PRIM_INT+"'>\n";
@@ -1011,7 +980,6 @@ public class ProcessXmlMethodTest {
         Argument ret_ = new Argument();
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
         assertEq(323, (Number)ret_.getObject());
-        assertEq(PrimitiveTypeUtil.PRIM_INT, ret_.getArgClassName());
     }
 
     @Test
@@ -1046,10 +1014,9 @@ public class ProcessXmlMethodTest {
         Argument ret_ = new Argument();
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
         assertEq(2424, (Number)ret_.getObject());
-        assertEq(PrimitiveTypeUtil.PRIM_INT, ret_.getArgClassName());
     }
 
-    @Test(timeout=1000)
+    @Test
     public void calculateArgument32Test() {
         String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg'>\n";
         xml_ += "<method access='"+PUBLIC_ACCESS+"' modifier='static' name='catching' class='"+PrimitiveTypeUtil.PRIM_INT+"'>\n";
@@ -1081,10 +1048,9 @@ public class ProcessXmlMethodTest {
         Argument ret_ = new Argument();
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
         assertEq(2323, (Number)ret_.getObject());
-        assertEq(PrimitiveTypeUtil.PRIM_INT, ret_.getArgClassName());
     }
 
-    @Test(timeout=1000)
+    @Test
     public void calculateArgument33Test() {
         String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg'>\n";
         xml_ += "<method access='"+PUBLIC_ACCESS+"' modifier='static' name='catching' class='"+PrimitiveTypeUtil.PRIM_INT+"'>\n";
@@ -1106,10 +1072,9 @@ public class ProcessXmlMethodTest {
         Argument ret_ = new Argument();
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
         assertEq(10, (Number)ret_.getObject());
-        assertEq(PrimitiveTypeUtil.PRIM_INT, ret_.getArgClassName());
     }
 
-    @Test(timeout=1000)
+    @Test
     public void calculateArgument34Test() {
         String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg'>\n";
         xml_ += "<method access='"+PUBLIC_ACCESS+"' modifier='static' name='catching' class='"+PrimitiveTypeUtil.PRIM_INT+"'>\n";
@@ -1131,10 +1096,9 @@ public class ProcessXmlMethodTest {
         Argument ret_ = new Argument();
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
         assertEq(10, (Number)ret_.getObject());
-        assertEq(PrimitiveTypeUtil.PRIM_INT, ret_.getArgClassName());
     }
 
-    @Test(timeout=1000)
+    @Test
     public void calculateArgument35Test() {
         String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg'>\n";
         xml_ += "<method access='"+PUBLIC_ACCESS+"' modifier='static' name='catching' class='"+PrimitiveTypeUtil.PRIM_INT+"'>\n";
@@ -1156,10 +1120,9 @@ public class ProcessXmlMethodTest {
         Argument ret_ = new Argument();
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
         assertEq(10, (Number)ret_.getObject());
-        assertEq(PrimitiveTypeUtil.PRIM_INT, ret_.getArgClassName());
     }
 
-    @Test(timeout=1000)
+    @Test
     public void calculateArgument36Test() {
         String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg'>\n";
         xml_ += "<method access='"+PUBLIC_ACCESS+"' modifier='static' name='catching' class='"+PrimitiveTypeUtil.PRIM_INT+"'>\n";
@@ -1181,10 +1144,9 @@ public class ProcessXmlMethodTest {
         Argument ret_ = new Argument();
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
         assertEq(6, (Number)ret_.getObject());
-        assertEq(PrimitiveTypeUtil.PRIM_INT, ret_.getArgClassName());
     }
 
-    @Test(timeout=1000)
+    @Test
     public void calculateArgument37Test() {
         String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg'>\n";
         xml_ += "<method access='"+PUBLIC_ACCESS+"' modifier='static' name='catching' class='"+PrimitiveTypeUtil.PRIM_INT+"'>\n";
@@ -1206,10 +1168,9 @@ public class ProcessXmlMethodTest {
         Argument ret_ = new Argument();
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
         assertEq(4, (Number)ret_.getObject());
-        assertEq(PrimitiveTypeUtil.PRIM_INT, ret_.getArgClassName());
     }
 
-    @Test(timeout=1000)
+    @Test
     public void calculateArgument38Test() {
         String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg'>\n";
         xml_ += "<method access='"+PUBLIC_ACCESS+"' modifier='static' name='catching' class='"+PrimitiveTypeUtil.PRIM_INT+"'>\n";
@@ -1231,7 +1192,6 @@ public class ProcessXmlMethodTest {
         Argument ret_ = new Argument();
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
         assertEq(6, (Number)ret_.getObject());
-        assertEq(PrimitiveTypeUtil.PRIM_INT, ret_.getArgClassName());
     }
 
     @Test
@@ -1258,10 +1218,9 @@ public class ProcessXmlMethodTest {
         Argument ret_ = new Argument();
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
         assertEq(4, (Number)ret_.getObject());
-        assertEq(PrimitiveTypeUtil.PRIM_INT, ret_.getArgClassName());
     }
 
-    @Test(timeout=1000)
+    @Test
     public void calculateArgument40Test() {
         String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg'>\n";
         xml_ += "<method access='"+PUBLIC_ACCESS+"' modifier='static' name='catching' class='"+PrimitiveTypeUtil.PRIM_INT+"'>\n";
@@ -1283,10 +1242,9 @@ public class ProcessXmlMethodTest {
         Argument ret_ = new Argument();
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
         assertEq(0, (Number)ret_.getObject());
-        assertEq(PrimitiveTypeUtil.PRIM_INT, ret_.getArgClassName());
     }
 
-    @Test(timeout=1000)
+    @Test
     public void calculateArgument41Test() {
         String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg'>\n";
         xml_ += "<method access='"+PUBLIC_ACCESS+"' modifier='static' name='catching' class='"+PrimitiveTypeUtil.PRIM_INT+"'>\n";
@@ -1306,10 +1264,9 @@ public class ProcessXmlMethodTest {
         Argument ret_ = new Argument();
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
         assertEq(0, (Number)ret_.getObject());
-        assertEq(PrimitiveTypeUtil.PRIM_INT, ret_.getArgClassName());
     }
 
-    @Test(timeout=1000)
+    @Test
     public void calculateArgument42Test() {
         String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg'>\n";
         xml_ += "<method access='"+PUBLIC_ACCESS+"' modifier='static' name='catching' class='"+PrimitiveTypeUtil.PRIM_INT+"'>\n";
@@ -1337,10 +1294,9 @@ public class ProcessXmlMethodTest {
         Argument ret_ = new Argument();
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
         assertEq(24, (Number)ret_.getObject());
-        assertEq(PrimitiveTypeUtil.PRIM_INT, ret_.getArgClassName());
     }
 
-    @Test(timeout=1000)
+    @Test
     public void calculateArgument43Test() {
         String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg'>\n";
         xml_ += "<method access='"+PUBLIC_ACCESS+"' modifier='static' name='catching' class='"+PrimitiveTypeUtil.PRIM_INT+"'>\n";
@@ -1364,10 +1320,9 @@ public class ProcessXmlMethodTest {
         Argument ret_ = new Argument();
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
         assertEq(0, (Number)ret_.getObject());
-        assertEq(PrimitiveTypeUtil.PRIM_INT, ret_.getArgClassName());
     }
 
-    @Test(timeout=1000)
+    @Test
     public void calculateArgument44Test() {
         String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg'>\n";
         xml_ += "<method access='"+PUBLIC_ACCESS+"' modifier='static' name='catching' class='"+PrimitiveTypeUtil.PRIM_INT+"'>\n";
@@ -1391,10 +1346,9 @@ public class ProcessXmlMethodTest {
         Argument ret_ = new Argument();
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
         assertEq(23, (Number)ret_.getObject());
-        assertEq(PrimitiveTypeUtil.PRIM_INT, ret_.getArgClassName());
     }
 
-    @Test(timeout=1000)
+    @Test
     public void calculateArgument45Test() {
         String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg'>\n";
         xml_ += "<method access='"+PUBLIC_ACCESS+"' modifier='static' name='catching' class='"+PrimitiveTypeUtil.PRIM_INT+"'>\n";
@@ -1421,11 +1375,10 @@ public class ProcessXmlMethodTest {
         Argument ret_ = new Argument();
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
         assertEq(1, (Number)ret_.getObject());
-        assertEq(PrimitiveTypeUtil.PRIM_INT, ret_.getArgClassName());
     }
 
 
-    @Test(timeout=1000)
+    @Test
     public void calculateArgument46Test() {
         String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg'>\n";
         xml_ += "<method access='"+PUBLIC_ACCESS+"' modifier='static' name='catching' class='"+PrimitiveTypeUtil.PRIM_INT+"'>\n";
@@ -1452,10 +1405,9 @@ public class ProcessXmlMethodTest {
         Argument ret_ = new Argument();
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
         assertEq(1, (Number)ret_.getObject());
-        assertEq(PrimitiveTypeUtil.PRIM_INT, ret_.getArgClassName());
     }
 
-    @Test(timeout=1000)
+    @Test
     public void calculateArgument47Test() {
         String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg'>\n";
         xml_ += "<method access='"+PUBLIC_ACCESS+"' modifier='static' name='catching' class='"+PrimitiveTypeUtil.PRIM_INT+"'>\n";
@@ -1477,10 +1429,9 @@ public class ProcessXmlMethodTest {
         Argument ret_ = new Argument();
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
         assertEq(0, (Number)ret_.getObject());
-        assertEq(PrimitiveTypeUtil.PRIM_INT, ret_.getArgClassName());
     }
 
-    @Test(timeout=1000)
+    @Test
     public void calculateArgument48Test() {
         String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg'>\n";
         xml_ += "<method access='"+PUBLIC_ACCESS+"' modifier='static' name='catching' class='"+PrimitiveTypeUtil.PRIM_INT+"'>\n";
@@ -1516,10 +1467,9 @@ public class ProcessXmlMethodTest {
         Argument ret_ = new Argument();
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
         assertEq(11, (Number)ret_.getObject());
-        assertEq(PrimitiveTypeUtil.PRIM_INT, ret_.getArgClassName());
     }
 
-    @Test(timeout=1000)
+    @Test
     public void calculateArgument49Test() {
         String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg'>\n";
         xml_ += "<method access='"+PUBLIC_ACCESS+"' modifier='static' name='catching' class='"+PrimitiveTypeUtil.PRIM_INT+"'>\n";
@@ -1555,10 +1505,9 @@ public class ProcessXmlMethodTest {
         Argument ret_ = new Argument();
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
         assertEq(0, (Number)ret_.getObject());
-        assertEq(PrimitiveTypeUtil.PRIM_INT, ret_.getArgClassName());
     }
 
-    @Test(timeout=1000)
+    @Test
     public void calculateArgument50Test() {
         String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg'>\n";
         xml_ += "<method access='"+PUBLIC_ACCESS+"' modifier='static' name='catching' class='"+PrimitiveTypeUtil.PRIM_INT+"'>\n";
@@ -1594,10 +1543,9 @@ public class ProcessXmlMethodTest {
         Argument ret_ = new Argument();
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
         assertEq(100, (Number)ret_.getObject());
-        assertEq(PrimitiveTypeUtil.PRIM_INT, ret_.getArgClassName());
     }
 
-    @Test(timeout=1000)
+    @Test
     public void calculateArgument51Test() {
         String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg'>\n";
         xml_ += "<method access='"+PUBLIC_ACCESS+"' modifier='static' name='catching' class='"+PrimitiveTypeUtil.PRIM_INT+"'>\n";
@@ -1638,10 +1586,9 @@ public class ProcessXmlMethodTest {
         Argument ret_ = new Argument();
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
         assertEq(811, (Number)ret_.getObject());
-        assertEq(PrimitiveTypeUtil.PRIM_INT, ret_.getArgClassName());
     }
 
-    @Test(timeout=1000)
+    @Test
     public void calculateArgument52Test() {
         String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg'>\n";
         xml_ += "<method access='"+PUBLIC_ACCESS+"' modifier='static' name='catching' class='"+PrimitiveTypeUtil.PRIM_INT+"'>\n";
@@ -1683,7 +1630,6 @@ public class ProcessXmlMethodTest {
         Argument ret_ = new Argument();
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
         assertEq(711, (Number)ret_.getObject());
-        assertEq(PrimitiveTypeUtil.PRIM_INT, ret_.getArgClassName());
     }
 
 
@@ -1730,7 +1676,6 @@ public class ProcessXmlMethodTest {
         Argument ret_ = new Argument();
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
         assertEq(1622, (Number)ret_.getObject());
-        assertEq(PrimitiveTypeUtil.PRIM_INT, ret_.getArgClassName());
     }
 
     @Test
@@ -1777,7 +1722,6 @@ public class ProcessXmlMethodTest {
         Argument ret_ = new Argument();
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
         assertEq(1422, (Number)ret_.getObject());
-        assertEq(PrimitiveTypeUtil.PRIM_INT, ret_.getArgClassName());
     }
 
     @Test
@@ -1823,7 +1767,6 @@ public class ProcessXmlMethodTest {
         Argument ret_ = new Argument();
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
         assertEq(811, (Number)ret_.getObject());
-        assertEq(PrimitiveTypeUtil.PRIM_INT, ret_.getArgClassName());
     }
 
     @Test
@@ -1870,7 +1813,6 @@ public class ProcessXmlMethodTest {
         Argument ret_ = new Argument();
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
         assertEq(711, (Number)ret_.getObject());
-        assertEq(PrimitiveTypeUtil.PRIM_INT, ret_.getArgClassName());
     }
 
     @Test
@@ -1912,7 +1854,6 @@ public class ProcessXmlMethodTest {
         Argument ret_ = new Argument();
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
         assertEq(811, (Number)ret_.getObject());
-        assertEq(PrimitiveTypeUtil.PRIM_INT, ret_.getArgClassName());
     }
 
     @Test
@@ -1951,10 +1892,9 @@ public class ProcessXmlMethodTest {
         Argument ret_ = new Argument();
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
         assertEq(11, (Number)ret_.getObject());
-        assertEq(PrimitiveTypeUtil.PRIM_INT, ret_.getArgClassName());
     }
 
-    @Test(timeout=1000)
+    @Test
     public void calculateArgument59Test() {
         String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg'>\n";
         xml_ += "<method access='"+PUBLIC_ACCESS+"' modifier='static' name='catching' class='"+PrimitiveTypeUtil.PRIM_INT+"'>\n";
@@ -1990,10 +1930,9 @@ public class ProcessXmlMethodTest {
         Argument ret_ = new Argument();
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
         assertEq(4424, (Number)ret_.getObject());
-        assertEq(PrimitiveTypeUtil.PRIM_INT, ret_.getArgClassName());
     }
 
-    @Test(timeout=1000)
+    @Test
     public void calculateArgument60Test() {
         String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg'>\n";
         xml_ += "<method access='"+PUBLIC_ACCESS+"' modifier='static' name='catching' class='"+PrimitiveTypeUtil.PRIM_INT+"'>\n";
@@ -2029,10 +1968,9 @@ public class ProcessXmlMethodTest {
         Argument ret_ = new Argument();
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
         assertEq(3323, (Number)ret_.getObject());
-        assertEq(PrimitiveTypeUtil.PRIM_INT, ret_.getArgClassName());
     }
 
-    @Test(timeout=1000)
+    @Test
     public void calculateArgument61Test() {
         String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg'>\n";
         xml_ += "<method access='"+PUBLIC_ACCESS+"' modifier='static' name='catching' class='"+PrimitiveTypeUtil.PRIM_INT+"'>\n";
@@ -2065,10 +2003,9 @@ public class ProcessXmlMethodTest {
         Argument ret_ = new Argument();
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
         assertEq(424, (Number)ret_.getObject());
-        assertEq(PrimitiveTypeUtil.PRIM_INT, ret_.getArgClassName());
     }
 
-    @Test(timeout=1000)
+    @Test
     public void calculateArgument62Test() {
         String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg'>\n";
         xml_ += "<method access='"+PUBLIC_ACCESS+"' modifier='static' name='catching' class='"+PrimitiveTypeUtil.PRIM_INT+"'>\n";
@@ -2101,10 +2038,9 @@ public class ProcessXmlMethodTest {
         Argument ret_ = new Argument();
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
         assertEq(323, (Number)ret_.getObject());
-        assertEq(PrimitiveTypeUtil.PRIM_INT, ret_.getArgClassName());
     }
 
-    @Test(timeout=1000)
+    @Test
     public void calculateArgument63Test() {
         String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg'>\n";
         xml_ += "<method access='"+PUBLIC_ACCESS+"' modifier='static' name='catching' class='"+PrimitiveTypeUtil.PRIM_INT+"'>\n";
@@ -2142,10 +2078,9 @@ public class ProcessXmlMethodTest {
         Argument ret_ = new Argument();
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
         assertEq(2, (Number)ret_.getObject());
-        assertEq(PrimitiveTypeUtil.PRIM_INT, ret_.getArgClassName());
     }
 
-    @Test(timeout=1000)
+    @Test
     public void calculateArgument64Test() {
         String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg'>\n";
         xml_ += "<method access='"+PUBLIC_ACCESS+"' modifier='static' name='catching' class='"+PrimitiveTypeUtil.PRIM_INT+"'>\n";
@@ -2186,10 +2121,9 @@ public class ProcessXmlMethodTest {
         Argument ret_ = new Argument();
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
         assertEq(2, (Number)ret_.getObject());
-        assertEq(PrimitiveTypeUtil.PRIM_INT, ret_.getArgClassName());
     }
 
-    @Test(timeout=1000)
+    @Test
     public void calculateArgument65Test() {
         String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg'>\n";
         xml_ += "<method access='"+PUBLIC_ACCESS+"' modifier='static' name='catching' class='"+PrimitiveTypeUtil.PRIM_INT+"'>\n";
@@ -2224,9 +2158,8 @@ public class ProcessXmlMethodTest {
         Argument ret_ = new Argument();
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
         assertEq(1, (Number)ret_.getObject());
-        assertEq(PrimitiveTypeUtil.PRIM_INT, ret_.getArgClassName());
     }
-    @Test(timeout=1000)
+    @Test
     public void calculateArgument66Test() {
         String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg'>\n";
         xml_ += "<method access='"+PUBLIC_ACCESS+"' modifier='static' name='exmeth' class='"+PrimitiveTypeUtil.PRIM_INT+"'>\n";
@@ -2252,9 +2185,8 @@ public class ProcessXmlMethodTest {
         Argument ret_;
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
         assertEq(0, (Number)ret_.getObject());
-        assertEq(PrimitiveTypeUtil.PRIM_INT, ret_.getArgClassName());
     }
-    @Test(timeout=1000)
+    @Test
     public void calculateArgument67Test() {
         String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg'>\n";
         xml_ += "<method access='"+PUBLIC_ACCESS+"' modifier='static' name='exmeth' class='"+PrimitiveTypeUtil.PRIM_INT+"'>\n";
@@ -2280,9 +2212,8 @@ public class ProcessXmlMethodTest {
         Argument ret_;
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
         assertEq(1, (Number)ret_.getObject());
-        assertEq(PrimitiveTypeUtil.PRIM_INT, ret_.getArgClassName());
     }
-    @Test(timeout=1000)
+    @Test
     public void calculateArgument68Test() {
         String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg'>\n";
         xml_ += "<method access='"+PUBLIC_ACCESS+"' modifier='static' name='exmeth' class='"+PrimitiveTypeUtil.PRIM_INT+"'>\n";
@@ -2309,9 +2240,8 @@ public class ProcessXmlMethodTest {
         Argument ret_;
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
         assertEq(1, (Number)ret_.getObject());
-        assertEq(PrimitiveTypeUtil.PRIM_INT, ret_.getArgClassName());
     }
-    @Test(timeout=1000)
+    @Test
     public void calculateArgument69Test() {
         String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg'>\n";
         xml_ += "<method access='"+PUBLIC_ACCESS+"' modifier='static' name='exmeth' class='"+PrimitiveTypeUtil.PRIM_INT+"'>\n";
@@ -2338,7 +2268,6 @@ public class ProcessXmlMethodTest {
         Argument ret_;
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
         assertEq(1, (Number)ret_.getObject());
-        assertEq(PrimitiveTypeUtil.PRIM_INT, ret_.getArgClassName());
     }
     @Test
     public void calculateArgument1001Test() {
@@ -2370,10 +2299,9 @@ public class ProcessXmlMethodTest {
         Argument ret_ = new Argument();
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
         assertEq(9, (Number)ret_.getObject());
-        assertEq(PrimitiveTypeUtil.PRIM_INT, ret_.getArgClassName());
     }
 
-    @Test(timeout=1000)
+    @Test
     public void calculateArgument1002Test() {
         String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg'>\n";
         xml_ += "<method access='"+PUBLIC_ACCESS+"' modifier='static' name='exmeth' class='"+PrimitiveTypeUtil.PRIM_INT+"'>\n";
@@ -2403,10 +2331,9 @@ public class ProcessXmlMethodTest {
         Argument ret_ = new Argument();
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
         assertEq(10, (Number)ret_.getObject());
-        assertEq(PrimitiveTypeUtil.PRIM_INT, ret_.getArgClassName());
     }
 
-    @Test(timeout=1000)
+    @Test
     public void calculateArgument1003Test() {
         String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg'>\n";
         xml_ += "<method access='"+PUBLIC_ACCESS+"' modifier='static' name='exmeth' class='"+PrimitiveTypeUtil.PRIM_INT+"'>\n";
@@ -2449,10 +2376,9 @@ public class ProcessXmlMethodTest {
         Argument ret_ = new Argument();
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
         assertEq(20, (Number)ret_.getObject());
-        assertEq(PrimitiveTypeUtil.PRIM_INT, ret_.getArgClassName());
     }
 
-    @Test(timeout=1000)
+    @Test
     public void calculateArgument1004Test() {
         String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg'>\n";
         xml_ += "<method access='"+PUBLIC_ACCESS+"' modifier='static' name='exmeth' class='"+PrimitiveTypeUtil.PRIM_INT+"'>\n";
@@ -2495,10 +2421,9 @@ public class ProcessXmlMethodTest {
         Argument ret_ = new Argument();
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
         assertEq(20, (Number)ret_.getObject());
-        assertEq(PrimitiveTypeUtil.PRIM_INT, ret_.getArgClassName());
     }
 
-    @Test(timeout=1000)
+    @Test
     public void calculateArgument1005Test() {
         String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg'>\n";
         xml_ += "<method access='"+PUBLIC_ACCESS+"' modifier='static' name='exmeth' class='"+PrimitiveTypeUtil.PRIM_INT+"'>\n";
@@ -2548,10 +2473,9 @@ public class ProcessXmlMethodTest {
         Argument ret_ = new Argument();
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
         assertEq(21, (Number)ret_.getObject());
-        assertEq(PrimitiveTypeUtil.PRIM_INT, ret_.getArgClassName());
     }
 
-    @Test(timeout=1000)
+    @Test
     public void calculateArgument1006Test() {
         String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg'>\n";
         xml_ += "<method access='"+PUBLIC_ACCESS+"' modifier='static' name='exmeth' class='"+PrimitiveTypeUtil.PRIM_INT+"'>\n";
@@ -2605,10 +2529,9 @@ public class ProcessXmlMethodTest {
         Argument ret_ = new Argument();
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
         assertEq(21, (Number)ret_.getObject());
-        assertEq(PrimitiveTypeUtil.PRIM_INT, ret_.getArgClassName());
     }
 
-    @Test(timeout=1000)
+    @Test
     public void calculateArgument1007Test() {
         String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg'>\n";
         xml_ += "<method access='"+PUBLIC_ACCESS+"' modifier='static' name='exmeth' class='"+PrimitiveTypeUtil.PRIM_INT+"'>\n";
@@ -2666,10 +2589,9 @@ public class ProcessXmlMethodTest {
         Argument ret_ = new Argument();
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
         assertEq(21, (Number)ret_.getObject());
-        assertEq(PrimitiveTypeUtil.PRIM_INT, ret_.getArgClassName());
     }
 
-    @Test(timeout=1000)
+    @Test
     public void calculateArgument1008Test() {
         String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg'>\n";
         xml_ += "<method access='"+PUBLIC_ACCESS+"' modifier='static' name='exmeth' class='"+PrimitiveTypeUtil.PRIM_INT+"'>\n";
@@ -2726,11 +2648,10 @@ public class ProcessXmlMethodTest {
         Argument ret_ = new Argument();
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
         assertEq(21, (Number)ret_.getObject());
-        assertEq(PrimitiveTypeUtil.PRIM_INT, ret_.getArgClassName());
     }
 
 
-    @Test(timeout=1000)
+    @Test
     public void calculateArgument1009Test() {
         String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg'>\n";
         xml_ += "<method access='"+PUBLIC_ACCESS+"' modifier='static' name='exmeth' class='"+PrimitiveTypeUtil.PRIM_INT+"'>\n";
@@ -2790,10 +2711,9 @@ public class ProcessXmlMethodTest {
         Argument ret_ = new Argument();
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
         assertEq(21, (Number)ret_.getObject());
-        assertEq(PrimitiveTypeUtil.PRIM_INT, ret_.getArgClassName());
     }
 
-    @Test(timeout=1000)
+    @Test
     public void calculateArgument1010Test() {
         String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg'>\n";
         xml_ += "<method access='"+PUBLIC_ACCESS+"' modifier='static' name='exmeth' class='"+PrimitiveTypeUtil.PRIM_INT+"'>\n";
@@ -2856,10 +2776,9 @@ public class ProcessXmlMethodTest {
         Argument ret_ = new Argument();
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
         assertEq(23, (Number)ret_.getObject());
-        assertEq(PrimitiveTypeUtil.PRIM_INT, ret_.getArgClassName());
     }
 
-    @Test(timeout=1000)
+    @Test
     public void calculateArgument1011Test() {
         String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg'>\n";
         xml_ += "<method access='"+PUBLIC_ACCESS+"' modifier='static' name='exmeth' class='"+PrimitiveTypeUtil.PRIM_INT+"'>\n";
@@ -2924,11 +2843,10 @@ public class ProcessXmlMethodTest {
         Argument ret_ = new Argument();
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
         assertEq(38, (Number)ret_.getObject());
-        assertEq(PrimitiveTypeUtil.PRIM_INT, ret_.getArgClassName());
     }
 
 
-    @Test(timeout=1000)
+    @Test
     public void calculateArgument1012Test() {
         String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg'>\n";
         xml_ += "<method access='"+PUBLIC_ACCESS+"' modifier='static' name='exmeth' class='"+PrimitiveTypeUtil.PRIM_INT+"'>\n";
@@ -2992,10 +2910,9 @@ public class ProcessXmlMethodTest {
         Argument ret_ = new Argument();
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
         assertEq(25, (Number)ret_.getObject());
-        assertEq(PrimitiveTypeUtil.PRIM_INT, ret_.getArgClassName());
     }
 
-    @Test(timeout=1000)
+    @Test
     public void calculateArgument1013Test() {
         String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg'>\n";
         xml_ += "<method access='"+PUBLIC_ACCESS+"' modifier='static' name='exmeth' class='"+PrimitiveTypeUtil.PRIM_INT+"'>\n";
@@ -3052,27 +2969,17 @@ public class ProcessXmlMethodTest {
         cont_.setAccessValue(new AccessValueEx());
         files_.put("pkg/Ex."+Classes.EXT, xml_);
         Classes.validateAll(files_, cont_);
-//        Classes classes_ = new Classes(files_, cont_);
-//        classes_.validateClassBodies(cont_);
-//        classes_.validateClassNames(cont_);
-//        classes_.validateMethodNames(cont_);
-//        classes_.validateMethodsId(cont_);
-//        classes_.validateLocalVariableNamesId(cont_);
-//        cont_.setClasses(classes_);
-//        classes_.validateEl(cont_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("factrec", PrimitiveTypeUtil.PRIM_INT);
         Argument v_ = new Argument();
-        v_.setArgClassName(Integer.class.getName());
         v_.setObject(5);
         args_.add(v_);
         Argument ret_ = new Argument();
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
         assertEq(120, (Number)ret_.getObject());
-        assertEq(PrimitiveTypeUtil.PRIM_INT, ret_.getArgClassName());
     }
 
-    @Test(timeout=1000)
+    @Test
     public void calculateArgument1014Test() {
         String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg'>\n";
         xml_ += "<method access='"+PUBLIC_ACCESS+"' modifier='static' name='exmeth' class='"+PrimitiveTypeUtil.PRIM_INT+"'>\n";
@@ -3144,23 +3051,20 @@ public class ProcessXmlMethodTest {
         MethodId id_ = getMethodId("addelt", CUST, "java.lang.Object");
         Argument v_ = new Argument();
         Ints l_ = new Ints();
-        v_.setArgClassName(CustList.class.getName());
         v_.setObject(l_);
         args_.add(v_);
         v_ = new Argument();
-        v_.setArgClassName(Object.class.getName());
         v_.setObject(5);
         args_.add(v_);
         Argument ret_ = new Argument();
         assertEq(0, l_.size());
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
         assertNull(ret_.getObject());
-        assertEq(OperationNode.VOID_RETURN, ret_.getArgClassName());
         assertEq(1, l_.size());
         assertEq(5, (Number)l_.first());
     }
 
-    @Test(timeout=1000)
+    @Test
     public void calculateArgument1015Test() {
         String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg'>\n";
         xml_ += "<method access='"+PUBLIC_ACCESS+"' modifier='static' name='exmeth' class='"+PrimitiveTypeUtil.PRIM_INT+"'>\n";
@@ -3244,10 +3148,9 @@ public class ProcessXmlMethodTest {
         Argument ret_ = new Argument();
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
         assertEq(1, (Number)ret_.getObject());
-        assertEq(PrimitiveTypeUtil.PRIM_INT, ret_.getArgClassName());
     }
 
-    @Test(timeout=1000)
+    @Test
     public void calculateArgument1016Test() {
         String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg'>\n";
         xml_ += "<method access='"+PUBLIC_ACCESS+"' modifier='static' name='exmeth' class='"+PrimitiveTypeUtil.PRIM_INT+"'>\n";
@@ -3335,11 +3238,10 @@ public class ProcessXmlMethodTest {
         Argument ret_ = new Argument();
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
         assertEq(1, (Number)ret_.getObject());
-        assertEq(PrimitiveTypeUtil.PRIM_INT, ret_.getArgClassName());
     }
 
 
-    @Test(timeout=1000)
+    @Test
     public void calculateArgument1017Test() {
         String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg'>\n";
         xml_ += "<method access='"+PUBLIC_ACCESS+"' modifier='static' name='exmeth' class='"+PrimitiveTypeUtil.PRIM_INT+"'>\n";
@@ -3427,9 +3329,8 @@ public class ProcessXmlMethodTest {
         Argument ret_ = new Argument();
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
         assertEq(0, (Number)ret_.getObject());
-        assertEq(PrimitiveTypeUtil.PRIM_INT, ret_.getArgClassName());
     }
-    @Test(timeout=1000)
+    @Test
     public void calculateArgument1018Test() {
         String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg'>\n";
         xml_ += "<method access='"+PUBLIC_ACCESS+"' modifier='static' name='exmeth' class='"+PrimitiveTypeUtil.PRIM_INT+"'>\n";
@@ -3513,11 +3414,10 @@ public class ProcessXmlMethodTest {
         Argument ret_ = new Argument();
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
         assertEq(2, (Number)ret_.getObject());
-        assertEq(PrimitiveTypeUtil.PRIM_INT, ret_.getArgClassName());
     }
 
 
-    @Test(timeout=1000)
+    @Test
     public void calculateArgument1019Test() {
         String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg'>\n";
         xml_ += "<method access='"+PUBLIC_ACCESS+"' modifier='static' name='exmeth' class='"+PrimitiveTypeUtil.PRIM_INT+"'>\n";
@@ -3604,10 +3504,9 @@ public class ProcessXmlMethodTest {
         Argument ret_ = new Argument();
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
         assertEq(2,(Number) ret_.getObject());
-        assertEq(PrimitiveTypeUtil.PRIM_INT, ret_.getArgClassName());
     }
 
-    @Test(timeout=1000)
+    @Test
     public void calculateArgument1020Test() {
         String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg'>\n";
         xml_ += "<method access='"+PUBLIC_ACCESS+"' modifier='static' name='exmeth' class='"+PrimitiveTypeUtil.PRIM_INT+"'>\n";
@@ -3690,9 +3589,8 @@ public class ProcessXmlMethodTest {
         Argument ret_ = new Argument();
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
         assertEq(2,(Number) ret_.getObject());
-        assertEq(PrimitiveTypeUtil.PRIM_INT, ret_.getArgClassName());
     }
-    @Test(timeout=1000)
+    @Test
     public void calculateArgument1021Test() {
         String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg'>\n";
         xml_ += "<method access='"+PUBLIC_ACCESS+"' modifier='static' name='exmeth' class='"+PrimitiveTypeUtil.PRIM_INT+"'>\n";
@@ -3737,9 +3635,8 @@ public class ProcessXmlMethodTest {
         Argument ret_ = new Argument();
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
         assertEq(30,(Number) ret_.getObject());
-        assertEq(PrimitiveTypeUtil.PRIM_INT, ret_.getArgClassName());
     }
-    @Test(timeout=1000)
+    @Test
     public void calculateArgument1022Test() {
         String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg'>\n";
         xml_ += "<method access='"+PUBLIC_ACCESS+"' modifier='static' name='exmeth' class='"+PrimitiveTypeUtil.PRIM_INT+"'>\n";
@@ -3789,9 +3686,8 @@ public class ProcessXmlMethodTest {
         Argument ret_ = new Argument();
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
         assertEq(18, (Number)ret_.getObject());
-        assertEq(PrimitiveTypeUtil.PRIM_INT, ret_.getArgClassName());
     }
-    @Test(timeout=1000)
+    @Test
     public void calculateArgument1023Test() {
         String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg'>\n";
         xml_ += "<method access='"+PUBLIC_ACCESS+"' modifier='static' name='exmeth' class='"+PrimitiveTypeUtil.PRIM_INT+"'>\n";
@@ -3833,10 +3729,9 @@ public class ProcessXmlMethodTest {
         Argument ret_ = new Argument();
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
         assertEq(17, (Number)ret_.getObject());
-        assertEq(PrimitiveTypeUtil.PRIM_INT, ret_.getArgClassName());
     }
 
-    @Test(timeout=1000)
+    @Test
     public void calculateArgument1024Test() {
         String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg'>\n";
         xml_ += "<method access='"+PUBLIC_ACCESS+"' modifier='static' name='exmeth' class='"+PrimitiveTypeUtil.PRIM_INT+"'>\n";
@@ -3884,11 +3779,10 @@ public class ProcessXmlMethodTest {
         Argument ret_ = new Argument();
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
         assertEq(25, (Number)ret_.getObject());
-        assertEq(PrimitiveTypeUtil.PRIM_INT, ret_.getArgClassName());
     }
 
 
-    @Test(timeout=1000)
+    @Test
     public void calculateArgument1025Test() {
         String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg'>\n";
         xml_ += "<method access='"+PUBLIC_ACCESS+"' modifier='static' name='exmeth' class='"+PrimitiveTypeUtil.PRIM_INT+"'>\n";
@@ -3940,10 +3834,9 @@ public class ProcessXmlMethodTest {
         Argument ret_ = new Argument();
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
         assertEq(10, (Number)ret_.getObject());
-        assertEq(PrimitiveTypeUtil.PRIM_INT, ret_.getArgClassName());
     }
 
-    @Test(timeout=1000)
+    @Test
     public void calculateArgument1026Test() {
         String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg'>\n";
         xml_ += "<method access='"+PUBLIC_ACCESS+"' modifier='static' name='exmeth' class='"+PrimitiveTypeUtil.PRIM_INT+"'>\n";
@@ -3998,10 +3891,9 @@ public class ProcessXmlMethodTest {
         Argument ret_ = new Argument();
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
         assertEq(110, (Number)ret_.getObject());
-        assertEq(PrimitiveTypeUtil.PRIM_INT, ret_.getArgClassName());
     }
 
-    @Test(timeout=1000)
+    @Test
     public void calculateArgument1027Test() {
         String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg'>\n";
         xml_ += "<method access='"+PUBLIC_ACCESS+"' modifier='static' name='exmeth' class='"+PrimitiveTypeUtil.PRIM_INT+"'>\n";
@@ -4059,10 +3951,9 @@ public class ProcessXmlMethodTest {
         Argument ret_ = new Argument();
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
         assertEq(1110, (Number)ret_.getObject());
-        assertEq(PrimitiveTypeUtil.PRIM_INT, ret_.getArgClassName());
     }
 
-    @Test(timeout=1000)
+    @Test
     public void calculateArgument1028Test() {
         String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg'>\n";
         xml_ += "<method access='"+PUBLIC_ACCESS+"' modifier='static' name='exmeth' class='"+PrimitiveTypeUtil.PRIM_INT+"'>\n";
@@ -4121,10 +4012,9 @@ public class ProcessXmlMethodTest {
         Argument ret_ = new Argument();
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
         assertEq(1110,(Number) ret_.getObject());
-        assertEq(PrimitiveTypeUtil.PRIM_INT, ret_.getArgClassName());
     }
 
-    @Test(timeout=1000)
+    @Test
     public void calculateArgument1029Test() {
         String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg'>\n";
         xml_ += "<method access='"+PUBLIC_ACCESS+"' modifier='static' name='exmeth' class='"+PrimitiveTypeUtil.PRIM_INT+"'>\n";
@@ -4185,10 +4075,9 @@ public class ProcessXmlMethodTest {
         Argument ret_ = new Argument();
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
         assertEq(1110,(Number) ret_.getObject());
-        assertEq(PrimitiveTypeUtil.PRIM_INT, ret_.getArgClassName());
     }
 
-    @Test(timeout=1000)
+    @Test
     public void calculateArgument1030Test() {
         String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg'>\n";
         xml_ += "<method access='"+PUBLIC_ACCESS+"' modifier='static' name='exmeth' class='"+PrimitiveTypeUtil.PRIM_INT+"'>\n";
@@ -4252,7 +4141,6 @@ public class ProcessXmlMethodTest {
         Argument ret_ = new Argument();
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
         assertEq(1210, (Number)ret_.getObject());
-        assertEq(PrimitiveTypeUtil.PRIM_INT, ret_.getArgClassName());
     }
 
     @Test
@@ -4319,10 +4207,9 @@ public class ProcessXmlMethodTest {
         Argument ret_ = new Argument();
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
         assertEq(1210, (Number)ret_.getObject());
-        assertEq(PrimitiveTypeUtil.PRIM_INT, ret_.getArgClassName());
     }
 
-    @Test(timeout=1000)
+    @Test
     public void calculateArgument1032Test() {
         String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg'>\n";
         xml_ += "<method access='"+PUBLIC_ACCESS+"' modifier='static' name='exmeth' class='"+PrimitiveTypeUtil.PRIM_INT+"'>\n";
@@ -4413,10 +4300,9 @@ public class ProcessXmlMethodTest {
         Argument ret_ = new Argument();
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
         assertEq(2, (Number)ret_.getObject());
-        assertEq(PrimitiveTypeUtil.PRIM_INT, ret_.getArgClassName());
     }
 
-    @Test(timeout=1000)
+    @Test
     public void calculateArgument1033Test() {
         String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg'>\n";
         xml_ += "<method access='"+PUBLIC_ACCESS+"' modifier='static' name='exmeth' class='"+PrimitiveTypeUtil.PRIM_INT+"'>\n";
@@ -4508,10 +4394,9 @@ public class ProcessXmlMethodTest {
         Argument ret_ = new Argument();
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
         assertEq(1, (Number)ret_.getObject());
-        assertEq(PrimitiveTypeUtil.PRIM_INT, ret_.getArgClassName());
     }
 
-    @Test(timeout=1000)
+    @Test
     public void calculateArgument1034Test() {
         String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg'>\n";
         xml_ += "<method access='"+PUBLIC_ACCESS+"' modifier='static' name='exmeth' class='"+PrimitiveTypeUtil.PRIM_INT+"'>\n";
@@ -4604,11 +4489,10 @@ public class ProcessXmlMethodTest {
         Argument ret_ = new Argument();
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
         assertEq(2, (Number)ret_.getObject());
-        assertEq(PrimitiveTypeUtil.PRIM_INT, ret_.getArgClassName());
     }
 
 
-    @Test(timeout=1000)
+    @Test
     public void calculateArgument1035Test() {
         String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg'>\n";
         xml_ += "<method access='"+PUBLIC_ACCESS+"' modifier='static' name='exmeth' class='"+PrimitiveTypeUtil.PRIM_INT+"'>\n";
@@ -4704,10 +4588,9 @@ public class ProcessXmlMethodTest {
         Argument ret_ = new Argument();
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
         assertEq(11, (Number)ret_.getObject());
-        assertEq(PrimitiveTypeUtil.PRIM_INT, ret_.getArgClassName());
     }
 
-    @Test(timeout=1000)
+    @Test
     public void calculateArgument1036Test() {
         String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg'>\n";
         xml_ += "<method access='"+PUBLIC_ACCESS+"' modifier='static' name='exmeth' class='"+PrimitiveTypeUtil.PRIM_INT+"'>\n";
@@ -4804,7 +4687,6 @@ public class ProcessXmlMethodTest {
         Argument ret_ = new Argument();
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
         assertEq(11, (Number)ret_.getObject());
-        assertEq(PrimitiveTypeUtil.PRIM_INT, ret_.getArgClassName());
     }
 
     @Test
@@ -4864,27 +4746,17 @@ public class ProcessXmlMethodTest {
         cont_.setAccessValue(new AccessValueEx());
         files_.put("pkg/Ex."+Classes.EXT, xml_);
         Classes.validateAll(files_, cont_);
-//        Classes classes_ = new Classes(files_, cont_);
-//        classes_.validateClassBodies(cont_);
-//        classes_.validateClassNames(cont_);
-//        classes_.validateMethodNames(cont_);
-//        classes_.validateMethodsId(cont_);
-//        classes_.validateLocalVariableNamesId(cont_);
-//        cont_.setClasses(classes_);
-//        classes_.validateEl(cont_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("factrec", PrimitiveTypeUtil.PRIM_INT);
         Argument v_ = new Argument();
-        v_.setArgClassName(Integer.class.getName());
         v_.setObject(11);
         args_.add(v_);
         Argument ret_;
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
         assertEq(39916800, (Number)ret_.getObject());
-        assertEq(PrimitiveTypeUtil.PRIM_INT, ret_.getArgClassName());
     }
 
-    @Test(timeout=1000)
+    @Test
     public void calculateArgument1038Test() {
         String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg'>\n";
         xml_ += "<method access='"+PUBLIC_ACCESS+"' modifier='static' name='exmeth' class='"+PrimitiveTypeUtil.PRIM_INT+"'>\n";
@@ -4976,10 +4848,9 @@ public class ProcessXmlMethodTest {
         Argument ret_ = new Argument();
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
         assertEq(2, (Number)ret_.getObject());
-        assertEq(PrimitiveTypeUtil.PRIM_INT, ret_.getArgClassName());
     }
 
-    @Test(timeout=1000)
+    @Test
     public void calculateArgument1039Test() {
         String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg'>\n";
         xml_ += "<method access='"+PUBLIC_ACCESS+"' modifier='static' name='exmeth' class='"+PrimitiveTypeUtil.PRIM_INT+"'>\n";
@@ -5064,23 +4935,14 @@ public class ProcessXmlMethodTest {
         cont_.setAccessValue(new AccessValueEx());
         files_.put("pkg/Ex."+Classes.EXT, xml_);
         Classes.validateAll(files_, cont_);
-//        Classes classes_ = new Classes(files_, cont_);
-//        classes_.validateClassBodies(cont_);
-//        classes_.validateClassNames(cont_);
-//        classes_.validateMethodNames(cont_);
-//        classes_.validateMethodsId(cont_);
-//        classes_.validateLocalVariableNamesId(cont_);
-//        cont_.setClasses(classes_);
-//        classes_.validateEl(cont_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
         assertEq(11, (Number)ret_.getObject());
-        assertEq(PrimitiveTypeUtil.PRIM_INT, ret_.getArgClassName());
     }
 
-    @Test(timeout=1000)
+    @Test
     public void calculateArgument1040Test() {
         String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg'>\n";
         xml_ += "<method access='"+PUBLIC_ACCESS+"' modifier='static' name='exmeth' class='"+PrimitiveTypeUtil.PRIM_INT+"'>\n";
@@ -5135,10 +4997,9 @@ public class ProcessXmlMethodTest {
         Argument ret_ = new Argument();
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
         assertEq(110, (Number)ret_.getObject());
-        assertEq(PrimitiveTypeUtil.PRIM_INT, ret_.getArgClassName());
     }
 
-    @Test(timeout=1000)
+    @Test
     public void calculateArgument1041Test() {
         String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg'>\n";
         xml_ += "<method access='"+PUBLIC_ACCESS+"' modifier='static' name='exmeth' class='"+PrimitiveTypeUtil.PRIM_INT+"'>\n";
@@ -5194,10 +5055,9 @@ public class ProcessXmlMethodTest {
         Argument ret_ = new Argument();
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
         assertEq(110, (Number)ret_.getObject());
-        assertEq(PrimitiveTypeUtil.PRIM_INT, ret_.getArgClassName());
     }
 
-    @Test(timeout=1000)
+    @Test
     public void calculateArgument1042Test() {
         String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg'>\n";
         xml_ += "<method access='"+PUBLIC_ACCESS+"' modifier='static' name='exmeth' class='"+PrimitiveTypeUtil.PRIM_INT+"'>\n";
@@ -5258,10 +5118,9 @@ public class ProcessXmlMethodTest {
         Argument ret_ = new Argument();
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
         assertEq(1110, (Number)ret_.getObject());
-        assertEq(PrimitiveTypeUtil.PRIM_INT, ret_.getArgClassName());
     }
 
-    @Test(timeout=1000)
+    @Test
     public void calculateArgument1043Test() {
         String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg'>\n";
         xml_ += "<method access='"+PUBLIC_ACCESS+"' modifier='static' name='exmeth' class='"+PrimitiveTypeUtil.PRIM_INT+"'>\n";
@@ -5327,10 +5186,9 @@ public class ProcessXmlMethodTest {
         Argument ret_ = new Argument();
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
         assertEq(11110, (Number)ret_.getObject());
-        assertEq(PrimitiveTypeUtil.PRIM_INT, ret_.getArgClassName());
     }
 
-    @Test(timeout=1000)
+    @Test
     public void calculateArgument1044Test() {
         String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg'>\n";
         xml_ += "<method access='"+PUBLIC_ACCESS+"' modifier='static' name='exmeth' class='"+PrimitiveTypeUtil.PRIM_INT+"'>\n";
@@ -5396,7 +5254,6 @@ public class ProcessXmlMethodTest {
         Argument ret_ = new Argument();
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
         assertEq(11110, (Number)ret_.getObject());
-        assertEq(PrimitiveTypeUtil.PRIM_INT, ret_.getArgClassName());
     }
 
     @Test(expected=StackOverFlow.class)
@@ -5456,18 +5313,9 @@ public class ProcessXmlMethodTest {
         cont_.setAccessValue(new AccessValueEx());
         files_.put("pkg/Ex."+Classes.EXT, xml_);
         Classes.validateAll(files_, cont_);
-//        Classes classes_ = new Classes(files_, cont_);
-//        classes_.validateClassBodies(cont_);
-//        classes_.validateClassNames(cont_);
-//        classes_.validateMethodNames(cont_);
-//        classes_.validateMethodsId(cont_);
-//        classes_.validateLocalVariableNamesId(cont_);
-//        cont_.setClasses(classes_);
-//        classes_.validateEl(cont_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("factrec", PrimitiveTypeUtil.PRIM_INT);
         Argument v_ = new Argument();
-        v_.setArgClassName(Integer.class.getName());
         v_.setObject(50);
         args_.add(v_);
         calculateArgument("pkg.Ex", id_, args_, cont_);
@@ -5484,11 +5332,9 @@ public class ProcessXmlMethodTest {
         Block firstChild_ = method_.getFirstChild();
         if (firstChild_ == null) {
             Argument a_ = new Argument();
-            a_.setArgClassName(method_.getReturnType());
             return a_;
         }
         Argument argGlLoc_ = new Argument();
-        argGlLoc_.setArgClassName(_class);
         return ProcessXmlMethod.calculateArgument(argGlLoc_, _class, fct_, _args, _cont);
     }
 
@@ -5641,7 +5487,7 @@ public class ProcessXmlMethodTest {
         assertEq(5, (Number)field_.getInstance());
     }
 
-    @Test(timeout=1000)
+    @Test
     public void instanceArgument1Test() {
         String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg'/>\n";
         StringMap<String> files_ = new StringMap<String>();
@@ -5661,7 +5507,7 @@ public class ProcessXmlMethodTest {
     }
 
 
-    @Test(timeout=1000)
+    @Test
     public void instanceArgument2Test() {
         String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg'>\n";
         xml_ += "<field access='"+PUBLIC_ACCESS+"' name='inst' class='"+PrimitiveTypeUtil.PRIM_INT+"' value='2i'/>\n";
@@ -5687,7 +5533,7 @@ public class ProcessXmlMethodTest {
         assertEq(2, (Number)field_.getInstance());
     }
 
-    @Test(timeout=1000)
+    @Test
     public void instanceArgument3Test() {
         String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg'>\n";
         xml_ += "<constructor access='"+PUBLIC_ACCESS+"'/>\n";
@@ -5708,7 +5554,7 @@ public class ProcessXmlMethodTest {
         assertEq("pkg.Ex", str_.getClassName());
     }
 
-    @Test(timeout=1000)
+    @Test
     public void instanceArgument4Test() {
         String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg'>\n";
         xml_ += "<field access='"+PUBLIC_ACCESS+"' name='inst' class='"+PrimitiveTypeUtil.PRIM_INT+"' value='2i'/>\n";
@@ -5724,7 +5570,6 @@ public class ProcessXmlMethodTest {
         CustList<Argument> args_ = new CustList<Argument>();
         Argument arg_;
         arg_ = new Argument();
-        arg_.setArgClassName(PrimitiveTypeUtil.PRIM_INT);
         arg_.setObject(8);
         args_.add(arg_);
         ConstructorId id_ = getConstructorId("pkg.Ex",PrimitiveTypeUtil.PRIM_INT);
@@ -5742,7 +5587,7 @@ public class ProcessXmlMethodTest {
         assertEq(8, (Number)field_.getInstance());
     }
 
-    @Test(timeout=1000)
+    @Test
     public void instanceArgument5Test() {
         String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg'>\n";
         xml_ += "<field access='"+PUBLIC_ACCESS+"' name='inst' class='"+PrimitiveTypeUtil.PRIM_INT+"' value='2i'/>\n";
@@ -5761,7 +5606,6 @@ public class ProcessXmlMethodTest {
         CustList<Argument> args_ = new CustList<Argument>();
         Argument arg_;
         arg_ = new Argument();
-        arg_.setArgClassName(PrimitiveTypeUtil.PRIM_INT);
         arg_.setObject(8);
         args_.add(arg_);
         ConstructorId id_ = getConstructorId("pkg.Ex",PrimitiveTypeUtil.PRIM_INT);
@@ -5852,7 +5696,7 @@ public class ProcessXmlMethodTest {
         assertEq(4, (Number)field_.getInstance());
     }
 
-    @Test(timeout=1000)
+    @Test
     public void instanceArgument8Test() {
         String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg'>\n";
         xml_ += "<field access='"+PUBLIC_ACCESS+"' name='inst' class='"+PrimitiveTypeUtil.PRIM_INT+"' value='2i'/>\n";
@@ -5899,7 +5743,7 @@ public class ProcessXmlMethodTest {
         assertEq(6, (Number)field_.getInstance());
     }
 
-    @Test(timeout=1000)
+    @Test
     public void instanceArgument9Test() {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = new ContextEl(50);
@@ -5957,7 +5801,7 @@ public class ProcessXmlMethodTest {
         assertEq(7, (Number)field_.getInstance());
     }
 
-    @Test(timeout=1000)
+    @Test
     public void instanceArgument10Test() {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = new ContextEl(50);
@@ -6070,7 +5914,7 @@ public class ProcessXmlMethodTest {
         assertEq(7, (Number)field_.getInstance());
     }
 
-    @Test(timeout=1000)
+    @Test
     public void instanceArgument12Test() {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = new ContextEl(50);
@@ -6102,7 +5946,7 @@ public class ProcessXmlMethodTest {
         assertEq(8, (Number)field_.getInstance());
     }
 
-    @Test(timeout=1000)
+    @Test
     public void instanceArgument13Test() {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = new ContextEl(50);
@@ -6135,7 +5979,7 @@ public class ProcessXmlMethodTest {
         assertEq(8, (Number)field_.getInstance());
     }
 
-    @Test(timeout=1000)
+    @Test
     public void instanceArgument14Test() {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = new ContextEl(50);
@@ -6173,7 +6017,7 @@ public class ProcessXmlMethodTest {
         assertEq(8, (Number)field_.getInstance());
     }
 
-    @Test(timeout=1000)
+    @Test
     public void instanceArgument15Test() {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = new ContextEl(50);
@@ -6210,7 +6054,7 @@ public class ProcessXmlMethodTest {
         assertEq(8, (Number)field_.getInstance());
     }
 
-    @Test//(timeout=1000)
+    @Test//
     public void instanceArgument16Test() {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = new ContextEl(50);
@@ -6250,7 +6094,7 @@ public class ProcessXmlMethodTest {
         assertEq(24, (Number)field_.getInstance());
     }
 
-    @Test//(timeout=1000)
+    @Test//
     public void instanceArgument17Test() {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = new ContextEl(50);
@@ -6302,7 +6146,7 @@ public class ProcessXmlMethodTest {
         assertEq(17, (Number)field_.getInstance());
     }
 
-    @Test(timeout=1000)
+    @Test
     public void instanceArgument18Test() {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = new ContextEl(50);
@@ -6357,7 +6201,7 @@ public class ProcessXmlMethodTest {
         assertEq(17, (Number)field_.getInstance());
     }
 
-    @Test(timeout=1000)
+    @Test
     public void instanceArgument19Test() {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = new ContextEl(50);
@@ -6414,7 +6258,7 @@ public class ProcessXmlMethodTest {
         assertEq(34, (Number)field_.getInstance());
     }
 
-    @Test(timeout=1000)
+    @Test
     public void instanceArgument20Test() {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = new ContextEl(50);
@@ -6474,7 +6318,7 @@ public class ProcessXmlMethodTest {
         assertEq(34, (Number)intern_.getInstance());
     }
 
-    @Test(timeout=1000)
+    @Test
     public void instanceArgument21Test() {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = new ContextEl(50);
@@ -6534,7 +6378,7 @@ public class ProcessXmlMethodTest {
         assertEq(17, (Number)intern_.getInstance());
     }
 
-    @Test(timeout=1000)
+    @Test
     public void instanceArgument22Test() {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = new ContextEl(50);
@@ -6597,7 +6441,7 @@ public class ProcessXmlMethodTest {
         assertEq(17, (Number)intern_.getInstance());
     }
 
-    @Test(timeout=1000)
+    @Test
     public void instanceArgument23Test() {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = new ContextEl(50);
@@ -6671,7 +6515,7 @@ public class ProcessXmlMethodTest {
 //        assertEq(17, intern_.getInstance());
     }
 
-    @Test(timeout=1000)
+    @Test
     public void instanceArgument24Test() {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = new ContextEl(50);
@@ -6746,7 +6590,7 @@ public class ProcessXmlMethodTest {
 //        assertEq(17, intern_.getInstance());
     }
 
-    @Test//(timeout=1000)
+    @Test//
     public void instanceArgument25Test() {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = new ContextEl(50);
@@ -6801,7 +6645,7 @@ public class ProcessXmlMethodTest {
         assertEq(17, (Number)field_.getInstance());
     }
 
-    @Test//(timeout=1000)
+    @Test//
     public void instanceArgument26Test() {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = new ContextEl(50);
@@ -6860,7 +6704,7 @@ public class ProcessXmlMethodTest {
     }
 
 
-    @Test(timeout=1000)
+    @Test
     public void instanceArgument27Test() {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = new ContextEl(50);
@@ -7064,7 +6908,7 @@ public class ProcessXmlMethodTest {
         assertEq(17, (Number)intern_.getInstance());
     }
 
-    @Test(timeout=1000)
+    @Test
     public void instanceArgument30Test() {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = new ContextEl(50);
@@ -7208,7 +7052,7 @@ public class ProcessXmlMethodTest {
 //        assertEq(17, (Number)intern_.getInstance());
     }
 
-    @Test//(timeout=1000)
+    @Test//
     public void instanceArgument33Test() {
         StringMap<String> files_ = new StringMap<String>();
         String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg'>\n";
@@ -7242,7 +7086,7 @@ public class ProcessXmlMethodTest {
         assertEq(Integer.class.getName(), subField_.getClassName());
         assertEq(2, (Number)subField_.getInstance());
     }
-    @Test//(timeout=1000)
+    @Test//
     public void instanceArgument34Test() {
         StringMap<String> files_ = new StringMap<String>();
         String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg'>\n";
@@ -7306,7 +7150,6 @@ public class ProcessXmlMethodTest {
         CustList<Argument> args_ = new CustList<Argument>();
         Argument arg_;
         arg_ = new Argument();
-        arg_.setArgClassName(PrimitiveTypeUtil.PRIM_INT);
         arg_.setObject(8);
         args_.add(arg_);
         ConstructorId id_ = getConstructorId("pkg.Ex",PrimitiveTypeUtil.PRIM_INT);
@@ -7356,7 +7199,6 @@ public class ProcessXmlMethodTest {
         CustList<Argument> args_ = new CustList<Argument>();
         Argument arg_;
         arg_ = new Argument();
-        arg_.setArgClassName(PrimitiveTypeUtil.PRIM_INT);
         arg_.setObject(8);
         args_.add(arg_);
         ConstructorId id_ = getConstructorId("pkg.Ex",PrimitiveTypeUtil.PRIM_INT);
@@ -7406,7 +7248,6 @@ public class ProcessXmlMethodTest {
         CustList<Argument> args_ = new CustList<Argument>();
         Argument arg_;
         arg_ = new Argument();
-        arg_.setArgClassName(PrimitiveTypeUtil.PRIM_INT);
         arg_.setObject(8);
         args_.add(arg_);
         ConstructorId id_ = getConstructorId("pkg.Ex",PrimitiveTypeUtil.PRIM_INT);
@@ -7451,7 +7292,6 @@ public class ProcessXmlMethodTest {
         CustList<Argument> args_ = new CustList<Argument>();
         Argument arg_;
         arg_ = new Argument();
-        arg_.setArgClassName(PrimitiveTypeUtil.PRIM_INT);
         arg_.setObject(8);
         args_.add(arg_);
         ConstructorId id_ = getConstructorId("pkg.Ex",PrimitiveTypeUtil.PRIM_INT);
@@ -7492,7 +7332,6 @@ public class ProcessXmlMethodTest {
         CustList<Argument> args_ = new CustList<Argument>();
         Argument arg_;
         arg_ = new Argument();
-        arg_.setArgClassName(PrimitiveTypeUtil.PRIM_INT);
         arg_.setObject(8);
         args_.add(arg_);
         ConstructorId id_ = getConstructorId("pkg.Ex",PrimitiveTypeUtil.PRIM_INT);
@@ -7541,7 +7380,6 @@ public class ProcessXmlMethodTest {
         CustList<Argument> args_ = new CustList<Argument>();
         Argument arg_;
         arg_ = new Argument();
-        arg_.setArgClassName(PrimitiveTypeUtil.PRIM_INT);
         arg_.setObject(8);
         args_.add(arg_);
         ConstructorId id_ = getConstructorId("pkg.Ex",PrimitiveTypeUtil.PRIM_INT);
@@ -8547,41 +8385,6 @@ public class ProcessXmlMethodTest {
         xml_ += "</class>\n";
         files_.put("pkg/ExThree."+Classes.EXT, xml_);
         Classes.validateAll(files_, cont_);
-//        List<Argument> args_ = new List<Argument>();
-//        ConstructorId id_ = getConstructorId("pkg.Ex");
-//        ProcessXmlMethod.initializeClass("pkg.Ex", cont_);
-//        Argument ret_;
-//        ret_ = instanceArgument("pkg.Ex", null, id_, args_, cont_);
-//        assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
-//        Struct str_ = ret_.getStruct();
-//        assertEq(CustBase.class.getName(), str_.getRealClassName());
-//        assertEq("pkg.Ex", str_.getClassName());
-//        Struct field_;
-//        field_ = str_.getFields().getVal(new ClassField("pkg.Ex", "inst"));
-//        assertEq(Integer.class.getName(), field_.getRealClassName());
-//        assertEq(Integer.class.getName(), field_.getClassName());
-//        assertEq(2, field_.getInstance());
-//        field_ = str_.getFields().getVal(new ClassField("pkg.ExTwo", "sec"));
-//        assertEq(Integer.class.getName(), field_.getRealClassName());
-//        assertEq(Integer.class.getName(), field_.getClassName());
-//        assertEq(24, field_.getInstance());
-//        field_ = str_.getFields().getVal(new ClassField("pkg.ExTwo", "fourth"));
-//        assertEq(Integer.class.getName(), field_.getRealClassName());
-//        assertEq(Integer.class.getName(), field_.getClassName());
-//        assertEq(1, field_.getInstance());
-//        field_ = str_.getFields().getVal(new ClassField("pkg.ExTwo", "third"));
-//        assertEq(Struct[].class.getName(), field_.getRealClassName());
-//        assertEq(ARR_CUST, field_.getClassName());
-//        assertEq(1, Array.getLength(field_.getInstance()));
-//        Struct elt_ = (Struct) Array.get(field_.getInstance(), 0);
-//        Struct intern_ = elt_.getFields().getVal(new ClassField("pkg.ExThree", "ance"));
-//        assertEq(Integer.class.getName(), intern_.getRealClassName());
-//        assertEq(Integer.class.getName(), intern_.getClassName());
-//        assertEq(17, intern_.getInstance());
-//        Struct intern_ = field_.getFields().getVal(new ClassField("pkg.ExThree", "ance"));
-//        assertEq(Integer.class.getName(), intern_.getRealClassName());
-//        assertEq(Integer.class.getName(), intern_.getClassName());
-//        assertEq(17, intern_.getInstance());
     }
 
     public static Argument instanceArgument(String _class, Argument _global, ConstructorId _id, CustList<Argument> _args, ContextEl _cont) {
@@ -8595,258 +8398,6 @@ public class ProcessXmlMethodTest {
         return ProcessXmlMethod.instanceArgument(_class, _global, id_, _args, _cont);
     }
 
-    @Ignore
-    @Test
-    public void calculateArgumentTmp2Test() {
-        String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg'>\n";
-        xml_ += "<method access='"+PUBLIC_ACCESS+"' modifier='static' name='exmeth' class='"+PrimitiveTypeUtil.PRIM_INT+"'>\n";
-        xml_ += "<return expression='exmethsec()+1i'/>\n";
-        xml_ += "</method>\n";
-        xml_ += "<method access='"+PUBLIC_ACCESS+"' modifier='static' name='exmethsec' class='"+PrimitiveTypeUtil.PRIM_INT+"'>\n";
-        xml_ += "<declare var='t' class='"+PrimitiveTypeUtil.PRIM_LONG+"'/>\n";
-        xml_ += "<affect left='t;.' oper='=' right='8'/>\n";
-
-        xml_ += "<declareset var='p' class='"+PICKABLE_LIST+"' expression='^new."+PICKABLE_LIST+"()'/>\n";
-        xml_ += "<line expression='adding(p;.,0)'/>\n";
-        xml_ += "<line expression='adding(p;.,2)'/>\n";
-//        xml_ += "<while condition='p;.removeAndExistAfter(1i)'>\n";
-        xml_ += "<do>\n";
-        xml_ += "<affect left='t;.' oper='++'/>\n";
-        xml_ += "</do>\n";
-        xml_ += "<while condition='exmethparam(p;.)'/>\n";
-        xml_ += "<foreach class='"+PrimitiveTypeUtil.PRIM_INT+"' var='i' expression='exmethlist()'>\n";
-        xml_ += "<if condition='i;%2=0i'>\n";
-        xml_ += "<affect left='t;.' oper='+=' right='i;'/>\n";
-        xml_ += "</if>\n";
-        xml_ += "<else>\n";
-        xml_ += "<affect left='t;.' oper='+=' right='i;+1'/>\n";
-        xml_ += "</else>\n";
-        xml_ += "</foreach>\n";
-//        xml_ += "<return expression='1i+class(&quot;"+PrimitiveTypeUtil.PRIM_INT+"&quot;,t;.)'/>\n";
-        xml_ += "<return expression='1i+^class(&quot;"+PrimitiveTypeUtil.PRIM_INT+"&quot;,t;.)+p;.getList().size()'/>\n";
-        xml_ += "</method>\n";
-        xml_ += "<method access='"+PUBLIC_ACCESS+"' modifier='static' name='adding' class='"+OperationNode.VOID_RETURN+"' class0='"+PICKABLE_LIST+"' var0='l' class1='java.lang.Object' var1='o'>\n";
-        xml_ += "<line expression='l;.;getList().add(o;.;)'/>\n";
-        xml_ += "</method>\n";
-        xml_ += "<method access='"+PUBLIC_ACCESS+"' modifier='static' name='exmethlist' class='"+NUMBERS+"'>\n";
-        xml_ += "<declare var='t' class='"+NUMBERS+"'/>\n";
-        xml_ += "<affect left='t;.' oper='=' right='^new."+NUMBERS+"()'/>\n";
-//        xml_ += "<line expression='t;.add(class(&quot;java.lang.Object&quot;,8i))'/>\n";
-        xml_ += "<line expression='t;.add(8i)'/>\n";
-//        xml_ += "<line expression='t;.add(class(&quot;java.lang.Object&quot;,2i))'/>\n";
-        xml_ += "<line expression='t;.add(2i)'/>\n";
-        xml_ += "<line expression='t;.add(1i)'/>\n";
-        xml_ += "<return expression='t;.'/>\n";
-        xml_ += "</method>\n";
-        xml_ += "<method access='"+PUBLIC_ACCESS+"' modifier='static' name='exmethparam' class='"+PrimitiveTypeUtil.PRIM_BOOLEAN+"' class0='"+PICKABLE_LIST+"' var0='l'>\n";
-        xml_ += "<return expression='l;.;removeAndExistAfter(1i)'/>\n";
-        xml_ += "</method>\n";
-        xml_ += "<method access='"+PUBLIC_ACCESS+"' modifier='static' name='factrec' class='"+PrimitiveTypeUtil.PRIM_INT+"' class0='"+PrimitiveTypeUtil.PRIM_INT+"' var0='l'>\n";
-        xml_ += "<if condition='l;.;&lt;=0'>\n";
-        xml_ += "\t<return expression='1i'/>\n";
-        xml_ += "</if>\n";
-        xml_ += "<return expression='l;.;*factrec(l;.;-1i)'/>\n";
-        xml_ += "</method>\n";
-        xml_ += "<method access='"+PUBLIC_ACCESS+"' modifier='static' name='addelt' class='"+OperationNode.VOID_RETURN+"' class0='"+CUST+"' var0='l' class1='java.lang.Object' var1='e'>\n";
-        xml_ += "<line expression='l;.;add(e;.;)'/>\n";
-        xml_ += "</method>\n";
-        xml_ += "<method access='"+PUBLIC_ACCESS+"' modifier='static' name='catching' class='"+PrimitiveTypeUtil.PRIM_INT+"'>\n";
-        xml_ += "<declare var='t' class='"+PrimitiveTypeUtil.PRIM_INT+"'/>\n";
-        xml_ += "<affect left='t;.' oper='=' right='0i'/>\n";
-        xml_ += "<try>\n";
-        xml_ += "<try>\n";
-        xml_ += "<return expression='badMethod()'/>\n";
-        xml_ += "</try>\n";
-        xml_ += "<catch var='e' class='java.lang.NullPointerException'>\n";
-        xml_ += "<affect left='t;.' oper='=' right='1i'/>\n";
-        xml_ += "</catch>\n";
-        xml_ += "</try>\n";
-        xml_ += "<catch var='e' class='java.lang.Exception'>\n";
-        xml_ += "<return expression='1i+t;.'/>\n";
-        xml_ += "</catch>\n";
-        xml_ += "</method>\n";
-        xml_ += "<method access='"+PUBLIC_ACCESS+"' modifier='static' name='badMethod' class='"+PrimitiveTypeUtil.PRIM_INT+"'>\n";
-        xml_ += "<return expression='1i/0i'/>\n";
-        xml_ += "</method>\n";
-        xml_ += "</class>\n";
-        StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = new ContextEl();
-        cont_.setAccessValue(new AccessValueEx());
-        files_.put("pkg/Ex."+Classes.EXT, xml_);
-        Classes.validateAll(files_, cont_);
-//        Classes classes_ = new Classes(files_, cont_);
-//        classes_.validateClassBodies(cont_);
-//        classes_.validateClassNames(cont_);
-//        classes_.validateMethodNames(cont_);
-//        classes_.validateMethodsId(cont_);
-//        classes_.validateLocalVariableNamesId(cont_);
-//        cont_.setClasses(classes_);
-//        classes_.validateEl(cont_);
-        CustList<Argument> args_ = new CustList<Argument>();
-        MethodId id_ = getMethodId("catching");
-        Argument ret_ = new Argument();
-        ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
-        assertEq(2, (Number)ret_.getObject());
-        assertEq(PrimitiveTypeUtil.PRIM_INT, ret_.getArgClassName());
-    }
-
-    @Ignore
-    @Test(timeout=1000)
-    public void calculateArgumentTmpTest() {
-        String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg'>\n";
-        xml_ += "<method access='"+PUBLIC_ACCESS+"' modifier='static' name='exmeth' class='"+PrimitiveTypeUtil.PRIM_INT+"'>\n";
-        xml_ += "<declare var='t' class='"+PrimitiveTypeUtil.PRIM_LONG+"'/>\n";
-        xml_ += "<affect left='t;.' oper='=' right='8'/>\n";
-        xml_ += "<declareset var='p' class='"+PICKABLE_LIST+"' expression='^new."+PICKABLE_LIST+"()'/>\n";
-        xml_ += "<line expression='p;.getList().add(0)'/>\n";
-        xml_ += "<line expression='p;.getList().add(2)'/>\n";
-        xml_ += "<while condition='p;.removeAndExistAfter(1i)'>\n";
-        xml_ += "<if condition='true'>\n";
-        xml_ += "<continue/>\n";
-        xml_ += "</if>\n";
-        xml_ += "<else>\n";
-        xml_ += "<continue/>\n";
-        xml_ += "</else>\n";
-//        xml_ += "<affect left='t;.' oper='+=' right='8'/>\n";
-        xml_ += "&quot;<toto/>\n";
-        xml_ += "</while>\n";
-        xml_ += "<if condition='t;.%2=0'>\n";
-        xml_ += "<affect left='t;.' oper='+=' right='8'/>\n";
-        xml_ += "<return expression='1i+^class(&quot;"+PrimitiveTypeUtil.PRIM_INT+"&quot;,t;.)'/>\n";
-        xml_ += "</if>\n";
-        xml_ += "<elseif condition='t;.&lt;0'>\n";
-        xml_ += "<affect left='t;.' oper='+=' right='2'/>\n";
-        xml_ += "<return expression='1i+^class(&quot;"+PrimitiveTypeUtil.PRIM_INT+"&quot;,t;.)'/>\n";
-        xml_ += "</elseif>\n";
-        xml_ += "<if condition='t;.%2=0'>\n";
-        xml_ += "<affect left='t;.' oper='+=' right='8'/>\n";
-        xml_ += "<return expression='1i+^class(&quot;"+PrimitiveTypeUtil.PRIM_INT+"&quot;,t;.)'/>\n";
-        xml_ += "</if>\n";
-        xml_ += "<else condition='t;.&lt;0'>\n";
-        xml_ += "<affect left='t;.' oper='+=' right='2'/>\n";
-        xml_ += "<return expression='1i+^class(&quot;"+PrimitiveTypeUtil.PRIM_INT+"&quot;,t;.)'/>\n";
-        xml_ += "</else>\n";
-//        xml_ += "<return expression='1i+^class(&quot;"+PrimitiveTypeUtil.PRIM_INT+"&quot;,t;.)'/>\n";
-//        xml_ += "<return expression='1i+class(&quot;"+PrimitiveTypeUtil.PRIM_INT+"&quot;,t;.)'/>\n";
-        xml_ += "</method>\n";
-        xml_ += "</class>\n";
-        StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = new ContextEl();
-        cont_.setAccessValue(new AccessValueEx());
-        files_.put("pkg/Ex."+Classes.EXT, xml_);
-        Classes.validateAll(files_, cont_);
-//        Classes classes_ = new Classes(files_, cont_);
-//        classes_.validateClassBodies(cont_);
-//        classes_.validateClassNames(cont_);
-//        classes_.validateMethodNames(cont_);
-//        classes_.validateMethodsId(cont_);
-//        classes_.validateLocalVariableNamesId(cont_);
-//        classes_.validateEl(cont_);
-//        cont_.setClasses(classes_);
-        CustList<Argument> args_ = new CustList<Argument>();
-        MethodId id_ = getMethodId("exmeth");
-        Argument ret_ = new Argument();
-        ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
-        assertEq(17,(Number) ret_.getObject());
-        assertEq(PrimitiveTypeUtil.PRIM_INT, ret_.getArgClassName());
-    }
-//    @Ignore
-//    @Test(timeout=1000)
-//    public void calculateArgument1DebTest() {
-//        String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg'>\n";
-//        xml_ += "<method access='"+PUBLIC_ACCESS+"' modifier='static' name='exmeth' class='"+PrimitiveTypeUtil.PRIM_INT+"'>\n";
-//        xml_ += "<return expression='exmethsec()+1i'/>\n";
-//        xml_ += "</method>\n";
-//
-//        xml_ += "<method access='"+PUBLIC_ACCESS+"' modifier='static' name='exmethsec' class='"+PrimitiveTypeUtil.PRIM_INT+"'>\n";
-//        xml_ += "<declare var='t' class='"+PrimitiveTypeUtil.PRIM_LONG+"'/>\n";
-//        xml_ += "<affect left='t;.' oper='=' right='8'/>\n";
-//        xml_ += "<declareset var='p' class='"+PICKABLE_LIST+"' expression='^new."+PICKABLE_LIST+"()'/>\n";
-//        xml_ += "<line expression='adding(p;.,0)'/>\n";
-//        xml_ += "<line expression='adding(p;.,2)'/>\n";
-////        xml_ += "<while condition='p;.removeAndExistAfter(1i)'>\n";
-//        xml_ += "<while condition='exmethparam(p;.)'>\n";
-//        xml_ += "<continue/>\n";
-//        xml_ += "</while>\n";
-//        xml_ += "<foreach class='"+PrimitiveTypeUtil.PRIM_INT+"' var='i' expression='exmethlist()'>\n";
-//        xml_ += "<if condition='i;%2=0i'>\n";
-//        xml_ += "<affect left='t;.' oper='+=' right='i;'/>\n";
-//        xml_ += "</if>\n";
-//        xml_ += "<else>\n";
-//        xml_ += "<affect left='t;.' oper='+=' right='i;+1'/>\n";
-//        xml_ += "</else>\n";
-//        xml_ += "</foreach>\n";
-////        xml_ += "<return expression='1i+class(&quot;"+PrimitiveTypeUtil.PRIM_INT+"&quot;,t;.)'/>\n";
-//        xml_ += "<return expression='1i+^class(&quot;"+PrimitiveTypeUtil.PRIM_INT+"&quot;,t;.)+p;.getList().size()'/>\n";
-//        xml_ += "</method>\n";
-//
-//        xml_ += "<method access='"+PUBLIC_ACCESS+"' modifier='static' name='adding' class='"+OperationNode.VOID_RETURN+"' class0='"+PICKABLE_LIST+"' var0='l' class1='java.lang.Object' var1='o'>\n";
-//        xml_ += "<line expression='l;.;getList().add(o;.;)'/>\n";
-//        xml_ += "</method>\n";
-//        xml_ += "<method access='"+PUBLIC_ACCESS+"' modifier='static' name='exmethlist' class='"+NUMBERS+"'>\n";
-//        xml_ += "<declare var='t' class='"+NUMBERS+"'/>\n";
-//        xml_ += "<affect left='t;.' oper='=' right='^new."+NUMBERS+"()'/>\n";
-////        xml_ += "<line expression='t;.add(class(&quot;java.lang.Object&quot;,8i))'/>\n";
-//        xml_ += "<line expression='t;.add(8i)'/>\n";
-////        xml_ += "<line expression='t;.add(class(&quot;java.lang.Object&quot;,2i))'/>\n";
-//        xml_ += "<line expression='t;.add(2i)'/>\n";
-//        xml_ += "<line expression='t;.add(1i)'/>\n";
-//        xml_ += "<return expression='t;.'/>\n";
-//        xml_ += "</method>\n";
-//        xml_ += "<method access='"+PUBLIC_ACCESS+"' modifier='static' name='exmethparam' class='"+PrimitiveTypeUtil.PRIM_BOOLEAN+"' class0='"+PICKABLE_LIST+"' var0='l'>\n";
-//        xml_ += "<return expression='l;.;removeAndExistAfter(1i)'/>\n";
-//        xml_ += "</method>\n";
-//        xml_ += "</class>\n";
-//        StringMap<String> files_ = new StringMap<String>();
-//        ContextEl cont_ = new ContextEl();
-//        cont_.setAccessValue(new AccessValueEx());
-//        files_.put("pkg/Ex."+Classes.EXT, xml_);
-//        Classes classes_ = new Classes(files_, cont_);
-//        classes_.validateClassBodies(cont_);
-//        classes_.validateClassNames(cont_);
-//        classes_.validateMethodNames(cont_);
-//        classes_.validateMethodsId(cont_);
-//        classes_.validateLocalVariableNamesId(cont_);
-//        cont_.setClasses(classes_);
-//        classes_.validateEl(cont_);
-//        MethodId idtmp_ = getMethodId("exmethsec");
-//        Block blTmp_ = classes_.getMethodBody("pkg.Ex", idtmp_);
-//        CustList<Block> chSort_ = TreeRetrieving.<Block>getDirectChildren(blTmp_);
-//        CustList<Block> ch_ = new CustList<Block>();
-//        for (Block s: chSort_) {
-//            ch_.add((Block) s);
-//        }
-//        BlockGroup bg_ = new BlockGroup(0, ch_, null, blTmp_, false);
-//        for (BlockGroup s: TreeRetrieving.<BlockGroup>getSortedDescNodes(bg_)) {
-//            BlockGroup b_ = (BlockGroup) s;
-//            if (b_.getBlockGroup().isEmpty()) {
-//                continue;
-//            }
-//            System.out.println(b_.getParent() != null);
-//            System.out.println(b_.isOkReturn()+" exit");
-//            boolean foundReturn_ = false;
-//            for (Block b: b_.getBlockGroup()) {
-//                if (b instanceof ReturnMehod) {
-//                    foundReturn_ = true;
-//                }
-//                if (b instanceof Throwing) {
-//                    foundReturn_ = true;
-//                }
-//            }
-//            if (foundReturn_) {
-//                System.out.println("found "+b_.getBlockGroup().first().getParent().getAssociateElement().getNodeName());
-//            }
-////            if (b_.getNextSibling() == null) {
-//////                System.out.println("=========== "+b_.getBlockGroup().first().getParent().getAssociateElement().getNodeName());
-////                System.out.println("=========== "+b_.getBlockGroup().first().getAssociateElement().getNodeName());
-////            }
-//            System.out.println("=========== "+b_.getBlockGroup().first().getParent().getAssociateElement().getNodeName());
-//            System.out.println(TreeRetrieving.getDirectChildren(b_).size());
-//            for (Block b: b_.getBlockGroup()) {
-//                System.out.println(b.getAssociateElement().getNodeName());
-//            }
-//        }
-//    }
     private static MethodId getMethodId(String _name, String..._classNames) {
         EqList<ClassName> cl_ = new EqList<ClassName>();
         for (String c: _classNames) {

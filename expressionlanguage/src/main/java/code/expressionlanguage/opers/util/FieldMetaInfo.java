@@ -11,15 +11,19 @@ public final class FieldMetaInfo {
 
     private final boolean staticField;
 
+    private final boolean finalField;
+
     private final boolean enumElement;
 
     public FieldMetaInfo(ClassName _declaringClass,
             String _name,
-            ClassName _returnType, boolean _static, boolean _enumElement) {
+            ClassName _returnType, boolean _static,
+            boolean _finalField, boolean _enumElement) {
         declaringClass = _declaringClass;
         name = _name;
         type = _returnType;
         staticField = _static;
+        finalField = _finalField;
         enumElement = _enumElement;
     }
 //    public FieldMetaInfo(Field _method) {
@@ -34,6 +38,9 @@ public final class FieldMetaInfo {
     }
     public boolean isStaticField() {
         return staticField;
+    }
+    public boolean isFinalField() {
+        return finalField;
     }
     public ClassName getType() {
         return type;

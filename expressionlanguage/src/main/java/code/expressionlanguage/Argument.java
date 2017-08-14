@@ -1,10 +1,8 @@
 package code.expressionlanguage;
 import code.expressionlanguage.exceptions.DynamicNumberFormatException;
-import code.expressionlanguage.opers.OperationNode;
 import code.expressionlanguage.opers.util.Struct;
 import code.util.CustList;
 import code.util.StringList;
-import code.util.consts.ConstClasses;
 import code.util.exceptions.RuntimeClassNotFoundException;
 
 public final class Argument {
@@ -27,10 +25,6 @@ public final class Argument {
 
     private Struct object = new Struct();
 
-    private String argClassName;
-
-//    private Class<?> argClass;
-
     public static Argument[] toArgArray(CustList<Argument> _args) {
         int len_ = _args.size();
         Argument[] args_;
@@ -43,7 +37,6 @@ public final class Argument {
 
     public static Argument createVoid() {
         Argument void_ = new Argument();
-        void_.setArgClassName(OperationNode.VOID_RETURN);
         return void_;
     }
 
@@ -153,12 +146,10 @@ public final class Argument {
         Argument a_ = new Argument();
         if (StringList.isNumber(_nb)) {
             a_.object = new Struct(Long.parseLong(_nb));
-            a_.argClassName = Long.class.getName();
             return a_;
         }
         if (StringList.isDoubleNumber(_nb)) {
             a_.object = new Struct(Double.parseDouble(_nb));
-            a_.argClassName = Double.class.getName();
             return a_;
         }
         if (_nb.length() <= CustList.ONE_ELEMENT) {
@@ -170,73 +161,34 @@ public final class Argument {
         }
         if (StringList.quickEq(parts_.last().toLowerCase(), INT_SUFFIX) && StringList.isNumber(parts_.first())) {
             a_.object = new Struct(Integer.parseInt(parts_.first()));
-            if (StringList.quickEq(parts_.last(), INT_SUFFIX)) {
-                a_.argClassName = PrimitiveTypeUtil.PRIM_INT;
-            } else {
-                a_.argClassName = Integer.class.getName();
-            }
             return a_;
         }
         if (StringList.quickEq(parts_.last().toLowerCase(), BYTE_SUFFIX) && StringList.isNumber(parts_.first())) {
             a_.object = new Struct(Byte.parseByte(parts_.first()));
-            if (StringList.quickEq(parts_.last(), BYTE_SUFFIX)) {
-                a_.argClassName = PrimitiveTypeUtil.PRIM_BYTE;
-            } else {
-                a_.argClassName = Byte.class.getName();
-            }
             return a_;
         }
         if (StringList.quickEq(parts_.last().toLowerCase(), LONG_SUFFIX) && StringList.isNumber(parts_.first())) {
             a_.object = new Struct(Long.parseLong(parts_.first()));
-            if (StringList.quickEq(parts_.last(), LONG_SUFFIX)) {
-                a_.argClassName = PrimitiveTypeUtil.PRIM_LONG;
-            } else {
-                a_.argClassName = Long.class.getName();
-            }
             return a_;
         }
         if (StringList.quickEq(parts_.last().toLowerCase(), SHORT_SUFFIX) && StringList.isNumber(parts_.first())) {
             a_.object = new Struct(Short.parseShort(parts_.first()));
-            if (StringList.quickEq(parts_.last(), SHORT_SUFFIX)) {
-                a_.argClassName = PrimitiveTypeUtil.PRIM_SHORT;
-            } else {
-                a_.argClassName = Short.class.getName();
-            }
             return a_;
         }
         if (StringList.quickEq(parts_.last().toLowerCase(), FLOAT_SUFFIX) && StringList.isDoubleNumber(parts_.first())) {
             a_.object = new Struct(Float.parseFloat(parts_.first()));
-            if (StringList.quickEq(parts_.last(), FLOAT_SUFFIX)) {
-                a_.argClassName = PrimitiveTypeUtil.PRIM_FLOAT;
-            } else {
-                a_.argClassName = Float.class.getName();
-            }
             return a_;
         }
         if (StringList.quickEq(parts_.last().toLowerCase(), DOUBLE_SUFFIX) && StringList.isDoubleNumber(parts_.first())) {
             a_.object = new Struct(Double.parseDouble(parts_.first()));
-            if (StringList.quickEq(parts_.last(), DOUBLE_SUFFIX)) {
-                a_.argClassName = PrimitiveTypeUtil.PRIM_DOUBLE;
-            } else {
-                a_.argClassName = Double.class.getName();
-            }
             return a_;
         }
         if (StringList.quickEq(parts_.last().toLowerCase(), CHAR_SUFFIX) && StringList.isNumber(parts_.first())) {
             long l_ = Long.parseLong(parts_.first());
             a_.object = new Struct(Character.valueOf((char) l_));
-            if (StringList.quickEq(parts_.last(), CHAR_SUFFIX)) {
-                a_.argClassName = PrimitiveTypeUtil.PRIM_CHAR;
-            } else {
-                a_.argClassName = Character.class.getName();
-            }
             return a_;
         }
         throw new DynamicNumberFormatException(_nb);
-    }
-    
-    public boolean matchArgClass(String _className) {
-        return StringList.quickEq(argClassName, _className);
     }
 
     public Struct getStruct() {
@@ -248,23 +200,6 @@ public final class Argument {
         if (object == null) {
             object = new Struct();
         }
-    }
-
-    public void setStructArgClassName(Struct _object) {
-        object = _object;
-        if (object == null) {
-            object = new Struct();
-        } else {
-            argClassName = object.getClassName();
-        }
-    }
-
-    public void setStructArgClassName(Struct _object, String _argClassName) {
-        object = _object;
-        if (object == null) {
-            object = new Struct();
-        }
-        argClassName = _argClassName;
     }
 
     public boolean isNull() {
@@ -287,36 +222,12 @@ public final class Argument {
         return object.getClassName();
     }
 
-    public String getArgClassName() {
-        return argClassName;
-    }
-
-    public boolean isPrimitiveClass() {
-        if (argClassName.startsWith(PrimitiveTypeUtil.PRIM)) {
-            return true;
-        }
-        try {
-            return getArgClass().isPrimitive();
-        } catch (RuntimeClassNotFoundException _0_) {
-            return false;
-        }
-    }
-
-    public void setArgClassName(String _argClassName) {
-        argClassName = _argClassName;
-//        setArgClass(ConstClasses.classForNameNotInit(_argClassName));
-    }
-
     public boolean isArrayClass() {
-//        return argClassName.startsWith(ARR_PREFIX);
         return object.isNull() || object.getClassName().startsWith(ARR_PREFIX);
     }
 
     public Class<?> getArgClass() {
-        if (argClassName.startsWith(PrimitiveTypeUtil.PRIM)) {
-            return ConstClasses.getPrimitiveClass(argClassName.substring(1));
-        }
-        return ConstClasses.classAliasForNameNotInit(PrimitiveTypeUtil.getArrayClass(argClassName));
+        return object.getInstance().getClass();
     }
 
     public boolean isIntegerType() {
@@ -329,9 +240,5 @@ public final class Argument {
             return false;
         }
     }
-//
-//    public void setArgClass(Class<?> _argClass) {
-//        argClass = _argClass;
-//    }
 
 }

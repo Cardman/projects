@@ -76,7 +76,6 @@ public abstract class InvokingOperation extends MethodOperation {
             Object array_;
             Argument argRem_ = new Argument();
             String g_ = _children.first().getResultClass().getName();
-            argRem_.setArgClassName(PrimitiveTypeUtil.getPrettyArrayType(g_));
             if (_nativeMethod) {
                 OperationNode o_ = _children.first();
                 String className_ = o_.getResultClass().getName();
@@ -129,7 +128,6 @@ public abstract class InvokingOperation extends MethodOperation {
             Object array_;
             Argument argRem_ = new Argument();
             String g_ = _children.first().getResultClass().getName();
-            argRem_.setArgClassName(PrimitiveTypeUtil.getPrettyArrayType(g_));
             if (_nativeMethod) {
                 OperationNode op_ = _children.first();
                 String className_ = op_.getResultClass().getName();

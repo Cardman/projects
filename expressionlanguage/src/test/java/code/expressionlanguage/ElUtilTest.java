@@ -72,22 +72,19 @@ public class ElUtilTest {
     private static final String MY_IMPL_HAT = StringList.replace(MY_IMPL, ".", "^");
     private static final String PUBLIC_ACCESS = "PUBLIC";
 
-    @Test(timeout=1000)
+    @Test
     public void processEl1Test() {
         ContextEl context_ = new ContextEl();
         setupAccessValue(context_);
         addImportingPage(context_);
         BeanOne b_ = new BeanOne();
         addBean(context_, b_);
-        //        ElUtil.processEl("instanceof(\"java.lang.Number\",5)",0, context_);
-//        Argument arg_ = ElUtil.processEl("class(\"java.lang.Number\",5)",0, context_);
         Argument arg_ = ElUtil.processEl("^class(\"java.lang.Number\",5)",0, context_);
-        assertEq(Number.class.getName(), arg_.getArgClassName());
         Object res_ = arg_.getObject();
         assertSame(Long.class, res_.getClass());
         assertEq(5L, (Number)res_);
     }
-    @Test//(timeout=1000)
+    @Test
     public void processEl2Test() {
         ContextEl context_ = new ContextEl();
         setupAccessValue(context_);
@@ -95,13 +92,12 @@ public class ElUtilTest {
         BeanOne b_ = new BeanOne();
         addBean(context_, b_);
         Argument arg_ = ElUtil.processEl("static^java^lang^Long.MAX_VALUE",0, context_);
-        assertEq(PrimitiveTypeUtil.PRIM_LONG, arg_.getArgClassName());
         Object res_ = arg_.getObject();
         assertSame(Long.class, res_.getClass());
         assertEq(Long.MAX_VALUE, (Number)res_);
     }
 
-    @Test(timeout=1000)
+    @Test
     public void processEl3Test() {
         ContextEl context_ = new ContextEl();
         setupAccessValue(context_);
@@ -109,13 +105,12 @@ public class ElUtilTest {
         BeanOne b_ = new BeanOne();
         addBean(context_, b_);
         Argument arg_ = ElUtil.processEl("(1+2)*3",0, context_);
-        assertEq(PrimitiveTypeUtil.PRIM_LONG, arg_.getArgClassName());
         Object res_ = arg_.getObject();
         assertSame(Long.class, res_.getClass());
         assertEq(9L, (Number)res_);
     }
 
-    @Test(timeout=1000)
+    @Test
     public void processEl4Test() {
         ContextEl context_ = new ContextEl();
         setupAccessValue(context_);
@@ -123,13 +118,12 @@ public class ElUtilTest {
         BeanOne b_ = new BeanOne();
         addBean(context_, b_);
         Argument arg_ = ElUtil.processEl("1--1",0, context_);
-        assertEq(PrimitiveTypeUtil.PRIM_LONG, arg_.getArgClassName());
         Object res_ = arg_.getObject();
         assertSame(Long.class, res_.getClass());
         assertEq(2L, (Number)res_);
     }
 
-    @Test(timeout=1000)
+    @Test
     public void processEl5Test() {
         ContextEl context_ = new ContextEl();
         setupAccessValue(context_);
@@ -137,13 +131,12 @@ public class ElUtilTest {
         BeanOne b_ = new BeanOne();
         addBean(context_, b_);
         Argument arg_ = ElUtil.processEl("1+2*3",0, context_);
-        assertEq(PrimitiveTypeUtil.PRIM_LONG, arg_.getArgClassName());
         Object res_ = arg_.getObject();
         assertSame(Long.class, res_.getClass());
         assertEq(7L, (Number)res_);
     }
 
-    @Test(timeout=1000)
+    @Test
     public void processEl6Test() {
         ContextEl context_ = new ContextEl();
         setupAccessValue(context_);
@@ -151,13 +144,12 @@ public class ElUtilTest {
         BeanOne b_ = new BeanOne();
         addBean(context_, b_);
         Argument arg_ = ElUtil.processEl("--1",0, context_);
-        assertEq(PrimitiveTypeUtil.PRIM_LONG, arg_.getArgClassName());
         Object res_ = arg_.getObject();
         assertSame(Long.class, res_.getClass());
         assertEq(1L, (Number)res_);
     }
 
-    @Test(timeout=1000)
+    @Test
     public void processEl7Test() {
         ContextEl context_ = new ContextEl();
         setupAccessValue(context_);
@@ -165,13 +157,12 @@ public class ElUtilTest {
         BeanOne b_ = new BeanOne();
         addBean(context_, b_);
         Argument arg_ = ElUtil.processEl("static^java^lang^Math.abs(-8l)",0, context_);
-        assertEq(PrimitiveTypeUtil.PRIM_LONG, arg_.getArgClassName());
         Object res_ = arg_.getObject();
         assertSame(Long.class, res_.getClass());
         assertEq(8L, (Number)res_);
     }
 
-    @Test(timeout=1000)
+    @Test
     public void processEl8Test() {
         ContextEl context_ = new ContextEl();
         setupAccessValue(context_);
@@ -179,13 +170,12 @@ public class ElUtilTest {
         BeanOne b_ = new BeanOne();
         addBean(context_, b_);
         Argument arg_ = ElUtil.processEl("static^java^lang^Math.abs(8l)",0, context_);
-        assertEq(PrimitiveTypeUtil.PRIM_LONG, arg_.getArgClassName());
         Object res_ = arg_.getObject();
         assertSame(Long.class, res_.getClass());
         assertEq(8L, (Number)res_);
     }
 
-    @Test(timeout=1000)
+    @Test
     public void processEl9Test() {
         ContextEl context_ = new ContextEl();
         setupAccessValue(context_);
@@ -193,13 +183,12 @@ public class ElUtilTest {
         BeanOne b_ = new BeanOne();
         addBean(context_, b_);
         Argument arg_ = ElUtil.processEl("composite.integer",0, context_);
-        assertEq(PrimitiveTypeUtil.PRIM_INT, arg_.getArgClassName());
         Object res_ = arg_.getObject();
         assertSame(Integer.class, res_.getClass());
         assertEq(0, (Number)res_);
     }
 
-    @Test(timeout=1000)
+    @Test
     public void processEl10Test() {
         ContextEl context_ = new ContextEl();
         setupAccessValue(context_);
@@ -207,13 +196,12 @@ public class ElUtilTest {
         BeanOne b_ = new BeanOne();
         addBean(context_, b_);
         Argument arg_ = ElUtil.processEl("40908c",0, context_);
-        assertEq(PrimitiveTypeUtil.PRIM_CHAR, arg_.getArgClassName());
         Object res_ = arg_.getObject();
         assertSame(Character.class, res_.getClass());
         assertEq((char)40908, ((Character)res_).charValue());
     }
 
-    @Test(timeout=1000)
+    @Test
     public void processEl11Test() {
         ContextEl context_ = new ContextEl();
         setupAccessValue(context_);
@@ -221,13 +209,12 @@ public class ElUtilTest {
         BeanOne b_ = new BeanOne();
         addBean(context_, b_);
         Argument arg_ = ElUtil.processEl("'\\u9fcb'",0, context_);
-        assertEq(PrimitiveTypeUtil.PRIM_CHAR, arg_.getArgClassName());
         Object res_ = arg_.getObject();
         assertSame(Character.class, res_.getClass());
         assertEq((char)40907, ((Character)res_).charValue());
     }
 
-    @Test(timeout=1000)
+    @Test
     public void processEl12Test() {
         ContextEl context_ = new ContextEl();
         setupAccessValue(context_);
@@ -235,13 +222,12 @@ public class ElUtilTest {
         BeanOne b_ = new BeanOne();
         addBean(context_, b_);
         Argument arg_ = ElUtil.processEl("'\\\\'",0, context_);
-        assertEq(PrimitiveTypeUtil.PRIM_CHAR, arg_.getArgClassName());
         Object res_ = arg_.getObject();
         assertSame(Character.class, res_.getClass());
         assertEq('\\', ((Character)res_).charValue());
     }
 
-    @Test(timeout=1000)
+    @Test
     public void processEl13Test() {
         ContextEl context_ = new ContextEl();
         setupAccessValue(context_);
@@ -249,13 +235,12 @@ public class ElUtilTest {
         BeanOne b_ = new BeanOne();
         addBean(context_, b_);
         Argument arg_ = ElUtil.processEl("'\\''",0, context_);
-        assertEq(PrimitiveTypeUtil.PRIM_CHAR, arg_.getArgClassName());
         Object res_ = arg_.getObject();
         assertSame(Character.class, res_.getClass());
         assertEq('\'', ((Character)res_).charValue());
     }
 
-    @Test(timeout=1000)
+    @Test
     public void processEl14Test() {
         ContextEl context_ = new ContextEl();
         setupAccessValue(context_);
@@ -263,13 +248,12 @@ public class ElUtilTest {
         BeanOne b_ = new BeanOne();
         addBean(context_, b_);
         Argument arg_ = ElUtil.processEl("'\"'",0, context_);
-        assertEq(PrimitiveTypeUtil.PRIM_CHAR, arg_.getArgClassName());
         Object res_ = arg_.getObject();
         assertSame(Character.class, res_.getClass());
         assertEq('"', ((Character)res_).charValue());
     }
 
-    @Test(timeout=1000)
+    @Test
     public void processEl15Test() {
         ContextEl context_ = new ContextEl();
         setupAccessValue(context_);
@@ -277,13 +261,12 @@ public class ElUtilTest {
         BeanOne b_ = new BeanOne();
         addBean(context_, b_);
         Argument arg_ = ElUtil.processEl("'\n'",0, context_);
-        assertEq(PrimitiveTypeUtil.PRIM_CHAR, arg_.getArgClassName());
         Object res_ = arg_.getObject();
         assertSame(Character.class, res_.getClass());
         assertEq('\n', ((Character)res_).charValue());
     }
 
-    @Test(timeout=1000)
+    @Test
     public void processEl16Test() {
         ContextEl context_ = new ContextEl();
         setupAccessValue(context_);
@@ -298,13 +281,12 @@ public class ElUtilTest {
         localVars_.put("v", lv_);
         context_.getLastPage().getLocalVars().putAllMap(localVars_);
         Argument arg_ = ElUtil.processEl("v;.integer",0, context_);
-        assertEq(PrimitiveTypeUtil.PRIM_INT, arg_.getArgClassName());
         Object res_ = arg_.getObject();
         assertSame(Integer.class, res_.getClass());
         assertEq(0, (Number)res_);
     }
 
-    @Test(timeout=1000)
+    @Test
     public void processEl17Test() {
         ContextEl context_ = new ContextEl();
         setupAccessValue(context_);
@@ -319,59 +301,52 @@ public class ElUtilTest {
         localVars_.put("v", lv_);
         context_.getLastPage().getVars().putAllMap(localVars_);
         Argument arg_ = ElUtil.processEl("v;integer",0, context_);
-        assertEq(PrimitiveTypeUtil.PRIM_INT, arg_.getArgClassName());
         Object res_ = arg_.getObject();
         assertSame(Integer.class, res_.getClass());
         assertEq(0,(Number) res_);
     }
 
-    @Test(timeout=1000)
+    @Test
     public void processEl18Test() {
         ContextEl context_ = new ContextEl();
         setupAccessValue(context_);
         addImportingPage(context_);
         BeanOne b_ = new BeanOne();
         addBean(context_, b_);
-//        Argument arg_ = ElUtil.processEl("instanceof(\"java.lang.Number\",5)",0, context_);
         Argument arg_ = ElUtil.processEl("^instanceof(\"java.lang.Number\",5)",0, context_);
-        assertEq(PrimitiveTypeUtil.PRIM_BOOLEAN, arg_.getArgClassName());
         Object res_ = arg_.getObject();
         assertSame(Boolean.class, res_.getClass());
         assertEq(true, res_);
     }
 
-    @Test(timeout=1000)
+    @Test
     public void processEl19Test() {
         ContextEl context_ = new ContextEl();
         setupAccessValue(context_);
         addImportingPage(context_);
         BeanOne b_ = new BeanOne();
         addBean(context_, b_);
-//        Argument arg_ = ElUtil.processEl("instanceof(\"java.lang.Number\",'5')",0, context_);
         Argument arg_ = ElUtil.processEl("^instanceof(\"java.lang.Number\",'5')",0, context_);
-        assertEq(PrimitiveTypeUtil.PRIM_BOOLEAN, arg_.getArgClassName());
         Object res_ = arg_.getObject();
         assertSame(Boolean.class, res_.getClass());
         assertEq(false, res_);
     }
 
-    @Test(timeout=1000)
+    @Test
     public void processEl20Test() {
         ContextEl context_ = new ContextEl();
         setupAccessValue(context_);
         addImportingPage(context_);
         BeanOne b_ = new BeanOne();
         addBean(context_, b_);
-//        Argument arg_ = ElUtil.processEl("!instanceof(\"java.lang.Number\",'5')",0, context_);
         Argument arg_ = ElUtil.processEl("!^instanceof(\"java.lang.Number\",'5')",0, context_);
-        assertEq(PrimitiveTypeUtil.PRIM_BOOLEAN, arg_.getArgClassName());
         Object res_ = arg_.getObject();
         assertSame(Boolean.class, res_.getClass());
         assertEq(true, res_);
     }
 
 
-    @Test(timeout=1000)
+    @Test
     public void processEl21Test() {
         ContextEl context_ = new ContextEl();
         setupAccessValue(context_);
@@ -379,13 +354,12 @@ public class ElUtilTest {
         BeanOne b_ = new BeanOne();
         addBean(context_, b_);
         Argument arg_ = ElUtil.processEl("1+1=2",0, context_);
-        assertEq(PrimitiveTypeUtil.PRIM_BOOLEAN, arg_.getArgClassName());
         Object res_ = arg_.getObject();
         assertSame(Boolean.class, res_.getClass());
         assertEq(true, res_);
     }
 
-    @Test(timeout=1000)
+    @Test
     public void processEl22Test() {
         ContextEl context_ = new ContextEl();
         setupAccessValue(context_);
@@ -393,13 +367,12 @@ public class ElUtilTest {
         BeanOne b_ = new BeanOne();
         addBean(context_, b_);
         Argument arg_ = ElUtil.processEl("1+1!=2",0, context_);
-        assertEq(PrimitiveTypeUtil.PRIM_BOOLEAN, arg_.getArgClassName());
         Object res_ = arg_.getObject();
         assertSame(Boolean.class, res_.getClass());
         assertEq(false, res_);
     }
 
-    @Test(timeout=1000)
+    @Test
     public void processEl23Test() {
         ContextEl context_ = new ContextEl();
         setupAccessValue(context_);
@@ -407,13 +380,12 @@ public class ElUtilTest {
         BeanOne b_ = new BeanOne();
         addBean(context_, b_);
         Argument arg_ = ElUtil.processEl("1+1=2&1+0=8",0, context_);
-        assertEq(PrimitiveTypeUtil.PRIM_BOOLEAN, arg_.getArgClassName());
         Object res_ = arg_.getObject();
         assertSame(Boolean.class, res_.getClass());
         assertEq(false, res_);
     }
 
-    @Test(timeout=1000)
+    @Test
     public void processEl24Test() {
         ContextEl context_ = new ContextEl();
         setupAccessValue(context_);
@@ -421,13 +393,12 @@ public class ElUtilTest {
         BeanOne b_ = new BeanOne();
         addBean(context_, b_);
         Argument arg_ = ElUtil.processEl("1+1!=2|1+7=8",0, context_);
-        assertEq(PrimitiveTypeUtil.PRIM_BOOLEAN, arg_.getArgClassName());
         Object res_ = arg_.getObject();
         assertSame(Boolean.class, res_.getClass());
         assertEq(true, res_);
     }
 
-    @Test(timeout=1000)
+    @Test
     public void processEl25Test() {
         ContextEl context_ = new ContextEl();
         setupAccessValue(context_);
@@ -435,12 +406,11 @@ public class ElUtilTest {
         BeanOne b_ = new BeanOne();
         addBean(context_, b_);
         Argument arg_ = ElUtil.processEl("1+1=2&(1+0=8|3*3=9)",0, context_);
-        assertEq(PrimitiveTypeUtil.PRIM_BOOLEAN, arg_.getArgClassName());
         Object res_ = arg_.getObject();
         assertSame(Boolean.class, res_.getClass());
         assertEq(true, res_);
     }
-    @Test(timeout=1000)
+    @Test
     public void processEl26Test() {
         ContextEl context_ = new ContextEl();
         setupAccessValue(context_);
@@ -448,13 +418,12 @@ public class ElUtilTest {
         BeanOne b_ = new BeanOne();
         addBean(context_, b_);
         Argument arg_ = ElUtil.processEl("1+1=2|1+6=8&1=1",0, context_);
-        assertEq(PrimitiveTypeUtil.PRIM_BOOLEAN, arg_.getArgClassName());
         Object res_ = arg_.getObject();
         assertSame(Boolean.class, res_.getClass());
         assertEq(true, res_);
     }
 
-    @Test(timeout=1000)
+    @Test
     public void processEl27Test() {
         ContextEl context_ = new ContextEl();
         setupAccessValue(context_);
@@ -463,13 +432,12 @@ public class ElUtilTest {
         addBean(context_, b_);
         //CustList worked but is generic so it will take args TODO
         Argument arg_ = ElUtil.processEl("^new."+STRING_LIST+"()",0, context_);
-        assertEq(StringList.class.getName(), arg_.getArgClassName());
         Object res_ = arg_.getObject();
         assertSame(StringList.class, res_.getClass());
         assertEq(new StringList(), (StringList)res_);
     }
 
-    @Test(timeout=1000)
+    @Test
     public void processEl28Test() {
         ContextEl context_ = new ContextEl();
         setupAccessValue(context_);
@@ -477,13 +445,12 @@ public class ElUtilTest {
         BeanOne b_ = new BeanOne();
         addBean(context_, b_);
         Argument arg_ = ElUtil.processEl("composite.integer",0, context_);
-        assertEq(PrimitiveTypeUtil.PRIM_INT, arg_.getArgClassName());
         Object res_ = arg_.getObject();
         assertSame(Integer.class, res_.getClass());
         assertEq(0, (Number)res_);
     }
 
-    @Test(timeout=1000)
+    @Test
     public void processEl29Test() {
         ContextEl context_ = new ContextEl();
         setupAccessValue(context_);
@@ -492,13 +459,12 @@ public class ElUtilTest {
         addBean(context_, b_);
         //1+1=2&1/0>8 throws an exception
         Argument arg_ = ElUtil.processEl("1+1=2|1/0>8",0, context_);
-        assertEq(PrimitiveTypeUtil.PRIM_BOOLEAN, arg_.getArgClassName());
         Object res_ = arg_.getObject();
         assertSame(Boolean.class, res_.getClass());
         assertEq(true, res_);
     }
 
-    @Test(timeout=1000)
+    @Test
     public void processEl30Test() {
         ContextEl context_ = new ContextEl();
         setupAccessValue(context_);
@@ -506,13 +472,12 @@ public class ElUtilTest {
         BeanSeven b_ = new BeanSeven();
         addBean(context_, b_);
         Argument arg_ = ElUtil.processEl("arrayInt[1i]",0, context_);
-        assertEq(PrimitiveTypeUtil.PRIM_INT, arg_.getArgClassName());
         Object res_ = arg_.getObject();
         assertSame(Integer.class, res_.getClass());
         assertEq(3, (Number)res_);
     }
 
-    @Test(timeout=1000)
+    @Test
     public void processEl31Test() {
         ContextEl context_ = new ContextEl();
         setupAccessValue(context_);
@@ -520,13 +485,12 @@ public class ElUtilTest {
         BeanOne b_ = new BeanOne();
         addBean(context_, b_);
         Argument arg_ = ElUtil.processEl("static^java^lang^Math.abs(-8i)",0, context_);
-        assertEq(PrimitiveTypeUtil.PRIM_INT, arg_.getArgClassName());
         Object res_ = arg_.getObject();
         assertSame(Integer.class, res_.getClass());
         assertEq(8, (Number)res_);
     }
 
-    @Test(timeout=1000)
+    @Test
     public void processEl32Test() {
         ContextEl context_ = new ContextEl();
         setupAccessValue(context_);
@@ -534,14 +498,13 @@ public class ElUtilTest {
         BeanOne b_ = new BeanOne();
         addBean(context_, b_);
         Argument arg_ = ElUtil.processEl("static^java^lang^Math.abs(8i)",0, context_);
-        assertEq(PrimitiveTypeUtil.PRIM_INT, arg_.getArgClassName());
         Object res_ = arg_.getObject();
         assertSame(Integer.class, res_.getClass());
         assertEq(8, (Number)res_);
     }
 
 
-    @Test(timeout=1000)
+    @Test
     public void processEl33Test() {
         ContextEl context_ = new ContextEl();
         setupAccessValue(context_);
@@ -549,13 +512,12 @@ public class ElUtilTest {
         BeanOne b_ = new BeanOne();
         addBean(context_, b_);
         Argument arg_ = ElUtil.processEl("static^java^lang^Math.abs(-8I)",0, context_);
-        assertEq(PrimitiveTypeUtil.PRIM_INT, arg_.getArgClassName());
         Object res_ = arg_.getObject();
         assertSame(Integer.class, res_.getClass());
         assertEq(8, (Number)res_);
     }
 
-    @Test(timeout=1000)
+    @Test
     public void processEl34Test() {
         ContextEl context_ = new ContextEl();
         setupAccessValue(context_);
@@ -563,14 +525,13 @@ public class ElUtilTest {
         BeanOne b_ = new BeanOne();
         addBean(context_, b_);
         Argument arg_ = ElUtil.processEl("static^java^lang^Math.abs(8I)",0, context_);
-        assertEq(PrimitiveTypeUtil.PRIM_INT, arg_.getArgClassName());
         Object res_ = arg_.getObject();
         assertSame(Integer.class, res_.getClass());
         assertEq(8, (Number)res_);
     }
 
 
-    @Test(timeout=1000)
+    @Test
     public void processEl35Test() {
         ContextEl context_ = new ContextEl();
         setupAccessValue(context_);
@@ -578,13 +539,12 @@ public class ElUtilTest {
         BeanOne b_ = new BeanOne();
         addBean(context_, b_);
         Argument arg_ = ElUtil.processEl("static^java^lang^Math.abs(-8L)",0, context_);
-        assertEq(PrimitiveTypeUtil.PRIM_LONG, arg_.getArgClassName());
         Object res_ = arg_.getObject();
         assertSame(Long.class, res_.getClass());
         assertEq(8L, (Number)res_);
     }
 
-    @Test(timeout=1000)
+    @Test
     public void processEl36Test() {
         ContextEl context_ = new ContextEl();
         setupAccessValue(context_);
@@ -592,13 +552,12 @@ public class ElUtilTest {
         BeanOne b_ = new BeanOne();
         addBean(context_, b_);
         Argument arg_ = ElUtil.processEl("static^java^lang^Math.abs(8L)",0, context_);
-        assertEq(PrimitiveTypeUtil.PRIM_LONG, arg_.getArgClassName());
         Object res_ = arg_.getObject();
         assertSame(Long.class, res_.getClass());
         assertEq(8L, (Number)res_);
     }
 
-    @Test(timeout=1000)
+    @Test
     public void processEl37Test() {
         ContextEl context_ = new ContextEl();
         setupAccessValue(context_);
@@ -606,58 +565,51 @@ public class ElUtilTest {
         Composite b_ = new Composite();
         addBean(context_, b_);
         Argument arg_ = ElUtil.processEl("getOverridenTwo(null)",0, context_);
-        assertEq(String.class.getName(), arg_.getArgClassName());
         Object res_ = arg_.getObject();
         assertSame(String.class, res_.getClass());
         assertEq("one", res_);
     }
 
-    @Test(timeout=1000)
+    @Test
     public void processEl38Test() {
         ContextEl context_ = new ContextEl();
         setupAccessValue(context_);
         addImportingPage(context_);
         Composite b_ = new Composite();
         addBean(context_, b_);
-//        Argument arg_ = ElUtil.processEl("getOverridenTwo(class(\"java.lang.Object\",null))",0, context_);
         Argument arg_ = ElUtil.processEl("getOverridenTwo(^class(\"java.lang.Object\",null))",0, context_);
-        assertEq(String.class.getName(), arg_.getArgClassName());
         Object res_ = arg_.getObject();
         assertSame(String.class, res_.getClass());
         assertEq("two", res_);
     }
 
-    @Test(timeout=1000)
+    @Test
     public void processEl39Test() {
         ContextEl context_ = new ContextEl();
         setupAccessValue(context_);
         addImportingPage(context_);
         Composite b_ = new Composite();
         addBean(context_, b_);
-//        Argument arg_ = ElUtil.processEl("instanceof(\"java.lang.Object\",null)",0, context_);
         Argument arg_ = ElUtil.processEl("^instanceof(\"java.lang.Object\",null)",0, context_);
-        assertEq(PrimitiveTypeUtil.PRIM_BOOLEAN, arg_.getArgClassName());
         Object res_ = arg_.getObject();
         assertSame(Boolean.class, res_.getClass());
         assertEq(false, res_);
     }
 
-    @Test(timeout=1000)
+    @Test
     public void processEl40Test() {
         ContextEl context_ = new ContextEl();
         setupAccessValue(context_);
         addImportingPage(context_);
         Composite b_ = new Composite();
         addBean(context_, b_);
-        b_.getOverridenThree(new Long("1"));
         Argument arg_ = ElUtil.processEl("getOverridenThree(1)",0, context_);
-        assertEq(String.class.getName(), arg_.getArgClassName());
         Object res_ = arg_.getObject();
         assertSame(String.class, res_.getClass());
         assertEq("Long", res_);
     }
 
-    @Test(timeout=1000)
+    @Test
     public void processEl41Test() {
         ContextEl context_ = new ContextEl();
         setupAccessValue(context_);
@@ -665,13 +617,12 @@ public class ElUtilTest {
         Composite b_ = new Composite();
         addBean(context_, b_);
         Argument arg_ = ElUtil.processEl("getOverridenThree(1l)",0, context_);
-        assertEq(String.class.getName(), arg_.getArgClassName());
         Object res_ = arg_.getObject();
         assertSame(String.class, res_.getClass());
         assertEq("long", res_);
     }
 
-    @Test(timeout=1000)
+    @Test
     public void processEl42Test() {
         ContextEl context_ = new ContextEl();
         setupAccessValue(context_);
@@ -679,13 +630,12 @@ public class ElUtilTest {
         Composite b_ = new Composite();
         addBean(context_, b_);
         Argument arg_ = ElUtil.processEl("getOverridenThree(1.0)",0, context_);
-        assertEq(String.class.getName(), arg_.getArgClassName());
         Object res_ = arg_.getObject();
         assertSame(String.class, res_.getClass());
         assertEq("Double", res_);
     }
 
-    @Test(timeout=1000)
+    @Test
     public void processEl43Test() {
         ContextEl context_ = new ContextEl();
         setupAccessValue(context_);
@@ -693,13 +643,12 @@ public class ElUtilTest {
         Composite b_ = new Composite();
         addBean(context_, b_);
         Argument arg_ = ElUtil.processEl("getOverridenThree(1.0d)",0, context_);
-        assertEq(String.class.getName(), arg_.getArgClassName());
         Object res_ = arg_.getObject();
         assertSame(String.class, res_.getClass());
         assertEq("double", res_);
     }
 
-    @Test(timeout=1000)
+    @Test
     public void processEl44Test() {
         ContextEl context_ = new ContextEl();
         setupAccessValue(context_);
@@ -707,13 +656,12 @@ public class ElUtilTest {
         Composite b_ = new Composite();
         addBean(context_, b_);
         Argument arg_ = ElUtil.processEl("getOverridenThree(1.0F)",0, context_);
-        assertEq(String.class.getName(), arg_.getArgClassName());
         Object res_ = arg_.getObject();
         assertSame(String.class, res_.getClass());
         assertEq("double", res_);
     }
 
-    @Test(timeout=1000)
+    @Test
     public void processEl45Test() {
         ContextEl context_ = new ContextEl();
         setupAccessValue(context_);
@@ -721,28 +669,25 @@ public class ElUtilTest {
         Composite b_ = new Composite();
         addBean(context_, b_);
         Argument arg_ = ElUtil.processEl("getOverridenThree(1.0f)",0, context_);
-        assertEq(String.class.getName(), arg_.getArgClassName());
         Object res_ = arg_.getObject();
         assertSame(String.class, res_.getClass());
         assertEq("double", res_);
     }
 
-    @Test(timeout=1000)
+    @Test
     public void processEl46Test() {
         ContextEl context_ = new ContextEl();
         setupAccessValue(context_);
         addImportingPage(context_);
         Composite b_ = new Composite();
         addBean(context_, b_);
-//        Argument arg_ = ElUtil.processEl("class(\"expressionlanguage.classes.IOne\",new.expressionlanguage.classes.MyImpl()).testOne()",0, context_);
         Argument arg_ = ElUtil.processEl("^class(\""+IONE+"\",^new."+MY_IMPL+"()).testOne()",0, context_);
-        assertEq(String.class.getName(), arg_.getArgClassName());
         Object res_ = arg_.getObject();
         assertSame(String.class, res_.getClass());
         assertEq("one", res_);
     }
 
-    @Test(timeout=1000)
+    @Test
     public void processEl47Test() {
         ContextEl context_ = new ContextEl();
         setupAccessValue(context_);
@@ -750,13 +695,12 @@ public class ElUtilTest {
         Composite b_ = new Composite();
         addBean(context_, b_);
         Argument arg_ = ElUtil.processEl("static^"+MY_IMPL_HAT+".ovOne(^new."+MY_IMPL+"())",0, context_);
-        assertEq(String.class.getName(), arg_.getArgClassName());
         Object res_ = arg_.getObject();
         assertSame(String.class, res_.getClass());
         assertEq("three", res_);
     }
 
-    @Test(timeout=1000)
+    @Test
     public void processEl48Test() {
         ContextEl context_ = new ContextEl();
         setupAccessValue(context_);
@@ -764,12 +708,11 @@ public class ElUtilTest {
         Composite b_ = new Composite();
         addBean(context_, b_);
         Argument arg_ = ElUtil.processEl("^new."+INTERNS+"().^new.InternStandard()",0, context_);
-        assertEq(InternStandard.class.getName(), arg_.getArgClassName());
         Object res_ = arg_.getObject();
         assertSame(InternStandard.class, res_.getClass());
     }
 
-    @Test(timeout=1000)
+    @Test
     public void processEl49Test() {
         ContextEl context_ = new ContextEl();
         setupAccessValue(context_);
@@ -777,12 +720,11 @@ public class ElUtilTest {
         Composite b_ = new Composite();
         addBean(context_, b_);
         Argument arg_ = ElUtil.processEl("^new."+INTERNS+"$InternStaticStandard()",0, context_);
-        assertEq(InternStaticStandard.class.getName(), arg_.getArgClassName());
         Object res_ = arg_.getObject();
         assertSame(InternStaticStandard.class, res_.getClass());
     }
 
-    @Test(timeout=1000)
+    @Test
     public void processEl50Test() {
         ContextEl context_ = new ContextEl();
         setupAccessValue(context_);
@@ -790,12 +732,11 @@ public class ElUtilTest {
         Composite b_ = new Composite();
         addBean(context_, b_);
         Argument arg_ = ElUtil.processEl("^new."+INTERNS+"().^new.InternStandardTwo().^new.InternStandardOne()",0, context_);
-        assertEq(InternStandardOne.class.getName(), arg_.getArgClassName());
         Object res_ = arg_.getObject();
         assertSame(InternStandardOne.class, res_.getClass());
     }
 
-    @Test(timeout=1000)
+    @Test
     public void processEl51Test() {
         ContextEl context_ = new ContextEl();
         setupAccessValue(context_);
@@ -803,12 +744,11 @@ public class ElUtilTest {
         Composite b_ = new Composite();
         addBean(context_, b_);
         Argument arg_ = ElUtil.processEl("^new."+INTERNS+"$InternStaticStandard$InternStaticStandardThree()",0, context_);
-        assertEq(InternStaticStandardThree.class.getName(), arg_.getArgClassName());
         Object res_ = arg_.getObject();
         assertSame(InternStaticStandardThree.class, res_.getClass());
     }
 
-    @Test(timeout=1000)
+    @Test
     public void processEl52Test() {
         ContextEl context_ = new ContextEl();
         setupAccessValue(context_);
@@ -816,12 +756,11 @@ public class ElUtilTest {
         Composite b_ = new Composite();
         addBean(context_, b_);
         Argument arg_ = ElUtil.processEl("^new."+INTERNS+"$InternStaticStandard().^new.InternStaticStandardFour()",0, context_);
-        assertEq(InternStaticStandardFour.class.getName(), arg_.getArgClassName());
         Object res_ = arg_.getObject();
         assertSame(InternStaticStandardFour.class, res_.getClass());
     }
 
-    @Test(timeout=1000)
+    @Test
     public void processEl53Test() {
         ContextEl context_ = new ContextEl();
         setupAccessValue(context_);
@@ -829,12 +768,11 @@ public class ElUtilTest {
         Composite b_ = new Composite();
         addBean(context_, b_);
         Argument arg_ = ElUtil.processEl("^new."+INTERNS+"().^new.InternStandardTwo().^new.InternStandardThree(1i)",0, context_);
-        assertEq(InternStandardThree.class.getName(), arg_.getArgClassName());
         Object res_ = arg_.getObject();
         assertSame(InternStandardThree.class, res_.getClass());
     }
 
-    @Test(timeout=1000)
+    @Test
     public void processEl54Test() {
         ContextEl context_ = new ContextEl();
         setupAccessValue(context_);
@@ -842,13 +780,12 @@ public class ElUtilTest {
         Composite b_ = new Composite();
         addBean(context_, b_);
         Argument arg_ = ElUtil.processEl("^new."+INTERNS+"().^new.InternStandardTwo().^new.InternStandardThree(1i).getPrivateInfo()",0, context_);
-        assertEq(PrimitiveTypeUtil.PRIM_INT, arg_.getArgClassName());
         Object res_ = arg_.getObject();
         assertSame(Integer.class, res_.getClass());
         assertEq(1, (Number)res_);
     }
 
-    @Test(timeout=1000)
+    @Test
     public void processEl55Test() {
         ContextEl context_ = new ContextEl();
         setupAccessValue(context_);
@@ -856,13 +793,12 @@ public class ElUtilTest {
         InternsClasses b_ = new InternsClasses();
         addBean(context_, b_);
         Argument arg_ = ElUtil.processEl("^new.InternStandardTwo().^new.InternStandardThree(1i).getPrivateInfo()",0, context_);
-        assertEq(PrimitiveTypeUtil.PRIM_INT, arg_.getArgClassName());
         Object res_ = arg_.getObject();
         assertSame(Integer.class, res_.getClass());
         assertEq(1, (Number)res_);
     }
 
-    @Test(timeout=1000)
+    @Test
     public void processEl56Test() {
         ContextEl context_ = new ContextEl();
         setupAccessValue(context_);
@@ -870,13 +806,12 @@ public class ElUtilTest {
         InternsClasses b_ = new InternsClasses();
         addBean(context_, b_);
         Argument arg_ = ElUtil.processEl("^new."+INHERITED_COMPOSITE+"().getPrivateInt()",0, context_);
-        assertEq(PrimitiveTypeUtil.PRIM_INT, arg_.getArgClassName());
         Object res_ = arg_.getObject();
         assertSame(Integer.class, res_.getClass());
         assertEq(0, (Number)res_);
     }
 
-    @Test(timeout=1000)
+    @Test
     public void processEl57Test() {
         ContextEl context_ = new ContextEl();
         setupAccessValue(context_);
@@ -893,16 +828,12 @@ public class ElUtilTest {
         localVars_.put("v", lv_);
         context_.getLastPage().getLocalVars().putAllMap(localVars_);
         Argument arg_ = ElUtil.processEl("summum(v;.)",0, context_);
-        assertEq(PrimitiveTypeUtil.PRIM_INT, arg_.getArgClassName());
         Object res_ = arg_.getObject();
         assertSame(Integer.class, res_.getClass());
         assertEq(13, (Number)res_);
-//        Argument arg_ = ElUtil.processEl("static^expressionlanguage^classes^MyImpl.ovOne(null)",0, context_);
-//        Argument arg_ = ElUtil.processEl("new.expressionlanguage.classes.MyImpl()",0, context_);
-        //
     }
 
-    @Test(timeout=1000)
+    @Test
     public void processEl58Test() {
         ContextEl context_ = new ContextEl();
         setupAccessValue(context_);
@@ -927,14 +858,12 @@ public class ElUtilTest {
         localVars_.put("f", lv_);
         context_.getLastPage().getLocalVars().putAllMap(localVars_);
         Argument arg_ = ElUtil.processEl("varArgsParam(?java.lang.Object,f;.,v;.?,2;.,v;.)",0, context_);
-        assertEq(String.class.getName(), arg_.getArgClassName());
         Object res_ = arg_.getObject();
         assertSame(String.class, res_.getClass());
         assertEq("varargs:7 8 7", res_);
-//        System.out.println(ElUtil.processElObj("varArgsParam(?java.lang.Object,f;.,v;.?,2;.,v;.)", 0, context_));
     }
 
-    @Test(timeout=1000)
+    @Test
     public void processEl59Test() {
         ContextEl context_ = new ContextEl();
         setupAccessValue(context_);
@@ -959,14 +888,12 @@ public class ElUtilTest {
         localVars_.put("f", lv_);
         context_.getLastPage().getLocalVars().putAllMap(localVars_);
         Argument arg_ = ElUtil.processEl("varArgsParam(?java.lang.Object,f;.)",0, context_);
-        assertEq(String.class.getName(), arg_.getArgClassName());
         Object res_ = arg_.getObject();
         assertSame(String.class, res_.getClass());
         assertEq("varargs:{0} {1} {2}", res_);
-//        System.out.println(ElUtil.processElObj("varArgsParam(?java.lang.Object,f;.,v;.?,2;.,v;.)", 0, context_));
     }
 
-    @Test(timeout=1000)
+    @Test
     public void processEl60Test() {
         Composite composite_ = new Composite();
         composite_.setInteger(6);
@@ -986,13 +913,12 @@ public class ElUtilTest {
         context_.getLastPage().getLocalVars().putAllMap(localVars_);
         addBean(context_, composite_);
         Argument arg_ = ElUtil.processEl("varArgsNoParam(?"+PrimitiveTypeUtil.PRIM_LONG+",v;.?,2;.)",0, context_);
-        assertEq(PrimitiveTypeUtil.PRIM_LONG, arg_.getArgClassName());
         Object res_ = arg_.getObject();
         assertSame(Long.class, res_.getClass());
         assertEq(15L, (Number)res_);
     }
 
-    @Test(timeout=1000)
+    @Test
     public void processEl61Test() {
         Composite composite_ = new Composite();
         composite_.setInteger(6);
@@ -1014,13 +940,12 @@ public class ElUtilTest {
         context_.getLastPage().getLocalVars().putAllMap(localVars_);
         addBean(context_, composite_);
         Argument arg_ = ElUtil.processEl("varArgsArrays(?"+ARR_LONG+",v;.?,2;.)",0, context_);
-        assertEq(PrimitiveTypeUtil.PRIM_LONG, arg_.getArgClassName());
         Object res_ = arg_.getObject();
         assertSame(Long.class, res_.getClass());
         assertEq(15L, (Number)res_);
     }
 
-    @Test(timeout=1000)
+    @Test
     public void processEl62Test() {
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
         LocalVariable lv_ = new LocalVariable();
@@ -1037,54 +962,45 @@ public class ElUtilTest {
         addBean(context_,new InternsClasses());
         context_.getLastPage().getLocalVars().putAllMap(localVars_);
         Argument arg_ = ElUtil.processEl("^new."+COMPOSITE+"(?java.lang.String,v;.?,2;.).getStrings()",0, context_);
-        assertEq(StringList.class.getName(), arg_.getArgClassName());
         Object res_ = arg_.getObject();
         assertSame(StringList.class, res_.getClass());
         assertEq(new StringList("bonjour","tout"), (StringList)res_);
     }
 
-    @Test(timeout=1000)
+    @Test
     public void processEl63Test() {
         ContextEl context_ = new ContextEl();
         setupAccessValue(context_);
         addImportingPage(context_);
         addBean(context_,new InternsClasses());
         Argument arg_ = ElUtil.processEl("^new."+ARR_INT+"(1i)",0, context_);
-        assertEq(ARR_INT, arg_.getArgClassName());
         Object res_ = arg_.getObject();
         assertSame(int[].class, res_.getClass());
         assertEq(1, ((int[])res_).length);
         assertEq(0, ((int[])res_)[0]);
     }
 
-    @Test(timeout=1000)
+    @Test
     public void processEl64Test() {
         ContextEl context_ = new ContextEl();
         setupAccessValue(context_);
         addImportingPage(context_);
         addBean(context_,new InternsClasses());
         Argument arg_ = ElUtil.processEl("^new."+ARR_ARR_INT+"(1i)",0, context_);
-        assertEq(ARR_ARR_INT, arg_.getArgClassName());
         Object res_ = arg_.getObject();
         assertSame(int[][].class, res_.getClass());
         assertEq(1, ((int[][])res_).length);
         assertNull( ((int[][])res_)[0]);
     }
 
-    @Test//(timeout=1000)
+    @Test
     public void processEl65Test() {
         ContextEl context_ = new ContextEl();
         setupAccessValue(context_);
         addImportingPage(context_);
         addBean(context_,new InternsClasses());
         Argument arg_ = ElUtil.processEl("^new."+ARR_INTEGER+"(2i)",0, context_);
-        assertEq(ARR_INTEGER, arg_.getArgClassName());
         Object res_ = arg_.getObject();
-//        assertSame(Integer[].class, res_.getClass());
-//        assertEq(2, ((Integer[])res_).length);
-//        assertNull( ((Integer[])res_)[0]);
-//        assertNull( ((Integer[])res_)[1]);
-//        assertSame(Struct[].class, res_.getClass());
         assertSame(Integer[].class, res_.getClass());
         assertEq(2, ((Integer[])res_).length);
         assertNull( ((Integer[])res_)[0]);
@@ -1092,28 +1008,21 @@ public class ElUtilTest {
         assertTrue(arg_.getStruct().isJavaObject());
     }
 
-    @Test(timeout=1000)
+    @Test
     public void processEl66Test() {
         ContextEl context_ = new ContextEl();
         setupAccessValue(context_);
         addImportingPage(context_);
         addBean(context_,new InternsClasses());
         Argument arg_ = ElUtil.processEl("^new."+ARR_ARR_INTEGER+"(2i)",0, context_);
-        assertEq(ARR_ARR_INTEGER, arg_.getArgClassName());
         Object res_ = arg_.getObject();
-//        assertSame(Integer[][].class, res_.getClass());
-//        assertSame(Struct[][].class, res_.getClass());
         assertSame(Integer[][].class, res_.getClass());
         assertEq(2, ((Integer[][])res_).length);
         assertNull(((Integer[][])res_)[0]);
         assertNull(((Integer[][])res_)[1]);
-        assertTrue(arg_.getStruct().isJavaObject());
-//        assertEq(2, ((Struct[][])res_).length);
-//        assertEq((Object)null, ((Struct[][])res_)[0]);
-//        assertEq((Object)null, ((Struct[][])res_)[1]);
-    }
+        assertTrue(arg_.getStruct().isJavaObject());    }
 
-    @Test(timeout=1000)
+    @Test
     public void processEl67Test() {
         ContextEl context_ = new ContextEl();
         Composite composite_ = new Composite();
@@ -1139,7 +1048,6 @@ public class ElUtilTest {
         addBean(context_,new InternsClasses());
         context_.getLastPage().getLocalVars().putAllMap(localVars_);
         Argument arg_ = ElUtil.processEl("arrays;.[0i]",0, context_);
-        assertEq(PrimitiveTypeUtil.PRIM_INT, arg_.getArgClassName());
         Object res_ = arg_.getObject();
         assertSame(Integer.class, res_.getClass());
         assertEq(0, (Number)res_);
@@ -1160,7 +1068,6 @@ public class ElUtilTest {
         addBean(context_,new InternsClasses());
         context_.getLastPage().getLocalVars().putAllMap(localVars_);
         Argument arg_ = ElUtil.processEl("arrays;.[0i].length",0, context_);
-        assertEq(PrimitiveTypeUtil.PRIM_INT, arg_.getArgClassName());
         Object res_ = arg_.getObject();
         assertSame(Integer.class, res_.getClass());
         assertEq(2, (Number)res_);
@@ -1173,7 +1080,6 @@ public class ElUtilTest {
         addImportingPage(context_);
         addBean(context_,new InternsClasses());
         Argument arg_ = ElUtil.processEl("!!false",0, context_);
-        assertEq(PrimitiveTypeUtil.PRIM_BOOLEAN, arg_.getArgClassName());
         Object res_ = arg_.getObject();
         assertSame(Boolean.class, res_.getClass());
         assertEq(false, res_);
@@ -1186,7 +1092,6 @@ public class ElUtilTest {
         addImportingPage(context_);
         addBeanClass(context_,Byte.class);
         Argument arg_ = ElUtil.processEl("MAX_VALUE",0, context_);
-        assertEq(PrimitiveTypeUtil.PRIM_BYTE, arg_.getArgClassName());
         Object res_ = arg_.getObject();
         assertSame(Byte.class, res_.getClass());
         assertEq((byte)127, (Number)res_);
@@ -1197,9 +1102,7 @@ public class ElUtilTest {
         ContextEl context_ = new ContextEl();
         setupAccessValue(context_);
         addImportingPage(context_);
-//        addBeanClass(context_,Byte.class);
         Argument arg_ = ElUtil.processEl("static^java^lang^Byte.MAX_VALUE",0, context_);
-        assertEq(PrimitiveTypeUtil.PRIM_BYTE, arg_.getArgClassName());
         Object res_ = arg_.getObject();
         assertSame(Byte.class, res_.getClass());
         assertEq((byte)127, (Number)res_);
@@ -1210,9 +1113,7 @@ public class ElUtilTest {
         ContextEl context_ = new ContextEl();
         setupAccessValue(context_);
         addImportingPage(context_);
-//        addBeanClass(context_,Byte.class);
         Argument arg_ = ElUtil.processEl("^new."+STRING_LIST+"()",0, context_);
-        assertEq(StringList.class.getName(), arg_.getArgClassName());
         Object res_ = arg_.getObject();
         assertSame(StringList.class, res_.getClass());
         assertEq(new StringList(), (StringList)res_);
@@ -1225,7 +1126,6 @@ public class ElUtilTest {
         addImportingPage(context_);
         addBeanClass(context_,StringList.class);
         Argument arg_ = ElUtil.processEl("isNumber(\"8\")",0, context_);
-        assertEq(PrimitiveTypeUtil.PRIM_BOOLEAN, arg_.getArgClassName());
         Object res_ = arg_.getObject();
         assertSame(Boolean.class, res_.getClass());
         assertEq(true, res_);
@@ -1238,7 +1138,6 @@ public class ElUtilTest {
         addImportingPage(context_);
         addBeanClass(context_,StringList.class);
         Argument arg_ = ElUtil.processEl("getMetaCharacters().size()",0, context_);
-        assertEq(PrimitiveTypeUtil.PRIM_INT, arg_.getArgClassName());
         Object res_ = arg_.getObject();
         assertSame(Integer.class, res_.getClass());
         assertEq(3, (Number)res_);
@@ -1250,7 +1149,6 @@ public class ElUtilTest {
         setupAccessValue(context_);
         addImportingPage(context_);
         Argument arg_ = ElUtil.processEl("^new."+INTERNS+"$InternStaticStandard()",0, context_);
-        assertEq(InternStaticStandard.class.getName(), arg_.getArgClassName());
         Object res_ = arg_.getObject();
         assertSame(InternStaticStandard.class, res_.getClass());
     }
@@ -1261,7 +1159,6 @@ public class ElUtilTest {
         setupAccessValue(context_);
         addImportingPage(context_);
         Argument arg_ = ElUtil.processEl("(\"Hello\\\\\"+\"World\").length()",0, context_);
-        assertEq(PrimitiveTypeUtil.PRIM_INT, arg_.getArgClassName());
         Object res_ = arg_.getObject();
         assertSame(Integer.class, res_.getClass());
         assertEq(11, (Number)res_);
@@ -1273,7 +1170,6 @@ public class ElUtilTest {
         setupAccessValue(context_);
         addImportingPage(context_);
         Argument arg_ = ElUtil.processEl("(\"Hello\\\"\"+\"World\").length()",0, context_);
-        assertEq(PrimitiveTypeUtil.PRIM_INT, arg_.getArgClassName());
         Object res_ = arg_.getObject();
         assertSame(Integer.class, res_.getClass());
         assertEq(11, (Number)res_);
@@ -1285,7 +1181,6 @@ public class ElUtilTest {
         setupAccessValue(context_);
         addImportingPage(context_);
         Argument arg_ = ElUtil.processEl("(\"Hello\\\\\"+'\\\\').length()",0, context_);
-        assertEq(PrimitiveTypeUtil.PRIM_INT, arg_.getArgClassName());
         Object res_ = arg_.getObject();
         assertSame(Integer.class, res_.getClass());
         assertEq(7, (Number)res_);
@@ -1297,7 +1192,6 @@ public class ElUtilTest {
         setupAccessValue(context_);
         addImportingPage(context_);
         Argument arg_ = ElUtil.processEl("(\"Hello\\\"\"+'\\'').length()",0, context_);
-        assertEq(PrimitiveTypeUtil.PRIM_INT, arg_.getArgClassName());
         Object res_ = arg_.getObject();
         assertSame(Integer.class, res_.getClass());
         assertEq(7, (Number)res_);
@@ -1336,7 +1230,6 @@ public class ElUtilTest {
 //        setupAccessValue(context_);
 //        addImportingPage(context_);
         Argument arg_ = ElUtil.processEl("(varArgsParam(?java.lang.Object,f;.,v;.?,2;.,v;.)+'\\'').length()",0, context_);
-        assertEq(PrimitiveTypeUtil.PRIM_INT, arg_.getArgClassName());
         Object res_ = arg_.getObject();
         assertSame(Integer.class, res_.getClass());
         assertEq(14, (Number)res_);
@@ -1356,7 +1249,6 @@ public class ElUtilTest {
         localVars_.put("v", lv_);
         context_.getLastPage().getLocalVars().putAllMap(localVars_);
         Argument arg_ = ElUtil.processEl("static^java^lang^Math.abs(v;.[0i]+2)*2",0, context_);
-        assertEq(PrimitiveTypeUtil.PRIM_LONG, arg_.getArgClassName());
         Object res_ = arg_.getObject();
         assertSame(Long.class, res_.getClass());
         assertEq(20L, (Number)res_);
@@ -1376,7 +1268,6 @@ public class ElUtilTest {
         localVars_.put("v", lv_);
         context_.getLastPage().getLocalVars().putAllMap(localVars_);
         Argument arg_ = ElUtil.processEl("(v;.[0i]+2)*2",0, context_);
-        assertEq(PrimitiveTypeUtil.PRIM_LONG, arg_.getArgClassName());
         Object res_ = arg_.getObject();
         assertSame(Long.class, res_.getClass());
         assertEq(20L, (Number)res_);
@@ -1394,7 +1285,6 @@ public class ElUtilTest {
         localVars_.put("v", lv_);
         context_.getLastPage().getLocalVars().putAllMap(localVars_);
         Argument arg_ = ElUtil.processEl("v;.^new.InternStandard()",0, context_);
-        assertEq(InternStandard.class.getName(), arg_.getArgClassName());
         Object res_ = arg_.getObject();
         assertSame(InternStandard.class, res_.getClass());
     }
@@ -1411,7 +1301,6 @@ public class ElUtilTest {
         localVars_.put("v", lv_);
         context_.getLastPage().getLocalVars().putAllMap(localVars_);
         Argument arg_ = ElUtil.processEl("v;.news",0, context_);
-        assertEq(String.class.getName(), arg_.getArgClassName());
         Object res_ = arg_.getObject();
         assertSame(String.class, res_.getClass());
         assertEq("", res_);
@@ -1430,7 +1319,6 @@ public class ElUtilTest {
         localVars_.put("v", lv_);
         context_.getLastPage().getLocalVars().putAllMap(localVars_);
         Argument arg_ = ElUtil.processEl("v;.news.length()",0, context_);
-        assertEq(PrimitiveTypeUtil.PRIM_INT, arg_.getArgClassName());
         Object res_ = arg_.getObject();
         assertSame(Integer.class, res_.getClass());
         assertEq(0, (Number)res_);
@@ -1448,7 +1336,6 @@ public class ElUtilTest {
         localVars_.put("v", lv_);
         context_.getLastPage().getLocalVars().putAllMap(localVars_);
         Argument arg_ = ElUtil.processEl("^boolean(1>0,0i,1i)",0, context_);
-        assertEq(PrimitiveTypeUtil.PRIM_INT, arg_.getArgClassName());
         Object res_ = arg_.getObject();
         assertSame(Integer.class, res_.getClass());
         assertEq(0, (Number)res_);
@@ -1466,7 +1353,6 @@ public class ElUtilTest {
         localVars_.put("v", lv_);
         context_.getLastPage().getLocalVars().putAllMap(localVars_);
         Argument arg_ = ElUtil.processEl("^boolean(1<0,0i,1i)",0, context_);
-        assertEq(PrimitiveTypeUtil.PRIM_INT, arg_.getArgClassName());
         Object res_ = arg_.getObject();
         assertSame(Integer.class, res_.getClass());
         assertEq(1, (Number)res_);
@@ -1484,7 +1370,6 @@ public class ElUtilTest {
         localVars_.put("v", lv_);
         context_.getLastPage().getLocalVars().putAllMap(localVars_);
         Argument arg_ = ElUtil.processEl("^boolean(1>0,0i,1i/0i)",0, context_);
-        assertEq(PrimitiveTypeUtil.PRIM_INT, arg_.getArgClassName());
         Object res_ = arg_.getObject();
         assertSame(Integer.class, res_.getClass());
         assertEq(0, (Number)res_);
@@ -1502,7 +1387,6 @@ public class ElUtilTest {
         localVars_.put("v", lv_);
         context_.getLastPage().getLocalVars().putAllMap(localVars_);
         Argument arg_ = ElUtil.processEl("^boolean(1<0,1i/0i,1i)",0, context_);
-        assertEq(PrimitiveTypeUtil.PRIM_INT, arg_.getArgClassName());
         Object res_ = arg_.getObject();
         assertSame(Integer.class, res_.getClass());
         assertEq(1,(Number) res_);
@@ -1520,7 +1404,6 @@ public class ElUtilTest {
         localVars_.put("v", lv_);
         context_.getLastPage().getLocalVars().putAllMap(localVars_);
         Argument arg_ = ElUtil.processEl("^new."+ARR_INT+"(0i).getClass().getName()",0, context_);
-        assertEq(String.class.getName(), arg_.getArgClassName());
         Object res_ = arg_.getObject();
         assertSame(String.class, res_.getClass());
         assertEq("[I", res_);
@@ -1538,7 +1421,6 @@ public class ElUtilTest {
         localVars_.put("v", lv_);
         context_.getLastPage().getLocalVars().putAllMap(localVars_);
         Argument arg_ = ElUtil.processEl("^new."+ARR_INTEGER+"(0i).getClass().getName()",0, context_);
-        assertEq(String.class.getName(), arg_.getArgClassName());
         Object res_ = arg_.getObject();
         assertSame(String.class, res_.getClass());
         assertEq("[Ljava.lang.Integer;", res_);
@@ -1556,7 +1438,6 @@ public class ElUtilTest {
         localVars_.put("v", lv_);
         context_.getLastPage().getLocalVars().putAllMap(localVars_);
         Argument arg_ = ElUtil.processEl("^new."+ARR_ARR_INT+"(0i).getClass().getName()",0, context_);
-        assertEq(String.class.getName(), arg_.getArgClassName());
         Object res_ = arg_.getObject();
         assertSame(String.class, res_.getClass());
         assertEq("[[I", res_);
@@ -1574,7 +1455,6 @@ public class ElUtilTest {
         localVars_.put("v", lv_);
         context_.getLastPage().getLocalVars().putAllMap(localVars_);
         Argument arg_ = ElUtil.processEl("^new."+ARR_ARR_INTEGER+"(0i).getClass().getName()",0, context_);
-        assertEq(String.class.getName(), arg_.getArgClassName());
         Object res_ = arg_.getObject();
         assertSame(String.class, res_.getClass());
         assertEq("[[Ljava.lang.Integer;", res_);
@@ -1592,13 +1472,12 @@ public class ElUtilTest {
         localVars_.put("v", lv_);
         context_.getLastPage().getLocalVars().putAllMap(localVars_);
         Argument arg_ = ElUtil.processEl("^new."+ARR_INT+"(1i)[0i]",0, context_);
-        assertEq(PrimitiveTypeUtil.PRIM_INT, arg_.getArgClassName());
         Object res_ = arg_.getObject();
         assertSame(Integer.class, res_.getClass());
         assertEq(0, (Number)res_);
     }
 
-    @Test(timeout=1000)
+    @Test
     public void processEl96Test() {
         ContextEl context_ = new ContextEl();
         setupAccessValue(context_);
@@ -1606,16 +1485,14 @@ public class ElUtilTest {
         BeanOne b_ = new BeanOne();
         addBean(context_, b_);
         Argument arg_ = ElUtil.processEl("^new."+ARR_INT+"[](2i)", 0, context_);
-        assertEq(ARR_INT, arg_.getArgClassName());
         Object res_ = arg_.getObject();
         assertSame(int[].class, res_.getClass());
         int[] o_ = (int[]) res_;
         assertEq(1, o_.length);
         assertEq(2, o_[0]);
-//        ovOne((IOne)new MyImpl(), new MyImpl());
     }
 
-    @Test(timeout=1000)
+    @Test
     public void processEl97Test() {
         ContextEl context_ = new ContextEl();
         setupAccessValue(context_);
@@ -1623,17 +1500,15 @@ public class ElUtilTest {
         BeanOne b_ = new BeanOne();
         addBean(context_, b_);
         Argument arg_ = ElUtil.processEl("^new."+ARR_INT+"[](3i,7i)", 0, context_);
-        assertEq(ARR_INT, arg_.getArgClassName());
         Object res_ = arg_.getObject();
         assertSame(int[].class, res_.getClass());
         int[] o_ = (int[]) res_;
         assertEq(2, o_.length);
         assertEq(3, o_[0]);
         assertEq(7, o_[1]);
-//        ovOne((IOne)new MyImpl(), new MyImpl());
     }
 
-    @Test(timeout=1000)
+    @Test
     public void processEl98Test() {
         ContextEl context_ = new ContextEl();
         setupAccessValue(context_);
@@ -1641,14 +1516,13 @@ public class ElUtilTest {
         BeanOne b_ = new BeanOne();
         addBean(context_, b_);
         Argument arg_ = ElUtil.processEl("^new."+ARR_INT+"[]()", 0, context_);
-        assertEq(ARR_INT, arg_.getArgClassName());
         Object res_ = arg_.getObject();
         assertSame(int[].class, res_.getClass());
         int[] o_ = (int[]) res_;
         assertEq(0, o_.length);
     }
 
-    @Test(timeout=1000)
+    @Test
     public void processEl99Test() {
         ContextEl context_ = new ContextEl();
         setupAccessValue(context_);
@@ -1656,7 +1530,6 @@ public class ElUtilTest {
         BeanOne b_ = new BeanOne();
         addBean(context_, b_);
         Argument arg_ = ElUtil.processEl("^new."+ARR_INTEGER+"[](3i,7i)", 0, context_);
-        assertEq(ARR_INTEGER, arg_.getArgClassName());
         Object res_ = arg_.getObject();
         assertSame(Integer[].class, res_.getClass());
         Integer[] o_ = (Integer[]) res_;
@@ -1665,7 +1538,7 @@ public class ElUtilTest {
         assertEq(7, o_[1].intValue());
     }
 
-    @Test(timeout=1000)
+    @Test
     public void processEl100Test() {
         ContextEl context_ = new ContextEl();
         setupAccessValue(context_);
@@ -1673,13 +1546,12 @@ public class ElUtilTest {
         BeanOne b_ = new BeanOne();
         addBean(context_, b_);
         Argument arg_ = ElUtil.processEl(" {(1+2)*3+\" hello\"+\" world {every body ;)\"} ", context_, 2 ,'{','}');
-        assertEq(String.class.getName(), arg_.getArgClassName());
         Object res_ = arg_.getObject();
         assertSame(String.class, res_.getClass());
         assertEq("9 hello world {every body ;)", res_);
     }
 
-    @Test(timeout=1000)
+    @Test
     public void processEl101Test() {
         ContextEl context_ = new ContextEl();
         setupAccessValue(context_);
@@ -1687,14 +1559,51 @@ public class ElUtilTest {
         BeanOne b_ = new BeanOne();
         addBean(context_, b_);
         Argument arg_ = ElUtil.processEl(" {(\"hello \"+\"world\").length()} ", context_, 2 ,'{','}');
-        assertEq(PrimitiveTypeUtil.PRIM_INT, arg_.getArgClassName());
         Object res_ = arg_.getObject();
         assertSame(Integer.class, res_.getClass());
         assertEq(11, (Number)res_);
     }
 
-    @Test(timeout=1000)
+    @Test
     public void processEl102Test() {
+        ContextEl context_ = new ContextEl();
+        setupAccessValue(context_);
+        addImportingPage(context_);
+        Composite b_ = new Composite();
+        addBean(context_, b_);
+        StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
+        LocalVariable lv_ = new LocalVariable();
+        lv_.setElement(1l);
+        lv_.setClassName(Long.class.getName());
+        localVars_.put("arg", lv_);
+        context_.getLastPage().getLocalVars().putAllMap(localVars_);
+        Argument arg_ = ElUtil.processEl("getOverridenThree(arg;.)",0, context_);
+        Object res_ = arg_.getObject();
+        assertSame(String.class, res_.getClass());
+        assertEq("Long", res_);
+    }
+
+    @Test
+    public void processEl103Test() {
+        ContextEl context_ = new ContextEl();
+        setupAccessValue(context_);
+        addImportingPage(context_);
+        Composite b_ = new Composite();
+        addBean(context_, b_);
+        StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
+        LocalVariable lv_ = new LocalVariable();
+        lv_.setElement(1l);
+        lv_.setClassName(long.class.getName());
+        localVars_.put("arg", lv_);
+        context_.getLastPage().getLocalVars().putAllMap(localVars_);
+        Argument arg_ = ElUtil.processEl("getOverridenThree(arg;.)",0, context_);
+        Object res_ = arg_.getObject();
+        assertSame(String.class, res_.getClass());
+        assertEq("long", res_);
+    }
+
+    @Test
+    public void processEl104Test() {
         String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg'>\n";
         xml_ += "<method access='"+PUBLIC_ACCESS+"' modifier='static' name='exmeth' class='"+PrimitiveTypeUtil.PRIM_INT+"'>\n";
         xml_ += "<declare var='t' class='"+PrimitiveTypeUtil.PRIM_LONG+"'/>\n";
@@ -1709,15 +1618,14 @@ public class ElUtilTest {
         setupAccessValue(cont_);
         addImportingPage(cont_);
         Argument arg_ = ElUtil.processEl("static^pkg^Ex.exmeth()", 0, cont_);
-        assertEq(PrimitiveTypeUtil.PRIM_INT, arg_.getArgClassName());
         Object res_ = arg_.getObject();
         assertSame(Integer.class, res_.getClass());
         assertEq(9, (Number)res_);
     }
 
 
-    @Test(timeout=1000)
-    public void processEl103Test() {
+    @Test
+    public void processEl105Test() {
         String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg'>\n";
         xml_ += "<method access='"+PUBLIC_ACCESS+"' modifier='static' name='exmeth' class='"+PrimitiveTypeUtil.PRIM_INT+"' class0='"+PrimitiveTypeUtil.PRIM_INT+"' var0='e'>\n";
         xml_ += "<declare var='t' class='"+PrimitiveTypeUtil.PRIM_LONG+"'/>\n";
@@ -1732,7 +1640,6 @@ public class ElUtilTest {
         setupAccessValue(cont_);
         addImportingPage(cont_);
         Argument arg_ = ElUtil.processEl("static^pkg^Ex.exmeth(6i)", 0, cont_);
-        assertEq(PrimitiveTypeUtil.PRIM_INT, arg_.getArgClassName());
         Object res_ = arg_.getObject();
         assertSame(Integer.class, res_.getClass());
         assertEq(15,(Number) res_);
@@ -2191,7 +2098,7 @@ public class ElUtilTest {
     }
 
     //FinalFieldClass
-//    @Test(timeout=1000)
+//    @Test
 //    public void processEl2000Test() {
 //        ContextEl context_ = new ContextEl();
 //        setupAccessValue(context_);
@@ -2402,7 +2309,7 @@ public class ElUtilTest {
 //        System.out.println(ElUtil.processElObj("new.expressionlanguage.classes.Composite(?java.lang.String,v;.?,2;.).getStrings()", 0, context_));
 //    }
     @Ignore
-    @Test(timeout=1000)
+    @Test
     public void processElTmp1Test() {
         ContextEl context_ = new ContextEl();
         setupAccessValue(context_);
@@ -2411,71 +2318,13 @@ public class ElUtilTest {
         addBean(context_, b_);
         //        ElUtil.processEl("instanceof(\"java.lang.Number\",5)",0, context_);
         Argument arg_ = ElUtil.processEl("^class(\"java.lang.Number\",5)",0, context_);
-        assertEq(Number.class.getName(), arg_.getArgClassName());
         Object res_ = arg_.getObject();
         assertSame(Long.class, res_.getClass());
         assertEq(5L, (Number)res_);
     }
 
-//    @Ignore
-//    @Test(timeout=1000)
-//    public void templates() throws Exception {
-//        java.util.List<? extends java.lang.Object> l_;
-//        java.util.List<? extends java.lang.String> l2_;
-//        l2_ = new java.util.ArrayList<java.lang.String>();
-//        l_ = l2_;
-////        String arg_ = "java.util.ArrayList<java.lang.Object>";
-////        String param_ = "java.util.List<java.lang.Object>";
-//        String arg_ = "java.util.List<? ~ java.lang.String>";
-//        String param_ = "java.util.List<? ~ java.lang.Object>";
-//        Mapping m_ = new Mapping();
-//        m_.setArg(arg_);
-//        m_.setParam(param_);
-////        Templates.getMapping(m_, null);
-////        System.out.println(Templates.isCorrect(m_, null));
-//        arg_ = "java.util.List<? ~ java.lang.Object>";
-//        param_ = "java.util.List<? ~ java.lang.String>";
-//        m_.setArg(arg_);
-//        m_.setParam(param_);
-////        System.out.println(Templates.isCorrect(m_, null));
-//        System.out.println();
-//        System.out.println(Templates.isCorrectTemplate("util.EnumList<expressionlanguage.classes.EnumNumber>", new StringMap<StringList>(),null));
-//        System.out.println(Templates.isCorrectTemplate("util.EnumList<java.lang.String>", new StringMap<StringList>(),null));
-//        System.out.println(Templates.isCorrectTemplate("java.util.List<? ~ java.lang.Object>", new StringMap<StringList>(),null));
-//        System.out.println(Templates.isCorrectTemplate("java.util.List<? ~ java.lang.String>", new StringMap<StringList>(),null));
-//        System.out.println(Templates.isCorrectTemplate("util.EnumList<? ~ java.lang.String>", new StringMap<StringList>(),null));
-//        System.out.println();
-//        StringMap<StringList> t_ = new StringMap<StringList>();
-//        t_.put("E", new StringList("java.lang.Object"));
-//        System.out.println(Templates.isCorrectTemplate("java.util.List<E>", t_,null));
-//        System.out.println(Templates.isCorrectTemplate("util.EnumList<E>", t_,null));
-//        System.out.println();
-//        t_.put("E", new StringList("java.lang.Enum<E>"));
-//        System.out.println(Templates.isCorrectTemplate("util.EnumList<E>", t_,null));
-//        t_.put("E", new StringList("java.lang.Enum<E>","util.ints.Cmp<E>"));
-//        System.out.println(Templates.isCorrectTemplate("util.EnumList<E>", t_,null));
-//        t_.put("E", new StringList("util.ints.Cmp<E>","java.lang.Enum<E>"));
-//        System.out.println("OK");
-//        System.out.println(Templates.isCorrectTemplate("util.EnumList<E>", t_,null));
-//        System.out.println(Templates.isCorrectTemplate("java.util.List<java.lang.Object>", new StringMap<StringList>(),null));
-//        System.out.println(Templates.isCorrectTemplate("java.util.List<java.lang.String>", new StringMap<StringList>(),null));
-//        System.out.println();
-//        System.out.println(Templates.isCorrectTemplate("java.util.List<[Ljava.lang.Object;>", new StringMap<StringList>(),null));
-//        System.out.println(Templates.isCorrectTemplate("java.util.List<[Ljava.lang.String;>", new StringMap<StringList>(),null));
-//        System.out.println(Templates.isCorrectTemplate("java.util.List<[I>", new StringMap<StringList>(),null));
-//        System.out.println();
-//        System.out.println(Templates.isCorrectTemplate("util.EnumList<[Ljava.lang.Object;>", new StringMap<StringList>(),null));
-//        System.out.println(Templates.isCorrectTemplate("util.EnumList<[Ljava.lang.String;>", new StringMap<StringList>(),null));
-//        System.out.println(Templates.isCorrectTemplate("util.EnumList<[I>", new StringMap<StringList>(),null));
-//        System.out.println(Templates.isCorrectTemplate("util.EnumList<[Lexpressionlanguage.classes.EnumNumber;>", new StringMap<StringList>(),null));
-//        System.out.println();
-//        t_.put("E", new StringList("java.lang.Enum<E>"));
-//        System.out.println(Templates.isCorrectTemplate("java.util.List<[LE;>", t_,null));
-//        System.out.println(Templates.isCorrectTemplate("util.EnumList<[LE;>", t_,null));
-//    }
-
     @Ignore
-    @Test(timeout=1000)
+    @Test
     public void processElTmp2Test() throws Exception {
         ContextEl context_ = new ContextEl();
         setupAccessValue(context_);
@@ -2484,7 +2333,6 @@ public class ElUtilTest {
         addBean(context_, b_);
         //        ElUtil.processEl("instanceof(\"java.lang.Number\",5)",0, context_);
         Argument arg_ = ElUtil.processEl("^class(\"java.lang.Number\",5)",0, context_);
-        assertEq(Number.class.getName(), arg_.getArgClassName());
         Object res_ = arg_.getObject();
         assertSame(Long.class, res_.getClass());
         assertEq(5L, (Number)res_);

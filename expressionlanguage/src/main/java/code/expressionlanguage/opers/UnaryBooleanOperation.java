@@ -62,7 +62,7 @@ public final class UnaryBooleanOperation extends PrimitiveBoolOperation {
         analyzeCommon(_nodes, _conf, _op);
     }
     void analyzeCommon(CustList<OperationNode> _nodes, ContextEl _conf, String _op) {
-        CustList<OperationNode> chidren_ = getChildrenAmong(_nodes, true);
+        CustList<OperationNode> chidren_ = getChildrenNodes();
         if (chidren_.size() != 1) {
             setRelativeOffsetPossibleLastPage(getIndexInEl(), _conf);
             throw new BadNumberValuesException(_conf.joinPages());
@@ -78,24 +78,7 @@ public final class UnaryBooleanOperation extends PrimitiveBoolOperation {
         }
         setResultClass(new ClassArgumentMatching(PrimitiveTypeUtil.PRIM_BOOLEAN));
     }
-//    @Override
-//    public Argument calculate(IdMap<OperationNode, ArgumentsPair> _nodes,
-//            ContextEl _conf, Calculation _setting) {
-//        CustList<OperationNode> chidren_ = getChildrenAmong();
-//        Argument arg_ = _nodes.getVal(chidren_.first()).getArgument();
-//        Object o_ = arg_.getObject();
-//        setRelativeOffsetPossibleLastPage(getIndexInEl(), _conf);
-//        if (o_ == null) {
-//            throw new NullObjectException(_conf.joinPages());
-//        }
-//        Boolean b_ = (Boolean) o_;
-//        b_ = !b_;
-//        Argument a_ = new Argument();
-//        a_.setArgClassName(getResultClass().getName());
-//        a_.setObject(b_);
-//        setSimpleArgument(a_, _conf, _nodes);
-//        return a_;
-//    }
+
     @Override
     public Argument calculateLeft(IdMap<OperationNode,ArgumentsPair> _nodes, ContextEl _conf, String _op) {
         return calculateCommon(_nodes, _conf, _op);
@@ -113,7 +96,7 @@ public final class UnaryBooleanOperation extends PrimitiveBoolOperation {
     Argument calculateCommon(
             IdMap<OperationNode, ArgumentsPair> _nodes, ContextEl _conf,
             String _op) {
-        CustList<OperationNode> chidren_ = getChildrenAmong();
+        CustList<OperationNode> chidren_ = getChildrenNodes();
         Argument arg_ = _nodes.getVal(chidren_.first()).getArgument();
         Object o_ = arg_.getObject();
         setRelativeOffsetPossibleLastPage(getIndexInEl(), _conf);
@@ -123,28 +106,11 @@ public final class UnaryBooleanOperation extends PrimitiveBoolOperation {
         Boolean b_ = (Boolean) o_;
         b_ = !b_;
         Argument a_ = new Argument();
-        a_.setArgClassName(getResultClass().getName());
         a_.setObject(b_);
         setSimpleArgument(a_, _conf, _nodes);
         return a_;
     }
     /**@throws NullObjectException*/
-//    @Override
-//    public void calculate(CustList<OperationNode> _nodes, ContextEl _conf, Calculation _setting) {
-//        CustList<OperationNode> chidren_ = getChildrenAmong(_nodes, false);
-//        Argument arg_ = chidren_.first().getArgument();
-//        Object o_ = arg_.getObject();
-//        setRelativeOffsetPossibleLastPage(getIndexInEl(), _conf);
-//        if (o_ == null) {
-//            throw new NullObjectException(_conf.joinPages());
-//        }
-//        Boolean b_ = (Boolean) o_;
-//        b_ = !b_;
-//        Argument a_ = new Argument();
-//        a_.setArgClassName(getResultClass().getName());
-//        a_.setObject(b_);
-//        setSimpleArgument(a_, _conf);
-//    }
 
     @Override
     public void calculateLeft(CustList<OperationNode> _nodes, ContextEl _conf,
@@ -165,7 +131,7 @@ public final class UnaryBooleanOperation extends PrimitiveBoolOperation {
     }
 
     void calculateCommon(CustList<OperationNode> _nodes, ContextEl _conf, String _op) {
-        CustList<OperationNode> chidren_ = getChildrenAmong(_nodes, false);
+        CustList<OperationNode> chidren_ = getChildrenNodes();
         Argument arg_ = chidren_.first().getArgument();
         Object o_ = arg_.getObject();
         setRelativeOffsetPossibleLastPage(getIndexInEl(), _conf);
@@ -175,7 +141,6 @@ public final class UnaryBooleanOperation extends PrimitiveBoolOperation {
         Boolean b_ = (Boolean) o_;
         b_ = !b_;
         Argument a_ = new Argument();
-        a_.setArgClassName(getResultClass().getName());
         a_.setObject(b_);
         setSimpleArgument(a_, _conf);
     }

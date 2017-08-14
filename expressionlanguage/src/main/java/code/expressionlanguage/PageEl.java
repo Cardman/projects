@@ -402,35 +402,24 @@ public final class PageEl {
     
     public void setGlobalArgumentStruct(Struct _obj) {
         Argument arg_ = new Argument();
-        arg_.setArgClassName(_obj.getClassName());
         arg_.setStruct(_obj);
         globalArgument = arg_;
     }
 
     public void setGlobalArgumentObj(Object _obj) {
         Argument arg_ = new Argument();
-        arg_.setArgClassName(_obj.getClass().getName());
         arg_.setObject(_obj);
         globalArgument = arg_;
     }
 
     public void setGlobalArgument(Class<?> _class) {
         Argument arg_ = new Argument();
-        arg_.setArgClassName(_class.getName());
         globalArgument = arg_;
     }
 
     public void setGlobalArgument(Argument _globalArgument) {
         globalArgument = _globalArgument;
     }
-
-//    public boolean isEvaluatingKeepLoop() {
-//        return evaluatingKeepLoop;
-//    }
-
-//    public void setEvaluatingKeepLoop(boolean _evaluatingKeepLoop) {
-//        evaluatingKeepLoop = _evaluatingKeepLoop;
-//    }
 
     public StringMap<LoopVariable> getVars() {
         return vars;

@@ -823,7 +823,6 @@ final class FormatHtml {
                         ip_.setLookForAttrValue(true);
                         Argument argument_ = new Argument();
                         argument_.setObject(bean_);
-                        argument_.setArgClassName(bean_.getClass().getName());
                         ip_.setGlobalArgument(argument_);
                         String tmp_ = TMP_VAR;
                         int i_ = CustList.FIRST_INDEX;

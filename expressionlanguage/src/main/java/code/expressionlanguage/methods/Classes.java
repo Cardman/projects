@@ -2,7 +2,6 @@ package code.expressionlanguage.methods;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
-import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.CustEnum;
 import code.expressionlanguage.ElUtil;
@@ -1551,9 +1550,6 @@ public final class Classes {
         _context.clearPages();
         _context.addPage(page_);
         for (EntryCust<ClassName, Block> c: classesBodies.entryList()) {
-//            String className_ = c.getKey().getName();
-//            String xml_ = classesContent.getVal(className_);
-//            page_.setHtml(xml_);
             CustList<Block> bl_ = getDirectChildren(c.getValue());
             for (Block b: bl_) {
                 if (b instanceof Returnable) {
@@ -1571,51 +1567,19 @@ public final class Classes {
             }
         }
         for (EntryCust<ClassName, Block> c: classesBodies.entryList()) {
-//            String className_ = c.getKey().getName();
-//            String xml_ = classesContent.getVal(className_);
-//            page_.setHtml(xml_);
             CustList<Block> bl_ = getDirectChildren(c.getValue());
             for (Block b: bl_) {
                 if (b instanceof InfoBlock) {
-                    Argument argGl_ = new Argument();
-                    argGl_.setArgClassName(c.getKey().getName());
                     page_.setGlobalClass(c.getKey().getName());
                     InfoBlock method_ = (InfoBlock) b;
                     method_.buildExpressionLanguage(_context);
                 }
                 if (b instanceof AloneBlock) {
-                    Argument argGl_ = new Argument();
-                    argGl_.setArgClassName(c.getKey().getName());
                     page_.setGlobalClass(c.getKey().getName());
                     AloneBlock method_ = (AloneBlock) b;
                     method_.buildInstructions(_context);
                 }
-//                if (b instanceof ConstructorBlock) {
-//                    Argument argGl_ = new Argument();
-//                    argGl_.setArgClassName(c.getKey().getName());
-//                    page_.setGlobalArgument(argGl_);
-//                    ConstructorBlock method_ = (ConstructorBlock) b;
-//                    StringList params_ = method_.getParametersNames();
-//                    StringList types_ = method_.getParametersTypes();
-//                    int len_ = params_.size();
-//                    for (int i = CustList.FIRST_INDEX; i < len_; i++) {
-//                        String p_ = params_.get(i);
-//                        String c_ = types_.get(i);
-//                        LocalVariable lv_ = new LocalVariable();
-//                        lv_.setClassName(c_);
-//                        page_.getParameters().put(p_, lv_);
-//                    }
-////                    CustList<SortedNode<Block>> ch_;
-////                    ch_ = TreeRetrieving.getSortedDescNodes(b);
-////                    for (SortedNode<Block> d: ch_) {
-////                        ((Block)d).setupChars(xml_);
-////                    }
-//                    method_.buildInstructions(_context);
-//                    page_.getParameters().clear();
-//                }
                 if (b instanceof Returnable) {
-                    Argument argGl_ = new Argument();
-                    argGl_.setArgClassName(c.getKey().getName());
                     page_.setGlobalClass(c.getKey().getName());
                     Returnable method_ = (Returnable) b;
                     StringList params_ = method_.getParametersNames();
@@ -1628,50 +1592,29 @@ public final class Classes {
                         lv_.setClassName(c_);
                         page_.getParameters().put(p_, lv_);
                     }
-//                    CustList<SortedNode<Block>> ch_;
-//                    ch_ = TreeRetrieving.getSortedDescNodes(b);
-//                    for (SortedNode<Block> d: ch_) {
-//                        ((Block)d).setupChars(xml_);
-//                    }
                     method_.buildInstructions(_context);
                     page_.getParameters().clear();
                 }
             }
         }
         for (EntryCust<ClassName, Block> c: classesBodies.entryList()) {
-//            String className_ = c.getKey().getName();
-//            String xml_ = classesContent.getVal(className_);
-//            page_.setHtml(xml_);
             CustList<Block> bl_ = getDirectChildren(c.getValue());
             for (Block b: bl_) {
                 if (b instanceof InfoBlock) {
-                    Argument argGl_ = new Argument();
-                    argGl_.setArgClassName(c.getKey().getName());
                     page_.setGlobalClass(c.getKey().getName());
                     InfoBlock method_ = (InfoBlock) b;
                     method_.checkCallConstructor(_context);
                 }
                 if (b instanceof AloneBlock) {
-                    Argument argGl_ = new Argument();
-                    argGl_.setArgClassName(c.getKey().getName());
                     page_.setGlobalClass(c.getKey().getName());
                     AloneBlock method_ = (AloneBlock) b;
                     method_.checkConstrCalls(_context);
                 }
                 if (b instanceof Returnable) {
-                    Argument argGl_ = new Argument();
-                    argGl_.setArgClassName(c.getKey().getName());
                     page_.setGlobalClass(c.getKey().getName());
                     Returnable method_ = (Returnable) b;
                     method_.checkConstrCalls(_context);
                 }
-//                if (b instanceof ConstructorBlock) {
-//                    Argument argGl_ = new Argument();
-//                    argGl_.setArgClassName(c.getKey().getName());
-//                    page_.setGlobalArgument(argGl_);
-//                    ConstructorBlock method_ = (ConstructorBlock) b;
-//                    method_.checkConstrCalls(_context);
-//                }
             }
         }
         for (EntryCust<ClassName, Block> c: classesBodies.entryList()) {
@@ -2054,7 +1997,9 @@ public final class Classes {
                     String ret_ = method_.getClassName();
                     ClassName clRet_ = new ClassName(ret_, false);
                     boolean enumElement_ = b instanceof ElementBlock;
-                    FieldMetaInfo met_ = new FieldMetaInfo(k_, m_, clRet_, method_.isStaticField(), enumElement_);
+                    boolean staticElement_ = method_.isStaticField();
+                    boolean finalElement_ = method_.isFinalField();
+                    FieldMetaInfo met_ = new FieldMetaInfo(k_, m_, clRet_, staticElement_, finalElement_, enumElement_);
                     infosFields_.put(m_, met_);
                 }
                 if (b instanceof MethodBlock) {

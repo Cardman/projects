@@ -140,20 +140,9 @@ public final class CaseCondition extends BracedStack implements StackableBlockGr
         Struct str_ = sw_.getStruct();
         Argument virtualArg_ = new Argument();
         virtualArg_.setStruct(str_);
-        virtualArg_.setArgClassName(str_.getClassName());
-//        Object value_ = sw_.getValue();
-//        int i_ = List.FIRST_INDEX;
-//        while (true) {
-//            if (sw_.getBlocks().get(i_) == this) {
-//                break;
-//            }
-//            i_++;
-//        }
-//        sw_.setVisitedBlock(i_);
         sw_.setVisitedBlock(getIndexInGroup());
         if (sw_.isEntered()) {
             if (!hasChildNodes()) {
-//                sw_.increment();
                 if (sw_.lastVisitedBlock() == this) {
                     sw_.setFinished(true);
                     rw_.setBlock(sw_.getBlock());
@@ -163,12 +152,10 @@ public final class CaseCondition extends BracedStack implements StackableBlockGr
                 return;
             }
             rw_.setBlock(getFirstChild());
-//            processAfterBlock(_conf, _bkSize, ip_);
             return;
         } else {
             ip_.setProcessingAttribute(ATTRIBUTE_VALUE);
             ip_.setOffset(0);
-//            ip_.setLookForAttrValue(true);
             ExpressionLanguage el_;
             if (!ip_.getCurrentEls().isEmpty()) {
                 el_ = ip_.getCurrentEls().last();

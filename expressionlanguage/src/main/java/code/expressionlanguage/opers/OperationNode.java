@@ -1059,14 +1059,14 @@ public abstract class OperationNode implements SortedNode<OperationNode>, Operab
     //    }
     static Argument newInstance(ContextEl _conf, Argument _need, int _offsetIncr, Constructor<?> _const, Argument... _args) {
         try {
-            Object[] args_ = getObjects(_args);
+            Struct[] args_ = getObjects(_args);
             checkArgumentsForInvoking(_conf, _const.getParameterTypes(), args_);
             Argument a_ = new Argument();
             Object o_ = _const.newInstance(adaptedArgs(_const.getParameterTypes(), args_));
             if (_need != null) {
-                a_.setStructArgClassName(new Struct(o_, _need.getStruct()));
+                a_.setStruct(new Struct(o_, _need.getStruct()));
             } else {
-                a_.setStructArgClassName(new Struct(o_));
+                a_.setStruct(new Struct(o_));
             }
             //            a_.setArgClassName(a_.getObject().getClass().getName());
             return a_;
@@ -1108,7 +1108,7 @@ public abstract class OperationNode implements SortedNode<OperationNode>, Operab
     //        return a_;
     //    }
 
-    static Struct invokeMethod(ContextEl _cont,int _offsetIncr, String _className, Method _method, Object _instance, Object... _args) {
+    static Struct invokeMethod(ContextEl _cont,int _offsetIncr, String _className, Method _method, Object _instance, Struct... _args) {
         try {
             checkArgumentsForInvoking(_cont, _method.getParameterTypes(), _args);
             Object o_ = _method.invoke(_instance, adaptedArgs(_method.getParameterTypes(), _args));
@@ -1149,11 +1149,11 @@ public abstract class OperationNode implements SortedNode<OperationNode>, Operab
             throw new ErrorCausingException(_cont.joinPages(), new Struct(_0));
         }
     }
-    static void checkArgumentsForInvoking(ContextEl _cont,Class<?>[] _params,Object... _args) {
+    static void checkArgumentsForInvoking(ContextEl _cont,Class<?>[] _params,Struct... _args) {
         int len_ = _params.length;
         StringList traces_ = new StringList();
         for (int i = 0; i < len_; i++) {
-            if (_params[i].isPrimitive() && _args[i] == null) {
+            if (_params[i].isPrimitive() && _args[i].isNull()) {
                 traces_.add(i+RETURN_LINE+_params[i].getName()+RETURN_LINE+null);
             }
         }
@@ -1161,12 +1161,20 @@ public abstract class OperationNode implements SortedNode<OperationNode>, Operab
             throw new UnwrappingException(traces_.join(SEP_ARG)+RETURN_LINE+_cont.joinPages());
         }
     }
-    static Object[] adaptedArgs(Class<?>[] _params,Object... _args) {
+    static Object[] adaptedArgs(Class<?>[] _params,Struct... _args) {
         int len_ = _params.length;
         Object[] args_ = new Object[len_];
         for (int i = 0; i < len_; i++) {
+            Struct argStruct_ = _args[i];
+            if (argStruct_.isNull()) {
+                continue;
+            }
+            if (!argStruct_.isJavaObject()) {
+                args_[i] = argStruct_;
+                continue;
+            }
+            Object a_ = argStruct_.getInstance();
             Class<?> p_ = _params[i];
-            Object a_ = _args[i];
             if (p_ == double.class || p_ == Double.class) {
                 if (a_ instanceof Number) {
                     args_[i] = ((Number)a_).doubleValue();
@@ -1214,12 +1222,12 @@ public abstract class OperationNode implements SortedNode<OperationNode>, Operab
     //        return classes_;
     //    }
 
-    static Object[] getObjects(Argument... _args) {
+    static Struct[] getObjects(Argument... _args) {
         int len_ = _args.length;
-        Object[] classes_ = new Object[len_];
+        Struct[] classes_ = new Struct[len_];
         for (int i = CustList.FIRST_INDEX; i < len_; i++) {
             //            _expected.get(i);
-            classes_[i] = _args[i].getObject();
+            classes_[i] = _args[i].getStruct();
         }
         return classes_;
     }

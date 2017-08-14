@@ -247,9 +247,6 @@ public final class ElUtil {
             o.resetArguments();
         }
     }
-    public static Object processElObj(String _el, int _index, ContextEl _conf) {
-        return processEl(_el, _index, _conf).getObject();
-    }
 
     public static Argument processEl(String _el, ContextEl _conf, int _minIndex, char _begin, char _end) {
         Delimiters d_ = ElResolver.checkSyntaxDelimiters(_el, _conf, _minIndex, _begin, _end);

@@ -131,7 +131,6 @@ public final class ProcessXmlMethod {
         Block firstChild_ = method_.getFirstChild();
         if (firstChild_ == null) {
             Argument a_ = new Argument();
-            a_.setArgClassName(method_.getReturnType());
             return a_;
         }
         PageEl page_ = createCallingMethod(_global, _class, _method, _args, _cont);
@@ -282,12 +281,10 @@ public final class ProcessXmlMethod {
         Block firstChild_ = class_.getFirstChild();
         PageEl page_ = new PageEl();
         Argument argGl_ = new Argument();
-        argGl_.setArgClassName(_class);
         page_.setInitializingClass(true);
         page_.setGlobalClass(_class);
         page_.setGlobalArgument(argGl_);
         page_.setReadUrl(_class);
-//        page_.setHtml(classes_.getClassContent(_class));
         ReadWrite rw_ = new ReadWrite();
         rw_.setBlock(firstChild_);
         page_.setReadWrite(rw_);
@@ -402,7 +399,6 @@ public final class ProcessXmlMethod {
             argGl_.setStruct(global_.getStruct());
 //            System.out.println(page_.getCallingConstr().getCalledConstructors());
         }
-        argGl_.setArgClassName(_class);
         page_.setReadUrl(_class);
         page_.setGlobalClass(_class);
         page_.setGlobalArgument(argGl_);

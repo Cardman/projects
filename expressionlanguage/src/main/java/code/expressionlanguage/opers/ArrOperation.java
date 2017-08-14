@@ -29,64 +29,23 @@ public final class ArrOperation extends MethodOperation implements SettableElRes
     @Override
     public void analyzeLeft(CustList<OperationNode> _nodes, ContextEl _conf,
             boolean _enumContext, String _op) {
-        CustList<OperationNode> chidren_ = getChildrenAmong(_nodes, true);
-        if (chidren_.size() < 2) {
-            setRelativeOffsetPossibleLastPage(getIndexInEl(), _conf);
-            throw new BadNumberValuesException(_conf.joinPages());
-        }
-        ClassArgumentMatching class_ = chidren_.first().getResultClass();
-        OperationNode lastElement_ = null;
-        if (resultCanBeSet()) {
-            lastElement_ = chidren_.last();
-        }
-        for (int i = CustList.SECOND_INDEX; i < chidren_.size(); i++) {
-            ClassArgumentMatching indexClass_ = chidren_.get(i).getResultClass();
-            setRelativeOffsetPossibleLastPage(chidren_.get(i).getIndexInEl(), _conf);
-            if (!indexClass_.isNumericInt()) {
-                throw new BadIndexTypeException(indexClass_+RETURN_LINE+_conf.joinPages());
-            }
-            setRelativeOffsetPossibleLastPage(chidren_.get(i-1).getIndexInEl(), _conf);
-            if (!class_.isArray()) {
-                throw new NotArrayException(class_+RETURN_LINE+_conf.joinPages());
-            }
-            class_ = new ClassArgumentMatching(PrimitiveTypeUtil.getQuickComponentType(class_.getName()));
-        }
-        if (lastElement_ != null) {
-            setResultClass(class_);
-            setCalculatedLater(true);
-            return;
-        }
-        setResultClass(class_);
+        analyzeCommon(_conf, resultCanBeSet());
     }
 
     @Override
     public void analyzeRight(CustList<OperationNode> _nodes, ContextEl _conf,
             boolean _enumContext, String _op) {
-        CustList<OperationNode> chidren_ = getChildrenAmong(_nodes, true);
-        if (chidren_.size() < 2) {
-            setRelativeOffsetPossibleLastPage(getIndexInEl(), _conf);
-            throw new BadNumberValuesException(_conf.joinPages());
-        }
-        ClassArgumentMatching class_ = chidren_.first().getResultClass();
-        for (int i = CustList.SECOND_INDEX; i < chidren_.size(); i++) {
-            ClassArgumentMatching indexClass_ = chidren_.get(i).getResultClass();
-            setRelativeOffsetPossibleLastPage(chidren_.get(i).getIndexInEl(), _conf);
-            if (!indexClass_.isNumericInt()) {
-                throw new BadIndexTypeException(indexClass_+RETURN_LINE+_conf.joinPages());
-            }
-            setRelativeOffsetPossibleLastPage(chidren_.get(i-1).getIndexInEl(), _conf);
-            if (!class_.isArray()) {
-                throw new NotArrayException(class_+RETURN_LINE+_conf.joinPages());
-            }
-            class_ = new ClassArgumentMatching(PrimitiveTypeUtil.getQuickComponentType(class_.getName()));
-        }
-        setResultClass(class_);
+        analyzeCommon(_conf, null);
     }
 
     @Override
     public void analyzeSetting(CustList<OperationNode> _nodes, ContextEl _conf,
             boolean _enumContext, String _op) {
-        CustList<OperationNode> chidren_ = getChildrenAmong(_nodes, true);
+        analyzeCommon(_conf, null);
+    }
+
+    void analyzeCommon(ContextEl _conf, Boolean _calculatedLater) {
+        CustList<OperationNode> chidren_ = getChildrenNodes();
         if (chidren_.size() < 2) {
             setRelativeOffsetPossibleLastPage(getIndexInEl(), _conf);
             throw new BadNumberValuesException(_conf.joinPages());
@@ -105,89 +64,68 @@ public final class ArrOperation extends MethodOperation implements SettableElRes
             class_ = new ClassArgumentMatching(PrimitiveTypeUtil.getQuickComponentType(class_.getName()));
         }
         setResultClass(class_);
+        if (_calculatedLater != null) {
+            setCalculatedLater(_calculatedLater);
+        }
     }
 
     @Override
     public Argument calculateLeft(IdMap<OperationNode, ArgumentsPair> _nodes,
             ContextEl _conf, String _op) {
-        CustList<OperationNode> chidren_ = getChildrenAmong();
-        Struct array_;
-        array_ = _nodes.getVal(chidren_.first()).getArgument().getStruct();
+        CustList<OperationNode> chidren_ = getChildrenNodes();
         setRelativeOffsetPossibleLastPage(chidren_.first().getIndexInEl(), _conf);
-        OperationNode lastElement_ = null;
+        int max_ = chidren_.size();
         if (resultCanBeSet()) {
-            lastElement_ = chidren_.last();
-            chidren_.removeLast();
+            max_--;
         }
-
-        for (int i = CustList.SECOND_INDEX; i < chidren_.size(); i++) {
-            OperationNode op_ = chidren_.get(i);
-            Object o_ = _nodes.getVal(op_).getArgument().getObject();
-            array_ = getElement(array_, o_, _conf, chidren_.get(i).getIndexInEl());
-        }
-        if (lastElement_ != null) {
-            Argument a_ = Argument.createVoid();
-            a_.setStruct(array_);
-            setSimpleArgument(a_, _conf, _nodes);
-            return a_;
-        }
-        Argument a_ = new Argument();
-        a_.setArgClassName(getResultClass().getName());
-        a_.setStruct(array_);
+        Argument a_ = getArgument(_nodes, max_, _conf);
         setSimpleArgument(a_, _conf, _nodes);
         return a_;
     }
     @Override
     public Argument calculateRight(IdMap<OperationNode, ArgumentsPair> _nodes,
             ContextEl _conf, String _op) {
-        CustList<OperationNode> chidren_ = getChildrenAmong();
+        CustList<OperationNode> chidren_ = getChildrenNodes();
+        setRelativeOffsetPossibleLastPage(chidren_.first().getIndexInEl(), _conf);
+        Argument a_ = getArgument(_nodes, chidren_.size(), _conf);
+        setSimpleArgument(a_, _conf, _nodes);
+        return a_;
+    }
+
+    Argument getArgument(IdMap<OperationNode, ArgumentsPair> _nodes,
+            int _maxIndexChildren, ContextEl _conf) {
+        CustList<OperationNode> chidren_ = getChildrenNodes();
         Struct array_;
         array_ = _nodes.getVal(chidren_.first()).getArgument().getStruct();
-        setRelativeOffsetPossibleLastPage(chidren_.first().getIndexInEl(), _conf);
-        for (int i = CustList.SECOND_INDEX; i < chidren_.size(); i++) {
+        for (int i = CustList.SECOND_INDEX; i < _maxIndexChildren; i++) {
             OperationNode op_ = chidren_.get(i);
             Object o_ = _nodes.getVal(op_).getArgument().getObject();
             array_ = getElement(array_, o_, _conf, chidren_.get(i).getIndexInEl());
         }
         Argument a_ = new Argument();
-        a_.setArgClassName(getResultClass().getName());
         a_.setStruct(array_);
-        setSimpleArgument(a_, _conf, _nodes);
         return a_;
     }
+
     @Override
     public Argument calculateSetting(
             IdMap<OperationNode, ArgumentsPair> _nodes, ContextEl _conf,
             String _op) {
-        CustList<OperationNode> chidren_ = getChildrenAmong();
+        CustList<OperationNode> chidren_ = getChildrenNodes();
         Struct array_;
-        String arrayClass_;
         array_ = _nodes.getVal(this).getArgument().getStruct();
-        arrayClass_ = _nodes.getVal(this).getArgument().getObjectClassName();
         setRelativeOffsetPossibleLastPage(chidren_.first().getIndexInEl(), _conf);
-        PageEl ip_ = _conf.getLastPage();
         OperationNode lastElement_ = null;
         if (resultCanBeSet()) {
             lastElement_ = chidren_.last();
-            chidren_.removeLast();
         }
         if (lastElement_ != null) {
-            Object o_ = _nodes.getVal(lastElement_).getArgument().getObject();
-            Struct leftObj_ = getElement(array_, o_, _conf, lastElement_.getIndexInEl());
-            Argument left_ = new Argument();
-            arrayClass_ = PrimitiveTypeUtil.getQuickComponentType(arrayClass_);
-            left_.setArgClassName(arrayClass_);
-            left_.setStruct(leftObj_);
-            Argument right_ = ip_.getRightArgument();
-            Argument res_;
-            res_ = NumericOperation.calculateAffect(left_, _conf, right_, _op);
-            setElement(array_, o_, res_.getStruct(), _conf, lastElement_.getIndexInEl());
+            affectArray(array_, _nodes.getVal(lastElement_).getArgument(), lastElement_.getIndexInEl(), _op, _conf);
             Argument a_ = _nodes.getVal(this).getArgument();
             setSimpleArgument(a_, _conf, _nodes);
             return a_;
         }
         Argument a_ = new Argument();
-        a_.setArgClassName(getResultClass().getName());
         a_.setStruct(array_);
         setSimpleArgument(a_, _conf, _nodes);
         return a_;
@@ -198,82 +136,69 @@ public final class ArrOperation extends MethodOperation implements SettableElRes
     @Override
     public void calculateLeft(CustList<OperationNode> _nodes, ContextEl _conf,
             String _op) {
-        CustList<OperationNode> chidren_ = getChildrenAmong(_nodes, false);
-        Struct array_;
-        array_ = chidren_.first().getArgument().getStruct();
+        CustList<OperationNode> chidren_ = getChildrenNodes();
         setRelativeOffsetPossibleLastPage(chidren_.first().getIndexInEl(), _conf);
-        OperationNode lastElement_ = null;
+        int max_ = chidren_.size();
         if (resultCanBeSet()) {
-            lastElement_ = chidren_.last();
-            chidren_.removeLast();
+            max_--;
         }
-        for (int i = CustList.SECOND_INDEX; i < chidren_.size(); i++) {
-            Object o_ = chidren_.get(i).getArgument().getObject();
-            array_ = getElement(array_, o_, _conf, chidren_.get(i).getIndexInEl());
-        }
-        if (lastElement_ != null) {
-            Argument a_ = Argument.createVoid();
-            a_.setStruct(array_);
-            setSimpleArgument(a_, _conf);
-            return;
-        }
-        Argument a_ = new Argument();
-        a_.setArgClassName(getResultClass().getName());
-        a_.setStruct(array_);
+        Argument a_ = getArgument(max_, _conf);
         setSimpleArgument(a_, _conf);
     }
 
     @Override
     public void calculateRight(CustList<OperationNode> _nodes, ContextEl _conf,
             String _op) {
-        CustList<OperationNode> chidren_ = getChildrenAmong(_nodes, false);
-        Struct array_;
-        array_ = chidren_.first().getArgument().getStruct();
+        CustList<OperationNode> chidren_ = getChildrenNodes();
         setRelativeOffsetPossibleLastPage(chidren_.first().getIndexInEl(), _conf);
-        for (int i = CustList.SECOND_INDEX; i < chidren_.size(); i++) {
-            Object o_ = chidren_.get(i).getArgument().getObject();
-            array_ = getElement(array_, o_, _conf, chidren_.get(i).getIndexInEl());
-        }
-        Argument a_ = new Argument();
-        a_.setArgClassName(getResultClass().getName());
-        a_.setStruct(array_);
+        Argument a_ = getArgument(chidren_.size(), _conf);
         setSimpleArgument(a_, _conf);
     }
 
     @Override
     public void calculateSetting(CustList<OperationNode> _nodes,
             ContextEl _conf, String _op) {
-        CustList<OperationNode> chidren_ = getChildrenAmong(_nodes, false);
+        CustList<OperationNode> chidren_ = getChildrenNodes();
         Struct array_;
-        String arrayClass_;
         array_ = getArgument().getStruct();
-        arrayClass_ = getArgument().getObjectClassName();
-        setRelativeOffsetPossibleLastPage(chidren_.first().getIndexInEl(), _conf);
-        PageEl ip_ = _conf.getLastPage();
         OperationNode lastElement_ = null;
         if (resultCanBeSet()) {
             lastElement_ = chidren_.last();
-            chidren_.removeLast();
         }
         if (lastElement_ != null) {
-            setRelativeOffsetPossibleLastPage(lastElement_.getIndexInEl(), _conf);
-            Object o_ = lastElement_.getArgument().getObject();
-            Struct leftObj_ = getElement(array_, o_, _conf, lastElement_.getIndexInEl());
-            Argument left_ = new Argument();
-            arrayClass_ = PrimitiveTypeUtil.getQuickComponentType(arrayClass_);
-            left_.setArgClassName(arrayClass_);
-            left_.setStruct(leftObj_);
-            Argument right_ = ip_.getRightArgument();
-            Argument res_;
-            res_ = NumericOperation.calculateAffect(left_, _conf, right_, _op);
-            setElement(array_, o_, res_.getStruct(), _conf, lastElement_.getIndexInEl());
+            affectArray(array_, lastElement_.getArgument(), lastElement_.getIndexInEl(), _op, _conf);
             setSimpleArgument(getArgument(), _conf);
             return;
         }
         Argument a_ = new Argument();
-        a_.setArgClassName(getResultClass().getName());
         a_.setStruct(array_);
         setSimpleArgument(a_, _conf);
+    }
+
+    void affectArray(Struct _array,Argument _index, int _indexEl, String _op, ContextEl _conf) {
+        setRelativeOffsetPossibleLastPage(_indexEl, _conf);
+        Object o_ = _index.getObject();
+        PageEl ip_ = _conf.getLastPage();
+        Struct leftObj_ = getElement(_array, o_, _conf, _indexEl);
+        Argument left_ = new Argument();
+        left_.setStruct(leftObj_);
+        Argument right_ = ip_.getRightArgument();
+        Argument res_;
+        res_ = NumericOperation.calculateAffect(left_, _conf, right_, _op);
+        setElement(_array, o_, res_.getStruct(), _conf, _indexEl);
+    }
+
+    Argument getArgument(int _maxIndexChildren, ContextEl _conf) {
+        CustList<OperationNode> chidren_ = getChildrenNodes();
+        Struct array_;
+        array_ = chidren_.first().getArgument().getStruct();
+        for (int i = CustList.SECOND_INDEX; i < _maxIndexChildren; i++) {
+            Object o_ = chidren_.get(i).getArgument().getObject();
+            array_ = getElement(array_, o_, _conf, chidren_.get(i).getIndexInEl());
+        }
+        Argument a_ = new Argument();
+        a_.setStruct(array_);
+        return a_;
     }
 
     Struct getElement(Struct _struct, Object _index, ContextEl _conf, int _indexEl) {

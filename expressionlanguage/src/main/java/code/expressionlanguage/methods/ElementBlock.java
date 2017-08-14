@@ -45,6 +45,11 @@ public final class ElementBlock extends Leaf implements InfoBlock{
     }
 
     @Override
+    public boolean isFinalField() {
+        return true;
+    }
+
+    @Override
     public boolean isStaticField() {
         return true;
     }

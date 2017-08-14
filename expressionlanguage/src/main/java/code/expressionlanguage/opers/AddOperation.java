@@ -20,7 +20,6 @@ public final class AddOperation extends NumericOperation {
     static Argument addOne(Argument _arg, ContextEl _cont) {
         byte b_ = 1;
         Argument a_ = new Argument();
-        a_.setArgClassName(PrimitiveTypeUtil.PRIM_BYTE);
         a_.setObject(b_);
         return calculateSum(_arg, _cont, a_);
     }
@@ -28,7 +27,6 @@ public final class AddOperation extends NumericOperation {
     static Argument removeOne(Argument _arg, ContextEl _cont) {
         byte b_ = 1;
         Argument a_ = new Argument();
-        a_.setArgClassName(PrimitiveTypeUtil.PRIM_BYTE);
         a_.setObject(b_);
         return calculateDiff(_arg, _cont, a_);
     }

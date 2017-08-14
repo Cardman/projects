@@ -21,7 +21,6 @@ public final class EqOperation extends PrimitiveBoolOperation {
 
     static Argument calculateEq(Argument _a, Argument _b) {
         Argument a_ = new Argument();
-        a_.setArgClassName(PrimitiveTypeUtil.PRIM_BOOLEAN);
         Object first_ = _a.getObject();
         Object second_ = _b.getObject();
         if (first_ == second_) {
@@ -198,7 +197,7 @@ public final class EqOperation extends PrimitiveBoolOperation {
     }
 
     void analyzeCommon(CustList<OperationNode> _nodes, ContextEl _conf, String _op) {
-        CustList<OperationNode> chidren_ = getChildrenAmong(_nodes, true);
+        CustList<OperationNode> chidren_ = getChildrenNodes();
         if (chidren_.size() != 2) {
             setRelativeOffsetPossibleLastPage(getIndexInEl(), _conf);
             throw new BadNumberValuesException(_conf.joinPages());
@@ -248,7 +247,7 @@ public final class EqOperation extends PrimitiveBoolOperation {
             IdMap<OperationNode, ArgumentsPair> _nodes, ContextEl _conf,
             String _op) {
 
-        CustList<OperationNode> chidren_ = getChildrenAmong();
+        CustList<OperationNode> chidren_ = getChildrenNodes();
         OperationNode opOne_ = chidren_.first();
         OperationNode opTwo_ = chidren_.last();
         Argument first_ = _nodes.getVal(opOne_).getArgument();
@@ -305,7 +304,7 @@ public final class EqOperation extends PrimitiveBoolOperation {
     }
 
     void calculateCommon(CustList<OperationNode> _nodes, ContextEl _conf, String _op) {
-        CustList<OperationNode> chidren_ = getChildrenAmong(_nodes, false);
+        CustList<OperationNode> chidren_ = getChildrenNodes();
         Argument first_ = chidren_.first().getArgument();
         Argument second_ = chidren_.last().getArgument();
         boolean complement_ = false;
