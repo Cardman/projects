@@ -358,9 +358,8 @@ public final class StreamBufferedImage {
 //            }
 //        }
 //    }
-//
+
 //    private static String replaceTxtToPng(String _i) {
 //        return StringList.replace(_i, DataBase.IMG_FILES_RES_EXT_TXT,DataBase.IMG_FILES_RES_EXT);
 //    }
-
 }
