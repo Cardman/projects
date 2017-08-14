@@ -338,7 +338,7 @@ public final class ConstantOperation extends OperationNode implements SettableEl
         if (arg_ == null) {
             return;
         }
-        setSimpleArgument(getArgument(), _conf);
+        setSimpleArgument(arg_, _conf);
     }
 
     Argument getCommonArgument(boolean _processInit, boolean _left, Argument _argument, Argument _previous, ContextEl _conf,
