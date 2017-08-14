@@ -69,9 +69,6 @@ import code.xml.exceptions.XmlParseException;
 
 public final class Classes {
 
-    /*private static final String EXPRESSIONLANGUAGE = "expressionlanguage";
-    private static final String STREAM = "stream";
-    private static final String UTIL = "util";*/
     public static final String EXT = "cdm";
     private static final String ATTRIBUTE_PACKAGE = "package";
     private static final String ATTRIBUTE_NAME = "name";
@@ -98,14 +95,14 @@ public final class Classes {
     private static final char SEP_FILE = '/';
     private static final char DOT = '.';
     private static final String EMPTY_STRING = "";
-    //    private final Map<ClassName, ClassMetaInfo> classes;
+
     private final ObjectMap<ClassName,Block> classesBodies;
-//    private final Map<String, String> classesContent;
+
     private final ObjectMap<ClassField,Struct> staticFields;
     private final ObjectMap<ClassName,CustList<Struct>> values;
     private final StringMap<Boolean> initializedClasses;
     private final StringMap<Boolean> successfulInitializedClasses;
-//    private final StringList errors;
+
     private final CustList<FoundErrorInterpret> errorsDet;
     private final StringList localVariablesNames;
     private final StringList classesInheriting;
@@ -115,10 +112,10 @@ public final class Classes {
     private CustList<OperationNode> exps;
     public Classes(StringMap<String> _files, ContextEl _context) {
         classesBodies = new ObjectMap<ClassName,Block>();
-//        errors = new StringList();
+
         errorsDet = new CustList<FoundErrorInterpret>();
         StringList classes_ = new StringList();
-//        classesContent = new Map<String,String>();
+
         staticFields = new ObjectMap<ClassField,Struct>();
         values = new ObjectMap<ClassName,CustList<Struct>>();
         initializedClasses = new StringMap<Boolean>();
@@ -176,7 +173,6 @@ public final class Classes {
                     }
                 }
                 classes_.add(file_);
-//                Document doc_ = XmlParser.parseSaxHtml(content_);
                 Document doc_ = XmlParser.parseSaxHtmlRowCol(content_);
                 _context.setHtml(content_);
                 _context.setElements(new ElementOffsetsNext(new RowCol(), 0, 0));
@@ -225,10 +221,6 @@ public final class Classes {
                     b.setCompleteGroup();
                     b.setNullAssociateElement();
                 }
-//                for (SortedNode<Block> b: all_) {
-//                    ((Block)b).setAlwaysSkipped();
-//                }
-//                TreeRetrieving.getSortedDescNodes(cl_);
                 initializedClasses.put(file_, false);
                 classesBodies.put(new ClassName(file_, false), bl_);
             } catch (UnknownBlockException _0) {
@@ -255,8 +247,6 @@ public final class Classes {
                 bad_.setRc(_0.getRowCol());
                 bad_.setFileName(file_);
                 errorsDet.add(bad_);
-//            } catch (RuntimeClassNotFoundException _0) {
-//                errors.add(f.getKey());
             } catch (AlreadyExistingClassException _0) {
                 //TODO change later class
                 BadClassName bad_ = new BadClassName();
@@ -264,8 +254,6 @@ public final class Classes {
                 bad_.setRc(new RowCol());
                 bad_.setFileName(file_);
                 errorsDet.add(bad_);
-//            } catch (RuntimeClassNotFoundException _0) {
-//                errors.add(f.getKey());
             }
         }
         _context.setHtml(EMPTY_STRING);
@@ -322,7 +310,6 @@ public final class Classes {
             if (!classes_.errorsDet.isEmpty()) {
                 throw new AnalyzingErrorsException(classes_.errorsDet);
             }
-//            classes_.classesContent.clear();
             _context.clearPages();
         } catch (AnalyzingErrorsException _0) {
             _context.setClasses(bk_);
@@ -751,10 +738,39 @@ public final class Classes {
         _context.addPage(page_);
         for (EntryCust<ClassName, Block> c: classesBodies.entryList()) {
             String className_ = c.getKey().getName();
-//            String xml_ = classesContent.getVal(className_);
             Block r_ = c.getValue();
-//            ClassBlock clblock_ = (ClassBlock) r_;
             CustList<Block> bl_ = getDirectChildren(r_);
+            if (r_ instanceof InterfaceBlock) {
+                for (Block b: bl_) {
+                    if (b instanceof MethodBlock) {
+                        MethodBlock m_ = (MethodBlock) b;
+                        if (m_.getAccess() != AccessEnum.PUBLIC) {
+                            //TODO protected and package method cases
+                            BadAccessMethod err_;
+                            err_ = new BadAccessMethod();
+                            err_.setFileName(className_);
+                            err_.setRc(m_.getAttributes().getVal(ATTRIBUTE_ACCESS));
+                            err_.setId(m_.getId());
+                            errorsDet.add(err_);
+                        }
+                        continue;
+                    }
+                    if (b instanceof InfoBlock) {
+                        continue;
+                    }
+                    if (b instanceof AloneBlock) {
+                        continue;
+                    }
+                    RowCol where_ = ((Block)b).getRowCol(0, _context.getTabWidth(), EMPTY_STRING);
+                    String tagName_ = ((Block)b).getTagName();
+                    UnexpectedTagName unexp_ = new UnexpectedTagName();
+                    unexp_.setFileName(className_);
+                    unexp_.setFoundTag(tagName_);
+                    unexp_.setRc(where_);
+                    errorsDet.add(unexp_);
+                }
+                continue;
+            }
             for (Block b: bl_) {
                 if (b instanceof Returnable) {
                     continue;
