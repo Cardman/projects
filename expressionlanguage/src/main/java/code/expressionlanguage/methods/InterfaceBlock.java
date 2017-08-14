@@ -75,6 +75,18 @@ public final class InterfaceBlock extends BracedBlock implements RootedBlock {
         return map_;
     }
 
+    public ObjectMap<FctConstraints, String> getLocalSignatures(Classes _classes) {
+        ObjectMap<FctConstraints, String> map_;
+        map_ = new ObjectMap<FctConstraints, String>();
+        for (Block b: Classes.getDirectChildren(this)) {
+            if (b instanceof MethodBlock) {
+                MethodBlock method_ = (MethodBlock) b;
+                map_.put(method_.getConstraints(), getFullName());
+            }
+        }
+        return map_;
+    }
+
     public static ObjectMap<FctConstraints, StringList> getAllOverridingMethods(
             ObjectMap<FctConstraints, StringList> _methodIds,
             Classes _classes) {
@@ -104,12 +116,15 @@ public final class InterfaceBlock extends BracedBlock implements RootedBlock {
         }
         return map_;
     }
-    public boolean areCompatible(ObjectMap<FctConstraints, StringList> _methodIds, Classes _classes) {
+    public static boolean areCompatible(
+            ObjectMap<FctConstraints, String>_localMethodIds,
+            ObjectMap<FctConstraints, StringList> _methodIds, Classes _classes) {
         for (EntryCust<FctConstraints, StringList> e: _methodIds.entryList()) {
             FctConstraints cst_ = e.getKey();
-            if (e.getValue().containsStr(getFullName())) {
+            if (_localMethodIds.contains(e.getKey())) {
                 //overridden by this interface
-                MethodBlock sub_ = _classes.getMethodBody(getFullName(), cst_);
+                String subInt_ = _localMethodIds.getVal(e.getKey());
+                MethodBlock sub_ = _classes.getMethodBody(subInt_, cst_);
                 String subType_ = sub_.getReturnType();
                 for (String s: e.getValue()) {
                     MethodBlock sup_ = _classes.getMethodBody(s, cst_);
