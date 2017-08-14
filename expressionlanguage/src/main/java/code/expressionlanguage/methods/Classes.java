@@ -258,6 +258,9 @@ public final class Classes {
         }
         _context.setHtml(EMPTY_STRING);
     }
+    public CustList<FoundErrorInterpret> getErrorsDet() {
+        return errorsDet;
+    }
     public static void validateAll(StringMap<String> _files, ContextEl _context) {
         Classes bk_ = _context.getClasses();
         Classes classes_ = new Classes(_files, _context);
@@ -1108,6 +1111,9 @@ public final class Classes {
         }
         for (EntryCust<ClassName, Block> e: classesBodies.entryList()) {
             RootedBlock dBl_ = (RootedBlock) e.getValue();
+            if (!(dBl_ instanceof ClassBlock)) {
+                continue;
+            }
             String fullName_ = dBl_.getFullName();
             StringList direct_ = dBl_.getDirectSuperClasses();
             for (String b: direct_) {
@@ -1140,7 +1146,7 @@ public final class Classes {
                 continue;
             }
             ClassName idBase_ = new ClassName(c, false);
-            ClassBlock bl_ = (ClassBlock) classesBodies.getVal(idBase_);
+            Block bl_ = classesBodies.getVal(idBase_);
             RootedBlock dBl_ = (RootedBlock) bl_;
             StringList all_ = dBl_.getAllSuperClasses();
             for (Block b: getDirectChildren(bl_)) {
@@ -1194,7 +1200,7 @@ public final class Classes {
                 continue;
             }
             ClassName idBase_ = new ClassName(c, false);
-            ClassBlock bl_ = (ClassBlock) classesBodies.getVal(idBase_);
+            Block bl_ = classesBodies.getVal(idBase_);
             for (Block b: getDirectChildren(bl_)) {
                 if (b instanceof MethodBlock) {
                     MethodBlock mDer_ = (MethodBlock) b;
@@ -1230,7 +1236,7 @@ public final class Classes {
             }
             EqList<ClassMethodId> abstractMethods_ = new EqList<ClassMethodId>();
             ClassName idBase_ = new ClassName(c, false);
-            ClassBlock bl_ = (ClassBlock) classesBodies.getVal(idBase_);
+            RootedBlock bl_ = (RootedBlock) classesBodies.getVal(idBase_);
             boolean concreteClass_ = false;
             if (!bl_.isAbstractType()) {
                 concreteClasses_.add(c);
@@ -1239,7 +1245,7 @@ public final class Classes {
             StringList allSuperClass_ = bl_.getAllSuperClasses();
             for (String s: allSuperClass_) {
                 ClassName idSuper_ = new ClassName(s, false);
-                ClassBlock superBl_ = (ClassBlock) classesBodies.getVal(idSuper_);
+                Block superBl_ = classesBodies.getVal(idSuper_);
                 for (Block b: getDirectChildren(superBl_)) {
                     if (b instanceof MethodBlock) {
                         MethodBlock mDer_ = (MethodBlock) b;
@@ -1250,7 +1256,7 @@ public final class Classes {
                     }
                 }
             }
-            for (Block b: getDirectChildren(bl_)) {
+            for (Block b: getDirectChildren((Block) bl_)) {
                 if (b instanceof MethodBlock) {
                     MethodBlock mDer_ = (MethodBlock) b;
                     FctConstraints id_ = mDer_.getConstraints();
@@ -2033,7 +2039,7 @@ public final class Classes {
                     FctConstraints id_ = new FctConstraints(m_, constraints_);
                     String ret_ = method_.getReturnType();
                     ClassName clRet_ = new ClassName(ret_, false);
-                    MethodMetaInfo met_ = new MethodMetaInfo(_name, method_.getModifier(), clRet_);
+                    MethodMetaInfo met_ = new MethodMetaInfo(method_.getDeclaringType(), method_.getModifier(), clRet_);
                     infos_.put(id_, met_);
                 }
                 if (b instanceof ConstructorBlock) {

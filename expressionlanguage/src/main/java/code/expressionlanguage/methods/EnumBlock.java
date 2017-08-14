@@ -9,6 +9,7 @@ import code.expressionlanguage.opers.util.ClassMetaInfo;
 import code.expressionlanguage.opers.util.ClassMethodId;
 import code.expressionlanguage.opers.util.ConstructorMetaInfo;
 import code.expressionlanguage.opers.util.FctConstraints;
+import code.util.CustList;
 import code.util.EntryCust;
 import code.util.EqList;
 import code.util.NatTreeMap;
@@ -24,6 +25,10 @@ public final class EnumBlock extends BracedBlock implements UniqueRootedBlock {
 
     private final StringList allSuperClasses = new StringList();
 
+    private final StringList directInterfaces = new StringList();
+
+    private final StringList allInterfaces = new StringList();
+
     private final ObjectNotNullMap<ClassMethodId, Boolean> availableMethods = new ObjectNotNullMap<ClassMethodId, Boolean>();
 
     private final AccessEnum access;
@@ -34,13 +39,25 @@ public final class EnumBlock extends BracedBlock implements UniqueRootedBlock {
         name = _el.getAttribute(ATTRIBUTE_NAME);
         packageName = _el.getAttribute(ATTRIBUTE_PACKAGE);
         access = AccessEnum.valueOf(_el.getAttribute(ATTRIBUTE_ACCESS));
+        int i_ = CustList.FIRST_INDEX;
+        while (_el.hasAttribute(ATTRIBUTE_CLASS+i_)) {
+            directInterfaces.add(_el.getAttribute(ATTRIBUTE_CLASS+i_));
+            i_++;
+        }
     }
 
     @Override
     public AccessEnum getAccess() {
         return access;
     }
-
+    @Override
+    public StringList getAllInterfaces() {
+        return allInterfaces;
+    }
+    @Override
+    public StringList getDirectInterfaces() {
+        return directInterfaces;
+    }
     public ObjectNotNullMap<ClassMethodId, Boolean> getAvailableMethods() {
         return availableMethods;
     }
@@ -84,6 +101,11 @@ public final class EnumBlock extends BracedBlock implements UniqueRootedBlock {
     @Override
     public NatTreeMap<String,String> getClassNames() {
         NatTreeMap<String,String> tr_ = new NatTreeMap<String,String>();
+        int i_ = 0;
+        for (String t: directInterfaces) {
+            tr_.put(ATTRIBUTE_CLASS+i_, t);
+            i_++;
+        }
         return tr_;
     }
 

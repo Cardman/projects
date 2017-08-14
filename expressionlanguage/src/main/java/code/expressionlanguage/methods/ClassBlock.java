@@ -8,6 +8,7 @@ import code.expressionlanguage.methods.util.ConstructorEdge;
 import code.expressionlanguage.opers.util.ClassMetaInfo;
 import code.expressionlanguage.opers.util.ConstructorMetaInfo;
 import code.expressionlanguage.opers.util.FctConstraints;
+import code.util.CustList;
 import code.util.EntryCust;
 import code.util.EqList;
 import code.util.NatTreeMap;
@@ -25,6 +26,10 @@ public final class ClassBlock extends BracedBlock implements UniqueRootedBlock {
 
     private final StringList allSuperClasses = new StringList();
 
+    private final StringList directInterfaces = new StringList();
+
+    private final StringList allInterfaces = new StringList();
+
     private final AccessEnum access;
 
     private final boolean finalType;
@@ -39,6 +44,11 @@ public final class ClassBlock extends BracedBlock implements UniqueRootedBlock {
         String superClass_ = _el.getAttribute(ATTRIBUTE_SUPER_CLASS);
         if (superClass_.trim().isEmpty()) {
             superClass_ = Object.class.getName();
+        }
+        int i_ = CustList.FIRST_INDEX;
+        while (_el.hasAttribute(ATTRIBUTE_CLASS+i_)) {
+            directInterfaces.add(_el.getAttribute(ATTRIBUTE_CLASS+i_));
+            i_++;
         }
         superClass = superClass_;
         access = AccessEnum.valueOf(_el.getAttribute(ATTRIBUTE_ACCESS));
@@ -62,6 +72,14 @@ public final class ClassBlock extends BracedBlock implements UniqueRootedBlock {
         return allSuperClasses;
     }
 
+    @Override
+    public StringList getAllInterfaces() {
+        return allInterfaces;
+    }
+    @Override
+    public StringList getDirectInterfaces() {
+        return directInterfaces;
+    }
     @Override
     public void validateConstructors(ContextEl _cont) {
         boolean opt_ = optionalCallConstr(_cont);
@@ -194,6 +212,11 @@ public final class ClassBlock extends BracedBlock implements UniqueRootedBlock {
     public NatTreeMap<String,String> getClassNames() {
         NatTreeMap<String,String> tr_ = new NatTreeMap<String,String>();
         tr_.put(ATTRIBUTE_SUPER_CLASS, superClass);
+        int i_ = 0;
+        for (String t: directInterfaces) {
+            tr_.put(ATTRIBUTE_CLASS+i_, t);
+            i_++;
+        }
         return tr_;
     }
 

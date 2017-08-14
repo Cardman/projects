@@ -40,6 +40,8 @@ public final class MethodBlock extends BracedBlock implements Returnable {
 
     private FctConstraints constraints;
 
+    private final String declaringType;
+
     public MethodBlock(Element _el, ContextEl _importingPage, int _indexChild,
             BracedBlock _m) {
         super(_el, _importingPage, _indexChild, _m);
@@ -77,6 +79,7 @@ public final class MethodBlock extends BracedBlock implements Returnable {
         access = AccessEnum.valueOf(_el.getAttribute(ATTRIBUTE_ACCESS));
         overridenClasses = new StringList();
         allOverridenClasses = new StringList();
+        declaringType = getRooted().getFullName();
     }
 
     public MethodModifier getModifier() {
@@ -95,6 +98,17 @@ public final class MethodBlock extends BracedBlock implements Returnable {
     @Override
     public AccessEnum getAccess() {
         return access;
+    }
+
+    public boolean isOverriding(MethodBlock _other) {
+        if (!getId().eq(_other.getId())) {
+            return false;
+        }
+        return allOverridenClasses.containsStr(_other.declaringType);
+    }
+
+    public String getDeclaringType() {
+        return declaringType;
     }
 
     public StringList getOverridenClasses() {

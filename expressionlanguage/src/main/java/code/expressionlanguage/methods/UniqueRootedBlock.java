@@ -1,6 +1,7 @@
 package code.expressionlanguage.methods;
 
 import code.expressionlanguage.ContextEl;
+import code.util.StringList;
 
 public interface UniqueRootedBlock extends RootedBlock {
 
@@ -8,4 +9,7 @@ public interface UniqueRootedBlock extends RootedBlock {
 
     String getSuperClass();
 
+    StringList getDirectInterfaces();
+
+    StringList getAllInterfaces();
 }
