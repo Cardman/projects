@@ -909,24 +909,14 @@ public final class FctOperation extends InvokingOperation {
                     setSimpleArgument(arg_, _conf, _nodes);
                     return arg_;
                 }
-                //                Class<?> argClass_ = o_.getClass();
                 Argument classArg_ = _nodes.getVal(oOne_).getArgument();
-                //                String argClassName_ = objArg_.getArgClassName();
-                //                String argClassName_ = argClass_.getName();
                 String argClassName_ = objArg_.getObjectClassName();
                 ClassArgumentMatching resCl_ = getResultClass();
-                //                Class<?> param_ = getResultClass().getClazz();
-                //                String paramName_ = resCl_.getName();
                 String paramName_ = (String) classArg_.getObject();
                 String className_ = oTwo_.getResultClass().getName();
                 if (className_.startsWith(PrimitiveTypeUtil.PRIM)) {
                     className_ = className_.substring(1);
                 }
-                //                if (!PrimitiveTypeUtil.canBeUseAsArgument(param_, argClass_)) {
-                //                    setRelativeOffsetPossibleLastPage(chidren_.last().getIndexInEl(), _conf);
-                //                    throw new DynamicCastClassException(argClass_+RETURN_LINE+param_+RETURN_LINE+_conf.joinPages());
-                //                }
-//                if (!resCl_.isPrimitive() || !objArg_.isPrimitiveClass())
                 if (!resCl_.isPrimitive() || ConstClasses.getPrimitiveClass(className_) == null) {
                     if (!PrimitiveTypeUtil.canBeUseAsArgument(paramName_, argClassName_, classes_)) {
                         setRelativeOffsetPossibleLastPage(chidren_.last().getIndexInEl(), _conf);

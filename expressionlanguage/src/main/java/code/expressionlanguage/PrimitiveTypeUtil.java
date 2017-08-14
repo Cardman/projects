@@ -377,40 +377,35 @@ public final class PrimitiveTypeUtil {
         return param_.isAssignableFrom(arg_);
     }
 
-    public static AssignableFrom isAssignableFromCust(String _className,String _a, Classes _classes) {
-        if (StringList.quickEq(_className, Object.class.getName())) {
+    public static AssignableFrom isAssignableFromCust(String _param,String _arg, Classes _classes) {
+        if (StringList.quickEq(_param, Object.class.getName())) {
             return AssignableFrom.YES;
         }
         if (_classes != null) {
-//            DimComp dArg_ = PrimitiveTypeUtil.getComponentBaseType(_a);
-            DimComp dArg_ = PrimitiveTypeUtil.getQuickComponentBaseType(_a);
+            DimComp dArg_ = PrimitiveTypeUtil.getQuickComponentBaseType(_arg);
             String a_ = dArg_.getComponent();
-            RootedBlock clBl_ = _classes.getClassBody(a_);
-            if (clBl_ != null) {
-//                DimComp dPar_ = PrimitiveTypeUtil.getComponentBaseType(_className);
-                DimComp dPar_ = PrimitiveTypeUtil.getQuickComponentBaseType(_className);
+            RootedBlock clArgBl_ = _classes.getClassBody(a_);
+            if (clArgBl_ != null) {
+                DimComp dPar_ = PrimitiveTypeUtil.getQuickComponentBaseType(_param);
                 if (dArg_.getDim() > 0 && dPar_.getDim() > 0) {
-                    if (isArrayAssignable(_a, _className)) {
+                    if (isArrayAssignable(_arg, _param)) {
                         return AssignableFrom.YES;
                     }
                     return AssignableFrom.NO;
                 }
                 String className_ = dPar_.getComponent();
-//                if (StringList.quickEq(className_, Object.class.getName())) {
-//                    if (dPar_.getDim() > dArg_.getDim()) {
-//                        return AssignableFrom.NO;
-//                    }
-//                    return AssignableFrom.YES;
-//                }
-//                if (dPar_.getDim() != dArg_.getDim()) {
-//                    return AssignableFrom.NO;
-//                }
                 if (StringList.quickEq(className_, a_)) {
                     return AssignableFrom.YES;
                 }
-                if (clBl_.getAllSuperClasses().containsObj(className_)) {
+                if (clArgBl_.getAllSuperClasses().containsObj(className_)) {
                     return AssignableFrom.YES;
                 }
+                return AssignableFrom.NO;
+            }
+            DimComp dPar_ = PrimitiveTypeUtil.getQuickComponentBaseType(_param);
+            String p_ = dPar_.getComponent();
+            RootedBlock clParBl_ = _classes.getClassBody(p_);
+            if (clParBl_ != null) {
                 return AssignableFrom.NO;
             }
         }

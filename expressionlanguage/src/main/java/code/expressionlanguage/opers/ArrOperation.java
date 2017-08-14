@@ -175,7 +175,6 @@ public final class ArrOperation extends MethodOperation implements SettableElRes
             Object o_ = _nodes.getVal(lastElement_).getArgument().getObject();
             Struct leftObj_ = getElement(array_, o_, _conf, lastElement_.getIndexInEl());
             Argument left_ = new Argument();
-            //TODO generic class
             arrayClass_ = PrimitiveTypeUtil.getQuickComponentType(arrayClass_);
             left_.setArgClassName(arrayClass_);
             left_.setStruct(leftObj_);
@@ -261,7 +260,6 @@ public final class ArrOperation extends MethodOperation implements SettableElRes
             Object o_ = lastElement_.getArgument().getObject();
             Struct leftObj_ = getElement(array_, o_, _conf, lastElement_.getIndexInEl());
             Argument left_ = new Argument();
-            //TODO generic class
             arrayClass_ = PrimitiveTypeUtil.getQuickComponentType(arrayClass_);
             left_.setArgClassName(arrayClass_);
             left_.setStruct(leftObj_);
@@ -296,10 +294,10 @@ public final class ArrOperation extends MethodOperation implements SettableElRes
         if (output_ == null) {
             return new Struct();
         }
-        if (_struct.isJavaObject()) {
-            return new Struct(output_, PrimitiveTypeUtil.getAliasArrayClass(output_.getClass()));
+        if (output_ instanceof Struct) {
+            return (Struct)output_;
         }
-        return (Struct)output_;
+        return new Struct(output_, PrimitiveTypeUtil.getAliasArrayClass(output_.getClass()));
     }
     void setElement(Struct _struct, Object _index, Struct _value, ContextEl _conf, int _indexEl) {
         setRelativeOffsetPossibleLastPage(_indexEl, _conf);

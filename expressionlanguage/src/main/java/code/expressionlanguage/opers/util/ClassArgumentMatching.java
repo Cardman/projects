@@ -114,8 +114,8 @@ public final class ClassArgumentMatching {
         }
     }
 
-    public boolean isAssignableFrom(ClassArgumentMatching _c, Classes _classes) {
-        AssignableFrom a_ = PrimitiveTypeUtil.isAssignableFromCust(className, _c.getName(), _classes);
+    public boolean isAssignableFrom(ClassArgumentMatching _arg, Classes _classes) {
+        AssignableFrom a_ = PrimitiveTypeUtil.isAssignableFromCust(className, _arg.getName(), _classes);
         if (a_ == AssignableFrom.YES) {
             return true;
         }
@@ -125,17 +125,17 @@ public final class ClassArgumentMatching {
         try {
             if (className.startsWith(PrimitiveTypeUtil.PRIM)) {
                 Class<?> cl_ = ConstClasses.getPrimitiveClass(className.substring(1));
-                return cl_.isAssignableFrom(_c.getClazz());
+                return cl_.isAssignableFrom(_arg.getClazz());
             }
             Class<?> cl_ = ConstClasses.classAliasForNameNotInit(PrimitiveTypeUtil.getArrayClass(className));
-            return cl_.isAssignableFrom(_c.getClazz());
+            return cl_.isAssignableFrom(_arg.getClazz());
         } catch (RuntimeClassNotFoundException _0) {
             return false;
         }
     }
 
-    public boolean isAssignableFrom(ClassMatching _c, Classes _classes) {
-        for (String c: _c.getClassName()) {
+    public boolean isAssignableFrom(ClassMatching _arg, Classes _classes) {
+        for (String c: _arg.getClassName()) {
             AssignableFrom a_ = PrimitiveTypeUtil.isAssignableFromCust(className, c, _classes);
             if (a_ == AssignableFrom.YES) {
                 return true;
@@ -146,7 +146,7 @@ public final class ClassArgumentMatching {
             try {
                 Class<?> cl_ = ConstClasses.classAliasForNameNotInit(PrimitiveTypeUtil.getArrayClass(className));
                 boolean inherit_ = false;
-                for (String o: _c.getClassName()) {
+                for (String o: _arg.getClassName()) {
                     if (cl_.isAssignableFrom(ClassMatching.getSingleNativeClass(o))) {
                         inherit_ = true;
                         break;
