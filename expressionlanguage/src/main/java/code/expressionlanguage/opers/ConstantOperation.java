@@ -309,7 +309,7 @@ public final class ConstantOperation extends OperationNode implements SettableEl
     }
 
     /**@throws ErrorCausingException
-    @throws NullObjectException*/
+    @throws NullObjectException */
 
     @Override
     public void calculateLeft(CustList<OperationNode> _nodes, ContextEl _conf,
