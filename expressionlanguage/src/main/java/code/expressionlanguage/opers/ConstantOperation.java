@@ -463,6 +463,7 @@ public final class ConstantOperation extends OperationNode implements SettableEl
         }
         return a_;
     }
+
     Argument getCommonSetting(boolean _processInit, Argument _argument, Argument _previous, ContextEl _conf, String _op) {
         PageEl ip_ = _conf.getLastPage();
         if (resultCanBeSet()) {
