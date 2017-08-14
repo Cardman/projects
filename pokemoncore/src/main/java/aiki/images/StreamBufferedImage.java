@@ -33,7 +33,7 @@ public final class StreamBufferedImage {
 //    public static void importTrainerImage(DataBase _dataBase,String _fileName) {
 //        _dataBase.addTrainerImage(_fileName, ConverterBufferedImageIo.toString(_fileName));
 //    }
-//
+
 //    public static void importMaxiFrontImage(DataBase _dataBase,String _name,String _fileName) {
 //        _dataBase.addFrontImagePk(_name, ConverterBufferedImageIo.toString(_fileName));
 //    }
