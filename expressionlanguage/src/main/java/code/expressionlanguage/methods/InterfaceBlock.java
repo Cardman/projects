@@ -117,7 +117,7 @@ public final class InterfaceBlock extends BracedBlock implements RootedBlock {
         return map_;
     }
     public static boolean areCompatible(
-            ObjectMap<FctConstraints, String>_localMethodIds,
+            ObjectMap<FctConstraints, String> _localMethodIds,
             ObjectMap<FctConstraints, StringList> _methodIds, Classes _classes) {
         for (EntryCust<FctConstraints, StringList> e: _methodIds.entryList()) {
             FctConstraints cst_ = e.getKey();

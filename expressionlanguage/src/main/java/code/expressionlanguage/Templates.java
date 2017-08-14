@@ -43,16 +43,16 @@ public final class Templates {
             int dimArg_ = dimCompArg_.getDim();
             String comp_ = dimCompArg_.getComponent();
             boolean lookInInherit_ = comp_.startsWith(PREFIX_VAR_TYPE);
-            for (Type e: t.getBounds()) {
-                Mapping m_ = new Mapping();
-                String typeBound_ = getName(e);
-                String ext_ = insertPrefixVarType(typeBound_);
-                if (!typeBound_.contains(SEP_CLASS)) {
-                    ext_ = PREFIX_VAR_TYPE + ext_;
-                }
-                String param_ = format(_className, ext_, _classes);
-                m_.setParam(param_);
-                if (lookInInherit_ && _inherit.contains(comp_.substring(1))) {
+            if (lookInInherit_ && _inherit.contains(comp_.substring(1))) {
+                for (Type e: t.getBounds()) {
+                    Mapping m_ = new Mapping();
+                    String typeBound_ = getName(e);
+                    String ext_ = insertPrefixVarType(typeBound_);
+                    if (!typeBound_.contains(SEP_CLASS)) {
+                        ext_ = PREFIX_VAR_TYPE + ext_;
+                    }
+                    String param_ = format(_className, ext_, _classes);
+                    m_.setParam(param_);
                     boolean ok_ = false;
                     for (String v: _inherit.getVal(comp_.substring(1))) {
                         m_.setArg(v);
@@ -73,9 +73,18 @@ public final class Templates {
                     if (!ok_) {
                         return false;
                     }
-                    continue;
                 }
-                
+                continue;
+            }
+            for (Type e: t.getBounds()) {
+                Mapping m_ = new Mapping();
+                String typeBound_ = getName(e);
+                String ext_ = insertPrefixVarType(typeBound_);
+                if (!typeBound_.contains(SEP_CLASS)) {
+                    ext_ = PREFIX_VAR_TYPE + ext_;
+                }
+                String param_ = format(_className, ext_, _classes);
+                m_.setParam(param_);
                 DimComp dimCompParam_ = PrimitiveTypeUtil.getQuickComponentBaseType(param_);
                 int dimParam_ = dimCompParam_.getDim();
                 if (dimArg_ > 0 && dimParam_ > 0) {
