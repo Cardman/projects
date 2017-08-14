@@ -307,6 +307,7 @@ public final class ConstantOperation extends OperationNode implements SettableEl
         setSimpleArgument(arg_, _conf, _nodes);
         return arg_;
     }
+
     /**@throws ErrorCausingException
     @throws NullObjectException*/
 
