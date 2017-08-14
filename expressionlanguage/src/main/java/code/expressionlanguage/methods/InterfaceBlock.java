@@ -184,6 +184,22 @@ public final class InterfaceBlock extends BracedBlock implements RootedBlock {
         }
         return rem_;
     }
+    public static ObjectMap<FctConstraints, String> defaultMethods(
+            ObjectMap<FctConstraints, StringList> _methodIds,
+            Classes _classes) {
+        ObjectMap<FctConstraints, String> map_;
+        map_ = new ObjectMap<FctConstraints, String>();
+        for (EntryCust<FctConstraints, StringList> e: _methodIds.entryList()) {
+            for (String f: e.getValue()) {
+                MethodBlock method_ = _classes.getMethodBody(f, e.getKey());
+                if (method_.isNormalMethod()) {
+                    map_.put(e.getKey(), f);
+                    break;
+                }
+            }
+        }
+        return map_;
+    }
     @Override
     public NatTreeMap<String,String> getClassNames() {
         NatTreeMap<String,String> tr_ = new NatTreeMap<String,String>();
