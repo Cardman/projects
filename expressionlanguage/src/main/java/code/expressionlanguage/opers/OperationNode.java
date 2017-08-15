@@ -1389,22 +1389,6 @@ public abstract class OperationNode implements SortedNode<OperationNode>, Operab
         return argument;
     }
 
-    //    public final void setArgument(Argument _argument, ContextEl _cont) {
-        //        argument = _argument;
-        //        OperationNode n_ = getNextSibling();
-    //        if (n_ != null && getParent() instanceof DotOperation) {
-    //            n_.setPreviousArgument(_argument);
-    //        }
-    //        setSimpleNextSiblingsArg(_argument, _cont);
-    //    }
-    //    public final void setArgument(Argument _argument) {
-    //        argument = _argument;
-    //        OperationNode n_ = getNextSibling();
-    //        if (n_ != null) {
-    //            n_.setPreviousArgument(_argument);
-    //        }
-    //    }
-
     public final void resetArguments() {
         if (resetableArg) {
             argument = null;
