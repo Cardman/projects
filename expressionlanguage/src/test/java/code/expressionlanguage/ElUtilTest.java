@@ -1020,7 +1020,8 @@ public class ElUtilTest {
         assertEq(2, ((Integer[][])res_).length);
         assertNull(((Integer[][])res_)[0]);
         assertNull(((Integer[][])res_)[1]);
-        assertTrue(arg_.getStruct().isJavaObject());    }
+        assertTrue(arg_.getStruct().isJavaObject());
+    }
 
     @Test
     public void processEl67Test() {

@@ -1425,14 +1425,16 @@ public abstract class OperationNode implements SortedNode<OperationNode>, Operab
         if (n_ == null) {
             return;
         }
-        if (getParent() instanceof DotOperation) {
-            if (n_ instanceof ArrOperation) {
-                n_.getFirstChild().setPreviousArgument(_argument);
-                n_.getFirstChild().resetablePreviousArg = _resetable;
-            } else {
-                n_.setPreviousArgument(_argument);
-                n_.resetablePreviousArg = _resetable;
-            }
+        if (!(getParent() instanceof DotOperation)) {
+            return;
+        }
+        if (n_ instanceof ArrOperation) {
+            OperationNode f_ = n_.getFirstChild();
+            f_.setPreviousArgument(_argument);
+            f_.resetablePreviousArg = _resetable;
+        } else {
+            n_.setPreviousArgument(_argument);
+            n_.resetablePreviousArg = _resetable;
         }
     }
 
