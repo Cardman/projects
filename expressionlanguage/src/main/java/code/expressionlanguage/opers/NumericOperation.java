@@ -926,12 +926,6 @@ public abstract class NumericOperation extends MethodOperation {
         analyzeCommon(_nodes, _conf, _op);
     }
 
-    @Override
-    public final void analyzeSetting(CustList<OperationNode> _nodes, ContextEl _conf,
-            boolean _enumContext, String _op) {
-        analyzeCommon(_nodes, _conf, _op);
-    }
-
     final void analyzeCommon(CustList<OperationNode> _nodes, ContextEl _conf, String _op) {
         CustList<OperationNode> chidren_ = getChildrenNodes();
         if (chidren_.size() < 2) {
@@ -983,12 +977,7 @@ public abstract class NumericOperation extends MethodOperation {
             ContextEl _conf, String _op) {
         return calculateCommon(_nodes, _conf, _op);
     }
-    @Override
-    public final Argument calculateSetting(
-            IdMap<OperationNode, ArgumentsPair> _nodes, ContextEl _conf,
-            String _op) {
-        return calculateCommon(_nodes, _conf, _op);
-    }
+
     final Argument calculateCommon(
             IdMap<OperationNode, ArgumentsPair> _nodes, ContextEl _conf,
             String _op) {
@@ -1053,11 +1042,7 @@ public abstract class NumericOperation extends MethodOperation {
             String _op) {
         calculateCommon(_nodes, _conf, _op);
     }
-    @Override
-    public final void calculateSetting(CustList<OperationNode> _nodes,
-            ContextEl _conf, String _op) {
-        calculateCommon(_nodes, _conf, _op);
-    }
+
     final void calculateCommon(CustList<OperationNode> _nodes, ContextEl _conf, String _op) {
         CustList<OperationNode> chidren_ = getChildrenNodes();
         Argument a_ = chidren_.first().getArgument();

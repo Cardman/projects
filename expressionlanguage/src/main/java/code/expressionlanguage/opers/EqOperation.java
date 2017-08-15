@@ -190,12 +190,6 @@ public final class EqOperation extends PrimitiveBoolOperation {
         analyzeCommon(_nodes, _conf, _op);
     }
 
-    @Override
-    public void analyzeSetting(CustList<OperationNode> _nodes, ContextEl _conf,
-            boolean _enumContext, String _op) {
-        analyzeCommon(_nodes, _conf, _op);
-    }
-
     void analyzeCommon(CustList<OperationNode> _nodes, ContextEl _conf, String _op) {
         CustList<OperationNode> chidren_ = getChildrenNodes();
         if (chidren_.size() != 2) {
@@ -205,29 +199,6 @@ public final class EqOperation extends PrimitiveBoolOperation {
         setResultClass(new ClassArgumentMatching(PrimitiveTypeUtil.PRIM_BOOLEAN));
     }
 
-//    @Override
-//    public Argument calculate(
-//            IdMap<OperationNode, ArgumentsPair> _nodes, ContextEl _conf,
-//            Calculation _setting) {
-//        CustList<OperationNode> chidren_ = getChildrenAmong();
-//        OperationNode opOne_ = chidren_.first();
-//        OperationNode opTwo_ = chidren_.last();
-//        Argument first_ = _nodes.getVal(opOne_).getArgument();
-//        Argument second_ = _nodes.getVal(opTwo_).getArgument();
-//        boolean complement_ = false;
-//        String op_ = getOperations().getOperators().values().first().trim();
-//        if (StringList.quickEq(op_, DIFF)) {
-//            complement_ = true;
-//        }
-//        Argument arg_ = calculateEq(first_, second_);
-//        if (complement_) {
-//            Boolean b_ = (Boolean) arg_.getObject();
-//            b_ = !b_;
-//            arg_.setObject(b_);
-//        }
-//        setSimpleArgument(arg_, _conf, _nodes);
-//        return arg_;
-//    }
     @Override
     public Argument calculateLeft(IdMap<OperationNode,ArgumentsPair> _nodes, ContextEl _conf, String _op) {
         return calculateCommon(_nodes, _conf, _op);
@@ -235,11 +206,6 @@ public final class EqOperation extends PrimitiveBoolOperation {
     
     @Override
     public Argument calculateRight(IdMap<OperationNode,ArgumentsPair> _nodes, ContextEl _conf, String _op) {
-        return calculateCommon(_nodes, _conf, _op);
-    }
-
-    @Override
-    public Argument calculateSetting(IdMap<OperationNode,ArgumentsPair> _nodes, ContextEl _conf, String _op) {
         return calculateCommon(_nodes, _conf, _op);
     }
 
@@ -294,12 +260,6 @@ public final class EqOperation extends PrimitiveBoolOperation {
     @Override
     public void calculateRight(CustList<OperationNode> _nodes, ContextEl _conf,
             String _op) {
-        calculateCommon(_nodes, _conf, _op);
-    }
-
-    @Override
-    public void calculateSetting(CustList<OperationNode> _nodes,
-            ContextEl _conf, String _op) {
         calculateCommon(_nodes, _conf, _op);
     }
 

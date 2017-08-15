@@ -38,12 +38,6 @@ public final class DotOperation extends MethodOperation {
         analyzeCommon(_nodes, _conf, _op);
     }
 
-    @Override
-    public void analyzeSetting(CustList<OperationNode> _nodes, ContextEl _conf,
-            boolean _enumContext, String _op) {
-        analyzeCommon(_nodes, _conf, _op);
-    }
-
     void analyzeCommon(CustList<OperationNode> _nodes, ContextEl _conf, String _op) {
         CustList<OperationNode> chidren_ = getChildrenNodes();
         if (chidren_.size() < 2) {
@@ -54,16 +48,6 @@ public final class DotOperation extends MethodOperation {
     }
 
     /**@throws NullObjectException*/
-//    @Override
-//    public Argument calculate(IdMap<OperationNode, ArgumentsPair> _nodes,
-//            ContextEl _conf, Calculation _setting) {
-//        CustList<OperationNode> chidren_ = getChildrenAmong();
-//        OperationNode o_ = chidren_.last();
-//        Argument a_ = _nodes.getVal(o_).getArgument();
-//        setSimpleArgument(a_, _conf, _nodes);
-//        return a_;
-//    }
-
     @Override
     public Argument calculateLeft(IdMap<OperationNode,ArgumentsPair> _nodes, ContextEl _conf, String _op) {
         return calculateCommon(_nodes, _conf, _op);
@@ -71,11 +55,6 @@ public final class DotOperation extends MethodOperation {
     
     @Override
     public Argument calculateRight(IdMap<OperationNode,ArgumentsPair> _nodes, ContextEl _conf, String _op) {
-        return calculateCommon(_nodes, _conf, _op);
-    }
-
-    @Override
-    public Argument calculateSetting(IdMap<OperationNode,ArgumentsPair> _nodes, ContextEl _conf, String _op) {
         return calculateCommon(_nodes, _conf, _op);
     }
 
@@ -89,12 +68,6 @@ public final class DotOperation extends MethodOperation {
         return a_;
     }
     /**@throws NullObjectException*/
-//    @Override
-//    public void calculate(CustList<OperationNode> _nodes, ContextEl _conf, Calculation _setting) {
-//        CustList<OperationNode> chidren_ = getChildrenAmong(_nodes, false);
-//        setSimpleArgument(chidren_.last().getArgument(), _conf);
-//    }
-
     @Override
     public void calculateLeft(CustList<OperationNode> _nodes, ContextEl _conf,
             String _op) {
@@ -107,12 +80,6 @@ public final class DotOperation extends MethodOperation {
         calculateCommon(_nodes, _conf, _op);
     }
 
-    @Override
-    public void calculateSetting(CustList<OperationNode> _nodes,
-            ContextEl _conf, String _op) {
-        calculateCommon(_nodes, _conf, _op);
-    }
-
     void calculateCommon(CustList<OperationNode> _nodes, ContextEl _conf, String _op) {
         CustList<OperationNode> chidren_ = getChildrenNodes();
         setSimpleArgument(chidren_.last().getArgument(), _conf);
@@ -120,7 +87,6 @@ public final class DotOperation extends MethodOperation {
     @Override
     void calculateChildren() {
         NatTreeMap<Integer, String> vs_ = getOperations().getValues();
-//        vs_.removeKey(vs_.firstKey());
         getChildren().putAllMap(vs_);
     }
 }

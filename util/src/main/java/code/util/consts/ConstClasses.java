@@ -179,25 +179,6 @@ public final class ConstClasses {
             return primitive_;
         }
         return classForNameObjectClasses(_name, _initialize);
-//        try {
-////            Class<?> class_ = Class.forName(_name);
-//            Class<?> class_ = forName(_name);
-//            return class_;
-//        } catch (NoClassDefFoundError _0) {
-//            String message_ = _0.getMessage();
-//            int indexTwoPts_ = message_.indexOf(TWO_PTS);
-//            message_ = message_.substring(indexTwoPts_ + 1).trim();
-//            message_ = message_.substring(CollectionsUtil.getFirstIndex(), message_.length() - 1);
-////            Matcher ma_ = Pattern.compile(CLASS_REG_EXP).matcher(e.getMessage());
-////            ma_.find();
-////            ma_.find();
-////            String realName_ = ma_.group();
-//            String realName_ = message_;
-//            realName_ = StringList.replace(realName_, SEP_CLASS, DOT);
-////            Class<?> class_ = Class.forName(realName_);
-//            Class<?> class_ = forName(realName_);
-//            return class_;
-//        }
     }
 
     public static Class<?> classAliasForObjectNameNotInit(String _name) {
@@ -216,7 +197,6 @@ public final class ConstClasses {
 
     private static Class<?> classForNameObjectClasses(String _name, boolean _initialize) {
         try {
-//            Class<?> class_ = Class.forName(_name);
             Class<?> class_ = forName(_name, _initialize);
             return class_;
         } catch (NoClassDefFoundError _0) {
@@ -224,13 +204,8 @@ public final class ConstClasses {
             int indexTwoPts_ = message_.indexOf(TWO_PTS);
             message_ = message_.substring(indexTwoPts_ + 1).trim();
             message_ = message_.substring(CollectionsUtil.getFirstIndex(), message_.length() - 1);
-//            Matcher ma_ = Pattern.compile(CLASS_REG_EXP).matcher(e.getMessage());
-//            ma_.find();
-//            ma_.find();
-//            String realName_ = ma_.group();
             String realName_ = message_;
             realName_ = StringList.replace(realName_, SEP_CLASS, DOT);
-//            Class<?> class_ = Class.forName(realName_);
             Class<?> class_ = forName(realName_, _initialize);
             return class_;
         }

@@ -392,12 +392,6 @@ public final class CmpOperation extends PrimitiveBoolOperation {
         analyzeCommon(_nodes, _conf, _op);
     }
 
-    @Override
-    public void analyzeSetting(CustList<OperationNode> _nodes, ContextEl _conf,
-            boolean _enumContext, String _op) {
-        analyzeCommon(_nodes, _conf, _op);
-    }
-
     void analyzeCommon(CustList<OperationNode> _nodes, ContextEl _conf, String _op) {
         CustList<OperationNode> chidren_ = getChildrenNodes();
         if (chidren_.size() != 2) {
@@ -470,11 +464,6 @@ public final class CmpOperation extends PrimitiveBoolOperation {
     
     @Override
     public Argument calculateRight(IdMap<OperationNode,ArgumentsPair> _nodes, ContextEl _conf, String _op) {
-        return calculateCommon(_nodes, _conf, _op);
-    }
-
-    @Override
-    public Argument calculateSetting(IdMap<OperationNode,ArgumentsPair> _nodes, ContextEl _conf, String _op) {
         return calculateCommon(_nodes, _conf, _op);
     }
 
@@ -585,12 +574,6 @@ public final class CmpOperation extends PrimitiveBoolOperation {
     @Override
     public void calculateRight(CustList<OperationNode> _nodes, ContextEl _conf,
             String _op) {
-        calculateCommon(_nodes, _conf, _op);
-    }
-
-    @Override
-    public void calculateSetting(CustList<OperationNode> _nodes,
-            ContextEl _conf, String _op) {
         calculateCommon(_nodes, _conf, _op);
     }
 

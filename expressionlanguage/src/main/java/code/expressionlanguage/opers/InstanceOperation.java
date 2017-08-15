@@ -76,12 +76,6 @@ public final class InstanceOperation extends InvokingOperation {
         analyzeCommon(_nodes, _conf, _enumContext, _op);
     }
 
-    @Override
-    public void analyzeSetting(CustList<OperationNode> _nodes, ContextEl _conf,
-            boolean _enumContext, String _op) {
-        analyzeCommon(_nodes, _conf, _enumContext, _op);
-    }
-
     void analyzeCommon(CustList<OperationNode> _nodes, ContextEl _conf, boolean _enumContext, String _op) {
         Classes classes_ = _conf.getClasses();
         CustList<OperationNode> chidren_ = getChildrenNodes();
@@ -306,10 +300,6 @@ public final class InstanceOperation extends InvokingOperation {
         return calculateCommon(_nodes, _conf, _op);
     }
 
-    @Override
-    public Argument calculateSetting(IdMap<OperationNode,ArgumentsPair> _nodes, ContextEl _conf, String _op) {
-        return calculateCommon(_nodes, _conf, _op);
-    }
     Argument calculateCommon(
             IdMap<OperationNode, ArgumentsPair> _nodes, ContextEl _conf,
             String _op) {
@@ -509,12 +499,6 @@ public final class InstanceOperation extends InvokingOperation {
     @Override
     public void calculateRight(CustList<OperationNode> _nodes, ContextEl _conf,
             String _op) {
-        calculateCommon(_nodes, _conf, _op);
-    }
-
-    @Override
-    public void calculateSetting(CustList<OperationNode> _nodes,
-            ContextEl _conf, String _op) {
         calculateCommon(_nodes, _conf, _op);
     }
 

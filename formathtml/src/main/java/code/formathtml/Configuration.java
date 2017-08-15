@@ -113,7 +113,6 @@ public class Configuration {
     public final ContextEl toContextEl() {
         if (context != null) {
             context.setCurrentUrl(currentUrl);
-            context.setDocument(document);
             context.setHtml(html);
             context.setResourceUrl(resourceUrl);
             context.clearPages();
@@ -125,7 +124,6 @@ public class Configuration {
         ContextEl context_ = new ContextEl();
         context_.setAccessValue(accessValue);
         context_.setCurrentUrl(currentUrl);
-        context_.setDocument(document);
         context_.setHtml(html);
         context_.setMathFactory(mathFactory);
         context_.setResourceUrl(resourceUrl);

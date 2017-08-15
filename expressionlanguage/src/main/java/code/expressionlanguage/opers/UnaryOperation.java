@@ -57,12 +57,6 @@ public final class UnaryOperation extends PrimitiveBoolOperation {
         analyzeCommon(_nodes, _conf, _op);
     }
 
-    @Override
-    public void analyzeSetting(CustList<OperationNode> _nodes, ContextEl _conf,
-            boolean _enumContext, String _op) {
-        analyzeCommon(_nodes, _conf, _op);
-    }
-
     void analyzeCommon(CustList<OperationNode> _nodes, ContextEl _conf, String _op) {
         CustList<OperationNode> chidren_ = getChildrenNodes();
         if (chidren_.size() != 1) {
@@ -128,10 +122,6 @@ public final class UnaryOperation extends PrimitiveBoolOperation {
         return calculateCommon(_nodes, _conf, _op);
     }
 
-    @Override
-    public Argument calculateSetting(IdMap<OperationNode,ArgumentsPair> _nodes, ContextEl _conf, String _op) {
-        return calculateCommon(_nodes, _conf, _op);
-    }
     Argument calculateCommon(
             IdMap<OperationNode, ArgumentsPair> _nodes, ContextEl _conf,
             String _op) {
@@ -221,12 +211,6 @@ public final class UnaryOperation extends PrimitiveBoolOperation {
     @Override
     public void calculateRight(CustList<OperationNode> _nodes, ContextEl _conf,
             String _op) {
-        calculateCommon(_nodes, _conf, _op);
-    }
-
-    @Override
-    public void calculateSetting(CustList<OperationNode> _nodes,
-            ContextEl _conf, String _op) {
         calculateCommon(_nodes, _conf, _op);
     }
 

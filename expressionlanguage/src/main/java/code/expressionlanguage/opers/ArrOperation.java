@@ -3,7 +3,6 @@ import java.lang.reflect.Array;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.ElUtil;
 import code.expressionlanguage.OperationsSequence;
 import code.expressionlanguage.PageEl;
 import code.expressionlanguage.PrimitiveTypeUtil;
@@ -21,6 +20,8 @@ import code.util.exceptions.NullObjectException;
 
 public final class ArrOperation extends MethodOperation implements SettableElResult {
 
+    private boolean variable;
+
     public ArrOperation(String _el, int _index, ContextEl _importingPage,
             int _indexChild, MethodOperation _m, OperationsSequence _op) {
         super(_el, _index, _importingPage, _indexChild, _m, _op);
@@ -29,22 +30,21 @@ public final class ArrOperation extends MethodOperation implements SettableElRes
     @Override
     public void analyzeLeft(CustList<OperationNode> _nodes, ContextEl _conf,
             boolean _enumContext, String _op) {
-        analyzeCommon(_conf, resultCanBeSet());
+        if (getParent() == null) {
+            variable = true;
+        } else {
+            variable = _nodes.getPrev(_nodes.getLastIndex()) == this;
+        }
+        analyzeCommon(_conf);
     }
 
     @Override
     public void analyzeRight(CustList<OperationNode> _nodes, ContextEl _conf,
             boolean _enumContext, String _op) {
-        analyzeCommon(_conf, null);
+        analyzeCommon(_conf);
     }
 
-    @Override
-    public void analyzeSetting(CustList<OperationNode> _nodes, ContextEl _conf,
-            boolean _enumContext, String _op) {
-        analyzeCommon(_conf, null);
-    }
-
-    void analyzeCommon(ContextEl _conf, Boolean _calculatedLater) {
+    void analyzeCommon(ContextEl _conf) {
         CustList<OperationNode> chidren_ = getChildrenNodes();
         if (chidren_.size() < 2) {
             setRelativeOffsetPossibleLastPage(getIndexInEl(), _conf);
@@ -64,9 +64,6 @@ public final class ArrOperation extends MethodOperation implements SettableElRes
             class_ = new ClassArgumentMatching(PrimitiveTypeUtil.getQuickComponentType(class_.getName()));
         }
         setResultClass(class_);
-        if (_calculatedLater != null) {
-            setCalculatedLater(_calculatedLater);
-        }
     }
 
     @Override
@@ -262,6 +259,6 @@ public final class ArrOperation extends MethodOperation implements SettableElRes
 
     @Override
     public boolean resultCanBeSet() {
-        return getParent() == null || ElUtil.getDirectChildren(getParent()).last() == this;
+        return variable;
     }
 }

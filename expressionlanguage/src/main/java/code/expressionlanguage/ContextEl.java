@@ -1,6 +1,4 @@
 package code.expressionlanguage;
-import org.w3c.dom.Document;
-
 import code.expressionlanguage.exceptions.StackOverFlow;
 import code.expressionlanguage.methods.Classes;
 import code.util.CustList;
@@ -29,8 +27,6 @@ public final class ContextEl {
 //    private transient boolean callingXml;
 
     private transient Classes classes;
-
-    private transient Document document;
 
     private transient CustList<PageEl> importing = new CustList<PageEl>();
 
@@ -126,14 +122,6 @@ public final class ContextEl {
 
     public void setClasses(Classes _classes) {
         classes = _classes;
-    }
-
-    public Document getDocument() {
-        return document;
-    }
-
-    public void setDocument(Document _document) {
-        document = _document;
     }
     
     public void clearPages() {

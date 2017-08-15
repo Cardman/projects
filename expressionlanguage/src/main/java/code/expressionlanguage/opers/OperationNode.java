@@ -184,8 +184,6 @@ public abstract class OperationNode implements SortedNode<OperationNode>, Operab
 
     private int order = CustList.INDEX_NOT_FOUND_ELT;
 
-    //    private ImportingPage importingPage;
-
     private ContextEl conf;
 
     private final int indexChild;
@@ -194,13 +192,9 @@ public abstract class OperationNode implements SortedNode<OperationNode>, Operab
     private boolean firstOptArg;
     private ClassArgumentMatching previousResultClass;
     private ClassArgumentMatching resultClass;
-    private boolean calculatedLater;
+
     private boolean needPrevious;
     private boolean staticAccess;
-
-    //    private boolean booleanPrio;
-
-    //    private boolean childrenWithBoolPrio;
 
     OperationNode(String _el, int _indexInEl, ContextEl _importingPage, int _indexChild, MethodOperation _m, OperationsSequence _op) {
         parent = _m;
@@ -208,32 +202,18 @@ public abstract class OperationNode implements SortedNode<OperationNode>, Operab
         operations = _op;
         conf = _importingPage;
         vararg = _el.trim().startsWith(String.valueOf(FIRST_VAR_ARG));
-        //        firstOptArg = _el.trim().endsWith(String.valueOf(FIRST_VAR_ARG));
         firstOptArg = _op.isFirstOpt();
         indexChild = _indexChild;
     }
 
-    //    OperationNode(String _el, int _indexInEl, ContextEl _importingPage, MethodOperation _m, OperationsSequence _op) {
-    //        parent = _m;
-    //        indexInEl = _indexInEl;
-    //        operations = _op;
-    //        conf = _importingPage;
-    //        vararg = _el.trim().startsWith(String.valueOf(FIRST_VAR_ARG));
-    ////        firstOptArg = _el.trim().endsWith(String.valueOf(FIRST_VAR_ARG));
-    //        firstOptArg = _op.isFirstOpt();
-    //    }
-    //    public abstract void analyze(CustList<OperationNode> _nodes, ContextEl _conf, Calculation _setting);
     public abstract void analyzeLeft(CustList<OperationNode> _nodes, ContextEl _conf, boolean _enumContext, String _op);
     public abstract void analyzeRight(CustList<OperationNode> _nodes, ContextEl _conf, boolean _enumContext, String _op);
-    public abstract void analyzeSetting(CustList<OperationNode> _nodes, ContextEl _conf, boolean _enumContext, String _op);
-    //    public abstract void calculate(CustList<OperationNode> _nodes, ContextEl _conf, Calculation _setting);
+
     public abstract void calculateLeft(CustList<OperationNode> _nodes, ContextEl _conf, String _op);
     public abstract void calculateRight(CustList<OperationNode> _nodes, ContextEl _conf, String _op);
-    public abstract void calculateSetting(CustList<OperationNode> _nodes, ContextEl _conf, String _op);
-    //    public abstract Argument calculate(IdMap<OperationNode, ArgumentsPair> _nodes, ContextEl _conf, Calculation _setting);
+
     public abstract Argument calculateLeft(IdMap<OperationNode, ArgumentsPair> _nodes, ContextEl _conf, String _op);
     public abstract Argument calculateRight(IdMap<OperationNode, ArgumentsPair> _nodes, ContextEl _conf, String _op);
-    public abstract Argument calculateSetting(IdMap<OperationNode, ArgumentsPair> _nodes, ContextEl _conf, String _op);
 
 
     public final void setRelativeOffsetPossibleLastPage(int _offset, ContextEl _cont) {
@@ -300,35 +280,11 @@ public abstract class OperationNode implements SortedNode<OperationNode>, Operab
         return null;
     }
 
-    //    boolean isDirectlyCalculable() {
-    //        return isRealLeaf() && isFirstChild();
-    //    }
-    //    abstract boolean isFirstLeaf();
     abstract boolean isFirstChild();
-    //    abstract boolean isRealLeaf();
 
     final boolean isAnalyzed() {
         return resultClass != null;
     }
-
-    //    public final boolean isCalculated(Calculation _setting, IdMap<OperationNode, ArgumentsPair> _nodes) {
-    //        if (isPossibleInitClass()) {
-    //            return false;
-    //        }
-    //        if (_setting.getStep() == StepCalculation.SETTING) {
-    //            if (calculatedLater) {
-    //                return false;
-    //            }
-    //        }
-    //        OperationNode op_ = this;
-    //        while (op_ != null) {
-    //            if (_nodes.getVal(op_).getArgument() != null) {
-    //                return true;
-    //            }
-    //            op_ = op_.getParent();
-    //        }
-    //        return false;
-    //    }
 
     public final boolean isCalculated(IdMap<OperationNode, ArgumentsPair> _nodes) {
         if (isPossibleInitClass()) {
@@ -344,39 +300,6 @@ public abstract class OperationNode implements SortedNode<OperationNode>, Operab
         return false;
     }
 
-    public final boolean isCalculatedSetting(IdMap<OperationNode, ArgumentsPair> _nodes) {
-        if (isPossibleInitClass()) {
-            return false;
-        }
-        if (calculatedLater) {
-            return false;
-        }
-        OperationNode op_ = this;
-        while (op_ != null) {
-            if (_nodes.getVal(op_).getArgument() != null) {
-                return true;
-            }
-            op_ = op_.getParent();
-        }
-        return false;
-    }
-
-    public final boolean isCalculatedSetting() {
-        if (isPossibleInitClass()) {
-            return false;
-        }
-        if (calculatedLater) {
-            return false;
-        }
-        OperationNode op_ = this;
-        while (op_ != null) {
-            if (op_.getArgument() != null) {
-                return true;
-            }
-            op_ = op_.getParent();
-        }
-        return false;
-    }
     public final boolean isCalculated() {
         if (isPossibleInitClass()) {
             return false;
@@ -390,26 +313,6 @@ public abstract class OperationNode implements SortedNode<OperationNode>, Operab
         }
         return false;
     }
-    //    public final boolean isCalculated(Calculation _setting) {
-        //        if (isPossibleInitClass()) {
-            //            //            Argument a_ = getArgument();
-            //            //            a_.getArgClassName();
-            //            return false;
-            //        }
-        //        if (_setting.getStep() == StepCalculation.SETTING) {
-    //            if (calculatedLater) {
-    //                return false;
-    //            }
-    //        }
-    //        OperationNode op_ = this;
-    //        while (op_ != null) {
-    //            if (op_.getArgument() != null) {
-    //                return true;
-    //            }
-    //            op_ = op_.getParent();
-    //        }
-    //        return false;
-    //    }
 
     @Override
     public boolean isPossibleInitClass() {
@@ -695,7 +598,6 @@ public abstract class OperationNode implements SortedNode<OperationNode>, Operab
             return possibleConstructors_.first();
         }
         ArgumentsGroup gr_ = new ArgumentsGroup(_conf.getClasses(), _args);
-        //        ParametersGroupComparator<ConstructorInfo> cmp_ = new ParametersGroupComparator<ConstructorInfo>(gr_);
         CustList<ConstructorInfo> signatures_ = new CustList<ConstructorInfo>();
         for (Constructor<?> m: possibleConstructors_) {
             ParametersGroup p_ = new ParametersGroup();
@@ -719,12 +621,6 @@ public abstract class OperationNode implements SortedNode<OperationNode>, Operab
             }
         }
         throw new AmbiguousChoiceCallingException(errors_.join(RETURN_LINE)+RETURN_LINE+_conf.joinPages());
-        //        try {
-            //            return _class.getClazz().getDeclaredConstructor(getClasses(_args));
-            //        } catch (NoSuchMethodException _0) {
-        //            _conf.getLastPage().addToOffset(_offsetIncr);
-        //            throw new NoSuchDeclaredConstructorException(_0.getMessage()+RETURN_LINE+_conf.joinPages());
-        //        }
     }
     static String getDeclaredCustMethod(ContextEl _conf, String _realClassName, ClassMethodId _idMeth) {
         Classes classes_ = _conf.getClasses();
@@ -1518,10 +1414,6 @@ public abstract class OperationNode implements SortedNode<OperationNode>, Operab
         }
     }
 
-    protected final void setCalculatedLater(boolean _calculatedLater) {
-        calculatedLater = _calculatedLater;
-    }
-
     public final void setSimpleArgument(Argument _argument) {
         argument = _argument;
     }
@@ -1614,8 +1506,9 @@ public abstract class OperationNode implements SortedNode<OperationNode>, Operab
         if (getParent() instanceof DotOperation) {
             if (n_ instanceof ArrOperation) {
                 n_.getFirstChild().setPreviousResultClass(resultClass);
+            } else {
+                n_.setPreviousResultClass(resultClass);
             }
-            n_.setPreviousResultClass(resultClass);
         }
     }
 
@@ -1628,8 +1521,9 @@ public abstract class OperationNode implements SortedNode<OperationNode>, Operab
         if (getParent() instanceof DotOperation) {
             if (n_ instanceof ArrOperation) {
                 n_.getFirstChild().setPreviousResultClass(resultClass, _staticPrevious);
+            } else {
+                n_.setPreviousResultClass(resultClass, _staticPrevious);
             }
-            n_.setPreviousResultClass(resultClass, _staticPrevious);
         }
     }
 

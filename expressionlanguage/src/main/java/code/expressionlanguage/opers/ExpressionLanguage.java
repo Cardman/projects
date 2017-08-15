@@ -15,6 +15,7 @@ public final class ExpressionLanguage {
     private final OperationNode root;
     private final CustList<OperationNode> operations;
     private final boolean alwaysCalculated;
+    private SettableElResult settable;
     private OperationNode currentOper;
     private IdMap<OperationNode,ArgumentsPair> arguments = new IdMap<OperationNode,ArgumentsPair>();
     private Argument argument;
@@ -44,8 +45,20 @@ public final class ExpressionLanguage {
             arguments.put(o, a_);
         }
         root = operations.last();
+        if (root instanceof SettableElResult) {
+            settable = (SettableElResult) root;
+        } else if (operations.size() > 1){
+            OperationNode beforeLast_ = operations.getPrev(operations.getLastIndex());
+            if (beforeLast_ instanceof SettableElResult) {
+                settable = (SettableElResult) beforeLast_;
+            }
+        }
 //        alwaysCalculated = root.isCalculated(new Calculation(StepCalculation.RIGHT), arguments);
         alwaysCalculated = root.isCalculated(arguments);
+    }
+
+    public SettableElResult getSettable() {
+        return settable;
     }
 
     public Argument getArgument() {

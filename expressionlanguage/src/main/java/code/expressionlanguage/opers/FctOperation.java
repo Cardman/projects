@@ -319,11 +319,7 @@ public final class FctOperation extends InvokingOperation {
             boolean _enumContext, String _op) {
         analyzeCommon(_nodes, _conf, _op);
     }
-    @Override
-    public void analyzeSetting(CustList<OperationNode> _nodes, ContextEl _conf,
-            boolean _enumContext, String _op) {
-        analyzeCommon(_nodes, _conf, _op);
-    }
+
     void analyzeCommon(CustList<OperationNode> _nodes, ContextEl _conf, String _op) {
         Classes classes_ = _conf.getClasses();
         CustList<OperationNode> chidren_ = getChildrenNodes();
@@ -332,7 +328,6 @@ public final class FctOperation extends InvokingOperation {
         String trimMeth_ = methodName.trim();
         if (StringList.quickEq(trimMeth_, EXTERN_CLASS+CURRENT)) {
             //validate calling of constructors of the current class
-//            String clCurName_ = _conf.getLastPage().getGlobalArgument().getArgClassName();
             String clCurName_ = _conf.getLastPage().getGlobalClass();
             otherConstructorClass = true;
             CustList<ClassArgumentMatching> firstArgs_ = listClasses(chidren_);
@@ -806,10 +801,6 @@ public final class FctOperation extends InvokingOperation {
         return calculateCommon(_nodes, _conf, _op);
     }
 
-    @Override
-    public Argument calculateSetting(IdMap<OperationNode,ArgumentsPair> _nodes, ContextEl _conf, String _op) {
-        return calculateCommon(_nodes, _conf, _op);
-    }
     Argument calculateCommon(
             IdMap<OperationNode, ArgumentsPair> _nodes, ContextEl _conf,
             String _op) {
@@ -820,7 +811,6 @@ public final class FctOperation extends InvokingOperation {
         String trimMeth_ = methodName.trim();
         if (constId != null) {
             if (StringList.quickEq(trimMeth_,EXTERN_CLASS+CURRENT)) {
-//                String clCurName_ = global_.getArgClassName();
                 String clCurName_ = _conf.getLastPage().getGlobalClass();
                 CustList<Argument> firstArgs_ = listArguments(chidren_, _nodes, false);
                 StringList called_ = _conf.getLastPage().getCallingConstr().getCalledConstructors();
@@ -1062,11 +1052,7 @@ public final class FctOperation extends InvokingOperation {
             String _op) {
         calculateCommon(_nodes, _conf, _op);
     }
-    @Override
-    public void calculateSetting(CustList<OperationNode> _nodes,
-            ContextEl _conf, String _op) {
-        calculateCommon(_nodes, _conf, _op);
-    }
+
     void calculateCommon(CustList<OperationNode> _nodes, ContextEl _conf, String _op) {
         CustList<OperationNode> chidren_ = getChildrenNodes();
         int off_ = StringList.getFirstPrintableCharIndex(methodName);

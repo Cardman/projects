@@ -6,7 +6,6 @@ import java.lang.reflect.Modifier;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.ElResolver;
-import code.expressionlanguage.ElUtil;
 import code.expressionlanguage.OperationsSequence;
 import code.expressionlanguage.PageEl;
 import code.expressionlanguage.PrimitiveTypeUtil;
@@ -85,17 +84,15 @@ public final class ConstantOperation extends OperationNode implements SettableEl
             getResultClass().setVariable(StringList.quickEq(str_, NULL_REF_STRING));
             return;
         }
+        if (getParent() == null) {
+            variable = true;
+        } else {
+            variable = _nodes.getPrev(_nodes.getLastIndex()) == this;
+        }
         analyzeCommon(true, _conf);
     }
     @Override
     public void analyzeRight(CustList<OperationNode> _nodes, ContextEl _conf,
-            boolean _enumContext, String _op) {
-        analyzeCalculate(false, _conf);
-        analyzeNotLeft(_nodes, _conf, _op);
-    }
-
-    @Override
-    public void analyzeSetting(CustList<OperationNode> _nodes, ContextEl _conf,
             boolean _enumContext, String _op) {
         analyzeCalculate(false, _conf);
         analyzeNotLeft(_nodes, _conf, _op);
@@ -141,7 +138,6 @@ public final class ConstantOperation extends OperationNode implements SettableEl
                 if (cl_ == null) {
                     throw new NullGlobalObjectException(_conf.joinPages());
                 }
-                variable = getParent() == null || ElUtil.getDirectChildren(getParent()).last() == this;
                 String clCurName_ = cl_.getName();
                 custClass_ = classes_.getClassMetaInfo(clCurName_);
                 if (custClass_ != null) {
@@ -169,14 +165,11 @@ public final class ConstantOperation extends OperationNode implements SettableEl
                     if (isStaticAccess() && !e_.isStaticField()) {
                         throw new StaticAccessException(_conf.joinPages());
                     }
-                    if (_checkSetting && variable) {
+                    if (_checkSetting && resultCanBeSet()) {
                         if (fieldMetaInfo.isFinalField()) {
                             setRelativeOffsetPossibleLastPage(getIndexInEl(), _conf);
                             throw new FinalMemberException(_conf.joinPages());
                         }
-                    }
-                    if (_checkSetting && resultCanBeSet()) {
-                        setCalculatedLater(true);
                     }
                     fieldId = new ClassField(e_.getDeclaringClass().getName(), e_.getName());
                     ClassName c_ = fieldMetaInfo.getType();
@@ -215,10 +208,6 @@ public final class ConstantOperation extends OperationNode implements SettableEl
             String key_ = str_.substring(CustList.FIRST_INDEX, str_.length() - GET_LOC_VAR.length());
             LocalVariable locVar_ = ip_.getLocalVars().getVal(key_);
             if (locVar_ != null) {
-                variable = getParent() == null;
-                if (_checkSetting && resultCanBeSet()) {
-                    setCalculatedLater(true);
-                }
                 setResultClass(new ClassArgumentMatching(locVar_.getClassName()));
                 return;
             }
@@ -260,19 +249,15 @@ public final class ConstantOperation extends OperationNode implements SettableEl
             setResultClass(new ClassArgumentMatching(PrimitiveTypeUtil.PRIM_INT));
             return;
         }
-        variable = getParent() == null || ElUtil.getDirectChildren(getParent()).last() == this;
         Field f_ = getDeclaredField(_conf, cl_, str_);
         if (_checkSetting && Modifier.isFinal(f_.getModifiers())) {
-            if (variable) {
+            if (resultCanBeSet()) {
                 setRelativeOffsetPossibleLastPage(getIndexInEl(), _conf);
                 throw new FinalMemberException(_conf.joinPages());
             }
         }
         if (isStaticAccess() && !Modifier.isStatic(f_.getModifiers())) {
             throw new StaticAccessException(_conf.joinPages());
-        }
-        if (_checkSetting && resultCanBeSet()) {
-            setCalculatedLater(true);
         }
         field = f_;
         setAccess(field, _conf);
@@ -432,9 +417,10 @@ public final class ConstantOperation extends OperationNode implements SettableEl
             a_.setStruct(locVar_.getStruct());
             return a_;
         }
+        ClassArgumentMatching cl_ = getPreviousResultClass();
         Argument arg_ = _previous;
-        if (arg_.isArrayClass() && StringList.quickEq(str_, LENGTH)) {
-            if (arg_.getObject() == null) {
+        if (cl_.isArray() && StringList.quickEq(str_, LENGTH)) {
+            if (arg_.isNull()) {
                 throw new NullObjectException(_conf.joinPages());
             }
             a_ = new Argument();
@@ -464,165 +450,59 @@ public final class ConstantOperation extends OperationNode implements SettableEl
         }
         return a_;
     }
+
     Argument getCommonSetting(boolean _processInit, Argument _argument, Argument _previous, ContextEl _conf, String _op) {
         PageEl ip_ = _conf.getLastPage();
-        if (resultCanBeSet()) {
-            String originalStr_ = getOperations().getValues().getValue(CustList.FIRST_INDEX);
-            String str_ = originalStr_.trim();
-            int off_ = StringList.getFirstPrintableCharIndex(originalStr_);
-            setRelativeOffsetPossibleLastPage(getIndexInEl()+off_, _conf);
-            if (str_.endsWith(GET_LOC_VAR)) {
-                String key_ = str_.substring(CustList.FIRST_INDEX, str_.length() - GET_LOC_VAR.length());
-                LocalVariable locVar_ = ip_.getLocalVars().getVal(key_);
-                Argument left_ = new Argument();
-                left_.setStruct(locVar_.getStruct());
-                Argument right_ = ip_.getRightArgument();
-                Argument res_;
-                res_ = NumericOperation.calculateAffect(left_, _conf, right_, _op);
-                locVar_.setStruct(res_.getStruct());
-                return res_;
-            }
-            Struct struct_ = _argument.getStruct();
-            Argument right_ = ip_.getRightArgument();
-            Argument left_ = new Argument();
-            Argument res_;
-            if (fieldId != null) {
-                Classes classes_ = _conf.getClasses();
-                if (fieldMetaInfo.isStaticField()) {
-                    Struct structField_ = classes_.getStaticField(fieldId);
-                    left_.setStruct(structField_);
-                    res_ = NumericOperation.calculateAffect(left_, _conf, right_, _op);
-                    classes_.initializeStaticField(fieldId, res_.getStruct());
-                } else {
-                    Argument previous_ = _previous;
-                    if (previous_.isNull()) {
-                        throw new NullObjectException(_conf.joinPages());
-                    }
-                    String argClassName_ = previous_.getObjectClassName();
-                    String classNameFound_ = fieldId.getClassName();
-                    if (!PrimitiveTypeUtil.canBeUseAsArgument(classNameFound_, argClassName_, classes_)) {
-                        throw new DynamicCastClassException(argClassName_+RETURN_LINE+classNameFound_+RETURN_LINE+_conf.joinPages());
-                    }
-                    Struct structField_ = previous_.getStruct().getStruct(fieldId, field);
-                    left_.setStruct(structField_);
-                    res_ = NumericOperation.calculateAffect(left_, _conf, right_, _op);
-                    previous_.getStruct().setStruct(fieldId, res_.getStruct());
-                }
-                Argument a_ = _argument;
-                return a_;
-            }
-            Object obj_ = struct_.getInstance();
-            Object field_ = ConverterMethod.getField(field, obj_);
-            if (field_ == null) {
-                left_.setStruct(new Struct());
-            } else {
-                left_.setStruct(new Struct(field_));
-            }
-            res_ = NumericOperation.calculateAffect(left_, _conf, right_, _op);
-            ConverterMethod.setField(field, obj_, res_.getObject());
-            Argument a_ = _argument;
-            return a_;
-        }
-        if (isPossibleInitClass()) {
-            String className_ = getResultClass().getName();
-            if (!_conf.getClasses().isInitialized(className_)) {
-                _conf.getClasses().initialize(className_);
-                if (!_processInit) {
-                    throw new NotInitializedClassException(className_);
-                }
-                ProcessXmlMethod.initializeClass(className_, _conf);
-                return null;
-            }
-        }
-        Argument cur_ = _argument;
-        if (cur_ != null) {
-            return cur_;
-        }
-        Argument a_ = new Argument();
+
         String originalStr_ = getOperations().getValues().getValue(CustList.FIRST_INDEX);
         String str_ = originalStr_.trim();
         int off_ = StringList.getFirstPrintableCharIndex(originalStr_);
         setRelativeOffsetPossibleLastPage(getIndexInEl()+off_, _conf);
-        if (StringList.quickEq(str_, CURRENT_INTANCE)) {
-            Struct struct_ = ip_.getGlobalArgument().getStruct();
-            a_ = new Argument();
-            a_.setStruct(struct_);
-            return a_;
-        }
-        if (fieldId != null) {
-            if (fieldMetaInfo.isStaticField()) {
-                Classes classes_ = _conf.getClasses();
-                Struct struct_ = classes_.getStaticField(fieldId);
-                a_ = new Argument();
-                a_.setStruct(struct_);
-                return a_;
-            }
-            Argument arg_ = _previous;
-            Struct struct_ = arg_.getStruct().getStruct(fieldId, field);
-            a_ = new Argument();
-            a_.setStruct(struct_);
-            return a_;
-        }
-        if (str_.endsWith(GET_PARAM)) {
-            String key_ = str_.substring(CustList.FIRST_INDEX, str_.length() - GET_PARAM.length());
-            LocalVariable locVar_ = ip_.getParameters().getVal(key_);
-            a_ = new Argument();
-            a_.setStruct(locVar_.getStruct());
-            return a_;
-        }
-        if (str_.endsWith(GET_CATCH_VAR)) {
-            String key_ = str_.substring(CustList.FIRST_INDEX, str_.length() - GET_CATCH_VAR.length());
-            LocalVariable locVar_ = ip_.getCatchVars().getVal(key_);
-            a_ = new Argument();
-            a_.setStruct(locVar_.getStruct());
-            return a_;
-        }
         if (str_.endsWith(GET_LOC_VAR)) {
             String key_ = str_.substring(CustList.FIRST_INDEX, str_.length() - GET_LOC_VAR.length());
             LocalVariable locVar_ = ip_.getLocalVars().getVal(key_);
-            a_ = new Argument();
-            a_.setStruct(locVar_.getStruct());
-            return a_;
+            Argument left_ = new Argument();
+            left_.setStruct(locVar_.getStruct());
+            Argument right_ = ip_.getRightArgument();
+            Argument res_;
+            res_ = NumericOperation.calculateAffect(left_, _conf, right_, _op);
+            locVar_.setStruct(res_.getStruct());
+            return res_;
         }
-        if (str_.endsWith(GET_INDEX)) {
-            String key_ = str_.substring(CustList.FIRST_INDEX, str_.length() - GET_INDEX.length());
-            LoopVariable locVar_ = ip_.getVars().getVal(key_);
-            a_ = new Argument();
-            a_.setStruct(new Struct(locVar_.getIndex()));
-            return a_;
-        }
-        if (str_.endsWith(GET_ATTRIBUTE)) {
-            String key_ = str_.substring(CustList.FIRST_INDEX, str_.length() - GET_ATTRIBUTE.length());
-            LoopVariable locVar_ = ip_.getVars().getVal(key_);
-            a_ = new Argument();
-            a_.setStruct(locVar_.getStruct());
-            return a_;
-        }
-        Argument arg_ = _previous;
-        if (arg_.isArrayClass() && StringList.quickEq(str_, LENGTH)) {
-            if (arg_.getObject() == null) {
-                throw new NullObjectException(_conf.joinPages());
+        Struct struct_ = _argument.getStruct();
+        Argument right_ = ip_.getRightArgument();
+        Argument left_ = new Argument();
+        Argument res_;
+        if (fieldId != null) {
+            Classes classes_ = _conf.getClasses();
+            if (fieldMetaInfo.isStaticField()) {
+                Struct structField_ = classes_.getStaticField(fieldId);
+                left_.setStruct(structField_);
+                res_ = NumericOperation.calculateAffect(left_, _conf, right_, _op);
+                classes_.initializeStaticField(fieldId, res_.getStruct());
+            } else {
+                Argument previous_ = _previous;
+                if (previous_.isNull()) {
+                    throw new NullObjectException(_conf.joinPages());
+                }
+                Struct structField_ = previous_.getStruct().getStruct(fieldId, field);
+                left_.setStruct(structField_);
+                res_ = NumericOperation.calculateAffect(left_, _conf, right_, _op);
+                previous_.getStruct().setStruct(fieldId, res_.getStruct());
             }
-            a_ = new Argument();
-            a_.setStruct(new Struct(Array.getLength(arg_.getObject())));
+            Argument a_ = _argument;
             return a_;
         }
-        Object obj_ = arg_.getObject();
-        if (!Modifier.isStatic(field.getModifiers()) && obj_ == null) {
-            throw new NullObjectException(_conf.joinPages());
-        }
-        Object res_;
-        try {
-            res_ = ConverterMethod.getField(field, obj_);
-        } catch (ExceptionInInitializerError _0) {
-            throw new ErrorCausingException(_conf.joinPages(), new Struct(_0));
-        }
-        a_ = new Argument();
-        if (res_ == null) {
-            a_.setStruct(new Struct());
+        Object obj_ = struct_.getInstance();
+        Object field_ = ConverterMethod.getField(field, obj_);
+        if (field_ == null) {
+            left_.setStruct(new Struct());
         } else {
-            a_.setStruct(new Struct(res_));
+            left_.setStruct(new Struct(field_));
         }
+        res_ = NumericOperation.calculateAffect(left_, _conf, right_, _op);
+        ConverterMethod.setField(field, obj_, res_.getObject());
+        Argument a_ = _argument;
         return a_;
     }
     private void analyzeCalculate(boolean _noParentCheck, ContextEl _cont) {

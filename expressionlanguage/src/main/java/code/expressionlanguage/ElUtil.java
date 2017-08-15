@@ -19,6 +19,7 @@ import code.expressionlanguage.opers.Calculation;
 import code.expressionlanguage.opers.ComparatorOrder;
 import code.expressionlanguage.opers.ExpressionLanguage;
 import code.expressionlanguage.opers.OperationNode;
+import code.expressionlanguage.opers.SettableElResult;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.util.CustList;
 import code.util.EntryCust;
@@ -29,7 +30,6 @@ import code.util.exceptions.RuntimeClassNotFoundException;
 
 public final class ElUtil {
 
-//    private static final String RETURN_LINE = "\n";
     private static final String ATTRIBUTE_LEFT = "left";
     private static final String ATTRIBUTE_OPER = "oper";
     private static final String ATTRIBUTE_RIGHT = "right";
@@ -39,8 +39,6 @@ public final class ElUtil {
 
     public static ExpLanguages analyzeAffect(String _left, String _right, String _oper, ContextEl _conf, boolean _staticContext) {
         PageEl page_ = _conf.getLastPage();
-//        page_.setProcessingNode(_node);
-//        page_.setLookForAttrValue(true);
         page_.setOffset(0);
         page_.setProcessingAttribute(ATTRIBUTE_LEFT);
         Delimiters dLeft_ = ElResolver.checkSyntax(_left, _conf, CustList.FIRST_INDEX);
@@ -51,7 +49,6 @@ public final class ElUtil {
         for (OperationNode o: allLeft_) {
             o.setConf(null);
         }
-//        page_.setLookForAttrValue(true);
         page_.setOffset(0);
         page_.setProcessingAttribute(ATTRIBUTE_RIGHT);
         Delimiters dRight_ = ElResolver.checkSyntax(_right, _conf, CustList.FIRST_INDEX);
@@ -62,24 +59,16 @@ public final class ElUtil {
         for (OperationNode o: allRight_) {
             o.setConf(null);
         }
-//        page_.setLookForAttrValue(true);
         page_.setOffset(0);
         page_.setProcessingAttribute(ATTRIBUTE_LEFT);
         analyzeLeft(allLeft_, _conf, _staticContext, false, _oper);
-//        analyze(allLeft_, _conf, _staticContext, new Calculation(StepCalculation.LEFT,_oper));
-//        page_.setLookForAttrValue(true);
         page_.setOffset(0);
         page_.setProcessingAttribute(ATTRIBUTE_RIGHT);
         analyzeRight(allRight_, _conf, _staticContext, false, _oper);
-//        analyze(allRight_, _conf, _staticContext, new Calculation(StepCalculation.RIGHT,_oper));
-//        page_.setLookForAttrValue(true);
         page_.setOffset(0);
         page_.setProcessingAttribute(ATTRIBUTE_LEFT);
-        analyzeSetting(allLeft_, _conf, _staticContext, false, _oper);
-//        analyze(allLeft_, _conf, _staticContext, new Calculation(StepCalculation.SETTING,_oper));
         ClassArgumentMatching clMatchRight_ = opRight_.getResultClass();
         ClassArgumentMatching clMatchLeft_ = opLeft_.getResultClass();
-//        page_.setLookForAttrValue(true);
         page_.setOffset(0);
         page_.setProcessingAttribute(ATTRIBUTE_OPER);
         if (_oper.length() == 2) {
@@ -109,29 +98,15 @@ public final class ElUtil {
         }
         return new ExpLanguages(new ExpressionLanguage(allLeft_), new ExpressionLanguage(allRight_));
     }
-//    public static Argument tryToCalculate(ContextEl _conf, ExpressionLanguage _right) {
-//        CustList<OperationNode> allRight_ = _right.getOperations();
-////        _conf.getImporting().last().setCurrentEl(_right);
-//        calculate(allRight_, _right, _conf, new Calculation(StepCalculation.RIGHT));
-//        Argument arg_ = _right.getRoot().getArgument();
-////        for (OperationNode o: allRight_) {
-////            o.resetArguments();
-////        }
-//        return arg_;
-//    }
+
     public static Argument tryToCalculate(ContextEl _conf, ExpressionLanguage _right) {
         if (_right.isFinished()) {
             return _right.getArgument();
         }
         IdMap<OperationNode, ArgumentsPair> allRight_ = _right.getArguments();
-//        _conf.getImporting().last().setCurrentEl(_right);
-//        calculate(allRight_, _right, _conf, new Calculation(StepCalculation.RIGHT));
         calculateRight(allRight_, _right, _conf, EMPTY_STRING);
         _right.finish();
         Argument arg_ = _right.getArgument();
-//        for (OperationNode o: allRight_) {
-//            o.resetArguments();
-//        }
         return arg_;
     }
     public static void tryToCalculateLeftAffect(ExpressionLanguage _left, ContextEl _conf, String _op) {
@@ -139,56 +114,66 @@ public final class ElUtil {
             return;
         }
         IdMap<OperationNode, ArgumentsPair> allLeft_ = _left.getArguments();
-//        _conf.getImporting().last().setCurrentEl(_right);
-//        calculate(allLeft_, _left, _conf, new Calculation(StepCalculation.LEFT,_op));
         calculateLeft(allLeft_, _left, _conf, _op);
-        _left.finish();
-
-//        CustList<OperationNode> allLeft_ = _left.getOperations();
-//        calculate(allLeft_ , _left, _conf, new Calculation(StepCalculation.LEFT,_op));        
+        _left.finish();   
     }
     public static void tryToCalculateRightAffect(ExpressionLanguage _right, ContextEl _conf, String _op) {
-//        CustList<OperationNode> allRight_ = _right.getOperations();
         if (_right.isFinished()) {
             return;
         }
         IdMap<OperationNode, ArgumentsPair> allRight_ = _right.getArguments();
-//        calculate(allRight_, _right,_conf, new Calculation(StepCalculation.RIGHT,_op));
         calculateRight(allRight_, _right, _conf, _op);
         _right.finish();
-//        _conf.getImporting().last().setRightArgument(_right.getRoot().getArgument());
         _conf.getLastPage().setRightArgument(_right.getArgument());
     }
     public static void tryToCalculateAllAffect(ExpressionLanguage _left, ContextEl _conf, String _op) {
-//        CustList<OperationNode> allLeft_ = _left.getOperations();
-//        if (_left.isFinished()) {
-//            return;
-//        }
         IdMap<OperationNode, ArgumentsPair> allLeft_ = _left.getArguments();
-//        calculate(allLeft_, _left, _conf, new Calculation(StepCalculation.SETTING,_op));
-        calculateSetting(allLeft_, _left, _conf, _op);
+        SettableElResult settable_ = _left.getSettable();
+        OperationNode op_ = (OperationNode) settable_;
+        ArgumentsPair a_ = allLeft_.getVal(op_);
+        Argument arg_ = _conf.getLastPage().getGlobalArgument();
+        if (op_.isNeedPrevious() && a_.getPreviousArgument() == null) {
+            a_.setPreviousArgument(arg_);
+        }
+        try {
+            a_.setArgument(settable_.calculateSetting(allLeft_, _conf, _op));
+        } catch (RuntimeException _0) {
+            _left.setCurrentOper(null);
+            _conf.getLastPage().getCurrentEls().clear();
+            throw _0;
+        } catch (Error _0) {
+            _left.setCurrentOper(null);
+            _conf.getLastPage().getCurrentEls().clear();
+            throw _0;
+        }
         _conf.getLastPage().setRightArgument(null);
     }
     public static void tryToCalculateAffect(ExpressionLanguage _left, ContextEl _conf, ExpressionLanguage _right, String _op) {
         CustList<OperationNode> allLeft_ = _left.getOperations();
         _conf.getLastPage().setCurrentEls(new CustList<ExpressionLanguage>(_left));
         calculateLeft(allLeft_ , _left, _conf, _op);
-//        calculate(allLeft_ , _left, _conf, new Calculation(StepCalculation.LEFT,_op));
         CustList<OperationNode> allRight_ = _right.getOperations();
         _conf.getLastPage().getCurrentEls().add(_right);
         calculateRight(allRight_, _right,_conf, _op);
-//        calculate(allRight_, _right,_conf, new Calculation(StepCalculation.RIGHT,_op));
         _conf.getLastPage().setRightArgument(_right.getRoot().getArgument());
-//        _conf.getImporting().last().setCurrentEl(_left);
-        calculateSetting(allLeft_, _left, _conf, _op);
-//        calculate(allLeft_, _left, _conf, new Calculation(StepCalculation.SETTING,_op));
+        SettableElResult settable_ = _left.getSettable();
+        OperationNode op_ = (OperationNode) settable_;
+        Argument arg_ = _conf.getLastPage().getGlobalArgument();
+        if (op_.isNeedPrevious() && op_.getPreviousArgument() == null) {
+            op_.setPreviousArgument(arg_);
+        }
+        try {
+            settable_.calculateSetting(allLeft_, _conf, _op);
+        } catch (RuntimeException _0) {
+            _left.setCurrentOper(null);
+            _conf.getLastPage().getCurrentEls().clear();
+            throw _0;
+        } catch (Error _0) {
+            _left.setCurrentOper(null);
+            _conf.getLastPage().getCurrentEls().clear();
+            throw _0;
+        }
         _conf.getLastPage().setRightArgument(null);
-//        for (OperationNode o: allLeft_) {
-//            o.resetArguments();
-//        }
-//        for (OperationNode o: allRight_) {
-//            o.resetArguments();
-//        }
     }
     public static void processAffect(String _left, String _right, String _oper, ContextEl _conf, boolean _staticContext) {
         Delimiters dLeft_ = ElResolver.checkSyntax(_left, _conf, CustList.FIRST_INDEX);
@@ -208,11 +193,7 @@ public final class ElUtil {
             o.setConf(null);
         }
         analyzeLeft(allLeft_, _conf, _staticContext, false, _oper);
-//        analyze(allLeft_, _conf, _staticContext, new Calculation(StepCalculation.LEFT,_oper));
         analyzeRight(allRight_, _conf, _staticContext, false, _oper);
-//        analyze(allRight_, _conf, _staticContext, new Calculation(StepCalculation.RIGHT,_oper));
-        analyzeSetting(allLeft_, _conf, _staticContext, false, _oper);
-//        analyze(allLeft_, _conf, _staticContext, new Calculation(StepCalculation.SETTING,_oper));
         ClassArgumentMatching clMatchRight_ = opRight_.getResultClass();
         ClassArgumentMatching clMatchLeft_ = opLeft_.getResultClass();
         if (_oper.length() == 2) {
@@ -232,13 +213,24 @@ public final class ElUtil {
         } else if (!PrimitiveTypeUtil.canBeUseAsArgument(clMatchLeft_.getName(), clMatchRight_.getName(), _conf.getClasses())) {
             throw new DynamicCastClassException(_conf.joinPages());
         }
-//        calculate(allLeft_, _conf, new Calculation(StepCalculation.LEFT,_oper));
         calculateLeft(allLeft_, _conf, _oper);
-//        calculate(allRight_, _conf, new Calculation(StepCalculation.RIGHT,_oper));
         calculateRight(allRight_, _conf, _oper);
         _conf.getLastPage().setRightArgument(opRight_.getArgument());
-//        calculate(allLeft_, _conf, new Calculation(StepCalculation.SETTING,_oper));
-        calculateSetting(allLeft_, _conf, _oper);
+        SettableElResult settable_ = null;
+        if (allLeft_.last() instanceof SettableElResult) {
+            settable_ = (SettableElResult) allLeft_.last();
+        } else if (allLeft_.size() > 1){
+            OperationNode beforeLast_ = allLeft_.getPrev(allLeft_.getLastIndex());
+            if (beforeLast_ instanceof SettableElResult) {
+                settable_ = (SettableElResult) beforeLast_;
+            }
+        }
+        OperationNode op_ = (OperationNode) settable_;
+        Argument arg_ = _conf.getLastPage().getGlobalArgument();
+        if (op_.isNeedPrevious() && op_.getPreviousArgument() == null) {
+            op_.setPreviousArgument(arg_);
+        }
+        settable_.calculateSetting(allLeft_, _conf, _oper);
         _conf.getLastPage().setRightArgument(null);
         for (OperationNode o: allLeft_) {
             o.resetArguments();
@@ -259,109 +251,18 @@ public final class ElUtil {
         for (OperationNode o: all_) {
             o.setConf(null);
         }
-//        for (SortedNode s: TreeRetrieving.getSortedDescNodes(op_)) {
-//            all_.add((OperationNode)s);
-//        }
-//        int order_ = 0;
-//        while (true) {
-//            CustList<OperationNode> next_ = new CustList<OperationNode>();
-//            for (OperationNode e: all_) {
-//                if (e.getOrder() > CustList.INDEX_NOT_FOUND_ELT) {
-//                    continue;
-//                }
-//                OperationNode cur_ = e;
-//                boolean tonumber_ = true;
-//                while (cur_ != null) {
-//                    int index_ = cur_.getIndexChild() - 1;
-//                    if (index_ >= CustList.FIRST_INDEX) {
-//                        CustList<SortedNode> sn_ = TreeRetrieving.getDirectChildren(cur_.getParent());
-//                        SortedNode s_ = sn_.get(index_);
-//                        OperationNode prev_ = (OperationNode) s_;
-//                        if (prev_.getOrder() == CustList.INDEX_NOT_FOUND_ELT) {
-//                            tonumber_ = false;
-//                            break;
-//                        }
-//                    }
-//                    cur_ = cur_.getParent();
-//                }
-//                if (!tonumber_) {
-//                    continue;
-//                }
-//                boolean add_ = true;
-//                for (SortedNode o: TreeRetrieving.getDirectChildren(e)) {
-//                    if (((OperationNode)o).getOrder() == CustList.INDEX_NOT_FOUND_ELT) {
-//                        add_ = false;
-//                        break;
-//                    }
-//                }
-//                if (add_) {
-//                    next_.add(e);
-//                }
-//            }
-//            if (next_.isEmpty()) {
-//                break;
-//            }
-//            for (OperationNode o: next_) {
-//                o.setOrder(order_);
-//                order_++;
-//            }
-//        }
-//        all_.sortElts(new ComparatorOrder());
-//        Argument arg_ = _conf.getImporting().last().getGlobalArgument();
-//        for (OperationNode e: all_) {
-//            if (e.isDirectlyCalculable()) {
-//                e.setPreviousResultClass(new ClassMatching(arg_.getArgClass()));
-//                e.analyze(all_, _conf);
-//            }
-//        }
-//        for (OperationNode e: all_) {
-//            if (!e.isAnalyzed()) {
-//                if (e instanceof InvokingOperation && e.getPreviousResultClass() == null) {
-//                    e.setPreviousResultClass(new ClassMatching(arg_.getArgClass()));
-//                }
-//                e.analyze(all_, _conf);
-//            }
-//        }
         if (!_conf.isEmptyPages()) {
             _conf.getLastPage().setOffset(d_.getIndexBegin());
         }
-//        analyze(all_, _conf, new Calculation(StepCalculation.RIGHT));
         analyzeRight(all_, _conf);
         if (!_conf.isEmptyPages()) {
             _conf.getLastPage().setOffset(d_.getIndexBegin());
         }
-//        calculate(all_, _conf, new Calculation(StepCalculation.RIGHT));
         calculateRight(all_, _conf, EMPTY_STRING);
         Argument arg_ = op_.getArgument();
-//        for (OperationNode o: all_) {
-//            o.resetArguments();
-//        }
-//        for (OperationNode e: all_) {
-//            if (e.isDirectlyCalculable()) {
-//                e.setPreviousArgument(arg_);
-//                e.calculate(all_, _conf);
-//            }
-//        }
-//        for (OperationNode e: all_) {
-//            if (!e.isCalculated()) {
-//                if (e instanceof InvokingOperation && e.getPreviousArgument() == null) {
-//                    e.setPreviousArgument(arg_);
-//                }
-//                e.calculate(all_, _conf);
-//            }
-//        }
         return arg_;
     }
 
-//    public static CustList<OperationNode> getAnalyzedOperations(String _el, ContextEl _conf, boolean _staticContext) {
-//        return getAnalyzedOperations(_el, _conf, _staticContext, false);
-//    }
-
-//    public static CustList<OperationNode> getAnalyzedOperations(String _el, ContextEl _conf, boolean _staticContext, boolean _leftStep) {
-////        return getAnalyzedOperations(_el, _conf, _staticContext, _leftStep, EMPTY_STRING);
-////        return getAnalyzedOperations(_el, _conf, new Calculation(_staticContext, false, _leftStep, EMPTY_STRING));
-//        return getAnalyzedOperations(_el, _conf, new Calculation(_staticContext, false, _leftStep, EMPTY_STRING));
-//    }
     public static CustList<OperationNode> getAnalyzedOperations(String _el, ContextEl _conf, Calculation _calcul) {
         Delimiters d_ = ElResolver.checkSyntax(_el, _conf, CustList.FIRST_INDEX);
         ElResolver.secondCheckSyntax(_el, _conf, d_);
@@ -374,14 +275,11 @@ public final class ElUtil {
         if (!_conf.isEmptyPages()) {
             _conf.getLastPage().setOffset(d_.getIndexBegin());
         }
-//        analyze(all_, _conf, _staticContext, _setting);
         boolean staticContext_ = _calcul.isStaticAcces();
         boolean enumContext_ = _calcul.isEnumAcces();
         String oper_ = _calcul.getOper();
         if (_calcul.isLeftStep()) {
             analyzeLeft(all_, _conf, staticContext_, enumContext_, oper_);
-            analyzeSetting(all_, _conf, staticContext_, enumContext_, oper_);
-//            analyze(all_, _conf, _staticContext, new Calculation(StepCalculation.SETTING,_op));
         } else {
             analyzeRight(all_, _conf, staticContext_, enumContext_, oper_);
         }
@@ -398,103 +296,15 @@ public final class ElUtil {
         for (OperationNode o: all_) {
             o.setConf(null);
         }
-//        for (SortedNode s: TreeRetrieving.getSortedDescNodes(op_)) {
-//            all_.add((OperationNode)s);
-//        }
-//        int order_ = 0;
-//        while (true) {
-//            CustList<OperationNode> next_ = new CustList<OperationNode>();
-//            for (OperationNode e: all_) {
-//                if (e.getOrder() > CustList.INDEX_NOT_FOUND_ELT) {
-//                    continue;
-//                }
-//                OperationNode cur_ = e;
-//                boolean tonumber_ = true;
-//                while (cur_ != null) {
-//                    int index_ = cur_.getIndexChild() - 1;
-//                    if (index_ >= CustList.FIRST_INDEX) {
-//                        CustList<SortedNode> sn_ = TreeRetrieving.getDirectChildren(cur_.getParent());
-//                        SortedNode s_ = sn_.get(index_);
-//                        OperationNode prev_ = (OperationNode) s_;
-//                        if (prev_.getOrder() == CustList.INDEX_NOT_FOUND_ELT) {
-//                            tonumber_ = false;
-//                            break;
-//                        }
-//                    }
-//                    cur_ = cur_.getParent();
-//                }
-//                if (!tonumber_) {
-//                    continue;
-//                }
-//                boolean add_ = true;
-//                for (SortedNode o: TreeRetrieving.getDirectChildren(e)) {
-//                    if (((OperationNode)o).getOrder() == CustList.INDEX_NOT_FOUND_ELT) {
-//                        add_ = false;
-//                        break;
-//                    }
-//                }
-//                if (add_) {
-//                    next_.add(e);
-//                }
-//            }
-//            if (next_.isEmpty()) {
-//                break;
-//            }
-//            for (OperationNode o: next_) {
-//                o.setOrder(order_);
-//                order_++;
-//            }
-//        }
-//        all_.sortElts(new ComparatorOrder());
-//        Argument arg_ = _conf.getImporting().last().getGlobalArgument();
-//        for (OperationNode e: all_) {
-//            if (e instanceof InvokingOperation && e.getPreviousResultClass() == null) {
-//                e.setPreviousResultClass(new ClassMatching(arg_.getArgClass()));
-//            }
-//            e.analyze(all_, _conf);
-//        }
-//        for (OperationNode e: all_) {
-//            if (e.isDirectlyCalculable()) {
-//                e.setPreviousResultClass(new ClassMatching(arg_.getArgClass()));
-//                e.analyze(all_, _conf);
-//            }
-//        }
-//        for (OperationNode e: all_) {
-//            if (!e.isAnalyzed()) {
-//                if (e instanceof InvokingOperation && e.getPreviousResultClass() == null) {
-//                    e.setPreviousResultClass(new ClassMatching(arg_.getArgClass()));
-//                }
-//                e.analyze(all_, _conf);
-//            }
-//        }
         if (!_conf.isEmptyPages()) {
             _conf.getLastPage().setOffset(d_.getIndexBegin());
         }
-//        analyze(all_, _conf, new Calculation(StepCalculation.RIGHT));
         analyzeRight(all_, _conf);
         if (!_conf.isEmptyPages()) {
             _conf.getLastPage().setOffset(d_.getIndexBegin());
         }
-//        calculate(all_, _conf, new Calculation(StepCalculation.RIGHT));
         calculateRight(all_, _conf, EMPTY_STRING);
         Argument arg_  = op_.getArgument();
-//        for (OperationNode o: all_) {
-//            o.resetArguments();
-//        }
-//        for (OperationNode e: all_) {
-//            if (e.isDirectlyCalculable()) {
-//                e.setPreviousArgument(arg_);
-//                e.calculate(all_, _conf);
-//            }
-//        }
-//        for (OperationNode e: all_) {
-//            if (!e.isCalculated()) {
-//                if (e instanceof InvokingOperation && e.getPreviousArgument() == null) {
-//                    e.setPreviousArgument(arg_);
-//                }
-//                e.calculate(all_, _conf);
-//            }
-//        }
         return arg_;
     }
 
@@ -536,16 +346,6 @@ public final class ElUtil {
                     }
                 }
                 next_.add(e);
-//                boolean add_ = true;
-//                for (SortedNode o: TreeRetrieving.getDirectChildren(e)) {
-//                    if (((OperationNode)o).getOrder() == CustList.INDEX_NOT_FOUND_ELT) {
-//                        add_ = false;
-//                        break;
-//                    }
-//                }
-//                if (add_) {
-//                    next_.add(e);
-//                }
             }
             if (next_.isEmpty()) {
                 break;
@@ -619,16 +419,7 @@ public final class ElUtil {
         }
         return list_;
     }
-//    static void analyze(CustList<OperationNode> _nodes, ContextEl _context, boolean _staticContext, Calculation _setting) {
-//        PageEl page_ = _context.getLastPage();
-//        Argument arg_ = page_.getGlobalArgument();
-//        for (OperationNode e: _nodes) {
-//            if (e.getPreviousResultClass() == null && arg_ != null) {
-//                e.setPreviousResultClass(new ClassArgumentMatching(page_.getGlobalClass()), _staticContext);
-//            }
-//            e.analyze(_nodes, _context, _setting);
-//        }
-//    }
+
     static void analyzeLeft(CustList<OperationNode> _nodes, ContextEl _context, boolean _staticContext, boolean _isEnumContext, String _op) {
         PageEl page_ = _context.getLastPage();
         for (OperationNode e: _nodes) {
@@ -647,38 +438,15 @@ public final class ElUtil {
             e.analyzeRight(_nodes, _context, _isEnumContext, _op);
         }
     }
-    static void analyzeSetting(CustList<OperationNode> _nodes, ContextEl _context, boolean _staticContext, boolean _isEnumContext, String _op) {
-        PageEl page_ = _context.getLastPage();
-        for (OperationNode e: _nodes) {
-            if (e.getPreviousResultClass() == null) {
-                e.setPreviousResultClass(new ClassArgumentMatching(page_.getGlobalClass()), _staticContext);
-            }
-            e.analyzeSetting(_nodes, _context, _isEnumContext, _op);
-        }
-    }
+
     static void analyzeRight(CustList<OperationNode> _nodes, ContextEl _context) {
         PageEl page_ = _context.getLastPage();
         Argument arg_ = page_.getGlobalArgument();
         boolean static_ = arg_ == null || arg_.isNull();
-//        for (OperationNode e: _nodes) {
-//            if (e.isDirectlyCalculable()) {
-//                e.setPreviousResultClass(new ClassMatching(arg_.getArgClass()));
-//                e.analyze(_nodes, _context);
-//            }
-//        }
-//        for (OperationNode e: _nodes) {
-//            if (!e.isAnalyzed()) {
-//                if (e instanceof InvokingOperation && e.getPreviousResultClass() == null) {
-//                    e.setPreviousResultClass(new ClassMatching(arg_.getArgClass()));
-//                }
-//                e.analyze(_nodes, _context);
-//            }
-//        }
         for (OperationNode e: _nodes) {
             if (e.getPreviousResultClass() == null && arg_ != null) {
                 e.setPreviousResultClass(new ClassArgumentMatching(page_.getGlobalClass()), static_);
             }
-//            e.analyze(_nodes, _context, _setting);
             e.analyzeRight(_nodes, _context, false, EMPTY_STRING);
         }
     }
@@ -692,27 +460,6 @@ public final class ElUtil {
     @throws NullObjectException
     @throws InvokeException
     @throws UnwrappingException*/
-//    static void calculate(CustList<OperationNode> _nodes, ContextEl _context, Calculation _setting) {
-//        Argument arg_ = _context.getLastPage().getGlobalArgument();
-////        for (OperationNode e: _nodes) {
-////            if (e.isDirectlyCalculable()) {
-////                e.setPreviousArgument(arg_);
-////                e.calculate(_nodes, _context);
-////            }
-////        }
-//        for (OperationNode e: _nodes) {
-//            if (!e.isCalculated(_setting)) {
-////                if (e instanceof InvokingOperation && e.getPreviousArgument() == null) {
-////                    e.setPreviousArgument(arg_);
-////                }
-//                if (e.isNeedPrevious() && e.getPreviousArgument() == null) {
-//                    e.setPreviousArgument(arg_);
-////                    e.setResetablePreviousArg(true);
-//                }
-//                e.calculate(_nodes, _context, _setting);
-//            }
-//        }
-//    }
     static void calculateLeft(CustList<OperationNode> _nodes, ContextEl _context, String _op) {
         Argument arg_ = _context.getLastPage().getGlobalArgument();
         for (OperationNode e: _nodes) {
@@ -735,17 +482,6 @@ public final class ElUtil {
             }
         }
     }
-    static void calculateSetting(CustList<OperationNode> _nodes, ContextEl _context, String _op) {
-        Argument arg_ = _context.getLastPage().getGlobalArgument();
-        for (OperationNode e: _nodes) {
-            if (!e.isCalculatedSetting()) {
-                if (e.isNeedPrevious() && e.getPreviousArgument() == null) {
-                    e.setPreviousArgument(arg_);
-                }
-                e.calculateSetting(_nodes, _context, _op);
-            }
-        }
-    }
     /**@throws InvokeRedinedMethException
     @throws CustomFoundMethodException
     @throws DivideZeroException
@@ -757,37 +493,6 @@ public final class ElUtil {
     @throws NullObjectException
     @throws InvokeException
     @throws UnwrappingException*/
-//    static void calculate(CustList<OperationNode> _nodes, ExpressionLanguage _el, ContextEl _context, Calculation _setting) {
-//        Argument arg_ = _context.getLastPage().getGlobalArgument();
-//        for (OperationNode e: _nodes) {
-//            if (!e.isCalculated(_setting)) {
-//                if (e.isNeedPrevious() && e.getPreviousArgument() == null) {
-//                    e.setPreviousArgument(arg_);
-//                }
-//                try {
-//                    e.calculate(_nodes, _context, _setting);
-//                } catch (NotInitializedClassException _0) {
-//                    throw _0;
-//                } catch (CustomFoundConstructorException _0) {
-//                    _el.setCurrentOper(e);
-//                    throw _0;
-//                } catch (CustomFoundMethodException _0) {
-//                    _el.setCurrentOper(e);
-//                    throw _0;
-//                } catch (RuntimeException _0) {
-//                    _el.setCurrentOper(null);
-////                    _context.getLastPage().setEvaluatingKeepLoop(false);
-//                    _context.getLastPage().getCurrentEls().clear();
-//                    throw _0;
-//                } catch (Error _0) {
-//                    _el.setCurrentOper(null);
-////                    _context.getLastPage().setEvaluatingKeepLoop(false);
-//                    _context.getLastPage().getCurrentEls().clear();
-//                    throw _0;
-//                }
-//            }
-//        }
-//    }
     static void calculateLeft(CustList<OperationNode> _nodes, ExpressionLanguage _el, ContextEl _context, String _op) {
         Argument arg_ = _context.getLastPage().getGlobalArgument();
         for (OperationNode e: _nodes) {
@@ -846,35 +551,6 @@ public final class ElUtil {
             }
         }
     }
-    static void calculateSetting(CustList<OperationNode> _nodes, ExpressionLanguage _el, ContextEl _context, String _op) {
-        Argument arg_ = _context.getLastPage().getGlobalArgument();
-        for (OperationNode e: _nodes) {
-            if (!e.isCalculatedSetting()) {
-                if (e.isNeedPrevious() && e.getPreviousArgument() == null) {
-                    e.setPreviousArgument(arg_);
-                }
-                try {
-                    e.calculateSetting(_nodes, _context, _op);
-                } catch (NotInitializedClassException _0) {
-                    throw _0;
-                } catch (CustomFoundConstructorException _0) {
-                    _el.setCurrentOper(e);
-                    throw _0;
-                } catch (CustomFoundMethodException _0) {
-                    _el.setCurrentOper(e);
-                    throw _0;
-                } catch (RuntimeException _0) {
-                    _el.setCurrentOper(null);
-                    _context.getLastPage().getCurrentEls().clear();
-                    throw _0;
-                } catch (Error _0) {
-                    _el.setCurrentOper(null);
-                    _context.getLastPage().getCurrentEls().clear();
-                    throw _0;
-                }
-            }
-        }
-    }
     /**@throws InvokeRedinedMethException
     @throws CustomFoundMethodException
     @throws DivideZeroException
@@ -886,43 +562,6 @@ public final class ElUtil {
     @throws NullObjectException
     @throws InvokeException
     @throws UnwrappingException*/
-//    static void calculate(IdMap<OperationNode,ArgumentsPair> _nodes, ExpressionLanguage _el, ContextEl _context, Calculation _setting) {
-//        Argument arg_ = _context.getLastPage().getGlobalArgument();
-//        for (EntryCust<OperationNode,ArgumentsPair> e: _nodes.entryList()) {
-//            OperationNode o = e.getKey();
-//            if (!o.isCalculated(_setting, _nodes)) {
-//                ArgumentsPair a_ = e.getValue();
-//                if (o.isNeedPrevious() && a_.getPreviousArgument() == null) {
-//                    a_.setPreviousArgument(arg_);
-//                }
-//                try {
-//                    a_.setArgument(o.calculate(_nodes, _context, _setting));
-//                } catch (NotInitializedClassException _0) {
-//                    throw _0;
-//                } catch (CustomFoundMethodException _0) {
-//                    _el.setCurrentOper(o);
-//                    throw _0;
-//                } catch (CustomFoundConstructorException _0) {
-//                    if (_0.getCall().getInstancingStep() != InstancingStep.USING_SUPER) {
-//                        _el.setCurrentOper(o);
-//                    } else {
-//                        _el.setCurrentOper(null);
-//                    }
-//                    throw _0;
-//                } catch (RuntimeException _0) {
-//                    _el.setCurrentOper(null);
-////                    _context.getLastPage().setEvaluatingKeepLoop(false);
-//                    _context.getLastPage().getCurrentEls().clear();
-//                    throw _0;
-//                } catch (Error _0) {
-//                    _el.setCurrentOper(null);
-////                    _context.getLastPage().setEvaluatingKeepLoop(false);
-//                    _context.getLastPage().getCurrentEls().clear();
-//                    throw _0;
-//                }
-//            }
-//        }
-//    }
 
     static void calculateLeft(IdMap<OperationNode,ArgumentsPair> _nodes, ExpressionLanguage _el, ContextEl _context, String _op) {
         Argument arg_ = _context.getLastPage().getGlobalArgument();
@@ -949,12 +588,10 @@ public final class ElUtil {
                     throw _0;
                 } catch (RuntimeException _0) {
                     _el.setCurrentOper(null);
-//                    _context.getLastPage().setEvaluatingKeepLoop(false);
                     _context.getLastPage().getCurrentEls().clear();
                     throw _0;
                 } catch (Error _0) {
                     _el.setCurrentOper(null);
-//                    _context.getLastPage().setEvaluatingKeepLoop(false);
                     _context.getLastPage().getCurrentEls().clear();
                     throw _0;
                 }
@@ -987,50 +624,10 @@ public final class ElUtil {
                     throw _0;
                 } catch (RuntimeException _0) {
                     _el.setCurrentOper(null);
-//                    _context.getLastPage().setEvaluatingKeepLoop(false);
                     _context.getLastPage().getCurrentEls().clear();
                     throw _0;
                 } catch (Error _0) {
                     _el.setCurrentOper(null);
-//                    _context.getLastPage().setEvaluatingKeepLoop(false);
-                    _context.getLastPage().getCurrentEls().clear();
-                    throw _0;
-                }
-            }
-        }
-    }
-
-    static void calculateSetting(IdMap<OperationNode,ArgumentsPair> _nodes, ExpressionLanguage _el, ContextEl _context, String _op) {
-        Argument arg_ = _context.getLastPage().getGlobalArgument();
-        for (EntryCust<OperationNode,ArgumentsPair> e: _nodes.entryList()) {
-            OperationNode o = e.getKey();
-            if (!o.isCalculatedSetting(_nodes)) {
-                ArgumentsPair a_ = e.getValue();
-                if (o.isNeedPrevious() && a_.getPreviousArgument() == null) {
-                    a_.setPreviousArgument(arg_);
-                }
-                try {
-                    a_.setArgument(o.calculateSetting(_nodes, _context, _op));
-                } catch (NotInitializedClassException _0) {
-                    throw _0;
-                } catch (CustomFoundMethodException _0) {
-                    _el.setCurrentOper(o);
-                    throw _0;
-                } catch (CustomFoundConstructorException _0) {
-                    if (_0.getCall().getInstancingStep() != InstancingStep.USING_SUPER) {
-                        _el.setCurrentOper(o);
-                    } else {
-                        _el.setCurrentOper(null);
-                    }
-                    throw _0;
-                } catch (RuntimeException _0) {
-                    _el.setCurrentOper(null);
-//                    _context.getLastPage().setEvaluatingKeepLoop(false);
-                    _context.getLastPage().getCurrentEls().clear();
-                    throw _0;
-                } catch (Error _0) {
-                    _el.setCurrentOper(null);
-//                    _context.getLastPage().setEvaluatingKeepLoop(false);
                     _context.getLastPage().getCurrentEls().clear();
                     throw _0;
                 }
