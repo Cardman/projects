@@ -7780,7 +7780,7 @@ public class FormatHtmlTest {
         assertXmlEqualRuntime("<html xmlns:c='javahtml' xmlns='javahtml'><body><a title=\"desc &amp;lt;TITLE&amp;gt;\">Content</a></body></html>", render_);
     }
 
-    @Test(timeout=500)
+    @Test
     public void processHtmlJava3Test() {
         String locale_ = "LOCALE";
         String folder_ = "messages";
@@ -7813,7 +7813,7 @@ public class FormatHtmlTest {
         assertEq("TITLE2", beanTwo_.getTypedString());
     }
 
-    @Test(timeout=500)
+    @Test
     public void processHtmlJava4Test() {
         String locale_ = "LOCALE";
         String folder_ = "messages";
@@ -7845,7 +7845,7 @@ public class FormatHtmlTest {
         assertXmlEqualRuntime("<html xmlns:c='javahtml' xmlns='javahtml'><body><tr my_attr=\"ex\">Content</tr></body></html>", render_);
     }
 
-    @Test(timeout=500)
+    @Test
     public void processHtmlJava5Test() {
         String locale_ = "LOCALE";
         String folder_ = "messages";
@@ -7877,7 +7877,7 @@ public class FormatHtmlTest {
         assertEq("TITLE2", beanTwo_.getTypedString());
     }
 
-    @Test(timeout=500)
+    @Test
     public void processHtmlJava6Test() {
         String locale_ = "LOCALE";
         String folder_ = "messages";
@@ -7908,7 +7908,7 @@ public class FormatHtmlTest {
         assertXmlEqualRuntime("<html xmlns:c='javahtml' xmlns='javahtml'><body><tr>Content1</tr><tr my_attr=\"ex\">Content2</tr></body></html>", render_);
     }
 
-    @Test(timeout=500)
+    @Test
     public void processHtmlJava7Test() {
         String locale_ = "LOCALE";
         String folder_ = "messages";
@@ -10502,7 +10502,7 @@ public class FormatHtmlTest {
         assertXmlEqualRuntime("<html xmlns:c='javahtml' xmlns='javahtml'><body>2_[Ljava.lang.String;_ab</body></html>", render_);
     }
 
-    @Test(expected=RuntimeClassNotFoundException.class, timeout=500)
+    @Test(expected=RuntimeClassNotFoundException.class)
     public void processImports1FailTest() {
         String locale_ = "LOCALE";
         String folder_ = "messages";

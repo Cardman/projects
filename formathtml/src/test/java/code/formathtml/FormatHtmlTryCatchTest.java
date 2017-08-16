@@ -863,7 +863,7 @@ public class FormatHtmlTryCatchTest {
         assertXmlEqualRuntime("<html xmlns:c='javahtml' xmlns='javahtml'><body>3_0;OK2_0;OK1_1;OKDivide Zero"+DIV_ZERO+"</body></html>", render_);        
     }
 
-    @Test(timeout=1500)
+    @Test
     public void processHtml158Test() {
         String locale_ = "LOCALE";
         String folder_ = "messages";
