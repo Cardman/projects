@@ -20,7 +20,7 @@ import code.xml.XmlParser;
 @SuppressWarnings("static-method")
 public class FormatHtmlSwitchTest {
 
-    @Test(timeout=1000)
+    @Test
     public void processHtml159Test() {
         String locale_ = "LOCALE";
         String folder_ = "messages";
@@ -53,7 +53,7 @@ public class FormatHtmlSwitchTest {
         assertXmlEqualRuntime("<html xmlns:c='javahtml' xmlns='javahtml'><body>NEXT</body></html>", render_);
     }
 
-    @Test(timeout=1000)
+    @Test
     public void processHtml160Test() {
         String locale_ = "LOCALE";
         String folder_ = "messages";
@@ -86,7 +86,7 @@ public class FormatHtmlSwitchTest {
         assertXmlEqualRuntime("<html xmlns:c='javahtml' xmlns='javahtml'><body>NEXT</body></html>", render_);
     }
 
-    @Test(timeout=1000)
+    @Test
     public void processHtml161Test() {
         String locale_ = "LOCALE";
         String folder_ = "messages";
@@ -119,7 +119,7 @@ public class FormatHtmlSwitchTest {
         assertXmlEqualRuntime("<html xmlns:c='javahtml' xmlns='javahtml'><body>NEXT</body></html>", render_);
     }
 
-    @Test(timeout=1000)
+    @Test
     public void processHtml162Test() {
         String locale_ = "LOCALE";
         String folder_ = "messages";
@@ -152,7 +152,7 @@ public class FormatHtmlSwitchTest {
         assertXmlEqualRuntime("<html xmlns:c='javahtml' xmlns='javahtml'><body>NEXT</body></html>", render_);
     }
 
-    @Test(timeout=1000)
+    @Test
     public void processHtml163Test() {
         String locale_ = "LOCALE";
         String folder_ = "messages";
@@ -185,7 +185,7 @@ public class FormatHtmlSwitchTest {
         assertXmlEqualRuntime("<html xmlns:c='javahtml' xmlns='javahtml'><body>NEXT</body></html>", render_);
     }
 
-    @Test(timeout=1000)
+    @Test
     public void processHtml164Test() {
         String locale_ = "LOCALE";
         String folder_ = "messages";
@@ -218,7 +218,7 @@ public class FormatHtmlSwitchTest {
         assertXmlEqualRuntime("<html xmlns:c='javahtml' xmlns='javahtml'><body>NEXT</body></html>", render_);
     }
 
-    @Test(timeout=1000)
+    @Test
     public void processHtml165Test() {
         String locale_ = "LOCALE";
         String folder_ = "messages";
@@ -251,7 +251,7 @@ public class FormatHtmlSwitchTest {
         assertXmlEqualRuntime("<html xmlns:c='javahtml' xmlns='javahtml'><body>NEXT</body></html>", render_);
     }
 
-    @Test(timeout=1000)
+    @Test
     public void processHtml166Test() {
         String locale_ = "LOCALE";
         String folder_ = "messages";
@@ -284,7 +284,7 @@ public class FormatHtmlSwitchTest {
         assertXmlEqualRuntime("<html xmlns:c='javahtml' xmlns='javahtml'><body>NEXT</body></html>", render_);
     }
 
-    @Test(timeout=1000)
+    @Test
     public void processHtml167Test() {
         String locale_ = "LOCALE";
         String folder_ = "messages";
@@ -317,7 +317,7 @@ public class FormatHtmlSwitchTest {
         assertXmlEqualRuntime("<html xmlns:c='javahtml' xmlns='javahtml'><body>NEXT</body></html>", render_);
     }
 
-    @Test(timeout=1000)
+    @Test
     public void processHtml168Test() {
         String locale_ = "LOCALE";
         String folder_ = "messages";
@@ -350,7 +350,7 @@ public class FormatHtmlSwitchTest {
         assertXmlEqualRuntime("<html xmlns:c='javahtml' xmlns='javahtml'><body>NEXT</body></html>", render_);
     }
 
-    @Test(timeout=1000)
+    @Test
     public void processHtml169Test() {
         String locale_ = "LOCALE";
         String folder_ = "messages";
@@ -383,7 +383,7 @@ public class FormatHtmlSwitchTest {
         assertXmlEqualRuntime("<html xmlns:c='javahtml' xmlns='javahtml'><body>NEXT</body></html>", render_);
     }
 
-    @Test(timeout=1000)
+    @Test
     public void processHtml170Test() {
         String locale_ = "LOCALE";
         String folder_ = "messages";
@@ -416,7 +416,7 @@ public class FormatHtmlSwitchTest {
         assertXmlEqualRuntime("<html xmlns:c='javahtml' xmlns='javahtml'><body>DEFAULTNEXT</body></html>", render_);
     }
 
-    @Test(timeout=1000)
+    @Test
     public void processHtml171Test() {
         String locale_ = "LOCALE";
         String folder_ = "messages";
@@ -449,7 +449,7 @@ public class FormatHtmlSwitchTest {
         assertXmlEqualRuntime("<html xmlns:c='javahtml' xmlns='javahtml'><body>DEFAULTNEXT</body></html>", render_);
     }
 
-    @Test(timeout=1000)
+    @Test
     public void processHtml172Test() {
         String locale_ = "LOCALE";
         String folder_ = "messages";
@@ -482,7 +482,7 @@ public class FormatHtmlSwitchTest {
         assertXmlEqualRuntime("<html xmlns:c='javahtml' xmlns='javahtml'><body>THREENEXT</body></html>", render_);
     }
 
-    @Test(timeout=1000)
+    @Test
     public void processHtml173Test() {
         //TODO break test
         String locale_ = "LOCALE";
@@ -516,7 +516,7 @@ public class FormatHtmlSwitchTest {
         assertXmlEqualRuntime("<html xmlns:c='javahtml' xmlns='javahtml'><body>THREEDEFAULTNEXT</body></html>", render_);
     }
 
-    @Test(timeout=1000)
+    @Test
     public void processHtml174Test() {
         String locale_ = "LOCALE";
         String folder_ = "messages";
@@ -549,7 +549,7 @@ public class FormatHtmlSwitchTest {
         assertXmlEqualRuntime("<html xmlns:c='javahtml' xmlns='javahtml'><body>THREENEXT</body></html>", render_);
     }
 
-    @Test(timeout=1000)
+    @Test
     public void processHtml175Test() {
         String locale_ = "LOCALE";
         String folder_ = "messages";
@@ -582,7 +582,7 @@ public class FormatHtmlSwitchTest {
         assertXmlEqualRuntime("<html xmlns:c='javahtml' xmlns='javahtml'><body>THREEDEFAULTNEXT</body></html>", render_);
     }
 
-    @Test(timeout=1000)
+    @Test
     public void processHtml176Test() {
         String locale_ = "LOCALE";
         String folder_ = "messages";
@@ -615,7 +615,7 @@ public class FormatHtmlSwitchTest {
         assertXmlEqualRuntime("<html xmlns:c='javahtml' xmlns='javahtml'><body>ONETHREENEXT</body></html>", render_);
     }
 
-    @Test(timeout=1000)
+    @Test
     public void processHtml177Test() {
         String locale_ = "LOCALE";
         String folder_ = "messages";
@@ -648,7 +648,7 @@ public class FormatHtmlSwitchTest {
         assertXmlEqualRuntime("<html xmlns:c='javahtml' xmlns='javahtml'><body>ONETHREEDEFAULTNEXT</body></html>", render_);
     }
 
-    @Test(timeout=1000)
+    @Test
     public void processHtml178Test() {
         String locale_ = "LOCALE";
         String folder_ = "messages";
@@ -682,7 +682,7 @@ public class FormatHtmlSwitchTest {
     }
 
 
-    @Test(timeout=1000)
+    @Test
     public void processHtml179Test() {
         String locale_ = "LOCALE";
         String folder_ = "messages";
@@ -716,7 +716,7 @@ public class FormatHtmlSwitchTest {
     }
 
 
-    @Test(timeout=1000)
+    @Test
     public void processHtml180Test() {
         String locale_ = "LOCALE";
         String folder_ = "messages";
@@ -750,7 +750,7 @@ public class FormatHtmlSwitchTest {
     }
 
 
-    @Test(timeout=1000)
+    @Test
     public void processHtml181Test() {
         String locale_ = "LOCALE";
         String folder_ = "messages";
@@ -816,7 +816,7 @@ public class FormatHtmlSwitchTest {
         assertXmlEqualRuntime("<html xmlns:c='javahtml' xmlns='javahtml'><body>ONENEXT</body></html>", render_);
     }
 
-    @Test(timeout=1000)
+    @Test
     public void processHtml183Test() {
         String locale_ = "LOCALE";
         String folder_ = "messages";

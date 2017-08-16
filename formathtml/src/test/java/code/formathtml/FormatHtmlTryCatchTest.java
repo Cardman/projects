@@ -25,7 +25,7 @@ public class FormatHtmlTryCatchTest {
     private static final String DIV_ZERO = DivideZeroException.class.getName();
     private static final String COMPOSITE = Composite.class.getName();
 
-    @Test(timeout=1000)
+    @Test
     public void processHtml132Test() {
         String locale_ = "LOCALE";
         String folder_ = "messages";
@@ -57,7 +57,7 @@ public class FormatHtmlTryCatchTest {
 //        assertXMLEqualRuntime("<html xmlns:c='javahtml' xmlns='javahtml'><body><c_tmp>ONE - <c_tmp>1;</c_tmp><br/></c_tmp><c_tmp>THREE - <c_tmp>4;</c_tmp><c_tmp>5;</c_tmp><c_tmp>6;</c_tmp><br/></c_tmp><c_tmp>TWO - <c_tmp>2;</c_tmp><c_tmp>3;</c_tmp><br/></c_tmp></body></html>", render_);
         assertXmlEqualRuntime("<html xmlns:c='javahtml' xmlns='javahtml'><body>2</body></html>", render_);
     }
-    @Test(timeout=1000)
+    @Test
     public void processHtml133Test() {
         String locale_ = "LOCALE";
         String folder_ = "messages";
@@ -89,7 +89,7 @@ public class FormatHtmlTryCatchTest {
 //        assertXMLEqualRuntime("<html xmlns:c='javahtml' xmlns='javahtml'><body><c_tmp>ONE - <c_tmp>1;</c_tmp><br/></c_tmp><c_tmp>THREE - <c_tmp>4;</c_tmp><c_tmp>5;</c_tmp><c_tmp>6;</c_tmp><br/></c_tmp><c_tmp>TWO - <c_tmp>2;</c_tmp><c_tmp>3;</c_tmp><br/></c_tmp></body></html>", render_);
         assertXmlEqualRuntime("<html xmlns:c='javahtml' xmlns='javahtml'><body>Divide Zero</body></html>", render_);
     }
-    @Test(timeout=1000)
+    @Test
     public void processHtml134Test() {
         String locale_ = "LOCALE";
         String folder_ = "messages";
@@ -121,7 +121,7 @@ public class FormatHtmlTryCatchTest {
 //        assertXMLEqualRuntime("<html xmlns:c='javahtml' xmlns='javahtml'><body><c_tmp>ONE - <c_tmp>1;</c_tmp><br/></c_tmp><c_tmp>THREE - <c_tmp>4;</c_tmp><c_tmp>5;</c_tmp><c_tmp>6;</c_tmp><br/></c_tmp><c_tmp>TWO - <c_tmp>2;</c_tmp><c_tmp>3;</c_tmp><br/></c_tmp></body></html>", render_);
         assertXmlEqualRuntime("<html xmlns:c='javahtml' xmlns='javahtml'><body><div><span>Divide Zero</span></div></body></html>", render_);
     }
-    @Test(timeout=1000)
+    @Test
     public void processHtml135Test() {
         String locale_ = "LOCALE";
         String folder_ = "messages";
@@ -153,7 +153,7 @@ public class FormatHtmlTryCatchTest {
 //        assertXMLEqualRuntime("<html xmlns:c='javahtml' xmlns='javahtml'><body><c_tmp>ONE - <c_tmp>1;</c_tmp><br/></c_tmp><c_tmp>THREE - <c_tmp>4;</c_tmp><c_tmp>5;</c_tmp><c_tmp>6;</c_tmp><br/></c_tmp><c_tmp>TWO - <c_tmp>2;</c_tmp><c_tmp>3;</c_tmp><br/></c_tmp></body></html>", render_);
         assertXmlEqualRuntime("<html xmlns:c='javahtml' xmlns='javahtml'><body>Divide Zero</body></html>", render_);
     }
-    @Test(timeout=1000)
+    @Test
     public void processHtml136Test() {
         String locale_ = "LOCALE";
         String folder_ = "messages";
@@ -186,7 +186,7 @@ public class FormatHtmlTryCatchTest {
 //        assertXMLEqualRuntime("<html xmlns:c='javahtml' xmlns='javahtml'><body><c_tmp>ONE - <c_tmp>1;</c_tmp><br/></c_tmp><c_tmp>THREE - <c_tmp>4;</c_tmp><c_tmp>5;</c_tmp><c_tmp>6;</c_tmp><br/></c_tmp><c_tmp>TWO - <c_tmp>2;</c_tmp><c_tmp>3;</c_tmp><br/></c_tmp></body></html>", render_);
         assertXmlEqualRuntime("<html xmlns:c='javahtml' xmlns='javahtml'><body>RTE</body></html>", render_);
     }
-    @Test(timeout=1000)
+    @Test
     public void processHtml137Test() {
         String locale_ = "LOCALE";
         String folder_ = "messages";
@@ -219,7 +219,7 @@ public class FormatHtmlTryCatchTest {
 //        assertXMLEqualRuntime("<html xmlns:c='javahtml' xmlns='javahtml'><body><c_tmp>ONE - <c_tmp>1;</c_tmp><br/></c_tmp><c_tmp>THREE - <c_tmp>4;</c_tmp><c_tmp>5;</c_tmp><c_tmp>6;</c_tmp><br/></c_tmp><c_tmp>TWO - <c_tmp>2;</c_tmp><c_tmp>3;</c_tmp><br/></c_tmp></body></html>", render_);
         assertXmlEqualRuntime("<html xmlns:c='javahtml' xmlns='javahtml'><body>RTERTE</body></html>", render_);
     }
-    @Test(timeout=1000)
+    @Test
     public void processHtml138Test() {
         String locale_ = "LOCALE";
         String folder_ = "messages";
@@ -251,7 +251,7 @@ public class FormatHtmlTryCatchTest {
 //        assertXMLEqualRuntime("<html xmlns:c='javahtml' xmlns='javahtml'><body><c_tmp>ONE - <c_tmp>1;</c_tmp><br/></c_tmp><c_tmp>THREE - <c_tmp>4;</c_tmp><c_tmp>5;</c_tmp><c_tmp>6;</c_tmp><br/></c_tmp><c_tmp>TWO - <c_tmp>2;</c_tmp><c_tmp>3;</c_tmp><br/></c_tmp></body></html>", render_);
         assertXmlEqualRuntime("<html xmlns:c='javahtml' xmlns='javahtml'><body>Divide Zero1</body></html>", render_);
     }
-    @Test(timeout=1000)
+    @Test
     public void processHtml139Test() {
         String locale_ = "LOCALE";
         String folder_ = "messages";
@@ -283,7 +283,7 @@ public class FormatHtmlTryCatchTest {
 //        assertXMLEqualRuntime("<html xmlns:c='javahtml' xmlns='javahtml'><body><c_tmp>ONE - <c_tmp>1;</c_tmp><br/></c_tmp><c_tmp>THREE - <c_tmp>4;</c_tmp><c_tmp>5;</c_tmp><c_tmp>6;</c_tmp><br/></c_tmp><c_tmp>TWO - <c_tmp>2;</c_tmp><c_tmp>3;</c_tmp><br/></c_tmp></body></html>", render_);
         assertXmlEqualRuntime("<html xmlns:c='javahtml' xmlns='javahtml'><body>Divide Zero</body></html>", render_);
     }
-    @Test(timeout=1000)
+    @Test
     public void processHtml140Test() {
         String locale_ = "LOCALE";
         String folder_ = "messages";
@@ -315,7 +315,7 @@ public class FormatHtmlTryCatchTest {
 //        assertXMLEqualRuntime("<html xmlns:c='javahtml' xmlns='javahtml'><body><c_tmp>ONE - <c_tmp>1;</c_tmp><br/></c_tmp><c_tmp>THREE - <c_tmp>4;</c_tmp><c_tmp>5;</c_tmp><c_tmp>6;</c_tmp><br/></c_tmp><c_tmp>TWO - <c_tmp>2;</c_tmp><c_tmp>3;</c_tmp><br/></c_tmp></body></html>", render_);
         assertXmlEqualRuntime("<html xmlns:c='javahtml' xmlns='javahtml'><body>Divide Zero0Divide Zero1</body></html>", render_);
     }
-    @Test(timeout=1000)
+    @Test
     public void processHtml141Test() {
         String locale_ = "LOCALE";
         String folder_ = "messages";
@@ -347,7 +347,7 @@ public class FormatHtmlTryCatchTest {
 //        assertXMLEqualRuntime("<html xmlns:c='javahtml' xmlns='javahtml'><body><c_tmp>ONE - <c_tmp>1;</c_tmp><br/></c_tmp><c_tmp>THREE - <c_tmp>4;</c_tmp><c_tmp>5;</c_tmp><c_tmp>6;</c_tmp><br/></c_tmp><c_tmp>TWO - <c_tmp>2;</c_tmp><c_tmp>3;</c_tmp><br/></c_tmp></body></html>", render_);
         assertXmlEqualRuntime("<html xmlns:c='javahtml' xmlns='javahtml'><body>Divide Zero0Divide Zero1</body></html>", render_);
     }
-    @Test(timeout=1000)
+    @Test
     public void processHtml142Test() {
         String locale_ = "LOCALE";
         String folder_ = "messages";
@@ -379,7 +379,7 @@ public class FormatHtmlTryCatchTest {
 //        assertXMLEqualRuntime("<html xmlns:c='javahtml' xmlns='javahtml'><body><c_tmp>ONE - <c_tmp>1;</c_tmp><br/></c_tmp><c_tmp>THREE - <c_tmp>4;</c_tmp><c_tmp>5;</c_tmp><c_tmp>6;</c_tmp><br/></c_tmp><c_tmp>TWO - <c_tmp>2;</c_tmp><c_tmp>3;</c_tmp><br/></c_tmp></body></html>", render_);
         assertXmlEqualRuntime("<html xmlns:c='javahtml' xmlns='javahtml'><body>Divide Zero0Divide Zero1</body></html>", render_);
     }
-    @Test(timeout=1000)
+    @Test
     public void processHtml143Test() {
         String locale_ = "LOCALE";
         String folder_ = "messages";
@@ -415,7 +415,7 @@ public class FormatHtmlTryCatchTest {
         String render_ = FormatHtml.processImports(html_, conf_, locale_, files_);
         assertXmlEqualRuntime("<html xmlns:c='javahtml' xmlns='javahtml'><body>RTE</body></html>", render_);
     }
-    @Test(timeout=1000)
+    @Test
     public void processHtml144Test() {
         String locale_ = "LOCALE";
         String folder_ = "messages";
@@ -451,7 +451,7 @@ public class FormatHtmlTryCatchTest {
         String render_ = FormatHtml.processImports(html_, conf_, locale_, files_);
         assertXmlEqualRuntime("<html xmlns:c='javahtml' xmlns='javahtml'><body>RTE</body></html>", render_);
     }
-    @Test(timeout=1000)
+    @Test
     public void processHtml145Test() {
         String locale_ = "LOCALE";
         String folder_ = "messages";
@@ -487,7 +487,7 @@ public class FormatHtmlTryCatchTest {
         String render_ = FormatHtml.processImports(html_, conf_, locale_, files_);
         assertXmlEqualRuntime("<html xmlns:c='javahtml' xmlns='javahtml'><body>Divide Zero</body></html>", render_);
     }
-    @Test(timeout=1000)
+    @Test
     public void processHtml146Test() {
         String locale_ = "LOCALE";
         String folder_ = "messages";
@@ -523,7 +523,7 @@ public class FormatHtmlTryCatchTest {
         String render_ = FormatHtml.processImports(html_, conf_, locale_, files_);
         assertXmlEqualRuntime("<html xmlns:c='javahtml' xmlns='javahtml'><body>NPE</body></html>", render_);
     }
-    @Test(timeout=1000)
+    @Test
     public void processHtml147Test() {
         String locale_ = "LOCALE";
         String folder_ = "messages";
@@ -559,7 +559,7 @@ public class FormatHtmlTryCatchTest {
         String render_ = FormatHtml.processImports(html_, conf_, locale_, files_);
         assertXmlEqualRuntime("<html xmlns:c='javahtml' xmlns='javahtml'><body>RTE</body></html>", render_);
     }
-    @Test(timeout=1000)
+    @Test
     public void processHtml148Test() {
         String locale_ = "LOCALE";
         String folder_ = "messages";
@@ -595,7 +595,7 @@ public class FormatHtmlTryCatchTest {
         String render_ = FormatHtml.processImports(html_, conf_, locale_, files_);
         assertXmlEqualRuntime("<html xmlns:c='javahtml' xmlns='javahtml'><body/></html>", render_);
     }
-    @Test(timeout=1000)
+    @Test
     public void processHtml149Test() {
         String locale_ = "LOCALE";
         String folder_ = "messages";
@@ -631,7 +631,7 @@ public class FormatHtmlTryCatchTest {
         String render_ = FormatHtml.processImports(html_, conf_, locale_, files_);
         assertXmlEqualRuntime("<html xmlns:c='javahtml' xmlns='javahtml'><body>java.lang.ClassCastException</body></html>", render_);
     }
-    @Test(timeout=1000)
+    @Test
     public void processHtml150Test() {
         String locale_ = "LOCALE";
         String folder_ = "messages";
@@ -664,7 +664,7 @@ public class FormatHtmlTryCatchTest {
         assertXmlEqualRuntime("<html xmlns:c='javahtml' xmlns='javahtml'><body>Divide Zero0_2Divide Zero0_3Divide Zero1_2Divide Zero1_3</body></html>", render_);
     }
 
-    @Test(timeout=1000)
+    @Test
     public void processHtml152Test() {
         String locale_ = "LOCALE";
         String folder_ = "messages";
@@ -697,7 +697,7 @@ public class FormatHtmlTryCatchTest {
         assertXmlEqualRuntime("<html xmlns:c='javahtml' xmlns='javahtml'><body>1_1;3_0;</body></html>", render_);        
     }
 
-    @Test(timeout=1000)
+    @Test
     public void processHtml153Test() {
         String locale_ = "LOCALE";
         String folder_ = "messages";
@@ -731,7 +731,7 @@ public class FormatHtmlTryCatchTest {
     }
 
 
-    @Test(timeout=1000)
+    @Test
     public void processHtml154Test() {
         String locale_ = "LOCALE";
         String folder_ = "messages";
@@ -764,7 +764,7 @@ public class FormatHtmlTryCatchTest {
         assertXmlEqualRuntime("<html xmlns:c='javahtml' xmlns='javahtml'><body>1_1;3_0;"+DIV_ZERO+"</body></html>", render_);        
     }
 
-    @Test(timeout=1000)
+    @Test
     public void processHtml155Test() {
         String locale_ = "LOCALE";
         String folder_ = "messages";

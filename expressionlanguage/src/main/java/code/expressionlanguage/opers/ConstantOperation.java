@@ -485,6 +485,11 @@ public final class ConstantOperation extends OperationNode implements SettableEl
                 if (previous_.isNull()) {
                     throw new NullObjectException(_conf.joinPages());
                 }
+                String argClassName_ = previous_.getObjectClassName();
+                String classNameFound_ = fieldId.getClassName();
+                if (!PrimitiveTypeUtil.canBeUseAsArgument(classNameFound_, argClassName_, classes_)) {
+                    throw new DynamicCastClassException(argClassName_+RETURN_LINE+classNameFound_+RETURN_LINE+_conf.joinPages());
+                }
                 Struct structField_ = previous_.getStruct().getStruct(fieldId, field);
                 left_.setStruct(structField_);
                 res_ = NumericOperation.calculateAffect(left_, _conf, right_, _op);

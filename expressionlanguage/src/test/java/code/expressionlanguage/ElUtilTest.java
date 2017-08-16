@@ -1646,7 +1646,7 @@ public class ElUtilTest {
         assertEq(15,(Number) res_);
     }
 
-    @Test(timeout=1000, expected=AmbiguousChoiceCallingException.class)
+    @Test(expected=AmbiguousChoiceCallingException.class)
     public void processEl1FailTest() {
         ContextEl context_ = new ContextEl();
         setupAccessValue(context_);
@@ -1656,7 +1656,7 @@ public class ElUtilTest {
         ElUtil.processEl("getOverridenOne(null)",0, context_);
     }
 
-    @Test(timeout=1000, expected=RuntimeClassNotFoundException.class)
+    @Test(expected=RuntimeClassNotFoundException.class)
     public void processEl2FailTest() {
         ContextEl context_ = new ContextEl();
         setupAccessValue(context_);
@@ -1666,7 +1666,7 @@ public class ElUtilTest {
         ElUtil.processEl("^class(\"Object\",null)",0, context_);
     }
 
-    @Test(timeout=1000, expected=AmbiguousChoiceCallingException.class)
+    @Test(expected=AmbiguousChoiceCallingException.class)
     public void processEl3FailTest() {
         ContextEl context_ = new ContextEl();
         setupAccessValue(context_);

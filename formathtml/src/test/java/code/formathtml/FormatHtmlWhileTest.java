@@ -24,7 +24,7 @@ public class FormatHtmlWhileTest {
 
     private static final String PICKABLE_LIST = PickableList.class.getName();
 
-    @Test(timeout=1000)
+    @Test
     public void processHtml212Test() {
         String locale_ = "LOCALE";
         String folder_ = "messages";
@@ -61,7 +61,7 @@ public class FormatHtmlWhileTest {
         assertXmlEqualRuntime("<html xmlns:c='javahtml' xmlns='javahtml'><body>AFTER WHILE</body></html>", render_);
     }
 
-    @Test(timeout=1000)
+    @Test
     public void processHtml213Test() {
         String locale_ = "LOCALE";
         String folder_ = "messages";
@@ -101,7 +101,7 @@ public class FormatHtmlWhileTest {
         assertXmlEqualRuntime("<html xmlns:c='javahtml' xmlns='javahtml'><body>20AFTER WHILE</body></html>", render_);
     }
 
-    @Test(timeout=1000)
+    @Test
     public void processHtml214Test() {
         String locale_ = "LOCALE";
         String folder_ = "messages";
@@ -141,7 +141,7 @@ public class FormatHtmlWhileTest {
         assertXmlEqualRuntime("<html xmlns:c='javahtml' xmlns='javahtml'><body>2AFTER WHILE</body></html>", render_);
     }
 
-    @Test(timeout=1000)
+    @Test
     public void processHtml215Test() {
         String locale_ = "LOCALE";
         String folder_ = "messages";
@@ -187,7 +187,7 @@ public class FormatHtmlWhileTest {
         assertXmlEqualRuntime("<html xmlns:c='javahtml' xmlns='javahtml'><body>2 0 0 0 2 1 0 1 AFTER WHILE</body></html>", render_);
     }
 
-    @Test(timeout=1000)
+    @Test
     public void processHtml216Test() {
         String locale_ = "LOCALE";
         String folder_ = "messages";

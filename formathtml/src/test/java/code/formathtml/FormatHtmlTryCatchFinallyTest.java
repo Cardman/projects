@@ -255,7 +255,7 @@ public class FormatHtmlTryCatchFinallyTest {
     }
 
 //    @Ignore
-    @Test(timeout=1000)
+    @Test
     public void processHtml196Test() {
         String locale_ = "LOCALE";
         String folder_ = "messages";
@@ -289,7 +289,7 @@ public class FormatHtmlTryCatchFinallyTest {
         assertXmlEqualRuntime("<html xmlns:c='javahtml' xmlns='javahtml'><body>END BLOCKjava.io.IOExceptionOUTER</body></html>", render_);
     }
 
-    @Test(timeout=1000)
+    @Test
     public void processHtml197Test() {
         String locale_ = "LOCALE";
         String folder_ = "messages";
@@ -488,7 +488,7 @@ public class FormatHtmlTryCatchFinallyTest {
         assertXmlEqualRuntime("<html xmlns:c='javahtml' xmlns='javahtml'><body>Divide ZeroEND BLOCKDISPLAYED</body></html>", render_);
     }
 
-    @Test(timeout=1000)
+    @Test
     public void processHtml203Test() {
         String locale_ = "LOCALE";
         String folder_ = "messages";
@@ -523,7 +523,7 @@ public class FormatHtmlTryCatchFinallyTest {
     }
 
 
-    @Test(timeout=1000)
+    @Test
     public void processHtml204Test() {
         String locale_ = "LOCALE";
         String folder_ = "messages";
@@ -557,7 +557,7 @@ public class FormatHtmlTryCatchFinallyTest {
         assertXmlEqualRuntime("<html xmlns:c='javahtml' xmlns='javahtml'><body>"+DIV_ZERO+"OUTER</body></html>", render_);
     }
 
-    @Test(timeout=1000)
+    @Test
     public void processHtml205Test() {
         String locale_ = "LOCALE";
         String folder_ = "messages";
@@ -592,7 +592,7 @@ public class FormatHtmlTryCatchFinallyTest {
         assertXmlEqualRuntime("<html xmlns:c='javahtml' xmlns='javahtml'><body>code.expressionlanguage.exceptions.DynamicCastClassExceptionOUTER</body></html>", render_);
     }
 
-    @Test(timeout=1000)
+    @Test
     public void processHtml206Test() {
         String locale_ = "LOCALE";
         String folder_ = "messages";
@@ -627,7 +627,7 @@ public class FormatHtmlTryCatchFinallyTest {
         assertXmlEqualRuntime("<html xmlns:c='javahtml' xmlns='javahtml'><body>code.expressionlanguage.exceptions.DynamicCastClassExceptionOUTER</body></html>", render_);
     }
 
-    @Test(timeout=1000)
+    @Test
     public void processHtml207Test() {
         String locale_ = "LOCALE";
         String folder_ = "messages";
