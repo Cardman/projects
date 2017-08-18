@@ -1605,6 +1605,17 @@ public class ElUtilTest {
 
     @Test
     public void processEl104Test() {
+        ContextEl context_ = new ContextEl();
+        setupAccessValue(context_);
+        addImportingPage(context_);
+        addBeanClass(context_, InternsClasses.class);
+        Argument arg_ = ElUtil.processEl("^new.InternStaticStandard()",0, context_);
+        Object res_ = arg_.getObject();
+        assertSame(InternStaticStandard.class, res_.getClass());
+    }
+
+    @Test
+    public void processEl105Test() {
         String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg'>\n";
         xml_ += "<method access='"+PUBLIC_ACCESS+"' modifier='static' name='exmeth' class='"+PrimitiveTypeUtil.PRIM_INT+"'>\n";
         xml_ += "<declare var='t' class='"+PrimitiveTypeUtil.PRIM_LONG+"'/>\n";
@@ -1626,7 +1637,7 @@ public class ElUtilTest {
 
 
     @Test
-    public void processEl105Test() {
+    public void processEl106Test() {
         String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg'>\n";
         xml_ += "<method access='"+PUBLIC_ACCESS+"' modifier='static' name='exmeth' class='"+PrimitiveTypeUtil.PRIM_INT+"' class0='"+PrimitiveTypeUtil.PRIM_INT+"' var0='e'>\n";
         xml_ += "<declare var='t' class='"+PrimitiveTypeUtil.PRIM_LONG+"'/>\n";
@@ -1644,6 +1655,26 @@ public class ElUtilTest {
         Object res_ = arg_.getObject();
         assertSame(Integer.class, res_.getClass());
         assertEq(15,(Number) res_);
+    }
+
+    @Test
+    public void processEl107Test() {
+        String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg'>\n";
+        xml_ += "<method access='"+PUBLIC_ACCESS+"' modifier='static' name='exmeth' class='"+PrimitiveTypeUtil.PRIM_INT+"' class0='"+PrimitiveTypeUtil.PRIM_INT+"' var0='e'>\n";
+        xml_ += "<declare var='t' class='"+PrimitiveTypeUtil.PRIM_LONG+"'/>\n";
+        xml_ += "<affect left='t;.' oper='=' right='8'/>\n";
+        xml_ += "<return expression='1i+^class(&quot;"+PrimitiveTypeUtil.PRIM_INT+"&quot;,t;.)+e;.;'/>\n";
+        xml_ += "</method>\n";
+        xml_ += "</class>\n";
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = new ContextEl();
+        files_.put("pkg/Ex."+Classes.EXT, xml_);
+        Classes.validateAll(files_, cont_);
+        setupAccessValue(cont_);
+        addImportingPage(cont_);
+        Argument arg_ = ElUtil.processEl("^new.pkg.Ex()", 0, cont_);
+        Struct res_ = arg_.getStruct();
+        assertEq("pkg.Ex",res_.getClassName());
     }
 
     @Test(expected=AmbiguousChoiceCallingException.class)

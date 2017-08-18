@@ -164,8 +164,9 @@ public final class InstanceOperation extends InvokingOperation {
         }
         CustList<ClassArgumentMatching> firstArgs_ = listClasses(chidren_);
         realClassName_ = realClassName_.replace(EXTERN_CLASS, DOT_VAR);
+        boolean intern_ = true;
         if (isFirstChild() || !(getParent() instanceof DotOperation)) {
-            boolean intern_ = false;
+            intern_ = false;
             if (StringList.isWord(realClassName_)) {
                 setNeedPrevious(true);
                 setResetablePreviousArg(true);
@@ -177,60 +178,15 @@ public final class InstanceOperation extends InvokingOperation {
                 for (Class<?> c:arg_.getDeclaredClasses()) {
                     if (StringList.quickEq(c.getSimpleName(), realClassName_)) {
                         intern_ = true;
-                        firstArgs_.add(CustList.FIRST_INDEX, arg_);
+                        if (!Modifier.isStatic(c.getModifiers())) {
+                            firstArgs_.add(CustList.FIRST_INDEX, arg_);
+                        }
                         realClassName_ = arg_.getName()+INTERN_CLASS+realClassName_;
                         break;
                     }
                 }
             }
-            constId = getDeclaredCustConstructor(_conf, new ClassArgumentMatching(realClassName_), ClassArgumentMatching.toArgArray(firstArgs_));
-            if (constId != null) {
-                ClassMetaInfo custClass_ = null;
-                custClass_ = classes_.getClassMetaInfo(realClassName_);
-                String glClass_ = _conf.getLastPage().getGlobalClass();
-                if (!classes_.canAccessClass(glClass_, realClassName_)) {
-                    throw new BadAccessException(realClassName_+RETURN_LINE+_conf.joinPages());
-                }
-                if (!classes_.canAccessConstructor(glClass_, realClassName_, constId)) {
-                    ConstructorBlock ctr_ = classes_.getConstructorBody(realClassName_, constId);
-                    throw new BadAccessException(ctr_.getId().getSignature()+RETURN_LINE+_conf.joinPages());
-                }
-                if (custClass_.getCategory() == ClassCategory.ENUM) {
-                    if (!_enumContext) {
-                        throw new IllegalClassConstructorException(realClassName_+RETURN_LINE+_conf.joinPages());
-                    }
-                }
-                possibleInitClass = true;
-                setResultClass(new ClassArgumentMatching(realClassName_));
-                return;
-            }
-            Class<?> cl_;
-            try {
-                if (StringList.quickEq(realClassName_, OperationNode.VOID_RETURN)) {
-                    throw new VoidArgumentException(_conf.joinPages());
-                }
-                realClassName_ = PrimitiveTypeUtil.getArrayClass(realClassName_);
-                cl_ = ConstClasses.classForNameNotInit(realClassName_);
-                if (cl_.isPrimitive()) {
-                    throw new PrimitiveTypeException(realClassName_+RETURN_LINE+_conf.joinPages());
-                }
-            } catch (RuntimeClassNotFoundException _0_) {
-                throw new RuntimeClassNotFoundException(realClassName_+RETURN_LINE+_conf.joinPages());
-            }
-            if (cl_.isEnum()) {
-                throw new IllegalClassConstructorException(realClassName_+RETURN_LINE+_conf.joinPages());
-            }
-            if (isStaticAccess() && !Modifier.isStatic(cl_.getModifiers()) && intern_) {
-                throw new StaticAccessException(_conf.joinPages());
-            }
-            Constructor<?> const_ = getDeclaredConstructor(_conf, 0, new ClassArgumentMatching(realClassName_), ClassArgumentMatching.toArgArray(firstArgs_));
-            if (!canBeUsed(const_, _conf)) {
-                throw new BadAccessException(const_+RETURN_LINE+_conf.joinPages());
-            }
-
-            contructor = const_;
-            setAccess(contructor, _conf);
-            setResultClass(new ClassArgumentMatching(realClassName_));
+            analyzeCtor(_nodes, _conf, _enumContext, _op, realClassName_, firstArgs_, intern_);
             return;
         }
         setNeedPrevious(true);
@@ -241,7 +197,13 @@ public final class InstanceOperation extends InvokingOperation {
         }
         firstArgs_.add(CustList.FIRST_INDEX, arg_);
         realClassName_ = arg_.getName()+INTERN_CLASS+realClassName_;
-        constId = getDeclaredCustConstructor(_conf, new ClassArgumentMatching(realClassName_), ClassArgumentMatching.toArgArray(firstArgs_));
+        analyzeCtor(_nodes, _conf, _enumContext, _op, realClassName_, firstArgs_, intern_);
+    }
+
+    void analyzeCtor(CustList<OperationNode> _nodes, ContextEl _conf, boolean _enumContext, String _op, String _realClassName, CustList<ClassArgumentMatching> _firstArgs, boolean _intern) {
+        Classes classes_ = _conf.getClasses();
+        String realClassName_ = _realClassName;
+        constId = getDeclaredCustConstructor(_conf, new ClassArgumentMatching(realClassName_), ClassArgumentMatching.toArgArray(_firstArgs));
         if (constId != null) {
             ClassMetaInfo custClass_ = null;
             custClass_ = classes_.getClassMetaInfo(realClassName_);
@@ -276,12 +238,12 @@ public final class InstanceOperation extends InvokingOperation {
             throw new RuntimeClassNotFoundException(realClassName_+RETURN_LINE+_conf.joinPages());
         }
         if (cl_.isEnum()) {
-            throw new IllegalClassConstructorException(cl_.getName()+RETURN_LINE+_conf.joinPages());
+            throw new IllegalClassConstructorException(realClassName_+RETURN_LINE+_conf.joinPages());
         }
-        if (isStaticAccess() && !Modifier.isStatic(cl_.getModifiers())) {
+        if (_intern && isStaticAccess() && !Modifier.isStatic(cl_.getModifiers())) {
             throw new StaticAccessException(_conf.joinPages());
         }
-        Constructor<?> const_ = getDeclaredConstructor(_conf, 0, new ClassArgumentMatching(realClassName_), ClassArgumentMatching.toArgArray(firstArgs_));
+        Constructor<?> const_ = getDeclaredConstructor(_conf, 0, new ClassArgumentMatching(realClassName_), ClassArgumentMatching.toArgArray(_firstArgs));
         if (!canBeUsed(const_, _conf)) {
             throw new BadAccessException(const_+RETURN_LINE+_conf.joinPages());
         }
@@ -304,182 +266,11 @@ public final class InstanceOperation extends InvokingOperation {
             IdMap<OperationNode, ArgumentsPair> _nodes, ContextEl _conf,
             String _op) {
         CustList<OperationNode> chidren_ = getChildrenNodes();
-        int off_ = StringList.getFirstPrintableCharIndex(methodName);
-        setRelativeOffsetPossibleLastPage(getIndexInEl()+off_, _conf);
-        String className_ = methodName.trim().substring(INSTANCE.length()+2);
-        className_ = StringList.removeAllSpaces(className_);
-        boolean elts_ = false;
-        String realClassName_;
-        String instanceClassName_;
-        if (className_.endsWith(ARR_DYN)) {
-            elts_ = true;
-            int len_ = className_.length();
-            realClassName_ = className_.substring(0, len_-ARR_DYN.length());
-        } else {
-            realClassName_ = className_;
+        CustList<Argument> arguments_ = new CustList<Argument>();
+        for (OperationNode o: chidren_) {
+            arguments_.add(_nodes.getVal(o).getArgument());
         }
-        if (realClassName_.startsWith(ARR) && realClassName_.contains(DOT)) {
-            int[] args_;
-            if (elts_) {
-                args_ = new int[CustList.ONE_ELEMENT];
-                args_[CustList.FIRST_INDEX] = chidren_.size();
-            } else {
-                args_ = new int[chidren_.size()];
-                int i_ = CustList.FIRST_INDEX;
-                for (OperationNode o: chidren_) {
-                    Number n_ = (Number)_nodes.getVal(o).getArgument().getObject();
-                    setRelativeOffsetPossibleLastPage(o.getIndexInEl()+off_, _conf);
-                    if (n_ == null) {
-                        throw new NullObjectException(i_+RETURN_LINE+_conf.joinPages());
-                    }
-                    int dim_ = n_.intValue();
-                    if (dim_ < 0) {
-                        throw new NegativeSizeException(String.valueOf(dim_)+RETURN_LINE+i_+RETURN_LINE+_conf.joinPages());
-                    }
-                    args_[i_] = dim_;
-                    i_++;
-                }
-            }
-            realClassName_ = realClassName_.substring(ARR.length());
-            realClassName_ = realClassName_.replace(EXTERN_CLASS, DOT_VAR);
-            boolean cust_ = false;
-            Classes classes_ = _conf.getClasses();
-            ClassMetaInfo custClass_ = null;
-            instanceClassName_ = realClassName_;
-            if (classes_ != null) {
-                DimComp clCurName_ = PrimitiveTypeUtil.getQuickComponentBaseType(realClassName_);
-                custClass_ = classes_.getClassMetaInfo(clCurName_.getComponent());
-                if (custClass_ != null) {
-                    cust_ = true;
-                    int dim_ = clCurName_.getDim();
-                    instanceClassName_ = PrimitiveTypeUtil.getPrettyArrayType(Struct.class.getName(), dim_);
-                }
-            }
-            Argument a_ = new Argument();
-            if (elts_) {
-                Object o_ = newClassicArray(_conf, instanceClassName_, realClassName_, args_);
-                int i_ = CustList.FIRST_INDEX;
-                for (OperationNode o: chidren_) {
-                    Argument chArg_ = _nodes.getVal(o).getArgument();
-                    Struct str_ = chArg_.getStruct();
-                    if (cust_) {
-                        Array.set(o_, i_, str_);
-                    } else {
-                        Array.set(o_, i_, str_.getInstance());
-                    }
-                    i_++;
-                }
-                String clArr_ = PrimitiveTypeUtil.getPrettyArrayType(realClassName_, args_.length);
-                a_.setStruct(new Struct(o_,clArr_));
-                setSimpleArgument(a_, _conf, _nodes);
-                return a_;
-            } else if (cust_) {
-                Numbers<Integer> dims_;
-                dims_ = new Numbers<Integer>();
-                for (int d: args_) {
-                    dims_.add(d);
-                }
-                a_.setStruct(PrimitiveTypeUtil.newCustomArray(realClassName_, dims_));
-                setSimpleArgument(a_, _conf, _nodes);
-                return a_;
-            } else {
-                Object o_ = newClassicArray(_conf, instanceClassName_, realClassName_, args_);
-                String clArr_ = PrimitiveTypeUtil.getPrettyArrayType(realClassName_, args_.length);
-                a_.setStruct(new Struct(o_,clArr_));
-                setSimpleArgument(a_, _conf, _nodes);
-                return a_;
-            }
-        }
-        if (realClassName_.startsWith(ARR)) {
-            int[] args_ = new int[chidren_.size()];
-            if (elts_) {
-                args_ = new int[CustList.ONE_ELEMENT];
-                args_[CustList.FIRST_INDEX] = chidren_.size();
-            } else {
-                args_ = new int[chidren_.size()];
-                int i_ = CustList.FIRST_INDEX;
-                for (OperationNode o: chidren_) {
-                    Number n_ = (Number)_nodes.getVal(o).getArgument().getObject();
-                    setRelativeOffsetPossibleLastPage(o.getIndexInEl()+off_, _conf);
-                    if (n_ == null) {
-                        throw new NullObjectException(i_+RETURN_LINE+_conf.joinPages());
-                    }
-                    int dim_ = n_.intValue();
-                    if (dim_ < 0) {
-                        throw new NegativeSizeException(String.valueOf(dim_)+RETURN_LINE+i_+RETURN_LINE+_conf.joinPages());
-                    }
-                    args_[i_] = dim_;
-                    i_++;
-                }
-            }
-            realClassName_ = realClassName_.substring(ARR.length());
-            realClassName_ = realClassName_.replace(EXTERN_CLASS, DOT_VAR);
-            instanceClassName_ = realClassName_;
-            Class<?> cl_;
-            try {
-                if (instanceClassName_.startsWith(PrimitiveTypeUtil.PRIM)) {
-                    cl_ = ConstClasses.getPrimitiveClass(instanceClassName_.substring(1));
-                } else {
-                    cl_ = ConstClasses.classForNameNotInit(PrimitiveTypeUtil.getArrayClass(instanceClassName_));
-                }
-            } catch (RuntimeClassNotFoundException _0_) {
-                throw new RuntimeClassNotFoundException(realClassName_+RETURN_LINE+_conf.joinPages());
-            }
-            Object o_ = Array.newInstance(cl_, args_);
-            Argument a_ = new Argument();
-            if (elts_) {
-                int i_ = CustList.FIRST_INDEX;
-                for (OperationNode o: chidren_) {
-                    Argument chArg_ = _nodes.getVal(o).getArgument();
-                    Struct str_ = chArg_.getStruct();
-                    Array.set(o_, i_, str_.getInstance());
-                    i_++;
-                }
-            }
-            a_.setStruct(new Struct(o_,PrimitiveTypeUtil.getPrettyArrayType(realClassName_, args_.length)));
-            setSimpleArgument(a_, _conf, _nodes);
-            return a_;
-        }
-        if (possibleInitClass) {
-            if (!_conf.getClasses().isInitialized(realClassName_)) {
-                _conf.getClasses().initialize(realClassName_);
-                throw new NotInitializedClassException(realClassName_);
-            }
-        }
-        CustList<Argument> firstArgs_ = listArguments(chidren_, _nodes, true);
-        if (isFirstChild() || !(getParent() instanceof DotOperation)) {
-            Argument needed_ = null;
-            if (StringList.isWord(realClassName_)) {
-                for (Class<?> c:getPreviousResultClass().getDeclaredClasses()) {
-                    if (StringList.quickEq(c.getSimpleName(), realClassName_)) {
-                        Argument arg_ = _nodes.getVal(this).getPreviousArgument();
-                        if (arg_.isNull()) {
-                            throw new NullObjectException(realClassName_+RETURN_LINE+_conf.joinPages());
-                        }
-                        needed_ = arg_;
-                        firstArgs_.add(CustList.FIRST_INDEX, arg_);
-                        break;
-                    }
-                }
-            }
-            if (constId != null) {
-                StringList called_ = _conf.getLastPage().getCallingConstr().getCalledConstructors();
-                throw new CustomFoundConstructorException(realClassName_, called_, constId, needed_, firstArgs_, InstancingStep.NEWING);
-            }
-            Argument a_ = newInstance(_conf, needed_, 0, contructor, Argument.toArgArray(firstArgs_));
-            setSimpleArgument(a_, _conf, _nodes);
-            return a_;
-        }
-        Argument arg_ = _nodes.getVal(this).getPreviousArgument();
-        if (arg_.isNull()) {
-            throw new NullObjectException(realClassName_+RETURN_LINE+_conf.joinPages());
-        }
-        firstArgs_.add(CustList.FIRST_INDEX, arg_);
-        if (constId != null) {
-            StringList called_ = _conf.getLastPage().getCallingConstr().getCalledConstructors();
-            throw new CustomFoundConstructorException(realClassName_, called_, constId, arg_, firstArgs_, InstancingStep.NEWING);
-        }
-        Argument a_ = newInstance(_conf, arg_, 0, contructor, Argument.toArgArray(firstArgs_));
+        Argument a_ = getArgument(getPreviousArgument(), arguments_, false, _conf, _op);
         setSimpleArgument(a_, _conf, _nodes);
         return a_;
     }
@@ -504,6 +295,18 @@ public final class InstanceOperation extends InvokingOperation {
 
     void calculateCommon(CustList<OperationNode> _nodes, ContextEl _conf, String _op) {
         CustList<OperationNode> chidren_ = getChildrenNodes();
+        CustList<Argument> arguments_ = new CustList<Argument>();
+        for (OperationNode o: chidren_) {
+            arguments_.add(o.getArgument());
+        }
+        Argument a_ = getArgument(getPreviousArgument(), arguments_, true, _conf, _op);
+        setSimpleArgument(a_, _conf);
+    }
+
+    Argument getArgument(Argument _previous,CustList<Argument> _arguments,
+            boolean _processInit, ContextEl _conf, String _op) {
+        CustList<OperationNode> chidren_ = getChildrenNodes();
+        int nbCh_ = chidren_.size();
         int off_ = StringList.getFirstPrintableCharIndex(methodName);
         setRelativeOffsetPossibleLastPage(getIndexInEl()+off_, _conf);
         String className_ = methodName.trim().substring(INSTANCE.length()+2);
@@ -527,7 +330,7 @@ public final class InstanceOperation extends InvokingOperation {
                 args_ = new int[chidren_.size()];
                 int i_ = CustList.FIRST_INDEX;
                 for (OperationNode o: chidren_) {
-                    Number n_ = (Number)o.getArgument().getObject();
+                    Number n_ = (Number)_arguments.get(i_).getObject();
                     setRelativeOffsetPossibleLastPage(o.getIndexInEl()+off_, _conf);
                     if (n_ == null) {
                         throw new NullObjectException(i_+RETURN_LINE+_conf.joinPages());
@@ -558,21 +361,18 @@ public final class InstanceOperation extends InvokingOperation {
             Argument a_ = new Argument();
             if (elts_) {
                 Object o_ = newClassicArray(_conf, instanceClassName_, realClassName_, args_);
-                String type_ = PrimitiveTypeUtil.getPrettyArrayType(realClassName_, args_.length);
-                int i_ = CustList.FIRST_INDEX;
-                for (OperationNode o: chidren_) {
-                    Argument chArg_ = o.getArgument();
+                for (int i = CustList.FIRST_INDEX; i < nbCh_; i++) {
+                    Argument chArg_ = _arguments.get(i);
                     Struct str_ = chArg_.getStruct();
                     if (cust_) {
-                        Array.set(o_, i_, str_);
+                        Array.set(o_, i, str_);
                     } else {
-                        Array.set(o_, i_, str_.getInstance());
+                        Array.set(o_, i, str_.getInstance());
                     }
-                    i_++;
                 }
-                a_.setStruct(new Struct(o_,type_));
-                setSimpleArgument(a_, _conf);
-                return;
+                String clArr_ = PrimitiveTypeUtil.getPrettyArrayType(realClassName_, args_.length);
+                a_.setStruct(new Struct(o_,clArr_));
+                return a_;
             } else if (cust_) {
                 Numbers<Integer> dims_;
                 dims_ = new Numbers<Integer>();
@@ -580,18 +380,16 @@ public final class InstanceOperation extends InvokingOperation {
                     dims_.add(d);
                 }
                 a_.setStruct(PrimitiveTypeUtil.newCustomArray(realClassName_, dims_));
-                setSimpleArgument(a_, _conf);
-                return;
+                return a_;
             } else {
                 Object o_ = newClassicArray(_conf, instanceClassName_, realClassName_, args_);
-                String type_ = PrimitiveTypeUtil.getPrettyArrayType(realClassName_, args_.length);
-                a_.setStruct(new Struct(o_,type_));
-                setSimpleArgument(a_, _conf);
-                return;
+                String clArr_ = PrimitiveTypeUtil.getPrettyArrayType(realClassName_, args_.length);
+                a_.setStruct(new Struct(o_,clArr_));
+                return a_;
             }
         }
         if (realClassName_.startsWith(ARR)) {
-            int[] args_;
+            int[] args_ = new int[chidren_.size()];
             if (elts_) {
                 args_ = new int[CustList.ONE_ELEMENT];
                 args_[CustList.FIRST_INDEX] = chidren_.size();
@@ -599,7 +397,7 @@ public final class InstanceOperation extends InvokingOperation {
                 args_ = new int[chidren_.size()];
                 int i_ = CustList.FIRST_INDEX;
                 for (OperationNode o: chidren_) {
-                    Number n_ = (Number)o.getArgument().getObject();
+                    Number n_ = (Number)_arguments.get(i_).getObject();
                     setRelativeOffsetPossibleLastPage(o.getIndexInEl()+off_, _conf);
                     if (n_ == null) {
                         throw new NullObjectException(i_+RETURN_LINE+_conf.joinPages());
@@ -628,63 +426,60 @@ public final class InstanceOperation extends InvokingOperation {
             Object o_ = Array.newInstance(cl_, args_);
             Argument a_ = new Argument();
             if (elts_) {
-                int i_ = CustList.FIRST_INDEX;
-                for (OperationNode o: chidren_) {
-                    Argument chArg_ = o.getArgument();
+                for (int i = CustList.FIRST_INDEX; i < nbCh_; i++) {
+                    Argument chArg_ = _arguments.get(i);
                     Struct str_ = chArg_.getStruct();
-                    Array.set(o_, i_, str_.getInstance());
-                    i_++;
+                    Array.set(o_, i, str_.getInstance());
                 }
             }
             a_.setStruct(new Struct(o_,PrimitiveTypeUtil.getPrettyArrayType(realClassName_, args_.length)));
-            setSimpleArgument(a_, _conf);
-            return;
+            return a_;
         }
         if (possibleInitClass) {
             if (!_conf.getClasses().isInitialized(realClassName_)) {
                 _conf.getClasses().initialize(realClassName_);
+                if (!_processInit) {
+                    throw new NotInitializedClassException(realClassName_);
+                }
                 ProcessXmlMethod.initializeClass(realClassName_, _conf);
             }
         }
-        CustList<Argument> firstArgs_ = listArguments(chidren_, true);
+        CustList<Argument> firstArgs_ = listArguments(chidren_, _arguments, true);
         if (isFirstChild() || !(getParent() instanceof DotOperation)) {
-            Argument needed_ = null;
+            Class<?> class_ = null;
             if (StringList.isWord(realClassName_)) {
                 for (Class<?> c:getPreviousResultClass().getDeclaredClasses()) {
                     if (StringList.quickEq(c.getSimpleName(), realClassName_)) {
-                        Argument arg_ = getPreviousArgument();
-                        if (arg_.isNull()) {
-                            throw new NullObjectException(realClassName_+RETURN_LINE+_conf.joinPages());
-                        }
-                        needed_ = arg_;
-                        firstArgs_.add(CustList.FIRST_INDEX, arg_);
+                        class_ = c;
                         break;
                     }
                 }
             }
-            if (constId != null) {
-                Argument a_ = ProcessXmlMethod.instanceArgument(realClassName_, needed_, constId, firstArgs_, _conf);
-                setSimpleArgument(a_, _conf);
-                return;
-            }
-            Argument a_ = newInstance(_conf, needed_, 0, contructor, Argument.toArgArray(firstArgs_));
-            setSimpleArgument(a_, _conf);
-            return;
+            return getArg(_previous, class_, firstArgs_, _processInit, _conf);
         }
-        Argument arg_ = getPreviousArgument();
-        if (arg_.isNull()) {
-            throw new NullObjectException(realClassName_+RETURN_LINE+_conf.joinPages());
-        }
-        firstArgs_.add(CustList.FIRST_INDEX, arg_);
-        if (constId != null) {
-            Argument a_ = ProcessXmlMethod.instanceArgument(realClassName_, arg_, constId, firstArgs_, _conf);
-            setSimpleArgument(a_, _conf);
-            return;
-        }
-        Argument a_ = newInstance(_conf, arg_, 0, contructor, Argument.toArgArray(firstArgs_));
-        setSimpleArgument(a_, _conf);
+        return getArg(_previous, contructor.getDeclaringClass(), firstArgs_, _processInit, _conf);
     }
-
+    Argument getArg(Argument _previous, Class<?> _class,CustList<Argument> _arguments,
+            boolean _processInit, ContextEl _conf) {
+        Argument needed_ = null;
+        Argument arg_ = _previous;
+        if (_class != null && !Modifier.isStatic(_class.getModifiers())) {
+            if (arg_.isNull()) {
+                throw new NullObjectException(_class.getName()+RETURN_LINE+_conf.joinPages());
+            }
+            needed_ = arg_;
+            _arguments.add(CustList.FIRST_INDEX, arg_);
+        }
+        if (constId != null) {
+            String className_ = constId.getName();
+            if (_processInit) {
+                return ProcessXmlMethod.instanceArgument(className_, needed_, constId, _arguments, _conf);
+            }
+            StringList called_ = _conf.getLastPage().getCallingConstr().getCalledConstructors();
+            throw new CustomFoundConstructorException(className_, called_, constId, needed_, _arguments, InstancingStep.NEWING);
+        }
+        return newInstance(_conf, needed_, 0, contructor, Argument.toArgArray(_arguments));
+    }
     static Object newClassicArray(ContextEl _conf, String _instanceClassName, String _realClassName,int[] _args) {
         Class<?> cl_;
         try {

@@ -8309,6 +8309,7 @@ public class ProcessXmlMethodTest {
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
         ProcessXmlMethod.initializeClass("pkg.Ex", cont_);
+        assertTrue(!cont_.getClasses().isInitialized("pkg.ExThree"));
         Argument ret_;
         ret_ = instanceArgument("pkg.Ex", null, id_, args_, cont_);
         assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));

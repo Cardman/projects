@@ -103,12 +103,6 @@ public abstract class NumericOperation extends MethodOperation {
         if (_b.getObject() == null) {
             throw new NullObjectException(SECOND+RETURN_LINE+_cont.joinPages());
         }
-        //        boolean allPrimitives_ = true;
-        //        if (!_a.getArgClass().isPrimitive()) {
-            //            allPrimitives_ = false;
-            //        } else if (!_b.getArgClass().isPrimitive()) {
-                //            allPrimitives_ = false;
-                //        }
         Object o_ = _a.getObject();
         Double aOne_ = null;
         Float aTwo_ = null;
@@ -157,11 +151,6 @@ public abstract class NumericOperation extends MethodOperation {
         } else {
             arg_ = _b.getArgClass();
         }
-        //        if (allPrimitives_) {
-            //            arg_ = toPrimitive(arg_, true);
-            //        } else {
-                //            arg_ = toWrapper(arg_, true);
-                //        }
         arg_ = PrimitiveTypeUtil.toPrimitive(arg_, true);
         Object nb_;
         if (aOne_ != null) {
@@ -886,29 +875,6 @@ public abstract class NumericOperation extends MethodOperation {
         }
         return PrimitiveTypeUtil.toPrimitive(arg_, true);
     }
-//    @Override
-//    public final void analyze(CustList<OperationNode> _nodes, ContextEl _conf, Calculation _setting) {
-//        if (_setting.getStep()  == StepCalculation.LEFT && getParent() == null) {
-//            setRelativeOffsetPossibleLastPage(getIndexInEl(), _conf);
-//            throw new SettingMemberException(_conf.joinPages());
-//        }
-//        CustList<OperationNode> chidren_ = getChildrenAmong(_nodes, true);
-//        if (chidren_.size() < 2) {
-//            setRelativeOffsetPossibleLastPage(getIndexInEl(), _conf);
-//            throw new BadNumberValuesException(_conf.joinPages());
-//        }
-//        ClassArgumentMatching a_ = chidren_.first().getResultClass();
-//        ClassArgumentMatching r_;
-//        int i_ = CustList.SECOND_INDEX;
-//        for (EntryCust<Integer, String> e: getOperations().getOperators().entryList()) {
-//            ClassArgumentMatching c_ = chidren_.get(i_).getResultClass();
-//            setRelativeOffsetPossibleLastPage(getIndexInEl()+e.getKey(), _conf);
-//            r_ = analyzeOper(a_, e.getValue(), c_, _conf);
-//            a_ = r_;
-//            i_++;
-//        }
-//        setResultClass(a_);
-//    }
 
     @Override
     public final void analyzeLeft(CustList<OperationNode> _nodes, ContextEl _conf,
@@ -947,26 +913,6 @@ public abstract class NumericOperation extends MethodOperation {
     abstract ClassArgumentMatching analyzeOper(ClassArgumentMatching _a, String _op, ClassArgumentMatching _b, ContextEl _cont);
     abstract Argument calculateOper(Argument _a, String _op, Argument _b, ContextEl _cont);
 
-//    @Override
-//    public final Argument calculate(
-//            IdMap<OperationNode, ArgumentsPair> _nodes, ContextEl _conf,
-//            Calculation _setting) {
-//        CustList<OperationNode> chidren_ = getChildrenAmong();
-//        OperationNode o_ = chidren_.first();
-//        Argument a_ = _nodes.getVal(o_).getArgument();
-//        Argument r_;
-//        int i_ = CustList.SECOND_INDEX;
-//        for (EntryCust<Integer, String> e: getOperations().getOperators().entryList()) {
-//            o_ = chidren_.get(i_);
-//            Argument c_ = _nodes.getVal(o_).getArgument();
-//            setRelativeOffsetPossibleLastPage(getIndexInEl()+e.getKey(), _conf);
-//            r_ = calculateOper(a_, e.getValue(), c_, _conf);
-//            a_ = r_;
-//            i_++;
-//        }
-//        setSimpleArgument(a_, _conf, _nodes);
-//        return a_;
-//    }
     @Override
     public final Argument calculateLeft(IdMap<OperationNode, ArgumentsPair> _nodes,
             ContextEl _conf, String _op) {
@@ -1000,38 +946,6 @@ public abstract class NumericOperation extends MethodOperation {
     /**@throws InvokeRedinedMethException
     @throws DivideZeroException
     @throws NullObjectException*/
-//    @Override
-//    public final void calculate(CustList<OperationNode> _nodes, ContextEl _conf, Calculation _setting) {
-//        CustList<OperationNode> chidren_ = getChildrenAmong(_nodes, false);
-//        //        for (OperationNode o: _nodes) {
-//        //            if (o.getParent() == this) {
-//        //                chidren_.add(o);
-//        //            }
-//        //        }
-//        //        boolean ready_ = true;
-//        //        for (OperationNode o: chidren_) {
-//        //            if (o.getArgument() == null) {
-//        //                ready_ = false;
-//        //                break;
-//        //            }
-//        //        }
-//        //        if (!ready_) {
-//        //            return;
-//        //        }
-//        //        int key_ = getOperations().getOperators().firstKey();
-//        Argument a_ = chidren_.first().getArgument();
-//        Argument r_;
-//        int i_ = CustList.SECOND_INDEX;
-//        for (EntryCust<Integer, String> e: getOperations().getOperators().entryList()) {
-//            Argument c_ = chidren_.get(i_).getArgument();
-//            setRelativeOffsetPossibleLastPage(getIndexInEl()+e.getKey(), _conf);
-//            r_ = calculateOper(a_, e.getValue(), c_, _conf);
-//            a_ = r_;
-//            i_++;
-//        }
-//        setSimpleArgument(a_, _conf);
-//    }
-
     @Override
     public final void calculateLeft(CustList<OperationNode> _nodes, ContextEl _conf,
             String _op) {
