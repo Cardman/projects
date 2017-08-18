@@ -13,8 +13,6 @@ import code.util.EqList;
 import code.util.IdList;
 import code.util.IdMap;
 
-@Ignore
-//Because mainComputeIncrConvex tests fail
 @SuppressWarnings("static-method")
 public class DelaunayTest {
 
@@ -37,6 +35,7 @@ public class DelaunayTest {
         assertEq(new CustPoint(3, 2), ts_.get(1).getThirdPoint());
     }
 
+    @Ignore
     @Test
     public void compute2Test() {
         Delaunay d_ = new Delaunay();
@@ -75,6 +74,7 @@ public class DelaunayTest {
         assertEq(new CustPoint(1, 5), ts_.get(1).getThirdPoint());
     }
 
+    @Ignore
     @Test
     public void compute4Test() {
         Delaunay d_ = new Delaunay();
@@ -106,6 +106,7 @@ public class DelaunayTest {
         assertEq(0, ts_.size());
     }
 
+    @Ignore
     @Test
     public void compute6Test() {
         Delaunay d_ = new Delaunay();
@@ -450,7 +451,7 @@ public class DelaunayTest {
         assertEq(9, ts_.size());
     }
 
-
+    @Ignore
     @Test
     public void mainComputeIncrConvex1Test() {
         Delaunay d_ = new Delaunay();
@@ -470,6 +471,7 @@ public class DelaunayTest {
         assertEq(new CustPoint(3, 2), ts_.get(1).getThirdPoint());
     }
 
+    @Ignore
     @Test
     public void mainComputeIncrConvex2Test() {
         Delaunay d_ = new Delaunay();
@@ -489,6 +491,7 @@ public class DelaunayTest {
         assertEq(new CustPoint(3, 2), ts_.get(1).getThirdPoint());
     }
 
+    @Ignore
     @Test
     public void mainComputeIncrConvex3Test() {
         Delaunay d_ = new Delaunay();
@@ -508,6 +511,7 @@ public class DelaunayTest {
         assertEq(new CustPoint(1, 5), ts_.get(1).getThirdPoint());
     }
 
+    @Ignore
     @Test
     public void mainComputeIncrConvex4Test() {
         Delaunay d_ = new Delaunay();
@@ -552,6 +556,7 @@ public class DelaunayTest {
         assertEq(3, ts_.size());
     }
 
+    @Ignore
     @Test
     public void mainComputeIncrConvex7Test() {
         Delaunay d_ = new Delaunay();
@@ -567,6 +572,7 @@ public class DelaunayTest {
         assertEq(new CustPoint(1, 5), ts_.get(0).getThirdPoint());
     }
 
+    @Ignore
     @Test
     public void mainComputeIncrConvex8Test() {
         Delaunay d_ = new Delaunay();
@@ -582,6 +588,7 @@ public class DelaunayTest {
         assertEq(new CustPoint(0, 3), ts_.get(0).getThirdPoint());
     }
 
+    @Ignore
     @Test
     public void mainComputeIncrConvex9Test() {
         Delaunay d_ = new Delaunay();
@@ -613,6 +620,7 @@ public class DelaunayTest {
         assertEq(new CustPoint(333, 264), ts_.get(0).getThirdPoint());
     }
 
+    @Ignore
     @Test
     public void mainComputeIncrConvex11Test() {
         Delaunay d_ = new Delaunay();
@@ -977,6 +985,7 @@ public class DelaunayTest {
         assertEq(6, ts_.size());
     }
 
+    @Ignore
     @Test
     public void getNextPoints1Test() {
         Delaunay d_ = new Delaunay();
@@ -1063,6 +1072,7 @@ public class DelaunayTest {
         assertEq(new CustPoint(3, 2), ts_.get(1).getThirdPoint());
     }
 
+    @Ignore
     @Test
     public void getNextPoints3Test() {
         Delaunay d_ = new Delaunay();
@@ -1168,6 +1178,7 @@ public class DelaunayTest {
         assertEq(new CustPoint(2, 4), ts_.get(1).getThirdPoint());
     }
 
+    @Ignore
     @Test
     public void getNextPoints5Test() {
         Delaunay d_ = new Delaunay();
