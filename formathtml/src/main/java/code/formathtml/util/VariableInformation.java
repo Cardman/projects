@@ -14,7 +14,6 @@ public final class VariableInformation {
     public Struct getStruct() {
         return element;
     }
-    
     public void setStruct(Struct _element) {
         element = _element;
         if (element == null) {

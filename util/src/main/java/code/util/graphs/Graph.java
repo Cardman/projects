@@ -6,7 +6,6 @@ import code.util.ints.GraphElement;
 public final class Graph<T extends GraphElement<T>> {
 
     private final CustList<ArrowedSegment<T>> segments = new CustList<ArrowedSegment<T>>();
-    
     private final transient EqList<T> elements = new EqList<T>();
 
 //    private transient final List<T> froms = new List<T>();
@@ -22,7 +21,6 @@ public final class Graph<T extends GraphElement<T>> {
     public void addSegment(T _from, T _to) {
         addSegment(new ArrowedSegment<T>(_from, _to));
     }
-    
     public void addReversedSegment(ArrowedSegment<T> _seg) {
         addSegment(new ArrowedSegment<T>(_seg.getTo(), _seg.getFrom()));
     }
@@ -453,8 +451,7 @@ public final class Graph<T extends GraphElement<T>> {
 //////            if (nbOne_ < List.ONE_ELEMENT) {
 //////                continue;
 //////            }
-//////            
-//////            if (nbTwo_ > List.ONE_ELEMENT) {
+////////////            if (nbTwo_ > List.ONE_ELEMENT) {
 //////                r_.add(e);
 //////            }
 ////        }

@@ -15,7 +15,6 @@ public final class ClassMetaInfo {
     private final StringList superInterfaces = new StringList();
 
     private final StringMap<FieldMetaInfo> fields;
-    
     private final ObjectNotNullMap<FctConstraints, MethodMetaInfo> methods;
 
     private final ObjectNotNullMap<FctConstraints, ConstructorMetaInfo> constructors;
@@ -79,7 +78,6 @@ public final class ClassMetaInfo {
     public StringMap<FieldMetaInfo> getFields() {
         return new StringMap<FieldMetaInfo>(fields);
     }
-    
     public ObjectNotNullMap<FctConstraints, MethodMetaInfo> getMethods() {
         return new ObjectNotNullMap<FctConstraints, MethodMetaInfo>(methods);
     }

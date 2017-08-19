@@ -11,7 +11,6 @@ public final class CharList extends AbEqList<Character> implements Equallable<Ch
     public CharList(Character... _elements) {
         super(_elements);
     }
-    
     public CharList(Listable<? extends Character> _c) {
         super(_c);
     }

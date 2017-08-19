@@ -311,7 +311,6 @@ public class CustList<T> implements Listable<T> {
     public boolean containsNull() {
         return !indexesOfNull().isEmpty();
     }
-    
     @Override
     public int indexOfNull() {
         Numbers<Integer> indexes_;

@@ -748,7 +748,6 @@ public class XmlParserTest {
         assertEq(-1, e_.getNextElt());
 //        assertEq(0, e_.getNextEltLineReturn());
     }
-    
     @Test
     public void getIndexesOfElementOrAttribute6Test() {
         String html_ = "<tag a='o'>"+(char)233+"<ta>"+(char)234+"</ta></tag>";
@@ -773,7 +772,6 @@ public class XmlParserTest {
         assertEq(12, e_.getNextElt());
 //        assertEq(0, e_.getNextEltLineReturn());
     }
-    
     @Test
     public void getIndexesOfElementOrAttribute7Test() {
         String html_ = "<tag><ta where=\"h'ere\" when='n\"ow'>Content</ta><ta/>233<ta>234</ta></tag>";
@@ -858,7 +856,6 @@ public class XmlParserTest {
 //        assertEq(0, e_.getNextEltLineReturn());
     }
 
-    
     @Test
     public void getIndexesOfElementOrAttribute10Test() {
         String html_ = "<tag>\n<ta where=\"h'ere\" when='n\"ow'>Content</ta><ta/>233<ta>234</ta></tag>";

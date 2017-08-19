@@ -118,8 +118,7 @@ public final class ElUtil {
         }
         IdMap<OperationNode, ArgumentsPair> allLeft_ = _left.getArguments();
         calculateLeft(allLeft_, _left, _conf, _op);
-        _left.finish();   
-    }
+        _left.finish();    }
     public static void tryToCalculateRightAffect(ExpressionLanguage _right, ContextEl _conf, String _op) {
         if (_right.isFinished()) {
             return;

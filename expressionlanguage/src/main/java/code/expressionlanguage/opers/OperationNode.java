@@ -21,8 +21,10 @@ import code.expressionlanguage.exceptions.InvokeException;
 import code.expressionlanguage.exceptions.PrimitiveTypeException;
 import code.expressionlanguage.exceptions.UnwrappingException;
 import code.expressionlanguage.exceptions.VoidArgumentException;
+import code.expressionlanguage.methods.ClassBlock;
 import code.expressionlanguage.methods.Classes;
 import code.expressionlanguage.methods.ConstructorBlock;
+import code.expressionlanguage.methods.InterfaceBlock;
 import code.expressionlanguage.methods.MethodBlock;
 import code.expressionlanguage.methods.util.ArgumentsPair;
 import code.expressionlanguage.opers.util.ArgumentsGroup;
@@ -40,6 +42,7 @@ import code.expressionlanguage.opers.util.FieldMetaInfo;
 import code.expressionlanguage.opers.util.MethodId;
 import code.expressionlanguage.opers.util.MethodInfo;
 import code.expressionlanguage.opers.util.MethodMetaInfo;
+import code.expressionlanguage.opers.util.MethodModifier;
 import code.expressionlanguage.opers.util.ParametersGroup;
 import code.expressionlanguage.opers.util.ParametersGroupComparator;
 import code.expressionlanguage.opers.util.SearchingMemberStatus;
@@ -54,6 +57,7 @@ import code.util.EntryCust;
 import code.util.EqList;
 import code.util.IdMap;
 import code.util.NatTreeMap;
+import code.util.ObjectMap;
 import code.util.ObjectNotNullMap;
 import code.util.StringList;
 import code.util.consts.ConstClasses;
@@ -593,11 +597,20 @@ public abstract class OperationNode implements SortedNode<OperationNode>, Operab
         ClassMetaInfo custClass_ = null;
         String clCurName_ = _realClassName;
         custClass_ = classes_.getClassMetaInfo(clCurName_);
+        if (custClass_.getCategory() == ClassCategory.INTERFACE) {
+            return getDeclaredCustMethodByInterface(_conf, _realClassName, _idMeth);
+        }
         FctConstraints id_ = _idMeth.getConstraints();
         String stopClass_ = _idMeth.getClassName().getName();
         while (true) {
             MethodBlock method_ = classes_.getMethodBody(clCurName_, id_);
             if (method_ == null) {
+            	ClassBlock clBlock_ = (ClassBlock) classes_.getClassBody(clCurName_);
+                ObjectMap<FctConstraints, String> def_;
+                def_ = clBlock_.getDefaultMethods();
+                if (def_.contains(_idMeth.getConstraints())) {
+                    return def_.getVal(_idMeth.getConstraints());
+                }
                 String superClass_ = custClass_.getSuperClass();
                 custClass_ = classes_.getClassMetaInfo(superClass_);
                 clCurName_ = superClass_;
@@ -638,6 +651,9 @@ public abstract class OperationNode implements SortedNode<OperationNode>, Operab
                 throw new VoidArgumentException(clCurName_+DOT+_name+RETURN_LINE+_conf.joinPages());
             }
         }
+        if (_superClass && custClass_.getCategory() == ClassCategory.INTERFACE) {
+            return getDeclaredCustMethodByInterface(_conf, _class, _name, _superClass, _argsClass);
+        }
         StringList traces_ = new StringList();
         while (custClass_ != null) {
             ClassMethodIdResult res_ = getDeclaredCustMethodByClass(_conf, new ClassArgumentMatching(clCurName_), _name, _argsClass);
@@ -669,6 +685,79 @@ public abstract class OperationNode implements SortedNode<OperationNode>, Operab
         }
         throw new NoSuchDeclaredMethodException(traces_.join(RETURN_TAB)+RETURN_LINE+_conf.joinPages());
     }
+    private static ClassMethodId getDeclaredCustMethodByInterface(ContextEl _conf, ClassArgumentMatching _class, String _name, boolean _superClass, ClassArgumentMatching... _argsClass) {
+        Classes classes_ = _conf.getClasses();
+        if (classes_ == null) {
+            return null;
+        }
+        ClassMetaInfo custClass_ = null;
+        String clCurName_ = _class.getName();
+        custClass_ = classes_.getClassMetaInfo(clCurName_);
+        if (custClass_ == null) {
+            return null;
+        }
+        InterfaceBlock intBl_ = (InterfaceBlock) classes_.getClassBody(clCurName_);
+        StringList superInts_ = new StringList(clCurName_);
+        superInts_.addAllElts(intBl_.getAllSuperClasses());
+        ObjectMap<FctConstraints, StringList> signatures_;
+        signatures_ = new ObjectMap<FctConstraints, StringList>();
+        for (String s: superInts_) {
+            InterfaceBlock superBl_ = (InterfaceBlock) classes_.getClassBody(s);
+            ObjectMap<FctConstraints, StringList> signaturesInt_;
+            signaturesInt_ = superBl_.getAllSignatures(classes_);
+            for (EntryCust<FctConstraints, StringList> m: signaturesInt_.entryList()) {
+                if (!signatures_.contains(m.getKey())) {
+                    signatures_.put(m.getKey(), m.getValue());
+                } else {
+                    signatures_.getVal(m.getKey()).addAllElts(m.getValue());
+                    signatures_.getVal(m.getKey()).removeDuplicates();
+                }
+            }
+        }
+        ObjectMap<FctConstraints, StringList> ov_;
+        ov_ = InterfaceBlock.getAllOverridingMethods(signatures_, classes_);
+        ObjectNotNullMap<FctConstraints, MethodMetaInfo> methods_;
+        methods_ = new ObjectNotNullMap<FctConstraints, MethodMetaInfo>();
+        for (EntryCust<FctConstraints, StringList> e: ov_.entryList()) {
+            for (String i: e.getValue()) {
+                MethodBlock m_ = classes_.getMethodBody(i, e.getKey());
+                String ret_ = m_.getReturnType();
+                ClassName clRet_ = new ClassName(ret_, false);
+                MethodMetaInfo info_ = new MethodMetaInfo(i, MethodModifier.NORMAL, clRet_);
+                methods_.put(e.getKey(), info_);
+            }
+        }
+        return getResult(_conf, _class, methods_, _name, _argsClass).getId();
+    }
+    private static String getDeclaredCustMethodByInterface(ContextEl _conf, String _realClassName, ClassMethodId _idMeth) {
+        Classes classes_ = _conf.getClasses();
+        ClassMetaInfo custClass_ = null;
+        String clCurName_ = _realClassName;
+        custClass_ = classes_.getClassMetaInfo(clCurName_);
+        FctConstraints id_ = _idMeth.getConstraints();
+        while (true) {
+            MethodBlock method_ = classes_.getMethodBody(clCurName_, id_);
+            if (method_ == null) {
+                ClassBlock clBlock_ = (ClassBlock) classes_.getClassBody(clCurName_);
+                ObjectMap<FctConstraints, String> def_;
+                def_ = clBlock_.getDefaultMethods();
+                if (def_.contains(_idMeth.getConstraints())) {
+                    return def_.getVal(_idMeth.getConstraints());
+                }
+                String superClass_ = custClass_.getSuperClass();
+                custClass_ = classes_.getClassMetaInfo(superClass_);
+                clCurName_ = superClass_;
+                continue;
+            }
+            if (method_.isAbstractMethod()) {
+                String superClass_ = custClass_.getSuperClass();
+                custClass_ = classes_.getClassMetaInfo(superClass_);
+                clCurName_ = superClass_;
+                continue;
+            }
+            return clCurName_;
+        }
+    }
     private static ClassMethodIdResult getDeclaredCustMethodByClass(ContextEl _conf, ClassArgumentMatching _class, String _name, ClassArgumentMatching... _argsClass) {
         Classes classes_ = _conf.getClasses();
         ClassMetaInfo custClass_ = null;
@@ -682,8 +771,26 @@ public abstract class OperationNode implements SortedNode<OperationNode>, Operab
             res_.setStatus(SearchingMemberStatus.ZERO);
             return res_;
         }
+        ObjectNotNullMap<FctConstraints, MethodMetaInfo> methods_;
+        methods_ = custClass_.getMethods();
+        ClassBlock clBl_ = (ClassBlock) classes_.getClassBody(clCurName_);
+        for (EntryCust<FctConstraints, String> e: clBl_.getDefaultMethods().entryList()) {
+            MethodBlock m_ = classes_.getMethodBody(e.getValue(), e.getKey());
+            String ret_ = m_.getReturnType();
+            ClassName clRet_ = new ClassName(ret_, false);
+            MethodMetaInfo info_ = new MethodMetaInfo(e.getValue(), MethodModifier.NORMAL, clRet_);
+            methods_.put(e.getKey(), info_);
+        }
+        return getResult(_conf, _class, methods_, _name, _argsClass);
+    }
+    private static ClassMethodIdResult getResult(ContextEl _conf, ClassArgumentMatching _class,
+            ObjectNotNullMap<FctConstraints, MethodMetaInfo> _methods,
+            String _name, ClassArgumentMatching... _argsClass) {
+        Classes classes_ = _conf.getClasses();
+        String clCurName_ = _class.getName();
         CustList<FctConstraints> possibleMethods_ = new CustList<FctConstraints>();
-        for (EntryCust<FctConstraints, MethodMetaInfo> e: custClass_.getMethods().entryList()) {
+        String glClass_ = _conf.getLastPage().getGlobalClass();
+        for (EntryCust<FctConstraints, MethodMetaInfo> e: _methods.entryList()) {
             if (!StringList.quickEq(e.getKey().getName(), _name)) {
                 continue;
             }
@@ -706,8 +813,7 @@ public abstract class OperationNode implements SortedNode<OperationNode>, Operab
         }
         if (possibleMethods_.size() == CustList.ONE_ELEMENT) {
             FctConstraints methodId_ = possibleMethods_.first();
-            MethodId id_ = classes_.getMethodBody(clCurName_, methodId_).getId();
-            ClassMethodId cl_ = new ClassMethodId(new ClassName(clCurName_, false), id_, methodId_);
+            ClassMethodId cl_ = new ClassMethodId(new ClassName(clCurName_, false), methodId_);
             ClassMethodIdResult res_ = new ClassMethodIdResult();
             res_.setStatus(SearchingMemberStatus.UNIQ);
             res_.setId(cl_);
@@ -742,9 +848,8 @@ public abstract class OperationNode implements SortedNode<OperationNode>, Operab
             }
         }
         if (!signatures_.first().getParameters().isError()) {
-            MethodId methodId_ = signatures_.first().getMethodId();
             FctConstraints constraints_ = signatures_.first().getConstraints();
-            ClassMethodId cl_ = new ClassMethodId(new ClassName(clCurName_, false), methodId_, constraints_);
+            ClassMethodId cl_ = new ClassMethodId(new ClassName(clCurName_, false), constraints_);
             ClassMethodIdResult res_ = new ClassMethodIdResult();
             res_.setStatus(SearchingMemberStatus.UNIQ);
             res_.setId(cl_);

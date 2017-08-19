@@ -12,6 +12,8 @@ public interface RootedBlock extends AccessibleBlock {
 
     StringList getAllSuperClasses();
 
+    StringList getAllSuperTypes();
+
     StringList getDirectSuperClasses();
 
     RowCol getRowCol(int _offset, int _tabWidth,String _attribute);
@@ -19,6 +21,7 @@ public interface RootedBlock extends AccessibleBlock {
     Block getFirstChild();
 
     boolean isFinalType();
-    
     boolean isAbstractType();
+
+    boolean mustImplement();
 }

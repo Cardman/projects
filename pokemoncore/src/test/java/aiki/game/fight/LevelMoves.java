@@ -5,11 +5,9 @@ import code.util.StringMap;
 public final class LevelMoves {
 
     private short level;
-    
     private StringMap<Short> movesPp;
 
     private StringList moves;
-    
     public LevelMoves(short _level, StringList _moves) {
         level = _level;
         moves = _moves;
@@ -19,11 +17,9 @@ public final class LevelMoves {
         level = _level;
         movesPp = _moves;
     }
-    
     public short getFirst() {
         return level;
     }
-    
     public StringList getSecond() {
         return moves;
     }

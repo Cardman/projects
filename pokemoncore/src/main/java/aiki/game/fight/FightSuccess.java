@@ -1352,7 +1352,6 @@ final class FightSuccess {
     static boolean tirage(Rate _probaActif){
         return AbMonteCarlo.booleanLaw(_probaActif).editNumber();
     }
-    
     static Statistic random(Fight _fight, MonteCarloEnum<Statistic> _law) {
         checkSimu(_fight, _law);
         return _law.editNumber();
@@ -1362,7 +1361,6 @@ final class FightSuccess {
         checkSimu(_fight, _law);
         return _law.editNumber();
     }
-    
     static String random(Fight _fight, MonteCarloString _law) {
         checkSimu(_fight, _law);
         return _law.editNumber();

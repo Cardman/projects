@@ -717,8 +717,7 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
         JPanel panneau_=new JPanel();
         if(isChangerPileFin()) {
             GameBelote partie_=partieBelote();
-            StreamTextFile.saveObject(LaunchingCards.getTempFolderSl()+FileConst.DECK_FOLDER+StreamTextFile.SEPARATEUR+GameEnum.BELOTE.name()+FileConst.DECK_EXT,partie_.empiler()); 
-        }
+            StreamTextFile.saveObject(LaunchingCards.getTempFolderSl()+FileConst.DECK_FOLDER+StreamTextFile.SEPARATEUR+GameEnum.BELOTE.name()+FileConst.DECK_EXT,partie_.empiler());        }
         /*Le nombre de parties jouees depuis le lancement du logiciel*/
         setThreadAnime(false);
         StringList pseudos_=new StringList(pseudosBelote());

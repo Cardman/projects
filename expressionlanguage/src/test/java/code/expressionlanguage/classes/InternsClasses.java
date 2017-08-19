@@ -12,7 +12,6 @@ public class InternsClasses {
 
     public class InternStandardTwo {
         private int privateInfo;
-        
         public int getPrivateInfoBis() {
             return privateInfo;
         }

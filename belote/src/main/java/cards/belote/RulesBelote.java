@@ -131,7 +131,6 @@ public final class RulesBelote {
             BeloteTrumpPartner _gestionCoupePartenaire) {
         trumpPartner = _gestionCoupePartenaire;
     }
-    
     public EnumList<BidBelote> getListeEncheresAutorisees() {
         EnumList<BidBelote> l_;
         l_ = new EnumList<BidBelote>();

@@ -24,7 +24,6 @@ public final class ConstructorBlock extends BracedBlock implements Returnable {
     private final AccessEnum access;
 
     private InstancingStep instancing;
-    
     private FctConstraints constIdSameClass;
 
     private FctConstraints constId;
@@ -282,7 +281,6 @@ public final class ConstructorBlock extends BracedBlock implements Returnable {
         }
         instancing = InstancingStep.USING_SUPER_IMPLICIT;
     }
-    
     public boolean superConstr() {
         return instancing == InstancingStep.USING_SUPER || implicitConstr();
     }

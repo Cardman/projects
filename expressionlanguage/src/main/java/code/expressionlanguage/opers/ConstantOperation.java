@@ -58,7 +58,6 @@ public final class ConstantOperation extends OperationNode implements SettableEl
     private boolean possibleInitClass;
 
     private String argClassName;
-    
     private ClassField fieldId;
     private FieldMetaInfo fieldMetaInfo;
 

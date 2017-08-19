@@ -71,7 +71,6 @@ public final class Complex implements Equallable<Complex> {
         }
         return _tx1.isEqualTo(_tx2);
     }
-    
     @Override
     public boolean eq(Complex _o) {
         if (!Rate.eq(_o.real, real)) {

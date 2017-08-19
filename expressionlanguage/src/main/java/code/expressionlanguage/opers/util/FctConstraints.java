@@ -5,6 +5,10 @@ import code.util.StringList;
 import code.util.ints.Equallable;
 
 public class FctConstraints implements Equallable<FctConstraints> {
+    private static final String SEP_AND_TYPE = "&";
+    private static final String SEP_TYPE = ",";
+    private static final String LEFT = "(";
+    private static final String RIGHT = ")";
 
     private final String name;
 
@@ -15,7 +19,13 @@ public class FctConstraints implements Equallable<FctConstraints> {
         name = _name;
         constraints = _constraints;
     }
-
+    public String getSignature() {
+        StringList classNames_ = new StringList();
+        for (StringList c: constraints) {
+            classNames_.add(c.join(SEP_AND_TYPE));
+        }
+        return name+LEFT+classNames_.join(SEP_TYPE)+RIGHT;
+    }
     @Override
     public boolean eq(FctConstraints _c) {
         if (!StringList.quickEq(_c.name, name)) {

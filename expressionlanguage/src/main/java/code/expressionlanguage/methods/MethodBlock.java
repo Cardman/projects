@@ -27,13 +27,11 @@ public final class MethodBlock extends BracedBlock implements Returnable {
     private final boolean staticMethod;
 
     private final boolean finalMethod;
-    
     private final boolean abstractMethod;
 
     private final boolean normalMethod;
 
     private final AccessEnum access;
-    
     private StringList overridenClasses;
 
     private StringList allOverridenClasses;

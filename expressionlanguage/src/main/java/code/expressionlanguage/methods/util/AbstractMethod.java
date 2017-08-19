@@ -1,6 +1,5 @@
 package code.expressionlanguage.methods.util;
 
-import code.expressionlanguage.opers.util.MethodId;
 
 public final class AbstractMethod extends FoundErrorInterpret {
 
@@ -10,11 +9,11 @@ public final class AbstractMethod extends FoundErrorInterpret {
 
     private String className;
 
-    private MethodId id;
+    private String sgn;
 
     @Override
     public String toString() {
-        return super.toString()+CLASS_NAME+SEP_KEY_VAL+className+SEP_CLASS_METHOD+id.getSignature()+SEP_INFO;
+        return super.toString()+CLASS_NAME+SEP_KEY_VAL+className+SEP_CLASS_METHOD+sgn+SEP_INFO;
     }
 
     public String getClassName() {
@@ -25,11 +24,11 @@ public final class AbstractMethod extends FoundErrorInterpret {
         className = _className;
     }
 
-    public MethodId getId() {
-        return id;
+    public String getSgn() {
+        return sgn;
     }
 
-    public void setId(MethodId _id) {
-        id = _id;
+    public void setSgn(String _sgn) {
+        sgn = _sgn;
     }
 }

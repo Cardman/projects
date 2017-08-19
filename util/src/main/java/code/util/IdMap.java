@@ -250,15 +250,12 @@ public final class IdMap<K,V> extends AbsMap<K,V> {
 //    public String toString() {
 //        return list.toString();
 //    }
-    
     public V firstValue() {
         return getList().first().getValue();
     }
-    
     public V lastValue() {
         return getList().last().getValue();
     }
-    
     public K firstKey() {
         return getList().first().getKey();
     }

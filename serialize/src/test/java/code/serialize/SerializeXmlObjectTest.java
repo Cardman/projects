@@ -2053,7 +2053,6 @@ public class SerializeXmlObjectTest {
         Object o_ = SerializeXmlObject.fromXmlStringObject("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?><"+INTERNS_CLASSES+" intern=\"$InternStaticStandard$InternStaticStandardThree\"/>");
         assertSame(InternStaticStandardThree.class, o_.getClass());
     }
-    
     @Parameters(method="booleanInputs")
     @Test
     public void fromXmlStringObject62Test(boolean _bool) {
@@ -2062,7 +2061,6 @@ public class SerializeXmlObjectTest {
         Object o_ = SerializeXmlObject.fromXmlStringObject("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?><"+INTERNS_CLASSES+" intern=\"$InternStandardTwo\"><"+INTERNS_CLASSES+" class=\""+INTERN_TWO+"\" field=\"this$0\"/></"+INTERNS_CLASSES+">");
         assertSame(InternStandardTwo.class, o_.getClass());
     }
-    
     @Parameters(method="booleanInputs")
     @Test
     public void fromXmlStringObject63Test(boolean _bool) {
@@ -2382,7 +2380,6 @@ public class SerializeXmlObjectTest {
         xml_ += "</"+COMPOSITE_CONSTR+">";
         SerializeXmlObject.fromXmlStringObject(xml_);
     }
- 
     @Parameters(method="booleanInputs")
     @Test(expected=DuplicatesKeysException.class)
     public void fromXmlStringObject20FailTest(boolean _bool) {

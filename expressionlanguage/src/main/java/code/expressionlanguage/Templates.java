@@ -60,7 +60,7 @@ public final class Templates {
                         DimComp dimCompBoundArg_ = PrimitiveTypeUtil.getQuickComponentBaseType(boundArr_);
                         int dimBoundArg_ = dimCompBoundArg_.getDim();
                         if (dimBoundArg_ > 0) {
-                            if (!PrimitiveTypeUtil.isArrayAssignable(boundArr_, param_)) {
+                            if (!PrimitiveTypeUtil.isArrayAssignable(boundArr_, param_, _classes)) {
                                 continue;
                             }
                         }
@@ -88,7 +88,7 @@ public final class Templates {
                 DimComp dimCompParam_ = PrimitiveTypeUtil.getQuickComponentBaseType(param_);
                 int dimParam_ = dimCompParam_.getDim();
                 if (dimArg_ > 0 && dimParam_ > 0) {
-                    if (!PrimitiveTypeUtil.isArrayAssignable(arg_, param_)) {
+                    if (!PrimitiveTypeUtil.isArrayAssignable(arg_, param_, _classes)) {
                         continue;
                     }
                 }

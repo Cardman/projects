@@ -32,7 +32,6 @@ public final class CategoryMult implements Equallable<CategoryMult> {
     public static CategoryMult newCategoryMult(String _string) {
         return new CategoryMult(_string);
     }
-    
     @Override
     public boolean eq(CategoryMult _obj) {
         if (!Numbers.eq(mult, _obj.mult)) {

@@ -4,6 +4,8 @@ import org.w3c.dom.Element;
 
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.PrimitiveTypeUtil;
+import code.expressionlanguage.opers.util.ClassMethodId;
+import code.expressionlanguage.opers.util.ClassName;
 import code.expressionlanguage.opers.util.FctConstraints;
 import code.util.CustList;
 import code.util.EntryCust;
@@ -21,6 +23,8 @@ public final class InterfaceBlock extends BracedBlock implements RootedBlock {
     private final StringList superInterfaces;
 
     private final StringList allSuperClasses = new StringList();
+
+    private final StringList allSuperTypes = new StringList();
 
     private final AccessEnum access;
 
@@ -47,7 +51,11 @@ public final class InterfaceBlock extends BracedBlock implements RootedBlock {
     public StringList getAllSuperClasses() {
         return allSuperClasses;
     }
-
+    
+    @Override
+    public StringList getAllSuperTypes() {
+        return allSuperTypes;
+    }
 
     public ObjectMap<FctConstraints, StringList> getAllSignatures(Classes _classes) {
         ObjectMap<FctConstraints, StringList> map_;
@@ -63,12 +71,7 @@ public final class InterfaceBlock extends BracedBlock implements RootedBlock {
             for (Block b: Classes.getDirectChildren(b_)) {
                 if (b instanceof MethodBlock) {
                     MethodBlock method_ = (MethodBlock) b;
-                    if (map_.contains(method_.getConstraints())) {
-                        map_.getVal(method_.getConstraints()).add(s);
-                        map_.getVal(method_.getConstraints()).removeDuplicates();
-                    } else {
-                        map_.put(method_.getConstraints(), new StringList(s));
-                    }
+                    addClass(map_, method_.getConstraints(), s);
                 }
             }
         }
@@ -112,15 +115,41 @@ public final class InterfaceBlock extends BracedBlock implements RootedBlock {
                 }
             }
             overriding_.removeAllElements(overriden_);
+            overriding_.removeDuplicates();
             map_.put(e.getKey(), overriding_);
         }
         return map_;
     }
-    public static boolean areCompatible(
+    public static ObjectMap<FctConstraints, StringList> areCompatible(
             ObjectMap<FctConstraints, String> _localMethodIds,
             ObjectMap<FctConstraints, StringList> _methodIds, Classes _classes) {
+        ObjectMap<FctConstraints, StringList> output_;
+        output_ = new ObjectMap<FctConstraints, StringList>();
         for (EntryCust<FctConstraints, StringList> e: _methodIds.entryList()) {
             FctConstraints cst_ = e.getKey();
+            StringList classes_ = e.getValue();
+            String class_ = PrimitiveTypeUtil.NO_SUB_CLASS;
+            for (String s: e.getValue()) {
+                MethodBlock sub_ = _classes.getMethodBody(s, cst_);
+                String subType_ = sub_.getReturnType();
+                if (subType_.startsWith(PrimitiveTypeUtil.PRIM)) {
+                    class_ = s;
+                    break;
+                }
+            }
+            if (!StringList.quickEq(class_, PrimitiveTypeUtil.NO_SUB_CLASS)) {
+                MethodBlock sub_ = _classes.getMethodBody(class_, cst_);
+                String subType_ = sub_.getReturnType();
+                for (String s: e.getValue()) {
+                    MethodBlock sup_ = _classes.getMethodBody(s, cst_);
+                    String supType_ = sup_.getReturnType();
+                    if (StringList.quickEq(supType_, subType_)) {
+                        continue;
+                    }
+                    addClass(output_, e.getKey(), s);
+                }
+                continue;
+            }
             if (_localMethodIds.contains(e.getKey())) {
                 //overridden by this interface
                 String subInt_ = _localMethodIds.getVal(e.getKey());
@@ -133,67 +162,40 @@ public final class InterfaceBlock extends BracedBlock implements RootedBlock {
                         continue;
                     }
                     if (!PrimitiveTypeUtil.canBeUseAsArgument(supType_, subType_, _classes)) {
-                        return false;
+                        addClass(output_, e.getKey(), subInt_);
+                        addClass(output_, e.getKey(), s);
                     }
                 }
                 continue;
             }
-            StringList classes_ = e.getValue();
-            int len_ = classes_.size();
-            for (int i = 0; i < len_; i++) {
-                String one_ = classes_.get(i);
-                String retOne_ = _classes.getMethodBody(one_, cst_).getReturnType();
-                for (int j = 0; j < len_; j++) {
-                    String two_ = classes_.get(j);
-                    String retTwo_ = _classes.getMethodBody(two_, cst_).getReturnType();
-                    if (StringList.quickEq(retOne_, retTwo_)) {
-                        continue;
-                    }
-                    if (PrimitiveTypeUtil.canBeUseAsArgument(retOne_, retTwo_, _classes)) {
-                        continue;
-                    }
-                    if (PrimitiveTypeUtil.canBeUseAsArgument(retTwo_, retOne_, _classes)) {
-                        continue;
-                    }
-                    return false;
+            if (PrimitiveTypeUtil.getSubslass(classes_, _classes).isEmpty()) {
+                for (String c: classes_) {
+                    addClass(output_, e.getKey(), c);
                 }
             }
         }
-        return true;
+        return output_;
     }
-    public static EqList<FctConstraints> remainingMethodsToImplement(
+    public static EqList<ClassMethodId> remainingMethodsToImplement(
             ObjectMap<FctConstraints, StringList> _methodIds,
             Classes _classes) {
-        EqList<FctConstraints> rem_ = new EqList<FctConstraints>();
+        EqList<ClassMethodId> rem_ = new EqList<ClassMethodId>();
         for (EntryCust<FctConstraints, StringList> e: _methodIds.entryList()) {
             int nbConcrete_ = 0;
+            int nbAbs_ = 0;
             for (String f: e.getValue()) {
                 MethodBlock method_ = _classes.getMethodBody(f, e.getKey());
                 if (method_.isNormalMethod()) {
                     nbConcrete_++;
+                } else {
+                    nbAbs_++;
                 }
             }
-            if (nbConcrete_ != 1) {
-                rem_.add(e.getKey());
-                continue;
-            }
-            String subType_ = EMPTY_STRING;
-            for (String f: e.getValue()) {
-                MethodBlock method_ = _classes.getMethodBody(f, e.getKey());
-                if (method_.isNormalMethod()) {
-                    subType_ = method_.getReturnType();
-                    break;
-                }
-            }
-            for (String f: e.getValue()) {
-                MethodBlock superMethod_ = _classes.getMethodBody(f, e.getKey());
-                String supType_ = superMethod_.getReturnType();
-                if (StringList.quickEq(supType_, subType_)) {
-                    continue;
-                }
-                if (!PrimitiveTypeUtil.canBeUseAsArgument(supType_, subType_, _classes)) {
-                    rem_.add(e.getKey());
-                    break;
+            if (nbConcrete_ != 1 || nbAbs_ != 0) {
+                for (String f: e.getValue()) {
+                    ClassName cl_ = new ClassName(f, false);
+                    ClassMethodId id_ = new ClassMethodId(cl_, e.getKey());
+                    rem_.add(id_);
                 }
             }
         }
@@ -214,6 +216,14 @@ public final class InterfaceBlock extends BracedBlock implements RootedBlock {
             }
         }
         return map_;
+    }
+    private static void addClass(ObjectMap<FctConstraints, StringList> _map, FctConstraints _key, String _class) {
+        if (_map.contains(_key)) {
+            _map.getVal(_key).add(_class);
+            _map.getVal(_key).removeDuplicates();
+        } else {
+            _map.put(_key, new StringList(_class));
+        }
     }
     @Override
     public NatTreeMap<String,String> getClassNames() {
@@ -264,6 +274,9 @@ public final class InterfaceBlock extends BracedBlock implements RootedBlock {
     @Override
     public StringList getDirectSuperClasses() {
         StringList classes_ = new StringList(superInterfaces);
+        if (superInterfaces.isEmpty()) {
+            classes_.add(Object.class.getName());
+        }
         return classes_;
     }
 
@@ -280,5 +293,10 @@ public final class InterfaceBlock extends BracedBlock implements RootedBlock {
     @Override
     public boolean isAbstractType() {
         return true;
+    }
+
+    @Override
+    public boolean mustImplement() {
+        return false;
     }
 }

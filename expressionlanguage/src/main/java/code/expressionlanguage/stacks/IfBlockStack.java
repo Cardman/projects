@@ -11,7 +11,6 @@ public final class IfBlockStack extends IfStack implements RemovableVars {
     public BracedBlock lastVisitedBlock() {
         return blocks.last();
     }
-    
     public BracedBlock getCurentVisitedBlock() {
         return blocks.get(getVisitedBlock());
     }

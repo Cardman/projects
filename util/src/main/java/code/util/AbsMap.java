@@ -75,7 +75,6 @@ public abstract class AbsMap<K, V> implements ListableEntries<K, V> {
         }
 //        _l.add(new EntryCust<Object, Object>(_k, _v));
     }
-    
     public static void setGeneKey(ListableEntries<?, ?> _l,
             int _i, Object _k) {
         if (_l instanceof AbsMap<?, ?>) {
@@ -152,7 +151,6 @@ public abstract class AbsMap<K, V> implements ListableEntries<K, V> {
         return getList().get(index_);
     }
 
-    
 
     @Override
     public void put(K _key, V _v) {

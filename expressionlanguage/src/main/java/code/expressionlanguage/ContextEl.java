@@ -113,11 +113,9 @@ public final class ContextEl {
     public void setClasses(Classes _classes) {
         classes = _classes;
     }
-    
     public void clearPages() {
         importing.clear();
     }
-    
     public boolean isEmptyPages() {
         return importing.isEmpty();
     }

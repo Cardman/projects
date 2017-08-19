@@ -11,7 +11,6 @@ final class ResoucesAccess {
     static final String BELOTE_DEAL = "cards.belote.enumerations.DealingBelote";
     static final String BELOTE_DECLARES = "cards.belote.enumerations.DeclaresBelote";
     static final String BELOTE_DECLARES_BEL_REB = "cards.belote.enumerations.DeclaresBeloteRebelote";
-    
     private ResoucesAccess(){}
 
 }

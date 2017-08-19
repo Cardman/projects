@@ -91,7 +91,6 @@ public final class Vect implements Equallable<Vect> {
         }
         return _tx1.isEqualTo(_tx2);
     }
-    
     public boolean isEqualTo(Vect _o) {
         return numbers.eq(_o.numbers);
     }

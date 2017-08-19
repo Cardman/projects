@@ -22,7 +22,6 @@ public final class IntTreeComboBox extends JComboBox {
     private TreeMap<Integer,String> elements;
 
     private boolean withDefaultValue;
-    
     public IntTreeComboBox(){
     }
 
@@ -31,10 +30,8 @@ public final class IntTreeComboBox extends JComboBox {
             addItem(e);
         }
     }
-    
     public IntTreeComboBox(TreeMap<Integer,String> _tr){
-        elements = _tr; 
-    }
+        elements = _tr;    }
 
     protected TreeMap<Integer, String> getElements() {
         return elements;

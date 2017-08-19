@@ -11,7 +11,6 @@ public final class TryBlockStack extends TryStack implements RemovableVars {
     private final CustList<BracedBlock> catchBlocks = new CustList<BracedBlock>();
 
     private CallingFinally calling;
-    
     public BracedBlock getLastCatchBlock() {
         return catchBlocks.last();
     }

@@ -2,9 +2,7 @@ package code.expressionlanguage.opers.util;
 
 
 public final class FieldMetaInfo {
-    
     private final ClassName declaringClass;
-    
     private final String name;
 
     private final ClassName type;

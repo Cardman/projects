@@ -3,7 +3,6 @@ import code.expressionlanguage.methods.Block;
 import code.expressionlanguage.methods.CatchEval;
 
 public final class FoundCatch {
-    
     private CatchEval catchBl;
 
     private int importingPage;
@@ -15,7 +14,6 @@ public final class FoundCatch {
     private Block processingFinallyBlock;
 
     private boolean cause;
-    
     public boolean processCatchingBlock() {
         return catchBl != null || processingFinallyBlock != null;
     }

@@ -18,7 +18,6 @@ public final class Line extends Leaf implements StackableBlock {
     private final String expression;
 
     private CustList<OperationNode> opExp;
-    
     private boolean callSuper;
 
     private boolean callThis;

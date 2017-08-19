@@ -1491,8 +1491,7 @@ public final class ElResolver {
         }
         if (i_ >= len_) {
             _conf.getLastPage().setOffset(_d.getIndexBegin()+_offset+i_);
-            throw new EmptyPartException(_string+RETURN_LINE+_conf.joinPages());                        
-        }
+            throw new EmptyPartException(_string+RETURN_LINE+_conf.joinPages());        }
         int firstPrintChar_ = i_;
         int lastPrintChar_ = len_ - 1;
         while (lastPrintChar_ >= 0) {
@@ -1504,8 +1503,7 @@ public final class ElResolver {
         if (_string.charAt(firstPrintChar_) == FIRST_VAR_ARG) {
             if (firstPrintChar_ == lastPrintChar_) {
                 _conf.getLastPage().setOffset(_d.getIndexBegin()+_offset+lastPrintChar_);
-                throw new VarargException(_string+RETURN_LINE+_conf.joinPages());                        
-            }
+                throw new VarargException(_string+RETURN_LINE+_conf.joinPages());            }
             OperationsSequence op_ = new OperationsSequence();
             op_.setOperators(new NatTreeMap<Integer, String>());
             op_.setupValues(_string, false, FIRST_VAR_ARG);
@@ -1777,8 +1775,7 @@ public final class ElResolver {
                     parsBrackets_.removeKey(parsBrackets_.getKey(parsBrackets_.size() - 1));
                     if (parsBrackets_.isEmpty() && prio_ == ARR_OPER_PRIO) {
                         operators_.put(i_, String.valueOf(ARR_RIGHT));
-                    } 
-                }
+                    }                }
             }
             if (curChar_ == SEP_ARG) {
                 firstVarArg_ = false;

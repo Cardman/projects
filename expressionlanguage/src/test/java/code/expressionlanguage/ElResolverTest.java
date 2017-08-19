@@ -2504,7 +2504,6 @@ public class ElResolverTest {
         assertEq(ElResolver.AND_PRIO, seq_.getPriority());
     }
 
-    
     @Test
     public void getOperationsSequence124Test() {
         ContextEl conf_ = new ContextEl();

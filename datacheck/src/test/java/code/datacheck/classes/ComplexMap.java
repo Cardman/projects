@@ -26,7 +26,6 @@ public final class ComplexMap<K, V, T> extends AbMap<K, T> {
     public Listable<V> getValues() {
         return values;
     }
-    
     public void setValues(Listable<? extends V> _values) {
         values = new CustList<V>(_values);
     }

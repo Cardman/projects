@@ -96,14 +96,12 @@ public final class TreeMap<K, V> extends AbsMap<K, V> implements SortableMap<K, 
             put(e.getKey(), e.getValue());
         }
     }
-    
     public void putAllTreeMap(SortableMap<? extends K, ? extends V> _m) {
         //setModified();
         for (EntryCust<? extends K,? extends V> e: _m.entryList()) {
             put(e.getKey(), e.getValue());
         }
     }
-    
     public void putAllNatTreeMap(NatTreeMap<? extends K, ? extends V> _m) {
         //setModified();
         for (EntryCust<? extends K,? extends V> e: _m.getList()) {

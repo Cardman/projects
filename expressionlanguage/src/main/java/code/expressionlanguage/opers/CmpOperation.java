@@ -404,12 +404,10 @@ public final class CmpOperation extends PrimitiveBoolOperation {
         setRelativeOffsetPossibleLastPage(getIndexInEl()+getOperations().getOperators().getKey(0), _conf);
         throw new NotComparableException(classFirst_+RETURN_LINE+classSecond_+RETURN_LINE+_conf.joinPages());
     }
-    
     @Override
     public Argument calculateLeft(IdMap<OperationNode,ArgumentsPair> _nodes, ContextEl _conf, String _op) {
         return calculateCommon(_nodes, _conf, _op);
     }
-    
     @Override
     public Argument calculateRight(IdMap<OperationNode,ArgumentsPair> _nodes, ContextEl _conf, String _op) {
         return calculateCommon(_nodes, _conf, _op);

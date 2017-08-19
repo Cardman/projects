@@ -3,9 +3,7 @@ import code.util.StringList;
 import code.util.classestest.KeyExample;
 
 public final class EquallableExUtil {
-    
     private static final String EXPECTED_NULL = "the result is not null.";
-    
     private static final String EXPECTED_NOT_NULL = "the result is null.";
 
     private static final String EXPECTED_BUT_WAS = "expected:{0} but was:{1}";

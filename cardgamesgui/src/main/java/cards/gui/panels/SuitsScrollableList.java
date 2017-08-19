@@ -47,8 +47,7 @@ public class SuitsScrollableList extends ScrollableList {
         for (int i = CustList.FIRST_INDEX; i < s_; i++) {
             valeurs_.add((Suit)modeleListeCouleurs.get(i));
         }
-//        
-//        for (Suit s: Collections.list(modeleListeCouleurs.elements())) {
+////        for (Suit s: Collections.list(modeleListeCouleurs.elements())) {
 //            valeurs_.add(s);
 //        }
         return valeurs_;
@@ -75,7 +74,6 @@ public class SuitsScrollableList extends ScrollableList {
 //                suits.removeObj(s);
 //            }
             if(modeleListeCouleurs.contains(s)) {
-                
                 modeleListeCouleurs.removeElementAt(modeleListeCouleurs.indexOf(s));
             }
         }

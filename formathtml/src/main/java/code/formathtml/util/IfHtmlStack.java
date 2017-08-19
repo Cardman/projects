@@ -8,7 +8,6 @@ import code.util.CustList;
 public final class IfHtmlStack extends IfStack implements BlockHtml {
 
     private final CustList<Element> nodes = new CustList<Element>();
-    
     private Element readNode;
 
     private Element writeNode;

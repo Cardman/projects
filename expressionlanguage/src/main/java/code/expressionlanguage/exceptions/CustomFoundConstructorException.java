@@ -17,7 +17,6 @@ public class CustomFoundConstructorException extends RuntimeException {
     private final CustList<Argument> arguments;
 
     private final InstancingStep instanceStep;
-    
     private final StringList called;
 
     public CustomFoundConstructorException(String _className, StringList _calledConstructors,

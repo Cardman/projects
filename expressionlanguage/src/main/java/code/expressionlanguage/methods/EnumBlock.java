@@ -13,6 +13,7 @@ import code.util.CustList;
 import code.util.EntryCust;
 import code.util.EqList;
 import code.util.NatTreeMap;
+import code.util.ObjectMap;
 import code.util.ObjectNotNullMap;
 import code.util.StringList;
 import code.util.graphs.Graph;
@@ -25,11 +26,21 @@ public final class EnumBlock extends BracedBlock implements UniqueRootedBlock {
 
     private final StringList allSuperClasses = new StringList();
 
+    private final StringList allSuperTypes = new StringList();
+
     private final StringList directInterfaces = new StringList();
+
+    private final StringList allDirectInterfaces = new StringList();
 
     private final StringList allInterfaces = new StringList();
 
+    private final StringList allSortedInterfaces = new StringList();
+
+    private final StringList allNeededSortedInterfaces = new StringList();
+
     private final ObjectNotNullMap<ClassMethodId, Boolean> availableMethods = new ObjectNotNullMap<ClassMethodId, Boolean>();
+
+    private final ObjectMap<FctConstraints, String> defaultMethods = new ObjectMap<FctConstraints, String>();
 
     private final AccessEnum access;
 
@@ -58,8 +69,29 @@ public final class EnumBlock extends BracedBlock implements UniqueRootedBlock {
     public StringList getDirectInterfaces() {
         return directInterfaces;
     }
+
+    @Override
+    public StringList getAllDirectInterfaces() {
+        return allDirectInterfaces;
+    }
+
+    @Override
+    public StringList getAllNeededSortedInterfaces() {
+        return allNeededSortedInterfaces;
+    }
+
+    @Override
+    public StringList getAllSortedInterfaces() {
+        return allSortedInterfaces;
+    }
+
     public ObjectNotNullMap<ClassMethodId, Boolean> getAvailableMethods() {
         return availableMethods;
+    }
+
+    @Override
+    public ObjectMap<FctConstraints, String> getDefaultMethods() {
+        return defaultMethods;
     }
     @Override
     public void validateConstructors(ContextEl _cont) {
@@ -96,6 +128,11 @@ public final class EnumBlock extends BracedBlock implements UniqueRootedBlock {
     @Override
     public StringList getAllSuperClasses() {
         return allSuperClasses;
+    }
+
+    @Override
+    public StringList getAllSuperTypes() {
+        return allSuperTypes;
     }
 
     @Override
@@ -147,12 +184,13 @@ public final class EnumBlock extends BracedBlock implements UniqueRootedBlock {
     @Override
     public StringList getDirectSuperClasses() {
         StringList classes_ = new StringList();
+        classes_.add(getSuperClass());
         return classes_;
     }
 
     @Override
     public String getSuperClass() {
-        return Enum.class.getName();
+        return Object.class.getName();
     }
 
     @Override
@@ -167,6 +205,11 @@ public final class EnumBlock extends BracedBlock implements UniqueRootedBlock {
 
     @Override
     public boolean isAbstractType() {
+        return true;
+    }
+
+    @Override
+    public boolean mustImplement() {
         return true;
     }
 }

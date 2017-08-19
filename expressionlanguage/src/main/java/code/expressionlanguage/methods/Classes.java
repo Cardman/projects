@@ -32,6 +32,7 @@ import code.expressionlanguage.methods.util.DuplicateParamName;
 import code.expressionlanguage.methods.util.EqualsEl;
 import code.expressionlanguage.methods.util.FinalMethod;
 import code.expressionlanguage.methods.util.FoundErrorInterpret;
+import code.expressionlanguage.methods.util.IncompatibilityReturnType;
 import code.expressionlanguage.methods.util.MissingReturnMethod;
 import code.expressionlanguage.methods.util.ReservedMethod;
 import code.expressionlanguage.methods.util.StaticInstanceOverriding;
@@ -301,6 +302,10 @@ public final class Classes {
             if (!classes_.errorsDet.isEmpty()) {
                 throw new AnalyzingErrorsException(classes_.errorsDet);
             }
+            classes_.validateClassesAccess(_context);
+            if (!classes_.errorsDet.isEmpty()) {
+                throw new AnalyzingErrorsException(classes_.errorsDet);
+            }
             classes_.validateLocalVariableNamesId(_context);
             if (!classes_.errorsDet.isEmpty()) {
                 throw new AnalyzingErrorsException(classes_.errorsDet);
@@ -543,12 +548,14 @@ public final class Classes {
             for (String s: bl_.getDirectSuperClasses()) {
                 ClassName b_ = new ClassName(s, false);
                 if (!classesBodies.contains(b_)) {
-                    UnknownClassName undef_;
-                    undef_ = new UnknownClassName();
-                    undef_.setClassName(b_.getName());
-                    undef_.setFileName(d_.getName());
-                    undef_.setRc(bl_.getRowCol(0, _context.getTabWidth(), ATTRIBUTE_SUPER_CLASS));
-                    errorsDet.add(undef_);
+                    if (!StringList.quickEq(b_.getName(), Object.class.getName())) {
+                        UnknownClassName undef_;
+                        undef_ = new UnknownClassName();
+                        undef_.setClassName(b_.getName());
+                        undef_.setFileName(d_.getName());
+                        undef_.setRc(bl_.getRowCol(0, _context.getTabWidth(), ATTRIBUTE_SUPER_CLASS));
+                        errorsDet.add(undef_);
+                    }
                 } else {
                     RootedBlock super_ = (RootedBlock) classesBodies.getVal(b_);
                     if (!(super_ instanceof InterfaceBlock)) {
@@ -614,6 +621,86 @@ public final class Classes {
         for (ClassEdge c: elts_) {
             interfacesInheriting.add(c.getId().getName());
         }
+        for (String c: classesInheriting) {
+            if (StringList.quickEq(c, Object.class.getName())) {
+                continue;
+            }
+            RootedBlock dBl_ = (RootedBlock) classesBodies.getVal(new ClassName(c, false));
+            StringList all_ = dBl_.getAllSuperClasses();
+            StringList direct_ = dBl_.getDirectSuperClasses();
+            all_.addAllElts(direct_);
+            for (String b: direct_) {
+                if (StringList.quickEq(b, Object.class.getName())) {
+                    continue;
+                }
+                RootedBlock bBl_ = (RootedBlock) classesBodies.getVal(new ClassName(b, false));
+                all_.addAllElts(bBl_.getAllSuperClasses());
+            }
+        }
+        for (String c: interfacesInheriting) {
+            if (StringList.quickEq(c, Object.class.getName())) {
+                continue;
+            }
+            RootedBlock dBl_ = (RootedBlock) classesBodies.getVal(new ClassName(c, false));
+            StringList all_ = dBl_.getAllSuperClasses();
+            StringList direct_ = dBl_.getDirectSuperClasses();
+            all_.addAllElts(direct_);
+            for (String b: direct_) {
+                if (StringList.quickEq(b, Object.class.getName())) {
+                    continue;
+                }
+                RootedBlock bBl_ = (RootedBlock) classesBodies.getVal(new ClassName(b, false));
+                all_.addAllElts(bBl_.getAllSuperClasses());
+            }
+            all_.removeDuplicates();
+        }
+
+        for (String c: classesInheriting) {
+            if (StringList.quickEq(c, Object.class.getName())) {
+                continue;
+            }
+            ClassName idDer_ = new ClassName(c, false);
+            if (!(classesBodies.getVal(idDer_) instanceof UniqueRootedBlock)) {
+                continue;
+            }
+            UniqueRootedBlock bl_ = (UniqueRootedBlock) classesBodies.getVal(idDer_);
+            StringList all_ = bl_.getAllInterfaces();
+            StringList direct_ = bl_.getDirectInterfaces();
+            StringList allDirect_ = bl_.getAllDirectInterfaces();
+            allDirect_.addAllElts(direct_);
+            all_.addAllElts(direct_);
+            for (String i: direct_) {
+                ClassName int_ = new ClassName(i, false);
+                RootedBlock i_ = (RootedBlock) classesBodies.getVal(int_);
+                all_.addAllElts(i_.getAllSuperClasses());
+            }
+            String superClass_ = bl_.getSuperClass();
+            StringList needed_;
+            if (!StringList.quickEq(superClass_, Object.class.getName())) {
+                ClassName idBase_ = new ClassName(bl_.getSuperClass(), false);
+                UniqueRootedBlock super_ = (UniqueRootedBlock) classesBodies.getVal(idBase_);
+                all_.addAllElts(super_.getAllInterfaces());
+                allDirect_.addAllElts(super_.getAllDirectInterfaces());
+                needed_ = super_.getAllSortedInterfaces();
+            } else {
+                needed_ = new StringList();
+            }
+            all_.removeAllObj(Object.class.getName());
+            all_.removeDuplicates();
+            allDirect_.removeDuplicates();
+            bl_.getAllSortedInterfaces().addAllElts(getSortedSuperInterfaces(all_));
+            bl_.getAllNeededSortedInterfaces().addAllElts(bl_.getAllSortedInterfaces());
+            bl_.getAllNeededSortedInterfaces().removeAllElements(needed_);
+        }
+        for (EntryCust<ClassName, Block> c: classesBodies.entryList()) {
+            RootedBlock r_ = (RootedBlock) c.getValue();
+            if (r_ instanceof UniqueRootedBlock) {
+                r_.getAllSuperTypes().addAllElts(((UniqueRootedBlock)r_).getAllSuperClasses());
+                r_.getAllSuperTypes().addAllElts(((UniqueRootedBlock)r_).getAllInterfaces());
+            } else {
+                r_.getAllSuperTypes().addAllElts(((InterfaceBlock)r_).getAllSuperClasses());
+            }
+        }
     }
     public StringList getSortedSuperInterfaces(StringList _interfaces) {
         StringList sortedSuperInterfaces_ = new StringList();
@@ -623,6 +710,9 @@ public final class Classes {
             while (true) {
                 StringList nextInterfaces_ = new StringList();
                 for (String c: currentInterfaces_) {
+                    if (StringList.quickEq(c, Object.class.getName())) {
+                        continue;
+                    }
                     InterfaceBlock int_ = (InterfaceBlock) getClassBody(c);
                     StringList directSuperInterfaces_ = int_.getDirectSuperClasses();
                     for (String s:directSuperInterfaces_) {
@@ -643,6 +733,9 @@ public final class Classes {
             i_.setInterfaceName(superInterfaces_.first());
             is_.put(superInterfaces_.first(), i_);
             for (String s: superInterfaces_) {
+                if (StringList.quickEq(s, Object.class.getName())) {
+                    continue;
+                }
                 InterfaceBlock int_ = (InterfaceBlock) getClassBody(s);
                 StringList directSuperInterfaces_ = int_.getDirectSuperClasses();
                 InterfaceNode current_ = is_.getVal(s);
@@ -728,8 +821,12 @@ public final class Classes {
             }
             all_.sortElts(new ComparatorInterfaceNode());
             for (InterfaceNode j: all_) {
-                if (!sortedSuperInterfaces_.containsStr(j.getInterfaceName())) {
-                    sortedSuperInterfaces_.add(j.getInterfaceName());
+                String name_ = j.getInterfaceName();
+                if (StringList.quickEq(name_, Object.class.getName())) {
+                    continue;
+                }
+                if (!sortedSuperInterfaces_.containsStr(name_)) {
+                    sortedSuperInterfaces_.add(name_);
                 }
             }
         }
@@ -810,16 +907,8 @@ public final class Classes {
                     try {
                         String base_ = PrimitiveTypeUtil.getQuickComponentBaseType(classNameLoc_).getComponent();
                         if (classesBodies.contains(new ClassName(base_, false))) {
-                            if (!canAccessClass(className_, base_)) {
-                                BadAccessClass err_ = new BadAccessClass();
-                                err_.setFileName(className_);
-                                err_.setRc(b_.getRowCol(0, _context.getTabWidth(), n.getKey()));
-                                err_.setId(classNameLoc_);
-                                errorsDet.add(err_);
-                            }
                             continue;
                         }
-                        
                         if (!StringList.quickEq(classNameLoc_, OperationNode.VOID_RETURN)) {
                             if (classNameLoc_.startsWith(PrimitiveTypeUtil.PRIM)) {
                                 Class<?> cl_ = ConstClasses.getPrimitiveClass(classNameLoc_.substring(1));
@@ -1041,36 +1130,29 @@ public final class Classes {
                 }
             }
         }
-        for (String c: classesInheriting) {
-            if (StringList.quickEq(c, Object.class.getName())) {
-                continue;
-            }
-            RootedBlock dBl_ = (RootedBlock) classesBodies.getVal(new ClassName(c, false));
-            StringList all_ = dBl_.getAllSuperClasses();
-            StringList direct_ = dBl_.getDirectSuperClasses();
-            all_.addAllElts(direct_);
-            for (String b: direct_) {
-                if (StringList.quickEq(b, Object.class.getName())) {
-                    continue;
-                }
-                RootedBlock bBl_ = (RootedBlock) classesBodies.getVal(new ClassName(b, false));
-                all_.addAllElts(bBl_.getAllSuperClasses());
-            }
-        }
+        
         for (String c: interfacesInheriting) {
             if (StringList.quickEq(c, Object.class.getName())) {
                 continue;
             }
-            RootedBlock dBl_ = (RootedBlock) classesBodies.getVal(new ClassName(c, false));
-            StringList all_ = dBl_.getAllSuperClasses();
-            StringList direct_ = dBl_.getDirectSuperClasses();
-            all_.addAllElts(direct_);
-            for (String b: direct_) {
-                if (StringList.quickEq(b, Object.class.getName())) {
-                    continue;
+            InterfaceBlock dBl_ = (InterfaceBlock) classesBodies.getVal(new ClassName(c, false));
+            ObjectMap<FctConstraints, StringList> signatures_ = dBl_.getAllSignatures(this);
+            ObjectMap<FctConstraints, String> localSignatures_ = dBl_.getLocalSignatures(this);
+            ObjectMap<FctConstraints, StringList> ov_;
+            ov_ = InterfaceBlock.getAllOverridingMethods(signatures_, this);
+            ObjectMap<FctConstraints, StringList> er_;
+            er_ = InterfaceBlock.areCompatible(localSignatures_, ov_, this);
+            for (EntryCust<FctConstraints, StringList> e: er_.entryList()) {
+                for (String s: e.getValue()) {
+                    MethodBlock mDer_ = getMethodBody(s, e.getKey());
+                    IncompatibilityReturnType err_ = new IncompatibilityReturnType();
+                    err_.setFileName(c);
+                    err_.setRc(dBl_.getRowCol(0, _context.getTabWidth(), ATTRIBUTE_NAME));
+                    err_.setReturnType(mDer_.getReturnType());
+                    err_.setMethod(mDer_.getId());
+                    err_.setParentClass(s);
+                    errorsDet.add(err_);
                 }
-                RootedBlock bBl_ = (RootedBlock) classesBodies.getVal(new ClassName(b, false));
-                all_.addAllElts(bBl_.getAllSuperClasses());
             }
         }
         for (EntryCust<ClassName, Block> e: classesBodies.entryList()) {
@@ -1132,33 +1214,6 @@ public final class Classes {
                 }
             }
         }
-        for (String c: interfacesInheriting) {
-            if (StringList.quickEq(c, Object.class.getName())) {
-                continue;
-            }
-            ClassName idBase_ = new ClassName(c, false);
-            InterfaceBlock bl_ = (InterfaceBlock) classesBodies.getVal(idBase_);
-            RootedBlock dBl_ = (RootedBlock) bl_;
-            StringList all_ = dBl_.getAllSuperClasses();
-            for (Block b: getDirectChildren(bl_)) {
-                if (b instanceof MethodBlock) {
-                    for (String s: all_) {
-                        if (StringList.quickEq(s, Object.class.getName())) {
-                            continue;
-                        }
-                        FctConstraints mDer_ = ((MethodBlock) b).getConstraints();
-                        MethodBlock m_ = getMethodBody(s, mDer_);
-                        if (m_ == null) {
-                            continue;
-                        }
-                        if (canAccessMethod(c, s, mDer_)) {
-                            ((MethodBlock) b).getOverridenClasses().add(s);
-                            break;
-                        }
-                    }
-                }
-            }
-        }
         for (String c: classesInheriting) {
             if (StringList.quickEq(c, Object.class.getName())) {
                 continue;
@@ -1176,24 +1231,6 @@ public final class Classes {
                 }
             }
         }
-        for (String c: interfacesInheriting) {
-            if (StringList.quickEq(c, Object.class.getName())) {
-                continue;
-            }
-            ClassName idBase_ = new ClassName(c, false);
-            InterfaceBlock bl_ = (InterfaceBlock) classesBodies.getVal(idBase_);
-            for (Block b: getDirectChildren(bl_)) {
-                if (b instanceof MethodBlock) {
-                    MethodBlock mDer_ = (MethodBlock) b;
-                    mDer_.getAllOverridenClasses().addAllElts(mDer_.getOverridenClasses());
-                    for (String s: mDer_.getOverridenClasses()) {
-                        MethodBlock mBase_ = getMethodBody(s, mDer_.getConstraints());
-                        mDer_.getAllOverridenClasses().addAllElts(mBase_.getAllOverridenClasses());
-                    }
-                }
-            }
-        }
-        StringList concreteClasses_ = new StringList();
         for (String c: classesInheriting) {
             if (StringList.quickEq(c, Object.class.getName())) {
                 continue;
@@ -1202,8 +1239,7 @@ public final class Classes {
             ClassName idBase_ = new ClassName(c, false);
             RootedBlock bl_ = (RootedBlock) classesBodies.getVal(idBase_);
             boolean concreteClass_ = false;
-            if (!bl_.isAbstractType()) {
-                concreteClasses_.add(c);
+            if (bl_.mustImplement()) {
                 concreteClass_ = true;
             }
             StringList allSuperClass_ = bl_.getAllSuperClasses();
@@ -1213,9 +1249,8 @@ public final class Classes {
                 for (Block b: getDirectChildren(superBl_)) {
                     if (b instanceof MethodBlock) {
                         MethodBlock mDer_ = (MethodBlock) b;
-                        MethodId id_ = mDer_.getId();
                         if (mDer_.isAbstractMethod()) {
-                            abstractMethods_.add(new ClassMethodId(idSuper_, id_, mDer_.getConstraints()));
+                            abstractMethods_.add(new ClassMethodId(idSuper_, mDer_.getConstraints()));
                         }
                     }
                 }
@@ -1230,7 +1265,7 @@ public final class Classes {
                             err_ = new AbstractMethod();
                             err_.setFileName(c);
                             err_.setRc(mDer_.getAttributes().getVal(ATTRIBUTE_NAME));
-                            err_.setId(mDer_.getId());
+                            err_.setSgn(id_.getSignature());
                             err_.setClassName(c);
                             errorsDet.add(err_);
                         }
@@ -1239,7 +1274,7 @@ public final class Classes {
                             err_ = new AbstractMethod();
                             err_.setFileName(c);
                             err_.setRc(mDer_.getAttributes().getVal(ATTRIBUTE_NAME));
-                            err_.setId(mDer_.getId());
+                            err_.setSgn(id_.getSignature());
                             err_.setClassName(c);
                             errorsDet.add(err_);
                         }
@@ -1333,8 +1368,173 @@ public final class Classes {
                         err_.setFileName(c);
                         err_.setClassName(m.getClassName().getName());
                         err_.setRc(bl_.getRowCol(0, _context.getTabWidth(), ATTRIBUTE_NAME));
-                        err_.setId(m.getMethod());
+                        err_.setSgn(m.getConstraints().getSignature());
                         errorsDet.add(err_);
+                    }
+                }
+            }
+        }
+        for (String c: classesInheriting) {
+            if (StringList.quickEq(c, Object.class.getName())) {
+                continue;
+            }
+            ClassName idBase_ = new ClassName(c, false);
+            RootedBlock bl_ = (RootedBlock) classesBodies.getVal(idBase_);
+            if (!(bl_ instanceof UniqueRootedBlock)) {
+                continue;
+            }
+            UniqueRootedBlock u_ = (UniqueRootedBlock) bl_;
+            boolean concreteClass_ = false;
+            if (u_.mustImplement()) {
+                concreteClass_ = true;
+            }
+            ObjectMap<FctConstraints, StringList> signatures_;
+            signatures_ = new ObjectMap<FctConstraints, StringList>();
+            StringList allInterfaces_ = u_.getAllInterfaces();
+            for (String s: allInterfaces_) {
+                ClassName idSuper_ = new ClassName(s, false);
+                InterfaceBlock superBl_ = (InterfaceBlock) classesBodies.getVal(idSuper_);
+                ObjectMap<FctConstraints, StringList> signaturesInt_;
+                signaturesInt_ = superBl_.getAllSignatures(this);
+                for (EntryCust<FctConstraints, StringList> m: signaturesInt_.entryList()) {
+                    if (!signatures_.contains(m.getKey())) {
+                        signatures_.put(m.getKey(), m.getValue());
+                    } else {
+                        signatures_.getVal(m.getKey()).addAllElts(m.getValue());
+                        signatures_.getVal(m.getKey()).removeDuplicates();
+                    }
+                }
+            }
+            ObjectMap<FctConstraints, StringList> ov_;
+            ov_ = InterfaceBlock.getAllOverridingMethods(signatures_, this);
+            StringList allSuperClass_ = bl_.getAllSuperClasses();
+            StringList allAssSuperClass_ = new StringList(allSuperClass_);
+            allAssSuperClass_.add(c);
+            for (EntryCust<FctConstraints, StringList> e: ov_.entryList()) {
+                for (String s: allAssSuperClass_) {
+                    MethodBlock mDer_ = getMethodBody(s, e.getKey());
+                    if (mDer_ == null) {
+                        continue;
+                    }
+                    String retDerive_ = mDer_.getReturnType();
+                    if (mDer_.getAccess() != AccessEnum.PUBLIC) {
+                        BadAccessMethod err_;
+                        err_ = new BadAccessMethod();
+                        err_.setFileName(c);
+                        err_.setRc(mDer_.getAttributes().getVal(ATTRIBUTE_ACCESS));
+                        err_.setId(mDer_.getId());
+                        errorsDet.add(err_);
+                    } else if(mDer_.isStaticMethod()) {
+                        StaticInstanceOverriding err_;
+                        err_ = new StaticInstanceOverriding();
+                        err_.setFileName(c);
+                        err_.setRc(mDer_.getAttributes().getVal(ATTRIBUTE_MODIFIER));
+                        err_.setBaseClass(idBase_);
+                        err_.setMethodeId(mDer_.getId());
+                        err_.setStaticBaseMethod(false);
+                        errorsDet.add(err_);
+                    } else {
+                        for (String i: e.getValue()) {
+                            MethodBlock mBase_ = getMethodBody(i, e.getKey());
+                            String retBase_ = mBase_.getReturnType();
+                            if (StringList.quickEq(retBase_, OperationNode.VOID_RETURN)) {
+                                if (!StringList.quickEq(retDerive_, OperationNode.VOID_RETURN)) {
+                                    BadReturnTypeInherit err_;
+                                    err_ = new BadReturnTypeInherit();
+                                    err_.setFileName(c);
+                                    err_.setRc(mDer_.getAttributes().getVal(ATTRIBUTE_CLASS));
+                                    err_.setReturnType(retDerive_);
+                                    err_.setMethod(mDer_.getId());
+                                    err_.setParentClass(i);
+                                    errorsDet.add(err_);
+                                    //throw ex
+                                }
+                            } else if (!PrimitiveTypeUtil.canBeUseAsArgument(retBase_, retDerive_, this)) {
+                                //throw ex
+                                BadReturnTypeInherit err_;
+                                err_ = new BadReturnTypeInherit();
+                                err_.setFileName(c);
+                                err_.setRc(mDer_.getAttributes().getVal(ATTRIBUTE_CLASS));
+                                err_.setReturnType(retDerive_);
+                                err_.setMethod(mDer_.getId());
+                                err_.setParentClass(i);
+                                errorsDet.add(err_);
+                            }
+                        }
+                    }
+                }
+            }
+            EqList<ClassMethodId> abstractMethods_;
+            abstractMethods_ = InterfaceBlock.remainingMethodsToImplement(ov_, this);
+            if (concreteClass_) {
+                for (ClassMethodId m: abstractMethods_) {
+                    boolean ok_ = false;
+                    for (String s: allAssSuperClass_) {
+                        MethodBlock method_ = getMethodBody(s, m.getConstraints());
+                        if (method_ == null) {
+                            continue;
+                        }
+                        ok_ = true;
+                        break;
+                    }
+                    if (!ok_) {
+                        AbstractMethod err_;
+                        err_ = new AbstractMethod();
+                        err_.setFileName(c);
+                        err_.setClassName(m.getClassName().getName());
+                        err_.setRc(u_.getRowCol(0, _context.getTabWidth(), ATTRIBUTE_NAME));
+                        err_.setSgn(m.getConstraints().getSignature());
+                        errorsDet.add(err_);
+                    }
+                }
+            }
+            ObjectMap<FctConstraints, String> def_;
+            def_ = InterfaceBlock.defaultMethods(signatures_, this);
+            for (EntryCust<FctConstraints, String> e: def_.entryList()) {
+                boolean addDefault_ = true;
+                for (String s: allAssSuperClass_) {
+                    MethodBlock m_ = getMethodBody(s, e.getKey());
+                    if (m_ != null) {
+                        addDefault_ = false;
+                        break;
+                    }
+                }
+                if (!addDefault_) {
+                    continue;
+                }
+                u_.getDefaultMethods().put(e.getKey(), e.getValue());
+            }
+        }
+    }
+    public void validateClassesAccess(ContextEl _context) {
+        PageEl page_ = new PageEl();
+        _context.clearPages();
+        _context.addPage(page_);
+        for (EntryCust<ClassName, Block> c: classesBodies.entryList()) {
+            String className_ = c.getKey().getName();
+            CustList<Block> bl_ = getSortedDescNodes(c.getValue());
+            for (Block e: bl_) {
+                Block b_ = (Block) e;
+                for (EntryCust<String, String> n: b_.getClassNames().entryList()) {
+                    String classNameLoc_ = n.getValue();
+                    try {
+                        String base_ = PrimitiveTypeUtil.getQuickComponentBaseType(classNameLoc_).getComponent();
+                        if (classesBodies.contains(new ClassName(base_, false))) {
+                            if (!canAccessClass(className_, base_)) {
+                                BadAccessClass err_ = new BadAccessClass();
+                                err_.setFileName(className_);
+                                err_.setRc(b_.getRowCol(0, _context.getTabWidth(), n.getKey()));
+                                err_.setId(classNameLoc_);
+                                errorsDet.add(err_);
+                            }
+                            continue;
+                        }
+                    } catch (RuntimeClassNotFoundException _0) {
+                        UnknownClassName un_ = new UnknownClassName();
+                        un_.setClassName(classNameLoc_);
+                        un_.setFileName(className_);
+                        un_.setRc(b_.getRowCol(0, _context.getTabWidth(), n.getKey()));
+                        errorsDet.add(un_);
                     }
                 }
             }
@@ -1775,8 +1975,7 @@ public final class Classes {
                     pTypes_.add(new ClassName(n_, i + 1 == len_ && method_.isVarargs()));
                 }
                 if (method_.getConstraints().eq(_methodId)) {
-                    return method_; 
-                }
+                    return method_;                }
             }
         }
         return null;

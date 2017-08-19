@@ -69,15 +69,12 @@ public final class ClassArgumentMatching {
     public boolean isArray() {
         return className.startsWith(ARR_CLASS);
     }
-    
     public boolean matchClass(ClassArgumentMatching _class) {
         return StringList.quickEq(className, _class.getName());
     }
-    
     public boolean matchVoid() {
         return StringList.quickEq(className, OperationNode.VOID_RETURN);
     }
-    
     public boolean matchClass(Class<?> _class) {
         return StringList.quickEq(className, _class.getName());
     }

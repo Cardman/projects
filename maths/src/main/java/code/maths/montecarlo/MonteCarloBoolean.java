@@ -36,7 +36,6 @@ public final class MonteCarloBoolean extends AbMonteCarlo<Boolean> {
     @CapacityInit
     public MonteCarloBoolean(CollCapacity _capacity) {
         law = new BooleanMap<LgInt>(_capacity);
-        
     }
     @Override
     public BooleanList events() {

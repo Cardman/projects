@@ -5,7 +5,6 @@ import code.util.StringMap;
 public final class ElementOffsetsNext {
 
     private final StringMap<RowCol> attributes = new StringMap<RowCol>();
-    
     private final StringMap<Numbers<Integer>> offsets = new StringMap<Numbers<Integer>>();
 
     private final StringMap<Numbers<Integer>> tabs = new StringMap<Numbers<Integer>>();
@@ -19,7 +18,6 @@ public final class ElementOffsetsNext {
     private RowCol endHeader;
 
 //    private final int nextEltLineReturn;
-    
 //    public ElementOffsetsNext(Map<String,RowCol> _attributes, RowCol _rc, int _nextElt, int _n)
     public ElementOffsetsNext(StringMap<Numbers<Integer>> _tabs,
             StringMap<Numbers<Integer>> _ret, StringMap<RowCol> _attributes,

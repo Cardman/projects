@@ -10,7 +10,6 @@ public final class SwitchBlockStack extends SwitchStack implements BreakableBloc
     public BracedBlock firstVisitedBlock() {
         return blocks.first();
     }
-    
     public BracedBlock lastVisitedBlock() {
         return blocks.last();
     }

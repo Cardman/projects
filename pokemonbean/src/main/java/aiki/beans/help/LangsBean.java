@@ -319,7 +319,6 @@ public class LangsBean extends CommonBean {
 //        }
 //        return null;
 //    }
-    
     private static EnumList<Statistic> getStatisticKeys(TreeMap<LanguageElementKey<Statistic>,String> _treeMap) {
         EnumList<Statistic> list_ = new EnumList<Statistic>();
         for (LanguageElementKey<Statistic> k: _treeMap.getKeys()) {
@@ -328,7 +327,6 @@ public class LangsBean extends CommonBean {
         list_.removeDuplicates();
         return list_;
     }
-    
     private static EnumList<SelectedBoolean> getSelectedBooleanKeys(TreeMap<LanguageElementKey<SelectedBoolean>,String> _treeMap) {
         EnumList<SelectedBoolean> list_ = new EnumList<SelectedBoolean>();
         for (LanguageElementKey<SelectedBoolean> k: _treeMap.getKeys()) {
@@ -337,7 +335,6 @@ public class LangsBean extends CommonBean {
         list_.removeDuplicates();
         return list_;
     }
-    
     private static EnumList<EnvironmentType> getEnvKeys(TreeMap<LanguageElementKey<EnvironmentType>,String> _treeMap) {
         EnumList<EnvironmentType> list_ = new EnumList<EnvironmentType>();
         for (LanguageElementKey<EnvironmentType> k: _treeMap.getKeys()) {
@@ -346,7 +343,6 @@ public class LangsBean extends CommonBean {
         list_.removeDuplicates();
         return list_;
     }
-    
     private static EnumList<Gender> getGenderKeys(TreeMap<LanguageElementKey<Gender>,String> _treeMap) {
         EnumList<Gender> list_ = new EnumList<Gender>();
         for (LanguageElementKey<Gender> k: _treeMap.getKeys()) {
@@ -355,7 +351,6 @@ public class LangsBean extends CommonBean {
         list_.removeDuplicates();
         return list_;
     }
-    
     private static EnumList<TargetChoice> getTargetKeys(TreeMap<LanguageElementKey<TargetChoice>,String> _treeMap) {
         EnumList<TargetChoice> list_ = new EnumList<TargetChoice>();
         for (LanguageElementKey<TargetChoice> k: _treeMap.getKeys()) {
@@ -373,7 +368,6 @@ public class LangsBean extends CommonBean {
         list_.removeDuplicates();
         return list_;
     }
-    
     private static StringList getTargetRowByKey(
             StringList _languages,
             TreeMap<LanguageElementKey<TargetChoice>,String> _treeMap,int _index) {
@@ -388,7 +382,6 @@ public class LangsBean extends CommonBean {
         }
         return list_;
     }
-    
     private static StringList getEnvRowByKey(
             StringList _languages,
             TreeMap<LanguageElementKey<EnvironmentType>,String> _treeMap,int _index) {
@@ -403,7 +396,6 @@ public class LangsBean extends CommonBean {
         }
         return list_;
     }
-    
     private static StringList getGenderRowByKey(
             StringList _languages,
             TreeMap<LanguageElementKey<Gender>,String> _treeMap,int _index) {
@@ -418,7 +410,6 @@ public class LangsBean extends CommonBean {
         }
         return list_;
     }
-    
     private static StringList getSelectedBooleanRowByKey(
             StringList _languages,
             TreeMap<LanguageElementKey<SelectedBoolean>,String> _treeMap,int _index) {

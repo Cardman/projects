@@ -58,7 +58,6 @@ public abstract class Block extends Blockable implements SortedNode<Block> {
     protected static final String ATTRIBUTE_MODIFIER = "modifier";
     protected static final String ATTRIBUTE_SUPER_CLASS = "superclass";
     protected static final String ATTRIBUTE_ACCESS = "access";
-    
     protected static final String TAG_AFFECT = "affect";
     protected static final String TAG_BREAK = "break";
     protected static final String TAG_CASE = "case";
@@ -117,7 +116,6 @@ public abstract class Block extends Blockable implements SortedNode<Block> {
     private ContextEl conf;
 
     private final int indexChild;
-    
     private int indexGroup;
 
     private int indexInGroup;
@@ -125,7 +123,6 @@ public abstract class Block extends Blockable implements SortedNode<Block> {
     private boolean completeGroup;
 
     private SearchingReturnThrow searching;
-    
     private Block nextSibling;
 
     private Block previousSibling;
@@ -147,7 +144,6 @@ public abstract class Block extends Blockable implements SortedNode<Block> {
         indexChild = _indexChild;
         searching = new SearchingReturnThrow();
     }
-    
     protected static void tryCheckBlocksTree(Block _block, ContextEl _cont) {
         if (_block instanceof WithEl) {
             _cont.getLastPage().setCurrentBlock(_block);

@@ -7,9 +7,7 @@ import code.util.GenericNumbers;
 import code.util.StringList;
 
 public final class EquallableUtil {
-    
     private static final String EXPECTED_NULL = "the result is not null.";
-    
     private static final String EXPECTED_NOT_NULL = "the result is null.";
 
     private static final String EXPECTED_BUT_WAS = "expected:{0} but was:{1}";
@@ -134,7 +132,6 @@ public final class EquallableUtil {
         }
         return _result == null;
     }
-    
     private static boolean sameValue(Object _expected, Object _result) {
         boolean second_ = false;
         if (_result instanceof Number) {

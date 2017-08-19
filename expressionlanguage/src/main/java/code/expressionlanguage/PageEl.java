@@ -35,7 +35,6 @@ public final class PageEl {
     private static final String SEP_KEY_VAL = ":";
 
     private ReadWrite readWrite;
-    
     private Block blockRoot;
 
     private boolean initializingClass;
@@ -137,7 +136,6 @@ public final class PageEl {
     public ReadWrite getReadWrite() {
         return readWrite;
     }
-    
     public void setNullReadWrite() {
         readWrite = null;
     }
@@ -180,8 +178,6 @@ public final class PageEl {
     public CallingClassConstructor getCall() {
         return getCallingConstr().getInstancingStep().getCall();
     }
-    
-    
     public boolean isCalling() {
         return getCallingConstr().getInstancingStep().isCalling();
     }
@@ -249,7 +245,6 @@ public final class PageEl {
     public Argument getGlobalArgument() {
         return globalArgument;
     }
-    
     public void setGlobalArgumentStruct(Struct _obj) {
         Argument arg_ = new Argument();
         arg_.setStruct(_obj);
@@ -302,7 +297,6 @@ public final class PageEl {
     public void setParameters(StringMap<LocalVariable> _parameters) {
         parameters = _parameters;
     }
-    
     public boolean noBlock() {
         return blockStacks.isEmpty();
     }

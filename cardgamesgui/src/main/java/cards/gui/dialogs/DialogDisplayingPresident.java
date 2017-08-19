@@ -92,7 +92,6 @@ public final class DialogDisplayingPresident extends DialogCards implements Dial
         //Panneau Tri avant enchere
         panneau_=new JPanel();
         panneau_.setLayout(new GridLayout(0,4));
-        
 //        listeChoix=new ComboBoxSuit();
 //        for (Suit couleur_:Suit.couleursOrdinaires()) {
 //            listeChoix.addItem(couleur_);

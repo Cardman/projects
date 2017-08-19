@@ -63,7 +63,6 @@ public abstract class AbEqList<T> extends CustList<T> {
         }
         return list_;
     }
-    
     public boolean containsAllObj(Listable<? extends T> _list) {
         for (T e: _list) {
             if (!containsObj(e)) {

@@ -1411,7 +1411,6 @@ public final class XmlParser {
         //        enc_ = StringList.replace(enc_, PREFIXED_END, UNPREFIXED_END);
         //        return parseSax(enc_);
     }
-    
     public static Document parseSaxHtmlRowCol(String _xml, boolean _acceptNull, boolean _prefix) {
         String enc_ = encodeHtml(_xml);
         if (_acceptNull) {

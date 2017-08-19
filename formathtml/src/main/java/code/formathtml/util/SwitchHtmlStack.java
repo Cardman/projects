@@ -5,13 +5,11 @@ import code.expressionlanguage.stacks.SwitchStack;
 import code.util.CustList;
 
 public final class SwitchHtmlStack extends SwitchStack implements BreakableHtmlStack {
-    
     private Element readNode;
 
     private Element writeNode;
 
     private final CustList<Element> nodes = new CustList<Element>();
-    
     public Element lastVisitedNode() {
         return nodes.last();
     }

@@ -2644,7 +2644,6 @@ public class Game {
     public void doRevivingFossil(String _fossilName,DataBase _import){
         player.doRevivingFossil(_fossilName, difficulty, _import);
     }
-    
     public EqList<Coords> getBeatenGymLeader() {
         EqList<Coords> k_ = new EqList<Coords>();
         for (EntryCust<Coords, Boolean> e: beatGymLeader.entryList()) {

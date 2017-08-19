@@ -11,7 +11,6 @@ public final class BooleanList extends AbEqList<Boolean> implements Equallable<B
     public BooleanList(Boolean... _elements) {
         super(_elements);
     }
-    
     public BooleanList(Listable<? extends Boolean> _c) {
         super(_c);
     }

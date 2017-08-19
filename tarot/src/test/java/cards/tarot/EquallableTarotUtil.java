@@ -2,9 +2,7 @@ package cards.tarot;
 import code.util.StringList;
 
 public final class EquallableTarotUtil {
-    
     private static final String EXPECTED_NULL = "the result is not null.";
-    
     private static final String EXPECTED_NOT_NULL = "the result is null.";
 
     private static final String EXPECTED_BUT_WAS = "expected:{0} but was:{1}";

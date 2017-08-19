@@ -7470,7 +7470,6 @@ public class DataBase implements WithMathFactory<Rate>{
         return moves;
     }
 
-    
     public NumberMap<Short,String> getTm() {
         return tm;
     }
@@ -7951,19 +7950,15 @@ public class DataBase implements WithMathFactory<Rate>{
     public StringMap<EnumMap<Gender,String>> getTranslatedGenders() {
         return translatedGenders;
     }
-    
     public StringMap<String> getTranslatedStatusCurLanguage() {
         return translatedStatus.getVal(Constants.getLanguage());
     }
-    
     public StringMap<String> getTranslatedItemsCurLanguage() {
         return translatedItems.getVal(Constants.getLanguage());
     }
-    
     public StringMap<String> getTranslatedMovesCurLanguage() {
         return translatedMoves.getVal(Constants.getLanguage());
     }
-    
     public StringMap<String> getTranslatedPokemonCurLanguage() {
         return translatedPokemon.getVal(Constants.getLanguage());
     }

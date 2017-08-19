@@ -9,19 +9,15 @@ public final class Calculation {
     private final boolean leftStep;
 
     private final String oper;
-    
     public Calculation() {
         this(false);
     }
-    
     public Calculation(boolean _enumAcces) {
         this(true, _enumAcces);
     }
-    
     public Calculation(boolean _staticAcces,boolean _enumAcces) {
         this(_staticAcces, _enumAcces, false);
     }
-  
     public Calculation(boolean _staticAcces,boolean _enumAcces,boolean _leftStep) {
         this(_staticAcces, _enumAcces, _leftStep, NO_OP);
     }
@@ -32,7 +28,6 @@ public final class Calculation {
         leftStep = _leftStep;
         oper = _oper;
     }
-    
     public static Calculation instanceCalculation() {
         return new Calculation(false, false);
     }

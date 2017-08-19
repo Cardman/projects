@@ -42,8 +42,7 @@ public final class TreeRetrieving {
             }
             rankedList_.add(node_);
 //            if (node_ instanceof TreeFilter) {
-//                
-////                try {
+//////                try {
 ////                    boolean bool_ = ((TreeFilter)node_).accept(_list);
 ////                    if (!bool_) {
 ////                        continue;

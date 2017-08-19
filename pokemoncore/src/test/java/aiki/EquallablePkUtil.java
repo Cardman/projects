@@ -7,16 +7,13 @@ import aiki.util.Coords;
 import aiki.util.Point;
 
 public final class EquallablePkUtil {
-    
     private static final String EXPECTED_NULL = "the result is not null.";
-    
     private static final String EXPECTED_NOT_NULL = "the result is null.";
 
     private static final String EXPECTED_BUT_WAS = "expected:{0} but was:{1}";
 
     private EquallablePkUtil() {
     }
-    
     public static void assertEq(TeamPosition _expected, TeamPosition _result) {
         if (checkNullity(_expected, _result)) {
             return;
@@ -26,7 +23,6 @@ public final class EquallablePkUtil {
         }
         assertError(_expected, _result);
     }
-    
     public static void assertEq(TargetCoords _expected, TargetCoords _result) {
         if (checkNullity(_expected, _result)) {
             return;
@@ -36,7 +32,6 @@ public final class EquallablePkUtil {
         }
         assertError(_expected, _result);
     }
-    
     public static void assertEq(Coords _expected, Coords _result) {
         if (checkNullity(_expected, _result)) {
             return;
@@ -46,7 +41,6 @@ public final class EquallablePkUtil {
         }
         assertError(_expected, _result);
     }
-    
     public static void assertEq(Point _expected, Point _result) {
         if (checkNullity(_expected, _result)) {
             return;

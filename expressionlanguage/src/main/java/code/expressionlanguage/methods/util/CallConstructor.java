@@ -17,7 +17,6 @@ public final class CallConstructor {
     private boolean calledImplicitConstructor;
 
     private ConstructorBlock usedConstructor;
-    
     private boolean initializedFields;
 
     private boolean firstField;

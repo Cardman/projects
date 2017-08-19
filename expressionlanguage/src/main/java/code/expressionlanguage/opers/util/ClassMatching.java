@@ -12,7 +12,6 @@ public final class ClassMatching {
     public ClassMatching(StringList _className) {
         className = _className;
     }
-    
     public ClassMatching(String _className) {
         className = new StringList(_className);
     }
@@ -21,16 +20,12 @@ public final class ClassMatching {
     public String toString() {
         return className.toString();
     }
-    
     public boolean matchClass(String _className) {
         return StringList.equalsSet(className, new StringList(_className));
     }
-    
-    
     public boolean matchClass(Class<?> _class) {
         return StringList.equalsSet(className, new StringList(_class.getName()));
     }
-    
 
     public boolean matchClass(ClassMatching _className) {
         return StringList.equalsSet(className, _className.className);
@@ -65,7 +60,6 @@ public final class ClassMatching {
             return false;
         }
     }
-    
     private Class<?> getSingleNativeClass() {
         return ConstClasses.classForNameNotInit(PrimitiveTypeUtil.getArrayClass(className.first()));
     }

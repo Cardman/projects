@@ -12,6 +12,7 @@ import code.util.CustList;
 import code.util.EntryCust;
 import code.util.EqList;
 import code.util.NatTreeMap;
+import code.util.ObjectMap;
 import code.util.ObjectNotNullMap;
 import code.util.StringList;
 import code.util.graphs.Graph;
@@ -23,17 +24,25 @@ public final class ClassBlock extends BracedBlock implements UniqueRootedBlock {
     private final String packageName;
 
     private final String superClass;
-
     private final StringList allSuperClasses = new StringList();
+
+    private final StringList allSuperTypes = new StringList();
 
     private final StringList directInterfaces = new StringList();
 
+    private final StringList allDirectInterfaces = new StringList();
+
     private final StringList allInterfaces = new StringList();
+
+    private final StringList allSortedInterfaces = new StringList();
+
+    private final StringList allNeededSortedInterfaces = new StringList();
+
+    private final ObjectMap<FctConstraints, String> defaultMethods = new ObjectMap<FctConstraints, String>();
 
     private final AccessEnum access;
 
     private final boolean finalType;
-    
     private final boolean abstractType;
 
     public ClassBlock(Element _el, ContextEl _importingPage, int _indexChild,
@@ -71,6 +80,10 @@ public final class ClassBlock extends BracedBlock implements UniqueRootedBlock {
     public StringList getAllSuperClasses() {
         return allSuperClasses;
     }
+    @Override
+    public StringList getAllSuperTypes() {
+        return allSuperTypes;
+    }
 
     @Override
     public StringList getAllInterfaces() {
@@ -80,6 +93,27 @@ public final class ClassBlock extends BracedBlock implements UniqueRootedBlock {
     public StringList getDirectInterfaces() {
         return directInterfaces;
     }
+
+    @Override
+    public StringList getAllDirectInterfaces() {
+        return allDirectInterfaces;
+    }
+
+    @Override
+    public StringList getAllNeededSortedInterfaces() {
+        return allNeededSortedInterfaces;
+    }
+
+    @Override
+    public StringList getAllSortedInterfaces() {
+        return allSortedInterfaces;
+    }
+
+    @Override
+    public ObjectMap<FctConstraints, String> getDefaultMethods() {
+        return defaultMethods;
+    }
+
     @Override
     public void validateConstructors(ContextEl _cont) {
         boolean opt_ = optionalCallConstr(_cont);
@@ -224,5 +258,10 @@ public final class ClassBlock extends BracedBlock implements UniqueRootedBlock {
     @Override
     public boolean isAbstractType() {
         return abstractType;
+    }
+
+    @Override
+    public boolean mustImplement() {
+        return !isAbstractType();
     }
 }

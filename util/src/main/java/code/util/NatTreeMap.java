@@ -19,7 +19,6 @@ public final class NatTreeMap<K extends Comparable<K>, V> extends AbsMap<K, V> i
 
     public NatTreeMap() {
     }
-    
     public NatTreeMap(ListableEntries<K,V> _map) {
         putAllMap(_map);
     }

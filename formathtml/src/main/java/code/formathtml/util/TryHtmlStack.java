@@ -7,7 +7,6 @@ import code.util.CustList;
 public final class TryHtmlStack extends TryStack implements BlockHtml{
 
     private final CustList<Element> catchNodes = new CustList<Element>();
-    
     private Element readNode;
 
     private Element writeNode;

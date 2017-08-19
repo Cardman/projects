@@ -20,7 +20,6 @@ public final class Struct {
     public Struct() {
         this(null, (String)null);
     }
-    
     public Struct(Object _instance) {
         this(_instance, PrimitiveTypeUtil.getAliasArrayClass(_instance.getClass()));
     }
@@ -32,7 +31,6 @@ public final class Struct {
     public Struct(Object _instance, String _className) {
         this(_instance, _className, new ObjectMap<ClassField,Struct>());
     }
-    
     public Struct(Object _instance, String _className,
             ObjectMap<ClassField,Struct> _fields) {
         this(_instance, _className, _fields, null);

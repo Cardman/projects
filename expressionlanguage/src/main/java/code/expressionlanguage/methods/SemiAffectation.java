@@ -47,7 +47,6 @@ public final class SemiAffectation extends Leaf implements StackableBlock {
         NatTreeMap<String,String> tr_ = new NatTreeMap<String,String>();
         return tr_;
     }
-    
     public ExpressionLanguage getLeftEl() {
         return new ExpressionLanguage(opLeft);
     }

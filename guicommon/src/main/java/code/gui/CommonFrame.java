@@ -15,7 +15,6 @@ public abstract class CommonFrame extends JFrame {
             validate();
         }
     }
-    
     protected StringMap<String> getMessages(String _messageFolder) {
         return ExtractFromFiles.getMessagesFromLocaleClass(_messageFolder, Constants.getLanguage(), accessFile);
     }

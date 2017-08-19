@@ -337,7 +337,6 @@ final class ExtractObject {
             throw new DynamicCastClassException(beginMess_+RETURN_LINE+_conf.joinPages());
         }
     }
-    
     static EntryCust<?,?> castEntryCust(Configuration _conf, int _off, Object _obj) {
         try {
             if (_obj == null) {

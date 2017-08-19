@@ -5,7 +5,6 @@ import code.expressionlanguage.opers.OperationNode;
 import code.expressionlanguage.opers.util.AssignableFrom;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.opers.util.ClassMatching;
-import code.expressionlanguage.opers.util.ClassName;
 import code.expressionlanguage.opers.util.DimComp;
 import code.expressionlanguage.opers.util.IndexesComparator;
 import code.expressionlanguage.opers.util.Struct;
@@ -17,6 +16,7 @@ import code.util.TreeMap;
 import code.util.exceptions.RuntimeClassNotFoundException;
 
 public final class PrimitiveTypeUtil {
+    public static final String NO_SUB_CLASS = "";
     public static final String PRIM  = "$";
     public static final String PRIM_BOOLEAN = "$boolean";
     public static final String PRIM_CHAR = "$char";
@@ -89,6 +89,21 @@ public final class PrimitiveTypeUtil {
         }
         return output_;
     }
+    public static String getSubslass(StringList _classNames, Classes _classes) {
+        for (String i: _classNames) {
+            boolean sub_ = true;
+            for (String j: _classNames) {
+                if (!canBeUseAsArgument(j, i, _classes)) {
+                    sub_ = false;
+                    break;
+                }
+            }
+            if (sub_) {
+                return i;
+            }
+        }
+        return NO_SUB_CLASS;
+    }
     public static String getPrettyArrayType(String _className, int _nb) {
         String cl_ = _className;
         for (int i = CustList.FIRST_INDEX; i < _nb; i++) {
@@ -137,7 +152,6 @@ public final class PrimitiveTypeUtil {
     public static String getPrettyArrayType(String _className) {
         return ARR_CLASS+_className;
     }
-    
     public static DimComp getQuickComponentBaseType(String _className) {
         int d_ = 0;
         String className_ = _className;
@@ -174,7 +188,7 @@ public final class PrimitiveTypeUtil {
         }
     }
 
-    public static boolean isArrayAssignable(String _arrArg, String _arrParam) {
+    public static boolean isArrayAssignable(String _arrArg, String _arrParam, Classes _classes) {
         DimComp dArg_ = PrimitiveTypeUtil.getQuickComponentBaseType(_arrArg);
         String a_ = dArg_.getComponent();
         DimComp dPar_ = PrimitiveTypeUtil.getQuickComponentBaseType(_arrParam);
@@ -187,6 +201,10 @@ public final class PrimitiveTypeUtil {
         }
         if (dPar_.getDim() != dArg_.getDim()) {
             return false;
+        }
+        RootedBlock clArgBl_ = _classes.getClassBody(a_);
+        if (clArgBl_.getAllSuperTypes().containsObj(className_)) {
+            return true;
         }
         if (StringList.quickEq(className_, a_)) {
             return true;
@@ -278,21 +296,14 @@ public final class PrimitiveTypeUtil {
         String compo_ = d_.getComponent();
         return getArrayType(compo_, d_.getDim());
     }
-
-    public static boolean canBeUseAsArgument(ClassName _param, ClassName _arg, Classes _classes) {
-        return canBeUseAsArgument(_param.getName(), _arg.getName(), _classes);
-    }
     public static boolean canBeUseAsArgument(String _param, String _arg, Classes _classes) {
         if (StringList.quickEq(_param, OperationNode.VOID_RETURN)) {
             return false;
         }
         ClassArgumentMatching param_ = new ClassArgumentMatching(_param);
         if (_arg == null) {
-            try {
-                if (param_.isPrimitive()) {
-                    return false;
-                }
-            } catch (RuntimeClassNotFoundException _0) {
+            if (param_.isPrimitive()) {
+                return false;
             }
             return true;
         }
@@ -303,8 +314,24 @@ public final class PrimitiveTypeUtil {
         if (a_ == AssignableFrom.NO) {
             return false;
         }
+        DimComp paramComp_ = getQuickComponentBaseType(param_.getName());
+        DimComp argComp_ = getQuickComponentBaseType(_arg);
+        if (paramComp_.getDim() < argComp_.getDim()) {
+            if (StringList.quickEq(paramComp_.getComponent(), Object.class.getName())) {
+                return true;
+            }
+            return false;
+        }
         Class<?> clParam_ = param_.getClazz();
-        return canBeUseAsArgument(clParam_, new ClassArgumentMatching(_arg).getClazz());
+        Class<?> clArg_ = new ClassArgumentMatching(_arg).getClazz();
+        boolean array_ = false;
+        if (paramComp_.getDim() == argComp_.getDim()) {
+            param_ = new ClassArgumentMatching(paramComp_.getComponent());
+            clArg_ = new ClassArgumentMatching(argComp_.getComponent()).getClazz();
+            clParam_ = param_.getClazz();
+            array_ = paramComp_.getDim() > 0;
+        }
+        return canBeUseAsArgument(clParam_, clArg_, array_);
     }
     public static boolean isAssignableFrom(String _param, String _arg, Classes _classes) {
         AssignableFrom a_ = isAssignableFromCust(_param, _arg, _classes);
@@ -330,16 +357,19 @@ public final class PrimitiveTypeUtil {
             if (clArgBl_ != null) {
                 DimComp dPar_ = PrimitiveTypeUtil.getQuickComponentBaseType(_param);
                 if (dArg_.getDim() > 0 && dPar_.getDim() > 0) {
-                    if (isArrayAssignable(_arg, _param)) {
+                    if (isArrayAssignable(_arg, _param, _classes)) {
                         return AssignableFrom.YES;
                     }
+                    return AssignableFrom.NO;
+                }
+                if (dArg_.getDim() != dPar_.getDim()) {
                     return AssignableFrom.NO;
                 }
                 String className_ = dPar_.getComponent();
                 if (StringList.quickEq(className_, a_)) {
                     return AssignableFrom.YES;
                 }
-                if (clArgBl_.getAllSuperClasses().containsObj(className_)) {
+                if (clArgBl_.getAllSuperTypes().containsObj(className_)) {
                     return AssignableFrom.YES;
                 }
                 return AssignableFrom.NO;
@@ -354,7 +384,7 @@ public final class PrimitiveTypeUtil {
         return AssignableFrom.MAYBE;
     }
 
-    private static boolean canBeUseAsArgument(Class<?> _param, Class<?> _arg) {
+    private static boolean canBeUseAsArgument(Class<?> _param, Class<?> _arg, boolean _array) {
         if (_arg == boolean.class || _arg == Boolean.class) {
             if (!_param.isAssignableFrom(Boolean.class) && _param != boolean.class) {
                 return false;
@@ -387,10 +417,10 @@ public final class PrimitiveTypeUtil {
                 }
                 return true;
             }
-            if (!_param.isAssignableFrom(_arg)) {
-                if (!_param.isPrimitive()) {
-                    return false;
-                }
+            if (!_param.isPrimitive()) {
+                return false;
+            }
+            if (!_array) {
                 CustList<Class<?>> gt_ = PrimitiveTypeUtil.getOrdersGreaterEqThan(clMatch_);
                 Class<?> prim_ = _param;
                 boolean contained_ = false;
@@ -403,8 +433,8 @@ public final class PrimitiveTypeUtil {
                 if (!contained_) {
                     return false;
                 }
+                return true;
             }
-            return true;
         }
         return false;
     }

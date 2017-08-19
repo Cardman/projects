@@ -23,7 +23,6 @@ public abstract class ComboBox<T extends Enum<T>> extends JComboBox {
     private TreeMap<T,String> elements;
 
     private boolean withDefaultValue;
-    
     public ComboBox(){
     }
 
@@ -32,10 +31,8 @@ public abstract class ComboBox<T extends Enum<T>> extends JComboBox {
             addItem(e);
         }
     }
-    
     public ComboBox(TreeMap<T,String> _tr){
-        elements = _tr; 
-    }
+        elements = _tr;    }
 
     protected TreeMap<T, String> getElements() {
         return elements;

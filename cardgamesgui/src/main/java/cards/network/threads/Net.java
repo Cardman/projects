@@ -369,7 +369,6 @@ public final class Net {
     public static NatTreeMap<Integer, Byte> getPlacesPlayers() {
         return _placesPlayers_;
     }
-    
     /**server*/
     public static Numbers<Integer> getPlacesPlayersByValue(byte _value) {
         Numbers<Integer> l_;

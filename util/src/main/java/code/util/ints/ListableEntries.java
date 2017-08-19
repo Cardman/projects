@@ -13,7 +13,6 @@ public interface ListableEntries<K,V> {
     void putAllMap(ListableEntries<? extends K, ? extends V> _m);
 
     Listable<K> getKeys();
-    
     Listable<V> getValues(K _key);
 
     V getVal(K _key);

@@ -2,7 +2,6 @@ package code.expressionlanguage;
 
 
 public final class CustEnum {
-    
     private final String className;
 
     private final String name;

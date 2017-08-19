@@ -280,7 +280,7 @@ public final class FctOperation extends InvokingOperation {
                 classMethodId = clMeth_;
                 if (!classes_.canAccessMethod(glClass_, foundClass_, methodId)) {
                     setRelativeOffsetPossibleLastPage(getIndexInEl()+off_, _conf);
-                    throw new BadAccessException(clMeth_.getMethod().getSignature()+RETURN_LINE+_conf.joinPages());
+                    throw new BadAccessException(clMeth_.getConstraints().getSignature()+RETURN_LINE+_conf.joinPages());
                 }
                 custClass_ = classes_.getClassMetaInfo(foundClass_);
                 MethodMetaInfo methodMetaInfo_ = custClass_.getMethods().getVal(methodId);
@@ -289,7 +289,7 @@ public final class FctOperation extends InvokingOperation {
                 }
                 if (staticChoiceMethod && methodMetaInfo_.getModifier() == MethodModifier.ABSTRACT) {
                     setRelativeOffsetPossibleLastPage(getIndexInEl()+off_, _conf);
-                    throw new AbstractMethodException(clMeth_.getMethod().getSignature()+RETURN_LINE+_conf.joinPages());
+                    throw new AbstractMethodException(clMeth_.getConstraints().getSignature()+RETURN_LINE+_conf.joinPages());
                 }
                 methodMetaInfo = methodMetaInfo_;
                 setResultClass(new ClassArgumentMatching(methodMetaInfo.getReturnType().getName()));
@@ -341,7 +341,6 @@ public final class FctOperation extends InvokingOperation {
     public Argument calculateLeft(IdMap<OperationNode,ArgumentsPair> _nodes, ContextEl _conf, String _op) {
         return calculateCommon(_nodes, _conf, _op);
     }
-    
     @Override
     public Argument calculateRight(IdMap<OperationNode,ArgumentsPair> _nodes, ContextEl _conf, String _op) {
         return calculateCommon(_nodes, _conf, _op);

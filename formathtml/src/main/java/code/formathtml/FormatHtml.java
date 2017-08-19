@@ -3684,7 +3684,6 @@ final class FormatHtml {
         }
         return false;
     }
-    
     private static boolean isCatchNode(Configuration _conf, Node _node) {
         String prefix_ = _conf.getLastPage().getPrefix();
         String nodeName_ = _node.getNodeName();
@@ -3693,7 +3692,6 @@ final class FormatHtml {
         }
         return false;
     }
-    
     private static boolean isFinallyNode(Configuration _conf, Node _node) {
         String prefix_ = _conf.getLastPage().getPrefix();
         String nodeName_ = _node.getNodeName();

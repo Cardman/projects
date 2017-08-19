@@ -5,14 +5,12 @@ import code.util.ints.Listable;
 
 /** Not compared in tests */
 public final class EqList<T extends Equallable<T>> extends AbEqList<T> implements Equallable<EqList<T>> {
- 
     public EqList() {
     }
 
     public EqList(T... _elements) {
         super(_elements);
     }
-    
     public EqList(Listable<? extends T> _c) {
         super(_c);
     }

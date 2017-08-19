@@ -45,11 +45,9 @@ public abstract class SwitchStack extends BlockStack implements BreakableStack {
     public void setEntered(boolean _entered) {
         entered = _entered;
     }
-    
     public Struct getStruct() {
         return value;
     }
-    
     public void setStruct(Struct _value) {
         value = _value;
         if (value == null) {

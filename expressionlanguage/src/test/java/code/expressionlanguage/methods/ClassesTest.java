@@ -288,8 +288,6 @@ public class ClassesTest {
         assertTrue(classes_.getErrorsDet().toString(), classes_.getErrorsDet().isEmpty());
         classes_.validateMethodsId(cont_);
         assertTrue(classes_.getErrorsDet().toString(), classes_.getErrorsDet().isEmpty());
-        classes_.validateOverridingInherit(cont_);
-        assertTrue(classes_.getErrorsDet().toString(), classes_.getErrorsDet().isEmpty());
         return cont_;
     }
 }
