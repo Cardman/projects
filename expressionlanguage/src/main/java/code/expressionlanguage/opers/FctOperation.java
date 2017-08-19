@@ -34,6 +34,7 @@ import code.expressionlanguage.opers.util.ClassCategory;
 import code.expressionlanguage.opers.util.ClassField;
 import code.expressionlanguage.opers.util.ClassMetaInfo;
 import code.expressionlanguage.opers.util.ClassMethodId;
+import code.expressionlanguage.opers.util.ClassMethodIdReturn;
 import code.expressionlanguage.opers.util.ClassName;
 import code.expressionlanguage.opers.util.ConstructorId;
 import code.expressionlanguage.opers.util.FctConstraints;
@@ -274,13 +275,13 @@ public final class FctOperation extends InvokingOperation {
                     staticChoiceMethod = true;
                     superAccessMethod = true;
                 }
-                ClassMethodId clMeth_ = getDeclaredCustMethod(_conf, new ClassArgumentMatching(clCurName_), trimMeth_, superClassAccess_, ClassArgumentMatching.toArgArray(firstArgs_));
-                methodId = clMeth_.getConstraints();
-                String foundClass_ = clMeth_.getClassName().getName();
-                classMethodId = clMeth_;
+                ClassMethodIdReturn clMeth_ = getDeclaredCustMethod(_conf, new ClassArgumentMatching(clCurName_), trimMeth_, superClassAccess_, ClassArgumentMatching.toArgArray(firstArgs_));
+                methodId = clMeth_.getId().getConstraints();
+                String foundClass_ = clMeth_.getId().getClassName().getName();
+                classMethodId = clMeth_.getId();
                 if (!classes_.canAccessMethod(glClass_, foundClass_, methodId)) {
                     setRelativeOffsetPossibleLastPage(getIndexInEl()+off_, _conf);
-                    throw new BadAccessException(clMeth_.getConstraints().getSignature()+RETURN_LINE+_conf.joinPages());
+                    throw new BadAccessException(clMeth_.getId().getConstraints().getSignature()+RETURN_LINE+_conf.joinPages());
                 }
                 custClass_ = classes_.getClassMetaInfo(foundClass_);
                 MethodMetaInfo methodMetaInfo_ = custClass_.getMethods().getVal(methodId);
@@ -289,10 +290,10 @@ public final class FctOperation extends InvokingOperation {
                 }
                 if (staticChoiceMethod && methodMetaInfo_.getModifier() == MethodModifier.ABSTRACT) {
                     setRelativeOffsetPossibleLastPage(getIndexInEl()+off_, _conf);
-                    throw new AbstractMethodException(clMeth_.getConstraints().getSignature()+RETURN_LINE+_conf.joinPages());
+                    throw new AbstractMethodException(clMeth_.getId().getConstraints().getSignature()+RETURN_LINE+_conf.joinPages());
                 }
                 methodMetaInfo = methodMetaInfo_;
-                setResultClass(new ClassArgumentMatching(methodMetaInfo.getReturnType().getName()));
+                setResultClass(new ClassArgumentMatching(clMeth_.getReturnType()));
                 return;
             }
         }
