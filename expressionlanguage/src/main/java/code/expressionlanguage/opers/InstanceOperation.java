@@ -270,7 +270,7 @@ public final class InstanceOperation extends InvokingOperation {
         for (OperationNode o: chidren_) {
             arguments_.add(_nodes.getVal(o).getArgument());
         }
-        Argument a_ = getArgument(getPreviousArgument(), arguments_, false, _conf, _op);
+        Argument a_ = getArgument(_nodes.getVal(this).getPreviousArgument(), arguments_, false, _conf, _op);
         setSimpleArgument(a_, _conf, _nodes);
         return a_;
     }

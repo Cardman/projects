@@ -360,225 +360,12 @@ public final class FctOperation extends InvokingOperation {
     Argument calculateCommon(
             IdMap<OperationNode, ArgumentsPair> _nodes, ContextEl _conf,
             String _op) {
-        Classes classes_ = _conf.getClasses();
         CustList<OperationNode> chidren_ = getChildrenNodes();
-        int off_ = StringList.getFirstPrintableCharIndex(methodName);
-        setRelativeOffsetPossibleLastPage(getIndexInEl()+off_, _conf);
-        String trimMeth_ = methodName.trim();
-        if (constId != null) {
-            if (StringList.quickEq(trimMeth_,EXTERN_CLASS+CURRENT)) {
-                String clCurName_ = _conf.getLastPage().getGlobalClass();
-                CustList<Argument> firstArgs_ = listArguments(chidren_, _nodes, false);
-                StringList called_ = _conf.getLastPage().getCallingConstr().getCalledConstructors();
-                called_.add(clCurName_);
-                Argument global_ = _conf.getLastPage().getGlobalArgument();
-                throw new CustomFoundConstructorException(clCurName_, called_, constId, global_, firstArgs_, InstancingStep.USING_THIS);
-            }
-            if (StringList.quickEq(trimMeth_,EXTERN_CLASS+SUPER_ACCESS)) {
-                String clCurName_ = _conf.getLastPage().getGlobalClass();
-                String superClass_ = _conf.getClasses().getClassMetaInfo(clCurName_).getSuperClass();
-                CustList<Argument> firstArgs_ = listArguments(chidren_, _nodes, false);
-                StringList called_ = _conf.getLastPage().getCallingConstr().getCalledConstructors();
-                called_.add(superClass_);
-                _conf.getLastPage().getCurrentEls().clear();
-                Argument global_ = _conf.getLastPage().getGlobalArgument();
-                throw new CustomFoundConstructorException(superClass_, called_, constId, global_, firstArgs_, InstancingStep.USING_SUPER);
-            }
+        CustList<Argument> arguments_ = new CustList<Argument>();
+        for (OperationNode o: chidren_) {
+            arguments_.add(_nodes.getVal(o).getArgument());
         }
-        if (StringList.quickEq(trimMeth_,EXTERN_CLASS+INSTANCEOF)) {
-            if (chidren_.size() == 2) {
-                OperationNode oOne_ = chidren_.first();
-                String str_ = (String) _nodes.getVal(oOne_).getArgument().getObject();
-                if (str_ == null) {
-                    setRelativeOffsetPossibleLastPage(chidren_.first().getIndexInEl()+1, _conf);
-                    throw new NullObjectException(_conf.joinPages());
-                }
-                str_ = StringList.removeAllSpaces(str_);
-                checkExist(_conf, str_, false, true, chidren_.first().getIndexInEl()+1);
-                OperationNode oTwo_ = chidren_.last();
-                Argument sec_ = _nodes.getVal(oTwo_).getArgument();
-                if (sec_.isNull()) {
-                    Argument arg_ = new Argument();
-                    arg_.setObject(false);
-                    setSimpleArgument(arg_, _conf, _nodes);
-                    return arg_;
-                }
-                String className_ = sec_.getStruct().getClassName();
-                boolean res_ = PrimitiveTypeUtil.canBeUseAsArgument(str_, className_, classes_);
-                Argument arg_ = new Argument();
-                arg_.setObject(res_);
-                setSimpleArgument(arg_, _conf, _nodes);
-                return arg_;
-            }
-        }
-        if (StringList.quickEq(trimMeth_,EXTERN_CLASS+CAST)) {
-            if (chidren_.size() == 1) {
-                OperationNode oOne_ = chidren_.first();
-                String str_ = (String) _nodes.getVal(oOne_).getArgument().getObject();
-                if (str_ == null) {
-                    setRelativeOffsetPossibleLastPage(chidren_.first().getIndexInEl()+1, _conf);
-                    throw new NullObjectException(_conf.joinPages());
-                }
-                str_ = StringList.removeAllSpaces(str_);
-                str_ = PrimitiveTypeUtil.getArrayClass(str_);
-                Class<?> cl_;
-                try {
-                    cl_ = ConstClasses.classForNameNotInit(str_);
-                } catch (RuntimeClassNotFoundException _0_) {
-                    setRelativeOffsetPossibleLastPage(chidren_.first().getIndexInEl()+1, _conf);
-                    throw new RuntimeClassNotFoundException(str_+RETURN_LINE+_conf.joinPages());
-                }
-                Argument arg_ = new Argument();
-                arg_.setObject(cl_);
-                setSimpleArgument(arg_, _conf, _nodes);
-                return arg_;
-            }
-            if (chidren_.size() == 2) {
-                OperationNode oOne_ = chidren_.first();
-                OperationNode oTwo_ = chidren_.last();
-                Argument objArg_ = _nodes.getVal(oTwo_).getArgument();
-                if (objArg_.isNull()) {
-                    Argument arg_ = new Argument();
-                    setSimpleArgument(arg_, _conf, _nodes);
-                    return arg_;
-                }
-                Argument classArg_ = _nodes.getVal(oOne_).getArgument();
-                String argClassName_ = objArg_.getObjectClassName();
-                ClassArgumentMatching resCl_ = getResultClass();
-                String paramName_ = (String) classArg_.getObject();
-                String className_ = oTwo_.getResultClass().getName();
-                if (className_.startsWith(PrimitiveTypeUtil.PRIM)) {
-                    className_ = className_.substring(1);
-                }
-                if (!resCl_.isPrimitive() || ConstClasses.getPrimitiveClass(className_) == null) {
-                    if (!PrimitiveTypeUtil.canBeUseAsArgument(paramName_, argClassName_, classes_)) {
-                        setRelativeOffsetPossibleLastPage(chidren_.last().getIndexInEl(), _conf);
-                        throw new DynamicCastClassException(argClassName_+RETURN_LINE+paramName_+RETURN_LINE+_conf.joinPages());
-                    }
-                }
-                Argument arg_ = new Argument();
-                if (objArg_.getStruct().isJavaObject()) {
-                    arg_.setStruct(PrimitiveTypeUtil.convertObject(resCl_, objArg_.getObject()));
-                } else {
-                    arg_.setStruct(objArg_.getStruct());
-                }
-                setSimpleArgument(arg_, _conf, _nodes);
-                return arg_;
-            }
-        }
-        if (StringList.quickEq(trimMeth_,EXTERN_CLASS+BOOLEAN)) {
-            OperationNode opOne_ = chidren_.first();
-            Boolean obj_ = (Boolean) _nodes.getVal(opOne_).getArgument().getObject();
-            Argument arg_;
-            if (obj_) {
-                arg_ = _nodes.getVal(chidren_.get(CustList.SECOND_INDEX)).getArgument();
-            } else {
-                arg_ = _nodes.getVal(chidren_.last()).getArgument();
-            }
-            setSimpleArgument(arg_, _conf, _nodes);
-            return arg_;
-        }
-        CustList<Argument> firstArgs_;
-        Argument arg_ = _nodes.getVal(this).getPreviousArgument();
-        String clCur_ = getPreviousResultClass().getName();
-        if (methodId != null) {
-            firstArgs_ = listArguments(chidren_, _nodes, false);
-            String classNameFound_;
-            if (!methodMetaInfo.isStatic()) {
-                if (arg_.isNull()) {
-                    throw new NullObjectException(_conf.joinPages());
-                }
-                ClassMetaInfo custClass_ = null;
-                String className_ = arg_.getStruct().getClassName();
-                custClass_ = classes_.getClassMetaInfo(className_);
-                if (custClass_.getCategory() == ClassCategory.ENUM) {
-                    if (methodId.eq(new FctConstraints(METH_NAME, new EqList<StringList>()))) {
-                        CustEnum cen_ = (CustEnum) arg_.getStruct().getInstance();
-                        String name_ = cen_.name();
-                        Argument argres_ = new Argument();
-                        argres_.setObject(name_);
-                        setSimpleArgument(argres_, _conf, _nodes);
-                        return argres_;
-                    }
-                    if (methodId.eq(new FctConstraints(METH_ORDINAL, new EqList<StringList>()))) {
-                        CustEnum cen_ = (CustEnum) arg_.getStruct().getInstance();
-                        int name_ = cen_.ordinal();
-                        Argument argres_ = new Argument();
-                        argres_.setObject(name_);
-                        setSimpleArgument(argres_, _conf, _nodes);
-                        return argres_;
-                    }
-                }
-                if (staticChoiceMethod) {
-                    classNameFound_ = classMethodId.getClassName().getName();
-                    if (!superAccessMethod) {
-                        String argClassName_ = arg_.getObjectClassName();
-                        if (!PrimitiveTypeUtil.canBeUseAsArgument(classNameFound_, argClassName_, classes_)) {
-                            setRelativeOffsetPossibleLastPage(chidren_.last().getIndexInEl(), _conf);
-                            throw new DynamicCastClassException(argClassName_+RETURN_LINE+classNameFound_+RETURN_LINE+_conf.joinPages());
-                        }
-                    }
-                } else {
-                    classNameFound_ = getDeclaredCustMethod(_conf, arg_.getObjectClassName(), classMethodId);
-                }
-            } else {
-                ClassMetaInfo custClass_ = null;
-                String className_ = clCur_;
-                custClass_ = classes_.getClassMetaInfo(className_);
-                if (custClass_.getCategory() == ClassCategory.ENUM) {
-                    if (methodId.eq(new FctConstraints(METH_VALUES, new EqList<StringList>()))) {
-                        CustList<Struct> enums_ = new CustList<Struct>();
-                        for (EntryCust<String, FieldMetaInfo> e: custClass_.getFields().entryList()) {
-                            if (e.getValue().isEnumElement()) {
-                                enums_.add(classes_.getStaticField(new ClassField(className_, e.getKey())));
-                            }
-                        }
-                        Object o_ = Array.newInstance(Struct.class, enums_.size());
-                        int i_ = CustList.FIRST_INDEX;
-                        for (Struct o: enums_) {
-                            Array.set(o_, i_, o);
-                            i_++;
-                        }
-                        String clArr_ = PrimitiveTypeUtil.getPrettyArrayType(className_);
-                        Argument argres_ = new Argument();
-                        argres_.setStruct(new Struct(o_,clArr_));
-                        setSimpleArgument(argres_, _conf, _nodes);
-                        return argres_;
-                    }
-                }
-                classNameFound_ = classMethodId.getClassName().getName();
-            }
-            throw new CustomFoundMethodException(arg_, classNameFound_, methodId, firstArgs_);
-        }
-        firstArgs_ = listArguments(chidren_, _nodes, true);
-        Object obj_ = arg_.getObject();
-        if (!Modifier.isStatic(method.getModifiers()) && obj_ == null) {
-            throw new NullObjectException(_conf.joinPages());
-        }
-        if (method.getParameterTypes().length == 0) {
-            String lang_ = _conf.getLanguage();
-            if (lang_ != null) {
-                if (StringList.quickEq(lang_, JAVA)) {
-                    if (StringList.quickEq(method.getName(), JAVA_GET_CLASS)) {
-                        Argument argres_ = new Argument();
-                        argres_.setObject(ConstClasses.classForNameNotInit(PrimitiveTypeUtil.getArrayClass(arg_.getObjectClassName())));
-                        setSimpleArgument(argres_, _conf, _nodes);
-                        return argres_;
-                    }
-                }
-                if (StringList.quickEq(lang_, CSHARP)) {
-                    if (StringList.quickEq(method.getName(), CSHARP_GET_TYPE)) {
-                        Argument argres_ = new Argument();
-                        argres_.setObject(ConstClasses.classForNameNotInit(arg_.getObjectClassName()));
-                        setSimpleArgument(argres_, _conf, _nodes);
-                        return argres_;
-                    }
-                }
-            }
-        }
-        Struct ret_ = invokeMethod(_conf, 0, clCur_, method, obj_, getObjects(Argument.toArgArray(firstArgs_)));
-        Argument argres_ = new Argument();
-        argres_.setStruct(ret_);
+        Argument argres_ = getArgument(false, _nodes.getVal(this).getPreviousArgument(), arguments_, _conf);
         setSimpleArgument(argres_, _conf, _nodes);
         return argres_;
     }
@@ -602,37 +389,64 @@ public final class FctOperation extends InvokingOperation {
 
     void calculateCommon(CustList<OperationNode> _nodes, ContextEl _conf, String _op) {
         CustList<OperationNode> chidren_ = getChildrenNodes();
+        CustList<Argument> arguments_ = new CustList<Argument>();
+        for (OperationNode o: chidren_) {
+            arguments_.add(o.getArgument());
+        }
+        Argument argres_ = getArgument(true, getPreviousArgument(), arguments_, _conf);
+        setSimpleArgument(argres_, _conf);
+    }
+    Argument getArgument(boolean _processInit,Argument _previous, CustList<Argument> _arguments, ContextEl _conf) {
+        Classes classes_ = _conf.getClasses();
+        CustList<OperationNode> chidren_ = getChildrenNodes();
         int off_ = StringList.getFirstPrintableCharIndex(methodName);
         setRelativeOffsetPossibleLastPage(getIndexInEl()+off_, _conf);
         String trimMeth_ = methodName.trim();
-        Classes classes_ = _conf.getClasses();
+        if (constId != null) {
+            if (StringList.quickEq(trimMeth_,EXTERN_CLASS+CURRENT)) {
+                String clCurName_ = _conf.getLastPage().getGlobalClass();
+                CustList<Argument> firstArgs_ = listArguments(chidren_, _arguments, false);
+                StringList called_ = _conf.getLastPage().getCallingConstr().getCalledConstructors();
+                called_.add(clCurName_);
+                Argument global_ = _conf.getLastPage().getGlobalArgument();
+                throw new CustomFoundConstructorException(clCurName_, called_, constId, global_, firstArgs_, InstancingStep.USING_THIS);
+            }
+            if (StringList.quickEq(trimMeth_,EXTERN_CLASS+SUPER_ACCESS)) {
+                String clCurName_ = _conf.getLastPage().getGlobalClass();
+                String superClass_ = _conf.getClasses().getClassMetaInfo(clCurName_).getSuperClass();
+                CustList<Argument> firstArgs_ = listArguments(chidren_, _arguments, false);
+                StringList called_ = _conf.getLastPage().getCallingConstr().getCalledConstructors();
+                called_.add(superClass_);
+                _conf.getLastPage().getCurrentEls().clear();
+                Argument global_ = _conf.getLastPage().getGlobalArgument();
+                throw new CustomFoundConstructorException(superClass_, called_, constId, global_, firstArgs_, InstancingStep.USING_SUPER);
+            }
+        }
         if (StringList.quickEq(trimMeth_,EXTERN_CLASS+INSTANCEOF)) {
             if (chidren_.size() == 2) {
-                String str_ = (String) chidren_.first().getArgument().getObject();
+                String str_ = (String) _arguments.first().getObject();
                 if (str_ == null) {
                     setRelativeOffsetPossibleLastPage(chidren_.first().getIndexInEl()+1, _conf);
                     throw new NullObjectException(_conf.joinPages());
                 }
                 str_ = StringList.removeAllSpaces(str_);
                 checkExist(_conf, str_, false, true, chidren_.first().getIndexInEl()+1);
-                Argument sec_ = chidren_.last().getArgument();
+                Argument sec_ = _arguments.last();
                 if (sec_.isNull()) {
                     Argument arg_ = new Argument();
                     arg_.setObject(false);
-                    setSimpleArgument(arg_, _conf);
-                    return;
+                    return arg_;
                 }
                 String className_ = sec_.getStruct().getClassName();
                 boolean res_ = PrimitiveTypeUtil.canBeUseAsArgument(str_, className_, classes_);
                 Argument arg_ = new Argument();
                 arg_.setObject(res_);
-                setSimpleArgument(arg_, _conf);
-                return;
+                return arg_;
             }
         }
         if (StringList.quickEq(trimMeth_,EXTERN_CLASS+CAST)) {
             if (chidren_.size() == 1) {
-                String str_ = (String) chidren_.first().getArgument().getObject();
+                String str_ = (String) _arguments.first().getObject();
                 if (str_ == null) {
                     setRelativeOffsetPossibleLastPage(chidren_.first().getIndexInEl()+1, _conf);
                     throw new NullObjectException(_conf.joinPages());
@@ -648,21 +462,20 @@ public final class FctOperation extends InvokingOperation {
                 }
                 Argument arg_ = new Argument();
                 arg_.setObject(cl_);
-                setSimpleArgument(arg_, _conf);
-                return;
+                return arg_;
             }
             if (chidren_.size() == 2) {
-                Argument objArg_ = chidren_.last().getArgument();
+                OperationNode oTwo_ = chidren_.last();
+                Argument objArg_ = _arguments.last();
                 if (objArg_.isNull()) {
                     Argument arg_ = new Argument();
-                    setSimpleArgument(arg_, _conf);
-                    return;
+                    return arg_;
                 }
-                Argument classArg_ = chidren_.first().getArgument();
+                Argument classArg_ = _arguments.first();
                 String argClassName_ = objArg_.getObjectClassName();
                 ClassArgumentMatching resCl_ = getResultClass();
                 String paramName_ = (String) classArg_.getObject();
-                String className_ = chidren_.last().getResultClass().getName();
+                String className_ = oTwo_.getResultClass().getName();
                 if (className_.startsWith(PrimitiveTypeUtil.PRIM)) {
                     className_ = className_.substring(1);
                 }
@@ -678,27 +491,24 @@ public final class FctOperation extends InvokingOperation {
                 } else {
                     arg_.setStruct(objArg_.getStruct());
                 }
-                setSimpleArgument(arg_, _conf);
-                return;
+                return arg_;
             }
         }
         if (StringList.quickEq(trimMeth_,EXTERN_CLASS+BOOLEAN)) {
-            OperationNode opOne_ = chidren_.first();
-            Boolean obj_ = (Boolean) opOne_.getArgument().getObject();
+            Boolean obj_ = (Boolean) _arguments.first().getObject();
             Argument arg_;
             if (obj_) {
-                arg_ = chidren_.get(CustList.SECOND_INDEX).getArgument();
+                arg_ = _arguments.get(CustList.SECOND_INDEX);
             } else {
-                arg_ = chidren_.last().getArgument();
+                arg_ = _arguments.last();
             }
-            setSimpleArgument(arg_, _conf);
-            return;
+            return arg_;
         }
         CustList<Argument> firstArgs_;
-        Argument arg_ = getPreviousArgument();
+        Argument arg_ = _previous;
         String clCur_ = getPreviousResultClass().getName();
         if (methodId != null) {
-            firstArgs_ = listArguments(chidren_, false);
+            firstArgs_ = listArguments(chidren_, _arguments, false);
             String classNameFound_;
             if (!methodMetaInfo.isStatic()) {
                 if (arg_.isNull()) {
@@ -713,16 +523,14 @@ public final class FctOperation extends InvokingOperation {
                         String name_ = cen_.name();
                         Argument argres_ = new Argument();
                         argres_.setObject(name_);
-                        setSimpleArgument(argres_, _conf);
-                        return;
+                        return argres_;
                     }
                     if (methodId.eq(new FctConstraints(METH_ORDINAL, new EqList<StringList>()))) {
                         CustEnum cen_ = (CustEnum) arg_.getStruct().getInstance();
                         int name_ = cen_.ordinal();
                         Argument argres_ = new Argument();
                         argres_.setObject(name_);
-                        setSimpleArgument(argres_, _conf);
-                        return;
+                        return argres_;
                     }
                 }
                 if (staticChoiceMethod) {
@@ -758,17 +566,17 @@ public final class FctOperation extends InvokingOperation {
                         String clArr_ = PrimitiveTypeUtil.getPrettyArrayType(className_);
                         Argument argres_ = new Argument();
                         argres_.setStruct(new Struct(o_,clArr_));
-                        setSimpleArgument(argres_, _conf);
-                        return;
+                        return argres_;
                     }
                 }
                 classNameFound_ = classMethodId.getClassName().getName();
             }
-            Argument argres_ = ProcessXmlMethod.calculateArgument(arg_, classNameFound_, methodId, firstArgs_, _conf);
-            setSimpleArgument(argres_, _conf);
-            return;
+            if (_processInit) {
+                return ProcessXmlMethod.calculateArgument(arg_, classNameFound_, methodId, firstArgs_, _conf);
+            }
+            throw new CustomFoundMethodException(arg_, classNameFound_, methodId, firstArgs_);
         }
-        firstArgs_ = listArguments(chidren_, true);
+        firstArgs_ = listArguments(chidren_, _arguments, true);
         Object obj_ = arg_.getObject();
         if (!Modifier.isStatic(method.getModifiers()) && obj_ == null) {
             throw new NullObjectException(_conf.joinPages());
@@ -780,16 +588,14 @@ public final class FctOperation extends InvokingOperation {
                     if (StringList.quickEq(method.getName(), JAVA_GET_CLASS)) {
                         Argument argres_ = new Argument();
                         argres_.setObject(ConstClasses.classForNameNotInit(PrimitiveTypeUtil.getArrayClass(arg_.getObjectClassName())));
-                        setSimpleArgument(argres_, _conf);
-                        return;
+                        return argres_;
                     }
                 }
                 if (StringList.quickEq(lang_, CSHARP)) {
                     if (StringList.quickEq(method.getName(), CSHARP_GET_TYPE)) {
                         Argument argres_ = new Argument();
                         argres_.setObject(ConstClasses.classForNameNotInit(arg_.getObjectClassName()));
-                        setSimpleArgument(argres_, _conf);
-                        return;
+                        return argres_;
                     }
                 }
             }
@@ -797,7 +603,7 @@ public final class FctOperation extends InvokingOperation {
         Struct ret_ = invokeMethod(_conf, 0, clCur_, method, obj_, getObjects(Argument.toArgArray(firstArgs_)));
         Argument argres_ = new Argument();
         argres_.setStruct(ret_);
-        setSimpleArgument(argres_, _conf);
+        return argres_;
     }
     public boolean isTernary() {
         return ternary;
