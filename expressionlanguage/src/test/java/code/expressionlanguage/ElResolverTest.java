@@ -18,164 +18,7 @@ import code.util.NatTreeMap;
 @SuppressWarnings("static-method")
 public class ElResolverTest {
     private static final String ARR_INT = "[I";
-    private static final String ARR_LONG = "[J";
-    private static final String ARR_ARR_INT = "[[I";
-    private static final String ARR_INTEGER = "[Ljava.lang.Integer;";
-    private static final String ARR_ARR_INTEGER = "[[Ljava.lang.Integer;";
-
-    /*@Test
-    public void getPriority1Test() {
-        ContextEl conf_ = new ContextEl();
-        addImportingPage(conf_, false);
-        BeanOne b_ = new BeanOne();
-        addBean(conf_, b_);
-        String el_ = "abs(4,3)";
-        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
-        assertEq(10, ElResolver.getPriority(el_, d_));
-    }
-
-    @Test
-    public void getPriority2Test() {
-        ContextEl conf_ = new ContextEl();
-        addImportingPage(conf_, false);
-        BeanOne b_ = new BeanOne();
-        addBean(conf_, b_);
-        String el_ = "abs(4,3).abs(4,3)";
-        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
-        assertEq(8, ElResolver.getPriority(el_, d_));
-    }
-
-    @Test
-    public void getPriority3Test() {
-        ContextEl conf_ = new ContextEl();
-        addImportingPage(conf_, false);
-        BeanOne b_ = new BeanOne();
-        addBean(conf_, b_);
-        String el_ = "abs(4+3).abs(4,3)";
-        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
-        assertEq(8, ElResolver.getPriority(el_, d_));
-    }
-
-    @Test
-    public void getPriority4Test() {
-        ContextEl conf_ = new ContextEl();
-        addImportingPage(conf_, false);
-        BeanOne b_ = new BeanOne();
-        addBean(conf_, b_);
-        String el_ = "abs(?[I,4+3).abs(4,3)";
-        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
-        assertEq(8, ElResolver.getPriority(el_, d_));
-    }
-
-    @Test
-    public void getPriority5Test() {
-        ContextEl conf_ = new ContextEl();
-        addImportingPage(conf_, false);
-        BeanOne b_ = new BeanOne();
-        addBean(conf_, b_);
-        String el_ = "abs(?[I,'[').abs(4,3)";
-        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
-        assertEq(8, ElResolver.getPriority(el_, d_));
-    }
-
-    @Test
-    public void getPriority6Test() {
-        ContextEl conf_ = new ContextEl();
-        addImportingPage(conf_, false);
-        BeanOne b_ = new BeanOne();
-        addBean(conf_, b_);
-        String el_ = "abs(?[I,'[').abs(4,3)+8";
-        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
-        assertEq(5, ElResolver.getPriority(el_, d_));
-    }
-
-    @Test
-    public void getPriority7Test() {
-        ContextEl conf_ = new ContextEl();
-        addImportingPage(conf_, false);
-        BeanOne b_ = new BeanOne();
-        addBean(conf_, b_);
-        String el_ = "6*(1+8)";
-        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
-        assertEq(6, ElResolver.getPriority(el_, d_));
-    }
-
-    @Test
-    public void getPriority8Test() {
-        ContextEl conf_ = new ContextEl();
-        addImportingPage(conf_, false);
-        BeanOne b_ = new BeanOne();
-        addBean(conf_, b_);
-        String el_ = "6*('\\u9fcb'+8)";
-        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
-        assertEq(6, ElResolver.getPriority(el_, d_));
-    }
-
-    @Test
-    public void getPriority9Test() {
-        ContextEl conf_ = new ContextEl();
-        addImportingPage(conf_, false);
-        BeanOne b_ = new BeanOne();
-        addBean(conf_, b_);
-        String el_ = "6*('\\''+8)";
-        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
-        assertEq(6, ElResolver.getPriority(el_, d_));
-    }
-
-    @Test
-    public void getPriority10Test() {
-        ContextEl conf_ = new ContextEl();
-        addImportingPage(conf_, false);
-        BeanOne b_ = new BeanOne();
-        addBean(conf_, b_);
-        String el_ = "6*(\"ab\"+8)";
-        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
-        assertEq(6, ElResolver.getPriority(el_, d_));
-    }
-
-    @Test
-    public void getPriority11Test() {
-        ContextEl conf_ = new ContextEl();
-        addImportingPage(conf_, false);
-        BeanOne b_ = new BeanOne();
-        addBean(conf_, b_);
-        String el_ = "-6*8";
-        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
-        assertEq(6, ElResolver.getPriority(el_, d_));
-    }
-
-    @Test
-    public void getPriority12Test() {
-        ContextEl conf_ = new ContextEl();
-        addImportingPage(conf_, false);
-        BeanOne b_ = new BeanOne();
-        addBean(conf_, b_);
-        String el_ = "-abs(8)";
-        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
-        assertEq(7, ElResolver.getPriority(el_, d_));
-    }
-
-    @Test
-    public void getPriority13Test() {
-        ContextEl conf_ = new ContextEl();
-        addImportingPage(conf_, false);
-        BeanOne b_ = new BeanOne();
-        addBean(conf_, b_);
-        String el_ = "abs(4,3)[0]";
-        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
-        assertEq(9, ElResolver.getPriority(el_, d_));
-    }
-
-    @Test
-    public void getPriority14Test() {
-        ContextEl conf_ = new ContextEl();
-        addImportingPage(conf_, false);
-        BeanOne b_ = new BeanOne();
-        addBean(conf_, b_);
-        String el_ = "8";
-        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
-        assertEq(0, ElResolver.getPriority(el_, d_));
-    }*/
+    private static final String ARR_INTEGER = "[java.lang.Integer";
 
     @Test
     public void getOperationsSequence1Test() {
@@ -967,12 +810,12 @@ public class ElResolverTest {
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
         NatTreeMap<Integer,String> opers_ = seq_.getOperators();
         assertEq(2, opers_.size());
-        assertEq("(", opers_.getVal(25));
-        assertEq(")", opers_.getVal(29));
+        assertEq("(", opers_.getVal(23));
+        assertEq(")", opers_.getVal(27));
         NatTreeMap<Integer,String> values_ = seq_.getValues();
         assertEq(2, values_.size());
         assertEq("^new."+ARR_INTEGER, values_.getVal(0));
-        assertEq("\"8\"", values_.getVal(26));
+        assertEq("\"8\"", values_.getVal(24));
         assertTrue(!seq_.isFirstOpt());
         assertEq(ElResolver.FCT_OPER_PRIO, seq_.getPriority());
     }

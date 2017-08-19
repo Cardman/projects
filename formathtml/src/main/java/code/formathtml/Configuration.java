@@ -24,14 +24,6 @@ public class Configuration {
 
     private static final int DEFAULT_TAB_WIDTH = 4;
 
-//    private static final String UNPREFIXED_END = "</c_";
-
-//    private static final String UNPREFIXED_BEGIN = "<c_";
-
-//    private static final String PREFIXED_END = "</c:";
-
-//    private static final String PREFIXED_BEGIN = "<c:";
-
     private String firstUrl = EMPTY_STRING;
 
     private StringMap<Validator> validators = new StringMap<Validator>();
@@ -96,7 +88,6 @@ public class Configuration {
         builtTranslators = new StringMap<Struct>();
         htmlPage = new HtmlPage();
         document = null;
-//        importing = new List<ImportingPage>();
         currentUrl = firstUrl;
         prefix = EMPTY_STRING;
         if (namespaceUri == null) {
@@ -255,10 +246,6 @@ public class Configuration {
         return importing;
     }
 
-//    public final void setImporting(List<ImportingPage> _importing) {
-//        importing = _importing;
-//    }
-
     public final String getCurrentUrl() {
         return currentUrl;
     }
@@ -272,10 +259,6 @@ public class Configuration {
     }
 
     public final void setHtml(String _html) {
-//        Map<String,String> map_ = new Map<String,String>();
-//        map_.put(PREFIXED_BEGIN, UNPREFIXED_BEGIN);
-//        map_.put(PREFIXED_END, UNPREFIXED_END);
-//        String res_ = StringList.replace(_html, map_);
         html = _html;
     }
 

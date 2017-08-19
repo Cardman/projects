@@ -3,10 +3,6 @@ import org.w3c.dom.Element;
 
 public final class FoundHtmlCatch {
 
-//    private Class<?> exceptionClass;
-    
-//    private CatchEval catchBl;
-
     private Element catchElement;
 
     private int importingPage;
@@ -15,22 +11,9 @@ public final class FoundHtmlCatch {
 
     private int catchBlock;
 
-//    private Block processingFinallyBlock;
     private Element processingFinally;
 
     private boolean cause;
-
-//    public Class<?> getExceptionClass() {
-//        return exceptionClass;
-//    }
-//
-//    public void setExceptionClass(Class<?> _exceptionClass) {
-//        exceptionClass = _exceptionClass;
-//    }
-    
-//    public boolean processCatchingBlock() {
-//        return catchBl != null || processingFinallyBlock != null;
-//    }
 
     public boolean processCatching() {
         return catchElement != null || processingFinally != null;
@@ -75,22 +58,6 @@ public final class FoundHtmlCatch {
     public void setProcessingFinally(Element _processingFinally) {
         processingFinally = _processingFinally;
     }
-
-//    public CatchEval getCatchBl() {
-//        return catchBl;
-//    }
-//
-//    public void setCatchBl(CatchEval _catchBl) {
-//        catchBl = _catchBl;
-//    }
-//
-//    public Block getProcessingFinallyBlock() {
-//        return processingFinallyBlock;
-//    }
-//
-//    public void setProcessingFinallyBlock(Block _processingFinallyBlock) {
-//        processingFinallyBlock = _processingFinallyBlock;
-//    }
 
     public boolean isCause() {
         return cause;

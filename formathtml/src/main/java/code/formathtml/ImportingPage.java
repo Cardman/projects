@@ -29,12 +29,6 @@ public final class ImportingPage {
 
     private static final String BEAN_NAME = "beanName";
 
-//    private static final String LINE_COL = "line col";
-
-//    private static final String BEAN_CLASS = "bean class";
-
-//    private static final String PARAMATERS = "parameters";
-//    private static final String LOCAL_VARIABLES = "local variables";
     private static final String RETURNED_VALUES = "returned values";
 
     private static final String SEP_INFO = "\n";
@@ -47,41 +41,15 @@ public final class ImportingPage {
 
     private String beanName;
 
-//    private ReadWrite readWrite;
-//
-//    private Argument globalArgument;
-//
-//    private Map<String,LoopVariable> vars = new Map<String,LoopVariable>();
-//
-//    private Map<String,LocalVariable> localVars = new Map<String,LocalVariable>();
-//
-//    private Map<String,LocalVariable> parameters = new Map<String,LocalVariable>();
-//
     private StringMap<LocalVariable> returnedValues = new StringMap<LocalVariable>();
-//
-//    private List<LoopStack> stacks = new List<LoopStack>();
 
     private String readUrl;
-
-//    private String html;
 
     private String key;
 
     private String messageValue;
 
     private String renderedMessage;
-
-//    private Node processingNode;
-
-//    private boolean lookForAttrValue;
-
-//    private int tabWidth;
-
-//    private Map<NodeAttribute, TreeMap<Integer, Integer>> encodedChars;
-
-//    private int offset;
-
-//    private String processingAttribute = EMPTY_STRING;
 
     private String prefix = EMPTY_STRING;
 
@@ -96,61 +64,25 @@ public final class ImportingPage {
     public ImportingPage(boolean _rendering) {
         rendering = _rendering;
         processingHtml = new ProcessingHtml();
-        //encodedChars = new Map<NodeAttribute, TreeMap<Integer, Integer>>();
     }
 
     @Override
     public String toString() {
         StringList list_ = new StringList();
-//        Object glel_ = globalArgument.getObject();
-//        if (glel_ != null) {
-//            list_.add(BEAN_CLASS+SEP_KEY_VAL+glel_.getClass().getName());
-//        } else {
-//            list_.add(BEAN_CLASS+SEP_KEY_VAL+null);
-//        }
-//        for (EntryCust<String,LoopVariable> e: vars.entryList()) {
-//            list_.add(e.getKey()+SEP_KEY_VAL+SEP_INFO+e.getValue());
-//        }
-//        list_.add(LOCAL_VARIABLES);
-//        for (EntryCust<String,LocalVariable> e: localVars.entryList()) {
-//            list_.add(e.getKey()+SEP_KEY_VAL+SEP_INFO+e.getValue());
-//        }
-//        list_.add(PARAMATERS);
-//        for (EntryCust<String,LocalVariable> e: parameters.entryList()) {
-//            list_.add(e.getKey()+SEP_KEY_VAL+SEP_INFO+e.getValue());
-//        }
         list_.add(RETURNED_VALUES);
         for (EntryCust<String,LocalVariable> e: returnedValues.entryList()) {
             list_.add(e.getKey()+SEP_KEY_VAL+SEP_INFO+e.getValue());
         }
-        //Numbers<Integer> indexes_ = getIndexes();
-//        int delta_ = 0;
-//        if (encodedChars != null){
-//            TreeMap<Integer, Integer> esc_ = getEscapedChars();
-//            if (esc_ != null) {
-//                int nbIndexes_ = getIndexesCount(esc_);
-//                NodeAttribute na_ = new NodeAttribute();
-//                na_.setNode(processingNode);
-//                na_.setAttribue(processingAttribute);
-//                for (int i = 0; i < nbIndexes_; i++) {
-//                    delta_ += esc_.getValue(i);
-//                }
-//            }
-//        }
-//        RowCol rc_ = XmlParser.getRowColOfNodeOrAttribute(html, processingNode, offset+delta_, processingAttribute, tabWidth, lookForAttrValue);
         String keyMessage_ = EMPTY_STRING;
         if (key != null) {
             String intro_ = key+EQ;
             keyMessage_ = intro_+messageValue+SEP_INFO;
-//            keyMessage_ += html + SEP_INFO;
             keyMessage_ += processingHtml.getHtml() + SEP_INFO;
         }
         String page_ = EMPTY_STRING;
         if (rendering) {
-//            page_ += SEP_INFO +html + SEP_INFO;
             page_ += SEP_INFO +processingHtml.getHtml() + SEP_INFO;
         }
-//        return READ_URL+SEP_KEY_VAL+readUrl+page_+SEP_INFO+keyMessage_+BEAN_NAME+SEP_KEY_VAL+beanName+SEP_INFO+list_+SEP_INFO+stacks.join(SEP_INFO)+SEP_INFO+LINE_COL+SEP_KEY_VAL+rc_+SEP_INFO+pageEl;
         int off_ = pageEl.getOffset();
         String attribute_ = pageEl.getProcessingAttribute();
         int tabWidth_ = pageEl.getTabWidth();
@@ -164,7 +96,6 @@ public final class ImportingPage {
 
     public void addToOffset(int _offset) {
         pageEl.addToOffset(_offset);
-//        offset += _offset;
     }
 
     public boolean isRendering() {
@@ -178,14 +109,6 @@ public final class ImportingPage {
     public void setBeanName(String _beanName) {
         beanName = _beanName;
     }
-//    
-//    public ReadWrite getReadWrite() {
-//        return pageEl.getReadWrite();
-//    }
-//    
-//    public void setReadWrite(ReadWrite _readWrite) {
-//        pageEl.setReadWrite(_readWrite);
-//    }
 
     public ReadWriteHtml getReadWrite() {
         return readWrite;
@@ -292,22 +215,6 @@ public final class ImportingPage {
     public void setReturning(boolean _returning) {
         returning = _returning;
     }
-
-//    public int getIndexCatchBlock() {
-//        return pageEl.getIndexCatchBlock();
-//    }
-
-//    public void setIndexCatchBlock(int _indexCatchBlock) {
-//        pageEl.setIndexCatchBlock(_indexCatchBlock);
-//    }
-
-//    public Throwable getThrownException() {
-//        return pageEl.getThrownException();
-//    }
-
-//    public void setThrownException(Throwable _thrownException) {
-//        pageEl.setThrownException(_thrownException);
-//    }
 
     public String getReadUrl() {
         return readUrl;

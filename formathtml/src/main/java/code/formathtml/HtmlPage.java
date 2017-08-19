@@ -9,10 +9,6 @@ import code.util.StringList;
 
 public class HtmlPage {
 
-//    private String html;
-
-//    private Document document;
-
     private NumberMap<Long,NatTreeMap<Long,NodeContainer>> containers = new NumberMap<Long,NatTreeMap<Long,NodeContainer>>();
 
     private ObjectMap<FormInputCoords,StringList> selects = new ObjectMap<FormInputCoords,StringList>();
@@ -23,15 +19,6 @@ public class HtmlPage {
 
     private String usedFieldUrl;
 
-//    public String getHtml() {
-//        return html;
-//    }
-//
-//    public void setHtml(String _html) {
-//        html = _html;
-////        document = XmlParser.parseSaxHtml(html);
-//    }
-
     public NumberMap<Long,NatTreeMap<Long,NodeContainer>> getContainers() {
         return containers;
     }
@@ -39,10 +26,6 @@ public class HtmlPage {
     public void setContainers(NumberMap<Long,NatTreeMap<Long,NodeContainer>> _containers) {
         containers = _containers;
     }
-
-//    public Document getDocument() {
-//        return document;
-//    }
 
     public ObjectMap<FormInputCoords,StringList> getSelects() {
         return selects;

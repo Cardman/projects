@@ -20,11 +20,7 @@ final class ExtractFromResources {
 
     static String loadPage(Configuration _conf, StringMap<String> _files, String _link, String... _resourcesFolder) {
         String link_ = getRealFilePath(_link);
-//        link_ = StringList.replace(link_, IMPLICIT_LANGUAGE, SEPARATOR_PATH+Constants.getLanguage()+SEPARATOR_PATH);
         String contents_ = getContentFile(_conf, _files, link_, _resourcesFolder);
-        //        contents_ = contents_.replace(PREFIXED_BEGIN, UNPREFIXED_BEGIN);
-        //        contents_ = contents_.replace(PREFIXED_END, UNPREFIXED_END);
-//        return transformResourceUrl(contents_);
         return contents_;
     }
 
@@ -32,44 +28,6 @@ final class ExtractFromResources {
         return StringList.replace(_link, IMPLICIT_LANGUAGE, SEPARATOR_PATH+Constants.getLanguage()+SEPARATOR_PATH);
     }
 
-//    @Deprecated
-//    static String formatMessage(Configuration _conf,String _loc, Bean _object, Element _element, Map<String,String> _files, String... _resourcesFolder) {
-//        String value_ = _element.getAttribute(ATTRIBUTE_VALUE);
-//        if (value_.startsWith(CALL_METHOD)) {
-//            String preformatted_ = extractObject(value_.substring(1), _object).toString();
-//            List<Object> objects_ = new List<Object>();
-//            for (Element n: XmlParser.childrenElements(_element)) {
-//                String attribute_ = n.getAttribute(ATTRIBUTE_VALUE);
-//                if (attribute_.startsWith(CALL_METHOD)) {
-//                    objects_.add(extractObject(attribute_.substring(1), _object));
-//                } else {
-//                    objects_.add(attribute_);
-//                }
-//            }
-//            return StringList.simpleFormat(preformatted_, objects_.toArray());
-//        }
-//        StringList elts_ = StringList.splitStrings(value_, COMMA);
-//        //        String var_ = value_.split(COMMA)[0];
-//        String var_ = elts_.first();
-//        String fileName_ = _conf.getProperties().getVal(var_);
-//        if (fileName_ == null) {
-//            fileName_ = var_;
-//        }
-//        Map<String,String> messages_ = getInnerMessagesFromLocaleClass(_conf.getMessagesFolder(), _loc, fileName_, _files, _resourcesFolder);
-//        //        String preformatted_ = messages_.getVal(value_.split(COMMA)[1]);
-//        String preformatted_ = messages_.getVal(elts_.last());
-//        preformatted_ = XmlParser.transformSpecialChars(preformatted_);
-//        List<Object> objects_ = new List<Object>();
-//        for (Element n: XmlParser.childrenElements(_element)) {
-//            String attribute_ = n.getAttribute(ATTRIBUTE_VALUE);
-//            if (attribute_.startsWith(CALL_METHOD)) {
-//                objects_.add(extractObject(attribute_.substring(1), _object));
-//            } else {
-//                objects_.add(attribute_);
-//            }
-//        }
-//        return StringList.simpleFormat(preformatted_, objects_.toArray());
-//    }
     static String getFormat(StringMap<String> _messages, String _key, Configuration _conf, String _loc, String _fileName) {
         String fileNamePath_ = ResourcesMessagesUtil.getPropertiesPath(ExtractObject.getMessageFolder(_conf),_loc,_fileName);
         String value_ = _messages.getVal(_key);
@@ -90,21 +48,8 @@ final class ExtractFromResources {
             throw new BadFilePropertiesException(fileName_+RETURN_LINE+_0.getLine()+RETURN_LINE+_conf.joinPages());
         }
     }
-    //    public static Map<String,String> getInnerMessagesFromLocaleClass(String _folder, String _loc, Class<?> _class, Map<String, String> _files) {
-    //        String fileName_ = StreamTextFile.getPropertiesPath(_folder, _loc, _class.getName());
-    //        String content_ = _files.getVal(fileName_);
-    //        return StreamTextFile.getMessages(content_);
-    //    }
-    //    public static Map<String,String> getMessagesFromLocaleClass(String _folder, String _loc, String _relative) {
-    //        String fileName_ = StreamTextFile.getPropertiesPath(_folder,_loc,_relative);
-    //        return StreamTextFile.getMessagesFromLocale(fileName_, _loc);
-    //    }
 
     static String getContentFile(Configuration _conf, StringMap<String> _files, String _fileName, String... _resourcesFolder) {
-        //        String content_ = _files.getVal(_fileName);
-        //        if (content_ != null) {
-        //            return content_;
-        //        }
         String content_ = null;
         for (EntryCust<String, String> e: _files.entryList()) {
             if (e.getKey().equalsIgnoreCase(_fileName)) {

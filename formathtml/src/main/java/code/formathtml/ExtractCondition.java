@@ -25,7 +25,6 @@ final class ExtractCondition {
     private static final String RETURN_LINE = "\n";
     private static final char COMMA_CHAR = ',';
     private static final char NEG = '!';
-    //    private static final String NEG_REG_EXP = "^!+";
     private static final String ATTRIBUTE_CONDITION = "condition";
     private static final String ATTRIBUTE_REF_EQ = "refeq";
     private static final int NB_INTERPRET=2;
@@ -78,7 +77,6 @@ final class ExtractCondition {
     }
 
     static boolean evaluateCondition(Element _en, Configuration _conf, ImportingPage _ip) {
-//        Map<String,LoopVariable> vars_ = _ip.getVars();
         StringMap<LocalVariable> locVars_ = _ip.getLocalVars();
         String defined_ = _en.getAttribute(DEFINED_ATTRIBUTE);
         String undefined_ = _en.getAttribute(UNDEFINED_ATTRIBUTE);
@@ -95,9 +93,6 @@ final class ExtractCondition {
                     break;
                 }
             }
-//            if (!locVars_.contains(defined_)) {
-//                return_ = false;
-//            }
         }
         if (return_) {
             if (!undefined_.isEmpty()) {
@@ -107,9 +102,6 @@ final class ExtractCondition {
                         break;
                     }
                 }
-//                if (locVars_.contains(undefined_)) {
-//                    return_ = false;
-//                }
             }
         }
         if (return_ && !isNotNull_.isEmpty()) {
@@ -121,8 +113,6 @@ final class ExtractCondition {
             _ip.setProcessingAttribute(IS_NOT_NULL_ATTRIBUTE);
             _ip.setLookForAttrValue(true);
             _ip.setOffset(nbNeg_);
-//            isNotNullWithoutNeg_ = formatNumVariables(isNotNullWithoutNeg_, _conf, _locVars, _vars, _files);
-//            Object obj_ = ExtractObject.improvedExtractObject(_conf, isNotNullWithoutNeg_);
             Object obj_ = ElUtil.processEl(isNotNullWithoutNeg_, 0, _conf.toContextEl()).getObject();
             boolean b_ = obj_ != null;
             if (nbNeg_%2 == 1) {
@@ -138,11 +128,9 @@ final class ExtractCondition {
                 throw new BadConditionExpressionException(isNull_+RETURN_LINE+_conf.joinPages());
             }
             int nbNeg_ = isNull_.length() - isNullWithoutNeg_.length();
-//            isNullWithoutNeg_ = formatNumVariables(isNullWithoutNeg_, _conf, _locVars, _vars, _files);
             _ip.setProcessingAttribute(IS_NULL_ATTRIBUTE);
             _ip.setLookForAttrValue(true);
             _ip.setOffset(nbNeg_);
-//            Object obj_ = ExtractObject.improvedExtractObject(_conf, isNullWithoutNeg_);
             Object obj_ = ElUtil.processEl(isNullWithoutNeg_, 0, _conf.toContextEl()).getObject();
             boolean b_ = obj_ == null;
             if (nbNeg_%2 == 1) {
@@ -183,11 +171,9 @@ final class ExtractCondition {
             } else {
                 throw new BadReferenceEqualsException(_conf.joinPages());
             }
-//            Object argOne_ = ExtractObject.improvedExtractObject(_conf, accessPartOne_);
             Object argOne_ = ElUtil.processEl(accessPartOne_, 0, _conf.toContextEl()).getObject();
             _ip.addToOffset(accessPartOne_.length()+1);
             _ip.addToOffset(accessOp_.length());
-//            Object argTwo_ = ExtractObject.improvedExtractObject(_conf, accessPartTwo_);
             Object argTwo_ = ElUtil.processEl(accessPartTwo_, 0, _conf.toContextEl()).getObject();
             if (eqCmp_) {
                 if (argOne_ != argTwo_) {
@@ -208,22 +194,12 @@ final class ExtractCondition {
             _ip.setProcessingAttribute(ATTRIBUTE_CONDITION);
             _ip.setLookForAttrValue(true);
             _ip.setOffset(nbNeg_);
-//            conditionWithoutNeg_ = formatNumVariables(conditionWithoutNeg_, _conf, _locVars, _vars, _files);
-//            Boolean b_ = (Boolean) ExtractObject.improvedExtractObject(_conf, conditionWithoutNeg_);
             Argument a_ = ElUtil.processEl(conditionWithoutNeg_, 0, _conf.toContextEl());
             Object o_ = a_.getObject();
             if (!(o_ instanceof Boolean)) {
                 throw new DynamicCastClassException(a_.getObjectClassName()+RETURN_LINE+PrimitiveTypeUtil.PRIM_BOOLEAN+RETURN_LINE+_conf.joinPages());
             }
-//            if (_arg.getArgClass() != boolean.class && _arg.getArgClass() != Boolean.class) {
-//                return;
-//            }
-//            if (a_.getArgClass() != boolean.class && a_.getArgClass() != Boolean.class) {
-//                throw new DynamicCastClassException(a_.getArgClassName()+RETURN_LINE+boolean.class.getName()+RETURN_LINE+_conf.joinPages(RETURN_LINE));
-//            }
-//            Boolean b_ = (Boolean) ExtractObject.improvedExtractObject(_conf, conditionWithoutNeg_);
             Boolean b_ = (Boolean) o_;
-//            ExtractObject.checkNullPointer(_conf, b_);
             if (nbNeg_%2 == 1) {
                 b_ = !b_;
             }

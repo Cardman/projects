@@ -27,9 +27,6 @@ public final class ProcessingHtml {
             NatTreeMap<Integer, Integer> esc_ = getEscapedChars(_attribute);
             if (esc_ != null) {
                 int nbIndexes_ = getIndexesCount(esc_, _offset);
-//                NodeAttribute na_ = new NodeAttribute();
-//                na_.setNode(processingNode);
-//                na_.setAttribue(processingAttribute);
                 for (int i = 0; i < nbIndexes_; i++) {
                     delta_ += esc_.getValue(i);
                 }

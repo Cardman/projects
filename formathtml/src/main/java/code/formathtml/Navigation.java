@@ -55,30 +55,10 @@ public final class Navigation {
 
     private static final String BEG_TEMP = "<";
 
-//    private static final String UTF_8 = "UTF-8";
-
-//    private static final String EXT = "\\.";
     private static final String EXT = ".";
-
-    private static final String FORMAT_PNG = "png";
-
-    private static final String PROPERTIES = ".properties";
-
-    private static final String CSS = ".css";
-
-    private static final String XML = ".xml";
-
-    private static final String HTML = ".html";
-
-    private static final String TXT = ".txt";
-
-    private static final String JPG = ".jpg";
-
-    private static final String PNG = ".png";
 
     private static final String END_PATH = ":";
 
-//    private static final String REG_EXP_BEGIN_ARGS = "\\(";
     private static final char BEGIN_ARGS = '(';
     private static final char SEP_ARGS = ',';
     private static final char END_ARGS = ')';
@@ -111,31 +91,8 @@ public final class Navigation {
 
     private static final String ATTRIBUTE_FOR = "for";
 
-//    private static final String ATTRIBUTE_MULTIPLE = "multiple";
 
     private static final String TAG_SPAN = "span";
-
-//    private static final String REG_EXP_POSITIVE_INT = "([0-9]+)";
-
-//    private static final String OFF = "off";
-
-//    private static final String SEP_FIELDS = "&";
-
-//    private static final String SEP_KEY_VALUE = "=";
-
-//    private static final String ENCODE_U_Y_UML = "%u0178";
-
-//    private static final char ENCODE_BEGIN = '%';
-
-//    private static final char NEXT_UNICODE = 'u';
-
-//    private static final char SPACE = ' ';
-
-//    private static final char ENCODE_SPACE = '+';
-
-//    private static final String ENCODE_URL = "%C3%";
-
-//    private static final String ENCODE_PER_CENT = "%25";
 
     private static final String ON = "on";
 
@@ -153,15 +110,11 @@ public final class Navigation {
 
     private static final String ATTRIBUTE_TYPE = "type";
 
-//    private static final String ATTRIBUTE_VALUE_CHANGE_EVENT = "valueChangeEvent";
-
     private static final String ATTRIBUTE_VALIDATOR = "validator";
 
     private static final String ATTRIBUTE_ID = "id";
 
     private static final String ATTRIBUTE_GROUP_ID = "groupId";
-
-//    private static final String ALL_TAGS = "*";
 
     private static final String TAG_INPUT = "input";
 
@@ -171,21 +124,9 @@ public final class Navigation {
 
     private static final String ATTRIBUTE_ACTION = "action";
 
-//    private static final String ATTRIBUTE_NAME = "name";
-
-//    private static final String TAG_FORM = "form";
-
     private static final String ATTRIBUTE_ESCAPED_EAMP = "escapedamp";
 
-//    private static final String COMMA = ",";
-
-//    private static final String REG_EXP_ARGS = "(-?[0-9]+(,-?[0-9]+)*)";
-
     private static final String DOT = ".";
-
-//    private static final String BEGIN_REG_EXP = "^";
-
-//    private static final String REG_EXP_INT = "-?[0-9]+";
 
     private static final String CALL_METHOD = "$";
 
@@ -193,12 +134,6 @@ public final class Navigation {
 
     private static final String EMPTY_STRING = "";
 
-//    private static final char U_Y_UML = 376;
-//
-//    private static final char MIN_EXT_ASCII = 128;
-//    private static final char MAX_EXT_ASCII = 256;
-//    private static final int DELTA_EXT_ASCII = 64;
-//    private static final char MINUS_CHAR = '-';
     private Configuration session = new Configuration();
 
     private String currentBeanName;
@@ -266,11 +201,6 @@ public final class Navigation {
         } else {
             content_ = ResourceFiles.ressourceFichier(_conf);
         }
-//        if (files.contains(_conf)) {
-//            content_ = files.getVal(_conf);
-//        } else {
-//            content_ = StreamTextFile.ressourceFichier(_conf);
-//        }
         session = (Configuration) SerializeXmlObject.newObjectFromXmlString(content_);
         session.init();
         if (session.getMathFactory() == null) {
@@ -278,14 +208,6 @@ public final class Navigation {
                 session.setMathFactory(((WithMathFactory<?>)dataBase).getMathFactory());
             }
         }
-//        try {
-//            session = (Configuration) SerializeXmlObject.fromXmlStringObject(content_);
-//        } catch (ClassCastException e_) {
-//            session = (Configuration) SerializeXmlObject.fromXmlStringObject(StreamTextFile.ressourceFichier(_conf));
-//        } catch (Exception e_) {
-//            e_.printStackTrace();
-//            session = (Configuration) SerializeXmlObject.fromXmlStringObject(StreamTextFile.ressourceFichier(_conf));
-//        }
     }
 
     public void setLanguage(String _language) {
@@ -304,13 +226,7 @@ public final class Navigation {
         return htmlText;
     }
 
-//    public Document getDocument() {
-//        return XmlParser.parseSaxHtml(htmlText);
-//    }
-
     public String getHtmlTextFormatted() {
-//        Document doc_ = XmlParser.parseSaxHtml(htmlText);
-//        return XmlParser.toFormattedHtml(doc_);
         return XmlParser.toFormattedHtml(session.getDocument());
     }
 
@@ -324,30 +240,8 @@ public final class Navigation {
             bean_.setForms(new StringMap<Object>());
             bean_.setDataBase(dataBase);
             bean_.setLanguage(language);
-//            bean_.setNavigation(this);
             e.setValue(bean_);
         }
-//        for (String b: session.getBeans().getKeys()) {
-//            Bean bean_ = newBean(session.getBeans().getVal(b));
-//            bean_.setForms(new Map<String, Object>());
-//            bean_.setDataBase(dataBase);
-//            bean_.setLanguage(language);
-//            bean_.setNavigation(this);
-//            session.getBeans().put(b, bean_);
-//        }
-//        for (Bean bean_ : session.getBeans().values()) {
-//            //Bean bean_ = session.getBeans().getVal(b);
-//            //String scope_ = bean_.getScope();
-//            //String className_ = bean_.getClassName();
-//            //bean_ = newBean(dataBase, bean_.getClassName(), className_, new Map<String, Object>(), scope_);
-//            //bean_ = newBean(bean_);
-//            bean_.setForms(new Map<String, Object>());
-//            bean_.setDataBase(dataBase);
-//            //bean_.setClassName(bean_.getClassName());
-//            bean_.setLanguage(language);
-//            bean_.setNavigation(this);
-//            //session.getBeans().put(b, bean_);
-//        }
         String currentUrl_ = session.getFirstUrl();
         String text_ = ExtractFromResources.loadPage(session, files, currentUrl_, resourcesFolder);
         String currentBeanName_;
@@ -418,8 +312,6 @@ public final class Navigation {
             ip_.setProcessingAttribute(htmlPage_.getUsedFieldUrl());
             ip_.setLookForAttrValue(true);
             ip_.setOffset(0);
-//            Pattern pattern_ = Pattern
-//                    .compile(REG_EXP_ARGS);
             int indexPoint_ = _anchorRef.indexOf(DOT);
             String action_ = _anchorRef
                     .substring(indexPoint_ + 1);
@@ -445,23 +337,7 @@ public final class Navigation {
                 }
                 suffix_ = str_.toString();
             }
-//            String key_ = action_.replaceAll(REG_EXP_INT, EMPTY_STRING);
-//            String key_ = removeDigitsMinus(action_);
-//            Matcher match_ = pattern_.matcher(action_);
-//            String argsString_ = EMPTY_STRING;
-//            if (match_.find()) {
-//                argsString_ = match_.group(1);
-//            }
             CustList<Argument> args_ = new CustList<Argument>();
-//            for (String l : StringList.splitStrings(argsString_, COMMA)) {
-//                if (l.isEmpty()) {
-//                    continue;
-//                }
-//                args_.add(new Long(l));
-//            }
-//            for (String l: numbers(action_)) {
-//                args_.add(Argument.numberToArgument(l));
-//            }
             if (getArg_) {
                 ip_.addToOffset(indexPoint_+1+action_.indexOf(BEGIN_ARGS));
                 for (String l: StringList.splitChars(strArgs_, SEP_ARGS)) {
@@ -474,15 +350,10 @@ public final class Navigation {
                 }
                 ip_.setOffset(0);
             }
-//            String command_ = action_;
-//            command_ = command_.split(REG_EXP_BEGIN_ARGS)[0];
-//            String command_ = StringList.getFirstToken(action_, BEGIN_ARGS);
             String beanName_ = _anchorRef
                     .substring(_anchorRef.indexOf(CALL_METHOD) + 1, indexPoint_);
             ip_.setOffset(_anchorRef.indexOf(CALL_METHOD) + 1);
             Bean bean_ = getNotNullBean(beanName_);
-//            Object return_ = FormatHtml.invokeMethodWithNumbers(
-//                    session, bean_, command_, args_.toArray(new Argument[0]));
             ip_.setOffset(indexPoint_+1);
             ip_.setGlobalArgumentObj(bean_);
             Object return_ = HtmlRequest.invokeMethodWithNumbers(
@@ -490,15 +361,8 @@ public final class Navigation {
             StringMap<Object> forms_ = bean_.getForms();
             String urlDest_ = currentUrl;
             if (return_ != null) {
-//                urlDest_ = session.getNavigation()
-////                        .getVal(beanName_ + DOT + key_)
-//                        .getVal(beanName_ + DOT + methodName_+suffix_)
-//                        .getVal(return_.toString());
                 ip_.setOffset(_anchorRef.length());
                 urlDest_ = getUrlDest(beanName_ + DOT + methodName_+suffix_, return_);
-//                        .getVal(beanName_ + DOT + key_)
-//                        .getVal(beanName_ + DOT + methodName_+suffix_)
-//                        .getVal(return_.toString());
                 if (urlDest_ == null) {
                     urlDest_ = currentUrl;
                 }
@@ -512,15 +376,6 @@ public final class Navigation {
                 bean_.setForms(forms_);
                 e.setValue(bean_);
             }
-//            for (String b : session.getBeans().getKeys()) {
-//                if (!reinitBean(urlDest_, beanName_, b)) {
-//                    continue;
-//                }
-//                bean_ = session.getBeans().getVal(b);
-//                bean_ = newBean(bean_);
-//                bean_.setForms(forms_);
-//                session.getBeans().put(b, bean_);
-//            }
             String currentUrl_ = urlDest_;
             session.setCurrentUrl(currentUrl_);
             String dest_ = StringList.getFirstToken(urlDest_, REF_TAG);
@@ -564,15 +419,6 @@ public final class Navigation {
             bean_.setForms(forms_);
             e.setValue(bean_);
         }
-//        for (String b : session.getBeans().getKeys()) {
-//            if (!reinitBean(_anchorRef, currentBeanName, b)) {
-//                continue;
-//            }
-//            bean_ = session.getBeans().getVal(b);
-//            bean_ = newBean(bean_);
-//            bean_.setForms(forms_);
-//            session.getBeans().put(b, bean_);
-//        }
         String currentUrl_ = _anchorRef;
         session.setCurrentUrl(currentUrl_);
         String dest_ = StringList.getFirstToken(_anchorRef, REF_TAG);
@@ -612,20 +458,6 @@ public final class Navigation {
         return true;
     }
 
-//    private static String removeDigitsMinus(String _string) {
-//        StringBuilder str_ = new StringBuilder();
-//        for (char c: _string.toCharArray()) {
-//            if (c == MINUS_CHAR) {
-//                continue;
-//            }
-//            if (Character.isDigit(c)) {
-//                continue;
-//            }
-//            str_.append(c);
-//        }
-//        return str_.toString();
-//    }
-
     public void processFormRequest() {
         session.clearPages();
         HtmlPage htmlPage_ = session.getHtmlPage();
@@ -636,12 +468,8 @@ public final class Navigation {
         NumberMap<Long,NatTreeMap<Long,NodeContainer>> containersMap_;
         containersMap_ = htmlPage_.getContainers();
         long lg_ = htmlPage_.getUrl();
-//        Document doc_ = XmlParser.parseSaxHtml(htmlText);
         Document doc_ = session.getDocument();
-//        NodeList nodeList_ = doc_.getElementsByTagName(TAG_FORM);
-//        int length_ = nodeList_.getLength();
         String actionCommand_ = EMPTY_STRING;
-//        boolean found_ = false;
         //retrieving form that is submitted
         Element formElement_ = XmlParser.getFirstElementByAttribute(doc_, NUMBER_FORM, String.valueOf(lg_));
         if (formElement_ == null) {
@@ -650,23 +478,6 @@ public final class Navigation {
         }
         htmlPage_.setForm(true);
 
-//        for (int i = CustList.FIRST_INDEX; i < length_; i++) {
-//            Element n_ = (Element) nodeList_.item(i);
-//            if (!StringList.eq(n_.getAttribute(ATTRIBUTE_NAME),_formName)) {
-//                continue;
-//            }
-//            lg_ = Long.parseLong(n_.getAttribute(NUMBER_FORM));
-//            found_ = true;
-//            formElement_ = n_;
-//            htmlPage_.setUrl(lg_);
-//            //As soon as the form is retrieved, then process on it and exit from the loop
-//            actionCommand_ = n_.getAttribute(ATTRIBUTE_ACTION);
-//            if (actionCommand_.isEmpty()
-//                    || actionCommand_.endsWith(END_PATH)) {
-//                actionCommand_ = n_.getAttribute(ATTRIBUTE_COMMAND);
-//            }
-//            break;
-//        }
         //As soon as the form is retrieved, then process on it and exit from the loop
         actionCommand_ = formElement_.getAttribute(ATTRIBUTE_ACTION);
         htmlPage_.setUsedFieldUrl(ATTRIBUTE_ACTION);
@@ -676,13 +487,6 @@ public final class Navigation {
             htmlPage_.setUsedFieldUrl(ip_.getPrefix()+ATTRIBUTE_COMMAND);
         }
 
-//        if (!found_) {
-//            throw new FormNotFoundException(_formName);
-//        }
-//        for (String k: _query.getKeys()) {
-//            _varMethodsQuery.put(k, EMPTY_STRING);
-//        }
-//        _varMethodsQuery.putAllMap(_varMethods);
         StringMap<String> errors_;
         errors_ = new StringMap<String>();
         StringMap<Object[]> errorsArgs_;
@@ -733,7 +537,6 @@ public final class Navigation {
                 }
             }
             if (isList_) {
-//                CustList<Object> list_ = new CustList<Object>();
                 Listable<?> list_ = (Listable<?>) instance(tempClass_);
                 String contentClass_ = suffix_;
                 contentClass_ = StringList.removeStrings(contentClass_, BEG_TEMP, END_TEMP);
@@ -789,7 +592,6 @@ public final class Navigation {
         }
         NatTreeMap<Long, NodeContainer> containers_ = containersMap_.getVal(lg_);
         //Setting values for bean
-//        updateBean(_inputClasses, _changing, _query, _varMethodsQuery);
         updateBean(containers_);
         session.clearPages();
 
@@ -802,14 +604,8 @@ public final class Navigation {
     @throws InexistingValueForEnum
     @throws NoSuchDeclaredMethodException*/
     private void updateBean(NatTreeMap<Long, NodeContainer> _containers) {
-//        if (testing && !applyUpdate) {
-//            return;
-//        }
         Document doc_ = session.getDocument();
         for (EntryCust<Long, NodeContainer> e: _containers.entryList()) {
-//            if (k.isEmpty()) {
-//                continue;
-//            }
             NodeContainer nCont_ = e.getValue();
             if (!nCont_.isEnabled()) {
                 continue;
@@ -817,10 +613,7 @@ public final class Navigation {
             Element input_ = XmlParser.getFirstElementByAttribute(doc_, NUMBER_INPUT, String.valueOf(e.getKey()));
             session.getLastPage().setProcessingNode(input_);
             session.getLastPage().setProcessingAttribute(EMPTY_STRING);
-//            String simpleKey_ = k;
-//            String beanName_ = k.substring(0, k.indexOf(DOT));
             Bean bean_ = getBean(nCont_.getBeanName());
-//            String varMethod_ = _varMethods.getVal(k);
             String simpleKey_ = nCont_.getNodeInformation().getName();
             Object obj_ = nCont_.getTypedField();
             Numbers<Long> indexes_ = new Numbers<Long>();
@@ -868,10 +661,6 @@ public final class Navigation {
             } catch (RuntimeException _0) {
                 throw new InvokeRedinedMethException(session.joinPages(), new Struct(_0));
             }
-//            Object procObj_ = e.getValue().getObject();
-//            if (procObj_ != null) {
-//                session.getLastPage().setGlobalArgumentObj(procObj_);
-//            }
             Struct procObj_ = e.getValue().getStruct();
             if (procObj_ != null) {
                 session.getLastPage().setGlobalArgumentStruct(procObj_);
@@ -901,16 +690,6 @@ public final class Navigation {
             }
             throw new InexistingValueForEnum(_value,class_.getName());
         }
-//        try {
-//            //Enum
-//            for (Enum<?> o : class_.asSubclass(Enum.class).getEnumConstants()) {
-//                if (StringList.eq(o.name(),_value)) {
-//                    return o;
-//                }
-//            }
-//            throw new InexistingValueForEnum(_value,class_.getName());
-//        } catch (ClassCastException _0) {
-//        }
         //Boolean
         if (class_ == Boolean.class) {
             return StringList.quickEq(_value,ON);
@@ -919,17 +698,6 @@ public final class Navigation {
         if (Number.class.isAssignableFrom(class_)) {
             return ExtractObject.instanceByString(session, class_,_value);
         }
-//        try {
-//            class_.asSubclass(Number.class);
-//            return ExtractObject.instanceByString(session, class_,_value);
-//        } catch (ClassCastException _0) {
-//        }
-        //Primitivable
-//        try {
-//            class_.asSubclass(Primitivable.class);
-//            return instanceByString(class_,_value);
-//        } catch (ClassCastException _0) {
-//        }
         try {
             return ConverterMethod.newObject(class_, _value);
         } catch (NoSuchConverterMethodException _0) {
@@ -940,46 +708,6 @@ public final class Navigation {
         }
         return _value;
     }
-
-//    private static Object instanceByString(Class<?> _class, String _arg) {
-//        try {
-//            String name_ = _class.getName();
-//            Object value_;
-//            if (name_.equalsIgnoreCase(Integer.class.getName())) {
-//                value_ = Integer.parseInt(_arg);
-//            } else if (name_.equalsIgnoreCase(Long.class.getName())) {
-//                value_ = Long.parseLong(_arg);
-//            } else if (name_.equalsIgnoreCase(Short.class.getName())) {
-//                value_ = Short.parseShort(_arg);
-//            } else if (name_.equalsIgnoreCase(Byte.class.getName())) {
-//                value_ = Byte.parseByte(_arg);
-//            } else if (name_.equalsIgnoreCase(BigInteger.class.getName())) {
-//                value_ = new BigInteger(_arg);
-//            } else if (name_.equalsIgnoreCase(BigDecimal.class.getName())) {
-//                value_ = new BigDecimal(_arg);
-//            } else if (name_.equalsIgnoreCase(Double.class.getName())) {
-//                value_ = Double.parseDouble(_arg);
-//            } else if (name_.equalsIgnoreCase(Float.class.getName())) {
-//                value_ = Float.parseFloat(_arg);
-//            } else if (name_.equalsIgnoreCase(AtomicInteger.class.getName())) {
-//                value_ = new AtomicInteger(Integer.parseInt(_arg));
-//            } else if (name_.equalsIgnoreCase(AtomicLong.class.getName())) {
-//                value_ = new AtomicLong(Long.parseLong(_arg));
-//            } else {
-//                Constructor<?> const_ = _class.getConstructor(String.class);
-//                return const_.newInstance(_arg);
-//            }
-//            return value_;
-//        } catch (InstantiationException _0) {
-//            throw new RuntimeInstantiationException(_0);
-//        } catch (NoSuchMethodException _0) {
-//            throw new NoSuchDeclaredMethodException(_0);
-//        } catch (InvocationTargetException _0) {
-//            throw new InvokingException(_0);
-//        } catch (IllegalAccessException _0) {
-//            throw new BadAccessException(_0);
-//        }
-//    }
 
     private static Object instance(Class<?> _class) {
         try {
@@ -1005,23 +733,6 @@ public final class Navigation {
         }
         return newList_;
     }
-
-//    private static StringList numbers(String _string) {
-//        StringList tokens_ = StringList.getWordsSeparators(_string);
-//        StringList newList_ = new StringList();
-//        int i_ = CustList.FIRST_INDEX;
-//        for (String t: tokens_) {
-//            if (StringList.isPositiveNumber(t)) {
-//                String prefix_ = String.valueOf(MINUS_CHAR);
-//                if (!tokens_.get(i_ - 1).endsWith(prefix_)) {
-//                    prefix_ = EMPTY_STRING;
-//                }
-//                newList_.add(prefix_+t);
-//            }
-//            i_ ++;
-//        }
-//        return newList_;
-//    }
 
     private void processFormErrors(Document _doc, Element _formElement, long _id,
             StringMap<String> _errors, StringMap<Object[]> _errorsArgs) {
@@ -1151,14 +862,12 @@ public final class Navigation {
     }
 
     Bean newBean(Bean _bean) {
-//        Bean bean_ = (Bean) Constants.classForNameCustomFolder(_bean.getClassName()).newInstance();
         try {
             Bean bean_ = (Bean) ConstClasses.classAliasForNameNotInit(_bean.getClassName()).newInstance();
             bean_.setDataBase(_bean.getDataBase());
             bean_.setForms(_bean.getForms());
             bean_.setClassName(ConstClasses.resolve(_bean.getClassName()));
             bean_.setLanguage(language);
-//            bean_.setNavigation(this);
             bean_.setScope(_bean.getScope());
             return bean_;
         } catch (IllegalAccessException _0) {
@@ -1177,7 +886,6 @@ public final class Navigation {
     void setupText(String _text) {
         String textToDisplay_ = _text;
         tooltips.clear();
-//        Document doc_ = XmlParser.parseSaxHtml(textToDisplay_);
         Document doc_ = session.getDocument();
         NodeList nodes_ = doc_.getElementsByTagName(TAG_A);
         int size_ = nodes_.getLength();
@@ -1192,31 +900,8 @@ public final class Navigation {
             }
             tooltips.add(title_);
         }
-//        try {
-//            Document doc_ = XmlParser.parseSaxHtml(textToDisplay_);
-//            NodeList nodes_ = doc_.getElementsByTagName(TAG_A);
-//            int size_ = nodes_.getLength();
-//            for (int i = CustList.FIRST_INDEX; i < size_; i++) {
-//                Node node_ = nodes_.item(i);
-//                NamedNodeMap map_ = node_.getAttributes();
-//                Node href_ = map_.getNamedItem(ATTRIBUTE_HREF);
-//                if (href_ == null) {
-//                    continue;
-//                }
-//                Node title_ = map_.getNamedItem(ATTRIBUTE_TITLE);
-//                if (title_ == null) {
-//                    continue;
-//                }
-//                tooltips.add(title_.getNodeValue());
-//            }
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
         title = EMPTY_STRING;
-//        Document doc_ = XmlParser.parseSaxHtml(textToDisplay_);
-//        NodeList nodes_ = doc_.getElementsByTagName(TAG_HEAD);
         nodes_ = doc_.getElementsByTagName(TAG_HEAD);
-//        int size_ = nodes_.getLength();
         size_ = nodes_.getLength();
         for (int i = CustList.FIRST_INDEX; i < size_; i++) {
             Element node_ = (Element) nodes_.item(i);
@@ -1224,26 +909,9 @@ public final class Navigation {
             int subListSize_ = subNodes_.getLength();
             for (int j = CustList.FIRST_INDEX; j < subListSize_; j++) {
                 Element subNode_ = (Element) subNodes_.item(j);
-//                title = XmlParser.transformSpecialChars(subNode_.getTextContent().trim());
                 title = subNode_.getTextContent().trim();
             }
         }
-//        try {
-//            Document doc_ = XmlParser.parseSaxHtml(textToDisplay_);
-//            NodeList nodes_ = doc_.getElementsByTagName(TAG_HEAD);
-//            int size_ = nodes_.getLength();
-//            for (int i = CustList.FIRST_INDEX; i < size_; i++) {
-//                Element node_ = (Element) nodes_.item(i);
-//                NodeList subNodes_ = node_.getElementsByTagName(TAG_TITLE);
-//                int subListSize_ = subNodes_.getLength();
-//                for (int j = CustList.FIRST_INDEX; j < subListSize_; j++) {
-//                    Element subNode_ = (Element) subNodes_.item(j);
-//                    title = XmlParser.transformSpecialChars(subNode_.getTextContent().trim());
-//                }
-//            }
-//        } catch (Exception e_) {
-//            e_.printStackTrace();
-//        }
         htmlText = textToDisplay_;
         StringList tokens_ = StringList.splitStrings(currentUrl, REF_TAG);
         if (tokens_.size() > CustList.ONE_ELEMENT) {
@@ -1251,12 +919,6 @@ public final class Navigation {
         } else {
             referenceScroll = EMPTY_STRING;
         }
-//        if (currentUrl.contains(REF_TAG)) {
-//            StringList.splitStrings(currentUrl, REF_TAG).get(1);
-//            referenceScroll = currentUrl.split(REF_TAG)[1];
-//        } else {
-//            referenceScroll = EMPTY_STRING;
-//        }
     }
 
     private String getUrlDest(String _method, Object _return ) {

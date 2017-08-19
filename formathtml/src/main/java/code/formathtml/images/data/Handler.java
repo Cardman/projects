@@ -24,9 +24,7 @@ public class Handler extends URLStreamHandler {
 
     public static void install() {
         ImageIO.setUseCache(false);
-//        new DataConnection(ConstFiles.getLocation());
         try {
-//            new DataConnection(new File(ConstFiles.getFolderJarPath()).toURI().toURL());
             new DataConnection(new File(ConstFiles.getInitFolder()).toURI().toURL());
         } catch (MalformedURLException _0) {
         }

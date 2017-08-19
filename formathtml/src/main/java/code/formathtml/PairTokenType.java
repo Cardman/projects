@@ -29,9 +29,4 @@ public class PairTokenType {
     public void setType(TokenType _type) {
         type = _type;
     }
-
-//    @Override
-//    public String toString() {
-//        return token;
-//    }
 }

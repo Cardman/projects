@@ -5,23 +5,6 @@ import code.expressionlanguage.stacks.LoopStack;
 
 public final class LoopHtmlStack extends LoopStack implements BreakableHtmlStack {
 
-    
-
-//    private boolean finished;
-
-//    private boolean iterate;
-
-//    private Iterator<?> iterator;
-
-//    private boolean keyValue;
-
-//    private Element forNode;
-
-//    private Element currentNode;
-
-//    private long index;
-
-//    private long maxIteration;
     private Element readNode;
 
     private Element writeNode;
