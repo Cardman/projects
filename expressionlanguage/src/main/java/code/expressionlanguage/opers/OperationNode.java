@@ -26,6 +26,8 @@ import code.expressionlanguage.methods.Classes;
 import code.expressionlanguage.methods.ConstructorBlock;
 import code.expressionlanguage.methods.InterfaceBlock;
 import code.expressionlanguage.methods.MethodBlock;
+import code.expressionlanguage.methods.RootedBlock;
+import code.expressionlanguage.methods.UniqueRootedBlock;
 import code.expressionlanguage.methods.util.ArgumentsPair;
 import code.expressionlanguage.opers.util.ArgumentsGroup;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
@@ -40,7 +42,6 @@ import code.expressionlanguage.opers.util.ConstructorInfo;
 import code.expressionlanguage.opers.util.ConstructorMetaInfo;
 import code.expressionlanguage.opers.util.FctConstraints;
 import code.expressionlanguage.opers.util.FieldMetaInfo;
-import code.expressionlanguage.opers.util.MethodId;
 import code.expressionlanguage.opers.util.MethodInfo;
 import code.expressionlanguage.opers.util.MethodMetaInfo;
 import code.expressionlanguage.opers.util.MethodModifier;
@@ -593,12 +594,12 @@ public abstract class OperationNode implements SortedNode<OperationNode>, Operab
         }
         throw new AmbiguousChoiceCallingException(errors_.join(RETURN_LINE)+RETURN_LINE+_conf.joinPages());
     }
-    static String getDeclaredCustMethod(ContextEl _conf, String _realClassName, ClassMethodId _idMeth) {
+    static String getDeclaredCustMethod(ContextEl _conf, String _realClassName, boolean _interface, ClassMethodId _idMeth) {
         Classes classes_ = _conf.getClasses();
         ClassMetaInfo custClass_ = null;
         String clCurName_ = _realClassName;
         custClass_ = classes_.getClassMetaInfo(clCurName_);
-        if (custClass_.getCategory() == ClassCategory.INTERFACE) {
+        if (_interface) {
             return getDeclaredCustMethodByInterface(_conf, _realClassName, _idMeth);
         }
         FctConstraints id_ = _idMeth.getConstraints();
@@ -653,7 +654,7 @@ public abstract class OperationNode implements SortedNode<OperationNode>, Operab
             }
         }
         if (_superClass && custClass_.getCategory() == ClassCategory.INTERFACE) {
-            return getDeclaredCustMethodByInterface(_conf, _class, _name, _superClass, _argsClass);
+            return getDeclaredCustMethodByInterface(_conf, _class, _name, _argsClass);
         }
         StringList traces_ = new StringList();
         while (custClass_ != null) {
@@ -683,30 +684,32 @@ public abstract class OperationNode implements SortedNode<OperationNode>, Operab
                 ClassMethodIdReturn idRet_ = new ClassMethodIdReturn();
                 idRet_.setId(res_.getId());
                 MethodBlock m_ = classes_.getMethodBody(clCurName_, res_.getId().getConstraints());
+                if (m_ == null) {
+                    UniqueRootedBlock u_ = (UniqueRootedBlock) classes_.getClassBody(clCurName_);
+                    String int_ = u_.getDefaultMethods().getVal(res_.getId().getConstraints());
+                    m_ = classes_.getMethodBody(int_, res_.getId().getConstraints());
+                }
                 idRet_.setReturnType(m_.getReturnType());
+                idRet_.setStaticMethod(m_.isStaticMethod());
+                idRet_.setAbstractMethod(m_.isAbstractMethod());
                 return idRet_;
             }
             throw new AmbiguousChoiceCallingException(res_.getMethods().join(RETURN_LINE)+RETURN_LINE+_conf.joinPages());
         }
         throw new NoSuchDeclaredMethodException(traces_.join(RETURN_TAB)+RETURN_LINE+_conf.joinPages());
     }
-    private static ClassMethodIdReturn getDeclaredCustMethodByInterface(ContextEl _conf, ClassArgumentMatching _class, String _name, boolean _superClass, ClassArgumentMatching... _argsClass) {
+    private static ClassMethodIdReturn getDeclaredCustMethodByInterface(ContextEl _conf, ClassArgumentMatching _class, String _name, ClassArgumentMatching... _argsClass) {
         Classes classes_ = _conf.getClasses();
-        if (classes_ == null) {
-            return null;
-        }
-        ClassMetaInfo custClass_ = null;
         String clCurName_ = _class.getName();
-        custClass_ = classes_.getClassMetaInfo(clCurName_);
-        if (custClass_ == null) {
-            return null;
-        }
         InterfaceBlock intBl_ = (InterfaceBlock) classes_.getClassBody(clCurName_);
         StringList superInts_ = new StringList(clCurName_);
         superInts_.addAllElts(intBl_.getAllSuperClasses());
         ObjectMap<FctConstraints, StringList> signatures_;
         signatures_ = new ObjectMap<FctConstraints, StringList>();
         for (String s: superInts_) {
+            if (StringList.quickEq(s, Object.class.getName())) {
+                continue;
+            }
             InterfaceBlock superBl_ = (InterfaceBlock) classes_.getClassBody(s);
             ObjectMap<FctConstraints, StringList> signaturesInt_;
             signaturesInt_ = superBl_.getAllSignatures(classes_);
@@ -786,7 +789,7 @@ public abstract class OperationNode implements SortedNode<OperationNode>, Operab
         }
         ObjectNotNullMap<FctConstraints, MethodMetaInfo> methods_;
         methods_ = custClass_.getMethods();
-        ClassBlock clBl_ = (ClassBlock) classes_.getClassBody(clCurName_);
+        RootedBlock clBl_ = classes_.getClassBody(clCurName_);
         for (EntryCust<FctConstraints, String> e: clBl_.getDefaultMethods().entryList()) {
             MethodBlock m_ = classes_.getMethodBody(e.getValue(), e.getKey());
             String ret_ = m_.getReturnType();
@@ -830,7 +833,6 @@ public abstract class OperationNode implements SortedNode<OperationNode>, Operab
             ClassMethodIdResult res_ = new ClassMethodIdResult();
             res_.setStatus(SearchingMemberStatus.UNIQ);
             res_.setId(cl_);
-            res_.setInterf(_int);
             return res_;
         }
         if (!_int) {
@@ -849,12 +851,7 @@ public abstract class OperationNode implements SortedNode<OperationNode>, Operab
                 p_.add(new ClassMatching(c.first()));
             }
             MethodInfo mloc_ = new MethodInfo();
-            MethodBlock m_ = classes_.getMethodBody(clCurName_, m);
-            if (m_ != null) {
-                mloc_.setClassName(clCurName_);
-                MethodId id_ = m_.getId();
-                mloc_.setMethodId(id_);
-            }
+            mloc_.setClassName(_methods.getVal(m).getClassName());
             mloc_.setConstraints(m);
             mloc_.setParameters(p_);
             signatures_.add(mloc_);
@@ -871,7 +868,6 @@ public abstract class OperationNode implements SortedNode<OperationNode>, Operab
             ClassMethodId cl_ = new ClassMethodId(new ClassName(clCurName_, false), constraints_);
             ClassMethodIdResult res_ = new ClassMethodIdResult();
             res_.setStatus(SearchingMemberStatus.UNIQ);
-            res_.setInterf(_int);
             res_.setId(cl_);
             return res_;
         }

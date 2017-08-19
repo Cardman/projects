@@ -9,8 +9,6 @@ public final class MethodInfo implements Parametrable {
 
     private static final String DOT = ".";
 
-    private MethodId methodId;
-
     private FctConstraints constraints;
 
     private Method method;
@@ -22,17 +20,9 @@ public final class MethodInfo implements Parametrable {
     @Override
     public String toString() {
         if (method == null) {
-            return className+DOT+methodId.getSignature()+LEFT_PAR+parameters+RIGHT_PAR;
+            return className+DOT+constraints.getSignature()+LEFT_PAR+parameters+RIGHT_PAR;
         }
         return method.getDeclaringClass()+DOT+method.getName()+LEFT_PAR+parameters+RIGHT_PAR;
-    }
-
-    public MethodId getMethodId() {
-        return methodId;
-    }
-
-    public void setMethodId(MethodId _methodId) {
-        methodId = _methodId;
     }
 
     public FctConstraints getConstraints() {

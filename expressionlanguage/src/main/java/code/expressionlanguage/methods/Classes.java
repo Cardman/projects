@@ -1380,10 +1380,7 @@ public final class Classes {
             }
             ClassName idBase_ = new ClassName(c, false);
             RootedBlock bl_ = (RootedBlock) classesBodies.getVal(idBase_);
-            if (!(bl_ instanceof UniqueRootedBlock)) {
-                continue;
-            }
-            UniqueRootedBlock u_ = (UniqueRootedBlock) bl_;
+            RootedBlock u_ = (RootedBlock) bl_;
             boolean concreteClass_ = false;
             if (u_.mustImplement()) {
                 concreteClass_ = true;
@@ -1392,6 +1389,9 @@ public final class Classes {
             signatures_ = new ObjectMap<FctConstraints, StringList>();
             StringList allInterfaces_ = u_.getAllInterfaces();
             for (String s: allInterfaces_) {
+                if (StringList.quickEq(s, Object.class.getName())) {
+                    continue;
+                }
                 ClassName idSuper_ = new ClassName(s, false);
                 InterfaceBlock superBl_ = (InterfaceBlock) classesBodies.getVal(idSuper_);
                 ObjectMap<FctConstraints, StringList> signaturesInt_;
@@ -1664,6 +1664,10 @@ public final class Classes {
                     i_ = (MethodBlock)b;
                 }
             }
+        }
+        if (i_ == null) {
+            String int_ = ((RootedBlock)access_).getDefaultMethods().getVal(_id);
+            i_ = getMethodBody(int_, _id);
         }
         return canAccess(_className, i_);
     }

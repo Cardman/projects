@@ -1,4 +1,6 @@
 package code.expressionlanguage.methods;
+import code.expressionlanguage.opers.util.FctConstraints;
+import code.util.ObjectMap;
 import code.util.StringList;
 import code.xml.RowCol;
 
@@ -22,6 +24,10 @@ public interface RootedBlock extends AccessibleBlock {
 
     boolean isFinalType();
     boolean isAbstractType();
+
+    StringList getAllInterfaces();
+
+    ObjectMap<FctConstraints, String> getDefaultMethods();
 
     boolean mustImplement();
 }

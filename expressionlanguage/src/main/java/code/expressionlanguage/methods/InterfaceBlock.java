@@ -26,6 +26,8 @@ public final class InterfaceBlock extends BracedBlock implements RootedBlock {
 
     private final StringList allSuperTypes = new StringList();
 
+    private final ObjectMap<FctConstraints, String> defaultMethods = new ObjectMap<FctConstraints, String>();
+
     private final AccessEnum access;
 
     public InterfaceBlock(Element _el, ContextEl _importingPage, int _indexChild,
@@ -128,28 +130,6 @@ public final class InterfaceBlock extends BracedBlock implements RootedBlock {
         for (EntryCust<FctConstraints, StringList> e: _methodIds.entryList()) {
             FctConstraints cst_ = e.getKey();
             StringList classes_ = e.getValue();
-            String class_ = PrimitiveTypeUtil.NO_SUB_CLASS;
-            for (String s: e.getValue()) {
-                MethodBlock sub_ = _classes.getMethodBody(s, cst_);
-                String subType_ = sub_.getReturnType();
-                if (subType_.startsWith(PrimitiveTypeUtil.PRIM)) {
-                    class_ = s;
-                    break;
-                }
-            }
-            if (!StringList.quickEq(class_, PrimitiveTypeUtil.NO_SUB_CLASS)) {
-                MethodBlock sub_ = _classes.getMethodBody(class_, cst_);
-                String subType_ = sub_.getReturnType();
-                for (String s: e.getValue()) {
-                    MethodBlock sup_ = _classes.getMethodBody(s, cst_);
-                    String supType_ = sup_.getReturnType();
-                    if (StringList.quickEq(supType_, subType_)) {
-                        continue;
-                    }
-                    addClass(output_, e.getKey(), s);
-                }
-                continue;
-            }
             if (_localMethodIds.contains(e.getKey())) {
                 //overridden by this interface
                 String subInt_ = _localMethodIds.getVal(e.getKey());
@@ -298,5 +278,15 @@ public final class InterfaceBlock extends BracedBlock implements RootedBlock {
     @Override
     public boolean mustImplement() {
         return false;
+    }
+
+    @Override
+    public ObjectMap<FctConstraints, String> getDefaultMethods() {
+        return defaultMethods;
+    }
+
+    @Override
+    public StringList getAllInterfaces() {
+        return getAllSuperClasses();
     }
 }

@@ -10,8 +10,6 @@ public class ClassMethodIdResult {
 
     private CustList<MethodInfo> methods;
 
-    private boolean interf;
-
     public ClassMethodId getId() {
         return id;
     }
@@ -34,13 +32,5 @@ public class ClassMethodIdResult {
 
     public void setMethods(CustList<MethodInfo> _methods) {
         methods = _methods;
-    }
-
-    public boolean isInterf() {
-        return interf;
-    }
-
-    public void setInterf(boolean _interf) {
-        interf = _interf;
     }
 }

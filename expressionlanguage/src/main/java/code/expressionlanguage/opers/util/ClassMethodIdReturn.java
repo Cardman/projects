@@ -6,6 +6,10 @@ public final class ClassMethodIdReturn {
 
     private String returnType;
 
+    private boolean staticMethod;
+
+    private boolean abstractMethod;
+
     public ClassMethodId getId() {
         return id;
     }
@@ -20,5 +24,21 @@ public final class ClassMethodIdReturn {
 
     public void setReturnType(String _returnType) {
         returnType = _returnType;
+    }
+
+    public boolean isStaticMethod() {
+        return staticMethod;
+    }
+
+    public void setStaticMethod(boolean _staticMethod) {
+        staticMethod = _staticMethod;
+    }
+
+    public boolean isAbstractMethod() {
+        return abstractMethod;
+    }
+
+    public void setAbstractMethod(boolean _abstractMethod) {
+        abstractMethod = _abstractMethod;
     }
 }

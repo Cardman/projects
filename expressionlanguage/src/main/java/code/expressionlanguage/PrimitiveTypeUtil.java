@@ -92,10 +92,19 @@ public final class PrimitiveTypeUtil {
     public static String getSubslass(StringList _classNames, Classes _classes) {
         for (String i: _classNames) {
             boolean sub_ = true;
-            for (String j: _classNames) {
-                if (!canBeUseAsArgument(j, i, _classes)) {
-                    sub_ = false;
-                    break;
+            if (StringList.quickEq(i, OperationNode.VOID_RETURN)) {
+                for (String j: _classNames) {
+                    if (!StringList.quickEq(i, j)) {
+                        sub_ = false;
+                        break;
+                    }
+                }
+            } else {
+                for (String j: _classNames) {
+                    if (!canBeUseAsArgument(j, i, _classes)) {
+                        sub_ = false;
+                        break;
+                    }
                 }
             }
             if (sub_) {

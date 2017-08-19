@@ -39,8 +39,6 @@ import code.expressionlanguage.opers.util.ClassName;
 import code.expressionlanguage.opers.util.ConstructorId;
 import code.expressionlanguage.opers.util.FctConstraints;
 import code.expressionlanguage.opers.util.FieldMetaInfo;
-import code.expressionlanguage.opers.util.MethodMetaInfo;
-import code.expressionlanguage.opers.util.MethodModifier;
 import code.expressionlanguage.opers.util.Struct;
 import code.serialize.exceptions.BadAccessException;
 import code.serialize.exceptions.NoSuchDeclaredMethodException;
@@ -66,7 +64,8 @@ public final class FctOperation extends InvokingOperation {
 
     private ClassMethodId classMethodId;
     private FctConstraints methodId;
-    private MethodMetaInfo methodMetaInfo;
+
+    private boolean staticMethod;
 
     private boolean ternary;
 
@@ -75,6 +74,7 @@ public final class FctOperation extends InvokingOperation {
     private boolean otherConstructorClass;
 
     private boolean staticChoiceMethod;
+    private boolean interfaceChoice;
     private boolean superAccessMethod;
 
     public FctOperation(String _el, int _index, ContextEl _importingPage,
@@ -230,8 +230,7 @@ public final class FctOperation extends InvokingOperation {
                             throw new StaticAccessException(_conf.joinPages());
                         }
                         methodId = new FctConstraints(METH_NAME, new EqList<StringList>());
-                        methodMetaInfo = new MethodMetaInfo(clCurName_, MethodModifier.NORMAL, new ClassName(String.class.getName(), false));
-                        setResultClass(new ClassArgumentMatching(methodMetaInfo.getReturnType().getName()));
+                        setResultClass(new ClassArgumentMatching(String.class.getName()));
                         return;
                     }
                     if (StringList.quickEq(trimMeth_, METH_ORDINAL) && firstArgs_.isEmpty()) {
@@ -239,15 +238,14 @@ public final class FctOperation extends InvokingOperation {
                             throw new StaticAccessException(_conf.joinPages());
                         }
                         methodId = new FctConstraints(METH_ORDINAL, new EqList<StringList>());
-                        methodMetaInfo = new MethodMetaInfo(clCurName_, MethodModifier.NORMAL, new ClassName(PrimitiveTypeUtil.PRIM_INT, false));
-                        setResultClass(new ClassArgumentMatching(methodMetaInfo.getReturnType().getName()));
+                        setResultClass(new ClassArgumentMatching(PrimitiveTypeUtil.PRIM_INT));
                         return;
                     }
                     if (StringList.quickEq(trimMeth_, METH_VALUES) && firstArgs_.isEmpty()) {
                         methodId = new FctConstraints(METH_VALUES, new EqList<StringList>());
                         ClassName ret_ = new ClassName(PrimitiveTypeUtil.getPrettyArrayType(clCurName_), false);
-                        methodMetaInfo = new MethodMetaInfo(clCurName_, MethodModifier.NORMAL, ret_);
-                        setResultClass(new ClassArgumentMatching(methodMetaInfo.getReturnType().getName()));
+                        staticMethod = true;
+                        setResultClass(new ClassArgumentMatching(ret_.getName()));
                         return;
                     }
                 }
@@ -275,6 +273,10 @@ public final class FctOperation extends InvokingOperation {
                     staticChoiceMethod = true;
                     superAccessMethod = true;
                 }
+                if (superClassAccess_) {
+                    custClass_ = classes_.getClassMetaInfo(clCurName_);
+                    interfaceChoice = custClass_.getCategory() == ClassCategory.INTERFACE;
+                }
                 ClassMethodIdReturn clMeth_ = getDeclaredCustMethod(_conf, new ClassArgumentMatching(clCurName_), trimMeth_, superClassAccess_, ClassArgumentMatching.toArgArray(firstArgs_));
                 methodId = clMeth_.getId().getConstraints();
                 String foundClass_ = clMeth_.getId().getClassName().getName();
@@ -283,16 +285,16 @@ public final class FctOperation extends InvokingOperation {
                     setRelativeOffsetPossibleLastPage(getIndexInEl()+off_, _conf);
                     throw new BadAccessException(clMeth_.getId().getConstraints().getSignature()+RETURN_LINE+_conf.joinPages());
                 }
-                custClass_ = classes_.getClassMetaInfo(foundClass_);
-                MethodMetaInfo methodMetaInfo_ = custClass_.getMethods().getVal(methodId);
-                if (isStaticAccess() && methodMetaInfo_.getModifier() != MethodModifier.STATIC) {
+                staticMethod = clMeth_.isStaticMethod();
+                if (isStaticAccess() && !staticMethod) {
                     throw new StaticAccessException(_conf.joinPages());
                 }
-                if (staticChoiceMethod && methodMetaInfo_.getModifier() == MethodModifier.ABSTRACT) {
-                    setRelativeOffsetPossibleLastPage(getIndexInEl()+off_, _conf);
-                    throw new AbstractMethodException(clMeth_.getId().getConstraints().getSignature()+RETURN_LINE+_conf.joinPages());
+                if (staticChoiceMethod) {
+                    if (clMeth_.isAbstractMethod()) {
+                        setRelativeOffsetPossibleLastPage(getIndexInEl()+off_, _conf);
+                        throw new AbstractMethodException(clMeth_.getId().getConstraints().getSignature()+RETURN_LINE+_conf.joinPages());
+                    }
                 }
-                methodMetaInfo = methodMetaInfo_;
                 setResultClass(new ClassArgumentMatching(clMeth_.getReturnType()));
                 return;
             }
@@ -500,7 +502,7 @@ public final class FctOperation extends InvokingOperation {
         if (methodId != null) {
             firstArgs_ = listArguments(chidren_, _arguments, false);
             String classNameFound_;
-            if (!methodMetaInfo.isStatic()) {
+            if (!staticMethod) {
                 if (arg_.isNull()) {
                     throw new NullObjectException(_conf.joinPages());
                 }
@@ -533,7 +535,7 @@ public final class FctOperation extends InvokingOperation {
                         }
                     }
                 } else {
-                    classNameFound_ = getDeclaredCustMethod(_conf, arg_.getObjectClassName(), classMethodId);
+                    classNameFound_ = getDeclaredCustMethod(_conf, arg_.getObjectClassName(), interfaceChoice, classMethodId);
                 }
             } else {
                 ClassMetaInfo custClass_ = null;
