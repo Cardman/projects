@@ -76,7 +76,7 @@ public final class ConstantOperation extends OperationNode implements SettableEl
     @Override
     public void analyze(boolean _variable, CustList<OperationNode> _nodes, ContextEl _conf,
             boolean _enumContext, String _op) {
-        analyzeCalculate(_variable, _conf);
+        analyzeCalculate(_conf);
         if (getArgument() != null) {
             String str_ = getOperations().getValues().getValue(CustList.FIRST_INDEX).trim();
             boolean static_ = usingPureStaticAccess();
@@ -488,19 +488,13 @@ public final class ConstantOperation extends OperationNode implements SettableEl
         Argument a_ = _argument;
         return a_;
     }
-    private void analyzeCalculate(boolean _noParentCheck, ContextEl _cont) {
+    private void analyzeCalculate(ContextEl _cont) {
         String originalStr_ = getOperations().getValues().getValue(CustList.FIRST_INDEX);
         String str_ = originalStr_.trim();
         int off_ = StringList.getFirstPrintableCharIndex(originalStr_);
         setRelativeOffsetPossibleLastPage(getIndexInEl()+off_, _cont);
         if (str_.isEmpty()) {
             throw new EmptyPartException(_cont.joinPages());
-        }
-        if (_noParentCheck && !checkLater()) {
-            if (getParent() == null) {
-                setRelativeOffsetPossibleLastPage(getIndexInEl(), _cont);
-                throw new SettingMemberException(_cont.joinPages());
-            }
         }
         if (isVararg()) {
             str_ = str_.substring(CustList.SECOND_INDEX);
@@ -718,39 +712,6 @@ public final class ConstantOperation extends OperationNode implements SettableEl
             setSimpleArgument(arg_, false);
         } catch (RuntimeException _0) {
         }
-    }
-    private boolean checkLater() {
-        String originalStr_ = getOperations().getValues().getValue(CustList.FIRST_INDEX);
-        String str_ = originalStr_.trim();
-        if (isVararg()) {
-            return false;
-        }
-        if (StringList.quickEq(str_, TRUE_STRING)) {
-            return false;
-        }
-        if (StringList.quickEq(str_, FALSE_STRING)) {
-            return false;
-        }
-        if (StringList.quickEq(str_, NULL_REF_STRING)) {
-            return false;
-        }
-        if (str_.startsWith(String.valueOf(DELIMITER_STRING))) {
-            return false;
-        }
-        if (str_.startsWith(String.valueOf(DELIMITER_CHAR))) {
-            return false;
-        }
-        StringList sepWords_ = StringList.getWordsSeparators(str_);
-        if (StringList.quickEq(sepWords_.get(CustList.SECOND_INDEX), STATIC_ACCESS)) {
-            return false;
-        }
-        try {
-            str_ = StringList.removeAllSpaces(str_);
-            Argument.numberToArgument(str_);
-            return false;
-        } catch (RuntimeException _0) {
-        }
-        return true;
     }
 
     private boolean usingPureStaticAccess() {
