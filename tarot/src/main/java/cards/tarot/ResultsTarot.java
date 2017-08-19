@@ -1,7 +1,12 @@
 package cards.tarot;
+import cards.consts.GameType;
+import cards.consts.Status;
+import cards.gameresults.ResultsGame;
+import cards.tarot.enumerations.BidTarot;
+import cards.tarot.enumerations.Handfuls;
+import cards.tarot.enumerations.Miseres;
 import code.maths.LgInt;
 import code.maths.Rate;
-import code.stream.ExtractFromFiles;
 import code.util.CustList;
 import code.util.EnumMap;
 import code.util.NatTreeMap;
@@ -9,12 +14,7 @@ import code.util.Numbers;
 import code.util.StringList;
 import code.util.StringMap;
 import code.util.annot.RwXml;
-import cards.consts.GameType;
-import cards.consts.Status;
-import cards.gameresults.ResultsGame;
-import cards.tarot.enumerations.BidTarot;
-import cards.tarot.enumerations.Handfuls;
-import cards.tarot.enumerations.Miseres;
+import code.xml.util.ExtractFromFiles;
 
 @RwXml
 public final class ResultsTarot extends ResultsGame{

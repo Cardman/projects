@@ -1,15 +1,4 @@
 package cards.belote;
-import code.format.Format;
-import code.maths.Rate;
-import code.stream.StreamTextFile;
-import code.util.BooleanList;
-import code.util.CustList;
-import code.util.EnumList;
-import code.util.EnumMap;
-import code.util.EqList;
-import code.util.Numbers;
-import code.util.annot.RwXml;
-import code.util.consts.Constants;
 import cards.belote.comparators.BidBeloteSuitComparator;
 import cards.belote.comparators.DeclareHandBeloteComparator;
 import cards.belote.comparators.GameStrengthGreatFirstHandBeloteComparator;
@@ -35,6 +24,16 @@ import cards.consts.Order;
 import cards.consts.PossibleTrickWinner;
 import cards.consts.Status;
 import cards.consts.Suit;
+import code.format.Format;
+import code.maths.Rate;
+import code.util.BooleanList;
+import code.util.CustList;
+import code.util.EnumList;
+import code.util.EnumMap;
+import code.util.EqList;
+import code.util.Numbers;
+import code.util.annot.RwXml;
+import code.util.consts.Constants;
 /**
  */
 @RwXml
@@ -6457,10 +6456,6 @@ public final class GameBelote {
 
     private String format(String _key, Object... _vars) {
         return Format.formatter(FOLDER, file, Constants.getLanguage(), _key, _vars);
-    }
-
-    public void sauvegarder(String _nomFichier) {
-        StreamTextFile.saveObject(_nomFichier, this);
     }
 
     public static int getChargementSimulation() {

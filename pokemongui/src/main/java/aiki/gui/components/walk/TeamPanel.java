@@ -12,13 +12,13 @@ import javax.swing.border.BevelBorder;
 
 import code.gui.CustListModel;
 import code.gui.Jl;
-import code.stream.ExtractFromFiles;
 import code.util.CustList;
 import code.util.NatTreeMap;
 import code.util.Numbers;
 import code.util.StringList;
 import code.util.StringMap;
 import code.util.consts.Constants;
+import code.xml.util.ExtractFromFiles;
 import aiki.Resources;
 import aiki.facade.FacadeGame;
 import aiki.gui.listeners.PokemonHostEvent;

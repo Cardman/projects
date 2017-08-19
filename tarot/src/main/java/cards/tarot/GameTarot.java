@@ -1,18 +1,4 @@
 package cards.tarot;
-import code.format.Format;
-import code.maths.Rate;
-import code.stream.StreamTextFile;
-import code.util.AbEqList;
-import code.util.BooleanList;
-import code.util.CustList;
-import code.util.EnumList;
-import code.util.EnumMap;
-import code.util.EqList;
-import code.util.NatTreeMap;
-import code.util.NumberMap;
-import code.util.Numbers;
-import code.util.annot.RwXml;
-import code.util.consts.Constants;
 import cards.consts.CardChar;
 import cards.consts.EndGameState;
 import cards.consts.GameType;
@@ -42,6 +28,19 @@ import cards.tarot.enumerations.Handfuls;
 import cards.tarot.enumerations.Miseres;
 import cards.tarot.enumerations.ModeTarot;
 import cards.tarot.enumerations.PlayingDog;
+import code.format.Format;
+import code.maths.Rate;
+import code.util.AbEqList;
+import code.util.BooleanList;
+import code.util.CustList;
+import code.util.EnumList;
+import code.util.EnumMap;
+import code.util.EqList;
+import code.util.NatTreeMap;
+import code.util.NumberMap;
+import code.util.Numbers;
+import code.util.annot.RwXml;
+import code.util.consts.Constants;
 
 /** */
 @RwXml
@@ -14822,10 +14821,6 @@ public final class GameTarot {
 
     private String format(String _key, Object... _vars) {
         return Format.formatter(FOLDER, file, Constants.getLanguage(), _key, _vars);
-    }
-
-    public void sauvegarder(String _nomFichier) {
-        StreamTextFile.saveObject(_nomFichier, this);
     }
 
     public static int getChargementSimulation() {

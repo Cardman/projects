@@ -5,11 +5,11 @@ import java.util.Date;
 
 import javax.swing.table.AbstractTableModel;
 
-import code.stream.ExtractFromFiles;
 import code.util.CustList;
 import code.util.StringList;
 import code.util.StringMap;
 import code.util.consts.Constants;
+import code.xml.util.ExtractFromFiles;
 
 public class FileTable extends AbstractTableModel {
 

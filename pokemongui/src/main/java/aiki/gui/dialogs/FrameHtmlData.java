@@ -14,9 +14,9 @@ import code.gui.LabelButton;
 import code.gui.ProgressingWebDialog;
 import code.gui.SessionEditorPane;
 import code.gui.events.ClosingChildFrameEvent;
-import code.stream.ExtractFromFiles;
 import code.util.StringMap;
 import code.util.consts.Constants;
+import code.xml.util.ExtractFromFiles;
 import aiki.Resources;
 import aiki.gui.MainWindow;
 

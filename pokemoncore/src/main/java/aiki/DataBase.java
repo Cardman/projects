@@ -1,6 +1,5 @@
 package aiki;
 import java.awt.image.BufferedImage;
-import java.io.File;
 
 import aiki.comparators.ComparatorEndRoundMainElements;
 import aiki.exceptions.DataException;
@@ -130,8 +129,6 @@ import code.maths.montecarlo.MonteCarloNumber;
 import code.maths.montecarlo.MonteCarloString;
 import code.resources.ResourceFiles;
 import code.serialize.SerializeXmlObject;
-import code.stream.StreamTextFile;
-import code.stream.StreamZipFile;
 import code.util.AbsMap;
 import code.util.CustList;
 import code.util.EntryCust;
@@ -630,12 +627,6 @@ public class DataBase implements WithMathFactory<Rate>{
 
     @CheckedData
     private StringMap<StringMap<String>> translatedFctMath = new StringMap<StringMap<String>>();
-
-    @CheckedData
-    private boolean readFolder;
-
-//    @CheckedData
-//    private boolean compileFiles;
 
     @CheckedData
     private StringMap<PokemonFamily> families = new StringMap<PokemonFamily>();
@@ -2175,47 +2166,34 @@ public class DataBase implements WithMathFactory<Rate>{
         types = moveTypes_;
     }
 
-    public void loadRom(String _zipFileName) {
+    public void loadRom(InsCaseStringMap<String> _files) {
 //        compileFiles = false;
         _perCentLoading_ = 0;
         initializeMembers();
         InsCaseStringMap<String> files_;
         StringList listRelativePaths_;
         String common_ = EMPTY_STRING;
-        if (readFolder) {
-            files_ = StreamTextFile.getTextFilesIns(_zipFileName);
-            listRelativePaths_ = files_.getKeys();
-            common_ = SEPARATOR_FILES;
-//            listRelativePaths_.replaceRegExpInStrings(BEGIN_REG_EXP+SEPARATOR_FILES, EMPTY_STRING);
-            listRelativePaths_.removePrefixInStrings(SEPARATOR_FILES);
-        } else {
-            files_ = StreamZipFile.zippedTextFilesIns(_zipFileName);
-            listRelativePaths_ = files_.getKeys();
-            StringList foldersBase_ = new StringList();
-            for (String f: listRelativePaths_) {
-                StringBuilder str_ = new StringBuilder();
-                for (char c: f.toCharArray()) {
-                    if (!StringList.isWordChar(c)) {
-                        break;
-                    }
-                    str_.append(c);
+        files_ = _files;
+        listRelativePaths_ = files_.getKeys();
+        StringList foldersBase_ = new StringList();
+        for (String f: listRelativePaths_) {
+            StringBuilder str_ = new StringBuilder();
+            for (char c: f.toCharArray()) {
+                if (!StringList.isWordChar(c)) {
+                    break;
                 }
-                String strFolder_ = str_.toString();
-//                foldersBase_.add(StringList.matchingRegExp(f, BEGIN_REG_EXP+WORD).first());
-                foldersBase_.add(strFolder_);
+                str_.append(c);
             }
-            foldersBase_.removeDuplicates();
-            if (foldersBase_.size() == 1) {
-//                if (StringList.matchingRegExp(foldersBase_.first(), BEGIN_REG_EXP+WORD+END_REG_EXP).isEmpty()) {
-//                    throw new Exception();
-//                }
-                if (!StringList.isWord(foldersBase_.first())) {
-                    throw new DataException();
-                }
-                common_ = foldersBase_.first()+SEPARATOR_FILES;
-//                listRelativePaths_.replaceRegExpInStrings(BEGIN_REG_EXP+common_, EMPTY_STRING);
-                listRelativePaths_.removePrefixInStrings(common_);
+            String strFolder_ = str_.toString();
+            foldersBase_.add(strFolder_);
+        }
+        foldersBase_.removeDuplicates();
+        if (foldersBase_.size() == 1) {
+            if (!StringList.isWord(foldersBase_.first())) {
+                throw new DataException();
             }
+            common_ = foldersBase_.first()+SEPARATOR_FILES;
+            listRelativePaths_.removePrefixInStrings(common_);
         }
         StringList listCopy_ = new StringList();
         for (String s: listRelativePaths_) {
@@ -4236,15 +4214,15 @@ public class DataBase implements WithMathFactory<Rate>{
 //        });
     }
 
-    public void save(String _zipFileName) {
-        String simple_ = new File(_zipFileName).getName();
-        StringMap<String> map_ = getTextFiles();
-        StringMap<String> newMap_ = new StringMap<String>();
-        for (String k: map_.getKeys()) {
-            newMap_.put(StringList.removeStrings(simple_, ZIP_FILES_EXT)+SEPARATOR_FILES+k, map_.getVal(k));
-        }
-        StreamZipFile.zipFiles(_zipFileName, newMap_);
-    }
+//    public void save(String _zipFileName) {
+//        String simple_ = new File(_zipFileName).getName();
+//        StringMap<String> map_ = getTextFiles();
+//        StringMap<String> newMap_ = new StringMap<String>();
+//        for (String k: map_.getKeys()) {
+//            newMap_.put(StringList.removeStrings(simple_, ZIP_FILES_EXT)+SEPARATOR_FILES+k, map_.getVal(k));
+//        }
+//        StreamZipFile.zipFiles(_zipFileName, newMap_);
+//    }
 
     public void renamePokemon(String _oldName, String _newName, boolean _homonym) {
         if (pokedex.contains(_newName)) {
@@ -8136,14 +8114,6 @@ public class DataBase implements WithMathFactory<Rate>{
 
     public StringMap<PokemonFamily> getFamilies() {
         return families;
-    }
-
-    public boolean isReadFolder() {
-        return readFolder;
-    }
-
-    public void setReadFolder(boolean _readFolder) {
-        readFolder = _readFolder;
     }
 
     public static boolean isLoading() {

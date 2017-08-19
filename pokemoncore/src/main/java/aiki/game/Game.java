@@ -76,8 +76,6 @@ import code.maths.LgInt;
 import code.maths.Rate;
 import code.maths.montecarlo.MonteCarloEq;
 import code.maths.montecarlo.MonteCarloString;
-import code.stream.ExtractFromFiles;
-import code.stream.StreamTextFile;
 import code.util.AbEqList;
 import code.util.CustList;
 import code.util.EntryCust;
@@ -91,6 +89,7 @@ import code.util.StringMap;
 import code.util.TreeMap;
 import code.util.annot.RwXml;
 import code.util.consts.Constants;
+import code.xml.util.ExtractFromFiles;
 
 @RwXml
 public class Game {
@@ -2574,16 +2573,6 @@ public class Game {
             }
         }
         return level_.isEmpty(pt_);
-    }
-
-    public void save(String _fileName) {
-        StreamTextFile.saveObject(_fileName, this);
-    }
-
-    public static Game load(String _fileName,DataBase _data) {
-        Game game_ = (Game) StreamTextFile.loadObject(_fileName);
-        game_.checkAndInitialize(_data);
-        return game_;
     }
 
     public void initIv(DataBase _data) {

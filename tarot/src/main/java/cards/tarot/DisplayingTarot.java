@@ -1,8 +1,7 @@
 package cards.tarot;
-import code.stream.StreamTextFile;
+import cards.consts.Suit;
 import code.util.EnumList;
 import code.util.annot.RwXml;
-import cards.consts.Suit;
 
 @RwXml
 public final class DisplayingTarot {
@@ -53,8 +52,5 @@ public final class DisplayingTarot {
     }
     public void setDecroissant(boolean _decroissant) {
         decreasing = _decroissant;
-    }
-    public void sauvegarder(String _fichier){
-        StreamTextFile.saveObject(_fichier, this);
     }
 }

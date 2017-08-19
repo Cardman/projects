@@ -1,6 +1,11 @@
 package cards.president;
+import cards.consts.GameType;
+import cards.consts.Suit;
+import cards.president.comparators.GameStrengthCardPresidentComparator;
+import cards.president.enumerations.CardPresident;
+import cards.president.enumerations.EqualtyPlaying;
+import cards.president.enumerations.Playing;
 import code.format.Format;
-import code.stream.StreamTextFile;
 import code.util.BooleanList;
 import code.util.CustList;
 import code.util.EqList;
@@ -10,12 +15,6 @@ import code.util.Numbers;
 import code.util.TreeMap;
 import code.util.annot.RwXml;
 import code.util.consts.Constants;
-import cards.consts.GameType;
-import cards.consts.Suit;
-import cards.president.comparators.GameStrengthCardPresidentComparator;
-import cards.president.enumerations.CardPresident;
-import cards.president.enumerations.EqualtyPlaying;
-import cards.president.enumerations.Playing;
 
 @RwXml
 public final class GamePresident {
@@ -2653,10 +2652,6 @@ public final class GamePresident {
 
     public static void setChargementSimulation(int _chargementSimulation) {
         _chargementSimulation_ = _chargementSimulation;
-    }
-
-    public void sauvegarder(String _nomFichier) {
-        StreamTextFile.saveObject(_nomFichier, this);
     }
 
     void setNextPlayer(byte _i) {

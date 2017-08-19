@@ -1,9 +1,9 @@
 package code.gui;
 import javax.swing.JFrame;
 
-import code.stream.ExtractFromFiles;
 import code.util.StringMap;
 import code.util.consts.Constants;
+import code.xml.util.ExtractFromFiles;
 
 public abstract class CommonFrame extends JFrame {
 

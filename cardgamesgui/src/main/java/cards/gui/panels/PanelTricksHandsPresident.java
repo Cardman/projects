@@ -12,13 +12,13 @@ import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
 import code.gui.IntTreeComboBox;
-import code.stream.ExtractFromFiles;
 import code.util.CustList;
 import code.util.NatCmpTreeMap;
 import code.util.NumberMap;
 import code.util.StringList;
 import code.util.StringMap;
 import code.util.consts.Constants;
+import code.xml.util.ExtractFromFiles;
 import cards.gui.containers.ContainerPresident;
 import cards.gui.dialogs.FileConst;
 import cards.gui.labels.GraphicPresidentCard;

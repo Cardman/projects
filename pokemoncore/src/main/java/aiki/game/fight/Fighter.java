@@ -53,7 +53,6 @@ import aiki.map.pokemon.enums.Gender;
 import code.datacheck.CheckedData;
 import code.maths.LgInt;
 import code.maths.Rate;
-import code.stream.ExtractFromFiles;
 import code.util.CustList;
 import code.util.EntryCust;
 import code.util.EnumMap;
@@ -65,6 +64,7 @@ import code.util.StringList;
 import code.util.StringMap;
 import code.util.annot.RwXml;
 import code.util.consts.Constants;
+import code.xml.util.ExtractFromFiles;
 
 @RwXml
 public final class Fighter {

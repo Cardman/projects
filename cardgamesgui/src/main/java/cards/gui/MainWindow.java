@@ -552,7 +552,7 @@ public final class MainWindow extends NetGroupFrame {
         }catch(RuntimeException _0) {
             _0.printStackTrace();
             reglesBelote = new RulesBelote();
-            reglesBelote.sauvegarder(LaunchingCards.getTempFolderSl()+FileConst.RULES_BELOTE);
+            StreamTextFile.saveObject(LaunchingCards.getTempFolderSl()+FileConst.RULES_BELOTE, reglesBelote);
         }
         try{
             displayingBelote = (DisplayingBelote) StreamTextFile.loadObject(LaunchingCards.getTempFolderSl()+FileConst.DISPLAY_BELOTE);
@@ -561,7 +561,7 @@ public final class MainWindow extends NetGroupFrame {
         }catch(RuntimeException _0) {
             _0.printStackTrace();
             displayingBelote = new DisplayingBelote();
-            displayingBelote.sauvegarder(LaunchingCards.getTempFolderSl()+FileConst.DISPLAY_BELOTE);
+            StreamTextFile.saveObject(LaunchingCards.getTempFolderSl()+FileConst.DISPLAY_BELOTE, displayingBelote);
         }
         try{
             reglesPresident = (RulesPresident) StreamTextFile.loadObject(LaunchingCards.getTempFolderSl()+FileConst.RULES_PRESIDENT);
@@ -572,7 +572,7 @@ public final class MainWindow extends NetGroupFrame {
         }catch(RuntimeException _0) {
             _0.printStackTrace();
             reglesPresident = new RulesPresident();
-            reglesPresident.sauvegarder(LaunchingCards.getTempFolderSl()+FileConst.RULES_PRESIDENT);
+            StreamTextFile.saveObject(LaunchingCards.getTempFolderSl()+FileConst.RULES_PRESIDENT, reglesPresident);
         }
         try{
             displayingPresident = (DisplayingPresident) StreamTextFile.loadObject(LaunchingCards.getTempFolderSl()+FileConst.DISPLAY_PRESIDENT);
@@ -581,7 +581,7 @@ public final class MainWindow extends NetGroupFrame {
         }catch(RuntimeException _0) {
             _0.printStackTrace();
             displayingPresident = new DisplayingPresident();
-            displayingPresident.sauvegarder(LaunchingCards.getTempFolderSl()+FileConst.DISPLAY_PRESIDENT);
+            StreamTextFile.saveObject(LaunchingCards.getTempFolderSl()+FileConst.DISPLAY_PRESIDENT, displayingPresident);
         }
         try{
             reglesTarot = (RulesTarot) StreamTextFile.loadObject(LaunchingCards.getTempFolderSl()+FileConst.RULES_TAROT);
@@ -592,7 +592,7 @@ public final class MainWindow extends NetGroupFrame {
         }catch(RuntimeException _0) {
             _0.printStackTrace();
             reglesTarot = new RulesTarot();
-            reglesTarot.sauvegarder(LaunchingCards.getTempFolderSl()+FileConst.RULES_TAROT);
+            StreamTextFile.saveObject(LaunchingCards.getTempFolderSl()+FileConst.RULES_TAROT, reglesTarot);
         }
         try{
             displayingTarot = (DisplayingTarot) StreamTextFile.loadObject(LaunchingCards.getTempFolderSl()+FileConst.DISPLAY_TAROT);
@@ -601,7 +601,7 @@ public final class MainWindow extends NetGroupFrame {
         }catch(RuntimeException _0) {
             _0.printStackTrace();
             displayingTarot = new DisplayingTarot();
-            displayingTarot.sauvegarder(LaunchingCards.getTempFolderSl()+FileConst.DISPLAY_TAROT);
+            StreamTextFile.saveObject(LaunchingCards.getTempFolderSl()+FileConst.DISPLAY_TAROT, displayingTarot);
         }
         try {
             parametres = (SoftParams) StreamTextFile.loadObject(LaunchingCards.getTempFolderSl()+FileConst.PARAMS);
@@ -1928,7 +1928,7 @@ public final class MainWindow extends NetGroupFrame {
                 return;
             }
             reglesBelote = reglesBelote_;
-            reglesBelote.sauvegarder(LaunchingCards.getTempFolderSl()+FileConst.RULES_BELOTE);
+            StreamTextFile.saveObject(LaunchingCards.getTempFolderSl()+FileConst.RULES_BELOTE, reglesBelote);
             containerGame.setRulesBelote(reglesBelote);
         } else if (_game == GameEnum.PRESIDENT) {
             DialogRulesPresident.initDialogRulesPresident(_game.toString(), this, reglesPresident);
@@ -1938,7 +1938,7 @@ public final class MainWindow extends NetGroupFrame {
                 return;
             }
             reglesPresident = rules_;
-            reglesPresident.sauvegarder(LaunchingCards.getTempFolderSl()+FileConst.RULES_PRESIDENT);
+            StreamTextFile.saveObject(LaunchingCards.getTempFolderSl()+FileConst.RULES_PRESIDENT, reglesPresident);
             containerGame.setRulesPresident(reglesPresident);
         } else if (_game == GameEnum.TAROT) {
             DialogRulesTarot.initDialogRulesTarot(_game.toString(), this, reglesTarot);
@@ -1948,7 +1948,7 @@ public final class MainWindow extends NetGroupFrame {
                 return;
             }
             reglesTarot = reglesTarot_;
-            reglesTarot.sauvegarder(LaunchingCards.getTempFolderSl()+FileConst.RULES_TAROT);
+            StreamTextFile.saveObject(LaunchingCards.getTempFolderSl()+FileConst.RULES_TAROT, reglesTarot);
             containerGame.setRulesTarot(reglesTarot);
         }
     }
@@ -1982,17 +1982,17 @@ public final class MainWindow extends NetGroupFrame {
         if (_game == GameEnum.BELOTE) {
             DialogDisplayingBelote.setDialogDisplayingBelote(_game.toString(), this);
             displayingBelote=DialogDisplayingBelote.getDisplaying();
-            displayingBelote.sauvegarder(LaunchingCards.getTempFolderSl()+FileConst.DISPLAY_BELOTE);
+            StreamTextFile.saveObject(LaunchingCards.getTempFolderSl()+FileConst.DISPLAY_BELOTE, displayingBelote);
             containerGame.setDisplayingBelote(displayingBelote);
         } else if (_game == GameEnum.PRESIDENT) {
             DialogDisplayingPresident.setDialogDisplayingPresident(_game.toString(), this);
             displayingPresident=DialogDisplayingPresident.getDisplaying();
-            displayingPresident.sauvegarder(LaunchingCards.getTempFolderSl()+FileConst.DISPLAY_PRESIDENT);
+            StreamTextFile.saveObject(LaunchingCards.getTempFolderSl()+FileConst.DISPLAY_PRESIDENT, displayingPresident);
             containerGame.setDisplayingPresident(displayingPresident);
         } else if (_game == GameEnum.TAROT) {
             DialogDisplayingTarot.setDialogDisplayingTarot(_game.toString(), this);
             displayingTarot=DialogDisplayingTarot.getDisplaying();
-            displayingTarot.sauvegarder(LaunchingCards.getTempFolderSl()+FileConst.DISPLAY_TAROT);
+            StreamTextFile.saveObject(LaunchingCards.getTempFolderSl()+FileConst.DISPLAY_TAROT, displayingTarot);
             containerGame.setDisplayingTarot(displayingTarot);
         }
     }

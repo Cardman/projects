@@ -1,15 +1,6 @@
 package cards.belote;
 import java.util.Iterator;
 
-import code.maths.montecarlo.AbMonteCarlo;
-import code.stream.StreamTextFile;
-import code.util.CustList;
-import code.util.EnumList;
-import code.util.EnumMap;
-import code.util.EqList;
-import code.util.StringList;
-import code.util.annot.RwXml;
-import code.util.ints.Equallable;
 import cards.belote.comparators.DeclareHandBeloteComparator;
 import cards.belote.comparators.DeclareStrengthCardBeloteComparator;
 import cards.belote.comparators.GameStrengthCardBeloteComparator;
@@ -20,6 +11,14 @@ import cards.belote.enumerations.DeclaresBelote;
 import cards.consts.CardChar;
 import cards.consts.Order;
 import cards.consts.Suit;
+import code.maths.montecarlo.AbMonteCarlo;
+import code.util.CustList;
+import code.util.EnumList;
+import code.util.EnumMap;
+import code.util.EqList;
+import code.util.StringList;
+import code.util.annot.RwXml;
+import code.util.ints.Equallable;
 /**
  */
 @RwXml
@@ -655,9 +654,6 @@ public final class HandBelote implements Iterable<CardBelote>, Equallable<HandBe
             retString_.add(c.toString());
         }
         return retString_.join(SEPARATOR);
-    }
-    public void sauvegarder(String _nomFichier) {
-        StreamTextFile.saveObject(_nomFichier, this);
     }
 
     @Override

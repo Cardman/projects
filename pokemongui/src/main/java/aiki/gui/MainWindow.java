@@ -91,8 +91,10 @@ import code.network.BasicClient;
 import code.network.Exiting;
 import code.network.NetGroupFrame;
 import code.stream.StreamTextFile;
+import code.stream.StreamZipFile;
 import code.util.CustList;
 import code.util.EnumMap;
+import code.util.InsCaseStringMap;
 import code.util.NatTreeMap;
 import code.util.Numbers;
 import code.util.PairNumber;
@@ -329,7 +331,7 @@ public final class MainWindow extends NetGroupFrame {
 //                path_ = StringList.replaceBackSlash(path_);
                 loadingConf.setLastSavedGame(name_);
 //                facade.save(path_);
-                facade.save(name_);
+                save(name_);
                 if (!new File(name_).exists()) {
                     name_ = ConstFiles.getInitFolder()+LoadingGame.DEFAULT_SAVE_GAME+Resources.GAME_EXT;
                     int index_ = 0;
@@ -338,12 +340,12 @@ public final class MainWindow extends NetGroupFrame {
                         index_++;
                     }
                     loadingConf.setLastSavedGame(name_);
-                    facade.save(name_);
+                    save(name_);
                 }
             } else {
                 String path_ = new File(loadingConf.getLastSavedGame()).getAbsolutePath();
                 path_ = StringList.replaceBackSlash(path_);
-                facade.save(path_);
+                save(path_);
             }
             StreamTextFile.saveObject(LaunchingPokemon.getTempFolderSl()+Resources.LOAD_CONFIG_FILE, loadingConf);
             //LaunchingPokemon.decrement();
@@ -361,7 +363,7 @@ public final class MainWindow extends NetGroupFrame {
                     String file_ = fileDialogSave();
                     if (!file_.isEmpty()) {
                         loadingConf.setLastSavedGame(file_);
-                        facade.save(file_);
+                        save(file_);
                     }
                 }
                 savedGame = true;
@@ -520,7 +522,8 @@ public final class MainWindow extends NetGroupFrame {
         if (!_file.isEmpty()) {
             //startThread = true;
             try {
-                facade.loadRomAndCheck(_file);
+                InsCaseStringMap<String> files_ = StreamZipFile.zippedTextFilesIns(_file);
+                facade.loadRomAndCheck(_file, files_);
                 if (!DataBase.isLoading()) {
                     return;
                 }
@@ -566,7 +569,8 @@ public final class MainWindow extends NetGroupFrame {
             path_ = StringList.replaceBackSlash(path_);
             //startThread = true;
             try {
-                facade.loadRomAndCheck(path_);
+                InsCaseStringMap<String> files_ = StreamZipFile.zippedTextFilesIns(path_);
+                facade.loadRomAndCheck(path_, files_);
                 if (!DataBase.isLoading()) {
                     return;
                 }
@@ -605,7 +609,8 @@ public final class MainWindow extends NetGroupFrame {
                 path_ = file_.getAbsolutePath();
             }
             path_ = StringList.replaceBackSlash(path_);
-            facade.load(path_);
+            Game game_ = load(path_, facade.getData());
+            facade.load(game_);
         }
         facade.changeCamera();
         ThreadInvoker.invokeNow(new AfterLoadGame(this));
@@ -775,7 +780,7 @@ public final class MainWindow extends NetGroupFrame {
                 String file_ = fileDialogSave();
                 if (!file_.isEmpty()) {
                     loadingConf.setLastSavedGame(file_);
-                    facade.save(file_);
+                    save(file_);
                     dateLastSaved = Clock.getDateTimeText();
                     lastSavedGameDate.setText(StringList.simpleFormat(_messages_.getVal(LAST_SAVED_GAME), dateLastSaved));
                     savedGame = true;
@@ -821,7 +826,7 @@ public final class MainWindow extends NetGroupFrame {
                 String file_ = fileDialogSave();
                 if (!file_.isEmpty()) {
                     loadingConf.setLastSavedGame(file_);
-                    facade.save(file_);
+                    save(file_);
                     dateLastSaved = Clock.getDateTimeText();
 //                    lastSavedGameDate.setText(MessageFormat.format(_messages_.getVal(LAST_SAVED_GAME), dateLastSaved));
                     lastSavedGameDate.setText(StringList.simpleFormat(_messages_.getVal(LAST_SAVED_GAME), dateLastSaved));
@@ -839,7 +844,8 @@ public final class MainWindow extends NetGroupFrame {
             DataBase.setLoading(true);
 //            LoadGame opening_ = new LoadGame(VideoLoading.getVideo(), this);
 //            opening_.start();
-            facade.load(fileName_);
+            Game game_ = load(fileName_, facade.getData());
+            facade.load(game_);
             gameSave.setEnabled(true);
             facade.changeCamera();
             drawGame();
@@ -860,6 +866,12 @@ public final class MainWindow extends NetGroupFrame {
         }
     }
 
+    public static Game load(String _fileName,DataBase _data) {
+        Game game_ = (Game) StreamTextFile.loadObject(_fileName);
+        game_.checkAndInitialize(_data);
+        return game_;
+    }
+
     public void saveGame() {
         String fileName_ = fileDialogSave();
         if (fileName_.isEmpty()) {
@@ -870,12 +882,22 @@ public final class MainWindow extends NetGroupFrame {
                 continue;
             }
         }
-        facade.save(fileName_);
+        save(fileName_);
         fileName_ = StringList.replaceBackSlash(fileName_);
         loadingConf.setLastSavedGame(fileName_);
         dateLastSaved = Clock.getDateTimeText();
         lastSavedGameDate.setText(StringList.simpleFormat(_messages_.getVal(LAST_SAVED_GAME), dateLastSaved));
         savedGame = true;
+    }
+
+    //Save option
+    public void save(String _fileName) {
+        Game game_ = facade.getGame();
+        if (game_ == null) {
+            return;
+        }
+        game_.setZippedRom(facade.getZipName());
+        StreamTextFile.saveObject(_fileName, game_);
     }
 
     public void manageLanguage() {
@@ -1062,7 +1084,8 @@ public final class MainWindow extends NetGroupFrame {
 
     public void processLoad(String _fileName) {
         try {
-            facade.loadRomAndCheck(_fileName);
+            InsCaseStringMap<String> files_ = StreamZipFile.zippedTextFilesIns(_fileName);
+            facade.loadRomAndCheck(_fileName, files_);
             if (!DataBase.isLoading()) {
                 return;
             }

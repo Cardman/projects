@@ -3,13 +3,13 @@ import code.formathtml.exceptions.BadFilePropertiesException;
 import code.formathtml.exceptions.MessageKeyNotFoundException;
 import code.formathtml.exceptions.NoSuchResourceException;
 import code.resources.ResourceFiles;
-import code.stream.StreamTextFile;
 import code.util.EntryCust;
 import code.util.StringList;
 import code.util.StringMap;
 import code.util.consts.Constants;
 import code.util.exceptions.BadFilePropertiesContentException;
 import code.util.opers.MessagesUtil;
+import code.xml.util.ResourcesMessagesUtil;
 
 final class ExtractFromResources {
     static final String RETURN_LINE = "\n";
@@ -71,7 +71,7 @@ final class ExtractFromResources {
 //        return StringList.simpleFormat(preformatted_, objects_.toArray());
 //    }
     static String getFormat(StringMap<String> _messages, String _key, Configuration _conf, String _loc, String _fileName) {
-        String fileNamePath_ = StreamTextFile.getPropertiesPath(ExtractObject.getMessageFolder(_conf),_loc,_fileName);
+        String fileNamePath_ = ResourcesMessagesUtil.getPropertiesPath(ExtractObject.getMessageFolder(_conf),_loc,_fileName);
         String value_ = _messages.getVal(_key);
         if (value_ == null) {
             //check if key_ is in messages_ from fileNamePath_
@@ -82,7 +82,7 @@ final class ExtractFromResources {
     }
     static StringMap<String> getInnerMessagesFromLocaleClass(Configuration _conf, String _loc, String _relative, StringMap<String> _files, String... _resourcesFolder) {
         String folder_ = ExtractObject.getMessageFolder(_conf);
-        String fileName_ = StreamTextFile.getPropertiesPath(folder_,_loc,_relative);
+        String fileName_ = ResourcesMessagesUtil.getPropertiesPath(folder_,_loc,_relative);
         String content_ = getContentFile(_conf, _files, fileName_, _resourcesFolder);
         try {
             return MessagesUtil.getMessages(content_);

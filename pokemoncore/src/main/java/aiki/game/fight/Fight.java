@@ -31,7 +31,6 @@ import aiki.map.levels.enums.EnvironmentType;
 import code.datacheck.CheckedData;
 import code.maths.LgInt;
 import code.maths.Rate;
-import code.stream.ExtractFromFiles;
 import code.util.BooleanList;
 import code.util.CustList;
 import code.util.EntryCust;
@@ -48,6 +47,7 @@ import code.util.annot.RwXml;
 import code.util.comparators.NaturalComparator;
 import code.util.consts.Constants;
 import code.util.ints.Listable;
+import code.xml.util.ExtractFromFiles;
 
 @RwXml
 public final class Fight {

@@ -39,7 +39,6 @@ import aiki.map.pokemon.enums.Gender;
 import code.datacheck.CheckedData;
 import code.maths.LgInt;
 import code.maths.Rate;
-import code.stream.ExtractFromFiles;
 import code.util.CustList;
 import code.util.EntryCust;
 import code.util.NatTreeMap;
@@ -52,6 +51,7 @@ import code.util.annot.RwXml;
 import code.util.comparators.ComparatorTreeMapValue;
 import code.util.comparators.NaturalComparator;
 import code.util.consts.Constants;
+import code.xml.util.ExtractFromFiles;
 
 @RwXml
 public class Player {

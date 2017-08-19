@@ -11,7 +11,6 @@ import aiki.map.pokemon.PokemonPlayer;
 import aiki.map.pokemon.WildPk;
 import code.datacheck.CheckedData;
 import code.maths.LgInt;
-import code.stream.ExtractFromFiles;
 import code.util.CustList;
 import code.util.EntryCust;
 import code.util.EqList;
@@ -26,6 +25,7 @@ import code.util.annot.RwXml;
 import code.util.comparators.ComparatorPairNumber;
 import code.util.consts.Constants;
 import code.util.ints.Listable;
+import code.xml.util.ExtractFromFiles;
 
 @RwXml
 public final class Team {

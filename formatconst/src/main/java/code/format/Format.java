@@ -1,6 +1,5 @@
 package code.format;
 import code.resources.ResourceFiles;
-import code.stream.StreamTextFile;
 import code.util.StringList;
 import code.util.StringMap;
 import code.xml.XmlParser;
@@ -42,9 +41,9 @@ public final class Format {
     @param _constante nom de la constante en rapport avec la chaine de caracteres
     @return une chaine de caracteres provenant d'un fichier de ressource*/
     public static String getConstante(String _dossier,String _fichier,String _nomConstante) {
-        if(!CONSTANTES_FICHIERS.contains(_dossier+StreamTextFile.SEPARATEUR+_fichier)){
+        if(!CONSTANTES_FICHIERS.contains(_dossier+ResourceFiles.SEPARATEUR+_fichier)){
             StringMap<String> constantes_ = new StringMap<String>();
-            String fichier_ = ResourceFiles.ressourceFichier(_dossier+StreamTextFile.SEPARATEUR+ _fichier);
+            String fichier_ = ResourceFiles.ressourceFichier(_dossier+ResourceFiles.SEPARATEUR+ _fichier);
             for(String line_: StringList.splitStrings(fichier_,RETURNE_LINE)){
                 if(!line_.contains(SEPARATOR)){
                     continue;
@@ -57,21 +56,21 @@ public final class Format {
                 valeur_ = XmlParser.transformSpecialChars(valeur_);
                 constantes_.put(cle_, valeur_);
             }
-            CONSTANTES_FICHIERS.put(_dossier+StreamTextFile.SEPARATEUR+_fichier, constantes_);
+            CONSTANTES_FICHIERS.put(_dossier+ResourceFiles.SEPARATEUR+_fichier, constantes_);
         }
-        if(!CONSTANTES_FICHIERS.getVal(_dossier+StreamTextFile.SEPARATEUR+_fichier).contains(_nomConstante)){
+        if(!CONSTANTES_FICHIERS.getVal(_dossier+ResourceFiles.SEPARATEUR+_fichier).contains(_nomConstante)){
             return _nomConstante.substring(_nomConstante.lastIndexOf(DOT)+1);
         }
-        return CONSTANTES_FICHIERS.getVal(_dossier+StreamTextFile.SEPARATEUR+_fichier).getVal(_nomConstante);
+        return CONSTANTES_FICHIERS.getVal(_dossier+ResourceFiles.SEPARATEUR+_fichier).getVal(_nomConstante);
     }
 
     public static String getConstanteLangue(String _dossier,String _fichier, String _loc, String _group ,Enum<?> _nomConstante) {
         return getConstanteLangue(_dossier, _fichier, _loc, _group+Format.DOT+_nomConstante.name());
     }
     public static String getConstanteLangue(String _dossier,String _fichier, String _loc,String _nomConstante) {
-        if(!CONSTANTES_FICHIERS.contains(_dossier+StreamTextFile.SEPARATEUR+_loc+StreamTextFile.SEPARATEUR+_fichier)){
+        if(!CONSTANTES_FICHIERS.contains(_dossier+ResourceFiles.SEPARATEUR+_loc+ResourceFiles.SEPARATEUR+_fichier)){
             StringMap<String> constantes_ = new StringMap<String>();
-            String fichier_ = ResourceFiles.ressourceFichier(_dossier+StreamTextFile.SEPARATEUR+_loc+StreamTextFile.SEPARATEUR+ _fichier);
+            String fichier_ = ResourceFiles.ressourceFichier(_dossier+ResourceFiles.SEPARATEUR+_loc+ResourceFiles.SEPARATEUR+ _fichier);
             for(String line_: StringList.splitStrings(fichier_, RETURNE_LINE)){
                 if(!line_.contains(SEPARATOR)){
                     continue;
@@ -84,12 +83,12 @@ public final class Format {
                 valeur_ = XmlParser.transformSpecialChars(valeur_);
                 constantes_.put(cle_, valeur_);
             }
-            CONSTANTES_FICHIERS.put(_dossier+StreamTextFile.SEPARATEUR+_loc+StreamTextFile.SEPARATEUR+_fichier, constantes_);
+            CONSTANTES_FICHIERS.put(_dossier+ResourceFiles.SEPARATEUR+_loc+ResourceFiles.SEPARATEUR+_fichier, constantes_);
         }
-        if(!CONSTANTES_FICHIERS.getVal(_dossier+StreamTextFile.SEPARATEUR+_loc+StreamTextFile.SEPARATEUR+_fichier).contains(_nomConstante)){
+        if(!CONSTANTES_FICHIERS.getVal(_dossier+ResourceFiles.SEPARATEUR+_loc+ResourceFiles.SEPARATEUR+_fichier).contains(_nomConstante)){
             return _nomConstante.substring(_nomConstante.lastIndexOf(DOT)+1);
         }
-        return CONSTANTES_FICHIERS.getVal(_dossier+StreamTextFile.SEPARATEUR+_loc+StreamTextFile.SEPARATEUR+_fichier).getVal(_nomConstante);
+        return CONSTANTES_FICHIERS.getVal(_dossier+ResourceFiles.SEPARATEUR+_loc+ResourceFiles.SEPARATEUR+_fichier).getVal(_nomConstante);
     }
 
     /**@see getConstante
@@ -104,7 +103,7 @@ public final class Format {
     }
 
     public static String getClassProperties(String _class) {
-        return StringList.replace(_class, DOT, StreamTextFile.SEPARATEUR).toLowerCase()+DOT+PROPERTIES;
+        return StringList.replace(_class, DOT, ResourceFiles.SEPARATEUR).toLowerCase()+DOT+PROPERTIES;
     }
 
     private static String keepOnlyWordCharsDot(String _string) {

@@ -1,8 +1,9 @@
 package cards.president;
 import java.util.Iterator;
 
+import cards.president.comparators.GameStrengthCardPresidentComparator;
+import cards.president.enumerations.CardPresident;
 import code.maths.montecarlo.AbMonteCarlo;
-import code.stream.StreamTextFile;
 import code.util.CustList;
 import code.util.EnumList;
 import code.util.EqList;
@@ -11,8 +12,6 @@ import code.util.Numbers;
 import code.util.StringList;
 import code.util.annot.RwXml;
 import code.util.ints.Equallable;
-import cards.president.comparators.GameStrengthCardPresidentComparator;
-import cards.president.enumerations.CardPresident;
 
 @RwXml
 public final class HandPresident implements Iterable<CardPresident>, Equallable<HandPresident> {
@@ -239,10 +238,6 @@ public final class HandPresident implements Iterable<CardPresident>, Equallable<
             retString_.add(c.toString());
         }
         return retString_.join(SEPARATOR);
-    }
-
-    public void sauvegarder(String _nomFichier) {
-        StreamTextFile.saveObject(_nomFichier, this);
     }
 
     @Override

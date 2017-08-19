@@ -11,11 +11,11 @@ import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
 import code.gui.NumComboBox;
-import code.stream.ExtractFromFiles;
 import code.util.CustList;
 import code.util.StringList;
 import code.util.StringMap;
 import code.util.consts.Constants;
+import code.xml.util.ExtractFromFiles;
 import cards.gui.containers.ContainerTarot;
 import cards.gui.dialogs.FileConst;
 import cards.gui.labels.GraphicTarotCard;

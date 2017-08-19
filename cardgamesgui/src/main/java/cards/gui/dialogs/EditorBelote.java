@@ -12,6 +12,7 @@ import code.gui.ConfirmDialog;
 import code.gui.FileSaveDialog;
 import code.gui.LabelButton;
 import code.maths.montecarlo.AbMonteCarlo;
+import code.stream.StreamTextFile;
 import code.util.CustList;
 import code.util.EqList;
 import code.util.Numbers;
@@ -333,7 +334,7 @@ public final class EditorBelote extends DialogBelote implements SetterSelectedCa
     }
     /**Lorsqu'on veut sauvegarder une partie*/
     private void validerSauvegarde(String _s) {
-        partie.sauvegarder(_s);
+        StreamTextFile.saveObject(_s, partie);
     }
     private void erreur(BeloteCardsScrollableList _plc) {
         String mes_ = getMessages().getVal(ERROR_REPARTITION);

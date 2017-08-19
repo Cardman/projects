@@ -68,7 +68,6 @@ public class SessionEditorPane extends EditorPane {
     private final Color selectionColor = getSelectionColor();
 
     public SessionEditorPane() {
-//        setCaretColor(Color.WHITE);
         setHtmlKit(new HTMLEditorKit());
         getHtmlKit().setAutoFormSubmission(false);
         setContentType(CONTENT_TYPE);
@@ -76,35 +75,6 @@ public class SessionEditorPane extends EditorPane {
         setEditable(false);
         addHyperlinkListener(new HyperlinkClickEvent(this));
     }
-//    private String htmlText = EMPTY_STRING;
-
-    public void setFiles(String _resourcesFile, String _beginPath) {
-        nav.setFiles(_resourcesFile, _beginPath);
-    }
-
-    public void setTextFilesWithPrefix(String _beginPath) {
-        nav.setTextFilesWithPrefix(_beginPath);
-    }
-
-    public void setFilesWithPrefix(String _beginPath) {
-        nav.setFilesWithPrefix(_beginPath);
-    }
-
-//    public void setRelativeFiles(String _resourcesFile, String _relativePath) {
-//        nav.setRelativeFiles(_resourcesFile, _relativePath);
-//    }
-
-//    public void setFiles(Map<String,String> _files, String _beginEncoding) {
-//        nav.setFiles(_files, _beginEncoding);
-//    }
-
-//    public void setFiles(Map<String,String> _web, Map<String,String> _images) {
-//        nav.setFiles(_web, _images);
-//    }
-
-//    public void setFiles(Map<String,String> _web) {
-//        setFiles(_web, EMPTY_STRING);
-//    }
 
     public void setFiles(String _url) {
         setFiles(new StringMap<String>(), _url);

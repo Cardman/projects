@@ -1,15 +1,14 @@
 package cards.belote;
-import code.stream.StreamTextFile;
-import code.util.EntryCust;
-import code.util.EnumList;
-import code.util.EnumMap;
-import code.util.Numbers;
-import code.util.annot.RwXml;
 import cards.belote.enumerations.BeloteTrumpPartner;
 import cards.belote.enumerations.BidBelote;
 import cards.belote.enumerations.DealingBelote;
 import cards.belote.enumerations.DeclaresBelote;
 import cards.consts.MixCardsChoice;
+import code.util.EntryCust;
+import code.util.EnumList;
+import code.util.EnumMap;
+import code.util.Numbers;
+import code.util.annot.RwXml;
 
 @RwXml
 public final class RulesBelote {
@@ -173,8 +172,5 @@ public final class RulesBelote {
     }
     public void setNombreParties(int _nombreParties) {
         nbDeals = _nombreParties;
-    }
-    public void sauvegarder(String _fichier){
-        StreamTextFile.saveObject(_fichier, this);
     }
 }

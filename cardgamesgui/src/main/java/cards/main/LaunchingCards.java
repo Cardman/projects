@@ -84,54 +84,29 @@ public class LaunchingCards extends SoftApplication {
         return getImage(FileConst.RESOURCES_IMAGES, FileConst.SUITS_TXT);
     }
 
-//    protected Pair<Integer,Integer> loadCoords() throws CoordsException
-//    {
-//        try{
-//            ObjectInputStream oos_=new ObjectInputStream(new BufferedInputStream(new FileInputStream(new File(FileConst.COORDS))));
-//            int[] coordonnees_=(int[])oos_.readObject();
-//            oos_.close();
-//            return coordonnees_;
-//        }catch(Exception e) {
-//            throw new CoorsException();
-//        }
-//    }
     /**
     jouees pendant le fonctionnement du logiciel*/
     private static void installer() {
 
         File f;
-        //CustList<String> dossiersInstalles_=new CustList<String>();
-        //CustList<String> fichiersInstalles_=new CustList<String>();
         f=new File(getTempFolderSl()+FileConst.DECK_FOLDER);
         f.mkdirs();
-//        if(!f.exists()&&f.mkdir()) {
-////            dossiersInstalles_.add(FileConst.DECK_FOLDER);
-//        }
         f=new File(getTempFolderSl()+FileConst.DECK_FOLDER+StreamTextFile.SEPARATEUR+GameEnum.BELOTE.name()+FileConst.DECK_EXT);
         HandBelote mainB_=HandBelote.pileBase();
         if(!f.exists()) {
-//            mainB_.sauvegarder(getTempFolderSl()+FileConst.DECK_FOLDER+StreamTextFile.SEPARATEUR+GameEnum.BELOTE.name()+FileConst.DECK_EXT);
-            mainB_.sauvegarder(f.getAbsolutePath());
-//            fichiersInstalles_.add(FileConst.DECK_FOLDER+StreamTextFile.SEPARATEUR+GameEnum.BELOTE+FileConst.DECK_EXT);
+            StreamTextFile.saveObject(f.getAbsolutePath(), mainB_);
         }
         f=new File(getTempFolderSl()+FileConst.DECK_FOLDER+StreamTextFile.SEPARATEUR+GameEnum.TAROT.name()+FileConst.DECK_EXT);
         HandTarot mainT_=HandTarot.pileBase();
         if(!f.exists()) {
-//            mainT_.sauvegarder(getTempFolderSl()+FileConst.DECK_FOLDER+StreamTextFile.SEPARATEUR+GameEnum.TAROT.name()+FileConst.DECK_EXT);
-            mainT_.sauvegarder(f.getAbsolutePath());
-//            fichiersInstalles_.add(FileConst.DECK_FOLDER+StreamTextFile.SEPARATEUR+GameEnum.TAROT+FileConst.DECK_EXT);
+            StreamTextFile.saveObject(f.getAbsolutePath(), mainT_);
         }
         int maxStacks_ = RulesPresident.getNbMaxStacksPlayers();
         for (int i = CustList.ONE_ELEMENT; i <= maxStacks_; i++) {
             f=new File(getTempFolderSl()+FileConst.DECK_FOLDER+StreamTextFile.SEPARATEUR+GameEnum.PRESIDENT.name()+i+FileConst.DECK_EXT);
             HandPresident h_ = HandPresident.stack(i);
-//            for (int j = CustList.ONE_ELEMENT; j <= i; j++) {
-//                h_.ajouterCartes(HandPresident.pileBase());
-//            }
             if(!f.exists()) {
-//                h_.sauvegarder(getTempFolderSl()+FileConst.DECK_FOLDER+StreamTextFile.SEPARATEUR+GameEnum.PRESIDENT.name()+i+FileConst.DECK_EXT);
-                h_.sauvegarder(f.getAbsolutePath());
-//                fichiersInstalles_.add(FileConst.DECK_FOLDER+StreamTextFile.SEPARATEUR+GameEnum.TAROT+FileConst.DECK_EXT);
+                StreamTextFile.saveObject(f.getAbsolutePath(), h_);
             }
         }
         f=new File(getTempFolderSl()+FileConst.DECK_FOLDER+StreamTextFile.SEPARATEUR+FileConst.DECK_FILE);

@@ -11,11 +11,11 @@ import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
 import code.gui.NumComboBox;
-import code.stream.ExtractFromFiles;
 import code.util.CustList;
 import code.util.StringList;
 import code.util.StringMap;
 import code.util.consts.Constants;
+import code.xml.util.ExtractFromFiles;
 import cards.belote.DealBelote;
 import cards.belote.DisplayingBelote;
 import cards.belote.TrickBelote;

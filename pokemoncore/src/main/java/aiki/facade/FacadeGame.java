@@ -1,22 +1,4 @@
 package aiki.facade;
-import code.maths.LgInt;
-import code.maths.Rate;
-import code.util.CustList;
-import code.util.EntryCust;
-import code.util.EnumMap;
-import code.util.EqList;
-import code.util.NatTreeMap;
-import code.util.NumberMap;
-import code.util.Numbers;
-import code.util.ObjectMap;
-import code.util.StringList;
-import code.util.StringMap;
-import code.util.TreeMap;
-import code.util.consts.Constants;
-import code.util.ints.MathFactory;
-import code.util.ints.WithMathFactory;
-import code.util.pagination.SearchingMode;
-import code.util.pagination.SelectedBoolean;
 import aiki.DataBase;
 import aiki.ExchangedData;
 import aiki.ImageHeroKey;
@@ -73,6 +55,25 @@ import aiki.util.SortingHealingItem;
 import aiki.util.SortingItem;
 import aiki.util.SortingMove;
 import aiki.util.SortingPokemonPlayer;
+import code.maths.LgInt;
+import code.maths.Rate;
+import code.util.CustList;
+import code.util.EntryCust;
+import code.util.EnumMap;
+import code.util.EqList;
+import code.util.InsCaseStringMap;
+import code.util.NatTreeMap;
+import code.util.NumberMap;
+import code.util.Numbers;
+import code.util.ObjectMap;
+import code.util.StringList;
+import code.util.StringMap;
+import code.util.TreeMap;
+import code.util.consts.Constants;
+import code.util.ints.MathFactory;
+import code.util.ints.WithMathFactory;
+import code.util.pagination.SearchingMode;
+import code.util.pagination.SelectedBoolean;
 
 public class FacadeGame implements WithMathFactory<Rate> {
 
@@ -163,14 +164,6 @@ public class FacadeGame implements WithMathFactory<Rate> {
         return data.getFrontHeros().getVal(i_);
     }
 
-    //Save option
-    public void save(String _fileName) {
-        if (game == null) {
-            return;
-        }
-        game.setZippedRom(zipName);
-        game.save(_fileName);
-    }
 
     public void loadResources() {
         DataBase data_ = new DataBase();
@@ -193,9 +186,9 @@ public class FacadeGame implements WithMathFactory<Rate> {
     }
 
     //Load rom first
-    public static DataBase loadedRom(String _fileName) {
+    public static DataBase loadedRom(InsCaseStringMap<String> _files) {
         DataBase data_ = new DataBase();
-        data_.loadRom(_fileName);
+        data_.loadRom(_files);
         if (!data_.getMap().validSavedLink()) {
             throw new DataException();
         }
@@ -216,17 +209,8 @@ public class FacadeGame implements WithMathFactory<Rate> {
     }
 
     //Load rom option
-    public void loadRomAndCheck(String _fileName) {
-        DataBase data_ = loadedRom(_fileName);
-//        for (Short p: data_.getMap().getPlaces().getKeys()) {
-//            for (MiniMapCoords m: data_.getMap().getMiniMap().getKeys()) {
-//                TileMiniMap map_ = data_.getMap().getMiniMap().getVal(m);
-//                if (map_.getPlace() == p.shortValue()) {
-//                    map_.setHeros(true);
-//                    break;
-//                }
-//            }
-//        }
+    public void loadRomAndCheck(String _fileName, InsCaseStringMap<String> _files) {
+        DataBase data_ = loadedRom(_files);
         if (!DataBase.isLoading()) {
             return;
         }
@@ -243,10 +227,6 @@ public class FacadeGame implements WithMathFactory<Rate> {
         data = data_;
         setLanguage(Constants.getLanguage());
     }
-
-//    public boolean isCompileFiles() {
-//        return data.isCompileFiles();
-//    }
 
     public String getLanguage() {
         return language;
@@ -287,8 +267,8 @@ public class FacadeGame implements WithMathFactory<Rate> {
         }
     }
 
-    public void load(String _fileName) {
-        game = Game.load(_fileName, data);
+    public void load(Game _game) {
+        game = _game;
         changeToFightScene = game.getFight().getFightType().isExisting();
         if (changeToFightScene) {
             enabledMovingHero = false;

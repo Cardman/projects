@@ -1,9 +1,8 @@
 package cards.belote;
-import code.stream.StreamTextFile;
-import code.util.EnumList;
-import code.util.annot.RwXml;
 import cards.consts.Order;
 import cards.consts.Suit;
+import code.util.EnumList;
+import code.util.annot.RwXml;
 
 @RwXml
 public final class DisplayingBelote {
@@ -58,9 +57,5 @@ public final class DisplayingBelote {
     }
     public void setOrdreAvantEncheres(Order _ordreAvantEncheres) {
         orderBeforeBids = _ordreAvantEncheres;
-    }
-
-    public void sauvegarder(String _fichier){
-        StreamTextFile.saveObject(_fichier, this);
     }
 }

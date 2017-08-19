@@ -90,13 +90,16 @@ public final class Games {
     }
     public void sauvegarderPartieEnCours(String _nomFichier){
         if(enCoursDePartieBelote()){
-            partieBelote().sauvegarder(_nomFichier);
+            GameBelote game_ = partieBelote();
+            StreamTextFile.saveObject(_nomFichier, game_);
         }
         if(enCoursDePartieTarot()){
-            partieTarot().sauvegarder(_nomFichier);
+            GameTarot game_ = partieTarot();
+            StreamTextFile.saveObject(_nomFichier, game_);
         }
         if(enCoursDePartiePresident()){
-            partiePresident().sauvegarder(_nomFichier);
+            GamePresident game_ = partiePresident();
+            StreamTextFile.saveObject(_nomFichier, game_);
         }
     }
     /**Load a game card from a XML file

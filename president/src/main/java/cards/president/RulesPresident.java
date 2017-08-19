@@ -1,10 +1,9 @@
 package cards.president;
-import code.stream.StreamTextFile;
+import cards.consts.MixCardsChoice;
+import cards.president.enumerations.EqualtyPlaying;
 import code.util.CustList;
 import code.util.Numbers;
 import code.util.annot.RwXml;
-import cards.consts.MixCardsChoice;
-import cards.president.enumerations.EqualtyPlaying;
 
 @RwXml
 public final class RulesPresident {
@@ -228,9 +227,5 @@ public final class RulesPresident {
     public static int getNbMaxStacksPlayers() {
         HandPresident base_ = HandPresident.pileBase();
         return NB_MAX_PLAYERS * NB_MAX_CARDS / base_.total();
-    }
-
-    public void sauvegarder(String _fichier){
-        StreamTextFile.saveObject(_fichier, this);
     }
 }

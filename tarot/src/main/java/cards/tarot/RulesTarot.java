@@ -1,10 +1,4 @@
 package cards.tarot;
-import code.stream.StreamTextFile;
-import code.util.EntryCust;
-import code.util.EnumList;
-import code.util.EnumMap;
-import code.util.NumberMap;
-import code.util.annot.RwXml;
 import cards.consts.MixCardsChoice;
 import cards.tarot.comparators.AllowedHandfulComparator;
 import cards.tarot.enumerations.AllowedBiddingTarot;
@@ -15,6 +9,11 @@ import cards.tarot.enumerations.EndDealTarot;
 import cards.tarot.enumerations.Handfuls;
 import cards.tarot.enumerations.Miseres;
 import cards.tarot.enumerations.ModeTarot;
+import code.util.EntryCust;
+import code.util.EnumList;
+import code.util.EnumMap;
+import code.util.NumberMap;
+import code.util.annot.RwXml;
 
 @RwXml
 public final class RulesTarot {
@@ -213,9 +212,5 @@ public final class RulesTarot {
 
     public void setDiscardAfterCall(boolean _discardAfterCall) {
         discardAfterCall = _discardAfterCall;
-    }
-
-    public void sauvegarder(String _fichier){
-        StreamTextFile.saveObject(_fichier, this);
     }
 }

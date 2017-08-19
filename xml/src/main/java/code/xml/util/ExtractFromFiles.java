@@ -1,4 +1,4 @@
-package code.stream;
+package code.xml.util;
 import code.util.StringMap;
 
 public final class ExtractFromFiles {
@@ -6,8 +6,8 @@ public final class ExtractFromFiles {
     }
     
     public static StringMap<String> getMessagesFromLocaleClass(String _folder, String _loc, String _class) {
-        String fileName_ = StreamTextFile.getPropertiesPath(_folder, _loc, _class);
-        return StreamTextFile.getMessagesFromLocale(fileName_, _loc);
+        String fileName_ = ResourcesMessagesUtil.getPropertiesPath(_folder, _loc, _class);
+        return ResourcesMessagesUtil.getMessagesFromLocale(fileName_, _loc);
     }
 
 }

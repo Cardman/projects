@@ -11,8 +11,8 @@ import javax.swing.UIManager;
 import code.gui.events.AnswerEvent;
 import code.gui.events.AnswerTextEvent;
 import code.gui.events.ClosingDialogEvent;
-import code.stream.ExtractFromFiles;
 import code.util.StringMap;
+import code.xml.util.ExtractFromFiles;
 
 public final class ConfirmDialog extends Dialog {
     private static final String DIALOG_ACCESS = "gui.ConfirmDialog";

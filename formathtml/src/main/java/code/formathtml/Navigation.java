@@ -17,7 +17,6 @@ import code.formathtml.exceptions.BadParenthesesException;
 import code.formathtml.exceptions.FormNotFoundException;
 import code.formathtml.exceptions.InexistingValidatorException;
 import code.formathtml.exceptions.NavCaseNotFoundException;
-import code.formathtml.images.ConverterBufferedImageIo;
 import code.formathtml.util.NodeContainer;
 import code.formathtml.util.NodeInformations;
 import code.formathtml.util.ValueChangeEvent;
@@ -30,8 +29,6 @@ import code.serialize.exceptions.InexistingValueForEnum;
 import code.serialize.exceptions.NoSuchConverterMethodException;
 import code.serialize.exceptions.NoSuchDeclaredMethodException;
 import code.serialize.exceptions.RuntimeInstantiationException;
-import code.stream.StreamTextFile;
-import code.stream.StreamZipFile;
 import code.util.CustList;
 import code.util.EntryCust;
 import code.util.NatTreeMap;
@@ -224,117 +221,10 @@ public final class Navigation {
 
     private String resourcesFolder = EMPTY_STRING;
 
-    public void setFiles(String _resourcesFile, String _beginPath) {
-        StringList list_ = StreamZipFile.getFilesInJar();
-        if (list_.isEmpty()) {
-            list_ = StreamTextFile.files(_resourcesFile);
-        }
-        files = new StringMap<String>();
-        for (String f: list_) {
-            if (!f.startsWith(_beginPath)) {
-                continue;
-            }
-            if (f.endsWith(PNG) || f.endsWith(JPG)) {
-                try {
-                    files.put(f, toBaseSixtyFour(f));
-                } catch (RuntimeException _0) {
-                    _0.printStackTrace();
-                }
-                continue;
-            }
-            if (f.endsWith(TXT)) {
-//                try {
-//                    BufferedImage buff_ = ConverterBufferedImageIo.readImage(f);
-//                    String txt_ = ConverterBufferedImage.toBaseSixtyFour(buff_, FORMAT_PNG);
-//                    files.put(f, txt_);
-//                } catch (Exception e_) {
-//                    files.put(f, StreamTextFile.ressourceFichier(f));
-//                }
-                files.put(f, ResourceFiles.ressourceFichier(f));
-            }
-            if (f.endsWith(HTML) || f.endsWith(XML) || f.endsWith(CSS) || f.endsWith(PROPERTIES)) {
-                files.put(f, ResourceFiles.ressourceFichier(f));
-            }
-        }
-    }
-
-    public void setTextFilesWithPrefix(String _beginPath) {
-        files = new StringMap<String>();
-        for (String f: StreamZipFile.getFilesInJar()) {
-            if (!f.startsWith(_beginPath)) {
-                continue;
-            }
-            if (f.endsWith(TXT)) {
-                files.put(f, ResourceFiles.ressourceFichier(f));
-            }
-            if (f.endsWith(HTML) || f.endsWith(XML) || f.endsWith(CSS) || f.endsWith(PROPERTIES)) {
-                files.put(f, ResourceFiles.ressourceFichier(f));
-            }
-        }
-    }
-
-    public void setFilesWithPrefix(String _beginPath) {
-        files = new StringMap<String>();
-        for (String f: StreamZipFile.getFilesInJar()) {
-            if (!f.startsWith(_beginPath)) {
-                continue;
-            }
-            if (f.endsWith(PNG) || f.endsWith(JPG)) {
-                try {
-                    files.put(f, toBaseSixtyFour(f));
-                } catch (RuntimeException _0) {
-                    _0.printStackTrace();
-                }
-                continue;
-            }
-            if (f.endsWith(TXT)) {
-                files.put(f, ResourceFiles.ressourceFichier(f));
-            }
-            if (f.endsWith(HTML) || f.endsWith(XML) || f.endsWith(CSS) || f.endsWith(PROPERTIES)) {
-                files.put(f, ResourceFiles.ressourceFichier(f));
-            }
-        }
-    }
-
-    public void setRelativeFiles(String _resourcesFile, String _relativePath) {
-        StringList list_ = StreamZipFile.getFilesInJar();
-        if (list_.isEmpty()) {
-            list_ = StreamTextFile.files(_resourcesFile);
-        }
-        files = new StringMap<String>();
-//        list_ = new StringList(list_).filter(BEGIN_REG_EXP+_resourcesFile+StreamTextFile.SEPARATEUR);
-        list_ = new StringList(list_).filterBeginsWith(_resourcesFile+StreamTextFile.SEPARATEUR);
-        for (String f: list_) {
-//            String f_ = f.replaceAll(BEGIN_REG_EXP+_relativePath+StreamTextFile.SEPARATEUR, EMPTY_STRING);
-            String f_ = StringList.replaceBegin(f, _relativePath+StreamTextFile.SEPARATEUR);
-            if (f.endsWith(PNG) || f.endsWith(JPG)) {
-                try {
-                    files.put(f_, toBaseSixtyFour(f));
-                } catch (RuntimeException _0) {
-                    _0.printStackTrace();
-                }
-                continue;
-            }
-            if (f.endsWith(TXT)) {
-                try {
-                    BufferedImage buff_ = ConverterBufferedImageIo.readImage(f);
-                    String txt_ = ConverterBufferedImage.toBaseSixtyFour(buff_, FORMAT_PNG);
-                    files.put(f_, txt_);
-                } catch (RuntimeException _0) {
-                    files.put(f_, ResourceFiles.ressourceFichier(f));
-                }
-            }
-            if (f.endsWith(HTML) || f.endsWith(XML) || f.endsWith(CSS) || f.endsWith(PROPERTIES)) {
-                files.put(f_, ResourceFiles.ressourceFichier(f));
-            }
-        }
-    }
-
     public static String toBaseSixtyFour(String _fileName) {
         BufferedImage bu_ = ResourceFiles.resourceBufferedImage(_fileName);
         StringList ext_ = StringList.splitStrings(_fileName, EXT);
         return ConverterBufferedImage.toBaseSixtyFour(bu_, ext_.get(CustList.SECOND_INDEX));
-//        return ConverterBufferedImage.toBaseSixtyFour(bu_, _fileName.split(EXT)[1]);
     }
 
     public void setFiles(StringMap<String> _web, StringMap<String> _images) {

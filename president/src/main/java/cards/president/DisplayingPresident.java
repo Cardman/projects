@@ -1,8 +1,7 @@
 package cards.president;
-import code.stream.StreamTextFile;
+import cards.consts.Suit;
 import code.util.EnumList;
 import code.util.annot.RwXml;
-import cards.consts.Suit;
 
 @RwXml
 public final class DisplayingPresident {
@@ -58,8 +57,5 @@ public final class DisplayingPresident {
     }
     public void setNbDeals(int _nbDeals) {
         nbDeals = _nbDeals;
-    }
-    public void sauvegarder(String _fichier){
-        StreamTextFile.saveObject(_fichier, this);
     }
 }

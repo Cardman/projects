@@ -28,7 +28,6 @@ import code.images.ConverterBufferedImage;
 import code.maths.montecarlo.AbMonteCarlo;
 import code.resources.ClipStream;
 import code.resources.ResourceFiles;
-import code.stream.ExtractFromFiles;
 import code.stream.StreamBinaryFile;
 import code.stream.StreamSoundFile;
 import code.stream.StreamTextFile;
@@ -37,6 +36,7 @@ import code.util.StringList;
 import code.util.StringMap;
 import code.util.consts.Constants;
 import code.xml.XmlParser;
+import code.xml.util.ExtractFromFiles;
 
 public class MainWindow extends GroupFrame {
     private static final String ACCESS = "player.gui.MainWindow";

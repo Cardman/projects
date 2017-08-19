@@ -5,11 +5,11 @@ import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 
 import code.images.ConverterBufferedImage;
-import code.stream.ExtractFromFiles;
 import code.util.Numbers;
 import code.util.StringList;
 import code.util.StringMap;
 import code.util.consts.Constants;
+import code.xml.util.ExtractFromFiles;
 import aiki.Resources;
 import aiki.facade.FacadeGame;
 import aiki.gui.components.Paginator;

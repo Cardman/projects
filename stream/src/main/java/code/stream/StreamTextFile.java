@@ -9,7 +9,6 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Reader;
 import java.nio.charset.Charset;
-import java.util.logging.Logger;
 
 import javax.xml.transform.stream.StreamSource;
 import javax.xml.validation.Schema;
@@ -29,7 +28,6 @@ import code.util.InsCaseStringMap;
 import code.util.StringList;
 import code.util.StringMap;
 import code.util.consts.Constants;
-import code.util.opers.MessagesUtil;
 import code.xml.StandardCharsets;
 import code.xml.XmlParser;
 
@@ -42,12 +40,8 @@ public final class StreamTextFile {
     private static final String SEPARATOR_HTTP_WEB_PAGE = WEB_SEPARATOR+WEB_SEPARATOR;
     private static final String XML_SCHEMA = "http:"+SEPARATOR_HTTP_WEB_PAGE+"www.w3.org/2001/XMLSchema";
     private static final String EMPTY_STRING = Constants.EMPTY_STRING;
-    private static final String TAB = "\t";
     private static final String DOT = ".";
-    private static final String NO_MESSAGE = "Warning no message for ";
     private static final char INVALID_CHARACTER = 65533;
-
-    private static final StringMap<StringMap<StringMap<String>>> LOCALES_MESSAGES = new StringMap<StringMap<StringMap<String>>>();
 
     private static boolean _showReadStackTrace_ = true;
 
@@ -207,31 +201,6 @@ public final class StreamTextFile {
 
     public static String getPropertiesPath(String _folder, String _language, String _file) {
         return StringList.simpleFormat(PROPERTIES_PATTERN, _folder, _language, StringList.replace(_file, DOT, SEPARATEUR).toLowerCase());
-    }
-
-    public static StringMap<String> getMessagesFromLocale(String _fileName, String _loc) {
-        if (!LOCALES_MESSAGES.contains(_loc)) {
-            LOCALES_MESSAGES.put(_loc, new StringMap<StringMap<String>>());
-        }
-        StringMap<StringMap<String>> map_ = LOCALES_MESSAGES.getVal(_loc);
-        if (!map_.contains(_fileName)) {
-            String loadedResourcesMessages_ = ResourceFiles.ressourceFichier(_fileName);
-            if (loadedResourcesMessages_.isEmpty()) {
-                Logger.getLogger(StreamTextFile.class.getName()).warning(NO_MESSAGE+_fileName);
-                map_.put(_fileName, new StringMap<String>());
-                return map_.getVal(_fileName);
-            }
-            StringMap<String> messages_ = MessagesUtil.getMessages(loadedResourcesMessages_);
-            for (String k: messages_.getKeys()) {
-                if (k.startsWith(TAB)) {
-                    continue;
-                }
-                String value_ = messages_.getVal(k);
-                messages_.put(k, XmlParser.transformSpecialChars(value_));
-            }
-            map_.put(_fileName, messages_);
-        }
-        return map_.getVal(_fileName);
     }
 
     public static Element documentXmlInterne(String _dossier, String _fichier) {

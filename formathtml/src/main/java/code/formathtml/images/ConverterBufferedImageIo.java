@@ -9,20 +9,15 @@ import javax.imageio.ImageIO;
 import code.images.Animation;
 import code.images.ConverterBufferedImage;
 import code.images.Image;
-import code.stream.StreamTextFile;
 import code.util.CustList;
 import code.util.EqList;
 import code.util.PairNumber;
-import code.util.StringList;
 
 public final class ConverterBufferedImageIo {
 
     private ConverterBufferedImageIo() {
     }
 
-    public static BufferedImage readImage(String _fileName) {
-        return ConverterBufferedImage.toRenderedImageQuick(StreamTextFile.contentsOfFile(_fileName));
-    }
     public static Image toImage(String _fileName) {
         return new Image(toString(_fileName));
     }
@@ -44,17 +39,7 @@ public final class ConverterBufferedImageIo {
             return null;
         }
     }
-    public static void fromTextToImage(String _fromFileName, String _toFileName) {
-        if (!_toFileName.contains(StringList.POINT)) {
-            fromTextToImage(_fromFileName,_toFileName+StringList.POINT+ConverterBufferedImage.IMG_EXT,ConverterBufferedImage.IMG_EXT);
-        } else {
-            String ext_ = StringList.splitStrings(_toFileName,StringList.POINT).get(1);
-            fromTextToImage(_fromFileName,_toFileName,ext_);
-        }
-    }
-    public static void fromTextToImage(String _fromFileName, String _toFileName, String _format) {
-        write(ConverterBufferedImage.toRenderedImage(new Image(StreamTextFile.contentsOfFile(_fromFileName))), _format, new File(_toFileName));
-    }
+
     public static void save(String _fileName, Animation _image, String _format) {
         write(ConverterBufferedImage.toRenderedImage(_image), _format, new File(_fileName));
     }
