@@ -17,10 +17,6 @@ public abstract class SwitchStack extends BlockStack implements BreakableStack {
     private Struct value = new Struct();
 
     private int visitedBlock = CustList.INDEX_NOT_FOUND_ELT;
-    
-//    private final CustList<Element> nodes = new CustList<Element>();
-
-//    private final CustList<Block> blocks = new CustList<Block>();
 
     @Override
     public String toString() {
@@ -84,37 +80,4 @@ public abstract class SwitchStack extends BlockStack implements BreakableStack {
     public void setVisitedBlock(int _visitedBlock) {
         visitedBlock = _visitedBlock;
     }
-
-//    public Block firstVisitedBlock() {
-//        return blocks.first();
-//    }
-    
-//    public Block lastVisitedBlock() {
-//        return blocks.last();
-//    }
-
-//    public Block getCurentVisitedBlock() {
-//        return blocks.get(visitedBlock);
-//    }
-
-//    public CustList<Block> getBlocks() {
-//        return blocks;
-//    }
-
-//    public Element firstVisitedNode() {
-//        return nodes.first();
-//    }
-    
-//    public Element lastVisitedNode() {
-//        return nodes.last();
-//    }
-//
-//    public Element getCurentVisitedNode() {
-//        return nodes.get(visitedBlock);
-//    }
-//
-//    public CustList<Element> getNodes() {
-//        return nodes;
-//    }
-
 }

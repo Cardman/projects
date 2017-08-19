@@ -16,24 +16,8 @@ public final class DotOperation extends MethodOperation {
         super(_el, _index, _importingPage, _indexChild, _m, _op);
     }
 
-//    @Override
-//    public void analyze(CustList<OperationNode> _nodes, ContextEl _conf, Calculation _setting) {
-//        CustList<OperationNode> chidren_ = getChildrenAmong(_nodes, true);
-//        if (chidren_.size() < 2) {
-//            setRelativeOffsetPossibleLastPage(getIndexInEl(), _conf);
-//            throw new BadNumberValuesException(_conf.joinPages());
-//        }
-//        setResultClass(chidren_.last().getResultClass());
-//    }
-
     @Override
-    public void analyzeLeft(CustList<OperationNode> _nodes, ContextEl _conf,
-            boolean _enumContext, String _op) {
-        analyzeCommon(_nodes, _conf, _op);
-    }
-
-    @Override
-    public void analyzeRight(CustList<OperationNode> _nodes, ContextEl _conf,
+    public void analyze(boolean _variable, CustList<OperationNode> _nodes, ContextEl _conf,
             boolean _enumContext, String _op) {
         analyzeCommon(_nodes, _conf, _op);
     }

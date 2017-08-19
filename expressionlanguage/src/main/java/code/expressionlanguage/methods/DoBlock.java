@@ -24,9 +24,7 @@ public final class DoBlock extends BracedStack implements Loop, IncrCurrentGroup
     @Override
     public void checkBlocksTree(ContextEl _cont) {
         PageEl page_ = _cont.getLastPage();
-//        page_.setProcessingNode(getAssociateElement());
         page_.setProcessingAttribute(EMPTY_STRING);
-//        page_.setLookForAttrValue(false);
         page_.setOffset(0);
         if (getFirstChild() == null) {
             throw new BadLoopException(_cont.joinPages());
@@ -78,12 +76,10 @@ public final class DoBlock extends BracedStack implements Loop, IncrCurrentGroup
         }
         if (c_ != null && c_.getBlock() == this) {
             if (c_.isEvaluatingKeepLoop()) {
-//                ProcessXmlMethod.processLastElementLoop(_cont, ip_);
                 processLastElementLoop(_cont);
                 return;
             }
             if (c_.isFinished()) {
-//                ProcessXmlMethod.removeVarAndLoop(_cont, c_.getBlock(), ip_.getVars());
                 removeVarAndLoop(ip_);
                 Block next_ = getNextSibling();
                 rw_.setBlock(next_);
@@ -93,18 +89,9 @@ public final class DoBlock extends BracedStack implements Loop, IncrCurrentGroup
             rw_.setBlock(getFirstChild());
             return;
         }
-//        if (getFirstChild() == null) {
-//            Condition next_ = getNext();
-//            while (next_.evaluateCondition(_cont)) {
-//                continue;
-//            }
-//            processBlock(_cont);
-//            return;
-//        }
         LoopBlockStack l_ = new LoopBlockStack();
         l_.setBlock(this);
         ip_.addBlock(l_);
-//        ProcessXmlMethod.processDoWhile(_cont, ip_);
         rw_.setBlock(getFirstChild());
     }
 
@@ -114,8 +101,6 @@ public final class DoBlock extends BracedStack implements Loop, IncrCurrentGroup
 
     @Override
     public void exitStack(ContextEl _context) {
-//        PageEl ip_ = _context.getLastPage();
-//        ProcessXmlMethod.processLastElementLoop(_context, ip_);
         processLastElementLoop(_context);
     }
 

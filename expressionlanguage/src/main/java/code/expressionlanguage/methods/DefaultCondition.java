@@ -26,9 +26,7 @@ public final class DefaultCondition extends BracedStack implements StackableBloc
         BracedBlock b_ = getParent();
         if (!(b_ instanceof SwitchBlock) || getNextSibling() != null) {
             PageEl page_ = _cont.getLastPage();
-//            page_.setProcessingNode(getAssociateElement());
             page_.setProcessingAttribute(EMPTY_STRING);
-//            page_.setLookForAttrValue(false);
             page_.setOffset(0);
             throw new BadDefaultException(_cont.joinPages());
         }
@@ -36,16 +34,6 @@ public final class DefaultCondition extends BracedStack implements StackableBloc
 
     @Override
     public void buildExpressionLanguage(ContextEl _cont) {
-//        BracedBlock b_ = getParent();
-//        if (!(b_ instanceof SwitchBlock) || getNextSibling() != null) {
-//            PageEl page_ = _cont.getLastPage();
-////            page_.setProcessingNode(getAssociateElement());
-//            page_.setProcessingAttribute(EMPTY_STRING);
-////            page_.setLookForAttrValue(false);
-//            page_.setOffset(0);
-//            throw new BadDefaultException(_cont.joinPages());
-//        }
-//        removeLocalVariablesFromParent();
     }
 
     @Override
@@ -77,60 +65,24 @@ public final class DefaultCondition extends BracedStack implements StackableBloc
         PageEl ip_ = _cont.getLastPage();
         ReadWrite rw_ = ip_.getReadWrite();
         SwitchBlockStack sw_ = (SwitchBlockStack) ip_.getLastStack();
-//        int i_ = List.FIRST_INDEX;
-//        while (true) {
-//            if (sw_.getBlocks().get(i_) == this) {
-//                break;
-//            }
-//            i_++;
-//        }
-//        sw_.setVisitedBlock(i_);
         sw_.setVisitedBlock(getIndexInGroup());
         if (sw_.isEntered()) {
             if (!hasChildNodes()) {
-//                sw_.increment();
                 sw_.setFinished(true);
                 rw_.setBlock(sw_.getBlock());
                 return;
-//                if (sw_.lastVisitedBlock() == this) {
-//                    sw_.setFinished(true);
-//                    rw_.setBlock(sw_.getBlock());
-//                    return;
-//                }
-//                rw_.setBlock(getNextSibling());
-//                return;
             }
             rw_.setBlock(getFirstChild());
-//            processAfterBlock(_conf, _bkSize, ip_);
             return;
         } else {
-//            int i_ = List.FIRST_INDEX;
-//            while (true) {
-//                if (sw_.getBlocks().get(i_) == this) {
-//                    break;
-//                }
-//                i_++;
-//            }
-//            sw_.setVisitedBlock(i_);
             if (hasChildNodes()) {
                 sw_.setEntered(true);
             } else {
-//                if (sw_.lastVisitedBlock() != this) {
-////                    sw_.increment();
-//                    sw_.setEntered(true);
-//                    rw_.setBlock(getNextSibling());
-//                    return;
-//                } else {
-//                    sw_.setFinished(true);
-//                    rw_.setBlock(sw_.getBlock());
-//                    return;
-//                }
                 sw_.setFinished(true);
                 rw_.setBlock(sw_.getBlock());
                 return;
             }
             rw_.setBlock(getFirstChild());
-//            processAfterBlock(_conf, _bkSize, ip_);
             return;
         }
     }
@@ -142,12 +94,5 @@ public final class DefaultCondition extends BracedStack implements StackableBloc
         SwitchBlockStack if_ = (SwitchBlockStack) ip_.getLastStack();
         if_.setFinished(true);
         rw_.setBlock(if_.getBlock());
-//        if (if_.lastVisitedBlock() == this) {
-//            if_.setFinished(true);
-//            rw_.setBlock(if_.getBlock());
-//        } else {
-////            if_.increment();
-//            rw_.setBlock(getNextSibling());
-//        }
     }
 }

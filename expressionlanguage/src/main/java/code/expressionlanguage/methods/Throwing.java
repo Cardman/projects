@@ -22,8 +22,6 @@ public final class Throwing extends Leaf implements StackableBlock {
 
     private CustList<OperationNode> opThrow;
 
-//    private ExpressionLanguage el;
-
     public Throwing(Element _el, ContextEl _importingPage, int _indexChild,
             BracedBlock _m) {
         super(_el, _importingPage, _indexChild, _m);
@@ -43,7 +41,6 @@ public final class Throwing extends Leaf implements StackableBlock {
     }
 
     public ExpressionLanguage getEl() {
-//        return new ExpressionLanguage(expression, _cont, true, new Calculation(StepCalculation.RIGHT));
         return new ExpressionLanguage(opThrow);
     }
 
@@ -51,22 +48,16 @@ public final class Throwing extends Leaf implements StackableBlock {
     public void buildExpressionLanguage(ContextEl _cont) {
         FunctionBlock f_ = getFunction();
         PageEl page_ = _cont.getLastPage();
-//        page_.setProcessingNode(getAssociateElement());
         page_.setProcessingAttribute(EMPTY_STRING);
-//        page_.setLookForAttrValue(false);
         page_.setOffset(0);
         if (getNextSibling() != null) {
             throw new BadCatchException(_cont.joinPages());
         }
         page_.setProcessingAttribute(ATTRIBUTE_EXPRESSION);
-//        page_.setLookForAttrValue(true);
-//        opThrow = ElUtil.getAnalyzedOperations(expression, _cont, f_.isStaticContext());
         opThrow = ElUtil.getAnalyzedOperations(expression, _cont, Calculation.staticCalculation(f_.isStaticContext()));
-//        ExpressionLanguage el_ = new ExpressionLanguage(expression, _cont, true, new Calculation(StepCalculation.RIGHT));
         OperationNode el_ = opThrow.last();
         String param_ = Throwable.class.getName();
         if (!PrimitiveTypeUtil.isAssignableFrom(param_, el_.getResultClass().getName(), _cont.getClasses())) {
-//            page_.setLookForAttrValue(false);
             throw new BadCatchException(_cont.joinPages());
         }
     }
@@ -80,9 +71,7 @@ public final class Throwing extends Leaf implements StackableBlock {
     @Override
     public void checkCallConstructor(ContextEl _cont) {
         PageEl p_ = _cont.getLastPage();
-//        p_.setProcessingNode(getAssociateElement());
         p_.setProcessingAttribute(ATTRIBUTE_EXPRESSION);
-//        p_.setLookForAttrValue(true);
         for (OperationNode o: opThrow) {
             if (o.isSuperThis()) {
                 int off_ = o.getFullIndexInEl();
@@ -101,7 +90,6 @@ public final class Throwing extends Leaf implements StackableBlock {
     public void processEl(ContextEl _cont) {
         PageEl ip_ = _cont.getLastPage();
         ip_.setOffset(0);
-//        ip_.setLookForAttrValue(true);
         ip_.setProcessingAttribute(ATTRIBUTE_EXPRESSION);
         ExpressionLanguage el_;
         if (!ip_.getCurrentEls().isEmpty()) {
@@ -111,11 +99,9 @@ public final class Throwing extends Leaf implements StackableBlock {
             ip_.setCurrentBlock(this);
             ip_.setCurrentEls(new CustList<ExpressionLanguage>(el_));
         }
-//        ExpressionLanguage el_ = ((Throwing)en_).getEl(_conf);
         Argument arg_ = el_.calculateMember(_cont);
         el_.setCurrentOper(null);
         ip_.getCurrentEls().clear();
-//        Throwable o_ = (Throwable) arg_.getObject();
         Struct o_ = arg_.getStruct();
         if (o_ == null || o_.isNull()) {
             o_ = new Struct(new NullPointerException());

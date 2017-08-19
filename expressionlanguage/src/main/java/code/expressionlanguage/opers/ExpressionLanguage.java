@@ -20,21 +20,6 @@ public final class ExpressionLanguage {
     private IdMap<OperationNode,ArgumentsPair> arguments = new IdMap<OperationNode,ArgumentsPair>();
     private Argument argument;
 
-//    public ExpressionLanguage(OperationNode _operationNode) {
-//        root = _operationNode;
-//        operations = getOperations();
-//    }
-
-//    public ExpressionLanguage(String _expression, ContextEl _context, boolean _staticAccess, Calculation _setting) {
-//        expression = _expression;
-////        root = OperationNode.createOperationNode(_expression, _index, _context, _indexChild, null, _op);
-//        operations = ElUtil.getAnalyzedOperations(_expression, _context, _staticAccess, _setting);
-//        for (OperationNode o: operations) {
-//            arguments.put(o, new ArgumentsPair());
-//        }
-//        root = operations.last();
-//    }
-
     public ExpressionLanguage(CustList<OperationNode> _operations) {
         expression = EMPTY_STRING;
         operations = _operations;
@@ -53,7 +38,6 @@ public final class ExpressionLanguage {
                 settable = (SettableElResult) beforeLast_;
             }
         }
-//        alwaysCalculated = root.isCalculated(new Calculation(StepCalculation.RIGHT), arguments);
         alwaysCalculated = root.isCalculated(arguments);
     }
 
@@ -85,10 +69,6 @@ public final class ExpressionLanguage {
     public String getExpression() {
         return expression;
     }
-    
-//    public Argument calculateMemberPrep(ContextEl _context) {
-//        return ElUtil.tryToCalculatePrep(_context, this);
-//    }
 
     public Argument calculateMember(ContextEl _context) {
         return ElUtil.tryToCalculate(_context, this);
@@ -106,10 +86,6 @@ public final class ExpressionLanguage {
         ElUtil.tryToCalculateAllAffect(this, _context, _oper);
     }
     public CustList<OperationNode> getOperations() {
-//        List<OperationNode> l_ = new List<OperationNode>();
-//        for (SortedNode<OperationNode> s: TreeRetrieving.getSortedDescNodes(root)) {
-//            l_.add((OperationNode) s);
-//        }
         return operations;
     }
 

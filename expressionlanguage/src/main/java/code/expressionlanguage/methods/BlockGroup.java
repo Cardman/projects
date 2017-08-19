@@ -156,28 +156,6 @@ public final class BlockGroup implements SortedNode<BlockGroup> {
 
     public void setExitable(boolean _exitable) {
         exitable = _exitable;
-//        BlockGroup p_ = getParent();
-//        if (p_ == null) {
-//            return;
-//        }
-////        CustList<SortedNode<BlockGroup>> l_ = TreeRetrieving.getSortedDescNodes(p_);
-//        CustList<SortedNode<BlockGroup>> l_ = TreeRetrieving.getDirectChildren(p_);
-//        int i_ = p_.indexComplete();
-////        System.out.println(i_+" i "+l_.size());
-//        boolean e_ = true;
-//        for (int i = 0; i < i_; i++) {
-//            BlockGroup bl_ = (BlockGroup) l_.get(i_);
-//            if (!bl_.isExitable()) {
-//                e_ = false;
-//                break;
-//            }
-//        }
-//        if (e_) {
-//            p_.exitable = true;
-//        }
-//        for (BlockGroup c: p_.blockGroup) {
-//            
-//        }
     }
 
     @Override
@@ -191,15 +169,7 @@ public final class BlockGroup implements SortedNode<BlockGroup> {
         }
         CustList<Block> l_ = new CustList<Block>();
         Block b_ = blockGroup.first();
-//        boolean ret_ = false;
         if (b_.getFirstChild() == null) {
-//            if (b_ instanceof ReturnMehod) {
-//                ret_ = true;
-//            }
-//            if (b_ instanceof Throwing) {
-//                ret_ = true;
-//            }
-//            encounterReturn = ret_;
             firstChild = new BlockGroup(CustList.FIRST_INDEX, l_, this, root, false, b_);
             return firstChild;
         }
@@ -217,17 +187,10 @@ public final class BlockGroup implements SortedNode<BlockGroup> {
             if (b_.getIndexGroup() != indGr_) {
                 break;
             }
-//            if (b_ instanceof ReturnMehod) {
-//                ret_ = true;
-//            }
-//            if (b_ instanceof Throwing) {
-//                ret_ = true;
-//            }
             l_.add(b_);
             b_ = b_.getNextSibling();
         }
         firstChild = new BlockGroup(CustList.FIRST_INDEX, l_, this, root, err_, l_.last());
-//        firstChild.encounterReturn = ret_;
         return firstChild;
     }
 
@@ -245,31 +208,12 @@ public final class BlockGroup implements SortedNode<BlockGroup> {
             return null;
         }
         Block b_ = p_.blockGroup.get(indexChild + 1);
-//        System.out.println("c:"+b_.getClass());
         CustList<Block> l_ = new CustList<Block>();
-//        boolean ret_ = false;
-//        if (b_.getFirstChild() == null)
         if (b_.getFirstChild() == null) {
             nextSibling = new BlockGroup(indexChild + 1, l_, p_, root, false, b_);
             return nextSibling;
         }
-//        if (b_.getNextSibling() == null) {
-////            if (b_ instanceof ReturnMehod) {
-////                System.out.println("re");
-////            }
-////            if (b_ instanceof ReturnMehod) {
-////                ret_ = true;
-////            }
-////            if (b_ instanceof Throwing) {
-////                ret_ = true;
-////            }
-////            p_.encounterReturn = ret_;
-//            nextSibling = new BlockGroup(indexChild + 1, l_, p_, root);
-//            return nextSibling;
-//        }
-//        b_ = b_.getFirstChild();
         b_ = b_.getNextSibling();
-//        System.out.println("init:"+b_.getClass());
         Block prev_ = b_.getPreviousSibling();
         int indGr_ = b_.getIndexGroup();
         boolean err_ = false;
@@ -280,21 +224,13 @@ public final class BlockGroup implements SortedNode<BlockGroup> {
             if (b_ == null) {
                 break;
             }
-//            System.out.println("found:"+b_.getClass());
             if (b_.getIndexGroup() != indGr_) {
                 break;
             }
-//            if (b_ instanceof ReturnMehod) {
-//                ret_ = true;
-//            }
-//            if (b_ instanceof Throwing) {
-//                ret_ = true;
-//            }
             l_.add(b_);
             b_ = b_.getNextSibling();
         }
         nextSibling = new BlockGroup(indexChild + 1, l_, p_, root, err_, l_.last());
-//        nextSibling.encounterReturn = ret_;
         return nextSibling;
     }
 

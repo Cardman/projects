@@ -8,15 +8,7 @@ public class Mapping {
     private String arg;
     private String param;
     private StringMap<StringList> mapping = new StringMap<StringList>();
-//    public boolean containsParamArg(String _param, String _arg) {
-//        if (!mapping.contains(_param)) {
-//            return false;
-//        }
-//        if (!mapping.getVal(_param).containsStr(_arg)) {
-//            return false;
-//        }
-//        return true;
-//    }
+
     public StringList getAllUpperBounds(String _className) {
         StringList visitedBounds_ = new StringList();
         StringList currentBounds_ = new StringList(_className);

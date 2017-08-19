@@ -26,10 +26,7 @@ public final class FieldMetaInfo {
         finalField = _finalField;
         enumElement = _enumElement;
     }
-//    public FieldMetaInfo(Field _method) {
-//        type = new ClassName(_method.getType().getName(), false);
-//        staticField = Modifier.isStatic(_method.getModifiers());
-//    }
+
     public ClassName getDeclaringClass() {
         return declaringClass;
     }

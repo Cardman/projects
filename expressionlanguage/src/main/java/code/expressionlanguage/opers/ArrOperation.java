@@ -28,18 +28,7 @@ public final class ArrOperation extends MethodOperation implements SettableElRes
     }
 
     @Override
-    public void analyzeLeft(CustList<OperationNode> _nodes, ContextEl _conf,
-            boolean _enumContext, String _op) {
-        if (getParent() == null) {
-            variable = true;
-        } else {
-            variable = _nodes.getPrev(_nodes.getLastIndex()) == this;
-        }
-        analyzeCommon(_conf);
-    }
-
-    @Override
-    public void analyzeRight(CustList<OperationNode> _nodes, ContextEl _conf,
+    public void analyze(boolean _variable, CustList<OperationNode> _nodes, ContextEl _conf,
             boolean _enumContext, String _op) {
         analyzeCommon(_conf);
     }
@@ -260,5 +249,10 @@ public final class ArrOperation extends MethodOperation implements SettableElRes
     @Override
     public boolean resultCanBeSet() {
         return variable;
+    }
+
+    @Override
+    public void setVariable() {
+        variable = true;
     }
 }

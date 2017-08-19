@@ -8,6 +8,7 @@ import code.util.IdMap;
 
 public interface SettableElResult {
 
+    void setVariable();
     boolean resultCanBeSet();
 
     Argument calculateSetting(

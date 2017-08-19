@@ -18,20 +18,13 @@ public final class InstanceBlock extends BracedBlock implements AloneBlock {
     public void checkBlocksTree(ContextEl _cont) {
         if (!(getParent() instanceof ClassBlock) || getFirstChild() == null) {
             PageEl page_ = _cont.getLastPage();
-//            page_.setProcessingNode(getAssociateElement());
             page_.setProcessingAttribute(EMPTY_STRING);
-//            page_.setLookForAttrValue(false);
             page_.setOffset(0);
             throw new BadStaticException(_cont.joinPages());
         }
         PageEl page_ = _cont.getLastPage();
-//        page_.setProcessingNode(getAssociateElement());
         page_.setProcessingAttribute(EMPTY_STRING);
-//        page_.setLookForAttrValue(false);
         page_.setOffset(0);
-//        if (getFirstChild() == null) {
-//            return;
-//        }
         Block en_ = this;
         while (true) {
             Block n_ = en_.getFirstChild();
@@ -40,9 +33,6 @@ public final class InstanceBlock extends BracedBlock implements AloneBlock {
                 en_ = n_;
                 continue;
             }
-//            if (en_ == this) {
-//                break;
-//            }
             n_ = en_.getNextSibling();
             if (n_ != null) {
                 tryCheckBlocksTree(n_, _cont);
@@ -81,13 +71,8 @@ public final class InstanceBlock extends BracedBlock implements AloneBlock {
     @Override
     public void buildInstructions(ContextEl _cont) {
         PageEl page_ = _cont.getLastPage();
-//        page_.setProcessingNode(getAssociateElement());
         page_.setProcessingAttribute(EMPTY_STRING);
-//        page_.setLookForAttrValue(false);
         page_.setOffset(0);
-//        if (getFirstChild() == null) {
-//            return;
-//        }
         Block en_ = this;
         while (true) {
             Block n_ = en_.getFirstChild();
@@ -96,9 +81,6 @@ public final class InstanceBlock extends BracedBlock implements AloneBlock {
                 en_ = n_;
                 continue;
             }
-//            if (en_ == this) {
-//                break;
-//            }
             n_ = en_.getNextSibling();
             if (n_ != null) {
                 tryBuildExpressionLanguage(n_, _cont);
@@ -137,13 +119,8 @@ public final class InstanceBlock extends BracedBlock implements AloneBlock {
     @Override
     public void checkConstrCalls(ContextEl _cont) {
         PageEl page_ = _cont.getLastPage();
-//        page_.setProcessingNode(getAssociateElement());
         page_.setProcessingAttribute(EMPTY_STRING);
-//        page_.setLookForAttrValue(false);
         page_.setOffset(0);
-//        if (getFirstChild() == null) {
-//            return;
-//        }
         Block en_ = this;
         while (true) {
             Block n_ = en_.getFirstChild();
@@ -152,9 +129,6 @@ public final class InstanceBlock extends BracedBlock implements AloneBlock {
                 en_ = n_;
                 continue;
             }
-//            if (en_ == this) {
-//                break;
-//            }
             n_ = en_.getNextSibling();
             if (n_ != null) {
                 tryCheckConstCall(n_, _cont);

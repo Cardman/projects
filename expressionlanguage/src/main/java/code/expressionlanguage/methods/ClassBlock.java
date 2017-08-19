@@ -96,7 +96,6 @@ public final class ClassBlock extends BracedBlock implements UniqueRootedBlock {
                 throw new UndefinedSuperConstructorException(_cont.joinPages());
             }
         }
-//        List.<List<?>>equalsSet(null,null);
         EqList<FctConstraints> l_ = new EqList<FctConstraints>();
         for (EntryCust<FctConstraints, ConstructorMetaInfo> e: c_.entryList()) {
             ConstructorBlock b_ = _cont.getClasses().getConstructorBody(getFullName(), e.getKey());
@@ -104,36 +103,6 @@ public final class ClassBlock extends BracedBlock implements UniqueRootedBlock {
                 l_.add(e.getKey());
             }
         }
-//        //validate calling of constructors of the current class
-//        for (ConstructorId f: l_) {
-//            ConstructorBlock b_ = _cont.getClasses().getConstructorBody(getFullName(), f);
-//            ConstructorId id_ = b_.getConstIdSameClass();
-//            if (!_cont.getClasses().getClassMetaInfo(getFullName()).getConstructors().contains(id_)) {
-//                throw new UndefinedConstructorException(id_.getSignature()+RETURN_LINE+_cont.joinPages());
-//            }
-//        }
-//        //validate calling of super constructors
-//        for (EntryCust<ConstructorId, ConstructorMetaInfo> e: c_.entryList()) {
-//            ConstructorBlock b_ = _cont.getClasses().getConstructorBody(getFullName(), e.getKey());
-//            if (b_.getConstIdSameClass() != null) {
-//                continue;
-//            }
-//            ConstructorId super_ = b_.getConstId();
-//            if (super_ == null) {
-//                continue;
-//            }
-//            String superClass_ = _cont.getClasses().getClassMetaInfo(getFullName()).getSuperClass();
-//            if (superClass_.eq(Object.class.getName())) {
-////                if (super_.getClassNames().isEmpty()) {
-////                    continue;
-////                }
-//                throw new UndefinedConstructorException(super_.getSignature()+RETURN_LINE+_cont.joinPages());
-//            }
-//            ClassMetaInfo meta_ = _cont.getClasses().getClassMetaInfo(superClass_);
-//            if (!meta_.getConstructors().contains(super_)) {
-//                throw new UndefinedConstructorException(super_.getSignature()+RETURN_LINE+_cont.joinPages());
-//            }
-//        }
         Graph<ConstructorEdge> graph_;
         graph_ = new Graph<ConstructorEdge>();
         for (FctConstraints f: l_) {
@@ -148,26 +117,6 @@ public final class ClassBlock extends BracedBlock implements UniqueRootedBlock {
             //TODO souligner
             throw new CyclicCallingException(_cont.joinPages());
         }
-//        List<ConstructorId> called_ = new List<ConstructorId>();
-//        for (ConstructorId f: l_) {
-//            if (called_.containsObj(f)) {
-//                continue;
-//            }
-//            called_.add(f);
-//            ConstructorId f_ = f;
-//            while (true) {
-//                ConstructorBlock b_ = _cont.getClasses().getConstructorBody(getFullName(), f_);
-//                ConstructorId o_ = b_.getConstIdSameClass();
-//                if (o_ == null) {
-//                    break;
-//                }
-//                if (called_.containsObj(o_)) {
-//                    throw new CyclicCallingException(_cont.joinPages());
-//                }
-//                called_.add(o_);
-//                f_ = o_;
-//            }
-//        }
     }
 
     public AccessEnum getMaximumAccessConstructors(ContextEl _cont) {

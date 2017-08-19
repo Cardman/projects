@@ -35,37 +35,11 @@ public final class ElseIfCondition extends Condition implements BlockCondition, 
         }
         if (!existIf_ || getFirstChild() == null) {
             PageEl page_ = _cont.getLastPage();
-//            page_.setProcessingNode(getAssociateElement());
             page_.setProcessingAttribute(EMPTY_STRING);
-//            page_.setLookForAttrValue(false);
             page_.setOffset(0);
             throw new BadElseIfException(_cont.joinPages());
         }
     }
-
-//    @Override
-//    public void buildExpressionLanguage(ContextEl _cont) {
-//        super.buildExpressionLanguage(_cont);
-//        Block prev_ = getPreviousSibling();
-//        boolean existIf_ = false;
-//        while (prev_ != null) {
-//            if (prev_ instanceof ElseIfCondition) {
-//                prev_ = prev_.getPreviousSibling();
-//                continue;
-//            }
-//            existIf_ = prev_ instanceof IfCondition;
-//            break;
-//        }
-//        if (!existIf_) {
-//            PageEl page_ = _cont.getLastPage();
-//            page_.setProcessingNode(getAssociateElement());
-//            page_.setProcessingAttribute(EMPTY_STRING);
-//            page_.setLookForAttrValue(false);
-//            page_.setOffset(0);
-//            throw new BadElseIfException(_cont.joinPages(RETURN_LINE));
-//        }
-////        removeLocalVariablesFromParent();
-//    }
 
     @Override
     boolean canBeIncrementedNextGroup() {
@@ -92,19 +66,16 @@ public final class ElseIfCondition extends Condition implements BlockCondition, 
         PageEl ip_ = _cont.getLastPage();
         ReadWrite rw_ = ip_.getReadWrite();
         IfBlockStack if_ = (IfBlockStack) ip_.getLastStack();
-//        if_.increment();
         if_.setVisitedBlock(getIndexInGroup());
         if (!if_.isEntered()) {
             boolean assert_ = evaluateCondition(_cont);
             if (assert_) {
                 if_.setEntered(true);
                 rw_.setBlock(getFirstChild());
-//                processAfterBlock(_cont, ip_);
                 return;
             }
         }
         if (if_.getBlocks().last() == this) {
-//            l_.removeLast();
             ip_.removeLastBlock();
             processBlock(_cont);
             return;
@@ -120,7 +91,6 @@ public final class ElseIfCondition extends Condition implements BlockCondition, 
         if (if_.lastVisitedBlock() == this) {
             rw_.setBlock(this);
         } else {
-//            if_.increment();
             rw_.setBlock(getNextSibling());
         }
     }

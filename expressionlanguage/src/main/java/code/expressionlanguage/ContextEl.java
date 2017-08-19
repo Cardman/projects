@@ -24,8 +24,6 @@ public final class ContextEl {
 
     private transient ElementOffsetsNext elements;
 
-//    private transient boolean callingXml;
-
     private transient Classes classes;
 
     private transient CustList<PageEl> importing = new CustList<PageEl>();
@@ -108,14 +106,6 @@ public final class ContextEl {
         elements = _elements;
     }
 
-//    public boolean isCallingXml() {
-//        return callingXml;
-//    }
-//
-//    public void setCallingXml(boolean _callingXml) {
-//        callingXml = _callingXml;
-//    }
-
     public Classes getClasses() {
         return classes;
     }
@@ -154,9 +144,6 @@ public final class ContextEl {
         }
         return l_.join(RETURN_LINE);
     }
-//    public PageEl getPage(int _pageNb) {
-//        return importing.get(_pageNb);
-//    }
 
     public PageEl getLastPage() {
         return importing.last();

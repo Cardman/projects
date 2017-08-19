@@ -20,9 +20,6 @@ public final class PageEl {
 
     private static final String EMPTY_STRING = "";
 
-//    private static final String EQ = "=";
-
-//    private static final String RETURNING = "returning";
     private static final String READ_URL = "readUrl";
 
     private static final String LINE_COL = "line col";
@@ -32,7 +29,6 @@ public final class PageEl {
     private static final String PARAMATERS = "parameters";
     private static final String CATCH_VARIABLES = "catch variables";
     private static final String LOCAL_VARIABLES = "local variables";
-//    private static final String RETURNED_VALUES = "returned values";
 
     private static final String SEP_INFO = "\n";
 
@@ -45,12 +41,6 @@ public final class PageEl {
     private boolean initializingClass;
 
     private CallConstructor callingConstr = new CallConstructor();
-
-//    private boolean instancing;
-
-//    private ConstructorBlock usedConstructor;
-
-//    private Element root;
 
     /**Only used while throwing exception*/
     private Block currentBlock;
@@ -67,8 +57,6 @@ public final class PageEl {
 
     private Argument globalArgument;
 
-//    private boolean evaluatingKeepLoop;
-
     private StringMap<LoopVariable> vars = new StringMap<LoopVariable>();
 
     private StringMap<LocalVariable> catchVars = new StringMap<LocalVariable>();
@@ -77,83 +65,21 @@ public final class PageEl {
 
     private StringMap<LocalVariable> parameters = new StringMap<LocalVariable>();
 
-//    private Map<String,LocalVariable> returnedValues = new Map<String,LocalVariable>();
-
     private CustList<RemovableVars> blockStacks = new CustList<RemovableVars>();
-
-//    private ReturnMehod returning;
 
     private boolean finallyToProcess;
 
-//    private int indexCatchBlock = List.INDEX_NOT_FOUND_ELT;
-
-//    private Throwable thrownException;
-
     private String readUrl;
 
-//    private String html;
-
-//    private Node processingNode;
-
-//    private boolean lookForAttrValue;
-
-//    private ProcessingHtml processingHtml;
-
     private int tabWidth;
-
-//    private Map<NodeAttribute, TreeMap<Integer, Integer>> encodedChars;
 
     private int offset;
 
     private String processingAttribute = EMPTY_STRING;
 
     public String getInfos() {
-//        StringList list_ = new StringList();
-//        if (globalArgument != null) {
-//            Object glel_ = globalArgument.getObject();
-//            if (glel_ != null) {
-//                list_.add(BEAN_CLASS+SEP_KEY_VAL+globalArgument.getObjectClassName());
-//            } else {
-//                list_.add(BEAN_CLASS+SEP_KEY_VAL+null);
-//            }
-//        } else {
-//            list_.add(BEAN_CLASS+SEP_KEY_VAL+null);
-//        }
-//        list_.add(RETURNING+SEP_KEY_VAL+returning);
-//        for (EntryCust<String,LoopVariable> e: vars.entryList()) {
-//            list_.add(e.getKey()+SEP_KEY_VAL+SEP_INFO+e.getValue());
-//        }
-//        list_.add(LOCAL_VARIABLES);
-//        for (EntryCust<String,LocalVariable> e: localVars.entryList()) {
-//            list_.add(e.getKey()+SEP_KEY_VAL+SEP_INFO+e.getValue());
-//        }
-//        list_.add(CATCH_VARIABLES);
-//        for (EntryCust<String,LocalVariable> e: catchVars.entryList()) {
-//            list_.add(e.getKey()+SEP_KEY_VAL+SEP_INFO+e.getValue());
-//        }
-//        list_.add(PARAMATERS);
-//        for (EntryCust<String,LocalVariable> e: parameters.entryList()) {
-//            list_.add(e.getKey()+SEP_KEY_VAL+SEP_INFO+e.getValue());
-//        }
-//        list_.add(RETURNED_VALUES);
-//        for (EntryCust<String,LocalVariable> e: returnedValues.entryList()) {
-//            list_.add(e.getKey()+SEP_KEY_VAL+SEP_INFO+e.getValue());
-//        }
-        //Numbers<Integer> indexes_ = getIndexes();
-//        int delta_ = 0;
         RowCol rc_ = new RowCol();
         if (currentBlock != null){
-//            Map<String, TreeMap<Integer, Integer>> fullesc_ = currentBlock.getEncoded();
-//            TreeMap<Integer, Integer> esc_ = fullesc_.getVal(processingAttribute);
-//            if (esc_ != null) {
-//                int nbIndexes_ = getIndexesCount(esc_);
-////                NodeAttribute na_ = new NodeAttribute();
-////                na_.setNode(processingNode);
-////                na_.setAttribue(processingAttribute);
-//                for (int i = 0; i < nbIndexes_; i++) {
-//                    delta_ += esc_.getValue(i);
-//                }
-//            }
             StringMap<RowCol> a_;
             a_ = currentBlock.getAttributes();
             StringMap<NatTreeMap<Integer,Integer>> e_;
@@ -166,73 +92,12 @@ public final class PageEl {
             endHeader_ = currentBlock.getEndHeader();
             rc_ = XmlParser.getOffset(processingAttribute, a_, e_, offset, o_, t_, endHeader_, tabWidth);
         }
-//        RowCol rc_ = XmlParser.getRowColOfNodeOrAttribute(html, processingNode, offset+delta_, processingAttribute, tabWidth, lookForAttrValue);
-//        String keyMessage_ = EMPTY_STRING;
-//        String page_ = EMPTY_STRING;
-//        return READ_URL+SEP_KEY_VAL+readUrl+page_+SEP_INFO+keyMessage_+SEP_INFO+list_+SEP_INFO+stacks.join(SEP_INFO)+SEP_INFO+LINE_COL+SEP_KEY_VAL+rc_;
-//        return READ_URL+SEP_KEY_VAL+readUrl+page_+SEP_INFO+keyMessage_+SEP_INFO+list_+SEP_INFO+blockStacks.join(SEP_INFO)+SEP_INFO+LINE_COL+SEP_KEY_VAL+rc_;
         return READ_URL+SEP_KEY_VAL+readUrl+SEP_INFO+getCommonInfosAndRc(rc_);
     }
 
     public String getCommonInfosAndRc(RowCol _rc) {
         return getCommonInfos()+_rc;
     }
-
-//    @Override
-//    public String toString() {
-////        StringList list_ = new StringList();
-////        if (globalArgument != null) {
-////            Object glel_ = globalArgument.getObject();
-////            if (glel_ != null) {
-////                list_.add(BEAN_CLASS+SEP_KEY_VAL+globalArgument.getObjectClassName());
-////            } else {
-////                list_.add(BEAN_CLASS+SEP_KEY_VAL+null);
-////            }
-////        } else {
-////            list_.add(BEAN_CLASS+SEP_KEY_VAL+null);
-////        }
-////        list_.add(RETURNING+SEP_KEY_VAL+returning);
-////        for (EntryCust<String,LoopVariable> e: vars.entryList()) {
-////            list_.add(e.getKey()+SEP_KEY_VAL+SEP_INFO+e.getValue());
-////        }
-////        list_.add(LOCAL_VARIABLES);
-////        for (EntryCust<String,LocalVariable> e: localVars.entryList()) {
-////            list_.add(e.getKey()+SEP_KEY_VAL+SEP_INFO+e.getValue());
-////        }
-////        list_.add(CATCH_VARIABLES);
-////        for (EntryCust<String,LocalVariable> e: catchVars.entryList()) {
-////            list_.add(e.getKey()+SEP_KEY_VAL+SEP_INFO+e.getValue());
-////        }
-////        list_.add(PARAMATERS);
-////        for (EntryCust<String,LocalVariable> e: parameters.entryList()) {
-////            list_.add(e.getKey()+SEP_KEY_VAL+SEP_INFO+e.getValue());
-////        }
-////        list_.add(RETURNED_VALUES);
-////        for (EntryCust<String,LocalVariable> e: returnedValues.entryList()) {
-////            list_.add(e.getKey()+SEP_KEY_VAL+SEP_INFO+e.getValue());
-////        }
-//        //Numbers<Integer> indexes_ = getIndexes();
-////        int delta_ = 0;
-////        if (encodedChars != null){
-////            TreeMap<Integer, Integer> esc_ = getEscapedChars();
-////            if (esc_ != null) {
-////                int nbIndexes_ = getIndexesCount(esc_);
-//////                NodeAttribute na_ = new NodeAttribute();
-//////                na_.setNode(processingNode);
-//////                na_.setAttribue(processingAttribute);
-////                for (int i = 0; i < nbIndexes_; i++) {
-////                    delta_ += esc_.getValue(i);
-////                }
-////            }
-////        }
-////        RowCol rc_ = XmlParser.getRowColOfNodeOrAttribute(html, processingNode, offset+delta_, processingAttribute, tabWidth, lookForAttrValue);
-//        RowCol rc_ = processingHtml.getRowCol(processingAttribute, offset, tabWidth);
-////        String keyMessage_ = EMPTY_STRING;
-////        String page_ = EMPTY_STRING;
-////        return READ_URL+SEP_KEY_VAL+readUrl+page_+SEP_INFO+keyMessage_+SEP_INFO+list_+SEP_INFO+stacks.join(SEP_INFO)+SEP_INFO+LINE_COL+SEP_KEY_VAL+rc_;
-////        return READ_URL+SEP_KEY_VAL+readUrl+page_+SEP_INFO+keyMessage_+SEP_INFO+list_+SEP_INFO+blockStacks.join(SEP_INFO)+SEP_INFO+LINE_COL+SEP_KEY_VAL+rc_;
-//        return getCommonInfos()+rc_;
-//    }
 
     private String getCommonInfos() {
         StringList list_ = new StringList();
@@ -246,7 +111,6 @@ public final class PageEl {
         } else {
             list_.add(BEAN_CLASS+SEP_KEY_VAL+null);
         }
-//        list_.add(RETURNING+SEP_KEY_VAL+isReturning());
         for (EntryCust<String,LoopVariable> e: vars.entryList()) {
             list_.add(e.getKey()+SEP_KEY_VAL+SEP_INFO+e.getValue());
         }
@@ -262,12 +126,7 @@ public final class PageEl {
         for (EntryCust<String,LocalVariable> e: parameters.entryList()) {
             list_.add(e.getKey()+SEP_KEY_VAL+SEP_INFO+e.getValue());
         }
-//        list_.add(RETURNED_VALUES);
-//        for (EntryCust<String,LocalVariable> e: returnedValues.entryList()) {
-//            list_.add(e.getKey()+SEP_KEY_VAL+SEP_INFO+e.getValue());
-//        }
         String keyMessage_ = EMPTY_STRING;
-//        return READ_URL+SEP_KEY_VAL+readUrl+SEP_INFO+keyMessage_+SEP_INFO+list_+SEP_INFO+blockStacks.join(SEP_INFO)+SEP_INFO+LINE_COL+SEP_KEY_VAL;
         return keyMessage_+SEP_INFO+list_+SEP_INFO+blockStacks.join(SEP_INFO)+SEP_INFO+LINE_COL+SEP_KEY_VAL;
     }
 
@@ -316,7 +175,6 @@ public final class PageEl {
             Argument void_ = Argument.createVoid();
             setReturnedArgument(void_);
         }
-//        setNullReadWrite();
     }
 
     public CallingClassConstructor getCall() {
@@ -339,14 +197,6 @@ public final class PageEl {
     public void setCallingConstr(CallConstructor _callingConstr) {
         callingConstr = _callingConstr;
     }
-
-//    public Element getRoot() {
-//        return processingHtml.getRoot();
-//    }
-//
-//    public void setRoot(Element _root) {
-//        processingHtml.setRoot(_root);
-//    }
 
     public Block getCurrentBlock() {
         return currentBlock;
@@ -452,14 +302,6 @@ public final class PageEl {
     public void setParameters(StringMap<LocalVariable> _parameters) {
         parameters = _parameters;
     }
-
-//    public Map<String, LocalVariable> getReturnedValues() {
-//        return returnedValues;
-//    }
-//
-//    public void setReturnedValues(Map<String, LocalVariable> _returnedValues) {
-//        returnedValues = _returnedValues;
-//    }
     
     public boolean noBlock() {
         return blockStacks.isEmpty();
@@ -489,34 +331,6 @@ public final class PageEl {
         blockStacks = _blockStacks;
     }
 
-//    public boolean isReturning() {
-//        return returning != null;
-//    }
-//
-//    public ReturnMehod getReturning() {
-//        return returning;
-//    }
-//
-//    public void setReturning(ReturnMehod _returning) {
-//        returning = _returning;
-//    }
-
-//    public int getIndexCatchBlock() {
-//        return indexCatchBlock;
-//    }
-
-//    public void setIndexCatchBlock(int _indexCatchBlock) {
-//        indexCatchBlock = _indexCatchBlock;
-//    }
-
-//    public Throwable getThrownException() {
-//        return thrownException;
-//    }
-
-//    public void setThrownException(Throwable _thrownException) {
-//        thrownException = _thrownException;
-//    }
-
     public String getReadUrl() {
         return readUrl;
     }
@@ -525,30 +339,6 @@ public final class PageEl {
         readUrl = _readUrl;
     }
 
-//    public String getHtml() {
-//        return processingHtml.getHtml();
-//    }
-//
-//    public void setHtml(String _html) {
-//        processingHtml.setHtml(_html);
-//    }
-//
-//    public Node getProcessingNode() {
-//        return processingHtml.getProcessingNode();
-//    }
-//
-//    public void setProcessingNode(Node _processingNode) {
-//        processingHtml.setProcessingNode(_processingNode);
-//    }
-//
-//    public ProcessingHtml getProcessingHtml() {
-//        return processingHtml;
-//    }
-//
-//    public void setProcessingHtml(ProcessingHtml _processingHtml) {
-//        processingHtml = _processingHtml;
-//    }
-
     public int getTabWidth() {
         return tabWidth;
     }
@@ -556,15 +346,6 @@ public final class PageEl {
     public void setTabWidth(int _tabWidth) {
         tabWidth = _tabWidth;
     }
-
-//    public Map<NodeAttribute, TreeMap<Integer, Integer>> getEncodedChars() {
-//        return processingHtml.getEncodedChars();
-//    }
-//
-//    public void setEncodedChars(
-//            Map<NodeAttribute, TreeMap<Integer, Integer>> _encodedChars) {
-//        processingHtml.setEncodedChars(_encodedChars);
-//    }
 
     public int getOffset() {
         return offset;
@@ -589,13 +370,4 @@ public final class PageEl {
     public void setFinallyToProcess(boolean _finallyToProcess) {
         finallyToProcess = _finallyToProcess;
     }
-
-//    public boolean isLookForAttrValue() {
-//        return processingHtml.isLookForAttrValue();
-//    }
-//
-//    public void setLookForAttrValue(boolean _lookForAttrValue) {
-//        processingHtml.setLookForAttrValue(_lookForAttrValue);
-//    }
-
 }

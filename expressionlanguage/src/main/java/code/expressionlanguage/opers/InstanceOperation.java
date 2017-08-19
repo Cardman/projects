@@ -19,7 +19,6 @@ import code.expressionlanguage.exceptions.NotArrayException;
 import code.expressionlanguage.exceptions.NotInitializedClassException;
 import code.expressionlanguage.exceptions.NullGlobalObjectException;
 import code.expressionlanguage.exceptions.PrimitiveTypeException;
-import code.expressionlanguage.exceptions.SettingMemberException;
 import code.expressionlanguage.exceptions.StaticAccessException;
 import code.expressionlanguage.exceptions.UnwrappingException;
 import code.expressionlanguage.exceptions.VoidArgumentException;
@@ -61,17 +60,7 @@ public final class InstanceOperation extends InvokingOperation {
     }
 
     @Override
-    public void analyzeLeft(CustList<OperationNode> _nodes, ContextEl _conf,
-            boolean _enumContext, String _op) {
-        if (getParent() == null) {
-            setRelativeOffsetPossibleLastPage(getIndexInEl(), _conf);
-            throw new SettingMemberException(_conf.joinPages());
-        }
-        analyzeCommon(_nodes, _conf, _enumContext, _op);
-    }
-
-    @Override
-    public void analyzeRight(CustList<OperationNode> _nodes, ContextEl _conf,
+    public void analyze(boolean _variable, CustList<OperationNode> _nodes, ContextEl _conf,
             boolean _enumContext, String _op) {
         analyzeCommon(_nodes, _conf, _enumContext, _op);
     }

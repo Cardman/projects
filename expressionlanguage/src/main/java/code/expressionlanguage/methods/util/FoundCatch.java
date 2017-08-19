@@ -3,12 +3,8 @@ import code.expressionlanguage.methods.Block;
 import code.expressionlanguage.methods.CatchEval;
 
 public final class FoundCatch {
-
-//    private Class<?> exceptionClass;
     
     private CatchEval catchBl;
-
-//    private Element catchElement;
 
     private int importingPage;
 
@@ -17,33 +13,12 @@ public final class FoundCatch {
     private int catchBlock;
 
     private Block processingFinallyBlock;
-//    private Element processingFinally;
 
     private boolean cause;
-
-//    public Class<?> getExceptionClass() {
-//        return exceptionClass;
-//    }
-
-//    public void setExceptionClass(Class<?> _exceptionClass) {
-//        exceptionClass = _exceptionClass;
-//    }
     
     public boolean processCatchingBlock() {
         return catchBl != null || processingFinallyBlock != null;
     }
-
-//    public boolean processCatching() {
-//        return catchElement != null || processingFinally != null;
-//    }
-//
-//    public Element getCatchElement() {
-//        return catchElement;
-//    }
-//
-//    public void setCatchElement(Element _catchElement) {
-//        catchElement = _catchElement;
-//    }
 
     public int getImportingPage() {
         return importingPage;
@@ -68,14 +43,6 @@ public final class FoundCatch {
     public void setCatchBlock(int _catchBlock) {
         catchBlock = _catchBlock;
     }
-
-//    public Element getProcessingFinally() {
-//        return processingFinally;
-//    }
-//
-//    public void setProcessingFinally(Element _processingFinally) {
-//        processingFinally = _processingFinally;
-//    }
 
     public CatchEval getCatchBl() {
         return catchBl;

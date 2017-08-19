@@ -8,20 +8,13 @@ import code.util.exceptions.RuntimeClassNotFoundException;
 public final class ClassMatching {
 
     private StringList className;
-//    private Class<?> clazz;
-
-//    public ClassMatching(Class<?> _clazz) {
-//        clazz = _clazz;
-//    }
 
     public ClassMatching(StringList _className) {
         className = _className;
-//        clazz = ConstClasses.classForNameNotInit(_className);
     }
     
     public ClassMatching(String _className) {
         className = new StringList(_className);
-//        clazz = ConstClasses.classForNameNotInit(_className);
     }
 
     @Override
@@ -40,17 +33,8 @@ public final class ClassMatching {
     
 
     public boolean matchClass(ClassMatching _className) {
-//        return StringList.quickEq(className, _className.className);
         return StringList.equalsSet(className, _className.className);
     }
-
-//    public Class<?> getClazz() {
-//        return ConstClasses.classAliasForNameNotInit(PrimitiveTypeUtil.getArrayClass(className));
-//    }
-
-//    public void setClazz(Class<?> _clazz) {
-//        clazz = _clazz;
-//    }
 
     public boolean isAssignableFrom(ClassMatching _c, Classes _classes) {
         for (String p: className) {
@@ -81,16 +65,6 @@ public final class ClassMatching {
             return false;
         }
     }
-
-//
-//    public Class<?> getComponentType() {
-//        try {
-//            Class<?> c_ = getNativeClass();
-//            return c_.getComponentType();
-//        } catch (Exception _0_) {
-//            return null;
-//        }
-//    }
     
     private Class<?> getSingleNativeClass() {
         return ConstClasses.classForNameNotInit(PrimitiveTypeUtil.getArrayClass(className.first()));

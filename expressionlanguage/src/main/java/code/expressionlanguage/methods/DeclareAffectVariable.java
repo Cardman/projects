@@ -26,7 +26,6 @@ public final class DeclareAffectVariable extends Leaf implements InitVariable {
     private final String rightMember;
 
     private CustList<OperationNode> opRight;
-//    private ExpressionLanguage rightEl;
 
     DeclareAffectVariable(Element _el, ContextEl _importingPage, int _indexChild,
             BracedBlock _m) {
@@ -54,7 +53,6 @@ public final class DeclareAffectVariable extends Leaf implements InitVariable {
     }
 
     public ExpressionLanguage getRightEl() {
-//        return new ExpressionLanguage(rightMember, _cont, true, new Calculation(StepCalculation.RIGHT));
         return new ExpressionLanguage(opRight);
     }
 
@@ -66,19 +64,10 @@ public final class DeclareAffectVariable extends Leaf implements InitVariable {
     public void buildExpressionLanguage(ContextEl _cont) {
         FunctionBlock f_ = getFunction();
         PageEl page_ = _cont.getLastPage();
-//        page_.setProcessingNode(getAssociateElement());
         page_.setProcessingAttribute(ATTRIBUTE_CLASS);
-//        page_.setLookForAttrValue(true);
         page_.setOffset(0);
-//        try {
-//            ConstClasses.classForNameNotInit(className);
-//        } catch (RuntimeClassNotFoundException _0) {
-//            throw new RuntimeClassNotFoundException(_cont.joinPages());
-//        }
-//        Class<?> decl_ = ConstClasses.classForNameNotInit(className);
         if (_cont.getLastPage().getLocalVars().contains(variableName)) {
             page_.setProcessingAttribute(ATTRIBUTE_VAR);
-//            page_.setLookForAttrValue(true);
             page_.setOffset(0);
             throw new AlreadyDefinedVarException(variableName+RETURN_LINE+_cont.joinPages());
         }
@@ -86,15 +75,11 @@ public final class DeclareAffectVariable extends Leaf implements InitVariable {
         lv_.setClassName(className);
         _cont.getLastPage().getLocalVars().put(variableName, lv_);
         page_.setProcessingAttribute(ATTRIBUTE_EXPRESSION);
-//        page_.setLookForAttrValue(true);
         page_.setOffset(0);
-//        opRight = ElUtil.getAnalyzedOperations(rightMember, _cont, f_.isStaticContext());
         opRight = ElUtil.getAnalyzedOperations(rightMember, _cont, Calculation.staticCalculation(f_.isStaticContext()));
-//        ExpressionLanguage rightEl_ = new ExpressionLanguage(rightMember, _cont, true, new Calculation(StepCalculation.RIGHT));
         if (!PrimitiveTypeUtil.canBeUseAsArgument(className, opRight.last().getResultClass().getName(), _cont.getClasses())) {
             throw new DynamicCastClassException(_cont.joinPages());
         }
-//        removeLocalVariablesFromParent();
     }
 
     @Override
@@ -105,9 +90,7 @@ public final class DeclareAffectVariable extends Leaf implements InitVariable {
     @Override
     public void checkCallConstructor(ContextEl _cont) {
         PageEl p_ = _cont.getLastPage();
-//        p_.setProcessingNode(getAssociateElement());
         p_.setProcessingAttribute(ATTRIBUTE_EXPRESSION);
-//        p_.setLookForAttrValue(true);
         for (OperationNode o: opRight) {
             if (o.isSuperThis()) {
                 int off_ = o.getFullIndexInEl();
@@ -126,7 +109,6 @@ public final class DeclareAffectVariable extends Leaf implements InitVariable {
     public void processEl(ContextEl _cont) {
         PageEl ip_ = _cont.getLastPage();
         ip_.setProcessingAttribute(ATTRIBUTE_EXPRESSION);
-//        ip_.setLookForAttrValue(true);
         ip_.setOffset(0);
         LocalVariable lv_ = new LocalVariable();
         lv_.setClassName(getClassName());

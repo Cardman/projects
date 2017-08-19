@@ -35,9 +35,7 @@ public final class ElseCondition extends BracedStack implements BlockCondition, 
         }
         if (!existIf_ || getFirstChild() == null) {
             PageEl page_ = _cont.getLastPage();
-//            page_.setProcessingNode(getAssociateElement());
             page_.setProcessingAttribute(EMPTY_STRING);
-//            page_.setLookForAttrValue(false);
             page_.setOffset(0);
             throw new BadElseException(_cont.joinPages());
         }
@@ -45,7 +43,6 @@ public final class ElseCondition extends BracedStack implements BlockCondition, 
 
     @Override
     public void buildExpressionLanguage(ContextEl _cont) {
-//        removeLocalVariablesFromParent();
     }
 
     @Override
@@ -76,12 +73,10 @@ public final class ElseCondition extends BracedStack implements BlockCondition, 
     public void processEl(ContextEl _cont) {
         PageEl ip_ = _cont.getLastPage();
         IfBlockStack if_ = (IfBlockStack) ip_.getLastStack();
-//        if_.increment();
         if_.setVisitedBlock(getIndexInGroup());
         if (!if_.isEntered()) {
             if_.setEntered(true);
             ip_.getReadWrite().setBlock(getFirstChild());
-//            processAfterBlock(_cont, ip_);
             return;
         }
         ip_.removeLastBlock();
@@ -92,13 +87,6 @@ public final class ElseCondition extends BracedStack implements BlockCondition, 
     public void exitStack(ContextEl _context) {
         PageEl ip_ = _context.getLastPage();
         ReadWrite rw_ = ip_.getReadWrite();
-//        IfBlockStack if_ = (IfBlockStack) ip_.getLastStack();
         rw_.setBlock(this);
-//        if (if_.lastVisitedBlock() == this) {
-//            rw_.setBlock(this);
-//        } else {
-//            if_.setVisitedBlock(if_.getVisitedBlock()+1);
-//            rw_.setBlock(getNextSibling());
-//        }
     }
 }

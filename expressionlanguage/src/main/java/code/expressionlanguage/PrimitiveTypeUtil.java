@@ -175,10 +175,8 @@ public final class PrimitiveTypeUtil {
     }
 
     public static boolean isArrayAssignable(String _arrArg, String _arrParam) {
-//        DimComp dArg_ = PrimitiveTypeUtil.getComponentBaseType(_arrArg);
         DimComp dArg_ = PrimitiveTypeUtil.getQuickComponentBaseType(_arrArg);
         String a_ = dArg_.getComponent();
-//        DimComp dPar_ = PrimitiveTypeUtil.getComponentBaseType(_arrParam);
         DimComp dPar_ = PrimitiveTypeUtil.getQuickComponentBaseType(_arrParam);
         String className_ = dPar_.getComponent();
         if (StringList.quickEq(className_, Object.class.getName())) {
@@ -276,66 +274,11 @@ public final class PrimitiveTypeUtil {
     }
 
     public static String getArrayClass(String _class) {
-//        return _class;
         DimComp d_ = getQuickComponentBaseType(_class);
         String compo_ = d_.getComponent();
         return getArrayType(compo_, d_.getDim());
     }
 
-//    public static String getAliasClass(String _className) {
-//        if (StringList.quickEq(_className,DOUBLE)) {
-//            return PRIM_DOUBLE;
-//        }
-//        if (StringList.quickEq(_className,FLOAT)) {
-//            return PRIM_FLOAT;
-//        }
-//        if (StringList.quickEq(_className,LONG)) {
-//            return PRIM_LONG;
-//        }
-//        if (StringList.quickEq(_className,INTEGER)) {
-//            return PRIM_INT;
-//        }
-//        if (StringList.quickEq(_className,SHORT)) {
-//            return PRIM_SHORT;
-//        }
-//        if (StringList.quickEq(_className,BYTE)) {
-//            return PRIM_BYTE;
-//        }
-//        if (StringList.quickEq(_className,CHAR)) {
-//            return PRIM_CHAR;
-//        }
-//        if (StringList.quickEq(_className,BOOLEAN)) {
-//            return PRIM_BOOLEAN;
-//        }
-//        return _className;
-//    }
-//    public static String getRevertedAliasClass(String _className) {
-//        if (StringList.quickEq(_className,PRIM_DOUBLE)) {
-//            return DOUBLE;
-//        }
-//        if (StringList.quickEq(_className,PRIM_FLOAT)) {
-//            return FLOAT;
-//        }
-//        if (StringList.quickEq(_className,PRIM_LONG)) {
-//            return LONG;
-//        }
-//        if (StringList.quickEq(_className,PRIM_INT)) {
-//            return INTEGER;
-//        }
-//        if (StringList.quickEq(_className,PRIM_SHORT)) {
-//            return SHORT;
-//        }
-//        if (StringList.quickEq(_className,PRIM_BYTE)) {
-//            return BYTE;
-//        }
-//        if (StringList.quickEq(_className,PRIM_CHAR)) {
-//            return CHAR;
-//        }
-//        if (StringList.quickEq(_className,PRIM_BOOLEAN)) {
-//            return BOOLEAN;
-//        }
-//        return _className;
-//    }
     public static boolean canBeUseAsArgument(ClassName _param, ClassName _arg, Classes _classes) {
         return canBeUseAsArgument(_param.getName(), _arg.getName(), _classes);
     }

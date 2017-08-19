@@ -206,8 +206,7 @@ public abstract class OperationNode implements SortedNode<OperationNode>, Operab
         indexChild = _indexChild;
     }
 
-    public abstract void analyzeLeft(CustList<OperationNode> _nodes, ContextEl _conf, boolean _enumContext, String _op);
-    public abstract void analyzeRight(CustList<OperationNode> _nodes, ContextEl _conf, boolean _enumContext, String _op);
+    public abstract void analyze(boolean _variable,CustList<OperationNode> _nodes, ContextEl _conf, boolean _enumContext, String _op);
 
     public abstract void calculateLeft(CustList<OperationNode> _nodes, ContextEl _conf, String _op);
     public abstract void calculateRight(CustList<OperationNode> _nodes, ContextEl _conf, String _op);
@@ -233,7 +232,6 @@ public abstract class OperationNode implements SortedNode<OperationNode>, Operab
     public static OperationNode createOperationNode(String _el, int _index, ContextEl _conf,
             int _indexChild, MethodOperation _m, OperationsSequence _op) {
         String value_ = _el;
-        //        System.out.println(value_);
         if (_op.getOperators().isEmpty()) {
             return new ConstantOperation(value_, _index, _conf, _indexChild, _m, _op);
         }
@@ -341,53 +339,25 @@ public abstract class OperationNode implements SortedNode<OperationNode>, Operab
     @Override
     public final OperationNode getNextSibling() {
         if (initializedNextSibling) {
-            //            conf = null;
             return nextSibling;
         }
         initializedNextSibling = true;
         MethodOperation p_ = getParent();
         if (p_ == null) {
-            //            conf = null;
             return null;
         }
         NatTreeMap<Integer,String> children_ = p_.getChildren();
         if (indexChild + 1 >= children_.size()) {
-            //            conf = null;
             return null;
         }
         String value_ = children_.getValue(indexChild + 1);
-        //        OperationsSequence r_ = ElResolver.getOperationsSequence(indexInEl, value_, conf);
         Delimiters d_ = getOperations().getDelimiter();
         int curKey_ = children_.getKey(indexChild + 1);
         d_.setChildOffest(curKey_);
         OperationsSequence r_ = ElResolver.getOperationsSequence(p_.getIndexInEl(), value_, conf, d_);
-        //        if (r_.getOperators().isEmpty()) {
-        //            nextSibling = new ConstantOperation(value_, children_.getKey(indexChild + 1), importingPage, p_, r_, indexChild + 1);
-        //            return nextSibling;
-        //        }
-        //        if (r_.getPriority() == ExpressionLanguageResolver.getMaxPriority()) {
-        //            nextSibling = new FctOperation(value_, children_.getKey(indexChild + 1), importingPage, indexChild + 1, p_, r_);
-        //            return nextSibling;
-        //        }
-        //        if (r_.getPriority() == ExpressionLanguageResolver.ARR_OPER_PRIO) {
-        //            nextSibling = new ArrOperation(value_, children_.getKey(indexChild + 1), importingPage, indexChild + 1, p_, r_);
-        //            return nextSibling;
-        //        }
         nextSibling = createOperationNode(value_, p_.getIndexInEl()+curKey_, conf, indexChild + 1, p_, r_);
-        //        conf = null;
         return nextSibling;
     }
-    //    static boolean access(Constructor<?> _method) {
-    //        return _method.getAnnotation(Accessible.class) != null;
-    //    }
-    //
-    //    static boolean access(Method _method) {
-    //        return _method.getAnnotation(Accessible.class) != null;
-    //    }
-    //
-    //    static boolean access(Field _field) {
-    //        return _field.getAnnotation(Accessible.class) != null;
-    //    }
     static boolean canBeUsed(AccessibleObject _field, ContextEl _conf) {
         return _conf.getAccessValue().canBeUsed(_field, _conf);
     }
@@ -400,7 +370,6 @@ public abstract class OperationNode implements SortedNode<OperationNode>, Operab
             throw new VoidArgumentException(_cont.joinPages());
         }
         ClassMetaInfo custClass_ = null;
-        //        String baseName_ = PrimitiveTypeUtil.getComponentBaseType(_className).getComponent();
         String baseName_ = PrimitiveTypeUtil.getQuickComponentBaseType(_className).getComponent();
         if (classes_ != null) {
             custClass_ = classes_.getClassMetaInfo(baseName_);
@@ -460,7 +429,6 @@ public abstract class OperationNode implements SortedNode<OperationNode>, Operab
             }
             class_ = class_.getSuperclass();
         }
-        //        conf.getLastPage().addToOffset(getOperations().getValues().getKey(CustList.FIRST_INDEX));
         throw new NoSuchDeclaredFieldException(traces_.join(RETURN_TAB)+RETURN_LINE+_cont.joinPages());
     }
     static FctConstraints getDeclaredCustConstructor(ContextEl _conf, ClassArgumentMatching _class, ClassArgumentMatching..._args) {
@@ -530,7 +498,6 @@ public abstract class OperationNode implements SortedNode<OperationNode>, Operab
             throw new NoSuchDeclaredConstructorException(trace_+RETURN_LINE+_conf.joinPages());
         }
         ArgumentsGroup gr_ = new ArgumentsGroup(classes_, _args);
-        //        ParametersGroupComparator<ConstructorInfo> cmp_ = new ParametersGroupComparator<ConstructorInfo>(gr_);
         CustList<ConstructorInfo> signatures_ = new CustList<ConstructorInfo>();
         for (FctConstraints m: possibleMethods_) {
             ParametersGroup p_ = new ParametersGroup();
@@ -581,7 +548,6 @@ public abstract class OperationNode implements SortedNode<OperationNode>, Operab
             ClassMatching[] p_ = new ClassMatching[params_.length];
             int i_ = CustList.FIRST_INDEX;
             for (Class<?> c: params_) {
-                //                p_[i_] = new ClassMatching(c.getName());
                 p_[i_] = new ClassMatching(PrimitiveTypeUtil.getAliasArrayClass(c));
                 i_++;
             }
@@ -754,7 +720,6 @@ public abstract class OperationNode implements SortedNode<OperationNode>, Operab
             return res_;
         }
         ArgumentsGroup gr_ = new ArgumentsGroup(classes_, _argsClass);
-        //        ParametersGroupComparator<MethodInfo> cmp_ = new ParametersGroupComparator<MethodInfo>(gr_);
         CustList<MethodInfo> signatures_ = new CustList<MethodInfo>();
         for (FctConstraints m: possibleMethods_) {
             ParametersGroup p_ = new ParametersGroup();
@@ -822,7 +787,6 @@ public abstract class OperationNode implements SortedNode<OperationNode>, Operab
                 ClassMatching[] p_ = new ClassMatching[params_.length];
                 int i_ = CustList.FIRST_INDEX;
                 for (Class<?> c: params_) {
-                    //                    p_[i_] = new ClassMatching(c.getName());
                     p_[i_] = new ClassMatching(PrimitiveTypeUtil.getAliasArrayClass(c));
                     i_++;
                 }
@@ -843,7 +807,6 @@ public abstract class OperationNode implements SortedNode<OperationNode>, Operab
                     return possibleMethods_.first();
                 }
                 ArgumentsGroup gr_ = new ArgumentsGroup(_cont.getClasses(), _argsClass);
-                //                ParametersGroupComparator<MethodInfo> cmp_ = new ParametersGroupComparator<MethodInfo>(gr_);
                 CustList<MethodInfo> signatures_ = new CustList<MethodInfo>();
                 for (Method m: possibleMethods_) {
                     ParametersGroup p_ = new ParametersGroup();
@@ -867,13 +830,6 @@ public abstract class OperationNode implements SortedNode<OperationNode>, Operab
                 }
                 throw new AmbiguousChoiceCallingException(errors_.join(RETURN_LINE)+RETURN_LINE+_cont.joinPages());
             }
-            //            Method method_ = class_.getDeclaredMethod(_name, getClasses(_argsClass));
-            //            return method_;
-            //            try {} catch (NoSuchMethodException _0) {
-            //                if (class_.getSuperclass() == Object.class) {
-            //                    addToTrace_ = true;
-            //                }
-            //            }
             if (addToTrace_) {
                 String trace_ = _class.getName()+DOT+_name+PAR_LEFT;
                 StringList classes_ = new StringList();
@@ -916,40 +872,6 @@ public abstract class OperationNode implements SortedNode<OperationNode>, Operab
         }
         return !skip_;
     }
-    //    Argument getConstructorThenInvoke(ContextEl _conf, int _offsetIncr, Class<?> _class, Argument... _args) {
-    //        Constructor m_;
-    //        try {
-    //            m_ = _class.getDeclaredConstructor(getClasses(_args));
-    //        } catch (NoSuchMethodException _0) {
-    //            _conf.getLastPage().addToOffset(_offsetIncr);
-    //            throw new NoSuchDeclaredConstructorException(_0.getMessage()+RETURN_LINE+_conf.joinPages());
-    //        }
-    //        setAccess(m_);
-    //        try {
-    //            Argument a_ = new Argument();
-    //            a_.setObject(m_.newInstance(getObjects(_args)));
-    //            a_.setArgClass(a_.getObject().getClass());
-    //            return a_;
-    //        } catch (InstantiationException _0) {
-    //            _conf.getLastPage().addToOffset(_offsetIncr);
-    //            throw new RuntimeInstantiationException(_0, m_.toString()+RETURN_LINE+_conf.joinPages());
-    //        } catch (IllegalAccessException _0) {
-    //            _conf.getLastPage().addToOffset(_offsetIncr);
-    //            throw new BadAccessException(_0, m_.toString()+RETURN_LINE+_conf.joinPages());
-    //        } catch (IllegalArgumentException _0) {
-    //            _conf.getLastPage().addToOffset(_offsetIncr);
-    //            throw new DynamicCastClassException(_class.getName()+RETURN_LINE+_conf.joinPages());
-    //        } catch (InvocationTargetException _0) {
-    //            _conf.getLastPage().addToOffset(_offsetIncr);
-    //            throw new InvokeException(_conf.joinPages(), _0.getTargetException());
-    //        } catch (VirtualMachineError _0) {
-    //            _conf.getLastPage().addToOffset(_offsetIncr);
-    //            throw new ErrorCausingException(_conf.joinPages(), _0);
-    //        } catch (ExceptionInInitializerError _0) {
-    //            _conf.getLastPage().addToOffset(_offsetIncr);
-    //            throw new ErrorCausingException(_conf.joinPages(), _0);
-    //        }
-    //    }
     static Argument newInstance(ContextEl _conf, Argument _need, int _offsetIncr, Constructor<?> _const, Argument... _args) {
         try {
             Struct[] args_ = getObjects(_args);
@@ -961,45 +883,21 @@ public abstract class OperationNode implements SortedNode<OperationNode>, Operab
             } else {
                 a_.setStruct(new Struct(o_));
             }
-            //            a_.setArgClassName(a_.getObject().getClass().getName());
             return a_;
         } catch (InstantiationException _0) {
-            //            _conf.getLastPage().addToOffset(_offsetIncr);
             throw new RuntimeInstantiationException(_0, _const.toString()+RETURN_LINE+_conf.joinPages());
         } catch (IllegalAccessException _0) {
-            //            _conf.getLastPage().addToOffset(_offsetIncr);
             throw new BadAccessException(_0, _const.toString()+RETURN_LINE+_conf.joinPages());
         } catch (IllegalArgumentException _0) {
-            //            _conf.getLastPage().addToOffset(_offsetIncr);
             throw new DynamicCastClassException(_const.getDeclaringClass().getName()+RETURN_LINE+_conf.joinPages());
         } catch (InvocationTargetException _0) {
-            //            _conf.getLastPage().addToOffset(_offsetIncr);
             throw new InvokeException(_conf.joinPages(), new Struct(_0.getTargetException()));
         } catch (VirtualMachineError _0) {
-            //            _conf.getLastPage().addToOffset(_offsetIncr);
             throw new ErrorCausingException(_conf.joinPages(), new Struct(_0));
         } catch (ExceptionInInitializerError _0) {
-            //            _conf.getLastPage().addToOffset(_offsetIncr);
             throw new ErrorCausingException(_conf.joinPages(), new Struct(_0));
         }
     }
-    //    Argument getMethodThenInvoke(ContextEl _conf, int _offsetIncr, Object _instance, Class<?> _class,String _name, Argument... _args) {
-    //        Method m_;
-    //        try {
-    //            m_ = SerializeXmlObject.getDeclaredMethod(_class, _name, getClasses(_args));
-    //        } catch (NoSuchDeclaredMethodException _0) {
-    //            //            if (!_useNode) {
-    //            //                throw _0;
-    //            //            }
-    //            _conf.getLastPage().addToOffset(_offsetIncr);
-    //            throw new NoSuchDeclaredMethodException(_0.getMessage()+RETURN_LINE+_conf.joinPages());
-    //        }
-    //        setAccess(m_);
-    //        Argument a_ = new Argument();
-    //        a_.setArgClass(m_.getReturnType());
-    //        a_.setObject(invokeMethod(_conf, _offsetIncr, _class, m_, _instance, getObjects(_args)));
-    //        return a_;
-    //    }
 
     static Struct invokeMethod(ContextEl _cont,int _offsetIncr, String _className, Method _method, Object _instance, Struct... _args) {
         try {
@@ -1013,32 +911,14 @@ public abstract class OperationNode implements SortedNode<OperationNode>, Operab
             }
             return new Struct(o_);
         } catch (IllegalAccessException _0) {
-            //            if (!_useNode) {
-                //                throw new BadAccessException(_0, _method.toString());
-            //            }
-            //            conf.getLastPage().addToOffset(_offsetIncr);
             throw new BadAccessException(_0, _method.toString()+RETURN_LINE+_cont.joinPages());
         } catch (IllegalArgumentException _0) {
-            //            if (!_useNode) {
-            //                throw new ClassCastException(_instance.getClass().getName()+SPACE+_class.getName());
-            //            }
-            //            conf.getLastPage().addToOffset(_offsetIncr);
-            //            System.out.println(_method);
-            //            System.out.println(_args.length);
-            //            System.out.println(_args[1].getClass());
-            //            System.err.println(_method);
             throw new DynamicCastClassException(_instance.getClass().getName()+SPACE+_className+RETURN_LINE+_cont.joinPages());
         } catch (InvocationTargetException _0) {
-            //            if (!_useNode) {
-            //                throw new InvokeException(_0.getTargetException());
-            //            }
-            //            conf.getLastPage().addToOffset(_offsetIncr);
             throw new InvokeException(_cont.joinPages(), new Struct(_0.getTargetException()));
         } catch (VirtualMachineError _0) {
-            //            conf.getLastPage().addToOffset(_offsetIncr);
             throw new ErrorCausingException(_cont.joinPages(), new Struct(_0));
         } catch (ExceptionInInitializerError _0) {
-            //            conf.getLastPage().addToOffset(_offsetIncr);
             throw new ErrorCausingException(_cont.joinPages(), new Struct(_0));
         }
     }
@@ -1098,28 +978,11 @@ public abstract class OperationNode implements SortedNode<OperationNode>, Operab
         }
         return args_;
     }
-    //    static Class<?>[] getClasses(Argument... _args) {
-        //        int len_ = _args.length;
-        //        Class<?>[] classes_ = new Class<?>[len_];
-        //        for (int i = CustList.FIRST_INDEX; i < len_; i++) {
-            //            classes_[i] = _args[i].getArgClass();
-            //        }
-        //        return classes_;
-        //    }
-    //    static Class<?>[] getClasses(ClassMatching... _args) {
-    //        int len_ = _args.length;
-    //        Class<?>[] classes_ = new Class<?>[len_];
-    //        for (int i = CustList.FIRST_INDEX; i < len_; i++) {
-    //            classes_[i] = _args[i].getClazz();
-    //        }
-    //        return classes_;
-    //    }
 
     static Struct[] getObjects(Argument... _args) {
         int len_ = _args.length;
         Struct[] classes_ = new Struct[len_];
         for (int i = CustList.FIRST_INDEX; i < len_; i++) {
-            //            _expected.get(i);
             classes_[i] = _args[i].getStruct();
         }
         return classes_;
@@ -1138,19 +1001,7 @@ public abstract class OperationNode implements SortedNode<OperationNode>, Operab
         if (!(o_ instanceof Boolean)) {
             return;
         }
-        //        String className_ = _arg.getArgClassName();
-        //        if (!StringList.quickEq(className_, PrimitiveTypeUtil.PRIM_BOOLEAN)) {
-        //            if (!StringList.quickEq(className_, Boolean.class.getName())) {
-        //                return;
-        //            }
-        //        }
         Boolean b_ = (Boolean) o_;
-        //        if (par_ instanceof QuickOperation) {
-        //            if (b_ == null) {
-        //                setRelativeOffsetPossibleLastPage(getIndexInEl(), _cont);
-        //                throw new NullObjectException(_cont.joinPages());
-        //            }
-        //        }
         boolean ternaryParent_ = false;
         if (par_ instanceof FctOperation) {
             FctOperation op_ = (FctOperation) par_;
@@ -1194,25 +1045,6 @@ public abstract class OperationNode implements SortedNode<OperationNode>, Operab
                 }
             }
         }
-        //        if (par_ instanceof OrOperation && b_) {
-            //            CustList<OperationNode> opers_ = new CustList<OperationNode>();
-            //            for (SortedNode s: TreeRetrieving.getDirectChildren(par_)) {
-                //                opers_.add((OperationNode) s);
-                //            }
-            //            int len_ = opers_.size();
-            //            for (int i = getIndexChild() + 1; i < len_; i++) {
-                //                opers_.get(i).setSimpleArgument(_arg);
-        //            }
-        //        } else if (par_ instanceof AndOperation && !b_) {
-        //            CustList<OperationNode> opers_ = new CustList<OperationNode>();
-        //            for (SortedNode s: TreeRetrieving.getDirectChildren(par_)) {
-        //                opers_.add((OperationNode) s);
-        //            }
-        //            int len_ = opers_.size();
-        //            for (int i = getIndexChild() + 1; i < len_; i++) {
-        //                opers_.get(i).setSimpleArgument(_arg);
-        //            }
-        //        }
     }
 
     final void setNextSiblingsArg(Argument _arg, ContextEl _cont, IdMap<OperationNode, ArgumentsPair> _nodes) {
@@ -1228,20 +1060,7 @@ public abstract class OperationNode implements SortedNode<OperationNode>, Operab
         if (!(o_ instanceof Boolean)) {
             return;
         }
-        //        String className_ = _arg.getArgClassName();
-        //        if (!StringList.quickEq(className_, PrimitiveTypeUtil.PRIM_BOOLEAN)) {
-        //            if (!StringList.quickEq(className_, Boolean.class.getName())) {
-        //                return;
-        //            }
-        //        }
         Boolean b_ = (Boolean) o_;
-        //        MethodOperation par_ = getParent();
-        //        if (par_ instanceof QuickOperation) {
-        //            if (b_ == null) {
-        //                setRelativeOffsetPossibleLastPage(getIndexInEl(), _cont);
-        //                throw new NullObjectException(_cont.joinPages());
-        //            }
-        //        }
         boolean ternaryParent_ = false;
         if (par_ instanceof FctOperation) {
             FctOperation op_ = (FctOperation) par_;
@@ -1285,25 +1104,6 @@ public abstract class OperationNode implements SortedNode<OperationNode>, Operab
                 }
             }
         }
-        //        if (par_ instanceof OrOperation && b_) {
-            //            CustList<OperationNode> opers_ = new CustList<OperationNode>();
-            //            for (SortedNode s: TreeRetrieving.getDirectChildren(par_)) {
-                //                opers_.add((OperationNode) s);
-                //            }
-            //            int len_ = opers_.size();
-            //            for (int i = getIndexChild() + 1; i < len_; i++) {
-                //                _nodes.getVal(opers_.get(i)).setArgument(_arg);
-        //            }
-        //        } else if (par_ instanceof AndOperation && !b_) {
-        //            CustList<OperationNode> opers_ = new CustList<OperationNode>();
-        //            for (SortedNode s: TreeRetrieving.getDirectChildren(par_)) {
-        //                opers_.add((OperationNode) s);
-        //            }
-        //            int len_ = opers_.size();
-        //            for (int i = getIndexChild() + 1; i < len_; i++) {
-        //                _nodes.getVal(opers_.get(i)).setArgument(_arg);
-        //            }
-        //        }
     }
 
     @Override
@@ -1330,10 +1130,6 @@ public abstract class OperationNode implements SortedNode<OperationNode>, Operab
     public final ContextEl getConf() {
         return conf;
     }
-
-    //    public ImportingPage getImportingPage() {
-        //        return importingPage;
-    //    }
 
     public final boolean isVararg() {
         return vararg;
@@ -1424,7 +1220,6 @@ public abstract class OperationNode implements SortedNode<OperationNode>, Operab
 
     //TODO look for uses of following method
     public final void setSimpleArgument(Argument _argument, ContextEl _conf, IdMap<OperationNode, ArgumentsPair> _nodes) {
-        //        argument = _argument;
         OperationNode n_ = getNextSibling();
         if (n_ != null) {
             if (getParent() instanceof DotOperation) {
@@ -1452,15 +1247,6 @@ public abstract class OperationNode implements SortedNode<OperationNode>, Operab
         }
         setNextSiblingsArg(_argument, _conf);
     }
-
-    //    public final void setSimpleArgument(Argument _argument, boolean _calculateLater) {
-    //        argument = _argument;
-    //        calculatedLater = _calculateLater;
-    //        OperationNode n_ = getNextSibling();
-    //        if (n_ != null && getParent() instanceof DotOperation) {
-    //            n_.setPreviousArgument(_argument);
-    //        }
-    //    }
 
     public final ClassArgumentMatching getPreviousResultClass() {
         return previousResultClass;
@@ -1520,12 +1306,4 @@ public abstract class OperationNode implements SortedNode<OperationNode>, Operab
     public final void setNeedPrevious(boolean _needPrevious) {
         needPrevious = _needPrevious;
     }
-
-    //    public boolean isCalulated() {
-        //        return calulated;
-        //    }
-    //
-    //    public void setCalulated(boolean _calulated) {
-        //        calulated = _calulated;
-        //    }
 }

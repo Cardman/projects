@@ -57,9 +57,7 @@ public final class CatchEval extends BracedStack implements Eval, IncrCurrentGro
         }
         if (!existTry_) {
             PageEl page_ = _cont.getLastPage();
-//            page_.setProcessingNode(getAssociateElement());
             page_.setProcessingAttribute(EMPTY_STRING);
-//            page_.setLookForAttrValue(false);
             page_.setOffset(0);
             throw new BadTryException(_cont.joinPages());
         }
@@ -68,21 +66,13 @@ public final class CatchEval extends BracedStack implements Eval, IncrCurrentGro
     @Override
     public void buildExpressionLanguage(ContextEl _cont) {
         PageEl page_ = _cont.getLastPage();
-//        page_.setProcessingNode(getAssociateElement());
         page_.setProcessingAttribute(ATTRIBUTE_CLASS);
-//        page_.setLookForAttrValue(true);
         page_.setOffset(0);
-//        try {
-//            ConstClasses.classForNameNotInit(className);
-//        } catch (RuntimeClassNotFoundException _0) {
-//            throw new RuntimeClassNotFoundException(_cont.joinPages());
-//        }
         String param_ = Throwable.class.getName();
         if (!PrimitiveTypeUtil.isAssignableFrom(param_, className, _cont.getClasses())) {
             throw new BadCatchException(_cont.joinPages());
         }
         page_.setProcessingAttribute(ATTRIBUTE_VAR);
-//        page_.setLookForAttrValue(true);
         page_.setOffset(0);
         if (_cont.getLastPage().getCatchVars().contains(variableName)) {
             throw new AlreadyDefinedVarException(variableName+RETURN_LINE+_cont.joinPages());
@@ -93,7 +83,6 @@ public final class CatchEval extends BracedStack implements Eval, IncrCurrentGro
         LocalVariable lv_ = new LocalVariable();
         lv_.setClassName(className);
         _cont.getLastPage().getCatchVars().put(variableName, lv_);
-//        removeLocalVariablesFromParent();
     }
 
     @Override
@@ -126,10 +115,7 @@ public final class CatchEval extends BracedStack implements Eval, IncrCurrentGro
         ReadWrite rw_ = ip_.getReadWrite();
         TryBlockStack ts_ = (TryBlockStack) ip_.getLastStack();
         ts_.setThrownException(null);
-//        List<BlockStack> l_ = ip_.getBlockStacks();
-//        TryBlockStack ts_ = (TryBlockStack) l_.last();
         if (ts_.getLastCatchBlock() == this) {
-//            l_.removeLast();
             ip_.removeLastBlock();
             processBlock(_cont);
         } else {

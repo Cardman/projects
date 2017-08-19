@@ -39,8 +39,6 @@ public final class LoopVariable {
 
     private ListableEntries<?, ?> map;
 
-//    private String baseExpression;
-
     private String extendedExpression;
 
     private String className = Object.class.getName();
@@ -171,7 +169,6 @@ public final class LoopVariable {
         return list;
     }
 
-//    public void setList(Iterable<?> _list)
     public void setList(Listable<?> _list) {
         list = _list;
     }
@@ -183,14 +180,6 @@ public final class LoopVariable {
     public void setMap(ListableEntries<?, ?> _mapCast) {
         map = _mapCast;
     }
-
-//    public String getBaseExpression() {
-//        return baseExpression;
-//    }
-
-//    public void setBaseExpression(String _baseExpression) {
-//        baseExpression = _baseExpression;
-//    }
 
     public String getExtendedExpression() {
         return extendedExpression;
@@ -208,7 +197,6 @@ public final class LoopVariable {
         if (_className.isEmpty()) {
             return;
         }
-//        ConstClasses.classForName(_className);
         className = _className;
     }
 
@@ -220,7 +208,6 @@ public final class LoopVariable {
         if (_indexClassName.isEmpty()) {
             return;
         }
-//        ConstClasses.classForName(_className);
         indexClassName = _indexClassName;
     }
 }

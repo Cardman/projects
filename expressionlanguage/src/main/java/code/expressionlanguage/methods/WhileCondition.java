@@ -25,27 +25,12 @@ public final class WhileCondition extends Condition implements Loop, IncrNextGro
     @Override
     public void checkBlocksTree(ContextEl _cont) {
         PageEl page_ = _cont.getLastPage();
-//        page_.setProcessingNode(getAssociateElement());
         page_.setProcessingAttribute(EMPTY_STRING);
-//        page_.setLookForAttrValue(false);
         page_.setOffset(0);
         if (getFirstChild() == null && !(getPreviousSibling() instanceof DoBlock)) {
             throw new BadLoopException(_cont.joinPages());
         }
     }
-
-//    @Override
-//    public void buildExpressionLanguage(ContextEl _cont) {
-//        PageEl page_ = _cont.getLastPage();
-//        page_.setProcessingNode(getAssociateElement());
-//        page_.setProcessingAttribute(EMPTY_STRING);
-//        page_.setLookForAttrValue(false);
-//        page_.setOffset(0);
-//        if (getFirstChild() == null && !(getPreviousSibling() instanceof DoBlock)) {
-//            throw new BadLoopException(_cont.joinPages(RETURN_LINE));
-//        }
-//        super.buildExpressionLanguage(_cont);
-//    }
 
     @Override
     boolean canBeIncrementedNextGroup() {
@@ -77,12 +62,10 @@ public final class WhileCondition extends Condition implements Loop, IncrNextGro
         }
         if (c_ != null && c_.getBlock() == this) {
             if (c_.isEvaluatingKeepLoop()) {
-//                ProcessXmlMethod.processLastElementLoop(_cont, ip_);
                 processLastElementLoop(_cont);
                 return;
             }
             if (c_.isFinished()) {
-//                ProcessXmlMethod.removeVarAndLoop(_cont, c_.getBlock(), ip_.getVars());
                 removeVarAndLoop(ip_);
                 processBlock(_cont);
                 return;
@@ -90,24 +73,13 @@ public final class WhileCondition extends Condition implements Loop, IncrNextGro
             rw_.setBlock(getFirstChild());
             return;
         }
-//        if (getFirstChild() == null) {
-//            while (evaluateCondition(_cont)) {
-//                continue;
-//            }
-//            processBlock(_cont, ip_);
-//            return;
-//        }
         boolean res_ = evaluateCondition(_cont);
         LoopBlockStack l_ = new LoopBlockStack();
         l_.setBlock(this);
         l_.setFinished(!res_);
-//        _ip.getBlockStacks().add(l_);
         ip_.addBlock(l_);
-//        ProcessXmlMethod.processWhile(_cont, ip_);
-//        c_ = (LoopBlockStack) st_.last();
         c_ = (LoopBlockStack) ip_.getLastStack();
         if (c_.isFinished()) {
-//            st_.removeLast();
             ip_.removeLastBlock();
             processBlock(_cont);
             return;
@@ -117,8 +89,6 @@ public final class WhileCondition extends Condition implements Loop, IncrNextGro
 
     @Override
     public void exitStack(ContextEl _context) {
-//        PageEl ip_ = _context.getLastPage();
-//        ProcessXmlMethod.processLastElementLoop(_context, ip_);
         processLastElementLoop(_context);
     }
 

@@ -40,13 +40,10 @@ public final class BreakBlock extends Leaf implements CallingFinally {
         }
         if (!childOfBreakable_) {
             PageEl page_ = _cont.getLastPage();
-//            page_.setProcessingNode(getAssociateElement());
             page_.setProcessingAttribute(EMPTY_STRING);
-//            page_.setLookForAttrValue(false);
             page_.setOffset(0);
             throw new BadTagBreakException(_cont.joinPages());
         }
-//        removeLocalVariablesFromParent();
     }
 
     @Override
@@ -69,54 +66,18 @@ public final class BreakBlock extends Leaf implements CallingFinally {
         ReadWrite rw_ = ip_.getReadWrite();
         BreakableBlockStack stack_ = null;
         while (true) {
-//            BlockStack blStack_ = l_.last();
             RemovableVars blStack_ = ip_.getLastStack();
             if (blStack_ instanceof BreakableBlockStack) {
                 stack_ = (BreakableBlockStack) blStack_;
-//                ProcessXmlMethod.removeLocalVars(ip_, blStack_.getBlock());
                 blStack_.getBlock().removeLocalVars(ip_);
                 break;
             }
-//            if (blStack_ instanceof TryBlockStack) {
-//                TryBlockStack tryStack_ = (TryBlockStack) blStack_;
-//                int index_ = tryStack_.getVisitedCatch();
-//                if (index_ >= List.FIRST_INDEX) {
-//                    BracedBlock catchBlock_ = tryStack_.getCatchBlocks().get(index_);
-//                    if (catchBlock_ instanceof CatchEval) {
-//                        String var_ = ((CatchEval)catchBlock_).getVariableName();
-//                        ip_.getCatchVars().removeKey(var_);
-//                    }
-////                    ProcessXmlMethod.removeLocalVars(ip_, catchBlock_);
-//                    catchBlock_.removeLocalVars(ip_);
-//                } else {
-////                    ProcessXmlMethod.removeLocalVars(ip_, tryStack_.getBlock());
-//                    tryStack_.getBlock().removeLocalVars(ip_);
-//                }
-//                ip_.removeLastBlock();
-//            }
             ip_.setFinallyToProcess(false);
             blStack_.removeVarAndLoop(ip_);
             if (ip_.isFinallyToProcess()) {
-//                ip_.setReturning(this);
                 ((TryBlockStack)blStack_).setCalling(this);
                 return;
             }
-//            if (blStack_ instanceof RemovableVars) {
-//                ((RemovableVars)blStack_).removeVarAndLoop(ip_);
-//            }
-//            if (blStack_ instanceof IfBlockStack) {
-//                IfBlockStack t_ = (IfBlockStack) blStack_;
-//                BracedBlock cur_ = t_.getCurentVisitedBlock();
-////                ProcessXmlMethod.removeLocalVars(ip_, cur_);
-//                cur_.removeLocalVars(ip_);
-//            }
-////            if (blStack_ instanceof SwitchBlockStack) {
-////                SwitchBlockStack t_ = (SwitchBlockStack) blStack_;
-////                Block cur_ = t_.getCurentVisitedBlock();
-////                removeLocalVars(ip_, cur_);
-////            }
-////            l_.removeLast();
-//            ip_.removeLastBlock();
         }
         Block forLoopLoc_ = stack_.getBlock();
         rw_.setBlock(forLoopLoc_);
@@ -143,7 +104,6 @@ public final class BreakBlock extends Leaf implements CallingFinally {
             }
         }
         if (stack_ != null) {
-//            ip_.setReturning(null);
             Block forLoopLoc_ = stack_.getBlock();
             rw_.setBlock(forLoopLoc_);
             stack_.setFinished(true);

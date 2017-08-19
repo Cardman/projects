@@ -28,8 +28,6 @@ public final class Affectation extends Leaf implements StackableBlock {
 
     private CustList<OperationNode> opRight;
 
-//    private ExpressionLanguage rightEl;
-
     Affectation(Element _el, ContextEl _importingPage, int _indexChild,
             BracedBlock _m) {
         super(_el, _importingPage, _indexChild, _m);
@@ -56,19 +54,11 @@ public final class Affectation extends Leaf implements StackableBlock {
         return tr_;
     }
 
-//    public ExpLanguages getEls(ContextEl _cont) {
-//        return ElUtil.analyzeAffect(leftMember, rightMember, oper, _cont, true);
-//    }
-
     public ExpressionLanguage getLeftEl() {
-//        ExpLanguages e_ = ElUtil.analyzeAffect(leftMember, rightMember, oper, _cont, true);
-//        return e_.getLeft();
         return new ExpressionLanguage(opLeft);
     }
 
     public ExpressionLanguage getRightEl() {
-//        ExpLanguages e_ = ElUtil.analyzeAffect(leftMember, rightMember, oper, _cont, true);
-//        return e_.getRight();
         return new ExpressionLanguage(opRight);
     }
 
@@ -83,7 +73,6 @@ public final class Affectation extends Leaf implements StackableBlock {
         opRight = rightEl_.getOperations();
         ClassArgumentMatching clMatchRight_ = rightEl_.getClassArgumentMatching();
         PageEl page_ = _cont.getLastPage();
-//        page_.setLookForAttrValue(true);
         page_.setOffset(0);
         page_.setProcessingAttribute(ATTRIBUTE_OPER);
         if (oper.length() == 2) {
@@ -111,7 +100,6 @@ public final class Affectation extends Leaf implements StackableBlock {
                 throw new DynamicCastClassException(_cont.joinPages());
             }
         }
-//        removeLocalVariablesFromParent();
     }
 
     @Override
@@ -122,9 +110,7 @@ public final class Affectation extends Leaf implements StackableBlock {
     @Override
     public void checkCallConstructor(ContextEl _cont) {
         PageEl p_ = _cont.getLastPage();
-//        p_.setProcessingNode(getAssociateElement());
         p_.setProcessingAttribute(ATTRIBUTE_LEFT);
-//        p_.setLookForAttrValue(true);
         for (OperationNode o: opLeft) {
             if (o.isSuperThis()) {
                 int off_ = o.getFullIndexInEl();
@@ -151,10 +137,8 @@ public final class Affectation extends Leaf implements StackableBlock {
     public void processEl(ContextEl _cont) {
         PageEl ip_ = _cont.getLastPage();
         ip_.setProcessingAttribute(ATTRIBUTE_LEFT);
-//        ip_.setLookForAttrValue(true);
         ip_.setOffset(0);
         String op_ = getOper();
-//        ExpLanguages e_ = a_.getEls(_conf);
         ExpressionLanguage el_;
         if (!ip_.getCurrentEls().isEmpty()) {
             el_ = ip_.getCurrentEls().first();
@@ -165,7 +149,6 @@ public final class Affectation extends Leaf implements StackableBlock {
         }
         el_.affectLeftMember(_cont, op_);
         ip_.setProcessingAttribute(ATTRIBUTE_RIGHT);
-//        ip_.setLookForAttrValue(true);
         ip_.setOffset(0);
         if (ip_.getCurrentEls().size() > 1) {
             el_ = ip_.getCurrentEls().last();
@@ -174,17 +157,11 @@ public final class Affectation extends Leaf implements StackableBlock {
             ip_.getCurrentEls().add(el_);
         }
         el_.affectRightMember(_cont, op_);
-//        System.out.println(ip_.getRightArgument().getStruct().getInstance());
         ip_.setProcessingAttribute(ATTRIBUTE_LEFT);
-//        ip_.setLookForAttrValue(true);
         ip_.setOffset(0);
         ip_.getCurrentEls().first().affectAllMember(_cont, op_);
-//        ExpressionLanguage el_ = e_.getLeft();
-//        ip_.setCurrentEl(el_);
-//        el_.affectMember(_conf, e_.getRight(), op_);
         el_.setCurrentOper(null);
         ip_.getCurrentEls().clear();
-//        System.out.println("AFFECT");
         processBlock(_cont);
     }
 }

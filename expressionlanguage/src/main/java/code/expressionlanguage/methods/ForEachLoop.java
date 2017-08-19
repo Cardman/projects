@@ -35,7 +35,6 @@ public final class ForEachLoop extends BracedStack implements ForLoop {
     private final String expression;
 
     private CustList<OperationNode> opList;
-//    private ExpressionLanguage el;
 
     public ForEachLoop(Element _el, ContextEl _importingPage, int _indexChild,
             BracedBlock _m) {
@@ -79,7 +78,6 @@ public final class ForEachLoop extends BracedStack implements ForLoop {
     }
 
     public ExpressionLanguage getEl() {
-//        return new ExpressionLanguage(expression, _cont, true, new Calculation(StepCalculation.RIGHT));
         return new ExpressionLanguage(opList);
     }
 
@@ -90,43 +88,27 @@ public final class ForEachLoop extends BracedStack implements ForLoop {
     @Override
     public void buildExpressionLanguage(ContextEl _cont) {
         FunctionBlock f_ = getFunction();
-//        Class<?> n_ = ConstClasses.classForNameNotInit(classIndexName);
-//        if (PrimitiveTypeUtil.toPrimitive(n_, false) == null) {
-//            throw new DynamicCastClassException(classIndexName+RETURN_LINE+_cont.joinPages());
-//        }
         if (!PrimitiveTypeUtil.isPrimitiveOrWrapper(classIndexName)) {
             throw new DynamicCastClassException(classIndexName+RETURN_LINE+_cont.joinPages());
         }
-//        ConstClasses.classForNameNotInit(className);
         if (_cont.getLastPage().getVars().contains(variableName)) {
             throw new AlreadyDefinedVarException(variableName+RETURN_LINE+_cont.joinPages());
         }
         PageEl page_ = _cont.getLastPage();
-//        page_.setProcessingNode(getAssociateElement());
         page_.setProcessingAttribute(ATTRIBUTE_EXPRESSION);
-//        page_.setLookForAttrValue(true);
         page_.setOffset(0);
-//        opList = ElUtil.getAnalyzedOperations(expression, _cont, f_.isStaticContext());
         opList = ElUtil.getAnalyzedOperations(expression, _cont, Calculation.staticCalculation(f_.isStaticContext()));
         OperationNode el_ = opList.last();
         Classes classes_ = _cont.getClasses();
-        //new ExpressionLanguage(expression, _cont, true, new Calculation(StepCalculation.RIGHT));
         if (!new ClassArgumentMatching(Iterable.class.getName()).isAssignableFrom(el_.getResultClass(), classes_)) {
             if (!el_.getResultClass().isArray()) {
                 String str_ = el_.getResultClass().getName();
                 throw new DynamicCastClassException(str_+RETURN_LINE+_cont.joinPages());
             }
         }
-//        if (!el_.getResultClass().isAssignableFrom(new ClassArgumentMatching(Iterable.class.getName()))) {
-//            if (!el_.getResultClass().isArray()) {
-//                String str_ = el_.getResultClass().getName();
-//                throw new DynamicCastClassException(str_+RETURN_LINE+_cont.joinPages());
-//            }
-//        }
         LoopVariable lv_ = new LoopVariable();
         lv_.setClassName(className);
         _cont.getLastPage().getVars().put(variableName, lv_);
-//        removeLocalVariablesFromParent();
     }
 
     @Override
@@ -147,9 +129,7 @@ public final class ForEachLoop extends BracedStack implements ForLoop {
     @Override
     public void checkCallConstructor(ContextEl _cont) {
         PageEl p_ = _cont.getLastPage();
-//        p_.setProcessingNode(getAssociateElement());
         p_.setProcessingAttribute(ATTRIBUTE_EXPRESSION);
-//        p_.setLookForAttrValue(true);
         for (OperationNode o: opList) {
             if (o.isSuperThis()) {
                 int off_ = o.getFullIndexInEl();
@@ -173,40 +153,30 @@ public final class ForEachLoop extends BracedStack implements ForLoop {
         }
         if (c_ != null && c_.getBlock() == this) {
             if (c_.isFinished()) {
-//                ProcessXmlMethod.removeVarAndLoop(_cont, c_.getBlock(), ip_.getVars());
                 removeVarAndLoop(ip_);
                 processBlock(_cont);
                 return;
             }
             ip_.getReadWrite().setBlock(getFirstChild());
-//            processAfterBlock(_cont, ip_);
             return;
         }
         processLoop(_cont);
-//        c_ = (LoopBlockStack) st_.last();
         c_ = (LoopBlockStack) ip_.getLastStack();
         if (c_.isFinished()) {
-//            st_.removeLast();
             ip_.removeLastBlock();
             processBlock(_cont);
             return;
         } else {
             ip_.getReadWrite().setBlock(getFirstChild());
-//            processAfterBlock(_cont, ip_);
             return;
         }
     }
 
     void processLoop(ContextEl _conf) {
         PageEl ip_ = _conf.getLastPage();
-//        ReadWrite rw_ = ip_.getReadWrite();
         StringMap<LoopVariable> varsLoop_ = ip_.getVars();
         Object iterable_ = null;
         String var_ = getVariableName();
-//        long nbMaxIterations_ = 0;
-//        long stepValue_ = 0;
-//        long fromValue_ = 0;
-//        Object realFromValue_ = 0;
 
         ip_.setProcessingAttribute(ATTRIBUTE_EXPRESSION);
         ip_.setOffset(0);
@@ -266,7 +236,6 @@ public final class ForEachLoop extends BracedStack implements ForLoop {
         if (iterable_.getClass().isArray()) {
             lv_.setArray(iterable_);
         } else {
-//            lv_.setList((Iterable<?>)iterable_);
             lv_.setList((Listable<?>)iterable_);
         }
         lv_.setExtendedExpression(EMPTY_STRING);
@@ -275,8 +244,6 @@ public final class ForEachLoop extends BracedStack implements ForLoop {
 
     @Override
     public void exitStack(ContextEl _context) {
-//        PageEl ip_ = _context.getLastPage();
-//        ProcessXmlMethod.processLastElementLoop(_context, ip_);
         processLastElementLoop(_context);
     }
 
@@ -309,9 +276,7 @@ public final class ForEachLoop extends BracedStack implements ForLoop {
             StringMap<LoopVariable> _vars) {
         _l.setIndex(_l.getIndex() + 1);
 
-//        _conf.getLastPage().setProcessingNode(forLoopLoc_.getAssociateElement());
         _conf.getLastPage().setProcessingAttribute(ATTRIBUTE_VAR);
-//        _conf.getLastPage().setLookForAttrValue(false);
         _conf.getLastPage().setOffset(0);
         String var_ = getVariableName();
         LoopVariable lv_ = _vars.getVal(var_);

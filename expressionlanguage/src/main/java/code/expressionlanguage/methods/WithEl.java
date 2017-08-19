@@ -10,7 +10,6 @@ public interface WithEl {
 
     void checkCallConstructor(ContextEl _cont);
 
-//    void processEl(ContextEl _cont, int _bkSize);
     void processEl(ContextEl _cont);
 
     RowCol getRowCol(int _offset, int _tabWidth,String _attribute);

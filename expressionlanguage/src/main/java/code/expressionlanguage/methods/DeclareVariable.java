@@ -42,26 +42,16 @@ public final class DeclareVariable extends Leaf implements InitVariable {
     @Override
     public void buildExpressionLanguage(ContextEl _cont) {
         PageEl page_ = _cont.getLastPage();
-//        page_.setProcessingNode(getAssociateElement());
         page_.setProcessingAttribute(ATTRIBUTE_CLASS);
-//        page_.setLookForAttrValue(true);
         page_.setOffset(0);
-//        try {
-//            ConstClasses.classForNameNotInit(className);
-//        } catch (RuntimeClassNotFoundException _0) {
-//            throw new RuntimeClassNotFoundException(_cont.joinPages());
-//        }
-//        ConstClasses.classForNameNotInit(className);
         if (_cont.getLastPage().getLocalVars().contains(variableName)) {
             page_.setProcessingAttribute(ATTRIBUTE_VAR);
-//            page_.setLookForAttrValue(true);
             page_.setOffset(0);
             throw new AlreadyDefinedVarException(variableName+RETURN_LINE+_cont.joinPages());
         }
         LocalVariable lv_ = new LocalVariable();
         lv_.setClassName(className);
         _cont.getLastPage().getLocalVars().put(variableName, lv_);
-//        removeLocalVariablesFromParent();
     }
 
     @Override

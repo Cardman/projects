@@ -25,7 +25,6 @@ public final class CaseCondition extends BracedStack implements StackableBlockGr
     private CustList<OperationNode> opValue;
     private boolean possibleSkipNexts;
 
-//    private ExpressionLanguage valueEl;
     public CaseCondition(Element _el, ContextEl _importingPage,
             int _indexChild, BracedBlock _m) {
         super(_el, _importingPage, _indexChild, _m);
@@ -43,7 +42,6 @@ public final class CaseCondition extends BracedStack implements StackableBlockGr
     }
 
     public ExpressionLanguage getValueEl() {
-//        return new ExpressionLanguage(value, _cont, true, new Calculation(StepCalculation.RIGHT));
         return new ExpressionLanguage(opValue);
     }
 
@@ -55,11 +53,9 @@ public final class CaseCondition extends BracedStack implements StackableBlockGr
     @Override
     public void checkBlocksTree(ContextEl _cont) {
         PageEl page_ = _cont.getLastPage();
-//        page_.setProcessingNode(getAssociateElement());
         BracedBlock b_ = getParent();
         if (!(b_ instanceof SwitchBlock)) {
             page_.setProcessingAttribute(EMPTY_STRING);
-//            page_.setLookForAttrValue(false);
             page_.setOffset(0);
             throw new BadCaseException(_cont.joinPages());
         }
@@ -77,24 +73,12 @@ public final class CaseCondition extends BracedStack implements StackableBlockGr
     public void buildExpressionLanguage(ContextEl _cont) {
         FunctionBlock f_ = getFunction();
         PageEl page_ = _cont.getLastPage();
-//        page_.setProcessingNode(getAssociateElement());
-//        BracedBlock b_ = getParent();
-//        if (!(b_ instanceof SwitchBlock)) {
-//            page_.setProcessingAttribute(EMPTY_STRING);
-//            page_.setLookForAttrValue(false);
-//            page_.setOffset(0);
-//            throw new BadCaseException(_cont.joinPages());
-//        }
         page_.setProcessingAttribute(ATTRIBUTE_VALUE);
-//        page_.setLookForAttrValue(true);
         page_.setOffset(0);
-//        opValue = ElUtil.getAnalyzedOperations(value, _cont, f_.isStaticContext());
         opValue = ElUtil.getAnalyzedOperations(value, _cont, Calculation.staticCalculation(f_.isStaticContext()));
         if (opValue.last().isVoidArg()) {
             throw new VoidArgumentException(_cont.joinPages());
         }
-//        valueEl = new ExpressionLanguage(value, _cont, true, new Calculation(StepCalculation.RIGHT));
-//        removeLocalVariablesFromParent();
     }
 
     @Override
@@ -115,9 +99,7 @@ public final class CaseCondition extends BracedStack implements StackableBlockGr
     @Override
     public void checkCallConstructor(ContextEl _cont) {
         PageEl p_ = _cont.getLastPage();
-//        p_.setProcessingNode(getAssociateElement());
         p_.setProcessingAttribute(ATTRIBUTE_VALUE);
-//        p_.setLookForAttrValue(true);
         for (OperationNode o: opValue) {
             if (o.isSuperThis()) {
                 int off_ = o.getFullIndexInEl();
@@ -164,7 +146,6 @@ public final class CaseCondition extends BracedStack implements StackableBlockGr
                 ip_.setCurrentBlock(this);
                 ip_.setCurrentEls(new CustList<ExpressionLanguage>(el_));
             }
-//            ExpressionLanguage el_ = ((CaseCondition)en_).getValueEl(_conf);
             Argument arg_ = el_.calculateMember(_cont);
             el_.setCurrentOper(null);
             ip_.getCurrentEls().clear();
@@ -230,7 +211,6 @@ public final class CaseCondition extends BracedStack implements StackableBlockGr
             if_.setFinished(true);
             rw_.setBlock(if_.getBlock());
         } else {
-//            if_.increment();
             rw_.setBlock(getNextSibling());
         }
     }

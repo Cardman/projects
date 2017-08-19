@@ -9,27 +9,7 @@ import code.xml.AttributePart;
 
 
 public final class MethodUtil {
-//    static final String EMPTY_STRING = "";
-//    static final String RETURN_LINE = "\n";
-//    static final String RETURN_TAB = "\n\t";
 
-//    static final String CLASS_NAME_ATTRIBUTE = ATTRIBUTE_CLASS_NAME;
-    //    static final String NULL_METHOD = String.valueOf((Object)null);
-//    static final String NULL_METHOD = "goto";
-//    static final String NULL_METHOD = "";
-//    static final String SPACE = " ";
-//    static final String VAR_METHOD = "varMethod";
-//    static final String BEAN_ATTRIBUTE = "bean";
-//    static final String ATTRIBUTE_VALUE_CHANGE_EVENT = "valueChangeEvent";
-//    static final String COMMA = ",";
-//    static final String DOT = ".";
-//    static final String GET_KEY = "!key";
-
-    //    private static final String ESCAPED_RIGHT_EL = "\\}";
-    //    private static final String ESCAPED_LEFT_EL = "\\{";
-    //    private static final String NEXT_FIELDS = "([^,\\}]+(,\\w+){0,2})";
-    //    private static final String FORMAT_VAR = "$1";
-    //    private static final String NEXT_ARG = "([^,]+),,";
     private static final String COMMENT = "!";
     private static final char GT_TAG = '>';
     private static final char LT_BEGIN_TAG = '<';
@@ -120,47 +100,4 @@ public final class MethodUtil {
         }
         return _html.indexOf(LT_BEGIN_TAG+COMMENT, _from);
     }
-//    static StringList checkForLoop(Configuration _conf, Element _node, String _html) {
-//        StringList vars_ = new StringList();
-//        _conf.getImporting().last().setProcessingAttribute(EMPTY_STRING);
-//        _conf.getImporting().last().setOffset(0);
-//        _conf.getImporting().last().setLookForAttrValue(false);
-//        if (_node.hasAttribute(ATTRIBUTE_LIST)) {
-//            String varName_ = _node.getAttribute(ATTRIBUTE_VAR);
-//            if (!StringList.isWord(varName_)) {
-//                throw new BadVariableNameException(varName_, _conf.getImporting().join(RETURN_LINE), ATTRIBUTE_VAR);
-//            }
-//            vars_.add(varName_);
-//            return vars_;
-//        }
-////        if (_node.hasAttribute(ATTRIBUTE_MAP)) {
-////            String key_ = _node.getAttribute(ATTRIBUTE_KEY);
-////            if (!StringList.isWord(key_)) {
-////                throw new BadVariableNameException(key_, _conf.getImporting().join(RETURN_LINE), ATTRIBUTE_KEY);
-////            }
-////            String value_ = _node.getAttribute(ATTRIBUTE_VALUE);
-////            if (!StringList.isWord(value_)) {
-////                throw new BadVariableNameException(value_, _conf.getImporting().join(RETURN_LINE), ATTRIBUTE_VALUE);
-////            }
-////            if (StringList.eq(key_,value_)) {
-////                throw new KeyValueException(key_, _conf.getImporting().join(RETURN_LINE));
-////            }
-////            vars_.add(key_);
-////            vars_.add(value_);
-////            return vars_;
-////        }
-//        if (_node.hasAttribute(ATTRIBUTE_FROM)) {
-//            if (_node.hasAttribute(ATTRIBUTE_TO)) {
-//                if (_node.hasAttribute(ATTRIBUTE_STEP)) {
-//                    String varName_ = _node.getAttribute(ATTRIBUTE_VAR);
-//                    if (!StringList.isWord(varName_)) {
-//                        throw new BadVariableNameException(varName_, _conf.getImporting().join(RETURN_LINE), ATTRIBUTE_VAR);
-//                    }
-//                    vars_.add(varName_);
-//                    return vars_;
-//                }
-//            }
-//        }
-//        throw new BadLoopException(_conf.getImporting().join(RETURN_LINE));
-//    }
 }

@@ -36,12 +36,6 @@ public final class OperationsSequence {
             values.put(CustList.FIRST_INDEX, _string);
             return;
         }
-//        if (operators.size() == 1 && operators.values().first().isEmpty() &&_opt) {
-//            operators.clear();
-//            values.put(CustList.FIRST_INDEX, _string);
-//            return;
-////            System.out.println(_string);
-//        }
         if (_unary) {
             int firstKey_ = operators.firstKey();
             String value_ = operators.getVal(firstKey_);
@@ -56,7 +50,6 @@ public final class OperationsSequence {
             if (!str_.trim().isEmpty()) {
                 values.put(beginValuePart_, str_);
             }
-//            values.put(beginValuePart_, _string.substring(beginValuePart_, endValuePart_));
         }
         int i_ = CustList.SECOND_INDEX;
         int nbKeys_ = operators.size();
@@ -90,8 +83,6 @@ public final class OperationsSequence {
             } else {
                 values.removeKey(e_.getKey());
             }
-//            e_.setValue(lastValue_.substring(0, ilast_));
-//            values.put(CustList.FIRST_INDEX, _string.substring(0, ilast_));
             return;
         }
     }

@@ -3,7 +3,6 @@ import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.OperationsSequence;
 import code.expressionlanguage.exceptions.BadNumberValuesException;
-import code.expressionlanguage.exceptions.SettingMemberException;
 import code.expressionlanguage.methods.util.ArgumentsPair;
 import code.util.CustList;
 import code.util.IdMap;
@@ -17,32 +16,8 @@ public final class IdOperation extends MethodOperation {
         super(_el, _index, _importingPage, _indexChild, _m, _op);
     }
 
-//    @Override
-//    public void analyze(CustList<OperationNode> _nodes, ContextEl _conf, Calculation _setting) {
-//        if (_setting.getStep() == StepCalculation.LEFT && getParent() == null) {
-//            setRelativeOffsetPossibleLastPage(getIndexInEl(), _conf);
-//            throw new SettingMemberException(_conf.joinPages());
-//        }
-//        CustList<OperationNode> chidren_ = getChildrenAmong(_nodes, true);
-//        if (chidren_.size() != 1) {
-//            setRelativeOffsetPossibleLastPage(getIndexInEl(), _conf);
-//            throw new BadNumberValuesException(_conf.joinPages());
-//        }
-//        setResultClass(chidren_.first().getResultClass());
-//    }
-
     @Override
-    public void analyzeLeft(CustList<OperationNode> _nodes, ContextEl _conf,
-            boolean _enumContext, String _op) {
-        if (getParent() == null) {
-            setRelativeOffsetPossibleLastPage(getIndexInEl(), _conf);
-            throw new SettingMemberException(_conf.joinPages());
-        }
-        analyzeCommon(_nodes, _conf, _op);
-    }
-
-    @Override
-    public void analyzeRight(CustList<OperationNode> _nodes, ContextEl _conf,
+    public void analyze(boolean _variable, CustList<OperationNode> _nodes, ContextEl _conf,
             boolean _enumContext, String _op) {
         analyzeCommon(_nodes, _conf, _op);
     }

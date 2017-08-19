@@ -4,7 +4,6 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.OperationsSequence;
 import code.expressionlanguage.PrimitiveTypeUtil;
 import code.expressionlanguage.exceptions.BadNumberValuesException;
-import code.expressionlanguage.exceptions.SettingMemberException;
 import code.expressionlanguage.methods.util.ArgumentsPair;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.util.CustList;
@@ -159,33 +158,8 @@ public final class EqOperation extends PrimitiveBoolOperation {
         return false;
     }
 
-//    @Override
-//    public void analyze(CustList<OperationNode> _nodes, ContextEl _conf, Calculation _setting) {
-//        if (_setting.getStep()  == StepCalculation.LEFT && getParent() == null) {
-//            setRelativeOffsetPossibleLastPage(getIndexInEl(), _conf);
-//            throw new SettingMemberException(_conf.joinPages());
-//        }
-//        CustList<OperationNode> chidren_ = getChildrenAmong(_nodes, true);
-//        if (chidren_.size() != 2) {
-//            setRelativeOffsetPossibleLastPage(getIndexInEl(), _conf);
-//            throw new BadNumberValuesException(_conf.joinPages());
-//        }
-//        setResultClass(new ClassArgumentMatching(PrimitiveTypeUtil.PRIM_BOOLEAN));
-//        return;
-//    }
-
     @Override
-    public void analyzeLeft(CustList<OperationNode> _nodes, ContextEl _conf,
-            boolean _enumContext, String _op) {
-        if (getParent() == null) {
-            setRelativeOffsetPossibleLastPage(getIndexInEl(), _conf);
-            throw new SettingMemberException(_conf.joinPages());
-        }
-        analyzeCommon(_nodes, _conf, _op);
-    }
-
-    @Override
-    public void analyzeRight(CustList<OperationNode> _nodes, ContextEl _conf,
+    public void analyze(boolean _variable, CustList<OperationNode> _nodes, ContextEl _conf,
             boolean _enumContext, String _op) {
         analyzeCommon(_nodes, _conf, _op);
     }
@@ -232,24 +206,6 @@ public final class EqOperation extends PrimitiveBoolOperation {
         setSimpleArgument(arg_, _conf, _nodes);
         return arg_;
     }
-//    @Override
-//    public void calculate(CustList<OperationNode> _nodes, ContextEl _conf, Calculation _setting) {
-//        CustList<OperationNode> chidren_ = getChildrenAmong(_nodes, false);
-//        Argument first_ = chidren_.first().getArgument();
-//        Argument second_ = chidren_.last().getArgument();
-//        boolean complement_ = false;
-//        String op_ = getOperations().getOperators().values().first().trim();
-//        if (StringList.quickEq(op_, DIFF)) {
-//            complement_ = true;
-//        }
-//        Argument arg_ = calculateEq(first_, second_);
-//        if (complement_) {
-//            Boolean b_ = (Boolean) arg_.getObject();
-//            b_ = !b_;
-//            arg_.setObject(b_);
-//        }
-//        setSimpleArgument(arg_, _conf);
-//    }
 
     @Override
     public void calculateLeft(CustList<OperationNode> _nodes, ContextEl _conf,

@@ -130,7 +130,6 @@ public abstract class Block extends Blockable implements SortedNode<Block> {
 
     private Block previousSibling;
 
-//    private Map<NodeAttribute, TreeMap<Integer, Integer>> encoded;
     private StringMap<RowCol> attributes;
 
     private RowCol endHeader;
@@ -138,8 +137,6 @@ public abstract class Block extends Blockable implements SortedNode<Block> {
     private StringMap<Numbers<Integer>> offsets;
 
     private StringMap<Numbers<Integer>> tabs;
-
-//    private int indexBegin;
 
     private StringMap<NatTreeMap<Integer,Integer>> encoded;
 
@@ -150,8 +147,6 @@ public abstract class Block extends Blockable implements SortedNode<Block> {
         indexChild = _indexChild;
         searching = new SearchingReturnThrow();
     }
-
-//    public abstract void buildExpressionLanguage(ContextEl _cont);
     
     protected static void tryCheckBlocksTree(Block _block, ContextEl _cont) {
         if (_block instanceof WithEl) {
@@ -159,8 +154,6 @@ public abstract class Block extends Blockable implements SortedNode<Block> {
             ((WithEl)_block).checkBlocksTree(_cont);
             return;
         }
-//        Element elt_ = _block.getAssociateElement();
-//        RowCol rc_ = _block.getRowCol(_cont.getHtml(), 0, _cont.getTabWidth(), EMPTY_STRING);
         RowCol rc_ = _block.getAttributes().getVal(EMPTY_STRING);
         throw new UnknownBlockException(_block.getTagName(), rc_);
     }
@@ -171,8 +164,6 @@ public abstract class Block extends Blockable implements SortedNode<Block> {
             ((WithEl)_block).buildExpressionLanguage(_cont);
             return;
         }
-//        Element elt_ = _block.getAssociateElement();
-//        RowCol rc_ = _block.getRowCol(_cont.getHtml(), 0, _cont.getTabWidth(), EMPTY_STRING);
         RowCol rc_ = _block.getAttributes().getVal(EMPTY_STRING);
         throw new UnknownBlockException(_block.getTagName(), rc_);
     }
@@ -182,25 +173,12 @@ public abstract class Block extends Blockable implements SortedNode<Block> {
             ((WithEl)_block).checkCallConstructor(_cont);
             return;
         }
-//        Element elt_ = _block.getAssociateElement();
-//        RowCol rc_ = _block.getRowCol(_cont.getHtml(), 0, _cont.getTabWidth(), EMPTY_STRING);
         RowCol rc_ = _block.getAttributes().getVal(EMPTY_STRING);
         throw new UnknownBlockException(_block.getTagName(), rc_);
     }
-//    final void processAfterBlock(ContextEl _conf, PageEl _ip) {
-//        ReadWrite rw_ = _ip.getReadWrite();
-//        if (getFirstChild() != null) {
-//            rw_.setBlock(getFirstChild());
-//        } else {
-//            processBlock(_conf, _ip);
-//        }
-//    }
+
     final void processBlock(ContextEl _conf) {
-//        ReadWrite rw_ = _ip.getReadWrite();
-//        Block en_ = rw_.getBlock();
-//        ParentStackBlock parElt_ = getParentOfLastNode(_conf);
         ParentStackBlock parElt_ = getParentOfLastNode(this, _conf);
-        //, false
         PageEl ip_ = _conf.getLastPage();
         if (parElt_ == null) {
             Block root_ = ip_.getBlockRoot();
@@ -214,28 +192,17 @@ public abstract class Block extends Blockable implements SortedNode<Block> {
                         ip_.exitFromConstructor();
                         return;
                     }
-//                    System.out.println(ip_.getCallingConstr().isFirstField());
                     if (cstr_ != null) {
                         Block bl_ = cstr_.getFirstChild();
-//                        if (cstr_.hasFirstBlockAfterSuperConstr())
                         if (bl_ != null) {
                             call_.setInitializedFields(true);
                             ip_.getReadWrite().setBlock(bl_);
                             return;
                         }
-//                        Block first_;
-//                        first_ = cstr_.getFirstBlockAfterOtherConstr();
-////                        if (first_ != null)
-//                        if (cstr_.hasFirstBlockAfterSuperConstr()) {
-//                            call_.setInitializedFields(true);
-//                            ip_.getReadWrite().setBlock(first_);
-//                            return;
-//                        }
                     }
                     ip_.exitFromConstructor();
                     return;
                 }
-//                String curClass_ = ip_.getGlobalArgument().getArgClassName();
                 String curClass_ = ip_.getGlobalClass();
                 _conf.getClasses().successInitClass(curClass_);
                 ip_.setNullReadWrite();
@@ -249,86 +216,15 @@ public abstract class Block extends Blockable implements SortedNode<Block> {
         BracedBlock par_ = parElt_.getElement();
         if (par_ == null) {
             Block na_ = getNextNodeWrite(_conf);
-            //, false
             ReadWrite rw_ = ip_.getReadWrite();
             rw_.setBlock(na_);
             return;
         }
-//        ProcessXmlMethod.removeLocalVars(_ip, par_);
         par_.removeLocalVars(ip_);
         ((StackableBlockGroup)par_).exitStack(_conf);
-//        if (isCatchNode(par_)) {
-//            TryBlockStack tryStack_ = (TryBlockStack) _ip.getLastStack();
-//            CatchEval catch_ = (CatchEval) tryStack_.getCurrentCatchBlock();
-//            String var_ = catch_.getVariableName();
-//            Map<String,LocalVariable> vars_ = _ip.getCatchVars();
-//            vars_.removeKey(var_);
-//            rw_.setBlock(catch_);
-//            return;
-//        }
-//        if (isFinallyNode(par_)) {
-//            ProcessXmlMethod.interruptAfterFinally(_ip);
-//            if (_ip.isReturning()) {
-////                _ip.getBlockStacks().removeLast();
-//                _ip.removeLastBlock();
-//                ProcessXmlMethod.removeBlockFinally(_conf, _ip);
-//                FunctionBlock f_ = getFunction();
-//                if (f_ instanceof StaticBlock) {
-//                    if (_ip.getReadWrite() == null) {
-//                        Block bn_ = ((StaticBlock)f_).getNextSibling();
-//                        if (bn_ != null) {
-//                            _ip.setReturning(false);
-//                            rw_.setBlock(bn_);
-//                            _ip.setReadWrite(rw_);
-//                        }
-//                    }
-//                }
-//                return;
-//            }
-////            TryBlockStack tryStack_ = (TryBlockStack) _ip.getBlockStacks().last();
-//            TryBlockStack tryStack_ = (TryBlockStack) _ip.getLastStack();
-//            FinallyEval catch_ = (FinallyEval) tryStack_.getCurrentCatchBlock();
-//            tryStack_.setVisitedFinally(true);
-//            rw_.setBlock(catch_);
-//            return;
-//        }
-//        if (isLoopNode(par_)) {
-//            ProcessXmlMethod.processLastElementLoop(_conf, _ip);
-//        } else {
-//            if (isTryNode(par_)) {
-//                rw_.setBlock(par_.getNextSibling());
-//                return;
-//            }
-//            if (isInstructionNode(par_)) {
-////                IfBlockStack if_ = (IfBlockStack) _ip.getBlockStacks().last();
-//                IfBlockStack if_ = (IfBlockStack) _ip.getLastStack();
-//                if (if_.lastVisitedBlock() == par_) {
-//                    rw_.setBlock(par_);
-//                } else {
-//                    if_.setVisitedBlock(if_.getVisitedBlock()+1);
-//                    rw_.setBlock(par_.getNextSibling());
-//                }
-//                return;
-//            }
-//            if (isSwitchNode(par_)) {
-////                SwitchBlockStack if_ = (SwitchBlockStack) _ip.getBlockStacks().last();
-//                SwitchBlockStack if_ = (SwitchBlockStack) _ip.getLastStack();
-//                if (if_.lastVisitedBlock() == par_) {
-//                    if_.setFinished(true);
-//                    rw_.setBlock(if_.getBlock());
-//                } else {
-//                    if_.setVisitedBlock(if_.getVisitedBlock()+1);
-//                    rw_.setBlock(par_.getNextSibling());
-//                }
-//                return;
-//            }
-//        }
     }
     static ParentStackBlock getParentOfLastNode(Block _current, ContextEl _conf) {
         if (_current instanceof StackableBlock) {
-//            if (!(_current instanceof StackableBlock)) {
-//                System.out.println(_current.getClass());
-//            }
             return _current.getParentOfLastNode(_conf);
         }
         Block n_ = _current.getNextSibling();
@@ -338,11 +234,6 @@ public abstract class Block extends Blockable implements SortedNode<Block> {
         return null;
     }
     final ParentStackBlock getParentOfLastNode(ContextEl _conf) {
-        //, boolean _child
-//        Block n_ = _node.getFirstChild();
-//        if (n_ != null && _child) {
-//            return new ParentStackBlock(null);
-//        }
         Block n_ = getNextSibling();
         if (n_ != null) {
             return new ParentStackBlock(null);
@@ -355,22 +246,14 @@ public abstract class Block extends Blockable implements SortedNode<Block> {
             CallConstructor call_;
             call_ = ip_.getCallingConstr();
             if (call_.isInitializedFields()) {
-//                ConstructorBlock constr_;
                 root_ = call_.getUsedConstructor();
-//                if (constr_ != null) {
-//                    root_ = constr_;
-//                }
             }
         }
         if (n_ == root_) {
             //directly at the root => last element in the block root
             return null;
         }
-//        if (n_ instanceof RootedBlock) {
-//            return null;
-//        }
         BracedBlock b_ = null;
-//        CustList<BlockStack> l_ = ip_.getBlockStacks();
         if (!ip_.noBlock()) {
             RemovableVars bl_ = ip_.getLastStack();
             b_ = bl_.getBlock();
@@ -385,98 +268,31 @@ public abstract class Block extends Blockable implements SortedNode<Block> {
                 b_ = t_.getCurentVisitedBlock();
             } else if (bl_ instanceof SwitchBlockStack) {
                 SwitchBlockStack t_ = (SwitchBlockStack)bl_;
-//                if (t_.getVisitedBlock() > CustList.INDEX_NOT_FOUND_ELT) {
-//                    b_ = t_.getCurentVisitedBlock();
-//                }
                 b_ = t_.getCurentVisitedBlock();
             }
         }
-//        if (b_ == null) {
-//            return null;
-//        }
         if (b_ == n_) {
             //n_ != null => b_ != null
             return new ParentStackBlock(b_);
         }
         Block next_ = n_.getNextSibling();
-//        while (next_ == null) {
-//            Block par_ = n_.getParent();
-//            if (par_ == root_) {
-//                break;
-//            }
-//            if (b_ == par_) {
-//                //par_ != null => b_ != null
-//                return new ParentStackBlock(b_);
-//            }
-//            next_ = par_.getNextSibling();
-//            n_ = par_;
-//        }
         if (next_ != null) {
             return new ParentStackBlock(null);
         }
-        //n_ is instance of Document
-        // so _node is last element to treat in the document
         return null;
     }
     final Block getNextNodeWrite(ContextEl _conf) {
-        //, boolean _firstChild
         Block n_ = null;
-//        if (_firstChild) {
-//            n_ = _node.getFirstChild();
-//            if (n_ != null) {
-//                return n_;
-//            }
-//        }
         n_ = getNextSibling();
         if (n_ != null) {
             return n_;
         }
         n_ = getParent();
-//        PageEl ip_ = _conf.getLastPage();
-//        Block root_ = ip_.getBlockRoot();
-//        if (ip_.isInstancing()) {
-//            CallConstructor call_;
-//            call_ = ip_.getCallingConstr();
-//            if (call_.isInitializedFields()) {
-////                ConstructorBlock constr_;
-//                root_ = call_.getUsedConstructor();
-////                if (constr_ != null) {
-////                    root_ = constr_;
-////                }
-//            }
-//        }
         Block next_ = n_.getNextSibling();
-//        while (next_ == null) {
-//            Block par_ = n_.getParent();
-//            if (par_ == root_) {
-//                break;
-//            }
-////            if (par_ instanceof RootedBlock) {
-////                break;
-////            }
-//            next_ = par_.getNextSibling();
-//            n_ = par_;
-//        }
-        //        if (next_ == null) {
-            //            return null;
-            //        }
         return next_;
     }
     public final RowCol getRowCol(int _offset, int _tabWidth,String _attribute) {
-//        int delta_ = 0;
-//        TreeMap<Integer, Integer> esc_ = getEscapedChars(_attribute);
-//        if (esc_ != null) {
-//            int nbIndexes_ = getIndexesCount(esc_,_offset);
-//            for (int i = 0; i < nbIndexes_; i++) {
-//                delta_ += esc_.getValue(i);
-//            }
-//        }
         return XmlParser.getOffset(_attribute, attributes, encoded, _offset, offsets, tabs, endHeader, _tabWidth);
-//        if (_attribute.isEmpty()) {
-//            return XmlParser.getOffset(_attribute, attributes, encoded, _offset, offsets, tabs, _tabWidth);
-////            return XmlParser.getRowColOfNodeOrAttribute(_html, associateElement, delta_+_offset, _attribute, _tabWidth, false);
-//        }
-//        return XmlParser.getRowColOfNodeOrAttribute(_html, associateElement, delta_+_offset, _attribute, _tabWidth, true);
     }
 
     private static RowCol getRowColBeginElt(String _html, int _offset, int _tabWidth, Element _elt) {
@@ -526,12 +342,7 @@ public abstract class Block extends Blockable implements SortedNode<Block> {
         }
         return null;
     }
-//    public abstract void checkCallConstructor(ContextEl _cont);
-//    void checkCallConstructor() {
-//        if (!canCallSuperThis()) {
 
-//        }
-//    }
     public final void setAlwaysSkipped() {
         Block c_ = this;
         if (!(c_ instanceof WhileCondition)) {
@@ -603,8 +414,6 @@ public abstract class Block extends Blockable implements SortedNode<Block> {
         boolean lookForContinue_ = false;
         if (!StringList.quickEq(next_.getCondition(), TRUE_STRING)) {
             lookForContinue_ = true;
-//            searching.setAlwaysSkipped(true);
-//            return;
         }
         while (true) {
             if (c_ == null) {
@@ -703,9 +512,6 @@ public abstract class Block extends Blockable implements SortedNode<Block> {
         if (ch_.isEmpty()) {
             return;
         }
-//        if (!getSearching().isAlwaysSkipped()) {
-//            return;
-//        }
         Block b_ = (Block) ch_.last();
         if (b_.isStoppable() && b_.getFirstChild() == null) {
             setStoppable(true);
@@ -743,10 +549,6 @@ public abstract class Block extends Blockable implements SortedNode<Block> {
         }
     }
     public final RowCol existDeadCodeInBlock(int _offset, int _tabWidth) {
-//        if (searching.isStoppable()) {
-//            System.out.println(getClass());
-//            return new RowCol();
-//        }
         CustList<Block> ch_ = Classes.getDirectChildren(this);
         if (ch_.isEmpty()) {
             return new RowCol();
@@ -757,31 +559,11 @@ public abstract class Block extends Blockable implements SortedNode<Block> {
         for (int i = CustList.FIRST_INDEX; i < len_; i++) {
             Block b_ = (Block) ch_.get(i);
             if (b_.indexGroup != indexGr_ && stoppableBlock_) {
-//                System.out.println("f:"+ch_.first().getClass());
-//                System.out.println();
-//                System.out.println(getClass());
-//                System.out.println(b_.getClass());
-//                System.out.println(len_);
-//                System.out.println(getAssociateElement().getAttribute("name"));
                 return b_.getRowCol(_offset, _tabWidth, EMPTY_STRING);
             }
-//            if (allStoppableGroup()) {
-//                stoppableBlock_ = true;
-//            }
-//            if (b_.isStoppable() && !b_.isAlwaysSkipped()) {
             if (b_.allStoppableGroup()) {
                 stoppableBlock_ = true;
             }
-//            }
-//            if (b_.isStoppable() && !b_.isAlwaysSkipped()) {
-//                if (b_.completeGroup) {
-////                    System.out.println(b_.getTagName());
-//                    stoppableBlock_ = true;
-////                    System.out.println("c:"+b_.getClass());
-//                }
-//            } else {
-//                stoppableBlock_ = false;
-//            }
             indexGr_ = b_.indexGroup;
         }
         return new RowCol();
@@ -871,21 +653,8 @@ public abstract class Block extends Blockable implements SortedNode<Block> {
     }
     public final void setupChars(String _html) {
         encoded = XmlParser.getSpecialChars(_html, associateElement);
-//        encoded = new Map<String, TreeMap<Integer, Integer>>();
-//        String html_ = _html;
-////        int index_ = XmlParser.getIndexOfNodeOrAttribute(html_, associateElement, EMPTY_STRING);
-//        int endHeader_ = html_.indexOf(GT, indexBegin);
-//        int beginHeader_ = indexBegin + associateElement.getNodeName().length();
-//        Map<String,AttributePart> attr_;
-//        attr_ = MethodUtil.getAttributes(html_, beginHeader_, endHeader_);
-//        for (EntryCust<String, AttributePart> e: attr_.entryList()) {
-////            NodeAttribute nodeAttr_ = new NodeAttribute();
-////            nodeAttr_.setNode(associateElement);
-////            nodeAttr_.setAttribue(e.getKey());
-//            encoded.put(e.getKey(), MethodUtil.getIndexesSpecChars(html_, true, e.getValue(), indexBegin));
-//        }
     }
-//    abstract void buildTree(ContextEl _context);
+
     protected final void removeLocalVariablesFromParent(ContextEl _cont) {
         if (!isLastLeaf()) {
             return;
@@ -909,10 +678,6 @@ public abstract class Block extends Blockable implements SortedNode<Block> {
     protected final boolean isLastLeaf() {
         return getFirstChild() == null && getNextSibling() == null;
     }
-
-//    protected final void setIndexGroup(int _indexGroup) {
-//        indexGroup = _indexGroup;
-//    }
 
     public abstract String getTagName();
     abstract boolean canBeIncrementedNextGroup();
@@ -1037,29 +802,16 @@ public abstract class Block extends Blockable implements SortedNode<Block> {
         associateElement = null;
     }
     protected final Block getPreviousSibling() {
-//        BracedBlock p_ = getParent();
-//        if (p_ == null) {
-//            return null;
-//        }
-//        Block prev_ = null;
-//        Block f_ = p_.getFirstChild();
-//        while (f_ != this) {
-//            prev_ = f_;
-//            f_ = f_.getNextSibling();
-//        }
-//        return prev_;
         return previousSibling;
     }
     @Override
     public final Block getNextSibling() {
         if (initializedNextSibling) {
-//            conf = null;
             return nextSibling;
         }
         initializedNextSibling = true;
         BracedBlock p_ = getParent();
         if (p_ == null) {
-//            conf = null;
             return null;
         }
         Node n_ = associateElement.getNextSibling();
@@ -1070,7 +822,6 @@ public abstract class Block extends Blockable implements SortedNode<Block> {
             n_ = n_.getNextSibling();
         }
         if (n_ == null) {
-//            conf = null;
             return null;
         }
         Element next_ = (Element) n_;
@@ -1087,13 +838,10 @@ public abstract class Block extends Blockable implements SortedNode<Block> {
         ElementOffsetsNext ne_ = XmlParser.getIndexesOfElementOrAttribute(html_, e_, next_, tabWidth_);
         nextSibling.attributes = ne_.getAttributes();
         nextSibling.endHeader = ne_.getEndHeader();
-//        nextSibling.indexBegin = ne_.getBegin();
         nextSibling.tabs = ne_.getTabs();
         nextSibling.offsets = ne_.getOffsets();
         conf.setElements(ne_);
-//        nextSibling.attributes = XmlParser.getIndexesOfElementOrAttribute(html_, e_, associateElement, tabWidth_)
         nextSibling.previousSibling = this;
-//        conf = null;
         return nextSibling;
     }
     final void setAttributes(StringMap<RowCol> _attributes) {
@@ -1108,9 +856,7 @@ public abstract class Block extends Blockable implements SortedNode<Block> {
     final void setTabs(StringMap<Numbers<Integer>> _tabs) {
         tabs = _tabs;
     }
-//    final void setIndexBegin(int _indexBegin) {
-//        indexBegin = _indexBegin;
-//    }
+
     @Override
     public final BracedBlock getParent() {
         return parent;

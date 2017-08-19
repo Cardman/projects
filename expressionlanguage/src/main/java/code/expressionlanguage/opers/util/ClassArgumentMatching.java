@@ -10,7 +10,7 @@ import code.util.exceptions.RuntimeClassNotFoundException;
 public final class ClassArgumentMatching {
 
     private static final String ARR_CLASS = "[";
-//    private final Class<?> clazz;
+
     private final String className;
 
     private boolean variable;
@@ -169,14 +169,4 @@ public final class ClassArgumentMatching {
     public String getName() {
         return className;
     }
-
-//    public String getComponentTypeName() {
-//        return getComponentType().getName();
-//    }
-
-//    public Class<?> getComponentType() {
-//        Class<?> cl_ = ConstClasses.classForNameNotInit(className);
-//        return cl_.getComponentType();
-//    }
-
 }

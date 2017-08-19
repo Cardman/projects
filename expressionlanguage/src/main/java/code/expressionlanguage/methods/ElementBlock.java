@@ -35,7 +35,6 @@ public final class ElementBlock extends Leaf implements InfoBlock{
     }
 
     public ExpressionLanguage getValueEl() {
-//        return new ExpressionLanguage(rightMember, _cont, true, new Calculation(StepCalculation.RIGHT));
         return new ExpressionLanguage(opValue);
     }
 
@@ -74,18 +73,14 @@ public final class ElementBlock extends Leaf implements InfoBlock{
     public void checkBlocksTree(ContextEl _cont) {
         if (!(getParent() instanceof EnumBlock)) {
             PageEl page_ = _cont.getLastPage();
-//            page_.setProcessingNode(getAssociateElement());
             page_.setProcessingAttribute(EMPTY_STRING);
-//            page_.setLookForAttrValue(false);
             page_.setOffset(0);
             throw new BadFieldException(_cont.joinPages());
         }
         Block previous_ = getPreviousSibling();
         if (previous_ != null && !(previous_ instanceof ElementBlock)) {
             PageEl page_ = _cont.getLastPage();
-//          page_.setProcessingNode(getAssociateElement());
             page_.setProcessingAttribute(EMPTY_STRING);
-//          page_.setLookForAttrValue(false);
             page_.setOffset(0);
             throw new BadFieldException(_cont.joinPages());
         }
@@ -112,9 +107,6 @@ public final class ElementBlock extends Leaf implements InfoBlock{
                 throw new IllegalClassConstructorException(enumName_+RETURN_LINE+_cont.joinPages());
             }
         }
-//        if (!PrimitiveTypeUtil.canBeUseAsArgument(getClassName(), opValue.last().getResultClass().getName(), _cont.getClasses())) {
-//            throw new DynamicCastClassException(_cont.joinPages());
-//        }
     }
 
     @Override
@@ -131,9 +123,7 @@ public final class ElementBlock extends Leaf implements InfoBlock{
     @Override
     public void checkCallConstructor(ContextEl _cont) {
         PageEl p_ = _cont.getLastPage();
-//        p_.setProcessingNode(getAssociateElement());
         p_.setProcessingAttribute(ATTRIBUTE_VALUE);
-//        p_.setLookForAttrValue(true);
         for (OperationNode o: opValue) {
             if (o.isSuperThis()) {
                 int off_ = o.getFullIndexInEl();

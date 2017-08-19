@@ -11,8 +11,6 @@ public final class LocalVariable {
 
     private String className = Object.class.getName();
 
-//    private String expression;
-
     @Override
     public String toString() {
         try {
@@ -54,12 +52,4 @@ public final class LocalVariable {
     public void setClassName(String _className) {
         className = _className;
     }
-
-//    public String getExpression() {
-//        return expression;
-//    }
-//
-//    public void setExpression(String _expression) {
-//        expression = _expression;
-//    }
 }

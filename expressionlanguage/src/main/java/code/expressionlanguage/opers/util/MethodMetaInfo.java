@@ -14,9 +14,7 @@ public final class MethodMetaInfo {
         modifier = _modifier;
         returnType = _returnType;
     }
-//    public MethodMetaInfo(Method _method) {
-//        returnType = new ClassName(_method.getReturnType().getName(), false);
-//    }
+
     public String getClassName() {
         return className;
     }

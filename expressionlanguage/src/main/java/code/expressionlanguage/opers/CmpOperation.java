@@ -5,7 +5,6 @@ import code.expressionlanguage.OperationsSequence;
 import code.expressionlanguage.PrimitiveTypeUtil;
 import code.expressionlanguage.exceptions.BadNumberValuesException;
 import code.expressionlanguage.exceptions.NotComparableException;
-import code.expressionlanguage.exceptions.SettingMemberException;
 import code.expressionlanguage.methods.util.ArgumentsPair;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.serialize.exceptions.NullFieldException;
@@ -377,17 +376,7 @@ public final class CmpOperation extends PrimitiveBoolOperation {
     }
 
     @Override
-    public void analyzeLeft(CustList<OperationNode> _nodes, ContextEl _conf,
-            boolean _enumContext, String _op) {
-        if (getParent() == null) {
-            setRelativeOffsetPossibleLastPage(getIndexInEl(), _conf);
-            throw new SettingMemberException(_conf.joinPages());
-        }
-        analyzeCommon(_nodes, _conf, _op);
-    }
-
-    @Override
-    public void analyzeRight(CustList<OperationNode> _nodes, ContextEl _conf,
+    public void analyze(boolean _variable, CustList<OperationNode> _nodes, ContextEl _conf,
             boolean _enumContext, String _op) {
         analyzeCommon(_nodes, _conf, _op);
     }
@@ -415,47 +404,6 @@ public final class CmpOperation extends PrimitiveBoolOperation {
         setRelativeOffsetPossibleLastPage(getIndexInEl()+getOperations().getOperators().getKey(0), _conf);
         throw new NotComparableException(classFirst_+RETURN_LINE+classSecond_+RETURN_LINE+_conf.joinPages());
     }
-//    @Override
-//    public Argument calculate(
-//            IdMap<OperationNode, ArgumentsPair> _nodes, ContextEl _conf,
-//            Calculation _setting) {
-//        CustList<OperationNode> chidren_ = getChildrenAmong();
-//        OperationNode opOne_ = chidren_.first();
-//        OperationNode opTwo_ = chidren_.last();
-//        Argument first_ = _nodes.getVal(opOne_).getArgument();
-//        if (first_.isNull()) {
-//            setRelativeOffsetPossibleLastPage(opOne_.getIndexInEl(), _conf);
-//            throw new NullFieldException(_conf.joinPages());
-//        }
-//        Argument second_ = _nodes.getVal(opTwo_).getArgument();
-//        if (second_.isNull()) {
-//            setRelativeOffsetPossibleLastPage(opTwo_.getIndexInEl(), _conf);
-//            throw new NullFieldException(_conf.joinPages());
-//        }
-//        boolean complement_ = false;
-//        String op_ = getOperations().getOperators().values().first().trim();
-//        String useOp_ = op_;
-//        if (StringList.quickEq(op_, LOWER_EQ)) {
-//            complement_ = true;
-//            useOp_ = GREATER;
-//        } else if (StringList.quickEq(op_, GREATER_EQ)) {
-//            complement_ = true;
-//            useOp_ = LOWER;
-//        }
-//        Argument arg_;
-//        if (StringList.quickEq(useOp_, LOWER)) {
-//            arg_ = calculateLower(first_, second_);
-//        } else {
-//            arg_ = calculateGreater(first_, second_);
-//        }
-//        Boolean b_ = (Boolean) arg_.getObject();
-//        if (complement_) {
-//            b_ = !b_;
-//            arg_.setObject(b_);
-//        }
-//        setSimpleArgument(arg_, _conf, _nodes);
-//        return arg_;
-//    }
     
     @Override
     public Argument calculateLeft(IdMap<OperationNode,ArgumentsPair> _nodes, ContextEl _conf, String _op) {
@@ -508,63 +456,6 @@ public final class CmpOperation extends PrimitiveBoolOperation {
         return arg_;
     }
     /**@throws NullObjectException*/
-//    @Override
-//    public void calculate(CustList<OperationNode> _nodes, ContextEl _conf, Calculation _setting) {
-//        CustList<OperationNode> chidren_ = getChildrenAmong(_nodes, false);
-//        Argument first_ = chidren_.first().getArgument();
-//        if (first_.getObject() == null) {
-//            setRelativeOffsetPossibleLastPage(chidren_.first().getIndexInEl(), _conf);
-//            throw new NullFieldException(_conf.joinPages());
-//        }
-//        Argument second_ = chidren_.last().getArgument();
-//        if (second_.getObject() == null) {
-//            setRelativeOffsetPossibleLastPage(chidren_.last().getIndexInEl(), _conf);
-//            throw new NullFieldException(_conf.joinPages());
-//        }
-//        boolean complement_ = false;
-//        String op_ = getOperations().getOperators().values().first().trim();
-//        String useOp_ = op_;
-//        if (StringList.quickEq(op_, LOWER_EQ)) {
-//            complement_ = true;
-//            useOp_ = GREATER;
-//        } else if (StringList.quickEq(op_, GREATER_EQ)) {
-//            complement_ = true;
-//            useOp_ = LOWER;
-//        }
-//        Argument arg_;
-//        if (StringList.quickEq(useOp_, LOWER)) {
-//            arg_ = calculateLower(first_, second_);
-//        } else {
-//            arg_ = calculateGreater(first_, second_);
-//        }
-//        Boolean b_ = (Boolean) arg_.getObject();
-//        if (complement_) {
-//            b_ = !b_;
-//            arg_.setObject(b_);
-//        }
-//        setSimpleArgument(arg_, _conf);
-////        MethodOperation par_ = getParent();
-////        if (b_ && par_ instanceof OrOperation) {
-////            List<OperationNode> opers_ = new List<OperationNode>();
-////            for (SortedNode s: TreeRetrieving.getDirectChildren(par_)) {
-////                opers_.add((OperationNode) s);
-////            }
-////            int len_ = opers_.size();
-////            for (int i = getIndexChild() + 1; i < len_; i++) {
-////                opers_.get(i).setArgument(arg_);
-////            }
-////        } else if (!b_ && par_ instanceof AndOperation) {
-////            List<OperationNode> opers_ = new List<OperationNode>();
-////            for (SortedNode s: TreeRetrieving.getDirectChildren(par_)) {
-////                opers_.add((OperationNode) s);
-////            }
-////            int len_ = opers_.size();
-////            for (int i = getIndexChild() + 1; i < len_; i++) {
-////                opers_.get(i).setArgument(arg_);
-////            }
-////        }
-//    }
-
     @Override
     public void calculateLeft(CustList<OperationNode> _nodes, ContextEl _conf,
             String _op) {

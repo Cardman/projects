@@ -10,6 +10,7 @@ import code.expressionlanguage.exceptions.InvokeRedinedMethException;
 import code.expressionlanguage.exceptions.NegativeSizeException;
 import code.expressionlanguage.exceptions.NotInitializedClassException;
 import code.expressionlanguage.exceptions.PrimitiveTypeException;
+import code.expressionlanguage.exceptions.SettingMemberException;
 import code.expressionlanguage.exceptions.UnwrappingException;
 import code.expressionlanguage.methods.Block;
 import code.expressionlanguage.methods.util.ArgumentsPair;
@@ -17,6 +18,7 @@ import code.expressionlanguage.methods.util.ExpLanguages;
 import code.expressionlanguage.methods.util.InstancingStep;
 import code.expressionlanguage.opers.Calculation;
 import code.expressionlanguage.opers.ComparatorOrder;
+import code.expressionlanguage.opers.DotOperation;
 import code.expressionlanguage.opers.ExpressionLanguage;
 import code.expressionlanguage.opers.OperationNode;
 import code.expressionlanguage.opers.SettableElResult;
@@ -61,10 +63,11 @@ public final class ElUtil {
         }
         page_.setOffset(0);
         page_.setProcessingAttribute(ATTRIBUTE_LEFT);
-        analyzeLeft(allLeft_, _conf, _staticContext, false, _oper);
+        analyzeSetting(allLeft_, _conf);
+        analyze(true, allLeft_, _conf, _staticContext, false, _oper);
         page_.setOffset(0);
         page_.setProcessingAttribute(ATTRIBUTE_RIGHT);
-        analyzeRight(allRight_, _conf, _staticContext, false, _oper);
+        analyze(false, allRight_, _conf, _staticContext, false, _oper);
         page_.setOffset(0);
         page_.setProcessingAttribute(ATTRIBUTE_LEFT);
         ClassArgumentMatching clMatchRight_ = opRight_.getResultClass();
@@ -192,8 +195,9 @@ public final class ElUtil {
         for (OperationNode o: allRight_) {
             o.setConf(null);
         }
-        analyzeLeft(allLeft_, _conf, _staticContext, false, _oper);
-        analyzeRight(allRight_, _conf, _staticContext, false, _oper);
+        analyzeSetting(allLeft_, _conf);
+        analyze(true, allLeft_, _conf, _staticContext, false, _oper);
+        analyze(false, allRight_, _conf, _staticContext, false, _oper);
         ClassArgumentMatching clMatchRight_ = opRight_.getResultClass();
         ClassArgumentMatching clMatchLeft_ = opLeft_.getResultClass();
         if (_oper.length() == 2) {
@@ -254,7 +258,7 @@ public final class ElUtil {
         if (!_conf.isEmptyPages()) {
             _conf.getLastPage().setOffset(d_.getIndexBegin());
         }
-        analyzeRight(all_, _conf);
+        analyze(all_, _conf);
         if (!_conf.isEmptyPages()) {
             _conf.getLastPage().setOffset(d_.getIndexBegin());
         }
@@ -279,9 +283,10 @@ public final class ElUtil {
         boolean enumContext_ = _calcul.isEnumAcces();
         String oper_ = _calcul.getOper();
         if (_calcul.isLeftStep()) {
-            analyzeLeft(all_, _conf, staticContext_, enumContext_, oper_);
+            analyzeSetting(all_, _conf);
+            analyze(true, all_, _conf, staticContext_, enumContext_, oper_);
         } else {
-            analyzeRight(all_, _conf, staticContext_, enumContext_, oper_);
+            analyze(false, all_, _conf, staticContext_, enumContext_, oper_);
         }
         return all_;
     }
@@ -299,7 +304,7 @@ public final class ElUtil {
         if (!_conf.isEmptyPages()) {
             _conf.getLastPage().setOffset(d_.getIndexBegin());
         }
-        analyzeRight(all_, _conf);
+        analyze(all_, _conf);
         if (!_conf.isEmptyPages()) {
             _conf.getLastPage().setOffset(d_.getIndexBegin());
         }
@@ -420,26 +425,17 @@ public final class ElUtil {
         return list_;
     }
 
-    static void analyzeLeft(CustList<OperationNode> _nodes, ContextEl _context, boolean _staticContext, boolean _isEnumContext, String _op) {
+    static void analyze(boolean _variable,CustList<OperationNode> _nodes, ContextEl _context, boolean _staticContext, boolean _isEnumContext, String _op) {
         PageEl page_ = _context.getLastPage();
         for (OperationNode e: _nodes) {
             if (e.getPreviousResultClass() == null) {
                 e.setPreviousResultClass(new ClassArgumentMatching(page_.getGlobalClass()), _staticContext);
             }
-            e.analyzeLeft(_nodes, _context, _isEnumContext, _op);
-        }
-    }
-    static void analyzeRight(CustList<OperationNode> _nodes, ContextEl _context, boolean _staticContext, boolean _isEnumContext, String _op) {
-        PageEl page_ = _context.getLastPage();
-        for (OperationNode e: _nodes) {
-            if (e.getPreviousResultClass() == null) {
-                e.setPreviousResultClass(new ClassArgumentMatching(page_.getGlobalClass()), _staticContext);
-            }
-            e.analyzeRight(_nodes, _context, _isEnumContext, _op);
+            e.analyze(_variable, _nodes, _context, _isEnumContext, _op);
         }
     }
 
-    static void analyzeRight(CustList<OperationNode> _nodes, ContextEl _context) {
+    static void analyze(CustList<OperationNode> _nodes, ContextEl _context) {
         PageEl page_ = _context.getLastPage();
         Argument arg_ = page_.getGlobalArgument();
         boolean static_ = arg_ == null || arg_.isNull();
@@ -447,7 +443,7 @@ public final class ElUtil {
             if (e.getPreviousResultClass() == null && arg_ != null) {
                 e.setPreviousResultClass(new ClassArgumentMatching(page_.getGlobalClass()), static_);
             }
-            e.analyzeRight(_nodes, _context, false, EMPTY_STRING);
+            e.analyze(false, _nodes, _context, false, EMPTY_STRING);
         }
     }
     /**@throws InvokeRedinedMethException
@@ -633,5 +629,35 @@ public final class ElUtil {
                 }
             }
         }
+    }
+    static void analyzeSetting(CustList<OperationNode> _nodes, ContextEl _conf) {
+        OperationNode root_ = _nodes.last();
+        SettableElResult elt_ = null;
+        boolean ok_ = true;
+        if (_nodes.size() == CustList.ONE_ELEMENT) {
+            if (!(root_ instanceof SettableElResult)) {
+                ok_ = false;
+            } else {
+                elt_ = (SettableElResult) root_;
+            }
+        } else {
+            OperationNode beforeLast_ = _nodes.getPrev(_nodes.getLastIndex());
+            if (!(root_ instanceof DotOperation)) {
+                if (!(root_ instanceof SettableElResult)) {
+                    ok_ = false;
+                } else {
+                    elt_ = (SettableElResult) root_;
+                }
+            } else if (!(beforeLast_ instanceof SettableElResult)){
+                ok_ = false;
+            } else {
+                elt_ = (SettableElResult) beforeLast_;
+            }
+        }
+        if (!ok_) {
+            root_.setRelativeOffsetPossibleLastPage(root_.getIndexInEl(), _conf);
+            throw new SettingMemberException(_conf.joinPages());
+        }
+        elt_.setVariable();
     }
 }

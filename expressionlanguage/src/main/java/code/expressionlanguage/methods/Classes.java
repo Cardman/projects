@@ -802,14 +802,12 @@ public final class Classes {
         _context.addPage(page_);
         for (EntryCust<ClassName, Block> c: classesBodies.entryList()) {
             String className_ = c.getKey().getName();
-//            String xml_ = classesContent.getVal(className_);
             CustList<Block> bl_ = getSortedDescNodes(c.getValue());
             for (Block e: bl_) {
                 Block b_ = (Block) e;
                 for (EntryCust<String, String> n: b_.getClassNames().entryList()) {
                     String classNameLoc_ = n.getValue();
                     try {
-//                        String base_ = PrimitiveTypeUtil.getComponentBaseType(classNameLoc_).getComponent();
                         String base_ = PrimitiveTypeUtil.getQuickComponentBaseType(classNameLoc_).getComponent();
                         if (classesBodies.contains(new ClassName(base_, false))) {
                             if (!canAccessClass(className_, base_)) {
@@ -839,7 +837,6 @@ public final class Classes {
                         un_.setFileName(className_);
                         un_.setRc(b_.getRowCol(0, _context.getTabWidth(), n.getKey()));
                         errorsDet.add(un_);
-//                        errors.add(c.getKey().getName());
                     }
                 }
             }
@@ -852,8 +849,6 @@ public final class Classes {
         _context.addPage(page_);
         for (EntryCust<ClassName, Block> c: classesBodies.entryList()) {
             String className_ = c.getKey().getName();
-//                String xml_ = classesContent.getVal(className_);
-//                ClassBlock clblock_ = (ClassBlock) c.getValue();
             CustList<Block> bl_ = getDirectChildren(c.getValue());
             for (Block b: bl_) {
                 if (b instanceof InfoBlock) {
@@ -866,16 +861,6 @@ public final class Classes {
                         badMeth_.setRc(r_);
                         badMeth_.setName(name_);
                         errorsDet.add(badMeth_);
-//                            errors.add(c.getKey().getName());
-                        //string (class name) - method name - row col - tag name
-//                        } else if (!Character.isLetter(name_.charAt(CustList.FIRST_INDEX))) {
-//                            RowCol r_ = m_.getRowCol(0, _context.getTabWidth(), ATTRIBUTE_NAME);
-//                            BadFieldName badMeth_ = new BadFieldName();
-//                            badMeth_.setFileName(className_);
-//                            badMeth_.setRc(r_);
-//                            badMeth_.setName(name_);
-////                            errors.add(c.getKey().getName());
-//                            errorsDet.add(badMeth_);
                     }
                 }
             }
@@ -888,7 +873,6 @@ public final class Classes {
         _context.addPage(page_);
         for (EntryCust<ClassName, Block> c: classesBodies.entryList()) {
             String className_ = c.getKey().getName();
-//                String xml_ = classesContent.getVal(className_);
             StringList ids_ = new StringList();
             CustList<Block> bl_ = getDirectChildren(c.getValue());
             for (Block b: bl_) {
@@ -918,7 +902,6 @@ public final class Classes {
         _context.addPage(page_);
         for (EntryCust<ClassName, Block> c: classesBodies.entryList()) {
             String className_ = c.getKey().getName();
-//            String xml_ = classesContent.getVal(className_);
             CustList<Block> bl_ = getDirectChildren(c.getValue());
             for (Block b: bl_) {
                 if (b instanceof MethodBlock) {
@@ -931,16 +914,6 @@ public final class Classes {
                         badMeth_.setRc(r_);
                         badMeth_.setName(name_);
                         errorsDet.add(badMeth_);
-//                        errors.add(c.getKey().getName());
-                        //string (class name) - method name - row col - tag name
-//                    } else if (!Character.isLetter(name_.charAt(CustList.FIRST_INDEX))) {
-//                        RowCol r_ = m_.getRowCol(0, _context.getTabWidth(), ATTRIBUTE_NAME);
-//                        BadMethodName badMeth_ = new BadMethodName();
-//                        badMeth_.setFileName(className_);
-//                        badMeth_.setRc(r_);
-//                        badMeth_.setName(name_);
-////                        errors.add(c.getKey().getName());
-//                        errorsDet.add(badMeth_);
                     }
                 }
             }
@@ -953,7 +926,6 @@ public final class Classes {
         _context.addPage(page_);
         for (EntryCust<ClassName, Block> c: classesBodies.entryList()) {
             String className_ = c.getKey().getName();
-//            String xml_ = classesContent.getVal(className_);
             EqList<FctConstraints> ids_ = new EqList<FctConstraints>();
             CustList<Block> bl_ = getDirectChildren(c.getValue());
             for (Block b: bl_) {
@@ -969,9 +941,6 @@ public final class Classes {
                         constraints_.add(new StringList(n_));
                         pTypes_.add(new ClassName(n_, i + 1 == len_ && method_.isVarargs()));
                     }
-//                    if (len_ != method_.getParametersNames().size()) {
-//                        errors.add(c.getKey().getName());
-//                    }
                     if (name_.isEmpty()) {
                         name_ = className_;
                     }
@@ -987,7 +956,6 @@ public final class Classes {
                             duplicate_.setFileName(className_);
                             duplicate_.setId(id_);
                             errorsDet.add(duplicate_);
-//                            errors.add(c.getKey().getName());
                         }
                     }
                     StringList l_ = method_.getParametersNames();
@@ -1000,7 +968,6 @@ public final class Classes {
                         b_.setNbVars(l_.size());
                         b_.setId(id_);
                         errorsDet.add(b_);
-//                        errors.add(c.getKey().getName());
                     }
                     StringList seen_ = new StringList();
                     int i_ = CustList.FIRST_INDEX;
@@ -1013,7 +980,6 @@ public final class Classes {
                             b_.setRc(method_.getRowCol(0, _context.getTabWidth(), attr_));
                             b_.setParamName(v);
                             errorsDet.add(b_);
-//                            errors.add(c.getKey().getName());
                         } else if (seen_.containsStr(v)){
                             DuplicateParamName b_;
                             b_ = new DuplicateParamName();
@@ -1021,7 +987,6 @@ public final class Classes {
                             b_.setRc(method_.getRowCol(0, _context.getTabWidth(), attr_));
                             b_.setParamName(v);
                             errorsDet.add(b_);
-//                            errors.add(c.getKey().getName());
                         } else {
                             seen_.add(v);
                         }
@@ -1091,7 +1056,6 @@ public final class Classes {
                 RootedBlock bBl_ = (RootedBlock) classesBodies.getVal(new ClassName(b, false));
                 all_.addAllElts(bBl_.getAllSuperClasses());
             }
-//            all_.addAllElts(direct_);
         }
         for (String c: interfacesInheriting) {
             if (StringList.quickEq(c, Object.class.getName())) {
@@ -1383,7 +1347,6 @@ public final class Classes {
         _context.addPage(page_);
         for (EntryCust<ClassName, Block> c: classesBodies.entryList()) {
             String className_ = c.getKey().getName();
-//            String xml_ = classesContent.getVal(className_);
             CustList<Block> bl_ = getSortedDescNodes(c.getValue());
             for (Block b: bl_) {
                 Block block_ = (Block)b;
@@ -1395,7 +1358,6 @@ public final class Classes {
                         b_.setRc(block_.getRowCol(0, _context.getTabWidth(), ATTRIBUTE_VAR));
                         b_.setVarName(var_);
                         errorsDet.add(b_);
-//                        errors.add(c.getKey().getName());
                     }
                     localVariablesNames.add(var_);
                 }
@@ -1407,7 +1369,6 @@ public final class Classes {
                         b_.setRc(block_.getRowCol(0, _context.getTabWidth(), ATTRIBUTE_VAR));
                         b_.setVarName(var_);
                         errorsDet.add(b_);
-//                        errors.add(c.getKey().getName());
                     }
                 }
                 if (b instanceof CatchEval) {
@@ -1418,29 +1379,11 @@ public final class Classes {
                         b_.setRc(block_.getRowCol(0, _context.getTabWidth(), ATTRIBUTE_VAR));
                         b_.setVarName(var_);
                         errorsDet.add(b_);
-//                        errors.add(c.getKey().getName());
                     }
                 }
             }
-//            if (bl_ instanceof DeclareVariable) {
-//                
-//            }
         }
         localVariablesNames.removeDuplicates();
-//        while (localVariablesNames.containsStr(TEMP_PREFIX+i_)) {
-//            i_++;
-//        }
-//        int one_ = i_;
-//        i_++;
-//        while (localVariablesNames.containsStr(TEMP_PREFIX+i_)) {
-//            i_++;
-//        }
-//        int two_ = i_;
-//        String firstArg_ = TEMP_PREFIX+one_;
-//        String secondArg_ = TEMP_PREFIX+two_;
-//        String eq_ = StringList.simpleFormat(EQUALS_FORMAT, firstArg_, secondArg_);
-//        equalsEl = new EqualsEl(eq_, firstArg_, secondArg_);
-//        i_++;
         int i_ = CustList.FIRST_INDEX;
         while (localVariablesNames.containsStr(TEMP_PREFIX+i_)) {
             i_++;
@@ -1471,7 +1414,6 @@ public final class Classes {
         natEqEl = new EqualsEl(nateqt_, fifthArg_, sixthArg_);
         page_.getLocalVars().put(fifthArg_, new LocalVariable());
         page_.getLocalVars().put(sixthArg_, new LocalVariable());
-//        exps = ElUtil.getAnalyzedOperations(nateqt_, _context, true);
         exps = ElUtil.getAnalyzedOperations(nateqt_, _context, Calculation.staticCalculation(true));
         page_.getLocalVars().removeKey(fifthArg_);
         page_.getLocalVars().removeKey(sixthArg_);
@@ -1653,13 +1595,8 @@ public final class Classes {
         PageEl page_ = new PageEl();
         _context.clearPages();
         _context.addPage(page_);
-//        if (!classesBodies.isEmpty()) {
-//            return;
-//        }
         for (EntryCust<ClassName, Block> c: classesBodies.entryList()) {
             String className_ = c.getKey().getName();
-//            String xml_ = classesContent.getVal(className_);
-//            page_.setHtml(xml_);
             CustList<Block> bl_ = getDirectChildren(c.getValue());
             for (Block b: bl_) {
                 if (b instanceof AloneBlock) {
@@ -1740,31 +1677,7 @@ public final class Classes {
                             if (e.getOrder() > CustList.INDEX_NOT_FOUND_ELT) {
                                 continue;
                             }
-//                            Block cur_ = e;
-//                            boolean tonumber_ = true;
-//                            while (cur_ != null) {
-//                                int index_ = cur_.getIndexChild() - 1;
-//                                if (index_ >= CustList.FIRST_INDEX) {
-//                                    CustList<SortedNode<BlockGroup>> sn_ = TreeRetrieving.getDirectChildren(cur_.getParent());
-//                                    SortedNode<BlockGroup> s_ = sn_.get(index_);
-//                                    BlockGroup prev_ = (BlockGroup) s_;
-//                                    if (prev_.getOrder() == CustList.INDEX_NOT_FOUND_ELT) {
-//                                        tonumber_ = false;
-//                                        break;
-//                                    }
-//                                }
-//                                cur_ = cur_.getParent();
-//                            }
-//                            if (!tonumber_) {
-//                                continue;
-//                            }
                             CustList<Block> list_ = getDirectChildren(e);
-//                            if (!list_.isEmpty()) {
-//                                Block op_ = (Block) list_.last();
-//                                if (op_.getOrder() == CustList.INDEX_NOT_FOUND_ELT) {
-//                                    continue;
-//                                }
-//                            }
                             boolean allNb_ = true;
                             for (Block s: list_) {
                                 Block op_ = (Block) s;
@@ -1796,12 +1709,6 @@ public final class Classes {
                     for (Block d: all_) {
                         d.setStoppable();
                     }
-//                    for (Block d: all_) {
-//                        boolean deadCode_ = !!d.existDeadCodeInBlock();
-//                    }
-//                    for (Block d: all_) {
-//                        boolean eq_ = d.isExitable() == d.isStoppable();
-//                    }
                     Block r_ = all_.last();
                     String name_ = method_.getName();
                     StringList types_ = method_.getParametersTypes();
@@ -1848,32 +1755,7 @@ public final class Classes {
         }
         return null;
     }
-//    public MethodBlock getMethodBody(String _className, MethodId _methodId) {
-//        for (EntryCust<ClassName, Block> c: classesBodies.entryList()) {
-//            if (!StringList.quickEq(c.getKey().getName(), _className)) {
-//                continue;
-//            }
-//            CustList<Block> bl_ = getDirectChildren(c.getValue());
-//            for (Block b: bl_) {
-//                if (!(b instanceof MethodBlock)) {
-//                    continue;
-//                }
-//                MethodBlock method_ = (MethodBlock) b;
-//                String m_ = method_.getName();
-//                StringList p_ = method_.getParametersTypes();
-//                int len_ = p_.size();
-//                EqList<ClassName> pTypes_ = new EqList<ClassName>();
-//                for (int i = CustList.FIRST_INDEX; i < len_; i++) {
-//                    String n_ = p_.get(i);
-//                    pTypes_.add(new ClassName(n_, i + 1 == len_ && method_.isVarargs()));
-//                }
-//                if (new MethodId(m_, pTypes_).eq(_methodId)) {
-//                    return method_;
-//                }
-//            }
-//        }
-//        return null;
-//    }
+
     public MethodBlock getMethodBody(String _className, FctConstraints _methodId) {
         for (EntryCust<ClassName, Block> c: classesBodies.entryList()) {
             if (!StringList.quickEq(c.getKey().getName(), _className)) {

@@ -6,24 +6,9 @@ import code.util.StringMap;
 
 public class MappingPairs {
 
-//    private StringMap<StringList> mapping = new StringMap<StringList>();
     private StringMap<StringList> paramArgs = new StringMap<StringList>();
     private EqList<Matching> pairsArgParam = new EqList<Matching>();
 
-//    public StringList getUppers(String _key) {
-//        for (EntryCust<String, StringList> e: mapping.entryList()) {
-//            if (StringList.quickEq(e.getKey(), _key)) {
-//                return e.getValue();
-//            }
-//        }
-//        return new StringList();
-//    }
-//    public StringMap<StringList> getMapping() {
-//        return mapping;
-//    }
-//    public void setMapping(StringMap<StringList> _mapping) {
-//        mapping = _mapping;
-//    }
     public void addParamArg(String _param, String _arg) {
         if (paramArgs.contains(_param)) {
             paramArgs.getVal(_param).add(_arg);

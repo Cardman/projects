@@ -128,13 +128,6 @@ public final class ParametersGroupComparator<T extends Parametrable> implements 
             if (two_.isAssignableFrom(one_, selectedClasses.getClasses())) {
                 return CustList.NO_SWAP_SORT;
             }
-//            if (!one_.getClazz().isInterface()) {
-//                if (!two_.getClazz().isInterface()) {
-//                    _o1.getParameters().setError(true);
-//                    _o2.getParameters().setError(true);
-//                    return CustList.EQ_CMP;
-//                }
-//            }
             _o1.getParameters().setError(true);
             _o2.getParameters().setError(true);
             return CustList.NO_SWAP_SORT;

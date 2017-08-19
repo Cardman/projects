@@ -27,19 +27,11 @@ public final class IfCondition extends Condition implements BlockCondition, Incr
     public void checkBlocksTree(ContextEl _cont) {
         if (getFirstChild() == null) {
             PageEl page_ = _cont.getLastPage();
-//            page_.setProcessingNode(getAssociateElement());
             page_.setProcessingAttribute(EMPTY_STRING);
-//            page_.setLookForAttrValue(false);
             page_.setOffset(0);
             throw new BadIfException(_cont.joinPages());
         }
     }
-
-//    @Override
-//    public void buildExpressionLanguage(ContextEl _cont) {
-//        super.buildExpressionLanguage(_cont);
-////        removeLocalVariablesFromParent();
-//    }
 
     @Override
     boolean canBeIncrementedNextGroup() {
@@ -66,10 +58,8 @@ public final class IfCondition extends Condition implements BlockCondition, Incr
         PageEl ip_ = _cont.getLastPage();
         ReadWrite rw_ = ip_.getReadWrite();
         if (!ip_.noBlock()) {
-//            BlockStack bl_ = l_.last();
             RemovableVars bl_ = ip_.getLastStack();
             if (bl_.getBlock() == this) {
-//                l_.removeLast();
                 ip_.removeLastBlock();
                 processBlock(_cont);
                 return;
@@ -89,27 +79,11 @@ public final class IfCondition extends Condition implements BlockCondition, Incr
         if_.setVisitedBlock(CustList.FIRST_INDEX);
         boolean assert_ = evaluateCondition(_cont);
         if (assert_) {
-//            if (hasChildNodes()) {
-//                ip_.addBlock(if_);
-////                l_.add(if_);
-//                if_.setEntered(true);
-//            } else {
-//                if (if_.getBlocks().size() > CustList.ONE_ELEMENT) {
-//                    if_.setEntered(true);
-//                    ip_.addBlock(if_);
-////                    l_.add(if_);
-//                    rw_.setBlock(getNextSibling());
-//                    return;
-//                }
-//            }
             ip_.addBlock(if_);
-//            l_.add(if_);
             if_.setEntered(true);
             rw_.setBlock(getFirstChild());
-//            processAfterBlock(_cont, ip_);
         } else {
             ip_.addBlock(if_);
-//            l_.add(if_);
             if (if_.lastVisitedBlock() == this) {
                 return;
             }
@@ -125,7 +99,6 @@ public final class IfCondition extends Condition implements BlockCondition, Incr
         if (if_.lastVisitedBlock() == this) {
             rw_.setBlock(this);
         } else {
-//            if_.increment();
             rw_.setBlock(getNextSibling());
         }
     }

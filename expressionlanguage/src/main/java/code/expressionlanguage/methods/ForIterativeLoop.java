@@ -44,12 +44,6 @@ public final class ForIterativeLoop extends BracedStack implements ForLoop {
 
     private CustList<OperationNode> opStep;
 
-//    private ExpressionLanguage initEl;
-//
-//    private ExpressionLanguage expressionEl;
-//
-//    private ExpressionLanguage stepEl;
-
     public ForIterativeLoop(Element _el, ContextEl _importingPage, int _indexChild,
             BracedBlock _m) {
         super(_el, _importingPage, _indexChild, _m);
@@ -107,17 +101,14 @@ public final class ForIterativeLoop extends BracedStack implements ForLoop {
     }
 
     public ExpressionLanguage getInitEl() {
-//        return new ExpressionLanguage(init, _cont, true, new Calculation(StepCalculation.RIGHT));
         return new ExpressionLanguage(opInit);
     }
 
     public ExpressionLanguage getExpressionEl() {
-//        return new ExpressionLanguage(expression, _cont, true, new Calculation(StepCalculation.RIGHT));
         return new ExpressionLanguage(opExp);
     }
 
     public ExpressionLanguage getStepEl() {
-//        return new ExpressionLanguage(step, _cont, true, new Calculation(StepCalculation.RIGHT));
         return new ExpressionLanguage(opStep);
     }
 
@@ -129,88 +120,51 @@ public final class ForIterativeLoop extends BracedStack implements ForLoop {
     public void buildExpressionLanguage(ContextEl _cont) {
         FunctionBlock f_ = getFunction();
         PageEl page_ = _cont.getLastPage();
-//        page_.setProcessingNode(getAssociateElement());
         page_.setProcessingAttribute(ATTRIBUTE_CLASS_INDEX);
-//        page_.setLookForAttrValue(true);
         page_.setOffset(0);
-//        Class<?> n_;
-//        try {
-//            n_ = ConstClasses.classForNameNotInit(classIndexName);
-//        } catch (RuntimeClassNotFoundException _0) {
-//            throw new DynamicCastClassException(classIndexName+RETURN_LINE+_cont.joinPages());
-//        }
-//        if (PrimitiveTypeUtil.toPrimitive(n_, false) == null) {
-//            throw new DynamicCastClassException(classIndexName+RETURN_LINE+_cont.joinPages());
-//        }
         if (!PrimitiveTypeUtil.isPrimitiveOrWrapper(classIndexName)) {
             throw new DynamicCastClassException(classIndexName+RETURN_LINE+_cont.joinPages());
         }
         page_.setProcessingAttribute(ATTRIBUTE_CLASS);
-//        page_.setLookForAttrValue(true);
         page_.setOffset(0);
         ClassArgumentMatching elementClass_ = new ClassArgumentMatching(className);
         if (!PrimitiveTypeUtil.isPureNumberClass(elementClass_)) {
             throw new DynamicCastClassException(_cont.joinPages());
         }
         page_.setProcessingAttribute(ATTRIBUTE_VAR);
-//        page_.setLookForAttrValue(true);
         page_.setOffset(0);
         if (_cont.getLastPage().getVars().contains(variableName)) {
             throw new AlreadyDefinedVarException(variableName+RETURN_LINE+_cont.joinPages());
         }
         page_.setProcessingAttribute(ATTRIBUTE_INIT);
-//        page_.setLookForAttrValue(true);
         page_.setOffset(0);
-//        opInit = ElUtil.getAnalyzedOperations(init, _cont, f_.isStaticContext());
         opInit = ElUtil.getAnalyzedOperations(init, _cont, Calculation.staticCalculation(f_.isStaticContext()));
         OperationNode initEl_ = opInit.last();
-        //new ExpressionLanguage(init, _cont, true, new Calculation(StepCalculation.RIGHT));
         Classes classes_ = _cont.getClasses();
         if (!elementClass_.isAssignableFrom(initEl_.getResultClass(), classes_)) {
             String str_ = initEl_.getResultClass().getName();
             throw new DynamicCastClassException(str_+RETURN_LINE+_cont.joinPages());
         }
-//        if (!initEl_.getResultClass().isAssignableFrom(new ClassArgumentMatching(className))) {
-//            String str_ = initEl_.getResultClass().getName();
-//            throw new DynamicCastClassException(str_+RETURN_LINE+_cont.joinPages());
-//        }
-//        page_.setProcessingNode(getAssociateElement());
         page_.setProcessingAttribute(ATTRIBUTE_EXPRESSION);
-//        page_.setLookForAttrValue(true);
         page_.setOffset(0);
-//        opExp = ElUtil.getAnalyzedOperations(expression, _cont, f_.isStaticContext());
         opExp = ElUtil.getAnalyzedOperations(expression, _cont, Calculation.staticCalculation(f_.isStaticContext()));
         OperationNode expressionEl_ = opExp.last();
-        //new ExpressionLanguage(expression, _cont, true, new Calculation(StepCalculation.RIGHT));
         if (!elementClass_.isAssignableFrom(expressionEl_.getResultClass(), classes_)) {
             String str_ = expressionEl_.getResultClass().getName();
             throw new DynamicCastClassException(str_+RETURN_LINE+_cont.joinPages());
         }
-//        if (!expressionEl_.getResultClass().isAssignableFrom(new ClassArgumentMatching(className))) {
-//            String str_ = expressionEl_.getResultClass().getName();
-//            throw new DynamicCastClassException(str_+RETURN_LINE+_cont.joinPages());
-//        }
-//        page_.setProcessingNode(getAssociateElement());
         page_.setProcessingAttribute(ATTRIBUTE_STEP);
-//        page_.setLookForAttrValue(true);
         page_.setOffset(0);
-//        opStep = ElUtil.getAnalyzedOperations(step, _cont, f_.isStaticContext());
         opStep = ElUtil.getAnalyzedOperations(step, _cont, Calculation.staticCalculation(f_.isStaticContext()));
         OperationNode stepEl_ = opStep.last();
-        // new ExpressionLanguage(step, _cont, true, new Calculation(StepCalculation.RIGHT));
         if (!elementClass_.isAssignableFrom(stepEl_.getResultClass(), classes_)) {
             String str_ = stepEl_.getResultClass().getName();
             throw new DynamicCastClassException(str_+RETURN_LINE+_cont.joinPages());
         }
-//        if (!stepEl_.getResultClass().isAssignableFrom(new ClassArgumentMatching(className))) {
-//            String str_ = stepEl_.getResultClass().getName();
-//            throw new DynamicCastClassException(str_+RETURN_LINE+_cont.joinPages());
-//        }
         LoopVariable lv_ = new LoopVariable();
         lv_.setClassName(className);
         lv_.setIndexClassName(classIndexName);
         _cont.getLastPage().getVars().put(variableName, lv_);
-//        removeLocalVariablesFromParent();
     }
 
     @Override
@@ -231,9 +185,7 @@ public final class ForIterativeLoop extends BracedStack implements ForLoop {
     @Override
     public void checkCallConstructor(ContextEl _cont) {
         PageEl p_ = _cont.getLastPage();
-//        p_.setProcessingNode(getAssociateElement());
         p_.setProcessingAttribute(ATTRIBUTE_INIT);
-//        p_.setLookForAttrValue(true);
         for (OperationNode o: opInit) {
             if (o.isSuperThis()) {
                 int off_ = o.getFullIndexInEl();
@@ -273,43 +225,34 @@ public final class ForIterativeLoop extends BracedStack implements ForLoop {
         }
         if (c_ != null && c_.getBlock() == this) {
             if (c_.isFinished()) {
-//                ProcessXmlMethod.removeVarAndLoop(_cont, c_.getBlock(), ip_.getVars());
                 removeVarAndLoop(ip_);
                 processBlock(_cont);
                 return;
             }
-//            processAfterBlock(_cont, ip_);
             ip_.getReadWrite().setBlock(getFirstChild());
             return;
         }
         processLoop(_cont);
-//        c_ = (LoopBlockStack) st_.last();
         c_ = (LoopBlockStack) ip_.getLastStack();
         if (c_.isFinished()) {
-//            st_.removeLast();
             ip_.removeLastBlock();
             processBlock(_cont);
             return;
         } else {
             ip_.getReadWrite().setBlock(getFirstChild());
-//            processAfterBlock(_cont, ip_);
             return;
         }
     }
 
     void processLoop(ContextEl _conf) {
         PageEl ip_ = _conf.getLastPage();
-//        ReadWrite rw_ = ip_.getReadWrite();
         StringMap<LoopVariable> varsLoop_ = ip_.getVars();
-//        Object iterable_ = null;
         String var_ = getVariableName();
         long nbMaxIterations_ = 0;
-//        boolean iterationNb_ = false;
         long stepValue_ = 0;
         long fromValue_ = 0;
         Object realFromValue_ = 0;
 
-//        iterationNb_ = true;
         boolean eq_ = isEq();
         ip_.setProcessingAttribute(ATTRIBUTE_INIT);
         ip_.setOffset(0);
@@ -387,12 +330,6 @@ public final class ForIterativeLoop extends BracedStack implements ForLoop {
                 if (copyFrom_ < toValue_) {
                     break;
                 }
-                //TODO copyFrom_ < toValue_ && !eq_
-                // && !(copyFrom_ <= toValue_ && !eq_)
-                // => copyFrom_ < toValue_ && !eq_ && (copyFrom_ > toValue_ || eq_)
-                // => copyFrom_ < toValue_ && !eq_ && (copyFrom_ > toValue_ || eq_)
-//                System.out.println(copyFrom_ < toValue_);
-//                System.out.println(copyFrom_ <= toValue_);
                 nbMaxIterations_++;
                 copyFrom_ += stepValue_;
             }
@@ -421,9 +358,6 @@ public final class ForIterativeLoop extends BracedStack implements ForLoop {
         String className_;
         LoopVariable lv_ = new LoopVariable();
         className_ = getClassName();
-//        if (className_.isEmpty()) {
-//            className_ = long.class.getName();
-//        }
         Class<?> cl_ = ProcessXmlMethod.classForName(_conf, 0, className_);
         lv_.setClassName(className_);
         lv_.setIndexClassName(indexClassName_);
@@ -435,8 +369,6 @@ public final class ForIterativeLoop extends BracedStack implements ForLoop {
 
     @Override
     public void exitStack(ContextEl _context) {
-//        PageEl ip_ = _context.getLastPage();
-//        ProcessXmlMethod.processLastElementLoop(_context, ip_);
         processLastElementLoop(_context);
     }
 

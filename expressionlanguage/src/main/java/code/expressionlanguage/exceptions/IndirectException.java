@@ -31,15 +31,6 @@ public abstract class IndirectException extends RuntimeException {
         return null;
     }
 
-//    //This method is overridden only for debugging
-//    @Override
-//    public Throwable getCause() {
-//        if (cause.getInstance() instanceof Throwable) {
-//            return (Throwable) cause.getInstance();
-//        }
-//        return super.getCause();
-//    }
-
     public Struct getCustCause() {
         return cause;
     }

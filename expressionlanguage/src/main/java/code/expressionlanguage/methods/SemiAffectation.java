@@ -25,8 +25,6 @@ public final class SemiAffectation extends Leaf implements StackableBlock {
 
     private CustList<OperationNode> incr;
 
-//    private ExpressionLanguage leftEl;
-
     private final String oper;
 
     SemiAffectation(Element _el, ContextEl _importingPage, int _indexChild,
@@ -51,12 +49,10 @@ public final class SemiAffectation extends Leaf implements StackableBlock {
     }
     
     public ExpressionLanguage getLeftEl() {
-//        return new ExpressionLanguage(leftMember, _cont, true, new Calculation(StepCalculation.LEFT));
         return new ExpressionLanguage(opLeft);
     }
 
     public ExpressionLanguage getRightEl() {
-//        return new ExpressionLanguage(RIGHT_EL, _cont, true, new Calculation(StepCalculation.RIGHT));
         return new ExpressionLanguage(incr);
     }
 
@@ -64,14 +60,10 @@ public final class SemiAffectation extends Leaf implements StackableBlock {
     public void buildExpressionLanguage(ContextEl _cont) {
         FunctionBlock f_ = getFunction();
         PageEl page_ = _cont.getLastPage();
-//        page_.setProcessingNode(getAssociateElement());
         page_.setProcessingAttribute(ATTRIBUTE_LEFT);
         page_.setOffset(0);
-//        page_.setLookForAttrValue(true);
-//        opLeft = ElUtil.getAnalyzedOperations(leftMember, _cont, f_.isStaticContext(), true);
         opLeft = ElUtil.getAnalyzedOperations(leftMember, _cont, new Calculation(f_.isStaticContext(), false, true));
         OperationNode leftEl_ = opLeft.last();
-        //new ExpressionLanguage(leftMember, _cont, true, new Calculation(StepCalculation.LEFT));
         ClassArgumentMatching clMatchLeft_ = leftEl_.getResultClass();
         if (!PrimitiveTypeUtil.isPureNumberClass(clMatchLeft_)) {
             throw new DynamicCastClassException(_cont.joinPages());
@@ -80,11 +72,9 @@ public final class SemiAffectation extends Leaf implements StackableBlock {
             if (!StringList.quickEq(oper, DECR)) {
                 page_.setProcessingAttribute(ATTRIBUTE_OPER);
                 page_.setOffset(0);
-//                page_.setLookForAttrValue(true);
                 throw new DynamicCastClassException(_cont.joinPages());
             }
         }
-//        incr = ElUtil.getAnalyzedOperations(RIGHT_EL, _cont, true);
         incr = ElUtil.getAnalyzedOperations(RIGHT_EL, _cont, Calculation.staticCalculation(true));
     }
 
@@ -97,9 +87,7 @@ public final class SemiAffectation extends Leaf implements StackableBlock {
     @Override
     public void checkCallConstructor(ContextEl _cont) {
         PageEl p_ = _cont.getLastPage();
-//        p_.setProcessingNode(getAssociateElement());
         p_.setProcessingAttribute(ATTRIBUTE_LEFT);
-//        p_.setLookForAttrValue(true);
         for (OperationNode o: opLeft) {
             if (o.isSuperThis()) {
                 int off_ = o.getFullIndexInEl();

@@ -201,9 +201,7 @@ public final class MethodBlock extends BracedBlock implements Returnable {
     @Override
     public void checkBlocksTree(ContextEl _cont) {
         PageEl page_ = _cont.getLastPage();
-//        page_.setProcessingNode(getAssociateElement());
         page_.setProcessingAttribute(EMPTY_STRING);
-//        page_.setLookForAttrValue(false);
         page_.setOffset(0);
         if (getFirstChild() == null) {
             return;
@@ -216,9 +214,6 @@ public final class MethodBlock extends BracedBlock implements Returnable {
                 en_ = n_;
                 continue;
             }
-//            if (en_ == this) {
-//                break;
-//            }
             n_ = en_.getNextSibling();
             if (n_ != null) {
                 tryCheckBlocksTree(n_, _cont);
@@ -257,9 +252,7 @@ public final class MethodBlock extends BracedBlock implements Returnable {
     @Override
     public void buildInstructions(ContextEl _cont) {
         PageEl page_ = _cont.getLastPage();
-//        page_.setProcessingNode(getAssociateElement());
         page_.setProcessingAttribute(EMPTY_STRING);
-//        page_.setLookForAttrValue(false);
         page_.setOffset(0);
         if (getFirstChild() == null) {
             return;
@@ -272,9 +265,6 @@ public final class MethodBlock extends BracedBlock implements Returnable {
                 en_ = n_;
                 continue;
             }
-//            if (en_ == this) {
-//                break;
-//            }
             n_ = en_.getNextSibling();
             if (n_ != null) {
                 tryBuildExpressionLanguage(n_, _cont);
@@ -313,9 +303,7 @@ public final class MethodBlock extends BracedBlock implements Returnable {
     @Override
     public void checkConstrCalls(ContextEl _cont) {
         PageEl page_ = _cont.getLastPage();
-//        page_.setProcessingNode(getAssociateElement());
         page_.setProcessingAttribute(EMPTY_STRING);
-//        page_.setLookForAttrValue(false);
         page_.setOffset(0);
         if (getFirstChild() == null) {
             return;
@@ -328,9 +316,6 @@ public final class MethodBlock extends BracedBlock implements Returnable {
                 en_ = n_;
                 continue;
             }
-//            if (en_ == this) {
-//                break;
-//            }
             n_ = en_.getNextSibling();
             if (n_ != null) {
                 tryCheckConstCall(n_, _cont);

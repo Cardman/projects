@@ -35,9 +35,7 @@ public final class TryEval extends BracedStack implements Eval, IncrCurrentGroup
         }
         if (!existCatch_ || getFirstChild() == null) {
             PageEl page_ = _cont.getLastPage();
-//            page_.setProcessingNode(getAssociateElement());
             page_.setProcessingAttribute(EMPTY_STRING);
-//            page_.setLookForAttrValue(false);
             page_.setOffset(0);
             throw new BadCatchException(_cont.joinPages());
         }
@@ -45,7 +43,6 @@ public final class TryEval extends BracedStack implements Eval, IncrCurrentGroup
 
     @Override
     public void buildExpressionLanguage(ContextEl _cont) {
-//        removeLocalVariablesFromParent();
     }
 
     @Override
@@ -85,10 +82,8 @@ public final class TryEval extends BracedStack implements Eval, IncrCurrentGroup
             n_ = n_.getNextSibling();
         }
         tryStack_.setBlock(this);
-//        l_.add(tryStack_);
         ip_.addBlock(tryStack_);
         ip_.getReadWrite().setBlock(getFirstChild());
-//        processAfterBlock(_cont, ip_);
     }
 
     @Override

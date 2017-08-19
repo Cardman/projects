@@ -8,7 +8,6 @@ import code.expressionlanguage.opers.util.Struct;
 
 public abstract class LoopStack extends BlockStack implements BreakableStack {
 
-//    private static final String RETURN_LINE = "\n";
     private static final String INDEX = "index";
 
     private static final String WHILE_LOOP = "while loop";
@@ -21,15 +20,9 @@ public abstract class LoopStack extends BlockStack implements BreakableStack {
 
     private boolean finished;
 
-//    private boolean iterate;
-
     private Iterator<?> iterator;
 
     private boolean keyValue;
-
-//    private Element forNode;
-
-//    private Element currentNode;
 
     private long index;
 
@@ -90,14 +83,6 @@ public abstract class LoopStack extends BlockStack implements BreakableStack {
     public void setFinished(boolean _finished) {
         finished = _finished;
     }
-
-//    public boolean isIterate() {
-//        return iterate;
-//    }
-//
-//    public void setIterate(boolean _iterate) {
-//        iterate = _iterate;
-//    }
 
     public long getIndex() {
         return index;

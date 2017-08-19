@@ -48,11 +48,7 @@ public final class ElResolver {
     private static final char INTERN_CLASS = '$';
     private static final String INSTANCE = "new";
     private static final String STATIC_ACCESS = "static";
-//    private static final String NULL_REF_STRING = "null";
-//    private static final String TRUE_STRING = "true";
-//    private static final String FALSE_STRING = "false";
-//    private static final String INSTANCEOF = "instanceof";
-//    private static final String CAST = "class";
+
     private static final char MIN_ENCODE_DIGIT = '0';
     private static final char MAX_ENCODE_DIGIT = '9';
     private static final char MIN_ENCODE_LOW_LETTER = 'a';
@@ -86,7 +82,6 @@ public final class ElResolver {
     private static final String MOD = "%";
     private static final OperationPriority MOD_OPER = new OperationPriority(MOD, MULT_PRIO);
 
-//    private static final char PLUS_CHAR = '+';
     private static final String PLUS = "+";
     private static final OperationPriority PLUS_OPER = new OperationPriority(PLUS, ADD_PRIO);
 
@@ -181,10 +176,9 @@ public final class ElResolver {
         Delimiters d_ = new Delimiters();
         NatTreeMap<Integer,Character> parsBrackets_;
         parsBrackets_ = new NatTreeMap<Integer,Character>();
-//        Character usedCaller_ = null;
-//        Character usedEnder_ = null;
+
         boolean instance_ = false;
-//        boolean printableChar_ = false;
+
         boolean constString_ = false;
         boolean foundSemiColumn_ = false;
         boolean constChar_ = false;
@@ -193,13 +187,8 @@ public final class ElResolver {
         int unicode_ = 0;
         int len_ = _string.length();
         int i_ = _minIndex;
-//        if (len_ == CustList.SIZE_EMPTY) {
-//            _conf.getLastPage().setOffset(i_);
-//            throw new BadExpressionLanguageException(_string);
-//        }
         while (i_ < len_) {
             if (!Character.isWhitespace(_string.charAt(i_))) {
-//                minIndexDot_ = i_;
                 break;
             }
             i_++;
@@ -458,22 +447,6 @@ public final class ElResolver {
                 i_++;
                 continue;
             }
-//            if (!Character.isWhitespace(curChar_)) {
-//                printableChar_ = true;
-//            }
-            /*else {
-                boolean wordCharBef_ = false;
-                boolean wordCharAfter_ = false;
-                if (i_ > CustList.FIRST_INDEX && StringList.isWordChar(_string.charAt(i_ - 1))) {
-                    wordCharBef_ = true;
-                }
-                if (i_ + 1 < len_ && StringList.isWordChar(_string.charAt(i_ + 1))) {
-                    wordCharAfter_ = true;
-                }
-                if (wordCharBef_ && wordCharAfter_) {
-                    throw new BadExpressionLanguageException(_string);
-                }
-            }*/
             if (StringList.isWordChar(curChar_)) {
                 if (i_ + 1 < len_) {
                     if (Character.isWhitespace(_string.charAt(i_ + 1))) {
@@ -520,34 +493,6 @@ public final class ElResolver {
                         throw new BadExpressionLanguageException(_string+RETURN_LINE+_conf.joinPages());
                     }
                 }
-                //i_ > 0 &&
-//                if (i_ + INSTANCE.length() <= len_) {
-////                    int j_ = i_ - 1;
-////                    char previous_ = _string.charAt(j_);
-//                    int j_ = i_ + 1;
-//                    while (j_ < len_) {
-//                        char next_ = _string.charAt(j_);
-//                        if (!StringList.isWordChar(next_)) {
-//                            break;
-//                        }
-//                        j_++;
-//                    }
-//                    boolean process_ = true;
-////                    if (StringList.isWordChar(previous_)) {
-////                        process_ = false;
-////                    }
-//                    if (i_ + INSTANCE.length() < len_) {
-//                        if (StringList.isWordChar(_string.charAt(i_ + INSTANCE.length()))) {
-//                            process_ = false;
-//                        }
-//                    }
-//                    if (!_string.substring(i_, i_ + INSTANCE.length()).startsWith(INSTANCE)) {
-//                        process_ = false;
-//                    }
-//                    if (process_) {
-//                        instance_ = true;
-//                    }
-//                }
                 if (procWordFirstChar(_string, i_, INSTANCE, len_)) {
                     if (onlySpacesFrom(_string, firstPrintableWordChar_, i_, EXTERN_CLASS)) {
                         instance_ = true;
@@ -572,9 +517,6 @@ public final class ElResolver {
                         _conf.getLastPage().setOffset(j_);
                         throw new BadExpressionLanguageException(_string+RETURN_LINE+_conf.joinPages());
                     }
-//                    if (i_ + STATIC_ACCESS.length() < len_) {
-//
-//                    }
                 }
                 while (i_ < len_) {
                     if (!StringList.isWordChar(_string.charAt(i_))) {
@@ -618,7 +560,6 @@ public final class ElResolver {
             }
             if (curChar_ == PAR_LEFT) {
                 instance_ = false;
-//                usedCaller_ = curChar_;
                 parsBrackets_.put(i_, curChar_);
             }
             if (curChar_ == PAR_RIGHT) {
@@ -631,7 +572,6 @@ public final class ElResolver {
                     throw new BadExpressionLanguageException(_string+RETURN_LINE+_conf.joinPages());
                 }
                 firstVarArg_ = false;
-//                usedEnder_ = curChar_;
                 d_.getCallings().put(parsBrackets_.getKey(parsBrackets_.size() - 1)-_minIndex, i_-_minIndex);
                 parsBrackets_.removeKey(parsBrackets_.getKey(parsBrackets_.size() - 1));
             }
@@ -742,7 +682,6 @@ public final class ElResolver {
                 }
                 d_.setIndexBegin(_minIndex);
                 d_.setIndexEnd(i_-1);
-//                secondCheckSyntax(_string, _conf, d_);
                 return d_;
             }
             if (_string.charAt(i_) == _begin) {
@@ -759,10 +698,7 @@ public final class ElResolver {
         Delimiters d_ = new Delimiters();
         NatTreeMap<Integer,Character> parsBrackets_;
         parsBrackets_ = new NatTreeMap<Integer,Character>();
-//        Character usedCaller_ = null;
-//        Character usedEnder_ = null;
         boolean instance_ = false;
-//        boolean printableChar_ = false;
         boolean constString_ = false;
         boolean foundSemiColumn_ = false;
         boolean constChar_ = false;
@@ -771,13 +707,8 @@ public final class ElResolver {
         int unicode_ = 0;
         int len_ = _string.length();
         int i_ = _elOffest;
-//        if (len_ == CustList.SIZE_EMPTY) {
-//            _conf.getLastPage().setOffset(i_);
-//            throw new BadExpressionLanguageException(_string+RETURN_LINE+_conf.joinPages());
-//        }
         while (i_ < len_) {
             if (!Character.isWhitespace(_string.charAt(i_))) {
-//                minIndexDot_ = i_;
                 break;
             }
             i_++;
@@ -844,7 +775,6 @@ public final class ElResolver {
                 }
             }
         }
-//        i_ = CustList.FIRST_INDEX;
         i_ = _elOffest;
         int nbChars_ = 0;
         int beginCharString_ = 0;
@@ -1037,22 +967,6 @@ public final class ElResolver {
                 i_++;
                 continue;
             }
-//            if (!Character.isWhitespace(curChar_)) {
-//                printableChar_ = true;
-//            }
-            /*else {
-                boolean wordCharBef_ = false;
-                boolean wordCharAfter_ = false;
-                if (i_ > CustList.FIRST_INDEX && StringList.isWordChar(_string.charAt(i_ - 1))) {
-                    wordCharBef_ = true;
-                }
-                if (i_ + 1 < len_ && StringList.isWordChar(_string.charAt(i_ + 1))) {
-                    wordCharAfter_ = true;
-                }
-                if (wordCharBef_ && wordCharAfter_) {
-                    throw new BadExpressionLanguageException(_string);
-                }
-            }*/
             if (StringList.isWordChar(curChar_)) {
                 if (i_ + 1 < len_) {
                     if (Character.isWhitespace(_string.charAt(i_ + 1))) {
@@ -1099,38 +1013,7 @@ public final class ElResolver {
                         throw new BadExpressionLanguageException(_string+RETURN_LINE+_conf.joinPages());
                     }
                 }
-                //i_ > 0 &&
-//                if (i_ + INSTANCE.length() <= len_) {
-////                    int j_ = i_ - 1;
-////                    char previous_ = _string.charAt(j_);
-//                    int j_ = i_ + 1;
-//                    while (j_ < len_) {
-//                        char next_ = _string.charAt(j_);
-//                        if (!StringList.isWordChar(next_)) {
-//                            break;
-//                        }
-//                        j_++;
-//                    }
-//                    boolean process_ = true;
-////                    if (StringList.isWordChar(previous_)) {
-////                        process_ = false;
-////                    }
-//                    if (i_ + INSTANCE.length() < len_) {
-//                        if (StringList.isWordChar(_string.charAt(i_ + INSTANCE.length()))) {
-//                            process_ = false;
-//                        }
-//                    }
-//                    if (!_string.substring(i_, i_ + INSTANCE.length()).startsWith(INSTANCE)) {
-//                        process_ = false;
-//                    }
-//                    if (process_) {
-//                        instance_ = true;
-//                    }
-//                }
                 if (procWordFirstChar(_string, i_, INSTANCE, len_)) {
-//                    if (onlySpacesFrom(_string, i_, len_, EXTERN_CLASS)) {
-//                        instance_ = true;
-//                    }
                     if (onlySpacesFrom(_string, firstPrintableWordChar_, i_, EXTERN_CLASS)) {
                         instance_ = true;
                     }
@@ -1154,9 +1037,6 @@ public final class ElResolver {
                         _conf.getLastPage().setOffset(j_);
                         throw new BadExpressionLanguageException(_string+RETURN_LINE+_conf.joinPages());
                     }
-//                    if (i_ + STATIC_ACCESS.length() < len_) {
-//
-//                    }
                 }
                 while (i_ < len_) {
                     if (!StringList.isWordChar(_string.charAt(i_))) {
@@ -1200,7 +1080,6 @@ public final class ElResolver {
             }
             if (curChar_ == PAR_LEFT) {
                 instance_ = false;
-//                usedCaller_ = curChar_;
                 parsBrackets_.put(i_, curChar_);
             }
             if (curChar_ == PAR_RIGHT) {
@@ -1213,7 +1092,6 @@ public final class ElResolver {
                     throw new BadExpressionLanguageException(_string+RETURN_LINE+_conf.joinPages());
                 }
                 firstVarArg_ = false;
-//                usedEnder_ = curChar_;
                 d_.getCallings().put(parsBrackets_.getKey(parsBrackets_.size() - 1), i_);
                 parsBrackets_.removeKey(parsBrackets_.getKey(parsBrackets_.size() - 1));
             }
@@ -1294,15 +1172,6 @@ public final class ElResolver {
                 firstVarArg_ = false;
             }
             if (parsBrackets_.isEmpty()) {
-//                if (i_ + 1 <= len_) {
-//                    if (_string.substring(i_, i_ + 1).startsWith(DOT_OPER.getOperation())) {
-//                        if (i_ + 1 >= len_) {
-//                            if (!foundSemiColumn_) {
-//                                throw new BadExpressionLanguageException(_string);
-//                            }
-//                        }
-//                    }
-//                }
                 if (_string.substring(i_, i_ + 1).startsWith(DOT)) {
                     if (i_ + 1 >= len_) {
                         if (!foundSemiColumn_) {
@@ -1336,87 +1205,18 @@ public final class ElResolver {
         }
         d_.setIndexBegin(_elOffest);
         d_.setIndexEnd(i_-1);
-//        d_.setIndexEnd(len_-1);
-//        secondCheckSyntax(_string, _conf, d_);
         return d_;
     }
     static void secondCheckSyntax(String _string, ContextEl _conf, Delimiters _d) {
-//        int len_ = _string.length();
-//        int i_ = CustList.FIRST_INDEX;
-//        boolean instance_ = false;
-//        while (i_ < len_) {
-//            if (!Character.isWhitespace(_string.charAt(i_))) {
-////                minIndexDot_ = i_;
-//                break;
-//            }
-//            i_++;
-//        }
-//        instance_ = _string.substring(i_).startsWith(INSTANCE);
-//        i_ = CustList.FIRST_INDEX;
-//        int nbChars_ = 0;
-//        int beginCharString_ = 0;
-//        while (i_ < len_) {
-//            if (_d.inStringOrCharConst(i_)) {
-//                i_++;
-//                continue;
-//            }
-//            char curChar_ = _string.charAt(i_);
-//            if (!StringList.isWordChar(curChar_)) {
-//
-//            }
-//            i_++;
-//        }
-//        boolean instance_ = false;
-//        boolean printableChar_ = false;
-//        boolean constString_ = false;
-//        boolean foundSemiColumn_ = false;
-//        boolean constChar_ = false;
-//        boolean escapedMeta_ = false;
-//        boolean firstVarArg_ = false;
-//        int unicode_ = 0;
         int len_ = _string.length();
         int i_ = CustList.FIRST_INDEX;
         while (i_ < len_) {
             if (!Character.isWhitespace(_string.charAt(i_))) {
-//                minIndexDot_ = i_;
                 break;
             }
             i_++;
         }
         int firstPrintableWordChar_ = i_;
-//        while (i_ < len_) {
-//            if (!StringList.isWordChar(_string.charAt(i_))) {
-//                break;
-//            }
-//            i_++;
-//        }
-//        if (i_ < len_ && _string.charAt(i_) == GET_VAR) {
-//            i_++;
-//            while (i_ < len_) {
-//                if (_string.charAt(i_) == GET_VAR) {
-//                    i_++;
-//                    continue;
-//                }
-//                if (_string.charAt(i_) == DOT_VAR) {
-//                    i_++;
-//                    continue;
-//                }
-//                break;
-//            }
-//            while (i_ < len_) {
-//                if (!Character.isWhitespace(_string.charAt(i_))) {
-//                    break;
-//                }
-//                i_++;
-//            }
-//        } else {
-//            i_ = firstPrintableWordChar_;
-//        }
-//        if (_string.substring(i_).startsWith(INSTANCE)) {
-//            if (i_ + INSTANCE.length() < len_ && !StringList.isWordChar(_string.charAt(i_+INSTANCE.length()))) {
-//                instance_ = true;
-//            }
-//        }
         i_ = CustList.FIRST_INDEX;
         while (i_ < len_) {
             if (_d.inStringOrCharConst(i_)) {
@@ -1499,9 +1299,6 @@ public final class ElResolver {
                 }
             }
             if (curChar_ == ARR_RIGHT) {
-//                if (onlySpacesTo(_string, i_, len_, NEG_BOOL_CHAR)) {
-//                    throw new BadExpressionLanguageException(_string);
-//                }
                 if (onlySpacesTo(_string, i_, len_, GET_VAR)) {
                     _conf.getLastPage().setOffset(_d.getIndexBegin()+i_);
                     throw new BadExpressionLanguageException(_string+RETURN_LINE+_conf.joinPages());
@@ -1558,9 +1355,6 @@ public final class ElResolver {
                 throw new BadExpressionLanguageException(_string+RETURN_LINE+_conf.joinPages());
             }
             if (curChar_ == PAR_RIGHT) {
-//                if (onlySpacesTo(_string, i_, len_, NEG_BOOL_CHAR)) {
-//                    throw new BadExpressionLanguageException(_string);
-//                }
                 if (onlySpacesTo(_string, i_, len_, GET_VAR)) {
                     _conf.getLastPage().setOffset(_d.getIndexBegin()+i_);
                     throw new BadExpressionLanguageException(_string+RETURN_LINE+_conf.joinPages());
@@ -1596,10 +1390,6 @@ public final class ElResolver {
                     i_++;
                     continue;
                 }
-//                if (onlySpacesTo(_string, i_, len_, DOT_VAR)) {
-//                    _conf.getLastPage().setOffset(_d.getIndexBegin()+i_);
-//                    throw new BadExpressionLanguageException(_string+RETURN_LINE+_conf.joinPages());
-//                }
                 if (onlySpacesTo(_string, i_, len_, NEG_BOOL_CHAR)) {
                     _conf.getLastPage().setOffset(_d.getIndexBegin()+i_);
                     throw new BadExpressionLanguageException(_string+RETURN_LINE+_conf.joinPages());
@@ -1635,14 +1425,6 @@ public final class ElResolver {
                     throw new BadExpressionLanguageException(_string+RETURN_LINE+_conf.joinPages());
                 }
             }
-//            if (curChar_ == DIV.charAt(0) || curChar_ == MULT.charAt(0)) {
-//                if (onlySpacesTo(_string, i_, len_, DIV.charAt(0))) {
-//                    throw new BadExpressionLanguageException(_string);
-//                }
-//                if (onlySpacesTo(_string, i_, len_, MULT.charAt(0))) {
-//                    throw new BadExpressionLanguageException(_string);
-//                }
-//            }
             i_++;
         }
     }
@@ -1683,403 +1465,6 @@ public final class ElResolver {
         }
         return false;
     }
-//    static int getPriority(String _string, Delimiters _d) {
-////        TreeMap<Integer,Character> parsBrackets_;
-////        parsBrackets_ = new TreeMap<Integer,Character>(new);
-//        Character usedCaller_ = null;
-////        Character usedEnder_ = null;
-////        boolean instance_ = false;
-////        boolean printableChar_ = false;
-////        boolean constString_ = false;
-////        boolean foundSemiColumn_ = false;
-////        boolean constChar_ = false;
-////        boolean escapedMeta_ = false;
-////        boolean firstVarArg_ = false;
-////        int unicode_ = 0;
-//        int prioMax_ = getMaxPriority();
-//        int prio_ = prioMax_;
-//        int len_ = _string.length();
-//        int i_ = CustList.FIRST_INDEX;
-////        int nbChars_ = 0;
-//        while (i_ < len_) {
-//            if (_d.inStringOrCharConst(i_)) {
-//                i_++;
-//                continue;
-//            }
-//            char curChar_ = _string.charAt(i_);
-////            if (constChar_) {
-//////                if (nbChars_ > 1) {
-//////                    throw new BadExpressionLanguageException(_string);
-//////                }
-////                if (!escapedMeta_) {
-////                    if (curChar_ == ESCAPE_META_CHAR) {
-//////                        if (i_ + 1 >= len_) {
-//////                            throw new BadExpressionLanguageException(_string);
-//////                        }
-////                        escapedMeta_ = true;
-////                        i_++;
-////                        continue;
-////                    }
-////                    if (curChar_ == DELIMITER_CHAR) {
-////                        constChar_ = false;
-////                        i_++;
-////                        continue;
-////                    }
-////                    nbChars_ ++;
-////                    i_++;
-////                    continue;
-////                }
-////                if (unicode_ > 0) {
-//////                    boolean ok_ = false;
-//////                    if (curChar_ >= MIN_ENCODE_DIGIT && curChar_ <= MAX_ENCODE_DIGIT) {
-//////                        ok_ = true;
-//////                    }
-//////                    if (curChar_ >= MIN_ENCODE_LOW_LETTER && curChar_ <= MAX_ENCODE_LOW_LETTER) {
-//////                        ok_ = true;
-//////                    }
-//////                    if (curChar_ >= MIN_ENCODE_UPP_LETTER && curChar_ <= MAX_ENCODE_UPP_LETTER) {
-//////                        ok_ = true;
-//////                    }
-//////                    if (!ok_) {
-//////                        throw new BadExpressionLanguageException(_string);
-//////                    }
-////                    if (unicode_ < UNICODE_SIZE) {
-////                        unicode_++;
-////                    } else {
-////                        unicode_ = 0;
-////                        nbChars_ ++;
-////                        escapedMeta_ = false;
-////                    }
-////                    i_++;
-////                    continue;
-////                }
-////                if (curChar_ == DELIMITER_CHAR) {
-////                    nbChars_ ++;
-////                    escapedMeta_ = false;
-////                    i_++;
-////                    continue;
-////                }
-////                if (curChar_ == IND_LINE) {
-////                    nbChars_ ++;
-////                    escapedMeta_ = false;
-////                    i_++;
-////                    continue;
-////                }
-////                if (curChar_ == IND_BOUND) {
-////                    nbChars_ ++;
-////                    escapedMeta_ = false;
-////                    i_++;
-////                    continue;
-////                }
-////                if (curChar_ == IND_LINE_FEED) {
-////                    nbChars_ ++;
-////                    escapedMeta_ = false;
-////                    i_++;
-////                    continue;
-////                }
-////                if (curChar_ == IND_TAB) {
-////                    nbChars_ ++;
-////                    escapedMeta_ = false;
-////                    i_++;
-////                    continue;
-////                }
-////                if (curChar_ == ESCAPE_META_CHAR) {
-////                    nbChars_ ++;
-////                    escapedMeta_ = false;
-////                    i_++;
-////                    continue;
-////                }
-//////                if (curChar_ != UNICODE || i_ + UNICODE_SIZE > len_) {
-//////                    throw new BadExpressionLanguageException(_string);
-//////                }
-////                unicode_ = 1;
-////                i_++;
-////                continue;
-////            }
-////            if (constString_) {
-////                if (!escapedMeta_) {
-////                    if (curChar_ == ESCAPE_META_CHAR) {
-//////                        if (i_ + 1 >= len_) {
-//////                            throw new BadExpressionLanguageException(_string);
-//////                        }
-////                        escapedMeta_ = true;
-////                        i_++;
-////                        continue;
-////                    }
-////                    if (curChar_ == DELIMITER_STRING) {
-////                        constString_ = false;
-////                        i_++;
-////                        continue;
-////                    }
-////                    i_++;
-////                    continue;
-////                }
-////                if (unicode_ > 0) {
-////                    boolean ok_ = false;
-//////                    if (curChar_ >= MIN_ENCODE_DIGIT && curChar_ <= MAX_ENCODE_DIGIT) {
-//////                        ok_ = true;
-//////                    }
-//////                    if (curChar_ >= MIN_ENCODE_LOW_LETTER && curChar_ <= MAX_ENCODE_LOW_LETTER) {
-//////                        ok_ = true;
-//////                    }
-//////                    if (curChar_ >= MIN_ENCODE_UPP_LETTER && curChar_ <= MAX_ENCODE_UPP_LETTER) {
-//////                        ok_ = true;
-//////                    }
-//////                    if (!ok_) {
-//////                        throw new BadExpressionLanguageException(_string);
-//////                    }
-////                    if (unicode_ < UNICODE_SIZE) {
-////                        unicode_++;
-////                    } else {
-////                        unicode_ = 0;
-////                        escapedMeta_ = false;
-////                    }
-////                    i_++;
-////                    continue;
-////                }
-////                if (curChar_ == DELIMITER_STRING) {
-////                    escapedMeta_ = false;
-////                    i_++;
-////                    continue;
-////                }
-////                if (curChar_ == IND_LINE) {
-////                    escapedMeta_ = false;
-////                    i_++;
-////                    continue;
-////                }
-////                if (curChar_ == IND_BOUND) {
-////                    escapedMeta_ = false;
-////                    i_++;
-////                    continue;
-////                }
-////                if (curChar_ == IND_LINE_FEED) {
-////                    escapedMeta_ = false;
-////                    i_++;
-////                    continue;
-////                }
-////                if (curChar_ == IND_TAB) {
-////                    escapedMeta_ = false;
-////                    i_++;
-////                    continue;
-////                }
-////                if (curChar_ == ESCAPE_META_CHAR) {
-////                    escapedMeta_ = false;
-////                    i_++;
-////                    continue;
-////                }
-//////                if (curChar_ != UNICODE || i_ + UNICODE_SIZE > len_) {
-//////                    throw new BadExpressionLanguageException(_string);
-//////                }
-////                unicode_ = 1;
-////                i_++;
-////                continue;
-////            }
-////            if (!Character.isWhitespace(curChar_)) {
-////                printableChar_ = true;
-////            } else {
-////                boolean wordCharBef_ = false;
-////                boolean wordCharAfter_ = false;
-////                if (i_ > CustList.FIRST_INDEX && StringList.isWordChar(_string.charAt(i_ - 1))) {
-////                    wordCharBef_ = true;
-////                }
-////                if (i_ + 1 < len_ && StringList.isWordChar(_string.charAt(i_ + 1))) {
-////                    wordCharAfter_ = true;
-////                }
-////                if (wordCharBef_ && wordCharAfter_) {
-////                    throw new BadExpressionLanguageException(_string);
-////                }
-////            }
-////            if (curChar_ == ESCAPE_META_CHAR) {
-////                throw new BadExpressionLanguageException(_string);
-////            }
-////            if (curChar_ == DELIMITER_CHAR) {
-////                constChar_ = true;
-////                nbChars_ = 0;
-////            }
-////            if (curChar_ == DELIMITER_STRING) {
-////                constString_ = true;
-////            }
-////            if (curChar_ == GET_VAR && parsBrackets_.isEmpty()) {
-////                foundSemiColumn_ = true;
-////            }
-//            if (curChar_ == GET_VAR && _d.nbCalls(i_) == 0) {
-////                foundSemiColumn_ = true;
-//                i_++;
-//                continue;
-//            }
-////            if (curChar_ == NEG_BOOL.charAt(0) || curChar_ == LOWER.charAt(0) || curChar_ == GREATER.charAt(0)) {
-////                int j_ = i_ + 1;
-////                boolean exist_ = false;
-////                while (j_ < len_) {
-////                    if (Character.isWhitespace(_string.charAt(j_))) {
-////                        exist_ = true;
-////                        j_++;
-////                        continue;
-////                    }
-//////                    if (_string.charAt(j_) == EQ.charAt(0) && exist_) {
-//////                        throw new BadExpressionLanguageException(_string);
-//////                    }
-////                    break;
-////                }
-////            }
-//            if (curChar_ == PAR_LEFT) {
-//                usedCaller_ = curChar_;
-////                parsBrackets_.put(i_, curChar_);
-//            }
-////            if (curChar_ == PAR_RIGHT) {
-//////                if (parsBrackets_.isEmpty()) {
-//////                    throw new BadExpressionLanguageException(_string);
-//////                }
-//////                if (parsBrackets_.getValue(parsBrackets_.size() - 1) != PAR_LEFT) {
-//////                    throw new BadExpressionLanguageException(_string);
-//////                }
-//////                firstVarArg_ = false;
-//////                usedEnder_ = curChar_;
-//////                parsBrackets_.removeKey(parsBrackets_.getKey(parsBrackets_.size() - 1));
-////            }
-//            if (curChar_ == FIRST_VAR_ARG) {
-////                if (parsBrackets_.isEmpty()) {
-////                    throw new BadExpressionLanguageException(_string);
-////                }
-////                if (parsBrackets_.getValue(parsBrackets_.size() - 1) != PAR_LEFT) {
-////                    throw new BadExpressionLanguageException(_string);
-////                }
-////                int lastKey_ = parsBrackets_.getKey(parsBrackets_.size() - 1);
-////                if (_d.nbCalls(i_) == 0)
-////                    int j_ = i_ + 1;
-////                    boolean foundPrintableSpace_ = false;
-////                    while (j_ < len_) {
-////                        if (!Character.isWhitespace(_string.charAt(j_))) {
-////                            foundPrintableSpace_ = true;
-////                            break;
-////                        }
-////                        j_++;
-////                    }
-////                    if (foundPrintableSpace_) {
-////                        throw new BadExpressionLanguageException(_string);
-////                    }
-////                Integer calls_ = _d.getCalls(i_).getMaximum();
-////                if (calls_ != null) {
-////                    int lastKey_ = calls_;
-////                    boolean allWhiteSpace_ = true;
-////                    for (int i = lastKey_+1; i < i_; i++) {
-////                        if (!Character.isWhitespace(_string.charAt(i))) {
-////                            allWhiteSpace_ = false;
-////                            break;
-////                        }
-////                    }
-//////                    if (allWhiteSpace_) {
-//////                        firstVarArg_ = true;
-//////                    }
-////                }
-////                int lastKey_ = _d.getCalls(i_).getMaximum();
-////                boolean allWhiteSpace_ = true;
-////                for (int i = lastKey_+1; i < i_; i++) {
-////                    if (!Character.isWhitespace(_string.charAt(i))) {
-////                        allWhiteSpace_ = false;
-////                        break;
-////                    }
-////                }
-////                if (allWhiteSpace_) {
-////                    firstVarArg_ = true;
-////                }
-//                i_++;
-//                continue;
-//            }
-//            if (curChar_ == ARR_LEFT) {
-////                if (parsBrackets_.isEmpty()) {
-////                    prio_ = ARR_OPER.getPriority();
-////                }
-//                if (_d.nbCalls(i_) <= 1) {
-//                    prio_ = ARR_OPER_PRIO;
-//                }
-////                if (!firstVarArg_) {
-////                    parsBrackets_.put(i_, curChar_);
-////                }
-//            }
-//            //if (curChar_ == ARR_RIGHT) {
-////                if (parsBrackets_.isEmpty()) {
-////                    throw new BadExpressionLanguageException(_string);
-////                }
-////                if (parsBrackets_.getValue(parsBrackets_.size() - 1) != ARR_LEFT) {
-////                    throw new BadExpressionLanguageException(_string);
-////                }
-////                parsBrackets_.removeKey(parsBrackets_.getKey(parsBrackets_.size() - 1));
-//            //}
-////            if (curChar_ == SEP_ARG) {
-//////                if (parsBrackets_.isEmpty()) {
-//////                    throw new BadExpressionLanguageException(_string);
-//////                }
-////                firstVarArg_ = false;
-////            }
-////            if (parsBrackets_.isEmpty())
-//            if (_d.nbCalls(i_) == 0) {
-//                for (OperationPriority op_: getOperationsByLowerPriority(prio_)) {
-//                    if (i_ + 2 > len_) {
-//                        break;
-//                    }
-//                    if (_string.substring(i_, i_ + 2).startsWith(op_.getOperation())) {
-//                        if (op_ == DOT_OPER) {
-//                            if (i_ + 1 >= len_) {
-////                                if (!foundSemiColumn_) {
-////                                    throw new BadExpressionLanguageException(_string);
-////                                }
-//                                continue;
-//                            } else if (Character.isDigit(_string.charAt(i_ + 1))) {
-//                                continue;
-//                            }
-//                        }
-//                        if ((op_ == UNARY_PLUS_OPER || op_ == UNARY_MINUS_OPER)) {
-//                            if (i_ > 0) {
-//                                if (StringList.isWordChar(_string.charAt(i_ - 1))) {
-//                                    continue;
-//                                }
-//                                if (_string.charAt(i_ - 1) == PAR_RIGHT) {
-//                                    continue;
-//                                }
-//                                if (_string.charAt(i_ - 1) == ARR_RIGHT) {
-//                                    continue;
-//                                }
-//                                if (_string.charAt(i_ - 1) == DOT_VAR) {
-//                                    continue;
-//                                }
-//                                if (_string.charAt(i_ - 1) == GET_VAR) {
-//                                    continue;
-//                                }
-//                                if (_string.charAt(i_ - 1) == DELIMITER_CHAR) {
-//                                    continue;
-//                                }
-//                                if (_string.charAt(i_ - 1) == DELIMITER_STRING) {
-//                                    continue;
-//                                }
-//                            }
-//                        }
-//                        prio_ = op_.getPriority();
-//                        break;
-//                    }
-//                }
-//            }
-//            i_++;
-//        }
-////        if (firstVarArg_) {
-////            throw new BadExpressionLanguageException(_string);
-////        }
-////        if (constString_) {
-////            throw new BadExpressionLanguageException(_string);
-////        }
-////        if (constChar_) {
-////            throw new BadExpressionLanguageException(_string);
-////        }
-////        if (!parsBrackets_.isEmpty()) {
-////            throw new BadExpressionLanguageException(_string);
-////        }
-//        if (prioMax_ == prio_) {
-//            if (usedCaller_ == null) {
-//                return CustList.FIRST_INDEX;
-//            }
-//        }
-//        return prio_;
-//    }
     public static OperationsSequence getOperationsSequence(int _offset, String _string,
             ContextEl _conf, Delimiters _d) {
         NatTreeMap<Integer,String> operators_;
@@ -2381,7 +1766,6 @@ public final class ElResolver {
                     if (ARR_OPER_PRIO <= prio_) {
                         operators_.put(i_, ARR);
                     }
-//                    operators_.put(i_, ARR);
                 }
                 if (!firstVarArg_ && !instance_) {
                     parsBrackets_.put(i_, curChar_);
@@ -2702,15 +2086,6 @@ public final class ElResolver {
             if (StringList.isWordChar(_string.charAt(i_ - 1))) {
                 return false;
             }
-            /*if (_string.charAt(i_ - 1) == PAR_LEFT) {
-                return true;
-            }
-            if (_string.charAt(i_ - 1) == ARR_LEFT) {
-                return true;
-            }
-            if (_string.charAt(i_ - 1) == SEP_ARG) {
-                return true;
-            }*/
             if (_string.charAt(i_ - 1) == PAR_RIGHT) {
                 return false;
             }
@@ -2729,45 +2104,12 @@ public final class ElResolver {
             if (_string.charAt(i_ - 1) == DELIMITER_STRING) {
                 return false;
             }
-            /*if (_string.charAt(i_ - 1) == MOD.charAt(CustList.FIRST_INDEX)) {
-                return true;
-            }
-            if (_string.charAt(i_ - 1) == DIV.charAt(CustList.FIRST_INDEX)) {
-                return true;
-            }
-            if (_string.charAt(i_ - 1) == MULT.charAt(CustList.FIRST_INDEX)) {
-                return true;
-            }
-            if (_string.charAt(i_ - 1) == PLUS_CHAR) {
-                return true;
-            }
-            if (_string.charAt(i_ - 1) == MINUS_CHAR) {
-                return true;
-            }*/
-            /*if (_op == _minus) {
-                if (_string.charAt(i_ - 1) == PLUS_CHAR) {
-                    return true;
-                }
-            }
-            if (_op == _plus) {
-                if (_string.charAt(i_ - 1) == MINUS_CHAR) {
-                    return true;
-                }
-            }
-            if (_string.charAt(i_ - 1) != MINUS_CHAR && _op == _minus) {
-                return false;
-            }
-            if (_string.charAt(i_ - 1) != PLUS_CHAR && _op == _plus) {
-                return false;
-            }*/
         }
         return true;
     }
     static boolean procWordFirstChar(String _string, int _i, String _word, int _max) {
         int len_ = _max;
         if (_i + _word.length() <= len_) {
-//            int j_ = i_ - 1;
-//            char previous_ = _string.charAt(j_);
             int j_ = _i + 1;
             while (j_ < len_) {
                 char next_ = _string.charAt(j_);
@@ -2777,19 +2119,11 @@ public final class ElResolver {
                 j_++;
             }
             boolean process_ = true;
-//            if (StringList.isWordChar(previous_)) {
-//                process_ = false;
-//            }
             if (_i + _word.length() < len_) {
                 if (StringList.isWordChar(_string.charAt(_i + _word.length()))) {
                     process_ = false;
                 }
             }
-//            if (_i + _word.length() <= len_) {
-//                if (!_string.substring(_i, _i + _word.length()).startsWith(_word)) {
-//                    process_ = false;
-//                }
-//            }
             if (!_string.substring(_i, _i + _word.length()).startsWith(_word)) {
                 process_ = false;
             }
@@ -2797,27 +2131,4 @@ public final class ElResolver {
         }
         return false;
     }
-
-//    static int indexOfNotDigit(String _string, int _i, int _max) {
-//        int j_ = _i;
-//        int len_ = _max;
-//        while (j_ < len_) {
-//            if (!Character.isDigit(_string.charAt(j_))) {
-//                return j_;
-//            }
-//            j_++;
-//        }
-//        return -1;
-//    }
-//    static int indexOfNotSpace(String _string, int _i, int _max) {
-//        int j_ = _i;
-//        int len_ = _max;
-//        while (j_ < len_) {
-//            if (!Character.isWhitespace(_string.charAt(j_))) {
-//                return j_;
-//            }
-//            j_++;
-//        }
-//        return -1;
-//    }
 }

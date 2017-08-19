@@ -22,7 +22,6 @@ public abstract class BracedBlock extends Block implements BracedBlockInt {
     @Override
     public final Block getFirstChild() {
         if (initializedFirstChild) {
-//            setConf(null);
             return firstChild;
         }
         initializedFirstChild = true;
@@ -35,7 +34,6 @@ public abstract class BracedBlock extends Block implements BracedBlockInt {
             first_ = first_.getNextSibling();
         }
         if (first_ == null) {
-//            setConf(null);
             return null;
         }
         Element eltFirst_ = (Element) first_;
@@ -48,9 +46,7 @@ public abstract class BracedBlock extends Block implements BracedBlockInt {
         firstChild.setEndHeader(ne_.getEndHeader());
         firstChild.setTabs(ne_.getTabs());
         firstChild.setOffsets(ne_.getOffsets());
-//        firstChild.setIndexBegin(ne_.getBegin());
         getConf().setElements(ne_);
-//        setConf(null);
         return firstChild;
     }
 

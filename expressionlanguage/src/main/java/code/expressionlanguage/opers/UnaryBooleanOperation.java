@@ -5,7 +5,6 @@ import code.expressionlanguage.OperationsSequence;
 import code.expressionlanguage.PrimitiveTypeUtil;
 import code.expressionlanguage.exceptions.BadNumberValuesException;
 import code.expressionlanguage.exceptions.NotBooleanException;
-import code.expressionlanguage.exceptions.SettingMemberException;
 import code.expressionlanguage.methods.util.ArgumentsPair;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.util.CustList;
@@ -20,39 +19,8 @@ public final class UnaryBooleanOperation extends PrimitiveBoolOperation {
         super(_el, _index, _importingPage, _indexChild, _m, _op);
     }
 
-//    @Override
-//    public void analyze(CustList<OperationNode> _nodes, ContextEl _conf, Calculation _setting) {
-//        if (_setting.getStep()  == StepCalculation.LEFT && getParent() == null) {
-//            setRelativeOffsetPossibleLastPage(getIndexInEl(), _conf);
-//            throw new SettingMemberException(_conf.joinPages());
-//        }
-//        CustList<OperationNode> chidren_ = getChildrenAmong(_nodes, true);
-//        if (chidren_.size() != 1) {
-//            setRelativeOffsetPossibleLastPage(getIndexInEl(), _conf);
-//            throw new BadNumberValuesException(_conf.joinPages());
-//        }
-//        ClassArgumentMatching clMatch_;
-//        clMatch_ = chidren_.first().getResultClass();
-//        setRelativeOffsetPossibleLastPage(getIndexInEl(), _conf);
-//        if (!clMatch_.matchClass(PrimitiveTypeUtil.PRIM_BOOLEAN)) {
-//            if (!clMatch_.matchClass(Boolean.class)) {
-//                ClassArgumentMatching cl_ = chidren_.first().getResultClass();
-//                throw new NotBooleanException(String.valueOf(cl_)+RETURN_LINE+_conf.joinPages());
-//            }
-//        }
-//        setResultClass(new ClassArgumentMatching(PrimitiveTypeUtil.PRIM_BOOLEAN));
-//    }
     @Override
-    public void analyzeLeft(CustList<OperationNode> _nodes, ContextEl _conf,
-            boolean _enumContext, String _op) {
-        if (getParent() == null) {
-            setRelativeOffsetPossibleLastPage(getIndexInEl(), _conf);
-            throw new SettingMemberException(_conf.joinPages());
-        }
-        analyzeCommon(_nodes, _conf, _op);
-    }
-    @Override
-    public void analyzeRight(CustList<OperationNode> _nodes, ContextEl _conf,
+    public void analyze(boolean _variable, CustList<OperationNode> _nodes, ContextEl _conf,
             boolean _enumContext, String _op) {
         analyzeCommon(_nodes, _conf, _op);
     }

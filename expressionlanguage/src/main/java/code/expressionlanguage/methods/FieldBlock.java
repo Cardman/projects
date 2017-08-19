@@ -67,7 +67,6 @@ public final class FieldBlock extends Leaf implements InfoBlock {
     }
 
     public ExpressionLanguage getValueEl() {
-//        return new ExpressionLanguage(rightMember, _cont, true, new Calculation(StepCalculation.RIGHT));
         return new ExpressionLanguage(opValue);
     }
 
@@ -99,9 +98,7 @@ public final class FieldBlock extends Leaf implements InfoBlock {
     public void checkBlocksTree(ContextEl _cont) {
         if (!(getParent() instanceof RootedBlock)) {
             PageEl page_ = _cont.getLastPage();
-//            page_.setProcessingNode(getAssociateElement());
             page_.setProcessingAttribute(EMPTY_STRING);
-//            page_.setLookForAttrValue(false);
             page_.setOffset(0);
             throw new BadFieldException(_cont.joinPages());
         }
@@ -110,24 +107,14 @@ public final class FieldBlock extends Leaf implements InfoBlock {
     @Override
     public void buildExpressionLanguage(ContextEl _cont) {
         PageEl page_ = _cont.getLastPage();
-//        page_.setProcessingNode(getAssociateElement());
         page_.setProcessingAttribute(ATTRIBUTE_CLASS);
-//        page_.setLookForAttrValue(true);
         page_.setOffset(0);
-//        try {
-//            ConstClasses.classForNameNotInit(className);
-//        } catch (RuntimeClassNotFoundException _0) {
-//            throw new RuntimeClassNotFoundException(_cont.joinPages());
-//        }
         if (value.isEmpty()) {
             return;
         }
         page_.setProcessingAttribute(ATTRIBUTE_EXPRESSION);
-//        page_.setLookForAttrValue(true);
         page_.setOffset(0);
-//        opValue = ElUtil.getAnalyzedOperations(value, _cont, staticField);
         opValue = ElUtil.getAnalyzedOperations(value, _cont, Calculation.staticCalculation(staticField));
-//        ExpressionLanguage rightEl_ = new ExpressionLanguage(rightMember, _cont, true, new Calculation(StepCalculation.RIGHT));
         if (!PrimitiveTypeUtil.canBeUseAsArgument(className, opValue.last().getResultClass().getName(), _cont.getClasses())) {
             throw new DynamicCastClassException(_cont.joinPages());
         }
@@ -150,9 +137,7 @@ public final class FieldBlock extends Leaf implements InfoBlock {
             return;
         }
         PageEl p_ = _cont.getLastPage();
-//        p_.setProcessingNode(getAssociateElement());
         p_.setProcessingAttribute(ATTRIBUTE_VALUE);
-//        p_.setLookForAttrValue(true);
         for (OperationNode o: opValue) {
             if (o.isSuperThis()) {
                 int off_ = o.getFullIndexInEl();
@@ -174,7 +159,6 @@ public final class FieldBlock extends Leaf implements InfoBlock {
         boolean static_ = isStaticField();
         if (static_ != instancing_) {
             ip_.setProcessingAttribute(ATTRIBUTE_VALUE);
-//            ip_.setLookForAttrValue(true);
             ip_.setOffset(0);
             String name_ = getFieldName();
             Struct struct_;
@@ -204,7 +188,6 @@ public final class FieldBlock extends Leaf implements InfoBlock {
                 ip_.setEnumName(EMPTY_STRING);
             }
             RootedBlock r_ = getRooted();
-//            ClassBlock root_ = (ClassBlock) ip_.getBlockRoot();
             ClassField staticField_ = new ClassField(r_.getFullName(), name_);
             if (static_) {
                 _cont.getClasses().initializeStaticField(staticField_, struct_);

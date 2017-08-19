@@ -74,9 +74,9 @@ public final class ConstantOperation extends OperationNode implements SettableEl
     }
 
     @Override
-    public void analyzeLeft(CustList<OperationNode> _nodes, ContextEl _conf,
+    public void analyze(boolean _variable, CustList<OperationNode> _nodes, ContextEl _conf,
             boolean _enumContext, String _op) {
-        analyzeCalculate(true, _conf);
+        analyzeCalculate(_variable, _conf);
         if (getArgument() != null) {
             String str_ = getOperations().getValues().getValue(CustList.FIRST_INDEX).trim();
             boolean static_ = usingPureStaticAccess();
@@ -84,29 +84,7 @@ public final class ConstantOperation extends OperationNode implements SettableEl
             getResultClass().setVariable(StringList.quickEq(str_, NULL_REF_STRING));
             return;
         }
-        if (getParent() == null) {
-            variable = true;
-        } else {
-            variable = _nodes.getPrev(_nodes.getLastIndex()) == this;
-        }
-        analyzeCommon(true, _conf);
-    }
-    @Override
-    public void analyzeRight(CustList<OperationNode> _nodes, ContextEl _conf,
-            boolean _enumContext, String _op) {
-        analyzeCalculate(false, _conf);
-        analyzeNotLeft(_nodes, _conf, _op);
-    }
-
-    void analyzeNotLeft(CustList<OperationNode> _nodes, ContextEl _conf, String _op) {
-        if (getArgument() != null) {
-            String str_ = getOperations().getValues().getValue(CustList.FIRST_INDEX).trim();
-            boolean static_ = usingPureStaticAccess();
-            setResultClass(new ClassArgumentMatching(argClassName),static_);
-            getResultClass().setVariable(StringList.quickEq(str_, NULL_REF_STRING));
-            return;
-        }
-        analyzeCommon(false, _conf);
+        analyzeCommon(_variable, _conf);
     }
 
     void analyzeCommon(boolean _checkSetting, ContextEl _conf) {
@@ -805,4 +783,8 @@ public final class ConstantOperation extends OperationNode implements SettableEl
         return variable;
     }
 
+    @Override
+    public void setVariable() {
+        variable = true;
+    }
 }
