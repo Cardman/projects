@@ -1,6 +1,6 @@
 package code.expressionlanguage;
 import code.expressionlanguage.methods.Classes;
-import code.expressionlanguage.methods.RootedBlock;
+import code.expressionlanguage.methods.RootBlock;
 import code.expressionlanguage.opers.OperationNode;
 import code.expressionlanguage.opers.util.AssignableFrom;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
@@ -254,7 +254,7 @@ public final class PrimitiveTypeUtil {
         if (dPar_.getDim() != dArg_.getDim()) {
             return false;
         }
-        RootedBlock clArgBl_ = _classes.getClassBody(a_);
+        RootBlock clArgBl_ = _classes.getClassBody(a_);
         if (clArgBl_.getAllSuperTypes().containsObj(className_)) {
             return true;
         }
@@ -393,7 +393,7 @@ public final class PrimitiveTypeUtil {
         if (_classes != null) {
             DimComp dArg_ = PrimitiveTypeUtil.getQuickComponentBaseType(_arg);
             String a_ = dArg_.getComponent();
-            RootedBlock clArgBl_ = _classes.getClassBody(a_);
+            RootBlock clArgBl_ = _classes.getClassBody(a_);
             if (clArgBl_ != null) {
                 DimComp dPar_ = PrimitiveTypeUtil.getQuickComponentBaseType(_param);
                 if (dArg_.getDim() > 0 && dPar_.getDim() > 0) {
@@ -416,7 +416,7 @@ public final class PrimitiveTypeUtil {
             }
             DimComp dPar_ = PrimitiveTypeUtil.getQuickComponentBaseType(_param);
             String p_ = dPar_.getComponent();
-            RootedBlock clParBl_ = _classes.getClassBody(p_);
+            RootBlock clParBl_ = _classes.getClassBody(p_);
             if (clParBl_ != null) {
                 return AssignableFrom.NO;
             }

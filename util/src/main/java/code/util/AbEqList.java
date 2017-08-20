@@ -122,36 +122,6 @@ public abstract class AbEqList<T> extends CustList<T> {
             if (!rem_) {
                 i_++;
             }
-//            if (next_ == INDEX_NOT_FOUND_ELT) {
-//                i_++;
-//            } else {
-//                removeAt(next_);
-//            }
-//            int j_ = i_ + 1;
-//            while (true) {
-//                if (j_ >= size()) {
-//                    break;
-//                }
-//                if (areDuplicates(i_, j_)) {
-//                    removeAt(j_);
-//                } else {
-//                    j_++;
-//                }
-////                if (get(i_) == null) {
-////                    if (get(j_) == null) {
-////                        removeAt(j_);
-////                    } else {
-////                        j_++;
-////                    }
-////                    continue;
-////                }
-////                if (eq(get(i_),get(j_))) {
-////                    removeAt(j_);
-////                } else {
-////                    j_++;
-////                }
-//            }
-//            i_++;
         }
     }
     public Numbers<Integer> indexesOfObj(T _element) {

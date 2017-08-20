@@ -96,7 +96,7 @@ public final class FieldBlock extends Leaf implements InfoBlock {
 
     @Override
     public void checkBlocksTree(ContextEl _cont) {
-        if (!(getParent() instanceof RootedBlock)) {
+        if (!(getParent() instanceof RootBlock)) {
             PageEl page_ = _cont.getLastPage();
             page_.setProcessingAttribute(EMPTY_STRING);
             page_.setOffset(0);
@@ -187,7 +187,7 @@ public final class FieldBlock extends Leaf implements InfoBlock {
                 ip_.getCurrentEls().clear();
                 ip_.setEnumName(EMPTY_STRING);
             }
-            RootedBlock r_ = getRooted();
+            RootBlock r_ = getRooted();
             ClassField staticField_ = new ClassField(r_.getFullName(), name_);
             if (static_) {
                 _cont.getClasses().initializeStaticField(staticField_, struct_);
@@ -200,7 +200,7 @@ public final class FieldBlock extends Leaf implements InfoBlock {
     }
 
     @Override
-    public RootedBlock belong() {
-        return (RootedBlock) getParent();
+    public RootBlock belong() {
+        return (RootBlock) getParent();
     }
 }

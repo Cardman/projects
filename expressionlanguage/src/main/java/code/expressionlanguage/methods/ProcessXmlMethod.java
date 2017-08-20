@@ -138,7 +138,7 @@ public final class ProcessXmlMethod {
     private static PageEl createInstancingClass(String _class, ContextEl _cont) {
         Classes classes_ = _cont.getClasses();
         classes_.preInitializeStaticFields(_class);
-        RootedBlock class_ = classes_.getClassBody(_class);
+        RootBlock class_ = classes_.getClassBody(_class);
         Block firstChild_ = class_.getFirstChild();
         PageEl page_ = new PageEl();
         Argument argGl_ = new Argument();
@@ -198,7 +198,7 @@ public final class ProcessXmlMethod {
         FctConstraints id_ = _call.getId();
         InstancingStep in_ = _call.getInstancingStep();
         Classes classes_ = _cont.getClasses();
-        RootedBlock class_ = classes_.getClassBody(_class);
+        RootBlock class_ = classes_.getClassBody(_class);
         ConstructorBlock method_ = classes_.getConstructorBody(_class, id_);
         Argument argGl_ = new Argument();
         if (in_ == InstancingStep.NEWING) {
@@ -448,7 +448,7 @@ public final class ProcessXmlMethod {
                 throw new CustomFoundConstructorException(superClass_, called_, super_, global_, new CustList<Argument>(), InstancingStep.USING_SUPER_IMPLICIT);
             }
             if (!caller_.isFirstField()) {
-                RootedBlock class_ = _conf.getClasses().getClassBody(curClass_);
+                RootBlock class_ = _conf.getClasses().getClassBody(curClass_);
                 Block first_ = class_.getFirstChild();
                 if (first_ == null) {
                     ip_.exitFromConstructor();
@@ -493,7 +493,7 @@ public final class ProcessXmlMethod {
             return;
         }
         Block root_ = ip_.getBlockRoot();
-        if (root_ instanceof RootedBlock) {
+        if (root_ instanceof RootBlock) {
             if (ip_.isInstancing()) {
                 ip_.exitFromConstructor();
                 return;

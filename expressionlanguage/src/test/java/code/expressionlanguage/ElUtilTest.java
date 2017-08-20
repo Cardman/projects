@@ -17,6 +17,7 @@ import code.expressionlanguage.classes.FieldClass;
 import code.expressionlanguage.classes.FieldFieldClass;
 import code.expressionlanguage.classes.FinalFieldClass;
 import code.expressionlanguage.classes.IOne;
+import code.expressionlanguage.classes.ImplFour;
 import code.expressionlanguage.classes.InheritedComposite;
 import code.expressionlanguage.classes.InternsClasses;
 import code.expressionlanguage.classes.InternsClasses.InternStandard;
@@ -68,6 +69,7 @@ public class ElUtilTest {
     private static final String FAIL_METHODS = FailMethods.class.getName();
     private static final String FAIL_METHODS_HAT = StringList.replace(FAIL_METHODS, ".", "^");
     private static final String IONE = IOne.class.getName();
+    private static final String IMPL_FOUR = ImplFour.class.getName();
     private static final String MY_IMPL = MyImpl.class.getName();
     private static final String MY_IMPL_HAT = StringList.replace(MY_IMPL, ".", "^");
     private static final String PUBLIC_ACCESS = "PUBLIC";
@@ -1568,6 +1570,17 @@ public class ElUtilTest {
         assertEq("pkg.Ex",res_.getClassName());
     }
 
+    @Test
+    public void processEl108Test() {
+        ContextEl context_ = new ContextEl();
+        setupAccessValue(context_);
+        addImportingPage(context_);
+        Argument arg_ = ElUtil.processEl("^new."+IMPL_FOUR+"().method()",0, context_);
+        Object res_ = arg_.getObject();
+        assertSame(Integer.class, res_.getClass());
+        assertEq(1,(Number) res_);
+    }
+
     @Test(expected=AmbiguousChoiceCallingException.class)
     public void processEl1FailTest() {
         ContextEl context_ = new ContextEl();
@@ -1723,7 +1736,7 @@ public class ElUtilTest {
         addImportingPage(context_);
         ElUtil.processEl("static^"+FAIL_METHODS_HAT+".fail()",0, context_);
     }
-
+    
     @Test(expected=InvokeException.class)
     public void processEl18FailTest() {
         ContextEl context_ = new ContextEl();

@@ -178,7 +178,7 @@ public abstract class Block extends Blockable implements SortedNode<Block> {
         PageEl ip_ = _conf.getLastPage();
         if (parElt_ == null) {
             Block root_ = ip_.getBlockRoot();
-            if (root_ instanceof RootedBlock) {
+            if (root_ instanceof RootBlock) {
                 if (ip_.isInstancing()) {
                     CallConstructor call_;
                     call_ = ip_.getCallingConstr();
@@ -328,11 +328,11 @@ public abstract class Block extends Blockable implements SortedNode<Block> {
         }
         return null;
     }
-    public final RootedBlock getRooted() {
+    public final RootBlock getRooted() {
         Block b_ = this;
         while (b_ != null) {
-            if (b_ instanceof RootedBlock) {
-                return (RootedBlock)b_;
+            if (b_ instanceof RootBlock) {
+                return (RootBlock)b_;
             }
             b_ = b_.getParent();
         }

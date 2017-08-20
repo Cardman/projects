@@ -4,5 +4,5 @@ public interface AccessibleBlock {
 
     AccessEnum getAccess();
 
-    RootedBlock belong();
+    RootBlock belong();
 }

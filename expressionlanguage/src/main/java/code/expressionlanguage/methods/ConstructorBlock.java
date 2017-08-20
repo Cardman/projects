@@ -61,7 +61,7 @@ public final class ConstructorBlock extends BracedBlock implements Returnable {
     }
 
     public ConstructorId getId() {
-        RootedBlock clBlock_ = (RootedBlock) getParent();
+        RootBlock clBlock_ = (RootBlock) getParent();
         String name_ = clBlock_.getFullName();
         StringList types_ = getParametersTypes();
         int len_ = types_.size();
@@ -349,8 +349,8 @@ public final class ConstructorBlock extends BracedBlock implements Returnable {
     }
 
     @Override
-    public RootedBlock belong() {
-        return (RootedBlock) getParent();
+    public RootBlock belong() {
+        return (RootBlock) getParent();
     }
 
     @Override

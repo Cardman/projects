@@ -56,7 +56,7 @@ public final class ElementBlock extends Leaf implements InfoBlock{
     @Override
     public String getClassName() {
         Block b_ = getParent();
-        RootedBlock r_ = (RootedBlock) b_;
+        RootBlock r_ = (RootBlock) b_;
         return r_.getFullName();
     }
 
@@ -160,7 +160,7 @@ public final class ElementBlock extends Leaf implements InfoBlock{
             struct_ = arg_.getStruct();
             el_.setCurrentOper(null);
             ip_.getCurrentEls().clear();
-            RootedBlock r_ = getRooted();
+            RootBlock r_ = getRooted();
             ClassField staticField_ = new ClassField(r_.getFullName(), name_);
             _cont.getClasses().initializeStaticField(staticField_, struct_);
             ip_.setEnumName(EMPTY_STRING);
@@ -169,7 +169,7 @@ public final class ElementBlock extends Leaf implements InfoBlock{
     }
 
     @Override
-    public RootedBlock belong() {
-        return (RootedBlock) getParent();
+    public RootBlock belong() {
+        return (RootBlock) getParent();
     }
 }

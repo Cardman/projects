@@ -375,8 +375,8 @@ public final class MethodBlock extends BracedBlock implements Returnable {
     }
 
     @Override
-    public RootedBlock belong() {
-        return (RootedBlock) getParent();
+    public RootBlock belong() {
+        return (RootBlock) getParent();
     }
 
     @Override

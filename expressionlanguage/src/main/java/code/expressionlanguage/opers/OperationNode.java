@@ -25,7 +25,6 @@ import code.expressionlanguage.methods.ConstructorBlock;
 import code.expressionlanguage.methods.InterfaceBlock;
 import code.expressionlanguage.methods.MethodBlock;
 import code.expressionlanguage.methods.RootBlock;
-import code.expressionlanguage.methods.RootedBlock;
 import code.expressionlanguage.methods.UniqueRootedBlock;
 import code.expressionlanguage.methods.util.ArgumentsPair;
 import code.expressionlanguage.opers.util.ArgumentsGroup;
@@ -57,6 +56,7 @@ import code.serialize.exceptions.NoSuchDeclaredMethodException;
 import code.util.CustList;
 import code.util.EntryCust;
 import code.util.EqList;
+import code.util.IdList;
 import code.util.IdMap;
 import code.util.NatTreeMap;
 import code.util.ObjectMap;
@@ -792,7 +792,7 @@ public abstract class OperationNode implements SortedNode<OperationNode>, Operab
         }
         ObjectNotNullMap<FctConstraints, MethodMetaInfo> methods_;
         methods_ = custClass_.getMethods();
-        RootedBlock clBl_ = classes_.getClassBody(clCurName_);
+        RootBlock clBl_ = classes_.getClassBody(clCurName_);
         for (EntryCust<FctConstraints, String> e: clBl_.getDefaultMethods().entryList()) {
             MethodBlock m_ = classes_.getMethodBody(e.getValue(), e.getKey());
             String ret_ = m_.getReturnType();
@@ -919,7 +919,10 @@ public abstract class OperationNode implements SortedNode<OperationNode>, Operab
             throw new AmbiguousChoiceCallingException(res_.getMethods().join(RETURN_LINE)+RETURN_LINE+_cont.joinPages());
         }
         while (class_ != null) {
-            CustList<Method> possibleMethods_ = new CustList<Method>(class_.getDeclaredMethods());
+            IdList<Method> possibleMethods_ = new IdList<Method>(class_.getDeclaredMethods());
+            for (Class<?> i: getSuperInterfaces(class_)) {
+                possibleMethods_.addAllElts(new CustList<Method>(i.getDeclaredMethods()));
+            }
             ClassMethodIdResult res_ = getResult(_cont, _class, possibleMethods_, _name, _argsClass);
             if (res_.getStatus() == SearchingMemberStatus.ZERO) {
                 String trace_ = _class.getName()+DOT+_name+PAR_LEFT;
@@ -939,6 +942,25 @@ public abstract class OperationNode implements SortedNode<OperationNode>, Operab
             throw new AmbiguousChoiceCallingException(res_.getMethods().join(RETURN_LINE)+RETURN_LINE+_cont.joinPages());
         }
         throw new NoSuchDeclaredMethodException(traces_.join(RETURN_TAB)+RETURN_LINE+_cont.joinPages());
+    }
+    private static IdList<Class<?>> getSuperInterfaces(Class<?> _class) {
+        IdList<Class<?>> cur_ = new IdList<Class<?>>(_class);
+        IdList<Class<?>> all_ = new IdList<Class<?>>();
+        while (true) {
+            IdList<Class<?>> next_ = new IdList<Class<?>>();
+            for (Class<?> c: cur_) {
+                for (Class<?> i: c.getInterfaces()) {
+                    if (!all_.containsObj(i)) {
+                        next_.add(i);
+                        all_.add(i);
+                    }
+                }
+            }
+            if (next_.isEmpty()) {
+                return all_;
+            }
+            cur_ = next_;
+        }
     }
     private static ClassMethodIdResult getResult(ContextEl _conf, ClassArgumentMatching _class,
             CustList<Method> _methods,

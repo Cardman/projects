@@ -7,6 +7,7 @@ import java.util.Iterator;
 import java.util.ListIterator;
 
 import code.util.annot.CapacityInit;
+import code.util.ints.Equaller;
 import code.util.ints.Listable;
 
 public class CustList<T> implements Listable<T> {
@@ -451,16 +452,95 @@ public class CustList<T> implements Listable<T> {
         }
         return l_;
     }
+    public void removeDuplicates(Equaller<? super T> _cmp)  {
+        int i_ = FIRST_INDEX;
+        while (true) {
+            if(i_ >= size()) {
+                break;
+            }
+            T e_ = get(i_);
+            boolean rem_ = false;
+            int next_ = indexOfObj(_cmp, e_, i_ + 1);
+            while (next_ != INDEX_NOT_FOUND_ELT) {
+                removeAt(next_);
+                rem_ = true;
+                next_ = indexOfObj(_cmp, e_, next_ + 1);
+            }
+            if (!rem_) {
+                i_++;
+            }
+        }
+    }
 
-//    public CustList<T> subList(int _from, int _to) {
-//        if (_from > _to) {
-//            return new CustList<T>();
-//        }
-//        CustList<T> l_ = new CustList<T>();
-//        for (T e: list.subList(Math.max(_from,FIRST_INDEX), Math.min(_to, size()))) {
-//            l_.add(e);
-//        }
-//        return l_;
-//    }
+    public Numbers<Integer> indexesOfObj(Equaller<? super T> _cmp, T _element) {
+        Numbers<Integer> indexes_;
+        indexes_ = new Numbers<Integer>();
+        int i_ = FIRST_INDEX;
+        while (true) {
+            int found_ = indexOfObj(_cmp, _element, i_);
+            if (found_ == INDEX_NOT_FOUND_ELT) {
+                break;
+            }
+            indexes_.add(found_);
+            i_ = found_ + 1;
+        }
+        return indexes_;
+    }
+
+    public int indexOfObj(Equaller<? super T> _cmp, T _element, int _from) {
+        int s_ = size();
+        for (int i = _from; i < s_; i++) {
+            T e_ = get(i);
+            if (_cmp.eq(_element, e_)) {
+                return i;
+            }
+        }
+        return INDEX_NOT_FOUND_ELT;
+    }
+    public void removeDuplicates(Comparator<? super T> _cmp)  {
+        int i_ = FIRST_INDEX;
+        while (true) {
+            if(i_ >= size()) {
+                break;
+            }
+            T e_ = get(i_);
+            boolean rem_ = false;
+            int next_ = indexOfObj(_cmp, e_, i_ + 1);
+            while (next_ != INDEX_NOT_FOUND_ELT) {
+                removeAt(next_);
+                rem_ = true;
+                next_ = indexOfObj(_cmp, e_, next_ + 1);
+            }
+            if (!rem_) {
+                i_++;
+            }
+        }
+    }
+
+    public Numbers<Integer> indexesOfObj(Comparator<? super T> _cmp, T _element) {
+        Numbers<Integer> indexes_;
+        indexes_ = new Numbers<Integer>();
+        int i_ = FIRST_INDEX;
+        while (true) {
+            int found_ = indexOfObj(_cmp, _element, i_);
+            if (found_ == INDEX_NOT_FOUND_ELT) {
+                break;
+            }
+            indexes_.add(found_);
+            i_ = found_ + 1;
+        }
+        return indexes_;
+    }
+
+    public int indexOfObj(Comparator<? super T> _cmp, T _element, int _from) {
+        int s_ = size();
+        for (int i = _from; i < s_; i++) {
+            T e_ = get(i);
+            if (_cmp.compare(_element, e_) == EQ_CMP) {
+                return i;
+            }
+        }
+        return INDEX_NOT_FOUND_ELT;
+    }
 
 }

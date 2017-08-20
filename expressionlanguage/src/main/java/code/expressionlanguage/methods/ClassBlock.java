@@ -246,7 +246,7 @@ public final class ClassBlock extends RootBlock implements UniqueRootedBlock {
     }
 
     @Override
-    public RootedBlock belong() {
+    public RootBlock belong() {
         return this;
     }
 

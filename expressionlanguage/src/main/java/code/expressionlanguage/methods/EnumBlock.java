@@ -194,7 +194,7 @@ public final class EnumBlock extends RootBlock implements UniqueRootedBlock {
     }
 
     @Override
-    public RootedBlock belong() {
+    public RootBlock belong() {
         return this;
     }
 

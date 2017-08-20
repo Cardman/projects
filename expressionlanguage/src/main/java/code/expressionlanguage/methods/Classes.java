@@ -458,7 +458,7 @@ public final class Classes {
         inherit_ = new Graph<ClassEdge>();
         for (EntryCust<ClassName, RootBlock> c: classesBodies.entryList()) {
             ClassName d_ = c.getKey();
-            RootedBlock bl_ = (RootedBlock) c.getValue();
+            RootBlock bl_ = c.getValue();
             boolean int_ = bl_ instanceof InterfaceBlock;
             for (String s: bl_.getDirectSuperClasses()) {
                 ClassName b_ = new ClassName(s, false);
@@ -472,7 +472,7 @@ public final class Classes {
                         errorsDet.add(undef_);
                     }
                 } else {
-                    RootedBlock super_ = (RootedBlock) classesBodies.getVal(b_);
+                    RootBlock super_ = classesBodies.getVal(b_);
                     if (int_) {
                         if (!(super_ instanceof InterfaceBlock)) {
                             BadInheritedClass enum_;
@@ -546,11 +546,9 @@ public final class Classes {
         for (ClassEdge c: elts_) {
             classesInheriting.add(c.getId().getName());
         }
+        classesInheriting.removeAllObj(Object.class.getName());
         for (String c: classesInheriting) {
-            if (StringList.quickEq(c, Object.class.getName())) {
-                continue;
-            }
-            RootedBlock dBl_ = (RootedBlock) classesBodies.getVal(new ClassName(c, false));
+            RootBlock dBl_ = classesBodies.getVal(new ClassName(c, false));
             StringList all_ = dBl_.getAllSuperClasses();
             StringList direct_ = dBl_.getDirectSuperClasses();
             all_.addAllElts(direct_);
@@ -558,14 +556,11 @@ public final class Classes {
                 if (StringList.quickEq(b, Object.class.getName())) {
                     continue;
                 }
-                RootedBlock bBl_ = (RootedBlock) classesBodies.getVal(new ClassName(b, false));
+                RootBlock bBl_ = classesBodies.getVal(new ClassName(b, false));
                 all_.addAllElts(bBl_.getAllSuperClasses());
             }
         }
         for (String c: classesInheriting) {
-            if (StringList.quickEq(c, Object.class.getName())) {
-                continue;
-            }
             ClassName idDer_ = new ClassName(c, false);
             if (!(classesBodies.getVal(idDer_) instanceof UniqueRootedBlock)) {
                 continue;
@@ -578,7 +573,7 @@ public final class Classes {
             all_.addAllElts(direct_);
             for (String i: direct_) {
                 ClassName int_ = new ClassName(i, false);
-                RootedBlock i_ = (RootedBlock) classesBodies.getVal(int_);
+                RootBlock i_ = classesBodies.getVal(int_);
                 all_.addAllElts(i_.getAllSuperClasses());
             }
             String superClass_ = bl_.getSuperClass();
@@ -600,7 +595,7 @@ public final class Classes {
             bl_.getAllNeededSortedInterfaces().removeAllElements(needed_);
         }
         for (EntryCust<ClassName, RootBlock> c: classesBodies.entryList()) {
-            RootedBlock r_ = (RootedBlock) c.getValue();
+            RootBlock r_ = c.getValue();
             if (r_ instanceof UniqueRootedBlock) {
                 r_.getAllSuperTypes().addAllElts(((UniqueRootedBlock)r_).getAllSuperClasses());
                 r_.getAllSuperTypes().addAllElts(((UniqueRootedBlock)r_).getAllInterfaces());
@@ -1037,34 +1032,8 @@ public final class Classes {
                 }
             }
         }
-        
-        for (String c: classesInheriting) {
-            if (StringList.quickEq(c, Object.class.getName())) {
-                continue;
-            }
-            RootedBlock r_ = getClassBody(c);
-            RootBlock dBl_ = (RootBlock) r_;
-            ObjectMap<FctConstraints, StringList> signatures_ = dBl_.getAllSignatures(this);
-            ObjectMap<FctConstraints, String> localSignatures_ = dBl_.getLocalSignatures(this);
-            ObjectMap<FctConstraints, StringList> ov_;
-            ov_ = RootBlock.getAllOverridingMethods(signatures_, this);
-            ObjectMap<FctConstraints, StringList> er_;
-            er_ = RootBlock.areCompatible(localSignatures_, ov_, this);
-            for (EntryCust<FctConstraints, StringList> e: er_.entryList()) {
-                for (String s: e.getValue()) {
-                    MethodBlock mDer_ = getMethodBody(s, e.getKey());
-                    IncompatibilityReturnType err_ = new IncompatibilityReturnType();
-                    err_.setFileName(c);
-                    err_.setRc(dBl_.getRowCol(0, _context.getTabWidth(), ATTRIBUTE_NAME));
-                    err_.setReturnType(mDer_.getReturnType());
-                    err_.setMethod(mDer_.getId());
-                    err_.setParentClass(s);
-                    errorsDet.add(err_);
-                }
-            }
-        }
         for (EntryCust<ClassName, RootBlock> e: classesBodies.entryList()) {
-            RootedBlock dBl_ = (RootedBlock) e.getValue();
+            RootBlock dBl_ = e.getValue();
             if (!(dBl_ instanceof ClassBlock)) {
                 continue;
             }
@@ -1096,12 +1065,9 @@ public final class Classes {
             return;
         }
         for (String c: classesInheriting) {
-            if (StringList.quickEq(c, Object.class.getName())) {
-                continue;
-            }
             ClassName idBase_ = new ClassName(c, false);
-            Block bl_ = classesBodies.getVal(idBase_);
-            RootedBlock dBl_ = (RootedBlock) bl_;
+            RootBlock bl_ = classesBodies.getVal(idBase_);
+            RootBlock dBl_ = bl_;
             StringList all_ = dBl_.getAllSuperClasses();
             for (Block b: getDirectChildren(bl_)) {
                 if (b instanceof MethodBlock) {
@@ -1123,9 +1089,6 @@ public final class Classes {
             }
         }
         for (String c: classesInheriting) {
-            if (StringList.quickEq(c, Object.class.getName())) {
-                continue;
-            }
             ClassName idBase_ = new ClassName(c, false);
             Block bl_ = classesBodies.getVal(idBase_);
             for (Block b: getDirectChildren(bl_)) {
@@ -1140,12 +1103,9 @@ public final class Classes {
             }
         }
         for (String c: classesInheriting) {
-            if (StringList.quickEq(c, Object.class.getName())) {
-                continue;
-            }
             EqList<ClassMethodId> abstractMethods_ = new EqList<ClassMethodId>();
             ClassName idBase_ = new ClassName(c, false);
-            RootedBlock bl_ = (RootedBlock) classesBodies.getVal(idBase_);
+            RootBlock bl_ = classesBodies.getVal(idBase_);
             boolean concreteClass_ = false;
             if (bl_.mustImplement()) {
                 concreteClass_ = true;
@@ -1161,6 +1121,24 @@ public final class Classes {
                             abstractMethods_.add(new ClassMethodId(idSuper_, mDer_.getConstraints()));
                         }
                     }
+                }
+            }
+            ObjectMap<FctConstraints, StringList> signatures_ = bl_.getAllSignatures(this);
+            ObjectMap<FctConstraints, String> localSignatures_ = bl_.getLocalSignatures(this);
+            ObjectMap<FctConstraints, StringList> ov_;
+            ov_ = RootBlock.getAllOverridingMethods(signatures_, this);
+            ObjectMap<FctConstraints, StringList> er_;
+            er_ = RootBlock.areCompatible(localSignatures_, ov_, this);
+            for (EntryCust<FctConstraints, StringList> e: er_.entryList()) {
+                for (String s: e.getValue()) {
+                    MethodBlock mDer_ = getMethodBody(s, e.getKey());
+                    IncompatibilityReturnType err_ = new IncompatibilityReturnType();
+                    err_.setFileName(c);
+                    err_.setRc(bl_.getRowCol(0, _context.getTabWidth(), ATTRIBUTE_NAME));
+                    err_.setReturnType(mDer_.getReturnType());
+                    err_.setMethod(mDer_.getId());
+                    err_.setParentClass(s);
+                    errorsDet.add(err_);
                 }
             }
             for (Block b: getDirectChildren((Block) bl_)) {
@@ -1283,12 +1261,9 @@ public final class Classes {
             }
         }
         for (String c: classesInheriting) {
-            if (StringList.quickEq(c, Object.class.getName())) {
-                continue;
-            }
             ClassName idBase_ = new ClassName(c, false);
-            RootedBlock bl_ = (RootedBlock) classesBodies.getVal(idBase_);
-            RootedBlock u_ = (RootedBlock) bl_;
+            RootBlock bl_ = classesBodies.getVal(idBase_);
+            RootBlock u_ = bl_;
             boolean concreteClass_ = false;
             if (u_.mustImplement()) {
                 concreteClass_ = true;
@@ -1563,7 +1538,7 @@ public final class Classes {
     }
 
     public boolean canAccessMethod(String _className, String _accessedClass, FctConstraints _id) {
-        Block access_ = (Block) getClassBody(_accessedClass);
+        RootBlock access_ = getClassBody(_accessedClass);
         CustList<Block> bl_ = getDirectChildren(access_);
         MethodBlock i_ = null;
         for (Block b: bl_) {
@@ -1574,14 +1549,14 @@ public final class Classes {
             }
         }
         if (i_ == null) {
-            String int_ = ((RootedBlock)access_).getDefaultMethods().getVal(_id);
+            String int_ = access_.getDefaultMethods().getVal(_id);
             i_ = getMethodBody(int_, _id);
         }
         return canAccess(_className, i_);
     }
 
     public boolean canAccessClass(String _className, String _accessedClass) {
-        RootedBlock access_ = getClassBody(_accessedClass);
+        RootBlock access_ = getClassBody(_accessedClass);
         return canAccess(_className, access_);
     }
 
@@ -1589,8 +1564,8 @@ public final class Classes {
         if (_block.getAccess() == AccessEnum.PUBLIC) {
             return true;
         }
-        RootedBlock root_ = getClassBody(_className);
-        RootedBlock belong_ = _block.belong();
+        RootBlock root_ = getClassBody(_className);
+        RootBlock belong_ = _block.belong();
         if (_block.getAccess() == AccessEnum.PROTECTED) {
             if (PrimitiveTypeUtil.canBeUseAsArgument(belong_.getFullName(), _className, this)) {
                 return true;
@@ -1694,7 +1669,7 @@ public final class Classes {
             }
         }
         for (EntryCust<ClassName, RootBlock> c: classesBodies.entryList()) {
-            RootedBlock clblock_ = (RootedBlock) c.getValue();
+            RootBlock clblock_ = c.getValue();
             if (clblock_ instanceof UniqueRootedBlock) {
                 ((UniqueRootedBlock)clblock_).validateConstructors(_context);
             }
@@ -1858,12 +1833,12 @@ public final class Classes {
         return localVariablesNames;
     }
 
-    public RootedBlock getClassBody(String _className) {
+    public RootBlock getClassBody(String _className) {
         for (EntryCust<ClassName, RootBlock> c: classesBodies.entryList()) {
             if (!StringList.quickEq(c.getKey().getName(), _className)) {
                 continue;
             }
-            return (RootedBlock) c.getValue();
+            return c.getValue();
         }
         return null;
     }
@@ -2003,7 +1978,7 @@ public final class Classes {
             if (!StringList.quickEq(k_.getName(), _name)) {
                 continue;
             }
-            RootedBlock clblock_ = (RootedBlock) c.getValue();
+            RootBlock clblock_ = c.getValue();
             CustList<Block> bl_ = getDirectChildren((Block)clblock_);
             for (Block b: bl_) {
                 if (b instanceof InfoBlock) {

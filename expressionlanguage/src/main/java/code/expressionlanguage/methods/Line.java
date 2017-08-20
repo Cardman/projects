@@ -128,7 +128,7 @@ public final class Line extends Leaf implements StackableBlock {
             if (ip_.getCallingConstr().getCalledConstructors().containsObj(superClass_)) {
                 if (!ip_.getCallingConstr().isFirstField()) {
                     ip_.getCallingConstr().setFirstField(true);
-                    RootedBlock class_ = _cont.getClasses().getClassBody(curClass_);
+                    RootBlock class_ = _cont.getClasses().getClassBody(curClass_);
                     Block firstChild_ = class_.getFirstChild();
                     ip_.getReadWrite().setBlock(firstChild_);
                     return;

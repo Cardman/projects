@@ -9,7 +9,7 @@ import code.util.NatTreeMap;
 import code.util.ObjectMap;
 import code.util.StringList;
 
-public final class InterfaceBlock extends RootBlock implements RootedBlock {
+public final class InterfaceBlock extends RootBlock {
 
     private final String name;
 
@@ -110,7 +110,7 @@ public final class InterfaceBlock extends RootBlock implements RootedBlock {
     }
 
     @Override
-    public RootedBlock belong() {
+    public RootBlock belong() {
         return this;
     }
 
