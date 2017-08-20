@@ -1,6 +1,5 @@
 package code.formathtml;
 import java.lang.reflect.Constructor;
-import java.lang.reflect.InvocationTargetException;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.Iterator;
@@ -17,7 +16,6 @@ import code.expressionlanguage.ElUtil;
 import code.expressionlanguage.PrimitiveTypeUtil;
 import code.expressionlanguage.exceptions.BadExpressionLanguageException;
 import code.expressionlanguage.exceptions.DynamicCastClassException;
-import code.expressionlanguage.exceptions.ErrorCausingException;
 import code.expressionlanguage.exceptions.InvokeRedinedMethException;
 import code.expressionlanguage.exceptions.UndefinedVariableException;
 import code.expressionlanguage.opers.util.Struct;
@@ -26,7 +24,7 @@ import code.expressionlanguage.variables.LoopVariable;
 import code.formathtml.exceptions.CharacterFormatException;
 import code.formathtml.exceptions.GettingKeysException;
 import code.formathtml.exceptions.InexistingTranslatorException;
-import code.serialize.exceptions.BadAccessException;
+import code.serialize.ConverterMethod;
 import code.serialize.exceptions.InvokingException;
 import code.serialize.exceptions.NoSuchDeclaredMethodException;
 import code.serialize.exceptions.RuntimeInstantiationException;
@@ -159,10 +157,7 @@ final class ExtractObject {
                         Bean bean_ = (Bean) _ip.getGlobalArgument().getObject();
                         o_ = trloc_.getString(_pattern, _conf, _files, bean_, o_);
                     }
-                } catch (VirtualMachineError _0) {
-                    _conf.getLastPage().setOffset(context_.getNextIndex());
-                    throw new ErrorCausingException(_conf.joinPages(), new Struct(_0));
-                } catch (RuntimeException _0) {
+                } catch (Throwable _0) {
                     _conf.getLastPage().setOffset(context_.getNextIndex());
                     throw new InvokeRedinedMethException(_conf.joinPages(), new Struct(_0));
                 }
@@ -215,9 +210,7 @@ final class ExtractObject {
                 Argument arg_ = ElUtil.processEl(numExpr_, context_, i_+1, MATH_INTERPRET, MATH_INTERPRET);
                 try {
                     calculateVariables_.append(mathFact_.toString(arg_.getObject()));
-                } catch (VirtualMachineError _0) {
-                    throw new ErrorCausingException(_conf.joinPages(), new Struct(_0));
-                } catch (RuntimeException _0) {
+                } catch (Throwable _0) {
                     throw new InvokeRedinedMethException(_conf.joinPages(), new Struct(_0));
                 }
                 i_ = context_.getNextIndex();
@@ -235,9 +228,7 @@ final class ExtractObject {
                 ret_ = mathFact_.evaluateDirectlyRate(numExpr_);
             }
             return ret_;
-        } catch (VirtualMachineError _0) {
-            throw new ErrorCausingException(_conf.joinPages(), new Struct(_0));
-        } catch (RuntimeException _0) {
+        } catch (Throwable _0) {
             throw new InvokeRedinedMethException(_conf.joinPages(), new Struct(_0));
         }
     }
@@ -269,21 +260,15 @@ final class ExtractObject {
                 value_ = new AtomicLong(Long.parseLong(_arg));
             } else {
                 const_ = _class.getConstructor(String.class);
-                return const_.newInstance(_arg);
+                return ConverterMethod.newInstance(const_, _arg);
             }
             return value_;
-        } catch (InstantiationException _0) {
+        } catch (RuntimeInstantiationException _0) {
             throw new RuntimeInstantiationException(_0, _conf.joinPages());
         } catch (NoSuchMethodException _0) {
             throw new NoSuchDeclaredMethodException(_class.getName()+RETURN_LINE+_conf.joinPages());
-        } catch (InvocationTargetException _0) {
+        } catch (Throwable _0) {
             throw new InvokingException(_0, _conf.joinPages());
-        } catch (IllegalAccessException _0) {
-            throw new BadAccessException(_0, const_.toString());
-        } catch (VirtualMachineError _0) {
-            throw new ErrorCausingException(_conf.joinPages(), new Struct(_0));
-        } catch (ExceptionInInitializerError _0) {
-            throw new ErrorCausingException(_conf.joinPages(), new Struct(_0));
         }
     }
     static void checkClassNotEmptyName(Configuration _conf, int _offest, String _className) {
@@ -312,15 +297,9 @@ final class ExtractObject {
                 return ConstClasses.classForNameNotInit(className_);
             }
             return ConstClasses.classForNameNotInit(PrimitiveTypeUtil.getArrayClass(_className));
-        } catch (RuntimeException _0) {
+        } catch (Throwable _0) {
             _conf.getLastPage().addToOffset(_offest);
             throw new RuntimeClassNotFoundException(_className+RETURN_LINE+_conf.joinPages());
-        } catch (VirtualMachineError _0) {
-            _conf.getLastPage().addToOffset(_offest);
-            throw new ErrorCausingException(_className+RETURN_LINE+_conf.joinPages(), new Struct(_0));
-        } catch (ExceptionInInitializerError _0) {
-            _conf.getLastPage().addToOffset(_offest);
-            throw new ErrorCausingException(_className+RETURN_LINE+_conf.joinPages(), new Struct(_0));
         }
     }
     static Listable<?> castListable(Configuration _conf, int _off, Object _obj) {
@@ -378,36 +357,28 @@ final class ExtractObject {
     static Iterator<?> iterator(Configuration _conf, Iterable<?> _it) {
         try {
             return _it.iterator();
-        } catch (VirtualMachineError _0) {
-            throw new ErrorCausingException(_conf.joinPages(), new Struct(_0));
-        } catch (RuntimeException _0) {
+        } catch (Throwable _0) {
             throw new InvokeRedinedMethException(_conf.joinPages(), new Struct(_0));
         }
     }
     static boolean hasNext(Configuration _conf, Iterator<?> _it) {
         try {
             return _it.hasNext();
-        } catch (VirtualMachineError _0) {
-            throw new ErrorCausingException(_conf.joinPages(), new Struct(_0));
-        } catch (RuntimeException _0) {
+        } catch (Throwable _0) {
             throw new InvokeRedinedMethException(_conf.joinPages(), new Struct(_0));
         }
     }
     static Object next(Configuration _conf, Iterator<?> _it) {
         try {
             return _it.next();
-        } catch (VirtualMachineError _0) {
-            throw new ErrorCausingException(_conf.joinPages(), new Struct(_0));
-        } catch (RuntimeException _0) {
+        } catch (Throwable _0) {
             throw new InvokeRedinedMethException(_conf.joinPages(), new Struct(_0));
         }
     }
     static EntryCust<?, ?> nextEntry(Configuration _conf, Iterator<?> _it) {
         try {
             return (EntryCust<?, ?>)_it.next();
-        } catch (VirtualMachineError _0) {
-            throw new ErrorCausingException(_conf.joinPages(), new Struct(_0));
-        } catch (RuntimeException _0) {
+        } catch (Throwable _0) {
             throw new InvokeRedinedMethException(_conf.joinPages(), new Struct(_0));
         }
     }
@@ -456,10 +427,7 @@ final class ExtractObject {
             ip_.getLocalVars().removeKey(nameOne_);
             ip_.getLocalVars().removeKey(nameTwo_);
             return ret_;
-        } catch (VirtualMachineError _0) {
-            throw new ErrorCausingException(_conf.joinPages(), new Struct(_0));
-        } catch (RuntimeException _0) {
-            _0.printStackTrace();
+        } catch (Throwable _0) {
             throw new InvokeRedinedMethException(_conf.joinPages(), new Struct(_0));
         }
     }
@@ -473,28 +441,21 @@ final class ExtractObject {
     static String valueOf(Configuration _conf, Object _obj) {
         try {
             return String.valueOf(_obj);
-        } catch (VirtualMachineError _0) {
-            throw new ErrorCausingException(_conf.joinPages(), new Struct(_0));
-        } catch (RuntimeException _0) {
+        } catch (Throwable _0) {
             throw new InvokeRedinedMethException(_conf.joinPages(), new Struct(_0));
         }
     }
     static String toString(Configuration _conf, Object _obj) {
         try {
             return _obj.toString();
-        } catch (VirtualMachineError _0) {
-            throw new ErrorCausingException(_conf.joinPages(), new Struct(_0));
-        } catch (RuntimeException _0) {
+        } catch (Throwable _0) {
             throw new InvokeRedinedMethException(_conf.joinPages(), new Struct(_0));
         }
     }
     static Listable<?> entryList(Configuration _conf, int _offsIndex, ListableEntries<?,?> _container) {
         try {
             return _container.entryList();
-        } catch (VirtualMachineError _0) {
-            _conf.getLastPage().addToOffset(_offsIndex);
-            throw new ErrorCausingException(_conf.joinPages(), new Struct(_0));
-        } catch (RuntimeException _0) {
+        } catch (Throwable _0) {
             _conf.getLastPage().addToOffset(_offsIndex);
             throw new InvokeRedinedMethException(_conf.joinPages(), new Struct(_0));
         }
@@ -502,10 +463,7 @@ final class ExtractObject {
     static Listable<?> getKeys(Configuration _conf, boolean _callSort, int _offsIndex, ListableEntries<?,?> _container) {
         try {
             return _container.getKeys();
-        } catch (VirtualMachineError _0) {
-            _conf.getLastPage().addToOffset(_offsIndex);
-            throw new GettingKeysException(_conf.joinPages(), new Struct(_0));
-        } catch (RuntimeException _0) {
+        } catch (Throwable _0) {
             _conf.getLastPage().addToOffset(_offsIndex);
             throw new GettingKeysException(_conf.joinPages(), new Struct(_0));
         }
@@ -607,27 +565,21 @@ final class ExtractObject {
     static String getMessageFolder(Configuration _conf) {
         try {
             return _conf.getMessagesFolder();
-        } catch (VirtualMachineError _0) {
-            throw new ErrorCausingException(_conf.joinPages(), new Struct(_0));
-        } catch (RuntimeException _0) {
+        } catch (Throwable _0) {
             throw new InvokeRedinedMethException(_conf.joinPages(), new Struct(_0));
         }
     }
     private static MathFactory<?> getMathFactory(Configuration _conf) {
         try {
             return _conf.getMathFactory();
-        } catch (VirtualMachineError _0) {
-            throw new ErrorCausingException(_conf.joinPages(), new Struct(_0));
-        } catch (RuntimeException _0) {
+        } catch (Throwable _0) {
             throw new InvokeRedinedMethException(_conf.joinPages(), new Struct(_0));
         }
     }
     static String getProperty(Configuration _conf, String _key) {
         try {
             return _conf.getProperties().getVal(_key);
-        } catch (VirtualMachineError _0) {
-            throw new ErrorCausingException(_conf.joinPages(), new Struct(_0));
-        } catch (RuntimeException _0) {
+        } catch (Throwable _0) {
             throw new InvokeRedinedMethException(_conf.joinPages(), new Struct(_0));
         }
     }

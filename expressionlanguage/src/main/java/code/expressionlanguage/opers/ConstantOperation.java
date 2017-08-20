@@ -416,7 +416,7 @@ public final class ConstantOperation extends OperationNode implements SettableEl
         Object res_;
         try {
             res_ = ConverterMethod.getField(field, obj_);
-        } catch (ExceptionInInitializerError _0) {
+        } catch (Throwable _0) {
             throw new ErrorCausingException(_conf.joinPages(), new Struct(_0));
         }
         a_ = new Argument();

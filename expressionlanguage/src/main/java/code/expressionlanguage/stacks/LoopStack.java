@@ -49,9 +49,7 @@ public abstract class LoopStack extends BlockStack implements BreakableStack {
         if (iterator != null) {
             try {
                 return iterator.hasNext();
-            } catch (VirtualMachineError _0) {
-                throw new ErrorCausingException(_conf.joinPages(), new Struct(_0));
-            } catch (RuntimeException _0) {
+            } catch (Throwable _0) {
                 throw new InvokeRedinedMethException(_conf.joinPages(), new Struct(_0));
             }
         }

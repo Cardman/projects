@@ -122,30 +122,22 @@ public final class Struct {
         if (ret_.isArray()) {
             return new Struct();
         }
-        try {
-            Class<?> enclosing_;
-            enclosing_ = ret_.getEnclosingClass();
-            if (enclosing_ == null) {
-                return new Struct();
-            }
-            for (Field f: ret_.getDeclaredFields()) {
-                if (f.getType().isArray()) {
-                    continue;
-                }
-                if (!f.isSynthetic()) {
-                    continue;
-                }
-                f.setAccessible(true);
-                Object parent_ = f.get(instance);
-                return new Struct(parent_);
-            }
+        Class<?> enclosing_;
+        enclosing_ = ret_.getEnclosingClass();
+        if (enclosing_ == null) {
             return new Struct();
-        } catch (IllegalAccessException _0) {
-            return null;
-        } catch (RuntimeException _0) {
-            return null;
-        } catch (Error _0) {
-            return null;
         }
+        for (Field f: ret_.getDeclaredFields()) {
+            if (f.getType().isArray()) {
+                continue;
+            }
+            if (!f.isSynthetic()) {
+                continue;
+            }
+            f.setAccessible(true);
+            Object parent_ = ConverterMethod.getField(f, instance);
+            return new Struct(parent_);
+        }
+        return new Struct();
     }
 }

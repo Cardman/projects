@@ -1,10 +1,14 @@
 package code.expressionlanguage.opers.util;
 
+import java.lang.reflect.Method;
+
 import code.util.CustList;
 
 public class ClassMethodIdResult {
 
     private ClassMethodId id;
+
+    private Method method;
 
     private SearchingMemberStatus status;
 
@@ -16,6 +20,14 @@ public class ClassMethodIdResult {
 
     public void setId(ClassMethodId _id) {
         id = _id;
+    }
+
+    public Method getMethod() {
+        return method;
+    }
+
+    public void setMethod(Method _method) {
+        method = _method;
     }
 
     public SearchingMemberStatus getStatus() {

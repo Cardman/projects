@@ -1,7 +1,6 @@
 package code.serialize;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
-import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Modifier;
 
 import org.w3c.dom.Document;
@@ -9,7 +8,6 @@ import org.w3c.dom.Element;
 import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 
-import code.serialize.exceptions.BadAccessException;
 import code.serialize.exceptions.InvokingException;
 import code.serialize.exceptions.NoSuchDeclaredMethodException;
 import code.serialize.exceptions.RuntimeInstantiationException;
@@ -183,9 +181,9 @@ final class ObjectSerial extends TemplateSerial {
                     }
                     constr_.setAccessible(constr_.getAnnotation(RwXml.class)!=null);
                     if (obj_ == null) {
-                        obj_ = constr_.newInstance();
+                        obj_ = ConverterMethod.newInstance(constr_);
                     } else {
-                        obj_ = constr_.newInstance(obj_);
+                        obj_ = ConverterMethod.newInstance(constr_, obj_);
                     }
                 }
                 return obj_;
@@ -193,18 +191,9 @@ final class ObjectSerial extends TemplateSerial {
             constr_ = class_.getDeclaredConstructor();
 //            constr_.setAccessible(class_.getAnnotation(RwXml.class)!=null);
             constr_.setAccessible(constr_.getAnnotation(RwXml.class)!=null);
-            return constr_.newInstance();
-        } catch (InstantiationException _0) {
-            throw new RuntimeInstantiationException(_0);
+            return ConverterMethod.newInstance(constr_);
         } catch (NoSuchMethodException _0) {
             throw new NoSuchDeclaredMethodException(_0);
-        } catch (InvocationTargetException _0) {
-            throw new InvokingException(_0);
-//        } catch (IllegalArgumentException _0) {
-//            return null;
-        } catch (IllegalAccessException _0) {
-//            _0.printStackTrace();
-            throw new BadAccessException(_0, constr_.toString());
         }
     }
 //    private static Method putMethod() {

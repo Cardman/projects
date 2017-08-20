@@ -1,4 +1,5 @@
 package code.serialize;
+import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -7,6 +8,7 @@ import java.lang.reflect.Modifier;
 import code.serialize.exceptions.BadAccessException;
 import code.serialize.exceptions.InvokingException;
 import code.serialize.exceptions.NoSuchConverterMethodException;
+import code.serialize.exceptions.RuntimeInstantiationException;
 import code.util.CustList;
 import code.xml.FromAndToString;
 
@@ -58,7 +60,7 @@ public final class ConverterMethod {
             throw new InvokingException(_0);
         }
     }
-
+    
     static Object invokePublicMethod(Method _method, Object _instance) {
         try {
             return _method.invoke(_instance);
@@ -66,6 +68,28 @@ public final class ConverterMethod {
             return null;
         } catch (InvocationTargetException _0) {
             throw new InvokingException(_0);
+        }
+    }
+    
+    public static Object newInstance(Constructor<?> _method, Object... _args) {
+        try {
+            return _method.newInstance(_args);
+        } catch (IllegalAccessException _0) {
+            return new BadAccessException(_0, _method.toString());
+        } catch (InvocationTargetException _0) {
+            throw new InvokingException(_0, _0.getTargetException());
+        } catch (InstantiationException _0) {
+            throw new RuntimeInstantiationException(_0);
+        }
+    }
+
+    public static Object invokeMethod(Method _method, Object _instance, Object... _args) {
+        try {
+            return _method.invoke(_instance, _args);
+        } catch (IllegalAccessException _0) {
+            return new BadAccessException(_0, _method.toString());
+        } catch (InvocationTargetException _0) {
+            throw new InvokingException(_0, _0.getTargetException());
         }
     }
 

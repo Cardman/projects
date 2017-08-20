@@ -107,7 +107,6 @@ public final class Classes {
     private final CustList<FoundErrorInterpret> errorsDet;
     private final StringList localVariablesNames;
     private final StringList classesInheriting;
-    private final StringList interfacesInheriting;
     private EqualsEl eqEl;
     private EqualsEl natEqEl;
     private CustList<OperationNode> exps;
@@ -122,7 +121,6 @@ public final class Classes {
         initializedClasses = new StringMap<Boolean>();
         successfulInitializedClasses = new StringMap<Boolean>();
         classesInheriting = new StringList();
-        interfacesInheriting = new StringList();
         localVariablesNames = new StringList();
         for (EntryCust<String,String> f: _files.entryList()) {
             String file_ = f.getKey();
@@ -461,6 +459,7 @@ public final class Classes {
         for (EntryCust<ClassName, Block> c: classesBodies.entryList()) {
             ClassName d_ = c.getKey();
             RootedBlock bl_ = (RootedBlock) c.getValue();
+            boolean int_ = bl_ instanceof InterfaceBlock;
             for (String s: bl_.getDirectSuperClasses()) {
                 ClassName b_ = new ClassName(s, false);
                 if (!classesBodies.contains(b_)) {
@@ -474,7 +473,17 @@ public final class Classes {
                     }
                 } else {
                     RootedBlock super_ = (RootedBlock) classesBodies.getVal(b_);
-                    if (super_.isFinalType()) {
+                    if (int_) {
+                        if (!(super_ instanceof InterfaceBlock)) {
+                            BadInheritedClass enum_;
+                            enum_ = new BadInheritedClass();
+                            String n_ = b_.getName();
+                            enum_.setClassName(n_);
+                            enum_.setFileName(d_.getName());
+                            enum_.setRc(new RowCol());
+                            errorsDet.add(enum_);
+                        }
+                    } else if (super_.isFinalType()) {
                         BadInheritedClass enum_;
                         enum_ = new BadInheritedClass();
                         String n_ = b_.getName();
@@ -537,90 +546,6 @@ public final class Classes {
         for (ClassEdge c: elts_) {
             classesInheriting.add(c.getId().getName());
         }
-        inherit_ = new Graph<ClassEdge>();
-        for (EntryCust<ClassName, Block> c: classesBodies.entryList()) {
-            ClassName d_ = c.getKey();
-            Block block_ = c.getValue();
-            if (!(block_ instanceof InterfaceBlock)) {
-                continue;
-            }
-            InterfaceBlock bl_ = (InterfaceBlock) c.getValue();
-            for (String s: bl_.getDirectSuperClasses()) {
-                ClassName b_ = new ClassName(s, false);
-                if (!classesBodies.contains(b_)) {
-                    if (!StringList.quickEq(b_.getName(), Object.class.getName())) {
-                        UnknownClassName undef_;
-                        undef_ = new UnknownClassName();
-                        undef_.setClassName(b_.getName());
-                        undef_.setFileName(d_.getName());
-                        undef_.setRc(bl_.getRowCol(0, _context.getTabWidth(), ATTRIBUTE_SUPER_CLASS));
-                        errorsDet.add(undef_);
-                    }
-                } else {
-                    RootedBlock super_ = (RootedBlock) classesBodies.getVal(b_);
-                    if (!(super_ instanceof InterfaceBlock)) {
-                        BadInheritedClass enum_;
-                        enum_ = new BadInheritedClass();
-                        String n_ = b_.getName();
-                        enum_.setClassName(n_);
-                        enum_.setFileName(d_.getName());
-                        enum_.setRc(new RowCol());
-                        errorsDet.add(enum_);
-                    }
-                }
-                inherit_.addSegment(new ClassEdge(d_), new ClassEdge(b_));
-            }
-        }
-        if (!errorsDet.isEmpty()) {
-            return;
-        }
-        cycle_ = inherit_.elementsCycle();
-        if (!cycle_.isEmpty()) {
-            for (ClassEdge c: cycle_) {
-                BadInheritedClass b_;
-                b_ = new BadInheritedClass();
-                String n_ = c.getId().getName();
-                b_.setClassName(n_);
-                b_.setFileName(n_);
-                b_.setRc(new RowCol());
-                errorsDet.add(b_);
-            }
-            return;
-        }
-        elts_ = inherit_.getElementsListCopy();
-        order_ = 0;
-        while (true) {
-            EqList<ClassEdge> next_ = new EqList<ClassEdge>();
-            for (ClassEdge e: elts_) {
-                if (e.getOrder() > CustList.INDEX_NOT_FOUND_ELT) {
-                    continue;
-                }
-                EqList<ClassEdge> list_ = inherit_.getChildren(e);
-                boolean allNb_ = true;
-                for (ClassEdge s: list_) {
-                    ClassEdge s_ = inherit_.getElementByEq(s);
-                    if (s_.getOrder() == CustList.INDEX_NOT_FOUND_ELT) {
-                        allNb_ = false;
-                        break;
-                    }
-                }
-                if (!allNb_) {
-                    continue;
-                }
-                next_.add(e);
-            }
-            if (next_.isEmpty()) {
-                break;
-            }
-            for (ClassEdge o: next_) {
-                o.setOrder(order_);
-                order_++;
-            }
-        }
-        elts_.sortElts(new ComparatorClassEdge());
-        for (ClassEdge c: elts_) {
-            interfacesInheriting.add(c.getId().getName());
-        }
         for (String c: classesInheriting) {
             if (StringList.quickEq(c, Object.class.getName())) {
                 continue;
@@ -637,24 +562,6 @@ public final class Classes {
                 all_.addAllElts(bBl_.getAllSuperClasses());
             }
         }
-        for (String c: interfacesInheriting) {
-            if (StringList.quickEq(c, Object.class.getName())) {
-                continue;
-            }
-            RootedBlock dBl_ = (RootedBlock) classesBodies.getVal(new ClassName(c, false));
-            StringList all_ = dBl_.getAllSuperClasses();
-            StringList direct_ = dBl_.getDirectSuperClasses();
-            all_.addAllElts(direct_);
-            for (String b: direct_) {
-                if (StringList.quickEq(b, Object.class.getName())) {
-                    continue;
-                }
-                RootedBlock bBl_ = (RootedBlock) classesBodies.getVal(new ClassName(b, false));
-                all_.addAllElts(bBl_.getAllSuperClasses());
-            }
-            all_.removeDuplicates();
-        }
-
         for (String c: classesInheriting) {
             if (StringList.quickEq(c, Object.class.getName())) {
                 continue;
@@ -1131,11 +1038,15 @@ public final class Classes {
             }
         }
         
-        for (String c: interfacesInheriting) {
+        for (String c: classesInheriting) {
             if (StringList.quickEq(c, Object.class.getName())) {
                 continue;
             }
-            InterfaceBlock dBl_ = (InterfaceBlock) classesBodies.getVal(new ClassName(c, false));
+            RootedBlock r_ = getClassBody(c);
+            if (!(r_ instanceof InterfaceBlock)) {
+                continue;
+            }
+            InterfaceBlock dBl_ = (InterfaceBlock) r_;
             ObjectMap<FctConstraints, StringList> signatures_ = dBl_.getAllSignatures(this);
             ObjectMap<FctConstraints, String> localSignatures_ = dBl_.getLocalSignatures(this);
             ObjectMap<FctConstraints, StringList> ov_;

@@ -1,5 +1,4 @@
 package code.serialize;
-import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
 import org.w3c.dom.Document;
@@ -7,7 +6,6 @@ import org.w3c.dom.Element;
 import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 
-import code.serialize.exceptions.BadAccessException;
 import code.serialize.exceptions.InvokingException;
 import code.serialize.exceptions.NoSuchDeclaredMethodException;
 import code.serialize.exceptions.NoValueException;
@@ -50,39 +48,17 @@ final class StringObjectSerial extends PrimitiveSerial {
             setKeyOfMap(true);
         }
         Method method_ = null;
-        try {
-            String classNameInst_ = name_+_node.getAttribute(INTERN);
-            Class<?> class_ = ConstClasses.classAliasForObjectNameNotInit(classNameInst_);
-            Node value_ = map_.getNamedItem(VALUE);
-            if (value_ == null) {
-                throw new NoValueException(classNameInst_);
-            }
-            method_ = ConverterMethod.getFromStringMethod(class_);
-            if (method_ == null) {
-                throw new NoSuchDeclaredMethodException();
-            }
-            value = method_.invoke(null, value_.getNodeValue());
-//            if (method_ != null) {
-//                value = method_.invoke(null, value_.getNodeValue());
-//                return;
-//            }
-//            Class<? extends Primitivable> subClass_ = class_.asSubclass(Primitivable.class);
-//            Constructor<?> constr_ = subClass_.getDeclaredConstructor(String.class);
-//            constr_.setAccessible(constr_.getAnnotation(RwXml.class)!=null);
-////            constr_.setAccessible(true);
-//            value = constr_.newInstance(value_.getNodeValue());
-//        } catch (InstantiationException _0) {
-//            throw new RuntimeInstantiationException(_0);
-//        } catch (NoSuchMethodException _0) {
-//            throw new NoSuchDeclaredMethodException(_0);
-        } catch (InvocationTargetException _0) {
-            throw new InvokingException(_0);
-//        } catch (IllegalArgumentException _0) {
-        } catch (IllegalAccessException _0) {
-//            _0.printStackTrace();
-            throw new BadAccessException(_0, method_.toString());
+        String classNameInst_ = name_+_node.getAttribute(INTERN);
+        Class<?> class_ = ConstClasses.classAliasForObjectNameNotInit(classNameInst_);
+        Node value_ = map_.getNamedItem(VALUE);
+        if (value_ == null) {
+            throw new NoValueException(classNameInst_);
         }
-
+        method_ = ConverterMethod.getFromStringMethod(class_);
+        if (method_ == null) {
+            throw new NoSuchDeclaredMethodException();
+        }
+        value = ConverterMethod.invokeMethod(method_, null, value_.getNodeValue());
     }
 
     @Override

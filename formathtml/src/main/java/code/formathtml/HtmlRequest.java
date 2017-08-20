@@ -5,7 +5,6 @@ import java.lang.reflect.Field;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.ElUtil;
-import code.expressionlanguage.exceptions.ErrorCausingException;
 import code.expressionlanguage.exceptions.InvokeRedinedMethException;
 import code.expressionlanguage.opers.util.Struct;
 import code.expressionlanguage.variables.LocalVariable;
@@ -111,9 +110,7 @@ final class HtmlRequest {
                     boolean key_ = _nodeContainer.getLastToken().endsWith(FormatHtml.GET_KEY);
                     BaseListUtil.set(obj_, key_, (int) index_, _nodeContainer.getTypedField(), _attribute);
                 }
-            } catch (VirtualMachineError _0) {
-                throw new ErrorCausingException(_conf.joinPages(), new Struct(_0));
-            } catch (RuntimeException _0) {
+            } catch (Throwable _0) {
                 throw new InvokeRedinedMethException(_conf.joinPages(), new Struct(_0));
             }
         } else {
@@ -150,16 +147,11 @@ final class HtmlRequest {
                 ContextEl context_ = _conf.toContextEl();
                 context_.getAccessValue().setAccess(field_, context_);
                 ConverterMethod.setField(field_, obj_, _attribute);
-            } catch (RuntimeException _0) {
+            } catch (Throwable _0) {
                 _conf.getLastPage().setProcessingAttribute(FormatHtml.EMPTY_STRING);
                 _conf.getLastPage().setLookForAttrValue(false);
                 _conf.getLastPage().setOffset(0);
                 throw new SetterException(_nodeContainer.getLastToken()+FormatHtml.RETURN_LINE+_conf.joinPages());
-            } catch (ExceptionInInitializerError _0) {
-                _conf.getLastPage().setProcessingAttribute(FormatHtml.EMPTY_STRING);
-                _conf.getLastPage().setLookForAttrValue(false);
-                _conf.getLastPage().setOffset(0);
-                throw new ErrorCausingException(_nodeContainer.getLastToken()+FormatHtml.RETURN_LINE+_conf.joinPages(), new Struct(_0));
             }
         }
         if (chg_ != null) {

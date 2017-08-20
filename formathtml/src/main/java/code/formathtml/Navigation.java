@@ -24,11 +24,9 @@ import code.images.ConverterBufferedImage;
 import code.resources.ResourceFiles;
 import code.serialize.ConverterMethod;
 import code.serialize.SerializeXmlObject;
-import code.serialize.exceptions.BadAccessException;
 import code.serialize.exceptions.InexistingValueForEnum;
 import code.serialize.exceptions.NoSuchConverterMethodException;
 import code.serialize.exceptions.NoSuchDeclaredMethodException;
-import code.serialize.exceptions.RuntimeInstantiationException;
 import code.util.CustList;
 import code.util.EntryCust;
 import code.util.NatTreeMap;
@@ -507,9 +505,7 @@ public final class Navigation {
             Validator validator_;
             try {
                 validator_ = session.getValidators().getVal(valId_);
-            } catch (VirtualMachineError _0) {
-                throw new ErrorCausingException(valId_+RETURN_LINE+session.joinPages());
-            } catch (RuntimeException _0) {
+            } catch (Throwable _0) {
                 throw new InvokeRedinedMethException(valId_+RETURN_LINE+session.joinPages());
             }
             if (validator_ == null) {
@@ -562,9 +558,7 @@ public final class Navigation {
                     errors_.put(id_, _0.format());
                     errorsArgs_.put(id_, _0.getArgs());
                 }
-            } catch (VirtualMachineError _0) {
-                throw new ErrorCausingException(session.joinPages(), new Struct(_0));
-            } catch (RuntimeException _0) {
+            } catch (Throwable _0) {
                 throw new InvokeRedinedMethException(session.joinPages(), new Struct(_0));
             }
         }
@@ -656,9 +650,7 @@ public final class Navigation {
                 } else {
                     newObj_ = retrieveObjectByClassName(v_.first(), obj_.getClass().getName());
                 }
-            } catch (VirtualMachineError _0) {
-                throw new ErrorCausingException(session.joinPages(), new Struct(_0));
-            } catch (RuntimeException _0) {
+            } catch (Throwable _0) {
                 throw new InvokeRedinedMethException(session.joinPages(), new Struct(_0));
             }
             Struct procObj_ = e.getValue().getStruct();
@@ -674,12 +666,8 @@ public final class Navigation {
         Class<?> class_;
         try {
             class_ = ConstClasses.classAliasForObjectNameNotInit(_className);
-        } catch (RuntimeException _0) {
+        } catch (Throwable _0) {
             throw new InvokeRedinedMethException(new Struct(_0));
-        } catch (VirtualMachineError _0) {
-            throw new ErrorCausingException(session.joinPages(),new Struct(_0));
-        } catch (ExceptionInInitializerError _0) {
-            throw new ErrorCausingException(session.joinPages(),new Struct(_0));
         }
         if (class_.isEnum()) {
             //Enum
@@ -701,24 +689,16 @@ public final class Navigation {
         try {
             return ConverterMethod.newObject(class_, _value);
         } catch (NoSuchConverterMethodException _0) {
-        } catch (VirtualMachineError _0) {
-            throw new ErrorCausingException(session.joinPages(),new Struct(_0));
-        } catch (ExceptionInInitializerError _0) {
-            throw new ErrorCausingException(session.joinPages(),new Struct(_0));
+        } catch (Throwable _0) {
+            throw new InvokeRedinedMethException(session.joinPages(),new Struct(_0));
         }
         return _value;
     }
 
     private static Object instance(Class<?> _class) {
         try {
-            return _class.newInstance();
-        } catch (InstantiationException _0) {
-            throw new RuntimeInstantiationException(_0);
-        } catch (IllegalAccessException _0) {
-            throw new BadAccessException(_0, _class.getName());
-        } catch (VirtualMachineError _0) {
-            throw new ErrorCausingException(new Struct(_0));
-        } catch (ExceptionInInitializerError _0) {
+            return ConverterMethod.newInstance(_class.getDeclaredConstructor());
+        } catch (Throwable _0) {
             throw new ErrorCausingException(new Struct(_0));
         }
     }
@@ -863,22 +843,17 @@ public final class Navigation {
 
     Bean newBean(Bean _bean) {
         try {
-            Bean bean_ = (Bean) ConstClasses.classAliasForNameNotInit(_bean.getClassName()).newInstance();
+            Class<?> cl_ = ConstClasses.classAliasForNameNotInit(_bean.getClassName());
+            Bean bean_ = (Bean) ConverterMethod.newInstance(cl_.getDeclaredConstructor());
             bean_.setDataBase(_bean.getDataBase());
             bean_.setForms(_bean.getForms());
             bean_.setClassName(ConstClasses.resolve(_bean.getClassName()));
             bean_.setLanguage(language);
             bean_.setScope(_bean.getScope());
             return bean_;
-        } catch (IllegalAccessException _0) {
-            throw new BadAccessException(_0, _bean.getClassName());
-        } catch (InstantiationException _0) {
-            throw new RuntimeInstantiationException(_0, _bean.getClassName());
         } catch (RuntimeClassNotFoundException _0) {
             throw new RuntimeClassNotFoundException(_bean.getClassName());
-        } catch (VirtualMachineError _0) {
-            throw new ErrorCausingException(new Struct(_0));
-        } catch (ExceptionInInitializerError _0) {
+        } catch (Throwable _0) {
             throw new ErrorCausingException(new Struct(_0));
         }
     }
@@ -921,7 +896,7 @@ public final class Navigation {
         }
     }
 
-    private String getUrlDest(String _method, Object _return ) {
+    private String getUrlDest(String _method, Object _return) {
         StringMap<String> cases_;
         try {
             cases_ = session.getNavigation().getVal(_method);
@@ -935,18 +910,14 @@ public final class Navigation {
         }
         try {
             return cases_.getVal(_return.toString());
-        } catch (VirtualMachineError _0) {
-            throw new ErrorCausingException(session.joinPages(), new Struct(_0));
-        } catch (RuntimeException _0) {
-            throw new ErrorCausingException(session.joinPages(), new Struct(_0));
+        } catch (Throwable _0) {
+            throw new InvokeRedinedMethException(session.joinPages(), new Struct(_0));
         }
     }
     private Bean getBean(String _beanName) {
         try {
             return session.getBeans().getVal(_beanName);
-        } catch (VirtualMachineError _0) {
-            throw new ErrorCausingException(session.joinPages(), new Struct(_0));
-        } catch (RuntimeException _0) {
+        } catch (Throwable _0) {
             throw new InvokeRedinedMethException(session.joinPages(), new Struct(_0));
         }
     }
@@ -955,9 +926,7 @@ public final class Navigation {
             Bean b_ = session.getBeans().getVal(_beanName);
             b_.getClass();
             return b_;
-        } catch (VirtualMachineError _0) {
-            throw new ErrorCausingException(session.joinPages(), new Struct(_0));
-        } catch (RuntimeException _0) {
+        } catch (Throwable _0) {
             throw new InvokeRedinedMethException(session.joinPages(), new Struct(_0));
         }
     }

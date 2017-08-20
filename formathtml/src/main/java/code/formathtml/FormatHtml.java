@@ -453,10 +453,8 @@ final class FormatHtml {
                     context_.getAccessValue().setAccess(f_, context_);
                     try {
                         ConverterMethod.setField(f_, bean_, arg_);
-                    } catch (RuntimeException _0) {
+                    } catch (Throwable _0) {
                         throw new BadAccessException(_0, fieldName_+RETURN_LINE+_conf.joinPages());
-                    } catch (ExceptionInInitializerError _0) {
-                        throw new ErrorCausingException(_conf.joinPages(), new Struct(_0));
                     }
                 }
             }
@@ -3530,16 +3528,12 @@ final class FormatHtml {
         try {
             Class<?> class_ = ConstClasses.classAliasForObjectNameNotInit(_className);
             isEnumClass_ = class_.isEnum();
-        } catch (RuntimeException _0) {
+        } catch (Throwable _0) {
             if (_className.isEmpty()) {
                 isEnumClass_ = false;
             } else {
                 throw new RuntimeClassNotFoundException(_className+_conf.joinPages());
             }
-        } catch (VirtualMachineError _0) {
-            throw new ErrorCausingException(_conf.joinPages(),new Struct(_0));
-        } catch (ExceptionInInitializerError _0) {
-            throw new ErrorCausingException(_conf.joinPages(),new Struct(_0));
         }
         StringList names_;
         if (isEnumClass_) {
@@ -4522,18 +4516,14 @@ final class FormatHtml {
     private static Bean getBean(Configuration _conf, String _beanName) {
         try {
             return _conf.getBeans().getVal(_beanName);
-        } catch (VirtualMachineError _0) {
-            throw new ErrorCausingException(_conf.joinPages(), new Struct(_0));
-        } catch (RuntimeException _0) {
+        } catch (Throwable _0) {
             throw new InvokeRedinedMethException(_conf.joinPages(), new Struct(_0));
         }
     }
     private static int getTabWidth(Configuration _conf) {
         try {
             return _conf.getTabWidth();
-        } catch (VirtualMachineError _0) {
-            throw new ErrorCausingException(_conf.joinPages(), new Struct(_0));
-        } catch (RuntimeException _0) {
+        } catch (Throwable _0) {
             throw new InvokeRedinedMethException(_conf.joinPages(), new Struct(_0));
         }
     }
@@ -4542,9 +4532,7 @@ final class FormatHtml {
             if (_bean != null) {
                 _bean.beforeDisplaying();
             }
-        } catch (VirtualMachineError _0) {
-            throw new ErrorCausingException(_conf.joinPages(), new Struct(_0));
-        } catch (RuntimeException _0) {
+        } catch (Throwable _0) {
             throw new InvokeRedinedMethException(_conf.joinPages(), new Struct(_0));
         }
     }

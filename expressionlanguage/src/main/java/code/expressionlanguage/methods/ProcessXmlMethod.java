@@ -513,41 +513,29 @@ public final class ProcessXmlMethod {
                 return ConstClasses.getPrimitiveClass(_className.substring(1));
             }
             return ConstClasses.classForNameNotInit(PrimitiveTypeUtil.getArrayClass(_className));
-        } catch (RuntimeException _0) {
+        } catch (Throwable _0) {
             _conf.getLastPage().addToOffset(_offest);
             throw new RuntimeClassNotFoundException(_className+RETURN_LINE+_conf.joinPages());
-        } catch (VirtualMachineError _0) {
-            _conf.getLastPage().addToOffset(_offest);
-            throw new ErrorCausingException(_className+RETURN_LINE+_conf.joinPages(), new Struct(_0));
-        } catch (ExceptionInInitializerError _0) {
-            _conf.getLastPage().addToOffset(_offest);
-            throw new ErrorCausingException(_className+RETURN_LINE+_conf.joinPages(), new Struct(_0));
         }
     }
     static Iterator<?> iterator(ContextEl _conf, Iterable<?> _it) {
         try {
             return _it.iterator();
-        } catch (VirtualMachineError _0) {
-            throw new ErrorCausingException(_conf.joinPages(), new Struct(_0));
-        } catch (RuntimeException _0) {
+        } catch (Throwable _0) {
             throw new InvokeRedinedMethException(_conf.joinPages(), new Struct(_0));
         }
     }
     static boolean hasNext(ContextEl _conf, Iterator<?> _it) {
         try {
             return _it.hasNext();
-        } catch (VirtualMachineError _0) {
-            throw new ErrorCausingException(_conf.joinPages(), new Struct(_0));
-        } catch (RuntimeException _0) {
+        } catch (Throwable _0) {
             throw new InvokeRedinedMethException(_conf.joinPages(), new Struct(_0));
         }
     }
     static Object next(ContextEl _conf, Iterator<?> _it) {
         try {
             return _it.next();
-        } catch (VirtualMachineError _0) {
-            throw new ErrorCausingException(_conf.joinPages(), new Struct(_0));
-        } catch (RuntimeException _0) {
+        } catch (Throwable _0) {
             throw new InvokeRedinedMethException(_conf.joinPages(), new Struct(_0));
         }
     }
