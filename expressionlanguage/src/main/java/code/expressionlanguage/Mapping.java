@@ -16,7 +16,7 @@ public class Mapping {
             StringList nextBounds_ = new StringList();
             for (String c: currentBounds_) {
                 String var_ = c;
-                if (c.startsWith("#")) {
+                if (c.startsWith(Templates.PREFIX_VAR_TYPE)) {
                     var_ = c.substring(1);
                 }
                 if (!mapping.contains(var_)) {
@@ -46,7 +46,7 @@ public class Mapping {
                     continue;
                 }
                 for (String n: mapping.getVal(c)) {
-                    if (!n.startsWith("#")) {
+                    if (!n.startsWith(Templates.PREFIX_VAR_TYPE)) {
                         continue;
                     }
                     String var_ = n.substring(1);

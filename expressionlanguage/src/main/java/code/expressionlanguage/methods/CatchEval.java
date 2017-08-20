@@ -69,7 +69,7 @@ public final class CatchEval extends BracedStack implements Eval, IncrCurrentGro
         page_.setProcessingAttribute(ATTRIBUTE_CLASS);
         page_.setOffset(0);
         String param_ = Throwable.class.getName();
-        if (!PrimitiveTypeUtil.isAssignableFrom(param_, className, _cont.getClasses())) {
+        if (!PrimitiveTypeUtil.canBeUseAsArgument(param_, className, _cont.getClasses())) {
             throw new BadCatchException(_cont.joinPages());
         }
         page_.setProcessingAttribute(ATTRIBUTE_VAR);

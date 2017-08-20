@@ -38,7 +38,7 @@ public final class ClassMatching {
             }
             boolean ok_ = false;
             for (String c: _c.getClassName()) {
-                if (PrimitiveTypeUtil.isAssignableFrom(p, c, _classes)) {
+                if (PrimitiveTypeUtil.canBeUseAsArgument(p, c, _classes)) {
                     ok_  = true;
                     break;
                 }

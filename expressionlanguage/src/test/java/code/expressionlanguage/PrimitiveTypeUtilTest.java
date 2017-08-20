@@ -13,6 +13,7 @@ import code.expressionlanguage.methods.Classes;
 import code.expressionlanguage.opers.OperationNode;
 import code.expressionlanguage.opers.util.Struct;
 import code.util.Numbers;
+import code.util.StringList;
 import code.util.StringMap;
 
 @SuppressWarnings("static-method")
@@ -716,6 +717,41 @@ public class PrimitiveTypeUtilTest {
         ContextEl context_ = unfullValidateOverridingMethods(files_);
         Classes classes_ = context_.getClasses();
         assertTrue(PrimitiveTypeUtil.canBeUseAsArgument("[pkg.ExFour","[pkg.ExFour",classes_));
+    }
+
+    @Test
+    public void canBeUseAsArgument64Test() {
+        assertTrue(PrimitiveTypeUtil.canBeUseAsArgument(PrimitiveTypeUtil.PRIM_INT, PrimitiveTypeUtil.PRIM_CHAR, null));
+    }
+
+    @Test
+    public void canBeUseAsArgument65Test() {
+        assertTrue(!PrimitiveTypeUtil.canBeUseAsArgument(PrimitiveTypeUtil.PRIM_CHAR, PrimitiveTypeUtil.PRIM_INT, null));
+    }
+
+    @Test
+    public void getSubclasses1Test() {
+        StringList classes_ = new StringList(Integer.class.getName(), Number.class.getName());
+        StringList sub_ = PrimitiveTypeUtil.getSubclasses(classes_, null);
+        assertEq(1, sub_.size());
+        assertEq(Integer.class.getName(), sub_.get(0));
+    }
+
+    @Test
+    public void getSubclasses2Test() {
+        StringList classes_ = new StringList(String.class.getName(), Number.class.getName());
+        StringList sub_ = PrimitiveTypeUtil.getSubclasses(classes_, null);
+        assertEq(2, sub_.size());
+        assertEq(String.class.getName(), sub_.get(0));
+        assertEq(Number.class.getName(), sub_.get(1));
+    }
+
+    @Test
+    public void getSubclasses3Test() {
+        StringList classes_ = new StringList(OperationNode.VOID_RETURN, OperationNode.VOID_RETURN);
+        StringList sub_ = PrimitiveTypeUtil.getSubclasses(classes_, null);
+        assertEq(1, sub_.size());
+        assertEq(OperationNode.VOID_RETURN, sub_.get(0));
     }
 
     @Test

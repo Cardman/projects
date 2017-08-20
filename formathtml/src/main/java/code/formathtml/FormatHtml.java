@@ -769,13 +769,13 @@ final class FormatHtml {
                     }
                     String name_ = e.getAttribute(ATTRIBUTE_CLASS_NAME);
                     if (!indirect_) {
-                        if (PrimitiveTypeUtil.isAssignableFrom(name_, _t.getClass().getName(), _conf.toContextEl().getClasses())) {
+                        if (PrimitiveTypeUtil.canBeUseAsArgument(name_, _t.getClass().getName(), _conf.toContextEl().getClasses())) {
                             catchElt_ = e;
                             try_.setVisitedCatch(i_);
                             break;
                         }
                     } else {
-                        if (PrimitiveTypeUtil.isAssignableFrom(name_, custCause_.getClassName(), _conf.toContextEl().getClasses())) {
+                        if (PrimitiveTypeUtil.canBeUseAsArgument(name_, custCause_.getClassName(), _conf.toContextEl().getClasses())) {
                             catchElt_ = e;
                             try_.setVisitedCatch(i_);
                             break;
@@ -966,7 +966,7 @@ final class FormatHtml {
             String el_ = ((Element)en_).getAttribute(EXPRESSION_ATTRIBUTE);
             ContextEl cont_ = _conf.toContextEl();
             Argument arg_ = ElUtil.processEl(el_, 0, cont_);
-            if (!PrimitiveTypeUtil.isAssignableFrom(Throwable.class.getName(), arg_.getObjectClassName(), cont_.getClasses())) {
+            if (!PrimitiveTypeUtil.canBeUseAsArgument(Throwable.class.getName(), arg_.getObjectClassName(), cont_.getClasses())) {
                 throw new InvokeException(_conf.joinPages(), new Struct(new NullPointerException()));
             }
             Throwable o_ = (Throwable) arg_.getObject();

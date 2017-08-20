@@ -96,49 +96,12 @@ public final class ClassArgumentMatching {
         }
     }
 
-    public boolean isAssignableFrom(ClassArgumentMatching _arg, Classes _classes) {
-        AssignableFrom a_ = PrimitiveTypeUtil.isAssignableFromCust(className, _arg.getName(), _classes);
-        if (a_ == AssignableFrom.YES) {
-            return true;
-        }
-        if (a_ == AssignableFrom.NO) {
-            return false;
-        }
-        try {
-            if (className.startsWith(PrimitiveTypeUtil.PRIM)) {
-                Class<?> cl_ = ConstClasses.getPrimitiveClass(className.substring(1));
-                return cl_.isAssignableFrom(_arg.getClazz());
-            }
-            Class<?> cl_ = ConstClasses.classForNameNotInit(PrimitiveTypeUtil.getArrayClass(className));
-            return cl_.isAssignableFrom(_arg.getClazz());
-        } catch (RuntimeClassNotFoundException _0) {
-            return false;
-        }
-    }
-
     public boolean isAssignableFrom(ClassMatching _arg, Classes _classes) {
         for (String c: _arg.getClassName()) {
-            AssignableFrom a_ = PrimitiveTypeUtil.isAssignableFromCust(className, c, _classes);
-            if (a_ == AssignableFrom.YES) {
-                return true;
-            }
-            if (a_ == AssignableFrom.NO) {
+            if (!PrimitiveTypeUtil.canBeUseAsArgument(className, c, _classes)) {
                 continue;
             }
-            try {
-                Class<?> cl_ = ConstClasses.classForNameNotInit(PrimitiveTypeUtil.getArrayClass(className));
-                boolean inherit_ = false;
-                for (String o: _arg.getClassName()) {
-                    if (cl_.isAssignableFrom(ClassMatching.getSingleNativeClass(o))) {
-                        inherit_ = true;
-                        break;
-                    }
-                }
-                if (inherit_) {
-                    return true;
-                }
-            } catch (RuntimeClassNotFoundException _0_) {
-            }
+            return true;
         }
         return false;
     }

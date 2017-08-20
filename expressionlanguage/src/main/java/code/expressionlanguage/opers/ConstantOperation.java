@@ -160,6 +160,10 @@ public final class ConstantOperation extends OperationNode implements SettableEl
                 setRelativeOffsetPossibleLastPage(getIndexInEl(), _conf);
                 throw new SettingMemberException(_conf.joinPages());
             }
+            if (hasDottedPreviousSibling()) {
+                setRelativeOffsetPossibleLastPage(getIndexInEl(), _conf);
+                throw new SettingMemberException(_conf.joinPages());
+            }
             String key_ = str_.substring(CustList.FIRST_INDEX, str_.length() - GET_PARAM.length());
             LocalVariable locVar_ = ip_.getParameters().getVal(key_);
             if (locVar_ != null) {
@@ -173,6 +177,10 @@ public final class ConstantOperation extends OperationNode implements SettableEl
                 setRelativeOffsetPossibleLastPage(getIndexInEl(), _conf);
                 throw new SettingMemberException(_conf.joinPages());
             }
+            if (hasDottedPreviousSibling()) {
+                setRelativeOffsetPossibleLastPage(getIndexInEl(), _conf);
+                throw new SettingMemberException(_conf.joinPages());
+            }
             String key_ = str_.substring(CustList.FIRST_INDEX, str_.length() - GET_CATCH_VAR.length());
             LocalVariable locVar_ = ip_.getCatchVars().getVal(key_);
             if (locVar_ != null) {
@@ -182,7 +190,11 @@ public final class ConstantOperation extends OperationNode implements SettableEl
             throw new UndefinedVariableException(_conf.joinPages(), key_, CATCH_VARIABLE);
         }
         if (str_.endsWith(GET_LOC_VAR)) {
-            String key_ = str_.substring(CustList.FIRST_INDEX, str_.length() - GET_LOC_VAR.length());
+            if (hasDottedPreviousSibling()) {
+                setRelativeOffsetPossibleLastPage(getIndexInEl(), _conf);
+                throw new SettingMemberException(_conf.joinPages());
+            }
+           String key_ = str_.substring(CustList.FIRST_INDEX, str_.length() - GET_LOC_VAR.length());
             LocalVariable locVar_ = ip_.getLocalVars().getVal(key_);
             if (locVar_ != null) {
                 setResultClass(new ClassArgumentMatching(locVar_.getClassName()));
@@ -192,6 +204,10 @@ public final class ConstantOperation extends OperationNode implements SettableEl
         }
         if (str_.endsWith(GET_INDEX)) {
             if (_checkSetting && getParent() == null) {
+                setRelativeOffsetPossibleLastPage(getIndexInEl(), _conf);
+                throw new SettingMemberException(_conf.joinPages());
+            }
+            if (hasDottedPreviousSibling()) {
                 setRelativeOffsetPossibleLastPage(getIndexInEl(), _conf);
                 throw new SettingMemberException(_conf.joinPages());
             }
@@ -205,6 +221,10 @@ public final class ConstantOperation extends OperationNode implements SettableEl
         }
         if (str_.endsWith(GET_ATTRIBUTE)) {
             if (_checkSetting && getParent() == null) {
+                setRelativeOffsetPossibleLastPage(getIndexInEl(), _conf);
+                throw new SettingMemberException(_conf.joinPages());
+            }
+            if (hasDottedPreviousSibling()) {
                 setRelativeOffsetPossibleLastPage(getIndexInEl(), _conf);
                 throw new SettingMemberException(_conf.joinPages());
             }
@@ -726,6 +746,13 @@ public final class ConstantOperation extends OperationNode implements SettableEl
             return false;
         }
         return true;
+    }
+
+    private boolean hasDottedPreviousSibling() {
+        if (!(getParent() instanceof DotOperation)) {
+            return false;
+        }
+        return getPreviousSibling() != null;
     }
 
     @Override

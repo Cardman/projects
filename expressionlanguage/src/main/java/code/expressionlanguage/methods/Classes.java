@@ -97,7 +97,7 @@ public final class Classes {
     private static final char DOT = '.';
     private static final String EMPTY_STRING = "";
 
-    private final ObjectMap<ClassName,Block> classesBodies;
+    private final ObjectMap<ClassName,RootBlock> classesBodies;
 
     private final ObjectMap<ClassField,Struct> staticFields;
     private final ObjectMap<ClassName,CustList<Struct>> values;
@@ -111,7 +111,7 @@ public final class Classes {
     private EqualsEl natEqEl;
     private CustList<OperationNode> exps;
     public Classes(StringMap<String> _files, ContextEl _context) {
-        classesBodies = new ObjectMap<ClassName,Block>();
+        classesBodies = new ObjectMap<ClassName,RootBlock>();
 
         errorsDet = new CustList<FoundErrorInterpret>();
         StringList classes_ = new StringList();
@@ -177,7 +177,7 @@ public final class Classes {
                 _context.setElements(new ElementOffsetsNext(new RowCol(), 0, 0));
                 Element root_ = doc_.getDocumentElement();
                 Block bl_ = Block.createOperationNode(root_, _context, 0, null);
-                if (!(bl_ instanceof RootedBlock)) {
+                if (!(bl_ instanceof RootBlock)) {
                     throw new XmlParseException();
                 }
                 int tabWidth_ = _context.getTabWidth();
@@ -187,7 +187,7 @@ public final class Classes {
                 bl_.setEndHeader(ne_.getEndHeader());
                 bl_.setTabs(ne_.getTabs());
                 bl_.setOffsets(ne_.getOffsets());
-                RootedBlock cl_ = (RootedBlock) bl_;
+                RootBlock cl_ = (RootBlock) bl_;
                 String packageName_;
                 packageName_ = cl_.getPackageName();
                 if (packageName_.isEmpty()) {
@@ -221,7 +221,7 @@ public final class Classes {
                     b.setNullAssociateElement();
                 }
                 initializedClasses.put(file_, false);
-                classesBodies.put(new ClassName(file_, false), bl_);
+                classesBodies.put(new ClassName(file_, false), cl_);
             } catch (UnknownBlockException _0) {
                 RowCol where_ = _0.getRc();
                 UnexpectedTagName t_ = new UnexpectedTagName();
@@ -456,7 +456,7 @@ public final class Classes {
         _context.addPage(page_);
         Graph<ClassEdge> inherit_;
         inherit_ = new Graph<ClassEdge>();
-        for (EntryCust<ClassName, Block> c: classesBodies.entryList()) {
+        for (EntryCust<ClassName, RootBlock> c: classesBodies.entryList()) {
             ClassName d_ = c.getKey();
             RootedBlock bl_ = (RootedBlock) c.getValue();
             boolean int_ = bl_ instanceof InterfaceBlock;
@@ -599,7 +599,7 @@ public final class Classes {
             bl_.getAllNeededSortedInterfaces().addAllElts(bl_.getAllSortedInterfaces());
             bl_.getAllNeededSortedInterfaces().removeAllElements(needed_);
         }
-        for (EntryCust<ClassName, Block> c: classesBodies.entryList()) {
+        for (EntryCust<ClassName, RootBlock> c: classesBodies.entryList()) {
             RootedBlock r_ = (RootedBlock) c.getValue();
             if (r_ instanceof UniqueRootedBlock) {
                 r_.getAllSuperTypes().addAllElts(((UniqueRootedBlock)r_).getAllSuperClasses());
@@ -743,7 +743,7 @@ public final class Classes {
         PageEl page_ = new PageEl();
         _context.clearPages();
         _context.addPage(page_);
-        for (EntryCust<ClassName, Block> c: classesBodies.entryList()) {
+        for (EntryCust<ClassName, RootBlock> c: classesBodies.entryList()) {
             String className_ = c.getKey().getName();
             Block r_ = c.getValue();
             CustList<Block> bl_ = getDirectChildren(r_);
@@ -804,7 +804,7 @@ public final class Classes {
         PageEl page_ = new PageEl();
         _context.clearPages();
         _context.addPage(page_);
-        for (EntryCust<ClassName, Block> c: classesBodies.entryList()) {
+        for (EntryCust<ClassName, RootBlock> c: classesBodies.entryList()) {
             String className_ = c.getKey().getName();
             CustList<Block> bl_ = getSortedDescNodes(c.getValue());
             for (Block e: bl_) {
@@ -843,7 +843,7 @@ public final class Classes {
         PageEl page_ = new PageEl();
         _context.clearPages();
         _context.addPage(page_);
-        for (EntryCust<ClassName, Block> c: classesBodies.entryList()) {
+        for (EntryCust<ClassName, RootBlock> c: classesBodies.entryList()) {
             String className_ = c.getKey().getName();
             CustList<Block> bl_ = getDirectChildren(c.getValue());
             for (Block b: bl_) {
@@ -867,7 +867,7 @@ public final class Classes {
         PageEl page_ = new PageEl();
         _context.clearPages();
         _context.addPage(page_);
-        for (EntryCust<ClassName, Block> c: classesBodies.entryList()) {
+        for (EntryCust<ClassName, RootBlock> c: classesBodies.entryList()) {
             String className_ = c.getKey().getName();
             StringList ids_ = new StringList();
             CustList<Block> bl_ = getDirectChildren(c.getValue());
@@ -896,7 +896,7 @@ public final class Classes {
         PageEl page_ = new PageEl();
         _context.clearPages();
         _context.addPage(page_);
-        for (EntryCust<ClassName, Block> c: classesBodies.entryList()) {
+        for (EntryCust<ClassName, RootBlock> c: classesBodies.entryList()) {
             String className_ = c.getKey().getName();
             CustList<Block> bl_ = getDirectChildren(c.getValue());
             for (Block b: bl_) {
@@ -920,7 +920,7 @@ public final class Classes {
         PageEl page_ = new PageEl();
         _context.clearPages();
         _context.addPage(page_);
-        for (EntryCust<ClassName, Block> c: classesBodies.entryList()) {
+        for (EntryCust<ClassName, RootBlock> c: classesBodies.entryList()) {
             String className_ = c.getKey().getName();
             EqList<FctConstraints> ids_ = new EqList<FctConstraints>();
             CustList<Block> bl_ = getDirectChildren(c.getValue());
@@ -994,7 +994,7 @@ public final class Classes {
         }
     }
     public void validateOverridingInherit(ContextEl _context) {
-        for (EntryCust<ClassName, Block> e: classesBodies.entryList()) {
+        for (EntryCust<ClassName, RootBlock> e: classesBodies.entryList()) {
             String className_ = e.getKey().getName();
             Block b_ = e.getValue();
             if (!(b_ instanceof EnumBlock)) {
@@ -1043,16 +1043,13 @@ public final class Classes {
                 continue;
             }
             RootedBlock r_ = getClassBody(c);
-            if (!(r_ instanceof InterfaceBlock)) {
-                continue;
-            }
-            InterfaceBlock dBl_ = (InterfaceBlock) r_;
+            RootBlock dBl_ = (RootBlock) r_;
             ObjectMap<FctConstraints, StringList> signatures_ = dBl_.getAllSignatures(this);
             ObjectMap<FctConstraints, String> localSignatures_ = dBl_.getLocalSignatures(this);
             ObjectMap<FctConstraints, StringList> ov_;
-            ov_ = InterfaceBlock.getAllOverridingMethods(signatures_, this);
+            ov_ = RootBlock.getAllOverridingMethods(signatures_, this);
             ObjectMap<FctConstraints, StringList> er_;
-            er_ = InterfaceBlock.areCompatible(localSignatures_, ov_, this);
+            er_ = RootBlock.areCompatible(localSignatures_, ov_, this);
             for (EntryCust<FctConstraints, StringList> e: er_.entryList()) {
                 for (String s: e.getValue()) {
                     MethodBlock mDer_ = getMethodBody(s, e.getKey());
@@ -1066,7 +1063,7 @@ public final class Classes {
                 }
             }
         }
-        for (EntryCust<ClassName, Block> e: classesBodies.entryList()) {
+        for (EntryCust<ClassName, RootBlock> e: classesBodies.entryList()) {
             RootedBlock dBl_ = (RootedBlock) e.getValue();
             if (!(dBl_ instanceof ClassBlock)) {
                 continue;
@@ -1317,7 +1314,7 @@ public final class Classes {
                 }
             }
             ObjectMap<FctConstraints, StringList> ov_;
-            ov_ = InterfaceBlock.getAllOverridingMethods(signatures_, this);
+            ov_ = RootBlock.getAllOverridingMethods(signatures_, this);
             StringList allSuperClass_ = bl_.getAllSuperClasses();
             StringList allAssSuperClass_ = new StringList(allSuperClass_);
             allAssSuperClass_.add(c);
@@ -1376,7 +1373,7 @@ public final class Classes {
                 }
             }
             EqList<ClassMethodId> abstractMethods_;
-            abstractMethods_ = InterfaceBlock.remainingMethodsToImplement(ov_, this);
+            abstractMethods_ = RootBlock.remainingMethodsToImplement(ov_, this);
             if (concreteClass_) {
                 for (ClassMethodId m: abstractMethods_) {
                     boolean ok_ = false;
@@ -1400,7 +1397,7 @@ public final class Classes {
                 }
             }
             ObjectMap<FctConstraints, String> def_;
-            def_ = InterfaceBlock.defaultMethods(signatures_, this);
+            def_ = RootBlock.defaultMethods(signatures_, this);
             for (EntryCust<FctConstraints, String> e: def_.entryList()) {
                 boolean addDefault_ = true;
                 for (String s: allAssSuperClass_) {
@@ -1421,7 +1418,7 @@ public final class Classes {
         PageEl page_ = new PageEl();
         _context.clearPages();
         _context.addPage(page_);
-        for (EntryCust<ClassName, Block> c: classesBodies.entryList()) {
+        for (EntryCust<ClassName, RootBlock> c: classesBodies.entryList()) {
             String className_ = c.getKey().getName();
             CustList<Block> bl_ = getSortedDescNodes(c.getValue());
             for (Block e: bl_) {
@@ -1456,7 +1453,7 @@ public final class Classes {
         PageEl page_ = new PageEl();
         _context.clearPages();
         _context.addPage(page_);
-        for (EntryCust<ClassName, Block> c: classesBodies.entryList()) {
+        for (EntryCust<ClassName, RootBlock> c: classesBodies.entryList()) {
             String className_ = c.getKey().getName();
             CustList<Block> bl_ = getSortedDescNodes(c.getValue());
             for (Block b: bl_) {
@@ -1628,7 +1625,7 @@ public final class Classes {
         PageEl page_ = new PageEl();
         _context.clearPages();
         _context.addPage(page_);
-        for (EntryCust<ClassName, Block> c: classesBodies.entryList()) {
+        for (EntryCust<ClassName, RootBlock> c: classesBodies.entryList()) {
             CustList<Block> bl_ = getDirectChildren(c.getValue());
             for (Block b: bl_) {
                 if (b instanceof Returnable) {
@@ -1645,7 +1642,7 @@ public final class Classes {
                 }
             }
         }
-        for (EntryCust<ClassName, Block> c: classesBodies.entryList()) {
+        for (EntryCust<ClassName, RootBlock> c: classesBodies.entryList()) {
             CustList<Block> bl_ = getDirectChildren(c.getValue());
             for (Block b: bl_) {
                 if (b instanceof InfoBlock) {
@@ -1676,7 +1673,7 @@ public final class Classes {
                 }
             }
         }
-        for (EntryCust<ClassName, Block> c: classesBodies.entryList()) {
+        for (EntryCust<ClassName, RootBlock> c: classesBodies.entryList()) {
             CustList<Block> bl_ = getDirectChildren(c.getValue());
             for (Block b: bl_) {
                 if (b instanceof InfoBlock) {
@@ -1696,7 +1693,7 @@ public final class Classes {
                 }
             }
         }
-        for (EntryCust<ClassName, Block> c: classesBodies.entryList()) {
+        for (EntryCust<ClassName, RootBlock> c: classesBodies.entryList()) {
             RootedBlock clblock_ = (RootedBlock) c.getValue();
             if (clblock_ instanceof UniqueRootedBlock) {
                 ((UniqueRootedBlock)clblock_).validateConstructors(_context);
@@ -1710,7 +1707,7 @@ public final class Classes {
         PageEl page_ = new PageEl();
         _context.clearPages();
         _context.addPage(page_);
-        for (EntryCust<ClassName, Block> c: classesBodies.entryList()) {
+        for (EntryCust<ClassName, RootBlock> c: classesBodies.entryList()) {
             String className_ = c.getKey().getName();
             CustList<Block> bl_ = getDirectChildren(c.getValue());
             for (Block b: bl_) {
@@ -1862,7 +1859,7 @@ public final class Classes {
     }
 
     public RootedBlock getClassBody(String _className) {
-        for (EntryCust<ClassName, Block> c: classesBodies.entryList()) {
+        for (EntryCust<ClassName, RootBlock> c: classesBodies.entryList()) {
             if (!StringList.quickEq(c.getKey().getName(), _className)) {
                 continue;
             }
@@ -1872,7 +1869,7 @@ public final class Classes {
     }
 
     public MethodBlock getMethodBody(String _className, FctConstraints _methodId) {
-        for (EntryCust<ClassName, Block> c: classesBodies.entryList()) {
+        for (EntryCust<ClassName, RootBlock> c: classesBodies.entryList()) {
             if (!StringList.quickEq(c.getKey().getName(), _className)) {
                 continue;
             }
@@ -1896,7 +1893,7 @@ public final class Classes {
         return null;
     }
     public ConstructorBlock getConstructorBody(String _className, FctConstraints _methodId) {
-        for (EntryCust<ClassName, Block> c: classesBodies.entryList()) {
+        for (EntryCust<ClassName, RootBlock> c: classesBodies.entryList()) {
             if (!StringList.quickEq(c.getKey().getName(), _className)) {
                 continue;
             }
@@ -1938,7 +1935,7 @@ public final class Classes {
     public void preInitializeStaticFields(String _className) {
         StringMap<FieldBlock> fieldsInfos_;
         fieldsInfos_ = new StringMap<FieldBlock>();
-        for (EntryCust<ClassName, Block> c: classesBodies.entryList()) {
+        for (EntryCust<ClassName, RootBlock> c: classesBodies.entryList()) {
             ClassName k_ = c.getKey();
             if (!StringList.quickEq(k_.getName(), _className)) {
                 continue;
@@ -1957,7 +1954,7 @@ public final class Classes {
                 }
             }
         }
-        for (EntryCust<ClassName, Block> c: classesBodies.entryList()) {
+        for (EntryCust<ClassName, RootBlock> c: classesBodies.entryList()) {
             ClassName k_ = c.getKey();
             if (!StringList.quickEq(k_.getName(), _className)) {
                 continue;
@@ -1995,7 +1992,7 @@ public final class Classes {
         return staticFields.getVal(_clField);
     }
     public ClassMetaInfo getClassMetaInfo(String _name) {
-        for (EntryCust<ClassName, Block> c: classesBodies.entryList()) {
+        for (EntryCust<ClassName, RootBlock> c: classesBodies.entryList()) {
             ObjectNotNullMap<FctConstraints, MethodMetaInfo> infos_;
             infos_ = new ObjectNotNullMap<FctConstraints, MethodMetaInfo>();
             StringMap<FieldMetaInfo> infosFields_;

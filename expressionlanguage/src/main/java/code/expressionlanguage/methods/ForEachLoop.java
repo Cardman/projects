@@ -15,7 +15,6 @@ import code.expressionlanguage.methods.exceptions.BadConstructorCall;
 import code.expressionlanguage.opers.Calculation;
 import code.expressionlanguage.opers.ExpressionLanguage;
 import code.expressionlanguage.opers.OperationNode;
-import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.stacks.LoopBlockStack;
 import code.expressionlanguage.variables.LoopVariable;
 import code.util.CustList;
@@ -100,7 +99,7 @@ public final class ForEachLoop extends BracedStack implements ForLoop {
         opList = ElUtil.getAnalyzedOperations(expression, _cont, Calculation.staticCalculation(f_.isStaticContext()));
         OperationNode el_ = opList.last();
         Classes classes_ = _cont.getClasses();
-        if (!new ClassArgumentMatching(Iterable.class.getName()).isAssignableFrom(el_.getResultClass(), classes_)) {
+        if (!PrimitiveTypeUtil.canBeUseAsArgument(Iterable.class.getName(), el_.getResultClass().getName(), classes_)) {
             if (!el_.getResultClass().isArray()) {
                 String str_ = el_.getResultClass().getName();
                 throw new DynamicCastClassException(str_+RETURN_LINE+_cont.joinPages());

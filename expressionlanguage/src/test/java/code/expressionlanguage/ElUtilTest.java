@@ -12,6 +12,7 @@ import code.expressionlanguage.classes.BeanOne;
 import code.expressionlanguage.classes.BeanSeven;
 import code.expressionlanguage.classes.Composite;
 import code.expressionlanguage.classes.EnumNumber;
+import code.expressionlanguage.classes.FailMethods;
 import code.expressionlanguage.classes.FieldClass;
 import code.expressionlanguage.classes.FieldFieldClass;
 import code.expressionlanguage.classes.FinalFieldClass;
@@ -25,11 +26,14 @@ import code.expressionlanguage.classes.InternsClasses.InternStaticStandard;
 import code.expressionlanguage.classes.InternsClasses.InternStaticStandard.InternStaticStandardFour;
 import code.expressionlanguage.classes.InternsClasses.InternStaticStandard.InternStaticStandardThree;
 import code.expressionlanguage.classes.MyImpl;
+import code.expressionlanguage.classes.StrangeInit;
 import code.expressionlanguage.exceptions.AbstractClassConstructorException;
 import code.expressionlanguage.exceptions.AmbiguousChoiceCallingException;
 import code.expressionlanguage.exceptions.DynamicCastClassException;
+import code.expressionlanguage.exceptions.ErrorCausingException;
 import code.expressionlanguage.exceptions.FinalMemberException;
 import code.expressionlanguage.exceptions.IllegalClassConstructorException;
+import code.expressionlanguage.exceptions.InvokeException;
 import code.expressionlanguage.exceptions.NegativeSizeException;
 import code.expressionlanguage.exceptions.NullGlobalObjectException;
 import code.expressionlanguage.exceptions.SettingMemberException;
@@ -59,6 +63,10 @@ public class ElUtilTest {
     private static final String ABSTRACT = AbstractBean.class.getName();
     private static final String COMPOSITE = Composite.class.getName();
     private static final String COMPOSITE_HAT = StringList.replace(COMPOSITE, ".", "^");
+    private static final String STRANGE_INIT = StrangeInit.class.getName();
+    private static final String STRANGE_INIT_HAT = StringList.replace(STRANGE_INIT, ".", "^");
+    private static final String FAIL_METHODS = FailMethods.class.getName();
+    private static final String FAIL_METHODS_HAT = StringList.replace(FAIL_METHODS, ".", "^");
     private static final String IONE = IOne.class.getName();
     private static final String MY_IMPL = MyImpl.class.getName();
     private static final String MY_IMPL_HAT = StringList.replace(MY_IMPL, ".", "^");
@@ -1675,13 +1683,53 @@ public class ElUtilTest {
         addImportingPage(context_);
         ElUtil.processEl("static^"+COMPOSITE_HAT+".integer",0, context_);
     }
-
+    
     @Test(expected=NoSuchDeclaredFieldException.class)
     public void processEl13FailTest() {
         ContextEl context_ = new ContextEl();
         setupAccessValue(context_);
         addImportingPage(context_);
         ElUtil.processEl("static^"+COMPOSITE_HAT+".int^^eger",0, context_);
+    }
+
+    @Test(expected=ErrorCausingException.class)
+    public void processEl14FailTest() {
+        ContextEl context_ = new ContextEl();
+        setupAccessValue(context_);
+        addImportingPage(context_);
+        ElUtil.processEl("static^"+STRANGE_INIT_HAT+".NOT_READ",0, context_);
+    }
+
+    @Test(expected=ErrorCausingException.class)
+    public void processEl15FailTest() {
+        ContextEl context_ = new ContextEl();
+        setupAccessValue(context_);
+        addImportingPage(context_);
+        ElUtil.processEl("static^"+STRANGE_INIT_HAT+".fail()",0, context_);
+    }
+
+    @Test(expected=ErrorCausingException.class)
+    public void processEl16FailTest() {
+        ContextEl context_ = new ContextEl();
+        setupAccessValue(context_);
+        addImportingPage(context_);
+        ElUtil.processEl("^new."+STRANGE_INIT+"()",0, context_);
+    }
+
+    @Test(expected=InvokeException.class)
+    public void processEl17FailTest() {
+        ContextEl context_ = new ContextEl();
+        setupAccessValue(context_);
+        addImportingPage(context_);
+        ElUtil.processEl("static^"+FAIL_METHODS_HAT+".fail()",0, context_);
+    }
+
+    @Test(expected=InvokeException.class)
+    public void processEl18FailTest() {
+        ContextEl context_ = new ContextEl();
+        setupAccessValue(context_);
+        addImportingPage(context_);
+        ElUtil.processEl("^new."+FAIL_METHODS+"()",0, context_);
     }
 
     @Test

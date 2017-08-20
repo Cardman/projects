@@ -18,7 +18,7 @@ import code.util.ObjectNotNullMap;
 import code.util.StringList;
 import code.util.graphs.Graph;
 
-public final class EnumBlock extends BracedBlock implements UniqueRootedBlock {
+public final class EnumBlock extends RootBlock implements UniqueRootedBlock {
 
     private final String name;
 

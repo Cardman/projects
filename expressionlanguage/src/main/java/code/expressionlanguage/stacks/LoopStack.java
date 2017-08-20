@@ -2,7 +2,6 @@ package code.expressionlanguage.stacks;
 import java.util.Iterator;
 
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.exceptions.ErrorCausingException;
 import code.expressionlanguage.exceptions.InvokeRedinedMethException;
 import code.expressionlanguage.opers.util.Struct;
 

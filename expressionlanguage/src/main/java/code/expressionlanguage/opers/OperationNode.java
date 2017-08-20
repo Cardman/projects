@@ -14,7 +14,6 @@ import code.expressionlanguage.OperationsSequence;
 import code.expressionlanguage.PrimitiveTypeUtil;
 import code.expressionlanguage.exceptions.AbstractClassConstructorException;
 import code.expressionlanguage.exceptions.AmbiguousChoiceCallingException;
-import code.expressionlanguage.exceptions.DynamicCastClassException;
 import code.expressionlanguage.exceptions.ErrorCausingException;
 import code.expressionlanguage.exceptions.InvokeException;
 import code.expressionlanguage.exceptions.PrimitiveTypeException;
@@ -25,6 +24,7 @@ import code.expressionlanguage.methods.Classes;
 import code.expressionlanguage.methods.ConstructorBlock;
 import code.expressionlanguage.methods.InterfaceBlock;
 import code.expressionlanguage.methods.MethodBlock;
+import code.expressionlanguage.methods.RootBlock;
 import code.expressionlanguage.methods.RootedBlock;
 import code.expressionlanguage.methods.UniqueRootedBlock;
 import code.expressionlanguage.methods.util.ArgumentsPair;
@@ -173,6 +173,8 @@ public abstract class OperationNode implements SortedNode<OperationNode>, Operab
     private MethodOperation parent;
 
     private boolean initializedNextSibling;
+
+    private OperationNode previousSibling;
 
     private OperationNode nextSibling;
 
@@ -362,6 +364,7 @@ public abstract class OperationNode implements SortedNode<OperationNode>, Operab
         d_.setChildOffest(curKey_);
         OperationsSequence r_ = ElResolver.getOperationsSequence(p_.getIndexInEl(), value_, conf, d_);
         nextSibling = createOperationNode(value_, p_.getIndexInEl()+curKey_, conf, indexChild + 1, p_, r_);
+        nextSibling.previousSibling = this;
         return nextSibling;
     }
     static boolean canBeUsed(AccessibleObject _field, ContextEl _conf) {
@@ -723,7 +726,7 @@ public abstract class OperationNode implements SortedNode<OperationNode>, Operab
             }
         }
         ObjectMap<FctConstraints, StringList> ov_;
-        ov_ = InterfaceBlock.getAllOverridingMethods(signatures_, classes_);
+        ov_ = RootBlock.getAllOverridingMethods(signatures_, classes_);
         ObjectNotNullMap<FctConstraints, MethodMetaInfo> methods_;
         methods_ = new ObjectNotNullMap<FctConstraints, MethodMetaInfo>();
         String cl_ = EMPTY_STRING;
@@ -1043,8 +1046,6 @@ public abstract class OperationNode implements SortedNode<OperationNode>, Operab
                 a_.setStruct(new Struct(o_));
             }
             return a_;
-        } catch (IllegalArgumentException _0) {
-            throw new DynamicCastClassException(_const.getDeclaringClass().getName()+RETURN_LINE+_conf.joinPages());
         } catch (InvokingException _0) {
             throw new InvokeException(_conf.joinPages(), new Struct(_0.getTarget()));
         } catch (Error _0) {
@@ -1063,8 +1064,6 @@ public abstract class OperationNode implements SortedNode<OperationNode>, Operab
                 return (Struct) o_;
             }
             return new Struct(o_);
-        } catch (IllegalArgumentException _0) {
-            throw new DynamicCastClassException(_instance.getClass().getName()+SPACE+_className+RETURN_LINE+_cont.joinPages());
         } catch (InvokingException _0) {
             throw new InvokeException(_cont.joinPages(), new Struct(_0.getTarget()));
         } catch (Error _0) {
@@ -1446,6 +1445,10 @@ public abstract class OperationNode implements SortedNode<OperationNode>, Operab
                 n_.setPreviousResultClass(resultClass, _staticPrevious);
             }
         }
+    }
+
+    protected final OperationNode getPreviousSibling() {
+        return previousSibling;
     }
 
     public final boolean isNeedPrevious() {

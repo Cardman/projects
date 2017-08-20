@@ -341,13 +341,13 @@ public final class ProcessXmlMethod {
                     CatchEval ca_ = (CatchEval) e;
                     String name_ = ca_.getClassName();
                     if (!indirect_) {
-                        if (PrimitiveTypeUtil.isAssignableFrom(name_, _t.getClass().getName(), _conf.getClasses())) {
+                        if (PrimitiveTypeUtil.canBeUseAsArgument(name_, _t.getClass().getName(), _conf.getClasses())) {
                             catchElt_ = ca_;
                             try_.setVisitedCatch(i_);
                             break;
                         }
                     } else {
-                        if (PrimitiveTypeUtil.isAssignableFrom(name_, custCause_.getClassName(), _conf.getClasses())) {
+                        if (PrimitiveTypeUtil.canBeUseAsArgument(name_, custCause_.getClassName(), _conf.getClasses())) {
                             catchElt_ = ca_;
                             try_.setVisitedCatch(i_);
                             break;

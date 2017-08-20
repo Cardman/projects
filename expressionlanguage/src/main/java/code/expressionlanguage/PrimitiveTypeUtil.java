@@ -89,7 +89,50 @@ public final class PrimitiveTypeUtil {
         }
         return output_;
     }
+    /** Only "object" classes are used as arguments */
+    public static StringList getSubclasses(StringList _classNames, Classes _classes) {
+        StringList types_ = new StringList();
+        for (String i: _classNames) {
+            boolean sub_ = true;
+            if (StringList.quickEq(i, OperationNode.VOID_RETURN)) {
+                for (String j: _classNames) {
+                    if (!StringList.quickEq(i, j)) {
+                        sub_ = false;
+                        break;
+                    }
+                }
+            } else {
+                for (String j: _classNames) {
+                    if (StringList.quickEq(i, j)) {
+                        continue;
+                    }
+                    if (canBeUseAsArgument(i, j, _classes)) {
+                        sub_ = false;
+                        break;
+                    }
+                }
+            }
+            if (!sub_) {
+                continue;
+            }
+            types_.add(i);
+        }
+        types_.removeDuplicates();
+        return types_;
+    }
     public static String getSubslass(StringList _classNames, Classes _classes) {
+        boolean hasPrim_ = false;
+        boolean hasObj_ = false;
+        for (String i: _classNames) {
+            if (i.startsWith(PRIM)) {
+                hasPrim_ = true;
+            } else {
+                hasObj_ = true;
+            }
+        }
+        if (hasPrim_ && hasObj_) {
+            return NO_SUB_CLASS;
+        }
         for (String i: _classNames) {
             boolean sub_ = true;
             if (StringList.quickEq(i, OperationNode.VOID_RETURN)) {
@@ -341,18 +384,6 @@ public final class PrimitiveTypeUtil {
             array_ = paramComp_.getDim() > 0;
         }
         return canBeUseAsArgument(clParam_, clArg_, array_);
-    }
-    public static boolean isAssignableFrom(String _param, String _arg, Classes _classes) {
-        AssignableFrom a_ = isAssignableFromCust(_param, _arg, _classes);
-        if (a_ == AssignableFrom.YES) {
-            return true;
-        }
-        if (a_ == AssignableFrom.NO) {
-            return false;
-        }
-        Class<?> param_ = new ClassArgumentMatching(_param).getClazz();
-        Class<?> arg_ = new ClassArgumentMatching(_arg).getClazz();
-        return param_.isAssignableFrom(arg_);
     }
 
     public static AssignableFrom isAssignableFromCust(String _param,String _arg, Classes _classes) {

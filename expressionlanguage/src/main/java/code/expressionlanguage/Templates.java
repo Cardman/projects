@@ -15,15 +15,15 @@ import code.util.opers.CollectionsUtil;
 
 public final class Templates {
 
-    private static final String TEMPLATE_SEP = ",";
-    private static final String TEMPLATE_END = ">";
-    private static final String TEMPLATE_BEGIN = "<";
-    private static final String WILD_CARD = "?";
-    private static final String EXTENDS = "~";
-    private static final char SEP_BOUNDS = '&';
-    private static final String SEP_CLASS = ".";
+    public static final String TEMPLATE_SEP = ",";
+    public static final String TEMPLATE_END = ">";
+    public static final String TEMPLATE_BEGIN = "<";
+    public static final String WILD_CARD = "?";
+    public static final String EXTENDS = "~";
+    public static final char SEP_BOUNDS = '&';
+    public static final String SEP_CLASS = ".";
+    public static final String PREFIX_VAR_TYPE = "#";
     private static final String EMPTY_STRING = "";
-    private static final String PREFIX_VAR_TYPE = "#";
 
     private Templates() {
     }
