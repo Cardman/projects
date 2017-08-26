@@ -6,7 +6,6 @@ import static org.junit.Assert.assertTrue;
 
 import java.lang.reflect.Array;
 
-import org.junit.Ignore;
 import org.junit.Test;
 
 import code.expressionlanguage.AccessValueEx;
@@ -9921,9 +9920,9 @@ public class ProcessXmlMethodTest {
         xml_ += "<affect left='nb;;;' oper='++'/>\n";
         xml_ += "</instance>\n";
         xml_ += "<field access='"+PUBLIC_ACCESS+"' name='common' class='"+PrimitiveTypeUtil.PRIM_INT+"' value='nb;;;'/>\n";
-        xml_ += "<method access='"+PUBLIC_ACCESS+"' modifier='normal' name='doubleValue' class='"+PrimitiveTypeUtil.PRIM_INT+"'>\n";
-        xml_ += "<return expression='1i'/>\n";
-        xml_ += "</method>\n";
+//        xml_ += "<method access='"+PUBLIC_ACCESS+"' modifier='normal' name='doubleValue' class='"+PrimitiveTypeUtil.PRIM_INT+"'>\n";
+//        xml_ += "<return expression='1i'/>\n";
+//        xml_ += "</method>\n";
         xml_ += "</interface>\n";
         files_.put("pkg/Int3."+Classes.EXT, xml_);
         Classes.validateAll(files_, cont_);
@@ -9952,7 +9951,7 @@ public class ProcessXmlMethodTest {
         assertEq(Integer.class.getName(), subField_.getClassName());
         assertEq(3, (Number)subField_.getInstance());
     }
-    @Ignore
+
     @Test
     public void instanceArgument83Test() {
         StringMap<String> files_ = new StringMap<String>();
@@ -9966,6 +9965,74 @@ public class ProcessXmlMethodTest {
         xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExThree' package='pkg'>\n";
         xml_ += "<field access='"+PUBLIC_ACCESS+"' name='inst' class='pkg.Ex' value='^new.pkg.Ex()'/>\n";
         xml_ += "<field access='"+PUBLIC_ACCESS+"' name='ance' class='pkg.Ex' value='^new.pkg.Ex()'/>\n";
+        xml_ += "<field access='"+PUBLIC_ACCESS+"' name='ouf' class='$int'/>\n";
+        xml_ += "<constructor access='"+PUBLIC_ACCESS+"'>\n";
+        xml_ += "<line expression='^this(17i)'/>\n";
+        xml_ += "<declare class='$int' var='toto'/>\n";
+        xml_ += "</constructor>\n";
+        xml_ += "<constructor access='"+PUBLIC_ACCESS+"' var0='i' class0='"+PrimitiveTypeUtil.PRIM_INT+"'>\n";
+        xml_ += "<if condition='i;.;&gt;0'>\n";
+        xml_ += "<return/>\n";
+        xml_ += "</if>\n";
+        xml_ += "</constructor>\n";
+        xml_ += "</class>\n";
+        files_.put("pkg/ExThree."+Classes.EXT, xml_);
+        xml_ = "<interface access='"+PUBLIC_ACCESS+"' name='Int' package='pkg' class0='pkg.Int2'/>\n";
+        files_.put("pkg/Int."+Classes.EXT, xml_);
+        xml_ = "<interface access='"+PUBLIC_ACCESS+"' name='Int2' package='pkg' class0='pkg.Int3'/>\n";
+        files_.put("pkg/Int2."+Classes.EXT, xml_);
+        xml_ = "<interface access='"+PUBLIC_ACCESS+"' name='Int3' package='pkg'>\n";
+        xml_ += "<field static='' access='"+PUBLIC_ACCESS+"' name='nb' class='"+PrimitiveTypeUtil.PRIM_INT+"' value='1i'/>\n";
+        xml_ += "<instance>\n";
+        xml_ += "<affect left='nb;;;' oper='++'/>\n";
+        xml_ += "</instance>\n";
+        xml_ += "<field access='"+PUBLIC_ACCESS+"' name='common' class='"+PrimitiveTypeUtil.PRIM_INT+"' value='nb;;;'/>\n";
+//        xml_ += "<method access='"+PUBLIC_ACCESS+"' modifier='normal' name='doubleValue' class='"+PrimitiveTypeUtil.PRIM_INT+"'>\n";
+//        xml_ += "<return expression='1i'/>\n";
+//        xml_ += "</method>\n";
+        xml_ += "</interface>\n";
+        files_.put("pkg/Int3."+Classes.EXT, xml_);
+        Classes.validateAll(files_, cont_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        ConstructorId id_ = getConstructorId("pkg.ExThree");
+        ProcessXmlMethod.initializeClass("pkg.ExThree", cont_);
+        Argument ret_;
+        ret_ = instanceArgument("pkg.ExThree", null, id_, args_, cont_);
+        Struct str_ = ret_.getStruct();
+        assertEq(CustBase.class.getName(), str_.getRealClassName());
+        assertEq("pkg.ExThree", str_.getClassName());
+        assertTrue(!str_.isJavaObject());
+        Struct field_;
+        field_ = str_.getFields().getVal(new ClassField("pkg.ExThree", "inst"));
+        assertEq(CustBase.class.getName(), field_.getRealClassName());
+        assertEq("pkg.Ex", field_.getClassName());
+        Struct subField_ = field_.getFields().getVal(new ClassField("pkg.Int3", "common"));
+        assertEq(Integer.class.getName(), subField_.getRealClassName());
+        assertEq(Integer.class.getName(), subField_.getClassName());
+        assertEq(2, (Number)subField_.getInstance());
+        field_ = str_.getFields().getVal(new ClassField("pkg.ExThree", "ance"));
+        assertEq(CustBase.class.getName(), field_.getRealClassName());
+        assertEq("pkg.Ex", field_.getClassName());
+        subField_ = field_.getFields().getVal(new ClassField("pkg.Int3", "common"));
+        assertEq(Integer.class.getName(), subField_.getRealClassName());
+        assertEq(Integer.class.getName(), subField_.getClassName());
+        assertEq(3, (Number)subField_.getInstance());
+    }
+
+    @Test
+    public void instanceArgument84Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = new ContextEl(50);
+        cont_.setAccessValue(new AccessValueEx());
+        String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' class0='pkg.Int2'>\n";
+        xml_ += "<constructor access='"+PUBLIC_ACCESS+"'>\n";
+        xml_ += "</constructor>\n";
+        xml_ += "</class>\n";
+        files_.put("pkg/Ex."+Classes.EXT, xml_);
+        xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExThree' package='pkg'>\n";
+        xml_ += "<field access='"+PUBLIC_ACCESS+"' name='inst' class='pkg.Ex' value='^new.pkg.Ex()'/>\n";
+        xml_ += "<field access='"+PUBLIC_ACCESS+"' name='ance' class='pkg.Ex' value='^new.pkg.Ex()'/>\n";
+        xml_ += "<field access='"+PUBLIC_ACCESS+"' name='ouf' class='$int'/>\n";
         xml_ += "<constructor access='"+PUBLIC_ACCESS+"'>\n";
         xml_ += "<line expression='^this(17i)'/>\n";
         xml_ += "</constructor>\n";
@@ -9986,9 +10053,9 @@ public class ProcessXmlMethodTest {
         xml_ += "<affect left='nb;;;' oper='++'/>\n";
         xml_ += "</instance>\n";
         xml_ += "<field access='"+PUBLIC_ACCESS+"' name='common' class='"+PrimitiveTypeUtil.PRIM_INT+"' value='nb;;;'/>\n";
-        xml_ += "<method access='"+PUBLIC_ACCESS+"' modifier='normal' name='doubleValue' class='"+PrimitiveTypeUtil.PRIM_INT+"'>\n";
-        xml_ += "<return expression='1i'/>\n";
-        xml_ += "</method>\n";
+//        xml_ += "<method access='"+PUBLIC_ACCESS+"' modifier='normal' name='doubleValue' class='"+PrimitiveTypeUtil.PRIM_INT+"'>\n";
+//        xml_ += "<return expression='1i'/>\n";
+//        xml_ += "</method>\n";
         xml_ += "</interface>\n";
         files_.put("pkg/Int3."+Classes.EXT, xml_);
         Classes.validateAll(files_, cont_);

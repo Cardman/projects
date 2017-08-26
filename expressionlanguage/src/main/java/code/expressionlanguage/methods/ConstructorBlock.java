@@ -180,7 +180,6 @@ public final class ConstructorBlock extends BracedBlock implements Returnable {
             }
             n_ = en_.getParent();
             if (n_ == this) {
-                tryBuildExpressionLanguage(en_, _cont);
                 en_.removeLocalVariablesFromParent(_cont);
                 break;
             }
@@ -191,7 +190,6 @@ public final class ConstructorBlock extends BracedBlock implements Returnable {
                 Block par_ = n_.getParent();
                 if (par_ == this) {
                     exitByBreak_ = true;
-                    tryBuildExpressionLanguage(n_, _cont);
                     n_.removeLocalVariablesFromParent(_cont);
                     break;
                 }

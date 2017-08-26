@@ -103,13 +103,12 @@ public final class ProcessXmlMethod {
                     Argument a_ = p_.getReturnedArgument();
                     PageEl l_ = _cont.getLastPage();
                     if (a_ != null) {
-                        if (!l_.getCurrentEls().isEmpty()) {
-                            l_.getCurrentEls().last().setArgument(a_, _cont);
-                        }
+                        l_.getCurrentEls().last().setArgument(a_, _cont);
                     }
-                    if (p_.getCallingConstr().getInstancingStep() == InstancingStep.USING_THIS) {
-                        if (l_.getCallingConstr().getInstancingStep() == InstancingStep.USING_THIS) {
+                    if (p_.isInstancing() && l_.isInstancing()) {
+                        if (StringList.quickEq(p_.getGlobalClass(), l_.getGlobalClass())) {
                             l_.getIntializedInterfaces().addAllElts(p_.getIntializedInterfaces());
+                            l_.getCallingConstr().setInitializedFields(p_.getCallingConstr().isInitializedFields());
                         }
                     }
                     continue;
@@ -121,18 +120,12 @@ public final class ProcessXmlMethod {
                 addPage(_cont, createInstancingClass(_0, _cont));
             } catch (CustomFoundMethodException _0){
                 addPage(_cont, createCallingMethod(_0, _cont));
-            } catch (RuntimeException _0){
+            } catch (Throwable _0){
                 Throwable t_ = throwException(_cont, _0);
                 if (t_ == null) {
                     continue;
                 }
-                throw _0;
-            } catch (Error _0){
-                Throwable t_ = throwException(_cont, _0);
-                if (t_ == null) {
-                    continue;
-                }
-                throw _0;
+                throw new InvokeRedinedMethException(new Struct(_0));
             }
         }
     }
