@@ -202,12 +202,8 @@ public final class ProcessXmlMethod {
         ConstructorBlock method_ = classes_.getConstructorBody(_class, id_);
         Argument argGl_ = new Argument();
         if (in_ == InstancingStep.NEWING) {
-            ClassMetaInfo clMeta_ = classes_.getClassMetaInfo(_class);
             StringList allClasses_ = new StringList(_class);
-            if (clMeta_.getCategory() == ClassCategory.CLASS) {
-                StringList superClasses_ = clMeta_.getSuperClasses(_cont);
-                allClasses_.addAllElts(superClasses_);
-            }
+            allClasses_.addAllElts(class_.getAllSuperTypes());
             ObjectMap<ClassField,Struct> fields_;
             fields_ = new ObjectMap<ClassField,Struct>();
             for (String c: allClasses_) {
@@ -215,7 +211,6 @@ public final class ProcessXmlMethod {
                 if (clMetaLoc_ == null) {
                     continue;
                 }
-                clMeta_ = clMetaLoc_;
                 for (EntryCust<String, FieldMetaInfo> e: clMetaLoc_.getFields().entryList()) {
                     FieldMetaInfo fieldMeta_ = e.getValue();
                     if (fieldMeta_.isStaticField()) {
@@ -422,6 +417,15 @@ public final class ProcessXmlMethod {
                 _conf.getClasses().initialize(superClass_);
                 throw new NotInitializedClassException(superClass_);
             }
+            if (meta_.getCategory() != ClassCategory.INTERFACE) {
+                UniqueRootedBlock root_ = (UniqueRootedBlock) _conf.getClasses().getClassBody(curClass_);
+                for (String i: root_.getAllNeededSortedInterfaces()) {
+                    if (!_conf.getClasses().isInitialized(i)) {
+                        _conf.getClasses().initialize(i);
+                        throw new NotInitializedClassException(i);
+                    }
+                }
+            }
         }
         boolean implicitConstr_ = false;
         if (ip_.isInstancing()) {
@@ -439,13 +443,25 @@ public final class ProcessXmlMethod {
             String curClass_ = ip_.getGlobalClass();
             ClassMetaInfo meta_ = _conf.getClasses().getClassMetaInfo(curClass_);
             String superClass_ = meta_.getSuperClass();
-            if (!calledImpl_ && !StringList.quickEq(superClass_, Object.class.getName())) {
+            if (!calledImpl_ && !StringList.quickEq(superClass_, Object.class.getName()) && meta_.getCategory() != ClassCategory.INTERFACE) {
                 ip_.getCallingConstr().setCalledImplicitConstructor(true);
                 FctConstraints super_ = new FctConstraints(superClass_, new EqList<StringList>());
                 StringList called_ = ip_.getCallingConstr().getCalledConstructors();
                 called_.add(superClass_);
                 Argument global_ = ip_.getGlobalArgument();
                 throw new CustomFoundConstructorException(superClass_, called_, super_, global_, new CustList<Argument>(), InstancingStep.USING_SUPER_IMPLICIT);
+            }
+            if (meta_.getCategory() != ClassCategory.INTERFACE) {
+                UniqueRootedBlock root_ = (UniqueRootedBlock) _conf.getClasses().getClassBody(curClass_);
+                for (String i: root_.getAllNeededSortedInterfaces()) {
+                    if (!ip_.getIntializedInterfaces().containsStr(i)) {
+                        ip_.getIntializedInterfaces().add(i);
+                        FctConstraints super_ = new FctConstraints(superClass_, new EqList<StringList>());
+                        StringList called_ = ip_.getCallingConstr().getCalledConstructors();
+                        Argument global_ = ip_.getGlobalArgument();
+                        throw new CustomFoundConstructorException(i, called_, super_, global_, new CustList<Argument>(), InstancingStep.USING_SUPER);
+                    }
+                }
             }
             if (!caller_.isFirstField()) {
                 RootBlock class_ = _conf.getClasses().getClassBody(curClass_);

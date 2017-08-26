@@ -275,6 +275,9 @@ public final class FctOperation extends InvokingOperation {
                     if (StringList.quickEq(superClass_, Object.class.getName())) {
                         throw new NoSuchDeclaredMethodException(trimMeth_+RETURN_LINE+_conf.joinPages());
                     }
+                    if (custClass_.getCategory() != ClassCategory.CLASS) {
+                        throw new NoSuchDeclaredMethodException(trimMeth_+RETURN_LINE+_conf.joinPages());
+                    }
                     trimMeth_ = trimMeth_.substring((EXTERN_CLASS+SUPER_ACCESS+EXTERN_CLASS).length());
                     clCurName_ = superClass_;
                     staticChoiceMethod = true;

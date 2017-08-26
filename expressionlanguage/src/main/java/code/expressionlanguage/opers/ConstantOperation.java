@@ -23,6 +23,7 @@ import code.expressionlanguage.methods.Classes;
 import code.expressionlanguage.methods.ProcessXmlMethod;
 import code.expressionlanguage.methods.util.ArgumentsPair;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
+import code.expressionlanguage.opers.util.ClassCategory;
 import code.expressionlanguage.opers.util.ClassField;
 import code.expressionlanguage.opers.util.ClassMetaInfo;
 import code.expressionlanguage.opers.util.ClassName;
@@ -32,6 +33,7 @@ import code.expressionlanguage.variables.LocalVariable;
 import code.expressionlanguage.variables.LoopVariable;
 import code.serialize.ConverterMethod;
 import code.serialize.exceptions.BadAccessException;
+import code.serialize.exceptions.NoSuchDeclaredFieldException;
 import code.util.CustList;
 import code.util.IdMap;
 import code.util.StringList;
@@ -142,9 +144,13 @@ public final class ConstantOperation extends OperationNode implements SettableEl
                         e_ = getDeclaredCustField(_conf, new ClassArgumentMatching(clCurName_), superClassAccess_, key_);
                     } else if (str_.startsWith(EXTERN_CLASS+SUPER_ACCESS+EXTERN_CLASS)) {
                         key_ = str_.substring((EXTERN_CLASS+SUPER_ACCESS+EXTERN_CLASS).length(), str_.length() - GET_FIELD.length());
+                        if (custClass_.getCategory() != ClassCategory.CLASS) {
+                            throw new NoSuchDeclaredFieldException(key_+RETURN_LINE+_conf.joinPages());
+                        }
                         e_ = getDeclaredCustField(_conf, cl_, superClassAccess_, key_);
                     } else {
                         key_ = str_.substring(CustList.FIRST_INDEX, str_.length() - GET_FIELD.length());
+                        superClassAccess_ = custClass_.getCategory() == ClassCategory.CLASS;
                         e_ = getDeclaredCustField(_conf, cl_, superClassAccess_, key_);
                     }
                     fieldMetaInfo = e_;

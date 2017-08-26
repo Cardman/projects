@@ -204,6 +204,9 @@ public final class InstanceOperation extends InvokingOperation {
                 ConstructorBlock ctr_ = classes_.getConstructorBody(realClassName_, constId);
                 throw new BadAccessException(ctr_.getId().getSignature()+RETURN_LINE+_conf.joinPages());
             }
+            if (custClass_.getCategory() == ClassCategory.INTERFACE) {
+                throw new IllegalClassConstructorException(realClassName_+RETURN_LINE+_conf.joinPages());
+            }
             if (custClass_.getCategory() == ClassCategory.ENUM) {
                 if (!_enumContext) {
                     throw new IllegalClassConstructorException(realClassName_+RETURN_LINE+_conf.joinPages());
@@ -227,6 +230,9 @@ public final class InstanceOperation extends InvokingOperation {
             throw new RuntimeClassNotFoundException(realClassName_+RETURN_LINE+_conf.joinPages());
         }
         if (cl_.isEnum()) {
+            throw new IllegalClassConstructorException(realClassName_+RETURN_LINE+_conf.joinPages());
+        }
+        if (cl_.isInterface()) {
             throw new IllegalClassConstructorException(realClassName_+RETURN_LINE+_conf.joinPages());
         }
         if (_intern && isStaticAccess() && !Modifier.isStatic(cl_.getModifiers())) {

@@ -32,7 +32,6 @@ import code.util.exceptions.RuntimeClassNotFoundException;
 
 public final class ElUtil {
 
-    private static final String ATTRIBUTE_OPER = "oper";
     private static final String EMPTY_STRING = "";
     private ElUtil() {
     }
@@ -96,7 +95,6 @@ public final class ElUtil {
                 }
                 throw new PrimitiveTypeException(_conf.joinPages());
             }
-            System.out.println(page_.getProcessingAttribute());
             if (!PrimitiveTypeUtil.canBeUseAsArgument(clMatchLeft_.getName(), clMatchRight_.getName(), _conf.getClasses())) {
                 throw new DynamicCastClassException(_conf.joinPages());
             }

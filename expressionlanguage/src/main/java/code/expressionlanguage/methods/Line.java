@@ -1,17 +1,22 @@
 package code.expressionlanguage.methods;
 import org.w3c.dom.Element;
 
+import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.ElUtil;
 import code.expressionlanguage.PageEl;
+import code.expressionlanguage.exceptions.CustomFoundConstructorException;
 import code.expressionlanguage.methods.exceptions.BadConstructorCall;
+import code.expressionlanguage.methods.util.InstancingStep;
 import code.expressionlanguage.opers.Calculation;
 import code.expressionlanguage.opers.ExpressionLanguage;
 import code.expressionlanguage.opers.OperationNode;
 import code.expressionlanguage.opers.util.ClassMetaInfo;
 import code.expressionlanguage.opers.util.FctConstraints;
 import code.util.CustList;
+import code.util.EqList;
 import code.util.NatTreeMap;
+import code.util.StringList;
 
 public final class Line extends Leaf implements StackableBlock {
 
@@ -126,6 +131,16 @@ public final class Line extends Leaf implements StackableBlock {
             ClassMetaInfo meta_ = _cont.getClasses().getClassMetaInfo(curClass_);
             String superClass_ = meta_.getSuperClass();
             if (ip_.getCallingConstr().getCalledConstructors().containsObj(superClass_)) {
+                UniqueRootedBlock root_ = (UniqueRootedBlock) _cont.getClasses().getClassBody(curClass_);
+                for (String i: root_.getAllNeededSortedInterfaces()) {
+                    if (!ip_.getIntializedInterfaces().containsStr(i)) {
+                        ip_.getIntializedInterfaces().add(i);
+                        FctConstraints super_ = new FctConstraints(superClass_, new EqList<StringList>());
+                        StringList called_ = ip_.getCallingConstr().getCalledConstructors();
+                        Argument global_ = ip_.getGlobalArgument();
+                        throw new CustomFoundConstructorException(i, called_, super_, global_, new CustList<Argument>(), InstancingStep.USING_SUPER);
+                    }
+                }
                 if (!ip_.getCallingConstr().isFirstField()) {
                     ip_.getCallingConstr().setFirstField(true);
                     RootBlock class_ = _cont.getClasses().getClassBody(curClass_);
