@@ -5,15 +5,7 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
-import code.util.CustList;
-import code.util.EqList;
-import code.util.NumberMap;
-import code.util.Numbers;
-import code.util.ObjectMap;
-import code.util.StringList;
 import aiki.exceptions.DataException;
-import aiki.map.Condition;
-import aiki.map.DataMap;
 import aiki.map.buildings.Building;
 import aiki.map.buildings.Gym;
 import aiki.map.buildings.PokemonCenter;
@@ -42,6 +34,12 @@ import aiki.map.util.PlaceInterConnect;
 import aiki.util.Coords;
 import aiki.util.LevelPoint;
 import aiki.util.Point;
+import code.util.CustList;
+import code.util.EqList;
+import code.util.NumberMap;
+import code.util.Numbers;
+import code.util.ObjectMap;
+import code.util.StringList;
 @SuppressWarnings("static-method")
 public class DataMapInitializeAccessibilityTest {
 
@@ -455,7 +453,10 @@ public class DataMapInitializeAccessibilityTest {
     public void getNext1Test() {
         City city_ = city();
         Cave cave_ = cave();
-        cave_.getLevels().put((byte)cave_.getLevels().size(), levelCaveOne());
+        LevelCave level_ = levelCaveOne();
+        NumberMap<Byte,LevelCave> levels_ = new NumberMap<Byte,LevelCave>();
+        levels_.put((byte)levels_.size(), level_);
+        cave_.setLevels(levels_);
         DataMap dataMap_ = new DataMap();
         dataMap_.setAccessCondition(new ObjectMap<Coords,EqList<Coords>>());
         dataMap_.setPlaces(new NumberMap<Short,Place>());
@@ -474,7 +475,10 @@ public class DataMapInitializeAccessibilityTest {
     public void getNext2Test() {
         City city_ = city();
         Cave cave_ = cave();
-        cave_.getLevels().put((byte)cave_.getLevels().size(), levelCaveOne());
+        LevelCave level_ = levelCaveOne();
+        NumberMap<Byte,LevelCave> levels_ = new NumberMap<Byte,LevelCave>();
+        levels_.put((byte)levels_.size(), level_);
+        cave_.setLevels(levels_);
         DataMap dataMap_ = new DataMap();
         dataMap_.setAccessCondition(new ObjectMap<Coords,EqList<Coords>>());
         dataMap_.setPlaces(new NumberMap<Short,Place>());
@@ -494,7 +498,10 @@ public class DataMapInitializeAccessibilityTest {
         Road road_ = vroad();
         road_.getLevel().getCharacters().put(point(2,4), dealerItem());
         Cave cave_ = cave();
-        cave_.getLevels().put((byte)cave_.getLevels().size(), levelCaveOne());
+        LevelCave level_ = levelCaveOne();
+        NumberMap<Byte,LevelCave> levels_ = new NumberMap<Byte,LevelCave>();
+        levels_.put((byte)levels_.size(), level_);
+        cave_.setLevels(levels_);
         DataMap dataMap_ = new DataMap();
         dataMap_.setAccessCondition(new ObjectMap<Coords,EqList<Coords>>());
         dataMap_.setPlaces(new NumberMap<Short,Place>());
@@ -583,7 +590,10 @@ public class DataMapInitializeAccessibilityTest {
     @Test
     public void getNext9Test() {
         Cave cave_ = cave();
-        cave_.getLevels().put((byte)cave_.getLevels().size(), levelCaveOne());
+        LevelCave level_ = levelCaveOne();
+        NumberMap<Byte,LevelCave> levels_ = new NumberMap<Byte,LevelCave>();
+        levels_.put((byte)levels_.size(), level_);
+        cave_.setLevels(levels_);
         DataMap dataMap_ = new DataMap();
         dataMap_.setAccessCondition(new ObjectMap<Coords,EqList<Coords>>());
         dataMap_.setPlaces(new NumberMap<Short,Place>());
@@ -600,7 +610,9 @@ public class DataMapInitializeAccessibilityTest {
     public void getNext10Test() {
         City city_ = city();
         Cave cave_ = cave();
-        cave_.getLevels().put((byte)cave_.getLevels().size(), levelCaveOne());
+        NumberMap<Byte,LevelCave> levels_ = new NumberMap<Byte,LevelCave>();
+        levels_.put((byte)levels_.size(), levelCaveOne());
+        cave_.setLevels(levels_);
         DataMap dataMap_ = new DataMap();
         dataMap_.setAccessCondition(new ObjectMap<Coords,EqList<Coords>>());
         dataMap_.setPlaces(new NumberMap<Short,Place>());
@@ -619,8 +631,12 @@ public class DataMapInitializeAccessibilityTest {
     public void getNext11Test() {
         City city_ = city();
         Cave cave_ = cave();
-        cave_.getLevels().put((byte)cave_.getLevels().size(), levelCaveOne());
-        cave_.getLevels().put((byte)cave_.getLevels().size(), levelCaveOne());
+        LevelCave level_ = levelCaveOne();
+        NumberMap<Byte,LevelCave> levels_ = new NumberMap<Byte,LevelCave>();
+        levels_.put((byte)levels_.size(), level_);
+        level_ = levelCaveOne();
+        levels_.put((byte)levels_.size(), level_);
+        cave_.setLevels(levels_);
         DataMap dataMap_ = new DataMap();
         dataMap_.setAccessCondition(new ObjectMap<Coords,EqList<Coords>>());
         dataMap_.setPlaces(new NumberMap<Short,Place>());
@@ -642,7 +658,9 @@ public class DataMapInitializeAccessibilityTest {
         Cave cave_ = cave();
         LevelCave level_ = levelCaveOne();
         level_.getCharacters().put(point(1, 2), dealerItem());
-        cave_.getLevels().put((byte)cave_.getLevels().size(), level_);
+        NumberMap<Byte,LevelCave> levels_ = new NumberMap<Byte,LevelCave>();
+        levels_.put((byte)levels_.size(), level_);
+        cave_.setLevels(levels_);
         DataMap dataMap_ = new DataMap();
         dataMap_.setAccessCondition(new ObjectMap<Coords,EqList<Coords>>());
         dataMap_.setPlaces(new NumberMap<Short,Place>());
@@ -829,7 +847,9 @@ public class DataMapInitializeAccessibilityTest {
         Cave cave_ = cave();
         LevelCave level_ = levelCaveOne();
         level_.getCharacters().put(point(1, 2), dealerItem());
-        cave_.getLevels().put((byte)cave_.getLevels().size(), level_);
+        NumberMap<Byte,LevelCave> levels_ = new NumberMap<Byte,LevelCave>();
+        levels_.put((byte)levels_.size(), level_);
+        cave_.setLevels(levels_);
         DataMap dataMap_ = new DataMap();
         dataMap_.setAccessCondition(new ObjectMap<Coords,EqList<Coords>>());
         dataMap_.setPlaces(new NumberMap<Short,Place>());
@@ -848,7 +868,9 @@ public class DataMapInitializeAccessibilityTest {
         Road roadOne_ = vroadBlocked();
         Cave cave_ = cave();
         LevelCave level_ = levelCaveTwo();
-        cave_.getLevels().put((byte)cave_.getLevels().size(), level_);
+        NumberMap<Byte,LevelCave> levels_ = new NumberMap<Byte,LevelCave>();
+        levels_.put((byte)levels_.size(), level_);
+        cave_.setLevels(levels_);
         DataMap dataMap_ = new DataMap();
         dataMap_.setAccessCondition(new ObjectMap<Coords,EqList<Coords>>());
         dataMap_.setPlaces(new NumberMap<Short,Place>());
@@ -867,7 +889,9 @@ public class DataMapInitializeAccessibilityTest {
         Road roadOne_ = vroadBlocked();
         Cave cave_ = cave();
         LevelCave level_ = levelCaveTwo();
-        cave_.getLevels().put((byte)cave_.getLevels().size(), level_);
+        NumberMap<Byte,LevelCave> levels_ = new NumberMap<Byte,LevelCave>();
+        levels_.put((byte)levels_.size(), level_);
+        cave_.setLevels(levels_);
         DataMap dataMap_ = new DataMap();
         dataMap_.setAccessCondition(new ObjectMap<Coords,EqList<Coords>>());
         dataMap_.setPlaces(new NumberMap<Short,Place>());
@@ -4775,7 +4799,9 @@ public class DataMapInitializeAccessibilityTest {
         Road roadOne_ = vroadBlocked();
         Cave cave_ = cave();
         LevelCave level_ = levelCaveTwo();
-        cave_.getLevels().put((byte)cave_.getLevels().size(), level_);
+        NumberMap<Byte,LevelCave> levels_ = new NumberMap<Byte,LevelCave>();
+        levels_.put((byte)levels_.size(), level_);
+        cave_.setLevels(levels_);
         DataMap dataMap_ = new DataMap();
         dataMap_.setAccessCondition(new ObjectMap<Coords,EqList<Coords>>());
         dataMap_.setPlaces(new NumberMap<Short,Place>());
@@ -4811,7 +4837,9 @@ public class DataMapInitializeAccessibilityTest {
         Road roadOne_ = vroadBlocked();
         Cave cave_ = cave();
         LevelCave level_ = levelCaveTwo();
-        cave_.getLevels().put((byte)cave_.getLevels().size(), level_);
+        NumberMap<Byte,LevelCave> levels_ = new NumberMap<Byte,LevelCave>();
+        levels_.put((byte)levels_.size(), level_);
+        cave_.setLevels(levels_);
         DataMap dataMap_ = new DataMap();
         dataMap_.setAccessCondition(new ObjectMap<Coords,EqList<Coords>>());
         dataMap_.setPlaces(new NumberMap<Short,Place>());
