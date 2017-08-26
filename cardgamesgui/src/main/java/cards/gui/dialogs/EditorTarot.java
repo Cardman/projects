@@ -8,17 +8,6 @@ import javax.swing.JPanel;
 import javax.swing.JSpinner;
 import javax.swing.SpinnerListModel;
 
-import code.gui.ConfirmDialog;
-import code.gui.FileSaveDialog;
-import code.gui.LabelButton;
-import code.maths.montecarlo.AbMonteCarlo;
-import code.stream.StreamTextFile;
-import code.util.CustList;
-import code.util.EqList;
-import code.util.Numbers;
-import code.util.StringList;
-import code.util.consts.ConstFiles;
-import code.util.consts.Constants;
 import cards.consts.GameType;
 import cards.facade.Nicknames;
 import cards.facade.enumerations.GameEnum;
@@ -31,11 +20,23 @@ import cards.gui.dialogs.events.ListenerClickCardsList;
 import cards.gui.dialogs.events.MoveCardsEvent;
 import cards.gui.dialogs.events.SavingDealEvent;
 import cards.gui.dialogs.events.ValidateRulesDealEvent;
+import cards.gui.panels.CardsScrollableList;
 import cards.gui.panels.TarotCardsScrollableList;
 import cards.tarot.DealTarot;
 import cards.tarot.DisplayingTarot;
 import cards.tarot.GameTarot;
 import cards.tarot.HandTarot;
+import code.gui.ConfirmDialog;
+import code.gui.FileSaveDialog;
+import code.gui.LabelButton;
+import code.maths.montecarlo.AbMonteCarlo;
+import code.stream.StreamTextFile;
+import code.util.CustList;
+import code.util.EqList;
+import code.util.Numbers;
+import code.util.StringList;
+import code.util.consts.ConstFiles;
+import code.util.consts.Constants;
 
 public final class EditorTarot extends DialogTarot implements SetterSelectedCardList {
     private static final String DIALOG_ACCESS = "cards.gui.dialogs.EditorTarot";
@@ -298,11 +299,11 @@ public final class EditorTarot extends DialogTarot implements SetterSelectedCard
 //            m.trier(displayingTarot.getCouleurs(), displayingTarot.getDecroissant());
 //            mains_.add(m);
 //        }
-        CustList<TarotCardsScrollableList> hands_ = getHands(false);
-        for(TarotCardsScrollableList l: hands_) {
+        CustList<CardsScrollableList> hands_ = getHands(false);
+        for(CardsScrollableList l: hands_) {
 //            plc_=(TarotCardsScrollableList)panelsCards.getComponent(i);
             HandTarot m=new HandTarot();
-            m.ajouterCartes(l.valMainTarot());
+            m.ajouterCartes(((TarotCardsScrollableList) l).valMainTarot());
             m.trier(displayingTarot.getCouleurs(), displayingTarot.getDecroissant());
             mains_.add(m);
         }
@@ -344,12 +345,13 @@ public final class EditorTarot extends DialogTarot implements SetterSelectedCard
 //            HandTarot cartesSelectionnees_=((TarotCardsScrollableList)panelsCards.getComponent(i)).getCartesTarotSelectionnees();
 //            m.ajouterCartes(cartesSelectionnees_);
 //        }
-        for (TarotCardsScrollableList l: getHands(true)) {
-            HandTarot cartesSelectionnees_= l.getCartesTarotSelectionnees();
+        for (CardsScrollableList l: getHands(true)) {
+            TarotCardsScrollableList c_ = (TarotCardsScrollableList) l;
+            HandTarot cartesSelectionnees_= c_.getCartesTarotSelectionnees();
             m.ajouterCartes(cartesSelectionnees_);
         }
         int numero_= listeTwo.getSelectedIndex();
-        TarotCardsScrollableList panneauSelectionne_=getHands(true).get(numero_);
+        TarotCardsScrollableList panneauSelectionne_=(TarotCardsScrollableList)getHands(true).get(numero_);
         //(TarotCardsScrollableList)panelsCards.getComponent(numero_);
 //        TarotCardsScrollableList panneau2_;
         int taille_=panneauSelectionne_.taille();
@@ -361,11 +363,12 @@ public final class EditorTarot extends DialogTarot implements SetterSelectedCard
 //                HandTarot cartesSelectionnees_= panneau2_.getCartesTarotSelectionnees();
 //                panneau2_.supprimerCartesTarot(cartesSelectionnees_);
 //            }
-            for (TarotCardsScrollableList l: getHands(true)) {
+            for (CardsScrollableList l: getHands(true)) {
+                TarotCardsScrollableList c_ = (TarotCardsScrollableList) l;
 //                panneau2_= l;
 //                HandTarot cartesSelectionnees_=((TarotCardsScrollableList)panelsCards.getComponent(i)).getCartesTarotSelectionnees();
-                HandTarot cartesSelectionnees_= l.getCartesTarotSelectionnees();
-                l.supprimerCartesTarot(cartesSelectionnees_);
+                HandTarot cartesSelectionnees_= c_.getCartesTarotSelectionnees();
+                c_.supprimerCartesTarot(cartesSelectionnees_);
             }
             panneauSelectionne_.ajouterCartesTarot(m);
             nombreCartesSelectionnees=0;
@@ -428,13 +431,15 @@ public final class EditorTarot extends DialogTarot implements SetterSelectedCard
         return labelSelectCards;
     }
     @Override
-    public CustList<TarotCardsScrollableList> getHands(boolean _addStack) {
-        CustList<TarotCardsScrollableList> hands_;
-        hands_ = new CustList<TarotCardsScrollableList>();
+    public CustList<CardsScrollableList> getHands(boolean _addStack) {
+        CustList<CardsScrollableList> hands_;
+        hands_ = new CustList<CardsScrollableList>();
         if (_addStack) {
             hands_.add(stack);
         }
-        hands_.addAllElts(hands);
+        for (CardsScrollableList c: hands) {
+            hands_.add(c);
+        }
         hands_.add(dog);
         return hands_;
     }

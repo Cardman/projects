@@ -10,7 +10,7 @@ public interface ListableEntries<K,V> {
 
     Listable<EntryCust<K,V>> entryList();
 
-    void putAllMap(ListableEntries<? extends K, ? extends V> _m);
+    void putAllMap(ListableEntries<K, V> _m);
 
     Listable<K> getKeys();
     Listable<V> getValues(K _key);
@@ -31,11 +31,6 @@ public interface ListableEntries<K,V> {
 
     boolean contains(K _key);
 
-//    boolean containsKey(Object _obj);
-
-//    boolean containsValue(Object _obj);
-
     void removeKey(K _key);
 
-//    void remove(Object _key);
 }

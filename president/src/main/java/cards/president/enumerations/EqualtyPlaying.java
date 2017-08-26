@@ -14,7 +14,7 @@ public enum EqualtyPlaying {
     }
 
     public String toString(String _locale) {
-        return Format.getConstanteLangue(ResoucesAccess.NOM_DOSSIER,ResoucesAccess.NOM_FICHIER, _locale, ResoucesAccess.PRESIDENT_EQUAL_PLAY,this);
+        return Format.getConstanteLangue(ResoucesAccess.NOM_DOSSIER,ResoucesAccess.NOM_FICHIER, _locale, ResoucesAccess.PRESIDENT_EQUAL_PLAY,name());
     }
 
 }

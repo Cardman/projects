@@ -11,7 +11,7 @@ public final class BooleanList extends AbEqList<Boolean> implements Equallable<B
     public BooleanList(Boolean... _elements) {
         super(_elements);
     }
-    public BooleanList(Listable<? extends Boolean> _c) {
+    public BooleanList(Listable<Boolean> _c) {
         super(_c);
     }
 
@@ -19,10 +19,6 @@ public final class BooleanList extends AbEqList<Boolean> implements Equallable<B
     public BooleanList(CollCapacity _capacity) {
         super(_capacity);
     }
-
-//    public BooleanList(Iterable<? extends Boolean> _c) {
-//        super(_c);
-//    }
 
     public boolean containsBool(boolean _char) {
         return containsObj(_char);

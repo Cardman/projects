@@ -90,28 +90,15 @@ public final class TreeMap<K, V> extends AbsMap<K, V> implements SortableMap<K, 
 //    }
 
     @Override
-    public void putAllMap(ListableEntries<? extends K, ? extends V> _m) {
+    public void putAllMap(ListableEntries<K, V> _m) {
         //setModified();
-        for (EntryCust<? extends K,? extends V> e: _m.entryList()) {
+        for (EntryCust<K,V> e: _m.entryList()) {
             put(e.getKey(), e.getValue());
         }
     }
-    public void putAllTreeMap(SortableMap<? extends K, ? extends V> _m) {
+    public void putAllTreeMap(SortableMap<K, V> _m) {
         //setModified();
-        for (EntryCust<? extends K,? extends V> e: _m.entryList()) {
-            put(e.getKey(), e.getValue());
-        }
-    }
-    public void putAllNatTreeMap(NatTreeMap<? extends K, ? extends V> _m) {
-        //setModified();
-        for (EntryCust<? extends K,? extends V> e: _m.getList()) {
-            put(e.getKey(), e.getValue());
-        }
-    }
-
-    public void putAllCmpTreeMap(NatCmpTreeMap<? extends K, ? extends V> _m) {
-        //setModified();
-        for (EntryCust<? extends K,? extends V> e: _m.getList()) {
+        for (EntryCust<K,V> e: _m.entryList()) {
             put(e.getKey(), e.getValue());
         }
     }

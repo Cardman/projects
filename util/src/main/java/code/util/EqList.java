@@ -11,7 +11,7 @@ public final class EqList<T extends Equallable<T>> extends AbEqList<T> implement
     public EqList(T... _elements) {
         super(_elements);
     }
-    public EqList(Listable<? extends T> _c) {
+    public EqList(Listable<T> _c) {
         super(_c);
     }
 
@@ -20,56 +20,6 @@ public final class EqList<T extends Equallable<T>> extends AbEqList<T> implement
         super(_capacity);
     }
 
-//    public EqList(Iterable<? extends T> _c) {
-//        super(_c);
-//    }
-
-//    public void removeAllElements(Listable<? extends T> _c) {
-//        for (T s: _c) {
-//            if (containsObj(s)) {
-//                //_list.containsObj(s)
-//                removeAllObj(s);
-//            }
-//        }
-//    }
-//
-//    public boolean removeAll(Listable<? extends T> _c) {
-//        boolean r_ = false;
-//        for (T s: _c) {
-//            if (containsObj(s)) {
-//                r_ = true;
-//                //_list.containsObj(s)
-//                removeAllObj(s);
-//            }
-//        }
-//        return r_;
-//    }
-//
-//    public void retainAllElements(Listable<? extends T> _c) {
-//        List<T> common_ = new List<T>();
-//        for (T s: _c) {
-//            if (containsObj(s)) {
-//                common_.add(s);
-//            }
-//        }
-//        int i_ = FIRST_INDEX;
-//        while (i_ < size()) {
-//            T e_ = get(i_);
-//            if (!common_.containsObj(e_)) {
-//                removeAt(i_);
-//            } else {
-//                i_++;
-//            }
-//        }
-//    }
-//    public boolean containsAllObj(EqList<T> _list) {
-//        for (T e: _list) {
-//            if (!containsObj(e)) {
-//                return false;
-//            }
-//        }
-//        return true;
-//    }
     @Override
     public int indexOfObj(T _element, int _from) {
         if (_element == null) {

@@ -20,7 +20,6 @@ import code.datacheck.CheckedData;
 import code.util.CustList;
 import code.util.EntryCust;
 import code.util.EqList;
-import code.util.NatTreeMap;
 import code.util.NumberMap;
 import code.util.Numbers;
 import code.util.ObjectMap;
@@ -209,17 +208,21 @@ public class Cave extends Campaign {
         return levels.getVal(_coords.getLevel().getLevelIndex());
     }
     @Override
-    public NumberMap<Byte,LevelCave> getLevels() {
-        return levels;
+    public NumberMap<Byte,Level> getLevels() {
+        NumberMap<Byte,Level> levels_ = new NumberMap<Byte,Level>();
+        for (EntryCust<Byte,LevelCave> e: levels.entryList()) {
+            levels_.put(e.getKey(), e.getValue());
+        }
+        return levels_;
     }
 
     @Override
-    public CustList<LevelCave> getLevelsList() {
-        NatTreeMap<Byte,LevelCave> tree_ = new NatTreeMap<Byte,LevelCave>();
-        for (EntryCust<Byte, LevelCave> e: levels.entryList()) {
-            tree_.put(e.getKey(), e.getValue());
+    public CustList<Level> getLevelsList() {
+        CustList<Level> levels_ = new CustList<Level>();
+        for (LevelCave l: levels.values()) {
+            levels_.add(l);
         }
-        return new CustList<LevelCave>(tree_.values());
+        return levels_;
     }
 
     @Override

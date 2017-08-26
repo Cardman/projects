@@ -27,7 +27,7 @@ public final class SortableList<T extends Comparable<T>> extends AbEqList<T> imp
     /**
         @param _c
     */
-    public SortableList(Listable<? extends T> _c) {
+    public SortableList(Listable<T> _c) {
         super(_c);
     }
 

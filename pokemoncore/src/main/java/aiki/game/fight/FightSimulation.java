@@ -195,13 +195,14 @@ public class FightSimulation {
         usedStones.clear();
         foeTeams.clear();
         if (place_ instanceof League) {
-            for (LevelLeague l: ((League)place_).getLevelsList()) {
-                byte mult_ = l.getTrainer().getMultiplicityFight();
+            for (Level l: ((League)place_).getLevelsList()) {
+                LevelLeague level_ = (LevelLeague) l;
+                byte mult_ = level_.getTrainer().getMultiplicityFight();
                 maxActions.add((int) mult_);
                 mult.add(mult_);
                 items.add(new StringList());
                 usedStones.add(new EqList<StringList>());
-                foeTeams.add(l.getTrainer().getTeam());
+                foeTeams.add(level_.getTrainer().getTeam());
             }
         } else {
             Level l_ = place_.getLevelByCoords(foeCoords);
@@ -251,7 +252,7 @@ public class FightSimulation {
         foeTeams.clear();
         allyTeam.clear();
         if (place_ instanceof League) {
-            LevelLeague l_ = ((League)place_).getLevelsList().get(foeCoords.getLevel().getLevelIndex());
+            LevelLeague l_ = (LevelLeague)((League)place_).getLevelsList().get(foeCoords.getLevel().getLevelIndex());
             foeCoords.getLevel().getPoint().affect(l_.getTrainerCoords());
             byte mult_ = l_.getTrainer().getMultiplicityFight();
             maxActions.add((int) mult_);
@@ -316,10 +317,10 @@ public class FightSimulation {
 
     public void nextFight(DataBase _import) {
         Place place_ = _import.getMap().getPlaces().getVal(foeCoords.getNumberPlace());
-        CustList<LevelLeague> list_ = ((League)place_).getLevelsList();
+        CustList<Level> list_ = ((League)place_).getLevelsList();
         byte index_ = foeCoords.getLevel().getLevelIndex();
         index_++;
-        LevelLeague l_ = list_.get(index_);
+        LevelLeague l_ = (LevelLeague)list_.get(index_);
         maxActions.clear();
         mult.clear();
         items.clear();
@@ -346,7 +347,7 @@ public class FightSimulation {
         if (!(place_ instanceof League)) {
             return false;
         }
-        CustList<LevelLeague> list_ = ((League)place_).getLevelsList();
+        CustList<Level> list_ = ((League)place_).getLevelsList();
         byte index_ = foeCoords.getLevel().getLevelIndex();
         index_++;
         if (!list_.isValidIndex(index_)) {

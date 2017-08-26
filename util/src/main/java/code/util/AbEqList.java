@@ -6,7 +6,7 @@ public abstract class AbEqList<T> extends CustList<T> {
     public AbEqList() {
     }
 
-    public AbEqList(Listable<? extends T> _c) {
+    public AbEqList(Listable<T> _c) {
         super(_c);
     }
 
@@ -18,7 +18,7 @@ public abstract class AbEqList<T> extends CustList<T> {
         super(_capacity);
     }
 
-    public void removeAllElements(Listable<? extends T> _c) {
+    public void removeAllElements(Listable<T> _c) {
         for (T s: _c) {
             if (containsObj(s)) {
                 //_list.containsObj(s)
@@ -27,17 +27,6 @@ public abstract class AbEqList<T> extends CustList<T> {
         }
     }
 
-//    public boolean removeAll(Listable<? extends T> _c) {
-//        boolean r_ = false;
-//        for (T s: _c) {
-//            if (containsObj(s)) {
-//                r_ = true;
-//                //_list.containsObj(s)
-//                removeAllObj(s);
-//            }
-//        }
-//        return r_;
-//    }
     public void removeAllObj(T _obj) {
         //setModified();
         while (containsObj(_obj)) {
@@ -63,7 +52,7 @@ public abstract class AbEqList<T> extends CustList<T> {
         }
         return list_;
     }
-    public boolean containsAllObj(Listable<? extends T> _list) {
+    public boolean containsAllObj(Listable<T> _list) {
         for (T e: _list) {
             if (!containsObj(e)) {
                 return false;

@@ -1,4 +1,5 @@
 package code.formathtml;
+import static code.formathtml.EquallableExUtil.assertEq;
 import static code.util.opers.EquallableUtil.assertEq;
 import static org.custommonkey.xmlunit.XMLAssert.assertXMLEqual;
 import static org.junit.Assert.assertNotSame;

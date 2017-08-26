@@ -1,21 +1,9 @@
 package aiki.beans.simulation;
-import code.bean.Accessible;
-import code.images.ConverterBufferedImage;
-import code.maths.LgInt;
-import code.maths.Rate;
-import code.maths.montecarlo.MonteCarloNumber;
-import code.util.CustList;
-import code.util.EnumMap;
-import code.util.NatCmpTreeMap;
-import code.util.NatTreeMap;
-import code.util.PairNumber;
-import code.util.StringList;
-import code.util.StringMap;
-import code.util.TreeMap;
 import aiki.DataBase;
 import aiki.beans.CommonBean;
 import aiki.beans.facade.comparators.ComparatorMoves;
 import aiki.beans.facade.comparators.ComparatorPlaceIndex;
+import aiki.beans.facade.comparators.ComparatorRadioLineMoves;
 import aiki.beans.facade.dto.KeptMovesAfterFight;
 import aiki.beans.facade.map.dto.PlaceIndex;
 import aiki.beans.facade.simulation.dto.PokemonPlayerDto;
@@ -56,6 +44,19 @@ import aiki.map.pokemon.enums.Gender;
 import aiki.util.Coords;
 import aiki.util.LevelPoint;
 import aiki.util.Point;
+import code.bean.Accessible;
+import code.images.ConverterBufferedImage;
+import code.maths.LgInt;
+import code.maths.Rate;
+import code.maths.montecarlo.MonteCarloNumber;
+import code.util.CustList;
+import code.util.EnumMap;
+import code.util.NatCmpTreeMap;
+import code.util.NatTreeMap;
+import code.util.PairNumber;
+import code.util.StringList;
+import code.util.StringMap;
+import code.util.TreeMap;
 
 public class SimulationBean extends CommonBean {
 
@@ -530,7 +531,7 @@ public class SimulationBean extends CommonBean {
                         movesSet.add(line_);
                     }
                     int i_ = CustList.FIRST_INDEX;
-                    movesSet.sortElts(new ComparatorMoves());
+                    movesSet.sortElts(new ComparatorRadioLineMoves());
                     for (RadioLineMove l: movesSet) {
                         l.setIndex(i_);
                         i_++;
@@ -565,7 +566,7 @@ public class SimulationBean extends CommonBean {
                     movesSet.add(line_);
                 }
                 int i_ = CustList.FIRST_INDEX;
-                movesSet.sortElts(new ComparatorMoves());
+                movesSet.sortElts(new ComparatorRadioLineMoves());
                 for (RadioLineMove l: movesSet) {
                     l.setIndex(i_);
                     i_++;
@@ -657,7 +658,7 @@ public class SimulationBean extends CommonBean {
 //    }
 
     @Accessible
-    private CustList<? extends Level> layers(Long _index) {
+    private CustList<Level> layers(Long _index) {
         Place pl_ = places.get(_index.intValue()).getPlace();
         return pl_.getLevelsList();
     }
@@ -739,7 +740,7 @@ public class SimulationBean extends CommonBean {
             coords.setNumberPlace(_indexOne.shortValue());
             coords.setLevel(new LevelPoint());
             coords.getLevel().setLevelIndex(_indexTwo.byteValue());
-            coords.getLevel().setPoint(new Point(l_.getLevelsList().first().getTrainerCoords()));
+            coords.getLevel().setPoint(new Point(((LevelLeague)l_.getLevelsList().first()).getTrainerCoords()));
             getForms().put(COORDS, coords);
             noFight = CustList.FIRST_INDEX;
             return DataBase.EMPTY_STRING;

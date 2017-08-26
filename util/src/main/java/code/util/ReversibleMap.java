@@ -9,7 +9,7 @@ public final class ReversibleMap<K extends Equallable<K>, V extends Equallable<V
     public ReversibleMap() {
     }
 
-    public ReversibleMap(ListableEntries<? extends K, ? extends V> _map) {
+    public ReversibleMap(ListableEntries<K, V> _map) {
         putAllMap(_map);
     }
 
@@ -78,9 +78,6 @@ public final class ReversibleMap<K extends Equallable<K>, V extends Equallable<V
             }
             return CustList.INDEX_NOT_FOUND_ELT;
         }
-//        if (!(_key instanceof Equallable<?>)) {
-//            return CustList.INDEX_NOT_FOUND_ELT;
-//        }
         Equallable<K> k_ = _key;
         for (EntryCust<K, V> e:getList()) {
             K key_ = e.getKey();

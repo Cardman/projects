@@ -40,76 +40,11 @@ public final class TreeSet<E> extends AbEqList<E> implements SortableSet<E> {
         super(_capacity);
         comparator = null;
     }
-//    public TreeSet(Collection<? extends E> _c) {
-//        comparator = null;
-//        addAll(_c);
-//    }
-
-//    public TreeSet(Listable<? extends E> _c, Comparator<E> _cmp) {
-//        comparator = _cmp;
-//        addAllElts(_c);
-//    }
-
-//    @Override
-//    public String toString() {
-//        return list.toString();
-//    }
 
     @Override
     public Comparator<E> comparator() {
         return comparator;
     }
-
-//    @Override
-//    public E first() {
-//        return list.first();
-//    }
-//
-//    @Override
-//    public E last() {
-//        return list.last();
-//    }
-//
-//    @Override
-//    public int size() {
-//        return list.size();
-//    }
-//
-//    @Override
-//    public boolean isEmpty() {
-//        return list.isEmpty();
-//    }
-
-//    @Override
-//    public boolean contains(Object _o) {
-//        if (comparator == null) {
-//            for (E e:list) {
-//                Comparable<E> c_ = (Comparable<E>) _o;
-//                int res_ = c_.compareTo(e);
-//                if (res_ == List.EQ_CMP) {
-//                    return true;
-//                }
-//            }
-//            return false;
-//        }
-//        for (E e:list) {
-//            int res_ = comparator.compare((E) _o, e);
-//            if (res_ == List.EQ_CMP) {
-//                return true;
-//            }
-//        }
-//        return false;
-//    }
-
-//    @Override
-//    public Object[] toArray() {
-//        return list.toArray();
-//    }
-
-//    @Override
-//    public <T> T[] toArray(T[] _a) {
-//        return list.toArray(_a);
-//    }
 
     @Override
     public boolean addEl(E _e) {
@@ -151,101 +86,6 @@ public final class TreeSet<E> extends AbEqList<E> implements SortableSet<E> {
             index_++;
         }
     }
-
-//    @Override
-//    public boolean remove(Object _o) {
-//        if (comparator == null) {
-//            int index_ = 0;
-//            for (E e:list) {
-//                Comparable<E> c_ = (Comparable<E>) _o;
-//                int res_ = c_.compareTo(e);
-//                if (res_ == List.EQ_CMP) {
-//                    list.removeAt(index_);
-//                    return true;
-//                }
-//                index_++;
-//            }
-//            return false;
-//        }
-//        int index_ = 0;
-//        E key_ = (E) _o;
-//        for (E e:list) {
-//            int res_ = comparator.compare(key_, e);
-//            if (res_ == List.EQ_CMP) {
-//                list.removeAt(index_);
-//                return true;
-//            }
-//            index_++;
-//        }
-//        return false;
-//    }
-//
-//    @Override
-//    public boolean containsAll(Collection<?> _c) {
-//        for (Object o: _c) {
-//            if (!contains(o)) {
-//                return false;
-//            }
-//        }
-//        return true;
-//    }
-//
-//    @Override
-//    public boolean addAll(Collection<? extends E> _c) {
-//        boolean added_ = false;
-//        for (E e: _c) {
-//            boolean locAdd_ = add(e);
-//            if (locAdd_) {
-//                added_ = true;
-//            }
-//        }
-//        return added_;
-//    }
-//
-//    @Override
-//    public boolean retainAll(Collection<?> _c) {
-//        List<E> notContained_ = new List<E>();
-//        for (E e: list) {
-//            boolean contained_ = false;
-//            for (Object f: _c) {
-//                if (comparator == null) {
-//                    Comparable<E> c_ = (Comparable<E>) f;
-//                    int res_ = c_.compareTo(e);
-//                    if (res_ == 0) {
-//                        contained_ = true;
-//                        break;
-//                    }
-//                } else {
-//                    int res_ = comparator.compare((E) f, e);
-//                    if (res_ == 0) {
-//                        contained_ = true;
-//                        break;
-//                    }
-//                }
-//            }
-//            if (!contained_) {
-//                notContained_.add(e);
-//            }
-//        }
-//        return removeAll(notContained_);
-//    }
-//
-//    @Override
-//    public boolean removeAll(Collection<?> _c) {
-//        boolean removed_ = false;
-//        for (Object o: _c) {
-//            boolean localRemoved_ = remove(o);
-//            if (localRemoved_) {
-//                removed_ = true;
-//            }
-//        }
-//        return removed_;
-//    }
-
-//    @Override
-//    public void clear() {
-//        list.clear();
-//    }
 
     @Override
     public E lower(E _e) {

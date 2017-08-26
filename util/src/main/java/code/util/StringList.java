@@ -59,7 +59,7 @@ public final class StringList extends AbEqList<String> implements Equallable<Str
     public StringList() {
     }
 
-    public StringList(Listable<? extends String> _list) {
+    public StringList(Listable<String> _list) {
         super(_list);
     }
 

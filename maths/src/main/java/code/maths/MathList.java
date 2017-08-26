@@ -22,7 +22,7 @@ public final class MathList extends AbEqList<String> implements Equallable<MathL
     public MathList() {
     }
 
-    public MathList(Listable<? extends String> _list) {
+    public MathList(Listable<String> _list) {
         super(_list);
     }
 

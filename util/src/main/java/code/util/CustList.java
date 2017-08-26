@@ -1,6 +1,5 @@
 package code.util;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Iterator;
@@ -43,7 +42,7 @@ public class CustList<T> implements Listable<T> {
         }
     }
 
-    public CustList(Listable<? extends T> _c) {
+    public CustList(Listable<T> _c) {
         list = new ArrayList<T>(_c.size());
         for (T e: _c) {
             add(e);
@@ -55,12 +54,6 @@ public class CustList<T> implements Listable<T> {
         list = new ArrayList<T>(_capacity.getCapacity());
     }
 
-//    public CustList(Iterable<? extends T> _c) {
-//        list = new ArrayList<T>();
-//        for (T e: _c) {
-//            add(e);
-//        }
-//    }
     public static void add(Listable<?> _list, Object _o) {
         Listable<? super Object> l_ = (Listable<? super Object>) _list;
         l_.add(_o);
@@ -70,15 +63,12 @@ public class CustList<T> implements Listable<T> {
         l_.set(_i, _o);
     }
     @Override
-    public void addAllElts(Listable<? extends T> _c) {
+    public void addAllElts(Listable<T> _c) {
         for (T e: _c) {
             add(e);
         }
     }
-//    public void addAllElts(Collection<? extends T> _c) {
-//        addAll(_c);
-//    }
-    public void sortElts(Comparator<? super T> _comp) {
+    public void sortElts(Comparator<T> _comp) {
         Collections.sort(list, _comp);
 //        int len_ = size();
 //        for (int i = FIRST_INDEX; i <len_; i++) {
@@ -195,26 +185,7 @@ public class CustList<T> implements Listable<T> {
         list.add(_e);
     }
 
-//    @Override
-//    public boolean remove(Object _o) {
-//        return list.remove(_o);
-//    }
-//
-//    @Override
-//    public boolean containsAll(Collection<?> _c) {
-//        return list.containsAll(_c);
-//    }
-
-//    @Override
-//    public boolean addAll(Collection<? extends T> _c) {
-//        return list.addAll(_c);
-//    }
-
-//    @Override
-    public boolean addAll(int _index, Collection<? extends T> _c) {
-        return list.addAll(_index, _c);
-    }
-    public void retainAllElements(AbEqList<? super T> _c) {
+    public void retainAllElements(AbEqList<T> _c) {
         int i_ = FIRST_INDEX;
         while (i_ < size()) {
             T e_ = get(i_);
@@ -225,15 +196,6 @@ public class CustList<T> implements Listable<T> {
             }
         }
     }
-//    @Override
-//    public boolean removeAll(Collection<?> _c) {
-//        return list.removeAll(_c);
-//    }
-//
-//    @Override
-//    public boolean retainAll(Collection<?> _c) {
-//        return list.retainAll(_c);
-//    }
 
     @Override
     public void clear() {
@@ -361,7 +323,7 @@ public class CustList<T> implements Listable<T> {
         return list.toString();
     }
 
-    public CustList<? extends CustList<T>> getGroupsSameCompare(Comparator<T> _cmp) {
+    public CustList<CustList<T>> getBaseGroupsSameCompare(Comparator<T> _cmp) {
         CustList<T> copy_ = new CustList<T>(this);
         copy_.sortElts(_cmp);
         CustList<CustList<T>> groups_;
@@ -452,7 +414,7 @@ public class CustList<T> implements Listable<T> {
         }
         return l_;
     }
-    public void removeDuplicates(Equaller<? super T> _cmp)  {
+    public void removeDuplicates(Equaller<T> _cmp)  {
         int i_ = FIRST_INDEX;
         while (true) {
             if(i_ >= size()) {
@@ -472,7 +434,7 @@ public class CustList<T> implements Listable<T> {
         }
     }
 
-    public Numbers<Integer> indexesOfObj(Equaller<? super T> _cmp, T _element) {
+    public Numbers<Integer> indexesOfObj(Equaller<T> _cmp, T _element) {
         Numbers<Integer> indexes_;
         indexes_ = new Numbers<Integer>();
         int i_ = FIRST_INDEX;
@@ -487,7 +449,7 @@ public class CustList<T> implements Listable<T> {
         return indexes_;
     }
 
-    public int indexOfObj(Equaller<? super T> _cmp, T _element, int _from) {
+    public int indexOfObj(Equaller<T> _cmp, T _element, int _from) {
         int s_ = size();
         for (int i = _from; i < s_; i++) {
             T e_ = get(i);
@@ -497,7 +459,7 @@ public class CustList<T> implements Listable<T> {
         }
         return INDEX_NOT_FOUND_ELT;
     }
-    public void removeDuplicates(Comparator<? super T> _cmp)  {
+    public void removeDuplicates(Comparator<T> _cmp)  {
         int i_ = FIRST_INDEX;
         while (true) {
             if(i_ >= size()) {
@@ -517,7 +479,7 @@ public class CustList<T> implements Listable<T> {
         }
     }
 
-    public Numbers<Integer> indexesOfObj(Comparator<? super T> _cmp, T _element) {
+    public Numbers<Integer> indexesOfObj(Comparator<T> _cmp, T _element) {
         Numbers<Integer> indexes_;
         indexes_ = new Numbers<Integer>();
         int i_ = FIRST_INDEX;
@@ -532,7 +494,7 @@ public class CustList<T> implements Listable<T> {
         return indexes_;
     }
 
-    public int indexOfObj(Comparator<? super T> _cmp, T _element, int _from) {
+    public int indexOfObj(Comparator<T> _cmp, T _element, int _from) {
         int s_ = size();
         for (int i = _from; i < s_; i++) {
             T e_ = get(i);

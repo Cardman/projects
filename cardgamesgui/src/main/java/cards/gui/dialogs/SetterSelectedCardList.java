@@ -13,7 +13,7 @@ public interface SetterSelectedCardList {
     void setNombreCartesSelectionneesPrecedent(int _nombreCartesSelectionneesPrecedent);
     JPanel getPanelsCards();
     JLabel getLabelSelectCards();
-    CustList<? extends CardsScrollableList> getHands(boolean _addStack);
+    CustList<CardsScrollableList> getHands(boolean _addStack);
     void validateRulesDeal();
     void backToRules();
     void deplacerCartes();

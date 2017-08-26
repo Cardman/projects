@@ -11,7 +11,7 @@ public final class CharList extends AbEqList<Character> implements Equallable<Ch
     public CharList(Character... _elements) {
         super(_elements);
     }
-    public CharList(Listable<? extends Character> _c) {
+    public CharList(Listable<Character> _c) {
         super(_c);
     }
 
@@ -19,10 +19,6 @@ public final class CharList extends AbEqList<Character> implements Equallable<Ch
     public CharList(CollCapacity _capacity) {
         super(_capacity);
     }
-
-//    public CharList(Iterable<? extends Character> _c) {
-//        super(_c);
-//    }
 
     public boolean containsChar(char _char) {
         return containsObj(_char);

@@ -5,13 +5,10 @@ import aiki.map.levels.LevelWithWildPokemon;
 import aiki.map.pokemon.WildPk;
 import aiki.util.Coords;
 import code.datacheck.CheckedData;
-import code.util.NumberMap;
 
 @CheckedData
 public abstract class Campaign extends Place {
 
-    @Override
-    public abstract NumberMap<Byte,? extends LevelWithWildPokemon> getLevels();
     @Override
     public abstract LevelWithWildPokemon getLevelByCoords(Coords _coords);
     public abstract void initializeWildPokemon();

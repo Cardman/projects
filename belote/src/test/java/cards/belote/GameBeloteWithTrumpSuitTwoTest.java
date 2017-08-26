@@ -1,4 +1,5 @@
 package cards.belote;
+import static cards.belote.EquallableBeloteUtil.assertEq;
 import static code.util.opers.EquallableUtil.assertEq;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertTrue;

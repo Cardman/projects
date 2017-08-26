@@ -697,7 +697,7 @@ final class InitializationMap {
         map_.addLevelCave((short) 5);
         LevelCave level_;
         Block block_;
-        level_ = cave_.getLevels().getVal((byte) 0);
+        level_ = (LevelCave)cave_.getLevels().getVal((byte) 0);
         block_ = newRockBlock(2, 2);
         level_.getBlocks().put(newPoint(0,0), block_);
         block_ = newRockBlock(2, 2);
@@ -722,7 +722,7 @@ final class InitializationMap {
         level_.getBlocks().put(newPoint(4,4), block_);
         block_ = newRockBlock(2, 2);
         level_.getBlocks().put(newPoint(6,4), block_);
-        level_ = cave_.getLevels().getVal((byte) 1);
+        level_ = (LevelCave)cave_.getLevels().getVal((byte) 1);
         block_ = newRockBlock(2, 2, 0);
         level_.getBlocks().put(newPoint(0,0), block_);
         block_ = newRockBlock(2, 2, 1);
@@ -884,7 +884,7 @@ final class InitializationMap {
         Cave road_ = (Cave) map_.getPlaces().getVal((short) 5);
         LevelCave level_;
         //map level_ = road_.getLevels().getVal((byte) 0);
-        level_ = road_.getLevels().getVal((byte) 1);
+        level_ = (LevelCave)road_.getLevels().getVal((byte) 1);
         AreaApparition area_;
         WildPk wild_;
         area_ = new AreaApparition();
@@ -1153,7 +1153,7 @@ final class InitializationMap {
         dual_ = newDualFight(allyList_, list_, 300);
         dual_.setNames(new StringList(DUAL_THREE_TR_ONE,DUAL_THREE_TR_TWO));
         dual_.setPt(newPoint(3, 0));
-        cave_.getLevels().getVal((byte) 0).getDualFights().put(newPoint(2, 0), dual_);
+        ((LevelCave)cave_.getLevels().getVal((byte) 0)).getDualFights().put(newPoint(2, 0), dual_);
         //map_.getBeatGymLeader().add(newCoords(5, 0, 2, 0));
         foeTeamsList_ = new CustList<PokemonTeam>();
         list_ = new CustList<NameLevelMoves>();
@@ -1162,7 +1162,7 @@ final class InitializationMap {
         foeTeamList_ = newTeam(list_, 200);
         foeTeamsList_.add(foeTeamList_);
         trainer_ = newTrainer(foeTeamsList_, 1);
-        cave_.getLevels().getVal((byte) 0).getCharacters().put(newPoint(1, 5), trainer_);
+        ((LevelCave)cave_.getLevels().getVal((byte) 0)).getCharacters().put(newPoint(1, 5), trainer_);
         //map_.getBeatTrainer().add(new NbFightCoords(newCoords(5, 0, 1, 5),0));
         foeTeamsList_ = new CustList<PokemonTeam>();
         list_ = new CustList<NameLevelMoves>();
@@ -1171,7 +1171,7 @@ final class InitializationMap {
         foeTeamList_ = newTeam(list_, 200);
         foeTeamsList_.add(foeTeamList_);
         trainer_ = newTrainer(foeTeamsList_, 1);
-        cave_.getLevels().getVal((byte) 1).getCharacters().put(newPoint(5, 1), trainer_);
+        ((LevelCave)cave_.getLevels().getVal((byte) 1)).getCharacters().put(newPoint(5, 1), trainer_);
         //map_.getBeatTrainer().add(new NbFightCoords(newCoords(5, 1, 5, 1),0));
     }
 
@@ -1249,17 +1249,17 @@ final class InitializationMap {
         League road_ = (League) map_.getPlaces().getVal((short) 6);
         LevelLeague level_;
         Block block_;
-        level_ = road_.getLevels().getVal((byte) 0);
+        level_ = (LevelLeague) road_.getLevels().getVal((byte) 0);
         block_ = newBuildingBlock(9, 9);
         level_.getBlocks().put(newPoint(0,0), block_);
-        level_ = road_.getLevels().getVal((byte) 1);
+        level_ = (LevelLeague) road_.getLevels().getVal((byte) 1);
         block_ = newBuildingBlock(9, 9);
         level_.getBlocks().put(newPoint(0,0), block_);
         road_.setBegin(newPoint(4,8));
-        level_ = road_.getLevels().getVal((byte) 0);
+        level_ = (LevelLeague) road_.getLevels().getVal((byte) 0);
         level_.setAccessPoint(newPoint(4, 0));
         level_.setNextLevelTarget(newPoint(4, 8));
-        level_ = road_.getLevels().getVal((byte) 1);
+        level_ = (LevelLeague) road_.getLevels().getVal((byte) 1);
         level_.setAccessPoint(newPoint(4, 0));
     }
 

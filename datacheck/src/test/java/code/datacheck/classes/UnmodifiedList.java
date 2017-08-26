@@ -1,6 +1,4 @@
 package code.datacheck.classes;
-import java.util.Collection;
-
 import code.util.AbEqList;
 import code.util.ints.Listable;
 
@@ -37,13 +35,7 @@ class UnmodifiedList<T> extends AbEqList<T> implements Listable<T>{
 //        }
 //        throw new ModifyingException();
 //    }
-    @Override
-    public boolean addAll(int _index, Collection<? extends T> _c) {
-        if (addRemove) {
-            return super.addAll(_index, _c);
-        }
-        throw new ModifyingException();
-    }
+
 //    @Override
 //    public boolean remove(Object _o) {
 //        if (addRemove) {
@@ -172,7 +164,7 @@ class UnmodifiedList<T> extends AbEqList<T> implements Listable<T>{
     //        }
     //    }
     @Override
-    public void addAllElts(Listable<? extends T> _c) {
+    public void addAllElts(Listable<T> _c) {
         if (addRemove) {
             for (T e: _c) {
                 add(e);

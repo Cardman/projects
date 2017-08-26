@@ -12,7 +12,7 @@ public final class EnumList<T extends Enum<T>> extends AbEqList<T> implements Eq
     public EnumList() {
     }
 
-    public EnumList(Listable<? extends T> _c) {
+    public EnumList(Listable<T> _c) {
         super(_c);
     }
 
@@ -35,7 +35,6 @@ public final class EnumList<T extends Enum<T>> extends AbEqList<T> implements Eq
         sortElts(new ComparatorEnum<T>());
     }
 
-    @Override
     public CustList<EnumList<T>> getGroupsSameCompare(Comparator<T> _cmp) {
         CustList<T> copy_ = new CustList<T>(this);
         copy_.sortElts(_cmp);

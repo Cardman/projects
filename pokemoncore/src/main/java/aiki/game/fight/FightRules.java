@@ -1,14 +1,4 @@
 package aiki.game.fight;
-import code.maths.LgInt;
-import code.maths.Rate;
-import code.util.AbEqList;
-import code.util.CustList;
-import code.util.EqList;
-import code.util.NumberMap;
-import code.util.Numbers;
-import code.util.StringList;
-import code.util.StringMap;
-import code.util.comparators.ComparatorBoolean;
 import aiki.DataBase;
 import aiki.fight.enums.Statistic;
 import aiki.fight.items.Berry;
@@ -33,6 +23,15 @@ import aiki.game.fight.enums.FightType;
 import aiki.game.params.Difficulty;
 import aiki.game.player.Inventory;
 import aiki.game.player.Player;
+import code.maths.LgInt;
+import code.maths.Rate;
+import code.util.CustList;
+import code.util.EqList;
+import code.util.NumberMap;
+import code.util.Numbers;
+import code.util.StringList;
+import code.util.StringMap;
+import code.util.comparators.ComparatorBoolean;
 
 final class FightRules {
 
@@ -174,7 +173,7 @@ final class FightRules {
             liste_.removeAllElements(_import.getMovesFullHeal());
         }
         liste_.removeString(_import.getDefaultMove());
-        liste_.retainAllElements((AbEqList<? super String>)usablesMoves_);
+        liste_.retainAllElements(usablesMoves_);
         return liste_;
     }
 

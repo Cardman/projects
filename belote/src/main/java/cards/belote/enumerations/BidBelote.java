@@ -88,7 +88,7 @@ public enum BidBelote {
     }
 
     public String toString(String _locale) {
-        return Format.getConstanteLangue(ResoucesAccess.NOM_DOSSIER,ResoucesAccess.NOM_FICHIER, _locale, ResoucesAccess.BELOTE_BID,this);
+        return Format.getConstanteLangue(ResoucesAccess.NOM_DOSSIER,ResoucesAccess.NOM_FICHIER, _locale, ResoucesAccess.BELOTE_BID,name());
     }
     public boolean jouerDonne(){
         return force>0;

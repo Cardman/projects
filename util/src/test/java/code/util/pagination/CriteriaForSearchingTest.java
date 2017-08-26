@@ -4,10 +4,6 @@ import static org.junit.Assert.assertTrue;
 import org.junit.Test;
 
 import code.util.StringList;
-import code.util.classestest.EnumDigitExample;
-import code.util.pagination.CriteriaForSearching;
-import code.util.pagination.SearchingMode;
-import code.util.pagination.SelectedBoolean;
 
 @SuppressWarnings("static-method")
 public class CriteriaForSearchingTest {
@@ -112,21 +108,6 @@ public class CriteriaForSearchingTest {
     @Test
     public void matchNumber10Test() {
         assertTrue(!CriteriaForSearching.match(0 , 2, 3));
-    }
-
-    @Test
-    public void matchEnum1Test() {
-        assertTrue(CriteriaForSearching.match(null, EnumDigitExample.ONE));
-    }
-
-    @Test
-    public void matchEnum2Test() {
-        assertTrue(!CriteriaForSearching.match(EnumDigitExample.TWO, EnumDigitExample.ONE));
-    }
-
-    @Test
-    public void matchEnum3Test() {
-        assertTrue(CriteriaForSearching.match(EnumDigitExample.ONE, EnumDigitExample.ONE));
     }
 
     @Test

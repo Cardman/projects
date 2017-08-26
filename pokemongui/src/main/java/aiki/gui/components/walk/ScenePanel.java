@@ -25,6 +25,7 @@ import code.maths.LgInt;
 import code.network.NetCreate;
 import code.network.enums.IpType;
 import code.util.CustList;
+import code.util.EntryCust;
 import code.util.NatTreeMap;
 import code.util.StringList;
 import code.util.StringMap;
@@ -847,7 +848,9 @@ public class ScenePanel extends JPanel {
 
     public void setTradable(NatTreeMap<Byte, PokemonPlayer> _team) {
         NatTreeMap<Byte,UsablePokemon> teamPks_ = new NatTreeMap<Byte,UsablePokemon>();
-        teamPks_.putAllTreeMap(_team);
+        for (EntryCust<Byte, PokemonPlayer> e: _team.entryList()) {
+            teamPks_.put(e.getKey(), e.getValue());
+        }
         teamPan = new TeamPanel(2, _messages_.getVal(POKEMON_SELECT), facade, teamPks_, true);
         teamPan.addListenerTrading(this);
         panelNetWork.add(teamPan);
@@ -880,7 +883,9 @@ public class ScenePanel extends JPanel {
     public void setTradableAfterTrading(NatTreeMap<Byte, PokemonPlayer> _team) {
         enabledClick = false;
         NatTreeMap<Byte,UsablePokemon> teamPks_ = new NatTreeMap<Byte,UsablePokemon>();
-        teamPks_.putAllTreeMap(_team);
+        for (EntryCust<Byte, PokemonPlayer> e: _team.entryList()) {
+            teamPks_.put(e.getKey(), e.getValue());
+        }
         teamPan.initFighters(teamPks_);
         readyCheck.setEnabled(false);
         enabledReady = false;
@@ -1063,7 +1068,10 @@ public class ScenePanel extends JPanel {
         } else if (facade.getInterfaceType() == InterfaceType.PENSION) {
             JPanel set_ = new JPanel();
             NatTreeMap<Byte,UsablePokemon> teamPks_ = new NatTreeMap<Byte,UsablePokemon>();
-            teamPks_.putAllTreeMap(facade.getGame().getPlayer().getPokemonPlayerList());
+            NatTreeMap<Byte, PokemonPlayer> team_ = facade.getGame().getPlayer().getPokemonPlayerList();
+            for (EntryCust<Byte, PokemonPlayer> e: team_.entryList()) {
+                teamPks_.put(e.getKey(), e.getValue());
+            }
             teamPan = new TeamPanel(2, _messages_.getVal(POKEMON_SELECT_TWO), facade, teamPks_, false);
             teamPan.addListenerHost(this);
             set_.add(teamPan);
@@ -1283,7 +1291,9 @@ public class ScenePanel extends JPanel {
     private void initPkTeamMoveTutors() {
         NatTreeMap<Byte,PokemonPlayer> team_ = facade.getPlayer().getPokemonPlayerList();
         NatTreeMap<Byte,UsablePokemon> pks_ = new NatTreeMap<Byte,UsablePokemon>();
-        pks_.putAllTreeMap(team_);
+        for (EntryCust<Byte, PokemonPlayer> e: team_.entryList()) {
+            pks_.put(e.getKey(), e.getValue());
+        }
         teamPan = new TeamPanel(2, _messages_.getVal(POKEMON_SELECT), facade, pks_, true);
         teamPan.addListenerMoveTutor(this);
     }
@@ -1292,7 +1302,9 @@ public class ScenePanel extends JPanel {
         enabledClick = false;
         NatTreeMap<Byte,PokemonPlayer> team_ = facade.getPlayer().getPokemonPlayerList();
         NatTreeMap<Byte,UsablePokemon> pks_ = new NatTreeMap<Byte,UsablePokemon>();
-        pks_.putAllTreeMap(team_);
+        for (EntryCust<Byte, PokemonPlayer> e: team_.entryList()) {
+            pks_.put(e.getKey(), e.getValue());
+        }
         teamPan.initFighters(pks_);
         enabledClick = true;
     }

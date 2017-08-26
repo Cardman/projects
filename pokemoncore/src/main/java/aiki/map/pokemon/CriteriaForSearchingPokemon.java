@@ -57,7 +57,14 @@ public final class CriteriaForSearchingPokemon extends CriteriaForSearching {
     }
 
     public boolean matchGender(Gender _gender) {
-        return CriteriaForSearching.match(gender, _gender);
+        return match(gender, _gender);
+    }
+
+    private static boolean match(Gender _enum, Gender _element) {
+        if (_enum == null) {
+            return true;
+        }
+        return _enum == _element;
     }
 
     public boolean matchLevel(long _level) {

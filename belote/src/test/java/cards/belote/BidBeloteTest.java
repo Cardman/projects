@@ -4,9 +4,8 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
-import code.util.AbEqList;
-import code.util.EnumList;
 import cards.belote.enumerations.BidBelote;
+import code.util.EnumList;
 
 @SuppressWarnings("static-method")
 public class BidBeloteTest {
@@ -35,7 +34,7 @@ public class BidBeloteTest {
     public void getNonZeroBids_alwaysUsableNonZeroBids1Test() {
         EnumList<BidBelote> alwaysUsableBids_ = BidBelote.getAlwaysUsableBids();
         EnumList<BidBelote> nonZeroBids_ = BidBelote.getNonZeroBids();
-        nonZeroBids_.retainAllElements((AbEqList<? super BidBelote>)alwaysUsableBids_);
+        nonZeroBids_.retainAllElements(alwaysUsableBids_);
         assertTrue(!nonZeroBids_.isEmpty());
     }
     @Test

@@ -294,7 +294,7 @@ public final class MyList<E> implements Listable<E> {
     }
 
     @Override
-    public void addAllElts(Listable<? extends E> _c) {
+    public void addAllElts(Listable<E> _c) {
         elements.addAllElts(_c);
     }
 

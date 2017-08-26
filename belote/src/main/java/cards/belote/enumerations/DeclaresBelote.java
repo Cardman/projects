@@ -126,6 +126,6 @@ public enum DeclaresBelote {
     }
 
     public String toString(String _locale) {
-        return Format.getConstanteLangue(ResoucesAccess.NOM_DOSSIER,ResoucesAccess.NOM_FICHIER, _locale,ResoucesAccess.BELOTE_DECLARES, this);
+        return Format.getConstanteLangue(ResoucesAccess.NOM_DOSSIER,ResoucesAccess.NOM_FICHIER, _locale,ResoucesAccess.BELOTE_DECLARES, name());
     }
 }

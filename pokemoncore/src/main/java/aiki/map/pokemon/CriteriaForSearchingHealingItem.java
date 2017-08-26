@@ -302,12 +302,19 @@ public final class CriteriaForSearchingHealingItem extends CriteriaForSearchingI
         if (_item instanceof Berry) {
             statistics_ = ((Berry)_item).getMultStat().getKeys();
             for (Statistic s: statistics_) {
-                if (CriteriaForSearching.match(statistic,s)) {
+                if (match(statistic,s)) {
                     return true;
                 }
             }
         }
         return false;
+    }
+
+    private static boolean match(Statistic _enum, Statistic _element) {
+        if (_enum == null) {
+            return true;
+        }
+        return _enum == _element;
     }
 
     public boolean matchKo(Item _item) {

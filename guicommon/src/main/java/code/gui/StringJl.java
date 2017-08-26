@@ -25,12 +25,4 @@ public final class StringJl extends JList {
         }
         return l_;
     }
-//    public Jl(Object[] _listData) {
-//        super(_listData);
-//    }
-//
-//    public Jl(Vector<?> _listData) {
-//        super(_listData);
-//    }
-
 }

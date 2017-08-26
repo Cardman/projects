@@ -26,7 +26,7 @@ public final class ComplexMap<K, V, T> extends AbMap<K, T> {
     public Listable<V> getValues() {
         return values;
     }
-    public void setValues(Listable<? extends V> _values) {
+    public void setValues(Listable<V> _values) {
         values = new CustList<V>(_values);
     }
 
@@ -136,7 +136,7 @@ public final class ComplexMap<K, V, T> extends AbMap<K, T> {
     }
 
     @Override
-    public void putAllMap(ListableEntries<? extends K, ? extends T> _m) {
+    public void putAllMap(ListableEntries<K, T> _m) {
         map.putAllMap(_m);
     }
 

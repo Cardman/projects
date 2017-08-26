@@ -12,7 +12,7 @@ public final class IdSet<E> extends AbEqList<E> implements Settable<E> {
     public IdSet() {
     }
 
-    public IdSet(Listable<? extends E> _c) {
+    public IdSet(Listable<E> _c) {
         super(_c);
     }
 

@@ -2,6 +2,7 @@ package aiki.beans.map;
 import code.bean.Accessible;
 import code.images.ConverterBufferedImage;
 import code.util.CustList;
+import code.util.EntryCust;
 import code.util.EnumList;
 import code.util.Numbers;
 import code.util.ObjectMap;
@@ -41,6 +42,7 @@ import aiki.map.characters.TrainerMultiFights;
 import aiki.map.characters.enums.GeranceType;
 import aiki.map.characters.enums.SellType;
 import aiki.map.enums.Direction;
+import aiki.map.levels.LevelCave;
 import aiki.map.levels.LevelWithWildPokemon;
 import aiki.map.places.Campaign;
 import aiki.map.places.Cave;
@@ -233,8 +235,9 @@ public class MapLevelBean extends CommonBean {
                 getForms().put(PLACE_MAP_INDEX, coords_.getNumberPlace());
                 return LEVEL;
             }
-            if (c_.getLevels().getVal(lev_.byteValue()).getLinksOtherLevels().contains(pt_)) {
-                Coords coords_ = c_.getLevels().getVal(lev_.byteValue()).getLinksOtherLevels().getVal(pt_).getCoords();
+            LevelCave level_ = (LevelCave) c_.getLevels().getVal(lev_.byteValue());
+            if (level_.getLinksOtherLevels().contains(pt_)) {
+                Coords coords_ = level_.getLinksOtherLevels().getVal(pt_).getCoords();
                 getForms().put(LEVEL_MAP_INDEX, coords_.getLevel().getLevelIndex());
                 getForms().put(PLACE_MAP_INDEX, coords_.getNumberPlace());
                 return LEVEL;
@@ -303,7 +306,7 @@ public class MapLevelBean extends CommonBean {
         }
         if (p_ instanceof Campaign) {
             Campaign c_ = (Campaign) p_;
-            LevelWithWildPokemon l_ = c_.getLevels().getVal(lev_.byteValue());
+            LevelWithWildPokemon l_ = (LevelWithWildPokemon) c_.getLevels().getVal(lev_.byteValue());
             if (l_.getDualFights().contains(pt_)) {
                 getForms().put(TRAINER, l_.getDualFights().getVal(pt_).getFoeTrainer());
                 getForms().put(ALLY, l_.getDualFights().getVal(pt_).getAlly());
@@ -474,7 +477,8 @@ public class MapLevelBean extends CommonBean {
         Place p_ = data_.getMap().getPlaces().getVal(pl_.shortValue());
         try {
             Campaign c_ = (Campaign) p_;
-            getForms().put(AREA, c_.getLevels().getVal(lev_.byteValue()).getAreaByPoint(pt_));
+            LevelWithWildPokemon level_ = (LevelWithWildPokemon) c_.getLevels().getVal(lev_.byteValue());
+            getForms().put(AREA, level_.getAreaByPoint(pt_));
         } catch (RuntimeException _0) {
         }
         return AREA;
@@ -493,7 +497,8 @@ public class MapLevelBean extends CommonBean {
         boolean seeArea_ = false;
         try {
             Campaign c_ = (Campaign) p_;
-            getForms().put(AREA, c_.getLevels().getVal(lev_.byteValue()).getAreaByPoint(pt_));
+            LevelWithWildPokemon level_ = (LevelWithWildPokemon) c_.getLevels().getVal(lev_.byteValue());
+            getForms().put(AREA, level_.getAreaByPoint(pt_));
             seeArea_ = true;
         } catch (RuntimeException _0) {
         }
@@ -541,7 +546,9 @@ public class MapLevelBean extends CommonBean {
         }
 //        if (booleans_.values().indexesOfObject(true).size() > DataBase.ONE_POSSIBLE_CHOICE)
         if (nbTrue_ > DataBase.ONE_POSSIBLE_CHOICE) {
-            getForms().putAllMap(booleans_);
+            for (EntryCust<String, Boolean> e: booleans_.entryList()) {
+                getForms().put(e.getKey(), e.getValue());
+            }
             return LEVEL;
         }
         String return_ = clickTile();
@@ -656,7 +663,7 @@ public class MapLevelBean extends CommonBean {
 //        }
         if (p_ instanceof Campaign) {
             Campaign c_ = (Campaign) p_;
-            LevelWithWildPokemon l_ = c_.getLevels().getVal(lev_.byteValue());
+            LevelWithWildPokemon l_ = (LevelWithWildPokemon) c_.getLevels().getVal(lev_.byteValue());
 //            if (l_.getDualFights().contains(pt_)) {
 //                getForms().put(TRAINER, l_.getDualFights().getVal(pt_).getFoeTrainer());
 //                getForms().put(ALLY, l_.getDualFights().getVal(pt_).getAlly());

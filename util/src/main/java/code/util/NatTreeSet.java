@@ -25,7 +25,7 @@ public final class NatTreeSet<E extends Cmp<E>> extends AbEqList<E> implements S
         }
     }
 
-    public NatTreeSet(Listable<? extends E> _c) {
+    public NatTreeSet(Listable<E> _c) {
         list = new SortableCustList<E>();
         list.addAllElts(_c);
     }
@@ -174,12 +174,12 @@ public final class NatTreeSet<E extends Cmp<E>> extends AbEqList<E> implements S
     }
 
     @Override
-    public void addAllElts(Listable<? extends E> _c) {
+    public void addAllElts(Listable<E> _c) {
         list.addAllElts(_c);
     }
 
     @Override
-    public void sortElts(Comparator<? super E> _comp) {
+    public void sortElts(Comparator<E> _comp) {
         list.sortElts(_comp);
     }
 
@@ -254,7 +254,7 @@ public final class NatTreeSet<E extends Cmp<E>> extends AbEqList<E> implements S
     }
 
     @Override
-    public void removeAllElements(Listable<? extends E> _c) {
+    public void removeAllElements(Listable<E> _c) {
         list.removeAllElements(_c);
     }
 
@@ -274,12 +274,12 @@ public final class NatTreeSet<E extends Cmp<E>> extends AbEqList<E> implements S
     }
 
     @Override
-    public void retainAllElements(AbEqList<? super E> _c) {
+    public void retainAllElements(AbEqList<E> _c) {
         list.retainAllElements(_c);
     }
 
     @Override
-    public boolean containsAllObj(Listable<? extends E> _list) {
+    public boolean containsAllObj(Listable<E> _list) {
         return list.containsAllObj(_list);
     }
 

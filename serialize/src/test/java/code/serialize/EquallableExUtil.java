@@ -1,5 +1,7 @@
 package code.serialize;
 import code.serialize.classes.CompositeTwo;
+import code.serialize.classes.MyEnum;
+import code.serialize.classes.MyEnumTwo;
 import code.util.StringList;
 
 public final class EquallableExUtil {
@@ -43,7 +45,18 @@ public final class EquallableExUtil {
         }
         return false;
     }
-
+    public static void assertEq(MyEnum _expected, MyEnum _result) {
+        if (_expected == _result) {
+            return;
+        }
+        assertError(_expected, _result);
+    }
+    public static void assertEq(MyEnumTwo _expected, MyEnumTwo _result) {
+        if (_expected == _result) {
+            return;
+        }
+        assertError(_expected, _result);
+    }
     private static void assertError(Object _expected, Object _result) {
         String message_;
         message_ = StringList.simpleFormat(EXPECTED_BUT_WAS, _expected, _result);

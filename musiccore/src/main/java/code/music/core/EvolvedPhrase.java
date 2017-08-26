@@ -124,27 +124,6 @@ public final class EvolvedPhrase implements XmlTransientable, MidListable<Evolve
         notes.removeObj(_o);
     }
 
-//    @Override
-//    public boolean containsAll(MidListable<? extends EvolvedNote> _c) {
-//        return notes.containsAll(_c);
-//    }
-//
-//    @Override
-//    public boolean addAll(Collection<? extends EvolvedNote> _c) {
-//        for (EvolvedNote n: _c) {
-//            phrase.addNote(n.getNote());
-//        }
-//        return notes.addAll(_c);
-//    }
-//
-//    @Override
-//    public boolean removeAll(MidListable<? extends EvolvedNote> _c) {
-//        for (Object n: _c) {
-//            phrase.removeNote(((EvolvedNote)n).getNote());
-//        }
-//        return notes.removeAll(_c);
-//    }
-
     @Override
     public void clear() {
         phrase.empty();

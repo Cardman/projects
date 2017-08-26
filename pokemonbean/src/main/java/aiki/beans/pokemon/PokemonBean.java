@@ -456,7 +456,7 @@ public class PokemonBean extends CommonBean {
     }
 
     @Accessible
-    private CustList<? extends Level> layers(Long _index) {
+    private CustList<Level> layers(Long _index) {
         Place pl_ = places.get(_index.intValue()).getPlace();
         return pl_.getLevelsList();
     }

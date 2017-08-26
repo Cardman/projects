@@ -317,17 +317,7 @@ abstract class OperationNode implements SortedNode<OperationNode> {
         nextSibling = createOperationNode(value_, p_.getIndexInEl()+curKey_, conf, indexChild + 1, p_, r_);
         return nextSibling;
     }
-//    static boolean access(Constructor<?> _method) {
-//        return _method.getAnnotation(Accessible.class) != null;
-//    }
-//
-//    static boolean access(Method _method) {
-//        return _method.getAnnotation(Accessible.class) != null;
-//    }
-//
-//    static boolean access(Field _field) {
-//        return _field.getAnnotation(Accessible.class) != null;
-//    }
+
     static MathType[] getClasses(Argument... _args) {
         int len_ = _args.length;
         MathType[] classes_ = new MathType[len_];
@@ -336,14 +326,6 @@ abstract class OperationNode implements SortedNode<OperationNode> {
         }
         return classes_;
     }
-//    static Class<?>[] getClasses(MathType... _args) {
-//        int len_ = _args.length;
-//        Class<?>[] classes_ = new Class<?>[len_];
-//        for (int i = CustList.FIRST_INDEX; i < len_; i++) {
-//            classes_[i] = _args[i].getClazz();
-//        }
-//        return classes_;
-//    }
 
     static Object[] getObjects(Argument... _args) {
         int len_ = _args.length;

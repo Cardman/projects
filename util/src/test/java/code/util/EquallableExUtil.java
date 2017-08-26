@@ -1,6 +1,7 @@
 package code.util;
 import code.util.StringList;
 import code.util.classestest.KeyExample;
+import code.util.classestest.Sex;
 
 public final class EquallableExUtil {
     private static final String EXPECTED_NULL = "the result is not null.";
@@ -20,7 +21,12 @@ public final class EquallableExUtil {
         }
         assertError(_expected, _result);
     }
-
+    public static void assertEq(Sex _expected, Sex _result) {
+        if (_expected == _result) {
+            return;
+        }
+        assertError(_expected, _result);
+    }
     private static boolean checkNullity(Object _expected, Object _result) {
         if (allNull(_expected, _result)) {
             return true;

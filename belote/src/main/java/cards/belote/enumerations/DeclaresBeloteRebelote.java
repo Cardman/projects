@@ -20,7 +20,7 @@ public enum DeclaresBeloteRebelote {
     }
 
     public String toString(String _locale) {
-        return Format.getConstanteLangue(ResoucesAccess.NOM_DOSSIER,ResoucesAccess.NOM_FICHIER, _locale, ResoucesAccess.BELOTE_DECLARES_BEL_REB, this);
+        return Format.getConstanteLangue(ResoucesAccess.NOM_DOSSIER,ResoucesAccess.NOM_FICHIER, _locale, ResoucesAccess.BELOTE_DECLARES_BEL_REB, name());
     }
 }
 

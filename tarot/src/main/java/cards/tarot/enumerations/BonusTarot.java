@@ -19,6 +19,6 @@ public enum BonusTarot {
     }
 
     public String toString(String _locale) {
-        return Format.getConstanteLangue(ResoucesAccess.NOM_DOSSIER,ResoucesAccess.NOM_FICHIER, _locale, ResoucesAccess.TAROT_BONUS,this);
+        return Format.getConstanteLangue(ResoucesAccess.NOM_DOSSIER,ResoucesAccess.NOM_FICHIER, _locale, ResoucesAccess.TAROT_BONUS,name());
     }
 }

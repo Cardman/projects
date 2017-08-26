@@ -8,7 +8,7 @@ public final class ObjectNotNullMap<K extends Equallable<K>, V>  extends AbObjec
     public ObjectNotNullMap() {
     }
 
-    public ObjectNotNullMap(ListableEntries<? extends K, ? extends V> _arg0) {
+    public ObjectNotNullMap(ListableEntries<K, V> _arg0) {
         putAllMap(_arg0);
     }
 

@@ -1,12 +1,12 @@
 package aiki.map.pokemon;
-import code.util.StringList;
-import code.util.pagination.CriteriaForSearching;
-import code.util.pagination.SearchingMode;
-import code.util.pagination.SelectedBoolean;
 import aiki.DataBase;
 import aiki.fight.moves.MoveData;
 import aiki.fight.moves.enums.SwitchType;
 import aiki.fight.moves.enums.TargetChoice;
+import code.util.StringList;
+import code.util.pagination.CriteriaForSearching;
+import code.util.pagination.SearchingMode;
+import code.util.pagination.SelectedBoolean;
 
 public final class CriteriaForSearchingMove extends CriteriaForSearching {
 
@@ -72,11 +72,25 @@ public final class CriteriaForSearchingMove extends CriteriaForSearching {
     }
 
     public boolean matchTargetChoice(TargetChoice _choice) {
-        return CriteriaForSearching.match(targetChoice, _choice);
+        return match(targetChoice, _choice);
+    }
+
+    private static boolean match(TargetChoice _enum, TargetChoice _element) {
+        if (_enum == null) {
+            return true;
+        }
+        return _enum == _element;
     }
 
     public boolean matchSwitchType(SwitchType _choice) {
-        return CriteriaForSearching.match(switchType, _choice);
+        return match(switchType, _choice);
+    }
+
+    private static boolean match(SwitchType _enum, SwitchType _element) {
+        if (_enum == null) {
+            return true;
+        }
+        return _enum == _element;
     }
 
     public boolean matchPrio(int _prio) {

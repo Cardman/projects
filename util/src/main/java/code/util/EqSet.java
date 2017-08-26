@@ -13,7 +13,7 @@ public class EqSet<E extends Equallable<E>> extends AbEqList<E> implements Setta
     public EqSet() {
     }
 
-    public EqSet(Listable<? extends E> _c) {
+    public EqSet(Listable<E> _c) {
         super(_c);
     }
 
@@ -59,85 +59,5 @@ public class EqSet<E extends Equallable<E>> extends AbEqList<E> implements Setta
         }
         return INDEX_NOT_FOUND_ELT;
     }
-//    @Override
-//    public Numbers<Integer> indexesOfObj(E _element) {
-//        if (_element == null) {
-//            return indexesOfNull();
-//        }
-//        Numbers<Integer> indexes_;
-//        indexes_ = new Numbers<Integer>();
-//        int s_ = size();
-//        for (int i = FIRST_INDEX; i < s_; i++) {
-//            E e_ = get(i);
-//            if (e_ == null) {
-//                continue;
-//            }
-//            if (_element.eq(e_)) {
-//                indexes_.add(i);
-//            }
-//        }
-//        return indexes_;
-//    }
-//    @Override
-//    public int indexOfObj(E _element) {
-//        if (_element == null) {
-//            int i_ = FIRST_INDEX;
-//            for (E e:this) {
-//                if (e == null) {
-//                    return i_;
-//                }
-//                i_++;
-//            }
-//            return INDEX_NOT_FOUND_ELT;
-//        }
-//        int i_ = FIRST_INDEX;
-//        for (E e:this) {
-//            if (e == null) {
-//                i_++;
-//                continue;
-//            }
-//            if (_element.eq(e)) {
-//                return i_;
-//            }
-//            i_++;
-//        }
-//        return INDEX_NOT_FOUND_ELT;
-//    }
-//    @Override
-//    public boolean remove(Object _o) {
-//        return elements.remove(_o);
-//    }
-//
-//    @Override
-//    public boolean containsAll(Collection<?> _c) {
-//        return elements.containsAll(_c);
-//    }
-//
-//    @Override
-//    public boolean addAll(Collection<? extends E> _c) {
-//        boolean added_ = false;
-//        for (E e: _c) {
-//            boolean locAdd_ = add(e);
-//            if (locAdd_) {
-//                added_ = true;
-//            }
-//        }
-//        return added_;
-//    }
-//
-//    @Override
-//    public boolean retainAll(Collection<?> _c) {
-//        return elements.retainAll(_c);
-//    }
-//
-//    @Override
-//    public boolean removeAll(Collection<?> _c) {
-//        return elements.removeAll(_c);
-//    }
-//
-//    @Override
-//    public void clear() {
-//        elements.clear();
-//    }
 
 }

@@ -4,9 +4,8 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
-import code.util.AbEqList;
-import code.util.EnumList;
 import cards.tarot.enumerations.BidTarot;
+import code.util.EnumList;
 
 @SuppressWarnings("static-method")
 public class BidTarotTest {
@@ -47,7 +46,7 @@ public class BidTarotTest {
     public void getNonZeroBids_alwaysUsableNonZeroBids1Test() {
         EnumList<BidTarot> alwaysUsableBids_ = BidTarot.getAlwaysUsableBids();
         EnumList<BidTarot> nonZeroBids_ = BidTarot.getNonZeroBids();
-        nonZeroBids_.retainAllElements((AbEqList<? super BidTarot>)alwaysUsableBids_);
+        nonZeroBids_.retainAllElements(alwaysUsableBids_);
         assertTrue(!nonZeroBids_.isEmpty());
     }
     @Test

@@ -69,9 +69,5 @@ public class TreeNodeMap<K,V> {
         return paths_;
     }
 
-//    @Override
-//    public void putAllMap(ListableEntries<? extends Listable<K>, ? extends V> _m) {
-//        putAll(_m);
-//    }
 }
 

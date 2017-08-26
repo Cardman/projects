@@ -38,6 +38,6 @@ UNDEFINED,TRUMP,HEART,SPADE,DIAMOND,CLUB;
     public String toString(String _locale) {
         String folderName_ = ResourcesAccess.NOM_DOSSIER;
         String fileName_ = ResourcesAccess.NOM_FICHIER;
-        return Format.getConstanteLangue(folderName_,fileName_, _locale, ResourcesAccess.SUIT, this);
+        return Format.getConstanteLangue(folderName_,fileName_, _locale, ResourcesAccess.SUIT, name());
     }
 }

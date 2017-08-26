@@ -48,16 +48,16 @@ public final class NatCmpTreeMap<K extends Cmp<K>, V> extends AbsMap<K, V> imple
 //    }
 
     @Override
-    public void putAllMap(ListableEntries<? extends K, ? extends V> _m) {
+    public void putAllMap(ListableEntries<K, V> _m) {
         //setModified();
-        for (EntryCust<? extends K,? extends V> e: _m.entryList()) {
+        for (EntryCust<K,V> e: _m.entryList()) {
             put(e.getKey(), e.getValue());
         }
     }
 
-    public void putAllTreeMap(NatCmpTreeMap<? extends K, ? extends V> _m) {
+    public void putAllTreeMap(NatCmpTreeMap<K, V> _m) {
         //setModified();
-        for (EntryCust<? extends K,? extends V> e: _m.getList()) {
+        for (EntryCust<K,V> e: _m.getList()) {
             put(e.getKey(), e.getValue());
         }
     }

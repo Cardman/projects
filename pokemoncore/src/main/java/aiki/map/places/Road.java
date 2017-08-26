@@ -107,15 +107,15 @@ public class Road extends Campaign implements InitializedPlace{
         return true;
     }
     @Override
-    public NumberMap<Byte,LevelRoad> getLevels() {
-        NumberMap<Byte,LevelRoad> levels_ = new NumberMap<Byte,LevelRoad>();
+    public NumberMap<Byte,Level> getLevels() {
+        NumberMap<Byte,Level> levels_ = new NumberMap<Byte,Level>();
         levels_.put((byte) CustList.FIRST_INDEX, level);
         return levels_;
     }
 
     @Override
-    public CustList<LevelRoad> getLevelsList() {
-        return new CustList<LevelRoad>(level);
+    public CustList<Level> getLevelsList() {
+        return new CustList<Level>(level);
     }
 
     @Override

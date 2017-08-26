@@ -76,7 +76,6 @@ import code.maths.LgInt;
 import code.maths.Rate;
 import code.maths.montecarlo.MonteCarloEq;
 import code.maths.montecarlo.MonteCarloString;
-import code.util.AbEqList;
 import code.util.CustList;
 import code.util.EntryCust;
 import code.util.EqList;
@@ -333,7 +332,7 @@ public class Game {
         for (Coords c: getVisited()) {
             Condition cond_ = new Condition();
             cond_.addAllElts(map_.getAccessibility().getVal(c));
-            cond_.retainAllElements((AbEqList<? super Coords>)accessCond_);
+            cond_.retainAllElements(accessCond_);
 //            if (!beatGymLeader.getKeys(true).containsAllObj(cond_)) {
 //                throw new GameLoadException();
 //            }
@@ -367,7 +366,7 @@ public class Game {
                 coords_.outside();
             }
             cond_.addAllElts(map_.getAccessibility().getVal(coords_));
-            cond_.retainAllElements((AbEqList<? super Coords>)accessCond_);
+            cond_.retainAllElements(accessCond_);
 //            if (!beatGymLeader.getKeys(true).containsAllObj(cond_)) {
 //                throw new GameLoadException();
 //            }
@@ -424,7 +423,7 @@ public class Game {
             playerCoords.affect(map_.getBegin());
             rankLeague = 0;
         }
-        cond_.retainAllElements((AbEqList<? super Coords>)accessCond_);
+        cond_.retainAllElements(accessCond_);
 //        if (!beatGymLeader.getKeys(true).containsAllObj(cond_))
         if (!getBeatenGymLeader().containsAllObj(cond_)) {
 //            if (fight.getFightType().isExisting()) {
@@ -464,7 +463,7 @@ public class Game {
 //            }
             cond_ = new Condition();
             cond_.addAllElts(map_.getAccessibility().getVal(coords_));
-            cond_.retainAllElements((AbEqList<? super Coords>)accessCond_);
+            cond_.retainAllElements(accessCond_);
 //            if (!beatGymLeader.getKeys(true).containsAllObj(cond_)) {
 //                throw new GameLoadException();
 //            }
@@ -2280,7 +2279,7 @@ public class Game {
 //            return;
 //        }
         LevelPoint lPoint_ = voisin_.getLevel();
-        LevelCave levelCave_ = cave_.getLevels().getVal(lPoint_.getLevelIndex());
+        LevelCave levelCave_ = (LevelCave)cave_.getLevels().getVal(lPoint_.getLevelIndex());
         if (levelCave_.getLinksOtherLevels().contains(lPoint_.getPoint())) {
             nbSteps++;
             playerCoords.affect(levelCave_.getLinksOtherLevels().getVal(lPoint_.getPoint()).getCoords());
@@ -2382,7 +2381,7 @@ public class Game {
         }
         //pl_ instanceof Campaign
         Campaign campaign_ = (Campaign) pl_;
-        LevelWithWildPokemon level_ = campaign_.getLevels().getVal(_voisin.getLevel().getLevelIndex());
+        LevelWithWildPokemon level_ = (LevelWithWildPokemon) campaign_.getLevels().getVal(_voisin.getLevel().getLevelIndex());
         if (level_.getCharacters().contains(_voisin.getLevel().getPoint())) {
             CharacterInRoadCave char_ = level_.getCharacters().getVal(_voisin.getLevel().getPoint());
             if (char_ instanceof Trainer) {

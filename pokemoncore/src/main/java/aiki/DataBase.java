@@ -3408,11 +3408,12 @@ public class DataBase implements WithMathFactory<Rate>{
         for (Place p: map.getPlaces().values()) {
             if (p instanceof League) {
                 League l_ = (League) p;
-                for (LevelLeague l: l_.getLevelsList()) {
-                    String f_ = l.getTrainer().getImageMaxiFileName();
+                for (Level l: l_.getLevelsList()) {
+                    LevelLeague lev_ = (LevelLeague)l;
+                    String f_ = lev_.getTrainer().getImageMaxiFileName();
                     String file_ = TRAINERS_FOLDER+SEPARATOR_FILES+f_;
                     trainers.put(f_, ResourceFiles.ressourceFichier(common_ + file_));
-                    f_ = l.getTrainer().getImageMiniFileName();
+                    f_ = lev_.getTrainer().getImageMiniFileName();
                     file_ = PEOPLE_FOLDER+SEPARATOR_FILES+f_;
                     people.put(f_, ResourceFiles.ressourceFichier(common_ + file_));
                     for (Block b_: l.getBlocks().values()) {
@@ -3420,7 +3421,7 @@ public class DataBase implements WithMathFactory<Rate>{
                         file_ = IMAGES_FOLDER+SEPARATOR_FILES+f_;
                         images.put(f_, ResourceFiles.ressourceFichier(common_ + file_));
                     }
-                    f_ = l.getFileName();
+                    f_ = lev_.getFileName();
                     file_ = LINKS_FOLDER+SEPARATOR_FILES+f_;
                     links.put(f_, ResourceFiles.ressourceFichier(common_ + file_));
                 }
@@ -3479,8 +3480,9 @@ public class DataBase implements WithMathFactory<Rate>{
                 continue;
             }
             Campaign c_ = (Campaign) p;
-            for (LevelWithWildPokemon l: c_.getLevels().values()) {
-                for (CharacterInRoadCave c: l.getCharacters().values()) {
+            for (Level l: c_.getLevels().values()) {
+                LevelWithWildPokemon level_ = (LevelWithWildPokemon) l;
+                for (CharacterInRoadCave c: level_.getCharacters().values()) {
                     if (c instanceof TrainerMultiFights) {
                         TrainerMultiFights tr_ = (TrainerMultiFights) c;
                         String f_ = tr_.getImageMaxiFileName();
@@ -3491,7 +3493,7 @@ public class DataBase implements WithMathFactory<Rate>{
                         people.put(f_, ResourceFiles.ressourceFichier(common_ + file_));
                     }
                 }
-                for (DualFight d: l.getDualFights().values()) {
+                for (DualFight d: level_.getDualFights().values()) {
                     String f_ = d.getFoeTrainer().getImageMaxiFileName();
                     String file_ = TRAINERS_FOLDER+SEPARATOR_FILES+f_;
                     trainers.put(f_, ResourceFiles.ressourceFichier(common_ + file_));
@@ -3523,7 +3525,8 @@ public class DataBase implements WithMathFactory<Rate>{
                     String file_ = LINKS_FOLDER+SEPARATOR_FILES+f_;
                     links.put(f_, ResourceFiles.ressourceFichier(common_ + file_));
                 }
-                for (LevelCave lCave_: cave_.getLevels().values()) {
+                for (Level l: cave_.getLevels().values()) {
+                    LevelCave lCave_ = (LevelCave)l;
                     for (Link k: lCave_.getLinksOtherLevels().values()) {
                         String f_ = k.getFileName();
                         String file_ = LINKS_FOLDER+SEPARATOR_FILES+f_;

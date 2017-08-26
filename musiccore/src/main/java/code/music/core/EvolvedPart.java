@@ -143,24 +143,6 @@ public final class EvolvedPart implements XmlTransientable, MidListable<EvolvedP
         phrases.removeObj(_o);
     }
 
-//    @Override
-//    public boolean containsAll(Collection<?> _c) {
-//        return phrases.containsAll(_c);
-//    }
-//
-//    @Override
-//    public boolean addAll(Collection<? extends EvolvedPhrase> _c) {
-//        for (EvolvedPhrase n: _c) {
-//            part.addPhrase(n.getPhrase());
-//        }
-//        return phrases.addAll(_c);
-//    }
-//
-//    @Override
-//    public boolean removeAll(Collection<?> _c) {
-//        return phrases.removeAll(_c);
-//    }
-
     @Override
     public void clear() {
         part.empty();

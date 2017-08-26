@@ -1,4 +1,6 @@
 package cards.president;
+import cards.president.enumerations.CardPresident;
+import cards.president.enumerations.Playing;
 import code.util.StringList;
 
 public final class EquallablePresidentUtil {
@@ -20,15 +22,19 @@ public final class EquallablePresidentUtil {
         assertError(_expected, _result);
     }
 
-//    public static void assertEq(BidBeloteSuit _expected, BidBeloteSuit _result) {
-//        if (checkNullity(_expected, _result)) {
-//            return;
-//        }
-//        if (_expected.eq(_result)) {
-//            return;
-//        }
-//        assertError(_expected, _result);
-//    }
+    public static void assertEq(Playing _expected, Playing _result) {
+        if (_expected == _result) {
+            return;
+        }
+        assertError(_expected, _result);
+    }
+
+    public static void assertEq(CardPresident _expected, CardPresident _result) {
+        if (_expected == _result) {
+            return;
+        }
+        assertError(_expected, _result);
+    }
 
     private static boolean checkNullity(Object _expected, Object _result) {
         if (allNull(_expected, _result)) {

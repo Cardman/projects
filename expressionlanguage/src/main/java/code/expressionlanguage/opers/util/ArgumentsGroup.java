@@ -12,7 +12,7 @@ public final class ArgumentsGroup extends CustList<ClassArgumentMatching> {
         classes = _classes;
     }
 
-    public ArgumentsGroup(Classes _classes, Listable<? extends ClassArgumentMatching> _c) {
+    public ArgumentsGroup(Classes _classes, Listable<ClassArgumentMatching> _c) {
         super(_c);
         classes = _classes;
     }

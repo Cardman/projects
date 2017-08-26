@@ -10,7 +10,7 @@ public abstract class AbObjectMap<K extends Equallable<K>, V> extends AbsMap<K, 
     public AbObjectMap() {
     }
 
-    public AbObjectMap(ListableEntries<? extends K, ? extends V> _arg0) {
+    public AbObjectMap(ListableEntries<K, V> _arg0) {
         putAllMap(_arg0);
     }
 
@@ -119,9 +119,9 @@ public abstract class AbObjectMap<K extends Equallable<K>, V> extends AbsMap<K, 
         return list_;
     }
     @Override
-    public void putAllMap(ListableEntries<? extends K, ? extends V> _m) {
+    public void putAllMap(ListableEntries<K, V> _m) {
         //setModified();
-        for (EntryCust<? extends K,? extends V> e: _m.entryList()) {
+        for (EntryCust<K,V> e: _m.entryList()) {
             put(e.getKey(), e.getValue());
         }
     }

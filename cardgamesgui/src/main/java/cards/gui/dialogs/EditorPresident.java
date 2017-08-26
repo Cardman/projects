@@ -10,17 +10,6 @@ import javax.swing.JScrollPane;
 import javax.swing.JSpinner;
 import javax.swing.SpinnerListModel;
 
-import code.gui.ConfirmDialog;
-import code.gui.FileSaveDialog;
-import code.gui.LabelButton;
-import code.maths.montecarlo.AbMonteCarlo;
-import code.stream.StreamTextFile;
-import code.util.CustList;
-import code.util.EqList;
-import code.util.Numbers;
-import code.util.StringList;
-import code.util.consts.ConstFiles;
-import code.util.consts.Constants;
 import cards.consts.GameType;
 import cards.facade.Nicknames;
 import cards.facade.enumerations.GameEnum;
@@ -33,11 +22,23 @@ import cards.gui.dialogs.events.ListenerClickCardsList;
 import cards.gui.dialogs.events.MoveCardsEvent;
 import cards.gui.dialogs.events.SavingDealEvent;
 import cards.gui.dialogs.events.ValidateRulesDealEvent;
+import cards.gui.panels.CardsScrollableList;
 import cards.gui.panels.PresidentCardsScrollableList;
 import cards.president.DealPresident;
 import cards.president.DisplayingPresident;
 import cards.president.GamePresident;
 import cards.president.HandPresident;
+import code.gui.ConfirmDialog;
+import code.gui.FileSaveDialog;
+import code.gui.LabelButton;
+import code.maths.montecarlo.AbMonteCarlo;
+import code.stream.StreamTextFile;
+import code.util.CustList;
+import code.util.EqList;
+import code.util.Numbers;
+import code.util.StringList;
+import code.util.consts.ConstFiles;
+import code.util.consts.Constants;
 
 public final class EditorPresident extends DialogPresident implements SetterSelectedCardList {
     private static final String DIALOG_ACCESS = "cards.gui.dialogs.EditorPresident";
@@ -293,10 +294,10 @@ public final class EditorPresident extends DialogPresident implements SetterSele
         int nombreDeJoueurs_;
 
         EqList<HandPresident> mains_=new EqList<HandPresident>();
-        CustList<PresidentCardsScrollableList> hands_ = getHands(false);
-        for(PresidentCardsScrollableList l: hands_) {
+        CustList<CardsScrollableList> hands_ = getHands(false);
+        for(CardsScrollableList l: hands_) {
             HandPresident m=new HandPresident();
-            m.ajouterCartes(l.valMainPresident());
+            m.ajouterCartes(((PresidentCardsScrollableList) l).valMainPresident());
             m.sortCards(displayingPresident.getDecroissant(), false);
             mains_.add(m);
         }
@@ -334,18 +335,20 @@ public final class EditorPresident extends DialogPresident implements SetterSele
     @Override
     public void deplacerCartes() {
         HandPresident m=new HandPresident();
-        for (PresidentCardsScrollableList l: getHands(true)) {
-            HandPresident cartesSelectionnees_= l.getCartesPresidentSelectionnees();
+        for (CardsScrollableList l: getHands(true)) {
+            PresidentCardsScrollableList c_ = (PresidentCardsScrollableList) l;
+            HandPresident cartesSelectionnees_= c_.getCartesPresidentSelectionnees();
             m.ajouterCartes(cartesSelectionnees_);
         }
         int numero_= listeTwo.getSelectedIndex();
-        PresidentCardsScrollableList panneauSelectionne_=getHands(true).get(numero_);
+        PresidentCardsScrollableList panneauSelectionne_=(PresidentCardsScrollableList) getHands(true).get(numero_);
         int taille_=panneauSelectionne_.taille();
         int max_=panneauSelectionne_.getMax();
         if(taille_+m.total()<max_+1) {
-            for (PresidentCardsScrollableList l: getHands(true)) {
-                HandPresident cartesSelectionnees_= l.getCartesPresidentSelectionnees();
-                l.supprimerCartesPresident(cartesSelectionnees_);
+            for (CardsScrollableList l: getHands(true)) {
+                PresidentCardsScrollableList c_ = (PresidentCardsScrollableList) l;
+                HandPresident cartesSelectionnees_= c_.getCartesPresidentSelectionnees();
+                c_.supprimerCartesPresident(cartesSelectionnees_);
             }
             panneauSelectionne_.ajouterCartesPresident(m);
             nombreCartesSelectionnees=0;
@@ -418,13 +421,15 @@ public final class EditorPresident extends DialogPresident implements SetterSele
     }
 
     @Override
-    public CustList<PresidentCardsScrollableList> getHands(boolean _addStack) {
-        CustList<PresidentCardsScrollableList> hands_;
-        hands_ = new CustList<PresidentCardsScrollableList>();
+    public CustList<CardsScrollableList> getHands(boolean _addStack) {
+        CustList<CardsScrollableList> hands_;
+        hands_ = new CustList<CardsScrollableList>();
         if (_addStack) {
             hands_.add(stack);
         }
-        hands_.addAllElts(hands);
+        for (CardsScrollableList c: hands) {
+            hands_.add(c);
+        }
         return hands_;
     }
 }

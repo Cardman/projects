@@ -32,7 +32,7 @@ public class ListTest {
     public void getGroupsSameCompare1Test() {
         CustList<Integer> integers_ = new CustList<Integer>();
         IntegerComparator intCmp_ = new IntegerComparator();
-        CustList<? extends CustList<Integer>> groups_ = integers_.getGroupsSameCompare(intCmp_);
+        CustList<CustList<Integer>> groups_ = integers_.getBaseGroupsSameCompare(intCmp_);
         assertEq(1, groups_.size());
         assertEq(0, groups_.first().size());
     }
@@ -46,7 +46,7 @@ public class ListTest {
         integers_.add(5);
         integers_.add(1);
         IntegerComparator intCmp_ = new IntegerComparator();
-        CustList<? extends CustList<Integer>> groups_ = integers_.getGroupsSameCompare(intCmp_);
+        CustList<CustList<Integer>> groups_ = integers_.getBaseGroupsSameCompare(intCmp_);
         assertEq(5, groups_.size());
         assertEq(1, groups_.get(0).size());
         assertEq(1, groups_.get(1).size());
@@ -70,7 +70,7 @@ public class ListTest {
         integers_.add(1);
         integers_.add(3);
         IntegerComparator intCmp_ = new IntegerComparator();
-        CustList<? extends CustList<Integer>> groups_ = integers_.getGroupsSameCompare(intCmp_);
+        CustList<CustList<Integer>> groups_ = integers_.getBaseGroupsSameCompare(intCmp_);
         assertEq(5, groups_.size());
         assertEq(1, groups_.get(0).size());
         assertEq(1, groups_.get(1).size());
@@ -96,7 +96,7 @@ public class ListTest {
         integers_.add(1);
         integers_.add(3);
         IntegerComparator intCmp_ = new IntegerComparator();
-        CustList<? extends CustList<Integer>> groups_ = integers_.getGroupsSameCompare(intCmp_);
+        CustList<CustList<Integer>> groups_ = integers_.getBaseGroupsSameCompare(intCmp_);
         assertEq(5, groups_.size());
         assertEq(1, groups_.get(0).size());
         assertEq(1, groups_.get(1).size());
@@ -120,7 +120,7 @@ public class ListTest {
         integers_.add(3);
         integers_.add(3);
         IntegerComparator intCmp_ = new IntegerComparator();
-        CustList<? extends CustList<Integer>> groups_ = integers_.getGroupsSameCompare(intCmp_);
+        CustList<CustList<Integer>> groups_ = integers_.getBaseGroupsSameCompare(intCmp_);
         assertEq(1, groups_.size());
         assertEq(4, groups_.get(0).size());
         assertEq(3, groups_.get(0).first().intValue());

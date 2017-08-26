@@ -27,7 +27,14 @@ public final class CriteriaForSearchingPerson extends CriteriaForSearching {
     }
 
     public boolean matchSex(Sex _sex) {
-        return CriteriaForSearching.match(sex, _sex);
+        return match(sex, _sex);
+    }
+
+    private static boolean match(Sex _enum, Sex _element) {
+        if (_enum == null) {
+            return true;
+        }
+        return _enum == _element;
     }
 
     public boolean matchAge(int _age) {

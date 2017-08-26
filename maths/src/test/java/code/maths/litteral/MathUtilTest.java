@@ -327,7 +327,7 @@ public class MathUtilTest {
     @Test(timeout=1000)
     public void check1Test() {
         Argument a_ = MathUtil.processEl("1:0", 0, true, new StringMap<String>());
-        assertEq(MathType.RATE, a_.getArgClass());
+        assertEq(MathType.RATE.name(), a_.getArgClass().name());
 
     }
 

@@ -101,13 +101,6 @@ public abstract class CriteriaForSearching {
         return true;
     }
 
-    protected static boolean match(Enum<?> _enum, Enum<?> _element) {
-        if (_enum == null) {
-            return true;
-        }
-        return _enum == _element;
-    }
-
     protected static boolean match(SelectedBoolean _selectedBoolean, boolean _boolean) {
         if (_selectedBoolean == SelectedBoolean.YES_AND_NO) {
             return true;

@@ -9,7 +9,7 @@ public enum CardChar {
     public String getSymbol(String _loc) {
         String folderName_ = ResourcesAccess.NOM_DOSSIER;
         String fileName_ = ResourcesAccess.SYMBOL_CARDS_TXT;
-        return Format.getConstanteLangue(folderName_, fileName_, _loc, ResourcesAccess.CHARS, this);
+        return Format.getConstanteLangue(folderName_, fileName_, _loc, ResourcesAccess.CHARS, name());
     }
 
     @Override
@@ -20,6 +20,6 @@ public enum CardChar {
     public String toString(String _locale) {
         String folderName_ = ResourcesAccess.NOM_DOSSIER;
         String fileName_ = ResourcesAccess.NOM_FICHIER;
-        return Format.getConstanteLangue(folderName_,fileName_, _locale, ResourcesAccess.CHARS, this);
+        return Format.getConstanteLangue(folderName_,fileName_, _locale, ResourcesAccess.CHARS, name());
     }
 }

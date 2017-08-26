@@ -103,8 +103,8 @@ public class League extends Place {
     }
 
     @Override
-    public NumberMap<Byte,LevelLeague> getLevels() {
-        NumberMap<Byte,LevelLeague> levels_ = new NumberMap<Byte,LevelLeague>();
+    public NumberMap<Byte,Level> getLevels() {
+        NumberMap<Byte,Level> levels_ = new NumberMap<Byte,Level>();
         for (LevelLeague l: rooms) {
             levels_.put((byte) levels_.size(), l);
         }
@@ -112,9 +112,12 @@ public class League extends Place {
     }
 
     @Override
-    public CustList<LevelLeague> getLevelsList() {
-        return new CustList<LevelLeague>(rooms);
-        //TODO remove call constr
+    public CustList<Level> getLevelsList() {
+        CustList<Level> levels_ = new CustList<Level>();
+        for (LevelLeague l: rooms) {
+            levels_.add(l);
+        }
+        return levels_;
     }
 
     @Override

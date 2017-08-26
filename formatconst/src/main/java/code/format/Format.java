@@ -64,8 +64,8 @@ public final class Format {
         return CONSTANTES_FICHIERS.getVal(_dossier+ResourceFiles.SEPARATEUR+_fichier).getVal(_nomConstante);
     }
 
-    public static String getConstanteLangue(String _dossier,String _fichier, String _loc, String _group ,Enum<?> _nomConstante) {
-        return getConstanteLangue(_dossier, _fichier, _loc, _group+Format.DOT+_nomConstante.name());
+    public static String getConstanteLangue(String _dossier,String _fichier, String _loc, String _group ,String _nomConstante) {
+        return getConstanteLangue(_dossier, _fichier, _loc, _group+Format.DOT+_nomConstante);
     }
     public static String getConstanteLangue(String _dossier,String _fichier, String _loc,String _nomConstante) {
         if(!CONSTANTES_FICHIERS.contains(_dossier+ResourceFiles.SEPARATEUR+_loc+ResourceFiles.SEPARATEUR+_fichier)){

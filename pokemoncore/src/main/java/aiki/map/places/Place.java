@@ -24,8 +24,8 @@ public abstract class Place {
     public abstract boolean isEmptyForAdding(Coords _coords);
     public abstract void validateForEditing(DataBase _data);
     public abstract Level getLevelByCoords(Coords _coords);
-    public abstract NumberMap<Byte,? extends Level> getLevels();
-    public abstract CustList<? extends Level> getLevelsList();
+    public abstract NumberMap<Byte,Level> getLevels();
+    public abstract CustList<Level> getLevelsList();
     public abstract Person getPerson(Coords _coords);
     public abstract boolean containsPerson(Coords _coords);
     public abstract void setName(String _name);

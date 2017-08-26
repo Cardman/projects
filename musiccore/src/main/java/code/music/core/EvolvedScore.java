@@ -113,24 +113,6 @@ public class EvolvedScore implements XmlTransientable, MidListable<EvolvedPart> 
         parts.removeObj(_o);
     }
 
-//    @Override
-//    public boolean containsAll(Collection<?> _c) {
-//        return parts.containsAll(_c);
-//    }
-//
-//    @Override
-//    public boolean addAll(Collection<? extends EvolvedPart> _c) {
-//        for (EvolvedPart n: _c) {
-//            score.addPart(n.getPart());
-//        }
-//        return parts.addAll(_c);
-//    }
-//
-//    @Override
-//    public boolean removeAll(Collection<?> _c) {
-//        return parts.removeAll(_c);
-//    }
-
     @Override
     public void clear() {
         score.empty();

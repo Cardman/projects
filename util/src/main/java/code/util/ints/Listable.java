@@ -17,7 +17,7 @@ public interface Listable<T> extends Iterable<T> {
 
     void add(T _e);
 
-    void addAllElts(Listable<? extends T> _c);
+    void addAllElts(Listable<T> _c);
 //    boolean addAll(Collection<? extends T> c);
 
     void clear();

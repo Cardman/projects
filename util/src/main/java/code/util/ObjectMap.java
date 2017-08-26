@@ -8,7 +8,7 @@ public final class ObjectMap<K extends Equallable<K>, V> extends AbObjectMap<K,V
     public ObjectMap() {
     }
 
-    public ObjectMap(ListableEntries<? extends K, ? extends V> _arg0) {
+    public ObjectMap(ListableEntries<K, V> _arg0) {
         putAllMap(_arg0);
     }
 
@@ -49,9 +49,6 @@ public final class ObjectMap<K extends Equallable<K>, V> extends AbObjectMap<K,V
             }
             return CustList.INDEX_NOT_FOUND_ELT;
         }
-//        if (!(_key instanceof Equallable<?>)) {
-//            return CustList.INDEX_NOT_FOUND_ELT;
-//        }
         Equallable<K> k_ = _key;
         for (EntryCust<K, V> e:getList()) {
             K key_ = e.getKey();

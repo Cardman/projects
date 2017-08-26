@@ -149,18 +149,6 @@ public final class StreamZipFile {
         return classNames_;
     }
 
-//    public static Map<String, byte[]> zippedBinaryFilesFromCurrentJar(Class<?> _mainClass) {
-//        String path_ = _mainClass.getProtectionDomain().getCodeSource().getLocation().getPath();
-//        try {
-//            return zippedBinaryFiles(path_);
-//        } catch (Exception e) {
-//            Map<String, byte[]> map_ = new Map<>();
-//            for (String f: StreamTextFile.files(path_)) {
-//                map_.put(f, StreamBinaryFile.loadFile(path_+f));
-//            }
-//            return map_;
-//        }
-//    }
     public static StringMap<byte[]> zippedBinaryFilesFromCurrentJar() {
 //        String path_ = Constants.getMainClass().getProtectionDomain().getCodeSource().getLocation().getPath();
         String path_ = ConstFiles.getJarPath();

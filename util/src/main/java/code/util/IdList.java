@@ -12,7 +12,7 @@ public final class IdList<T> extends AbEqList<T> implements Equallable<IdList<T>
         super(_elements);
     }
 
-    public IdList(Listable<? extends T> _c) {
+    public IdList(Listable<T> _c) {
         super(_c);
     }
 
@@ -20,9 +20,6 @@ public final class IdList<T> extends AbEqList<T> implements Equallable<IdList<T>
     public IdList(CollCapacity _capacity) {
         super(_capacity);
     }
-//    public IdList(Iterable<? extends T> _c) {
-//        super(_c);
-//    }
 
     @Override
     public IdList<T> subAbEq(int _from, int _to) {

@@ -11,7 +11,7 @@ public final class NumberMap<K extends Number, V> extends AbsMap<K, V> {
     public NumberMap() {
     }
 
-    public NumberMap(ListableEntries<? extends K, ? extends V> _arg0) {
+    public NumberMap(ListableEntries<K, V> _arg0) {
         putAllMap(_arg0);
     }
 
@@ -126,9 +126,9 @@ public final class NumberMap<K extends Number, V> extends AbsMap<K, V> {
     }
 
     @Override
-    public void putAllMap(ListableEntries<? extends K, ? extends V> _m) {
+    public void putAllMap(ListableEntries<K, V> _m) {
         //setModified();
-        for (EntryCust<? extends K,? extends V> e: _m.entryList()) {
+        for (EntryCust<K,V> e: _m.entryList()) {
             put(e.getKey(), e.getValue());
         }
     }

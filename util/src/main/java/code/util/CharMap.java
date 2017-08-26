@@ -13,7 +13,7 @@ public final class CharMap<V> extends AbsMap<Character,V> {
     public CharMap() {
     }
 
-    public CharMap(ListableEntries<Character, ? extends V> _arg0) {
+    public CharMap(ListableEntries<Character, V> _arg0) {
         putAllMap(_arg0);
     }
 
@@ -128,9 +128,9 @@ public final class CharMap<V> extends AbsMap<Character,V> {
     }
 
     @Override
-    public void putAllMap(ListableEntries<? extends Character, ? extends V> _m) {
+    public void putAllMap(ListableEntries<Character, V> _m) {
         //setModified();
-        for (EntryCust<? extends Character,? extends V> e: _m.entryList()) {
+        for (EntryCust<Character,V> e: _m.entryList()) {
             put(e.getKey(), e.getValue());
         }
     }

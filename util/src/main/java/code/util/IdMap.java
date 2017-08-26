@@ -13,7 +13,7 @@ public final class IdMap<K,V> extends AbsMap<K,V> {
     public IdMap() {
     }
 
-    public IdMap(ListableEntries<? extends K, ? extends V> _arg0) {
+    public IdMap(ListableEntries<K, V> _arg0) {
         putAllMap(_arg0);
     }
 
@@ -217,9 +217,9 @@ public final class IdMap<K,V> extends AbsMap<K,V> {
     }
 
     @Override
-    public void putAllMap(ListableEntries<? extends K, ? extends V> _m) {
+    public void putAllMap(ListableEntries<K, V> _m) {
         //setModified();
-        for (EntryCust<? extends K,? extends V> e: _m.entryList()) {
+        for (EntryCust<K,V> e: _m.entryList()) {
             put(e.getKey(), e.getValue());
         }
     }

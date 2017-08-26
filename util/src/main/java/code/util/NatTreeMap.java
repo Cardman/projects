@@ -50,16 +50,16 @@ public final class NatTreeMap<K extends Comparable<K>, V> extends AbsMap<K, V> i
 //    }
 
     @Override
-    public void putAllMap(ListableEntries<? extends K, ? extends V> _m) {
+    public void putAllMap(ListableEntries<K, V> _m) {
         //setModified();
-        for (EntryCust<? extends K,? extends V> e: _m.entryList()) {
+        for (EntryCust<K,V> e: _m.entryList()) {
             put(e.getKey(), e.getValue());
         }
     }
 
-    public void putAllTreeMap(NatTreeMap<? extends K, ? extends V> _m) {
+    public void putAllTreeMap(NatTreeMap<K, V> _m) {
         //setModified();
-        for (EntryCust<? extends K,? extends V> e: _m.getList()) {
+        for (EntryCust<K,V> e: _m.getList()) {
             put(e.getKey(), e.getValue());
         }
     }

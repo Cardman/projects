@@ -1,4 +1,7 @@
 package cards.tarot;
+import cards.consts.Suit;
+import cards.tarot.enumerations.BidTarot;
+import cards.tarot.enumerations.CardTarot;
 import code.util.StringList;
 
 public final class EquallableTarotUtil {
@@ -19,16 +22,27 @@ public final class EquallableTarotUtil {
         }
         assertError(_expected, _result);
     }
+    
+    public static void assertEq(Suit _expected, Suit _result) {
+        if (_expected == _result) {
+            return;
+        }
+        assertError(_expected, _result);
+    }
 
-//    public static void assertEq(BidBeloteSuit _expected, BidBeloteSuit _result) {
-//        if (checkNullity(_expected, _result)) {
-//            return;
-//        }
-//        if (_expected.eq(_result)) {
-//            return;
-//        }
-//        assertError(_expected, _result);
-//    }
+    public static void assertEq(CardTarot _expected, CardTarot _result) {
+        if (_expected == _result) {
+            return;
+        }
+        assertError(_expected, _result);
+    }
+    
+    public static void assertEq(BidTarot _expected, BidTarot _result) {
+        if (_expected == _result) {
+            return;
+        }
+        assertError(_expected, _result);
+    }
 
     private static boolean checkNullity(Object _expected, Object _result) {
         if (allNull(_expected, _result)) {

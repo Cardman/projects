@@ -11,6 +11,6 @@ NORMAL,NORMAL_WITH_MISERE,NORMAL_WITH_ONE_FOR_ONE,MISERE,ONE_FOR_ONE;
     }
 
     public String toString(String _locale) {
-        return Format.getConstanteLangue(ResoucesAccess.NOM_DOSSIER,ResoucesAccess.NOM_FICHIER, _locale, ResoucesAccess.TAROT_MODE, this);
+        return Format.getConstanteLangue(ResoucesAccess.NOM_DOSSIER,ResoucesAccess.NOM_FICHIER, _locale, ResoucesAccess.TAROT_MODE, name());
     }
 }

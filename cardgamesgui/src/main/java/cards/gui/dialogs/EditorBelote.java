@@ -8,17 +8,6 @@ import javax.swing.JPanel;
 import javax.swing.JSpinner;
 import javax.swing.SpinnerListModel;
 
-import code.gui.ConfirmDialog;
-import code.gui.FileSaveDialog;
-import code.gui.LabelButton;
-import code.maths.montecarlo.AbMonteCarlo;
-import code.stream.StreamTextFile;
-import code.util.CustList;
-import code.util.EqList;
-import code.util.Numbers;
-import code.util.StringList;
-import code.util.consts.ConstFiles;
-import code.util.consts.Constants;
 import cards.belote.DealBelote;
 import cards.belote.DisplayingBelote;
 import cards.belote.GameBelote;
@@ -36,6 +25,18 @@ import cards.gui.dialogs.events.MoveCardsEvent;
 import cards.gui.dialogs.events.SavingDealEvent;
 import cards.gui.dialogs.events.ValidateRulesDealEvent;
 import cards.gui.panels.BeloteCardsScrollableList;
+import cards.gui.panels.CardsScrollableList;
+import code.gui.ConfirmDialog;
+import code.gui.FileSaveDialog;
+import code.gui.LabelButton;
+import code.maths.montecarlo.AbMonteCarlo;
+import code.stream.StreamTextFile;
+import code.util.CustList;
+import code.util.EqList;
+import code.util.Numbers;
+import code.util.StringList;
+import code.util.consts.ConstFiles;
+import code.util.consts.Constants;
 
 public final class EditorBelote extends DialogBelote implements SetterSelectedCardList{
 
@@ -351,15 +352,16 @@ public final class EditorBelote extends DialogBelote implements SetterSelectedCa
 //            HandBelote cartesSelectionnees_=((BeloteCardsScrollableList)panelsCards.getComponent(i)).getCartesBeloteSelectionnees();
 //            m.ajouterCartes(cartesSelectionnees_);
 //        }
-        for (BeloteCardsScrollableList l: getHands(true)) {
-            HandBelote cartesSelectionnees_= l.getCartesBeloteSelectionnees();
+        for (CardsScrollableList l: getHands(true)) {
+            BeloteCardsScrollableList c_ = (BeloteCardsScrollableList) l;
+            HandBelote cartesSelectionnees_= c_.getCartesBeloteSelectionnees();
             m.ajouterCartes(cartesSelectionnees_);
         }
         int numero_=listeTwo.getSelectedIndex();
-        BeloteCardsScrollableList panneauSelectionne_=getHands(true).get(numero_);
+        BeloteCardsScrollableList panneauSelectionne_=(BeloteCardsScrollableList) getHands(true).get(numero_);
         //(BeloteCardsScrollableList)panelsCards.getComponent(numero_);
 //        BeloteCardsScrollableList panneau2_;
-        int taille_=panneauSelectionne_.taille();
+        int taille_= panneauSelectionne_.taille();
         int max_=panneauSelectionne_.getMax();
         if(taille_+m.total()<max_+1) {
 //            for (int i = List.FIRST_INDEX;i<nombreDeMains_;i++) {
@@ -367,9 +369,10 @@ public final class EditorBelote extends DialogBelote implements SetterSelectedCa
 //                HandBelote cartesSelectionnees_=panneau2_.getCartesBeloteSelectionnees();
 //                panneau2_.supprimerCartesBelote(cartesSelectionnees_);
 //            }
-            for (BeloteCardsScrollableList l: getHands(true)) {
-                HandBelote cartesSelectionnees_=l.getCartesBeloteSelectionnees();
-                l.supprimerCartesBelote(cartesSelectionnees_);
+            for (CardsScrollableList l: getHands(true)) {
+                BeloteCardsScrollableList c_ = (BeloteCardsScrollableList) l;
+                HandBelote cartesSelectionnees_=c_.getCartesBeloteSelectionnees();
+                c_.supprimerCartesBelote(cartesSelectionnees_);
             }
             if(numero_ != getHands(false).size()) {
                 panneauSelectionne_.ajouterCartesBelote(m);
@@ -432,13 +435,15 @@ public final class EditorBelote extends DialogBelote implements SetterSelectedCa
     }
 
     @Override
-    public CustList<BeloteCardsScrollableList> getHands(boolean _addStack) {
-        CustList<BeloteCardsScrollableList> hands_;
-        hands_ = new CustList<BeloteCardsScrollableList>();
+    public CustList<CardsScrollableList> getHands(boolean _addStack) {
+        CustList<CardsScrollableList> hands_;
+        hands_ = new CustList<CardsScrollableList>();
         if (_addStack) {
             hands_.add(stack);
         }
-        hands_.addAllElts(hands);
+        for (CardsScrollableList c: hands) {
+            hands_.add(c);
+        }
         hands_.add(remaining);
         return hands_;
     }

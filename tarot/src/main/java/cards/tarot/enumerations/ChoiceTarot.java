@@ -11,6 +11,6 @@ SAVE_SMALL,HUNT_SMALL,LEAD_SMALL_BOUND;
         return toString(Constants.getLanguage());
     }
     public String toString(String _locale) {
-        return Format.getConstanteLangue(ResoucesAccess.NOM_DOSSIER,ResoucesAccess.NOM_FICHIER, _locale, ResoucesAccess.TAROT_CHOICE, this);
+        return Format.getConstanteLangue(ResoucesAccess.NOM_DOSSIER,ResoucesAccess.NOM_FICHIER, _locale, ResoucesAccess.TAROT_CHOICE, name());
     }
 }

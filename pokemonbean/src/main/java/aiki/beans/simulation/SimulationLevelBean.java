@@ -168,7 +168,7 @@ public class SimulationLevelBean extends CommonBean {
         }
         if (p_ instanceof Campaign) {
             Campaign c_ = (Campaign) p_;
-            LevelWithWildPokemon l_ = c_.getLevels().getVal(lev_.byteValue());
+            LevelWithWildPokemon l_ = (LevelWithWildPokemon) c_.getLevels().getVal(lev_.byteValue());
             if (l_.getDualFights().contains(pt_)) {
                 Coords coords_ = new Coords();
                 coords_.setNumberPlace(pl_.shortValue());

@@ -14,7 +14,7 @@ public final class BooleanMap<V> extends AbsMap<Boolean,V> {
     public BooleanMap() {
     }
 
-    public BooleanMap(ListableEntries<? extends Boolean, ? extends V> _arg0) {
+    public BooleanMap(ListableEntries<Boolean, V> _arg0) {
         putAllMap(_arg0);
     }
 
@@ -111,9 +111,9 @@ public final class BooleanMap<V> extends AbsMap<Boolean,V> {
     }
 
     @Override
-    public void putAllMap(ListableEntries<? extends Boolean, ? extends V> _m) {
+    public void putAllMap(ListableEntries<Boolean, V> _m) {
         //setModified();
-        for (EntryCust<? extends Boolean,? extends V> e: _m.entryList()) {
+        for (EntryCust<Boolean,V> e: _m.entryList()) {
             put(e.getKey(), e.getValue());
         }
     }

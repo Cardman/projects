@@ -159,15 +159,15 @@ public class City extends Place implements InitializedPlace{
         return true;
     }
     @Override
-    public NumberMap<Byte,LevelOutdoor> getLevels() {
-        NumberMap<Byte,LevelOutdoor> levels_ = new NumberMap<Byte,LevelOutdoor>();
+    public NumberMap<Byte,Level> getLevels() {
+        NumberMap<Byte,Level> levels_ = new NumberMap<Byte,Level>();
         levels_.put((byte) CustList.FIRST_INDEX, level);
         return levels_;
     }
 
     @Override
-    public CustList<LevelOutdoor> getLevelsList() {
-        return new CustList<LevelOutdoor>(level);
+    public CustList<Level> getLevelsList() {
+        return new CustList<Level>(level);
     }
 
     @Override

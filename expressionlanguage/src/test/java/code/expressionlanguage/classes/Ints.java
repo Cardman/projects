@@ -1,11 +1,9 @@
 package code.expressionlanguage.classes;
 
-import java.util.Collection;
 import java.util.Comparator;
 import java.util.Iterator;
 import java.util.ListIterator;
 
-import code.util.AbEqList;
 import code.util.CustList;
 import code.util.EqList;
 import code.util.Numbers;
@@ -14,10 +12,6 @@ import code.util.ints.Listable;
 public class Ints implements Listable<Integer> {
 
     private Numbers<Integer> ints = new Numbers<Integer>();
-
-    public void removeAllElements(Listable<? extends Integer> _c) {
-        ints.removeAllElements(_c);
-    }
 
     public void removeAllObj(Integer _obj) {
         ints.removeAllObj(_obj);
@@ -31,12 +25,8 @@ public class Ints implements Listable<Integer> {
         return ints.intersect(_list);
     }
 
-    public boolean containsAllObj(Listable<? extends Integer> _list) {
-        return ints.containsAllObj(_list);
-    }
-
     @Override
-    public void addAllElts(Listable<? extends Integer> _c) {
+    public void addAllElts(Listable<Integer> _c) {
         ints.addAllElts(_c);
     }
 
@@ -44,7 +34,7 @@ public class Ints implements Listable<Integer> {
         return ints.containsObj(_obj);
     }
 
-    public void sortElts(Comparator<? super Integer> _comp) {
+    public void sortElts(Comparator<Integer> _comp) {
         ints.sortElts(_comp);
     }
 
@@ -129,14 +119,6 @@ public class Ints implements Listable<Integer> {
     @Override
     public void add(Integer _e) {
         ints.add(_e);
-    }
-
-    public boolean addAll(int _index, Collection<? extends Integer> _c) {
-        return ints.addAll(_index, _c);
-    }
-
-    public void retainAllElements(AbEqList<? super Integer> _c) {
-        ints.retainAllElements(_c);
     }
 
     public EqList<Numbers<Integer>> getAllIndexes() {
@@ -244,11 +226,6 @@ public class Ints implements Listable<Integer> {
 
     public Numbers<Integer> subAbEq(int _from, int _to) {
         return ints.subAbEq(_from, _to);
-    }
-
-    public CustList<? extends CustList<Integer>> getGroupsSameCompare(
-            Comparator<Integer> _cmp) {
-        return ints.getGroupsSameCompare(_cmp);
     }
 
     @Override

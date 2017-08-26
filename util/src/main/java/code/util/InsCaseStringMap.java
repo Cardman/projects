@@ -13,7 +13,7 @@ public final class InsCaseStringMap<V> extends AbsMap<String,V> {
     public InsCaseStringMap() {
     }
 
-    public InsCaseStringMap(ListableEntries<String, ? extends V> _arg0) {
+    public InsCaseStringMap(ListableEntries<String, V> _arg0) {
         putAllMap(_arg0);
     }
     @CapacityInit
@@ -84,9 +84,9 @@ public final class InsCaseStringMap<V> extends AbsMap<String,V> {
     }
 
     @Override
-    public void putAllMap(ListableEntries<? extends String, ? extends V> _m) {
+    public void putAllMap(ListableEntries<String, V> _m) {
         //setModified();
-        for (EntryCust<? extends String,? extends V> e: _m.entryList()) {
+        for (EntryCust<String,V> e: _m.entryList()) {
             put(e.getKey(), e.getValue());
         }
     }

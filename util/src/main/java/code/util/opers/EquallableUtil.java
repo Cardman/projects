@@ -35,14 +35,6 @@ public final class EquallableUtil {
         assertError(_expected, _result);
     }
 
-    /**If Enum<?> is replaced by a variable type, then the code works because cast are done before calling this method*/
-    public static void assertEq(Enum<?> _expected, Enum<?> _result) {
-        if (_expected == _result) {
-            return;
-        }
-        assertError(_expected, _result);
-    }
-
     public static void assertEq(Boolean _expected, Object _result) {
         if (checkNullity(_expected, _result)) {
             return;

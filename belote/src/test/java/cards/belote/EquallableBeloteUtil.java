@@ -1,4 +1,8 @@
 package cards.belote;
+import cards.belote.enumerations.BidBelote;
+import cards.belote.enumerations.CardBelote;
+import cards.belote.enumerations.DeclaresBelote;
+import cards.consts.Suit;
 import code.util.StringList;
 
 public final class EquallableBeloteUtil {
@@ -25,6 +29,34 @@ public final class EquallableBeloteUtil {
             return;
         }
         if (_expected.eq(_result)) {
+            return;
+        }
+        assertError(_expected, _result);
+    }
+    
+    public static void assertEq(Suit _expected, Suit _result) {
+        if (_expected == _result) {
+            return;
+        }
+        assertError(_expected, _result);
+    }
+    
+    public static void assertEq(CardBelote _expected, CardBelote _result) {
+        if (_expected == _result) {
+            return;
+        }
+        assertError(_expected, _result);
+    }
+    
+    public static void assertEq(BidBelote _expected, BidBelote _result) {
+        if (_expected == _result) {
+            return;
+        }
+        assertError(_expected, _result);
+    }
+
+    public static void assertEq(DeclaresBelote _expected, DeclaresBelote _result) {
+        if (_expected == _result) {
             return;
         }
         assertError(_expected, _result);

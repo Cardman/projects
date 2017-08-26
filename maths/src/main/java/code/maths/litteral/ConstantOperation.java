@@ -105,63 +105,6 @@ public final class ConstantOperation extends OperationNode {
         }
         setArgument(a_);
         setNextSiblingsArg(a_);
-//        PageEl ip_ = _conf.getImporting().last();
-//        if (str_.endsWith(GET_PARAM)) {
-//            String key_ = str_.substring(CustList.FIRST_INDEX, str_.length() - GET_PARAM.length());
-//            LocalVariable locVar_ = ip_.getParameters().getVal(key_);
-//            a_ = new Argument();
-////            a_.setArgClass(ConstClasses.classForName(locVar_.getClassName()));
-//            a_.setArgClass(getResultClass().getClazz());
-//            a_.setObject(locVar_.getElement());
-//            setArgument(a_);
-//            setNextSiblingsArg(a_);
-//            return;
-//        }
-//        if (str_.endsWith(GET_LOC_VAR)) {
-//            String key_ = str_.substring(CustList.FIRST_INDEX, str_.length() - GET_LOC_VAR.length());
-//            LocalVariable locVar_ = ip_.getLocalVars().getVal(key_);
-//            a_ = new Argument();
-////            a_.setArgClass(ConstClasses.classForName(locVar_.getClassName()));
-//            a_.setArgClass(getResultClass().getClazz());
-//            a_.setObject(locVar_.getElement());
-//            setArgument(a_);
-//            setNextSiblingsArg(a_);
-//            return;
-//        }
-//        if (str_.endsWith(GET_INDEX)) {
-//            String key_ = str_.substring(CustList.FIRST_INDEX, str_.length() - GET_INDEX.length());
-//            LoopVariable locVar_ = ip_.getVars().getVal(key_);
-//            a_ = new Argument();
-////            a_.setArgClass(ConstClasses.classForName(locVar_.getIndexClassName()));
-//            a_.setArgClass(getResultClass().getClazz());
-//            a_.setObject(locVar_.getIndex());
-//            setArgument(a_);
-//            setNextSiblingsArg(a_);
-//            return;
-//        }
-//        if (str_.endsWith(GET_ATTRIBUTE)) {
-//            String key_ = str_.substring(CustList.FIRST_INDEX, str_.length() - GET_ATTRIBUTE.length());
-//            LoopVariable locVar_ = ip_.getVars().getVal(key_);
-//            a_ = new Argument();
-////            a_.setArgClass(ConstClasses.classForName(locVar_.getClassName()));
-////            a_.setArgClass(ConstClasses.classForName(locVar_.getClassName()));
-//            a_.setArgClass(getResultClass().getClazz());
-//            a_.setObject(locVar_.getElement());
-//            setArgument(a_);
-//            setNextSiblingsArg(a_);
-//            return;
-//        }
-//        Argument arg_ = getPreviousArgument();
-////        Class<?> cl_ = arg_.getArgClass();
-//        Object obj_ = arg_.getObject();
-////        Field f_ = SerializeXmlObject.getDeclaredField(cl_, str_);
-//        setAccess(field);
-//        Object res_ = ConverterMethod.getField(field, obj_);
-//        a_ = new Argument();
-//        a_.setArgClass(field.getType());
-//        a_.setObject(res_);
-//        setArgument(a_);
-//        setNextSiblingsArg(a_);
     }
 
     private void analyzeCalculate() {

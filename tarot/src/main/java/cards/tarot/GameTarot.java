@@ -30,7 +30,6 @@ import cards.tarot.enumerations.ModeTarot;
 import cards.tarot.enumerations.PlayingDog;
 import code.format.Format;
 import code.maths.Rate;
-import code.util.AbEqList;
 import code.util.BooleanList;
 import code.util.CustList;
 import code.util.EnumList;
@@ -9137,8 +9136,8 @@ public final class GameTarot {
         byte nombreDeJoueurs_ = getNombreDeJoueurs();
         Numbers<Byte> joueursConfiance_ = joueursConfiance(_numero,tousJoueurs(nombreDeJoueurs_));
         Numbers<Byte> joueursNonConfiance_ = joueursNonConfiance(_numero,tousJoueurs(nombreDeJoueurs_));
-        joueursNonConfianceNonJoue_.retainAllElements((AbEqList<? super Byte>)joueursNonConfiance_);
-        joueursConfianceNonJoue_.retainAllElements((AbEqList<? super Byte>)joueursConfiance_);
+        joueursNonConfianceNonJoue_.retainAllElements(joueursNonConfiance_);
+        joueursConfianceNonJoue_.retainAllElements(joueursConfiance_);
         Numbers<Byte> joueursJoue_ = _info.getJoueursJoue();
         if (_carteForte.couleur() == couleurAtout() && couleursOrdinaires().containsObj(couleurDemandee_)) {
         /*

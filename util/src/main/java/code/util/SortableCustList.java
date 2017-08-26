@@ -27,7 +27,7 @@ public final class SortableCustList<T extends Cmp<T>> extends AbEqList<T> implem
     /**
         @param _c
     */
-    public SortableCustList(Listable<? extends T> _c) {
+    public SortableCustList(Listable<T> _c) {
         super(_c);
     }
 

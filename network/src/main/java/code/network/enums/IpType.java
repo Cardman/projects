@@ -24,6 +24,6 @@ public enum IpType {
     }
 
     public String toString(String _locale) {
-        return Format.getConstanteLangue(ResourcesAccess.NOM_DOSSIER,ResourcesAccess.NOM_FICHIER, _locale, ResourcesAccess.IP, this);
+        return Format.getConstanteLangue(ResourcesAccess.NOM_DOSSIER,ResourcesAccess.NOM_FICHIER, _locale, ResourcesAccess.IP, name());
     }
 }

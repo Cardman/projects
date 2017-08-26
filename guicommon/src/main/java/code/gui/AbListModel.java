@@ -9,34 +9,6 @@ public abstract class AbListModel<T> extends CustListModel<T> {
     public AbListModel() {
     }
 
-//    public AbListModel(Listable<? extends T> _c) {
-//        super(_c);
-//    }
-//
-//    public AbListModel(T... _elements) {
-//        super(_elements);
-//    }
-
-    public void removeAllElements(Listable<? extends T> _c) {
-        for (T s: _c) {
-            if (containsObj(s)) {
-                //_list.containsObj(s)
-                removeAllObj(s);
-            }
-        }
-    }
-
-//    public boolean removeAll(Listable<? extends T> _c) {
-//        boolean r_ = false;
-//        for (T s: _c) {
-//            if (containsObj(s)) {
-//                r_ = true;
-//                //_list.containsObj(s)
-//                removeAllObj(s);
-//            }
-//        }
-//        return r_;
-//    }
     public void removeAllObj(T _obj) {
         //setModified();
         while (containsObj(_obj)) {
@@ -62,25 +34,7 @@ public abstract class AbListModel<T> extends CustListModel<T> {
         }
         return list_;
     }
-//    public void retainAllElements(AbEqList<? super T> _c) {
-//        int i_ = FIRST_INDEX;
-//        while (i_ < size()) {
-//            T e_ = get(i_);
-//            if (!_c.containsObj(e_)) {
-//                removeElementAt(i_);
-//            } else {
-//                i_++;
-//            }
-//        }
-//    }
-    public boolean containsAllObj(Listable<? extends T> _list) {
-        for (T e: _list) {
-            if (!containsObj(e)) {
-                return false;
-            }
-        }
-        return true;
-    }
+
     public boolean containsObj(T _obj) {
 //        return !indexesOfObj(_obj).isEmpty();
         return indexOfObj(_obj) != INDEX_NOT_FOUND_ELT;
@@ -104,61 +58,6 @@ public abstract class AbListModel<T> extends CustListModel<T> {
         }
         return indexes_.last();
     }
-
-//    protected boolean areDuplicates(int _i, int _j) {
-//        if (_i == _j) {
-//            return false;
-//        }
-//        T one_ = get(_i);
-//        T two_ = get(_j);
-//        return indexOfObj(one_) == indexOfObj(two_);
-//    }
-
-//    public void removeDuplicates()  {
-//        //setModified();
-//        int i_ = FIRST_INDEX;
-//        while (true) {
-//            if(i_ >= size()) {
-//                break;
-//            }
-//            int next_ = indexOfObj(get(i_), i_ + 1);
-//            if (next_ == INDEX_NOT_FOUND_ELT) {
-//                i_++;
-//            } else {
-//                removeElementAt(next_);
-//            }
-////            int j_ = i_ + 1;
-////            while (true) {
-////                if (j_ >= size()) {
-////                    break;
-////                }
-////                if (areDuplicates(i_, j_)) {
-////                    removeAt(j_);
-////                } else {
-////                    j_++;
-////                }
-//////                if (get(i_) == null) {
-//////                    if (get(j_) == null) {
-//////                        removeAt(j_);
-//////                    } else {
-//////                        j_++;
-//////                    }
-//////                    continue;
-//////                }
-//////                if (eq(get(i_),get(j_))) {
-//////                    removeAt(j_);
-//////                } else {
-//////                    j_++;
-//////                }
-////            }
-////            i_++;
-//        }
-//    }
-
-//    @Override
-//    public T get(int _index) {
-//        return (T)super.get(_index);
-//    }
 
     public Numbers<Integer> indexesOfObj(T _element) {
         Numbers<Integer> indexes_;

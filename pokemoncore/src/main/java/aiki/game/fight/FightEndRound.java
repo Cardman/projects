@@ -1,13 +1,4 @@
 package aiki.game.fight;
-import code.maths.Rate;
-import code.maths.montecarlo.MonteCarloBoolean;
-import code.maths.montecarlo.MonteCarloNumber;
-import code.util.AbEqList;
-import code.util.CustList;
-import code.util.NumberMap;
-import code.util.Numbers;
-import code.util.StringList;
-import code.util.StringMap;
 import aiki.DataBase;
 import aiki.exceptions.SimulationException;
 import aiki.fight.EndRoundMainElements;
@@ -42,6 +33,14 @@ import aiki.game.params.Difficulty;
 import aiki.game.player.Player;
 import aiki.map.pokemon.PokemonPlayer;
 import aiki.map.pokemon.UsablePokemon;
+import code.maths.Rate;
+import code.maths.montecarlo.MonteCarloBoolean;
+import code.maths.montecarlo.MonteCarloNumber;
+import code.util.CustList;
+import code.util.NumberMap;
+import code.util.Numbers;
+import code.util.StringList;
+import code.util.StringMap;
 
 final class FightEndRound {
 
@@ -1437,7 +1436,7 @@ final class FightEndRound {
             Fighter fighter_ = _fight.getUserTeam().refPartMembres(k);
             StringList oldMoves_ = new StringList(fighter_.getMovesSet());
             StringList keptMoves_ = new StringList(oldMoves_);
-            keptMoves_.retainAllElements((AbEqList<? super String>)choice_.getKeptMoves());
+            keptMoves_.retainAllElements(choice_.getKeptMoves());
             StringList forgottenMoves_ = new StringList(oldMoves_);
             forgottenMoves_.removeAllElements(choice_.getKeptMoves());
             StringList learntMoves_ = new StringList(choice_.getKeptMoves());

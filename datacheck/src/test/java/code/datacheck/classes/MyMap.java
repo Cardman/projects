@@ -221,8 +221,8 @@ public class MyMap<V> implements ListableEntries<String, V> {
     }
 
     @Override
-    public void putAllMap(ListableEntries<? extends String, ? extends V> _m) {
-        for (EntryCust<? extends String, ? extends V> e: _m.entryList()) {
+    public void putAllMap(ListableEntries<String, V> _m) {
+        for (EntryCust<String, V> e: _m.entryList()) {
             put(e.getKey(), e.getValue());
         }
     }
