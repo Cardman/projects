@@ -98,6 +98,9 @@ import code.xml.exceptions.XmlParseException;
 
 final class FormatHtml {
 
+    private static final char RIGHT_ARR = ']';
+    private static final char LEFT_ARR = '[';
+    private static final String SUFFIX_INT = "i";
     static final String XMLNS = "xmlns";
     static final String NAMESPACE_URI = "javahtml";
     static final String ATTRIBUTE_CLASS_NAME = "className";
@@ -1626,12 +1629,10 @@ final class FormatHtml {
                 _conf.getLastPage().setLookForAttrValue(true);
                 _conf.getLastPage().setOffset(0);
                 Struct elementArg_ = ElUtil.processEl(elementExpr_, 0, _conf.toContextEl()).getStruct();
-                Object element_ = elementArg_.getInstance();
                 _conf.getLastPage().setProcessingAttribute(EXPRESSION_ATTRIBUTE);
                 _conf.getLastPage().setLookForAttrValue(true);
                 _conf.getLastPage().setOffset(0);
                 Struct arrayArg_ = ElUtil.processEl(expression_, 0, _conf.toContextEl()).getStruct();
-                Object array_ = arrayArg_.getInstance();
                 int indexNb_;
                 try {
                     indexNb_ = (Integer)index_;
@@ -1641,17 +1642,35 @@ final class FormatHtml {
                     _conf.getLastPage().setOffset(0);
                     throw new DynamicNumberFormatException(_conf.joinPages());
                 }
+                LocalVariable right_ = new LocalVariable();
+                right_.setClassName(elementArg_.getClassName());
+                right_.setStruct(elementArg_);
+                LocalVariable left_ = new LocalVariable();
+                left_.setClassName(arrayArg_.getClassName());
+                left_.setStruct(arrayArg_);
+                String tmp_ = FormatHtml.TMP_VAR;
+                int i_ = CustList.FIRST_INDEX;
+                while (_ip.getLocalVars().contains(tmp_+i_)) {
+                    i_++;
+                }
+                String nameOne_ = tmp_+i_;
+                _ip.getLocalVars().put(nameOne_, left_);
+                i_++;
+                while (_ip.getLocalVars().contains(tmp_+i_)) {
+                    i_++;
+                }
+                String nameTwo_ = tmp_+i_;
+                _ip.getLocalVars().put(nameTwo_, right_);
                 try {
-                    Array.set(array_, indexNb_, element_);
+                    ElUtil.processAffect(EMPTY_STRING,ARRAY_ELEMENT_ATTRIBUTE, EXPRESSION_ATTRIBUTE, nameOne_+GET_LOC_VAR+LEFT_ARR+indexNb_+SUFFIX_INT+RIGHT_ARR, nameTwo_+GET_LOC_VAR, String.valueOf(EQUALS), _conf.toContextEl());
                 } catch (RuntimeException _0) {
-                    try {
-                        Array.set(array_, indexNb_, new Struct(element_));
-                    } catch (RuntimeException _1) {
-                        _conf.getLastPage().setProcessingAttribute(EMPTY_STRING);
-                        _conf.getLastPage().setLookForAttrValue(false);
-                        _conf.getLastPage().setOffset(0);
-                        throw new SettingArrayException(_conf.joinPages(), new Struct(_1));
-                    }
+                    _conf.getLastPage().setProcessingAttribute(EMPTY_STRING);
+                    _conf.getLastPage().setLookForAttrValue(false);
+                    _conf.getLastPage().setOffset(0);
+                    throw new SettingArrayException(_conf.joinPages(), new Struct(_0));
+                } finally {
+                    _ip.getLocalVars().removeKey(nameOne_);
+                    _ip.getLocalVars().removeKey(nameTwo_);
                 }
             } else {
                 ElUtil.processEl(expression_, 0, _conf.toContextEl());

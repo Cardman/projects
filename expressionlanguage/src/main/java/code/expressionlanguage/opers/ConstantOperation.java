@@ -480,6 +480,9 @@ public final class ConstantOperation extends OperationNode implements SettableEl
             Argument right_ = ip_.getRightArgument();
             Argument res_;
             res_ = NumericOperation.calculateAffect(left_, _conf, right_, _op);
+            if (res_.isNull() && locVar_.getClassName().startsWith(PrimitiveTypeUtil.PRIM)) {
+                throw new NullObjectException(_conf.joinPages());
+            }
             locVar_.setStruct(res_.getStruct());
             return res_;
         }

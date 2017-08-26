@@ -32,17 +32,16 @@ import code.util.exceptions.RuntimeClassNotFoundException;
 
 public final class ElUtil {
 
-    private static final String ATTRIBUTE_LEFT = "left";
     private static final String ATTRIBUTE_OPER = "oper";
-    private static final String ATTRIBUTE_RIGHT = "right";
     private static final String EMPTY_STRING = "";
     private ElUtil() {
     }
 
-    public static ExpLanguages analyzeAffect(String _left, String _right, String _oper, ContextEl _conf, boolean _staticContext) {
+    public static ExpLanguages analyzeAffect(String _attrOp, String _attrLeft, String _attrRight,
+            String _left, String _right, String _oper, ContextEl _conf, boolean _staticContext) {
         PageEl page_ = _conf.getLastPage();
         page_.setOffset(0);
-        page_.setProcessingAttribute(ATTRIBUTE_LEFT);
+        page_.setProcessingAttribute(_attrLeft);
         Delimiters dLeft_ = ElResolver.checkSyntax(_left, _conf, CustList.FIRST_INDEX);
         ElResolver.secondCheckSyntax(_left, _conf, dLeft_);
         OperationsSequence opTwoLeft_ = ElResolver.getOperationsSequence(CustList.FIRST_INDEX, _left, _conf, dLeft_);
@@ -52,7 +51,7 @@ public final class ElUtil {
             o.setConf(null);
         }
         page_.setOffset(0);
-        page_.setProcessingAttribute(ATTRIBUTE_RIGHT);
+        page_.setProcessingAttribute(_attrRight);
         Delimiters dRight_ = ElResolver.checkSyntax(_right, _conf, CustList.FIRST_INDEX);
         ElResolver.secondCheckSyntax(_right, _conf, dLeft_);
         OperationsSequence opTwoRight_ = ElResolver.getOperationsSequence(CustList.FIRST_INDEX, _right, _conf, dRight_);
@@ -62,18 +61,20 @@ public final class ElUtil {
             o.setConf(null);
         }
         page_.setOffset(0);
-        page_.setProcessingAttribute(ATTRIBUTE_LEFT);
+        page_.setProcessingAttribute(_attrLeft);
         analyzeSetting(allLeft_, _conf);
         analyze(true, allLeft_, _conf, _staticContext, false, _oper);
         page_.setOffset(0);
-        page_.setProcessingAttribute(ATTRIBUTE_RIGHT);
+        page_.setProcessingAttribute(_attrRight);
         analyze(false, allRight_, _conf, _staticContext, false, _oper);
         page_.setOffset(0);
-        page_.setProcessingAttribute(ATTRIBUTE_LEFT);
+        page_.setProcessingAttribute(_attrLeft);
         ClassArgumentMatching clMatchRight_ = opRight_.getResultClass();
         ClassArgumentMatching clMatchLeft_ = opLeft_.getResultClass();
         page_.setOffset(0);
-        page_.setProcessingAttribute(ATTRIBUTE_OPER);
+        if (!_attrOp.isEmpty()) {
+            page_.setProcessingAttribute(_attrOp);
+        }
         if (_oper.length() == 2) {
             if (StringList.quickEq(_oper, Block.EQ_PLUS) || StringList.quickEq(_oper, Block.PLUS_EQ)) {
                 if (!PrimitiveTypeUtil.isPureNumberClass(clMatchLeft_)) {
@@ -95,6 +96,7 @@ public final class ElUtil {
                 }
                 throw new PrimitiveTypeException(_conf.joinPages());
             }
+            System.out.println(page_.getProcessingAttribute());
             if (!PrimitiveTypeUtil.canBeUseAsArgument(clMatchLeft_.getName(), clMatchRight_.getName(), _conf.getClasses())) {
                 throw new DynamicCastClassException(_conf.joinPages());
             }
@@ -177,76 +179,18 @@ public final class ElUtil {
         }
         _conf.getLastPage().setRightArgument(null);
     }
-    public static void processAffect(String _left, String _right, String _oper, ContextEl _conf, boolean _staticContext) {
-        Delimiters dLeft_ = ElResolver.checkSyntax(_left, _conf, CustList.FIRST_INDEX);
-        ElResolver.secondCheckSyntax(_left, _conf, dLeft_);
-        OperationsSequence opTwoLeft_ = ElResolver.getOperationsSequence(CustList.FIRST_INDEX, _left, _conf, dLeft_);
-        OperationNode opLeft_ = OperationNode.createOperationNode(_left, CustList.FIRST_INDEX, _conf, CustList.FIRST_INDEX, null, opTwoLeft_);
-        CustList<OperationNode> allLeft_ = getOperationNodes(opLeft_);
-        for (OperationNode o: allLeft_) {
-            o.setConf(null);
-        }
-        Delimiters dRight_ = ElResolver.checkSyntax(_right, _conf, CustList.FIRST_INDEX);
-        ElResolver.secondCheckSyntax(_right, _conf, dLeft_);
-        OperationsSequence opTwoRight_ = ElResolver.getOperationsSequence(CustList.FIRST_INDEX, _right, _conf, dRight_);
-        OperationNode opRight_ = OperationNode.createOperationNode(_right, CustList.FIRST_INDEX, _conf, CustList.FIRST_INDEX, null, opTwoRight_);
-        CustList<OperationNode> allRight_ = getOperationNodes(opRight_);
-        for (OperationNode o: allRight_) {
-            o.setConf(null);
-        }
-        analyzeSetting(allLeft_, _conf);
-        analyze(true, allLeft_, _conf, _staticContext, false, _oper);
-        analyze(false, allRight_, _conf, _staticContext, false, _oper);
-        ClassArgumentMatching clMatchRight_ = opRight_.getResultClass();
-        ClassArgumentMatching clMatchLeft_ = opLeft_.getResultClass();
-        if (_oper.length() == 2) {
-            if (StringList.quickEq(_oper, Block.EQ_PLUS) || StringList.quickEq(_oper, Block.PLUS_EQ)) {
-                if (!PrimitiveTypeUtil.isPureNumberClass(clMatchLeft_)) {
-                    if (!clMatchLeft_.matchClass(String.class)) {
-                        throw new DynamicCastClassException(_conf.joinPages());
-                    }
-                } else if (!PrimitiveTypeUtil.isPureNumberClass(clMatchRight_)) {
-                    throw new DynamicCastClassException(_conf.joinPages());
-                }
-            } else if (!PrimitiveTypeUtil.isPureNumberClass(clMatchLeft_)) {
-                throw new DynamicCastClassException(_conf.joinPages());
-            } else if (!PrimitiveTypeUtil.isPureNumberClass(clMatchRight_)) {
-                throw new DynamicCastClassException(_conf.joinPages());
-            }
-        } else {
-            if (clMatchRight_.isVariable()) {
-                if (clMatchLeft_.isPrimitive()) {
-                    throw new PrimitiveTypeException(_conf.joinPages());
-                }
-            } else if (!PrimitiveTypeUtil.canBeUseAsArgument(clMatchLeft_.getName(), clMatchRight_.getName(), _conf.getClasses())) {
-                throw new DynamicCastClassException(_conf.joinPages());
-            }
-        }
-        calculateLeft(allLeft_, _conf, _oper);
-        calculateRight(allRight_, _conf, _oper);
-        _conf.getLastPage().setRightArgument(opRight_.getArgument());
-        SettableElResult settable_ = null;
-        if (allLeft_.last() instanceof SettableElResult) {
-            settable_ = (SettableElResult) allLeft_.last();
-        } else if (allLeft_.size() > 1){
-            OperationNode beforeLast_ = allLeft_.getPrev(allLeft_.getLastIndex());
-            if (beforeLast_ instanceof SettableElResult) {
-                settable_ = (SettableElResult) beforeLast_;
-            }
-        }
-        OperationNode op_ = (OperationNode) settable_;
+    public static void processAffect(String _attrOp, String _attrLeft, String _attrRight,
+            String _left, String _right, String _oper, ContextEl _conf) {
         Argument arg_ = _conf.getLastPage().getGlobalArgument();
-        if (op_.isNeedPrevious() && op_.getPreviousArgument() == null) {
-            op_.setPreviousArgument(arg_);
-        }
-        settable_.calculateSetting(allLeft_, _conf, _oper);
-        _conf.getLastPage().setRightArgument(null);
-        for (OperationNode o: allLeft_) {
-            o.resetArguments();
-        }
-        for (OperationNode o: allRight_) {
-            o.resetArguments();
-        }
+        boolean staticContext_ = arg_ == null || arg_.isNull();
+        processAffect(_attrOp, _attrLeft, _attrRight, _left, _right, _oper, _conf, staticContext_);
+    }
+    public static void processAffect(String _attrOp, String _attrLeft, String _attrRight,
+            String _left, String _right, String _oper, ContextEl _conf, boolean _staticContext) {
+        ExpLanguages members_ = analyzeAffect(_attrOp, _attrLeft, _attrRight, _left, _right, _oper, _conf, _staticContext);
+        ExpressionLanguage left_ = members_.getLeft();
+        ExpressionLanguage right_ = members_.getRight();
+        tryToCalculateAffect(left_, _conf, right_, _oper);
     }
 
     public static Argument processEl(String _el, ContextEl _conf, int _minIndex, char _begin, char _end) {

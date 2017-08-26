@@ -29,7 +29,7 @@ public class ExpressionLanguageTest {
         lv_ = new LocalVariable();
         lv_.setClassName(PrimitiveTypeUtil.PRIM_INT);
         page_.getLocalVars().put("k", lv_);
-        ExpLanguages e_ = ElUtil.analyzeAffect("k;.", "v;.", "=", context_, true);
+        ExpLanguages e_ = ElUtil.analyzeAffect("","","","k;.", "v;.", "=", context_, true);
         ExpressionLanguage left_;
         left_ = e_.getLeft();
         ExpressionLanguage right_;

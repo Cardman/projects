@@ -1800,7 +1800,7 @@ public class ElUtilTest {
         lv_.setClassName(PrimitiveTypeUtil.PRIM_INT);
         localVars_.put("v", lv_);
         context_.getLastPage().getLocalVars().putAllMap(localVars_);
-        ElUtil.processAffect("v;.", "1i", "=",context_, true);
+        ElUtil.processAffect("","","","v;.", "1i", "=",context_);
         assertEq(PrimitiveTypeUtil.PRIM_INT, lv_.getClassName());
         assertEq(1, (Number)lv_.getElement());
     }
@@ -1818,7 +1818,7 @@ public class ElUtilTest {
         localVars_.put("v", lv_);
         context_.getLastPage().getLocalVars().putAllMap(localVars_);
         assertEq(0, c_.getInteger());
-        ElUtil.processAffect("v;.integer", "12i", "=",context_, true);
+        ElUtil.processAffect("","","","v;.integer", "12i", "=",context_);
         assertEq(COMPOSITE, lv_.getClassName());
         assertEq(12, c_.getInteger());
     }
@@ -1835,7 +1835,7 @@ public class ElUtilTest {
         lv_.setClassName(ARR_INT);
         localVars_.put("v", lv_);
         context_.getLastPage().getLocalVars().putAllMap(localVars_);
-        ElUtil.processAffect("v;.[0i]", "12i", "=",context_, true);
+        ElUtil.processAffect("","","","v;.[0i]", "12i", "=",context_);
         assertEq(12, c_[0]);
     }
 
@@ -1851,7 +1851,7 @@ public class ElUtilTest {
         lv_.setClassName(ARR_ARR_INT);
         localVars_.put("v", lv_);
         context_.getLastPage().getLocalVars().putAllMap(localVars_);
-        ElUtil.processAffect("v;.[0i][0i]", "12i", "=",context_, true);
+        ElUtil.processAffect("","","","v;.[0i][0i]", "12i", "=",context_);
         assertEq(12, c_[0][0]);
     }
 
@@ -1866,7 +1866,7 @@ public class ElUtilTest {
         lv_.setClassName(PrimitiveTypeUtil.PRIM_INT);
         localVars_.put("v", lv_);
         context_.getLastPage().getLocalVars().putAllMap(localVars_);
-        ElUtil.processAffect("v;.", "1i", "+=",context_, true);
+        ElUtil.processAffect("","","","v;.", "1i", "+=",context_);
         assertEq(PrimitiveTypeUtil.PRIM_INT, lv_.getClassName());
         assertEq(2, (Number)lv_.getElement());
     }
@@ -1884,7 +1884,7 @@ public class ElUtilTest {
         localVars_.put("v", lv_);
         context_.getLastPage().getLocalVars().putAllMap(localVars_);
         assertEq(0, c_.getInteger());
-        ElUtil.processAffect("v;.integer", "12i", "-=",context_, true);
+        ElUtil.processAffect("","","","v;.integer", "12i", "-=",context_);
         assertEq(COMPOSITE, lv_.getClassName());
         assertEq(-12, c_.getInteger());
     }
@@ -1901,7 +1901,7 @@ public class ElUtilTest {
         lv_.setClassName(ARR_INT);
         localVars_.put("v", lv_);
         context_.getLastPage().getLocalVars().putAllMap(localVars_);
-        ElUtil.processAffect("v;.[0i]", "12i", "-=",context_, true);
+        ElUtil.processAffect("","","","v;.[0i]", "12i", "-=",context_);
         assertEq(-12, c_[0]);
     }
 
@@ -1917,7 +1917,7 @@ public class ElUtilTest {
         lv_.setClassName(ARR_ARR_INT);
         localVars_.put("v", lv_);
         context_.getLastPage().getLocalVars().putAllMap(localVars_);
-        ElUtil.processAffect("v;.[0i][0i]", "12i", "-=",context_, true);
+        ElUtil.processAffect("","","","v;.[0i][0i]", "12i", "-=",context_);
         assertEq(-12, c_[0][0]);
     }
 
@@ -1933,7 +1933,7 @@ public class ElUtilTest {
         lv_.setClassName(ARR_ARR_INT);
         localVars_.put("v", lv_);
         context_.getLastPage().getLocalVars().putAllMap(localVars_);
-        ElUtil.processAffect("v;.[0i][0i]", "1b", "++",context_, true);
+        ElUtil.processAffect("","","","v;.[0i][0i]", "1b", "++",context_);
         assertEq(1, c_[0][0]);
     }
 
@@ -1949,7 +1949,7 @@ public class ElUtilTest {
         lv_.setClassName(ARR_ARR_INT);
         localVars_.put("v", lv_);
         context_.getLastPage().getLocalVars().putAllMap(localVars_);
-        ElUtil.processAffect("v;.[0i][0i]", "1b", "--",context_, true);
+        ElUtil.processAffect("","","","v;.[0i][0i]", "1b", "--",context_);
         assertEq(-1, c_[0][0]);
     }
 
@@ -1965,7 +1965,7 @@ public class ElUtilTest {
         lv_.setClassName(FieldClass.class.getName());
         localVars_.put("v", lv_);
         context_.getLastPage().getLocalVars().putAllMap(localVars_);
-        ElUtil.processAffect("v;.field", "12i", "=",context_, true);
+        ElUtil.processAffect("","","","v;.field", "12i", "=",context_);
         assertEq(12, c_.getField());
     }
     @Test
@@ -1975,7 +1975,7 @@ public class ElUtilTest {
         addImportingPage(context_);
         FieldClass c_ = new FieldClass(8);
         addBean(context_, c_);
-        ElUtil.processAffect("field", "12i", "=",context_, false);
+        ElUtil.processAffect("","","","field", "12i", "=",context_);
         assertEq(12, c_.getField());
     }
 
@@ -1987,7 +1987,7 @@ public class ElUtilTest {
         addImportingPage(context_);
         FieldFieldClass c_ = new FieldFieldClass(new FieldClass(8));
         addBean(context_, c_);
-        ElUtil.processAffect("field.field", "12i", "=",context_, false);
+        ElUtil.processAffect("","","","field.field", "12i", "=",context_);
         assertEq(12, c_.getField().getField());
     }
 
@@ -2004,7 +2004,7 @@ public class ElUtilTest {
         lv_.setClassName("["+ArrayContainer.class.getName());
         localVars_.put("v", lv_);
         context_.getLastPage().getLocalVars().putAllMap(localVars_);
-        ElUtil.processAffect("v;.[0i].array[0i]", "1i", "=",context_,true);
+        ElUtil.processAffect("","","","v;.[0i].array[0i]", "1i", "=",context_);
         assertEq(1, c_[0].getArray()[0]);
     }
 
@@ -2021,7 +2021,7 @@ public class ElUtilTest {
         lv_.setClassName("["+ArrayContainer.class.getName());
         localVars_.put("v", lv_);
         context_.getLastPage().getLocalVars().putAllMap(localVars_);
-        ElUtil.processAffect("v;.[0i].getArray()[0i]", "1i", "=",context_,true);
+        ElUtil.processAffect("","","","v;.[0i].getArray()[0i]", "1i", "=",context_);
         assertEq(1, c_[0].getArray()[0]);
     }
 
@@ -2038,7 +2038,7 @@ public class ElUtilTest {
         lv_.setClassName("["+ArrayContainer.class.getName());
         localVars_.put("v", lv_);
         context_.getLastPage().getLocalVars().putAllMap(localVars_);
-        ElUtil.processAffect("v;.[0i].getCompo()[0i].getArray()[0i]", "1i", "=",context_,true);
+        ElUtil.processAffect("","","","v;.[0i].getCompo()[0i].getArray()[0i]", "1i", "=",context_);
         assertEq(1, c_[0].getCompo()[0].getArray()[0]);
     }
 
@@ -2055,7 +2055,7 @@ public class ElUtilTest {
         localVars_.put("v", lv_);
         context_.getLastPage().getLocalVars().putAllMap(localVars_);
         assertNotNull(c_.getStrings());
-        ElUtil.processAffect("v;.strings", "null", "=",context_, true);
+        ElUtil.processAffect("","","","v;.strings", "null", "=",context_);
         assertEq(COMPOSITE, lv_.getClassName());
         assertNull(c_.getStrings());
     }
@@ -2077,7 +2077,7 @@ public class ElUtilTest {
         localVars_.put("v2", lv_);
         context_.getLastPage().getLocalVars().putAllMap(localVars_);
         assertNull(c_.getStrings());
-        ElUtil.processAffect("v;.strings", "v2;.", "=",context_, true);
+        ElUtil.processAffect("","","","v;.strings", "v2;.", "=",context_);
         assertEq(1, c_.getStrings().size());
         assertEq("cont", c_.getStrings().first());
     }
@@ -2093,7 +2093,7 @@ public class ElUtilTest {
         lv_.setClassName(FinalFieldClass.class.getName());
         localVars_.put("v", lv_);
         context_.getLastPage().getLocalVars().putAllMap(localVars_);
-        ElUtil.processAffect("v;.field", "12i", "=",context_, true);
+        ElUtil.processAffect("","","","v;.field", "12i", "=",context_);
     }
 
     @Test(expected=SettingMemberException.class)
@@ -2107,7 +2107,7 @@ public class ElUtilTest {
         lv_.setClassName(PrimitiveTypeUtil.PRIM_INT);
         localVars_.put("v", lv_);
         context_.getLastPage().getParameters().putAllMap(localVars_);
-        ElUtil.processAffect("v;.;", "12i", "=",context_, true);
+        ElUtil.processAffect("","","","v;.;", "12i", "=",context_);
     }
     @Test(expected=DynamicCastClassException.class)
     public void processAffect3FailTest() {
@@ -2121,7 +2121,7 @@ public class ElUtilTest {
         lv_.setClassName(ARR_INT);
         localVars_.put("v", lv_);
         context_.getLastPage().getLocalVars().putAllMap(localVars_);
-        ElUtil.processAffect("v;.[0i]", "\"12i\"", "=",context_, true);
+        ElUtil.processAffect("","","","v;.[0i]", "\"12i\"", "=",context_);
     }
 
     @Test(expected=DynamicCastClassException.class)
@@ -2137,7 +2137,7 @@ public class ElUtilTest {
         localVars_.put("v", lv_);
         context_.getLastPage().getLocalVars().putAllMap(localVars_);
         assertEq(0, c_.getInteger());
-        ElUtil.processAffect("v;.integer", "\"12i\"", "=",context_, true);
+        ElUtil.processAffect("","","","v;.integer", "\"12i\"", "=",context_);
     }
 
     @Test(expected=DynamicCastClassException.class)
@@ -2151,7 +2151,7 @@ public class ElUtilTest {
         lv_.setClassName(PrimitiveTypeUtil.PRIM_INT);
         localVars_.put("v", lv_);
         context_.getLastPage().getLocalVars().putAllMap(localVars_);
-        ElUtil.processAffect("v;.", "\"12i\"", "=",context_, true);
+        ElUtil.processAffect("","","","v;.", "\"12i\"", "=",context_);
     }
 
     @Test(expected=NullObjectException.class)
@@ -2170,7 +2170,7 @@ public class ElUtilTest {
         localVars_.put("v2", lv_);
         context_.getLastPage().getLocalVars().putAllMap(localVars_);
         assertEq(0, c_.getInteger());
-        ElUtil.processAffect("v;.integer", "v2;.", "=",context_, true);
+        ElUtil.processAffect("","","","v;.integer", "v2;.", "=",context_);
     }
 
     @Test(expected=NullObjectException.class)
@@ -2189,8 +2189,26 @@ public class ElUtilTest {
         lv_.setClassName(Integer.class.getName());
         localVars_.put("v2", lv_);
         context_.getLastPage().getLocalVars().putAllMap(localVars_);
-        ElUtil.processAffect("v;.[0i].getCompo()[0i].getArray()[0i]", "v2;.", "=",context_,true);
+        ElUtil.processAffect("","","","v;.[0i].getCompo()[0i].getArray()[0i]", "v2;.", "=",context_);
     }
+
+    @Test(expected=NullObjectException.class)
+    public void processAffect8FailTest() {
+        ContextEl context_ = new ContextEl();
+        setupAccessValue(context_);
+        addImportingPage(context_);
+        StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
+        LocalVariable lv_ = new LocalVariable();
+        lv_.setElement(1);
+        lv_.setClassName(PrimitiveTypeUtil.PRIM_INT);
+        localVars_.put("v", lv_);
+        lv_ = new LocalVariable();
+        lv_.setClassName(Integer.class.getName());
+        localVars_.put("v2", lv_);
+        context_.getLastPage().getLocalVars().putAllMap(localVars_);
+        ElUtil.processAffect("","","","v;.", "v2;.", "=",context_);
+    }
+
     private static void setupAccessValue(ContextEl _conf) {
         _conf.setAccessValue(new AccessValueEx());
     }

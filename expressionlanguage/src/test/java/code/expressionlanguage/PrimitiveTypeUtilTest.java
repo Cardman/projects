@@ -728,10 +728,20 @@ public class PrimitiveTypeUtilTest {
     public void canBeUseAsArgument65Test() {
         assertTrue(!PrimitiveTypeUtil.canBeUseAsArgument(PrimitiveTypeUtil.PRIM_CHAR, PrimitiveTypeUtil.PRIM_INT, null));
     }
-
+    
     @Test
     public void canBeUseAsArgument66Test() {
         assertTrue(!PrimitiveTypeUtil.canBeUseAsArgument(PrimitiveTypeUtil.PRIM_BYTE, PrimitiveTypeUtil.PRIM_INT, null));
+    }
+
+    @Test
+    public void canBeUseAsArgument67Test() {
+        assertTrue(!PrimitiveTypeUtil.canBeUseAsArgument(OperationNode.VOID_RETURN, Object.class.getName(), null));
+    }
+
+    @Test
+    public void canBeUseAsArgument68Test() {
+        assertTrue(!PrimitiveTypeUtil.canBeUseAsArgument(Object.class.getName(), OperationNode.VOID_RETURN, null));
     }
 
     @Test

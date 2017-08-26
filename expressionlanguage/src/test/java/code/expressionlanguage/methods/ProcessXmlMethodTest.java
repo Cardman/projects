@@ -9646,6 +9646,57 @@ public class ProcessXmlMethodTest {
         assertEq(CustBase.class.getName(), field_.getRealClassName());
         assertEq("pkg.ExThree", field_.getClassName());
     }
+
+    @Test
+    public void instanceArgument79Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = new ContextEl(50);
+        cont_.setAccessValue(new AccessValueEx());
+        String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' superclass='pkg.ExTwo'>\n";
+        xml_ += "<field access='"+PUBLIC_ACCESS+"' name='inst' class='"+PrimitiveTypeUtil.PRIM_INT+"' value='sec;;;'/>\n";
+        xml_ += "</class>\n";
+        files_.put("pkg/Ex."+Classes.EXT, xml_);
+        xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExTwo' package='pkg'>\n";
+        xml_ += "<field access='"+PUBLIC_ACCESS+"' name='third' class='pkg.ExThree' value='^new.pkg.ExThree()'/>\n";
+        xml_ += "<field access='"+PUBLIC_ACCESS+"' name='sec' class='"+PrimitiveTypeUtil.PRIM_INT+"'/>\n";
+        xml_ += "<field static='' access='"+PUBLIC_ACCESS+"' name='st' class='"+PrimitiveTypeUtil.PRIM_INT+"'/>\n";
+        xml_ += "<static>\n";
+        xml_ += "<affect left='st;;;' oper='+=' right='14i'/>\n";
+        xml_ += "</static>\n";
+        xml_ += "<instance>\n";
+        xml_ += "<affect left='sec;;;' oper='+=' right='8i+st;;;'/>\n";
+        xml_ += "</instance>\n";
+        xml_ += "<constructor access='"+PUBLIC_ACCESS+"'>\n";
+        xml_ += "<affect left='sec;;;' oper='+=' right='16i'/>\n";
+        xml_ += "</constructor>\n";
+        xml_ += "</class>\n";
+        files_.put("pkg/ExTwo."+Classes.EXT, xml_);
+        xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExThree' package='pkg'>\n";
+        xml_ += "</class>\n";
+        files_.put("pkg/ExThree."+Classes.EXT, xml_);
+        Classes.validateAll(files_, cont_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        ConstructorId id_ = getConstructorId("pkg.Ex");
+        ProcessXmlMethod.initializeClass("pkg.Ex", cont_);
+        Argument ret_;
+        ret_ = instanceArgument("pkg.Ex", null, id_, args_, cont_);
+        assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
+        Struct str_ = ret_.getStruct();
+        assertEq(CustBase.class.getName(), str_.getRealClassName());
+        assertEq("pkg.Ex", str_.getClassName());
+        Struct field_;
+        field_ = str_.getFields().getVal(new ClassField("pkg.Ex", "inst"));
+        assertEq(Integer.class.getName(), field_.getRealClassName());
+        assertEq(Integer.class.getName(), field_.getClassName());
+        assertEq(38, (Number)field_.getInstance());
+        field_ = str_.getFields().getVal(new ClassField("pkg.ExTwo", "sec"));
+        assertEq(Integer.class.getName(), field_.getRealClassName());
+        assertEq(Integer.class.getName(), field_.getClassName());
+        assertEq(38, (Number)field_.getInstance());
+        field_ = str_.getFields().getVal(new ClassField("pkg.ExTwo", "third"));
+        assertEq(CustBase.class.getName(), field_.getRealClassName());
+        assertEq("pkg.ExThree", field_.getClassName());
+    }
     @Test(expected=UndefinedConstructorException.class)
     public void instanceArgument1FailTest() {
         StringMap<String> files_ = new StringMap<String>();
