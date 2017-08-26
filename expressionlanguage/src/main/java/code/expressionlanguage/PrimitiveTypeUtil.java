@@ -1,5 +1,8 @@
 package code.expressionlanguage;
+import code.expressionlanguage.methods.Block;
 import code.expressionlanguage.methods.Classes;
+import code.expressionlanguage.methods.ConstructorBlock;
+import code.expressionlanguage.methods.MethodBlock;
 import code.expressionlanguage.methods.RootBlock;
 import code.expressionlanguage.opers.OperationNode;
 import code.expressionlanguage.opers.util.AssignableFrom;
@@ -733,6 +736,20 @@ public final class PrimitiveTypeUtil {
             return _class;
         }
         return null;
+    }
+
+    public static Argument defaultValue(Block _block, Argument _global) {
+        if (_block instanceof MethodBlock) {
+            MethodBlock m_ = (MethodBlock) _block;
+            Object v_ = defaultValue(m_.getReturnType());
+            Argument a_ = new Argument();
+            a_.setObject(v_);
+            return a_;
+        }
+        if (_block instanceof ConstructorBlock) {
+            return _global;
+        }
+        return Argument.createVoid();
     }
 
     public static Object defaultValue(String _class) {

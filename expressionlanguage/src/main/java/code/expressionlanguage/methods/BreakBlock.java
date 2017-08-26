@@ -89,7 +89,7 @@ public final class BreakBlock extends Leaf implements CallingFinally {
         PageEl ip_ = _conf.getLastPage();
         ReadWrite rw_ = ip_.getReadWrite();
         BreakableBlockStack stack_ = null;
-        while (!ip_.noBlock()) {
+        while (true) {
             RemovableVars bl_ = ip_.getLastStack();
             ip_.setFinallyToProcess(false);
             if (bl_ instanceof BreakableBlockStack) {
@@ -103,11 +103,9 @@ public final class BreakBlock extends Leaf implements CallingFinally {
                 return;
             }
         }
-        if (stack_ != null) {
-            Block forLoopLoc_ = stack_.getBlock();
-            rw_.setBlock(forLoopLoc_);
-            stack_.setFinished(true);
-        }
+        Block forLoopLoc_ = stack_.getBlock();
+        rw_.setBlock(forLoopLoc_);
+        stack_.setFinished(true);
     }
 
 }

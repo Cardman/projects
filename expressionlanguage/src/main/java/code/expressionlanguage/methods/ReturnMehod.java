@@ -149,7 +149,7 @@ public final class ReturnMehod extends Leaf implements CallingFinally {
                 _cont.getLastPage().setReturnedArgument(void_);
             } else if (f_ instanceof ConstructorBlock) {
                 _cont.getLastPage().setArgumentForConstructor();
-            } else if (f_ instanceof AloneBlock) {
+            } else {
                 removeBlockFinally(_cont);
                 if (ip_.getReadWrite() == null) {
                     Block bn_ = ((AloneBlock)f_).getNextSibling();

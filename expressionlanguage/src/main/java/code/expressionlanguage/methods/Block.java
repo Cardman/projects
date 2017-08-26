@@ -2,9 +2,9 @@ package code.expressionlanguage.methods;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 
-import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.PageEl;
+import code.expressionlanguage.PrimitiveTypeUtil;
 import code.expressionlanguage.ReadWrite;
 import code.expressionlanguage.methods.exceptions.UnknownBlockException;
 import code.expressionlanguage.methods.util.CallConstructor;
@@ -204,8 +204,7 @@ public abstract class Block extends Blockable implements SortedNode<Block> {
                 ip_.setNullReadWrite();
                 return;
             }
-            Argument void_ = Argument.createVoid();
-            _conf.getLastPage().setReturnedArgument(void_);
+            _conf.getLastPage().setReturnedArgument(PrimitiveTypeUtil.defaultValue(root_, _conf.getLastPage().getGlobalArgument()));
             ip_.setNullReadWrite();
             return;
         }

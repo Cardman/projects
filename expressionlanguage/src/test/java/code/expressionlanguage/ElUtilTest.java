@@ -1,5 +1,6 @@
 package code.expressionlanguage;
 import static code.util.opers.EquallableUtil.assertEq;
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
@@ -47,6 +48,7 @@ import code.expressionlanguage.variables.LoopVariable;
 import code.serialize.exceptions.NoSuchDeclaredFieldException;
 import code.util.StringList;
 import code.util.StringMap;
+import code.util.exceptions.NullObjectException;
 import code.util.exceptions.RuntimeClassNotFoundException;
 
 @SuppressWarnings("static-method")
@@ -2039,6 +2041,46 @@ public class ElUtilTest {
         ElUtil.processAffect("v;.[0i].getCompo()[0i].getArray()[0i]", "1i", "=",context_,true);
         assertEq(1, c_[0].getCompo()[0].getArray()[0]);
     }
+
+    @Test
+    public void processAffect17Test() {
+        ContextEl context_ = new ContextEl();
+        setupAccessValue(context_);
+        addImportingPage(context_);
+        StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
+        LocalVariable lv_ = new LocalVariable();
+        Composite c_ = new Composite("cont");
+        lv_.setElement(c_);
+        lv_.setClassName(Composite.class.getName());
+        localVars_.put("v", lv_);
+        context_.getLastPage().getLocalVars().putAllMap(localVars_);
+        assertNotNull(c_.getStrings());
+        ElUtil.processAffect("v;.strings", "null", "=",context_, true);
+        assertEq(COMPOSITE, lv_.getClassName());
+        assertNull(c_.getStrings());
+    }
+
+    @Test
+    public void processAffect18Test() {
+        ContextEl context_ = new ContextEl();
+        setupAccessValue(context_);
+        addImportingPage(context_);
+        StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
+        LocalVariable lv_ = new LocalVariable();
+        Composite c_ = new Composite();
+        lv_.setElement(c_);
+        lv_.setClassName(Composite.class.getName());
+        localVars_.put("v", lv_);
+        lv_ = new LocalVariable();
+        lv_.setElement(new StringList("cont"));
+        lv_.setClassName(StringList.class.getName());
+        localVars_.put("v2", lv_);
+        context_.getLastPage().getLocalVars().putAllMap(localVars_);
+        assertNull(c_.getStrings());
+        ElUtil.processAffect("v;.strings", "v2;.", "=",context_, true);
+        assertEq(1, c_.getStrings().size());
+        assertEq("cont", c_.getStrings().first());
+    }
     @Test(expected=FinalMemberException.class)
     public void processAffect1FailTest() {
         ContextEl context_ = new ContextEl();
@@ -2112,6 +2154,43 @@ public class ElUtilTest {
         ElUtil.processAffect("v;.", "\"12i\"", "=",context_, true);
     }
 
+    @Test(expected=NullObjectException.class)
+    public void processAffect6FailTest() {
+        ContextEl context_ = new ContextEl();
+        setupAccessValue(context_);
+        addImportingPage(context_);
+        StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
+        LocalVariable lv_ = new LocalVariable();
+        Composite c_ = new Composite();
+        lv_.setElement(c_);
+        lv_.setClassName(Composite.class.getName());
+        localVars_.put("v", lv_);
+        lv_ = new LocalVariable();
+        lv_.setClassName(Integer.class.getName());
+        localVars_.put("v2", lv_);
+        context_.getLastPage().getLocalVars().putAllMap(localVars_);
+        assertEq(0, c_.getInteger());
+        ElUtil.processAffect("v;.integer", "v2;.", "=",context_, true);
+    }
+
+    @Test(expected=NullObjectException.class)
+    public void processAffect7FailTest() {
+        ContextEl context_ = new ContextEl();
+        setupAccessValue(context_);
+        addImportingPage(context_);
+        StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
+        LocalVariable lv_ = new LocalVariable();
+        ArrayContainer[] c_ = new ArrayContainer[1];
+        c_[0] = new ArrayContainer();
+        lv_.setStruct(new Struct(c_));
+        lv_.setClassName("["+ArrayContainer.class.getName());
+        localVars_.put("v", lv_);
+        lv_ = new LocalVariable();
+        lv_.setClassName(Integer.class.getName());
+        localVars_.put("v2", lv_);
+        context_.getLastPage().getLocalVars().putAllMap(localVars_);
+        ElUtil.processAffect("v;.[0i].getCompo()[0i].getArray()[0i]", "v2;.", "=",context_,true);
+    }
     private static void setupAccessValue(ContextEl _conf) {
         _conf.setAccessValue(new AccessValueEx());
     }

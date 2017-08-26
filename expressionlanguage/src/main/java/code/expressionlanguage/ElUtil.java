@@ -213,8 +213,14 @@ public final class ElUtil {
             } else if (!PrimitiveTypeUtil.isPureNumberClass(clMatchRight_)) {
                 throw new DynamicCastClassException(_conf.joinPages());
             }
-        } else if (!PrimitiveTypeUtil.canBeUseAsArgument(clMatchLeft_.getName(), clMatchRight_.getName(), _conf.getClasses())) {
-            throw new DynamicCastClassException(_conf.joinPages());
+        } else {
+            if (clMatchRight_.isVariable()) {
+                if (clMatchLeft_.isPrimitive()) {
+                    throw new PrimitiveTypeException(_conf.joinPages());
+                }
+            } else if (!PrimitiveTypeUtil.canBeUseAsArgument(clMatchLeft_.getName(), clMatchRight_.getName(), _conf.getClasses())) {
+                throw new DynamicCastClassException(_conf.joinPages());
+            }
         }
         calculateLeft(allLeft_, _conf, _oper);
         calculateRight(allRight_, _conf, _oper);

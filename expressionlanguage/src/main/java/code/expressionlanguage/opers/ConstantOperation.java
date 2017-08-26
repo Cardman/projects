@@ -520,6 +520,9 @@ public final class ConstantOperation extends OperationNode implements SettableEl
             left_.setStruct(new Struct(field_));
         }
         res_ = NumericOperation.calculateAffect(left_, _conf, right_, _op);
+        if (res_.isNull() && field.getType().isPrimitive()) {
+            throw new NullObjectException(_conf.joinPages());
+        }
         ConverterMethod.setField(field, obj_, res_.getObject());
         Argument a_ = _argument;
         return a_;

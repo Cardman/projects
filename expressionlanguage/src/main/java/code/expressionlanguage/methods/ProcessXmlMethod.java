@@ -439,7 +439,7 @@ public final class ProcessXmlMethod {
             String curClass_ = ip_.getGlobalClass();
             ClassMetaInfo meta_ = _conf.getClasses().getClassMetaInfo(curClass_);
             String superClass_ = meta_.getSuperClass();
-            if (!calledImpl_ && !StringList.quickEq(superClass_, Object.class.getName()) && !StringList.quickEq(superClass_, Enum.class.getName())) {
+            if (!calledImpl_ && !StringList.quickEq(superClass_, Object.class.getName())) {
                 ip_.getCallingConstr().setCalledImplicitConstructor(true);
                 FctConstraints super_ = new FctConstraints(superClass_, new EqList<StringList>());
                 StringList called_ = ip_.getCallingConstr().getCalledConstructors();
@@ -468,11 +468,7 @@ public final class ProcessXmlMethod {
             ((WithEl)en_).processEl(_conf);
             return;
         }
-        if (en_ instanceof ConstructorBlock) {
-            en_.processBlock(_conf);
-            return;
-        }
-        if (en_ instanceof MethodBlock) {
+        if (en_ instanceof Returnable) {
             en_.processBlock(_conf);
             return;
         }
@@ -503,8 +499,7 @@ public final class ProcessXmlMethod {
             ip_.setNullReadWrite();
             return;
         }
-        Argument void_ = Argument.createVoid();
-        _conf.getLastPage().setReturnedArgument(void_);
+        _conf.getLastPage().setReturnedArgument(PrimitiveTypeUtil.defaultValue(root_, _conf.getLastPage().getGlobalArgument()));
         ip_.setNullReadWrite();
     }
     static Class<?> classForName(ContextEl _conf, int _offest, String _className) {
