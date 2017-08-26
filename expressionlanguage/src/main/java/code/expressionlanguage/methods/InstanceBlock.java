@@ -16,7 +16,7 @@ public final class InstanceBlock extends BracedBlock implements AloneBlock {
 
     @Override
     public void checkBlocksTree(ContextEl _cont) {
-        if (!(getParent() instanceof ClassBlock) || getFirstChild() == null) {
+        if (!(getParent() instanceof RootBlock) || getFirstChild() == null) {
             PageEl page_ = _cont.getLastPage();
             page_.setProcessingAttribute(EMPTY_STRING);
             page_.setOffset(0);

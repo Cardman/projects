@@ -101,10 +101,15 @@ public final class ProcessXmlMethod {
                         break;
                     }
                     Argument a_ = p_.getReturnedArgument();
+                    PageEl l_ = _cont.getLastPage();
                     if (a_ != null) {
-                        PageEl l_ = _cont.getLastPage();
                         if (!l_.getCurrentEls().isEmpty()) {
                             l_.getCurrentEls().last().setArgument(a_, _cont);
+                        }
+                    }
+                    if (p_.getCallingConstr().getInstancingStep() == InstancingStep.USING_THIS) {
+                        if (l_.getCallingConstr().getInstancingStep() == InstancingStep.USING_THIS) {
+                            l_.getIntializedInterfaces().addAllElts(p_.getIntializedInterfaces());
                         }
                     }
                     continue;
