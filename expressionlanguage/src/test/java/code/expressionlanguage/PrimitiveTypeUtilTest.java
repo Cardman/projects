@@ -730,6 +730,11 @@ public class PrimitiveTypeUtilTest {
     }
 
     @Test
+    public void canBeUseAsArgument66Test() {
+        assertTrue(!PrimitiveTypeUtil.canBeUseAsArgument(PrimitiveTypeUtil.PRIM_BYTE, PrimitiveTypeUtil.PRIM_INT, null));
+    }
+
+    @Test
     public void getSubclasses1Test() {
         StringList classes_ = new StringList(Integer.class.getName(), Number.class.getName());
         StringList sub_ = PrimitiveTypeUtil.getSubclasses(classes_, null);

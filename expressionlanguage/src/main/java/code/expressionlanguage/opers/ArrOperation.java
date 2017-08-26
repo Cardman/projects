@@ -226,6 +226,9 @@ public final class ArrOperation extends MethodOperation implements SettableElRes
         }
         if (_value.isNull()) {
             if (_struct.isJavaObject()) {
+                if (arrayInst_.getClass().getComponentType().isPrimitive()) {
+                    throw new NullObjectException(_conf.joinPages());
+                }
                 Array.set(arrayInst_, index_, null);
             } else {
                 Array.set(arrayInst_, index_, new Struct());

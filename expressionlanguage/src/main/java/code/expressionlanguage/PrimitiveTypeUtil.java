@@ -359,6 +359,9 @@ public final class PrimitiveTypeUtil {
             }
             return true;
         }
+        if (StringList.quickEq(_arg, OperationNode.VOID_RETURN)) {
+            return false;
+        }
         AssignableFrom a_ = isAssignableFromCust(_param, _arg, _classes);
         if (a_ == AssignableFrom.YES) {
             return true;

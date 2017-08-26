@@ -410,6 +410,9 @@ public abstract class OperationNode implements SortedNode<OperationNode>, Operab
         while (custClass_ != null) {
             for (EntryCust<String, FieldMetaInfo> e: custClass_.getFields().entryList()) {
                 if (!StringList.quickEq(e.getKey(), _name)) {
+                    if (!_superClass) {
+                        throw new NoSuchDeclaredFieldException(_name+RETURN_LINE+_cont.joinPages());
+                    }
                     continue;
                 }
                 if (!_cont.getClasses().canAccessField(glClass_, clCurName_, _name)) {
@@ -420,7 +423,7 @@ public abstract class OperationNode implements SortedNode<OperationNode>, Operab
             clCurName_ = custClass_.getSuperClass();
             custClass_ = classes_.getClassMetaInfo(clCurName_);
         }
-        throw new NoSuchDeclaredFieldException(_cont.joinPages());
+        throw new NoSuchDeclaredFieldException(_name+RETURN_LINE+_cont.joinPages());
     }
     static Field getDeclaredField(ContextEl _cont,ClassArgumentMatching _class, String _name) {
         Class<?> class_ = _class.getClazz();

@@ -112,32 +112,41 @@ public final class ConstantOperation extends OperationNode implements SettableEl
                 setNeedPrevious(true);
                 setResetablePreviousArg(true);
                 ClassArgumentMatching cl_ = getPreviousResultClass();
-                if (cl_ == null) {
-                    throw new NullGlobalObjectException(_conf.joinPages());
+                String clCurName_;
+                if (str_.contains(STATIC_CALL)) {
+                    StringList classMethod_ = StringList.splitStrings(str_, STATIC_CALL);
+                    if (classMethod_.size() != 2) {
+                        throw new BadFormatPathException(str_+RETURN_LINE+_conf.joinPages());
+                    }
+                    String className_ = classMethod_.first();
+                    className_ = StringList.removeAllSpaces(className_);
+                    className_ = className_.replace(EXTERN_CLASS, DOT_VAR);
+                    checkExist(_conf, className_, true, true, 0);
+                    clCurName_ = className_;
+                } else {
+                    if (cl_ == null) {
+                        throw new NullGlobalObjectException(_conf.joinPages());
+                    }
+                    clCurName_ = cl_.getName();
                 }
-                String clCurName_ = cl_.getName();
                 custClass_ = classes_.getClassMetaInfo(clCurName_);
                 if (custClass_ != null) {
-                    String key_ = str_.substring(CustList.FIRST_INDEX, str_.length() - GET_FIELD.length());
-                    if (str_.startsWith(EXTERN_CLASS+SUPER_ACCESS+EXTERN_CLASS)) {
-                        key_ = str_.substring((EXTERN_CLASS+SUPER_ACCESS+EXTERN_CLASS).length(), str_.length() - GET_FIELD.length());
-                    }
+                    String key_;
                     boolean superClassAccess_ = true;
+                    FieldMetaInfo e_;
                     if (str_.contains(STATIC_CALL)) {
                         StringList classMethod_ = StringList.splitStrings(str_, STATIC_CALL);
-                        if (classMethod_.size() != 2) {
-                            throw new BadFormatPathException(str_+RETURN_LINE+_conf.joinPages());
-                        }
-                        String className_ = classMethod_.first();
-                        className_ = StringList.removeAllSpaces(className_);
-                        className_ = className_.replace(EXTERN_CLASS, DOT_VAR);
-                        checkExist(_conf, className_, true, true, 0);
-                        clCurName_ = className_;
                         key_ = classMethod_.last();
+                        key_ = key_.substring(CustList.FIRST_INDEX, key_.length() - GET_FIELD.length());
                         superClassAccess_ = false;
+                        e_ = getDeclaredCustField(_conf, new ClassArgumentMatching(clCurName_), superClassAccess_, key_);
+                    } else if (str_.startsWith(EXTERN_CLASS+SUPER_ACCESS+EXTERN_CLASS)) {
+                        key_ = str_.substring((EXTERN_CLASS+SUPER_ACCESS+EXTERN_CLASS).length(), str_.length() - GET_FIELD.length());
+                        e_ = getDeclaredCustField(_conf, cl_, superClassAccess_, key_);
+                    } else {
+                        key_ = str_.substring(CustList.FIRST_INDEX, str_.length() - GET_FIELD.length());
+                        e_ = getDeclaredCustField(_conf, cl_, superClassAccess_, key_);
                     }
-                    FieldMetaInfo e_;
-                    e_ = getDeclaredCustField(_conf, cl_, superClassAccess_, key_);
                     fieldMetaInfo = e_;
                     if (isStaticAccess() && !e_.isStaticField()) {
                         throw new StaticAccessException(_conf.joinPages());
@@ -356,6 +365,14 @@ public final class ConstantOperation extends OperationNode implements SettableEl
         if (fieldId != null) {
             Classes classes_ = _conf.getClasses();
             if (fieldMetaInfo.isStaticField()) {
+                String className_ = fieldId.getClassName();
+                if (!_conf.getClasses().isInitialized(className_)) {
+                    _conf.getClasses().initialize(className_);
+                    if (!_processInit) {
+                        throw new NotInitializedClassException(className_);
+                    }
+                    ProcessXmlMethod.initializeClass(className_, _conf);
+                }
                 Struct struct_ = classes_.getStaticField(fieldId);
                 a_ = new Argument();
                 a_.setStruct(struct_);
