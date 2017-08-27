@@ -146,10 +146,7 @@ public final class ForEachLoop extends BracedStack implements ForLoop {
     @Override
     public void processEl(ContextEl _cont) {
         PageEl ip_ = _cont.getLastPage();
-        LoopBlockStack c_ = null;
-        if (!ip_.noBlock() && ip_.getLastStack() instanceof LoopBlockStack) {
-            c_ = (LoopBlockStack) ip_.getLastStack();
-        }
+        LoopBlockStack c_ = ip_.getLastLoopIfPossible();
         if (c_ != null && c_.getBlock() == this) {
             if (c_.isFinished()) {
                 removeVarAndLoop(ip_);

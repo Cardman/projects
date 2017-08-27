@@ -4,6 +4,7 @@ import code.expressionlanguage.methods.util.CallConstructor;
 import code.expressionlanguage.methods.util.CallingClassConstructor;
 import code.expressionlanguage.opers.ExpressionLanguage;
 import code.expressionlanguage.opers.util.Struct;
+import code.expressionlanguage.stacks.LoopBlockStack;
 import code.expressionlanguage.stacks.RemovableVars;
 import code.expressionlanguage.variables.LocalVariable;
 import code.expressionlanguage.variables.LoopVariable;
@@ -312,6 +313,14 @@ public final class PageEl {
 
     public int nbBlocks() {
         return blockStacks.size();
+    }
+
+    public LoopBlockStack getLastLoopIfPossible() {
+        LoopBlockStack c_ = null;
+        if (!noBlock() && getLastStack() instanceof LoopBlockStack) {
+            c_ = (LoopBlockStack) getLastStack();
+        }
+        return c_;
     }
 
     public RemovableVars getLastStack() {

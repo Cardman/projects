@@ -74,9 +74,28 @@ public abstract class RootBlock extends BracedBlock implements RootedBlock {
                 //overridden by this interface
                 String subInt_ = _localMethodIds.getVal(e.getKey());
                 MethodBlock sub_ = _classes.getMethodBody(subInt_, cst_);
+                if (sub_.isStaticMethod()) {
+                    StringList retClasses_ = new StringList();
+                    for (String s: e.getValue()) {
+                        MethodBlock sup_ = _classes.getMethodBody(s, cst_);
+                        if (sup_.isStaticMethod()) {
+                            continue;
+                        }
+                        retClasses_.add(sup_.getReturnType());
+                    }
+                    if (!retClasses_.isEmpty() && PrimitiveTypeUtil.getSubslass(retClasses_, _classes).isEmpty()) {
+                        for (String c: classes_) {
+                            addClass(output_, e.getKey(), c);
+                        }
+                    }
+                    continue;
+                }
                 String subType_ = sub_.getReturnType();
                 for (String s: e.getValue()) {
                     MethodBlock sup_ = _classes.getMethodBody(s, cst_);
+                    if (sup_.isStaticMethod()) {
+                        continue;
+                    }
                     String supType_ = sup_.getReturnType();
                     if (StringList.quickEq(supType_, subType_)) {
                         continue;
@@ -91,11 +110,73 @@ public abstract class RootBlock extends BracedBlock implements RootedBlock {
             StringList retClasses_ = new StringList();
             for (String s: e.getValue()) {
                 MethodBlock sup_ = _classes.getMethodBody(s, cst_);
+                if (sup_.isStaticMethod()) {
+                    continue;
+                }
                 retClasses_.add(sup_.getReturnType());
             }
-            if (PrimitiveTypeUtil.getSubslass(retClasses_, _classes).isEmpty()) {
+            if (!retClasses_.isEmpty() && PrimitiveTypeUtil.getSubslass(retClasses_, _classes).isEmpty()) {
                 for (String c: classes_) {
                     addClass(output_, e.getKey(), c);
+                }
+            }
+        }
+        return output_;
+    }
+    public static ObjectMap<FctConstraints, StringList> areModifierCompatible(
+            ObjectMap<FctConstraints, StringList> _methodIds, Classes _classes) {
+        ObjectMap<FctConstraints, StringList> output_;
+        output_ = new ObjectMap<FctConstraints, StringList>();
+        for (EntryCust<FctConstraints, StringList> e: _methodIds.entryList()) {
+            FctConstraints cst_ = e.getKey();
+            StringList retClasses_ = new StringList();
+            StringList fClasses_ = new StringList();
+            StringList aClasses_ = new StringList();
+            for (String s: e.getValue()) {
+                MethodBlock sup_ = _classes.getMethodBody(s, cst_);
+                if (sup_.isStaticMethod()) {
+                    continue;
+                }
+                if (sup_.isAbstractMethod()) {
+                    aClasses_.add(s);
+                }
+                if (sup_.isFinalMethod()) {
+                    fClasses_.add(s);
+                }
+                retClasses_.add(sup_.getReturnType());
+            }
+            if (fClasses_.size() > 1) {
+                for (String c: fClasses_) {
+                    addClass(output_, e.getKey(), c);
+                }
+                continue;
+            }
+            if (fClasses_.size() > 0 && aClasses_.size() > 0) {
+                for (String c: fClasses_) {
+                    addClass(output_, e.getKey(), c);
+                }
+                for (String c: aClasses_) {
+                    addClass(output_, e.getKey(), c);
+                }
+                continue;
+            }
+            if (fClasses_.size() == 1) {
+                String subInt_ = fClasses_.first();
+                MethodBlock sub_ = _classes.getMethodBody(subInt_, cst_);
+                String subType_ = sub_.getReturnType();
+                for (String s: e.getValue()) {
+                    MethodBlock sup_ = _classes.getMethodBody(s, cst_);
+                    if (sup_.isStaticMethod()) {
+                        continue;
+                    }
+                    String supType_ = sup_.getReturnType();
+                    if (StringList.quickEq(supType_, subType_)) {
+                        continue;
+                    }
+                    if (!PrimitiveTypeUtil.canBeUseAsArgument(supType_, subType_, _classes)) {
+                        addClass(output_, e.getKey(), subInt_);
+                        addClass(output_, e.getKey(), s);
+                    }
                 }
             }
         }
@@ -107,16 +188,23 @@ public abstract class RootBlock extends BracedBlock implements RootedBlock {
         EqList<ClassMethodId> rem_ = new EqList<ClassMethodId>();
         for (EntryCust<FctConstraints, StringList> e: _methodIds.entryList()) {
             int nbConcrete_ = 0;
+            int nbFinal_ = 0;
             int nbAbs_ = 0;
             for (String f: e.getValue()) {
                 MethodBlock method_ = _classes.getMethodBody(f, e.getKey());
-                if (method_.isNormalMethod()) {
+                if (method_.isStaticMethod()) {
+                    continue;
+                }
+                if (method_.isFinalMethod()) {
+                    nbFinal_++;
+                }
+                if (method_.isConcreteMethod()) {
                     nbConcrete_++;
                 } else {
                     nbAbs_++;
                 }
             }
-            if (nbConcrete_ != 1 || nbAbs_ != 0) {
+            if (nbConcrete_ != 1 && nbFinal_ == 0|| nbAbs_ != 0) {
                 for (String f: e.getValue()) {
                     ClassName cl_ = new ClassName(f, false);
                     ClassMethodId id_ = new ClassMethodId(cl_, e.getKey());
@@ -132,6 +220,18 @@ public abstract class RootBlock extends BracedBlock implements RootedBlock {
         ObjectMap<FctConstraints, String> map_;
         map_ = new ObjectMap<FctConstraints, String>();
         for (EntryCust<FctConstraints, StringList> e: _methodIds.entryList()) {
+            boolean found_ = false;
+            for (String f: e.getValue()) {
+                MethodBlock method_ = _classes.getMethodBody(f, e.getKey());
+                if (method_.isFinalMethod()) {
+                    map_.put(e.getKey(), f);
+                    found_ = true;
+                    break;
+                }
+            }
+            if (found_) {
+                continue;
+            }
             for (String f: e.getValue()) {
                 MethodBlock method_ = _classes.getMethodBody(f, e.getKey());
                 if (method_.isNormalMethod()) {

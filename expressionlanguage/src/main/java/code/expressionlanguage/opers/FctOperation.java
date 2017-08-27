@@ -287,7 +287,7 @@ public final class FctOperation extends InvokingOperation {
                     custClass_ = classes_.getClassMetaInfo(clCurName_);
                     interfaceChoice = custClass_.getCategory() == ClassCategory.INTERFACE;
                 }
-                ClassMethodIdReturn clMeth_ = getDeclaredCustMethod(_conf, new ClassArgumentMatching(clCurName_), trimMeth_, superClassAccess_, ClassArgumentMatching.toArgArray(firstArgs_));
+                ClassMethodIdReturn clMeth_ = getDeclaredCustMethod(_conf, isStaticAccess(), new ClassArgumentMatching(clCurName_), trimMeth_, superClassAccess_, ClassArgumentMatching.toArgArray(firstArgs_));
                 methodId = clMeth_.getId().getConstraints();
                 String foundClass_ = clMeth_.getId().getClassName().getName();
                 classMethodId = clMeth_.getId();
@@ -296,9 +296,6 @@ public final class FctOperation extends InvokingOperation {
                     throw new BadAccessException(clMeth_.getId().getConstraints().getSignature()+RETURN_LINE+_conf.joinPages());
                 }
                 staticMethod = clMeth_.isStaticMethod();
-                if (isStaticAccess() && !staticMethod) {
-                    throw new StaticAccessException(_conf.joinPages());
-                }
                 if (staticChoiceMethod) {
                     if (clMeth_.isAbstractMethod()) {
                         setRelativeOffsetPossibleLastPage(getIndexInEl()+off_, _conf);
@@ -310,36 +307,16 @@ public final class FctOperation extends InvokingOperation {
             }
         }
         if (firstArgs_.isEmpty()) {
-            String lang_ = _conf.getLanguage();
-            if (lang_ != null) {
-                if (StringList.quickEq(lang_, JAVA)) {
-                    if (StringList.quickEq(trimMeth_, JAVA_GET_CLASS)) {
-                        if (isStaticAccess()) {
-                            throw new StaticAccessException(_conf.joinPages());
-                        }
-                        method = getDeclaredMethod(_conf, new ClassArgumentMatching(Object.class.getName()), trimMeth_, ClassArgumentMatching.toArgArray(firstArgs_));
-                        setResultClass(new ClassArgumentMatching(PrimitiveTypeUtil.getAliasArrayClass(Class.class)));
-                        return;
-                    }
-                }
-                if (StringList.quickEq(lang_, CSHARP)) {
-                    if (StringList.quickEq(trimMeth_, CSHARP_GET_TYPE)) {
-                        if (isStaticAccess()) {
-                            throw new StaticAccessException(_conf.joinPages());
-                        }
-                        setResultClass(new ClassArgumentMatching(PrimitiveTypeUtil.getAliasArrayClass(Class.class)));
-                        return;
-                    }
-                }
+            if (StringList.quickEq(trimMeth_, GET_CLASS)) {
+                method = getDeclaredMethod(_conf, isStaticAccess(), new ClassArgumentMatching(Object.class.getName()), trimMeth_, ClassArgumentMatching.toArgArray(firstArgs_));
+                setResultClass(new ClassArgumentMatching(PrimitiveTypeUtil.getAliasArrayClass(Class.class)));
+                return;
             }
         }
-        Method m_ = getDeclaredMethod(_conf, clCur_, trimMeth_, ClassArgumentMatching.toArgArray(firstArgs_));
+        Method m_ = getDeclaredMethod(_conf, isStaticAccess(), clCur_, trimMeth_, ClassArgumentMatching.toArgArray(firstArgs_));
         if (!canBeUsed(m_, _conf)) {
             setRelativeOffsetPossibleLastPage(getIndexInEl()+off_, _conf);
             throw new BadAccessException(m_.toString()+RETURN_LINE+_conf.joinPages());
-        }
-        if (isStaticAccess() && !Modifier.isStatic(m_.getModifiers())) {
-            throw new StaticAccessException(_conf.joinPages());
         }
         method = m_;
         setAccess(method, _conf);
@@ -589,22 +566,10 @@ public final class FctOperation extends InvokingOperation {
             throw new NullObjectException(_conf.joinPages());
         }
         if (method.getParameterTypes().length == 0) {
-            String lang_ = _conf.getLanguage();
-            if (lang_ != null) {
-                if (StringList.quickEq(lang_, JAVA)) {
-                    if (StringList.quickEq(method.getName(), JAVA_GET_CLASS)) {
-                        Argument argres_ = new Argument();
-                        argres_.setObject(ConstClasses.classForNameNotInit(PrimitiveTypeUtil.getArrayClass(arg_.getObjectClassName())));
-                        return argres_;
-                    }
-                }
-                if (StringList.quickEq(lang_, CSHARP)) {
-                    if (StringList.quickEq(method.getName(), CSHARP_GET_TYPE)) {
-                        Argument argres_ = new Argument();
-                        argres_.setObject(ConstClasses.classForNameNotInit(arg_.getObjectClassName()));
-                        return argres_;
-                    }
-                }
+            if (StringList.quickEq(method.getName(), GET_CLASS)) {
+                Argument argres_ = new Argument();
+                argres_.setObject(ConstClasses.classForNameNotInit(PrimitiveTypeUtil.getArrayClass(arg_.getObjectClassName())));
+                return argres_;
             }
         }
         String clCur_ = getPreviousResultClass().getName();

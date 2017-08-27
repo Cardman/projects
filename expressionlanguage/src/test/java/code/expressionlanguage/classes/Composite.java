@@ -82,6 +82,12 @@ public class Composite {
     public String getOverridenThree(long _double) {
         return "long";
     }
+    public String getOverridenFour(Long _double) {
+        return "Long";
+    }
+    public String getOverridenFour(long _double) {
+        return "long";
+    }
     public int getInteger() {
         return integer;
     }

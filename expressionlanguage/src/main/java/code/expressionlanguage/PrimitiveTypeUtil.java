@@ -431,42 +431,39 @@ public final class PrimitiveTypeUtil {
     }
 
     private static boolean canBeUseAsArgument(Class<?> _param, Class<?> _arg, boolean _array) {
-        if (_arg == boolean.class || _arg == Boolean.class) {
-            if (!_param.isAssignableFrom(Boolean.class) && _param != boolean.class) {
-                return false;
-            }
-            return true;
-        }
-        if (_param == Object.class && _arg.isPrimitive()) {
-            return true;
-        }
         if (_param.isAssignableFrom(_arg)) {
             return true;
         }
-        Class<?> clMatch_ = PrimitiveTypeUtil.toPrimitive(_arg, true);
-        if (clMatch_.isPrimitive()) {
-            if (_arg.isPrimitive()) {
-                CustList<Class<?>> gt_ = PrimitiveTypeUtil.getOrdersGreaterEqThan(clMatch_);
-                if (isPureNumberClass(clMatch_) && _param == Number.class) {
-                    return true;
-                }
-                Class<?> prim_ = PrimitiveTypeUtil.toPrimitive(_param, true);
-                boolean contained_ = false;
-                for (Class<?> c: gt_) {
-                    if (c == prim_) {
-                        contained_ = true;
-                        break;
-                    }
-                }
-                if (!contained_) {
+        if (!_array) {
+            if (_arg == boolean.class || _arg == Boolean.class) {
+                if (!_param.isAssignableFrom(Boolean.class) && _param != boolean.class) {
                     return false;
                 }
                 return true;
             }
-            if (!_param.isPrimitive()) {
-                return false;
-            }
-            if (!_array) {
+            Class<?> clMatch_ = PrimitiveTypeUtil.toPrimitive(_arg, true);
+            if (clMatch_.isPrimitive()) {
+                if (_arg.isPrimitive()) {
+                    CustList<Class<?>> gt_ = PrimitiveTypeUtil.getOrdersGreaterEqThan(clMatch_);
+                    if (isPureNumberClass(clMatch_) && _param == Number.class) {
+                        return true;
+                    }
+                    Class<?> prim_ = PrimitiveTypeUtil.toPrimitive(_param, true);
+                    boolean contained_ = false;
+                    for (Class<?> c: gt_) {
+                        if (c == prim_) {
+                            contained_ = true;
+                            break;
+                        }
+                    }
+                    if (!contained_) {
+                        return false;
+                    }
+                    return true;
+                }
+                if (!_param.isPrimitive()) {
+                    return false;
+                }
                 CustList<Class<?>> gt_ = PrimitiveTypeUtil.getOrdersGreaterEqThan(clMatch_);
                 Class<?> prim_ = _param;
                 boolean contained_ = false;
@@ -709,6 +706,12 @@ public final class PrimitiveTypeUtil {
             return _class;
         }
         return null;
+    }
+    public static Class<?> toBooleanWrapper(Class<?> _class, boolean _id) {
+        if (_class == boolean.class) {
+            return Boolean.class;
+        }
+        return toWrapper(_class, _id);
     }
     public static Class<?> toWrapper(Class<?> _class, boolean _id) {
         if (_class == double.class) {

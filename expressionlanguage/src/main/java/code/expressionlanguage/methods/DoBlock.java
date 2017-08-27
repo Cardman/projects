@@ -70,10 +70,7 @@ public final class DoBlock extends BracedStack implements Loop, IncrCurrentGroup
     public void processEl(ContextEl _cont) {
         PageEl ip_ = _cont.getLastPage();
         ReadWrite rw_ = ip_.getReadWrite();
-        LoopBlockStack c_ = null;
-        if (!ip_.noBlock() && ip_.getLastStack() instanceof LoopBlockStack) {
-            c_ = (LoopBlockStack) ip_.getLastStack();
-        }
+        LoopBlockStack c_ = ip_.getLastLoopIfPossible();
         if (c_ != null && c_.getBlock() == this) {
             if (c_.isEvaluatingKeepLoop()) {
                 processLastElementLoop(_cont);

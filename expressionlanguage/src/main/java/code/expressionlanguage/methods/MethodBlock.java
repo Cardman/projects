@@ -106,6 +106,10 @@ public final class MethodBlock extends NamedFunctionBlock {
         return true;
     }
 
+    public boolean isConcreteMethod() {
+        return isNormalMethod() || isFinalMethod();
+    }
+
     public boolean isStaticMethod() {
         return staticMethod;
     }

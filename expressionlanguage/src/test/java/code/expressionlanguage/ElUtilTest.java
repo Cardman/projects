@@ -46,6 +46,7 @@ import code.expressionlanguage.opers.util.Struct;
 import code.expressionlanguage.variables.LocalVariable;
 import code.expressionlanguage.variables.LoopVariable;
 import code.serialize.exceptions.NoSuchDeclaredFieldException;
+import code.serialize.exceptions.NoSuchDeclaredMethodException;
 import code.util.StringList;
 import code.util.StringMap;
 import code.util.exceptions.NullObjectException;
@@ -1625,6 +1626,19 @@ public class ElUtilTest {
         assertSame(Integer.class, res_.getClass());
         assertEq(2,(Number) res_);
     }
+
+    @Test
+    public void processEl111Test() {
+        ContextEl context_ = new ContextEl();
+        setupAccessValue(context_);
+        addImportingPage(context_);
+        Composite b_ = new Composite();
+        addBean(context_, b_);
+        Argument arg_ = ElUtil.processEl("getOverridenFour(null)",0, context_);
+        Object res_ = arg_.getObject();
+        assertSame(String.class, res_.getClass());
+        assertEq("Long", res_);
+    }
     @Test(expected=AmbiguousChoiceCallingException.class)
     public void processEl1FailTest() {
         ContextEl context_ = new ContextEl();
@@ -1732,7 +1746,7 @@ public class ElUtilTest {
         addImportingPage(context_);
         ElUtil.processEl("MAX_VALUE",0, context_);
     }
-
+    
     @Test(expected=StaticAccessException.class)
     public void processEl12FailTest() {
         ContextEl context_ = new ContextEl();
@@ -1787,6 +1801,30 @@ public class ElUtilTest {
         setupAccessValue(context_);
         addImportingPage(context_);
         ElUtil.processEl("^new."+FAIL_METHODS+"()",0, context_);
+    }
+
+    @Test(expected=NoSuchDeclaredMethodException.class)
+    public void processEl19FailTest() {
+        ContextEl context_ = new ContextEl();
+        setupAccessValue(context_);
+        addImportingPage(context_);
+        Composite b_ = new Composite();
+        addBean(context_, b_);
+        StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
+        LocalVariable lv_ = new LocalVariable();
+        lv_.setElement(1l);
+        lv_.setClassName(Long.class.getName());
+        localVars_.put("arg", lv_);
+        context_.getLastPage().getLocalVars().putAllMap(localVars_);
+        ElUtil.processEl("get(arg;.)",0, context_);
+    }
+
+    @Test(expected=StaticAccessException.class)
+    public void processEl20FailTest() {
+        ContextEl context_ = new ContextEl();
+        setupAccessValue(context_);
+        addImportingPage(context_);
+        ElUtil.processEl("static^"+COMPOSITE_HAT+".getInteger()",0, context_);
     }
 
     @Test

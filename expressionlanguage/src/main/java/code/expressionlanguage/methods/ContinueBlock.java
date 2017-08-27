@@ -82,7 +82,7 @@ public final class ContinueBlock extends Leaf implements CallingFinally {
     public void removeBlockFinally(ContextEl _conf) {
         PageEl ip_ = _conf.getLastPage();
         Loop loop_ = null;
-        while (!ip_.noBlock()) {
+        while (true) {
             RemovableVars bl_ = ip_.getLastStack();
             ip_.setFinallyToProcess(false);
             if (bl_ instanceof LoopBlockStack) {
@@ -98,8 +98,6 @@ public final class ContinueBlock extends Leaf implements CallingFinally {
                 return;
             }
         }
-        if (loop_ != null) {
-            loop_.processLastElementLoop(_conf);
-        }
+        loop_.processLastElementLoop(_conf);
     }
 }

@@ -1067,6 +1067,23 @@ public final class Classes {
         for (String c: classesInheriting) {
             ClassName idBase_ = new ClassName(c, false);
             RootBlock bl_ = classesBodies.getVal(idBase_);
+            if (bl_ instanceof ClassBlock) {
+                ((ClassBlock)bl_).setupBasicOverrides(this);
+            }
+        }
+        for (String c: classesInheriting) {
+            ClassName idBase_ = new ClassName(c, false);
+            RootBlock bl_ = classesBodies.getVal(idBase_);
+            if (bl_ instanceof ClassBlock) {
+                ((ClassBlock)bl_).setupNextOverrides(this);
+            }
+        }
+        for (String c: classesInheriting) {
+            ClassName idBase_ = new ClassName(c, false);
+            RootBlock bl_ = classesBodies.getVal(idBase_);
+            if (bl_ instanceof ClassBlock) {
+                continue;
+            }
             RootBlock dBl_ = bl_;
             StringList all_ = dBl_.getAllSuperClasses();
             for (Block b: getDirectChildren(bl_)) {
@@ -1091,6 +1108,9 @@ public final class Classes {
         for (String c: classesInheriting) {
             ClassName idBase_ = new ClassName(c, false);
             Block bl_ = classesBodies.getVal(idBase_);
+            if (bl_ instanceof ClassBlock) {
+                continue;
+            }
             for (Block b: getDirectChildren(bl_)) {
                 if (b instanceof MethodBlock) {
                     MethodBlock mDer_ = (MethodBlock) b;
@@ -1129,6 +1149,19 @@ public final class Classes {
             ov_ = RootBlock.getAllOverridingMethods(signatures_, this);
             ObjectMap<FctConstraints, StringList> er_;
             er_ = RootBlock.areCompatible(localSignatures_, ov_, this);
+            for (EntryCust<FctConstraints, StringList> e: er_.entryList()) {
+                for (String s: e.getValue()) {
+                    MethodBlock mDer_ = getMethodBody(s, e.getKey());
+                    IncompatibilityReturnType err_ = new IncompatibilityReturnType();
+                    err_.setFileName(c);
+                    err_.setRc(bl_.getRowCol(0, _context.getTabWidth(), ATTRIBUTE_NAME));
+                    err_.setReturnType(mDer_.getReturnType());
+                    err_.setMethod(mDer_.getId());
+                    err_.setParentClass(s);
+                    errorsDet.add(err_);
+                }
+            }
+            er_ = RootBlock.areModifierCompatible(ov_, this);
             for (EntryCust<FctConstraints, StringList> e: er_.entryList()) {
                 for (String s: e.getValue()) {
                     MethodBlock mDer_ = getMethodBody(s, e.getKey());
@@ -1320,7 +1353,15 @@ public final class Classes {
                         for (String i: e.getValue()) {
                             MethodBlock mBase_ = getMethodBody(i, e.getKey());
                             String retBase_ = mBase_.getReturnType();
-                            if (StringList.quickEq(retBase_, OperationNode.VOID_RETURN)) {
+                            if (mBase_.isFinalMethod()) {
+                                FinalMethod err_;
+                                err_ = new FinalMethod();
+                                err_.setFileName(c);
+                                err_.setRc(mDer_.getAttributes().getVal(ATTRIBUTE_NAME));
+                                err_.setClassName(c);
+                                err_.setId(mDer_.getId());
+                                errorsDet.add(err_);
+                            } else if (StringList.quickEq(retBase_, OperationNode.VOID_RETURN)) {
                                 if (!StringList.quickEq(retDerive_, OperationNode.VOID_RETURN)) {
                                     BadReturnTypeInherit err_;
                                     err_ = new BadReturnTypeInherit();

@@ -16,7 +16,7 @@ import code.expressionlanguage.exceptions.AbstractClassConstructorException;
 import code.expressionlanguage.exceptions.AmbiguousChoiceCallingException;
 import code.expressionlanguage.exceptions.ErrorCausingException;
 import code.expressionlanguage.exceptions.InvokeException;
-import code.expressionlanguage.exceptions.PrimitiveTypeException;
+import code.expressionlanguage.exceptions.StaticAccessException;
 import code.expressionlanguage.exceptions.UnwrappingException;
 import code.expressionlanguage.exceptions.VoidArgumentException;
 import code.expressionlanguage.methods.ClassBlock;
@@ -165,10 +165,7 @@ public abstract class OperationNode implements SortedNode<OperationNode>, Operab
     protected static final String SPACE = " ";
     protected static final String RETURN_TAB = RETURN_LINE+"\t";
 
-    protected static final String JAVA = "java";
-    protected static final String CSHARP = "csharp";
-    protected static final String JAVA_GET_CLASS = "getClass";
-    protected static final String CSHARP_GET_TYPE = "GetType";
+    protected static final String GET_CLASS = "getClass";
 
     private MethodOperation parent;
 
@@ -642,7 +639,7 @@ public abstract class OperationNode implements SortedNode<OperationNode>, Operab
             return clCurName_;
         }
     }
-    static ClassMethodIdReturn getDeclaredCustMethod(ContextEl _conf, ClassArgumentMatching _class, String _name, boolean _superClass, ClassArgumentMatching... _argsClass) {
+    static ClassMethodIdReturn getDeclaredCustMethod(ContextEl _conf, boolean _staticContext, ClassArgumentMatching _class, String _name, boolean _superClass, ClassArgumentMatching... _argsClass) {
         Classes classes_ = _conf.getClasses();
         if (classes_ == null) {
             return null;
@@ -653,33 +650,103 @@ public abstract class OperationNode implements SortedNode<OperationNode>, Operab
         if (custClass_ == null) {
             return null;
         }
-        String glClass_ = _conf.getLastPage().getGlobalClass();
         for (ClassArgumentMatching c:_argsClass) {
             if (c.matchVoid()) {
                 throw new VoidArgumentException(clCurName_+DOT+_name+RETURN_LINE+_conf.joinPages());
             }
         }
         if (_superClass && custClass_.getCategory() == ClassCategory.INTERFACE) {
-            return getDeclaredCustMethodByInterface(_conf, _class, _name, _argsClass);
-        }
-        StringList traces_ = new StringList();
-        while (custClass_ != null) {
-            ClassMethodIdResult res_ = getDeclaredCustMethodByClass(_conf, new ClassArgumentMatching(clCurName_), _name, _argsClass);
-            if (res_.getStatus() == SearchingMemberStatus.ZERO) {
-                if (!classes_.canAccessClass(glClass_, clCurName_)) {
-                    traces_.add(clCurName_);
-                } else {
-                    String trace_ = clCurName_+DOT+_name+PAR_LEFT;
-                    StringList classesNames_ = new StringList();
-                    for (ClassArgumentMatching c: _argsClass) {
-                        classesNames_.add(c.getName());
-                    }
-                    trace_ += classesNames_.join(SEP_ARG);
-                    trace_ += PAR_RIGHT;
-                    traces_.add(trace_);
+            ObjectNotNullMap<FctConstraints, MethodMetaInfo> methodsInst_;
+            methodsInst_ = getInterfacesMethods(_conf, false, _class, _name, _argsClass);
+            ClassMethodIdResult resInst_ = getDeclaredCustMethodByInterface(_conf, methodsInst_, _class, _name, _argsClass);
+            boolean foundInst_ = false;
+            if (!_staticContext) {
+                if (resInst_.getStatus() == SearchingMemberStatus.UNIQ) {
+                    foundInst_ = true;
                 }
+            }
+            ObjectNotNullMap<FctConstraints, MethodMetaInfo> methodsStatic_;
+            methodsStatic_ = getInterfacesMethods(_conf, true, _class, _name, _argsClass);
+            ClassMethodIdResult resStatic_ = getDeclaredCustMethodByInterface(_conf, methodsStatic_, _class, _name, _argsClass);
+            if (foundInst_) {
+                ClassMethodIdReturn idRet_ = new ClassMethodIdReturn();
+                idRet_.setId(new ClassMethodId(new ClassName(_class.getName(), false), resInst_.getId().getConstraints()));
+                idRet_.setReturnType(methodsInst_.getVal(resInst_.getId().getConstraints()).getReturnType().getName());
+                return idRet_;
+            }
+            if (resStatic_.getStatus() == SearchingMemberStatus.UNIQ) {
+                ClassMethodIdReturn idRet_ = new ClassMethodIdReturn();
+                idRet_.setId(new ClassMethodId(new ClassName(_class.getName(), false), resInst_.getId().getConstraints()));
+                idRet_.setReturnType(methodsStatic_.getVal(resInst_.getId().getConstraints()).getReturnType().getName());
+                idRet_.setStaticMethod(true);
+                return idRet_;
+            }
+            if (_staticContext && resInst_.getStatus() == SearchingMemberStatus.UNIQ) {
+                //static access
+                throw new StaticAccessException(_conf.joinPages());
+            }
+            String trace_ = clCurName_+DOT+_name+PAR_LEFT;
+            StringList classesNames_ = new StringList();
+            for (ClassArgumentMatching c: _argsClass) {
+                classesNames_.add(c.getName());
+            }
+            trace_ += classesNames_.join(SEP_ARG);
+            trace_ += PAR_RIGHT;
+            throw new NoSuchDeclaredMethodException(trace_+RETURN_LINE+_conf.joinPages());
+        }
+        ClassMethodIdResult resInst_ = getDeclaredCustMethodByClass(_conf, false, _class, _name, _superClass, _argsClass);
+        boolean foundInst_ = false;
+        if (!_staticContext) {
+            if (resInst_.getStatus() == SearchingMemberStatus.UNIQ) {
+                foundInst_ = true;
+            }
+        }
+        ClassMethodIdResult resStatic_ = getDeclaredCustMethodByClass(_conf, true, _class, _name, _superClass, _argsClass);
+        if (foundInst_) {
+            return toFoundMethod(_conf, resInst_);
+        }
+        if (resStatic_.getStatus() == SearchingMemberStatus.UNIQ) {
+            return toFoundMethod(_conf, resStatic_);
+        }
+        if (resInst_.getStatus() == SearchingMemberStatus.UNIQ) {
+            //static access
+            throw new StaticAccessException(_conf.joinPages());
+        }
+        String trace_ = clCurName_+DOT+_name+PAR_LEFT;
+        StringList classesNames_ = new StringList();
+        for (ClassArgumentMatching c: _argsClass) {
+            classesNames_.add(c.getName());
+        }
+        trace_ += classesNames_.join(SEP_ARG);
+        trace_ += PAR_RIGHT;
+        throw new NoSuchDeclaredMethodException(trace_+RETURN_LINE+_conf.joinPages());
+    }
+    private static ClassMethodIdReturn toFoundMethod(ContextEl _conf, ClassMethodIdResult _res){
+        Classes classes_ = _conf.getClasses();
+        ClassMethodIdReturn idRet_ = new ClassMethodIdReturn();
+        idRet_.setId(_res.getId());
+        String clCurName_ = _res.getId().getClassName().getName();
+        MethodBlock m_ = classes_.getMethodBody(clCurName_, _res.getId().getConstraints());
+        if (m_ == null) {
+            UniqueRootedBlock u_ = (UniqueRootedBlock) classes_.getClassBody(clCurName_);
+            String int_ = u_.getDefaultMethods().getVal(_res.getId().getConstraints());
+            m_ = classes_.getMethodBody(int_, _res.getId().getConstraints());
+        }
+        idRet_.setReturnType(m_.getReturnType());
+        idRet_.setStaticMethod(m_.isStaticMethod());
+        idRet_.setAbstractMethod(m_.isAbstractMethod());
+        return idRet_;
+    }
+    private static ClassMethodIdResult getDeclaredCustMethodByClass(ContextEl _conf, boolean _static, ClassArgumentMatching _class, String _name, boolean _superClass, ClassArgumentMatching... _argsClass) {
+        Classes classes_ = _conf.getClasses();
+        ClassMetaInfo custClass_ = null;
+        String clCurName_ = _class.getName();
+        custClass_ = classes_.getClassMetaInfo(clCurName_);
+        while (custClass_ != null) {
+            ClassMethodIdResult res_ = getDeclaredCustMethodByClass(_conf, _static, new ClassArgumentMatching(clCurName_), _name, _argsClass);
+            if (res_.getStatus() == SearchingMemberStatus.ZERO) {
                 if (!_superClass) {
-                    break;
+                    return res_;
                 }
                 String superClass_ = custClass_.getSuperClass();
                 custClass_ = classes_.getClassMetaInfo(superClass_);
@@ -687,24 +754,22 @@ public abstract class OperationNode implements SortedNode<OperationNode>, Operab
                 continue;
             }
             if (res_.getStatus() == SearchingMemberStatus.UNIQ) {
-                ClassMethodIdReturn idRet_ = new ClassMethodIdReturn();
-                idRet_.setId(res_.getId());
-                MethodBlock m_ = classes_.getMethodBody(clCurName_, res_.getId().getConstraints());
-                if (m_ == null) {
-                    UniqueRootedBlock u_ = (UniqueRootedBlock) classes_.getClassBody(clCurName_);
-                    String int_ = u_.getDefaultMethods().getVal(res_.getId().getConstraints());
-                    m_ = classes_.getMethodBody(int_, res_.getId().getConstraints());
-                }
-                idRet_.setReturnType(m_.getReturnType());
-                idRet_.setStaticMethod(m_.isStaticMethod());
-                idRet_.setAbstractMethod(m_.isAbstractMethod());
-                return idRet_;
+                return res_;
             }
             throw new AmbiguousChoiceCallingException(res_.getMethods().join(RETURN_LINE)+RETURN_LINE+_conf.joinPages());
         }
-        throw new NoSuchDeclaredMethodException(traces_.join(RETURN_TAB)+RETURN_LINE+_conf.joinPages());
+        ClassMethodIdResult res_ = new ClassMethodIdResult();
+        res_.setStatus(SearchingMemberStatus.ZERO);
+        return res_;
     }
-    private static ClassMethodIdReturn getDeclaredCustMethodByInterface(ContextEl _conf, ClassArgumentMatching _class, String _name, ClassArgumentMatching... _argsClass) {
+    private static ClassMethodIdResult getDeclaredCustMethodByInterface(
+            ContextEl _conf,
+            ObjectNotNullMap<FctConstraints, MethodMetaInfo> _methods,
+            ClassArgumentMatching _class, String _name, ClassArgumentMatching... _argsClass) {
+        return getCustResult(_conf, _class, _methods, true, _name, _argsClass);
+    }
+    private static ObjectNotNullMap<FctConstraints, MethodMetaInfo> getInterfacesMethods(
+            ContextEl _conf, boolean _static, ClassArgumentMatching _class, String _name, ClassArgumentMatching... _argsClass) {
         Classes classes_ = _conf.getClasses();
         String clCurName_ = _class.getName();
         InterfaceBlock intBl_ = (InterfaceBlock) classes_.getClassBody(clCurName_);
@@ -720,16 +785,41 @@ public abstract class OperationNode implements SortedNode<OperationNode>, Operab
             ObjectMap<FctConstraints, StringList> signaturesInt_;
             signaturesInt_ = superBl_.getAllSignatures(classes_);
             for (EntryCust<FctConstraints, StringList> m: signaturesInt_.entryList()) {
-                if (!signatures_.contains(m.getKey())) {
-                    signatures_.put(m.getKey(), m.getValue());
+                StringList subList_ = new StringList();
+                if (_static) {
+                    for (String i: m.getValue()) {
+                        MethodBlock m_ = classes_.getMethodBody(i, m.getKey());
+                        if (!m_.isStaticMethod()) {
+                            continue;
+                        }
+                        subList_.add(i);
+                    }
                 } else {
-                    signatures_.getVal(m.getKey()).addAllElts(m.getValue());
+                    for (String i: m.getValue()) {
+                        MethodBlock m_ = classes_.getMethodBody(i, m.getKey());
+                        if (m_.isStaticMethod()) {
+                            continue;
+                        }
+                        subList_.add(i);
+                    }
+                }
+                if (subList_.isEmpty()) {
+                    continue;
+                }
+                if (!signatures_.contains(m.getKey())) {
+                    signatures_.put(m.getKey(), subList_);
+                } else {
+                    signatures_.getVal(m.getKey()).addAllElts(subList_);
                     signatures_.getVal(m.getKey()).removeDuplicates();
                 }
             }
         }
         ObjectMap<FctConstraints, StringList> ov_;
-        ov_ = RootBlock.getAllOverridingMethods(signatures_, classes_);
+        if (!_static) {
+            ov_ = RootBlock.getAllOverridingMethods(signatures_, classes_);
+        } else {
+            ov_ = signatures_;
+        }
         ObjectNotNullMap<FctConstraints, MethodMetaInfo> methods_;
         methods_ = new ObjectNotNullMap<FctConstraints, MethodMetaInfo>();
         String cl_ = EMPTY_STRING;
@@ -742,14 +832,15 @@ public abstract class OperationNode implements SortedNode<OperationNode>, Operab
             String ret_ = PrimitiveTypeUtil.getSubslass(retTypes_, classes_);
             ClassName clRet_ = new ClassName(ret_, false);
             cl_ = e.getValue().first();
-            MethodMetaInfo info_ = new MethodMetaInfo(cl_, MethodModifier.NORMAL, clRet_);
-            methods_.put(e.getKey(), info_);
+            if (!_static) {
+                MethodMetaInfo info_ = new MethodMetaInfo(cl_, MethodModifier.NORMAL, clRet_);
+                methods_.put(e.getKey(), info_);
+            } else {
+                MethodMetaInfo info_ = new MethodMetaInfo(cl_, MethodModifier.STATIC, clRet_);
+                methods_.put(e.getKey(), info_);
+            }
         }
-        ClassMethodIdResult res_ = getCustResult(_conf, _class, methods_, true, _name, _argsClass);
-        ClassMethodIdReturn idRet_ = new ClassMethodIdReturn();
-        idRet_.setId(new ClassMethodId(new ClassName(cl_, false), res_.getId().getConstraints()));
-        idRet_.setReturnType(methods_.getVal(res_.getId().getConstraints()).getReturnType().getName());
-        return idRet_;
+        return methods_;
     }
     private static String getDeclaredCustMethodByInterface(ContextEl _conf, String _realClassName, ClassMethodId _idMeth) {
         Classes classes_ = _conf.getClasses();
@@ -780,7 +871,7 @@ public abstract class OperationNode implements SortedNode<OperationNode>, Operab
             return clCurName_;
         }
     }
-    private static ClassMethodIdResult getDeclaredCustMethodByClass(ContextEl _conf, ClassArgumentMatching _class, String _name, ClassArgumentMatching... _argsClass) {
+    private static ClassMethodIdResult getDeclaredCustMethodByClass(ContextEl _conf, boolean _static, ClassArgumentMatching _class, String _name, ClassArgumentMatching... _argsClass) {
         Classes classes_ = _conf.getClasses();
         ClassMetaInfo custClass_ = null;
         String clCurName_ = _class.getName();
@@ -794,7 +885,18 @@ public abstract class OperationNode implements SortedNode<OperationNode>, Operab
             return res_;
         }
         ObjectNotNullMap<FctConstraints, MethodMetaInfo> methods_;
-        methods_ = custClass_.getMethods();
+        methods_ = new ObjectNotNullMap<FctConstraints, MethodMetaInfo>();
+        for (EntryCust<FctConstraints, MethodMetaInfo> e: custClass_.getMethods().entryList()) {
+            if (e.getValue().isStatic()) {
+                if (_static) {
+                    methods_.put(e.getKey(), e.getValue());
+                }
+            } else {
+                if (!_static) {
+                    methods_.put(e.getKey(), e.getValue());
+                }
+            }
+        }
         RootBlock clBl_ = classes_.getClassBody(clCurName_);
         for (EntryCust<FctConstraints, String> e: clBl_.getDefaultMethods().entryList()) {
             MethodBlock m_ = classes_.getMethodBody(e.getValue(), e.getKey());
@@ -891,60 +993,85 @@ public abstract class OperationNode implements SortedNode<OperationNode>, Operab
         }
         return accessible_;
     }
-    static Method getDeclaredMethod(ContextEl _cont, ClassArgumentMatching _class, String _name, ClassArgumentMatching... _argsClass) {
+    static Method getDeclaredMethod(ContextEl _cont, boolean _staticContext, ClassArgumentMatching _class, String _name, ClassArgumentMatching... _argsClass) {
         Class<?> class_ = _class.getClazz();
-        if (class_.isPrimitive()) {
-            throw new PrimitiveTypeException(_class.getName()+RETURN_LINE+_cont.joinPages());
-        }
+        class_ = PrimitiveTypeUtil.toBooleanWrapper(class_, true);
         for (ClassArgumentMatching c:_argsClass) {
             if (c.matchVoid()) {
                 throw new VoidArgumentException(_class.getName()+DOT+_name+RETURN_LINE+_cont.joinPages());
             }
         }
-        StringList traces_ = new StringList();
         if (class_.isInterface()) {
-            CustList<Method> possibleMethods_ = new CustList<Method>(class_.getMethods());
-            ClassMethodIdResult res_ = getResult(_cont, _class, possibleMethods_, _name, _argsClass);
-            if (res_.getStatus() == SearchingMemberStatus.ZERO) {
-                String trace_ = _class.getName()+DOT+_name+PAR_LEFT;
-                StringList classesNames_ = new StringList();
-                for (ClassArgumentMatching c: _argsClass) {
-                    classesNames_.add(c.getName());
-                }
-                trace_ += classesNames_.join(SEP_ARG);
-                trace_ += PAR_RIGHT;
-                traces_.add(trace_);
-                throw new NoSuchDeclaredMethodException(traces_.join(RETURN_TAB)+RETURN_LINE+_cont.joinPages());
-            }
-            if (res_.getStatus() == SearchingMemberStatus.UNIQ) {
-                return res_.getMethod();
-            }
-            throw new AmbiguousChoiceCallingException(res_.getMethods().join(RETURN_LINE)+RETURN_LINE+_cont.joinPages());
+            ClassMethodIdResult resInst_ = getInterfaceMethod(_cont, false, _class, _name, _argsClass);
+            ClassMethodIdResult resStatic_ = getInterfaceMethod(_cont, true, _class, _name, _argsClass);
+            return getFoundMethod(_cont, _staticContext, resInst_, resStatic_, _class, _name, _argsClass);
         }
+        ClassMethodIdResult resInst_ = getDeclaredMethodLoop(_cont, false, _class, _name, _argsClass);
+        ClassMethodIdResult resStatic_ = getDeclaredMethodLoop(_cont, true, _class, _name, _argsClass);
+        return getFoundMethod(_cont, _staticContext, resInst_, resStatic_, _class, _name, _argsClass);
+    }
+    private static Method getFoundMethod(ContextEl _cont, boolean _staticContext,
+            ClassMethodIdResult _resInst, ClassMethodIdResult _resStatic,
+            ClassArgumentMatching _class, String _name, ClassArgumentMatching... _argsClass) {
+        boolean foundInst_ = false;
+        if (!_staticContext) {
+            if (_resInst.getStatus() == SearchingMemberStatus.UNIQ) {
+                foundInst_ = true;
+            }
+        }
+        if (foundInst_) {
+            return _resInst.getMethod();
+        }
+        if (_resStatic.getStatus() == SearchingMemberStatus.UNIQ) {
+            return _resStatic.getMethod();
+        }
+        if (_resInst.getStatus() == SearchingMemberStatus.UNIQ) {
+            //static access
+            throw new StaticAccessException(_cont.joinPages());
+        }
+        String clCurName_ = _class.getName();
+        String trace_ = clCurName_+DOT+_name+PAR_LEFT;
+        StringList classesNames_ = new StringList();
+        for (ClassArgumentMatching c: _argsClass) {
+            classesNames_.add(c.getName());
+        }
+        trace_ += classesNames_.join(SEP_ARG);
+        trace_ += PAR_RIGHT;
+        throw new NoSuchDeclaredMethodException(trace_+RETURN_LINE+_cont.joinPages());
+    }
+    private static ClassMethodIdResult getInterfaceMethod(ContextEl _cont, boolean _static, ClassArgumentMatching _class, String _name, ClassArgumentMatching... _argsClass) {
+        Class<?> class_ = _class.getClazz();
+        CustList<Method> possibleMethods_ = new CustList<Method>(class_.getMethods());
+        ClassMethodIdResult res_ = getResult(_cont, _static, _class, possibleMethods_, _name, _argsClass);
+        if (res_.getStatus() == SearchingMemberStatus.ZERO) {
+            return res_;
+        }
+        if (res_.getStatus() == SearchingMemberStatus.UNIQ) {
+            return res_;
+        }
+        throw new AmbiguousChoiceCallingException(res_.getMethods().join(RETURN_LINE)+RETURN_LINE+_cont.joinPages());
+    }
+    static ClassMethodIdResult getDeclaredMethodLoop(ContextEl _cont, boolean _static, ClassArgumentMatching _class,
+            String _name, ClassArgumentMatching... _argsClass) {
+        Class<?> class_ = _class.getClazz();
         while (class_ != null) {
             IdList<Method> possibleMethods_ = new IdList<Method>(class_.getDeclaredMethods());
             for (Class<?> i: getSuperInterfaces(class_)) {
                 possibleMethods_.addAllElts(new CustList<Method>(i.getDeclaredMethods()));
             }
-            ClassMethodIdResult res_ = getResult(_cont, _class, possibleMethods_, _name, _argsClass);
+            ClassMethodIdResult res_ = getResult(_cont, _static, _class, possibleMethods_, _name, _argsClass);
             if (res_.getStatus() == SearchingMemberStatus.ZERO) {
-                String trace_ = _class.getName()+DOT+_name+PAR_LEFT;
-                StringList classesNames_ = new StringList();
-                for (ClassArgumentMatching c: _argsClass) {
-                    classesNames_.add(c.getName());
-                }
-                trace_ += classesNames_.join(SEP_ARG);
-                trace_ += PAR_RIGHT;
-                traces_.add(trace_);
                 class_ = class_.getSuperclass();
                 continue;
             }
             if (res_.getStatus() == SearchingMemberStatus.UNIQ) {
-                return res_.getMethod();
+                return res_;
             }
             throw new AmbiguousChoiceCallingException(res_.getMethods().join(RETURN_LINE)+RETURN_LINE+_cont.joinPages());
         }
-        throw new NoSuchDeclaredMethodException(traces_.join(RETURN_TAB)+RETURN_LINE+_cont.joinPages());
+        ClassMethodIdResult res_ = new ClassMethodIdResult();
+        res_.setStatus(SearchingMemberStatus.ZERO);
+        return res_;
     }
     private static IdList<Class<?>> getSuperInterfaces(Class<?> _class) {
         IdList<Class<?>> cur_ = new IdList<Class<?>>(_class);
@@ -965,11 +1092,20 @@ public abstract class OperationNode implements SortedNode<OperationNode>, Operab
             cur_ = next_;
         }
     }
-    private static ClassMethodIdResult getResult(ContextEl _conf, ClassArgumentMatching _class,
+    private static ClassMethodIdResult getResult(ContextEl _conf, boolean _static, ClassArgumentMatching _class,
             CustList<Method> _methods,
             String _name, ClassArgumentMatching... _argsClass) {
         CustList<Method> possibleMethods_ = new CustList<Method>();
         for (Method m: _methods) {
+            if (_static) {
+                if (!Modifier.isStatic(m.getModifiers())) {
+                    continue;
+                }
+            } else {
+                if (Modifier.isStatic(m.getModifiers())) {
+                    continue;
+                }
+            }
             if (!StringList.quickEq(m.getName(), _name)) {
                 continue;
             }
@@ -994,11 +1130,6 @@ public abstract class OperationNode implements SortedNode<OperationNode>, Operab
             ClassMethodIdResult res_ = new ClassMethodIdResult();
             res_.setStatus(SearchingMemberStatus.UNIQ);
             res_.setMethod(possibleMethods_.first());
-            return res_;
-        }
-        if (possibleMethods_.isEmpty()) {
-            ClassMethodIdResult res_ = new ClassMethodIdResult();
-            res_.setStatus(SearchingMemberStatus.ZERO);
             return res_;
         }
         ArgumentsGroup gr_ = new ArgumentsGroup(_conf.getClasses(), _argsClass);

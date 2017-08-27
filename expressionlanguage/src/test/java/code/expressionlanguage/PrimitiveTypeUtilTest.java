@@ -66,28 +66,28 @@ public class PrimitiveTypeUtilTest {
     public void canBeUseAsArgument9Test() {
         String arrObj_ = PrimitiveTypeUtil.getPrettyArrayType(Object.class.getName());
         String arrInt_ = PrimitiveTypeUtil.getPrettyArrayType(PrimitiveTypeUtil.PRIM_INT);
-        assertTrue(PrimitiveTypeUtil.canBeUseAsArgument(arrObj_, arrInt_, null));
+        assertTrue(!PrimitiveTypeUtil.canBeUseAsArgument(arrObj_, arrInt_, null));
     }
 
     @Test
     public void canBeUseAsArgument10Test() {
         String arrObj_ = PrimitiveTypeUtil.getPrettyArrayType(Integer.class.getName());
         String arrInt_ = PrimitiveTypeUtil.getPrettyArrayType(PrimitiveTypeUtil.PRIM_INT);
-        assertTrue(PrimitiveTypeUtil.canBeUseAsArgument(arrObj_, arrInt_, null));
+        assertTrue(!PrimitiveTypeUtil.canBeUseAsArgument(arrObj_, arrInt_, null));
     }
 
     @Test
     public void canBeUseAsArgument11Test() {
         String arrObj_ = PrimitiveTypeUtil.getPrettyArrayType(Number.class.getName());
         String arrInt_ = PrimitiveTypeUtil.getPrettyArrayType(PrimitiveTypeUtil.PRIM_INT);
-        assertTrue(PrimitiveTypeUtil.canBeUseAsArgument(arrObj_, arrInt_, null));
+        assertTrue(!PrimitiveTypeUtil.canBeUseAsArgument(arrObj_, arrInt_, null));
     }
 
     @Test
     public void canBeUseAsArgument12Test() {
         String arrObj_ = PrimitiveTypeUtil.getPrettyArrayType(PrimitiveTypeUtil.PRIM_INT);
         String arrInt_ = PrimitiveTypeUtil.getPrettyArrayType(PrimitiveTypeUtil.PRIM_BYTE);
-        assertTrue(PrimitiveTypeUtil.canBeUseAsArgument(arrObj_, arrInt_, null));
+        assertTrue(!PrimitiveTypeUtil.canBeUseAsArgument(arrObj_, arrInt_, null));
     }
 
     @Test
@@ -127,7 +127,7 @@ public class PrimitiveTypeUtilTest {
     public void canBeUseAsArgument18Test() {
         String arrObj_ = PrimitiveTypeUtil.getPrettyArrayType(Long.class.getName());
         String arrInt_ = PrimitiveTypeUtil.getPrettyArrayType(PrimitiveTypeUtil.PRIM_INT);
-        assertTrue(PrimitiveTypeUtil.canBeUseAsArgument(arrObj_, arrInt_, null));
+        assertTrue(!PrimitiveTypeUtil.canBeUseAsArgument(arrObj_, arrInt_, null));
     }
 
     @Test
@@ -148,7 +148,7 @@ public class PrimitiveTypeUtilTest {
     public void canBeUseAsArgument21Test() {
         String arrObj_ = PrimitiveTypeUtil.getPrettyArrayType(Character.class.getName());
         String arrInt_ = PrimitiveTypeUtil.getPrettyArrayType(PrimitiveTypeUtil.PRIM_CHAR);
-        assertTrue(PrimitiveTypeUtil.canBeUseAsArgument(arrObj_, arrInt_, null));
+        assertTrue(!PrimitiveTypeUtil.canBeUseAsArgument(arrObj_, arrInt_, null));
     }
 
     @Test
@@ -162,7 +162,7 @@ public class PrimitiveTypeUtilTest {
     public void canBeUseAsArgument23Test() {
         String arrObj_ = PrimitiveTypeUtil.getPrettyArrayType(Object.class.getName());
         String arrInt_ = PrimitiveTypeUtil.getPrettyArrayType(PrimitiveTypeUtil.PRIM_CHAR);
-        assertTrue(PrimitiveTypeUtil.canBeUseAsArgument(arrObj_, arrInt_, null));
+        assertTrue(!PrimitiveTypeUtil.canBeUseAsArgument(arrObj_, arrInt_, null));
     }
 
     @Test
@@ -747,6 +747,48 @@ public class PrimitiveTypeUtilTest {
     @Test
     public void canBeUseAsArgument69Test() {
         assertTrue(!PrimitiveTypeUtil.canBeUseAsArgument(OperationNode.VOID_RETURN, OperationNode.VOID_RETURN, null));
+    }
+
+    @Test
+    public void canBeUseAsArgument70Test() {
+        String arrObj_ = Object.class.getName();
+        String arrInt_ = PrimitiveTypeUtil.PRIM_CHAR;
+        assertTrue(PrimitiveTypeUtil.canBeUseAsArgument(arrObj_, arrInt_, null));
+    }
+
+    @Test
+    public void canBeUseAsArgument71Test() {
+        String arrObj_ = Object.class.getName();
+        String arrInt_ = PrimitiveTypeUtil.PRIM_INT;
+        assertTrue(PrimitiveTypeUtil.canBeUseAsArgument(arrObj_, arrInt_, null));
+    }
+
+    @Test
+    public void canBeUseAsArgument72Test() {
+        String arrObj_ = Number.class.getName();
+        String arrInt_ = PrimitiveTypeUtil.PRIM_INT;
+        assertTrue(PrimitiveTypeUtil.canBeUseAsArgument(arrObj_, arrInt_, null));
+    }
+
+    @Test
+    public void canBeUseAsArgument73Test() {
+        String arrObj_ = Boolean.class.getName();
+        String arrInt_ = PrimitiveTypeUtil.PRIM_BOOLEAN;
+        assertTrue(PrimitiveTypeUtil.canBeUseAsArgument(arrObj_, arrInt_, null));
+    }
+
+    @Test
+    public void canBeUseAsArgument74Test() {
+        String arrObj_ = PrimitiveTypeUtil.PRIM_BOOLEAN;
+        String arrInt_ = PrimitiveTypeUtil.PRIM_BOOLEAN;
+        assertTrue(PrimitiveTypeUtil.canBeUseAsArgument(arrObj_, arrInt_, null));
+    }
+
+    @Test
+    public void canBeUseAsArgument75Test() {
+        String arrObj_ = PrimitiveTypeUtil.PRIM_BOOLEAN;
+        String arrInt_ = Boolean.class.getName();
+        assertTrue(PrimitiveTypeUtil.canBeUseAsArgument(arrObj_, arrInt_, null));
     }
 
     @Test

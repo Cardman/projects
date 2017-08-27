@@ -63,9 +63,6 @@ public abstract class QuickOperation extends PrimitiveBoolOperation {
         OperationNode last_ = chidren_.last();
         setRelativeOffsetPossibleLastPage(last_.getIndexInEl(), _conf);
         Argument a_ = _nodes.getVal(last_).getArgument();
-        if (a_.getObject() == null) {
-            throw new NullObjectException(_conf.joinPages());
-        }
         setSimpleArgument(a_, _conf, _nodes);
         return a_;
     }
@@ -85,9 +82,6 @@ public abstract class QuickOperation extends PrimitiveBoolOperation {
         CustList<OperationNode> chidren_ = getChildrenNodes();
         setRelativeOffsetPossibleLastPage(chidren_.last().getIndexInEl(), _conf);
         Argument a_ = chidren_.last().getArgument();
-        if (a_.getObject() == null) {
-            throw new NullObjectException(_conf.joinPages());
-        }
         setSimpleArgument(a_, _conf);
     }
 }
