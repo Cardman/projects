@@ -4,16 +4,8 @@ import static code.maths.EquallableMathUtil.assertEq;
 import static code.util.opers.EquallableUtil.assertEq;
 import static org.junit.Assert.assertTrue;
 
-import org.junit.BeforeClass;
 import org.junit.Test;
 
-import code.maths.LgInt;
-import code.maths.Rate;
-import code.util.CustList;
-import code.util.NumberMap;
-import code.util.Numbers;
-import code.util.StringList;
-import code.util.StringMap;
 import aiki.fight.abilities.AbilityData;
 import aiki.fight.effects.EffectWhileSending;
 import aiki.fight.enums.Statistic;
@@ -21,21 +13,6 @@ import aiki.fight.items.Item;
 import aiki.fight.items.ItemForBattle;
 import aiki.fight.moves.effects.Effect;
 import aiki.fight.moves.effects.EffectTeamWhileSendFoe;
-import aiki.game.fight.Fight;
-import aiki.game.fight.FightAbilities;
-import aiki.game.fight.FightArtificialIntelligence;
-import aiki.game.fight.FightFacade;
-import aiki.game.fight.FightInitialization;
-import aiki.game.fight.FightKo;
-import aiki.game.fight.FightMoves;
-import aiki.game.fight.FightSending;
-import aiki.game.fight.FightSuccess;
-import aiki.game.fight.Fighter;
-import aiki.game.fight.InitializationDataBase;
-import aiki.game.fight.LevelMoves;
-import aiki.game.fight.MoveTeamPosition;
-import aiki.game.fight.Team;
-import aiki.game.fight.TeamPosition;
 import aiki.game.fight.enums.FightState;
 import aiki.game.fight.util.AffectedMove;
 import aiki.game.params.Difficulty;
@@ -52,6 +29,13 @@ import aiki.map.pokemon.Pokemon;
 import aiki.map.pokemon.PokemonPlayer;
 import aiki.map.pokemon.WildPk;
 import aiki.map.pokemon.enums.Gender;
+import code.maths.LgInt;
+import code.maths.Rate;
+import code.util.CustList;
+import code.util.NumberMap;
+import code.util.Numbers;
+import code.util.StringList;
+import code.util.StringMap;
 
 @SuppressWarnings("static-method")
 public class FightSendingTest extends InitializationDataBase {

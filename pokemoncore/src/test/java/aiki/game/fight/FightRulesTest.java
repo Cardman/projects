@@ -3,26 +3,9 @@ import static aiki.EquallablePkUtil.assertEq;
 import static code.util.opers.EquallableUtil.assertEq;
 import static org.junit.Assert.assertTrue;
 
-import org.junit.BeforeClass;
 import org.junit.Test;
 
-import code.maths.Rate;
-import code.util.CustList;
-import code.util.StringList;
-import code.util.StringMap;
 import aiki.fight.enums.Statistic;
-import aiki.game.fight.Fight;
-import aiki.game.fight.FightArtificialIntelligence;
-import aiki.game.fight.FightFacade;
-import aiki.game.fight.FightKo;
-import aiki.game.fight.FightRound;
-import aiki.game.fight.FightRules;
-import aiki.game.fight.FightSending;
-import aiki.game.fight.Fighter;
-import aiki.game.fight.InitializationDataBase;
-import aiki.game.fight.LevelMoves;
-import aiki.game.fight.MoveTeamPosition;
-import aiki.game.fight.TeamPosition;
 import aiki.game.fight.enums.FightState;
 import aiki.game.fight.util.AffectedMove;
 import aiki.game.params.Difficulty;
@@ -39,6 +22,10 @@ import aiki.map.pokemon.Pokemon;
 import aiki.map.pokemon.PokemonPlayer;
 import aiki.map.pokemon.WildPk;
 import aiki.map.pokemon.enums.Gender;
+import code.maths.Rate;
+import code.util.CustList;
+import code.util.StringList;
+import code.util.StringMap;
 
 @SuppressWarnings("static-method")
 public class FightRulesTest extends InitializationDataBase {
