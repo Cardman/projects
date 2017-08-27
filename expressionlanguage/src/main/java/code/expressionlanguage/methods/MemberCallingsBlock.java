@@ -4,6 +4,7 @@ import org.w3c.dom.Element;
 
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.PageEl;
+import code.expressionlanguage.methods.exceptions.BadStaticException;
 
 public abstract class MemberCallingsBlock extends BracedBlock implements FunctionBlock {
 
@@ -14,6 +15,12 @@ public abstract class MemberCallingsBlock extends BracedBlock implements Functio
 
     @Override
     public void checkBlocksTree(ContextEl _cont) {
+        if (!(getParent() instanceof RootBlock)) {
+            PageEl page_ = _cont.getLastPage();
+            page_.setProcessingAttribute(EMPTY_STRING);
+            page_.setOffset(0);
+            throw new BadStaticException(_cont.joinPages());
+        }
         PageEl page_ = _cont.getLastPage();
         page_.setProcessingAttribute(EMPTY_STRING);
         page_.setOffset(0);

@@ -15,7 +15,7 @@ public final class InstanceBlock extends MemberCallingsBlock implements AloneBlo
 
     @Override
     public void checkBlocksTree(ContextEl _cont) {
-        if (!(getParent() instanceof RootBlock) || getFirstChild() == null) {
+        if (getFirstChild() == null) {
             PageEl page_ = _cont.getLastPage();
             page_.setProcessingAttribute(EMPTY_STRING);
             page_.setOffset(0);
