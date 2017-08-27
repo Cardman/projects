@@ -105,11 +105,8 @@ public final class ProcessXmlMethod {
                     if (a_ != null) {
                         l_.getCurrentEls().last().setArgument(a_, _cont);
                     }
-                    if (p_.isInstancing() && l_.isInstancing()) {
-                        if (StringList.quickEq(p_.getGlobalClass(), l_.getGlobalClass())) {
-                            l_.getIntializedInterfaces().addAllElts(p_.getIntializedInterfaces());
-                            l_.getCallingConstr().setInitializedFields(p_.getCallingConstr().isInitializedFields());
-                        }
+                    if (p_.getCallingConstr().getInstancingStep() == InstancingStep.USING_THIS) {
+                        l_.getCallingConstr().setInitializedFields(true);
                     }
                     continue;
                 }
@@ -124,6 +121,9 @@ public final class ProcessXmlMethod {
                 Throwable t_ = throwException(_cont, _0);
                 if (t_ == null) {
                     continue;
+                }
+                if (_0 instanceof IndirectException) {
+                    throw (IndirectException) _0;
                 }
                 throw new InvokeRedinedMethException(new Struct(_0));
             }
@@ -447,7 +447,7 @@ public final class ProcessXmlMethod {
                 StringList called_ = ip_.getCallingConstr().getCalledConstructors();
                 called_.add(superClass_);
                 Argument global_ = ip_.getGlobalArgument();
-                throw new CustomFoundConstructorException(superClass_, called_, super_, global_, new CustList<Argument>(), InstancingStep.USING_SUPER_IMPLICIT);
+                throw new CustomFoundConstructorException(superClass_, called_, super_, global_, new CustList<Argument>(), InstancingStep.USING_SUPER);
             }
             if (meta_.getCategory() != ClassCategory.INTERFACE) {
                 UniqueRootedBlock root_ = (UniqueRootedBlock) _conf.getClasses().getClassBody(curClass_);

@@ -20,7 +20,7 @@ public final class UnaryBooleanOperation extends PrimitiveBoolOperation {
     }
 
     @Override
-    public void analyze(boolean _variable, CustList<OperationNode> _nodes, ContextEl _conf,
+    public void analyze(CustList<OperationNode> _nodes, ContextEl _conf,
             boolean _enumContext, String _op) {
         analyzeCommon(_nodes, _conf, _op);
     }

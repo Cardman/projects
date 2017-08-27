@@ -172,8 +172,7 @@ public final class PageEl {
         if (!caller_.getInstancingStep().isCalling()) {
             setReturnedArgument(getGlobalArgument());
         } else if (getCall() != CallingClassConstructor.SUPER_CLASS){
-            Argument void_ = Argument.createVoid();
-            setReturnedArgument(void_);
+            setReturnedArgument(getGlobalArgument());
         }
     }
 

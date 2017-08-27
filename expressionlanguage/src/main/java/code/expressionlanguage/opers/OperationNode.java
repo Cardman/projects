@@ -214,7 +214,7 @@ public abstract class OperationNode implements SortedNode<OperationNode>, Operab
         indexChild = _indexChild;
     }
 
-    public abstract void analyze(boolean _variable,CustList<OperationNode> _nodes, ContextEl _conf, boolean _enumContext, String _op);
+    public abstract void analyze(CustList<OperationNode> _nodes, ContextEl _conf, boolean _enumContext, String _op);
 
     public abstract void calculateLeft(CustList<OperationNode> _nodes, ContextEl _conf, String _op);
     public abstract void calculateRight(CustList<OperationNode> _nodes, ContextEl _conf, String _op);

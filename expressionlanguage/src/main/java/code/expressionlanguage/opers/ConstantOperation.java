@@ -13,7 +13,6 @@ import code.expressionlanguage.exceptions.BadFormatPathException;
 import code.expressionlanguage.exceptions.DynamicCastClassException;
 import code.expressionlanguage.exceptions.EmptyPartException;
 import code.expressionlanguage.exceptions.ErrorCausingException;
-import code.expressionlanguage.exceptions.FinalMemberException;
 import code.expressionlanguage.exceptions.NotInitializedClassException;
 import code.expressionlanguage.exceptions.NullGlobalObjectException;
 import code.expressionlanguage.exceptions.SettingMemberException;
@@ -56,6 +55,10 @@ public final class ConstantOperation extends OperationNode implements SettableEl
     private static final byte HEX_BASE = 16;
 
     private boolean variable;
+    
+    private boolean finalField;
+
+    private boolean immutablePart;
 
     private boolean possibleInitClass;
 
@@ -75,7 +78,7 @@ public final class ConstantOperation extends OperationNode implements SettableEl
     }
 
     @Override
-    public void analyze(boolean _variable, CustList<OperationNode> _nodes, ContextEl _conf,
+    public void analyze(CustList<OperationNode> _nodes, ContextEl _conf,
             boolean _enumContext, String _op) {
         analyzeCalculate(_conf);
         if (getArgument() != null) {
@@ -85,19 +88,18 @@ public final class ConstantOperation extends OperationNode implements SettableEl
             getResultClass().setVariable(StringList.quickEq(str_, NULL_REF_STRING));
             return;
         }
-        analyzeCommon(_variable, _conf);
+        analyzeCommon(_conf);
     }
 
-    void analyzeCommon(boolean _checkSetting, ContextEl _conf) {
+    void analyzeCommon(ContextEl _conf) {
         String originalStr_ = getOperations().getValues().getValue(CustList.FIRST_INDEX);
         String str_ = originalStr_.trim();
         PageEl ip_ = _conf.getLastPage();
         if (StringList.quickEq(str_, CURRENT_INTANCE)) {
             Classes classes_ = _conf.getClasses();
             if (classes_ != null) {
-                if (_checkSetting && getParent() == null) {
-                    setRelativeOffsetPossibleLastPage(getIndexInEl(), _conf);
-                    throw new SettingMemberException(_conf.joinPages());
+                if (getParent() == null) {
+                    immutablePart = true;
                 }
                 if (isStaticAccess()) {
                     throw new StaticAccessException(_conf.joinPages());
@@ -157,10 +159,9 @@ public final class ConstantOperation extends OperationNode implements SettableEl
                     if (isStaticAccess() && !e_.isStaticField()) {
                         throw new StaticAccessException(_conf.joinPages());
                     }
-                    if (_checkSetting && resultCanBeSet()) {
+                    if (resultCanBeSet()) {
                         if (fieldMetaInfo.isFinalField()) {
-                            setRelativeOffsetPossibleLastPage(getIndexInEl(), _conf);
-                            throw new FinalMemberException(_conf.joinPages());
+                            finalField = true;
                         }
                     }
                     fieldId = new ClassField(e_.getDeclaringClass().getName(), e_.getName());
@@ -171,9 +172,8 @@ public final class ConstantOperation extends OperationNode implements SettableEl
             }
         }
         if (str_.endsWith(GET_PARAM)) {
-            if (_checkSetting && getParent() == null) {
-                setRelativeOffsetPossibleLastPage(getIndexInEl(), _conf);
-                throw new SettingMemberException(_conf.joinPages());
+            if (getParent() == null) {
+                immutablePart = true;
             }
             if (hasDottedPreviousSibling()) {
                 setRelativeOffsetPossibleLastPage(getIndexInEl(), _conf);
@@ -188,9 +188,8 @@ public final class ConstantOperation extends OperationNode implements SettableEl
             throw new UndefinedVariableException(_conf.joinPages(), key_, PARAMETER);
         }
         if (str_.endsWith(GET_CATCH_VAR)) {
-            if (_checkSetting && getParent() == null) {
-                setRelativeOffsetPossibleLastPage(getIndexInEl(), _conf);
-                throw new SettingMemberException(_conf.joinPages());
+            if (getParent() == null) {
+                immutablePart = true;
             }
             if (hasDottedPreviousSibling()) {
                 setRelativeOffsetPossibleLastPage(getIndexInEl(), _conf);
@@ -209,7 +208,7 @@ public final class ConstantOperation extends OperationNode implements SettableEl
                 setRelativeOffsetPossibleLastPage(getIndexInEl(), _conf);
                 throw new SettingMemberException(_conf.joinPages());
             }
-           String key_ = str_.substring(CustList.FIRST_INDEX, str_.length() - GET_LOC_VAR.length());
+            String key_ = str_.substring(CustList.FIRST_INDEX, str_.length() - GET_LOC_VAR.length());
             LocalVariable locVar_ = ip_.getLocalVars().getVal(key_);
             if (locVar_ != null) {
                 setResultClass(new ClassArgumentMatching(locVar_.getClassName()));
@@ -218,9 +217,8 @@ public final class ConstantOperation extends OperationNode implements SettableEl
             throw new UndefinedVariableException(_conf.joinPages(), key_, LOCAL_VARIABLE);
         }
         if (str_.endsWith(GET_INDEX)) {
-            if (_checkSetting && getParent() == null) {
-                setRelativeOffsetPossibleLastPage(getIndexInEl(), _conf);
-                throw new SettingMemberException(_conf.joinPages());
+            if (getParent() == null) {
+                immutablePart = true;
             }
             if (hasDottedPreviousSibling()) {
                 setRelativeOffsetPossibleLastPage(getIndexInEl(), _conf);
@@ -235,9 +233,8 @@ public final class ConstantOperation extends OperationNode implements SettableEl
             throw new UndefinedVariableException(_conf.joinPages(), key_, INDEX);
         }
         if (str_.endsWith(GET_ATTRIBUTE)) {
-            if (_checkSetting && getParent() == null) {
-                setRelativeOffsetPossibleLastPage(getIndexInEl(), _conf);
-                throw new SettingMemberException(_conf.joinPages());
+            if (getParent() == null) {
+                immutablePart = true;
             }
             if (hasDottedPreviousSibling()) {
                 setRelativeOffsetPossibleLastPage(getIndexInEl(), _conf);
@@ -262,10 +259,9 @@ public final class ConstantOperation extends OperationNode implements SettableEl
             return;
         }
         Field f_ = getDeclaredField(_conf, cl_, str_);
-        if (_checkSetting && Modifier.isFinal(f_.getModifiers())) {
+        if (Modifier.isFinal(f_.getModifiers())) {
             if (resultCanBeSet()) {
-                setRelativeOffsetPossibleLastPage(getIndexInEl(), _conf);
-                throw new FinalMemberException(_conf.joinPages());
+                finalField = true;
             }
         }
         if (isStaticAccess() && !Modifier.isStatic(f_.getModifiers())) {
@@ -802,5 +798,13 @@ public final class ConstantOperation extends OperationNode implements SettableEl
     @Override
     public void setVariable() {
         variable = true;
+    }
+
+    public boolean isImmutablePart() {
+        return immutablePart;
+    }
+
+    public boolean isFinalField() {
+        return finalField;
     }
 }

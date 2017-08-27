@@ -2,7 +2,6 @@ package code.expressionlanguage.methods;
 import org.w3c.dom.Element;
 
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.PageEl;
 import code.expressionlanguage.opers.util.ClassName;
 import code.expressionlanguage.opers.util.FctConstraints;
 import code.expressionlanguage.opers.util.MethodId;
@@ -12,17 +11,7 @@ import code.util.EqList;
 import code.util.NatTreeMap;
 import code.util.StringList;
 
-public final class MethodBlock extends BracedBlock implements Returnable {
-
-    private final String name;
-
-    private final StringList parametersTypes;
-
-    private final String returnType;
-
-    private final StringList parametersNames;
-
-    private final boolean varargs;
+public final class MethodBlock extends NamedFunctionBlock {
 
     private final boolean staticMethod;
 
@@ -31,7 +20,6 @@ public final class MethodBlock extends BracedBlock implements Returnable {
 
     private final boolean normalMethod;
 
-    private final AccessEnum access;
     private StringList overridenClasses;
 
     private StringList allOverridenClasses;
@@ -43,38 +31,11 @@ public final class MethodBlock extends BracedBlock implements Returnable {
     public MethodBlock(Element _el, ContextEl _importingPage, int _indexChild,
             BracedBlock _m) {
         super(_el, _importingPage, _indexChild, _m);
-        name = _el.getAttribute(ATTRIBUTE_NAME);
-        parametersTypes = new StringList();
-        int i_ = CustList.FIRST_INDEX;
-        boolean varargs_ = false;
-        while (_el.hasAttribute(ATTRIBUTE_CLASS+i_)) {
-            String className_ = _el.getAttribute(ATTRIBUTE_CLASS+i_);
-            if (!_el.hasAttribute(ATTRIBUTE_CLASS+(i_+1))) {
-                varargs_ = className_.endsWith(VARARG);
-                if (varargs_) {
-                    parametersTypes.add(className_.substring(CustList.FIRST_INDEX, className_.length()-VARARG.length()));
-                } else {
-                    parametersTypes.add(className_);
-                }
-            } else {
-                parametersTypes.add(className_);
-            }
-            i_++;
-        }
-        varargs = varargs_;
-        returnType = _el.getAttribute(ATTRIBUTE_CLASS);
-        parametersNames = new StringList();
-        i_ = CustList.FIRST_INDEX;
-        while (_el.hasAttribute(ATTRIBUTE_VAR+i_)) {
-            parametersNames.add(_el.getAttribute(ATTRIBUTE_VAR+i_));
-            i_++;
-        }
         String modifier_ = _el.getAttribute(ATTRIBUTE_MODIFIER);
         staticMethod = StringList.quickEq(modifier_, VALUE_STATIC);
         finalMethod = StringList.quickEq(modifier_, VALUE_FINAL);
         abstractMethod = StringList.quickEq(modifier_, VALUE_ABSTRACT);
         normalMethod = StringList.quickEq(modifier_, VALUE_NORMAL);
-        access = AccessEnum.valueOf(_el.getAttribute(ATTRIBUTE_ACCESS));
         overridenClasses = new StringList();
         allOverridenClasses = new StringList();
         declaringType = getRooted().getFullName();
@@ -94,8 +55,10 @@ public final class MethodBlock extends BracedBlock implements Returnable {
     }
 
     @Override
-    public AccessEnum getAccess() {
-        return access;
+    public NatTreeMap<String,String> getClassNames() {
+        NatTreeMap<String,String> tr_ = super.getClassNames();
+        tr_.put(ATTRIBUTE_CLASS, getReturnType());
+        return tr_;
     }
 
     public boolean isOverriding(MethodBlock _other) {
@@ -129,43 +92,6 @@ public final class MethodBlock extends BracedBlock implements Returnable {
         return new MethodId(name_, pTypes_);
     }
 
-    @Override
-    public NatTreeMap<String,String> getClassNames() {
-        NatTreeMap<String,String> tr_ = new NatTreeMap<String,String>();
-        StringList l_ = getParametersTypes();
-        int i_ = 0;
-        for (String t: l_) {
-            tr_.put(ATTRIBUTE_CLASS+i_, t);
-            i_++;
-        }
-        tr_.put(ATTRIBUTE_CLASS, returnType);
-        return tr_;
-    }
-
-    @Override
-    public String getName() {
-        return name;
-    }
-
-    @Override
-    public StringList getParametersTypes() {
-        return new StringList(parametersTypes);
-    }
-
-    @Override
-    public String getReturnType() {
-        return returnType;
-    }
-
-    @Override
-    public StringList getParametersNames() {
-        return new StringList(parametersNames);
-    }
-
-    @Override
-    public boolean isVarargs() {
-        return varargs;
-    }
 
     public boolean isConcreteInstanceDerivableMethod() {
         if (staticMethod) {
@@ -194,159 +120,6 @@ public final class MethodBlock extends BracedBlock implements Returnable {
 
     public boolean isNormalMethod() {
         return normalMethod;
-    }
-
-    @Override
-    public void checkBlocksTree(ContextEl _cont) {
-        PageEl page_ = _cont.getLastPage();
-        page_.setProcessingAttribute(EMPTY_STRING);
-        page_.setOffset(0);
-        if (getFirstChild() == null) {
-            return;
-        }
-        Block en_ = this;
-        while (true) {
-            Block n_ = en_.getFirstChild();
-            if (n_ != null) {
-                tryCheckBlocksTree(n_, _cont);
-                en_ = n_;
-                continue;
-            }
-            n_ = en_.getNextSibling();
-            if (n_ != null) {
-                tryCheckBlocksTree(n_, _cont);
-                en_ = n_;
-                continue;
-            }
-            n_ = en_.getParent();
-            if (n_ == this) {
-                tryCheckBlocksTree(en_, _cont);
-                en_.removeLocalVariablesFromParent(_cont);
-                break;
-            }
-            en_.removeLocalVariablesFromParent(_cont);
-            Block next_ = n_.getNextSibling();
-            boolean exitByBreak_ = false;
-            while (next_ == null) {
-                Block par_ = n_.getParent();
-                if (par_ == this) {
-                    exitByBreak_ = true;
-                    tryCheckBlocksTree(n_, _cont);
-                    n_.removeLocalVariablesFromParent(_cont);
-                    break;
-                }
-                n_.removeLocalVariablesFromParent(_cont);
-                next_ = par_.getNextSibling();
-                n_ = par_;
-            }
-            if (exitByBreak_) {
-                break;
-            }
-            tryCheckBlocksTree(next_, _cont);
-            en_ = next_;
-        }
-    }
-
-    @Override
-    public void buildInstructions(ContextEl _cont) {
-        PageEl page_ = _cont.getLastPage();
-        page_.setProcessingAttribute(EMPTY_STRING);
-        page_.setOffset(0);
-        if (getFirstChild() == null) {
-            return;
-        }
-        Block en_ = this;
-        while (true) {
-            Block n_ = en_.getFirstChild();
-            if (n_ != null) {
-                tryBuildExpressionLanguage(n_, _cont);
-                en_ = n_;
-                continue;
-            }
-            n_ = en_.getNextSibling();
-            if (n_ != null) {
-                tryBuildExpressionLanguage(n_, _cont);
-                en_ = n_;
-                continue;
-            }
-            n_ = en_.getParent();
-            if (n_ == this) {
-                tryBuildExpressionLanguage(en_, _cont);
-                en_.removeLocalVariablesFromParent(_cont);
-                break;
-            }
-            en_.removeLocalVariablesFromParent(_cont);
-            Block next_ = n_.getNextSibling();
-            boolean exitByBreak_ = false;
-            while (next_ == null) {
-                Block par_ = n_.getParent();
-                if (par_ == this) {
-                    exitByBreak_ = true;
-                    tryBuildExpressionLanguage(n_, _cont);
-                    n_.removeLocalVariablesFromParent(_cont);
-                    break;
-                }
-                n_.removeLocalVariablesFromParent(_cont);
-                next_ = par_.getNextSibling();
-                n_ = par_;
-            }
-            if (exitByBreak_) {
-                break;
-            }
-            tryBuildExpressionLanguage(next_, _cont);
-            en_ = next_;
-        }
-    }
-
-    @Override
-    public void checkConstrCalls(ContextEl _cont) {
-        PageEl page_ = _cont.getLastPage();
-        page_.setProcessingAttribute(EMPTY_STRING);
-        page_.setOffset(0);
-        if (getFirstChild() == null) {
-            return;
-        }
-        Block en_ = this;
-        while (true) {
-            Block n_ = en_.getFirstChild();
-            if (n_ != null) {
-                tryCheckConstCall(n_, _cont);
-                en_ = n_;
-                continue;
-            }
-            n_ = en_.getNextSibling();
-            if (n_ != null) {
-                tryCheckConstCall(n_, _cont);
-                en_ = n_;
-                continue;
-            }
-            n_ = en_.getParent();
-            if (n_ == this) {
-                tryCheckConstCall(en_, _cont);
-                en_.removeLocalVariablesFromParent(_cont);
-                break;
-            }
-            en_.removeLocalVariablesFromParent(_cont);
-            Block next_ = n_.getNextSibling();
-            boolean exitByBreak_ = false;
-            while (next_ == null) {
-                Block par_ = n_.getParent();
-                if (par_ == this) {
-                    exitByBreak_ = true;
-                    tryCheckConstCall(n_, _cont);
-                    n_.removeLocalVariablesFromParent(_cont);
-                    break;
-                }
-                n_.removeLocalVariablesFromParent(_cont);
-                next_ = par_.getNextSibling();
-                n_ = par_;
-            }
-            if (exitByBreak_) {
-                break;
-            }
-            tryCheckConstCall(next_, _cont);
-            en_ = next_;
-        }
     }
 
     @Override

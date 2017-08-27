@@ -694,7 +694,8 @@ public class FormatHtmlTryCatchTest {
         String render_ = FormatHtml.processHtml(doc_, "bean_one", conf_, locale_, files_);
 //        assertXMLEqualNoPrefix("<html><body><c:tmp>ONE - <c:tmp>1;</c:tmp><br/></c:tmp><c:tmp>THREE - <c:tmp>4;</c:tmp><c:tmp>5;</c:tmp><c:tmp>6;</c:tmp><br/></c:tmp><c:tmp>TWO - <c:tmp>2;</c:tmp><c:tmp>3;</c:tmp><br/></c:tmp></body></html>", render_);
 //        assertXMLEqualRuntime("<html xmlns:c='javahtml' xmlns='javahtml'><body><c_tmp>ONE - <c_tmp>1;</c_tmp><br/></c_tmp><c_tmp>THREE - <c_tmp>4;</c_tmp><c_tmp>5;</c_tmp><c_tmp>6;</c_tmp><br/></c_tmp><c_tmp>TWO - <c_tmp>2;</c_tmp><c_tmp>3;</c_tmp><br/></c_tmp></body></html>", render_);
-        assertXmlEqualRuntime("<html xmlns:c='javahtml' xmlns='javahtml'><body>1_1;3_0;</body></html>", render_);    }
+        assertXmlEqualRuntime("<html xmlns:c='javahtml' xmlns='javahtml'><body>1_1;3_0;</body></html>", render_);
+    }
 
     @Test
     public void processHtml153Test() {
@@ -886,6 +887,72 @@ public class FormatHtmlTryCatchTest {
         //String render_ = FormatHtml.processHtml(doc_.getDocumentElement(), conf_, files_, bean_);
         String render_ = FormatHtml.processHtml(doc_, "bean_one", conf_, locale_, files_);
         assertXmlEqualRuntime("<html xmlns:c='javahtml' xmlns='javahtml'><body>"+DIV_ZERO+"</body></html>", render_);
+    }
+
+    @Test
+    public void processHtml159Test() {
+        String locale_ = "LOCALE";
+        String folder_ = "messages";
+        String relative_ = "sample/file";
+        String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
+        String html_ = "<html xmlns:c='javahtml'><body><c:for var='i' from='0' to='2' step='1'><c:try><c:if condition='i;%2=0'>{i;}_{1/i;};</c:if></c:try><c:catch className='"+DIV_ZERO+"' var='e'>Divide Zero</c:catch><c:catch className='java.lang.RuntimeException' var='e'>RTE</c:catch></c:for></body></html>";
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
+        BeanOne bean_ = new BeanOne();
+        bean_.getComposite().getStrings().add("FIRST");
+        bean_.getComposite().getStrings().add("SECOND");
+        bean_.getComposite().setInteger(5);
+        bean_.getTree().put("ONE", 1);
+        bean_.getTree().put("TWO", 2);
+        Configuration conf_ = new Configuration();
+        conf_.setBeans(new StringMap<Bean>());
+        conf_.getBeans().put("bean_one", bean_);
+        conf_.setMessagesFolder(folder_);
+        conf_.setProperties(new StringMap<String>());
+        conf_.getProperties().put("msg_example", relative_);
+        conf_.setTranslators(new StringMap<Translator>());
+        conf_.getTranslators().put("trans", new MyTranslator());
+        Document doc_ = XmlParser.parseSaxHtml(html_, false, true);
+        conf_.setHtml(html_);
+        conf_.setDocument(doc_);
+        //String render_ = FormatHtml.processHtml(doc_.getDocumentElement(), conf_, files_, bean_);
+        String render_ = FormatHtml.processHtml(doc_, "bean_one", conf_, locale_, files_);
+//        assertXMLEqualNoPrefix("<html><body><c:tmp>ONE - <c:tmp>1;</c:tmp><br/></c:tmp><c:tmp>THREE - <c:tmp>4;</c:tmp><c:tmp>5;</c:tmp><c:tmp>6;</c:tmp><br/></c:tmp><c:tmp>TWO - <c:tmp>2;</c:tmp><c:tmp>3;</c:tmp><br/></c:tmp></body></html>", render_);
+//        assertXMLEqualRuntime("<html xmlns:c='javahtml' xmlns='javahtml'><body><c_tmp>ONE - <c_tmp>1;</c_tmp><br/></c_tmp><c_tmp>THREE - <c_tmp>4;</c_tmp><c_tmp>5;</c_tmp><c_tmp>6;</c_tmp><br/></c_tmp><c_tmp>TWO - <c_tmp>2;</c_tmp><c_tmp>3;</c_tmp><br/></c_tmp></body></html>", render_);
+        assertXmlEqualRuntime("<html xmlns:c='javahtml' xmlns='javahtml'><body>Divide Zero</body></html>", render_);
+    }
+
+    @Test
+    public void processHtml160Test() {
+        String locale_ = "LOCALE";
+        String folder_ = "messages";
+        String relative_ = "sample/file";
+        String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
+        String html_ = "<html xmlns:c='javahtml'><body><c:for var='i' from='0' to='2' step='1'><c:try><c:if condition='i;%2=0'><c:throw expression='^new.java.lang.RuntimeException(^new.java.lang.RuntimeException())'/></c:if></c:try><c:catch className='"+DIV_ZERO+"' var='e'>Divide Zero</c:catch><c:catch className='java.lang.RuntimeException' var='e'>RTE</c:catch></c:for></body></html>";
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
+        BeanOne bean_ = new BeanOne();
+        bean_.getComposite().getStrings().add("FIRST");
+        bean_.getComposite().getStrings().add("SECOND");
+        bean_.getComposite().setInteger(5);
+        bean_.getTree().put("ONE", 1);
+        bean_.getTree().put("TWO", 2);
+        Configuration conf_ = new Configuration();
+        conf_.setBeans(new StringMap<Bean>());
+        conf_.getBeans().put("bean_one", bean_);
+        conf_.setMessagesFolder(folder_);
+        conf_.setProperties(new StringMap<String>());
+        conf_.getProperties().put("msg_example", relative_);
+        conf_.setTranslators(new StringMap<Translator>());
+        conf_.getTranslators().put("trans", new MyTranslator());
+        Document doc_ = XmlParser.parseSaxHtml(html_, false, true);
+        conf_.setHtml(html_);
+        conf_.setDocument(doc_);
+        //String render_ = FormatHtml.processHtml(doc_.getDocumentElement(), conf_, files_, bean_);
+        String render_ = FormatHtml.processHtml(doc_, "bean_one", conf_, locale_, files_);
+//        assertXMLEqualNoPrefix("<html><body><c:tmp>ONE - <c:tmp>1;</c:tmp><br/></c:tmp><c:tmp>THREE - <c:tmp>4;</c:tmp><c:tmp>5;</c:tmp><c:tmp>6;</c:tmp><br/></c:tmp><c:tmp>TWO - <c:tmp>2;</c:tmp><c:tmp>3;</c:tmp><br/></c:tmp></body></html>", render_);
+//        assertXMLEqualRuntime("<html xmlns:c='javahtml' xmlns='javahtml'><body><c_tmp>ONE - <c_tmp>1;</c_tmp><br/></c_tmp><c_tmp>THREE - <c_tmp>4;</c_tmp><c_tmp>5;</c_tmp><c_tmp>6;</c_tmp><br/></c_tmp><c_tmp>TWO - <c_tmp>2;</c_tmp><c_tmp>3;</c_tmp><br/></c_tmp></body></html>", render_);
+        assertXmlEqualRuntime("<html xmlns:c='javahtml' xmlns='javahtml'><body>RTE</body></html>", render_);
     }
 
     //updateValue

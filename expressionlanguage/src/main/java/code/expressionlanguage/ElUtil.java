@@ -5,6 +5,7 @@ import code.expressionlanguage.exceptions.CustomFoundMethodException;
 import code.expressionlanguage.exceptions.DivideZeroException;
 import code.expressionlanguage.exceptions.DynamicCastClassException;
 import code.expressionlanguage.exceptions.ErrorCausingException;
+import code.expressionlanguage.exceptions.FinalMemberException;
 import code.expressionlanguage.exceptions.InvokeException;
 import code.expressionlanguage.exceptions.InvokeRedinedMethException;
 import code.expressionlanguage.exceptions.NegativeSizeException;
@@ -18,6 +19,7 @@ import code.expressionlanguage.methods.util.ExpLanguages;
 import code.expressionlanguage.methods.util.InstancingStep;
 import code.expressionlanguage.opers.Calculation;
 import code.expressionlanguage.opers.ComparatorOrder;
+import code.expressionlanguage.opers.ConstantOperation;
 import code.expressionlanguage.opers.DotOperation;
 import code.expressionlanguage.opers.ExpressionLanguage;
 import code.expressionlanguage.opers.OperationNode;
@@ -61,11 +63,12 @@ public final class ElUtil {
         }
         page_.setOffset(0);
         page_.setProcessingAttribute(_attrLeft);
-        analyzeSetting(allLeft_, _conf);
-        analyze(true, allLeft_, _conf, _staticContext, false, _oper);
+        analyzeSetting(true, allLeft_, _conf);
+        analyze(allLeft_, _conf, _staticContext, false, _oper);
+        analyzeSetting(false, allLeft_, _conf);
         page_.setOffset(0);
         page_.setProcessingAttribute(_attrRight);
-        analyze(false, allRight_, _conf, _staticContext, false, _oper);
+        analyze(allRight_, _conf, _staticContext, false, _oper);
         page_.setOffset(0);
         page_.setProcessingAttribute(_attrLeft);
         ClassArgumentMatching clMatchRight_ = opRight_.getResultClass();
@@ -230,10 +233,11 @@ public final class ElUtil {
         boolean enumContext_ = _calcul.isEnumAcces();
         String oper_ = _calcul.getOper();
         if (_calcul.isLeftStep()) {
-            analyzeSetting(all_, _conf);
-            analyze(true, all_, _conf, staticContext_, enumContext_, oper_);
+            analyzeSetting(true, all_, _conf);
+            analyze(all_, _conf, staticContext_, enumContext_, oper_);
+            analyzeSetting(false, all_, _conf);
         } else {
-            analyze(false, all_, _conf, staticContext_, enumContext_, oper_);
+            analyze(all_, _conf, staticContext_, enumContext_, oper_);
         }
         return all_;
     }
@@ -372,13 +376,13 @@ public final class ElUtil {
         return list_;
     }
 
-    static void analyze(boolean _variable,CustList<OperationNode> _nodes, ContextEl _context, boolean _staticContext, boolean _isEnumContext, String _op) {
+    static void analyze(CustList<OperationNode> _nodes, ContextEl _context, boolean _staticContext, boolean _isEnumContext, String _op) {
         PageEl page_ = _context.getLastPage();
         for (OperationNode e: _nodes) {
             if (e.getPreviousResultClass() == null) {
                 e.setPreviousResultClass(new ClassArgumentMatching(page_.getGlobalClass()), _staticContext);
             }
-            e.analyze(_variable, _nodes, _context, _isEnumContext, _op);
+            e.analyze(_nodes, _context, _isEnumContext, _op);
         }
     }
 
@@ -390,7 +394,7 @@ public final class ElUtil {
             if (e.getPreviousResultClass() == null && arg_ != null) {
                 e.setPreviousResultClass(new ClassArgumentMatching(page_.getGlobalClass()), static_);
             }
-            e.analyze(false, _nodes, _context, false, EMPTY_STRING);
+            e.analyze(_nodes, _context, false, EMPTY_STRING);
         }
     }
     /**@throws InvokeRedinedMethException
@@ -577,7 +581,7 @@ public final class ElUtil {
             }
         }
     }
-    static void analyzeSetting(CustList<OperationNode> _nodes, ContextEl _conf) {
+    static void analyzeSetting(boolean _setVar,CustList<OperationNode> _nodes, ContextEl _conf) {
         OperationNode root_ = _nodes.last();
         SettableElResult elt_ = null;
         boolean ok_ = true;
@@ -605,6 +609,17 @@ public final class ElUtil {
             root_.setRelativeOffsetPossibleLastPage(root_.getIndexInEl(), _conf);
             throw new SettingMemberException(_conf.joinPages());
         }
-        elt_.setVariable();
+        if (_setVar) {
+            elt_.setVariable();
+        } else if (elt_ instanceof ConstantOperation) {
+            if (((ConstantOperation)elt_).isImmutablePart()) {
+                root_.setRelativeOffsetPossibleLastPage(root_.getIndexInEl(), _conf);
+                throw new SettingMemberException(_conf.joinPages());
+            }
+            if (((ConstantOperation)elt_).isFinalField()) {
+                root_.setRelativeOffsetPossibleLastPage(root_.getIndexInEl(), _conf);
+                throw new FinalMemberException(_conf.joinPages());
+            }
+        }
     }
 }

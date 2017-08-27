@@ -9,8 +9,6 @@ public interface FunctionBlock {
     void buildInstructions(ContextEl _cont);
     void checkConstrCalls(ContextEl _cont);
     boolean isStaticContext();
-    StringList getParametersNames();
-    StringList getParametersTypes();
 
     RowCol getRowCol(int _i, int _tabWidth, String _attr);
 

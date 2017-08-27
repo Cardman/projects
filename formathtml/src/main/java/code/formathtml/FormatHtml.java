@@ -684,25 +684,15 @@ final class FormatHtml {
                 Text t_ = doc_.createTextNode(content_);
                 currentNode_.appendChild(t_);
                 processElementOrText(_conf, ip_);
-            } catch (IndirectException _0){
-                //indirect
+            } catch (Throwable _0){
                 Throwable t_ = throwException(_conf, _0);
                 if (t_ == null) {
                     continue;
                 }
-                throw _0;
-            } catch (RuntimeException _0){
-                Throwable t_ = throwException(_conf, _0);
-                if (t_ == null) {
-                    continue;
+                if (_0 instanceof RuntimeException) {
+                    throw (RuntimeException) _0;
                 }
-                throw _0;
-            } catch (Error _0){
-                Throwable t_ = throwException(_conf, _0);
-                if (t_ == null) {
-                    continue;
-                }
-                throw _0;
+                throw new ErrorCausingException(new Struct(_0));
             }
         }
         containersMap_.put(currentForm_, containers_);
