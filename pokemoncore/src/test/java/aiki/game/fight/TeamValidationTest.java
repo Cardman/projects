@@ -3,23 +3,11 @@ import static junitparams.JUnitParamsRunner.$;
 import junitparams.JUnitParamsRunner;
 import junitparams.Parameters;
 
-import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import code.maths.LgInt;
-import code.util.NumberMap;
-import code.util.StringList;
 import aiki.exceptions.GameLoadException;
 import aiki.game.Game;
-import aiki.game.fight.ActivityOfMove;
-import aiki.game.fight.Anticipation;
-import aiki.game.fight.Fight;
-import aiki.game.fight.Fighter;
-import aiki.game.fight.InitializationDataBase;
-import aiki.game.fight.StacksOfUses;
-import aiki.game.fight.TargetCoords;
-import aiki.game.fight.Team;
 import aiki.game.params.Difficulty;
 import aiki.game.player.enums.Sex;
 import aiki.map.enums.Direction;
@@ -28,17 +16,15 @@ import aiki.map.pokemon.WildPk;
 import aiki.util.Coords;
 import aiki.util.LevelPoint;
 import aiki.util.Point;
+import code.maths.LgInt;
+import code.util.NumberMap;
+import code.util.StringList;
 
 @SuppressWarnings("static-method")
 @RunWith(JUnitParamsRunner.class)
 public class TeamValidationTest extends InitializationDataBase {
 
     private static final String SEX = "sex";
-
-    @BeforeClass
-    public static void initDataBase() {
-        InitializationDataBase.initDataBase();
-    }
 
     private static Coords newCoords(int _place, int _level, int _x, int _y) {
         Coords begin_ = new Coords();

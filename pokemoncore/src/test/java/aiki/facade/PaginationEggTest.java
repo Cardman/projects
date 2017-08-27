@@ -4,27 +4,20 @@ import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
 
-import org.junit.BeforeClass;
 import org.junit.Test;
 
-import code.util.CustList;
-import code.util.EqList;
-import code.util.pagination.SearchingMode;
-import code.util.pagination.SelectedBoolean;
-import aiki.facade.PaginationEgg;
 import aiki.game.fight.InitializationDataBase;
 import aiki.game.params.Difficulty;
 import aiki.game.player.Player;
 import aiki.map.pokemon.Egg;
 import aiki.util.SortingEgg;
+import code.util.CustList;
+import code.util.EqList;
+import code.util.pagination.SearchingMode;
+import code.util.pagination.SelectedBoolean;
 
 @SuppressWarnings("static-method")
 public class PaginationEggTest extends InitializationDataBase {
-
-    @BeforeClass
-    public static void initDataBase() {
-        InitializationDataBase.initDataBase();
-    }
 
     @Test
     public void match1Test() {

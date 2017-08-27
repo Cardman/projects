@@ -2,23 +2,9 @@ package aiki.game.fight;
 import static code.util.opers.EquallableUtil.assertEq;
 import static org.junit.Assert.assertTrue;
 
-import org.junit.BeforeClass;
 import org.junit.Test;
 
-import code.maths.Rate;
-import code.util.CustList;
-import code.util.StringList;
-import code.util.StringMap;
 import aiki.fight.enums.Statistic;
-import aiki.game.fight.Fight;
-import aiki.game.fight.FightAbilities;
-import aiki.game.fight.FightFacade;
-import aiki.game.fight.FightInitialization;
-import aiki.game.fight.FightMoves;
-import aiki.game.fight.FightSending;
-import aiki.game.fight.Fighter;
-import aiki.game.fight.InitializationDataBase;
-import aiki.game.fight.MoveTeamPosition;
 import aiki.game.params.Difficulty;
 import aiki.game.player.Player;
 import aiki.map.characters.GymLeader;
@@ -28,16 +14,15 @@ import aiki.map.pokemon.Pokemon;
 import aiki.map.pokemon.PokemonPlayer;
 import aiki.map.pokemon.WildPk;
 import aiki.map.pokemon.enums.Gender;
+import code.maths.Rate;
+import code.util.CustList;
+import code.util.StringList;
+import code.util.StringMap;
 
 @SuppressWarnings("static-method")
 public class FightAbilitiesTest extends InitializationDataBase {
 
     private static final String PIKA = "PIKA";
-
-    @BeforeClass
-    public static void initDataBase() {
-        InitializationDataBase.initDataBase();
-    }
 
     @Test
     public void disableAllStatusByEnabledWeather1Test() {

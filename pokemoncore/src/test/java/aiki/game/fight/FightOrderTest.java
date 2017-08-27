@@ -4,7 +4,6 @@ import static code.maths.EquallableMathUtil.assertEq;
 import static code.util.opers.EquallableUtil.assertEq;
 import static org.junit.Assert.assertTrue;
 
-import org.junit.BeforeClass;
 import org.junit.Test;
 
 import aiki.exceptions.NoFighterException;
@@ -38,11 +37,6 @@ import code.util.StringMap;
 public class FightOrderTest extends InitializationDataBase {
 
     private static final String PIKA = "PIKA";
-
-    @BeforeClass
-    public static void initDataBase() {
-        InitializationDataBase.initDataBase();
-    }
 
     @Test
     public void fighters1Test() {

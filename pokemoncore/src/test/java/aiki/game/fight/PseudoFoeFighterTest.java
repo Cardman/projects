@@ -3,24 +3,16 @@ import static code.maths.EquallableMathUtil.assertEq;
 import static code.util.opers.EquallableUtil.assertEq;
 import static org.junit.Assert.assertTrue;
 
-import org.junit.BeforeClass;
 import org.junit.Test;
 
-import code.maths.Rate;
-import code.util.StringList;
-import aiki.game.fight.InitializationDataBase;
-import aiki.game.fight.PseudoFoeFighter;
 import aiki.game.params.Difficulty;
 import aiki.game.params.enums.DifficultyWinPointsFight;
 import aiki.map.pokemon.PkTrainer;
+import code.maths.Rate;
+import code.util.StringList;
 
 @SuppressWarnings("static-method")
 public class PseudoFoeFighterTest extends InitializationDataBase {
-
-    @BeforeClass
-    public static void initDataBase() {
-        InitializationDataBase.initDataBase();
-    }
 
     @Test
     public void new_PseudoFoeFighter_PokemonTrainer_1Test() {

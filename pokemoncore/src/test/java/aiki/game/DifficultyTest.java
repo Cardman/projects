@@ -2,20 +2,14 @@ package aiki.game;
 import static code.maths.EquallableMathUtil.assertEq;
 import static code.util.opers.EquallableUtil.assertEq;
 
-import org.junit.BeforeClass;
 import org.junit.Test;
 
-import code.maths.Rate;
 import aiki.game.fight.InitializationDataBase;
 import aiki.game.params.Difficulty;
+import code.maths.Rate;
 
 @SuppressWarnings("static-method")
 public class DifficultyTest extends InitializationDataBase {
-
-    @BeforeClass
-    public static void initDataBase() {
-        InitializationDataBase.initDataBase();
-    }
 
     @Test
     public void validate1Test() {

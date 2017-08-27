@@ -1,23 +1,16 @@
 package aiki.map.pokemon;
 import static org.junit.Assert.assertTrue;
 
-import org.junit.BeforeClass;
 import org.junit.Test;
 
+import aiki.game.fight.InitializationDataBase;
+import aiki.map.pokemon.enums.Gender;
 import code.util.StringList;
 import code.util.pagination.SearchingMode;
 import code.util.pagination.SelectedBoolean;
-import aiki.game.fight.InitializationDataBase;
-import aiki.map.pokemon.CriteriaForSearchingPokemon;
-import aiki.map.pokemon.enums.Gender;
 
 @SuppressWarnings("static-method")
 public class CriteriaForSearchingPokemonTest extends InitializationDataBase {
-
-    @BeforeClass
-    public static void initDataBase() {
-        InitializationDataBase.initDataBase();
-    }
 
     @Test
     public void matchItem1Test() {

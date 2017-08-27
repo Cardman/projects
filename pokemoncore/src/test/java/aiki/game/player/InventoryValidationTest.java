@@ -1,19 +1,12 @@
 package aiki.game.player;
-import org.junit.BeforeClass;
 import org.junit.Test;
 
-import code.maths.LgInt;
 import aiki.exceptions.GameLoadException;
 import aiki.game.fight.InitializationDataBase;
-import aiki.game.player.Inventory;
+import code.maths.LgInt;
 
 @SuppressWarnings("static-method")
 public class InventoryValidationTest extends InitializationDataBase {
-
-    @BeforeClass
-    public static void initDataBase() {
-        InitializationDataBase.initDataBase();
-    }
 
     @Test
     public void validate1Test() {

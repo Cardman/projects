@@ -1,16 +1,11 @@
 package aiki.game.fight;
-import static org.junit.Assert.assertTrue;
 import static aiki.EquallablePkUtil.assertEq;
 import static code.maths.EquallableMathUtil.assertEq;
 import static code.util.opers.EquallableUtil.assertEq;
+import static org.junit.Assert.assertTrue;
 
-import org.junit.BeforeClass;
 import org.junit.Test;
 
-import code.maths.Rate;
-import code.util.CustList;
-import code.util.StringList;
-import code.util.StringMap;
 import aiki.fight.abilities.AbilityData;
 import aiki.fight.enums.Statistic;
 import aiki.fight.items.ItemForBattle;
@@ -23,21 +18,6 @@ import aiki.fight.moves.effects.EffectEndRoundPositionRelation;
 import aiki.fight.moves.effects.EffectEndRoundSingleRelation;
 import aiki.fight.moves.effects.EffectEndRoundTeam;
 import aiki.fight.status.Status;
-import aiki.game.fight.ActivityOfMove;
-import aiki.game.fight.Anticipation;
-import aiki.game.fight.ChoiceOfEvolutionAndMoves;
-import aiki.game.fight.Fight;
-import aiki.game.fight.FightEndRound;
-import aiki.game.fight.FightFacade;
-import aiki.game.fight.FightKo;
-import aiki.game.fight.FightOrder;
-import aiki.game.fight.FightRound;
-import aiki.game.fight.Fighter;
-import aiki.game.fight.InitializationDataBase;
-import aiki.game.fight.LevelMoves;
-import aiki.game.fight.MoveTeamPosition;
-import aiki.game.fight.StacksOfUses;
-import aiki.game.fight.TeamPosition;
 import aiki.game.fight.animations.AnimationAbsorb;
 import aiki.game.fight.animations.AnimationEffect;
 import aiki.game.fight.animations.AnimationHealing;
@@ -60,14 +40,13 @@ import aiki.map.pokemon.Pokemon;
 import aiki.map.pokemon.PokemonPlayer;
 import aiki.map.pokemon.WildPk;
 import aiki.map.pokemon.enums.Gender;
+import code.maths.Rate;
+import code.util.CustList;
+import code.util.StringList;
+import code.util.StringMap;
 
 @SuppressWarnings("static-method")
 public class FightEndRoundTest extends InitializationDataBase {
-
-    @BeforeClass
-    public static void initDataBase() {
-        InitializationDataBase.initDataBase();
-    }
 
     private static Fight processActivity(
             CustList<LevelMoves> _userMoves,

@@ -1,19 +1,12 @@
 package aiki;
-import static code.util.opers.EquallableUtil.assertEq;
 import static aiki.EquallablePkUtil.assertEq;
+import static code.util.opers.EquallableUtil.assertEq;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
 
-import org.junit.BeforeClass;
 import org.junit.Test;
 
-import code.maths.Rate;
-import code.util.CustList;
-import code.util.NatTreeMap;
-import code.util.StringList;
-import code.util.StringMap;
-import aiki.ExchangedData;
 import aiki.exceptions.DataException;
 import aiki.fight.pokemon.enums.GenderRepartition;
 import aiki.game.UsesOfMove;
@@ -21,14 +14,14 @@ import aiki.game.fight.InitializationDataBase;
 import aiki.map.pokemon.PokemonPlayer;
 import aiki.map.pokemon.UsablePokemon;
 import aiki.map.pokemon.enums.Gender;
+import code.maths.Rate;
+import code.util.CustList;
+import code.util.NatTreeMap;
+import code.util.StringList;
+import code.util.StringMap;
 
 @SuppressWarnings("static-method")
 public class ExchangedDataTest extends InitializationDataBase {
-
-    @BeforeClass
-    public static void initDataBase() {
-        InitializationDataBase.initDataBase();
-    }
 
     @Test
     public void new_ExchangedData_1Test() {

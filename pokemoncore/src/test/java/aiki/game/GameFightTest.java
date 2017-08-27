@@ -1,27 +1,17 @@
 package aiki.game;
-import static junitparams.JUnitParamsRunner.$;
-import static org.junit.Assert.assertSame;
-import static org.junit.Assert.assertTrue;
 import static aiki.EquallablePkUtil.assertEq;
 import static code.maths.EquallableMathUtil.assertEq;
 import static code.util.opers.EquallableUtil.assertEq;
+import static junitparams.JUnitParamsRunner.$;
+import static org.junit.Assert.assertSame;
+import static org.junit.Assert.assertTrue;
 import junitparams.JUnitParamsRunner;
 import junitparams.Parameters;
 
-import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import code.maths.LgInt;
-import code.maths.Rate;
-import code.util.EqList;
-import code.util.NatTreeMap;
-import code.util.ObjectMap;
-import code.util.StringList;
-import code.util.StringMap;
-import code.util.TreeMap;
 import aiki.ImageHeroKey;
-import aiki.game.Game;
 import aiki.game.fight.BallNumberRate;
 import aiki.game.fight.Fighter;
 import aiki.game.fight.InitializationDataBase;
@@ -53,17 +43,20 @@ import aiki.map.pokemon.enums.Gender;
 import aiki.util.Coords;
 import aiki.util.LevelPoint;
 import aiki.util.Point;
+import code.maths.LgInt;
+import code.maths.Rate;
+import code.util.EqList;
+import code.util.NatTreeMap;
+import code.util.ObjectMap;
+import code.util.StringList;
+import code.util.StringMap;
+import code.util.TreeMap;
 
 @SuppressWarnings("static-method")
 @RunWith(JUnitParamsRunner.class)
 public class GameFightTest extends InitializationDataBase {
 
     private static final String SEX = "sex";
-
-    @BeforeClass
-    public static void initDataBase() {
-        InitializationDataBase.initDataBase();
-    }
 
     Object[] sex() {
         return $($(Sex.GIRL),$(Sex.BOY));

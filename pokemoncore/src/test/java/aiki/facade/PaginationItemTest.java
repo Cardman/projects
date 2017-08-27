@@ -3,15 +3,8 @@ import static code.maths.EquallableMathUtil.assertEq;
 import static code.util.opers.EquallableUtil.assertEq;
 import static org.junit.Assert.assertTrue;
 
-import org.junit.BeforeClass;
 import org.junit.Test;
 
-import code.maths.LgInt;
-import code.util.EqList;
-import code.util.StringList;
-import code.util.pagination.SearchingMode;
-import code.util.pagination.SelectedBoolean;
-import aiki.facade.PaginationItem;
 import aiki.fight.items.Berry;
 import aiki.fight.items.HealingHp;
 import aiki.fight.items.HealingItem;
@@ -20,17 +13,17 @@ import aiki.fight.items.ItemForBattle;
 import aiki.game.fight.InitializationDataBase;
 import aiki.game.player.Inventory;
 import aiki.util.SortingItem;
+import code.maths.LgInt;
+import code.util.EqList;
+import code.util.StringList;
+import code.util.pagination.SearchingMode;
+import code.util.pagination.SelectedBoolean;
 
 @SuppressWarnings("static-method")
 public class PaginationItemTest extends InitializationDataBase {
 
     private static final String BATTLE_ITEM = "battle item";
     private static final String BERRY = "berry";
-
-    @BeforeClass
-    public static void initDataBase() {
-        InitializationDataBase.initDataBase();
-    }
 
     @Test
     public void match1Test() {

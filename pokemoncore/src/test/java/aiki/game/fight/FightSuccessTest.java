@@ -3,32 +3,14 @@ import static code.maths.EquallableMathUtil.assertEq;
 import static code.util.opers.EquallableUtil.assertEq;
 import static org.junit.Assert.assertTrue;
 
-import org.junit.BeforeClass;
 import org.junit.Test;
 
-import code.maths.LgInt;
-import code.maths.Rate;
-import code.maths.montecarlo.MonteCarloNumber;
-import code.maths.montecarlo.MonteCarloString;
-import code.util.CustList;
-import code.util.EnumList;
-import code.util.StringList;
-import code.util.StringMap;
 import aiki.exceptions.SimulationException;
 import aiki.fight.enums.Statistic;
 import aiki.fight.moves.MoveData;
 import aiki.fight.moves.effects.Effect;
 import aiki.fight.moves.effects.EffectStatistic;
 import aiki.fight.moves.effects.EffectStatus;
-import aiki.game.fight.Fight;
-import aiki.game.fight.FightFacade;
-import aiki.game.fight.FightInitialization;
-import aiki.game.fight.FightRound;
-import aiki.game.fight.FightSuccess;
-import aiki.game.fight.Fighter;
-import aiki.game.fight.InitializationDataBase;
-import aiki.game.fight.MoveTeamPosition;
-import aiki.game.fight.TeamPosition;
 import aiki.game.fight.util.NbEffectFighterCoords;
 import aiki.game.fight.util.RandomBoolResults;
 import aiki.game.params.Difficulty;
@@ -41,16 +23,19 @@ import aiki.map.pokemon.Pokemon;
 import aiki.map.pokemon.PokemonPlayer;
 import aiki.map.pokemon.WildPk;
 import aiki.map.pokemon.enums.Gender;
+import code.maths.LgInt;
+import code.maths.Rate;
+import code.maths.montecarlo.MonteCarloNumber;
+import code.maths.montecarlo.MonteCarloString;
+import code.util.CustList;
+import code.util.EnumList;
+import code.util.StringList;
+import code.util.StringMap;
 
 @SuppressWarnings("static-method")
 public class FightSuccessTest extends InitializationDataBase {
 
     private static final String PIKA = "PIKA";
-
-    @BeforeClass
-    public static void initDataBase() {
-        InitializationDataBase.initDataBase();
-    }
 
     private static Fight random() {
         Difficulty diff_= new Difficulty();

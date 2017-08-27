@@ -3,33 +3,26 @@ import static junitparams.JUnitParamsRunner.$;
 import junitparams.JUnitParamsRunner;
 import junitparams.Parameters;
 
-import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import code.maths.LgInt;
 import aiki.DataBase;
 import aiki.exceptions.GameLoadException;
 import aiki.game.fight.InitializationDataBase;
 import aiki.game.params.Difficulty;
-import aiki.game.player.Player;
 import aiki.game.player.enums.Sex;
 import aiki.map.pokemon.Egg;
 import aiki.map.pokemon.Pokemon;
 import aiki.map.pokemon.PokemonPlayer;
 import aiki.map.pokemon.WildPk;
 import aiki.map.pokemon.enums.Gender;
+import code.maths.LgInt;
 
 @SuppressWarnings("static-method")
 @RunWith(JUnitParamsRunner.class)
 public class PlayerValidationTest extends InitializationDataBase {
 
     private static final String SEX = "sex";
-
-    @BeforeClass
-    public static void initDataBase() {
-        InitializationDataBase.initDataBase();
-    }
 
     Object[] sex() {
         return $($(Sex.GIRL),$(Sex.BOY));

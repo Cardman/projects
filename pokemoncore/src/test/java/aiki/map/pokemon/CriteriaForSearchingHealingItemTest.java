@@ -2,24 +2,17 @@ package aiki.map.pokemon;
 import static code.util.opers.EquallableUtil.assertEq;
 import static org.junit.Assert.assertTrue;
 
-import org.junit.BeforeClass;
 import org.junit.Test;
 
+import aiki.fight.enums.Statistic;
+import aiki.game.fight.InitializationDataBase;
 import code.maths.Rate;
 import code.util.StringList;
 import code.util.pagination.SearchingMode;
 import code.util.pagination.SelectedBoolean;
-import aiki.fight.enums.Statistic;
-import aiki.game.fight.InitializationDataBase;
-import aiki.map.pokemon.CriteriaForSearchingHealingItem;
 
 @SuppressWarnings("static-method")
 public class CriteriaForSearchingHealingItemTest extends InitializationDataBase {
-
-    @BeforeClass
-    public static void initDataBase() {
-        InitializationDataBase.initDataBase();
-    }
 
     @Test
     public void matchClasses1Test() {

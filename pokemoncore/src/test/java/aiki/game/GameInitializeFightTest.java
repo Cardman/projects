@@ -4,13 +4,8 @@ import static code.maths.EquallableMathUtil.assertEq;
 import static code.util.opers.EquallableUtil.assertEq;
 import static org.junit.Assert.assertTrue;
 
-import org.junit.BeforeClass;
 import org.junit.Test;
 
-import code.maths.LgInt;
-import code.maths.montecarlo.MonteCarloEq;
-import aiki.game.Game;
-import aiki.game.NbFightCoords;
 import aiki.game.fight.InitializationDataBase;
 import aiki.game.fight.enums.FightType;
 import aiki.game.params.Difficulty;
@@ -27,14 +22,11 @@ import aiki.map.pokemon.enums.Gender;
 import aiki.util.Coords;
 import aiki.util.LevelPoint;
 import aiki.util.Point;
+import code.maths.LgInt;
+import code.maths.montecarlo.MonteCarloEq;
 
 @SuppressWarnings("static-method")
 public class GameInitializeFightTest extends InitializationDataBase {
-
-    @BeforeClass
-    public static void initDataBase() {
-        InitializationDataBase.initDataBase();
-    }
 
     @Test
     public void lawCopy1Test() {

@@ -1,26 +1,19 @@
 package aiki.map.pokemon;
 import static org.junit.Assert.assertTrue;
 
-import org.junit.BeforeClass;
 import org.junit.Test;
 
-import code.util.StringList;
-import code.util.pagination.SearchingMode;
-import code.util.pagination.SelectedBoolean;
 import aiki.fight.moves.DamagingMoveData;
 import aiki.fight.moves.StatusMoveData;
 import aiki.fight.moves.enums.SwitchType;
 import aiki.fight.moves.enums.TargetChoice;
 import aiki.game.fight.InitializationDataBase;
-import aiki.map.pokemon.CriteriaForSearchingMove;
+import code.util.StringList;
+import code.util.pagination.SearchingMode;
+import code.util.pagination.SelectedBoolean;
 
 @SuppressWarnings("static-method")
 public class CriteriaForSearchingMoveTest extends InitializationDataBase {
-
-    @BeforeClass
-    public static void initDataBase() {
-        InitializationDataBase.initDataBase();
-    }
 
     @Test
     public void matchName1Test() {

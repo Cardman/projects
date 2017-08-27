@@ -1,17 +1,11 @@
 package aiki.facade;
-import static code.util.opers.EquallableUtil.assertEq;
 import static aiki.EquallablePkUtil.assertEq;
+import static code.util.opers.EquallableUtil.assertEq;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
 
-import org.junit.BeforeClass;
 import org.junit.Test;
 
-import code.util.CustList;
-import code.util.EqList;
-import code.util.pagination.SearchingMode;
-import code.util.pagination.SelectedBoolean;
-import aiki.facade.PaginationPokemonPlayer;
 import aiki.game.fight.InitializationDataBase;
 import aiki.game.params.Difficulty;
 import aiki.game.player.Player;
@@ -21,14 +15,13 @@ import aiki.map.pokemon.PokemonPlayer;
 import aiki.map.pokemon.WildPk;
 import aiki.map.pokemon.enums.Gender;
 import aiki.util.SortingPokemonPlayer;
+import code.util.CustList;
+import code.util.EqList;
+import code.util.pagination.SearchingMode;
+import code.util.pagination.SelectedBoolean;
 
 @SuppressWarnings("static-method")
 public class PaginationPokemonPlayerTest extends InitializationDataBase {
-
-    @BeforeClass
-    public static void initDataBase() {
-        InitializationDataBase.initDataBase();
-    }
 
     @Test
     public void match1Test() {

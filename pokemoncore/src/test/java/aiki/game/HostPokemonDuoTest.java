@@ -1,9 +1,7 @@
 package aiki.game;
-import org.junit.BeforeClass;
 import org.junit.Test;
 
 import aiki.exceptions.GameLoadException;
-import aiki.game.HostPokemonDuo;
 import aiki.game.fight.InitializationDataBase;
 import aiki.map.pokemon.Pokemon;
 import aiki.map.pokemon.PokemonPlayer;
@@ -12,11 +10,6 @@ import aiki.map.pokemon.enums.Gender;
 
 @SuppressWarnings("static-method")
 public class HostPokemonDuoTest extends InitializationDataBase {
-
-    @BeforeClass
-    public static void initDataBase() {
-        InitializationDataBase.initDataBase();
-    }
 
     @Test
     public void validate1Test() {

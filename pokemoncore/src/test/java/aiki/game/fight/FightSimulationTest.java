@@ -3,23 +3,9 @@ import static aiki.EquallablePkUtil.assertEq;
 import static code.util.opers.EquallableUtil.assertEq;
 import static org.junit.Assert.assertTrue;
 
-import org.junit.BeforeClass;
 import org.junit.Test;
 
-import code.maths.Rate;
-import code.util.CustList;
-import code.util.EqList;
-import code.util.NumberMap;
-import code.util.Numbers;
-import code.util.PairNumber;
-import code.util.StringList;
-import code.util.StringMap;
-import code.util.TreeMap;
 import aiki.fight.pokemon.NameLevel;
-import aiki.game.fight.ChoiceOfEvolutionAndMoves;
-import aiki.game.fight.FightSimulation;
-import aiki.game.fight.Fighter;
-import aiki.game.fight.InitializationDataBase;
 import aiki.game.fight.actions.ActionMove;
 import aiki.game.params.Difficulty;
 import aiki.map.levels.enums.EnvironmentType;
@@ -31,14 +17,18 @@ import aiki.map.pokemon.enums.Gender;
 import aiki.util.Coords;
 import aiki.util.LevelPoint;
 import aiki.util.Point;
+import code.maths.Rate;
+import code.util.CustList;
+import code.util.EqList;
+import code.util.NumberMap;
+import code.util.Numbers;
+import code.util.PairNumber;
+import code.util.StringList;
+import code.util.StringMap;
+import code.util.TreeMap;
 
 @SuppressWarnings("static-method")
 public class FightSimulationTest extends InitializationDataBase {
-
-    @BeforeClass
-    public static void initDataBase() {
-        InitializationDataBase.initDataBase();
-    }
 
     @Test
     public void initializeFight1Test() {

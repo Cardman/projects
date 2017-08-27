@@ -2,24 +2,16 @@ package aiki.game.fight;
 import static code.maths.EquallableMathUtil.assertEq;
 import static code.util.opers.EquallableUtil.assertEq;
 
-import org.junit.BeforeClass;
 import org.junit.Test;
 
-import code.maths.Rate;
-import aiki.game.fight.InitializationDataBase;
-import aiki.game.fight.PseudoPokemonPlayer;
 import aiki.map.pokemon.Pokemon;
 import aiki.map.pokemon.PokemonPlayer;
 import aiki.map.pokemon.WildPk;
 import aiki.map.pokemon.enums.Gender;
+import code.maths.Rate;
 
 @SuppressWarnings("static-method")
 public class PseudoPokemonPlayerTest extends InitializationDataBase {
-
-    @BeforeClass
-    public static void initDataBase() {
-        InitializationDataBase.initDataBase();
-    }
 
     @Test
     public void new_PseudoPokemonPlayer_PokemonPlayer_1Test() {

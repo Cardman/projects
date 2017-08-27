@@ -56,11 +56,6 @@ import aiki.map.pokemon.enums.Gender;
 @SuppressWarnings("static-method")
 public class FightSendingTest extends InitializationDataBase {
 
-    @BeforeClass
-    public static void initDataBase() {
-        InitializationDataBase.initDataBase();
-    }
-
     @Test
     public void effectWhileSendingBegin1Test() {
         Difficulty diff_= new Difficulty();

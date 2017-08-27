@@ -3,23 +3,8 @@ import static aiki.EquallablePkUtil.assertEq;
 import static code.util.opers.EquallableUtil.assertEq;
 import static org.junit.Assert.assertTrue;
 
-import org.junit.BeforeClass;
 import org.junit.Test;
 
-import code.maths.Rate;
-import code.util.CustList;
-import code.util.EqList;
-import code.util.NumberMap;
-import code.util.StringList;
-import code.util.StringMap;
-import aiki.game.fight.ChoiceOfEvolutionAndMoves;
-import aiki.game.fight.Fight;
-import aiki.game.fight.FightFacade;
-import aiki.game.fight.FightSimulation;
-import aiki.game.fight.Fighter;
-import aiki.game.fight.InitializationDataBase;
-import aiki.game.fight.LevelMoves;
-import aiki.game.fight.TargetCoords;
 import aiki.game.fight.actions.ActionMove;
 import aiki.game.fight.actions.ActionSwitch;
 import aiki.game.fight.enums.IssueSimulation;
@@ -39,14 +24,15 @@ import aiki.map.pokemon.enums.Gender;
 import aiki.util.Coords;
 import aiki.util.LevelPoint;
 import aiki.util.Point;
+import code.maths.Rate;
+import code.util.CustList;
+import code.util.EqList;
+import code.util.NumberMap;
+import code.util.StringList;
+import code.util.StringMap;
 
 @SuppressWarnings("static-method")
 public class FightFacadeSimulationTest extends InitializationDataBase {
-
-    @BeforeClass
-    public static void initDataBase() {
-        InitializationDataBase.initDataBase();
-    }
 
     private static Fight simulate(
         CustList<LevelMoves> _partnerMoves,

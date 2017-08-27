@@ -1,24 +1,10 @@
 package aiki.game.fight;
 import static code.util.opers.EquallableUtil.assertEq;
 
-import org.junit.BeforeClass;
 import org.junit.Test;
 
-import code.maths.LgInt;
-import code.maths.Rate;
-import code.util.CustList;
-import code.util.StringList;
-import code.util.StringMap;
 import aiki.DataBase;
 import aiki.fight.enums.Statistic;
-import aiki.game.fight.Fight;
-import aiki.game.fight.FightFacade;
-import aiki.game.fight.FightRound;
-import aiki.game.fight.FightValues;
-import aiki.game.fight.Fighter;
-import aiki.game.fight.InitializationDataBase;
-import aiki.game.fight.MoveTeamPosition;
-import aiki.game.fight.Team;
 import aiki.game.params.Difficulty;
 import aiki.game.player.Player;
 import aiki.map.characters.GymLeader;
@@ -28,17 +14,17 @@ import aiki.map.pokemon.Pokemon;
 import aiki.map.pokemon.PokemonPlayer;
 import aiki.map.pokemon.WildPk;
 import aiki.map.pokemon.enums.Gender;
+import code.maths.LgInt;
+import code.maths.Rate;
+import code.util.CustList;
+import code.util.StringList;
+import code.util.StringMap;
 
 @SuppressWarnings("static-method")
 public class FightValuesTest extends InitializationDataBase {
 
     private static final String PIKA = "PIKA";
     private static final String SEPARATOR_SET = ";";
-
-    @BeforeClass
-    public static void initDataBase() {
-        InitializationDataBase.initDataBase();
-    }
 
     private static Fight calculateValuesFighter() {
         Difficulty diff_= new Difficulty();

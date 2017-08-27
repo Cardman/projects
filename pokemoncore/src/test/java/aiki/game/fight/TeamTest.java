@@ -4,25 +4,8 @@ import static code.maths.EquallableMathUtil.assertEq;
 import static code.util.opers.EquallableUtil.assertEq;
 import static org.junit.Assert.assertTrue;
 
-import org.junit.BeforeClass;
 import org.junit.Test;
 
-import code.maths.LgInt;
-import code.maths.Rate;
-import code.util.CustList;
-import code.util.EqList;
-import code.util.Numbers;
-import code.util.StringList;
-import code.util.StringMap;
-import aiki.game.fight.ActivityOfMove;
-import aiki.game.fight.Anticipation;
-import aiki.game.fight.Fight;
-import aiki.game.fight.Fighter;
-import aiki.game.fight.InitializationDataBase;
-import aiki.game.fight.MoveTeamPosition;
-import aiki.game.fight.StacksOfUses;
-import aiki.game.fight.Team;
-import aiki.game.fight.TeamPosition;
 import aiki.game.params.Difficulty;
 import aiki.game.player.Player;
 import aiki.game.player.enums.Sex;
@@ -32,14 +15,16 @@ import aiki.map.pokemon.Pokemon;
 import aiki.map.pokemon.PokemonPlayer;
 import aiki.map.pokemon.WildPk;
 import aiki.map.pokemon.enums.Gender;
+import code.maths.LgInt;
+import code.maths.Rate;
+import code.util.CustList;
+import code.util.EqList;
+import code.util.Numbers;
+import code.util.StringList;
+import code.util.StringMap;
 
 @SuppressWarnings("static-method")
 public class TeamTest extends InitializationDataBase {
-
-    @BeforeClass
-    public static void initDataBase() {
-        InitializationDataBase.initDataBase();
-    }
 
     @Test
     public void new_Team_DataBase_1Test() {

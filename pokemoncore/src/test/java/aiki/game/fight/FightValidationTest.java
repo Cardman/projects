@@ -4,32 +4,12 @@ import static org.junit.Assert.assertTrue;
 import junitparams.JUnitParamsRunner;
 import junitparams.Parameters;
 
-import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import code.maths.LgInt;
-import code.maths.Rate;
-import code.util.CustList;
-import code.util.EqList;
-import code.util.NumberMap;
-import code.util.Numbers;
-import code.util.StringList;
-import code.util.StringMap;
 import aiki.exceptions.GameLoadException;
 import aiki.game.Game;
 import aiki.game.UsesOfMove;
-import aiki.game.fight.ActivityOfMove;
-import aiki.game.fight.Fight;
-import aiki.game.fight.FightArtificialIntelligence;
-import aiki.game.fight.FightFacade;
-import aiki.game.fight.FightKo;
-import aiki.game.fight.FightOrder;
-import aiki.game.fight.FightRound;
-import aiki.game.fight.Fighter;
-import aiki.game.fight.InitializationDataBase;
-import aiki.game.fight.TargetCoords;
-import aiki.game.fight.TeamPosition;
 import aiki.game.fight.actions.ActionMove;
 import aiki.game.fight.enums.ActionType;
 import aiki.game.fight.enums.FightState;
@@ -48,17 +28,20 @@ import aiki.map.pokemon.enums.Gender;
 import aiki.util.Coords;
 import aiki.util.LevelPoint;
 import aiki.util.Point;
+import code.maths.LgInt;
+import code.maths.Rate;
+import code.util.CustList;
+import code.util.EqList;
+import code.util.NumberMap;
+import code.util.Numbers;
+import code.util.StringList;
+import code.util.StringMap;
 
 @SuppressWarnings("static-method")
 @RunWith(JUnitParamsRunner.class)
 public class FightValidationTest extends InitializationDataBase {
 
     private static final String SEX = "sex";
-
-    @BeforeClass
-    public static void initDataBase() {
-        InitializationDataBase.initDataBase();
-    }
 
     private static Coords newCoords(int _place, int _level, int _x, int _y) {
         Coords begin_ = new Coords();

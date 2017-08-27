@@ -1,24 +1,15 @@
 package aiki.game.fight;
 import static code.maths.EquallableMathUtil.assertEq;
 
-import org.junit.BeforeClass;
 import org.junit.Test;
 
 import code.maths.LgInt;
 import code.maths.Rate;
 import code.maths.montecarlo.MonteCarloNumber;
 import code.util.ObjectMap;
-import aiki.game.fight.InitializationDataBase;
-import aiki.game.fight.TeamPosition;
-import aiki.game.fight.ThrowerDamageLaws;
 
 @SuppressWarnings("static-method")
 public class ThrowerDamageLawsTest extends InitializationDataBase {
-
-    @BeforeClass
-    public static void initDataBase() {
-        InitializationDataBase.initDataBase();
-    }
 
     @Test
     public void min1Test() {

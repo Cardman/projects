@@ -3,20 +3,8 @@ import static aiki.EquallablePkUtil.assertEq;
 import static code.util.opers.EquallableUtil.assertEq;
 import static org.junit.Assert.assertTrue;
 
-import org.junit.BeforeClass;
 import org.junit.Test;
 
-import code.util.CustList;
-import code.util.EqList;
-import code.util.StringList;
-import aiki.game.fight.ActivityOfMove;
-import aiki.game.fight.Fight;
-import aiki.game.fight.FightFacade;
-import aiki.game.fight.FightInitialization;
-import aiki.game.fight.Fighter;
-import aiki.game.fight.InitializationDataBase;
-import aiki.game.fight.MoveTeamPosition;
-import aiki.game.fight.TeamPosition;
 import aiki.game.fight.enums.FightState;
 import aiki.game.params.Difficulty;
 import aiki.game.player.Player;
@@ -34,14 +22,12 @@ import aiki.map.pokemon.PokemonPlayer;
 import aiki.map.pokemon.PokemonTeam;
 import aiki.map.pokemon.WildPk;
 import aiki.map.pokemon.enums.Gender;
+import code.util.CustList;
+import code.util.EqList;
+import code.util.StringList;
 
 @SuppressWarnings("static-method")
 public class FightInitializationTest extends InitializationDataBase {
-
-    @BeforeClass
-    public static void initDataBase() {
-        InitializationDataBase.initDataBase();
-    }
 
     @Test
     public void initMultiplicity1Test() {

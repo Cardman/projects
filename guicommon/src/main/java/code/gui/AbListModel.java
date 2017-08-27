@@ -1,7 +1,6 @@
 package code.gui;
 import code.util.CustList;
 import code.util.Numbers;
-import code.util.ints.Listable;
 
 
 public abstract class AbListModel<T> extends CustListModel<T> {

@@ -4,11 +4,8 @@ import static code.maths.EquallableMathUtil.assertEq;
 import static code.util.opers.EquallableUtil.assertEq;
 import static org.junit.Assert.assertTrue;
 
-import org.junit.BeforeClass;
 import org.junit.Test;
 
-import code.maths.Rate;
-import code.util.StringMap;
 import aiki.fight.enums.Statistic;
 import aiki.game.UsesOfMove;
 import aiki.game.fight.Fight;
@@ -19,22 +16,14 @@ import aiki.game.fight.TeamPosition;
 import aiki.game.params.Difficulty;
 import aiki.game.params.enums.DifficultyModelLaw;
 import aiki.game.player.Player;
-import aiki.map.pokemon.Egg;
-import aiki.map.pokemon.Pokemon;
-import aiki.map.pokemon.PokemonPlayer;
-import aiki.map.pokemon.UsablePokemon;
-import aiki.map.pokemon.WildPk;
 import aiki.map.pokemon.enums.Gender;
+import code.maths.Rate;
+import code.util.StringMap;
 
 @SuppressWarnings("static-method")
 public class PokemonPlayerEndFightTest extends InitializationDataBase {
 
     private static final String PIKA = "PIKA";
-
-    @BeforeClass
-    public static void initDataBase() {
-        InitializationDataBase.initDataBase();
-    }
 
     private static Fight endFight(
             Player _player,

@@ -43,11 +43,6 @@ import aiki.map.pokemon.enums.Gender;
 @SuppressWarnings("static-method")
 public class FightRulesTest extends InitializationDataBase {
 
-    @BeforeClass
-    public static void initDataBase() {
-        InitializationDataBase.initDataBase();
-    }
-
     private static Fight substitutable(
             CustList<LevelMoves> _partnerMoves,
             CustList<LevelMoves> _foeMoves,

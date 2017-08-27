@@ -3,20 +3,13 @@ import static code.maths.EquallableMathUtil.assertEq;
 import static code.util.opers.EquallableUtil.assertEq;
 import static org.junit.Assert.assertTrue;
 
-import org.junit.BeforeClass;
 import org.junit.Test;
 
-import code.maths.LgInt;
 import aiki.game.fight.InitializationDataBase;
-import aiki.game.player.Inventory;
+import code.maths.LgInt;
 
 @SuppressWarnings("static-method")
 public class InventoryTest extends InitializationDataBase{
-
-    @BeforeClass
-    public static void initDataBase() {
-        InitializationDataBase.initDataBase();
-    }
 
     @Test
     public void new_Inventory_DataBase_1Test() {

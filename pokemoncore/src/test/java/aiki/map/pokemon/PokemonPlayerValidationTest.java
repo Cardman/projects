@@ -1,25 +1,16 @@
 package aiki.map.pokemon;
-import org.junit.BeforeClass;
 import org.junit.Test;
 
-import code.maths.Rate;
 import aiki.DataBase;
 import aiki.exceptions.GameLoadException;
 import aiki.fight.enums.Statistic;
 import aiki.game.UsesOfMove;
 import aiki.game.fight.InitializationDataBase;
-import aiki.map.pokemon.Pokemon;
-import aiki.map.pokemon.PokemonPlayer;
-import aiki.map.pokemon.WildPk;
 import aiki.map.pokemon.enums.Gender;
+import code.maths.Rate;
 
 @SuppressWarnings("static-method")
 public class PokemonPlayerValidationTest extends InitializationDataBase {
-
-    @BeforeClass
-    public static void initDataBase() {
-        InitializationDataBase.initDataBase();
-    }
 
     @Test
     public void validate1Test() {

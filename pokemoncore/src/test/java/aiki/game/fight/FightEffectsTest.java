@@ -4,20 +4,8 @@ import static code.maths.EquallableMathUtil.assertEq;
 import static code.util.opers.EquallableUtil.assertEq;
 import static org.junit.Assert.assertTrue;
 
-import org.junit.BeforeClass;
 import org.junit.Test;
 
-import code.maths.LgInt;
-import code.maths.Rate;
-import code.maths.montecarlo.MonteCarloString;
-import code.util.CustList;
-import code.util.EnumList;
-import code.util.EnumMap;
-import code.util.NumberMap;
-import code.util.Numbers;
-import code.util.ObjectMap;
-import code.util.StringList;
-import code.util.StringMap;
 import aiki.DataBase;
 import aiki.fight.enums.Statistic;
 import aiki.fight.moves.MoveData;
@@ -45,21 +33,6 @@ import aiki.fight.moves.effects.EffectTeam;
 import aiki.fight.moves.effects.EffectUnprotectFromTypes;
 import aiki.fight.moves.effects.EffectVarPP;
 import aiki.game.UsesOfMove;
-import aiki.game.fight.ActivityOfMove;
-import aiki.game.fight.Fight;
-import aiki.game.fight.FightAbilities;
-import aiki.game.fight.FightEffects;
-import aiki.game.fight.FightFacade;
-import aiki.game.fight.FightInitialization;
-import aiki.game.fight.FightKo;
-import aiki.game.fight.FightRound;
-import aiki.game.fight.FightSuccess;
-import aiki.game.fight.Fighter;
-import aiki.game.fight.InitializationDataBase;
-import aiki.game.fight.MoveTeamPosition;
-import aiki.game.fight.StacksOfUses;
-import aiki.game.fight.Team;
-import aiki.game.fight.TeamPosition;
 import aiki.game.fight.animations.AnimationAbsorb;
 import aiki.game.fight.animations.AnimationChangedPlace;
 import aiki.game.fight.animations.AnimationEffect;
@@ -86,17 +59,23 @@ import aiki.map.pokemon.Pokemon;
 import aiki.map.pokemon.PokemonPlayer;
 import aiki.map.pokemon.WildPk;
 import aiki.map.pokemon.enums.Gender;
+import code.maths.LgInt;
+import code.maths.Rate;
+import code.maths.montecarlo.MonteCarloString;
+import code.util.CustList;
+import code.util.EnumList;
+import code.util.EnumMap;
+import code.util.NumberMap;
+import code.util.Numbers;
+import code.util.ObjectMap;
+import code.util.StringList;
+import code.util.StringMap;
 
 @SuppressWarnings("static-method")
 public class FightEffectsTest extends InitializationDataBase {
 
     private static final String SOMMEIL_FAILURE = "cardinal(inter({VAR__CIBLE_STATUTS},{SOMMEIL;SOMMEIL_REPOS}))>0|VAR__CIBLE_CLONE>0";
     private static final String VAR_FAIL_SYNCHRONIZING_STATUS = "VAR__EXISTE_GENRE_ASSEXUE|VAR__GENRES_EGAUX|VAR__CIBLE_POSSEDE_STATUT_RELATION__AMOUR";
-
-    @BeforeClass
-    public static void initDataBase() {
-        InitializationDataBase.initDataBase();
-    }
 
     private static Fight disableStatus(Difficulty _diff) {
         Player player_ = new Player(NICKNAME,null,_diff,false,_data_);

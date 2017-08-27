@@ -790,16 +790,12 @@ public class InitializationDataBase {
 
     protected static final String NULL_REF = DataBase.EMPTY_STRING;
 
-    protected static DataBase _data_;
+    protected static DataBase _data_ = initDataBase();
 
     protected InitializationDataBase() {
     }
 
-    protected static void initDataBase() {
-        if (_data_ != null) {
-            //it is a single instance
-            return;
-        }
+    protected static DataBase initDataBase() {
         ImageIO.setUseCache(false);
         DataBase data_ = coreDataBase();
         data_.sortEndRound();
@@ -891,7 +887,7 @@ public class InitializationDataBase {
         data_.setCheckTranslation(false);
         CheckNumericStringsFight.validateNumericBooleanStrings(data_, false);
         data_.getMap().validate(data_);
-        _data_ = data_;
+        return data_;
     }
 
     protected static DataBase coreDataBase() {

@@ -1,22 +1,15 @@
 package aiki.map.pokemon;
 import static code.util.opers.EquallableUtil.assertEq;
 
-import org.junit.BeforeClass;
 import org.junit.Test;
 
 import aiki.exceptions.GameLoadException;
 import aiki.game.fight.InitializationDataBase;
-import aiki.map.pokemon.Egg;
 
 @SuppressWarnings("static-method")
 public class EggValidationTest extends InitializationDataBase {
 
     private static final char SEPARATOR = Egg.SEPARATOR;
-
-    @BeforeClass
-    public static void initDataBase() {
-        InitializationDataBase.initDataBase();
-    }
 
     @Test
     public void isValid1Test() {

@@ -1,29 +1,22 @@
 package aiki.facade;
-import static code.util.opers.EquallableUtil.assertEq;
 import static aiki.EquallablePkUtil.assertEq;
+import static code.util.opers.EquallableUtil.assertEq;
 import static org.junit.Assert.assertTrue;
 
-import org.junit.BeforeClass;
 import org.junit.Test;
 
-import code.util.EqList;
-import code.util.StringList;
-import code.util.pagination.SearchingMode;
-import code.util.pagination.SelectedBoolean;
-import aiki.facade.PaginationMove;
 import aiki.fight.moves.DamagingMoveData;
 import aiki.fight.moves.StatusMoveData;
 import aiki.fight.moves.enums.TargetChoice;
 import aiki.game.fight.InitializationDataBase;
 import aiki.util.SortingMove;
+import code.util.EqList;
+import code.util.StringList;
+import code.util.pagination.SearchingMode;
+import code.util.pagination.SelectedBoolean;
 
 @SuppressWarnings("static-method")
 public class PaginationMoveTest extends InitializationDataBase {
-
-    @BeforeClass
-    public static void initDataBase() {
-        InitializationDataBase.initDataBase();
-    }
 
     @Test
     public void match1Test() {

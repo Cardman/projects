@@ -1,11 +1,8 @@
 package aiki.game;
 import static org.junit.Assert.assertTrue;
 
-import org.junit.BeforeClass;
 import org.junit.Test;
 
-import aiki.game.Game;
-import aiki.game.NbFightCoords;
 import aiki.game.fight.InitializationDataBase;
 import aiki.game.params.Difficulty;
 import aiki.map.enums.Direction;
@@ -17,11 +14,6 @@ import aiki.util.Point;
 
 @SuppressWarnings("static-method")
 public class GameEndTest extends InitializationDataBase {
-
-    @BeforeClass
-    public static void initDataBase() {
-        InitializationDataBase.initDataBase();
-    }
 
     @Test
     public void endGame1Test() {

@@ -1,20 +1,13 @@
 package aiki.map.pokemon;
 import static org.junit.Assert.assertTrue;
 
-import org.junit.BeforeClass;
 import org.junit.Test;
 
-import code.util.pagination.SearchingMode;
 import aiki.game.fight.InitializationDataBase;
-import aiki.map.pokemon.CriteriaForSearchingEgg;
+import code.util.pagination.SearchingMode;
 
 @SuppressWarnings("static-method")
 public class CriteriaForSearchingEggTest extends InitializationDataBase {
-
-    @BeforeClass
-    public static void initDataBase() {
-        InitializationDataBase.initDataBase();
-    }
 
     @Test
     public void matchName1Test() {

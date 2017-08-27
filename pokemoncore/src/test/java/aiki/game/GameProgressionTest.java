@@ -3,14 +3,9 @@ import static code.maths.EquallableMathUtil.assertEq;
 import static code.util.opers.EquallableUtil.assertEq;
 import static org.junit.Assert.assertTrue;
 
-import org.junit.BeforeClass;
 import org.junit.Test;
 
-import code.maths.LgInt;
 import aiki.fight.pokemon.TrainerPlaceNames;
-import aiki.game.Game;
-import aiki.game.GameProgression;
-import aiki.game.NbFightCoords;
 import aiki.game.fight.InitializationDataBase;
 import aiki.map.pokemon.Egg;
 import aiki.map.pokemon.Pokemon;
@@ -19,16 +14,12 @@ import aiki.map.pokemon.WildPk;
 import aiki.util.Coords;
 import aiki.util.LevelPoint;
 import aiki.util.Point;
+import code.maths.LgInt;
 
 @SuppressWarnings("static-method")
 public class GameProgressionTest extends InitializationDataBase {
 
     private static final String SEPARATOR_TRAINERS = " ";
-
-    @BeforeClass
-    public static void initDataBase() {
-        InitializationDataBase.initDataBase();
-    }
 
     @Test
     public void new_GameProgression_DataBase_Game_1Test() {

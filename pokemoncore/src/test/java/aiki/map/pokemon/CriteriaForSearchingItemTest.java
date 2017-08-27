@@ -1,24 +1,17 @@
 package aiki.map.pokemon;
 import static org.junit.Assert.assertTrue;
 
-import org.junit.BeforeClass;
 import org.junit.Test;
 
-import code.maths.LgInt;
-import code.util.pagination.SearchingMode;
 import aiki.fight.items.Ball;
 import aiki.fight.items.Berry;
 import aiki.fight.items.HealingPp;
 import aiki.game.fight.InitializationDataBase;
-import aiki.map.pokemon.CriteriaForSearchingItem;
+import code.maths.LgInt;
+import code.util.pagination.SearchingMode;
 
 @SuppressWarnings("static-method")
 public class CriteriaForSearchingItemTest extends InitializationDataBase {
-
-    @BeforeClass
-    public static void initDataBase() {
-        InitializationDataBase.initDataBase();
-    }
 
     @Test
     public void matchName1Test() {

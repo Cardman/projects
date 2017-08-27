@@ -2,28 +2,19 @@ package aiki.game.fight;
 import static code.maths.EquallableMathUtil.assertEq;
 import static code.util.opers.EquallableUtil.assertEq;
 
-import org.junit.BeforeClass;
 import org.junit.Test;
 
-import code.maths.Rate;
-import code.util.CustList;
-import code.util.EqList;
 import aiki.fight.pokemon.NameLevel;
-import aiki.game.fight.InitializationDataBase;
-import aiki.game.fight.PseudoPlayer;
-import aiki.game.fight.PseudoPokemonPlayer;
 import aiki.map.pokemon.Pokemon;
 import aiki.map.pokemon.PokemonPlayer;
 import aiki.map.pokemon.WildPk;
 import aiki.map.pokemon.enums.Gender;
+import code.maths.Rate;
+import code.util.CustList;
+import code.util.EqList;
 
 @SuppressWarnings("static-method")
 public class PseudoPlayerTest extends InitializationDataBase {
-
-    @BeforeClass
-    public static void initDataBase() {
-        InitializationDataBase.initDataBase();
-    }
 
     @Test
     public void new_PseudoPlayer_List_List_1Test() {

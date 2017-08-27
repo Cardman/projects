@@ -5,33 +5,26 @@ import static code.util.opers.EquallableUtil.assertEq;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
 
-import org.junit.BeforeClass;
 import org.junit.Test;
 
-import code.maths.LgInt;
-import code.maths.Rate;
-import code.util.Numbers;
 import aiki.fight.enums.Statistic;
 import aiki.game.fight.Fight;
 import aiki.game.fight.FightFacade;
 import aiki.game.fight.InitializationDataBase;
 import aiki.game.params.Difficulty;
 import aiki.game.params.enums.DifficultyModelLaw;
-import aiki.game.player.Player;
 import aiki.map.pokemon.Egg;
 import aiki.map.pokemon.Pokemon;
 import aiki.map.pokemon.PokemonPlayer;
 import aiki.map.pokemon.UsablePokemon;
 import aiki.map.pokemon.WildPk;
 import aiki.map.pokemon.enums.Gender;
+import code.maths.LgInt;
+import code.maths.Rate;
+import code.util.Numbers;
 
 @SuppressWarnings("static-method")
 public class PlayerEndFightTest extends InitializationDataBase {
-
-    @BeforeClass
-    public static void initDataBase() {
-        InitializationDataBase.initDataBase();
-    }
 
     private static Fight endFight(
             Player _player,

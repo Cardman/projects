@@ -2,25 +2,11 @@ package aiki.game.fight;
 import static code.util.opers.EquallableUtil.assertEq;
 import static org.junit.Assert.assertTrue;
 
-import org.junit.BeforeClass;
 import org.junit.Test;
 
-import code.util.CustList;
-import code.util.EqList;
-import code.util.StringList;
-import code.util.StringMap;
 import aiki.fight.moves.MoveData;
 import aiki.fight.moves.effects.EffectCopyMove;
 import aiki.fight.moves.effects.EffectInvoke;
-import aiki.game.fight.Fight;
-import aiki.game.fight.FightFacade;
-import aiki.game.fight.FightInvoke;
-import aiki.game.fight.FightKo;
-import aiki.game.fight.FightOrder;
-import aiki.game.fight.FightRound;
-import aiki.game.fight.FightSuccess;
-import aiki.game.fight.InitializationDataBase;
-import aiki.game.fight.TeamPosition;
 import aiki.game.params.Difficulty;
 import aiki.game.player.Player;
 import aiki.map.characters.GymLeader;
@@ -30,14 +16,13 @@ import aiki.map.pokemon.Pokemon;
 import aiki.map.pokemon.PokemonPlayer;
 import aiki.map.pokemon.WildPk;
 import aiki.map.pokemon.enums.Gender;
+import code.util.CustList;
+import code.util.EqList;
+import code.util.StringList;
+import code.util.StringMap;
 
 @SuppressWarnings("static-method")
 public class FightInvokeTest extends InitializationDataBase {
-
-    @BeforeClass
-    public static void initDataBase() {
-        InitializationDataBase.initDataBase();
-    }
 
     private static Fight invokableMoves() {
         Difficulty diff_= new Difficulty();

@@ -3,24 +3,14 @@ import static junitparams.JUnitParamsRunner.$;
 import junitparams.JUnitParamsRunner;
 import junitparams.Parameters;
 
-import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import code.maths.LgInt;
-import code.maths.Rate;
-import code.util.StringList;
 import aiki.DataBase;
 import aiki.exceptions.GameLoadException;
 import aiki.fight.enums.Statistic;
 import aiki.game.Game;
 import aiki.game.UsesOfMove;
-import aiki.game.fight.ActivityOfMove;
-import aiki.game.fight.Fight;
-import aiki.game.fight.FightKo;
-import aiki.game.fight.Fighter;
-import aiki.game.fight.InitializationDataBase;
-import aiki.game.fight.MoveTeamPosition;
 import aiki.game.fight.actions.ActionMove;
 import aiki.game.fight.util.AffectedMove;
 import aiki.game.fight.util.CopiedMove;
@@ -30,17 +20,15 @@ import aiki.game.player.enums.Sex;
 import aiki.map.enums.Direction;
 import aiki.map.pokemon.Pokemon;
 import aiki.map.pokemon.WildPk;
+import code.maths.LgInt;
+import code.maths.Rate;
+import code.util.StringList;
 
 @RunWith(JUnitParamsRunner.class)
 @SuppressWarnings("static-method")
 public class FighterValidationTest extends InitializationDataBase {
 
     private static final String SEX = "sex";
-
-    @BeforeClass
-    public static void initDataBase() {
-        InitializationDataBase.initDataBase();
-    }
 
     Object[] sex() {
         return $($(Sex.GIRL),$(Sex.BOY));

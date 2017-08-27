@@ -3,22 +3,9 @@ import static code.maths.EquallableMathUtil.assertEq;
 import static code.util.opers.EquallableUtil.assertEq;
 import static org.junit.Assert.assertTrue;
 
-import org.junit.BeforeClass;
 import org.junit.Test;
 
-import code.maths.Rate;
-import code.util.CustList;
-import code.util.EqList;
-import code.util.NumberMap;
-import code.util.Numbers;
-import code.util.StringList;
 import aiki.fight.pokemon.NameLevel;
-import aiki.game.fight.Fighter;
-import aiki.game.fight.InitializationDataBase;
-import aiki.game.fight.PseudoFight;
-import aiki.game.fight.PseudoFoeFighter;
-import aiki.game.fight.PseudoPlayer;
-import aiki.game.fight.PseudoPlayerFighter;
 import aiki.game.params.Difficulty;
 import aiki.game.params.enums.DifficultyWinPointsFight;
 import aiki.map.pokemon.PkTrainer;
@@ -26,14 +13,15 @@ import aiki.map.pokemon.Pokemon;
 import aiki.map.pokemon.PokemonPlayer;
 import aiki.map.pokemon.WildPk;
 import aiki.map.pokemon.enums.Gender;
+import code.maths.Rate;
+import code.util.CustList;
+import code.util.EqList;
+import code.util.NumberMap;
+import code.util.Numbers;
+import code.util.StringList;
 
 @SuppressWarnings("static-method")
 public class PseudoFightTest extends InitializationDataBase {
-
-    @BeforeClass
-    public static void initDataBase() {
-        InitializationDataBase.initDataBase();
-    }
 
     @Test
     public void new_PseudoFight_List_PseudoPlayer_int_List_1Test() {

@@ -4,39 +4,14 @@ import static code.maths.EquallableMathUtil.assertEq;
 import static code.util.opers.EquallableUtil.assertEq;
 import static org.junit.Assert.assertTrue;
 
-import org.junit.BeforeClass;
 import org.junit.Test;
 
-import code.maths.LgInt;
-import code.maths.Rate;
-import code.maths.montecarlo.MonteCarloNumber;
-import code.util.CustList;
-import code.util.EnumMap;
-import code.util.ObjectMap;
-import code.util.StringList;
-import code.util.StringMap;
 import aiki.DataBase;
 import aiki.fight.enums.Statistic;
 import aiki.fight.moves.DamagingMoveData;
 import aiki.fight.moves.MoveData;
 import aiki.fight.moves.effects.Effect;
 import aiki.fight.moves.effects.EffectDamage;
-import aiki.game.fight.Anticipation;
-import aiki.game.fight.DamageMoveCountUser;
-import aiki.game.fight.Fight;
-import aiki.game.fight.FightEffects;
-import aiki.game.fight.FightFacade;
-import aiki.game.fight.FightInvoke;
-import aiki.game.fight.FightKo;
-import aiki.game.fight.FightMoves;
-import aiki.game.fight.FightRound;
-import aiki.game.fight.FightValues;
-import aiki.game.fight.Fighter;
-import aiki.game.fight.InitializationDataBase;
-import aiki.game.fight.MoveTeamPosition;
-import aiki.game.fight.Team;
-import aiki.game.fight.TeamPosition;
-import aiki.game.fight.ThrowerDamageLaws;
 import aiki.game.fight.animations.AnimationEffectDamage;
 import aiki.game.fight.enums.UsefulValueLaw;
 import aiki.game.params.Difficulty;
@@ -49,14 +24,17 @@ import aiki.map.pokemon.Pokemon;
 import aiki.map.pokemon.PokemonPlayer;
 import aiki.map.pokemon.WildPk;
 import aiki.map.pokemon.enums.Gender;
+import code.maths.LgInt;
+import code.maths.Rate;
+import code.maths.montecarlo.MonteCarloNumber;
+import code.util.CustList;
+import code.util.EnumMap;
+import code.util.ObjectMap;
+import code.util.StringList;
+import code.util.StringMap;
 
 @SuppressWarnings("static-method")
 public class FightEffectsDamageTest extends InitializationDataBase {
-
-    @BeforeClass
-    public static void initDataBase() {
-        InitializationDataBase.initDataBase();
-    }
 
     private static Fight randomRate() {
         Difficulty diff_= new Difficulty();

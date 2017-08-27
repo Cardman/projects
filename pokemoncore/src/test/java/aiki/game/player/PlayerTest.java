@@ -5,21 +5,13 @@ import static code.util.opers.EquallableUtil.assertEq;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
 
-import org.junit.BeforeClass;
 import org.junit.Test;
 
-import code.maths.LgInt;
-import code.maths.Rate;
-import code.util.CustList;
-import code.util.Numbers;
-import code.util.StringList;
-import code.util.StringMap;
 import aiki.ExchangedData;
 import aiki.fight.enums.Statistic;
 import aiki.game.UsesOfMove;
 import aiki.game.fight.InitializationDataBase;
 import aiki.game.params.Difficulty;
-import aiki.game.player.Player;
 import aiki.game.player.enums.Sex;
 import aiki.map.pokemon.Egg;
 import aiki.map.pokemon.Pokemon;
@@ -27,6 +19,12 @@ import aiki.map.pokemon.PokemonPlayer;
 import aiki.map.pokemon.UsablePokemon;
 import aiki.map.pokemon.WildPk;
 import aiki.map.pokemon.enums.Gender;
+import code.maths.LgInt;
+import code.maths.Rate;
+import code.util.CustList;
+import code.util.Numbers;
+import code.util.StringList;
+import code.util.StringMap;
 
 @SuppressWarnings("static-method")
 public class PlayerTest extends InitializationDataBase {
@@ -34,11 +32,6 @@ public class PlayerTest extends InitializationDataBase {
     private static final String SAMPLE_NICKNAME = "TOTO";
     private static final String TRUMP_BOY = "TRUMP_BOY";
     private static final String TRUMP_GIRL = "TRUMP_GIRL";
-
-    @BeforeClass
-    public static void initDataBase() {
-        InitializationDataBase.initDataBase();
-    }
 
     @Test
     public void initTeam1Test() {

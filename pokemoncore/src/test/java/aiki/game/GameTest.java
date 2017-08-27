@@ -6,24 +6,11 @@ import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
 
-import org.junit.BeforeClass;
 import org.junit.Test;
 
-import code.images.Image;
-import code.maths.LgInt;
-import code.maths.Rate;
-import code.maths.montecarlo.MonteCarloString;
-import code.util.CustList;
-import code.util.EntryCust;
-import code.util.EqList;
-import code.util.ObjectMap;
-import code.util.StringList;
 import aiki.ImageHeroKey;
 import aiki.comments.Comment;
 import aiki.fight.enums.Statistic;
-import aiki.game.Game;
-import aiki.game.HostPokemonDuo;
-import aiki.game.NbFightCoords;
 import aiki.game.enums.InterfaceType;
 import aiki.game.fight.FightFacade;
 import aiki.game.fight.InitializationDataBase;
@@ -46,14 +33,18 @@ import aiki.map.util.ScreenCoords;
 import aiki.util.Coords;
 import aiki.util.LevelPoint;
 import aiki.util.Point;
+import code.images.Image;
+import code.maths.LgInt;
+import code.maths.Rate;
+import code.maths.montecarlo.MonteCarloString;
+import code.util.CustList;
+import code.util.EntryCust;
+import code.util.EqList;
+import code.util.ObjectMap;
+import code.util.StringList;
 
 @SuppressWarnings("static-method")
 public class GameTest extends InitializationDataBase {
-
-    @BeforeClass
-    public static void initDataBase() {
-        InitializationDataBase.initDataBase();
-    }
 
     @Test
     public void closestTile1Test() {

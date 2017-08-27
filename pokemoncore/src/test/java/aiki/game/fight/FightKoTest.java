@@ -3,24 +3,9 @@ import static code.maths.EquallableMathUtil.assertEq;
 import static code.util.opers.EquallableUtil.assertEq;
 import static org.junit.Assert.assertTrue;
 
-import org.junit.BeforeClass;
 import org.junit.Test;
 
-import code.maths.Rate;
-import code.util.CustList;
-import code.util.EnumMap;
-import code.util.EqList;
-import code.util.Numbers;
-import code.util.StringList;
-import code.util.StringMap;
 import aiki.fight.enums.Statistic;
-import aiki.game.fight.Fight;
-import aiki.game.fight.FightFacade;
-import aiki.game.fight.FightKo;
-import aiki.game.fight.FightOrder;
-import aiki.game.fight.Fighter;
-import aiki.game.fight.InitializationDataBase;
-import aiki.game.fight.TeamPosition;
 import aiki.game.params.Difficulty;
 import aiki.game.params.enums.DifficultyWinPointsFight;
 import aiki.game.player.Player;
@@ -34,16 +19,18 @@ import aiki.map.pokemon.Pokemon;
 import aiki.map.pokemon.PokemonPlayer;
 import aiki.map.pokemon.WildPk;
 import aiki.map.pokemon.enums.Gender;
+import code.maths.Rate;
+import code.util.CustList;
+import code.util.EnumMap;
+import code.util.EqList;
+import code.util.Numbers;
+import code.util.StringList;
+import code.util.StringMap;
 
 @SuppressWarnings("static-method")
 public class FightKoTest extends InitializationDataBase {
 
     private static final String PIKA = "PIKA";
-
-    @BeforeClass
-    public static void initDataBase() {
-        InitializationDataBase.initDataBase();
-    }
 
     private static Fight rateWonPoint(Difficulty _diff) {
         Player player_ = new Player(NICKNAME,null,_diff,false,_data_);

@@ -4,18 +4,9 @@ import static code.maths.EquallableMathUtil.assertEq;
 import static code.util.opers.EquallableUtil.assertEq;
 import static org.junit.Assert.assertTrue;
 
-import org.junit.BeforeClass;
 import org.junit.Test;
 
-import code.maths.LgInt;
-import code.maths.Rate;
-import code.util.CustList;
-import code.util.EntryCust;
-import code.util.ObjectMap;
-import code.util.StringList;
 import aiki.fight.enums.Statistic;
-import aiki.game.Game;
-import aiki.game.NbFightCoords;
 import aiki.game.enums.InterfaceType;
 import aiki.game.fight.Fight;
 import aiki.game.fight.FightFacade;
@@ -42,16 +33,17 @@ import aiki.map.pokemon.enums.Gender;
 import aiki.util.Coords;
 import aiki.util.LevelPoint;
 import aiki.util.Point;
+import code.maths.LgInt;
+import code.maths.Rate;
+import code.util.CustList;
+import code.util.EntryCust;
+import code.util.ObjectMap;
+import code.util.StringList;
 
 @SuppressWarnings("static-method")
 public class GameFinalizeFightTest extends InitializationDataBase{
 
     private static final String NICKNAME_SAMPLE = "MY_GREAT_POKEMON";
-
-    @BeforeClass
-    public static void initDataBase() {
-        InitializationDataBase.initDataBase();
-    }
 
     @Test
     public void endFight1Test() {

@@ -1,20 +1,13 @@
 package aiki.facade;
 import static code.util.opers.EquallableUtil.assertEq;
 
-import org.junit.BeforeClass;
 import org.junit.Test;
 
-import code.util.CustList;
-import aiki.facade.FacadeGame;
 import aiki.game.fight.InitializationDataBase;
+import code.util.CustList;
 
 @SuppressWarnings("static-method")
 public class FacadeGameTest extends InitializationDataBase {
-
-    @BeforeClass
-    public static void initDataBase() {
-        InitializationDataBase.initDataBase();
-    }
 
     @Test
     public void setSelectPkToHost1Test() {

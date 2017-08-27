@@ -1,6 +1,5 @@
 package code.expressionlanguage.methods;
 import code.expressionlanguage.ContextEl;
-import code.util.StringList;
 import code.xml.RowCol;
 
 public interface FunctionBlock {

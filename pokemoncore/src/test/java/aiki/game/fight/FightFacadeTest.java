@@ -1,44 +1,14 @@
 package aiki.game.fight;
-import static org.junit.Assert.assertSame;
-import static org.junit.Assert.assertTrue;
 import static aiki.EquallablePkUtil.assertEq;
 import static code.maths.EquallableMathUtil.assertEq;
 import static code.util.opers.EquallableUtil.assertEq;
+import static org.junit.Assert.assertSame;
+import static org.junit.Assert.assertTrue;
 
-import org.junit.BeforeClass;
 import org.junit.Test;
 
-import code.maths.LgInt;
-import code.maths.Rate;
-import code.util.CustList;
-import code.util.EntryCust;
-import code.util.EqList;
-import code.util.NatTreeMap;
-import code.util.NumberMap;
-import code.util.ObjectMap;
-import code.util.StringList;
-import code.util.StringMap;
-import code.util.TreeMap;
 import aiki.fight.enums.Statistic;
 import aiki.game.UsesOfMove;
-import aiki.game.fight.BallNumberRate;
-import aiki.game.fight.ChoiceOfEvolutionAndMoves;
-import aiki.game.fight.ChosenMoveInfos;
-import aiki.game.fight.Fight;
-import aiki.game.fight.FightArtificialIntelligence;
-import aiki.game.fight.FightEndRound;
-import aiki.game.fight.FightFacade;
-import aiki.game.fight.FightInitialization;
-import aiki.game.fight.FightKo;
-import aiki.game.fight.FightRound;
-import aiki.game.fight.FightRules;
-import aiki.game.fight.FightSending;
-import aiki.game.fight.Fighter;
-import aiki.game.fight.InitializationDataBase;
-import aiki.game.fight.LevelMoves;
-import aiki.game.fight.TargetCoords;
-import aiki.game.fight.Team;
-import aiki.game.fight.TeamPosition;
 import aiki.game.fight.actions.AbstractAction;
 import aiki.game.fight.actions.ActionMove;
 import aiki.game.fight.actions.ActionSimpleHeal;
@@ -64,16 +34,22 @@ import aiki.map.pokemon.PokemonPlayer;
 import aiki.map.pokemon.PokemonTeam;
 import aiki.map.pokemon.WildPk;
 import aiki.map.pokemon.enums.Gender;
+import code.maths.LgInt;
+import code.maths.Rate;
+import code.util.CustList;
+import code.util.EntryCust;
+import code.util.EqList;
+import code.util.NatTreeMap;
+import code.util.NumberMap;
+import code.util.ObjectMap;
+import code.util.StringList;
+import code.util.StringMap;
+import code.util.TreeMap;
 
 @SuppressWarnings("static-method")
 public class FightFacadeTest extends InitializationDataBase {
 
     private static final String PIKA = "PIKA";
-
-    @BeforeClass
-    public static void initDataBase() {
-        InitializationDataBase.initDataBase();
-    }
 
     @Test
     public void newFight1Test() {

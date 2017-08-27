@@ -4,15 +4,8 @@ import static code.maths.EquallableMathUtil.assertEq;
 import static code.util.opers.EquallableUtil.assertEq;
 import static org.junit.Assert.assertTrue;
 
-import org.junit.BeforeClass;
 import org.junit.Test;
 
-import code.maths.Rate;
-import code.util.CustList;
-import code.util.EnumMap;
-import code.util.Numbers;
-import code.util.StringList;
-import code.util.StringMap;
 import aiki.DataBase;
 import aiki.exceptions.DataException;
 import aiki.fight.enums.Statistic;
@@ -28,21 +21,18 @@ import aiki.game.UsesOfMove;
 import aiki.game.fight.InitializationDataBase;
 import aiki.game.params.Difficulty;
 import aiki.game.player.enums.Sex;
-import aiki.map.pokemon.Egg;
-import aiki.map.pokemon.Pokemon;
-import aiki.map.pokemon.PokemonPlayer;
-import aiki.map.pokemon.WildPk;
 import aiki.map.pokemon.enums.Gender;
+import code.maths.Rate;
+import code.util.CustList;
+import code.util.EnumMap;
+import code.util.Numbers;
+import code.util.StringList;
+import code.util.StringMap;
 
 @SuppressWarnings("static-method")
 public class PokemonPlayerTest extends InitializationDataBase {
 
     private static final String SEPARATOR = PokemonPlayer.SEPARATOR;
-
-    @BeforeClass
-    public static void initDataBase() {
-        InitializationDataBase.initDataBase();
-    }
 
     static PokemonPlayer pokemonPlayer(DataBase _data, short _level) {
         Pokemon base_ = new WildPk();

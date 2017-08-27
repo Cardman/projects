@@ -1,21 +1,15 @@
 package aiki.game;
-import static junitparams.JUnitParamsRunner.$;
 import static aiki.EquallablePkUtil.assertEq;
 import static code.util.opers.EquallableUtil.assertEq;
+import static junitparams.JUnitParamsRunner.$;
 import static org.junit.Assert.assertTrue;
 import junitparams.JUnitParamsRunner;
 import junitparams.Parameters;
 
-import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import code.maths.Rate;
-import code.util.EqList;
 import aiki.exceptions.GameLoadException;
-import aiki.game.Game;
-import aiki.game.HostPokemonDuo;
-import aiki.game.NbFightCoords;
 import aiki.game.enums.InterfaceType;
 import aiki.game.fight.Fight;
 import aiki.game.fight.InitializationDataBase;
@@ -29,6 +23,8 @@ import aiki.map.pokemon.enums.Gender;
 import aiki.util.Coords;
 import aiki.util.LevelPoint;
 import aiki.util.Point;
+import code.maths.Rate;
+import code.util.EqList;
 
 @SuppressWarnings("static-method")
 @RunWith(JUnitParamsRunner.class)
@@ -36,11 +32,6 @@ public class GameValidationTest extends InitializationDataBase {
 
     private static final String SEX = "sex";
     private static final String ZIPPED_ROM = "my_rom.zip";
-
-    @BeforeClass
-    public static void initDataBase() {
-        InitializationDataBase.initDataBase();
-    }
 
     Object[] sex() {
         return $($(Sex.GIRL),$(Sex.BOY));

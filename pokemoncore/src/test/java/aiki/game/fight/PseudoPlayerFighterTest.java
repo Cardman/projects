@@ -3,34 +3,25 @@ import static code.maths.EquallableMathUtil.assertEq;
 import static code.util.opers.EquallableUtil.assertEq;
 import static org.junit.Assert.assertTrue;
 
-import org.junit.BeforeClass;
 import org.junit.Test;
 
-import code.maths.Rate;
-import code.util.EqList;
-import code.util.StringList;
-import code.util.StringMap;
 import aiki.fight.enums.Statistic;
 import aiki.fight.pokemon.NameLevel;
-import aiki.game.fight.InitializationDataBase;
-import aiki.game.fight.PseudoPlayerFighter;
-import aiki.game.fight.PseudoPokemonPlayer;
 import aiki.game.fight.util.LevelExpPoints;
 import aiki.game.params.Difficulty;
 import aiki.map.pokemon.Pokemon;
 import aiki.map.pokemon.PokemonPlayer;
 import aiki.map.pokemon.WildPk;
 import aiki.map.pokemon.enums.Gender;
+import code.maths.Rate;
+import code.util.EqList;
+import code.util.StringList;
+import code.util.StringMap;
 
 @SuppressWarnings("static-method")
 public class PseudoPlayerFighterTest extends InitializationDataBase {
 
     private static final String PIKA = "PIKA";
-
-    @BeforeClass
-    public static void initDataBase() {
-        InitializationDataBase.initDataBase();
-    }
 
     @Test
     public void new_PseudoPlayerFighter_PokemonPlayer_1Test() {

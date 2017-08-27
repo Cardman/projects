@@ -57,7 +57,7 @@ public class GameUnlockPlacesTest extends InitializationDataBase {
     private static DataBase _dataCore_;
 
     @BeforeClass
-    public static void initDataBase() {
+    public static void initLocalDataBase() {
         _dataCore_ = InitializationDataBase.coreDataBase();
         _dataCore_.sortEndRound();
         _dataCore_.completeVariables();
