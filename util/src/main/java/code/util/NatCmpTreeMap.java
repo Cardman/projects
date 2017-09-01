@@ -154,40 +154,12 @@ public final class NatCmpTreeMap<K extends Cmp<K>, V> extends AbsMap<K, V> imple
                 return;
             }
             if (res_ == 0) {
-//                V v_ = list.get(index_).getValue();
-                getList().get(index_).setValue(_value);
+                setValue(index_, _value);
                 return;
             }
             index_++;
         }
     }
-
-//    @Override
-//    public void remove(Object _key) {
-//        int index_ = indexOfEntry(_key);
-//        if (index_ == CustList.INDEX_NOT_FOUND_ELT) {
-//            return;
-//        }
-//        list.removeAt(index_);
-//        int index_ = 0;
-//        K key_ = (K) _key;
-//        for (EntryCust<K, V> e:entryList()) {
-//            int res_ = key_.compareTo(e.getKey());
-//            if (res_ == CustList.EQ_CMP) {
-//                list.removeAt(index_);
-//                return;
-//            }
-//            index_++;
-//        }
-//    }
-
-//    private EntryCust<K,V> getEntryByKey(K _key) {
-//        int index_ = indexOfEntry(_key);
-//        if (index_ == CustList.INDEX_NOT_FOUND_ELT) {
-//            return null;
-//        }
-//        return list.get(index_);
-//    }
 
     @Override
     int indexOfEntry(K _key) {
@@ -202,11 +174,6 @@ public final class NatCmpTreeMap<K extends Cmp<K>, V> extends AbsMap<K, V> imple
         }
         return CustList.INDEX_NOT_FOUND_ELT;
     }
-
-//    @Override
-//    public void clear() {
-//        list.clear();
-//    }
 
     @Override
     public Listable<V> values() {

@@ -129,7 +129,6 @@ import code.maths.montecarlo.MonteCarloNumber;
 import code.maths.montecarlo.MonteCarloString;
 import code.resources.ResourceFiles;
 import code.serialize.SerializeXmlObject;
-import code.util.AbsMap;
 import code.util.CustList;
 import code.util.EntryCust;
 import code.util.EnumList;
@@ -146,6 +145,7 @@ import code.util.StringList;
 import code.util.StringMap;
 import code.util.consts.Constants;
 import code.util.ints.Listable;
+import code.util.ints.ListableEntries;
 import code.util.ints.MathFactory;
 import code.util.ints.NumericableString;
 import code.util.ints.WithMathFactory;
@@ -3597,7 +3597,7 @@ public class DataBase implements WithMathFactory<Rate>{
             e.setValue(StringList.removeStrings((String)value_, Constants.RETURN_LINE));
         }
     }
-    public static void deleteLineReturn(AbsMap<ImageHeroKey, String> _map) {
+    public static void deleteLineReturn(ListableEntries<ImageHeroKey, String> _map) {
         for (EntryCust<ImageHeroKey, String> e: _map.entryList()) {
             String value_ = e.getValue();
             e.setValue(StringList.removeStrings((String)value_, Constants.RETURN_LINE));
@@ -5161,7 +5161,7 @@ public class DataBase implements WithMathFactory<Rate>{
         types.replace(_oldName, _newName);
     }
 
-    private static <K> void replace(AbsMap<K,String> _map, String _old, String _new) {
+    private static <K> void replace(ListableEntries<K,String> _map, String _old, String _new) {
         for (EntryCust<K,String> e: _map.entryList()) {
             if (StringList.quickEq(e.getValue(), _old)) {
                 e.setValue(_new);

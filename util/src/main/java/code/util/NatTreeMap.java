@@ -95,27 +95,6 @@ public final class NatTreeMap<K extends Comparable<K>, V> extends AbsMap<K, V> i
         }
         return c_;
     }
-//    @Override
-//    public V getVal(K _key) {
-//        EntryCust<K,V> e_ = getEntryByKey(_key);
-//        if (e_ == null) {
-//            return null;
-//        }
-//        return e_.getValue();
-//    }
-//
-//    @Override
-//    public void removeKey(K _key) {
-//        int index_ = indexOfEntry(_key);
-//        if (index_ == CustList.INDEX_NOT_FOUND_ELT) {
-//            return;
-//        }
-//        list.removeAt(index_);
-//    }
-
-//    public V removedKey(K _key) {
-//        return remove(_key);
-//    }
 
     @Override
     public V getValue(int _index) {
@@ -136,11 +115,6 @@ public final class NatTreeMap<K extends Comparable<K>, V> extends AbsMap<K, V> i
         return s_;
     }
 
-//    @Override
-//    public CustList<EntryCust<K,V>> entryList() {
-//        return list;
-//    }
-
     @Override
     public void put(K _key, V _value) {
         int index_ = 0;
@@ -156,40 +130,12 @@ public final class NatTreeMap<K extends Comparable<K>, V> extends AbsMap<K, V> i
                 return;
             }
             if (res_ == 0) {
-//                V v_ = list.get(index_).getValue();
-                getList().get(index_).setValue(_value);
+                setValue(index_, _value);
                 return;
             }
             index_++;
         }
     }
-
-//    @Override
-//    public void remove(Object _key) {
-//        int index_ = indexOfEntry(_key);
-//        if (index_ == CustList.INDEX_NOT_FOUND_ELT) {
-//            return;
-//        }
-//        list.removeAt(index_);
-//        int index_ = 0;
-//        K key_ = (K) _key;
-//        for (EntryCust<K, V> e:entryList()) {
-//            int res_ = key_.compareTo(e.getKey());
-//            if (res_ == CustList.EQ_CMP) {
-//                list.removeAt(index_);
-//                return;
-//            }
-//            index_++;
-//        }
-//    }
-
-//    private EntryCust<K,V> getEntryByKey(K _key) {
-//        int index_ = indexOfEntry(_key);
-//        if (index_ == CustList.INDEX_NOT_FOUND_ELT) {
-//            return null;
-//        }
-//        return list.get(index_);
-//    }
 
     @Override
     int indexOfEntry(K _key) {
@@ -204,11 +150,6 @@ public final class NatTreeMap<K extends Comparable<K>, V> extends AbsMap<K, V> i
         }
         return CustList.INDEX_NOT_FOUND_ELT;
     }
-
-//    @Override
-//    public void clear() {
-//        list.clear();
-//    }
 
     @Override
     public Listable<V> values() {

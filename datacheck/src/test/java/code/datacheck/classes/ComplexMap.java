@@ -19,10 +19,6 @@ public final class ComplexMap<K, V, T> extends AbMap<K, T> {
         map = _map;
     }
 
-//    public ComplexMap(ListableEntries<? extends K, ? extends T> _arg0) {
-//        map = new Map<K, T>(_arg0);
-//    }
-
     public Listable<V> getValues() {
         return values;
     }
@@ -175,6 +171,11 @@ public final class ComplexMap<K, V, T> extends AbMap<K, T> {
     @Override
     public boolean isCorrect() {
         return map.isCorrect();
+    }
+
+    @Override
+    public void setValue(int _i, T _object) {
+        map.setValue(_i, _object);
     }
 
 //    @Override

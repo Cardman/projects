@@ -5,7 +5,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.util.Enumeration;
+import java.util.Collections;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
 import java.util.zip.ZipInputStream;
@@ -20,14 +20,14 @@ import code.util.consts.ConstFiles;
 
 public final class StreamZipFile {
 
-    private static final int MAX_BYTES = 1000000000;
+    private static final long MAX_BYTES = Long.MAX_VALUE;
 
     private static final String EMPTY_STRING = "";
     private static final String CLASS_EXT = "class";
     private static final String RETURN_LINE = "\n";
-//    private static final String BEGIN = "^";
+
     private static final String DOT = ".";
-//    private static final String REL_PATH_REGEXP = "/[^/]+$";
+
     private static final StringList FILES_JAR = new StringList();
     private StreamZipFile() {
     }
@@ -51,11 +51,9 @@ public final class StreamZipFile {
         ZipFile zipFile_ = null;
         try {
             zipFile_ = new ZipFile(_zipFileName);
-            Enumeration<? extends ZipEntry> entries_ = zipFile_.entries();
 
             StringMap<String> files_ = new StringMap<String>();
-            while(entries_.hasMoreElements()){
-                ZipEntry entry_ = entries_.nextElement();
+            for (ZipEntry entry_ :Collections.list(zipFile_.entries())) {
                 String str_ = getContentOfZippedFile(zipFile_, entry_);
                 files_.put(entry_.getName(), str_);
             }
@@ -80,11 +78,9 @@ public final class StreamZipFile {
         ZipFile zipFile_ = null;
         try {
             zipFile_ = new ZipFile(_zipFileName);
-            Enumeration<? extends ZipEntry> entries_ = zipFile_.entries();
 
             InsCaseStringMap<String> files_ = new InsCaseStringMap<String>();
-            while(entries_.hasMoreElements()){
-                ZipEntry entry_ = entries_.nextElement();
+            for (ZipEntry entry_ :Collections.list(zipFile_.entries())) {
                 String str_ = getContentOfZippedFile(zipFile_, entry_);
                 files_.put(entry_.getName(), str_);
             }
@@ -150,7 +146,6 @@ public final class StreamZipFile {
     }
 
     public static StringMap<byte[]> zippedBinaryFilesFromCurrentJar() {
-//        String path_ = Constants.getMainClass().getProtectionDomain().getCodeSource().getLocation().getPath();
         String path_ = ConstFiles.getJarPath();
         try {
             return zippedBinaryFiles(path_);
@@ -168,10 +163,7 @@ public final class StreamZipFile {
         ZipFile zipFile_ = null;
         try {
             zipFile_ = new ZipFile(ConstFiles.getJarPath());
-            Enumeration<? extends ZipEntry> entries_ = zipFile_.entries();
-
-            while(entries_.hasMoreElements()){
-                ZipEntry entry_ = entries_.nextElement();
+            for (ZipEntry entry_ :Collections.list(zipFile_.entries())) {
                 files_.add(entry_.getName());
             }
             return files_;
@@ -197,10 +189,8 @@ public final class StreamZipFile {
         ZipFile zipFile_ = null;
         try {
             zipFile_ = new ZipFile(_zipFileName);
-            Enumeration<? extends ZipEntry> entries_ = zipFile_.entries();
 
-            while(entries_.hasMoreElements()){
-                ZipEntry entry_ = entries_.nextElement();
+            for (ZipEntry entry_ :Collections.list(zipFile_.entries())) {
                 files_.add(entry_.getName());
             }
             return files_;
@@ -221,16 +211,13 @@ public final class StreamZipFile {
         }
     }
     public static StringMap<byte[]> zippedBinaryFiles(String _zipFileName) {
-        //byte[] arr_ = new byte[1024];
         StringMap<byte[]> files_ = new StringMap<byte[]>();
         ZipFile zipFile_ = null;
         try {
             zipFile_ = new ZipFile(_zipFileName);
-            Enumeration<? extends ZipEntry> entries_ = zipFile_.entries();
 
-            while(entries_.hasMoreElements()){
+            for (ZipEntry entry_ :Collections.list(zipFile_.entries())) {
                 int index_ = 0;
-                ZipEntry entry_ = entries_.nextElement();
                 if (entry_.getSize() < MAX_BYTES) {
                     InputStream stream_ = zipFile_.getInputStream(entry_);
                     byte[] bytes_ = new byte[(int) entry_.getSize()];
@@ -266,16 +253,13 @@ public final class StreamZipFile {
         }
     }
     public static StringMap<String>
-    contentsOfZippedFilesFromFolder(String _zipFileName, String _folderName) {
-//        Pattern patt_ = Pattern.compile(BEGIN+Pattern.quote(_folderName)+REL_PATH_REGEXP);
+            contentsOfZippedFilesFromFolder(String _zipFileName, String _folderName) {
         ZipFile zipFile_ = null;
         try {
             zipFile_ = new ZipFile(_zipFileName);
-            Enumeration<? extends ZipEntry> entries_ = zipFile_.entries();
 
             StringMap<String> files_ = new StringMap<String>();
-            while(entries_.hasMoreElements()){
-                ZipEntry entry_ = entries_.nextElement();
+            for (ZipEntry entry_ :Collections.list(zipFile_.entries())) {
                 String fileName_ = entry_.getName();
                 if (!fileName_.startsWith(_folderName+StreamTextFile.SEPARATEUR)) {
                     continue;
@@ -283,9 +267,6 @@ public final class StreamZipFile {
                 if (StringList.quickEq(fileName_,_folderName+StreamTextFile.SEPARATEUR)) {
                     continue;
                 }
-//                if (!patt_.matcher(fileName_).matches()) {
-//                    continue;
-//                }
                 String file_ = getContentOfZippedFile(zipFile_, entry_);
                 files_.put(entry_.getName(), file_);
             }
@@ -312,11 +293,9 @@ public final class StreamZipFile {
         ZipFile zipFile_ = null;
         try {
             zipFile_ = new ZipFile(_zipFileName);
-            Enumeration<? extends ZipEntry> entries_ = zipFile_.entries();
 
             StringMap<String> files_ = new StringMap<String>();
-            while(entries_.hasMoreElements()){
-                ZipEntry entry_ = entries_.nextElement();
+            for (ZipEntry entry_ :Collections.list(zipFile_.entries())) {
                 if (!_relativePathZippedFiles.containsObj(entry_.getName())&&!_relativePathZippedFiles.isEmpty()) {
                     continue;
                 }
@@ -345,11 +324,9 @@ public final class StreamZipFile {
         ZipFile zipFile_ = null;
         try {
             zipFile_ = new ZipFile(_zipFileName);
-            Enumeration<? extends ZipEntry> entries_ = zipFile_.entries();
 
             String file_ = EMPTY_STRING;
-            while(entries_.hasMoreElements()){
-                ZipEntry entry_ = entries_.nextElement();
+            for (ZipEntry entry_ :Collections.list(zipFile_.entries())) {
                 if (!StringList.quickEq(entry_.getName(),_relativePathZippedFile)) {
                     continue;
                 }

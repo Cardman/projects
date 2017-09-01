@@ -1019,7 +1019,7 @@ public class SerializeXmlObjectTest {
         xml_ += "<java.lang.String class='"+SerializeXmlObject.MP_CLASS+"' value=\"STR_ONE\"/>";
         xml_ += "</"+ENUM_MAP+">";
         xml_ += "</"+MAPS+">";
-        Maps<? super MyEnum> containers_ = (Maps<? super MyEnum>) SerializeXmlObject.fromXmlStringObject(xml_);
+        Maps<MyEnum> containers_ = (Maps<MyEnum>) SerializeXmlObject.fromXmlStringObject(xml_);
         assertSame(EnumMap.class, containers_.getMap().getClass());
         assertEq(1, containers_.getMap().size());
         assertEq("STR_ONE", containers_.getMap().getVal(MyEnum.ONE));
@@ -1055,7 +1055,7 @@ public class SerializeXmlObjectTest {
         xml_ += "<java.lang.String class='"+SerializeXmlObject.MP_CLASS+"' value=\"STR_ONE\"/>";
         xml_ += "</"+BOOLEAN_MAP+">";
         xml_ += "</"+MAPS+">";
-        Maps<? super Boolean> containers_ = (Maps<? super Boolean>) SerializeXmlObject.fromXmlStringObject(xml_);
+        Maps<Boolean> containers_ = (Maps<Boolean>) SerializeXmlObject.fromXmlStringObject(xml_);
         assertSame(BooleanMap.class, containers_.getMap().getClass());
         assertEq(1, containers_.getMap().size());
         assertEq("STR_ONE", containers_.getMap().getVal(true));
@@ -1073,7 +1073,7 @@ public class SerializeXmlObjectTest {
         xml_ += "<java.lang.String class='"+SerializeXmlObject.MP_CLASS+"' value=\"STR_ONE\"/>";
         xml_ += "</"+NUMBER_MAP+">";
         xml_ += "</"+MAPS+">";
-        Maps<? super Number> containers_ = (Maps<? super Number>) SerializeXmlObject.fromXmlStringObject(xml_);
+        Maps<Long> containers_ = (Maps<Long>) SerializeXmlObject.fromXmlStringObject(xml_);
         assertSame(NumberMap.class, containers_.getMap().getClass());
         assertEq(1, containers_.getMap().size());
         assertEq("STR_ONE", containers_.getMap().getVal(1L));
@@ -1091,7 +1091,7 @@ public class SerializeXmlObjectTest {
         xml_ += "<java.lang.String class='"+SerializeXmlObject.MP_CLASS+"' value=\"STR_ONE\"/>";
         xml_ += "</"+NUMBER_MAP+">";
         xml_ += "</"+MAPS+">";
-        Maps<? super Number> containers_ = (Maps<? super Number>) SerializeXmlObject.fromXmlStringObject(xml_);
+        Maps<Short> containers_ = (Maps<Short>) SerializeXmlObject.fromXmlStringObject(xml_);
         assertSame(NumberMap.class, containers_.getMap().getClass());
         assertEq(1, containers_.getMap().size());
         assertEq("STR_ONE", containers_.getMap().getVal(new Short((short) 1)));
@@ -1109,7 +1109,7 @@ public class SerializeXmlObjectTest {
         xml_ += "<java.lang.String class='"+SerializeXmlObject.MP_CLASS+"' value=\"STR_ONE\"/>";
         xml_ += "</"+NUMBER_MAP+">";
         xml_ += "</"+MAPS+">";
-        Maps<? super Number> containers_ = (Maps<? super Number>) SerializeXmlObject.fromXmlStringObject(xml_);
+        Maps<Byte> containers_ = (Maps<Byte>) SerializeXmlObject.fromXmlStringObject(xml_);
         assertSame(NumberMap.class, containers_.getMap().getClass());
         assertEq(1, containers_.getMap().size());
         assertEq("STR_ONE", containers_.getMap().getVal(new Byte((byte) 1)));
@@ -1127,7 +1127,7 @@ public class SerializeXmlObjectTest {
         xml_ += "<java.lang.String class='"+SerializeXmlObject.MP_CLASS+"' value=\"STR_ONE\"/>";
         xml_ += "</"+NUMBER_MAP+">";
         xml_ += "</"+MAPS+">";
-        Maps<? super Number> containers_ = (Maps<? super Number>) SerializeXmlObject.fromXmlStringObject(xml_);
+        Maps<Float> containers_ = (Maps<Float>) SerializeXmlObject.fromXmlStringObject(xml_);
         assertSame(NumberMap.class, containers_.getMap().getClass());
         assertEq(1, containers_.getMap().size());
         assertEq("STR_ONE", containers_.getMap().getVal(new Float(1)));
@@ -1145,7 +1145,7 @@ public class SerializeXmlObjectTest {
         xml_ += "<java.lang.String class='"+SerializeXmlObject.MP_CLASS+"' value=\"STR_ONE\"/>";
         xml_ += "</"+NUMBER_MAP+">";
         xml_ += "</"+MAPS+">";
-        Maps<? super Number> containers_ = (Maps<? super Number>) SerializeXmlObject.fromXmlStringObject(xml_);
+        Maps<Double> containers_ = (Maps<Double>) SerializeXmlObject.fromXmlStringObject(xml_);
         assertSame(NumberMap.class, containers_.getMap().getClass());
         assertEq(1, containers_.getMap().size());
         assertEq("STR_ONE", containers_.getMap().getVal(new Double(1)));
@@ -1163,7 +1163,7 @@ public class SerializeXmlObjectTest {
         xml_ += "<java.lang.String class='"+SerializeXmlObject.MP_CLASS+"' value=\"STR_ONE\"/>";
         xml_ += "</"+NUMBER_MAP+">";
         xml_ += "</"+MAPS+">";
-        Maps<? super Number> containers_ = (Maps<? super Number>) SerializeXmlObject.fromXmlStringObject(xml_);
+        Maps<BigInteger> containers_ = (Maps<BigInteger>) SerializeXmlObject.fromXmlStringObject(xml_);
         assertSame(NumberMap.class, containers_.getMap().getClass());
         assertEq(1, containers_.getMap().size());
         assertEq("STR_ONE", containers_.getMap().getVal(new BigInteger("1")));
@@ -1181,7 +1181,7 @@ public class SerializeXmlObjectTest {
         xml_ += "<java.lang.String class='"+SerializeXmlObject.MP_CLASS+"' value=\"STR_ONE\"/>";
         xml_ += "</"+NUMBER_MAP+">";
         xml_ += "</"+MAPS+">";
-        Maps<? super Number> containers_ = (Maps<? super Number>) SerializeXmlObject.fromXmlStringObject(xml_);
+        Maps<BigDecimal> containers_ = (Maps<BigDecimal>) SerializeXmlObject.fromXmlStringObject(xml_);
         assertSame(NumberMap.class, containers_.getMap().getClass());
         assertEq(1, containers_.getMap().size());
         assertEq("STR_ONE", containers_.getMap().getVal(new BigDecimal("1.0")));
@@ -1199,7 +1199,7 @@ public class SerializeXmlObjectTest {
         xml_ += "<java.lang.String class='"+SerializeXmlObject.MP_CLASS+"' value=\"STR_ONE\"/>";
         xml_ += "</"+NUMBER_MAP+">";
         xml_ += "</"+MAPS+">";
-        Maps<? super Number> containers_ = (Maps<? super Number>) SerializeXmlObject.fromXmlStringObject(xml_);
+        Maps<AtomicInteger> containers_ = (Maps<AtomicInteger>) SerializeXmlObject.fromXmlStringObject(xml_);
         assertSame(NumberMap.class, containers_.getMap().getClass());
         assertEq(1, containers_.getMap().size());
         AtomicInteger at_ = (AtomicInteger) containers_.getMap().getKeys().first();
@@ -1219,7 +1219,7 @@ public class SerializeXmlObjectTest {
         xml_ += "<java.lang.String class='"+SerializeXmlObject.MP_CLASS+"' value=\"STR_ONE\"/>";
         xml_ += "</"+NUMBER_MAP+">";
         xml_ += "</"+MAPS+">";
-        Maps<? super Number> containers_ = (Maps<? super Number>) SerializeXmlObject.fromXmlStringObject(xml_);
+        Maps<AtomicLong> containers_ = (Maps<AtomicLong>) SerializeXmlObject.fromXmlStringObject(xml_);
         assertSame(NumberMap.class, containers_.getMap().getClass());
         assertEq(1, containers_.getMap().size());
         AtomicLong at_ = (AtomicLong) containers_.getMap().getKeys().first();
@@ -1509,7 +1509,7 @@ public class SerializeXmlObjectTest {
         xml_ += "</"+CONTAINER+">";
         Container containers_ = (Container) SerializeXmlObject.fromXmlStringObject(xml_);
         assertSame(TreeMap.class, containers_.getObject().getClass());
-        TreeMap<? super String,?> tree_ = (TreeMap<? super String,?>) containers_.getObject();
+        TreeMap<String,?> tree_ = (TreeMap<String,?>) containers_.getObject();
         MyStringComparator strCmp_ = (MyStringComparator) tree_.comparator();
         assertEq(-1, strCmp_.getMult());
         assertEq(2, tree_.size());
@@ -1631,7 +1631,7 @@ public class SerializeXmlObjectTest {
         xml_ += "</"+OBJECT_MAP+">";
         xml_ += "</"+CONTAINER+">";
         Container containers_ = (Container) SerializeXmlObject.fromXmlStringObject(xml_);
-        ObjectMap<? super CompositeTwo,?> tree_ = (ObjectMap<? super CompositeTwo,?>) containers_.getObject();
+        ObjectMap<CompositeTwo,?> tree_ = (ObjectMap<CompositeTwo,?>) containers_.getObject();
         assertEq(1, tree_.size());
         CompositeTwo comp_ = new CompositeTwo();
         comp_.setPrimitive(4);
@@ -1652,7 +1652,7 @@ public class SerializeXmlObjectTest {
         xml_ += "</"+CUST_LIST+">";
         xml_ += "</"+CONTAINER+">";
         Container containers_ = (Container) SerializeXmlObject.fromXmlStringObject(xml_);
-        CustList<? super CompositeTwo> tree_ = (CustList<? super CompositeTwo>) containers_.getObject();
+        CustList<CompositeTwo> tree_ = (CustList<CompositeTwo>) containers_.getObject();
         assertEq(2, tree_.size());
         CompositeTwo comp_ = new CompositeTwo();
         comp_.setPrimitive(4);
@@ -1678,7 +1678,7 @@ public class SerializeXmlObjectTest {
         xml_ += "</"+CUST_LIST+">";
         xml_ += "</"+CONTAINER+">";
         Container containers_ = (Container) SerializeXmlObject.fromXmlStringObject(xml_);
-        CustList<? super CompositeTwo> tree_ = (CustList<? super CompositeTwo>) containers_.getObject();
+        CustList<CompositeTwo> tree_ = (CustList<CompositeTwo>) containers_.getObject();
         assertEq(4, tree_.size());
         CompositeTwo comp_ = new CompositeTwo();
         comp_.setPrimitive(4);
@@ -1710,7 +1710,7 @@ public class SerializeXmlObjectTest {
         xml_ += "</"+STRING_MAP+">";
         xml_ += "</"+CONTAINER+">";
         Container containers_ = (Container) SerializeXmlObject.fromXmlStringObject(xml_);
-        StringMap<? super CompositeTwo> tree_ = (StringMap<? super CompositeTwo>) containers_.getObject();
+        StringMap<CompositeTwo> tree_ = (StringMap<CompositeTwo>) containers_.getObject();
         assertEq(4, tree_.size());
         CompositeTwo comp_ = new CompositeTwo();
         comp_.setPrimitive(4);
@@ -1820,7 +1820,7 @@ public class SerializeXmlObjectTest {
         xml_ += "</"+OBJECT_MAP+">";
         xml_ += "</"+CONTAINER+">";
         Container containers_ = (Container) SerializeXmlObject.fromXmlStringObject(xml_);
-        ObjectMap<? super MapComponent,?> tree_ = (ObjectMap<? super MapComponent,?>) containers_.getObject();
+        ObjectMap<MapComponent,?> tree_ = (ObjectMap<MapComponent,?>) containers_.getObject();
         assertEq(2, tree_.size());
         MapComponent keyOne_ = new MapComponent();
         keyOne_.getElements().put("1", "2");
@@ -1901,7 +1901,7 @@ public class SerializeXmlObjectTest {
         xml_ += "</"+ID_MAP+">";
         xml_ += "</"+CONTAINER+">";
         Container containers_ = (Container) SerializeXmlObject.fromXmlStringObject(xml_);
-        IdMap<? super CompositeTwo,?> tree_ = (IdMap<? super CompositeTwo,?>) containers_.getObject();
+        IdMap<CompositeTwo,?> tree_ = (IdMap<CompositeTwo,?>) containers_.getObject();
         assertEq(2, tree_.size());
         CompositeTwo k1_ = (CompositeTwo) tree_.entryList().get(0).getKey();
         CompositeTwo k2_ = (CompositeTwo) tree_.entryList().get(1).getKey();

@@ -1,13 +1,13 @@
 package code.util.comparators;
 import java.util.Comparator;
 
-import code.util.AbsMap;
+import code.util.ints.ListableEntries;
 
 public class ComparatorMapValue<T> implements Comparator<T> {
 
-    private AbsMap<T, String> map;
+    private ListableEntries<T, String> map;
 
-    public ComparatorMapValue(AbsMap<T, String> _map) {
+    public ComparatorMapValue(ListableEntries<T, String> _map) {
         map = _map;
     }
 

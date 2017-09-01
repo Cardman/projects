@@ -215,28 +215,6 @@ public final class TreeMap<K, V> extends AbsMap<K, V> implements SortableMap<K, 
 
     @Override
     public void put(K _key, V _value) {
-//        if (comparator == null) {
-//            int index_ = 0;
-//            while (true) {
-//                if (index_ >= getList().size()) {
-//                    getList().add(new EntryCust<K, V>(_key, _value));
-//                    return;
-//                }
-//                EntryCust<K, V> e_ = getList().get(index_);
-//                Comparable<K> c_ = (Comparable<K>) _key;
-//                int res_ = c_.compareTo(e_.getKey());
-//                if (res_ < 0) {
-//                    getList().add(index_, new EntryCust<K, V>(_key, _value));
-//                    return;
-//                }
-//                if (res_ == 0) {
-////                    V v_ = list.get(index_).getValue();
-//                    getList().get(index_).setValue(_value);
-//                    return;
-//                }
-//                index_++;
-//            }
-//        }
         int index_ = 0;
         while (true) {
             if (index_ >= getList().size()) {
@@ -250,89 +228,26 @@ public final class TreeMap<K, V> extends AbsMap<K, V> implements SortableMap<K, 
                 return;
             }
             if (res_ == 0) {
-//                V v_ = list.get(index_).getValue();
-                getList().get(index_).setValue(_value);
+                setValue(index_, _value);
                 return;
             }
             index_++;
         }
     }
 
-//    @Override
-//    public void remove(Object _key) {
-//        int index_ = indexOfEntry(_key);
-//        if (index_ == CustList.INDEX_NOT_FOUND_ELT) {
-//            return;
-//        }
-//        list.removeAt(index_);
-//        if (comparator == null) {
-//            int index_ = 0;
-//            for (EntryCust<K, V> e:entryList()) {
-//                Comparable<K> c_ = (Comparable<K>) _key;
-//                int res_ = c_.compareTo(e.getKey());
-//                if (res_ == CustList.EQ_CMP) {
-//                    list.removeAt(index_);
-//                    return;
-//                }
-//                index_++;
-//            }
-//            return;
-//        }
-//        int index_ = 0;
-//        K key_ = (K) _key;
-//        for (EntryCust<K, V> e:entryList()) {
-//            int res_ = comparator.compare(key_, e.getKey());
-//            if (res_ == CustList.EQ_CMP) {
-//                list.removeAt(index_);
-//                return;
-//            }
-//            index_++;
-//        }
-//    }
-
-//    private EntryCust<K,V> getEntryByKey(K _key) {
-//        int index_ = indexOfEntry(_key);
-//        if (index_ == CustList.INDEX_NOT_FOUND_ELT) {
-//            return null;
-//        }
-//        return list.get(index_);
-//    }
-
     @Override
     int indexOfEntry(K _key) {
         int index_ = CustList.FIRST_INDEX;
-//        if (comparator == null) {
-//            for (EntryCust<K, V> e:getList()) {
-//                Comparable<K> c_ = (Comparable<K>) _key;
-//                int res_ = c_.compareTo(e.getKey());
-//                if (res_ == CustList.EQ_CMP) {
-//                    return index_;
-//                }
-////                if (res_ < CustList.EQ_CMP) {
-////                    return CustList.INDEX_NOT_FOUND_ELT;
-////                }
-//                index_++;
-//            }
-//            return CustList.INDEX_NOT_FOUND_ELT;
-//        }
         K key_ = _key;
         for (EntryCust<K, V> e:getList()) {
             int res_ = comparator.compare(key_, e.getKey());
             if (res_ == CustList.EQ_CMP) {
                 return index_;
             }
-//            if (res_ < CustList.EQ_CMP) {
-//                return CustList.INDEX_NOT_FOUND_ELT;
-//            }
             index_++;
         }
         return CustList.INDEX_NOT_FOUND_ELT;
     }
-
-//    @Override
-//    public void clear() {
-//        list.clear();
-//    }
 
     @Override
     public Listable<V> values() {
@@ -362,20 +277,6 @@ public final class TreeMap<K, V> extends AbsMap<K, V> implements SortableMap<K, 
     public EntryCust<K, V> lowerEntry(K _key) {
         CustList<EntryCust<K,V>> l_;
         l_ = new CustList<EntryCust<K,V>>();
-//        if (comparator == null) {
-//            for (EntryCust<K, V> e: getList()) {
-//                Comparable<K> c_ = (Comparable<K>) e.getKey();
-//                int res_ = c_.compareTo(_key);
-//                if (res_ >= 0) {
-//                    continue;
-//                }
-//                l_.add(e);
-//            }
-//            if (l_.isEmpty()) {
-//                return null;
-//            }
-//            return l_.last();
-//        }
         for (EntryCust<K, V> e: getList()) {
             int res_ = comparator.compare(e.getKey(), _key);
             if (res_ >= 0) {
@@ -398,20 +299,6 @@ public final class TreeMap<K, V> extends AbsMap<K, V> implements SortableMap<K, 
     public EntryCust<K, V> floorEntry(K _key) {
         CustList<EntryCust<K,V>> l_;
         l_ = new CustList<EntryCust<K,V>>();
-//        if (comparator == null) {
-//            for (EntryCust<K, V> e: getList()) {
-//                Comparable<K> c_ = (Comparable<K>) e.getKey();
-//                int res_ = c_.compareTo(_key);
-//                if (res_ > 0) {
-//                    continue;
-//                }
-//                l_.add(e);
-//            }
-//            if (l_.isEmpty()) {
-//                return null;
-//            }
-//            return l_.last();
-//        }
         for (EntryCust<K, V> e: getList()) {
             int res_ = comparator.compare(e.getKey(), _key);
             if (res_ > 0) {
@@ -432,16 +319,6 @@ public final class TreeMap<K, V> extends AbsMap<K, V> implements SortableMap<K, 
 
     @Override
     public EntryCust<K, V> ceilingEntry(K _key) {
-//        if (comparator == null) {
-//            for (EntryCust<K, V> e: getList()) {
-//                Comparable<K> c_ = (Comparable<K>) e.getKey();
-//                int res_ = c_.compareTo(_key);
-//                if (res_ >= 0) {
-//                    return e;
-//                }
-//            }
-//            return null;
-//        }
         for (EntryCust<K, V> e: getList()) {
             int res_ = comparator.compare(e.getKey(), _key);
             if (res_ >= 0) {
@@ -458,16 +335,6 @@ public final class TreeMap<K, V> extends AbsMap<K, V> implements SortableMap<K, 
 
     @Override
     public EntryCust<K, V> higherEntry(K _key) {
-//        if (comparator == null) {
-//            for (EntryCust<K, V> e: getList()) {
-//                Comparable<K> c_ = (Comparable<K>) e.getKey();
-//                int res_ = c_.compareTo(_key);
-//                if (res_ > 0) {
-//                    return e;
-//                }
-//            }
-//            return null;
-//        }
         for (EntryCust<K, V> e: getList()) {
             int res_ = comparator.compare(e.getKey(), _key);
             if (res_ > 0) {
@@ -492,33 +359,8 @@ public final class TreeMap<K, V> extends AbsMap<K, V> implements SortableMap<K, 
         return getList().last();
     }
 
-//    @Override
-//    public String toString() {
-//        return list.toString();
-//    }
-
     @Override
     public void applyChanges() {
-//        if (comparator == null) {
-//            for (int i = CustList.FIRST_INDEX; i < getList().size(); i++) {
-//                for (int j = i + 1; j < getList().size(); j++) {
-//                    Comparable<K> c_ = (Comparable<K>) getList().get(i).getKey();
-//                    int res_ = c_.compareTo(getList().get(j).getKey());
-//                    if (res_ > CustList.EQ_CMP) {
-//                        getList().swapIndexes(i, j);
-//                    }
-//                }
-//            }
-//        } else {
-//            for (int i = CustList.FIRST_INDEX; i < getList().size(); i++) {
-//                for (int j = i + 1; j < getList().size(); j++) {
-//                    int res_ = comparator.compare(getList().get(i).getKey(), getList().get(j).getKey());
-//                    if (res_ > CustList.EQ_CMP) {
-//                        getList().swapIndexes(i, j);
-//                    }
-//                }
-//            }
-//        }
         for (int i = CustList.FIRST_INDEX; i < getList().size(); i++) {
             for (int j = i + 1; j < getList().size(); j++) {
                 int res_ = comparator.compare(getList().get(i).getKey(), getList().get(j).getKey());
@@ -528,28 +370,4 @@ public final class TreeMap<K, V> extends AbsMap<K, V> implements SortableMap<K, 
             }
         }
     }
-
-//    (non-Javadoc)
-//        @see flux.utils.Viewable#setModified()
-//
-//    @Override
-//    public void setModified() {
-//        modified = true;
-//    }
-//
-//    (non-Javadoc)
-//        @see flux.utils.Viewable#setUnmodified()
-//
-//    @Override
-//    public void setUnmodified() {
-//        modified = false;
-//    }
-//
-//    (non-Javadoc)
-//        @see flux.utils.Viewable#isModified()
-//
-//    @Override
-//    public boolean isModified() {
-//        return modified;
-//    }
 }

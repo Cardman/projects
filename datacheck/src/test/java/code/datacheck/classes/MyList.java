@@ -28,16 +28,6 @@ public final class MyList<E> implements Listable<E> {
     public void add(E _e) {
         elements.add(_e);
     }
-//
-//    @Override
-//    public boolean addAll(Collection<? extends E> _c) {
-//        return elements.addAll(_c);
-//    }
-
-//    @Override
-//    public boolean addAll(int _index, Collection<? extends E> _c) {
-//        return elements.addAll(_index, _c);
-//    }
 
     @Override
     public void clear() {
@@ -144,97 +134,25 @@ public final class MyList<E> implements Listable<E> {
         return elements.isValidIndex(_index);
     }
 
-//    public Numbers<Integer> indexesOfObject(E _string) {
-//        return elements.indexesOfObject(_string);
-//    }
-
-//    public void sort(Comparator<? super E> _comp) {
-//        elements.sortElts(new _comp);
-//    }
-
-//    public void replace(E _old, E _new) {
-//        elements.replace(_old, _new);
-//    }
-
     @Override
     public String join(String _join) {
         return elements.join(_join);
     }
-
-//    public boolean containsObj(E _element) {
-//        return elements.containsObj(_element);
-//    }
-
-//    public boolean containsAllObj(List<E> _list) {
-//        return elements.containsAllObj(_list);
-//    }
-
-//    public void ensureCapacity(int _minCapacity) {
-//        elements.ensureCapacity(_minCapacity);
-//    }
-
-//    public void removeObj(E _obj) {
-//        elements.removeObj(_obj);
-//    }
-
-//    public boolean removedObj(E _obj) {
-//        return elements.removedObj(_obj);
-//    }
-
-//    public void removeDuplicates() {
-//        elements.removeDuplicates();
-//    }
-
-//    public boolean removeAll(List<E> _list) {
-//        return elements.removeAll(_list);
-//    }
 
     @Override
     public E first() {
         return elements.first();
     }
 
-//    public boolean retainAll(List<E> _c) {
-//        return elements.retainAll(_c);
-//    }
-
-//    public int indexOfObj(E _element) {
-//        return elements.indexOfObj(_element);
-//    }
-
-//    public E removeAtAndGet(Number _n) {
-//        return elements.removeAtAndGet(_n);
-//    }
-
     @Override
     public E last() {
         return elements.last();
     }
 
-//    public List<E> mid(int _beginIndex, int _nbElements) {
-//        return elements.mid(_beginIndex, _nbElements);
-//    }
-
-//    public void setModified() {
-//        elements.setModified();
-//    }
-//
-//    public void setUnmodified() {
-//        elements.setUnmodified();
-//    }
-//
-//    public boolean isModified() {
-//        return elements.isModified();
-//    }
-
     @Override
     public String toString() {
         return elements.toString();
     }
-
-//    public void trimToSize() {
-//        elements.trimToSize();
-//    }
 
     @Override
     public void removeNull() {

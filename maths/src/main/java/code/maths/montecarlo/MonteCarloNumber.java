@@ -74,13 +74,6 @@ public final class MonteCarloNumber extends AbMonteCarlo<Rate> {
             }
             i_ ++;
         }
-//        for (int i = CustList.FIRST_INDEX;i<nbEvenements_;i++){
-//            sumDenTwo_.addNb(law_.getVal(evenements_.get(i)));
-//            if (LgInt.strLower(remain_, sumDenTwo_)) {
-//                maxIndice_=i;
-//                break;
-//            }
-//        }
         if (!remain_.isZero()) {
             ObjectMap<Rate,LgInt> lawTwo_=new ObjectMap<Rate,LgInt>();
             for (Rate c:evenements_) {
@@ -93,10 +86,8 @@ public final class MonteCarloNumber extends AbMonteCarlo<Rate> {
                 if(i<maxIndice_){
                     effectif_.addNb(tmp_);
                 } else if (i==maxIndice_) {
-                    //i==maxIndice_
                     sumDenTwo_.affectZero();
                     for (int j = CustList.FIRST_INDEX;j<maxIndice_;j++){
-//                        sumDenTwo_.addNb(law_.getVal(evenements_.get(i)));
                         sumDenTwo_.addNb(law_.getVal(evenements_.get(j)));
                     }
                     effectif_.addNb(LgInt.minus(remain_,sumDenTwo_));

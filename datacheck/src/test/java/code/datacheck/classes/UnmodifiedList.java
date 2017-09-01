@@ -28,43 +28,7 @@ class UnmodifiedList<T> extends AbEqList<T> implements Listable<T>{
         }
         throw new ModifyingException();
     }
-//    @Override
-//    public void addAllElts(Listable<? extends T> _c) {
-//        if (addRemove) {
-//            return super.addAllElts(_c);
-//        }
-//        throw new ModifyingException();
-//    }
 
-//    @Override
-//    public boolean remove(Object _o) {
-//        if (addRemove) {
-//            return super.remove(_o);
-//        }
-//        throw new ModifyingException();
-//    }
-//    @Override
-//    public boolean removeAll(Listable<?> _c) {
-//        if (addRemove) {
-//            return super.removeAll(_c);
-//        }
-//        throw new ModifyingException();
-//    }
-//    @Override
-//    protected void removeRange(int _fromIndex, int _toIndex) {
-//        if (addRemove) {
-//            super.removeRange(_fromIndex, _toIndex);
-//            return;
-//        }
-//        throw new ModifyingException();
-//    }
-//    @Override
-//    public boolean retainAll(Collection<?> _c) {
-//        if (addRemove) {
-//            return super.retainAll(_c);
-//        }
-//        throw new ModifyingException();
-//    }
     @Override
     public void clear() {
         if (addRemove) {
@@ -137,17 +101,6 @@ class UnmodifiedList<T> extends AbEqList<T> implements Listable<T>{
         return return_.toString();
     }
 
-//    @Override
-//    public void addAllElts(Listable<? extends T> _c) {
-//        if (addRemove) {
-//            for (T e: _c) {
-//                add(e);
-//            }
-//            return;
-//        }
-//        throw new ModifyingException();
-//    }
-
     @Override
     public void removeAt(Number _index) {
         if (addRemove) {
@@ -157,12 +110,6 @@ class UnmodifiedList<T> extends AbEqList<T> implements Listable<T>{
         throw new ModifyingException();
     }
 
-    //    public CustList(Iterable<? extends T> _c) {
-    //        list = new ArrayList<T>();
-    //        for (T e: _c) {
-    //            add(e);
-    //        }
-    //    }
     @Override
     public void addAllElts(Listable<T> _c) {
         if (addRemove) {

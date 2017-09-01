@@ -1,6 +1,7 @@
 package code.formathtml;
 import java.lang.reflect.Array;
 import java.lang.reflect.Field;
+import java.lang.reflect.Method;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
@@ -19,11 +20,15 @@ import code.util.StringList;
 import code.util.StringMap;
 import code.util.consts.ConstClasses;
 import code.util.exceptions.NullObjectException;
-import code.util.opers.BaseListUtil;
+import code.util.ints.Listable;
+import code.util.ints.ListableEntries;
 import code.xml.XmlParser;
 
 final class HtmlRequest {
 
+    private static final String MOVE = "move";
+    private static final String SET_VALUE = "setValue";
+    private static final String SET = "set";
     private static final String COMMA = ",";
     private static final String EMPTY_STRING = "";
     private static final String GET_LOC_VAR = ";.";
@@ -103,14 +108,22 @@ final class HtmlRequest {
                         Array.set(obj_, (int) index_, _attribute);
                     } else {
                         //obj_ is instance of java.util.CustList
-                        BaseListUtil.set(obj_, (int) index_, _attribute);
+                        Method m_ = SerializeXmlObject.getDeclaredMethod(Listable.class, SET, int.class, Object.class);
+                        ConverterMethod.invokeMethod(m_, obj_, (int) index_, _attribute);
                     }
                 } else {
                     //obj_ is instance of java.util.ListableEntries
                     boolean key_ = _nodeContainer.getLastToken().endsWith(FormatHtml.GET_KEY);
-                    BaseListUtil.set(obj_, key_, (int) index_, _nodeContainer.getTypedField(), _attribute);
+                    if (!key_) {
+                        Method m_ = SerializeXmlObject.getDeclaredMethod(ListableEntries.class, SET_VALUE, int.class, Object.class);
+                        ConverterMethod.invokeMethod(m_, obj_, (int)index_, _attribute);
+                    } else {
+                        Method m_ = SerializeXmlObject.getDeclaredMethod(ListableEntries.class, MOVE, Object.class, Object.class);
+                        ConverterMethod.invokeMethod(m_, obj_, _nodeContainer.getTypedField(), _attribute);
+                    }
                 }
             } catch (Throwable _0) {
+                _0.printStackTrace();
                 throw new InvokeRedinedMethException(_conf.joinPages(), new Struct(_0));
             }
         } else {

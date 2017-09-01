@@ -26,6 +26,7 @@ import code.util.CustList;
 import code.util.Numbers;
 import code.util.StringList;
 import code.util.StringMap;
+import code.util.annot.RwXml;
 import code.util.exceptions.RuntimeClassNotFoundException;
 import code.util.ints.HasComparator;
 import code.util.ints.Viewable;
@@ -68,6 +69,12 @@ public final class SerializeXmlObject {
     }
 
     /**@throws NoSuchDeclaredMethodException*/
+    static Method getDeclaredXmlAccessibleMethod(Class<?> _class, String _name, Class<?>... _argsClass) {
+        Method m_ = getDeclaredMethod(_class, _name, _argsClass);
+        m_.setAccessible(m_.getAnnotation(RwXml.class) != null);
+        return m_;
+    }
+
     public static Method getDeclaredMethod(Class<?> _class, String _name, Class<?>... _argsClass) {
         Class<?> class_ = _class;
         StringList traces_ = new StringList();

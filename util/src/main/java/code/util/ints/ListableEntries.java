@@ -17,6 +17,8 @@ public interface ListableEntries<K,V> {
 
     V getVal(K _key);
 
+    void setValue(int _i, V _object);
+
     int size();
 
     boolean isEmpty();

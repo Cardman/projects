@@ -1,15 +1,11 @@
 package code.stream;
 import java.awt.image.BufferedImage;
-import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.util.Enumeration;
 import java.util.zip.ZipEntry;
-import java.util.zip.ZipFile;
 import java.util.zip.ZipOutputStream;
 
 import javax.imageio.ImageIO;
@@ -20,12 +16,8 @@ import code.util.StringMap;
 
 public final class StreamImageFile {
 
-//    private static final String SEPARATEUR = "/";
-    private static final String EMPTY_STRING = "";
     private static final String PNG_EXT = "png";
-    private static final String RETURN_LINE = "\n";
     private static final String COMMA = ",";
-//    private static final String COMMA_END = ",$";
     private static final int NB_BYTES = 1024;
 
     private StreamImageFile() {
@@ -71,93 +63,6 @@ public final class StreamImageFile {
         }
     }
 
-    public static BufferedImage zippedImageToBuffer(
-            String _zipFileName,
-            String _fileName, boolean _txt) {
-        if (_txt) {
-            ZipFile zipFile_ = null;
-            try {
-                zipFile_ = new ZipFile(_zipFileName);
-                Enumeration<? extends ZipEntry> entries_ = zipFile_.entries();
-
-                String file_ = EMPTY_STRING;
-                while(entries_.hasMoreElements()){
-                    ZipEntry entry_ = entries_.nextElement();
-                    if (!StringList.quickEq(entry_.getName(),_fileName)) {
-                        continue;
-                    }
-                    InputStream stream_ = zipFile_.getInputStream(entry_);
-                    try {
-                        BufferedReader br_ = new BufferedReader(new InputStreamReader(stream_));
-                        while (true) {
-                            String line_ = br_.readLine();
-                            if (line_ == null) {
-                                break;
-                            }
-                            file_ += line_ +RETURN_LINE;
-                        }
-                    } catch (RuntimeException _0) {
-                        _0.printStackTrace();
-                    } catch (IOException _0) {
-                        _0.printStackTrace();
-                    } finally {
-                        stream_.close();
-                    }
-                    break;
-                }
-                return imageTxtToBuffer(file_);
-            } catch (RuntimeException _0) {
-                _0.printStackTrace();
-                return null;
-            } catch (IOException _0) {
-                _0.printStackTrace();
-                return null;
-            } finally {
-                if (zipFile_ != null) {
-                    try {
-                        zipFile_.close();
-                    } catch (RuntimeException _0) {
-                    } catch (IOException _0) {
-                    }
-                }
-            }
-        }
-        ZipFile zipFile_ = null;
-        try {
-            zipFile_ = new ZipFile(_zipFileName);
-            Enumeration<? extends ZipEntry> entries_ = zipFile_.entries();
-
-            while(entries_.hasMoreElements()){
-                ZipEntry entry_ = entries_.nextElement();
-                if (!StringList.quickEq(entry_.getName(),_fileName)) {
-                    continue;
-                }
-                try {
-                    InputStream stream_ = zipFile_.getInputStream(entry_);
-                    return ImageIO.read(stream_);
-                } catch (RuntimeException _0) {
-                    _0.printStackTrace();
-                } catch (IOException _0) {
-                    _0.printStackTrace();
-                }
-            }
-            return null;
-        } catch (RuntimeException _0) {
-            _0.printStackTrace();
-            return null;
-        } catch (IOException _0) {
-            _0.printStackTrace();
-            return null;
-        } finally {
-            if (zipFile_ != null) {
-                try {
-                    zipFile_.close();
-                } catch (RuntimeException _0) {
-                } catch (IOException _0) {
-                }
-            }
-        }
-    }
     public static BufferedImage imageTxtToBuffer(String _imgTxt) {
         try {
             StringList infos_ = StringList.splitStrings(_imgTxt, COMMA);

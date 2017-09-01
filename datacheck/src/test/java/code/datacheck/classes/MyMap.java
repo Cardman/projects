@@ -16,9 +16,6 @@ public class MyMap<V> implements ListableEntries<String, V> {
     public MyMap() {
     }
 
-//    public MyMap(Map<? extends String,? extends V> _map) {
-//        putAll(_map);
-//    }
     @Override
     public void move(String _oldKey, String _newKey) {
         int size_ = size();
@@ -194,13 +191,6 @@ public class MyMap<V> implements ListableEntries<String, V> {
         entries.setAddRemove(false);
     }
 
-//    @Override
-//    public void putAll(Map<? extends String, ? extends V> _m) {
-//        for (EntryCust<? extends String, ? extends V> e: _m.entrySet()) {
-//            put(e.getKey(), e.getValue());
-//        }
-//    }
-
     @Override
     public void clear() {
         keys.clear();
@@ -235,6 +225,10 @@ public class MyMap<V> implements ListableEntries<String, V> {
     @Override
     public boolean isCorrect() {
         return false;
+    }
+
+    @Override
+    public void setValue(int _i, V _object) {
     }
 
 }

@@ -579,7 +579,7 @@ public class DataMap {
             if (!(pl_ instanceof Campaign)) {
                 continue;
             }
-            NumberMap<Byte,? extends Level> levels_;
+            NumberMap<Byte,Level> levels_;
             levels_ = pl_.getLevels();
             LevelWithWildPokemon level_ = (LevelWithWildPokemon) levels_.getVal(c.getLevel().getLevelIndex());
             try {

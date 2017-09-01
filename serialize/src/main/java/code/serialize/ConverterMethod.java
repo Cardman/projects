@@ -19,11 +19,6 @@ public final class ConverterMethod {
 
     public static boolean isPrimitivableClass(Class<?> _cl) {
         try {
-//            if (Primitivable.class.isAssignableFrom(_cl)) {
-//                Class<? extends Primitivable> subClass_ = _cl.asSubclass(Primitivable.class);
-//                Constructor<?> constr_ = subClass_.getDeclaredConstructor(String.class);
-//                return constr_.getAnnotation(RwXml.class) != null || constr_.isAccessible();
-//            }
             Method method_ = ConverterMethod.getFromStringMethod(_cl);
             return method_ != null;
         } catch (RuntimeException _0) {
@@ -34,38 +29,13 @@ public final class ConverterMethod {
     public static Object newObject(Class<?> _cl, String _arg) {
         Method method_ = null;
         try {
-//            if (Primitivable.class.isAssignableFrom(_cl)) {
-//                Class<? extends Primitivable> subClass_ = _cl.asSubclass(Primitivable.class);
-//                Constructor<?> constr_ = subClass_.getDeclaredConstructor(String.class);
-//                if (!constr_.isAccessible()) {
-//                    if (constr_.getAnnotation(RwXml.class) == null) {
-//                        throw new ClassCastException(_cl.getName());
-//                    }
-//                }
-//                constr_.setAccessible(constr_.getAnnotation(RwXml.class)!=null);
-//                return constr_.newInstance(_arg);
-//            }
             method_ = ConverterMethod.getFromStringMethod(_cl);
             if (method_ == null) {
                 throw new NoSuchConverterMethodException(_cl.toString());
             }
             return method_.invoke(null, _arg);
-//        } catch (InstantiationException _0) {
-//            throw new RuntimeInstantiationException(_0);
-//        } catch (NoSuchMethodException _0) {
-//            throw new NoSuchDeclaredMethodException(_0);
         } catch (IllegalAccessException _0) {
             throw new BadAccessException(_0, method_.getName());
-        } catch (InvocationTargetException _0) {
-            throw new InvokingException(_0);
-        }
-    }
-    
-    static Object invokePublicMethod(Method _method, Object _instance) {
-        try {
-            return _method.invoke(_instance);
-        } catch (IllegalAccessException _0) {
-            return null;
         } catch (InvocationTargetException _0) {
             throw new InvokingException(_0);
         }

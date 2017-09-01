@@ -54,14 +54,6 @@ public class CustList<T> implements Listable<T> {
         list = new ArrayList<T>(_capacity.getCapacity());
     }
 
-    public static void add(Listable<?> _list, Object _o) {
-        Listable<? super Object> l_ = (Listable<? super Object>) _list;
-        l_.add(_o);
-    }
-    public static void set(Listable<?> _list, int _i, Object _o) {
-        Listable<? super Object> l_ = (Listable<? super Object>) _list;
-        l_.set(_i, _o);
-    }
     @Override
     public void addAllElts(Listable<T> _c) {
         for (T e: _c) {

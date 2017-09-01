@@ -1,5 +1,6 @@
 package code.formathtml;
 import java.awt.image.BufferedImage;
+import java.lang.reflect.Method;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -131,6 +132,9 @@ public final class Navigation {
     private static final String RETURN_LINE = "\n";
 
     private static final String EMPTY_STRING = "";
+    private static final String ADD ="add";
+
+    private static final Method ADD_METHOD = SerializeXmlObject.getDeclaredMethod(Listable.class, ADD, Object.class);
 
     private Configuration session = new Configuration();
 
@@ -538,7 +542,7 @@ public final class Navigation {
                 contentClass_ = StringList.removeStrings(contentClass_, BEG_TEMP, END_TEMP);
                 for (String v:v_) {
                     try {
-                        CustList.add(list_, retrieveObjectByClassName(v, contentClass_));
+                        ConverterMethod.invokeMethod(ADD_METHOD, list_, retrieveObjectByClassName(v, contentClass_));
                     } catch (Error _0) {
                     } catch (RuntimeException _0) {
                     }
@@ -641,7 +645,7 @@ public final class Navigation {
                     contentClass_ = StringList.removeStrings(contentClass_, BEG_TEMP, END_TEMP);
                     for (String v:v_) {
                         try {
-                            CustList.add(list_, retrieveObjectByClassName(v, contentClass_));
+                            ConverterMethod.invokeMethod(ADD_METHOD, list_, retrieveObjectByClassName(v, contentClass_));
                         } catch (Error _0) {
                         } catch (RuntimeException _0) {
                         }

@@ -16,7 +16,7 @@ public abstract class AbMonteCarlo<E> {
 
     private static final int NB_RAND = 4;
 
-    public static CustList<Object> suffledElts(Listable<? extends Object> _list) {
+    public static CustList<Object> suffledElts(Object... _list) {
         CustList<Object> list_ = new CustList<Object>(_list);
         Numbers<Integer> indexes_ = new Numbers<Integer>();
         Numbers<Integer> indexesEdited_ = new Numbers<Integer>();

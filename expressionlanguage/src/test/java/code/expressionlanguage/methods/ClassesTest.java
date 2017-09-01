@@ -205,7 +205,7 @@ public class ClassesTest {
         Classes classes_ = context_.getClasses();
         InterfaceBlock i_ = (InterfaceBlock) classes_.getClassBody("pkg.ExFour");
         ObjectMap<FctConstraints, StringList> sgn_ = i_.getAllSignatures(classes_);
-        sgn_ = InterfaceBlock.getAllOverridingMethods(sgn_, classes_);
+        sgn_ = RootBlock.getAllOverridingMethods(sgn_, classes_);
         assertEq(1, sgn_.size());
         assertEq(new StringList("pkg.ExFour"),sgn_.getVal(new FctConstraints("absgetter", new EqList<StringList>())));
     }
@@ -234,7 +234,7 @@ public class ClassesTest {
         ObjectMap<FctConstraints, StringList> sgn_ = i_.getAllSignatures(classes_);
         assertEq(1, sgn_.size());
         assertEq(new StringList("pkg.Ex","pkg.ExFour"),sgn_.getVal(new FctConstraints("absgetter", new EqList<StringList>())));
-        sgn_ = InterfaceBlock.getAllOverridingMethods(sgn_, classes_);
+        sgn_ = RootBlock.getAllOverridingMethods(sgn_, classes_);
         assertEq(1, sgn_.size());
         assertEq(new StringList("pkg.Ex"),sgn_.getVal(new FctConstraints("absgetter", new EqList<StringList>())));
     }
@@ -265,7 +265,7 @@ public class ClassesTest {
         ObjectMap<FctConstraints, StringList> sgn_ = i_.getAllSignatures(classes_);
         assertEq(1, sgn_.size());
         assertEq(new StringList("pkg.ExTwo","pkg.ExThree"),sgn_.getVal(new FctConstraints("absgetter", new EqList<StringList>())));
-        sgn_ = InterfaceBlock.getAllOverridingMethods(sgn_, classes_);
+        sgn_ = RootBlock.getAllOverridingMethods(sgn_, classes_);
         assertEq(1, sgn_.size());
         assertEq(new StringList("pkg.ExTwo","pkg.ExThree"),sgn_.getVal(new FctConstraints("absgetter", new EqList<StringList>())));
     }

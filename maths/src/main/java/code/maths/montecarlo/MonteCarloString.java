@@ -11,10 +11,6 @@ import code.util.annot.RwXml;
 @RwXml
 public final class MonteCarloString extends AbMonteCarlo<String> {
 
-//    private static final LgInt MAX_RANDOM = LgInt.getMaxLongPlusOne();
-
-//    private static final int NB_RAND = 4;
-
     private StringMap<LgInt> law;
 
     public MonteCarloString() {

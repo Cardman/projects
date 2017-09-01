@@ -65,15 +65,8 @@ final class StringObjectSerial extends PrimitiveSerial {
     Element serialize(Document _doc) {
         Element node_ = super.serializeMetaInfo(_doc);
         Method method_ = ConverterMethod.getToStringMethod(getValueClass());
-        Object ret_ = ConverterMethod.invokePublicMethod(method_, getValue());
+        Object ret_ = ConverterMethod.invokeMethod(method_, getValue());
         node_.setAttribute(VALUE, ret_.toString());
-//        if (method_ != null) {
-//            Object ret_ = ConverterMethod.invokePublicMethod(method_, getValue());
-//            node_.setAttribute(VALUE, ret_.toString());
-////            node_.setAttribute(VALUE, method_.invoke(getValue()).toString());
-//        } else {
-//            node_.setAttribute(VALUE, getValue().toString());
-//        }
         return node_;
     }
 
@@ -81,15 +74,8 @@ final class StringObjectSerial extends PrimitiveSerial {
     Element serializeWithoutRef(Document _doc) {
         Element node_ = super.serializeMetaInfo(_doc);
         Method method_ = ConverterMethod.getToStringMethod(getValueClass());
-        Object ret_ = ConverterMethod.invokePublicMethod(method_, getValue());
+        Object ret_ = ConverterMethod.invokeMethod(method_, getValue());
         node_.setAttribute(VALUE, ret_.toString());
-//        if (method_ != null) {
-//            Object ret_ = ConverterMethod.invokePublicMethod(method_, getValue());
-//            node_.setAttribute(VALUE, ret_.toString());
-////            node_.setAttribute(VALUE, method_.invoke(getValue()).toString());
-//        } else {
-//            node_.setAttribute(VALUE, getValue().toString());
-//        }
         return node_;
     }
 

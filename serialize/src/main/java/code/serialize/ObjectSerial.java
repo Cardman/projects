@@ -1,6 +1,7 @@
 package code.serialize;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
+import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 
 import org.w3c.dom.Document;
@@ -28,23 +29,18 @@ final class ObjectSerial extends TemplateSerial {
 
     private static final int TAB_WIDTH = 4;
 
-//    private static final int NO_DUPLICATE = 1;
 
-//    private static final String ENUM ="enum";
-//    private static final String ADD ="add";
-//    private static final String SET ="set";
-//    private static final String PUT ="put";
+    private static final String ADD ="add";
+    private static final String SET ="set";
+    private static final String ADD_ENTRY ="addEntry";
+    private static final String SET_KEY ="setKey";
+    private static final String SET_VALUE ="setValue";
 
-//    private static final Method PUT_METHOD;
-//    private static final Method ADD_METHOD;
-//    private static final Method SET_METHOD;
-//    private static final Field LIST_FIELD = PairUtil.getMapListField();
-
-//    static {
-//        PUT_METHOD = putMethod();
-//        ADD_METHOD = addMethod();
-//        SET_METHOD = setMethod();
-//    }
+    private static final Method ADD_METHOD = SerializeXmlObject.getDeclaredXmlAccessibleMethod(Listable.class, ADD, Object.class);
+    private static final Method SET_METHOD = SerializeXmlObject.getDeclaredXmlAccessibleMethod(Listable.class, SET, int.class, Object.class);
+    private static final Method ADD_ENTRY_METHOD = SerializeXmlObject.getDeclaredXmlAccessibleMethod(AbsMap.class, ADD_ENTRY, Object.class, Object.class);
+    private static final Method SET_KEY_METHOD = SerializeXmlObject.getDeclaredXmlAccessibleMethod(AbsMap.class, SET_KEY, int.class, Object.class);
+    private static final Method SET_VALUE_METHOD = SerializeXmlObject.getDeclaredXmlAccessibleMethod(AbsMap.class, SET_VALUE, int.class, Object.class);
 
     private Object value;
     private CustList<Object> keys;
@@ -52,9 +48,7 @@ final class ObjectSerial extends TemplateSerial {
     private NumberMap<Integer,Long> indexesRef;
     private NumberMap<Integer,Long> keysIndexesRef;
     private NumberMap<Integer,Long> valuesIndexesRef;
-//    private ComparatorSerial cmpSerial;
 
-//    private ObjectSerial(){}
     private ObjectSerial(Element _node){
         super(_node);
     }
@@ -94,23 +88,6 @@ final class ObjectSerial extends TemplateSerial {
             setId(Long.parseLong(id_.getNodeValue()));
         }
         value = newInstance(_node);
-//        try {
-//            Class<?> class_ = Constants.classForName(_node.getNodeName());
-//            Constructor<?> constr_ = class_.getDeclaredConstructor();
-////            constr_.setAccessible(class_.getAnnotation(RwXml.class)!=null);
-//            constr_.setAccessible(constr_.getAnnotation(RwXml.class)!=null);
-//            value = constr_.newInstance();
-//        } catch (InstantiationException _0) {
-//            throw new RuntimeInstantiationException(_0);
-//        } catch (NoSuchMethodException _0) {
-//            throw new NoSuchDeclaredMethodException(_0);
-//        } catch (InvocationTargetException _0) {
-//            throw new InvokingException(_0);
-//        } catch (IllegalArgumentException _0) {
-//        } catch (IllegalAccessException _0) {
-////            _0.printStackTrace();
-//            throw new BadAccessException(_0);
-//        }
     }
 
     /**@throws SecurityException
@@ -136,27 +113,6 @@ final class ObjectSerial extends TemplateSerial {
             serial_.setKeyOfMap(true);
         }
         serial_.value = newInstance(_node);
-//        try {
-//            Class<?> class_ = Constants.classForName(_node.getNodeName());
-//            Constructor<?> constr_ = class_.getDeclaredConstructor();
-//    //        constr_.setAccessible(class_.getAnnotation(RwXml.class)!=null);
-//            constr_.setAccessible(constr_.getAnnotation(RwXml.class)!=null);
-//            serial_.value = constr_.newInstance();
-//        } catch (InstantiationException _0) {
-//            throw new RuntimeInstantiationException(_0);
-//        } catch (NoSuchMethodException _0) {
-//            throw new NoSuchDeclaredMethodException(_0);
-//        } catch (InvocationTargetException _0) {
-//            throw new InvokingException(_0);
-//        } catch (IllegalArgumentException _0) {
-//        } catch (IllegalAccessException _0) {
-////            _0.printStackTrace();
-//            throw new BadAccessException(_0);
-////        } catch (InstantiationException e) {
-////            throw e;
-////        } catch (InvocationTargetException e) {
-////            throw e;
-//        }
         return serial_;
     }
 
@@ -189,61 +145,21 @@ final class ObjectSerial extends TemplateSerial {
                 return obj_;
             }
             constr_ = class_.getDeclaredConstructor();
-//            constr_.setAccessible(class_.getAnnotation(RwXml.class)!=null);
             constr_.setAccessible(constr_.getAnnotation(RwXml.class)!=null);
             return ConverterMethod.newInstance(constr_);
         } catch (NoSuchMethodException _0) {
             throw new NoSuchDeclaredMethodException(_0);
         }
     }
-//    private static Method putMethod() {
-//        Method method_;
-//        try {
-//            method_ = ListableEntries.class.getMethod(PUT, Object.class, Object.class);
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//            method_ = null;
-//        }
-//        return method_;
-//    }
-
-//    private static Method addMethod() {
-//        Method method_;
-//        try {
-//            method_ = SerializeXmlObject.LS_CLASS.getMethod(ADD, Object.class);
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//            method_ = null;
-//        }
-//        return method_;
-//    }
-
-//    private static Method setMethod() {
-//        Method method_;
-//        try {
-//            method_ = SerializeXmlObject.LS_CLASS.getMethod(SET, int.class, Object.class);
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//            method_ = null;
-//        }
-//        return method_;
-//    }
-
     @Override
     Element serialize(Document _doc) {
         Element node_ = createNode(_doc);
-//        if (value instanceof EnumMap) {
-//            node_.setAttribute(ENUM, ((EnumMap<?,?>)value).getLocalClass().getName());
-//        }
         if (getId() != null) {
             node_.setAttribute(ID, getId().toString());
         }
         if (getRef() != null) {
             node_.setAttribute(REF, getRef().toString());
         }
-//        if (getField() != null && !getField().isEmpty()) {
-//            node_.setAttribute(FIELD, getField());
-//        }
         if (getField() != null) {
             node_.setAttribute(FIELD, getField());
         }
@@ -258,12 +174,6 @@ final class ObjectSerial extends TemplateSerial {
     @Override
     Element serializeWithoutRef(Document _doc) {
         Element node_ = createNode(_doc);
-//        if (value instanceof EnumMap) {
-//            node_.setAttribute(ENUM, ((EnumMap<?,?>)value).getLocalClass().getName());
-//        }
-//        if (getField() != null && !getField().isEmpty()) {
-//            node_.setAttribute(FIELD, getField());
-//        }
         if (getField() != null) {
             node_.setAttribute(FIELD, getField());
         }
@@ -288,35 +198,11 @@ final class ObjectSerial extends TemplateSerial {
         }
         return node_;
     }
-//    @Override
-//    Element serialize(Document _doc) {
-//        Element node_ = super.serialize(_doc);
-//        if (value instanceof EnumMap) {
-//            node_.setAttribute(ENUM, ((EnumMap<?,?>)value).getLocalClass().getName());
-//        }
-//        return node_;
-//    }
-//    @Override
-//    Element serializeWithoutRef(Document _doc) {
-//        Element node_ = super.serializeWithoutRef(_doc);
-//        if (value instanceof EnumMap) {
-//            node_.setAttribute(ENUM, ((EnumMap<?,?>)value).getLocalClass().getName());
-//        }
-//        return node_;
-//    }
-//    @Override
-//    Class<?> getValueClass() {
-//        return value.getClass();
-//    }
 
     @Override
     Object getValue() {
         return value;
     }
-
-//    public ComparatorSerial getCmpSerial() {
-//        return cmpSerial;
-//    }
 
     @Override
     void appendElementSerial(String _xml, CustList<ElementsSerial> _elt) {
@@ -329,27 +215,18 @@ final class ObjectSerial extends TemplateSerial {
         valuesIndexesRef = new NumberMap<Integer,Long>();
         int iValue_ = CollectionsUtil.getFirstIndex();
         for (ElementsSerial e: _elt) {
-//            if (e instanceof ComparatorSerial) {
-//                continue;
-//            }
             if (e.getClassName().equalsIgnoreCase(SerializeXmlObject.LS_CLASS)) {
                 if (e instanceof TemplateSerial) {
                     if (((TemplateSerial)e).getRef() != null) {
                         indexesRef.put(i_, ((TemplateSerial)e).getRef());
                     }
                 }
-                CustList.add((CustList<?>)value, e.getValue());
-//                ((Listable<Object>)value).add(e.getValue());
-//                ADD_METHOD.invoke(value, e.getValue());
+                ConverterMethod.invokeMethod(ADD_METHOD, value, e.getValue());
                 i_++;
                 continue;
             }
         }
         for (ElementsSerial e: _elt) {
-//            if (e instanceof ComparatorSerial) {
-//                cmpSerial = (ComparatorSerial) e;
-//                continue;
-//            }
             if (!e.getClassName().equalsIgnoreCase(SerializeXmlObject.MP_CLASS)) {
                 continue;
             }
@@ -372,9 +249,6 @@ final class ObjectSerial extends TemplateSerial {
             }
         }
         for (ElementsSerial e: _elt) {
-//            if (e instanceof ComparatorSerial) {
-//                continue;
-//            }
             if (e.getClassName().equalsIgnoreCase(SerializeXmlObject.LS_CLASS)) {
                 continue;
             }
@@ -394,38 +268,17 @@ final class ObjectSerial extends TemplateSerial {
                 System.err.println(XmlParser.getRowColOfNodeOrAttribute(_xml, e.getNode(), 0, EMPTY_STRING, TAB_WIDTH));
                 throw _0;
             }
-//            Field field_;
-//            try {
-//                field_ = class_.getDeclaredField(e.getField());
-//            } catch (NoSuchFieldException _0) {
-//                continue;
-//            }
-////            if (!SerializeXmlObject.isUpdateFinalFields()) {
-////                if (Modifier.isFinal(field_.getModifiers())) {
-////                    continue;
-////                }
-////            }
-//            if (Modifier.isStatic(field_.getModifiers())) {
-//                continue;
-//            }
-//            field_.setAccessible(class_.getAnnotation(RwXml.class)!=null || field_.getAnnotation(RwXml.class) != null);
-//            ConverterMethod.setField(field_, value, e.getValue());
         }
         //Begin
         if (value instanceof ListableEntries<?,?>) {
             ListableEntries<?, ?> v_;
             v_ = (ListableEntries<?, ?>)value;
-//            Listable<EntryCust<Object, Object>> list_;
-//            list_ = ((ListableEntries<Object, Object>)value).entryList();
             int len_ = keys.size();
             if (len_ != values.size()) {
                 System.err.println(XmlParser.getRowColOfNodeOrAttribute(_xml, getNode(), 0, EMPTY_STRING, TAB_WIDTH));
             }
             for (int i = CollectionsUtil.getFirstIndex(); i< len_; i++) {
-                //PUT_METHOD.invoke(value, keys.get(i),values.get(i));
-//                ADD_METHOD.invoke(list_, new EntryCust<Object, Object>(keys.get(i),values.get(i)));
-                AbsMap.addEntry(v_, keys.get(i),values.get(i));
-//                list_.add(new EntryCust<Object, Object>(keys.get(i),values.get(i)));
+                ConverterMethod.invokeMethod(ADD_ENTRY_METHOD, v_, keys.get(i),values.get(i));
             }
             keys.clear();
             values.clear();
@@ -437,21 +290,12 @@ final class ObjectSerial extends TemplateSerial {
         keys = new CustList<Object>();
         values = new CustList<Object>();
         for (ElementsSerial e: _elt) {
-//            if (e instanceof ComparatorSerial) {
-//                continue;
-//            }
             if (e.getClassName().equalsIgnoreCase(SerializeXmlObject.LS_CLASS)) {
-//                ((Listable<Object>)value).add(e.getValue());
-                CustList.add((CustList<?>)value, e.getValue());
-//                ADD_METHOD.invoke(value, e.getValue());
+                ConverterMethod.invokeMethod(ADD_METHOD, value, e.getValue());
                 continue;
             }
         }
         for (ElementsSerial e: _elt) {
-//            if (e instanceof ComparatorSerial) {
-//                cmpSerial = (ComparatorSerial) e;
-//                continue;
-//            }
             if (!e.getClassName().equalsIgnoreCase(SerializeXmlObject.MP_CLASS)) {
                 continue;
             }
@@ -462,9 +306,6 @@ final class ObjectSerial extends TemplateSerial {
             }
         }
         for (ElementsSerial e: _elt) {
-//            if (e instanceof ComparatorSerial) {
-//                continue;
-//            }
             if (e.getClassName().equalsIgnoreCase(SerializeXmlObject.LS_CLASS)) {
                 continue;
             }
@@ -485,40 +326,19 @@ final class ObjectSerial extends TemplateSerial {
                 throw _0;
             }
         }
-//        if (CollectionsUtil.isMap(value))
         if (value instanceof ListableEntries<?,?>) {
-//            Object list_ = LIST_FIELD.get(value);
             ListableEntries<?, ?> v_;
             v_ = (ListableEntries<?, ?>)value;
-//            Listable<EntryCust<Object, Object>> list_;
-//            list_ = ((ListableEntries<Object, Object>)value).entryList();
             int len_ = keys.size();
             if (len_ != values.size()) {
                 System.err.println(XmlParser.getRowColOfNodeOrAttribute(_xml, getNode(), 0, EMPTY_STRING, TAB_WIDTH));
             }
             for (int i = CollectionsUtil.getFirstIndex(); i< len_; i++) {
-                //PUT_METHOD.invoke(value, keys.get(i),values.get(i));
-//                ADD_METHOD.invoke(list_, new EntryCust<Object, Object>(keys.get(i),values.get(i)));
-                AbsMap.addEntry(v_, keys.get(i),values.get(i));
-//                list_.add(new EntryCust<Object, Object>(keys.get(i),values.get(i)));
+                ConverterMethod.invokeMethod(ADD_ENTRY_METHOD, v_, keys.get(i),values.get(i));
             }
             keys.clear();
             values.clear();
         }
-//        if (cmpSerial != null) {
-//            Field f_ = TreeSerializeXmlObject.MP_CLASS.getDeclaredField(COMPARATOR);
-//            //The comparator of a treemap is only set here by reflection
-//            f_.setAccessible(true);
-//            f_.set(value, cmpSerial.getValue());
-//        }
-//        if (value instanceof SortableMap) {
-//            int len_ = keys.size();
-//            for (int i = Constants.getFirstIndex(); i< len_; i++) {
-//                ((SortableMap<Object,Object>)value).put(keys.get(i),values.get(i));
-//            }
-//            keys.clear();
-//            values.clear();
-//        }
     }
     private void setField(ElementsSerial _e, Class<?> _class, Object _value) {
         Field field_;
@@ -527,11 +347,6 @@ final class ObjectSerial extends TemplateSerial {
         } catch (NoSuchFieldException _0) {
             return;
         }
-//            if (!SerializeXmlObject.isUpdateFinalFields()) {
-//                if (Modifier.isFinal(field_.getModifiers())) {
-//                    continue;
-//                }
-//            }
         if (Modifier.isStatic(field_.getModifiers())) {
             return;
         }
@@ -549,17 +364,12 @@ final class ObjectSerial extends TemplateSerial {
                 if (!Numbers.eq(indexesRef.getVal(i), ((TemplateSerial)_e).getRef())) {
                     continue;
                 }
-                CustList.set((Listable<?>)value, i, _newE.getValue());
-//                ((Listable<Object>)value).set(i, _newE.getValue());
-//                SET_METHOD.invoke(value, i, _newE.getValue());
+                ConverterMethod.invokeMethod(SET_METHOD, value, i, _newE.getValue());
             }
         }
         if(value instanceof ListableEntries<?,?>) {
             ListableEntries<?, ?> v_;
             v_ = (ListableEntries<?, ?>)value;
-//            Listable<EntryCust<Object, Object>> list_;
-//            list_ = ((ListableEntries<Object, Object>)value).entryList();
-//            int len_ = keys.size() ;
             int len_ = v_.size();
             for (int i = CollectionsUtil.getFirstIndex(); i< len_;i++ ) {
                 if (!keysIndexesRef.contains(i)) {
@@ -568,9 +378,7 @@ final class ObjectSerial extends TemplateSerial {
                 if (!Numbers.eq(keysIndexesRef.getVal(i), ((TemplateSerial)_e).getRef())) {
                     continue;
                 }
-                AbsMap.setGeneKey(v_, i, _newE.getValue());
-//                list_.set(index, element);
-//                keys.set(i, _newE.getValue());
+                ConverterMethod.invokeMethod(SET_KEY_METHOD, v_, i, _newE.getValue());
             }
             for (int i = CollectionsUtil.getFirstIndex(); i < len_; i++) {
                 if (!valuesIndexesRef.contains(i)) {
@@ -579,8 +387,7 @@ final class ObjectSerial extends TemplateSerial {
                 if (!Numbers.eq(valuesIndexesRef.getVal(i), ((TemplateSerial)_e).getRef())) {
                     continue;
                 }
-                AbsMap.setGeneValue(v_, i, _newE.getValue());
-//                values.set(i, _newE.getValue());
+                ConverterMethod.invokeMethod(SET_VALUE_METHOD, v_, i, _newE.getValue());
             }
         }
         try {
@@ -607,39 +414,7 @@ final class ObjectSerial extends TemplateSerial {
             System.err.println(XmlParser.getRowColOfNodeOrAttribute(_xml, _e.getNode(), 0, EMPTY_STRING, TAB_WIDTH));
             throw _0;
         }
-//        Field field_;
-//        try {
-//            field_ = class_.getDeclaredField(_e.getField());
-//        } catch (NoSuchFieldException _0) {
-//            return;
-//        }
-////        if (!SerializeXmlObject.isUpdateFinalFields()) {
-////            if (Modifier.isFinal(field_.getModifiers())) {
-////                return;
-////            }
-////        }
-//        if (Modifier.isStatic(field_.getModifiers())) {
-//            return;
-//        }
-//        field_.setAccessible(class_.getAnnotation(RwXml.class)!=null|| field_.getAnnotation(RwXml.class) != null);
-//        ConverterMethod.setField(field_, value, _newE.getValue());
     }
-//    void setComponents(String _xml) {
-//        if (!(value instanceof ListableEntries<?, ?>)) {
-//            if (value instanceof HasComparator<?>) {
-//                ((HasComparator<?>)value).applyChanges();
-//            }
-//            return;
-//        }
-//        ListableEntries<?, ?> l_ = (ListableEntries<?, ?>) value;
-//        int len_ = keys.size();
-//        for (int i = CollectionsUtil.getFirstIndex(); i< len_; i++) {
-//            AbsMap.put(l_, keys.get(i),values.get(i));
-//        }
-////        if (value instanceof HasComparator<?>) {
-////            ((HasComparator<?>)value).applyChanges();
-////        }
-//    }
     boolean isMap() {
         return value instanceof ListableEntries<?, ?>;
     }
@@ -648,54 +423,5 @@ final class ObjectSerial extends TemplateSerial {
         l_ = (ListableEntries<?, ?>)value;
         return l_.isCorrect();
     }
-//    @Override
-//    public void setComponents(String _xml) {
-////        if (cmpSerial != null) {
-//////            if (value instanceof SortableMap) {
-//////                Field f_ = util.TreeSerializeXmlObject.MP_CLASS.getDeclaredField(COMPARATOR);
-//////                f_.setAccessible(true);
-//////                f_.set(value, cmpSerial.getValue());
-//////            } else {
-//////                Field f_ = TreeSerializeXmlObject.MP_CLASS.getDeclaredField(COMPARATOR);
-//////                f_.setAccessible(true);
-//////                f_.set(value, cmpSerial.getValue());
-//////            }
-////            try {
-////                Field f_;
-////                f_ = TreeSerializeXmlObject.MP_CLASS.getDeclaredField(COMPARATOR);
-////                //The comparator of a treemap is only set here by reflection
-////                f_.setAccessible(true);
-////                ConverterMethod.setField(f_, value, cmpSerial.getValue());
-////            } catch (NoSuchFieldException _0) {
-////            }
-//////            Field f_ = TreeSerializeXmlObject.MP_CLASS.getDeclaredField(COMPARATOR);
-//////            f_.setAccessible(true);
-//////            f_.set(value, cmpSerial.getValue());
-////        }
-//        int len_ = keys.size();
-//        if (len_ != values.size()) {
-//            System.err.println(XmlParser.getRowColOfNodeOrAttribute(_xml, getNode(), 0, EMPTY_STRING, TAB_WIDTH));
-//        }
-//        for (int i = CollectionsUtil.getFirstIndex(); i< len_; i++) {
-////            PUT_METHOD.invoke(value, keys.get(i),values.get(i));
-//            ((ListableEntries<Object,Object>)value).put(keys.get(i),values.get(i));
-//        }
-//        if (value instanceof HasComparator<?>) {
-//            ((HasComparator<?>)value).applyChanges();
-//        }
-//    }
-//    @Override
-//    public boolean keysAllDifferent() {
-//        for (Object o: keys) {
-//            if (Collections.frequency(keys, o) > NO_DUPLICATE) {
-//                return false;
-//            }
-//        }
-//        return true;
-//    }
-//    @Override
-//    public boolean mapIsEmpty() {
-//        return keys.isEmpty();
-//    }
 
 }
