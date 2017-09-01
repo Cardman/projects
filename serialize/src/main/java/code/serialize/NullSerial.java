@@ -43,17 +43,9 @@ final class NullSerial extends ElementsSerial {
         return null;
     }
 
-//    @Override
-//    Class<?> getValueClass() {
-//        return null;
-//    }
-
     @Override
     Element serialize(Document _doc) {
         Element node_ = _doc.createElement(NULL_ATTR);
-//        if (getField() != null && !getField().isEmpty()) {
-//            node_.setAttribute(FIELD, getField());
-//        }
         if (getField() != null) {
             node_.setAttribute(FIELD, getField());
         }
@@ -68,9 +60,6 @@ final class NullSerial extends ElementsSerial {
     @Override
     Element serializeWithoutRef(Document _doc) {
         Element node_ = _doc.createElement(NULL_ATTR);
-//        if (getField() != null && !getField().isEmpty()) {
-//            node_.setAttribute(FIELD, getField());
-//        }
         if (getField() != null) {
             node_.setAttribute(FIELD, getField());
         }

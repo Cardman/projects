@@ -303,11 +303,6 @@ final class ArraySerial extends TemplateSerial {
                 continue;
             }
             Object o_ = _newE.getValue();
-//            if (o_ != null) {
-//                if (!classElements.isInstance(o_)) {
-//                    throw new IllegalArgumentException();
-//                }
-//            }
             Array.set(array, i, o_);
         }
     }
@@ -316,10 +311,5 @@ final class ArraySerial extends TemplateSerial {
     Object getValue() {
         return array;
     }
-
-//    @Override
-//    Class<?> getValueClass() {
-//        return array.getClass();
-//    }
 
 }

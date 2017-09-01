@@ -1,18 +1,4 @@
 package aiki.game.fight;
-import code.maths.LgInt;
-import code.maths.Rate;
-import code.maths.montecarlo.AbMonteCarlo;
-import code.maths.montecarlo.MonteCarloBoolean;
-import code.maths.montecarlo.MonteCarloEnum;
-import code.maths.montecarlo.MonteCarloNumber;
-import code.maths.montecarlo.MonteCarloString;
-import code.util.CustList;
-import code.util.EnumList;
-import code.util.EnumMap;
-import code.util.Numbers;
-import code.util.SortableCustList;
-import code.util.StringList;
-import code.util.StringMap;
 import aiki.DataBase;
 import aiki.exceptions.SimulationException;
 import aiki.fight.abilities.AbilityData;
@@ -41,6 +27,21 @@ import aiki.fight.util.StatisticStatus;
 import aiki.fight.util.TypesDuo;
 import aiki.game.fight.util.NbEffectFighterCoords;
 import aiki.game.fight.util.RandomBoolResults;
+import code.maths.LgInt;
+import code.maths.Rate;
+import code.maths.montecarlo.AbMonteCarlo;
+import code.maths.montecarlo.IntMonteCarlo;
+import code.maths.montecarlo.MonteCarloBoolean;
+import code.maths.montecarlo.MonteCarloEnum;
+import code.maths.montecarlo.MonteCarloNumber;
+import code.maths.montecarlo.MonteCarloString;
+import code.util.CustList;
+import code.util.EnumList;
+import code.util.EnumMap;
+import code.util.Numbers;
+import code.util.SortableCustList;
+import code.util.StringList;
+import code.util.StringMap;
 
 final class FightSuccess {
 
@@ -1371,8 +1372,8 @@ final class FightSuccess {
         return _law.editNumber();
     }
 
-    private static void checkSimu(Fight _fight,AbMonteCarlo<?> _law) {
-        if(_law.events().size() != DataBase.ONE_POSSIBLE_CHOICE){
+    private static void checkSimu(Fight _fight,IntMonteCarlo _law) {
+        if(_law.nbEvents() != DataBase.ONE_POSSIBLE_CHOICE){
             if (_fight.getSimulation()) {
                 _fight.setAcceptableChoices(false);
                 throw new SimulationException();

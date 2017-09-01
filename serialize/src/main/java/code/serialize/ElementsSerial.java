@@ -45,8 +45,6 @@ abstract class ElementsSerial {
 
     abstract Object getValue();
 
-//    abstract Class<?> getValueClass();
-
     abstract Element serialize(Document _doc);
 
     abstract Element serializeWithoutRef(Document _doc);

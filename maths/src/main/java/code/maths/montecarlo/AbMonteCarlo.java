@@ -10,7 +10,7 @@ import code.util.Numbers;
 import code.util.ints.Listable;
 import code.util.ints.ListableEntries;
 
-public abstract class AbMonteCarlo<E> {
+public abstract class AbMonteCarlo<E> implements IntMonteCarlo {
 
     private static final LgInt MAX_RANDOM = LgInt.getMaxLongPlusOne();
 
@@ -160,6 +160,11 @@ public abstract class AbMonteCarlo<E> {
             somme_.addNb(i);
         }
         return somme_;
+    }
+
+    @Override
+    public int nbEvents() {
+        return getLaw().size();
     }
 
     public Listable<E> events() {

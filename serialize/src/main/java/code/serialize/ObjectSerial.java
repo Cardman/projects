@@ -271,14 +271,12 @@ final class ObjectSerial extends TemplateSerial {
         }
         //Begin
         if (value instanceof ListableEntries<?,?>) {
-            ListableEntries<?, ?> v_;
-            v_ = (ListableEntries<?, ?>)value;
             int len_ = keys.size();
             if (len_ != values.size()) {
                 System.err.println(XmlParser.getRowColOfNodeOrAttribute(_xml, getNode(), 0, EMPTY_STRING, TAB_WIDTH));
             }
             for (int i = CollectionsUtil.getFirstIndex(); i< len_; i++) {
-                ConverterMethod.invokeMethod(ADD_ENTRY_METHOD, v_, keys.get(i),values.get(i));
+                ConverterMethod.invokeMethod(ADD_ENTRY_METHOD, value, keys.get(i),values.get(i));
             }
             keys.clear();
             values.clear();
@@ -327,14 +325,12 @@ final class ObjectSerial extends TemplateSerial {
             }
         }
         if (value instanceof ListableEntries<?,?>) {
-            ListableEntries<?, ?> v_;
-            v_ = (ListableEntries<?, ?>)value;
             int len_ = keys.size();
             if (len_ != values.size()) {
                 System.err.println(XmlParser.getRowColOfNodeOrAttribute(_xml, getNode(), 0, EMPTY_STRING, TAB_WIDTH));
             }
             for (int i = CollectionsUtil.getFirstIndex(); i< len_; i++) {
-                ConverterMethod.invokeMethod(ADD_ENTRY_METHOD, v_, keys.get(i),values.get(i));
+                ConverterMethod.invokeMethod(ADD_ENTRY_METHOD, value, keys.get(i),values.get(i));
             }
             keys.clear();
             values.clear();
