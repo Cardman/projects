@@ -3102,8 +3102,8 @@ final class FormatHtml {
                     _tag.removeAttribute(CHECKED);
                 } else {
                     String strObj_;
-                    if (o_ instanceof Enum) {
-                        strObj_ = ((Enum<?>)o_).name();
+                    if (o_.getClass().isEnum()) {
+                        strObj_ = ConverterMethod.getName(o_);
                     } else {
                         strObj_ = ExtractObject.toString(_conf, o_);
                     }
@@ -3395,12 +3395,11 @@ final class FormatHtml {
             Iterator<?> it_ = ExtractObject.iterator(_conf, extractedList_);
             while (ExtractObject.hasNext(_conf, it_)) {
                 Object o_ = ExtractObject.next(_conf, it_);
-                Enum<?> enum_ = (Enum<?>)o_;
                 Element option_ = _doc.createElement(TAG_OPTION);
-                option_.setAttribute(ATTRIBUTE_VALUE, enum_.name());
+                option_.setAttribute(ATTRIBUTE_VALUE, ConverterMethod.getName(o_));
                 if (returnedVarValue_ != null) {
                     for (Object a: returnedVarValue_) {
-                        if (a == enum_) {
+                        if (a == o_) {
                             option_.setAttribute(SELECTED, SELECTED);
                             break;
                         }
@@ -3430,12 +3429,11 @@ final class FormatHtml {
                 Iterator<?> it_ = ExtractObject.iterator(_conf, extractedList_);
                 while (ExtractObject.hasNext(_conf, it_)) {
                     Object o_ = ExtractObject.next(_conf, it_);
-                    Enum<?> enum_ = (Enum<?>)o_;
                     Element option_ = _doc.createElement(TAG_OPTION);
-                    option_.setAttribute(ATTRIBUTE_VALUE, enum_.name());
+                    String nameEnum_ = ConverterMethod.getName(o_);
+                    option_.setAttribute(ATTRIBUTE_VALUE, nameEnum_);
                     for (Object d: defaults_) {
-                        Enum<?> defaultEnum_ = (Enum<?>) d;
-                        if (StringList.quickEq(enum_.name(),defaultEnum_.name())) {
+                        if (o_ == d) {
                             option_.setAttribute(SELECTED, SELECTED);
                             break;
                         }
@@ -3449,11 +3447,11 @@ final class FormatHtml {
                 Iterator<?> it_ = ExtractObject.iterator(_conf, extractedList_);
                 while (ExtractObject.hasNext(_conf, it_)) {
                     Object o_ = ExtractObject.next(_conf, it_);
-                    Enum<?> enum_ = (Enum<?>)o_;
                     Element option_ = _doc.createElement(TAG_OPTION);
-                    option_.setAttribute(ATTRIBUTE_VALUE, enum_.name());
+                    String enumName_ = ConverterMethod.getName(o_);
+                    option_.setAttribute(ATTRIBUTE_VALUE, enumName_);
                     for (String n: names_) {
-                        if (StringList.quickEq(enum_.name(),n)) {
+                        if (StringList.quickEq(enumName_,n)) {
                             option_.setAttribute(SELECTED, SELECTED);
                             break;
                         }
@@ -3471,7 +3469,9 @@ final class FormatHtml {
     private static void checkEnums(Configuration _conf, Listable<?> _list) {
         try {
             for (Object o: _list) {
-                ((Enum<?>)o).name();
+                if (!o.getClass().isEnum()) {
+                    throw new DynamicCastClassException();
+                }
             }
         } catch (RuntimeException _0) {
             throw new BadEnumeratingException(_list, _conf.joinPages());
@@ -3561,8 +3561,8 @@ final class FormatHtml {
             }
             Element option_ = _docSelect.createElement(TAG_OPTION);
             String cmp_;
-            if (o_ instanceof Enum<?>) {
-                cmp_ = ((Enum<?>) o_).name();
+            if (o_.getClass().isEnum()) {
+                cmp_ = ConverterMethod.getName(o_);
             } else {
                 cmp_ = ExtractObject.toString(_conf, o_);
             }
@@ -3599,8 +3599,8 @@ final class FormatHtml {
                 continue;
             }
             Element option_ = _docSelect.createElement(TAG_OPTION);
-            if (o_ instanceof Enum<?>) {
-                option_.setAttribute(ATTRIBUTE_VALUE, ((Enum<?>) o_).name());
+            if (o_.getClass().isEnum()) {
+                option_.setAttribute(ATTRIBUTE_VALUE, ConverterMethod.getName(o_));
             } else {
                 option_.setAttribute(ATTRIBUTE_VALUE, ExtractObject.toString(_conf, o_));
             }

@@ -189,36 +189,6 @@ public final class SerializeXmlObject {
         }
     }
 
-//    public static <T> T copy(T _orig) {
-//        if (_orig == null) {
-//            return null;
-//        }
-//        if (_orig instanceof Number) {
-//            return _orig;
-//        }
-//        if (_orig instanceof String) {
-//            return _orig;
-//        }
-//        if (_orig instanceof Enum) {
-//            return _orig;
-//        }
-//        if (_orig instanceof Boolean) {
-//            return _orig;
-//        }
-//        if (_orig instanceof Character) {
-//            return _orig;
-//        }
-//        try {
-//            _copying_ = true;
-//            return (T) fromXmlStringObject(toXmlString(_orig));
-//        } catch (RuntimeException _0) {
-//            _0.printStackTrace();
-//            return _orig;
-//        } finally {
-//            _copying_ = false;
-//        }
-//    }
-
     public static Object newObjectFromXmlString(String _xmlString) {
         Object o_ = newObjectFromXmlStringOrNull(_xmlString);
         if (o_ != null) {

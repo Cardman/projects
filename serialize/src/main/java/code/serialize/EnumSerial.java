@@ -54,16 +54,15 @@ final class EnumSerial extends PrimitiveSerial {
         NamedNodeMap map_ = _node.getAttributes();
         Class<?> class_ = ConstClasses.classAliasForObjectNameNotInit(_node.getNodeName()+_node.getAttribute(INTERN));
         if (!class_.isEnum()){
-            throw new ClassFoundException(class_.getName(), Enum.class.getName());
+            throw new ClassFoundException(class_.getName());
         }
-//        Class<?> subClass_ = class_.asSubclass(Enum.class);
         Node valueNode_ = map_.getNamedItem(VALUE);
         if (valueNode_ == null) {
             throw new NoAttributeForSerializable(VALUE, _node.getNodeName()+_node.getAttribute(INTERN));
         }
         String name_ = valueNode_.getNodeValue();
         for (Object s : class_.getEnumConstants()) {
-            if (StringList.quickEq(((Enum<?>) s).name(),name_)) {
+            if (StringList.quickEq(ConverterMethod.getName(s),name_)) {
                 return s;
             }
         }
@@ -73,13 +72,13 @@ final class EnumSerial extends PrimitiveSerial {
     @Override
     Element serialize(Document _doc) {
         Element node_ = super.serialize(_doc);
-        node_.setAttribute(VALUE, ((Enum<?>)getValue()).name());
+        node_.setAttribute(VALUE, ConverterMethod.getName(getValue()));
         return node_;
     }
     @Override
     Element serializeWithoutRef(Document _doc) {
         Element node_ = super.serializeWithoutRef(_doc);
-        node_.setAttribute(VALUE, ((Enum<?>)getValue()).name());
+        node_.setAttribute(VALUE, ConverterMethod.getName(getValue()));
         return node_;
     }
 

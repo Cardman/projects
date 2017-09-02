@@ -14,6 +14,10 @@ import code.xml.FromAndToString;
 
 public final class ConverterMethod {
 
+    private static final String NAME = "name";
+
+    private static final String ORDINAL = "name";
+
     private ConverterMethod() {
     }
 
@@ -50,6 +54,32 @@ public final class ConverterMethod {
             throw new InvokingException(_0, _0.getTargetException());
         } catch (InstantiationException _0) {
             throw new RuntimeInstantiationException(_0);
+        }
+    }
+
+    public static String getName(Object _instance) {
+        try {
+            Class<?> cl_ = _instance.getClass();
+            if (!cl_.isEnum()) {
+                return null;
+            }
+            Method m_ = cl_.getMethod(NAME);
+            return (String) invokeMethod(m_, _instance);
+        } catch (Exception _0) {
+            return null;
+        }
+    }
+
+    public static Integer getOrdinal(Object _instance) {
+        try {
+            Class<?> cl_ = _instance.getClass();
+            if (!cl_.isEnum()) {
+                return null;
+            }
+            Method m_ = cl_.getMethod(ORDINAL);
+            return (Integer) invokeMethod(m_, _instance);
+        } catch (Exception _0) {
+            return null;
         }
     }
 

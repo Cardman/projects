@@ -674,7 +674,7 @@ public final class Navigation {
         if (class_.isEnum()) {
             //Enum
             for (Object o : class_.getEnumConstants()) {
-                if (StringList.quickEq(((Enum<?>)o).name(),_value)) {
+                if (StringList.quickEq(ConverterMethod.getName(o),_value)) {
                     return o;
                 }
             }

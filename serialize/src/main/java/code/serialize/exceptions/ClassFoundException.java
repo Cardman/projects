@@ -11,6 +11,11 @@ public class ClassFoundException extends RuntimeException {
 
     private static final String INHERIT = "unexpectedInherit";
     private static final String NOT_INHERIT = "unexpected";
+    private static final String ENUM_CLASS = "an enumeration";
+
+    public ClassFoundException(String _found) {
+        this(_found, ENUM_CLASS);
+    }
 
     public ClassFoundException(String _found, String _expected) {
         this(false, _found, _expected);

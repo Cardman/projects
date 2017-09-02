@@ -610,19 +610,9 @@ public final class ObjectComponents {
         if (Number.class.isAssignableFrom(_class)) {
             return true;
         }
-//        try {
-//            _class.asSubclass(Number.class);
-//            return true;
-//        } catch (RuntimeException _0) {
-//        }
         if (String.class.isAssignableFrom(_class)) {
             return true;
         }
-//        try {
-//            _class.asSubclass(String.class);
-//            return true;
-//        } catch (RuntimeException _0) {
-//        }
         Method m_ = ConverterMethod.getFromStringMethod(_class);
         if (m_ != null) {
             return true;
@@ -630,27 +620,12 @@ public final class ObjectComponents {
         if (Boolean.class.isAssignableFrom(_class)) {
             return true;
         }
-//        try {
-//            _class.asSubclass(Boolean.class);
-//            return true;
-//        } catch (RuntimeException _0) {
-//        }
         if (Character.class.isAssignableFrom(_class)) {
             return true;
         }
-//        try {
-//            _class.asSubclass(Character.class);
-//            return true;
-//        } catch (RuntimeException _0) {
-//        }
-        if (Enum.class.isAssignableFrom(_class)) {
+        if (_class.isEnum()) {
             return true;
         }
-//        try {
-//            _class.asSubclass(Enum.class);
-//            return true;
-//        } catch (RuntimeException _0) {
-//        }
         return false;
     }
 
