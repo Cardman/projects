@@ -82,6 +82,9 @@ public final class Templates {
         String className_ = types_.first();
         className_ = PrimitiveTypeUtil.getArrayClass(className_);
         Class<?> cl_ = ConstClasses.classForNameNotInit(className_);
+        if (cl_.getTypeParameters().length != types_.size() - 1) {
+            return false;
+        }
         for (TypeVariable<?> t: cl_.getTypeParameters()) {
             i_++;
             String arg_ = types_.get(i_);

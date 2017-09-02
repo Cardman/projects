@@ -539,6 +539,11 @@ public class TemplatesTest {
     }
 
     @Test
+    public void isCorrectTemplate39Test() {
+        assertTrue(!Templates.isCorrectTemplate(ENUM_LIST, new StringMap<StringList>(),null));
+    }
+
+    @Test
     public void isCorrect1Test() {
         Mapping m_ = new Mapping();
         m_.setArg("java.lang.Object");
