@@ -1221,33 +1221,48 @@ public final class StringList extends AbEqList<String> implements Equallable<Str
     }
 
     public static StringList getAllTypes(String _type) {
+        return tryGetAllTypes(_type);
+    }
+
+    public static StringList tryGetAllTypes(String _type) {
         StringList types_ = new StringList();
-        int i_ = _type.indexOf(String.valueOf(LT));
-        if (i_ == CustList.INDEX_NOT_FOUND_ELT) {
-            types_.add(_type);
-            return types_;
-        }
-        types_.add(_type.substring(FIRST_INDEX, i_));
-        i_++;
+        int i_ = FIRST_INDEX;
         int nbGt_ = 0;
         int nbLt_ = 0;
         int first_ = i_;
         while (true) {
-            if (i_ >= _type.length() - 1) {
-                types_.add(_type.substring(first_, i_));
+            if (i_ >= _type.length()) {
+                if (nbGt_ != nbLt_) {
+                    return null;
+                }
+                if (nbLt_ == 0) {
+                    i_++;
+                }
+                types_.add(_type.substring(first_, i_-1));
                 break;
             }
+            //i_ < _type.length() - 1
             if (_type.charAt(i_) == COMMA) {
-                if (nbGt_ == nbLt_) {
+                if (nbLt_ == 0) {
+                    return null;
+                }
+                if (nbGt_ + 1 == nbLt_) {
                     types_.add(_type.substring(first_, i_));
                     first_ = i_ + 1;
                 }
             }
             if (_type.charAt(i_) == LT) {
-                nbGt_++;
+                if (types_.isEmpty()) {
+                    types_.add(_type.substring(first_, i_));
+                    first_ = i_ + 1;
+                }
+                nbLt_++;
             }
             if (_type.charAt(i_) == GT) {
-                nbLt_++;
+                nbGt_++;
+                if (nbGt_ > nbLt_) {
+                    return null;
+                }
             }
             i_++;
         }

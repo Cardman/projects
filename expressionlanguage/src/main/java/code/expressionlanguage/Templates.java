@@ -27,6 +27,55 @@ public final class Templates {
 
     private Templates() {
     }
+    public static boolean isCorrectWrite(String _className) {
+        StringList current_ = new StringList(_className);
+        boolean already_ = false;
+        while (true) {
+            StringList next_ = new StringList();
+            for (String c: current_) {
+                StringList elts_ = StringList.getAllTypes(c);
+                if (elts_ == null) {
+                    return false;
+                }
+                String base_ = elts_.first();
+                if (base_.isEmpty()) {
+                    return false;
+                }
+                String compo_ = PrimitiveTypeUtil.getQuickComponentBaseType(base_).getComponent();
+                if (base_.startsWith(PrimitiveTypeUtil.PRIM) && already_) {
+                    return false;
+                }
+                if (compo_.startsWith(PrimitiveTypeUtil.PRIM)) {
+                    if (!StringList.isWord(compo_.substring(PrimitiveTypeUtil.PRIM.length()))) {
+                        return false;
+                    }
+                } else if (!compo_.startsWith(PREFIX_VAR_TYPE)) {
+                    for (String p: StringList.splitStrings(compo_, SEP_CLASS)) {
+                        if (!StringList.isWord(p)) {
+                            return false;
+                        }
+                    }
+                }
+                int nbParams_ = elts_.size();
+                for (int i = CustList.SECOND_INDEX; i < nbParams_; i++) {
+                    String baseLoc_ = elts_.get(i);
+                    String compoLoc_ = PrimitiveTypeUtil.getQuickComponentBaseType(baseLoc_).getComponent();
+                    if (compoLoc_.startsWith(PREFIX_VAR_TYPE)) {
+                        if (!StringList.isWord(compoLoc_.substring(PREFIX_VAR_TYPE.length()))) {
+                            return false;
+                        }
+                        continue;
+                    }
+                    next_.add(baseLoc_);
+                }
+            }
+            if (next_.isEmpty()) {
+                return true;
+            }
+            already_ = true;
+            current_ = next_;
+        }
+    }
     public static boolean isCorrectTemplate(String _className, StringMap<StringList> _inherit, Classes _classes) {
         StringList types_ = StringList.getAllTypes(_className);
         int i_ = CustList.FIRST_INDEX;

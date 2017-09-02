@@ -182,6 +182,121 @@ public class TemplatesTest {
     }
 
     @Test
+    public void isCorrectWrite1Test() {
+        assertTrue(Templates.isCorrectWrite("java.lang.String"));
+    }
+
+    @Test
+    public void isCorrectWrite2Test() {
+        assertTrue(Templates.isCorrectWrite(PrimitiveTypeUtil.PRIM_INT));
+    }
+
+    @Test
+    public void isCorrectWrite3Test() {
+        assertTrue(Templates.isCorrectWrite("[java.lang.String"));
+    }
+
+    @Test
+    public void isCorrectWrite4Test() {
+        assertTrue(Templates.isCorrectWrite("["+PrimitiveTypeUtil.PRIM_INT));
+    }
+
+    @Test
+    public void isCorrectWrite5Test() {
+        assertTrue(Templates.isCorrectWrite("#E"));
+    }
+
+    @Test
+    public void isCorrectWrite6Test() {
+        assertTrue(Templates.isCorrectWrite("[#E"));
+    }
+
+    @Test
+    public void isCorrectWrite7Test() {
+        assertTrue(Templates.isCorrectWrite("code.util.CustList<#E>"));
+    }
+
+    @Test
+    public void isCorrectWrite8Test() {
+        assertTrue(Templates.isCorrectWrite("code.util.CustList<[#E>"));
+    }
+
+    @Test
+    public void isCorrectWrite9Test() {
+        assertTrue(Templates.isCorrectWrite("code.util.CustList<["+PrimitiveTypeUtil.PRIM_INT+">"));
+    }
+
+    @Test
+    public void isCorrectWrite10Test() {
+        assertTrue(Templates.isCorrectWrite("code.util.CustList<java.lang.String>"));
+    }
+
+    @Test
+    public void isCorrectWrite11Test() {
+        assertTrue(Templates.isCorrectWrite("code.util.CustList<code.util.CustList<java.lang.String>>"));
+    }
+
+    @Test
+    public void isCorrectWrite12Test() {
+        assertTrue(Templates.isCorrectWrite("code.util.CustList<code.util.CustList<java.lang.String>,java.lang.String>"));
+    }
+
+    @Test
+    public void isCorrectWrite13Test() {
+        assertTrue(Templates.isCorrectWrite("code.util.CustList<code.util.CustList<java.lang.String,java.lang.String>>"));
+    }
+
+    @Test
+    public void isCorrectWrite14Test() {
+        assertTrue(!Templates.isCorrectWrite("code.util.CustList<code.util.CustList<java.lang.String,java.lang.String>"));
+    }
+
+    @Test
+    public void isCorrectWrite15Test() {
+        assertTrue(!Templates.isCorrectWrite("code.util.CustList<code.util.CustList<java.lang.String,java.lang.String>>>"));
+    }
+
+    @Test
+    public void isCorrectWrite16Test() {
+        assertTrue(!Templates.isCorrectWrite("code.util.CustList<"+PrimitiveTypeUtil.PRIM_INT+">"));
+    }
+
+    @Test
+    public void isCorrectWrite17Test() {
+        assertTrue(!Templates.isCorrectWrite("code.util.CustList<code.util.CustList<"+PrimitiveTypeUtil.PRIM_INT+",java.lang.String>>"));
+    }
+
+    @Test
+    public void isCorrectWrite18Test() {
+        assertTrue(!Templates.isCorrectWrite("code.util.CustList<["+PrimitiveTypeUtil.PRIM_INT+".int>"));
+    }
+
+    @Test
+    public void isCorrectWrite19Test() {
+        assertTrue(!Templates.isCorrectWrite("code.util.CustList<code.util.CustList<["+PrimitiveTypeUtil.PRIM_INT+".int,java.lang.String>>"));
+    }
+
+    @Test
+    public void isCorrectWrite20Test() {
+        assertTrue(!Templates.isCorrectWrite("code.util.CustList<#E.int>"));
+    }
+
+    @Test
+    public void isCorrectWrite21Test() {
+        assertTrue(!Templates.isCorrectWrite("code.util.CustList<#E<java.lang.String>>"));
+    }
+
+    @Test
+    public void isCorrectWrite22Test() {
+        assertTrue(!Templates.isCorrectWrite("code.util.CustList<,>"));
+    }
+
+    @Test
+    public void isCorrectWrite23Test() {
+        assertTrue(!Templates.isCorrectWrite("code.util.CustList<java.lang;String>"));
+    }
+
+    @Test
     public void isCorrectTemplate1Test() {
         assertTrue(Templates.isCorrectTemplate(ENUM_LIST+"<"+ENUM+">", new StringMap<StringList>(),null));
     }

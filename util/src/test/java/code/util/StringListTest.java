@@ -2,6 +2,7 @@ package code.util;
 import static code.util.opers.EquallableUtil.assertEq;
 import static junitparams.JUnitParamsRunner.$;
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertNull;
 import junitparams.JUnitParamsRunner;
 import junitparams.Parameters;
 
@@ -936,6 +937,54 @@ public class StringListTest {
     @Parameters(method="inputsGetTypes")
     public void getTypes1Test(String _inputType,StringList _types) {
         assertEq(_types, StringList.getTypes(_inputType));
+    }
+    
+    Object[] inputsGetAllTypes() {
+        return $($("String",new StringList("String")),
+                $("Map<String,Rate>",new StringList("Map","String","Rate")),
+                $("Map<String,Map<String,Rate>>",new StringList("Map","String","Map<String,Rate>")),
+                $("List<Boolean>",new StringList("List","Boolean")),
+                $("CustList<BooleanList>",new StringList("CustList","BooleanList")));
+    }
+    
+    @Test
+    @Parameters(method="inputsGetAllTypes")
+    public void getAllTypes1Test(String _inputType,StringList _types) {
+        assertEq(_types, StringList.getAllTypes(_inputType));
+    }
+
+    Object[] inputsTryGetAllTypes() {
+        return $($("String",new StringList("String")),
+                $("Map<String,Rate>",new StringList("Map","String","Rate")),
+                $("Map<String,Map<String,Rate>>",new StringList("Map","String","Map<String,Rate>")),
+                $("List<Boolean>",new StringList("List","Boolean")),
+                $("CustList<BooleanList>",new StringList("CustList","BooleanList")));
+    }
+
+    @Test
+    @Parameters(method="inputsGetAllTypes")
+    public void tryGetAllTypes1Test(String _inputType,StringList _types) {
+        assertEq(_types, StringList.tryGetAllTypes(_inputType));
+    }
+
+    @Test
+    public void tryGetAllTypes2Test() {
+        assertNull(StringList.tryGetAllTypes("Map<String,Rate"));
+    }
+
+    @Test
+    public void tryGetAllTypes3Test() {
+        assertNull(StringList.tryGetAllTypes("Map<String,Rate>>"));
+    }
+
+    @Test
+    public void tryGetAllTypes4Test() {
+        assertNull(StringList.tryGetAllTypes("String,Rate"));
+    }
+
+    @Test
+    public void tryGetAllTypes5Test() {
+        assertNull(StringList.tryGetAllTypes("Map<String,Rate>>,StrMap<String,Rate>>"));
     }
 
     @Test
