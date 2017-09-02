@@ -73,30 +73,6 @@ final class ArraySerial extends TemplateSerial {
         Class<?> class_;
         String typeValue_ = typeName_.getNodeValue();
         class_ = ConstClasses.classAliasForNameNotInit(typeValue_);
-//        try {
-//            class_ = Constants.classForName(typeValue_);
-//        } catch (Exception e_) {
-//            throw e_;
-//            if (typeValue_.equalsIgnoreCase(long.class.getName())) {
-//                class_ = long.class;
-//            } else if (typeValue_.equalsIgnoreCase(int.class.getName())) {
-//                class_ = int.class;
-//            } else if (typeValue_.equalsIgnoreCase(short.class.getName())) {
-//                class_ = short.class;
-//            } else if (typeValue_.equalsIgnoreCase(byte.class.getName())) {
-//                class_ = byte.class;
-//            } else if (typeValue_.equalsIgnoreCase(char.class.getName())) {
-//                class_ = char.class;
-//            } else if (typeValue_.equalsIgnoreCase(float.class.getName())) {
-//                class_ = float.class;
-//            } else if (typeValue_.equalsIgnoreCase(double.class.getName())) {
-//                class_ = double.class;
-//            } else if (typeValue_.equalsIgnoreCase(boolean.class.getName())) {
-//                class_ = boolean.class;
-//            } else {
-//                throw e_;
-//            }
-//        }
         array = Array.newInstance(class_, XmlParser.childrenElements(_node).size());
     }
 
@@ -120,30 +96,6 @@ final class ArraySerial extends TemplateSerial {
         Class<?> class_;
         String typeValue_ = typeName_.getNodeValue();
         class_ = ConstClasses.classAliasForNameNotInit(typeValue_);
-//        try {
-//            class_ = Constants.classForName(typeValue_);
-//        } catch (Exception e_) {
-//            throw e_;
-//            if (typeValue_.equalsIgnoreCase(long.class.getName())) {
-//                class_ = long.class;
-//            } else if (typeValue_.equalsIgnoreCase(int.class.getName())) {
-//                class_ = int.class;
-//            } else if (typeValue_.equalsIgnoreCase(short.class.getName())) {
-//                class_ = short.class;
-//            } else if (typeValue_.equalsIgnoreCase(byte.class.getName())) {
-//                class_ = byte.class;
-//            } else if (typeValue_.equalsIgnoreCase(char.class.getName())) {
-//                class_ = char.class;
-//            } else if (typeValue_.equalsIgnoreCase(float.class.getName())) {
-//                class_ = float.class;
-//            } else if (typeValue_.equalsIgnoreCase(double.class.getName())) {
-//                class_ = double.class;
-//            } else if (typeValue_.equalsIgnoreCase(boolean.class.getName())) {
-//                class_ = boolean.class;
-//            } else {
-//                throw e_;
-//            }
-//        }
         listSerial_.array = Array.newInstance(class_, XmlParser.childrenElements(_node).size());
         Node field_ = map_.getNamedItem(FIELD);
         if (field_ != null) {
@@ -181,32 +133,6 @@ final class ArraySerial extends TemplateSerial {
             node_.setAttribute(KEY, EMPTY_STRING);
         }
         node_.setAttribute(ELEMENT_TYPE, array.getClass().getComponentType().getName());
-//        if (array instanceof long[]) {
-//            node_.setAttribute(ELEMENT_TYPE, long.class.getName());
-//        } else if (array instanceof int[]) {
-//            node_.setAttribute(ELEMENT_TYPE, int.class.getName());
-//        } else if (array instanceof short[]) {
-//            node_.setAttribute(ELEMENT_TYPE, short.class.getName());
-//        } else if (array instanceof byte[]) {
-//            node_.setAttribute(ELEMENT_TYPE, byte.class.getName());
-//        } else if (array instanceof float[]) {
-//            node_.setAttribute(ELEMENT_TYPE, float.class.getName());
-//        } else if (array instanceof double[]) {
-//            node_.setAttribute(ELEMENT_TYPE, double.class.getName());
-//        } else if (array instanceof char[]) {
-//            node_.setAttribute(ELEMENT_TYPE, char.class.getName());
-//        } else if (array instanceof boolean[]) {
-//            node_.setAttribute(ELEMENT_TYPE, boolean.class.getName());
-//        } else {
-//            String type_ = array.getClass().getName();
-//            if (type_.startsWith(MULT_ARRAY_BEGIN)) {
-//                //array with some dimensions
-//                node_.setAttribute(ELEMENT_TYPE, type_.substring(1));
-//            } else {
-//                //array with one dimension
-//                node_.setAttribute(ELEMENT_TYPE, StringList.removeStrings(type_.substring(2), ARRAY_END));
-//            }
-//        }
         return node_;
 
     }
@@ -227,32 +153,6 @@ final class ArraySerial extends TemplateSerial {
             node_.setAttribute(KEY, EMPTY_STRING);
         }
         node_.setAttribute(ELEMENT_TYPE, array.getClass().getComponentType().getName());
-//        if (array instanceof long[]) {
-//            node_.setAttribute(ELEMENT_TYPE, long.class.getName());
-//        } else if (array instanceof int[]) {
-//            node_.setAttribute(ELEMENT_TYPE, int.class.getName());
-//        } else if (array instanceof short[]) {
-//            node_.setAttribute(ELEMENT_TYPE, short.class.getName());
-//        } else if (array instanceof byte[]) {
-//            node_.setAttribute(ELEMENT_TYPE, byte.class.getName());
-//        } else if (array instanceof float[]) {
-//            node_.setAttribute(ELEMENT_TYPE, float.class.getName());
-//        } else if (array instanceof double[]) {
-//            node_.setAttribute(ELEMENT_TYPE, double.class.getName());
-//        } else if (array instanceof char[]) {
-//            node_.setAttribute(ELEMENT_TYPE, char.class.getName());
-//        } else if (array instanceof boolean[]) {
-//            node_.setAttribute(ELEMENT_TYPE, boolean.class.getName());
-//        } else {
-//            String type_ = array.getClass().getName();
-//            if (type_.startsWith(MULT_ARRAY_BEGIN)) {
-//                //array with some dimensions
-//                node_.setAttribute(ELEMENT_TYPE, type_.substring(1));
-//            } else {
-//                //array with one dimension
-//                node_.setAttribute(ELEMENT_TYPE, StringList.removeStrings(type_.substring(2), ARRAY_END));
-//            }
-//        }
         return node_;
     }
 

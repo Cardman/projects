@@ -35,27 +35,6 @@ public final class UnaryOperation extends PrimitiveBoolOperation {
             a_.setObject(((Rate)o_).opposNb());
             setArgument(a_);
             return;
-//            if (o_ instanceof Character) {
-//                a_.setObject(-((Character)o_));
-//                setArgument(a_);
-//                return;
-//            }
-//            Number b_ = (Number) o_;
-//            if (b_ instanceof Integer) {
-//                a_.setObject(-((Integer)b_));
-//            } else if (b_ instanceof Long) {
-//                a_.setObject(-((Long)b_));
-//            } else if (b_ instanceof Byte) {
-//                a_.setObject(-((Byte)b_));
-//            } else if (b_ instanceof Short) {
-//                a_.setObject(-((Short)b_));
-//            } else if (b_ instanceof Double) {
-//                a_.setObject(-((Double)b_));
-//            } else if (b_ instanceof Float) {
-//                a_.setObject(-((Float)b_));
-//            }
-//            setArgument(a_);
-//            return;
         }
         a_.setObject(o_);
         setArgument(a_);

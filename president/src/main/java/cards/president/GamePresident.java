@@ -716,7 +716,7 @@ public final class GamePresident {
 //        }
 //        raison[0]="Donnez vos simples d'abord, puis les doubles,etc.";
 //        if(repartition_basse.size()>=nombre_carte_donner)
-//        {//On donne d'abord les simples les plus petits possibles puis les double,...
+//        {//On donne d'abord les simples les plus petits possibles puis les doubles,...
 //            for(int nombre=0;nombre<nombre_carte_donner;nombre--)
 //            {
 //                main.ajouter(nouvelle_main_2.carte(nouvelle_main.total()-nombre-1));
