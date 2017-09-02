@@ -98,6 +98,9 @@ public final class ClassBlock extends RootBlock implements UniqueRootedBlock {
         for (Block b: Classes.getDirectChildren(this)) {
             if (b instanceof MethodBlock) {
                 MethodBlock mCl_ = (MethodBlock) b;
+                if (mCl_.isStaticMethod()) {
+                    continue;
+                }
                 for (String s: all_) {
                     if (StringList.quickEq(s, Object.class.getName())) {
                         continue;
@@ -105,6 +108,9 @@ public final class ClassBlock extends RootBlock implements UniqueRootedBlock {
                     FctConstraints mDer_ = ((MethodBlock) b).getConstraints();
                     MethodBlock m_ = _context.getClasses().getMethodBody(s, mDer_);
                     if (m_ == null) {
+                        continue;
+                    }
+                    if (m_.isStaticMethod()) {
                         continue;
                     }
                     if (!_context.getClasses().canAccessMethod(getFullName(), s, mDer_)) {
@@ -136,18 +142,14 @@ public final class ClassBlock extends RootBlock implements UniqueRootedBlock {
         }
     }
 
-//    public void setupNextOverrides(Classes _classes) {
-//        for (Block b: Classes.getDirectChildren(this)) {
-//            if (b instanceof MethodBlock) {
-//                MethodBlock mDer_ = (MethodBlock) b;
-//                mDer_.getAllOverridenClasses().addAllElts(mDer_.getOverridenClasses());
-//                for (String s: mDer_.getOverridenClasses()) {
-//                    MethodBlock mBase_ = _classes.getMethodBody(s, mDer_.getConstraints());
-//                    mDer_.getAllOverridenClasses().addAllElts(mBase_.getAllOverridenClasses());
-//                }
-//            }
-//        }
-//    }
+    @Override
+    public StringList getDirectSuperTypes() {
+        StringList superTypes_ = new StringList();
+        superTypes_.add(superClass);
+        superTypes_.addAllElts(directInterfaces);
+        return superTypes_;
+    }
+
     @Override
     public AccessEnum getAccess() {
         return access;

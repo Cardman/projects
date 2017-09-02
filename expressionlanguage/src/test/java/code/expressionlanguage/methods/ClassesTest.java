@@ -1,9 +1,9 @@
 package code.expressionlanguage.methods;
-import org.junit.Ignore;
+import static code.util.opers.EquallableUtil.assertEq;
+import static org.junit.Assert.assertTrue;
+
 import org.junit.Test;
 
-import static org.junit.Assert.assertTrue;
-import static code.util.opers.EquallableUtil.assertEq;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.PrimitiveTypeUtil;
 import code.expressionlanguage.opers.util.FctConstraints;
@@ -15,51 +15,6 @@ import code.util.StringMap;
 @SuppressWarnings("static-method")
 public class ClassesTest {
     private static final String PUBLIC_ACCESS = "PUBLIC";
-
-    @Ignore
-    @Test
-    public void initTest() {
-        String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg'>\n";
-        xml_ += "<method access='"+PUBLIC_ACCESS+"' name='exmeth' class='"+PrimitiveTypeUtil.PRIM_INT+"'>\n";
-        xml_ += "<return expression='1i+1i'/>\n";
-        xml_ += "</method>\n";
-        xml_ += "</class>";
-        StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = new ContextEl();
-        files_.put("pkg/Ex."+Classes.EXT, xml_);
-        Classes classes_ = new Classes(files_, cont_);
-        cont_.setClasses(classes_);
-        classes_.validateClassBodies(cont_);
-        classes_.validateClassNames(cont_);
-        classes_.validateMethodNames(cont_);
-        classes_.validateMethodsId(cont_);
-        classes_.validateLocalVariableNamesId(cont_);
-        classes_.validateEl(cont_);
-    }
-
-    @Ignore
-    @Test
-    public void init2Test() {
-        String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg'>\n";
-        xml_ += "<method access='"+PUBLIC_ACCESS+"' name='exmeth' class='"+PrimitiveTypeUtil.PRIM_INT+"'>\n";
-        xml_ += "<declare var='t' class='"+PrimitiveTypeUtil.PRIM_LONG+"'/>\n";
-        xml_ += "<affect left='t;.' oper='=' right='8'/>\n";
-//        xml_ += "<return expression='1i+class(&quot;"+PrimitiveTypeUtil.PRIM_INT+"&quot;,t;.)'/>\n";
-        xml_ += "<return expression='1i+^class(&quot;"+PrimitiveTypeUtil.PRIM_INT+"&quot;,t;.)'/>\n";
-        xml_ += "</method>\n";
-        xml_ += "</class>";
-        StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = new ContextEl();
-        files_.put("pkg/Ex."+Classes.EXT, xml_);
-        Classes classes_ = new Classes(files_, cont_);
-        cont_.setClasses(classes_);
-        classes_.validateClassBodies(cont_);
-        classes_.validateClassNames(cont_);
-        classes_.validateMethodNames(cont_);
-        classes_.validateMethodsId(cont_);
-        classes_.validateLocalVariableNamesId(cont_);
-        classes_.validateEl(cont_);
-    }
 
     @Test
     public void getSortedSuperInterfaces1Test() {
@@ -204,7 +159,7 @@ public class ClassesTest {
         ContextEl context_ = unfullValidateOverridingMethods(files_);
         Classes classes_ = context_.getClasses();
         InterfaceBlock i_ = (InterfaceBlock) classes_.getClassBody("pkg.ExFour");
-        ObjectMap<FctConstraints, StringList> sgn_ = i_.getAllSignatures(classes_);
+        ObjectMap<FctConstraints, StringList> sgn_ = i_.getAllInstanceSignatures(classes_);
         sgn_ = RootBlock.getAllOverridingMethods(sgn_, classes_);
         assertEq(1, sgn_.size());
         assertEq(new StringList("pkg.ExFour"),sgn_.getVal(new FctConstraints("absgetter", new EqList<StringList>())));
@@ -231,7 +186,7 @@ public class ClassesTest {
         ContextEl context_ = unfullValidateOverridingMethods(files_);
         Classes classes_ = context_.getClasses();
         InterfaceBlock i_ = (InterfaceBlock) classes_.getClassBody("pkg.Ex");
-        ObjectMap<FctConstraints, StringList> sgn_ = i_.getAllSignatures(classes_);
+        ObjectMap<FctConstraints, StringList> sgn_ = i_.getAllInstanceSignatures(classes_);
         assertEq(1, sgn_.size());
         assertEq(new StringList("pkg.Ex","pkg.ExFour"),sgn_.getVal(new FctConstraints("absgetter", new EqList<StringList>())));
         sgn_ = RootBlock.getAllOverridingMethods(sgn_, classes_);
@@ -262,7 +217,7 @@ public class ClassesTest {
         ContextEl context_ = unfullValidateOverridingMethods(files_);
         Classes classes_ = context_.getClasses();
         InterfaceBlock i_ = (InterfaceBlock) classes_.getClassBody("pkg.Ex");
-        ObjectMap<FctConstraints, StringList> sgn_ = i_.getAllSignatures(classes_);
+        ObjectMap<FctConstraints, StringList> sgn_ = i_.getAllInstanceSignatures(classes_);
         assertEq(1, sgn_.size());
         assertEq(new StringList("pkg.ExTwo","pkg.ExThree"),sgn_.getVal(new FctConstraints("absgetter", new EqList<StringList>())));
         sgn_ = RootBlock.getAllOverridingMethods(sgn_, classes_);
@@ -276,17 +231,7 @@ public class ClassesTest {
         assertTrue(classes_.getErrorsDet().toString(), classes_.getErrorsDet().isEmpty());
         classes_.validateInheritingClasses(cont_);
         assertTrue(classes_.getErrorsDet().toString(), classes_.getErrorsDet().isEmpty());
-        classes_.validateClassBodies(cont_);
-        assertTrue(classes_.getErrorsDet().toString(), classes_.getErrorsDet().isEmpty());
-        classes_.validateClassNames(cont_);
-        assertTrue(classes_.getErrorsDet().toString(), classes_.getErrorsDet().isEmpty());
-        classes_.validateFieldNames(cont_);
-        assertTrue(classes_.getErrorsDet().toString(), classes_.getErrorsDet().isEmpty());
-        classes_.validateFieldsId(cont_);
-        assertTrue(classes_.getErrorsDet().toString(), classes_.getErrorsDet().isEmpty());
-        classes_.validateMethodNames(cont_);
-        assertTrue(classes_.getErrorsDet().toString(), classes_.getErrorsDet().isEmpty());
-        classes_.validateMethodsId(cont_);
+        classes_.validateIds(cont_);
         assertTrue(classes_.getErrorsDet().toString(), classes_.getErrorsDet().isEmpty());
         return cont_;
     }

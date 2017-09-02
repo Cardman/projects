@@ -101,6 +101,10 @@ public final class EnumBlock extends RootBlock implements UniqueRootedBlock {
         StringList all_ = getAllSuperClasses();
         for (Block b: Classes.getDirectChildren(this)) {
             if (b instanceof MethodBlock) {
+                MethodBlock mCl_ = (MethodBlock) b;
+                if (mCl_.isStaticMethod()) {
+                    continue;
+                }
                 for (String s: all_) {
                     if (StringList.quickEq(s, Object.class.getName())) {
                         continue;
@@ -108,6 +112,9 @@ public final class EnumBlock extends RootBlock implements UniqueRootedBlock {
                     FctConstraints mDer_ = ((MethodBlock) b).getConstraints();
                     MethodBlock m_ = _context.getClasses().getMethodBody(s, mDer_);
                     if (m_ == null) {
+                        continue;
+                    }
+                    if (m_.isStaticMethod()) {
                         continue;
                     }
                     if (_context.getClasses().canAccessMethod(getFullName(), s, mDer_)) {
@@ -127,6 +134,14 @@ public final class EnumBlock extends RootBlock implements UniqueRootedBlock {
                 }
             }
         }
+    }
+
+    @Override
+    public StringList getDirectSuperTypes() {
+        StringList superTypes_ = new StringList();
+        superTypes_.add(getSuperClass());
+        superTypes_.addAllElts(directInterfaces);
+        return superTypes_;
     }
 
     @Override

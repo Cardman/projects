@@ -3,11 +3,14 @@ package code.expressionlanguage.methods;
 import org.w3c.dom.Element;
 
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.methods.util.BadAccessMethod;
+import code.expressionlanguage.methods.util.UnexpectedTagName;
 import code.expressionlanguage.opers.util.FctConstraints;
 import code.util.CustList;
 import code.util.NatTreeMap;
 import code.util.ObjectMap;
 import code.util.StringList;
+import code.xml.RowCol;
 
 public final class InterfaceBlock extends RootBlock {
 
@@ -40,10 +43,47 @@ public final class InterfaceBlock extends RootBlock {
     }
 
     @Override
+    protected void validateClassNames(ContextEl _context) {
+        CustList<Block> bl_ = Classes.getDirectChildren(this);
+        for (Block b: bl_) {
+            if (b instanceof MethodBlock) {
+                MethodBlock m_ = (MethodBlock) b;
+                if (m_.getAccess() != AccessEnum.PUBLIC) {
+                    //TODO protected and package method cases
+                    BadAccessMethod err_;
+                    err_ = new BadAccessMethod();
+                    err_.setFileName(getFullName());
+                    err_.setRc(m_.getAttributes().getVal(ATTRIBUTE_ACCESS));
+                    err_.setId(m_.getId());
+                    _context.getClasses().getErrorsDet().add(err_);
+                }
+                continue;
+            }
+            if (b instanceof InfoBlock) {
+                continue;
+            }
+            if (b instanceof AloneBlock) {
+                continue;
+            }
+            RowCol where_ = ((Block)b).getRowCol(0, _context.getTabWidth(), EMPTY_STRING);
+            String tagName_ = ((Block)b).getTagName();
+            UnexpectedTagName unexp_ = new UnexpectedTagName();
+            unexp_.setFileName(getFullName());
+            unexp_.setFoundTag(tagName_);
+            unexp_.setRc(where_);
+            _context.getClasses().getErrorsDet().add(unexp_);
+        }
+    }
+
+    @Override
     public void setupBasicOverrides(ContextEl _context) {
         StringList all_ = getAllSuperClasses();
         for (Block b: Classes.getDirectChildren(this)) {
             if (b instanceof MethodBlock) {
+                MethodBlock mCl_ = (MethodBlock) b;
+                if (mCl_.isStaticMethod()) {
+                    continue;
+                }
                 for (String s: all_) {
                     if (StringList.quickEq(s, Object.class.getName())) {
                         continue;
@@ -51,6 +91,9 @@ public final class InterfaceBlock extends RootBlock {
                     FctConstraints mDer_ = ((MethodBlock) b).getConstraints();
                     MethodBlock m_ = _context.getClasses().getMethodBody(s, mDer_);
                     if (m_ == null) {
+                        continue;
+                    }
+                    if (m_.isStaticMethod()) {
                         continue;
                     }
                     if (_context.getClasses().canAccessMethod(getFullName(), s, mDer_)) {
@@ -70,6 +113,11 @@ public final class InterfaceBlock extends RootBlock {
                 }
             }
         }
+    }
+
+    @Override
+    public StringList getDirectSuperTypes() {
+        return new StringList(superInterfaces);
     }
 
     @Override

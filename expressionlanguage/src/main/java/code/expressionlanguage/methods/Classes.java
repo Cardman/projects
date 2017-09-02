@@ -12,30 +12,17 @@ import code.expressionlanguage.methods.exceptions.AnalyzingErrorsException;
 import code.expressionlanguage.methods.exceptions.BadClassNameException;
 import code.expressionlanguage.methods.exceptions.BadFileNameException;
 import code.expressionlanguage.methods.exceptions.UnknownBlockException;
-import code.expressionlanguage.methods.util.AbstractMethod;
 import code.expressionlanguage.methods.util.BadAccessClass;
 import code.expressionlanguage.methods.util.BadAccessMethod;
 import code.expressionlanguage.methods.util.BadClassName;
-import code.expressionlanguage.methods.util.BadFieldName;
 import code.expressionlanguage.methods.util.BadFileName;
 import code.expressionlanguage.methods.util.BadInheritedClass;
-import code.expressionlanguage.methods.util.BadMethodName;
-import code.expressionlanguage.methods.util.BadNumberArgMethod;
-import code.expressionlanguage.methods.util.BadParamName;
-import code.expressionlanguage.methods.util.BadReturnTypeInherit;
 import code.expressionlanguage.methods.util.BadVariableName;
 import code.expressionlanguage.methods.util.ClassEdge;
 import code.expressionlanguage.methods.util.DeadCodeMethod;
-import code.expressionlanguage.methods.util.DuplicateField;
-import code.expressionlanguage.methods.util.DuplicateMethod;
-import code.expressionlanguage.methods.util.DuplicateParamName;
 import code.expressionlanguage.methods.util.EqualsEl;
-import code.expressionlanguage.methods.util.FinalMethod;
 import code.expressionlanguage.methods.util.FoundErrorInterpret;
-import code.expressionlanguage.methods.util.IncompatibilityReturnType;
 import code.expressionlanguage.methods.util.MissingReturnMethod;
-import code.expressionlanguage.methods.util.ReservedMethod;
-import code.expressionlanguage.methods.util.StaticInstanceOverriding;
 import code.expressionlanguage.methods.util.UnexpectedTagName;
 import code.expressionlanguage.methods.util.UnknownClassName;
 import code.expressionlanguage.opers.Calculation;
@@ -44,7 +31,6 @@ import code.expressionlanguage.opers.OperationNode;
 import code.expressionlanguage.opers.util.ClassCategory;
 import code.expressionlanguage.opers.util.ClassField;
 import code.expressionlanguage.opers.util.ClassMetaInfo;
-import code.expressionlanguage.opers.util.ClassMethodId;
 import code.expressionlanguage.opers.util.ClassName;
 import code.expressionlanguage.opers.util.ConstructorMetaInfo;
 import code.expressionlanguage.opers.util.FctConstraints;
@@ -273,27 +259,7 @@ public final class Classes {
             if (!classes_.errorsDet.isEmpty()) {
                 throw new AnalyzingErrorsException(classes_.errorsDet);
             }
-            classes_.validateClassBodies(_context);
-            if (!classes_.errorsDet.isEmpty()) {
-                throw new AnalyzingErrorsException(classes_.errorsDet);
-            }
-            classes_.validateClassNames(_context);
-            if (!classes_.errorsDet.isEmpty()) {
-                throw new AnalyzingErrorsException(classes_.errorsDet);
-            }
-            classes_.validateFieldNames(_context);
-            if (!classes_.errorsDet.isEmpty()) {
-                throw new AnalyzingErrorsException(classes_.errorsDet);
-            }
-            classes_.validateFieldsId(_context);
-            if (!classes_.errorsDet.isEmpty()) {
-                throw new AnalyzingErrorsException(classes_.errorsDet);
-            }
-            classes_.validateMethodNames(_context);
-            if (!classes_.errorsDet.isEmpty()) {
-                throw new AnalyzingErrorsException(classes_.errorsDet);
-            }
-            classes_.validateMethodsId(_context);
+            classes_.validateIds(_context);
             if (!classes_.errorsDet.isEmpty()) {
                 throw new AnalyzingErrorsException(classes_.errorsDet);
             }
@@ -796,511 +762,26 @@ public final class Classes {
             }
         }
     }
-    public void validateClassNames(ContextEl _context) {
+    public void validateIds(ContextEl _context) {
         PageEl page_ = new PageEl();
         _context.clearPages();
         _context.addPage(page_);
-        for (EntryCust<ClassName, RootBlock> c: classesBodies.entryList()) {
-            String className_ = c.getKey().getName();
-            CustList<Block> bl_ = getSortedDescNodes(c.getValue());
-            for (Block e: bl_) {
-                Block b_ = (Block) e;
-                for (EntryCust<String, String> n: b_.getClassNames().entryList()) {
-                    String classNameLoc_ = n.getValue();
-                    try {
-                        String base_ = PrimitiveTypeUtil.getQuickComponentBaseType(classNameLoc_).getComponent();
-                        if (classesBodies.contains(new ClassName(base_, false))) {
-                            continue;
-                        }
-                        if (!StringList.quickEq(classNameLoc_, OperationNode.VOID_RETURN)) {
-                            if (classNameLoc_.startsWith(PrimitiveTypeUtil.PRIM)) {
-                                Class<?> cl_ = ConstClasses.getPrimitiveClass(classNameLoc_.substring(1));
-                                if (cl_ == null) {
-                                    throw new RuntimeClassNotFoundException(classNameLoc_);
-                                }
-                            } else {
-                                classNameLoc_ = PrimitiveTypeUtil.getArrayClass(classNameLoc_);
-                                ConstClasses.classForNameNotInit(classNameLoc_);
-                            }
-                        }
-                    } catch (RuntimeClassNotFoundException _0) {
-                        UnknownClassName un_ = new UnknownClassName();
-                        un_.setClassName(classNameLoc_);
-                        un_.setFileName(className_);
-                        un_.setRc(b_.getRowCol(0, _context.getTabWidth(), n.getKey()));
-                        errorsDet.add(un_);
-                    }
-                }
-            }
-        }
-    }
-    //validate method names
-    public void validateFieldNames(ContextEl _context) {
-        PageEl page_ = new PageEl();
-        _context.clearPages();
-        _context.addPage(page_);
-        for (EntryCust<ClassName, RootBlock> c: classesBodies.entryList()) {
-            String className_ = c.getKey().getName();
-            CustList<Block> bl_ = getDirectChildren(c.getValue());
-            for (Block b: bl_) {
-                if (b instanceof InfoBlock) {
-                    InfoBlock m_ = (InfoBlock) b;
-                    String name_ = m_.getFieldName();
-                    if (!StringList.isWord(name_)) {
-                        RowCol r_ = m_.getRowCol(0, _context.getTabWidth(), ATTRIBUTE_NAME);
-                        BadFieldName badMeth_ = new BadFieldName();
-                        badMeth_.setFileName(className_);
-                        badMeth_.setRc(r_);
-                        badMeth_.setName(name_);
-                        errorsDet.add(badMeth_);
-                    }
-                }
-            }
-        }
-    }
-    //validate method id and validate parameters names duplicates
-    public void validateFieldsId(ContextEl _context) {
-        PageEl page_ = new PageEl();
-        _context.clearPages();
-        _context.addPage(page_);
-        for (EntryCust<ClassName, RootBlock> c: classesBodies.entryList()) {
-            String className_ = c.getKey().getName();
-            StringList ids_ = new StringList();
-            CustList<Block> bl_ = getDirectChildren(c.getValue());
-            for (Block b: bl_) {
-                if (b instanceof InfoBlock) {
-                    InfoBlock method_ = (InfoBlock) b;
-                    String name_ = method_.getFieldName();
-                    for (String m: ids_) {
-                        if (StringList.quickEq(m, name_)) {
-                            RowCol r_ = method_.getRowCol(0, _context.getTabWidth(), EMPTY_STRING);
-                            DuplicateField duplicate_;
-                            duplicate_ = new DuplicateField();
-                            duplicate_.setRc(r_);
-                            duplicate_.setFileName(className_);
-                            duplicate_.setId(name_);
-                            errorsDet.add(duplicate_);
-                        }
-                    }
-                    ids_.add(name_);
-                }
-            }
-        }
-    }
-    //validate method names
-    public void validateMethodNames(ContextEl _context) {
-        PageEl page_ = new PageEl();
-        _context.clearPages();
-        _context.addPage(page_);
-        for (EntryCust<ClassName, RootBlock> c: classesBodies.entryList()) {
-            String className_ = c.getKey().getName();
-            CustList<Block> bl_ = getDirectChildren(c.getValue());
-            for (Block b: bl_) {
-                if (b instanceof MethodBlock) {
-                    MethodBlock m_ = (MethodBlock) b;
-                    String name_ = m_.getName();
-                    if (!StringList.isWord(name_) || m_.isConcreteInstanceDerivableMethod() != m_.isNormalMethod()) {
-                        RowCol r_ = m_.getRowCol(0, _context.getTabWidth(), ATTRIBUTE_NAME);
-                        BadMethodName badMeth_ = new BadMethodName();
-                        badMeth_.setFileName(className_);
-                        badMeth_.setRc(r_);
-                        badMeth_.setName(name_);
-                        errorsDet.add(badMeth_);
-                    }
-                }
-            }
-        }
-    }
-    //validate method id and validate parameters names duplicates
-    public void validateMethodsId(ContextEl _context) {
-        PageEl page_ = new PageEl();
-        _context.clearPages();
-        _context.addPage(page_);
-        for (EntryCust<ClassName, RootBlock> c: classesBodies.entryList()) {
-            String className_ = c.getKey().getName();
-            EqList<FctConstraints> ids_ = new EqList<FctConstraints>();
-            CustList<Block> bl_ = getDirectChildren(c.getValue());
-            for (Block b: bl_) {
-                if (b instanceof Returnable) {
-                    Returnable method_ = (Returnable) b;
-                    String name_ = method_.getName();
-                    StringList types_ = method_.getParametersTypes();
-                    int len_ = types_.size();
-                    EqList<StringList> constraints_ = new EqList<StringList>();
-                    EqList<ClassName> pTypes_ = new EqList<ClassName>();
-                    for (int i = CustList.FIRST_INDEX; i < len_; i++) {
-                        String n_ = types_.get(i);
-                        constraints_.add(new StringList(n_));
-                        pTypes_.add(new ClassName(n_, i + 1 == len_ && method_.isVarargs()));
-                    }
-                    if (name_.isEmpty()) {
-                        name_ = className_;
-                    }
-                    FctConstraints fct_ = new FctConstraints(name_, constraints_);
-                    method_.setConstraints(fct_);
-                    MethodId id_ = new MethodId(name_, pTypes_);
-                    for (FctConstraints m: ids_) {
-                        if (m.eq(fct_)) {
-                            RowCol r_ = method_.getRowCol(0, _context.getTabWidth(), EMPTY_STRING);
-                            DuplicateMethod duplicate_;
-                            duplicate_ = new DuplicateMethod();
-                            duplicate_.setRc(r_);
-                            duplicate_.setFileName(className_);
-                            duplicate_.setId(id_);
-                            errorsDet.add(duplicate_);
-                        }
-                    }
-                    StringList l_ = method_.getParametersNames();
-                    if (l_.size() != len_) {
-                        BadNumberArgMethod b_;
-                        b_ = new BadNumberArgMethod();
-                        b_.setFileName(className_);
-                        b_.setRc(method_.getRowCol(0, _context.getTabWidth(), EMPTY_STRING));
-                        b_.setNbTypes(len_);
-                        b_.setNbVars(l_.size());
-                        b_.setId(id_);
-                        errorsDet.add(b_);
-                    }
-                    StringList seen_ = new StringList();
-                    int i_ = CustList.FIRST_INDEX;
-                    for (String v: l_) {
-                        String attr_ = ATTRIBUTE_VAR+i_;
-                        if (!StringList.isWord(v)) {
-                            BadParamName b_;
-                            b_ = new BadParamName();
-                            b_.setFileName(className_);
-                            b_.setRc(method_.getRowCol(0, _context.getTabWidth(), attr_));
-                            b_.setParamName(v);
-                            errorsDet.add(b_);
-                        } else if (seen_.containsStr(v)){
-                            DuplicateParamName b_;
-                            b_ = new DuplicateParamName();
-                            b_.setFileName(className_);
-                            b_.setRc(method_.getRowCol(0, _context.getTabWidth(), attr_));
-                            b_.setParamName(v);
-                            errorsDet.add(b_);
-                        } else {
-                            seen_.add(v);
-                        }
-                        i_++;
-                    }
-                    ids_.add(fct_);
-                }
-            }
+        for (String c: classesInheriting) {
+            ClassName idBase_ = new ClassName(c, false);
+            RootBlock bl_ = classesBodies.getVal(idBase_);
+            bl_.validateIds(_context);
         }
     }
     public void validateOverridingInherit(ContextEl _context) {
+        PageEl page_ = new PageEl();
+        _context.clearPages();
+        _context.addPage(page_);
         for (String c: classesInheriting) {
             ClassName idBase_ = new ClassName(c, false);
             RootBlock bl_ = classesBodies.getVal(idBase_);
             bl_.setupBasicOverrides(_context);
-        }
-        for (String c: classesInheriting) {
-            EqList<ClassMethodId> abstractMethods_ = new EqList<ClassMethodId>();
-            ClassName idBase_ = new ClassName(c, false);
-            RootBlock bl_ = classesBodies.getVal(idBase_);
-            boolean concreteClass_ = false;
-            if (bl_.mustImplement()) {
-                concreteClass_ = true;
-            }
-            StringList allSuperClass_ = bl_.getAllSuperClasses();
-            for (String s: allSuperClass_) {
-                ClassName idSuper_ = new ClassName(s, false);
-                Block superBl_ = classesBodies.getVal(idSuper_);
-                for (Block b: getDirectChildren(superBl_)) {
-                    if (b instanceof MethodBlock) {
-                        MethodBlock mDer_ = (MethodBlock) b;
-                        if (mDer_.isAbstractMethod()) {
-                            abstractMethods_.add(new ClassMethodId(idSuper_, mDer_.getConstraints()));
-                        }
-                    }
-                }
-            }
-            ObjectMap<FctConstraints, StringList> signatures_ = bl_.getAllSignatures(this);
-            ObjectMap<FctConstraints, String> localSignatures_ = bl_.getLocalSignatures(this);
-            ObjectMap<FctConstraints, StringList> ov_;
-            ov_ = RootBlock.getAllOverridingMethods(signatures_, this);
-            ObjectMap<FctConstraints, StringList> er_;
-            er_ = RootBlock.areCompatible(localSignatures_, ov_, this);
-            for (EntryCust<FctConstraints, StringList> e: er_.entryList()) {
-                for (String s: e.getValue()) {
-                    MethodBlock mDer_ = getMethodBody(s, e.getKey());
-                    IncompatibilityReturnType err_ = new IncompatibilityReturnType();
-                    err_.setFileName(c);
-                    err_.setRc(bl_.getRowCol(0, _context.getTabWidth(), ATTRIBUTE_NAME));
-                    err_.setReturnType(mDer_.getReturnType());
-                    err_.setMethod(mDer_.getId());
-                    err_.setParentClass(s);
-                    errorsDet.add(err_);
-                }
-            }
-            er_ = RootBlock.areModifierCompatible(ov_, this);
-            for (EntryCust<FctConstraints, StringList> e: er_.entryList()) {
-                for (String s: e.getValue()) {
-                    MethodBlock mDer_ = getMethodBody(s, e.getKey());
-                    IncompatibilityReturnType err_ = new IncompatibilityReturnType();
-                    err_.setFileName(c);
-                    err_.setRc(bl_.getRowCol(0, _context.getTabWidth(), ATTRIBUTE_NAME));
-                    err_.setReturnType(mDer_.getReturnType());
-                    err_.setMethod(mDer_.getId());
-                    err_.setParentClass(s);
-                    errorsDet.add(err_);
-                }
-            }
-            for (Block b: getDirectChildren((Block) bl_)) {
-                if (b instanceof MethodBlock) {
-                    MethodBlock mDer_ = (MethodBlock) b;
-                    FctConstraints id_ = mDer_.getConstraints();
-                    if (mDer_.isAbstractMethod()) {
-                        if (concreteClass_) {
-                            AbstractMethod err_;
-                            err_ = new AbstractMethod();
-                            err_.setFileName(c);
-                            err_.setRc(mDer_.getAttributes().getVal(ATTRIBUTE_NAME));
-                            err_.setSgn(id_.getSignature());
-                            err_.setClassName(c);
-                            errorsDet.add(err_);
-                        }
-                        if (mDer_.getFirstChild() != null) {
-                            AbstractMethod err_;
-                            err_ = new AbstractMethod();
-                            err_.setFileName(c);
-                            err_.setRc(mDer_.getAttributes().getVal(ATTRIBUTE_NAME));
-                            err_.setSgn(id_.getSignature());
-                            err_.setClassName(c);
-                            errorsDet.add(err_);
-                        }
-                    }
-                    String retDerive_ = mDer_.getReturnType();
-                    for (String o: mDer_.getOverridenClasses()) {
-                        MethodBlock mBase_ = getMethodBody(o, id_);
-                        String retBase_ = mBase_.getReturnType();
-                        if (mDer_.isStaticMethod()) {
-                            if (!mBase_.isStaticMethod()) {
-                                StaticInstanceOverriding err_;
-                                err_ = new StaticInstanceOverriding();
-                                err_.setFileName(c);
-                                err_.setRc(mDer_.getAttributes().getVal(ATTRIBUTE_MODIFIER));
-                                err_.setBaseClass(idBase_);
-                                err_.setMethodeId(mDer_.getId());
-                                err_.setStaticBaseMethod(false);
-                                errorsDet.add(err_);
-                            }
-                        } else {
-                            if (mBase_.isStaticMethod()) {
-                                StaticInstanceOverriding err_;
-                                err_ = new StaticInstanceOverriding();
-                                err_.setFileName(c);
-                                err_.setRc(mDer_.getAttributes().getVal(ATTRIBUTE_MODIFIER));
-                                err_.setBaseClass(idBase_);
-                                err_.setMethodeId(mDer_.getId());
-                                err_.setStaticBaseMethod(true);
-                                errorsDet.add(err_);
-                            } else if (mBase_.isFinalMethod()) {
-                                FinalMethod err_;
-                                err_ = new FinalMethod();
-                                err_.setFileName(c);
-                                err_.setRc(mDer_.getAttributes().getVal(ATTRIBUTE_NAME));
-                                err_.setClassName(o);
-                                err_.setId(mDer_.getId());
-                                errorsDet.add(err_);
-                            } else if (mDer_.getAccess().ordinal() > mBase_.getAccess().ordinal()) {
-                                BadAccessMethod err_;
-                                err_ = new BadAccessMethod();
-                                err_.setFileName(c);
-                                err_.setRc(mDer_.getAttributes().getVal(ATTRIBUTE_ACCESS));
-                                err_.setId(mDer_.getId());
-                                errorsDet.add(err_);
-                            } else if (StringList.quickEq(retBase_, OperationNode.VOID_RETURN)) {
-                                if (!StringList.quickEq(retDerive_, OperationNode.VOID_RETURN)) {
-                                    BadReturnTypeInherit err_;
-                                    err_ = new BadReturnTypeInherit();
-                                    err_.setFileName(c);
-                                    err_.setRc(mDer_.getAttributes().getVal(ATTRIBUTE_CLASS));
-                                    err_.setReturnType(retDerive_);
-                                    err_.setMethod(mDer_.getId());
-                                    err_.setParentClass(o);
-                                    errorsDet.add(err_);
-                                    //throw ex
-                                }
-                            } else if (!PrimitiveTypeUtil.canBeUseAsArgument(retBase_, retDerive_, this)) {
-                                //throw ex
-                                BadReturnTypeInherit err_;
-                                err_ = new BadReturnTypeInherit();
-                                err_.setFileName(c);
-                                err_.setRc(mDer_.getAttributes().getVal(ATTRIBUTE_CLASS));
-                                err_.setReturnType(retDerive_);
-                                err_.setMethod(mDer_.getId());
-                                err_.setParentClass(o);
-                                errorsDet.add(err_);
-                            }
-                        }
-                    }
-                }
-            }
-            if (concreteClass_) {
-                for (ClassMethodId m: abstractMethods_) {
-                    StringList allAssignable_ = new StringList(allSuperClass_);
-                    allAssignable_.add(c);
-                    boolean ok_ = false;
-                    for (String s: allAssignable_) {
-                        MethodBlock method_ = getMethodBody(s, m.getConstraints());
-                        if (method_ == null) {
-                            continue;
-                        }
-                        if (!method_.getAllOverridenClasses().containsStr(m.getClassName().getName())) {
-                            continue;
-                        }
-                        ok_ = true;
-                        break;
-                    }
-                    if (!ok_) {
-                        AbstractMethod err_;
-                        err_ = new AbstractMethod();
-                        err_.setFileName(c);
-                        err_.setClassName(m.getClassName().getName());
-                        err_.setRc(bl_.getRowCol(0, _context.getTabWidth(), ATTRIBUTE_NAME));
-                        err_.setSgn(m.getConstraints().getSignature());
-                        errorsDet.add(err_);
-                    }
-                }
-            }
-        }
-        for (String c: classesInheriting) {
-            ClassName idBase_ = new ClassName(c, false);
-            RootBlock bl_ = classesBodies.getVal(idBase_);
-            RootBlock u_ = bl_;
-            boolean concreteClass_ = false;
-            if (u_.mustImplement()) {
-                concreteClass_ = true;
-            }
-            ObjectMap<FctConstraints, StringList> signatures_;
-            signatures_ = new ObjectMap<FctConstraints, StringList>();
-            StringList allInterfaces_ = u_.getAllInterfaces();
-            for (String s: allInterfaces_) {
-                if (StringList.quickEq(s, Object.class.getName())) {
-                    continue;
-                }
-                ClassName idSuper_ = new ClassName(s, false);
-                InterfaceBlock superBl_ = (InterfaceBlock) classesBodies.getVal(idSuper_);
-                ObjectMap<FctConstraints, StringList> signaturesInt_;
-                signaturesInt_ = superBl_.getAllSignatures(this);
-                for (EntryCust<FctConstraints, StringList> m: signaturesInt_.entryList()) {
-                    if (!signatures_.contains(m.getKey())) {
-                        signatures_.put(m.getKey(), m.getValue());
-                    } else {
-                        signatures_.getVal(m.getKey()).addAllElts(m.getValue());
-                        signatures_.getVal(m.getKey()).removeDuplicates();
-                    }
-                }
-            }
-            ObjectMap<FctConstraints, StringList> ov_;
-            ov_ = RootBlock.getAllOverridingMethods(signatures_, this);
-            StringList allSuperClass_ = bl_.getAllSuperClasses();
-            StringList allAssSuperClass_ = new StringList(allSuperClass_);
-            allAssSuperClass_.add(c);
-            for (EntryCust<FctConstraints, StringList> e: ov_.entryList()) {
-                for (String s: allAssSuperClass_) {
-                    MethodBlock mDer_ = getMethodBody(s, e.getKey());
-                    if (mDer_ == null) {
-                        continue;
-                    }
-                    String retDerive_ = mDer_.getReturnType();
-                    if (mDer_.getAccess() != AccessEnum.PUBLIC) {
-                        BadAccessMethod err_;
-                        err_ = new BadAccessMethod();
-                        err_.setFileName(c);
-                        err_.setRc(mDer_.getAttributes().getVal(ATTRIBUTE_ACCESS));
-                        err_.setId(mDer_.getId());
-                        errorsDet.add(err_);
-                    } else if(mDer_.isStaticMethod()) {
-                        StaticInstanceOverriding err_;
-                        err_ = new StaticInstanceOverriding();
-                        err_.setFileName(c);
-                        err_.setRc(mDer_.getAttributes().getVal(ATTRIBUTE_MODIFIER));
-                        err_.setBaseClass(idBase_);
-                        err_.setMethodeId(mDer_.getId());
-                        err_.setStaticBaseMethod(false);
-                        errorsDet.add(err_);
-                    } else {
-                        for (String i: e.getValue()) {
-                            MethodBlock mBase_ = getMethodBody(i, e.getKey());
-                            String retBase_ = mBase_.getReturnType();
-                            if (mBase_.isFinalMethod()) {
-                                FinalMethod err_;
-                                err_ = new FinalMethod();
-                                err_.setFileName(c);
-                                err_.setRc(mDer_.getAttributes().getVal(ATTRIBUTE_NAME));
-                                err_.setClassName(c);
-                                err_.setId(mDer_.getId());
-                                errorsDet.add(err_);
-                            } else if (StringList.quickEq(retBase_, OperationNode.VOID_RETURN)) {
-                                if (!StringList.quickEq(retDerive_, OperationNode.VOID_RETURN)) {
-                                    BadReturnTypeInherit err_;
-                                    err_ = new BadReturnTypeInherit();
-                                    err_.setFileName(c);
-                                    err_.setRc(mDer_.getAttributes().getVal(ATTRIBUTE_CLASS));
-                                    err_.setReturnType(retDerive_);
-                                    err_.setMethod(mDer_.getId());
-                                    err_.setParentClass(i);
-                                    errorsDet.add(err_);
-                                    //throw ex
-                                }
-                            } else if (!PrimitiveTypeUtil.canBeUseAsArgument(retBase_, retDerive_, this)) {
-                                //throw ex
-                                BadReturnTypeInherit err_;
-                                err_ = new BadReturnTypeInherit();
-                                err_.setFileName(c);
-                                err_.setRc(mDer_.getAttributes().getVal(ATTRIBUTE_CLASS));
-                                err_.setReturnType(retDerive_);
-                                err_.setMethod(mDer_.getId());
-                                err_.setParentClass(i);
-                                errorsDet.add(err_);
-                            }
-                        }
-                    }
-                }
-            }
-            EqList<ClassMethodId> abstractMethods_;
-            abstractMethods_ = RootBlock.remainingMethodsToImplement(ov_, this);
-            if (concreteClass_) {
-                for (ClassMethodId m: abstractMethods_) {
-                    boolean ok_ = false;
-                    for (String s: allAssSuperClass_) {
-                        MethodBlock method_ = getMethodBody(s, m.getConstraints());
-                        if (method_ == null) {
-                            continue;
-                        }
-                        ok_ = true;
-                        break;
-                    }
-                    if (!ok_) {
-                        AbstractMethod err_;
-                        err_ = new AbstractMethod();
-                        err_.setFileName(c);
-                        err_.setClassName(m.getClassName().getName());
-                        err_.setRc(u_.getRowCol(0, _context.getTabWidth(), ATTRIBUTE_NAME));
-                        err_.setSgn(m.getConstraints().getSignature());
-                        errorsDet.add(err_);
-                    }
-                }
-            }
-            ObjectMap<FctConstraints, String> def_;
-            def_ = RootBlock.defaultMethods(signatures_, this);
-            for (EntryCust<FctConstraints, String> e: def_.entryList()) {
-                boolean addDefault_ = true;
-                for (String s: allAssSuperClass_) {
-                    MethodBlock m_ = getMethodBody(s, e.getKey());
-                    if (m_ != null) {
-                        addDefault_ = false;
-                        break;
-                    }
-                }
-                if (!addDefault_) {
-                    continue;
-                }
-                u_.getDefaultMethods().put(e.getKey(), e.getValue());
-            }
+            bl_.checkCompatibility(_context);
+            bl_.checkImplements(_context);
         }
     }
     public void validateClassesAccess(ContextEl _context) {
@@ -1776,7 +1257,8 @@ public final class Classes {
                     pTypes_.add(new ClassName(n_, i + 1 == len_ && method_.isVarargs()));
                 }
                 if (method_.getConstraints().eq(_methodId)) {
-                    return method_;                }
+                    return method_;
+                }
             }
         }
         return null;

@@ -689,7 +689,7 @@ public abstract class OperationNode implements SortedNode<OperationNode>, Operab
                 idRet_.setReturnType(methodsInst_.getVal(resInst_.getId().getConstraints()).getReturnType().getName());
                 return idRet_;
             }
-            if (_staticContext && _conf.isAmbigous()) {
+            if (!_staticContext && _conf.isAmbigous()) {
                 clCurName_ = _class.getName();
                 String trace_ = clCurName_+DOT+_name+PAR_LEFT;
                 StringList classesNames_ = new StringList();
@@ -731,7 +731,7 @@ public abstract class OperationNode implements SortedNode<OperationNode>, Operab
         if (foundInst_) {
             return toFoundMethod(_conf, resInst_);
         }
-        if (_staticContext && _conf.isAmbigous()) {
+        if (!_staticContext && _conf.isAmbigous()) {
             clCurName_ = _class.getName();
             String trace_ = clCurName_+DOT+_name+PAR_LEFT;
             StringList classesNames_ = new StringList();
@@ -813,24 +813,28 @@ public abstract class OperationNode implements SortedNode<OperationNode>, Operab
         }
         ObjectMap<FctConstraints, StringList> signatures_;
         signatures_ = new ObjectMap<FctConstraints, StringList>();
-        for (String s: superInts_) {
-            if (StringList.quickEq(s, Object.class.getName())) {
-                continue;
+        if (_static) {
+            ObjectMap<FctConstraints, String> signaturesInt_;
+            signaturesInt_ = intBl_.getLocalSignatures(classes_);
+            StringList subList_ = new StringList();
+            for (EntryCust<FctConstraints, String> m: signaturesInt_.entryList()) {
+                MethodBlock m_ = classes_.getMethodBody(clCurName_, m.getKey());
+                if (!m_.isStaticMethod()) {
+                    continue;
+                }
+                subList_.add(clCurName_);
+                signatures_.put(m.getKey(), subList_);
             }
-            InterfaceBlock superBl_ = (InterfaceBlock) classes_.getClassBody(s);
-            ObjectMap<FctConstraints, StringList> signaturesInt_;
-            signaturesInt_ = superBl_.getAllSignatures(classes_);
-            for (EntryCust<FctConstraints, StringList> m: signaturesInt_.entryList()) {
-                StringList subList_ = new StringList();
-                if (_static) {
-                    for (String i: m.getValue()) {
-                        MethodBlock m_ = classes_.getMethodBody(i, m.getKey());
-                        if (!m_.isStaticMethod()) {
-                            continue;
-                        }
-                        subList_.add(i);
-                    }
-                } else {
+        } else {
+            for (String s: superInts_) {
+                if (StringList.quickEq(s, Object.class.getName())) {
+                    continue;
+                }
+                InterfaceBlock superBl_ = (InterfaceBlock) classes_.getClassBody(s);
+                ObjectMap<FctConstraints, StringList> signaturesInt_;
+                signaturesInt_ = superBl_.getAllInstanceSignatures(classes_);
+                for (EntryCust<FctConstraints, StringList> m: signaturesInt_.entryList()) {
+                    StringList subList_ = new StringList();
                     for (String i: m.getValue()) {
                         MethodBlock m_ = classes_.getMethodBody(i, m.getKey());
                         if (m_.isStaticMethod()) {
@@ -838,18 +842,19 @@ public abstract class OperationNode implements SortedNode<OperationNode>, Operab
                         }
                         subList_.add(i);
                     }
-                }
-                if (subList_.isEmpty()) {
-                    continue;
-                }
-                if (!signatures_.contains(m.getKey())) {
-                    signatures_.put(m.getKey(), subList_);
-                } else {
-                    signatures_.getVal(m.getKey()).addAllElts(subList_);
-                    signatures_.getVal(m.getKey()).removeDuplicates();
+                    if (subList_.isEmpty()) {
+                        continue;
+                    }
+                    if (!signatures_.contains(m.getKey())) {
+                        signatures_.put(m.getKey(), subList_);
+                    } else {
+                        signatures_.getVal(m.getKey()).addAllElts(subList_);
+                        signatures_.getVal(m.getKey()).removeDuplicates();
+                    }
                 }
             }
         }
+        
         ObjectMap<FctConstraints, StringList> ov_;
         if (!_static) {
             ov_ = RootBlock.getAllOverridingMethods(signatures_, classes_);
@@ -1076,23 +1081,22 @@ public abstract class OperationNode implements SortedNode<OperationNode>, Operab
     private static ClassMethodIdResult getInterfaceMethod(ContextEl _cont, boolean _static, ClassArgumentMatching _class, String _name, ClassArgumentMatching... _argsClass) {
         Class<?> class_ = _class.getClazz();
         CustList<Method> possibleMethods_ = new CustList<Method>(class_.getMethods());
-        ClassMethodIdResult res_ = getResult(_cont, _static, _class, possibleMethods_, _name, _argsClass);
-        if (res_.getStatus() == SearchingMemberStatus.ZERO) {
-            return res_;
-        }
-        return res_;
+        return getResult(_cont, _static, _class, possibleMethods_, _name, _argsClass);
     }
     static ClassMethodIdResult getDeclaredMethodLoop(ContextEl _cont, boolean _static, ClassArgumentMatching _class,
             String _name, ClassArgumentMatching... _argsClass) {
         Class<?> class_ = _class.getClazz();
+        IdList<Class<?>> superTypes_ = new IdList<Class<?>>(class_);
         while (class_ != null) {
-            IdList<Method> possibleMethods_ = new IdList<Method>(class_.getDeclaredMethods());
-            for (Class<?> i: getSuperInterfaces(class_)) {
-                possibleMethods_.addAllElts(new CustList<Method>(i.getDeclaredMethods()));
-            }
+            superTypes_.add(class_);
+            superTypes_.addAllElts(getSuperInterfaces(class_));
+            class_ = class_.getSuperclass();
+        }
+        superTypes_.removeDuplicates();
+        for (Class<?> c: superTypes_) {
+            CustList<Method> possibleMethods_ = new CustList<Method>(c.getDeclaredMethods());
             ClassMethodIdResult res_ = getResult(_cont, _static, _class, possibleMethods_, _name, _argsClass);
             if (res_.getStatus() == SearchingMemberStatus.ZERO) {
-                class_ = class_.getSuperclass();
                 continue;
             }
             return res_;

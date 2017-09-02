@@ -58,4 +58,11 @@ public final class MethodInfo implements Parametrable {
         className = _className;
     }
 
+    @Override
+    public Class<?> getDeclaringClass() {
+        if (method == null) {
+            return null;
+        }
+        return method.getDeclaringClass();
+    }
 }

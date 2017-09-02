@@ -55,4 +55,12 @@ public final class ConstructorInfo implements Parametrable {
     public void setParameters(ParametersGroup _parameters) {
         parameters = _parameters;
     }
+
+    @Override
+    public Class<?> getDeclaringClass() {
+        if (constructor == null) {
+            return null;
+        }
+        return constructor.getDeclaringClass();
+    }
 }
