@@ -357,7 +357,7 @@ public final class Templates {
         }
         return true;
     }
-    private static EqList<StringList> getClassBounds(String _className, Classes _classes) {
+    static EqList<StringList> getClassBounds(String _className, Classes _classes) {
         StringList allTypes_ = StringList.getAllTypes(_className);
         String baseClass_ = PrimitiveTypeUtil.getArrayClass(allTypes_.first());
         Class<?> cl_ = ConstClasses.classForNameNotInit(baseClass_);

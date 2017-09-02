@@ -542,6 +542,20 @@ public class TemplatesTest {
     public void isCorrectTemplate39Test() {
         assertTrue(!Templates.isCorrectTemplate(ENUM_LIST, new StringMap<StringList>(),null));
     }
+    
+    @Test
+    public void isCorrectTemplate40Test() {
+        StringMap<StringList> t_ = new StringMap<StringList>();
+        t_.put("E", new StringList("java.math.BigInteger"));
+        assertTrue(!Templates.isCorrectTemplate(TEMPLATING+"<"+CUST_BIG_INT+",#E>", t_,null));
+    }
+
+    @Test
+    public void isCorrectTemplate41Test() {
+        StringMap<StringList> t_ = new StringMap<StringList>();
+        t_.put("E", new StringList(CUST_BIG_INT));
+        assertTrue(Templates.isCorrectTemplate(TEMPLATING+"<"+CUST_BIG_INT+",#E>", t_,null));
+    }
 
     @Test
     public void isCorrect1Test() {
