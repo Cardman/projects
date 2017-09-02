@@ -14,7 +14,7 @@ public abstract class MemberCallingsBlock extends BracedBlock implements Functio
     }
 
     @Override
-    public void checkBlocksTree(ContextEl _cont) {
+    public void checkFctBlocksTree(ContextEl _cont) {
         if (!(getParent() instanceof RootBlock)) {
             PageEl page_ = _cont.getLastPage();
             page_.setProcessingAttribute(EMPTY_STRING);
@@ -67,7 +67,7 @@ public abstract class MemberCallingsBlock extends BracedBlock implements Functio
     }
 
     @Override
-    public final void buildInstructions(ContextEl _cont) {
+    public final void buildFctInstructions(ContextEl _cont) {
         PageEl page_ = _cont.getLastPage();
         page_.setProcessingAttribute(EMPTY_STRING);
         page_.setOffset(0);
@@ -114,7 +114,7 @@ public abstract class MemberCallingsBlock extends BracedBlock implements Functio
     }
 
     @Override
-    public final void checkConstrCalls(ContextEl _cont) {
+    public final void checkFctConstrCalls(ContextEl _cont) {
         PageEl page_ = _cont.getLastPage();
         page_.setProcessingAttribute(EMPTY_STRING);
         page_.setOffset(0);

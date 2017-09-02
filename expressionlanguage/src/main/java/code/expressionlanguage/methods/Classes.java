@@ -1000,7 +1000,7 @@ public final class Classes {
             for (Block b: bl_) {
                 if (b instanceof Returnable) {
                     Returnable method_ = (Returnable) b;
-                    method_.checkBlocksTree(_context);
+                    method_.checkFctBlocksTree(_context);
                 }
                 if (b instanceof InfoBlock) {
                     InfoBlock method_ = (InfoBlock) b;
@@ -1008,7 +1008,7 @@ public final class Classes {
                 }
                 if (b instanceof AloneBlock) {
                     AloneBlock method_ = (AloneBlock) b;
-                    method_.checkBlocksTree(_context);
+                    method_.checkFctBlocksTree(_context);
                 }
             }
         }
@@ -1023,7 +1023,7 @@ public final class Classes {
                 if (b instanceof AloneBlock) {
                     page_.setGlobalClass(c.getKey().getName());
                     AloneBlock method_ = (AloneBlock) b;
-                    method_.buildInstructions(_context);
+                    method_.buildFctInstructions(_context);
                 }
                 if (b instanceof Returnable) {
                     page_.setGlobalClass(c.getKey().getName());
@@ -1038,7 +1038,7 @@ public final class Classes {
                         lv_.setClassName(c_);
                         page_.getParameters().put(p_, lv_);
                     }
-                    method_.buildInstructions(_context);
+                    method_.buildFctInstructions(_context);
                     page_.getParameters().clear();
                 }
             }
@@ -1054,12 +1054,12 @@ public final class Classes {
                 if (b instanceof AloneBlock) {
                     page_.setGlobalClass(c.getKey().getName());
                     AloneBlock method_ = (AloneBlock) b;
-                    method_.checkConstrCalls(_context);
+                    method_.checkFctConstrCalls(_context);
                 }
                 if (b instanceof Returnable) {
                     page_.setGlobalClass(c.getKey().getName());
                     Returnable method_ = (Returnable) b;
-                    method_.checkConstrCalls(_context);
+                    method_.checkFctConstrCalls(_context);
                 }
             }
         }

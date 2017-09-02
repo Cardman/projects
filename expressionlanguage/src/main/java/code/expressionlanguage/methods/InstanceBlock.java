@@ -14,14 +14,14 @@ public final class InstanceBlock extends MemberCallingsBlock implements AloneBlo
     }
 
     @Override
-    public void checkBlocksTree(ContextEl _cont) {
+    public void checkFctBlocksTree(ContextEl _cont) {
         if (getFirstChild() == null) {
             PageEl page_ = _cont.getLastPage();
             page_.setProcessingAttribute(EMPTY_STRING);
             page_.setOffset(0);
             throw new BadStaticException(_cont.joinPages());
         }
-        super.checkBlocksTree(_cont);
+        super.checkFctBlocksTree(_cont);
     }
 
     @Override
