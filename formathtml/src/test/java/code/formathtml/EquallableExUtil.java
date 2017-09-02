@@ -1,11 +1,10 @@
 package code.formathtml;
 
 import code.formathtml.classes.EnumNumber;
-import code.util.StringList;
 
 public class EquallableExUtil {
 
-    private static final String EXPECTED_BUT_WAS = "expected:{0} but was:{1}";
+    private static final String DIFF = " != ";
 
     private EquallableExUtil() {
     }
@@ -14,12 +13,20 @@ public class EquallableExUtil {
         if (_expected == _result) {
             return;
         }
+        if (onlyOneNull(_expected, _result)) {
+            throw new AssertionError(null);
+        }
         assertError(_expected, _result);
     }
 
+    private static boolean onlyOneNull(Object _expected, Object _result) {
+        if (_expected == null) {
+            return _result != null;
+        }
+        return _result == null;
+    }
+
     private static void assertError(Object _expected, Object _result) {
-        String message_;
-        message_ = StringList.simpleFormat(EXPECTED_BUT_WAS, _expected, _result);
-        throw new AssertionError(message_);
+        throw new AssertionError(_expected+DIFF+_result);
     }
 }

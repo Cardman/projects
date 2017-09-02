@@ -7,10 +7,8 @@ import code.util.GenericNumbers;
 import code.util.StringList;
 
 public final class EquallableUtil {
-    private static final String EXPECTED_NULL = "the result is not null.";
-    private static final String EXPECTED_NOT_NULL = "the result is null.";
 
-    private static final String EXPECTED_BUT_WAS = "expected:{0} but was:{1}";
+    private static final String DIFF = " != ";
 
     private EquallableUtil() {
     }
@@ -100,18 +98,13 @@ public final class EquallableUtil {
             return true;
         }
         if (onlyOneNull(_expected, _result)) {
-            if (_expected == null) {
-                throw new AssertionError(EXPECTED_NULL);
-            }
-            throw new AssertionError(EXPECTED_NOT_NULL);
+            throw new AssertionError(null);
         }
         return false;
     }
 
     private static void assertError(Object _expected, Object _result) {
-        String message_;
-        message_ = StringList.simpleFormat(EXPECTED_BUT_WAS, _expected, _result);
-        throw new AssertionError(message_);
+        throw new AssertionError(_expected+DIFF+_result);
     }
 
     private static boolean allNull(Object _expected, Object _result) {
