@@ -2179,7 +2179,7 @@ public class DataMap {
         link2_.setFileName(_imgName2);
         links2_.put(_coordsPlace.getLevel().getPoint(), link2_);
     }
-    public void joinCavePlace(Coords _coordsCave,Coords _coordsPlace, String _imgName1, String _imgName2, Direction... _dirs) {
+    public void joinCavePlaceDirs(Coords _coordsCave,Coords _coordsPlace, String _imgName1, String _imgName2, Direction... _dirs) {
         if (!isEmptyForAdding(_coordsCave)) {
             return;
         }

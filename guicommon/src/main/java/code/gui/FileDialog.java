@@ -65,11 +65,11 @@ public abstract class FileDialog extends Dialog {
 
     protected FileDialog(){
     }
-    protected void setFileDialog(GroupFrame _w,String _language, boolean _currentFolderRoot, String _extension, String _folder, String... _excludedFolders) {
-        init(_w,_language,_currentFolderRoot, true, _extension, _folder, _excludedFolders);
+    protected void setFileDialogByFrame(GroupFrame _w,String _language, boolean _currentFolderRoot, String _extension, String _folder, String... _excludedFolders) {
+        initByFrame(_w,_language,_currentFolderRoot, true, _extension, _folder, _excludedFolders);
     }
 
-    protected void init(GroupFrame _w,String _language, boolean _currentFolderRoot, boolean _addTypingFileName, String _extension, String _folder, String... _excludedFolders) {
+    protected void initByFrame(GroupFrame _w,String _language, boolean _currentFolderRoot, boolean _addTypingFileName, String _extension, String _folder, String... _excludedFolders) {
         //super(_w,true);
         setDialogIcon(_w);
         setModal(true);
@@ -81,10 +81,10 @@ public abstract class FileDialog extends Dialog {
     }
 
     protected void setFileDialog(Dialog _w,String _language, boolean _currentFolderRoot, String _extension, String _folder, String... _excludedFolders) {
-        init(_w,_language,_currentFolderRoot, true, _extension, _folder, _excludedFolders);
+        initByDialog(_w,_language,_currentFolderRoot, true, _extension, _folder, _excludedFolders);
     }
 
-    protected void init(Dialog _w,String _language, boolean _currentFolderRoot, boolean _addTypingFileName, String _extension, String _folder, String... _excludedFolders) {
+    protected void initByDialog(Dialog _w,String _language, boolean _currentFolderRoot, boolean _addTypingFileName, String _extension, String _folder, String... _excludedFolders) {
         //super(_w,true);
         setDialogIcon(_w);
         setModal(true);

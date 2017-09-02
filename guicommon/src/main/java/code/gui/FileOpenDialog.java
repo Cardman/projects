@@ -55,7 +55,7 @@ public final class FileOpenDialog extends FileDialog implements SingleFileSelect
         searchingPanel.setLayout(new BoxLayout(searchingPanel, BoxLayout.PAGE_AXIS));
     }
     public static void setFileOpenDialog(GroupFrame _w,String _language,boolean _currentFolderRoot, String _extension, String _folder, String... _excludedFolders) {
-        DIALOG.setFileDialog(_w, _language, _currentFolderRoot, _extension, _folder, _excludedFolders);
+        DIALOG.setFileDialogByFrame(_w, _language, _currentFolderRoot, _extension, _folder, _excludedFolders);
 //        DIALOG.initFileOpenDialog(_w, _language, _currentFolderRoot, _extension, _folder, _excludedFolders);
         DIALOG.initFileOpenDialog();
     }

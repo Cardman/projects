@@ -60,7 +60,7 @@ public final class FileSaveDialog extends FileDialog implements SingleFileSelect
     }
 
     public static void setFileSaveDialog(GroupFrame _w,String _language,boolean _currentFolderRoot, String _extension, String _folder, String... _excludedFolders) {
-        DIALOG.setFileDialog(_w,_language,_currentFolderRoot,_extension, _folder, _excludedFolders);
+        DIALOG.setFileDialogByFrame(_w,_language,_currentFolderRoot,_extension, _folder, _excludedFolders);
         DIALOG.initSaveDialog();
     }
 

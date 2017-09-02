@@ -521,7 +521,7 @@ public final class FctOperation extends InvokingOperation {
                         }
                     }
                 } else {
-                    classNameFound_ = getDeclaredCustMethod(_conf, arg_.getObjectClassName(), interfaceChoice, classMethodId);
+                    classNameFound_ = getDynDeclaredCustMethod(_conf, arg_.getObjectClassName(), interfaceChoice, classMethodId);
                 }
             } else {
                 ClassMetaInfo custClass_ = null;

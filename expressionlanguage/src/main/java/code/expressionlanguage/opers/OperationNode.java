@@ -597,13 +597,13 @@ public abstract class OperationNode implements SortedNode<OperationNode>, Operab
         }
         throw new AmbiguousChoiceCallingException(errors_.join(RETURN_LINE)+RETURN_LINE+_conf.joinPages());
     }
-    static String getDeclaredCustMethod(ContextEl _conf, String _realClassName, boolean _interface, ClassMethodId _idMeth) {
+    static String getDynDeclaredCustMethod(ContextEl _conf, String _realClassName, boolean _interface, ClassMethodId _idMeth) {
         Classes classes_ = _conf.getClasses();
         ClassMetaInfo custClass_ = null;
         String clCurName_ = _realClassName;
         custClass_ = classes_.getClassMetaInfo(clCurName_);
         if (_interface) {
-            return getDeclaredCustMethodByInterface(_conf, _realClassName, _idMeth);
+            return getDynDeclaredCustMethodByInterface(_conf, _realClassName, _idMeth);
         }
         FctConstraints id_ = _idMeth.getConstraints();
         String stopClass_ = _idMeth.getClassName().getName();
@@ -842,7 +842,7 @@ public abstract class OperationNode implements SortedNode<OperationNode>, Operab
         }
         return methods_;
     }
-    private static String getDeclaredCustMethodByInterface(ContextEl _conf, String _realClassName, ClassMethodId _idMeth) {
+    private static String getDynDeclaredCustMethodByInterface(ContextEl _conf, String _realClassName, ClassMethodId _idMeth) {
         Classes classes_ = _conf.getClasses();
         ClassMetaInfo custClass_ = null;
         String clCurName_ = _realClassName;
