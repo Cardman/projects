@@ -2119,6 +2119,39 @@ public class ElUtilTest {
         assertEq(1, c_.getStrings().size());
         assertEq("cont", c_.getStrings().first());
     }
+
+    @Test
+    public void processAffect19Test() {
+        ContextEl context_ = new ContextEl();
+        setupAccessValue(context_);
+        addImportingPage(context_);
+        StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
+        LocalVariable lv_ = new LocalVariable();
+        ArrayContainer c_ = new ArrayContainer();
+        lv_.setStruct(new Struct(c_));
+        lv_.setClassName(ArrayContainer.class.getName());
+        localVars_.put("v", lv_);
+        context_.getLastPage().getLocalVars().putAllMap(localVars_);
+        ElUtil.processAffect("","","","v;.getArray()[0i]", "1i", "=",context_);
+        assertEq(1, c_.getArray()[0]);
+    }
+
+    @Test
+    public void processAffect20Test() {
+        ContextEl context_ = new ContextEl();
+        setupAccessValue(context_);
+        addImportingPage(context_);
+        StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
+        LocalVariable lv_ = new LocalVariable();
+        ArrayContainer c_ = new ArrayContainer();
+        lv_.setStruct(new Struct(c_));
+        lv_.setClassName(ArrayContainer.class.getName());
+        localVars_.put("v", lv_);
+        context_.getLastPage().getLocalVars().putAllMap(localVars_);
+        ElUtil.processAffect("","","","v;.getCompo()[0i].getArray()[0i]", "1i", "=",context_);
+        assertEq(1, c_.getCompo()[0].getArray()[0]);
+    }
+
     @Test(expected=FinalMemberException.class)
     public void processAffect1FailTest() {
         ContextEl context_ = new ContextEl();

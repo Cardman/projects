@@ -934,15 +934,14 @@ public class ElResolverTest {
         Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
         NatTreeMap<Integer,String> opers_ = seq_.getOperators();
-        assertEq(2, opers_.size());
-        assertEq("[", opers_.getVal(6));
-        assertEq("]", opers_.getVal(8));
+        assertEq(1, opers_.size());
+        assertEq("", opers_.getVal(5));
         NatTreeMap<Integer,String> values_ = seq_.getValues();
         assertEq(2, values_.size());
-        assertEq("var;.f", values_.getVal(0));
-        assertEq("0", values_.getVal(7));
+        assertEq("var;.", values_.getVal(0));
+        assertEq("f[0]", values_.getVal(5));
         assertTrue(!seq_.isFirstOpt());
-        assertEq(ElResolver.ARR_OPER_PRIO, seq_.getPriority());
+        assertEq(ElResolver.DOT_PRIO, seq_.getPriority());
     }
 
     @Test
@@ -955,15 +954,14 @@ public class ElResolverTest {
         Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
         NatTreeMap<Integer,String> opers_ = seq_.getOperators();
-        assertEq(2, opers_.size());
-        assertEq("[", opers_.getVal(7));
-        assertEq("]", opers_.getVal(9));
+        assertEq(1, opers_.size());
+        assertEq("", opers_.getVal(6));
         NatTreeMap<Integer,String> values_ = seq_.getValues();
         assertEq(2, values_.size());
-        assertEq("var;.;f", values_.getVal(0));
-        assertEq("0", values_.getVal(8));
+        assertEq("var;.;", values_.getVal(0));
+        assertEq("f[0]", values_.getVal(6));
         assertTrue(!seq_.isFirstOpt());
-        assertEq(ElResolver.ARR_OPER_PRIO, seq_.getPriority());
+        assertEq(ElResolver.DOT_PRIO, seq_.getPriority());
     }
 
     @Test
@@ -976,15 +974,14 @@ public class ElResolverTest {
         Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
         NatTreeMap<Integer,String> opers_ = seq_.getOperators();
-        assertEq(2, opers_.size());
-        assertEq("[", opers_.getVal(6));
-        assertEq("]", opers_.getVal(8));
+        assertEq(1, opers_.size());
+        assertEq("", opers_.getVal(5));
         NatTreeMap<Integer,String> values_ = seq_.getValues();
         assertEq(2, values_.size());
-        assertEq("var;;f", values_.getVal(0));
-        assertEq("0", values_.getVal(7));
+        assertEq("var;;", values_.getVal(0));
+        assertEq("f[0]", values_.getVal(5));
         assertTrue(!seq_.isFirstOpt());
-        assertEq(ElResolver.ARR_OPER_PRIO, seq_.getPriority());
+        assertEq(ElResolver.DOT_PRIO, seq_.getPriority());
     }
 
     @Test
@@ -997,15 +994,14 @@ public class ElResolverTest {
         Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
         NatTreeMap<Integer,String> opers_ = seq_.getOperators();
-        assertEq(2, opers_.size());
-        assertEq("[", opers_.getVal(5));
-        assertEq("]", opers_.getVal(7));
+        assertEq(1, opers_.size());
+        assertEq("", opers_.getVal(4));
         NatTreeMap<Integer,String> values_ = seq_.getValues();
         assertEq(2, values_.size());
-        assertEq("var;f", values_.getVal(0));
-        assertEq("0", values_.getVal(6));
+        assertEq("var;", values_.getVal(0));
+        assertEq("f[0]", values_.getVal(4));
         assertTrue(!seq_.isFirstOpt());
-        assertEq(ElResolver.ARR_OPER_PRIO, seq_.getPriority());
+        assertEq(ElResolver.DOT_PRIO, seq_.getPriority());
     }
 
     @Test
@@ -1018,15 +1014,14 @@ public class ElResolverTest {
         Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
         NatTreeMap<Integer,String> opers_ = seq_.getOperators();
-        assertEq(2, opers_.size());
-        assertEq("[", opers_.getVal(8));
-        assertEq("]", opers_.getVal(10));
+        assertEq(1, opers_.size());
+        assertEq("", opers_.getVal(5));
         NatTreeMap<Integer,String> values_ = seq_.getValues();
         assertEq(2, values_.size());
-        assertEq("var;.f()", values_.getVal(0));
-        assertEq("0", values_.getVal(9));
+        assertEq("var;.", values_.getVal(0));
+        assertEq("f()[0]", values_.getVal(5));
         assertTrue(!seq_.isFirstOpt());
-        assertEq(ElResolver.ARR_OPER_PRIO, seq_.getPriority());
+        assertEq(ElResolver.DOT_PRIO, seq_.getPriority());
     }
 
     @Test
@@ -1039,15 +1034,14 @@ public class ElResolverTest {
         Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
         NatTreeMap<Integer,String> opers_ = seq_.getOperators();
-        assertEq(2, opers_.size());
-        assertEq("[", opers_.getVal(9));
-        assertEq("]", opers_.getVal(11));
+        assertEq(1, opers_.size());
+        assertEq("", opers_.getVal(6));
         NatTreeMap<Integer,String> values_ = seq_.getValues();
         assertEq(2, values_.size());
-        assertEq("var;.;f()", values_.getVal(0));
-        assertEq("0", values_.getVal(10));
+        assertEq("var;.;", values_.getVal(0));
+        assertEq("f()[0]", values_.getVal(6));
         assertTrue(!seq_.isFirstOpt());
-        assertEq(ElResolver.ARR_OPER_PRIO, seq_.getPriority());
+        assertEq(ElResolver.DOT_PRIO, seq_.getPriority());
     }
 
     @Test
@@ -1060,15 +1054,14 @@ public class ElResolverTest {
         Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
         NatTreeMap<Integer,String> opers_ = seq_.getOperators();
-        assertEq(2, opers_.size());
-        assertEq("[", opers_.getVal(8));
-        assertEq("]", opers_.getVal(10));
+        assertEq(1, opers_.size());
+        assertEq("", opers_.getVal(5));
         NatTreeMap<Integer,String> values_ = seq_.getValues();
         assertEq(2, values_.size());
-        assertEq("var;;f()", values_.getVal(0));
-        assertEq("0", values_.getVal(9));
+        assertEq("var;;", values_.getVal(0));
+        assertEq("f()[0]", values_.getVal(5));
         assertTrue(!seq_.isFirstOpt());
-        assertEq(ElResolver.ARR_OPER_PRIO, seq_.getPriority());
+        assertEq(ElResolver.DOT_PRIO, seq_.getPriority());
     }
 
     @Test
@@ -1081,15 +1074,14 @@ public class ElResolverTest {
         Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
         NatTreeMap<Integer,String> opers_ = seq_.getOperators();
-        assertEq(2, opers_.size());
-        assertEq("[", opers_.getVal(7));
-        assertEq("]", opers_.getVal(9));
+        assertEq(1, opers_.size());
+        assertEq("", opers_.getVal(4));
         NatTreeMap<Integer,String> values_ = seq_.getValues();
         assertEq(2, values_.size());
-        assertEq("var;f()", values_.getVal(0));
-        assertEq("0", values_.getVal(8));
+        assertEq("var;", values_.getVal(0));
+        assertEq("f()[0]", values_.getVal(4));
         assertTrue(!seq_.isFirstOpt());
-        assertEq(ElResolver.ARR_OPER_PRIO, seq_.getPriority());
+        assertEq(ElResolver.DOT_PRIO, seq_.getPriority());
     }
 
     @Test

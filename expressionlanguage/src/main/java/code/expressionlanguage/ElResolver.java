@@ -1656,10 +1656,11 @@ public final class ElResolver {
                 }
             }
             minIndexDot_ = i_;
-            i_ = CustList.FIRST_INDEX;
-        } else {
-            i_ = CustList.FIRST_INDEX;
+            if (!onlySpacesTo(_string, minIndexDot_-1, len_, ARR_LEFT)) {
+                prio_ = DOT_PRIO;
+            }
         }
+        i_ = CustList.FIRST_INDEX;
         while (i_ < len_) {
             char curChar_ = _string.charAt(i_);
             if (constChar_) {
@@ -1721,10 +1722,6 @@ public final class ElResolver {
                 continue;
             }
             if (curChar_ == PAR_LEFT) {
-                if (FCT_OPER_PRIO < prio_) {
-                    prio_ = FCT_OPER_PRIO;
-                    operators_.clear();
-                }
                 if (FCT_OPER_PRIO <= prio_) {
                     operators_.put(i_, FCT);
                 }
