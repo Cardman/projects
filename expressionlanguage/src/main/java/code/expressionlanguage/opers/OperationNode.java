@@ -1275,7 +1275,6 @@ public abstract class OperationNode implements SortedNode<OperationNode>, Operab
         if (res_ == CustList.SWAP_SORT) {
             _list.swapIndexes(CustList.FIRST_INDEX, _i);
         }
-        _context.setAmbigous(res_ == Integer.MIN_VALUE);
     }
     static boolean ok(ArgumentsGroup _context,Parametrable _o1, Parametrable _o2) {
         int len_ = _o1.getParameters().size();
