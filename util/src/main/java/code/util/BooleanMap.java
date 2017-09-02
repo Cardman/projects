@@ -22,34 +22,6 @@ public final class BooleanMap<V> extends AbsMap<Boolean,V> {
     public BooleanMap(CollCapacity _capacity) {
         super(_capacity);
     }
-//    @Override
-//    CustList<EntryCust<Boolean,V>> getList() {
-//        return list;
-//    }
-
-//    public EnumMap<V,CustList<K>> reverseMap() {
-//        EnumMap<V,CustList<K>> reverseMap_ = new EnumMap<V,CustList<K>>();
-//        for (EntryCust<K, V> k:list) {
-//            CustList<K> keys_ = reverseMap_.getVal(k.getValue());
-//            if (keys_ == null) {
-//                keys_ = new CustList<K>();
-//                keys_.add(k.getKey());
-//                reverseMap_.put(k.getValue(), keys_);
-//            } else {
-//                keys_.add(k.getKey());
-//            }
-//        }
-//        return reverseMap_;
-//    }
-
-//    @Override
-//    public CustList<EntryCust<Boolean,V>> entryList() {
-//        return list;
-//    }
-
-    public synchronized V synchronizedGet(Boolean _key) {
-        return getVal(_key);
-    }
 
     @Override
     public Listable<V> getValues(Boolean _key) {
@@ -78,16 +50,6 @@ public final class BooleanMap<V> extends AbsMap<Boolean,V> {
                 removeKey(k);
             }
         }
-    }
-//    public void retainValues(CustList<V> _values) {
-//        for (EntryCust<K,V> e: list) {
-//            if (!_values.containsObj(e.getValue())) {
-//                removeKey(e.getKey());
-//            }
-//        }
-//    }
-    public synchronized void synchronizedPut(Boolean _key,V _v) {
-        put(_key, _v);
     }
 
     @Override

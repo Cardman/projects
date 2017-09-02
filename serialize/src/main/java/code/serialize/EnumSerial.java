@@ -21,7 +21,7 @@ final class EnumSerial extends PrimitiveSerial {
 
     private Object value;
 
-    EnumSerial(Enum<?> _enumConst) {
+    EnumSerial(Object _enumConst) {
         value = _enumConst;
     }
 
@@ -50,7 +50,7 @@ final class EnumSerial extends PrimitiveSerial {
     @throws NoAttributeForSerializable
     @throws RuntimeClassNotFoundException
     @throws ClassCastException*/
-    private static Enum<?> initialize(Element _node) {
+    private static Object initialize(Element _node) {
         NamedNodeMap map_ = _node.getAttributes();
         Class<?> class_ = ConstClasses.classAliasForObjectNameNotInit(_node.getNodeName()+_node.getAttribute(INTERN));
         if (!class_.isEnum()){
@@ -64,7 +64,7 @@ final class EnumSerial extends PrimitiveSerial {
         String name_ = valueNode_.getNodeValue();
         for (Object s : class_.getEnumConstants()) {
             if (StringList.quickEq(((Enum<?>) s).name(),name_)) {
-                return (Enum<?>) s;
+                return s;
             }
         }
         throw new InexistingValueForEnum(name_, class_.getName());

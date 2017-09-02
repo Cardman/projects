@@ -21,40 +21,6 @@ public final class CharMap<V> extends AbsMap<Character,V> {
     public CharMap(CollCapacity _capacity) {
         super(_capacity);
     }
-//    @Override
-//    CustList<EntryCust<Character,V>> getList() {
-//        return list;
-//    }
-
-//    public static void deleteLineReturn(CharMap<String> _map) {
-//        for (EntryCust<Character, String> e: _map.list) {
-//            e.setValue(StringList.removeStrings(e.getValue(), Constants.RETURN_LINE));
-//        }
-//    }
-
-//    public StringMap<V,CustList<K>> reverseMap() {
-//        StringMap<V,CustList<K>> reverseMap_ = new StringMap<V,CustList<K>>();
-//        for (EntryCust<K, V> k:list) {
-//            CustList<K> keys_ = reverseMap_.getVal(k.getValue());
-//            if (keys_ == null) {
-//                keys_ = new CustList<K>();
-//                keys_.add(k.getKey());
-//                reverseMap_.put(k.getValue(), keys_);
-//            } else {
-//                keys_.add(k.getKey());
-//            }
-//        }
-//        return reverseMap_;
-//    }
-
-//    @Override
-//    public CustList<EntryCust<Character,V>> entryList() {
-//        return list;
-//    }
-
-    public synchronized V synchronizedGet(Character _key) {
-        return getVal(_key);
-    }
 
     @Override
     public CustList<V> getValues(Character _key) {
@@ -95,16 +61,6 @@ public final class CharMap<V> extends AbsMap<Character,V> {
                 removeKey(k);
             }
         }
-    }
-//    public void retainValues(CustList<V> _values) {
-//        for (EntryCust<String,V> e: list) {
-//            if (!_values.containsObj(e.getValue())) {
-//                removeKey(e.getKey());
-//            }
-//        }
-//    }
-    public synchronized void synchronizedPut(Character _key,V _v) {
-        put(_key, _v);
     }
 
     @Override

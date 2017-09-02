@@ -17,35 +17,6 @@ public abstract class AbObjectMap<K extends Equallable<K>, V> extends AbsMap<K, 
     protected AbObjectMap(CollCapacity _capacity) {
         super(_capacity);
     }
-//    @Override
-//    CustList<EntryCust<K, V>> getList() {
-//        return list;
-//    }
-
-//    public Map<V,List<K>> reverseMap() {
-//        Map<V,List<K>> reverseMap_ = new Map<V,List<K>>();
-//        for (EntryCust<K, V> k:list) {
-//            List<K> keys_ = reverseMap_.getVal(k.getValue());
-//            if (keys_ == null) {
-//                keys_ = new List<K>();
-//                keys_.add(k.getKey());
-//                reverseMap_.put(k.getValue(), keys_);
-//            } else {
-//                keys_.add(k.getKey());
-//            }
-//        }
-//        return reverseMap_;
-//    }
-
-//    @Override
-//    public CustList<EntryCust<K,V>> entryList() {
-//        return list;
-//    }
-
-    public synchronized V synchronizedGet(K _key) {
-        return getVal(_key);
-    }
-
 
     @Override
     public CustList<V> getValues(K _key) {
@@ -86,16 +57,6 @@ public abstract class AbObjectMap<K extends Equallable<K>, V> extends AbsMap<K, 
                 removeKey(k);
             }
         }
-    }
-//    public void retainValues(List<V> _values) {
-//        for (EntryCust<K,V> e: list) {
-//            if (!_values.containsObj(e.getValue())) {
-//                removeKey(e.getKey());
-//            }
-//        }
-//    }
-    public synchronized void synchronizedPut(K _key,V _v) {
-        put(_key, _v);
     }
 
     @Override

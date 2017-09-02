@@ -80,6 +80,10 @@ public final class ConverterMethod {
     }
 
     public static Method getFromStringMethod(Class<?> _class) {
+        return getFromStringMethod(_class, String.class);
+    }
+
+    public static Method getFromStringMethod(Class<?> _class, Class<?> _classArg) {
         Method method_ = null;
         for (Method methClass_: _class.getMethods()) {
             if (!Modifier.isStatic(methClass_.getModifiers())) {
@@ -101,7 +105,7 @@ public final class ConverterMethod {
             if (param_.length != CustList.ONE_ELEMENT) {
                 continue;
             }
-            if (param_[CustList.FIRST_INDEX] != String.class) {
+            if (param_[CustList.FIRST_INDEX] != _classArg) {
                 continue;
             }
             if (method_ == null) {
@@ -115,6 +119,10 @@ public final class ConverterMethod {
     }
 
     public static Method getToStringMethod(Class<?> _class) {
+        return getToStringMethod(_class, String.class);
+    }
+
+    public static Method getToStringMethod(Class<?> _class, Class<?> _classReturn) {
         Method method_ = null;
         for (Method methClass_: _class.getMethods()) {
             if (Modifier.isStatic(methClass_.getModifiers())) {
@@ -124,7 +132,7 @@ public final class ConverterMethod {
             if (annot_ == null) {
                 continue;
             }
-            if (methClass_.getReturnType() != String.class) {
+            if (methClass_.getReturnType() != _classReturn) {
                 continue;
             }
             Class<?>[] param_ = methClass_.getParameterTypes();

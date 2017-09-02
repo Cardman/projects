@@ -7,31 +7,27 @@
 	<artifactId>cardgames</artifactId>
 	<version>2.0</version>
 	<packaging>pom</packaging>
-
+    <properties>
+        <jdk.version>1.6</jdk.version>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
 	<modules>
-		<module>../util</module>
-		<module>../utiltest</module>
-		<module>../stream</module>
-		<module>../streamtest</module>
-		<module>../formatconst</module>
-		<module>../maths</module>
-		<module>../mathstest</module>
-		<module>../expressionlanguage</module>
-		<module>../expressionlanguagetest</module>
-		<module>../formathtml</module>
-		<module>../formathtmltest</module>
-		<module>../guicommon</module>
-		<module>../cardgamescommon</module>
-		<module>../cardsgameresults</module>
-		<module>../belote</module>
-		<module>../belotetest</module>
-		<module>../president</module>
-		<module>../presidenttest</module>
-		<module>../tarot</module>
-		<module>../tarottest</module>
-		<module>../cardgamesunion</module>
-		<module>../network</module>
-		<module>../cardgamesgui</module>
-		<module>../cardgamesmain</module>
-	</modules>
+        <module>../coreproject</module>
+        <module>../cardsgroup</module>
+        <module>../cardgamesmain</module>
+    </modules>
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>2.3.2</version>
+                <configuration>
+                    <source>${jdk.version}</source>
+                    <target>${jdk.version}</target>
+                </configuration>
+            </plugin>
+            
+        </plugins>
+    </build>
 </project>

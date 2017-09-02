@@ -627,9 +627,7 @@ public final class Navigation {
                     bean_.getClass().getMethod(method_,
                             ValueChangeEvent.class);
                     changingValue_ = method_;
-                } catch (Error _0) {
-                } catch (RuntimeException _0) {
-                } catch (NoSuchMethodException _0) {
+                } catch (Throwable _0) {
                 }
             }
             nCont_.getNodeInformation().setChanging(changingValue_);
@@ -640,14 +638,14 @@ public final class Navigation {
                 if (obj_ == null) {
                     newObj_ = retrieveObjectByClassName(v_.first(), className_);
                 } else if (obj_ instanceof Listable<?>){
+                    //TODO switch individually on all list class => default in a class that takes a StringList arg for annotated method
                     Listable<?> list_ = (Listable<?>) instance(obj_.getClass());
                     String contentClass_ = className_.substring(CustList.class.getName().length());
                     contentClass_ = StringList.removeStrings(contentClass_, BEG_TEMP, END_TEMP);
                     for (String v:v_) {
                         try {
                             ConverterMethod.invokeMethod(ADD_METHOD, list_, retrieveObjectByClassName(v, contentClass_));
-                        } catch (Error _0) {
-                        } catch (RuntimeException _0) {
+                        } catch (Throwable _0) {
                         }
                     }
                     newObj_ = list_;

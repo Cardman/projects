@@ -20,25 +20,6 @@ public final class InsCaseStringMap<V> extends AbsMap<String,V> {
     public InsCaseStringMap(CollCapacity _capacity) {
         super(_capacity);
     }
-//    @Override
-//    CustList<EntryCust<String,V>> getList() {
-//        return list;
-//    }
-
-//    public static void deleteLineReturn(StringMap<String> _map) {
-//        for (EntryCust<String, String> e: _map.entryList()) {
-//            e.setValue(StringList.removeStrings(e.getValue(), Constants.RETURN_LINE));
-//        }
-//    }
-
-//    @Override
-//    public CustList<EntryCust<String,V>> entryList() {
-//        return list;
-//    }
-
-    public synchronized V synchronizedGet(String _key) {
-        return getVal(_key);
-    }
 
     @Override
     public Listable<V> values() {
@@ -46,7 +27,6 @@ public final class InsCaseStringMap<V> extends AbsMap<String,V> {
         for (EntryCust<String, V> e: getList()) {
             s_.add(e.getValue());
         }
-//        return new CustList<>(super.values());
         return s_;
     }
 
@@ -56,10 +36,6 @@ public final class InsCaseStringMap<V> extends AbsMap<String,V> {
                 removeKey(k);
             }
         }
-    }
-
-    public synchronized void synchronizedPut(String _key,V _v) {
-        put(_key, _v);
     }
 
     @Override

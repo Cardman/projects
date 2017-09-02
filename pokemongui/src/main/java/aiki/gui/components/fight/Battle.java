@@ -1111,19 +1111,8 @@ public class Battle extends ChildFrame {
 
     public void closeWindows() {
         if (!htmlDialogs.isEmpty()) {
-//            htmlDialogs.first().dispose();
             htmlDialogs.first().setVisible(false);
         }
-//        synchronized (htmlDialogs) {
-//            for (FrameHtmlData f: htmlDialogs) {
-//                f.dispose();
-//            }
-//            clearHtmlDialogs();
-//        }
-//        for (FrameHtmlData f: htmlDialogs) {
-//            f.dispose();
-//        }
-//        clearHtmlDialogs();
     }
 
     public void clearHtmlDialogs() {

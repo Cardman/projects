@@ -43,44 +43,6 @@ public final class IdMap<K,V> extends AbsMap<K,V> {
         }
         return list_;
     }
-//    public IdMap<V,CustList<K>> reverseMap() {
-//        IdMap<V,CustList<K>> reverseMap_ = new IdMap<V,CustList<K>>();
-//        for (EntryCust<K, V> k:list) {
-//            CustList<K> keys_ = reverseMap_.getVal(k.getValue());
-//            if (keys_ == null) {
-//                keys_ = new CustList<K>();
-//                keys_.add(k.getKey());
-//                reverseMap_.put(k.getValue(), keys_);
-//            } else {
-//                keys_.add(k.getKey());
-//            }
-//        }
-//        return reverseMap_;
-//    }
-
-//    @Override
-//    public CustList<EntryCust<K,V>> entryList() {
-//        return list;
-//    }
-
-    public synchronized V synchronizedGet(K _key) {
-        return getVal(_key);
-    }
-
-//    @Override
-//    public V get(Object _key) {
-//        for (EntryCust<K, V> e:entryList()) {
-//            if (e.getKey() == _key) {
-//                return e.getValue();
-//            }
-//        }
-//        return null;
-//        EntryCust<K,V> e_ = getEntryByKey(_key);
-//        if (e_ == null) {
-//            return null;
-//        }
-//        return e_.getValue();
-//    }
 
     @Override
     public Listable<V> getValues(K _key) {
@@ -151,61 +113,6 @@ public final class IdMap<K,V> extends AbsMap<K,V> {
             }
         }
     }
-//    public void retainValues(CustList<V> _values) {
-//        for (EntryCust<K,V> e: list) {
-//            if (!_values.containsObj(e.getValue())) {
-//                removeKey(e.getKey());
-//            }
-//        }
-//    }
-    public synchronized void synchronizedPut(K _key,V _v) {
-        put(_key, _v);
-    }
-//    @Override
-//    public void put(K _key, V _v) {
-////        int i_ = CustList.FIRST_INDEX;
-////        for (EntryCust<K, V> e: list) {
-////            if (e.getKey() == _key) {
-//////                V old_ = list.get(i_).getValue();
-////                list.get(i_).setValue(_v);
-////                return;
-////            }
-////            i_++;
-////        }
-////        list.add(new EntryCust<K, V>(_key, _v));
-//        int index_ = indexOfEntry(_key);
-//        if (index_ == CustList.INDEX_NOT_FOUND_ELT) {
-//            list.add(new EntryCust<K, V>(_key, _v));
-//            return;
-//        }
-//        EntryCust<K, V> e_ = list.get(index_);
-////        V old_ = e_.getValue();
-//        e_.setValue(_v);
-//    }
-//
-//    @Override
-//    public void removeKey(K _key) {
-//        //setModified();
-////        for (EntryCust<K, V> e:entryList()) {
-////            K key_ = e.getKey();
-////            if (_key == key_) {
-////                remove(key_);
-////                break;
-////            }
-////        }
-//        geneRemove(_key);
-//    }
-
-//    public V removedKey(K _key) {
-//        //setModified();
-//        for (EntryCust<K, V> e:entryList()) {
-//            K key_ = e.getKey();
-//            if (_key == key_) {
-//                return remove(key_);
-//            }
-//        }
-//        return null;
-//    }
 
     @Override
     public IdList<K> getKeys() {

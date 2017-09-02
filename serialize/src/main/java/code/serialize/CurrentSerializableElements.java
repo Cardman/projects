@@ -1163,8 +1163,8 @@ final class CurrentSerializableElements {
             boolean_.setField(_field);
             return boolean_;
         }
-        if (_value instanceof Enum) {
-            EnumSerial enum_ = new EnumSerial((Enum<?>) _value);
+        if (_value.getClass().isEnum()) {
+            EnumSerial enum_ = new EnumSerial(_value);
             enum_.setKeyOfMap(_isKey);
             enum_.setField(_field);
             return enum_;
@@ -1224,7 +1224,7 @@ final class CurrentSerializableElements {
         if (_o instanceof Boolean) {
             return true;
         }
-        if (_o instanceof Enum) {
+        if (_o.getClass().isEnum()) {
             return true;
         }
         Method method_ = ConverterMethod.getToStringMethod(_o.getClass());

@@ -62,8 +62,6 @@ public class Scene extends JLabel implements MouseListener {
 
     private boolean apply;
 
-    private boolean painted;
-
     private boolean animated;
 
 //    private FacadeGame facade;
@@ -233,16 +231,8 @@ public class Scene extends JLabel implements MouseListener {
         apply = _apply;
     }
 
-    public synchronized boolean isPainted() {
-        return painted;
-    }
-
     @Override
     protected void paintComponent(Graphics _g) {
-//        if (painted) {
-//            return;
-//        }
-        painted = false;
         _g.setColor(Color.WHITE);
         _g.fillRect(0, 0, _sideLength_*_screenWidth_ - 1, _sideLength_*_screenHeight_ - 1);
         int dx_ = 0;
@@ -251,49 +241,14 @@ public class Scene extends JLabel implements MouseListener {
             dx_ = dir.getx();
             dy_ = dir.gety();
         }
-//        String img_ = facade.getMiniHeros();
-//        BufferedImage buffHero_ = ConverterBufferedImage.centerImage(img_, _sideLength_);
-//        ConverterBufferedImage.transparentAllWhite(buffHero_);
         int xDelta_ = -dir.getx() * delta;
         int yDelta_ = -dir.gety() * delta;
-//        if (apply) {
-//            if (xDelta_ != 0) {
-//                xDelta_ += _sideLength_ * dx_;
-//            }
-//            if (yDelta_ != 0) {
-//                yDelta_ += _sideLength_ * dy_;
-//            }
-//        } else {
-//            dx_ = 0;
-//            dy_ = 0;
-//        }
         if (!apply) {
             dx_ = 0;
             dy_ = 0;
         }
-        //delta <= 0 <=> -delta >= 0
-        //If dir = RIGHT => (x,y) = (1,0) => dir.getx() > 0 => -dir.getx() < 0 => -dir.getx()*delta = xDelta_ > 0
-//        if (apply) {
-//            if (xDelta_ != 0) {
-//                xDelta_ -= _sideLength_;
-//            }
-//            if (yDelta_ != 0) {
-//                yDelta_ -= _sideLength_;
-//            }
-//        }
-//        //begin
-//        if (delta != 0) {
-//            xDelta_ -= _sideLength_;
-//            yDelta_ -= _sideLength_;
-//        }
-//        //end
-//        xDelta_ = _sideLength_ - xDelta_;
-//        yDelta_ = _sideLength_ - yDelta_;
-        //        xDelta_ = 0;
-        //        yDelta_ = 0;
         for (ScreenCoords sc_: background.getKeys()) {
             BufferedImage buff_ = background.getVal(sc_);
-            //ConverterBufferedImage.transparentAllWhite(buff_);
             _g.drawImage(buff_, _sideLength_* sc_.getXcoords() + xDelta_, _sideLength_ * sc_.getYcoords() + yDelta_, null);
         }
         for (ScreenCoords sc_: foreground.getKeys()) {
@@ -303,32 +258,19 @@ public class Scene extends JLabel implements MouseListener {
                     int size_ = imgs_.size();
                     for (int i = CustList.FIRST_INDEX; i < size_; i++) {
                         BufferedImage buff_ = imgs_.get(i);
-                        //ConverterBufferedImage.transparentAllWhite(buff_);
                         if (i != size_ - 1) {
                             int wMin_ = buff_.getWidth();
                             int hMin_ = buff_.getHeight();
-//                            BufferedImage combined_ = new BufferedImage(_side, _side, BufferedImage.TYPE_INT_ARGB);
-//                            Graphics g_ = combined_.getGraphics();
                             _g.drawImage(buff_, _sideLength_* sc_.getXcoords() + xDelta_ + (_sideLength_ - wMin_) / 2, _sideLength_ * sc_.getYcoords() + yDelta_ + (_sideLength_ - hMin_) / 2, null);
-//                            _g.drawImage(buff_, _sideLength_* (sc_.getXcoords()+dir.getx()) + xDelta_, _sideLength_ * (sc_.getYcoords()+dir.gety()) + yDelta_, null);
-//                            _g.drawImage(buff_, _sideLength_* sc_.getXcoords() + xDelta_, _sideLength_ * sc_.getYcoords() + yDelta_, null);
                         }
                     }
                     continue;
                 }
             }
             for (BufferedImage b:foreground.getVal(sc_)) {
-
                 int wMin_ = b.getWidth();
                 int hMin_ = b.getHeight();
-//                BufferedImage combined_ = new BufferedImage(_sideLength_, _side, BufferedImage.TYPE_INT_ARGB);
-//                Graphics g_ = combined_.getGraphics();
                 _g.drawImage(b, _sideLength_* sc_.getXcoords() + xDelta_ + (_sideLength_ - wMin_) / 2, _sideLength_ * sc_.getYcoords() + yDelta_ + (_sideLength_ - hMin_) / 2, null);
-
-
-                //ConverterBufferedImage.transparentAllWhite(b);
-//                _g.drawImage(b, _sideLength_* (sc_.getXcoords()+dir.getx()) + xDelta_, _sideLength_ * (sc_.getYcoords()+dir.gety()) + yDelta_, null);
-//                _g.drawImage(b, _sideLength_* sc_.getXcoords() + xDelta_, _sideLength_ * sc_.getYcoords() + yDelta_, null);
             }
         }
         if (!foreground.isEmpty()) {
@@ -338,52 +280,9 @@ public class Scene extends JLabel implements MouseListener {
                 BufferedImage buff_ = imgs_.last();
                 int wMin_ = buff_.getWidth();
                 int hMin_ = buff_.getHeight();
-//                _g.drawImage(buff_, _sideLength_* (sc_.getXcoords() - dx_), _sideLength_ * (sc_.getYcoords() - dy_), null);
                 _g.drawImage(buff_, _sideLength_* (sc_.getXcoords() - dx_) + (_sideLength_ - wMin_) / 2, _sideLength_ * (sc_.getYcoords() - dy_) + (_sideLength_ - hMin_) / 2, null);
             }
-//            else {
-//                System.out.println(sc_);
-//                System.out.println(animated);
-//                System.out.println(hasFocus());
-//                for (ScreenCoords s: foreground.getKeys()) {
-//                    if (!foreground.getVal(s).isEmpty()) {
-//                        System.out.println(s);
-//                        for (BufferedImage b: foreground.getVal(s)) {
-//                            System.out.println(b.getWidth());
-//                            System.out.println(b.getHeight());
-//                        }
-//                    }
-//                }
-//                System.out.println(background.size());
-//            }
         }
-//        if (foreground.isEmpty()) {
-//            System.out.println(Thread.currentThread().getId());
-//            System.out.println(Thread.currentThread().getName());
-//            new Exception().printStackTrace();
-//        }
-//        for (ScreenCoords sc_: foreground.getKeys()) {
-//            if (sc_.getXcoords() == _xHeros_ + dx_) {
-//                if (sc_.getYcoords() == _yHeros_ + dy_) {
-//                    CustList<BufferedImage> imgs_ = foreground.getVal(sc_);
-//                    int size_ = imgs_.size();
-//                    for (int i = CustList.FIRST_INDEX; i < size_; i++) {
-//                        BufferedImage buff_ = imgs_.get(i);
-//                        //ConverterBufferedImage.transparentAllWhite(buff_);
-//                        if (i == size_ - 1) {
-////                            if (dirOnly) {
-////                                _g.drawImage(hero, _sideLength_* sc_.getXcoords(), _sideLength_ * sc_.getYcoords(), null);
-////                            } else {
-////                                _g.drawImage(buff_, _sideLength_* sc_.getXcoords(), _sideLength_ * sc_.getYcoords(), null);
-////                            }
-//                            _g.drawImage(buff_, _sideLength_* (sc_.getXcoords() - dx_), _sideLength_ * (sc_.getYcoords() - dy_), null);
-//                        }
-//                    }
-//                    continue;
-//                }
-//            }
-//        }
-        painted = true;
     }
 
     @Override

@@ -21,40 +21,6 @@ public final class EnumMap<K extends Enum<K>, V> extends AbsMap<K,V> {
     public EnumMap(CollCapacity _capacity) {
         super(_capacity);
     }
-//    @Override
-//    CustList<EntryCust<K,V>> getList() {
-//        return list;
-//    }
-
-//    public static <T extends Enum<T>> void deleteLineReturn(EnumMap<T,String> _map) {
-//        for (EntryCust<T, String> e: _map.list) {
-//            e.setValue(StringList.removeStrings(e.getValue(), Constants.RETURN_LINE));
-//        }
-//    }
-
-//    public EnumMap<V,CustList<K>> reverseMap() {
-//        EnumMap<V,CustList<K>> reverseMap_ = new EnumMap<V,CustList<K>>();
-//        for (EntryCust<K, V> k:list) {
-//            CustList<K> keys_ = reverseMap_.getVal(k.getValue());
-//            if (keys_ == null) {
-//                keys_ = new CustList<K>();
-//                keys_.add(k.getKey());
-//                reverseMap_.put(k.getValue(), keys_);
-//            } else {
-//                keys_.add(k.getKey());
-//            }
-//        }
-//        return reverseMap_;
-//    }
-
-//    @Override
-//    public CustList<EntryCust<K,V>> entryList() {
-//        return list;
-//    }
-
-    public synchronized V synchronizedGet(K _key) {
-        return getVal(_key);
-    }
 
     @Override
     public Listable<V> getValues(K _key) {
@@ -91,16 +57,6 @@ public final class EnumMap<K extends Enum<K>, V> extends AbsMap<K,V> {
                 removeKey(k);
             }
         }
-    }
-//    public void retainValues(CustList<V> _values) {
-//        for (EntryCust<K,V> e: list) {
-//            if (!_values.containsObj(e.getValue())) {
-//                removeKey(e.getKey());
-//            }
-//        }
-//    }
-    public synchronized void synchronizedPut(K _key,V _v) {
-        put(_key, _v);
     }
 
     @Override
