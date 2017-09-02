@@ -13,7 +13,6 @@ import code.expressionlanguage.methods.exceptions.BadClassNameException;
 import code.expressionlanguage.methods.exceptions.BadFileNameException;
 import code.expressionlanguage.methods.exceptions.UnknownBlockException;
 import code.expressionlanguage.methods.util.BadAccessClass;
-import code.expressionlanguage.methods.util.BadAccessMethod;
 import code.expressionlanguage.methods.util.BadClassName;
 import code.expressionlanguage.methods.util.BadFileName;
 import code.expressionlanguage.methods.util.BadInheritedClass;
@@ -701,67 +700,6 @@ public final class Classes {
         }
         return sortedSuperInterfaces_;
     }
-    public void validateClassBodies(ContextEl _context) {
-        PageEl page_ = new PageEl();
-        _context.clearPages();
-        _context.addPage(page_);
-        for (EntryCust<ClassName, RootBlock> c: classesBodies.entryList()) {
-            String className_ = c.getKey().getName();
-            Block r_ = c.getValue();
-            CustList<Block> bl_ = getDirectChildren(r_);
-            if (r_ instanceof InterfaceBlock) {
-                for (Block b: bl_) {
-                    if (b instanceof MethodBlock) {
-                        MethodBlock m_ = (MethodBlock) b;
-                        if (m_.getAccess() != AccessEnum.PUBLIC) {
-                            //TODO protected and package method cases
-                            BadAccessMethod err_;
-                            err_ = new BadAccessMethod();
-                            err_.setFileName(className_);
-                            err_.setRc(m_.getAttributes().getVal(ATTRIBUTE_ACCESS));
-                            err_.setId(m_.getId());
-                            errorsDet.add(err_);
-                        }
-                        continue;
-                    }
-                    if (b instanceof InfoBlock) {
-                        continue;
-                    }
-                    if (b instanceof AloneBlock) {
-                        continue;
-                    }
-                    RowCol where_ = ((Block)b).getRowCol(0, _context.getTabWidth(), EMPTY_STRING);
-                    String tagName_ = ((Block)b).getTagName();
-                    UnexpectedTagName unexp_ = new UnexpectedTagName();
-                    unexp_.setFileName(className_);
-                    unexp_.setFoundTag(tagName_);
-                    unexp_.setRc(where_);
-                    errorsDet.add(unexp_);
-                }
-                continue;
-            }
-            for (Block b: bl_) {
-                if (b instanceof Returnable) {
-                    continue;
-                }
-                if (b instanceof InfoBlock) {
-                    continue;
-                }
-                if (b instanceof AloneBlock) {
-                    continue;
-                }
-                //TODO intern classes
-                RowCol where_ = ((Block)b).getRowCol(0, _context.getTabWidth(), EMPTY_STRING);
-                String tagName_ = ((Block)b).getTagName();
-                UnexpectedTagName unexp_ = new UnexpectedTagName();
-                unexp_.setFileName(className_);
-                unexp_.setFoundTag(tagName_);
-                unexp_.setRc(where_);
-                errorsDet.add(unexp_);
-                //string (class name) - row col - tag name
-            }
-        }
-    }
     public void validateIds(ContextEl _context) {
         PageEl page_ = new PageEl();
         _context.clearPages();
@@ -998,17 +936,13 @@ public final class Classes {
         for (EntryCust<ClassName, RootBlock> c: classesBodies.entryList()) {
             CustList<Block> bl_ = getDirectChildren(c.getValue());
             for (Block b: bl_) {
-                if (b instanceof Returnable) {
-                    Returnable method_ = (Returnable) b;
+                if (b instanceof FunctionBlock) {
+                    FunctionBlock method_ = (FunctionBlock) b;
                     method_.checkFctBlocksTree(_context);
                 }
                 if (b instanceof InfoBlock) {
                     InfoBlock method_ = (InfoBlock) b;
                     method_.checkBlocksTree(_context);
-                }
-                if (b instanceof AloneBlock) {
-                    AloneBlock method_ = (AloneBlock) b;
-                    method_.checkFctBlocksTree(_context);
                 }
             }
         }
@@ -1051,14 +985,9 @@ public final class Classes {
                     InfoBlock method_ = (InfoBlock) b;
                     method_.checkCallConstructor(_context);
                 }
-                if (b instanceof AloneBlock) {
+                if (b instanceof FunctionBlock) {
                     page_.setGlobalClass(c.getKey().getName());
-                    AloneBlock method_ = (AloneBlock) b;
-                    method_.checkFctConstrCalls(_context);
-                }
-                if (b instanceof Returnable) {
-                    page_.setGlobalClass(c.getKey().getName());
-                    Returnable method_ = (Returnable) b;
+                    FunctionBlock method_ = (FunctionBlock) b;
                     method_.checkFctConstrCalls(_context);
                 }
             }
