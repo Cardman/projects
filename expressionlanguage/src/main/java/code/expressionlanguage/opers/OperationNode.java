@@ -63,8 +63,6 @@ import code.util.NatTreeMap;
 import code.util.ObjectMap;
 import code.util.ObjectNotNullMap;
 import code.util.StringList;
-import code.util.comparators.ComparatorList;
-import code.util.comparators.NaturalComparator;
 import code.util.consts.ConstClasses;
 import code.util.exceptions.NullObjectException;
 import code.util.exceptions.RuntimeClassNotFoundException;
@@ -169,8 +167,6 @@ public abstract class OperationNode implements SortedNode<OperationNode>, Operab
     protected static final String RETURN_TAB = RETURN_LINE+"\t";
 
     protected static final String GET_CLASS = "getClass";
-
-    private static final ComparatorList<String> CMP = new ComparatorList<String>(new NaturalComparator<String>());
 
     private MethodOperation parent;
 
@@ -527,7 +523,6 @@ public abstract class OperationNode implements SortedNode<OperationNode>, Operab
             }
             trace_ += classesNames_.join(SEP_ARG);
             trace_ += PAR_RIGHT;
-            //TODO bas access
             throw new NoSuchDeclaredConstructorException(trace_+RETURN_LINE+_conf.joinPages());
         }
         ArgumentsGroup gr_ = new ArgumentsGroup(classes_, _args);
@@ -545,6 +540,16 @@ public abstract class OperationNode implements SortedNode<OperationNode>, Operab
             signatures_.add(mloc_);
         }
         sortCtors(signatures_, gr_);
+        if (gr_.isAmbigous()) {
+            String trace_ = clCurName_+PAR_LEFT;
+            StringList classesNames_ = new StringList();
+            for (ClassArgumentMatching c: _args) {
+                classesNames_.add(c.getName());
+            }
+            trace_ += classesNames_.join(SEP_ARG);
+            trace_ += PAR_RIGHT;
+            throw new NoSuchDeclaredConstructorException(trace_+RETURN_LINE+_conf.joinPages());
+        }
         return signatures_.first().getConstraints();
     }
     private static CustList<FctConstraints> filterCtr(String _glClass, String _accessedClass, CustList<FctConstraints> _found, ContextEl _conf) {
@@ -601,6 +606,10 @@ public abstract class OperationNode implements SortedNode<OperationNode>, Operab
         }
         //signatures_.size() >= 2
         sortCtors(signatures_, gr_);
+        if (gr_.isAmbigous()) {
+            _conf.getLastPage().addToOffset(_offsetIncr);
+            throw new NoSuchDeclaredConstructorException(_class.getName()+RETURN_LINE+_conf.joinPages());
+        }
         return signatures_.first().getMethod();
     }
     static String getDynDeclaredCustMethod(ContextEl _conf, String _realClassName, boolean _interface, ClassMethodId _idMeth) {
@@ -962,6 +971,11 @@ public abstract class OperationNode implements SortedNode<OperationNode>, Operab
             signatures_.add(mloc_);
         }
         sortFct(signatures_, gr_);
+        if (gr_.isAmbigous()) {
+            ClassMethodIdResult res_ = new ClassMethodIdResult();
+            res_.setStatus(SearchingMemberStatus.ZERO);
+            return res_;
+        }
         FctConstraints constraints_ = signatures_.first().getConstraints();
         ClassMethodId cl_ = new ClassMethodId(new ClassName(clCurName_, false), constraints_);
         ClassMethodIdResult res_ = new ClassMethodIdResult();
@@ -1124,6 +1138,11 @@ public abstract class OperationNode implements SortedNode<OperationNode>, Operab
             signatures_.add(mloc_);
         }
         sortFct(signatures_, gr_);
+        if (gr_.isAmbigous()) {
+            ClassMethodIdResult res_ = new ClassMethodIdResult();
+            res_.setStatus(SearchingMemberStatus.ZERO);
+            return res_;
+        }
         ClassMethodIdResult res_ = new ClassMethodIdResult();
         res_.setStatus(SearchingMemberStatus.UNIQ);
         res_.setMethod(signatures_.first().getMethod());
@@ -1198,12 +1217,18 @@ public abstract class OperationNode implements SortedNode<OperationNode>, Operab
         int len_ = _fct.size();
         for (int i = CustList.SECOND_INDEX; i < len_; i++) {
             process(_fct, i, _context);
+            if (_context.isAmbigous()) {
+                return;
+            }
         }
     }
     static void sortCtors(Parametrables<ConstructorInfo> _fct, ArgumentsGroup _context) {
         int len_ = _fct.size();
         for (int i = CustList.SECOND_INDEX; i < len_; i++) {
             process(_fct, i, _context);
+            if (_context.isAmbigous()) {
+                return;
+            }
         }
     }
     static void process(Fcts _list, int _i, ArgumentsGroup _context) {
@@ -1213,6 +1238,7 @@ public abstract class OperationNode implements SortedNode<OperationNode>, Operab
         if (res_ == CustList.SWAP_SORT) {
             _list.swapIndexes(CustList.FIRST_INDEX, _i);
         }
+        _context.setAmbigous(res_ == Integer.MIN_VALUE);
     }
     static int compare(ArgumentsGroup _context,Parametrable _o1, Parametrable _o2) {
         int len_ = _o1.getParameters().size();
@@ -1230,7 +1256,7 @@ public abstract class OperationNode implements SortedNode<OperationNode>, Operab
                 if (two_.isAssignableFrom(one_, _context.getClasses())) {
                     return CustList.NO_SWAP_SORT;
                 }
-                return CMP.compare(one_.getClassName(), two_.getClassName());
+                return Integer.MIN_VALUE;
             }
             ClassMatching toPrOne_ = one_;
             ClassMatching toPrTwo_ = two_;
@@ -1270,7 +1296,7 @@ public abstract class OperationNode implements SortedNode<OperationNode>, Operab
             if (toPrTwo_.isAssignableFrom(toPrOne_, _context.getClasses())) {
                 return CustList.NO_SWAP_SORT;
             }
-            return CMP.compare(one_.getClassName(), two_.getClassName());
+            return Integer.MIN_VALUE;
         }
         return CustList.NO_SWAP_SORT;
     }

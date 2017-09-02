@@ -1736,17 +1736,14 @@ public class ElUtilTest {
         assertSame(String.class, res_.getClass());
         assertEq("long", res_);
     }
-    @Test
+    @Test(expected=NoSuchDeclaredMethodException.class)
     public void processEl1FailTest() {
         ContextEl context_ = new ContextEl();
         setupAccessValue(context_);
         addImportingPage(context_);
         Composite b_ = new Composite();
         addBean(context_, b_);
-        Argument arg_ = ElUtil.processEl("getOverridenOne(null)",0, context_);
-        Object res_ = arg_.getObject();
-        assertSame(String.class, res_.getClass());
-        assertEq("one", res_);
+        ElUtil.processEl("getOverridenOne(null)",0, context_);
     }
 
     @Test(expected=RuntimeClassNotFoundException.class)
@@ -1759,17 +1756,12 @@ public class ElUtilTest {
         ElUtil.processEl("^class(\"Object\",null)",0, context_);
     }
 
-    @Test
+    @Test(expected=NoSuchDeclaredMethodException.class)
     public void processEl3FailTest() {
         ContextEl context_ = new ContextEl();
         setupAccessValue(context_);
         addImportingPage(context_);
-        Composite b_ = new Composite();
-        addBean(context_, b_);
-        Argument arg_ = ElUtil.processEl("static^"+MY_IMPL_HAT+".ovTwo(^new."+MY_IMPL+"())",0, context_);
-        Object res_ = arg_.getObject();
-        assertSame(String.class, res_.getClass());
-        assertEq("two", res_);
+        ElUtil.processEl("static^"+MY_IMPL_HAT+".ovTwo(^new."+MY_IMPL+"())",0, context_);
     }
 
 

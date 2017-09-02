@@ -19,6 +19,8 @@ public abstract class RootBlock extends BracedBlock implements RootedBlock {
         super(_el, _importingPage, _indexChild, _m);
     }
 
+    public abstract void setupBasicOverrides(ContextEl _context);
+
     public ObjectMap<FctConstraints, StringList> getAllSignatures(Classes _classes) {
         ObjectMap<FctConstraints, StringList> map_;
         map_ = new ObjectMap<FctConstraints, StringList>();

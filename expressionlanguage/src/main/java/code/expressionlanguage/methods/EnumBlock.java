@@ -5,10 +5,14 @@ import org.w3c.dom.Element;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.methods.exceptions.CyclicCallingException;
 import code.expressionlanguage.methods.util.ConstructorEdge;
+import code.expressionlanguage.methods.util.ReservedMethod;
+import code.expressionlanguage.opers.OperationNode;
 import code.expressionlanguage.opers.util.ClassMetaInfo;
 import code.expressionlanguage.opers.util.ClassMethodId;
+import code.expressionlanguage.opers.util.ClassName;
 import code.expressionlanguage.opers.util.ConstructorMetaInfo;
 import code.expressionlanguage.opers.util.FctConstraints;
+import code.expressionlanguage.opers.util.MethodId;
 import code.util.CustList;
 import code.util.EntryCust;
 import code.util.EqList;
@@ -54,6 +58,74 @@ public final class EnumBlock extends RootBlock implements UniqueRootedBlock {
         while (_el.hasAttribute(ATTRIBUTE_CLASS+i_)) {
             directInterfaces.add(_el.getAttribute(ATTRIBUTE_CLASS+i_));
             i_++;
+        }
+    }
+
+    @Override
+    public void setupBasicOverrides(ContextEl _context) {
+        CustList<Block> ch_ = Classes.getDirectChildren(this);
+        for (Block c: ch_) {
+            if (!(c instanceof MethodBlock)) {
+                continue;
+            }
+            MethodBlock m_ = (MethodBlock) c;
+            if (m_.getId().eq(new MethodId(OperationNode.METH_NAME, new EqList<ClassName>()))) {
+                ReservedMethod r_ = new ReservedMethod();
+                r_.setFileName(getFullName());
+                r_.setRc(m_.getRowCol(0, _context.getTabWidth(), EMPTY_STRING));
+                r_.setMethodeId(m_.getId());
+                _context.getClasses().getErrorsDet().add(r_);
+            }
+            if (m_.getId().eq(new MethodId(OperationNode.METH_ORDINAL, new EqList<ClassName>()))) {
+                ReservedMethod r_ = new ReservedMethod();
+                r_.setFileName(getFullName());
+                r_.setRc(m_.getRowCol(0, _context.getTabWidth(), EMPTY_STRING));
+                r_.setMethodeId(m_.getId());
+                _context.getClasses().getErrorsDet().add(r_);
+            }
+            if (m_.getId().eq(new MethodId(OperationNode.METH_VALUES, new EqList<ClassName>()))) {
+                ReservedMethod r_ = new ReservedMethod();
+                r_.setFileName(getFullName());
+                r_.setRc(m_.getRowCol(0, _context.getTabWidth(), EMPTY_STRING));
+                r_.setMethodeId(m_.getId());
+                _context.getClasses().getErrorsDet().add(r_);
+            }
+            if (m_.getId().eq(new MethodId(OperationNode.METH_VALUEOF, new EqList<ClassName>(new ClassName(String.class.getName(), false))))) {
+                ReservedMethod r_ = new ReservedMethod();
+                r_.setFileName(getFullName());
+                r_.setRc(m_.getRowCol(0, _context.getTabWidth(), EMPTY_STRING));
+                r_.setMethodeId(m_.getId());
+                _context.getClasses().getErrorsDet().add(r_);
+            }
+        }
+        StringList all_ = getAllSuperClasses();
+        for (Block b: Classes.getDirectChildren(this)) {
+            if (b instanceof MethodBlock) {
+                for (String s: all_) {
+                    if (StringList.quickEq(s, Object.class.getName())) {
+                        continue;
+                    }
+                    FctConstraints mDer_ = ((MethodBlock) b).getConstraints();
+                    MethodBlock m_ = _context.getClasses().getMethodBody(s, mDer_);
+                    if (m_ == null) {
+                        continue;
+                    }
+                    if (_context.getClasses().canAccessMethod(getFullName(), s, mDer_)) {
+                        ((MethodBlock) b).getOverridenClasses().add(s);
+                        break;
+                    }
+                }
+            }
+        }
+        for (Block b: Classes.getDirectChildren(this)) {
+            if (b instanceof MethodBlock) {
+                MethodBlock mDer_ = (MethodBlock) b;
+                mDer_.getAllOverridenClasses().addAllElts(mDer_.getOverridenClasses());
+                for (String s: mDer_.getOverridenClasses()) {
+                    MethodBlock mBase_ = _context.getClasses().getMethodBody(s, mDer_.getConstraints());
+                    mDer_.getAllOverridenClasses().addAllElts(mBase_.getAllOverridenClasses());
+                }
+            }
         }
     }
 

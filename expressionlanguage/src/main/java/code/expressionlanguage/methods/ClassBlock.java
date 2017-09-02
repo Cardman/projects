@@ -4,6 +4,7 @@ import org.w3c.dom.Element;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.methods.exceptions.CyclicCallingException;
 import code.expressionlanguage.methods.exceptions.UndefinedSuperConstructorException;
+import code.expressionlanguage.methods.util.BadInheritedClass;
 import code.expressionlanguage.methods.util.ConstructorEdge;
 import code.expressionlanguage.methods.util.FinalMethod;
 import code.expressionlanguage.opers.util.ClassMetaInfo;
@@ -17,6 +18,7 @@ import code.util.ObjectMap;
 import code.util.ObjectNotNullMap;
 import code.util.StringList;
 import code.util.graphs.Graph;
+import code.xml.RowCol;
 
 public final class ClassBlock extends RootBlock implements UniqueRootedBlock {
 
@@ -67,8 +69,32 @@ public final class ClassBlock extends RootBlock implements UniqueRootedBlock {
         abstractType = StringList.quickEq(modifier_, VALUE_ABSTRACT);
     }
 
-    public void setupBasicOverrides(Classes _classes) {
+    @Override
+    public void setupBasicOverrides(ContextEl _context) {
         StringList all_ = getAllSuperClasses();
+        String fullName_ = getFullName();
+        StringList direct_ = getDirectSuperClasses();
+        for (String b: direct_) {
+            if (StringList.quickEq(b, Object.class.getName())) {
+                continue;
+            }
+            ClassBlock bBl_ = (ClassBlock) _context.getClasses().getClassBody(b);
+            AccessEnum acc_ = bBl_.getMaximumAccessConstructors(_context);
+            if (acc_.ordinal() <= AccessEnum.PROTECTED.ordinal()) {
+                continue;
+            }
+            if (acc_ == AccessEnum.PACKAGE) {
+                if (StringList.quickEq(getPackageName(), bBl_.getPackageName())) {
+                    continue;
+                }
+            }
+            BadInheritedClass inherit_;
+            inherit_ = new BadInheritedClass();
+            inherit_.setClassName(fullName_);
+            inherit_.setFileName(fullName_);
+            inherit_.setRc(new RowCol());
+            _context.getClasses().getErrorsDet().add(inherit_);
+        }
         for (Block b: Classes.getDirectChildren(this)) {
             if (b instanceof MethodBlock) {
                 MethodBlock mCl_ = (MethodBlock) b;
@@ -77,11 +103,11 @@ public final class ClassBlock extends RootBlock implements UniqueRootedBlock {
                         continue;
                     }
                     FctConstraints mDer_ = ((MethodBlock) b).getConstraints();
-                    MethodBlock m_ = _classes.getMethodBody(s, mDer_);
+                    MethodBlock m_ = _context.getClasses().getMethodBody(s, mDer_);
                     if (m_ == null) {
                         continue;
                     }
-                    if (!_classes.canAccessMethod(getFullName(), s, mDer_)) {
+                    if (!_context.getClasses().canAccessMethod(getFullName(), s, mDer_)) {
                         continue;
                     }
                     if (m_.isFinalMethod()) {
@@ -91,27 +117,37 @@ public final class ClassBlock extends RootBlock implements UniqueRootedBlock {
                         err_.setRc(mCl_.getAttributes().getVal(ATTRIBUTE_NAME));
                         err_.setClassName(s);
                         err_.setId(mCl_.getId());
-                        _classes.getErrorsDet().add(err_);
+                        _context.getClasses().getErrorsDet().add(err_);
                     }
                     ((MethodBlock) b).getOverridenClasses().add(s);
                     break;
                 }
             }
         }
-    }
-
-    public void setupNextOverrides(Classes _classes) {
         for (Block b: Classes.getDirectChildren(this)) {
             if (b instanceof MethodBlock) {
                 MethodBlock mDer_ = (MethodBlock) b;
                 mDer_.getAllOverridenClasses().addAllElts(mDer_.getOverridenClasses());
                 for (String s: mDer_.getOverridenClasses()) {
-                    MethodBlock mBase_ = _classes.getMethodBody(s, mDer_.getConstraints());
+                    MethodBlock mBase_ = _context.getClasses().getMethodBody(s, mDer_.getConstraints());
                     mDer_.getAllOverridenClasses().addAllElts(mBase_.getAllOverridenClasses());
                 }
             }
         }
     }
+
+//    public void setupNextOverrides(Classes _classes) {
+//        for (Block b: Classes.getDirectChildren(this)) {
+//            if (b instanceof MethodBlock) {
+//                MethodBlock mDer_ = (MethodBlock) b;
+//                mDer_.getAllOverridenClasses().addAllElts(mDer_.getOverridenClasses());
+//                for (String s: mDer_.getOverridenClasses()) {
+//                    MethodBlock mBase_ = _classes.getMethodBody(s, mDer_.getConstraints());
+//                    mDer_.getAllOverridenClasses().addAllElts(mBase_.getAllOverridenClasses());
+//                }
+//            }
+//        }
+//    }
     @Override
     public AccessEnum getAccess() {
         return access;

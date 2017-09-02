@@ -40,6 +40,39 @@ public final class InterfaceBlock extends RootBlock {
     }
 
     @Override
+    public void setupBasicOverrides(ContextEl _context) {
+        StringList all_ = getAllSuperClasses();
+        for (Block b: Classes.getDirectChildren(this)) {
+            if (b instanceof MethodBlock) {
+                for (String s: all_) {
+                    if (StringList.quickEq(s, Object.class.getName())) {
+                        continue;
+                    }
+                    FctConstraints mDer_ = ((MethodBlock) b).getConstraints();
+                    MethodBlock m_ = _context.getClasses().getMethodBody(s, mDer_);
+                    if (m_ == null) {
+                        continue;
+                    }
+                    if (_context.getClasses().canAccessMethod(getFullName(), s, mDer_)) {
+                        ((MethodBlock) b).getOverridenClasses().add(s);
+                        break;
+                    }
+                }
+            }
+        }
+        for (Block b: Classes.getDirectChildren(this)) {
+            if (b instanceof MethodBlock) {
+                MethodBlock mDer_ = (MethodBlock) b;
+                mDer_.getAllOverridenClasses().addAllElts(mDer_.getOverridenClasses());
+                for (String s: mDer_.getOverridenClasses()) {
+                    MethodBlock mBase_ = _context.getClasses().getMethodBody(s, mDer_.getConstraints());
+                    mDer_.getAllOverridenClasses().addAllElts(mBase_.getAllOverridenClasses());
+                }
+            }
+        }
+    }
+
+    @Override
     public AccessEnum getAccess() {
         return access;
     }

@@ -110,6 +110,7 @@ public final class Classes {
     private EqualsEl eqEl;
     private EqualsEl natEqEl;
     private CustList<OperationNode> exps;
+
     public Classes(StringMap<String> _files, ContextEl _context) {
         classesBodies = new ObjectMap<ClassName,RootBlock>();
 
@@ -989,138 +990,10 @@ public final class Classes {
         }
     }
     public void validateOverridingInherit(ContextEl _context) {
-        for (EntryCust<ClassName, RootBlock> e: classesBodies.entryList()) {
-            String className_ = e.getKey().getName();
-            Block b_ = e.getValue();
-            if (!(b_ instanceof EnumBlock)) {
-                continue;
-            }
-            EnumBlock e_ = (EnumBlock) b_;
-            CustList<Block> ch_ = getDirectChildren(e_);
-            for (Block c: ch_) {
-                if (!(c instanceof MethodBlock)) {
-                    continue;
-                }
-                MethodBlock m_ = (MethodBlock) c;
-                if (m_.getId().eq(new MethodId(OperationNode.METH_NAME, new EqList<ClassName>()))) {
-                    ReservedMethod r_ = new ReservedMethod();
-                    r_.setFileName(className_);
-                    r_.setRc(m_.getRowCol(0, _context.getTabWidth(), EMPTY_STRING));
-                    r_.setMethodeId(m_.getId());
-                    errorsDet.add(r_);
-                }
-                if (m_.getId().eq(new MethodId(OperationNode.METH_ORDINAL, new EqList<ClassName>()))) {
-                    ReservedMethod r_ = new ReservedMethod();
-                    r_.setFileName(className_);
-                    r_.setRc(m_.getRowCol(0, _context.getTabWidth(), EMPTY_STRING));
-                    r_.setMethodeId(m_.getId());
-                    errorsDet.add(r_);
-                }
-                if (m_.getId().eq(new MethodId(OperationNode.METH_VALUES, new EqList<ClassName>()))) {
-                    ReservedMethod r_ = new ReservedMethod();
-                    r_.setFileName(className_);
-                    r_.setRc(m_.getRowCol(0, _context.getTabWidth(), EMPTY_STRING));
-                    r_.setMethodeId(m_.getId());
-                    errorsDet.add(r_);
-                }
-                if (m_.getId().eq(new MethodId(OperationNode.METH_VALUEOF, new EqList<ClassName>(new ClassName(String.class.getName(), false))))) {
-                    ReservedMethod r_ = new ReservedMethod();
-                    r_.setFileName(className_);
-                    r_.setRc(m_.getRowCol(0, _context.getTabWidth(), EMPTY_STRING));
-                    r_.setMethodeId(m_.getId());
-                    errorsDet.add(r_);
-                }
-            }
-        }
-        for (EntryCust<ClassName, RootBlock> e: classesBodies.entryList()) {
-            RootBlock dBl_ = e.getValue();
-            if (!(dBl_ instanceof ClassBlock)) {
-                continue;
-            }
-            String fullName_ = dBl_.getFullName();
-            StringList direct_ = dBl_.getDirectSuperClasses();
-            for (String b: direct_) {
-                if (StringList.quickEq(b, Object.class.getName())) {
-                    continue;
-                }
-                ClassBlock bBl_ = (ClassBlock) classesBodies.getVal(new ClassName(b, false));
-                AccessEnum acc_ = bBl_.getMaximumAccessConstructors(_context);
-                if (acc_.ordinal() <= AccessEnum.PROTECTED.ordinal()) {
-                    continue;
-                }
-                if (acc_ == AccessEnum.PACKAGE) {
-                    if (StringList.quickEq(dBl_.getPackageName(), bBl_.getPackageName())) {
-                        continue;
-                    }
-                }
-                BadInheritedClass inherit_;
-                inherit_ = new BadInheritedClass();
-                inherit_.setClassName(fullName_);
-                inherit_.setFileName(fullName_);
-                inherit_.setRc(new RowCol());
-                errorsDet.add(inherit_);
-            }
-        }
-        if (!errorsDet.isEmpty()) {
-            return;
-        }
         for (String c: classesInheriting) {
             ClassName idBase_ = new ClassName(c, false);
             RootBlock bl_ = classesBodies.getVal(idBase_);
-            if (bl_ instanceof ClassBlock) {
-                ((ClassBlock)bl_).setupBasicOverrides(this);
-            }
-        }
-        for (String c: classesInheriting) {
-            ClassName idBase_ = new ClassName(c, false);
-            RootBlock bl_ = classesBodies.getVal(idBase_);
-            if (bl_ instanceof ClassBlock) {
-                ((ClassBlock)bl_).setupNextOverrides(this);
-            }
-        }
-        for (String c: classesInheriting) {
-            ClassName idBase_ = new ClassName(c, false);
-            RootBlock bl_ = classesBodies.getVal(idBase_);
-            if (bl_ instanceof ClassBlock) {
-                continue;
-            }
-            RootBlock dBl_ = bl_;
-            StringList all_ = dBl_.getAllSuperClasses();
-            for (Block b: getDirectChildren(bl_)) {
-                if (b instanceof MethodBlock) {
-                    for (String s: all_) {
-                        if (StringList.quickEq(s, Object.class.getName())) {
-                            continue;
-                        }
-                        FctConstraints mDer_ = ((MethodBlock) b).getConstraints();
-                        MethodBlock m_ = getMethodBody(s, mDer_);
-                        if (m_ == null) {
-                            continue;
-                        }
-                        if (canAccessMethod(c, s, mDer_)) {
-                            ((MethodBlock) b).getOverridenClasses().add(s);
-                            break;
-                        }
-                    }
-                }
-            }
-        }
-        for (String c: classesInheriting) {
-            ClassName idBase_ = new ClassName(c, false);
-            Block bl_ = classesBodies.getVal(idBase_);
-            if (bl_ instanceof ClassBlock) {
-                continue;
-            }
-            for (Block b: getDirectChildren(bl_)) {
-                if (b instanceof MethodBlock) {
-                    MethodBlock mDer_ = (MethodBlock) b;
-                    mDer_.getAllOverridenClasses().addAllElts(mDer_.getOverridenClasses());
-                    for (String s: mDer_.getOverridenClasses()) {
-                        MethodBlock mBase_ = getMethodBody(s, mDer_.getConstraints());
-                        mDer_.getAllOverridenClasses().addAllElts(mBase_.getAllOverridenClasses());
-                    }
-                }
-            }
+            bl_.setupBasicOverrides(_context);
         }
         for (String c: classesInheriting) {
             EqList<ClassMethodId> abstractMethods_ = new EqList<ClassMethodId>();
