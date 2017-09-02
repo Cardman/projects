@@ -22,6 +22,8 @@ public final class ContextEl {
 
     private int stackOverFlow;
 
+    private boolean ambigous;
+
     private transient ElementOffsetsNext elements;
 
     private transient Classes classes;
@@ -179,4 +181,11 @@ public final class ContextEl {
         nextIndex = _nextIndex;
     }
 
+    public boolean isAmbigous() {
+        return ambigous;
+    }
+
+    public void setAmbigous(boolean _ambigous) {
+        ambigous = _ambigous;
+    }
 }

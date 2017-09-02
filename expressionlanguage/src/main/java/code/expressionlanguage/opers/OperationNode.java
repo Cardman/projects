@@ -689,10 +689,21 @@ public abstract class OperationNode implements SortedNode<OperationNode>, Operab
                 idRet_.setReturnType(methodsInst_.getVal(resInst_.getId().getConstraints()).getReturnType().getName());
                 return idRet_;
             }
+            if (_staticContext && _conf.isAmbigous()) {
+                clCurName_ = _class.getName();
+                String trace_ = clCurName_+DOT+_name+PAR_LEFT;
+                StringList classesNames_ = new StringList();
+                for (ClassArgumentMatching c: _argsClass) {
+                    classesNames_.add(c.getName());
+                }
+                trace_ += classesNames_.join(SEP_ARG);
+                trace_ += PAR_RIGHT;
+                throw new NoSuchDeclaredMethodException(trace_+RETURN_LINE+_conf.joinPages());
+            }
             if (resStatic_.getStatus() == SearchingMemberStatus.UNIQ) {
                 ClassMethodIdReturn idRet_ = new ClassMethodIdReturn();
-                idRet_.setId(new ClassMethodId(new ClassName(_class.getName(), false), resInst_.getId().getConstraints()));
-                idRet_.setReturnType(methodsStatic_.getVal(resInst_.getId().getConstraints()).getReturnType().getName());
+                idRet_.setId(new ClassMethodId(new ClassName(_class.getName(), false), resStatic_.getId().getConstraints()));
+                idRet_.setReturnType(methodsStatic_.getVal(resStatic_.getId().getConstraints()).getReturnType().getName());
                 idRet_.setStaticMethod(true);
                 return idRet_;
             }
@@ -719,6 +730,17 @@ public abstract class OperationNode implements SortedNode<OperationNode>, Operab
         ClassMethodIdResult resStatic_ = getDeclaredCustMethodByClassInherit(_conf, true, _class, _name, _superClass, _argsClass);
         if (foundInst_) {
             return toFoundMethod(_conf, resInst_);
+        }
+        if (_staticContext && _conf.isAmbigous()) {
+            clCurName_ = _class.getName();
+            String trace_ = clCurName_+DOT+_name+PAR_LEFT;
+            StringList classesNames_ = new StringList();
+            for (ClassArgumentMatching c: _argsClass) {
+                classesNames_.add(c.getName());
+            }
+            trace_ += classesNames_.join(SEP_ARG);
+            trace_ += PAR_RIGHT;
+            throw new NoSuchDeclaredMethodException(trace_+RETURN_LINE+_conf.joinPages());
         }
         if (resStatic_.getStatus() == SearchingMemberStatus.UNIQ) {
             return toFoundMethod(_conf, resStatic_);
@@ -970,8 +992,10 @@ public abstract class OperationNode implements SortedNode<OperationNode>, Operab
             mloc_.setParameters(p_);
             signatures_.add(mloc_);
         }
+        _conf.setAmbigous(false);
         sortFct(signatures_, gr_);
         if (gr_.isAmbigous()) {
+            _conf.setAmbigous(true);
             ClassMethodIdResult res_ = new ClassMethodIdResult();
             res_.setStatus(SearchingMemberStatus.ZERO);
             return res_;
@@ -1020,6 +1044,17 @@ public abstract class OperationNode implements SortedNode<OperationNode>, Operab
         }
         if (foundInst_) {
             return _resInst.getMethod();
+        }
+        if (!_staticContext && _cont.isAmbigous()) {
+            String clCurName_ = _class.getName();
+            String trace_ = clCurName_+DOT+_name+PAR_LEFT;
+            StringList classesNames_ = new StringList();
+            for (ClassArgumentMatching c: _argsClass) {
+                classesNames_.add(c.getName());
+            }
+            trace_ += classesNames_.join(SEP_ARG);
+            trace_ += PAR_RIGHT;
+            throw new NoSuchDeclaredMethodException(trace_+RETURN_LINE+_cont.joinPages());
         }
         if (_resStatic.getStatus() == SearchingMemberStatus.UNIQ) {
             return _resStatic.getMethod();
@@ -1137,8 +1172,10 @@ public abstract class OperationNode implements SortedNode<OperationNode>, Operab
             mloc_.setParameters(p_);
             signatures_.add(mloc_);
         }
+        _conf.setAmbigous(false);
         sortFct(signatures_, gr_);
         if (gr_.isAmbigous()) {
+            _conf.setAmbigous(true);
             ClassMethodIdResult res_ = new ClassMethodIdResult();
             res_.setStatus(SearchingMemberStatus.ZERO);
             return res_;
@@ -1217,18 +1254,18 @@ public abstract class OperationNode implements SortedNode<OperationNode>, Operab
         int len_ = _fct.size();
         for (int i = CustList.SECOND_INDEX; i < len_; i++) {
             process(_fct, i, _context);
-            if (_context.isAmbigous()) {
-                return;
-            }
+        }
+        if (_fct.first().getParameters().isError()) {
+            _context.setAmbigous(true);
         }
     }
     static void sortCtors(Parametrables<ConstructorInfo> _fct, ArgumentsGroup _context) {
         int len_ = _fct.size();
         for (int i = CustList.SECOND_INDEX; i < len_; i++) {
             process(_fct, i, _context);
-            if (_context.isAmbigous()) {
-                return;
-            }
+        }
+        if (_fct.first().getParameters().isError()) {
+            _context.setAmbigous(true);
         }
     }
     static void process(Fcts _list, int _i, ArgumentsGroup _context) {
@@ -1239,6 +1276,54 @@ public abstract class OperationNode implements SortedNode<OperationNode>, Operab
             _list.swapIndexes(CustList.FIRST_INDEX, _i);
         }
         _context.setAmbigous(res_ == Integer.MIN_VALUE);
+    }
+    static boolean ok(ArgumentsGroup _context,Parametrable _o1, Parametrable _o2) {
+        int len_ = _o1.getParameters().size();
+        for (int i = CustList.FIRST_INDEX; i < len_; i++) {
+            ClassArgumentMatching selected_ = _context.get(i);
+            ClassMatching one_ = _o1.getParameters().get(i);
+            ClassMatching two_ = _o2.getParameters().get(i);
+            if (one_.matchClass(two_)) {
+                continue;
+            }
+            if (selected_.isVariable()) {
+                if (two_.isAssignableFrom(one_, _context.getClasses())) {
+                    continue;
+                }
+                return false;
+            }
+            ClassMatching toPrOne_ = one_;
+            ClassMatching toPrTwo_ = two_;
+            boolean onePrimExcl_ = false;
+            boolean twoPrimExcl_ = false;
+            if (one_.isPrimitive() && !two_.isPrimitive()) {
+                onePrimExcl_ = true;
+            }
+            if (!one_.isPrimitive() && two_.isPrimitive()) {
+                twoPrimExcl_ = true;
+            }
+            if (selected_.isPrimitive()) {
+                if (onePrimExcl_) {
+                    return true;
+                }
+                toPrOne_ = PrimitiveTypeUtil.toAllPrimitive(one_);
+                toPrTwo_ = PrimitiveTypeUtil.toAllPrimitive(two_);
+            } else {
+                ClassArgumentMatching clMatch_ = PrimitiveTypeUtil.toAllPrimitive(selected_, true);
+                if (clMatch_.isPrimitive()) {
+                    if (twoPrimExcl_) {
+                        return true;
+                    }
+                    toPrOne_ = PrimitiveTypeUtil.toAllPrimitive(one_);
+                    toPrTwo_ = PrimitiveTypeUtil.toAllPrimitive(two_);
+                }
+            }
+            if (toPrTwo_.isAssignableFrom(toPrOne_, _context.getClasses())) {
+                return true;
+            }
+            return false;
+        }
+        return false;
     }
     static int compare(ArgumentsGroup _context,Parametrable _o1, Parametrable _o2) {
         int len_ = _o1.getParameters().size();
@@ -1256,7 +1341,9 @@ public abstract class OperationNode implements SortedNode<OperationNode>, Operab
                 if (two_.isAssignableFrom(one_, _context.getClasses())) {
                     return CustList.NO_SWAP_SORT;
                 }
-                return Integer.MIN_VALUE;
+                _o1.getParameters().setError(true);
+                _o2.getParameters().setError(true);
+                return CustList.NO_SWAP_SORT;
             }
             ClassMatching toPrOne_ = one_;
             ClassMatching toPrTwo_ = two_;
@@ -1296,7 +1383,9 @@ public abstract class OperationNode implements SortedNode<OperationNode>, Operab
             if (toPrTwo_.isAssignableFrom(toPrOne_, _context.getClasses())) {
                 return CustList.NO_SWAP_SORT;
             }
-            return Integer.MIN_VALUE;
+            _o1.getParameters().setError(true);
+            _o2.getParameters().setError(true);
+            return CustList.NO_SWAP_SORT;
         }
         return CustList.NO_SWAP_SORT;
     }
