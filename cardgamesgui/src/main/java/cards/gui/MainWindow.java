@@ -2042,9 +2042,9 @@ public final class MainWindow extends NetGroupFrame {
     /**Sauvegarder une partie dans un fichier*/
     private String dialogueFichierSauvegarde() {
         if (isSaveHomeFolder()) {
-            FileSaveDialog.setFileSaveDialog(this, Constants.getLanguage(), true, FileConst.GAME_EXT, ConstFiles.getHomePath());
+            FileSaveDialog.setFileSaveDialogByFrame(this, Constants.getLanguage(), true, FileConst.GAME_EXT, ConstFiles.getHomePath());
         } else {
-            FileSaveDialog.setFileSaveDialog(this, Constants.getLanguage(), true, FileConst.GAME_EXT, EMPTY_STRING, FileConst.EXCLUDED);
+            FileSaveDialog.setFileSaveDialogByFrame(this, Constants.getLanguage(), true, FileConst.GAME_EXT, EMPTY_STRING, FileConst.EXCLUDED);
         }
         String fichier_=FileSaveDialog.getStaticSelectedPath();
         if (fichier_ == null) {

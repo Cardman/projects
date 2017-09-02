@@ -81,7 +81,7 @@ public class MainWindow extends GroupFrame {
     }
 
     public void selectFile() {
-        FileSaveDialog.setFileSaveDialog(this, Constants.getLanguage(), false, EMPTY_STRING, ConstFiles.getHomePath());
+        FileSaveDialog.setFileSaveDialogByFrame(this, Constants.getLanguage(), false, EMPTY_STRING, ConstFiles.getHomePath());
         String file_ = FileSaveDialog.getStaticSelectedPath().trim();
         if (file_.isEmpty()) {
             return;

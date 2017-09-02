@@ -1324,9 +1324,9 @@ public final class MainWindow extends NetGroupFrame {
         boolean saveConfig_ = false;
         if (loadingConf.isSaveHomeFolder()) {
             saveConfig_ = true;
-            FileSaveDialog.setFileSaveDialog(this, Constants.getLanguage(), true, Resources.GAME_EXT, ConstFiles.getHomePath());
+            FileSaveDialog.setFileSaveDialogByFrame(this, Constants.getLanguage(), true, Resources.GAME_EXT, ConstFiles.getHomePath());
         } else {
-            FileSaveDialog.setFileSaveDialog(this, Constants.getLanguage(), true, Resources.GAME_EXT, DataBase.EMPTY_STRING, Resources.EXCLUDED);
+            FileSaveDialog.setFileSaveDialogByFrame(this, Constants.getLanguage(), true, Resources.GAME_EXT, DataBase.EMPTY_STRING, Resources.EXCLUDED);
         }
         String path_ = FileSaveDialog.getStaticSelectedPath();
         if (path_ == null) {

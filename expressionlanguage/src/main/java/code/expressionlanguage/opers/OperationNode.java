@@ -694,14 +694,14 @@ public abstract class OperationNode implements SortedNode<OperationNode>, Operab
             trace_ += PAR_RIGHT;
             throw new NoSuchDeclaredMethodException(trace_+RETURN_LINE+_conf.joinPages());
         }
-        ClassMethodIdResult resInst_ = getDeclaredCustMethodByClass(_conf, false, _class, _name, _superClass, _argsClass);
+        ClassMethodIdResult resInst_ = getDeclaredCustMethodByClassInherit(_conf, false, _class, _name, _superClass, _argsClass);
         boolean foundInst_ = false;
         if (!_staticContext) {
             if (resInst_.getStatus() == SearchingMemberStatus.UNIQ) {
                 foundInst_ = true;
             }
         }
-        ClassMethodIdResult resStatic_ = getDeclaredCustMethodByClass(_conf, true, _class, _name, _superClass, _argsClass);
+        ClassMethodIdResult resStatic_ = getDeclaredCustMethodByClassInherit(_conf, true, _class, _name, _superClass, _argsClass);
         if (foundInst_) {
             return toFoundMethod(_conf, resInst_);
         }
@@ -737,7 +737,7 @@ public abstract class OperationNode implements SortedNode<OperationNode>, Operab
         idRet_.setAbstractMethod(m_.isAbstractMethod());
         return idRet_;
     }
-    private static ClassMethodIdResult getDeclaredCustMethodByClass(ContextEl _conf, boolean _static, ClassArgumentMatching _class, String _name, boolean _superClass, ClassArgumentMatching... _argsClass) {
+    private static ClassMethodIdResult getDeclaredCustMethodByClassInherit(ContextEl _conf, boolean _static, ClassArgumentMatching _class, String _name, boolean _superClass, ClassArgumentMatching... _argsClass) {
         Classes classes_ = _conf.getClasses();
         ClassMetaInfo custClass_ = null;
         String clCurName_ = _class.getName();
