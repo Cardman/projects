@@ -9,6 +9,7 @@ import code.expressionlanguage.PrimitiveTypeUtil;
 import code.expressionlanguage.exceptions.BadIndexException;
 import code.expressionlanguage.exceptions.BadIndexTypeException;
 import code.expressionlanguage.exceptions.BadNumberValuesException;
+import code.expressionlanguage.exceptions.DynamicArrayStoreException;
 import code.expressionlanguage.exceptions.NotArrayException;
 import code.expressionlanguage.methods.util.ArgumentsPair;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
@@ -235,13 +236,16 @@ public final class ArrOperation extends MethodOperation implements SettableElRes
             }
             return;
         }
-        if (_value.isJavaObject()) {
-            if (_struct.isJavaObject()) {
-                Array.set(arrayInst_, index_, _value.getInstance());
-                return;
-            }
+        String componentType_ = PrimitiveTypeUtil.getQuickComponentType(_struct.getClassName());
+        String elementType_ = _value.getClassName();
+        if (!PrimitiveTypeUtil.canBeUseAsArgument(componentType_, elementType_, _conf.getClasses())) {
+            throw new DynamicArrayStoreException(componentType_, elementType_, _conf.joinPages());
         }
-        Array.set(arrayInst_, index_, _value);
+        if (!_value.isJavaObject()) {
+            Array.set(arrayInst_, index_, _value);
+            return;
+        }
+        Array.set(arrayInst_, index_, _value.getInstance());
     }
     @Override
     void calculateChildren() {

@@ -13,7 +13,6 @@ import code.expressionlanguage.ElUtil;
 import code.expressionlanguage.OperationsSequence;
 import code.expressionlanguage.PrimitiveTypeUtil;
 import code.expressionlanguage.exceptions.AbstractClassConstructorException;
-import code.expressionlanguage.exceptions.AmbiguousChoiceCallingException;
 import code.expressionlanguage.exceptions.ErrorCausingException;
 import code.expressionlanguage.exceptions.InvokeException;
 import code.expressionlanguage.exceptions.StaticAccessException;
@@ -39,16 +38,18 @@ import code.expressionlanguage.opers.util.ClassName;
 import code.expressionlanguage.opers.util.ConstructorInfo;
 import code.expressionlanguage.opers.util.ConstructorMetaInfo;
 import code.expressionlanguage.opers.util.FctConstraints;
+import code.expressionlanguage.opers.util.Fcts;
 import code.expressionlanguage.opers.util.FieldMetaInfo;
+import code.expressionlanguage.opers.util.FieldResult;
 import code.expressionlanguage.opers.util.MethodInfo;
 import code.expressionlanguage.opers.util.MethodMetaInfo;
 import code.expressionlanguage.opers.util.MethodModifier;
 import code.expressionlanguage.opers.util.ParametersGroup;
-import code.expressionlanguage.opers.util.ParametersGroupComparator;
+import code.expressionlanguage.opers.util.Parametrable;
+import code.expressionlanguage.opers.util.Parametrables;
 import code.expressionlanguage.opers.util.SearchingMemberStatus;
 import code.expressionlanguage.opers.util.Struct;
 import code.serialize.ConverterMethod;
-import code.serialize.exceptions.BadAccessException;
 import code.serialize.exceptions.InvokingException;
 import code.serialize.exceptions.NoSuchDeclaredConstructorException;
 import code.serialize.exceptions.NoSuchDeclaredFieldException;
@@ -62,6 +63,8 @@ import code.util.NatTreeMap;
 import code.util.ObjectMap;
 import code.util.ObjectNotNullMap;
 import code.util.StringList;
+import code.util.comparators.ComparatorList;
+import code.util.comparators.NaturalComparator;
 import code.util.consts.ConstClasses;
 import code.util.exceptions.NullObjectException;
 import code.util.exceptions.RuntimeClassNotFoundException;
@@ -166,6 +169,8 @@ public abstract class OperationNode implements SortedNode<OperationNode>, Operab
     protected static final String RETURN_TAB = RETURN_LINE+"\t";
 
     protected static final String GET_CLASS = "getClass";
+
+    private static final ComparatorList<String> CMP = new ComparatorList<String>(new NaturalComparator<String>());
 
     private MethodOperation parent;
 
@@ -398,40 +403,59 @@ public abstract class OperationNode implements SortedNode<OperationNode>, Operab
             }
         }
     }
-    static FieldMetaInfo getDeclaredCustField(ContextEl _cont,ClassArgumentMatching _class, boolean _superClass, String _name) {
+    static FieldResult getDeclaredCustField(ContextEl _cont, boolean _staticContext, ClassArgumentMatching _class, boolean _superClass, String _name) {
+        FieldResult resIns_ = getDeclaredCustFieldByContext(_cont, false, _class, _superClass, _name);
+        FieldResult resSt_ = getDeclaredCustFieldByContext(_cont, true, _class, _superClass, _name);
+        if (resIns_.getStatus() == SearchingMemberStatus.UNIQ) {
+            if (!_staticContext) {
+                return resIns_;
+            }
+            throw new StaticAccessException(_cont.joinPages());
+        }
+        return resSt_;
+    }
+    static FieldResult getDeclaredCustFieldByContext(ContextEl _cont, boolean _static, ClassArgumentMatching _class, boolean _superClass, String _name) {
         String clCurName_ = _class.getName();
         ClassMetaInfo custClass_;
         Classes classes_ = _cont.getClasses();
         custClass_ = classes_.getClassMetaInfo(clCurName_);
-        String glClass_ = _cont.getLastPage().getGlobalClass();
         while (custClass_ != null) {
             for (EntryCust<String, FieldMetaInfo> e: custClass_.getFields().entryList()) {
                 if (!StringList.quickEq(e.getKey(), _name)) {
                     continue;
                 }
-                if (!_cont.getClasses().canAccessField(glClass_, clCurName_, _name)) {
-                    throw new BadAccessException(clCurName_+DOT+_name+RETURN_LINE+_cont.joinPages());
+                if (_static) {
+                    if (!e.getValue().isStaticField()) {
+                        break;
+                    }
+                } else {
+                    if (e.getValue().isStaticField()) {
+                        break;
+                    }
                 }
-                return e.getValue();
+                FieldResult r_ = new FieldResult();
+                r_.setId(e.getValue());
+                r_.setStatus(SearchingMemberStatus.UNIQ);
+                return r_;
             }
             if (!_superClass) {
-                throw new NoSuchDeclaredFieldException(_name+RETURN_LINE+_cont.joinPages());
+                FieldResult r_ = new FieldResult();
+                r_.setStatus(SearchingMemberStatus.ZERO);
+                return r_;
             }
             clCurName_ = custClass_.getSuperClass();
             custClass_ = classes_.getClassMetaInfo(clCurName_);
         }
-        throw new NoSuchDeclaredFieldException(_name+RETURN_LINE+_cont.joinPages());
+        FieldResult r_ = new FieldResult();
+        r_.setStatus(SearchingMemberStatus.ZERO);
+        return r_;
     }
     static Field getDeclaredField(ContextEl _cont,ClassArgumentMatching _class, String _name) {
         Class<?> class_ = _class.getClazz();
         StringList traces_ = new StringList();
         while (class_ != null) {
             try {
-                Field field_ = class_.getDeclaredField(_name);
-                if (!canBeUsed(field_, _cont)) {
-                    throw new BadAccessException(_class.getName()+DOT+_name+RETURN_LINE+_cont.joinPages());
-                }
-                return field_;
+                return class_.getDeclaredField(_name);
             } catch (NoSuchFieldException _0) {
                 String trace_ = class_.getName()+DOT+_name;
                 traces_.add(trace_);
@@ -507,7 +531,7 @@ public abstract class OperationNode implements SortedNode<OperationNode>, Operab
             throw new NoSuchDeclaredConstructorException(trace_+RETURN_LINE+_conf.joinPages());
         }
         ArgumentsGroup gr_ = new ArgumentsGroup(classes_, _args);
-        CustList<ConstructorInfo> signatures_ = new CustList<ConstructorInfo>();
+        Parametrables<ConstructorInfo> signatures_ = new Parametrables<ConstructorInfo>();
         for (FctConstraints m: possibleMethods_) {
             ParametersGroup p_ = new ParametersGroup();
             for (StringList c: m.getConstraints()) {
@@ -520,17 +544,8 @@ public abstract class OperationNode implements SortedNode<OperationNode>, Operab
             mloc_.setParameters(p_);
             signatures_.add(mloc_);
         }
-        signatures_.sortElts(new ParametersGroupComparator<ConstructorInfo>(gr_));
-        CustList<ConstructorInfo> errors_ = new CustList<ConstructorInfo>();
-        for (ConstructorInfo p : signatures_) {
-            if (p.getParameters().isError()) {
-                errors_.add(p);
-            }
-        }
-        if (!signatures_.first().getParameters().isError()) {
-            return signatures_.first().getConstraints();
-        }
-        throw new AmbiguousChoiceCallingException(errors_.join(RETURN_LINE)+RETURN_LINE+_conf.joinPages());
+        sortCtors(signatures_, gr_);
+        return signatures_.first().getConstraints();
     }
     private static CustList<FctConstraints> filterCtr(String _glClass, String _accessedClass, CustList<FctConstraints> _found, ContextEl _conf) {
         CustList<FctConstraints> accessible_ = new CustList<FctConstraints>();
@@ -573,7 +588,7 @@ public abstract class OperationNode implements SortedNode<OperationNode>, Operab
             return possibleConstructors_.first();
         }
         ArgumentsGroup gr_ = new ArgumentsGroup(_conf.getClasses(), _args);
-        CustList<ConstructorInfo> signatures_ = new CustList<ConstructorInfo>();
+        Parametrables<ConstructorInfo> signatures_ = new Parametrables<ConstructorInfo>();
         for (Constructor<?> m: possibleConstructors_) {
             ParametersGroup p_ = new ParametersGroup();
             for (Class<?> c: m.getParameterTypes()) {
@@ -585,17 +600,8 @@ public abstract class OperationNode implements SortedNode<OperationNode>, Operab
             signatures_.add(mloc_);
         }
         //signatures_.size() >= 2
-        signatures_.sortElts(new ParametersGroupComparator<ConstructorInfo>(gr_));
-        if (!signatures_.first().getParameters().isError()) {
-            return signatures_.first().getMethod();
-        }
-        CustList<ConstructorInfo> errors_ = new CustList<ConstructorInfo>();
-        for (ConstructorInfo p : signatures_) {
-            if (p.getParameters().isError()) {
-                errors_.add(p);
-            }
-        }
-        throw new AmbiguousChoiceCallingException(errors_.join(RETURN_LINE)+RETURN_LINE+_conf.joinPages());
+        sortCtors(signatures_, gr_);
+        return signatures_.first().getMethod();
     }
     static String getDynDeclaredCustMethod(ContextEl _conf, String _realClassName, boolean _interface, ClassMethodId _idMeth) {
         Classes classes_ = _conf.getClasses();
@@ -753,10 +759,7 @@ public abstract class OperationNode implements SortedNode<OperationNode>, Operab
                 clCurName_ = superClass_;
                 continue;
             }
-            if (res_.getStatus() == SearchingMemberStatus.UNIQ) {
-                return res_;
-            }
-            throw new AmbiguousChoiceCallingException(res_.getMethods().join(RETURN_LINE)+RETURN_LINE+_conf.joinPages());
+            return res_;
         }
         ClassMethodIdResult res_ = new ClassMethodIdResult();
         res_.setStatus(SearchingMemberStatus.ZERO);
@@ -774,7 +777,9 @@ public abstract class OperationNode implements SortedNode<OperationNode>, Operab
         String clCurName_ = _class.getName();
         InterfaceBlock intBl_ = (InterfaceBlock) classes_.getClassBody(clCurName_);
         StringList superInts_ = new StringList(clCurName_);
-        superInts_.addAllElts(intBl_.getAllSuperClasses());
+        if (!_static) {
+            superInts_.addAllElts(intBl_.getAllSuperClasses());
+        }
         ObjectMap<FctConstraints, StringList> signatures_;
         signatures_ = new ObjectMap<FctConstraints, StringList>();
         for (String s: superInts_) {
@@ -876,14 +881,6 @@ public abstract class OperationNode implements SortedNode<OperationNode>, Operab
         ClassMetaInfo custClass_ = null;
         String clCurName_ = _class.getName();
         custClass_ = classes_.getClassMetaInfo(clCurName_);
-        String glClass_ = _conf.getLastPage().getGlobalClass();
-        if (!classes_.canAccessClass(glClass_, clCurName_)) {
-            String superClass_ = custClass_.getSuperClass();
-            custClass_ = classes_.getClassMetaInfo(superClass_);
-            ClassMethodIdResult res_ = new ClassMethodIdResult();
-            res_.setStatus(SearchingMemberStatus.ZERO);
-            return res_;
-        }
         ObjectNotNullMap<FctConstraints, MethodMetaInfo> methods_;
         methods_ = new ObjectNotNullMap<FctConstraints, MethodMetaInfo>();
         for (EntryCust<FctConstraints, MethodMetaInfo> e: custClass_.getMethods().entryList()) {
@@ -952,7 +949,7 @@ public abstract class OperationNode implements SortedNode<OperationNode>, Operab
             return res_;
         }
         ArgumentsGroup gr_ = new ArgumentsGroup(classes_, _argsClass);
-        CustList<MethodInfo> signatures_ = new CustList<MethodInfo>();
+        Parametrables<MethodInfo> signatures_ = new Parametrables<MethodInfo>();
         for (FctConstraints m: possibleMethods_) {
             ParametersGroup p_ = new ParametersGroup();
             for (StringList c: m.getConstraints()) {
@@ -964,24 +961,12 @@ public abstract class OperationNode implements SortedNode<OperationNode>, Operab
             mloc_.setParameters(p_);
             signatures_.add(mloc_);
         }
-        signatures_.sortElts(new ParametersGroupComparator<MethodInfo>(gr_));
-        CustList<MethodInfo> errors_ = new CustList<MethodInfo>();
-        for (MethodInfo p : signatures_) {
-            if (p.getParameters().isError()) {
-                errors_.add(p);
-            }
-        }
-        if (!signatures_.first().getParameters().isError()) {
-            FctConstraints constraints_ = signatures_.first().getConstraints();
-            ClassMethodId cl_ = new ClassMethodId(new ClassName(clCurName_, false), constraints_);
-            ClassMethodIdResult res_ = new ClassMethodIdResult();
-            res_.setStatus(SearchingMemberStatus.UNIQ);
-            res_.setId(cl_);
-            return res_;
-        }
+        sortFct(signatures_, gr_);
+        FctConstraints constraints_ = signatures_.first().getConstraints();
+        ClassMethodId cl_ = new ClassMethodId(new ClassName(clCurName_, false), constraints_);
         ClassMethodIdResult res_ = new ClassMethodIdResult();
-        res_.setStatus(SearchingMemberStatus.AMBIGUOUS);
-        res_.setMethods(errors_);
+        res_.setStatus(SearchingMemberStatus.UNIQ);
+        res_.setId(cl_);
         return res_;
     }
     private static EqList<FctConstraints> filterMeth(String _glClass, String _accessedClass, CustList<FctConstraints> _found, ContextEl _conf) {
@@ -1046,10 +1031,7 @@ public abstract class OperationNode implements SortedNode<OperationNode>, Operab
         if (res_.getStatus() == SearchingMemberStatus.ZERO) {
             return res_;
         }
-        if (res_.getStatus() == SearchingMemberStatus.UNIQ) {
-            return res_;
-        }
-        throw new AmbiguousChoiceCallingException(res_.getMethods().join(RETURN_LINE)+RETURN_LINE+_cont.joinPages());
+        return res_;
     }
     static ClassMethodIdResult getDeclaredMethodLoop(ContextEl _cont, boolean _static, ClassArgumentMatching _class,
             String _name, ClassArgumentMatching... _argsClass) {
@@ -1064,10 +1046,7 @@ public abstract class OperationNode implements SortedNode<OperationNode>, Operab
                 class_ = class_.getSuperclass();
                 continue;
             }
-            if (res_.getStatus() == SearchingMemberStatus.UNIQ) {
-                return res_;
-            }
-            throw new AmbiguousChoiceCallingException(res_.getMethods().join(RETURN_LINE)+RETURN_LINE+_cont.joinPages());
+            return res_;
         }
         ClassMethodIdResult res_ = new ClassMethodIdResult();
         res_.setStatus(SearchingMemberStatus.ZERO);
@@ -1133,7 +1112,7 @@ public abstract class OperationNode implements SortedNode<OperationNode>, Operab
             return res_;
         }
         ArgumentsGroup gr_ = new ArgumentsGroup(_conf.getClasses(), _argsClass);
-        CustList<MethodInfo> signatures_ = new CustList<MethodInfo>();
+        Parametrables<MethodInfo> signatures_ = new Parametrables<MethodInfo>();
         for (Method m: possibleMethods_) {
             ParametersGroup p_ = new ParametersGroup();
             for (Class<?> c: m.getParameterTypes()) {
@@ -1144,22 +1123,10 @@ public abstract class OperationNode implements SortedNode<OperationNode>, Operab
             mloc_.setParameters(p_);
             signatures_.add(mloc_);
         }
-        signatures_.sortElts(new ParametersGroupComparator<MethodInfo>(gr_));
-        CustList<MethodInfo> errors_ = new CustList<MethodInfo>();
-        for (MethodInfo p : signatures_) {
-            if (p.getParameters().isError()) {
-                errors_.add(p);
-            }
-        }
-        if (!signatures_.first().getParameters().isError()) {
-            ClassMethodIdResult res_ = new ClassMethodIdResult();
-            res_.setStatus(SearchingMemberStatus.UNIQ);
-            res_.setMethod(signatures_.first().getMethod());
-            return res_;
-        }
+        sortFct(signatures_, gr_);
         ClassMethodIdResult res_ = new ClassMethodIdResult();
-        res_.setStatus(SearchingMemberStatus.AMBIGUOUS);
-        res_.setMethods(errors_);
+        res_.setStatus(SearchingMemberStatus.UNIQ);
+        res_.setMethod(signatures_.first().getMethod());
         return res_;
     }
     static boolean isPossibleMethod(ContextEl _context, ClassMatching[] _params, ClassArgumentMatching..._argsClass) {
@@ -1192,7 +1159,7 @@ public abstract class OperationNode implements SortedNode<OperationNode>, Operab
     }
     static Argument newInstance(ContextEl _conf, Argument _need, int _offsetIncr, Constructor<?> _const, Argument... _args) {
         Struct[] args_ = getObjects(_args);
-        checkArgumentsForInvoking(_conf, _const.getParameterTypes(), args_);
+        checkArgumentsForInvoking(_conf, toClassNames(_const.getParameterTypes()), args_);
         try {
             Argument a_ = new Argument();
             Object o_ = ConverterMethod.newInstance(_const, adaptedArgs(_const.getParameterTypes(), args_));
@@ -1209,10 +1176,11 @@ public abstract class OperationNode implements SortedNode<OperationNode>, Operab
         }
     }
 
-    static Struct invokeMethod(ContextEl _cont,int _offsetIncr, String _className, Method _method, Object _instance, Struct... _args) {
-        checkArgumentsForInvoking(_cont, _method.getParameterTypes(), _args);
+    static Struct invokeMethod(ContextEl _cont,int _offsetIncr, String _className, Method _method, Object _instance, Argument... _args) {
+        Struct[] args_ = getObjects(_args);
+        checkArgumentsForInvoking(_cont, toClassNames(_method.getParameterTypes()), args_);
         try {
-            Object o_ = ConverterMethod.invokeMethod(_method, _instance, adaptedArgs(_method.getParameterTypes(), _args));
+            Object o_ = ConverterMethod.invokeMethod(_method, _instance, adaptedArgs(_method.getParameterTypes(), args_));
             if (o_ == null) {
                 return new Struct();
             }
@@ -1226,17 +1194,108 @@ public abstract class OperationNode implements SortedNode<OperationNode>, Operab
             throw new ErrorCausingException(_cont.joinPages(), new Struct(_0));
         }
     }
-    static void checkArgumentsForInvoking(ContextEl _cont,Class<?>[] _params,Struct... _args) {
-        int len_ = _params.length;
+    static void sortFct(Parametrables<MethodInfo> _fct, ArgumentsGroup _context) {
+        int len_ = _fct.size();
+        for (int i = CustList.SECOND_INDEX; i < len_; i++) {
+            process(_fct, i, _context);
+        }
+    }
+    static void sortCtors(Parametrables<ConstructorInfo> _fct, ArgumentsGroup _context) {
+        int len_ = _fct.size();
+        for (int i = CustList.SECOND_INDEX; i < len_; i++) {
+            process(_fct, i, _context);
+        }
+    }
+    static void process(Fcts _list, int _i, ArgumentsGroup _context) {
+        Parametrable pFirst_ = _list.first();
+        Parametrable pCurrent_ = _list.get(_i);
+        int res_ = compare(_context, pFirst_, pCurrent_);
+        if (res_ == CustList.SWAP_SORT) {
+            _list.swapIndexes(CustList.FIRST_INDEX, _i);
+        }
+    }
+    static int compare(ArgumentsGroup _context,Parametrable _o1, Parametrable _o2) {
+        int len_ = _o1.getParameters().size();
+        for (int i = CustList.FIRST_INDEX; i < len_; i++) {
+            ClassArgumentMatching selected_ = _context.get(i);
+            ClassMatching one_ = _o1.getParameters().get(i);
+            ClassMatching two_ = _o2.getParameters().get(i);
+            if (one_.matchClass(two_)) {
+                continue;
+            }
+            if (selected_.isVariable()) {
+                if (one_.isAssignableFrom(two_, _context.getClasses())) {
+                    return CustList.SWAP_SORT;
+                }
+                if (two_.isAssignableFrom(one_, _context.getClasses())) {
+                    return CustList.NO_SWAP_SORT;
+                }
+                return CMP.compare(one_.getClassName(), two_.getClassName());
+            }
+            ClassMatching toPrOne_ = one_;
+            ClassMatching toPrTwo_ = two_;
+            boolean onePrimExcl_ = false;
+            boolean twoPrimExcl_ = false;
+            if (one_.isPrimitive() && !two_.isPrimitive()) {
+                onePrimExcl_ = true;
+            }
+            if (!one_.isPrimitive() && two_.isPrimitive()) {
+                twoPrimExcl_ = true;
+            }
+            if (selected_.isPrimitive()) {
+                if (onePrimExcl_) {
+                    return CustList.NO_SWAP_SORT;
+                }
+                if (twoPrimExcl_) {
+                    return CustList.SWAP_SORT;
+                }
+                toPrOne_ = PrimitiveTypeUtil.toAllPrimitive(one_);
+                toPrTwo_ = PrimitiveTypeUtil.toAllPrimitive(two_);
+            } else {
+                ClassArgumentMatching clMatch_ = PrimitiveTypeUtil.toAllPrimitive(selected_, true);
+                if (clMatch_.isPrimitive()) {
+                    if (onePrimExcl_) {
+                        return CustList.SWAP_SORT;
+                    }
+                    if (twoPrimExcl_) {
+                        return CustList.NO_SWAP_SORT;
+                    }
+                    toPrOne_ = PrimitiveTypeUtil.toAllPrimitive(one_);
+                    toPrTwo_ = PrimitiveTypeUtil.toAllPrimitive(two_);
+                }
+            }
+            if (toPrOne_.isAssignableFrom(toPrTwo_, _context.getClasses())) {
+                return CustList.SWAP_SORT;
+            }
+            if (toPrTwo_.isAssignableFrom(toPrOne_, _context.getClasses())) {
+                return CustList.NO_SWAP_SORT;
+            }
+            return CMP.compare(one_.getClassName(), two_.getClassName());
+        }
+        return CustList.NO_SWAP_SORT;
+    }
+    static void checkArgumentsForInvoking(ContextEl _cont,StringList _params,Struct... _args) {
+        int len_ = _params.size();
         StringList traces_ = new StringList();
         for (int i = 0; i < len_; i++) {
-            if (_params[i].isPrimitive() && _args[i].isNull()) {
-                traces_.add(i+RETURN_LINE+_params[i].getName()+RETURN_LINE+null);
+            if (_params.get(i).startsWith(PrimitiveTypeUtil.PRIM) && _args[i].isNull()) {
+                traces_.add(i+RETURN_LINE+_params.get(i)+RETURN_LINE+null);
             }
         }
         if (!traces_.isEmpty()) {
             throw new UnwrappingException(traces_.join(SEP_ARG)+RETURN_LINE+_cont.joinPages());
         }
+    }
+    static StringList toClassNames(Class<?>[] _params) {
+        StringList params_ = new StringList();
+        for (Class<?> c: _params) {
+            if (c.isPrimitive()) {
+                params_.add(PrimitiveTypeUtil.PRIM+c.getName());
+            } else {
+                params_.add(PrimitiveTypeUtil.getAliasArrayClass(c));
+            }
+        }
+        return params_;
     }
     static Object[] adaptedArgs(Class<?>[] _params,Struct... _args) {
         int len_ = _params.length;

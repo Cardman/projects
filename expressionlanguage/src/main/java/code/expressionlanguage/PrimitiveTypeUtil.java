@@ -374,12 +374,6 @@ public final class PrimitiveTypeUtil {
         }
         DimComp paramComp_ = getQuickComponentBaseType(param_.getName());
         DimComp argComp_ = getQuickComponentBaseType(_arg);
-        if (paramComp_.getDim() < argComp_.getDim()) {
-            if (StringList.quickEq(paramComp_.getComponent(), Object.class.getName())) {
-                return true;
-            }
-            return false;
-        }
         Class<?> clParam_ = param_.getClazz();
         Class<?> clArg_ = new ClassArgumentMatching(_arg).getClazz();
         boolean array_ = false;
@@ -387,7 +381,7 @@ public final class PrimitiveTypeUtil {
             param_ = new ClassArgumentMatching(paramComp_.getComponent());
             clArg_ = new ClassArgumentMatching(argComp_.getComponent()).getClazz();
             clParam_ = param_.getClazz();
-            array_ = paramComp_.getDim() > 0;
+            array_ = paramComp_.getDim() > 0 || argComp_.getDim() > 0;
         }
         return canBeUseAsArgument(clParam_, clArg_, array_);
     }
@@ -515,6 +509,9 @@ public final class PrimitiveTypeUtil {
         return 0;
     }
     public static boolean isPrimitiveOrWrapper(String _className) {
+        if (_className.startsWith(PRIM)) {
+            return true;
+        }
         return toPrimitive(new ClassArgumentMatching(_className), false) != null;
     }
     public static boolean isPureNumberClass(ClassArgumentMatching _class) {
@@ -607,6 +604,19 @@ public final class PrimitiveTypeUtil {
             return BYTE_CASTING;
         }
         return 0;
+    }
+    public static ClassMatching toAllPrimitive(ClassMatching _class) {
+        if (_class.getClassName().size() != 1) {
+            return _class;
+        }
+        ClassArgumentMatching cl_ = new ClassArgumentMatching(_class.getClassName().first());
+        return new ClassMatching(toAllPrimitive(cl_, true).getName());
+    }
+    public static ClassArgumentMatching toAllPrimitive(ClassArgumentMatching _class, boolean _id) {
+        if (_class.matchClass(Boolean.class)) {
+            return new ClassArgumentMatching(PRIM_BOOLEAN);
+        }
+        return toPrimitive(_class, _id);
     }
     public static ClassArgumentMatching toPrimitive(ClassArgumentMatching _class, boolean _id) {
         Class<?> native_;

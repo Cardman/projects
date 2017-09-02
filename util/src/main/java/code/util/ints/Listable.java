@@ -11,8 +11,6 @@ public interface Listable<T> extends Iterable<T> {
 
     boolean isEmpty();
 
-//    Iterator<T> iterator();
-
     Object[] toArray();
 
     void add(T _e);
@@ -31,14 +29,11 @@ public interface Listable<T> extends Iterable<T> {
 
     void removeAt(Number _index);
 
-//    T remove(int index);
     void remove(int _index);
 
     ListIterator<T> listIterator();
 
     ListIterator<T> listIterator(int _index);
-
-//    List<T> subList(int fromIndex, int toIndex);
 
     T first();
 

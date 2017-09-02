@@ -30,7 +30,7 @@ import code.expressionlanguage.classes.InternsClasses.InternStaticStandard.Inter
 import code.expressionlanguage.classes.MyImpl;
 import code.expressionlanguage.classes.StrangeInit;
 import code.expressionlanguage.exceptions.AbstractClassConstructorException;
-import code.expressionlanguage.exceptions.AmbiguousChoiceCallingException;
+import code.expressionlanguage.exceptions.DynamicArrayStoreException;
 import code.expressionlanguage.exceptions.DynamicCastClassException;
 import code.expressionlanguage.exceptions.ErrorCausingException;
 import code.expressionlanguage.exceptions.FinalMemberException;
@@ -42,6 +42,7 @@ import code.expressionlanguage.exceptions.SettingMemberException;
 import code.expressionlanguage.exceptions.StaticAccessException;
 import code.expressionlanguage.exceptions.UnwrappingException;
 import code.expressionlanguage.methods.Classes;
+import code.expressionlanguage.opers.util.ClassField;
 import code.expressionlanguage.opers.util.Struct;
 import code.expressionlanguage.variables.LocalVariable;
 import code.expressionlanguage.variables.LoopVariable;
@@ -1639,14 +1640,113 @@ public class ElUtilTest {
         assertSame(String.class, res_.getClass());
         assertEq("Long", res_);
     }
-    @Test(expected=AmbiguousChoiceCallingException.class)
+
+    @Test
+    public void processEl112Test() {
+        ContextEl context_ = new ContextEl();
+        setupAccessValue(context_);
+        addImportingPage(context_);
+        Composite compos_ = new Composite();
+        StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
+        LocalVariable lv_ = new LocalVariable();
+        lv_.setElement(compos_);
+        lv_.setClassName(Composite.class.getName());
+        localVars_.put("v", lv_);
+        context_.getLastPage().getCatchVars().putAllMap(localVars_);
+        Argument arg_ = ElUtil.processEl("v;..integer",0, context_);
+        Object res_ = arg_.getObject();
+        assertSame(Integer.class, res_.getClass());
+        assertEq(0, (Number)res_);
+    }
+
+    @Test
+    public void processEl113Test() {
+        ContextEl context_ = new ContextEl();
+        setupAccessValue(context_);
+        addImportingPage(context_);
+        Composite b_ = new Composite();
+        addBean(context_, b_);
+        Argument arg_ = ElUtil.processEl("getOverridenFour(1L)",0, context_);
+        Object res_ = arg_.getObject();
+        assertSame(String.class, res_.getClass());
+        assertEq("Long", res_);
+    }
+
+    @Test
+    public void processEl114Test() {
+        ContextEl context_ = new ContextEl();
+        setupAccessValue(context_);
+        addImportingPage(context_);
+        Composite b_ = new Composite();
+        addBean(context_, b_);
+        Argument arg_ = ElUtil.processEl("getOverridenFour(1l)",0, context_);
+        Object res_ = arg_.getObject();
+        assertSame(String.class, res_.getClass());
+        assertEq("long", res_);
+    }
+
+    @Test
+    public void processEl115Test() {
+        ContextEl context_ = new ContextEl();
+        setupAccessValue(context_);
+        addImportingPage(context_);
+        Composite b_ = new Composite();
+        addBean(context_, b_);
+        Argument arg_ = ElUtil.processEl("getOverridenFive(1L)",0, context_);
+        Object res_ = arg_.getObject();
+        assertSame(String.class, res_.getClass());
+        assertEq("Long", res_);
+    }
+
+    @Test
+    public void processEl116Test() {
+        ContextEl context_ = new ContextEl();
+        setupAccessValue(context_);
+        addImportingPage(context_);
+        Composite b_ = new Composite();
+        addBean(context_, b_);
+        Argument arg_ = ElUtil.processEl("getOverridenFive(1l)",0, context_);
+        Object res_ = arg_.getObject();
+        assertSame(String.class, res_.getClass());
+        assertEq("double", res_);
+    }
+
+    @Test
+    public void processEl117Test() {
+        ContextEl context_ = new ContextEl();
+        setupAccessValue(context_);
+        addImportingPage(context_);
+        Composite b_ = new Composite();
+        addBean(context_, b_);
+        Argument arg_ = ElUtil.processEl("getOverridenSix(1L)",0, context_);
+        Object res_ = arg_.getObject();
+        assertSame(String.class, res_.getClass());
+        assertEq("Long", res_);
+    }
+
+    @Test
+    public void processEl118Test() {
+        ContextEl context_ = new ContextEl();
+        setupAccessValue(context_);
+        addImportingPage(context_);
+        Composite b_ = new Composite();
+        addBean(context_, b_);
+        Argument arg_ = ElUtil.processEl("getOverridenSix(1l)",0, context_);
+        Object res_ = arg_.getObject();
+        assertSame(String.class, res_.getClass());
+        assertEq("long", res_);
+    }
+    @Test
     public void processEl1FailTest() {
         ContextEl context_ = new ContextEl();
         setupAccessValue(context_);
         addImportingPage(context_);
         Composite b_ = new Composite();
         addBean(context_, b_);
-        ElUtil.processEl("getOverridenOne(null)",0, context_);
+        Argument arg_ = ElUtil.processEl("getOverridenOne(null)",0, context_);
+        Object res_ = arg_.getObject();
+        assertSame(String.class, res_.getClass());
+        assertEq("one", res_);
     }
 
     @Test(expected=RuntimeClassNotFoundException.class)
@@ -1659,14 +1759,17 @@ public class ElUtilTest {
         ElUtil.processEl("^class(\"Object\",null)",0, context_);
     }
 
-    @Test(expected=AmbiguousChoiceCallingException.class)
+    @Test
     public void processEl3FailTest() {
         ContextEl context_ = new ContextEl();
         setupAccessValue(context_);
         addImportingPage(context_);
         Composite b_ = new Composite();
         addBean(context_, b_);
-        ElUtil.processEl("static^"+MY_IMPL_HAT+".ovTwo(^new."+MY_IMPL+"())",0, context_);
+        Argument arg_ = ElUtil.processEl("static^"+MY_IMPL_HAT+".ovTwo(^new."+MY_IMPL+"())",0, context_);
+        Object res_ = arg_.getObject();
+        assertSame(String.class, res_.getClass());
+        assertEq("two", res_);
     }
 
 
@@ -1825,6 +1928,48 @@ public class ElUtilTest {
         setupAccessValue(context_);
         addImportingPage(context_);
         ElUtil.processEl("static^"+COMPOSITE_HAT+".getInteger()",0, context_);
+    }
+
+    @Test(expected=SettingMemberException.class)
+    public void processEl21FailTest() {
+        ContextEl context_ = new ContextEl();
+        setupAccessValue(context_);
+        addImportingPage(context_);
+        StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
+        LocalVariable lv_ = new LocalVariable();
+        lv_.setElement(1l);
+        lv_.setClassName(Long.class.getName());
+        localVars_.put("arg", lv_);
+        context_.getLastPage().getLocalVars().putAllMap(localVars_);
+        ElUtil.processEl("static^"+FAIL_METHODS_HAT+".fail().arg;.",0, context_);
+    }
+
+    @Test(expected=SettingMemberException.class)
+    public void processEl22FailTest() {
+        ContextEl context_ = new ContextEl();
+        setupAccessValue(context_);
+        addImportingPage(context_);
+        StringMap<LoopVariable> localVars_ = new StringMap<LoopVariable>();
+        LoopVariable lv_ = new LoopVariable();
+        lv_.setElement(1l);
+        lv_.setClassName(Long.class.getName());
+        localVars_.put("arg", lv_);
+        context_.getLastPage().getVars().putAllMap(localVars_);
+        ElUtil.processEl("static^"+FAIL_METHODS_HAT+".fail().arg;",0, context_);
+    }
+
+    @Test(expected=SettingMemberException.class)
+    public void processEl23FailTest() {
+        ContextEl context_ = new ContextEl();
+        setupAccessValue(context_);
+        addImportingPage(context_);
+        StringMap<LoopVariable> localVars_ = new StringMap<LoopVariable>();
+        LoopVariable lv_ = new LoopVariable();
+        lv_.setElement(1l);
+        lv_.setClassName(Long.class.getName());
+        localVars_.put("arg", lv_);
+        context_.getLastPage().getVars().putAllMap(localVars_);
+        ElUtil.processEl("static^"+FAIL_METHODS_HAT+".fail().arg;;",0, context_);
     }
 
     @Test
@@ -2152,6 +2297,68 @@ public class ElUtilTest {
         assertEq(1, c_.getCompo()[0].getArray()[0]);
     }
 
+    @Test
+    public void processAffect21Test() {
+        String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg'>\n";
+        xml_ += "<field static='' access='"+PUBLIC_ACCESS+"' name='inst' class='"+Integer.class.getName()+"'/>\n";
+        xml_ += "<method access='"+PUBLIC_ACCESS+"' modifier='static' name='exmeth' class='"+PrimitiveTypeUtil.PRIM_INT+"' class0='"+PrimitiveTypeUtil.PRIM_INT+"' var0='e'>\n";
+        xml_ += "<declare var='t' class='"+PrimitiveTypeUtil.PRIM_LONG+"'/>\n";
+        xml_ += "<affect left='t;.' oper='=' right='8'/>\n";
+        xml_ += "<return expression='1i+^class(&quot;"+PrimitiveTypeUtil.PRIM_INT+"&quot;,t;.)+e;.;'/>\n";
+        xml_ += "</method>\n";
+        xml_ += "</class>\n";
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = new ContextEl();
+        files_.put("pkg/Ex."+Classes.EXT, xml_);
+        Classes.validateAll(files_, cont_);
+        setupAccessValue(cont_);
+        addImportingPage(cont_);
+        StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
+        LocalVariable lv_ = new LocalVariable();
+        lv_.setStruct(null);
+        lv_.setClassName(Integer.class.getName());
+        localVars_.put("v", lv_);
+        cont_.getLastPage().getLocalVars().putAllMap(localVars_);
+        Struct arg_;
+        Object res_;
+        ElUtil.processAffect("","","","pkg^Ex^^inst;;;", "2i", "=",cont_);
+        arg_ = cont_.getClasses().getStaticField(new ClassField("pkg.Ex", "inst"));
+        res_ = arg_.getInstance();
+        assertSame(Integer.class, res_.getClass());
+        assertEq(2,(Number) res_);
+    }
+
+    @Test
+    public void processAffect22Test() {
+        String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg'>\n";
+        xml_ += "<field static='' access='"+PUBLIC_ACCESS+"' name='inst' class='"+Integer.class.getName()+"'/>\n";
+        xml_ += "<method access='"+PUBLIC_ACCESS+"' modifier='static' name='exmeth' class='"+PrimitiveTypeUtil.PRIM_INT+"' class0='"+PrimitiveTypeUtil.PRIM_INT+"' var0='e'>\n";
+        xml_ += "<declare var='t' class='"+PrimitiveTypeUtil.PRIM_LONG+"'/>\n";
+        xml_ += "<affect left='t;.' oper='=' right='8'/>\n";
+        xml_ += "<return expression='1i+^class(&quot;"+PrimitiveTypeUtil.PRIM_INT+"&quot;,t;.)+e;.;'/>\n";
+        xml_ += "</method>\n";
+        xml_ += "</class>\n";
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = new ContextEl();
+        files_.put("pkg/Ex."+Classes.EXT, xml_);
+        Classes.validateAll(files_, cont_);
+        setupAccessValue(cont_);
+        addImportingPage(cont_);
+        StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
+        LocalVariable lv_ = new LocalVariable();
+        lv_.setStruct(null);
+        lv_.setClassName(Integer.class.getName());
+        localVars_.put("v", lv_);
+        cont_.getLastPage().getLocalVars().putAllMap(localVars_);
+        Struct arg_;
+        Object res_;
+        ElUtil.processAffect("","","","pkg^Ex^^inst;;;", "2i", "=",cont_);
+        ElUtil.processAffect("","","","pkg^Ex^^inst;;;", "v;.", "=",cont_);
+        arg_ = cont_.getClasses().getStaticField(new ClassField("pkg.Ex", "inst"));
+        res_ = arg_.getInstance();
+        assertNull(res_);
+    }
+
     @Test(expected=FinalMemberException.class)
     public void processAffect1FailTest() {
         ContextEl context_ = new ContextEl();
@@ -2278,6 +2485,85 @@ public class ElUtilTest {
         localVars_.put("v2", lv_);
         context_.getLastPage().getLocalVars().putAllMap(localVars_);
         ElUtil.processAffect("","","","v;.", "v2;.", "=",context_);
+    }
+
+    @Test(expected=SettingMemberException.class)
+    public void processAffect9FailTest() {
+        ContextEl context_ = new ContextEl();
+        setupAccessValue(context_);
+        addImportingPage(context_);
+        addBean(context_, new BeanOne());
+        StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
+        LocalVariable lv_ = new LocalVariable();
+        lv_.setElement(1);
+        lv_.setClassName(PrimitiveTypeUtil.PRIM_INT);
+        localVars_.put("v", lv_);
+        lv_ = new LocalVariable();
+        lv_.setClassName(Integer.class.getName());
+        localVars_.put("v2", lv_);
+        context_.getLastPage().getLocalVars().putAllMap(localVars_);
+        ElUtil.processAffect("","","","^this", "null", "=",context_);
+    }
+
+    @Test(expected=StaticAccessException.class)
+    public void processAffect10FailTest() {
+        ContextEl context_ = new ContextEl();
+        setupAccessValue(context_);
+        addImportingPage(context_);
+        StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
+        LocalVariable lv_ = new LocalVariable();
+        lv_.setElement(1);
+        lv_.setClassName(PrimitiveTypeUtil.PRIM_INT);
+        localVars_.put("v", lv_);
+        lv_ = new LocalVariable();
+        lv_.setClassName(Integer.class.getName());
+        localVars_.put("v2", lv_);
+        context_.getLastPage().getLocalVars().putAllMap(localVars_);
+        ElUtil.processAffect("","","","v;.", "^this", "=",context_);
+    }
+
+    @Test(expected=NullObjectException.class)
+    public void processAffect11FailTest() {
+        String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg'>\n";
+        xml_ += "<field static='' access='"+PUBLIC_ACCESS+"' name='inst' class='"+PrimitiveTypeUtil.PRIM_INT+"'/>\n";
+        xml_ += "<method access='"+PUBLIC_ACCESS+"' modifier='static' name='exmeth' class='"+PrimitiveTypeUtil.PRIM_INT+"' class0='"+PrimitiveTypeUtil.PRIM_INT+"' var0='e'>\n";
+        xml_ += "<declare var='t' class='"+PrimitiveTypeUtil.PRIM_LONG+"'/>\n";
+        xml_ += "<affect left='t;.' oper='=' right='8'/>\n";
+        xml_ += "<return expression='1i+^class(&quot;"+PrimitiveTypeUtil.PRIM_INT+"&quot;,t;.)+e;.;'/>\n";
+        xml_ += "</method>\n";
+        xml_ += "</class>\n";
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = new ContextEl();
+        files_.put("pkg/Ex."+Classes.EXT, xml_);
+        Classes.validateAll(files_, cont_);
+        setupAccessValue(cont_);
+        addImportingPage(cont_);
+        StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
+        LocalVariable lv_ = new LocalVariable();
+        lv_.setStruct(null);
+        lv_.setClassName(Integer.class.getName());
+        localVars_.put("v", lv_);
+        cont_.getLastPage().getLocalVars().putAllMap(localVars_);
+        ElUtil.processAffect("","","","pkg^Ex^^inst;;;", "2i", "=",cont_);
+        ElUtil.processAffect("","","","pkg^Ex^^inst;;;", "v;.", "=",cont_);
+    }
+
+    @Test(expected=DynamicArrayStoreException.class)
+    public void processAffect12FailTest() {
+        ContextEl context_ = new ContextEl();
+        setupAccessValue(context_);
+        addImportingPage(context_);
+        StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
+        LocalVariable lv_ = new LocalVariable();
+        lv_.setElement(new String[1]);
+        lv_.setClassName("["+Object.class.getName());
+        localVars_.put("v", lv_);
+        lv_ = new LocalVariable();
+        lv_.setElement(1);
+        lv_.setClassName(Integer.class.getName());
+        localVars_.put("v2", lv_);
+        context_.getLastPage().getLocalVars().putAllMap(localVars_);
+        ElUtil.processAffect("","","","v;.[0i]", "v2;.", "=",context_);
     }
 
     private static void setupAccessValue(ContextEl _conf) {

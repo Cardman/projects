@@ -102,6 +102,11 @@ public final class FctOperation extends InvokingOperation {
             CustList<ClassArgumentMatching> firstArgs_ = listClasses(chidren_);
             constId = getDeclaredCustConstructor(_conf, new ClassArgumentMatching(clCurName_), ClassArgumentMatching.toArgArray(firstArgs_));
             if (constId != null) {
+                String glClass_ = _conf.getLastPage().getGlobalClass();
+                if (!classes_.canAccessConstructor(glClass_, clCurName_, constId)) {
+                    ConstructorBlock ctr_ = classes_.getConstructorBody(clCurName_, constId);
+                    throw new BadAccessException(ctr_.getId().getSignature()+RETURN_LINE+_conf.joinPages());
+                }
                 setResultClass(new ClassArgumentMatching(OperationNode.VOID_RETURN));
                 return;
             }
@@ -228,6 +233,9 @@ public final class FctOperation extends InvokingOperation {
                 throw new NullGlobalObjectException(_conf.joinPages());
             }
             clCurName_ = clCur_.getName();
+        }
+        if (StringList.quickEq(clCurName_, OperationNode.VOID_RETURN)) {
+            throw new VoidArgumentException(_conf.joinPages());
         }
         if (classes_ != null) {
             String glClass_ = _conf.getLastPage().getGlobalClass();
@@ -555,6 +563,11 @@ public final class FctOperation extends InvokingOperation {
                     }
                 }
             }
+            StringList params_ = new StringList();
+            for (StringList c: methodId.getConstraints()) {
+                params_.add(c.first());
+            }
+            checkArgumentsForInvoking(_conf, params_, getObjects(Argument.toArgArray(firstArgs_)));
             if (_processInit) {
                 return ProcessXmlMethod.calculateArgument(arg_, classNameFound_, methodId, firstArgs_, _conf);
             }
@@ -573,7 +586,7 @@ public final class FctOperation extends InvokingOperation {
             }
         }
         String clCur_ = getPreviousResultClass().getName();
-        Struct ret_ = invokeMethod(_conf, 0, clCur_, method, obj_, getObjects(Argument.toArgArray(firstArgs_)));
+        Struct ret_ = invokeMethod(_conf, 0, clCur_, method, obj_, Argument.toArgArray(firstArgs_));
         Argument argres_ = new Argument();
         argres_.setStruct(ret_);
         return argres_;

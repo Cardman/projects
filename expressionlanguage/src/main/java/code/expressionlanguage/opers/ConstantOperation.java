@@ -27,6 +27,8 @@ import code.expressionlanguage.opers.util.ClassField;
 import code.expressionlanguage.opers.util.ClassMetaInfo;
 import code.expressionlanguage.opers.util.ClassName;
 import code.expressionlanguage.opers.util.FieldMetaInfo;
+import code.expressionlanguage.opers.util.FieldResult;
+import code.expressionlanguage.opers.util.SearchingMemberStatus;
 import code.expressionlanguage.opers.util.Struct;
 import code.expressionlanguage.variables.LocalVariable;
 import code.expressionlanguage.variables.LoopVariable;
@@ -68,6 +70,8 @@ public final class ConstantOperation extends OperationNode implements SettableEl
 
     private Field field;
 
+    private boolean dottedPrevious;
+
     public ConstantOperation(String _el, int _index, ContextEl _importingPage, int _indexChild, MethodOperation _m, OperationsSequence _op) {
         super(_el, _index, _importingPage, _indexChild, _m, _op);
     }
@@ -89,6 +93,10 @@ public final class ConstantOperation extends OperationNode implements SettableEl
             return;
         }
         analyzeCommon(_conf);
+        if (dottedPrevious) {
+            setRelativeOffsetPossibleLastPage(getIndexInEl(), _conf);
+            throw new SettingMemberException(_conf.joinPages());
+        }
     }
 
     void analyzeCommon(ContextEl _conf) {
@@ -96,18 +104,15 @@ public final class ConstantOperation extends OperationNode implements SettableEl
         String str_ = originalStr_.trim();
         PageEl ip_ = _conf.getLastPage();
         if (StringList.quickEq(str_, CURRENT_INTANCE)) {
-            Classes classes_ = _conf.getClasses();
-            if (classes_ != null) {
-                if (getParent() == null) {
-                    immutablePart = true;
-                }
-                if (isStaticAccess()) {
-                    throw new StaticAccessException(_conf.joinPages());
-                }
-                String arg_ = _conf.getLastPage().getGlobalClass();
-                setResultClass(new ClassArgumentMatching(arg_));
-                return;
+            if (isStaticAccess()) {
+                throw new StaticAccessException(_conf.joinPages());
             }
+            if (getParent() == null) {
+                immutablePart = true;
+            }
+            String arg_ = _conf.getLastPage().getGlobalClass();
+            setResultClass(new ClassArgumentMatching(arg_));
+            return;
         }
         if (str_.endsWith(GET_FIELD)) {
             Classes classes_ = _conf.getClasses();
@@ -137,28 +142,34 @@ public final class ConstantOperation extends OperationNode implements SettableEl
                 if (custClass_ != null) {
                     String key_;
                     boolean superClassAccess_ = true;
+                    FieldResult r_;
                     FieldMetaInfo e_;
                     if (str_.contains(STATIC_CALL)) {
                         StringList classMethod_ = StringList.splitStrings(str_, STATIC_CALL);
                         key_ = classMethod_.last();
                         key_ = key_.substring(CustList.FIRST_INDEX, key_.length() - GET_FIELD.length());
                         superClassAccess_ = false;
-                        e_ = getDeclaredCustField(_conf, new ClassArgumentMatching(clCurName_), superClassAccess_, key_);
+                        r_ = getDeclaredCustField(_conf, isStaticAccess(), new ClassArgumentMatching(clCurName_), superClassAccess_, key_);
                     } else if (str_.startsWith(EXTERN_CLASS+SUPER_ACCESS+EXTERN_CLASS)) {
                         key_ = str_.substring((EXTERN_CLASS+SUPER_ACCESS+EXTERN_CLASS).length(), str_.length() - GET_FIELD.length());
                         if (custClass_.getCategory() != ClassCategory.CLASS) {
                             throw new NoSuchDeclaredFieldException(key_+RETURN_LINE+_conf.joinPages());
                         }
-                        e_ = getDeclaredCustField(_conf, cl_, superClassAccess_, key_);
+                        r_ = getDeclaredCustField(_conf, isStaticAccess(), cl_, superClassAccess_, key_);
                     } else {
                         key_ = str_.substring(CustList.FIRST_INDEX, str_.length() - GET_FIELD.length());
                         superClassAccess_ = custClass_.getCategory() == ClassCategory.CLASS;
-                        e_ = getDeclaredCustField(_conf, cl_, superClassAccess_, key_);
+                        r_ = getDeclaredCustField(_conf, isStaticAccess(), cl_, superClassAccess_, key_);
+                    }
+                    if (r_.getStatus() == SearchingMemberStatus.ZERO) {
+                        throw new NoSuchDeclaredFieldException(key_+RETURN_LINE+_conf.joinPages());
+                    }
+                    e_ = r_.getId();
+                    String glClass_ = _conf.getLastPage().getGlobalClass();
+                    if (!_conf.getClasses().canAccessField(glClass_, e_.getDeclaringClass().getName(), key_)) {
+                        throw new BadAccessException(clCurName_+DOT+key_+RETURN_LINE+_conf.joinPages());
                     }
                     fieldMetaInfo = e_;
-                    if (isStaticAccess() && !e_.isStaticField()) {
-                        throw new StaticAccessException(_conf.joinPages());
-                    }
                     if (resultCanBeSet()) {
                         if (fieldMetaInfo.isFinalField()) {
                             finalField = true;
@@ -175,10 +186,7 @@ public final class ConstantOperation extends OperationNode implements SettableEl
             if (getParent() == null) {
                 immutablePart = true;
             }
-            if (hasDottedPreviousSibling()) {
-                setRelativeOffsetPossibleLastPage(getIndexInEl(), _conf);
-                throw new SettingMemberException(_conf.joinPages());
-            }
+            dottedPrevious = hasDottedPreviousSibling();
             String key_ = str_.substring(CustList.FIRST_INDEX, str_.length() - GET_PARAM.length());
             LocalVariable locVar_ = ip_.getParameters().getVal(key_);
             if (locVar_ != null) {
@@ -191,10 +199,7 @@ public final class ConstantOperation extends OperationNode implements SettableEl
             if (getParent() == null) {
                 immutablePart = true;
             }
-            if (hasDottedPreviousSibling()) {
-                setRelativeOffsetPossibleLastPage(getIndexInEl(), _conf);
-                throw new SettingMemberException(_conf.joinPages());
-            }
+            dottedPrevious = hasDottedPreviousSibling();
             String key_ = str_.substring(CustList.FIRST_INDEX, str_.length() - GET_CATCH_VAR.length());
             LocalVariable locVar_ = ip_.getCatchVars().getVal(key_);
             if (locVar_ != null) {
@@ -204,10 +209,7 @@ public final class ConstantOperation extends OperationNode implements SettableEl
             throw new UndefinedVariableException(_conf.joinPages(), key_, CATCH_VARIABLE);
         }
         if (str_.endsWith(GET_LOC_VAR)) {
-            if (hasDottedPreviousSibling()) {
-                setRelativeOffsetPossibleLastPage(getIndexInEl(), _conf);
-                throw new SettingMemberException(_conf.joinPages());
-            }
+            dottedPrevious = hasDottedPreviousSibling();
             String key_ = str_.substring(CustList.FIRST_INDEX, str_.length() - GET_LOC_VAR.length());
             LocalVariable locVar_ = ip_.getLocalVars().getVal(key_);
             if (locVar_ != null) {
@@ -220,10 +222,7 @@ public final class ConstantOperation extends OperationNode implements SettableEl
             if (getParent() == null) {
                 immutablePart = true;
             }
-            if (hasDottedPreviousSibling()) {
-                setRelativeOffsetPossibleLastPage(getIndexInEl(), _conf);
-                throw new SettingMemberException(_conf.joinPages());
-            }
+            dottedPrevious = hasDottedPreviousSibling();
             String key_ = str_.substring(CustList.FIRST_INDEX, str_.length() - GET_INDEX.length());
             LoopVariable locVar_ = ip_.getVars().getVal(key_);
             if (locVar_ != null) {
@@ -236,10 +235,7 @@ public final class ConstantOperation extends OperationNode implements SettableEl
             if (getParent() == null) {
                 immutablePart = true;
             }
-            if (hasDottedPreviousSibling()) {
-                setRelativeOffsetPossibleLastPage(getIndexInEl(), _conf);
-                throw new SettingMemberException(_conf.joinPages());
-            }
+            dottedPrevious = hasDottedPreviousSibling();
             String key_ = str_.substring(CustList.FIRST_INDEX, str_.length() - GET_ATTRIBUTE.length());
             LoopVariable locVar_ = ip_.getVars().getVal(key_);
             if (locVar_ != null) {
@@ -254,11 +250,17 @@ public final class ConstantOperation extends OperationNode implements SettableEl
         if (cl_ == null) {
             throw new NullGlobalObjectException(_conf.joinPages());
         }
-        if (cl_.isArray() && StringList.quickEq(str_, LENGTH)) {
-            setResultClass(new ClassArgumentMatching(PrimitiveTypeUtil.PRIM_INT));
-            return;
+        if (cl_.isArray()) {
+            if (StringList.quickEq(str_, LENGTH)) {
+                setResultClass(new ClassArgumentMatching(PrimitiveTypeUtil.PRIM_INT));
+                return;
+            }
+            throw new NoSuchDeclaredFieldException(cl_.getName()+RETURN_LINE+str_+RETURN_LINE+_conf.joinPages());
         }
         Field f_ = getDeclaredField(_conf, cl_, str_);
+        if (!canBeUsed(f_, _conf)) {
+            throw new BadAccessException(f_.getDeclaringClass().getName()+DOT+str_+RETURN_LINE+_conf.joinPages());
+        }
         if (Modifier.isFinal(f_.getModifiers())) {
             if (resultCanBeSet()) {
                 finalField = true;
@@ -329,9 +331,6 @@ public final class ConstantOperation extends OperationNode implements SettableEl
     public void calculateSetting(CustList<OperationNode> _nodes,
             ContextEl _conf, String _op) {
         Argument arg_ = getCommonSetting(true, getArgument(), getPreviousArgument(), _conf, _op);
-        if (arg_ == null) {
-            return;
-        }
         setSimpleArgument(arg_, _conf);
     }
 
@@ -435,7 +434,7 @@ public final class ConstantOperation extends OperationNode implements SettableEl
         }
         ClassArgumentMatching cl_ = getPreviousResultClass();
         Argument arg_ = _previous;
-        if (cl_.isArray() && StringList.quickEq(str_, LENGTH)) {
+        if (cl_.isArray()) {
             if (arg_.isNull()) {
                 throw new NullObjectException(_conf.joinPages());
             }
@@ -494,13 +493,12 @@ public final class ConstantOperation extends OperationNode implements SettableEl
         Argument res_;
         if (fieldId != null) {
             Classes classes_ = _conf.getClasses();
+            Argument previous_ = _previous;
             if (fieldMetaInfo.isStaticField()) {
                 Struct structField_ = classes_.getStaticField(fieldId);
                 left_.setStruct(structField_);
                 res_ = NumericOperation.calculateAffect(left_, _conf, right_, _op);
-                classes_.initializeStaticField(fieldId, res_.getStruct());
             } else {
-                Argument previous_ = _previous;
                 if (previous_.isNull()) {
                     throw new NullObjectException(_conf.joinPages());
                 }
@@ -512,6 +510,13 @@ public final class ConstantOperation extends OperationNode implements SettableEl
                 Struct structField_ = previous_.getStruct().getStruct(fieldId, field);
                 left_.setStruct(structField_);
                 res_ = NumericOperation.calculateAffect(left_, _conf, right_, _op);
+            }
+            if (res_.isNull() && fieldMetaInfo.getType().getName().startsWith(PrimitiveTypeUtil.PRIM)) {
+                throw new NullObjectException(_conf.joinPages());
+            }
+            if (fieldMetaInfo.isStaticField()) {
+                classes_.initializeStaticField(fieldId, res_.getStruct());
+            } else {
                 previous_.getStruct().setStruct(fieldId, res_.getStruct());
             }
             Argument a_ = _argument;

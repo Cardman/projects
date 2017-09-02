@@ -88,6 +88,21 @@ public class Composite {
     public String getOverridenFour(long _double) {
         return "long";
     }
+    public String getOverridenFive(Long _double) {
+        return "Long";
+    }
+    public String getOverridenFive(double _double) {
+        return "double";
+    }
+    public String getOverridenSix(Long _double) {
+        return "Long";
+    }
+    public String getOverridenSix(long _double) {
+        return "long";
+    }
+    public String getOverridenSix(Double _double) {
+        return "Double";
+    }
     public int getInteger() {
         return integer;
     }

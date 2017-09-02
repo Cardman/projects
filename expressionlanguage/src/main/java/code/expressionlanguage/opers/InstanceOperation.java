@@ -192,14 +192,14 @@ public final class InstanceOperation extends InvokingOperation {
     void analyzeCtor(CustList<OperationNode> _nodes, ContextEl _conf, boolean _enumContext, String _op, String _realClassName, CustList<ClassArgumentMatching> _firstArgs, boolean _intern) {
         Classes classes_ = _conf.getClasses();
         String realClassName_ = _realClassName;
+        if (StringList.quickEq(realClassName_, OperationNode.VOID_RETURN)) {
+            throw new VoidArgumentException(_conf.joinPages());
+        }
         constId = getDeclaredCustConstructor(_conf, new ClassArgumentMatching(realClassName_), ClassArgumentMatching.toArgArray(_firstArgs));
         if (constId != null) {
             ClassMetaInfo custClass_ = null;
             custClass_ = classes_.getClassMetaInfo(realClassName_);
             String glClass_ = _conf.getLastPage().getGlobalClass();
-            if (!classes_.canAccessClass(glClass_, realClassName_)) {
-                throw new BadAccessException(realClassName_+RETURN_LINE+_conf.joinPages());
-            }
             if (!classes_.canAccessConstructor(glClass_, realClassName_, constId)) {
                 ConstructorBlock ctr_ = classes_.getConstructorBody(realClassName_, constId);
                 throw new BadAccessException(ctr_.getId().getSignature()+RETURN_LINE+_conf.joinPages());
@@ -218,9 +218,6 @@ public final class InstanceOperation extends InvokingOperation {
         }
         Class<?> cl_;
         try {
-            if (StringList.quickEq(realClassName_, OperationNode.VOID_RETURN)) {
-                throw new VoidArgumentException(_conf.joinPages());
-            }
             realClassName_ = PrimitiveTypeUtil.getArrayClass(realClassName_);
             cl_ = ConstClasses.classForNameNotInit(realClassName_);
             if (cl_.isPrimitive()) {
@@ -466,6 +463,11 @@ public final class InstanceOperation extends InvokingOperation {
         }
         if (constId != null) {
             String className_ = constId.getName();
+            StringList params_ = new StringList();
+            for (StringList c: constId.getConstraints()) {
+                params_.add(c.first());
+            }
+            checkArgumentsForInvoking(_conf, params_, getObjects(Argument.toArgArray(_arguments)));
             if (_processInit) {
                 return ProcessXmlMethod.instanceArgument(className_, needed_, constId, _arguments, _conf);
             }
