@@ -313,12 +313,12 @@ public class LevelWithWildPokemon extends Level {
     @Override
     public void translateByLine(short _y,short _dir) {
         super.translateByLine(_y, _dir);
-        Level.<CharacterInRoadCave>translateLineData(characters, _y, _dir);
-        Level.<WildPk>translateLineData(legendaryPks, _y, _dir);
-        Level.<String>translateLineData(items, _y, _dir);
-        Level.<Short>translateLineData(tm, _y, _dir);
-        Level.<Short>translateLineData(hm, _y, _dir);
-        Level.<DualFight>translateLineData(dualFights, _y, _dir);
+        Level.translateCharacterInRoadCaveLineData(characters, _y, _dir);
+        Level.translateWildPkLineData(legendaryPks, _y, _dir);
+        Level.translateStringLineData(items, _y, _dir);
+        Level.translateShortLineData(tm, _y, _dir);
+        Level.translateShortLineData(hm, _y, _dir);
+        Level.translateDualFightLineData(dualFights, _y, _dir);
         for (DualFight k: dualFights.values()) {
             k.getPt().sety((short) (k.getPt().gety()+_dir));
         }
@@ -327,12 +327,12 @@ public class LevelWithWildPokemon extends Level {
     @Override
     public void translateByColumn(short _x,short _dir) {
         super.translateByColumn(_x, _dir);
-        Level.<CharacterInRoadCave>translateColumnData(characters, _x, _dir);
-        Level.<WildPk>translateColumnData(legendaryPks, _x, _dir);
-        Level.<String>translateColumnData(items, _x, _dir);
-        Level.<Short>translateColumnData(tm, _x, _dir);
-        Level.<Short>translateColumnData(hm, _x, _dir);
-        Level.<DualFight>translateColumnData(dualFights, _x, _dir);
+        Level.translateCharacterInRoadCaveColumnData(characters, _x, _dir);
+        Level.translateWildPkColumnData(legendaryPks, _x, _dir);
+        Level.translateStringColumnData(items, _x, _dir);
+        Level.translateShortColumnData(tm, _x, _dir);
+        Level.translateShortColumnData(hm, _x, _dir);
+        Level.translateDualFightColumnData(dualFights, _x, _dir);
         for (DualFight k: dualFights.values()) {
             k.getPt().setx((short) (k.getPt().getx()+_dir));
         }

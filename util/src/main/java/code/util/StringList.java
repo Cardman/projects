@@ -632,7 +632,7 @@ public final class StringList extends AbEqList<String> implements Equallable<Str
     }
 
     /**Not empty _old string*/
-    public static String replace(String _string, ListableEntries<String,String> _strings) {
+    public static String replaceMultiple(String _string, ListableEntries<String,String> _strings) {
         Listable<String> keys_ = _strings.getKeys();
         String[] args_ = new String[keys_.size()];
         int i_ = FIRST_INDEX;
@@ -1308,7 +1308,7 @@ public final class StringList extends AbEqList<String> implements Equallable<Str
         return list_;
     }
 
-    public static boolean disjoint(EqList<StringList> _list) {
+    public static boolean disjoints(EqList<StringList> _list) {
         int size_ = _list.size();
         for (int i = CustList.FIRST_INDEX; i < size_; i++) {
             for (int j = CustList.FIRST_INDEX; j < size_; j++) {

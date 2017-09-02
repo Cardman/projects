@@ -15,8 +15,8 @@ public final class HandTarotCharShortLengthComparator implements Comparator<Suit
 
     @Override
     public int compare(Suit _suit1, Suit _suit2) {
-        HandTarot main1_ = hand.figures(_suit1);
-        HandTarot main2_ = hand.figures(_suit2);
+        HandTarot main1_ = hand.charCardsBySuit(_suit1);
+        HandTarot main2_ = hand.charCardsBySuit(_suit2);
         return Numbers.compare(main1_.total(), main2_.total());
     }
 

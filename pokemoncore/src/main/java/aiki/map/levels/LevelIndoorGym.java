@@ -83,7 +83,7 @@ public class LevelIndoorGym extends Level {
     @Override
     public void translateByLine(short _y,short _dir) {
         super.translateByLine(_y, _dir);
-        Level.<GymTrainer>translateLineData(gymTrainers, _y, _dir);
+        Level.translateGymTrainerLineData(gymTrainers, _y, _dir);
         if (gymLeaderCoords.gety() > _y) {
             gymLeaderCoords.sety((short) (gymLeaderCoords.gety()+_dir));
         }
@@ -91,7 +91,7 @@ public class LevelIndoorGym extends Level {
     @Override
     public void translateByColumn(short _x,short _dir) {
         super.translateByColumn(_x, _dir);
-        Level.<GymTrainer>translateColumnData(gymTrainers, _x, _dir);
+        Level.translateGymTrainerColumnData(gymTrainers, _x, _dir);
         if (gymLeaderCoords.getx() > _x) {
             gymLeaderCoords.setx((short) (gymLeaderCoords.getx()+_dir));
         }

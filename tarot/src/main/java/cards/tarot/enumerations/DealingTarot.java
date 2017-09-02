@@ -141,9 +141,6 @@ public enum DealingTarot {
                             nb_++;
                         }
                     }
-//                    if(Collections.frequency(appeles_, a) != 1) {
-//                        return false;
-//                    }
                     if(nb_ != 1) {
                         return false;
                     }

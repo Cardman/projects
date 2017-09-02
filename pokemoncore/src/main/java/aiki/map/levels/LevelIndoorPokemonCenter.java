@@ -95,7 +95,7 @@ public class LevelIndoorPokemonCenter extends Level{
     @Override
     public void translateByLine(short _y,short _dir) {
         super.translateByLine(_y, _dir);
-        Level.<Person>translateLineData(gerants, _y, _dir);
+        Level.translatePersonLineData(gerants, _y, _dir);
         if (storageCoords.gety() > _y) {
             storageCoords.sety((short) (storageCoords.gety()+_dir));
         }
@@ -103,7 +103,7 @@ public class LevelIndoorPokemonCenter extends Level{
     @Override
     public void translateByColumn(short _x,short _dir) {
         super.translateByColumn(_x, _dir);
-        Level.<Person>translateColumnData(gerants, _x, _dir);
+        Level.translatePersonColumnData(gerants, _x, _dir);
         if (storageCoords.getx() > _x) {
             storageCoords.setx((short) (storageCoords.getx()+_dir));
         }

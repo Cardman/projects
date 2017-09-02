@@ -254,7 +254,7 @@ public class PanelTricksHandsPresident extends JPanel implements ViewablePanelTr
                 numerosJoueurs_[indiceJoueur_]=(int) indiceJoueur_;
             }
 //            cardNumberTrick.setModel(new DefaultComboBoxModel<Integer>(numerosJoueurs_));
-            cardNumberTrick.setModel(numerosJoueurs_);
+            cardNumberTrick.setItems(numerosJoueurs_);
             parent.pack();
             return;
         }
@@ -358,7 +358,7 @@ public class PanelTricksHandsPresident extends JPanel implements ViewablePanelTr
                 numerosJoueurs_[indiceJoueur_]=(int) indiceJoueur_;
             }
 //            cardNumberTrick.setModel(new DefaultComboBoxModel<Integer>(numerosJoueurs_));
-            cardNumberTrick.setModel(numerosJoueurs_);
+            cardNumberTrick.setItems(numerosJoueurs_);
         }
         parent.pack();
     }

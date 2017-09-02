@@ -67,37 +67,6 @@ final class CurrentSerializableElements {
                     addComponentsToComposite(e);
                     continue;
                 }
-//                if (containsComparator(e)) {
-//                    Class<?> cl_ = currentValue_.getClass();
-//                    while (cl_ != Object.class) {
-//                        boolean comparatorClass_ = false;
-//                        try {
-//                            cl_.asSubclass(Comparator.class);
-//                            comparatorClass_ = true;
-//                        } catch (Exception _0) {
-//                        }
-//                        if (!comparatorClass_) {
-//                            break;
-//                        }
-//
-//                        for (Field f: cl_.getDeclaredFields()) {
-//                            if (Modifier.isTransient(f.getModifiers())) {
-//                                if (!SerializeXmlObject.isCopying()) {
-//                                    continue;
-//                                }
-//                            }
-//                            if (Modifier.isStatic(f.getModifiers())) {
-//                                continue;
-//                            }
-//                            f.setAccessible(cl_.getAnnotation(RwXml.class)!=null || f.getAnnotation(RwXml.class) != null);
-//                            Object value_ = ConverterMethod.getField(f, currentValue_);
-//                            addElementInSerializableWithoutIdRef(value_, cl_, f.getName());
-//                        }
-//                        cl_ = cl_.getSuperclass();
-//                    }
-//                    addComponentsToComposite(e);
-//                    continue;
-//                }
 
                 if (currentValue_ instanceof XmlTransientable) {
                     ((XmlTransientable)currentValue_).beforeSave();
@@ -119,7 +88,7 @@ final class CurrentSerializableElements {
                         if (Modifier.isStatic(f.getModifiers())) {
                             continue;
                         }
-                        f.setAccessible(cl_.getAnnotation(RwXml.class)!=null || f.getAnnotation(RwXml.class) != null);
+                        f.setAccessible(cl_.isAnnotationPresent(RwXml.class) || f.isAnnotationPresent(RwXml.class));
                         Object value_ = ConverterMethod.getField(f, currentValue_);
                         addElementInSerializableWithoutIdRef(value_, cl_, f.getName());
                     }
@@ -239,7 +208,7 @@ final class CurrentSerializableElements {
                         }
                         f.setAccessible(true);
                         Object value_ = ConverterMethod.getField(f, currentValue_);
-                        boolean nullable_ = f.getAnnotation(NullableField.class) != null;
+                        boolean nullable_ = f.isAnnotationPresent(NullableField.class);
                         checkNullPointerWithoutIdRef(value_, false, cl_.getName(), f.getName(), nullable_);
                     }
                     cl_ = cl_.getSuperclass();
@@ -287,33 +256,6 @@ final class CurrentSerializableElements {
                                 false, SerializeXmlObject.MP_CLASS, null);
                     }
                 }
-//                if (containsComparator(e)) {
-//                    Class<?> cl_ = currentValue_.getClass();
-//                    while (cl_ != Object.class) {
-//                        boolean comparatorClass_ = false;
-//                        try {
-//                            cl_.asSubclass(Comparator.class);
-//                            comparatorClass_ = true;
-//                        } catch (Exception _0) {
-//                        }
-//                        if (!comparatorClass_) {
-//                            break;
-//                        }
-//
-//                        for (Field f: cl_.getDeclaredFields()) {
-//                            if (Modifier.isTransient(f.getModifiers())) {
-//                                continue;
-//                            }
-//                            if (Modifier.isStatic(f.getModifiers())) {
-//                                continue;
-//                            }
-//                            f.setAccessible(cl_.getAnnotation(RwXml.class)!=null || f.getAnnotation(RwXml.class) != null);
-//                            Object value_ = ConverterMethod.getField(f, currentValue_);
-//                            setUnmodifiedWithoutIdRef(value_, false, cl_, f.getName(), false);
-//                        }
-//                        cl_ = cl_.getSuperclass();
-//                    }
-//                }
 
                 Class<?> cl_ = currentValue_.getClass();
                 while (cl_ != Object.class) {
@@ -330,7 +272,7 @@ final class CurrentSerializableElements {
                         if (Modifier.isStatic(f.getModifiers())) {
                             continue;
                         }
-                        f.setAccessible(cl_.getAnnotation(RwXml.class)!=null || f.getAnnotation(RwXml.class) != null);
+                        f.setAccessible(cl_.isAnnotationPresent(RwXml.class) || f.isAnnotationPresent(RwXml.class));
                         Object value_ = ConverterMethod.getField(f, currentValue_);
                         setUnmodifiedWithoutIdRef(value_, false, cl_.getName(), f.getName());
                     }
@@ -379,33 +321,6 @@ final class CurrentSerializableElements {
                                 false, SerializeXmlObject.MP_CLASS, null);
                     }
                 }
-//                if (containsComparator(e)) {
-//                    Class<?> cl_ = currentValue_.getClass();
-//                    while (cl_ != Object.class) {
-//                        boolean comparatorClass_ = false;
-//                        try {
-//                            cl_.asSubclass(Comparator.class);
-//                            comparatorClass_ = true;
-//                        } catch (Exception _0) {
-//                        }
-//                        if (!comparatorClass_) {
-//                            break;
-//                        }
-//
-//                        for (Field f: cl_.getDeclaredFields()) {
-//                            if (Modifier.isTransient(f.getModifiers())) {
-//                                continue;
-//                            }
-//                            if (Modifier.isStatic(f.getModifiers())) {
-//                                continue;
-//                            }
-//                            f.setAccessible(cl_.getAnnotation(RwXml.class)!=null || f.getAnnotation(RwXml.class) != null);
-//                            Object value_ = ConverterMethod.getField(f, currentValue_);
-//                            setUnmodified(value_, false, cl_, f.getName(), false);
-//                        }
-//                        cl_ = cl_.getSuperclass();
-//                    }
-//                }
 
                 Class<?> cl_ = currentValue_.getClass();
                 while (cl_ != Object.class) {
@@ -422,7 +337,7 @@ final class CurrentSerializableElements {
                         if (Modifier.isStatic(f.getModifiers())) {
                             continue;
                         }
-                        f.setAccessible(cl_.getAnnotation(RwXml.class)!=null || f.getAnnotation(RwXml.class) != null);
+                        f.setAccessible(cl_.isAnnotationPresent(RwXml.class) || f.isAnnotationPresent(RwXml.class));
                         Object value_ = ConverterMethod.getField(f, currentValue_);
                         setUnmodified(value_, false, cl_.getName(), f.getName());
                     }
@@ -481,35 +396,6 @@ final class CurrentSerializableElements {
                         }
                     }
                 }
-//                if (containsComparator(e)) {
-//                    Class<?> cl_ = currentValue_.getClass();
-//                    while (cl_ != Object.class) {
-//                        boolean comparatorClass_ = false;
-//                        try {
-//                            cl_.asSubclass(Comparator.class);
-//                            comparatorClass_ = true;
-//                        } catch (Exception _0) {
-//                        }
-//                        if (!comparatorClass_) {
-//                            break;
-//                        }
-//
-//                        for (Field f: cl_.getDeclaredFields()) {
-//                            if (Modifier.isTransient(f.getModifiers())) {
-//                                continue;
-//                            }
-//                            if (Modifier.isStatic(f.getModifiers())) {
-//                                continue;
-//                            }
-//                            f.setAccessible(cl_.getAnnotation(RwXml.class)!=null || f.getAnnotation(RwXml.class) != null);
-//                            Object value_ = ConverterMethod.getField(f, currentValue_);
-//                            if(!isUnmodifiedWithoutIdRef(value_, false, cl_, f.getName(), false)) {
-//                                return true;
-//                            }
-//                        }
-//                        cl_ = cl_.getSuperclass();
-//                    }
-//                }
 
                 Class<?> cl_ = currentValue_.getClass();
                 while (cl_ != Object.class) {
@@ -526,7 +412,7 @@ final class CurrentSerializableElements {
                         if (Modifier.isStatic(f.getModifiers())) {
                             continue;
                         }
-                        f.setAccessible(cl_.getAnnotation(RwXml.class)!=null || f.getAnnotation(RwXml.class) != null);
+                        f.setAccessible(cl_.isAnnotationPresent(RwXml.class) || f.isAnnotationPresent(RwXml.class));
                         Object value_ = ConverterMethod.getField(f, currentValue_);
                         if(!isUnmodifiedWithoutIdRef(value_, false, cl_.getName(), f.getName())) {
                             return true;
@@ -588,35 +474,6 @@ final class CurrentSerializableElements {
                         }
                     }
                 }
-//                if (containsComparator(e)) {
-//                    Class<?> cl_ = currentValue_.getClass();
-//                    while (cl_ != Object.class) {
-//                        boolean comparatorClass_ = false;
-//                        try {
-//                            cl_.asSubclass(Comparator.class);
-//                            comparatorClass_ = true;
-//                        } catch (Exception _0) {
-//                        }
-//                        if (!comparatorClass_) {
-//                            break;
-//                        }
-//
-//                        for (Field f: cl_.getDeclaredFields()) {
-//                            if (Modifier.isTransient(f.getModifiers())) {
-//                                continue;
-//                            }
-//                            if (Modifier.isStatic(f.getModifiers())) {
-//                                continue;
-//                            }
-//                            f.setAccessible(cl_.getAnnotation(RwXml.class)!=null || f.getAnnotation(RwXml.class) != null);
-//                            Object value_ = ConverterMethod.getField(f, currentValue_);
-//                            if(!isUnmodified(value_, false, cl_, f.getName(), false)) {
-//                                return true;
-//                            }
-//                        }
-//                        cl_ = cl_.getSuperclass();
-//                    }
-//                }
 
                 Class<?> cl_ = currentValue_.getClass();
                 while (cl_ != Object.class) {
@@ -633,7 +490,7 @@ final class CurrentSerializableElements {
                         if (Modifier.isStatic(f.getModifiers())) {
                             continue;
                         }
-                        f.setAccessible(cl_.getAnnotation(RwXml.class)!=null || f.getAnnotation(RwXml.class) != null);
+                        f.setAccessible(cl_.isAnnotationPresent(RwXml.class) || f.isAnnotationPresent(RwXml.class));
                         Object value_ = ConverterMethod.getField(f, currentValue_);
                         if(!isUnmodified(value_, false, cl_.getName(), f.getName())) {
                             return true;
@@ -688,37 +545,6 @@ final class CurrentSerializableElements {
                     addComponentsToComposite(e);
                     continue;
                 }
-//                if (containsComparator(e)) {
-//                    Class<?> cl_ = currentValue_.getClass();
-//                    while (cl_ != Object.class) {
-//                        boolean comparatorClass_ = false;
-//                        try {
-//                            cl_.asSubclass(Comparator.class);
-//                            comparatorClass_ = true;
-//                        } catch (Exception _0) {
-//                        }
-//                        if (!comparatorClass_) {
-//                            break;
-//                        }
-//
-//                        for (Field f: cl_.getDeclaredFields()) {
-//                            if (Modifier.isTransient(f.getModifiers())) {
-//                                if (!SerializeXmlObject.isCopying()) {
-//                                    continue;
-//                                }
-//                            }
-//                            if (Modifier.isStatic(f.getModifiers())) {
-//                                continue;
-//                            }
-//                            f.setAccessible(cl_.getAnnotation(RwXml.class)!=null || f.getAnnotation(RwXml.class) != null);
-//                            Object value_ = ConverterMethod.getField(f, currentValue_);
-//                            addElementInSerializable(value_, cl_, f.getName());
-//                        }
-//                        cl_ = cl_.getSuperclass();
-//                    }
-//                    addComponentsToComposite(e);
-//                    continue;
-//                }
 
                 if (currentValue_ instanceof XmlTransientable) {
                     ((XmlTransientable)currentValue_).beforeSave();
@@ -740,7 +566,7 @@ final class CurrentSerializableElements {
                         if (Modifier.isStatic(f.getModifiers())) {
                             continue;
                         }
-                        f.setAccessible(cl_.getAnnotation(RwXml.class)!=null || f.getAnnotation(RwXml.class) != null);
+                        f.setAccessible(cl_.isAnnotationPresent(RwXml.class) || f.isAnnotationPresent(RwXml.class));
                         Object value_ = ConverterMethod.getField(f, currentValue_);
                         addElementInSerializable(value_, cl_, f.getName());
                     }

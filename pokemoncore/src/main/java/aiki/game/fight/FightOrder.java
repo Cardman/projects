@@ -117,7 +117,6 @@ final class FightOrder {
                 TeamPosition two_ = fs_.get(i2_);
                 fs_.set(i, two_);
                 fs_.set(i2_, one_);
-//                Collections.swap(retour_.getNextFighters(),i,i2_);
                 retour_.getItemUsers().add(cbtTwo_);
             }
         }

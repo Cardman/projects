@@ -128,8 +128,8 @@ public final class CalledSuitComparator implements Comparator<Suit> {
                 }
                 cartesPossedesNonAppelees1_.ajouter(c);
             }
-            HandTarot figures0_ = cartesPossedesNonAppelees0_.figures(_arg0);
-            HandTarot figures1_ = cartesPossedesNonAppelees1_.figures(_arg1);
+            HandTarot figures0_ = cartesPossedesNonAppelees0_.charCardsBySuit(_arg0);
+            HandTarot figures1_ = cartesPossedesNonAppelees1_.charCardsBySuit(_arg1);
             int min_ = Math.min(figures0_.total(), figures1_.total());
             boolean id_ = true;
             boolean plusGrand_ = false;

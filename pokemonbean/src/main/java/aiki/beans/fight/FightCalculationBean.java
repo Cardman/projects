@@ -116,14 +116,14 @@ public class FightCalculationBean extends CommonFightBean {
     private String getFighter(Long _indexOne, Long _indexTwo) {
         TeamPosition f_ = sortedFightersWildFight.getValue(_indexOne.intValue()).get(_indexTwo.intValue());
         FacadeGame dataBaseFight_ = (FacadeGame) getDataBase();
-        return getFighter(dataBaseFight_, f_);
+        return getFighterAtPosition(dataBaseFight_, f_);
     }
 
     @Accessible
     private String getFighter(Long _index) {
         TeamPosition f_ = sortedFighters.get(_index.intValue());
         FacadeGame dataBaseFight_ = (FacadeGame) getDataBase();
-        return getFighter(dataBaseFight_, f_);
+        return getFighterAtPosition(dataBaseFight_, f_);
     }
 
     @Accessible

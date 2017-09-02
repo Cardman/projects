@@ -105,7 +105,7 @@ public final class IntTreeComboBox extends JComboBox {
         super.removeItemAt(_anIndex);
     }
 
-    public void setModel(Integer... _numerosPlis) {
+    public void setItems(Integer... _numerosPlis) {
         super.setModel(new DefaultComboBoxModel(_numerosPlis));
         refresh(getTree(_numerosPlis));
     }

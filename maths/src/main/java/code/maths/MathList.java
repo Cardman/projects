@@ -166,7 +166,7 @@ public final class MathList extends AbEqList<String> implements Equallable<MathL
         rep_.put(ESCAPE, ESCAPE+ESCAPE);
         rep_.put(RIGHT_BRACE_SET, ESCAPE+RIGHT_BRACE_SET);
         for (String s: this) {
-            str_.append(StringList.replace(s, rep_));
+            str_.append(StringList.replaceMultiple(s, rep_));
             str_.append(SEP);
         }
         if (!isEmpty()) {

@@ -187,7 +187,6 @@ public class MainWindow extends GroupFrame {
                     songsList_.add(o.toString());
                 }
                 songsList = songsList_;
-//                Collections.shuffle(songsList);
             } else if (_click) {
                 songsList = new StringList(songs.getText().split(LINE_RETURN));
                 songsList.removeAllString(EMPTY);

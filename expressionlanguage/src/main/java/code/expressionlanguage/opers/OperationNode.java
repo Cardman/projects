@@ -1191,9 +1191,9 @@ public abstract class OperationNode implements SortedNode<OperationNode>, Operab
         return !skip_;
     }
     static Argument newInstance(ContextEl _conf, Argument _need, int _offsetIncr, Constructor<?> _const, Argument... _args) {
+        Struct[] args_ = getObjects(_args);
+        checkArgumentsForInvoking(_conf, _const.getParameterTypes(), args_);
         try {
-            Struct[] args_ = getObjects(_args);
-            checkArgumentsForInvoking(_conf, _const.getParameterTypes(), args_);
             Argument a_ = new Argument();
             Object o_ = ConverterMethod.newInstance(_const, adaptedArgs(_const.getParameterTypes(), args_));
             if (_need != null) {
@@ -1210,8 +1210,8 @@ public abstract class OperationNode implements SortedNode<OperationNode>, Operab
     }
 
     static Struct invokeMethod(ContextEl _cont,int _offsetIncr, String _className, Method _method, Object _instance, Struct... _args) {
+        checkArgumentsForInvoking(_cont, _method.getParameterTypes(), _args);
         try {
-            checkArgumentsForInvoking(_cont, _method.getParameterTypes(), _args);
             Object o_ = ConverterMethod.invokeMethod(_method, _instance, adaptedArgs(_method.getParameterTypes(), _args));
             if (o_ == null) {
                 return new Struct();

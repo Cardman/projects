@@ -24,10 +24,10 @@ public final class LanguageDialog extends Dialog implements SetterLanguage {
     }
 
     public static void setLanguageDialog(GroupFrame _owner) {
-        init(_owner);
+        initWithoutTitle(_owner);
     }
 
-    private static void init(GroupFrame _owner) {
+    private static void initWithoutTitle(GroupFrame _owner) {
         setLanguageDialog(_owner, NO_TITLE);
     }
 

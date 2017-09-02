@@ -1262,7 +1262,7 @@ public class DataBase implements WithMathFactory<Rate>{
         for (PokemonFamily f: families.values()) {
             lists_.add(f.getAllPokemon());
         }
-        if (!StringList.disjoint(lists_)) {
+        if (!StringList.disjoints(lists_)) {
             throw new DataException();
         }
         StringList allPokemon_ = new StringList();
@@ -4207,14 +4207,6 @@ public class DataBase implements WithMathFactory<Rate>{
     }
     public void sortEndRound() {
         evtEndRound.sortElts(new ComparatorEndRoundMainElements());
-//        Collections.sort(evtEndRound,new Comparator<EndRoundMainElements>() {
-//
-//            @Override
-//            public int compare(EndRoundMainElements _o1,
-//                    EndRoundMainElements _o2) {
-//                return Long.compare(_o1.getNumberIncrement(), _o2.getNumberIncrement());
-//            }
-//        });
     }
 
 //    public void save(String _zipFileName) {
@@ -4467,7 +4459,7 @@ public class DataBase implements WithMathFactory<Rate>{
                     EffectInvoke eff_ = (EffectInvoke) e;
                     eff_.getMovesNotToBeInvoked().replace(_oldName, _newName);
                     replace(eff_.getMoveFctEnv(),_oldName, _newName);
-                    replace(eff_.getInvokingMoveByUserTypes(),_oldName, _newName);
+                    replaceStr(eff_.getInvokingMoveByUserTypes(),_oldName, _newName);
                 }
             }
         }
@@ -4539,8 +4531,8 @@ public class DataBase implements WithMathFactory<Rate>{
         movesEffectGlobal.replace(_oldName, _newName);
         movesFullHeal.replace(_oldName, _newName);
         movesEffectWhileSending.replace(_oldName, _newName);
-        replace(hm,_oldName, _newName);
-        replace(tm,_oldName, _newName);
+        replaceShort(hm,_oldName, _newName);
+        replaceShort(tm,_oldName, _newName);
         moves.move(_oldName, _newName);
     }
 
@@ -4860,7 +4852,7 @@ public class DataBase implements WithMathFactory<Rate>{
                 }
                 if (e instanceof EffectTeamWhileSendFoe) {
                     EffectTeamWhileSendFoe eff_ = (EffectTeamWhileSendFoe) e;
-                    replace(eff_.getStatusByNbUses(),_oldName, _newName);
+                    replaceShort(eff_.getStatusByNbUses(),_oldName, _newName);
                 }
                 if (e instanceof EffectGlobal) {
                     EffectGlobal eff_ = (EffectGlobal) e;
@@ -4914,7 +4906,7 @@ public class DataBase implements WithMathFactory<Rate>{
             law_.checkEvents();
             a.setSingleStatus(law_);
             a.getForwardStatus().move(_oldName, _newName);
-            replace(a.getForwardStatus(),_oldName, _newName);
+            replaceStr(a.getForwardStatus(),_oldName, _newName);
             if (!a.getEffectEndRound().isEmpty()) {
                 renameStatusEffectEndRound(a.getEffectEndRound().first(), _oldName, _newName);
             }
@@ -4984,8 +4976,8 @@ public class DataBase implements WithMathFactory<Rate>{
         for (MoveData p: moves.values()) {
             p.getTypes().replace(_oldName, _newName);
             p.getBoostedTypes().replace(_oldName, _newName);
-            replace(p.getTypesByWeather(),_oldName, _newName);
-            replace(p.getTypesByOwnedItem(),_oldName, _newName);
+            replaceStr(p.getTypesByWeather(),_oldName, _newName);
+            replaceStr(p.getTypesByOwnedItem(),_oldName, _newName);
             for (Effect e: p.getEffects()) {
                 if (e instanceof EffectUnprotectFromTypes) {
                     EffectUnprotectFromTypes eff_ = (EffectUnprotectFromTypes) e;
@@ -5129,7 +5121,7 @@ public class DataBase implements WithMathFactory<Rate>{
                 restore_.put(pair_, value_);
             }
             a.setHealHpByTypeIfWeather(restore_);
-            replace(a.getChgtTypeByWeather(),_oldName, _newName);
+            replaceStr(a.getChgtTypeByWeather(),_oldName, _newName);
             for (StringList l: a.getImmuMoveTypesByWeather().values()) {
                 l.replace(_oldName, _newName);
             }
@@ -5160,9 +5152,25 @@ public class DataBase implements WithMathFactory<Rate>{
         tableTypes = table_;
         types.replace(_oldName, _newName);
     }
+    
+    private static void replace(ListableEntries<EnvironmentType,String> _map, String _old, String _new) {
+        for (EntryCust<EnvironmentType,String> e: _map.entryList()) {
+            if (StringList.quickEq(e.getValue(), _old)) {
+                e.setValue(_new);
+            }
+        }
+    }
+    
+    private static void replaceStr(ListableEntries<String,String> _map, String _old, String _new) {
+        for (EntryCust<String,String> e: _map.entryList()) {
+            if (StringList.quickEq(e.getValue(), _old)) {
+                e.setValue(_new);
+            }
+        }
+    }
 
-    private static <K> void replace(ListableEntries<K,String> _map, String _old, String _new) {
-        for (EntryCust<K,String> e: _map.entryList()) {
+    private static void replaceShort(ListableEntries<Short,String> _map, String _old, String _new) {
+        for (EntryCust<Short,String> e: _map.entryList()) {
             if (StringList.quickEq(e.getValue(), _old)) {
                 e.setValue(_new);
             }

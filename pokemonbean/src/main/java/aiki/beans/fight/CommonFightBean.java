@@ -20,7 +20,7 @@ public class CommonFightBean extends Bean {
     protected static final String MOVES_SEPARATOR = ";";
     protected static final String SPACE = " ";
 
-    protected static String getFighter(FacadeGame _facade, TeamPosition _teamPosition) {
+    protected static String getFighterAtPosition(FacadeGame _facade, TeamPosition _teamPosition) {
         DataBase data_ = _facade.getData();
         Team team_ = _facade.getGame().getFight().getTeams().getVal(_teamPosition.getTeam());
         Fighter fighter_ = _facade.getGame().getFight().getFighter(_teamPosition);

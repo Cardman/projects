@@ -48,11 +48,11 @@ public class LevelCave extends LevelWithWildPokemon {
     @Override
     public void translateByColumn(short _x, short _dir) {
         super.translateByColumn(_x, _dir);
-        Level.<Link>translateColumnData(linksOtherLevels, _x, _dir);
+        Level.translateLinkColumnData(linksOtherLevels, _x, _dir);
     }
     @Override
     public void translateByLine(short _y, short _dir) {
         super.translateByLine(_y, _dir);
-        Level.<Link>translateLineData(linksOtherLevels, _y, _dir);
+        Level.translateLinkLineData(linksOtherLevels, _y, _dir);
     }
 }

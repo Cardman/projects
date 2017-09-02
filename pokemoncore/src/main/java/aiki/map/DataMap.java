@@ -670,7 +670,7 @@ public class DataMap {
         images_.add(imagesCaves_);
         images_.add(imagesLeagues_);
         images_.add(imageUnlockedCity_);
-        if (!StringList.disjoint(images_)) {
+        if (!StringList.disjoints(images_)) {
             throw new DataException();
         }
         if (!Numbers.equalsSetShorts(placesMiniMap_, places.getKeys())) {

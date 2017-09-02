@@ -642,7 +642,7 @@ public class FighterBean extends CommonFightBean {
     private String getStatusRelatTeam(Long _index) {
         FacadeGame dataBaseFight_ = (FacadeGame) getDataBase();
         MoveTeamPosition mt_ = statusRelat.getKey(_index.intValue());
-        return getFighter(dataBaseFight_, mt_.getTeamPosition());
+        return getFighterAtPosition(dataBaseFight_, mt_.getTeamPosition());
     }
 
     @Accessible
@@ -660,7 +660,7 @@ public class FighterBean extends CommonFightBean {
     private String getIncrPrivateMovesTeam(Long _index) {
         FacadeGame dataBaseFight_ = (FacadeGame) getDataBase();
         MoveTeamPosition mt_ = privateMoves.getKey(_index.intValue());
-        return getFighter(dataBaseFight_, mt_.getTeamPosition());
+        return getFighterAtPosition(dataBaseFight_, mt_.getTeamPosition());
     }
 
     @Accessible
@@ -673,7 +673,7 @@ public class FighterBean extends CommonFightBean {
     private String getIncrTrappingMovesTeam(Long _index) {
         FacadeGame dataBaseFight_ = (FacadeGame) getDataBase();
         MoveTeamPosition mt_ = trappingMoves.getKey(_index.intValue());
-        return getFighter(dataBaseFight_, mt_.getTeamPosition());
+        return getFighterAtPosition(dataBaseFight_, mt_.getTeamPosition());
     }
 
     @Accessible
@@ -686,7 +686,7 @@ public class FighterBean extends CommonFightBean {
     private String getIncrTrackingMovesTeam(Long _index) {
         FacadeGame dataBaseFight_ = (FacadeGame) getDataBase();
         MoveTeamPosition mt_ = trackingMoves.getKey(_index.intValue());
-        return getFighter(dataBaseFight_, mt_.getTeamPosition());
+        return getFighterAtPosition(dataBaseFight_, mt_.getTeamPosition());
     }
 
     @Accessible
@@ -699,6 +699,6 @@ public class FighterBean extends CommonFightBean {
     private String getIncrUserAccuracyTeam(Long _index) {
         FacadeGame dataBaseFight_ = (FacadeGame) getDataBase();
         MoveTeamPosition mt_ = incrUserAccuracy.getKey(_index.intValue());
-        return getFighter(dataBaseFight_, mt_.getTeamPosition());
+        return getFighterAtPosition(dataBaseFight_, mt_.getTeamPosition());
     }
 }

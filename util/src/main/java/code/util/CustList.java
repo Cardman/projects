@@ -74,7 +74,6 @@ public class CustList<T> implements Listable<T> {
 //                }
 //            }
 //        }
-//        Collections.sort(this, _comp);
     }
 
     @Override

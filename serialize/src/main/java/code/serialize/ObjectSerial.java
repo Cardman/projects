@@ -135,7 +135,7 @@ final class ObjectSerial extends TemplateSerial {
                     } else {
                         constr_ = c.getDeclaredConstructor(obj_.getClass());
                     }
-                    constr_.setAccessible(constr_.getAnnotation(RwXml.class)!=null);
+                    constr_.setAccessible(constr_.isAnnotationPresent(RwXml.class));
                     if (obj_ == null) {
                         obj_ = ConverterMethod.newInstance(constr_);
                     } else {
@@ -145,7 +145,7 @@ final class ObjectSerial extends TemplateSerial {
                 return obj_;
             }
             constr_ = class_.getDeclaredConstructor();
-            constr_.setAccessible(constr_.getAnnotation(RwXml.class)!=null);
+            constr_.setAccessible(constr_.isAnnotationPresent(RwXml.class));
             return ConverterMethod.newInstance(constr_);
         } catch (NoSuchMethodException _0) {
             throw new NoSuchDeclaredMethodException(_0);
@@ -346,7 +346,7 @@ final class ObjectSerial extends TemplateSerial {
         if (Modifier.isStatic(field_.getModifiers())) {
             return;
         }
-        field_.setAccessible(_class.getAnnotation(RwXml.class)!=null || field_.getAnnotation(RwXml.class) != null);
+        field_.setAccessible(_class.isAnnotationPresent(RwXml.class) || field_.isAnnotationPresent(RwXml.class));
         ConverterMethod.setField(field_, value, _value);
     }
     @Override

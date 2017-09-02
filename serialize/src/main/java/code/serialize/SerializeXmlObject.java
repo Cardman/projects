@@ -71,7 +71,7 @@ public final class SerializeXmlObject {
     /**@throws NoSuchDeclaredMethodException*/
     static Method getDeclaredXmlAccessibleMethod(Class<?> _class, String _name, Class<?>... _argsClass) {
         Method m_ = getDeclaredMethod(_class, _name, _argsClass);
-        m_.setAccessible(m_.getAnnotation(RwXml.class) != null);
+        m_.setAccessible(m_.isAnnotationPresent(RwXml.class));
         return m_;
     }
 

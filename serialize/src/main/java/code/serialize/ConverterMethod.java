@@ -89,8 +89,7 @@ public final class ConverterMethod {
             if (!Modifier.isStatic(methClass_.getModifiers())) {
                 continue;
             }
-            FromAndToString annot_ = methClass_.getAnnotation(FromAndToString.class);
-            if (annot_ == null) {
+            if (!methClass_.isAnnotationPresent(FromAndToString.class)) {
                 continue;
             }
             //void methods return class is void.class
@@ -128,8 +127,7 @@ public final class ConverterMethod {
             if (Modifier.isStatic(methClass_.getModifiers())) {
                 continue;
             }
-            FromAndToString annot_ = methClass_.getAnnotation(FromAndToString.class);
-            if (annot_ == null) {
+            if (!methClass_.isAnnotationPresent(FromAndToString.class)) {
                 continue;
             }
             if (methClass_.getReturnType() != _classReturn) {

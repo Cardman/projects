@@ -559,7 +559,7 @@ final class ExtractObject {
         rep_.put(String.valueOf(LEFT_EL), quote_+LEFT_EL+quote_);
         rep_.put(String.valueOf(RIGHT_EL), quote_+RIGHT_EL+quote_);
         rep_.put(String.valueOf(QUOTE), quote_+quote_);
-        return StringList.replace(str_, rep_);
+        return StringList.replaceMultiple(str_, rep_);
     }
 
     static String getMessageFolder(Configuration _conf) {

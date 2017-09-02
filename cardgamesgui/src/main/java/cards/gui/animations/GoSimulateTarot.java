@@ -411,15 +411,6 @@ public final class GoSimulateTarot extends Thread implements GoSimulate {
                 event_ += ContainerTarot.EMPTY+ContainerTarot.RETURN_LINE_CHAR;
                 ThreadInvoker.invokeNow(new AddTextEvents(container, event_));
             }
-//            if(CustList.equalsSet(_appele,Collections.singletonList(_preneur))) {
-//                event_ = container.getMessages().getVal(MainWindow.ALONE_TAKER)+ContainerTarot.RETURN_LINE_CHAR;
-//                event_ += ContainerTarot.EMPTY+ContainerTarot.RETURN_LINE_CHAR;
-//                ThreadInvoker.invokeNow(new AddTextEvents(container, event_));
-////                container.ajouterTexteDansZone(event_);
-////                container.ajouterTexteDansZone(container.getMessages().getVal(MainWindow.ALONE_TAKER)+ContainerTarot.RETURN_LINE_CHAR);
-////                container.ajouterTexteDansZone(ContainerTarot.EMPTY+ContainerTarot.RETURN_LINE_CHAR);
-//            }
-            //container.pack();
             container.revalidate();
             container.pause();
             if(container.isArretDemo()) {

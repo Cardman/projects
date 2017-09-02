@@ -21,7 +21,7 @@ public class AccessValueEx extends AccessValue {
 
     @Override
     public boolean canAccess(AccessibleObject _f, ContextEl _context) {
-        return _f.getAnnotation(AccEl.class) != null;
+        return _f.isAnnotationPresent(AccEl.class);
     }
 
 }

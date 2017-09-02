@@ -278,8 +278,7 @@ public final class ObjectComponents {
                         //break for the current map or list stored in a declared interface
                         break;
                     }
-                    CheckedData checkedClass_ = class_.getAnnotation(CheckedData.class);
-                    if (checkedClass_ == null) {
+                    if (!class_.isAnnotationPresent(CheckedData.class)) {
                         for (Field f: class_.getDeclaredFields()) {
                             if (Modifier.isStatic(f.getModifiers())) {
                                 continue;
@@ -287,8 +286,7 @@ public final class ObjectComponents {
                             if (isTransient(f, obj_)) {
                                 continue;
                             }
-                            CheckedData checked_ = f.getAnnotation(CheckedData.class);
-                            if (checked_ != null) {
+                            if (f.isAnnotationPresent(CheckedData.class)) {
                                 if (_checkingNullity_) {
                                     f.setAccessible(true);
                                     Object fieldValue_ = getField(f, obj_);
@@ -403,16 +401,12 @@ public final class ObjectComponents {
         if (Modifier.isTransient(_field.getModifiers())) {
             return true;
         }
-        if (_field.getAnnotation(NullableField.class) != null) {
+        if (_field.isAnnotationPresent(NullableField.class)) {
             _field.setAccessible(true);
             Object value_ = getField(_field, _obj);
             return value_ == null;
         }
         return false;
-//        if (!Modifier.isTransient(_field.getModifiers())) {
-//            return false;
-//        }
-//        return _field.getAnnotation(CancelTransient.class) == null;
     }
 
     static boolean isInterface(Class<?> _class) {

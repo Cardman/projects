@@ -1486,19 +1486,19 @@ public final class GameTarot {
             if (!getRegles().getDiscardAfterCall()) {
                 mainPreneur_.ajouterCartes(getDistribution().derniereMain());
             }
-            if (mainPreneur_.tailleRois() < HandTarot.figures(CardChar.KING).total()) {
-                main_.ajouterCartes(HandTarot.figures(CardChar.KING));
-                if (mainPreneur_.tailleRois() + nbAppeles_ > HandTarot.figures(CardChar.KING).total()) {
+            if (mainPreneur_.tailleRois() < HandTarot.charCards(CardChar.KING).total()) {
+                main_.ajouterCartes(HandTarot.charCards(CardChar.KING));
+                if (mainPreneur_.tailleRois() + nbAppeles_ > HandTarot.charCards(CardChar.KING).total()) {
                     //nbAppeles > 0
-                    if (mainPreneur_.tailleDames() < HandTarot.figures(CardChar.QUEEN).total()) {
-                        main_.ajouterCartes(HandTarot.figures(CardChar.QUEEN));
-                        if (mainPreneur_.tailleDames() + nbAppeles_ > HandTarot.figures(CardChar.QUEEN).total()) {
-                            if (mainPreneur_.tailleCavaliers() < HandTarot.figures(CardChar.KNIGHT).total()) {
-                                main_.ajouterCartes(HandTarot.figures(CardChar.KNIGHT));
-                                if (mainPreneur_.tailleCavaliers() + nbAppeles_ > HandTarot.figures(CardChar.KNIGHT).total()) {
-                                    if (mainPreneur_.tailleValets() < HandTarot.figures(CardChar.JACK).total()) {
-                                        main_.ajouterCartes(HandTarot.figures(CardChar.JACK));
-                                        if (mainPreneur_.tailleValets() + nbAppeles_ > HandTarot.figures(CardChar.JACK).total()) {
+                    if (mainPreneur_.tailleDames() < HandTarot.charCards(CardChar.QUEEN).total()) {
+                        main_.ajouterCartes(HandTarot.charCards(CardChar.QUEEN));
+                        if (mainPreneur_.tailleDames() + nbAppeles_ > HandTarot.charCards(CardChar.QUEEN).total()) {
+                            if (mainPreneur_.tailleCavaliers() < HandTarot.charCards(CardChar.KNIGHT).total()) {
+                                main_.ajouterCartes(HandTarot.charCards(CardChar.KNIGHT));
+                                if (mainPreneur_.tailleCavaliers() + nbAppeles_ > HandTarot.charCards(CardChar.KNIGHT).total()) {
+                                    if (mainPreneur_.tailleValets() < HandTarot.charCards(CardChar.JACK).total()) {
+                                        main_.ajouterCartes(HandTarot.charCards(CardChar.JACK));
+                                        if (mainPreneur_.tailleValets() + nbAppeles_ > HandTarot.charCards(CardChar.JACK).total()) {
                                             main_.ajouter(CardTarot.petit());
                                             main_.ajouter(CardTarot.vingtEtUn());
                                             main_.ajouter(CardTarot.excuse());
@@ -1510,9 +1510,9 @@ public final class GameTarot {
                                     }
                                 }
                             } else {
-                                if (mainPreneur_.tailleValets() < HandTarot.figures(CardChar.JACK).total()) {
-                                    main_.ajouterCartes(HandTarot.figures(CardChar.JACK));
-                                    if (mainPreneur_.tailleValets() + nbAppeles_ > HandTarot.figures(CardChar.JACK).total()) {
+                                if (mainPreneur_.tailleValets() < HandTarot.charCards(CardChar.JACK).total()) {
+                                    main_.ajouterCartes(HandTarot.charCards(CardChar.JACK));
+                                    if (mainPreneur_.tailleValets() + nbAppeles_ > HandTarot.charCards(CardChar.JACK).total()) {
                                         main_.ajouter(CardTarot.petit());
                                         main_.ajouter(CardTarot.vingtEtUn());
                                         main_.ajouter(CardTarot.excuse());
@@ -1525,12 +1525,12 @@ public final class GameTarot {
                             }
                         }
                     } else {
-                        if (mainPreneur_.tailleCavaliers() < HandTarot.figures(CardChar.KNIGHT).total()) {
-                            main_.ajouterCartes(HandTarot.figures(CardChar.KNIGHT));
-                            if (mainPreneur_.tailleCavaliers() + nbAppeles_ > HandTarot.figures(CardChar.KNIGHT).total()) {
-                                if (mainPreneur_.tailleValets() < HandTarot.figures(CardChar.JACK).total()) {
-                                    main_.ajouterCartes(HandTarot.figures(CardChar.JACK));
-                                    if (mainPreneur_.tailleValets() + nbAppeles_ > HandTarot.figures(CardChar.JACK).total()) {
+                        if (mainPreneur_.tailleCavaliers() < HandTarot.charCards(CardChar.KNIGHT).total()) {
+                            main_.ajouterCartes(HandTarot.charCards(CardChar.KNIGHT));
+                            if (mainPreneur_.tailleCavaliers() + nbAppeles_ > HandTarot.charCards(CardChar.KNIGHT).total()) {
+                                if (mainPreneur_.tailleValets() < HandTarot.charCards(CardChar.JACK).total()) {
+                                    main_.ajouterCartes(HandTarot.charCards(CardChar.JACK));
+                                    if (mainPreneur_.tailleValets() + nbAppeles_ > HandTarot.charCards(CardChar.JACK).total()) {
                                         main_.ajouter(CardTarot.petit());
                                         main_.ajouter(CardTarot.vingtEtUn());
                                         main_.ajouter(CardTarot.excuse());
@@ -1542,9 +1542,9 @@ public final class GameTarot {
                                 }
                             }
                         } else {
-                            if (mainPreneur_.tailleValets() < HandTarot.figures(CardChar.JACK).total()) {
-                                main_.ajouterCartes(HandTarot.figures(CardChar.JACK));
-                                if (mainPreneur_.tailleValets() + nbAppeles_ > HandTarot.figures(CardChar.JACK).total()) {
+                            if (mainPreneur_.tailleValets() < HandTarot.charCards(CardChar.JACK).total()) {
+                                main_.ajouterCartes(HandTarot.charCards(CardChar.JACK));
+                                if (mainPreneur_.tailleValets() + nbAppeles_ > HandTarot.charCards(CardChar.JACK).total()) {
                                     main_.ajouter(CardTarot.petit());
                                     main_.ajouter(CardTarot.vingtEtUn());
                                     main_.ajouter(CardTarot.excuse());
@@ -1558,15 +1558,15 @@ public final class GameTarot {
                     }
                 }
             } else {
-                if (mainPreneur_.tailleDames() < HandTarot.figures(CardChar.QUEEN).total()) {
-                    main_.ajouterCartes(HandTarot.figures(CardChar.QUEEN));
-                    if (mainPreneur_.tailleDames() + nbAppeles_ > HandTarot.figures(CardChar.QUEEN).total()) {
-                        if (mainPreneur_.tailleCavaliers() < HandTarot.figures(CardChar.KNIGHT).total()) {
-                            main_.ajouterCartes(HandTarot.figures(CardChar.KNIGHT));
-                            if (mainPreneur_.tailleCavaliers() + nbAppeles_ > HandTarot.figures(CardChar.KNIGHT).total()) {
-                                if (mainPreneur_.tailleValets() < HandTarot.figures(CardChar.JACK).total()) {
-                                    main_.ajouterCartes(HandTarot.figures(CardChar.JACK));
-                                    if (mainPreneur_.tailleValets() + nbAppeles_ > HandTarot.figures(CardChar.JACK).total()) {
+                if (mainPreneur_.tailleDames() < HandTarot.charCards(CardChar.QUEEN).total()) {
+                    main_.ajouterCartes(HandTarot.charCards(CardChar.QUEEN));
+                    if (mainPreneur_.tailleDames() + nbAppeles_ > HandTarot.charCards(CardChar.QUEEN).total()) {
+                        if (mainPreneur_.tailleCavaliers() < HandTarot.charCards(CardChar.KNIGHT).total()) {
+                            main_.ajouterCartes(HandTarot.charCards(CardChar.KNIGHT));
+                            if (mainPreneur_.tailleCavaliers() + nbAppeles_ > HandTarot.charCards(CardChar.KNIGHT).total()) {
+                                if (mainPreneur_.tailleValets() < HandTarot.charCards(CardChar.JACK).total()) {
+                                    main_.ajouterCartes(HandTarot.charCards(CardChar.JACK));
+                                    if (mainPreneur_.tailleValets() + nbAppeles_ > HandTarot.charCards(CardChar.JACK).total()) {
                                         main_.ajouter(CardTarot.petit());
                                         main_.ajouter(CardTarot.vingtEtUn());
                                         main_.ajouter(CardTarot.excuse());
@@ -1578,9 +1578,9 @@ public final class GameTarot {
                                 }
                             }
                         } else {
-                            if (mainPreneur_.tailleValets() < HandTarot.figures(CardChar.JACK).total()) {
-                                main_.ajouterCartes(HandTarot.figures(CardChar.JACK));
-                                if (mainPreneur_.tailleValets() + nbAppeles_ > HandTarot.figures(CardChar.JACK).total()) {
+                            if (mainPreneur_.tailleValets() < HandTarot.charCards(CardChar.JACK).total()) {
+                                main_.ajouterCartes(HandTarot.charCards(CardChar.JACK));
+                                if (mainPreneur_.tailleValets() + nbAppeles_ > HandTarot.charCards(CardChar.JACK).total()) {
                                     main_.ajouter(CardTarot.petit());
                                     main_.ajouter(CardTarot.vingtEtUn());
                                     main_.ajouter(CardTarot.excuse());
@@ -1593,12 +1593,12 @@ public final class GameTarot {
                         }
                     }
                 } else {
-                    if (mainPreneur_.tailleCavaliers() < HandTarot.figures(CardChar.KNIGHT).total()) {
-                        main_.ajouterCartes(HandTarot.figures(CardChar.KNIGHT));
-                        if (mainPreneur_.tailleCavaliers() + nbAppeles_ > HandTarot.figures(CardChar.KNIGHT).total()) {
-                            if (mainPreneur_.tailleValets() < HandTarot.figures(CardChar.JACK).total()) {
-                                main_.ajouterCartes(HandTarot.figures(CardChar.JACK));
-                                if (mainPreneur_.tailleValets() + nbAppeles_ > HandTarot.figures(CardChar.JACK).total()) {
+                    if (mainPreneur_.tailleCavaliers() < HandTarot.charCards(CardChar.KNIGHT).total()) {
+                        main_.ajouterCartes(HandTarot.charCards(CardChar.KNIGHT));
+                        if (mainPreneur_.tailleCavaliers() + nbAppeles_ > HandTarot.charCards(CardChar.KNIGHT).total()) {
+                            if (mainPreneur_.tailleValets() < HandTarot.charCards(CardChar.JACK).total()) {
+                                main_.ajouterCartes(HandTarot.charCards(CardChar.JACK));
+                                if (mainPreneur_.tailleValets() + nbAppeles_ > HandTarot.charCards(CardChar.JACK).total()) {
                                     main_.ajouter(CardTarot.petit());
                                     main_.ajouter(CardTarot.vingtEtUn());
                                     main_.ajouter(CardTarot.excuse());
@@ -1610,9 +1610,9 @@ public final class GameTarot {
                             }
                         }
                     } else {
-                        if (mainPreneur_.tailleValets() < HandTarot.figures(CardChar.JACK).total()) {
-                            main_.ajouterCartes(HandTarot.figures(CardChar.JACK));
-                            if (mainPreneur_.tailleValets() + nbAppeles_ > HandTarot.figures(CardChar.JACK).total()) {
+                        if (mainPreneur_.tailleValets() < HandTarot.charCards(CardChar.JACK).total()) {
+                            main_.ajouterCartes(HandTarot.charCards(CardChar.JACK));
+                            if (mainPreneur_.tailleValets() + nbAppeles_ > HandTarot.charCards(CardChar.JACK).total()) {
                                 main_.ajouter(CardTarot.petit());
                                 main_.ajouter(CardTarot.vingtEtUn());
                                 main_.ajouter(CardTarot.excuse());
@@ -1642,19 +1642,19 @@ public final class GameTarot {
         if (getRegles().getRepartition().getAppel() == CallingCard.KING) {
             int nbAppeles_ = getRegles().getRepartition().getNbAppeles();
             HandTarot mainPreneur_ = getDistribution().main(_numero);
-            if (mainPreneur_.tailleRois() < HandTarot.figures(CardChar.KING).total()) {
-                main_.ajouterCartes(HandTarot.figures(CardChar.KING));
-                if (mainPreneur_.tailleRois() + nbAppeles_ > HandTarot.figures(CardChar.KING).total()) {
+            if (mainPreneur_.tailleRois() < HandTarot.charCards(CardChar.KING).total()) {
+                main_.ajouterCartes(HandTarot.charCards(CardChar.KING));
+                if (mainPreneur_.tailleRois() + nbAppeles_ > HandTarot.charCards(CardChar.KING).total()) {
                     //nbAppeles > 0
-                    if (mainPreneur_.tailleDames() < HandTarot.figures(CardChar.QUEEN).total()) {
-                        main_.ajouterCartes(HandTarot.figures(CardChar.QUEEN));
-                        if (mainPreneur_.tailleDames() + nbAppeles_ > HandTarot.figures(CardChar.QUEEN).total()) {
-                            if (mainPreneur_.tailleCavaliers() < HandTarot.figures(CardChar.KNIGHT).total()) {
-                                main_.ajouterCartes(HandTarot.figures(CardChar.KNIGHT));
-                                if (mainPreneur_.tailleCavaliers() + nbAppeles_ > HandTarot.figures(CardChar.KNIGHT).total()) {
-                                    if (mainPreneur_.tailleValets() < HandTarot.figures(CardChar.JACK).total()) {
-                                        main_.ajouterCartes(HandTarot.figures(CardChar.JACK));
-                                        if (mainPreneur_.tailleValets() + nbAppeles_ > HandTarot.figures(CardChar.JACK).total()) {
+                    if (mainPreneur_.tailleDames() < HandTarot.charCards(CardChar.QUEEN).total()) {
+                        main_.ajouterCartes(HandTarot.charCards(CardChar.QUEEN));
+                        if (mainPreneur_.tailleDames() + nbAppeles_ > HandTarot.charCards(CardChar.QUEEN).total()) {
+                            if (mainPreneur_.tailleCavaliers() < HandTarot.charCards(CardChar.KNIGHT).total()) {
+                                main_.ajouterCartes(HandTarot.charCards(CardChar.KNIGHT));
+                                if (mainPreneur_.tailleCavaliers() + nbAppeles_ > HandTarot.charCards(CardChar.KNIGHT).total()) {
+                                    if (mainPreneur_.tailleValets() < HandTarot.charCards(CardChar.JACK).total()) {
+                                        main_.ajouterCartes(HandTarot.charCards(CardChar.JACK));
+                                        if (mainPreneur_.tailleValets() + nbAppeles_ > HandTarot.charCards(CardChar.JACK).total()) {
                                             main_.ajouter(CardTarot.petit());
                                             main_.ajouter(CardTarot.vingtEtUn());
                                             main_.ajouter(CardTarot.excuse());
@@ -1666,9 +1666,9 @@ public final class GameTarot {
                                     }
                                 }
                             } else {
-                                if (mainPreneur_.tailleValets() < HandTarot.figures(CardChar.JACK).total()) {
-                                    main_.ajouterCartes(HandTarot.figures(CardChar.JACK));
-                                    if (mainPreneur_.tailleValets() + nbAppeles_ > HandTarot.figures(CardChar.JACK).total()) {
+                                if (mainPreneur_.tailleValets() < HandTarot.charCards(CardChar.JACK).total()) {
+                                    main_.ajouterCartes(HandTarot.charCards(CardChar.JACK));
+                                    if (mainPreneur_.tailleValets() + nbAppeles_ > HandTarot.charCards(CardChar.JACK).total()) {
                                         main_.ajouter(CardTarot.petit());
                                         main_.ajouter(CardTarot.vingtEtUn());
                                         main_.ajouter(CardTarot.excuse());
@@ -1681,12 +1681,12 @@ public final class GameTarot {
                             }
                         }
                     } else {
-                        if (mainPreneur_.tailleCavaliers() < HandTarot.figures(CardChar.KNIGHT).total()) {
-                            main_.ajouterCartes(HandTarot.figures(CardChar.KNIGHT));
-                            if (mainPreneur_.tailleCavaliers() + nbAppeles_ > HandTarot.figures(CardChar.KNIGHT).total()) {
-                                if (mainPreneur_.tailleValets() < HandTarot.figures(CardChar.JACK).total()) {
-                                    main_.ajouterCartes(HandTarot.figures(CardChar.JACK));
-                                    if (mainPreneur_.tailleValets() + nbAppeles_ > HandTarot.figures(CardChar.JACK).total()) {
+                        if (mainPreneur_.tailleCavaliers() < HandTarot.charCards(CardChar.KNIGHT).total()) {
+                            main_.ajouterCartes(HandTarot.charCards(CardChar.KNIGHT));
+                            if (mainPreneur_.tailleCavaliers() + nbAppeles_ > HandTarot.charCards(CardChar.KNIGHT).total()) {
+                                if (mainPreneur_.tailleValets() < HandTarot.charCards(CardChar.JACK).total()) {
+                                    main_.ajouterCartes(HandTarot.charCards(CardChar.JACK));
+                                    if (mainPreneur_.tailleValets() + nbAppeles_ > HandTarot.charCards(CardChar.JACK).total()) {
                                         main_.ajouter(CardTarot.petit());
                                         main_.ajouter(CardTarot.vingtEtUn());
                                         main_.ajouter(CardTarot.excuse());
@@ -1698,9 +1698,9 @@ public final class GameTarot {
                                 }
                             }
                         } else {
-                            if (mainPreneur_.tailleValets() < HandTarot.figures(CardChar.JACK).total()) {
-                                main_.ajouterCartes(HandTarot.figures(CardChar.JACK));
-                                if (mainPreneur_.tailleValets() + nbAppeles_ > HandTarot.figures(CardChar.JACK).total()) {
+                            if (mainPreneur_.tailleValets() < HandTarot.charCards(CardChar.JACK).total()) {
+                                main_.ajouterCartes(HandTarot.charCards(CardChar.JACK));
+                                if (mainPreneur_.tailleValets() + nbAppeles_ > HandTarot.charCards(CardChar.JACK).total()) {
                                     main_.ajouter(CardTarot.petit());
                                     main_.ajouter(CardTarot.vingtEtUn());
                                     main_.ajouter(CardTarot.excuse());
@@ -1714,15 +1714,15 @@ public final class GameTarot {
                     }
                 }
             } else {
-                if (mainPreneur_.tailleDames() < HandTarot.figures(CardChar.QUEEN).total()) {
-                    main_.ajouterCartes(HandTarot.figures(CardChar.QUEEN));
-                    if (mainPreneur_.tailleDames() + nbAppeles_ > HandTarot.figures(CardChar.QUEEN).total()) {
-                        if (mainPreneur_.tailleCavaliers() < HandTarot.figures(CardChar.KNIGHT).total()) {
-                            main_.ajouterCartes(HandTarot.figures(CardChar.KNIGHT));
-                            if (mainPreneur_.tailleCavaliers() + nbAppeles_ > HandTarot.figures(CardChar.KNIGHT).total()) {
-                                if (mainPreneur_.tailleValets() < HandTarot.figures(CardChar.JACK).total()) {
-                                    main_.ajouterCartes(HandTarot.figures(CardChar.JACK));
-                                    if (mainPreneur_.tailleValets() + nbAppeles_ > HandTarot.figures(CardChar.JACK).total()) {
+                if (mainPreneur_.tailleDames() < HandTarot.charCards(CardChar.QUEEN).total()) {
+                    main_.ajouterCartes(HandTarot.charCards(CardChar.QUEEN));
+                    if (mainPreneur_.tailleDames() + nbAppeles_ > HandTarot.charCards(CardChar.QUEEN).total()) {
+                        if (mainPreneur_.tailleCavaliers() < HandTarot.charCards(CardChar.KNIGHT).total()) {
+                            main_.ajouterCartes(HandTarot.charCards(CardChar.KNIGHT));
+                            if (mainPreneur_.tailleCavaliers() + nbAppeles_ > HandTarot.charCards(CardChar.KNIGHT).total()) {
+                                if (mainPreneur_.tailleValets() < HandTarot.charCards(CardChar.JACK).total()) {
+                                    main_.ajouterCartes(HandTarot.charCards(CardChar.JACK));
+                                    if (mainPreneur_.tailleValets() + nbAppeles_ > HandTarot.charCards(CardChar.JACK).total()) {
                                         main_.ajouter(CardTarot.petit());
                                         main_.ajouter(CardTarot.vingtEtUn());
                                         main_.ajouter(CardTarot.excuse());
@@ -1734,9 +1734,9 @@ public final class GameTarot {
                                 }
                             }
                         } else {
-                            if (mainPreneur_.tailleValets() < HandTarot.figures(CardChar.JACK).total()) {
-                                main_.ajouterCartes(HandTarot.figures(CardChar.JACK));
-                                if (mainPreneur_.tailleValets() + nbAppeles_ > HandTarot.figures(CardChar.JACK).total()) {
+                            if (mainPreneur_.tailleValets() < HandTarot.charCards(CardChar.JACK).total()) {
+                                main_.ajouterCartes(HandTarot.charCards(CardChar.JACK));
+                                if (mainPreneur_.tailleValets() + nbAppeles_ > HandTarot.charCards(CardChar.JACK).total()) {
                                     main_.ajouter(CardTarot.petit());
                                     main_.ajouter(CardTarot.vingtEtUn());
                                     main_.ajouter(CardTarot.excuse());
@@ -1749,12 +1749,12 @@ public final class GameTarot {
                         }
                     }
                 } else {
-                    if (mainPreneur_.tailleCavaliers() < HandTarot.figures(CardChar.KNIGHT).total()) {
-                        main_.ajouterCartes(HandTarot.figures(CardChar.KNIGHT));
-                        if (mainPreneur_.tailleCavaliers() + nbAppeles_ > HandTarot.figures(CardChar.KNIGHT).total()) {
-                            if (mainPreneur_.tailleValets() < HandTarot.figures(CardChar.JACK).total()) {
-                                main_.ajouterCartes(HandTarot.figures(CardChar.JACK));
-                                if (mainPreneur_.tailleValets() + nbAppeles_ > HandTarot.figures(CardChar.JACK).total()) {
+                    if (mainPreneur_.tailleCavaliers() < HandTarot.charCards(CardChar.KNIGHT).total()) {
+                        main_.ajouterCartes(HandTarot.charCards(CardChar.KNIGHT));
+                        if (mainPreneur_.tailleCavaliers() + nbAppeles_ > HandTarot.charCards(CardChar.KNIGHT).total()) {
+                            if (mainPreneur_.tailleValets() < HandTarot.charCards(CardChar.JACK).total()) {
+                                main_.ajouterCartes(HandTarot.charCards(CardChar.JACK));
+                                if (mainPreneur_.tailleValets() + nbAppeles_ > HandTarot.charCards(CardChar.JACK).total()) {
                                     main_.ajouter(CardTarot.petit());
                                     main_.ajouter(CardTarot.vingtEtUn());
                                     main_.ajouter(CardTarot.excuse());
@@ -1766,9 +1766,9 @@ public final class GameTarot {
                             }
                         }
                     } else {
-                        if (mainPreneur_.tailleValets() < HandTarot.figures(CardChar.JACK).total()) {
-                            main_.ajouterCartes(HandTarot.figures(CardChar.JACK));
-                            if (mainPreneur_.tailleValets() + nbAppeles_ > HandTarot.figures(CardChar.JACK).total()) {
+                        if (mainPreneur_.tailleValets() < HandTarot.charCards(CardChar.JACK).total()) {
+                            main_.ajouterCartes(HandTarot.charCards(CardChar.JACK));
+                            if (mainPreneur_.tailleValets() + nbAppeles_ > HandTarot.charCards(CardChar.JACK).total()) {
                                 main_.ajouter(CardTarot.petit());
                                 main_.ajouter(CardTarot.vingtEtUn());
                                 main_.ajouter(CardTarot.excuse());
@@ -1974,7 +1974,7 @@ public final class GameTarot {
         if (!_figure) {
             for(CardChar f: ordreFigureAppeler_) {
                 HandTarot figures_ = main_.figuresMain(f);
-                if(figures_.total() < HandTarot.figures(f).total()) {
+                if(figures_.total() < HandTarot.charCards(f).total()) {
                     return HandTarot.figureCouleur(_couleurChoisie, f);
                 }
             }
@@ -1991,7 +1991,7 @@ public final class GameTarot {
         int nombreDeCoupes_ = nombreDeCoupesFranches(_repartition);
         for(CardChar f: ordreFigureAppeler_) {
             HandTarot figures_ = main_.figuresMain(f);
-            if(figures_.total() != HandTarot.figures(f).total() - nombreDeCoupes_) {
+            if(figures_.total() != HandTarot.charCards(f).total() - nombreDeCoupes_) {
                 return HandTarot.figureCouleur(_couleurChoisie, f);
             }
         }
@@ -2010,7 +2010,7 @@ public final class GameTarot {
         }
         for(CardChar f: ordreFigureAppeler_) {
             HandTarot figures_ = main_.figuresMain(f);
-            if(figures_.total() < HandTarot.figures(f).total()) {
+            if(figures_.total() < HandTarot.charCards(f).total()) {
                 return HandTarot.figureCouleur(_couleurChoisie, f);
             }
         }
@@ -2484,7 +2484,7 @@ public final class GameTarot {
                     HandTarot cartesNonMaitresses_ = cartesNonMaitressesDebut(
                             cartesMaitresses_, carteAppelee_, cartesPseudosMaitres_);
                     for(Suit couleur_: suits_) {
-                        cartesNonMaitresses_ = cartesNonMaitresses_.figures(couleur_);
+                        cartesNonMaitresses_ = cartesNonMaitresses_.charCardsBySuit(couleur_);
                         cartesNonMaitresses_.trierParForceEnCours(couleur_);
                         for(CardTarot carte_: cartesNonMaitresses_) {
                             if (!mainPreneur_.contient(carte_)) {
@@ -2539,7 +2539,7 @@ public final class GameTarot {
                 couleurs_ = couleursAvecFigures(mainPreneur_, _couleursNonAppelees);
                 for(EnumList<Suit> suits_: couleursTrieesPlusCourtes(mainPreneur_, couleurs_)) {
                     for(Suit couleur_: suits_) {
-                        HandTarot figures_ = mainPreneur_.figures(couleur_);
+                        HandTarot figures_ = mainPreneur_.charCardsBySuit(couleur_);
                         figures_.trierParForceEnCours(couleur_);
                         for(CardTarot carte_: figures_) {
                             if (!ecartables_.contient(carte_)) {
@@ -2555,7 +2555,7 @@ public final class GameTarot {
                 couleurs_ = couleursAvecFigures(mainPreneur_, couleursOrdinaires());
                 for(EnumList<Suit> suits_: couleursTrieesPlusCourtes(mainPreneur_, couleurs_)) {
                     for(Suit couleur_: suits_) {
-                        HandTarot figures_ = mainPreneur_.figures(couleur_);
+                        HandTarot figures_ = mainPreneur_.charCardsBySuit(couleur_);
                         figures_.trierParForceEnCours(couleur_);
                         for(CardTarot carte_: figures_) {
                             if (!ecartables_.contient(carte_)) {
@@ -2575,7 +2575,7 @@ public final class GameTarot {
         couleurs_ = couleursAvecFigures(mainPreneur_, couleurs_);
         for(EnumList<Suit> suits_: couleursTrieesPlusCourtes(mainPreneur_, couleurs_)) {
             for(Suit couleur_: suits_) {
-                HandTarot figures_ = mainPreneur_.figures(couleur_);
+                HandTarot figures_ = mainPreneur_.charCardsBySuit(couleur_);
                 figures_.trierParForceEnCours(couleur_);
                 for(CardTarot carte_: figures_) {
                     if (ecart_.total() == tailleChien_) {
@@ -2618,7 +2618,7 @@ public final class GameTarot {
             HandTarot cartesNonMaitresses_ = cartesNonMaitressesDebut(
                     cartesMaitresses_, new HandTarot(), new HandTarot());
             for(Suit couleur_: suits_) {
-                cartesNonMaitresses_ = cartesNonMaitresses_.figures(couleur_);
+                cartesNonMaitresses_ = cartesNonMaitresses_.charCardsBySuit(couleur_);
                 cartesNonMaitresses_.trierParForceEcart(couleur_);
                 for(CardTarot carte_: cartesNonMaitresses_) {
                     if (!mainPreneur_.contient(carte_)) {
@@ -8175,7 +8175,7 @@ public final class GameTarot {
             }
             if (declaresMiseres.get(joueur_).containsObj(Miseres.POINT)
                     || declaresMiseres.get(joueur_).containsObj(Miseres.CHARACTER)) {
-                m.get(joueur_).supprimerCartes(m.get(joueur_).figures(_couleur));
+                m.get(joueur_).supprimerCartes(m.get(joueur_).charCardsBySuit(_couleur));
             }
             if (declaresMiseres.get(joueur_).containsObj(Miseres.LOW_CARDS)) {
                 m.get(joueur_).supprimerCartes(
@@ -13154,7 +13154,7 @@ public final class GameTarot {
                         if (nombreBouts_ == 0) {
                             figures_ = new HandTarot();
                             for (Suit couleur_ : couleursOrdinaires()) {
-                                figures_.ajouterCartes(main_.figures(couleur_));
+                                figures_.ajouterCartes(main_.charCardsBySuit(couleur_));
                             }
                             figures_.sortCharsByGreaterPoints();
                             for (short joueur2_ : groupe_) {
@@ -13162,7 +13162,7 @@ public final class GameTarot {
                                 figures2_ = new HandTarot();
                                 for (Suit couleur_ : couleursOrdinaires()) {
                                     figures2_.ajouterCartes(main2_
-                                            .figures(couleur_));
+                                            .charCardsBySuit(couleur_));
                                 }
                                 figures2_.sortCharsByGreaterPoints();
                                 positionTemporaire_ = incrementPosByLowerPoints(
@@ -13183,7 +13183,7 @@ public final class GameTarot {
                         if (nombreBouts_ == 0) {
                             figures_ = new HandTarot();
                             for (Suit couleur_ : couleursOrdinaires()) {
-                                figures_.ajouterCartes(main_.figures(couleur_));
+                                figures_.ajouterCartes(main_.charCardsBySuit(couleur_));
                             }
                             figures_.sortCharsByGreaterPoints();
                             for (short joueur2_ : groupe_) {
@@ -13191,7 +13191,7 @@ public final class GameTarot {
                                 figures2_ = new HandTarot();
                                 for (Suit couleur_ : couleursOrdinaires()) {
                                     figures2_.ajouterCartes(main2_
-                                            .figures(couleur_));
+                                            .charCardsBySuit(couleur_));
                                 }
                                 figures2_.sortCharsByGreaterPoints();
                                 positionTemporaire_ = incrementPosByGreaterPoints(
@@ -13300,7 +13300,7 @@ public final class GameTarot {
                         if (nombreBouts_ == 0) {
                             figures_ = new HandTarot();
                             for (Suit couleur_ : couleursOrdinaires()) {
-                                figures_.ajouterCartes(main_.figures(couleur_));
+                                figures_.ajouterCartes(main_.charCardsBySuit(couleur_));
                             }
                             figures_.sortCharsByGreaterPoints();
                             for (short joueur2_ : groupe_) {
@@ -13308,7 +13308,7 @@ public final class GameTarot {
                                 figures2_ = new HandTarot();
                                 for (Suit couleur_ : couleursOrdinaires()) {
                                     figures2_.ajouterCartes(main2_
-                                            .figures(couleur_));
+                                            .charCardsBySuit(couleur_));
                                 }
                                 figures2_.sortCharsByGreaterPoints();
                                 egaliteFigures_ = equalChars(figures_, figures2_);
@@ -13353,7 +13353,7 @@ public final class GameTarot {
                         if (nombreBouts_ == 0) {
                             figures_ = new HandTarot();
                             for (Suit couleur_ : couleursOrdinaires()) {
-                                figures_.ajouterCartes(main_.figures(couleur_));
+                                figures_.ajouterCartes(main_.charCardsBySuit(couleur_));
                             }
                             figures_.sortCharsByGreaterPoints();
                             for (short joueur2_ : groupe_) {
@@ -13361,7 +13361,7 @@ public final class GameTarot {
                                 figures2_ = new HandTarot();
                                 for (Suit couleur_ : couleursOrdinaires()) {
                                     figures2_.ajouterCartes(main2_
-                                            .figures(couleur_));
+                                            .charCardsBySuit(couleur_));
                                 }
                                 figures2_.sortCharsByGreaterPoints();
                                 egaliteFigures_ = equalChars(figures_, figures2_);

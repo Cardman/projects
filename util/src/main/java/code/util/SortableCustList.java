@@ -68,20 +68,7 @@ public final class SortableCustList<T extends Cmp<T>> extends AbEqList<T> implem
 //    }
 
     public void sort() {
-//        int len_ = size();
-//        for (int i = FIRST_INDEX; i <len_; i++) {
-//            for (int j = i + 1; j <len_; j++) {
-//                T one_ = get(i);
-//                T two_ = get(j);
-//                int res_ = one_.cmp(two_);
-//                if (res_ > NO_SWAP_SORT) {
-//                    set(i, two_);
-//                    set(j, one_);
-//                }
-//            }
-//        }
         sortElts(new NatComparator<T>());
-//        Collections.sort(this, null);
     }
     @Override
     public SortableCustList<T> subAbEq(int _from, int _to) {

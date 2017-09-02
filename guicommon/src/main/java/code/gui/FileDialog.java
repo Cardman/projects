@@ -3,7 +3,6 @@ import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.event.MouseEvent;
 import java.io.File;
-import java.util.Arrays;
 
 import javax.swing.BoxLayout;
 import javax.swing.JLabel;
@@ -139,9 +138,10 @@ public abstract class FileDialog extends Dialog {
             DefaultMutableTreeNode default_ = new DefaultMutableTreeNode(currentFolder.substring(0, currentFolder.length() - 1));
             File[] files_ = new File(currentFolder).listFiles();
             if (files_ != null) {
-                Arrays.sort(files_, new FileNameComparator());
+                CustList<File> currentFiles_ = new CustList<File>(files_);
+                currentFiles_.sortElts(new FileNameComparator());
                 CustList<File> filesList_ = new CustList<File>();
-                for (File f: files_) {
+                for (File f: currentFiles_) {
                     if (f.isDirectory()) {
                         if (excludedFolders.containsObj(StringList.replaceBackSlash(f.getAbsolutePath()))) {
                             continue;
@@ -201,45 +201,7 @@ public abstract class FileDialog extends Dialog {
         if (selected_ == null) {
             return;
         }
-//        StringList pathFull_ = new StringList();
-//        for (Object o: _e.getPath().getPath()) {
-//            pathFull_.add(o.toString());
-//        }
-//        pathFull_.removeObj(EMPTY_STRING);
         applyTreeChange(_e.getPath());
-//        String str_ = EMPTY_STRING;
-//        for (Object o: pathFull_) {
-//            str_ += o.toString() + StreamTextFile.SEPARATEUR;
-//        }
-//        currentFolder = str_;
-//        currentTitle = StringList.simpleFormat(messages.getVal(FILES_PARAM), currentFolder);
-//        setTitle(currentTitle);
-//        File currentFolder_ = new File(str_);
-//        if (!currentFolder_.exists()) {
-//            selected_.removeFromParent();
-//            return;
-//        }
-//        selected_.removeAllChildren();
-//        StringList folderList_ = new StringList();
-//        CustList<File> files_ = new CustList<File>();
-//        File[] filesArray_ = currentFolder_.listFiles();
-//        if (filesArray_ != null) {
-//            for (File l: filesArray_) {
-//                if (l.isDirectory()) {
-//                    folderList_.add(l.getName());
-//                } else if (l.getName().endsWith(extension)) {
-//                    files_.add(l);
-//                }
-//            }
-//        }
-//        folderList_.sort();
-//        for (String f: folderList_) {
-//            selected_.add(new DefaultMutableTreeNode(f));
-//        }
-//        DefaultTreeModel d_;
-//        d_ = (DefaultTreeModel) folderSystem.getModel();
-//        d_.reload(selected_);
-//        fileModel.setupFiles(files_,currentFolder, extension);
     }
 
     public void applyTreeChange() {
@@ -255,8 +217,9 @@ public abstract class FileDialog extends Dialog {
         CustList<File> files_ = new CustList<File>();
         File[] filesArray_ = currentFolder_.listFiles();
         if (filesArray_ != null) {
-            Arrays.sort(filesArray_, new FileNameComparator());
-            for (File l: filesArray_) {
+            CustList<File> currentFiles_ = new CustList<File>(filesArray_);
+            currentFiles_.sortElts(new FileNameComparator());
+            for (File l: currentFiles_) {
                 if (l.isDirectory()) {
                     if (excludedFolders.containsObj(StringList.replaceBackSlash(l.getAbsolutePath()))) {
                         continue;
@@ -302,8 +265,9 @@ public abstract class FileDialog extends Dialog {
         CustList<File> files_ = new CustList<File>();
         File[] filesArray_ = currentFolder_.listFiles();
         if (filesArray_ != null) {
-            Arrays.sort(filesArray_, new FileNameComparator());
-            for (File l: filesArray_) {
+            CustList<File> currentFiles_ = new CustList<File>(filesArray_);
+            currentFiles_.sortElts(new FileNameComparator());
+            for (File l: currentFiles_) {
                 if (l.isDirectory()) {
                     if (excludedFolders.containsObj(StringList.replaceBackSlash(l.getAbsolutePath()))) {
                         continue;

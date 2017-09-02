@@ -3,7 +3,9 @@ import aiki.DataBase;
 import aiki.exceptions.BlockNotFoundException;
 import aiki.exceptions.DataException;
 import aiki.map.buildings.Building;
+import aiki.map.characters.CharacterInRoadCave;
 import aiki.map.characters.DualFight;
+import aiki.map.characters.GymTrainer;
 import aiki.map.characters.Person;
 import aiki.map.characters.TempTrainer;
 import aiki.map.levels.enums.EnvironmentType;
@@ -235,7 +237,7 @@ public abstract class Level {
         return frontTiles_;
     }
 
-    public static <T> void translateLineData(ObjectMap<Point,T> _data,short _y,short _dir) {
+    public static void translateBlockLineData(ObjectMap<Point,Block> _data,short _y,short _dir) {
         EqList<Point> links_=_data.getKeys();
         ObjectMap<Point,Point> deplLinks_ = new ObjectMap<Point,Point>();
         for(Point c:links_){
@@ -249,7 +251,7 @@ public abstract class Level {
             for(Point c:links_){
                 Point dest_=deplLinks_.getVal(c);
                 if(!links_.containsObj(dest_)){
-                    T movedBlock_=_data.getVal(c);
+                    Block movedBlock_=_data.getVal(c);
                     _data.removeKey(c);
                     _data.put(dest_, movedBlock_);
                     deplLinks_.removeKey(c);
@@ -264,7 +266,240 @@ public abstract class Level {
             links_=deplLinks_.getKeys();
         }
     }
-    public static <T> void translateColumnData(ObjectMap<Point,T> _data,short _x,short _dir) {
+    public static void translateWildPkLineData(ObjectMap<Point,WildPk> _data,short _y,short _dir) {
+        EqList<Point> links_=_data.getKeys();
+        ObjectMap<Point,Point> deplLinks_ = new ObjectMap<Point,Point>();
+        for(Point c:links_){
+            if (c.gety() < _y) {
+                deplLinks_.put(c, c);
+                continue;
+            }
+            deplLinks_.put(c, new Point(c.getx(),(short) (c.gety()+_dir)));
+        }
+        while(!links_.isEmpty()){
+            for(Point c:links_){
+                Point dest_=deplLinks_.getVal(c);
+                if(!links_.containsObj(dest_)){
+                    WildPk movedBlock_=_data.getVal(c);
+                    _data.removeKey(c);
+                    _data.put(dest_, movedBlock_);
+                    deplLinks_.removeKey(c);
+                }
+            }
+            for(Point c:links_){
+                Point dest_=deplLinks_.getVal(c);
+                if (Point.eq(c,dest_)) {
+                    deplLinks_.removeKey(c);
+                }
+            }
+            links_=deplLinks_.getKeys();
+        }
+    }
+    public static void translateDualFightLineData(ObjectMap<Point,DualFight> _data,short _y,short _dir) {
+        EqList<Point> links_=_data.getKeys();
+        ObjectMap<Point,Point> deplLinks_ = new ObjectMap<Point,Point>();
+        for(Point c:links_){
+            if (c.gety() < _y) {
+                deplLinks_.put(c, c);
+                continue;
+            }
+            deplLinks_.put(c, new Point(c.getx(),(short) (c.gety()+_dir)));
+        }
+        while(!links_.isEmpty()){
+            for(Point c:links_){
+                Point dest_=deplLinks_.getVal(c);
+                if(!links_.containsObj(dest_)){
+                    DualFight movedBlock_=_data.getVal(c);
+                    _data.removeKey(c);
+                    _data.put(dest_, movedBlock_);
+                    deplLinks_.removeKey(c);
+                }
+            }
+            for(Point c:links_){
+                Point dest_=deplLinks_.getVal(c);
+                if (Point.eq(c,dest_)) {
+                    deplLinks_.removeKey(c);
+                }
+            }
+            links_=deplLinks_.getKeys();
+        }
+    }
+    public static void translateCharacterInRoadCaveLineData(ObjectMap<Point,CharacterInRoadCave> _data,short _y,short _dir) {
+        EqList<Point> links_=_data.getKeys();
+        ObjectMap<Point,Point> deplLinks_ = new ObjectMap<Point,Point>();
+        for(Point c:links_){
+            if (c.gety() < _y) {
+                deplLinks_.put(c, c);
+                continue;
+            }
+            deplLinks_.put(c, new Point(c.getx(),(short) (c.gety()+_dir)));
+        }
+        while(!links_.isEmpty()){
+            for(Point c:links_){
+                Point dest_=deplLinks_.getVal(c);
+                if(!links_.containsObj(dest_)){
+                    CharacterInRoadCave movedBlock_=_data.getVal(c);
+                    _data.removeKey(c);
+                    _data.put(dest_, movedBlock_);
+                    deplLinks_.removeKey(c);
+                }
+            }
+            for(Point c:links_){
+                Point dest_=deplLinks_.getVal(c);
+                if (Point.eq(c,dest_)) {
+                    deplLinks_.removeKey(c);
+                }
+            }
+            links_=deplLinks_.getKeys();
+        }
+    }
+    public static void translateGymTrainerLineData(ObjectMap<Point,GymTrainer> _data,short _y,short _dir) {
+        EqList<Point> links_=_data.getKeys();
+        ObjectMap<Point,Point> deplLinks_ = new ObjectMap<Point,Point>();
+        for(Point c:links_){
+            if (c.gety() < _y) {
+                deplLinks_.put(c, c);
+                continue;
+            }
+            deplLinks_.put(c, new Point(c.getx(),(short) (c.gety()+_dir)));
+        }
+        while(!links_.isEmpty()){
+            for(Point c:links_){
+                Point dest_=deplLinks_.getVal(c);
+                if(!links_.containsObj(dest_)){
+                    GymTrainer movedBlock_=_data.getVal(c);
+                    _data.removeKey(c);
+                    _data.put(dest_, movedBlock_);
+                    deplLinks_.removeKey(c);
+                }
+            }
+            for(Point c:links_){
+                Point dest_=deplLinks_.getVal(c);
+                if (Point.eq(c,dest_)) {
+                    deplLinks_.removeKey(c);
+                }
+            }
+            links_=deplLinks_.getKeys();
+        }
+    }
+    public static void translatePersonLineData(ObjectMap<Point,Person> _data,short _y,short _dir) {
+        EqList<Point> links_=_data.getKeys();
+        ObjectMap<Point,Point> deplLinks_ = new ObjectMap<Point,Point>();
+        for(Point c:links_){
+            if (c.gety() < _y) {
+                deplLinks_.put(c, c);
+                continue;
+            }
+            deplLinks_.put(c, new Point(c.getx(),(short) (c.gety()+_dir)));
+        }
+        while(!links_.isEmpty()){
+            for(Point c:links_){
+                Point dest_=deplLinks_.getVal(c);
+                if(!links_.containsObj(dest_)){
+                    Person movedBlock_=_data.getVal(c);
+                    _data.removeKey(c);
+                    _data.put(dest_, movedBlock_);
+                    deplLinks_.removeKey(c);
+                }
+            }
+            for(Point c:links_){
+                Point dest_=deplLinks_.getVal(c);
+                if (Point.eq(c,dest_)) {
+                    deplLinks_.removeKey(c);
+                }
+            }
+            links_=deplLinks_.getKeys();
+        }
+    }
+    public static void translateLinkLineData(ObjectMap<Point,Link> _data,short _y,short _dir) {
+        EqList<Point> links_=_data.getKeys();
+        ObjectMap<Point,Point> deplLinks_ = new ObjectMap<Point,Point>();
+        for(Point c:links_){
+            if (c.gety() < _y) {
+                deplLinks_.put(c, c);
+                continue;
+            }
+            deplLinks_.put(c, new Point(c.getx(),(short) (c.gety()+_dir)));
+        }
+        while(!links_.isEmpty()){
+            for(Point c:links_){
+                Point dest_=deplLinks_.getVal(c);
+                if(!links_.containsObj(dest_)){
+                    Link movedBlock_=_data.getVal(c);
+                    _data.removeKey(c);
+                    _data.put(dest_, movedBlock_);
+                    deplLinks_.removeKey(c);
+                }
+            }
+            for(Point c:links_){
+                Point dest_=deplLinks_.getVal(c);
+                if (Point.eq(c,dest_)) {
+                    deplLinks_.removeKey(c);
+                }
+            }
+            links_=deplLinks_.getKeys();
+        }
+    }
+    public static void translateShortLineData(ObjectMap<Point,Short> _data,short _y,short _dir) {
+        EqList<Point> links_=_data.getKeys();
+        ObjectMap<Point,Point> deplLinks_ = new ObjectMap<Point,Point>();
+        for(Point c:links_){
+            if (c.gety() < _y) {
+                deplLinks_.put(c, c);
+                continue;
+            }
+            deplLinks_.put(c, new Point(c.getx(),(short) (c.gety()+_dir)));
+        }
+        while(!links_.isEmpty()){
+            for(Point c:links_){
+                Point dest_=deplLinks_.getVal(c);
+                if(!links_.containsObj(dest_)){
+                    Short movedBlock_=_data.getVal(c);
+                    _data.removeKey(c);
+                    _data.put(dest_, movedBlock_);
+                    deplLinks_.removeKey(c);
+                }
+            }
+            for(Point c:links_){
+                Point dest_=deplLinks_.getVal(c);
+                if (Point.eq(c,dest_)) {
+                    deplLinks_.removeKey(c);
+                }
+            }
+            links_=deplLinks_.getKeys();
+        }
+    }
+    public static void translateStringLineData(ObjectMap<Point,String> _data,short _y,short _dir) {
+        EqList<Point> links_=_data.getKeys();
+        ObjectMap<Point,Point> deplLinks_ = new ObjectMap<Point,Point>();
+        for(Point c:links_){
+            if (c.gety() < _y) {
+                deplLinks_.put(c, c);
+                continue;
+            }
+            deplLinks_.put(c, new Point(c.getx(),(short) (c.gety()+_dir)));
+        }
+        while(!links_.isEmpty()){
+            for(Point c:links_){
+                Point dest_=deplLinks_.getVal(c);
+                if(!links_.containsObj(dest_)){
+                    String movedBlock_=_data.getVal(c);
+                    _data.removeKey(c);
+                    _data.put(dest_, movedBlock_);
+                    deplLinks_.removeKey(c);
+                }
+            }
+            for(Point c:links_){
+                Point dest_=deplLinks_.getVal(c);
+                if (Point.eq(c,dest_)) {
+                    deplLinks_.removeKey(c);
+                }
+            }
+            links_=deplLinks_.getKeys();
+        }
+    }
+
+    public static void translateLinkColumnData(ObjectMap<Point,Link> _data,short _x,short _dir) {
         EqList<Point> links_=_data.getKeys();
         ObjectMap<Point,Point> deplLinks_ = new ObjectMap<Point,Point>();
         for(Point c:links_){
@@ -278,7 +513,247 @@ public abstract class Level {
             for(Point c:links_){
                 Point dest_=deplLinks_.getVal(c);
                 if(!links_.containsObj(dest_)){
-                    T movedBlock_=_data.getVal(c);
+                    Link movedBlock_=_data.getVal(c);
+                    _data.removeKey(c);
+                    _data.put(dest_, movedBlock_);
+                    deplLinks_.removeKey(c);
+                }
+            }
+            for(Point c:links_){
+                Point dest_=deplLinks_.getVal(c);
+                if (Point.eq(c,dest_)) {
+                    deplLinks_.removeKey(c);
+                }
+            }
+            links_=deplLinks_.getKeys();
+        }
+    }
+    
+    public static void translateGymTrainerColumnData(ObjectMap<Point,GymTrainer> _data,short _x,short _dir) {
+        EqList<Point> links_=_data.getKeys();
+        ObjectMap<Point,Point> deplLinks_ = new ObjectMap<Point,Point>();
+        for(Point c:links_){
+            if (c.getx() < _x) {
+                deplLinks_.put(c, c);
+                continue;
+            }
+            deplLinks_.put(c, new Point((short)(c.getx()+_dir),c.gety()));
+        }
+        while(!links_.isEmpty()){
+            for(Point c:links_){
+                Point dest_=deplLinks_.getVal(c);
+                if(!links_.containsObj(dest_)){
+                    GymTrainer movedBlock_=_data.getVal(c);
+                    _data.removeKey(c);
+                    _data.put(dest_, movedBlock_);
+                    deplLinks_.removeKey(c);
+                }
+            }
+            for(Point c:links_){
+                Point dest_=deplLinks_.getVal(c);
+                if (Point.eq(c,dest_)) {
+                    deplLinks_.removeKey(c);
+                }
+            }
+            links_=deplLinks_.getKeys();
+        }
+    }
+
+    public static void translatePersonColumnData(ObjectMap<Point,Person> _data,short _x,short _dir) {
+        EqList<Point> links_=_data.getKeys();
+        ObjectMap<Point,Point> deplLinks_ = new ObjectMap<Point,Point>();
+        for(Point c:links_){
+            if (c.getx() < _x) {
+                deplLinks_.put(c, c);
+                continue;
+            }
+            deplLinks_.put(c, new Point((short)(c.getx()+_dir),c.gety()));
+        }
+        while(!links_.isEmpty()){
+            for(Point c:links_){
+                Point dest_=deplLinks_.getVal(c);
+                if(!links_.containsObj(dest_)){
+                    Person movedBlock_=_data.getVal(c);
+                    _data.removeKey(c);
+                    _data.put(dest_, movedBlock_);
+                    deplLinks_.removeKey(c);
+                }
+            }
+            for(Point c:links_){
+                Point dest_=deplLinks_.getVal(c);
+                if (Point.eq(c,dest_)) {
+                    deplLinks_.removeKey(c);
+                }
+            }
+            links_=deplLinks_.getKeys();
+        }
+    }
+
+    public static void translateBlockColumnData(ObjectMap<Point,Block> _data,short _x,short _dir) {
+        EqList<Point> links_=_data.getKeys();
+        ObjectMap<Point,Point> deplLinks_ = new ObjectMap<Point,Point>();
+        for(Point c:links_){
+            if (c.getx() < _x) {
+                deplLinks_.put(c, c);
+                continue;
+            }
+            deplLinks_.put(c, new Point((short)(c.getx()+_dir),c.gety()));
+        }
+        while(!links_.isEmpty()){
+            for(Point c:links_){
+                Point dest_=deplLinks_.getVal(c);
+                if(!links_.containsObj(dest_)){
+                    Block movedBlock_=_data.getVal(c);
+                    _data.removeKey(c);
+                    _data.put(dest_, movedBlock_);
+                    deplLinks_.removeKey(c);
+                }
+            }
+            for(Point c:links_){
+                Point dest_=deplLinks_.getVal(c);
+                if (Point.eq(c,dest_)) {
+                    deplLinks_.removeKey(c);
+                }
+            }
+            links_=deplLinks_.getKeys();
+        }
+    }
+
+    public static void translateShortColumnData(ObjectMap<Point,Short> _data,short _x,short _dir) {
+        EqList<Point> links_=_data.getKeys();
+        ObjectMap<Point,Point> deplLinks_ = new ObjectMap<Point,Point>();
+        for(Point c:links_){
+            if (c.getx() < _x) {
+                deplLinks_.put(c, c);
+                continue;
+            }
+            deplLinks_.put(c, new Point((short)(c.getx()+_dir),c.gety()));
+        }
+        while(!links_.isEmpty()){
+            for(Point c:links_){
+                Point dest_=deplLinks_.getVal(c);
+                if(!links_.containsObj(dest_)){
+                    Short movedBlock_=_data.getVal(c);
+                    _data.removeKey(c);
+                    _data.put(dest_, movedBlock_);
+                    deplLinks_.removeKey(c);
+                }
+            }
+            for(Point c:links_){
+                Point dest_=deplLinks_.getVal(c);
+                if (Point.eq(c,dest_)) {
+                    deplLinks_.removeKey(c);
+                }
+            }
+            links_=deplLinks_.getKeys();
+        }
+    }
+
+    public static void translateDualFightColumnData(ObjectMap<Point,DualFight> _data,short _x,short _dir) {
+        EqList<Point> links_=_data.getKeys();
+        ObjectMap<Point,Point> deplLinks_ = new ObjectMap<Point,Point>();
+        for(Point c:links_){
+            if (c.getx() < _x) {
+                deplLinks_.put(c, c);
+                continue;
+            }
+            deplLinks_.put(c, new Point((short)(c.getx()+_dir),c.gety()));
+        }
+        while(!links_.isEmpty()){
+            for(Point c:links_){
+                Point dest_=deplLinks_.getVal(c);
+                if(!links_.containsObj(dest_)){
+                    DualFight movedBlock_=_data.getVal(c);
+                    _data.removeKey(c);
+                    _data.put(dest_, movedBlock_);
+                    deplLinks_.removeKey(c);
+                }
+            }
+            for(Point c:links_){
+                Point dest_=deplLinks_.getVal(c);
+                if (Point.eq(c,dest_)) {
+                    deplLinks_.removeKey(c);
+                }
+            }
+            links_=deplLinks_.getKeys();
+        }
+    }
+
+    public static void translateStringColumnData(ObjectMap<Point,String> _data,short _x,short _dir) {
+        EqList<Point> links_=_data.getKeys();
+        ObjectMap<Point,Point> deplLinks_ = new ObjectMap<Point,Point>();
+        for(Point c:links_){
+            if (c.getx() < _x) {
+                deplLinks_.put(c, c);
+                continue;
+            }
+            deplLinks_.put(c, new Point((short)(c.getx()+_dir),c.gety()));
+        }
+        while(!links_.isEmpty()){
+            for(Point c:links_){
+                Point dest_=deplLinks_.getVal(c);
+                if(!links_.containsObj(dest_)){
+                    String movedBlock_=_data.getVal(c);
+                    _data.removeKey(c);
+                    _data.put(dest_, movedBlock_);
+                    deplLinks_.removeKey(c);
+                }
+            }
+            for(Point c:links_){
+                Point dest_=deplLinks_.getVal(c);
+                if (Point.eq(c,dest_)) {
+                    deplLinks_.removeKey(c);
+                }
+            }
+            links_=deplLinks_.getKeys();
+        }
+    }
+    
+    public static void translateWildPkColumnData(ObjectMap<Point,WildPk> _data,short _x,short _dir) {
+        EqList<Point> links_=_data.getKeys();
+        ObjectMap<Point,Point> deplLinks_ = new ObjectMap<Point,Point>();
+        for(Point c:links_){
+            if (c.getx() < _x) {
+                deplLinks_.put(c, c);
+                continue;
+            }
+            deplLinks_.put(c, new Point((short)(c.getx()+_dir),c.gety()));
+        }
+        while(!links_.isEmpty()){
+            for(Point c:links_){
+                Point dest_=deplLinks_.getVal(c);
+                if(!links_.containsObj(dest_)){
+                    WildPk movedBlock_=_data.getVal(c);
+                    _data.removeKey(c);
+                    _data.put(dest_, movedBlock_);
+                    deplLinks_.removeKey(c);
+                }
+            }
+            for(Point c:links_){
+                Point dest_=deplLinks_.getVal(c);
+                if (Point.eq(c,dest_)) {
+                    deplLinks_.removeKey(c);
+                }
+            }
+            links_=deplLinks_.getKeys();
+        }
+    }
+
+    public static void translateCharacterInRoadCaveColumnData(ObjectMap<Point,CharacterInRoadCave> _data,short _x,short _dir) {
+        EqList<Point> links_=_data.getKeys();
+        ObjectMap<Point,Point> deplLinks_ = new ObjectMap<Point,Point>();
+        for(Point c:links_){
+            if (c.getx() < _x) {
+                deplLinks_.put(c, c);
+                continue;
+            }
+            deplLinks_.put(c, new Point((short)(c.getx()+_dir),c.gety()));
+        }
+        while(!links_.isEmpty()){
+            for(Point c:links_){
+                Point dest_=deplLinks_.getVal(c);
+                if(!links_.containsObj(dest_)){
+                    CharacterInRoadCave movedBlock_=_data.getVal(c);
                     _data.removeKey(c);
                     _data.put(dest_, movedBlock_);
                     deplLinks_.removeKey(c);
@@ -300,10 +775,10 @@ public abstract class Level {
     public abstract boolean isEmpty(Point _point);
     public abstract void clearElements(Point _point);
     public void translateByLine(short _y,short _dir) {
-        Level.<Block>translateLineData(blocks, _y, _dir);
+        Level.translateBlockLineData(blocks, _y, _dir);
     }
     public void translateByColumn(short _x,short _dir) {
-        Level.<Block>translateColumnData(blocks, _x,_dir);
+        Level.translateBlockColumnData(blocks, _x,_dir);
     }
     public void insertLine(short _nb, short _y) {
         EqList<Point> id_ = blocks.getKeys();

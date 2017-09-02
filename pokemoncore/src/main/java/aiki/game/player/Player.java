@@ -512,7 +512,6 @@ public class Player {
             return;
         }
         team.swapIndexes(chosenTeamPokemon, _other);
-//        Collections.swap(team, chosenTeamPokemon, _other);
         chosenTeamPokemon = CustList.INDEX_NOT_FOUND_ELT;
     }
 

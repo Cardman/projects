@@ -89,7 +89,7 @@ public final class HandTarot implements Iterable<CardTarot>, Equallable<HandTaro
         return liste_;
     }
 
-    static HandTarot figures(CardChar _figure) {
+    static HandTarot charCards(CardChar _figure) {
         HandTarot main_ = new HandTarot();
         for (CardTarot carte_ : pileBase()) {
             if(carte_.getNomFigure() != _figure) {
@@ -102,7 +102,7 @@ public final class HandTarot implements Iterable<CardTarot>, Equallable<HandTaro
 
     static HandTarot figuresMain(EnumMap<Suit,HandTarot> _repartition, CardChar _figure) {
         HandTarot main_ = new HandTarot();
-        for (CardTarot carte_ : figures(_figure)) {
+        for (CardTarot carte_ : charCards(_figure)) {
             if (_repartition.getVal(carte_.couleur()).contient(carte_)) {
                 main_.ajouter(carte_);
             }
@@ -539,7 +539,7 @@ public final class HandTarot implements Iterable<CardTarot>, Equallable<HandTaro
         cartesMaitresses_.trierParForceEnCours(couleur_);
         return cartesMaitresses_;
     }
-    public HandTarot figures(Suit _couleur) {
+    public HandTarot charCardsBySuit(Suit _couleur) {
         HandTarot m=new HandTarot();
         for(CardTarot carte_:cards) {
             if(carte_.couleur()==_couleur&&carte_.isCharacter()) {

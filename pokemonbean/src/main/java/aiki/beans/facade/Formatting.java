@@ -35,7 +35,7 @@ final class Formatting {
         reasons_ = new StringList();
         for (String f: _reasons) {
             String formula_ = _data.getFormula(f, _language);
-            formula_ = StringList.replace(formula_, locHtml_);
+            formula_ = StringList.replaceMultiple(formula_, locHtml_);
 //            formula_ = formula_.replace(LEFT_BRACE, QUOTED_LEFT_BRACE);
 //            formula_ = formula_.replace(RIGHT_BRACE, QUOTED_RIGHT_BRACE);
 //            formula_ = formula_.replace(EAMP, E_AMP);

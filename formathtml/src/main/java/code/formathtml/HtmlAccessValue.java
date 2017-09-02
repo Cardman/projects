@@ -22,6 +22,6 @@ public class HtmlAccessValue extends AccessValue {
 
     @Override
     public boolean canAccess(AccessibleObject _f, ContextEl _context) {
-        return _f.getAnnotation(Accessible.class) != null;
+        return _f.isAnnotationPresent(Accessible.class);
     }
 }
