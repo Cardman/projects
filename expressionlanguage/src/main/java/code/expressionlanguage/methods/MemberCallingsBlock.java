@@ -42,7 +42,6 @@ public abstract class MemberCallingsBlock extends BracedBlock implements Functio
                 continue;
             }
             n_ = en_.getParent();
-            en_.removeLocalVariablesFromParent(_cont);
             if (n_ == this) {
                 break;
             }
@@ -50,7 +49,6 @@ public abstract class MemberCallingsBlock extends BracedBlock implements Functio
             boolean exitByBreak_ = false;
             while (next_ == null) {
                 Block par_ = n_.getParent();
-                n_.removeLocalVariablesFromParent(_cont);
                 if (par_ == this) {
                     exitByBreak_ = true;
                     break;
@@ -89,19 +87,19 @@ public abstract class MemberCallingsBlock extends BracedBlock implements Functio
                 continue;
             }
             n_ = en_.getParent();
-            en_.removeLocalVariablesFromParent(_cont);
             if (n_ == this) {
                 break;
             }
+            en_.removeLocalVariablesFromParent(_cont);
             Block next_ = n_.getNextSibling();
             boolean exitByBreak_ = false;
             while (next_ == null) {
                 Block par_ = n_.getParent();
-                n_.removeLocalVariablesFromParent(_cont);
                 if (par_ == this) {
                     exitByBreak_ = true;
                     break;
                 }
+                n_.removeLocalVariablesFromParent(_cont);
                 next_ = par_.getNextSibling();
                 n_ = par_;
             }
@@ -136,7 +134,6 @@ public abstract class MemberCallingsBlock extends BracedBlock implements Functio
                 continue;
             }
             n_ = en_.getParent();
-            en_.removeLocalVariablesFromParent(_cont);
             if (n_ == this) {
                 break;
             }
@@ -144,7 +141,6 @@ public abstract class MemberCallingsBlock extends BracedBlock implements Functio
             boolean exitByBreak_ = false;
             while (next_ == null) {
                 Block par_ = n_.getParent();
-                n_.removeLocalVariablesFromParent(_cont);
                 if (par_ == this) {
                     exitByBreak_ = true;
                     break;

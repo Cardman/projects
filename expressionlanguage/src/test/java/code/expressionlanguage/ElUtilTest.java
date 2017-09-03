@@ -1759,6 +1759,50 @@ public class ElUtilTest {
         assertEq(9L, (Number)res_);
     }
 
+    @Test
+    public void processEl121Test() {
+        ContextEl context_ = new ContextEl();
+        setupAccessValue(context_);
+        addImportingPage(context_);
+        Argument arg_ = ElUtil.processEl("--1b",0, context_);
+        Object res_ = arg_.getObject();
+        assertSame(Integer.class, res_.getClass());
+        assertEq(1, (Number)res_);
+    }
+
+    @Test
+    public void processEl122Test() {
+        ContextEl context_ = new ContextEl();
+        setupAccessValue(context_);
+        addImportingPage(context_);
+        Argument arg_ = ElUtil.processEl("-1b",0, context_);
+        Object res_ = arg_.getObject();
+        assertSame(Byte.class, res_.getClass());
+        assertEq(-1, (Number)res_);
+    }
+
+    @Test
+    public void processEl123Test() {
+        ContextEl context_ = new ContextEl();
+        setupAccessValue(context_);
+        addImportingPage(context_);
+        Argument arg_ = ElUtil.processEl("+1b",0, context_);
+        Object res_ = arg_.getObject();
+        assertSame(Integer.class, res_.getClass());
+        assertEq(1, (Number)res_);
+    }
+
+    @Test
+    public void processEl124Test() {
+        ContextEl context_ = new ContextEl();
+        setupAccessValue(context_);
+        addImportingPage(context_);
+        Argument arg_ = ElUtil.processEl("+-1b",0, context_);
+        Object res_ = arg_.getObject();
+        assertSame(Integer.class, res_.getClass());
+        assertEq(-1, (Number)res_);
+    }
+
     @Test(expected=NoSuchDeclaredMethodException.class)
     public void processEl1FailTest() {
         ContextEl context_ = new ContextEl();

@@ -17,6 +17,7 @@ import code.expressionlanguage.classes.IThree;
 import code.expressionlanguage.classes.ITwo;
 import code.expressionlanguage.classes.MyCmpClass;
 import code.expressionlanguage.classes.MyEqClass;
+import code.expressionlanguage.classes.MyImpl;
 import code.expressionlanguage.classes.StrangeCmp;
 import code.expressionlanguage.classes.Templating;
 import code.expressionlanguage.classes.TemplatingBis;
@@ -1084,17 +1085,552 @@ public class TemplatesTest {
         m_.setMapping(t_);
         assertTrue(!Templates.isCorrect(m_,null));
     }
-
+    
     @Test
     public void isCorrect46Test() {
+    	Mapping m_ = new Mapping();
+    	m_.setArg(CUST_LIST+"<? ~ "+ARR_ITHREE+">");
+    	m_.setParam(CUST_LIST+"<? ~ "+ARR_ITWO+">");
+    	StringMap<StringList> t_ = new StringMap<StringList>();
+    	m_.setMapping(t_);
+    	assertTrue(Templates.isCorrect(m_,null));
+    }
+
+    @Test
+    public void isCorrect47Test() {
         Mapping m_ = new Mapping();
-        m_.setArg(CUST_LIST+"<? ~ "+ARR_ITHREE+">");
+        m_.setArg(CUST_LIST+"<? ~ ["+MyImpl.class.getName()+">");
         m_.setParam(CUST_LIST+"<? ~ "+ARR_ITWO+">");
         StringMap<StringList> t_ = new StringMap<StringList>();
         m_.setMapping(t_);
         assertTrue(Templates.isCorrect(m_,null));
     }
+
+    @Test
+    public void isSimpleCorrect1Test() {
+        Mapping m_ = new Mapping();
+        m_.setArg("java.lang.Object");
+        m_.setParam("java.lang.Object");
+        assertTrue(Templates.isSimpleCorrect(m_, null));
+    }
+
+    @Test
+    public void isSimpleCorrect2Test() {
+        Mapping m_ = new Mapping();
+        m_.setArg("java.lang.String");
+        m_.setParam("java.lang.Object");
+        assertTrue(Templates.isSimpleCorrect(m_, null));
+    }
+
+    @Test
+    public void isSimpleCorrect3Test() {
+        Mapping m_ = new Mapping();
+        m_.setArg("java.lang.Object");
+        m_.setParam("java.lang.String");
+        assertTrue(!Templates.isSimpleCorrect(m_, null));
+    }
+
+    @Test
+    public void isSimpleCorrect4Test() {
+        Mapping m_ = new Mapping();
+        m_.setArg("java.util.List<java.lang.Object>");
+        m_.setParam("java.util.List<java.lang.Object>");
+        assertTrue(Templates.isSimpleCorrect(m_, null));
+    }
+
+    @Test
+    public void isSimpleCorrect5Test() {
+        Mapping m_ = new Mapping();
+        m_.setArg("java.util.List<java.lang.String>");
+        m_.setParam("java.util.List<java.lang.Object>");
+        assertTrue(!Templates.isSimpleCorrect(m_, null));
+    }
+
+    @Test
+    public void isSimpleCorrect6Test() {
+        Mapping m_ = new Mapping();
+        m_.setArg("java.util.List<java.lang.Object>");
+        m_.setParam("java.util.List<java.lang.String>");
+        assertTrue(!Templates.isSimpleCorrect(m_, null));
+    }
+
+    @Test
+    public void isSimpleCorrect11Test() {
+        Mapping m_ = new Mapping();
+        m_.setArg(ENUM_LIST+"<java.lang.Enum<#E>>");
+        m_.setParam(CUST_LIST+"<java.lang.Enum<#E>>");
+        StringMap<StringList> t_ = new StringMap<StringList>();
+        t_.put("E", new StringList("java.lang.Enum<#E>"));
+        m_.setMapping(t_);
+        assertTrue(Templates.isSimpleCorrect(m_,null));
+    }
+
+    @Test
+    public void isSimpleCorrect12Test() {
+        Mapping m_ = new Mapping();
+        m_.setArg(ENUM_LIST+"<#E>");
+        m_.setParam(CUST_LIST+"<#E>");
+        StringMap<StringList> t_ = new StringMap<StringList>();
+        t_.put("E", new StringList("java.lang.Enum<#E>"));
+        m_.setMapping(t_);
+        assertTrue(Templates.isSimpleCorrect(m_,null));
+    }
+
+    @Test
+    public void isSimpleCorrect13Test() {
+        Mapping m_ = new Mapping();
+        m_.setArg(ENUM_LIST+"<#F>");
+        m_.setParam(CUST_LIST+"<#F>");
+        StringMap<StringList> t_ = new StringMap<StringList>();
+        t_.put("F", new StringList("java.lang.Enum<#F>"));
+        m_.setMapping(t_);
+        assertTrue(Templates.isSimpleCorrect(m_,null));
+    }
+
+    @Test
+    public void isSimpleCorrect14Test() {
+        Mapping m_ = new Mapping();
+        m_.setArg("java.util.List<#F>");
+        m_.setParam("java.util.Collection<#F>");
+        StringMap<StringList> t_ = new StringMap<StringList>();
+        t_.put("F", new StringList("java.lang.Enum<#F>"));
+        m_.setMapping(t_);
+        assertTrue(Templates.isSimpleCorrect(m_,null));
+    }
+
+    @Test
+    public void isSimpleCorrect15Test() {
+        Mapping m_ = new Mapping();
+        m_.setArg(STRING_LIST);
+        m_.setParam(CUST_LIST+"<java.lang.String>");
+        StringMap<StringList> t_ = new StringMap<StringList>();
+        m_.setMapping(t_);
+        assertTrue(Templates.isSimpleCorrect(m_,null));
+    }
+
+    @Test
+    public void isSimpleCorrect16Test() {
+        Mapping m_ = new Mapping();
+        m_.setArg(STRING_LIST);
+        m_.setParam(CUST_LIST+"<java.lang.Object>");
+        StringMap<StringList> t_ = new StringMap<StringList>();
+        m_.setMapping(t_);
+        assertTrue(!Templates.isSimpleCorrect(m_,null));
+    }
+
+    @Test
+    public void isSimpleCorrect20Test() {
+        Mapping m_ = new Mapping();
+        m_.setArg("#T");
+        m_.setParam("#S");
+        StringMap<StringList> t_ = new StringMap<StringList>();
+        t_.put("T", new StringList("#S"));
+        t_.put("S", new StringList("java.lang.Object"));
+        m_.setMapping(t_);
+        assertTrue(Templates.isSimpleCorrect(m_,null));
+    }
+    @Test
+    public void isSimpleCorrect21Test() {
+        Mapping m_ = new Mapping();
+        m_.setArg("#S");
+        m_.setParam("#T");
+        StringMap<StringList> t_ = new StringMap<StringList>();
+        t_.put("T", new StringList("#S"));
+        t_.put("S", new StringList("java.lang.Object"));
+        m_.setMapping(t_);
+        assertTrue(!Templates.isSimpleCorrect(m_,null));
+    }
+
+    @Test
+    public void isSimpleCorrect22Test() {
+        Mapping m_ = new Mapping();
+        m_.setArg(CUST_LIST+"<java.lang.String>");
+        m_.setParam("java.lang.Object");
+        StringMap<StringList> t_ = new StringMap<StringList>();
+        m_.setMapping(t_);
+        assertTrue(Templates.isSimpleCorrect(m_,null));
+    }
+
+    @Test
+    public void isSimpleCorrect23Test() {
+        Mapping m_ = new Mapping();
+        m_.setArg(ARR_STRING);
+        m_.setParam(ARR_OBJECT);
+        StringMap<StringList> t_ = new StringMap<StringList>();
+        m_.setMapping(t_);
+        assertTrue(Templates.isSimpleCorrect(m_,null));
+    }
+
+    @Test
+    public void isSimpleCorrect27Test() {
+        Mapping m_ = new Mapping();
+        m_.setArg(CUST_LIST+"<#U>");
+        m_.setParam(CUST_LIST+"<#S>");
+        StringMap<StringList> t_ = new StringMap<StringList>();
+        t_.put("U", new StringList("#S"));
+        t_.put("S", new StringList("java.lang.Object"));
+        m_.setMapping(t_);
+        assertTrue(!Templates.isSimpleCorrect(m_,null));
+    }
+
+    @Test
+    public void isSimpleCorrect33Test() {
+        Mapping m_ = new Mapping();
+        m_.setArg("#T");
+        m_.setParam(CUST_LIST+"<#S>");
+        StringMap<StringList> t_ = new StringMap<StringList>();
+        t_.put("T", new StringList("#U"));
+        t_.put("U", new StringList(CUST_LIST+"<#S>"));
+        t_.put("S", new StringList("java.lang.Object"));
+        m_.setMapping(t_);
+        assertTrue(Templates.isSimpleCorrect(m_,null));
+    }
+
+    @Test
+    public void isSimpleCorrect34Test() {
+        Mapping m_ = new Mapping();
+        m_.setArg("#T");
+        m_.setParam(Listable.class.getName()+"<#S>");
+        StringMap<StringList> t_ = new StringMap<StringList>();
+        t_.put("T", new StringList("#U"));
+        t_.put("U", new StringList(CUST_LIST+"<#S>"));
+        t_.put("S", new StringList("java.lang.Object"));
+        m_.setMapping(t_);
+        assertTrue(Templates.isSimpleCorrect(m_,null));
+    }
+ 
+    @Test
+    public void isSimpleCorrect35Test() {
+        Mapping m_ = new Mapping();
+        m_.setArg("#T");
+        m_.setParam(CUST_LIST+"<#S>");
+        StringMap<StringList> t_ = new StringMap<StringList>();
+        t_.put("T", new StringList("#U"));
+        t_.put("U", new StringList(Listable.class.getName()+"<#S>"));
+        t_.put("S", new StringList("java.lang.Object"));
+        m_.setMapping(t_);
+        assertTrue(!Templates.isSimpleCorrect(m_,null));
+    }
+
+    @Test
+    public void isSimpleCorrect36Test() {
+        Mapping m_ = new Mapping();
+        m_.setArg(ARR_VAR_T);
+        m_.setParam(ARR_VAR_S);
+        StringMap<StringList> t_ = new StringMap<StringList>();
+        t_.put("T", new StringList("#S"));
+        t_.put("S", new StringList("java.lang.Object"));
+        m_.setMapping(t_);
+        assertTrue(Templates.isSimpleCorrect(m_,null));
+    }
+
+    @Test
+    public void isSimpleCorrect37Test() {
+        Mapping m_ = new Mapping();
+        m_.setArg(ARR_VAR_S);
+        m_.setParam(ARR_VAR_T);
+        StringMap<StringList> t_ = new StringMap<StringList>();
+        t_.put("T", new StringList("#S"));
+        t_.put("S", new StringList("java.lang.Object"));
+        m_.setMapping(t_);
+        assertTrue(!Templates.isSimpleCorrect(m_,null));
+    }
+
+    @Test
+    public void isSimpleCorrect38Test() {
+        Mapping m_ = new Mapping();
+        m_.setArg(ARR_VAR_S);
+        m_.setParam(ARR_VAR_T);
+        StringMap<StringList> t_ = new StringMap<StringList>();
+        t_.put("T", new StringList("#S"));
+        t_.put("S", new StringList("java.lang.Object"));
+        m_.setMapping(t_);
+        assertTrue(!Templates.isSimpleCorrect(m_,null));
+    }
+
+    @Test
+    public void isSimpleCorrect39Test() {
+        Mapping m_ = new Mapping();
+        m_.setArg(ARR_VAR_T);
+        m_.setParam(ARR_VAR_S);
+        StringMap<StringList> t_ = new StringMap<StringList>();
+        t_.put("T", new StringList("#S"));
+        t_.put("S", new StringList("java.lang.Object"));
+        m_.setMapping(t_);
+        assertTrue(Templates.isSimpleCorrect(m_,null));
+    }
     
+    @Test
+    public void isSimpleCorrect46Test() {
+    	Mapping m_ = new Mapping();
+    	m_.setArg(ARR_ITHREE);
+    	m_.setParam(ARR_ITWO);
+    	StringMap<StringList> t_ = new StringMap<StringList>();
+    	m_.setMapping(t_);
+    	assertTrue(Templates.isSimpleCorrect(m_,null));
+    }
+
+    @Test
+    public void isSimpleCorrect47Test() {
+        Mapping m_ = new Mapping();
+        m_.setArg("["+MyImpl.class.getName());
+        m_.setParam(ARR_ITWO);
+        StringMap<StringList> t_ = new StringMap<StringList>();
+        m_.setMapping(t_);
+        assertTrue(Templates.isSimpleCorrect(m_,null));
+    }
+
+    @Test
+    public void isSimpleCorrectTemplate1Test() {
+        assertTrue(Templates.isSimpleCorrectTemplate(ENUM_LIST+"<"+ENUM+">", new StringMap<StringList>(),null));
+    }
+
+    @Test
+    public void isSimpleCorrectTemplate2Test() {
+        assertTrue(!Templates.isSimpleCorrectTemplate(ENUM_LIST+"<java.lang.String>", new StringMap<StringList>(),null));
+    }
+
+    @Test
+    public void isSimpleCorrectTemplate6Test() {
+        StringMap<StringList> t_ = new StringMap<StringList>();
+        t_.put("E", new StringList("java.lang.Object"));
+        assertTrue(Templates.isSimpleCorrectTemplate("java.util.List<#E>", t_,null));
+    }
+
+    @Test
+    public void isSimpleCorrectTemplate7Test() {
+        StringMap<StringList> t_ = new StringMap<StringList>();
+        t_.put("E", new StringList("java.lang.Object"));
+        assertTrue(!Templates.isSimpleCorrectTemplate(ENUM_LIST+"<#E>", t_,null));
+    }
+
+    @Test
+    public void isSimpleCorrectTemplate8Test() {
+        StringMap<StringList> t_ = new StringMap<StringList>();
+        t_.put("E", new StringList("java.lang.Enum<#E>"));
+        assertTrue(Templates.isSimpleCorrectTemplate(ENUM_LIST+"<#E>", t_,null));
+    }
+
+    @Test
+    public void isSimpleCorrectTemplate9Test() {
+        StringMap<StringList> t_ = new StringMap<StringList>();
+        t_.put("E", new StringList("java.lang.Enum<#E>",CMP+"<#E>"));
+        assertTrue(Templates.isSimpleCorrectTemplate(ENUM_LIST+"<#E>", t_,null));
+    }
+
+    @Test
+    public void isSimpleCorrectTemplate10Test() {
+        StringMap<StringList> t_ = new StringMap<StringList>();
+        t_.put("E", new StringList(CMP+"<E>","java.lang.Enum<#E>"));
+        assertTrue(Templates.isSimpleCorrectTemplate(ENUM_LIST+"<#E>", t_,null));
+    }
+
+    @Test
+    public void isSimpleCorrectTemplate11Test() {
+        assertTrue(Templates.isSimpleCorrectTemplate("java.util.List<java.lang.Object>", new StringMap<StringList>(),null));
+    }
+
+    @Test
+    public void isSimpleCorrectTemplate12Test() {
+        assertTrue(Templates.isSimpleCorrectTemplate("java.util.List<java.lang.String>", new StringMap<StringList>(),null));
+    }
+
+    @Test
+    public void isSimpleCorrectTemplate13Test() {
+        assertTrue(Templates.isSimpleCorrectTemplate("java.util.List<"+ARR_OBJECT+">", new StringMap<StringList>(),null));
+    }
+
+    @Test
+    public void isSimpleCorrectTemplate14Test() {
+        assertTrue(Templates.isSimpleCorrectTemplate("java.util.List<"+ARR_STRING+">", new StringMap<StringList>(),null));
+    }
+
+    @Test
+    public void isSimpleCorrectTemplate15Test() {
+        assertTrue(Templates.isSimpleCorrectTemplate("java.util.List<"+ARR_INT+">", new StringMap<StringList>(),null));
+    }
+
+    @Test
+    public void isSimpleCorrectTemplate16Test() {
+        assertTrue(!Templates.isSimpleCorrectTemplate(ENUM_LIST+"<"+ARR_OBJECT+">", new StringMap<StringList>(),null));
+    }
+
+    @Test
+    public void isSimpleCorrectTemplate17Test() {
+        assertTrue(!Templates.isSimpleCorrectTemplate(ENUM_LIST+"<"+ARR_STRING+">", new StringMap<StringList>(),null));
+    }
+
+    @Test
+    public void isSimpleCorrectTemplate18Test() {
+        assertTrue(!Templates.isSimpleCorrectTemplate(ENUM_LIST+"<"+ARR_INT+">", new StringMap<StringList>(),null));
+    }
+
+    @Test
+    public void isSimpleCorrectTemplate19Test() {
+        assertTrue(!Templates.isSimpleCorrectTemplate(ENUM_LIST+"<"+ARR_ENUM+">", new StringMap<StringList>(),null));
+    }
+
+    @Test
+    public void isSimpleCorrectTemplate20Test() {
+        StringMap<StringList> t_ = new StringMap<StringList>();
+        t_.put("E", new StringList("java.lang.Enum<#E>"));
+        assertTrue(Templates.isSimpleCorrectTemplate("java.util.List<"+ARR_VAR_E+">", t_,null));
+    }
+
+    @Test
+    public void isSimpleCorrectTemplate21Test() {
+        StringMap<StringList> t_ = new StringMap<StringList>();
+        t_.put("E", new StringList("java.lang.Enum<#E>"));
+        assertTrue(!Templates.isSimpleCorrectTemplate(ENUM_LIST+"<"+ARR_VAR_E+">", t_,null));
+    }
+
+    @Test
+    public void isSimpleCorrectTemplate22Test() {
+        StringMap<StringList> t_ = new StringMap<StringList>();
+//        t_.put("E", new StringList("java.lang.Enum<#E>"));
+        assertTrue(Templates.isSimpleCorrectTemplate(ENUM_MAP+"<"+ENUM+","+CUST_BIG_INT+">", t_,null));
+    }
+
+    @Test
+    public void isSimpleCorrectTemplate23Test() {
+        StringMap<StringList> t_ = new StringMap<StringList>();
+        t_.put("E", new StringList("java.lang.Enum<#E>"));
+        assertTrue(Templates.isSimpleCorrectTemplate(TEMPLATING+"<java.math.BigInteger,"+CUST_BIG_INT+">", t_,null));
+    }
+
+    @Test
+    public void isSimpleCorrectTemplate24Test() {
+        StringMap<StringList> t_ = new StringMap<StringList>();
+        t_.put("E", new StringList("java.lang.Enum<#E>"));
+        assertTrue(!Templates.isSimpleCorrectTemplate(TEMPLATING+"<"+CUST_BIG_INT+",java.math.BigInteger>", t_,null));
+    }
+
+    @Test
+    public void isSimpleCorrectTemplate25Test() {
+        StringMap<StringList> t_ = new StringMap<StringList>();
+        assertTrue(Templates.isSimpleCorrectTemplate(TEMPLATING+"<java.math.BigInteger,"+CUST_BIG_INT+">", t_,null));
+    }
+
+    @Test
+    public void isSimpleCorrectTemplate26Test() {
+        StringMap<StringList> t_ = new StringMap<StringList>();
+        assertTrue(!Templates.isSimpleCorrectTemplate(TEMPLATING+"<"+CUST_BIG_INT+",java.math.BigInteger>", t_,null));
+    }
+
+    @Test
+    public void isSimpleCorrectTemplate27Test() {
+        StringMap<StringList> t_ = new StringMap<StringList>();
+        t_.put("T", new StringList("java.lang.Enum<#T>"));
+        assertTrue(Templates.isSimpleCorrectTemplate("java.util.List<"+ARR_VAR_T+">", t_,null));
+    }
+
+    @Test
+    public void isSimpleCorrectTemplate28Test() {
+        StringMap<StringList> t_ = new StringMap<StringList>();
+        t_.put("F", new StringList("java.lang.Enum<#F>"));
+        assertTrue(Templates.isSimpleCorrectTemplate("java.util.List<"+ARR_VAR_F+">", t_,null));
+    }
+    @Test
+    public void isSimpleCorrectTemplate29Test() {
+        Mapping m_ = new Mapping();
+        StringMap<StringList> t_ = new StringMap<StringList>();
+        t_.put("T", new StringList("java.lang.Enum<#T>",CMP+"<#T>"));
+        m_.setMapping(t_);
+        assertTrue(Templates.isSimpleCorrectTemplate(TEMPLATING_BIS+"<#T>", t_, null));
+    }
+
+    @Test
+    public void isSimpleCorrectTemplate30Test() {
+        Mapping m_ = new Mapping();
+        StringMap<StringList> t_ = new StringMap<StringList>();
+        t_.put("T", new StringList("java.lang.Enum<#T>",CMP+"<#T>"));
+        m_.setMapping(t_);
+        assertTrue(Templates.isSimpleCorrectTemplate(ENUM_LIST+"<#T>", t_, null));
+    }
+    @Test
+    public void isSimpleCorrectTemplate31Test() {
+        Mapping m_ = new Mapping();
+        StringMap<StringList> t_ = new StringMap<StringList>();
+        t_.put("T", new StringList("java.lang.Enum<#T>"));
+        m_.setMapping(t_);
+        assertTrue(!Templates.isSimpleCorrectTemplate(TEMPLATING_BIS+"<#T>", t_, null));
+    }
+    
+    @Test
+    public void isSimpleCorrectTemplate32Test() {
+        assertTrue(!Templates.isSimpleCorrectTemplate(CMP_LIST+"<"+STRANGE_CMP_LIST+">", new StringMap<StringList>(),null));
+    }
+
+    @Test
+    public void isSimpleCorrectTemplate33Test() {
+        assertTrue(Templates.isSimpleCorrectTemplate(CMP_LIST+"<"+GOOD_CMP_LIST+">", new StringMap<StringList>(),null));
+    }
+
+    @Test
+    public void isSimpleCorrectTemplate39Test() {
+        assertTrue(!Templates.isSimpleCorrectTemplate(ENUM_LIST, new StringMap<StringList>(),null));
+    }
+    
+    @Test
+    public void isSimpleCorrectTemplate40Test() {
+        StringMap<StringList> t_ = new StringMap<StringList>();
+        t_.put("E", new StringList("java.math.BigInteger"));
+        assertTrue(!Templates.isSimpleCorrectTemplate(TEMPLATING+"<"+CUST_BIG_INT+",#E>", t_,null));
+    }
+
+    @Test
+    public void isSimpleCorrectTemplate41Test() {
+        StringMap<StringList> t_ = new StringMap<StringList>();
+        t_.put("E", new StringList(CUST_BIG_INT));
+        assertTrue(Templates.isSimpleCorrectTemplate(TEMPLATING+"<"+CUST_BIG_INT+",#E>", t_,null));
+    }
+
+    @Test
+    public void isSimpleCorrectTemplate42Test() {
+        StringMap<StringList> t_ = new StringMap<StringList>();
+        assertTrue(!Templates.isSimpleCorrectTemplate(TEMPLATING+"<"+CUST_BIG_INT+",#E>", t_,null));
+    }
+
+    @Test
+    public void isSimpleCorrectTemplate43Test() {
+        assertTrue(!Templates.isSimpleCorrectTemplate(CMP_LIST+"<"+MY_EQ_CLASS+">", new StringMap<StringList>(),null));
+    }
+
+    @Test
+    public void isSimpleCorrectTemplate44Test() {
+        assertTrue(Templates.isSimpleCorrectTemplate(CMP_LIST+"<"+MY_CMP_CLASS+">", new StringMap<StringList>(),null));
+    }
+
+    @Test
+    public void isSimpleCorrectTemplate45Test() {
+        assertTrue(!Templates.isSimpleCorrectTemplate(CMP_LIST+"<"+CMP+">", new StringMap<StringList>(),null));
+    }
+
+    @Test
+    public void isSimpleCorrectTemplate46Test() {
+        assertTrue(!Templates.isSimpleCorrectTemplate(CUST_SEC_LIST+"<"+AbEqList.class.getName()+">", new StringMap<StringList>(),null));
+    }
+
+    @Test
+    public void isSimpleCorrectTemplate47Test() {
+        assertTrue(!Templates.isSimpleCorrectTemplate(CUST_EQ_LIST+"<"+Cmp.class.getName()+">", new StringMap<StringList>(),null));
+    }
+
+    @Test
+    public void isSimpleCorrectTemplate48Test() {
+        StringMap<StringList> t_ = new StringMap<StringList>();
+        t_.put("E", new StringList(CMP));
+        assertTrue(!Templates.isSimpleCorrectTemplate(CUST_EQ_LIST+"<#E>", t_,null));
+    }
+
+    @Test
+    public void isSimpleCorrectTemplate49Test() {
+        StringMap<StringList> t_ = new StringMap<StringList>();
+        t_.put("E", new StringList(CMP));
+        t_.put("F", new StringList("#E"));
+        assertTrue(!Templates.isSimpleCorrectTemplate(CUST_EQ_LIST+"<#F>", t_,null));
+    }
+
     @Test
     public void getClassBounds1Test() {
         EqList<StringList> bounds_;
@@ -1127,5 +1663,37 @@ public class TemplatesTest {
         EqList<StringList> bounds_;
         bounds_ = Templates.getClassBounds(CMP, null);
         assertNull(bounds_);
+    }
+
+    @Test
+    public void getClassLeftMostBounds1Test() {
+    	StringList bounds_;
+        bounds_ = Templates.getClassLeftMostBounds(TEMPLATING, null);
+        assertEq(2, bounds_.size());
+        assertEq(Number.class.getName(), bounds_.get(0));
+        assertEq(Number.class.getName(), bounds_.get(1));
+    }
+
+    @Test
+    public void getClassLeftMostBounds2Test() {
+    	StringList bounds_;
+        bounds_ = Templates.getClassLeftMostBounds(CustList.class.getName(), null);
+        assertEq(1, bounds_.size());
+        assertEq(Object.class.getName(), bounds_.get(0));
+    }
+
+    @Test
+    public void getClassLeftMostBounds3Test() {
+    	StringList bounds_;
+        bounds_ = Templates.getClassLeftMostBounds("java.math.BigInteger", null);
+        assertEq(0, bounds_.size());
+    }
+
+    @Test
+    public void getClassLeftMostBounds4Test() {
+    	StringList bounds_;
+        bounds_ = Templates.getClassLeftMostBounds(CMP_LIST, null);
+        assertEq(1, bounds_.size());
+        assertEq(Cmp.class.getName(), bounds_.get(0));
     }
 }

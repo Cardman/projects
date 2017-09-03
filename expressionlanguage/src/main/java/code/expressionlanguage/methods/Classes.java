@@ -958,6 +958,9 @@ public final class Classes {
                     page_.setGlobalClass(c.getKey().getName());
                     AloneBlock method_ = (AloneBlock) b;
                     method_.buildFctInstructions(_context);
+                    page_.getLocalVars().clear();
+                    page_.getCatchVars().clear();
+                    page_.getVars().clear();
                 }
                 if (b instanceof Returnable) {
                     page_.setGlobalClass(c.getKey().getName());
@@ -974,6 +977,9 @@ public final class Classes {
                     }
                     method_.buildFctInstructions(_context);
                     page_.getParameters().clear();
+                    page_.getLocalVars().clear();
+                    page_.getCatchVars().clear();
+                    page_.getVars().clear();
                 }
             }
         }

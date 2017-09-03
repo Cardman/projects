@@ -33,10 +33,14 @@ public final class UnaryOperation extends PrimitiveBoolOperation {
             throw new BadNumberValuesException(_conf.joinPages());
         }
         ClassArgumentMatching clMatch_ = chidren_.first().getResultClass();
-        ClassArgumentMatching cl_ = PrimitiveTypeUtil.toPrimitive(clMatch_, false);
+        ClassArgumentMatching cl_ = PrimitiveTypeUtil.toPrimitive(clMatch_, true);
         setRelativeOffsetPossibleLastPage(getIndexInEl(), _conf);
         if (cl_ == null) {
             throw new NotNumberException(clMatch_+RETURN_LINE+_conf.joinPages());
+        }
+        int intOrder_ = PrimitiveTypeUtil.getOrderClass(int.class);
+        if (PrimitiveTypeUtil.getOrderClass(cl_) < intOrder_) {
+            cl_ = new ClassArgumentMatching(int.class.getName());
         }
         setResultClass(cl_);
     }
@@ -54,39 +58,9 @@ public final class UnaryOperation extends PrimitiveBoolOperation {
             IdMap<OperationNode, ArgumentsPair> _nodes, ContextEl _conf,
             String _op) {
         CustList<OperationNode> chidren_ = getChildrenNodes();
-        int key_ = getOperations().getOperators().firstKey();
         OperationNode op_ = chidren_.first();
         Argument arg_ = _nodes.getVal(op_).getArgument();
-        Argument a_ = new Argument();
-        Object o_ = arg_.getObject();
-        setRelativeOffsetPossibleLastPage(getIndexInEl(), _conf);
-        if (o_ == null) {
-            throw new NullObjectException(_conf.joinPages());
-        }
-        if (StringList.quickEq(getOperations().getOperators().getVal(key_).trim(), UNARY_MINUS)) {
-            if (o_ instanceof Character) {
-                a_.setObject(-((Character)o_));
-                setSimpleArgument(a_, _conf, _nodes);
-                return a_;
-            }
-            Number b_ = (Number) o_;
-            if (b_ instanceof Integer) {
-                a_.setObject(-((Integer)b_));
-            } else if (b_ instanceof Long) {
-                a_.setObject(-((Long)b_));
-            } else if (b_ instanceof Byte) {
-                a_.setObject(-((Byte)b_));
-            } else if (b_ instanceof Short) {
-                a_.setObject(-((Short)b_));
-            } else if (b_ instanceof Double) {
-                a_.setObject(-((Double)b_));
-            } else if (b_ instanceof Float) {
-                a_.setObject(-((Float)b_));
-            }
-            setSimpleArgument(a_, _conf, _nodes);
-            return a_;
-        }
-        a_.setStruct(arg_.getStruct());
+        Argument a_ = getArgument(_conf, arg_, _op);
         setSimpleArgument(a_, _conf, _nodes);
         return a_;
     }
@@ -106,41 +80,62 @@ public final class UnaryOperation extends PrimitiveBoolOperation {
 
     void calculateCommon(CustList<OperationNode> _nodes, ContextEl _conf, String _op) {
         CustList<OperationNode> chidren_ = getChildrenNodes();
-        int key_ = getOperations().getOperators().firstKey();
         Argument arg_ = chidren_.first().getArgument();
-        Argument a_ = new Argument();
-        Object o_ = arg_.getObject();
+        Argument a_ = getArgument(_conf, arg_, _op);
+        setSimpleArgument(a_, _conf);
+    }
+
+    Argument getArgument(ContextEl _conf,
+            Argument _in,
+            String _op) {
+        Argument out_ = new Argument();
+        Object o_ = _in.getObject();
         setRelativeOffsetPossibleLastPage(getIndexInEl(), _conf);
         if (o_ == null) {
             throw new NullObjectException(_conf.joinPages());
         }
+        int key_ = getOperations().getOperators().firstKey();
         if (StringList.quickEq(getOperations().getOperators().getVal(key_).trim(), UNARY_MINUS)) {
             if (o_ instanceof Character) {
-                a_.setObject(-((Character)o_));
-                setSimpleArgument(a_, _conf);
-                return;
+                out_.setObject(-((Character)o_));
+            } else {
+                Number b_ = (Number) o_;
+                if (b_ instanceof Integer) {
+                    out_.setObject(-((Integer)b_));
+                } else if (b_ instanceof Long) {
+                    out_.setObject(-((Long)b_));
+                } else if (b_ instanceof Byte) {
+                    out_.setObject(-((Byte)b_));
+                } else if (b_ instanceof Short) {
+                    out_.setObject(-((Short)b_));
+                } else if (b_ instanceof Double) {
+                    out_.setObject(-((Double)b_));
+                } else if (b_ instanceof Float) {
+                    out_.setObject(-((Float)b_));
+                }
             }
-            Number b_ = (Number) o_;
-            if (b_ instanceof Integer) {
-                a_.setObject(-((Integer)b_));
-            } else if (b_ instanceof Long) {
-                a_.setObject(-((Long)b_));
-            } else if (b_ instanceof Byte) {
-                a_.setObject(-((Byte)b_));
-            } else if (b_ instanceof Short) {
-                a_.setObject(-((Short)b_));
-            } else if (b_ instanceof Double) {
-                a_.setObject(-((Double)b_));
-            } else if (b_ instanceof Float) {
-                a_.setObject(-((Float)b_));
+        } else {
+        	if (o_ instanceof Character) {
+                out_.setObject(+((Character)o_));
+            } else {
+                Number b_ = (Number) o_;
+                if (b_ instanceof Integer) {
+                    out_.setObject(+((Integer)b_));
+                } else if (b_ instanceof Long) {
+                    out_.setObject(+((Long)b_));
+                } else if (b_ instanceof Byte) {
+                    out_.setObject(+((Byte)b_));
+                } else if (b_ instanceof Short) {
+                    out_.setObject(+((Short)b_));
+                } else if (b_ instanceof Double) {
+                    out_.setObject(+((Double)b_));
+                } else if (b_ instanceof Float) {
+                    out_.setObject(+((Float)b_));
+                }
             }
-            setSimpleArgument(a_, _conf);
-            return;
         }
-        a_.setStruct(arg_.getStruct());
-        setSimpleArgument(a_, _conf);
+        return out_;
     }
-
     @Override
     void calculateChildren() {
         NatTreeMap<Integer, String> vs_ = getOperations().getValues();

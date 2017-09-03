@@ -1,5 +1,6 @@
 package code.expressionlanguage;
 
+import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 import java.lang.reflect.TypeVariable;
 
@@ -190,9 +191,11 @@ public final class Templates {
                 for (Type e: t.getBounds()) {
                     Mapping m_ = new Mapping();
                     String typeBound_ = getName(e);
-                    String ext_ = insertPrefixVarType(typeBound_);
+                    String ext_;
                     if (!typeBound_.contains(SEP_CLASS)) {
-                        ext_ = PREFIX_VAR_TYPE + ext_;
+                        ext_ = PREFIX_VAR_TYPE + typeBound_;
+                    } else {
+                    	ext_ = insertPrefixVarType(typeBound_);
                     }
                     String param_ = format(_className, ext_, _classes);
                     m_.setParam(param_);
@@ -222,9 +225,11 @@ public final class Templates {
             for (Type e: t.getBounds()) {
                 Mapping m_ = new Mapping();
                 String typeBound_ = getName(e);
-                String ext_ = insertPrefixVarType(typeBound_);
+                String ext_;
                 if (!typeBound_.contains(SEP_CLASS)) {
-                    ext_ = PREFIX_VAR_TYPE + ext_;
+                    ext_ = PREFIX_VAR_TYPE + typeBound_;
+                } else {
+                	ext_ = insertPrefixVarType(typeBound_);
                 }
                 String param_ = format(_className, ext_, _classes);
                 m_.setParam(param_);
@@ -498,6 +503,48 @@ public final class Templates {
         }
         return bounds_;
     }
+    public static StringList getClassLeftMostBounds(String _className, Classes _classes) {
+        String baseClass_ = PrimitiveTypeUtil.getArrayClass(_className);
+        Class<?> cl_ = ConstClasses.classForNameNotInit(baseClass_);
+        StringList bounds_ = new StringList();
+        StringMap<StringList> localBounds_ = new StringMap<StringList>();
+        for (TypeVariable<?> t: cl_.getTypeParameters()) {
+            StringList localBound_ = new StringList();
+            for (Type b: t.getBounds()) {
+                String typeString_ = getBaseName(b);
+                if (!typeString_.contains(SEP_CLASS)) {
+                	localBound_.add(PREFIX_VAR_TYPE+typeString_);
+                } else {
+                	localBound_.add(typeString_);
+                }
+            }
+            localBounds_.put(PREFIX_VAR_TYPE+t.getName(), localBound_);
+        }
+        for (String t: localBounds_.getKeys()) {
+            StringList current_ = new StringList(t);
+            String classBound_ = EMPTY_STRING;
+            while (true) {
+                StringList next_ = new StringList();
+                for (String c: current_) {
+                    StringList bound_ = localBounds_.getVal(c);
+                    for (String n: bound_) {
+                        if (localBounds_.contains(n)) {
+                            next_.add(n);
+                        } else {
+                            classBound_ = n;
+                            break;
+                        }
+                    }
+                }
+                if (!classBound_.isEmpty()) {
+                    break;
+                }
+                current_ = next_;
+            }
+            bounds_.add(classBound_);
+        }
+        return bounds_;
+    }
     private static String removeWildCard(String _wildCard) {
         String sub_ = _wildCard.substring(1);
         sub_ = sub_.substring(sub_.indexOf(EXTENDS)+1);
@@ -744,6 +791,9 @@ public final class Templates {
         }
         if (StringList.quickEq(baseArg_, baseParam_)) {
             int len_ = typesParam_.size();
+            if (typesArg_.size() != len_) {
+            	return null;
+            }
             EqList<Matching> pairsArgParam_ = new EqList<Matching>();
             for (int i = CustList.SECOND_INDEX; i < len_; i++) {
                 Matching match_ = new Matching();
@@ -877,6 +927,17 @@ public final class Templates {
         }
         types_.add(_geneTypes.substring(begin_));
         return types_;
+    }
+
+    private static String getBaseName(Type _t) {
+        if (_t instanceof Class<?>) {
+            return ((Class<?>)_t).getName();
+        }
+        String str_ = _t.toString();
+        if (_t instanceof ParameterizedType) {
+            return str_.substring(0, str_.indexOf(TEMPLATE_BEGIN));
+        }
+        return str_;
     }
 
     private static String getName(Type _t) {
