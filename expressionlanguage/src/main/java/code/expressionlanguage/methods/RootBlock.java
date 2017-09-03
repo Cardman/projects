@@ -87,6 +87,22 @@ public abstract class RootBlock extends BracedBlock implements RootedBlock {
                             classNameLoc_ = PrimitiveTypeUtil.getArrayClass(classNameLoc_);
                             ConstClasses.classForNameNotInit(classNameLoc_);
                         }
+                    } else {
+                        if ((b instanceof MethodBlock)) {
+                            if (!StringList.quickEq(n.getKey(), ATTRIBUTE_CLASS)) {
+                                UnknownClassName un_ = new UnknownClassName();
+                                un_.setClassName(classNameLoc_);
+                                un_.setFileName(className_);
+                                un_.setRc(b.getRowCol(0, _context.getTabWidth(), n.getKey()));
+                                _context.getClasses().getErrorsDet().add(un_);
+                            }
+                        } else {
+                            UnknownClassName un_ = new UnknownClassName();
+                            un_.setClassName(classNameLoc_);
+                            un_.setFileName(className_);
+                            un_.setRc(b.getRowCol(0, _context.getTabWidth(), n.getKey()));
+                            _context.getClasses().getErrorsDet().add(un_);
+                        }
                     }
                 } catch (RuntimeClassNotFoundException _0) {
                     UnknownClassName un_ = new UnknownClassName();
