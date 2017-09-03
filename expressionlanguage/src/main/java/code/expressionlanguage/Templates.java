@@ -184,43 +184,14 @@ public final class Templates {
             int dimArg_ = dimCompArg_.getDim();
             String comp_ = dimCompArg_.getComponent();
             boolean lookInInherit_ = comp_.startsWith(PREFIX_VAR_TYPE);
+            StringList bounds_ = new StringList();
             if (lookInInherit_) {
                 if (!_inherit.contains(comp_.substring(1))) {
                     return false;
                 }
-                for (Type e: t.getBounds()) {
-                    Mapping m_ = new Mapping();
-                    String typeBound_ = getName(e);
-                    String ext_;
-                    if (!typeBound_.contains(SEP_CLASS)) {
-                        ext_ = PREFIX_VAR_TYPE + typeBound_;
-                    } else {
-                        ext_ = insertPrefixVarType(typeBound_);
-                    }
-                    String param_ = format(_className, ext_, _classes);
-                    m_.setParam(param_);
-                    boolean ok_ = false;
-                    for (String v: _inherit.getVal(comp_.substring(1))) {
-                        m_.setArg(v);
-                        String boundArr_ = PrimitiveTypeUtil.getPrettyArrayType(v, dimArg_);
-                        DimComp dimCompBoundArg_ = PrimitiveTypeUtil.getQuickComponentBaseType(boundArr_);
-                        int dimBoundArg_ = dimCompBoundArg_.getDim();
-                        if (dimBoundArg_ > 0) {
-                            if (!PrimitiveTypeUtil.isArrayAssignable(boundArr_, param_, _classes)) {
-                                continue;
-                            }
-                        }
-                        m_.setMapping(_inherit);
-                        if (isSimpleCorrect(m_, _classes)) {
-                            ok_ = true;
-                            break;
-                        }
-                    }
-                    if (!ok_) {
-                        return false;
-                    }
-                }
-                continue;
+                bounds_.addAllElts(_inherit.getVal(comp_.substring(1)));
+            } else {
+                bounds_.add(arg_);
             }
             for (Type e: t.getBounds()) {
                 Mapping m_ = new Mapping();
@@ -233,16 +204,24 @@ public final class Templates {
                 }
                 String param_ = format(_className, ext_, _classes);
                 m_.setParam(param_);
-                DimComp dimCompParam_ = PrimitiveTypeUtil.getQuickComponentBaseType(param_);
-                int dimParam_ = dimCompParam_.getDim();
-                if (dimArg_ > 0 && dimParam_ > 0) {
-                    if (!PrimitiveTypeUtil.isArrayAssignable(arg_, param_, _classes)) {
-                        continue;
+                boolean ok_ = false;
+                for (String v: bounds_) {
+                    m_.setArg(v);
+                    String boundArr_ = PrimitiveTypeUtil.getPrettyArrayType(v, dimArg_);
+                    DimComp dimCompBoundArg_ = PrimitiveTypeUtil.getQuickComponentBaseType(boundArr_);
+                    int dimBoundArg_ = dimCompBoundArg_.getDim();
+                    if (dimBoundArg_ > 0) {
+                        if (!PrimitiveTypeUtil.isArrayAssignable(boundArr_, param_, _classes)) {
+                            continue;
+                        }
+                    }
+                    m_.setMapping(_inherit);
+                    if (isSimpleCorrect(m_, _classes)) {
+                        ok_ = true;
+                        break;
                     }
                 }
-                m_.setMapping(_inherit);
-                m_.setArg(arg_);
-                if (!isSimpleCorrect(m_, _classes)) {
+                if (!ok_) {
                     return false;
                 }
             }
