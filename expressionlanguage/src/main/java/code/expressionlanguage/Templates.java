@@ -195,7 +195,7 @@ public final class Templates {
                     if (!typeBound_.contains(SEP_CLASS)) {
                         ext_ = PREFIX_VAR_TYPE + typeBound_;
                     } else {
-                    	ext_ = insertPrefixVarType(typeBound_);
+                        ext_ = insertPrefixVarType(typeBound_);
                     }
                     String param_ = format(_className, ext_, _classes);
                     m_.setParam(param_);
@@ -229,7 +229,7 @@ public final class Templates {
                 if (!typeBound_.contains(SEP_CLASS)) {
                     ext_ = PREFIX_VAR_TYPE + typeBound_;
                 } else {
-                	ext_ = insertPrefixVarType(typeBound_);
+                    ext_ = insertPrefixVarType(typeBound_);
                 }
                 String param_ = format(_className, ext_, _classes);
                 m_.setParam(param_);
@@ -513,9 +513,9 @@ public final class Templates {
             for (Type b: t.getBounds()) {
                 String typeString_ = getBaseName(b);
                 if (!typeString_.contains(SEP_CLASS)) {
-                	localBound_.add(PREFIX_VAR_TYPE+typeString_);
+                    localBound_.add(PREFIX_VAR_TYPE+typeString_);
                 } else {
-                	localBound_.add(typeString_);
+                    localBound_.add(typeString_);
                 }
             }
             localBounds_.put(PREFIX_VAR_TYPE+t.getName(), localBound_);
@@ -762,17 +762,8 @@ public final class Templates {
         DimComp dParam_ = PrimitiveTypeUtil.getQuickComponentBaseType(param_);
         String baseArrayParam_ = dParam_.getComponent();
         String baseArrayArg_ = dArg_.getComponent();
-        int dim_ = dArg_.getDim();
-        if (dArg_.getDim() < dParam_.getDim()) {
-            return null;
-        }
-        boolean return_ = false;
-        if (dArg_.getDim() > dParam_.getDim()) {
-            if (!StringList.quickEq(baseArrayParam_, Object.class.getName())) {
-                return null;
-            }
-            return_ = true;
-        }
+        DimComp dBaseParam_ = PrimitiveTypeUtil.getQuickComponentBaseType(baseParam_);
+        String classParam_ = dBaseParam_.getComponent();
         if (baseArrayParam_.startsWith(PREFIX_VAR_TYPE)) {
             if (_m.inheritArgParam(baseArrayParam_.substring(1), baseArrayArg_.substring(1))) {
                 MappingPairs m_ = new MappingPairs();
@@ -780,19 +771,43 @@ public final class Templates {
             }
             return null;
         }
-        if (!baseArrayArg_.startsWith(PREFIX_VAR_TYPE)) {
-            if (!PrimitiveTypeUtil.canBeUseAsArgument(baseParam_, baseArg_, _classes)) {
+        StringList bounds_ = new StringList();
+        if (baseArrayArg_.startsWith(PREFIX_VAR_TYPE)) {
+            for (String a: _m.getAllUpperBounds(baseArrayArg_)) {
+                bounds_.add(PrimitiveTypeUtil.getPrettyArrayType(a, dArg_.getDim()));
+            }
+        } else {
+            bounds_.add(baseArg_);
+        }
+        if (typesParam_.size() == 1) {
+            boolean inh_ = false;
+            for (String a: bounds_) {
+                if (PrimitiveTypeUtil.canBeUseAsArgument(baseParam_, a, _classes)) {
+                    inh_ = true;
+                    break;
+                }
+            }
+            if (!inh_) {
                 return null;
             }
-        }
-        if (return_) {
             MappingPairs m_ = new MappingPairs();
             return m_;
         }
+        if (baseArrayArg_.startsWith(PrimitiveTypeUtil.PRIM)) {
+            return null;
+        }
+        for (String a: bounds_) {
+            DimComp dLoc_ = PrimitiveTypeUtil.getQuickComponentBaseType(a);
+            int dim_ = dLoc_.getDim();
+            if (dim_ != dParam_.getDim()) {
+                return null;
+            }
+        }
+        int dim_ = dArg_.getDim();
         if (StringList.quickEq(baseArg_, baseParam_)) {
             int len_ = typesParam_.size();
             if (typesArg_.size() != len_) {
-            	return null;
+                return null;
             }
             EqList<Matching> pairsArgParam_ = new EqList<Matching>();
             for (int i = CustList.SECOND_INDEX; i < len_; i++) {
@@ -819,9 +834,6 @@ public final class Templates {
                 }
             }
         }
-        if (StringList.quickEq(baseParam_, Object.class.getName())) {
-            generic_ = Object.class.getName();
-        }
         if (generic_ == null) {
             while (true) {
                 StringList nextClasses_ = new StringList();
@@ -839,16 +851,9 @@ public final class Templates {
                         String geneSuperClass_ = getName(cl_.getGenericSuperclass());
                         geneSuperClass_ = insertPrefixVarType(geneSuperClass_);
                         geneSuperClass_ = format(c, geneSuperClass_, _classes);
-                        if (dParam_.getDim() > 0) {
-                            if (StringList.quickEq(superClass_, PrimitiveTypeUtil.getQuickComponentType(typesParam_.first()))) {
-                                generic_ = PrimitiveTypeUtil.getPrettyArrayType(geneSuperClass_, dim_);
-                                break;
-                            }
-                        } else {
-                            if (StringList.quickEq(superClass_, typesParam_.first())) {
-                                generic_ = PrimitiveTypeUtil.getPrettyArrayType(geneSuperClass_, dim_);
-                                break;
-                            }
+                        if (StringList.quickEq(superClass_, classParam_)) {
+                            generic_ = PrimitiveTypeUtil.getPrettyArrayType(geneSuperClass_, dim_);
+                            break;
                         }
                         if (!visitedClasses_.containsStr(geneSuperClass_)) {
                             nextClasses_.add(geneSuperClass_);
@@ -861,16 +866,9 @@ public final class Templates {
                         String geneSuperInterface_ = getName(cl_.getGenericInterfaces()[i_]);
                         geneSuperInterface_ = insertPrefixVarType(geneSuperInterface_);
                         geneSuperInterface_ = format(c, geneSuperInterface_, _classes);
-                        if (dParam_.getDim() > 0) {
-                            if (StringList.quickEq(s.getName(), PrimitiveTypeUtil.getQuickComponentType(typesParam_.first()))) {
-                                generic_ = PrimitiveTypeUtil.getPrettyArrayType(geneSuperInterface_, dim_);
-                                break;
-                            }
-                        } else {
-                            if (StringList.quickEq(s.getName(), typesParam_.first())) {
-                                generic_ = PrimitiveTypeUtil.getPrettyArrayType(geneSuperInterface_, dim_);
-                                break;
-                            }
+                        if (StringList.quickEq(s.getName(), classParam_)) {
+                            generic_ = PrimitiveTypeUtil.getPrettyArrayType(geneSuperInterface_, dim_);
+                            break;
                         }
                         if (!visitedClasses_.containsStr(geneSuperInterface_)) {
                             nextClasses_.add(geneSuperInterface_);

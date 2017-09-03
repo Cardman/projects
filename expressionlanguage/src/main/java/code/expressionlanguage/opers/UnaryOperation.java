@@ -115,7 +115,7 @@ public final class UnaryOperation extends PrimitiveBoolOperation {
                 }
             }
         } else {
-        	if (o_ instanceof Character) {
+            if (o_ instanceof Character) {
                 out_.setObject(+((Character)o_));
             } else {
                 Number b_ = (Number) o_;

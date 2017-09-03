@@ -953,38 +953,24 @@ public class StringListTest {
         assertEq(_types, StringList.getAllTypes(_inputType));
     }
 
-    Object[] inputsTryGetAllTypes() {
-        return $($("String",new StringList("String")),
-                $("Map<String,Rate>",new StringList("Map","String","Rate")),
-                $("Map<String,Map<String,Rate>>",new StringList("Map","String","Map<String,Rate>")),
-                $("List<Boolean>",new StringList("List","Boolean")),
-                $("CustList<BooleanList>",new StringList("CustList","BooleanList")));
+    @Test
+    public void gtAllTypes2Test() {
+        assertNull(StringList.getAllTypes("Map<String,Rate"));
     }
 
     @Test
-    @Parameters(method="inputsGetAllTypes")
-    public void tryGetAllTypes1Test(String _inputType,StringList _types) {
-        assertEq(_types, StringList.tryGetAllTypes(_inputType));
+    public void getAllTypes3Test() {
+        assertNull(StringList.getAllTypes("Map<String,Rate>>"));
     }
 
     @Test
-    public void tryGetAllTypes2Test() {
-        assertNull(StringList.tryGetAllTypes("Map<String,Rate"));
+    public void getAllTypes4Test() {
+        assertNull(StringList.getAllTypes("String,Rate"));
     }
 
     @Test
-    public void tryGetAllTypes3Test() {
-        assertNull(StringList.tryGetAllTypes("Map<String,Rate>>"));
-    }
-
-    @Test
-    public void tryGetAllTypes4Test() {
-        assertNull(StringList.tryGetAllTypes("String,Rate"));
-    }
-
-    @Test
-    public void tryGetAllTypes5Test() {
-        assertNull(StringList.tryGetAllTypes("Map<String,Rate>>,StrMap<String,Rate>>"));
+    public void getAllTypes5Test() {
+        assertNull(StringList.getAllTypes("Map<String,Rate>>,StrMap<String,Rate>>"));
     }
 
     @Test

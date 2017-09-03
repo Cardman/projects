@@ -1221,10 +1221,6 @@ public final class StringList extends AbEqList<String> implements Equallable<Str
     }
 
     public static StringList getAllTypes(String _type) {
-        return tryGetAllTypes(_type);
-    }
-
-    public static StringList tryGetAllTypes(String _type) {
         StringList types_ = new StringList();
         int i_ = FIRST_INDEX;
         int nbGt_ = 0;

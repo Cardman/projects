@@ -13,6 +13,7 @@ import code.expressionlanguage.classes.CustSecEqList;
 import code.expressionlanguage.classes.CustTemp;
 import code.expressionlanguage.classes.EnumNumber;
 import code.expressionlanguage.classes.GoodCmp;
+import code.expressionlanguage.classes.IOne;
 import code.expressionlanguage.classes.IThree;
 import code.expressionlanguage.classes.ITwo;
 import code.expressionlanguage.classes.MyCmpClass;
@@ -21,6 +22,7 @@ import code.expressionlanguage.classes.MyImpl;
 import code.expressionlanguage.classes.StrangeCmp;
 import code.expressionlanguage.classes.Templating;
 import code.expressionlanguage.classes.TemplatingBis;
+import code.expressionlanguage.classes.TwoBounds;
 import code.util.AbEqList;
 import code.util.CustList;
 import code.util.EnumList;
@@ -33,14 +35,6 @@ import code.util.ints.Listable;
 
 @SuppressWarnings("static-method")
 public class TemplatesTest {
-//    private static final String ARR_INT = "[I";
-//    private static final String ARR_OBJECT = "[Ljava.lang.Object;";
-//    private static final String ARR_STRING = "[Ljava.lang.String;";
-//    private static final String ARR_ENUM = "[Lexpressionlanguage.classes.EnumNumber;";
-//    private static final String ARR_VAR_E = "[L#E;";
-//    private static final String ARR_VAR_F = "[L#F;";
-//    private static final String ARR_VAR_S = "[L#S;";
-//    private static final String ARR_VAR_T = "[L#T;";
     private static final String ARR_INT = "[$int";
     private static final String ARR_OBJECT = "[java.lang.Object";
     private static final String ARR_STRING = "[java.lang.String";
@@ -432,7 +426,6 @@ public class TemplatesTest {
     @Test
     public void isCorrectTemplate22Test() {
         StringMap<StringList> t_ = new StringMap<StringList>();
-//        t_.put("E", new StringList("java.lang.Enum<#E>"));
         assertTrue(Templates.isCorrectTemplate(ENUM_MAP+"<"+ENUM+","+CUST_BIG_INT+">", t_,null));
     }
 
@@ -1088,12 +1081,12 @@ public class TemplatesTest {
     
     @Test
     public void isCorrect46Test() {
-    	Mapping m_ = new Mapping();
-    	m_.setArg(CUST_LIST+"<? ~ "+ARR_ITHREE+">");
-    	m_.setParam(CUST_LIST+"<? ~ "+ARR_ITWO+">");
-    	StringMap<StringList> t_ = new StringMap<StringList>();
-    	m_.setMapping(t_);
-    	assertTrue(Templates.isCorrect(m_,null));
+        Mapping m_ = new Mapping();
+        m_.setArg(CUST_LIST+"<? ~ "+ARR_ITHREE+">");
+        m_.setParam(CUST_LIST+"<? ~ "+ARR_ITWO+">");
+        StringMap<StringList> t_ = new StringMap<StringList>();
+        m_.setMapping(t_);
+        assertTrue(Templates.isCorrect(m_,null));
     }
 
     @Test
@@ -1152,6 +1145,50 @@ public class TemplatesTest {
         m_.setArg("java.util.List<java.lang.Object>");
         m_.setParam("java.util.List<java.lang.String>");
         assertTrue(!Templates.isSimpleCorrect(m_, null));
+    }
+
+    @Test
+    public void isSimpleCorrect7Test() {
+        Mapping m_ = new Mapping();
+        m_.setArg("#E");
+        m_.setParam("java.lang.Object");
+        StringMap<StringList> t_ = new StringMap<StringList>();
+        t_.put("E", new StringList("java.lang.Enum<#E>"));
+        m_.setMapping(t_);
+        assertTrue(Templates.isSimpleCorrect(m_,null));
+    }
+
+    @Test
+    public void isSimpleCorrect8Test() {
+        Mapping m_ = new Mapping();
+        m_.setArg("#E");
+        m_.setParam("java.lang.Number");
+        StringMap<StringList> t_ = new StringMap<StringList>();
+        t_.put("E", new StringList("java.lang.Integer"));
+        m_.setMapping(t_);
+        assertTrue(Templates.isSimpleCorrect(m_,null));
+    }
+
+    @Test
+    public void isSimpleCorrect9Test() {
+        Mapping m_ = new Mapping();
+        m_.setArg("#E");
+        m_.setParam("[java.lang.Number");
+        StringMap<StringList> t_ = new StringMap<StringList>();
+        t_.put("E", new StringList("[java.lang.Integer"));
+        m_.setMapping(t_);
+        assertTrue(Templates.isSimpleCorrect(m_,null));
+    }
+
+    @Test
+    public void isSimpleCorrect10Test() {
+        Mapping m_ = new Mapping();
+        m_.setArg("#E");
+        m_.setParam("[java.lang.Number");
+        StringMap<StringList> t_ = new StringMap<StringList>();
+        t_.put("E", new StringList("java.lang.Integer"));
+        m_.setMapping(t_);
+        assertTrue(!Templates.isSimpleCorrect(m_,null));
     }
 
     @Test
@@ -1214,6 +1251,17 @@ public class TemplatesTest {
         m_.setArg(STRING_LIST);
         m_.setParam(CUST_LIST+"<java.lang.Object>");
         StringMap<StringList> t_ = new StringMap<StringList>();
+        m_.setMapping(t_);
+        assertTrue(!Templates.isSimpleCorrect(m_,null));
+    }
+
+    @Test
+    public void isSimpleCorrect17Test() {
+        Mapping m_ = new Mapping();
+        m_.setArg("#E");
+        m_.setParam("java.lang.Number");
+        StringMap<StringList> t_ = new StringMap<StringList>();
+        t_.put("E", new StringList("[java.lang.Integer"));
         m_.setMapping(t_);
         assertTrue(!Templates.isSimpleCorrect(m_,null));
     }
@@ -1362,12 +1410,12 @@ public class TemplatesTest {
     
     @Test
     public void isSimpleCorrect46Test() {
-    	Mapping m_ = new Mapping();
-    	m_.setArg(ARR_ITHREE);
-    	m_.setParam(ARR_ITWO);
-    	StringMap<StringList> t_ = new StringMap<StringList>();
-    	m_.setMapping(t_);
-    	assertTrue(Templates.isSimpleCorrect(m_,null));
+        Mapping m_ = new Mapping();
+        m_.setArg(ARR_ITHREE);
+        m_.setParam(ARR_ITWO);
+        StringMap<StringList> t_ = new StringMap<StringList>();
+        m_.setMapping(t_);
+        assertTrue(Templates.isSimpleCorrect(m_,null));
     }
 
     @Test
@@ -1487,7 +1535,6 @@ public class TemplatesTest {
     @Test
     public void isSimpleCorrectTemplate22Test() {
         StringMap<StringList> t_ = new StringMap<StringList>();
-//        t_.put("E", new StringList("java.lang.Enum<#E>"));
         assertTrue(Templates.isSimpleCorrectTemplate(ENUM_MAP+"<"+ENUM+","+CUST_BIG_INT+">", t_,null));
     }
 
@@ -1667,7 +1714,7 @@ public class TemplatesTest {
 
     @Test
     public void getClassLeftMostBounds1Test() {
-    	StringList bounds_;
+        StringList bounds_;
         bounds_ = Templates.getClassLeftMostBounds(TEMPLATING, null);
         assertEq(2, bounds_.size());
         assertEq(Number.class.getName(), bounds_.get(0));
@@ -1676,7 +1723,7 @@ public class TemplatesTest {
 
     @Test
     public void getClassLeftMostBounds2Test() {
-    	StringList bounds_;
+        StringList bounds_;
         bounds_ = Templates.getClassLeftMostBounds(CustList.class.getName(), null);
         assertEq(1, bounds_.size());
         assertEq(Object.class.getName(), bounds_.get(0));
@@ -1684,16 +1731,24 @@ public class TemplatesTest {
 
     @Test
     public void getClassLeftMostBounds3Test() {
-    	StringList bounds_;
+        StringList bounds_;
         bounds_ = Templates.getClassLeftMostBounds("java.math.BigInteger", null);
         assertEq(0, bounds_.size());
     }
-
+    
     @Test
     public void getClassLeftMostBounds4Test() {
-    	StringList bounds_;
+        StringList bounds_;
         bounds_ = Templates.getClassLeftMostBounds(CMP_LIST, null);
         assertEq(1, bounds_.size());
         assertEq(Cmp.class.getName(), bounds_.get(0));
+    }
+
+    @Test
+    public void getClassLeftMostBounds5Test() {
+        StringList bounds_;
+        bounds_ = Templates.getClassLeftMostBounds(TwoBounds.class.getName(), null);
+        assertEq(1, bounds_.size());
+        assertEq(IOne.class.getName(), bounds_.get(0));
     }
 }
