@@ -867,10 +867,15 @@ public abstract class NumericOperation extends MethodOperation {
             throw new NotNumberException(mess_+_b+RETURN_LINE+_cont.joinPages());
         }
         ClassArgumentMatching arg_;
+        int max_ = Math.max(oa_, ob_);
         if (oa_ > ob_) {
             arg_ = _a;
         } else {
             arg_ = _b;
+        }
+        int intOrder_ = PrimitiveTypeUtil.getOrderClass(int.class);
+        if (max_ < intOrder_) {
+            arg_ = new ClassArgumentMatching(int.class.getName());
         }
         return PrimitiveTypeUtil.toPrimitive(arg_, true);
     }

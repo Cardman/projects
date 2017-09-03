@@ -1736,6 +1736,29 @@ public class ElUtilTest {
         assertSame(String.class, res_.getClass());
         assertEq("long", res_);
     }
+
+    @Test
+    public void processEl119Test() {
+        ContextEl context_ = new ContextEl();
+        setupAccessValue(context_);
+        addImportingPage(context_);
+        Argument arg_ = ElUtil.processEl("(1b+2b)*3",0, context_);
+        Object res_ = arg_.getObject();
+        assertSame(Long.class, res_.getClass());
+        assertEq(9L, (Number)res_);
+    }
+
+    @Test
+    public void processEl120Test() {
+        ContextEl context_ = new ContextEl();
+        setupAccessValue(context_);
+        addImportingPage(context_);
+        Argument arg_ = ElUtil.processEl("(1s+2b)*3",0, context_);
+        Object res_ = arg_.getObject();
+        assertSame(Long.class, res_.getClass());
+        assertEq(9L, (Number)res_);
+    }
+
     @Test(expected=NoSuchDeclaredMethodException.class)
     public void processEl1FailTest() {
         ContextEl context_ = new ContextEl();

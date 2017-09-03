@@ -47,10 +47,10 @@ public final class AddOperation extends NumericOperation {
             if (_a.matchClass(String.class) || _b.matchClass(String.class)) {
                 return new ClassArgumentMatching(String.class.getName());
             }
-        }
-        if (PrimitiveTypeUtil.toPrimitive(_a, true).matchClass(PrimitiveTypeUtil.PRIM_CHAR)) {
-            if (PrimitiveTypeUtil.toPrimitive(_b, true).matchClass(PrimitiveTypeUtil.PRIM_CHAR)) {
-                return new ClassArgumentMatching(String.class.getName());
+            if (PrimitiveTypeUtil.toPrimitive(_a, true).matchClass(PrimitiveTypeUtil.PRIM_CHAR)) {
+                if (PrimitiveTypeUtil.toPrimitive(_b, true).matchClass(PrimitiveTypeUtil.PRIM_CHAR)) {
+                    return new ClassArgumentMatching(String.class.getName());
+                }
             }
         }
         return getResultClass(_a, _cont, _b);

@@ -1,23 +1,30 @@
 package code.expressionlanguage;
 
 import static code.util.opers.EquallableUtil.assertEq;
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
-import code.expressionlanguage.Mapping;
-import code.expressionlanguage.Templates;
 import code.expressionlanguage.classes.CmpList;
 import code.expressionlanguage.classes.CustBigInt;
+import code.expressionlanguage.classes.CustEqList;
+import code.expressionlanguage.classes.CustSecEqList;
 import code.expressionlanguage.classes.CustTemp;
 import code.expressionlanguage.classes.EnumNumber;
 import code.expressionlanguage.classes.GoodCmp;
+import code.expressionlanguage.classes.IThree;
+import code.expressionlanguage.classes.ITwo;
+import code.expressionlanguage.classes.MyCmpClass;
+import code.expressionlanguage.classes.MyEqClass;
 import code.expressionlanguage.classes.StrangeCmp;
 import code.expressionlanguage.classes.Templating;
 import code.expressionlanguage.classes.TemplatingBis;
+import code.util.AbEqList;
 import code.util.CustList;
 import code.util.EnumList;
 import code.util.EnumMap;
+import code.util.EqList;
 import code.util.StringList;
 import code.util.StringMap;
 import code.util.ints.Cmp;
@@ -36,11 +43,15 @@ public class TemplatesTest {
     private static final String ARR_INT = "[$int";
     private static final String ARR_OBJECT = "[java.lang.Object";
     private static final String ARR_STRING = "[java.lang.String";
+    private static final String ARR_ITHREE = "["+IThree.class.getName();
+    private static final String ARR_ITWO = "["+ITwo.class.getName();
     private static final String ENUM = EnumNumber.class.getName();
     private static final String CUST_BIG_INT = CustBigInt.class.getName();
     private static final String TEMPLATING = Templating.class.getName();
     private static final String TEMPLATING_BIS = TemplatingBis.class.getName();
     private static final String CMP_LIST = CmpList.class.getName();
+    private static final String CUST_EQ_LIST = CustEqList.class.getName();
+    private static final String CUST_SEC_LIST = CustSecEqList.class.getName();
     private static final String STRANGE_CMP_LIST = StrangeCmp.class.getName();
     private static final String GOOD_CMP_LIST = GoodCmp.class.getName();
     private static final String ARR_ENUM = "["+ENUM;
@@ -54,6 +65,8 @@ public class TemplatesTest {
     private static final String ENUM_MAP = EnumMap.class.getName();
     private static final String CMP = Cmp.class.getName();
     private static final String TMPL = CustTemp.class.getName();
+    private static final String MY_EQ_CLASS = MyEqClass.class.getName();
+    private static final String MY_CMP_CLASS = MyCmpClass.class.getName();
 
     @Test
     public void format1Test() {
@@ -558,6 +571,52 @@ public class TemplatesTest {
     }
 
     @Test
+    public void isCorrectTemplate42Test() {
+        StringMap<StringList> t_ = new StringMap<StringList>();
+        assertTrue(!Templates.isCorrectTemplate(TEMPLATING+"<"+CUST_BIG_INT+",#E>", t_,null));
+    }
+
+    @Test
+    public void isCorrectTemplate43Test() {
+        assertTrue(!Templates.isCorrectTemplate(CMP_LIST+"<"+MY_EQ_CLASS+">", new StringMap<StringList>(),null));
+    }
+
+    @Test
+    public void isCorrectTemplate44Test() {
+        assertTrue(Templates.isCorrectTemplate(CMP_LIST+"<"+MY_CMP_CLASS+">", new StringMap<StringList>(),null));
+    }
+
+    @Test
+    public void isCorrectTemplate45Test() {
+        assertTrue(!Templates.isCorrectTemplate(CMP_LIST+"<"+CMP+">", new StringMap<StringList>(),null));
+    }
+
+    @Test
+    public void isCorrectTemplate46Test() {
+        assertTrue(!Templates.isCorrectTemplate(CUST_SEC_LIST+"<"+AbEqList.class.getName()+">", new StringMap<StringList>(),null));
+    }
+
+    @Test
+    public void isCorrectTemplate47Test() {
+        assertTrue(!Templates.isCorrectTemplate(CUST_EQ_LIST+"<"+Cmp.class.getName()+">", new StringMap<StringList>(),null));
+    }
+
+    @Test
+    public void isCorrectTemplate48Test() {
+        StringMap<StringList> t_ = new StringMap<StringList>();
+        t_.put("E", new StringList(CMP));
+        assertTrue(!Templates.isCorrectTemplate(CUST_EQ_LIST+"<#E>", t_,null));
+    }
+
+    @Test
+    public void isCorrectTemplate49Test() {
+        StringMap<StringList> t_ = new StringMap<StringList>();
+        t_.put("E", new StringList(CMP));
+        t_.put("F", new StringList("#E"));
+        assertTrue(!Templates.isCorrectTemplate(CUST_EQ_LIST+"<#F>", t_,null));
+    }
+
+    @Test
     public void isCorrect1Test() {
         Mapping m_ = new Mapping();
         m_.setArg("java.lang.Object");
@@ -1024,5 +1083,49 @@ public class TemplatesTest {
         StringMap<StringList> t_ = new StringMap<StringList>();
         m_.setMapping(t_);
         assertTrue(!Templates.isCorrect(m_,null));
+    }
+
+    @Test
+    public void isCorrect46Test() {
+        Mapping m_ = new Mapping();
+        m_.setArg(CUST_LIST+"<? ~ "+ARR_ITHREE+">");
+        m_.setParam(CUST_LIST+"<? ~ "+ARR_ITWO+">");
+        StringMap<StringList> t_ = new StringMap<StringList>();
+        m_.setMapping(t_);
+        assertTrue(Templates.isCorrect(m_,null));
+    }
+    
+    @Test
+    public void getClassBounds1Test() {
+        EqList<StringList> bounds_;
+        bounds_ = Templates.getClassBounds(TEMPLATING+"<java.math.BigInteger,"+CUST_BIG_INT+">", null);
+        assertEq(2, bounds_.size());
+        assertEq(1, bounds_.get(0).size());
+        assertEq(Number.class.getName(), bounds_.get(0).first());
+        assertEq(1, bounds_.get(1).size());
+        assertEq(Number.class.getName(), bounds_.get(1).first());
+    }
+
+    @Test
+    public void getClassBounds2Test() {
+        EqList<StringList> bounds_;
+        bounds_ = Templates.getClassBounds(CustList.class.getName()+"<"+MY_CMP_CLASS+">", null);
+        assertEq(1, bounds_.size());
+        assertEq(1, bounds_.get(0).size());
+        assertEq(Object.class.getName(), bounds_.get(0).first());
+    }
+
+    @Test
+    public void getClassBounds3Test() {
+        EqList<StringList> bounds_;
+        bounds_ = Templates.getClassBounds("java.math.BigInteger", null);
+        assertEq(0, bounds_.size());
+    }
+
+    @Test
+    public void getClassBounds4Test() {
+        EqList<StringList> bounds_;
+        bounds_ = Templates.getClassBounds(CMP, null);
+        assertNull(bounds_);
     }
 }
