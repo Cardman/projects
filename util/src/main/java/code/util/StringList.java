@@ -1226,15 +1226,17 @@ public final class StringList extends AbEqList<String> implements Equallable<Str
         int nbGt_ = 0;
         int nbLt_ = 0;
         int first_ = i_;
+        int lastGt_ = INDEX_NOT_FOUND_ELT;
         while (true) {
             if (i_ >= _type.length()) {
                 if (nbGt_ != nbLt_) {
                     return null;
                 }
-                if (nbLt_ == 0) {
-                    i_++;
+                if (lastGt_ == INDEX_NOT_FOUND_ELT) {
+                    types_.add(_type);
+                } else {
+                    types_.add(_type.substring(first_, lastGt_));
                 }
-                types_.add(_type.substring(first_, i_-1));
                 break;
             }
             //i_ < _type.length() - 1
@@ -1259,6 +1261,7 @@ public final class StringList extends AbEqList<String> implements Equallable<Str
                 if (nbGt_ > nbLt_) {
                     return null;
                 }
+                lastGt_ = i_;
             }
             i_++;
         }

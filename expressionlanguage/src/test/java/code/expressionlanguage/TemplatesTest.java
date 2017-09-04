@@ -22,6 +22,7 @@ import code.expressionlanguage.classes.MyImpl;
 import code.expressionlanguage.classes.StrangeCmp;
 import code.expressionlanguage.classes.Templating;
 import code.expressionlanguage.classes.TemplatingBis;
+import code.expressionlanguage.classes.TransitiveTemplating;
 import code.expressionlanguage.classes.TwoBounds;
 import code.util.AbEqList;
 import code.util.CustList;
@@ -44,6 +45,7 @@ public class TemplatesTest {
     private static final String CUST_BIG_INT = CustBigInt.class.getName();
     private static final String TEMPLATING = Templating.class.getName();
     private static final String TEMPLATING_BIS = TemplatingBis.class.getName();
+    private static final String TRANSITIVE_TEMPLATING = TransitiveTemplating.class.getName();
     private static final String CMP_LIST = CmpList.class.getName();
     private static final String CUST_EQ_LIST = CustEqList.class.getName();
     private static final String CUST_SEC_LIST = CustSecEqList.class.getName();
@@ -1267,6 +1269,17 @@ public class TemplatesTest {
     }
 
     @Test
+    public void isSimpleCorrect18Test() {
+        Mapping m_ = new Mapping();
+        m_.setArg("#E");
+        m_.setParam("java.io.Serializable");
+        StringMap<StringList> t_ = new StringMap<StringList>();
+        t_.put("E", new StringList("java.util.ArrayList<java.lang.Object>"));
+        m_.setMapping(t_);
+        assertTrue(Templates.isSimpleCorrect(m_,null));
+    }
+
+    @Test
     public void isSimpleCorrect20Test() {
         Mapping m_ = new Mapping();
         m_.setArg("#T");
@@ -1424,6 +1437,58 @@ public class TemplatesTest {
         m_.setArg("["+MyImpl.class.getName());
         m_.setParam(ARR_ITWO);
         StringMap<StringList> t_ = new StringMap<StringList>();
+        m_.setMapping(t_);
+        assertTrue(Templates.isSimpleCorrect(m_,null));
+    }
+
+    @Test
+    public void isSimpleCorrect48Test() {
+        Mapping m_ = new Mapping();
+        m_.setArg("#H");
+        m_.setParam(CUST_BIG_INT);
+        StringMap<StringList> t_ = new StringMap<StringList>();
+        t_.put("J", new StringList(CUST_BIG_INT));
+        t_.put("I", new StringList("#J"));
+        t_.put("H", new StringList("#I"));
+        m_.setMapping(t_);
+        assertTrue(Templates.isSimpleCorrect(m_,null));
+    }
+
+    @Test
+    public void isSimpleCorrect49Test() {
+        Mapping m_ = new Mapping();
+        m_.setArg("#H");
+        m_.setParam("#J");
+        StringMap<StringList> t_ = new StringMap<StringList>();
+        t_.put("J", new StringList(CUST_BIG_INT));
+        t_.put("I", new StringList("#J"));
+        t_.put("H", new StringList("#I"));
+        m_.setMapping(t_);
+        assertTrue(Templates.isSimpleCorrect(m_,null));
+    }
+
+    @Test
+    public void isSimpleCorrect50Test() {
+        Mapping m_ = new Mapping();
+        m_.setArg("#H");
+        m_.setParam(Object.class.getName());
+        StringMap<StringList> t_ = new StringMap<StringList>();
+        t_.put("H", new StringList());
+        m_.setMapping(t_);
+        assertTrue(Templates.isSimpleCorrect(m_,null));
+    }
+
+    @Test
+    public void isSimpleCorrect51Test() {
+        Mapping m_ = new Mapping();
+        m_.setArg("#H");
+        m_.setParam("#J");
+        StringMap<StringList> t_ = new StringMap<StringList>();
+        t_.put("J", new StringList(CUST_BIG_INT));
+        t_.put("I", new StringList("#J"));
+        t_.put("K", new StringList("#J"));
+        t_.put("L", new StringList("#K"));
+        t_.put("H", new StringList("#L","#I"));
         m_.setMapping(t_);
         assertTrue(Templates.isSimpleCorrect(m_,null));
     }
@@ -1624,7 +1689,7 @@ public class TemplatesTest {
         t_.put("E", new StringList("java.math.BigInteger"));
         assertTrue(!Templates.isSimpleCorrectTemplate(TEMPLATING+"<"+CUST_BIG_INT+",#E>", t_,null));
     }
-
+    
     @Test
     public void isSimpleCorrectTemplate41Test() {
         StringMap<StringList> t_ = new StringMap<StringList>();
@@ -1676,6 +1741,15 @@ public class TemplatesTest {
         t_.put("E", new StringList(CMP));
         t_.put("F", new StringList("#E"));
         assertTrue(!Templates.isSimpleCorrectTemplate(CUST_EQ_LIST+"<#F>", t_,null));
+    }
+
+    @Test
+    public void isSimpleCorrectTemplate50Test() {
+        StringMap<StringList> t_ = new StringMap<StringList>();
+        t_.put("J", new StringList(CUST_BIG_INT));
+        t_.put("I", new StringList("#J"));
+        t_.put("H", new StringList("#I"));
+        assertTrue(Templates.isSimpleCorrectTemplate(TRANSITIVE_TEMPLATING+"<#J,#I,#H>", t_,null));
     }
 
     @Test

@@ -28,6 +28,9 @@ public class Mapping {
                 }
             }
             if (nextBounds_.isEmpty()) {
+                if (visitedBounds_.isEmpty()) {
+                    visitedBounds_.add(Object.class.getName());
+                }
                 return visitedBounds_;
             }
             currentBounds_ = nextBounds_;
@@ -63,7 +66,7 @@ public class Mapping {
             if (nextBounds_.isEmpty()) {
                 return false;
             }
-            nextBounds_ = currentBounds_;
+            currentBounds_ = nextBounds_;
         }
     }
     public String getArg() {

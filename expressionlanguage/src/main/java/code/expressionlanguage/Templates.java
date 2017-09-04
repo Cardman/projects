@@ -761,7 +761,9 @@ public final class Templates {
         if (typesParam_.size() == 1) {
             boolean inh_ = false;
             for (String a: bounds_) {
-                if (PrimitiveTypeUtil.canBeUseAsArgument(baseParam_, a, _classes)) {
+                StringList allTypes_ = StringList.getAllTypes(a);
+                String base_ = allTypes_.first();
+                if (PrimitiveTypeUtil.canBeUseAsArgument(baseParam_, base_, _classes)) {
                     inh_ = true;
                     break;
                 }
