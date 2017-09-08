@@ -154,17 +154,10 @@ public final class Line extends Leaf implements StackableBlock {
         }
         ip_.setProcessingAttribute(ATTRIBUTE_EXPRESSION);
         ip_.setOffset(0);
-        ExpressionLanguage el_;
-        if (!ip_.getCurrentEls().isEmpty()) {
-            el_ = ip_.getCurrentEls().last();
-        } else {
-            el_ = getRightEl();
-            ip_.setCurrentBlock(this);
-            ip_.setCurrentEls(new CustList<ExpressionLanguage>(el_));
-        }
+        ExpressionLanguage el_ = ip_.getCurrentEl(this, CustList.FIRST_INDEX, getRightEl());
         el_.calculateMember(_cont);
         el_.setCurrentOper(null);
-        ip_.getCurrentEls().clear();
+        ip_.clearCurrentEls();
         processBlock(_cont);
     }
 }

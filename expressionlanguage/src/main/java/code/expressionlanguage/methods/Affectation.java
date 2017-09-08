@@ -4,17 +4,12 @@ import org.w3c.dom.Element;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.ElUtil;
 import code.expressionlanguage.PageEl;
-import code.expressionlanguage.PrimitiveTypeUtil;
-import code.expressionlanguage.exceptions.DynamicCastClassException;
-import code.expressionlanguage.exceptions.PrimitiveTypeException;
 import code.expressionlanguage.methods.exceptions.BadConstructorCall;
 import code.expressionlanguage.methods.util.ExpLanguages;
 import code.expressionlanguage.opers.ExpressionLanguage;
 import code.expressionlanguage.opers.OperationNode;
-import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.util.CustList;
 import code.util.NatTreeMap;
-import code.util.StringList;
 
 public final class Affectation extends Leaf implements StackableBlock {
 
@@ -68,38 +63,8 @@ public final class Affectation extends Leaf implements StackableBlock {
         ExpLanguages e_ = ElUtil.analyzeAffect(ATTRIBUTE_OPER, ATTRIBUTE_LEFT, ATTRIBUTE_RIGHT, leftMember, rightMember, oper, _cont, f_.isStaticContext());
         ExpressionLanguage leftEl_ = e_.getLeft();
         opLeft = leftEl_.getOperations();
-        ClassArgumentMatching clMatchLeft_ = leftEl_.getClassArgumentMatching();
         ExpressionLanguage rightEl_ = e_.getRight();
         opRight = rightEl_.getOperations();
-        ClassArgumentMatching clMatchRight_ = rightEl_.getClassArgumentMatching();
-        PageEl page_ = _cont.getLastPage();
-        page_.setOffset(0);
-        page_.setProcessingAttribute(ATTRIBUTE_OPER);
-        if (oper.length() == 2) {
-            if (StringList.quickEq(oper, EQ_PLUS) || StringList.quickEq(oper, PLUS_EQ)) {
-                if (!PrimitiveTypeUtil.isPureNumberClass(clMatchLeft_)) {
-                    if (!clMatchLeft_.matchClass(String.class)) {
-                        throw new DynamicCastClassException(_cont.joinPages());
-                    }
-                } else if (!PrimitiveTypeUtil.isPureNumberClass(clMatchRight_)) {
-                    throw new DynamicCastClassException(_cont.joinPages());
-                }
-            } else if (!PrimitiveTypeUtil.isPureNumberClass(clMatchLeft_)) {
-                throw new DynamicCastClassException(_cont.joinPages());
-            } else if (!PrimitiveTypeUtil.isPureNumberClass(clMatchRight_)) {
-                throw new DynamicCastClassException(_cont.joinPages());
-            }
-        } else {
-            if (clMatchRight_.isVariable()) {
-                if (!clMatchLeft_.isPrimitive()) {
-                    return;
-                }
-                throw new PrimitiveTypeException(_cont.joinPages());
-            }
-            if (!PrimitiveTypeUtil.canBeUseAsArgument(clMatchLeft_.getName(), clMatchRight_.getName(), _cont.getClasses())) {
-                throw new DynamicCastClassException(_cont.joinPages());
-            }
-        }
     }
 
     @Override
@@ -139,29 +104,17 @@ public final class Affectation extends Leaf implements StackableBlock {
         ip_.setProcessingAttribute(ATTRIBUTE_LEFT);
         ip_.setOffset(0);
         String op_ = getOper();
-        ExpressionLanguage el_;
-        if (!ip_.getCurrentEls().isEmpty()) {
-            el_ = ip_.getCurrentEls().first();
-        } else {
-            el_ = getLeftEl();
-            ip_.setCurrentBlock(this);
-            ip_.setCurrentEls(new CustList<ExpressionLanguage>(el_));
-        }
-        el_.affectLeftMember(_cont, op_);
+        ExpressionLanguage elLeft_ = ip_.getCurrentEl(this, CustList.FIRST_INDEX, getLeftEl());
+        elLeft_.affectLeftMember(_cont, op_);
         ip_.setProcessingAttribute(ATTRIBUTE_RIGHT);
         ip_.setOffset(0);
-        if (ip_.getCurrentEls().size() > 1) {
-            el_ = ip_.getCurrentEls().last();
-        } else {
-            el_ = getRightEl();
-            ip_.getCurrentEls().add(el_);
-        }
+        ExpressionLanguage el_ = ip_.getCurrentEl(this, CustList.SECOND_INDEX, getRightEl());
         el_.affectRightMember(_cont, op_);
         ip_.setProcessingAttribute(ATTRIBUTE_LEFT);
         ip_.setOffset(0);
-        ip_.getCurrentEls().first().affectAllMember(_cont, op_);
+        elLeft_.affectAllMember(_cont, op_);
         el_.setCurrentOper(null);
-        ip_.getCurrentEls().clear();
+        ip_.clearCurrentEls();
         processBlock(_cont);
     }
 }

@@ -103,7 +103,7 @@ public final class ProcessXmlMethod {
                     Argument a_ = p_.getReturnedArgument();
                     PageEl l_ = _cont.getLastPage();
                     if (a_ != null) {
-                        l_.getCurrentEls().last().setArgument(a_, _cont);
+                        l_.getLastEl().setArgument(a_, _cont);
                     }
                     if (p_.getCallingConstr().getInstancingStep() == InstancingStep.USING_THIS) {
                         l_.getCallingConstr().setInitializedFields(true);
@@ -317,7 +317,7 @@ public final class ProcessXmlMethod {
                     if (!(try_.getCurrentCatchBlock() instanceof FinallyEval)) {
                         if (addFinallyClause_) {
                             try_.setThrownException(_t);
-                            bkIp_.getCurrentEls().clear();
+                            bkIp_.clearCurrentEls();
                             bkIp_.getReadWrite().setBlock(try_.getCatchBlocks().last());
                             return null;
                         }
@@ -351,7 +351,7 @@ public final class ProcessXmlMethod {
                 if (catchElt_ != null) {
                     CatchEval catchElement_ = catchElt_;
                     try_.setThrownException(null);
-                    bkIp_.getCurrentEls().clear();
+                    bkIp_.clearCurrentEls();
                     if (catchElement_.getFirstChild() != null) {
                         String var_ = catchElement_.getVariableName();
                         LocalVariable lv_ = new LocalVariable();
@@ -371,7 +371,7 @@ public final class ProcessXmlMethod {
                 }
                 if (addFinallyClause_) {
                     try_.setThrownException(_t);
-                    bkIp_.getCurrentEls().clear();
+                    bkIp_.clearCurrentEls();
                     bkIp_.getReadWrite().setBlock(try_.getCatchBlocks().last());
                     return null;
                 }

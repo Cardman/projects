@@ -30,6 +30,7 @@ public abstract class NumericOperation extends MethodOperation {
 
     static Argument calculateAffect(Argument _left,ContextEl _conf, Argument _right, String _op) {
         Argument o_;
+        boolean convert_ = true;
         if (StringList.quickEq(_op, Block.PLUS_EQ)) {
             o_ = NumericOperation.calculateSum(_left, _conf, _right);
         } else if (StringList.quickEq(_op, Block.EQ_PLUS)) {
@@ -56,6 +57,13 @@ public abstract class NumericOperation extends MethodOperation {
             o_ = AddOperation.removeOne(_left, _conf);
         } else {
             o_ = _right;
+            convert_ = false;
+        }
+        if (convert_) {
+            ClassArgumentMatching cl_ = new ClassArgumentMatching(_left.getObjectClassName());
+            Argument converted_ = new Argument();
+            converted_.setStruct(PrimitiveTypeUtil.convertObject(cl_, o_.getObject()));
+            o_ = converted_;
         }
         return o_;
     }

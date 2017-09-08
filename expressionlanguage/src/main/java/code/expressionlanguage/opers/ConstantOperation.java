@@ -62,6 +62,8 @@ public final class ConstantOperation extends OperationNode implements SettableEl
 
     private boolean immutablePart;
 
+    private boolean staticAccess;
+
     private boolean possibleInitClass;
 
     private String argClassName;
@@ -87,8 +89,7 @@ public final class ConstantOperation extends OperationNode implements SettableEl
         analyzeCalculate(_conf);
         if (getArgument() != null) {
             String str_ = getOperations().getValues().getValue(CustList.FIRST_INDEX).trim();
-            boolean static_ = usingPureStaticAccess();
-            setResultClass(new ClassArgumentMatching(argClassName),static_);
+            setResultClass(new ClassArgumentMatching(argClassName),staticAccess);
             getResultClass().setVariable(StringList.quickEq(str_, NULL_REF_STRING));
             return;
         }
@@ -477,11 +478,11 @@ public final class ConstantOperation extends OperationNode implements SettableEl
             Argument left_ = new Argument();
             left_.setStruct(locVar_.getStruct());
             Argument right_ = ip_.getRightArgument();
-            Argument res_;
-            res_ = NumericOperation.calculateAffect(left_, _conf, right_, _op);
-            if (res_.isNull() && locVar_.getClassName().startsWith(PrimitiveTypeUtil.PRIM)) {
+            if (right_.isNull() && locVar_.getClassName().startsWith(PrimitiveTypeUtil.PRIM)) {
                 throw new NullObjectException(_conf.joinPages());
             }
+            Argument res_;
+            res_ = NumericOperation.calculateAffect(left_, _conf, right_, _op);
             locVar_.setStruct(res_.getStruct());
             return res_;
         }
@@ -492,6 +493,9 @@ public final class ConstantOperation extends OperationNode implements SettableEl
         if (fieldId != null) {
             Classes classes_ = _conf.getClasses();
             Argument previous_ = _previous;
+            if (right_.isNull() && fieldMetaInfo.getType().getName().startsWith(PrimitiveTypeUtil.PRIM)) {
+                throw new NullObjectException(_conf.joinPages());
+            }
             if (fieldMetaInfo.isStaticField()) {
                 Struct structField_ = classes_.getStaticField(fieldId);
                 left_.setStruct(structField_);
@@ -509,9 +513,6 @@ public final class ConstantOperation extends OperationNode implements SettableEl
                 left_.setStruct(structField_);
                 res_ = NumericOperation.calculateAffect(left_, _conf, right_, _op);
             }
-            if (res_.isNull() && fieldMetaInfo.getType().getName().startsWith(PrimitiveTypeUtil.PRIM)) {
-                throw new NullObjectException(_conf.joinPages());
-            }
             if (fieldMetaInfo.isStaticField()) {
                 classes_.initializeStaticField(fieldId, res_.getStruct());
             } else {
@@ -527,10 +528,10 @@ public final class ConstantOperation extends OperationNode implements SettableEl
         } else {
             left_.setStruct(new Struct(field_));
         }
-        res_ = NumericOperation.calculateAffect(left_, _conf, right_, _op);
-        if (res_.isNull() && field.getType().isPrimitive()) {
+        if (right_.isNull() && field.getType().isPrimitive()) {
             throw new NullObjectException(_conf.joinPages());
         }
+        res_ = NumericOperation.calculateAffect(left_, _conf, right_, _op);
         ConverterMethod.setField(field, obj_, res_.getObject());
         Argument a_ = _argument;
         return a_;
@@ -747,6 +748,7 @@ public final class ConstantOperation extends OperationNode implements SettableEl
                 }
                 possibleInitClass = true;
             }
+            staticAccess = true;
             a_ = new Argument();
             argClassName = classStr_;
             setArguments(a_);
@@ -759,21 +761,6 @@ public final class ConstantOperation extends OperationNode implements SettableEl
             setSimpleArgument(arg_);
         } catch (RuntimeException _0) {
         }
-    }
-
-    private boolean usingPureStaticAccess() {
-        if (isVararg()) {
-            return false;
-        }
-        Argument a_ = getArgument();
-        if (a_.getObject() != null) {
-            return false;
-        }
-        String str_ = getOperations().getValues().getValue(CustList.FIRST_INDEX).trim();
-        if (StringList.quickEq(str_, NULL_REF_STRING)) {
-            return false;
-        }
-        return true;
     }
 
     private boolean hasDottedPreviousSibling() {

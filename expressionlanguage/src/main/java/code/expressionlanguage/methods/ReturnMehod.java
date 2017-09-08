@@ -130,17 +130,10 @@ public final class ReturnMehod extends Leaf implements CallingFinally {
         if (!isEmpty()) {
             ip_.setOffset(0);
             ip_.setProcessingAttribute(ATTRIBUTE_EXPRESSION);
-            ExpressionLanguage el_;
-            if (!ip_.getCurrentEls().isEmpty()) {
-                el_ = ip_.getCurrentEls().last();
-            } else {
-                el_ = getElRet();
-                ip_.setCurrentBlock(this);
-                ip_.setCurrentEls(new CustList<ExpressionLanguage>(el_));
-            }
+            ExpressionLanguage el_ = ip_.getCurrentEl(this, CustList.FIRST_INDEX, getElRet());
             Argument arg_ = el_.calculateMember(_cont);
             el_.setCurrentOper(null);
-            ip_.getCurrentEls().clear();
+            ip_.clearCurrentEls();
             _cont.getLastPage().setReturnedArgument(arg_);
         } else {
             FunctionBlock f_ = getFunction();

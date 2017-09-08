@@ -403,7 +403,7 @@ public final class FctOperation extends InvokingOperation {
                 CustList<Argument> firstArgs_ = listArguments(chidren_, _arguments, false);
                 StringList called_ = _conf.getLastPage().getCallingConstr().getCalledConstructors();
                 called_.add(superClass_);
-                _conf.getLastPage().getCurrentEls().clear();
+                _conf.getLastPage().clearCurrentEls();
                 Argument global_ = _conf.getLastPage().getGlobalArgument();
                 throw new CustomFoundConstructorException(superClass_, called_, constId, global_, firstArgs_, InstancingStep.USING_SUPER);
             }

@@ -176,16 +176,9 @@ public final class ForEachLoop extends BracedStack implements ForLoop {
 
         ip_.setProcessingAttribute(ATTRIBUTE_EXPRESSION);
         ip_.setOffset(0);
-        ExpressionLanguage el_;
-        if (!ip_.getCurrentEls().isEmpty()) {
-            el_ = ip_.getCurrentEls().last();
-        } else {
-            el_ = getEl();
-            ip_.setCurrentBlock(this);
-            ip_.setCurrentEls(new CustList<ExpressionLanguage>(el_));
-        }
+        ExpressionLanguage el_ = ip_.getCurrentEl(this, CustList.FIRST_INDEX, getEl());
         Object ito_ = el_.calculateMember(_conf).getObject();
-        ip_.getCurrentEls().clear();
+        ip_.clearCurrentEls();
         if (ito_ == null) {
             throw new NullObjectException(_conf.joinPages());
         }

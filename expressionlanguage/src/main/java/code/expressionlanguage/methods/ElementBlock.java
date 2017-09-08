@@ -148,18 +148,11 @@ public final class ElementBlock extends Leaf implements InfoBlock{
             String name_ = getFieldName();
             ip_.setEnumName(name_);
             Struct struct_;
-            ExpressionLanguage el_;
-            if (!ip_.getCurrentEls().isEmpty()) {
-                el_ = ip_.getCurrentEls().last();
-            } else {
-                el_ = getValueEl();
-                ip_.setCurrentBlock(this);
-                ip_.setCurrentEls(new CustList<ExpressionLanguage>(el_));
-            }
+            ExpressionLanguage el_ = ip_.getCurrentEl(this, CustList.FIRST_INDEX, getValueEl());
             Argument arg_ = el_.calculateMember(_cont);
             struct_ = arg_.getStruct();
             el_.setCurrentOper(null);
-            ip_.getCurrentEls().clear();
+            ip_.clearCurrentEls();
             RootBlock r_ = getRooted();
             ClassField staticField_ = new ClassField(r_.getFullName(), name_);
             _cont.getClasses().initializeStaticField(staticField_, struct_);

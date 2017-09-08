@@ -91,17 +91,10 @@ public final class Throwing extends Leaf implements StackableBlock {
         PageEl ip_ = _cont.getLastPage();
         ip_.setOffset(0);
         ip_.setProcessingAttribute(ATTRIBUTE_EXPRESSION);
-        ExpressionLanguage el_;
-        if (!ip_.getCurrentEls().isEmpty()) {
-            el_ = ip_.getCurrentEls().last();
-        } else {
-            el_ = getEl();
-            ip_.setCurrentBlock(this);
-            ip_.setCurrentEls(new CustList<ExpressionLanguage>(el_));
-        }
+        ExpressionLanguage el_ = ip_.getCurrentEl(this, CustList.FIRST_INDEX, getEl());
         Argument arg_ = el_.calculateMember(_cont);
         el_.setCurrentOper(null);
-        ip_.getCurrentEls().clear();
+        ip_.clearCurrentEls();
         Struct o_ = arg_.getStruct();
         if (o_ == null || o_.isNull()) {
             o_ = new Struct(new NullPointerException());

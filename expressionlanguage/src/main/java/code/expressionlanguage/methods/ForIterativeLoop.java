@@ -253,47 +253,28 @@ public final class ForIterativeLoop extends BracedStack implements ForLoop {
         boolean eq_ = isEq();
         ip_.setProcessingAttribute(ATTRIBUTE_INIT);
         ip_.setOffset(0);
-        ExpressionLanguage from_;
-        if (!ip_.getCurrentEls().isEmpty()) {
-            from_ = ip_.getCurrentEls().first();
-        } else {
-            from_ = getInitEl();
-            ip_.setCurrentBlock(this);
-            ip_.setCurrentEls(new CustList<ExpressionLanguage>(from_));
-        }
+        ExpressionLanguage from_ = ip_.getCurrentEl(this, CustList.FIRST_INDEX, getInitEl());
         Argument argFrom_ = from_.calculateMember(_conf);
         if (argFrom_.getObject() == null) {
             throw new DynamicCastClassException(argFrom_.getObjectClassName()+RETURN_LINE+_conf.joinPages());
         }
         ip_.setProcessingAttribute(ATTRIBUTE_EXPRESSION);
         ip_.setOffset(0);
-        ExpressionLanguage to_;
-        if (ip_.getCurrentEls().size() > CustList.ONE_ELEMENT) {
-            to_ = ip_.getCurrentEls().get(CustList.SECOND_INDEX);
-        } else {
-            to_ = getExpressionEl();
-            ip_.getCurrentEls().add(to_);
-        }
+        ExpressionLanguage to_ = ip_.getCurrentEl(this, CustList.SECOND_INDEX, getExpressionEl());
         Argument argTo_ = to_.calculateMember(_conf);
         if (argTo_.getObject() == null) {
             throw new DynamicCastClassException(argTo_.getObjectClassName()+RETURN_LINE+_conf.joinPages());
         }
         ip_.setProcessingAttribute(ATTRIBUTE_STEP);
         ip_.setOffset(0);
-        ExpressionLanguage step_;
-        if (ip_.getCurrentEls().size() > 2) {
-            step_ = ip_.getCurrentEls().last();
-        } else {
-            step_ = getStepEl();
-            ip_.getCurrentEls().add(step_);
-        }
+        ExpressionLanguage step_ = ip_.getCurrentEl(this, CustList.SECOND_INDEX + 1, getStepEl());
         Argument argStep_ = step_.calculateMember(_conf);
         if (argStep_.getObject() == null) {
             throw new DynamicCastClassException(argStep_.getObjectClassName()+RETURN_LINE+_conf.joinPages());
         }
         realFromValue_ = argFrom_.getObject();
         ip_.setCurrentBlock(null);
-        ip_.getCurrentEls().clear();
+        ip_.clearCurrentEls();
         fromValue_ = (Long)PrimitiveTypeUtil.convert(long.class, realFromValue_);
         long toValue_ = (Long)PrimitiveTypeUtil.convert(long.class, argTo_.getObject());
         stepValue_ = (Long)PrimitiveTypeUtil.convert(long.class, argStep_.getObject());

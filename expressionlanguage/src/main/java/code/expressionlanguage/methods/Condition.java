@@ -61,20 +61,13 @@ public abstract class Condition extends BracedStack implements StackableBlockGro
         }
     }
     final boolean evaluateCondition(ContextEl _context) {
-        ExpressionLanguage exp_;
         PageEl last_ = _context.getLastPage();
-        if (!last_.getCurrentEls().isEmpty()) {
-            exp_ = last_.getCurrentEls().last();
-        } else {
-            exp_ = getElCondition();
-            last_.setCurrentBlock(this);
-            last_.setCurrentEls(new CustList<ExpressionLanguage>(exp_));
-        }
+        ExpressionLanguage exp_ = last_.getCurrentEl(this, CustList.FIRST_INDEX, getElCondition());
         last_.setOffset(0);
         last_.setProcessingAttribute(ATTRIBUTE_CONDITION);
         Argument arg_ = exp_.calculateMember(_context);
         exp_.setCurrentOper(null);
-        last_.getCurrentEls().clear();
+        last_.clearCurrentEls();
         return (Boolean) arg_.getObject();
     }
 }

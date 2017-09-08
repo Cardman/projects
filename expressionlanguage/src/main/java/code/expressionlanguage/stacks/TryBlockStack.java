@@ -51,7 +51,7 @@ public final class TryBlockStack extends TryStack implements RemovableVars {
             return;
         }
         if (getLastCatchBlock() instanceof FinallyEval) {
-            _ip.getCurrentEls().clear();
+            _ip.clearCurrentEls();
             _ip.getReadWrite().setBlock(getLastCatchBlock());
             _ip.setFinallyToProcess(true);
             return;

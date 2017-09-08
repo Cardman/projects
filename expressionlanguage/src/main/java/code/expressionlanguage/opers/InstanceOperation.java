@@ -154,7 +154,7 @@ public final class InstanceOperation extends InvokingOperation {
         CustList<ClassArgumentMatching> firstArgs_ = listClasses(chidren_);
         realClassName_ = realClassName_.replace(EXTERN_CLASS, DOT_VAR);
         boolean intern_ = true;
-        if (!isSimpleIntermediateDotted()) {
+        if (!isIntermediateDotted()) {
             intern_ = false;
             if (StringList.isWord(realClassName_)) {
                 needGlobalArgument();
@@ -433,7 +433,7 @@ public final class InstanceOperation extends InvokingOperation {
             }
         }
         CustList<Argument> firstArgs_ = listArguments(chidren_, _arguments, true);
-        if (!isSimpleIntermediateDotted()) {
+        if (!isIntermediateDotted()) {
             Class<?> class_ = null;
             if (StringList.isWord(realClassName_)) {
                 for (Class<?> c:getPreviousResultClass().getDeclaredClasses()) {

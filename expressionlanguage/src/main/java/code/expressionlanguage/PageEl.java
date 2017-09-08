@@ -188,6 +188,18 @@ public final class PageEl {
         return getCallingConstr().getInstancingStep().isInstancing();
     }
 
+    public ExpressionLanguage getCurrentEl(Block _block, int _index, ExpressionLanguage _default) {
+        ExpressionLanguage el_;
+        if (_index < currentEls.size()) {
+            el_ = currentEls.get(_index);
+        } else {
+            el_ = _default;
+            setCurrentBlock(_block);
+            currentEls.add(el_);
+        }
+        return el_;
+    }
+
     public CallConstructor getCallingConstr() {
         return callingConstr;
     }
@@ -212,12 +224,16 @@ public final class PageEl {
         currentBlock = _currentBlock;
     }
 
-    public CustList<ExpressionLanguage> getCurrentEls() {
-        return currentEls;
+    public void clearCurrentEls() {
+        currentEls.clear();
     }
 
-    public void setCurrentEls(CustList<ExpressionLanguage> _currentEls) {
-        currentEls = _currentEls;
+    public ExpressionLanguage getLastEl() {
+        return currentEls.last();
+    }
+
+    public void addCurrentEl(ExpressionLanguage _el) {
+        currentEls.add(_el);
     }
 
     public Argument getReturnedArgument() {

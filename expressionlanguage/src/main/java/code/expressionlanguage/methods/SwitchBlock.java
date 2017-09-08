@@ -132,19 +132,12 @@ public final class SwitchBlock extends BracedStack implements BreakableBlock {
             n_ = n_.getNextSibling();
         }
         if_.setBlock(this);
-        ExpressionLanguage el_;
-        if (!ip_.getCurrentEls().isEmpty()) {
-            el_ = ip_.getCurrentEls().last();
-        } else {
-            el_ = getEl();
-            ip_.setCurrentBlock(this);
-            ip_.setCurrentEls(new CustList<ExpressionLanguage>(el_));
-        }
+        ExpressionLanguage el_ = ip_.getCurrentEl(this, CustList.FIRST_INDEX, getEl());
         ip_.setProcessingAttribute(ATTRIBUTE_VALUE);
         ip_.setOffset(0);
         Argument arg_ =  el_.calculateMember(_cont);
         el_.setCurrentOper(null);
-        ip_.getCurrentEls().clear();
+        ip_.clearCurrentEls();
         if_.setStruct(arg_.getStruct());
         if (if_.getBlocks().isEmpty()) {
             if_.setFinished(true);

@@ -170,6 +170,10 @@ public final class ArrOperation extends MethodOperation implements SettableElRes
         Argument left_ = new Argument();
         left_.setStruct(leftObj_);
         Argument right_ = ip_.getRightArgument();
+        String base_ = PrimitiveTypeUtil.getQuickComponentType(_array.getClassName());
+        if (right_.isNull() && base_.startsWith(PrimitiveTypeUtil.PRIM)) {
+            throw new NullObjectException(_conf.joinPages());
+        }
         Argument res_;
         res_ = NumericOperation.calculateAffect(left_, _conf, right_, _op);
         setElement(_array, o_, res_.getStruct(), _conf, _indexEl);
@@ -227,9 +231,6 @@ public final class ArrOperation extends MethodOperation implements SettableElRes
         }
         if (_value.isNull()) {
             if (_struct.isJavaObject()) {
-                if (arrayInst_.getClass().getComponentType().isPrimitive()) {
-                    throw new NullObjectException(_conf.joinPages());
-                }
                 Array.set(arrayInst_, index_, null);
             } else {
                 Array.set(arrayInst_, index_, new Struct());

@@ -140,21 +140,22 @@ public final class ElUtil {
             a_.setArgument(settable_.calculateSetting(allLeft_, _conf, _op));
         } catch (RuntimeException _0) {
             _left.setCurrentOper(null);
-            _conf.getLastPage().getCurrentEls().clear();
+            _conf.getLastPage().clearCurrentEls();
             throw _0;
         } catch (Error _0) {
             _left.setCurrentOper(null);
-            _conf.getLastPage().getCurrentEls().clear();
+            _conf.getLastPage().clearCurrentEls();
             throw _0;
         }
         _conf.getLastPage().setRightArgument(null);
     }
     public static void tryToCalculateAffect(ExpressionLanguage _left, ContextEl _conf, ExpressionLanguage _right, String _op) {
         CustList<OperationNode> allLeft_ = _left.getOperations();
-        _conf.getLastPage().setCurrentEls(new CustList<ExpressionLanguage>(_left));
+        _conf.getLastPage().clearCurrentEls();
+        _conf.getLastPage().addCurrentEl(_left);
         calculateLeft(allLeft_ , _left, _conf, _op);
         CustList<OperationNode> allRight_ = _right.getOperations();
-        _conf.getLastPage().getCurrentEls().add(_right);
+        _conf.getLastPage().addCurrentEl(_right);
         calculateRight(allRight_, _right,_conf, _op);
         _conf.getLastPage().setRightArgument(_right.getRoot().getArgument());
         SettableElResult settable_ = _left.getSettable();
@@ -162,11 +163,11 @@ public final class ElUtil {
             settable_.calculateSetting(allLeft_, _conf, _op);
         } catch (RuntimeException _0) {
             _left.setCurrentOper(null);
-            _conf.getLastPage().getCurrentEls().clear();
+            _conf.getLastPage().clearCurrentEls();
             throw _0;
         } catch (Error _0) {
             _left.setCurrentOper(null);
-            _conf.getLastPage().getCurrentEls().clear();
+            _conf.getLastPage().clearCurrentEls();
             throw _0;
         }
         _conf.getLastPage().setRightArgument(null);
@@ -450,11 +451,11 @@ public final class ElUtil {
                     throw _0;
                 } catch (RuntimeException _0) {
                     _el.setCurrentOper(null);
-                    _context.getLastPage().getCurrentEls().clear();
+                    _context.getLastPage().clearCurrentEls();
                     throw _0;
                 } catch (Error _0) {
                     _el.setCurrentOper(null);
-                    _context.getLastPage().getCurrentEls().clear();
+                    _context.getLastPage().clearCurrentEls();
                     throw _0;
                 }
             }
@@ -479,11 +480,11 @@ public final class ElUtil {
                     throw _0;
                 } catch (RuntimeException _0) {
                     _el.setCurrentOper(null);
-                    _context.getLastPage().getCurrentEls().clear();
+                    _context.getLastPage().clearCurrentEls();
                     throw _0;
                 } catch (Error _0) {
                     _el.setCurrentOper(null);
-                    _context.getLastPage().getCurrentEls().clear();
+                    _context.getLastPage().clearCurrentEls();
                     throw _0;
                 }
             }
@@ -526,11 +527,11 @@ public final class ElUtil {
                     throw _0;
                 } catch (RuntimeException _0) {
                     _el.setCurrentOper(null);
-                    _context.getLastPage().getCurrentEls().clear();
+                    _context.getLastPage().clearCurrentEls();
                     throw _0;
                 } catch (Error _0) {
                     _el.setCurrentOper(null);
-                    _context.getLastPage().getCurrentEls().clear();
+                    _context.getLastPage().clearCurrentEls();
                     throw _0;
                 }
             }
@@ -562,11 +563,11 @@ public final class ElUtil {
                     throw _0;
                 } catch (RuntimeException _0) {
                     _el.setCurrentOper(null);
-                    _context.getLastPage().getCurrentEls().clear();
+                    _context.getLastPage().clearCurrentEls();
                     throw _0;
                 } catch (Error _0) {
                     _el.setCurrentOper(null);
-                    _context.getLastPage().getCurrentEls().clear();
+                    _context.getLastPage().clearCurrentEls();
                     throw _0;
                 }
             }

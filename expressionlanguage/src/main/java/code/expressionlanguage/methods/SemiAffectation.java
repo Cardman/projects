@@ -107,25 +107,18 @@ public final class SemiAffectation extends Leaf implements StackableBlock {
         String op_ = getOper();
         ip_.setProcessingAttribute(ATTRIBUTE_LEFT);
         ip_.setOffset(0);
-        ExpressionLanguage el_ = getLeftEl();
-        if (!ip_.getCurrentEls().isEmpty()) {
-            el_ = ip_.getCurrentEls().first();
-        } else {
-            el_ = getLeftEl();
-            ip_.setCurrentBlock(this);
-            ip_.setCurrentEls(new CustList<ExpressionLanguage>(el_));
-        }
-        el_.affectLeftMember(_cont, op_);
+        ExpressionLanguage elLeft_ = ip_.getCurrentEl(this, CustList.FIRST_INDEX, getLeftEl());
+        elLeft_.affectLeftMember(_cont, op_);
         ip_.setProcessingAttribute(ATTRIBUTE_RIGHT);
         ip_.setOffset(0);
-        el_ = getRightEl();
-        ip_.getCurrentEls().add(el_);
+        ExpressionLanguage el_ = getRightEl();
+        ip_.addCurrentEl(el_);
         el_.affectRightMember(_cont, op_);
         ip_.setProcessingAttribute(ATTRIBUTE_LEFT);
         ip_.setOffset(0);
-        ip_.getCurrentEls().first().affectAllMember(_cont, op_);
+        elLeft_.affectAllMember(_cont, op_);
         el_.setCurrentOper(null);
-        ip_.getCurrentEls().clear();
+        ip_.clearCurrentEls();
         processBlock(_cont);
     }
 }

@@ -138,17 +138,10 @@ public final class CaseCondition extends BracedStack implements StackableBlockGr
         } else {
             ip_.setProcessingAttribute(ATTRIBUTE_VALUE);
             ip_.setOffset(0);
-            ExpressionLanguage el_;
-            if (!ip_.getCurrentEls().isEmpty()) {
-                el_ = ip_.getCurrentEls().last();
-            } else {
-                el_ = getValueEl();
-                ip_.setCurrentBlock(this);
-                ip_.setCurrentEls(new CustList<ExpressionLanguage>(el_));
-            }
+            ExpressionLanguage el_ = ip_.getCurrentEl(this, CustList.FIRST_INDEX, getValueEl());
             Argument arg_ = el_.calculateMember(_cont);
             el_.setCurrentOper(null);
-            ip_.getCurrentEls().clear();
+            ip_.clearCurrentEls();
             boolean enter_ = false;
             if (str_.isNull()) {
                 if (arg_.getObject() == null) {
