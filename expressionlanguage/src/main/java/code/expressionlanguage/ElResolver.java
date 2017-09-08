@@ -1552,10 +1552,6 @@ public final class ElResolver {
                         j_++;
                         continue;
                     }
-                    if (_string.charAt(j_) == GET_VAR) {
-                        j_++;
-                        continue;
-                    }
                     staticAccess_ = false;
                     break;
                 }

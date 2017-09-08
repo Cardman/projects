@@ -154,11 +154,10 @@ public final class InstanceOperation extends InvokingOperation {
         CustList<ClassArgumentMatching> firstArgs_ = listClasses(chidren_);
         realClassName_ = realClassName_.replace(EXTERN_CLASS, DOT_VAR);
         boolean intern_ = true;
-        if (isFirstChild() || !(getParent() instanceof DotOperation)) {
+        if (!isSimpleIntermediateDotted()) {
             intern_ = false;
             if (StringList.isWord(realClassName_)) {
-                setNeedPrevious(true);
-                setResetablePreviousArg(true);
+                needGlobalArgument();
                 ClassArgumentMatching arg_ = getPreviousResultClass();
                 if (arg_ == null) {
                     throw new NullGlobalObjectException(realClassName_+RETURN_LINE+_conf.joinPages());
@@ -178,8 +177,6 @@ public final class InstanceOperation extends InvokingOperation {
             analyzeCtor(_nodes, _conf, _enumContext, _op, realClassName_, firstArgs_, intern_);
             return;
         }
-        setNeedPrevious(true);
-        setResetablePreviousArg(true);
         ClassArgumentMatching arg_ = getPreviousResultClass();
         if (arg_ == null) {
             throw new NullGlobalObjectException(realClassName_+RETURN_LINE+_conf.joinPages());
@@ -436,7 +433,7 @@ public final class InstanceOperation extends InvokingOperation {
             }
         }
         CustList<Argument> firstArgs_ = listArguments(chidren_, _arguments, true);
-        if (isFirstChild() || !(getParent() instanceof DotOperation)) {
+        if (!isSimpleIntermediateDotted()) {
             Class<?> class_ = null;
             if (StringList.isWord(realClassName_)) {
                 for (Class<?> c:getPreviousResultClass().getDeclaredClasses()) {
@@ -453,8 +450,8 @@ public final class InstanceOperation extends InvokingOperation {
     Argument getArg(Argument _previous, Class<?> _class,CustList<Argument> _arguments,
             boolean _processInit, ContextEl _conf) {
         Argument needed_ = null;
-        Argument arg_ = _previous;
         if (_class != null && !Modifier.isStatic(_class.getModifiers())) {
+            Argument arg_ = _previous;
             if (arg_.isNull()) {
                 throw new NullObjectException(_class.getName()+RETURN_LINE+_conf.joinPages());
             }

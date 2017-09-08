@@ -16,4 +16,9 @@ public final class AndOperation extends QuickOperation {
         getChildren().putAllMap(vs_);
     }
 
+    @Override
+    boolean absorbingValue() {
+        return false;
+    }
+
 }

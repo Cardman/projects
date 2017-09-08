@@ -136,10 +136,6 @@ public final class ElUtil {
         SettableElResult settable_ = _left.getSettable();
         OperationNode op_ = (OperationNode) settable_;
         ArgumentsPair a_ = allLeft_.getVal(op_);
-        Argument arg_ = _conf.getLastPage().getGlobalArgument();
-        if (op_.isNeedPrevious() && a_.getPreviousArgument() == null) {
-            a_.setPreviousArgument(arg_);
-        }
         try {
             a_.setArgument(settable_.calculateSetting(allLeft_, _conf, _op));
         } catch (RuntimeException _0) {
@@ -162,11 +158,6 @@ public final class ElUtil {
         calculateRight(allRight_, _right,_conf, _op);
         _conf.getLastPage().setRightArgument(_right.getRoot().getArgument());
         SettableElResult settable_ = _left.getSettable();
-        OperationNode op_ = (OperationNode) settable_;
-        Argument arg_ = _conf.getLastPage().getGlobalArgument();
-        if (op_.isNeedPrevious() && op_.getPreviousArgument() == null) {
-            op_.setPreviousArgument(arg_);
-        }
         try {
             settable_.calculateSetting(allLeft_, _conf, _op);
         } catch (RuntimeException _0) {
@@ -411,7 +402,7 @@ public final class ElUtil {
         Argument arg_ = _context.getLastPage().getGlobalArgument();
         for (OperationNode e: _nodes) {
             if (!e.isCalculated()) {
-                if (e.isNeedPrevious() && e.getPreviousArgument() == null) {
+                if (e.isNeedGlobalArgument()) {
                     e.setPreviousArgument(arg_);
                 }
                 e.calculateLeft(_nodes, _context, _op);
@@ -422,7 +413,7 @@ public final class ElUtil {
         Argument arg_ = _context.getLastPage().getGlobalArgument();
         for (OperationNode e: _nodes) {
             if (!e.isCalculated()) {
-                if (e.isNeedPrevious() && e.getPreviousArgument() == null) {
+                if (e.isNeedGlobalArgument()) {
                     e.setPreviousArgument(arg_);
                 }
                 e.calculateRight(_nodes, _context, _op);
@@ -444,7 +435,7 @@ public final class ElUtil {
         Argument arg_ = _context.getLastPage().getGlobalArgument();
         for (OperationNode e: _nodes) {
             if (!e.isCalculated()) {
-                if (e.isNeedPrevious() && e.getPreviousArgument() == null) {
+                if (e.isNeedGlobalArgument()) {
                     e.setPreviousArgument(arg_);
                 }
                 try {
@@ -473,7 +464,7 @@ public final class ElUtil {
         Argument arg_ = _context.getLastPage().getGlobalArgument();
         for (OperationNode e: _nodes) {
             if (!e.isCalculated()) {
-                if (e.isNeedPrevious() && e.getPreviousArgument() == null) {
+                if (e.isNeedGlobalArgument()) {
                     e.setPreviousArgument(arg_);
                 }
                 try {
@@ -516,7 +507,7 @@ public final class ElUtil {
             OperationNode o = e.getKey();
             if (!o.isCalculated(_nodes)) {
                 ArgumentsPair a_ = e.getValue();
-                if (o.isNeedPrevious() && a_.getPreviousArgument() == null) {
+                if (o.isNeedGlobalArgument()) {
                     a_.setPreviousArgument(arg_);
                 }
                 try {
@@ -552,7 +543,7 @@ public final class ElUtil {
             OperationNode o = e.getKey();
             if (!o.isCalculated(_nodes)) {
                 ArgumentsPair a_ = e.getValue();
-                if (o.isNeedPrevious() && a_.getPreviousArgument() == null) {
+                if (o.isNeedGlobalArgument()) {
                     a_.setPreviousArgument(arg_);
                 }
                 try {

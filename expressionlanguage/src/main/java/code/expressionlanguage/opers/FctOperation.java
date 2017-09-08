@@ -211,8 +211,7 @@ public final class FctOperation extends InvokingOperation {
             setResultClass(clMatchTwo_);
             return;
         }
-        setNeedPrevious(true);
-        setResetablePreviousArg(true);
+        needGlobalArgument();
         CustList<ClassArgumentMatching> firstArgs_ = listClasses(chidren_);
         ClassArgumentMatching clCur_ = getPreviousResultClass();
         String clCurName_;

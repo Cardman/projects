@@ -84,4 +84,6 @@ public abstract class QuickOperation extends PrimitiveBoolOperation {
         Argument a_ = chidren_.last().getArgument();
         setSimpleArgument(a_, _conf);
     }
+
+    abstract boolean absorbingValue();
 }

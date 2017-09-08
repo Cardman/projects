@@ -176,10 +176,6 @@ public abstract class OperationNode implements SortedNode<OperationNode>, Operab
 
     private OperationNode nextSibling;
 
-    private boolean resetablePreviousArg = true;
-
-    private boolean resetableArg = true;
-
     private Argument previousArgument;
 
     private Argument argument;
@@ -199,7 +195,7 @@ public abstract class OperationNode implements SortedNode<OperationNode>, Operab
     private ClassArgumentMatching previousResultClass;
     private ClassArgumentMatching resultClass;
 
-    private boolean needPrevious;
+    private boolean needGlobalArgument;
     private boolean staticAccess;
 
     OperationNode(String _el, int _indexInEl, ContextEl _importingPage, int _indexChild, MethodOperation _m, OperationsSequence _op) {
@@ -282,6 +278,19 @@ public abstract class OperationNode implements SortedNode<OperationNode>, Operab
             return new OrOperation(value_, _index, _conf, _indexChild, _m, _op);
         }
         return null;
+    }
+
+    final boolean isIntermediateDotted() {
+        MethodOperation par_ = getParent();
+        if (par_ instanceof ArrOperation && isFirstChild()) {
+            return par_.isSimpleIntermediateDotted();
+        }
+        return isSimpleIntermediateDotted();
+    }
+
+    final boolean isSimpleIntermediateDotted() {
+        MethodOperation par_ = getParent();
+        return !isFirstChild() && par_ instanceof DotOperation;
     }
 
     abstract boolean isFirstChild();
@@ -1470,65 +1479,60 @@ public abstract class OperationNode implements SortedNode<OperationNode>, Operab
     }
 
     final void setNextSiblingsArg(Argument _arg, ContextEl _cont) {
+        if (!processBooleanValues(_arg, _cont)) {
+            return;
+        }
         MethodOperation par_ = getParent();
         Object o_ = _arg.getObject();
-        if (o_ == null) {
-            if (par_ instanceof QuickOperation) {
-                setRelativeOffsetPossibleLastPage(getIndexInEl(), _cont);
-                throw new NullObjectException(_cont.joinPages());
-            }
-            return;
-        }
-        if (!(o_ instanceof Boolean)) {
-            return;
-        }
         Boolean b_ = (Boolean) o_;
-        boolean ternaryParent_ = false;
-        if (par_ instanceof FctOperation) {
-            FctOperation op_ = (FctOperation) par_;
-            ternaryParent_ = op_.isTernary();
-        }
-        if (!ternaryParent_ && !(par_ instanceof QuickOperation)) {
+        int index_ = getTernary(_arg);
+        if (index_ > 0) {
+            CustList<OperationNode> l_ = ElUtil.getDirectChildren(par_);
+            OperationNode opElt_ = (OperationNode) l_.get(index_);
+            opElt_.setSimpleArgument(_arg);
             return;
         }
-        if (b_) {
-            if (ternaryParent_) {
-                CustList<OperationNode> l_ = ElUtil.getDirectChildren(par_);
-                OperationNode opElt_ = (OperationNode) l_.last();
-                opElt_.setSimpleArgument(_arg);
-                return;
+        QuickOperation q_ = (QuickOperation) par_;
+        if (b_ == q_.absorbingValue()) {
+            CustList<OperationNode> opers_ = new CustList<OperationNode>();
+            for (OperationNode s: ElUtil.getDirectChildren(par_)) {
+                opers_.add(s);
             }
-            if (par_ instanceof OrOperation) {
-                CustList<OperationNode> opers_ = new CustList<OperationNode>();
-                for (OperationNode s: ElUtil.getDirectChildren(par_)) {
-                    opers_.add(s);
-                }
-                int len_ = opers_.size();
-                for (int i = getIndexChild() + 1; i < len_; i++) {
-                    opers_.get(i).setSimpleArgument(_arg);
-                }
-            }
-        } else {
-            if (ternaryParent_) {
-                CustList<OperationNode> l_ = ElUtil.getDirectChildren(par_);
-                OperationNode opElt_ = (OperationNode) l_.get(CustList.SECOND_INDEX);
-                opElt_.setSimpleArgument(_arg);
-                return;
-            }
-            if (par_ instanceof AndOperation) {
-                CustList<OperationNode> opers_ = new CustList<OperationNode>();
-                for (OperationNode s: ElUtil.getDirectChildren(par_)) {
-                    opers_.add(s);
-                }
-                int len_ = opers_.size();
-                for (int i = getIndexChild() + 1; i < len_; i++) {
-                    opers_.get(i).setSimpleArgument(_arg);
-                }
+            int len_ = opers_.size();
+            for (int i = getIndexChild() + 1; i < len_; i++) {
+                opers_.get(i).setSimpleArgument(_arg);
             }
         }
     }
 
     final void setNextSiblingsArg(Argument _arg, ContextEl _cont, IdMap<OperationNode, ArgumentsPair> _nodes) {
+        if (!processBooleanValues(_arg, _cont)) {
+            return;
+        }
+        Object o_ = _arg.getObject();
+        MethodOperation par_ = getParent();
+        Boolean b_ = (Boolean) o_;
+        int index_ = getTernary(_arg);
+        if (index_ > 0) {
+            CustList<OperationNode> l_ = ElUtil.getDirectChildren(par_);
+            OperationNode opElt_ = (OperationNode) l_.get(index_);
+            _nodes.getVal(opElt_).setArgument(_arg);
+            return;
+        }
+        QuickOperation q_ = (QuickOperation) par_;
+        if (b_ == q_.absorbingValue()) {
+            CustList<OperationNode> opers_ = new CustList<OperationNode>();
+            for (OperationNode s: ElUtil.getDirectChildren(par_)) {
+                opers_.add(s);
+            }
+            int len_ = opers_.size();
+            for (int i = getIndexChild() + 1; i < len_; i++) {
+                _nodes.getVal(opers_.get(i)).setArgument(_arg);
+            }
+        }
+    }
+
+    final boolean processBooleanValues(Argument _arg, ContextEl _cont) {
         Object o_ = _arg.getObject();
         MethodOperation par_ = getParent();
         if (o_ == null) {
@@ -1536,57 +1540,34 @@ public abstract class OperationNode implements SortedNode<OperationNode>, Operab
                 setRelativeOffsetPossibleLastPage(getIndexInEl(), _cont);
                 throw new NullObjectException(_cont.joinPages());
             }
-            return;
+            return false;
         }
         if (!(o_ instanceof Boolean)) {
-            return;
+            return false;
         }
-        Boolean b_ = (Boolean) o_;
+        if (!(par_ instanceof QuickOperation)) {
+            return getTernary(_arg) > 0;
+        }
+        return true;
+    }
+
+    final int getTernary(Argument _arg) {
+        Object o_ = _arg.getObject();
         boolean ternaryParent_ = false;
+        MethodOperation par_ = getParent();
         if (par_ instanceof FctOperation) {
             FctOperation op_ = (FctOperation) par_;
             ternaryParent_ = op_.isTernary();
         }
-        if (!ternaryParent_ && !(par_ instanceof QuickOperation)) {
-            return;
+        if (!ternaryParent_) {
+            return 0;
         }
+        Boolean b_ = (Boolean) o_;
         if (b_) {
-            if (ternaryParent_) {
-                CustList<OperationNode> l_ = ElUtil.getDirectChildren(par_);
-                OperationNode opElt_ = (OperationNode) l_.last();
-                _nodes.getVal(opElt_).setArgument(_arg);
-                return;
-            }
-            if (par_ instanceof OrOperation) {
-                CustList<OperationNode> opers_ = new CustList<OperationNode>();
-                for (OperationNode s: ElUtil.getDirectChildren(par_)) {
-                    opers_.add(s);
-                }
-                int len_ = opers_.size();
-                for (int i = getIndexChild() + 1; i < len_; i++) {
-                    _nodes.getVal(opers_.get(i)).setArgument(_arg);
-                }
-            }
-        } else {
-            if (ternaryParent_) {
-                CustList<OperationNode> l_ = ElUtil.getDirectChildren(par_);
-                OperationNode opElt_ = (OperationNode) l_.get(CustList.SECOND_INDEX);
-                _nodes.getVal(opElt_).setArgument(_arg);
-                return;
-            }
-            if (par_ instanceof AndOperation) {
-                CustList<OperationNode> opers_ = new CustList<OperationNode>();
-                for (OperationNode s: ElUtil.getDirectChildren(par_)) {
-                    opers_.add(s);
-                }
-                int len_ = opers_.size();
-                for (int i = getIndexChild() + 1; i < len_; i++) {
-                    _nodes.getVal(opers_.get(i)).setArgument(_arg);
-                }
-            }
+            return 2;
         }
+        return 1;
     }
-
     @Override
     public final MethodOperation getParent() {
         return parent;
@@ -1638,22 +1619,6 @@ public abstract class OperationNode implements SortedNode<OperationNode>, Operab
         return staticAccess;
     }
 
-    public final boolean isResetablePreviousArg() {
-        return resetablePreviousArg;
-    }
-
-    public final void setResetablePreviousArg(boolean _resetablePreviousArg) {
-        resetablePreviousArg = _resetablePreviousArg;
-    }
-
-    public final boolean isResetableArg() {
-        return resetableArg;
-    }
-
-    public final void setResetableArg(boolean _resetableArg) {
-        resetableArg = _resetableArg;
-    }
-
     public final Argument getPreviousArgument() {
         return previousArgument;
     }
@@ -1666,65 +1631,32 @@ public abstract class OperationNode implements SortedNode<OperationNode>, Operab
         return argument;
     }
 
-    public final void resetArguments() {
-        if (resetableArg) {
-            argument = null;
-        }
-        if (resetablePreviousArg) {
-            previousArgument = null;
-        }
-    }
-
     public final void setSimpleArgument(Argument _argument) {
         argument = _argument;
     }
 
-    public final void setSimpleArgument(Argument _argument, boolean _resetable) {
+    public final void setArguments(Argument _argument) {
         argument = _argument;
-        resetableArg = _resetable;
-        OperationNode n_ = getNextSibling();
+        OperationNode n_ = getSiblingToSet();
         if (n_ == null) {
             return;
         }
-        if (!(getParent() instanceof DotOperation)) {
-            return;
-        }
-        if (n_ instanceof ArrOperation) {
-            OperationNode f_ = n_.getFirstChild();
-            f_.setPreviousArgument(_argument);
-            f_.resetablePreviousArg = _resetable;
-        } else {
-            n_.setPreviousArgument(_argument);
-            n_.resetablePreviousArg = _resetable;
-        }
+        n_.setPreviousArgument(_argument);
     }
 
-    //TODO look for uses of following method
     public final void setSimpleArgument(Argument _argument, ContextEl _conf, IdMap<OperationNode, ArgumentsPair> _nodes) {
-        OperationNode n_ = getNextSibling();
+        OperationNode n_ = getSiblingToSet();
         if (n_ != null) {
-            if (getParent() instanceof DotOperation) {
-                if (n_ instanceof ArrOperation) {
-                    n_.getFirstChild().setPreviousArgument(_argument);
-                } else {
-                    _nodes.getVal(n_).setPreviousArgument(_argument);
-                }
-            }
+            _nodes.getVal(n_).setPreviousArgument(_argument);
         }
         setNextSiblingsArg(_argument, _conf, _nodes);
     }
 
     public final void setSimpleArgument(Argument _argument, ContextEl _conf) {
         argument = _argument;
-        OperationNode n_ = getNextSibling();
+        OperationNode n_ = getSiblingToSet();
         if (n_ != null) {
-            if (getParent() instanceof DotOperation) {
-                if (n_ instanceof ArrOperation) {
-                    n_.getFirstChild().setPreviousArgument(_argument);
-                } else {
-                    n_.setPreviousArgument(_argument);
-                }
-            }
+            n_.setPreviousArgument(_argument);
         }
         setNextSiblingsArg(_argument, _conf);
     }
@@ -1752,43 +1684,48 @@ public abstract class OperationNode implements SortedNode<OperationNode>, Operab
 
     public final void setResultClass(ClassArgumentMatching _resultClass) {
         resultClass = _resultClass;
-        OperationNode n_ = getNextSibling();
+        OperationNode n_ = getSiblingToSet();
         if (n_ == null) {
             return;
         }
-        if (getParent() instanceof DotOperation) {
-            if (n_ instanceof ArrOperation) {
-                n_.getFirstChild().setPreviousResultClass(resultClass);
-            } else {
-                n_.setPreviousResultClass(resultClass);
-            }
-        }
+        n_.setPreviousResultClass(resultClass);
     }
 
     public final void setResultClass(ClassArgumentMatching _resultClass, boolean _staticPrevious) {
         resultClass = _resultClass;
-        OperationNode n_ = getNextSibling();
+        OperationNode n_ = getSiblingToSet();
         if (n_ == null) {
             return;
         }
-        if (getParent() instanceof DotOperation) {
-            if (n_ instanceof ArrOperation) {
-                n_.getFirstChild().setPreviousResultClass(resultClass, _staticPrevious);
-            } else {
-                n_.setPreviousResultClass(resultClass, _staticPrevious);
-            }
+        n_.setPreviousResultClass(resultClass, _staticPrevious);
+    }
+
+    final OperationNode getSiblingToSet() {
+        OperationNode n_ = getNextSibling();
+        if (n_ == null) {
+            return null;
         }
+        if (!(getParent() instanceof DotOperation)) {
+            return null;
+        }
+        if (n_ instanceof ArrOperation) {
+            return n_.getFirstChild();
+        }
+        return n_;
     }
 
     protected final OperationNode getPreviousSibling() {
         return previousSibling;
     }
 
-    public final boolean isNeedPrevious() {
-        return needPrevious;
+    public final boolean isNeedGlobalArgument() {
+        return needGlobalArgument;
     }
-
-    public final void setNeedPrevious(boolean _needPrevious) {
-        needPrevious = _needPrevious;
+    
+    public final void needGlobalArgument() {
+        if (isIntermediateDotted()) {
+            return;
+        }
+        needGlobalArgument = true;
     }
 }

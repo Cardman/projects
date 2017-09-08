@@ -118,8 +118,7 @@ public final class ConstantOperation extends OperationNode implements SettableEl
             Classes classes_ = _conf.getClasses();
             ClassMetaInfo custClass_ = null;
             if (classes_ != null) {
-                setNeedPrevious(true);
-                setResetablePreviousArg(true);
+                needGlobalArgument();
                 ClassArgumentMatching cl_ = getPreviousResultClass();
                 String clCurName_;
                 if (str_.contains(STATIC_CALL)) {
@@ -244,8 +243,7 @@ public final class ConstantOperation extends OperationNode implements SettableEl
             }
             throw new UndefinedVariableException(_conf.joinPages(), key_, ATTRIBUTE);
         }
-        setNeedPrevious(true);
-        setResetablePreviousArg(true);
+        needGlobalArgument();
         ClassArgumentMatching cl_ = getPreviousResultClass();
         if (cl_ == null) {
             throw new NullGlobalObjectException(_conf.joinPages());
@@ -551,25 +549,25 @@ public final class ConstantOperation extends OperationNode implements SettableEl
             Argument a_ = new Argument();
             checkExist(_cont, str_, true, false, 0);
             argClassName = str_;
-            setSimpleArgument(a_, false);
+            setSimpleArgument(a_);
             return;
         }
         Argument a_ = new Argument();
         if (StringList.quickEq(str_, TRUE_STRING)) {
             argClassName = PrimitiveTypeUtil.PRIM_BOOLEAN;
             a_.setObject(true);
-            setSimpleArgument(a_, false);
+            setSimpleArgument(a_);
             return;
         }
         if (StringList.quickEq(str_, FALSE_STRING)) {
             argClassName = PrimitiveTypeUtil.PRIM_BOOLEAN;
             a_.setObject(false);
-            setSimpleArgument(a_, false);
+            setSimpleArgument(a_);
             return;
         }
         if (StringList.quickEq(str_, NULL_REF_STRING)) {
             argClassName = Object.class.getName();
-            setSimpleArgument(a_, false);
+            setSimpleArgument(a_);
             return;
         }
         if (str_.startsWith(String.valueOf(DELIMITER_STRING))) {
@@ -640,7 +638,7 @@ public final class ConstantOperation extends OperationNode implements SettableEl
             }
             argClassName = String.class.getName();
             a_.setObject(strBuilder_.toString());
-            setSimpleArgument(a_, false);
+            setSimpleArgument(a_);
             return;
         }
         if (str_.startsWith(String.valueOf(DELIMITER_CHAR))) {
@@ -717,7 +715,7 @@ public final class ConstantOperation extends OperationNode implements SettableEl
                 strBuilder_.append(c);
             }
             a_.setObject(strBuilder_.toString().charAt(0));
-            setSimpleArgument(a_, false);
+            setSimpleArgument(a_);
             return;
         }
         StringList sepWords_ = StringList.getWordsSeparators(str_);
@@ -751,14 +749,14 @@ public final class ConstantOperation extends OperationNode implements SettableEl
             }
             a_ = new Argument();
             argClassName = classStr_;
-            setSimpleArgument(a_, false);
+            setArguments(a_);
             return;
         }
         try {
             str_ = StringList.removeAllSpaces(str_);
             argClassName = Argument.getArgClassNameOf(str_);
             Argument arg_ = Argument.numberToArgument(str_);
-            setSimpleArgument(arg_, false);
+            setSimpleArgument(arg_);
         } catch (RuntimeException _0) {
         }
     }
