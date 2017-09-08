@@ -4,7 +4,7 @@ import java.util.Comparator;
 import code.util.StringMap;
 import aiki.DataBase;
 
-public class ComparatorTrStrings implements Comparator<String> {
+public final class ComparatorTrStrings implements Comparator<String> {
 
     private StringMap<String> translator;
 

@@ -5,7 +5,7 @@ import code.util.CustList;
 import code.util.Numbers;
 import aiki.map.util.PlaceLevel;
 
-public class ComparatorPlaceLevel implements Comparator<PlaceLevel> {
+public final class ComparatorPlaceLevel implements Comparator<PlaceLevel> {
 
     @Override
     public int compare(PlaceLevel _o1, PlaceLevel _o2) {

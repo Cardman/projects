@@ -9,7 +9,7 @@ import code.util.pagination.FieldCustComparator;
 import code.util.pagination.Pagination;
 import aiki.util.SortingItem;
 
-public class ComparatorItem implements Comparator<SortingItem> {
+public final class ComparatorItem implements Comparator<SortingItem> {
 
     private FieldComparator<String> cmpName = new FieldComparator<String>();
 

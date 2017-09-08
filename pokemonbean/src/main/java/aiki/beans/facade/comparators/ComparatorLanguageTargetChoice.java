@@ -11,7 +11,7 @@ import aiki.DataBase;
 import aiki.beans.help.LanguageElementKey;
 import aiki.fight.moves.enums.TargetChoice;
 
-public class ComparatorLanguageTargetChoice implements Comparator<LanguageElementKey<TargetChoice>> {
+public final class ComparatorLanguageTargetChoice implements Comparator<LanguageElementKey<TargetChoice>> {
 
     private EnumMap<TargetChoice,String> translatorCurrentLanguage;
 

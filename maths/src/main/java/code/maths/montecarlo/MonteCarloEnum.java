@@ -9,7 +9,7 @@ import code.util.annot.CapacityInit;
 import code.util.annot.RwXml;
 
 @RwXml
-public class MonteCarloEnum<E extends Enum<E>> extends AbMonteCarlo<E> {
+public final class MonteCarloEnum<E extends Enum<E>> extends AbMonteCarlo<E> {
 
     private EnumMap<E,LgInt> law;
 

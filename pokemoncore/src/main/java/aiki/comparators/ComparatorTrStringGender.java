@@ -5,7 +5,7 @@ import code.util.EnumMap;
 import aiki.DataBase;
 import aiki.map.pokemon.enums.Gender;
 
-public class ComparatorTrStringGender implements Comparator<Gender> {
+public final class ComparatorTrStringGender implements Comparator<Gender> {
 
     private EnumMap<Gender,String> translator;
 

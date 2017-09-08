@@ -15,7 +15,7 @@ import aiki.game.fight.FightFacade;
 import aiki.game.fight.Fighter;
 import aiki.game.fight.TeamPosition;
 
-public class SortedFighterMoveActsComparator implements
+public final class SortedFighterMoveActsComparator implements
         Comparator<TeamPosition> {
 
     private Fight fight;

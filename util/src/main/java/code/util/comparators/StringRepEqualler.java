@@ -3,7 +3,7 @@ package code.util.comparators;
 import code.util.StringList;
 import code.util.ints.Equaller;
 
-public class StringRepEqualler<T> implements Equaller<T> {
+public final class StringRepEqualler<T> implements Equaller<T> {
 
     @Override
     public boolean eq(T _one, T _two) {

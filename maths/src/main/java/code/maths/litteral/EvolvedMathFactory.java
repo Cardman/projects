@@ -4,7 +4,7 @@ import code.maths.Rate;
 import code.util.StringMap;
 import code.util.ints.AdvancedMathFactory;
 
-public class EvolvedMathFactory implements AdvancedMathFactory<Rate,EvolvedNumString,EvolvedBooleanString > {
+public final class EvolvedMathFactory implements AdvancedMathFactory<Rate,EvolvedNumString,EvolvedBooleanString > {
 
     @Override
     public Rate evaluateDirectlyRate(String _numExp) {
@@ -64,7 +64,7 @@ public class EvolvedMathFactory implements AdvancedMathFactory<Rate,EvolvedNumSt
     }
 
     @Override
-    public Rate evaluate(String _numericString, StringMap<String> _variables,
+    public Rate evaluateNumericable(String _numericString, StringMap<String> _variables,
             Rate _default) {
         try {
             return (Rate) MathUtil.processEl(_numericString, 0, false, _variables).getObject();
@@ -108,7 +108,7 @@ public class EvolvedMathFactory implements AdvancedMathFactory<Rate,EvolvedNumSt
     }
 
     @Override
-    public Boolean evaluate(String _booleanString,
+    public Boolean evaluateBoolean(String _booleanString,
             StringMap<String> _variables, Boolean _default) {
         try {
             return (Boolean) MathUtil.processEl(_booleanString, 0, false, _variables).getObject();

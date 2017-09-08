@@ -4,7 +4,7 @@ import java.util.Comparator;
 import code.util.CustList;
 import code.util.SortableCustList;
 
-public class ComparatorEvents implements Comparator<SortableCustList<LgInt>> {
+public final class ComparatorEvents implements Comparator<SortableCustList<LgInt>> {
 
     @Override
     public int compare(SortableCustList<LgInt> _o1, SortableCustList<LgInt> _o2) {

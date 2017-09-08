@@ -4,7 +4,7 @@ import java.util.Comparator;
 import code.expressionlanguage.methods.util.ClassEdge;
 import code.util.Numbers;
 
-public class ComparatorClassEdge implements Comparator<ClassEdge> {
+public final class ComparatorClassEdge implements Comparator<ClassEdge> {
 
     @Override
     public int compare(ClassEdge _o1, ClassEdge _o2) {

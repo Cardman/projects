@@ -5,7 +5,7 @@ import code.util.EnumMap;
 import aiki.DataBase;
 import aiki.map.levels.enums.EnvironmentType;
 
-public class ComparatorTrStringEnv implements Comparator<EnvironmentType> {
+public final class ComparatorTrStringEnv implements Comparator<EnvironmentType> {
 
     private EnumMap<EnvironmentType,String> translator;
 

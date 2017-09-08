@@ -6,7 +6,7 @@ import code.util.Numbers;
 import aiki.map.DataMap;
 import aiki.map.places.Place;
 
-public class ComparatorPlaceNumber implements Comparator<Short> {
+public final class ComparatorPlaceNumber implements Comparator<Short> {
 
     private DataMap dataMap;
 

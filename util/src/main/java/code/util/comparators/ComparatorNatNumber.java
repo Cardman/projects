@@ -3,7 +3,7 @@ import java.util.Comparator;
 
 import code.util.Numbers;
 
-public class ComparatorNatNumber<T extends Number> implements Comparator<T> {
+public final class ComparatorNatNumber<T extends Number> implements Comparator<T> {
 
     @Override
     public int compare(T _o1, T _o2) {

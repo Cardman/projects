@@ -4,7 +4,7 @@ import java.util.Comparator;
 import code.util.Numbers;
 import aiki.fight.enums.Statistic;
 
-public class ComparatorStatistic implements Comparator<Statistic> {
+public final class ComparatorStatistic implements Comparator<Statistic> {
 
     @Override
     public int compare(Statistic _arg0, Statistic _arg1) {

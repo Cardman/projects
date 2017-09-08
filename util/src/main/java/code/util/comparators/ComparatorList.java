@@ -5,7 +5,7 @@ import code.util.AbEqList;
 import code.util.CustList;
 import code.util.exceptions.NullComparatorException;
 
-public class ComparatorList<K> implements Comparator<AbEqList<K>> {
+public final class ComparatorList<K> implements Comparator<AbEqList<K>> {
 
     private static final String NULL_CMP = "The comparator arg is null";
 

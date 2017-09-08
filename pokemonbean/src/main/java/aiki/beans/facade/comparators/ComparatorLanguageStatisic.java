@@ -11,7 +11,7 @@ import aiki.DataBase;
 import aiki.beans.help.LanguageElementKey;
 import aiki.fight.enums.Statistic;
 
-public class ComparatorLanguageStatisic implements Comparator<LanguageElementKey<Statistic>> {
+public final class ComparatorLanguageStatisic implements Comparator<LanguageElementKey<Statistic>> {
 
     private EnumMap<Statistic,String> translatorCurrentLanguage;
 

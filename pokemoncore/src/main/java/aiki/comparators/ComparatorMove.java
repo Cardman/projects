@@ -9,7 +9,7 @@ import code.util.pagination.Pagination;
 import aiki.fight.moves.enums.TargetChoice;
 import aiki.util.SortingMove;
 
-public class ComparatorMove implements Comparator<SortingMove> {
+public final class ComparatorMove implements Comparator<SortingMove> {
 
     private FieldComparator<String> cmpName = new FieldComparator<String>();
 

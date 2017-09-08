@@ -2171,7 +2171,7 @@ final class FightEffects {
             if (!effetLoc_.getFail().isEmpty()) {
                 StringMap<String> values_;
                 values_ = FightValues.calculateValues(_fight,_finalThrower,_finalTarget,_import);
-                if (_import.evaluate(effetLoc_.getFail(), values_, false)) {
+                if (_import.evaluateBoolean(effetLoc_.getFail(), values_, false)) {
                     return;
                 }
             }
@@ -2674,7 +2674,7 @@ final class FightEffects {
             }
             if(_echecStatuts.contains(c) && !_echecStatuts.getVal(c).isEmpty()){
                 StringMap<String> values_ = FightValues.calculateValues(_fight,_lanceur,_cible,_import);
-                if (_import.evaluate(_echecStatuts.getVal(c), values_, false)) {
+                if (_import.evaluateBoolean(_echecStatuts.getVal(c), values_, false)) {
                     LgInt proba_ = rateNoStatus(loiTmp_);
                     proba_.addNb(_statuts.rate(c));
                     loiTmp_.put(DataBase.EMPTY_STRING,proba_);
@@ -2788,7 +2788,7 @@ final class FightEffects {
         if(_echecStatuts.contains(_status) && !_echecStatuts.getVal(_status).isEmpty()){
             StringMap<String> variables_=FightValues.calculateBasicBooleanValues(_fight,_cible,_lanceur,_import);
             variables_.putAllMap(FightValues.calculateValues(_fight, _cible, _lanceur, _import));
-            if (_import.evaluate(_echecStatuts.getVal(_status), variables_, false)) {
+            if (_import.evaluateBoolean(_echecStatuts.getVal(_status), variables_, false)) {
                 return;
             }
         }

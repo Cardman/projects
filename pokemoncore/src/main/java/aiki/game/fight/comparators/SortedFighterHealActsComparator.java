@@ -10,7 +10,7 @@ import aiki.game.fight.actions.AbstractAction;
 import aiki.game.fight.actions.ActionHeal;
 
 /** Comparator without case eq*/
-public class SortedFighterHealActsComparator implements
+public final class SortedFighterHealActsComparator implements
         Comparator<TeamPosition> {
 
     private Fight fight;

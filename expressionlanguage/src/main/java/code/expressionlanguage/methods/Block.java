@@ -19,12 +19,11 @@ import code.util.NatTreeMap;
 import code.util.Numbers;
 import code.util.StringList;
 import code.util.StringMap;
-import code.util.ints.SortedNode;
 import code.xml.ElementOffsetsNext;
 import code.xml.RowCol;
 import code.xml.XmlParser;
 
-public abstract class Block extends Blockable implements SortedNode<Block> {
+public abstract class Block extends Blockable {
     public static final String EQ = "=";
     public static final String PLUS_EQ = "+=";
     public static final String MINUS_EQ = "-=";
@@ -799,7 +798,8 @@ public abstract class Block extends Blockable implements SortedNode<Block> {
     protected final Block getPreviousSibling() {
         return previousSibling;
     }
-    @Override
+    public abstract Block getFirstChild();
+
     public final Block getNextSibling() {
         if (initializedNextSibling) {
             return nextSibling;
@@ -852,7 +852,6 @@ public abstract class Block extends Blockable implements SortedNode<Block> {
         tabs = _tabs;
     }
 
-    @Override
     public final BracedBlock getParent() {
         return parent;
     }

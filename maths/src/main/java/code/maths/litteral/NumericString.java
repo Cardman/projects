@@ -9,7 +9,7 @@ import code.util.StringList;
 import code.util.StringMap;
 import code.util.ints.NumericableString;
 
-class NumericString implements NumericableString<Rate> {
+final class NumericString implements NumericableString<Rate> {
 
     static final char SEPARATOR_SET_CHAR = ';';
 

@@ -930,7 +930,7 @@ final class FightRound {
                         StringMap<String> values_ = new StringMap<String>();
                         values_.putAllMap(FightValues.calculateValues(_fight,_target,_thrower,_import));
                         values_.putAllMap(FightValues.calculateBasicBooleanValues(_fight,_target, _thrower, _import));
-                        if (_import.evaluate(fail_, values_, false)) {
+                        if (_import.evaluateBoolean(fail_, values_, false)) {
                             continue;
                         }
                     }
@@ -1533,7 +1533,7 @@ final class FightRound {
         variables_.put(Fight.FOE_PK_MAX_HP, creatureSauvage_.pvMax().toString());
         variables_.put(Fight.FOE_PK_REMOTE_HP, creatureSauvage_.getRemainingHp().toString());
         String numericExp_ = _import.getCatchingFormula();
-        return _import.evaluate(numericExp_, variables_, Rate.one());
+        return _import.evaluateNumericable(numericExp_, variables_, Rate.one());
     }
 
     static StringMap<String> calculateCatchingVariables(Fight _fight,boolean _dejaCapture,DataBase _import) {
@@ -1606,7 +1606,7 @@ final class FightRound {
 //        }
 //        variables_.put(DataBase.VAR_PREFIX+Fight.PK_SAUVAGE_PIERRES_EVOS,pierresEvo_.join(NumericString.SEPARATOR_SET));
         String flee_ = _import.getFleeingFormula();
-        return _import.evaluate(flee_, variables_, Rate.one());
+        return _import.evaluateNumericable(flee_, variables_, Rate.one());
     }
 
     static StringMap<String> calculateFleeingVariable(Fight _fight, DataBase _import){

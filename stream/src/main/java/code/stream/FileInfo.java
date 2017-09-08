@@ -3,9 +3,8 @@ import java.io.File;
 
 import code.stream.comparators.FileNameComparator;
 import code.util.CustList;
-import code.util.ints.SortedNode;
 
-public class FileInfo implements SortedNode<FileInfo> {
+public final class FileInfo {
 
     private File info;
 
@@ -30,7 +29,6 @@ public class FileInfo implements SortedNode<FileInfo> {
         index = _index;
     }
 
-    @Override
     public FileInfo getFirstChild() {
         if (children == null || children.isEmpty()) {
             return null;
@@ -39,7 +37,6 @@ public class FileInfo implements SortedNode<FileInfo> {
         return new FileInfo(f_, CustList.FIRST_INDEX, this);
     }
 
-    @Override
     public FileInfo getNextSibling() {
         FileInfo p_ = getParent();
         if (p_ == null) {
@@ -53,7 +50,6 @@ public class FileInfo implements SortedNode<FileInfo> {
         return new FileInfo(f_, index + 1, p_);
     }
 
-    @Override
     public FileInfo getParent() {
         return parent;
     }

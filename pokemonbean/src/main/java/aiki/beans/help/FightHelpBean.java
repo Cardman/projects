@@ -2304,7 +2304,7 @@ public class FightHelpBean extends CommonBean {
 //            chNum_.evaluateExp();
 //            Rate res_ = chNum_.toRate();
 //            boosts.put(b, res_);
-            boosts.put(b, data_.evaluate(rateBoost_, variables_, Rate.one()));
+            boosts.put(b, data_.evaluateNumericable(rateBoost_, variables_, Rate.one()));
         }
         for (long b = _minBoost; b <= _maxBoost; b++) {
             String rateBoost_ = data_.getRateBoostCriticalHit();
@@ -2315,7 +2315,7 @@ public class FightHelpBean extends CommonBean {
 //            chNum_.evaluateExp();
 //            Rate res_ = chNum_.toRate();
 //            boostsCh.put(b, res_);
-            boostsCh.put(b, data_.evaluate(rateBoost_, variables_, Rate.one()));
+            boostsCh.put(b, data_.evaluateNumericable(rateBoost_, variables_, Rate.one()));
         }
     }
 

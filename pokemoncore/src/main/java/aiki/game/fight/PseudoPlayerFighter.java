@@ -106,10 +106,10 @@ public class PseudoPlayerFighter extends PseudoFighter {
         StringMap<String> vars_ = new StringMap<String>();
         vars_.put(DataBase.VAR_PREFIX+Fighter.NIVEAU,Integer.toString(_niveau));
         Rate next_;
-        next_ = _import.evaluate(expLitt_, vars_, Rate.one());
+        next_ = _import.evaluateNumericable(expLitt_, vars_, Rate.one());
         Rate current_;
         vars_.put(DataBase.VAR_PREFIX+Fighter.NIVEAU,Integer.toString(_niveau - 1));
-        current_ = _import.evaluate(expLitt_, vars_, Rate.one());
+        current_ = _import.evaluateNumericable(expLitt_, vars_, Rate.one());
         vars_.clear();
         return _import.evaluatePositiveExp(Rate.minus(next_, current_).toString(), vars_, Rate.one());
     }

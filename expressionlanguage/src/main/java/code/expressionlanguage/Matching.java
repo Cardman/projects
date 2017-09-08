@@ -4,7 +4,7 @@ import code.util.StringList;
 import code.util.ints.Equallable;
 
 
-public class Matching implements Equallable<Matching> {
+public final class Matching implements Equallable<Matching> {
 
     private String arg;
     private String param;

@@ -3,7 +3,7 @@ import java.util.Comparator;
 
 import aiki.util.Point;
 
-public class ComparatorPoint implements Comparator<Point> {
+public final class ComparatorPoint implements Comparator<Point> {
 
     @Override
     public int compare(Point _o1, Point _o2) {

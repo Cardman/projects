@@ -1,10 +1,9 @@
 package code.util.pagination;
 import code.util.CustList;
 import code.util.TreeMap;
-import code.util.ints.Cmp;
 import code.util.ints.Listable;
 
-public abstract class Pagination<T extends Sorting&Cmp<T>,U, C extends CriteriaForSearching> {
+public abstract class Pagination<T extends Sorting,U, C extends CriteriaForSearching> {
 
     public static final int NO_PRIORITY = 0;
 
@@ -32,8 +31,6 @@ public abstract class Pagination<T extends Sorting&Cmp<T>,U, C extends CriteriaF
         setNumberPage(CustList.INDEX_NOT_FOUND_ELT);
         getRendered().clear();
     }
-
-//    protected abstract void search(L _list);
 
     protected abstract boolean match(U _object);
 

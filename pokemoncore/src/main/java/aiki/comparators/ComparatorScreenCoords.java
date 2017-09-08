@@ -4,7 +4,7 @@ import java.util.Comparator;
 import code.util.CustList;
 import aiki.map.util.ScreenCoords;
 
-public class ComparatorScreenCoords implements Comparator<ScreenCoords> {
+public final class ComparatorScreenCoords implements Comparator<ScreenCoords> {
 
     @Override
     public int compare(ScreenCoords _o1,

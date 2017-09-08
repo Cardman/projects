@@ -4,7 +4,7 @@ import java.util.Comparator;
 import code.util.CustList;
 import code.util.SortableList;
 
-public class NaturalComparatorList<K extends Comparable<K>> implements Comparator<SortableList<K>> {
+public final class NaturalComparatorList<K extends Comparable<K>> implements Comparator<SortableList<K>> {
 
     @Override
     public int compare(SortableList<K> _o1, SortableList<K> _o2) {

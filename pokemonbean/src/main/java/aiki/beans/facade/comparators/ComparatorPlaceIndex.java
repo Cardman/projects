@@ -3,7 +3,7 @@ import java.util.Comparator;
 
 import aiki.beans.facade.map.dto.PlaceIndex;
 
-public class ComparatorPlaceIndex implements Comparator<PlaceIndex> {
+public final class ComparatorPlaceIndex implements Comparator<PlaceIndex> {
 
     @Override
     public int compare(PlaceIndex _arg0, PlaceIndex _arg1) {

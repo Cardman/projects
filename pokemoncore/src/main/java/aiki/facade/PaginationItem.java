@@ -17,7 +17,7 @@ import aiki.game.player.Inventory;
 import aiki.map.pokemon.CriteriaForSearchingItem;
 import aiki.util.SortingItem;
 
-public class PaginationItem extends Pagination<SortingItem, String, CriteriaForSearchingItem> {
+public final class PaginationItem extends Pagination<SortingItem, String, CriteriaForSearchingItem> {
 
     private FieldComparator<String> cmpName = new FieldComparator<String>();
 

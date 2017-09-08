@@ -103,7 +103,7 @@ final class FightSuccess {
             }
             values_.putAllMap(FightValues.calculateValues(_fight,_lanceur,_cible,_import));
             values_.putAllMap(FightValues.calculateBooleanValues(_fight,_lanceur, _cible, _attaque, _noEffet, _import));
-            if (_import.evaluate(fail_, values_, false)) {
+            if (_import.evaluateBoolean(fail_, values_, false)) {
                 return new RandomBoolResults(false,false);
             }
         }
@@ -485,7 +485,7 @@ final class FightSuccess {
         Rate precision_ = DataBase.defRateProduct();
         StringMap<String> variables_;
         variables_ = FightValues.calculateValues(_fight,_lanceur,_cible,_import);
-        precision_ = _import.evaluate(fAttaque_.getAccuracy(), variables_, precision_);
+        precision_ = _import.evaluateNumericable(fAttaque_.getAccuracy(), variables_, precision_);
         SortableCustList<Rate> rates_ = new SortableCustList<Rate>();
         rates_.add(precision_);
         rates_.add(Rate.zero());
@@ -725,7 +725,7 @@ final class FightSuccess {
                     continue;
                 }
                 StringMap<String> values_=FightValues.calculateValues(_fight,_lanceur,_cible,_import);
-                if (!_import.evaluate(raisonsEchec_.getVal(c), values_, false)) {
+                if (!_import.evaluateBoolean(raisonsEchec_.getVal(c), values_, false)) {
                     statistiquesVariant_.add(c);
                 }
             }
@@ -785,7 +785,7 @@ final class FightSuccess {
                     continue;
                 }
                 StringMap<String> values_=FightValues.calculateValues(_fight,_lanceur,_cible,_import);
-                if (!_import.evaluate(raisonsEchec_.getVal(c), values_, false)) {
+                if (!_import.evaluateBoolean(raisonsEchec_.getVal(c), values_, false)) {
                     changedStatis_.add(c);
                 }
             }
@@ -1007,7 +1007,7 @@ final class FightSuccess {
             StringMap<String> values_ = new StringMap<String>();
             values_.putAllMap(FightValues.calculateValues(_fight,_user,_target,_import));
             values_.putAllMap(FightValues.calculateBasicBooleanValues(_fight,_user, _target, _import));
-            if (_import.evaluate(effectLoc_.getProtectFail(), values_, false)) {
+            if (_import.evaluateBoolean(effectLoc_.getProtectFail(), values_, false)) {
                 continue;
             }
             for (String t: FightMoves.moveTypes(_fight, _user, _move, _import)) {
@@ -1040,7 +1040,7 @@ final class FightSuccess {
             StringMap<String> values_ = new StringMap<String>();
             values_.putAllMap(FightValues.calculateValues(_fight,_user,_target,_import));
             values_.putAllMap(FightValues.calculateBasicBooleanValues(_fight,_user, _target, _import));
-            if (_import.evaluate(effectLoc_.getProtectFail(), values_, false)) {
+            if (_import.evaluateBoolean(effectLoc_.getProtectFail(), values_, false)) {
                 continue;
             }
             success_ = true;
@@ -1076,7 +1076,7 @@ final class FightSuccess {
             StringMap<String> values_ = new StringMap<String>();
             values_.putAllMap(FightValues.calculateValues(_fight,_user,_target,_import));
             values_.putAllMap(FightValues.calculateBasicBooleanValues(_fight,_user, _target, _import));
-            if (_import.evaluate(effectLoc_.getProtectFail(), values_, false)) {
+            if (_import.evaluateBoolean(effectLoc_.getProtectFail(), values_, false)) {
                 continue;
             }
             success_ = true;
@@ -1119,7 +1119,7 @@ final class FightSuccess {
             }
             if (echecStatuts_.contains(c) && !echecStatuts_.getVal(c).isEmpty()){
                 StringMap<String> values_=FightValues.calculateValues(_fight,_lanceur,_cible,_import);
-                if (_import.evaluate(echecStatuts_.getVal(c), values_, false)) {
+                if (_import.evaluateBoolean(echecStatuts_.getVal(c), values_, false)) {
                     continue;
                 }
             }

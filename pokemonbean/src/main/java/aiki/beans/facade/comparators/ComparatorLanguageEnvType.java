@@ -11,7 +11,7 @@ import aiki.DataBase;
 import aiki.beans.help.LanguageElementKey;
 import aiki.map.levels.enums.EnvironmentType;
 
-public class ComparatorLanguageEnvType implements Comparator<LanguageElementKey<EnvironmentType>> {
+public final class ComparatorLanguageEnvType implements Comparator<LanguageElementKey<EnvironmentType>> {
 
     private EnumMap<EnvironmentType,String> translatorCurrentLanguage;
 

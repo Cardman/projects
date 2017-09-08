@@ -6,7 +6,7 @@ import code.util.Numbers;
 import aiki.game.fight.Fight;
 import aiki.game.fight.TeamPosition;
 
-public class SortedFighterActsComparator implements Comparator<TeamPosition> {
+public final class SortedFighterActsComparator implements Comparator<TeamPosition> {
 
     private Fight fight;
 

@@ -9,7 +9,7 @@ import aiki.comparators.ComparatorTrStrings;
 import aiki.fight.enums.Statistic;
 import aiki.fight.util.StatisticPokemon;
 
-public class ComparatorStatisticPokemon implements Comparator<StatisticPokemon> {
+public final class ComparatorStatisticPokemon implements Comparator<StatisticPokemon> {
 
     private DataBase data;
 

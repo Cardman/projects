@@ -13,7 +13,7 @@ import aiki.game.fight.FightFacade;
 import aiki.game.fight.Fighter;
 import aiki.game.fight.TeamPosition;
 
-public class SortedFighterEndRoundComparator implements Comparator<TeamPosition> {
+public final class SortedFighterEndRoundComparator implements Comparator<TeamPosition> {
 
     private Fight fight;
 

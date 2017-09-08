@@ -9,8 +9,8 @@ public interface AdvancedMathFactory<T,U extends NumericableString<T>,V extends 
     String getFalseString();
     U createNumericableString(String _chaineNumerique, StringMap<String> _vars);
     V createBooleanString(String _chaineNumerique, StringMap<String> _vars);
-    Boolean evaluate(String _booleanString, StringMap<String> _variables, Boolean _default);
-    T evaluate(String _numericString, StringMap<String> _variables, T _default);
+    Boolean evaluateBoolean(String _booleanString, StringMap<String> _variables, Boolean _default);
+    T evaluateNumericable(String _numericString, StringMap<String> _variables, T _default);
 
     //used
     T evaluatePositiveOrZeroExp(String _numericString, StringMap<String> _variables, T _default);

@@ -7,7 +7,7 @@ import aiki.DataBase;
 import aiki.map.places.Place;
 import aiki.util.Coords;
 
-public class ComparatorCoords implements Comparator<Coords> {
+public final class ComparatorCoords implements Comparator<Coords> {
 
     private DataBase data;
 

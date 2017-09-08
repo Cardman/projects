@@ -27,7 +27,7 @@ import aiki.game.player.Inventory;
 import aiki.map.pokemon.CriteriaForSearchingHealingItem;
 import aiki.util.SortingHealingItem;
 
-public class PaginationHealingItem extends Pagination<SortingHealingItem, String, CriteriaForSearchingHealingItem> {
+public final class PaginationHealingItem extends Pagination<SortingHealingItem, String, CriteriaForSearchingHealingItem> {
 
     private FieldComparator<String> cmpName = new FieldComparator<String>();
 

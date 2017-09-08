@@ -3,7 +3,7 @@ import java.util.Comparator;
 
 import code.util.ints.ListableEntries;
 
-public class ComparatorMapValue<T> implements Comparator<T> {
+public final class ComparatorMapValue<T> implements Comparator<T> {
 
     private ListableEntries<T, String> map;
 

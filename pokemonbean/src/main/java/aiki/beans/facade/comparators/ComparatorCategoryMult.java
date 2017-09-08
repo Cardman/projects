@@ -4,7 +4,7 @@ import java.util.Comparator;
 import code.util.CustList;
 import aiki.fight.util.CategoryMult;
 
-public class ComparatorCategoryMult implements Comparator<CategoryMult> {
+public final class ComparatorCategoryMult implements Comparator<CategoryMult> {
 
     @Override
     public int compare(CategoryMult _arg0, CategoryMult _arg1) {

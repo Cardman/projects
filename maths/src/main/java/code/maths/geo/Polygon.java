@@ -6,7 +6,7 @@ import code.util.EqList;
 import code.util.annot.RwXml;
 
 @RwXml
-public class Polygon implements Iterable<CustPoint>, HasEdges {
+public final class Polygon implements Iterable<CustPoint>, HasEdges {
 
     private EqList<CustPoint> points = new EqList<CustPoint>();
 

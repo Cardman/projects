@@ -5,7 +5,7 @@ import java.util.Comparator;
 import code.util.CustList;
 import code.util.Numbers;
 
-public class IndexesComparator implements Comparator<Numbers<Integer>>{
+public final class IndexesComparator implements Comparator<Numbers<Integer>>{
 
     @Override
     public int compare(Numbers<Integer> _one, Numbers<Integer> _two) {

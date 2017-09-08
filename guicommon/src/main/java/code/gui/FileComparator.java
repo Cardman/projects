@@ -7,7 +7,7 @@ import code.util.CustList;
 import code.util.StringList;
 import code.util.consts.ConstFiles;
 
-public class FileComparator implements Comparator<File> {
+public final class FileComparator implements Comparator<File> {
 
     private static final boolean SENSITIVE = ConstFiles.filesAreCaseSensitive();
 

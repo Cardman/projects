@@ -9,7 +9,7 @@ import code.util.pagination.Pagination;
 import aiki.map.pokemon.enums.Gender;
 import aiki.util.SortingPokemonPlayer;
 
-public class ComparatorPokemonPlayer implements
+public final class ComparatorPokemonPlayer implements
         Comparator<SortingPokemonPlayer> {
 
     private FieldComparator<Short> cmpLevel = new FieldComparator<Short>();

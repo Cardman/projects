@@ -6,7 +6,7 @@ import code.util.ints.Listable;
 import code.util.ints.Settable;
 
 @RwXml
-public class EqSet<E extends Equallable<E>> extends AbEqList<E> implements Settable<E> {
+public final class EqSet<E extends Equallable<E>> extends AbEqList<E> implements Settable<E> {
 
 //    private final List<E> elements;
 

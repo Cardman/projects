@@ -3,7 +3,7 @@ import java.util.Comparator;
 
 import aiki.beans.facade.solution.dto.WildPokemonDto;
 
-public class ComparatorWildPokemonDto implements Comparator<WildPokemonDto> {
+public final class ComparatorWildPokemonDto implements Comparator<WildPokemonDto> {
 
     @Override
     public int compare(WildPokemonDto _o1, WildPokemonDto _o2) {

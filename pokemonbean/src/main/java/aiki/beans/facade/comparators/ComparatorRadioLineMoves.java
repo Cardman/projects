@@ -3,7 +3,7 @@ import java.util.Comparator;
 
 import aiki.beans.facade.simulation.dto.RadioLineMove;
 
-public class ComparatorRadioLineMoves implements Comparator<RadioLineMove> {
+public final class ComparatorRadioLineMoves implements Comparator<RadioLineMove> {
 
     @Override
     public int compare(RadioLineMove _arg0, RadioLineMove _arg1) {

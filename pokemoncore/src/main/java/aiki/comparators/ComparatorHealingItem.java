@@ -10,7 +10,7 @@ import code.util.pagination.FieldCustComparator;
 import code.util.pagination.Pagination;
 import aiki.util.SortingHealingItem;
 
-public class ComparatorHealingItem implements Comparator<SortingHealingItem> {
+public final class ComparatorHealingItem implements Comparator<SortingHealingItem> {
 
     private FieldComparator<String> cmpName = new FieldComparator<String>();
 

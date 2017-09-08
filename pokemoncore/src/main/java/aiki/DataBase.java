@@ -676,9 +676,9 @@ public class DataBase implements WithMathFactory<Rate>{
         return standardMathFactory.getSepartorSetChar();
     }
 
-    public Rate evaluate(String _numericString, StringMap<String> _variables,
+    public Rate evaluateNumericable(String _numericString, StringMap<String> _variables,
             Rate _default) {
-        return standardMathFactory.evaluate(_numericString, _variables, _default);
+        return standardMathFactory.evaluateNumericable(_numericString, _variables, _default);
     }
 
     public Rate evaluatePositiveOrZeroExp(String _numericString,
@@ -691,9 +691,9 @@ public class DataBase implements WithMathFactory<Rate>{
         return standardMathFactory.evaluatePositiveExp(_numericString, _variables, _default);
     }
 
-    public boolean evaluate(String _booleanString,
+    public boolean evaluateBoolean(String _booleanString,
             StringMap<String> _variables, Boolean _default) {
-        return standardMathFactory.evaluate(_booleanString, _variables, _default);
+        return standardMathFactory.evaluateBoolean(_booleanString, _variables, _default);
     }
     public ObjectMap<Point,String> getLevelImage(short _pl, byte _level) {
         Coords coords_ = new Coords();

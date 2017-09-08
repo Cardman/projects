@@ -5,7 +5,7 @@ import code.util.EnumMap;
 import aiki.DataBase;
 import aiki.fight.enums.Statistic;
 
-public class ComparatorTrStringStatistic implements Comparator<Statistic> {
+public final class ComparatorTrStringStatistic implements Comparator<Statistic> {
 
     private EnumMap<Statistic,String> translator;
 

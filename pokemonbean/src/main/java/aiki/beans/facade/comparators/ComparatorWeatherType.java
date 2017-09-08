@@ -6,7 +6,7 @@ import aiki.DataBase;
 import aiki.comparators.ComparatorTrStrings;
 import aiki.fight.util.WeatherType;
 
-public class ComparatorWeatherType implements Comparator<WeatherType> {
+public final class ComparatorWeatherType implements Comparator<WeatherType> {
 
     private DataBase data;
 

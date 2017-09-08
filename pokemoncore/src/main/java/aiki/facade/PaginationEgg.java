@@ -13,7 +13,7 @@ import aiki.map.pokemon.Egg;
 import aiki.map.pokemon.UsablePokemon;
 import aiki.util.SortingEgg;
 
-public class PaginationEgg extends Pagination<SortingEgg, Egg, CriteriaForSearchingEgg> {
+public final class PaginationEgg extends Pagination<SortingEgg, Egg, CriteriaForSearchingEgg> {
 
     private FieldComparator<Integer> cmpSteps = new FieldComparator<Integer>();
 

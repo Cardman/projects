@@ -5,7 +5,7 @@ import code.util.EnumMap;
 import code.util.pagination.SelectedBoolean;
 import aiki.DataBase;
 
-public class ComparatorTrStringBoolean implements Comparator<SelectedBoolean> {
+public final class ComparatorTrStringBoolean implements Comparator<SelectedBoolean> {
 
     private EnumMap<SelectedBoolean,String> translator;
 

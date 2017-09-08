@@ -3,7 +3,7 @@ import java.util.Comparator;
 
 import code.util.CustList;
 
-public class ComparatorBoolean implements Comparator<Boolean> {
+public final class ComparatorBoolean implements Comparator<Boolean> {
 
     @Override
     public int compare(Boolean _e1, Boolean _e2) {

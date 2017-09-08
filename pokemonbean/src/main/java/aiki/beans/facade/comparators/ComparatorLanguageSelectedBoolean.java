@@ -11,7 +11,7 @@ import code.util.pagination.SelectedBoolean;
 import aiki.DataBase;
 import aiki.beans.help.LanguageElementKey;
 
-public class ComparatorLanguageSelectedBoolean implements Comparator<LanguageElementKey<SelectedBoolean>> {
+public final class ComparatorLanguageSelectedBoolean implements Comparator<LanguageElementKey<SelectedBoolean>> {
 
     private EnumMap<SelectedBoolean,String> translatorCurrentLanguage;
 

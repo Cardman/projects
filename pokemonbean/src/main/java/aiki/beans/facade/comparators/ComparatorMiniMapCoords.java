@@ -4,7 +4,7 @@ import java.util.Comparator;
 import code.util.Numbers;
 import aiki.map.util.MiniMapCoords;
 
-public class ComparatorMiniMapCoords implements Comparator<MiniMapCoords> {
+public final class ComparatorMiniMapCoords implements Comparator<MiniMapCoords> {
 
     @Override
     public int compare(MiniMapCoords _o1, MiniMapCoords _o2) {

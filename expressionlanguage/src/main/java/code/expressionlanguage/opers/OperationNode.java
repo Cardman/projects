@@ -66,9 +66,8 @@ import code.util.StringList;
 import code.util.consts.ConstClasses;
 import code.util.exceptions.NullObjectException;
 import code.util.exceptions.RuntimeClassNotFoundException;
-import code.util.ints.SortedNode;
 
-public abstract class OperationNode implements SortedNode<OperationNode>, Operable {
+public abstract class OperationNode implements Operable {
 
     public static final String VOID_RETURN = "$void";
     public static final String METH_NAME = "name";
@@ -351,7 +350,8 @@ public abstract class OperationNode implements SortedNode<OperationNode>, Operab
         return null;
     }
 
-    @Override
+    public abstract OperationNode getFirstChild();
+
     public final OperationNode getNextSibling() {
         if (initializedNextSibling) {
             return nextSibling;
@@ -1568,7 +1568,7 @@ public abstract class OperationNode implements SortedNode<OperationNode>, Operab
         }
         return 1;
     }
-    @Override
+
     public final MethodOperation getParent() {
         return parent;
     }
@@ -1721,7 +1721,7 @@ public abstract class OperationNode implements SortedNode<OperationNode>, Operab
     public final boolean isNeedGlobalArgument() {
         return needGlobalArgument;
     }
-    
+
     public final void needGlobalArgument() {
         if (isIntermediateDotted()) {
             return;

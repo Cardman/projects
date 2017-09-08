@@ -5,7 +5,7 @@ import code.util.CustList;
 import code.util.Numbers;
 import code.util.PairNumber;
 
-public class ComparatorPairNumber<U extends Number, V extends Number> implements Comparator<PairNumber<U, V>> {
+public final class ComparatorPairNumber<U extends Number, V extends Number> implements Comparator<PairNumber<U, V>> {
 
     @Override
     public int compare(PairNumber<U, V> _o1, PairNumber<U, V> _o2) {

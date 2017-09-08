@@ -3,7 +3,7 @@ import java.util.Comparator;
 
 import code.util.EnumList;
 
-public class ComparatorIndexes<T extends Enum<T>> implements Comparator<T> {
+public final class ComparatorIndexes<T extends Enum<T>> implements Comparator<T> {
 
     private EnumList<T> order;
 

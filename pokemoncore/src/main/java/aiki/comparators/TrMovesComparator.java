@@ -3,7 +3,7 @@ import java.util.Comparator;
 
 import aiki.DataBase;
 
-public class TrMovesComparator implements Comparator<String> {
+public final class TrMovesComparator implements Comparator<String> {
 
     private DataBase data;
 

@@ -3,7 +3,7 @@ import java.util.Comparator;
 
 import aiki.beans.facade.game.dto.StatisticInfoPkPlayer;
 
-public class ComparatorStatisticInfoPkPlayer implements Comparator<StatisticInfoPkPlayer> {
+public final class ComparatorStatisticInfoPkPlayer implements Comparator<StatisticInfoPkPlayer> {
 
     @Override
     public int compare(StatisticInfoPkPlayer _o1, StatisticInfoPkPlayer _o2) {

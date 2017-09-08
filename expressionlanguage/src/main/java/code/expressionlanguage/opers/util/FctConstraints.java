@@ -4,7 +4,7 @@ import code.util.EqList;
 import code.util.StringList;
 import code.util.ints.Equallable;
 
-public class FctConstraints implements Equallable<FctConstraints> {
+public final class FctConstraints implements Equallable<FctConstraints> {
     private static final String SEP_AND_TYPE = "&";
     private static final String SEP_TYPE = ",";
     private static final String LEFT = "(";

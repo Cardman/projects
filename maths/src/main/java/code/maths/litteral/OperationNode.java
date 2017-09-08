@@ -3,9 +3,8 @@ import code.util.CustList;
 import code.util.NatTreeMap;
 import code.util.StringList;
 import code.util.StringMap;
-import code.util.ints.SortedNode;
 
-abstract class OperationNode implements SortedNode<OperationNode> {
+abstract class OperationNode {
 
     protected static final char ESCAPE_META_CHAR = '\\';
     protected static final char DELIMITER_CHAR = 39;
@@ -282,7 +281,8 @@ abstract class OperationNode implements SortedNode<OperationNode> {
         return false;
     }
 
-    @Override
+    public abstract OperationNode getFirstChild();
+
     public OperationNode getNextSibling() {
         if (initializedNextSibling) {
             return nextSibling;
@@ -365,7 +365,6 @@ abstract class OperationNode implements SortedNode<OperationNode> {
         }
     }
 
-    @Override
     public MethodOperation getParent() {
         return parent;
     }

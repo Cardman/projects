@@ -4,7 +4,7 @@ import java.util.Comparator;
 import code.util.Numbers;
 import aiki.fight.EndRoundMainElements;
 
-public class ComparatorEndRoundMainElements implements
+public final class ComparatorEndRoundMainElements implements
         Comparator<EndRoundMainElements> {
 
     @Override

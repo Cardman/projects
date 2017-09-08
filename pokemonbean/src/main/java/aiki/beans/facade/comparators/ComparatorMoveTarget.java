@@ -4,7 +4,7 @@ import java.util.Comparator;
 import code.util.Numbers;
 import aiki.game.fight.util.MoveTarget;
 
-public class ComparatorMoveTarget implements Comparator<MoveTarget> {
+public final class ComparatorMoveTarget implements Comparator<MoveTarget> {
 
     @Override
     public int compare(MoveTarget _o1, MoveTarget _o2) {

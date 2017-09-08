@@ -5,7 +5,7 @@ import code.maths.Rate;
 import aiki.game.fight.enums.UsefulValueLaw;
 import aiki.game.fight.util.StatisticsDamageMove;
 
-public class ComparatorLaws implements Comparator<StatisticsDamageMove> {
+public final class ComparatorLaws implements Comparator<StatisticsDamageMove> {
 
     @Override
     public int compare(StatisticsDamageMove _o1,

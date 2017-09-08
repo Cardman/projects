@@ -11,25 +11,12 @@ import code.util.StringList;
 import code.util.StringMap;
 
 public final class ConstantOperation extends OperationNode {
-//    private static final String EMPTY_STRING = "";
 
     private static final String RETURN_LINE = "\n";
 
     public ConstantOperation(String _el, int _index, StringMap<String> _importingPage, int _indexChild, MethodOperation _m, OperationsSequence _op) {
         super(_el, _index, _importingPage, _indexChild, _m, _op);
     }
-
-//    @Override
-//    boolean isFirstLeaf() {
-////        String str_ = getOperations().getValues().getValue(CustList.FIRST_INDEX).trim();
-////        return getIndexChild() == CustList.FIRST_INDEX && !str_.startsWith(String.valueOf(FIRST_VAR_ARG));
-//        return getIndexChild() == CustList.FIRST_INDEX;
-//    }
-//
-//    @Override
-//    boolean isRealLeaf() {
-//        return true;
-//    }
 
     @Override
     boolean isFirstChild() {
@@ -109,16 +96,6 @@ public final class ConstantOperation extends OperationNode {
 
     private void analyzeCalculate() {
         String str_ = getOperations().getValues().getValue(CustList.FIRST_INDEX).trim();
-//        if (isVararg()) {
-//            str_ = str_.substring(CustList.SECOND_INDEX);
-//            Argument a_ = new Argument();
-//            a_.setArgClass(ConstClasses.classForName(str_, false));
-//            setArgument(a_);
-//            return;
-//        }
-//        if (isFirstOptArg()) {
-//            str_ = str_.substring(CustList.FIRST_INDEX, str_.indexOf(FIRST_VAR_ARG)).trim();
-//        }
         if (str_.isEmpty()) {
             throw new EmptyPartException(String.valueOf(getIndexInEl()));
         }
@@ -139,7 +116,6 @@ public final class ConstantOperation extends OperationNode {
         }
         if (StringList.quickEq(str_, EMPTY_SET)) {
             a_.setArgClass(MathType.SET);
-//            a_.setObject(EMPTY_STRING+DELIMITER_STRING_BEGIN+DELIMITER_STRING_END);
             a_.setObject(new MathList());
             setArgument(a_);
             setNextSiblingsArg(a_);
@@ -149,7 +125,6 @@ public final class ConstantOperation extends OperationNode {
             str_ = str_.substring(CustList.SECOND_INDEX, str_.lastIndexOf(DELIMITER_STRING_END));
             if (str_.isEmpty()) {
                 a_.setArgClass(MathType.SET);
-//                a_.setObject(EMPTY_STRING+DELIMITER_STRING_BEGIN+DELIMITER_STRING_END);
                 a_.setObject(new MathList());
                 setArgument(a_);
                 setNextSiblingsArg(a_);

@@ -4,7 +4,7 @@ import java.util.Comparator;
 
 import code.util.consts.ConstFiles;
 
-public class FileNameComparator implements Comparator<File> {
+public final class FileNameComparator implements Comparator<File> {
 
     private static final boolean SENSITIVE = ConstFiles.filesAreCaseSensitive();
 

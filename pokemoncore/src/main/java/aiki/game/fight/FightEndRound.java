@@ -1040,7 +1040,7 @@ final class FightEndRound {
             if (!_effet.getFailEndRound().isEmpty()) {
                 StringMap<String> values_;
                 values_ = FightValues.calculateValues(_fight,_combattant,c.getTeamPosition(),_import);
-                if (_import.evaluate(_effet.getFailEndRound(), values_, false)) {
+                if (_import.evaluateBoolean(_effet.getFailEndRound(), values_, false)) {
                     actifNbTour_.disable();
                     actifNbTour_.reset();
                     _fight.addDisabledMoveRelMessage(c.getTeamPosition(), _attaque, _combattant, _import);
@@ -1224,7 +1224,7 @@ final class FightEndRound {
         if (!effetFinTour_.getFailEndRound().isEmpty()) {
             StringMap<String> values_;
             values_ = FightValues.calculateValues(_fight,_lanceur,_cible,_import);
-            success_ = !_import.evaluate(effetFinTour_.getFailEndRound(), values_, false);
+            success_ = !_import.evaluateBoolean(effetFinTour_.getFailEndRound(), values_, false);
         }
         Fighter creature_=_fight.getFighter(_cible);
         short nbTour_=creature_.getStatusRelatNbRoundShort(new MoveTeamPosition(_nomStatut,_lanceur));
@@ -1270,7 +1270,7 @@ final class FightEndRound {
         if (!effetFinTour_.getFailEndRound().isEmpty()) {
             StringMap<String> values_;
             values_ = FightValues.calculateValues(_fight,_lanceur,_cible,_import);
-            success_ = !_import.evaluate(effetFinTour_.getFailEndRound(), values_, false);
+            success_ = !_import.evaluateBoolean(effetFinTour_.getFailEndRound(), values_, false);
         }
         if(!success_){
             creature_.supprimerPseudoStatutCombattant(_lanceur,_nomStatut);
@@ -1379,7 +1379,7 @@ final class FightEndRound {
         if (!fail_.isEmpty()) {
             StringMap<String> values_;
             values_ = FightValues.calculateValuesFighter(_fight, _fighter, _import);
-            if (_import.evaluate(fail_, values_, false)) {
+            if (_import.evaluateBoolean(fail_, values_, false)) {
                 return;
             }
         }

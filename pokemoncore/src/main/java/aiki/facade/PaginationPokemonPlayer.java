@@ -16,7 +16,7 @@ import aiki.map.pokemon.UsablePokemon;
 import aiki.map.pokemon.enums.Gender;
 import aiki.util.SortingPokemonPlayer;
 
-public class PaginationPokemonPlayer extends Pagination<SortingPokemonPlayer,PokemonPlayer,CriteriaForSearchingPokemon> {
+public final class PaginationPokemonPlayer extends Pagination<SortingPokemonPlayer,PokemonPlayer,CriteriaForSearchingPokemon> {
 
     private FieldComparator<Short> cmpLevel = new FieldComparator<Short>();
 

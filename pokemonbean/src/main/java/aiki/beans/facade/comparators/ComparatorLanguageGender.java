@@ -11,7 +11,7 @@ import aiki.DataBase;
 import aiki.beans.help.LanguageElementKey;
 import aiki.map.pokemon.enums.Gender;
 
-public class ComparatorLanguageGender implements Comparator<LanguageElementKey<Gender>> {
+public final class ComparatorLanguageGender implements Comparator<LanguageElementKey<Gender>> {
 
     private EnumMap<Gender,String> translatorCurrentLanguage;
 

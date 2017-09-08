@@ -9,7 +9,7 @@ import code.util.consts.Constants;
 import aiki.DataBase;
 import aiki.beans.help.LanguageElementStringKey;
 
-public class ComparatorLanguageString implements Comparator<LanguageElementStringKey> {
+public final class ComparatorLanguageString implements Comparator<LanguageElementStringKey> {
 
     private StringMap<String> translatorCurrentLanguage;
 

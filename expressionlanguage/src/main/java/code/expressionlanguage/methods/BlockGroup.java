@@ -1,9 +1,8 @@
 package code.expressionlanguage.methods;
 import code.util.CustList;
 import code.util.StringList;
-import code.util.ints.SortedNode;
 
-public final class BlockGroup implements SortedNode<BlockGroup> {
+public final class BlockGroup {
 
     private static final String TRUE_STRING = "true";
 
@@ -158,7 +157,6 @@ public final class BlockGroup implements SortedNode<BlockGroup> {
         exitable = _exitable;
     }
 
-    @Override
     public BlockGroup getFirstChild() {
         if (initializedFirstChild) {
             return firstChild;
@@ -194,7 +192,6 @@ public final class BlockGroup implements SortedNode<BlockGroup> {
         return firstChild;
     }
 
-    @Override
     public BlockGroup getNextSibling() {
         if (initializedNextSibling) {
             return nextSibling;
@@ -234,7 +231,6 @@ public final class BlockGroup implements SortedNode<BlockGroup> {
         return nextSibling;
     }
 
-    @Override
     public BlockGroup getParent() {
         return parent;
     }

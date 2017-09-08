@@ -190,10 +190,10 @@ public class PokemonPlayerBean extends Bean {
         StringMap<String> vars_ = new StringMap<String>();
         vars_.put(DataBase.VAR_PREFIX+Fighter.NIVEAU,Integer.toString(level + 1));
         Rate next_;
-        next_ = data_.evaluate(expLitt_, vars_, Rate.one());
+        next_ = data_.evaluateNumericable(expLitt_, vars_, Rate.one());
         Rate current_;
         vars_.put(DataBase.VAR_PREFIX+Fighter.NIVEAU,Integer.toString(level));
-        current_ = data_.evaluate(expLitt_, vars_, Rate.one());
+        current_ = data_.evaluateNumericable(expLitt_, vars_, Rate.one());
         vars_.clear();
         Rate diff_ = data_.evaluatePositiveExp(Rate.minus(next_, current_).toString(), vars_, Rate.one());
         diff_.removeNb(wonExpSinceLastLevel);

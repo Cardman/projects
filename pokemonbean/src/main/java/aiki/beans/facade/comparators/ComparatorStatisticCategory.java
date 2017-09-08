@@ -9,7 +9,7 @@ import aiki.comparators.ComparatorTrStrings;
 import aiki.fight.enums.Statistic;
 import aiki.fight.util.StatisticCategory;
 
-public class ComparatorStatisticCategory implements Comparator<StatisticCategory> {
+public final class ComparatorStatisticCategory implements Comparator<StatisticCategory> {
 
     private DataBase data;
 

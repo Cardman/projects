@@ -7,7 +7,7 @@ import code.util.pagination.FieldComparator;
 import code.util.pagination.Pagination;
 import aiki.util.SortingEgg;
 
-public class ComparatorEgg implements Comparator<SortingEgg> {
+public final class ComparatorEgg implements Comparator<SortingEgg> {
 
     private FieldComparator<Integer> cmpSteps = new FieldComparator<Integer>();
 

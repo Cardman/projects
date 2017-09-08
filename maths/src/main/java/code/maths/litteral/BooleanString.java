@@ -6,7 +6,7 @@ import code.util.StringList;
 import code.util.StringMap;
 import code.util.ints.NumericableString;
 
-class BooleanString implements NumericableString<Boolean> {
+final class BooleanString implements NumericableString<Boolean> {
 
     static final char TRUE_CHAR = 'V';
 

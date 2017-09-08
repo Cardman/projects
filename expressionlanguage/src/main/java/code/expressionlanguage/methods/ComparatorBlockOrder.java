@@ -3,7 +3,7 @@ import java.util.Comparator;
 
 import code.util.Numbers;
 
-public class ComparatorBlockOrder implements Comparator<Block> {
+public final class ComparatorBlockOrder implements Comparator<Block> {
 
     @Override
     public int compare(Block _o1, Block _o2) {

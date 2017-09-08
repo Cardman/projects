@@ -3,7 +3,7 @@ import java.util.Comparator;
 
 import code.util.Numbers;
 
-public class ComparatorInterfaceNode implements Comparator<InterfaceNode> {
+public final class ComparatorInterfaceNode implements Comparator<InterfaceNode> {
 
     @Override
     public int compare(InterfaceNode _o1, InterfaceNode _o2) {

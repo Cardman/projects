@@ -4,7 +4,7 @@ import java.util.Comparator;
 import code.util.Numbers;
 import code.util.TreeMap;
 
-public class ComparatorTreeMapValue<T, U extends Number> implements Comparator<T> {
+public final class ComparatorTreeMapValue<T, U extends Number> implements Comparator<T> {
 
     private TreeMap<T, U> map;
 

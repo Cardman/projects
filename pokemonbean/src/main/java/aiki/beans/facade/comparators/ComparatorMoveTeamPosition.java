@@ -4,7 +4,7 @@ import java.util.Comparator;
 import code.util.Numbers;
 import aiki.game.fight.MoveTeamPosition;
 
-public class ComparatorMoveTeamPosition implements Comparator<MoveTeamPosition> {
+public final class ComparatorMoveTeamPosition implements Comparator<MoveTeamPosition> {
 
     @Override
     public int compare(MoveTeamPosition _o1, MoveTeamPosition _o2) {

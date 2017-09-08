@@ -7,7 +7,7 @@ import code.util.StringMap;
 import aiki.DataBase;
 import aiki.comparators.ComparatorTrStrings;
 
-public class ComparatorStringList implements Comparator<StringList> {
+public final class ComparatorStringList implements Comparator<StringList> {
 
     private boolean translate;
 

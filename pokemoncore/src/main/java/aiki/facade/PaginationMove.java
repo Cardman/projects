@@ -18,7 +18,7 @@ import aiki.fight.moves.enums.TargetChoice;
 import aiki.map.pokemon.CriteriaForSearchingMove;
 import aiki.util.SortingMove;
 
-public class PaginationMove extends Pagination<SortingMove, String, CriteriaForSearchingMove> {
+public final class PaginationMove extends Pagination<SortingMove, String, CriteriaForSearchingMove> {
 
     private FieldComparator<String> cmpName = new FieldComparator<String>();
 
