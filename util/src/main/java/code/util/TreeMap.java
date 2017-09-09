@@ -2,7 +2,6 @@ package code.util;
 import java.util.Comparator;
 
 import code.util.annot.CapacityInit;
-import code.util.annot.NullableField;
 import code.util.annot.RwXml;
 import code.util.exceptions.NullComparatorException;
 import code.util.ints.Listable;
@@ -18,7 +17,6 @@ public final class TreeMap<K, V> extends AbsMap<K, V> implements SortableMap<K, 
 //    //list cannot be null, even by reflection
 //    private final transient CustList<EntryCust<K,V>> list = new CustList<EntryCust<K,V>>();
 
-    @NullableField
     @RwXml
     private final Comparator<K> comparator;
 

@@ -231,8 +231,8 @@ public final class SerializeXmlObject {
         ObjectSerial rootElement_;
 //        CustList<ObjectSerial> obj_;
 //        obj_ = new CustList<ObjectSerial>();
-        CustList<ChangeableMap> cmp_;
-        cmp_ = new CustList<ChangeableMap>();
+        CustList<ObjectSerial> cmp_;
+        cmp_ = new CustList<ObjectSerial>();
         CustList<ObjectSerial> notEmptyMaps_ = new CustList<ObjectSerial>();
         if (_references_) {
             rootElement_ = new ObjectSerial(root_, false);
@@ -362,8 +362,8 @@ public final class SerializeXmlObject {
                             if (serial_.isMap()) {
                                 notEmptyMaps_.add(serial_);
                             }
-                            if (serial_.getValue() instanceof ChangeableMap) {
-                                cmp_.add((ChangeableMap)serial_.getValue());
+                            if (ChangeableMap.class.isAssignableFrom(serial_.getFoundClass())) {
+                                cmp_.add(serial_);
                             }
                             newSerializableElements_.add(serial_);
                             newNodesToBeRead_.add(n);
@@ -460,8 +460,11 @@ public final class SerializeXmlObject {
 //            for (ObjectSerial o: obj_.getReverse()) {
 //                o.setComponents(_xmlString);
 //            }
-            for (ChangeableMap c: cmp_.getReverse()) {
-                c.applyChanges();
+            for (ObjectSerial c: cmp_.getReverse()) {
+                Object o_ = c.getValue();
+                if (o_ instanceof ChangeableMap) {
+                    ((ChangeableMap)o_).applyChanges();
+                }
             }
             for (TemplateSerial t: serializableComposite_.getReverse()) {
                 Object o_ = t.getValue();
@@ -555,8 +558,8 @@ public final class SerializeXmlObject {
                             throw _0;
                         }
 //                        obj_.add(serial_);
-                        if (serial_.getValue() instanceof ChangeableMap) {
-                            cmp_.add((ChangeableMap)serial_.getValue());
+                        if (ChangeableMap.class.isAssignableFrom(serial_.getFoundClass())) {
+                        	cmp_.add(serial_);
                         }
                         if (serial_.isMap()) {
                             notEmptyMaps_.add(serial_);
@@ -608,8 +611,11 @@ public final class SerializeXmlObject {
 //            for (ObjectSerial o: obj_.getReverse()) {
 //                o.setComponents(_xmlString);
 //            }
-            for (ChangeableMap c: cmp_.getReverse()) {
-                c.applyChanges();
+            for (ObjectSerial c: cmp_.getReverse()) {
+                Object o_ = c.getValue();
+                if (o_ instanceof ChangeableMap) {
+                    ((ChangeableMap)o_).applyChanges();
+                }
             }
             for (TemplateSerial t: serializableComposite_.getReverse()) {
                 Object o_ = t.getValue();

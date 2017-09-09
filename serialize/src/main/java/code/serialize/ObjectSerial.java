@@ -47,6 +47,7 @@ final class ObjectSerial extends TemplateSerial {
     private static final Method SET_KEY_METHOD = SerializeXmlObject.getDeclaredXmlAccessibleMethod(AbsMap.class, SET_KEY, int.class, Object.class);
     private static final Method SET_VALUE_METHOD = SerializeXmlObject.getDeclaredXmlAccessibleMethod(AbsMap.class, SET_VALUE, int.class, Object.class);
 
+    private String className;
     private Object value;
     private CustList<Object> keys;
     private CustList<Object> values;
@@ -92,7 +93,9 @@ final class ObjectSerial extends TemplateSerial {
         if (id_ != null) {
             setId(Long.parseLong(id_.getNodeValue()));
         }
-        value = newInstance(_node);
+        ClassObject res_ = newInstance(_node);
+        value = res_.getObject();
+        className = res_.getClassName();
     }
 
     /**@throws SecurityException
@@ -117,12 +120,15 @@ final class ObjectSerial extends TemplateSerial {
         if (keyOfMap_ != null) {
             serial_.setKeyOfMap(true);
         }
-        serial_.value = newInstance(_node);
+        ClassObject res_ = newInstance(_node);
+        serial_.value = res_.getObject();
+        serial_.className = res_.getClassName();
         return serial_;
     }
 
-    private static Object newInstance(Element _node) {
+    private static ClassObject newInstance(Element _node) {
         Constructor<?> constr_ = null;
+        ClassObject out_ = new ClassObject();
         try {
             Class<?> class_ = ConstClasses.classAliasForObjectNameNotInit(_node.getNodeName()+_node.getAttribute(INTERN));
             if (class_.isMemberClass() && !Modifier.isStatic(class_.getModifiers())) {
@@ -146,12 +152,16 @@ final class ObjectSerial extends TemplateSerial {
                     } else {
                         obj_ = ConverterMethod.newInstance(constr_, obj_);
                     }
+                    out_.setClassName(constr_.getDeclaringClass().getName());
                 }
-                return obj_;
+                out_.setObject(obj_);
+                return out_;
             }
             constr_ = class_.getDeclaredConstructor();
             constr_.setAccessible(constr_.isAnnotationPresent(RwXml.class));
-            return ConverterMethod.newInstance(constr_);
+            out_.setClassName(class_.getName());
+            out_.setObject(ConverterMethod.newInstance(constr_));
+            return out_;
         } catch (NoSuchMethodException _0) {
             throw new NoSuchDeclaredMethodException(_0);
         }
@@ -202,6 +212,10 @@ final class ObjectSerial extends TemplateSerial {
             node_ = _doc.createElement(name_);
         }
         return node_;
+    }
+
+    Class<?> getFoundClass() {
+        return ConstClasses.classForObjectNameNotInit(className);
     }
 
     @Override
@@ -416,7 +430,7 @@ final class ObjectSerial extends TemplateSerial {
         }
     }
     boolean isMap() {
-        return ListableEntries.class.isInstance(value);
+        return ListableEntries.class.isAssignableFrom(getFoundClass());
     }
     boolean isCorrect() {
         return (Boolean) ConverterMethod.invokeMethod(IS_CORRECT_METHOD, value);
