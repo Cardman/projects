@@ -44,16 +44,6 @@ final class CurrentSerializableElements {
                     }
                 }
                 if (currentValue_ instanceof ListableEntries) {
-//                    if (currentValue_ instanceof TreeNodeMap) {
-//                        Object value_ = ((TreeNodeMap<?,?>)currentValue_).getCmp();
-//                        addElementInMapWithoutIdRef(value_,true);
-//                    }
-                    // else if (currentValue_ instanceof SortableMap && !(currentValue_ instanceof NaturalTreeNodeMap)) {
-//                        Object value_ = ((SortableMap<?,?>)currentValue_).comparator();
-//                        if (value_ != null) {
-//                            addElementInMapWithoutIdRef(value_,false,true);
-//                        }
-                    //}
                     for (EntryCust<?, ?> o: ((ListableEntries<?,?>)currentValue_).entryList()) {
                         addElementInMapWithoutIdRef(o.getKey(),true);
                         addElementInMapWithoutIdRef(o.getValue(),false);
@@ -131,19 +121,6 @@ final class CurrentSerializableElements {
                     }
                 }
                 if (currentValue_ instanceof ListableEntries) {
-//                    if (currentValue_ instanceof TreeNodeMap) {
-//                        Object value_ = ((TreeNodeMap<?,?>)currentValue_).getCmp();
-//                        checkNullPointerWithoutIdRef(value_,
-//                                true, SerializeXmlObject.MP_CLASS, null, true);
-//                    }
-                    //else if (currentValue_ instanceof SortableMap
-                        //    && !(currentValue_ instanceof NaturalTreeNodeMap)) {
-//                        Object value_ = ((SortableMap<?,?>)currentValue_).comparator();
-//                        if (value_ != null) {
-//                            checkNullPointerWithoutIdRef(value_,
-//                                    true, SerializeXmlObject.MP_CLASS, null, true);
-//                        }
-                    //}
                     for (EntryCust<?, ?> o: ((ListableEntries<?,?>)currentValue_).entryList()) {
                         checkNullPointerWithoutIdRef(o.getKey(),
                                 true, SerializeXmlObject.MP_CLASS, null, false);
@@ -162,34 +139,6 @@ final class CurrentSerializableElements {
                     }
                     continue;
                 }
-//                if (containsComparator(e)) {
-//                    Class<?> cl_ = currentValue_.getClass();
-//                    while (cl_ != Object.class) {
-//                        boolean comparatorClass_ = false;
-//                        try {
-//                            cl_.asSubclass(Comparator.class);
-//                            comparatorClass_ = true;
-//                        } catch (Exception _0) {
-//                        }
-//                        if (!comparatorClass_) {
-//                            break;
-//                        }
-//
-//                        for (Field f: cl_.getDeclaredFields()) {
-//                            if (Modifier.isTransient(f.getModifiers())) {
-//                                continue;
-//                            }
-//                            if (Modifier.isStatic(f.getModifiers())) {
-//                                continue;
-//                            }
-//                            f.setAccessible(true);
-//                            Object value_ = ConverterMethod.getField(f, currentValue_);
-//                            checkNullPointerWithoutIdRef(value_, false, cl_, f.getName(), false);
-//                        }
-//                        cl_ = cl_.getSuperclass();
-//                    }
-//                    continue;
-//                }
 
                 Class<?> cl_ = currentValue_.getClass();
                 while (cl_ != Object.class) {
@@ -237,18 +186,6 @@ final class CurrentSerializableElements {
                     }
                 }
                 if (currentValue_ instanceof ListableEntries) {
-//                    if (currentValue_ instanceof TreeNodeMap) {
-//                        Object value_ = ((TreeNodeMap<?,?>)currentValue_).getCmp();
-//                        setUnmodifiedWithoutIdRef(value_,
-//                                true, SerializeXmlObject.MP_CLASS, null);
-//                    }// else if (currentValue_ instanceof SortableMap
-                    //        && !(currentValue_ instanceof NaturalTreeNodeMap)) {
-//                        Object value_ = ((SortableMap<?,?>)currentValue_).comparator();
-//                        if (value_ != null) {
-//                            setUnmodifiedWithoutIdRef(value_,
-//                                    true, SerializeXmlObject.MP_CLASS, null, true);
-//                        }
-                    //}
                     for (EntryCust<?, ?> o: ((ListableEntries<?,?>)currentValue_).entryList()) {
                         setUnmodifiedWithoutIdRef(o.getKey(),
                                 true, SerializeXmlObject.MP_CLASS, null);
@@ -302,18 +239,6 @@ final class CurrentSerializableElements {
                     }
                 }
                 if (currentValue_ instanceof ListableEntries) {
-//                    if (currentValue_ instanceof TreeNodeMap) {
-//                        Object value_ = ((TreeNodeMap<?,?>)currentValue_).getCmp();
-//                        setUnmodified(value_,
-//                                true, SerializeXmlObject.MP_CLASS, null);
-//                    } //else if (currentValue_ instanceof SortableMap
-                        //    && !(currentValue_ instanceof NaturalTreeNodeMap)) {
-//                        Object value_ = ((SortableMap<?,?>)currentValue_).comparator();
-//                        if (value_ != null) {
-//                            setUnmodified(value_,
-//                                    true, SerializeXmlObject.MP_CLASS, null, true);
-//                        }
-                    //}
                     for (EntryCust<?, ?> o: ((ListableEntries<?,?>)currentValue_).entryList()) {
                         setUnmodified(o.getKey(),
                                 true, SerializeXmlObject.MP_CLASS, null);
@@ -369,22 +294,6 @@ final class CurrentSerializableElements {
                     }
                 }
                 if (currentValue_ instanceof ListableEntries) {
-//                    if (currentValue_ instanceof TreeNodeMap) {
-//                        Object value_ = ((TreeNodeMap<?,?>)currentValue_).getCmp();
-//                        if(!isUnmodifiedWithoutIdRef(value_,
-//                                true, SerializeXmlObject.MP_CLASS, null, true)) {
-//                            return true;
-//                        }
-//                    } //else if (currentValue_ instanceof SortableMap
-                        //    && !(currentValue_ instanceof NaturalTreeNodeMap)) {
-//                        Object value_ = ((SortableMap<?,?>)currentValue_).comparator();
-//                        if (value_ != null) {
-//                            if(!isUnmodifiedWithoutIdRef(value_,
-//                                    true, SerializeXmlObject.MP_CLASS, null, true)) {
-//                                return true;
-//                            }
-//                        }
-                    //}
                     for (EntryCust<?, ?> o: ((ListableEntries<?,?>)currentValue_).entryList()) {
                         if(!isUnmodifiedWithoutIdRef(o.getKey(),
                                 true, SerializeXmlObject.MP_CLASS, null)) {
@@ -447,22 +356,6 @@ final class CurrentSerializableElements {
                     }
                 }
                 if (currentValue_ instanceof ListableEntries) {
-//                    if (currentValue_ instanceof TreeNodeMap) {
-//                        Object value_ = ((TreeNodeMap<?,?>)currentValue_).getCmp();
-//                        if(!isUnmodified(value_,
-//                                true, SerializeXmlObject.MP_CLASS, null)) {
-//                            return true;
-//                        }
-//                    } //else if (currentValue_ instanceof SortableMap
-                        //    && !(currentValue_ instanceof NaturalTreeNodeMap)) {
-//                        Object value_ = ((SortableMap<?,?>)currentValue_).comparator();
-//                        if (value_ != null) {
-//                            if(!isUnmodified(value_,
-//                                    true, SerializeXmlObject.MP_CLASS, null, true)) {
-//                                return true;
-//                            }
-//                        }
-                    //}
                     for (EntryCust<?, ?> o: ((ListableEntries<?,?>)currentValue_).entryList()) {
                         if(!isUnmodified(o.getKey(),
                                 true, SerializeXmlObject.MP_CLASS, null)) {
@@ -522,16 +415,6 @@ final class CurrentSerializableElements {
                     }
                 }
                 if (currentValue_ instanceof ListableEntries) {
-//                    if (currentValue_ instanceof TreeNodeMap) {
-//                        Object value_ = ((TreeNodeMap<?,?>)currentValue_).getCmp();
-//                        addElementInMap(value_,true);
-//                    }
-                    //else if (currentValue_ instanceof SortableMap && !(currentValue_ instanceof NaturalTreeNodeMap)) {
-//                        Object value_ = ((SortableMap<?,?>)currentValue_).comparator();
-//                        if (value_ != null) {
-//                            addElementInMap(value_,false,true);
-//                        }
-                    //}
                     for (EntryCust<?, ?> o: ((ListableEntries<?,?>)currentValue_).entryList()) {
                         addElementInMap(o.getKey(),true);
                         addElementInMap(o.getValue(),false);
@@ -1007,12 +890,6 @@ final class CurrentSerializableElements {
 
     private static TemplateSerial createComposite(
             Object _value, boolean _isKey, String _field) {
-//        if (_value instanceof Comparator && _isComparator) {
-//            ComparatorSerial serializableField_ = new ComparatorSerial((Comparator<?>)_value);
-//            serializableField_.setKeyOfMap(_isKey);
-//            serializableField_.setField(_field);
-//            return serializableField_;
-//        }
         if (_value.getClass().isArray()) {
             ArraySerial serializableField_ = new ArraySerial(_value);
             serializableField_.setKeyOfMap(_isKey);

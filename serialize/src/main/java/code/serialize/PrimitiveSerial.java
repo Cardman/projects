@@ -13,11 +13,6 @@ abstract class PrimitiveSerial extends ElementsSerial{
         super(_node);
     }
 
-//    @Override
-//    Class<?> getValueClass() {
-//        return getValue().getClass();
-//    }
-
     @Override
     Element serialize(Document _doc) {
         Element node_ = serializeMetaInfo(_doc);

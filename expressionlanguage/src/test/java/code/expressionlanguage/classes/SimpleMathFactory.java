@@ -2,7 +2,7 @@ package code.expressionlanguage.classes;
 import code.util.StringList;
 import code.util.ints.MathFactory;
 
-public class SimpleMathFactory implements MathFactory<Long> {
+public class SimpleMathFactory implements MathFactory {
 
     @Override
     public Long evaluateDirectlyRate(String _numExp) {

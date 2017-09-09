@@ -17,7 +17,6 @@ import java.util.concurrent.atomic.AtomicLong;
 import junitparams.JUnitParamsRunner;
 import junitparams.Parameters;
 
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.xml.sax.SAXException;
@@ -30,6 +29,15 @@ import code.serialize.classes.CompositePrimitivable;
 import code.serialize.classes.CompositePrivate;
 import code.serialize.classes.CompositeTwo;
 import code.serialize.classes.Container;
+import code.serialize.classes.ContainerArray;
+import code.serialize.classes.ContainerCompositeTwo;
+import code.serialize.classes.ContainerIdMapRef;
+import code.serialize.classes.ContainerNatTreeMap;
+import code.serialize.classes.ContainerObjectMapClassic;
+import code.serialize.classes.ContainerObjectMapComp;
+import code.serialize.classes.ContainerObjectMapRef;
+import code.serialize.classes.ContainerStringMap;
+import code.serialize.classes.ContainerTreeMap;
 import code.serialize.classes.Containers;
 import code.serialize.classes.InternsClasses;
 import code.serialize.classes.InternsClasses.InternStandardTwo;
@@ -39,6 +47,19 @@ import code.serialize.classes.InternsClasses.InternStaticStandard.InternStaticSt
 import code.serialize.classes.InternsClasses.InternStaticStandard.InternStaticStandardThree;
 import code.serialize.classes.MapComponent;
 import code.serialize.classes.Maps;
+import code.serialize.classes.MapsAtomicInteger;
+import code.serialize.classes.MapsAtomicLong;
+import code.serialize.classes.MapsBigDecimal;
+import code.serialize.classes.MapsBigInteger;
+import code.serialize.classes.MapsBoolean;
+import code.serialize.classes.MapsByte;
+import code.serialize.classes.MapsDouble;
+import code.serialize.classes.MapsEnum;
+import code.serialize.classes.MapsFloat;
+import code.serialize.classes.MapsInteger;
+import code.serialize.classes.MapsLong;
+import code.serialize.classes.MapsObject;
+import code.serialize.classes.MapsShort;
 import code.serialize.classes.MyEnum;
 import code.serialize.classes.MyEnumTwo;
 import code.serialize.classes.MyStringComparator;
@@ -91,6 +112,15 @@ public class SerializeXmlObjectTest {
     private static final String OBJECT_MAP = ObjectMap.class.getName();
     private static final String NATURAL_COMPARATOR = NaturalComparator.class.getName();
     private static final String CONTAINER = Container.class.getName();
+    private static final String CONTAINER_NAT_TREE_MAP = ContainerNatTreeMap.class.getName();
+    private static final String CONTAINER_ID_MAP_REF = ContainerIdMapRef.class.getName();
+    private static final String CONTAINER_COMPOSITE_TWO = ContainerCompositeTwo.class.getName();
+    private static final String CONTAINER_ARRAY = ContainerArray.class.getName();
+    private static final String CONTAINER_TREE_MAP = ContainerTreeMap.class.getName();
+    private static final String CONTAINER_OBJECT_MAP_CLASSIC = ContainerObjectMapClassic.class.getName();
+    private static final String CONTAINER_OBJECT_MAP_COMP = ContainerObjectMapComp.class.getName();
+    private static final String CONTAINER_OBJECT_MAP_REF = ContainerObjectMapRef.class.getName();
+    private static final String CONTAINER_STRING_MAP = ContainerStringMap.class.getName();
     private static final String CONTAINERS = Containers.class.getName();
     private static final String COMPOSITE_PRIMITIVABLE = CompositePrimitivable.class.getName();
     private static final String COMPOSITE_PRIVATE = CompositePrivate.class.getName();
@@ -101,6 +131,19 @@ public class SerializeXmlObjectTest {
     private static final String REFS_ARRAY = RefsArray.class.getName();
     private static final String REFS_LIST = RefsList.class.getName();
     private static final String MAPS = Maps.class.getName();
+    private static final String MAPS_OBJECT = MapsObject.class.getName();
+    private static final String MAPS_ENUM = MapsEnum.class.getName();
+    private static final String MAPS_BOOLEAN = MapsBoolean.class.getName();
+    private static final String MAPS_DOUBLE = MapsDouble.class.getName();
+    private static final String MAPS_FLOAT = MapsFloat.class.getName();
+    private static final String MAPS_LONG = MapsLong.class.getName();
+    private static final String MAPS_INTEGER = MapsInteger.class.getName();
+    private static final String MAPS_SHORT = MapsShort.class.getName();
+    private static final String MAPS_BYTE = MapsByte.class.getName();
+    private static final String MAPS_BIG_INTEGER = MapsBigInteger.class.getName();
+    private static final String MAPS_BIG_DECIMAL = MapsBigDecimal.class.getName();
+    private static final String MAPS_AT_LONG = MapsAtomicLong.class.getName();
+    private static final String MAPS_AT_INTEGER = MapsAtomicInteger.class.getName();
     private static final String MY_ENUM = MyEnum.class.getName();
     private static final String MY_ENUM_TWO = MyEnumTwo.class.getName();
     private static final String PRIMITIVE = Primitive.class.getName();
@@ -1013,13 +1056,13 @@ public class SerializeXmlObjectTest {
         SerializeXmlObject.setReferences(_bool);
         SerializeXmlObject.setCheckReferences(false);
         String xml_ = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?>";
-        xml_ += "<"+MAPS+">";
-        xml_ += "<"+ENUM_MAP+" class=\""+MAPS+"\" field=\"map\">";
+        xml_ += "<"+MAPS_ENUM+">";
+        xml_ += "<"+ENUM_MAP+" class=\""+MAPS_ENUM+"\" field=\"map\">";
         xml_ += "<"+MY_ENUM+" class='"+SerializeXmlObject.MP_CLASS+"' key=\"\" value=\"ONE\"/>";
         xml_ += "<java.lang.String class='"+SerializeXmlObject.MP_CLASS+"' value=\"STR_ONE\"/>";
         xml_ += "</"+ENUM_MAP+">";
-        xml_ += "</"+MAPS+">";
-        Maps<MyEnum> containers_ = (Maps<MyEnum>) SerializeXmlObject.fromXmlStringObject(xml_);
+        xml_ += "</"+MAPS_ENUM+">";
+        MapsEnum containers_ = (MapsEnum) SerializeXmlObject.fromXmlStringObject(xml_);
         assertSame(EnumMap.class, containers_.getMap().getClass());
         assertEq(1, containers_.getMap().size());
         assertEq("STR_ONE", containers_.getMap().getVal(MyEnum.ONE));
@@ -1031,103 +1074,103 @@ public class SerializeXmlObjectTest {
         SerializeXmlObject.setReferences(_bool);
         SerializeXmlObject.setCheckReferences(false);
         String xml_ = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?>";
-        xml_ += "<"+MAPS+">";
-        xml_ += "<"+ID_MAP+" class=\""+MAPS+"\" field=\"map\">";
+        xml_ += "<"+MAPS_OBJECT+">";
+        xml_ += "<"+ID_MAP+" class=\""+MAPS_OBJECT+"\" field=\"map\">";
         xml_ += "<null class='"+SerializeXmlObject.MP_CLASS+"' key=\"\"/>";
         xml_ += "<java.lang.String class='"+SerializeXmlObject.MP_CLASS+"' value=\"STR_ONE\"/>";
         xml_ += "</"+ID_MAP+">";
-        xml_ += "</"+MAPS+">";
-        Maps<?> containers_ = (Maps<?>) SerializeXmlObject.fromXmlStringObject(xml_);
+        xml_ += "</"+MAPS_OBJECT+">";
+        MapsObject containers_ = (MapsObject) SerializeXmlObject.fromXmlStringObject(xml_);
         assertSame(IdMap.class, containers_.getMap().getClass());
         assertEq(1, containers_.getMap().size());
         assertEq("STR_ONE", containers_.getMap().getVal(null));
     }
 
-    @Parameters(method="booleanInputs")
+	@Parameters(method="booleanInputs")
     @Test
     public void fromXmlStringObject14Test(boolean _bool) {
         SerializeXmlObject.setReferences(_bool);
         SerializeXmlObject.setCheckReferences(false);
         String xml_ = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?>";
-        xml_ += "<"+MAPS+">";
-        xml_ += "<"+BOOLEAN_MAP+" class=\""+MAPS+"\" field=\"map\">";
+        xml_ += "<"+MAPS_BOOLEAN+">";
+        xml_ += "<"+BOOLEAN_MAP+" class=\""+MAPS_BOOLEAN+"\" field=\"map\">";
         xml_ += "<java.lang.Boolean class='"+SerializeXmlObject.MP_CLASS+"' key=\"\" value=\"true\"/>";
         xml_ += "<java.lang.String class='"+SerializeXmlObject.MP_CLASS+"' value=\"STR_ONE\"/>";
         xml_ += "</"+BOOLEAN_MAP+">";
-        xml_ += "</"+MAPS+">";
-        Maps<Boolean> containers_ = (Maps<Boolean>) SerializeXmlObject.fromXmlStringObject(xml_);
+        xml_ += "</"+MAPS_BOOLEAN+">";
+        MapsBoolean containers_ = (MapsBoolean) SerializeXmlObject.fromXmlStringObject(xml_);
         assertSame(BooleanMap.class, containers_.getMap().getClass());
         assertEq(1, containers_.getMap().size());
         assertEq("STR_ONE", containers_.getMap().getVal(true));
     }
 
-    @Parameters(method="booleanInputs")
+	@Parameters(method="booleanInputs")
     @Test
     public void fromXmlStringObject15Test(boolean _bool) {
         SerializeXmlObject.setReferences(_bool);
         SerializeXmlObject.setCheckReferences(false);
         String xml_ = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?>";
-        xml_ += "<"+MAPS+">";
-        xml_ += "<"+NUMBER_MAP+" class=\""+MAPS+"\" field=\"map\">";
+        xml_ += "<"+MAPS_LONG+">";
+        xml_ += "<"+NUMBER_MAP+" class=\""+MAPS_LONG+"\" field=\"map\">";
         xml_ += "<java.lang.Long class='"+SerializeXmlObject.MP_CLASS+"' key=\"\" value=\"1\"/>";
         xml_ += "<java.lang.String class='"+SerializeXmlObject.MP_CLASS+"' value=\"STR_ONE\"/>";
         xml_ += "</"+NUMBER_MAP+">";
-        xml_ += "</"+MAPS+">";
-        Maps<Long> containers_ = (Maps<Long>) SerializeXmlObject.fromXmlStringObject(xml_);
+        xml_ += "</"+MAPS_LONG+">";
+        MapsLong containers_ = (MapsLong) SerializeXmlObject.fromXmlStringObject(xml_);
         assertSame(NumberMap.class, containers_.getMap().getClass());
         assertEq(1, containers_.getMap().size());
         assertEq("STR_ONE", containers_.getMap().getVal(1L));
     }
 
-    @Parameters(method="booleanInputs")
+	@Parameters(method="booleanInputs")
     @Test
     public void fromXmlStringObject16Test(boolean _bool) {
         SerializeXmlObject.setReferences(_bool);
         SerializeXmlObject.setCheckReferences(false);
         String xml_ = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?>";
-        xml_ += "<"+MAPS+">";
-        xml_ += "<"+NUMBER_MAP+" class=\""+MAPS+"\" field=\"map\">";
+        xml_ += "<"+MAPS_SHORT+">";
+        xml_ += "<"+NUMBER_MAP+" class=\""+MAPS_SHORT+"\" field=\"map\">";
         xml_ += "<java.lang.Short class='"+SerializeXmlObject.MP_CLASS+"' key=\"\" value=\"1\"/>";
         xml_ += "<java.lang.String class='"+SerializeXmlObject.MP_CLASS+"' value=\"STR_ONE\"/>";
         xml_ += "</"+NUMBER_MAP+">";
-        xml_ += "</"+MAPS+">";
-        Maps<Short> containers_ = (Maps<Short>) SerializeXmlObject.fromXmlStringObject(xml_);
+        xml_ += "</"+MAPS_SHORT+">";
+        MapsShort containers_ = (MapsShort) SerializeXmlObject.fromXmlStringObject(xml_);
         assertSame(NumberMap.class, containers_.getMap().getClass());
         assertEq(1, containers_.getMap().size());
         assertEq("STR_ONE", containers_.getMap().getVal(new Short((short) 1)));
     }
 
-    @Parameters(method="booleanInputs")
+	@Parameters(method="booleanInputs")
     @Test
     public void fromXmlStringObject17Test(boolean _bool) {
         SerializeXmlObject.setReferences(_bool);
         SerializeXmlObject.setCheckReferences(false);
         String xml_ = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?>";
-        xml_ += "<"+MAPS+">";
-        xml_ += "<"+NUMBER_MAP+" class=\""+MAPS+"\" field=\"map\">";
+        xml_ += "<"+MAPS_BYTE+">";
+        xml_ += "<"+NUMBER_MAP+" class=\""+MAPS_BYTE+"\" field=\"map\">";
         xml_ += "<java.lang.Byte class='"+SerializeXmlObject.MP_CLASS+"' key=\"\" value=\"1\"/>";
         xml_ += "<java.lang.String class='"+SerializeXmlObject.MP_CLASS+"' value=\"STR_ONE\"/>";
         xml_ += "</"+NUMBER_MAP+">";
-        xml_ += "</"+MAPS+">";
-        Maps<Byte> containers_ = (Maps<Byte>) SerializeXmlObject.fromXmlStringObject(xml_);
+        xml_ += "</"+MAPS_BYTE+">";
+        MapsByte containers_ = (MapsByte) SerializeXmlObject.fromXmlStringObject(xml_);
         assertSame(NumberMap.class, containers_.getMap().getClass());
         assertEq(1, containers_.getMap().size());
         assertEq("STR_ONE", containers_.getMap().getVal(new Byte((byte) 1)));
     }
 
-    @Parameters(method="booleanInputs")
+	@Parameters(method="booleanInputs")
     @Test
     public void fromXmlStringObject18Test(boolean _bool) {
         SerializeXmlObject.setReferences(_bool);
         SerializeXmlObject.setCheckReferences(false);
         String xml_ = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?>";
-        xml_ += "<"+MAPS+">";
-        xml_ += "<"+NUMBER_MAP+" class=\""+MAPS+"\" field=\"map\">";
+        xml_ += "<"+MAPS_FLOAT+">";
+        xml_ += "<"+NUMBER_MAP+" class=\""+MAPS_FLOAT+"\" field=\"map\">";
         xml_ += "<java.lang.Float class='"+SerializeXmlObject.MP_CLASS+"' key=\"\" value=\"1.0\"/>";
         xml_ += "<java.lang.String class='"+SerializeXmlObject.MP_CLASS+"' value=\"STR_ONE\"/>";
         xml_ += "</"+NUMBER_MAP+">";
-        xml_ += "</"+MAPS+">";
-        Maps<Float> containers_ = (Maps<Float>) SerializeXmlObject.fromXmlStringObject(xml_);
+        xml_ += "</"+MAPS_FLOAT+">";
+        MapsFloat containers_ = (MapsFloat) SerializeXmlObject.fromXmlStringObject(xml_);
         assertSame(NumberMap.class, containers_.getMap().getClass());
         assertEq(1, containers_.getMap().size());
         assertEq("STR_ONE", containers_.getMap().getVal(new Float(1)));
@@ -1139,49 +1182,49 @@ public class SerializeXmlObjectTest {
         SerializeXmlObject.setReferences(_bool);
         SerializeXmlObject.setCheckReferences(false);
         String xml_ = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?>";
-        xml_ += "<"+MAPS+">";
-        xml_ += "<"+NUMBER_MAP+" class=\""+MAPS+"\" field=\"map\">";
+        xml_ += "<"+MAPS_DOUBLE+">";
+        xml_ += "<"+NUMBER_MAP+" class=\""+MAPS_DOUBLE+"\" field=\"map\">";
         xml_ += "<java.lang.Double class='"+SerializeXmlObject.MP_CLASS+"' key=\"\" value=\"1.0\"/>";
         xml_ += "<java.lang.String class='"+SerializeXmlObject.MP_CLASS+"' value=\"STR_ONE\"/>";
         xml_ += "</"+NUMBER_MAP+">";
-        xml_ += "</"+MAPS+">";
-        Maps<Double> containers_ = (Maps<Double>) SerializeXmlObject.fromXmlStringObject(xml_);
+        xml_ += "</"+MAPS_DOUBLE+">";
+        MapsDouble containers_ = (MapsDouble) SerializeXmlObject.fromXmlStringObject(xml_);
         assertSame(NumberMap.class, containers_.getMap().getClass());
         assertEq(1, containers_.getMap().size());
         assertEq("STR_ONE", containers_.getMap().getVal(new Double(1)));
     }
 
-    @Parameters(method="booleanInputs")
+	@Parameters(method="booleanInputs")
     @Test
     public void fromXmlStringObject20Test(boolean _bool) {
         SerializeXmlObject.setReferences(_bool);
         SerializeXmlObject.setCheckReferences(false);
         String xml_ = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?>";
-        xml_ += "<"+MAPS+">";
-        xml_ += "<"+NUMBER_MAP+" class=\""+MAPS+"\" field=\"map\">";
+        xml_ += "<"+MAPS_BIG_INTEGER+">";
+        xml_ += "<"+NUMBER_MAP+" class=\""+MAPS_BIG_INTEGER+"\" field=\"map\">";
         xml_ += "<java.math.BigInteger class='"+SerializeXmlObject.MP_CLASS+"' key=\"\" value=\"1\"/>";
         xml_ += "<java.lang.String class='"+SerializeXmlObject.MP_CLASS+"' value=\"STR_ONE\"/>";
         xml_ += "</"+NUMBER_MAP+">";
-        xml_ += "</"+MAPS+">";
-        Maps<BigInteger> containers_ = (Maps<BigInteger>) SerializeXmlObject.fromXmlStringObject(xml_);
+        xml_ += "</"+MAPS_BIG_INTEGER+">";
+        MapsBigInteger containers_ = (MapsBigInteger) SerializeXmlObject.fromXmlStringObject(xml_);
         assertSame(NumberMap.class, containers_.getMap().getClass());
         assertEq(1, containers_.getMap().size());
         assertEq("STR_ONE", containers_.getMap().getVal(new BigInteger("1")));
     }
 
-    @Parameters(method="booleanInputs")
+	@Parameters(method="booleanInputs")
     @Test
     public void fromXmlStringObject21Test(boolean _bool) {
         SerializeXmlObject.setReferences(_bool);
         SerializeXmlObject.setCheckReferences(false);
         String xml_ = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?>";
-        xml_ += "<"+MAPS+">";
-        xml_ += "<"+NUMBER_MAP+" class=\""+MAPS+"\" field=\"map\">";
+        xml_ += "<"+MAPS_BIG_DECIMAL+">";
+        xml_ += "<"+NUMBER_MAP+" class=\""+MAPS_BIG_DECIMAL+"\" field=\"map\">";
         xml_ += "<java.math.BigDecimal class='"+SerializeXmlObject.MP_CLASS+"' key=\"\" value=\"1.0\"/>";
         xml_ += "<java.lang.String class='"+SerializeXmlObject.MP_CLASS+"' value=\"STR_ONE\"/>";
         xml_ += "</"+NUMBER_MAP+">";
-        xml_ += "</"+MAPS+">";
-        Maps<BigDecimal> containers_ = (Maps<BigDecimal>) SerializeXmlObject.fromXmlStringObject(xml_);
+        xml_ += "</"+MAPS_BIG_DECIMAL+">";
+        MapsBigDecimal containers_ = (MapsBigDecimal) SerializeXmlObject.fromXmlStringObject(xml_);
         assertSame(NumberMap.class, containers_.getMap().getClass());
         assertEq(1, containers_.getMap().size());
         assertEq("STR_ONE", containers_.getMap().getVal(new BigDecimal("1.0")));
@@ -1193,13 +1236,13 @@ public class SerializeXmlObjectTest {
         SerializeXmlObject.setReferences(_bool);
         SerializeXmlObject.setCheckReferences(false);
         String xml_ = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?>";
-        xml_ += "<"+MAPS+">";
-        xml_ += "<"+NUMBER_MAP+" class=\""+MAPS+"\" field=\"map\">";
+        xml_ += "<"+MAPS_AT_INTEGER+">";
+        xml_ += "<"+NUMBER_MAP+" class=\""+MAPS_AT_INTEGER+"\" field=\"map\">";
         xml_ += "<java.util.concurrent.atomic.AtomicInteger class='"+SerializeXmlObject.MP_CLASS+"' key=\"\" value=\"1\"/>";
         xml_ += "<java.lang.String class='"+SerializeXmlObject.MP_CLASS+"' value=\"STR_ONE\"/>";
         xml_ += "</"+NUMBER_MAP+">";
-        xml_ += "</"+MAPS+">";
-        Maps<AtomicInteger> containers_ = (Maps<AtomicInteger>) SerializeXmlObject.fromXmlStringObject(xml_);
+        xml_ += "</"+MAPS_AT_INTEGER+">";
+        MapsAtomicInteger containers_ = (MapsAtomicInteger) SerializeXmlObject.fromXmlStringObject(xml_);
         assertSame(NumberMap.class, containers_.getMap().getClass());
         assertEq(1, containers_.getMap().size());
         AtomicInteger at_ = (AtomicInteger) containers_.getMap().getKeys().first();
@@ -1207,19 +1250,19 @@ public class SerializeXmlObjectTest {
         assertEq("STR_ONE", containers_.getMap().getVal(at_));
     }
 
-    @Parameters(method="booleanInputs")
+	@Parameters(method="booleanInputs")
     @Test
     public void fromXmlStringObject23Test(boolean _bool) {
         SerializeXmlObject.setReferences(_bool);
         SerializeXmlObject.setCheckReferences(false);
         String xml_ = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?>";
-        xml_ += "<"+MAPS+">";
-        xml_ += "<"+NUMBER_MAP+" class=\""+MAPS+"\" field=\"map\">";
+        xml_ += "<"+MAPS_AT_LONG+">";
+        xml_ += "<"+NUMBER_MAP+" class=\""+MAPS_AT_LONG+"\" field=\"map\">";
         xml_ += "<java.util.concurrent.atomic.AtomicLong class='"+SerializeXmlObject.MP_CLASS+"' key=\"\" value=\"1\"/>";
         xml_ += "<java.lang.String class='"+SerializeXmlObject.MP_CLASS+"' value=\"STR_ONE\"/>";
         xml_ += "</"+NUMBER_MAP+">";
-        xml_ += "</"+MAPS+">";
-        Maps<AtomicLong> containers_ = (Maps<AtomicLong>) SerializeXmlObject.fromXmlStringObject(xml_);
+        xml_ += "</"+MAPS_AT_LONG+">";
+        MapsAtomicLong containers_ = (MapsAtomicLong) SerializeXmlObject.fromXmlStringObject(xml_);
         assertSame(NumberMap.class, containers_.getMap().getClass());
         assertEq(1, containers_.getMap().size());
         AtomicLong at_ = (AtomicLong) containers_.getMap().getKeys().first();
@@ -1469,19 +1512,19 @@ public class SerializeXmlObjectTest {
         assertEq(3.0, arr_[0][0]);
     }
 
-    @Parameters(method="booleanInputs")
+	@Parameters(method="booleanInputs")
     @Test
     public void fromXmlStringObject36Test(boolean _bool) {
         SerializeXmlObject.setReferences(_bool);
         SerializeXmlObject.setCheckReferences(false);
         String xml_ = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?>";
-        xml_ += "<"+MAPS+">";
-        xml_ += "<"+ID_MAP+" class=\""+MAPS+"\" field=\"map\">";
+        xml_ += "<"+MAPS_OBJECT+">";
+        xml_ += "<"+ID_MAP+" class=\""+MAPS_OBJECT+"\" field=\"map\">";
         xml_ += "<array class='"+SerializeXmlObject.MP_CLASS+"' key=\"\" type=\"java.lang.Object\"/>";
         xml_ += "<java.lang.String class='"+SerializeXmlObject.MP_CLASS+"' value=\"STR_ONE\"/>";
         xml_ += "</"+ID_MAP+">";
-        xml_ += "</"+MAPS+">";
-        Maps<Object> containers_ = (Maps<Object>) SerializeXmlObject.fromXmlStringObject(xml_);
+        xml_ += "</"+MAPS_OBJECT+">";
+        MapsObject containers_ = (MapsObject) SerializeXmlObject.fromXmlStringObject(xml_);
         assertSame(IdMap.class, containers_.getMap().getClass());
         assertEq(1, containers_.getMap().size());
         Object[] at_ = (Object[]) containers_.getMap().getKeys().first();
@@ -1490,14 +1533,14 @@ public class SerializeXmlObjectTest {
         assertEq("STR_ONE", containers_.getMap().getVal(at_));
     }
 
-    @Parameters(method="booleanInputs")
+	@Parameters(method="booleanInputs")
     @Test
     public void fromXmlStringObject37Test(boolean _bool) {
         SerializeXmlObject.setReferences(_bool);
         SerializeXmlObject.setCheckReferences(false);
         String xml_ = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?>";
-        xml_ += "<"+CONTAINER+">";
-        xml_ += "<"+TREE_MAP+" class=\""+CONTAINER+"\" field=\"object\">";
+        xml_ += "<"+CONTAINER_TREE_MAP+">";
+        xml_ += "<"+TREE_MAP+" class=\""+CONTAINER_TREE_MAP+"\" field=\"object\">";
         xml_ += "<"+MY_STRING_COMPARATOR+" class=\""+TREE_MAP+"\" field=\"comparator\">";
         xml_ += "<java.lang.Integer class=\""+MY_STRING_COMPARATOR+"\" field=\"mult\" value=\"-1\"/>";
         xml_ += "</"+MY_STRING_COMPARATOR+">";
@@ -1506,10 +1549,9 @@ public class SerializeXmlObjectTest {
         xml_ += "<java.lang.Integer class='"+SerializeXmlObject.MP_CLASS+"' value=\"2\"/>";
         xml_ += "<java.lang.Integer class='"+SerializeXmlObject.MP_CLASS+"' value=\"1\"/>";
         xml_ += "</"+TREE_MAP+">";
-        xml_ += "</"+CONTAINER+">";
-        Container containers_ = (Container) SerializeXmlObject.fromXmlStringObject(xml_);
-        assertSame(TreeMap.class, containers_.getObject().getClass());
-        TreeMap<String,?> tree_ = (TreeMap<String,?>) containers_.getObject();
+        xml_ += "</"+CONTAINER_TREE_MAP+">";
+        ContainerTreeMap containers_ = (ContainerTreeMap) SerializeXmlObject.fromXmlStringObject(xml_);
+        TreeMap<String,Integer> tree_ = containers_.getObject();
         MyStringComparator strCmp_ = (MyStringComparator) tree_.comparator();
         assertEq(-1, strCmp_.getMult());
         assertEq(2, tree_.size());
@@ -1550,14 +1592,14 @@ public class SerializeXmlObjectTest {
         SerializeXmlObject.setReferences(_bool);
         SerializeXmlObject.setCheckReferences(false);
         String xml_ = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?>";
-        xml_ += "<"+CONTAINER+">";
-        xml_ += "<array class=\""+CONTAINER+"\" field=\"object\" type=\"java.lang.Object\">";
+        xml_ += "<"+CONTAINER_ARRAY+">";
+        xml_ += "<array class=\""+CONTAINER_ARRAY+"\" field=\"object\" type=\"java.lang.Object\">";
         xml_ += "<"+COMPOSITE_TWO+">";
         xml_ += "<java.lang.Integer class=\""+COMPOSITE_TWO+"\" field=\"primitive\" value=\"4\"/>";
         xml_ += "</"+COMPOSITE_TWO+">";
         xml_ += "</array>";
-        xml_ += "</"+CONTAINER+">";
-        Container containers_ = (Container) SerializeXmlObject.fromXmlStringObject(xml_);
+        xml_ += "</"+CONTAINER_ARRAY+">";
+        ContainerArray containers_ = (ContainerArray) SerializeXmlObject.fromXmlStringObject(xml_);
         assertSame(Object[].class, containers_.getObject().getClass());
         Object[] tree_ = (Object[]) containers_.getObject();
         assertEq(1, tree_.length);
@@ -1616,43 +1658,43 @@ public class SerializeXmlObjectTest {
         assertSame(tree_[2], tree_[3]);
     }
 
-    @Parameters(method="booleanInputs")
+	@Parameters(method="booleanInputs")
     @Test
     public void fromXmlStringObject42Test(boolean _bool) {
         SerializeXmlObject.setReferences(_bool);
         SerializeXmlObject.setCheckReferences(false);
         String xml_ = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?>";
-        xml_ += "<"+CONTAINER+">";
-        xml_ += "<"+OBJECT_MAP+" class=\""+CONTAINER+"\" field=\"object\">";
+        xml_ += "<"+CONTAINER_OBJECT_MAP_CLASSIC+">";
+        xml_ += "<"+OBJECT_MAP+" class=\""+CONTAINER_OBJECT_MAP_CLASSIC+"\" field=\"object\">";
         xml_ += "<"+COMPOSITE_TWO+" class='"+SerializeXmlObject.MP_CLASS+"' key=\"\">";
         xml_ += "<java.lang.Integer class=\""+COMPOSITE_TWO+"\" field=\"primitive\" value=\"4\"/>";
         xml_ += "</"+COMPOSITE_TWO+">";
         xml_ += "<java.lang.String class='"+SerializeXmlObject.MP_CLASS+"' value=\"FOUR\"/>";
         xml_ += "</"+OBJECT_MAP+">";
-        xml_ += "</"+CONTAINER+">";
-        Container containers_ = (Container) SerializeXmlObject.fromXmlStringObject(xml_);
-        ObjectMap<CompositeTwo,?> tree_ = (ObjectMap<CompositeTwo,?>) containers_.getObject();
+        xml_ += "</"+CONTAINER_OBJECT_MAP_CLASSIC+">";
+        ContainerObjectMapClassic containers_ = (ContainerObjectMapClassic) SerializeXmlObject.fromXmlStringObject(xml_);
+        ObjectMap<CompositeTwo,String> tree_ = containers_.getObject();
         assertEq(1, tree_.size());
         CompositeTwo comp_ = new CompositeTwo();
         comp_.setPrimitive(4);
         assertEq("FOUR", tree_.getVal(comp_));
     }
 
-    @Test
+	@Test
     public void fromXmlStringObject43Test() {
         SerializeXmlObject.setReferences(true);
         SerializeXmlObject.setCheckReferences(false);
         String xml_ = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?>";
-        xml_ += "<"+CONTAINER+">";
-        xml_ += "<"+CUST_LIST+" class=\""+CONTAINER+"\" field=\"object\">";
+        xml_ += "<"+CONTAINER_COMPOSITE_TWO+">";
+        xml_ += "<"+CUST_LIST+" class=\""+CONTAINER_COMPOSITE_TWO+"\" field=\"object\">";
         xml_ += "<"+COMPOSITE_TWO+" class='"+SerializeXmlObject.LS_CLASS+"' id=\"0\">";
         xml_ += "<java.lang.Integer class=\""+COMPOSITE_TWO+"\" field=\"primitive\" value=\"4\"/>";
         xml_ += "</"+COMPOSITE_TWO+">";
         xml_ += "<"+COMPOSITE_TWO+" class='"+SerializeXmlObject.LS_CLASS+"' ref=\"0\"/>";
         xml_ += "</"+CUST_LIST+">";
-        xml_ += "</"+CONTAINER+">";
-        Container containers_ = (Container) SerializeXmlObject.fromXmlStringObject(xml_);
-        CustList<CompositeTwo> tree_ = (CustList<CompositeTwo>) containers_.getObject();
+        xml_ += "</"+CONTAINER_COMPOSITE_TWO+">";
+        ContainerCompositeTwo containers_ = (ContainerCompositeTwo) SerializeXmlObject.fromXmlStringObject(xml_);
+        CustList<CompositeTwo> tree_ = containers_.getObject();
         assertEq(2, tree_.size());
         CompositeTwo comp_ = new CompositeTwo();
         comp_.setPrimitive(4);
@@ -1660,13 +1702,13 @@ public class SerializeXmlObjectTest {
         assertSame(tree_.get(0), tree_.get(1));
     }
 
-    @Test
+	@Test
     public void fromXmlStringObject44Test() {
         SerializeXmlObject.setReferences(true);
         SerializeXmlObject.setCheckReferences(false);
         String xml_ = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?>";
-        xml_ += "<"+CONTAINER+">";
-        xml_ += "<"+CUST_LIST+" class=\""+CONTAINER+"\" field=\"object\">";
+        xml_ += "<"+CONTAINER_COMPOSITE_TWO+">";
+        xml_ += "<"+CUST_LIST+" class=\""+CONTAINER_COMPOSITE_TWO+"\" field=\"object\">";
         xml_ += "<"+COMPOSITE_TWO+" class='"+SerializeXmlObject.LS_CLASS+"' id=\"0\">";
         xml_ += "<java.lang.Integer class=\""+COMPOSITE_TWO+"\" field=\"primitive\" value=\"4\"/>";
         xml_ += "</"+COMPOSITE_TWO+">";
@@ -1676,9 +1718,9 @@ public class SerializeXmlObjectTest {
         xml_ += "</"+COMPOSITE_TWO+">";
         xml_ += "<"+COMPOSITE_TWO+" class='"+SerializeXmlObject.LS_CLASS+"' ref=\"1\"/>";
         xml_ += "</"+CUST_LIST+">";
-        xml_ += "</"+CONTAINER+">";
-        Container containers_ = (Container) SerializeXmlObject.fromXmlStringObject(xml_);
-        CustList<CompositeTwo> tree_ = (CustList<CompositeTwo>) containers_.getObject();
+        xml_ += "</"+CONTAINER_COMPOSITE_TWO+">";
+        ContainerCompositeTwo containers_ = (ContainerCompositeTwo) SerializeXmlObject.fromXmlStringObject(xml_);
+        CustList<CompositeTwo> tree_ = containers_.getObject();
         assertEq(4, tree_.size());
         CompositeTwo comp_ = new CompositeTwo();
         comp_.setPrimitive(4);
@@ -1688,13 +1730,13 @@ public class SerializeXmlObjectTest {
         assertSame(tree_.get(2), tree_.get(3));
     }
 
-    @Test
+	@Test
     public void fromXmlStringObject45Test() {
         SerializeXmlObject.setReferences(true);
         SerializeXmlObject.setCheckReferences(false);
         String xml_ = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?>";
-        xml_ += "<"+CONTAINER+">";
-        xml_ += "<"+STRING_MAP+" class=\""+CONTAINER+"\" field=\"object\">";
+        xml_ += "<"+CONTAINER_STRING_MAP+">";
+        xml_ += "<"+STRING_MAP+" class=\""+CONTAINER_STRING_MAP+"\" field=\"object\">";
         xml_ += "<java.lang.String class='"+SerializeXmlObject.MP_CLASS+"' key=\"\" value=\"ref1\"/>";
         xml_ += "<java.lang.String class='"+SerializeXmlObject.MP_CLASS+"' key=\"\" value=\"ref2\"/>";
         xml_ += "<java.lang.String class='"+SerializeXmlObject.MP_CLASS+"' key=\"\" value=\"ref3\"/>";
@@ -1708,9 +1750,9 @@ public class SerializeXmlObjectTest {
         xml_ += "</"+COMPOSITE_TWO+">";
         xml_ += "<"+COMPOSITE_TWO+" class='"+SerializeXmlObject.MP_CLASS+"' ref=\"1\"/>";
         xml_ += "</"+STRING_MAP+">";
-        xml_ += "</"+CONTAINER+">";
-        Container containers_ = (Container) SerializeXmlObject.fromXmlStringObject(xml_);
-        StringMap<CompositeTwo> tree_ = (StringMap<CompositeTwo>) containers_.getObject();
+        xml_ += "</"+CONTAINER_STRING_MAP+">";
+        ContainerStringMap containers_ = (ContainerStringMap) SerializeXmlObject.fromXmlStringObject(xml_);
+        StringMap<CompositeTwo> tree_ = containers_.getObject();
         assertEq(4, tree_.size());
         CompositeTwo comp_ = new CompositeTwo();
         comp_.setPrimitive(4);
@@ -1720,13 +1762,13 @@ public class SerializeXmlObjectTest {
         assertSame(tree_.getVal("ref3"), tree_.getVal("ref4"));
     }
 
-    @Test
+	@Test
     public void fromXmlStringObject46Test() {
         SerializeXmlObject.setReferences(true);
         SerializeXmlObject.setCheckReferences(false);
         String xml_ = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?>";
-        xml_ += "<"+CONTAINER+">";
-        xml_ += "<"+OBJECT_MAP+" class=\""+CONTAINER+"\" field=\"object\">";
+        xml_ += "<"+CONTAINER_OBJECT_MAP_REF+">";
+        xml_ += "<"+OBJECT_MAP+" class=\""+CONTAINER_OBJECT_MAP_REF+"\" field=\"object\">";
         xml_ += "<"+COMPOSITE_TWO+" class='"+SerializeXmlObject.MP_CLASS+"' key=\"\" id=\"0\">";
         xml_ += "<java.lang.Integer class=\""+COMPOSITE_TWO+"\" field=\"primitive\" value=\"4\"/>";
         xml_ += "</"+COMPOSITE_TWO+">";
@@ -1736,9 +1778,9 @@ public class SerializeXmlObjectTest {
         xml_ += "</"+COMPOSITE_TWO+">";
         xml_ += "<"+COMPOSITE_TWO+" class='"+SerializeXmlObject.MP_CLASS+"' ref=\"1\"/>";
         xml_ += "</"+OBJECT_MAP+">";
-        xml_ += "</"+CONTAINER+">";
-        Container containers_ = (Container) SerializeXmlObject.fromXmlStringObject(xml_);
-        ObjectMap<CompositeTwo,?> tree_ = (ObjectMap<CompositeTwo,?>) containers_.getObject();
+        xml_ += "</"+CONTAINER_OBJECT_MAP_REF+">";
+        ContainerObjectMapRef containers_ = (ContainerObjectMapRef) SerializeXmlObject.fromXmlStringObject(xml_);
+        ObjectMap<CompositeTwo,CompositeTwo> tree_ = containers_.getObject();
         assertEq(2, tree_.size());
         EqList<CompositeTwo> obj_ = tree_.getKeys();
         CompositeTwo comp_ = new CompositeTwo();
@@ -1752,13 +1794,13 @@ public class SerializeXmlObjectTest {
         assertSame(obj_.last(), tree_.getVal(obj_.last()));
     }
 
-    @Test
+	@Test
     public void fromXmlStringObject47Test() {
         SerializeXmlObject.setReferences(true);
         SerializeXmlObject.setCheckReferences(false);
         String xml_ = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?>";
-        xml_ += "<"+CONTAINER+">";
-        xml_ += "<"+OBJECT_MAP+" class=\""+CONTAINER+"\" field=\"object\">";
+        xml_ += "<"+CONTAINER_OBJECT_MAP_REF+">";
+        xml_ += "<"+OBJECT_MAP+" class=\""+CONTAINER_OBJECT_MAP_REF+"\" field=\"object\">";
         xml_ += "<"+COMPOSITE_TWO+" class='"+SerializeXmlObject.MP_CLASS+"' key=\"\" id=\"0\">";
         xml_ += "<java.lang.Integer class=\""+COMPOSITE_TWO+"\" field=\"primitive\" value=\"4\"/>";
         xml_ += "</"+COMPOSITE_TWO+">";
@@ -1768,9 +1810,9 @@ public class SerializeXmlObjectTest {
         xml_ += "</"+COMPOSITE_TWO+">";
         xml_ += "<"+COMPOSITE_TWO+" class='"+SerializeXmlObject.MP_CLASS+"' key=\"\" ref=\"1\"/>";
         xml_ += "</"+OBJECT_MAP+">";
-        xml_ += "</"+CONTAINER+">";
-        Container containers_ = (Container) SerializeXmlObject.fromXmlStringObject(xml_);
-        ObjectMap<CompositeTwo,?> tree_ = (ObjectMap<CompositeTwo,?>) containers_.getObject();
+        xml_ += "</"+CONTAINER_OBJECT_MAP_REF+">";
+        ContainerObjectMapRef containers_ = (ContainerObjectMapRef) SerializeXmlObject.fromXmlStringObject(xml_);
+        ObjectMap<CompositeTwo,CompositeTwo> tree_ = containers_.getObject();
         assertEq(2, tree_.size());
         EqList<CompositeTwo> obj_ = tree_.getKeys();
         CompositeTwo comp_ = new CompositeTwo();
@@ -1783,26 +1825,14 @@ public class SerializeXmlObjectTest {
         assertSame(obj_.last(), tree_.getVal(obj_.last()));
     }
 
-    @Parameters(method="booleanInputs")
+	@Parameters(method="booleanInputs")
     @Test
     public void fromXmlStringObject48Test(boolean _bool) {
         SerializeXmlObject.setReferences(_bool);
         SerializeXmlObject.setCheckReferences(false);
         String xml_ = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?>";
-        xml_ += "<"+CONTAINER+">";
-//        xml_ += "<util.Map class=\""+CONTAINER+"\" field=\"object\">";
-//        xml_ += "<util.Map class='"+SerializeXmlObject.MP_CLASS+"' key=\"\">";
-//        xml_ += "<java.lang.String class='"+SerializeXmlObject.MP_CLASS+"' key=\"\" value=\"1\"/>";
-//        xml_ += "<java.lang.String class='"+SerializeXmlObject.MP_CLASS+"' value=\"2\"/>";
-//        xml_ += "</util.Map>";
-//        xml_ += "<util.Map class='"+SerializeXmlObject.MP_CLASS+"' key=\"\">";
-//        xml_ += "<java.lang.String class='"+SerializeXmlObject.MP_CLASS+"' key=\"\" value=\"3\"/>";
-//        xml_ += "<java.lang.String class='"+SerializeXmlObject.MP_CLASS+"' value=\"4\"/>";
-//        xml_ += "</util.Map>";
-//        xml_ += "<java.lang.String class='"+SerializeXmlObject.MP_CLASS+"' value=\"12\"/>";
-//        xml_ += "<java.lang.String class='"+SerializeXmlObject.MP_CLASS+"' value=\"34\"/>";
-//        xml_ += "</util.Map>";
-        xml_ += "<"+OBJECT_MAP+" class=\""+CONTAINER+"\" field=\"object\">";
+        xml_ += "<"+CONTAINER_OBJECT_MAP_COMP+">";
+        xml_ += "<"+OBJECT_MAP+" class=\""+CONTAINER_OBJECT_MAP_COMP+"\" field=\"object\">";
         xml_ += "<"+MAP_COMPONENT+" class='"+SerializeXmlObject.MP_CLASS+"' key=\"\">";
         xml_ += "<"+STRING_MAP+" class=\""+MAP_COMPONENT+"\" field=\"elements\">";
         xml_ += "<java.lang.String class='"+SerializeXmlObject.MP_CLASS+"' key=\"\" value=\"1\"/>";
@@ -1818,9 +1848,9 @@ public class SerializeXmlObjectTest {
         xml_ += "<java.lang.String class='"+SerializeXmlObject.MP_CLASS+"' value=\"12\"/>";
         xml_ += "<java.lang.String class='"+SerializeXmlObject.MP_CLASS+"' value=\"34\"/>";
         xml_ += "</"+OBJECT_MAP+">";
-        xml_ += "</"+CONTAINER+">";
-        Container containers_ = (Container) SerializeXmlObject.fromXmlStringObject(xml_);
-        ObjectMap<MapComponent,?> tree_ = (ObjectMap<MapComponent,?>) containers_.getObject();
+        xml_ += "</"+CONTAINER_OBJECT_MAP_COMP+">";
+        ContainerObjectMapComp containers_ = (ContainerObjectMapComp) SerializeXmlObject.fromXmlStringObject(xml_);
+        ObjectMap<MapComponent,String> tree_ = containers_.getObject();
         assertEq(2, tree_.size());
         MapComponent keyOne_ = new MapComponent();
         keyOne_.getElements().put("1", "2");
@@ -1830,53 +1860,22 @@ public class SerializeXmlObjectTest {
         assertEq("34", tree_.getVal(keyTwo_));
     }
 
-//    @Parameters(method="booleanInputs")
-//    @Test
-//    public void fromXmlStringObject49Test(boolean _bool) {
-//        SerializeXmlObject.setReferences(_bool);
-//        SerializeXmlObject.setCheckReferences(false);
-//        String xml_ = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?>";
-//        xml_ += "<stream.serialize.classes.container>";
-//        xml_ += "<util.Map class=\""+CONTAINER+"\" field=\"object\">";
-//        xml_ += "<util.Map class='"+SerializeXmlObject.MP_CLASS+"' key=\"\">";
-//        xml_ += "<java.lang.String class='"+SerializeXmlObject.MP_CLASS+"' key=\"\" value=\"1\"/>";
-//        xml_ += "<java.lang.String class='"+SerializeXmlObject.MP_CLASS+"' value=\"2\"/>";
-//        xml_ += "</util.Map>";
-//        xml_ += "<util.Map class='"+SerializeXmlObject.MP_CLASS+"' key=\"\">";
-//        xml_ += "<java.lang.String class='"+SerializeXmlObject.MP_CLASS+"' key=\"\" value=\"3\"/>";
-//        xml_ += "<java.lang.String class='"+SerializeXmlObject.MP_CLASS+"' value=\"4\"/>";
-//        xml_ += "</util.Map>";
-//        xml_ += "<java.lang.String class='"+SerializeXmlObject.MP_CLASS+"' value=\"12\"/>";
-//        xml_ += "<java.lang.String class='"+SerializeXmlObject.MP_CLASS+"' value=\"34\"/>";
-//        xml_ += "</util.Map>";
-//        xml_ += "</stream.serialize.classes.container>";
-//        Container containers_ = (Container) SerializeXmlObject.fromXmlStringObject(xml_);
-//        Map<?,?> tree_ = (Map<?,?>) containers_.getObject();
-//        assertEq(2, tree_.size());
-//        Map<String,String> keyOne_ = new Map<>();
-//        keyOne_.put("1", "2");
-//        assertEq("12", tree_.get(keyOne_));
-//        Map<String,String> keyTwo_ = new Map<>();
-//        keyTwo_.put("3", "4");
-//        assertEq("34", tree_.get(keyTwo_));
-//    }
-
     @Parameters(method="booleanInputs")
     @Test
-    public void fromXmlStringObject50Test(boolean _bool) {
+    public void fromXmlStringObject49Test(boolean _bool) {
         SerializeXmlObject.setReferences(_bool);
         SerializeXmlObject.setCheckReferences(false);
         String xml_ = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?>";
-        xml_ += "<"+CONTAINER+">";
-        xml_ += "<"+NAT_TREE_MAP+" class=\""+CONTAINER+"\" field=\"object\">";
+        xml_ += "<"+CONTAINER_NAT_TREE_MAP+">";
+        xml_ += "<"+NAT_TREE_MAP+" class=\""+CONTAINER_NAT_TREE_MAP+"\" field=\"object\">";
         xml_ += "<java.lang.String class='"+SerializeXmlObject.MP_CLASS+"' key=\"\" value=\"A\"/>";
         xml_ += "<java.lang.Integer class='"+SerializeXmlObject.MP_CLASS+"' value=\"1\"/>";
         xml_ += "<java.lang.String class='"+SerializeXmlObject.MP_CLASS+"' key=\"\" value=\"B\"/>";
         xml_ += "<java.lang.Integer class='"+SerializeXmlObject.MP_CLASS+"' value=\"2\"/>";
         xml_ += "</"+NAT_TREE_MAP+">";
-        xml_ += "</"+CONTAINER+">";
-        Container containers_ = (Container) SerializeXmlObject.fromXmlStringObject(xml_);
-        NatTreeMap<?,?> tree_ = (NatTreeMap<?,?>) containers_.getObject();
+        xml_ += "</"+CONTAINER_NAT_TREE_MAP+">";
+        ContainerNatTreeMap containers_ = (ContainerNatTreeMap) SerializeXmlObject.fromXmlStringObject(xml_);
+        NatTreeMap<String,Integer> tree_ = containers_.getObject();
         assertEq(2, tree_.size());
         assertEq("A", tree_.getKey(0));
         assertEq(1, (Number)tree_.getValue(0));
@@ -1884,14 +1883,14 @@ public class SerializeXmlObjectTest {
         assertEq(2, (Number)tree_.getValue(1));
     }
 
-    @Parameters(method="booleanInputs")
+	@Parameters(method="booleanInputs")
     @Test
-    public void fromXmlStringObject51Test(boolean _bool) {
+    public void fromXmlStringObject50Test(boolean _bool) {
         SerializeXmlObject.setReferences(_bool);
         SerializeXmlObject.setCheckReferences(false);
         String xml_ = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?>";
-        xml_ += "<"+CONTAINER+">";
-        xml_ += "<"+ID_MAP+" class=\""+CONTAINER+"\" field=\"object\">";
+        xml_ += "<"+CONTAINER_ID_MAP_REF+">";
+        xml_ += "<"+ID_MAP+" class=\""+CONTAINER_ID_MAP_REF+"\" field=\"object\">";
         xml_ += "<"+COMPOSITE_TWO+" class='"+SerializeXmlObject.MP_CLASS+"' key=\"\">";
         xml_ += "<java.lang.Integer class=\""+COMPOSITE_TWO+"\" field=\"primitive\" value=\"4\"/>";
         xml_ += "</"+COMPOSITE_TWO+"><java.lang.String class='"+SerializeXmlObject.MP_CLASS+"' value=\"FOUR\"/>";
@@ -1899,9 +1898,9 @@ public class SerializeXmlObjectTest {
         xml_ += "<java.lang.Integer class=\""+COMPOSITE_TWO+"\" field=\"primitive\" value=\"4\"/>";
         xml_ += "</"+COMPOSITE_TWO+"><java.lang.String class='"+SerializeXmlObject.MP_CLASS+"' value=\"FOUR\"/>";
         xml_ += "</"+ID_MAP+">";
-        xml_ += "</"+CONTAINER+">";
-        Container containers_ = (Container) SerializeXmlObject.fromXmlStringObject(xml_);
-        IdMap<CompositeTwo,?> tree_ = (IdMap<CompositeTwo,?>) containers_.getObject();
+        xml_ += "</"+CONTAINER_ID_MAP_REF+">";
+        ContainerIdMapRef containers_ = (ContainerIdMapRef) SerializeXmlObject.fromXmlStringObject(xml_);
+        IdMap<CompositeTwo,CompositeTwo> tree_ = containers_.getObject();
         assertEq(2, tree_.size());
         CompositeTwo k1_ = (CompositeTwo) tree_.entryList().get(0).getKey();
         CompositeTwo k2_ = (CompositeTwo) tree_.entryList().get(1).getKey();
@@ -1914,7 +1913,7 @@ public class SerializeXmlObjectTest {
 
     @Parameters(method="booleanInputs")
     @Test
-    public void fromXmlStringObject52Test(boolean _bool) {
+    public void fromXmlStringObject51Test(boolean _bool) {
         SerializeXmlObject.setReferences(_bool);
         SerializeXmlObject.setCheckReferences(false);
         String xml_ = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?>";
@@ -1944,7 +1943,7 @@ public class SerializeXmlObjectTest {
 
     @Parameters(method="booleanInputs")
     @Test
-    public void fromXmlStringObject53Test(boolean _bool) {
+    public void fromXmlStringObject52Test(boolean _bool) {
         SerializeXmlObject.setReferences(_bool);
         SerializeXmlObject.setCheckReferences(false);
         String xml_ = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?>";
@@ -1961,7 +1960,7 @@ public class SerializeXmlObjectTest {
 
     @Parameters(method="booleanInputs")
     @Test
-    public void fromXmlStringObject54Test(boolean _bool) {
+    public void fromXmlStringObject53Test(boolean _bool) {
         SerializeXmlObject.setReferences(_bool);
         SerializeXmlObject.setCheckReferences(false);
         String xml_ = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?>";
@@ -1976,7 +1975,7 @@ public class SerializeXmlObjectTest {
 
     @Parameters(method="booleanInputs")
     @Test
-    public void fromXmlStringObject55Test(boolean _bool) {
+    public void fromXmlStringObject54Test(boolean _bool) {
         SerializeXmlObject.setReferences(_bool);
         SerializeXmlObject.setCheckReferences(false);
         String xml_ = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?>";
@@ -1991,7 +1990,7 @@ public class SerializeXmlObjectTest {
 
     @Parameters(method="booleanInputs")
     @Test
-    public void fromXmlStringObject56Test(boolean _bool) {
+    public void fromXmlStringObject55Test(boolean _bool) {
         SerializeXmlObject.setReferences(_bool);
         SerializeXmlObject.setCheckReferences(false);
         String xml_ = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?>";
@@ -2011,7 +2010,7 @@ public class SerializeXmlObjectTest {
 
     @Parameters(method="booleanInputs")
     @Test
-    public void fromXmlStringObject57Test(boolean _bool) {
+    public void fromXmlStringObject56Test(boolean _bool) {
         SerializeXmlObject.setReferences(_bool);
         SerializeXmlObject.setCheckReferences(false);
         char res_ = (Character) SerializeXmlObject.fromXmlStringObject("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?><java.lang.Character value=\"&#65;\"/>");
@@ -2020,7 +2019,7 @@ public class SerializeXmlObjectTest {
 
     @Parameters(method="booleanInputs")
     @Test
-    public void fromXmlStringObject58Test(boolean _bool) {
+    public void fromXmlStringObject57Test(boolean _bool) {
         SerializeXmlObject.setReferences(_bool);
         SerializeXmlObject.setCheckReferences(false);
         String res_ = (String) SerializeXmlObject.fromXmlStringObject("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?><java.lang.String value=\"&#65;\"/>");
@@ -2029,7 +2028,7 @@ public class SerializeXmlObjectTest {
 
     @Parameters(method="booleanInputs")
     @Test
-    public void fromXmlStringObject59Test(boolean _bool) {
+    public void fromXmlStringObject58Test(boolean _bool) {
         SerializeXmlObject.setReferences(_bool);
         SerializeXmlObject.setCheckReferences(false);
         char res_ = (Character) SerializeXmlObject.fromXmlStringObject("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?><java.lang.Character value=\"&#233;\"/>");
@@ -2038,7 +2037,7 @@ public class SerializeXmlObjectTest {
 
     @Parameters(method="booleanInputs")
     @Test
-    public void fromXmlStringObject60Test(boolean _bool) {
+    public void fromXmlStringObject59Test(boolean _bool) {
         SerializeXmlObject.setReferences(_bool);
         SerializeXmlObject.setCheckReferences(false);
         Object o_ = SerializeXmlObject.fromXmlStringObject("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?><"+INTERNS_CLASSES+" intern=\"$InternStaticStandard\"/>");
@@ -2047,7 +2046,7 @@ public class SerializeXmlObjectTest {
 
     @Parameters(method="booleanInputs")
     @Test
-    public void fromXmlStringObject61Test(boolean _bool) {
+    public void fromXmlStringObject60Test(boolean _bool) {
         SerializeXmlObject.setReferences(_bool);
         SerializeXmlObject.setCheckReferences(false);
         Object o_ = SerializeXmlObject.fromXmlStringObject("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?><"+INTERNS_CLASSES+" intern=\"$InternStaticStandard$InternStaticStandardThree\"/>");
@@ -2055,7 +2054,7 @@ public class SerializeXmlObjectTest {
     }
     @Parameters(method="booleanInputs")
     @Test
-    public void fromXmlStringObject62Test(boolean _bool) {
+    public void fromXmlStringObject61Test(boolean _bool) {
         SerializeXmlObject.setReferences(_bool);
         SerializeXmlObject.setCheckReferences(false);
         Object o_ = SerializeXmlObject.fromXmlStringObject("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?><"+INTERNS_CLASSES+" intern=\"$InternStandardTwo\"><"+INTERNS_CLASSES+" class=\""+INTERN_TWO+"\" field=\"this$0\"/></"+INTERNS_CLASSES+">");
@@ -2063,21 +2062,40 @@ public class SerializeXmlObjectTest {
     }
     @Parameters(method="booleanInputs")
     @Test
-    public void fromXmlStringObject63Test(boolean _bool) {
+    public void fromXmlStringObject62Test(boolean _bool) {
         SerializeXmlObject.setReferences(_bool);
         SerializeXmlObject.setCheckReferences(false);
         Object o_ = SerializeXmlObject.fromXmlStringObject("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?><"+INTERNS_CLASSES+" intern=\"$InternStandardTwo$InternStandardOne\"><"+INTERNS_CLASSES+" class=\""+INTERN_ONE+"\" field=\"this$0\"/></"+INTERNS_CLASSES+">");
         assertSame(InternStandardOne.class, o_.getClass());
     }
 
-    @Ignore
+    @Parameters(method="booleanInputs")
+    @Test
+    public void fromXmlStringObject63Test(boolean _bool) {
+        SerializeXmlObject.setReferences(_bool);
+        SerializeXmlObject.setCheckReferences(false);
+        Object o_ = SerializeXmlObject.fromXmlStringObject("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?><"+INTERNS_CLASSES+" intern=\"$InternStaticStandard$InternStaticStandardFour\"><"+INTERNS_CLASSES+" class=\""+INTERN_FOUR+"\" field=\"this$0\"/></"+INTERNS_CLASSES+">");
+        assertSame(InternStaticStandardFour.class, o_.getClass());
+    }
+
     @Parameters(method="booleanInputs")
     @Test
     public void fromXmlStringObject64Test(boolean _bool) {
         SerializeXmlObject.setReferences(_bool);
         SerializeXmlObject.setCheckReferences(false);
-        Object o_ = SerializeXmlObject.fromXmlStringObject("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?><"+INTERNS_CLASSES+" intern=\"$InternStaticStandard$InternStaticStandardFour\"><"+INTERNS_CLASSES+" class=\""+INTERN_FOUR+"\" field=\"this$0\"/></"+INTERNS_CLASSES+">");
-        assertSame(InternStaticStandardFour.class, o_.getClass());
+        String xml_ = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?>";
+        xml_ += "<"+MAPS_INTEGER+">";
+        xml_ += "<"+NUMBER_MAP+" class=\""+MAPS_INTEGER+"\" field=\"map\">";
+        xml_ += "<java.lang.Integer class='"+SerializeXmlObject.MP_CLASS+"' key=\"\" value=\"1\"/>";
+        xml_ += "<java.lang.String class='"+SerializeXmlObject.MP_CLASS+"' value=\"STR_ONE\"/>";
+        xml_ += "</"+NUMBER_MAP+">";
+        xml_ += "</"+MAPS_INTEGER+">";
+        MapsInteger containers_ = (MapsInteger) SerializeXmlObject.fromXmlStringObject(xml_);
+        assertSame(NumberMap.class, containers_.getMap().getClass());
+        assertEq(1, containers_.getMap().size());
+        Integer at_ = (Integer) containers_.getMap().getKeys().first();
+        assertEq(1, at_.intValue());
+        assertEq("STR_ONE", containers_.getMap().getVal(at_));
     }
 
     @Parameters(method="booleanInputs")
@@ -2147,12 +2165,12 @@ public class SerializeXmlObjectTest {
         SerializeXmlObject.setReferences(_bool);
         SerializeXmlObject.setCheckReferences(false);
         String xml_ = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?>";
-        xml_ += "<"+MAPS+">";
-        xml_ += "<"+ENUM_MAP+" class=\""+MAPS+"\" field=\"map\">";
+        xml_ += "<"+MAPS_ENUM+">";
+        xml_ += "<"+ENUM_MAP+" class=\""+MAPS_ENUM+"\" field=\"map\">";
         xml_ += "<"+MY_ENUM+" class='"+SerializeXmlObject.MP_CLASS+"' key=\"\" value=\"ONE_1\"/>";
         xml_ += "<java.lang.String class='"+SerializeXmlObject.MP_CLASS+"' value=\"STR_ONE\"/>";
         xml_ += "</"+ENUM_MAP+">";
-        xml_ += "</"+MAPS+">";
+        xml_ += "</"+MAPS_ENUM+">";
         SerializeXmlObject.fromXmlStringObject(xml_);
     }
 
@@ -2162,12 +2180,12 @@ public class SerializeXmlObjectTest {
         SerializeXmlObject.setReferences(_bool);
         SerializeXmlObject.setCheckReferences(false);
         String xml_ = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?>";
-        xml_ += "<"+MAPS+">";
-        xml_ += "<"+ENUM_MAP+" class=\""+MAPS+"\" field=\"map\">";
+        xml_ += "<"+MAPS_ENUM+">";
+        xml_ += "<"+ENUM_MAP+" class=\""+MAPS_ENUM+"\" field=\"map\">";
         xml_ += "<"+MY_ENUM+" class='"+SerializeXmlObject.MP_CLASS+"' key=\"\"/>";
         xml_ += "<java.lang.String class='"+SerializeXmlObject.MP_CLASS+"' value=\"STR_ONE\"/>";
         xml_ += "</"+ENUM_MAP+">";
-        xml_ += "</"+MAPS+">";
+        xml_ += "</"+MAPS_ENUM+">";
         SerializeXmlObject.fromXmlStringObject(xml_);
     }
 

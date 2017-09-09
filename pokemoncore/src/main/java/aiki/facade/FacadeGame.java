@@ -75,7 +75,7 @@ import code.util.ints.WithMathFactory;
 import code.util.pagination.SearchingMode;
 import code.util.pagination.SelectedBoolean;
 
-public class FacadeGame implements WithMathFactory<Rate> {
+public class FacadeGame implements WithMathFactory {
 
 //    private static final StringList AVAILABLE_LANGUAGES;
 
@@ -137,7 +137,7 @@ public class FacadeGame implements WithMathFactory<Rate> {
     private String zipName = DataBase.EMPTY_STRING;
 
     @Override
-    public MathFactory<Rate> getMathFactory() {
+    public MathFactory getMathFactory() {
         return data.getMathFactory();
     }
 

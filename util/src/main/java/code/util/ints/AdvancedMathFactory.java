@@ -2,7 +2,7 @@ package code.util.ints;
 import code.util.StringMap;
 
 public interface AdvancedMathFactory<T,U extends NumericableString<T>,V extends NumericableString<Boolean>>
-        extends MathFactory<T> {
+        extends MathFactory {
 
     char getSepartorSetChar();
     String getTrueString();

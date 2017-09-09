@@ -1,6 +1,6 @@
 package code.util.ints;
 
-public interface WithMathFactory<T> {
+public interface WithMathFactory {
 
-    MathFactory<T> getMathFactory();
+    MathFactory getMathFactory();
 }

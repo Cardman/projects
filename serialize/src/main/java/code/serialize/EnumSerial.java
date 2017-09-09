@@ -82,11 +82,6 @@ final class EnumSerial extends PrimitiveSerial {
         return node_;
     }
 
-//    @Override
-//    Class<?> getValueClass() {
-//        return value.getClass();
-//    }
-
     @Override
     Object getValue() {
         return value;

@@ -176,7 +176,7 @@ final class ExtractObject {
     }
 
     static Object evaluateMathExpression(ImportingPage _ip, Configuration _conf, boolean _evalBool, String _mathExp) {
-        MathFactory<?> mathFact_ = getMathFactory(_conf);
+        MathFactory mathFact_ = getMathFactory(_conf);
         String numExpr_ = _mathExp;
         StringBuilder calculateVariables_ = new StringBuilder();
         int i_ = CustList.FIRST_INDEX;
@@ -569,7 +569,7 @@ final class ExtractObject {
             throw new InvokeRedinedMethException(_conf.joinPages(), new Struct(_0));
         }
     }
-    private static MathFactory<?> getMathFactory(Configuration _conf) {
+    private static MathFactory getMathFactory(Configuration _conf) {
         try {
             return _conf.getMathFactory();
         } catch (Throwable _0) {

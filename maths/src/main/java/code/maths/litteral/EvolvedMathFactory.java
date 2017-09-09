@@ -8,17 +8,11 @@ public final class EvolvedMathFactory implements AdvancedMathFactory<Rate,Evolve
 
     @Override
     public Rate evaluateDirectlyRate(String _numExp) {
-//        arg = MathUtil.processEl(_numExp, 0, false, new Map<String,String>());
-//        NumericString num_ = new NumericString(_numExp, new Map<String, String>());
-//        num_.evaluateExp(false);
         return (Rate) MathUtil.processEl(_numExp, 0, false, new StringMap<String>()).getObject();
     }
 
     @Override
     public Boolean evaluateDirectlyBoolean(String _booleanExp) {
-//        BooleanString bool_ = new BooleanString(_booleanExp, new Map<String, String>());
-//        bool_.evaluateExp(false);
-//        return bool_.getResult();
         return (Boolean) MathUtil.processEl(_booleanExp, 0, false, new StringMap<String>()).getObject();
     }
 
@@ -71,7 +65,6 @@ public final class EvolvedMathFactory implements AdvancedMathFactory<Rate,Evolve
         } catch (RuntimeException _0) {
             return new Rate(_default);
         }
-//        return NumericString.evaluate(_numericString, _variables, _default);
     }
 
     @Override
@@ -86,7 +79,6 @@ public final class EvolvedMathFactory implements AdvancedMathFactory<Rate,Evolve
         } catch (RuntimeException _0) {
             return _default.absNb();
         }
-//        return NumericString.evaluatePositiveOrZeroExp(_numericString, _variables, _default);
     }
 
     @Override
@@ -104,7 +96,6 @@ public final class EvolvedMathFactory implements AdvancedMathFactory<Rate,Evolve
         } catch (RuntimeException _0) {
             return _default.absNb();
         }
-//        return NumericString.evaluatePositiveExp(_numericString, _variables, _default);
     }
 
     @Override
@@ -115,8 +106,5 @@ public final class EvolvedMathFactory implements AdvancedMathFactory<Rate,Evolve
         } catch (RuntimeException _0) {
             return _default;
         }
-//        return BooleanString.evaluate(_booleanString, _variables, _default);
     }
-
-
 }

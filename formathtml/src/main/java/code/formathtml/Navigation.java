@@ -206,8 +206,8 @@ public final class Navigation {
         session = (Configuration) SerializeXmlObject.newObjectFromXmlString(content_);
         session.init();
         if (session.getMathFactory() == null) {
-            if (dataBase instanceof WithMathFactory<?>) {
-                session.setMathFactory(((WithMathFactory<?>)dataBase).getMathFactory());
+            if (dataBase instanceof WithMathFactory) {
+                session.setMathFactory(((WithMathFactory)dataBase).getMathFactory());
             }
         }
     }
@@ -537,14 +537,13 @@ public final class Navigation {
                 }
             }
             if (isList_) {
-                Listable<?> list_ = (Listable<?>) instance(tempClass_);
+                Object list_ = instance(tempClass_);
                 String contentClass_ = suffix_;
                 contentClass_ = StringList.removeStrings(contentClass_, BEG_TEMP, END_TEMP);
                 for (String v:v_) {
                     try {
                         ConverterMethod.invokeMethod(ADD_METHOD, list_, retrieveObjectByClassName(v, contentClass_));
-                    } catch (Error _0) {
-                    } catch (RuntimeException _0) {
+                    } catch (Throwable _0) {
                     }
                 }
                 obj_ = list_;
@@ -637,20 +636,22 @@ public final class Navigation {
             try {
                 if (obj_ == null) {
                     newObj_ = retrieveObjectByClassName(v_.first(), className_);
-                } else if (obj_ instanceof Listable<?>){
-                    //TODO switch individually on all list class => default in a class that takes a StringList arg for annotated method
-                    Listable<?> list_ = (Listable<?>) instance(obj_.getClass());
-                    String contentClass_ = className_.substring(CustList.class.getName().length());
-                    contentClass_ = StringList.removeStrings(contentClass_, BEG_TEMP, END_TEMP);
-                    for (String v:v_) {
-                        try {
-                            ConverterMethod.invokeMethod(ADD_METHOD, list_, retrieveObjectByClassName(v, contentClass_));
-                        } catch (Throwable _0) {
-                        }
-                    }
-                    newObj_ = list_;
                 } else {
-                    newObj_ = retrieveObjectByClassName(v_.first(), obj_.getClass().getName());
+                	Class<?> clObj_ = obj_.getClass();
+                	if (Listable.class.isAssignableFrom(clObj_)){
+                		Object list_ = instance(clObj_);
+                        String contentClass_ = className_.substring(CustList.class.getName().length());
+                        contentClass_ = StringList.removeStrings(contentClass_, BEG_TEMP, END_TEMP);
+                        for (String v:v_) {
+                            try {
+                                ConverterMethod.invokeMethod(ADD_METHOD, list_, retrieveObjectByClassName(v, contentClass_));
+                            } catch (Throwable _0) {
+                            }
+                        }
+                        newObj_ = list_;
+                	} else {
+                        newObj_ = retrieveObjectByClassName(v_.first(), obj_.getClass().getName());
+                    }
                 }
             } catch (Throwable _0) {
                 throw new InvokeRedinedMethException(session.joinPages(), new Struct(_0));

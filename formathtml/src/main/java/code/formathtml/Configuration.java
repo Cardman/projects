@@ -38,7 +38,7 @@ public class Configuration {
 
     private String messagesFolder = EMPTY_STRING;
 
-    private MathFactory<?> mathFactory;
+    private MathFactory mathFactory;
 
     private int tabWidth = DEFAULT_TAB_WIDTH;
 
@@ -194,11 +194,11 @@ public class Configuration {
         htmlPage = _htmlPage;
     }
 
-    public final MathFactory<?> getMathFactory() {
+    public final MathFactory getMathFactory() {
         return mathFactory;
     }
 
-    public final void setMathFactory(MathFactory<?> _mathFactory) {
+    public final void setMathFactory(MathFactory _mathFactory) {
         mathFactory = _mathFactory;
     }
 

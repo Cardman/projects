@@ -152,7 +152,7 @@ import code.util.ints.WithMathFactory;
 import code.util.pagination.SelectedBoolean;
 import code.xml.XmlParser;
 
-public class DataBase implements WithMathFactory<Rate>{
+public class DataBase implements WithMathFactory {
 
     public static final String VAR_PREFIX = "VAR__";
 
@@ -642,7 +642,7 @@ public class DataBase implements WithMathFactory<Rate>{
 //    }
 
     @Override
-    public MathFactory<Rate> getMathFactory() {
+    public MathFactory getMathFactory() {
         return standardMathFactory;
     }
 

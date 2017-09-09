@@ -12,7 +12,7 @@ public final class ContextEl {
 
     private AccessValue accessValue;
 
-    private MathFactory<?> mathFactory;
+    private MathFactory mathFactory;
 
     private int tabWidth = DEFAULT_TAB_WIDTH;
 
@@ -68,11 +68,11 @@ public final class ContextEl {
         accessValue = _accessValue;
     }
 
-    public MathFactory<?> getMathFactory() {
+    public MathFactory getMathFactory() {
         return mathFactory;
     }
 
-    public void setMathFactory(MathFactory<?> _mathFactory) {
+    public void setMathFactory(MathFactory _mathFactory) {
         mathFactory = _mathFactory;
     }
 

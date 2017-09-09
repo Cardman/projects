@@ -177,6 +177,7 @@ public class ObjectComponentsTest {
         assertEq(String.class.getName(), realTypes_.get(0));
     }
 
+    @SuppressWarnings("unchecked")
     @Test
     public void setupNotNull1Test() {
         FullClass full_ = new FullClass();
@@ -251,7 +252,8 @@ public class ObjectComponentsTest {
         ObjectComponents.setupNotNull(full_);
     }
 
-    @Test
+    @SuppressWarnings("unchecked")
+	@Test
     public void setupNotNull2Test() {
         FullClass full_ = new FullClass();
         full_.setInteger(6);
@@ -323,6 +325,7 @@ public class ObjectComponentsTest {
         ObjectComponents.setupNotNull(full_);
     }
 
+    @SuppressWarnings("unchecked")
     @Test
     public void setupNotNull3Test() {
         FullClass full_ = new FullClass();
@@ -408,6 +411,7 @@ public class ObjectComponentsTest {
         ObjectComponents.setupNotNull(full_);
     }
 
+    @SuppressWarnings("unchecked")
     @Test
     public void setupNotNull5Test() {
         FullClass full_ = new FullClass();
@@ -479,6 +483,7 @@ public class ObjectComponentsTest {
         ObjectComponents.setupNotNull(full_);
     }
 
+    @SuppressWarnings("unchecked")
     @Test
     public void setupNotNull6Test() {
         FullClass full_ = new FullClass();
@@ -562,6 +567,7 @@ public class ObjectComponentsTest {
         ObjectComponents.setupNotNull(full_);
     }
 
+    @SuppressWarnings("unchecked")
     @Test
     public void setupNotNull7Test() {
         FullClass full_ = new FullClass();
@@ -776,6 +782,7 @@ public class ObjectComponentsTest {
         ObjectComponents.setupNotNull(list_);
     }
 
+    @SuppressWarnings("unchecked")
     @Test
     public void setupNotNull14Test() {
         FullClass full_ = new FullClass();
@@ -947,6 +954,7 @@ public class ObjectComponentsTest {
         ObjectComponents.setupNotNull(list_);
     }
 
+    @SuppressWarnings("unchecked")
     @Test(expected=NullFieldException.class)
     public void setupNotNull3FailTest() {
         FullClass full_ = new FullClass();
@@ -1024,6 +1032,7 @@ public class ObjectComponentsTest {
         ObjectComponents.setupNotNull(full_);
     }
 
+    @SuppressWarnings("unchecked")
     @Test(expected=NullFieldException.class)
     public void setupNotNull4FailTest() {
         FullClass full_ = new FullClass();
@@ -1104,6 +1113,7 @@ public class ObjectComponentsTest {
         ObjectComponents.setupNotNull(full_);
     }
 
+    @SuppressWarnings("unchecked")
     @Test(expected=NullFieldException.class)
     public void setupNotNull5FailTest() {
         FullClass full_ = new FullClass();
@@ -1179,6 +1189,7 @@ public class ObjectComponentsTest {
         ObjectComponents.setupNotNull(full_);
     }
 
+    @SuppressWarnings("unchecked")
     @Test(expected=NullFieldException.class)
     public void setupNotNull6FailTest() {
         FullClass full_ = new FullClass();
@@ -1255,6 +1266,7 @@ public class ObjectComponentsTest {
         ObjectComponents.setupNotNull(full_);
     }
 
+    @SuppressWarnings("unchecked")
     @Test(expected=NullFieldException.class)
     public void setupNotNull7FailTest() {
         FullClass full_ = new FullClass();
@@ -1331,6 +1343,7 @@ public class ObjectComponentsTest {
         ObjectComponents.setupNotNull(full_);
     }
 
+    @SuppressWarnings("unchecked")
     @Test(expected=NullFieldException.class)
     public void setupNotNull8FailTest() {
         FullClass full_ = new FullClass();
@@ -1405,6 +1418,7 @@ public class ObjectComponentsTest {
         ObjectComponents.setupNotNull(full_);
     }
 
+    @SuppressWarnings("unchecked")
     @Test(expected=NullFieldException.class)
     public void setupNotNull9FailTest() {
         FullClass full_ = new FullClass();
@@ -1479,6 +1493,7 @@ public class ObjectComponentsTest {
         ObjectComponents.setReferences(false);
         ObjectComponents.setupNotNull(full_);
     }
+    @SuppressWarnings("unchecked")
     @Test(expected=NullFieldException.class)
     public void setupNotNull10FailTest() {
         FullClass full_ = new FullClass();
