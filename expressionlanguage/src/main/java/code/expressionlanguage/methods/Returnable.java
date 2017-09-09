@@ -9,9 +9,8 @@ public interface Returnable extends FunctionBlock, AccessibleBlock {
     String getReturnType();
     boolean isVarargs();
     String getName();
-    FctConstraints getConstraints();
+    FctConstraints getConstraints(Classes _classes);
     StringList getParametersNames();
     StringList getParametersTypes();
 
-    void setConstraints(FctConstraints _constraints);
 }

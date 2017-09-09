@@ -2,12 +2,12 @@ package code.expressionlanguage.opers.util;
 
 public final class ConstructorMetaInfo {
 
-    private final ClassName returnType;
+    private final String returnType;
 
-    public ConstructorMetaInfo(ClassName _returnType) {
+    public ConstructorMetaInfo(String _returnType) {
         returnType = _returnType;
     }
-    public ClassName getReturnType() {
+    public String getReturnType() {
         return returnType;
     }
 

@@ -156,7 +156,10 @@ public final class EvolvedPart implements XmlTransientable, MidListable<EvolvedP
 
     @Override
     public void set(int _index, EvolvedPhrase _element) {
-        part.getPhraseList().set(_index, _element.getPhrase());
+        Phrase[] array_ = part.getPhraseArray();
+        array_[_index] = _element.getPhrase();
+        part.empty();
+        part.addPhraseList(array_);
         phrases.set(_index, _element);
     }
 

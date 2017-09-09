@@ -34,7 +34,6 @@ import code.expressionlanguage.opers.util.ClassMetaInfo;
 import code.expressionlanguage.opers.util.ClassMethodId;
 import code.expressionlanguage.opers.util.ClassMethodIdResult;
 import code.expressionlanguage.opers.util.ClassMethodIdReturn;
-import code.expressionlanguage.opers.util.ClassName;
 import code.expressionlanguage.opers.util.ConstructorInfo;
 import code.expressionlanguage.opers.util.ConstructorMetaInfo;
 import code.expressionlanguage.opers.util.FctConstraints;
@@ -630,7 +629,7 @@ public abstract class OperationNode implements Operable {
             return getDynDeclaredCustMethodByInterface(_conf, _realClassName, _idMeth);
         }
         FctConstraints id_ = _idMeth.getConstraints();
-        String stopClass_ = _idMeth.getClassName().getName();
+        String stopClass_ = _idMeth.getClassName();
         while (true) {
             MethodBlock method_ = classes_.getMethodBody(clCurName_, id_);
             if (method_ == null) {
@@ -694,8 +693,8 @@ public abstract class OperationNode implements Operable {
             ClassMethodIdResult resStatic_ = getDeclaredCustMethodByInterface(_conf, methodsStatic_, _class, _name, _argsClass);
             if (foundInst_) {
                 ClassMethodIdReturn idRet_ = new ClassMethodIdReturn();
-                idRet_.setId(new ClassMethodId(new ClassName(_class.getName(), false), resInst_.getId().getConstraints()));
-                idRet_.setReturnType(methodsInst_.getVal(resInst_.getId().getConstraints()).getReturnType().getName());
+                idRet_.setId(new ClassMethodId(_class.getName(), resInst_.getId().getConstraints()));
+                idRet_.setReturnType(methodsInst_.getVal(resInst_.getId().getConstraints()).getReturnType());
                 return idRet_;
             }
             if (!_staticContext && _conf.isAmbigous()) {
@@ -711,8 +710,8 @@ public abstract class OperationNode implements Operable {
             }
             if (resStatic_.getStatus() == SearchingMemberStatus.UNIQ) {
                 ClassMethodIdReturn idRet_ = new ClassMethodIdReturn();
-                idRet_.setId(new ClassMethodId(new ClassName(_class.getName(), false), resStatic_.getId().getConstraints()));
-                idRet_.setReturnType(methodsStatic_.getVal(resStatic_.getId().getConstraints()).getReturnType().getName());
+                idRet_.setId(new ClassMethodId(_class.getName(), resStatic_.getId().getConstraints()));
+                idRet_.setReturnType(methodsStatic_.getVal(resStatic_.getId().getConstraints()).getReturnType());
                 idRet_.setStaticMethod(true);
                 return idRet_;
             }
@@ -771,7 +770,7 @@ public abstract class OperationNode implements Operable {
         Classes classes_ = _conf.getClasses();
         ClassMethodIdReturn idRet_ = new ClassMethodIdReturn();
         idRet_.setId(_res.getId());
-        String clCurName_ = _res.getId().getClassName().getName();
+        String clCurName_ = _res.getId().getClassName();
         MethodBlock m_ = classes_.getMethodBody(clCurName_, _res.getId().getConstraints());
         if (m_ == null) {
             UniqueRootedBlock u_ = (UniqueRootedBlock) classes_.getClassBody(clCurName_);
@@ -880,13 +879,12 @@ public abstract class OperationNode implements Operable {
                 retTypes_.add(m_.getReturnType());
             }
             String ret_ = PrimitiveTypeUtil.getSubslass(retTypes_, classes_);
-            ClassName clRet_ = new ClassName(ret_, false);
             cl_ = e.getValue().first();
             if (!_static) {
-                MethodMetaInfo info_ = new MethodMetaInfo(cl_, MethodModifier.NORMAL, clRet_);
+                MethodMetaInfo info_ = new MethodMetaInfo(cl_, MethodModifier.NORMAL, ret_);
                 methods_.put(e.getKey(), info_);
             } else {
-                MethodMetaInfo info_ = new MethodMetaInfo(cl_, MethodModifier.STATIC, clRet_);
+                MethodMetaInfo info_ = new MethodMetaInfo(cl_, MethodModifier.STATIC, ret_);
                 methods_.put(e.getKey(), info_);
             }
         }
@@ -943,8 +941,7 @@ public abstract class OperationNode implements Operable {
         for (EntryCust<FctConstraints, String> e: clBl_.getDefaultMethods().entryList()) {
             MethodBlock m_ = classes_.getMethodBody(e.getValue(), e.getKey());
             String ret_ = m_.getReturnType();
-            ClassName clRet_ = new ClassName(ret_, false);
-            MethodMetaInfo info_ = new MethodMetaInfo(e.getValue(), MethodModifier.NORMAL, clRet_);
+            MethodMetaInfo info_ = new MethodMetaInfo(e.getValue(), MethodModifier.NORMAL, ret_);
             methods_.put(e.getKey(), info_);
         }
         return getCustResult(_conf, _class, methods_, false, _name, _argsClass);
@@ -979,7 +976,7 @@ public abstract class OperationNode implements Operable {
         }
         if (possibleMethods_.size() == CustList.ONE_ELEMENT) {
             FctConstraints methodId_ = possibleMethods_.first();
-            ClassMethodId cl_ = new ClassMethodId(new ClassName(clCurName_, false), methodId_);
+            ClassMethodId cl_ = new ClassMethodId(clCurName_, methodId_);
             ClassMethodIdResult res_ = new ClassMethodIdResult();
             res_.setStatus(SearchingMemberStatus.UNIQ);
             res_.setId(cl_);
@@ -1015,7 +1012,7 @@ public abstract class OperationNode implements Operable {
             return res_;
         }
         FctConstraints constraints_ = signatures_.first().getConstraints();
-        ClassMethodId cl_ = new ClassMethodId(new ClassName(clCurName_, false), constraints_);
+        ClassMethodId cl_ = new ClassMethodId(clCurName_, constraints_);
         ClassMethodIdResult res_ = new ClassMethodIdResult();
         res_.setStatus(SearchingMemberStatus.UNIQ);
         res_.setId(cl_);

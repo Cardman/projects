@@ -296,7 +296,7 @@ public final class FctOperation extends InvokingOperation {
                 }
                 ClassMethodIdReturn clMeth_ = getDeclaredCustMethod(_conf, isStaticAccess(), new ClassArgumentMatching(clCurName_), trimMeth_, superClassAccess_, ClassArgumentMatching.toArgArray(firstArgs_));
                 methodId = clMeth_.getId().getConstraints();
-                String foundClass_ = clMeth_.getId().getClassName().getName();
+                String foundClass_ = clMeth_.getId().getClassName();
                 classMethodId = clMeth_.getId();
                 if (!classes_.canAccessMethod(glClass_, foundClass_, methodId)) {
                     setRelativeOffsetPossibleLastPage(getIndexInEl()+off_, _conf);
@@ -519,7 +519,7 @@ public final class FctOperation extends InvokingOperation {
                     }
                 }
                 if (staticChoiceMethod) {
-                    classNameFound_ = classMethodId.getClassName().getName();
+                    classNameFound_ = classMethodId.getClassName();
                     if (!superAccessMethod) {
                         String argClassName_ = arg_.getObjectClassName();
                         if (!PrimitiveTypeUtil.canBeUseAsArgument(classNameFound_, argClassName_, classes_)) {
@@ -532,7 +532,7 @@ public final class FctOperation extends InvokingOperation {
                 }
             } else {
                 ClassMetaInfo custClass_ = null;
-                classNameFound_ = classMethodId.getClassName().getName();
+                classNameFound_ = classMethodId.getClassName();
                 if (!_conf.getClasses().isInitialized(classNameFound_)) {
                     _conf.getClasses().initialize(classNameFound_);
                     if (!_processInit) {

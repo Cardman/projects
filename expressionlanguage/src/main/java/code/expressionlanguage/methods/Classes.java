@@ -7,6 +7,7 @@ import code.expressionlanguage.CustEnum;
 import code.expressionlanguage.ElUtil;
 import code.expressionlanguage.PageEl;
 import code.expressionlanguage.PrimitiveTypeUtil;
+import code.expressionlanguage.Templates;
 import code.expressionlanguage.methods.exceptions.AlreadyExistingClassException;
 import code.expressionlanguage.methods.exceptions.AnalyzingErrorsException;
 import code.expressionlanguage.methods.exceptions.BadClassNameException;
@@ -22,6 +23,7 @@ import code.expressionlanguage.methods.util.DeadCodeMethod;
 import code.expressionlanguage.methods.util.EqualsEl;
 import code.expressionlanguage.methods.util.FoundErrorInterpret;
 import code.expressionlanguage.methods.util.MissingReturnMethod;
+import code.expressionlanguage.methods.util.TypeVar;
 import code.expressionlanguage.methods.util.UnexpectedTagName;
 import code.expressionlanguage.methods.util.UnknownClassName;
 import code.expressionlanguage.opers.Calculation;
@@ -80,12 +82,18 @@ public final class Classes {
     private static final String NAT_EQ_FORMAT = "{0};.={1};.";
     private static final char SEP_FILE = '/';
     private static final char DOT = '.';
+    private static final char LT = '<';
+    private static final char GT = '>';
+    private static final char ARR_BEG = '[';
+    private static final char PREF = '#';
+    private static final char PRIM = '$';
+    private static final char COMMA = ',';
     private static final String EMPTY_STRING = "";
 
-    private final ObjectMap<ClassName,RootBlock> classesBodies;
+    private final StringMap<RootBlock> classesBodies;
 
     private final ObjectMap<ClassField,Struct> staticFields;
-    private final ObjectMap<ClassName,CustList<Struct>> values;
+    private final StringMap<CustList<Struct>> values;
     private final StringMap<Boolean> initializedClasses;
     private final StringMap<Boolean> successfulInitializedClasses;
 
@@ -97,13 +105,13 @@ public final class Classes {
     private CustList<OperationNode> exps;
 
     public Classes(StringMap<String> _files, ContextEl _context) {
-        classesBodies = new ObjectMap<ClassName,RootBlock>();
+        classesBodies = new StringMap<RootBlock>();
 
         errorsDet = new CustList<FoundErrorInterpret>();
         StringList classes_ = new StringList();
 
         staticFields = new ObjectMap<ClassField,Struct>();
-        values = new ObjectMap<ClassName,CustList<Struct>>();
+        values = new StringMap<CustList<Struct>>();
         initializedClasses = new StringMap<Boolean>();
         successfulInitializedClasses = new StringMap<Boolean>();
         classesInheriting = new StringList();
@@ -193,6 +201,70 @@ public final class Classes {
                 if (!cl_.getFullName().equalsIgnoreCase(file_)) {
                     throw new BadClassNameException(cl_.getFullName());
                 }
+                String fullDef_ = cl_.getFullDefinition();
+                if (StringList.getAllTypes(fullDef_) == null) {
+                    throw new BadClassNameException(fullDef_);
+                }
+                StringList params_ = StringList.getAllTypes(fullDef_);
+                StringList varTypes_ = new StringList();
+                for (String p: params_.mid(CustList.SECOND_INDEX)) {
+                    if (!p.startsWith(Templates.PREFIX_VAR_TYPE)) {
+                        throw new BadClassNameException(fullDef_);
+                    }
+                    String name_ = p.substring(Templates.PREFIX_VAR_TYPE.length());
+                    TypeVar type_ = new TypeVar();
+                    int indexDef_ = name_.indexOf(Templates.EXTENDS_DEF);
+                    StringList parts_ = StringList.splitInTwo(name_, indexDef_);
+                    if (!StringList.isWord(parts_.first())) {
+                        throw new BadClassNameException(fullDef_);
+                    }
+                    if (varTypes_.containsStr(parts_.first())) {
+                        throw new BadClassNameException(fullDef_);
+                    }
+                    varTypes_.add(parts_.first());
+                    StringList constraints_ = new StringList();
+                    if (indexDef_ != CustList.INDEX_NOT_FOUND_ELT) {
+                        for (String b: StringList.splitChars(parts_.last().substring(Templates.EXTENDS_DEF.length()), Templates.SEP_BOUNDS)) {
+                            if (!Templates.isCorrectWrite(b)) {
+                                throw new BadClassNameException(fullDef_);
+                            }
+                            for (char c: b.toCharArray()) {
+                                if (StringList.isWordChar(c)) {
+                                    continue;
+                                }
+                                if (c == DOT) {
+                                    continue;
+                                }
+                                if (c == LT) {
+                                    continue;
+                                }
+                                if (c == GT) {
+                                    continue;
+                                }
+                                if (c == COMMA) {
+                                    continue;
+                                }
+                                if (c == PREF) {
+                                    continue;
+                                }
+                                if (c == PRIM) {
+                                    continue;
+                                }
+                                if (c == ARR_BEG) {
+                                    continue;
+                                }
+                                throw new BadClassNameException(fullDef_);
+                            }
+                            constraints_.add(b);
+                        }
+                    } else {
+                        constraints_.add(Object.class.getName());
+                    }
+                    type_.setConstraints(constraints_);
+                    type_.setName(parts_.first());
+                    cl_.getParamTypes().add(type_);
+                }
+                cl_.buildMapParamType();
                 try {
                     Class<?> clNat_ = ConstClasses.classForNameNotInit(file_);
                     throw new AlreadyExistingClassException(clNat_.getName());
@@ -207,7 +279,7 @@ public final class Classes {
                     b.setNullAssociateElement();
                 }
                 initializedClasses.put(file_, false);
-                classesBodies.put(new ClassName(file_, false), cl_);
+                classesBodies.put(file_, cl_);
             } catch (UnknownBlockException _0) {
                 RowCol where_ = _0.getRc();
                 UnexpectedTagName t_ = new UnexpectedTagName();
@@ -422,44 +494,43 @@ public final class Classes {
         _context.addPage(page_);
         Graph<ClassEdge> inherit_;
         inherit_ = new Graph<ClassEdge>();
-        for (EntryCust<ClassName, RootBlock> c: classesBodies.entryList()) {
-            ClassName d_ = c.getKey();
+        for (EntryCust<String, RootBlock> c: classesBodies.entryList()) {
+            String d_ = c.getKey();
             RootBlock bl_ = c.getValue();
             boolean int_ = bl_ instanceof InterfaceBlock;
             for (String s: bl_.getDirectSuperClasses()) {
-                ClassName b_ = new ClassName(s, false);
-                if (!classesBodies.contains(b_)) {
-                    if (!StringList.quickEq(b_.getName(), Object.class.getName())) {
+                if (!classesBodies.contains(s)) {
+                    if (!StringList.quickEq(s, Object.class.getName())) {
                         UnknownClassName undef_;
                         undef_ = new UnknownClassName();
-                        undef_.setClassName(b_.getName());
-                        undef_.setFileName(d_.getName());
+                        undef_.setClassName(s);
+                        undef_.setFileName(d_);
                         undef_.setRc(bl_.getRowCol(0, _context.getTabWidth(), ATTRIBUTE_SUPER_CLASS));
                         errorsDet.add(undef_);
                     }
                 } else {
-                    RootBlock super_ = classesBodies.getVal(b_);
+                    RootBlock super_ = classesBodies.getVal(s);
                     if (int_) {
                         if (!(super_ instanceof InterfaceBlock)) {
                             BadInheritedClass enum_;
                             enum_ = new BadInheritedClass();
-                            String n_ = b_.getName();
+                            String n_ = s;
                             enum_.setClassName(n_);
-                            enum_.setFileName(d_.getName());
+                            enum_.setFileName(d_);
                             enum_.setRc(new RowCol());
                             errorsDet.add(enum_);
                         }
                     } else if (super_.isFinalType()) {
                         BadInheritedClass enum_;
                         enum_ = new BadInheritedClass();
-                        String n_ = b_.getName();
+                        String n_ = s;
                         enum_.setClassName(n_);
-                        enum_.setFileName(d_.getName());
+                        enum_.setFileName(d_);
                         enum_.setRc(new RowCol());
                         errorsDet.add(enum_);
                     }
                 }
-                inherit_.addSegment(new ClassEdge(d_), new ClassEdge(b_));
+                inherit_.addSegment(new ClassEdge(d_), new ClassEdge(s));
             }
         }
         if (!errorsDet.isEmpty()) {
@@ -470,7 +541,7 @@ public final class Classes {
             for (ClassEdge c: cycle_) {
                 BadInheritedClass b_;
                 b_ = new BadInheritedClass();
-                String n_ = c.getId().getName();
+                String n_ = c.getId();
                 b_.setClassName(n_);
                 b_.setFileName(n_);
                 b_.setRc(new RowCol());
@@ -510,11 +581,11 @@ public final class Classes {
         }
         elts_.sortElts(new ComparatorClassEdge());
         for (ClassEdge c: elts_) {
-            classesInheriting.add(c.getId().getName());
+            classesInheriting.add(c.getId());
         }
         classesInheriting.removeAllObj(Object.class.getName());
         for (String c: classesInheriting) {
-            RootBlock dBl_ = classesBodies.getVal(new ClassName(c, false));
+            RootBlock dBl_ = classesBodies.getVal(c);
             StringList all_ = dBl_.getAllSuperClasses();
             StringList direct_ = dBl_.getDirectSuperClasses();
             all_.addAllElts(direct_);
@@ -522,31 +593,28 @@ public final class Classes {
                 if (StringList.quickEq(b, Object.class.getName())) {
                     continue;
                 }
-                RootBlock bBl_ = classesBodies.getVal(new ClassName(b, false));
+                RootBlock bBl_ = classesBodies.getVal(b);
                 all_.addAllElts(bBl_.getAllSuperClasses());
             }
         }
         for (String c: classesInheriting) {
-            ClassName idDer_ = new ClassName(c, false);
-            if (!(classesBodies.getVal(idDer_) instanceof UniqueRootedBlock)) {
+            if (!(classesBodies.getVal(c) instanceof UniqueRootedBlock)) {
                 continue;
             }
-            UniqueRootedBlock bl_ = (UniqueRootedBlock) classesBodies.getVal(idDer_);
+            UniqueRootedBlock bl_ = (UniqueRootedBlock) classesBodies.getVal(c);
             StringList all_ = bl_.getAllInterfaces();
             StringList direct_ = bl_.getDirectInterfaces();
             StringList allDirect_ = bl_.getAllDirectInterfaces();
             allDirect_.addAllElts(direct_);
             all_.addAllElts(direct_);
             for (String i: direct_) {
-                ClassName int_ = new ClassName(i, false);
-                RootBlock i_ = classesBodies.getVal(int_);
+                RootBlock i_ = classesBodies.getVal(i);
                 all_.addAllElts(i_.getAllSuperClasses());
             }
             String superClass_ = bl_.getSuperClass();
             StringList needed_;
             if (!StringList.quickEq(superClass_, Object.class.getName())) {
-                ClassName idBase_ = new ClassName(bl_.getSuperClass(), false);
-                UniqueRootedBlock super_ = (UniqueRootedBlock) classesBodies.getVal(idBase_);
+                UniqueRootedBlock super_ = (UniqueRootedBlock) classesBodies.getVal(bl_.getSuperClass());
                 all_.addAllElts(super_.getAllInterfaces());
                 allDirect_.addAllElts(super_.getAllDirectInterfaces());
                 needed_ = super_.getAllSortedInterfaces();
@@ -560,7 +628,7 @@ public final class Classes {
             bl_.getAllNeededSortedInterfaces().addAllElts(bl_.getAllSortedInterfaces());
             bl_.getAllNeededSortedInterfaces().removeAllElements(needed_);
         }
-        for (EntryCust<ClassName, RootBlock> c: classesBodies.entryList()) {
+        for (EntryCust<String, RootBlock> c: classesBodies.entryList()) {
             RootBlock r_ = c.getValue();
             if (r_ instanceof UniqueRootedBlock) {
                 r_.getAllSuperTypes().addAllElts(((UniqueRootedBlock)r_).getAllSuperClasses());
@@ -705,8 +773,7 @@ public final class Classes {
         _context.clearPages();
         _context.addPage(page_);
         for (String c: classesInheriting) {
-            ClassName idBase_ = new ClassName(c, false);
-            RootBlock bl_ = classesBodies.getVal(idBase_);
+            RootBlock bl_ = classesBodies.getVal(c);
             bl_.validateIds(_context);
         }
     }
@@ -715,10 +782,9 @@ public final class Classes {
         _context.clearPages();
         _context.addPage(page_);
         for (String c: classesInheriting) {
-            ClassName idBase_ = new ClassName(c, false);
-            RootBlock bl_ = classesBodies.getVal(idBase_);
-            bl_.setupBasicOverrides(_context);
+            RootBlock bl_ = classesBodies.getVal(c);
             bl_.checkCompatibility(_context);
+            bl_.setupBasicOverrides(_context);
             bl_.checkImplements(_context);
         }
     }
@@ -726,8 +792,8 @@ public final class Classes {
         PageEl page_ = new PageEl();
         _context.clearPages();
         _context.addPage(page_);
-        for (EntryCust<ClassName, RootBlock> c: classesBodies.entryList()) {
-            String className_ = c.getKey().getName();
+        for (EntryCust<String, RootBlock> c: classesBodies.entryList()) {
+            String className_ = c.getKey();
             CustList<Block> bl_ = getSortedDescNodes(c.getValue());
             for (Block e: bl_) {
                 Block b_ = (Block) e;
@@ -735,7 +801,7 @@ public final class Classes {
                     String classNameLoc_ = n.getValue();
                     try {
                         String base_ = PrimitiveTypeUtil.getQuickComponentBaseType(classNameLoc_).getComponent();
-                        if (classesBodies.contains(new ClassName(base_, false))) {
+                        if (classesBodies.contains(base_)) {
                             if (!canAccessClass(className_, base_)) {
                                 BadAccessClass err_ = new BadAccessClass();
                                 err_.setFileName(className_);
@@ -761,8 +827,8 @@ public final class Classes {
         PageEl page_ = new PageEl();
         _context.clearPages();
         _context.addPage(page_);
-        for (EntryCust<ClassName, RootBlock> c: classesBodies.entryList()) {
-            String className_ = c.getKey().getName();
+        for (EntryCust<String, RootBlock> c: classesBodies.entryList()) {
+            String className_ = c.getKey();
             CustList<Block> bl_ = getSortedDescNodes(c.getValue());
             for (Block b: bl_) {
                 Block block_ = (Block)b;
@@ -859,7 +925,7 @@ public final class Classes {
         ConstructorBlock i_ = null;
         for (Block b: bl_) {
             if (b instanceof ConstructorBlock) {
-                if (((ConstructorBlock)b).getConstraints().eq(_id)) {
+                if (((ConstructorBlock)b).getConstraints(this).eq(_id)) {
                     i_ = (ConstructorBlock)b;
                 }
             }
@@ -876,7 +942,7 @@ public final class Classes {
         MethodBlock i_ = null;
         for (Block b: bl_) {
             if (b instanceof MethodBlock) {
-                if (((MethodBlock)b).getConstraints().eq(_id)) {
+                if (((MethodBlock)b).getConstraints(this).eq(_id)) {
                     i_ = (MethodBlock)b;
                 }
             }
@@ -933,7 +999,7 @@ public final class Classes {
         PageEl page_ = new PageEl();
         _context.clearPages();
         _context.addPage(page_);
-        for (EntryCust<ClassName, RootBlock> c: classesBodies.entryList()) {
+        for (EntryCust<String, RootBlock> c: classesBodies.entryList()) {
             CustList<Block> bl_ = getDirectChildren(c.getValue());
             for (Block b: bl_) {
                 if (b instanceof FunctionBlock) {
@@ -946,16 +1012,16 @@ public final class Classes {
                 }
             }
         }
-        for (EntryCust<ClassName, RootBlock> c: classesBodies.entryList()) {
+        for (EntryCust<String, RootBlock> c: classesBodies.entryList()) {
             CustList<Block> bl_ = getDirectChildren(c.getValue());
             for (Block b: bl_) {
                 if (b instanceof InfoBlock) {
-                    page_.setGlobalClass(c.getKey().getName());
+                    page_.setGlobalClass(c.getKey());
                     InfoBlock method_ = (InfoBlock) b;
                     method_.buildExpressionLanguage(_context);
                 }
                 if (b instanceof AloneBlock) {
-                    page_.setGlobalClass(c.getKey().getName());
+                    page_.setGlobalClass(c.getKey());
                     AloneBlock method_ = (AloneBlock) b;
                     method_.buildFctInstructions(_context);
                     page_.getLocalVars().clear();
@@ -963,7 +1029,7 @@ public final class Classes {
                     page_.getVars().clear();
                 }
                 if (b instanceof Returnable) {
-                    page_.setGlobalClass(c.getKey().getName());
+                    page_.setGlobalClass(c.getKey());
                     Returnable method_ = (Returnable) b;
                     StringList params_ = method_.getParametersNames();
                     StringList types_ = method_.getParametersTypes();
@@ -983,22 +1049,22 @@ public final class Classes {
                 }
             }
         }
-        for (EntryCust<ClassName, RootBlock> c: classesBodies.entryList()) {
+        for (EntryCust<String, RootBlock> c: classesBodies.entryList()) {
             CustList<Block> bl_ = getDirectChildren(c.getValue());
             for (Block b: bl_) {
                 if (b instanceof InfoBlock) {
-                    page_.setGlobalClass(c.getKey().getName());
+                    page_.setGlobalClass(c.getKey());
                     InfoBlock method_ = (InfoBlock) b;
                     method_.checkCallConstructor(_context);
                 }
                 if (b instanceof FunctionBlock) {
-                    page_.setGlobalClass(c.getKey().getName());
+                    page_.setGlobalClass(c.getKey());
                     FunctionBlock method_ = (FunctionBlock) b;
                     method_.checkFctConstrCalls(_context);
                 }
             }
         }
-        for (EntryCust<ClassName, RootBlock> c: classesBodies.entryList()) {
+        for (EntryCust<String, RootBlock> c: classesBodies.entryList()) {
             RootBlock clblock_ = c.getValue();
             if (clblock_ instanceof UniqueRootedBlock) {
                 ((UniqueRootedBlock)clblock_).validateConstructors(_context);
@@ -1012,8 +1078,8 @@ public final class Classes {
         PageEl page_ = new PageEl();
         _context.clearPages();
         _context.addPage(page_);
-        for (EntryCust<ClassName, RootBlock> c: classesBodies.entryList()) {
-            String className_ = c.getKey().getName();
+        for (EntryCust<String, RootBlock> c: classesBodies.entryList()) {
+            String className_ = c.getKey();
             CustList<Block> bl_ = getDirectChildren(c.getValue());
             for (Block b: bl_) {
                 if (b instanceof AloneBlock) {
@@ -1164,8 +1230,8 @@ public final class Classes {
     }
 
     public RootBlock getClassBody(String _className) {
-        for (EntryCust<ClassName, RootBlock> c: classesBodies.entryList()) {
-            if (!StringList.quickEq(c.getKey().getName(), _className)) {
+        for (EntryCust<String, RootBlock> c: classesBodies.entryList()) {
+            if (!StringList.quickEq(c.getKey(), _className)) {
                 continue;
             }
             return c.getValue();
@@ -1174,8 +1240,8 @@ public final class Classes {
     }
 
     public MethodBlock getMethodBody(String _className, FctConstraints _methodId) {
-        for (EntryCust<ClassName, RootBlock> c: classesBodies.entryList()) {
-            if (!StringList.quickEq(c.getKey().getName(), _className)) {
+        for (EntryCust<String, RootBlock> c: classesBodies.entryList()) {
+            if (!StringList.quickEq(c.getKey(), _className)) {
                 continue;
             }
             CustList<Block> bl_ = getDirectChildren(c.getValue());
@@ -1191,7 +1257,7 @@ public final class Classes {
                     String n_ = p_.get(i);
                     pTypes_.add(new ClassName(n_, i + 1 == len_ && method_.isVarargs()));
                 }
-                if (method_.getConstraints().eq(_methodId)) {
+                if (method_.getConstraints(this).eq(_methodId)) {
                     return method_;
                 }
             }
@@ -1199,8 +1265,8 @@ public final class Classes {
         return null;
     }
     public ConstructorBlock getConstructorBody(String _className, FctConstraints _methodId) {
-        for (EntryCust<ClassName, RootBlock> c: classesBodies.entryList()) {
-            if (!StringList.quickEq(c.getKey().getName(), _className)) {
+        for (EntryCust<String, RootBlock> c: classesBodies.entryList()) {
+            if (!StringList.quickEq(c.getKey(), _className)) {
                 continue;
             }
             CustList<Block> bl_ = getDirectChildren(c.getValue());
@@ -1241,9 +1307,9 @@ public final class Classes {
     public void preInitializeStaticFields(String _className) {
         StringMap<FieldBlock> fieldsInfos_;
         fieldsInfos_ = new StringMap<FieldBlock>();
-        for (EntryCust<ClassName, RootBlock> c: classesBodies.entryList()) {
-            ClassName k_ = c.getKey();
-            if (!StringList.quickEq(k_.getName(), _className)) {
+        for (EntryCust<String, RootBlock> c: classesBodies.entryList()) {
+            String k_ = c.getKey();
+            if (!StringList.quickEq(k_, _className)) {
                 continue;
             }
             CustList<Block> bl_ = getDirectChildren(c.getValue());
@@ -1260,9 +1326,9 @@ public final class Classes {
                 }
             }
         }
-        for (EntryCust<ClassName, RootBlock> c: classesBodies.entryList()) {
-            ClassName k_ = c.getKey();
-            if (!StringList.quickEq(k_.getName(), _className)) {
+        for (EntryCust<String, RootBlock> c: classesBodies.entryList()) {
+            String k_ = c.getKey();
+            if (!StringList.quickEq(k_, _className)) {
                 continue;
             }
             CustList<Block> bl_ = getDirectChildren(c.getValue());
@@ -1288,7 +1354,7 @@ public final class Classes {
                     i_++;
                 }
             }
-            values.put(new ClassName(_className, false), values_);
+            values.put(_className, values_);
         }
     }
     public void initializeStaticField(ClassField _clField, Struct _str) {
@@ -1298,15 +1364,15 @@ public final class Classes {
         return staticFields.getVal(_clField);
     }
     public ClassMetaInfo getClassMetaInfo(String _name) {
-        for (EntryCust<ClassName, RootBlock> c: classesBodies.entryList()) {
+        for (EntryCust<String, RootBlock> c: classesBodies.entryList()) {
             ObjectNotNullMap<FctConstraints, MethodMetaInfo> infos_;
             infos_ = new ObjectNotNullMap<FctConstraints, MethodMetaInfo>();
             StringMap<FieldMetaInfo> infosFields_;
             infosFields_ = new StringMap<FieldMetaInfo>();
             ObjectNotNullMap<FctConstraints, ConstructorMetaInfo> infosConst_;
             infosConst_ = new ObjectNotNullMap<FctConstraints, ConstructorMetaInfo>();
-            ClassName k_ = c.getKey();
-            if (!StringList.quickEq(k_.getName(), _name)) {
+            String k_ = c.getKey();
+            if (!StringList.quickEq(k_, _name)) {
                 continue;
             }
             RootBlock clblock_ = c.getValue();
@@ -1316,11 +1382,10 @@ public final class Classes {
                     InfoBlock method_ = (InfoBlock) b;
                     String m_ = method_.getFieldName();
                     String ret_ = method_.getClassName();
-                    ClassName clRet_ = new ClassName(ret_, false);
                     boolean enumElement_ = b instanceof ElementBlock;
                     boolean staticElement_ = method_.isStaticField();
                     boolean finalElement_ = method_.isFinalField();
-                    FieldMetaInfo met_ = new FieldMetaInfo(k_, m_, clRet_, staticElement_, finalElement_, enumElement_);
+                    FieldMetaInfo met_ = new FieldMetaInfo(k_, m_, ret_, staticElement_, finalElement_, enumElement_);
                     infosFields_.put(m_, met_);
                 }
                 if (b instanceof MethodBlock) {
@@ -1337,13 +1402,12 @@ public final class Classes {
                     }
                     FctConstraints id_ = new FctConstraints(m_, constraints_);
                     String ret_ = method_.getReturnType();
-                    ClassName clRet_ = new ClassName(ret_, false);
-                    MethodMetaInfo met_ = new MethodMetaInfo(method_.getDeclaringType(), method_.getModifier(), clRet_);
+                    MethodMetaInfo met_ = new MethodMetaInfo(method_.getDeclaringType(), method_.getModifier(), ret_);
                     infos_.put(id_, met_);
                 }
                 if (b instanceof ConstructorBlock) {
                     ConstructorBlock method_ = (ConstructorBlock) b;
-                    String m_ = k_.getName();
+                    String m_ = k_;
                     StringList p_ = method_.getParametersTypes();
                     int len_ = p_.size();
                     EqList<ClassName> pTypes_ = new EqList<ClassName>();
@@ -1355,8 +1419,7 @@ public final class Classes {
                     }
                     FctConstraints id_ = new FctConstraints(m_, constraints_);
                     String ret_ = OperationNode.VOID_RETURN;
-                    ClassName clRet_ = new ClassName(ret_, false);
-                    ConstructorMetaInfo met_ = new ConstructorMetaInfo(clRet_);
+                    ConstructorMetaInfo met_ = new ConstructorMetaInfo(ret_);
                     infosConst_.put(id_, met_);
                 }
             }

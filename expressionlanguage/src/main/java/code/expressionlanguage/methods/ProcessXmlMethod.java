@@ -223,7 +223,7 @@ public final class ProcessXmlMethod {
                     if (fieldMeta_.isStaticField()) {
                         continue;
                     }
-                    String fieldDeclClass_ = fieldMeta_.getType().getName();
+                    String fieldDeclClass_ = fieldMeta_.getType();
                     Object o_ = PrimitiveTypeUtil.defaultValue(fieldDeclClass_);
                     if (o_ == null) {
                         fields_.put(new ClassField(c, e.getKey()), new Struct());

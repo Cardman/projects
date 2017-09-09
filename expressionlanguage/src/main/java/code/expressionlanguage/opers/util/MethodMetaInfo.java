@@ -7,9 +7,9 @@ public final class MethodMetaInfo {
 
     private final MethodModifier modifier;
 
-    private final ClassName returnType;
+    private final String returnType;
 
-    public MethodMetaInfo(String _className, MethodModifier _modifier,ClassName _returnType) {
+    public MethodMetaInfo(String _className, MethodModifier _modifier,String _returnType) {
         className = _className;
         modifier = _modifier;
         returnType = _returnType;
@@ -24,7 +24,7 @@ public final class MethodMetaInfo {
     public MethodModifier getModifier() {
         return modifier;
     }
-    public ClassName getReturnType() {
+    public String getReturnType() {
         return returnType;
     }
 

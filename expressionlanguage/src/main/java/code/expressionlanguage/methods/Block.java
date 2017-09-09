@@ -57,6 +57,7 @@ public abstract class Block extends Blockable {
     protected static final String ATTRIBUTE_MODIFIER = "modifier";
     protected static final String ATTRIBUTE_SUPER_CLASS = "superclass";
     protected static final String ATTRIBUTE_ACCESS = "access";
+    protected static final String ATTRIBUTE_TEMPLATE_DEF = "template";
     protected static final String TAG_AFFECT = "affect";
     protected static final String TAG_BREAK = "break";
     protected static final String TAG_CASE = "case";
@@ -101,8 +102,6 @@ public abstract class Block extends Blockable {
     protected static final String PAR_RIGHT = ")";
     protected static final String RETURN_LINE = "\n";
     protected static final String EMPTY_STRING = "";
-    protected static final String LT = "<";
-    protected static final String GT = ">";
 
     private static final String TRUE_STRING = "true";
 

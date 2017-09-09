@@ -1,18 +1,19 @@
 package code.expressionlanguage.opers.util;
+import code.util.StringList;
 import code.util.ints.Equallable;
 
 public final class ClassMethodId implements Equallable<ClassMethodId> {
 
-    private final ClassName className;
+    private final String className;
 
     private final FctConstraints constraints;
 
-    public ClassMethodId(ClassName _className, FctConstraints _constraints) {
+    public ClassMethodId(String _className, FctConstraints _constraints) {
         className = _className;
         constraints = _constraints;
     }
 
-    public ClassName getClassName() {
+    public String getClassName() {
         return className;
     }
 
@@ -22,7 +23,7 @@ public final class ClassMethodId implements Equallable<ClassMethodId> {
 
     @Override
     public boolean eq(ClassMethodId _g) {
-        if (!className.eq(_g.className)) {
+        if (!StringList.quickEq(className, _g.className)) {
             return false;
         }
         if (!constraints.eq(_g.constraints)) {

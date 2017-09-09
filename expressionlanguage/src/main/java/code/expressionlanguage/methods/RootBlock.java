@@ -16,6 +16,7 @@ import code.expressionlanguage.methods.util.DuplicateMethod;
 import code.expressionlanguage.methods.util.DuplicateParamName;
 import code.expressionlanguage.methods.util.FinalMethod;
 import code.expressionlanguage.methods.util.IncompatibilityReturnType;
+import code.expressionlanguage.methods.util.TypeVar;
 import code.expressionlanguage.methods.util.UnexpectedTagName;
 import code.expressionlanguage.methods.util.UnknownClassName;
 import code.expressionlanguage.opers.OperationNode;
@@ -28,15 +29,104 @@ import code.util.EntryCust;
 import code.util.EqList;
 import code.util.ObjectMap;
 import code.util.StringList;
+import code.util.StringMap;
 import code.util.consts.ConstClasses;
 import code.util.exceptions.RuntimeClassNotFoundException;
 import code.xml.RowCol;
 
-public abstract class RootBlock extends BracedBlock implements RootedBlock {
+public abstract class RootBlock extends BracedBlock implements AccessibleBlock {
+
+    private final String name;
+
+    private final String packageName;
+
+    private final AccessEnum access;
+
+    private final String templateDef;
+
+    private ObjectMap<ClassMethodId, StringList> allOverridingMethods;
+
+    private CustList<TypeVar> paramTypes = new CustList<TypeVar>();
+
+    private StringMap<TypeVar> paramTypesMap = new StringMap<TypeVar>();
 
     RootBlock(Element _el, ContextEl _importingPage, int _indexChild,
             BracedBlock _m) {
         super(_el, _importingPage, _indexChild, _m);
+        allOverridingMethods = new ObjectMap<ClassMethodId, StringList>();
+        name = _el.getAttribute(ATTRIBUTE_NAME);
+        packageName = _el.getAttribute(ATTRIBUTE_PACKAGE);
+        access = AccessEnum.valueOf(_el.getAttribute(ATTRIBUTE_ACCESS));
+        templateDef = _el.getAttribute(ATTRIBUTE_TEMPLATE_DEF);
+    }
+
+    public abstract StringList getAllSuperClasses();
+
+    public abstract StringList getAllSuperTypes();
+
+    public abstract StringList getDirectSuperClasses();
+
+    public abstract boolean isFinalType();
+    public abstract boolean isAbstractType();
+
+    public abstract StringList getAllInterfaces();
+
+    public abstract ObjectMap<FctConstraints, String> getDefaultMethods();
+
+    public abstract boolean mustImplement();
+
+    public void buildMapParamType() {
+        paramTypesMap = new StringMap<TypeVar>();
+        for (TypeVar t: paramTypes) {
+            paramTypesMap.put(t.getName(), t);
+        }
+    }
+
+    public int getIndex(String _varType) {
+        int len_ = paramTypes.size();
+        for (int i = CustList.FIRST_INDEX; i < len_; i++) {
+            if (StringList.quickEq(paramTypes.get(i).getName(), _varType)) {
+                return i;
+            }
+        }
+        return CustList.INDEX_NOT_FOUND_ELT;
+    }
+
+    public StringMap<TypeVar> getParamTypesMap() {
+        return paramTypesMap;
+    }
+
+    public CustList<TypeVar> getParamTypes() {
+        return paramTypes;
+    }
+
+    public String getFullDefinition() {
+        return getFullName()+getTemplateDef();
+    }
+
+    public String getTemplateDef() {
+        return templateDef;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getPackageName() {
+        return packageName;
+    }
+
+    @Override
+    public AccessEnum getAccess() {
+        return access;
+    }
+
+    public ObjectMap<ClassMethodId, StringList> getAllOverridingMethods() {
+        return allOverridingMethods;
+    }
+
+    public final String getFullName() {
+        return getPackageName()+DOT+getName();
     }
 
     protected void validateClassNames(ContextEl _context) {
@@ -63,7 +153,7 @@ public abstract class RootBlock extends BracedBlock implements RootedBlock {
         }
     }
 
-    public void validateIds(ContextEl _context) {
+    public final void validateIds(ContextEl _context) {
         validateClassNames(_context);
         EqList<FctConstraints> ids_ = new EqList<FctConstraints>();
         StringList idsField_ = new StringList();
@@ -139,7 +229,6 @@ public abstract class RootBlock extends BracedBlock implements RootedBlock {
                     name_ = className_;
                 }
                 FctConstraints fct_ = new FctConstraints(name_, constraints_);
-                method_.setConstraints(fct_);
                 MethodId id_ = new MethodId(name_, pTypes_);
                 for (FctConstraints m: ids_) {
                     if (m.eq(fct_)) {
@@ -218,7 +307,7 @@ public abstract class RootBlock extends BracedBlock implements RootedBlock {
 
     public abstract StringList getDirectSuperTypes();
 
-    public void checkCompatibility(ContextEl _context) {
+    public final void checkCompatibility(ContextEl _context) {
         ObjectMap<FctConstraints, StringList> signatures_ = getAllInstanceSignatures(_context.getClasses());
         ObjectMap<FctConstraints, String> localSignatures_ = getLocalSignatures(_context.getClasses());
         ObjectMap<FctConstraints, StringList> ov_;
@@ -251,7 +340,7 @@ public abstract class RootBlock extends BracedBlock implements RootedBlock {
             }
         }
     }
-    public void checkImplements(ContextEl _context) {
+    public final void checkImplements(ContextEl _context) {
         EqList<ClassMethodId> abstractMethods_ = new EqList<ClassMethodId>();
         boolean concreteClass_ = false;
         if (mustImplement()) {
@@ -259,13 +348,12 @@ public abstract class RootBlock extends BracedBlock implements RootedBlock {
         }
         StringList allSuperClass_ = getAllSuperClasses();
         for (String s: allSuperClass_) {
-            ClassName idSuper_ = new ClassName(s, false);
             Block superBl_ = _context.getClasses().getClassBody(s);
             for (Block b: Classes.getDirectChildren(superBl_)) {
                 if (b instanceof MethodBlock) {
                     MethodBlock mDer_ = (MethodBlock) b;
                     if (mDer_.isAbstractMethod()) {
-                        abstractMethods_.add(new ClassMethodId(idSuper_, mDer_.getConstraints()));
+                        abstractMethods_.add(new ClassMethodId(s, mDer_.getConstraints(_context.getClasses())));
                     }
                 }
             }
@@ -273,7 +361,7 @@ public abstract class RootBlock extends BracedBlock implements RootedBlock {
         for (Block b: Classes.getDirectChildren(this)) {
             if (b instanceof MethodBlock) {
                 MethodBlock mDer_ = (MethodBlock) b;
-                FctConstraints id_ = mDer_.getConstraints();
+                FctConstraints id_ = mDer_.getConstraints(_context.getClasses());
                 if (mDer_.isAbstractMethod()) {
                     if (concreteClass_) {
                         AbstractMethod err_;
@@ -349,7 +437,7 @@ public abstract class RootBlock extends BracedBlock implements RootedBlock {
                     if (method_ == null) {
                         continue;
                     }
-                    if (!method_.getAllOverridenClasses().containsStr(m.getClassName().getName())) {
+                    if (!method_.getAllOverridenClasses().containsStr(m.getClassName())) {
                         continue;
                     }
                     ok_ = true;
@@ -359,7 +447,7 @@ public abstract class RootBlock extends BracedBlock implements RootedBlock {
                     AbstractMethod err_;
                     err_ = new AbstractMethod();
                     err_.setFileName(getFullName());
-                    err_.setClassName(m.getClassName().getName());
+                    err_.setClassName(m.getClassName());
                     err_.setRc(getRowCol(0, _context.getTabWidth(), ATTRIBUTE_NAME));
                     err_.setSgn(m.getConstraints().getSignature());
                     _context.getClasses().getErrorsDet().add(err_);
@@ -461,7 +549,7 @@ public abstract class RootBlock extends BracedBlock implements RootedBlock {
                     AbstractMethod err_;
                     err_ = new AbstractMethod();
                     err_.setFileName(getFullName());
-                    err_.setClassName(m.getClassName().getName());
+                    err_.setClassName(m.getClassName());
                     err_.setRc(getRowCol(0, _context.getTabWidth(), ATTRIBUTE_NAME));
                     err_.setSgn(m.getConstraints().getSignature());
                     _context.getClasses().getErrorsDet().add(err_);
@@ -485,7 +573,7 @@ public abstract class RootBlock extends BracedBlock implements RootedBlock {
             getDefaultMethods().put(e.getKey(), e.getValue());
         }
     }
-    public ObjectMap<FctConstraints, StringList> getAllInstanceSignatures(Classes _classes) {
+    public final ObjectMap<FctConstraints, StringList> getAllInstanceSignatures(Classes _classes) {
         ObjectMap<FctConstraints, StringList> map_;
         map_ = new ObjectMap<FctConstraints, StringList>();
         for (Block b: Classes.getDirectChildren(this)) {
@@ -494,7 +582,7 @@ public abstract class RootBlock extends BracedBlock implements RootedBlock {
                 if (method_.isStaticMethod()) {
                     continue;
                 }
-                map_.put(method_.getConstraints(), new StringList(getFullName()));
+                map_.put(method_.getConstraints(_classes), new StringList(getFullName()));
             }
         }
         for (String s: getAllSuperTypes()) {
@@ -505,20 +593,20 @@ public abstract class RootBlock extends BracedBlock implements RootedBlock {
                     if (method_.isStaticMethod()) {
                         continue;
                     }
-                    addClass(map_, method_.getConstraints(), s);
+                    addClass(map_, method_.getConstraints(_classes), s);
                 }
             }
         }
         return map_;
     }
 
-    public ObjectMap<FctConstraints, String> getLocalSignatures(Classes _classes) {
+    public final ObjectMap<FctConstraints, String> getLocalSignatures(Classes _classes) {
         ObjectMap<FctConstraints, String> map_;
         map_ = new ObjectMap<FctConstraints, String>();
         for (Block b: Classes.getDirectChildren(this)) {
             if (b instanceof MethodBlock) {
                 MethodBlock method_ = (MethodBlock) b;
-                map_.put(method_.getConstraints(), getFullName());
+                map_.put(method_.getConstraints(_classes), getFullName());
             }
         }
         return map_;
@@ -681,8 +769,7 @@ public abstract class RootBlock extends BracedBlock implements RootedBlock {
             }
             if (nbConcrete_ != 1 && nbFinal_ == 0|| nbAbs_ != 0) {
                 for (String f: e.getValue()) {
-                    ClassName cl_ = new ClassName(f, false);
-                    ClassMethodId id_ = new ClassMethodId(cl_, e.getKey());
+                    ClassMethodId id_ = new ClassMethodId(f, e.getKey());
                     rem_.add(id_);
                 }
             }

@@ -24,6 +24,7 @@ import code.expressionlanguage.classes.Templating;
 import code.expressionlanguage.classes.TemplatingBis;
 import code.expressionlanguage.classes.TransitiveTemplating;
 import code.expressionlanguage.classes.TwoBounds;
+import code.expressionlanguage.methods.Classes;
 import code.util.AbEqList;
 import code.util.CustList;
 import code.util.EnumList;
@@ -36,6 +37,7 @@ import code.util.ints.Listable;
 
 @SuppressWarnings("static-method")
 public class TemplatesTest {
+    private static final String PUBLIC_ACCESS = "PUBLIC";
     private static final String ARR_INT = "[$int";
     private static final String ARR_OBJECT = "[java.lang.Object";
     private static final String ARR_STRING = "[java.lang.String";
@@ -1856,5 +1858,117 @@ public class TemplatesTest {
         bounds_ = Templates.getClassLeftMostBounds(TwoBounds.class.getName(), null);
         assertEq(1, bounds_.size());
         assertEq(IOne.class.getName(), bounds_.get(0));
+    }
+
+    @Test
+    public void getClassLeftMostBounds6Test() {
+        String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg'/>\n";
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex."+Classes.EXT, xml_);
+        ContextEl cont_ = unfullValidateOverridingMethods(files_);
+        cont_.setAccessValue(new AccessValueEx());
+        Classes classes_ = cont_.getClasses();
+        assertTrue(classes_.getErrorsDet().toString(), classes_.getErrorsDet().isEmpty());
+        StringList list_ = Templates.getClassLeftMostBounds("pkg.Ex", classes_);
+        assertEq(0, list_.size());
+    }
+
+    @Test
+    public void getClassLeftMostBounds7Test() {
+        String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' template='&lt;#T&gt;'/>\n";
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex."+Classes.EXT, xml_);
+        ContextEl cont_ = unfullValidateOverridingMethods(files_);
+        cont_.setAccessValue(new AccessValueEx());
+        Classes classes_ = cont_.getClasses();
+        assertTrue(classes_.getErrorsDet().toString(), classes_.getErrorsDet().isEmpty());
+        StringList list_ = Templates.getClassLeftMostBounds("pkg.Ex", classes_);
+        assertEq(1, list_.size());
+        assertEq(Object.class.getName(), list_.get(0));
+    }
+
+    @Test
+    public void getClassLeftMostBounds8Test() {
+        String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' template='&lt;#T:java.lang.Number&gt;'/>\n";
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex."+Classes.EXT, xml_);
+        ContextEl cont_ = unfullValidateOverridingMethods(files_);
+        cont_.setAccessValue(new AccessValueEx());
+        Classes classes_ = cont_.getClasses();
+        assertTrue(classes_.getErrorsDet().toString(), classes_.getErrorsDet().isEmpty());
+        StringList list_ = Templates.getClassLeftMostBounds("pkg.Ex", classes_);
+        assertEq(1, list_.size());
+        assertEq("java.lang.Number", list_.get(0));
+    }
+
+    @Test
+    public void getClassLeftMostBounds9Test() {
+        String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' template='&lt;#T:java.lang.Number&amp;java.lang.Iterable&gt;'/>\n";
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex."+Classes.EXT, xml_);
+        ContextEl cont_ = unfullValidateOverridingMethods(files_);
+        cont_.setAccessValue(new AccessValueEx());
+        Classes classes_ = cont_.getClasses();
+        assertTrue(classes_.getErrorsDet().toString(), classes_.getErrorsDet().isEmpty());
+        StringList list_ = Templates.getClassLeftMostBounds("pkg.Ex", classes_);
+        assertEq(1, list_.size());
+        assertEq("java.lang.Number", list_.get(0));
+    }
+
+    @Test
+    public void getClassLeftMostBounds10Test() {
+        String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' template='&lt;#T:#U,#U:java.lang.Number&amp;java.lang.Iterable&gt;'/>\n";
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex."+Classes.EXT, xml_);
+        ContextEl cont_ = unfullValidateOverridingMethods(files_);
+        cont_.setAccessValue(new AccessValueEx());
+        Classes classes_ = cont_.getClasses();
+        assertTrue(classes_.getErrorsDet().toString(), classes_.getErrorsDet().isEmpty());
+        StringList list_ = Templates.getClassLeftMostBounds("pkg.Ex", classes_);
+        assertEq(2, list_.size());
+        assertEq("java.lang.Number", list_.get(0));
+        assertEq("java.lang.Number", list_.get(1));
+    }
+
+    @Test
+    public void getClassLeftMostBounds11Test() {
+        String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' template='&lt;#T:#U,#U:java.lang.Number&gt;'/>\n";
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex."+Classes.EXT, xml_);
+        xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExTwo' package='pkg' template='&lt;#T:pkg.Ex&lt;java.lang.Integer&gt;&gt;'/>\n";
+        files_.put("pkg/ExTwo."+Classes.EXT, xml_);
+        ContextEl cont_ = unfullValidateOverridingMethods(files_);
+        cont_.setAccessValue(new AccessValueEx());
+        Classes classes_ = cont_.getClasses();
+        assertTrue(classes_.getErrorsDet().toString(), classes_.getErrorsDet().isEmpty());
+        StringList list_ = Templates.getClassLeftMostBounds("pkg.ExTwo", classes_);
+        assertEq(1, list_.size());
+        assertEq("pkg.Ex", list_.get(0));
+    }
+
+    @Test
+    public void getClassLeftMostBounds12Test() {
+        String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' template='&lt;#T:#U,#U:java.lang.Number&gt;'/>\n";
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex."+Classes.EXT, xml_);
+        xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExTwo' package='pkg' template='&lt;#T:pkg.Ex&lt;java.lang.Integer&gt;&gt;'/>\n";
+        files_.put("pkg/ExTwo."+Classes.EXT, xml_);
+        ContextEl cont_ = unfullValidateOverridingMethods(files_);
+        cont_.setAccessValue(new AccessValueEx());
+        Classes classes_ = cont_.getClasses();
+        assertTrue(classes_.getErrorsDet().toString(), classes_.getErrorsDet().isEmpty());
+        StringList list_ = Templates.getClassLeftMostBounds(CustList.class.getName(), classes_);
+        assertEq(1, list_.size());
+        assertEq("java.lang.Object", list_.get(0));
+    }
+
+    private ContextEl unfullValidateOverridingMethods(StringMap<String> _files) {
+        ContextEl cont_ = new ContextEl();
+        Classes classes_ = new Classes(_files, cont_);
+        cont_.setClasses(classes_);
+        assertTrue(classes_.getErrorsDet().toString(), classes_.getErrorsDet().isEmpty());
+        classes_.validateInheritingClasses(cont_);
+        assertTrue(classes_.getErrorsDet().toString(), classes_.getErrorsDet().isEmpty());
+        return cont_;
     }
 }

@@ -2,10 +2,10 @@ package code.expressionlanguage.opers.util;
 
 
 public final class FieldMetaInfo {
-    private final ClassName declaringClass;
+    private final String declaringClass;
     private final String name;
 
-    private final ClassName type;
+    private final String type;
 
     private final boolean staticField;
 
@@ -13,9 +13,9 @@ public final class FieldMetaInfo {
 
     private final boolean enumElement;
 
-    public FieldMetaInfo(ClassName _declaringClass,
+    public FieldMetaInfo(String _declaringClass,
             String _name,
-            ClassName _returnType, boolean _static,
+            String _returnType, boolean _static,
             boolean _finalField, boolean _enumElement) {
         declaringClass = _declaringClass;
         name = _name;
@@ -25,7 +25,7 @@ public final class FieldMetaInfo {
         enumElement = _enumElement;
     }
 
-    public ClassName getDeclaringClass() {
+    public String getDeclaringClass() {
         return declaringClass;
     }
     public String getName() {
@@ -37,7 +37,7 @@ public final class FieldMetaInfo {
     public boolean isFinalField() {
         return finalField;
     }
-    public ClassName getType() {
+    public String getType() {
         return type;
     }
     public boolean isEnumElement() {

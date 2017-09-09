@@ -19,8 +19,6 @@ public final class ConstructorBlock extends NamedFunctionBlock {
 
     private FctConstraints constId;
 
-    private FctConstraints constraints;
-
     private boolean implicitCallSuper;
 
     public ConstructorBlock(Element _el, ContextEl _importingPage, int _indexChild,
@@ -139,12 +137,9 @@ public final class ConstructorBlock extends NamedFunctionBlock {
     }
 
     @Override
-    public FctConstraints getConstraints() {
-        return constraints;
-    }
-
-    @Override
-    public void setConstraints(FctConstraints _constraints) {
-        constraints = _constraints;
+    public FctConstraints getConstraints(Classes _classes) {
+        RootBlock clBlock_ = (RootBlock) getParent();
+        String name_ = clBlock_.getFullName();
+        return getBaseConstraints(name_, _classes);
     }
 }

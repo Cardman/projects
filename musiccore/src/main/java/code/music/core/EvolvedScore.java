@@ -126,7 +126,8 @@ public class EvolvedScore implements XmlTransientable, MidListable<EvolvedPart> 
 
     @Override
     public void set(int _index, EvolvedPart _element) {
-        score.getPartList().set(_index, _element.getPart());
+        score.removePart(_index);
+        score.insertPart(_element.getPart(), _index);
         parts.set(_index, _element);
     }
 

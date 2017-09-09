@@ -25,7 +25,6 @@ import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.opers.util.ClassCategory;
 import code.expressionlanguage.opers.util.ClassField;
 import code.expressionlanguage.opers.util.ClassMetaInfo;
-import code.expressionlanguage.opers.util.ClassName;
 import code.expressionlanguage.opers.util.FieldMetaInfo;
 import code.expressionlanguage.opers.util.FieldResult;
 import code.expressionlanguage.opers.util.SearchingMemberStatus;
@@ -166,7 +165,7 @@ public final class ConstantOperation extends OperationNode implements SettableEl
                     }
                     e_ = r_.getId();
                     String glClass_ = _conf.getLastPage().getGlobalClass();
-                    if (!_conf.getClasses().canAccessField(glClass_, e_.getDeclaringClass().getName(), key_)) {
+                    if (!_conf.getClasses().canAccessField(glClass_, e_.getDeclaringClass(), key_)) {
                         throw new BadAccessException(clCurName_+DOT+key_+RETURN_LINE+_conf.joinPages());
                     }
                     fieldMetaInfo = e_;
@@ -175,9 +174,9 @@ public final class ConstantOperation extends OperationNode implements SettableEl
                             finalField = true;
                         }
                     }
-                    fieldId = new ClassField(e_.getDeclaringClass().getName(), e_.getName());
-                    ClassName c_ = fieldMetaInfo.getType();
-                    setResultClass(new ClassArgumentMatching(c_.getName()));
+                    fieldId = new ClassField(e_.getDeclaringClass(), e_.getName());
+                    String c_ = fieldMetaInfo.getType();
+                    setResultClass(new ClassArgumentMatching(c_));
                     return;
                 }
             }
@@ -493,7 +492,7 @@ public final class ConstantOperation extends OperationNode implements SettableEl
         if (fieldId != null) {
             Classes classes_ = _conf.getClasses();
             Argument previous_ = _previous;
-            if (right_.isNull() && fieldMetaInfo.getType().getName().startsWith(PrimitiveTypeUtil.PRIM)) {
+            if (right_.isNull() && fieldMetaInfo.getType().startsWith(PrimitiveTypeUtil.PRIM)) {
                 throw new NullObjectException(_conf.joinPages());
             }
             if (fieldMetaInfo.isStaticField()) {

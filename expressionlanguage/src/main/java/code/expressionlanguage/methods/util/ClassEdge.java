@@ -1,19 +1,19 @@
 package code.expressionlanguage.methods.util;
-import code.expressionlanguage.opers.util.ClassName;
 import code.util.CustList;
+import code.util.StringList;
 import code.util.ints.GraphElement;
 
 public final class ClassEdge implements GraphElement<ClassEdge> {
 
-    private final ClassName id;
+    private final String id;
 
     private int order = CustList.INDEX_NOT_FOUND_ELT;
 
-    public ClassEdge(ClassName _id) {
+    public ClassEdge(String _id) {
         id = _id;
     }
 
-    public ClassName getId() {
+    public String getId() {
         return id;
     }
 
@@ -27,7 +27,7 @@ public final class ClassEdge implements GraphElement<ClassEdge> {
 
     @Override
     public boolean eq(ClassEdge _g) {
-        return id.eq(_g.id);
+        return StringList.quickEq(id, _g.id);
     }
 
 }

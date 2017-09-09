@@ -5,6 +5,8 @@ import java.lang.reflect.Type;
 import java.lang.reflect.TypeVariable;
 
 import code.expressionlanguage.methods.Classes;
+import code.expressionlanguage.methods.RootBlock;
+import code.expressionlanguage.methods.util.TypeVar;
 import code.expressionlanguage.opers.util.DimComp;
 import code.util.CustList;
 import code.util.EntryCust;
@@ -20,6 +22,7 @@ public final class Templates {
     public static final String TEMPLATE_END = ">";
     public static final String TEMPLATE_BEGIN = "<";
     public static final String WILD_CARD = "?";
+    public static final String EXTENDS_DEF = ":";
     public static final String EXTENDS = "~";
     public static final char SEP_BOUNDS = '&';
     public static final String SEP_CLASS = ".";
@@ -547,21 +550,41 @@ public final class Templates {
         return bounds_;
     }
     public static StringList getClassLeftMostBounds(String _className, Classes _classes) {
-        String baseClass_ = PrimitiveTypeUtil.getArrayClass(_className);
-        Class<?> cl_ = ConstClasses.classForNameNotInit(baseClass_);
         StringList bounds_ = new StringList();
         StringMap<StringList> localBounds_ = new StringMap<StringList>();
-        for (TypeVariable<?> t: cl_.getTypeParameters()) {
-            StringList localBound_ = new StringList();
-            for (Type b: t.getBounds()) {
-                String typeString_ = getBaseName(b);
-                if (!typeString_.contains(SEP_CLASS)) {
-                    localBound_.add(PREFIX_VAR_TYPE+typeString_);
-                } else {
-                    localBound_.add(typeString_);
+        boolean custom_ = false;
+        if (_classes != null) {
+            RootBlock cl_ = _classes.getClassBody(_className);
+            if (cl_ != null) {
+                custom_ = true;
+                for (TypeVar t: cl_.getParamTypes()) {
+                    StringList localBound_ = new StringList();
+                    for (String c: t.getConstraints()) {
+                        if (c.contains(TEMPLATE_BEGIN)) {
+                            localBound_.add(c.substring(CustList.FIRST_INDEX, c.indexOf(TEMPLATE_BEGIN)));
+                        } else {
+                            localBound_.add(c);
+                        }
+                    }
+                    localBounds_.put(PREFIX_VAR_TYPE+t.getName(), localBound_);
                 }
             }
-            localBounds_.put(PREFIX_VAR_TYPE+t.getName(), localBound_);
+        }
+        if (!custom_) {
+            String baseClass_ = PrimitiveTypeUtil.getArrayClass(_className);
+            Class<?> cl_ = ConstClasses.classForNameNotInit(baseClass_);
+            for (TypeVariable<?> t: cl_.getTypeParameters()) {
+                StringList localBound_ = new StringList();
+                for (Type b: t.getBounds()) {
+                    String typeString_ = getBaseName(b);
+                    if (!typeString_.contains(SEP_CLASS)) {
+                        localBound_.add(PREFIX_VAR_TYPE+typeString_);
+                    } else {
+                        localBound_.add(typeString_);
+                    }
+                }
+                localBounds_.put(PREFIX_VAR_TYPE+t.getName(), localBound_);
+            }
         }
         for (String t: localBounds_.getKeys()) {
             StringList current_ = new StringList(t);

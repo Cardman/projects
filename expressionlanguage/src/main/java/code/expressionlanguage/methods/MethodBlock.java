@@ -24,8 +24,6 @@ public final class MethodBlock extends NamedFunctionBlock {
 
     private StringList allOverridenClasses;
 
-    private FctConstraints constraints;
-
     private final String declaringType;
 
     public MethodBlock(Element _el, ContextEl _importingPage, int _indexChild,
@@ -157,12 +155,8 @@ public final class MethodBlock extends NamedFunctionBlock {
     }
 
     @Override
-    public FctConstraints getConstraints() {
-        return constraints;
+    public FctConstraints getConstraints(Classes _classes) {
+        return getBaseConstraints(declaringType, _classes);
     }
 
-    @Override
-    public void setConstraints(FctConstraints _constraints) {
-        constraints = _constraints;
-    }
 }
