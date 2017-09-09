@@ -359,7 +359,6 @@ public final class SerializeXmlObject {
                         }
                         elt_.add(serial_);
                         if (serial_.getRef() == null) {
-//                            obj_.add(serial_);
                             if (serial_.isMap()) {
                                 notEmptyMaps_.add(serial_);
                             }
@@ -379,39 +378,9 @@ public final class SerializeXmlObject {
                             serializableRefComposite_.add(serial_);
                         }
                     }
-//                    boolean found_;
-//                    found_ = false;
-//                    for (Pair<TemplateSerial,List<TemplateSerial>> p: treeRefComposites_.getElements()) {
-//                        if (p.getFirst().getValue() == composite_.getValue()) {
-//                            p.setSecond(childRefComposites_);
-//                            found_ = true;
-//                            break;
-//                        }
-//                    }
-//                    if (!found_) {
-//                        treeRefComposites_.getElements().add(new Pair<>(composite_, childRefComposites_));
-//                    }
                     treeRefComposites_.getElements().add(new TemplateSerialValue<CustList<TemplateSerial>>(composite_, childRefComposites_));
-//                    found_ = false;
-//                    for (Pair<TemplateSerial,List<TemplateSerial>> p: treeIdComposites_.getElements()) {
-//                        if (p.getFirst().getValue() == composite_.getValue()) {
-//                            p.setSecond(childIdComposites_);
-//                            found_ = true;
-//                            break;
-//                        }
-//                    }
-//                    if (!found_) {
-//                        treeIdComposites_.getElements().add(new Pair<>(composite_, childIdComposites_));
-//                    }
                     treeIdComposites_.getElements().add(new TemplateSerialValue<CustList<TemplateSerial>>(composite_, childIdComposites_));
-//                    treeRefComposites_.put(composite_, childRefComposites_);
-//                    treeIdComposites_.put(composite_, childIdComposites_);
                     composite_.appendElementSerial(_xmlString, elt_);
-//                    if (composite_ instanceof MayBeMap) {
-//                        if (!((MayBeMap) composite_).mapIsEmpty()) {
-//                            notEmptyMaps_.add((MayBeMap) composite_);
-//                        }
-//                    }
                 }
                 if (!newSerializableElements_.isEmpty()) {
                     currentNodesToBeRead_ = new CustList<Node>(newNodesToBeRead_);
@@ -522,20 +491,6 @@ public final class SerializeXmlObject {
                 for (int i = CustList.FIRST_INDEX; i < len_; i++) {
                     Node currentNode_ = currentNodesToBeRead_.get(i);
                     TemplateSerial composite_ = currentSerializableElements_.get(i);
-//                    boolean isTreeMap_ = false;
-//                    boolean containsTree_ = false;
-//                    for (Node nCh_: XmlParser.childrenNodes(currentNode_)) {
-//                        if (!(nCh_ instanceof Element)) {
-//                            continue;
-//                        }
-//                        containsTree_ = nCh_.getAttributes().getNamedItem(TemplateSerial.COMPARATOR) != null;
-//                        if (containsTree_) {
-//                            break;
-//                        }
-//                    }
-//                    if (containsTree_) {
-//                        isTreeMap_ = true;
-//                    }
                     CustList<ElementsSerial> elt_ = new CustList<ElementsSerial>();
                     for (Element n : XmlParser.childrenElements(currentNode_)) {
                         try {
@@ -612,11 +567,6 @@ public final class SerializeXmlObject {
                         newNodesToBeRead_.add(n);
                     }
                     composite_.appendElementSerialWithoutRef(_xmlString, elt_);
-//                    if (composite_ instanceof MayBeMap) {
-//                        if (!((MayBeMap) composite_).mapIsEmpty()) {
-//                            notEmptyMaps_.add((MayBeMap) composite_);
-//                        }
-//                    }
                 }
                 if (!newSerializableElements_.isEmpty()) {
                     currentNodesToBeRead_ = new CustList<Node>(newNodesToBeRead_);
@@ -778,25 +728,6 @@ public final class SerializeXmlObject {
         return null;
     }
 
-//    private static ComparatorSerial getCmpSerial(Node _node,
-//            boolean _isTreeMap, TemplateSerial _composite) {
-//        if (!_isTreeMap) {
-//            return null;
-//        }
-//        NamedNodeMap attributes_ = _node.getAttributes();
-////        if (attributes_ == null) {
-////            return null;
-////        }
-//        if (attributes_.getNamedItem(TemplateSerial.COMPARATOR) == null) {
-//            return null;
-//        }
-//        if (_composite instanceof MayBeMap) {
-////            return ((MayBeMap) _composite).getCmpSerial();
-//            return new ComparatorSerial(_node);
-//        }
-//        return null;
-//    }
-
     public static String toXmlString(Object _object) {
 //        if (!SecurityManagerUtil.canUseReflection()) {
 //            ByteArrayOutputStream baos_ = new ByteArrayOutputStream();
@@ -904,7 +835,6 @@ public final class SerializeXmlObject {
                     for (ElementsSerial e : elts_) {
                         Node newNode_ = e.serialize(document_);
                         if (e instanceof TemplateSerial) {
-                            //!(e instanceof EnumSerial)
                             TemplateSerial t_ = (TemplateSerial) e;
                             if (t_.getRef() == null) {
                                 newNodesToBeCompleted_.add(newNode_);
@@ -940,12 +870,7 @@ public final class SerializeXmlObject {
                     for (ElementsSerial e : elts_) {
                         Node newNode_ = e.serializeWithoutRef(document_);
                         if (e instanceof TemplateSerial) {
-                            //!(e instanceof EnumSerial)
                             TemplateSerial t_ = (TemplateSerial) e;
-//                            if (t_.getRef() == null) {
-//                                newNodesToBeCompleted_.add(newNode_);
-//                                newSerializableElements_.add(t_);
-//                            }
                             newNodesToBeCompleted_.add(newNode_);
                             newSerializableElements_.add(t_);
                         }

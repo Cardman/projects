@@ -59,7 +59,7 @@ final class CurrentSerializableElements {
                         addElementInListWithoutIdRef(o);
                     }
                 }
-                if (currentValue_ instanceof ListableEntries) {
+                if (ListableEntries.class.isAssignableFrom(cl_)) {
                     Object list_ = entryList(currentValue_);
                     Object it_ = iterator(list_);
                     while (hasNext(it_)) {
@@ -129,7 +129,7 @@ final class CurrentSerializableElements {
                                 false, SerializeXmlObject.LS_CLASS, null, false);
                     }
                 }
-                if (currentValue_ instanceof ListableEntries) {
+                if (ListableEntries.class.isAssignableFrom(cl_)) {
                     Object list_ = entryList(currentValue_);
                     Object it_ = iterator(list_);
                     while (hasNext(it_)) {
@@ -196,7 +196,7 @@ final class CurrentSerializableElements {
                                 false, SerializeXmlObject.LS_CLASS, null);
                     }
                 }
-                if (currentValue_ instanceof ListableEntries) {
+                if (ListableEntries.class.isAssignableFrom(cl_)) {
                     Object list_ = entryList(currentValue_);
                     Object it_ = iterator(list_);
                     while (hasNext(it_)) {
@@ -254,7 +254,7 @@ final class CurrentSerializableElements {
                                 false, SerializeXmlObject.LS_CLASS, null);
                     }
                 }
-                if (currentValue_ instanceof ListableEntries) {
+                if (ListableEntries.class.isAssignableFrom(cl_)) {
                     Object list_ = entryList(currentValue_);
                     Object it_ = iterator(list_);
                     while (hasNext(it_)) {
@@ -314,7 +314,7 @@ final class CurrentSerializableElements {
                         }
                     }
                 }
-                if (currentValue_ instanceof ListableEntries) {
+                if (ListableEntries.class.isAssignableFrom(cl_)) {
                     Object list_ = entryList(currentValue_);
                     Object it_ = iterator(list_);
                     while (hasNext(it_)) {
@@ -381,7 +381,7 @@ final class CurrentSerializableElements {
                         }
                     }
                 }
-                if (currentValue_ instanceof ListableEntries) {
+                if (ListableEntries.class.isAssignableFrom(cl_)) {
                     Object list_ = entryList(currentValue_);
                     Object it_ = iterator(list_);
                     while (hasNext(it_)) {
@@ -442,7 +442,7 @@ final class CurrentSerializableElements {
                         addElementInList(o);
                     }
                 }
-                if (currentValue_ instanceof ListableEntries) {
+                if (ListableEntries.class.isAssignableFrom(cl_)) {
                     Object list_ = entryList(currentValue_);
                     Object it_ = iterator(list_);
                     while (hasNext(it_)) {

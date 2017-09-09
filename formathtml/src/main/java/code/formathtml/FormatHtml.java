@@ -4084,7 +4084,7 @@ final class FormatHtml {
             _ip.setOffset(0);
             Object o_ = ElUtil.processEl(mapAttr_, 0, _conf.toContextEl()).getObject();
             mapCast_ = o_;
-            if (o_ instanceof SortableMap) {
+            if (SortableMap.class.isInstance(o_)) {
                 iterable_ = ExtractObject.getKeys(_conf, false, mapAttr_.length(), mapCast_);
                 if (iterable_ == null) {
                     throw new NullObjectException(_conf.joinPages());
