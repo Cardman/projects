@@ -8,7 +8,7 @@ public class MyStrangeTranslator implements Translator {
     @Override
     public String getString(String _pattern, Object _conf,
             StringMap<String> _files, Bean _object, Object _value) {
-    	return "".substring(1);
+        return "".substring(1);
     }
 
 }
