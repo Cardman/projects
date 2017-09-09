@@ -1009,10 +1009,14 @@ public class SerializeXmlObjectTest {
         assertEq("ELEMENT", containers_.getList().first());
         assertSame(TreeMap.class, containers_.getTreemap().getClass());
         assertEq(2, containers_.getTreemap().size());
+        assertEq("A", containers_.getTreemap().getKey(0));
         assertSame(Integer.class, containers_.getTreemap().getVal("A").getClass());
         assertEq(1, containers_.getTreemap().getVal("A").intValue());
+        assertEq(1, containers_.getTreemap().getValue(0));
+        assertEq("B", containers_.getTreemap().getKey(1));
         assertSame(Integer.class, containers_.getTreemap().getVal("B").getClass());
         assertEq(2, containers_.getTreemap().getVal("B").intValue());
+        assertEq(2, containers_.getTreemap().getValue(1));
         assertSame(StringMap.class, containers_.getMap().getClass());
         assertEq(1, containers_.getMap().size());
         assertEq(MyEnum.ONE, containers_.getMap().getVal("STR"));
@@ -1559,6 +1563,8 @@ public class SerializeXmlObjectTest {
         assertEq("A", tree_.getKey(1));
         assertEq(1, (Number)tree_.getVal("A"));
         assertEq(2, (Number)tree_.getVal("B"));
+        assertEq(2, tree_.getValue(0));
+        assertEq(1, tree_.getValue(1));
     }
 
     @Test
