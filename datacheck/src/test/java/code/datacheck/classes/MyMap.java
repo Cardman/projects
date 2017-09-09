@@ -231,4 +231,14 @@ public class MyMap<V> implements ListableEntries<String, V> {
     public void setValue(int _i, V _object) {
     }
 
+    @Override
+    public V getValue(int _i) {
+        return null;
+    }
+
+    @Override
+    public String getKey(int _i) {
+        return null;
+    }
+
 }

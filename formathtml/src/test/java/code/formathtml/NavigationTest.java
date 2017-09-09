@@ -28,6 +28,7 @@ import code.formathtml.classes.BeanThree;
 import code.formathtml.classes.BeanTwo;
 import code.formathtml.classes.Composite;
 import code.formathtml.classes.EnumNumber;
+import code.formathtml.classes.EnumNumbers;
 import code.formathtml.classes.MyTranslator;
 import code.formathtml.classes.MyValidator;
 import code.formathtml.classes.MyValidatorEnum;
@@ -40,7 +41,6 @@ import code.formathtml.util.NodeContainer;
 import code.formathtml.util.NodeInformations;
 import code.serialize.exceptions.BadAccessException;
 import code.serialize.exceptions.NoSuchDeclaredMethodException;
-import code.util.CustList;
 import code.util.NatTreeMap;
 import code.util.NumberMap;
 import code.util.Numbers;
@@ -5366,7 +5366,7 @@ public class NavigationTest {
         assertEq(2, stLi_.size());
         assertEq("ONE", stLi_.first());
         assertEq("FOUR", stLi_.last());
-        CustList<?> l_ = (CustList<?>) map_.getVal("chosenNumbers");
+        EnumNumbers l_ = (EnumNumbers) map_.getVal("chosenNumbers");
         assertEq(2, l_.size());
         assertEq(EnumNumber.TWO, (EnumNumber) l_.first());
         assertEq(EnumNumber.THREE, (EnumNumber) l_.last());
@@ -5443,7 +5443,7 @@ public class NavigationTest {
         assertEq(2, stLi_.size());
         assertEq("ONE", stLi_.first());
         assertEq("FOUR", stLi_.last());
-        CustList<?> l_ = (CustList<?>) map_.getVal("chosenNumbers");
+        EnumNumbers l_ = (EnumNumbers) map_.getVal("chosenNumbers");
         assertEq(2, l_.size());
         assertEq("TWO", l_.first());
         assertEq("THREE", l_.last());
@@ -5584,7 +5584,7 @@ public class NavigationTest {
         assertEq(2, stLi_.size());
         assertEq("ONE", stLi_.first());
         assertEq("FOUR", stLi_.last());
-        CustList<?> l_ = (CustList<?>) map_.getVal("chosenNumbers");
+        EnumNumbers l_ = (EnumNumbers) map_.getVal("chosenNumbers");
         assertEq(2, l_.size());
         assertEq(EnumNumber.TWO, (EnumNumber) l_.first());
         assertEq(EnumNumber.THREE, (EnumNumber) l_.last());
@@ -5661,7 +5661,7 @@ public class NavigationTest {
         assertEq(2, stLi_.size());
         assertEq("ONE", stLi_.first());
         assertEq("FOUR", stLi_.last());
-        CustList<?> l_ = (CustList<?>) map_.getVal("chosenNumbers");
+        EnumNumbers l_ = (EnumNumbers) map_.getVal("chosenNumbers");
         assertEq(2, l_.size());
         assertEq("TWO", l_.first());
         assertEq("THREE", l_.last());
@@ -5803,7 +5803,7 @@ public class NavigationTest {
         assertEq(2, stLi_.size());
         assertEq("ONE", stLi_.first());
         assertEq("FOUR", stLi_.last());
-        CustList<?> l_ = (CustList<?>) map_.getVal("chosenNumbers");
+        EnumNumbers l_ = (EnumNumbers) map_.getVal("chosenNumbers");
         assertEq(2, l_.size());
         assertEq(EnumNumber.TWO, (EnumNumber) l_.first());
         assertEq(EnumNumber.THREE, (EnumNumber) l_.last());
@@ -5880,7 +5880,7 @@ public class NavigationTest {
         assertEq(2, stLi_.size());
         assertEq("ONE", stLi_.first());
         assertEq("FOUR", stLi_.last());
-        CustList<?> l_ = (CustList<?>) map_.getVal("chosenNumbers");
+        EnumNumbers l_ = (EnumNumbers) map_.getVal("chosenNumbers");
         assertEq(2, l_.size());
         assertEq(EnumNumber.TWO, (EnumNumber) l_.first());
         assertEq(EnumNumber.THREE, (EnumNumber) l_.last());
@@ -6520,7 +6520,7 @@ public class NavigationTest {
         assertEq(2, stLi_.size());
         assertEq("ONE", stLi_.first());
         assertEq("FOUR", stLi_.last());
-        CustList<?> l_ = (CustList<?>) map_.getVal("chosenNumbers");
+        EnumNumbers l_ = (EnumNumbers) map_.getVal("chosenNumbers");
         assertEq(0, l_.size());
         assertTrue(map_.contains("chosenNumbersNull"));
         assertNull(map_.getVal("chosenNumbersNull"));
@@ -6592,7 +6592,7 @@ public class NavigationTest {
         assertEq(2, stLi_.size());
         assertEq("ONE", stLi_.first());
         assertEq("FOUR", stLi_.last());
-        CustList<?> l_ = (CustList<?>) map_.getVal("chosenNumbers");
+        EnumNumbers l_ = (EnumNumbers) map_.getVal("chosenNumbers");
         assertEq(0, l_.size());
         assertTrue(map_.contains("chosenNumbersNull"));
         assertNull(map_.getVal("chosenNumbersNull"));

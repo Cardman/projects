@@ -31,57 +31,6 @@ public abstract class TreeComboBox<T> extends JComboBox {
     protected TreeMap<T, String> getElements() {
         return elements;
     }
-//    public ComboBox(Class<T> _class){
-//        enumClass = _class;
-//    }
-
-//    protected FacadeGame getFacade() {
-//        return facade;
-//    }
-//
-//    public void setFacade(FacadeGame _facade) {
-//        facade = _facade;
-//    }
-
-//    @Override
-//    public void translate() {
-//        List<T> elements_ = new List<T>();
-//        for (T t: enumClass.getEnumConstants()) {
-//            elements_.add(t);
-//        }
-//        refresh(elements_, Constants.getLanguage(), true);
-//    }
-
-//    public abstract void refresh(List<T> _order, String _language, boolean _sortStrings);
-
-//    public void refresh(Listable<T> _order,ListableEntries<T,String> _tr) {
-//        order.clear();
-//        order.addAllElts(_order);
-//        super.removeAllItems();
-////        Map<T,String> m_ = new Map<T,String>(_tr);
-////        elements = new TreeMap<T,String>(new Comparator<T>(){
-////            @Override
-////            public int compare(T _o1, T _o2) {
-////                return order.indexOfObj(_o1) - order.indexOfObj(_o2);
-////            }
-////        });
-//        elements = new TreeMap<T,String>(new ComparatorIndexes<T>(order));
-//        Map<T,String> m_ = createMap(_tr);
-//        elements.putAllMap(m_);
-//        for (T e: elements.getKeys()) {
-//            addItem(_tr.getVal(e));
-//        }
-//    }
-
-//    public void refresh(ListableEntries<Integer,String> _tr) {
-//        super.removeAllItems();
-//        AbsMap<Integer,String> m_ = createMap(_tr);
-//        elements = new TreeMap<Integer,String>(new ComparatorMapValue<Integer>(m_));
-//        elements.putAllMap(m_);
-//        for (T e: elements.getKeys()) {
-//            addItem(_tr.getVal(e));
-//        }
-//    }
 
     @Override
     public void removeItemAt(int _anIndex) {

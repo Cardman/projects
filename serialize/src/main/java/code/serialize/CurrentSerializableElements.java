@@ -17,6 +17,8 @@ import code.util.opers.CollectionsUtil;
 
 final class CurrentSerializableElements {
 
+    private static final String TO_ARRAY ="toArray";
+    private static final Method TO_ARRAY_METHOD = SerializeXmlObject.getDeclaredXmlAccessibleMethod(Listable.class, TO_ARRAY);
     private SerialList<TemplateSerial> allComposites = new SerialList<TemplateSerial>();
     private SerialList<TemplateSerial> news = new SerialList<TemplateSerial>();
     private SerialList<TemplateSerial> currents = new SerialList<TemplateSerial>();
@@ -37,9 +39,10 @@ final class CurrentSerializableElements {
             for (TemplateSerial e: getCurrents()) {
                 setComponents(new SerialList<ElementsSerial>());
                 Object currentValue_ = e.getValue();
-                if (currentValue_ instanceof Listable<?>) {
+                Class<?> cl_ = currentValue_.getClass();
+                if (Listable.class.isAssignableFrom(cl_)) {
 
-                    for (Object o: (Listable<?>)currentValue_) {
+                    for (Object o: toArray(currentValue_)) {
                         addElementInListWithoutIdRef(o);
                     }
                 }
@@ -61,7 +64,6 @@ final class CurrentSerializableElements {
                 if (currentValue_ instanceof XmlTransientable) {
                     ((XmlTransientable)currentValue_).beforeSave();
                 }
-                Class<?> cl_ = currentValue_.getClass();
                 while (cl_ != Object.class) {
                     if (cl_.getSuperclass() == AbstractList.class) {
                         break;
@@ -113,9 +115,13 @@ final class CurrentSerializableElements {
             for (TemplateSerial e: getCurrents()) {
                 setComponents(new SerialList<ElementsSerial>());
                 Object currentValue_ = e.getValue();
-                if (currentValue_ instanceof Listable<?>) {
+                if (currentValue_ == null) {
+                    throw new NullSerialException();
+                }
+                Class<?> cl_ = currentValue_.getClass();
+                if (Listable.class.isAssignableFrom(cl_)) {
 
-                    for (Object o: (Listable<?>)currentValue_) {
+                    for (Object o: toArray(currentValue_)) {
                         checkNullPointerWithoutIdRef(o,
                                 false, SerializeXmlObject.LS_CLASS, null, false);
                     }
@@ -128,9 +134,6 @@ final class CurrentSerializableElements {
                                 false, SerializeXmlObject.MP_CLASS, null, false);
                     }
                 }
-                if (currentValue_ == null) {
-                    throw new NullSerialException();
-                }
                 if (currentValue_.getClass().isArray()) {
                     int length_ = Array.getLength(currentValue_);
                     for (int i = CollectionsUtil.getFirstIndex(); i < length_; i++) {
@@ -140,7 +143,6 @@ final class CurrentSerializableElements {
                     continue;
                 }
 
-                Class<?> cl_ = currentValue_.getClass();
                 while (cl_ != Object.class) {
                     if (cl_.getSuperclass() == AbstractList.class) {
                         break;
@@ -178,9 +180,10 @@ final class CurrentSerializableElements {
             for (TemplateSerial e: getCurrents()) {
                 setComponents(new SerialList<ElementsSerial>());
                 Object currentValue_ = e.getValue();
-                if (currentValue_ instanceof Listable<?>) {
+                Class<?> cl_ = currentValue_.getClass();
+                if (Listable.class.isAssignableFrom(cl_)) {
 
-                    for (Object o: (Listable<?>)currentValue_) {
+                    for (Object o: toArray(currentValue_)) {
                         setUnmodifiedWithoutIdRef(o,
                                 false, SerializeXmlObject.LS_CLASS, null);
                     }
@@ -194,7 +197,6 @@ final class CurrentSerializableElements {
                     }
                 }
 
-                Class<?> cl_ = currentValue_.getClass();
                 while (cl_ != Object.class) {
                     if (cl_.getSuperclass() == AbstractList.class) {
                         break;
@@ -231,9 +233,10 @@ final class CurrentSerializableElements {
             for (TemplateSerial e: getCurrents()) {
                 setComponents(new SerialList<ElementsSerial>());
                 Object currentValue_ = e.getValue();
-                if (currentValue_ instanceof Listable<?>) {
+                Class<?> cl_ = currentValue_.getClass();
+                if (Listable.class.isAssignableFrom(cl_)) {
 
-                    for (Object o: (Listable<?>)currentValue_) {
+                    for (Object o: toArray(currentValue_)) {
                         setUnmodified(o,
                                 false, SerializeXmlObject.LS_CLASS, null);
                     }
@@ -247,7 +250,6 @@ final class CurrentSerializableElements {
                     }
                 }
 
-                Class<?> cl_ = currentValue_.getClass();
                 while (cl_ != Object.class) {
                     if (cl_.getSuperclass() == AbstractList.class) {
                         break;
@@ -284,9 +286,10 @@ final class CurrentSerializableElements {
             for (TemplateSerial e: getCurrents()) {
                 setComponents(new SerialList<ElementsSerial>());
                 Object currentValue_ = e.getValue();
-                if (currentValue_ instanceof Listable<?>) {
+                Class<?> cl_ = currentValue_.getClass();
+                if (Listable.class.isAssignableFrom(cl_)) {
 
-                    for (Object o: (Listable<?>)currentValue_) {
+                    for (Object o: toArray(currentValue_)) {
                         if(!isUnmodifiedWithoutIdRef(o,
                                 false, SerializeXmlObject.LS_CLASS, null)) {
                             return true;
@@ -306,7 +309,6 @@ final class CurrentSerializableElements {
                     }
                 }
 
-                Class<?> cl_ = currentValue_.getClass();
                 while (cl_ != Object.class) {
                     if (cl_.getSuperclass() == AbstractList.class) {
                         break;
@@ -346,9 +348,10 @@ final class CurrentSerializableElements {
             for (TemplateSerial e: getCurrents()) {
                 setComponents(new SerialList<ElementsSerial>());
                 Object currentValue_ = e.getValue();
-                if (currentValue_ instanceof Listable<?>) {
+                Class<?> cl_ = currentValue_.getClass();
+                if (Listable.class.isAssignableFrom(cl_)) {
 
-                    for (Object o: (Listable<?>)currentValue_) {
+                    for (Object o: toArray(currentValue_)) {
                         if(!isUnmodified(o,
                                 false, SerializeXmlObject.LS_CLASS, null)) {
                             return true;
@@ -368,7 +371,6 @@ final class CurrentSerializableElements {
                     }
                 }
 
-                Class<?> cl_ = currentValue_.getClass();
                 while (cl_ != Object.class) {
                     if (cl_.getSuperclass() == AbstractList.class) {
                         break;
@@ -408,9 +410,10 @@ final class CurrentSerializableElements {
             for (TemplateSerial e: getCurrents()) {
                 setComponents(new SerialList<ElementsSerial>());
                 Object currentValue_ = e.getValue();
-                if (currentValue_ instanceof Listable<?>) {
+                Class<?> cl_ = currentValue_.getClass();
+                if (Listable.class.isAssignableFrom(cl_)) {
 
-                    for (Object o: (Listable<?>)currentValue_) {
+                    for (Object o: toArray(currentValue_)) {
                         addElementInList(o);
                     }
                 }
@@ -432,7 +435,6 @@ final class CurrentSerializableElements {
                 if (currentValue_ instanceof XmlTransientable) {
                     ((XmlTransientable)currentValue_).beforeSave();
                 }
-                Class<?> cl_ = currentValue_.getClass();
                 while (cl_ != Object.class) {
                     if (cl_.getSuperclass() == AbstractList.class) {
                         break;
@@ -465,6 +467,10 @@ final class CurrentSerializableElements {
                 setCurrents(new SerialList<TemplateSerial>(getNews()));
             }
         }
+    }
+
+    private static Object[] toArray(Object _value) {
+        return (Object[]) ConverterMethod.invokeMethod(TO_ARRAY_METHOD, _value);
     }
 
     private void addComponentsToComposite(TemplateSerial _e) {

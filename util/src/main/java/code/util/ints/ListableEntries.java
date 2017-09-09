@@ -8,7 +8,7 @@ public interface ListableEntries<K,V> {
 
     void move(K _oldKey, K _newKey);
 
-    Listable<EntryCust<K,V>> entryList();
+    Iterable<EntryCust<K,V>> entryList();
 
     void putAllMap(ListableEntries<K, V> _m);
 
@@ -16,6 +16,10 @@ public interface ListableEntries<K,V> {
     Listable<V> getValues(K _key);
 
     V getVal(K _key);
+
+    K getKey(int _i);
+
+    V getValue(int _i);
 
     void setValue(int _i, V _object);
 

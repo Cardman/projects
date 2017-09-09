@@ -30,12 +30,14 @@ final class ObjectSerial extends TemplateSerial {
     private static final int TAB_WIDTH = 4;
 
 
+    private static final String SIZE ="size";
     private static final String ADD ="add";
     private static final String SET ="set";
     private static final String ADD_ENTRY ="addEntry";
     private static final String SET_KEY ="setKey";
     private static final String SET_VALUE ="setValue";
 
+    private static final Method SIZE_METHOD = SerializeXmlObject.getDeclaredXmlAccessibleMethod(Listable.class, SIZE);
     private static final Method ADD_METHOD = SerializeXmlObject.getDeclaredXmlAccessibleMethod(Listable.class, ADD, Object.class);
     private static final Method SET_METHOD = SerializeXmlObject.getDeclaredXmlAccessibleMethod(Listable.class, SET, int.class, Object.class);
     private static final Method ADD_ENTRY_METHOD = SerializeXmlObject.getDeclaredXmlAccessibleMethod(AbsMap.class, ADD_ENTRY, Object.class, Object.class);
@@ -351,8 +353,9 @@ final class ObjectSerial extends TemplateSerial {
     }
     @Override
     void setElementSerial(String _xml, ElementsSerial _e,ElementsSerial _newE) {
-        if(value instanceof Listable<?>) {
-            int len_ = ((Listable<?>)value).size();
+        Class<?> cl_ = value.getClass();
+        if(Listable.class.isAssignableFrom(cl_)) {
+            int len_ = (Integer) ConverterMethod.invokeMethod(SIZE_METHOD, value);
             for (int i=CollectionsUtil.getFirstIndex();i<len_;i++) {
                 if (!indexesRef.contains(i)) {
                     continue;
@@ -363,7 +366,7 @@ final class ObjectSerial extends TemplateSerial {
                 ConverterMethod.invokeMethod(SET_METHOD, value, i, _newE.getValue());
             }
         }
-        if(value instanceof ListableEntries<?,?>) {
+        if(ListableEntries.class.isAssignableFrom(cl_)) {
             ListableEntries<?, ?> v_;
             v_ = (ListableEntries<?, ?>)value;
             int len_ = v_.size();

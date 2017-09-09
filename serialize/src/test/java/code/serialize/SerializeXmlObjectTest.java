@@ -1086,7 +1086,7 @@ public class SerializeXmlObjectTest {
         assertEq("STR_ONE", containers_.getMap().getVal(null));
     }
 
-	@Parameters(method="booleanInputs")
+    @Parameters(method="booleanInputs")
     @Test
     public void fromXmlStringObject14Test(boolean _bool) {
         SerializeXmlObject.setReferences(_bool);
@@ -1104,7 +1104,7 @@ public class SerializeXmlObjectTest {
         assertEq("STR_ONE", containers_.getMap().getVal(true));
     }
 
-	@Parameters(method="booleanInputs")
+    @Parameters(method="booleanInputs")
     @Test
     public void fromXmlStringObject15Test(boolean _bool) {
         SerializeXmlObject.setReferences(_bool);
@@ -1122,7 +1122,7 @@ public class SerializeXmlObjectTest {
         assertEq("STR_ONE", containers_.getMap().getVal(1L));
     }
 
-	@Parameters(method="booleanInputs")
+    @Parameters(method="booleanInputs")
     @Test
     public void fromXmlStringObject16Test(boolean _bool) {
         SerializeXmlObject.setReferences(_bool);
@@ -1140,7 +1140,7 @@ public class SerializeXmlObjectTest {
         assertEq("STR_ONE", containers_.getMap().getVal(new Short((short) 1)));
     }
 
-	@Parameters(method="booleanInputs")
+    @Parameters(method="booleanInputs")
     @Test
     public void fromXmlStringObject17Test(boolean _bool) {
         SerializeXmlObject.setReferences(_bool);
@@ -1158,7 +1158,7 @@ public class SerializeXmlObjectTest {
         assertEq("STR_ONE", containers_.getMap().getVal(new Byte((byte) 1)));
     }
 
-	@Parameters(method="booleanInputs")
+    @Parameters(method="booleanInputs")
     @Test
     public void fromXmlStringObject18Test(boolean _bool) {
         SerializeXmlObject.setReferences(_bool);
@@ -1194,7 +1194,7 @@ public class SerializeXmlObjectTest {
         assertEq("STR_ONE", containers_.getMap().getVal(new Double(1)));
     }
 
-	@Parameters(method="booleanInputs")
+    @Parameters(method="booleanInputs")
     @Test
     public void fromXmlStringObject20Test(boolean _bool) {
         SerializeXmlObject.setReferences(_bool);
@@ -1212,7 +1212,7 @@ public class SerializeXmlObjectTest {
         assertEq("STR_ONE", containers_.getMap().getVal(new BigInteger("1")));
     }
 
-	@Parameters(method="booleanInputs")
+    @Parameters(method="booleanInputs")
     @Test
     public void fromXmlStringObject21Test(boolean _bool) {
         SerializeXmlObject.setReferences(_bool);
@@ -1250,7 +1250,7 @@ public class SerializeXmlObjectTest {
         assertEq("STR_ONE", containers_.getMap().getVal(at_));
     }
 
-	@Parameters(method="booleanInputs")
+    @Parameters(method="booleanInputs")
     @Test
     public void fromXmlStringObject23Test(boolean _bool) {
         SerializeXmlObject.setReferences(_bool);
@@ -1512,7 +1512,7 @@ public class SerializeXmlObjectTest {
         assertEq(3.0, arr_[0][0]);
     }
 
-	@Parameters(method="booleanInputs")
+    @Parameters(method="booleanInputs")
     @Test
     public void fromXmlStringObject36Test(boolean _bool) {
         SerializeXmlObject.setReferences(_bool);
@@ -1533,7 +1533,7 @@ public class SerializeXmlObjectTest {
         assertEq("STR_ONE", containers_.getMap().getVal(at_));
     }
 
-	@Parameters(method="booleanInputs")
+    @Parameters(method="booleanInputs")
     @Test
     public void fromXmlStringObject37Test(boolean _bool) {
         SerializeXmlObject.setReferences(_bool);
@@ -1658,7 +1658,7 @@ public class SerializeXmlObjectTest {
         assertSame(tree_[2], tree_[3]);
     }
 
-	@Parameters(method="booleanInputs")
+    @Parameters(method="booleanInputs")
     @Test
     public void fromXmlStringObject42Test(boolean _bool) {
         SerializeXmlObject.setReferences(_bool);
@@ -1680,7 +1680,7 @@ public class SerializeXmlObjectTest {
         assertEq("FOUR", tree_.getVal(comp_));
     }
 
-	@Test
+    @Test
     public void fromXmlStringObject43Test() {
         SerializeXmlObject.setReferences(true);
         SerializeXmlObject.setCheckReferences(false);
@@ -1702,7 +1702,7 @@ public class SerializeXmlObjectTest {
         assertSame(tree_.get(0), tree_.get(1));
     }
 
-	@Test
+    @Test
     public void fromXmlStringObject44Test() {
         SerializeXmlObject.setReferences(true);
         SerializeXmlObject.setCheckReferences(false);
@@ -1730,7 +1730,7 @@ public class SerializeXmlObjectTest {
         assertSame(tree_.get(2), tree_.get(3));
     }
 
-	@Test
+    @Test
     public void fromXmlStringObject45Test() {
         SerializeXmlObject.setReferences(true);
         SerializeXmlObject.setCheckReferences(false);
@@ -1762,7 +1762,7 @@ public class SerializeXmlObjectTest {
         assertSame(tree_.getVal("ref3"), tree_.getVal("ref4"));
     }
 
-	@Test
+    @Test
     public void fromXmlStringObject46Test() {
         SerializeXmlObject.setReferences(true);
         SerializeXmlObject.setCheckReferences(false);
@@ -1794,7 +1794,7 @@ public class SerializeXmlObjectTest {
         assertSame(obj_.last(), tree_.getVal(obj_.last()));
     }
 
-	@Test
+    @Test
     public void fromXmlStringObject47Test() {
         SerializeXmlObject.setReferences(true);
         SerializeXmlObject.setCheckReferences(false);
@@ -1825,7 +1825,7 @@ public class SerializeXmlObjectTest {
         assertSame(obj_.last(), tree_.getVal(obj_.last()));
     }
 
-	@Parameters(method="booleanInputs")
+    @Parameters(method="booleanInputs")
     @Test
     public void fromXmlStringObject48Test(boolean _bool) {
         SerializeXmlObject.setReferences(_bool);
@@ -1883,7 +1883,7 @@ public class SerializeXmlObjectTest {
         assertEq(2, (Number)tree_.getValue(1));
     }
 
-	@Parameters(method="booleanInputs")
+    @Parameters(method="booleanInputs")
     @Test
     public void fromXmlStringObject50Test(boolean _bool) {
         SerializeXmlObject.setReferences(_bool);
@@ -1902,8 +1902,8 @@ public class SerializeXmlObjectTest {
         ContainerIdMapRef containers_ = (ContainerIdMapRef) SerializeXmlObject.fromXmlStringObject(xml_);
         IdMap<CompositeTwo,CompositeTwo> tree_ = containers_.getObject();
         assertEq(2, tree_.size());
-        CompositeTwo k1_ = (CompositeTwo) tree_.entryList().get(0).getKey();
-        CompositeTwo k2_ = (CompositeTwo) tree_.entryList().get(1).getKey();
+        CompositeTwo k1_ = (CompositeTwo) tree_.getKey(0);
+        CompositeTwo k2_ = (CompositeTwo) tree_.getKey(1);
         assertEq(4, k1_.getPrimitive().intValue());
         assertEq(4, k2_.getPrimitive().intValue());
         assertEq("FOUR", tree_.getVal(k1_));

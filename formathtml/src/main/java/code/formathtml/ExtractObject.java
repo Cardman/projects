@@ -302,20 +302,6 @@ final class ExtractObject {
             throw new RuntimeClassNotFoundException(_className+RETURN_LINE+_conf.joinPages());
         }
     }
-    static Listable<?> castListable(Configuration _conf, int _off, Object _obj) {
-        try {
-            if (_obj == null) {
-                String beginMess_ = _obj+SPACE+Listable.class.getName();
-                _conf.getLastPage().addToOffset(_off);
-                throw new NullObjectException(beginMess_+RETURN_LINE+_conf.joinPages());
-            }
-            return (Listable<?>) _obj;
-        } catch (ClassCastException _0) {
-            String beginMess_ = _obj.getClass().getName()+SPACE+Listable.class.getName();
-            _conf.getLastPage().addToOffset(_off);
-            throw new DynamicCastClassException(beginMess_+RETURN_LINE+_conf.joinPages());
-        }
-    }
     static EntryCust<?,?> castEntryCust(Configuration _conf, int _off, Object _obj) {
         try {
             if (_obj == null) {
@@ -452,7 +438,7 @@ final class ExtractObject {
             throw new InvokeRedinedMethException(_conf.joinPages(), new Struct(_0));
         }
     }
-    static Listable<?> entryList(Configuration _conf, int _offsIndex, ListableEntries<?,?> _container) {
+    static Iterable<?> entryList(Configuration _conf, int _offsIndex, ListableEntries<?,?> _container) {
         try {
             return _container.entryList();
         } catch (Throwable _0) {
@@ -460,7 +446,7 @@ final class ExtractObject {
             throw new InvokeRedinedMethException(_conf.joinPages(), new Struct(_0));
         }
     }
-    static Listable<?> getKeys(Configuration _conf, boolean _callSort, int _offsIndex, ListableEntries<?,?> _container) {
+    static Iterable<?> getKeys(Configuration _conf, boolean _callSort, int _offsIndex, ListableEntries<?,?> _container) {
         try {
             return _container.getKeys();
         } catch (Throwable _0) {

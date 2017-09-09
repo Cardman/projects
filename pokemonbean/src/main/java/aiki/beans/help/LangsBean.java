@@ -1,12 +1,4 @@
 package aiki.beans.help;
-import code.bean.Accessible;
-import code.util.EntryCust;
-import code.util.EnumList;
-import code.util.StringList;
-import code.util.TreeMap;
-import code.util.consts.Constants;
-import code.util.ints.Listable;
-import code.util.pagination.SelectedBoolean;
 import aiki.DataBase;
 import aiki.beans.CommonBean;
 import aiki.beans.facade.comparators.ComparatorLanguageEnvType;
@@ -20,6 +12,13 @@ import aiki.fight.items.Item;
 import aiki.fight.moves.enums.TargetChoice;
 import aiki.map.levels.enums.EnvironmentType;
 import aiki.map.pokemon.enums.Gender;
+import code.bean.Accessible;
+import code.util.EnumList;
+import code.util.StringList;
+import code.util.TreeMap;
+import code.util.consts.Constants;
+import code.util.ints.Listable;
+import code.util.pagination.SelectedBoolean;
 
 public class LangsBean extends CommonBean {
 
@@ -375,10 +374,10 @@ public class LangsBean extends CommonBean {
         int nbLangs_ = _languages.size();
         int begin_ = _index * nbLangs_;
         int end_ = begin_ + nbLangs_;
-        Listable<EntryCust<LanguageElementKey<TargetChoice>,String>> entries_;
-        entries_ = _treeMap.entryList();
+        Listable<String> entries_;
+        entries_ = _treeMap.values();
         for (int i = begin_; i < end_; i++) {
-            list_.add(entries_.get(i).getValue());
+            list_.add(entries_.get(i));
         }
         return list_;
     }
@@ -389,10 +388,10 @@ public class LangsBean extends CommonBean {
         int nbLangs_ = _languages.size();
         int begin_ = _index * nbLangs_;
         int end_ = begin_ + nbLangs_;
-        Listable<EntryCust<LanguageElementKey<EnvironmentType>,String>> entries_;
-        entries_ = _treeMap.entryList();
+        Listable<String> entries_;
+        entries_ = _treeMap.values();
         for (int i = begin_; i < end_; i++) {
-            list_.add(entries_.get(i).getValue());
+            list_.add(entries_.get(i));
         }
         return list_;
     }
@@ -403,10 +402,10 @@ public class LangsBean extends CommonBean {
         int nbLangs_ = _languages.size();
         int begin_ = _index * nbLangs_;
         int end_ = begin_ + nbLangs_;
-        Listable<EntryCust<LanguageElementKey<Gender>,String>> entries_;
-        entries_ = _treeMap.entryList();
+        Listable<String> entries_;
+        entries_ = _treeMap.values();
         for (int i = begin_; i < end_; i++) {
-            list_.add(entries_.get(i).getValue());
+            list_.add(entries_.get(i));
         }
         return list_;
     }
@@ -417,10 +416,10 @@ public class LangsBean extends CommonBean {
         int nbLangs_ = _languages.size();
         int begin_ = _index * nbLangs_;
         int end_ = begin_ + nbLangs_;
-        Listable<EntryCust<LanguageElementKey<SelectedBoolean>,String>> entries_;
-        entries_ = _treeMap.entryList();
+        Listable<String> entries_;
+        entries_ = _treeMap.values();
         for (int i = begin_; i < end_; i++) {
-            list_.add(entries_.get(i).getValue());
+            list_.add(entries_.get(i));
         }
         return list_;
     }
@@ -432,10 +431,10 @@ public class LangsBean extends CommonBean {
         int nbLangs_ = _languages.size();
         int begin_ = _index * nbLangs_;
         int end_ = begin_ + nbLangs_;
-        Listable<EntryCust<LanguageElementKey<Statistic>,String>> entries_;
-        entries_ = _treeMap.entryList();
+        Listable<String> entries_;
+        entries_ = _treeMap.values();
         for (int i = begin_; i < end_; i++) {
-            list_.add(entries_.get(i).getValue());
+            list_.add(entries_.get(i));
         }
         return list_;
     }
@@ -445,10 +444,10 @@ public class LangsBean extends CommonBean {
         int nbLangs_ = _languages.size();
         int begin_ = _index * nbLangs_;
         int end_ = begin_ + nbLangs_;
-        Listable<EntryCust<LanguageElementStringKey,String>> entries_;
-        entries_ = _treeMap.entryList();
+        Listable<String> entries_;
+        entries_ = _treeMap.values();
         for (int i = begin_; i < end_; i++) {
-            list_.add(entries_.get(i).getValue());
+            list_.add(entries_.get(i));
         }
         return list_;
     }

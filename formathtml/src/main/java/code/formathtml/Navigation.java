@@ -637,9 +637,9 @@ public final class Navigation {
                 if (obj_ == null) {
                     newObj_ = retrieveObjectByClassName(v_.first(), className_);
                 } else {
-                	Class<?> clObj_ = obj_.getClass();
-                	if (Listable.class.isAssignableFrom(clObj_)){
-                		Object list_ = instance(clObj_);
+                    Class<?> clObj_ = obj_.getClass();
+                    if (Listable.class.isAssignableFrom(clObj_)){
+                        Object list_ = instance(clObj_);
                         String contentClass_ = className_.substring(CustList.class.getName().length());
                         contentClass_ = StringList.removeStrings(contentClass_, BEG_TEMP, END_TEMP);
                         for (String v:v_) {
@@ -649,7 +649,7 @@ public final class Navigation {
                             }
                         }
                         newObj_ = list_;
-                	} else {
+                    } else {
                         newObj_ = retrieveObjectByClassName(v_.first(), obj_.getClass().getName());
                     }
                 }
@@ -657,9 +657,7 @@ public final class Navigation {
                 throw new InvokeRedinedMethException(session.joinPages(), new Struct(_0));
             }
             Struct procObj_ = e.getValue().getStruct();
-            if (procObj_ != null) {
-                session.getLastPage().setGlobalArgumentStruct(procObj_);
-            }
+            session.getLastPage().setGlobalArgumentStruct(procObj_);
             HtmlRequest.setObject(session, e.getValue(), newObj_, indexes_);
         }
     }

@@ -15,7 +15,7 @@ public class BeanFive extends Bean {
     private Composite composite = new Composite();
 
     @Accessible
-    private CustList<EnumNumber> combobox = new CustList<EnumNumber>(EnumNumber.values());
+    private EnumNumbers combobox = new EnumNumbers(EnumNumber.values());
 
     @Accessible
     private NatTreeMap<EnumNumber, String> translations = new NatTreeMap<EnumNumber, String>();
@@ -27,7 +27,7 @@ public class BeanFive extends Bean {
     private EnumNumber chosenNumber = EnumNumber.ONE;
 
     @Accessible
-    private CustList<EnumNumber> chosenNumbers = new CustList<EnumNumber>(EnumNumber.ONE,EnumNumber.FOUR);
+    private EnumNumbers chosenNumbers = new EnumNumbers(EnumNumber.ONE,EnumNumber.FOUR);
 
     @Accessible
     private String message="Test {0}";

@@ -47,7 +47,7 @@ public final class ComplexMap<K, V, T> extends AbMap<K, T> {
 //    }
 
     @Override
-    public Listable<EntryCust<K, T>> entryList() {
+    public Iterable<EntryCust<K, T>> entryList() {
         return map.entryList();
     }
 
@@ -178,8 +178,13 @@ public final class ComplexMap<K, V, T> extends AbMap<K, T> {
         map.setValue(_i, _object);
     }
 
-//    @Override
-//    public boolean containsValue(Object _value) {
-//        return map.containsValue(_value);
-//    }
+    @Override
+    public T getValue(int _i) {
+        return map.getValue(_i);
+    }
+
+    @Override
+    public K getKey(int _i) {
+        return map.getKey(_i);
+    }
 }

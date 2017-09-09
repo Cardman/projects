@@ -1,6 +1,5 @@
 package code.expressionlanguage.variables;
 import code.expressionlanguage.opers.util.Struct;
-import code.util.ints.Listable;
 import code.util.ints.ListableEntries;
 
 public final class LoopVariable {
@@ -35,7 +34,7 @@ public final class LoopVariable {
 
     private Object array;
 
-    private Listable<?> list;
+    private Object list;
 
     private ListableEntries<?, ?> map;
 
@@ -165,11 +164,11 @@ public final class LoopVariable {
         array = _array;
     }
 
-    public Listable<?> getList() {
+    public Object getList() {
         return list;
     }
 
-    public void setList(Listable<?> _list) {
+    public void setList(Object _list) {
         list = _list;
     }
 

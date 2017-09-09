@@ -253,7 +253,7 @@ public class ObjectComponentsTest {
     }
 
     @SuppressWarnings("unchecked")
-	@Test
+    @Test
     public void setupNotNull2Test() {
         FullClass full_ = new FullClass();
         full_.setInteger(6);

@@ -4,10 +4,6 @@ import code.util.EntryCust;
 
 public interface SortableMap<K, V> extends ListableEntries<K, V>, HasComparator<K> {
 
-    V getValue(int _index);
-
-    K getKey(int _index);
-
     K firstKey();
 
     K lastKey();

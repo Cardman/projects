@@ -21,7 +21,6 @@ import code.util.CustList;
 import code.util.NatTreeMap;
 import code.util.StringMap;
 import code.util.exceptions.NullObjectException;
-import code.util.ints.Listable;
 
 public final class ForEachLoop extends BracedStack implements ForLoop {
 
@@ -225,7 +224,7 @@ public final class ForEachLoop extends BracedStack implements ForLoop {
         if (iterable_.getClass().isArray()) {
             lv_.setArray(iterable_);
         } else {
-            lv_.setList((Listable<?>)iterable_);
+            lv_.setList(iterable_);
         }
         lv_.setExtendedExpression(EMPTY_STRING);
         varsLoop_.put(var_, lv_);

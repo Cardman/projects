@@ -212,7 +212,7 @@ public class HtmlRequestTest {
         NodeContainer nc_ = new NodeContainer("");
         nc_.setIndex(0);
         nc_.setLastToken("!key");
-        nc_.setTypedField(bean_.getTree().entryList().first().getKey());
+        nc_.setTypedField(bean_.getTree().getKey(0));
         nc_.setObject(bean_.getTree());
         nc_.getNodeInformation().setVarMethod("");
         nc_.getNodeInformation().setChanging("");
@@ -231,7 +231,7 @@ public class HtmlRequestTest {
         NodeContainer nc_ = new NodeContainer("");
         nc_.setIndex(0);
         nc_.setLastToken("!value");
-        nc_.setTypedField(bean_.getTree().entryList().first().getValue());
+        nc_.setTypedField(bean_.getTree().getValue(0));
         nc_.setObject(bean_.getTree());
         nc_.getNodeInformation().setVarMethod("");
         nc_.getNodeInformation().setChanging("");
@@ -293,7 +293,7 @@ public class HtmlRequestTest {
         NodeContainer nc_ = new NodeContainer("");
         nc_.setIndex(0);
         nc_.setLastToken("!key");
-        nc_.setTypedField(bean_.getTree().entryList().first().getKey());
+        nc_.setTypedField(bean_.getTree().getKey(0));
         nc_.setObject(bean_.getTree());
         nc_.getNodeInformation().setVarMethod("");
         nc_.getNodeInformation().setChanging("updateValue");
@@ -316,7 +316,7 @@ public class HtmlRequestTest {
         NodeContainer nc_ = new NodeContainer("");
         nc_.setIndex(0);
         nc_.setLastToken("!value");
-        nc_.setTypedField(bean_.getTree().entryList().first().getValue());
+        nc_.setTypedField(bean_.getTree().getValue(0));
         nc_.setObject(bean_.getTree());
         nc_.getNodeInformation().setVarMethod("");
         nc_.getNodeInformation().setChanging("updateValue");

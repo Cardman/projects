@@ -89,7 +89,6 @@ import code.util.StringMap;
 import code.util.consts.ConstClasses;
 import code.util.exceptions.NullObjectException;
 import code.util.exceptions.RuntimeClassNotFoundException;
-import code.util.ints.Listable;
 import code.util.ints.ListableEntries;
 import code.util.ints.SortableMap;
 import code.xml.AttributePart;
@@ -346,8 +345,7 @@ final class FormatHtml {
                 //add option for copying forms (default copy)
                 bean_.getForms().putAllMap(_mainBean.getForms());
             }
-        } catch (Error _0) {
-        } catch (RuntimeException _0) {
+        } catch (Throwable _0) {
         }
     }
 
@@ -1749,99 +1747,6 @@ final class FormatHtml {
                 return ElUtil.processEl(expression_, 0, _conf.toContextEl()).getObject();
             }
         }
-    }
-    static Class<?> tryToGetClass(Configuration _conf, ImportingPage _ip,
-            Element _element, Object _object) {
-        String className_ = _element.getAttribute(ATTRIBUTE_CLASS_NAME);
-        String numExpr_ = _element.getAttribute(NUMBER_EXPRESSION);
-        Class<?> cl_ = null;
-        String expression_ = _element.getAttribute(EXPRESSION_ATTRIBUTE);
-        if (!numExpr_.isEmpty()) {
-            expression_ = numExpr_;
-            _ip.setProcessingAttribute(NUMBER_EXPRESSION);
-            _ip.setLookForAttrValue(true);
-            _ip.setOffset(0);
-            if (className_.isEmpty()) {
-                ExtractObject.checkNullPointer(_conf, _object);
-                cl_ = _object.getClass();
-                className_ = cl_.getName();
-            } else {
-                cl_ = ExtractObject.classForName(_conf, 0, className_);
-            }
-        } else {
-            if (className_.isEmpty()) {
-                _ip.setProcessingAttribute(EXPRESSION_ATTRIBUTE);
-                _ip.setLookForAttrValue(true);
-                _ip.setOffset(0);
-                if (_element.hasAttribute(IS_STRING_CONST_ATTRIBUTE)){
-                    if (!_element.hasAttribute(EXPRESSION_ATTRIBUTE)) {
-                        cl_ = Object.class;
-                    } else {
-                        cl_ = String.class;
-                    }
-                    className_ = cl_.getName();
-                } else if (_element.hasAttribute(IS_CHAR_CONST_ATTRIBUTE)){
-                    if (!_element.hasAttribute(EXPRESSION_ATTRIBUTE)) {
-                        cl_ = Object.class;
-                    } else {
-                        cl_ = Character.class;
-                    }
-                    className_ = cl_.getName();
-                } else if (_element.hasAttribute(IS_BOOL_CONST_ATTRIBUTE)){
-                    if (!_element.hasAttribute(EXPRESSION_ATTRIBUTE)) {
-                        cl_ = Object.class;
-                    } else {
-                        cl_ = Boolean.class;
-                    }
-                    className_ = cl_.getName();
-                } else if (StringList.isNumber(expression_)) {
-                    cl_ = long.class;
-                    className_ = cl_.getName();
-                } else if (expression_.startsWith(INSTANTIATE_PREFIX)){
-                    cl_ = Object.class;
-                    className_ = cl_.getName();
-                } else {
-                    cl_ = Object.class;
-                    className_ = cl_.getName();
-                }
-            } else {
-                if (_element.hasAttribute(IS_STRING_CONST_ATTRIBUTE)){
-                    _ip.setProcessingAttribute(ATTRIBUTE_CLASS_NAME);
-                    _ip.setLookForAttrValue(true);
-                    _ip.setOffset(0);
-                    cl_ = ExtractObject.classForName(_conf, 0, className_);
-                } else if (_element.hasAttribute(IS_CHAR_CONST_ATTRIBUTE)){
-                    _ip.setProcessingAttribute(ATTRIBUTE_CLASS_NAME);
-                    _ip.setLookForAttrValue(true);
-                    _ip.setOffset(0);
-                    cl_ = ExtractObject.classForName(_conf, 0, className_);
-                } else if (_element.hasAttribute(IS_BOOL_CONST_ATTRIBUTE)){
-                    _ip.setProcessingAttribute(ATTRIBUTE_CLASS_NAME);
-                    _ip.setLookForAttrValue(true);
-                    _ip.setOffset(0);
-                    cl_ = ExtractObject.classForName(_conf, 0, className_);
-                } else if (StringList.isNumber(expression_)) {
-                    _ip.setProcessingAttribute(ATTRIBUTE_CLASS_NAME);
-                    _ip.setLookForAttrValue(true);
-                    _ip.setOffset(0);
-                    cl_ = ExtractObject.classForName(_conf, 0, className_);
-                    _ip.setProcessingAttribute(EXPRESSION_ATTRIBUTE);
-                    _ip.setLookForAttrValue(true);
-                    _ip.setOffset(0);
-                } else if (expression_.startsWith(INSTANTIATE_PREFIX)){
-                    _ip.setProcessingAttribute(ATTRIBUTE_CLASS_NAME);
-                    _ip.setLookForAttrValue(true);
-                    _ip.setOffset(0);
-                    cl_ = ExtractObject.classForName(_conf, 0, className_);
-                } else {
-                    _ip.setProcessingAttribute(ATTRIBUTE_CLASS_NAME);
-                    _ip.setLookForAttrValue(true);
-                    _ip.setOffset(0);
-                    cl_ = ExtractObject.classForName(_conf, 0, className_);
-                }
-            }
-        }
-        return cl_;
     }
     static VariableInformation tryToGetVariableInformation(Configuration _conf, ImportingPage _ip,
             Element _element) {
@@ -3369,7 +3274,7 @@ final class FormatHtml {
                 returnedVarValue_.add(ElUtil.processEl(varValue_, 0, _conf.toContextEl()).getObject());
             } else {
                 Object o_ = ElUtil.processEl(varValue_, 0, _conf.toContextEl()).getObject();
-                for (Object o: ExtractObject.castListable(_conf, varValue_.length(), o_)) {
+                for (Object o: ExtractObject.castIterable(_conf, varValue_.length(), o_)) {
                     returnedVarValue_.add(o);
                 }
             }
@@ -3378,7 +3283,7 @@ final class FormatHtml {
         _conf.getLastPage().setLookForAttrValue(true);
         _conf.getLastPage().setOffset(0);
         Object li_ = ElUtil.processEl(list_, 0, _conf.toContextEl()).getObject();
-        Listable<?> extractedList_ = ExtractObject.castListable(_conf, list_.length(), li_);
+        Iterable<?> extractedList_ = ExtractObject.castIterable(_conf, list_.length(), li_);
         String default_ = ((Element) _n).getAttribute(DEFAULT_ATTRIBUTE);
         Element docElementSelect_ = _doc.createElement(SELECT_TAG);
         if (!_id.isEmpty() || !_groupId.isEmpty()) {
@@ -3421,7 +3326,7 @@ final class FormatHtml {
                     defaults_.add(ElUtil.processEl(command_, 0, _conf.toContextEl()).getObject());
                 } else {
                     li_ = ElUtil.processEl(command_, 0, _conf.toContextEl()).getObject();
-                    for (Object o: ExtractObject.castListable(_conf, command_.length(), li_)) {
+                    for (Object o: ExtractObject.castIterable(_conf, command_.length(), li_)) {
                         defaults_.add(o);
                     }
                 }
@@ -3470,7 +3375,7 @@ final class FormatHtml {
         _currentModifiedNode.appendChild(docElementSelect_);
     }
 
-    private static void checkEnums(Configuration _conf, Listable<?> _list) {
+    private static void checkEnums(Configuration _conf, Iterable<?> _list) {
         try {
             for (Object o: _list) {
                 if (!o.getClass().isEnum()) {
@@ -3554,7 +3459,7 @@ final class FormatHtml {
         } else {
             names_ = new StringList(_default);
         }
-        Listable<?> l_ = ExtractObject.entryList(_conf, 0, (ListableEntries<?, ?>) _extractedMap);
+        Iterable<?> l_ = ExtractObject.entryList(_conf, 0, (ListableEntries<?, ?>) _extractedMap);
         Iterator<?> it_ = (Iterator<?>) ExtractObject.iterator(_conf, l_);
         while (ExtractObject.hasNext(_conf, it_)) {
             EntryCust<?,?> e_ = ExtractObject.nextEntry(_conf, it_);
@@ -3588,14 +3493,14 @@ final class FormatHtml {
         IdList<Object> obj_ = new IdList<Object>();
         if (_multiple) {
             if (_returnedVarValue != null) {
-                for (Object o: ExtractObject.castListable(_conf, 0, _returnedVarValue)) {
+                for (Object o: ExtractObject.castIterable(_conf, 0, _returnedVarValue)) {
                     obj_.add(o);
                 }
             }
         } else {
             obj_.add(_returnedVarValue);
         }
-        Listable<?> l_ = ExtractObject.entryList(_conf, 0, (ListableEntries<?, ?>) _extractedMap);
+        Iterable<?> l_ = ExtractObject.entryList(_conf, 0, (ListableEntries<?, ?>) _extractedMap);
         Iterator<?> it_ = (Iterator<?>) ExtractObject.iterator(_conf, l_);
         while (ExtractObject.hasNext(_conf, it_)) {
             EntryCust<?,?> e_ = ExtractObject.nextEntry(_conf, it_);
@@ -4191,16 +4096,14 @@ final class FormatHtml {
                     throw new NullObjectException(_conf.joinPages());
                 }
             } else {
-                Listable<?> keys_ = ExtractObject.getKeys(_conf, true, mapAttr_.length(), mapCast_);
+                Iterable<?> keys_ = ExtractObject.getKeys(_conf, true, mapAttr_.length(), mapCast_);
                 keyValue_ = true;
                 iterable_ = keys_;
                 if (iterable_ == null) {
                     throw new NullObjectException(_conf.joinPages());
                 }
             }
-            if (listMethod_ == null) {
-                listMethod_ = NULL_METHOD;
-            }
+            listMethod_ = NULL_METHOD;
         } else {
             iterationNb_ = true;
             String from_ = currentForNode_.getAttribute(ATTRIBUTE_FROM);
@@ -4342,7 +4245,7 @@ final class FormatHtml {
             if (iterable_.getClass().isArray()) {
                 lv_.setArray(iterable_);
             } else {
-                lv_.setList(ExtractObject.castListable(_conf, 0, iterable_));
+                lv_.setList(ExtractObject.castIterable(_conf, 0, iterable_));
             }
             lv_.setExtendedExpression(EMPTY_STRING);
             varsLoop_.put(var_, lv_);

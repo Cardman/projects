@@ -25,7 +25,7 @@ public abstract class AbsMap<K, V> implements ListableEntries<K, V> {
     }
 
     @Override
-    public Listable<EntryCust<K, V>> entryList() {
+    public Iterable<EntryCust<K, V>> entryList() {
         return new CustList<EntryCust<K,V>>(getList());
     }
 
@@ -60,6 +60,16 @@ public abstract class AbsMap<K, V> implements ListableEntries<K, V> {
     private void setKey(int _i, K _k) {
         EntryCust<K,V> bk_ = list.get(_i);
         list.set(_i, new EntryCust<K,V>(_k, bk_.getValue()));
+    }
+
+    @Override
+    public K getKey(int _i) {
+        return list.get(_i).getKey();
+    }
+
+    @Override
+    public V getValue(int _i) {
+        return list.get(_i).getValue();
     }
 
     @Override
