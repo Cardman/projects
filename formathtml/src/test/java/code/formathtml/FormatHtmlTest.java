@@ -19,8 +19,6 @@ import code.expressionlanguage.PrimitiveTypeUtil;
 import code.expressionlanguage.exceptions.AbstractClassConstructorException;
 import code.expressionlanguage.exceptions.NullGlobalObjectException;
 import code.expressionlanguage.methods.exceptions.AlreadyDefinedVarException;
-import code.formathtml.Configuration;
-import code.formathtml.FormatHtml;
 import code.formathtml.classes.AbstractBean;
 import code.formathtml.classes.BeanFive;
 import code.formathtml.classes.BeanOne;
@@ -31,6 +29,7 @@ import code.formathtml.classes.BeanTwo;
 import code.formathtml.classes.BeanUtil;
 import code.formathtml.classes.Composite;
 import code.formathtml.classes.EnumNumber;
+import code.formathtml.classes.EnumNumbers;
 import code.formathtml.classes.MyTranslator;
 import code.formathtml.classes.RateEq;
 import code.formathtml.classes.SimpleMathFactory;
@@ -64,6 +63,7 @@ public class FormatHtmlTest {
 
     private static final String PKG = "code.formathtml.classes";
     private static final String ENUM = EnumNumber.class.getName();
+    private static final String ENUMS = EnumNumbers.class.getName();
     private static final String BEAN_UTIL = BeanUtil.class.getName();
     private static final String BEAN_UTIL_HAT = StringList.replace(BEAN_UTIL, ".", "^");
     private static final String RATE_EQ = RateEq.class.getName();
@@ -4083,6 +4083,65 @@ public class FormatHtmlTest {
         assertXmlEqualRuntime("<html xmlns:c='javahtml' xmlns='javahtml'><body>NOT EMPTY</body></html>", render_);
     }
 
+    @Test
+    public void processHtml213Test() {
+        String locale_ = "LOCALE";
+        String folder_ = "messages";
+        String relative_ = "sample/file";
+        String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
+        String html_ = "<html xmlns:c='javahtml'><body><c:select varValue=\"chosenNumbers\" className=\""+ENUMS+"\" name=\"chosenNumbers\" list=\"combobox\" multiple=''/></body></html>";
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
+        BeanOne bean_ = new BeanOne();
+        bean_.getComposite().getStrings().add("FIRST");
+        bean_.getComposite().getStrings().add("SECOND");
+        bean_.getComposite().setInteger(5);
+        Configuration conf_ = new Configuration();
+        conf_.setBeans(new StringMap<Bean>());
+        conf_.getBeans().put("bean_one", bean_);
+        conf_.setMessagesFolder(folder_);
+        conf_.setProperties(new StringMap<String>());
+        conf_.getProperties().put("msg_example", relative_);
+        conf_.setTranslators(new StringMap<Translator>());
+        conf_.getTranslators().put("trans", new MyTranslator());
+        Document doc_ = XmlParser.parseSaxHtml(html_, false, true);
+        conf_.setHtml(html_);
+        conf_.setDocument(doc_);
+        //String render_ = FormatHtml.processHtml(doc_.getDocumentElement(), conf_, files_, bean_);
+        String render_ = FormatHtml.processHtml(doc_, "bean_one", conf_, locale_, files_);
+//        assertXMLEqualRuntime("<html xmlns:c='javahtml' xmlns='javahtml'><body><select className=\""+ENUM+"\" name=\"sample_select\"><option selected=\"selected\" value=\"ONE\">ONE</option><option value=\"TWO\">TWO</option><option value=\"THREE\">THREE</option><option value=\"FOUR\">FOUR</option><option value=\"FIVE\">FIVE</option><option value=\"SIX\">SIX</option></select></body></html>", render_);
+        assertXmlEqualRuntime("<html xmlns:c='javahtml' xmlns='javahtml'><body><select n-i=\"0\" c:className=\""+ENUMS+"\" multiple='multiple' name=\"bean_one.chosenNumbers\"><option selected=\"selected\" value=\"ONE\">ONE</option><option value=\"TWO\">TWO</option><option value=\"THREE\">THREE</option><option selected=\"selected\" value=\"FOUR\">FOUR</option><option value=\"FIVE\">FIVE</option><option value=\"SIX\">SIX</option></select></body></html>", render_);
+    }
+
+    @Test
+    public void processHtml214Test() {
+        String locale_ = "LOCALE";
+        String folder_ = "messages";
+        String relative_ = "sample/file";
+        String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
+        String html_ = "<html xmlns:c='javahtml'><body><c:select varValue=\"chosenNumbers\" name=\"chosenNumbers\" list=\"combobox\" multiple=''/></body></html>";
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
+        BeanOne bean_ = new BeanOne();
+        bean_.getComposite().getStrings().add("FIRST");
+        bean_.getComposite().getStrings().add("SECOND");
+        bean_.getComposite().setInteger(5);
+        Configuration conf_ = new Configuration();
+        conf_.setBeans(new StringMap<Bean>());
+        conf_.getBeans().put("bean_one", bean_);
+        conf_.setMessagesFolder(folder_);
+        conf_.setProperties(new StringMap<String>());
+        conf_.getProperties().put("msg_example", relative_);
+        conf_.setTranslators(new StringMap<Translator>());
+        conf_.getTranslators().put("trans", new MyTranslator());
+        Document doc_ = XmlParser.parseSaxHtml(html_, false, true);
+        conf_.setHtml(html_);
+        conf_.setDocument(doc_);
+        //String render_ = FormatHtml.processHtml(doc_.getDocumentElement(), conf_, files_, bean_);
+        String render_ = FormatHtml.processHtml(doc_, "bean_one", conf_, locale_, files_);
+//        assertXMLEqualRuntime("<html xmlns:c='javahtml' xmlns='javahtml'><body><select className=\""+ENUM+"\" name=\"sample_select\"><option selected=\"selected\" value=\"ONE\">ONE</option><option value=\"TWO\">TWO</option><option value=\"THREE\">THREE</option><option value=\"FOUR\">FOUR</option><option value=\"FIVE\">FIVE</option><option value=\"SIX\">SIX</option></select></body></html>", render_);
+        assertXmlEqualRuntime("<html xmlns:c='javahtml' xmlns='javahtml'><body><select n-i=\"0\" c:className=\"\" multiple='multiple' name=\"bean_one.chosenNumbers\"><option selected=\"selected\" value=\"ONE\">ONE</option><option value=\"TWO\">TWO</option><option value=\"THREE\">THREE</option><option selected=\"selected\" value=\"FOUR\">FOUR</option><option value=\"FIVE\">FIVE</option><option value=\"SIX\">SIX</option></select></body></html>", render_);
+    }
     @Test(expected=KeyValueException.class)
     public void processHtml1FailTest() {
         String locale_ = "LOCALE";

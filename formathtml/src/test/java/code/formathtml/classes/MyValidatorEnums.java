@@ -3,7 +3,6 @@ import org.w3c.dom.Node;
 
 import code.bean.validator.Validator;
 import code.bean.validator.ValidatorException;
-import code.util.ints.Listable;
 
 public class MyValidatorEnums implements Validator {
 
@@ -11,9 +10,11 @@ public class MyValidatorEnums implements Validator {
 
     @Override
     public void validate(Object _navigation, Node _node, Object _value) {
-        for (Object o: (Listable<?>) _value) {
-            if (o == EnumNumber.FOUR) {
-                throw new ValidatorException(BAD_SELECTION);
+        if (_value instanceof EnumNumbers) {
+            for (Object o: (EnumNumbers) _value) {
+                if (o == EnumNumber.FOUR) {
+                    throw new ValidatorException(BAD_SELECTION);
+                }
             }
         }
     }

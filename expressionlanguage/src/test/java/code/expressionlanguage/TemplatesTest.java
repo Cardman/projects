@@ -192,6 +192,38 @@ public class TemplatesTest {
     }
 
     @Test
+    public void getTypesByBases1Test() {
+        StringList t_ = Templates.getTypesByBases("java.lang.String", "java.lang.Object", null);
+        assertEq(0, t_.size());
+    }
+
+    @Test
+    public void getTypesByBases2Test() {
+        StringList t_ = Templates.getTypesByBases("java.lang.Object", "java.lang.String", null);
+        assertNull(t_);
+    }
+
+    @Test
+    public void getTypesByBases3Test() {
+        StringList t_ = Templates.getTypesByBases(StringList.class.getName(), Listable.class.getName(), null);
+        assertEq(1, t_.size());
+        assertEq("java.lang.String", t_.get(0));
+    }
+
+    @Test
+    public void getTypesByBases4Test() {
+        StringList t_ = Templates.getTypesByBases(StringList.class.getName(), Iterable.class.getName(), null);
+        assertEq(1, t_.size());
+        assertEq("java.lang.String", t_.get(0));
+    }
+
+    @Test
+    public void getTypesByBases5Test() {
+        StringList t_ = Templates.getTypesByBases(Listable.class.getName(), Iterable.class.getName(), null);
+        assertNull(t_);
+    }
+
+    @Test
     public void isCorrectWrite1Test() {
         assertTrue(Templates.isCorrectWrite("java.lang.String"));
     }

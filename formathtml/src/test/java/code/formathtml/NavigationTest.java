@@ -51,6 +51,7 @@ import code.util.StringMap;
 public class NavigationTest {
 
     private static final String ENUM = EnumNumber.class.getName();
+    private static final String ENUMS = EnumNumbers.class.getName();
     private static final String RATE = Rate.class.getName();
     private static final String COMPOSITE = Composite.class.getName();
 
@@ -5385,7 +5386,7 @@ public class NavigationTest {
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
         String html_ = "<html c:bean=\"bean_one\" xmlns:c='javahtml' xmlns='javahtml'><body>HEAD<a c:command=\"$goToNullPage\" href=\"\"/></body></html>";
-        String htmlTwo_ = "<html c:bean=\"bean_two\" xmlns:c='javahtml' xmlns='javahtml'><body><form action=\"DELETE\" name=\"myform\" c:command=\"$go\"><c:select id=\"combo\" default=\"ONE,FOUR\" name=\"chosenNumbers\" varValue=\"chosenNumbers\" list=\"combobox\" validator=\"validator\" multiple=\"multiple\"/><span for=\"combo\"/></form></body></html>";
+        String htmlTwo_ = "<html c:bean=\"bean_two\" xmlns:c='javahtml' xmlns='javahtml'><body><form action=\"DELETE\" name=\"myform\" c:command=\"$go\"><c:select id=\"combo\" default=\"ONE,FOUR\" name=\"chosenNumbers\" varValue=\"chosenNumbers\" list=\"combobox\" validator=\"validator\" multiple=\"multiple\" className='"+ENUMS+"'/><span for=\"combo\"/></form></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
         files_.put("page1.html", html_);
@@ -5445,8 +5446,8 @@ public class NavigationTest {
         assertEq("FOUR", stLi_.last());
         EnumNumbers l_ = (EnumNumbers) map_.getVal("chosenNumbers");
         assertEq(2, l_.size());
-        assertEq("TWO", l_.first());
-        assertEq("THREE", l_.last());
+        assertSame(EnumNumber.TWO, l_.first());
+        assertSame(EnumNumber.THREE, l_.last());
         assertTrue(map_.contains("chosenNumbersNull"));
         assertNull(map_.getVal("chosenNumbersNull"));
         assertSame(conf_.getBeans().getVal("bean_one").getForms(), conf_.getBeans().getVal("bean_two").getForms());
@@ -5462,7 +5463,7 @@ public class NavigationTest {
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
         String html_ = "<html c:bean=\"bean_one\" xmlns:c='javahtml' xmlns='javahtml'><body>HEAD<a c:command=\"$goToNullPage\" href=\"\"/></body></html>";
-        String htmlTwo_ = "<html c:bean=\"bean_two\" xmlns:c='javahtml' xmlns='javahtml'><body><form action=\"DELETE\" name=\"myform\" c:command=\"$go\"><c:select className=\""+ENUM+"\" id=\"combo\" default=\"ONE,FOUR\" name=\"chosenNumbers\" varValue=\"chosenNumbers\" list=\"combobox\" validator=\"validator\" multiple=\"multiple\"/><span c:for=\"combo\"/></form></body></html>";
+        String htmlTwo_ = "<html c:bean=\"bean_two\" xmlns:c='javahtml' xmlns='javahtml'><body><form action=\"DELETE\" name=\"myform\" c:command=\"$go\"><c:select className=\""+ENUMS+"\" id=\"combo\" default=\"ONE,FOUR\" name=\"chosenNumbers\" varValue=\"chosenNumbers\" list=\"combobox\" validator=\"validator\" multiple=\"multiple\"/><span c:for=\"combo\"/></form></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
         files_.put("page1.html", html_);
@@ -5512,7 +5513,7 @@ public class NavigationTest {
         nav_.processFormRequest();
         assertEq("page2.html", nav_.getCurrentUrl());
         assertEq("bean_two", nav_.getCurrentBeanName());
-        assertXmlEqualNoPrefix("<html xmlns:c='javahtml' xmlns='javahtml'><body><form n-f=\"0\" action=\"\" c:command=\"$bean_two.go\" name=\"myform\"><select n-i=\"0\" c:className=\""+ENUM+"\" id=\"combo\" multiple=\"multiple\" name=\"bean_two.chosenNumbers\" c:validator=\"validator\"><option value=\"ONE\">ONE</option><option selected=\"selected\" value=\"TWO\">TWO</option><option value=\"THREE\">THREE</option><option value=\"FOUR\" selected=\"selected\">FOUR</option><option value=\"FIVE\">FIVE</option><option value=\"SIX\">SIX</option></select><span c:for=\"combo\">Bad selection</span></form></body></html>", nav_.getHtmlText());
+        assertXmlEqualNoPrefix("<html xmlns:c='javahtml' xmlns='javahtml'><body><form n-f=\"0\" action=\"\" c:command=\"$bean_two.go\" name=\"myform\"><select n-i=\"0\" c:className=\""+ENUMS+"\" id=\"combo\" multiple=\"multiple\" name=\"bean_two.chosenNumbers\" c:validator=\"validator\"><option value=\"ONE\">ONE</option><option selected=\"selected\" value=\"TWO\">TWO</option><option value=\"THREE\">THREE</option><option value=\"FOUR\" selected=\"selected\">FOUR</option><option value=\"FIVE\">FIVE</option><option value=\"SIX\">SIX</option></select><span c:for=\"combo\">Bad selection</span></form></body></html>", nav_.getHtmlText());
         StringMap<Object> map_ = conf_.getBeans().getVal("bean_two").getForms();
         assertEq(0, map_.size());
         assertEq("",nav_.getTitle());
@@ -5603,7 +5604,7 @@ public class NavigationTest {
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
         String html_ = "<html c:bean=\"bean_one\" xmlns:c='javahtml' xmlns='javahtml'><body>HEAD<a c:command=\"$goToNullPage\" href=\"\"/></body></html>";
-        String htmlTwo_ = "<html c:bean=\"bean_two\" xmlns:c='javahtml' xmlns='javahtml'><body><form action=\"DELETE\" name=\"myform\" c:command=\"$go\"><c:select id=\"combo\" default=\"ONE,FOUR\" name=\"chosenNumbers\" varValue=\"chosenNumbers\" map=\"translations\" validator=\"validator\" multiple=\"multiple\"/><span for=\"combo\"/></form></body></html>";
+        String htmlTwo_ = "<html c:bean=\"bean_two\" xmlns:c='javahtml' xmlns='javahtml'><body><form action=\"DELETE\" name=\"myform\" c:command=\"$go\"><c:select id=\"combo\" default=\"ONE,FOUR\" name=\"chosenNumbers\" varValue=\"chosenNumbers\" map=\"translations\" validator=\"validator\" multiple=\"multiple\" className='"+ENUMS+"'/><span for=\"combo\"/></form></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
         files_.put("page1.html", html_);
@@ -5663,8 +5664,8 @@ public class NavigationTest {
         assertEq("FOUR", stLi_.last());
         EnumNumbers l_ = (EnumNumbers) map_.getVal("chosenNumbers");
         assertEq(2, l_.size());
-        assertEq("TWO", l_.first());
-        assertEq("THREE", l_.last());
+        assertEq(EnumNumber.TWO, l_.first());
+        assertEq(EnumNumber.THREE, l_.last());
         assertTrue(map_.contains("chosenNumbersNull"));
         assertNull(map_.getVal("chosenNumbersNull"));
         assertSame(conf_.getBeans().getVal("bean_one").getForms(), conf_.getBeans().getVal("bean_two").getForms());
@@ -5680,7 +5681,7 @@ public class NavigationTest {
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
         String html_ = "<html c:bean=\"bean_one\" xmlns:c='javahtml' xmlns='javahtml'><body>HEAD<a c:command=\"$goToNullPage\" href=\"\"/></body></html>";
-        String htmlTwo_ = "<html c:bean=\"bean_two\" xmlns:c='javahtml' xmlns='javahtml'><body><form action=\"DELETE\" name=\"myform\" c:command=\"$go\"><c:select className=\""+ENUM+"\" id=\"combo\" default=\"ONE,FOUR\" name=\"chosenNumbers\" varValue=\"chosenNumbers\" map=\"translations\" validator=\"validator\" multiple=\"multiple\"/><span c:for=\"combo\"/></form></body></html>";
+        String htmlTwo_ = "<html c:bean=\"bean_two\" xmlns:c='javahtml' xmlns='javahtml'><body><form action=\"DELETE\" name=\"myform\" c:command=\"$go\"><c:select className=\""+ENUMS+"\" id=\"combo\" default=\"ONE,FOUR\" name=\"chosenNumbers\" varValue=\"chosenNumbers\" map=\"translations\" validator=\"validator\" multiple=\"multiple\"/><span c:for=\"combo\"/></form></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
         files_.put("page1.html", html_);
@@ -5730,7 +5731,7 @@ public class NavigationTest {
         nav_.processFormRequest();
         assertEq("page2.html", nav_.getCurrentUrl());
         assertEq("bean_two", nav_.getCurrentBeanName());
-        assertXmlEqualNoPrefix("<html xmlns:c='javahtml' xmlns='javahtml'><body><form n-f=\"0\" action=\"\" c:command=\"$bean_two.go\" name=\"myform\"><select n-i=\"0\" c:className=\""+ENUM+"\" id=\"combo\" multiple=\"multiple\" name=\"bean_two.chosenNumbers\" c:validator=\"validator\"><option value=\"ONE\">1</option><option selected=\"selected\" value=\"TWO\">2</option><option value=\"THREE\">3</option><option value=\"FOUR\" selected=\"selected\">4</option><option value=\"FIVE\">5</option><option value=\"SIX\">6</option></select><span c:for=\"combo\">Bad selection</span></form></body></html>", nav_.getHtmlText());
+        assertXmlEqualNoPrefix("<html xmlns:c='javahtml' xmlns='javahtml'><body><form n-f=\"0\" action=\"\" c:command=\"$bean_two.go\" name=\"myform\"><select n-i=\"0\" c:className=\""+ENUMS+"\" id=\"combo\" multiple=\"multiple\" name=\"bean_two.chosenNumbers\" c:validator=\"validator\"><option value=\"ONE\">1</option><option selected=\"selected\" value=\"TWO\">2</option><option value=\"THREE\">3</option><option value=\"FOUR\" selected=\"selected\">4</option><option value=\"FIVE\">5</option><option value=\"SIX\">6</option></select><span c:for=\"combo\">Bad selection</span></form></body></html>", nav_.getHtmlText());
         StringMap<Object> map_ = conf_.getBeans().getVal("bean_two").getForms();
         assertEq(0, map_.size());
         assertEq("",nav_.getTitle());

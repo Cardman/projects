@@ -1,6 +1,6 @@
 package code.gui;
 import java.awt.event.MouseEvent;
-import java.util.Enumeration;
+import java.util.Collections;
 
 import javax.swing.JLabel;
 import javax.swing.JTextPane;
@@ -30,7 +30,6 @@ public class EditorPane extends JTextPane {
     private static final String ATTRIBUTE_TITLE = TITLE;
     private static final String ATTRIBUTE_HREF = "href";
     private static final String TAG_A = ANCHOR;
-//    private static final String EMPTY_STRING = "";
 
     private StringList tooltips = new StringList();
     private HTMLEditorKit htmlKit;
@@ -52,43 +51,26 @@ public class EditorPane extends JTextPane {
             Element e_ = hdoc_.getCharacterElement(pos_);
             AttributeSet a_ = e_.getAttributes();
 
-            Enumeration<?> enumm_ = a_.getAttributeNames();
-            while (enumm_.hasMoreElements()) {
-                Object o_ = enumm_.nextElement();
-                Object value_ = a_.getAttribute(o_);
+            for (Object e: Collections.list(a_.getAttributeNames())) {
+                Object value_ = a_.getAttribute(e);
                 boolean found_ = false;
-                if (o_.toString().equalsIgnoreCase(ANCHOR)) {
+                if (e.toString().equalsIgnoreCase(ANCHOR)) {
                     found_ = true;
-                } else if (o_.toString().equalsIgnoreCase(SPAN)) {
+                } else if (e.toString().equalsIgnoreCase(SPAN)) {
                     found_ = true;
                 }
-                if (value_ instanceof SimpleAttributeSet && found_) {
-                    Enumeration<?> at_ = ((SimpleAttributeSet)value_).getAttributeNames();
-                    while (at_.hasMoreElements()) {
-                        Object att_ = at_.nextElement();
-                        if (att_.toString().equalsIgnoreCase(TITLE)) {
-                            return ((SimpleAttributeSet)value_).getAttribute(att_).toString();
+                if (!(value_ instanceof SimpleAttributeSet)) {
+                    continue;
+                }
+                SimpleAttributeSet sas_ = (SimpleAttributeSet) value_;
+                if (found_) {
+                    for (Object a: Collections.list(sas_.getAttributeNames())) {
+                        if (a.toString().equalsIgnoreCase(TITLE)) {
+                            return ((SimpleAttributeSet)value_).getAttribute(a).toString();
                         }
                     }
                 }
             }
-
-//            SimpleAttributeSet value_ = (SimpleAttributeSet) a_.getAttribute(Tag.A);
-//            if (value_ != null) {
-//                String href_ = (String) value_.getAttribute(Attribute.TITLE);
-//                if (href_ != null) {
-//                    text_ = href_;
-//                }
-//            }
-//            if (text_ == null) {
-//                value_ = (SimpleAttributeSet) a_.getAttribute(Tag.SPAN);
-//                if (value_ != null) {
-//                    String href_ = (String) value_.getAttribute(Attribute.TITLE);
-//                    if (href_ != null) {
-//                        text_ = href_;
-//                    }
-//                }
-//            }
         }
         return text_;
     }
@@ -100,8 +82,6 @@ public class EditorPane extends JTextPane {
 
     private void setup(String _text, boolean _autoSubmission) {
         String textToDisplay_ = _text;
-//        textToDisplay_ = textToDisplay_.replace(RETURN_LINE2, EMPTY_STRING);
-//        textToDisplay_ = textToDisplay_.replace(RETURN_LINE, EMPTY_STRING);
         textToDisplay_ = StringList.removeStrings(textToDisplay_, RETURN_LINE2, RETURN_LINE);
         setHtmlKit(new HTMLEditorKit());
         setupText(_text, _autoSubmission);
@@ -128,7 +108,6 @@ public class EditorPane extends JTextPane {
             }
             tooltips.add(title_.getNodeValue());
         }
-//        Reader stringReader_ = new StringReader(_text);
         getHtmlKit().setAutoFormSubmission(_autoSubmission);
         setContentType(CONTENT_TYPE);
         setEditorKit(getHtmlKit());

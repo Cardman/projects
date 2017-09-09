@@ -1,5 +1,5 @@
 package code.gui;
-import java.util.Enumeration;
+import java.util.Collections;
 
 import javax.swing.DefaultButtonModel;
 import javax.swing.DefaultComboBoxModel;
@@ -34,13 +34,10 @@ public final class ThreadAnchorForm extends Thread {
 
     private static final String TAB = "\t";
 
-//    private static final String END_PATH = ":";
-
     private static final String ATTRIBUTE_COMMAND = "command";
 
     private static final String ATTRIBUTE_HREF = "href";
 
-//    private static final String ATTRIBUTE_NAME = "name";
     private static final String NUMBER_FORM = "n-f";
     private static final String NUMBER_INPUT = "n-i";
     private static final String NUMBER_ANCHOR = "n-a";
@@ -55,10 +52,6 @@ public final class ThreadAnchorForm extends Thread {
 
     private HyperlinkEvent event;
 
-//    private String data;
-
-//    private String formName;
-
     private String anchorRef;
 
     private Navigation navigation;
@@ -71,46 +64,21 @@ public final class ThreadAnchorForm extends Thread {
 
     private Timer timer;
 
-//    private boolean ok = true;
-
-//    private Throwable exception;
-
     /**This class thread is independant from EDT*/
     public ThreadAnchorForm(SessionEditorPane _session, HyperlinkEvent _event) {
         session = _session;
         session.start();
         event = _event;
         if (event instanceof FormSubmitEvent) {
-//            data = ((FormSubmitEvent) event).getData();
             Element form_ = event
                     .getSourceElement();
 
-//            formName = EMPTY_STRING;
-
             AttributeSet as_ = form_.getAttributes();
-            Enumeration<?> enumm_;
-            // = as_.getAttributeNames();
-
-//            while (enumm_.hasMoreElements()) {
-//                Object name_ = enumm_.nextElement();
-//                Object value_ = as_.getAttribute(name_);
-////                if (name_ instanceof Attribute)
-//                if (value_ instanceof String) {
-//                    if (StringList.eq(name_.toString(),ATTRIBUTE_NAME)) {
-//                        formName = value_.toString();
-//                        break;
-//                    }
-//                }
-//            }
-            enumm_ = as_.getAttributeNames();
             String nbForm_ = EMPTY_STRING;
-
-            while (enumm_.hasMoreElements()) {
-                Object name_ = enumm_.nextElement();
-                Object value_ = as_.getAttribute(name_);
-//                if (name_ instanceof Attribute)
+            for (Object e: Collections.list(as_.getAttributeNames())) {
+                Object value_ = as_.getAttribute(e);
                 if (value_ instanceof String) {
-                    if (StringList.quickEq(name_.toString(),NUMBER_FORM)) {
+                    if (StringList.quickEq(e.toString(),NUMBER_FORM)) {
                         nbForm_ = value_.toString();
                         break;
                     }
@@ -188,12 +156,10 @@ public final class ThreadAnchorForm extends Thread {
                 if (model_ instanceof DefaultComboBoxModel) {
                     Object it_ = ((DefaultComboBoxModel)model_).getSelectedItem();
                     int index_ = ((DefaultComboBoxModel)model_).getIndexOf(it_);
-//                    nCont_.getNodeInformation().setValue(new StringList(htmlPage_.getValues(Long.parseLong(nbForm_)+1, nbId_).get(index_)));
                     nCont_.getNodeInformation().setValue(new StringList(htmlPage_.getSelects().getVal(fi_).get(index_)));
                     continue;
                 }
                 int s_ = ((DefaultListModel) model_).size();
-//                StringList allvalues_ = htmlPage_.getValues(Long.parseLong(nbForm_)+1, nbId_);
                 StringList allvalues_ = htmlPage_.getSelects().getVal(fi_);
                 StringList values_ = new StringList();
                 for (int k = 0; k < s_; k++) {
@@ -211,59 +177,40 @@ public final class ThreadAnchorForm extends Thread {
             anchorRef = EMPTY_STRING;
 
             AttributeSet as_ = anchor_.getAttributes();
-            Enumeration<?> enumm_ = as_.getAttributeNames();
-            //NUMBER_ANCHOR
             long na_ = CustList.INDEX_NOT_FOUND_ELT;
+            for (Object f: Collections.list(as_.getAttributeNames())) {
+                Object value_ = as_.getAttribute(f);
+                if (!(value_ instanceof SimpleAttributeSet)) {
+                    continue;
+                }
+                SimpleAttributeSet asLoc_ = (SimpleAttributeSet) value_;
 
-            while (enumm_.hasMoreElements()) {
-                Object name_ = enumm_.nextElement();
-                Object value_ = as_.getAttribute(name_);
-//                if (name_ instanceof Tag)
-                if (value_ instanceof SimpleAttributeSet) {
-                    Enumeration<?> enumAttr_;
-                    enumAttr_ = ((SimpleAttributeSet) value_)
-                            .getAttributeNames();
-                    while (enumAttr_.hasMoreElements()) {
-                        Object nameAttr_ = enumAttr_.nextElement();
-                        if (StringList.quickEq(nameAttr_.toString(),ATTRIBUTE_COMMAND)) {
-                            anchorRef = ((SimpleAttributeSet) value_)
-                                    .getAttribute(nameAttr_)
-                                    .toString();
-                            break;
-                        }
-                    }
-                    if (anchorRef.isEmpty()) {
-                        enumAttr_ = ((SimpleAttributeSet) value_)
-                                .getAttributeNames();
-                        while (enumAttr_.hasMoreElements()) {
-                            Object nameAttr_ = enumAttr_
-                                    .nextElement();
-                            if (StringList.quickEq(nameAttr_.toString(),
-                                    ATTRIBUTE_HREF)) {
-                                anchorRef = ((SimpleAttributeSet) value_)
-                                        .getAttribute(nameAttr_)
-                                        .toString();
-                                break;
-                            }
-                        }
-                    }
-                    enumAttr_ = ((SimpleAttributeSet) value_)
-                            .getAttributeNames();
-                    while (enumAttr_.hasMoreElements()) {
-                        Object nameAttr_ = enumAttr_.nextElement();
-                        if (StringList.quickEq(nameAttr_.toString(),NUMBER_ANCHOR)) {
-                            na_ = Long.parseLong(((SimpleAttributeSet) value_)
-                                    .getAttribute(nameAttr_)
-                                    .toString());
-                            break;
-                        }
-                    }
-                    if (!anchorRef.isEmpty()) {
-                        HtmlPage htmlPage_ = session.getHtmlPage();
-                        htmlPage_.setForm(false);
-                        htmlPage_.setUrl(na_);
+                for (Object e: Collections.list(asLoc_.getAttributeNames())) {
+                    if (StringList.quickEq(e.toString(),ATTRIBUTE_COMMAND)) {
+                        anchorRef = asLoc_.getAttribute(e).toString();
                         break;
                     }
+                }
+                if (anchorRef.isEmpty()) {
+                    for (Object e: Collections.list(asLoc_.getAttributeNames())) {
+                        if (StringList.quickEq(e.toString(),
+                                ATTRIBUTE_HREF)) {
+                            anchorRef = asLoc_.getAttribute(e).toString();
+                            break;
+                        }
+                    }
+                }
+                for (Object e: Collections.list(asLoc_.getAttributeNames())) {
+                    if (StringList.quickEq(e.toString(),NUMBER_ANCHOR)) {
+                        na_ = Long.parseLong(asLoc_.getAttribute(e).toString());
+                        break;
+                    }
+                }
+                if (!anchorRef.isEmpty()) {
+                    HtmlPage htmlPage_ = session.getHtmlPage();
+                    htmlPage_.setForm(false);
+                    htmlPage_.setUrl(na_);
+                    break;
                 }
             }
         }
@@ -298,58 +245,42 @@ public final class ThreadAnchorForm extends Thread {
 
     private static long getNumberInput(Element _elt) {
         AttributeSet as_ = _elt.getAttributes();
-        Enumeration<?> enumm_ = as_.getAttributeNames();
-
-        while (enumm_.hasMoreElements()) {
-            Object name_ = enumm_.nextElement();
-            Object value_ = as_.getAttribute(name_);
-            if (value_ instanceof String) {
-                if (StringList.quickEq(name_.toString(),NUMBER_INPUT)) {
-                    return Long.parseLong(value_.toString());
-                }
+        for (Object e: Collections.list(as_.getAttributeNames())) {
+            Object value_ = as_.getAttribute(e);
+            if (StringList.quickEq(e.toString(),NUMBER_INPUT)) {
+                return Long.parseLong(value_.toString());
             }
         }
-        return -1;
+        Object object_ = getAttribute(_elt, MODEL);
+        if (object_ == null) {
+            return -1;
+        }
+        return Long.parseLong(object_.toString());
     }
 
     private static Object getModel(Element _elt) {
-        AttributeSet as_ = _elt.getAttributes();
-        Enumeration<?> enumm_ = as_.getAttributeNames();
+        return getAttribute(_elt, MODEL);
+    }
 
-        while (enumm_.hasMoreElements()) {
-            Object name_ = enumm_.nextElement();
-            Object value_ = as_.getAttribute(name_);
-            if (StringList.quickEq(name_.toString(), MODEL)) {
+    private static Object getValue(Element _elt) {
+        Object value_ = getAttribute(_elt, ATTRIBUTE_VALUE);
+        if (value_ == null) {
+            return EMPTY_STRING;
+        }
+        return value_;
+    }
+
+    private static Object getAttribute(Element _elt, String _attribute) {
+        AttributeSet as_ = _elt.getAttributes();
+        for (Object e: Collections.list(as_.getAttributeNames())) {
+            Object value_ = as_.getAttribute(e);
+            if (StringList.quickEq(e.toString(), _attribute)) {
                 return value_;
             }
         }
         return null;
     }
 
-    private static Object getValue(Element _elt) {
-        AttributeSet as_ = _elt.getAttributes();
-        Enumeration<?> enumm_ = as_.getAttributeNames();
-
-        while (enumm_.hasMoreElements()) {
-            Object name_ = enumm_.nextElement();
-            Object value_ = as_.getAttribute(name_);
-            if (StringList.quickEq(name_.toString(), ATTRIBUTE_VALUE)) {
-                return value_;
-            }
-        }
-        return EMPTY_STRING;
-    }
-
-//    private static int getIndex(Element _elt) {
-//        Element par_ = _elt.getParentElement();
-//        int nbElts_ = par_.getElementCount();
-//        for (int i = 0; i < nbElts_; i++) {
-//            if (par_.getElement(i) == _elt) {
-//                return i;
-//            }
-//        }
-//        return -1;
-//    }
     private void initTimer() {
         if (session.getLabel() != null) {
             timer = new Timer(DELTA, new Chronometer(session.getLabel(), session, 0));
@@ -389,9 +320,7 @@ public final class ThreadAnchorForm extends Thread {
     }
 
     private void processErrors(Throwable _t) {
-//      ok = false;
         if (session.getArea() != null) {
-//          exception = _0;
             session.getArea().append(TAB + _t.getMessage() + RETURN_LINE);
             for (StackTraceElement s : _t.getStackTrace()) {
                 session.getArea().append(
@@ -407,33 +336,5 @@ public final class ThreadAnchorForm extends Thread {
             timer.stop();
         }
         session.finish(false);
-//      SwingUtilities.invokeLater(new SetTextPane(session, false));
-//      session.directScroll();
-//      session.repaint();
-//      session.finish();
     }
-//    @Override
-//    protected void done() {
-//        try {
-//            get();
-//            if (ok) {
-//                session.setupText(timer);
-//            } else if (exception != null) {
-//                session.getArea().append(TAB + exception.getMessage() + RETURN_LINE);
-//                for (StackTraceElement s : exception.getStackTrace()) {
-//                    session.getArea().append(
-//                            TAB + s.getFileName() + TAB
-//                                    + s.getClassName() + TAB
-//                                    + s.getClassName() + TAB
-//                                    + s.getMethodName() + TAB
-//                                    + s.getLineNumber() + RETURN_LINE);
-//                }
-//            }
-//        } catch (Exception _0) {
-//        }
-//    }
-//
-//    public boolean isAlive() {
-//        return !isDone() && !isCancelled();
-//    }
 }

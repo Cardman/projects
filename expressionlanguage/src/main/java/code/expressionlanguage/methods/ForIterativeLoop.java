@@ -1,6 +1,4 @@
 package code.expressionlanguage.methods;
-import java.util.Iterator;
-
 import org.w3c.dom.Element;
 
 import code.expressionlanguage.Argument;
@@ -312,7 +310,7 @@ public final class ForIterativeLoop extends BracedStack implements ForLoop {
                 copyFrom_ += stepValue_;
             }
         }
-        Iterator<?> it_ = null;
+        Object it_ = null;
         long length_ = CustList.INDEX_NOT_FOUND_ELT;
         boolean finished_ = false;
         length_ = nbMaxIterations_;

@@ -11,6 +11,7 @@ import code.bean.Bean;
 import code.bean.validator.Validator;
 import code.bean.validator.ValidatorException;
 import code.expressionlanguage.Argument;
+import code.expressionlanguage.Templates;
 import code.expressionlanguage.exceptions.ErrorCausingException;
 import code.expressionlanguage.exceptions.InvokeRedinedMethException;
 import code.expressionlanguage.opers.util.Struct;
@@ -535,6 +536,16 @@ public final class Navigation {
                 if (Listable.class.isAssignableFrom(tempClass_)) {
                     isList_ = true;
                 }
+            } else {
+                try {
+                    tempClass_ = ConstClasses.classAliasForNameNotInit(className_);
+                } catch (RuntimeClassNotFoundException _0) {
+                    throw new InvokeRedinedMethException(session.joinPages(), new Struct(_0));
+                }
+                if (Listable.class.isAssignableFrom(tempClass_)) {
+                    suffix_ = Templates.getTypesByBases(className_, Listable.class.getName(), session.toContextEl().getClasses()).first();
+                    isList_ = true;
+                }
             }
             if (isList_) {
                 Object list_ = instance(tempClass_);
@@ -639,8 +650,8 @@ public final class Navigation {
                     Class<?> clObj_ = obj_.getClass();
                     if (Listable.class.isAssignableFrom(clObj_)){
                         Object list_ = instance(clObj_);
-                        String contentClass_ = className_.substring(CustList.class.getName().length());
-                        contentClass_ = StringList.removeStrings(contentClass_, BEG_TEMP, END_TEMP);
+                        String contentClass_;
+                        contentClass_ = Templates.getTypesByBases(clObj_.getName(), Listable.class.getName(), session.toContextEl().getClasses()).first();
                         for (String v:v_) {
                             try {
                                 ConverterMethod.invokeMethod(ADD_METHOD, list_, retrieveObjectByClassName(v, contentClass_));

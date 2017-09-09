@@ -190,7 +190,7 @@ public final class ForEachLoop extends BracedStack implements ForLoop {
                 finished_ = true;
             }
         } else {
-            it_ = ProcessXmlMethod.iterator(_conf, (Iterable<?>) iterable_);
+            it_ = ProcessXmlMethod.iterator(_conf, iterable_);
             if (!ProcessXmlMethod.hasNext(_conf, it_)) {
                 finished_ = true;
             }

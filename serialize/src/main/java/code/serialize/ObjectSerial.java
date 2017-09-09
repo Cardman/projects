@@ -31,6 +31,7 @@ final class ObjectSerial extends TemplateSerial {
 
 
     private static final String SIZE ="size";
+    private static final String IS_CORRECT ="isCorrect";
     private static final String ADD ="add";
     private static final String SET ="set";
     private static final String ADD_ENTRY ="addEntry";
@@ -38,6 +39,8 @@ final class ObjectSerial extends TemplateSerial {
     private static final String SET_VALUE ="setValue";
 
     private static final Method SIZE_METHOD = SerializeXmlObject.getDeclaredXmlAccessibleMethod(Listable.class, SIZE);
+    private static final Method SIZE_MAP_METHOD = SerializeXmlObject.getDeclaredXmlAccessibleMethod(ListableEntries.class, SIZE);
+    private static final Method IS_CORRECT_METHOD = SerializeXmlObject.getDeclaredXmlAccessibleMethod(ListableEntries.class, IS_CORRECT);
     private static final Method ADD_METHOD = SerializeXmlObject.getDeclaredXmlAccessibleMethod(Listable.class, ADD, Object.class);
     private static final Method SET_METHOD = SerializeXmlObject.getDeclaredXmlAccessibleMethod(Listable.class, SET, int.class, Object.class);
     private static final Method ADD_ENTRY_METHOD = SerializeXmlObject.getDeclaredXmlAccessibleMethod(AbsMap.class, ADD_ENTRY, Object.class, Object.class);
@@ -272,7 +275,7 @@ final class ObjectSerial extends TemplateSerial {
             }
         }
         //Begin
-        if (value instanceof ListableEntries<?,?>) {
+        if (ListableEntries.class.isInstance(value)) {
             int len_ = keys.size();
             if (len_ != values.size()) {
                 System.err.println(XmlParser.getRowColOfNodeOrAttribute(_xml, getNode(), 0, EMPTY_STRING, TAB_WIDTH));
@@ -326,7 +329,7 @@ final class ObjectSerial extends TemplateSerial {
                 throw _0;
             }
         }
-        if (value instanceof ListableEntries<?,?>) {
+        if (ListableEntries.class.isInstance(value)) {
             int len_ = keys.size();
             if (len_ != values.size()) {
                 System.err.println(XmlParser.getRowColOfNodeOrAttribute(_xml, getNode(), 0, EMPTY_STRING, TAB_WIDTH));
@@ -367,9 +370,7 @@ final class ObjectSerial extends TemplateSerial {
             }
         }
         if(ListableEntries.class.isAssignableFrom(cl_)) {
-            ListableEntries<?, ?> v_;
-            v_ = (ListableEntries<?, ?>)value;
-            int len_ = v_.size();
+            int len_ = (Integer)ConverterMethod.invokeMethod(SIZE_MAP_METHOD, value);
             for (int i = CollectionsUtil.getFirstIndex(); i< len_;i++ ) {
                 if (!keysIndexesRef.contains(i)) {
                     continue;
@@ -377,7 +378,7 @@ final class ObjectSerial extends TemplateSerial {
                 if (!Numbers.eq(keysIndexesRef.getVal(i), ((TemplateSerial)_e).getRef())) {
                     continue;
                 }
-                ConverterMethod.invokeMethod(SET_KEY_METHOD, v_, i, _newE.getValue());
+                ConverterMethod.invokeMethod(SET_KEY_METHOD, value, i, _newE.getValue());
             }
             for (int i = CollectionsUtil.getFirstIndex(); i < len_; i++) {
                 if (!valuesIndexesRef.contains(i)) {
@@ -386,7 +387,7 @@ final class ObjectSerial extends TemplateSerial {
                 if (!Numbers.eq(valuesIndexesRef.getVal(i), ((TemplateSerial)_e).getRef())) {
                     continue;
                 }
-                ConverterMethod.invokeMethod(SET_VALUE_METHOD, v_, i, _newE.getValue());
+                ConverterMethod.invokeMethod(SET_VALUE_METHOD, value, i, _newE.getValue());
             }
         }
         try {
@@ -415,12 +416,10 @@ final class ObjectSerial extends TemplateSerial {
         }
     }
     boolean isMap() {
-        return value instanceof ListableEntries<?, ?>;
+        return ListableEntries.class.isInstance(value);
     }
     boolean isCorrect() {
-        ListableEntries<?, ?> l_;
-        l_ = (ListableEntries<?, ?>)value;
-        return l_.isCorrect();
+        return (Boolean) ConverterMethod.invokeMethod(IS_CORRECT_METHOD, value);
     }
 
 }

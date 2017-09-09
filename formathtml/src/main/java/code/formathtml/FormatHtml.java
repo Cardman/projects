@@ -15,6 +15,7 @@ import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.ElUtil;
 import code.expressionlanguage.PrimitiveTypeUtil;
+import code.expressionlanguage.Templates;
 import code.expressionlanguage.exceptions.BadExpressionLanguageException;
 import code.expressionlanguage.exceptions.BadIndexException;
 import code.expressionlanguage.exceptions.DivideZeroException;
@@ -89,6 +90,7 @@ import code.util.StringMap;
 import code.util.consts.ConstClasses;
 import code.util.exceptions.NullObjectException;
 import code.util.exceptions.RuntimeClassNotFoundException;
+import code.util.ints.Listable;
 import code.util.ints.SortableMap;
 import code.xml.AttributePart;
 import code.xml.XmlParser;
@@ -2676,7 +2678,10 @@ final class FormatHtml {
                 if (StringList.quickEq(_input.getNodeName(), SELECT_TAG)) {
                     type_ = SELECT_TAG;
                     if (_input.hasAttribute(ATTRIBUTE_MULTIPLE)) {
-                        class_ = CustList.class.getName()+BEG_TEMP+class_+END_TEMP;
+                        StringList params_ = Templates.getTypesByBases(class_, Listable.class.getName(), _conf.toContextEl().getClasses());
+                        if (params_ == null) {
+                            class_ = CustList.class.getName()+BEG_TEMP+class_+END_TEMP;
+                        }
                     }
                 }
                 if (StringList.quickEq(_input.getNodeName(), TEXT_AREA)) {

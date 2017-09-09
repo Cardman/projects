@@ -28,6 +28,70 @@ public final class Templates {
 
     private Templates() {
     }
+    /**This method works only on native classes*/
+    public static StringList getTypesByBases(String _baseType, String _baseSuperType, Classes _classes) {
+        if (!PrimitiveTypeUtil.canBeUseAsArgument(_baseSuperType, _baseType, _classes)) {
+            return null;
+        }
+        Class<?> clSup_ = ConstClasses.classForNameNotInit(_baseSuperType);
+        StringList curClasses_ = new StringList(_baseType);
+        StringList visitedClasses_ = new StringList(_baseType);
+        String generic_ = null;
+        while (true) {
+            StringList nextClasses_ = new StringList();
+            for (String c: curClasses_) {
+                StringList allTypes_ = StringList.getAllTypes(c);
+                String baseClass_ = allTypes_.first();
+                baseClass_ = PrimitiveTypeUtil.getArrayClass(baseClass_);
+                Class<?> cl_ = ConstClasses.classForNameNotInit(baseClass_);
+                if (cl_.getTypeParameters().length != allTypes_.size() - 1) {
+                    return null;
+                }
+                Class<?> superCl_ = cl_.getSuperclass();
+                if (superCl_ != null) {
+                    String superClass_ = superCl_.getName();
+                    String geneSuperClass_ = getName(cl_.getGenericSuperclass());
+                    geneSuperClass_ = insertPrefixVarType(geneSuperClass_);
+                    geneSuperClass_ = format(c, geneSuperClass_, _classes);
+                    if (StringList.quickEq(superClass_, _baseSuperType)) {
+                        generic_ = geneSuperClass_;
+                        break;
+                    }
+                    if (!visitedClasses_.containsStr(geneSuperClass_)) {
+                        nextClasses_.add(geneSuperClass_);
+                        visitedClasses_.add(geneSuperClass_);
+                    }
+                }
+                int i_ = CustList.INDEX_NOT_FOUND_ELT;
+                for (Class<?> s: cl_.getInterfaces()) {
+                    i_++;
+                    String geneSuperInterface_ = getName(cl_.getGenericInterfaces()[i_]);
+                    geneSuperInterface_ = insertPrefixVarType(geneSuperInterface_);
+                    geneSuperInterface_ = format(c, geneSuperInterface_, _classes);
+                    if (StringList.quickEq(s.getName(), _baseSuperType)) {
+                        generic_ = geneSuperInterface_;
+                        break;
+                    }
+                    if (!visitedClasses_.containsStr(geneSuperInterface_)) {
+                        nextClasses_.add(geneSuperInterface_);
+                        visitedClasses_.add(geneSuperInterface_);
+                    }
+                }
+            }
+            if (generic_ != null) {
+                break;
+            }
+            curClasses_ = nextClasses_;
+        }
+        int len_ = clSup_.getTypeParameters().length;
+        StringList foundSuperClass_ = StringList.getAllTypes(generic_);
+        len_ = foundSuperClass_.size();
+        StringList args_ = new StringList();
+        for (int i = CustList.SECOND_INDEX; i < len_; i++) {
+            args_.add(foundSuperClass_.get(i));
+        }
+        return args_;
+    }
     public static boolean isCorrectWrite(String _className) {
         StringList current_ = new StringList(_className);
         boolean already_ = false;

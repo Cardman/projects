@@ -4,6 +4,7 @@ import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 import java.util.AbstractList;
+import java.util.Iterator;
 
 import code.serialize.exceptions.NullSerialException;
 import code.serialize.exceptions.RefException;
@@ -17,12 +18,24 @@ import code.util.opers.CollectionsUtil;
 
 final class CurrentSerializableElements {
 
+    private static final String ENTRY_LIST ="entryList";
     private static final String TO_ARRAY ="toArray";
+    private static final String ITERATOR ="iterator";
+    private static final String HAS_NEXT ="hasNext";
+    private static final String NEXT ="next";
+    private static final String GET_KEY ="getKey";
+    private static final String GET_VALUE ="getValue";
+    private static final Method ENTRY_LIST_METHOD = SerializeXmlObject.getDeclaredXmlAccessibleMethod(ListableEntries.class, ENTRY_LIST);
     private static final Method TO_ARRAY_METHOD = SerializeXmlObject.getDeclaredXmlAccessibleMethod(Listable.class, TO_ARRAY);
+    private static final Method ITERATOR_METHOD = SerializeXmlObject.getDeclaredMethod(Iterable.class, ITERATOR);
+    private static final Method HAS_NEXT_METHOD = SerializeXmlObject.getDeclaredMethod(Iterator.class, HAS_NEXT);
+    private static final Method NEXT_METHOD = SerializeXmlObject.getDeclaredMethod(Iterator.class, NEXT);
+    private static final Method GET_KEY_METHOD = SerializeXmlObject.getDeclaredMethod(EntryCust.class, GET_KEY);
+    private static final Method GET_VALUE_METHOD = SerializeXmlObject.getDeclaredMethod(EntryCust.class, GET_VALUE);
     private SerialList<TemplateSerial> allComposites = new SerialList<TemplateSerial>();
     private SerialList<TemplateSerial> news = new SerialList<TemplateSerial>();
     private SerialList<TemplateSerial> currents = new SerialList<TemplateSerial>();
-//    private SerialList<ElementsSerial> allImplicitComparators = new SerialList<>();
+
     private SerialMap<SerialList<ElementsSerial>> componentComposite = new SerialMap<SerialList<ElementsSerial>>();
     private SerialList<ElementsSerial> components = new SerialList<ElementsSerial>();
     private long id;
@@ -47,9 +60,14 @@ final class CurrentSerializableElements {
                     }
                 }
                 if (currentValue_ instanceof ListableEntries) {
-                    for (EntryCust<?, ?> o: ((ListableEntries<?,?>)currentValue_).entryList()) {
-                        addElementInMapWithoutIdRef(o.getKey(),true);
-                        addElementInMapWithoutIdRef(o.getValue(),false);
+                    Object list_ = entryList(currentValue_);
+                    Object it_ = iterator(list_);
+                    while (hasNext(it_)) {
+                        Object entry_ = next(it_);
+                        Object key_ = getKey(entry_);
+                        Object value_ = getValue(entry_);
+                        addElementInMapWithoutIdRef(key_,true);
+                        addElementInMapWithoutIdRef(value_,false);
                     }
                 }
                 if (currentValue_.getClass().isArray()) {
@@ -68,9 +86,6 @@ final class CurrentSerializableElements {
                     if (cl_.getSuperclass() == AbstractList.class) {
                         break;
                     }
-//                    if (cl_.getSuperclass() == SerializeXmlObject.MP_CLASS) {
-//                        break;
-//                    }
                     for (Field f: cl_.getDeclaredFields()) {
                         if (Modifier.isTransient(f.getModifiers())) {
                             if (!SerializeXmlObject.isCopying()) {
@@ -84,9 +99,6 @@ final class CurrentSerializableElements {
                         Object value_ = ConverterMethod.getField(f, currentValue_);
                         addElementInSerializableWithoutIdRef(value_, cl_, f.getName());
                     }
-//                    if (cl_ == EnumSerializeXmlObject.MP_CLASS) {
-//                        break;
-//                    }
                     cl_ = cl_.getSuperclass();
                 }
                 addComponentsToComposite(e);
@@ -97,15 +109,6 @@ final class CurrentSerializableElements {
             }
         }
     }
-
-//    private boolean containsComparator(TemplateSerial _e) {
-//        for (ElementsSerial e: getAllImplicitComparators()) {
-//            if (ElementsSerial.sameValue(e, _e)) {
-//                return true;
-//            }
-//        }
-//        return false;
-//    }
 
     void checkNullPointersWithoutIdRef() {
         boolean modif_ = true;
@@ -127,10 +130,15 @@ final class CurrentSerializableElements {
                     }
                 }
                 if (currentValue_ instanceof ListableEntries) {
-                    for (EntryCust<?, ?> o: ((ListableEntries<?,?>)currentValue_).entryList()) {
-                        checkNullPointerWithoutIdRef(o.getKey(),
+                    Object list_ = entryList(currentValue_);
+                    Object it_ = iterator(list_);
+                    while (hasNext(it_)) {
+                        Object entry_ = next(it_);
+                        Object key_ = getKey(entry_);
+                        Object value_ = getValue(entry_);
+                        checkNullPointerWithoutIdRef(key_,
                                 true, SerializeXmlObject.MP_CLASS, null, false);
-                        checkNullPointerWithoutIdRef(o.getValue(),
+                        checkNullPointerWithoutIdRef(value_,
                                 false, SerializeXmlObject.MP_CLASS, null, false);
                     }
                 }
@@ -189,10 +197,15 @@ final class CurrentSerializableElements {
                     }
                 }
                 if (currentValue_ instanceof ListableEntries) {
-                    for (EntryCust<?, ?> o: ((ListableEntries<?,?>)currentValue_).entryList()) {
-                        setUnmodifiedWithoutIdRef(o.getKey(),
+                    Object list_ = entryList(currentValue_);
+                    Object it_ = iterator(list_);
+                    while (hasNext(it_)) {
+                        Object entry_ = next(it_);
+                        Object key_ = getKey(entry_);
+                        Object value_ = getValue(entry_);
+                        setUnmodifiedWithoutIdRef(key_,
                                 true, SerializeXmlObject.MP_CLASS, null);
-                        setUnmodifiedWithoutIdRef(o.getValue(),
+                        setUnmodifiedWithoutIdRef(value_,
                                 false, SerializeXmlObject.MP_CLASS, null);
                     }
                 }
@@ -242,10 +255,15 @@ final class CurrentSerializableElements {
                     }
                 }
                 if (currentValue_ instanceof ListableEntries) {
-                    for (EntryCust<?, ?> o: ((ListableEntries<?,?>)currentValue_).entryList()) {
-                        setUnmodified(o.getKey(),
+                    Object list_ = entryList(currentValue_);
+                    Object it_ = iterator(list_);
+                    while (hasNext(it_)) {
+                        Object entry_ = next(it_);
+                        Object key_ = getKey(entry_);
+                        Object value_ = getValue(entry_);
+                        setUnmodified(key_,
                                 true, SerializeXmlObject.MP_CLASS, null);
-                        setUnmodified(o.getValue(),
+                        setUnmodified(value_,
                                 false, SerializeXmlObject.MP_CLASS, null);
                     }
                 }
@@ -297,12 +315,17 @@ final class CurrentSerializableElements {
                     }
                 }
                 if (currentValue_ instanceof ListableEntries) {
-                    for (EntryCust<?, ?> o: ((ListableEntries<?,?>)currentValue_).entryList()) {
-                        if(!isUnmodifiedWithoutIdRef(o.getKey(),
+                    Object list_ = entryList(currentValue_);
+                    Object it_ = iterator(list_);
+                    while (hasNext(it_)) {
+                        Object entry_ = next(it_);
+                        Object key_ = getKey(entry_);
+                        Object value_ = getValue(entry_);
+                        if(!isUnmodifiedWithoutIdRef(key_,
                                 true, SerializeXmlObject.MP_CLASS, null)) {
                             return true;
                         }
-                        if(!isUnmodifiedWithoutIdRef(o.getValue(),
+                        if(!isUnmodifiedWithoutIdRef(value_,
                                 false, SerializeXmlObject.MP_CLASS, null)) {
                             return true;
                         }
@@ -359,12 +382,17 @@ final class CurrentSerializableElements {
                     }
                 }
                 if (currentValue_ instanceof ListableEntries) {
-                    for (EntryCust<?, ?> o: ((ListableEntries<?,?>)currentValue_).entryList()) {
-                        if(!isUnmodified(o.getKey(),
+                    Object list_ = entryList(currentValue_);
+                    Object it_ = iterator(list_);
+                    while (hasNext(it_)) {
+                        Object entry_ = next(it_);
+                        Object key_ = getKey(entry_);
+                        Object value_ = getValue(entry_);
+                        if(!isUnmodified(key_,
                                 true, SerializeXmlObject.MP_CLASS, null)) {
                             return true;
                         }
-                        if(!isUnmodified(o.getValue(),
+                        if(!isUnmodified(value_,
                                 false, SerializeXmlObject.MP_CLASS, null)) {
                             return true;
                         }
@@ -375,9 +403,6 @@ final class CurrentSerializableElements {
                     if (cl_.getSuperclass() == AbstractList.class) {
                         break;
                     }
-//                    if (cl_.getSuperclass() == SerializeXmlObject.MP_CLASS) {
-//                        break;
-//                    }
                     for (Field f: cl_.getDeclaredFields()) {
                         if (Modifier.isTransient(f.getModifiers())) {
                             continue;
@@ -418,9 +443,14 @@ final class CurrentSerializableElements {
                     }
                 }
                 if (currentValue_ instanceof ListableEntries) {
-                    for (EntryCust<?, ?> o: ((ListableEntries<?,?>)currentValue_).entryList()) {
-                        addElementInMap(o.getKey(),true);
-                        addElementInMap(o.getValue(),false);
+                    Object list_ = entryList(currentValue_);
+                    Object it_ = iterator(list_);
+                    while (hasNext(it_)) {
+                        Object entry_ = next(it_);
+                        Object key_ = getKey(entry_);
+                        Object value_ = getValue(entry_);
+                        addElementInMap(key_,true);
+                        addElementInMap(value_,false);
                     }
                 }
                 if (currentValue_.getClass().isArray()) {
@@ -471,6 +501,27 @@ final class CurrentSerializableElements {
 
     private static Object[] toArray(Object _value) {
         return (Object[]) ConverterMethod.invokeMethod(TO_ARRAY_METHOD, _value);
+    }
+    private static Object entryList(Object _container) {
+        return ConverterMethod.invokeMethod(ENTRY_LIST_METHOD, _container);
+    }
+
+    private static Object getKey(Object _it) {
+        return ConverterMethod.invokeMethod(GET_KEY_METHOD, _it);
+    }
+
+    private static Object getValue(Object _it) {
+        return ConverterMethod.invokeMethod(GET_VALUE_METHOD, _it);
+    }
+
+    private static Object iterator(Object _it) {
+        return ConverterMethod.invokeMethod(ITERATOR_METHOD, _it);
+    }
+    private static boolean hasNext(Object _it) {
+        return (Boolean) ConverterMethod.invokeMethod(HAS_NEXT_METHOD, _it);
+    }
+    private static Object next(Object _it) {
+        return ConverterMethod.invokeMethod(NEXT_METHOD, _it);
     }
 
     private void addComponentsToComposite(TemplateSerial _e) {

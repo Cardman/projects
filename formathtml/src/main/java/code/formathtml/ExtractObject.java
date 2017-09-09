@@ -73,14 +73,14 @@ final class ExtractObject {
     private static final char END_TR = ']';
     private static final char QUOTE = 39;
     private static final String ADD_ALL_ELTS = "addAllElts";
-    private static final String GET_KEY ="getKey";
     private static final String GET_KEYS ="getKeys";
     private static final String ENTRY_LIST ="entryList";
+    private static final String GET_KEY ="getKey";
     private static final String GET_VALUE ="getValue";
     private static final Method ADD_ALL_ELTS_METHOD = SerializeXmlObject.getDeclaredMethod(CustList.class, ADD_ALL_ELTS, Listable.class);
-    private static final Method GET_KEY_METHOD = SerializeXmlObject.getDeclaredMethod(EntryCust.class, GET_KEY);
     private static final Method GET_KEYS_METHOD = SerializeXmlObject.getDeclaredMethod(ListableEntries.class, GET_KEYS);
     private static final Method ENTRY_LIST_METHOD = SerializeXmlObject.getDeclaredMethod(ListableEntries.class, ENTRY_LIST);
+    private static final Method GET_KEY_METHOD = SerializeXmlObject.getDeclaredMethod(EntryCust.class, GET_KEY);
     private static final Method GET_VALUE_METHOD = SerializeXmlObject.getDeclaredMethod(EntryCust.class, GET_VALUE);
 
     private ExtractObject() {
