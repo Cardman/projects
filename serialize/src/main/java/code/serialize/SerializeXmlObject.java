@@ -559,7 +559,7 @@ public final class SerializeXmlObject {
                         }
 //                        obj_.add(serial_);
                         if (ChangeableMap.class.isAssignableFrom(serial_.getFoundClass())) {
-                        	cmp_.add(serial_);
+                            cmp_.add(serial_);
                         }
                         if (serial_.isMap()) {
                             notEmptyMaps_.add(serial_);
