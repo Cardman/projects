@@ -74,16 +74,7 @@ public final class ThreadAnchorForm extends Thread {
                     .getSourceElement();
 
             AttributeSet as_ = form_.getAttributes();
-            String nbForm_ = EMPTY_STRING;
-            for (Object e: Collections.list(as_.getAttributeNames())) {
-                Object value_ = as_.getAttribute(e);
-                if (value_ instanceof String) {
-                    if (StringList.quickEq(e.toString(),NUMBER_FORM)) {
-                        nbForm_ = value_.toString();
-                        break;
-                    }
-                }
-            }
+            String nbForm_ = getAttribute(as_, NUMBER_FORM).toString();
             HtmlPage htmlPage_ = session.getHtmlPage();
             htmlPage_.setForm(true);
             htmlPage_.setUrl(Long.parseLong(nbForm_));
@@ -184,27 +175,17 @@ public final class ThreadAnchorForm extends Thread {
                     continue;
                 }
                 SimpleAttributeSet asLoc_ = (SimpleAttributeSet) value_;
-
-                for (Object e: Collections.list(asLoc_.getAttributeNames())) {
-                    if (StringList.quickEq(e.toString(),ATTRIBUTE_COMMAND)) {
-                        anchorRef = asLoc_.getAttribute(e).toString();
-                        break;
-                    }
+                Object valueLoc_ = getAttribute(asLoc_, ATTRIBUTE_COMMAND);
+                if (valueLoc_ != null) {
+                    anchorRef = valueLoc_.toString();
                 }
                 if (anchorRef.isEmpty()) {
-                    for (Object e: Collections.list(asLoc_.getAttributeNames())) {
-                        if (StringList.quickEq(e.toString(),
-                                ATTRIBUTE_HREF)) {
-                            anchorRef = asLoc_.getAttribute(e).toString();
-                            break;
-                        }
-                    }
+                    valueLoc_ = getAttribute(asLoc_, ATTRIBUTE_HREF);
+                    anchorRef = valueLoc_.toString();
                 }
-                for (Object e: Collections.list(asLoc_.getAttributeNames())) {
-                    if (StringList.quickEq(e.toString(),NUMBER_ANCHOR)) {
-                        na_ = Long.parseLong(asLoc_.getAttribute(e).toString());
-                        break;
-                    }
+                Object anchorValue_ = getAttribute(asLoc_, NUMBER_ANCHOR);
+                if (anchorValue_ != null) {
+                    na_ = Long.parseLong(anchorValue_.toString());
                 }
                 if (!anchorRef.isEmpty()) {
                     HtmlPage htmlPage_ = session.getHtmlPage();
@@ -244,14 +225,7 @@ public final class ThreadAnchorForm extends Thread {
     }
 
     private static long getNumberInput(Element _elt) {
-        AttributeSet as_ = _elt.getAttributes();
-        for (Object e: Collections.list(as_.getAttributeNames())) {
-            Object value_ = as_.getAttribute(e);
-            if (StringList.quickEq(e.toString(),NUMBER_INPUT)) {
-                return Long.parseLong(value_.toString());
-            }
-        }
-        Object object_ = getAttribute(_elt, MODEL);
+        Object object_ = getAttribute(_elt, NUMBER_INPUT);
         if (object_ == null) {
             return -1;
         }
@@ -272,15 +246,17 @@ public final class ThreadAnchorForm extends Thread {
 
     private static Object getAttribute(Element _elt, String _attribute) {
         AttributeSet as_ = _elt.getAttributes();
-        for (Object e: Collections.list(as_.getAttributeNames())) {
-            Object value_ = as_.getAttribute(e);
+        return getAttribute(as_, _attribute);
+    }
+
+    private static Object getAttribute(AttributeSet _elt, String _attribute) {
+        for (Object e: Collections.list(_elt.getAttributeNames())) {
             if (StringList.quickEq(e.toString(), _attribute)) {
-                return value_;
+                return _elt.getAttribute(e);
             }
         }
         return null;
     }
-
     private void initTimer() {
         if (session.getLabel() != null) {
             timer = new Timer(DELTA, new Chronometer(session.getLabel(), session, 0));
