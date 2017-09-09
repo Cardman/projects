@@ -550,8 +550,7 @@ public final class Navigation {
             } else {
                 try {
                     obj_ = retrieveObjectByClassName(v_.first(), className_);
-                } catch (Error _0) {
-                } catch (RuntimeException _0) {
+                } catch (Throwable _0) {
                 }
             }
             try {

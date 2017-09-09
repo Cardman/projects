@@ -95,7 +95,7 @@ public class BeanSeven extends Bean {
     public void validateMap() {
     }
     public void validateIntsSave() {
-        Numbers<Integer> nbs_ = new Numbers<Integer>();
+        Ints nbs_ = new Ints();
         for (int i: arrayInt) {
             nbs_.add(i);
         }

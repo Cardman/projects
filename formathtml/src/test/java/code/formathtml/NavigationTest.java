@@ -29,6 +29,7 @@ import code.formathtml.classes.BeanTwo;
 import code.formathtml.classes.Composite;
 import code.formathtml.classes.EnumNumber;
 import code.formathtml.classes.EnumNumbers;
+import code.formathtml.classes.Ints;
 import code.formathtml.classes.MyTranslator;
 import code.formathtml.classes.MyValidator;
 import code.formathtml.classes.MyValidatorEnum;
@@ -43,7 +44,6 @@ import code.serialize.exceptions.BadAccessException;
 import code.serialize.exceptions.NoSuchDeclaredMethodException;
 import code.util.NatTreeMap;
 import code.util.NumberMap;
-import code.util.Numbers;
 import code.util.StringList;
 import code.util.StringMap;
 
@@ -7356,7 +7356,7 @@ public class NavigationTest {
         bean_ = (BeanSeven) conf_.getBeans().getVal("bean_seven");
         StringMap<Object> map_ = bean_.getForms();
         assertEq(1, map_.size());
-        Numbers<?> savedNbs_ = (Numbers<?>) map_.getVal("numbers");
+        Ints savedNbs_ = (Ints) map_.getVal("numbers");
         assertEq(2, savedNbs_.size());
         assertEq(2, savedNbs_.get(0).intValue());
         assertEq(4, savedNbs_.get(1).intValue());

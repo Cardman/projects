@@ -1,6 +1,5 @@
 package code.expressionlanguage.methods;
 import java.lang.reflect.Array;
-import java.util.Iterator;
 
 import org.w3c.dom.Element;
 
@@ -182,7 +181,7 @@ public final class ForEachLoop extends BracedStack implements ForLoop {
             throw new NullObjectException(_conf.joinPages());
         }
         iterable_ = ito_;
-        Iterator<?> it_ = null;
+        Object it_ = null;
         long length_ = CustList.INDEX_NOT_FOUND_ELT;
         boolean finished_ = false;
         if (iterable_.getClass().isArray()) {
@@ -268,7 +267,7 @@ public final class ForEachLoop extends BracedStack implements ForLoop {
         _conf.getLastPage().setOffset(0);
         String var_ = getVariableName();
         LoopVariable lv_ = _vars.getVal(var_);
-        Iterator<?> iterator_ = _l.getIterator();
+        Object iterator_ = _l.getIterator();
         if (iterator_ != null) {
             lv_.setElement(ProcessXmlMethod.next(_conf, iterator_));
         } else {

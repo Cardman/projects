@@ -47,7 +47,7 @@ public class BeanFive extends Bean {
     private StringList selectedStrings = new StringList("ONE","FOUR");
 
     @Accessible
-    private CustList<EnumNumber> chosenNumbersNull;
+    private EnumNumbers chosenNumbersNull;
 
     public BeanFive() {
         composite.setStrings(new StringList());

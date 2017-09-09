@@ -1,8 +1,8 @@
 package code.formathtml;
 import java.lang.reflect.Constructor;
+import java.lang.reflect.Method;
 import java.math.BigDecimal;
 import java.math.BigInteger;
-import java.util.Iterator;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicLong;
 
@@ -25,6 +25,7 @@ import code.formathtml.exceptions.CharacterFormatException;
 import code.formathtml.exceptions.GettingKeysException;
 import code.formathtml.exceptions.InexistingTranslatorException;
 import code.serialize.ConverterMethod;
+import code.serialize.SerializeXmlObject;
 import code.serialize.exceptions.InvokingException;
 import code.serialize.exceptions.NoSuchDeclaredMethodException;
 import code.serialize.exceptions.RuntimeInstantiationException;
@@ -71,6 +72,17 @@ final class ExtractObject {
     private static final char BEGIN_TR = '[';
     private static final char END_TR = ']';
     private static final char QUOTE = 39;
+    private static final String ADD_ALL_ELTS = "addAllElts";
+    private static final String GET_KEY ="getKey";
+    private static final String GET_KEYS ="getKeys";
+    private static final String ENTRY_LIST ="entryList";
+    private static final String GET_VALUE ="getValue";
+    private static final Method ADD_ALL_ELTS_METHOD = SerializeXmlObject.getDeclaredMethod(CustList.class, ADD_ALL_ELTS, Listable.class);
+    private static final Method GET_KEY_METHOD = SerializeXmlObject.getDeclaredMethod(EntryCust.class, GET_KEY);
+    private static final Method GET_KEYS_METHOD = SerializeXmlObject.getDeclaredMethod(ListableEntries.class, GET_KEYS);
+    private static final Method ENTRY_LIST_METHOD = SerializeXmlObject.getDeclaredMethod(ListableEntries.class, ENTRY_LIST);
+    private static final Method GET_VALUE_METHOD = SerializeXmlObject.getDeclaredMethod(EntryCust.class, GET_VALUE);
+
     private ExtractObject() {
     }
 
@@ -302,72 +314,33 @@ final class ExtractObject {
             throw new RuntimeClassNotFoundException(_className+RETURN_LINE+_conf.joinPages());
         }
     }
-    static EntryCust<?,?> castEntryCust(Configuration _conf, int _off, Object _obj) {
+
+    static void addAll(Configuration _conf, int _off, Object _obj, Object _elements) {
         try {
-            if (_obj == null) {
-                throw new NullObjectException(_conf.joinPages());
-            }
-            return (EntryCust<?,?>) _obj;
-        } catch (ClassCastException _0) {
+            ConverterMethod.invokeMethod(ADD_ALL_ELTS_METHOD, _obj, _elements);
+        } catch (Throwable _0_) {
             String beginMess_ = _obj.getClass().getName()+SPACE+Iterable.class.getName();
             _conf.getLastPage().addToOffset(_off);
             throw new DynamicCastClassException(beginMess_+RETURN_LINE+_conf.joinPages());
         }
     }
 
-    static Iterable<?> castIterable(Configuration _conf, int _off, Object _obj) {
+    static Object getKey(Configuration _conf, Object _it) {
         try {
-            return (Iterable<?>) _obj;
-        } catch (ClassCastException _0) {
-            String beginMess_ = _obj.getClass().getName()+SPACE+Iterable.class.getName();
-            _conf.getLastPage().addToOffset(_off);
-            throw new DynamicCastClassException(beginMess_+RETURN_LINE+_conf.joinPages());
+            return ConverterMethod.invokeMethod(GET_KEY_METHOD, _it);
+        } catch (Throwable _0) {
+            throw new InvokeRedinedMethException(_conf.joinPages(), new Struct(_0));
         }
     }
 
-    static ListableEntries<?,?> castListableEntries(Configuration _conf, int _off, Object _obj) {
+    static Object getValue(Configuration _conf, Object _it) {
         try {
-            if (_obj == null) {
-                String beginMess_ = _obj+SPACE+ListableEntries.class.getName();
-                _conf.getLastPage().addToOffset(_off);
-                throw new NullObjectException(beginMess_+RETURN_LINE+_conf.joinPages());
-            }
-            return (ListableEntries<?,?>) _obj;
-        } catch (ClassCastException _0) {
-            String beginMess_ = _obj.getClass().getName()+SPACE+ListableEntries.class.getName();
-            _conf.getLastPage().addToOffset(_off);
-            throw new DynamicCastClassException(beginMess_+RETURN_LINE+_conf.joinPages());
+            return ConverterMethod.invokeMethod(GET_VALUE_METHOD, _it);
+        } catch (Throwable _0) {
+            throw new InvokeRedinedMethException(_conf.joinPages(), new Struct(_0));
         }
     }
 
-    static Iterator<?> iterator(Configuration _conf, Iterable<?> _it) {
-        try {
-            return _it.iterator();
-        } catch (Throwable _0) {
-            throw new InvokeRedinedMethException(_conf.joinPages(), new Struct(_0));
-        }
-    }
-    static boolean hasNext(Configuration _conf, Iterator<?> _it) {
-        try {
-            return _it.hasNext();
-        } catch (Throwable _0) {
-            throw new InvokeRedinedMethException(_conf.joinPages(), new Struct(_0));
-        }
-    }
-    static Object next(Configuration _conf, Iterator<?> _it) {
-        try {
-            return _it.next();
-        } catch (Throwable _0) {
-            throw new InvokeRedinedMethException(_conf.joinPages(), new Struct(_0));
-        }
-    }
-    static EntryCust<?, ?> nextEntry(Configuration _conf, Iterator<?> _it) {
-        try {
-            return (EntryCust<?, ?>)_it.next();
-        } catch (Throwable _0) {
-            throw new InvokeRedinedMethException(_conf.joinPages(), new Struct(_0));
-        }
-    }
     static char getChar(Configuration _conf, String _obj) {
         if (_obj.length() != CustList.ONE_ELEMENT) {
             throw new CharacterFormatException(String.valueOf(CustList.ONE_ELEMENT)+RETURN_LINE+_conf.joinPages());
@@ -438,17 +411,17 @@ final class ExtractObject {
             throw new InvokeRedinedMethException(_conf.joinPages(), new Struct(_0));
         }
     }
-    static Iterable<?> entryList(Configuration _conf, int _offsIndex, ListableEntries<?,?> _container) {
+    static Object entryList(Configuration _conf, int _offsIndex, Object _container) {
         try {
-            return _container.entryList();
+            return ConverterMethod.invokeMethod(ENTRY_LIST_METHOD, _container);
         } catch (Throwable _0) {
             _conf.getLastPage().addToOffset(_offsIndex);
             throw new InvokeRedinedMethException(_conf.joinPages(), new Struct(_0));
         }
     }
-    static Iterable<?> getKeys(Configuration _conf, boolean _callSort, int _offsIndex, ListableEntries<?,?> _container) {
+    static Object getKeys(Configuration _conf, boolean _callSort, int _offsIndex, Object _container) {
         try {
-            return _container.getKeys();
+            return ConverterMethod.invokeMethod(GET_KEYS_METHOD, _container);
         } catch (Throwable _0) {
             _conf.getLastPage().addToOffset(_offsIndex);
             throw new GettingKeysException(_conf.joinPages(), new Struct(_0));
