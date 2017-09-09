@@ -3369,7 +3369,9 @@ final class FormatHtml {
                 returnedVarValue_.add(ElUtil.processEl(varValue_, 0, _conf.toContextEl()).getObject());
             } else {
                 Object o_ = ElUtil.processEl(varValue_, 0, _conf.toContextEl()).getObject();
-                returnedVarValue_.addAllElts((Listable<Object>) ExtractObject.castListable(_conf, varValue_.length(), o_));
+                for (Object o: ExtractObject.castListable(_conf, varValue_.length(), o_)) {
+                    returnedVarValue_.add(o);
+                }
             }
         }
         _conf.getLastPage().setProcessingAttribute(ATTRIBUTE_LIST);
@@ -3419,7 +3421,9 @@ final class FormatHtml {
                     defaults_.add(ElUtil.processEl(command_, 0, _conf.toContextEl()).getObject());
                 } else {
                     li_ = ElUtil.processEl(command_, 0, _conf.toContextEl()).getObject();
-                    defaults_.addAllElts((Listable<Object>) ExtractObject.castListable(_conf, command_.length(), li_));
+                    for (Object o: ExtractObject.castListable(_conf, command_.length(), li_)) {
+                        defaults_.add(o);
+                    }
                 }
                 checkEnums(_conf, extractedList_);
                 _conf.getLastPage().setProcessingAttribute(DEFAULT_ATTRIBUTE);
@@ -3584,7 +3588,9 @@ final class FormatHtml {
         IdList<Object> obj_ = new IdList<Object>();
         if (_multiple) {
             if (_returnedVarValue != null) {
-                obj_.addAllElts((Listable<Object>) ExtractObject.castListable(_conf, 0, _returnedVarValue));
+                for (Object o: ExtractObject.castListable(_conf, 0, _returnedVarValue)) {
+                    obj_.add(o);
+                }
             }
         } else {
             obj_.add(_returnedVarValue);
