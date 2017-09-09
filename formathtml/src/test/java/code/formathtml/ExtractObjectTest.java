@@ -11,12 +11,12 @@ import org.w3c.dom.Element;
 import code.bean.Bean;
 import code.bean.translator.Translator;
 import code.expressionlanguage.exceptions.BadExpressionLanguageException;
-import code.formathtml.Configuration;
-import code.formathtml.ExtractObject;
-import code.formathtml.ImportingPage;
+import code.expressionlanguage.exceptions.InvokeRedinedMethException;
 import code.formathtml.classes.BeanOne;
+import code.formathtml.classes.MyStrangeTranslator;
 import code.formathtml.classes.MyTranslator;
 import code.formathtml.classes.SimpleMathFactory;
+import code.formathtml.exceptions.InexistingTranslatorException;
 import code.util.StringList;
 import code.util.StringMap;
 import code.util.consts.Constants;
@@ -1225,6 +1225,160 @@ public class ExtractObjectTest {
 //        assertEq("<html xmlns:c=\"javahtml\" xmlns=\"javahtml\"><body>'composite.integer</body></html>", formated_);
         String formated_ = ExtractObject.formatNumVariables(html_, conf_, ip_, files_);
         assertEq("'c10", formated_);
+    }
+
+    @Test(expected=BadExpressionLanguageException.class)
+    public void formatNamedVariables1FailTest() {
+        String locale_ = "LOCALE";
+        String folder_ = "messages";
+        String relative_ = "sample/file";
+        String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
+        String html_ = "{";
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
+        BeanOne bean_ = new BeanOne();
+        bean_.getComposite().setInteger(5);
+        Configuration conf_ = new Configuration();
+        conf_.setBeans(new StringMap<Bean>());
+        conf_.getBeans().put("bean_one", bean_);
+        conf_.setMessagesFolder(folder_);
+        conf_.setProperties(new StringMap<String>());
+        conf_.getProperties().put("msg_example", relative_);
+        conf_.setTranslators(new StringMap<Translator>());
+        conf_.getTranslators().put("trans", new MyTranslator());
+        addImportingPage(conf_, false);
+        addBean(conf_, bean_);
+        ImportingPage ip_ = conf_.getLastPage();
+        ExtractObject.formatNumVariables(html_, conf_, ip_, files_);
+    }
+
+    @Test(expected=BadExpressionLanguageException.class)
+    public void formatNamedVariables2FailTest() {
+        String locale_ = "LOCALE";
+        String folder_ = "messages";
+        String relative_ = "sample/file";
+        String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
+        String html_ = "{}";
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
+        BeanOne bean_ = new BeanOne();
+        bean_.getComposite().setInteger(5);
+        Configuration conf_ = new Configuration();
+        conf_.setBeans(new StringMap<Bean>());
+        conf_.getBeans().put("bean_one", bean_);
+        conf_.setMessagesFolder(folder_);
+        conf_.setProperties(new StringMap<String>());
+        conf_.getProperties().put("msg_example", relative_);
+        conf_.setTranslators(new StringMap<Translator>());
+        conf_.getTranslators().put("trans", new MyTranslator());
+        addImportingPage(conf_, false);
+        addBean(conf_, bean_);
+        ImportingPage ip_ = conf_.getLastPage();
+        ExtractObject.formatNumVariables(html_, conf_, ip_, files_);
+    }
+
+    @Test(expected=BadExpressionLanguageException.class)
+    public void formatNamedVariables3FailTest() {
+        String locale_ = "LOCALE";
+        String folder_ = "messages";
+        String relative_ = "sample/file";
+        String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
+//        String html_ = "<html xmlns:c='javahtml'><body>{composite.integer|trans}</body></html>";
+        String html_ = "{[trans}";
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
+        BeanOne bean_ = new BeanOne();
+        bean_.getComposite().setInteger(5);
+        Configuration conf_ = new Configuration();
+        conf_.setBeans(new StringMap<Bean>());
+        conf_.getBeans().put("bean_one", bean_);
+        conf_.setMessagesFolder(folder_);
+        conf_.setProperties(new StringMap<String>());
+        conf_.getProperties().put("msg_example", relative_);
+        conf_.setTranslators(new StringMap<Translator>());
+        conf_.getTranslators().put("trans", new MyTranslator());
+        addImportingPage(conf_, false);
+        addBean(conf_, bean_);
+        ImportingPage ip_ = conf_.getLastPage();
+        ExtractObject.formatNumVariables(html_, conf_, ip_, files_);
+    }
+
+    @Test(expected=BadExpressionLanguageException.class)
+    public void formatNamedVariables4FailTest() {
+        String locale_ = "LOCALE";
+        String folder_ = "messages";
+        String relative_ = "sample/file";
+        String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
+//        String html_ = "<html xmlns:c='javahtml'><body>{composite.integer|trans}</body></html>";
+        String html_ = "{[trans";
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
+        BeanOne bean_ = new BeanOne();
+        bean_.getComposite().setInteger(5);
+        Configuration conf_ = new Configuration();
+        conf_.setBeans(new StringMap<Bean>());
+        conf_.getBeans().put("bean_one", bean_);
+        conf_.setMessagesFolder(folder_);
+        conf_.setProperties(new StringMap<String>());
+        conf_.getProperties().put("msg_example", relative_);
+        conf_.setTranslators(new StringMap<Translator>());
+        conf_.getTranslators().put("trans", new MyTranslator());
+        addImportingPage(conf_, false);
+        addBean(conf_, bean_);
+        ImportingPage ip_ = conf_.getLastPage();
+        ExtractObject.formatNumVariables(html_, conf_, ip_, files_);
+    }
+    
+    @Test(expected=InexistingTranslatorException.class)
+    public void formatNamedVariables5FailTest() {
+    	String locale_ = "LOCALE";
+    	String folder_ = "messages";
+    	String relative_ = "sample/file";
+    	String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
+//        String html_ = "<html xmlns:c='javahtml'><body>{composite.integer|trans}</body></html>";
+    	String html_ = "{[trans2]composite.integer}";
+    	StringMap<String> files_ = new StringMap<String>();
+    	files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
+    	BeanOne bean_ = new BeanOne();
+    	bean_.getComposite().setInteger(5);
+    	Configuration conf_ = new Configuration();
+    	conf_.setBeans(new StringMap<Bean>());
+    	conf_.getBeans().put("bean_one", bean_);
+    	conf_.setMessagesFolder(folder_);
+    	conf_.setProperties(new StringMap<String>());
+    	conf_.getProperties().put("msg_example", relative_);
+    	conf_.setTranslators(new StringMap<Translator>());
+    	conf_.getTranslators().put("trans", new MyTranslator());
+    	addImportingPage(conf_, false);
+    	addBean(conf_, bean_);
+    	ImportingPage ip_ = conf_.getLastPage();
+    	ExtractObject.formatNumVariables(html_, conf_, ip_, files_);
+    }
+
+    @Test(expected=InvokeRedinedMethException.class)
+    public void formatNamedVariables6FailTest() {
+        String locale_ = "LOCALE";
+        String folder_ = "messages";
+        String relative_ = "sample/file";
+        String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
+//        String html_ = "<html xmlns:c='javahtml'><body>{composite.integer|trans}</body></html>";
+        String html_ = "{[trans]composite.integer}";
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
+        BeanOne bean_ = new BeanOne();
+        bean_.getComposite().setInteger(5);
+        Configuration conf_ = new Configuration();
+        conf_.setBeans(new StringMap<Bean>());
+        conf_.getBeans().put("bean_one", bean_);
+        conf_.setMessagesFolder(folder_);
+        conf_.setProperties(new StringMap<String>());
+        conf_.getProperties().put("msg_example", relative_);
+        conf_.setTranslators(new StringMap<Translator>());
+        conf_.getTranslators().put("trans", new MyStrangeTranslator());
+        addImportingPage(conf_, false);
+        addBean(conf_, bean_);
+        ImportingPage ip_ = conf_.getLastPage();
+        ExtractObject.formatNumVariables(html_, conf_, ip_, files_);
     }
 
     private static void addImportingPage(Configuration _conf, boolean _rendering) {

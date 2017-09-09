@@ -118,7 +118,7 @@ final class ExtractObject {
                 if (i_ + 1 < length_ && _pattern.charAt(i_ + 1) == BEGIN_TR) {
                     int j_ = i_ + 1;
                     boolean ok_ = false;
-                    while (j_ < length_) {
+                    while (true) {
                         if (_pattern.charAt(j_) == END_TR) {
                             j_++;
                             i_ = j_;
@@ -130,6 +130,9 @@ final class ExtractObject {
                             throw new BadExpressionLanguageException(arg_.toString()+RETURN_LINE+_conf.joinPages());
                         }
                         j_++;
+                        if (j_ >= length_) {
+                            break;
+                        }
                         tr_.append(_pattern.charAt(j_));
                     }
                     if (!ok_) {
@@ -153,10 +156,7 @@ final class ExtractObject {
                             _conf.getLastPage().setOffset(i_);
                             throw new InexistingTranslatorException(tr_+RETURN_LINE+_conf.joinPages());
                         }
-                    } catch (VirtualMachineError _0) {
-                        _conf.getLastPage().setOffset(i_);
-                        throw new InexistingTranslatorException(tr_+RETURN_LINE+_conf.joinPages());
-                    } catch (RuntimeException _0) {
+                    } catch (Throwable _0) {
                         _conf.getLastPage().setOffset(i_);
                         throw new InexistingTranslatorException(tr_+RETURN_LINE+_conf.joinPages());
                     }
@@ -176,12 +176,12 @@ final class ExtractObject {
                 str_.append(ExtractObject.valueOf(_conf, o_));
                 i_ = context_.getNextIndex();
                 continue;
-            } else if (cur_ == RIGHT_EL){
+            }
+            if (cur_ == RIGHT_EL){
                 _conf.getLastPage().setOffset(i_);
                 throw new BadExpressionLanguageException(arg_.toString()+RETURN_LINE+_conf.joinPages());
-            } else {
-                str_.append(cur_);
             }
+            str_.append(cur_);
             i_++;
         }
         return str_.toString();
