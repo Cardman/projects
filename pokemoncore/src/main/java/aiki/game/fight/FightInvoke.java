@@ -1,16 +1,15 @@
 package aiki.game.fight;
-import code.maths.montecarlo.MonteCarloString;
-import code.util.CustList;
-import code.util.Numbers;
-import code.util.StringList;
 import aiki.DataBase;
-import aiki.exceptions.SimulationException;
 import aiki.fight.moves.MoveData;
 import aiki.fight.moves.effects.Effect;
 import aiki.fight.moves.effects.EffectCopyMove;
 import aiki.fight.moves.effects.EffectGlobal;
 import aiki.fight.moves.effects.EffectInvoke;
 import aiki.game.params.Difficulty;
+import code.maths.montecarlo.MonteCarloString;
+import code.util.CustList;
+import code.util.Numbers;
+import code.util.StringList;
 
 final class FightInvoke {
 
@@ -65,11 +64,11 @@ final class FightInvoke {
         for(String e:attaquesInvocables_){
             loi_.addEvent(e,DataBase.defElementaryEvent());
         }
-        try {
-            String obj_ = FightSuccess.random(_fight, loi_);
-            creatureLanceur_.ajouterAttaquesDejaInvoqueesTour(obj_);
-        } catch (SimulationException _0) {
+        if (FightSuccess.isBadSimulation(_fight, loi_)) {
+            return;
         }
+        String obj_ = FightSuccess.random(_fight, loi_);
+        creatureLanceur_.ajouterAttaquesDejaInvoqueesTour(obj_);
     }
 
     static StringList invokableMoves(Fight _fight, TeamPosition _lanceur,TeamPosition _cible,EffectInvoke _effet,DataBase _import){

@@ -1,13 +1,5 @@
 package aiki.game.fight;
-import code.maths.Rate;
-import code.util.CustList;
-import code.util.EqList;
-import code.util.NumberMap;
-import code.util.Numbers;
-import code.util.comparators.ComparatorBoolean;
 import aiki.DataBase;
-import aiki.exceptions.NoFighterException;
-import aiki.exceptions.SimulationException;
 import aiki.fight.enums.Statistic;
 import aiki.fight.items.Berry;
 import aiki.fight.items.Item;
@@ -28,6 +20,13 @@ import aiki.game.fight.comparators.SortedFighterMoveActsComparator;
 import aiki.game.fight.comparators.SortedFighterSwitchActsComparator;
 import aiki.game.fight.util.NextUsers;
 import aiki.game.params.Difficulty;
+import code.maths.Rate;
+import code.maths.montecarlo.MonteCarloBoolean;
+import code.util.CustList;
+import code.util.EqList;
+import code.util.NumberMap;
+import code.util.Numbers;
+import code.util.comparators.ComparatorBoolean;
 
 final class FightOrder {
 
@@ -124,18 +123,18 @@ final class FightOrder {
         return retour_;
     }
 
-    static TeamPosition randomFigtherHavingToAct(Fight _fight,EqList<TeamPosition> _cbts,DataBase _import) {
+    static EqList<TeamPosition> randomFigtherHavingToAct(Fight _fight,EqList<TeamPosition> _cbts,DataBase _import) {
         EqList<TeamPosition> tmp_ = fightersUsingMoveWithBerry(_fight,_cbts, _import);
         if(!tmp_.isEmpty()){
-            return tmp_.first();
+            return new EqList<TeamPosition>(tmp_.first());
         }
         tmp_ = _cbts;
         if(tmp_.isEmpty()){
-            throw new NoFighterException();
+            return new EqList<TeamPosition>();
         }
         int indexRemoving_= indexOfRemoving(_fight,tmp_, _import);
         if(indexRemoving_ <= CustList.FIRST_INDEX){
-            return tmp_.first();
+            return new EqList<TeamPosition>(tmp_.first());
         }
         return randomFigtherHavingToAct(_fight,tmp_,indexRemoving_,_import);
     }
@@ -255,20 +254,20 @@ final class FightOrder {
         return indiceTirage_;
     }
 
-    static TeamPosition randomFigtherHavingToAct(Fight _fight,
+    static EqList<TeamPosition> randomFigtherHavingToAct(Fight _fight,
             EqList<TeamPosition> _cbts, int _index,DataBase _import) {
         TeamPosition fighter_ = _cbts.get(_index);
         Fighter creatureOne_=_fight.getFighter(fighter_);
         ItemForBattle objetAttachable_=(ItemForBattle)creatureOne_.ficheObjet(_import);
-        try {
-            boolean permuter_ = FightSuccess.random(_fight, objetAttachable_.getLawForAttackFirst());
-            if(permuter_){
-                return fighter_;
-            }
-            return _cbts.first();
-        } catch (SimulationException _0) {
-            throw new NoFighterException();
+        MonteCarloBoolean law_ = objetAttachable_.getLawForAttackFirst();
+        if (FightSuccess.isBadSimulation(_fight, law_)) {
+            return new EqList<TeamPosition>();
         }
+        boolean permuter_ = FightSuccess.random(_fight, law_);
+        if(permuter_){
+            return new EqList<TeamPosition>(fighter_);
+        }
+        return new EqList<TeamPosition>(_cbts.first());
     }
 
     static Rate speed(Fight _fight, TeamPosition _cbt,DataBase _import){

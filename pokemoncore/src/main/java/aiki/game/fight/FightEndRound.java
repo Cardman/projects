@@ -1,6 +1,5 @@
 package aiki.game.fight;
 import aiki.DataBase;
-import aiki.exceptions.SimulationException;
 import aiki.fight.EndRoundMainElements;
 import aiki.fight.abilities.AbilityData;
 import aiki.fight.enums.EndTurnType;
@@ -651,12 +650,10 @@ final class FightEndRound {
             return;
         }
         MonteCarloBoolean loiSachant_=law_.knowingGreater(new Rate(activity_.getNbTurn()));
-        boolean resterActif_;
-        try {
-            resterActif_ = FightSuccess.random(_fight, loiSachant_);
-        } catch (SimulationException _0) {
+        if (FightSuccess.isBadSimulation(_fight, loiSachant_)) {
             return;
         }
+        boolean resterActif_ = FightSuccess.random(_fight, loiSachant_);
         activity_.keepEnabled(resterActif_);
         _fight.addWeatherEndRoundMessage(_move, activity_, _import);
     }

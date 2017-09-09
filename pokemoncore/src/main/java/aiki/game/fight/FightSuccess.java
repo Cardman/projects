@@ -1,6 +1,5 @@
 package aiki.game.fight;
 import aiki.DataBase;
-import aiki.exceptions.SimulationException;
 import aiki.fight.abilities.AbilityData;
 import aiki.fight.enums.Statistic;
 import aiki.fight.items.Berry;
@@ -1354,30 +1353,27 @@ final class FightSuccess {
         return AbMonteCarlo.booleanLaw(_probaActif).editNumber();
     }
     static Statistic random(Fight _fight, MonteCarloEnum<Statistic> _law) {
-        checkSimu(_fight, _law);
         return _law.editNumber();
     }
 
     static boolean random(Fight _fight, MonteCarloBoolean _law) {
-        checkSimu(_fight, _law);
         return _law.editNumber();
     }
     static String random(Fight _fight, MonteCarloString _law) {
-        checkSimu(_fight, _law);
         return _law.editNumber();
     }
 
     static Rate random(Fight _fight, MonteCarloNumber _law) {
-        checkSimu(_fight, _law);
         return _law.editNumber();
     }
 
-    private static void checkSimu(Fight _fight,IntMonteCarlo _law) {
+    static boolean isBadSimulation(Fight _fight,IntMonteCarlo _law) {
         if(_law.nbEvents() != DataBase.ONE_POSSIBLE_CHOICE){
             if (_fight.getSimulation()) {
                 _fight.setAcceptableChoices(false);
-                throw new SimulationException();
+                return true;
             }
         }
+        return false;
     }
 }

@@ -1,22 +1,6 @@
 
 package aiki.game.fight;
-import code.maths.LgInt;
-import code.maths.NumDiffDenNum;
-import code.maths.Rate;
-import code.maths.montecarlo.AbMonteCarlo;
-import code.maths.montecarlo.MonteCarloEnum;
-import code.maths.montecarlo.MonteCarloNumber;
-import code.maths.montecarlo.MonteCarloString;
-import code.util.CustList;
-import code.util.EnumList;
-import code.util.EnumMap;
-import code.util.EqList;
-import code.util.Numbers;
-import code.util.ObjectMap;
-import code.util.StringList;
-import code.util.StringMap;
 import aiki.DataBase;
-import aiki.exceptions.SimulationException;
 import aiki.fight.abilities.AbilityData;
 import aiki.fight.enums.Statistic;
 import aiki.fight.items.Berry;
@@ -82,6 +66,21 @@ import aiki.game.fight.util.AffectedMove;
 import aiki.game.fight.util.UserTarget;
 import aiki.game.params.Difficulty;
 import aiki.game.params.enums.DifficultyModelLaw;
+import code.maths.LgInt;
+import code.maths.NumDiffDenNum;
+import code.maths.Rate;
+import code.maths.montecarlo.AbMonteCarlo;
+import code.maths.montecarlo.MonteCarloEnum;
+import code.maths.montecarlo.MonteCarloNumber;
+import code.maths.montecarlo.MonteCarloString;
+import code.util.CustList;
+import code.util.EnumList;
+import code.util.EnumMap;
+import code.util.EqList;
+import code.util.Numbers;
+import code.util.ObjectMap;
+import code.util.StringList;
+import code.util.StringMap;
 
 final class FightEffects {
 
@@ -524,11 +523,10 @@ final class FightEffects {
                 for(String e:lanceurAttaquesActuellesTypes_){
                     types_.addEvent(e,DataBase.defElementaryEvent());
                 }
-                try {
+                if (!FightSuccess.isBadSimulation(_fight, types_)) {
                     String type_ = FightSuccess.random(_fight, types_);
                     creatureCible_.affecterTypes(type_);
                     _fight.addChangedTypesMessage(_cible, new StringList(type_), _import);
-                } catch (SimulationException _0) {
                 }
             }else{
                 StringList resistingTypes_ = creatureLanceur_.resistingTypes(_import);
@@ -536,11 +534,10 @@ final class FightEffects {
                 for(String e:resistingTypes_){
                     types_.addEvent(e,DataBase.defElementaryEvent());
                 }
-                try {
+                if (!FightSuccess.isBadSimulation(_fight, types_)) {
                     String type_ = FightSuccess.random(_fight, types_);
                     creatureCible_.affecterTypes(type_);
                     _fight.addChangedTypesMessage(_cible, new StringList(type_), _import);
-                } catch (SimulationException _0) {
                 }
             }
         }else if(_effet.getChgtTypeByEnv().contains(_fight.getEnvType())){
@@ -2313,13 +2310,12 @@ final class FightEffects {
             for(Statistic e:_statistiques){
                 loi_.addEvent(e,_effet.getLawBoost().rate(e));
             }
-            try {
+            if (!FightSuccess.isBadSimulation(_fight, loi_)) {
                 Statistic statistique_= FightSuccess.random(_fight, loi_);
                 byte delta_=deltaBoostStatistic(_fight,_cible,statistique_,varStatisCran_.getVal(statistique_),_import);
                 creatureCible_.variationBoostStatistique(statistique_,delta_);
                 _fight.addAnimationStatistic(statistique_, delta_, false);
                 _fight.addStatisticMessage(_cible, statistique_, delta_, _import);
-            } catch (SimulationException _0) {
             }
         }
         if(!varStatisCran_.isEmpty()){
@@ -2651,13 +2647,13 @@ final class FightEffects {
     static void processStatusLaw(Fight _fight,TeamPosition _lanceur,TeamPosition _cible,
                 AbMonteCarlo<String> _statuts,StringMap<String> _echecStatuts,DataBase _import){
         MonteCarloString loiGeneree_ = generatedStatusLaw(_fight, _lanceur, _cible, _statuts, _echecStatuts, _import);
-        try {
-            String statut_=FightSuccess.random(_fight, loiGeneree_);
-            if(!statut_.isEmpty()){
-                setStatus(_fight, _lanceur, _cible, statut_, _import);
-                _fight.setAnimationStatus(statut_);
-            }
-        } catch (SimulationException _0) {
+        if (FightSuccess.isBadSimulation(_fight, loiGeneree_)) {
+            return;
+        }
+        String statut_=FightSuccess.random(_fight, loiGeneree_);
+        if(!statut_.isEmpty()){
+            setStatus(_fight, _lanceur, _cible, statut_, _import);
+            _fight.setAnimationStatus(statut_);
         }
     }
 

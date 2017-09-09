@@ -1,16 +1,5 @@
 package aiki.game.fight;
-import code.maths.Rate;
-import code.maths.montecarlo.AbMonteCarlo;
-import code.maths.montecarlo.MonteCarloBoolean;
-import code.maths.montecarlo.MonteCarloNumber;
-import code.util.CustList;
-import code.util.EqList;
-import code.util.Numbers;
-import code.util.StringList;
-import code.util.StringMap;
 import aiki.DataBase;
-import aiki.exceptions.NoFighterException;
-import aiki.exceptions.SimulationException;
 import aiki.fight.abilities.AbilityData;
 import aiki.fight.enums.Statistic;
 import aiki.fight.items.Ball;
@@ -51,6 +40,15 @@ import aiki.game.fight.util.NextUsers;
 import aiki.game.fight.util.RandomBoolResults;
 import aiki.game.params.Difficulty;
 import aiki.game.player.Player;
+import code.maths.Rate;
+import code.maths.montecarlo.AbMonteCarlo;
+import code.maths.montecarlo.MonteCarloBoolean;
+import code.maths.montecarlo.MonteCarloNumber;
+import code.util.CustList;
+import code.util.EqList;
+import code.util.Numbers;
+import code.util.StringList;
+import code.util.StringMap;
 
 final class FightRound {
 
@@ -267,15 +265,13 @@ final class FightRound {
         }
         nextFighters_=FightOrder.sortFightersByWornBerry(_fight,cbts_,_import);
         cbts_=nextFighters_.getNextFighters();
-        TeamPosition currentUser_;
-        try {
-            currentUser_ = FightOrder.randomFigtherHavingToAct(_fight,cbts_,_import);
+        EqList<TeamPosition> currentUsers_;
+        currentUsers_ = FightOrder.randomFigtherHavingToAct(_fight,cbts_,_import);
+        if (!currentUsers_.isEmpty()) {
             nextFighters_.getNextFighters().clear();
-            nextFighters_.getNextFighters().add(currentUser_);
-//        } catch (NoSuchElementException e) {
-        } catch (NoFighterException _0) {
+            nextFighters_.getNextFighters().add(currentUsers_.first());
+        } else {
             nextFighters_ = new NextUsers(cbts_, nextFighters_.getItemUsers());
-//            nextFighters_.setFirst(cbts_);
         }
         return nextFighters_;
     }
@@ -1065,15 +1061,15 @@ final class FightRound {
         boolean randomReturn_ = false;
         _fight.setSuccessfulUse(true);
         if (!precisionMaxCible_&&!sansEchec_) {
+            MonteCarloBoolean law_ = AbMonteCarlo.booleanLaw(precision_);
             boolean success_;
-            try {
-                MonteCarloBoolean law_ = AbMonteCarlo.booleanLaw(precision_);
-                success_ = FightSuccess.random(_fight, law_);
-            } catch (SimulationException _0) {
+            if (FightSuccess.isBadSimulation(_fight, law_)) {
                 if(Numbers.eq(_target.getTeam(),Fight.FOE)){
                     return;
                 }
                 success_ = true;
+            } else {
+                success_ = FightSuccess.random(_fight, law_);
             }
             if (!success_) {
                 _fight.setSuccessfulUse(false);

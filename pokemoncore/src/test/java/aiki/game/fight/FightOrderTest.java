@@ -6,7 +6,6 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
-import aiki.exceptions.NoFighterException;
 import aiki.fight.enums.Statistic;
 import aiki.fight.moves.MoveData;
 import aiki.fight.moves.effects.enums.PointViewChangementType;
@@ -1997,10 +1996,14 @@ public class FightOrderTest extends InitializationDataBase {
         list_.add(POKEMON_PLAYER_FIGHTER_ZERO);
         list_.add(POKEMON_PLAYER_FIGHTER_ONE);
         list_.add(POKEMON_PLAYER_FIGHTER_TWO);
-        assertEq(POKEMON_PLAYER_FIGHTER_TWO, FightOrder.randomFigtherHavingToAct(fight_,list_, 2, _data_));
+        EqList<TeamPosition> next_ = FightOrder.randomFigtherHavingToAct(fight_,list_, 2, _data_);
+        assertEq(1, next_.size());
+        assertEq(POKEMON_PLAYER_FIGHTER_TWO, next_.get(0));
         assertTrue(fight_.getAcceptableChoices());
         list_.removeObj(POKEMON_PLAYER_FIGHTER_TWO);
-        assertEq(POKEMON_PLAYER_FIGHTER_ZERO, FightOrder.randomFigtherHavingToAct(fight_,list_, 1, _data_));
+        next_ = FightOrder.randomFigtherHavingToAct(fight_,list_, 1, _data_);
+        assertEq(1, next_.size());
+        assertEq(POKEMON_PLAYER_FIGHTER_ZERO, next_.get(0));
         assertTrue(fight_.getAcceptableChoices());
     }
 
@@ -2081,9 +2084,14 @@ public class FightOrderTest extends InitializationDataBase {
         list_.add(POKEMON_PLAYER_FIGHTER_ZERO);
         list_.add(POKEMON_PLAYER_FIGHTER_ONE);
         list_.add(POKEMON_PLAYER_FIGHTER_TWO);
-        assertEq(POKEMON_PLAYER_FIGHTER_ONE, FightOrder.randomFigtherHavingToAct(fight_,list_, _data_));
+        EqList<TeamPosition> next_;
+        next_ = FightOrder.randomFigtherHavingToAct(fight_,list_, _data_);
+        assertEq(1, next_.size());
+        assertEq(POKEMON_PLAYER_FIGHTER_ONE, next_.get(0));
         list_.removeObj(POKEMON_PLAYER_FIGHTER_ONE);
-        assertEq(POKEMON_PLAYER_FIGHTER_ZERO, FightOrder.randomFigtherHavingToAct(fight_,list_, _data_));
+        next_ = FightOrder.randomFigtherHavingToAct(fight_,list_, _data_);
+        assertEq(1, next_.size());
+        assertEq(POKEMON_PLAYER_FIGHTER_ZERO, next_.get(0));
         assertTrue(fight_.getAcceptableChoices());
     }
 
@@ -2165,12 +2173,14 @@ public class FightOrderTest extends InitializationDataBase {
         list_.add(POKEMON_PLAYER_FIGHTER_ZERO);
         list_.add(POKEMON_PLAYER_FIGHTER_ONE);
         list_.add(POKEMON_PLAYER_FIGHTER_TWO);
-        assertEq(POKEMON_PLAYER_FIGHTER_ONE, FightOrder.randomFigtherHavingToAct(fight_,list_, _data_));
-//        assertEq(POKEMON_PLAYER_FIGHTER_ZERO, FightOrder.randomFigtherHavingToAct(fight_,list_, _data_));
+        EqList<TeamPosition> next_;
+        next_ = FightOrder.randomFigtherHavingToAct(fight_,list_, _data_);
+        assertEq(1, next_.size());
+        assertEq(POKEMON_PLAYER_FIGHTER_ONE, next_.get(0));
         assertTrue(fight_.getAcceptableChoices());
     }
 
-    @Test(expected=NoFighterException.class)
+    @Test
     public void randomFigtherHavingToAct1FailTest() {
         Difficulty diff_= new Difficulty();
         Player player_ = new Player(NICKNAME,null,diff_,false,_data_);
@@ -2243,10 +2253,12 @@ public class FightOrderTest extends InitializationDataBase {
         fight_.getFighter(POKEMON_PLAYER_FIGHTER_ONE).setFirstChosenMove(BROUHAHA);
         fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO).setSubstitute((byte) 2);
         FightRound.initRound(fight_);
-        FightOrder.randomFigtherHavingToAct(fight_,new EqList<TeamPosition>(), _data_);
+        EqList<TeamPosition> next_ = FightOrder.randomFigtherHavingToAct(fight_,new EqList<TeamPosition>(), _data_);
+        assertEq(0, next_.size());
+        assertTrue(fight_.getAcceptableChoices());
     }
 
-    @Test(expected=NoFighterException.class)
+    @Test
     public void randomFigtherHavingToAct1FailSimulationTest() {
         Difficulty diff_= new Difficulty();
         Player player_ = new Player(NICKNAME,null,diff_,false,_data_);
@@ -2325,10 +2337,12 @@ public class FightOrderTest extends InitializationDataBase {
         list_.add(POKEMON_PLAYER_FIGHTER_ZERO);
         list_.add(POKEMON_PLAYER_FIGHTER_ONE);
         list_.add(POKEMON_PLAYER_FIGHTER_TWO);
-        FightOrder.randomFigtherHavingToAct(fight_,list_, _data_);
+        EqList<TeamPosition> next_ = FightOrder.randomFigtherHavingToAct(fight_,list_, _data_);
+        assertEq(0, next_.size());
+        assertTrue(!fight_.getAcceptableChoices());
     }
 
-    @Test(expected=NoFighterException.class)
+    @Test
     public void randomFigtherHavingToAct2FailSimulationTest() {
         Difficulty diff_= new Difficulty();
         Player player_ = new Player(NICKNAME,null,diff_,false,_data_);
@@ -2407,10 +2421,9 @@ public class FightOrderTest extends InitializationDataBase {
         list_.add(POKEMON_PLAYER_FIGHTER_ZERO);
         list_.add(POKEMON_PLAYER_FIGHTER_ONE);
         list_.add(POKEMON_PLAYER_FIGHTER_TWO);
-        FightOrder.randomFigtherHavingToAct(fight_,list_, 2, _data_);
-//        assertEq(POKEMON_PLAYER_FIGHTER_TWO, FightOrder.randomFigtherHavingToAct(fight_,list_, 2, data));
-//        list_.removeObj(POKEMON_PLAYER_FIGHTER_TWO);
-//        assertEq(POKEMON_PLAYER_FIGHTER_ZERO, FightOrder.randomFigtherHavingToAct(fight_,list_, 1, data));
+        EqList<TeamPosition> next_ = FightOrder.randomFigtherHavingToAct(fight_,list_, 2, _data_);
+        assertEq(0, next_.size());
+        assertTrue(!fight_.getAcceptableChoices());
     }
 
     @Test

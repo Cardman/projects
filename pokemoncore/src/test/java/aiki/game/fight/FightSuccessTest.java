@@ -5,7 +5,6 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
-import aiki.exceptions.SimulationException;
 import aiki.fight.enums.Statistic;
 import aiki.fight.moves.MoveData;
 import aiki.fight.moves.effects.Effect;
@@ -117,14 +116,14 @@ public class FightSuccessTest extends InitializationDataBase {
         assertEq(Rate.one(), event_);
     }
 
-    @Test(expected=SimulationException.class)
-    public void random1FailSimulationTest() {
+    @Test
+    public void random1SimulationTest() {
         Fight fight_ = random();
         fight_.setSimulation(true);
         MonteCarloNumber law_ = new MonteCarloNumber();
         law_.addEvent(Rate.one(), LgInt.one());
         law_.addEvent(Rate.zero(), LgInt.zero());
-        FightSuccess.random(fight_, law_);
+        assertTrue(FightSuccess.isBadSimulation(fight_, law_));
     }
 
     @Test
