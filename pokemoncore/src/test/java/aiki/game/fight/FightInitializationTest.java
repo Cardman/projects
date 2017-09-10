@@ -53,8 +53,8 @@ public class FightInitializationTest extends InitializationDataBase {
         assertEq(4, fight_.getPlayerMaxNumberFrontFighters());
         assertEq(0, fight_.getTeams().size());
         assertEq(2, fight_.getKos().size());
-        assertEq(false, fight_.getKos().getVal(Fight.FOE));
-        assertEq(false, fight_.getKos().getVal(Fight.PLAYER));
+        assertTrue(!fight_.getKos().getVal(Fight.FOE));
+        assertTrue(!fight_.getKos().getVal(Fight.PLAYER));
 //        assertEq(2, fight_.getKos().getKeys(false).size());
 //        assertTrue(fight_.getKos().contains(Fight.FOE));
 //        assertTrue(fight_.getKos().contains(Fight.PLAYER));
