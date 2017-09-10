@@ -2,9 +2,9 @@ package aiki.map.levels;
 import aiki.DataBase;
 import aiki.exceptions.DataException;
 import aiki.map.pokemon.WildPk;
-import code.datacheck.CheckedData;
 import code.maths.LgInt;
 import code.maths.montecarlo.MonteCarloEq;
+import code.serialize.CheckedData;
 import code.util.EqList;
 import code.util.annot.RwXml;
 
@@ -39,24 +39,12 @@ public class AreaApparition {
         }
         for (WildPk p: wildPokemon) {
             p.validate(_data, true);
-//            if (!p.isValid(_data)) {
-//                throw new DataException();
-//            }
-//            if (p.hasJustBeenCreated()) {
-//                throw new DataException();
-//            }
         }
         if (wildPokemon.isEmpty()) {
             throw new DataException();
         }
         for (WildPk p: wildPokemonFishing) {
             p.validate(_data, true);
-//            if (!p.isValid(_data)) {
-//                throw new DataException();
-//            }
-//            if (p.hasJustBeenCreated()) {
-//                throw new DataException();
-//            }
         }
     }
 

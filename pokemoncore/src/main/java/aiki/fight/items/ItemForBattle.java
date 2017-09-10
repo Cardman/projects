@@ -7,10 +7,11 @@ import aiki.fight.moves.effects.EffectEndRound;
 import aiki.fight.moves.effects.EffectEndRoundIndividual;
 import aiki.fight.moves.effects.EffectEndRoundTeam;
 import aiki.fight.util.StatisticPokemon;
-import code.datacheck.CheckedData;
 import code.maths.Rate;
 import code.maths.montecarlo.MonteCarloBoolean;
+import code.serialize.CheckedData;
 import code.util.CustList;
+import code.util.EntryCust;
 import code.util.EnumMap;
 import code.util.ObjectMap;
 import code.util.StringList;
@@ -119,13 +120,17 @@ public final class ItemForBattle extends Item {
         if (!effectSending.isEmpty()) {
             effectSending.first().validate(_data);
         }
-        for (StatisticPokemon s: multStatPokemonRank.getKeys()) {
-            if (!_data.getPokedex().contains(s.getPokemon())) {
+        for (EntryCust<StatisticPokemon,Byte> e: multStatPokemonRank.entryList()) {
+            if (!_data.getPokedex().contains(e.getKey().getPokemon())) {
                 throw new DataException();
             }
+            e.getValue().byteValue();
         }
         if (!Statistic.getStatisticsWithBoost().containsAllObj(multStatRank.getKeys())) {
             throw new DataException();
+        }
+        for (EntryCust<Statistic,Byte> e: multStatRank.entryList()) {
+            e.getValue().byteValue();
         }
         if (!Statistic.getStatisticsWithBoost().containsAllObj(multStat.getKeys())) {
             throw new DataException();
@@ -158,19 +163,21 @@ public final class ItemForBattle extends Item {
         if (!_data.getMovesEffectGlobalWeather().containsAllObj(immuWeather)) {
             throw new DataException();
         }
-        for (Statistic s: boostStatisSuperEff.getKeys()) {
-            if (!s.isBoost()) {
+        for (EntryCust<Statistic,Byte> e: boostStatisSuperEff.entryList()) {
+            if (!e.getKey().isBoost()) {
                 throw new DataException();
             }
+            e.getValue().byteValue();
         }
         for (String t: boostStatisTypes.getKeys()) {
             if (!_data.getTypes().containsObj(t)) {
                 throw new DataException();
             }
-            for (Statistic s: boostStatisTypes.getVal(t).getKeys()) {
-                if (!s.isBoost()) {
+            for (EntryCust<Statistic,Byte> s: boostStatisTypes.getVal(t).entryList()) {
+                if (!s.getKey().isBoost()) {
                     throw new DataException();
                 }
+                s.getValue().byteValue();
             }
         }
         if (!_data.getStatus().containsAllAsKeys(immuStatus)) {

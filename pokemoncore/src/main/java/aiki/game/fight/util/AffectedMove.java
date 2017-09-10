@@ -1,6 +1,6 @@
 package aiki.game.fight.util;
 import aiki.game.fight.ActivityOfMove;
-import code.datacheck.CheckedData;
+import code.serialize.CheckedData;
 import code.util.StringList;
 import code.xml.FromAndToString;
 

@@ -1,8 +1,4 @@
 package aiki.game.fight;
-import code.maths.Rate;
-import code.util.CustList;
-import code.util.Numbers;
-import code.util.StringList;
 import aiki.DataBase;
 import aiki.fight.abilities.AbilityData;
 import aiki.fight.enums.Statistic;
@@ -13,6 +9,10 @@ import aiki.fight.moves.effects.Effect;
 import aiki.fight.moves.effects.EffectGlobal;
 import aiki.fight.moves.effects.EffectRestriction;
 import aiki.game.fight.util.NbEffectFighterCoords;
+import code.maths.Rate;
+import code.util.CustList;
+import code.util.Numbers;
+import code.util.StringList;
 
 final class FightItems {
 

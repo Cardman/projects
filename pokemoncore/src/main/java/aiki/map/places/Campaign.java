@@ -4,7 +4,7 @@ import aiki.map.characters.Person;
 import aiki.map.levels.LevelWithWildPokemon;
 import aiki.map.pokemon.WildPk;
 import aiki.util.Coords;
-import code.datacheck.CheckedData;
+import code.serialize.CheckedData;
 
 @CheckedData
 public abstract class Campaign extends Place {

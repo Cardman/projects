@@ -17,7 +17,7 @@ import aiki.fight.moves.effects.EffectTeam;
 import aiki.fight.moves.effects.EffectTeamWhileSendFoe;
 import aiki.fight.moves.effects.EffectUnprotectFromTypes;
 import aiki.fight.moves.enums.TargetChoice;
-import code.datacheck.CheckedData;
+import code.serialize.CheckedData;
 import code.util.annot.RwXml;
 
 

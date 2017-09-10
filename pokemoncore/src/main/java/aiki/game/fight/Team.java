@@ -9,8 +9,8 @@ import aiki.game.player.Player;
 import aiki.map.pokemon.PkTrainer;
 import aiki.map.pokemon.PokemonPlayer;
 import aiki.map.pokemon.WildPk;
-import code.datacheck.CheckedData;
 import code.maths.LgInt;
+import code.serialize.CheckedData;
 import code.util.CustList;
 import code.util.EntryCust;
 import code.util.EqList;
@@ -362,6 +362,11 @@ public final class Team {
         }
         for (String m: enabledMoves.getKeys()) {
             if (enabledMoves.getVal(m).getNbTurn() < 0) {
+                throw new GameLoadException();
+            }
+        }
+        for (Object o: enabledMovesWhileSendingFoe.values()) {
+            if (!(o instanceof Boolean)) {
                 throw new GameLoadException();
             }
         }

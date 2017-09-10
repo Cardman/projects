@@ -1,10 +1,10 @@
 package aiki.fight.moves.effects;
-import code.util.EqList;
-import code.util.StringList;
-import code.util.annot.RwXml;
 import aiki.DataBase;
 import aiki.exceptions.DataException;
 import aiki.fight.util.TypesDuo;
+import code.util.EqList;
+import code.util.StringList;
+import code.util.annot.RwXml;
 
 @RwXml
 public class EffectUnprotectFromTypes extends Effect {

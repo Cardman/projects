@@ -1,7 +1,7 @@
 package aiki.fight.pokemon;
+import aiki.map.pokemon.enums.Gender;
 import code.util.StringList;
 import code.util.ints.Equallable;
-import aiki.map.pokemon.enums.Gender;
 
 public final class GenderName implements Equallable<GenderName> {
 

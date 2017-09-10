@@ -6,10 +6,6 @@ import static org.junit.Assert.assertTrue;
 import org.junit.Test;
 
 import code.maths.Rate;
-import code.maths.geo.CompactPlanePoint;
-import code.maths.geo.CustLine;
-import code.maths.geo.CustPoint;
-import code.maths.geo.Triangle;
 
 @SuppressWarnings("static-method")
 public class TriangleTest {

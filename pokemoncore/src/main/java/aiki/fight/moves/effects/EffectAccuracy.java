@@ -2,7 +2,7 @@ package aiki.fight.moves.effects;
 import aiki.DataBase;
 import aiki.exceptions.DataException;
 import aiki.fight.moves.enums.TargetChoice;
-import code.datacheck.CheckedData;
+import code.serialize.CheckedData;
 
 @CheckedData
 public class EffectAccuracy extends Effect {

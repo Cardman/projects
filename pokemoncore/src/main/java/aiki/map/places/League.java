@@ -8,7 +8,7 @@ import aiki.map.tree.PlaceArea;
 import aiki.map.tree.Tree;
 import aiki.util.Coords;
 import aiki.util.Point;
-import code.datacheck.CheckedData;
+import code.serialize.CheckedData;
 import code.util.CustList;
 import code.util.NumberMap;
 import code.util.annot.RwXml;
@@ -32,6 +32,9 @@ public class League extends Place {
 
     @Override
     public void validate(DataBase _data,PlaceArea _placeArea) {
+        if (name == null) {
+            throw new DataException();
+        }
         if (rooms.isEmpty()) {
             throw new DataException();
         }

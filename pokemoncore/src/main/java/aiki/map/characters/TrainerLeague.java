@@ -1,5 +1,7 @@
 package aiki.map.characters;
-import code.datacheck.CheckedData;
+import aiki.DataBase;
+import aiki.exceptions.DataException;
+import code.serialize.CheckedData;
 import code.util.annot.RwXml;
 
 @CheckedData
@@ -7,6 +9,14 @@ import code.util.annot.RwXml;
 public class TrainerLeague extends TrainerOneFight implements Fightable {
 
     private String name;
+
+    @Override
+    public void validate(DataBase _data) {
+        super.validate(_data);
+        if (name == null) {
+            throw new DataException();
+        }
+    }
 
     public String getName() {
         return name;

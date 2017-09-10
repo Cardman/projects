@@ -10,7 +10,6 @@ import org.junit.runner.RunWith;
 
 import code.maths.exceptions.FormatException;
 import code.maths.exceptions.MathStringFormatException;
-import code.maths.litteral.BooleanString;
 import code.util.StringMap;
 
 @RunWith(JUnitParamsRunner.class)

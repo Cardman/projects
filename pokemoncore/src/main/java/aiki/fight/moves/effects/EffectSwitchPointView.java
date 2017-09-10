@@ -3,7 +3,7 @@ import aiki.DataBase;
 import aiki.exceptions.DataException;
 import aiki.fight.moves.effects.enums.PointViewChangementType;
 import aiki.fight.moves.enums.TargetChoice;
-import code.datacheck.CheckedData;
+import code.serialize.CheckedData;
 import code.util.annot.RwXml;
 
 
@@ -34,21 +34,6 @@ public class EffectSwitchPointView extends Effect {
             return;
         }
         throw new DataException();
-//        switch (pointViewChangement) {
-//        case MIRROR_AGAINST_THROWER:
-//        case ATTRACT_DAMAGES_MOVES:
-//            if (getTargetChoice() != TargetChoice.LANCEUR) {
-//                throw new DataException();
-//            }
-//            return;
-//        case THIEF_BONUSES:
-//            if (getTargetChoice() == TargetChoice.LANCEUR) {
-//                throw new DataException();
-//            }
-//            return;
-//        default:
-//            throw new DataException();
-//        }
     }
     public PointViewChangementType getPointViewChangement() {
         return pointViewChangement;

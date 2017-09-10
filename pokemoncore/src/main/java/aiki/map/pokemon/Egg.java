@@ -1,7 +1,7 @@
 package aiki.map.pokemon;
 import aiki.DataBase;
 import aiki.exceptions.GameLoadException;
-import code.datacheck.CheckedData;
+import code.serialize.CheckedData;
 import code.util.StringList;
 import code.xml.FromAndToString;
 

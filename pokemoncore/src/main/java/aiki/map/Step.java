@@ -1,7 +1,4 @@
 package aiki.map;
-import code.util.EqList;
-import code.util.NumberMap;
-import code.util.ObjectMap;
 import aiki.fight.pokemon.GenderName;
 import aiki.map.levels.Level;
 import aiki.map.levels.LevelIndoorGym;
@@ -15,6 +12,9 @@ import aiki.map.tree.PlaceArea;
 import aiki.map.tree.Tree;
 import aiki.map.util.PlaceLevel;
 import aiki.util.Coords;
+import code.util.EqList;
+import code.util.NumberMap;
+import code.util.ObjectMap;
 
 public class Step {
 

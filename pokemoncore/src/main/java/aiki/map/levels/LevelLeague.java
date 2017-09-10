@@ -4,7 +4,7 @@ import aiki.exceptions.DataException;
 import aiki.map.characters.TrainerLeague;
 import aiki.map.tree.LevelArea;
 import aiki.util.Point;
-import code.datacheck.CheckedData;
+import code.serialize.CheckedData;
 import code.util.annot.RwXml;
 
 @RwXml

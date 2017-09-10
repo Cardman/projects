@@ -4,9 +4,6 @@ import static code.maths.EquallableMathUtil.assertEq;
 import org.junit.Test;
 
 import code.maths.Rate;
-import code.maths.geo.CustLine;
-import code.maths.geo.CustPoint;
-import code.maths.geo.RatePoint;
 
 @SuppressWarnings("static-method")
 public class CustLineTest {

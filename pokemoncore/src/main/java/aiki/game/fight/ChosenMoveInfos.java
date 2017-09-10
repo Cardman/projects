@@ -1,6 +1,6 @@
 package aiki.game.fight;
-import code.util.StringList;
 import aiki.game.UsesOfMove;
+import code.util.StringList;
 
 public class ChosenMoveInfos {
 

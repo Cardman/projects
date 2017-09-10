@@ -1,9 +1,9 @@
 package aiki.map.characters;
+import aiki.DataBase;
+import aiki.exceptions.DataException;
 import code.util.Numbers;
 import code.util.StringList;
 import code.util.annot.RwXml;
-import aiki.DataBase;
-import aiki.exceptions.DataException;
 
 @RwXml
 public class DealerItem extends Person implements CharacterInRoadCave{

@@ -1,15 +1,15 @@
 package aiki.game.fight;
+import aiki.DataBase;
+import aiki.fight.items.ItemForBattle;
+import aiki.fight.pokemon.NameLevel;
+import aiki.game.params.Difficulty;
+import aiki.map.pokemon.PkTrainer;
 import code.maths.Rate;
 import code.util.CustList;
 import code.util.EqList;
 import code.util.NumberMap;
 import code.util.Numbers;
 import code.util.StringMap;
-import aiki.DataBase;
-import aiki.fight.items.ItemForBattle;
-import aiki.fight.pokemon.NameLevel;
-import aiki.game.params.Difficulty;
-import aiki.map.pokemon.PkTrainer;
 
 public class PseudoFight {
 

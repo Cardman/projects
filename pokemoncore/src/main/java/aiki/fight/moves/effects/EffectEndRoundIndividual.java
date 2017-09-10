@@ -4,8 +4,9 @@ import aiki.exceptions.DataException;
 import aiki.fight.moves.effects.enums.RelationType;
 import aiki.fight.moves.enums.TargetChoice;
 import aiki.fight.status.StatusType;
-import code.datacheck.CheckedData;
 import code.maths.Rate;
+import code.serialize.CheckedData;
+import code.util.EntryCust;
 import code.util.StringList;
 import code.util.StringMap;
 import code.util.annot.RwXml;
@@ -30,18 +31,22 @@ public class EffectEndRoundIndividual extends EffectEndRound {
         if (getTargetChoice() != TargetChoice.LANCEUR) {
             throw new DataException();
         }
-        for (String s: multDamageStatus.getKeys()) {
-            if (!_data.getStatus().contains(s)) {
+        for (EntryCust<String, Rate> e: multDamageStatus.entryList()) {
+            if (!_data.getStatus().contains(e.getKey())) {
                 throw new DataException();
             }
-            if (_data.getStatus(s).getStatusType() == StatusType.RELATION_UNIQUE) {
+            if (_data.getStatus(e.getKey()).getStatusType() == StatusType.RELATION_UNIQUE) {
                 throw new DataException();
             }
+            e.getValue().isZero();
         }
         StringList keys_ = healHpByOwnerTypes.getKeys();
         keys_.removeObj(DataBase.EMPTY_STRING);
         if (!_data.getTypes().containsAllObj(keys_)) {
             throw new DataException();
+        }
+        for (EntryCust<String, Rate> e: healHpByOwnerTypes.entryList()) {
+            e.getValue().isZero();
         }
         if (!deleteAllStatus.isZeroOrGt()) {
             throw new DataException();

@@ -11,7 +11,6 @@ import cards.gui.panels.CarpetPresident;
 import cards.main.LaunchingCards;
 import cards.president.HandPresident;
 import cards.president.enumerations.CardPresident;
-import code.datacheck.ObjectComponents;
 import code.gui.LabelButton;
 import code.stream.StreamTextFile;
 import code.util.CustList;
@@ -93,7 +92,6 @@ public class ContainerPresident extends ContainerGame {
     a partir d'un fichier*/
     protected static HandPresident chargerPilePresident(int _nbStacks) {
         HandPresident pile_=(HandPresident)StreamTextFile.loadObject(LaunchingCards.getTempFolderSl()+FileConst.DECK_FOLDER+StreamTextFile.SEPARATEUR+GameEnum.PRESIDENT.name()+_nbStacks+FileConst.DECK_EXT);
-        ObjectComponents.checkObjectNotNull(pile_);
         return pile_;
     }
 

@@ -1,7 +1,7 @@
 package aiki.game.fight;
+import aiki.DataBase;
 import code.util.StringList;
 import code.util.annot.RwXml;
-import aiki.DataBase;
 
 @RwXml
 public class ChoiceOfEvolutionAndMoves {

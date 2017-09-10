@@ -1,12 +1,13 @@
 package aiki.fight.moves.effects;
-import code.maths.Rate;
-import code.maths.montecarlo.MonteCarloNumber;
-import code.util.NumberMap;
-import code.util.annot.RwXml;
 import aiki.DataBase;
 import aiki.exceptions.DataException;
 import aiki.fight.moves.effects.enums.RelationType;
 import aiki.fight.moves.enums.TargetChoice;
+import code.maths.Rate;
+import code.maths.montecarlo.MonteCarloNumber;
+import code.util.EntryCust;
+import code.util.NumberMap;
+import code.util.annot.RwXml;
 
 @RwXml
 public class EffectEndRoundSingleRelation extends EffectEndRound {
@@ -36,8 +37,9 @@ public class EffectEndRoundSingleRelation extends EffectEndRound {
                 throw new DataException();
             }
         }
-        for (Rate v: rateDamageFunctionOfNbRounds.values()) {
-            if (!v.isZeroOrGt()) {
+        for (EntryCust<Long,Rate> e: rateDamageFunctionOfNbRounds.entryList()) {
+            e.getKey().longValue();
+            if (!e.getValue().isZeroOrGt()) {
                 throw new DataException();
             }
         }

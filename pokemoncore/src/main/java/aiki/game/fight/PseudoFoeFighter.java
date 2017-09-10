@@ -1,9 +1,9 @@
 package aiki.game.fight;
-import code.maths.Rate;
 import aiki.DataBase;
 import aiki.fight.pokemon.PokemonData;
 import aiki.game.params.Difficulty;
 import aiki.map.pokemon.PkTrainer;
+import code.maths.Rate;
 
 public class PseudoFoeFighter extends PseudoFighter {
 

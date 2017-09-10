@@ -3,9 +3,10 @@ import aiki.DataBase;
 import aiki.exceptions.DataException;
 import aiki.fight.enums.Statistic;
 import aiki.fight.moves.enums.TargetChoice;
-import code.datacheck.CheckedData;
 import code.maths.Rate;
 import code.maths.montecarlo.MonteCarloEnum;
+import code.serialize.CheckedData;
+import code.util.EntryCust;
 import code.util.EnumList;
 import code.util.EnumMap;
 import code.util.annot.RwXml;
@@ -30,8 +31,11 @@ public class EffectStatistic extends Effect {
         if (!evtRate.isZeroOrGt()) {
             throw new DataException();
         }
-        if (!Statistic.getStatisticsWithBoost().containsAllObj(statisVarRank.getKeys())) {
-            throw new DataException();
+        for (EntryCust<Statistic,Byte> e: statisVarRank.entryList()) {
+            if (!Statistic.getStatisticsWithBoost().containsObj(e.getKey())) {
+                throw new DataException();
+            }
+            e.getValue().byteValue();
         }
         if (!Statistic.getStatisticsWithBoost().containsAllObj(lawBoost.events())) {
             throw new DataException();

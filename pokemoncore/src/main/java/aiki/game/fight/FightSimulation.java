@@ -1,16 +1,4 @@
 package aiki.game.fight;
-import code.maths.Rate;
-import code.util.CustList;
-import code.util.EntryCust;
-import code.util.EqList;
-import code.util.NatTreeMap;
-import code.util.NumberMap;
-import code.util.Numbers;
-import code.util.PairNumber;
-import code.util.StringList;
-import code.util.StringMap;
-import code.util.TreeMap;
-import code.util.comparators.ComparatorPairNumber;
 import aiki.DataBase;
 import aiki.fight.enums.Statistic;
 import aiki.fight.moves.MoveData;
@@ -49,6 +37,18 @@ import aiki.map.pokemon.PokemonPlayer;
 import aiki.map.pokemon.UsablePokemon;
 import aiki.map.pokemon.enums.Gender;
 import aiki.util.Coords;
+import code.maths.Rate;
+import code.util.CustList;
+import code.util.EntryCust;
+import code.util.EqList;
+import code.util.NatTreeMap;
+import code.util.NumberMap;
+import code.util.Numbers;
+import code.util.PairNumber;
+import code.util.StringList;
+import code.util.StringMap;
+import code.util.TreeMap;
+import code.util.comparators.ComparatorPairNumber;
 
 public class FightSimulation {
 

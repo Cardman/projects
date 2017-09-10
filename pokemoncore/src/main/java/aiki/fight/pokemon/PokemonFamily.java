@@ -1,8 +1,8 @@
 package aiki.fight.pokemon;
-import code.util.EqList;
-import code.util.StringList;
 import aiki.DataBase;
 import aiki.exceptions.DataException;
+import code.util.EqList;
+import code.util.StringList;
 
 public final class PokemonFamily {
 

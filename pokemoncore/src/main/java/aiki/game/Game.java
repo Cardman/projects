@@ -69,13 +69,12 @@ import aiki.map.util.ScreenCoords;
 import aiki.util.Coords;
 import aiki.util.LevelPoint;
 import aiki.util.Point;
-import code.datacheck.CheckedData;
-import code.datacheck.ObjectComponents;
 import code.images.Image;
 import code.maths.LgInt;
 import code.maths.Rate;
 import code.maths.montecarlo.MonteCarloEq;
 import code.maths.montecarlo.MonteCarloString;
+import code.serialize.CheckedData;
 import code.util.CustList;
 import code.util.EntryCust;
 import code.util.EqList;
@@ -302,6 +301,14 @@ public class Game {
     }
 
     public void validate(DataBase _data) {
+        for (Object o: visitedPlaces.values()) {
+            if (!(o instanceof Boolean)) {
+                throw new GameLoadException();
+            }
+        }
+        if (playerOrientation == null) {
+            playerOrientation = Direction.UP;
+        }
         visitFirstPlaces(_data);
         player.validate(_data);
         boolean existNonKoNonEggPok_ = false;
@@ -350,6 +357,26 @@ public class Game {
         }
         if (!NbFightCoords.equalsSet(beatTrainer.getKeys(), map_.getBeatTrainer())) {
             throw new GameLoadException();
+        }
+        for (Object o: beatGymLeader.values()) {
+            if (!(o instanceof Boolean)) {
+                throw new GameLoadException();
+            }
+        }
+        for (Object o: beatTrainer.values()) {
+            if (!(o instanceof Boolean)) {
+                throw new GameLoadException();
+            }
+        }
+        for (Object o: takenPokemon.values()) {
+            if (!(o instanceof Boolean)) {
+                throw new GameLoadException();
+            }
+        }
+        for (Object o: takenObjects.values()) {
+            if (!(o instanceof Boolean)) {
+                throw new GameLoadException();
+            }
         }
         if (!Coords.equalsSet(beatGymLeader.getKeys(), map_.getBeatGymLeader())) {
             throw new GameLoadException();
@@ -2608,9 +2635,6 @@ public class Game {
         if (zippedRom == null) {
             zippedRom = DataBase.EMPTY_STRING;
         }
-        ObjectComponents.setCheckingNullity(true);
-        ObjectComponents.setReferences(false);
-        ObjectComponents.checkObjectNotNull(this);
         validate(_data);
         DataMap d_ = _data.getMap();
         Coords voisin_ = closestTile(d_);

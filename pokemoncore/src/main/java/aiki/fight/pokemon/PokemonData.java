@@ -9,9 +9,9 @@ import aiki.fight.pokemon.evolution.GenderConstraints;
 import aiki.fight.util.LevelMove;
 import aiki.fight.util.StatBaseEv;
 import aiki.map.pokemon.enums.Gender;
-import code.datacheck.CheckedData;
 import code.maths.LgInt;
 import code.maths.Rate;
+import code.serialize.CheckedData;
 import code.util.EnumMap;
 import code.util.EqList;
 import code.util.Numbers;
@@ -21,18 +21,6 @@ import code.util.annot.RwXml;
 
 @RwXml
 public class PokemonData {
-
-//    static final String BASE = "VAR__BASE";
-//
-//    static final String EV = "VAR__EV";
-//
-//    static final String IV = "VAR__IV";
-//
-//    static final String NIVEAU = "VAR__NIVEAU";
-//
-//    static final String FORM_STATIS = "("+BASE+"*8+"+EV+"+"+IV+"*4)*"+NIVEAU+":400+5";
-//
-//    static final String FORM_STATIS_HP = FORM_STATIS + "+5+"+NIVEAU;
 
     private static final int RATE_BASE = 8;
 
@@ -118,6 +106,10 @@ public class PokemonData {
     private short happinessHatch;
 
     public void validate(DataBase _data) {
+        eggGroups.removeDuplicates();
+        if (expEvo == null) {
+            throw new DataException();
+        }
         if (expRate <= 0) {
             throw new DataException();
         }
@@ -143,6 +135,9 @@ public class PokemonData {
             throw new DataException();
         }
         if (!_data.getTypes().containsAllObj(types)) {
+            throw new DataException();
+        }
+        if (genderRep == null) {
             throw new DataException();
         }
         if (genderRep != GenderRepartition.NO_GENDER) {

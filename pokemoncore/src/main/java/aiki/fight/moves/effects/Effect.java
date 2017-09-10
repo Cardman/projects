@@ -2,7 +2,7 @@ package aiki.fight.moves.effects;
 import aiki.DataBase;
 import aiki.exceptions.DataException;
 import aiki.fight.moves.enums.TargetChoice;
-import code.datacheck.CheckedData;
+import code.serialize.CheckedData;
 import code.util.Numbers;
 import code.util.annot.RwXml;
 
@@ -21,6 +21,9 @@ public abstract class Effect {
     @param _data
     */
     public void validate(DataBase _data) {
+        if (targetChoice == null) {
+            throw new DataException();
+        }
         if (!requiredSuccessfulEffects.isEmpty()) {
             if (requiredSuccessfulEffects.getMinimum() < 0) {
                 throw new DataException();

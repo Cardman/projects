@@ -17,7 +17,6 @@ import cards.tarot.HandTarot;
 import cards.tarot.enumerations.CardTarot;
 import cards.tarot.enumerations.Handfuls;
 import cards.tarot.enumerations.Miseres;
-import code.datacheck.ObjectComponents;
 import code.gui.LabelButton;
 import code.stream.StreamTextFile;
 import code.util.CustList;
@@ -90,7 +89,6 @@ public class ContainerTarot extends ContainerGame{
     a partir d'un fichier*/
     protected static HandTarot chargerPileTarot() {
         HandTarot pile_=(HandTarot)StreamTextFile.loadObject(LaunchingCards.getTempFolderSl()+FileConst.DECK_FOLDER+StreamTextFile.SEPARATEUR+GameEnum.TAROT.name()+FileConst.DECK_EXT);
-        ObjectComponents.checkObjectNotNull(pile_);
         return pile_;
     }
 

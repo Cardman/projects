@@ -16,7 +16,7 @@ import aiki.map.tree.Tree;
 import aiki.util.Coords;
 import aiki.util.LevelPoint;
 import aiki.util.Point;
-import code.datacheck.CheckedData;
+import code.serialize.CheckedData;
 import code.util.CustList;
 import code.util.EntryCust;
 import code.util.EqList;
@@ -37,12 +37,16 @@ public class Cave extends Campaign {
 
     @Override
     public void validate(DataBase _data,PlaceArea _placeArea) {
+        if (name == null) {
+            throw new DataException();
+        }
         if (levels.isEmpty()) {
             throw new DataException();
         }
         if (linksWithOtherPlaces.isEmpty()) {
             throw new DataException();
         }
+        levels.getKeys().getMinimum().byteValue();
         int nbLevels_ = levels.size();
         for (byte i=CustList.FIRST_INDEX;i<nbLevels_;i++) {
             LevelCave level_ = levels.getVal(i);

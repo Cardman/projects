@@ -1,5 +1,5 @@
 package code.maths.geo;
-import code.datacheck.CheckedData;
+import code.serialize.CheckedData;
 import code.util.StringList;
 import code.util.ints.Equallable;
 import code.xml.FromAndToString;

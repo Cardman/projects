@@ -1,9 +1,9 @@
 package aiki.map;
+import aiki.util.Coords;
 import code.util.AbEqList;
 import code.util.EqList;
 import code.util.ints.Equallable;
 import code.util.ints.Listable;
-import aiki.util.Coords;
 
 public final class Condition extends AbEqList<Coords> implements Equallable<Condition> {
 

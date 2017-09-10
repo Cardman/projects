@@ -3,7 +3,7 @@ import aiki.DataBase;
 import aiki.exceptions.DataException;
 import aiki.fight.moves.effects.enums.ExchangeType;
 import aiki.fight.moves.enums.TargetChoice;
-import code.datacheck.CheckedData;
+import code.serialize.CheckedData;
 import code.util.annot.RwXml;
 
 @CheckedData
@@ -15,6 +15,17 @@ public class EffectSwitchAbilities extends Effect {
     @Override
     public void validate(DataBase _data) {
         super.validate(_data);
+        if (exchangeAbility == null) {
+            throw new DataException();
+        }
+        if (constAbility == null) {
+            throw new DataException();
+        }
+        if (!constAbility.isEmpty()) {
+            if (!_data.getAbilities().contains(constAbility)) {
+                throw new DataException();
+            }
+        }
         if (exchangeAbility == ExchangeType.GIVE_TO_TARGET || exchangeAbility == ExchangeType.GIVE_TO_THROWER || exchangeAbility == ExchangeType.EXCHANGE) {
             if (getTargetChoice() == TargetChoice.LANCEUR) {
                 throw new DataException();
@@ -28,23 +39,6 @@ public class EffectSwitchAbilities extends Effect {
                 }
             }
         }
-//        switch (exchangeAbility) {
-//        case GIVE_TO_TARGET:
-//        case GIVE_TO_THROWER:
-//        case EXCHANGE:
-//            if (getTargetChoice() == TargetChoice.LANCEUR) {
-//                throw new DataException();
-//            }
-//            return;
-//        case GIVE_CONST:
-//            if (!constAbility.isEmpty()) {
-//                if (!_data.getAbilities().contains(constAbility)) {
-//                    throw new DataException();
-//                }
-//            }
-//            return;
-//        default:
-//        }
     }
     public ExchangeType getExchangeAbility() {
         return exchangeAbility;

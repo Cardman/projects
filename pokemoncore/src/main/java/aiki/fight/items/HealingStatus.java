@@ -1,7 +1,7 @@
 package aiki.fight.items;
 import aiki.DataBase;
 import aiki.exceptions.DataException;
-import code.datacheck.CheckedData;
+import code.serialize.CheckedData;
 import code.util.StringList;
 import code.util.annot.RwXml;
 

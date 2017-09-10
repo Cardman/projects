@@ -1,7 +1,7 @@
 package aiki.util;
+import aiki.fight.enums.Statistic;
 import code.util.StringList;
 import code.util.ints.Equallable;
-import aiki.fight.enums.Statistic;
 
 public final class TypeStatistic implements Equallable<TypeStatistic> {
 

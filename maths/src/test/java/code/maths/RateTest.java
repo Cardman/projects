@@ -9,8 +9,6 @@ import junitparams.Parameters;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import code.maths.LgInt;
-import code.maths.Rate;
 import code.maths.exceptions.BadDivisionException;
 import code.maths.exceptions.FormatException;
 import code.maths.exceptions.NegatifExposantException;

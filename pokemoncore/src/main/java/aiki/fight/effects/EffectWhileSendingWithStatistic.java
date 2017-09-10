@@ -1,7 +1,7 @@
 package aiki.fight.effects;
-import code.util.annot.RwXml;
 import aiki.DataBase;
 import aiki.fight.moves.effects.EffectStatistic;
+import code.util.annot.RwXml;
 
 @RwXml
 public class EffectWhileSendingWithStatistic extends EffectWhileSending {

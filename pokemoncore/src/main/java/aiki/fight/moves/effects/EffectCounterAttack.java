@@ -1,11 +1,11 @@
 package aiki.fight.moves.effects;
+import aiki.DataBase;
+import aiki.exceptions.DataException;
+import aiki.fight.enums.Statistic;
 import code.maths.Rate;
 import code.util.EnumMap;
 import code.util.StringMap;
 import code.util.annot.RwXml;
-import aiki.DataBase;
-import aiki.exceptions.DataException;
-import aiki.fight.enums.Statistic;
 
 @RwXml
 public class EffectCounterAttack extends Effect {

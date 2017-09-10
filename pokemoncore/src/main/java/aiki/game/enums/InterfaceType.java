@@ -1,5 +1,5 @@
 package aiki.game.enums;
-import code.datacheck.CheckedData;
+import code.serialize.CheckedData;
 
 
 @CheckedData

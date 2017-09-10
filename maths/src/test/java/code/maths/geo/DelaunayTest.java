@@ -6,9 +6,6 @@ import static org.junit.Assert.assertSame;
 import org.junit.Ignore;
 import org.junit.Test;
 
-import code.maths.geo.CustPoint;
-import code.maths.geo.Delaunay;
-import code.maths.geo.Triangle;
 import code.util.EqList;
 import code.util.IdList;
 import code.util.IdMap;

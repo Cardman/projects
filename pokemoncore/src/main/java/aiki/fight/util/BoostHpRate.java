@@ -1,6 +1,6 @@
 package aiki.fight.util;
-import code.datacheck.CheckedData;
 import code.maths.Rate;
+import code.serialize.CheckedData;
 import code.util.StringList;
 import code.xml.FromAndToString;
 

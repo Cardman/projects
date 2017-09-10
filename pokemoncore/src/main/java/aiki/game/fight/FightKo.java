@@ -1,11 +1,4 @@
 package aiki.game.fight;
-import code.maths.Rate;
-import code.util.CustList;
-import code.util.EnumMap;
-import code.util.EqList;
-import code.util.NumberMap;
-import code.util.Numbers;
-import code.util.StringMap;
 import aiki.DataBase;
 import aiki.fight.enums.Statistic;
 import aiki.fight.items.ItemForBattle;
@@ -14,6 +7,13 @@ import aiki.fight.moves.effects.Effect;
 import aiki.fight.moves.effects.EffectTeam;
 import aiki.fight.pokemon.PokemonData;
 import aiki.game.params.Difficulty;
+import code.maths.Rate;
+import code.util.CustList;
+import code.util.EnumMap;
+import code.util.EqList;
+import code.util.NumberMap;
+import code.util.Numbers;
+import code.util.StringMap;
 
 final class FightKo {
 

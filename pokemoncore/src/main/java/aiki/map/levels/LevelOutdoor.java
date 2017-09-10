@@ -1,6 +1,6 @@
 package aiki.map.levels;
 import aiki.util.Point;
-import code.datacheck.CheckedData;
+import code.serialize.CheckedData;
 
 @CheckedData
 public class LevelOutdoor extends Level {

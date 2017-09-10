@@ -1,6 +1,6 @@
 package aiki.util;
 import aiki.map.enums.Direction;
-import code.datacheck.CheckedData;
+import code.serialize.CheckedData;
 import code.util.Numbers;
 import code.util.StringList;
 import code.util.ints.Equallable;

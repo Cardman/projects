@@ -13,10 +13,11 @@ import aiki.fight.util.StatisticType;
 import aiki.fight.util.TypeDamageBoost;
 import aiki.fight.util.TypesDuo;
 import aiki.fight.util.WeatherType;
-import code.datacheck.CheckedData;
 import code.maths.Rate;
 import code.maths.montecarlo.MonteCarloString;
+import code.serialize.CheckedData;
 import code.util.CustList;
+import code.util.EntryCust;
 import code.util.EnumList;
 import code.util.EnumMap;
 import code.util.EqList;
@@ -179,6 +180,9 @@ public class AbilityData {
             throw new DataException();
         }
         singleStatus.checkEvents();
+        if (multVarBoost == null) {
+            throw new DataException();
+        }
         StringList events_ = new StringList(singleStatus.events());
         events_.removeObj(DataBase.EMPTY_STRING);
         if (!_data.getStatus().containsAllAsKeys(events_)) {
@@ -360,8 +364,14 @@ public class AbilityData {
         if (!_data.getAllCategories().containsAllObj(increasedPrio.getKeys())) {
             throw new DataException();
         }
+        for (EntryCust<String, Short> e: increasedPrio.entryList()) {
+            e.getValue().shortValue();
+        }
         if (!_data.getTypes().containsAllObj(increasedPrioTypes.getKeys())) {
             throw new DataException();
+        }
+        for (EntryCust<String, Short> e: increasedPrioTypes.entryList()) {
+            e.getValue().shortValue();
         }
         if (!typeForMoves.isEmpty()) {
             if (!_data.getTypes().containsObj(typeForMoves)) {
@@ -408,6 +418,21 @@ public class AbilityData {
         }
         if (!Statistic.getStatisticsWithBoost().containsAllObj(multStatIfLowStat.getKeys())) {
             throw new DataException();
+        }
+        for (EntryCust<Statistic, Byte> e: bonusStatRank.entryList()) {
+            e.getValue().byteValue();
+        }
+        for (EntryCust<Statistic, Byte> e: boostStatRankProtected.entryList()) {
+            e.getValue().byteValue();
+        }
+        for (EntryCust<Statistic, Byte> e: boostStatRankEndRound.entryList()) {
+            e.getValue().byteValue();
+        }
+        for (EntryCust<Statistic, Byte> e: multStatIfKoFoe.entryList()) {
+            e.getValue().byteValue();
+        }
+        for (EntryCust<Statistic, Byte> e: multStatIfLowStat.entryList()) {
+            e.getValue().byteValue();
         }
         for (StatisticStatus k:multStatIfStatutRank.getKeys()) {
             if (!k.getStatistic().isBoost()) {
@@ -462,8 +487,11 @@ public class AbilityData {
                 throw new DataException();
             }
         }
-        for (String k: immuLowStatisTypes.getKeys()) {
-            if (!_data.getTypes().containsObj(k)) {
+        for (EntryCust<String, EnumList<Statistic>> e: immuLowStatisTypes.entryList()) {
+            if (!_data.getTypes().containsObj(e.getKey())) {
+                throw new DataException();
+            }
+            if (!Statistic.getAllStatistics().containsAllObj(e.getValue())) {
                 throw new DataException();
             }
         }

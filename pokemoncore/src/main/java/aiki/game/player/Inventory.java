@@ -1,4 +1,6 @@
 package aiki.game.player;
+import aiki.DataBase;
+import aiki.exceptions.GameLoadException;
 import code.maths.LgInt;
 import code.util.EntryCust;
 import code.util.NumberMap;
@@ -6,8 +8,6 @@ import code.util.Numbers;
 import code.util.StringList;
 import code.util.StringMap;
 import code.util.annot.RwXml;
-import aiki.DataBase;
-import aiki.exceptions.GameLoadException;
 
 @RwXml
 public class Inventory {
@@ -47,6 +47,16 @@ public class Inventory {
         StringList objData_ = _data.getItems().getKeys();
         if (!StringList.equalsSet(obj_, objData_)) {
             throw new GameLoadException();
+        }
+        for (Object o: tm.values()) {
+            if (!(o instanceof Boolean)) {
+                throw new GameLoadException();
+            }
+        }
+        for (Object o: hm.values()) {
+            if (!(o instanceof Boolean)) {
+                throw new GameLoadException();
+            }
         }
         if (!Numbers.equalsSetShorts(tm.getKeys(), _data.getTm().getKeys())) {
             throw new GameLoadException();

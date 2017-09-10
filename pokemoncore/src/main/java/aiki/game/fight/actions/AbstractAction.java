@@ -1,5 +1,5 @@
 package aiki.game.fight.actions;
-import code.datacheck.CheckedData;
+import code.serialize.CheckedData;
 
 
 @CheckedData

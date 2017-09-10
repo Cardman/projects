@@ -1,6 +1,6 @@
 package aiki.game.fight.actions;
 import aiki.game.fight.TargetCoords;
-import code.datacheck.CheckedData;
+import code.serialize.CheckedData;
 import code.util.EqList;
 import code.util.annot.RwXml;
 

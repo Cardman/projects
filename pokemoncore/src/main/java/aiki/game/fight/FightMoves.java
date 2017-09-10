@@ -1,12 +1,12 @@
 package aiki.game.fight;
-import code.util.NumberMap;
-import code.util.StringList;
-import code.util.StringMap;
 import aiki.DataBase;
 import aiki.fight.abilities.AbilityData;
 import aiki.fight.moves.MoveData;
 import aiki.fight.moves.effects.Effect;
 import aiki.fight.moves.effects.EffectSwitchMoveTypes;
+import code.util.NumberMap;
+import code.util.StringList;
+import code.util.StringMap;
 
 
 final class FightMoves {

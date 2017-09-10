@@ -1,5 +1,5 @@
 package aiki.fight.moves.effects.enums;
-import code.datacheck.CheckedData;
+import code.serialize.CheckedData;
 
 
 @CheckedData

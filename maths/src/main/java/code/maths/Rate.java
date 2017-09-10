@@ -1,8 +1,8 @@
 package code.maths;
-import code.datacheck.CheckedData;
 import code.maths.exceptions.BadDivisionException;
 import code.maths.exceptions.FormatException;
 import code.maths.exceptions.NegatifExposantException;
+import code.serialize.CheckedData;
 import code.util.CustList;
 import code.util.EqList;
 import code.util.Numbers;

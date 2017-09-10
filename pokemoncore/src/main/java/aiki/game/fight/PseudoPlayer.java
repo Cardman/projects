@@ -1,9 +1,9 @@
 package aiki.game.fight;
+import aiki.fight.pokemon.NameLevel;
+import aiki.map.pokemon.PokemonPlayer;
 import code.util.CustList;
 import code.util.EqList;
 import code.util.StringList;
-import aiki.fight.pokemon.NameLevel;
-import aiki.map.pokemon.PokemonPlayer;
 
 public class PseudoPlayer {
 

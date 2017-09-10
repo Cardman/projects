@@ -3,10 +3,11 @@ import aiki.DataBase;
 import aiki.exceptions.DataException;
 import aiki.fight.enums.Statistic;
 import aiki.fight.moves.enums.TargetChoice;
-import code.datacheck.CheckedData;
 import code.maths.Rate;
 import code.maths.montecarlo.MonteCarloNumber;
 import code.maths.montecarlo.MonteCarloString;
+import code.serialize.CheckedData;
+import code.util.EntryCust;
 import code.util.EnumList;
 import code.util.EnumMap;
 import code.util.StringMap;
@@ -87,55 +88,13 @@ public class EffectDamage extends Effect {
                 throw new DataException();
             }
         }
-        if (constDamage) {
-            if (!Rate.isValid(power)) {
-                throw new DataException();
-            }
-            return;
-        }
         if (!_data.getCategories().containsAllObj(multDamageAgainst.getKeys())) {
             throw new DataException();
         }
         if (!multDamageAgainst.isEmpty()) {
-            if (!damageLaw.events().isEmpty()) {
-                throw new DataException();
+            for (EntryCust<String,Rate> e: multDamageAgainst.entryList()) {
+                e.getValue().isZero();
             }
-            if (!power.isEmpty()) {
-                throw new DataException();
-            }
-//            if (!powerLaw.events().isEmpty()) {
-//                throw new DataException();
-//            }
-            return;
-        }
-        if (!damageLaw.events().isEmpty()) {
-            if (!power.isEmpty()) {
-                throw new DataException();
-            }
-//            if (!powerLaw.events().isEmpty()) {
-//                throw new DataException();
-//            }
-            return;
-        }
-//        if (!powerLaw.events().isEmpty()) {
-//            Rate min_ = powerLaw.minimum();
-//            if (!min_.isZeroOrGt()) {
-//                throw new DataException();
-//            }
-//            if (min_.isZero()) {
-//                throw new DataException();
-//            }
-//            if (!power.isEmpty()) {
-//                throw new DataException();
-//            }
-//        }
-//        if (powerLaw.events().isEmpty()) {
-//            if (power.isEmpty()) {
-//                throw new DataException();
-//            }
-//        }
-        if (power.isEmpty()) {
-            throw new DataException();
         }
         if (!chLaw.events().isEmpty()) {
             Rate min_ = chLaw.minimum();
@@ -184,6 +143,30 @@ public class EffectDamage extends Effect {
             if (statisDef != Statistic.SPECIAL_DEFENSE) {
                 throw new DataException();
             }
+        }
+        if (constDamage) {
+            if (!Rate.isValid(power)) {
+                throw new DataException();
+            }
+            return;
+        }
+        if (!multDamageAgainst.isEmpty()) {
+            if (!damageLaw.events().isEmpty()) {
+                throw new DataException();
+            }
+            if (!power.isEmpty()) {
+                throw new DataException();
+            }
+            return;
+        }
+        if (!damageLaw.events().isEmpty()) {
+            if (!power.isEmpty()) {
+                throw new DataException();
+            }
+            return;
+        }
+        if (power.isEmpty()) {
+            throw new DataException();
         }
     }
 

@@ -1,8 +1,4 @@
 package aiki.game.fight;
-import code.maths.Rate;
-import code.maths.montecarlo.MonteCarloNumber;
-import code.util.Numbers;
-import code.util.StringList;
 import aiki.DataBase;
 import aiki.fight.abilities.AbilityData;
 import aiki.fight.enums.Statistic;
@@ -10,6 +6,10 @@ import aiki.fight.status.Status;
 import aiki.fight.status.StatusBeginRound;
 import aiki.fight.status.StatusType;
 import aiki.fight.util.StatisticStatus;
+import code.maths.Rate;
+import code.maths.montecarlo.MonteCarloNumber;
+import code.util.Numbers;
+import code.util.StringList;
 
 final class FightAbilities {
 

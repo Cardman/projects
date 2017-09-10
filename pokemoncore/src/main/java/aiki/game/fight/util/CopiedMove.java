@@ -1,5 +1,5 @@
 package aiki.game.fight.util;
-import code.datacheck.CheckedData;
+import code.serialize.CheckedData;
 import code.util.StringList;
 import code.xml.FromAndToString;
 

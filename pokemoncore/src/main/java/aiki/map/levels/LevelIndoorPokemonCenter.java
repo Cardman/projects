@@ -6,7 +6,7 @@ import aiki.map.characters.Person;
 import aiki.map.characters.Seller;
 import aiki.map.tree.LevelArea;
 import aiki.util.Point;
-import code.datacheck.CheckedData;
+import code.serialize.CheckedData;
 import code.util.EntryCust;
 import code.util.EqList;
 import code.util.ObjectMap;

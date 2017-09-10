@@ -36,9 +36,9 @@ import aiki.map.pokemon.PokemonPlayer;
 import aiki.map.pokemon.UsablePokemon;
 import aiki.map.pokemon.WildPk;
 import aiki.map.pokemon.enums.Gender;
-import code.datacheck.CheckedData;
 import code.maths.LgInt;
 import code.maths.Rate;
+import code.serialize.CheckedData;
 import code.util.CustList;
 import code.util.EntryCust;
 import code.util.NatTreeMap;
@@ -225,6 +225,12 @@ public class Player {
     }
 
     public void validate(DataBase _data) {
+        if (nickname == null) {
+            throw new GameLoadException();
+        }
+        if (sex == null) {
+            throw new GameLoadException();
+        }
         if (team.isEmpty()) {
             throw new GameLoadException();
         }
@@ -266,6 +272,11 @@ public class Player {
 //            if (!p.isValid(_data)) {
 //                throw new GameLoadException();
 //            }
+        }
+        for (Object o: caughtPk.values()) {
+            if (!(o instanceof Boolean)) {
+                throw new GameLoadException();
+            }
         }
         if (!StringList.equalsSet(_data.getPokedex().getKeys(), caughtPk.getKeys())) {
             throw new GameLoadException();

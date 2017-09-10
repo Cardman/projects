@@ -29,11 +29,11 @@ import aiki.game.fight.Fighter;
 import aiki.game.params.Difficulty;
 import aiki.game.player.enums.Sex;
 import aiki.map.pokemon.enums.Gender;
-import code.datacheck.CheckedData;
 import code.maths.LgInt;
 import code.maths.Rate;
 import code.maths.montecarlo.MonteCarloEnum;
 import code.maths.montecarlo.MonteCarloString;
+import code.serialize.CheckedData;
 import code.util.CustList;
 import code.util.EntryCust;
 import code.util.EnumMap;
@@ -390,6 +390,12 @@ public final class PokemonPlayer extends Pokemon implements UsablePokemon {
 
     @Override
     public void validate(DataBase _data) {
+        if (gender == null) {
+            throw new GameLoadException();
+        }
+        if (nickname == null) {
+            throw new GameLoadException();
+        }
         if (hasJustBeenCreated()) {
             throw new GameLoadException();
         }

@@ -1,4 +1,10 @@
 package aiki.game.fight;
+import aiki.DataBase;
+import aiki.fight.pokemon.NameLevel;
+import aiki.fight.pokemon.PokemonData;
+import aiki.fight.pokemon.evolution.EvolutionStone;
+import aiki.fight.util.LevelMove;
+import aiki.game.fight.util.LevelExpPoints;
 import code.maths.Rate;
 import code.util.CustList;
 import code.util.EqList;
@@ -6,12 +12,6 @@ import code.util.NumberMap;
 import code.util.Numbers;
 import code.util.StringList;
 import code.util.StringMap;
-import aiki.DataBase;
-import aiki.fight.pokemon.NameLevel;
-import aiki.fight.pokemon.PokemonData;
-import aiki.fight.pokemon.evolution.EvolutionStone;
-import aiki.fight.util.LevelMove;
-import aiki.game.fight.util.LevelExpPoints;
 
 public class PseudoPlayerFighter extends PseudoFighter {
 

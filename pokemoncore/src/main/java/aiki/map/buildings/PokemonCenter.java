@@ -1,9 +1,9 @@
 package aiki.map.buildings;
-import code.util.annot.RwXml;
 import aiki.DataBase;
 import aiki.map.levels.LevelIndoorPokemonCenter;
 import aiki.map.tree.BuildingArea;
 import aiki.util.Point;
+import code.util.annot.RwXml;
 
 @RwXml
 public class PokemonCenter extends Building {

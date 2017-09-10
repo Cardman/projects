@@ -1,6 +1,6 @@
 package aiki.fight.pokemon.enums;
 import aiki.map.pokemon.enums.Gender;
-import code.datacheck.CheckedData;
+import code.serialize.CheckedData;
 import code.util.EnumList;
 
 @CheckedData

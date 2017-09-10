@@ -1,6 +1,6 @@
 package aiki.game.fight;
-import code.datacheck.CheckedData;
 import code.maths.Rate;
+import code.serialize.CheckedData;
 import code.util.CustList;
 import code.util.Numbers;
 import code.util.StringList;

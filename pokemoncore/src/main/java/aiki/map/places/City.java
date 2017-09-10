@@ -18,7 +18,7 @@ import aiki.map.tree.Tree;
 import aiki.map.util.PlaceInterConnect;
 import aiki.util.Coords;
 import aiki.util.Point;
-import code.datacheck.CheckedData;
+import code.serialize.CheckedData;
 import code.util.CustList;
 import code.util.EntryCust;
 import code.util.EqList;
@@ -56,6 +56,9 @@ public class City extends Place implements InitializedPlace{
     }
     @Override
     public void validate(DataBase _data,PlaceArea _placeArea) {
+        if (name == null) {
+            throw new DataException();
+        }
         LevelArea levelArea_ = _placeArea.getLevel((byte) 0);
         boolean existPkCenter_ = false;
         int nbGyms_ = 0;

@@ -882,7 +882,7 @@ public class InitializationDataBase {
         SerializeXmlObject.checkNullPointers(data_.getStatus());
         SerializeXmlObject.checkNullPointers(data_.getMap());
         SerializeXmlObject.checkNullPointers(data_.getCombos());
-        data_.validateCore(false);
+        data_.validateCore();
         data_.validateConstants();
         data_.setCheckTranslation(false);
         CheckNumericStringsFight.validateNumericBooleanStrings(data_, false);

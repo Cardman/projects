@@ -4,7 +4,7 @@ import aiki.map.characters.Person;
 import aiki.map.levels.Level;
 import aiki.map.tree.PlaceArea;
 import aiki.util.Coords;
-import code.datacheck.CheckedData;
+import code.serialize.CheckedData;
 import code.util.CustList;
 import code.util.NumberMap;
 

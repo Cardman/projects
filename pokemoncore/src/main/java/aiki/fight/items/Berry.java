@@ -4,8 +4,9 @@ import aiki.exceptions.DataException;
 import aiki.fight.enums.Statistic;
 import aiki.fight.util.BoostHpRate;
 import aiki.fight.util.EfficiencyRate;
-import code.datacheck.CheckedData;
 import code.maths.Rate;
+import code.serialize.CheckedData;
+import code.util.EntryCust;
 import code.util.EnumMap;
 import code.util.StringList;
 import code.util.StringMap;
@@ -120,10 +121,11 @@ public final class Berry extends Item {
                 throw new DataException();
             }
         }
-        for (Statistic s: boostStatis.getKeys()) {
-            if (!s.isBoost()) {
+        for (EntryCust<Statistic,Byte> e: boostStatis.entryList()) {
+            if (!e.getKey().isBoost()) {
                 throw new DataException();
             }
+            e.getValue().byteValue();
         }
         if (!healHpBySuperEffMove.isZero()) {
             if (!multFoesDamage.isEmpty()) {

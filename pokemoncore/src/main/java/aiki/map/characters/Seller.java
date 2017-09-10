@@ -2,7 +2,7 @@ package aiki.map.characters;
 import aiki.DataBase;
 import aiki.exceptions.DataException;
 import aiki.map.characters.enums.SellType;
-import code.datacheck.CheckedData;
+import code.serialize.CheckedData;
 import code.util.Numbers;
 import code.util.StringList;
 import code.util.annot.RwXml;
@@ -18,6 +18,15 @@ public class Seller extends Person {
     private Numbers<Short> tm;
 
     public void validate(DataBase _data) {
+        if (sell == null) {
+            throw new DataException();
+        }
+        if (!_data.getItems().containsAllAsKeys(items)) {
+            throw new DataException();
+        }
+        if (!_data.getTmPrice().containsAllAsKeys(tm)) {
+            throw new DataException();
+        }
         if (sell == SellType.MOVE) {
             if (!items.isEmpty()) {
                 throw new DataException();
@@ -26,12 +35,6 @@ public class Seller extends Person {
                 throw new DataException();
             }
             return;
-        }
-        if (!_data.getItems().containsAllAsKeys(items)) {
-            throw new DataException();
-        }
-        if (!_data.getTmPrice().containsAllAsKeys(tm)) {
-            throw new DataException();
         }
         if (sell == SellType.ITEM) {
             if (!tm.isEmpty()) {

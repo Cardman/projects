@@ -1,6 +1,6 @@
 package aiki.game;
 import aiki.util.Coords;
-import code.datacheck.CheckedData;
+import code.serialize.CheckedData;
 import code.util.Numbers;
 import code.util.StringList;
 import code.util.ints.Equallable;

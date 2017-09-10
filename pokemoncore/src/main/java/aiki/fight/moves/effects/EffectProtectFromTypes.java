@@ -1,8 +1,8 @@
 package aiki.fight.moves.effects;
-import code.util.StringList;
-import code.util.annot.RwXml;
 import aiki.DataBase;
 import aiki.exceptions.DataException;
+import code.util.StringList;
+import code.util.annot.RwXml;
 
 @RwXml
 public class EffectProtectFromTypes extends Effect {

@@ -3,7 +3,7 @@ import aiki.DataBase;
 import aiki.exceptions.DataException;
 import aiki.map.enums.Direction;
 import aiki.util.Coords;
-import code.datacheck.CheckedData;
+import code.serialize.CheckedData;
 import code.util.CustList;
 import code.util.StringList;
 import code.xml.FromAndToString;

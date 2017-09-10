@@ -1,10 +1,10 @@
 package aiki.fight.status;
+import aiki.DataBase;
+import aiki.exceptions.DataException;
 import code.maths.Rate;
 import code.maths.montecarlo.MonteCarloBoolean;
 import code.maths.montecarlo.MonteCarloNumber;
 import code.util.annot.RwXml;
-import aiki.DataBase;
-import aiki.exceptions.DataException;
 
 @RwXml
 public class StatusBeginRound extends Status {

@@ -1,9 +1,9 @@
 package code.maths;
-import code.datacheck.CheckedData;
 import code.maths.exceptions.BadDivisionException;
 import code.maths.exceptions.FormatException;
 import code.maths.exceptions.NegatifExposantException;
 import code.maths.exceptions.NegativeNumberException;
+import code.serialize.CheckedData;
 import code.util.CustList;
 import code.util.EntryCust;
 import code.util.EqList;

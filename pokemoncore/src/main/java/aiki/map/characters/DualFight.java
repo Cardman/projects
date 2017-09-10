@@ -1,7 +1,7 @@
 package aiki.map.characters;
 import aiki.DataBase;
 import aiki.util.Point;
-import code.datacheck.CheckedData;
+import code.serialize.CheckedData;
 import code.util.StringList;
 import code.util.annot.RwXml;
 
@@ -20,6 +20,7 @@ public class DualFight implements Fightable {
     public void validate(DataBase _data) {
         ally.validate(_data);
         foeTrainer.validate(_data);
+        names.removeDuplicates();
     }
 
     public Ally getAlly() {

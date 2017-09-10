@@ -3,7 +3,7 @@ import aiki.DataBase;
 import aiki.comments.Comment;
 import aiki.exceptions.GameLoadException;
 import aiki.map.pokemon.PokemonPlayer;
-import code.datacheck.CheckedData;
+import code.serialize.CheckedData;
 import code.util.annot.RwXml;
 
 @RwXml

@@ -1,11 +1,4 @@
 package aiki.game.fight;
-import code.maths.Rate;
-import code.util.CustList;
-import code.util.EnumMap;
-import code.util.Numbers;
-import code.util.ObjectMap;
-import code.util.StringList;
-import code.util.StringMap;
 import aiki.DataBase;
 import aiki.fight.abilities.AbilityData;
 import aiki.fight.enums.Statistic;
@@ -22,6 +15,13 @@ import aiki.fight.util.BoostHpRate;
 import aiki.fight.util.StatisticPokemon;
 import aiki.fight.util.StatisticStatus;
 import aiki.fight.util.StatisticType;
+import code.maths.Rate;
+import code.util.CustList;
+import code.util.EnumMap;
+import code.util.Numbers;
+import code.util.ObjectMap;
+import code.util.StringList;
+import code.util.StringMap;
 
 final class FightStatistic {
 

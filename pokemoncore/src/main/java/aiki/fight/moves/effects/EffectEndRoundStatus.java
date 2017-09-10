@@ -1,6 +1,8 @@
 package aiki.fight.moves.effects;
-import code.datacheck.CheckedData;
+import aiki.DataBase;
+import aiki.exceptions.DataException;
 import code.maths.Rate;
+import code.serialize.CheckedData;
 import code.util.annot.RwXml;
 
 @CheckedData
@@ -8,6 +10,14 @@ import code.util.annot.RwXml;
 public abstract class EffectEndRoundStatus extends EffectEndRound {
 
     private Rate inflictedRateHpTarget;
+
+    @Override
+    public void validate(DataBase _data) {
+        super.validate(_data);
+        if (inflictedRateHpTarget == null) {
+            throw new DataException();
+        }
+    }
 
     public Rate getInflictedRateHpTarget() {
         return inflictedRateHpTarget;

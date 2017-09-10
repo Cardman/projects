@@ -11,7 +11,6 @@ import cards.gui.dialogs.FileConst;
 import cards.president.HandPresident;
 import cards.president.RulesPresident;
 import cards.tarot.HandTarot;
-import code.datacheck.ObjectComponents;
 import code.gui.LoadLanguage;
 import code.gui.SetStyle;
 import code.gui.SoftApplication;
@@ -133,7 +132,6 @@ public class LaunchingCards extends SoftApplication {
 
     @Override
     public void launchWithoutLanguage(String _language, StringMap<Object> _args) {
-        ObjectComponents.setCheckingNullity(true);
         SwingUtilities.invokeLater(new LaunchingGame(this, _args, _language));
     }
 

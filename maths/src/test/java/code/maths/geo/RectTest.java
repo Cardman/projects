@@ -4,8 +4,6 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
-import code.maths.geo.Rect;
-
 @SuppressWarnings("static-method")
 public class RectTest {
 

@@ -1,9 +1,9 @@
 package aiki.fight.moves.effects;
+import aiki.DataBase;
+import aiki.exceptions.DataException;
 import code.util.StringList;
 import code.util.StringMap;
 import code.util.annot.RwXml;
-import aiki.DataBase;
-import aiki.exceptions.DataException;
 
 @RwXml
 public class EffectSwitchMoveTypes extends Effect {

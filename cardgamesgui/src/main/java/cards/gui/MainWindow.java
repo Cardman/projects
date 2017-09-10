@@ -132,7 +132,6 @@ import cards.tarot.GameTarot;
 import cards.tarot.RulesTarot;
 import cards.tarot.TricksHandsTarot;
 import cards.tarot.enumerations.ChoiceTarot;
-import code.datacheck.ObjectComponents;
 import code.gui.CheckBoxMenuItem;
 import code.gui.Clock;
 import code.gui.ConfirmDialog;
@@ -545,7 +544,6 @@ public final class MainWindow extends NetGroupFrame {
         lastSavedGameDate = new JLabel();
         try{
             reglesBelote = (RulesBelote) StreamTextFile.loadObject(LaunchingCards.getTempFolderSl()+FileConst.RULES_BELOTE);
-            ObjectComponents.checkObjectNotNull(reglesBelote);
             if (!reglesBelote.isValidRules()) {
                 throw new FileRulesException();
             }
@@ -556,7 +554,6 @@ public final class MainWindow extends NetGroupFrame {
         }
         try{
             displayingBelote = (DisplayingBelote) StreamTextFile.loadObject(LaunchingCards.getTempFolderSl()+FileConst.DISPLAY_BELOTE);
-            ObjectComponents.checkObjectNotNull(displayingBelote);
             displayingBelote.validate();
         }catch(RuntimeException _0) {
             _0.printStackTrace();
@@ -565,7 +562,6 @@ public final class MainWindow extends NetGroupFrame {
         }
         try{
             reglesPresident = (RulesPresident) StreamTextFile.loadObject(LaunchingCards.getTempFolderSl()+FileConst.RULES_PRESIDENT);
-            ObjectComponents.checkObjectNotNull(reglesPresident);
             if (!reglesPresident.isValidRules()) {
                 throw new FileRulesException();
             }
@@ -576,7 +572,6 @@ public final class MainWindow extends NetGroupFrame {
         }
         try{
             displayingPresident = (DisplayingPresident) StreamTextFile.loadObject(LaunchingCards.getTempFolderSl()+FileConst.DISPLAY_PRESIDENT);
-            ObjectComponents.checkObjectNotNull(displayingPresident);
             displayingPresident.validate();
         }catch(RuntimeException _0) {
             _0.printStackTrace();
@@ -585,7 +580,6 @@ public final class MainWindow extends NetGroupFrame {
         }
         try{
             reglesTarot = (RulesTarot) StreamTextFile.loadObject(LaunchingCards.getTempFolderSl()+FileConst.RULES_TAROT);
-            ObjectComponents.checkObjectNotNull(reglesTarot);
             if (!reglesTarot.isValidRules()) {
                 throw new FileRulesException();
             }
@@ -596,7 +590,6 @@ public final class MainWindow extends NetGroupFrame {
         }
         try{
             displayingTarot = (DisplayingTarot) StreamTextFile.loadObject(LaunchingCards.getTempFolderSl()+FileConst.DISPLAY_TAROT);
-            ObjectComponents.checkObjectNotNull(displayingTarot);
             displayingTarot.validate();
         }catch(RuntimeException _0) {
             _0.printStackTrace();
@@ -605,7 +598,6 @@ public final class MainWindow extends NetGroupFrame {
         }
         try {
             parametres = (SoftParams) StreamTextFile.loadObject(LaunchingCards.getTempFolderSl()+FileConst.PARAMS);
-            ObjectComponents.checkObjectNotNull(parametres);
             parametres.setDelays();
         } catch (RuntimeException _0) {
             _0.printStackTrace();
@@ -618,7 +610,6 @@ public final class MainWindow extends NetGroupFrame {
 
         try{
             pseudosJoueurs = (Nicknames) StreamTextFile.loadObject(LaunchingCards.getTempFolderSl()+FileConst.PLAYERS);
-            ObjectComponents.checkObjectNotNull(pseudosJoueurs);
             if (!pseudosJoueurs.isValidNicknames()) {
                 throw new FileRulesException();
             }
@@ -1440,7 +1431,6 @@ public final class MainWindow extends NetGroupFrame {
         Object par_ = null;
         try {
             par_ = StreamTextFile.loadObject(nomFichier_);
-            ObjectComponents.checkObjectNotNull(par_);
         } catch (RuntimeException _0) {
             erreurDeChargement(nomFichier_);
             return;

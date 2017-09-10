@@ -1,7 +1,7 @@
 package aiki.map.pokemon;
 import aiki.DataBase;
 import aiki.exceptions.DataException;
-import code.datacheck.CheckedData;
+import code.serialize.CheckedData;
 import code.util.CustList;
 import code.util.annot.RwXml;
 

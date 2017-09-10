@@ -1,15 +1,4 @@
 package aiki.game.fight;
-import code.maths.Rate;
-import code.maths.montecarlo.MonteCarloString;
-import code.util.CustList;
-import code.util.EnumMap;
-import code.util.EqList;
-import code.util.NumberMap;
-import code.util.Numbers;
-import code.util.ObjectMap;
-import code.util.SortableCustList;
-import code.util.StringList;
-import code.util.StringMap;
 import aiki.DataBase;
 import aiki.fight.moves.DamagingMoveData;
 import aiki.fight.moves.MoveData;
@@ -23,6 +12,17 @@ import aiki.game.fight.enums.UsefulValueLaw;
 import aiki.game.fight.util.MoveTarget;
 import aiki.game.fight.util.StatisticsDamageMove;
 import aiki.game.params.Difficulty;
+import code.maths.Rate;
+import code.maths.montecarlo.MonteCarloString;
+import code.util.CustList;
+import code.util.EnumMap;
+import code.util.EqList;
+import code.util.NumberMap;
+import code.util.Numbers;
+import code.util.ObjectMap;
+import code.util.SortableCustList;
+import code.util.StringList;
+import code.util.StringMap;
 
 final class FightArtificialIntelligence {
 

@@ -1,5 +1,5 @@
 package aiki.util;
-import code.datacheck.CheckedData;
+import code.serialize.CheckedData;
 import code.util.CustList;
 import code.util.Numbers;
 import code.util.StringList;

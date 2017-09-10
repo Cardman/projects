@@ -5,8 +5,6 @@ import static code.util.opers.EquallableUtil.assertEq;
 import org.junit.Test;
 
 import code.maths.Rate;
-import code.maths.matrix.Matrix;
-import code.maths.matrix.Vect;
 
 @SuppressWarnings("static-method")
 public class MatrixTest {

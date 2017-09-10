@@ -2,8 +2,8 @@ package aiki.fight.status;
 import aiki.DataBase;
 import aiki.exceptions.DataException;
 import aiki.fight.enums.Statistic;
-import code.datacheck.CheckedData;
 import code.maths.Rate;
+import code.serialize.CheckedData;
 import code.util.annot.RwXml;
 
 @CheckedData

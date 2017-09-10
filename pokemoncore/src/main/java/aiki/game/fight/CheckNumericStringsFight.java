@@ -1,12 +1,4 @@
 package aiki.game.fight;
-import code.maths.LgInt;
-import code.maths.Rate;
-import code.util.CustList;
-import code.util.EqList;
-import code.util.SortableCustList;
-import code.util.StringList;
-import code.util.StringMap;
-import code.util.ints.NumericableString;
 import aiki.DataBase;
 import aiki.exceptions.DataException;
 import aiki.fight.abilities.AbilityData;
@@ -37,6 +29,14 @@ import aiki.map.levels.enums.EnvironmentType;
 import aiki.map.pokemon.PkTrainer;
 import aiki.map.pokemon.PokemonPlayer;
 import aiki.map.pokemon.WildPk;
+import code.maths.LgInt;
+import code.maths.Rate;
+import code.util.CustList;
+import code.util.EqList;
+import code.util.SortableCustList;
+import code.util.StringList;
+import code.util.StringMap;
+import code.util.ints.NumericableString;
 
 public final class CheckNumericStringsFight {
 

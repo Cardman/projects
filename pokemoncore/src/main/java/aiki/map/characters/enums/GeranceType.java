@@ -1,5 +1,5 @@
 package aiki.map.characters.enums;
-import code.datacheck.CheckedData;
+import code.serialize.CheckedData;
 
 @CheckedData
 public enum GeranceType {

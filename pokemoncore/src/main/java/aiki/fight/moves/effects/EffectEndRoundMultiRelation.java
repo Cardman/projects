@@ -1,11 +1,12 @@
 package aiki.fight.moves.effects;
-import code.maths.Rate;
-import code.util.StringMap;
-import code.util.annot.RwXml;
 import aiki.DataBase;
 import aiki.exceptions.DataException;
 import aiki.fight.moves.effects.enums.RelationType;
 import aiki.fight.status.StatusType;
+import code.maths.Rate;
+import code.util.EntryCust;
+import code.util.StringMap;
+import code.util.annot.RwXml;
 
 @RwXml
 public class EffectEndRoundMultiRelation extends EffectEndRound {
@@ -16,21 +17,23 @@ public class EffectEndRoundMultiRelation extends EffectEndRound {
     @Override
     public void validate(DataBase _data) {
         super.validate(_data);
-        for (String s: damageByStatus.getKeys()) {
-            if (!_data.getStatus().contains(s)) {
+        for (EntryCust<String, Rate> e: damageByStatus.entryList()) {
+            if (!_data.getStatus().contains(e.getKey())) {
                 throw new DataException();
             }
-            if (_data.getStatus(s).getStatusType() == StatusType.RELATION_UNIQUE) {
+            if (_data.getStatus(e.getKey()).getStatusType() == StatusType.RELATION_UNIQUE) {
                 throw new DataException();
             }
+            e.getValue().isZero();
         }
-        for (String s: multDamageStatus.getKeys()) {
-            if (!_data.getStatus().contains(s)) {
+        for (EntryCust<String, Rate> e: multDamageStatus.entryList()) {
+            if (!_data.getStatus().contains(e.getKey())) {
                 throw new DataException();
             }
-            if (_data.getStatus(s).getStatusType() == StatusType.RELATION_UNIQUE) {
+            if (_data.getStatus(e.getKey()).getStatusType() == StatusType.RELATION_UNIQUE) {
                 throw new DataException();
             }
+            e.getValue().isZero();
         }
     }
 

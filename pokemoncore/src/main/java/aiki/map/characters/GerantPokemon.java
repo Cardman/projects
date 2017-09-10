@@ -1,6 +1,6 @@
 package aiki.map.characters;
 import aiki.map.characters.enums.GeranceType;
-import code.datacheck.CheckedData;
+import code.serialize.CheckedData;
 import code.util.annot.RwXml;
 
 @CheckedData

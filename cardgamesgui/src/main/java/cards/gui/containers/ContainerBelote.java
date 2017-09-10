@@ -16,7 +16,6 @@ import cards.gui.labels.LabelPoints;
 import cards.gui.labels.SuitLabel;
 import cards.gui.panels.CarpetBelote;
 import cards.main.LaunchingCards;
-import code.datacheck.ObjectComponents;
 import code.gui.LabelButton;
 import code.stream.StreamTextFile;
 import code.util.CustList;
@@ -134,7 +133,6 @@ public class ContainerBelote extends ContainerGame {
     a partir d'un fichier*/
     protected static HandBelote chargerPileBelote() {
         HandBelote pile_=(HandBelote)StreamTextFile.loadObject(LaunchingCards.getTempFolderSl()+FileConst.DECK_FOLDER+StreamTextFile.SEPARATEUR+GameEnum.BELOTE.name()+FileConst.DECK_EXT);
-        ObjectComponents.checkObjectNotNull(pile_);
         return pile_;
     }
     public String pseudo() {

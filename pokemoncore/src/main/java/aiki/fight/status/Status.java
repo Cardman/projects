@@ -4,8 +4,8 @@ import aiki.exceptions.DataException;
 import aiki.fight.enums.Statistic;
 import aiki.fight.moves.effects.EffectEndRoundStatus;
 import aiki.fight.status.effects.EffectPartnerStatus;
-import code.datacheck.CheckedData;
 import code.maths.Rate;
+import code.serialize.CheckedData;
 import code.util.CustList;
 import code.util.EnumMap;
 import code.util.annot.RwXml;
@@ -29,6 +29,9 @@ public class Status {
     @CheckedData
     private String fail;
     public void validate(DataBase _data) {
+        if (statusType == null) {
+            throw new DataException();
+        }
         if (!Statistic.getStatisticsWithBoost().containsAllObj(multStat.getKeys())) {
             throw new DataException();
         }

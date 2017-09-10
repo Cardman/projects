@@ -5,7 +5,8 @@ import aiki.fight.moves.effects.enums.ConstValuesType;
 import aiki.fight.moves.effects.enums.ExchangeType;
 import aiki.fight.moves.enums.TargetChoice;
 import aiki.map.levels.enums.EnvironmentType;
-import code.datacheck.CheckedData;
+import code.serialize.CheckedData;
+import code.util.EntryCust;
 import code.util.EnumMap;
 import code.util.StringList;
 import code.util.annot.RwXml;
@@ -24,12 +25,26 @@ public class EffectSwitchTypes extends Effect {
     @Override
     public void validate(DataBase _data) {
         super.validate(_data);
+        if (!_data.getTypes().containsAllObj(constTypes)) {
+            throw new DataException();
+        }
+        if (!_data.getTypes().containsAllObj(addedTypes)) {
+            throw new DataException();
+        }
+        if (constValuesType == null) {
+            throw new DataException();
+        }
         if (!chgtTypeByEnv.isEmpty()) {
             if (constValuesType != ConstValuesType.NOTHING) {
                 throw new DataException();
             }
-            if (!_data.getTypes().containsAllObj(chgtTypeByEnv.values())) {
-                throw new DataException();
+            for (EntryCust<EnvironmentType,String> e: chgtTypeByEnv.entryList()) {
+                if (!EnvironmentType.getEnvironments().containsObj(e.getKey())) {
+                    throw new DataException();
+                }
+                if (!_data.getTypes().containsStr(e.getValue())) {
+                    throw new DataException();
+                }
             }
             return;
         }
@@ -55,33 +70,8 @@ public class EffectSwitchTypes extends Effect {
                 if (constTypes.isEmpty()) {
                     throw new DataException();
                 }
-                if (!_data.getTypes().containsAllObj(constTypes)) {
-                    throw new DataException();
-                }
                 return;
             }
-            throw new DataException();
-//            switch (exchangeTypes) {
-//            case GIVE_TO_TARGET:
-//            case GIVE_TO_THROWER:
-//            case EXCHANGE:
-//                if (getTargetChoice() == TargetChoice.LANCEUR) {
-//                    throw new DataException();
-//                }
-//                return;
-//            case GIVE_CONST:
-//                if (constTypes.isEmpty()) {
-//                    throw new DataException();
-//                }
-//                if (!_data.getTypes().containsAllObj(constTypes)) {
-//                    throw new DataException();
-//                }
-//                return;
-//            default:
-//                throw new DataException();
-//            }
-        }
-        if (!_data.getTypes().containsAllObj(addedTypes)) {
             throw new DataException();
         }
     }

@@ -3,9 +3,9 @@ import aiki.DataBase;
 import aiki.map.levels.enums.EnvironmentType;
 import aiki.map.tree.util.Dims;
 import aiki.util.Point;
-import code.datacheck.CheckedData;
 import code.images.ConverterBufferedImage;
 import code.images.Image;
+import code.serialize.CheckedData;
 import code.util.CustList;
 import code.util.Numbers;
 import code.util.PairNumber;
@@ -37,6 +37,9 @@ public class Block {
     }
     public boolean isValid() {
         if (width <= 0 || height <= 0) {
+            return false;
+        }
+        if (type == null) {
             return false;
         }
         if (type == EnvironmentType.NOTHING) {

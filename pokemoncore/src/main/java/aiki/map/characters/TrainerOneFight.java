@@ -2,7 +2,7 @@ package aiki.map.characters;
 import aiki.DataBase;
 import aiki.exceptions.DataException;
 import aiki.map.pokemon.PkTrainer;
-import code.datacheck.CheckedData;
+import code.serialize.CheckedData;
 import code.util.CustList;
 import code.util.annot.RwXml;
 
@@ -18,9 +18,6 @@ public class TrainerOneFight extends Trainer {
         validate();
         for (PkTrainer p: team) {
             p.validate(_data, true);
-//            if (!p.isValid(_data)) {
-//                throw new DataException();
-//            }
         }
         if (team.isEmpty()) {
             throw new DataException();

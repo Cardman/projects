@@ -1,5 +1,6 @@
 package aiki.map.levels.enums;
-import code.datacheck.CheckedData;
+import code.serialize.CheckedData;
+import code.util.EnumList;
 import code.util.ints.Listable;
 
 
@@ -32,5 +33,8 @@ public enum EnvironmentType {
             }
         }
         return true;
+    }
+    public static EnumList<EnvironmentType> getEnvironments() {
+        return new EnumList<EnvironmentType>(values());
     }
 }

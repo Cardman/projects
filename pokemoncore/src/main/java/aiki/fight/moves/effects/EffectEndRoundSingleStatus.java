@@ -3,8 +3,9 @@ import aiki.DataBase;
 import aiki.exceptions.DataException;
 import aiki.fight.moves.effects.enums.RelationType;
 import aiki.fight.status.StatusType;
-import code.datacheck.CheckedData;
 import code.maths.Rate;
+import code.serialize.CheckedData;
+import code.util.EntryCust;
 import code.util.StringMap;
 import code.util.annot.RwXml;
 
@@ -19,13 +20,14 @@ public class EffectEndRoundSingleStatus extends EffectEndRoundStatus {
     @Override
     public void validate(DataBase _data) {
         super.validate(_data);
-        for (String s: multDamageStatus.getKeys()) {
-            if (!_data.getStatus().contains(s)) {
+        for (EntryCust<String, Rate> e: multDamageStatus.entryList()) {
+            if (!_data.getStatus().contains(e.getKey())) {
                 throw new DataException();
             }
-            if (_data.getStatus(s).getStatusType() == StatusType.RELATION_UNIQUE) {
+            if (_data.getStatus(e.getKey()).getStatusType() == StatusType.RELATION_UNIQUE) {
                 throw new DataException();
             }
+            e.getValue().isZero();
         }
         if (!getInflictedRateHpTarget().isZeroOrGt()) {
             throw new DataException();

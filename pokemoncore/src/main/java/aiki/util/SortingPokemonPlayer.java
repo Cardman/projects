@@ -1,9 +1,9 @@
 package aiki.util;
+import aiki.map.pokemon.enums.Gender;
 import code.util.CustList;
 import code.util.Numbers;
 import code.util.ints.Cmp;
 import code.util.pagination.Sorting;
-import aiki.map.pokemon.enums.Gender;
 
 public final class SortingPokemonPlayer implements Sorting,Cmp<SortingPokemonPlayer> {
 

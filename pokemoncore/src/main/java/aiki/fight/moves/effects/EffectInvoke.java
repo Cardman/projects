@@ -2,8 +2,9 @@ package aiki.fight.moves.effects;
 import aiki.DataBase;
 import aiki.exceptions.DataException;
 import aiki.map.levels.enums.EnvironmentType;
-import code.datacheck.CheckedData;
 import code.maths.Rate;
+import code.serialize.CheckedData;
+import code.util.EntryCust;
 import code.util.EnumMap;
 import code.util.StringList;
 import code.util.StringMap;
@@ -36,8 +37,13 @@ public class EffectInvoke extends Effect {
         if (!_data.getMoves().containsAllAsKeys(movesNotToBeInvoked)) {
             throw new DataException();
         }
-        if (!_data.getMoves().containsAllAsKeys(moveFctEnv.values())) {
-            throw new DataException();
+        for (EntryCust<EnvironmentType,String> e: moveFctEnv.entryList()) {
+            if (!EnvironmentType.getEnvironments().containsObj(e.getKey())) {
+                throw new DataException();
+            }
+            if (!_data.getMoves().contains(e.getValue())) {
+                throw new DataException();
+            }
         }
         for (String k: invokingMoveByUserTypes.getKeys()) {
             if (!k.isEmpty() && !_data.getTypes().containsObj(k)) {

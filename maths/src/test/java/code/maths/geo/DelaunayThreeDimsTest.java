@@ -4,9 +4,6 @@ import static code.util.opers.EquallableUtil.assertEq;
 
 import org.junit.Test;
 
-import code.maths.geo.CustPointThreeDims;
-import code.maths.geo.DelaunayThreeDims;
-import code.maths.geo.Tetrahedron;
 import code.util.EqList;
 import code.util.IdList;
 

@@ -1,12 +1,4 @@
 package aiki.game.fight;
-import code.maths.LgInt;
-import code.maths.Rate;
-import code.util.CustList;
-import code.util.EqList;
-import code.util.NumberMap;
-import code.util.ObjectMap;
-import code.util.StringList;
-import code.util.StringMap;
 import aiki.DataBase;
 import aiki.game.fight.enums.FightState;
 import aiki.game.fight.enums.FightType;
@@ -20,6 +12,14 @@ import aiki.map.characters.GymTrainer;
 import aiki.map.characters.TrainerLeague;
 import aiki.map.characters.TrainerMultiFights;
 import aiki.map.pokemon.WildPk;
+import code.maths.LgInt;
+import code.maths.Rate;
+import code.util.CustList;
+import code.util.EqList;
+import code.util.NumberMap;
+import code.util.ObjectMap;
+import code.util.StringList;
+import code.util.StringMap;
 
 final class FightInitialization {
 

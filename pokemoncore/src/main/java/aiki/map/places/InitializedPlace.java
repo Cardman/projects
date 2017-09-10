@@ -1,5 +1,4 @@
 package aiki.map.places;
-import code.util.ObjectMap;
 import aiki.map.characters.Person;
 import aiki.map.levels.Level;
 import aiki.map.levels.Link;
@@ -7,6 +6,7 @@ import aiki.map.tree.Tree;
 import aiki.map.util.PlaceInterConnect;
 import aiki.util.Coords;
 import aiki.util.Point;
+import code.util.ObjectMap;
 
 public interface InitializedPlace {
 

@@ -3,8 +3,6 @@ import static code.util.opers.EquallableUtil.assertEq;
 
 import org.junit.Test;
 
-import code.maths.BigDec;
-
 @SuppressWarnings("static-method")
 public class BigDecTest {
 

@@ -2,8 +2,8 @@ package aiki.fight.moves.effects;
 import aiki.DataBase;
 import aiki.exceptions.DataException;
 import aiki.fight.moves.enums.TargetChoice;
-import code.datacheck.CheckedData;
 import code.maths.montecarlo.MonteCarloString;
+import code.serialize.CheckedData;
 import code.util.StringList;
 import code.util.StringMap;
 import code.util.annot.RwXml;
@@ -25,6 +25,9 @@ public class EffectStatus extends Effect {
         if (!_data.getStatus().containsAllAsKeys(localFailStatus.getKeys())) {
             throw new DataException();
         }
+        if (!_data.getStatus().containsAllAsKeys(deletedStatus)) {
+            throw new DataException();
+        }
         if (koUserHealSubst) {
             if (statusFromUser) {
                 throw new DataException();
@@ -41,9 +44,6 @@ public class EffectStatus extends Effect {
             return;
         }
         if (!deletedStatus.isEmpty()) {
-            if (!_data.getStatus().containsAllAsKeys(deletedStatus)) {
-                throw new DataException();
-            }
             StringList copy_ = new StringList(deletedStatus);
             copy_.removeDuplicates();
             int size_ = copy_.size();

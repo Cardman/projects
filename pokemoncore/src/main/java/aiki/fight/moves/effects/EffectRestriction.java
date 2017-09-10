@@ -3,7 +3,7 @@ import aiki.DataBase;
 import aiki.exceptions.DataException;
 import aiki.fight.moves.effects.enums.MoveChoiceRestrictionType;
 import aiki.fight.moves.enums.TargetChoice;
-import code.datacheck.CheckedData;
+import code.serialize.CheckedData;
 import code.util.annot.RwXml;
 
 
@@ -17,6 +17,9 @@ public class EffectRestriction extends Effect {
     @Override
     public void validate(DataBase _data) {
         super.validate(_data);
+        if (choiceRestriction == null) {
+            throw new DataException();
+        }
         if (getTargetChoice() == TargetChoice.LANCEUR) {
             throw new DataException();
         }

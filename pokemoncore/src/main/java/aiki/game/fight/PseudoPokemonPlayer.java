@@ -1,6 +1,6 @@
 package aiki.game.fight;
-import code.maths.Rate;
 import aiki.map.pokemon.PokemonPlayer;
+import code.maths.Rate;
 
 public class PseudoPokemonPlayer {
 

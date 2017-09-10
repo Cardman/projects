@@ -1,10 +1,10 @@
 package aiki.map;
-import code.util.CustList;
-import code.util.NumberMap;
-import code.util.ObjectMap;
 import aiki.map.places.Place;
 import aiki.map.tree.Tree;
 import aiki.util.Coords;
+import code.util.CustList;
+import code.util.NumberMap;
+import code.util.ObjectMap;
 
 public class Solution {
 

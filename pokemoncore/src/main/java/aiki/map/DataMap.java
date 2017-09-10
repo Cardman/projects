@@ -65,8 +65,8 @@ import aiki.map.util.TileMiniMap;
 import aiki.util.Coords;
 import aiki.util.LevelPoint;
 import aiki.util.Point;
-import code.datacheck.CheckedData;
 import code.images.Image;
+import code.serialize.CheckedData;
 import code.util.CustList;
 import code.util.EntryCust;
 import code.util.EnumList;
@@ -159,6 +159,7 @@ public class DataMap {
         if (sideLength <= 0) {
             throw new DataException();
         }
+        places.getKeys().getMinimum().shortValue();
         initInteractiveElements();
         firstPokemon.validate(_d, true);
 //        if (!firstPokemon.isValid(_d)) {

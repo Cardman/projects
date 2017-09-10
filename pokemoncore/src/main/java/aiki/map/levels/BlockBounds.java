@@ -1,6 +1,6 @@
 package aiki.map.levels;
-import code.util.CustList;
 import aiki.DataBase;
+import code.util.CustList;
 
 public class BlockBounds {
 

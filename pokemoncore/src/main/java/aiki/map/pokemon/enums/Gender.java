@@ -1,5 +1,5 @@
 package aiki.map.pokemon.enums;
-import code.datacheck.CheckedData;
+import code.serialize.CheckedData;
 import code.util.EnumList;
 import code.util.ints.Listable;
 

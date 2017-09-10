@@ -118,8 +118,6 @@ import aiki.util.LawNumber;
 import aiki.util.LevelPoint;
 import aiki.util.Point;
 import aiki.util.TypeStatistic;
-import code.datacheck.CheckedData;
-import code.datacheck.ObjectComponents;
 import code.images.ConverterBufferedImage;
 import code.images.Image;
 import code.maths.LgInt;
@@ -128,6 +126,7 @@ import code.maths.litteral.EvolvedMathFactory;
 import code.maths.montecarlo.MonteCarloNumber;
 import code.maths.montecarlo.MonteCarloString;
 import code.resources.ResourceFiles;
+import code.serialize.CheckedData;
 import code.serialize.SerializeXmlObject;
 import code.util.CustList;
 import code.util.EntryCust;
@@ -796,7 +795,7 @@ public class DataBase implements WithMathFactory {
             }
             pk_.getMoveTutors().removeDuplicates();
         }
-        validateCore(true);
+        validateCore();
         if (!isLoading()) {
             return;
         }
@@ -1044,13 +1043,8 @@ public class DataBase implements WithMathFactory {
         return next_;
     }
 
-    public void validateCore(boolean _checkTypes) {
+    public void validateCore() {
         initTypesByTable();
-        if (_checkTypes) {
-            ObjectComponents.setCheckingNullity(true);
-            ObjectComponents.setReferences(false);
-            ObjectComponents.checkObjectNotNull(this);
-        }
         _perCentLoading_ = 55;
         for (String t1_: types) {
             for (String t2_: types) {
@@ -2025,7 +2019,6 @@ public class DataBase implements WithMathFactory {
                 }
             }
         }
-        ObjectComponents.checkObjectNotNull(this);
         for (EntryCust<String, PokemonData> e: getPokedex().entryList()) {
 //            if (!Pattern.matches(PATTERN_NAME, e.getKey())) {
 //                continue;

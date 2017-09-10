@@ -3,9 +3,6 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
-import code.maths.geo.CustPoint;
-import code.maths.geo.Edge;
-
 @SuppressWarnings("static-method")
 public class EdgeTest {
 

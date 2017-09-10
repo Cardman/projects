@@ -9,7 +9,6 @@ import cards.president.RulesPresident;
 import cards.tarot.CheckerGameTarotWithRules;
 import cards.tarot.GameTarot;
 import cards.tarot.RulesTarot;
-import code.datacheck.ObjectComponents;
 import code.stream.StreamTextFile;
 import code.util.CustList;
 import code.util.Numbers;
@@ -106,7 +105,6 @@ public final class Games {
     @throws RuntimeException */
     public void chargerPartie(String _fichier) {
         Object par_ = StreamTextFile.loadObject(_fichier);
-        ObjectComponents.checkObjectNotNull(par_);
         if (par_ instanceof GameBelote) {
             CheckerGameBeloteWithRules.check((GameBelote) par_);
             jouerBelote((GameBelote)par_);

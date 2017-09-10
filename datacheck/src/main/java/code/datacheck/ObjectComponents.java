@@ -8,6 +8,7 @@ import java.util.Comparator;
 
 import code.datacheck.exception.ContainerException;
 import code.datacheck.exception.GettingFieldException;
+import code.serialize.CheckedData;
 import code.serialize.ConverterMethod;
 import code.serialize.exceptions.BadAccessException;
 import code.serialize.exceptions.NullFieldException;

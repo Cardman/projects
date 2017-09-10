@@ -1,7 +1,7 @@
 package code.datacheck.classes;
 import java.io.Serializable;
 
-import code.datacheck.CheckedData;
+import code.serialize.CheckedData;
 import code.util.BooleanList;
 import code.util.CustList;
 import code.util.StringList;

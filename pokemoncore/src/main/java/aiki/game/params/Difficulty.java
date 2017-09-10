@@ -2,9 +2,9 @@ package aiki.game.params;
 import aiki.DataBase;
 import aiki.game.params.enums.DifficultyModelLaw;
 import aiki.game.params.enums.DifficultyWinPointsFight;
-import code.datacheck.CheckedData;
 import code.maths.Rate;
 import code.maths.montecarlo.MonteCarloNumber;
+import code.serialize.CheckedData;
 import code.util.Numbers;
 import code.util.annot.RwXml;
 
@@ -103,6 +103,15 @@ public class Difficulty {
         }
         if (ivFoe > _data.getMaxIv()) {
             ivFoe = (short) _data.getMaxIv();
+        }
+        if (damageRatePlayer == null) {
+            damageRatePlayer=DifficultyModelLaw.CONSTANT_MAX;
+        }
+        if (damageRateLawFoe == null) {
+            damageRateLawFoe=DifficultyModelLaw.CONSTANT_MIN;
+        }
+        if (diffWinningExpPtsFight == null) {
+            diffWinningExpPtsFight=DifficultyWinPointsFight.DIFFICILE;
         }
     }
 

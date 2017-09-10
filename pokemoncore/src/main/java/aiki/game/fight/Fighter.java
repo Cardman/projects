@@ -50,9 +50,9 @@ import aiki.map.pokemon.Pokemon;
 import aiki.map.pokemon.PokemonPlayer;
 import aiki.map.pokemon.WildPk;
 import aiki.map.pokemon.enums.Gender;
-import code.datacheck.CheckedData;
 import code.maths.LgInt;
 import code.maths.Rate;
+import code.serialize.CheckedData;
 import code.util.CustList;
 import code.util.EntryCust;
 import code.util.EnumMap;
@@ -619,6 +619,18 @@ public final class Fighter {
     //This class is covered
     //byte _user, in back
     public void validate(DataBase _data, byte _numberTeam, Fight _fight) {
+        if (gender == null) {
+            throw new GameLoadException();
+        }
+        if (action == null) {
+            throw new GameLoadException();
+        }
+        if (currentGender == null) {
+            throw new GameLoadException();
+        }
+        if (nickname == null) {
+            throw new GameLoadException();
+        }
         if (!_data.getPokedex().contains(name)) {
             throw new GameLoadException();
         }
@@ -905,6 +917,11 @@ public final class Fighter {
                 throw new GameLoadException();
             }
         }
+        for (Object o: enabledMovesForAlly.values()) {
+            if (!(o instanceof Boolean)) {
+                throw new GameLoadException();
+            }
+        }
         if (!StringList.equalsSet(_data.getMovesEffectAlly(), enabledMovesForAlly.getKeys())) {
             throw new GameLoadException();
         }
@@ -1036,6 +1053,11 @@ public final class Fighter {
         for (TeamPosition f: fighters_) {
             for (String m: relMoves_) {
                 relMovesTh_.add(new MoveTeamPosition(m, f));
+            }
+        }
+        for (Object o :incrUserAccuracy.values()) {
+            if (!(o instanceof Boolean)) {
+                throw new GameLoadException();
             }
         }
         if (!MoveTeamPosition.equalsSet(incrUserAccuracy.getKeys(), relMovesTh_)) {

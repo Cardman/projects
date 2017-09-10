@@ -1,7 +1,7 @@
 package aiki.game.fight.util;
+import aiki.game.fight.enums.UsefulValueLaw;
 import code.maths.Rate;
 import code.util.EnumMap;
-import aiki.game.fight.enums.UsefulValueLaw;
 
 public final class StatisticsDamageMove {
 

@@ -1,8 +1,8 @@
 package aiki.fight.moves.effects;
 import aiki.DataBase;
 import aiki.exceptions.DataException;
-import code.datacheck.CheckedData;
 import code.maths.Rate;
+import code.serialize.CheckedData;
 import code.util.annot.RwXml;
 
 @CheckedData

@@ -5,7 +5,7 @@ import aiki.map.characters.GymLeader;
 import aiki.map.characters.GymTrainer;
 import aiki.map.tree.LevelArea;
 import aiki.util.Point;
-import code.datacheck.CheckedData;
+import code.serialize.CheckedData;
 import code.util.EntryCust;
 import code.util.ObjectMap;
 import code.util.annot.RwXml;

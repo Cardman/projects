@@ -4,7 +4,8 @@ import aiki.exceptions.DataException;
 import aiki.fight.enums.Statistic;
 import aiki.fight.moves.enums.TargetChoice;
 import aiki.fight.status.StatusType;
-import code.datacheck.CheckedData;
+import code.serialize.CheckedData;
+import code.util.EntryCust;
 import code.util.EnumMap;
 import code.util.NumberMap;
 import code.util.StringList;
@@ -31,18 +32,20 @@ public class EffectTeamWhileSendFoe extends Effect {
         if (!_data.getTypes().containsAllObj(deletedByFoeTypes)) {
             throw new DataException();
         }
-        for (String s: statusByNbUses.values()) {
-            if (!_data.getStatus().contains(s)) {
+        for (EntryCust<Short,String> e: statusByNbUses.entryList()) {
+            if (!_data.getStatus().contains(e.getValue())) {
                 throw new DataException();
             }
-            if (_data.getStatus(s).getStatusType() == StatusType.RELATION_UNIQUE) {
+            if (_data.getStatus(e.getValue()).getStatusType() == StatusType.RELATION_UNIQUE) {
                 throw new DataException();
             }
+            e.getKey().shortValue();
         }
-        for (Statistic s: statistics.getKeys()) {
-            if (!s.isBoost()) {
+        for (EntryCust<Statistic,Byte> s: statistics.entryList()) {
+            if (!s.getKey().isBoost()) {
                 throw new DataException();
             }
+            s.getValue().byteValue();
         }
     }
 

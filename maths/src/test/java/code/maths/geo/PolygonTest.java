@@ -6,9 +6,6 @@ import static org.junit.Assert.assertTrue;
 import org.junit.Ignore;
 import org.junit.Test;
 
-import code.maths.geo.CustPoint;
-import code.maths.geo.Polygon;
-import code.maths.geo.Triangle;
 import code.util.CustList;
 
 @SuppressWarnings("static-method")

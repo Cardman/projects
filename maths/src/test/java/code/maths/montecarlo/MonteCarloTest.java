@@ -9,9 +9,6 @@ import org.junit.Test;
 import code.maths.LgInt;
 import code.maths.Rate;
 import code.maths.exceptions.BadDivisionException;
-import code.maths.montecarlo.AbMonteCarlo;
-import code.maths.montecarlo.MonteCarloBoolean;
-import code.maths.montecarlo.MonteCarloNb;
 import code.util.EqList;
 
 @SuppressWarnings("static-method")

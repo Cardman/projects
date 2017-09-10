@@ -3,7 +3,7 @@ import aiki.DataBase;
 import aiki.exceptions.DataException;
 import aiki.fight.moves.effects.enums.MoveItemType;
 import aiki.fight.moves.enums.TargetChoice;
-import code.datacheck.CheckedData;
+import code.serialize.CheckedData;
 import code.util.annot.RwXml;
 
 
@@ -40,22 +40,6 @@ public class EffectSwitchItems extends Effect {
             return;
         }
         throw new DataException();
-//        switch (moveObject) {
-//            case TAKE_OBJET:
-//            case USE_OBJECT_AS_POSSIBLE:
-//            case REMOVE_TARGET_OBJECT:
-//            case GIVE_OBJECT_TARGET:
-//            case EXCHANGE_OBJECTS:
-//            case DELETE_DEF_TARGET_BERRY:
-//                if (getTargetChoice() == TargetChoice.LANCEUR) {
-//                    throw new DataException();
-//                }
-//                return;
-//            case REUSE_LAST_OBJECT:
-//                return;
-//            default:
-//                throw new DataException();
-//        }
     }
     public MoveItemType getMoveObject() {
         return moveObject;

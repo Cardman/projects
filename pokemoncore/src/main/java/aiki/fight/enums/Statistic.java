@@ -1,5 +1,5 @@
 package aiki.fight.enums;
-import code.datacheck.CheckedData;
+import code.serialize.CheckedData;
 import code.util.EnumList;
 import code.util.ints.Listable;
 
@@ -47,6 +47,9 @@ public enum Statistic {
             }
         }
         return true;
+    }
+    public static EnumList<Statistic> getAllStatistics() {
+        return new EnumList<Statistic>(values());
     }
     public static EnumList<Statistic> getStatisticsWithBase() {
         EnumList<Statistic> list_ = new EnumList<Statistic>();

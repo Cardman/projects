@@ -1,20 +1,4 @@
 package aiki.game.fight;
-import code.maths.LgInt;
-import code.maths.Rate;
-import code.util.BooleanList;
-import code.util.CustList;
-import code.util.EnumList;
-import code.util.EnumMap;
-import code.util.EqList;
-import code.util.NatTreeMap;
-import code.util.NumberMap;
-import code.util.Numbers;
-import code.util.ObjectMap;
-import code.util.StringList;
-import code.util.StringMap;
-import code.util.TreeMap;
-import code.util.comparators.ComparatorBoolean;
-import code.util.comparators.NaturalComparator;
 import aiki.DataBase;
 import aiki.comments.Comment;
 import aiki.comparators.ComparatorTrStrings;
@@ -55,6 +39,23 @@ import aiki.map.pokemon.PokemonPlayer;
 import aiki.map.pokemon.WildPk;
 import aiki.util.Coords;
 import aiki.util.LevelPoint;
+import code.maths.LgInt;
+import code.maths.Rate;
+import code.util.BooleanList;
+import code.util.CustList;
+import code.util.EntryCust;
+import code.util.EnumList;
+import code.util.EnumMap;
+import code.util.EqList;
+import code.util.NatTreeMap;
+import code.util.NumberMap;
+import code.util.Numbers;
+import code.util.ObjectMap;
+import code.util.StringList;
+import code.util.StringMap;
+import code.util.TreeMap;
+import code.util.comparators.ComparatorBoolean;
+import code.util.comparators.NaturalComparator;
 
 public final class FightFacade {
 
@@ -2598,6 +2599,39 @@ public final class FightFacade {
             return;
         }
         _fight.setError(false);
+        if (_fight.getEnvType() == null) {
+            _fight.setEnvType(EnvironmentType.ROAD);
+        }
+        if (_fight.getCatchingBall() == null) {
+            _fight.setCatchingBall(DataBase.EMPTY_STRING);
+        }
+        boolean allBools_ = true;
+        for (Object o: _fight.getStillEnabledMoves().values()) {
+            if (!(o instanceof Boolean)) {
+                allBools_ = false;
+                break;
+            }
+        }
+        if (!allBools_) {
+            _fight.getStillEnabledMoves().clear();
+        }
+        if (_fight.getCurrentUser() == null) {
+            _fight.setCurrentUser(new TeamPosition());
+        }
+        boolean allTargets_ = false;
+        for (EntryCust<MoveTarget,MoveTarget> e: _fight.getAllyChoice().entryList()) {
+            if (!(e.getKey() instanceof MoveTarget)) {
+                allTargets_ = false;
+                break;
+            }
+            if (!(e.getValue() instanceof MoveTarget)) {
+                allTargets_ = false;
+                break;
+            }
+        }
+        if (!allTargets_) {
+            _fight.getAllyChoice().clear();
+        }
         _fight.setFullHealing(false);
         _fight.setSuccessfulEffects(new ObjectMap<NbEffectFighterCoords,Boolean>());
         _fight.setDamageByCurrentUser(new ObjectMap<TeamPosition,Rate>());

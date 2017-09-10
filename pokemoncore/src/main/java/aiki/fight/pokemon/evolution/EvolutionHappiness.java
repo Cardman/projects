@@ -1,7 +1,7 @@
 package aiki.fight.pokemon.evolution;
 import aiki.DataBase;
 import aiki.fight.pokemon.PokemonData;
-import code.datacheck.CheckedData;
+import code.serialize.CheckedData;
 
 @CheckedData
 public class EvolutionHappiness extends Evolution {

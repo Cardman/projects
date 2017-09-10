@@ -1,10 +1,4 @@
 package aiki.game.fight;
-import code.maths.LgInt;
-import code.maths.Rate;
-import code.util.EqList;
-import code.util.Numbers;
-import code.util.StringList;
-import code.util.StringMap;
 import aiki.DataBase;
 import aiki.fight.enums.Statistic;
 import aiki.fight.moves.effects.Effect;
@@ -13,6 +7,12 @@ import aiki.fight.moves.effects.EffectInvoke;
 import aiki.fight.moves.effects.EffectTeamWhileSendFoe;
 import aiki.fight.util.TypesDuo;
 import aiki.game.UsesOfMove;
+import code.maths.LgInt;
+import code.maths.Rate;
+import code.util.EqList;
+import code.util.Numbers;
+import code.util.StringList;
+import code.util.StringMap;
 
 final class FightValues {
 

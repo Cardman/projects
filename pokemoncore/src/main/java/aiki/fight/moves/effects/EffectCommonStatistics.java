@@ -1,11 +1,11 @@
 package aiki.fight.moves.effects;
-import code.util.EnumList;
-import code.util.EnumMap;
-import code.util.annot.RwXml;
 import aiki.DataBase;
 import aiki.exceptions.DataException;
 import aiki.fight.enums.Statistic;
 import aiki.fight.moves.enums.TargetChoice;
+import code.util.EnumList;
+import code.util.EnumMap;
+import code.util.annot.RwXml;
 
 @RwXml
 public class EffectCommonStatistics extends Effect {

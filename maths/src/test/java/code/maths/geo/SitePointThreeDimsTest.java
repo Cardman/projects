@@ -3,10 +3,6 @@ import static code.util.opers.EquallableUtil.assertEq;
 
 import org.junit.Test;
 
-import code.maths.geo.CustPointThreeDims;
-import code.maths.geo.SitePointThreeDims;
-import code.maths.geo.VectThreeDims;
-
 @SuppressWarnings("static-method")
 public class SitePointThreeDimsTest {
 

@@ -1,9 +1,9 @@
 package aiki.fight.pokemon.evolution;
-import code.util.StringList;
-import code.util.annot.RwXml;
 import aiki.DataBase;
 import aiki.exceptions.DataException;
 import aiki.fight.pokemon.PokemonData;
+import code.util.StringList;
+import code.util.annot.RwXml;
 
 @RwXml
 public class EvolutionMoveType extends Evolution {

@@ -6,9 +6,9 @@ import aiki.fight.moves.effects.EffectEndRound;
 import aiki.fight.moves.effects.EffectGlobal;
 import aiki.fight.moves.enums.SwitchType;
 import aiki.fight.moves.enums.TargetChoice;
-import code.datacheck.CheckedData;
 import code.maths.Rate;
 import code.maths.montecarlo.MonteCarloNumber;
+import code.serialize.CheckedData;
 import code.util.CustList;
 import code.util.Numbers;
 import code.util.StringList;
@@ -67,6 +67,12 @@ public abstract class MoveData {
 
     public void validate(DataBase _data) {
         repeatRoundLaw.checkEvents();
+        if (switchType == null) {
+            throw new DataException();
+        }
+        if (targetChoice == null) {
+            throw new DataException();
+        }
         if (targetChoice == TargetChoice.NOTHING) {
             throw new DataException();
         }
