@@ -1,6 +1,5 @@
 package code.maths.geo;
 import static code.maths.EquallableMathUtil.assertEq;
-import static code.util.opers.EquallableUtil.assertEq;
 import static org.junit.Assert.assertTrue;
 
 import org.junit.Ignore;

@@ -1,5 +1,5 @@
 package cards.tarot;
-import static code.util.opers.EquallableUtil.assertEq;
+import static cards.tarot.EquallableTarotUtil.assertEq;
 import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;

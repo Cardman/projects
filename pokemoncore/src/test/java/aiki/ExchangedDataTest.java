@@ -1,6 +1,5 @@
 package aiki;
 import static aiki.EquallablePkUtil.assertEq;
-import static code.util.opers.EquallableUtil.assertEq;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;

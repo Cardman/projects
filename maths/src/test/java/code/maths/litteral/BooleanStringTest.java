@@ -1,5 +1,5 @@
 package code.maths.litteral;
-import static code.util.opers.EquallableUtil.assertEq;
+import static code.maths.EquallableMathUtil.assertEq;
 import static junitparams.JUnitParamsRunner.$;
 import static org.junit.Assert.assertNull;
 import junitparams.JUnitParamsRunner;

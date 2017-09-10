@@ -1,7 +1,5 @@
 package aiki.map.pokemon;
 import static aiki.EquallablePkUtil.assertEq;
-import static code.maths.EquallableMathUtil.assertEq;
-import static code.util.opers.EquallableUtil.assertEq;
 import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;

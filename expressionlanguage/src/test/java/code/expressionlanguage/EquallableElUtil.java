@@ -1,10 +1,27 @@
 package code.expressionlanguage;
 
+import java.math.BigDecimal;
+import java.math.BigInteger;
+
+import code.util.BigIntegers;
+import code.util.GenericNumbers;
+import code.util.StringList;
+
 public final class EquallableElUtil {
 
     private static final String DIFF = " != ";
 
     private EquallableElUtil() {
+    }
+
+    public static void assertEq(StringList _expected, StringList _result) {
+        if (checkNullity(_expected, _result)) {
+            return;
+        }
+        if (_expected.eq(_result)) {
+            return;
+        }
+        assertError(_expected, _result);
     }
 
     public static void assertEq(Character _expected, Character _result) {
@@ -16,6 +33,67 @@ public final class EquallableElUtil {
         }
         assertError(_expected, _result);
     }
+
+    public static void assertEq(Boolean _expected, Object _result) {
+        if (checkNullity(_expected, _result)) {
+            return;
+        }
+        if (_expected.booleanValue() == ((Boolean)_result).booleanValue()) {
+            return;
+        }
+        assertError(_expected, _result);
+    }
+
+    public static void assertEq(String _expected, Object _result) {
+        if (checkNullity(_expected, _result)) {
+            return;
+        }
+        if (StringList.quickEq(_expected, (String)_result)) {
+            return;
+        }
+        assertError(_expected, _result);
+    }
+
+    public static void assertEq(Number _expected, Number _result) {
+        if (checkNullity(_expected, _result)) {
+            return;
+        }
+        if (sameValue(_expected, _result)) {
+            return;
+        }
+        assertError(_expected, _result);
+    }
+
+    public static void assertEq(BigInteger _expected, BigInteger _result) {
+        if (checkNullity(_expected, _result)) {
+            return;
+        }
+        if (BigIntegers.eq(_expected, _result)) {
+            return;
+        }
+        assertError(_expected, _result);
+    }
+
+    public static void assertEq(BigDecimal _expected, BigDecimal _result) {
+        if (checkNullity(_expected, _result)) {
+            return;
+        }
+        if (GenericNumbers.eq(_expected, _result)) {
+            return;
+        }
+        assertError(_expected, _result);
+    }
+
+    public static void assertEqNb(Number _expected, Object _result) {
+        if (checkNullity(_expected, _result)) {
+            return;
+        }
+        if (_expected.equals(_result)) {
+            return;
+        }
+        assertError(_expected, _result);
+    }
+
     private static boolean checkNullity(Object _expected, Object _result) {
         if (allNull(_expected, _result)) {
             return true;

@@ -1,6 +1,5 @@
 package code.xml;
 import static junitparams.JUnitParamsRunner.$;
-import static code.util.opers.EquallableUtil.assertEq;
 import static code.xml.EquallableRowColUtil.assertEq;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;

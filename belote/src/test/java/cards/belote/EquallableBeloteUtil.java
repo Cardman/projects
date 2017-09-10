@@ -11,6 +11,43 @@ public final class EquallableBeloteUtil {
     private EquallableBeloteUtil() {
     }
 
+    public static void assertEq(Number _expected, Number _result) {
+        if (checkNullity(_expected, _result)) {
+            return;
+        }
+        if (sameValue(_expected, _result)) {
+            return;
+        }
+        assertError(_expected, _result);
+    }
+    private static boolean sameValue(Object _expected, Object _result) {
+        boolean second_ = false;
+        if (_result instanceof Number) {
+            second_ = true;
+        }
+        if (_result instanceof Character) {
+            second_ = true;
+        }
+        if (!second_) {
+            return false;
+        }
+        if (_expected instanceof Double || _expected instanceof Float) {
+            if (_result instanceof Number) {
+                return ((Number)_expected).doubleValue() == ((Number)_result).doubleValue();
+            }
+            return false;
+        }
+        if (_expected instanceof Number && _result instanceof Number) {
+            return ((Number)_expected).longValue() == ((Number)_result).longValue();
+        }
+        if (_expected instanceof Number && _result instanceof Character) {
+            return ((Number)_expected).longValue() == ((Character)_result).charValue();
+        }
+        if (_expected instanceof Character && _result instanceof Number) {
+            return ((Character)_expected).charValue() == ((Number)_result).longValue();
+        }
+        return ((Character)_expected).charValue() == ((Character)_result).charValue();
+    }
     public static void assertEq(HandBelote _expected, HandBelote _result) {
         if (checkNullity(_expected, _result)) {
             return;

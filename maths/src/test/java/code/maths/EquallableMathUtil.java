@@ -1,23 +1,19 @@
-package code.formathtml;
+package code.maths;
 
-import code.formathtml.classes.EnumNumber;
+import java.math.BigDecimal;
+import java.math.BigInteger;
+
+import code.maths.geo.CustPoint;
+import code.maths.geo.CustPointThreeDims;
+import code.util.BigIntegers;
+import code.util.GenericNumbers;
 import code.util.StringList;
 
-public class EquallableExUtil {
+public final class EquallableMathUtil {
 
     private static final String DIFF = " != ";
 
-    private EquallableExUtil() {
-    }
-
-    public static void assertEq(Boolean _expected, Object _result) {
-        if (checkNullity(_expected, _result)) {
-            return;
-        }
-        if (_expected.booleanValue() == ((Boolean)_result).booleanValue()) {
-            return;
-        }
-        assertError(_expected, _result);
+    private EquallableMathUtil() {
     }
 
     public static void assertEq(String _expected, Object _result) {
@@ -39,7 +35,67 @@ public class EquallableExUtil {
         }
         assertError(_expected, _result);
     }
-    public static void assertEq(StringList _expected, StringList _result) {
+
+    public static void assertEq(BigInteger _expected, BigInteger _result) {
+        if (checkNullity(_expected, _result)) {
+            return;
+        }
+        if (BigIntegers.eq(_expected, _result)) {
+            return;
+        }
+        assertError(_expected, _result);
+    }
+
+    public static void assertEq(BigDecimal _expected, BigDecimal _result) {
+        if (checkNullity(_expected, _result)) {
+            return;
+        }
+        if (GenericNumbers.eq(_expected, _result)) {
+            return;
+        }
+        assertError(_expected, _result);
+    }
+    public static void assertEq(Boolean _expected, Object _result) {
+        if (checkNullity(_expected, _result)) {
+            return;
+        }
+        if (_expected.booleanValue() == ((Boolean)_result).booleanValue()) {
+            return;
+        }
+        assertError(_expected, _result);
+    }
+
+    public static void assertEq(Rate _expected, Rate _result) {
+        if (checkNullity(_expected, _result)) {
+            return;
+        }
+        if (_expected.eq(_result)) {
+            return;
+        }
+        assertError(_expected, _result);
+    }
+    
+    public static void assertEq(LgInt _expected, LgInt _result) {
+        if (checkNullity(_expected, _result)) {
+            return;
+        }
+        if (_expected.eq(_result)) {
+            return;
+        }
+        assertError(_expected, _result);
+    }
+    
+    public static void assertEq(CustPoint _expected, CustPoint _result) {
+        if (checkNullity(_expected, _result)) {
+            return;
+        }
+        if (_expected.eq(_result)) {
+            return;
+        }
+        assertError(_expected, _result);
+    }
+    
+    public static void assertEq(CustPointThreeDims _expected, CustPointThreeDims _result) {
         if (checkNullity(_expected, _result)) {
             return;
         }
@@ -49,15 +105,6 @@ public class EquallableExUtil {
         assertError(_expected, _result);
     }
 
-    public static void assertEq(EnumNumber _expected, EnumNumber _result) {
-        if (_expected == _result) {
-            return;
-        }
-        if (onlyOneNull(_expected, _result)) {
-            throw new AssertionError(null);
-        }
-        assertError(_expected, _result);
-    }
     private static boolean checkNullity(Object _expected, Object _result) {
         if (allNull(_expected, _result)) {
             return true;
@@ -67,18 +114,13 @@ public class EquallableExUtil {
         }
         return false;
     }
-    private static boolean allNull(Object _expected, Object _result) {
-        return _expected == null && _result == null;
-    }
-    private static boolean onlyOneNull(Object _expected, Object _result) {
-        if (_expected == null) {
-            return _result != null;
-        }
-        return _result == null;
-    }
 
     private static void assertError(Object _expected, Object _result) {
         throw new AssertionError(_expected+DIFF+_result);
+    }
+
+    private static boolean allNull(Object _expected, Object _result) {
+        return _expected == null && _result == null;
     }
     private static boolean sameValue(Object _expected, Object _result) {
         boolean second_ = false;
@@ -107,5 +149,11 @@ public class EquallableExUtil {
             return ((Character)_expected).charValue() == ((Number)_result).longValue();
         }
         return ((Character)_expected).charValue() == ((Character)_result).charValue();
+    }
+    private static boolean onlyOneNull(Object _expected, Object _result) {
+        if (_expected == null) {
+            return _result != null;
+        }
+        return _result == null;
     }
 }

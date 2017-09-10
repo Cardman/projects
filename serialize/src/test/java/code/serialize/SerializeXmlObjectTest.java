@@ -1,6 +1,5 @@
 package code.serialize;
 import static code.serialize.EquallableExUtil.assertEq;
-import static code.util.opers.EquallableUtil.assertEq;
 import static junitparams.JUnitParamsRunner.$;
 import static org.custommonkey.xmlunit.XMLAssert.assertXMLEqual;
 import static org.junit.Assert.assertNotSame;

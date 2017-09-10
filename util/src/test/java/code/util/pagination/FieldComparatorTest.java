@@ -1,5 +1,5 @@
 package code.util.pagination;
-import static code.util.opers.EquallableUtil.assertEq;
+import static code.util.EquallableExUtil.assertEq;
 
 import org.junit.Test;
 

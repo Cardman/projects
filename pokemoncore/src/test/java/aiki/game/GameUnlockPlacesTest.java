@@ -1,5 +1,5 @@
 package aiki.game;
-import static code.util.opers.EquallableUtil.assertEq;
+import static aiki.EquallablePkUtil.assertEq;
 
 import org.junit.BeforeClass;
 import org.junit.Test;

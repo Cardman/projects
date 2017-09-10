@@ -1,5 +1,5 @@
 package code.expressionlanguage.methods;
-import static code.util.opers.EquallableUtil.assertEq;
+import static code.expressionlanguage.EquallableElUtil.assertEq;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;

@@ -1,5 +1,5 @@
 package code.maths;
-import static code.util.opers.EquallableUtil.assertEq;
+import static code.maths.EquallableMathUtil.assertEq;
 
 import org.junit.Test;
 

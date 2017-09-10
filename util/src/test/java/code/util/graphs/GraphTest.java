@@ -1,5 +1,5 @@
 package code.util.graphs;
-import static code.util.opers.EquallableUtil.assertEq;
+import static code.util.EquallableExUtil.assertEq;
 import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;

@@ -1,11 +1,11 @@
 package code.expressionlanguage.classes;
 
-import code.util.opers.EquallableUtil;
+import code.expressionlanguage.EquallableElUtil;
 
 public class StrangeInit {
 
     static {
-        EquallableUtil.assertEq(0, 1);
+        EquallableElUtil.assertEq(0, 1);
     }
 
     public static final String NOT_READ = "not_read";

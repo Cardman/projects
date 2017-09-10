@@ -1,5 +1,5 @@
 package code.util;
-import static code.util.opers.EquallableUtil.assertEq;
+import static code.util.EquallableExUtil.assertEq;
 import static junitparams.JUnitParamsRunner.$;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.assertNull;

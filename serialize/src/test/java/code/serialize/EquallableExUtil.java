@@ -21,6 +21,36 @@ public final class EquallableExUtil {
         assertError(_expected, _result);
     }
 
+    public static void assertEq(Boolean _expected, Object _result) {
+        if (checkNullity(_expected, _result)) {
+            return;
+        }
+        if (_expected.booleanValue() == ((Boolean)_result).booleanValue()) {
+            return;
+        }
+        assertError(_expected, _result);
+    }
+
+    public static void assertEq(String _expected, Object _result) {
+        if (checkNullity(_expected, _result)) {
+            return;
+        }
+        if (StringList.quickEq(_expected, (String)_result)) {
+            return;
+        }
+        assertError(_expected, _result);
+    }
+
+    public static void assertEq(Number _expected, Number _result) {
+        if (checkNullity(_expected, _result)) {
+            return;
+        }
+        if (sameValue(_expected, _result)) {
+            return;
+        }
+        assertError(_expected, _result);
+    }
+
     public static void assertEq(CompositeTwo _expected, CompositeTwo _result) {
         if (checkNullity(_expected, _result)) {
             return;

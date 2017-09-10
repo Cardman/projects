@@ -1,5 +1,5 @@
 package code.util;
-import static code.util.opers.EquallableUtil.assertEq;
+import static code.util.EquallableExUtil.assertEq;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;

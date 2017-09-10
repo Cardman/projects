@@ -1,5 +1,5 @@
 package code.util;
-import static code.util.opers.EquallableUtil.assertEq;
+import static code.util.EquallableExUtil.assertEq;
 
 import java.math.BigInteger;
 

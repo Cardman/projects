@@ -1,5 +1,5 @@
 package code.formathtml;
-import static code.util.opers.EquallableUtil.assertEq;
+import static code.formathtml.EquallableExUtil.assertEq;
 import static org.junit.Assert.assertNull;
 
 import javax.imageio.ImageIO;

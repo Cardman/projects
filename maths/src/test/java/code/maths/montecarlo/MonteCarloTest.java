@@ -1,6 +1,5 @@
 package code.maths.montecarlo;
 import static code.maths.EquallableMathUtil.assertEq;
-import static code.util.opers.EquallableUtil.assertEq;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 

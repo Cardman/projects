@@ -2,7 +2,6 @@ package cards.tarot;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertTrue;
 import static cards.tarot.EquallableTarotUtil.assertEq;
-import static code.util.opers.EquallableUtil.assertEq;
 import junitparams.JUnitParamsRunner;
 import junitparams.Parameters;
 

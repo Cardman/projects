@@ -1,6 +1,5 @@
 package cards.president;
 import static cards.president.EquallablePresidentUtil.assertEq;
-import static code.util.opers.EquallableUtil.assertEq;
 import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
