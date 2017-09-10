@@ -1612,13 +1612,6 @@ public final class ElResolver {
                 j_++;
             }
             //j_ < len_
-            if (_string.substring(j_).startsWith(INSTANCE)) {
-                if (j_ + INSTANCE.length() < len_ && !StringList.isWordChar(_string.charAt(j_+INSTANCE.length()))) {
-                    if (onlySpacesFrom(_string, firstPrintChar_, j_, EXTERN_CLASS)) {
-                        instance_ = true;
-                    }
-                }
-            }
             minIndexDot_ = i_;
             if (!onlySpacesTo(_string, minIndexDot_-1, len_, ARR_LEFT)) {
                 prio_ = DOT_PRIO;

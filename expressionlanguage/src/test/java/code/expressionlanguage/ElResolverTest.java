@@ -2536,6 +2536,46 @@ public class ElResolverTest {
         assertEq(ElResolver.DOT_PRIO, seq_.getPriority());
     }
 
+    @Test
+    public void getOperationsSequence126Test() {
+        ContextEl conf_ = new ContextEl();
+        addImportingPage(conf_, false);
+        BeanOne b_ = new BeanOne();
+        addBean(conf_, b_);
+        String el_ = "var;.^new.java.lang.Integer(\"8\")";
+        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
+        NatTreeMap<Integer,String> opers_ = seq_.getOperators();
+        assertEq(1, opers_.size());
+        assertEq("", opers_.getVal(5));
+        NatTreeMap<Integer,String> values_ = seq_.getValues();
+        assertEq(2, values_.size());
+        assertEq("var;.", values_.getVal(0));
+        assertEq("^new.java.lang.Integer(\"8\")", values_.getVal(5));
+        assertTrue(!seq_.isFirstOpt());
+        assertEq(ElResolver.DOT_PRIO, seq_.getPriority());
+    }
+
+    @Test
+    public void getOperationsSequence127Test() {
+        ContextEl conf_ = new ContextEl();
+        addImportingPage(conf_, false);
+        BeanOne b_ = new BeanOne();
+        addBean(conf_, b_);
+        String el_ = "var;^new.java.lang.Integer(\"8\")";
+        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
+        NatTreeMap<Integer,String> opers_ = seq_.getOperators();
+        assertEq(1, opers_.size());
+        assertEq("", opers_.getVal(4));
+        NatTreeMap<Integer,String> values_ = seq_.getValues();
+        assertEq(2, values_.size());
+        assertEq("var;", values_.getVal(0));
+        assertEq("^new.java.lang.Integer(\"8\")", values_.getVal(4));
+        assertTrue(!seq_.isFirstOpt());
+        assertEq(ElResolver.DOT_PRIO, seq_.getPriority());
+    }
+
     @Test(expected=BadComparisonException.class)
     public void getOperationsSequence1FailTest() {
         ContextEl conf_ = new ContextEl();
@@ -3112,10 +3152,6 @@ public class ElResolverTest {
     }
 
     private static void addBean(ContextEl _conf, Object _bean) {
-//        LoopVariable lv_ = new LoopVariable();
-//        lv_.setElement(_bean);
-//        lv_.setExtendedExpression("");
-//        _conf.getImporting().last().getVars().put("", lv_);
         _conf.getLastPage().setGlobalArgumentObj(_bean);
     }
 }

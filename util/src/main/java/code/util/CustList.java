@@ -106,7 +106,6 @@ public class CustList<T> implements Listable<T> {
     }
 
     public T getPrev(int _i) {
-        // TODO Auto-generated method stub
         return get(_i-1);
     }
 
@@ -151,11 +150,6 @@ public class CustList<T> implements Listable<T> {
         return list.isEmpty();
     }
 
-//    @Override
-//    public boolean contains(Object _o) {
-//        return list.contains(_o);
-//    }
-
     @Override
     public Iterator<T> iterator() {
         return list.iterator();
@@ -165,11 +159,6 @@ public class CustList<T> implements Listable<T> {
     public Object[] toArray() {
         return list.toArray();
     }
-
-//    @Override
-//    public <E> E[] toArray(E[] _a) {
-//        return list.<E>toArray(_a);
-//    }
 
     @Override
     public void add(T _e) {
@@ -212,16 +201,6 @@ public class CustList<T> implements Listable<T> {
     public void remove(int _index) {
         list.remove(_index);
     }
-
-//    @Override
-//    public int indexOf(Object _o) {
-//        return list.indexOf(_o);
-//    }
-//
-//    @Override
-//    public int lastIndexOf(Object _o) {
-//        return list.lastIndexOf(_o);
-//    }
 
     @Override
     public ListIterator<T> listIterator() {
@@ -339,33 +318,6 @@ public class CustList<T> implements Listable<T> {
         groups_.add(group_);
         return groups_;
     }
-//
-//    public static <E extends Equallable<E>> boolean eq(CustList<E> _a, CustList<E> _b) {
-//        if (_a == null) {
-//            return _b == null;
-//        }
-//        int len_ = _a.size();
-//        if (_b.size() != len_) {
-//            return false;
-//        }
-//        for (int i = FIRST_INDEX; i < len_; i++) {
-//            E e_ = _a.get(i);
-//            E f_ = _b.get(i);
-//            if (e_ == null) {
-//                if (f_ != null) {
-//                    return false;
-//                }
-//                continue;
-//            }
-//            if (f_ == null) {
-//                return false;
-//            }
-//            if (!e_.eq(f_)) {
-//                return false;
-//            }
-//        }
-//        return true;
-//    }
 
     public void removeFirst() {
         if (isEmpty()) {
