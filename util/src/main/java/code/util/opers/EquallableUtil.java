@@ -23,16 +23,6 @@ public final class EquallableUtil {
         assertError(_expected, _result);
     }
 
-    public static void assertEq(Character _expected, Character _result) {
-        if (checkNullity(_expected, _result)) {
-            return;
-        }
-        if (sameValue(_expected, _result)) {
-            return;
-        }
-        assertError(_expected, _result);
-    }
-
     public static void assertEq(Boolean _expected, Object _result) {
         if (checkNullity(_expected, _result)) {
             return;
