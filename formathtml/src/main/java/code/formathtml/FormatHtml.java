@@ -3484,7 +3484,7 @@ final class FormatHtml {
         Struct it_ = ExtractObject.iterator(_conf, l_);
         while (ExtractObject.hasNext(_conf, it_)) {
             Struct entry_ = ExtractObject.next(_conf, it_);
-            ExtractObject.checkNullPointer(_conf, entry_);
+            ExtractObject.checkNullPointer(_conf, entry_.getInstance());
             Struct o_ = ExtractObject.getKey(_conf, entry_);
             if (o_.isNull()) {
                 continue;
