@@ -1,4 +1,5 @@
 package code.expressionlanguage.stacks;
+import code.expressionlanguage.exceptions.WrapperException;
 import code.util.CustList;
 
 public abstract class TryStack extends BlockStack {
@@ -7,7 +8,7 @@ public abstract class TryStack extends BlockStack {
 
     private boolean visitedFinally;
 
-    private Throwable thrownException;
+    private WrapperException thrownException;
 
     public int getVisitedCatch() {
         return visitedCatch;
@@ -25,11 +26,11 @@ public abstract class TryStack extends BlockStack {
         visitedFinally = _visitedFinally;
     }
 
-    public Throwable getThrownException() {
+    public WrapperException getThrownException() {
         return thrownException;
     }
 
-    public void setThrownException(Throwable _thrownException) {
+    public void setThrownException(WrapperException _thrownException) {
         thrownException = _thrownException;
     }
 }

@@ -21,6 +21,7 @@ import code.expressionlanguage.exceptions.NegativeSizeException;
 import code.expressionlanguage.exceptions.NotInitializedClassException;
 import code.expressionlanguage.exceptions.StackOverFlow;
 import code.expressionlanguage.exceptions.UnwrappingException;
+import code.expressionlanguage.exceptions.WrapperException;
 import code.expressionlanguage.methods.util.CallConstructor;
 import code.expressionlanguage.methods.util.InstancingStep;
 import code.expressionlanguage.opers.util.ClassCategory;
@@ -127,12 +128,13 @@ public final class ProcessXmlMethod {
             } catch (CustomFoundMethodException _0){
                 addPage(_cont, createCallingMethod(_0, _cont));
             } catch (Throwable _0){
-                Throwable t_ = throwException(_cont, _0);
+                Throwable realCaught_ = _0;
+                if (_0 instanceof WrapperException) {
+                    realCaught_ = ((WrapperException)_0).getWrapped();
+                }
+                Throwable t_ = throwException(_cont, realCaught_);
                 if (t_ == null) {
                     continue;
-                }
-                if (_0 instanceof IndirectException) {
-                    throw (IndirectException) _0;
                 }
                 throw new InvokeRedinedMethException(new Struct(_0));
             }
@@ -325,7 +327,7 @@ public final class ProcessXmlMethod {
                 if (try_.getVisitedCatch() >= CustList.FIRST_INDEX) {
                     if (!(try_.getCurrentCatchBlock() instanceof FinallyEval)) {
                         if (addFinallyClause_) {
-                            try_.setThrownException(_t);
+                            try_.setThrownException(new WrapperException(_t));
                             bkIp_.clearCurrentEls();
                             bkIp_.getReadWrite().setBlock(try_.getCatchBlocks().last());
                             return null;
@@ -379,7 +381,7 @@ public final class ProcessXmlMethod {
                     return null;
                 }
                 if (addFinallyClause_) {
-                    try_.setThrownException(_t);
+                    try_.setThrownException(new WrapperException(_t));
                     bkIp_.clearCurrentEls();
                     bkIp_.getReadWrite().setBlock(try_.getCatchBlocks().last());
                     return null;

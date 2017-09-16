@@ -4,6 +4,7 @@ import org.w3c.dom.Element;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.PageEl;
 import code.expressionlanguage.ReadWrite;
+import code.expressionlanguage.exceptions.WrapperException;
 import code.expressionlanguage.methods.exceptions.BadTryException;
 import code.expressionlanguage.stacks.TryBlockStack;
 import code.util.NatTreeMap;
@@ -125,13 +126,10 @@ public final class FinallyEval extends BracedStack implements Eval, IncrNextGrou
 
     private static void interruptAfterFinally(PageEl _ip) {
         TryBlockStack tryStack_ = (TryBlockStack) _ip.getLastStack();
-        Throwable t_ = tryStack_.getThrownException();
+        WrapperException t_ = tryStack_.getThrownException();
         if (t_ != null) {
             _ip.removeLastBlock();
-            if (t_ instanceof RuntimeException) {
-                throw (RuntimeException)t_;
-            }
-            throw (Error)t_;
+            throw t_;
         }
     }
 }

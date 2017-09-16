@@ -37,9 +37,9 @@ import code.formathtml.classes.Rate;
 import code.formathtml.classes.SimpleMathFactory;
 import code.formathtml.classes.UnselectedRadio;
 import code.formathtml.exceptions.FormNotFoundException;
+import code.formathtml.exceptions.RenderingException;
 import code.formathtml.util.NodeContainer;
 import code.formathtml.util.NodeInformations;
-import code.serialize.exceptions.BadAccessException;
 import code.serialize.exceptions.NoSuchDeclaredMethodException;
 import code.util.NatTreeMap;
 import code.util.NumberMap;
@@ -7680,8 +7680,7 @@ public class NavigationTest {
         nav_.processFormRequest();
     }
 
-//    @Ignore
-    @Test(expected=BadAccessException.class)
+    @Test(expected=RenderingException.class)
     public void processFormRequest7FailTest() {
         String locale_ = "LOCALE";
         String folder_ = "messages";

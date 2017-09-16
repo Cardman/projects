@@ -10,10 +10,10 @@ import org.xml.sax.SAXException;
 import code.bean.Bean;
 import code.bean.translator.Translator;
 import code.expressionlanguage.exceptions.DivideZeroException;
-import code.expressionlanguage.exceptions.InvokeException;
 import code.expressionlanguage.methods.exceptions.BadTryException;
 import code.formathtml.classes.BeanOne;
 import code.formathtml.classes.MyTranslator;
+import code.formathtml.exceptions.RenderingException;
 import code.util.StringMap;
 import code.xml.XmlParser;
 
@@ -827,7 +827,7 @@ public class FormatHtmlTryCatchFinallyTest {
         assertXmlEqualRuntime("<html xmlns:c='javahtml' xmlns='javahtml'><body>2</body></html>", render_);
     }
 
-    @Test(expected=InvokeException.class)
+    @Test(expected=RenderingException.class)
     public void processHtml1FailTest() {
         String locale_ = "LOCALE";
         String folder_ = "messages";

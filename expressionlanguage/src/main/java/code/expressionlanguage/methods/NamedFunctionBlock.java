@@ -121,6 +121,10 @@ public abstract class NamedFunctionBlock extends MemberCallingsBlock implements 
                 ctrs_.add(new StringList(l_.get(i)));
             }
         }
-        return new FctConstraints(getName(), ctrs_);
+        String name_ = getName();
+        if (name_.isEmpty()) {
+            return new FctConstraints(_type, ctrs_);
+        }
+        return new FctConstraints(name_, ctrs_);
     }
 }

@@ -16,8 +16,6 @@ import code.bean.Bean;
 import code.bean.translator.Translator;
 import code.bean.validator.Validator;
 import code.expressionlanguage.PrimitiveTypeUtil;
-import code.expressionlanguage.exceptions.AbstractClassConstructorException;
-import code.expressionlanguage.exceptions.NullGlobalObjectException;
 import code.expressionlanguage.methods.exceptions.AlreadyDefinedVarException;
 import code.formathtml.classes.AbstractBean;
 import code.formathtml.classes.BeanFive;
@@ -34,17 +32,12 @@ import code.formathtml.classes.MyTranslator;
 import code.formathtml.classes.RateEq;
 import code.formathtml.classes.SimpleMathFactory;
 import code.formathtml.exceptions.KeyValueException;
-import code.formathtml.exceptions.NotCastableException;
-import code.formathtml.exceptions.NotPrimitivableException;
-import code.formathtml.exceptions.SettingArrayException;
-import code.serialize.exceptions.BadAccessException;
-import code.serialize.exceptions.NoSuchDeclaredConstructorException;
+import code.formathtml.exceptions.RenderingException;
 import code.util.CustList;
 import code.util.StringList;
 import code.util.StringMap;
 import code.util.consts.ConstClasses;
 import code.util.consts.Constants;
-import code.util.exceptions.RuntimeClassNotFoundException;
 import code.util.ints.ListableEntries;
 import code.xml.XmlParser;
 import code.xml.exceptions.XmlParseException;
@@ -4201,7 +4194,7 @@ public class FormatHtmlTest {
         FormatHtml.processHtml(doc_, "bean_one", conf_, locale_, files_);
         //FormatHtml.processHtml(doc_.getDocumentElement(), conf_, files_, bean_);
     }
-    @Test(expected=NotPrimitivableException.class)
+    @Test(expected=RenderingException.class)
     public void processHtml4FailTest() {
         String locale_ = "LOCALE";
         String folder_ = "messages";
@@ -4229,7 +4222,7 @@ public class FormatHtmlTest {
         FormatHtml.processHtml(doc_, "bean_one", conf_, locale_, files_);
     }
 
-    @Test(expected=NotCastableException.class)
+    @Test(expected=RenderingException.class)
     public void processHtml5FailTest() {
         String locale_ = "LOCALE";
         String folder_ = "messages";
@@ -4258,7 +4251,7 @@ public class FormatHtmlTest {
         FormatHtml.processHtml(doc_, "bean_one", conf_, locale_, files_);
     }
 
-    @Test(expected=RuntimeClassNotFoundException.class)
+    @Test(expected=RenderingException.class)
     public void processHtml6FailTest() {
         String locale_ = "LOCALE";
         String folder_ = "messages";
@@ -9016,7 +9009,7 @@ public class FormatHtmlTest {
         assertXmlEqualRuntime("<html xmlns:c='javahtml' xmlns='javahtml'><body>2_[Ljava.lang.String;_ab</body></html>", render_);
     }
 
-    @Test(expected=RuntimeClassNotFoundException.class)
+    @Test(expected=RenderingException.class)
     public void processImports1FailTest() {
         String locale_ = "LOCALE";
         String folder_ = "messages";
@@ -9056,7 +9049,7 @@ public class FormatHtmlTest {
     }
 
 
-    @Test(expected=NullGlobalObjectException.class)
+    @Test(expected=RenderingException.class)
     public void processImports2FailTest() {
         String locale_ = "LOCALE";
         String folder_ = "messages";
@@ -9095,7 +9088,7 @@ public class FormatHtmlTest {
 //        assertEq(0, beanTwo_.getForms().size());
     }
 
-    @Test(expected=NullGlobalObjectException.class)
+    @Test(expected=RenderingException.class)
     public void processImports3FailTest() {
         String locale_ = "LOCALE";
         String folder_ = "messages";
@@ -9134,7 +9127,7 @@ public class FormatHtmlTest {
 //        assertEq(0, beanTwo_.getForms().size());
     }
 
-    @Test(expected=NoSuchDeclaredConstructorException.class)
+    @Test(expected=RenderingException.class)
     public void processImports4FailTest() {
         String locale_ = "LOCALE";
         String folder_ = "messages";
@@ -9165,7 +9158,7 @@ public class FormatHtmlTest {
         FormatHtml.processHtml(doc_, "bean_one", conf_, locale_, files_);
     }
 
-    @Test(expected=BadAccessException.class)
+    @Test(expected=RenderingException.class)
     public void processImports5FailTest() {
         String locale_ = "LOCALE";
         String folder_ = "messages";
@@ -9196,7 +9189,7 @@ public class FormatHtmlTest {
         FormatHtml.processHtml(doc_, "bean_one", conf_, locale_, files_);
     }
 
-    @Test(expected=NoSuchDeclaredConstructorException.class)
+    @Test(expected=RenderingException.class)
     public void processImports6FailTest() {
         String locale_ = "LOCALE";
         String folder_ = "messages";
@@ -9227,7 +9220,7 @@ public class FormatHtmlTest {
         FormatHtml.processHtml(doc_, "bean_one", conf_, locale_, files_);
     }
 
-    @Test(expected=RuntimeClassNotFoundException.class)
+    @Test(expected=RenderingException.class)
     public void processImports7FailTest() {
         String locale_ = "LOCALE";
         String folder_ = "messages";
@@ -9258,7 +9251,7 @@ public class FormatHtmlTest {
         FormatHtml.processHtml(doc_, "bean_one", conf_, locale_, files_);
     }
 
-    @Test(expected=AbstractClassConstructorException.class)
+    @Test(expected=RenderingException.class)
     public void processImports8FailTest() {
         String locale_ = "LOCALE";
         String folder_ = "messages";
@@ -9290,7 +9283,7 @@ public class FormatHtmlTest {
     }
 
 
-    @Test(expected=SettingArrayException.class)
+    @Test(expected=RenderingException.class)
     public void processImports9FailTest() {
         String locale_ = "LOCALE";
         String folder_ = "messages";

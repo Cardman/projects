@@ -27,6 +27,7 @@ import code.expressionlanguage.exceptions.InvokeException;
 import code.expressionlanguage.exceptions.InvokeRedinedMethException;
 import code.expressionlanguage.exceptions.NegativeSizeException;
 import code.expressionlanguage.exceptions.UnwrappingException;
+import code.expressionlanguage.exceptions.WrapperException;
 import code.expressionlanguage.methods.ProcessXmlMethod;
 import code.expressionlanguage.methods.exceptions.AlreadyDefinedVarException;
 import code.expressionlanguage.methods.exceptions.BadCaseException;
@@ -56,6 +57,7 @@ import code.formathtml.exceptions.MessageKeyNotFoundException;
 import code.formathtml.exceptions.NoSuchResourceException;
 import code.formathtml.exceptions.NotCastableException;
 import code.formathtml.exceptions.NotPrimitivableException;
+import code.formathtml.exceptions.RenderingException;
 import code.formathtml.exceptions.SettingArrayException;
 import code.formathtml.util.ActionNext;
 import code.formathtml.util.BeanElement;
@@ -684,14 +686,15 @@ final class FormatHtml {
                 currentNode_.appendChild(t_);
                 processElementOrText(_conf, ip_);
             } catch (Throwable _0){
-                Throwable t_ = throwException(_conf, _0);
+                Throwable realCaught_ = _0;
+                if (_0 instanceof WrapperException) {
+                    realCaught_ = ((WrapperException)_0).getWrapped();
+                }
+                Throwable t_ = throwException(_conf, realCaught_);
                 if (t_ == null) {
                     continue;
                 }
-                if (_0 instanceof RuntimeException) {
-                    throw (RuntimeException) _0;
-                }
-                throw new ErrorCausingException(new Struct(_0));
+                throw new RenderingException(new Struct(_0));
             }
         }
         containersMap_.put(currentForm_, containers_);
@@ -743,7 +746,7 @@ final class FormatHtml {
                 if (try_.getVisitedCatch() >= CustList.FIRST_INDEX) {
                     if (!StringList.quickEq(try_.getCurrentCatchNode().getNodeName(), prefix_+TAG_FINALLY)) {
                         if (addFinallyClause_) {
-                            try_.setThrownException(_t);
+                            try_.setThrownException(new WrapperException(_t));
                             Element newCurrentNode_ = try_.getWriteNode();
                             bkIp_.getReadWrite().setRead(try_.getCatchNodes().last());
                             bkIp_.getReadWrite().setWrite(newCurrentNode_);
@@ -799,7 +802,7 @@ final class FormatHtml {
                     return null;
                 }
                 if (addFinallyClause_) {
-                    try_.setThrownException(_t);
+                    try_.setThrownException(new WrapperException(_t));
                     Element newCurrentNode_ = try_.getWriteNode();
                     bkIp_.getReadWrite().setRead(try_.getCatchNodes().last());
                     bkIp_.getReadWrite().setWrite(newCurrentNode_);
@@ -1532,13 +1535,10 @@ final class FormatHtml {
     }
     static void interruptAfterFinally(ImportingPage _ip) {
         TryHtmlStack tryStack_ = (TryHtmlStack) _ip.getLastStack();
-        Throwable t_ = tryStack_.getThrownException();
+        WrapperException t_ = tryStack_.getThrownException();
         if (t_ != null) {
             _ip.removeLastBlock();
-            if (t_ instanceof RuntimeException) {
-                throw (RuntimeException)t_;
-            }
-            throw (Error)t_;
+            throw t_;
         }
     }
     private static ImportingPage removeBlockFinally(Configuration _conf,
