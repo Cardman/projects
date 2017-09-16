@@ -1,5 +1,6 @@
 package code.expressionlanguage;
 import code.expressionlanguage.methods.Block;
+import code.expressionlanguage.methods.Classes;
 import code.expressionlanguage.methods.util.CallConstructor;
 import code.expressionlanguage.methods.util.CallingClassConstructor;
 import code.expressionlanguage.opers.ExpressionLanguage;
@@ -134,6 +135,20 @@ public final class PageEl {
 
     public void addToOffset(int _offset) {
         offset += _offset;
+    }
+
+    public String getNextTempVar(Classes _classes) {
+        StringList resVar_ = _classes.getLocalVariablesNames();
+        int i_ = CustList.FIRST_INDEX;
+        while (true) {
+            if (!resVar_.containsStr(Classes.TEMP_PREFIX+i_)) {
+                if (!localVars.contains(Classes.TEMP_PREFIX+i_)) {
+                    break;
+                }
+            }
+            i_++;
+        }
+        return Classes.TEMP_PREFIX+i_;
     }
 
     public ReadWrite getReadWrite() {

@@ -1,6 +1,7 @@
 package code.expressionlanguage.stacks;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.methods.ProcessXmlMethod;
+import code.expressionlanguage.opers.util.Struct;
 
 public abstract class LoopStack extends BlockStack implements BreakableStack {
 
@@ -15,6 +16,8 @@ public abstract class LoopStack extends BlockStack implements BreakableStack {
     private static final String SEP_KEY_VAL = ":";
 
     private boolean finished;
+    
+    private Struct structIterator;
 
     private Object iterator;
 
@@ -25,9 +28,9 @@ public abstract class LoopStack extends BlockStack implements BreakableStack {
     @Override
     public String toString() {
         String iteration_;
-        try {
-            iteration_ = HAS_NEXT+SEP_KEY_VAL+ProcessXmlMethod.hasNext(null, iterator);
-        } catch (Throwable _0) {
+        if (iterator != null || index != -1) {
+            iteration_ = HAS_NEXT;
+        } else {
             iteration_ = WHILE_LOOP;
         }
         return iteration_+SEP_INFO+INDEX+SEP_KEY_VAL+index+SEP_INFO;
@@ -40,6 +43,10 @@ public abstract class LoopStack extends BlockStack implements BreakableStack {
         return index + 1 < maxIteration;
     }
 
+    public boolean hasNext() {
+        return index + 1 < maxIteration;
+    }
+
     public Object getIterator() {
         return iterator;
     }
@@ -47,6 +54,14 @@ public abstract class LoopStack extends BlockStack implements BreakableStack {
     public void setIterator(Object _iterator, long _maxIteration) {
         iterator = _iterator;
         maxIteration = _maxIteration;
+    }
+
+    public Struct getStructIterator() {
+        return structIterator;
+    }
+
+    public void setStructIterator(Struct _structIterator) {
+        structIterator = _structIterator;
     }
 
     public boolean isFinished() {

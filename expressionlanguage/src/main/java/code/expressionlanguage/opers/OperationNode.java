@@ -2,6 +2,7 @@ package code.expressionlanguage.opers;
 import java.lang.reflect.AccessibleObject;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
+import java.lang.reflect.Member;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 
@@ -374,9 +375,19 @@ public abstract class OperationNode implements Operable {
         return nextSibling;
     }
     static boolean canBeUsed(AccessibleObject _field, ContextEl _conf) {
+        if (_field instanceof Member) {
+            if (Modifier.isPublic(((Member)_field).getModifiers())) {
+                return true;
+            }
+        }
         return _conf.getAccessValue().canBeUsed(_field, _conf);
     }
     static void setAccess(AccessibleObject _field, ContextEl _conf) {
+        if (_field instanceof Member) {
+            if (Modifier.isPublic(((Member)_field).getModifiers())) {
+                return;
+            }
+        }
         _conf.getAccessValue().setAccess(_field, _conf);
     }
     void checkExist(ContextEl _cont, String _className, boolean _checkVoid, boolean _setOffset, int _offset) {

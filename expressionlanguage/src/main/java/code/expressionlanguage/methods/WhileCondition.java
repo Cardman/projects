@@ -103,7 +103,6 @@ public final class WhileCondition extends Condition implements Loop, IncrNextGro
         l_.setEvaluatingKeepLoop(false);
     }
 
-    @Override
     public boolean keepLoop(ContextEl _conf) {
         _conf.getLastPage().setProcessingAttribute(EMPTY_STRING);
         _conf.getLastPage().setOffset(0);

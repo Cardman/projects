@@ -30,6 +30,8 @@ public final class LoopVariable {
     private Struct element = new Struct();
 
     private long step;
+    
+    private Struct container;
 
     private Object array;
 
@@ -154,6 +156,17 @@ public final class LoopVariable {
     public void setStep(long _step) {
         step = _step;
     }
+
+    public Struct getContainer() {
+        return container;
+    }
+
+    public void setContainer(Struct _container) {
+        container = _container;
+        if (_container == null) {
+            container = new Struct();
+        }
+    }    
 
     public Object getArray() {
         return array;

@@ -364,20 +364,11 @@ public final class ForIterativeLoop extends BracedStack implements ForLoop {
         LoopBlockStack l_ = (LoopBlockStack) ip_.getLastStack();
         Block forLoopLoc_ = l_.getBlock();
         rw_.setBlock(forLoopLoc_);
-        if (keepLoop(_conf)) {
+        if (l_.hasNext()) {
             incrementLoop(_conf, l_, vars_);
             return;
         }
         l_.setFinished(true);
-    }
-
-    @Override
-    public boolean keepLoop(ContextEl _conf) {
-        PageEl ip_ = _conf.getLastPage();
-        LoopBlockStack l_ = (LoopBlockStack) ip_.getLastStack();
-        _conf.getLastPage().setProcessingAttribute(EMPTY_STRING);
-        _conf.getLastPage().setOffset(0);
-        return l_.hasNext(_conf);
     }
 
     @Override

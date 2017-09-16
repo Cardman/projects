@@ -428,7 +428,6 @@ public class ProcessXmlMethodTest {
         xml_ += "<line expression='l;.add(^class(&quot;java.lang.Object&quot;,2i))'/>\n";
         xml_ += "<declare var='t' class='"+PrimitiveTypeUtil.PRIM_INT+"'/>\n";
         xml_ += "<affect left='t;.' oper='=' right='0i'/>\n";
-        xml_ += "<foreach class='java.lang.Integer' var='e' expression='l;.'/>\n";
 //        xml_ += "<line expression='t;.add(class(&quot;java.lang.Object&quot;,2i))'/>\n";
 //        xml_ += "<line expression='t;.add(^class(&quot;java.lang.Object&quot;,2i))'/>\n";
         xml_ += "<return expression='t;.'/>\n";

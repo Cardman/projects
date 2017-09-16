@@ -4,5 +4,4 @@ import code.expressionlanguage.ContextEl;
 public interface Loop extends BreakableBlock, StackableBlockGroup {
 
     void processLastElementLoop(ContextEl _conf);
-    boolean keepLoop(ContextEl _conf);
 }

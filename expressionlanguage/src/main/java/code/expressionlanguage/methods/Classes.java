@@ -1,4 +1,6 @@
 package code.expressionlanguage.methods;
+import java.util.Iterator;
+
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
@@ -58,6 +60,7 @@ import code.xml.exceptions.XmlParseException;
 public final class Classes {
 
     public static final String EXT = "cdm";
+    public static final String TEMP_PREFIX = "tmp";
     private static final String ATTRIBUTE_PACKAGE = "package";
     private static final String ATTRIBUTE_NAME = "name";
     private static final String ATTRIBUTE_LEFT = "left";
@@ -77,8 +80,6 @@ public final class Classes {
     private static final String ATTRIBUTE_STEP = "step";
 
     private static final String EXT_PRO = "pro";
-    private static final String TEMP_PREFIX = "tmp";
-    private static final String EQ_FORMAT = "{0};.eq({1};.)";
     private static final String NAT_EQ_FORMAT = "{0};.={1};.";
     private static final char SEP_FILE = '/';
     private static final char DOT = '.';
@@ -88,6 +89,10 @@ public final class Classes {
     private static final char PREF = '#';
     private static final char PRIM = '$';
     private static final char COMMA = ',';
+    private static final String LOC_VAR = ";.";
+    private static final String ITERATOR = "iterator()";
+    private static final String HAS_NEXT = "hasNext()";
+    private static final String NEXT = "next()";
     private static final String EMPTY_STRING = "";
 
     private final StringMap<RootBlock> classesBodies;
@@ -100,9 +105,14 @@ public final class Classes {
     private final CustList<FoundErrorInterpret> errorsDet;
     private final StringList localVariablesNames;
     private final StringList classesInheriting;
-    private EqualsEl eqEl;
     private EqualsEl natEqEl;
+    private String iteratorVar;
+    private String hasNextVar;
+    private String nextVar;
     private CustList<OperationNode> exps;
+    private CustList<OperationNode> expsIterator;
+    private CustList<OperationNode> expsHasNext;
+    private CustList<OperationNode> expsNext;
 
     public Classes(StringMap<String> _files, ContextEl _context) {
         classesBodies = new StringMap<RootBlock>();
@@ -870,20 +880,6 @@ public final class Classes {
         while (localVariablesNames.containsStr(TEMP_PREFIX+i_)) {
             i_++;
         }
-        int three_ = i_;
-        i_++;
-        while (localVariablesNames.containsStr(TEMP_PREFIX+i_)) {
-            i_++;
-        }
-        int four_ = i_;
-        String thrirdArg_ = TEMP_PREFIX+three_;
-        String fourthArg_ = TEMP_PREFIX+four_;
-        String eqt_ = StringList.simpleFormat(EQ_FORMAT, thrirdArg_, fourthArg_);
-        eqEl = new EqualsEl(eqt_, thrirdArg_, fourthArg_);
-        i_++;
-        while (localVariablesNames.containsStr(TEMP_PREFIX+i_)) {
-            i_++;
-        }
         int five_ = i_;
         i_++;
         while (localVariablesNames.containsStr(TEMP_PREFIX+i_)) {
@@ -892,17 +888,39 @@ public final class Classes {
         int six_ = i_;
         String fifthArg_ = TEMP_PREFIX+five_;
         String sixthArg_ = TEMP_PREFIX+six_;
+        localVariablesNames.add(fifthArg_);
+        localVariablesNames.add(sixthArg_);
         String nateqt_ = StringList.simpleFormat(NAT_EQ_FORMAT, fifthArg_, sixthArg_);
-        natEqEl = new EqualsEl(nateqt_, fifthArg_, sixthArg_);
+        natEqEl = new EqualsEl(fifthArg_, sixthArg_);
         page_.getLocalVars().put(fifthArg_, new LocalVariable());
         page_.getLocalVars().put(sixthArg_, new LocalVariable());
         exps = ElUtil.getAnalyzedOperations(nateqt_, _context, Calculation.staticCalculation(true));
+        String locName_ = page_.getNextTempVar(this);
+        LocalVariable locVar_ = new LocalVariable();
+        locVar_.setClassName(Iterable.class.getName());
+        page_.getLocalVars().put(locName_, locVar_);
+        iteratorVar = locName_;
+        String exp_ = locName_ + LOC_VAR + ITERATOR;
+        expsIterator = ElUtil.getAnalyzedOperations(exp_, _context, Calculation.staticCalculation(true));
+        locName_ = page_.getNextTempVar(this);
+        locVar_ = new LocalVariable();
+        locVar_.setClassName(Iterator.class.getName());
+        page_.getLocalVars().put(locName_, locVar_);
+        hasNextVar = locName_;
+        exp_ = locName_ + LOC_VAR + HAS_NEXT;
+        expsHasNext = ElUtil.getAnalyzedOperations(exp_, _context, Calculation.staticCalculation(true));
+        locName_ = page_.getNextTempVar(this);
+        locVar_ = new LocalVariable();
+        locVar_.setClassName(Iterator.class.getName());
+        page_.getLocalVars().put(locName_, locVar_);
+        nextVar = locName_;
+        exp_ = locName_ + LOC_VAR + NEXT;
+        expsNext = ElUtil.getAnalyzedOperations(exp_, _context, Calculation.staticCalculation(true));
         page_.getLocalVars().removeKey(fifthArg_);
         page_.getLocalVars().removeKey(sixthArg_);
-    }
-
-    public EqualsEl getEqEl() {
-        return eqEl;
+        page_.getLocalVars().removeKey(iteratorVar);
+        page_.getLocalVars().removeKey(hasNextVar);
+        page_.getLocalVars().removeKey(nextVar);
     }
 
     public boolean canAccessField(String _className, String _accessedClass, String _name) {
@@ -988,6 +1006,30 @@ public final class Classes {
 
     public EqualsEl getNatEqEl() {
         return natEqEl;
+    }
+
+    public String getIteratorVar() {
+        return iteratorVar;
+    }
+
+    public String getHasNextVar() {
+        return hasNextVar;
+    }
+
+    public String getNextVar() {
+        return nextVar;
+    }
+
+    public ExpressionLanguage getEqIterator() {
+        return new ExpressionLanguage(expsIterator);
+    }
+
+    public ExpressionLanguage getEqHasNext() {
+        return new ExpressionLanguage(expsHasNext);
+    }
+
+    public ExpressionLanguage getEqNext() {
+        return new ExpressionLanguage(expsNext);
     }
 
     public ExpressionLanguage getEqNatEl() {
