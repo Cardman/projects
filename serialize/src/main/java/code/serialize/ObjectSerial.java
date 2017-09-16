@@ -55,8 +55,8 @@ final class ObjectSerial extends TemplateSerial {
     private NumberMap<Integer,Long> keysIndexesRef;
     private NumberMap<Integer,Long> valuesIndexesRef;
 
-    private ObjectSerial(Element _node){
-        super(_node);
+    private ObjectSerial(Element _node, TemplateSerial _parent){
+        super(_node, _parent);
     }
 
     ObjectSerial(Object _value) {
@@ -67,8 +67,8 @@ final class ObjectSerial extends TemplateSerial {
     @throws InvokingException
     @throws NoSuchDeclaredMethodException
     @throws RuntimeClassNotFoundException*/
-    ObjectSerial(Element _node, boolean _requiredClass) {
-        super(_node);
+    ObjectSerial(Element _node, TemplateSerial _parent, boolean _requiredClass) {
+        super(_node, _parent);
         NamedNodeMap map_ = _node.getAttributes();
         if(_requiredClass) {
             Node className_ = map_.getNamedItem(CLASS);
@@ -105,7 +105,7 @@ final class ObjectSerial extends TemplateSerial {
     @throws RuntimeClassNotFoundException*/
     static ObjectSerial newSerial(Element _node, boolean _requiredClass) {
         NamedNodeMap map_ = _node.getAttributes();
-        ObjectSerial serial_ = new ObjectSerial(_node);
+        ObjectSerial serial_ = new ObjectSerial(_node, null);
         if(_requiredClass) {
             Node className_ = map_.getNamedItem(CLASS);
             if (className_ != null) {

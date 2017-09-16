@@ -2420,6 +2420,25 @@ public class SerializeXmlObjectTest {
         SerializeXmlObject.fromXmlStringObject(xml_);
     }
 
+    @Test(expected=RefException.class)
+    public void fromXmlStringObject21FailTest() {
+        String xml_ = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?>";
+        xml_ += "<"+REFS+">";
+        xml_ += "<"+REF_ONE+" class=\""+REFS+"\" field=\"ref\">";
+        xml_ += "<"+REF_TWO+" class=\""+REF_ONE+"\" field=\"refTwo\">";
+        xml_ += "<"+REF_ONE+" class=\""+REF_TWO+"\" field=\"refOne\" ref=\"0\"/>";
+        xml_ += "</"+REF_TWO+">";
+        xml_ += "</"+REF_ONE+">";
+        xml_ += "</"+REFS+">";
+        SerializeXmlObject.setReferences(true);
+        SerializeXmlObject.setCheckReferences(false);
+        Refs refs_ = (Refs) SerializeXmlObject.fromXmlStringObject(xml_);
+        RefOne refOne_ = refs_.getRef();
+        RefTwo refTwo_ = refOne_.getRefTwo();
+        assertSame(refOne_, refTwo_.getRefOne());
+        assertSame(refTwo_, refTwo_.getRefOne().getRefTwo());
+    }
+
     @Parameters(method="booleanInputs")
     @Test
     public void checkNullPointers1Test(boolean _bool) {

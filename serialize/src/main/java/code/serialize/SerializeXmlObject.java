@@ -22,6 +22,7 @@ import code.serialize.exceptions.NoAttributeForSerializable;
 import code.serialize.exceptions.NoSuchDeclaredFieldException;
 import code.serialize.exceptions.NoSuchDeclaredMethodException;
 import code.serialize.exceptions.NoValueException;
+import code.serialize.exceptions.RefException;
 import code.util.CustList;
 import code.util.Numbers;
 import code.util.StringList;
@@ -35,7 +36,7 @@ import code.xml.XmlParser;
 public final class SerializeXmlObject {
 
     public static final String RESOURCES_FOLDER = "resources_stream/classes";
-    //TODO a const string instead
+
     static final String LS_CLASS = "a";
     static final String MP_CLASS = "m";
 //    static final String LS_CLASS = CollectionsUtil.getListClass().getName();
@@ -229,13 +230,11 @@ public final class SerializeXmlObject {
         currentNodesToBeRead_.add(root_);
         CustList<TemplateSerial> currentSerializableElements_ = new CustList<TemplateSerial>();
         ObjectSerial rootElement_;
-//        CustList<ObjectSerial> obj_;
-//        obj_ = new CustList<ObjectSerial>();
         CustList<ObjectSerial> cmp_;
         cmp_ = new CustList<ObjectSerial>();
         CustList<ObjectSerial> notEmptyMaps_ = new CustList<ObjectSerial>();
         if (_references_) {
-            rootElement_ = new ObjectSerial(root_, false);
+            rootElement_ = new ObjectSerial(root_, null, false);
             currentSerializableElements_.add(rootElement_);
             CustList<Node> newNodesToBeRead_ = new CustList<Node>();
             CustList<TemplateSerial> newSerializableElements_ = new CustList<TemplateSerial>();
@@ -258,23 +257,12 @@ public final class SerializeXmlObject {
                 for (int i = CustList.FIRST_INDEX; i < len_; i++) {
                     Node currentNode_ = currentNodesToBeRead_.get(i);
                     TemplateSerial composite_ = currentSerializableElements_.get(i);
-//                    boolean isTreeMap_ = false;
-//                    boolean containsTree_ = false;
-//                    for (Node nCh_: XmlParser.childrenNodes(currentNode_)) {
-//                        containsTree_ = nCh_.getAttributes().getNamedItem(TemplateSerial.COMPARATOR) != null;
-//                        if (containsTree_) {
-//                            break;
-//                        }
-//                    }
-//                    if (containsTree_) {
-//                        isTreeMap_ = true;
-//                    }
                     CustList<ElementsSerial> elt_ = new CustList<ElementsSerial>();
                     CustList<TemplateSerial> childRefComposites_ = new CustList<TemplateSerial>();
                     CustList<TemplateSerial> childIdComposites_ = new CustList<TemplateSerial>();
                     for (Element n : XmlParser.childrenElements(currentNode_)) {
                         try {
-                            ArraySerial serial_ = new ArraySerial(n);
+                            ArraySerial serial_ = new ArraySerial(n, composite_);
                             elt_.add(serial_);
                             if (serial_.getRef() == null) {
                                 newSerializableElements_.add(serial_);
@@ -291,10 +279,6 @@ public final class SerializeXmlObject {
                             }
                             continue;
                         } catch (ClassFoundException _0) {
-//                        } catch (NoAttributeForSerializable e_) {
-//                            throw e_;
-//                        } catch (Exception e_) {
-
                         } catch (RuntimeException _0) {
                             System.err.println(XmlParser.getRowColOfNodeOrAttribute(_xmlString, n, 0,EMPTY_STRING, TAB_WIDTH));
                             throw _0;
@@ -307,49 +291,9 @@ public final class SerializeXmlObject {
                             elt_.add(primitive_);
                             continue;
                         }
-//                        try {
-//                            ElementsSerial primitive_ = createPrimitive(n);
-//                            if (primitive_ == null) {
-//                                throw new NullSerialException();
-//                            }
-//                            elt_.add(primitive_);
-//                            continue;
-//                        } catch (NoAttributeForSerializable e_) {
-//                            throw e_;
-//                        } catch (InexistingValueForEnum e_) {
-//                            throw e_;
-//                        } catch (NumberFormatException e_) {
-//                            throw e_;
-//                        } catch (InvocationTargetException e_) {
-//                            throw e_;
-//                        } catch (InstantiationException e_) {
-//                            throw e_;
-//                        } catch (SecurityException e_) {
-//                            throw e_;
-//                        } catch (ClassNotFoundException e_) {
-//                            throw e_;
-//                        } catch (NullSerialException e_) {
-//                        }
-//                        ComparatorSerial cmp_ = getCmpSerial(n, isTreeMap_, composite_);
-//                        if (cmp_ != null) {
-//                            elt_.add(cmp_);
-//                            if (cmp_.getRef() == null) {
-//                                newSerializableElements_.add(cmp_);
-//                                newNodesToBeRead_.add(n);
-//                                serializableComposite_.add(cmp_);
-//                                if (cmp_.getId() != null) {
-//                                    serializableIdComposite_.add(cmp_);
-//                                    childIdComposites_.add(cmp_);
-//                                }
-//                            } else {
-//                                childRefComposites_.add(cmp_);
-//                                serializableRefComposite_.add(cmp_);
-//                            }
-//                            continue;
-//                        }
                         ObjectSerial serial_;
                         try {
-                            serial_ = new ObjectSerial(n, true);
+                            serial_ = new ObjectSerial(n, composite_, true);
                         } catch (RuntimeException _0) {
                             System.err.println(XmlParser.getRowColOfNodeOrAttribute(_xmlString, n, 0,EMPTY_STRING, TAB_WIDTH));
                             throw _0;
@@ -400,71 +344,15 @@ public final class SerializeXmlObject {
                     break;
                 }
                 if (ls_.isEmpty()) {
-                    continue;
+                    throw new RefException();
                 }
+                TemplateSerial parent_ = e.getParent();
                 TemplateSerial newId_ = lsTwo_.first();
-                for (TemplateSerial eTwo_ : serializableComposite_) {
-//                    List<TemplateSerial> elts_ = treeRefComposites_.getVal(eTwo_);
-                    CustList<TemplateSerial> elts_ = new CustList<TemplateSerial>();
-                    for (TemplateSerialValue<CustList<TemplateSerial>> p: treeRefComposites_.getElements()) {
-                        if (ElementsSerial.sameValue(p.getTemplate(), eTwo_)) {
-                            elts_ = p.getValue();
-                            break;
-                        }
-                    }
-                    boolean contained_ = false;
-                    for (TemplateSerial eThree_ : elts_) {
-                        if (!Numbers.eq(e.getRef(), eThree_.getRef())) {
-                            continue;
-                        }
-                        contained_ = true;
-                    }
-                    if (!contained_) {
-                        continue;
-                    }
-                    eTwo_.setElementSerial(_xmlString, e, newId_);
-                    break;
-                }
+                parent_.setElementSerial(_xmlString, e, newId_);
             }
-            /*List<MayBeMap> filledMaps_ = new List<MayBeMap>();
-            List<MayBeMap> fillableMaps_ = new List<MayBeMap>();
-            for (MayBeMap m : notEmptyMaps_) {
-                if (m.keysAllDifferent()) {
-                    fillableMaps_.add(m);
-                }
-            }
-            while (true) {
-                for (MayBeMap m : fillableMaps_) {
-                    m.setComponents(_xmlString);
-                    filledMaps_.add(m);
-                }
-                fillableMaps_.clear();
-                for (MayBeMap m : notEmptyMaps_) {
-                    if (!m.keysAllDifferent()) {
-                        continue;
-                    }
-                    if (containsPossibleMap(filledMaps_, m)) {
-                        continue;
-                    }
-                    fillableMaps_.add(m);
-                }
-                if (fillableMaps_.isEmpty()) {
-                    break;
-                }
-            }
-            for (MayBeMap m : notEmptyMaps_) {
-                if (!containsPossibleMap(filledMaps_, m)) {
-                    m.setComponents(_xmlString);
-                }
-            }*/
-//            for (ObjectSerial o: obj_.getReverse()) {
-//                o.setComponents(_xmlString);
-//            }
             for (ObjectSerial c: cmp_.getReverse()) {
                 Object o_ = c.getValue();
-                if (o_ instanceof ChangeableMap) {
-                    ((ChangeableMap)o_).applyChanges();
-                }
+                ((ChangeableMap)o_).applyChanges();
             }
             for (TemplateSerial t: serializableComposite_.getReverse()) {
                 Object o_ = t.getValue();
@@ -483,7 +371,6 @@ public final class SerializeXmlObject {
             CustList<Node> newNodesToBeRead_ = new CustList<Node>();
             CustList<TemplateSerial> serializableComposite_ = new CustList<TemplateSerial>();
             CustList<TemplateSerial> newSerializableElements_ = new CustList<TemplateSerial>();
-//            List<MayBeMap> notEmptyMaps_ = new List<MayBeMap>();
             boolean modif_ = true;
             while (modif_) {
                 modif_ = false;
@@ -502,8 +389,6 @@ public final class SerializeXmlObject {
                             newSerializableElements_.add(serial_);
                             newNodesToBeRead_.add(n);
                             continue;
-//                        } catch (NoAttributeForSerializable e_) {
-//                            throw e_;
                         } catch (ClassFoundException _0) {
                         } catch (RuntimeException _0) {
                             System.err.println(XmlParser.getRowColOfNodeOrAttribute(_xmlString, n, 0,EMPTY_STRING, TAB_WIDTH));
@@ -517,36 +402,6 @@ public final class SerializeXmlObject {
                             elt_.add(primitive_);
                             continue;
                         }
-//                        try {
-//                            ElementsSerial primitive_ = createPrimitive(n);
-//                            if (primitive_ == null) {
-//                                throw new NullSerialException();
-//                            }
-//                            elt_.add(primitive_);
-//                            continue;
-//                        } catch (NoAttributeForSerializable e_) {
-//                            throw e_;
-//                        } catch (InexistingValueForEnum e_) {
-//                            throw e_;
-//                        } catch (NumberFormatException e_) {
-//                            throw e_;
-//                        } catch (InvocationTargetException e_) {
-//                            throw e_;
-//                        } catch (InstantiationException e_) {
-//                            throw e_;
-//                        } catch (SecurityException e_) {
-//                            throw e_;
-//                        } catch (ClassNotFoundException e_) {
-//                            throw e_;
-//                        } catch (NullSerialException e_) {
-//                        }
-//                        ComparatorSerial cmp_ = getCmpSerial(n, isTreeMap_, composite_);
-//                        if (cmp_ != null) {
-//                            elt_.add(cmp_);
-//                            newSerializableElements_.add(cmp_);
-//                            newNodesToBeRead_.add(n);
-//                            continue;
-//                        }
                         ObjectSerial serial_;
                         try {
                             serial_ = ObjectSerial.newSerial(n, true);
@@ -557,7 +412,6 @@ public final class SerializeXmlObject {
                             System.err.println(XmlParser.getRowColOfNodeOrAttribute(_xmlString, n, 0,EMPTY_STRING, TAB_WIDTH));
                             throw _0;
                         }
-//                        obj_.add(serial_);
                         if (ChangeableMap.class.isAssignableFrom(serial_.getFoundClass())) {
                             cmp_.add(serial_);
                         }
@@ -577,45 +431,9 @@ public final class SerializeXmlObject {
                     modif_ = true;
                 }
             }
-            /*List<MayBeMap> filledMaps_ = new List<MayBeMap>();
-            List<MayBeMap> fillableMaps_ = new List<MayBeMap>();
-            for (MayBeMap m : notEmptyMaps_) {
-                if (m.keysAllDifferent()) {
-                    fillableMaps_.add(m);
-                }
-            }
-            while (true) {
-                for (MayBeMap m : fillableMaps_) {
-                    m.setComponents(_xmlString);
-                    filledMaps_.add(m);
-                }
-                fillableMaps_.clear();
-                for (MayBeMap m : notEmptyMaps_) {
-                    if (!m.keysAllDifferent()) {
-                        continue;
-                    }
-                    if (containsPossibleMap(filledMaps_, m)) {
-                        continue;
-                    }
-                    fillableMaps_.add(m);
-                }
-                if (fillableMaps_.isEmpty()) {
-                    break;
-                }
-            }
-            for (MayBeMap m : notEmptyMaps_) {
-                if (!containsPossibleMap(filledMaps_, m)) {
-                    m.setComponents(_xmlString);
-                }
-            }*/
-//            for (ObjectSerial o: obj_.getReverse()) {
-//                o.setComponents(_xmlString);
-//            }
             for (ObjectSerial c: cmp_.getReverse()) {
                 Object o_ = c.getValue();
-                if (o_ instanceof ChangeableMap) {
-                    ((ChangeableMap)o_).applyChanges();
-                }
+                ((ChangeableMap)o_).applyChanges();
             }
             for (TemplateSerial t: serializableComposite_.getReverse()) {
                 Object o_ = t.getValue();
@@ -631,16 +449,6 @@ public final class SerializeXmlObject {
         }
         return rootElement_.getValue();
     }
-
-//    private static boolean containsPossibleMap(List<MayBeMap> _filledMaps,
-//            MayBeMap _map) {
-//        for (MayBeMap m: _filledMaps) {
-//            if (ElementsSerial.sameValue((ElementsSerial)_map, (ElementsSerial)m)) {
-//                return true;
-//            }
-//        }
-//        return false;
-//    }
 
     /**@throws NoAttributeForSerializable
     @throws InexistingValueForEnum

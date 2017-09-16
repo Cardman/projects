@@ -36,8 +36,8 @@ final class ArraySerial extends TemplateSerial {
 
     /**@throws ClassFoundException
     @throws NoAttributeForSerializable*/
-    ArraySerial(Element _node) {
-        super(_node);
+    ArraySerial(Element _node, TemplateSerial _parent) {
+        super(_node, _parent);
         if (!StringList.quickEq(_node.getNodeName(),ARRAY)) {
             throw new ClassFoundException(_node.getNodeName(), ARRAY);
         }
