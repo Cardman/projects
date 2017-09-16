@@ -690,11 +690,11 @@ public final class Navigation {
             throw new InexistingValueForEnum(_value,class_.getName());
         }
         //Boolean
-        if (class_ == Boolean.class) {
+        if (class_ == Boolean.class || class_ == boolean.class) {
             return StringList.quickEq(_value,ON);
         }
         //Number
-        if (Number.class.isAssignableFrom(class_)) {
+        if (Number.class.isAssignableFrom(class_) || class_.isPrimitive()) {
             return ExtractObject.instanceByString(session, class_,_value);
         }
         try {

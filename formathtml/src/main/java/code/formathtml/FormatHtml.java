@@ -3268,6 +3268,7 @@ final class FormatHtml {
         String name_ = ((Element) _n).getAttribute(ATTRIBUTE_NAME);
         boolean update_ = ((Element) _n).hasAttribute(ATTRIBUTE_UPDATE);
         String varValue_ = ((Element) _n).getAttribute(ATTRIBUTE_VAR_VALUE);
+        String varMethod_ = ((Element) _n).getAttribute(VAR_METHOD);
         IdList<Object> returnedVarValue_ = null;
         if (!varValue_.isEmpty()) {
             _conf.getLastPage().setProcessingAttribute(ATTRIBUTE_VAR_VALUE);
@@ -3371,6 +3372,9 @@ final class FormatHtml {
             }
         }
         docElementSelect_.setAttribute(ATTRIBUTE_NAME, name_);
+        if (!varMethod_.isEmpty()) {
+            docElementSelect_.setAttribute(_conf.getPrefix()+VAR_METHOD, varMethod_);
+        }
         docElementSelect_.setAttribute(_conf.getPrefix()+ATTRIBUTE_CLASS_NAME, ((Element) _n).getAttribute(ATTRIBUTE_CLASS_NAME));
         _currentModifiedNode.appendChild(docElementSelect_);
     }
@@ -3393,6 +3397,7 @@ final class FormatHtml {
         String name_ = ((Element) _n).getAttribute(ATTRIBUTE_NAME);
         boolean update_ = ((Element)_n).hasAttribute(ATTRIBUTE_UPDATE);
         String varValue_ = ((Element) _n).getAttribute(ATTRIBUTE_VAR_VALUE);
+        String varMethod_ = ((Element) _n).getAttribute(VAR_METHOD);
         Object returnedVarValue_ = null;
         if (!varValue_.isEmpty()) {
             _conf.getLastPage().setProcessingAttribute(ATTRIBUTE_VAR_VALUE);
@@ -3435,6 +3440,9 @@ final class FormatHtml {
                 processOptionsMapEnum(_conf, map_, default_,
                         _doc, docElementSelect_, className_);
             }
+        }
+        if (!varMethod_.isEmpty()) {
+            docElementSelect_.setAttribute(_conf.getPrefix()+VAR_METHOD, varMethod_);
         }
         docElementSelect_.setAttribute(ATTRIBUTE_NAME, name_);
         docElementSelect_.setAttribute(_conf.getPrefix()+ATTRIBUTE_CLASS_NAME, ((Element) _n).getAttribute(ATTRIBUTE_CLASS_NAME));

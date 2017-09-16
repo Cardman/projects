@@ -2432,11 +2432,7 @@ public class SerializeXmlObjectTest {
         xml_ += "</"+REFS+">";
         SerializeXmlObject.setReferences(true);
         SerializeXmlObject.setCheckReferences(false);
-        Refs refs_ = (Refs) SerializeXmlObject.fromXmlStringObject(xml_);
-        RefOne refOne_ = refs_.getRef();
-        RefTwo refTwo_ = refOne_.getRefTwo();
-        assertSame(refOne_, refTwo_.getRefOne());
-        assertSame(refTwo_, refTwo_.getRefOne().getRefTwo());
+        SerializeXmlObject.fromXmlStringObject(xml_);
     }
 
     @Parameters(method="booleanInputs")
