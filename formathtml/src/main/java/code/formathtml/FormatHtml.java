@@ -291,6 +291,9 @@ final class FormatHtml {
         _conf.getHtmlPage().getSelects().clear();
         _conf.clearPages();
         String htmlText_ = processHtmlJava(_htmlText, _conf, _loc, _files, _resourcesFolder);
+        if (htmlText_ == null) {
+            return null;
+        }
         Document doc_ = XmlParser.parseSaxHtml(htmlText_, false, true);
         _conf.setDocument(doc_);
         _conf.clearPages();
@@ -538,6 +541,9 @@ final class FormatHtml {
         beforeDisplaying(bean_, _conf);
         _conf.setHtml(_htmlText);
         htmlText_ = processHtml(docOrig_, beanName_, _conf, _loc, _files, _resourcesFolder);
+        if (htmlText_ == null) {
+            return null;
+        }
         String prefix_ = _conf.getPrefix();
         StringBuilder str_ = new StringBuilder();
         int indexLoc_ = 0;
@@ -615,6 +621,9 @@ final class FormatHtml {
         long currentAnchor_ = 0;
         long currentForm_ = 0;
         while (true) {
+            if (_conf.isInterrupt()) {
+                return null;
+            }
             try {
                 ip_ = _conf.getLastPage();
                 if (ip_.getReadWrite() == null) {

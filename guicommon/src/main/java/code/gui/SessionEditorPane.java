@@ -316,6 +316,10 @@ public class SessionEditorPane extends EditorPane {
         setSelectionColor(selectionColor);
     }
 
+    public void interrupt() {
+        nav.getSession().setInterrupt(true);
+    }
+
     public void finish(boolean _wait) {
         //boolean _stop
         processing = false;
@@ -335,6 +339,12 @@ public class SessionEditorPane extends EditorPane {
     }
 
     void setupText(Timer _timer) {
+        if (nav.getSession().isInterrupt()) {
+            if (isProcessing() && requestThread != null) {
+                requestThread.finish();
+                return;
+            }
+        }
         if (!isProcessing()) {
             if (getFrame() != null) {
                 //isVisible is thread safe because it is a getter

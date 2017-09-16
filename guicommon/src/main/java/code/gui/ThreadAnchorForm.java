@@ -258,6 +258,7 @@ public final class ThreadAnchorForm extends Thread {
         return null;
     }
     private void initTimer() {
+        session.getNav().getSession().setInterrupt(false);
         if (session.getLabel() != null) {
             timer = new Timer(DELTA, new Chronometer(session.getLabel(), session, 0));
             timer.start();
@@ -308,6 +309,10 @@ public final class ThreadAnchorForm extends Thread {
             }
         }
         _t.printStackTrace();
+        finish();
+    }
+
+    void finish() {
         if (timer != null) {
             timer.stop();
         }

@@ -88,7 +88,7 @@ public final class FrameHtmlData extends ChildFrame {
     @Override
     public void closeWindow() {
 //        timer.stop();
-        session.finish(true);
+        session.interrupt();
         setVisible(false);
 //        session.clearSession();
     }

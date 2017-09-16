@@ -106,7 +106,7 @@ public final class DialogGameProgess extends Dialog {
 
     @Override
     public void closeWindow() {
-        session.finish(true);
+        session.interrupt();
         super.closeWindow();
 //        session.clearSession();
     }

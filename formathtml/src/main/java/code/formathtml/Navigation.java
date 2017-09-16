@@ -269,19 +269,15 @@ public final class Navigation {
         }
         try {
             processAnchorRequest(currentUrl);
-        } catch (RuntimeException _0) {
+        } catch (Throwable _0) {
             session.setCurrentUrl(currentUrl);
             String textToBeChanged_ = ExtractFromResources.loadPage(session, files, StringList.getFirstToken(currentUrl,REF_TAG), resourcesFolder);
             session.setDocument(XmlParser.parseSaxHtml(textToBeChanged_, false));
             textToBeChanged_ = FormatHtml.processImports(
                     textToBeChanged_, session, language, files, resourcesFolder);
-            setupText(textToBeChanged_);
-        } catch (Error _0) {
-            session.setCurrentUrl(currentUrl);
-            String textToBeChanged_ = ExtractFromResources.loadPage(session, files, StringList.getFirstToken(currentUrl,REF_TAG), resourcesFolder);
-            session.setDocument(XmlParser.parseSaxHtml(textToBeChanged_, false));
-            textToBeChanged_ = FormatHtml.processImports(
-                    textToBeChanged_, session, language, files, resourcesFolder);
+            if (textToBeChanged_ == null) {
+                return;
+            }
             setupText(textToBeChanged_);
         }
     }
@@ -396,6 +392,9 @@ public final class Navigation {
             bean_.setForms(forms_);
             textToBeChanged_ = FormatHtml.processImports(
                     textToBeChanged_, session, language, files, resourcesFolder);
+            if (textToBeChanged_ == null) {
+                return;
+            }
             currentBeanName = currentBeanName_;
             currentUrl = currentUrl_;
             setupText(textToBeChanged_);
@@ -443,6 +442,9 @@ public final class Navigation {
         }
         textToBeChanged_ = FormatHtml.processImports(
                 textToBeChanged_, session, language, files, resourcesFolder);
+        if (textToBeChanged_ == null) {
+            return;
+        }
         currentBeanName = currentBeanName_;
         currentUrl = currentUrl_;
         setupText(textToBeChanged_);

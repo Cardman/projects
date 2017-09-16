@@ -73,6 +73,8 @@ public class Configuration {
 
     private transient String prefix = EMPTY_STRING;
 
+    private transient volatile boolean interrupt;
+
     public Configuration() {
         if (namespaceUri == null) {
             namespaceUri = EMPTY_STRING;
@@ -280,5 +282,13 @@ public class Configuration {
 
     public final String getNamespaceUri() {
         return namespaceUri;
+    }
+
+    public boolean isInterrupt() {
+        return interrupt;
+    }
+
+    public void setInterrupt(boolean _interrupt) {
+        interrupt = _interrupt;
     }
 }

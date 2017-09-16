@@ -38,7 +38,7 @@ public final class DialogHtmlData extends Dialog {
 
     @Override
     public void closeWindow() {
-        session.finish(true);
+        session.interrupt();
         super.closeWindow();
 //        session.clearSession();
     }

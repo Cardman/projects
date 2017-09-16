@@ -409,7 +409,7 @@ public final class MainWindow extends NetGroupFrame {
         frames_.addAllElts(battle.getHtmlDialogs());
         for (FrameHtmlData f: frames_) {
 //            f.dispose();
-            f.getSession().finish(true);
+            f.getSession().interrupt();
             f.setVisible(false);
         }
         battle.getBattle().setVisible(false);
