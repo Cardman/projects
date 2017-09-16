@@ -40,6 +40,9 @@ public final class Painting extends Thread {
 
     @Override
     public void run() {
+        if (window.isPaintingScene()) {
+            return;
+        }
         window.setPaintingScene(true);
         facade.move(dir);
         window.setSavedGame(false);
@@ -51,28 +54,9 @@ public final class Painting extends Thread {
             Constants.sleep(pause);
             scene.repaint();
             if (facade.isChangeToFightScene()) {
-//                facade.changeCamera(dir);
-//                scene.load(facade, false, true);
-//                facade.changeCamera();
-//                scene.load(facade, false, false);
-//                Constants.sleep(pause);
-//                scene.repaint();
                 SwingUtilities.invokeLater(new SetFightPanel(window));
                 return;
             }
-//            if (facade.getGame().getNbSteps() == 0) {
-////                scene.setDir(facade, false);
-//                Constants.sleep(pause);
-//                scene.repaint();
-//                SwingUtilities.invokeLater(new SetInteractionScene(window));
-//                return;
-//            }
-//            facade.changeCamera(dir);
-//            scene.load(facade, false, true);
-//            facade.changeCamera();
-//            scene.load(facade, false, false);
-//            Constants.sleep(pause);
-//            scene.repaint();
             SwingUtilities.invokeLater(new SetInteractionScene(window));
             return;
         }
@@ -92,10 +76,6 @@ public final class Painting extends Thread {
                     Constants.sleep(pause);
                     scene.repaint();
                 }
-//                facade.changeCamera();
-//                scene.load(facade, false, false);
-//                scene.setDelta(0, false);
-//                scene.repaint();
             }
             SwingUtilities.invokeLater(new SetFightPanel(window));
             return;
@@ -104,25 +84,12 @@ public final class Painting extends Thread {
             facade.changeCamera();
             scene.load(facade, false);
             scene.setDelta(0, false);
-//            scene.setDir(facade, true);
             Constants.sleep(pause);
             scene.repaint();
             SwingUtilities.invokeLater(new SetInteractionScene(window));
             return;
         }
         if (facade.getGame().isPlaceChanged()) {
-//            facade.changeCamera(dir);
-//            scene.load(facade, false, false);
-//            for (int i = CustList.FIRST_INDEX; i < side; i++) {
-//                scene.setDelta(i - side, true);
-//                Constants.sleep(pause);
-//                scene.repaint();
-//            }
-//            facade.changeCamera();
-//            scene.load(facade, false, false);
-//            scene.setDelta(0, false);
-//            Constants.sleep(10);
-//            scene.repaint();
             scene.keepTiles();
             facade.changeCamera();
             scene.load(facade, false);
@@ -132,53 +99,12 @@ public final class Painting extends Thread {
             return;
         }
         facade.changeCamera(dir);
-//        scene.setNb();
         scene.load(facade, false);
         for (int i = CustList.FIRST_INDEX; i <= side; i++) {
             scene.setDelta(i - side, true);
             Constants.sleep(pause);
             scene.repaint();
         }
-//        facade.changeCamera();
-//        scene.load(facade, false, false);
-//        scene.setDelta(0, false);
-//        scene.setDelta(0, false);
-//        scene.repaint();
-//        scene.resetExport();
-        //scene.complete(facade);//added
         SwingUtilities.invokeLater(new SetInteractionScene(window));
-//        if (facade.isChangeToFightScene()) {
-//            facade.changeCamera();
-//            scene.load(facade, false);
-//            scene.repaint();
-//            int pause_ = 20;
-//            //int side_ = facade.getMap().getSideLength();
-//            Constants.sleep(pause_ * side_ / 2);
-//            SwingUtilities.invokeLater(new SetFightPanel(window));
-//            return;
-//        }
-        //int side_ = facade.getMap().getSideLength();
-//        if (facade.getGame().isPlaceChanged()) {
-//            facade.changeCamera();
-//            scene.load(facade, false);
-//            Constants.sleep(pause_ * side_);
-//            scene.setDelta(0);
-//            scene.setDir(facade);
-//            scene.repaint();
-//        } else if (facade.getGame().getNbSteps() == 0) {
-//            //facade.changeCamera(dir);
-//            scene.load(facade, false);
-//            Constants.sleep(pause_ * side_ / 2);
-//            scene.setDelta(0);
-//            scene.setDir(facade);
-//            scene.repaint();
-//        } else {
-//            facade.changeCamera(dir);
-//            scene.load(facade, false);
-//            Constants.sleep(pause_ * side_ / 2);
-//            scene.setDelta(0);
-//            scene.repaint();
-//        }
-//        SwingUtilities.invokeLater(new SetInteractionScene(window));
     }
 }

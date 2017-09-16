@@ -65,19 +65,11 @@ public class KeyPadListener implements KeyListener {
         } else {
             return;
         }
-        synchronized (this) {
-//            if (thread != null) {
-//                if (thread.isAlive()) {
-//                    return;
-//                }
-//            }
-            if (window.isPaintingScene()) {
-                return;
-            }
-            thread = new Painting(scene, facade, dir_, window);
-            thread.start();
+        if (window.isPaintingScene()) {
+            return;
         }
-
+        thread = new Painting(scene, facade, dir_, window);
+        thread.start();
     }
 
     @Override
