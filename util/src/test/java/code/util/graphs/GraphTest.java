@@ -12,7 +12,7 @@ public class GraphTest {
     @Test
     public void isDirectTrees1Test() {
         Graph<NumberedNode> g_ = new Graph<NumberedNode>();
-        assertEq(true, g_.isDirectTrees());
+        assertTrue(g_.isDirectTrees());
     }
 
     @Test
@@ -23,7 +23,7 @@ public class GraphTest {
         NumberedNode three_ = new NumberedNode(3);
         g_.addSegment(one_, two_);
         g_.addSegment(one_, three_);
-        assertEq(true, g_.isDirectTrees());
+        assertTrue(g_.isDirectTrees());
     }
 
     @Test
@@ -39,7 +39,7 @@ public class GraphTest {
         g_.addSegment(one_, three_);
         g_.addSegment(four_, five_);
         g_.addSegment(four_, six_);
-        assertEq(true, g_.isDirectTrees());
+        assertTrue(g_.isDirectTrees());
     }
 
     @Test
@@ -53,7 +53,7 @@ public class GraphTest {
         g_.addSegment(one_, three_);
         g_.addSegment(two_, four_);
         g_.addSegment(three_, four_);
-        assertEq(false, g_.isDirectTrees());
+        assertTrue(!g_.isDirectTrees());
     }
 
     @Test
@@ -67,7 +67,7 @@ public class GraphTest {
         g_.addSegment(two_, three_);
         g_.addSegment(three_, four_);
         g_.addSegment(four_, one_);
-        assertEq(false, g_.isDirectTrees());
+        assertTrue(!g_.isDirectTrees());
     }
 
     @Test
@@ -78,13 +78,13 @@ public class GraphTest {
         NumberedNode three_ = new NumberedNode(3);
         g_.addSegment(two_, one_);
         g_.addSegment(three_, one_);
-        assertEq(false, g_.isDirectTrees());
+        assertTrue(!g_.isDirectTrees());
     }
 
     @Test
     public void isTrees1Test() {
         Graph<NumberedNode> g_ = new Graph<NumberedNode>();
-        assertEq(true, g_.isTrees());
+        assertTrue(g_.isTrees());
     }
 
     @Test
@@ -95,7 +95,7 @@ public class GraphTest {
         NumberedNode three_ = new NumberedNode(3);
         g_.addSegment(one_, two_);
         g_.addSegment(one_, three_);
-        assertEq(true, g_.isTrees());
+        assertTrue(g_.isTrees());
     }
 
     @Test
@@ -111,7 +111,7 @@ public class GraphTest {
         g_.addSegment(one_, three_);
         g_.addSegment(four_, five_);
         g_.addSegment(four_, six_);
-        assertEq(true, g_.isTrees());
+        assertTrue(g_.isTrees());
     }
 
     @Test
@@ -125,7 +125,7 @@ public class GraphTest {
         g_.addSegment(one_, three_);
         g_.addSegment(two_, four_);
         g_.addSegment(three_, four_);
-        assertEq(false, g_.isTrees());
+        assertTrue(!g_.isTrees());
     }
 
     @Test
@@ -139,7 +139,7 @@ public class GraphTest {
         g_.addSegment(two_, three_);
         g_.addSegment(three_, four_);
         g_.addSegment(four_, one_);
-        assertEq(false, g_.isTrees());
+        assertTrue(!g_.isTrees());
     }
 
     @Test
@@ -150,13 +150,13 @@ public class GraphTest {
         NumberedNode three_ = new NumberedNode(3);
         g_.addSegment(two_, one_);
         g_.addSegment(three_, one_);
-        assertEq(true, g_.isTrees());
+        assertTrue(g_.isTrees());
     }
 
     @Test
     public void hasCycle1Test() {
         Graph<NumberedNode> g_ = new Graph<NumberedNode>();
-        assertEq(false, g_.hasCycle());
+        assertTrue(!g_.hasCycle());
         EqList<NumberedNode> es_ = g_.elementsCycle();
         assertEq(0, es_.size());
     }
@@ -169,7 +169,7 @@ public class GraphTest {
         NumberedNode three_ = new NumberedNode(3);
         g_.addSegment(one_, two_);
         g_.addSegment(one_, three_);
-        assertEq(false, g_.hasCycle());
+        assertTrue(!g_.hasCycle());
         EqList<NumberedNode> es_ = g_.elementsCycle();
         assertEq(0, es_.size());
     }
@@ -187,7 +187,7 @@ public class GraphTest {
         g_.addSegment(one_, three_);
         g_.addSegment(four_, five_);
         g_.addSegment(four_, six_);
-        assertEq(false, g_.hasCycle());
+        assertTrue(!g_.hasCycle());
         EqList<NumberedNode> es_ = g_.elementsCycle();
         assertEq(0, es_.size());
     }
@@ -203,7 +203,7 @@ public class GraphTest {
         g_.addSegment(one_, three_);
         g_.addSegment(two_, four_);
         g_.addSegment(three_, four_);
-        assertEq(false, g_.hasCycle());
+        assertTrue(!g_.hasCycle());
         EqList<NumberedNode> es_ = g_.elementsCycle();
         assertEq(0, es_.size());
     }
@@ -219,7 +219,7 @@ public class GraphTest {
         g_.addSegment(two_, three_);
         g_.addSegment(three_, four_);
         g_.addSegment(four_, one_);
-        assertEq(true, g_.hasCycle());
+        assertTrue(g_.hasCycle());
         EqList<NumberedNode> es_ = g_.elementsCycle();
         assertEq(4, es_.size());
         assertTrue(es_.containsObj(one_));
@@ -236,7 +236,7 @@ public class GraphTest {
         NumberedNode three_ = new NumberedNode(3);
         g_.addSegment(two_, one_);
         g_.addSegment(three_, one_);
-        assertEq(false, g_.hasCycle());
+        assertTrue(!g_.hasCycle());
         EqList<NumberedNode> es_ = g_.elementsCycle();
         assertEq(0, es_.size());
     }
@@ -254,7 +254,7 @@ public class GraphTest {
         g_.addSegment(three_, four_);
         g_.addSegment(four_, one_);
         g_.addSegment(five_, one_);
-        assertEq(true, g_.hasCycle());
+        assertTrue(g_.hasCycle());
         EqList<NumberedNode> es_ = g_.elementsCycle();
         assertEq(4, es_.size());
         assertTrue(es_.containsObj(one_));
@@ -278,7 +278,7 @@ public class GraphTest {
         g_.addSegment(four_, one_);
         g_.addSegment(five_, one_);
         g_.addSegment(three_, six_);
-        assertEq(true, g_.hasCycle());
+        assertTrue(g_.hasCycle());
         EqList<NumberedNode> es_ = g_.elementsCycle();
         assertEq(4, es_.size());
         assertTrue(es_.containsObj(one_));
@@ -305,7 +305,7 @@ public class GraphTest {
         g_.addSegment(four_, one_);
         g_.addSegment(five_, one_);
         g_.addSegment(three_, six_);
-        assertEq(true, g_.hasCycle());
+        assertTrue(g_.hasCycle());
         EqList<NumberedNode> es_ = g_.elementsCycle();
         assertEq(5, es_.size());
         assertTrue(es_.containsObj(one_));
@@ -333,7 +333,7 @@ public class GraphTest {
         g_.addSegment(one_, four_);
         g_.addSegment(five_, one_);
         g_.addSegment(three_, six_);
-        assertEq(false, g_.hasCycle());
+        assertTrue(!g_.hasCycle());
         EqList<NumberedNode> es_ = g_.elementsCycle();
         assertEq(0, es_.size());
     }
@@ -353,7 +353,7 @@ public class GraphTest {
         g_.addSegment(seven_, three_);
         g_.addSegment(three_, four_);
         g_.addSegment(four_, one_);
-        assertEq(true, g_.hasCycle());
+        assertTrue(g_.hasCycle());
         EqList<NumberedNode> es_ = g_.elementsCycle();
         assertEq(5, es_.size());
         assertTrue(es_.containsObj(one_));
@@ -368,7 +368,7 @@ public class GraphTest {
         Graph<NumberedNode> g_ = new Graph<NumberedNode>();
         NumberedNode one_ = new NumberedNode(1);
         g_.addSegment(one_, one_);
-        assertEq(true, g_.hasCycle());
+        assertTrue(g_.hasCycle());
         EqList<NumberedNode> es_ = g_.elementsCycle();
         assertEq(1, es_.size());
         assertTrue(es_.containsObj(one_));
@@ -388,7 +388,7 @@ public class GraphTest {
         g_.addSegment(one_, two_);
         g_.addSegment(one_, seven_);
         g_.addSegment(four_, one_);
-        assertEq(true, g_.hasCycle());
+        assertTrue(g_.hasCycle());
         EqList<NumberedNode> es_ = g_.elementsCycle();
 //        assertEq(5, es_.size());
         assertTrue(es_.size() >= 4);

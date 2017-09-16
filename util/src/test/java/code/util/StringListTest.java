@@ -66,58 +66,58 @@ public class StringListTest {
 
     @Test
     public void match2Test() {
-        assertEq(true, StringList.match("myString","*String"));
+        assertTrue(StringList.match("myString","*String"));
     }
 
     @Test
     public void match3Test() {
-        assertEq(true, StringList.match("myStringString","*String"));
+        assertTrue(StringList.match("myStringString","*String"));
     }
 
     @Test
     public void match4Test() {
-        assertEq(false, StringList.match("myStringStrin","*String"));
+        assertTrue(!StringList.match("myStringStrin","*String"));
     }
 
     @Test
     public void match5Test() {
-        assertEq(true, StringList.match("myStrinString","*String"));
+        assertTrue(StringList.match("myStrinString","*String"));
     }
 
 
     @Test
     public void match6Test() {
-        assertEq(true, StringList.match("myString","*y*String"));
+        assertTrue(StringList.match("myString","*y*String"));
     }
 
     @Test
     public void match7Test() {
-        assertEq(true, StringList.match("myStringString","*y*String"));
+        assertTrue(StringList.match("myStringString","*y*String"));
     }
 
     @Test
     public void match8Test() {
-        assertEq(false, StringList.match("myStringStrin","*y*String"));
+        assertTrue(!StringList.match("myStringStrin","*y*String"));
     }
 
     @Test
     public void match9Test() {
-        assertEq(true, StringList.match("myStrinString","*y*String"));
+        assertTrue(StringList.match("myStrinString","*y*String"));
     }
 
     @Test
     public void match10Test() {
-        assertEq(false, StringList.match("myStrinString","*ys*String"));
+        assertTrue(!StringList.match("myStrinString","*ys*String"));
     }
 
     @Test
     public void match11Test() {
-        assertEq(false, StringList.match("myStrinString","*yS*Strig"));
+        assertTrue(!StringList.match("myStrinString","*yS*Strig"));
     }
 
     @Test
     public void match12Test() {
-        assertEq(false, StringList.match("myStrinString","*yS*Strin"));
+        assertTrue(!StringList.match("myStrinString","*yS*Strin"));
     }
 
     @Test

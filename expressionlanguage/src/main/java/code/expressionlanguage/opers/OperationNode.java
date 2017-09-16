@@ -1237,7 +1237,7 @@ public abstract class OperationNode implements Operable {
             return a_;
         } catch (InvokingException _0) {
             throw new InvokeException(_conf.joinPages(), new Struct(_0.getTarget()));
-        } catch (Error _0) {
+        } catch (Throwable _0) {
             throw new ErrorCausingException(_conf.joinPages(), new Struct(_0));
         }
     }
@@ -1256,7 +1256,7 @@ public abstract class OperationNode implements Operable {
             return new Struct(o_);
         } catch (InvokingException _0) {
             throw new InvokeException(_cont.joinPages(), new Struct(_0.getTarget()));
-        } catch (Error _0) {
+        } catch (Throwable _0) {
             throw new ErrorCausingException(_cont.joinPages(), new Struct(_0));
         }
     }

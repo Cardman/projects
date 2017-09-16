@@ -553,6 +553,6 @@ public class MathUtilTest {
     @Parameters(method="booleanStrings")
     public void evaluateExp2Test(String _numericString,boolean _res) {
         Argument a_ = MathUtil.processEl(_numericString, 0, false, new StringMap<String>());
-        assertEq(_res,a_.getObject());
+        assertEq(_res,(Boolean)a_.getObject());
     }
 }
