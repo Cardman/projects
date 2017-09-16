@@ -1,7 +1,4 @@
 package code.expressionlanguage.methods;
-import java.lang.reflect.Method;
-import java.util.Iterator;
-
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.CustBase;
@@ -33,8 +30,6 @@ import code.expressionlanguage.opers.util.Struct;
 import code.expressionlanguage.stacks.RemovableVars;
 import code.expressionlanguage.stacks.TryBlockStack;
 import code.expressionlanguage.variables.LocalVariable;
-import code.serialize.ConverterMethod;
-import code.serialize.SerializeXmlObject;
 import code.util.CustList;
 import code.util.EntryCust;
 import code.util.EqList;
@@ -61,12 +56,6 @@ public final class ProcessXmlMethod {
     protected static final String ATTRIBUTE_STEP = "step";
     private static final String EMPTY_STRING = "";
     private static final String RETURN_LINE = "\n";
-    private static final String ITERATOR ="iterator";
-    private static final String HAS_NEXT ="hasNext";
-    private static final String NEXT ="next";
-    private static final Method ITERATOR_METHOD = SerializeXmlObject.getDeclaredMethod(Iterable.class, ITERATOR);
-    private static final Method HAS_NEXT_METHOD = SerializeXmlObject.getDeclaredMethod(Iterator.class, HAS_NEXT);
-    private static final Method NEXT_METHOD = SerializeXmlObject.getDeclaredMethod(Iterator.class, NEXT);
 
     private ProcessXmlMethod() {
     }
@@ -536,27 +525,6 @@ public final class ProcessXmlMethod {
         } catch (Throwable _0) {
             _conf.getLastPage().addToOffset(_offest);
             throw new RuntimeClassNotFoundException(_className+RETURN_LINE+_conf.joinPages());
-        }
-    }
-    public static Object iterator(ContextEl _conf, Object _it) {
-        try {
-            return ConverterMethod.invokeMethod(ITERATOR_METHOD, _it);
-        } catch (Throwable _0) {
-            throw new InvokeRedinedMethException(_conf.joinPages(), new Struct(_0));
-        }
-    }
-    public static boolean hasNext(ContextEl _conf, Object _it) {
-        try {
-            return (Boolean) ConverterMethod.invokeMethod(HAS_NEXT_METHOD, _it);
-        } catch (Throwable _0) {
-            throw new InvokeRedinedMethException(_conf.joinPages(), new Struct(_0));
-        }
-    }
-    public static Object next(ContextEl _conf, Object _it) {
-        try {
-            return ConverterMethod.invokeMethod(NEXT_METHOD, _it);
-        } catch (Throwable _0) {
-            throw new InvokeRedinedMethException(_conf.joinPages(), new Struct(_0));
         }
     }
 }

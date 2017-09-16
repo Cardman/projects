@@ -161,8 +161,8 @@ final class ExtractCondition {
             String accessPartOne_ = parts_.first();
             String accessOp_ = parts_.get(CustList.SECOND_INDEX);
             String accessPartTwo_ = parts_.last();
-            String eq_ = ExtractObject.valueOf(_conf, EQUALS);
-            String diff_ = ExtractObject.valueOf(_conf, NEG+eq_);
+            String eq_ = String.valueOf(EQUALS);
+            String diff_ = String.valueOf(NEG+eq_);
             boolean eqCmp_;
             if (StringList.quickEq(accessOp_, eq_)) {
                 eqCmp_ = true;

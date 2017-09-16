@@ -1,4 +1,5 @@
 package code.bean.translator;
+
 import code.bean.Bean;
 import code.util.StringMap;
 

@@ -1,6 +1,5 @@
 package code.formathtml;
 import java.lang.reflect.Constructor;
-import java.lang.reflect.Method;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.Iterator;
@@ -16,7 +15,6 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.ElUtil;
 import code.expressionlanguage.PrimitiveTypeUtil;
 import code.expressionlanguage.exceptions.BadExpressionLanguageException;
-import code.expressionlanguage.exceptions.DynamicCastClassException;
 import code.expressionlanguage.exceptions.InvokeRedinedMethException;
 import code.expressionlanguage.exceptions.UndefinedVariableException;
 import code.expressionlanguage.opers.util.Struct;
@@ -25,13 +23,11 @@ import code.expressionlanguage.variables.LoopVariable;
 import code.formathtml.exceptions.CharacterFormatException;
 import code.formathtml.exceptions.InexistingTranslatorException;
 import code.serialize.ConverterMethod;
-import code.serialize.SerializeXmlObject;
 import code.serialize.exceptions.InvokingException;
 import code.serialize.exceptions.NoSuchDeclaredMethodException;
 import code.serialize.exceptions.RuntimeInstantiationException;
 import code.util.CustList;
 import code.util.EntryCust;
-import code.util.IdList;
 import code.util.StringList;
 import code.util.StringMap;
 import code.util.consts.ConstClasses;
@@ -73,18 +69,16 @@ final class ExtractObject {
     private static final char BEGIN_TR = '[';
     private static final char END_TR = ']';
     private static final char QUOTE = 39;
+    private static final String NAME ="name";
+    private static final String TO_STRING ="toString";
+    private static final String VALUE_OF ="toString";
     private static final String ITERATOR ="iterator";
     private static final String HAS_NEXT ="hasNext";
     private static final String NEXT ="next";
-    private static final String ADD_ALL_ELTS = "addAllElts";
     private static final String GET_KEYS ="getKeys";
     private static final String ENTRY_LIST ="entryList";
     private static final String GET_KEY ="getKey";
     private static final String GET_VALUE ="getValue";
-    private static final Method ADD_ALL_ELTS_METHOD = SerializeXmlObject.getDeclaredMethod(CustList.class, ADD_ALL_ELTS, Listable.class);
-    private static final Method ENTRY_LIST_METHOD = SerializeXmlObject.getDeclaredMethod(ListableEntries.class, ENTRY_LIST);
-    private static final Method GET_KEY_METHOD = SerializeXmlObject.getDeclaredMethod(EntryCust.class, GET_KEY);
-    private static final Method GET_VALUE_METHOD = SerializeXmlObject.getDeclaredMethod(EntryCust.class, GET_VALUE);
 
     private ExtractObject() {
     }
@@ -166,17 +160,20 @@ final class ExtractObject {
                 }
                 _conf.getLastPage().setOffset(i_);
                 Argument argloc_ = ElUtil.processEl(_pattern, context_, i_, LEFT_EL, RIGHT_EL);
-                Object o_ = argloc_.getObject();
+                Struct s_ = argloc_.getStruct();
+                String o_ = EMPTY_STRING;
                 try {
                     if (trloc_ != null) {
                         Bean bean_ = (Bean) _ip.getGlobalArgument().getObject();
-                        o_ = trloc_.getString(_pattern, _conf, _files, bean_, o_);
+                        o_ = trloc_.getString(_pattern, _conf, _files, bean_, s_);
+                    } else {
+                        o_ = valueOf(_conf, s_);
                     }
                 } catch (Throwable _0) {
                     _conf.getLastPage().setOffset(context_.getNextIndex());
                     throw new InvokeRedinedMethException(_conf.joinPages(), new Struct(_0));
                 }
-                str_.append(ExtractObject.valueOf(_conf, o_));
+                str_.append(o_);
                 i_ = context_.getNextIndex();
                 continue;
             }
@@ -318,32 +315,6 @@ final class ExtractObject {
         }
     }
 
-    static void addAll(Configuration _conf, int _off, Object _obj, Object _elements) {
-        try {
-            ConverterMethod.invokeMethod(ADD_ALL_ELTS_METHOD, _obj, _elements);
-        } catch (Throwable _0_) {
-            String beginMess_ = _obj.getClass().getName()+SPACE+Iterable.class.getName();
-            _conf.getLastPage().addToOffset(_off);
-            throw new DynamicCastClassException(beginMess_+RETURN_LINE+_conf.joinPages());
-        }
-    }
-
-    static Object getKey(Configuration _conf, Object _it) {
-        try {
-            return ConverterMethod.invokeMethod(GET_KEY_METHOD, _it);
-        } catch (Throwable _0) {
-            throw new InvokeRedinedMethException(_conf.joinPages(), new Struct(_0));
-        }
-    }
-
-    static Object getValue(Configuration _conf, Object _it) {
-        try {
-            return ConverterMethod.invokeMethod(GET_VALUE_METHOD, _it);
-        } catch (Throwable _0) {
-            throw new InvokeRedinedMethException(_conf.joinPages(), new Struct(_0));
-        }
-    }
-
     static Struct getKey(Configuration _conf, Struct _it) {
         return getResult(_conf, 0, GET_KEY, _it, EntryCust.class.getName());
     }
@@ -359,28 +330,26 @@ final class ExtractObject {
         return _obj.charAt(CustList.FIRST_INDEX);
     }
     /**This method use the equal operator*/
-    static boolean eq(Configuration _conf, Object _objOne, Object _objTwo) {
+    static boolean eq(Configuration _conf, Struct _objOne, Struct _objTwo) {
         try {
-            if (_objOne == null) {
-                if (_objTwo == null) {
+            if (_objOne.isNull()) {
+                if (_objTwo.isNull()) {
                     return true;
                 }
                 return false;
             }
-            if (_objTwo == null) {
+            if (_objTwo.isNull()) {
                 return false;
             }
             ImportingPage ip_ = _conf.getLastPage();
-            Struct srtOne_ = new Struct(_objOne);
             LocalVariable lvOne_ = new LocalVariable();
-            lvOne_.setClassName(ConstClasses.resolve(srtOne_.getClassName()));
-            lvOne_.setStruct(srtOne_);
+            lvOne_.setClassName(ConstClasses.resolve(_objOne.getClassName()));
+            lvOne_.setStruct(_objOne);
             String nameOne_ = ip_.getNextTempVar();
             ip_.getLocalVars().put(nameOne_, lvOne_);
-            Struct srtTwo_ = new Struct(_objTwo);
             LocalVariable lvTwo_ = new LocalVariable();
-            lvTwo_.setClassName(ConstClasses.resolve(srtTwo_.getClassName()));
-            lvTwo_.setStruct(srtTwo_);
+            lvTwo_.setClassName(ConstClasses.resolve(_objTwo.getClassName()));
+            lvTwo_.setStruct(_objTwo);
             String nameTwo_ = ip_.getNextTempVar();
             ip_.getLocalVars().put(nameTwo_, lvTwo_);
             Argument arg_ = ElUtil.processEl(nameOne_+GET_LOC_VAR+CMP+nameTwo_+GET_LOC_VAR, 0, _conf.toContextEl());
@@ -399,27 +368,14 @@ final class ExtractObject {
             throw new NullObjectException(_conf.joinPages());
         }
     }
-    static String valueOf(Configuration _conf, Object _obj) {
-        try {
-            return String.valueOf(_obj);
-        } catch (Throwable _0) {
-            throw new InvokeRedinedMethException(_conf.joinPages(), new Struct(_0));
+    static String valueOf(Configuration _conf, Struct _obj) {
+        if (_obj.isNull()) {
+            return String.valueOf(_obj.getInstance());
         }
+        return (String) getResult(_conf, 0, TO_STRING, _obj, _obj.getClassName()).getInstance();
     }
-    static String toString(Configuration _conf, Object _obj) {
-        try {
-            return _obj.toString();
-        } catch (Throwable _0) {
-            throw new InvokeRedinedMethException(_conf.joinPages(), new Struct(_0));
-        }
-    }
-    static Object entryList(Configuration _conf, int _offsIndex, Object _container) {
-        try {
-            return ConverterMethod.invokeMethod(ENTRY_LIST_METHOD, _container);
-        } catch (Throwable _0) {
-            _conf.getLastPage().addToOffset(_offsIndex);
-            throw new InvokeRedinedMethException(_conf.joinPages(), new Struct(_0));
-        }
+    static String toString(Configuration _conf, Struct _obj) {
+        return (String) getResult(_conf, 0, TO_STRING, _obj, _obj.getClassName()).getInstance();
     }
     static Struct iterator(Configuration _conf, Struct _it) {
         return getResult(_conf, 0, ITERATOR, _it, Iterable.class.getName());
@@ -435,6 +391,10 @@ final class ExtractObject {
     }
     static Struct getKeys(Configuration _conf, int _offsIndex, Struct _container) {
         return getResult(_conf, _offsIndex, GET_KEYS, _container, ListableEntries.class.getName());
+    }
+
+    static String name(Configuration _conf, Struct _instance) {
+        return (String) getResult(_conf, 0, NAME, _instance, _instance.getClassName()).getInstance();
     }
 
     static Struct getResult(Configuration _conf, int _offsIndex, String _methodName, Struct _instance, String _className) {
@@ -475,12 +435,12 @@ final class ExtractObject {
             _conf.getLastPage().setLookForAttrValue(true);
         }
         String preformatted_;
-        IdList<Object> objects_ = new IdList<Object>();
+        StringList objects_ = new StringList();
         if (value_.startsWith(CALL_METHOD)) {
             if (!_conf.noPages()) {
                 _conf.getLastPage().setOffset(1);
             }
-            preformatted_ = toString(_conf, ElUtil.processEl(value_, 1, _conf.toContextEl()).getObject());
+            preformatted_ = toString(_conf, ElUtil.processEl(value_, 1, _conf.toContextEl()).getStruct());
             if (!_conf.noPages()) {
                 _conf.getLastPage().setKey(EMPTY_STRING);
                 _conf.getLastPage().setMessageValue(preformatted_);
@@ -509,7 +469,7 @@ final class ExtractObject {
             String attribute_ = n.getAttribute(ATTRIBUTE_VALUE);
             if (n.hasAttribute(ATTRIBUTE_QUOTED)) {
                 if (n.hasAttribute(ATTRIBUTE_ESCAPED)) {
-                    objects_.add(escapeParam(_conf, attribute_));
+                    objects_.add(escapeParam(_conf, new Struct(attribute_)));
                 } else {
                     objects_.add(attribute_);
                 }
@@ -525,17 +485,17 @@ final class ExtractObject {
             if (attribute_.startsWith(CALL_METHOD)) {
                 begin_ = 1;
             }
-            Object o_ = ElUtil.processEl(attribute_, begin_, _conf.toContextEl()).getObject();
+            Struct o_ = ElUtil.processEl(attribute_, begin_, _conf.toContextEl()).getStruct();
             if (n.hasAttribute(ATTRIBUTE_ESCAPED)) {
                 objects_.add(escapeParam(_conf,o_));
             } else {
-                objects_.add(o_);
+                objects_.add(toString(_conf, o_));
             }
         }
         return StringList.simpleFormat(preformatted_, objects_.toArray());
     }
 
-    private static String escapeParam(Configuration _conf, Object _arg) {
+    private static String escapeParam(Configuration _conf, Struct _arg) {
         String str_ = valueOf(_conf, _arg);
         StringMap<String> rep_ = new StringMap<String>();
         String quote_ = String.valueOf(QUOTE);

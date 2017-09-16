@@ -28,7 +28,6 @@ import code.expressionlanguage.exceptions.InvokeRedinedMethException;
 import code.expressionlanguage.exceptions.NegativeSizeException;
 import code.expressionlanguage.exceptions.UnwrappingException;
 import code.expressionlanguage.exceptions.WrapperException;
-import code.expressionlanguage.methods.ProcessXmlMethod;
 import code.expressionlanguage.methods.exceptions.AlreadyDefinedVarException;
 import code.expressionlanguage.methods.exceptions.BadCaseException;
 import code.expressionlanguage.methods.exceptions.BadCatchException;
@@ -1128,7 +1127,7 @@ final class FormatHtml {
         }
         if (StringList.quickEq(en_.getNodeName(),prefix_+TAG_CASE)) {
             SwitchHtmlStack sw_ = (SwitchHtmlStack) ip_.getLastStack();
-            Object value_ = sw_.getValue();
+            Struct value_ = sw_.getStruct();
             if (sw_.isEntered()) {
                 if (!en_.hasChildNodes()) {
                     sw_.increment();
@@ -1155,7 +1154,7 @@ final class FormatHtml {
                         enter_ = true;
                     }
                 } else {
-                    if (ExtractObject.eq(_conf, value_, arg_.getObject())) {
+                    if (ExtractObject.eq(_conf, value_, arg_.getStruct())) {
                         enter_ = true;
                     }
                 }
@@ -2868,7 +2867,7 @@ final class FormatHtml {
                         _ip.setProcessingAttribute(TAG_PARAM+i_);
                         _ip.setLookForAttrValue(true);
                         _ip.setOffset(1);
-                        objects_.add(ExtractObject.valueOf(_conf,ElUtil.processEl(attribute_, 1, _conf.toContextEl()).getObject()));
+                        objects_.add(ExtractObject.valueOf(_conf,ElUtil.processEl(attribute_, 1, _conf.toContextEl()).getStruct()));
                     } else {
                         objects_.add(attribute_);
                     }
@@ -2998,16 +2997,16 @@ final class FormatHtml {
                 _conf.getLastPage().setProcessingAttribute(ATTRIBUTE_NAME);
                 _conf.getLastPage().setLookForAttrValue(true);
                 _conf.getLastPage().setOffset(0);
-                Object o_ = null;
+                Struct o_ = null;
                 if (!accessName_.isEmpty()) {
-                    o_ = ElUtil.processEl(accessName_, 0, _conf.toContextEl()).getObject();
+                    o_ = ElUtil.processEl(accessName_, 0, _conf.toContextEl()).getStruct();
                 }
-                if (o_ == null) {
+                if (o_ == null || o_.isNull()) {
                     _tag.removeAttribute(CHECKED);
                 } else {
                     String strObj_;
-                    if (o_.getClass().isEnum()) {
-                        strObj_ = ConverterMethod.getName(o_);
+                    if (o_.getInstance().getClass().isEnum()) {
+                        strObj_ = ExtractObject.name(_conf, o_);
                     } else {
                         strObj_ = ExtractObject.toString(_conf, o_);
                     }
@@ -3139,9 +3138,9 @@ final class FormatHtml {
         _conf.getLastPage().setProcessingAttribute(_conf.getPrefix()+ATTRIBUTE_VAR_VALUE);
         _conf.getLastPage().setLookForAttrValue(true);
         _conf.getLastPage().setOffset(0);
-        Object o_ = ElUtil.processEl(attribute_, 0, _conf.toContextEl()).getObject();
-        if (o_ == null) {
-            o_ = EMPTY_STRING;
+        Struct o_ = ElUtil.processEl(attribute_, 0, _conf.toContextEl()).getStruct();
+        if (o_.isNull()) {
+            o_ = new Struct(EMPTY_STRING);
         }
         //TODO converter
         Text text_ = _doc.createTextNode(ExtractObject.toString(_conf, o_));
@@ -3157,11 +3156,11 @@ final class FormatHtml {
             _conf.getLastPage().setProcessingAttribute(_conf.getPrefix()+ATTRIBUTE_VAR_VALUE);
             _conf.getLastPage().setLookForAttrValue(true);
             _conf.getLastPage().setOffset(0);
-            Object o_ = ElUtil.processEl(attribute_, 0, _conf.toContextEl()).getObject();
-            if (o_ == null) {
-                _tag.setAttribute(ATTRIBUTE_VALUE, (String) o_);
-            } else if (o_ instanceof Boolean) {
-                if ((Boolean) o_) {
+            Struct o_ = ElUtil.processEl(attribute_, 0, _conf.toContextEl()).getStruct();
+            if (o_.isNull()) {
+                _tag.setAttribute(ATTRIBUTE_VALUE, (String) o_.getInstance());
+            } else if (o_.getInstance() instanceof Boolean) {
+                if ((Boolean) o_.getInstance()) {
                     _tag.setAttribute(CHECKED, CHECKED);
                 } else {
                     _tag.removeAttribute(CHECKED);
@@ -3203,7 +3202,7 @@ final class FormatHtml {
                 ContextEl context_ = _conf.toContextEl();
                 _ip.setOffset(i_+1);
                 Argument arg_ = ElUtil.processEl(_pattern, context_, i_+1, MATH_INTERPRET, MATH_INTERPRET);
-                calculateVariables_.append(ExtractObject.valueOf(_conf, arg_.getObject()));
+                calculateVariables_.append(ExtractObject.valueOf(_conf, arg_.getStruct()));
                 i_ = context_.getNextIndex();
                 continue;
             }
@@ -3249,8 +3248,8 @@ final class FormatHtml {
             return;
         }
         String command_ = class_.substring(class_.indexOf(CALL_METHOD)+1);
-        Object returnedObject_ = ElUtil.processEl(command_, 0, _conf.toContextEl()).getObject();
-        if (returnedObject_ == null) {
+        Struct returnedObject_ = ElUtil.processEl(command_, 0, _conf.toContextEl()).getStruct();
+        if (returnedObject_.isNull()) {
             _elt.removeAttribute(_attrName);
             return;
         }
@@ -3264,24 +3263,27 @@ final class FormatHtml {
         boolean update_ = ((Element) _n).hasAttribute(ATTRIBUTE_UPDATE);
         String varValue_ = ((Element) _n).getAttribute(ATTRIBUTE_VAR_VALUE);
         String varMethod_ = ((Element) _n).getAttribute(VAR_METHOD);
-        IdList<Object> returnedVarValue_ = null;
+        IdList<Struct> returnedVarValue_ = null;
         if (!varValue_.isEmpty()) {
             _conf.getLastPage().setProcessingAttribute(ATTRIBUTE_VAR_VALUE);
             _conf.getLastPage().setLookForAttrValue(true);
             _conf.getLastPage().setOffset(0);
-            returnedVarValue_ = new IdList<Object>();
+            returnedVarValue_ = new IdList<Struct>();
             if (!_multiple) {
-                returnedVarValue_.add(ElUtil.processEl(varValue_, 0, _conf.toContextEl()).getObject());
+                returnedVarValue_.add(ElUtil.processEl(varValue_, 0, _conf.toContextEl()).getStruct());
             } else {
-                Object o_ = ElUtil.processEl(varValue_, 0, _conf.toContextEl()).getObject();
-                ExtractObject.addAll(_conf, varValue_.length(), returnedVarValue_, o_);
+                Struct o_ = ElUtil.processEl(varValue_, 0, _conf.toContextEl()).getStruct();
+                Struct it_ = ExtractObject.iterator(_conf, o_);
+                while (ExtractObject.hasNext(_conf, it_)) {
+                    returnedVarValue_.add(ExtractObject.next(_conf, it_));
+                }
             }
         }
         _conf.getLastPage().setProcessingAttribute(ATTRIBUTE_LIST);
         _conf.getLastPage().setLookForAttrValue(true);
         _conf.getLastPage().setOffset(0);
-        Object li_ = ElUtil.processEl(list_, 0, _conf.toContextEl()).getObject();
-        Object extractedList_ = li_;
+        Struct li_ = ElUtil.processEl(list_, 0, _conf.toContextEl()).getStruct();
+        Struct extractedList_ = li_;
         String default_ = ((Element) _n).getAttribute(DEFAULT_ATTRIBUTE);
         Element docElementSelect_ = _doc.createElement(SELECT_TAG);
         if (!_id.isEmpty() || !_groupId.isEmpty()) {
@@ -3297,14 +3299,14 @@ final class FormatHtml {
         }
         if (default_.isEmpty() || returnedVarValue_ != null && update_) {
             checkEnums(_conf, extractedList_);
-            Object it_ = ProcessXmlMethod.iterator(_conf.toContextEl(), extractedList_);
-            while (ProcessXmlMethod.hasNext(_conf.toContextEl(), it_)) {
-                Object o_ = ProcessXmlMethod.next(_conf.toContextEl(), it_);
+            Struct it_ = ExtractObject.iterator(_conf, extractedList_);
+            while (ExtractObject.hasNext(_conf, it_)) {
+                Struct o_ = ExtractObject.next(_conf, it_);
                 Element option_ = _doc.createElement(TAG_OPTION);
-                option_.setAttribute(ATTRIBUTE_VALUE, ConverterMethod.getName(o_));
+                option_.setAttribute(ATTRIBUTE_VALUE, ExtractObject.name(_conf,o_));
                 if (returnedVarValue_ != null) {
-                    for (Object a: returnedVarValue_) {
-                        if (a == o_) {
+                    for (Struct a: returnedVarValue_) {
+                        if (ExtractObject.eq(_conf, a, o_)) {
                             option_.setAttribute(SELECTED, SELECTED);
                             break;
                         }
@@ -3319,26 +3321,29 @@ final class FormatHtml {
                 _conf.getLastPage().setProcessingAttribute(DEFAULT_ATTRIBUTE);
                 _conf.getLastPage().setLookForAttrValue(true);
                 _conf.getLastPage().setOffset(1);
-                IdList<Object> defaults_ = new IdList<Object>();
+                IdList<Struct> defaults_ = new IdList<Struct>();
                 if (!_multiple) {
-                    defaults_.add(ElUtil.processEl(command_, 0, _conf.toContextEl()).getObject());
+                    defaults_.add(ElUtil.processEl(command_, 0, _conf.toContextEl()).getStruct());
                 } else {
-                    li_ = ElUtil.processEl(command_, 0, _conf.toContextEl()).getObject();
-                    ExtractObject.addAll(_conf, command_.length(), defaults_, li_);
+                    li_ = ElUtil.processEl(command_, 0, _conf.toContextEl()).getStruct();
+                    Struct it_ = ExtractObject.iterator(_conf, li_);
+                    while (ExtractObject.hasNext(_conf, it_)) {
+                        defaults_.add(ExtractObject.next(_conf, it_));
+                    }
                 }
                 checkEnums(_conf, extractedList_);
                 _conf.getLastPage().setProcessingAttribute(DEFAULT_ATTRIBUTE);
                 _conf.getLastPage().setLookForAttrValue(true);
                 _conf.getLastPage().setOffset(0);
                 checkEnums(_conf, defaults_);
-                Object it_ = ProcessXmlMethod.iterator(_conf.toContextEl(), extractedList_);
-                while (ProcessXmlMethod.hasNext(_conf.toContextEl(), it_)) {
-                    Object o_ = ProcessXmlMethod.next(_conf.toContextEl(), it_);
+                Struct it_ = ExtractObject.iterator(_conf, extractedList_);
+                while (ExtractObject.hasNext(_conf, it_)) {
+                    Struct o_ = ExtractObject.next(_conf, it_);
                     Element option_ = _doc.createElement(TAG_OPTION);
-                    String nameEnum_ = ConverterMethod.getName(o_);
+                    String nameEnum_ = ExtractObject.name(_conf,o_);
                     option_.setAttribute(ATTRIBUTE_VALUE, nameEnum_);
-                    for (Object d: defaults_) {
-                        if (o_ == d) {
+                    for (Struct d: defaults_) {
+                        if (ExtractObject.eq(_conf, o_, d)) {
                             option_.setAttribute(SELECTED, SELECTED);
                             break;
                         }
@@ -3349,11 +3354,11 @@ final class FormatHtml {
             } else {
                 StringList names_ = StringList.splitChars(default_, SEP_ENUMS);
                 checkEnums(_conf, extractedList_);
-                Object it_ = ProcessXmlMethod.iterator(_conf.toContextEl(), extractedList_);
-                while (ProcessXmlMethod.hasNext(_conf.toContextEl(), it_)) {
-                    Object o_ = ProcessXmlMethod.next(_conf.toContextEl(), it_);
+                Struct it_ = ExtractObject.iterator(_conf, extractedList_);
+                while (ExtractObject.hasNext(_conf, it_)) {
+                    Struct o_ = ExtractObject.next(_conf, it_);
                     Element option_ = _doc.createElement(TAG_OPTION);
-                    String enumName_ = ConverterMethod.getName(o_);
+                    String enumName_ = ExtractObject.name(_conf,o_);
                     option_.setAttribute(ATTRIBUTE_VALUE, enumName_);
                     for (String n: names_) {
                         if (StringList.quickEq(enumName_,n)) {
@@ -3374,12 +3379,24 @@ final class FormatHtml {
         _currentModifiedNode.appendChild(docElementSelect_);
     }
 
-    private static void checkEnums(Configuration _conf, Object _list) {
+    private static void checkEnums(Configuration _conf, Struct _list) {
         try {
-            Object iterator_ = ProcessXmlMethod.iterator(_conf.toContextEl(), _list);
-            while (ProcessXmlMethod.hasNext(_conf.toContextEl(), iterator_)) {
-                Object element_ = ProcessXmlMethod.next(_conf.toContextEl(), iterator_);
-                if (!element_.getClass().isEnum()) {
+            Struct iterator_ = ExtractObject.iterator(_conf, _list);
+            while (ExtractObject.hasNext(_conf, iterator_)) {
+                Struct element_ = ExtractObject.next(_conf, iterator_);
+                if (!element_.getInstance().getClass().isEnum()) {
+                    throw new DynamicCastClassException();
+                }
+            }
+        } catch (RuntimeException _0) {
+            throw new BadEnumeratingException(_list, _conf.joinPages());
+        }
+    }
+
+    private static void checkEnums(Configuration _conf, Listable<Struct> _list) {
+        try {
+            for (Struct s: _list) {
+                if (!s.getInstance().getClass().isEnum()) {
                     throw new DynamicCastClassException();
                 }
             }
@@ -3393,17 +3410,17 @@ final class FormatHtml {
         boolean update_ = ((Element)_n).hasAttribute(ATTRIBUTE_UPDATE);
         String varValue_ = ((Element) _n).getAttribute(ATTRIBUTE_VAR_VALUE);
         String varMethod_ = ((Element) _n).getAttribute(VAR_METHOD);
-        Object returnedVarValue_ = null;
+        Struct returnedVarValue_ = null;
         if (!varValue_.isEmpty()) {
             _conf.getLastPage().setProcessingAttribute(ATTRIBUTE_VAR_VALUE);
             _conf.getLastPage().setLookForAttrValue(true);
             _conf.getLastPage().setOffset(0);
-            returnedVarValue_ = ElUtil.processEl(varValue_, 0, _conf.toContextEl()).getObject();
+            returnedVarValue_ = ElUtil.processEl(varValue_, 0, _conf.toContextEl()).getStruct();
         }
         _conf.getLastPage().setProcessingAttribute(ATTRIBUTE_MAP);
         _conf.getLastPage().setLookForAttrValue(true);
         _conf.getLastPage().setOffset(0);
-        Object map_ = ElUtil.processEl(_map, 0, _conf.toContextEl()).getObject();
+        Struct map_ = ElUtil.processEl(_map, 0, _conf.toContextEl()).getStruct();
         String default_ = ((Element) _n).getAttribute(DEFAULT_ATTRIBUTE);
         Element docElementSelect_ = _doc.createElement(SELECT_TAG);
         if (!_id.isEmpty() || !_groupId.isEmpty()) {
@@ -3426,7 +3443,7 @@ final class FormatHtml {
                 _conf.getLastPage().setProcessingAttribute(DEFAULT_ATTRIBUTE);
                 _conf.getLastPage().setLookForAttrValue(true);
                 _conf.getLastPage().setOffset(1);
-                Object defaultEnum_ = ElUtil.processEl(default_, 1, _conf.toContextEl()).getObject();
+                Struct defaultEnum_ = ElUtil.processEl(default_, 1, _conf.toContextEl()).getStruct();
                 processOptionsMapEnumName(_conf, map_,
                         _doc, docElementSelect_,
                         defaultEnum_, _multiple);
@@ -3444,7 +3461,7 @@ final class FormatHtml {
         _currentModifiedNode.appendChild(docElementSelect_);
     }
 
-    private static void processOptionsMapEnum(Configuration _conf, Object _extractedMap,
+    private static void processOptionsMapEnum(Configuration _conf, Struct _extractedMap,
             String _default, Document _docSelect, Element _docElementSelect, String _className) {
         boolean isEnumClass_;
         try {
@@ -3463,19 +3480,19 @@ final class FormatHtml {
         } else {
             names_ = new StringList(_default);
         }
-        Object l_ = ExtractObject.entryList(_conf, 0, _extractedMap);
-        Object it_ = ProcessXmlMethod.iterator(_conf.toContextEl(), l_);
-        while (ProcessXmlMethod.hasNext(_conf.toContextEl(), it_)) {
-            Object entry_ = ProcessXmlMethod.next(_conf.toContextEl(), it_);
+        Struct l_ = ExtractObject.entryList(_conf, 0, _extractedMap);
+        Struct it_ = ExtractObject.iterator(_conf, l_);
+        while (ExtractObject.hasNext(_conf, it_)) {
+            Struct entry_ = ExtractObject.next(_conf, it_);
             ExtractObject.checkNullPointer(_conf, entry_);
-            Object o_ = ExtractObject.getKey(_conf, entry_);
-            if (o_ == null) {
+            Struct o_ = ExtractObject.getKey(_conf, entry_);
+            if (o_.isNull()) {
                 continue;
             }
             Element option_ = _docSelect.createElement(TAG_OPTION);
             String cmp_;
-            if (o_.getClass().isEnum()) {
-                cmp_ = ConverterMethod.getName(o_);
+            if (o_.getInstance().getClass().isEnum()) {
+                cmp_ = ExtractObject.name(_conf,o_);
             } else {
                 cmp_ = ExtractObject.toString(_conf, o_);
             }
@@ -3491,33 +3508,39 @@ final class FormatHtml {
         }
     }
 
-    private static void processOptionsMapEnumName(Configuration _conf, Object _extractedMap,
-            Document _docSelect, Element _docElementSelect, Object _returnedVarValue,
+    private static void processOptionsMapEnumName(Configuration _conf, Struct _extractedMap,
+            Document _docSelect, Element _docElementSelect, Struct _returnedVarValue,
             boolean _multiple) {
-        IdList<Object> obj_ = new IdList<Object>();
+        IdList<Struct> obj_ = new IdList<Struct>();
         if (_multiple) {
             if (_returnedVarValue != null) {
-                ExtractObject.addAll(_conf, 0, obj_, _returnedVarValue);
+                Struct it_ = ExtractObject.iterator(_conf, _returnedVarValue);
+                while (ExtractObject.hasNext(_conf, it_)) {
+                    obj_.add(ExtractObject.next(_conf, it_));
+                }
             }
         } else {
             obj_.add(_returnedVarValue);
         }
-        Object l_ = ExtractObject.entryList(_conf, 0, _extractedMap);
-        Object it_ = ProcessXmlMethod.iterator(_conf.toContextEl(), l_);
-        while (ProcessXmlMethod.hasNext(_conf.toContextEl(), it_)) {
-            Object entry_ = ProcessXmlMethod.next(_conf.toContextEl(), it_);
-            ExtractObject.checkNullPointer(_conf, entry_);
-            Object o_ = ExtractObject.getKey(_conf, entry_);
-            if (o_ == null) {
+        Struct l_ = ExtractObject.entryList(_conf, 0, _extractedMap);
+        Struct it_ = ExtractObject.iterator(_conf, l_);
+        while (ExtractObject.hasNext(_conf, it_)) {
+            Struct entry_ = ExtractObject.next(_conf, it_);
+            ExtractObject.checkNullPointer(_conf, entry_.getInstance());
+            Struct o_ = ExtractObject.getKey(_conf, entry_);
+            if (o_.isNull()) {
                 continue;
             }
             Element option_ = _docSelect.createElement(TAG_OPTION);
-            if (o_.getClass().isEnum()) {
-                option_.setAttribute(ATTRIBUTE_VALUE, ConverterMethod.getName(o_));
+            if (o_.getInstance().getClass().isEnum()) {
+                option_.setAttribute(ATTRIBUTE_VALUE, ExtractObject.name(_conf,o_));
             } else {
                 option_.setAttribute(ATTRIBUTE_VALUE, ExtractObject.toString(_conf, o_));
             }
-            for (Object o: obj_) {
+            for (Struct o: obj_) {
+                if (o == null) {
+                    continue;
+                }
                 if (ExtractObject.eq(_conf, o_, o)) {
                     option_.setAttribute(SELECTED, SELECTED);
                 }

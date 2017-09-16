@@ -1228,6 +1228,84 @@ public class ExtractObjectTest {
         assertEq("'c10", formated_);
     }
 
+    @Test
+    public void formatNamedVariables13Test() {
+        String locale_ = "LOCALE";
+        String folder_ = "messages";
+        String relative_ = "sample/file";
+        String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
+        String html_ = "''{'{'} {composite.integer+composite.integer}";
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
+        BeanOne bean_ = new BeanOne();
+        bean_.getComposite().setInteger(5);
+        Configuration conf_ = new Configuration();
+        conf_.setBeans(new StringMap<Bean>());
+        conf_.getBeans().put("bean_one", bean_);
+        conf_.setMessagesFolder(folder_);
+        conf_.setProperties(new StringMap<String>());
+        conf_.getProperties().put("msg_example", relative_);
+        conf_.setTranslators(new StringMap<Translator>());
+        conf_.getTranslators().put("trans", new MyTranslator());
+        addImportingPage(conf_, false);
+        addBean(conf_, bean_);
+        ImportingPage ip_ = conf_.getLastPage();
+        String formated_ = ExtractObject.formatNumVariables(html_, conf_, ip_, files_);
+        assertEq("'{ 10", formated_);
+    }
+
+
+    @Test
+    public void formatNamedVariables14Test() {
+        String locale_ = "LOCALE";
+        String folder_ = "messages";
+        String relative_ = "sample/file";
+        String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
+        String html_ = "''{'}'} {composite.integer+composite.integer}";
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
+        BeanOne bean_ = new BeanOne();
+        bean_.getComposite().setInteger(5);
+        Configuration conf_ = new Configuration();
+        conf_.setBeans(new StringMap<Bean>());
+        conf_.getBeans().put("bean_one", bean_);
+        conf_.setMessagesFolder(folder_);
+        conf_.setProperties(new StringMap<String>());
+        conf_.getProperties().put("msg_example", relative_);
+        conf_.setTranslators(new StringMap<Translator>());
+        conf_.getTranslators().put("trans", new MyTranslator());
+        addImportingPage(conf_, false);
+        addBean(conf_, bean_);
+        ImportingPage ip_ = conf_.getLastPage();
+        String formated_ = ExtractObject.formatNumVariables(html_, conf_, ip_, files_);
+        assertEq("'} 10", formated_);
+    }
+
+    @Test
+    public void formatNamedVariables15Test() {
+        String locale_ = "LOCALE";
+        String folder_ = "messages";
+        String relative_ = "sample/file";
+        String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
+        String html_ = "''{\"{}\"} {composite.integer+composite.integer}";
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
+        BeanOne bean_ = new BeanOne();
+        bean_.getComposite().setInteger(5);
+        Configuration conf_ = new Configuration();
+        conf_.setBeans(new StringMap<Bean>());
+        conf_.getBeans().put("bean_one", bean_);
+        conf_.setMessagesFolder(folder_);
+        conf_.setProperties(new StringMap<String>());
+        conf_.getProperties().put("msg_example", relative_);
+        conf_.setTranslators(new StringMap<Translator>());
+        conf_.getTranslators().put("trans", new MyTranslator());
+        addImportingPage(conf_, false);
+        addBean(conf_, bean_);
+        ImportingPage ip_ = conf_.getLastPage();
+        String formated_ = ExtractObject.formatNumVariables(html_, conf_, ip_, files_);
+        assertEq("'{} 10", formated_);
+    }
     @Test(expected=BadExpressionLanguageException.class)
     public void formatNamedVariables1FailTest() {
         String locale_ = "LOCALE";

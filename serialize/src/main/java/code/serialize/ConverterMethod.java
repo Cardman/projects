@@ -60,9 +60,6 @@ public final class ConverterMethod {
     public static String getName(Object _instance) {
         try {
             Class<?> cl_ = _instance.getClass();
-            if (!cl_.isEnum()) {
-                return null;
-            }
             Method m_ = cl_.getMethod(NAME);
             return (String) invokeMethod(m_, _instance);
         } catch (Exception _0) {
