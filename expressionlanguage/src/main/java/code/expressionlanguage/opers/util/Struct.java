@@ -44,6 +44,13 @@ public final class Struct {
         parent = _parent;
     }
 
+    public static Struct wrapOrId(Object _element) {
+        if (_element instanceof Struct) {
+            return (Struct) _element;
+        }
+        return new Struct(_element);
+    }
+
     public boolean isNull() {
         return instance == null;
     }

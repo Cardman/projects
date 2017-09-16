@@ -1,6 +1,4 @@
 package code.expressionlanguage.stacks;
-import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.methods.ProcessXmlMethod;
 import code.expressionlanguage.opers.util.Struct;
 
 public abstract class LoopStack extends BlockStack implements BreakableStack {
@@ -36,19 +34,12 @@ public abstract class LoopStack extends BlockStack implements BreakableStack {
         return iteration_+SEP_INFO+INDEX+SEP_KEY_VAL+index+SEP_INFO;
     }
 
-    public boolean hasNext(ContextEl _conf) {
-        if (iterator != null) {
-            return ProcessXmlMethod.hasNext(_conf, iterator);
-        }
-        return index + 1 < maxIteration;
-    }
-
     public boolean hasNext() {
         return index + 1 < maxIteration;
     }
 
-    public Object getIterator() {
-        return iterator;
+    public void setMaxIteration(long _maxIteration) {
+        maxIteration = _maxIteration;
     }
 
     public void setIterator(Object _iterator, long _maxIteration) {

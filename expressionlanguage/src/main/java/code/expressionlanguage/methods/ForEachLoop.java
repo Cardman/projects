@@ -170,7 +170,6 @@ public final class ForEachLoop extends BracedStack implements ForLoop {
         }
         Struct its_ = processLoop(_cont);
         Object it_ = its_.getInstance();
-        Object iter_ = null;
         Struct iterStr_ = null;
         long length_ = CustList.INDEX_NOT_FOUND_ELT;
         boolean finished_ = false;
@@ -188,7 +187,6 @@ public final class ForEachLoop extends BracedStack implements ForLoop {
             ExpressionLanguage dynTwo_ = _cont.getClasses().getEqIterator();
             ExpressionLanguage dyn_ = _cont.getLastPage().getCurrentEl(this, CustList.SECOND_INDEX, dynTwo_);
             iterStr_ = dyn_.calculateMember(_cont).getStruct();
-            iter_ = iterStr_.getInstance();
             _cont.getLastPage().getLocalVars().removeKey(locName_);
             if (iterStr_.isNull()) {
                 throw new NullObjectException(_cont.joinPages());
@@ -199,7 +197,7 @@ public final class ForEachLoop extends BracedStack implements ForLoop {
         l_.setFinished(finished_);
         l_.setBlock(this);
         l_.setStructIterator(iterStr_);
-        l_.setIterator(iter_, length_);
+        l_.setMaxIteration(length_);
         ip_.addBlock(l_);
         ip_.clearCurrentEls();
         l_.setEvaluatingKeepLoop(true);

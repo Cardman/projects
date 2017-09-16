@@ -97,6 +97,16 @@ public final class ImportingPage {
     public void addToOffset(int _offset) {
         pageEl.addToOffset(_offset);
     }
+    public String getNextTempVar() {
+        int i_ = CustList.FIRST_INDEX;
+        while (true) {
+            if (!pageEl.getLocalVars().contains(FormatHtml.TMP_VAR+i_)) {
+                break;
+            }
+            i_++;
+        }
+        return FormatHtml.TMP_VAR+i_;
+    }
 
     public boolean isRendering() {
         return rendering;

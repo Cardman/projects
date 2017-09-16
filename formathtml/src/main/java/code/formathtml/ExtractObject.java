@@ -3,6 +3,7 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.Method;
 import java.math.BigDecimal;
 import java.math.BigInteger;
+import java.util.Iterator;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicLong;
 
@@ -22,7 +23,6 @@ import code.expressionlanguage.opers.util.Struct;
 import code.expressionlanguage.variables.LocalVariable;
 import code.expressionlanguage.variables.LoopVariable;
 import code.formathtml.exceptions.CharacterFormatException;
-import code.formathtml.exceptions.GettingKeysException;
 import code.formathtml.exceptions.InexistingTranslatorException;
 import code.serialize.ConverterMethod;
 import code.serialize.SerializeXmlObject;
@@ -55,6 +55,7 @@ final class ExtractObject {
     static final String COMMA = ",";
     static final String DOT = ".";
     private static final String GET_LOC_VAR = ";.";
+    private static final String NO_PARAM_METHOD = "()";
     private static final String CMP = "=";
     private static final char RIGHT_EL = '}';
     private static final char LEFT_EL = '{';
@@ -72,13 +73,15 @@ final class ExtractObject {
     private static final char BEGIN_TR = '[';
     private static final char END_TR = ']';
     private static final char QUOTE = 39;
+    private static final String ITERATOR ="iterator";
+    private static final String HAS_NEXT ="hasNext";
+    private static final String NEXT ="next";
     private static final String ADD_ALL_ELTS = "addAllElts";
     private static final String GET_KEYS ="getKeys";
     private static final String ENTRY_LIST ="entryList";
     private static final String GET_KEY ="getKey";
     private static final String GET_VALUE ="getValue";
     private static final Method ADD_ALL_ELTS_METHOD = SerializeXmlObject.getDeclaredMethod(CustList.class, ADD_ALL_ELTS, Listable.class);
-    private static final Method GET_KEYS_METHOD = SerializeXmlObject.getDeclaredMethod(ListableEntries.class, GET_KEYS);
     private static final Method ENTRY_LIST_METHOD = SerializeXmlObject.getDeclaredMethod(ListableEntries.class, ENTRY_LIST);
     private static final Method GET_KEY_METHOD = SerializeXmlObject.getDeclaredMethod(EntryCust.class, GET_KEY);
     private static final Method GET_VALUE_METHOD = SerializeXmlObject.getDeclaredMethod(EntryCust.class, GET_VALUE);
@@ -341,6 +344,14 @@ final class ExtractObject {
         }
     }
 
+    static Struct getKey(Configuration _conf, Struct _it) {
+        return getResult(_conf, 0, GET_KEY, _it, EntryCust.class.getName());
+    }
+
+    static Struct getValue(Configuration _conf, Struct _it) {
+        return getResult(_conf, 0, GET_VALUE, _it, EntryCust.class.getName());
+    }
+
     static char getChar(Configuration _conf, String _obj) {
         if (_obj.length() != CustList.ONE_ELEMENT) {
             throw new CharacterFormatException(String.valueOf(CustList.ONE_ELEMENT)+RETURN_LINE+_conf.joinPages());
@@ -360,27 +371,18 @@ final class ExtractObject {
                 return false;
             }
             ImportingPage ip_ = _conf.getLastPage();
-            String tmp_ = FormatHtml.TMP_VAR;
-            int i_ = CustList.FIRST_INDEX;
-            while (ip_.getLocalVars().contains(tmp_+i_)) {
-                i_++;
-            }
             Struct srtOne_ = new Struct(_objOne);
             LocalVariable lvOne_ = new LocalVariable();
             lvOne_.setClassName(ConstClasses.resolve(srtOne_.getClassName()));
             lvOne_.setStruct(srtOne_);
-            ip_.getLocalVars().put(tmp_+i_, lvOne_);
-            String nameOne_ = tmp_+i_;
-            i_++;
-            while (ip_.getLocalVars().contains(tmp_+i_)) {
-                i_++;
-            }
+            String nameOne_ = ip_.getNextTempVar();
+            ip_.getLocalVars().put(nameOne_, lvOne_);
             Struct srtTwo_ = new Struct(_objTwo);
             LocalVariable lvTwo_ = new LocalVariable();
             lvTwo_.setClassName(ConstClasses.resolve(srtTwo_.getClassName()));
             lvTwo_.setStruct(srtTwo_);
-            ip_.getLocalVars().put(tmp_+i_, lvTwo_);
-            String nameTwo_ = tmp_+i_;
+            String nameTwo_ = ip_.getNextTempVar();
+            ip_.getLocalVars().put(nameTwo_, lvTwo_);
             Argument arg_ = ElUtil.processEl(nameOne_+GET_LOC_VAR+CMP+nameTwo_+GET_LOC_VAR, 0, _conf.toContextEl());
             Boolean ret_ = (Boolean)arg_.getObject();
             ip_.getLocalVars().removeKey(nameOne_);
@@ -419,15 +421,37 @@ final class ExtractObject {
             throw new InvokeRedinedMethException(_conf.joinPages(), new Struct(_0));
         }
     }
-    static Object getKeys(Configuration _conf, boolean _callSort, int _offsIndex, Object _container) {
-        try {
-            return ConverterMethod.invokeMethod(GET_KEYS_METHOD, _container);
-        } catch (Throwable _0) {
-            _conf.getLastPage().addToOffset(_offsIndex);
-            throw new GettingKeysException(_conf.joinPages(), new Struct(_0));
-        }
+    static Struct iterator(Configuration _conf, Struct _it) {
+        return getResult(_conf, 0, ITERATOR, _it, Iterable.class.getName());
+    }
+    static boolean hasNext(Configuration _conf, Struct _it) {
+        return (Boolean) getResult(_conf, 0, HAS_NEXT, _it, Iterator.class.getName()).getInstance();
+    }
+    static Struct next(Configuration _conf, Struct _it) {
+        return getResult(_conf, 0, NEXT, _it, Iterator.class.getName());
+    }
+    static Struct entryList(Configuration _conf, int _offsIndex, Struct _container) {
+        return getResult(_conf, _offsIndex, ENTRY_LIST, _container, ListableEntries.class.getName());
+    }
+    static Struct getKeys(Configuration _conf, int _offsIndex, Struct _container) {
+        return getResult(_conf, _offsIndex, GET_KEYS, _container, ListableEntries.class.getName());
     }
 
+    static Struct getResult(Configuration _conf, int _offsIndex, String _methodName, Struct _instance, String _className) {
+        ImportingPage ip_ = _conf.getLastPage();
+        String varName_ = ip_.getNextTempVar();
+        LocalVariable var_ = new LocalVariable();
+        var_.setStruct(_instance);
+        var_.setClassName(_className);
+        ip_.getLocalVars().put(varName_, var_);
+        String expression_ = varName_+GET_LOC_VAR+_methodName+NO_PARAM_METHOD;
+        try {
+            return ElUtil.processEl(expression_, 0, _conf.toContextEl()).getStruct();
+        } catch (Throwable _0) {
+            _conf.getLastPage().addToOffset(_offsIndex);
+            throw new InvokeRedinedMethException(_conf.joinPages(), new Struct(_0));
+        }
+    }
     static LoopVariable getCurrentVariable(Configuration _conf, int _offset,StringMap<LoopVariable> _vars, String _candidate) {
         if (!_vars.contains(_candidate)) {
             _conf.getLastPage().addToOffset(_offset);

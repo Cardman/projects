@@ -210,10 +210,7 @@ public final class ArrOperation extends MethodOperation implements SettableElRes
         if (output_ == null) {
             return new Struct();
         }
-        if (output_ instanceof Struct) {
-            return (Struct)output_;
-        }
-        return new Struct(output_);
+        return Struct.wrapOrId(output_);
     }
     void setElement(Struct _struct, Object _index, Struct _value, ContextEl _conf, int _indexEl) {
         setRelativeOffsetPossibleLastPage(_indexEl, _conf);

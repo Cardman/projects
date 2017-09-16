@@ -310,7 +310,6 @@ public final class ForIterativeLoop extends BracedStack implements ForLoop {
                 copyFrom_ += stepValue_;
             }
         }
-        Object it_ = null;
         long length_ = CustList.INDEX_NOT_FOUND_ELT;
         boolean finished_ = false;
         length_ = nbMaxIterations_;
@@ -323,7 +322,7 @@ public final class ForIterativeLoop extends BracedStack implements ForLoop {
         LoopBlockStack l_ = new LoopBlockStack();
         l_.setFinished(finished_);
         l_.setBlock(this);
-        l_.setIterator(it_, length_);
+        l_.setMaxIteration(length_);
         ip_.addBlock(l_);
         if (finished_) {
             return;
