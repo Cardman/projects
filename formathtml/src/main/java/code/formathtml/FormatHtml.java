@@ -1,6 +1,5 @@
 package code.formathtml;
 import java.lang.reflect.Array;
-import java.lang.reflect.Field;
 
 import org.w3c.dom.Comment;
 import org.w3c.dom.Document;
@@ -76,10 +75,6 @@ import code.formathtml.util.SwitchHtmlStack;
 import code.formathtml.util.TryHtmlStack;
 import code.formathtml.util.VariableInformation;
 import code.images.ConverterBufferedImage;
-import code.serialize.ConverterMethod;
-import code.serialize.SerializeXmlObject;
-import code.serialize.exceptions.BadAccessException;
-import code.serialize.exceptions.NoSuchDeclaredFieldException;
 import code.util.CustList;
 import code.util.EntryCust;
 import code.util.IdList;
@@ -438,25 +433,26 @@ final class FormatHtml {
                     ip_.setLookForAttrValue(true);
                     String fieldValue_ = nThree_.getAttribute(ATTRIBUTE_VALUE);
                     Argument argt_ = ElUtil.processEl(fieldValue_, 0, _conf.toContextEl());
-                    Object arg_ = argt_.getObject();
+                    LocalVariable lv_ = new LocalVariable();
+                    lv_.setClassName(searchedClass_);
+                    lv_.setStruct(new Struct(bean_));
+                    String nameVar_ = ip_.getNextTempVar();
+                    ip_.getLocalVars().put(nameVar_, lv_);
                     ip_.setProcessingNode(nThree_);
                     ip_.setProcessingAttribute(ATTRIBUTE_NAME);
                     ip_.setOffset(0);
                     ip_.setLookForAttrValue(true);
                     String fieldName_ = nThree_.getAttribute(ATTRIBUTE_NAME);
-                    Field f_;
-                    try {
-                        f_ = SerializeXmlObject.getDeclaredField(class_, fieldName_);
-                    } catch (NoSuchDeclaredFieldException _0) {
-                        throw new NoSuchDeclaredFieldException(_0.getMessage()+RETURN_LINE+_conf.joinPages());
-                    }
-                    ContextEl context_ = _conf.toContextEl();
-                    context_.getAccessValue().setAccess(f_, context_);
-                    try {
-                        ConverterMethod.setField(f_, bean_, arg_);
-                    } catch (Throwable _0) {
-                        throw new BadAccessException(_0, fieldName_+RETURN_LINE+_conf.joinPages());
-                    }
+                    String nameValue_ = ip_.getNextTempVar();
+                    lv_ = new LocalVariable();
+                    lv_.setClassName(argt_.getStruct().getClassName());
+                    lv_.setStruct(argt_.getStruct());
+                    ip_.getLocalVars().put(nameValue_, lv_);
+                    String expressionLeft_ = nameVar_ + GET_LOC_VAR + fieldName_;
+                    String expressionRight_ = nameValue_ + GET_LOC_VAR;
+                    ElUtil.processAffect(EMPTY_STRING, ATTRIBUTE_NAME, ATTRIBUTE_VALUE, expressionLeft_, expressionRight_, String.valueOf(EQUALS), _conf.toContextEl(), true);
+                    ip_.getLocalVars().removeKey(nameVar_);
+                    ip_.getLocalVars().removeKey(nameValue_);
                 }
             }
         }
