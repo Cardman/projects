@@ -327,27 +327,29 @@ final class FormatHtml {
 
     private static void setBeanForms(Configuration _conf, Struct _mainBean,
             Node _node, boolean _keepField, String _beanName) {
-        try {
-            Struct bean_ = _conf.getBuiltBeans().getVal(_beanName);
-            ImportingPage ip_ = _conf.getLastPage();
-            String prefix_ = ip_.getPrefix();
-            Struct forms_ = ExtractObject.getForms(_conf, bean_);
-            Struct formsMap_ = ExtractObject.getForms(_conf, _mainBean);
-            if (_keepField) {
-                for (Element f_: XmlParser.childrenElements(_node)) {
-                    if (!StringList.quickEq(f_.getNodeName(),prefix_+FORM_BLOCK_TAG)) {
-                        continue;
-                    }
-                    String name_ = f_.getAttribute(ATTRIBUTE_FORM);
-                    Struct strName_ = new Struct(name_);
-                    ExtractObject.put(_conf, forms_, strName_, ExtractObject.getVal(_conf, formsMap_, strName_));
+        if (_mainBean == null) {
+            return;
+        }
+        Struct bean_ = _conf.getBuiltBeans().getVal(_beanName);
+        if (bean_ == null) {
+            return;
+        }
+        ImportingPage ip_ = _conf.getLastPage();
+        String prefix_ = ip_.getPrefix();
+        Struct forms_ = ExtractObject.getForms(_conf, bean_);
+        Struct formsMap_ = ExtractObject.getForms(_conf, _mainBean);
+        if (_keepField) {
+            for (Element f_: XmlParser.childrenElements(_node)) {
+                if (!StringList.quickEq(f_.getNodeName(),prefix_+FORM_BLOCK_TAG)) {
+                    continue;
                 }
-            } else {
-                //add option for copying forms (default copy)
-                ExtractObject.putAllMap(_conf, forms_, formsMap_);
+                String name_ = f_.getAttribute(ATTRIBUTE_FORM);
+                Struct strName_ = new Struct(name_);
+                ExtractObject.put(_conf, forms_, strName_, ExtractObject.getVal(_conf, formsMap_, strName_));
             }
-        } catch (Throwable _0) {
-            _0.printStackTrace();
+        } else {
+            //add option for copying forms (default copy)
+            ExtractObject.putAllMap(_conf, forms_, formsMap_);
         }
     }
 
@@ -2557,7 +2559,7 @@ final class FormatHtml {
             ExtractObject.checkNullPointer(_conf, obj_.getInstance());
             index_ = lv_.getIndex();
             for (EntryCust<Long, NodeContainer> e: _containers.entryList()) {
-                if (e.getValue().getObject() != obj_.getInstance()) {
+                if (!ExtractObject.eq(_conf, e.getValue().getStruct(), obj_)) {
                     continue;
                 }
                 if (e.getValue().getIndex() != index_) {
@@ -2593,7 +2595,7 @@ final class FormatHtml {
             }
             ExtractObject.checkNullPointer(_conf, obj_.getInstance());
             for (EntryCust<Long, NodeContainer> e: _containers.entryList()) {
-                if (e.getValue().getObject() != obj_.getInstance()) {
+                if (!ExtractObject.eq(_conf,e.getValue().getStruct(), obj_)) {
                     continue;
                 }
                 if (!StringList.quickEq(e.getValue().getLastToken(), end_)) {
@@ -3937,7 +3939,7 @@ final class FormatHtml {
             String var_ = forLoopLoc_.getAttribute(ATTRIBUTE_VAR);
             LoopVariable lv_ = _vars.getVal(var_);
             Number element_ = (Number) lv_.getElement();
-            lv_.setElement(element_.longValue()+lv_.getStep());
+            lv_.setElement(PrimitiveTypeUtil.convert(element_.getClass(), element_.longValue()+lv_.getStep()));
             lv_.setIndex(lv_.getIndex() + 1);
         }
     }
@@ -4076,12 +4078,11 @@ final class FormatHtml {
             _ip.setLookForAttrValue(true);
             _ip.setOffset(0);
             container_ = ElUtil.processEl(listAttr_, 0, _conf.toContextEl()).getStruct();
-            Object it_ = container_.getInstance();
-            if (it_ == null) {
+            if (container_.isNull()) {
                 _conf.getLastPage().addToOffset(listAttr_.length()+1);
                 throw new NullObjectException(_conf.joinPages());
             }
-            iterable_ = it_;
+            iterable_ = container_.getInstance();
         } else if (currentForNode_.hasAttribute(ATTRIBUTE_MAP)) {
             map_ = true;
             String mapAttr_ = currentForNode_.getAttribute(ATTRIBUTE_MAP);

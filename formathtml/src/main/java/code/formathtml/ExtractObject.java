@@ -8,8 +8,6 @@ import java.util.concurrent.atomic.AtomicLong;
 
 import org.w3c.dom.Element;
 
-import code.bean.Bean;
-import code.bean.translator.Translator;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.ElUtil;
@@ -72,6 +70,7 @@ final class ExtractObject {
     private static final char BEGIN_TR = '[';
     private static final char END_TR = ']';
     private static final char QUOTE = 39;
+    private static final String GET_STRING ="getString";
     private static final String NAME ="name";
     private static final String PUT ="put";
     private static final String PUT_ALL_MAP ="putAllMap";
@@ -159,10 +158,10 @@ final class ExtractObject {
                     throw new BadExpressionLanguageException(arg_.toString()+RETURN_LINE+_conf.joinPages());
                 }
                 ContextEl context_ = _conf.toContextEl();
-                Translator trloc_ = null;
+                Struct trloc_ = null;
                 if (!tr_.toString().isEmpty()) {
                     try {
-                        trloc_ = _conf.getTranslators().getVal(tr_.toString());
+                        trloc_ = _conf.getBuiltTranslators().getVal(tr_.toString());
                         if (trloc_ == null) {
                             _conf.getLastPage().setOffset(i_);
                             throw new InexistingTranslatorException(tr_+RETURN_LINE+_conf.joinPages());
@@ -179,14 +178,44 @@ final class ExtractObject {
                 try {
                     if (trloc_ != null) {
                         Struct bean_ = _ip.getGlobalArgument().getStruct();
-                        LocalVariable loc_;
-                        Struct trans_ = new Struct(trloc_);
-                        String transName_ = _ip.getNextTempVar();
-                        loc_ = new LocalVariable();
-                        loc_.setStruct(trans_);
-                        loc_.setClassName(trans_.getClassName());
-                        _ip.getLocalVars().put(transName_, loc_);
-                        o_ = trloc_.getString(_pattern, _conf, _files, (Bean) bean_.getInstance(), s_);
+                        LocalVariable lv_ = new LocalVariable();
+                        String valName_ = _ip.getNextTempVar();
+                        lv_ = new LocalVariable();
+                        lv_.setStruct(trloc_);
+                        lv_.setClassName(trloc_.getClassName());
+                        _ip.getLocalVars().put(valName_, lv_);
+                        String patName_ = _ip.getNextTempVar();
+                        lv_ = new LocalVariable();
+                        lv_.setElement(_pattern);
+                        lv_.setClassName(String.class.getName());
+                        _ip.getLocalVars().put(patName_, lv_);
+                        String navName_ = _ip.getNextTempVar();
+                        lv_ = new LocalVariable();
+                        lv_.setElement(_conf);
+                        lv_.setClassName(Object.class.getName());
+                        _ip.getLocalVars().put(navName_, lv_);
+                        String filName_ = _ip.getNextTempVar();
+                        lv_ = new LocalVariable();
+                        lv_.setElement(_files);
+                        lv_.setClassName(StringMap.class.getName());
+                        _ip.getLocalVars().put(filName_, lv_);
+                        String beanName_ = _ip.getNextTempVar();
+                        lv_ = new LocalVariable();
+                        lv_.setStruct(bean_);
+                        lv_.setClassName(bean_.getClassName());
+                        _ip.getLocalVars().put(beanName_, lv_);
+                        String objName_ = _ip.getNextTempVar();
+                        lv_ = new LocalVariable();
+                        lv_.setStruct(s_);
+                        lv_.setClassName(Object.class.getName());
+                        _ip.getLocalVars().put(objName_, lv_);
+                        String expression_ = valName_ + GET_LOC_VAR+GET_STRING+BEGIN_ARGS;
+                        expression_ += patName_+GET_LOC_VAR + SEP_ARGS;
+                        expression_ += navName_+GET_LOC_VAR + SEP_ARGS;
+                        expression_ += filName_+GET_LOC_VAR + SEP_ARGS;
+                        expression_ += beanName_+GET_LOC_VAR + SEP_ARGS;
+                        expression_ += objName_+GET_LOC_VAR + END_ARGS;
+                        o_ = (String) ElUtil.processEl(expression_, 0, context_).getObject();
                     } else {
                         o_ = valueOf(_conf, s_);
                     }

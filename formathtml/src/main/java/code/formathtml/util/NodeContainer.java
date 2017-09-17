@@ -32,9 +32,6 @@ public class NodeContainer {
             object = new Struct();
         }
     }
-    public Object getObject() {
-        return object.getInstance();
-    }
 
     public void setObject(Object _object) {
         if (_object == null) {

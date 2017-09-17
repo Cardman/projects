@@ -1,5 +1,4 @@
 package code.util;
-import code.util.annot.RwXml;
 import code.util.ints.Listable;
 import code.util.ints.ListableEntries;
 
@@ -56,8 +55,7 @@ public abstract class AbsMap<K, V> implements ListableEntries<K, V> {
         return true;
     }
 
-    @RwXml
-    private void setKey(int _i, K _k) {
+    public void setKey(int _i, K _k) {
         EntryCust<K,V> bk_ = list.get(_i);
         list.set(_i, new EntryCust<K,V>(_k, bk_.getValue()));
     }
@@ -161,8 +159,7 @@ public abstract class AbsMap<K, V> implements ListableEntries<K, V> {
         getList().removeAt(index_);
     }
 
-    @RwXml
-    private void addEntry(K _k, V _v) {
+    public void addEntry(K _k, V _v) {
         list.add(new EntryCust<K, V>(_k, _v));
     }
 }

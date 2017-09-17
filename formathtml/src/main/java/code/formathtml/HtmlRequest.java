@@ -106,17 +106,17 @@ final class HtmlRequest {
                         Array.set(obj_.getInstance(), (int) index_, _attribute);
                     } else {
                         //obj_ is instance of java.util.CustList
-                        Method m_ = SerializeXmlObject.getDeclaredMethod(Listable.class, SET, int.class, Object.class);
+                        Method m_ = SerializeXmlObject.getMethod(Listable.class, SET, int.class, Object.class);
                         ConverterMethod.invokeMethod(m_, obj_.getInstance(), (int) index_, _attribute);
                     }
                 } else {
                     //obj_ is instance of java.util.ListableEntries
                     boolean key_ = _nodeContainer.getLastToken().endsWith(FormatHtml.GET_KEY);
                     if (!key_) {
-                        Method m_ = SerializeXmlObject.getDeclaredMethod(ListableEntries.class, SET_VALUE, int.class, Object.class);
+                        Method m_ = SerializeXmlObject.getMethod(ListableEntries.class, SET_VALUE, int.class, Object.class);
                         ConverterMethod.invokeMethod(m_, obj_.getInstance(), (int)index_, _attribute);
                     } else {
-                        Method m_ = SerializeXmlObject.getDeclaredMethod(ListableEntries.class, MOVE, Object.class, Object.class);
+                        Method m_ = SerializeXmlObject.getMethod(ListableEntries.class, MOVE, Object.class, Object.class);
                         ConverterMethod.invokeMethod(m_, obj_.getInstance(), _nodeContainer.getTypedField(), _attribute);
                     }
                 }

@@ -27,7 +27,6 @@ import code.util.CustList;
 import code.util.Numbers;
 import code.util.StringList;
 import code.util.StringMap;
-import code.util.annot.RwXml;
 import code.util.exceptions.RuntimeClassNotFoundException;
 import code.util.ints.ChangeableMap;
 import code.util.ints.Viewable;
@@ -70,19 +69,13 @@ public final class SerializeXmlObject {
     }
 
     /**@throws NoSuchDeclaredMethodException*/
-    static Method getDeclaredXmlAccessibleMethod(Class<?> _class, String _name, Class<?>... _argsClass) {
-        Method m_ = getDeclaredMethod(_class, _name, _argsClass);
-        m_.setAccessible(m_.isAnnotationPresent(RwXml.class));
-        return m_;
-    }
-
-    public static Method getDeclaredMethod(Class<?> _class, String _name, Class<?>... _argsClass) {
+    public static Method getMethod(Class<?> _class, String _name, Class<?>... _argsClass) {
         Class<?> class_ = _class;
         StringList traces_ = new StringList();
         while (class_ != null) {
             boolean addToTrace_ = false;
             try {
-                Method method_ = class_.getDeclaredMethod(_name, _argsClass);
+                Method method_ = class_.getMethod(_name, _argsClass);
                 return method_;
             } catch (NoSuchMethodException _0) {
                 if (class_.getSuperclass() == Object.class) {

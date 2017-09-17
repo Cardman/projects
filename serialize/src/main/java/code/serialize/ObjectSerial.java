@@ -38,14 +38,14 @@ final class ObjectSerial extends TemplateSerial {
     private static final String SET_KEY ="setKey";
     private static final String SET_VALUE ="setValue";
 
-    private static final Method SIZE_METHOD = SerializeXmlObject.getDeclaredXmlAccessibleMethod(Listable.class, SIZE);
-    private static final Method SIZE_MAP_METHOD = SerializeXmlObject.getDeclaredXmlAccessibleMethod(ListableEntries.class, SIZE);
-    private static final Method IS_CORRECT_METHOD = SerializeXmlObject.getDeclaredXmlAccessibleMethod(ListableEntries.class, IS_CORRECT);
-    private static final Method ADD_METHOD = SerializeXmlObject.getDeclaredXmlAccessibleMethod(Listable.class, ADD, Object.class);
-    private static final Method SET_METHOD = SerializeXmlObject.getDeclaredXmlAccessibleMethod(Listable.class, SET, int.class, Object.class);
-    private static final Method ADD_ENTRY_METHOD = SerializeXmlObject.getDeclaredXmlAccessibleMethod(AbsMap.class, ADD_ENTRY, Object.class, Object.class);
-    private static final Method SET_KEY_METHOD = SerializeXmlObject.getDeclaredXmlAccessibleMethod(AbsMap.class, SET_KEY, int.class, Object.class);
-    private static final Method SET_VALUE_METHOD = SerializeXmlObject.getDeclaredXmlAccessibleMethod(AbsMap.class, SET_VALUE, int.class, Object.class);
+    private static final Method SIZE_METHOD = SerializeXmlObject.getMethod(Listable.class, SIZE);
+    private static final Method SIZE_MAP_METHOD = SerializeXmlObject.getMethod(ListableEntries.class, SIZE);
+    private static final Method IS_CORRECT_METHOD = SerializeXmlObject.getMethod(ListableEntries.class, IS_CORRECT);
+    private static final Method ADD_METHOD = SerializeXmlObject.getMethod(Listable.class, ADD, Object.class);
+    private static final Method SET_METHOD = SerializeXmlObject.getMethod(Listable.class, SET, int.class, Object.class);
+    private static final Method ADD_ENTRY_METHOD = SerializeXmlObject.getMethod(AbsMap.class, ADD_ENTRY, Object.class, Object.class);
+    private static final Method SET_KEY_METHOD = SerializeXmlObject.getMethod(AbsMap.class, SET_KEY, int.class, Object.class);
+    private static final Method SET_VALUE_METHOD = SerializeXmlObject.getMethod(AbsMap.class, SET_VALUE, int.class, Object.class);
 
     private String className;
     private Object value;

@@ -55,10 +55,6 @@ public abstract class SwitchStack extends BlockStack implements BreakableStack {
         }
     }
 
-    public Object getValue() {
-        return value.getInstance();
-    }
-
     public void setValue(Object _value) {
         if (_value == null) {
             value = new Struct();

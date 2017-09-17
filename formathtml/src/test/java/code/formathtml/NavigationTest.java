@@ -410,7 +410,7 @@ public class NavigationTest {
         assertXmlEqualNoPrefix("<html xmlns:c='javahtml' xmlns='javahtml'><body> NEXT<form n-f=\"0\" action=\"\" c:command=\"go\">0</form><form n-f=\"1\" action=\"go\">0</form></body></html>", nav_.getHtmlText());
         assertEq(0, conf_.getBeans().getVal("bean_one").getForms().size());
         assertEq(0, conf_.getBeans().getVal("bean_two").getForms().size());
-//        assertSame(conf_.getBeans().getVal("bean_one").getForms(), conf_.getBeans().getVal("bean_two").getForms());
+        assertSame(conf_.getBeans().getVal("bean_one").getForms(), conf_.getBeans().getVal("bean_two").getForms());
         assertEq("",nav_.getTitle());
         assertEq("",nav_.getReferenceScroll());
         assertEq(0,nav_.getTooltips().size());
@@ -458,7 +458,7 @@ public class NavigationTest {
         assertXmlEqualNoPrefix("<html xmlns:c='javahtml' xmlns='javahtml'><body> NEXT<form n-f=\"0\" action=\"\" c:command=\"go\">0</form><form n-f=\"1\" action=\"go\">0</form></body></html>", nav_.getHtmlText());
         assertEq(0, conf_.getBeans().getVal("bean_one").getForms().size());
         assertEq(0, conf_.getBeans().getVal("bean_two").getForms().size());
-//        assertSame(conf_.getBeans().getVal("bean_one").getForms(), conf_.getBeans().getVal("bean_two").getForms());
+        assertSame(conf_.getBeans().getVal("bean_one").getForms(), conf_.getBeans().getVal("bean_two").getForms());
         assertEq("",nav_.getTitle());
         assertEq("",nav_.getReferenceScroll());
         assertEq(0,nav_.getTooltips().size());
@@ -864,7 +864,7 @@ public class NavigationTest {
         assertXmlEqualNoPrefix("<html xmlns:c='javahtml' xmlns='javahtml'><body> NEXT<form n-f=\"0\" action=\"\" c:command=\"go\">0</form><form n-f=\"1\" action=\"go\">0</form><a name=\"here\">Title loc</a></body></html>", nav_.getHtmlText());
         assertEq(0, conf_.getBeans().getVal("bean_one").getForms().size());
         assertEq(0, conf_.getBeans().getVal("bean_two").getForms().size());
-//        assertSame(conf_.getBeans().getVal("bean_one").getForms(), conf_.getBeans().getVal("bean_two").getForms());
+        assertSame(conf_.getBeans().getVal("bean_one").getForms(), conf_.getBeans().getVal("bean_two").getForms());
         assertEq("",nav_.getTitle());
         assertEq("here",nav_.getReferenceScroll());
         assertEq(0,nav_.getTooltips().size());
@@ -912,7 +912,7 @@ public class NavigationTest {
         assertXmlEqualNoPrefix("<html xmlns:c='javahtml' xmlns='javahtml'><body> NEXT<form n-f=\"0\" action=\"\" c:command=\"go\">0</form><form n-f=\"1\" action=\"go\">0</form><a name=\"here\" title=\"Tool tip\">Title loc</a><a href=\"\" name=\"here\">Title href</a><a n-a=\"0\" href=\"a_ref\" name=\"here\" title=\"a_title\">Title real</a></body></html>", nav_.getHtmlText());
         assertEq(0, conf_.getBeans().getVal("bean_one").getForms().size());
         assertEq(0, conf_.getBeans().getVal("bean_two").getForms().size());
-//        assertSame(conf_.getBeans().getVal("bean_one").getForms(), conf_.getBeans().getVal("bean_two").getForms());
+        assertSame(conf_.getBeans().getVal("bean_one").getForms(), conf_.getBeans().getVal("bean_two").getForms());
         assertEq("",nav_.getTitle());
         assertEq("here",nav_.getReferenceScroll());
         assertEq(1,nav_.getTooltips().size());
@@ -4045,7 +4045,7 @@ public class NavigationTest {
         assertEq(0, map_.size());
         assertEq(0, conf_.getBeans().getVal("bean_one").getForms().size());
         assertEq(0, conf_.getBeans().getVal("bean_two").getForms().size());
-//        assertSame(conf_.getBeans().getVal("bean_one").getForms(), conf_.getBeans().getVal("bean_two").getForms());
+        assertSame(conf_.getBeans().getVal("bean_one").getForms(), conf_.getBeans().getVal("bean_two").getForms());
         assertEq("",nav_.getTitle());
         assertEq("",nav_.getReferenceScroll());
         assertEq(0,nav_.getTooltips().size());

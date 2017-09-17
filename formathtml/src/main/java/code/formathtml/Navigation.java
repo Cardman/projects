@@ -4,17 +4,20 @@ import java.lang.reflect.Method;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
+import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.w3c.dom.Text;
 
 import code.bean.Bean;
-import code.bean.validator.Validator;
 import code.bean.validator.ValidatorException;
 import code.expressionlanguage.Argument;
+import code.expressionlanguage.ElUtil;
 import code.expressionlanguage.Templates;
 import code.expressionlanguage.exceptions.ErrorCausingException;
+import code.expressionlanguage.exceptions.IndirectException;
 import code.expressionlanguage.exceptions.InvokeRedinedMethException;
 import code.expressionlanguage.opers.util.Struct;
+import code.expressionlanguage.variables.LocalVariable;
 import code.formathtml.exceptions.BadParenthesesException;
 import code.formathtml.exceptions.FormNotFoundException;
 import code.formathtml.exceptions.InexistingValidatorException;
@@ -133,9 +136,11 @@ public final class Navigation {
     private static final String RETURN_LINE = "\n";
 
     private static final String EMPTY_STRING = "";
+    private static final String GET_LOC_VAR =";.";
+    private static final String VALIDATE ="validate";
     private static final String ADD ="add";
 
-    private static final Method ADD_METHOD = SerializeXmlObject.getDeclaredMethod(Listable.class, ADD, Object.class);
+    private static final Method ADD_METHOD = SerializeXmlObject.getMethod(Listable.class, ADD, Object.class);
 
     private Configuration session = new Configuration();
 
@@ -410,10 +415,10 @@ public final class Navigation {
         Struct bean_ = getBean(currentBeanName);
         Struct forms_;
         try {
+            session.addPage(new ImportingPage(false));
             forms_ = ExtractObject.getForms(session, bean_);
-        } catch (Error _0) {
-            forms_ = new Struct();
-        } catch (RuntimeException _0) {
+            session.removeLastPage();
+        } catch (Throwable _0) {
             forms_ = new Struct();
         }
         for (EntryCust<String, Struct> e: session.getBuiltBeans().entryList()) {
@@ -516,9 +521,9 @@ public final class Navigation {
             ip_.setProcessingAttribute(ip_.getPrefix()+ATTRIBUTE_VALIDATOR);
             ip_.setLookForAttrValue(true);
             ip_.setOffset(0);
-            Validator validator_;
+            Struct validator_;
             try {
-                validator_ = session.getValidators().getVal(valId_);
+                validator_ = session.getBuiltValidators().getVal(valId_);
             } catch (Throwable _0) {
                 throw new InvokeRedinedMethException(valId_+RETURN_LINE+session.joinPages());
             }
@@ -573,12 +578,43 @@ public final class Navigation {
                 } catch (Throwable _0) {
                 }
             }
+            LocalVariable lv_ = new LocalVariable();
+            String valName_ = ip_.getNextTempVar();
+            lv_ = new LocalVariable();
+            lv_.setStruct(validator_);
+            lv_.setClassName(validator_.getClassName());
+            ip_.getLocalVars().put(valName_, lv_);
+            String navName_ = ip_.getNextTempVar();
+            lv_ = new LocalVariable();
+            lv_.setElement(this);
+            lv_.setClassName(Object.class.getName());
+            ip_.getLocalVars().put(navName_, lv_);
+            String nodName_ = ip_.getNextTempVar();
+            lv_ = new LocalVariable();
+            lv_.setElement(node_);
+            lv_.setClassName(Node.class.getName());
+            ip_.getLocalVars().put(nodName_, lv_);
+            String objName_ = ip_.getNextTempVar();
+            lv_ = new LocalVariable();
+            lv_.setElement(obj_);
+            lv_.setClassName(Object.class.getName());
+            ip_.getLocalVars().put(objName_, lv_);
+            String expression_ = valName_ + GET_LOC_VAR+VALIDATE+BEGIN_ARGS;
+            expression_ += navName_+GET_LOC_VAR + SEP_ARGS;
+            expression_ += nodName_+GET_LOC_VAR + SEP_ARGS;
+            expression_ += objName_+GET_LOC_VAR + END_ARGS;
             try {
                 try {
-                    validator_.validate(this, node_, obj_);
-                } catch (ValidatorException _0) {
-                    errors_.put(id_, _0.format());
-                    errorsArgs_.put(id_, _0.getArgs());
+                    ElUtil.processEl(expression_, 0, session.toContextEl());
+                } catch (IndirectException _0) {
+                    Object ex_ = _0.getCustCause().getInstance();
+                    if (ex_ instanceof ValidatorException) {
+                        ValidatorException valEx_ = (ValidatorException) ex_;
+                        errors_.put(id_, valEx_.format());
+                        errorsArgs_.put(id_, valEx_.getArgs());
+                    } else {
+                        throw (RuntimeException) ex_;
+                    }
                 }
             } catch (Throwable _0) {
                 throw new InvokeRedinedMethException(session.joinPages(), new Struct(_0));
@@ -862,23 +898,6 @@ public final class Navigation {
             }
         }
         return true;
-    }
-
-    Bean newBean(Bean _bean) {
-        try {
-            Class<?> cl_ = ConstClasses.classAliasForNameNotInit(_bean.getClassName());
-            Bean bean_ = (Bean) ConverterMethod.newInstance(cl_.getDeclaredConstructor());
-            bean_.setDataBase(_bean.getDataBase());
-            bean_.setForms(_bean.getForms());
-            bean_.setClassName(ConstClasses.resolve(_bean.getClassName()));
-            bean_.setLanguage(language);
-            bean_.setScope(_bean.getScope());
-            return bean_;
-        } catch (RuntimeClassNotFoundException _0) {
-            throw new RuntimeClassNotFoundException(_bean.getClassName());
-        } catch (Throwable _0) {
-            throw new ErrorCausingException(new Struct(_0));
-        }
     }
 
     void setupText(String _text) {

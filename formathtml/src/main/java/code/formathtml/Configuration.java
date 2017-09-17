@@ -188,14 +188,20 @@ public class Configuration {
             Struct str_ = ElUtil.processEl(INSTANCE+e.getValue()+BEGIN_ARGS+END_ARGS, 0, context).getStruct();
             getBuiltTranslators().put(e.getKey(), str_);
         }
-        setupValiatorsTranslators();
     }
     void setupValiatorsTranslators(String _language) {
         for (EntryCust<String, Bean> e: getBeans().entryList()) {
             Struct str_ = newBean(_language, null, e.getValue(), false);
             getBuiltBeans().put(e.getKey(), str_);
         }
-        setupValiatorsTranslators();
+        for (EntryCust<String, Validator> e: getValidators().entryList()) {
+            Struct str_ = new Struct(e.getValue());
+            getBuiltValidators().put(e.getKey(), str_);
+        }
+        for (EntryCust<String, Translator> e: getTranslators().entryList()) {
+            Struct str_ = new Struct(e.getValue());
+            getBuiltTranslators().put(e.getKey(), str_);
+        }
     }
 
     void setupValiatorsTranslators() {
