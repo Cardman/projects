@@ -192,7 +192,7 @@ public class Configuration {
     }
     void setupValiatorsTranslators(String _language) {
         for (EntryCust<String, Bean> e: getBeans().entryList()) {
-            Struct str_ = newBean(_language, null, e.getValue());
+            Struct str_ = newBean(_language, null, e.getValue(), false);
             getBuiltBeans().put(e.getKey(), str_);
         }
         setupValiatorsTranslators();
@@ -209,7 +209,10 @@ public class Configuration {
         }
     }
 
-    Struct newBean(String _language, Object _dataBase, Bean _bean) {
+    Struct newBean(String _language, Object _dataBase, Bean _bean, boolean _set) {
+        if (!_set) {
+            return new Struct(_bean);
+        }
         addPage(new ImportingPage(false));
         Struct strBean_ = ElUtil.processEl(INSTANCE+_bean.getClassName()+BEGIN_ARGS+END_ARGS, 0, toContextEl()).getStruct();
         if (_dataBase != null) {
@@ -217,7 +220,11 @@ public class Configuration {
         } else {
             ExtractObject.setDataBase(this, strBean_, new Struct());
         }
-        ExtractObject.setForms(this, strBean_, new Struct(new StringMap<Object>()));
+        if (_bean == null || _bean.getForms() == null) {
+            ExtractObject.setForms(this, strBean_, new Struct(new StringMap<Object>()));
+        } else {
+            ExtractObject.setForms(this, strBean_, new Struct(_bean.getForms()));
+        }
         ExtractObject.setLanguage(this, strBean_, _language);
         if (_bean.getScope() != null) {
             ExtractObject.setScope(this, strBean_, _bean.getScope());

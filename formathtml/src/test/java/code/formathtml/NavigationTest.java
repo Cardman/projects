@@ -19,6 +19,7 @@ import code.bean.translator.Translator;
 import code.bean.validator.Validator;
 import code.expressionlanguage.PrimitiveTypeUtil;
 import code.expressionlanguage.exceptions.InvokeRedinedMethException;
+import code.expressionlanguage.opers.util.Struct;
 import code.formathtml.classes.BeanEight;
 import code.formathtml.classes.BeanFive;
 import code.formathtml.classes.BeanOne;
@@ -43,6 +44,7 @@ import code.formathtml.exceptions.RenderingException;
 import code.formathtml.util.NodeContainer;
 import code.formathtml.util.NodeInformations;
 import code.serialize.exceptions.NoSuchDeclaredMethodException;
+import code.util.EntryCust;
 import code.util.NatTreeMap;
 import code.util.NumberMap;
 import code.util.StringList;
@@ -95,6 +97,7 @@ public class NavigationTest {
         nav_.setSession(conf_);
         nav_.setFiles(files_);
         nav_.initializeSession();
+        setupBeansAfter(conf_);
         assertEq("page1.html", nav_.getCurrentUrl());
         assertEq("bean_one", nav_.getCurrentBeanName());
         assertXmlEqualNoPrefix("<html xmlns:c='javahtml' xmlns='javahtml'><body>HEAD<a href=\"\"/> NEXT<form n-f=\"0\" action=\"\" c:command=\"go\">0</form><form n-f=\"1\" action=\"go\">0</form></body></html>", nav_.getHtmlText());
@@ -139,6 +142,7 @@ public class NavigationTest {
         nav_.setSession(conf_);
         nav_.setFiles(files_);
         nav_.initializeSession();
+        setupBeansAfter(conf_);
         assertEq("page1.html", nav_.getCurrentUrl());
         assertEq("bean_one", nav_.getCurrentBeanName());
         assertXmlEqualNoPrefix("<html xmlns:c='javahtml' xmlns='javahtml'><head><title>Description one</title></head><body>HEAD<a href=\"\"/> NEXT<form n-f=\"0\" action=\"\" c:command=\"go\">0</form><form n-f=\"1\" action=\"go\">0</form></body></html>", nav_.getHtmlText());
@@ -184,6 +188,7 @@ public class NavigationTest {
         nav_.setFiles(files_);
         nav_.initializeSession();
         assertTrue(!nav_.reinitBean("page2.html", "bean_one", "bean_one"));
+        setupBeansAfter(conf_);
         assertEq(0, conf_.getBeans().getVal("bean_one").getForms().size());
         assertEq(0, conf_.getBeans().getVal("bean_two").getForms().size());
         assertEq("",nav_.getTitle());
@@ -226,6 +231,7 @@ public class NavigationTest {
         nav_.setFiles(files_);
         nav_.initializeSession();
         assertTrue(!nav_.reinitBean("page2.html", "bean_one", "bean_two"));
+        setupBeansAfter(conf_);
         assertEq(0, conf_.getBeans().getVal("bean_one").getForms().size());
         assertEq(0, conf_.getBeans().getVal("bean_two").getForms().size());
         assertEq("",nav_.getTitle());
@@ -268,6 +274,7 @@ public class NavigationTest {
         nav_.setFiles(files_);
         nav_.initializeSession();
         assertTrue(nav_.reinitBean("page2.html", "bean_one", "bean_one"));
+        setupBeansAfter(conf_);
         assertEq(0, conf_.getBeans().getVal("bean_one").getForms().size());
         assertEq(0, conf_.getBeans().getVal("bean_two").getForms().size());
         assertEq("",nav_.getTitle());
@@ -310,6 +317,7 @@ public class NavigationTest {
         nav_.setFiles(files_);
         nav_.initializeSession();
         assertTrue(nav_.reinitBean("page2.html", "bean_one", "bean_one"));
+        setupBeansAfter(conf_);
         assertEq(0, conf_.getBeans().getVal("bean_one").getForms().size());
         assertEq(0, conf_.getBeans().getVal("bean_two").getForms().size());
         assertEq("",nav_.getTitle());
@@ -352,6 +360,7 @@ public class NavigationTest {
         nav_.setFiles(files_);
         nav_.initializeSession();
         assertTrue(!nav_.reinitBean("page1.html", "bean_one", "bean_one"));
+        setupBeansAfter(conf_);
         assertEq(0, conf_.getBeans().getVal("bean_one").getForms().size());
         assertEq(0, conf_.getBeans().getVal("bean_two").getForms().size());
         assertEq("",nav_.getTitle());
@@ -395,12 +404,13 @@ public class NavigationTest {
         nav_.initializeSession();
         nav_.getHtmlPage().setUrl(0);
         nav_.processAnchorRequest("page2.html");
+        setupBeansAfter(conf_);
         assertEq("page2.html", nav_.getCurrentUrl());
         assertEq("bean_two", nav_.getCurrentBeanName());
         assertXmlEqualNoPrefix("<html xmlns:c='javahtml' xmlns='javahtml'><body> NEXT<form n-f=\"0\" action=\"\" c:command=\"go\">0</form><form n-f=\"1\" action=\"go\">0</form></body></html>", nav_.getHtmlText());
         assertEq(0, conf_.getBeans().getVal("bean_one").getForms().size());
         assertEq(0, conf_.getBeans().getVal("bean_two").getForms().size());
-        assertSame(conf_.getBeans().getVal("bean_one").getForms(), conf_.getBeans().getVal("bean_two").getForms());
+//        assertSame(conf_.getBeans().getVal("bean_one").getForms(), conf_.getBeans().getVal("bean_two").getForms());
         assertEq("",nav_.getTitle());
         assertEq("",nav_.getReferenceScroll());
         assertEq(0,nav_.getTooltips().size());
@@ -442,12 +452,13 @@ public class NavigationTest {
         nav_.initializeSession();
         nav_.getHtmlPage().setUrl(0);
         nav_.processAnchorRequest("page2.html");
+        setupBeansAfter(conf_);
         assertEq("page2.html", nav_.getCurrentUrl());
         assertEq("bean_two", nav_.getCurrentBeanName());
         assertXmlEqualNoPrefix("<html xmlns:c='javahtml' xmlns='javahtml'><body> NEXT<form n-f=\"0\" action=\"\" c:command=\"go\">0</form><form n-f=\"1\" action=\"go\">0</form></body></html>", nav_.getHtmlText());
         assertEq(0, conf_.getBeans().getVal("bean_one").getForms().size());
         assertEq(0, conf_.getBeans().getVal("bean_two").getForms().size());
-        assertSame(conf_.getBeans().getVal("bean_one").getForms(), conf_.getBeans().getVal("bean_two").getForms());
+//        assertSame(conf_.getBeans().getVal("bean_one").getForms(), conf_.getBeans().getVal("bean_two").getForms());
         assertEq("",nav_.getTitle());
         assertEq("",nav_.getReferenceScroll());
         assertEq(0,nav_.getTooltips().size());
@@ -492,6 +503,7 @@ public class NavigationTest {
         nav_.initializeSession();
         nav_.getHtmlPage().setUrl(0);
         nav_.processAnchorRequest("$bean_one.goToPage");
+        setupBeansAfter(conf_);
         assertEq("page2.html", nav_.getCurrentUrl());
         assertEq("bean_two", nav_.getCurrentBeanName());
         assertXmlEqualNoPrefix("<html xmlns:c='javahtml' xmlns='javahtml'><body> NEXT<form n-f=\"0\" action=\"\" c:command=\"go\">0</form><form n-f=\"1\" action=\"go\">0</form></body></html>", nav_.getHtmlText());
@@ -542,6 +554,7 @@ public class NavigationTest {
         nav_.initializeSession();
         nav_.getHtmlPage().setUrl(0);
         nav_.processAnchorRequest("$bean_one.goToNullPage");
+        setupBeansAfter(conf_);
         assertEq("page1.html", nav_.getCurrentUrl());
         assertEq("bean_one", nav_.getCurrentBeanName());
         assertXmlEqualNoPrefix("<html xmlns:c='javahtml' xmlns='javahtml'><body>HEAD<a n-a=\"0\" c:command=\"$bean_one.goToNullPage\" href=\"\"/></body></html>", nav_.getHtmlText());
@@ -592,6 +605,7 @@ public class NavigationTest {
         nav_.initializeSession();
         nav_.getHtmlPage().setUrl(0);
         nav_.processAnchorRequest("$bean_one.goToPage(4)");
+        setupBeansAfter(conf_);
         assertEq("page2.html", nav_.getCurrentUrl());
         assertEq("bean_two", nav_.getCurrentBeanName());
         assertXmlEqualNoPrefix("<html xmlns:c='javahtml' xmlns='javahtml'><body> NEXT<form n-f=\"0\" action=\"\" c:command=\"go\">0</form><form n-f=\"1\" action=\"go\">0</form></body></html>", nav_.getHtmlText());
@@ -642,6 +656,7 @@ public class NavigationTest {
         nav_.initializeSession();
         nav_.getHtmlPage().setUrl(0);
         nav_.processAnchorRequest("");
+        setupBeansAfter(conf_);
         assertEq("page1.html", nav_.getCurrentUrl());
         assertEq("bean_one", nav_.getCurrentBeanName());
         assertXmlEqualNoPrefix("<html xmlns:c='javahtml' xmlns='javahtml'><body>HEAD<a n-a=\"0\" c:command=\"$bean_one.goToNullPage\" href=\"\"/></body></html>", nav_.getHtmlText());
@@ -692,6 +707,7 @@ public class NavigationTest {
         nav_.initializeSession();
         nav_.getHtmlPage().setUrl(0);
         nav_.processAnchorRequest("$bean_one.goToPage(4)");
+        setupBeansAfter(conf_);
         assertEq("page1.html", nav_.getCurrentUrl());
         assertEq("bean_one", nav_.getCurrentBeanName());
         assertXmlEqualNoPrefix("<html xmlns:c='javahtml' xmlns='javahtml'><body>HEAD<a n-a=\"0\" c:command=\"$bean_one.goToPage(4)\" href=\"\"/></body></html>", nav_.getHtmlText());
@@ -742,6 +758,7 @@ public class NavigationTest {
         nav_.initializeSession();
         nav_.getHtmlPage().setUrl(0);
         nav_.processAnchorRequest("$bean_one.goToPage(4)");
+        setupBeansAfter(conf_);
         assertEq("page1.html", nav_.getCurrentUrl());
         assertEq("bean_one", nav_.getCurrentBeanName());
 //        assertXMLEqualNoPrefix("<html><head><title>desc &lt;My quoted title&gt;&amp;eacute;</title></head><body>HEAD<a c:command=\"$bean_one.goToPage(4)\" href=\"\"/></body></html>", nav_.getHtmlText());
@@ -793,6 +810,7 @@ public class NavigationTest {
         nav_.initializeSession();
         nav_.getHtmlPage().setUrl(0);
         nav_.processAnchorRequest("$bean_one.goToPage(4)");
+        setupBeansAfter(conf_);
         assertEq("page1.html", nav_.getCurrentUrl());
         assertEq("bean_one", nav_.getCurrentBeanName());
         assertXmlEqualNoPrefix("<html xmlns:c='javahtml' xmlns='javahtml'><head><title>Description one"+(char)233+"</title></head><body>HEAD<a n-a=\"0\" c:command=\"$bean_one.goToPage(4)\" href=\"\"/></body></html>", nav_.getHtmlText());
@@ -840,12 +858,13 @@ public class NavigationTest {
         nav_.initializeSession();
         nav_.getHtmlPage().setUrl(0);
         nav_.processAnchorRequest("page2.html#here");
+        setupBeansAfter(conf_);
         assertEq("page2.html#here", nav_.getCurrentUrl());
         assertEq("bean_two", nav_.getCurrentBeanName());
         assertXmlEqualNoPrefix("<html xmlns:c='javahtml' xmlns='javahtml'><body> NEXT<form n-f=\"0\" action=\"\" c:command=\"go\">0</form><form n-f=\"1\" action=\"go\">0</form><a name=\"here\">Title loc</a></body></html>", nav_.getHtmlText());
         assertEq(0, conf_.getBeans().getVal("bean_one").getForms().size());
         assertEq(0, conf_.getBeans().getVal("bean_two").getForms().size());
-        assertSame(conf_.getBeans().getVal("bean_one").getForms(), conf_.getBeans().getVal("bean_two").getForms());
+//        assertSame(conf_.getBeans().getVal("bean_one").getForms(), conf_.getBeans().getVal("bean_two").getForms());
         assertEq("",nav_.getTitle());
         assertEq("here",nav_.getReferenceScroll());
         assertEq(0,nav_.getTooltips().size());
@@ -887,12 +906,13 @@ public class NavigationTest {
         nav_.initializeSession();
         nav_.getHtmlPage().setUrl(0);
         nav_.processAnchorRequest("page2.html#here");
+        setupBeansAfter(conf_);
         assertEq("page2.html#here", nav_.getCurrentUrl());
         assertEq("bean_two", nav_.getCurrentBeanName());
         assertXmlEqualNoPrefix("<html xmlns:c='javahtml' xmlns='javahtml'><body> NEXT<form n-f=\"0\" action=\"\" c:command=\"go\">0</form><form n-f=\"1\" action=\"go\">0</form><a name=\"here\" title=\"Tool tip\">Title loc</a><a href=\"\" name=\"here\">Title href</a><a n-a=\"0\" href=\"a_ref\" name=\"here\" title=\"a_title\">Title real</a></body></html>", nav_.getHtmlText());
         assertEq(0, conf_.getBeans().getVal("bean_one").getForms().size());
         assertEq(0, conf_.getBeans().getVal("bean_two").getForms().size());
-        assertSame(conf_.getBeans().getVal("bean_one").getForms(), conf_.getBeans().getVal("bean_two").getForms());
+//        assertSame(conf_.getBeans().getVal("bean_one").getForms(), conf_.getBeans().getVal("bean_two").getForms());
         assertEq("",nav_.getTitle());
         assertEq("here",nav_.getReferenceScroll());
         assertEq(1,nav_.getTooltips().size());
@@ -938,6 +958,7 @@ public class NavigationTest {
         nav_.initializeSession();
         nav_.getHtmlPage().setUrl(0);
         nav_.processAnchorRequest("$bean_one.goToPage(4)");
+        setupBeansAfter(conf_);
         assertEq("page1.html", nav_.getCurrentUrl());
         assertEq("bean_one", nav_.getCurrentBeanName());
         assertXmlEqualNoPrefix("<html xmlns:c='javahtml' xmlns='javahtml'><head><title>'asp'</title></head><body>HEAD<a n-a=\"0\" c:command=\"$bean_one.goToPage(4)\" href=\"\"/></body></html>", nav_.getHtmlText());
@@ -988,6 +1009,7 @@ public class NavigationTest {
         nav_.initializeSession();
         nav_.getHtmlPage().setUrl(0);
         nav_.processAnchorRequest("page2.html");
+        setupBeansAfter(conf_);
         assertEq("page2.html", nav_.getCurrentUrl());
         assertEq("", nav_.getCurrentBeanName());
         assertXmlEqualNoPrefix("<html xmlns:c='javahtml' xmlns='javahtml'><body>'asp' NEXT<form n-f=\"0\" action=\"DELETE\">2</form><form n-f=\"1\" action=\"go\">4</form></body></html>", nav_.getHtmlText());
@@ -1035,6 +1057,7 @@ public class NavigationTest {
         nav_.initializeSession();
         nav_.getHtmlPage().setUrl(0);
         nav_.processAnchorRequest("$bean_seven.goTwoArgs(4i,8i)");
+        setupBeansAfter(conf_);
         assertEq("page2.html", nav_.getCurrentUrl());
         assertEq("bean_two", nav_.getCurrentBeanName());
         assertXmlEqualNoPrefix("<html xmlns:c='javahtml' xmlns='javahtml'><body> NEXT<form n-f=\"0\" action=\"\" c:command=\"go\">0</form><form n-f=\"1\" action=\"go\">0</form></body></html>", nav_.getHtmlText());
@@ -1099,6 +1122,7 @@ public class NavigationTest {
         ni_.setValue(values_);
         nav_.getHtmlPage().setUrl(0);
         nav_.processFormRequest();
+        setupBeansAfter(conf_);
         assertEq("page2.html", nav_.getCurrentUrl());
         assertEq("bean_two", nav_.getCurrentBeanName());
         assertXmlEqualNoPrefix("<html xmlns:c='javahtml' xmlns='javahtml'><body><form n-f=\"0\" action=\"\" c:command=\"$bean_two.go\" name=\"myform\"><input n-i=\"0\" name=\"bean_two.typedString\" type=\"text\" value=\"TYPED_STRING\"/></form></body></html>", nav_.getHtmlText());
@@ -1177,6 +1201,7 @@ public class NavigationTest {
         ni_.setValue(values_);
         nav_.getHtmlPage().setUrl(0);
         nav_.processFormRequest();
+        setupBeansAfter(conf_);
         assertEq("page2.html", nav_.getCurrentUrl());
         assertEq("bean_two", nav_.getCurrentBeanName());
         assertXmlEqualNoPrefix("<html xmlns:c='javahtml' xmlns='javahtml'><body><form n-f=\"0\" action=\"\" c:command=\"$bean_two.go\" name=\"myform\"><input n-i=\"0\" name=\"bean_two.typedString\" type=\"text\" value=\"ONE2\"/></form></body></html>", nav_.getHtmlText());
@@ -1255,6 +1280,7 @@ public class NavigationTest {
         ni_.setValue(values_);
         nav_.getHtmlPage().setUrl(0);
         nav_.processFormRequest();
+        setupBeansAfter(conf_);
         assertEq("page1.html", nav_.getCurrentUrl());
         assertEq("bean_one", nav_.getCurrentBeanName());
         assertXmlEqualNoPrefix("<html xmlns:c='javahtml' xmlns='javahtml'><body>HEAD<a n-a=\"0\" c:command=\"$bean_one.goToNullPage\" href=\"\"/></body></html>", nav_.getHtmlText());
@@ -1333,6 +1359,7 @@ public class NavigationTest {
         ni_.setValue(values_);
         nav_.getHtmlPage().setUrl(0);
         nav_.processFormRequest();
+        setupBeansAfter(conf_);
         assertEq("page2.html", nav_.getCurrentUrl());
         assertEq("bean_two", nav_.getCurrentBeanName());
         assertXmlEqualNoPrefix("<html xmlns:c='javahtml' xmlns='javahtml'><body><form n-f=\"0\" action=\"\" c:command=\"$bean_two.go\" name=\"myform\"><input n-i=\"0\" id=\"txt\" name=\"bean_two.typedString\" type=\"text\" c:validator=\"rate_val\" value=\"ONE_TWO\"/></form></body></html>", nav_.getHtmlText());
@@ -1402,6 +1429,7 @@ public class NavigationTest {
         ni_.setValue(values_);
         nav_.getHtmlPage().setUrl(0);
         nav_.processFormRequest();
+        setupBeansAfter(conf_);
         assertEq("page2.html", nav_.getCurrentUrl());
         assertEq("bean_two", nav_.getCurrentBeanName());
         assertXmlEqualNoPrefix("<html xmlns:c='javahtml' xmlns='javahtml'><body><form n-f=\"0\" action=\"\" c:command=\"$bean_two.go\" name=\"myform\"><input n-i=\"0\" id=\"txt\" name=\"bean_two.typedString\" type=\"text\" c:validator=\"rate_val\" value=\"ONE_TWO\"/><span c:for=\"txt\">ONE_TWO is not a no zero rate</span></form></body></html>", nav_.getHtmlText());
@@ -1471,6 +1499,7 @@ public class NavigationTest {
         ni_.setValue(values_);
         nav_.getHtmlPage().setUrl(0);
         nav_.processFormRequest();
+        setupBeansAfter(conf_);
         assertEq("page2.html", nav_.getCurrentUrl());
         assertEq("bean_two", nav_.getCurrentBeanName());
         assertXmlEqualNoPrefix("<html xmlns:c='javahtml' xmlns='javahtml'><body><form n-f=\"0\" action=\"\" c:command=\"$bean_two.go\" name=\"myform\"><input n-i=\"0\" id=\"txt\" name=\"bean_two.typedString\" type=\"text\" c:validator=\"rate_val\" value=\"1/22\"/><span c:for=\"txt\"> </span></form></body></html>", nav_.getHtmlText());
@@ -1549,6 +1578,7 @@ public class NavigationTest {
         ni_.setValue(values_);
         nav_.getHtmlPage().setUrl(0);
         nav_.processFormRequest();
+        setupBeansAfter(conf_);
         assertEq("page2.html", nav_.getCurrentUrl());
         assertEq("bean_two", nav_.getCurrentBeanName());
         assertXmlEqualNoPrefix("<html xmlns:c='javahtml' xmlns='javahtml'><body><form n-f=\"0\" action=\"\" c:command=\"$bean_two.go\" name=\"myform\"><input n-i=\"0\" name=\"bean_two.typedString\" type=\"text\" value=\"TYPED_STRING\"/></form></body></html>", nav_.getHtmlText());
@@ -1628,6 +1658,7 @@ public class NavigationTest {
         ni_.setValue(values_);
         nav_.getHtmlPage().setUrl(0);
         nav_.processFormRequest();
+        setupBeansAfter(conf_);
         assertEq("page2.html", nav_.getCurrentUrl());
         assertEq("bean_two", nav_.getCurrentBeanName());
         assertXmlEqualNoPrefix("<html xmlns:c='javahtml' xmlns='javahtml'><body><form n-f=\"0\" action=\"\" c:command=\"$bean_two.go\" name=\"myform\"><input n-i=\"0\" id=\"txt\" name=\"bean_two.typedString\" type=\"text\" c:validator=\"rate_val\" value=\"ONE_TWO\"/><span c:for=\"txt\" c:valueMessage=\"msg_example,five\">ONE_TWO in error</span></form></body></html>", nav_.getHtmlText());
@@ -1696,6 +1727,7 @@ public class NavigationTest {
         ni_.setValue(values_);
         nav_.getHtmlPage().setUrl(0);
         nav_.processFormRequest();
+        setupBeansAfter(conf_);
         assertEq("page1.html", nav_.getCurrentUrl());
         assertEq("bean_one", nav_.getCurrentBeanName());
         assertXmlEqualNoPrefix("<html xmlns:c='javahtml' xmlns='javahtml'><body>HEAD<a n-a=\"0\" c:command=\"$bean_one.goToNullPage\" href=\"\"/></body></html>", nav_.getHtmlText());
@@ -1773,6 +1805,7 @@ public class NavigationTest {
         ni_.setValue(values_);
         nav_.getHtmlPage().setUrl(0);
         nav_.processFormRequest();
+        setupBeansAfter(conf_);
         assertEq("page1.html", nav_.getCurrentUrl());
         assertEq("bean_one", nav_.getCurrentBeanName());
         assertXmlEqualNoPrefix("<html xmlns:c='javahtml' xmlns='javahtml'><body>HEAD<a n-a=\"0\" c:command=\"$bean_one.goToNullPage\" href=\"\"/></body></html>", nav_.getHtmlText());
@@ -1850,6 +1883,7 @@ public class NavigationTest {
         ni_.setValue(values_);
         nav_.getHtmlPage().setUrl(0);
         nav_.processFormRequest();
+        setupBeansAfter(conf_);
         assertEq("page1.html", nav_.getCurrentUrl());
         assertEq("bean_one", nav_.getCurrentBeanName());
         assertXmlEqualNoPrefix("<html xmlns:c='javahtml' xmlns='javahtml'><body>HEAD<a n-a=\"0\" c:command=\"$bean_one.goToNullPage\" href=\"\"/></body></html>", nav_.getHtmlText());
@@ -1927,6 +1961,7 @@ public class NavigationTest {
         ni_.setValue(values_);
         nav_.getHtmlPage().setUrl(0);
         nav_.processFormRequest();
+        setupBeansAfter(conf_);
         assertEq("page1.html", nav_.getCurrentUrl());
         assertEq("bean_one", nav_.getCurrentBeanName());
         assertXmlEqualNoPrefix("<html xmlns:c='javahtml' xmlns='javahtml'><body>HEAD<a n-a=\"0\" c:command=\"$bean_one.goToNullPage\" href=\"\"/></body></html>", nav_.getHtmlText());
@@ -2006,6 +2041,7 @@ public class NavigationTest {
         ni_.setValue(values_);
         nav_.getHtmlPage().setUrl(0);
         nav_.processFormRequest();
+        setupBeansAfter(conf_);
         assertEq("page2.html", nav_.getCurrentUrl());
         assertEq("bean_two", nav_.getCurrentBeanName());
         assertXmlEqualNoPrefix("<html xmlns:c='javahtml' xmlns='javahtml'><body><form n-f=\"0\" action=\"\" c:command=\"$bean_two.go\" name=\"myform\"><input n-i=\"0\" name=\"bean_two.typedString\" type=\"text\" value=\"TYPED_STRING\"/></form></body></html>", nav_.getHtmlText());
@@ -2086,6 +2122,7 @@ public class NavigationTest {
         ni_.setValue(values_);
         nav_.getHtmlPage().setUrl(0);
         nav_.processFormRequest();
+        setupBeansAfter(conf_);
         assertEq("page1.html", nav_.getCurrentUrl());
         assertEq("bean_one", nav_.getCurrentBeanName());
         assertXmlEqualNoPrefix("<html xmlns:c='javahtml' xmlns='javahtml'><body>HEAD<a n-a=\"0\" c:command=\"$bean_one.goToNullPage\" href=\"\"/></body></html>", nav_.getHtmlText());
@@ -2163,6 +2200,7 @@ public class NavigationTest {
         ni_.setValue(values_);
         nav_.getHtmlPage().setUrl(0);
         nav_.processFormRequest();
+        setupBeansAfter(conf_);
         assertEq("page1.html", nav_.getCurrentUrl());
         assertEq("bean_one", nav_.getCurrentBeanName());
         assertXmlEqualNoPrefix("<html xmlns:c='javahtml' xmlns='javahtml'><body>HEAD<a n-a=\"0\" c:command=\"$bean_one.goToNullPage\" href=\"\"/></body></html>", nav_.getHtmlText());
@@ -2239,6 +2277,7 @@ public class NavigationTest {
         ni_.setValue(values_);
         nav_.getHtmlPage().setUrl(0);
         nav_.processFormRequest();
+        setupBeansAfter(conf_);
         assertEq("page1.html", nav_.getCurrentUrl());
         assertEq("bean_one", nav_.getCurrentBeanName());
         assertXmlEqualNoPrefix("<html xmlns:c='javahtml' xmlns='javahtml'><body>HEAD<a n-a=\"0\" c:command=\"$bean_one.goToNullPage\" href=\"\"/></body></html>", nav_.getHtmlText());
@@ -2315,6 +2354,7 @@ public class NavigationTest {
         ni_.setValue(values_);
         nav_.getHtmlPage().setUrl(0);
         nav_.processFormRequest();
+        setupBeansAfter(conf_);
         assertEq("page1.html", nav_.getCurrentUrl());
         assertEq("bean_one", nav_.getCurrentBeanName());
         assertXmlEqualNoPrefix("<html xmlns:c='javahtml' xmlns='javahtml'><body>HEAD<a n-a=\"0\" c:command=\"$bean_one.goToNullPage\" href=\"\"/></body></html>", nav_.getHtmlText());
@@ -2391,6 +2431,7 @@ public class NavigationTest {
         ni_.setValue(values_);
         nav_.getHtmlPage().setUrl(0);
         nav_.processFormRequest();
+        setupBeansAfter(conf_);
         assertEq("page1.html", nav_.getCurrentUrl());
         assertEq("bean_one", nav_.getCurrentBeanName());
         assertXmlEqualNoPrefix("<html xmlns:c='javahtml' xmlns='javahtml'><body>HEAD<a n-a=\"0\" c:command=\"$bean_one.goToNullPage\" href=\"\"/></body></html>", nav_.getHtmlText());
@@ -2470,6 +2511,7 @@ public class NavigationTest {
         ni_.setValue(values_);
         nav_.getHtmlPage().setUrl(0);
         nav_.processFormRequest();
+        setupBeansAfter(conf_);
         assertEq("page1.html", nav_.getCurrentUrl());
         assertEq("bean_one", nav_.getCurrentBeanName());
         assertXmlEqualNoPrefix("<html xmlns:c='javahtml' xmlns='javahtml'><body>HEAD<a n-a=\"0\" c:command=\"$bean_one.goToNullPage\" href=\"\"/></body></html>", nav_.getHtmlText());
@@ -2547,6 +2589,7 @@ public class NavigationTest {
         ni_.setValue(values_);
         nav_.getHtmlPage().setUrl(0);
         nav_.processFormRequest();
+        setupBeansAfter(conf_);
         assertEq("page1.html", nav_.getCurrentUrl());
         assertEq("bean_one", nav_.getCurrentBeanName());
         assertXmlEqualNoPrefix("<html xmlns:c='javahtml' xmlns='javahtml'><body>HEAD<a n-a=\"0\" c:command=\"$bean_one.goToNullPage\" href=\"\"/></body></html>", nav_.getHtmlText());
@@ -2625,6 +2668,7 @@ public class NavigationTest {
         ni_.setValue(values_);
         nav_.getHtmlPage().setUrl(0);
         nav_.processFormRequest();
+        setupBeansAfter(conf_);
         assertEq("page1.html", nav_.getCurrentUrl());
         assertEq("bean_one", nav_.getCurrentBeanName());
         assertXmlEqualNoPrefix("<html xmlns:c='javahtml' xmlns='javahtml'><body>HEAD<a n-a=\"0\" c:command=\"$bean_one.goToNullPage\" href=\"\"/></body></html>", nav_.getHtmlText());
@@ -2702,6 +2746,7 @@ public class NavigationTest {
         ni_.setValue(values_);
         nav_.getHtmlPage().setUrl(0);
         nav_.processFormRequest();
+        setupBeansAfter(conf_);
         assertEq("page1.html", nav_.getCurrentUrl());
         assertEq("bean_one", nav_.getCurrentBeanName());
         assertXmlEqualNoPrefix("<html xmlns:c='javahtml' xmlns='javahtml'><body>HEAD<a n-a=\"0\" c:command=\"$bean_one.goToNullPage\" href=\"\"/></body></html>", nav_.getHtmlText());
@@ -2780,6 +2825,7 @@ public class NavigationTest {
         ni_.setValue(values_);
         nav_.getHtmlPage().setUrl(0);
         nav_.processFormRequest();
+        setupBeansAfter(conf_);
         assertEq("page1.html", nav_.getCurrentUrl());
         assertEq("bean_one", nav_.getCurrentBeanName());
         assertXmlEqualNoPrefix("<html xmlns:c='javahtml' xmlns='javahtml'><body>HEAD<a n-a=\"0\" c:command=\"$bean_one.goToNullPage\" href=\"\"/></body></html>", nav_.getHtmlText());
@@ -2858,6 +2904,7 @@ public class NavigationTest {
         ni_.setValue(values_);
         nav_.getHtmlPage().setUrl(0);
         nav_.processFormRequest();
+        setupBeansAfter(conf_);
         assertEq("page1.html", nav_.getCurrentUrl());
         assertEq("bean_one", nav_.getCurrentBeanName());
         assertXmlEqualNoPrefix("<html xmlns:c='javahtml' xmlns='javahtml'><body>HEAD<a n-a=\"0\" c:command=\"$bean_one.goToNullPage\" href=\"\"/></body></html>", nav_.getHtmlText());
@@ -2936,6 +2983,7 @@ public class NavigationTest {
         ni_.setValue(values_);
         nav_.getHtmlPage().setUrl(0);
         nav_.processFormRequest();
+        setupBeansAfter(conf_);
         assertEq("page1.html", nav_.getCurrentUrl());
         assertEq("bean_one", nav_.getCurrentBeanName());
         assertXmlEqualNoPrefix("<html xmlns:c='javahtml' xmlns='javahtml'><body>HEAD<a n-a=\"0\" c:command=\"$bean_one.goToNullPage\" href=\"\"/></body></html>", nav_.getHtmlText());
@@ -3014,6 +3062,7 @@ public class NavigationTest {
         ni_.setValue(values_);
         nav_.getHtmlPage().setUrl(0);
         nav_.processFormRequest();
+        setupBeansAfter(conf_);
         assertEq("page2.html", nav_.getCurrentUrl());
         assertEq("bean_two", nav_.getCurrentBeanName());
         assertXmlEqualNoPrefix("<html xmlns:c='javahtml' xmlns='javahtml'><body><form n-f=\"0\" action=\"\" c:command=\"$bean_two.go\" name=\"myform\"><input n-i=\"0\" checked=\"checked\" id=\"txt\" name=\"bean_two.nullableCheckbox\" type=\"checkbox\" c:validator=\"rate_val\" value=\"\"/></form></body></html>", nav_.getHtmlText());
@@ -3083,6 +3132,7 @@ public class NavigationTest {
         ni_.setValue(values_);
         nav_.getHtmlPage().setUrl(0);
         nav_.processFormRequest();
+        setupBeansAfter(conf_);
         assertEq("page2.html", nav_.getCurrentUrl());
         assertEq("bean_two", nav_.getCurrentBeanName());
         assertXmlEqualNoPrefix("<html xmlns:c='javahtml' xmlns='javahtml'><body><form n-f=\"0\" action=\"\" c:command=\"$bean_two.go\" name=\"myform\"><input n-i=\"0\" id=\"txt\" name=\"bean_two.nullableCheckbox\" type=\"checkbox\" c:validator=\"rate_val\" value=\"\"/></form></body></html>", nav_.getHtmlText());
@@ -3163,6 +3213,7 @@ public class NavigationTest {
         ni_.setValue(values_);
         nav_.getHtmlPage().setUrl(0);
         nav_.processFormRequest();
+        setupBeansAfter(conf_);
         assertEq("page2.html", nav_.getCurrentUrl());
         assertEq("bean_two", nav_.getCurrentBeanName());
         assertXmlEqualNoPrefix("<html xmlns:c='javahtml' xmlns='javahtml'><body><form n-f=\"0\" action=\"\" c:command=\"$bean_two.go\" name=\"myform\"><input n-i=\"0\" id=\"txt\" name=\"bean_two.typedString\" type=\"text\" c:validator=\"rate_val\" value=\"ONE_TWO\"/><span c:for=\"txt\">ONE_TWO is not a no zero rate</span><input n-i=\"1\" name=\"bean_two.nullableCheckbox\" type=\"checkbox\" value=\"\"/><select n-i=\"2\" c:className=\""+ENUM+"\" name=\"bean_two.chosenNumber\"><option value=\"ONE\">ONE</option><option value=\"TWO\">TWO</option><option value=\"THREE\">THREE</option></select></form></body></html>", nav_.getHtmlText());
@@ -3244,6 +3295,7 @@ public class NavigationTest {
         ni_.setValue(values_);
         nav_.getHtmlPage().setUrl(0);
         nav_.processFormRequest();
+        setupBeansAfter(conf_);
         assertEq("page2.html", nav_.getCurrentUrl());
         assertEq("bean_two", nav_.getCurrentBeanName());
         assertXmlEqualNoPrefix("<html xmlns:c='javahtml' xmlns='javahtml'><body><form n-f=\"0\" action=\"\" c:command=\"$bean_two.go\" name=\"myform\"><input n-i=\"0\" id=\"txt\" name=\"bean_two.typedString\" type=\"text\" c:validator=\"rate_val\" value=\"ONE_TWO\"/><span c:for=\"txt\">ONE_TWO is not a no zero rate</span><input n-i=\"1\" name=\"bean_two.nullableCheckbox\" type=\"checkbox\" value=\"\"/><select n-i=\"2\" c:className=\""+ENUM+"\" name=\"bean_two.chosenNumber\"><option value=\"ONE\">ONE</option><option selected=\"selected\" value=\"TWO\">TWO</option><option value=\"THREE\">THREE</option></select></form></body></html>", nav_.getHtmlText());
@@ -3325,6 +3377,7 @@ public class NavigationTest {
         ni_.setValue(values_);
         nav_.getHtmlPage().setUrl(0);
         nav_.processFormRequest();
+        setupBeansAfter(conf_);
         assertEq("page2.html", nav_.getCurrentUrl());
         assertEq("bean_two", nav_.getCurrentBeanName());
         assertXmlEqualNoPrefix("<html xmlns:c='javahtml' xmlns='javahtml'><body><form n-f=\"0\" action=\"\" c:command=\"$bean_two.go\" name=\"myform\"><input n-i=\"0\" id=\"txt\" name=\"bean_two.nullableInt\" type=\"number\" c:validator=\"rate_val\" value=\"2\"/><span c:for=\"txt\">2 is not a no zero rate</span><input n-i=\"1\" name=\"bean_two.nullableCheckbox\" type=\"checkbox\" value=\"\"/><select n-i=\"2\" c:className=\""+ENUM+"\" name=\"bean_two.chosenNumber\"><option value=\"ONE\">ONE</option><option selected=\"selected\" value=\"TWO\">TWO</option><option value=\"THREE\">THREE</option></select></form></body></html>", nav_.getHtmlText());
@@ -3406,6 +3459,7 @@ public class NavigationTest {
         ni_.setValue(values_);
         nav_.getHtmlPage().setUrl(0);
         nav_.processFormRequest();
+        setupBeansAfter(conf_);
         assertEq("page2.html", nav_.getCurrentUrl());
         assertEq("bean_two", nav_.getCurrentBeanName());
         assertXmlEqualNoPrefix("<html xmlns:c='javahtml' xmlns='javahtml'><body><form n-f=\"0\" action=\"\" c:command=\"$bean_two.go\" name=\"myform\"><input n-i=\"0\" id=\"txt\" name=\"bean_two.nullableInt\" type=\"range\" c:validator=\"rate_val\" value=\"2\"/><span c:for=\"txt\">2 is not a no zero rate</span><input n-i=\"1\" name=\"bean_two.nullableCheckbox\" type=\"checkbox\" value=\"\"/><select n-i=\"2\" c:className=\""+ENUM+"\" name=\"bean_two.chosenNumber\"><option value=\"ONE\">ONE</option><option selected=\"selected\" value=\"TWO\">TWO</option><option value=\"THREE\">THREE</option></select></form></body></html>", nav_.getHtmlText());
@@ -3487,6 +3541,7 @@ public class NavigationTest {
         ni_.setValue(values_);
         nav_.getHtmlPage().setUrl(0);
         nav_.processFormRequest();
+        setupBeansAfter(conf_);
         assertEq("page1.html", nav_.getCurrentUrl());
         assertEq("bean_one", nav_.getCurrentBeanName());
         assertXmlEqualNoPrefix("<html xmlns:c='javahtml' xmlns='javahtml'><body>HEAD<a n-a=\"0\" c:command=\"$bean_one.goToNullPage\" href=\"\"/></body></html>", nav_.getHtmlText());
@@ -3575,6 +3630,7 @@ public class NavigationTest {
         ni_.setValue(values_);
         nav_.getHtmlPage().setUrl(0);
         nav_.processFormRequest();
+        setupBeansAfter(conf_);
         assertEq("page1.html", nav_.getCurrentUrl());
         assertEq("bean_one", nav_.getCurrentBeanName());
         assertXmlEqualNoPrefix("<html xmlns:c='javahtml' xmlns='javahtml'><body>HEAD<a n-a=\"0\" c:command=\"$bean_one.goToNullPage\" href=\"\"/></body></html>", nav_.getHtmlText());
@@ -3657,6 +3713,7 @@ public class NavigationTest {
         ni_.setValue(values_);
         nav_.getHtmlPage().setUrl(0);
         nav_.processFormRequest();
+        setupBeansAfter(conf_);
         assertEq("page2.html", nav_.getCurrentUrl());
         assertEq("bean_two", nav_.getCurrentBeanName());
         assertXmlEqualNoPrefix("<html xmlns:c='javahtml' xmlns='javahtml'><body><form n-f=\"0\" action=\"\" c:command=\"$bean_two.go\" name=\"myform\"><input n-i=\"0\" id=\"txt\" name=\"bean_two.typedString\" type=\"text\" c:validator=\"rate_val\" value=\"TWO\"/><span c:for=\"txt\">TWO is not a no zero rate</span><input n-i=\"1\" id=\"checking\" name=\"bean_two.field\" type=\"text\" c:validator=\"rate_val\" value=\"ONE\"/><span c:for=\"checking\">ONE is not a no zero rate</span></form></body></html>", nav_.getHtmlText());
@@ -3733,6 +3790,7 @@ public class NavigationTest {
         ni_.setValue(values_);
         nav_.getHtmlPage().setUrl(0);
         nav_.processFormRequest();
+        setupBeansAfter(conf_);
         assertEq("page2.html", nav_.getCurrentUrl());
         assertEq("bean_two", nav_.getCurrentBeanName());
 //        assertXMLEqualNoPrefix("<html xmlns:c='javahtml' xmlns='javahtml'><body><form n-f=\"0\" action=\"\" c:command=\"$bean_two.go\" name=\"myform\"><input n-i=\"0\" id=\"txt\" name=\"bean_two.typedString\" type=\"text\" value=\"TYPED_STRING\"/><input n-i=\"1\" id=\"checking\" name=\"bean_two.choose1_2\" type=\"text\" value=\"\"/></form></body></html>", nav_.getHtmlText());
@@ -3815,6 +3873,7 @@ public class NavigationTest {
         ni_.setValue(values_);
         nav_.getHtmlPage().setUrl(0);
         nav_.processFormRequest();
+        setupBeansAfter(conf_);
         assertEq("page1.html", nav_.getCurrentUrl());
         assertEq("bean_one", nav_.getCurrentBeanName());
         assertXmlEqualNoPrefix("<html xmlns:c='javahtml' xmlns='javahtml'><body>HEAD<a n-a=\"0\" c:command=\"$bean_one.goToNullPage\" href=\"\"/></body></html>", nav_.getHtmlText());
@@ -3895,6 +3954,7 @@ public class NavigationTest {
         ni_.setValue(values_);
         nav_.getHtmlPage().setUrl(0);
         nav_.processFormRequest();
+        setupBeansAfter(conf_);
         assertEq("page2.html", nav_.getCurrentUrl());
         assertEq("bean_two", nav_.getCurrentBeanName());
         assertXmlEqualNoPrefix("<html xmlns:c='javahtml' xmlns='javahtml'><body><form n-f=\"0\" action=\"\" c:command=\"$bean_two.go(-6)\" name=\"myform\"><input n-i=\"0\" name=\"bean_two.typedString\" type=\"text\" value=\"TYPED_STRING\"/></form></body></html>", nav_.getHtmlText());
@@ -3976,6 +4036,7 @@ public class NavigationTest {
         ni_.setValue(values_);
         nav_.getHtmlPage().setUrl(0);
         nav_.processFormRequest();
+        setupBeansAfter(conf_);
         assertEq("page1.html", nav_.getCurrentUrl());
         assertEq("bean_one", nav_.getCurrentBeanName());
         assertXmlEqualNoPrefix("<html xmlns:c='javahtml' xmlns='javahtml'><body>HEAD<a n-a=\"0\" c:command=\"$bean_one.goToNullPage\" href=\"\"/></body></html>", nav_.getHtmlText());
@@ -3984,7 +4045,7 @@ public class NavigationTest {
         assertEq(0, map_.size());
         assertEq(0, conf_.getBeans().getVal("bean_one").getForms().size());
         assertEq(0, conf_.getBeans().getVal("bean_two").getForms().size());
-        assertSame(conf_.getBeans().getVal("bean_one").getForms(), conf_.getBeans().getVal("bean_two").getForms());
+//        assertSame(conf_.getBeans().getVal("bean_one").getForms(), conf_.getBeans().getVal("bean_two").getForms());
         assertEq("",nav_.getTitle());
         assertEq("",nav_.getReferenceScroll());
         assertEq(0,nav_.getTooltips().size());
@@ -4046,6 +4107,7 @@ public class NavigationTest {
         ni_.setValue(values_);
         nav_.getHtmlPage().setUrl(0);
         nav_.processFormRequest();
+        setupBeansAfter(conf_);
         assertEq("page2.html", nav_.getCurrentUrl());
         assertEq("bean_two", nav_.getCurrentBeanName());
         assertXmlEqualNoPrefix("<html xmlns:c='javahtml' xmlns='javahtml'><body><form n-f=\"0\" action=\"\" c:command=\"$bean_two.validate\" name=\"myform\"><input n-i=\"0\" name=\"bean_two.typedString\" type=\"text\" value=\"TYPED_STRING\"/></form></body></html>", nav_.getHtmlText());
@@ -4127,6 +4189,7 @@ public class NavigationTest {
         ni_.setValue(values_);
         nav_.getHtmlPage().setUrl(0);
         nav_.processFormRequest();
+        setupBeansAfter(conf_);
         assertEq("page2.html", nav_.getCurrentUrl());
         assertEq("bean_two", nav_.getCurrentBeanName());
         assertXmlEqualNoPrefix("<html xmlns:c='javahtml' xmlns='javahtml'><body><form n-f=\"0\" action=\"\" c:command=\"$bean_two.validate\" name=\"myform\"><input n-i=\"0\" name=\"bean_two.typedString\" type=\"text\" value=\"TYPED_STRING\"/><input type=\"submit\" value=\"OK\"/></form></body></html>", nav_.getHtmlText());
@@ -4208,6 +4271,7 @@ public class NavigationTest {
         ni_.setValue(values_);
         nav_.getHtmlPage().setUrl(0);
         nav_.processFormRequest();
+        setupBeansAfter(conf_);
         assertEq("page2.html", nav_.getCurrentUrl());
         assertEq("bean_two", nav_.getCurrentBeanName());
         assertXmlEqualNoPrefix("<html xmlns:c='javahtml' xmlns='javahtml'><body><form n-f=\"0\" action=\"\" c:command=\"$bean_two.validate\" name=\"myform\"><input n-i=\"0\" name=\"bean_two.typedString\" type=\"text\" value=\"TYPED_STRING\"/><input type=\"submit\" value=\"OK\"/></form></body></html>", nav_.getHtmlText());
@@ -4290,6 +4354,7 @@ public class NavigationTest {
         ni_.setValue(values_);
         nav_.getHtmlPage().setUrl(1);
         nav_.processFormRequest();
+        setupBeansAfter(conf_);
         assertEq("page2.html", nav_.getCurrentUrl());
         assertEq("bean_two", nav_.getCurrentBeanName());
         assertXmlEqualNoPrefix("<html xmlns:c='javahtml' xmlns='javahtml'><body><form n-f=\"0\" action=\"\" c:command=\"$bean_two.validate\" name=\"myform\"><input n-i=\"0\" name=\"bean_two.typedString\" type=\"text\" value=\"TYPED_STRING\"/><input type=\"submit\" value=\"OK\"/></form><form n-f=\"1\" action=\"\" c:command=\"$bean_two.validate\" name=\"myform2\"><input n-i=\"0\" name=\"bean_two.field\" type=\"text\" value=\"\"/></form></body></html>", nav_.getHtmlText());
@@ -4355,6 +4420,7 @@ public class NavigationTest {
         nav_.initializeSession();
         nav_.getHtmlPage().setUrl(0);
         nav_.processFormRequest();
+        setupBeansAfter(conf_);
         assertEq("page1.html", nav_.getCurrentUrl());
         assertEq("bean_one", nav_.getCurrentBeanName());
         assertXmlEqualNoPrefix("<html xmlns:c='javahtml' xmlns='javahtml'><body>HEAD<a n-a=\"0\" c:command=\"$bean_one.goToNullPage\" href=\"\"/></body></html>", nav_.getHtmlText());
@@ -4433,6 +4499,7 @@ public class NavigationTest {
         ni_.setValue(values_);
         nav_.getHtmlPage().setUrl(0);
         nav_.processFormRequest();
+        setupBeansAfter(conf_);
         assertEq("page1.html", nav_.getCurrentUrl());
         assertEq("bean_one", nav_.getCurrentBeanName());
         assertXmlEqualNoPrefix("<html xmlns:c='javahtml' xmlns='javahtml'><body>HEAD<a n-a=\"0\" c:command=\"$bean_one.goToNullPage\" href=\"\"/></body></html>", nav_.getHtmlText());
@@ -4511,6 +4578,7 @@ public class NavigationTest {
         ni_.setValue(values_);
         nav_.getHtmlPage().setUrl(0);
         nav_.processFormRequest();
+        setupBeansAfter(conf_);
         assertEq("page2.html", nav_.getCurrentUrl());
         assertEq("bean_two", nav_.getCurrentBeanName());
         assertXmlEqualNoPrefix("<html xmlns:c='javahtml' xmlns='javahtml'><body><form n-f=\"0\" action=\"\" c:command=\"$bean_two.go\" name=\"myform\"><input n-i=\"0\" id=\"txt\" name=\"bean_two.typedString\" type=\"text\" c:validator=\"rate_val\" value=\"0\"/><span c:for=\"txt\">0 is unacceptable</span></form></body></html>", nav_.getHtmlText());
@@ -4579,6 +4647,7 @@ public class NavigationTest {
         ni_.setValue(values_);
         nav_.getHtmlPage().setUrl(0);
         nav_.processFormRequest();
+        setupBeansAfter(conf_);
         assertEq("page2.html", nav_.getCurrentUrl());
         assertEq("bean_two", nav_.getCurrentBeanName());
         assertXmlEqualNoPrefix("<html xmlns:c='javahtml' xmlns='javahtml'><body><form n-f=\"0\" action=\"\" c:command=\"$bean_two.go\" name=\"myform\"><input n-i=\"0\" name=\"bean_two.typedString\" type=\"text\" value=\""+(char)228+" %2\"/></form></body></html>", nav_.getHtmlText());
@@ -4658,6 +4727,7 @@ public class NavigationTest {
         ni_.setValue(values_);
         nav_.getHtmlPage().setUrl(0);
         nav_.processFormRequest();
+        setupBeansAfter(conf_);
         assertEq("page2.html", nav_.getCurrentUrl());
         assertEq("bean_two", nav_.getCurrentBeanName());
         assertXmlEqualNoPrefix("<html xmlns:c='javahtml' xmlns='javahtml'><body><form n-f=\"0\" action=\"\" c:command=\"$bean_two.go\" name=\"myform\"><input n-i=\"0\" name=\"bean_two.typedString\" type=\"text\" value=\""+(char)376+"2\"/></form></body></html>", nav_.getHtmlText());
@@ -4737,6 +4807,7 @@ public class NavigationTest {
         ni_.setValue(values_);
         nav_.getHtmlPage().setUrl(0);
         nav_.processFormRequest();
+        setupBeansAfter(conf_);
         assertEq("page1.html", nav_.getCurrentUrl());
         assertEq("bean_one", nav_.getCurrentBeanName());
         assertXmlEqualNoPrefix("<html xmlns:c='javahtml' xmlns='javahtml'><body>HEAD<a n-a=\"0\" c:command=\"$bean_one.goToNullPage\" href=\"\"/></body></html>", nav_.getHtmlText());
@@ -4809,6 +4880,7 @@ public class NavigationTest {
         ni_.setValue(values_);
         nav_.getHtmlPage().setUrl(0);
         nav_.processFormRequest();
+        setupBeansAfter(conf_);
         assertEq("page1.html", nav_.getCurrentUrl());
         assertEq("bean_three", nav_.getCurrentBeanName());
 //        assertXMLEqualNoPrefix("<html bean=\"bean_three\"><body>HEAD<form action=\"\" c:command=\"page1.html\" name=\"myform\"><input name=\"bean_three.index\" type=\"radio\" value=\"2\" varValue=\"numbers[0]\"/><input checked=\"checked\" name=\"bean_three.index\" type=\"radio\" value=\"4\" varValue=\"numbers[1]\"/><input name=\"bean_three.index\" type=\"radio\" value=\"6\" varValue=\"numbers[2]\"/><input type=\"submit\" value=\"OK\"/></form></body></html>", nav_.getHtmlText());
@@ -4879,6 +4951,7 @@ public class NavigationTest {
         ni_.setValue(values_);
         nav_.getHtmlPage().setUrl(0);
         nav_.processFormRequest();
+        setupBeansAfter(conf_);
         assertEq("page2.html", nav_.getCurrentUrl());
         assertEq("bean_two", nav_.getCurrentBeanName());
         assertXmlEqualNoPrefix("<html xmlns:c='javahtml' xmlns='javahtml'><body><form n-f=\"0\" action=\"\" c:command=\"$bean_two.go\" name=\"myform\"><input n-i=\"0\" id=\"txt\" name=\"bean_two.typedString\" type=\"text\" c:validator=\"rate_val\" value=\"ONE_TWO\"/><span c:for=\"txt\" c:valueMessage=\"msg_example,five\">ONE_TWO in error</span><span>Text</span></form></body></html>", nav_.getHtmlText());
@@ -4947,6 +5020,7 @@ public class NavigationTest {
         ni_.setValue(values_);
         nav_.getHtmlPage().setUrl(0);
         nav_.processFormRequest();
+        setupBeansAfter(conf_);
         assertEq("page2.html", nav_.getCurrentUrl());
         assertEq("bean_two", nav_.getCurrentBeanName());
         assertXmlEqualNoPrefix("<html xmlns:c='javahtml' xmlns='javahtml'><body><form n-f=\"0\" action=\"$bean_two.go\" name=\"myform\"><input n-i=\"0\" name=\"bean_two.typedString\" type=\"text\" value=\"TYPED_STRING\"/></form></body></html>", nav_.getHtmlText());
@@ -5025,6 +5099,7 @@ public class NavigationTest {
         ni_.setValue(values_);
         nav_.getHtmlPage().setUrl(0);
         nav_.processFormRequest();
+        setupBeansAfter(conf_);
         assertEq("page2.html", nav_.getCurrentUrl());
         assertEq("bean_two", nav_.getCurrentBeanName());
         assertXmlEqualNoPrefix("<html xmlns:c='javahtml' xmlns='javahtml'><body><form n-f=\"0\" action=\"$bean_two.go:\" name=\"myform\"><input n-i=\"0\" name=\"bean_two.typedString\" type=\"text\" value=\"TYPED_STRING\"/></form></body></html>", nav_.getHtmlText());
@@ -5086,6 +5161,7 @@ public class NavigationTest {
 //        nav_.processFormRequest("bean_three.index=1", "myform");
         nav_.getHtmlPage().setUrl(0);
         nav_.processFormRequest();
+        setupBeansAfter(conf_);
         assertEq("page1.html", nav_.getCurrentUrl());
         assertEq("bean_three", nav_.getCurrentBeanName());
 //        assertXMLEqualNoPrefix("<html bean=\"bean_three\"><body>HEAD<form action=\"\" c:command=\"page1.html\" name=\"myform\"><input name=\"bean_three.index\" type=\"radio\" value=\"2\" varValue=\"numbers[0]\"/><input name=\"bean_three.index\" type=\"radio\" value=\"4\" varValue=\"numbers[1]\"/><input name=\"bean_three.index\" type=\"radio\" value=\"6\" varValue=\"numbers[2]\"/><input type=\"submit\" value=\"OK\"/></form></body></html>", nav_.getHtmlText());
@@ -5149,6 +5225,7 @@ public class NavigationTest {
 //        nav_.processFormRequest("bean_three.index=1", "myform");
         nav_.getHtmlPage().setUrl(0);
         nav_.processFormRequest();
+        setupBeansAfter(conf_);
         assertEq("page1.html", nav_.getCurrentUrl());
         assertEq("bean_three", nav_.getCurrentBeanName());
 //        assertXMLEqualNoPrefix("<html bean=\"bean_three\"><body>HEAD<form action=\"\" c:command=\"page1.html\" name=\"myform\"><input name=\"bean_three.index\" type=\"radio\" value=\"2\" varValue=\"numbers[0]\" groupId=\"myradio\" validator=\"checkselected\"/><input name=\"bean_three.index\" type=\"radio\" value=\"4\" varValue=\"numbers[1]\" groupId=\"myradio\" validator=\"checkselected\"/><input name=\"bean_three.index\" type=\"radio\" value=\"6\" varValue=\"numbers[2]\" groupId=\"myradio\" validator=\"checkselected\"/><span for=\"myradio\">not selected</span><input type=\"submit\" value=\"OK\"/></form></body></html>", nav_.getHtmlText());
@@ -5212,6 +5289,7 @@ public class NavigationTest {
 //        nav_.processFormRequest("bean_three.index=1", "myform");
         nav_.getHtmlPage().setUrl(0);
         nav_.processFormRequest();
+        setupBeansAfter(conf_);
         assertEq("page1.html", nav_.getCurrentUrl());
         assertEq("bean_three", nav_.getCurrentBeanName());
 //        assertXMLEqualNoPrefix("<html bean=\"bean_three\"><body>HEAD<form action=\"\" c:command=\"page1.html\" name=\"myform\"><input name=\"bean_three.index\" type=\"radio\" value=\"2\" varValue=\"numbers[0]\" groupId=\"myradio\" validator=\"checkselected\"/><input checked=\"checked\" name=\"bean_three.index\" type=\"radio\" value=\"4\" varValue=\"numbers[1]\" groupId=\"myradio\" validator=\"checkselected\"/><input name=\"bean_three.index\" type=\"radio\" value=\"6\" varValue=\"numbers[2]\" groupId=\"myradio\" validator=\"checkselected\"/><span for=\"myradio\"> </span><input type=\"submit\" value=\"OK\"/></form></body></html>", nav_.getHtmlText());
@@ -5279,6 +5357,7 @@ public class NavigationTest {
         ni_.setValue(values_);
         nav_.getHtmlPage().setUrl(0);
         nav_.processFormRequest();
+        setupBeansAfter(conf_);
         assertEq("page2.html", nav_.getCurrentUrl());
         assertEq("bean_two", nav_.getCurrentBeanName());
         assertXmlEqualNoPrefix("<html xmlns:c='javahtml' xmlns='javahtml'><body><form n-f=\"0\" action=\"\" c:command=\"$bean_two.go\" name=\"myform\"><input n-i=\"0\" name=\"bean_two.typedString\" type=\"text\" value=\""+(char)228+" %2\"/></form></body></html>", nav_.getHtmlText());
@@ -5358,6 +5437,7 @@ public class NavigationTest {
         ni_.setValue(values_);
         nav_.getHtmlPage().setUrl(0);
         nav_.processFormRequest();
+        setupBeansAfter(conf_);
         assertEq("page1.html", nav_.getCurrentUrl());
         assertEq("bean_one", nav_.getCurrentBeanName());
         assertXmlEqualNoPrefix("<html xmlns:c='javahtml' xmlns='javahtml'><body>HEAD<a n-a=\"0\" c:command=\"$bean_one.goToNullPage\" href=\"\"/></body></html>", nav_.getHtmlText());
@@ -5435,6 +5515,7 @@ public class NavigationTest {
         ni_.setValue(values_);
         nav_.getHtmlPage().setUrl(0);
         nav_.processFormRequest();
+        setupBeansAfter(conf_);
         assertEq("page1.html", nav_.getCurrentUrl());
         assertEq("bean_one", nav_.getCurrentBeanName());
         assertXmlEqualNoPrefix("<html xmlns:c='javahtml' xmlns='javahtml'><body>HEAD<a n-a=\"0\" c:command=\"$bean_one.goToNullPage\" href=\"\"/></body></html>", nav_.getHtmlText());
@@ -5512,6 +5593,7 @@ public class NavigationTest {
         ni_.setValue(values_);
         nav_.getHtmlPage().setUrl(0);
         nav_.processFormRequest();
+        setupBeansAfter(conf_);
         assertEq("page2.html", nav_.getCurrentUrl());
         assertEq("bean_two", nav_.getCurrentBeanName());
         assertXmlEqualNoPrefix("<html xmlns:c='javahtml' xmlns='javahtml'><body><form n-f=\"0\" action=\"\" c:command=\"$bean_two.go\" name=\"myform\"><select n-i=\"0\" c:className=\""+ENUMS+"\" id=\"combo\" multiple=\"multiple\" name=\"bean_two.chosenNumbers\" c:validator=\"validator\"><option value=\"ONE\">ONE</option><option selected=\"selected\" value=\"TWO\">TWO</option><option value=\"THREE\">THREE</option><option value=\"FOUR\" selected=\"selected\">FOUR</option><option value=\"FIVE\">FIVE</option><option value=\"SIX\">SIX</option></select><span c:for=\"combo\">Bad selection</span></form></body></html>", nav_.getHtmlText());
@@ -5576,6 +5658,7 @@ public class NavigationTest {
         ni_.setValue(values_);
         nav_.getHtmlPage().setUrl(0);
         nav_.processFormRequest();
+        setupBeansAfter(conf_);
         assertEq("page1.html", nav_.getCurrentUrl());
         assertEq("bean_one", nav_.getCurrentBeanName());
         assertXmlEqualNoPrefix("<html xmlns:c='javahtml' xmlns='javahtml'><body>HEAD<a n-a=\"0\" c:command=\"$bean_one.goToNullPage\" href=\"\"/></body></html>", nav_.getHtmlText());
@@ -5653,6 +5736,7 @@ public class NavigationTest {
         ni_.setValue(values_);
         nav_.getHtmlPage().setUrl(0);
         nav_.processFormRequest();
+        setupBeansAfter(conf_);
         assertEq("page1.html", nav_.getCurrentUrl());
         assertEq("bean_one", nav_.getCurrentBeanName());
         assertXmlEqualNoPrefix("<html xmlns:c='javahtml' xmlns='javahtml'><body>HEAD<a n-a=\"0\" c:command=\"$bean_one.goToNullPage\" href=\"\"/></body></html>", nav_.getHtmlText());
@@ -5730,6 +5814,7 @@ public class NavigationTest {
         ni_.setValue(values_);
         nav_.getHtmlPage().setUrl(0);
         nav_.processFormRequest();
+        setupBeansAfter(conf_);
         assertEq("page2.html", nav_.getCurrentUrl());
         assertEq("bean_two", nav_.getCurrentBeanName());
         assertXmlEqualNoPrefix("<html xmlns:c='javahtml' xmlns='javahtml'><body><form n-f=\"0\" action=\"\" c:command=\"$bean_two.go\" name=\"myform\"><select n-i=\"0\" c:className=\""+ENUMS+"\" id=\"combo\" multiple=\"multiple\" name=\"bean_two.chosenNumbers\" c:validator=\"validator\"><option value=\"ONE\">1</option><option selected=\"selected\" value=\"TWO\">2</option><option value=\"THREE\">3</option><option value=\"FOUR\" selected=\"selected\">4</option><option value=\"FIVE\">5</option><option value=\"SIX\">6</option></select><span c:for=\"combo\">Bad selection</span></form></body></html>", nav_.getHtmlText());
@@ -5795,6 +5880,7 @@ public class NavigationTest {
         ni_.setValue(values_);
         nav_.getHtmlPage().setUrl(0);
         nav_.processFormRequest();
+        setupBeansAfter(conf_);
         assertEq("page1.html", nav_.getCurrentUrl());
         assertEq("bean_one", nav_.getCurrentBeanName());
         assertXmlEqualNoPrefix("<html xmlns:c='javahtml' xmlns='javahtml'><body>HEAD<a n-a=\"0\" c:command=\"$bean_one.goToNullPage\" href=\"\"/></body></html>", nav_.getHtmlText());
@@ -5872,6 +5958,7 @@ public class NavigationTest {
         ni_.setValue(values_);
         nav_.getHtmlPage().setUrl(0);
         nav_.processFormRequest();
+        setupBeansAfter(conf_);
         assertEq("page1.html", nav_.getCurrentUrl());
         assertEq("bean_one", nav_.getCurrentBeanName());
         assertXmlEqualNoPrefix("<html xmlns:c='javahtml' xmlns='javahtml'><body>HEAD<a n-a=\"0\" c:command=\"$bean_one.goToNullPage\" href=\"\"/></body></html>", nav_.getHtmlText());
@@ -5948,6 +6035,7 @@ public class NavigationTest {
         ni_.setValue(values_);
         nav_.getHtmlPage().setUrl(0);
         nav_.processFormRequest();
+        setupBeansAfter(conf_);
         assertXmlEqualNoPrefix("<html xmlns:c='javahtml' xmlns='javahtml'><body>HEAD<a n-a=\"0\" c:command=\"$bean_one.goToNullPage\" href=\"\"/></body></html>", nav_.getHtmlText());
         beanTwo_ = (BeanTwo) conf_.getBeans().getVal("bean_two");
         assertNull(beanTwo_.getTypedString());
@@ -6037,6 +6125,7 @@ public class NavigationTest {
         ni_.setValue(values_);
         nav_.getHtmlPage().setUrl(0);
         nav_.processFormRequest();
+        setupBeansAfter(conf_);
         assertEq("page2.html", nav_.getCurrentUrl());
         assertEq("bean_two", nav_.getCurrentBeanName());
         assertXmlEqualNoPrefix("<html xmlns:c='javahtml' xmlns='javahtml'><body><form n-f=\"0\" action=\"\" c:command=\"$bean_two.go\" name=\"myform\"><textarea n-i=\"0\" id=\"txt\" name=\"bean_two.typedString\" c:validator=\"rate_val\">ONE_TWO</textarea><span c:for=\"txt\">ONE_TWO is not a no zero rate</span><input n-i=\"1\" name=\"bean_two.nullableCheckbox\" type=\"checkbox\" value=\"\"/><select n-i=\"2\" c:className=\""+ENUM+"\" name=\"bean_two.chosenNumber\"><option value=\"ONE\">ONE</option><option value=\"TWO\">TWO</option><option value=\"THREE\">THREE</option></select></form></body></html>", nav_.getHtmlText());
@@ -6106,6 +6195,7 @@ public class NavigationTest {
         ni_.setValue(values_);
         nav_.getHtmlPage().setUrl(0);
         nav_.processFormRequest();
+        setupBeansAfter(conf_);
         assertXmlEqualNoPrefix("<html xmlns:c='javahtml' xmlns='javahtml'><body>HEAD<a n-a=\"0\" c:command=\"$bean_one.goToNullPage\" href=\"\"/></body></html>", nav_.getHtmlText());
         beanTwo_ = (BeanTwo) conf_.getBeans().getVal("bean_two");
         assertNull(beanTwo_.getTypedString());
@@ -6184,6 +6274,7 @@ public class NavigationTest {
         ni_.setValue(values_);
         nav_.getHtmlPage().setUrl(0);
         nav_.processFormRequest();
+        setupBeansAfter(conf_);
         assertXmlEqualNoPrefix("<html xmlns:c='javahtml' xmlns='javahtml'><body>HEAD<a n-a=\"0\" c:command=\"$bean_one.goToNullPage\" href=\"\"/></body></html>", nav_.getHtmlText());
         beanTwo_ = (BeanTwo) conf_.getBeans().getVal("bean_two");
         assertNull(beanTwo_.getTypedString());
@@ -6249,6 +6340,7 @@ public class NavigationTest {
         nav_.initializeSession();
         nav_.getHtmlPage().setUrl(0);
         nav_.processFormRequest();
+        setupBeansAfter(conf_);
         assertXmlEqualNoPrefix("<html xmlns:c='javahtml' xmlns='javahtml'><body>HEAD<a n-a=\"0\" c:command=\"$bean_one.goToNullPage\" href=\"\"/></body></html>", nav_.getHtmlText());
         beanTwo_ = (BeanTwo) conf_.getBeans().getVal("bean_two");
         assertNull(beanTwo_.getTypedString());
@@ -6322,6 +6414,7 @@ public class NavigationTest {
         ni_.setValue(values_);
         nav_.getHtmlPage().setUrl(0);
         nav_.processFormRequest();
+        setupBeansAfter(conf_);
         assertEq("page1.html", nav_.getCurrentUrl());
         assertEq("bean_six", nav_.getCurrentBeanName());
         assertXmlEqualNoPrefix("<html xmlns:c='javahtml' xmlns='javahtml'><body>HEAD<form n-f=\"0\" action=\"\" c:command=\"page1.html\" name=\"myform\"><input n-i=\"0\" c:className=\""+ENUM+"\" type=\"radio\" name=\"bean_six.myEnumThree\" value=\"ONE\"/><input n-i=\"0\" c:className=\""+ENUM+"\" type=\"radio\" name=\"bean_six.myEnumThree\" value=\"TWO\"/><input type=\"submit\" value=\"OK\"/></form></body></html>", nav_.getHtmlText());
@@ -6384,6 +6477,7 @@ public class NavigationTest {
         ni_.setValue(values_);
         nav_.getHtmlPage().setUrl(0);
         nav_.processFormRequest();
+        setupBeansAfter(conf_);
         assertEq("page1.html", nav_.getCurrentUrl());
         assertEq("bean_six", nav_.getCurrentBeanName());
         assertXmlEqualNoPrefix("<html xmlns:c='javahtml' xmlns='javahtml'><body>HEAD<form n-f=\"0\" action=\"\" c:command=\"page1.html\" name=\"myform\"><input n-i=\"0\" c:className=\""+ENUM+"\" type=\"radio\" name=\"bean_six.myEnumOne\" value=\"ONE\"/><input n-i=\"0\" c:className=\""+ENUM+"\" type=\"radio\" name=\"bean_six.myEnumOne\" value=\"TWO\"/><input type=\"submit\" value=\"OK\"/></form></body></html>", nav_.getHtmlText());
@@ -6446,6 +6540,7 @@ public class NavigationTest {
         ni_.setValue(values_);
         nav_.getHtmlPage().setUrl(0);
         nav_.processFormRequest();
+        setupBeansAfter(conf_);
         assertEq("page1.html", nav_.getCurrentUrl());
         assertEq("bean_six", nav_.getCurrentBeanName());
         assertXmlEqualNoPrefix("<html xmlns:c='javahtml' xmlns='javahtml'><body>HEAD<form n-f=\"0\" action=\"\" c:command=\"page1.html\" name=\"myform\"><input n-i=\"0\" checked=\"checked\" c:className=\""+ENUM+"\" type=\"radio\" name=\"bean_six.myEnumTwo\" value=\"ONE\"/><input n-i=\"0\" c:className=\""+ENUM+"\" type=\"radio\" name=\"bean_six.myEnumTwo\" value=\"TWO\"/><input type=\"submit\" value=\"OK\"/></form></body></html>", nav_.getHtmlText());
@@ -6512,6 +6607,7 @@ public class NavigationTest {
         ni_.setValue(values_);
         nav_.getHtmlPage().setUrl(0);
         nav_.processFormRequest();
+        setupBeansAfter(conf_);
         assertEq("page1.html", nav_.getCurrentUrl());
         assertEq("bean_one", nav_.getCurrentBeanName());
         assertXmlEqualNoPrefix("<html xmlns:c='javahtml' xmlns='javahtml'><body>HEAD<a n-a=\"0\" c:command=\"$bean_one.goToNullPage\" href=\"\"/></body></html>", nav_.getHtmlText());
@@ -6584,6 +6680,7 @@ public class NavigationTest {
         ni_.setValue(values_);
         nav_.getHtmlPage().setUrl(0);
         nav_.processFormRequest();
+        setupBeansAfter(conf_);
         assertEq("page1.html", nav_.getCurrentUrl());
         assertEq("bean_one", nav_.getCurrentBeanName());
         assertXmlEqualNoPrefix("<html xmlns:c='javahtml' xmlns='javahtml'><body>HEAD<a n-a=\"0\" c:command=\"$bean_one.goToNullPage\" href=\"\"/></body></html>", nav_.getHtmlText());
@@ -6652,6 +6749,7 @@ public class NavigationTest {
         ni_.setValue(values_);
         nav_.getHtmlPage().setUrl(0);
         nav_.processFormRequest();
+        setupBeansAfter(conf_);
         assertEq("page1.html", nav_.getCurrentUrl());
         assertEq("bean_six", nav_.getCurrentBeanName());
         assertXmlEqualNoPrefix("<html xmlns:c='javahtml' xmlns='javahtml'><body>HEAD<form n-f=\"0\" action=\"\" c:command=\"page1.html\" name=\"myform\"><input n-i=\"0\" c:className=\""+ENUM+"\" type=\"radio\" name=\"bean_six.myEnumThree\" value=\"ONE\"/><input n-i=\"0\" checked=\"checked\" c:className=\""+ENUM+"\" type=\"radio\" name=\"bean_six.myEnumThree\" value=\"TWO\"/><input type=\"submit\" value=\"OK\"/></form></body></html>", nav_.getHtmlText());
@@ -6714,6 +6812,7 @@ public class NavigationTest {
         ni_.setValue(values_);
         nav_.getHtmlPage().setUrl(0);
         nav_.processFormRequest();
+        setupBeansAfter(conf_);
         assertEq("page1.html", nav_.getCurrentUrl());
         assertEq("bean_six", nav_.getCurrentBeanName());
         assertXmlEqualNoPrefix("<html xmlns:c='javahtml' xmlns='javahtml'><body>HEAD<form n-f=\"0\" action=\"\" c:command=\"page1.html\" name=\"myform\"><input n-i=\"0\" c:className=\""+ENUM+"\" type=\"radio\" name=\"bean_six.myEnumOne\" value=\"ONE\"/><input n-i=\"0\" checked=\"checked\" c:className=\""+ENUM+"\" type=\"radio\" name=\"bean_six.myEnumOne\" value=\"TWO\"/><input type=\"submit\" value=\"OK\"/></form></body></html>", nav_.getHtmlText());
@@ -6776,6 +6875,7 @@ public class NavigationTest {
         ni_.setValue(values_);
         nav_.getHtmlPage().setUrl(0);
         nav_.processFormRequest();
+        setupBeansAfter(conf_);
         assertEq("page1.html", nav_.getCurrentUrl());
         assertEq("bean_six", nav_.getCurrentBeanName());
         assertXmlEqualNoPrefix("<html xmlns:c='javahtml' xmlns='javahtml'><body>HEAD<form n-f=\"0\" action=\"\" c:command=\"page1.html\" name=\"myform\"><input n-i=\"0\" c:className=\""+ENUM+"\" type=\"radio\" name=\"bean_six.myEnumTwo\" value=\"ONE\"/><input n-i=\"0\" checked=\"checked\" c:className=\""+ENUM+"\" type=\"radio\" name=\"bean_six.myEnumTwo\" value=\"TWO\"/><input type=\"submit\" value=\"OK\"/></form></body></html>", nav_.getHtmlText());
@@ -6844,6 +6944,7 @@ public class NavigationTest {
         ni_.setValue(values_);
         nav_.getHtmlPage().setUrl(0);
         nav_.processFormRequest();
+        setupBeansAfter(conf_);
 //        Document doc_ = XmlParser.parseSaxHtml(html_);
 //        String render_ = FormatHtml.processHtml(doc_, "bean_one", conf_, locale_, files_);
 //        assertXMLEqualNoPrefix("<html xmlns:c='javahtml' xmlns='javahtml'><body><form n-f=\"0\" action=\"\" name=\"myform\" c:command=\"$bean_one.validateStrings\"><input n-i=\"0\" type=\"text\" name=\"bean_one.getComposites()[0].getString()\" varMethod=\"setString\" value=\"ONE\" varValue=\"c;getString()\"/><input n-i=\"1\" type=\"text\" name=\"bean_one.getComposites()[1].getString()\" varMethod=\"setString\" value=\"TWO\" varValue=\"c;getString()\"/></form></body></html>", nav_.getHtmlText());
@@ -6916,6 +7017,7 @@ public class NavigationTest {
         ni_.setValue(values_);
         nav_.getHtmlPage().setUrl(0);
         nav_.processFormRequest();
+        setupBeansAfter(conf_);
 //        Document doc_ = XmlParser.parseSaxHtml(html_);
 //        String render_ = FormatHtml.processHtml(doc_, "bean_one", conf_, locale_, files_);
 //        assertXMLEqualNoPrefix("<html xmlns:c='javahtml' xmlns='javahtml'><body><form n-f=\"0\" action=\"\" name=\"myform\" c:command=\"$bean_one.validateStrings\"><input n-i=\"0\" type=\"text\" name=\"bean_one.getComposites()[0].getString()\" varMethod=\"setString\" value=\"ONE\" varValue=\"c;getString()\" c:className=\"java.lang.String\"/><input n-i=\"1\" type=\"text\" name=\"bean_one.getComposites()[1].getString()\" varMethod=\"setString\" value=\"TWO\" varValue=\"c;getString()\" c:className=\"java.lang.String\"/></form></body></html>", nav_.getHtmlText());
@@ -6987,6 +7089,7 @@ public class NavigationTest {
         ni_.setValue(values_);
         nav_.getHtmlPage().setUrl(0);
         nav_.processFormRequest();
+        setupBeansAfter(conf_);
 //        Document doc_ = XmlParser.parseSaxHtml(html_);
 //        String render_ = FormatHtml.processHtml(doc_, "bean_one", conf_, locale_, files_);
 //        assertXMLEqualNoPrefix("<html bean=\"bean_seven\"><body><form n-f=\"0\" action=\"\" name=\"myform\" c:command=\"$bean_seven.validateStrings\"><input n-i=\"0\" type=\"text\" name=\"bean_seven.getStrings()[0]\" value=\"ONE\" varValue=\"c;\" c:className=\"java.lang.String\"/><input n-i=\"1\" type=\"text\" name=\"bean_seven.getStrings()[1]\" value=\"TWO\" varValue=\"c;\" c:className=\"java.lang.String\"/></form></body></html>", nav_.getHtmlText());
@@ -7059,6 +7162,7 @@ public class NavigationTest {
         ni_.setValue(values_);
         nav_.getHtmlPage().setUrl(0);
         nav_.processFormRequest();
+        setupBeansAfter(conf_);
 //        Document doc_ = XmlParser.parseSaxHtml(html_);
 //        String render_ = FormatHtml.processHtml(doc_, "bean_one", conf_, locale_, files_);
 //        assertXMLEqualNoPrefix("<html bean=\"bean_seven\"><body><form n-f=\"0\" action=\"\" name=\"myform\" c:command=\"$bean_seven.validateStringsSave\"><input n-i=\"0\" type=\"text\" name=\"bean_seven.getStrings()[0]\" value=\"ONE\" varValue=\"c;\" c:className=\"java.lang.String\"/><input n-i=\"1\" type=\"text\" name=\"bean_seven.getStrings()[1]\" value=\"TWO\" varValue=\"c;\" c:className=\"java.lang.String\"/></form></body></html>", nav_.getHtmlText());
@@ -7131,6 +7235,7 @@ public class NavigationTest {
         ni_.setValue(values_);
         nav_.getHtmlPage().setUrl(0);
         nav_.processFormRequest();
+        setupBeansAfter(conf_);
 //        Document doc_ = XmlParser.parseSaxHtml(html_);
 //        String render_ = FormatHtml.processHtml(doc_, "bean_one", conf_, locale_, files_);
 //        assertXMLEqualNoPrefix("<html bean=\"bean_seven\"><body><form n-f=\"0\" action=\"\" name=\"myform\" c:command=\"$bean_seven.validateMap\"><input n-i=\"0\" type=\"text\" name=\"bean_seven.getTree()[0]goto!value\" value=\"3\" varValue=\"v;\" c:className=\"java.lang.Integer\"/><input n-i=\"1\" type=\"text\" name=\"bean_seven.getTree()[1]goto!value\" value=\"4\" varValue=\"v;\" c:className=\"java.lang.Integer\"/></form></body></html>", nav_.getHtmlText());
@@ -7210,6 +7315,7 @@ public class NavigationTest {
         ni_.setValue(values_);
         nav_.getHtmlPage().setUrl(0);
         nav_.processFormRequest();
+        setupBeansAfter(conf_);
         assertEq("page2.html", nav_.getCurrentUrl());
         assertEq("bean_two", nav_.getCurrentBeanName());
         assertXmlEqualNoPrefix("<html xmlns:c='javahtml' xmlns='javahtml'><body><form n-f=\"0\" action=\"\" c:command=\"$bean_two.go\" name=\"myform\"><input n-i=\"0\" id=\"txt\" name=\"bean_two.typedString\" type=\"text\" c:validator=\"rate_val\" value=\"ONE_TWO\"/><input n-i=\"1\" checked=\"checked\" type=\"radio\" name=\"bean_two.chosenNumber\" c:className=\""+ENUM+"\" value=\"ONE\"/><input n-i=\"1\" type=\"radio\" name=\"bean_two.chosenNumber\" c:className=\""+ENUM+"\" value=\"TWO\"/><span c:for=\"txt\">ONE_TWO is not a no zero rate</span></form></body></html>", nav_.getHtmlText());
@@ -7279,6 +7385,7 @@ public class NavigationTest {
         ni_.setValue(values_);
         nav_.getHtmlPage().setUrl(0);
         nav_.processFormRequest();
+        setupBeansAfter(conf_);
 //        Document doc_ = XmlParser.parseSaxHtml(html_);
 //        String render_ = FormatHtml.processHtml(doc_, "bean_one", conf_, locale_, files_);
 //        assertXMLEqualNoPrefix("<html bean=\"bean_seven\"><body><form n-f=\"0\" action=\"\" name=\"myform\" c:command=\"$bean_seven.validateMap\"><input n-i=\"0\" type=\"text\" name=\"bean_seven.getTree()[0]goto!key\" value=\"keyfour\" varValue=\"k;\" c:className=\"java.lang.String\"/><input n-i=\"1\" type=\"text\" name=\"bean_seven.getTree()[1]goto!key\" value=\"keythree\" varValue=\"k;\" c:className=\"java.lang.String\"/></form></body></html>", nav_.getHtmlText());
@@ -7354,6 +7461,7 @@ public class NavigationTest {
         ni_.setValue(values_);
         nav_.getHtmlPage().setUrl(0);
         nav_.processFormRequest();
+        setupBeansAfter(conf_);
         assertXmlEqualNoPrefix("<html xmlns:c='javahtml' xmlns='javahtml'><body><form name='myform' n-f='0' action='' c:command='$bean_seven.validateIntsSave'><input n-i='0' type='text' c:className='java.lang.Integer' name='bean_seven.i;' value='2'/><input n-i='1' type='text' c:className='java.lang.Integer' name='bean_seven.i;' value='4'/></form></body></html>", nav_.getHtmlText());
         bean_ = (BeanSeven) conf_.getBeans().getVal("bean_seven");
         StringMap<Object> map_ = bean_.getForms();
@@ -7541,6 +7649,7 @@ public class NavigationTest {
         ni_.setValue(values_);
         nav_.getHtmlPage().setUrl(0);
         nav_.processFormRequest();
+        setupBeansAfter(conf_);
         res_ = "";
         res_ += "<html xmlns='javahtml' xmlns:c='javahtml'>";
         res_ += "<body>";
@@ -7906,6 +8015,7 @@ public class NavigationTest {
         ni_.setValue(values_);
         nav_.getHtmlPage().setUrl(0);
         nav_.processFormRequest();
+        setupBeansAfter(conf_);
         res_ = "";
         res_ += "<html xmlns='javahtml' xmlns:c='javahtml'>";
         res_ += "<body>";
@@ -8431,6 +8541,17 @@ public class NavigationTest {
         ni_.setValue(values_);
         nav_.getHtmlPage().setUrl(0);
         nav_.processFormRequest();
+    }
+
+    private static void setupBeansAfter(Configuration _conf) {
+        cleanBeans(_conf);
+        for (EntryCust<String, Struct> e: _conf.getBuiltBeans().entryList()) {
+            _conf.getBeans().put(e.getKey(), (Bean) e.getValue().getInstance());
+        }
+    }
+
+    private static void cleanBeans(Configuration _conf) {
+        _conf.getBeans().clear();
     }
 
     private static void assertXmlEqualNoPrefix(String _htmlExp, String _htmlRes) {

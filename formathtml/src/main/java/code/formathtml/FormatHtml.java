@@ -9,7 +9,6 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.w3c.dom.Text;
 
-import code.bean.Bean;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.ElUtil;
@@ -326,31 +325,35 @@ final class FormatHtml {
         return b_;
     }
 
-    private static void setBeanForms(Configuration _conf, Bean _mainBean,
+    private static void setBeanForms(Configuration _conf, Struct _mainBean,
             Node _node, boolean _keepField, String _beanName) {
         try {
-            Bean bean_ = _conf.getBeans().getVal(_beanName);
+            Struct bean_ = _conf.getBuiltBeans().getVal(_beanName);
             ImportingPage ip_ = _conf.getLastPage();
             String prefix_ = ip_.getPrefix();
+            Struct forms_ = ExtractObject.getForms(_conf, bean_);
+            Struct formsMap_ = ExtractObject.getForms(_conf, _mainBean);
             if (_keepField) {
                 for (Element f_: XmlParser.childrenElements(_node)) {
                     if (!StringList.quickEq(f_.getNodeName(),prefix_+FORM_BLOCK_TAG)) {
                         continue;
                     }
                     String name_ = f_.getAttribute(ATTRIBUTE_FORM);
-                    bean_.getForms().put(name_, _mainBean.getForms().getVal(name_));
+                    Struct strName_ = new Struct(name_);
+                    ExtractObject.put(_conf, forms_, strName_, ExtractObject.getVal(_conf, formsMap_, strName_));
                 }
             } else {
                 //add option for copying forms (default copy)
-                bean_.getForms().putAllMap(_mainBean.getForms());
+                ExtractObject.putAllMap(_conf, forms_, formsMap_);
             }
         } catch (Throwable _0) {
+            _0.printStackTrace();
         }
     }
 
     private static void setFieldsImportBean(Configuration _conf, Node _node,
             String _beanName) {
-        Bean bean_ = getBean(_conf, _beanName);
+        Struct bean_ = getBean(_conf, _beanName);
         ImportingPage ip_ = _conf.getLastPage();
         String prefix_ = ip_.getPrefix();
         for (Element n: XmlParser.childrenElements(_node)) {
@@ -368,26 +371,15 @@ final class FormatHtml {
                 ip_.setOffset(0);
                 ip_.setLookForAttrValue(false);
                 String searchedClass_ = package_+DOT+className_;
-                if (bean_ == null) {
+                if (bean_ == null || bean_.isNull()) {
                     throw new NullObjectException(_conf.joinPages());
                 }
                 ip_.setProcessingNode(nTwo_);
                 ip_.setProcessingAttribute(ATTRIBUTE_NAME);
                 ip_.setOffset(0);
                 ip_.setLookForAttrValue(true);
-                boolean found_ = false;
-                Class<?> class_ = bean_.getClass();
-                while (true) {
-                    if (class_.getName().equalsIgnoreCase(searchedClass_)) {
-                        found_ = true;
-                        break;
-                    }
-                    if (class_ == Object.class) {
-                        break;
-                    }
-                    class_ = class_.getSuperclass();
-                }
-                if (!found_) {
+                ExtractObject.classForName(_conf, 0, searchedClass_);
+                if (!PrimitiveTypeUtil.canBeUseAsArgument(searchedClass_, bean_.getClassName(), _conf.toContextEl().getClasses())) {
                     throw new RuntimeClassNotFoundException(searchedClass_+RETURN_LINE+_conf.joinPages());
                 }
                 for (Element nThree_: XmlParser.childrenElements(nTwo_)) {
@@ -416,7 +408,7 @@ final class FormatHtml {
                         ip_.setOffset(0);
                         ip_.setLookForAttrValue(true);
                         Argument argument_ = new Argument();
-                        argument_.setObject(bean_);
+                        argument_.setStruct(bean_);
                         ip_.setGlobalArgument(argument_);
                         LocalVariable lv_ = new LocalVariable();
                         lv_.setClassName(ConstClasses.resolve(classNameParam_));
@@ -435,7 +427,7 @@ final class FormatHtml {
                     Argument argt_ = ElUtil.processEl(fieldValue_, 0, _conf.toContextEl());
                     LocalVariable lv_ = new LocalVariable();
                     lv_.setClassName(searchedClass_);
-                    lv_.setStruct(new Struct(bean_));
+                    lv_.setStruct(bean_);
                     String nameVar_ = ip_.getNextTempVar();
                     ip_.getLocalVars().put(nameVar_, lv_);
                     ip_.setProcessingNode(nThree_);
@@ -523,12 +515,12 @@ final class FormatHtml {
     static String processHtmlJava(String _htmlText, Configuration _conf, String _loc, StringMap<String> _files, String... _resourcesFolder) {
         String htmlText_ = _htmlText;
         String beanName_ = null;
-        Bean bean_ = null;
+        Struct bean_ = null;
         Document docOrig_ = _conf.getDocument();
         Element root_ = docOrig_.getDocumentElement();
         beanName_ = root_.getAttribute(_conf.getPrefix()+BEAN_ATTRIBUTE);
         bean_ = getBean(_conf, beanName_);
-        beforeDisplaying(bean_, _conf);
+        ExtractObject.beforeDiplaying(_conf, bean_, true);
         _conf.setHtml(_htmlText);
         htmlText_ = processHtml(docOrig_, beanName_, _conf, _loc, _files, _resourcesFolder);
         if (htmlText_ == null) {
@@ -579,8 +571,8 @@ final class FormatHtml {
     }
 
     static String processHtml(Document _docOrig, String _beanName, Configuration _conf, String _loc, StringMap<String> _files, String... _resourcesFolder) {
-        Bean bean_ = getBean(_conf, _beanName);
-        Bean mainBean_ = bean_;
+        Struct bean_ = getBean(_conf, _beanName);
+        Struct mainBean_ = bean_;
 
         ImportingPage ip_ = new ImportingPage(false);
         ip_.setTabWidth(getTabWidth(_conf));
@@ -589,8 +581,8 @@ final class FormatHtml {
         ip_.setBeanName(_beanName);
         ip_.setPrefix(_conf.getPrefix());
         Element r_ = _docOrig.getDocumentElement();
-        if (bean_ != null) {
-            ip_.setGlobalArgumentObj(bean_);
+        if (bean_ != null && !bean_.isNull()) {
+            ip_.setGlobalArgumentStruct(bean_);
         }
         _conf.addPage(ip_);
         checkSyntax(_conf, _docOrig, ip_.getHtml());
@@ -841,7 +833,7 @@ final class FormatHtml {
             NatTreeMap<Long,NodeContainer> _containers,
             IndexesFormInput _indexes,
             long _currentForm,
-            Bean _mainBean,
+            Struct _mainBean,
             String _loc, StringMap<String> _files, String... _resourcesFolder) {
         NumberMap<Long,NatTreeMap<Long,NodeContainer>> containersMap_ = _containersMap;
         String prefix_ = _conf.getLastPage().getPrefix();
@@ -1146,7 +1138,7 @@ final class FormatHtml {
                 //TODO processEl
                 boolean enter_ = false;
                 if (value_ == null) {
-                    if (arg_.getObject() == null) {
+                    if (arg_.getStruct().isNull()) {
                         enter_ = true;
                     }
                 } else {
@@ -1399,8 +1391,8 @@ final class FormatHtml {
             ip_.setProcessingAttribute(EMPTY_STRING);
             ip_.setOffset(0);
             ip_.setLookForAttrValue(false);
-            Bean newBean_ = getBean(_conf, beanName_);
-            beforeDisplaying(newBean_, _conf);
+            Struct newBean_ = getBean(_conf, beanName_);
+            ExtractObject.beforeDiplaying(_conf, newBean_, false);
             ImportingPage newIp_ = new ImportingPage(false);
             newIp_.setTabWidth(getTabWidth(_conf));
             newIp_.setHtml(newElt_.getHtml());
@@ -1414,8 +1406,8 @@ final class FormatHtml {
             rwLoc_.setWrite(currentNode_);
             rwLoc_.setRead(newElt_.getRoot().getFirstChild());
             newIp_.setReadWrite(rwLoc_);
-            if (newBean_ != null) {
-                newIp_.setGlobalArgumentObj(newBean_);
+            if (newBean_ != null && !newBean_.isNull()) {
+                newIp_.setGlobalArgumentStruct(newBean_);
             }
             _conf.addPage(newIp_);
             newIp_.getParameters().putAllMap(params_);
@@ -2553,7 +2545,7 @@ final class FormatHtml {
             _indexes.setNb(-1);
             return;
         }
-        Object obj_;
+        Struct obj_;
         Struct currentField_;
         String end_ = EMPTY_STRING;
         long index_ = -1;
@@ -2561,17 +2553,11 @@ final class FormatHtml {
         if (name_.endsWith(GET_ATTRIBUTE)) {
             String oldVar_ = name_.substring(CustList.FIRST_INDEX, name_.length() - GET_ATTRIBUTE.length());
             LoopVariable lv_ = ExtractObject.getCurrentVariable(_conf, 0, _ip.getVars(), oldVar_);
-            if (lv_.getMap() != null) {
-                obj_ = lv_.getMap();
-            } else if (lv_.getList() != null ){
-                obj_ = lv_.getList();
-            } else {
-                obj_ = lv_.getArray();
-            }
-            ExtractObject.checkNullPointer(_conf, obj_);
+            obj_ = lv_.getContainer();
+            ExtractObject.checkNullPointer(_conf, obj_.getInstance());
             index_ = lv_.getIndex();
             for (EntryCust<Long, NodeContainer> e: _containers.entryList()) {
-                if (e.getValue().getObject() != obj_) {
+                if (e.getValue().getObject() != obj_.getInstance()) {
                     continue;
                 }
                 if (e.getValue().getIndex() != index_) {
@@ -2598,16 +2584,16 @@ final class FormatHtml {
                         begin_ = name_.substring(CustList.FIRST_INDEX, i_);
                     }
                 }
-                obj_ = ElUtil.processEl(begin_, 0, _conf.toContextEl()).getObject();
+                obj_ = ElUtil.processEl(begin_, 0, _conf.toContextEl()).getStruct();
                 _ip.addToOffset(begin_.length());
                 end_ = name_.substring(i_ + 1);
             } else {
                 obj_ = getBean(_conf, _ip.getBeanName());
                 end_ = name_;
             }
-            ExtractObject.checkNullPointer(_conf, obj_);
+            ExtractObject.checkNullPointer(_conf, obj_.getInstance());
             for (EntryCust<Long, NodeContainer> e: _containers.entryList()) {
-                if (e.getValue().getObject() != obj_) {
+                if (e.getValue().getObject() != obj_.getInstance()) {
                     continue;
                 }
                 if (!StringList.quickEq(e.getValue().getLastToken(), end_)) {
@@ -2616,10 +2602,10 @@ final class FormatHtml {
                 found_ = e.getKey();
                 break;
             }
-            Object current_ = _ip.getGlobalArgument().getObject();
-            _ip.setGlobalArgumentObj(obj_);
+            Struct current_ = _ip.getGlobalArgument().getStruct();
+            _ip.setGlobalArgumentStruct(obj_);
             currentField_ = ElUtil.processEl(end_, 0, _conf.toContextEl()).getStruct();
-            _ip.setGlobalArgumentObj(current_);
+            _ip.setGlobalArgumentStruct(current_);
         }
         if (found_ == -1) {
             long currentInput_ = _indexes.getInput();
@@ -2629,7 +2615,7 @@ final class FormatHtml {
             nodeCont_.setIndex(index_);
             nodeCont_.setTypedStruct(currentField_);
             nodeCont_.setBeanName(_ip.getBeanName());
-            nodeCont_.setObject(obj_);
+            nodeCont_.setStruct(obj_);
             NodeInformations nodeInfos_ = nodeCont_.getNodeInformation();
             String id_ = _input.getAttribute(ATTRIBUTE_ID);
             if (id_.isEmpty()) {
@@ -2763,7 +2749,7 @@ final class FormatHtml {
                     _ip.setProcessingAttribute(TAG_PARAM+i_);
                     _ip.setLookForAttrValue(true);
                     _ip.setOffset(1);
-                    objects_.add(ElUtil.processEl(attribute_, 1, _conf.toContextEl()).getObject());
+                    objects_.add(ExtractObject.valueOf(_conf, ElUtil.processEl(attribute_, 1, _conf.toContextEl()).getStruct()));
                 } else {
                     objects_.add(attribute_);
                 }
@@ -2803,7 +2789,7 @@ final class FormatHtml {
                     _ip.setProcessingAttribute(TAG_PARAM+i_);
                     _ip.setLookForAttrValue(true);
                     _ip.setOffset(1);
-                    objects_.add(ElUtil.processEl(attribute_, 1, _conf.toContextEl()).getObject());
+                    objects_.add(ExtractObject.valueOf(_conf, ElUtil.processEl(attribute_, 1, _conf.toContextEl()).getStruct()));
                 } else {
                     objects_.add(attribute_);
                 }
@@ -4274,6 +4260,7 @@ final class FormatHtml {
             lv_.setClassName(ConstClasses.resolve(className_));
             lv_.setIndexClassName(ConstClasses.resolve(indexClassName_));
             lv_.setElement(ExtractObject.getValue(_conf, elt_));
+            lv_.setContainer(container_);
             lv_.setMap(mapCast_);
             lv_.setExtendedExpression(listMethod_+GET_VALUE);
             varsLoop_.put(value_, lv_);
@@ -4439,9 +4426,9 @@ final class FormatHtml {
         }
         return prefix_;
     }
-    private static Bean getBean(Configuration _conf, String _beanName) {
+    static Struct getBean(Configuration _conf, String _beanName) {
         try {
-            return _conf.getBeans().getVal(_beanName);
+            return _conf.getBuiltBeans().getVal(_beanName);
         } catch (Throwable _0) {
             throw new InvokeRedinedMethException(_conf.joinPages(), new Struct(_0));
         }
@@ -4449,15 +4436,6 @@ final class FormatHtml {
     private static int getTabWidth(Configuration _conf) {
         try {
             return _conf.getTabWidth();
-        } catch (Throwable _0) {
-            throw new InvokeRedinedMethException(_conf.joinPages(), new Struct(_0));
-        }
-    }
-    private static void beforeDisplaying(Bean _bean, Configuration _conf) {
-        try {
-            if (_bean != null) {
-                _bean.beforeDisplaying();
-            }
         } catch (Throwable _0) {
             throw new InvokeRedinedMethException(_conf.joinPages(), new Struct(_0));
         }

@@ -51,6 +51,7 @@ final class ExtractObject {
     static final String COMMA = ",";
     static final String DOT = ".";
     private static final char BEGIN_ARGS = '(';
+    private static final char SEP_ARGS = ',';
     private static final char END_ARGS = ')';
     private static final String GET_LOC_VAR = ";.";
     private static final String NO_PARAM_METHOD = "()";
@@ -72,6 +73,8 @@ final class ExtractObject {
     private static final char END_TR = ']';
     private static final char QUOTE = 39;
     private static final String NAME ="name";
+    private static final String PUT ="put";
+    private static final String PUT_ALL_MAP ="putAllMap";
     private static final String TO_STRING ="toString";
     private static final String ITERATOR ="iterator";
     private static final String HAS_NEXT ="hasNext";
@@ -79,6 +82,7 @@ final class ExtractObject {
     private static final String GET_KEYS ="getKeys";
     private static final String ENTRY_LIST ="entryList";
     private static final String GET_KEY ="getKey";
+    private static final String GET_VAL ="getVal";
     private static final String GET_VALUE ="getValue";
     private static final String GET_SCOPE ="getScope";
     private static final String SET_SCOPE ="setScope";
@@ -174,7 +178,7 @@ final class ExtractObject {
                 String o_ = EMPTY_STRING;
                 try {
                     if (trloc_ != null) {
-                        Bean bean_ = (Bean) _ip.getGlobalArgument().getObject();
+                        Struct bean_ = _ip.getGlobalArgument().getStruct();
                         LocalVariable loc_;
                         Struct trans_ = new Struct(trloc_);
                         String transName_ = _ip.getNextTempVar();
@@ -182,7 +186,7 @@ final class ExtractObject {
                         loc_.setStruct(trans_);
                         loc_.setClassName(trans_.getClassName());
                         _ip.getLocalVars().put(transName_, loc_);
-                        o_ = trloc_.getString(_pattern, _conf, _files, bean_, s_);
+                        o_ = trloc_.getString(_pattern, _conf, _files, (Bean) bean_.getInstance(), s_);
                     } else {
                         o_ = valueOf(_conf, s_);
                     }
@@ -332,11 +336,20 @@ final class ExtractObject {
         }
     }
 
-    static void beforeDiplaying(Configuration _conf, Struct _it) {
+    static void beforeDiplaying(Configuration _conf, Struct _it, boolean _addpage) {
+        if (_it == null) {
+            return;
+        }
         if (_it.isNull()) {
             return;
         }
+        if (_addpage) {
+            _conf.addPage(new ImportingPage(false));
+        }
         getResult(_conf, 0, BEFORE_DISPLAYING, _it, _it.getClassName());
+        if (_addpage) {
+            _conf.removeLastPage();
+        }
     }
 
     static Struct getDataBase(Configuration _conf, Struct _it) {
@@ -373,6 +386,31 @@ final class ExtractObject {
 
     static Struct getKey(Configuration _conf, Struct _it) {
         return getResult(_conf, 0, GET_KEY, _it, EntryCust.class.getName());
+    }
+    
+    static Struct getVal(Configuration _conf, Struct _it, Struct _key) {
+        ImportingPage ip_ = _conf.getLastPage();
+        String varName_ = ip_.getNextTempVar();
+        LocalVariable var_ = new LocalVariable();
+        var_.setStruct(_it);
+        var_.setClassName(ListableEntries.class.getName());
+        ip_.getLocalVars().put(varName_, var_);
+        String keyName_ = ip_.getNextTempVar();
+        var_ = new LocalVariable();
+        var_.setStruct(_key);
+        var_.setClassName(Object.class.getName());
+        ip_.getLocalVars().put(keyName_, var_);
+        String expression_ = varName_+GET_LOC_VAR+GET_VAL+BEGIN_ARGS+keyName_+GET_LOC_VAR+END_ARGS;
+        try {
+            Struct value_ = ElUtil.processEl(expression_, 0, _conf.toContextEl()).getStruct();
+            ip_.getLocalVars().removeKey(varName_);
+            ip_.getLocalVars().removeKey(keyName_);
+            return value_;
+        } catch (Throwable _0) {
+            ip_.getLocalVars().removeKey(varName_);
+            ip_.getLocalVars().removeKey(keyName_);
+            throw new InvokeRedinedMethException(_conf.joinPages(), new Struct(_0));
+        }
     }
 
     static Struct getValue(Configuration _conf, Struct _it) {
@@ -453,6 +491,60 @@ final class ExtractObject {
         return (String) getResult(_conf, 0, NAME, _instance, _instance.getClassName()).getInstance();
     }
 
+    static void put(Configuration _conf, Struct _instance, Struct _key, Struct _value) {
+        ImportingPage ip_ = _conf.getLastPage();
+        String varName_ = ip_.getNextTempVar();
+        LocalVariable var_ = new LocalVariable();
+        var_.setStruct(_instance);
+        var_.setClassName(ListableEntries.class.getName());
+        ip_.getLocalVars().put(varName_, var_);
+        String keyName_ = ip_.getNextTempVar();
+        var_ = new LocalVariable();
+        var_.setStruct(_key);
+        var_.setClassName(Object.class.getName());
+        ip_.getLocalVars().put(keyName_, var_);
+        String valueName_ = ip_.getNextTempVar();
+        var_ = new LocalVariable();
+        var_.setStruct(_value);
+        var_.setClassName(Object.class.getName());
+        ip_.getLocalVars().put(valueName_, var_);
+        String expression_ = varName_+GET_LOC_VAR+PUT+BEGIN_ARGS+keyName_+GET_LOC_VAR+SEP_ARGS+valueName_+GET_LOC_VAR+END_ARGS;
+        try {
+            ElUtil.processEl(expression_, 0, _conf.toContextEl()).getStruct();
+            ip_.getLocalVars().removeKey(varName_);
+            ip_.getLocalVars().removeKey(keyName_);
+            ip_.getLocalVars().removeKey(valueName_);
+        } catch (Throwable _0) {
+            ip_.getLocalVars().removeKey(varName_);
+            ip_.getLocalVars().removeKey(keyName_);
+            ip_.getLocalVars().removeKey(valueName_);
+            throw new InvokeRedinedMethException(_conf.joinPages(), new Struct(_0));
+        }
+    }
+    static void putAllMap(Configuration _conf, Struct _instance, Struct _map) {
+        ImportingPage ip_ = _conf.getLastPage();
+        String varName_ = ip_.getNextTempVar();
+        LocalVariable var_ = new LocalVariable();
+        var_.setStruct(_instance);
+        var_.setClassName(ListableEntries.class.getName());
+        ip_.getLocalVars().put(varName_, var_);
+        String keyName_ = ip_.getNextTempVar();
+        var_ = new LocalVariable();
+        var_.setStruct(_map);
+        var_.setClassName(ListableEntries.class.getName());
+        ip_.getLocalVars().put(keyName_, var_);
+        String expression_ = varName_+GET_LOC_VAR+PUT_ALL_MAP+BEGIN_ARGS+keyName_+GET_LOC_VAR+END_ARGS;
+        try {
+            ElUtil.processEl(expression_, 0, _conf.toContextEl()).getStruct();
+            ip_.getLocalVars().removeKey(varName_);
+            ip_.getLocalVars().removeKey(keyName_);
+        } catch (Throwable _0) {
+            ip_.getLocalVars().removeKey(varName_);
+            ip_.getLocalVars().removeKey(keyName_);
+            throw new InvokeRedinedMethException(_conf.joinPages(), new Struct(_0));
+        }
+    }
+
     static Struct getResult(Configuration _conf, int _offsIndex, String _methodName, Struct _instance, String _className) {
         ImportingPage ip_ = _conf.getLastPage();
         String varName_ = ip_.getNextTempVar();
@@ -462,8 +554,11 @@ final class ExtractObject {
         ip_.getLocalVars().put(varName_, var_);
         String expression_ = varName_+GET_LOC_VAR+_methodName+NO_PARAM_METHOD;
         try {
-            return ElUtil.processEl(expression_, 0, _conf.toContextEl()).getStruct();
+            Struct str_ = ElUtil.processEl(expression_, 0, _conf.toContextEl()).getStruct();
+            ip_.getLocalVars().removeKey(varName_);
+            return str_;
         } catch (Throwable _0) {
+            ip_.getLocalVars().removeKey(varName_);
             _conf.getLastPage().addToOffset(_offsIndex);
             throw new InvokeRedinedMethException(_conf.joinPages(), new Struct(_0));
         }
@@ -484,7 +579,9 @@ final class ExtractObject {
         String expression_ = varName_+GET_LOC_VAR+_methodName+BEGIN_ARGS+argName_+GET_LOC_VAR+END_ARGS;
         try {
             ElUtil.processEl(expression_, 0, _conf.toContextEl()).getStruct();
+            ip_.getLocalVars().removeKey(varName_);
         } catch (Throwable _0) {
+            ip_.getLocalVars().removeKey(varName_);
             _conf.getLastPage().addToOffset(_offsIndex);
             throw new InvokeRedinedMethException(_conf.joinPages(), new Struct(_0));
         }

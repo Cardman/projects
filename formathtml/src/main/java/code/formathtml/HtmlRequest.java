@@ -54,20 +54,20 @@ final class HtmlRequest {
         return StringList.simpleFormat(preformatted_, _args);
     }
 
-    static Object invokeMethodWithNumbers(Configuration _conf, Object _container, String _command, Argument... _args) {
+    static Object invokeMethodWithNumbers(Configuration _conf, Struct _container, String _command, Argument... _args) {
         String command_ = _command;
-        Object obj_ = _container;
+        Struct obj_ = _container;
         String commandExtract_ = _command;
         if (_command.contains(FormatHtml.DOT)) {
             command_ = _command.substring(CustList.FIRST_INDEX, _command.lastIndexOf(FormatHtml.DOT));
-            obj_ = ElUtil.processEl(command_, 0, _conf.toContextEl()).getObject();
+            obj_ = ElUtil.processEl(command_, 0, _conf.toContextEl()).getStruct();
             _conf.getLastPage().addToOffset(command_.length()+FormatHtml.DOT.length());
             commandExtract_ = _command.substring(_command.lastIndexOf(FormatHtml.DOT)+FormatHtml.DOT.length());
         }
-        ExtractObject.checkNullPointer(_conf, obj_);
+        ExtractObject.checkNullPointer(_conf, obj_.getInstance());
         ImportingPage ip_ = _conf.getLastPage();
-        Object current_ = ip_.getGlobalArgument().getObject();
-        ip_.setGlobalArgumentObj(obj_);
+        Struct current_ = ip_.getGlobalArgument().getStruct();
+        ip_.setGlobalArgumentStruct(obj_);
         StringList varNames_ = new StringList();
         for (Argument a: _args) {
             String tmp_ = TMP_VAR;
@@ -82,7 +82,7 @@ final class HtmlRequest {
             ip_.getLocalVars().put(tmp_+i_, locVar_);
         }
         Argument arg_ = ElUtil.processEl(commandExtract_+LEFT_PAR+varNames_.join(COMMA)+RIGHT_PAR, 0, _conf.toContextEl());
-        ip_.setGlobalArgumentObj(current_);
+        ip_.setGlobalArgumentStruct(current_);
         for (String n: varNames_) {
             ip_.getLocalVars().removeKey(n.substring(0, n.length() - GET_LOC_VAR.length()));
         }

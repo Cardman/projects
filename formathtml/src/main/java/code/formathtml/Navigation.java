@@ -240,11 +240,11 @@ public final class Navigation {
     public void initializeSession() {
         session.setupClasses(files);
         for (EntryCust<String, Bean> e: session.getBeans().entryList()) {
-            Bean bean_ = newBean(e.getValue());
-            bean_.setForms(new StringMap<Object>());
-            bean_.setDataBase(dataBase);
-            e.setValue(bean_);
-            session.getBuiltBeans().put(e.getKey(), session.newBean(language, dataBase, e.getValue()));
+//            Bean bean_ = session.newBean(e.getValue());
+//            bean_.setForms(new StringMap<Object>());
+//            bean_.setDataBase(dataBase);
+//            e.setValue(bean_);
+            session.getBuiltBeans().put(e.getKey(), session.newBean(language, dataBase, e.getValue(), true));
         }
         String currentUrl_ = session.getFirstUrl();
         String text_ = ExtractFromResources.loadPage(session, files, currentUrl_, resourcesFolder);
@@ -356,12 +356,12 @@ public final class Navigation {
             String beanName_ = _anchorRef
                     .substring(_anchorRef.indexOf(CALL_METHOD) + 1, indexPoint_);
             ip_.setOffset(_anchorRef.indexOf(CALL_METHOD) + 1);
-            Bean bean_ = getNotNullBean(beanName_);
+            Struct bean_ = getNotNullBean(beanName_);
             ip_.setOffset(indexPoint_+1);
-            ip_.setGlobalArgumentObj(bean_);
+            ip_.setGlobalArgumentStruct(bean_);
             Object return_ = HtmlRequest.invokeMethodWithNumbers(
                     session, bean_, methodName_, Argument.toArgArray(args_));
-            StringMap<Object> forms_ = bean_.getForms();
+            Struct forms_ = ExtractObject.getForms(session, bean_);
             String urlDest_ = currentUrl;
             if (return_ != null) {
                 ip_.setOffset(_anchorRef.length());
@@ -370,13 +370,13 @@ public final class Navigation {
                     urlDest_ = currentUrl;
                 }
             }
-            for (EntryCust<String, Bean> e: session.getBeans().entryList()) {
+            for (EntryCust<String, Struct> e: session.getBuiltBeans().entryList()) {
                 if (!reinitBean(urlDest_, beanName_, e.getKey())) {
                     continue;
                 }
                 bean_ = e.getValue();
-                bean_ = newBean(bean_);
-                bean_.setForms(forms_);
+                bean_ = session.newBean(language, bean_);
+                ExtractObject.setForms(session, bean_, forms_);
                 e.setValue(bean_);
             }
             String currentUrl_ = urlDest_;
@@ -393,7 +393,7 @@ public final class Navigation {
                 throw new XmlParseException(ExtractFromResources.getRealFilePath(dest_), textToBeChanged_);
             }
             bean_ = getNotNullBean(currentBeanName_);
-            bean_.setForms(forms_);
+            ExtractObject.setForms(session, bean_, forms_);
             textToBeChanged_ = FormatHtml.processImports(
                     textToBeChanged_, session, language, files, resourcesFolder);
             if (textToBeChanged_ == null) {
@@ -407,22 +407,24 @@ public final class Navigation {
         if (_anchorRef.isEmpty()) {
             return;
         }
-        Bean bean_ = getBean(currentBeanName);
-        StringMap<Object> forms_;
+        Struct bean_ = getBean(currentBeanName);
+        Struct forms_;
         try {
-            forms_ = bean_.getForms();
+            forms_ = ExtractObject.getForms(session, bean_);
         } catch (Error _0) {
-            forms_ = null;
+            forms_ = new Struct();
         } catch (RuntimeException _0) {
-            forms_ = null;
+            forms_ = new Struct();
         }
-        for (EntryCust<String, Bean> e: session.getBeans().entryList()) {
+        for (EntryCust<String, Struct> e: session.getBuiltBeans().entryList()) {
             if (!reinitBean(_anchorRef, currentBeanName, e.getKey())) {
                 continue;
             }
             bean_ = e.getValue();
-            bean_ = newBean(bean_);
-            bean_.setForms(forms_);
+            bean_ = session.newBean(language,bean_);
+            session.addPage(new ImportingPage(false));
+            ExtractObject.setForms(session, bean_, forms_);
+            session.removeLastPage();
             e.setValue(bean_);
         }
         String currentUrl_ = _anchorRef;
@@ -440,9 +442,10 @@ public final class Navigation {
         }
         bean_ = getBean(currentBeanName_);
         try {
-            bean_.setForms(forms_);
-        } catch (Error _0) {
-        } catch (RuntimeException _0) {
+            session.addPage(new ImportingPage(false));
+            ExtractObject.setForms(session, bean_, forms_);
+            session.removeLastPage();
+        } catch (Throwable _0) {
         }
         textToBeChanged_ = FormatHtml.processImports(
                 textToBeChanged_, session, language, files, resourcesFolder);
@@ -626,7 +629,7 @@ public final class Navigation {
             Element input_ = XmlParser.getFirstElementByAttribute(doc_, NUMBER_INPUT, String.valueOf(e.getKey()));
             session.getLastPage().setProcessingNode(input_);
             session.getLastPage().setProcessingAttribute(EMPTY_STRING);
-            Bean bean_ = getBean(nCont_.getBeanName());
+            Struct bean_ = getBean(nCont_.getBeanName());
             String simpleKey_ = nCont_.getNodeInformation().getName();
             Object obj_ = nCont_.getTypedField();
             Numbers<Long> indexes_ = new Numbers<Long>();
@@ -846,11 +849,14 @@ public final class Navigation {
         if (!StringList.quickEq(_currentBean,_beanName)) {
             return false;
         }
-        Bean bean_ = getNotNullBean(_currentBean);
-        if (StringList.quickEq(bean_.getScope(),SESSION)) {
+        Struct bean_ = getNotNullBean(_currentBean);
+        session.addPage(new ImportingPage(false));
+        String scope_ = ExtractObject.getScope(session, bean_);
+        session.removeLastPage();
+        if (StringList.quickEq(scope_,SESSION)) {
             return false;
         }
-        if (StringList.quickEq(bean_.getScope(),PAGE)) {
+        if (StringList.quickEq(scope_,PAGE)) {
             if (StringList.quickEq(currentUrl,StringList.getFirstToken(_dest, REF_TAG))) {
                 return false;
             }
@@ -931,16 +937,16 @@ public final class Navigation {
             throw new InvokeRedinedMethException(session.joinPages(), new Struct(_0));
         }
     }
-    private Bean getBean(String _beanName) {
+    private Struct getBean(String _beanName) {
         try {
-            return session.getBeans().getVal(_beanName);
+            return session.getBuiltBeans().getVal(_beanName);
         } catch (Throwable _0) {
             throw new InvokeRedinedMethException(session.joinPages(), new Struct(_0));
         }
     }
-    private Bean getNotNullBean(String _beanName) {
+    private Struct getNotNullBean(String _beanName) {
         try {
-            Bean b_ = session.getBeans().getVal(_beanName);
+            Struct b_ = session.getBuiltBeans().getVal(_beanName);
             b_.getClass();
             return b_;
         } catch (Throwable _0) {
