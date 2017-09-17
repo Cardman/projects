@@ -14,6 +14,7 @@ import code.expressionlanguage.exceptions.CustomFoundConstructorException;
 import code.expressionlanguage.exceptions.CustomFoundMethodException;
 import code.expressionlanguage.exceptions.DynamicCastClassException;
 import code.expressionlanguage.exceptions.ErrorCausingException;
+import code.expressionlanguage.exceptions.InexistingEnumException;
 import code.expressionlanguage.exceptions.InvokeException;
 import code.expressionlanguage.exceptions.NotBooleanException;
 import code.expressionlanguage.exceptions.NotEqualableException;
@@ -252,6 +253,7 @@ public final class FctOperation extends InvokingOperation {
                             throw new StaticAccessException(_conf.joinPages());
                         }
                         methodId = new FctConstraints(METH_NAME, new EqList<StringList>());
+                        classMethodId = new ClassMethodId(clCurName_, methodId);
                         setResultClass(new ClassArgumentMatching(String.class.getName()));
                         return;
                     }
@@ -260,12 +262,25 @@ public final class FctOperation extends InvokingOperation {
                             throw new StaticAccessException(_conf.joinPages());
                         }
                         methodId = new FctConstraints(METH_ORDINAL, new EqList<StringList>());
+                        classMethodId = new ClassMethodId(clCurName_, methodId);
                         setResultClass(new ClassArgumentMatching(PrimitiveTypeUtil.PRIM_INT));
                         return;
                     }
                     if (StringList.quickEq(trimMeth_, METH_VALUES) && firstArgs_.isEmpty()) {
                         methodId = new FctConstraints(METH_VALUES, new EqList<StringList>());
+                        classMethodId = new ClassMethodId(clCurName_, methodId);
                         ClassName ret_ = new ClassName(PrimitiveTypeUtil.getPrettyArrayType(clCurName_), false);
+                        staticMethod = true;
+                        setResultClass(new ClassArgumentMatching(ret_.getName()));
+                        return;
+                    }
+                    if (StringList.quickEq(trimMeth_, METH_VALUEOF) && firstArgs_.size() == CustList.ONE_ELEMENT) {
+                        if (!StringList.quickEq(firstArgs_.first().getName(), String.class.getName())) {
+                            throw new NoSuchDeclaredMethodException(trimMeth_+RETURN_LINE+_conf.joinPages());
+                        }
+                        methodId = new FctConstraints(METH_VALUEOF, new EqList<StringList>(new StringList(String.class.getName())));
+                        classMethodId = new ClassMethodId(clCurName_, methodId);
+                        ClassName ret_ = new ClassName(clCurName_, false);
                         staticMethod = true;
                         setResultClass(new ClassArgumentMatching(ret_.getName()));
                         return;
@@ -559,6 +574,19 @@ public final class FctOperation extends InvokingOperation {
                         Argument argres_ = new Argument();
                         argres_.setStruct(new Struct(o_,clArr_));
                         return argres_;
+                    }
+                    if (methodId.eq(new FctConstraints(METH_VALUEOF, new EqList<StringList>(new StringList(String.class.getName()))))) {
+                        if (firstArgs_.first().isNull()) {
+                            throw new NullObjectException(_conf.joinPages());
+                        }
+                        for (EntryCust<String, FieldMetaInfo> e: custClass_.getFields().entryList()) {
+                            if (StringList.quickEq(e.getKey(), (String) firstArgs_.first().getObject())) {
+                                Argument argres_ = new Argument();
+                                argres_.setStruct(classes_.getStaticField(new ClassField(classNameFound_, e.getKey())));
+                                return argres_;
+                            }
+                        }
+                        throw new InexistingEnumException(firstArgs_.first().getObject()+RETURN_LINE+_conf.joinPages());
                     }
                 }
             }
