@@ -57,6 +57,7 @@ public class FormatHtmlWhileTest {
         Document doc_ = XmlParser.parseSaxHtml(html_, false, true);
         conf_.setHtml(html_);
         conf_.setDocument(doc_);
+        setup(conf_);
         String render_ = FormatHtml.processHtml(doc_, "bean_one", conf_, locale_, files_);
         assertXmlEqualRuntime("<html xmlns:c='javahtml' xmlns='javahtml'><body>AFTER WHILE</body></html>", render_);
     }
@@ -97,6 +98,7 @@ public class FormatHtmlWhileTest {
         Document doc_ = XmlParser.parseSaxHtml(html_, false, true);
         conf_.setHtml(html_);
         conf_.setDocument(doc_);
+        setup(conf_);
         String render_ = FormatHtml.processHtml(doc_, "bean_one", conf_, locale_, files_);
         assertXmlEqualRuntime("<html xmlns:c='javahtml' xmlns='javahtml'><body>20AFTER WHILE</body></html>", render_);
     }
@@ -137,6 +139,7 @@ public class FormatHtmlWhileTest {
         Document doc_ = XmlParser.parseSaxHtml(html_, false, true);
         conf_.setHtml(html_);
         conf_.setDocument(doc_);
+        setup(conf_);
         String render_ = FormatHtml.processHtml(doc_, "bean_one", conf_, locale_, files_);
         assertXmlEqualRuntime("<html xmlns:c='javahtml' xmlns='javahtml'><body>2AFTER WHILE</body></html>", render_);
     }
@@ -183,6 +186,7 @@ public class FormatHtmlWhileTest {
         Document doc_ = XmlParser.parseSaxHtml(html_, false, true);
         conf_.setHtml(html_);
         conf_.setDocument(doc_);
+        setup(conf_);
         String render_ = FormatHtml.processHtml(doc_, "bean_one", conf_, locale_, files_);
         assertXmlEqualRuntime("<html xmlns:c='javahtml' xmlns='javahtml'><body>2 0 0 0 2 1 0 1 AFTER WHILE</body></html>", render_);
     }
@@ -221,8 +225,13 @@ public class FormatHtmlWhileTest {
         Document doc_ = XmlParser.parseSaxHtml(html_, false, true);
         conf_.setHtml(html_);
         conf_.setDocument(doc_);
+        setup(conf_);
         String render_ = FormatHtml.processHtml(doc_, "bean_one", conf_, locale_, files_);
         assertXmlEqualRuntime("<html xmlns:c='javahtml' xmlns='javahtml'><body>AFTER WHILE</body></html>", render_);
+    }
+
+    private static void setup(Configuration _conf) {
+        _conf.setupValiatorsTranslators("LOCALE");
     }
 
 

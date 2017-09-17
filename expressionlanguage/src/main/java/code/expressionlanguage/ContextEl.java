@@ -22,7 +22,7 @@ public final class ContextEl {
 
     private int stackOverFlow;
 
-    private boolean ambigous;
+    private transient boolean ambigous;
 
     private transient ElementOffsetsNext elements;
 

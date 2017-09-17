@@ -51,6 +51,7 @@ public class FormatHtmlTryCatchTest {
         Document doc_ = XmlParser.parseSaxHtml(html_, false, true);
         conf_.setHtml(html_);
         conf_.setDocument(doc_);
+        setup(conf_);
         //String render_ = FormatHtml.processHtml(doc_.getDocumentElement(), conf_, files_, bean_);
         String render_ = FormatHtml.processHtml(doc_, "bean_one", conf_, locale_, files_);
 //        assertXMLEqualNoPrefix("<html><body><c:tmp>ONE - <c:tmp>1;</c:tmp><br/></c:tmp><c:tmp>THREE - <c:tmp>4;</c:tmp><c:tmp>5;</c:tmp><c:tmp>6;</c:tmp><br/></c:tmp><c:tmp>TWO - <c:tmp>2;</c:tmp><c:tmp>3;</c:tmp><br/></c:tmp></body></html>", render_);
@@ -83,6 +84,7 @@ public class FormatHtmlTryCatchTest {
         Document doc_ = XmlParser.parseSaxHtml(html_, false, true);
         conf_.setHtml(html_);
         conf_.setDocument(doc_);
+        setup(conf_);
         //String render_ = FormatHtml.processHtml(doc_.getDocumentElement(), conf_, files_, bean_);
         String render_ = FormatHtml.processHtml(doc_, "bean_one", conf_, locale_, files_);
 //        assertXMLEqualNoPrefix("<html><body><c:tmp>ONE - <c:tmp>1;</c:tmp><br/></c:tmp><c:tmp>THREE - <c:tmp>4;</c:tmp><c:tmp>5;</c:tmp><c:tmp>6;</c:tmp><br/></c:tmp><c:tmp>TWO - <c:tmp>2;</c:tmp><c:tmp>3;</c:tmp><br/></c:tmp></body></html>", render_);
@@ -115,6 +117,7 @@ public class FormatHtmlTryCatchTest {
         Document doc_ = XmlParser.parseSaxHtml(html_, false, true);
         conf_.setHtml(html_);
         conf_.setDocument(doc_);
+        setup(conf_);
         //String render_ = FormatHtml.processHtml(doc_.getDocumentElement(), conf_, files_, bean_);
         String render_ = FormatHtml.processHtml(doc_, "bean_one", conf_, locale_, files_);
 //        assertXMLEqualNoPrefix("<html><body><c:tmp>ONE - <c:tmp>1;</c:tmp><br/></c:tmp><c:tmp>THREE - <c:tmp>4;</c:tmp><c:tmp>5;</c:tmp><c:tmp>6;</c:tmp><br/></c:tmp><c:tmp>TWO - <c:tmp>2;</c:tmp><c:tmp>3;</c:tmp><br/></c:tmp></body></html>", render_);
@@ -147,6 +150,7 @@ public class FormatHtmlTryCatchTest {
         Document doc_ = XmlParser.parseSaxHtml(html_, false, true);
         conf_.setHtml(html_);
         conf_.setDocument(doc_);
+        setup(conf_);
         //String render_ = FormatHtml.processHtml(doc_.getDocumentElement(), conf_, files_, bean_);
         String render_ = FormatHtml.processHtml(doc_, "bean_one", conf_, locale_, files_);
 //        assertXMLEqualNoPrefix("<html><body><c:tmp>ONE - <c:tmp>1;</c:tmp><br/></c:tmp><c:tmp>THREE - <c:tmp>4;</c:tmp><c:tmp>5;</c:tmp><c:tmp>6;</c:tmp><br/></c:tmp><c:tmp>TWO - <c:tmp>2;</c:tmp><c:tmp>3;</c:tmp><br/></c:tmp></body></html>", render_);
@@ -180,6 +184,7 @@ public class FormatHtmlTryCatchTest {
         Document doc_ = XmlParser.parseSaxHtml(html_, false, true);
         conf_.setHtml(html_);
         conf_.setDocument(doc_);
+        setup(conf_);
         //String render_ = FormatHtml.processHtml(doc_.getDocumentElement(), conf_, files_, bean_);
         String render_ = FormatHtml.processHtml(doc_, "bean_one", conf_, locale_, files_);
 //        assertXMLEqualNoPrefix("<html><body><c:tmp>ONE - <c:tmp>1;</c:tmp><br/></c:tmp><c:tmp>THREE - <c:tmp>4;</c:tmp><c:tmp>5;</c:tmp><c:tmp>6;</c:tmp><br/></c:tmp><c:tmp>TWO - <c:tmp>2;</c:tmp><c:tmp>3;</c:tmp><br/></c:tmp></body></html>", render_);
@@ -213,6 +218,7 @@ public class FormatHtmlTryCatchTest {
         Document doc_ = XmlParser.parseSaxHtml(html_, false, true);
         conf_.setHtml(html_);
         conf_.setDocument(doc_);
+        setup(conf_);
         //String render_ = FormatHtml.processHtml(doc_.getDocumentElement(), conf_, files_, bean_);
         String render_ = FormatHtml.processHtml(doc_, "bean_one", conf_, locale_, files_);
 //        assertXMLEqualNoPrefix("<html><body><c:tmp>ONE - <c:tmp>1;</c:tmp><br/></c:tmp><c:tmp>THREE - <c:tmp>4;</c:tmp><c:tmp>5;</c:tmp><c:tmp>6;</c:tmp><br/></c:tmp><c:tmp>TWO - <c:tmp>2;</c:tmp><c:tmp>3;</c:tmp><br/></c:tmp></body></html>", render_);
@@ -245,6 +251,7 @@ public class FormatHtmlTryCatchTest {
         Document doc_ = XmlParser.parseSaxHtml(html_, false, true);
         conf_.setHtml(html_);
         conf_.setDocument(doc_);
+        setup(conf_);
         //String render_ = FormatHtml.processHtml(doc_.getDocumentElement(), conf_, files_, bean_);
         String render_ = FormatHtml.processHtml(doc_, "bean_one", conf_, locale_, files_);
 //        assertXMLEqualNoPrefix("<html><body><c:tmp>ONE - <c:tmp>1;</c:tmp><br/></c:tmp><c:tmp>THREE - <c:tmp>4;</c:tmp><c:tmp>5;</c:tmp><c:tmp>6;</c:tmp><br/></c:tmp><c:tmp>TWO - <c:tmp>2;</c:tmp><c:tmp>3;</c:tmp><br/></c:tmp></body></html>", render_);
@@ -277,6 +284,7 @@ public class FormatHtmlTryCatchTest {
         Document doc_ = XmlParser.parseSaxHtml(html_, false, true);
         conf_.setHtml(html_);
         conf_.setDocument(doc_);
+        setup(conf_);
         //String render_ = FormatHtml.processHtml(doc_.getDocumentElement(), conf_, files_, bean_);
         String render_ = FormatHtml.processHtml(doc_, "bean_one", conf_, locale_, files_);
 //        assertXMLEqualNoPrefix("<html><body><c:tmp>ONE - <c:tmp>1;</c:tmp><br/></c:tmp><c:tmp>THREE - <c:tmp>4;</c:tmp><c:tmp>5;</c:tmp><c:tmp>6;</c:tmp><br/></c:tmp><c:tmp>TWO - <c:tmp>2;</c:tmp><c:tmp>3;</c:tmp><br/></c:tmp></body></html>", render_);
@@ -309,6 +317,7 @@ public class FormatHtmlTryCatchTest {
         Document doc_ = XmlParser.parseSaxHtml(html_, false, true);
         conf_.setHtml(html_);
         conf_.setDocument(doc_);
+        setup(conf_);
         //String render_ = FormatHtml.processHtml(doc_.getDocumentElement(), conf_, files_, bean_);
         String render_ = FormatHtml.processHtml(doc_, "bean_one", conf_, locale_, files_);
 //        assertXMLEqualNoPrefix("<html><body><c:tmp>ONE - <c:tmp>1;</c:tmp><br/></c:tmp><c:tmp>THREE - <c:tmp>4;</c:tmp><c:tmp>5;</c:tmp><c:tmp>6;</c:tmp><br/></c:tmp><c:tmp>TWO - <c:tmp>2;</c:tmp><c:tmp>3;</c:tmp><br/></c:tmp></body></html>", render_);
@@ -341,6 +350,7 @@ public class FormatHtmlTryCatchTest {
         Document doc_ = XmlParser.parseSaxHtml(html_, false, true);
         conf_.setHtml(html_);
         conf_.setDocument(doc_);
+        setup(conf_);
         //String render_ = FormatHtml.processHtml(doc_.getDocumentElement(), conf_, files_, bean_);
         String render_ = FormatHtml.processHtml(doc_, "bean_one", conf_, locale_, files_);
 //        assertXMLEqualNoPrefix("<html><body><c:tmp>ONE - <c:tmp>1;</c:tmp><br/></c:tmp><c:tmp>THREE - <c:tmp>4;</c:tmp><c:tmp>5;</c:tmp><c:tmp>6;</c:tmp><br/></c:tmp><c:tmp>TWO - <c:tmp>2;</c:tmp><c:tmp>3;</c:tmp><br/></c:tmp></body></html>", render_);
@@ -373,6 +383,7 @@ public class FormatHtmlTryCatchTest {
         Document doc_ = XmlParser.parseSaxHtml(html_, false, true);
         conf_.setHtml(html_);
         conf_.setDocument(doc_);
+        setup(conf_);
         //String render_ = FormatHtml.processHtml(doc_.getDocumentElement(), conf_, files_, bean_);
         String render_ = FormatHtml.processHtml(doc_, "bean_one", conf_, locale_, files_);
 //        assertXMLEqualNoPrefix("<html><body><c:tmp>ONE - <c:tmp>1;</c:tmp><br/></c:tmp><c:tmp>THREE - <c:tmp>4;</c:tmp><c:tmp>5;</c:tmp><c:tmp>6;</c:tmp><br/></c:tmp><c:tmp>TWO - <c:tmp>2;</c:tmp><c:tmp>3;</c:tmp><br/></c:tmp></body></html>", render_);
@@ -412,6 +423,7 @@ public class FormatHtmlTryCatchTest {
         conf_.getTranslators().put("trans", new MyTranslator());
         conf_.setHtml(html_);
         conf_.setDocument(XmlParser.parseSaxHtml(html_, false, true));
+        setup(conf_);
         String render_ = FormatHtml.processImports(html_, conf_, locale_, files_);
         assertXmlEqualRuntime("<html xmlns:c='javahtml' xmlns='javahtml'><body>RTE</body></html>", render_);
     }
@@ -448,6 +460,7 @@ public class FormatHtmlTryCatchTest {
         conf_.getTranslators().put("trans", new MyTranslator());
         conf_.setHtml(html_);
         conf_.setDocument(XmlParser.parseSaxHtml(html_, false, true));
+        setup(conf_);
         String render_ = FormatHtml.processImports(html_, conf_, locale_, files_);
         assertXmlEqualRuntime("<html xmlns:c='javahtml' xmlns='javahtml'><body>RTE</body></html>", render_);
     }
@@ -484,6 +497,7 @@ public class FormatHtmlTryCatchTest {
         conf_.getTranslators().put("trans", new MyTranslator());
         conf_.setHtml(html_);
         conf_.setDocument(XmlParser.parseSaxHtml(html_, false, true));
+        setup(conf_);
         String render_ = FormatHtml.processImports(html_, conf_, locale_, files_);
         assertXmlEqualRuntime("<html xmlns:c='javahtml' xmlns='javahtml'><body>Divide Zero</body></html>", render_);
     }
@@ -520,6 +534,7 @@ public class FormatHtmlTryCatchTest {
         conf_.getTranslators().put("trans", new MyTranslator());
         conf_.setHtml(html_);
         conf_.setDocument(XmlParser.parseSaxHtml(html_, false, true));
+        setup(conf_);
         String render_ = FormatHtml.processImports(html_, conf_, locale_, files_);
         assertXmlEqualRuntime("<html xmlns:c='javahtml' xmlns='javahtml'><body>NPE</body></html>", render_);
     }
@@ -556,6 +571,7 @@ public class FormatHtmlTryCatchTest {
         conf_.getTranslators().put("trans", new MyTranslator());
         conf_.setHtml(html_);
         conf_.setDocument(XmlParser.parseSaxHtml(html_, false, true));
+        setup(conf_);
         String render_ = FormatHtml.processImports(html_, conf_, locale_, files_);
         assertXmlEqualRuntime("<html xmlns:c='javahtml' xmlns='javahtml'><body>RTE</body></html>", render_);
     }
@@ -592,6 +608,7 @@ public class FormatHtmlTryCatchTest {
         conf_.getTranslators().put("trans", new MyTranslator());
         conf_.setHtml(html_);
         conf_.setDocument(XmlParser.parseSaxHtml(html_, false, true));
+        setup(conf_);
         String render_ = FormatHtml.processImports(html_, conf_, locale_, files_);
         assertXmlEqualRuntime("<html xmlns:c='javahtml' xmlns='javahtml'><body/></html>", render_);
     }
@@ -628,6 +645,7 @@ public class FormatHtmlTryCatchTest {
         conf_.getTranslators().put("trans", new MyTranslator());
         conf_.setHtml(html_);
         conf_.setDocument(XmlParser.parseSaxHtml(html_, false, true));
+        setup(conf_);
         String render_ = FormatHtml.processImports(html_, conf_, locale_, files_);
         assertXmlEqualRuntime("<html xmlns:c='javahtml' xmlns='javahtml'><body>java.lang.ClassCastException</body></html>", render_);
     }
@@ -657,6 +675,7 @@ public class FormatHtmlTryCatchTest {
         Document doc_ = XmlParser.parseSaxHtml(html_, false, true);
         conf_.setHtml(html_);
         conf_.setDocument(doc_);
+        setup(conf_);
         //String render_ = FormatHtml.processHtml(doc_.getDocumentElement(), conf_, files_, bean_);
         String render_ = FormatHtml.processHtml(doc_, "bean_one", conf_, locale_, files_);
 //        assertXMLEqualNoPrefix("<html><body><c:tmp>ONE - <c:tmp>1;</c:tmp><br/></c:tmp><c:tmp>THREE - <c:tmp>4;</c:tmp><c:tmp>5;</c:tmp><c:tmp>6;</c:tmp><br/></c:tmp><c:tmp>TWO - <c:tmp>2;</c:tmp><c:tmp>3;</c:tmp><br/></c:tmp></body></html>", render_);
@@ -690,6 +709,7 @@ public class FormatHtmlTryCatchTest {
         Document doc_ = XmlParser.parseSaxHtml(html_, false, true);
         conf_.setHtml(html_);
         conf_.setDocument(doc_);
+        setup(conf_);
         //String render_ = FormatHtml.processHtml(doc_.getDocumentElement(), conf_, files_, bean_);
         String render_ = FormatHtml.processHtml(doc_, "bean_one", conf_, locale_, files_);
 //        assertXMLEqualNoPrefix("<html><body><c:tmp>ONE - <c:tmp>1;</c:tmp><br/></c:tmp><c:tmp>THREE - <c:tmp>4;</c:tmp><c:tmp>5;</c:tmp><c:tmp>6;</c:tmp><br/></c:tmp><c:tmp>TWO - <c:tmp>2;</c:tmp><c:tmp>3;</c:tmp><br/></c:tmp></body></html>", render_);
@@ -723,6 +743,7 @@ public class FormatHtmlTryCatchTest {
         Document doc_ = XmlParser.parseSaxHtml(html_, false, true);
         conf_.setHtml(html_);
         conf_.setDocument(doc_);
+        setup(conf_);
         //String render_ = FormatHtml.processHtml(doc_.getDocumentElement(), conf_, files_, bean_);
         String render_ = FormatHtml.processHtml(doc_, "bean_one", conf_, locale_, files_);
 //        assertXMLEqualNoPrefix("<html><body><c:tmp>ONE - <c:tmp>1;</c:tmp><br/></c:tmp><c:tmp>THREE - <c:tmp>4;</c:tmp><c:tmp>5;</c:tmp><c:tmp>6;</c:tmp><br/></c:tmp><c:tmp>TWO - <c:tmp>2;</c:tmp><c:tmp>3;</c:tmp><br/></c:tmp></body></html>", render_);
@@ -756,6 +777,7 @@ public class FormatHtmlTryCatchTest {
         Document doc_ = XmlParser.parseSaxHtml(html_, false, true);
         conf_.setHtml(html_);
         conf_.setDocument(doc_);
+        setup(conf_);
         //String render_ = FormatHtml.processHtml(doc_.getDocumentElement(), conf_, files_, bean_);
         String render_ = FormatHtml.processHtml(doc_, "bean_one", conf_, locale_, files_);
 //        assertXMLEqualNoPrefix("<html><body><c:tmp>ONE - <c:tmp>1;</c:tmp><br/></c:tmp><c:tmp>THREE - <c:tmp>4;</c:tmp><c:tmp>5;</c:tmp><c:tmp>6;</c:tmp><br/></c:tmp><c:tmp>TWO - <c:tmp>2;</c:tmp><c:tmp>3;</c:tmp><br/></c:tmp></body></html>", render_);
@@ -788,6 +810,7 @@ public class FormatHtmlTryCatchTest {
         Document doc_ = XmlParser.parseSaxHtml(html_, false, true);
         conf_.setHtml(html_);
         conf_.setDocument(doc_);
+        setup(conf_);
         //String render_ = FormatHtml.processHtml(doc_.getDocumentElement(), conf_, files_, bean_);
         String render_ = FormatHtml.processHtml(doc_, "bean_one", conf_, locale_, files_);
 //        assertXMLEqualNoPrefix("<html><body><c:tmp>ONE - <c:tmp>1;</c:tmp><br/></c:tmp><c:tmp>THREE - <c:tmp>4;</c:tmp><c:tmp>5;</c:tmp><c:tmp>6;</c:tmp><br/></c:tmp><c:tmp>TWO - <c:tmp>2;</c:tmp><c:tmp>3;</c:tmp><br/></c:tmp></body></html>", render_);
@@ -820,6 +843,7 @@ public class FormatHtmlTryCatchTest {
         Document doc_ = XmlParser.parseSaxHtml(html_, false, true);
         conf_.setHtml(html_);
         conf_.setDocument(doc_);
+        setup(conf_);
         //String render_ = FormatHtml.processHtml(doc_.getDocumentElement(), conf_, files_, bean_);
         String render_ = FormatHtml.processHtml(doc_, "bean_one", conf_, locale_, files_);
 //        assertXMLEqualNoPrefix("<html><body><c:tmp>ONE - <c:tmp>1;</c:tmp><br/></c:tmp><c:tmp>THREE - <c:tmp>4;</c:tmp><c:tmp>5;</c:tmp><c:tmp>6;</c:tmp><br/></c:tmp><c:tmp>TWO - <c:tmp>2;</c:tmp><c:tmp>3;</c:tmp><br/></c:tmp></body></html>", render_);
@@ -852,6 +876,7 @@ public class FormatHtmlTryCatchTest {
         Document doc_ = XmlParser.parseSaxHtml(html_, false, true);
         conf_.setHtml(html_);
         conf_.setDocument(doc_);
+        setup(conf_);
         //String render_ = FormatHtml.processHtml(doc_.getDocumentElement(), conf_, files_, bean_);
         String render_ = FormatHtml.processHtml(doc_, "bean_one", conf_, locale_, files_);
 //        assertXMLEqualNoPrefix("<html><body><c:tmp>ONE - <c:tmp>1;</c:tmp><br/></c:tmp><c:tmp>THREE - <c:tmp>4;</c:tmp><c:tmp>5;</c:tmp><c:tmp>6;</c:tmp><br/></c:tmp><c:tmp>TWO - <c:tmp>2;</c:tmp><c:tmp>3;</c:tmp><br/></c:tmp></body></html>", render_);
@@ -884,6 +909,7 @@ public class FormatHtmlTryCatchTest {
         Document doc_ = XmlParser.parseSaxHtml(html_, false, true);
         conf_.setHtml(html_);
         conf_.setDocument(doc_);
+        setup(conf_);
         //String render_ = FormatHtml.processHtml(doc_.getDocumentElement(), conf_, files_, bean_);
         String render_ = FormatHtml.processHtml(doc_, "bean_one", conf_, locale_, files_);
         assertXmlEqualRuntime("<html xmlns:c='javahtml' xmlns='javahtml'><body>"+DIV_ZERO+"</body></html>", render_);
@@ -915,6 +941,7 @@ public class FormatHtmlTryCatchTest {
         Document doc_ = XmlParser.parseSaxHtml(html_, false, true);
         conf_.setHtml(html_);
         conf_.setDocument(doc_);
+        setup(conf_);
         //String render_ = FormatHtml.processHtml(doc_.getDocumentElement(), conf_, files_, bean_);
         String render_ = FormatHtml.processHtml(doc_, "bean_one", conf_, locale_, files_);
 //        assertXMLEqualNoPrefix("<html><body><c:tmp>ONE - <c:tmp>1;</c:tmp><br/></c:tmp><c:tmp>THREE - <c:tmp>4;</c:tmp><c:tmp>5;</c:tmp><c:tmp>6;</c:tmp><br/></c:tmp><c:tmp>TWO - <c:tmp>2;</c:tmp><c:tmp>3;</c:tmp><br/></c:tmp></body></html>", render_);
@@ -948,11 +975,16 @@ public class FormatHtmlTryCatchTest {
         Document doc_ = XmlParser.parseSaxHtml(html_, false, true);
         conf_.setHtml(html_);
         conf_.setDocument(doc_);
+        setup(conf_);
         //String render_ = FormatHtml.processHtml(doc_.getDocumentElement(), conf_, files_, bean_);
         String render_ = FormatHtml.processHtml(doc_, "bean_one", conf_, locale_, files_);
 //        assertXMLEqualNoPrefix("<html><body><c:tmp>ONE - <c:tmp>1;</c:tmp><br/></c:tmp><c:tmp>THREE - <c:tmp>4;</c:tmp><c:tmp>5;</c:tmp><c:tmp>6;</c:tmp><br/></c:tmp><c:tmp>TWO - <c:tmp>2;</c:tmp><c:tmp>3;</c:tmp><br/></c:tmp></body></html>", render_);
 //        assertXMLEqualRuntime("<html xmlns:c='javahtml' xmlns='javahtml'><body><c_tmp>ONE - <c_tmp>1;</c_tmp><br/></c_tmp><c_tmp>THREE - <c_tmp>4;</c_tmp><c_tmp>5;</c_tmp><c_tmp>6;</c_tmp><br/></c_tmp><c_tmp>TWO - <c_tmp>2;</c_tmp><c_tmp>3;</c_tmp><br/></c_tmp></body></html>", render_);
         assertXmlEqualRuntime("<html xmlns:c='javahtml' xmlns='javahtml'><body>RTE</body></html>", render_);
+    }
+
+    private static void setup(Configuration _conf) {
+        _conf.setupValiatorsTranslators("LOCALE");
     }
 
     //updateValue

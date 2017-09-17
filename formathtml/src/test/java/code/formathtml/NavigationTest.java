@@ -35,6 +35,7 @@ import code.formathtml.classes.MyValidator;
 import code.formathtml.classes.MyValidatorEnum;
 import code.formathtml.classes.MyValidatorEnums;
 import code.formathtml.classes.Rate;
+import code.formathtml.classes.SimpleDataBase;
 import code.formathtml.classes.SimpleMathFactory;
 import code.formathtml.classes.UnselectedRadio;
 import code.formathtml.exceptions.FormNotFoundException;
@@ -7387,7 +7388,7 @@ public class NavigationTest {
         html_ += "<c:select className='code.formathtml.classes.EnumNumbers' list='getCombobox()' multiple='' name='getComboNumbers()' varMethod='setComboNumbers' varValue='getComboNumbers()'/>";
         html_ += "<textarea c:className='java.lang.String' name='getTypedText()' c:varMethod='setTypedText'/>";
         html_ += "<c:select className='code.formathtml.classes.EnumNumber' map='getComboboxMap()' name='getComboNumberTwo()' varMethod='setComboNumberTwo' varValue='getComboNumberTwo()'/>";
-        html_ += "</form>";
+        html_ += "</form><br/>{getDataBase().getValue()}";
         html_ += "</body>";
         html_ += "</html>";
         StringMap<String> files_ = new StringMap<String>();
@@ -7408,10 +7409,12 @@ public class NavigationTest {
         conf_.setNavigation(new StringMap<StringMap<String>>());
         conf_.getNavigation().put("bean_seven.setup", new StringMap<String>());
         conf_.getNavigation().getVal("bean_seven.setup").put("change", "page1.html");
+        SimpleDataBase d_ = new SimpleDataBase();
         Navigation nav_ = new Navigation();
         nav_.setLanguage(locale_);
         nav_.setSession(conf_);
         nav_.setFiles(files_);
+        nav_.setDataBase(d_);
         nav_.initializeSession();
         String res_ = "";
         res_ += "<html xmlns='javahtml' xmlns:c='javahtml'>";
@@ -7482,7 +7485,7 @@ public class NavigationTest {
         res_ += "SIX";
         res_ += "</option>";
         res_ += "</select>";
-        res_ += "</form>";
+        res_ += "</form><br/>8";
         res_ += "</body>";
         res_ += "</html>";
         assertXmlEqualNoPrefix(res_, nav_.getHtmlText());
@@ -7607,7 +7610,7 @@ public class NavigationTest {
         res_ += "SIX";
         res_ += "</option>";
         res_ += "</select>";
-        res_ += "</form>";
+        res_ += "</form><br/>8";
         res_ += "</body>";
         res_ += "</html>";
         assertXmlEqualNoPrefix(res_, nav_.getHtmlText());

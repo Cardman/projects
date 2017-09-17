@@ -1461,6 +1461,7 @@ public class ExtractObjectTest {
     }
 
     private static void addImportingPage(Configuration _conf, boolean _rendering) {
+        _conf.setupValiatorsTranslators("LOCALE");
         _conf.addPage(new ImportingPage(_rendering));
     }
 

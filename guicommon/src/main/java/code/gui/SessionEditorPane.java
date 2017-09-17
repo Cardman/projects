@@ -89,19 +89,6 @@ public class SessionEditorPane extends EditorPane {
         nav.setResourcesFolder(_url);
     }
 
-//    public void clearSession() {
-//        nav.getSession().getBeans().clear();
-//        nav.getSession().getNavigation().clear();
-//        nav.getSession().getProperties().clear();
-//        nav.getSession().getTranslators().clear();
-//        nav.getTooltips().clear();
-//        System.gc();
-//    }
-
-    public void loadConfiguration(String _conf) {
-        nav.loadConfiguration(_conf);
-    }
-
     public void setLanguage(String _language) {
         nav.setLanguage(_language);
     }

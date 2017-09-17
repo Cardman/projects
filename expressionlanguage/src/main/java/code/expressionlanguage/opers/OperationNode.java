@@ -1146,6 +1146,9 @@ public abstract class OperationNode implements Operable {
             String _name, ClassArgumentMatching... _argsClass) {
         CustList<Method> possibleMethods_ = new CustList<Method>();
         for (Method m: _methods) {
+            if (m.isSynthetic()) {
+                continue;
+            }
             if (_static) {
                 if (!Modifier.isStatic(m.getModifiers())) {
                     continue;

@@ -34,12 +34,26 @@ public class BeanEight extends Bean {
 
     private CustList<EncapsFields> composites = new CustList<EncapsFields>();
 
+    private int value;
+
     public BeanEight() {
         for (EnumNumber e: EnumNumber.values()) {
             comboboxMap.put(e, e.name());
         }
         composites.add(new EncapsFields());
         composites.add(new EncapsFields());
+    }
+
+    @Override
+    public void beforeDisplaying() {
+        if (getDataBase() != null) {
+            getDataBase().setValue(8);
+        }
+    }
+
+    @Override
+    public SimpleDataBase getDataBase() {
+        return (SimpleDataBase) super.getDataBase();
     }
 
     public String setup() {
@@ -148,5 +162,9 @@ public class BeanEight extends Bean {
 
     public void setComposites(CustList<EncapsFields> _composites) {
         composites = _composites;
+    }
+
+    public int getValue() {
+        return value;
     }
 }

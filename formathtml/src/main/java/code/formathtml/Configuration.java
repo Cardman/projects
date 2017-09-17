@@ -6,15 +6,23 @@ import code.bean.translator.Translator;
 import code.bean.validator.Validator;
 import code.expressionlanguage.AccessValue;
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.ElUtil;
 import code.expressionlanguage.methods.Classes;
 import code.expressionlanguage.opers.util.Struct;
+import code.resources.ResourceFiles;
 import code.util.CustList;
+import code.util.EntryCust;
+import code.util.StringList;
 import code.util.StringMap;
 import code.util.annot.RwXml;
 import code.util.ints.MathFactory;
 
 @RwXml
 public class Configuration {
+    private static final String INSTANCE = "^new.";
+
+    private static final char BEGIN_ARGS = '(';
+    private static final char END_ARGS = ')';
 
     private static final String RETURN_LINE = "\n";
 
@@ -53,9 +61,9 @@ public class Configuration {
     private StringMap<String> lateValidators = new StringMap<String>();
     private StringMap<String> lateTranslators = new StringMap<String>();
 
-    private transient StringMap<Struct> builtBeans = new StringMap<Struct>();
-    private transient StringMap<Struct> builtValidators = new StringMap<Struct>();
-    private transient StringMap<Struct> builtTranslators = new StringMap<Struct>();
+    private final transient StringMap<Struct> builtBeans = new StringMap<Struct>();
+    private final transient StringMap<Struct> builtValidators = new StringMap<Struct>();
+    private final transient StringMap<Struct> builtTranslators = new StringMap<Struct>();
 
     private transient Classes classes;
 
@@ -85,9 +93,6 @@ public class Configuration {
     }
 
     public final void init() {
-        builtBeans = new StringMap<Struct>();
-        builtValidators = new StringMap<Struct>();
-        builtTranslators = new StringMap<Struct>();
         htmlPage = new HtmlPage();
         document = null;
         currentUrl = firstUrl;
@@ -101,6 +106,139 @@ public class Configuration {
         if (accessValue == null) {
             accessValue = new HtmlAccessValue();
         }
+        if (lateValidators == null) {
+            lateValidators = new StringMap<String>();
+        }
+        if (lateTranslators == null) {
+            lateTranslators = new StringMap<String>();
+        }
+    }
+
+    public final void setupClasses(StringMap<String> _files) {
+        String conf_ = getFilesConfName();
+        if (conf_ == null) {
+            setupValiatorsTranslators();
+            return;
+        }
+        if (context == null) {
+            setupValiatorsTranslators();
+            return;
+        }
+        StringList content_ = new StringList();
+        for (EntryCust<String, String> e: _files.entryList()) {
+            if (e.getKey().equalsIgnoreCase(conf_)) {
+                content_ = StringList.splitStrings(e.getValue(), RETURN_LINE);
+                break;
+            }
+        }
+        if (content_.isEmpty()) {
+            setupValiatorsTranslators();
+            return;
+        }
+        StringMap<String> classFiles_ = new StringMap<String>();
+        boolean allFound_ = true;
+        for (String f: content_) {
+            boolean found_ = false;
+            for (EntryCust<String, String> e: _files.entryList()) {
+                if (e.getKey().equalsIgnoreCase(f)) {
+                    classFiles_.put(f, e.getValue());
+                    found_ = true;
+                    break;
+                }
+            }
+            if (!found_) {
+                allFound_ = false;
+            }
+        }
+        if (!allFound_) {
+            classFiles_.clear();
+            for (String f: content_) {
+                String contentFile_ = ResourceFiles.ressourceFichier(f);
+                if (contentFile_.isEmpty()) {
+                    setupValiatorsTranslators();
+                    return;
+                }
+                classFiles_.put(f, contentFile_);
+            }
+        }
+        //!classFiles_.isEmpty()
+        StringList duplicates_;
+        duplicates_ = new StringList();
+        duplicates_.addAllElts(getLateValidators().getKeys());
+        duplicates_.addAllElts(getValidators().getKeys());
+        int len_ = duplicates_.size();
+        duplicates_.removeDuplicates();
+        if (len_ != duplicates_.size()) {
+            setupValiatorsTranslators();
+            return;
+        }
+        duplicates_.clear();
+        duplicates_.addAllElts(getLateTranslators().getKeys());
+        duplicates_.addAllElts(getTranslators().getKeys());
+        len_ = duplicates_.size();
+        duplicates_.removeDuplicates();
+        if (len_ != duplicates_.size()) {
+            setupValiatorsTranslators();
+            return;
+        }
+        Classes.validateAll(classFiles_, context);
+        for (EntryCust<String, String> e: getLateValidators().entryList()) {
+            Struct str_ = ElUtil.processEl(INSTANCE+e.getValue()+BEGIN_ARGS+END_ARGS, 0, context).getStruct();
+            getBuiltValidators().put(e.getKey(), str_);
+        }
+        for (EntryCust<String, String> e: getLateTranslators().entryList()) {
+            Struct str_ = ElUtil.processEl(INSTANCE+e.getValue()+BEGIN_ARGS+END_ARGS, 0, context).getStruct();
+            getBuiltTranslators().put(e.getKey(), str_);
+        }
+        setupValiatorsTranslators();
+    }
+    void setupValiatorsTranslators(String _language) {
+        for (EntryCust<String, Bean> e: getBeans().entryList()) {
+            Struct str_ = newBean(_language, null, e.getValue());
+            getBuiltBeans().put(e.getKey(), str_);
+        }
+        setupValiatorsTranslators();
+    }
+
+    void setupValiatorsTranslators() {
+        for (EntryCust<String, Validator> e: getValidators().entryList()) {
+            Struct str_ = new Struct(e.getValue());
+            getBuiltValidators().put(e.getKey(), str_);
+        }
+        for (EntryCust<String, Translator> e: getTranslators().entryList()) {
+            Struct str_ = new Struct(e.getValue());
+            getBuiltTranslators().put(e.getKey(), str_);
+        }
+    }
+
+    Struct newBean(String _language, Object _dataBase, Bean _bean) {
+        addPage(new ImportingPage(false));
+        Struct strBean_ = ElUtil.processEl(INSTANCE+_bean.getClassName()+BEGIN_ARGS+END_ARGS, 0, toContextEl()).getStruct();
+        if (_dataBase != null) {
+            ExtractObject.setDataBase(this, strBean_, Struct.wrapOrId(_dataBase));
+        } else {
+            ExtractObject.setDataBase(this, strBean_, new Struct());
+        }
+        ExtractObject.setForms(this, strBean_, new Struct(new StringMap<Object>()));
+        ExtractObject.setLanguage(this, strBean_, _language);
+        if (_bean.getScope() != null) {
+            ExtractObject.setScope(this, strBean_, _bean.getScope());
+        } else {
+            ExtractObject.setScope(this, strBean_, EMPTY_STRING);
+        }
+        removeLastPage();
+        return strBean_;
+    }
+
+    Struct newBean(String _language, Struct _bean) {
+        addPage(new ImportingPage(false));
+        Struct strBean_ = ElUtil.processEl(INSTANCE+_bean.getClassName()+BEGIN_ARGS+END_ARGS, 0, toContextEl()).getStruct();
+        ExtractObject.setDataBase(this, strBean_, ExtractObject.getDataBase(this, _bean));
+        ExtractObject.setForms(this, strBean_, ExtractObject.getForms(this, _bean));
+        ExtractObject.setLanguage(this, strBean_, _language);
+        ExtractObject.setScope(this, strBean_, ExtractObject.getScope(this, _bean));
+        removeLastPage();
+        return strBean_;
     }
 
     public final ContextEl toContextEl() {
@@ -284,11 +422,59 @@ public class Configuration {
         return namespaceUri;
     }
 
+    public void setNamespaceUri(String _namespaceUri) {
+        namespaceUri = _namespaceUri;
+    }
+
     public boolean isInterrupt() {
         return interrupt;
     }
 
     public void setInterrupt(boolean _interrupt) {
         interrupt = _interrupt;
+    }
+
+    public String getFilesConfName() {
+        return filesConfName;
+    }
+
+    public void setFilesConfName(String _filesConfName) {
+        filesConfName = _filesConfName;
+    }
+
+    public ContextEl getContext() {
+        return context;
+    }
+
+    public void setContext(ContextEl _context) {
+        context = _context;
+    }
+
+    public StringMap<String> getLateValidators() {
+        return lateValidators;
+    }
+
+    public void setLateValidators(StringMap<String> _lateValidators) {
+        lateValidators = _lateValidators;
+    }
+
+    public StringMap<String> getLateTranslators() {
+        return lateTranslators;
+    }
+
+    public void setLateTranslators(StringMap<String> _lateTranslators) {
+        lateTranslators = _lateTranslators;
+    }
+
+    public StringMap<Struct> getBuiltBeans() {
+        return builtBeans;
+    }
+
+    public StringMap<Struct> getBuiltValidators() {
+        return builtValidators;
+    }
+
+    public StringMap<Struct> getBuiltTranslators() {
+        return builtTranslators;
     }
 }

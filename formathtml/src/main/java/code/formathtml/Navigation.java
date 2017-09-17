@@ -238,12 +238,13 @@ public final class Navigation {
     }
 
     public void initializeSession() {
+        session.setupClasses(files);
         for (EntryCust<String, Bean> e: session.getBeans().entryList()) {
             Bean bean_ = newBean(e.getValue());
             bean_.setForms(new StringMap<Object>());
             bean_.setDataBase(dataBase);
-            bean_.setLanguage(language);
             e.setValue(bean_);
+            session.getBuiltBeans().put(e.getKey(), session.newBean(language, dataBase, e.getValue()));
         }
         String currentUrl_ = session.getFirstUrl();
         String text_ = ExtractFromResources.loadPage(session, files, currentUrl_, resourcesFolder);
@@ -257,6 +258,9 @@ public final class Navigation {
             throw new XmlParseException(ExtractFromResources.getRealFilePath(currentUrl_), text_);
         }
         htmlText = FormatHtml.processImports(text_, session, language, files, resourcesFolder);
+        if (htmlText == null) {
+            return;
+        }
         //For title
         currentBeanName = currentBeanName_;
         currentUrl = currentUrl_;

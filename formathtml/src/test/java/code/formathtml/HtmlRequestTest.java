@@ -45,6 +45,7 @@ public class HtmlRequestTest {
     public void setObject1Test() {
         Composite composite_ = new Composite();
         Configuration conf_ = new Configuration();
+        setup(conf_);
         conf_.addPage(new ImportingPage(true));
         NodeContainer nc_ = new NodeContainer("integer");
         nc_.setLastToken("integer");
@@ -62,6 +63,7 @@ public class HtmlRequestTest {
         BeanOne bean_ = new BeanOne();
         bean_.getComposite().setInteger(8);
         Configuration conf_ = new Configuration();
+        setup(conf_);
         conf_.addPage(new ImportingPage(true));
         conf_.getLastPage().setGlobalArgumentObj(bean_.getComposite());
         NodeContainer nc_ = new NodeContainer("integer");
@@ -91,6 +93,7 @@ public class HtmlRequestTest {
         BeanOne bean_ = new BeanOne();
         bean_.getComposite().setInteger(8);
         Configuration conf_ = new Configuration();
+        setup(conf_);
         conf_.addPage(new ImportingPage(true));
         NodeContainer nc_ = new NodeContainer("integer");
         nc_.setLastToken("integer");
@@ -113,6 +116,7 @@ public class HtmlRequestTest {
         BeanOne bean_ = new BeanOne();
         bean_.getComposite().setInteger(8);
         Configuration conf_ = new Configuration();
+        setup(conf_);
         conf_.addPage(new ImportingPage(true));
         conf_.getLastPage().setGlobalArgumentObj(bean_.getComposite());
         NodeContainer nc_ = new NodeContainer("composite");
@@ -141,6 +145,7 @@ public class HtmlRequestTest {
     public void setObject5Test() {
         BeanFour bean_ = new BeanFour();
         Configuration conf_ = new Configuration();
+        setup(conf_);
         conf_.addPage(new ImportingPage(true));
         conf_.getLastPage().setGlobalArgumentObj(bean_);
         NodeContainer nc_ = new NodeContainer("invisibleField");
@@ -159,6 +164,7 @@ public class HtmlRequestTest {
         BeanFour bean_ = new BeanFour();
         bean_.getComposite().setInteger(8);
         Configuration conf_ = new Configuration();
+        setup(conf_);
         conf_.addPage(new ImportingPage(true));
         NodeContainer nc_ = new NodeContainer("integer");
         nc_.setLastToken("integer");
@@ -175,6 +181,7 @@ public class HtmlRequestTest {
     public void setObject7Test() {
         BeanFour bean_ = new BeanFour();
         Configuration conf_ = new Configuration();
+        setup(conf_);
         conf_.addPage(new ImportingPage(true));
         conf_.getLastPage().setGlobalArgumentObj(bean_);
         NodeContainer nc_ = new NodeContainer("invisibleField");
@@ -191,6 +198,7 @@ public class HtmlRequestTest {
     public void setObject8Test() {
         BeanSeven bean_ = new BeanSeven();
         Configuration conf_ = new Configuration();
+        setup(conf_);
         conf_.addPage(new ImportingPage(true));
         NodeContainer nc_ = new NodeContainer("");
         nc_.setIndex(0);
@@ -208,6 +216,7 @@ public class HtmlRequestTest {
     public void setObject9Test() {
         BeanSeven bean_ = new BeanSeven();
         Configuration conf_ = new Configuration();
+        setup(conf_);
         conf_.addPage(new ImportingPage(true));
         NodeContainer nc_ = new NodeContainer("");
         nc_.setIndex(0);
@@ -227,6 +236,7 @@ public class HtmlRequestTest {
     public void setObject10Test() {
         BeanSeven bean_ = new BeanSeven();
         Configuration conf_ = new Configuration();
+        setup(conf_);
         conf_.addPage(new ImportingPage(true));
         NodeContainer nc_ = new NodeContainer("");
         nc_.setIndex(0);
@@ -247,6 +257,7 @@ public class HtmlRequestTest {
     public void setObject11Test() {
         BeanSeven bean_ = new BeanSeven();
         Configuration conf_ = new Configuration();
+        setup(conf_);
         conf_.addPage(new ImportingPage(true));
         NodeContainer nc_ = new NodeContainer("");
         nc_.setIndex(0);
@@ -268,6 +279,7 @@ public class HtmlRequestTest {
         BeanSeven bean_ = new BeanSeven();
         bean_.getComposite().setStrings(new StringList());
         Configuration conf_ = new Configuration();
+        setup(conf_);
         conf_.addPage(new ImportingPage(true));
         NodeContainer nc_ = new NodeContainer("");
         nc_.setIndex(0);
@@ -289,6 +301,7 @@ public class HtmlRequestTest {
     public void setObject13Test() {
         BeanSeven bean_ = new BeanSeven();
         Configuration conf_ = new Configuration();
+        setup(conf_);
         conf_.addPage(new ImportingPage(true));
         NodeContainer nc_ = new NodeContainer("");
         nc_.setIndex(0);
@@ -312,6 +325,7 @@ public class HtmlRequestTest {
     public void setObject14Test() {
         BeanSeven bean_ = new BeanSeven();
         Configuration conf_ = new Configuration();
+        setup(conf_);
         conf_.addPage(new ImportingPage(true));
         NodeContainer nc_ = new NodeContainer("");
         nc_.setIndex(0);
@@ -336,6 +350,7 @@ public class HtmlRequestTest {
     public void setObject15Test() {
         BeanSeven bean_ = new BeanSeven();
         Configuration conf_ = new Configuration();
+        setup(conf_);
         conf_.addPage(new ImportingPage(true));
         NodeContainer nc_ = new NodeContainer("");
         nc_.setIndex(0);
@@ -362,6 +377,7 @@ public class HtmlRequestTest {
         BeanOne bean_ = new BeanOne();
         bean_.getComposite().setInteger(8);
         Configuration conf_ = new Configuration();
+        setup(conf_);
         conf_.addPage(new ImportingPage(true));
         conf_.getLastPage().setGlobalArgumentObj(bean_);
         NodeContainer nc_ = new NodeContainer("composite");
@@ -382,6 +398,7 @@ public class HtmlRequestTest {
         BeanOne bean_ = new BeanOne();
         bean_.getComposite().setInteger(8);
         Configuration conf_ = new Configuration();
+        setup(conf_);
         conf_.addPage(new ImportingPage(true));
         conf_.getLastPage().setGlobalArgumentObj(bean_);
         NodeContainer nc_ = new NodeContainer("composite");
@@ -402,6 +419,7 @@ public class HtmlRequestTest {
         BeanOne bean_ = new BeanOne();
         bean_.getComposite().setInteger(8);
         Configuration conf_ = new Configuration();
+        setup(conf_);
         conf_.addPage(new ImportingPage(true));
         NodeContainer nc_ = new NodeContainer("integer");
         nc_.setTypedField(8);
@@ -418,6 +436,7 @@ public class HtmlRequestTest {
     public void setObject4FailTest() {
         Composite composite_ = new Composite();
         Configuration conf_ = new Configuration();
+        setup(conf_);
         conf_.addPage(new ImportingPage(true));
         conf_.getLastPage().setGlobalArgumentObj(composite_);
         NodeContainer nc_ = new NodeContainer("integer");
@@ -435,6 +454,7 @@ public class HtmlRequestTest {
         BeanFour bean_ = new BeanFour();
         bean_.setHello("world");
         Configuration conf_ = new Configuration();
+        setup(conf_);
         conf_.addPage(new ImportingPage(true));
         conf_.getLastPage().setGlobalArgumentObj(bean_);
         NodeContainer nc_ = new NodeContainer("hello");
@@ -453,6 +473,7 @@ public class HtmlRequestTest {
         BeanOne bean_ = new BeanOne();
         bean_.getComposite().setInteger(8);
         Configuration conf_ = new Configuration();
+        setup(conf_);
         conf_.addPage(new ImportingPage(true));
         conf_.getLastPage().setGlobalArgumentObj(bean_);
         String return_ = (String) HtmlRequest.invokeMethodWithNumbers(conf_, bean_, "invokeMethod", Argument.numberToArgument("7L"));
@@ -466,6 +487,7 @@ public class HtmlRequestTest {
         BeanOne bean_ = new BeanOne();
         bean_.getComposite().setInteger(8);
         Configuration conf_ = new Configuration();
+        setup(conf_);
         conf_.addPage(new ImportingPage(true));
         conf_.getLastPage().setGlobalArgumentObj(bean_);
         String return_ = (String) HtmlRequest.invokeMethodWithNumbers(conf_, bean_, "composite.internMethod");
@@ -477,6 +499,7 @@ public class HtmlRequestTest {
         BeanOne bean_ = new BeanOne();
         bean_.getComposite().setInteger(8);
         Configuration conf_ = new Configuration();
+        setup(conf_);
         conf_.addPage(new ImportingPage(true));
         conf_.getLastPage().setGlobalArgumentObj(bean_);
         HtmlRequest.invokeMethodWithNumbers(conf_, bean_, "invokeMethods", Argument.numberToArgument("7L"));
@@ -488,6 +511,7 @@ public class HtmlRequestTest {
         bean_.getComposite().setInteger(8);
         bean_.getComposite().setStrings(null);
         Configuration conf_ = new Configuration();
+        setup(conf_);
         conf_.addPage(new ImportingPage(true));
         conf_.getLastPage().setGlobalArgumentObj(bean_);
         HtmlRequest.invokeMethodWithNumbers(conf_, bean_, "invokeMethod", Argument.numberToArgument("7L"));
@@ -498,6 +522,7 @@ public class HtmlRequestTest {
         BeanOne bean_ = new BeanOne();
         bean_.getComposite().setInteger(8);
         Configuration conf_ = new Configuration();
+        setup(conf_);
         conf_.addPage(new ImportingPage(true));
         conf_.getLastPage().setGlobalArgumentObj(bean_);
         HtmlRequest.invokeMethodWithNumbers(conf_, bean_, "composite.privateMethod");
@@ -533,6 +558,7 @@ public class HtmlRequestTest {
         conf_.getProperties().put("msg_example", relative_);
         conf_.setTranslators(new StringMap<Translator>());
         conf_.getTranslators().put("trans", new MyTranslator());
+        setup(conf_);
         String render_ = HtmlRequest.formatErrorMessage(conf_, "msg_example,three", false, locale_, files_, "", "EX");
         assertEq("desc &lt;EX&gt;", render_);
     }
@@ -566,8 +592,13 @@ public class HtmlRequestTest {
         conf_.getProperties().put("msg_example", relative_);
         conf_.setTranslators(new StringMap<Translator>());
         conf_.getTranslators().put("trans", new MyTranslator());
+        setup(conf_);
         String render_ = HtmlRequest.formatErrorMessage(conf_, "sample/file,three", false, locale_, files_, "", "EX");
         assertEq("desc &lt;EX&gt;", render_);
+    }
+
+    private static void setup(Configuration _conf) {
+        _conf.setupValiatorsTranslators("LOCALE");
     }
 
 }
