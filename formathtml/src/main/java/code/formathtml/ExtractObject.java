@@ -71,7 +71,6 @@ final class ExtractObject {
     private static final char QUOTE = 39;
     private static final String NAME ="name";
     private static final String TO_STRING ="toString";
-    private static final String VALUE_OF ="toString";
     private static final String ITERATOR ="iterator";
     private static final String HAS_NEXT ="hasNext";
     private static final String NEXT ="next";

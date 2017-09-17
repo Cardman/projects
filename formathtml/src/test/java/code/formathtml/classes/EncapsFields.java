@@ -1,12 +1,10 @@
 package code.formathtml.classes;
 
-import code.bean.Bean;
 import code.util.CustList;
 import code.util.NatTreeMap;
 import code.util.StringList;
 
-@SuppressWarnings("static-method")
-public class BeanEight extends Bean {
+public class EncapsFields {
 
     private CustList<EnumNumber> combobox = new CustList<EnumNumber>(EnumNumber.values());
 
@@ -32,20 +30,6 @@ public class BeanEight extends Bean {
 
     private boolean checkBox;
 
-    private CustList<EncapsFields> composites = new CustList<EncapsFields>();
-
-    public BeanEight() {
-        for (EnumNumber e: EnumNumber.values()) {
-            comboboxMap.put(e, e.name());
-        }
-        composites.add(new EncapsFields());
-        composites.add(new EncapsFields());
-    }
-
-    public String setup() {
-        return "change";
-    }
-
     public CustList<EnumNumber> getCombobox() {
         return combobox;
     }
@@ -55,14 +39,14 @@ public class BeanEight extends Bean {
     }
 
     public NatTreeMap<EnumNumber, String> getComboboxMap() {
-      return comboboxMap;
-   }
+        return comboboxMap;
+    }
 
-   public void setComboboxMap(NatTreeMap<EnumNumber, String> _comboboxMap) {
-      comboboxMap = _comboboxMap;
-   }
+    public void setComboboxMap(NatTreeMap<EnumNumber, String> _comboboxMap) {
+        comboboxMap = _comboboxMap;
+    }
 
-   public EnumNumber getComboNumber() {
+    public EnumNumber getComboNumber() {
         return comboNumber;
     }
 
@@ -76,6 +60,14 @@ public class BeanEight extends Bean {
 
     public void setComboNumberTwo(EnumNumber _comboNumberTwo) {
         comboNumberTwo = _comboNumberTwo;
+    }
+
+    public EnumNumbers getComboNumbers() {
+        return comboNumbers;
+    }
+
+    public void setComboNumbers(EnumNumbers _comboNumbers) {
+        comboNumbers = _comboNumbers;
     }
 
     public EnumNumber getRadioNumber() {
@@ -132,21 +124,5 @@ public class BeanEight extends Bean {
 
     public void setCheckBox(boolean _checkBox) {
         checkBox = _checkBox;
-    }
-
-    public EnumNumbers getComboNumbers() {
-        return comboNumbers;
-    }
-
-    public void setComboNumbers(EnumNumbers _comboNumbers) {
-        comboNumbers = _comboNumbers;
-    }
-
-    public CustList<EncapsFields> getComposites() {
-        return composites;
-    }
-
-    public void setComposites(CustList<EncapsFields> _composites) {
-        composites = _composites;
     }
 }
