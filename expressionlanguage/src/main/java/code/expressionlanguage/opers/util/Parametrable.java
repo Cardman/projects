@@ -4,5 +4,7 @@ public interface Parametrable {
 
     ParametersGroup getParameters();
 
+    String getReturnType();
+
     Class<?> getDeclaringClass();
 }

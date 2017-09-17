@@ -17,6 +17,8 @@ public final class MethodInfo implements Parametrable {
 
     private String className;
 
+    private String returnType;
+
     @Override
     public String toString() {
         if (method == null) {
@@ -39,6 +41,15 @@ public final class MethodInfo implements Parametrable {
 
     public void setMethod(Method _method) {
         method = _method;
+    }
+
+    @Override
+    public String getReturnType() {
+        return returnType;
+    }
+
+    public void setReturnType(String _returnType) {
+        returnType = _returnType;
     }
 
     @Override

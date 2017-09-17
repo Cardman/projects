@@ -65,8 +65,6 @@ public class Configuration {
     private final transient StringMap<Struct> builtValidators = new StringMap<Struct>();
     private final transient StringMap<Struct> builtTranslators = new StringMap<Struct>();
 
-    private transient Classes classes;
-
     private transient HtmlPage htmlPage = new HtmlPage();
 
     private transient Document document;

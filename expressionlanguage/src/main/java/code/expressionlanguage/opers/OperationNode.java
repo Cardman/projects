@@ -616,7 +616,7 @@ public abstract class OperationNode implements Operable {
         for (Constructor<?> m: possibleConstructors_) {
             ParametersGroup p_ = new ParametersGroup();
             for (Class<?> c: m.getParameterTypes()) {
-                p_.add(new ClassMatching(c.getName()));
+                p_.add(new ClassMatching(PrimitiveTypeUtil.getAliasArrayClass(c)));
             }
             ConstructorInfo mloc_ = new ConstructorInfo();
             mloc_.setMethod(m);
@@ -1012,6 +1012,7 @@ public abstract class OperationNode implements Operable {
             mloc_.setClassName(_methods.getVal(m).getClassName());
             mloc_.setConstraints(m);
             mloc_.setParameters(p_);
+            mloc_.setReturnType(_methods.getVal(m).getReturnType());
             signatures_.add(mloc_);
         }
         _conf.setAmbigous(false);
@@ -1146,9 +1147,6 @@ public abstract class OperationNode implements Operable {
             String _name, ClassArgumentMatching... _argsClass) {
         CustList<Method> possibleMethods_ = new CustList<Method>();
         for (Method m: _methods) {
-            if (m.isSynthetic()) {
-                continue;
-            }
             if (_static) {
                 if (!Modifier.isStatic(m.getModifiers())) {
                     continue;
@@ -1189,11 +1187,12 @@ public abstract class OperationNode implements Operable {
         for (Method m: possibleMethods_) {
             ParametersGroup p_ = new ParametersGroup();
             for (Class<?> c: m.getParameterTypes()) {
-                p_.add(new ClassMatching(c.getName()));
+                p_.add(new ClassMatching(PrimitiveTypeUtil.getAliasArrayClass(c)));
             }
             MethodInfo mloc_ = new MethodInfo();
             mloc_.setMethod(m);
             mloc_.setParameters(p_);
+            mloc_.setReturnType(PrimitiveTypeUtil.getAliasArrayClass(m.getReturnType()));
             signatures_.add(mloc_);
         }
         _conf.setAmbigous(false);
@@ -1409,6 +1408,9 @@ public abstract class OperationNode implements Operable {
             _o1.getParameters().setError(true);
             _o2.getParameters().setError(true);
             return CustList.NO_SWAP_SORT;
+        }
+        if (PrimitiveTypeUtil.canBeUseAsArgument(_o1.getReturnType(), _o2.getReturnType(), _context.getClasses())) {
+            return CustList.SWAP_SORT;
         }
         return CustList.NO_SWAP_SORT;
     }

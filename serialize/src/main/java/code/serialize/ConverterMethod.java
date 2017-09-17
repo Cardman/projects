@@ -49,7 +49,7 @@ public final class ConverterMethod {
         try {
             return _method.newInstance(_args);
         } catch (IllegalAccessException _0) {
-            return new BadAccessException(_0, _method.toString());
+            throw new BadAccessException(_0, _method.toString());
         } catch (InvocationTargetException _0) {
             throw new InvokingException(_0, _0.getTargetException());
         } catch (InstantiationException _0) {
@@ -84,7 +84,7 @@ public final class ConverterMethod {
         try {
             return _method.invoke(_instance, _args);
         } catch (IllegalAccessException _0) {
-            return new BadAccessException(_0, _method.toString());
+            throw new BadAccessException(_0, _method.toString());
         } catch (InvocationTargetException _0) {
             throw new InvokingException(_0, _0.getTargetException());
         }

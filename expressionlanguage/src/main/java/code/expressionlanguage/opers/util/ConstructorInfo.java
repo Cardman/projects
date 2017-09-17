@@ -1,6 +1,8 @@
 package code.expressionlanguage.opers.util;
 import java.lang.reflect.Constructor;
 
+import code.expressionlanguage.PrimitiveTypeUtil;
+
 public final class ConstructorInfo implements Parametrable {
 
     private static final String RIGHT_PAR = ")";
@@ -62,5 +64,13 @@ public final class ConstructorInfo implements Parametrable {
             return null;
         }
         return constructor.getDeclaringClass();
+    }
+
+    @Override
+    public String getReturnType() {
+        if (constructor != null) {
+            return PrimitiveTypeUtil.getAliasArrayClass(constructor.getDeclaringClass());
+        }
+        return constraints.getName();
     }
 }
