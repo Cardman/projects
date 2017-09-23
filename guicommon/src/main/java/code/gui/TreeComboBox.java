@@ -20,11 +20,6 @@ public abstract class TreeComboBox<T> extends JComboBox {
     public TreeComboBox(){
     }
 
-    public TreeComboBox(T... _elements){
-        for (T e: _elements) {
-            addItem(e);
-        }
-    }
     public TreeComboBox(TreeMap<T,String> _tr){
         elements = _tr;    }
 

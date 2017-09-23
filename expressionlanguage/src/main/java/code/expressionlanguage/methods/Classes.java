@@ -1292,13 +1292,6 @@ public final class Classes {
                     continue;
                 }
                 MethodBlock method_ = (MethodBlock) b;
-                StringList p_ = method_.getParametersTypes();
-                int len_ = p_.size();
-                EqList<ClassName> pTypes_ = new EqList<ClassName>();
-                for (int i = CustList.FIRST_INDEX; i < len_; i++) {
-                    String n_ = p_.get(i);
-                    pTypes_.add(new ClassName(n_, i + 1 == len_ && method_.isVarargs()));
-                }
                 if (method_.getConstraints(this).eq(_methodId)) {
                     return method_;
                 }
@@ -1317,17 +1310,7 @@ public final class Classes {
                     continue;
                 }
                 ConstructorBlock method_ = (ConstructorBlock) b;
-                String m_ = _className;
-                StringList p_ = method_.getParametersTypes();
-                int len_ = p_.size();
-                EqList<ClassName> pTypes_ = new EqList<ClassName>();
-                EqList<StringList> constraints_ = new EqList<StringList>();
-                for (int i = CustList.FIRST_INDEX; i < len_; i++) {
-                    String n_ = p_.get(i);
-                    pTypes_.add(new ClassName(n_, i + 1 == len_ && method_.isVarargs()));
-                    constraints_.add(new StringList(n_));
-                }
-                if (new FctConstraints(m_, constraints_).eq(_methodId)) {
+                if (method_.getConstraints(this).eq(_methodId)) {
                     return method_;
                 }
             }
@@ -1432,34 +1415,14 @@ public final class Classes {
                 }
                 if (b instanceof MethodBlock) {
                     MethodBlock method_ = (MethodBlock) b;
-                    String m_ = method_.getName();
-                    StringList p_ = method_.getParametersTypes();
-                    int len_ = p_.size();
-                    EqList<ClassName> pTypes_ = new EqList<ClassName>();
-                    EqList<StringList> constraints_ = new EqList<StringList>();
-                    for (int i = CustList.FIRST_INDEX; i < len_; i++) {
-                        String n_ = p_.get(i);
-                        pTypes_.add(new ClassName(n_, i + 1 == len_ && method_.isVarargs()));
-                        constraints_.add(new StringList(n_));
-                    }
-                    FctConstraints id_ = new FctConstraints(m_, constraints_);
+                    FctConstraints id_ = method_.getConstraints(this);
                     String ret_ = method_.getReturnType();
                     MethodMetaInfo met_ = new MethodMetaInfo(method_.getDeclaringType(), method_.getModifier(), ret_);
                     infos_.put(id_, met_);
                 }
                 if (b instanceof ConstructorBlock) {
                     ConstructorBlock method_ = (ConstructorBlock) b;
-                    String m_ = k_;
-                    StringList p_ = method_.getParametersTypes();
-                    int len_ = p_.size();
-                    EqList<ClassName> pTypes_ = new EqList<ClassName>();
-                    EqList<StringList> constraints_ = new EqList<StringList>();
-                    for (int i = CustList.FIRST_INDEX; i < len_; i++) {
-                        String n_ = p_.get(i);
-                        pTypes_.add(new ClassName(n_, i + 1 == len_ && method_.isVarargs()));
-                        constraints_.add(new StringList(n_));
-                    }
-                    FctConstraints id_ = new FctConstraints(m_, constraints_);
+                    FctConstraints id_ = method_.getConstraints(this);
                     String ret_ = OperationNode.VOID_RETURN;
                     ConstructorMetaInfo met_ = new ConstructorMetaInfo(ret_);
                     infosConst_.put(id_, met_);

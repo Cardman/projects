@@ -26,11 +26,6 @@ public abstract class ComboBox<T extends Enum<T>> extends JComboBox {
     public ComboBox(){
     }
 
-    public ComboBox(T... _elements){
-        for (T e: _elements) {
-            addItem(e);
-        }
-    }
     public ComboBox(TreeMap<T,String> _tr){
         elements = _tr;    }
 

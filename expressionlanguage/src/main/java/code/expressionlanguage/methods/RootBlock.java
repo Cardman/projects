@@ -218,17 +218,15 @@ public abstract class RootBlock extends BracedBlock implements AccessibleBlock {
                 }
                 StringList types_ = method_.getParametersTypes();
                 int len_ = types_.size();
-                EqList<StringList> constraints_ = new EqList<StringList>();
                 EqList<ClassName> pTypes_ = new EqList<ClassName>();
                 for (int i = CustList.FIRST_INDEX; i < len_; i++) {
                     String n_ = types_.get(i);
-                    constraints_.add(new StringList(n_));
                     pTypes_.add(new ClassName(n_, i + 1 == len_ && method_.isVarargs()));
                 }
                 if (name_.isEmpty()) {
                     name_ = className_;
                 }
-                FctConstraints fct_ = new FctConstraints(name_, constraints_);
+                FctConstraints fct_ = method_.getConstraints(_context.getClasses());
                 MethodId id_ = new MethodId(name_, pTypes_);
                 for (FctConstraints m: ids_) {
                     if (m.eq(fct_)) {

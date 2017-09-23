@@ -59,13 +59,6 @@ public final class MethodBlock extends NamedFunctionBlock {
         return tr_;
     }
 
-    public boolean isOverriding(MethodBlock _other) {
-        if (!getId().eq(_other.getId())) {
-            return false;
-        }
-        return allOverridenClasses.containsStr(_other.declaringType);
-    }
-
     public String getDeclaringType() {
         return declaringType;
     }
