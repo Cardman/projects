@@ -5,9 +5,9 @@ import code.util.NatTreeMap;
 
 public final class AndOperation extends QuickOperation {
 
-    public AndOperation(String _el, int _index, ContextEl _importingPage,
+    public AndOperation(int _index, ContextEl _importingPage,
             int _indexChild, MethodOperation _m, OperationsSequence _op) {
-        super(_el, _index, _importingPage, _indexChild, _m, _op);
+        super(_index, _importingPage, _indexChild, _m, _op);
     }
 
     @Override

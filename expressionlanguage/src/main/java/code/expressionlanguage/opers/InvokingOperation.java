@@ -13,10 +13,10 @@ import code.util.consts.ConstClasses;
 
 public abstract class InvokingOperation extends MethodOperation {
 
-    public InvokingOperation(String _el, int _index,
+    public InvokingOperation(int _index,
             ContextEl _importingPage, int _indexChild, MethodOperation _m,
             OperationsSequence _op) {
-        super(_el, _index, _importingPage, _indexChild, _m, _op);
+        super(_index, _importingPage, _indexChild, _m, _op);
     }
 
     static CustList<ClassArgumentMatching> listClasses(CustList<OperationNode> _children) {

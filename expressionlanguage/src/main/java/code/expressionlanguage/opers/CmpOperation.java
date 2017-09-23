@@ -18,9 +18,9 @@ public final class CmpOperation extends PrimitiveBoolOperation {
 
     private static final int EQ_CMP = 0;
 
-    public CmpOperation(String _el, int _index, ContextEl _importingPage,
+    public CmpOperation(int _index, ContextEl _importingPage,
             int _indexChild, MethodOperation _m, OperationsSequence _op) {
-        super(_el, _index, _importingPage, _indexChild, _m, _op);
+        super(_index, _importingPage, _indexChild, _m, _op);
     }
 
     static Argument calculateLower(Argument _a, Argument _b) {

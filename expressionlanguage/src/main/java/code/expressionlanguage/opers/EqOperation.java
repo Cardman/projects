@@ -13,9 +13,9 @@ import code.util.StringList;
 
 public final class EqOperation extends PrimitiveBoolOperation {
 
-    public EqOperation(String _el, int _index, ContextEl _importingPage,
+    public EqOperation(int _index, ContextEl _importingPage,
             int _indexChild, MethodOperation _m, OperationsSequence _op) {
-        super(_el, _index, _importingPage, _indexChild, _m, _op);
+        super(_index, _importingPage, _indexChild, _m, _op);
     }
 
     static Argument calculateEq(Argument _a, Argument _b) {

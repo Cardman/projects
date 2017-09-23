@@ -121,6 +121,8 @@ public abstract class OperationNode implements Operable {
     protected static final String CURRENT_INTANCE = "^this";
     protected static final String STATIC_CALL = "^^";
     protected static final String CLASS_CHOICE = "classchoice";
+    protected static final String VAR_ARG = "vararg";
+    protected static final String FIRST_OPT = "firstopt";
 
     protected static final String CLASS_CHOICE_PREF = EXTERN_CLASS + CLASS_CHOICE + EXTERN_CLASS;
 
@@ -200,13 +202,11 @@ public abstract class OperationNode implements Operable {
     private boolean needGlobalArgument;
     private boolean staticAccess;
 
-    OperationNode(String _el, int _indexInEl, ContextEl _importingPage, int _indexChild, MethodOperation _m, OperationsSequence _op) {
+    OperationNode(int _indexInEl, ContextEl _importingPage, int _indexChild, MethodOperation _m, OperationsSequence _op) {
         parent = _m;
         indexInEl = _indexInEl;
         operations = _op;
         conf = _importingPage;
-        vararg = _el.trim().startsWith(String.valueOf(FIRST_VAR_ARG));
-        firstOptArg = _op.isFirstOpt();
         indexChild = _indexChild;
     }
 
@@ -231,51 +231,50 @@ public abstract class OperationNode implements Operable {
         _cont.getLastPage().addToOffset(_offset);
     }
 
-    public static OperationNode createOperationNode(String _el, int _index, ContextEl _conf,
+    public static OperationNode createOperationNode(int _index, ContextEl _conf,
             int _indexChild, MethodOperation _m, OperationsSequence _op) {
-        String value_ = _el;
         if (_op.getOperators().isEmpty()) {
-            return new ConstantOperation(value_, _index, _conf, _indexChild, _m, _op);
+            return new ConstantOperation(_index, _conf, _indexChild, _m, _op);
         }
         if (_op.getPriority() == ElResolver.FCT_OPER_PRIO) {
             if (_op.getFctName().trim().isEmpty()) {
-                return new IdOperation(value_, _index, _conf, _indexChild, _m, _op);
+                return new IdOperation(_index, _conf, _indexChild, _m, _op);
             }
             if (_op.getFctName().trim().startsWith(EXTERN_CLASS+INSTANCE+DOT_VAR)) {
-                return new InstanceOperation(value_, _index, _conf, _indexChild, _m, _op);
+                return new InstanceOperation(_index, _conf, _indexChild, _m, _op);
             }
-            return new FctOperation(value_, _index, _conf, _indexChild, _m, _op);
+            return new FctOperation(_index, _conf, _indexChild, _m, _op);
         }
         if (_op.getPriority() == ElResolver.ARR_OPER_PRIO) {
-            return new ArrOperation(value_, _index, _conf, _indexChild, _m, _op);
+            return new ArrOperation(_index, _conf, _indexChild, _m, _op);
         }
         if (_op.getPriority() == ElResolver.DOT_PRIO) {
-            return new DotOperation(value_, _index, _conf, _indexChild, _m, _op);
+            return new DotOperation(_index, _conf, _indexChild, _m, _op);
         }
         if (_op.getPriority() == ElResolver.UNARY_PRIO) {
             int key_ = _op.getOperators().firstKey();
             if (StringList.quickEq(_op.getOperators().getVal(key_).trim(), NEG_BOOL)) {
-                return new UnaryBooleanOperation(value_, _index, _conf, _indexChild, _m, _op);
+                return new UnaryBooleanOperation(_index, _conf, _indexChild, _m, _op);
             }
-            return new UnaryOperation(value_, _index, _conf, _indexChild, _m, _op);
+            return new UnaryOperation(_index, _conf, _indexChild, _m, _op);
         }
         if (_op.getPriority() == ElResolver.MULT_PRIO) {
-            return new MultOperation(value_, _index, _conf, _indexChild, _m, _op);
+            return new MultOperation(_index, _conf, _indexChild, _m, _op);
         }
         if (_op.getPriority() == ElResolver.ADD_PRIO) {
-            return new AddOperation(value_, _index, _conf, _indexChild, _m, _op);
+            return new AddOperation(_index, _conf, _indexChild, _m, _op);
         }
         if (_op.getPriority() == ElResolver.CMP_PRIO) {
-            return new CmpOperation(value_, _index, _conf, _indexChild, _m, _op);
+            return new CmpOperation(_index, _conf, _indexChild, _m, _op);
         }
         if (_op.getPriority() == ElResolver.EQ_PRIO) {
-            return new EqOperation(value_, _index, _conf, _indexChild, _m, _op);
+            return new EqOperation(_index, _conf, _indexChild, _m, _op);
         }
         if (_op.getPriority() == ElResolver.AND_PRIO) {
-            return new AndOperation(value_, _index, _conf, _indexChild, _m, _op);
+            return new AndOperation(_index, _conf, _indexChild, _m, _op);
         }
         if (_op.getPriority() == ElResolver.OR_PRIO) {
-            return new OrOperation(value_, _index, _conf, _indexChild, _m, _op);
+            return new OrOperation(_index, _conf, _indexChild, _m, _op);
         }
         return null;
     }
@@ -371,7 +370,7 @@ public abstract class OperationNode implements Operable {
         int curKey_ = children_.getKey(indexChild + 1);
         d_.setChildOffest(curKey_);
         OperationsSequence r_ = ElResolver.getOperationsSequence(p_.getIndexInEl(), value_, conf, d_);
-        nextSibling = createOperationNode(value_, p_.getIndexInEl()+curKey_, conf, indexChild + 1, p_, r_);
+        nextSibling = createOperationNode(p_.getIndexInEl()+curKey_, conf, indexChild + 1, p_, r_);
         nextSibling.previousSibling = this;
         return nextSibling;
     }
@@ -1611,8 +1610,16 @@ public abstract class OperationNode implements Operable {
         return vararg;
     }
 
+    final void setVararg(boolean _vararg) {
+        vararg = _vararg;
+    }
+
     public final boolean isFirstOptArg() {
         return firstOptArg;
+    }
+
+    final void setFirstOptArg(boolean _firstOptArg) {
+        firstOptArg = _firstOptArg;
     }
 
     public final int getFullIndexInEl() {

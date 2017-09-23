@@ -23,6 +23,7 @@ import code.expressionlanguage.exceptions.NotStringException;
 import code.expressionlanguage.exceptions.NullGlobalObjectException;
 import code.expressionlanguage.exceptions.StaticAccessException;
 import code.expressionlanguage.exceptions.UnwrappingException;
+import code.expressionlanguage.exceptions.VarargException;
 import code.expressionlanguage.exceptions.VoidArgumentException;
 import code.expressionlanguage.methods.Classes;
 import code.expressionlanguage.methods.ConstructorBlock;
@@ -78,9 +79,9 @@ public final class FctOperation extends InvokingOperation {
     private boolean interfaceChoice;
     private boolean superAccessMethod;
 
-    public FctOperation(String _el, int _index, ContextEl _importingPage,
+    public FctOperation(int _index, ContextEl _importingPage,
             int _indexChild, MethodOperation _m, OperationsSequence _op) {
-        super(_el, _index, _importingPage, _indexChild, _m, _op);
+        super(_index, _importingPage, _indexChild, _m, _op);
         methodName = getOperations().getFctName();
     }
 
@@ -96,6 +97,58 @@ public final class FctOperation extends InvokingOperation {
         int off_ = StringList.getFirstPrintableCharIndex(methodName);
         setRelativeOffsetPossibleLastPage(getIndexInEl()+off_, _conf);
         String trimMeth_ = methodName.trim();
+        if (StringList.quickEq(trimMeth_, EXTERN_CLASS+VAR_ARG)) {
+            setVararg(true);
+            if (!(getParent() instanceof InvokingOperation)) {
+                throw new VarargException(trimMeth_+RETURN_LINE+_conf.joinPages());
+            }
+            InvokingOperation parent_ = (InvokingOperation) getParent();
+            if (!parent_.isCallMethodCtor()) {
+                throw new VarargException(trimMeth_+RETURN_LINE+_conf.joinPages());
+            }
+            if (!isFirstChild()) {
+                throw new VarargException(trimMeth_+RETURN_LINE+_conf.joinPages());
+            }
+            if (chidren_.size() != CustList.ONE_ELEMENT) {
+                throw new VarargException(trimMeth_+RETURN_LINE+_conf.joinPages());
+            }
+            if (!chidren_.first().getResultClass().matchClass(String.class)) {
+                setRelativeOffsetPossibleLastPage(chidren_.first().getIndexInEl()+1, _conf);
+                throw new NotStringException(chidren_.first().getResultClass()+RETURN_LINE+_conf.joinPages());
+            }
+            if (chidren_.first().getArgument() == null) {
+                setRelativeOffsetPossibleLastPage(chidren_.first().getIndexInEl()+1, _conf);
+                throw new NullObjectException(_conf.joinPages());
+            }
+            String str_ = (String) chidren_.first().getArgument().getObject();
+            if (str_ == null) {
+                setRelativeOffsetPossibleLastPage(chidren_.first().getIndexInEl()+1, _conf);
+                throw new NullObjectException(_conf.joinPages());
+            }
+            str_ = StringList.removeAllSpaces(str_);
+            checkExist(_conf, str_, true, true, chidren_.first().getIndexInEl()+1);
+            setResultClass(new ClassArgumentMatching(str_));
+            setSimpleArgument(new Argument());
+            return;
+        }
+        if (StringList.quickEq(trimMeth_, EXTERN_CLASS+FIRST_OPT)) {
+            setFirstOptArg(true);
+            if (!(getParent() instanceof InvokingOperation)) {
+                throw new VarargException(trimMeth_+RETURN_LINE+_conf.joinPages());
+            }
+            InvokingOperation parent_ = (InvokingOperation) getParent();
+            if (!parent_.isCallMethodCtor()) {
+                throw new VarargException(trimMeth_+RETURN_LINE+_conf.joinPages());
+            }
+            if (isFirstChild()) {
+                throw new VarargException(trimMeth_+RETURN_LINE+_conf.joinPages());
+            }
+            if (chidren_.size() != CustList.ONE_ELEMENT) {
+                throw new VarargException(trimMeth_+RETURN_LINE+_conf.joinPages());
+            }
+            setResultClass(chidren_.first().getResultClass());
+            return;
+        }
         if (StringList.quickEq(trimMeth_, EXTERN_CLASS+CURRENT)) {
             //validate calling of constructors of the current class
             String clCurName_ = _conf.getLastPage().getGlobalClass();
@@ -399,6 +452,9 @@ public final class FctOperation extends InvokingOperation {
         int off_ = StringList.getFirstPrintableCharIndex(methodName);
         setRelativeOffsetPossibleLastPage(getIndexInEl()+off_, _conf);
         String trimMeth_ = methodName.trim();
+        if (StringList.quickEq(trimMeth_, EXTERN_CLASS+FIRST_OPT)) {
+            return _arguments.first();
+        }
         if (constId != null) {
             if (StringList.quickEq(trimMeth_,EXTERN_CLASS+CURRENT)) {
                 String clCurName_ = _conf.getLastPage().getGlobalClass();
@@ -643,6 +699,9 @@ public final class FctOperation extends InvokingOperation {
     @Override
     boolean isCallMethodCtor() {
         String trimMeth_ = methodName.trim();
+        if (StringList.quickEq(trimMeth_, EXTERN_CLASS+VAR_ARG)) {
+            return false;
+        }
         if (StringList.quickEq(trimMeth_, EXTERN_CLASS+INSTANCEOF)) {
             return false;
         }

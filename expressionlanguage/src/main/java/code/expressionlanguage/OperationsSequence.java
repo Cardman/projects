@@ -1,6 +1,5 @@
 package code.expressionlanguage;
 import code.util.CustList;
-import code.util.EntryCust;
 import code.util.NatTreeMap;
 
 public final class OperationsSequence {
@@ -17,30 +16,11 @@ public final class OperationsSequence {
 
     private Delimiters delimiter;
 
-    private boolean firstOpt;
-
-    public void setupValues(String _string, boolean _unary, char _varag) {
+    public void setupValues(String _string) {
         values = new NatTreeMap<Integer,String>();
         if (operators.isEmpty()) {
-            if (firstOpt) {
-                int i_ = _string.length() - 1;
-                while (i_ >= 0) {
-                    if (_string.charAt(i_) == _varag) {
-                        break;
-                    }
-                    i_--;
-                }
-                values.put(CustList.FIRST_INDEX, _string.substring(0, i_));
-                return;
-            }
             values.put(CustList.FIRST_INDEX, _string);
             return;
-        }
-        if (_unary) {
-            int firstKey_ = operators.firstKey();
-            String value_ = operators.getVal(firstKey_);
-            operators.clear();
-            operators.put(firstKey_, value_);
         }
         int beginValuePart_ = CustList.FIRST_INDEX;
         int endValuePart_ = operators.firstKey();
@@ -66,24 +46,6 @@ public final class OperationsSequence {
         str_ = _string.substring(beginValuePart_);
         if (!str_.trim().isEmpty()) {
             values.put(beginValuePart_, str_);
-        }
-        if (firstOpt) {
-            EntryCust<Integer, String> e_ = values.lastEntry();
-            String lastValue_ = e_.getValue();
-            int ilast_ = lastValue_.length() - 1;
-            while (ilast_ >= 0) {
-                if (lastValue_.charAt(ilast_) == _varag) {
-                    break;
-                }
-                ilast_--;
-            }
-            String extracted_ = lastValue_.substring(0, ilast_);
-            if (!extracted_.trim().isEmpty()) {
-                e_.setValue(extracted_);
-            } else {
-                values.removeKey(e_.getKey());
-            }
-            return;
         }
     }
 
@@ -144,14 +106,6 @@ public final class OperationsSequence {
 
     public void setDelimiter(Delimiters _delimiter) {
         delimiter = _delimiter;
-    }
-
-    public boolean isFirstOpt() {
-        return firstOpt;
-    }
-
-    public void setFirstOpt(boolean _firstOpt) {
-        firstOpt = _firstOpt;
     }
 
 }

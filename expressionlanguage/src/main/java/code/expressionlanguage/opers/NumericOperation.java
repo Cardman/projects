@@ -23,9 +23,9 @@ public abstract class NumericOperation extends MethodOperation {
     private static final String FIRST = "first";
     private static final String SECOND = "second";
 
-    public NumericOperation(String _el, int _index, ContextEl _importingPage,
+    public NumericOperation(int _index, ContextEl _importingPage,
             int _indexChild, MethodOperation _m, OperationsSequence _op) {
-        super(_el, _index, _importingPage, _indexChild, _m, _op);
+        super(_index, _importingPage, _indexChild, _m, _op);
     }
 
     static Argument calculateAffect(Argument _left,ContextEl _conf, Argument _right, String _op) {

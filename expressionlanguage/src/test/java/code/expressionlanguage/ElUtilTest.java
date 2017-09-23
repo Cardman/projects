@@ -37,10 +37,12 @@ import code.expressionlanguage.exceptions.FinalMemberException;
 import code.expressionlanguage.exceptions.IllegalClassConstructorException;
 import code.expressionlanguage.exceptions.InvokeException;
 import code.expressionlanguage.exceptions.NegativeSizeException;
+import code.expressionlanguage.exceptions.NotStringException;
 import code.expressionlanguage.exceptions.NullGlobalObjectException;
 import code.expressionlanguage.exceptions.SettingMemberException;
 import code.expressionlanguage.exceptions.StaticAccessException;
 import code.expressionlanguage.exceptions.UnwrappingException;
+import code.expressionlanguage.exceptions.VarargException;
 import code.expressionlanguage.methods.Classes;
 import code.expressionlanguage.opers.util.ClassField;
 import code.expressionlanguage.opers.util.Struct;
@@ -93,7 +95,7 @@ public class ElUtilTest {
         ContextEl context_ = new ContextEl();
         setupAccessValue(context_);
         addImportingPage(context_);
-        Argument arg_ = ElUtil.processEl("static^java^lang^Long.MAX_VALUE",0, context_);
+        Argument arg_ = ElUtil.processEl("^static^java^lang^Long.MAX_VALUE",0, context_);
         Object res_ = arg_.getObject();
         assertSame(Long.class, res_.getClass());
         assertEq(Long.MAX_VALUE, (Number)res_);
@@ -150,7 +152,7 @@ public class ElUtilTest {
         ContextEl context_ = new ContextEl();
         setupAccessValue(context_);
         addImportingPage(context_);
-        Argument arg_ = ElUtil.processEl("static^java^lang^Math.abs(-8l)",0, context_);
+        Argument arg_ = ElUtil.processEl("^static^java^lang^Math.abs(-8l)",0, context_);
         Object res_ = arg_.getObject();
         assertSame(Long.class, res_.getClass());
         assertEq(8L, (Number)res_);
@@ -161,7 +163,7 @@ public class ElUtilTest {
         ContextEl context_ = new ContextEl();
         setupAccessValue(context_);
         addImportingPage(context_);
-        Argument arg_ = ElUtil.processEl("static^java^lang^Math.abs(8l)",0, context_);
+        Argument arg_ = ElUtil.processEl("^static^java^lang^Math.abs(8l)",0, context_);
         Object res_ = arg_.getObject();
         assertSame(Long.class, res_.getClass());
         assertEq(8L, (Number)res_);
@@ -435,7 +437,7 @@ public class ElUtilTest {
         ContextEl context_ = new ContextEl();
         setupAccessValue(context_);
         addImportingPage(context_);
-        Argument arg_ = ElUtil.processEl("static^java^lang^Math.abs(-8i)",0, context_);
+        Argument arg_ = ElUtil.processEl("^static^java^lang^Math.abs(-8i)",0, context_);
         Object res_ = arg_.getObject();
         assertSame(Integer.class, res_.getClass());
         assertEq(8, (Number)res_);
@@ -446,7 +448,7 @@ public class ElUtilTest {
         ContextEl context_ = new ContextEl();
         setupAccessValue(context_);
         addImportingPage(context_);
-        Argument arg_ = ElUtil.processEl("static^java^lang^Math.abs(8i)",0, context_);
+        Argument arg_ = ElUtil.processEl("^static^java^lang^Math.abs(8i)",0, context_);
         Object res_ = arg_.getObject();
         assertSame(Integer.class, res_.getClass());
         assertEq(8, (Number)res_);
@@ -458,7 +460,7 @@ public class ElUtilTest {
         ContextEl context_ = new ContextEl();
         setupAccessValue(context_);
         addImportingPage(context_);
-        Argument arg_ = ElUtil.processEl("static^java^lang^Math.abs(-8I)",0, context_);
+        Argument arg_ = ElUtil.processEl("^static^java^lang^Math.abs(-8I)",0, context_);
         Object res_ = arg_.getObject();
         assertSame(Integer.class, res_.getClass());
         assertEq(8, (Number)res_);
@@ -469,7 +471,7 @@ public class ElUtilTest {
         ContextEl context_ = new ContextEl();
         setupAccessValue(context_);
         addImportingPage(context_);
-        Argument arg_ = ElUtil.processEl("static^java^lang^Math.abs(8I)",0, context_);
+        Argument arg_ = ElUtil.processEl("^static^java^lang^Math.abs(8I)",0, context_);
         Object res_ = arg_.getObject();
         assertSame(Integer.class, res_.getClass());
         assertEq(8, (Number)res_);
@@ -481,7 +483,7 @@ public class ElUtilTest {
         ContextEl context_ = new ContextEl();
         setupAccessValue(context_);
         addImportingPage(context_);
-        Argument arg_ = ElUtil.processEl("static^java^lang^Math.abs(-8L)",0, context_);
+        Argument arg_ = ElUtil.processEl("^static^java^lang^Math.abs(-8L)",0, context_);
         Object res_ = arg_.getObject();
         assertSame(Long.class, res_.getClass());
         assertEq(8L, (Number)res_);
@@ -492,7 +494,7 @@ public class ElUtilTest {
         ContextEl context_ = new ContextEl();
         setupAccessValue(context_);
         addImportingPage(context_);
-        Argument arg_ = ElUtil.processEl("static^java^lang^Math.abs(8L)",0, context_);
+        Argument arg_ = ElUtil.processEl("^static^java^lang^Math.abs(8L)",0, context_);
         Object res_ = arg_.getObject();
         assertSame(Long.class, res_.getClass());
         assertEq(8L, (Number)res_);
@@ -629,7 +631,7 @@ public class ElUtilTest {
         ContextEl context_ = new ContextEl();
         setupAccessValue(context_);
         addImportingPage(context_);
-        Argument arg_ = ElUtil.processEl("static^"+MY_IMPL_HAT+".ovOne(^new."+MY_IMPL+"())",0, context_);
+        Argument arg_ = ElUtil.processEl("^static^"+MY_IMPL_HAT+".ovOne(^new."+MY_IMPL+"())",0, context_);
         Object res_ = arg_.getObject();
         assertSame(String.class, res_.getClass());
         assertEq("three", res_);
@@ -776,7 +778,7 @@ public class ElUtilTest {
         lv_.setClassName(String.class.getName());
         localVars_.put("f", lv_);
         context_.getLastPage().getLocalVars().putAllMap(localVars_);
-        Argument arg_ = ElUtil.processEl("varArgsParam(?java.lang.Object,f;.,v;.?,2;.,v;.)",0, context_);
+        Argument arg_ = ElUtil.processEl("varArgsParam(^vararg(\"java.lang.Object\"),f;.,^firstopt(v;.),2;.,v;.)",0, context_);
         Object res_ = arg_.getObject();
         assertSame(String.class, res_.getClass());
         assertEq("varargs:7 8 7", res_);
@@ -806,7 +808,7 @@ public class ElUtilTest {
         lv_.setClassName(String.class.getName());
         localVars_.put("f", lv_);
         context_.getLastPage().getLocalVars().putAllMap(localVars_);
-        Argument arg_ = ElUtil.processEl("varArgsParam(?java.lang.Object,f;.)",0, context_);
+        Argument arg_ = ElUtil.processEl("varArgsParam(^vararg(\"java.lang.Object\"),f;.)",0, context_);
         Object res_ = arg_.getObject();
         assertSame(String.class, res_.getClass());
         assertEq("varargs:{0} {1} {2}", res_);
@@ -831,7 +833,7 @@ public class ElUtilTest {
         addImportingPage(context_);
         context_.getLastPage().getLocalVars().putAllMap(localVars_);
         addBean(context_, composite_);
-        Argument arg_ = ElUtil.processEl("varArgsNoParam(?"+PrimitiveTypeUtil.PRIM_LONG+",v;.?,2;.)",0, context_);
+        Argument arg_ = ElUtil.processEl("varArgsNoParam(^vararg(\""+PrimitiveTypeUtil.PRIM_LONG+"\"),^firstopt(v;.),2;.)",0, context_);
         Object res_ = arg_.getObject();
         assertSame(Long.class, res_.getClass());
         assertEq(15L, (Number)res_);
@@ -858,7 +860,7 @@ public class ElUtilTest {
         addImportingPage(context_);
         context_.getLastPage().getLocalVars().putAllMap(localVars_);
         addBean(context_, composite_);
-        Argument arg_ = ElUtil.processEl("varArgsArrays(?"+ARR_LONG+",v;.?,2;.)",0, context_);
+        Argument arg_ = ElUtil.processEl("varArgsArrays(^vararg(\""+ARR_LONG+"\"),^firstopt(v;.),2;.)",0, context_);
         Object res_ = arg_.getObject();
         assertSame(Long.class, res_.getClass());
         assertEq(15L, (Number)res_);
@@ -879,7 +881,7 @@ public class ElUtilTest {
         setupAccessValue(context_);
         addImportingPage(context_);
         context_.getLastPage().getLocalVars().putAllMap(localVars_);
-        Argument arg_ = ElUtil.processEl("^new."+COMPOSITE+"(?java.lang.String,v;.?,2;.).getStrings()",0, context_);
+        Argument arg_ = ElUtil.processEl("^new."+COMPOSITE+"(^vararg(\"java.lang.String\"),^firstopt(v;.),2;.).getStrings()",0, context_);
         Object res_ = arg_.getObject();
         assertSame(StringList.class, res_.getClass());
         assertEq(new StringList("bonjour","tout"), (StringList)res_);
@@ -1014,7 +1016,7 @@ public class ElUtilTest {
         ContextEl context_ = new ContextEl();
         setupAccessValue(context_);
         addImportingPage(context_);
-        Argument arg_ = ElUtil.processEl("static^java^lang^Byte.MAX_VALUE",0, context_);
+        Argument arg_ = ElUtil.processEl("^static^java^lang^Byte.MAX_VALUE",0, context_);
         Object res_ = arg_.getObject();
         assertSame(Byte.class, res_.getClass());
         assertEq((byte)127, (Number)res_);
@@ -1132,15 +1134,7 @@ public class ElUtilTest {
         lv_.setClassName(String.class.getName());
         localVars_.put("f", lv_);
         context_.getLastPage().getLocalVars().putAllMap(localVars_);
-//        Argument arg_ = ElUtil.processEl("varArgsParam(?java.lang.Object,f;.,v;.?,2;.,v;.)",0, context_);
-//        assertEq(String.class.getName(), arg_.getArgClassName());
-//        Object res_ = arg_.getObject();
-//        assertSame(String.class, res_.getClass());
-//        assertEq("varargs:7 8 7", res_);
-//        ContextEl context_ = new ContextEl();
-//        setupAccessValue(context_);
-//        addImportingPage(context_);
-        Argument arg_ = ElUtil.processEl("(varArgsParam(?java.lang.Object,f;.,v;.?,2;.,v;.)+'\\'').length()",0, context_);
+        Argument arg_ = ElUtil.processEl("(varArgsParam(^vararg(\"java.lang.Object\"),f;.,^firstopt(v;.),2;.,v;.)+'\\'').length()",0, context_);
         Object res_ = arg_.getObject();
         assertSame(Integer.class, res_.getClass());
         assertEq(14, (Number)res_);
@@ -1159,7 +1153,7 @@ public class ElUtilTest {
         lv_.setClassName(ARR_INT);
         localVars_.put("v", lv_);
         context_.getLastPage().getLocalVars().putAllMap(localVars_);
-        Argument arg_ = ElUtil.processEl("static^java^lang^Math.abs(v;.[0i]+2)*2",0, context_);
+        Argument arg_ = ElUtil.processEl("^static^java^lang^Math.abs(v;.[0i]+2)*2",0, context_);
         Object res_ = arg_.getObject();
         assertSame(Long.class, res_.getClass());
         assertEq(20L, (Number)res_);
@@ -1526,7 +1520,7 @@ public class ElUtilTest {
         Classes.validateAll(files_, cont_);
         setupAccessValue(cont_);
         addImportingPage(cont_);
-        Argument arg_ = ElUtil.processEl("static^pkg^Ex.exmeth()", 0, cont_);
+        Argument arg_ = ElUtil.processEl("^static^pkg^Ex.exmeth()", 0, cont_);
         Object res_ = arg_.getObject();
         assertSame(Integer.class, res_.getClass());
         assertEq(9, (Number)res_);
@@ -1548,7 +1542,7 @@ public class ElUtilTest {
         Classes.validateAll(files_, cont_);
         setupAccessValue(cont_);
         addImportingPage(cont_);
-        Argument arg_ = ElUtil.processEl("static^pkg^Ex.exmeth(6i)", 0, cont_);
+        Argument arg_ = ElUtil.processEl("^static^pkg^Ex.exmeth(6i)", 0, cont_);
         Object res_ = arg_.getObject();
         assertSame(Integer.class, res_.getClass());
         assertEq(15,(Number) res_);
@@ -1828,7 +1822,7 @@ public class ElUtilTest {
         ContextEl context_ = new ContextEl();
         setupAccessValue(context_);
         addImportingPage(context_);
-        ElUtil.processEl("static^"+MY_IMPL_HAT+".ovTwo(^new."+MY_IMPL+"())",0, context_);
+        ElUtil.processEl("^static^"+MY_IMPL_HAT+".ovTwo(^new."+MY_IMPL+"())",0, context_);
     }
 
 
@@ -1914,7 +1908,7 @@ public class ElUtilTest {
         ContextEl context_ = new ContextEl();
         setupAccessValue(context_);
         addImportingPage(context_);
-        ElUtil.processEl("static^"+COMPOSITE_HAT+".integer",0, context_);
+        ElUtil.processEl("^static^"+COMPOSITE_HAT+".integer",0, context_);
     }
     
     @Test(expected=NoSuchDeclaredFieldException.class)
@@ -1922,7 +1916,7 @@ public class ElUtilTest {
         ContextEl context_ = new ContextEl();
         setupAccessValue(context_);
         addImportingPage(context_);
-        ElUtil.processEl("static^"+COMPOSITE_HAT+".int^^eger",0, context_);
+        ElUtil.processEl("^static^"+COMPOSITE_HAT+".int^^eger",0, context_);
     }
 
     @Test(expected=ErrorCausingException.class)
@@ -1930,7 +1924,7 @@ public class ElUtilTest {
         ContextEl context_ = new ContextEl();
         setupAccessValue(context_);
         addImportingPage(context_);
-        ElUtil.processEl("static^"+STRANGE_INIT_HAT+".NOT_READ",0, context_);
+        ElUtil.processEl("^static^"+STRANGE_INIT_HAT+".NOT_READ",0, context_);
     }
 
     @Test(expected=ErrorCausingException.class)
@@ -1938,7 +1932,7 @@ public class ElUtilTest {
         ContextEl context_ = new ContextEl();
         setupAccessValue(context_);
         addImportingPage(context_);
-        ElUtil.processEl("static^"+STRANGE_INIT_HAT+".fail()",0, context_);
+        ElUtil.processEl("^static^"+STRANGE_INIT_HAT+".fail()",0, context_);
     }
 
     @Test(expected=ErrorCausingException.class)
@@ -1954,7 +1948,7 @@ public class ElUtilTest {
         ContextEl context_ = new ContextEl();
         setupAccessValue(context_);
         addImportingPage(context_);
-        ElUtil.processEl("static^"+FAIL_METHODS_HAT+".fail()",0, context_);
+        ElUtil.processEl("^static^"+FAIL_METHODS_HAT+".fail()",0, context_);
     }
     
     @Test(expected=InvokeException.class)
@@ -1986,7 +1980,7 @@ public class ElUtilTest {
         ContextEl context_ = new ContextEl();
         setupAccessValue(context_);
         addImportingPage(context_);
-        ElUtil.processEl("static^"+COMPOSITE_HAT+".getInteger()",0, context_);
+        ElUtil.processEl("^static^"+COMPOSITE_HAT+".getInteger()",0, context_);
     }
 
     @Test(expected=SettingMemberException.class)
@@ -2000,7 +1994,7 @@ public class ElUtilTest {
         lv_.setClassName(Long.class.getName());
         localVars_.put("arg", lv_);
         context_.getLastPage().getLocalVars().putAllMap(localVars_);
-        ElUtil.processEl("static^"+FAIL_METHODS_HAT+".fail().arg;.",0, context_);
+        ElUtil.processEl("^static^"+FAIL_METHODS_HAT+".fail().arg;.",0, context_);
     }
 
     @Test(expected=SettingMemberException.class)
@@ -2014,7 +2008,7 @@ public class ElUtilTest {
         lv_.setClassName(Long.class.getName());
         localVars_.put("arg", lv_);
         context_.getLastPage().getVars().putAllMap(localVars_);
-        ElUtil.processEl("static^"+FAIL_METHODS_HAT+".fail().arg;",0, context_);
+        ElUtil.processEl("^static^"+FAIL_METHODS_HAT+".fail().arg;",0, context_);
     }
 
     @Test(expected=SettingMemberException.class)
@@ -2028,7 +2022,81 @@ public class ElUtilTest {
         lv_.setClassName(Long.class.getName());
         localVars_.put("arg", lv_);
         context_.getLastPage().getVars().putAllMap(localVars_);
-        ElUtil.processEl("static^"+FAIL_METHODS_HAT+".fail().arg;;",0, context_);
+        ElUtil.processEl("^static^"+FAIL_METHODS_HAT+".fail().arg;;",0, context_);
+    }
+
+    @Test(expected=VarargException.class)
+    public void processEl24FailTest() {
+        ContextEl context_ = new ContextEl();
+        setupAccessValue(context_);
+        addImportingPage(context_);
+        BeanOne b_ = new BeanOne();
+        addBean(context_, b_);
+        String el_ = "^firstopt(6)*(7+8)";
+        ElUtil.processEl(el_, 0, context_);
+    }
+
+    @Test(expected=VarargException.class)
+    public void processEl25FailTest() {
+        ContextEl context_ = new ContextEl();
+        setupAccessValue(context_);
+        addImportingPage(context_);
+        Composite composite_ = new Composite();
+        composite_.setInteger(6);
+        composite_.setPrivateInt(5);
+        addBean(context_, composite_);
+        String el_ = "varArgsParam(\"6\",^vararg(\"6\"))";
+        ElUtil.processEl(el_, 0, context_);
+    }
+
+    @Test(expected=RuntimeClassNotFoundException.class)
+    public void processEl26FailTest() {
+        ContextEl context_ = new ContextEl();
+        setupAccessValue(context_);
+        addImportingPage(context_);
+        Composite composite_ = new Composite();
+        composite_.setInteger(6);
+        composite_.setPrivateInt(5);
+        addBean(context_, composite_);
+        String el_ = "varArgsParam(^vararg(\"6\"),\"6\")";
+        ElUtil.processEl(el_, 0, context_);
+    }
+
+    @Test(expected=VarargException.class)
+    public void processEl27FailTest() {
+        ContextEl context_ = new ContextEl();
+        setupAccessValue(context_);
+        addImportingPage(context_);
+        BeanOne b_ = new BeanOne();
+        addBean(context_, b_);
+        String el_ = "^vararg(\"java.lang.Object\")*(7+8)";
+        ElUtil.processEl(el_, 0, context_);
+    }
+
+    @Test(expected=NotStringException.class)
+    public void processEl28FailTest() {
+        ContextEl context_ = new ContextEl();
+        setupAccessValue(context_);
+        addImportingPage(context_);
+        Composite composite_ = new Composite();
+        composite_.setInteger(6);
+        composite_.setPrivateInt(5);
+        addBean(context_, composite_);
+        String el_ = "varArgsParam(^vararg(6),\"6\")";
+        ElUtil.processEl(el_, 0, context_);
+    }
+
+    @Test(expected=VarargException.class)
+    public void processEl29FailTest() {
+        ContextEl context_ = new ContextEl();
+        setupAccessValue(context_);
+        addImportingPage(context_);
+        Composite composite_ = new Composite();
+        composite_.setInteger(6);
+        composite_.setPrivateInt(5);
+        addBean(context_, composite_);
+        String el_ = "varArgsParam(^firstopt(6),\"6\")";
+        ElUtil.processEl(el_, 0, context_);
     }
 
     @Test

@@ -1,14 +1,8 @@
 package code.expressionlanguage;
 import static code.expressionlanguage.EquallableElUtil.assertEq;
-import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
-import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.Delimiters;
-import code.expressionlanguage.ElResolver;
-import code.expressionlanguage.OperationsSequence;
-import code.expressionlanguage.PageEl;
 import code.expressionlanguage.classes.BeanOne;
 import code.expressionlanguage.exceptions.BadComparisonException;
 import code.expressionlanguage.exceptions.BadExpressionLanguageException;
@@ -40,7 +34,6 @@ public class ElResolverTest {
         assertEq("abs", values_.getVal(0));
         assertEq("4", values_.getVal(4));
         assertEq("3", values_.getVal(6));
-        assertTrue(!seq_.isFirstOpt());
         assertEq(ElResolver.FCT_OPER_PRIO, seq_.getPriority());
     }
 
@@ -60,7 +53,6 @@ public class ElResolverTest {
         assertEq(2, values_.size());
         assertEq("abs(4,3)", values_.getVal(0));
         assertEq("abs(4,3)", values_.getVal(9));
-        assertTrue(!seq_.isFirstOpt());
         assertEq(ElResolver.DOT_PRIO, seq_.getPriority());
     }
 
@@ -80,7 +72,6 @@ public class ElResolverTest {
         assertEq(2, values_.size());
         assertEq("abs(4+3)", values_.getVal(0));
         assertEq("abs(4,3)", values_.getVal(9));
-        assertTrue(!seq_.isFirstOpt());
         assertEq(ElResolver.DOT_PRIO, seq_.getPriority());
     }
 
@@ -90,17 +81,16 @@ public class ElResolverTest {
         addImportingPage(conf_, false);
         BeanOne b_ = new BeanOne();
         addBean(conf_, b_);
-        String el_ = "abs(?"+ARR_INT+",4+3).abs(4,3)";
+        String el_ = "abs(^vararg(\""+ARR_INT+"\"),4+3).abs(4,3)";
         Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
         NatTreeMap<Integer,String> opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
-        assertEq(".", opers_.getVal(12));
+        assertEq(".", opers_.getVal(22));
         NatTreeMap<Integer,String> values_ = seq_.getValues();
         assertEq(2, values_.size());
-        assertEq("abs(?"+ARR_INT+",4+3)", values_.getVal(0));
-        assertEq("abs(4,3)", values_.getVal(13));
-        assertTrue(!seq_.isFirstOpt());
+        assertEq("abs(^vararg(\""+ARR_INT+"\"),4+3)", values_.getVal(0));
+        assertEq("abs(4,3)", values_.getVal(23));
         assertEq(ElResolver.DOT_PRIO, seq_.getPriority());
     }
 
@@ -110,17 +100,16 @@ public class ElResolverTest {
         addImportingPage(conf_, false);
         BeanOne b_ = new BeanOne();
         addBean(conf_, b_);
-        String el_ = "abs(?"+ARR_INT+",'[').abs(4,3)";
+        String el_ = "abs(^vararg(\""+ARR_INT+"\"),'[').abs(4,3)";
         Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
         NatTreeMap<Integer,String> opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
-        assertEq(".", opers_.getVal(12));
+        assertEq(".", opers_.getVal(22));
         NatTreeMap<Integer,String> values_ = seq_.getValues();
         assertEq(2, values_.size());
-        assertEq("abs(?"+ARR_INT+",'[')", values_.getVal(0));
-        assertEq("abs(4,3)", values_.getVal(13));
-        assertTrue(!seq_.isFirstOpt());
+        assertEq("abs(^vararg(\""+ARR_INT+"\"),'[')", values_.getVal(0));
+        assertEq("abs(4,3)", values_.getVal(23));
         assertEq(ElResolver.DOT_PRIO, seq_.getPriority());
     }
 
@@ -130,17 +119,16 @@ public class ElResolverTest {
         addImportingPage(conf_, false);
         BeanOne b_ = new BeanOne();
         addBean(conf_, b_);
-        String el_ = "abs(?"+ARR_INT+",'[').abs(4,3)+8";
+        String el_ = "abs(^vararg(\""+ARR_INT+"\"),'[').abs(4,3)+8";
         Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
         NatTreeMap<Integer,String> opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
-        assertEq("+", opers_.getVal(21));
+        assertEq("+", opers_.getVal(31));
         NatTreeMap<Integer,String> values_ = seq_.getValues();
         assertEq(2, values_.size());
-        assertEq("abs(?"+ARR_INT+",'[').abs(4,3)", values_.getVal(0));
-        assertEq("8", values_.getVal(22));
-        assertTrue(!seq_.isFirstOpt());
+        assertEq("abs(^vararg(\""+ARR_INT+"\"),'[').abs(4,3)", values_.getVal(0));
+        assertEq("8", values_.getVal(32));
         assertEq(ElResolver.ADD_PRIO, seq_.getPriority());
     }
 
@@ -160,7 +148,6 @@ public class ElResolverTest {
         assertEq(2, values_.size());
         assertEq("6", values_.getVal(0));
         assertEq("(1+8)", values_.getVal(2));
-        assertTrue(!seq_.isFirstOpt());
         assertEq(ElResolver.MULT_PRIO, seq_.getPriority());
     }
 
@@ -180,7 +167,6 @@ public class ElResolverTest {
         assertEq(2, values_.size());
         assertEq("6", values_.getVal(0));
         assertEq("('\\u9fcb'+8)", values_.getVal(2));
-        assertTrue(!seq_.isFirstOpt());
         assertEq(ElResolver.MULT_PRIO, seq_.getPriority());
     }
 
@@ -200,7 +186,6 @@ public class ElResolverTest {
         assertEq(2, values_.size());
         assertEq("6", values_.getVal(0));
         assertEq("('\\''+8)", values_.getVal(2));
-        assertTrue(!seq_.isFirstOpt());
         assertEq(ElResolver.MULT_PRIO, seq_.getPriority());
     }
 
@@ -220,7 +205,6 @@ public class ElResolverTest {
         assertEq(2, values_.size());
         assertEq("6", values_.getVal(0));
         assertEq("(\"ab\"+8)", values_.getVal(2));
-        assertTrue(!seq_.isFirstOpt());
         assertEq(ElResolver.MULT_PRIO, seq_.getPriority());
     }
 
@@ -240,7 +224,6 @@ public class ElResolverTest {
         assertEq(2, values_.size());
         assertEq("-6", values_.getVal(0));
         assertEq("8", values_.getVal(3));
-        assertTrue(!seq_.isFirstOpt());
         assertEq(ElResolver.MULT_PRIO, seq_.getPriority());
     }
 
@@ -259,7 +242,6 @@ public class ElResolverTest {
         NatTreeMap<Integer,String> values_ = seq_.getValues();
         assertEq(1, values_.size());
         assertEq("abs(8)", values_.getVal(1));
-        assertTrue(!seq_.isFirstOpt());
         assertEq(ElResolver.UNARY_PRIO, seq_.getPriority());
     }
 
@@ -269,19 +251,18 @@ public class ElResolverTest {
         addImportingPage(conf_, false);
         BeanOne b_ = new BeanOne();
         addBean(conf_, b_);
-        String el_ = "abs(?"+ARR_INT+",'[').abs(4,3)+8-9";
+        String el_ = "abs(^vararg(\""+ARR_INT+"\"),'[').abs(4,3)+8-9";
         Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
         NatTreeMap<Integer,String> opers_ = seq_.getOperators();
         assertEq(2, opers_.size());
-        assertEq("+", opers_.getVal(21));
-        assertEq("-", opers_.getVal(23));
+        assertEq("+", opers_.getVal(31));
+        assertEq("-", opers_.getVal(33));
         NatTreeMap<Integer,String> values_ = seq_.getValues();
         assertEq(3, values_.size());
-        assertEq("abs(?"+ARR_INT+",'[').abs(4,3)", values_.getVal(0));
-        assertEq("8", values_.getVal(22));
-        assertEq("9", values_.getVal(24));
-        assertTrue(!seq_.isFirstOpt());
+        assertEq("abs(^vararg(\""+ARR_INT+"\"),'[').abs(4,3)", values_.getVal(0));
+        assertEq("8", values_.getVal(32));
+        assertEq("9", values_.getVal(34));
         assertEq(ElResolver.ADD_PRIO, seq_.getPriority());
     }
 
@@ -301,7 +282,6 @@ public class ElResolverTest {
         assertEq(2, values_.size());
         assertEq("1.8", values_.getVal(0));
         assertEq("abs(9)", values_.getVal(4));
-        assertTrue(!seq_.isFirstOpt());
         assertEq(ElResolver.ADD_PRIO, seq_.getPriority());
     }
 
@@ -319,7 +299,6 @@ public class ElResolverTest {
         NatTreeMap<Integer,String> values_ = seq_.getValues();
         assertEq(1, values_.size());
         assertEq("1.8", values_.getVal(0));
-        assertTrue(!seq_.isFirstOpt());
         assertEq(ElResolver.CONST_PRIO, seq_.getPriority());
     }
 
@@ -337,7 +316,6 @@ public class ElResolverTest {
         NatTreeMap<Integer,String> values_ = seq_.getValues();
         assertEq(1, values_.size());
         assertEq("\"18\"", values_.getVal(0));
-        assertTrue(!seq_.isFirstOpt());
         assertEq(ElResolver.CONST_PRIO, seq_.getPriority());
     }
 
@@ -355,7 +333,6 @@ public class ElResolverTest {
         NatTreeMap<Integer,String> values_ = seq_.getValues();
         assertEq(1, values_.size());
         assertEq("18", values_.getVal(0));
-        assertTrue(!seq_.isFirstOpt());
         assertEq(ElResolver.CONST_PRIO, seq_.getPriority());
     }
 
@@ -376,7 +353,6 @@ public class ElResolverTest {
         NatTreeMap<Integer,String> values_ = seq_.getValues();
         assertEq(1, values_.size());
         assertEq("4+3", values_.getVal(1));
-        assertTrue(!seq_.isFirstOpt());
         assertEq(ElResolver.FCT_OPER_PRIO, seq_.getPriority());
     }
 
@@ -386,18 +362,18 @@ public class ElResolverTest {
         addImportingPage(conf_, false);
         BeanOne b_ = new BeanOne();
         addBean(conf_, b_);
-        String el_ = "4+3?";
+        String el_ = "^firstopt(4+3)";
         Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
         NatTreeMap<Integer,String> opers_ = seq_.getOperators();
-        assertEq(1, opers_.size());
-        assertEq("+", opers_.getVal(1));
+        assertEq(2, opers_.size());
+        assertEq("(", opers_.getVal(9));
+        assertEq(")", opers_.getVal(13));
         NatTreeMap<Integer,String> values_ = seq_.getValues();
         assertEq(2, values_.size());
-        assertEq("4", values_.getVal(0));
-        assertEq("3", values_.getVal(2));
-        assertTrue(seq_.isFirstOpt());
-        assertEq(ElResolver.ADD_PRIO, seq_.getPriority());
+        assertEq("^firstopt", values_.getVal(0));
+        assertEq("4+3", values_.getVal(10));
+        assertEq(ElResolver.FCT_OPER_PRIO, seq_.getPriority());
     }
 
     @Test
@@ -406,23 +382,22 @@ public class ElResolverTest {
         addImportingPage(conf_, false);
         BeanOne b_ = new BeanOne();
         addBean(conf_, b_);
-        String el_ = "abs(?"+ARR_INT+",4,3)";
+        String el_ = "abs(^vararg(\""+ARR_INT+"\"),4,3)";
         Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
         NatTreeMap<Integer,String> opers_ = seq_.getOperators();
 //        assertEq(0, opers_.size());
         assertEq(4, opers_.size());
         assertEq("(", opers_.getVal(3));
-        assertEq(",", opers_.getVal(7));
-        assertEq(",", opers_.getVal(9));
-        assertEq(")", opers_.getVal(11));
+        assertEq(",", opers_.getVal(17));
+        assertEq(",", opers_.getVal(19));
+        assertEq(")", opers_.getVal(21));
         NatTreeMap<Integer,String> values_ = seq_.getValues();
         assertEq(4, values_.size());
         assertEq("abs", values_.getVal(0));
-        assertEq("?"+ARR_INT, values_.getVal(4));
-        assertEq("4", values_.getVal(8));
-        assertEq("3", values_.getVal(10));
-        assertTrue(!seq_.isFirstOpt());
+        assertEq("^vararg(\""+ARR_INT+"\")", values_.getVal(4));
+        assertEq("4", values_.getVal(18));
+        assertEq("3", values_.getVal(20));
         assertEq(ElResolver.FCT_OPER_PRIO, seq_.getPriority());
     }
 
@@ -440,7 +415,6 @@ public class ElResolverTest {
         NatTreeMap<Integer,String> values_ = seq_.getValues();
         assertEq(1, values_.size());
         assertEq("v;", values_.getVal(0));
-        assertTrue(!seq_.isFirstOpt());
         assertEq(ElResolver.CONST_PRIO, seq_.getPriority());
     }
 
@@ -458,7 +432,6 @@ public class ElResolverTest {
         NatTreeMap<Integer,String> values_ = seq_.getValues();
         assertEq(1, values_.size());
         assertEq("v;.", values_.getVal(0));
-        assertTrue(!seq_.isFirstOpt());
         assertEq(ElResolver.CONST_PRIO, seq_.getPriority());
     }
 
@@ -476,7 +449,7 @@ public class ElResolverTest {
         NatTreeMap<Integer,String> values_ = seq_.getValues();
         assertEq(1, values_.size());
         assertEq("v", values_.getVal(0));
-        assertTrue(!seq_.isFirstOpt());
+    
         assertEq(ElResolver.CONST_PRIO, seq_.getPriority());
     }
 
@@ -498,7 +471,6 @@ public class ElResolverTest {
         assertEq(2, values_.size());
         assertEq("abs(4,3)", values_.getVal(0));
         assertEq("0", values_.getVal(9));
-        assertTrue(!seq_.isFirstOpt());
         assertEq(ElResolver.ARR_OPER_PRIO, seq_.getPriority());
     }
 
@@ -523,7 +495,6 @@ public class ElResolverTest {
         assertEq("abs(4,3)", values_.getVal(0));
         assertEq("14", values_.getVal(9));
         assertEq("5", values_.getVal(13));
-        assertTrue(!seq_.isFirstOpt());
         assertEq(ElResolver.ARR_OPER_PRIO, seq_.getPriority());
     }
 
@@ -543,7 +514,7 @@ public class ElResolverTest {
         assertEq(2, values_.size());
         assertEq("6", values_.getVal(0));
         assertEq("(\"a b\"+8)", values_.getVal(2));
-        assertTrue(!seq_.isFirstOpt());
+    
         assertEq(ElResolver.MULT_PRIO, seq_.getPriority());
     }
 
@@ -563,7 +534,7 @@ public class ElResolverTest {
         assertEq(2, values_.size());
         assertEq("v", values_.getVal(0));
         assertEq("a", values_.getVal(2));
-        assertTrue(!seq_.isFirstOpt());
+    
         assertEq(ElResolver.DOT_PRIO, seq_.getPriority());
     }
 
@@ -583,7 +554,6 @@ public class ElResolverTest {
         assertEq(2, values_.size());
         assertEq("var;.", values_.getVal(0));
         assertEq("call()", values_.getVal(5));
-        assertTrue(!seq_.isFirstOpt());
         assertEq(ElResolver.DOT_PRIO, seq_.getPriority());
     }
 
@@ -603,7 +573,7 @@ public class ElResolverTest {
         assertEq(2, values_.size());
         assertEq("var;.;", values_.getVal(0));
         assertEq("call()", values_.getVal(6));
-        assertTrue(!seq_.isFirstOpt());
+    
         assertEq(ElResolver.DOT_PRIO, seq_.getPriority());
     }
 
@@ -623,7 +593,6 @@ public class ElResolverTest {
         assertEq(2, values_.size());
         assertEq("var;;", values_.getVal(0));
         assertEq("call()", values_.getVal(5));
-        assertTrue(!seq_.isFirstOpt());
         assertEq(ElResolver.DOT_PRIO, seq_.getPriority());
     }
 
@@ -643,7 +612,6 @@ public class ElResolverTest {
         assertEq(2, values_.size());
         assertEq("var;", values_.getVal(0));
         assertEq("call()", values_.getVal(4));
-        assertTrue(!seq_.isFirstOpt());
         assertEq(ElResolver.DOT_PRIO, seq_.getPriority());
     }
 
@@ -665,7 +633,7 @@ public class ElResolverTest {
         assertEq("var;.", values_.getVal(0));
         assertEq("call()", values_.getVal(5));
         assertEq("call()", values_.getVal(12));
-        assertTrue(!seq_.isFirstOpt());
+    
         assertEq(ElResolver.DOT_PRIO, seq_.getPriority());
     }
 
@@ -688,7 +656,6 @@ public class ElResolverTest {
         assertEq("var;.;", values_.getVal(0));
         assertEq("call()", values_.getVal(6));
         assertEq("call()", values_.getVal(13));
-        assertTrue(!seq_.isFirstOpt());
         assertEq(ElResolver.DOT_PRIO, seq_.getPriority());
     }
 
@@ -710,7 +677,7 @@ public class ElResolverTest {
         assertEq("var;;", values_.getVal(0));
         assertEq("call()", values_.getVal(5));
         assertEq("call()", values_.getVal(12));
-        assertTrue(!seq_.isFirstOpt());
+    
         assertEq(ElResolver.DOT_PRIO, seq_.getPriority());
     }
 
@@ -732,7 +699,7 @@ public class ElResolverTest {
         assertEq("var;", values_.getVal(0));
         assertEq("call()", values_.getVal(4));
         assertEq("call()", values_.getVal(11));
-        assertTrue(!seq_.isFirstOpt());
+    
         assertEq(ElResolver.DOT_PRIO, seq_.getPriority());
     }
 
@@ -753,7 +720,7 @@ public class ElResolverTest {
         assertEq(2, values_.size());
         assertEq("^new.java.lang.Integer", values_.getVal(0));
         assertEq("\"8\"", values_.getVal(23));
-        assertTrue(!seq_.isFirstOpt());
+    
         assertEq(ElResolver.FCT_OPER_PRIO, seq_.getPriority());
     }
 
@@ -773,7 +740,7 @@ public class ElResolverTest {
         assertEq(2, values_.size());
         assertEq("call()", values_.getVal(0));
         assertEq("^new.java.lang.Integer(\"8\")", values_.getVal(7));
-        assertTrue(!seq_.isFirstOpt());
+    
         assertEq(ElResolver.DOT_PRIO, seq_.getPriority());
     }
 
@@ -794,7 +761,6 @@ public class ElResolverTest {
         assertEq(2, values_.size());
         assertEq("^new.java.lang.Integer(\"8\")", values_.getVal(0));
         assertEq("intValue()", values_.getVal(28));
-        assertTrue(!seq_.isFirstOpt());
         assertEq(ElResolver.DOT_PRIO, seq_.getPriority());
     }
 
@@ -816,7 +782,7 @@ public class ElResolverTest {
         assertEq(2, values_.size());
         assertEq("^new."+ARR_INTEGER, values_.getVal(0));
         assertEq("\"8\"", values_.getVal(24));
-        assertTrue(!seq_.isFirstOpt());
+    
         assertEq(ElResolver.FCT_OPER_PRIO, seq_.getPriority());
     }
 
@@ -836,7 +802,7 @@ public class ElResolverTest {
         assertEq(2, values_.size());
         assertEq("new.java.lang.Integer(\"8\").intValue()", values_.getVal(0));
         assertEq("5", values_.getVal(38));
-        assertTrue(!seq_.isFirstOpt());
+    
         assertEq(ElResolver.ADD_PRIO, seq_.getPriority());
     }
 
@@ -857,7 +823,7 @@ public class ElResolverTest {
         assertEq(2, values_.size());
         assertEq("var;.", values_.getVal(0));
         assertEq("0", values_.getVal(6));
-        assertTrue(!seq_.isFirstOpt());
+    
         assertEq(ElResolver.ARR_OPER_PRIO, seq_.getPriority());
     }
 
@@ -878,7 +844,7 @@ public class ElResolverTest {
         assertEq(2, values_.size());
         assertEq("var;.;", values_.getVal(0));
         assertEq("0", values_.getVal(7));
-        assertTrue(!seq_.isFirstOpt());
+    
         assertEq(ElResolver.ARR_OPER_PRIO, seq_.getPriority());
     }
 
@@ -899,7 +865,7 @@ public class ElResolverTest {
         assertEq(2, values_.size());
         assertEq("var;;", values_.getVal(0));
         assertEq("0", values_.getVal(6));
-        assertTrue(!seq_.isFirstOpt());
+    
         assertEq(ElResolver.ARR_OPER_PRIO, seq_.getPriority());
     }
 
@@ -920,7 +886,7 @@ public class ElResolverTest {
         assertEq(2, values_.size());
         assertEq("var;", values_.getVal(0));
         assertEq("0", values_.getVal(5));
-        assertTrue(!seq_.isFirstOpt());
+    
         assertEq(ElResolver.ARR_OPER_PRIO, seq_.getPriority());
     }
 
@@ -940,7 +906,7 @@ public class ElResolverTest {
         assertEq(2, values_.size());
         assertEq("var;.", values_.getVal(0));
         assertEq("f[0]", values_.getVal(5));
-        assertTrue(!seq_.isFirstOpt());
+    
         assertEq(ElResolver.DOT_PRIO, seq_.getPriority());
     }
 
@@ -960,7 +926,7 @@ public class ElResolverTest {
         assertEq(2, values_.size());
         assertEq("var;.;", values_.getVal(0));
         assertEq("f[0]", values_.getVal(6));
-        assertTrue(!seq_.isFirstOpt());
+    
         assertEq(ElResolver.DOT_PRIO, seq_.getPriority());
     }
 
@@ -980,7 +946,7 @@ public class ElResolverTest {
         assertEq(2, values_.size());
         assertEq("var;;", values_.getVal(0));
         assertEq("f[0]", values_.getVal(5));
-        assertTrue(!seq_.isFirstOpt());
+    
         assertEq(ElResolver.DOT_PRIO, seq_.getPriority());
     }
 
@@ -1000,7 +966,7 @@ public class ElResolverTest {
         assertEq(2, values_.size());
         assertEq("var;", values_.getVal(0));
         assertEq("f[0]", values_.getVal(4));
-        assertTrue(!seq_.isFirstOpt());
+    
         assertEq(ElResolver.DOT_PRIO, seq_.getPriority());
     }
 
@@ -1020,7 +986,7 @@ public class ElResolverTest {
         assertEq(2, values_.size());
         assertEq("var;.", values_.getVal(0));
         assertEq("f()[0]", values_.getVal(5));
-        assertTrue(!seq_.isFirstOpt());
+    
         assertEq(ElResolver.DOT_PRIO, seq_.getPriority());
     }
 
@@ -1040,7 +1006,7 @@ public class ElResolverTest {
         assertEq(2, values_.size());
         assertEq("var;.;", values_.getVal(0));
         assertEq("f()[0]", values_.getVal(6));
-        assertTrue(!seq_.isFirstOpt());
+    
         assertEq(ElResolver.DOT_PRIO, seq_.getPriority());
     }
 
@@ -1060,7 +1026,7 @@ public class ElResolverTest {
         assertEq(2, values_.size());
         assertEq("var;;", values_.getVal(0));
         assertEq("f()[0]", values_.getVal(5));
-        assertTrue(!seq_.isFirstOpt());
+    
         assertEq(ElResolver.DOT_PRIO, seq_.getPriority());
     }
 
@@ -1080,7 +1046,7 @@ public class ElResolverTest {
         assertEq(2, values_.size());
         assertEq("var;", values_.getVal(0));
         assertEq("f()[0]", values_.getVal(4));
-        assertTrue(!seq_.isFirstOpt());
+    
         assertEq(ElResolver.DOT_PRIO, seq_.getPriority());
     }
 
@@ -1100,7 +1066,7 @@ public class ElResolverTest {
         assertEq(2, values_.size());
         assertEq("static^pkg^classname", values_.getVal(0));
         assertEq("field", values_.getVal(21));
-        assertTrue(!seq_.isFirstOpt());
+    
         assertEq(ElResolver.DOT_PRIO, seq_.getPriority());
     }
 
@@ -1119,7 +1085,7 @@ public class ElResolverTest {
         NatTreeMap<Integer,String> values_ = seq_.getValues();
         assertEq(1, values_.size());
         assertEq("-1", values_.getVal(1));
-        assertTrue(!seq_.isFirstOpt());
+    
         assertEq(ElResolver.UNARY_PRIO, seq_.getPriority());
     }
 
@@ -1137,7 +1103,7 @@ public class ElResolverTest {
         NatTreeMap<Integer,String> values_ = seq_.getValues();
         assertEq(1, values_.size());
         assertEq("-1", values_.getVal(0));
-        assertTrue(!seq_.isFirstOpt());
+    
         assertEq(ElResolver.CONST_PRIO, seq_.getPriority());
     }
 
@@ -1155,7 +1121,6 @@ public class ElResolverTest {
         NatTreeMap<Integer,String> values_ = seq_.getValues();
         assertEq(1, values_.size());
         assertEq("-1.0", values_.getVal(0));
-        assertTrue(!seq_.isFirstOpt());
         assertEq(ElResolver.CONST_PRIO, seq_.getPriority());
     }
 
@@ -1175,7 +1140,6 @@ public class ElResolverTest {
         assertEq(2, values_.size());
         assertEq("1", values_.getVal(0));
         assertEq("-1", values_.getVal(2));
-        assertTrue(!seq_.isFirstOpt());
         assertEq(ElResolver.ADD_PRIO, seq_.getPriority());
     }
 
@@ -1194,7 +1158,7 @@ public class ElResolverTest {
         NatTreeMap<Integer,String> values_ = seq_.getValues();
         assertEq(1, values_.size());
         assertEq("a", values_.getVal(1));
-        assertTrue(!seq_.isFirstOpt());
+    
         assertEq(ElResolver.UNARY_PRIO, seq_.getPriority());
     }
 
@@ -1213,7 +1177,7 @@ public class ElResolverTest {
         NatTreeMap<Integer,String> values_ = seq_.getValues();
         assertEq(1, values_.size());
         assertEq("!a", values_.getVal(1));
-        assertTrue(!seq_.isFirstOpt());
+    
         assertEq(ElResolver.UNARY_PRIO, seq_.getPriority());
     }
 
@@ -1233,7 +1197,7 @@ public class ElResolverTest {
         assertEq(2, values_.size());
         assertEq("b", values_.getVal(0));
         assertEq("a", values_.getVal(3));
-        assertTrue(!seq_.isFirstOpt());
+    
         assertEq(ElResolver.EQ_PRIO, seq_.getPriority());
     }
 
@@ -1253,7 +1217,7 @@ public class ElResolverTest {
         assertEq(2, values_.size());
         assertEq("b", values_.getVal(0));
         assertEq("a", values_.getVal(3));
-        assertTrue(!seq_.isFirstOpt());
+    
         assertEq(ElResolver.CMP_PRIO, seq_.getPriority());
     }
 
@@ -1273,7 +1237,7 @@ public class ElResolverTest {
         assertEq(2, values_.size());
         assertEq("b", values_.getVal(0));
         assertEq("a", values_.getVal(3));
-        assertTrue(!seq_.isFirstOpt());
+    
         assertEq(ElResolver.CMP_PRIO, seq_.getPriority());
     }
 
@@ -1293,7 +1257,7 @@ public class ElResolverTest {
         assertEq(2, values_.size());
         assertEq("b", values_.getVal(0));
         assertEq("a", values_.getVal(2));
-        assertTrue(!seq_.isFirstOpt());
+    
         assertEq(ElResolver.EQ_PRIO, seq_.getPriority());
     }
 
@@ -1311,7 +1275,7 @@ public class ElResolverTest {
         NatTreeMap<Integer,String> values_ = seq_.getValues();
         assertEq(1, values_.size());
         assertEq("\"\\\"string\"", values_.getVal(0));
-        assertTrue(!seq_.isFirstOpt());
+    
         assertEq(ElResolver.CONST_PRIO, seq_.getPriority());
     }
 
@@ -1329,7 +1293,7 @@ public class ElResolverTest {
         NatTreeMap<Integer,String> values_ = seq_.getValues();
         assertEq(1, values_.size());
         assertEq("'\\''", values_.getVal(0));
-        assertTrue(!seq_.isFirstOpt());
+    
         assertEq(ElResolver.CONST_PRIO, seq_.getPriority());
     }
 
@@ -1347,7 +1311,7 @@ public class ElResolverTest {
         NatTreeMap<Integer,String> values_ = seq_.getValues();
         assertEq(1, values_.size());
         assertEq("'\\\\'", values_.getVal(0));
-        assertTrue(!seq_.isFirstOpt());
+    
         assertEq(ElResolver.CONST_PRIO, seq_.getPriority());
     }
 
@@ -1357,16 +1321,19 @@ public class ElResolverTest {
         addImportingPage(conf_, false);
         BeanOne b_ = new BeanOne();
         addBean(conf_, b_);
-        String el_ = "\"\\\"string\"?";
+        String el_ = "^firstopt(\"\\\"string\")";
         Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
         NatTreeMap<Integer,String> opers_ = seq_.getOperators();
-        assertEq(0, opers_.size());
+        assertEq(2, opers_.size());
+        assertEq("(", opers_.getVal(9));
+        assertEq(")", opers_.getVal(20));
         NatTreeMap<Integer,String> values_ = seq_.getValues();
-        assertEq(1, values_.size());
-        assertEq("\"\\\"string\"", values_.getVal(0));
-        assertTrue(seq_.isFirstOpt());
-        assertEq(ElResolver.CONST_PRIO, seq_.getPriority());
+        assertEq(2, values_.size());
+        assertEq("^firstopt", values_.getVal(0));
+        assertEq("\"\\\"string\"", values_.getVal(10));
+    
+        assertEq(ElResolver.FCT_OPER_PRIO, seq_.getPriority());
     }
 
     @Test
@@ -1375,16 +1342,19 @@ public class ElResolverTest {
         addImportingPage(conf_, false);
         BeanOne b_ = new BeanOne();
         addBean(conf_, b_);
-        String el_ = "'\\''?";
+        String el_ = "^firstopt('\\'')";
         Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
         NatTreeMap<Integer,String> opers_ = seq_.getOperators();
-        assertEq(0, opers_.size());
+        assertEq(2, opers_.size());
+        assertEq("(", opers_.getVal(9));
+        assertEq(")", opers_.getVal(14));
         NatTreeMap<Integer,String> values_ = seq_.getValues();
-        assertEq(1, values_.size());
-        assertEq("'\\''", values_.getVal(0));
-        assertTrue(seq_.isFirstOpt());
-        assertEq(ElResolver.CONST_PRIO, seq_.getPriority());
+        assertEq(2, values_.size());
+        assertEq("^firstopt", values_.getVal(0));
+        assertEq("'\\''", values_.getVal(10));
+    
+        assertEq(ElResolver.FCT_OPER_PRIO, seq_.getPriority());
     }
 
     @Test
@@ -1393,16 +1363,19 @@ public class ElResolverTest {
         addImportingPage(conf_, false);
         BeanOne b_ = new BeanOne();
         addBean(conf_, b_);
-        String el_ = "'\\\\'?";
+        String el_ = "^firstopt('\\\\')";
         Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
         NatTreeMap<Integer,String> opers_ = seq_.getOperators();
-        assertEq(0, opers_.size());
+        assertEq(2, opers_.size());
+        assertEq("(", opers_.getVal(9));
+        assertEq(")", opers_.getVal(14));
         NatTreeMap<Integer,String> values_ = seq_.getValues();
-        assertEq(1, values_.size());
-        assertEq("'\\\\'", values_.getVal(0));
-        assertTrue(seq_.isFirstOpt());
-        assertEq(ElResolver.CONST_PRIO, seq_.getPriority());
+        assertEq(2, values_.size());
+        assertEq("^firstopt", values_.getVal(0));
+        assertEq("'\\\\'", values_.getVal(10));
+    
+        assertEq(ElResolver.FCT_OPER_PRIO, seq_.getPriority());
     }
 
     @Test
@@ -1411,16 +1384,19 @@ public class ElResolverTest {
         addImportingPage(conf_, false);
         BeanOne b_ = new BeanOne();
         addBean(conf_, b_);
-        String el_ = "1.0?";
+        String el_ = "^firstopt(1.0)";
         Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
         NatTreeMap<Integer,String> opers_ = seq_.getOperators();
-        assertEq(0, opers_.size());
+        assertEq(2, opers_.size());
+        assertEq("(", opers_.getVal(9));
+        assertEq(")", opers_.getVal(13));
         NatTreeMap<Integer,String> values_ = seq_.getValues();
-        assertEq(1, values_.size());
-        assertEq("1.0", values_.getVal(0));
-        assertTrue(seq_.isFirstOpt());
-        assertEq(ElResolver.CONST_PRIO, seq_.getPriority());
+        assertEq(2, values_.size());
+        assertEq("^firstopt", values_.getVal(0));
+        assertEq("1.0", values_.getVal(10));
+    
+        assertEq(ElResolver.FCT_OPER_PRIO, seq_.getPriority());
     }
 
     @Test
@@ -1429,23 +1405,22 @@ public class ElResolverTest {
         addImportingPage(conf_, false);
         BeanOne b_ = new BeanOne();
         addBean(conf_, b_);
-        String el_ = "abs(?java.lang.Object,4?,3)";
+        String el_ = "abs(^vararg(\"java.lang.Object\"),^firstopt(4),3)";
         Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
         NatTreeMap<Integer,String> opers_ = seq_.getOperators();
-//        assertEq(0, opers_.size());
         assertEq(4, opers_.size());
         assertEq("(", opers_.getVal(3));
-        assertEq(",", opers_.getVal(21));
-        assertEq(",", opers_.getVal(24));
-        assertEq(")", opers_.getVal(26));
+        assertEq(",", opers_.getVal(31));
+        assertEq(",", opers_.getVal(44));
+        assertEq(")", opers_.getVal(46));
         NatTreeMap<Integer,String> values_ = seq_.getValues();
         assertEq(4, values_.size());
         assertEq("abs", values_.getVal(0));
-        assertEq("?java.lang.Object", values_.getVal(4));
-        assertEq("4?", values_.getVal(22));
-        assertEq("3", values_.getVal(25));
-        assertTrue(!seq_.isFirstOpt());
+        assertEq("^vararg(\"java.lang.Object\")", values_.getVal(4));
+        assertEq("^firstopt(4)", values_.getVal(32));
+        assertEq("3", values_.getVal(45));
+    
         assertEq(ElResolver.FCT_OPER_PRIO, seq_.getPriority());
     }
 
@@ -1455,23 +1430,23 @@ public class ElResolverTest {
         addImportingPage(conf_, false);
         BeanOne b_ = new BeanOne();
         addBean(conf_, b_);
-        String el_ = "abs(?java.lang.Object,4;.;?,3)";
+        String el_ = "abs(^vararg(\"java.lang.Object\"),^firstopt(4;.;),3)";
         Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
         NatTreeMap<Integer,String> opers_ = seq_.getOperators();
 //        assertEq(0, opers_.size());
         assertEq(4, opers_.size());
         assertEq("(", opers_.getVal(3));
-        assertEq(",", opers_.getVal(21));
-        assertEq(",", opers_.getVal(27));
-        assertEq(")", opers_.getVal(29));
+        assertEq(",", opers_.getVal(31));
+        assertEq(",", opers_.getVal(47));
+        assertEq(")", opers_.getVal(49));
         NatTreeMap<Integer,String> values_ = seq_.getValues();
         assertEq(4, values_.size());
         assertEq("abs", values_.getVal(0));
-        assertEq("?java.lang.Object", values_.getVal(4));
-        assertEq("4;.;?", values_.getVal(22));
-        assertEq("3", values_.getVal(28));
-        assertTrue(!seq_.isFirstOpt());
+        assertEq("^vararg(\"java.lang.Object\")", values_.getVal(4));
+        assertEq("^firstopt(4;.;)", values_.getVal(32));
+        assertEq("3", values_.getVal(48));
+    
         assertEq(ElResolver.FCT_OPER_PRIO, seq_.getPriority());
     }
 
@@ -1481,23 +1456,23 @@ public class ElResolverTest {
         addImportingPage(conf_, false);
         BeanOne b_ = new BeanOne();
         addBean(conf_, b_);
-        String el_ = "abs(?java.lang.Object,4;.?,3)";
+        String el_ = "abs(^vararg(\"java.lang.Object\"),^firstopt(4;.),3)";
         Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
         NatTreeMap<Integer,String> opers_ = seq_.getOperators();
 //        assertEq(0, opers_.size());
         assertEq(4, opers_.size());
         assertEq("(", opers_.getVal(3));
-        assertEq(",", opers_.getVal(21));
-        assertEq(",", opers_.getVal(26));
-        assertEq(")", opers_.getVal(28));
+        assertEq(",", opers_.getVal(31));
+        assertEq(",", opers_.getVal(46));
+        assertEq(")", opers_.getVal(48));
         NatTreeMap<Integer,String> values_ = seq_.getValues();
         assertEq(4, values_.size());
         assertEq("abs", values_.getVal(0));
-        assertEq("?java.lang.Object", values_.getVal(4));
-        assertEq("4;.?", values_.getVal(22));
-        assertEq("3", values_.getVal(27));
-        assertTrue(!seq_.isFirstOpt());
+        assertEq("^vararg(\"java.lang.Object\")", values_.getVal(4));
+        assertEq("^firstopt(4;.)", values_.getVal(32));
+        assertEq("3", values_.getVal(47));
+    
         assertEq(ElResolver.FCT_OPER_PRIO, seq_.getPriority());
     }
 
@@ -1507,17 +1482,19 @@ public class ElResolverTest {
         addImportingPage(conf_, false);
         BeanOne b_ = new BeanOne();
         addBean(conf_, b_);
-        String el_ = "v;.?";
+        String el_ = "^firstopt(v;.)";
         Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
         NatTreeMap<Integer,String> opers_ = seq_.getOperators();
-//        assertEq(0, opers_.size());
-        assertEq(0, opers_.size());
+        assertEq(2, opers_.size());
+        assertEq("(", opers_.getVal(9));
+        assertEq(")", opers_.getVal(13));
         NatTreeMap<Integer,String> values_ = seq_.getValues();
-        assertEq(1, values_.size());
-        assertEq("v;.", values_.getVal(0));
-        assertTrue(seq_.isFirstOpt());
-        assertEq(ElResolver.CONST_PRIO, seq_.getPriority());
+        assertEq(2, values_.size());
+        assertEq("^firstopt", values_.getVal(0));
+        assertEq("v;.", values_.getVal(10));
+    
+        assertEq(ElResolver.FCT_OPER_PRIO, seq_.getPriority());
     }
 
     @Test
@@ -1526,17 +1503,19 @@ public class ElResolverTest {
         addImportingPage(conf_, false);
         BeanOne b_ = new BeanOne();
         addBean(conf_, b_);
-        String el_ = "v;.;?";
+        String el_ = "^firstopt(v;.;)";
         Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
         NatTreeMap<Integer,String> opers_ = seq_.getOperators();
-//        assertEq(0, opers_.size());
-        assertEq(0, opers_.size());
+        assertEq(2, opers_.size());
+        assertEq("(", opers_.getVal(9));
+        assertEq(")", opers_.getVal(14));
         NatTreeMap<Integer,String> values_ = seq_.getValues();
-        assertEq(1, values_.size());
-        assertEq("v;.;", values_.getVal(0));
-        assertTrue(seq_.isFirstOpt());
-        assertEq(ElResolver.CONST_PRIO, seq_.getPriority());
+        assertEq(2, values_.size());
+        assertEq("^firstopt", values_.getVal(0));
+        assertEq("v;.;", values_.getVal(10));
+    
+        assertEq(ElResolver.FCT_OPER_PRIO, seq_.getPriority());
     }
 
     @Test
@@ -1545,16 +1524,19 @@ public class ElResolverTest {
         addImportingPage(conf_, false);
         BeanOne b_ = new BeanOne();
         addBean(conf_, b_);
-        String el_ = "v;?";
+        String el_ = "^firstopt(v;)";
         Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
         NatTreeMap<Integer,String> opers_ = seq_.getOperators();
-        assertEq(0, opers_.size());
+        assertEq(2, opers_.size());
+        assertEq("(", opers_.getVal(9));
+        assertEq(")", opers_.getVal(12));
         NatTreeMap<Integer,String> values_ = seq_.getValues();
-        assertEq(1, values_.size());
-        assertEq("v;", values_.getVal(0));
-        assertTrue(seq_.isFirstOpt());
-        assertEq(ElResolver.CONST_PRIO, seq_.getPriority());
+        assertEq(2, values_.size());
+        assertEq("^firstopt", values_.getVal(0));
+        assertEq("v;", values_.getVal(10));
+    
+        assertEq(ElResolver.FCT_OPER_PRIO, seq_.getPriority());
     }
 
     @Test
@@ -1563,17 +1545,19 @@ public class ElResolverTest {
         addImportingPage(conf_, false);
         BeanOne b_ = new BeanOne();
         addBean(conf_, b_);
-        String el_ = "v;;?";
+        String el_ = "^firstopt(v;;)";
         Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
         NatTreeMap<Integer,String> opers_ = seq_.getOperators();
-//        assertEq(0, opers_.size());
-        assertEq(0, opers_.size());
+        assertEq(2, opers_.size());
+        assertEq("(", opers_.getVal(9));
+        assertEq(")", opers_.getVal(13));
         NatTreeMap<Integer,String> values_ = seq_.getValues();
-        assertEq(1, values_.size());
-        assertEq("v;;", values_.getVal(0));
-        assertTrue(seq_.isFirstOpt());
-        assertEq(ElResolver.CONST_PRIO, seq_.getPriority());
+        assertEq(2, values_.size());
+        assertEq("^firstopt", values_.getVal(0));
+        assertEq("v;;", values_.getVal(10));
+    
+        assertEq(ElResolver.FCT_OPER_PRIO, seq_.getPriority());
     }
 
     //optional parameter with qualified access
@@ -1583,19 +1567,19 @@ public class ElResolverTest {
         addImportingPage(conf_, false);
         BeanOne b_ = new BeanOne();
         addBean(conf_, b_);
-        String el_ = "v;.t?";
+        String el_ = "^firstopt(v;.t)";
         Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
         NatTreeMap<Integer,String> opers_ = seq_.getOperators();
-//        assertEq(0, opers_.size());
-        assertEq(1, opers_.size());
-        assertEq("", opers_.getVal(3));
+        assertEq(2, opers_.size());
+        assertEq("(", opers_.getVal(9));
+        assertEq(")", opers_.getVal(14));
         NatTreeMap<Integer,String> values_ = seq_.getValues();
         assertEq(2, values_.size());
-        assertEq("v;.", values_.getVal(0));
-        assertEq("t", values_.getVal(3));
-        assertTrue(seq_.isFirstOpt());
-        assertEq(ElResolver.DOT_PRIO, seq_.getPriority());
+        assertEq("^firstopt", values_.getVal(0));
+        assertEq("v;.t", values_.getVal(10));
+    
+        assertEq(ElResolver.FCT_OPER_PRIO, seq_.getPriority());
     }
 
     @Test
@@ -1604,19 +1588,19 @@ public class ElResolverTest {
         addImportingPage(conf_, false);
         BeanOne b_ = new BeanOne();
         addBean(conf_, b_);
-        String el_ = "v;.;t?";
+        String el_ = "^firstopt(v;.;t)";
         Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
         NatTreeMap<Integer,String> opers_ = seq_.getOperators();
-//        assertEq(0, opers_.size());
-        assertEq(1, opers_.size());
-        assertEq("", opers_.getVal(4));
+        assertEq(2, opers_.size());
+        assertEq("(", opers_.getVal(9));
+        assertEq(")", opers_.getVal(15));
         NatTreeMap<Integer,String> values_ = seq_.getValues();
         assertEq(2, values_.size());
-        assertEq("v;.;", values_.getVal(0));
-        assertEq("t", values_.getVal(4));
-        assertTrue(seq_.isFirstOpt());
-        assertEq(ElResolver.DOT_PRIO, seq_.getPriority());
+        assertEq("^firstopt", values_.getVal(0));
+        assertEq("v;.;t", values_.getVal(10));
+    
+        assertEq(ElResolver.FCT_OPER_PRIO, seq_.getPriority());
     }
 
     @Test
@@ -1625,18 +1609,19 @@ public class ElResolverTest {
         addImportingPage(conf_, false);
         BeanOne b_ = new BeanOne();
         addBean(conf_, b_);
-        String el_ = "v;t?";
+        String el_ = "^firstopt(v;t)";
         Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
         NatTreeMap<Integer,String> opers_ = seq_.getOperators();
-        assertEq(1, opers_.size());
-        assertEq("", opers_.getVal(2));
+        assertEq(2, opers_.size());
+        assertEq("(", opers_.getVal(9));
+        assertEq(")", opers_.getVal(13));
         NatTreeMap<Integer,String> values_ = seq_.getValues();
         assertEq(2, values_.size());
-        assertEq("v;", values_.getVal(0));
-        assertEq("t", values_.getVal(2));
-        assertTrue(seq_.isFirstOpt());
-        assertEq(ElResolver.DOT_PRIO, seq_.getPriority());
+        assertEq("^firstopt", values_.getVal(0));
+        assertEq("v;t", values_.getVal(10));
+    
+        assertEq(ElResolver.FCT_OPER_PRIO, seq_.getPriority());
     }
 
 
@@ -1647,19 +1632,19 @@ public class ElResolverTest {
         addImportingPage(conf_, false);
         BeanOne b_ = new BeanOne();
         addBean(conf_, b_);
-        String el_ = "v;;t?";
+        String el_ = "^firstopt(v;;t)";
         Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
         NatTreeMap<Integer,String> opers_ = seq_.getOperators();
-//        assertEq(0, opers_.size());
-        assertEq(1, opers_.size());
-        assertEq("", opers_.getVal(3));
+        assertEq(2, opers_.size());
+        assertEq("(", opers_.getVal(9));
+        assertEq(")", opers_.getVal(14));
         NatTreeMap<Integer,String> values_ = seq_.getValues();
         assertEq(2, values_.size());
-        assertEq("v;;", values_.getVal(0));
-        assertEq("t", values_.getVal(3));
-        assertTrue(seq_.isFirstOpt());
-        assertEq(ElResolver.DOT_PRIO, seq_.getPriority());
+        assertEq("^firstopt", values_.getVal(0));
+        assertEq("v;;t", values_.getVal(10));
+    
+        assertEq(ElResolver.FCT_OPER_PRIO, seq_.getPriority());
     }
 
     @Test
@@ -1676,7 +1661,7 @@ public class ElResolverTest {
         NatTreeMap<Integer,String> values_ = seq_.getValues();
         assertEq(1, values_.size());
         assertEq("-10", values_.getVal(0));
-        assertTrue(!seq_.isFirstOpt());
+    
         assertEq(ElResolver.CONST_PRIO, seq_.getPriority());
     }
 
@@ -1695,7 +1680,7 @@ public class ElResolverTest {
         NatTreeMap<Integer,String> values_ = seq_.getValues();
         assertEq(1, values_.size());
         assertEq("a", values_.getVal(1));
-        assertTrue(!seq_.isFirstOpt());
+    
         assertEq(ElResolver.UNARY_PRIO, seq_.getPriority());
     }
 
@@ -1713,7 +1698,7 @@ public class ElResolverTest {
         NatTreeMap<Integer,String> values_ = seq_.getValues();
         assertEq(1, values_.size());
         assertEq("-1d", values_.getVal(0));
-        assertTrue(!seq_.isFirstOpt());
+    
         assertEq(ElResolver.CONST_PRIO, seq_.getPriority());
     }
 
@@ -1732,26 +1717,18 @@ public class ElResolverTest {
         NatTreeMap<Integer,String> values_ = seq_.getValues();
         assertEq(1, values_.size());
         assertEq("-1.0d", values_.getVal(0));
-        assertTrue(!seq_.isFirstOpt());
+    
         assertEq(ElResolver.CONST_PRIO, seq_.getPriority());
     }
 
-    @Test
-    public void getOperationsSequence86Test() {
+    @Test(expected=BadExpressionLanguageException.class)
+    public void checkSyntax40FailTest() {
         ContextEl conf_ = new ContextEl();
         addImportingPage(conf_, false);
         BeanOne b_ = new BeanOne();
         addBean(conf_, b_);
-        String el_ = "static^pkg^classname";
-        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
-        OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
-        NatTreeMap<Integer,String> opers_ = seq_.getOperators();
-        assertEq(0, opers_.size());
-        NatTreeMap<Integer,String> values_ = seq_.getValues();
-        assertEq(1, values_.size());
-        assertEq("static^pkg^classname", values_.getVal(0));
-        assertTrue(!seq_.isFirstOpt());
-        assertEq(ElResolver.CONST_PRIO, seq_.getPriority());
+        String el_ = "^static^pkg^classname";
+        ElResolver.checkSyntax(el_, conf_, 0);
     }
 
     @Test
@@ -1770,7 +1747,7 @@ public class ElResolverTest {
         assertEq(2, values_.size());
         assertEq("v;", values_.getVal(0));
         assertEq(" a", values_.getVal(2));
-        assertTrue(!seq_.isFirstOpt());
+    
         assertEq(ElResolver.DOT_PRIO, seq_.getPriority());
     }
 
@@ -1788,7 +1765,7 @@ public class ElResolverTest {
         NatTreeMap<Integer,String> values_ = seq_.getValues();
         assertEq(1, values_.size());
         assertEq("v; ", values_.getVal(0));
-        assertTrue(!seq_.isFirstOpt());
+    
         assertEq(ElResolver.CONST_PRIO, seq_.getPriority());
     }
 
@@ -1808,7 +1785,7 @@ public class ElResolverTest {
         assertEq(2, values_.size());
         assertEq("a ", values_.getVal(0));
         assertEq("b", values_.getVal(3));
-        assertTrue(!seq_.isFirstOpt());
+    
         assertEq(ElResolver.DOT_PRIO, seq_.getPriority());
     }
 
@@ -1828,7 +1805,7 @@ public class ElResolverTest {
         assertEq(2, values_.size());
         assertEq("6", values_.getVal(0));
         assertEq("('\\u9Fcb'+8)", values_.getVal(2));
-        assertTrue(!seq_.isFirstOpt());
+    
         assertEq(ElResolver.MULT_PRIO, seq_.getPriority());
     }
 
@@ -1848,7 +1825,6 @@ public class ElResolverTest {
         assertEq(2, values_.size());
         assertEq("6", values_.getVal(0));
         assertEq("(\"\\u9Fcb\"+8)", values_.getVal(2));
-        assertTrue(!seq_.isFirstOpt());
         assertEq(ElResolver.MULT_PRIO, seq_.getPriority());
     }
 
@@ -1868,7 +1844,7 @@ public class ElResolverTest {
         assertEq(2, values_.size());
         assertEq("6", values_.getVal(0));
         assertEq("('\\n'+8)", values_.getVal(2));
-        assertTrue(!seq_.isFirstOpt());
+    
         assertEq(ElResolver.MULT_PRIO, seq_.getPriority());
     }
 
@@ -1888,7 +1864,6 @@ public class ElResolverTest {
         assertEq(2, values_.size());
         assertEq("6", values_.getVal(0));
         assertEq("(\"\\n\"+8)", values_.getVal(2));
-        assertTrue(!seq_.isFirstOpt());
         assertEq(ElResolver.MULT_PRIO, seq_.getPriority());
     }
 
@@ -1908,7 +1883,7 @@ public class ElResolverTest {
         assertEq(2, values_.size());
         assertEq("6", values_.getVal(0));
         assertEq("('\\r'+8)", values_.getVal(2));
-        assertTrue(!seq_.isFirstOpt());
+    
         assertEq(ElResolver.MULT_PRIO, seq_.getPriority());
     }
 
@@ -1928,7 +1903,7 @@ public class ElResolverTest {
         assertEq(2, values_.size());
         assertEq("6", values_.getVal(0));
         assertEq("(\"\\r\"+8)", values_.getVal(2));
-        assertTrue(!seq_.isFirstOpt());
+    
         assertEq(ElResolver.MULT_PRIO, seq_.getPriority());
     }
 
@@ -1948,7 +1923,6 @@ public class ElResolverTest {
         assertEq(2, values_.size());
         assertEq("6", values_.getVal(0));
         assertEq("('\\b'+8)", values_.getVal(2));
-        assertTrue(!seq_.isFirstOpt());
         assertEq(ElResolver.MULT_PRIO, seq_.getPriority());
     }
 
@@ -1968,7 +1942,6 @@ public class ElResolverTest {
         assertEq(2, values_.size());
         assertEq("6", values_.getVal(0));
         assertEq("(\"\\b\"+8)", values_.getVal(2));
-        assertTrue(!seq_.isFirstOpt());
         assertEq(ElResolver.MULT_PRIO, seq_.getPriority());
     }
 
@@ -1988,7 +1961,6 @@ public class ElResolverTest {
         assertEq(2, values_.size());
         assertEq("6", values_.getVal(0));
         assertEq("('\\t'+8)", values_.getVal(2));
-        assertTrue(!seq_.isFirstOpt());
         assertEq(ElResolver.MULT_PRIO, seq_.getPriority());
     }
 
@@ -2008,7 +1980,6 @@ public class ElResolverTest {
         assertEq(2, values_.size());
         assertEq("6", values_.getVal(0));
         assertEq("(\"\\t\"+8)", values_.getVal(2));
-        assertTrue(!seq_.isFirstOpt());
         assertEq(ElResolver.MULT_PRIO, seq_.getPriority());
     }
 
@@ -2028,7 +1999,6 @@ public class ElResolverTest {
         assertEq(2, values_.size());
         assertEq("\"\\\"string\"", values_.getVal(0));
         assertEq("\"\\\"string\"", values_.getVal(11));
-        assertTrue(!seq_.isFirstOpt());
         assertEq(ElResolver.ADD_PRIO, seq_.getPriority());
     }
 
@@ -2048,7 +2018,7 @@ public class ElResolverTest {
         assertEq(2, values_.size());
         assertEq("\"\\\\\\\"string\"", values_.getVal(0));
         assertEq("\"\\\"string\"", values_.getVal(13));
-        assertTrue(!seq_.isFirstOpt());
+    
         assertEq(ElResolver.ADD_PRIO, seq_.getPriority());
     }
 
@@ -2068,7 +2038,6 @@ public class ElResolverTest {
         assertEq(2, values_.size());
         assertEq("6", values_.getVal(0));
         assertEq("('\\f'+8)", values_.getVal(2));
-        assertTrue(!seq_.isFirstOpt());
         assertEq(ElResolver.MULT_PRIO, seq_.getPriority());
     }
 
@@ -2088,7 +2057,7 @@ public class ElResolverTest {
         assertEq(2, values_.size());
         assertEq("6", values_.getVal(0));
         assertEq("(\"\\f\"+8)", values_.getVal(2));
-        assertTrue(!seq_.isFirstOpt());
+    
         assertEq(ElResolver.MULT_PRIO, seq_.getPriority());
     }
 
@@ -2107,7 +2076,6 @@ public class ElResolverTest {
         NatTreeMap<Integer,String> values_ = seq_.getValues();
         assertEq(1, values_.size());
         assertEq("!field", values_.getVal(1));
-        assertTrue(!seq_.isFirstOpt());
         assertEq(ElResolver.UNARY_PRIO, seq_.getPriority());
     }
 
@@ -2127,7 +2095,6 @@ public class ElResolverTest {
         assertEq(2, values_.size());
         assertEq("!field", values_.getVal(0));
         assertEq("anotherfield", values_.getVal(8));
-        assertTrue(!seq_.isFirstOpt());
         assertEq(ElResolver.EQ_PRIO, seq_.getPriority());
     }
 
@@ -2147,7 +2114,6 @@ public class ElResolverTest {
         assertEq(2, values_.size());
         assertEq("field", values_.getVal(0));
         assertEq("!anotherfield", values_.getVal(7));
-        assertTrue(!seq_.isFirstOpt());
         assertEq(ElResolver.EQ_PRIO, seq_.getPriority());
     }
 
@@ -2167,7 +2133,6 @@ public class ElResolverTest {
         assertEq(2, values_.size());
         assertEq("!field", values_.getVal(0));
         assertEq("!anotherfield", values_.getVal(8));
-        assertTrue(!seq_.isFirstOpt());
         assertEq(ElResolver.EQ_PRIO, seq_.getPriority());
     }
 
@@ -2191,7 +2156,7 @@ public class ElResolverTest {
         assertEq("v;.", values_.getVal(0));
         assertEq("news", values_.getVal(3));
         assertEq("a()", values_.getVal(8));
-        assertTrue(!seq_.isFirstOpt());
+    
         assertEq(ElResolver.DOT_PRIO, seq_.getPriority());
     }
 
@@ -2212,7 +2177,6 @@ public class ElResolverTest {
         assertEq(2, values_.size());
         assertEq("news", values_.getVal(0));
         assertEq("a()", values_.getVal(5));
-        assertTrue(!seq_.isFirstOpt());
         assertEq(ElResolver.DOT_PRIO, seq_.getPriority());
     }
 
@@ -2233,7 +2197,6 @@ public class ElResolverTest {
         assertEq(2, values_.size());
         assertEq("var;.", values_.getVal(0));
         assertEq("f", values_.getVal(5));
-        assertTrue(!seq_.isFirstOpt());
         assertEq(ElResolver.DOT_PRIO, seq_.getPriority());
     }
 
@@ -2253,7 +2216,7 @@ public class ElResolverTest {
         assertEq(2, values_.size());
         assertEq("var;.;", values_.getVal(0));
         assertEq("f", values_.getVal(6));
-        assertTrue(!seq_.isFirstOpt());
+    
         assertEq(ElResolver.DOT_PRIO, seq_.getPriority());
     }
 
@@ -2273,7 +2236,6 @@ public class ElResolverTest {
         assertEq(2, values_.size());
         assertEq("var;;", values_.getVal(0));
         assertEq("f", values_.getVal(5));
-        assertTrue(!seq_.isFirstOpt());
         assertEq(ElResolver.DOT_PRIO, seq_.getPriority());
     }
 
@@ -2293,7 +2255,7 @@ public class ElResolverTest {
         assertEq(2, values_.size());
         assertEq("var;", values_.getVal(0));
         assertEq("f", values_.getVal(4));
-        assertTrue(!seq_.isFirstOpt());
+    
         assertEq(ElResolver.DOT_PRIO, seq_.getPriority());
     }
 
@@ -2312,7 +2274,7 @@ public class ElResolverTest {
         NatTreeMap<Integer,String> values_ = seq_.getValues();
         assertEq(1, values_.size());
         assertEq("a", values_.getVal(1));
-        assertTrue(!seq_.isFirstOpt());
+    
         assertEq(ElResolver.UNARY_PRIO, seq_.getPriority());
     }
 
@@ -2332,7 +2294,7 @@ public class ElResolverTest {
         assertEq(2, values_.size());
         assertEq("a", values_.getVal(0));
         assertEq("b", values_.getVal(2));
-        assertTrue(!seq_.isFirstOpt());
+    
         assertEq(ElResolver.OR_PRIO, seq_.getPriority());
     }
 
@@ -2352,7 +2314,7 @@ public class ElResolverTest {
         assertEq(2, values_.size());
         assertEq("a", values_.getVal(0));
         assertEq("b", values_.getVal(2));
-        assertTrue(!seq_.isFirstOpt());
+    
         assertEq(ElResolver.AND_PRIO, seq_.getPriority());
     }
 
@@ -2372,7 +2334,7 @@ public class ElResolverTest {
         assertEq(2, values_.size());
         assertEq("a", values_.getVal(0));
         assertEq("b&c", values_.getVal(2));
-        assertTrue(!seq_.isFirstOpt());
+    
         assertEq(ElResolver.OR_PRIO, seq_.getPriority());
     }
 
@@ -2392,7 +2354,7 @@ public class ElResolverTest {
         assertEq(2, values_.size());
         assertEq("a&b", values_.getVal(0));
         assertEq("c", values_.getVal(4));
-        assertTrue(!seq_.isFirstOpt());
+    
         assertEq(ElResolver.OR_PRIO, seq_.getPriority());
     }
 
@@ -2412,7 +2374,7 @@ public class ElResolverTest {
         assertEq(2, values_.size());
         assertEq("!a", values_.getVal(0));
         assertEq("b", values_.getVal(3));
-        assertTrue(!seq_.isFirstOpt());
+    
         assertEq(ElResolver.OR_PRIO, seq_.getPriority());
     }
 
@@ -2432,7 +2394,7 @@ public class ElResolverTest {
         assertEq(2, values_.size());
         assertEq("!a", values_.getVal(0));
         assertEq("b", values_.getVal(3));
-        assertTrue(!seq_.isFirstOpt());
+    
         assertEq(ElResolver.AND_PRIO, seq_.getPriority());
     }
 
@@ -2452,7 +2414,7 @@ public class ElResolverTest {
         assertEq(2, values_.size());
         assertEq("!a", values_.getVal(0));
         assertEq("b&c", values_.getVal(3));
-        assertTrue(!seq_.isFirstOpt());
+    
         assertEq(ElResolver.OR_PRIO, seq_.getPriority());
     }
 
@@ -2472,7 +2434,7 @@ public class ElResolverTest {
         assertEq(2, values_.size());
         assertEq("!a&b", values_.getVal(0));
         assertEq("c", values_.getVal(5));
-        assertTrue(!seq_.isFirstOpt());
+    
         assertEq(ElResolver.OR_PRIO, seq_.getPriority());
     }
 
@@ -2492,7 +2454,7 @@ public class ElResolverTest {
         assertEq(2, values_.size());
         assertEq("(a|b)", values_.getVal(0));
         assertEq("c", values_.getVal(6));
-        assertTrue(!seq_.isFirstOpt());
+    
         assertEq(ElResolver.AND_PRIO, seq_.getPriority());
     }
 
@@ -2512,7 +2474,7 @@ public class ElResolverTest {
         NatTreeMap<Integer,String> values_ = seq_.getValues();
         assertEq(1, values_.size());
         assertEq("a|b", values_.getVal(1));
-        assertTrue(!seq_.isFirstOpt());
+    
         assertEq(ElResolver.FCT_OPER_PRIO, seq_.getPriority());
     }
 
@@ -2532,7 +2494,7 @@ public class ElResolverTest {
         assertEq(2, values_.size());
         assertEq("v;.[0i]", values_.getVal(0));
         assertEq("array[0i]", values_.getVal(8));
-        assertTrue(!seq_.isFirstOpt());
+    
         assertEq(ElResolver.DOT_PRIO, seq_.getPriority());
     }
 
@@ -2552,7 +2514,7 @@ public class ElResolverTest {
         assertEq(2, values_.size());
         assertEq("var;.", values_.getVal(0));
         assertEq("^new.java.lang.Integer(\"8\")", values_.getVal(5));
-        assertTrue(!seq_.isFirstOpt());
+    
         assertEq(ElResolver.DOT_PRIO, seq_.getPriority());
     }
 
@@ -2572,7 +2534,6 @@ public class ElResolverTest {
         assertEq(2, values_.size());
         assertEq("var;", values_.getVal(0));
         assertEq("^new.java.lang.Integer(\"8\")", values_.getVal(4));
-        assertTrue(!seq_.isFirstOpt());
         assertEq(ElResolver.DOT_PRIO, seq_.getPriority());
     }
 
@@ -2808,16 +2769,6 @@ public class ElResolverTest {
     }
 
     @Test(expected=BadExpressionLanguageException.class)
-    public void checkSyntax6FailTest() {
-        ContextEl conf_ = new ContextEl();
-        addImportingPage(conf_, false);
-        BeanOne b_ = new BeanOne();
-        addBean(conf_, b_);
-        String el_ = "6?*('a'+[8])";
-        ElResolver.checkSyntax(el_, conf_, 0);
-    }
-
-    @Test(expected=BadExpressionLanguageException.class)
     public void checkSyntax7FailTest() {
         ContextEl conf_ = new ContextEl();
         addImportingPage(conf_, false);
@@ -2853,7 +2804,7 @@ public class ElResolverTest {
         addImportingPage(conf_, false);
         BeanOne b_ = new BeanOne();
         addBean(conf_, b_);
-        String el_ = "static.a";
+        String el_ = "^static.a";
         ElResolver.checkSyntax(el_, conf_, 0);
     }
 
@@ -2863,7 +2814,7 @@ public class ElResolverTest {
         addImportingPage(conf_, false);
         BeanOne b_ = new BeanOne();
         addBean(conf_, b_);
-        String el_ = "a.static";
+        String el_ = "a.^static";
         ElResolver.checkSyntax(el_, conf_, 0);
     }
 

@@ -15,8 +15,8 @@ public abstract class MethodOperation extends OperationNode {
 
     private NatTreeMap<Integer,String> children;
 
-    public MethodOperation(String _el, int _index, ContextEl _importingPage, int _indexChild, MethodOperation _m, OperationsSequence _op) {
-        super(_el, _index, _importingPage, _indexChild, _m, _op);
+    public MethodOperation(int _index, ContextEl _importingPage, int _indexChild, MethodOperation _m, OperationsSequence _op) {
+        super(_index, _importingPage, _indexChild, _m, _op);
         children = new NatTreeMap<Integer,String>();
         calculateChildren();
     }
@@ -50,7 +50,7 @@ public abstract class MethodOperation extends OperationNode {
         int curKey_ = children.getKey(0);
         d_.setChildOffest(curKey_);
         OperationsSequence r_ = ElResolver.getOperationsSequence(getIndexInEl(), value_, getConf(), d_);
-        firstChild = createOperationNode(value_, getIndexInEl()+curKey_, getConf(), CustList.FIRST_INDEX, this, r_);
+        firstChild = createOperationNode(getIndexInEl()+curKey_, getConf(), CustList.FIRST_INDEX, this, r_);
         return firstChild;
     }
 

@@ -46,7 +46,7 @@ public final class ElUtil {
         Delimiters dLeft_ = ElResolver.checkSyntax(_left, _conf, CustList.FIRST_INDEX);
         ElResolver.secondCheckSyntax(_left, _conf, dLeft_);
         OperationsSequence opTwoLeft_ = ElResolver.getOperationsSequence(CustList.FIRST_INDEX, _left, _conf, dLeft_);
-        OperationNode opLeft_ = OperationNode.createOperationNode(_left, CustList.FIRST_INDEX, _conf, CustList.FIRST_INDEX, null, opTwoLeft_);
+        OperationNode opLeft_ = OperationNode.createOperationNode(CustList.FIRST_INDEX, _conf, CustList.FIRST_INDEX, null, opTwoLeft_);
         CustList<OperationNode> allLeft_ = getOperationNodes(opLeft_);
         for (OperationNode o: allLeft_) {
             o.setConf(null);
@@ -56,7 +56,7 @@ public final class ElUtil {
         Delimiters dRight_ = ElResolver.checkSyntax(_right, _conf, CustList.FIRST_INDEX);
         ElResolver.secondCheckSyntax(_right, _conf, dLeft_);
         OperationsSequence opTwoRight_ = ElResolver.getOperationsSequence(CustList.FIRST_INDEX, _right, _conf, dRight_);
-        OperationNode opRight_ = OperationNode.createOperationNode(_right, CustList.FIRST_INDEX, _conf, CustList.FIRST_INDEX, null, opTwoRight_);
+        OperationNode opRight_ = OperationNode.createOperationNode(CustList.FIRST_INDEX, _conf, CustList.FIRST_INDEX, null, opTwoRight_);
         CustList<OperationNode> allRight_ = getOperationNodes(opRight_);
         for (OperationNode o: allRight_) {
             o.setConf(null);
@@ -193,7 +193,7 @@ public final class ElUtil {
         _conf.setNextIndex(d_.getIndexEnd()+2);
         ElResolver.secondCheckSyntax(el_, _conf, d_);
         OperationsSequence opTwo_ = ElResolver.getOperationsSequence(CustList.FIRST_INDEX, el_, _conf, d_);
-        OperationNode op_ = OperationNode.createOperationNode(el_, CustList.FIRST_INDEX, _conf, CustList.FIRST_INDEX, null, opTwo_);
+        OperationNode op_ = OperationNode.createOperationNode(CustList.FIRST_INDEX, _conf, CustList.FIRST_INDEX, null, opTwo_);
         CustList<OperationNode> all_ = getOperationNodes(op_);
         for (OperationNode o: all_) {
             o.setConf(null);
@@ -214,7 +214,7 @@ public final class ElUtil {
         Delimiters d_ = ElResolver.checkSyntax(_el, _conf, CustList.FIRST_INDEX);
         ElResolver.secondCheckSyntax(_el, _conf, d_);
         OperationsSequence opTwo_ = ElResolver.getOperationsSequence(CustList.FIRST_INDEX, _el, _conf, d_);
-        OperationNode op_ = OperationNode.createOperationNode(_el, CustList.FIRST_INDEX, _conf, CustList.FIRST_INDEX, null, opTwo_);
+        OperationNode op_ = OperationNode.createOperationNode(CustList.FIRST_INDEX, _conf, CustList.FIRST_INDEX, null, opTwo_);
         CustList<OperationNode> all_ = getOperationNodes(op_);
         for (OperationNode o: all_) {
             o.setConf(null);
@@ -240,7 +240,7 @@ public final class ElUtil {
         String el_ = _el.substring(_index);
         ElResolver.secondCheckSyntax(el_, _conf, d_);
         OperationsSequence opTwo_ = ElResolver.getOperationsSequence(CustList.FIRST_INDEX, el_, _conf, d_);
-        OperationNode op_ = OperationNode.createOperationNode(el_, CustList.FIRST_INDEX, _conf, CustList.FIRST_INDEX, null, opTwo_);
+        OperationNode op_ = OperationNode.createOperationNode(CustList.FIRST_INDEX, _conf, CustList.FIRST_INDEX, null, opTwo_);
         CustList<OperationNode> all_ = getOperationNodes(op_);
         for (OperationNode o: all_) {
             o.setConf(null);

@@ -8670,7 +8670,7 @@ public class FormatHtmlTest {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
-        String html_ = "<html xmlns:c='javahtml'><body><c:set var=\"list\" expression=\"^new."+CUST_LIST+"()\"/><c:set var=\"listTwo\" expression=\"^new."+CUST_LIST+"(?java.lang.Object,list;.?)\" className=\""+CUST_LIST+"\"/>{listTwo;.size()}</body></html>";
+        String html_ = "<html xmlns:c='javahtml'><body><c:set var=\"list\" expression=\"^new."+CUST_LIST+"()\"/><c:set var=\"listTwo\" expression=\"^new."+CUST_LIST+"(^vararg(&quot;java.lang.Object&quot;),^firstopt(list;.))\" className=\""+CUST_LIST+"\"/>{listTwo;.size()}</body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
         files_.put("page1.html", html_);
@@ -9171,8 +9171,7 @@ public class FormatHtmlTest {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
-//        String html_ = "<html xmlns:c='javahtml'><body><c:set var=\"list\" expression=\"new.util.List()\" className=\"java.util.List\"/><c:set expression='list;.add(class(\"java.lang.Object\",1i))'/><c:set expression='list;.add(class(\"java.lang.Object\",2i))'/><c:set var=\"listTwo\" expression=\"new.util.List(class(&quot;java.lang.Object&quot;,list;.))\" className=\"util.List\"/>{listTwo;.size()}</body></html>";
-        String html_ = "<html xmlns:c='javahtml'><body><c:set var=\"list\" expression=\"^new."+CUST_LIST+"()\" className=\""+CUST_LIST+"\"/><c:set expression='list;.add(^class(\"java.lang.Object\",1i))'/><c:set expression='list;.add(^class(\"java.lang.Object\",2i))'/><c:set var=\"listTwo\" expression=\"^new."+CUST_LIST+"(?java.lang.Object,^class(&quot;java.lang.Object&quot;,list;.)?)\" className=\""+CUST_LIST+"\"/>{listTwo;.size()}</body></html>";
+        String html_ = "<html xmlns:c='javahtml'><body><c:set var=\"list\" expression=\"^new."+CUST_LIST+"()\" className=\""+CUST_LIST+"\"/><c:set expression='list;.add(^class(\"java.lang.Object\",1i))'/><c:set expression='list;.add(^class(\"java.lang.Object\",2i))'/><c:set var=\"listTwo\" expression=\"^new."+CUST_LIST+"(^vararg(&quot;java.lang.Object&quot;),^firstopt(^class(&quot;java.lang.Object&quot;,list;.)))\" className=\""+CUST_LIST+"\"/>{listTwo;.size()}</body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
         files_.put("page1.html", html_);

@@ -3,7 +3,6 @@ import code.expressionlanguage.exceptions.BadComparisonException;
 import code.expressionlanguage.exceptions.BadExpressionLanguageException;
 import code.expressionlanguage.exceptions.BadNumberArgumentException;
 import code.expressionlanguage.exceptions.EmptyPartException;
-import code.expressionlanguage.exceptions.VarargException;
 import code.util.CustList;
 import code.util.NatTreeMap;
 import code.util.Numbers;
@@ -49,7 +48,10 @@ public final class ElResolver {
     private static final String CLASS_CHOICE = "classchoice";
     private static final String STATIC_CALL = "^^";
     private static final String INSTANCE = "new";
+    private static final String SUPER = "super";
     private static final String STATIC_ACCESS = "static";
+    private static final String VAR_ARG = "vararg";
+    private static final String FIRST_OPT = "firstopt";
 
     private static final char MIN_ENCODE_DIGIT = '0';
     private static final char MAX_ENCODE_DIGIT = '9';
@@ -183,7 +185,6 @@ public final class ElResolver {
         boolean foundSemiColumn_ = false;
         boolean constChar_ = false;
         boolean escapedMeta_ = false;
-        boolean firstVarArg_ = false;
         int unicode_ = 0;
         int len_ = _string.length();
         int i_ = _minIndex;
@@ -466,6 +467,168 @@ public final class ElResolver {
                         i_ = j_;
                         continue;
                     }
+                    if (procWordFirstChar(_string, i_ + 1, STATIC_ACCESS, len_)) {
+                        int afterStatic_ = i_ + 1 + STATIC_ACCESS.length();
+                        boolean foundHat_ = false;
+                        while (afterStatic_ < len_) {
+                            if (_string.charAt(afterStatic_) == _end) {
+                                _conf.getLastPage().setOffset(afterStatic_);
+                                throw new BadExpressionLanguageException(_string+RETURN_LINE+_conf.joinPages());
+                            }
+                            if (_string.charAt(afterStatic_) == EXTERN_CLASS) {
+                                foundHat_ = true;
+                                break;
+                            }
+                            if (!Character.isWhitespace(_string.charAt(afterStatic_))) {
+                                _conf.getLastPage().setOffset(afterStatic_);
+                                throw new BadExpressionLanguageException(_string+RETURN_LINE+_conf.joinPages());
+                            }
+                            afterStatic_++;
+                        }
+                        if (!foundHat_) {
+                            _conf.getLastPage().setOffset(len_ - 1);
+                            throw new BadExpressionLanguageException(_string+RETURN_LINE+_conf.joinPages());
+                        }
+                        int j_ = i_ + 1;
+                        while (j_ < len_) {
+                            if (_string.charAt(j_) == DOT_VAR) {
+                                break;
+                            }
+                            if (_string.charAt(j_) == _end) {
+                                _conf.getLastPage().setOffset(j_);
+                                throw new BadExpressionLanguageException(_string+RETURN_LINE+_conf.joinPages());
+                            }
+                            j_++;
+                        }
+                        if (j_ >= len_) {
+                            _conf.getLastPage().setOffset(len_ - 1);
+                            throw new BadExpressionLanguageException(_string+RETURN_LINE+_conf.joinPages());
+                        }
+                        i_ = j_;
+                        continue;
+                    }
+                    if (procWordFirstChar(_string, i_ + 1, SUPER, len_)) {
+                        int afterSuper_ = i_ + 1 + SUPER.length();
+                        boolean foundHat_ = false;
+                        while (afterSuper_ < len_) {
+                            if (_string.charAt(afterSuper_) == _end) {
+                                _conf.getLastPage().setOffset(afterSuper_);
+                                throw new BadExpressionLanguageException(_string+RETURN_LINE+_conf.joinPages());
+                            }
+                            if (_string.charAt(afterSuper_) == EXTERN_CLASS) {
+                                foundHat_ = true;
+                                break;
+                            }
+                            if (!Character.isWhitespace(_string.charAt(afterSuper_))) {
+                                if (_string.charAt(afterSuper_) != PAR_LEFT) {
+                                    _conf.getLastPage().setOffset(afterSuper_);
+                                    throw new BadExpressionLanguageException(_string+RETURN_LINE+_conf.joinPages());
+                                }
+                                break;
+                            }
+                            afterSuper_++;
+                        }
+                        if (!foundHat_) {
+                            i_ = afterSuper_;
+                            continue;
+                        }
+                        if (afterSuper_ + 1 >= len_) {
+                            _conf.getLastPage().setOffset(afterSuper_);
+                            throw new BadExpressionLanguageException(_string+RETURN_LINE+_conf.joinPages());
+                        }
+                        i_ = afterSuper_ + 1;
+                        continue;
+                    }
+                    if (procWordFirstChar(_string, i_ + 1, CLASS_CHOICE, len_)) {
+                        int afterClassChoice_ = i_ + 1 + CLASS_CHOICE.length();
+                        boolean foundHat_ = false;
+                        while (afterClassChoice_ < len_) {
+                            if (_string.charAt(afterClassChoice_) == _end) {
+                                _conf.getLastPage().setOffset(afterClassChoice_);
+                                throw new BadExpressionLanguageException(_string+RETURN_LINE+_conf.joinPages());
+                            }
+                            if (_string.charAt(afterClassChoice_) == EXTERN_CLASS) {
+                                foundHat_ = true;
+                                break;
+                            }
+                            if (!Character.isWhitespace(_string.charAt(afterClassChoice_))) {
+                                _conf.getLastPage().setOffset(afterClassChoice_);
+                                throw new BadExpressionLanguageException(_string+RETURN_LINE+_conf.joinPages());
+                            }
+                            afterClassChoice_++;
+                        }
+                        if (!foundHat_) {
+                            _conf.getLastPage().setOffset(len_ - 1);
+                            throw new BadExpressionLanguageException(_string+RETURN_LINE+_conf.joinPages());
+                        }
+                        if (afterClassChoice_ + 1 >= len_) {
+                            _conf.getLastPage().setOffset(afterClassChoice_);
+                            throw new BadExpressionLanguageException(_string+RETURN_LINE+_conf.joinPages());
+                        }
+                        boolean foundHats_ = false;
+                        afterClassChoice_++;
+                        while (afterClassChoice_ < len_) {
+                            if (_string.charAt(afterClassChoice_) == _end) {
+                                _conf.getLastPage().setOffset(afterClassChoice_);
+                                throw new BadExpressionLanguageException(_string+RETURN_LINE+_conf.joinPages());
+                            }
+                            if (_string.charAt(afterClassChoice_) == EXTERN_CLASS) {
+                                if (afterClassChoice_ + 1 >= len_) {
+                                    _conf.getLastPage().setOffset(afterClassChoice_);
+                                    throw new BadExpressionLanguageException(_string+RETURN_LINE+_conf.joinPages());
+                                }
+                                if (_string.charAt(afterClassChoice_ + 1) == EXTERN_CLASS) {
+                                    foundHats_ = true;
+                                    break;
+                                }
+                            }
+                            afterClassChoice_++;
+                        }
+                        if (!foundHats_) {
+                            _conf.getLastPage().setOffset(len_ - 1);
+                            throw new BadExpressionLanguageException(_string+RETURN_LINE+_conf.joinPages());
+                        }
+                        if (afterClassChoice_ + 1 >= len_) {
+                            _conf.getLastPage().setOffset(afterClassChoice_);
+                            throw new BadExpressionLanguageException(_string+RETURN_LINE+_conf.joinPages());
+                        }
+                        i_ = afterClassChoice_ + 1;
+                        continue;
+                    }
+                    if (procWordFirstChar(_string, i_ + 1, VAR_ARG, len_)) {
+                        int afterSuper_ = i_ + 1 + VAR_ARG.length();
+                        if (afterSuper_ >= len_) {
+                            _conf.getLastPage().setOffset(afterSuper_);
+                            throw new BadExpressionLanguageException(_string+RETURN_LINE+_conf.joinPages());
+                        }
+                        if (_string.charAt(afterSuper_) == _end) {
+                            _conf.getLastPage().setOffset(afterSuper_);
+                            throw new BadExpressionLanguageException(_string+RETURN_LINE+_conf.joinPages());
+                        }
+                        if (_string.charAt(afterSuper_) != PAR_LEFT) {
+                            _conf.getLastPage().setOffset(afterSuper_);
+                            throw new BadExpressionLanguageException(_string+RETURN_LINE+_conf.joinPages());
+                        }
+                        i_ = afterSuper_;
+                        continue;
+                    }
+                    if (procWordFirstChar(_string, i_ + 1, FIRST_OPT, len_)) {
+                        int afterSuper_ = i_ + 1 + FIRST_OPT.length();
+                        if (afterSuper_ >= len_) {
+                            _conf.getLastPage().setOffset(afterSuper_);
+                            throw new BadExpressionLanguageException(_string+RETURN_LINE+_conf.joinPages());
+                        }
+                        if (_string.charAt(afterSuper_) == _end) {
+                            _conf.getLastPage().setOffset(afterSuper_);
+                            throw new BadExpressionLanguageException(_string+RETURN_LINE+_conf.joinPages());
+                        }
+                        if (_string.charAt(afterSuper_) != PAR_LEFT) {
+                            _conf.getLastPage().setOffset(afterSuper_);
+                            throw new BadExpressionLanguageException(_string+RETURN_LINE+_conf.joinPages());
+                        }
+                        i_ = afterSuper_;
+                        continue;
+                    }
                 }
             }
             if (StringList.isWordChar(curChar_)) {
@@ -511,26 +674,6 @@ public final class ElResolver {
                     }
                     if (onlySpacesFrom(_string, firstPrintableWordChar_, i_, DOT_VAR) && _string.charAt(i_ - 1) != DOT_VAR) {
                         _conf.getLastPage().setOffset(i_-1);
-                        throw new BadExpressionLanguageException(_string+RETURN_LINE+_conf.joinPages());
-                    }
-                }
-                if (procWordFirstChar(_string, i_, STATIC_ACCESS, len_)) {
-                    boolean existHat_ = false;
-                    int j_ = i_ + STATIC_ACCESS.length();
-                    while (j_ < len_) {
-                        char cur_ = _string.charAt(j_);
-                        if (Character.isWhitespace(cur_)) {
-                            j_++;
-                            continue;
-                        }
-                        if (cur_ == EXTERN_CLASS) {
-                            existHat_ = true;
-                            break;
-                        }
-                        j_++;
-                    }
-                    if (!existHat_) {
-                        _conf.getLastPage().setOffset(j_);
                         throw new BadExpressionLanguageException(_string+RETURN_LINE+_conf.joinPages());
                     }
                 }
@@ -586,47 +729,11 @@ public final class ElResolver {
                     _conf.getLastPage().setOffset(i_);
                     throw new BadExpressionLanguageException(_string+RETURN_LINE+_conf.joinPages());
                 }
-                firstVarArg_ = false;
                 d_.getCallings().put(parsBrackets_.getKey(parsBrackets_.size() - 1)-_minIndex, i_-_minIndex);
                 parsBrackets_.removeKey(parsBrackets_.getKey(parsBrackets_.size() - 1));
             }
-            if (curChar_ == FIRST_VAR_ARG) {
-                if (parsBrackets_.isEmpty()) {
-                    int j_ = i_ + 1;
-                    boolean foundPrintableSpace_ = false;
-                    while (j_ < len_) {
-                        if (!Character.isWhitespace(_string.charAt(j_))) {
-                            foundPrintableSpace_ = true;
-                            break;
-                        }
-                        j_++;
-                    }
-                    if (foundPrintableSpace_) {
-                        _conf.getLastPage().setOffset(i_);
-                        throw new BadExpressionLanguageException(_string+RETURN_LINE+_conf.joinPages());
-                    }
-                } else {
-                    if (parsBrackets_.getValue(parsBrackets_.size() - 1) != PAR_LEFT) {
-                        _conf.getLastPage().setOffset(i_);
-                        throw new BadExpressionLanguageException(_string+RETURN_LINE+_conf.joinPages());
-                    }
-                    int lastKey_ = parsBrackets_.getKey(parsBrackets_.size() - 1);
-                    boolean allWhiteSpace_ = true;
-                    for (int i = lastKey_+1; i < i_; i++) {
-                        if (!Character.isWhitespace(_string.charAt(i))) {
-                            allWhiteSpace_ = false;
-                            break;
-                        }
-                    }
-                    if (allWhiteSpace_) {
-                        firstVarArg_ = true;
-                    }
-                }
-            }
             if (curChar_ == ARR_LEFT) {
-                if (!firstVarArg_) {
-                    parsBrackets_.put(i_, curChar_);
-                }
+                parsBrackets_.put(i_, curChar_);
             }
             if (curChar_ == ARR_RIGHT) {
                 if (parsBrackets_.isEmpty()) {
@@ -645,7 +752,6 @@ public final class ElResolver {
                     _conf.getLastPage().setOffset(i_);
                     throw new BadExpressionLanguageException(_string+RETURN_LINE+_conf.joinPages());
                 }
-                firstVarArg_ = false;
             }
             if (parsBrackets_.isEmpty()) {
                 if (_string.substring(i_, i_ + 1).startsWith(DOT)) {
@@ -658,10 +764,6 @@ public final class ElResolver {
                 }
             }
             if (_string.charAt(i_) == _end) {
-                if (firstVarArg_) {
-                    _conf.getLastPage().setOffset(i_);
-                    throw new BadExpressionLanguageException(_string+RETURN_LINE+_conf.joinPages());
-                }
                 if (constString_) {
                     _conf.getLastPage().setOffset(i_);
                     throw new BadExpressionLanguageException(_string+RETURN_LINE+_conf.joinPages());
@@ -696,7 +798,6 @@ public final class ElResolver {
         boolean foundSemiColumn_ = false;
         boolean constChar_ = false;
         boolean escapedMeta_ = false;
-        boolean firstVarArg_ = false;
         int unicode_ = 0;
         int len_ = _string.length();
         int i_ = _elOffest;
@@ -969,6 +1070,134 @@ public final class ElResolver {
                         i_ = indexLeftPar_;
                         continue;
                     }
+                    if (procWordFirstChar(_string, i_ + 1, STATIC_ACCESS, len_)) {
+                        int afterStatic_ = i_ + 1 + STATIC_ACCESS.length();
+                        boolean foundHat_ = false;
+                        while (afterStatic_ < len_) {
+                            if (_string.charAt(afterStatic_) == EXTERN_CLASS) {
+                                foundHat_ = true;
+                                break;
+                            }
+                            if (!Character.isWhitespace(_string.charAt(afterStatic_))) {
+                                _conf.getLastPage().setOffset(afterStatic_);
+                                throw new BadExpressionLanguageException(_string+RETURN_LINE+_conf.joinPages());
+                            }
+                            afterStatic_++;
+                        }
+                        if (!foundHat_) {
+                            _conf.getLastPage().setOffset(len_ - 1);
+                            throw new BadExpressionLanguageException(_string+RETURN_LINE+_conf.joinPages());
+                        }
+                        int indexDot_ = _string.indexOf(DOT_VAR, afterStatic_);
+                        if (indexDot_ == CustList.INDEX_NOT_FOUND_ELT) {
+                            _conf.getLastPage().setOffset(len_ - 1);
+                            throw new BadExpressionLanguageException(_string+RETURN_LINE+_conf.joinPages());
+                        }
+                        i_ = indexDot_;
+                        continue;
+                    }
+                    if (procWordFirstChar(_string, i_ + 1, SUPER, len_)) {
+                        int afterSuper_ = i_ + 1 + SUPER.length();
+                        boolean foundHat_ = false;
+                        while (afterSuper_ < len_) {
+                            if (_string.charAt(afterSuper_) == EXTERN_CLASS) {
+                                foundHat_ = true;
+                                break;
+                            }
+                            if (!Character.isWhitespace(_string.charAt(afterSuper_))) {
+                                if (_string.charAt(afterSuper_) != PAR_LEFT) {
+                                    _conf.getLastPage().setOffset(afterSuper_);
+                                    throw new BadExpressionLanguageException(_string+RETURN_LINE+_conf.joinPages());
+                                }
+                                break;
+                            }
+                            afterSuper_++;
+                        }
+                        if (!foundHat_) {
+                            i_ = afterSuper_;
+                            continue;
+                        }
+                        if (afterSuper_ + 1 >= len_) {
+                            _conf.getLastPage().setOffset(afterSuper_);
+                            throw new BadExpressionLanguageException(_string+RETURN_LINE+_conf.joinPages());
+                        }
+                        i_ = afterSuper_ + 1;
+                        continue;
+                    }
+                    if (procWordFirstChar(_string, i_ + 1, CLASS_CHOICE, len_)) {
+                        int afterClassChoice_ = i_ + 1 + CLASS_CHOICE.length();
+                        boolean foundHat_ = false;
+                        while (afterClassChoice_ < len_) {
+                            if (_string.charAt(afterClassChoice_) == EXTERN_CLASS) {
+                                foundHat_ = true;
+                                break;
+                            }
+                            if (!Character.isWhitespace(_string.charAt(afterClassChoice_))) {
+                                _conf.getLastPage().setOffset(afterClassChoice_);
+                                throw new BadExpressionLanguageException(_string+RETURN_LINE+_conf.joinPages());
+                            }
+                            afterClassChoice_++;
+                        }
+                        if (!foundHat_) {
+                            _conf.getLastPage().setOffset(len_ - 1);
+                            throw new BadExpressionLanguageException(_string+RETURN_LINE+_conf.joinPages());
+                        }
+                        if (afterClassChoice_ + 1 >= len_) {
+                            _conf.getLastPage().setOffset(afterClassChoice_);
+                            throw new BadExpressionLanguageException(_string+RETURN_LINE+_conf.joinPages());
+                        }
+                        boolean foundHats_ = false;
+                        afterClassChoice_++;
+                        while (afterClassChoice_ < len_) {
+                            if (_string.charAt(afterClassChoice_) == EXTERN_CLASS) {
+                                if (afterClassChoice_ + 1 >= len_) {
+                                    _conf.getLastPage().setOffset(afterClassChoice_);
+                                    throw new BadExpressionLanguageException(_string+RETURN_LINE+_conf.joinPages());
+                                }
+                                if (_string.charAt(afterClassChoice_ + 1) == EXTERN_CLASS) {
+                                    foundHats_ = true;
+                                    break;
+                                }
+                            }
+                            afterClassChoice_++;
+                        }
+                        if (!foundHats_) {
+                            _conf.getLastPage().setOffset(len_ - 1);
+                            throw new BadExpressionLanguageException(_string+RETURN_LINE+_conf.joinPages());
+                        }
+                        if (afterClassChoice_ + 1 >= len_) {
+                            _conf.getLastPage().setOffset(afterClassChoice_);
+                            throw new BadExpressionLanguageException(_string+RETURN_LINE+_conf.joinPages());
+                        }
+                        i_ = afterClassChoice_ + 1;
+                        continue;
+                    }
+                    if (procWordFirstChar(_string, i_ + 1, VAR_ARG, len_)) {
+                        int afterSuper_ = i_ + 1 + VAR_ARG.length();
+                        if (afterSuper_ >= len_) {
+                            _conf.getLastPage().setOffset(afterSuper_);
+                            throw new BadExpressionLanguageException(_string+RETURN_LINE+_conf.joinPages());
+                        }
+                        if (_string.charAt(afterSuper_) != PAR_LEFT) {
+                            _conf.getLastPage().setOffset(afterSuper_);
+                            throw new BadExpressionLanguageException(_string+RETURN_LINE+_conf.joinPages());
+                        }
+                        i_ = afterSuper_;
+                        continue;
+                    }
+                    if (procWordFirstChar(_string, i_ + 1, FIRST_OPT, len_)) {
+                        int afterSuper_ = i_ + 1 + FIRST_OPT.length();
+                        if (afterSuper_ >= len_) {
+                            _conf.getLastPage().setOffset(afterSuper_);
+                            throw new BadExpressionLanguageException(_string+RETURN_LINE+_conf.joinPages());
+                        }
+                        if (_string.charAt(afterSuper_) != PAR_LEFT) {
+                            _conf.getLastPage().setOffset(afterSuper_);
+                            throw new BadExpressionLanguageException(_string+RETURN_LINE+_conf.joinPages());
+                        }
+                        i_ = afterSuper_;
+                        continue;
+                    }
                 }
             }
             if (StringList.isWordChar(curChar_)) {
@@ -1014,26 +1243,6 @@ public final class ElResolver {
                     }
                     if (onlySpacesFrom(_string, firstPrintableWordChar_, i_, DOT_VAR) && _string.charAt(i_ - 1) != DOT_VAR) {
                         _conf.getLastPage().setOffset(i_-1);
-                        throw new BadExpressionLanguageException(_string+RETURN_LINE+_conf.joinPages());
-                    }
-                }
-                if (procWordFirstChar(_string, i_, STATIC_ACCESS, len_)) {
-                    boolean existHat_ = false;
-                    int j_ = i_ + STATIC_ACCESS.length();
-                    while (j_ < len_) {
-                        char cur_ = _string.charAt(j_);
-                        if (Character.isWhitespace(cur_)) {
-                            j_++;
-                            continue;
-                        }
-                        if (cur_ == EXTERN_CLASS) {
-                            existHat_ = true;
-                            break;
-                        }
-                        j_++;
-                    }
-                    if (!existHat_) {
-                        _conf.getLastPage().setOffset(j_);
                         throw new BadExpressionLanguageException(_string+RETURN_LINE+_conf.joinPages());
                     }
                 }
@@ -1089,47 +1298,11 @@ public final class ElResolver {
                     _conf.getLastPage().setOffset(i_);
                     throw new BadExpressionLanguageException(_string+RETURN_LINE+_conf.joinPages());
                 }
-                firstVarArg_ = false;
                 d_.getCallings().put(parsBrackets_.getKey(parsBrackets_.size() - 1), i_);
                 parsBrackets_.removeKey(parsBrackets_.getKey(parsBrackets_.size() - 1));
             }
-            if (curChar_ == FIRST_VAR_ARG) {
-                if (parsBrackets_.isEmpty()) {
-                    int j_ = i_ + 1;
-                    boolean foundPrintableSpace_ = false;
-                    while (j_ < len_) {
-                        if (!Character.isWhitespace(_string.charAt(j_))) {
-                            foundPrintableSpace_ = true;
-                            break;
-                        }
-                        j_++;
-                    }
-                    if (foundPrintableSpace_) {
-                        _conf.getLastPage().setOffset(i_);
-                        throw new BadExpressionLanguageException(_string+RETURN_LINE+_conf.joinPages());
-                    }
-                } else {
-                    if (parsBrackets_.getValue(parsBrackets_.size() - 1) != PAR_LEFT) {
-                        _conf.getLastPage().setOffset(i_);
-                        throw new BadExpressionLanguageException(_string+RETURN_LINE+_conf.joinPages());
-                    }
-                    int lastKey_ = parsBrackets_.getKey(parsBrackets_.size() - 1);
-                    boolean allWhiteSpace_ = true;
-                    for (int i = lastKey_+1; i < i_; i++) {
-                        if (!Character.isWhitespace(_string.charAt(i))) {
-                            allWhiteSpace_ = false;
-                            break;
-                        }
-                    }
-                    if (allWhiteSpace_) {
-                        firstVarArg_ = true;
-                    }
-                }
-            }
             if (curChar_ == ARR_LEFT) {
-                if (!firstVarArg_) {
-                    parsBrackets_.put(i_, curChar_);
-                }
+                parsBrackets_.put(i_, curChar_);
             }
             if (curChar_ == ARR_RIGHT) {
                 if (parsBrackets_.isEmpty()) {
@@ -1148,7 +1321,6 @@ public final class ElResolver {
                     _conf.getLastPage().setOffset(i_);
                     throw new BadExpressionLanguageException(_string+RETURN_LINE+_conf.joinPages());
                 }
-                firstVarArg_ = false;
             }
             if (parsBrackets_.isEmpty()) {
                 if (_string.substring(i_, i_ + 1).startsWith(DOT)) {
@@ -1161,10 +1333,6 @@ public final class ElResolver {
                 }
             }
             i_++;
-        }
-        if (firstVarArg_) {
-            _conf.getLastPage().setOffset(i_);
-            throw new BadExpressionLanguageException(_string+RETURN_LINE+_conf.joinPages());
         }
         if (constString_) {
             _conf.getLastPage().setOffset(i_);
@@ -1452,7 +1620,6 @@ public final class ElResolver {
         boolean constString_ = false;
         boolean constChar_ = false;
         boolean escapedMeta_ = false;
-        boolean firstVarArg_ = false;
         int prioMax_ = getMaxPriority();
         int prio_ = prioMax_;
         int len_ = _string.length();
@@ -1476,78 +1643,54 @@ public final class ElResolver {
             }
             lastPrintChar_--;
         }
-        if (_string.charAt(firstPrintChar_) == FIRST_VAR_ARG) {
-            if (firstPrintChar_ == lastPrintChar_) {
-                _conf.getLastPage().setOffset(_d.getIndexBegin()+_offset+lastPrintChar_);
-                throw new VarargException(_string+RETURN_LINE+_conf.joinPages());
-            }
-            OperationsSequence op_ = new OperationsSequence();
-            op_.setOperators(new NatTreeMap<Integer, String>());
-            op_.setupValues(_string, false, FIRST_VAR_ARG);
-            op_.addOffset(_offset);
-            op_.setDelimiter(_d);
-            return op_;
-        }
         len_ = lastPrintChar_+1;
-        boolean firstOpt_ = false;
-        if (_string.charAt(lastPrintChar_) == FIRST_VAR_ARG) {
-            firstOpt_ = true;
-            lastPrintChar_--;
-            while (lastPrintChar_ >= 0) {
-                if (!Character.isWhitespace(_string.charAt(lastPrintChar_))) {
-                    break;
+        if (_string.charAt(i_) == EXTERN_CLASS) {
+            if (procWordFirstChar(_string, firstPrintChar_ + 1, STATIC_ACCESS, len_)) {
+                int j_ = firstPrintChar_ +1 + STATIC_ACCESS.length();
+                while (Character.isWhitespace(_string.charAt(j_))) {
+                    j_++;
                 }
-                lastPrintChar_--;
-            }
-            len_ = lastPrintChar_+1;
-        }
-        if (procWordFirstChar(_string, firstPrintChar_, STATIC_ACCESS, len_)) {
-            int j_ = firstPrintChar_ + STATIC_ACCESS.length();
-            while (Character.isWhitespace(_string.charAt(j_))) {
-                j_++;
-            }
-            if (_string.charAt(j_) == EXTERN_CLASS) {
-                boolean staticAccess_ = true;
-                while (j_ <= lastPrintChar_) {
-                    if (_string.charAt(j_) == EXTERN_CLASS) {
-                        j_++;
-                        continue;
+                if (_string.charAt(j_) == EXTERN_CLASS) {
+                    boolean staticAccess_ = true;
+                    while (j_ <= lastPrintChar_) {
+                        if (_string.charAt(j_) == EXTERN_CLASS) {
+                            j_++;
+                            continue;
+                        }
+                        if (_string.charAt(j_) == INTERN_CLASS) {
+                            j_++;
+                            continue;
+                        }
+                        if (Character.isWhitespace(_string.charAt(j_))) {
+                            j_++;
+                            continue;
+                        }
+                        if (StringList.isWordChar(_string.charAt(j_))) {
+                            j_++;
+                            continue;
+                        }
+                        if (_string.charAt(j_) == ARR_LEFT) {
+                            j_++;
+                            continue;
+                        }
+                        staticAccess_ = false;
+                        break;
                     }
-                    if (_string.charAt(j_) == INTERN_CLASS) {
-                        j_++;
-                        continue;
+                    if (staticAccess_) {
+                        OperationsSequence op_ = new OperationsSequence();
+                        op_.setOperators(new NatTreeMap<Integer, String>());
+                        op_.setupValues(_string);
+                        op_.addOffset(_offset);
+                        op_.setDelimiter(_d);
+                        return op_;
                     }
-                    if (Character.isWhitespace(_string.charAt(j_))) {
-                        j_++;
-                        continue;
-                    }
-                    if (StringList.isWordChar(_string.charAt(j_))) {
-                        j_++;
-                        continue;
-                    }
-                    if (_string.charAt(j_) == ARR_LEFT) {
-                        j_++;
-                        continue;
-                    }
-                    staticAccess_ = false;
-                    break;
-                }
-                if (staticAccess_) {
-                    OperationsSequence op_ = new OperationsSequence();
-                    op_.setOperators(new NatTreeMap<Integer, String>());
-                    op_.setFirstOpt(firstOpt_);
-                    op_.setupValues(_string, false, FIRST_VAR_ARG);
-                    op_.addOffset(_offset);
-                    op_.setDelimiter(_d);
-                    return op_;
                 }
             }
         }
         if (isFloatingNumber(_string, firstPrintChar_, lastPrintChar_)) {
             OperationsSequence op_ = new OperationsSequence();
             op_.setOperators(new NatTreeMap<Integer, String>());
-            op_.setFirstOpt(firstOpt_);
-            op_.setupValues(_string, false, FIRST_VAR_ARG);
+            op_.setupValues(_string);
             op_.addOffset(_offset);
             op_.setDelimiter(_d);
             return op_;
@@ -1555,8 +1698,7 @@ public final class ElResolver {
         if (isIntegerNumber(_string, firstPrintChar_, lastPrintChar_)) {
             OperationsSequence op_ = new OperationsSequence();
             op_.setOperators(new NatTreeMap<Integer, String>());
-            op_.setFirstOpt(firstOpt_);
-            op_.setupValues(_string, false, FIRST_VAR_ARG);
+            op_.setupValues(_string);
             op_.addOffset(_offset);
             op_.setDelimiter(_d);
             return op_;
@@ -1564,8 +1706,7 @@ public final class ElResolver {
         if (isVariableOrWord(_string, firstPrintChar_, lastPrintChar_)) {
             OperationsSequence op_ = new OperationsSequence();
             op_.setOperators(new NatTreeMap<Integer, String>());
-            op_.setFirstOpt(firstOpt_);
-            op_.setupValues(_string, false, FIRST_VAR_ARG);
+            op_.setupValues(_string);
             op_.addOffset(_offset);
             op_.setDelimiter(_d);
             return op_;
@@ -1573,8 +1714,7 @@ public final class ElResolver {
         if (isConstant(_string, firstPrintChar_, lastPrintChar_, DELIMITER_CHAR)) {
             OperationsSequence op_ = new OperationsSequence();
             op_.setOperators(new NatTreeMap<Integer, String>());
-            op_.setFirstOpt(firstOpt_);
-            op_.setupValues(_string, false, FIRST_VAR_ARG);
+            op_.setupValues(_string);
             op_.addOffset(_offset);
             op_.setDelimiter(_d);
             return op_;
@@ -1582,8 +1722,7 @@ public final class ElResolver {
         if (isConstant(_string, firstPrintChar_, lastPrintChar_, DELIMITER_STRING)) {
             OperationsSequence op_ = new OperationsSequence();
             op_.setOperators(new NatTreeMap<Integer, String>());
-            op_.setFirstOpt(firstOpt_);
-            op_.setupValues(_string, false, FIRST_VAR_ARG);
+            op_.setupValues(_string);
             op_.addOffset(_offset);
             op_.setDelimiter(_d);
             return op_;
@@ -1678,6 +1817,21 @@ public final class ElResolver {
                     i_ = _string.indexOf(PAR_LEFT, i_ + 1);
                     continue;
                 }
+                if (procWordFirstChar(_string, i_ + 1, STATIC_ACCESS, len_)) {
+                    i_ = _string.indexOf(DOT_VAR, i_ + 1);
+                    continue;
+                }
+                if (procWordFirstChar(_string, i_ + 1, SUPER, len_)) {
+                    int next_ = _string.indexOf(EXTERN_CLASS, i_ + 1);
+                    if (next_ > CustList.INDEX_NOT_FOUND_ELT) {
+                        i_ = next_;
+                        continue;
+                    }
+                }
+                if (procWordFirstChar(_string, i_ + 1, CLASS_CHOICE, len_)) {
+                    i_ = _string.indexOf(STATIC_CALL, i_ + 1) + STATIC_CALL.length();
+                    continue;
+                }
             }
             if (StringList.isWordChar(curChar_)) {
                 while (i_ < len_) {
@@ -1697,25 +1851,9 @@ public final class ElResolver {
             }
             if (curChar_ == PAR_RIGHT) {
                 usedEnder_ = curChar_;
-                firstVarArg_ = false;
                 parsBrackets_.removeKey(parsBrackets_.lastKey());
                 if (parsBrackets_.isEmpty() && prio_ == FCT_OPER_PRIO) {
                     operators_.put(i_, String.valueOf(PAR_RIGHT));
-                }
-            }
-            if (curChar_ == FIRST_VAR_ARG) {
-                if (!parsBrackets_.isEmpty()) {
-                    int lastKey_ = parsBrackets_.getKey(parsBrackets_.size() - 1);
-                    boolean allWhiteSpace_ = true;
-                    for (int i = lastKey_+1; i < i_; i++) {
-                        if (!Character.isWhitespace(_string.charAt(i))) {
-                            allWhiteSpace_ = false;
-                            break;
-                        }
-                    }
-                    if (allWhiteSpace_) {
-                        firstVarArg_ = true;
-                    }
                 }
             }
             if (curChar_ == ARR_LEFT) {
@@ -1728,9 +1866,7 @@ public final class ElResolver {
                         operators_.put(i_, ARR);
                     }
                 }
-                if (!firstVarArg_) {
-                    parsBrackets_.put(i_, curChar_);
-                }
+                parsBrackets_.put(i_, curChar_);
             }
             if (curChar_ == ARR_RIGHT) {
                 usedEnder_ = curChar_;
@@ -1738,9 +1874,6 @@ public final class ElResolver {
                 if (parsBrackets_.isEmpty() && prio_ == ARR_OPER_PRIO) {
                     operators_.put(i_, String.valueOf(ARR_RIGHT));
                 }
-            }
-            if (curChar_ == SEP_ARG) {
-                firstVarArg_ = false;
             }
             if (parsBrackets_.isEmpty() && i_ + 2 <= len_) {
                 for (OperationPriority op_: getOperationsByLowerPriority(prio_)) {
@@ -1871,37 +2004,15 @@ public final class ElResolver {
                         parsBrackets_.put(i, curChar_);
                     }
                     if (curChar_ == PAR_RIGHT) {
-                        firstVarArg_ = false;
                         parsBrackets_.removeKey(parsBrackets_.getKey(parsBrackets_.size() - 1));
                     }
-                    if (curChar_ == FIRST_VAR_ARG) {
-                        int lastKey_;
-                        if (!parsBrackets_.isEmpty()) {
-                            lastKey_ = parsBrackets_.getKey(parsBrackets_.size() - 1);
-                        } else {
-                            lastKey_ = indexUsedCaller_;
-                        }
-                        boolean allWhiteSpace_ = true;
-                        for (int j = lastKey_+1; j < i; j++) {
-                            if (!Character.isWhitespace(_string.charAt(j))) {
-                                allWhiteSpace_ = false;
-                                break;
-                            }
-                        }
-                        if (allWhiteSpace_) {
-                            firstVarArg_ = true;
-                        }
-                    }
                     if (curChar_ == ARR_LEFT) {
-                        if (!firstVarArg_) {
-                            parsBrackets_.put(i, curChar_);
-                        }
+                        parsBrackets_.put(i, curChar_);
                     }
                     if (curChar_ == ARR_RIGHT) {
                         parsBrackets_.removeKey(parsBrackets_.getKey(parsBrackets_.size() - 1));
                     }
                     if (curChar_ == SEP_ARG) {
-                        firstVarArg_ = false;
                         if (parsBrackets_.isEmpty()) {
                             newOperators_.put(i, String.valueOf(SEP_ARG));
                         }
@@ -1918,8 +2029,7 @@ public final class ElResolver {
                 op_.setOperators(newOperators_);
             }
         }
-        op_.setFirstOpt(firstOpt_);
-        op_.setupValues(_string, prio_ == UNARY_PRIO, FIRST_VAR_ARG);
+        op_.setupValues(_string);
         op_.addOffset(_offset);
         op_.setDelimiter(_d);
         return op_;

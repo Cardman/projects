@@ -53,9 +53,9 @@ public final class InstanceOperation extends InvokingOperation {
 
     private FctConstraints constId;
 
-    public InstanceOperation(String _el, int _index, ContextEl _importingPage,
+    public InstanceOperation(int _index, ContextEl _importingPage,
             int _indexChild, MethodOperation _m, OperationsSequence _op) {
-        super(_el, _index, _importingPage, _indexChild, _m, _op);
+        super(_index, _importingPage, _indexChild, _m, _op);
         methodName = getOperations().getFctName();
     }
 
