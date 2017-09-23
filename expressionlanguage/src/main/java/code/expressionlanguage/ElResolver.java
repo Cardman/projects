@@ -77,15 +77,19 @@ public final class ElResolver {
     private static final String UNARY_MINUS = "-";
     private static final OperationPriority UNARY_MINUS_OPER = new OperationPriority(UNARY_MINUS, UNARY_PRIO);
 
+    private static final char MULT_CHAR = '*';
     private static final String MULT = "*";
     private static final OperationPriority MULT_OPER = new OperationPriority(MULT, MULT_PRIO);
 
+    private static final char DIV_CHAR = '/';
     private static final String DIV = "/";
     private static final OperationPriority DIV_OPER = new OperationPriority(DIV, MULT_PRIO);
 
+    private static final char MOD_CHAR = '%';
     private static final String MOD = "%";
     private static final OperationPriority MOD_OPER = new OperationPriority(MOD, MULT_PRIO);
 
+    private static final char PLUS_CHAR = '+';
     private static final String PLUS = "+";
     private static final OperationPriority PLUS_OPER = new OperationPriority(PLUS, ADD_PRIO);
 
@@ -114,9 +118,11 @@ public final class ElResolver {
     private static final String DIFF = "!=";
     private static final OperationPriority DIFF_OPER = new OperationPriority(DIFF, EQ_PRIO);
 
+    private static final char AND_CHAR = '&';
     private static final String AND = "&";
     private static final OperationPriority AND_OPER = new OperationPriority(AND, AND_PRIO);
 
+    private static final char OR_CHAR = '|';
     private static final String OR = "|";
     private static final OperationPriority OR_OPER = new OperationPriority(OR, OR_PRIO);
     private static final char[] OPERATORS_CHARS = new char[]{'!','+','-','*','/','%','>','=','<','&','|',',','(',')','[',']','.',';'};
@@ -1840,6 +1846,11 @@ public final class ElResolver {
                     }
                     i_++;
                 }
+                if (i_ < len_) {
+                    if (_string.charAt(i_) == DOT_VAR && i_ + 1 < len_ && Character.isDigit(_string.charAt(i_ + 1))) {
+                        i_++;
+                    }
+                }
                 continue;
             }
             if (curChar_ == PAR_LEFT) {
@@ -1876,49 +1887,95 @@ public final class ElResolver {
                 }
             }
             if (parsBrackets_.isEmpty() && i_ + 2 <= len_) {
-                for (OperationPriority op_: getOperationsByLowerPriority(prio_)) {
-                    if (_string.substring(i_, i_ + 2).startsWith(op_.getOperation())) {
-                        if (op_ == DOT_OPER) {
-                            if (i_ <= minIndexDot_) {
-                                continue;
-                            }
-                            if (Character.isDigit(_string.charAt(i_ + 1))) {
-                                continue;
-                            }
+                String builtOperator_ = EMPTY_STRING;
+                boolean clearOperators_ = false;
+                boolean foundOperator_ = false;
+                char nextChar_ = _string.charAt(i_ + 1);
+                int increment_ = 1;
+                if (curChar_ == DOT_VAR) {
+                    builtOperator_ += DOT_VAR;
+                    if (i_ > minIndexDot_) {
+                        if (prio_ > DOT_PRIO) {
+                            clearOperators_ = true;
+                            prio_ = DOT_PRIO;
                         }
-                        if (op_ == UNARY_PLUS_OPER || op_ == UNARY_MINUS_OPER || op_ == NEG_BOOL_OPER) {
-                            if (i_ > firstPrintChar_) {
-                                continue;
-                            }
+                        if (prio_ == DOT_PRIO) {
+                            foundOperator_ = true;
                         }
-                        if (op_ == MINUS_OPER || op_ == PLUS_OPER) {
-                            if (isUnary(_string, firstPrintChar_, i_)) {
-                                continue;
-                            }
-                        }
-                        if (op_ == EQ_OPER) {
-                            if (i_ > 0) {
-                                if (_string.charAt(i_ - 1) == NEG_BOOL_CHAR) {
-                                    continue;
-                                }
-                                if (_string.charAt(i_ - 1) == LOWER_CHAR) {
-                                    continue;
-                                }
-                                if (_string.charAt(i_ - 1) == GREATER_CHAR) {
-                                    continue;
-                                }
-                            }
-                        }
-                        if (op_.getPriority() == prio_) {
-                            operators_.put(i_, op_.getOperation());
-                        } else {
-                            operators_.clear();
-                            operators_.put(i_, op_.getOperation());
-                        }
-                        prio_ = op_.getPriority();
-                        break;
                     }
                 }
+                if (curChar_ == NEG_BOOL_CHAR) {
+                    builtOperator_ += NEG_BOOL_CHAR;
+                    if (i_ == firstPrintChar_) {
+                        foundOperator_ = true;
+                        prio_ = UNARY_PRIO;
+                    } else {
+                        if (prio_ > EQ_PRIO) {
+                            clearOperators_ = true;
+                            prio_ = EQ_PRIO;
+                            increment_++;
+                            builtOperator_ += EQ_CHAR;
+                        }
+                        if (prio_ == EQ_PRIO) {
+                            foundOperator_ = true;
+                        }
+                    }
+                    if (foundOperator_) {
+                        increment_ = getIncrement(_string, nextChar_ == EQ_CHAR, i_+1, lastPrintChar_);
+                    }
+                }
+                int prioOpMult_ = 0;
+                if (curChar_ == MINUS_CHAR || curChar_ == PLUS_CHAR) {
+                    prioOpMult_ = ADD_PRIO;
+                } else if (curChar_ == MULT_CHAR || curChar_ == DIV_CHAR || curChar_ == MOD_CHAR) {
+                    prioOpMult_ = MULT_PRIO;
+                } else if (curChar_ == AND_CHAR) {
+                    prioOpMult_ = AND_PRIO;
+                } else if (curChar_ == EQ_CHAR) {
+                    prioOpMult_ = EQ_PRIO;
+                } else if (curChar_ == OR_CHAR) {
+                    prioOpMult_ = OR_PRIO;
+                }
+                if (prioOpMult_ > 0) {
+                    builtOperator_ += curChar_;
+                    if (i_ == firstPrintChar_) {
+                        foundOperator_ = true;
+                        prio_ = UNARY_PRIO;
+                    } else {
+                        if (prio_ > prioOpMult_) {
+                            clearOperators_ = true;
+                            prio_ = prioOpMult_;
+                        }
+                        if (prio_ == prioOpMult_) {
+                            foundOperator_ = true;
+                        }
+                    }
+                    increment_ = getIncrement(_string, false, i_+1, lastPrintChar_);
+                }
+                if (curChar_ == LOWER_CHAR || curChar_ == GREATER_CHAR) {
+                    builtOperator_ += curChar_;
+                    if (prio_ > CMP_PRIO) {
+                        clearOperators_ = true;
+                        prio_ = CMP_PRIO;
+                    }
+                    if (prio_ == CMP_PRIO) {
+                        foundOperator_ = true;
+                    }
+                    if (foundOperator_) {
+                        if (nextChar_ == EQ_CHAR) {
+                            builtOperator_ += nextChar_;
+                        }
+                        increment_ = getIncrement(_string, nextChar_ == EQ_CHAR, i_+1, lastPrintChar_);
+                    }
+                }
+                if (foundOperator_) {
+                    if (clearOperators_) {
+                        operators_.clear();
+                    }
+                    operators_.put(i_,builtOperator_);
+                }
+                i_ += increment_;
+                continue;
             }
             i_++;
         }
@@ -2142,34 +2199,27 @@ public final class ElResolver {
         }
         return true;
     }
-
-    static boolean isUnary(String _string, int _min, int _i) {
-        int i_ = _i;
-        if (i_ > _min) {
-            if (StringList.isWordChar(_string.charAt(i_ - 1))) {
-                return false;
-            }
-            if (_string.charAt(i_ - 1) == PAR_RIGHT) {
-                return false;
-            }
-            if (_string.charAt(i_ - 1) == ARR_RIGHT) {
-                return false;
-            }
-            if (_string.charAt(i_ - 1) == DOT_VAR) {
-                return false;
-            }
-            if (_string.charAt(i_ - 1) == GET_VAR) {
-                return false;
-            }
-            if (_string.charAt(i_ - 1) == DELIMITER_CHAR) {
-                return false;
-            }
-            if (_string.charAt(i_ - 1) == DELIMITER_STRING) {
-                return false;
-            }
+    static int getIncrement(String _string, boolean _preIncrement, int _from, int _to) {
+        int increment_ = 1;
+        int j_ = _from;
+        if (_preIncrement) {
+            j_++;
+            increment_++;
         }
-        return true;
+        while (j_ <= _to) {
+            if (_string.charAt(j_) != MINUS_CHAR) {
+                if (_string.charAt(j_) != NEG_BOOL_CHAR) {
+                    if (_string.charAt(j_) != PLUS_CHAR) {
+                        break;
+                    }
+                }
+            }
+            increment_++;
+            j_++;
+        }
+        return increment_;
     }
+
     static boolean procWordFirstChar(String _string, int _i, String _word, int _max) {
         int len_ = _max;
         if (_i + _word.length() <= len_) {

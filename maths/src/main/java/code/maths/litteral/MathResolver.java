@@ -438,7 +438,6 @@ public final class MathResolver {
                     operators_.put(i_, String.valueOf(PAR_RIGHT));
                 }
             }
-            boolean operator_ = false;
             if (parsBrackets_.isEmpty() && i_ + 2 <= len_) {
                 String builtOperator_ = EMPTY_STRING;
                 boolean clearOperators_ = false;
@@ -518,9 +517,7 @@ public final class MathResolver {
                 i_ += increment_;
                 continue;
             }
-            if (!operator_) {
-                i_++;
-            }
+            i_++;
         }
         if (prio_ == CMP_PRIO) {
             if (operators_.size() != CustList.ONE_ELEMENT) {
