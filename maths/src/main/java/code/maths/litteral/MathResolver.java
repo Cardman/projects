@@ -425,12 +425,15 @@ public final class MathResolver {
                 continue;
             }
             if (curChar_ == PAR_LEFT) {
+                if (FCT_OPER_PRIO <= prio_) {
+                    operators_.put(i_, String.valueOf(PAR_LEFT));
+                }
                 parsBrackets_.put(i_, curChar_);
                 usedCaller_ = curChar_;
             }
             if (curChar_ == PAR_RIGHT) {
                 usedEnder_ = curChar_;
-                parsBrackets_.removeKey(parsBrackets_.getKey(parsBrackets_.size() - 1));
+                parsBrackets_.removeKey(parsBrackets_.lastKey());
                 if (parsBrackets_.isEmpty() && prio_ == FCT_OPER_PRIO) {
                     operators_.put(i_, String.valueOf(PAR_RIGHT));
                 }

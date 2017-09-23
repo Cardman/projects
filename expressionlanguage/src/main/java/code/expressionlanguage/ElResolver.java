@@ -179,8 +179,6 @@ public final class ElResolver {
         NatTreeMap<Integer,Character> parsBrackets_;
         parsBrackets_ = new NatTreeMap<Integer,Character>();
 
-        boolean instance_ = false;
-
         boolean constString_ = false;
         boolean foundSemiColumn_ = false;
         boolean constChar_ = false;
@@ -249,13 +247,6 @@ public final class ElResolver {
             }
         } else {
             i_ = firstPrintableWordChar_;
-        }
-        if (_string.substring(i_).startsWith(INSTANCE)) {
-            if (i_ + INSTANCE.length() < len_ && !StringList.isWordChar(_string.charAt(i_+INSTANCE.length()))) {
-                if (onlySpacesFrom(_string, firstPrintableWordChar_, i_, EXTERN_CLASS)) {
-                    instance_ = true;
-                }
-            }
         }
         i_ = _minIndex;
         int nbChars_ = 0;
@@ -449,6 +440,34 @@ public final class ElResolver {
                 i_++;
                 continue;
             }
+            if (curChar_ == EXTERN_CLASS) {
+                if (i_ + 1 < len_) {
+                    char nextChar_ = _string.charAt(i_ + 1);
+                    if (Character.isWhitespace(nextChar_)) {
+                        _conf.getLastPage().setOffset(i_+1);
+                        throw new BadExpressionLanguageException(_string+RETURN_LINE+_conf.joinPages());
+                    }
+                    if (procWordFirstChar(_string, i_ + 1, INSTANCE, len_)) {
+                        int j_ = i_ + 1;
+                        while (j_ < len_) {
+                            if (_string.charAt(j_) == PAR_LEFT) {
+                                break;
+                            }
+                            if (_string.charAt(j_) == _end) {
+                                _conf.getLastPage().setOffset(j_);
+                                throw new BadExpressionLanguageException(_string+RETURN_LINE+_conf.joinPages());
+                            }
+                            j_++;
+                        }
+                        if (j_ >= len_) {
+                            _conf.getLastPage().setOffset(len_ - 1);
+                            throw new BadExpressionLanguageException(_string+RETURN_LINE+_conf.joinPages());
+                        }
+                        i_ = j_;
+                        continue;
+                    }
+                }
+            }
             if (StringList.isWordChar(curChar_)) {
                 if (i_ + 1 < len_) {
                     if (Character.isWhitespace(_string.charAt(i_ + 1))) {
@@ -493,11 +512,6 @@ public final class ElResolver {
                     if (onlySpacesFrom(_string, firstPrintableWordChar_, i_, DOT_VAR) && _string.charAt(i_ - 1) != DOT_VAR) {
                         _conf.getLastPage().setOffset(i_-1);
                         throw new BadExpressionLanguageException(_string+RETURN_LINE+_conf.joinPages());
-                    }
-                }
-                if (procWordFirstChar(_string, i_, INSTANCE, len_)) {
-                    if (onlySpacesFrom(_string, firstPrintableWordChar_, i_, EXTERN_CLASS)) {
-                        instance_ = true;
                     }
                 }
                 if (procWordFirstChar(_string, i_, STATIC_ACCESS, len_)) {
@@ -561,7 +575,6 @@ public final class ElResolver {
                 }
             }
             if (curChar_ == PAR_LEFT) {
-                instance_ = false;
                 parsBrackets_.put(i_, curChar_);
             }
             if (curChar_ == PAR_RIGHT) {
@@ -611,7 +624,7 @@ public final class ElResolver {
                 }
             }
             if (curChar_ == ARR_LEFT) {
-                if (!firstVarArg_ && !instance_) {
+                if (!firstVarArg_) {
                     parsBrackets_.put(i_, curChar_);
                 }
             }
@@ -661,10 +674,6 @@ public final class ElResolver {
                     _conf.getLastPage().setOffset(i_);
                     throw new BadExpressionLanguageException(_string+RETURN_LINE+_conf.joinPages());
                 }
-                if (instance_) {
-                    _conf.getLastPage().setOffset(i_);
-                    throw new BadExpressionLanguageException(_string+RETURN_LINE+_conf.joinPages());
-                }
                 d_.setIndexBegin(_minIndex);
                 d_.setIndexEnd(i_-1);
                 return d_;
@@ -683,7 +692,6 @@ public final class ElResolver {
         Delimiters d_ = new Delimiters();
         NatTreeMap<Integer,Character> parsBrackets_;
         parsBrackets_ = new NatTreeMap<Integer,Character>();
-        boolean instance_ = false;
         boolean constString_ = false;
         boolean foundSemiColumn_ = false;
         boolean constChar_ = false;
@@ -752,13 +760,6 @@ public final class ElResolver {
             }
         } else {
             i_ = firstPrintableWordChar_;
-        }
-        if (_string.substring(i_).startsWith(INSTANCE)) {
-            if (i_ + INSTANCE.length() < len_ && !StringList.isWordChar(_string.charAt(i_+INSTANCE.length()))) {
-                if (onlySpacesFrom(_string, firstPrintableWordChar_, i_, EXTERN_CLASS)) {
-                    instance_ = true;
-                }
-            }
         }
         i_ = _elOffest;
         int nbChars_ = 0;
@@ -952,6 +953,24 @@ public final class ElResolver {
                 i_++;
                 continue;
             }
+            if (curChar_ == EXTERN_CLASS) {
+                if (i_ + 1 < len_) {
+                    char nextChar_ = _string.charAt(i_ + 1);
+                    if (Character.isWhitespace(nextChar_)) {
+                        _conf.getLastPage().setOffset(i_+1);
+                        throw new BadExpressionLanguageException(_string+RETURN_LINE+_conf.joinPages());
+                    }
+                    if (procWordFirstChar(_string, i_ + 1, INSTANCE, len_)) {
+                        int indexLeftPar_ = _string.indexOf(PAR_LEFT, i_ + 1);
+                        if (indexLeftPar_ == CustList.INDEX_NOT_FOUND_ELT) {
+                            _conf.getLastPage().setOffset(len_ - 1);
+                            throw new BadExpressionLanguageException(_string+RETURN_LINE+_conf.joinPages());
+                        }
+                        i_ = indexLeftPar_;
+                        continue;
+                    }
+                }
+            }
             if (StringList.isWordChar(curChar_)) {
                 if (i_ + 1 < len_) {
                     if (Character.isWhitespace(_string.charAt(i_ + 1))) {
@@ -996,11 +1015,6 @@ public final class ElResolver {
                     if (onlySpacesFrom(_string, firstPrintableWordChar_, i_, DOT_VAR) && _string.charAt(i_ - 1) != DOT_VAR) {
                         _conf.getLastPage().setOffset(i_-1);
                         throw new BadExpressionLanguageException(_string+RETURN_LINE+_conf.joinPages());
-                    }
-                }
-                if (procWordFirstChar(_string, i_, INSTANCE, len_)) {
-                    if (onlySpacesFrom(_string, firstPrintableWordChar_, i_, EXTERN_CLASS)) {
-                        instance_ = true;
                     }
                 }
                 if (procWordFirstChar(_string, i_, STATIC_ACCESS, len_)) {
@@ -1064,7 +1078,6 @@ public final class ElResolver {
                 }
             }
             if (curChar_ == PAR_LEFT) {
-                instance_ = false;
                 parsBrackets_.put(i_, curChar_);
             }
             if (curChar_ == PAR_RIGHT) {
@@ -1114,23 +1127,21 @@ public final class ElResolver {
                 }
             }
             if (curChar_ == ARR_LEFT) {
-                if (!firstVarArg_ && !instance_) {
+                if (!firstVarArg_) {
                     parsBrackets_.put(i_, curChar_);
                 }
             }
             if (curChar_ == ARR_RIGHT) {
-                if (!instance_) {
-                    if (parsBrackets_.isEmpty()) {
-                        _conf.getLastPage().setOffset(i_);
-                        throw new BadExpressionLanguageException(_string+RETURN_LINE+_conf.joinPages());
-                    }
-                    if (parsBrackets_.getValue(parsBrackets_.size() - 1) != ARR_LEFT) {
-                        _conf.getLastPage().setOffset(i_);
-                        throw new BadExpressionLanguageException(_string+RETURN_LINE+_conf.joinPages());
-                    }
-                    d_.getCallings().put(parsBrackets_.getKey(parsBrackets_.size() - 1), i_);
-                    parsBrackets_.removeKey(parsBrackets_.getKey(parsBrackets_.size() - 1));
+                if (parsBrackets_.isEmpty()) {
+                    _conf.getLastPage().setOffset(i_);
+                    throw new BadExpressionLanguageException(_string+RETURN_LINE+_conf.joinPages());
                 }
+                if (parsBrackets_.getValue(parsBrackets_.size() - 1) != ARR_LEFT) {
+                    _conf.getLastPage().setOffset(i_);
+                    throw new BadExpressionLanguageException(_string+RETURN_LINE+_conf.joinPages());
+                }
+                d_.getCallings().put(parsBrackets_.getKey(parsBrackets_.size() - 1), i_);
+                parsBrackets_.removeKey(parsBrackets_.getKey(parsBrackets_.size() - 1));
             }
             if (curChar_ == SEP_ARG) {
                 if (parsBrackets_.isEmpty()) {
@@ -1164,10 +1175,6 @@ public final class ElResolver {
             throw new BadExpressionLanguageException(_string+RETURN_LINE+_conf.joinPages());
         }
         if (!parsBrackets_.isEmpty()) {
-            _conf.getLastPage().setOffset(i_);
-            throw new BadExpressionLanguageException(_string+RETURN_LINE+_conf.joinPages());
-        }
-        if (instance_) {
             _conf.getLastPage().setOffset(i_);
             throw new BadExpressionLanguageException(_string+RETURN_LINE+_conf.joinPages());
         }
@@ -1441,7 +1448,7 @@ public final class ElResolver {
         parsBrackets_ = new NatTreeMap<Integer,Character>();
         Character usedCaller_ = null;
         Character usedEnder_ = null;
-        boolean instance_ = false;
+//        boolean instance_ = false;
         boolean constString_ = false;
         boolean constChar_ = false;
         boolean escapedMeta_ = false;
@@ -1666,12 +1673,13 @@ public final class ElResolver {
             if (curChar_ == DELIMITER_STRING) {
                 constString_ = true;
             }
-            if (StringList.isWordChar(curChar_)) {
-                if (procWordFirstChar(_string, i_, INSTANCE, len_)) {
-                    if (onlySpacesFrom(_string, firstPrintChar_, i_, EXTERN_CLASS)) {
-                        instance_ = true;
-                    }
+            if (curChar_ == EXTERN_CLASS) {
+                if (procWordFirstChar(_string, i_ + 1, INSTANCE, len_)) {
+                    i_ = _string.indexOf(PAR_LEFT, i_ + 1);
+                    continue;
                 }
+            }
+            if (StringList.isWordChar(curChar_)) {
                 while (i_ < len_) {
                     if (!StringList.isWordChar(_string.charAt(i_))) {
                         break;
@@ -1684,14 +1692,13 @@ public final class ElResolver {
                 if (FCT_OPER_PRIO <= prio_) {
                     operators_.put(i_, FCT);
                 }
-                instance_ = false;
                 parsBrackets_.put(i_, curChar_);
                 usedCaller_ = curChar_;
             }
             if (curChar_ == PAR_RIGHT) {
                 usedEnder_ = curChar_;
                 firstVarArg_ = false;
-                parsBrackets_.removeKey(parsBrackets_.getKey(parsBrackets_.size() - 1));
+                parsBrackets_.removeKey(parsBrackets_.lastKey());
                 if (parsBrackets_.isEmpty() && prio_ == FCT_OPER_PRIO) {
                     operators_.put(i_, String.valueOf(PAR_RIGHT));
                 }
@@ -1712,7 +1719,7 @@ public final class ElResolver {
                 }
             }
             if (curChar_ == ARR_LEFT) {
-                if (parsBrackets_.isEmpty() && !instance_) {
+                if (parsBrackets_.isEmpty()) {
                     if (ARR_OPER_PRIO < prio_) {
                         prio_ = ARR_OPER_PRIO;
                         operators_.clear();
@@ -1721,30 +1728,22 @@ public final class ElResolver {
                         operators_.put(i_, ARR);
                     }
                 }
-                if (!firstVarArg_ && !instance_) {
+                if (!firstVarArg_) {
                     parsBrackets_.put(i_, curChar_);
                 }
             }
             if (curChar_ == ARR_RIGHT) {
-                if (!instance_) {
-                    usedEnder_ = curChar_;
-                    parsBrackets_.removeKey(parsBrackets_.getKey(parsBrackets_.size() - 1));
-                    if (parsBrackets_.isEmpty() && prio_ == ARR_OPER_PRIO) {
-                        operators_.put(i_, String.valueOf(ARR_RIGHT));
-                    }
+                usedEnder_ = curChar_;
+                parsBrackets_.removeKey(parsBrackets_.getKey(parsBrackets_.size() - 1));
+                if (parsBrackets_.isEmpty() && prio_ == ARR_OPER_PRIO) {
+                    operators_.put(i_, String.valueOf(ARR_RIGHT));
                 }
             }
             if (curChar_ == SEP_ARG) {
                 firstVarArg_ = false;
             }
-            if (parsBrackets_.isEmpty()) {
+            if (parsBrackets_.isEmpty() && i_ + 2 <= len_) {
                 for (OperationPriority op_: getOperationsByLowerPriority(prio_)) {
-                    if (i_ + 2 > len_) {
-                        break;
-                    }
-                    if (instance_) {
-                        break;
-                    }
                     if (_string.substring(i_, i_ + 2).startsWith(op_.getOperation())) {
                         if (op_ == DOT_OPER) {
                             if (i_ <= minIndexDot_) {
@@ -2064,14 +2063,6 @@ public final class ElResolver {
     static boolean procWordFirstChar(String _string, int _i, String _word, int _max) {
         int len_ = _max;
         if (_i + _word.length() <= len_) {
-            int j_ = _i + 1;
-            while (j_ < len_) {
-                char next_ = _string.charAt(j_);
-                if (!StringList.isWordChar(next_)) {
-                    break;
-                }
-                j_++;
-            }
             boolean process_ = true;
             if (_i + _word.length() < len_) {
                 if (StringList.isWordChar(_string.charAt(_i + _word.length()))) {
