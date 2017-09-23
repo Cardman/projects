@@ -50,7 +50,6 @@ public abstract class NumericOperation extends MethodOperation {
     void analyze(CustList<OperationNode> _nodes, StringMap<String> _conf) {
         CustList<OperationNode> chidren_ = getChildrenAmong(_nodes, true);
         MathType a_ = chidren_.first().getResultClass();
-//        System.out.println(getOperations().getOperators());
         MathType r_;
         int i_ = CustList.SECOND_INDEX;
         for (EntryCust<Integer, String> e: getOperations().getOperators().entryList()) {

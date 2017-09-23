@@ -85,9 +85,8 @@ public class EffectComboBean extends CommonBean {
         rankIncrementNbRound = effect.getRankIncrementNbRound();
         NatCmpTreeMap<LgInt,Rate> repeatedRoundsLaw_;
         repeatedRoundsLaw_ = new NatCmpTreeMap<LgInt, Rate>();
-        LgInt sum_ = effect.getRepeatedRoundsLaw().sum();
         for (Rate e: effect.getRepeatedRoundsLaw().events()) {
-            repeatedRoundsLaw_.put(e.intPart(), new Rate(effect.getRepeatedRoundsLaw().rate(e), sum_));
+            repeatedRoundsLaw_.put(e.intPart(), effect.getRepeatedRoundsLaw().normalizedRate(e));
         }
         repeatedRoundsLaw = repeatedRoundsLaw_;
     }

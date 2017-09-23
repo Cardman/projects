@@ -175,6 +175,15 @@ public abstract class AbMonteCarlo<E> implements IntMonteCarlo {
         return getLaw().contains(_event);
     }
 
+    public final boolean isZero() {
+        return sum().isZero();
+    }
+
+    public final Rate normalizedRate(E _event) {
+        LgInt sum_ = sum();
+        return new Rate(rate(_event), sum_);
+    }
+
     public LgInt rate(E _event) {
         return getLaw().getVal(_event);
     }

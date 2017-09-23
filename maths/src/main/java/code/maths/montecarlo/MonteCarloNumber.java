@@ -38,9 +38,8 @@ public final class MonteCarloNumber extends AbMonteCarlo<Rate> {
     /**Retourne l'esperance d'une loi de probabilite.*/
     public Rate getAvg(){
         Rate sum_ = Rate.zero();
-        LgInt denSum_ = sum();
         for(Rate c:events()){
-            sum_.addNb(Rate.multiply(c, new Rate(rate(c),denSum_)));
+            sum_.addNb(Rate.multiply(c, normalizedRate(c)));
         }
         return sum_;
     }
@@ -108,10 +107,9 @@ public final class MonteCarloNumber extends AbMonteCarlo<Rate> {
     /**Retourne la variance d'une loi de probabilite.*/
     public Rate getVar(){
         Rate sum_ = Rate.zero();
-        LgInt denSum_ = sum();
         for(Rate c:events()){
             Rate res_ = Rate.multiply(c, c);
-            sum_.addNb(Rate.multiply(res_, new Rate(rate(c),denSum_)));
+            sum_.addNb(Rate.multiply(res_, normalizedRate(c)));
         }
         Rate avg_ = getAvg();
         return Rate.minus(sum_, Rate.multiply(avg_, avg_));

@@ -418,9 +418,8 @@ public class MoveBean extends CommonBean {
         effects = effects_;
         NatCmpTreeMap<LgInt, Rate> repeatRoundLaw_;
         repeatRoundLaw_ = new NatCmpTreeMap<LgInt, Rate>();
-        LgInt sum_ = moveData_.getRepeatRoundLaw().sum();
         for (Rate r: moveData_.getRepeatRoundLaw().events()) {
-            repeatRoundLaw_.put(r.intPart(), new Rate(moveData_.getRepeatRoundLaw().rate(r), sum_));
+            repeatRoundLaw_.put(r.intPart(), moveData_.getRepeatRoundLaw().normalizedRate(r));
         }
         repeatRoundLaw = repeatRoundLaw_;
         rankIncrementNbRound = moveData_.getRankIncrementNbRound();

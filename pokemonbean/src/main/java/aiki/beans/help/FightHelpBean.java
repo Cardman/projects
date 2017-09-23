@@ -1,19 +1,4 @@
 package aiki.beans.help;
-import code.bean.Accessible;
-import code.images.ConverterBufferedImage;
-import code.maths.LgInt;
-import code.maths.Rate;
-import code.maths.montecarlo.MonteCarloNumber;
-import code.util.CustList;
-import code.util.EnumList;
-import code.util.EqList;
-import code.util.NatCmpTreeMap;
-import code.util.NatTreeMap;
-import code.util.StringList;
-import code.util.StringMap;
-import code.util.TreeMap;
-import code.util.comparators.ComparatorEnum;
-import code.util.ints.Listable;
 import aiki.DataBase;
 import aiki.beans.CommonBean;
 import aiki.beans.facade.comparators.ComparatorStringList;
@@ -57,6 +42,20 @@ import aiki.fight.util.TypesDuo;
 import aiki.game.fight.Fight;
 import aiki.game.params.enums.DifficultyModelLaw;
 import aiki.game.params.enums.DifficultyWinPointsFight;
+import code.bean.Accessible;
+import code.images.ConverterBufferedImage;
+import code.maths.Rate;
+import code.maths.montecarlo.MonteCarloNumber;
+import code.util.CustList;
+import code.util.EnumList;
+import code.util.EqList;
+import code.util.NatCmpTreeMap;
+import code.util.NatTreeMap;
+import code.util.StringList;
+import code.util.StringMap;
+import code.util.TreeMap;
+import code.util.comparators.ComparatorEnum;
+import code.util.ints.Listable;
 
 public class FightHelpBean extends CommonBean {
 
@@ -2350,10 +2349,8 @@ public class FightHelpBean extends CommonBean {
         for (DifficultyModelLaw d: data_.getLawsDamageRate().getKeys()) {
             NatCmpTreeMap<Rate,Rate> tree_ = new NatCmpTreeMap<Rate, Rate>();
             MonteCarloNumber law_ = data_.getLawsDamageRate().getVal(d).getLaw();
-            LgInt sum_;
-            sum_ = law_.sum();
             for (Rate e: law_.events()) {
-                tree_.put(e, new Rate(law_.rate(e), sum_));
+                tree_.put(e, law_.normalizedRate(e));
             }
             lawsRates.put(d, tree_);
         }

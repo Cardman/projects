@@ -1,14 +1,4 @@
 package aiki.beans.abilities;
-import code.bean.Accessible;
-import code.maths.LgInt;
-import code.maths.Rate;
-import code.util.EnumList;
-import code.util.EnumMap;
-import code.util.EqList;
-import code.util.NatTreeMap;
-import code.util.StringList;
-import code.util.StringMap;
-import code.util.TreeMap;
 import aiki.DataBase;
 import aiki.beans.CommonBean;
 import aiki.beans.facade.comparators.ComparatorStatisticCategory;
@@ -29,6 +19,15 @@ import aiki.fight.util.StatisticType;
 import aiki.fight.util.TypeDamageBoost;
 import aiki.fight.util.TypesDuo;
 import aiki.fight.util.WeatherType;
+import code.bean.Accessible;
+import code.maths.Rate;
+import code.util.EnumList;
+import code.util.EnumMap;
+import code.util.EqList;
+import code.util.NatTreeMap;
+import code.util.StringList;
+import code.util.StringMap;
+import code.util.TreeMap;
 
 public class AbilityBean extends CommonBean {
 
@@ -491,9 +490,8 @@ public class AbilityBean extends CommonBean {
         }
         TreeMap<String, Rate> singleStatus_;
         singleStatus_ = new TreeMap<String, Rate>(new ComparatorTrStrings(translatedStatus_));
-        LgInt sum_ = ability_.getSingleStatus().sum();
         for (String s: ability_.getSingleStatus().events()) {
-            singleStatus_.put(s, new Rate(ability_.getSingleStatus().rate(s), sum_));
+            singleStatus_.put(s, ability_.getSingleStatus().normalizedRate(s));
         }
         singleStatus = singleStatus_;
         EnumMap<Statistic,String> translatedStatistics_;

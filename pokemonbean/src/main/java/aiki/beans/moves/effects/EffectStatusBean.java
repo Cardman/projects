@@ -1,14 +1,13 @@
 package aiki.beans.moves.effects;
+import aiki.DataBase;
+import aiki.comparators.ComparatorTrStrings;
+import aiki.fight.moves.effects.EffectStatus;
 import code.bean.Accessible;
-import code.maths.LgInt;
 import code.maths.Rate;
 import code.util.NatTreeMap;
 import code.util.StringList;
 import code.util.StringMap;
 import code.util.TreeMap;
-import aiki.DataBase;
-import aiki.comparators.ComparatorTrStrings;
-import aiki.fight.moves.effects.EffectStatus;
 
 public class EffectStatusBean extends EffectBean {
 
@@ -37,9 +36,8 @@ public class EffectStatusBean extends EffectBean {
         StringMap<String> translatedStatus_ = data_.getTranslatedStatus().getVal(getLanguage());
         TreeMap<String, Rate> lawStatus_;
         lawStatus_ = new TreeMap<String, Rate>(new ComparatorTrStrings(translatedStatus_));
-        LgInt sum_ = effect_.getLawStatus().sum();
         for (String s: effect_.getLawStatus().events()) {
-            lawStatus_.put(s, new Rate(effect_.getLawStatus().rate(s), sum_));
+            lawStatus_.put(s, effect_.getLawStatus().normalizedRate(s));
         }
         lawStatus = lawStatus_;
 //        Map<String,String> loc_ = new Map<>();
@@ -92,9 +90,8 @@ public class EffectStatusBean extends EffectBean {
         EffectStatus effect_ = (EffectStatus) getEffect(_indexEffect.intValue());
         TreeMap<String, Rate> lawStatus_;
         lawStatus_ = new TreeMap<String, Rate>(new ComparatorTrStrings(translatedStatus_));
-        LgInt sum_ = effect_.getLawStatus().sum();
         for (String s: effect_.getLawStatus().events()) {
-            lawStatus_.put(s, new Rate(effect_.getLawStatus().rate(s), sum_));
+            lawStatus_.put(s, effect_.getLawStatus().normalizedRate(s));
         }
         return lawStatus_;
     }

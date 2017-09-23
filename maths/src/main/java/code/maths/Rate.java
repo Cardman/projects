@@ -14,8 +14,6 @@ import code.xml.FromAndToString;
 @CheckedData
 public final class Rate implements Cmp<Rate> {
 
-    //extends ViewAdapter
-
     public static final char SEP_NUM_DEN_CHAR = '/';
 
     public static final char MINUS_CHAR = '-';
@@ -31,11 +29,7 @@ public final class Rate implements Cmp<Rate> {
     private static final char ZERO = '0';
     private static final String EMPTY_STRING = "";
 
-//    private static final String REG_EXP_RATE = "^(-?([0-9]+(/-?0*[1-9][0-9]*|\\.[0-9]*)?|\\.[0-9]*))$";
-
     private static final String POWER = "E";
-
-//    private static final Rate CENT = new Rate(100);
 
     /** */
     private LgInt numerateur;
@@ -47,9 +41,6 @@ public final class Rate implements Cmp<Rate> {
     }
 
     public Rate(String _chaine) {
-//        if (!Pattern.matches(REG_EXP_RATE, _chaine)) {
-//            throw new FormatException(_chaine);
-//        }
         if (!matchesRate(_chaine)) {
             throw new FormatException(_chaine);
         }
@@ -90,15 +81,7 @@ public final class Rate implements Cmp<Rate> {
     }
 
     public Rate(long _numerateur, long _denominateur) {
-        long numerateur_ = _numerateur;
-        long denominateur_ = _denominateur;
-        if (_denominateur < 0) {
-            numerateur_ = -_numerateur;
-            denominateur_ = -_denominateur;
-        }
-        numerateur = new LgInt(numerateur_);
-        denominateur = new LgInt(denominateur_);
-        simplifier();
+        this(new LgInt(_numerateur), new LgInt(_denominateur));
     }
 
     public Rate(LgInt _numerateur) {
@@ -107,6 +90,7 @@ public final class Rate implements Cmp<Rate> {
     }
 
     public Rate(LgInt _numerateur, LgInt _denominateur) {
+        checkZero(_denominateur);
         numerateur = new LgInt(_numerateur);
         denominateur = new LgInt(_denominateur);
         simplifier();
@@ -115,6 +99,18 @@ public final class Rate implements Cmp<Rate> {
     public Rate(Rate _autre) {
         numerateur = new LgInt(_autre.numerateur);
         denominateur = new LgInt(_autre.denominateur);
+    }
+
+    private static Rate quickNewRate(LgInt _numerateur, LgInt _denominateur) {
+        Rate r_ = new Rate();
+        r_.numerateur = new LgInt(_numerateur);
+        r_.denominateur = new LgInt(_denominateur);
+        r_.simplifier();
+        return r_;
+    }
+
+    private static long checkZero(LgInt _denominator) {
+        return 1l/_denominator.getGrDigits().first();
     }
 
     @FromAndToString
@@ -158,9 +154,6 @@ public final class Rate implements Cmp<Rate> {
         if (_string == null) {
             return false;
         }
-//        if (!Pattern.matches(REG_EXP_RATE, _string)) {
-//            return false;
-//        }
         if (!matchesRate(_string)) {
             return false;
         }
@@ -396,7 +389,7 @@ public final class Rate implements Cmp<Rate> {
         LgInt num_ = LgInt.multiply(numerateur, LgInt.powNb(denominateur, LgInt.minus(_expo, LgInt.one())))
                 .rootAbs(_expo);
         num_.setSignum(LgInt.SIGNE_POSITIF);
-        return new Rate(num_, denominateur);
+        return quickNewRate(num_, denominateur);
     }
 
     public String evaluatePoint(int _numberDec) {

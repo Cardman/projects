@@ -609,7 +609,6 @@ public class DelaunayTest {
         pts_.add(new CustPoint(333, 264));
         d_.mainComputeIncrConvex(pts_);
         IdList<Triangle> ts_ = d_.getTriangles();
-        System.out.println(ts_);
         assertEq(1, ts_.size());
         assertEq(new CustPoint(67, 57), ts_.get(0).getFirstPoint());
         assertEq(new CustPoint(145, 185), ts_.get(0).getSecondPoint());

@@ -18,23 +18,11 @@ public final class OperationsSequence {
 
     private Delimiters delimiter;
 
-    public void setupValues(String _string, boolean _unary, boolean _isboolvalue) {
+    public void setupValues(String _string) {
         values = new NatTreeMap<Integer,String>();
         if (operators.isEmpty()) {
             values.put(CustList.FIRST_INDEX, _string);
             return;
-        }
-//        if (operators.size() == 1 && operators.values().first().isEmpty() &&_opt) {
-//            operators.clear();
-//            values.put(CustList.FIRST_INDEX, _string);
-//            return;
-////            System.out.println(_string);
-//        }
-        if (_unary) {
-            int firstKey_ = operators.firstKey();
-            String value_ = operators.getVal(firstKey_);
-            operators.clear();
-            operators.put(firstKey_, value_);
         }
         int beginValuePart_ = CustList.FIRST_INDEX;
         int endValuePart_ = operators.firstKey();
@@ -44,7 +32,6 @@ public final class OperationsSequence {
             if (!str_.trim().isEmpty()) {
                 values.put(beginValuePart_, str_);
             }
-//            values.put(beginValuePart_, _string.substring(beginValuePart_, endValuePart_));
         }
         int i_ = CustList.SECOND_INDEX;
         int nbKeys_ = operators.size();

@@ -171,39 +171,20 @@ abstract class OperationNode {
 
     private final int indexChild;
 
-//    private boolean vararg;
-//    private boolean firstOptArg;
     private MathType previousResultClass;
     private MathType resultClass;
-//    private boolean calulated;
+
     private boolean needPrevious;
 
-//    private boolean booleanPrio;
-
-//    private boolean childrenWithBoolPrio;
 
     OperationNode(String _el, int _indexInEl, StringMap<String> _importingPage, int _indexChild, MethodOperation _m, OperationsSequence _op) {
         parent = _m;
         indexInEl = _indexInEl;
         operations = _op;
         conf = _importingPage;
-//        vararg = _el.trim().startsWith(String.valueOf(FIRST_VAR_ARG));
-//        firstOptArg = _el.trim().endsWith(String.valueOf(FIRST_VAR_ARG));
-//        firstOptArg = _op.isFirstOpt();
         indexChild = _indexChild;
-//        if (indexChild == 7)
-//        System.out.println(_el);
     }
 
-//    OperationNode(String _el, int _indexInEl, Map<String,String> _importingPage, MethodOperation _m, OperationsSequence _op) {
-//        parent = _m;
-//        indexInEl = _indexInEl;
-//        operations = _op;
-//        conf = _importingPage;
-//        vararg = _el.trim().startsWith(String.valueOf(FIRST_VAR_ARG));
-////        firstOptArg = _el.trim().endsWith(String.valueOf(FIRST_VAR_ARG));
-//        firstOptArg = _op.isFirstOpt();
-//    }
     abstract void analyze(CustList<OperationNode> _nodes, StringMap<String> _conf);
     abstract void calculate(CustList<OperationNode> _nodes, StringMap<String> _conf);
 
@@ -217,17 +198,8 @@ abstract class OperationNode {
             if (_op.getFctName().trim().isEmpty()) {
                 return new IdOperation(value_, _index, _conf, _indexChild, _m, _op);
             }
-//            if (_op.getFctName().trim().startsWith(INSTANCE+DOT_VAR)) {
-//                return new InstanceOperation(value_, _index, _conf, _indexChild, _m, _op);
-//            }
             return new FctOperation(value_, _index, _conf, _indexChild, _m, _op);
         }
-//        if (_op.getPriority() == MathResolver.ARR_OPER_PRIO) {
-//            return new ArrOperation(value_, _index, _conf, _indexChild, _m, _op);
-//        }
-//        if (_op.getPriority() == MathResolver.DOT_PRIO) {
-//            return new DotOperation(value_, _index, _conf, _indexChild, _m, _op);
-//        }
         if (_op.getPriority() == MathResolver.UNARY_PRIO) {
             int key_ = _op.getOperators().firstKey();
             if (StringList.quickEq(_op.getOperators().getVal(key_).trim(), NEG_BOOL)) {
@@ -256,21 +228,13 @@ abstract class OperationNode {
         return null;
     }
 
-//    boolean isDirectlyCalculable() {
-//        return isRealLeaf() && isFirstChild();
-//    }
-//    abstract boolean isFirstLeaf();
     abstract boolean isFirstChild();
-//    abstract boolean isRealLeaf();
 
     boolean isAnalyzed() {
         return resultClass != null;
     }
 
     boolean isCalculated() {
-//        if (calulated) {
-//            return true;
-//        }
         OperationNode op_ = this;
         while (op_ != null) {
             if (op_.getArgument() != null) {

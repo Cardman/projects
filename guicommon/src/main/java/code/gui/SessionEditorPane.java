@@ -382,39 +382,6 @@ public class SessionEditorPane extends EditorPane {
             str_.append(html_.substring(until_+1));
             setText(str_.toString());
         }
-//        setText(html_);
-//        Reader stringReader_ = new StringReader(html_);
-//        HTMLDocument htmlDoc_ = (HTMLDocument) getHtmlKit().createDefaultDocument();
-////        ParserDelegator parser_ = new ParserDelegator();
-//        try {
-////            parser_.parse(stringReader_, htmlDoc_.getReader(CustList.FIRST_INDEX), true);
-////            htmlDoc_.setInnerHTML(htmlDoc_.getRootElements()[CustList.FIRST_INDEX], nav.getHtmlText());
-//            Element elt_ = htmlDoc_.getRootElements()[CustList.FIRST_INDEX];
-//            htmlDoc_.setInnerHTML(elt_, html_);
-//        } catch (IOException _0) {
-//        } catch (BadLocationException _0) {
-//        }
-//        setDocument(htmlDoc_);
-//        if (frame != null) {
-//            if (!nav.getTitle().isEmpty()) {
-//                frame.setTitle(nav.getTitle());
-//            }
-//        }
-//        for(int i = 0; i < getDocument().getLength(); i++) {
-//        Element elem = ((StyledDocument) getDocument()).getCharacterElement(i);
-//        AttributeSet as = elem.getAttributes();
-////        if (StyleConstants.getComponent(as) != null)
-////        System.out.println(StyleConstants.getComponent(as).getClass());
-//        System.out.println(elem.getClass());
-//        if (as.containsAttribute(AbstractDocument.ElementNameAttribute, StyleConstants.ComponentElementName)) {
-//            System.out.println(StyleConstants.getComponent(as).getClass());
-////            if(StyleConstants.getComponent(as) instanceof JLabel) {
-////                JLabel myLabel = (JLabel)StyleConstants.getComponent(as);
-////                System.out.println(myLabel.getText());
-////            }
-//        }
-//        System.out.println(((StyledDocument) getDocument()).getCharacterElement(i));
-//    }
     }
 
 //    void setTitle() {

@@ -1,6 +1,9 @@
 package aiki.beans.moves.effects;
+import aiki.DataBase;
+import aiki.comparators.ComparatorTrStringStatistic;
+import aiki.fight.enums.Statistic;
+import aiki.fight.moves.effects.EffectDamage;
 import code.bean.Accessible;
-import code.maths.LgInt;
 import code.maths.Rate;
 import code.util.EnumList;
 import code.util.EnumMap;
@@ -9,10 +12,6 @@ import code.util.NatTreeMap;
 import code.util.StringList;
 import code.util.StringMap;
 import code.util.TreeMap;
-import aiki.DataBase;
-import aiki.comparators.ComparatorTrStringStatistic;
-import aiki.fight.enums.Statistic;
-import aiki.fight.moves.effects.EffectDamage;
 
 public class EffectDamageBean extends EffectBean {
 
@@ -99,7 +98,6 @@ public class EffectDamageBean extends EffectBean {
         multDamageAgainst = multDamageAgainst_;
         NatTreeMap<String, Rate> damageLaw_;
         damageLaw_ = new NatTreeMap<String, Rate>();
-        LgInt sum_ = effect_.getDamageLaw().sum();
         for (String e: effect_.getDamageLaw().events()) {
             String formula_ = data_.getFormula(e, getLanguage());
 //            formula_ = StringList.replace(formula_, loc_);
@@ -111,7 +109,7 @@ public class EffectDamageBean extends EffectBean {
             for (String k: desc_) {
                 mapVarsAccuracy_.put(k, mapVarsLoc_.getVal(k));
             }
-            damageLaw_.put(formula_, new Rate(effect_.getDamageLaw().rate(e), sum_));
+            damageLaw_.put(formula_, effect_.getDamageLaw().normalizedRate(e));
         }
         damageLaw = damageLaw_;
         if (hasDeterminatedLawForDamage()) {
@@ -123,9 +121,8 @@ public class EffectDamageBean extends EffectBean {
         }
         NatTreeMap<Long, Rate> hitsLaw_;
         hitsLaw_ = new NatTreeMap<Long, Rate>();
-        sum_ = effect_.getHitsLaw().sum();
         for (Rate e: effect_.getHitsLaw().events()) {
-            hitsLaw_.put(e.ll(), new Rate(effect_.getHitsLaw().rate(e),sum_));
+            hitsLaw_.put(e.ll(), effect_.getHitsLaw().normalizedRate(e));
         }
         hitsLaw = hitsLaw_;
         if (hitsLaw.size() == DataBase.ONE_POSSIBLE_CHOICE) {
@@ -135,9 +132,8 @@ public class EffectDamageBean extends EffectBean {
         chRate = effect_.getChRate();
         NatCmpTreeMap<Rate, Rate> chLaw_;
         chLaw_ = new NatCmpTreeMap<Rate, Rate>();
-        sum_ = effect_.getChLaw().sum();
         for (Rate e: effect_.getChLaw().events()) {
-            chLaw_.put(e, new Rate(effect_.getChLaw().rate(e),sum_));
+            chLaw_.put(e, effect_.getChLaw().normalizedRate(e));
         }
         chLaw = chLaw_;
         userAttack = effect_.isUserAttack();

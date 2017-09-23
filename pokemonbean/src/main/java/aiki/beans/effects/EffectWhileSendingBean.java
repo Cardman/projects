@@ -1,18 +1,17 @@
 package aiki.beans.effects;
-import code.bean.Accessible;
-import code.maths.LgInt;
-import code.maths.Rate;
-import code.util.CustList;
-import code.util.EnumMap;
-import code.util.NatTreeMap;
-import code.util.StringList;
-import code.util.StringMap;
 import aiki.DataBase;
 import aiki.beans.CommonBean;
 import aiki.fight.effects.EffectWhileSending;
 import aiki.fight.effects.EffectWhileSendingWithStatistic;
 import aiki.fight.enums.Statistic;
 import aiki.fight.moves.effects.EffectStatistic;
+import code.bean.Accessible;
+import code.maths.Rate;
+import code.util.CustList;
+import code.util.EnumMap;
+import code.util.NatTreeMap;
+import code.util.StringList;
+import code.util.StringMap;
 
 public class EffectWhileSendingBean extends CommonBean {
 
@@ -105,9 +104,8 @@ public class EffectWhileSendingBean extends CommonBean {
             swapBoostStatis = swapBoostStatis_;
             NatTreeMap<String, Rate> lawBoost_;
             lawBoost_ = new NatTreeMap<String, Rate>();
-            LgInt sum_ = effect_.getLawBoost().sum();
             for (Statistic s: effect_.getLawBoost().events()) {
-                lawBoost_.put(translatedStatistics_.getVal(s), new Rate(effect_.getLawBoost().rate(s), sum_));
+                lawBoost_.put(translatedStatistics_.getVal(s), effect_.getLawBoost().normalizedRate(s));
             }
             lawBoost = lawBoost_;
 //            Map<String,String> loc_ = new Map<>();

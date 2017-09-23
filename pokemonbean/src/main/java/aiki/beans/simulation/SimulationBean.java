@@ -305,17 +305,14 @@ public class SimulationBean extends CommonBean {
             damageRateLawFoe = difficulty.getDamageRateLawFoe();
             damageRatePlayerTable = new NatCmpTreeMap<Rate, Rate>();
             MonteCarloNumber law_;
-            LgInt sum_;
             law_ = data_.getLawsDamageRate().getVal(damageRatePlayer).getLaw();
-            sum_ = law_.sum();
             for (Rate e: law_.events()) {
-                damageRatePlayerTable.put(e, new Rate(law_.rate(e), sum_));
+                damageRatePlayerTable.put(e, law_.normalizedRate(e));
             }
             damageRateFoeTable = new NatCmpTreeMap<Rate, Rate>();
             law_ = data_.getLawsDamageRate().getVal(damageRateLawFoe).getLaw();
-            sum_ = law_.sum();
             for (Rate e: law_.events()) {
-                damageRateFoeTable.put(e, new Rate(law_.rate(e), sum_));
+                damageRateFoeTable.put(e, law_.normalizedRate(e));
             }
         } else if (simu_ == SimulationSteps.FOE) {
             if (freeTeams) {

@@ -1,18 +1,17 @@
 package aiki.beans.game;
+import aiki.DataBase;
+import aiki.facade.FacadeGame;
+import aiki.game.params.Difficulty;
+import aiki.game.params.enums.DifficultyModelLaw;
+import aiki.game.params.enums.DifficultyWinPointsFight;
 import code.bean.Accessible;
 import code.bean.Bean;
-import code.maths.LgInt;
 import code.maths.Rate;
 import code.maths.montecarlo.MonteCarloNumber;
 import code.util.CustList;
 import code.util.EnumMap;
 import code.util.NatCmpTreeMap;
 import code.util.NatTreeMap;
-import aiki.DataBase;
-import aiki.facade.FacadeGame;
-import aiki.game.params.Difficulty;
-import aiki.game.params.enums.DifficultyModelLaw;
-import aiki.game.params.enums.DifficultyWinPointsFight;
 
 public class DifficultyBean extends Bean {
 
@@ -127,22 +126,15 @@ public class DifficultyBean extends Bean {
         damageRateLawFoe = diff_.getDamageRateLawFoe();
         damageRatePlayerTable = new NatCmpTreeMap<Rate, Rate>();
         MonteCarloNumber law_;
-        LgInt sum_;
         law_ = data_.getLawsDamageRate().getVal(damageRatePlayer).getLaw();
-        sum_ = law_.sum();
         for (Rate e: law_.events()) {
-            damageRatePlayerTable.put(e, new Rate(law_.rate(e), sum_));
+            damageRatePlayerTable.put(e, law_.normalizedRate(e));
         }
         damageRateFoeTable = new NatCmpTreeMap<Rate, Rate>();
         law_ = data_.getLawsDamageRate().getVal(damageRateLawFoe).getLaw();
-        sum_ = law_.sum();
         for (Rate e: law_.events()) {
-            damageRateFoeTable.put(e, new Rate(law_.rate(e), sum_));
+            damageRateFoeTable.put(e, law_.normalizedRate(e));
         }
-//        numbers = new CustList<>();
-//        numbers.add(2);
-//        numbers.add(4);
-//        numbers.add(6);
     }
 
     @Accessible

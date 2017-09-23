@@ -151,9 +151,9 @@ public class StatusBean extends CommonBean {
         notAttackFoe = false;
         if (status_ instanceof StatusBeginRound) {
             StatusBeginRound statusBegin_ = (StatusBeginRound) status_;
-            if (!statusBegin_.getLawForUsingAMove().events().isEmpty()) {
+            if (!statusBegin_.getLawForUsingAMove().isZero()) {
                 if (statusBegin_.getLawForUsingAMove().containsEvent(true)) {
-                    rateForUsingAMove = new Rate(statusBegin_.getLawForUsingAMove().rate(true), statusBegin_.getLawForUsingAMove().sum());
+                    rateForUsingAMove = statusBegin_.getLawForUsingAMove().normalizedRate(true);
                 } else {
                     rateForUsingAMove = Rate.zero();
                 }
@@ -161,9 +161,9 @@ public class StatusBean extends CommonBean {
             } else {
                 rateForUsingAMove = Rate.zero();
             }
-            if (!statusBegin_.getLawForUsingAMoveIfFoe().events().isEmpty()) {
+            if (!statusBegin_.getLawForUsingAMoveIfFoe().isZero()) {
                 if (statusBegin_.getLawForUsingAMoveIfFoe().containsEvent(true)) {
-                    rateForUsingAMoveIfFoe = new Rate(statusBegin_.getLawForUsingAMoveIfFoe().rate(true), statusBegin_.getLawForUsingAMoveIfFoe().sum());
+                    rateForUsingAMoveIfFoe = statusBegin_.getLawForUsingAMoveIfFoe().normalizedRate(true);
                 } else {
                     rateForUsingAMoveIfFoe = Rate.zero();
                 }
@@ -171,9 +171,9 @@ public class StatusBean extends CommonBean {
             } else {
                 rateForUsingAMoveIfFoe = Rate.zero();
             }
-            if (!statusBegin_.getLawForFullHealIfMove().events().isEmpty()) {
+            if (!statusBegin_.getLawForFullHealIfMove().isZero()) {
                 if (statusBegin_.getLawForFullHealIfMove().containsEvent(true)) {
-                    rateForFullHealIfMove = new Rate(statusBegin_.getLawForFullHealIfMove().rate(true), statusBegin_.getLawForFullHealIfMove().sum());
+                    rateForFullHealIfMove = statusBegin_.getLawForFullHealIfMove().normalizedRate(true);
                 } else {
                     rateForFullHealIfMove = Rate.zero();
                 }
@@ -182,9 +182,8 @@ public class StatusBean extends CommonBean {
             }
             NatCmpTreeMap<LgInt,Rate> lawForUsingAMoveNbRound_;
             lawForUsingAMoveNbRound_ = new NatCmpTreeMap<LgInt, Rate>();
-            LgInt sum_ = statusBegin_.getLawForUsingAMoveNbRound().sum();
             for (Rate e: statusBegin_.getLawForUsingAMoveNbRound().events()) {
-                lawForUsingAMoveNbRound_.put(e.intPart(), new Rate(statusBegin_.getLawForUsingAMoveNbRound().rate(e),sum_));
+                lawForUsingAMoveNbRound_.put(e.intPart(), statusBegin_.getLawForUsingAMoveNbRound().normalizedRate(e));
             }
             lawForUsingAMoveNbRound = lawForUsingAMoveNbRound_;
             if (status_ instanceof StatusBeginRoundAutoDamage) {

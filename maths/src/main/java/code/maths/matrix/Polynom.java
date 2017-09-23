@@ -378,6 +378,9 @@ public final class Polynom implements Equallable<Polynom>{
 
     public EqList<RootPol> nonZeroRoots() {
         EqList<RootPol> r_ = new EqList<RootPol>();
+        if (isZero()) {
+            return r_;
+        }
 //        Rate mainRate_=numbers.first();
 //        LgInt ppcmDenom_=mainRate_.getDenominatorCopy();
         long deg_=dg();

@@ -616,13 +616,13 @@ public class ItemForBattleBean extends ItemBean {
 
     @Accessible
     private Rate rateForAttackFirst() {
-        if (lawForAttackFirst.events().isEmpty()) {
+        if (lawForAttackFirst.isZero()) {
             return Rate.zero();
         }
         if (!lawForAttackFirst.containsEvent(true)) {
             return Rate.zero();
         }
-        return new Rate(lawForAttackFirst.rate(true), lawForAttackFirst.sum());
+        return lawForAttackFirst.normalizedRate(true);
     }
 
     @Accessible

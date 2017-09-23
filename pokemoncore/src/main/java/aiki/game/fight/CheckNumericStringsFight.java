@@ -529,16 +529,6 @@ public final class CheckNumericStringsFight {
                     if (!chNum_.isValid()) {
                         throw new DataException();
                     }
-//                    try {
-//                        chNum_.evaluateExp(true);//TODO
-//                        if (!chNum_.isValid()) {
-//                            throw new DataException();
-//                        }
-//                    } catch (Exception e2) {
-//                        System.out.println(_varsDiff.getKeys());
-//                        System.out.println(bef_);
-//                    }
-
                 }
                 for (String e2_: eff_.getDamageLaw().events()) {
                     //accept empty strings
@@ -931,8 +921,7 @@ public final class CheckNumericStringsFight {
         }
         StringList list_ = StringList.getWordsSeparatorsPrefix(_string, DataBase.VAR_PREFIX);
         if (list_.size() != CustList.ONE_ELEMENT) {
-//            System.out.println(_string);
-            throw new DataException();//TODO
+            throw new DataException();
         }
     }
 

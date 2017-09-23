@@ -382,9 +382,6 @@ public final class LgInt implements Cmp<LgInt> {
             PairEq<LgInt,LgInt> qr_=abs_.divisionEuclidienneGeneralise(init_);
             if(qr_.getSecond().isZero()) {
                 divs_.add(init_);
-                if(LgInt.different(init_, qr_.getFirst())) {
-                    divs_.add(qr_.getFirst());
-                }
             }
             init_.increment();
         }

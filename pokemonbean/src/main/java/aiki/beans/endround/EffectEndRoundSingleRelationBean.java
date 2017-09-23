@@ -24,11 +24,10 @@ public class EffectEndRoundSingleRelationBean extends EffectEndRoundBean {
             rateDamageFunctionOfNbRounds_.put(k, effect_.getRateDamageFunctionOfNbRounds().getVal(k));
         }
         rateDamageFunctionOfNbRounds = rateDamageFunctionOfNbRounds_;
-        LgInt sum_ = effect_.getLawForEnablingEffect().sum();
         NatCmpTreeMap<LgInt, Rate> lawForEnablingEffect_;
         lawForEnablingEffect_ = new NatCmpTreeMap<LgInt, Rate>();
         for (Rate k: effect_.getLawForEnablingEffect().events()) {
-            lawForEnablingEffect_.put(k.intPart(), new Rate(effect_.getLawForEnablingEffect().rate(k), sum_));
+            lawForEnablingEffect_.put(k.intPart(), effect_.getLawForEnablingEffect().normalizedRate(k));
         }
         lawForEnablingEffect = lawForEnablingEffect_;
     }
