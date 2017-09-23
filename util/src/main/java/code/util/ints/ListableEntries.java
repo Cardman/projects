@@ -2,9 +2,7 @@ package code.util.ints;
 import code.util.EntryCust;
 
 
-public interface ListableEntries<K,V> {
-
-    boolean isCorrect();
+public interface ListableEntries<K,V> extends CheckableMap, Countable {
 
     void move(K _oldKey, K _newKey);
 
@@ -22,10 +20,6 @@ public interface ListableEntries<K,V> {
     V getValue(int _i);
 
     void setValue(int _i, V _object);
-
-    int size();
-
-    boolean isEmpty();
 
     Listable<V> values();
 

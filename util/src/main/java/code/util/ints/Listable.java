@@ -3,13 +3,9 @@ import java.util.ListIterator;
 
 import code.util.Numbers;
 
-public interface Listable<T> extends Iterable<T> {
+public interface Listable<T> extends Iterable<T>, Countable {
 
     Listable<T> getReverse();
-
-    int size();
-
-    boolean isEmpty();
 
     Object[] toArray();
 

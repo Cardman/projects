@@ -20,6 +20,8 @@ import code.util.StringList;
 import code.util.annot.RwXml;
 import code.util.consts.ConstClasses;
 import code.util.exceptions.RuntimeClassNotFoundException;
+import code.util.ints.CheckableMap;
+import code.util.ints.Countable;
 import code.util.ints.Listable;
 import code.util.ints.ListableEntries;
 import code.util.opers.CollectionsUtil;
@@ -29,25 +31,18 @@ final class ObjectSerial extends TemplateSerial {
 
     private static final int TAB_WIDTH = 4;
 
-
-    private static final String SIZE ="size";
-    private static final String IS_CORRECT ="isCorrect";
     private static final String ADD ="add";
     private static final String SET ="set";
     private static final String ADD_ENTRY ="addEntry";
     private static final String SET_KEY ="setKey";
     private static final String SET_VALUE ="setValue";
 
-    private static final Method SIZE_METHOD = SerializeXmlObject.getMethod(Listable.class, SIZE);
-    private static final Method SIZE_MAP_METHOD = SerializeXmlObject.getMethod(ListableEntries.class, SIZE);
-    private static final Method IS_CORRECT_METHOD = SerializeXmlObject.getMethod(ListableEntries.class, IS_CORRECT);
     private static final Method ADD_METHOD = SerializeXmlObject.getMethod(Listable.class, ADD, Object.class);
     private static final Method SET_METHOD = SerializeXmlObject.getMethod(Listable.class, SET, int.class, Object.class);
     private static final Method ADD_ENTRY_METHOD = SerializeXmlObject.getMethod(AbsMap.class, ADD_ENTRY, Object.class, Object.class);
     private static final Method SET_KEY_METHOD = SerializeXmlObject.getMethod(AbsMap.class, SET_KEY, int.class, Object.class);
     private static final Method SET_VALUE_METHOD = SerializeXmlObject.getMethod(AbsMap.class, SET_VALUE, int.class, Object.class);
 
-    private String className;
     private Object value;
     private CustList<Object> keys;
     private CustList<Object> values;
@@ -67,35 +62,38 @@ final class ObjectSerial extends TemplateSerial {
     @throws InvokingException
     @throws NoSuchDeclaredMethodException
     @throws RuntimeClassNotFoundException*/
-    ObjectSerial(Element _node, TemplateSerial _parent, boolean _requiredClass) {
-        super(_node, _parent);
+    static ObjectSerial newSerialWithId(Element _node, TemplateSerial _parent, boolean _requiredClass) {
+        ObjectSerial obj_ = new ObjectSerial(_node, _parent);
         NamedNodeMap map_ = _node.getAttributes();
         if(_requiredClass) {
             Node className_ = map_.getNamedItem(CLASS);
             if (className_ != null) {
-                setClassName(className_.getNodeValue());
+                obj_.setClassName(className_.getNodeValue());
             }
         }
         Node field_ = map_.getNamedItem(FIELD);
         if (field_ != null) {
-            setField(field_.getNodeValue());
+            obj_.setField(field_.getNodeValue());
         }
         Node keyOfMap_ = map_.getNamedItem(KEY);
         if (keyOfMap_ != null) {
-            setKeyOfMap(true);
+            obj_.setKeyOfMap(true);
         }
         Node ref_ = map_.getNamedItem(REF);
         if (ref_ != null) {
-            setRef(Long.parseLong(ref_.getNodeValue()));
-            return;
+            obj_.setRef(Long.parseLong(ref_.getNodeValue()));
+            return obj_;
         }
         Node id_ = map_.getNamedItem(ID);
         if (id_ != null) {
-            setId(Long.parseLong(id_.getNodeValue()));
+            obj_.setId(Long.parseLong(id_.getNodeValue()));
         }
-        ClassObject res_ = newInstance(_node);
-        value = res_.getObject();
-        className = res_.getClassName();
+        ClassResult res_ = newInstance(_node);
+        if (!res_.isSuccess()) {
+            throw new NoSuchDeclaredMethodException();
+        }
+        obj_.value = res_.getObject();
+        return obj_;
     }
 
     /**@throws SecurityException
@@ -120,15 +118,17 @@ final class ObjectSerial extends TemplateSerial {
         if (keyOfMap_ != null) {
             serial_.setKeyOfMap(true);
         }
-        ClassObject res_ = newInstance(_node);
+        ClassResult res_ = newInstance(_node);
+        if (!res_.isSuccess()) {
+            throw new NoSuchDeclaredMethodException();
+        }
         serial_.value = res_.getObject();
-        serial_.className = res_.getClassName();
         return serial_;
     }
 
-    private static ClassObject newInstance(Element _node) {
+    private static ClassResult newInstance(Element _node) {
         Constructor<?> constr_ = null;
-        ClassObject out_ = new ClassObject();
+        ClassResult out_ = new ClassResult();
         try {
             Class<?> class_ = ConstClasses.classAliasForObjectNameNotInit(_node.getNodeName()+_node.getAttribute(INTERN));
             if (class_.isMemberClass() && !Modifier.isStatic(class_.getModifiers())) {
@@ -152,14 +152,12 @@ final class ObjectSerial extends TemplateSerial {
                     } else {
                         obj_ = ConverterMethod.newInstance(constr_, obj_);
                     }
-                    out_.setClassName(constr_.getDeclaringClass().getName());
                 }
                 out_.setObject(obj_);
                 return out_;
             }
             constr_ = class_.getDeclaredConstructor();
             constr_.setAccessible(constr_.isAnnotationPresent(RwXml.class));
-            out_.setClassName(class_.getName());
             out_.setObject(ConverterMethod.newInstance(constr_));
             return out_;
         } catch (NoSuchMethodException _0) {
@@ -212,10 +210,6 @@ final class ObjectSerial extends TemplateSerial {
             node_ = _doc.createElement(name_);
         }
         return node_;
-    }
-
-    Class<?> getFoundClass() {
-        return ConstClasses.classForObjectNameNotInit(className);
     }
 
     @Override
@@ -372,7 +366,7 @@ final class ObjectSerial extends TemplateSerial {
     void setElementSerial(String _xml, ElementsSerial _e,ElementsSerial _newE) {
         Class<?> cl_ = value.getClass();
         if(Listable.class.isAssignableFrom(cl_)) {
-            int len_ = (Integer) ConverterMethod.invokeMethod(SIZE_METHOD, value);
+            int len_ = ((Countable)value).size();
             for (int i=CollectionsUtil.getFirstIndex();i<len_;i++) {
                 if (!indexesRef.contains(i)) {
                     continue;
@@ -384,7 +378,7 @@ final class ObjectSerial extends TemplateSerial {
             }
         }
         if(ListableEntries.class.isAssignableFrom(cl_)) {
-            int len_ = (Integer)ConverterMethod.invokeMethod(SIZE_MAP_METHOD, value);
+            int len_ = ((Countable)value).size();
             for (int i = CollectionsUtil.getFirstIndex(); i< len_;i++ ) {
                 if (!keysIndexesRef.contains(i)) {
                     continue;
@@ -430,10 +424,10 @@ final class ObjectSerial extends TemplateSerial {
         }
     }
     boolean isMap() {
-        return ListableEntries.class.isAssignableFrom(getFoundClass());
+        return ListableEntries.class.isInstance(value);
     }
     boolean isCorrect() {
-        return (Boolean) ConverterMethod.invokeMethod(IS_CORRECT_METHOD, value);
+        return (Boolean) ((CheckableMap)value).isCorrect();
     }
 
 }

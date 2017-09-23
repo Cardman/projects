@@ -322,11 +322,13 @@ final class ExtractObject {
                 value_ = new AtomicLong(Long.parseLong(_arg));
             } else {
                 const_ = _class.getConstructor(String.class);
-                return ConverterMethod.newInstance(const_, _arg);
+                Object obj_ = ConverterMethod.newInstance(const_, _arg);
+                if (obj_ == null) {
+                    throw new RuntimeInstantiationException(EMPTY_STRING);
+                }
+                return obj_;
             }
             return value_;
-        } catch (RuntimeInstantiationException _0) {
-            throw new RuntimeInstantiationException(_0, _conf.joinPages());
         } catch (NoSuchMethodException _0) {
             throw new NoSuchDeclaredMethodException(_class.getName()+RETURN_LINE+_conf.joinPages());
         } catch (Throwable _0) {

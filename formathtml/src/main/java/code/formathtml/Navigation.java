@@ -698,10 +698,7 @@ public final class Navigation {
                         String contentClass_;
                         contentClass_ = Templates.getTypesByBases(clObj_.getName(), Listable.class.getName(), session.toContextEl().getClasses()).first();
                         for (String v:v_) {
-                            try {
-                                ConverterMethod.invokeMethod(ADD_METHOD, list_, retrieveObjectByClassName(v, contentClass_));
-                            } catch (Throwable _0) {
-                            }
+                            ConverterMethod.invokeMethod(ADD_METHOD, list_, retrieveObjectByClassName(v, contentClass_));
                         }
                         newObj_ = list_;
                     } else {

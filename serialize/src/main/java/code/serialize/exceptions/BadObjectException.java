@@ -9,7 +9,7 @@ public class BadObjectException extends RuntimeException {
         super(_message);
     }
 
-    public BadObjectException(Exception _e) {
+    public BadObjectException(Throwable _e) {
         super(_e);
     }
 }

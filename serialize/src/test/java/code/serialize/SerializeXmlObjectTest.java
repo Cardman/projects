@@ -81,7 +81,6 @@ import code.serialize.exceptions.NoAttributeForSerializable;
 import code.serialize.exceptions.NoSuchDeclaredMethodException;
 import code.serialize.exceptions.NullSerialException;
 import code.serialize.exceptions.RefException;
-import code.serialize.exceptions.RuntimeInstantiationException;
 import code.util.BooleanMap;
 import code.util.CustList;
 import code.util.EnumMap;
@@ -2313,7 +2312,7 @@ public class SerializeXmlObjectTest {
     }
 
     @Parameters(method="booleanInputs")
-    @Test(expected=RuntimeInstantiationException.class)
+    @Test(expected=NoSuchDeclaredMethodException.class)
     public void fromXmlStringObject14FailTest(boolean _bool) {
         SerializeXmlObject.setReferences(_bool);
         SerializeXmlObject.setCheckReferences(false);
@@ -2339,7 +2338,7 @@ public class SerializeXmlObjectTest {
     }
 
     @Parameters(method="booleanInputs")
-    @Test(expected=RuntimeInstantiationException.class)
+    @Test(expected=NoSuchDeclaredMethodException.class)
     public void fromXmlStringObject16FailTest(boolean _bool) {
         SerializeXmlObject.setReferences(_bool);
         SerializeXmlObject.setCheckReferences(false);
@@ -2387,7 +2386,7 @@ public class SerializeXmlObjectTest {
     }
 
     @Parameters(method="booleanInputs")
-    @Test(expected=InvokingException.class)
+    @Test(expected=NoSuchDeclaredMethodException.class)
     public void fromXmlStringObject19FailTest(boolean _bool) {
         SerializeXmlObject.setReferences(_bool);
         SerializeXmlObject.setCheckReferences(false);

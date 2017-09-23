@@ -363,7 +363,7 @@ public final class StreamTextFile {
         String content_ = contentsOfFile(_nomFichier);
         try {
             return SerializeXmlObject.fromXmlStringObject(content_);
-        } catch (RuntimeException _0) {
+        } catch (Throwable _0) {
             if (content_ == null) {
                 content_ = EMPTY_STRING;
             }
@@ -378,7 +378,7 @@ public final class StreamTextFile {
         String content_ = ResourceFiles.ressourceFichier(_nomFichier);
         try {
             return SerializeXmlObject.fromXmlStringObject(content_);
-        } catch (RuntimeException _0) {
+        } catch (Throwable _0) {
             if (content_ == null) {
                 content_ = EMPTY_STRING;
             }

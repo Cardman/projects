@@ -8,7 +8,6 @@ import java.lang.reflect.Modifier;
 import code.serialize.exceptions.BadAccessException;
 import code.serialize.exceptions.InvokingException;
 import code.serialize.exceptions.NoSuchConverterMethodException;
-import code.serialize.exceptions.RuntimeInstantiationException;
 import code.util.CustList;
 import code.xml.FromAndToString;
 
@@ -16,44 +15,32 @@ public final class ConverterMethod {
 
     private static final String NAME = "name";
 
-    private static final String ORDINAL = "name";
-
     private ConverterMethod() {
     }
 
     public static boolean isPrimitivableClass(Class<?> _cl) {
-        try {
-            Method method_ = ConverterMethod.getFromStringMethod(_cl);
-            return method_ != null;
-        } catch (RuntimeException _0) {
-            return false;
-        }
+        Method method_ = ConverterMethod.getFromStringMethod(_cl);
+        return method_ != null;
     }
 
     public static Object newObject(Class<?> _cl, String _arg) {
-        Method method_ = null;
+        Method method_ = ConverterMethod.getFromStringMethod(_cl);
+        if (method_ == null) {
+            throw new NoSuchConverterMethodException(_cl.toString());
+        }
         try {
             method_ = ConverterMethod.getFromStringMethod(_cl);
-            if (method_ == null) {
-                throw new NoSuchConverterMethodException(_cl.toString());
-            }
             return method_.invoke(null, _arg);
-        } catch (IllegalAccessException _0) {
-            throw new BadAccessException(_0, method_.getName());
-        } catch (InvocationTargetException _0) {
+        } catch (Throwable _0) {
             throw new InvokingException(_0);
         }
     }
-    
+
     public static Object newInstance(Constructor<?> _method, Object... _args) {
         try {
             return _method.newInstance(_args);
-        } catch (IllegalAccessException _0) {
-            throw new BadAccessException(_0, _method.toString());
-        } catch (InvocationTargetException _0) {
-            throw new InvokingException(_0, _0.getTargetException());
-        } catch (InstantiationException _0) {
-            throw new RuntimeInstantiationException(_0);
+        } catch (Throwable _0) {
+            return null;
         }
     }
 
@@ -62,19 +49,6 @@ public final class ConverterMethod {
             Class<?> cl_ = _instance.getClass();
             Method m_ = cl_.getMethod(NAME);
             return (String) invokeMethod(m_, _instance);
-        } catch (Exception _0) {
-            return null;
-        }
-    }
-
-    public static Integer getOrdinal(Object _instance) {
-        try {
-            Class<?> cl_ = _instance.getClass();
-            if (!cl_.isEnum()) {
-                return null;
-            }
-            Method m_ = cl_.getMethod(ORDINAL);
-            return (Integer) invokeMethod(m_, _instance);
         } catch (Exception _0) {
             return null;
         }

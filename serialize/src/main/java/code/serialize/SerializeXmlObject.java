@@ -195,7 +195,7 @@ public final class SerializeXmlObject {
         //, boolean _acceptNull
         try {
             return fromXmlStringObject(_xmlString);
-        } catch (RuntimeException _0) {
+        } catch (Throwable _0) {
             throw new BadObjectException(_0);
         }
     }
@@ -227,7 +227,7 @@ public final class SerializeXmlObject {
         cmp_ = new CustList<ObjectSerial>();
         CustList<ObjectSerial> notEmptyMaps_ = new CustList<ObjectSerial>();
         if (_references_) {
-            rootElement_ = new ObjectSerial(root_, null, false);
+            rootElement_ = ObjectSerial.newSerialWithId(root_, null, false);
             currentSerializableElements_.add(rootElement_);
             CustList<Node> newNodesToBeRead_ = new CustList<Node>();
             CustList<TemplateSerial> newSerializableElements_ = new CustList<TemplateSerial>();
@@ -286,7 +286,7 @@ public final class SerializeXmlObject {
                         }
                         ObjectSerial serial_;
                         try {
-                            serial_ = new ObjectSerial(n, composite_, true);
+                            serial_ = ObjectSerial.newSerialWithId(n, composite_, true);
                         } catch (RuntimeException _0) {
                             System.err.println(XmlParser.getRowColOfNodeOrAttribute(_xmlString, n, 0,EMPTY_STRING, TAB_WIDTH));
                             throw _0;
@@ -299,7 +299,7 @@ public final class SerializeXmlObject {
                             if (serial_.isMap()) {
                                 notEmptyMaps_.add(serial_);
                             }
-                            if (ChangeableMap.class.isAssignableFrom(serial_.getFoundClass())) {
+                            if (ChangeableMap.class.isInstance(serial_.getValue())) {
                                 cmp_.add(serial_);
                             }
                             newSerializableElements_.add(serial_);
@@ -405,7 +405,7 @@ public final class SerializeXmlObject {
                             System.err.println(XmlParser.getRowColOfNodeOrAttribute(_xmlString, n, 0,EMPTY_STRING, TAB_WIDTH));
                             throw _0;
                         }
-                        if (ChangeableMap.class.isAssignableFrom(serial_.getFoundClass())) {
+                        if (ChangeableMap.class.isInstance(serial_.getValue())) {
                             cmp_.add(serial_);
                         }
                         if (serial_.isMap()) {
