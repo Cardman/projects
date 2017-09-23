@@ -405,11 +405,7 @@ public final class CmpOperation extends PrimitiveBoolOperation {
         throw new NotComparableException(classFirst_+RETURN_LINE+classSecond_+RETURN_LINE+_conf.joinPages());
     }
     @Override
-    public Argument calculateLeft(IdMap<OperationNode,ArgumentsPair> _nodes, ContextEl _conf, String _op) {
-        return calculateCommon(_nodes, _conf, _op);
-    }
-    @Override
-    public Argument calculateRight(IdMap<OperationNode,ArgumentsPair> _nodes, ContextEl _conf, String _op) {
+    public Argument calculate(IdMap<OperationNode,ArgumentsPair> _nodes, ContextEl _conf, String _op) {
         return calculateCommon(_nodes, _conf, _op);
     }
 
@@ -455,13 +451,7 @@ public final class CmpOperation extends PrimitiveBoolOperation {
     }
     /**@throws NullObjectException*/
     @Override
-    public void calculateLeft(CustList<OperationNode> _nodes, ContextEl _conf,
-            String _op) {
-        calculateCommon(_nodes, _conf, _op);
-    }
-
-    @Override
-    public void calculateRight(CustList<OperationNode> _nodes, ContextEl _conf,
+    public void calculate(CustList<OperationNode> _nodes, ContextEl _conf,
             String _op) {
         calculateCommon(_nodes, _conf, _op);
     }

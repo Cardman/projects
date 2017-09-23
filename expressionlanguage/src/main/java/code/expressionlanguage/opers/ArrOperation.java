@@ -57,7 +57,7 @@ public final class ArrOperation extends MethodOperation implements SettableElRes
     }
 
     @Override
-    public Argument calculateLeft(IdMap<OperationNode, ArgumentsPair> _nodes,
+    public Argument calculate(IdMap<OperationNode, ArgumentsPair> _nodes,
             ContextEl _conf, String _op) {
         CustList<OperationNode> chidren_ = getChildrenNodes();
         setRelativeOffsetPossibleLastPage(chidren_.first().getIndexInEl(), _conf);
@@ -66,15 +66,6 @@ public final class ArrOperation extends MethodOperation implements SettableElRes
             max_--;
         }
         Argument a_ = getArgument(_nodes, max_, _conf);
-        setSimpleArgument(a_, _conf, _nodes);
-        return a_;
-    }
-    @Override
-    public Argument calculateRight(IdMap<OperationNode, ArgumentsPair> _nodes,
-            ContextEl _conf, String _op) {
-        CustList<OperationNode> chidren_ = getChildrenNodes();
-        setRelativeOffsetPossibleLastPage(chidren_.first().getIndexInEl(), _conf);
-        Argument a_ = getArgument(_nodes, chidren_.size(), _conf);
         setSimpleArgument(a_, _conf, _nodes);
         return a_;
     }
@@ -121,7 +112,7 @@ public final class ArrOperation extends MethodOperation implements SettableElRes
     @throws NullObjectException*/
 
     @Override
-    public void calculateLeft(CustList<OperationNode> _nodes, ContextEl _conf,
+    public void calculate(CustList<OperationNode> _nodes, ContextEl _conf,
             String _op) {
         CustList<OperationNode> chidren_ = getChildrenNodes();
         setRelativeOffsetPossibleLastPage(chidren_.first().getIndexInEl(), _conf);
@@ -130,15 +121,6 @@ public final class ArrOperation extends MethodOperation implements SettableElRes
             max_--;
         }
         Argument a_ = getArgument(max_, _conf);
-        setSimpleArgument(a_, _conf);
-    }
-
-    @Override
-    public void calculateRight(CustList<OperationNode> _nodes, ContextEl _conf,
-            String _op) {
-        CustList<OperationNode> chidren_ = getChildrenNodes();
-        setRelativeOffsetPossibleLastPage(chidren_.first().getIndexInEl(), _conf);
-        Argument a_ = getArgument(chidren_.size(), _conf);
         setSimpleArgument(a_, _conf);
     }
 

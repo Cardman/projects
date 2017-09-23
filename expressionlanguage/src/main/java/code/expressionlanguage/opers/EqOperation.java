@@ -174,11 +174,7 @@ public final class EqOperation extends PrimitiveBoolOperation {
     }
 
     @Override
-    public Argument calculateLeft(IdMap<OperationNode,ArgumentsPair> _nodes, ContextEl _conf, String _op) {
-        return calculateCommon(_nodes, _conf, _op);
-    }
-    @Override
-    public Argument calculateRight(IdMap<OperationNode,ArgumentsPair> _nodes, ContextEl _conf, String _op) {
+    public Argument calculate(IdMap<OperationNode,ArgumentsPair> _nodes, ContextEl _conf, String _op) {
         return calculateCommon(_nodes, _conf, _op);
     }
 
@@ -207,13 +203,7 @@ public final class EqOperation extends PrimitiveBoolOperation {
     }
 
     @Override
-    public void calculateLeft(CustList<OperationNode> _nodes, ContextEl _conf,
-            String _op) {
-        calculateCommon(_nodes, _conf, _op);
-    }
-
-    @Override
-    public void calculateRight(CustList<OperationNode> _nodes, ContextEl _conf,
+    public void calculate(CustList<OperationNode> _nodes, ContextEl _conf,
             String _op) {
         calculateCommon(_nodes, _conf, _op);
     }

@@ -46,12 +46,7 @@ public abstract class QuickOperation extends PrimitiveBoolOperation {
     }
 
     @Override
-    public final Argument calculateLeft(IdMap<OperationNode, ArgumentsPair> _nodes,
-            ContextEl _conf, String _op) {
-        return calculateCommon(_nodes, _conf, _op);
-    }
-    @Override
-    public final Argument calculateRight(IdMap<OperationNode, ArgumentsPair> _nodes,
+    public final Argument calculate(IdMap<OperationNode, ArgumentsPair> _nodes,
             ContextEl _conf, String _op) {
         return calculateCommon(_nodes, _conf, _op);
     }
@@ -68,12 +63,7 @@ public abstract class QuickOperation extends PrimitiveBoolOperation {
     }
     /**@throws NullObjectException*/
     @Override
-    public final void calculateLeft(CustList<OperationNode> _nodes, ContextEl _conf,
-            String _op) {
-        calculateCommon(_nodes, _conf, _op);
-    }
-    @Override
-    public final void calculateRight(CustList<OperationNode> _nodes, ContextEl _conf,
+    public final void calculate(CustList<OperationNode> _nodes, ContextEl _conf,
             String _op) {
         calculateCommon(_nodes, _conf, _op);
     }

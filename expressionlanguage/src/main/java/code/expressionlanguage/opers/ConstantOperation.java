@@ -276,19 +276,14 @@ public final class ConstantOperation extends OperationNode implements SettableEl
         }
     }
     @Override
-    public Argument calculateLeft(IdMap<OperationNode, ArgumentsPair> _nodes,
+    public Argument calculate(IdMap<OperationNode, ArgumentsPair> _nodes,
             ContextEl _conf, String _op) {
-        return calculateArgument(true, _nodes, _conf, _op);
-    }
-    @Override
-    public Argument calculateRight(IdMap<OperationNode, ArgumentsPair> _nodes,
-            ContextEl _conf, String _op) {
-        return calculateArgument(false, _nodes, _conf, _op);
+        return calculateArgument(_nodes, _conf, _op);
     }
 
-    Argument calculateArgument(boolean _left, IdMap<OperationNode, ArgumentsPair> _nodes,
+    Argument calculateArgument(IdMap<OperationNode, ArgumentsPair> _nodes,
             ContextEl _conf, String _op) {
-        Argument arg_ = getCommonArgument(false, _left, _nodes.getVal(this).getArgument(), _nodes.getVal(this).getPreviousArgument(), _conf, _op);
+        Argument arg_ = getCommonArgument(false, _nodes.getVal(this).getArgument(), _nodes.getVal(this).getPreviousArgument(), _conf, _op);
         setSimpleArgument(arg_, _conf, _nodes);
         return arg_;
     }
@@ -305,20 +300,14 @@ public final class ConstantOperation extends OperationNode implements SettableEl
     @throws NullObjectException */
 
     @Override
-    public void calculateLeft(CustList<OperationNode> _nodes, ContextEl _conf,
+    public void calculate(CustList<OperationNode> _nodes, ContextEl _conf,
             String _op) {
-        calculateArgument(true, _nodes, _conf, _op);
+        calculateArgument(_nodes, _conf, _op);
     }
 
-    @Override
-    public void calculateRight(CustList<OperationNode> _nodes, ContextEl _conf,
+    void calculateArgument(CustList<OperationNode> _nodes, ContextEl _conf,
             String _op) {
-        calculateArgument(false, _nodes, _conf, _op);
-    }
-
-    void calculateArgument(boolean _left,CustList<OperationNode> _nodes, ContextEl _conf,
-            String _op) {
-        Argument arg_ = getCommonArgument(true, _left, getArgument(), getPreviousArgument(), _conf, _op);
+        Argument arg_ = getCommonArgument(true, getArgument(), getPreviousArgument(), _conf, _op);
         if (arg_ == null) {
             return;
         }
@@ -332,7 +321,7 @@ public final class ConstantOperation extends OperationNode implements SettableEl
         setSimpleArgument(arg_, _conf);
     }
 
-    Argument getCommonArgument(boolean _processInit, boolean _left, Argument _argument, Argument _previous, ContextEl _conf,
+    Argument getCommonArgument(boolean _processInit, Argument _argument, Argument _previous, ContextEl _conf,
             String _op) {
         if (isPossibleInitClass()) {
             String className_ = getResultClass().getName();
@@ -408,7 +397,7 @@ public final class ConstantOperation extends OperationNode implements SettableEl
         if (str_.endsWith(GET_LOC_VAR)) {
             String key_ = str_.substring(CustList.FIRST_INDEX, str_.length() - GET_LOC_VAR.length());
             LocalVariable locVar_ = ip_.getLocalVars().getVal(key_);
-            if (_left && resultCanBeSet()) {
+            if (resultCanBeSet()) {
                 a_ = Argument.createVoid();
                 return a_;
             }
@@ -444,7 +433,7 @@ public final class ConstantOperation extends OperationNode implements SettableEl
         if (!Modifier.isStatic(field.getModifiers()) && obj_ == null) {
             throw new NullObjectException(_conf.joinPages());
         }
-        if (_left && resultCanBeSet()) {
+        if (resultCanBeSet()) {
             a_ = Argument.createVoid();
             a_.setStruct(arg_.getStruct());
             return a_;

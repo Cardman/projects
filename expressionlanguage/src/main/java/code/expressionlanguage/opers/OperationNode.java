@@ -209,11 +209,9 @@ public abstract class OperationNode implements Operable {
 
     public abstract void analyze(CustList<OperationNode> _nodes, ContextEl _conf, boolean _enumContext, String _op);
 
-    public abstract void calculateLeft(CustList<OperationNode> _nodes, ContextEl _conf, String _op);
-    public abstract void calculateRight(CustList<OperationNode> _nodes, ContextEl _conf, String _op);
+    public abstract void calculate(CustList<OperationNode> _nodes, ContextEl _conf, String _op);
 
-    public abstract Argument calculateLeft(IdMap<OperationNode, ArgumentsPair> _nodes, ContextEl _conf, String _op);
-    public abstract Argument calculateRight(IdMap<OperationNode, ArgumentsPair> _nodes, ContextEl _conf, String _op);
+    public abstract Argument calculate(IdMap<OperationNode, ArgumentsPair> _nodes, ContextEl _conf, String _op);
 
 
     public final void setRelativeOffsetPossibleLastPage(int _offset, ContextEl _cont) {

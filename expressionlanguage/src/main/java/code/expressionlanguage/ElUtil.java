@@ -110,7 +110,7 @@ public final class ElUtil {
             return _right.getArgument();
         }
         IdMap<OperationNode, ArgumentsPair> allRight_ = _right.getArguments();
-        calculateRight(allRight_, _right, _conf, EMPTY_STRING);
+        calculate(allRight_, _right, _conf, EMPTY_STRING);
         _right.finish();
         Argument arg_ = _right.getArgument();
         return arg_;
@@ -120,7 +120,7 @@ public final class ElUtil {
             return;
         }
         IdMap<OperationNode, ArgumentsPair> allLeft_ = _left.getArguments();
-        calculateLeft(allLeft_, _left, _conf, _op);
+        calculate(allLeft_, _left, _conf, _op);
         _left.finish();
     }
     public static void tryToCalculateRightAffect(ExpressionLanguage _right, ContextEl _conf, String _op) {
@@ -128,7 +128,7 @@ public final class ElUtil {
             return;
         }
         IdMap<OperationNode, ArgumentsPair> allRight_ = _right.getArguments();
-        calculateRight(allRight_, _right, _conf, _op);
+        calculate(allRight_, _right, _conf, _op);
         _right.finish();
         _conf.getLastPage().setRightArgument(_right.getArgument());
     }
@@ -154,10 +154,10 @@ public final class ElUtil {
         CustList<OperationNode> allLeft_ = _left.getOperations();
         _conf.getLastPage().clearCurrentEls();
         _conf.getLastPage().addCurrentEl(_left);
-        calculateLeft(allLeft_ , _left, _conf, _op);
+        calculate(allLeft_ , _left, _conf, _op);
         CustList<OperationNode> allRight_ = _right.getOperations();
         _conf.getLastPage().addCurrentEl(_right);
-        calculateRight(allRight_, _right,_conf, _op);
+        calculate(allRight_, _right,_conf, _op);
         _conf.getLastPage().setRightArgument(_right.getRoot().getArgument());
         SettableElResult settable_ = _left.getSettable();
         try {
@@ -205,7 +205,7 @@ public final class ElUtil {
         if (!_conf.isEmptyPages()) {
             _conf.getLastPage().setOffset(d_.getIndexBegin());
         }
-        calculateRight(all_, _conf, EMPTY_STRING);
+        calculate(all_, _conf, EMPTY_STRING);
         Argument arg_ = op_.getArgument();
         return arg_;
     }
@@ -252,7 +252,7 @@ public final class ElUtil {
         if (!_conf.isEmptyPages()) {
             _conf.getLastPage().setOffset(d_.getIndexBegin());
         }
-        calculateRight(all_, _conf, EMPTY_STRING);
+        calculate(all_, _conf, EMPTY_STRING);
         Argument arg_  = op_.getArgument();
         return arg_;
     }
@@ -400,25 +400,14 @@ public final class ElUtil {
     @throws NullObjectException
     @throws InvokeException
     @throws UnwrappingException*/
-    static void calculateLeft(CustList<OperationNode> _nodes, ContextEl _context, String _op) {
+    static void calculate(CustList<OperationNode> _nodes, ContextEl _context, String _op) {
         Argument arg_ = _context.getLastPage().getGlobalArgument();
         for (OperationNode e: _nodes) {
             if (!e.isCalculated()) {
                 if (e.isNeedGlobalArgument()) {
                     e.setPreviousArgument(arg_);
                 }
-                e.calculateLeft(_nodes, _context, _op);
-            }
-        }
-    }
-    static void calculateRight(CustList<OperationNode> _nodes, ContextEl _context, String _op) {
-        Argument arg_ = _context.getLastPage().getGlobalArgument();
-        for (OperationNode e: _nodes) {
-            if (!e.isCalculated()) {
-                if (e.isNeedGlobalArgument()) {
-                    e.setPreviousArgument(arg_);
-                }
-                e.calculateRight(_nodes, _context, _op);
+                e.calculate(_nodes, _context, _op);
             }
         }
     }
@@ -433,7 +422,7 @@ public final class ElUtil {
     @throws NullObjectException
     @throws InvokeException
     @throws UnwrappingException*/
-    static void calculateLeft(CustList<OperationNode> _nodes, ExpressionLanguage _el, ContextEl _context, String _op) {
+    static void calculate(CustList<OperationNode> _nodes, ExpressionLanguage _el, ContextEl _context, String _op) {
         Argument arg_ = _context.getLastPage().getGlobalArgument();
         for (OperationNode e: _nodes) {
             if (!e.isCalculated()) {
@@ -441,36 +430,7 @@ public final class ElUtil {
                     e.setPreviousArgument(arg_);
                 }
                 try {
-                    e.calculateLeft(_nodes, _context, _op);
-                } catch (NotInitializedClassException _0) {
-                    throw _0;
-                } catch (CustomFoundConstructorException _0) {
-                    _el.setCurrentOper(e);
-                    throw _0;
-                } catch (CustomFoundMethodException _0) {
-                    _el.setCurrentOper(e);
-                    throw _0;
-                } catch (RuntimeException _0) {
-                    _el.setCurrentOper(null);
-                    _context.getLastPage().clearCurrentEls();
-                    throw _0;
-                } catch (Error _0) {
-                    _el.setCurrentOper(null);
-                    _context.getLastPage().clearCurrentEls();
-                    throw _0;
-                }
-            }
-        }
-    }
-    static void calculateRight(CustList<OperationNode> _nodes, ExpressionLanguage _el, ContextEl _context, String _op) {
-        Argument arg_ = _context.getLastPage().getGlobalArgument();
-        for (OperationNode e: _nodes) {
-            if (!e.isCalculated()) {
-                if (e.isNeedGlobalArgument()) {
-                    e.setPreviousArgument(arg_);
-                }
-                try {
-                    e.calculateRight(_nodes, _context, _op);
+                    e.calculate(_nodes, _context, _op);
                 } catch (NotInitializedClassException _0) {
                     throw _0;
                 } catch (CustomFoundConstructorException _0) {
@@ -503,7 +463,7 @@ public final class ElUtil {
     @throws InvokeException
     @throws UnwrappingException*/
 
-    static void calculateLeft(IdMap<OperationNode,ArgumentsPair> _nodes, ExpressionLanguage _el, ContextEl _context, String _op) {
+    static void calculate(IdMap<OperationNode,ArgumentsPair> _nodes, ExpressionLanguage _el, ContextEl _context, String _op) {
         Argument arg_ = _context.getLastPage().getGlobalArgument();
         for (EntryCust<OperationNode,ArgumentsPair> e: _nodes.entryList()) {
             OperationNode o = e.getKey();
@@ -513,43 +473,7 @@ public final class ElUtil {
                     a_.setPreviousArgument(arg_);
                 }
                 try {
-                    a_.setArgument(o.calculateLeft(_nodes, _context, _op));
-                } catch (NotInitializedClassException _0) {
-                    throw _0;
-                } catch (CustomFoundMethodException _0) {
-                    _el.setCurrentOper(o);
-                    throw _0;
-                } catch (CustomFoundConstructorException _0) {
-                    if (_0.getCall().getInstancingStep() != InstancingStep.USING_SUPER) {
-                        _el.setCurrentOper(o);
-                    } else {
-                        _el.setCurrentOper(null);
-                    }
-                    throw _0;
-                } catch (RuntimeException _0) {
-                    _el.setCurrentOper(null);
-                    _context.getLastPage().clearCurrentEls();
-                    throw _0;
-                } catch (Error _0) {
-                    _el.setCurrentOper(null);
-                    _context.getLastPage().clearCurrentEls();
-                    throw _0;
-                }
-            }
-        }
-    }
-
-    static void calculateRight(IdMap<OperationNode,ArgumentsPair> _nodes, ExpressionLanguage _el, ContextEl _context, String _op) {
-        Argument arg_ = _context.getLastPage().getGlobalArgument();
-        for (EntryCust<OperationNode,ArgumentsPair> e: _nodes.entryList()) {
-            OperationNode o = e.getKey();
-            if (!o.isCalculated(_nodes)) {
-                ArgumentsPair a_ = e.getValue();
-                if (o.isNeedGlobalArgument()) {
-                    a_.setPreviousArgument(arg_);
-                }
-                try {
-                    a_.setArgument(o.calculateRight(_nodes, _context, _op));
+                    a_.setArgument(o.calculate(_nodes, _context, _op));
                 } catch (NotInitializedClassException _0) {
                     throw _0;
                 } catch (CustomFoundMethodException _0) {

@@ -350,11 +350,7 @@ public final class FctOperation extends InvokingOperation {
     }
 
     @Override
-    public Argument calculateLeft(IdMap<OperationNode,ArgumentsPair> _nodes, ContextEl _conf, String _op) {
-        return calculateCommon(_nodes, _conf, _op);
-    }
-    @Override
-    public Argument calculateRight(IdMap<OperationNode,ArgumentsPair> _nodes, ContextEl _conf, String _op) {
+    public Argument calculate(IdMap<OperationNode,ArgumentsPair> _nodes, ContextEl _conf, String _op) {
         return calculateCommon(_nodes, _conf, _op);
     }
 
@@ -378,12 +374,7 @@ public final class FctOperation extends InvokingOperation {
     @throws UnwrappingException*/
 
     @Override
-    public void calculateLeft(CustList<OperationNode> _nodes, ContextEl _conf,
-            String _op) {
-        calculateCommon(_nodes, _conf, _op);
-    }
-    @Override
-    public void calculateRight(CustList<OperationNode> _nodes, ContextEl _conf,
+    public void calculate(CustList<OperationNode> _nodes, ContextEl _conf,
             String _op) {
         calculateCommon(_nodes, _conf, _op);
     }
