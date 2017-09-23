@@ -1824,7 +1824,7 @@ public final class ElResolver {
                 if (procWordFirstChar(_string, i_ + 1, SUPER, len_)) {
                     int next_ = _string.indexOf(EXTERN_CLASS, i_ + 1);
                     if (next_ > CustList.INDEX_NOT_FOUND_ELT) {
-                        i_ = next_;
+                        i_ = next_ + 1;
                         continue;
                     }
                 }
@@ -1870,7 +1870,7 @@ public final class ElResolver {
             }
             if (curChar_ == ARR_RIGHT) {
                 usedEnder_ = curChar_;
-                parsBrackets_.removeKey(parsBrackets_.getKey(parsBrackets_.size() - 1));
+                parsBrackets_.removeKey(parsBrackets_.lastKey());
                 if (parsBrackets_.isEmpty() && prio_ == ARR_OPER_PRIO) {
                     operators_.put(i_, String.valueOf(ARR_RIGHT));
                 }
