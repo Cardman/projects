@@ -5,7 +5,6 @@ import code.expressionlanguage.exceptions.BadNumberArgumentException;
 import code.expressionlanguage.exceptions.EmptyPartException;
 import code.util.CustList;
 import code.util.NatTreeMap;
-import code.util.Numbers;
 import code.util.StringList;
 
 
@@ -60,126 +59,33 @@ public final class ElResolver {
     private static final char MIN_ENCODE_UPP_LETTER = 'A';
     private static final char MAX_ENCODE_UPP_LETTER = 'F';
     private static final String FCT = "(";
-    private static final OperationPriority FCT_OPER = new OperationPriority(FCT, FCT_OPER_PRIO);
-    private static final String ARR = "[";
-    private static final OperationPriority ARR_OPER = new OperationPriority(ARR, ARR_OPER_PRIO);
 
-    private static final String DOT = ".";
-    private static final OperationPriority DOT_OPER = new OperationPriority(DOT, DOT_PRIO);
+    private static final String ARR = "[";
 
     private static final char NEG_BOOL_CHAR = '!';
-    private static final String NEG_BOOL = "!";
-    private static final OperationPriority NEG_BOOL_OPER = new OperationPriority(NEG_BOOL, UNARY_PRIO);
-
-    private static final String UNARY_PLUS = "+";
-    private static final OperationPriority UNARY_PLUS_OPER = new OperationPriority(UNARY_PLUS, UNARY_PRIO);
-
-    private static final String UNARY_MINUS = "-";
-    private static final OperationPriority UNARY_MINUS_OPER = new OperationPriority(UNARY_MINUS, UNARY_PRIO);
 
     private static final char MULT_CHAR = '*';
-    private static final String MULT = "*";
-    private static final OperationPriority MULT_OPER = new OperationPriority(MULT, MULT_PRIO);
 
     private static final char DIV_CHAR = '/';
-    private static final String DIV = "/";
-    private static final OperationPriority DIV_OPER = new OperationPriority(DIV, MULT_PRIO);
-
+ 
     private static final char MOD_CHAR = '%';
-    private static final String MOD = "%";
-    private static final OperationPriority MOD_OPER = new OperationPriority(MOD, MULT_PRIO);
 
     private static final char PLUS_CHAR = '+';
-    private static final String PLUS = "+";
-    private static final OperationPriority PLUS_OPER = new OperationPriority(PLUS, ADD_PRIO);
 
     private static final char MINUS_CHAR = '-';
-    private static final String MINUS = "-";
-    private static final OperationPriority MINUS_OPER = new OperationPriority(MINUS, ADD_PRIO);
-
-    private static final String LOWER_EQ = "<=";
-    private static final OperationPriority LOWER_EQ_OPER = new OperationPriority(LOWER_EQ, CMP_PRIO);
-
+ 
     private static final char LOWER_CHAR = '<';
-    private static final String LOWER = "<";
-    private static final OperationPriority LOWER_OPER = new OperationPriority(LOWER, CMP_PRIO);
-
-    private static final String GREATER_EQ = ">=";
-    private static final OperationPriority GREATER_EQ_OPER = new OperationPriority(GREATER_EQ, CMP_PRIO);
 
     private static final char GREATER_CHAR = '>';
-    private static final String GREATER = ">";
-    private static final OperationPriority GREATER_OPER = new OperationPriority(GREATER, CMP_PRIO);
 
     private static final char EQ_CHAR = '=';
-    private static final String EQ = "=";
-    private static final OperationPriority EQ_OPER = new OperationPriority(EQ, EQ_PRIO);
-
-    private static final String DIFF = "!=";
-    private static final OperationPriority DIFF_OPER = new OperationPriority(DIFF, EQ_PRIO);
 
     private static final char AND_CHAR = '&';
-    private static final String AND = "&";
-    private static final OperationPriority AND_OPER = new OperationPriority(AND, AND_PRIO);
 
     private static final char OR_CHAR = '|';
-    private static final String OR = "|";
-    private static final OperationPriority OR_OPER = new OperationPriority(OR, OR_PRIO);
     private static final char[] OPERATORS_CHARS = new char[]{'!','+','-','*','/','%','>','=','<','&','|',',','(',')','[',']','.',';'};
 
     private ElResolver() {
-    }
-
-    static CustList<OperationPriority> getOperations() {
-        CustList<OperationPriority> prios_ = new CustList<OperationPriority>();
-        prios_.add(ARR_OPER);
-        prios_.add(FCT_OPER);
-        prios_.add(DOT_OPER);
-        prios_.add(NEG_BOOL_OPER);
-        prios_.add(UNARY_PLUS_OPER);
-        prios_.add(UNARY_MINUS_OPER);
-        prios_.add(MULT_OPER);
-        prios_.add(DIV_OPER);
-        prios_.add(MOD_OPER);
-        prios_.add(PLUS_OPER);
-        prios_.add(MINUS_OPER);
-        prios_.add(LOWER_EQ_OPER);
-        prios_.add(GREATER_EQ_OPER);
-        prios_.add(LOWER_OPER);
-        prios_.add(GREATER_OPER);
-        prios_.add(EQ_OPER);
-        prios_.add(DIFF_OPER);
-        prios_.add(AND_OPER);
-        prios_.add(OR_OPER);
-        return prios_;
-    }
-
-    static CustList<OperationPriority> getOperationsByPriority(int _prio) {
-        CustList<OperationPriority> prios_ = new CustList<OperationPriority>();
-        for (OperationPriority o: getOperations()) {
-            if (o.getPriority() == _prio) {
-                prios_.add(o);
-            }
-        }
-        return prios_;
-    }
-
-    static CustList<OperationPriority> getOperationsByLowerPriority(int _prio) {
-        CustList<OperationPriority> prios_ = new CustList<OperationPriority>();
-        for (OperationPriority o: getOperations()) {
-            if (o.getPriority() <= _prio) {
-                prios_.add(o);
-            }
-        }
-        return prios_;
-    }
-
-    static int getMaxPriority() {
-        Numbers<Integer> prios_ = new Numbers<Integer>();
-        for (OperationPriority o: getOperations()) {
-            prios_.add(o.getPriority());
-        }
-        return prios_.getMaximum();
     }
 
     static Delimiters checkSyntaxDelimiters(String _string, ContextEl _conf, int _minIndex, char _begin, char _end) {
@@ -707,7 +613,7 @@ public final class ElResolver {
             if (curChar_ == GET_VAR && parsBrackets_.isEmpty()) {
                 foundSemiColumn_ = true;
             }
-            if (curChar_ == NEG_BOOL.charAt(0) || curChar_ == LOWER.charAt(0) || curChar_ == GREATER.charAt(0)) {
+            if (curChar_ == NEG_BOOL_CHAR || curChar_ == LOWER_CHAR || curChar_ == GREATER_CHAR) {
                 int j_ = i_ + 1;
                 boolean exist_ = false;
                 while (j_ < len_) {
@@ -716,7 +622,7 @@ public final class ElResolver {
                         j_++;
                         continue;
                     }
-                    if (_string.charAt(j_) == EQ.charAt(0) && exist_) {
+                    if (_string.charAt(j_) == EQ_CHAR && exist_) {
                         _conf.getLastPage().setOffset(i_+1);
                         throw new BadExpressionLanguageException(_string+RETURN_LINE+_conf.joinPages());
                     }
@@ -760,7 +666,7 @@ public final class ElResolver {
                 }
             }
             if (parsBrackets_.isEmpty()) {
-                if (_string.substring(i_, i_ + 1).startsWith(DOT)) {
+                if (_string.charAt(i_) == DOT_VAR) {
                     if (i_ + 1 >= len_) {
                         if (!foundSemiColumn_) {
                             _conf.getLastPage().setOffset(i_);
@@ -1276,7 +1182,7 @@ public final class ElResolver {
             if (curChar_ == GET_VAR && parsBrackets_.isEmpty()) {
                 foundSemiColumn_ = true;
             }
-            if (curChar_ == NEG_BOOL.charAt(0) || curChar_ == LOWER.charAt(0) || curChar_ == GREATER.charAt(0)) {
+            if (curChar_ == NEG_BOOL_CHAR || curChar_ == LOWER_CHAR || curChar_ == GREATER_CHAR) {
                 int j_ = i_ + 1;
                 boolean exist_ = false;
                 while (j_ < len_) {
@@ -1285,7 +1191,7 @@ public final class ElResolver {
                         j_++;
                         continue;
                     }
-                    if (_string.charAt(j_) == EQ.charAt(0) && exist_) {
+                    if (_string.charAt(j_) == EQ_CHAR && exist_) {
                         _conf.getLastPage().setOffset(i_+1);
                         throw new BadExpressionLanguageException(_string+RETURN_LINE+_conf.joinPages());
                     }
@@ -1329,7 +1235,7 @@ public final class ElResolver {
                 }
             }
             if (parsBrackets_.isEmpty()) {
-                if (_string.substring(i_, i_ + 1).startsWith(DOT)) {
+                if (_string.charAt(i_) == DOT_VAR) {
                     if (i_ + 1 >= len_) {
                         if (!foundSemiColumn_) {
                             _conf.getLastPage().setOffset(i_);
@@ -1414,11 +1320,11 @@ public final class ElResolver {
                 i_++;
                 continue;
             }
-            if (onlySpacesTo(_string, i_, len_, PLUS.charAt(0))) {
+            if (onlySpacesTo(_string, i_, len_, PLUS_CHAR)) {
                 i_++;
                 continue;
             }
-            if (onlySpacesTo(_string, i_, len_, MINUS.charAt(0))) {
+            if (onlySpacesTo(_string, i_, len_, MINUS_CHAR)) {
                 i_++;
                 continue;
             }
@@ -1441,7 +1347,7 @@ public final class ElResolver {
                 i_++;
                 continue;
             }
-            if (curChar_ == PAR_LEFT || curChar_ == SEP_ARG || curChar_ == AND.charAt(0) || curChar_ == OR.charAt(0)) {
+            if (curChar_ == PAR_LEFT || curChar_ == SEP_ARG || curChar_ == AND_CHAR|| curChar_ == OR_CHAR) {
                 if (onlySpacesTo(_string, i_, len_, NEG_BOOL_CHAR)) {
                     i_++;
                     continue;
@@ -1626,7 +1532,7 @@ public final class ElResolver {
         boolean constString_ = false;
         boolean constChar_ = false;
         boolean escapedMeta_ = false;
-        int prioMax_ = getMaxPriority();
+        int prioMax_ = FCT_OPER_PRIO;
         int prio_ = prioMax_;
         int len_ = _string.length();
         int i_ = CustList.FIRST_INDEX;

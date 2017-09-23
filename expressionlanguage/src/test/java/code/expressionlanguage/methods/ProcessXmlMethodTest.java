@@ -3799,7 +3799,7 @@ public class ProcessXmlMethodTest {
     public void calculateArgument1024Test() {
         String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg'>\n";
         xml_ += "<method access='"+PUBLIC_ACCESS+"' modifier='static' name='exmeth' class='"+PrimitiveTypeUtil.PRIM_INT+"'>\n";
-        xml_ += "<return expression='static^pkg^ExTwo.exmeth()+8i'/>\n";
+        xml_ += "<return expression='^static^pkg^ExTwo.exmeth()+8i'/>\n";
         xml_ += "</method>\n";
         xml_ += "</class>\n";
         StringMap<String> files_ = new StringMap<String>();
@@ -3850,7 +3850,7 @@ public class ProcessXmlMethodTest {
     public void calculateArgument1025Test() {
         String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg'>\n";
         xml_ += "<method access='"+PUBLIC_ACCESS+"' modifier='static' name='exmeth' class='"+PrimitiveTypeUtil.PRIM_INT+"'>\n";
-        xml_ += "<return expression='static^pkg^ExTwo.getstatic()+8i'/>\n";
+        xml_ += "<return expression='^static^pkg^ExTwo.getstatic()+8i'/>\n";
         xml_ += "</method>\n";
         xml_ += "</class>\n";
         StringMap<String> files_ = new StringMap<String>();
@@ -3904,7 +3904,7 @@ public class ProcessXmlMethodTest {
     public void calculateArgument1026Test() {
         String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg'>\n";
         xml_ += "<method access='"+PUBLIC_ACCESS+"' modifier='static' name='exmeth' class='"+PrimitiveTypeUtil.PRIM_INT+"'>\n";
-        xml_ += "<return expression='static^pkg^ExTwo.getstatic()+8i'/>\n";
+        xml_ += "<return expression='^static^pkg^ExTwo.getstatic()+8i'/>\n";
         xml_ += "</method>\n";
         xml_ += "</class>\n";
         StringMap<String> files_ = new StringMap<String>();
@@ -3961,7 +3961,7 @@ public class ProcessXmlMethodTest {
     public void calculateArgument1027Test() {
         String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg'>\n";
         xml_ += "<method access='"+PUBLIC_ACCESS+"' modifier='static' name='exmeth' class='"+PrimitiveTypeUtil.PRIM_INT+"'>\n";
-        xml_ += "<return expression='static^pkg^ExTwo.getstatic()+8i'/>\n";
+        xml_ += "<return expression='^static^pkg^ExTwo.getstatic()+8i'/>\n";
         xml_ += "</method>\n";
         xml_ += "</class>\n";
         StringMap<String> files_ = new StringMap<String>();
@@ -4021,7 +4021,7 @@ public class ProcessXmlMethodTest {
     public void calculateArgument1028Test() {
         String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg'>\n";
         xml_ += "<method access='"+PUBLIC_ACCESS+"' modifier='static' name='exmeth' class='"+PrimitiveTypeUtil.PRIM_INT+"'>\n";
-        xml_ += "<return expression='static^pkg^ExTwo.getstatic()+8i'/>\n";
+        xml_ += "<return expression='^static^pkg^ExTwo.getstatic()+8i'/>\n";
         xml_ += "</method>\n";
         xml_ += "</class>\n";
         StringMap<String> files_ = new StringMap<String>();
@@ -4082,7 +4082,7 @@ public class ProcessXmlMethodTest {
     public void calculateArgument1029Test() {
         String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg'>\n";
         xml_ += "<method access='"+PUBLIC_ACCESS+"' modifier='static' name='exmeth' class='"+PrimitiveTypeUtil.PRIM_INT+"'>\n";
-        xml_ += "<return expression='static^pkg^ExTwo.getstatic()+8i'/>\n";
+        xml_ += "<return expression='^static^pkg^ExTwo.getstatic()+8i'/>\n";
         xml_ += "</method>\n";
         xml_ += "</class>\n";
         StringMap<String> files_ = new StringMap<String>();
@@ -4145,7 +4145,7 @@ public class ProcessXmlMethodTest {
     public void calculateArgument1030Test() {
         String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg'>\n";
         xml_ += "<method access='"+PUBLIC_ACCESS+"' modifier='static' name='exmeth' class='"+PrimitiveTypeUtil.PRIM_INT+"'>\n";
-        xml_ += "<return expression='static^pkg^ExTwo.getstatic()+8i'/>\n";
+        xml_ += "<return expression='^static^pkg^ExTwo.getstatic()+8i'/>\n";
         xml_ += "</method>\n";
         xml_ += "</class>\n";
         StringMap<String> files_ = new StringMap<String>();
@@ -4211,7 +4211,7 @@ public class ProcessXmlMethodTest {
     public void calculateArgument1031Test() {
         String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg'>\n";
         xml_ += "<method access='"+PUBLIC_ACCESS+"' modifier='static' name='exmeth' class='"+PrimitiveTypeUtil.PRIM_INT+"'>\n";
-        xml_ += "<return expression='static^pkg^ExTwo.getstatic()+8i'/>\n";
+        xml_ += "<return expression='^static^pkg^ExTwo.getstatic()+8i'/>\n";
         xml_ += "</method>\n";
         xml_ += "</class>\n";
         StringMap<String> files_ = new StringMap<String>();
@@ -5010,7 +5010,7 @@ public class ProcessXmlMethodTest {
     public void calculateArgument1040Test() {
         String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg'>\n";
         xml_ += "<method access='"+PUBLIC_ACCESS+"' modifier='static' name='exmeth' class='"+PrimitiveTypeUtil.PRIM_INT+"'>\n";
-        xml_ += "<return expression='static^pkg^ExTwo.getstatic()+8i'/>\n";
+        xml_ += "<return expression='^static^pkg^ExTwo.getstatic()+8i'/>\n";
         xml_ += "</method>\n";
         xml_ += "</class>\n";
         StringMap<String> files_ = new StringMap<String>();
@@ -5067,7 +5067,7 @@ public class ProcessXmlMethodTest {
     public void calculateArgument1041Test() {
         String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg'>\n";
         xml_ += "<method access='"+PUBLIC_ACCESS+"' modifier='static' name='exmeth' class='"+PrimitiveTypeUtil.PRIM_INT+"'>\n";
-        xml_ += "<return expression='static^pkg^ExTwo.getstatic()+8i'/>\n";
+        xml_ += "<return expression='^static^pkg^ExTwo.getstatic()+8i'/>\n";
         xml_ += "</method>\n";
         xml_ += "</class>\n";
         StringMap<String> files_ = new StringMap<String>();
@@ -5125,7 +5125,7 @@ public class ProcessXmlMethodTest {
     public void calculateArgument1042Test() {
         String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg'>\n";
         xml_ += "<method access='"+PUBLIC_ACCESS+"' modifier='static' name='exmeth' class='"+PrimitiveTypeUtil.PRIM_INT+"'>\n";
-        xml_ += "<return expression='static^pkg^ExTwo.getstatic()+8i'/>\n";
+        xml_ += "<return expression='^static^pkg^ExTwo.getstatic()+8i'/>\n";
         xml_ += "</method>\n";
         xml_ += "</class>\n";
         StringMap<String> files_ = new StringMap<String>();
@@ -5188,7 +5188,7 @@ public class ProcessXmlMethodTest {
     public void calculateArgument1043Test() {
         String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg'>\n";
         xml_ += "<method access='"+PUBLIC_ACCESS+"' modifier='static' name='exmeth' class='"+PrimitiveTypeUtil.PRIM_INT+"'>\n";
-        xml_ += "<return expression='static^pkg^ExTwo.getstatic()+8i'/>\n";
+        xml_ += "<return expression='^static^pkg^ExTwo.getstatic()+8i'/>\n";
         xml_ += "</method>\n";
         xml_ += "</class>\n";
         StringMap<String> files_ = new StringMap<String>();
@@ -5256,7 +5256,7 @@ public class ProcessXmlMethodTest {
     public void calculateArgument1044Test() {
         String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg'>\n";
         xml_ += "<method access='"+PUBLIC_ACCESS+"' modifier='static' name='exmeth' class='"+PrimitiveTypeUtil.PRIM_INT+"'>\n";
-        xml_ += "<return expression='static^pkg^ExTwo.getstatic()+8i'/>\n";
+        xml_ += "<return expression='^static^pkg^ExTwo.getstatic()+8i'/>\n";
         xml_ += "</method>\n";
         xml_ += "</class>\n";
         StringMap<String> files_ = new StringMap<String>();
@@ -7112,7 +7112,7 @@ public class ProcessXmlMethodTest {
     public void instanceArgument33Test() {
         StringMap<String> files_ = new StringMap<String>();
         String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg'>\n";
-        xml_ += "<field access='"+PUBLIC_ACCESS+"' name='inst' class='pkg.ExEnum' value='static^pkg^ExEnum.ONE;;;'/>\n";
+        xml_ += "<field access='"+PUBLIC_ACCESS+"' name='inst' class='pkg.ExEnum' value='^static^pkg^ExEnum.ONE;;;'/>\n";
         xml_ += "</class>\n";
         files_.put("pkg/Ex."+Classes.EXT, xml_);
         xml_ = "<enum access='"+PUBLIC_ACCESS+"' name='ExEnum' package='pkg'>\n";
@@ -7146,7 +7146,7 @@ public class ProcessXmlMethodTest {
     public void instanceArgument34Test() {
         StringMap<String> files_ = new StringMap<String>();
         String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg'>\n";
-        xml_ += "<field access='"+PUBLIC_ACCESS+"' name='inst' class='pkg.ExEnum' value='static^pkg^ExEnum.ONE;;;'/>\n";
+        xml_ += "<field access='"+PUBLIC_ACCESS+"' name='inst' class='pkg.ExEnum' value='^static^pkg^ExEnum.ONE;;;'/>\n";
         xml_ += "</class>\n";
         files_.put("pkg/Ex."+Classes.EXT, xml_);
         xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExEnum' package='pkg'>\n";

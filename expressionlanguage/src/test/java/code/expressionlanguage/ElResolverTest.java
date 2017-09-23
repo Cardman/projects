@@ -1046,7 +1046,6 @@ public class ElResolverTest {
         assertEq(2, values_.size());
         assertEq("var;", values_.getVal(0));
         assertEq("f()[0]", values_.getVal(4));
-    
         assertEq(ElResolver.DOT_PRIO, seq_.getPriority());
     }
 
@@ -1056,17 +1055,16 @@ public class ElResolverTest {
         addImportingPage(conf_, false);
         BeanOne b_ = new BeanOne();
         addBean(conf_, b_);
-        String el_ = "static^pkg^classname.field";
+        String el_ = "^static^pkg^classname.field";
         Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
         NatTreeMap<Integer,String> opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
-        assertEq(".", opers_.getVal(20));
+        assertEq(".", opers_.getVal(21));
         NatTreeMap<Integer,String> values_ = seq_.getValues();
         assertEq(2, values_.size());
-        assertEq("static^pkg^classname", values_.getVal(0));
-        assertEq("field", values_.getVal(21));
-    
+        assertEq("^static^pkg^classname", values_.getVal(0));
+        assertEq("field", values_.getVal(22));
         assertEq(ElResolver.DOT_PRIO, seq_.getPriority());
     }
 
@@ -1721,14 +1719,23 @@ public class ElResolverTest {
         assertEq(ElResolver.CONST_PRIO, seq_.getPriority());
     }
 
-    @Test(expected=BadExpressionLanguageException.class)
-    public void checkSyntax40FailTest() {
+    @Test
+    public void getOperationsSequence86Test() {
         ContextEl conf_ = new ContextEl();
         addImportingPage(conf_, false);
         BeanOne b_ = new BeanOne();
         addBean(conf_, b_);
-        String el_ = "^static^pkg^classname";
-        ElResolver.checkSyntax(el_, conf_, 0);
+        String el_ = "a&b!=c";
+        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
+        NatTreeMap<Integer,String> opers_ = seq_.getOperators();
+        assertEq(1, opers_.size());
+        assertEq("&", opers_.getVal(1));
+        NatTreeMap<Integer,String> values_ = seq_.getValues();
+        assertEq(2, values_.size());
+        assertEq("a", values_.getVal(0));
+        assertEq("b!=c", values_.getVal(2));
+        assertEq(ElResolver.AND_PRIO, seq_.getPriority());
     }
 
     @Test
@@ -3095,6 +3102,16 @@ public class ElResolverTest {
         BeanOne b_ = new BeanOne();
         addBean(conf_, b_);
         String el_ = "1. 0";
+        ElResolver.checkSyntax(el_, conf_, 0);
+    }
+
+    @Test(expected=BadExpressionLanguageException.class)
+    public void checkSyntax40FailTest() {
+        ContextEl conf_ = new ContextEl();
+        addImportingPage(conf_, false);
+        BeanOne b_ = new BeanOne();
+        addBean(conf_, b_);
+        String el_ = "^static^pkg^classname";
         ElResolver.checkSyntax(el_, conf_, 0);
     }
 

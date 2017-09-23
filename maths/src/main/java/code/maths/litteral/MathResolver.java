@@ -16,14 +16,12 @@ public final class MathResolver {
     static final int MULT_PRIO = 6;
     static final int UNARY_PRIO = 7;
     static final int FCT_OPER_PRIO = 8;
-    static final char TRUE_CHAR = 'V';
 
     static final String EMPTY_STRING = "";
-    static final String TRUE = EMPTY_STRING + TRUE_CHAR;
+    static final String TRUE = "V";
 
-    static final char FALSE_CHAR = 'F';
 
-    static final String FALSE = EMPTY_STRING + FALSE_CHAR;
+    static final String FALSE = "F";
     private static final char DOT = '.';
     private static final char SEP_RATE = '/';
     private static final char ESCAPE_META_CHAR = '\\';
@@ -35,30 +33,23 @@ public final class MathResolver {
     private static final char DELIMITER_STRING_END = '}';
 
     private static final char NEG_BOOL_CHAR = '!';
-    private static final String NEG_BOOL = "!";
 
     private static final char MULT_CHAR= '*';
     private static final char DIV_CHAR= ':';
     private static final char PLUS_CHAR= '+';
-    private static final String PLUS = "+";
 
     private static final char MINUS_CHAR = '-';
-    private static final String MINUS = "-";
 
     private static final char LOWER_CHAR = '<';
-    private static final String LOWER = "<";
 
     private static final char GREATER_CHAR = '>';
-    private static final String GREATER = ">";
 
     private static final char EQ_CHAR = '=';
-    private static final String EQ = "=";
 
     private static final char AND_CHAR = '&';
-    private static final String AND = "&";
 
     private static final char OR_CHAR = '|';
-    private static final String OR = "|";
+
     private static final char[] OPERATORS_CHARS = new char[]{'!','+','-','*',':','>','=','<','&','|',',','(',')'};
     private MathResolver(){
     }
@@ -160,7 +151,7 @@ public final class MathResolver {
                 constString_ = true;
                 beginCharString_ = i_;
             }
-            if (curChar_ == NEG_BOOL.charAt(0) || curChar_ == LOWER.charAt(0) || curChar_ == GREATER.charAt(0)) {
+            if (curChar_ == NEG_BOOL_CHAR || curChar_ == LOWER_CHAR || curChar_ == GREATER_CHAR) {
                 int j_ = i_ + 1;
                 boolean exist_ = false;
                 while (j_ < len_) {
@@ -169,7 +160,7 @@ public final class MathResolver {
                         j_++;
                         continue;
                     }
-                    if (_string.charAt(j_) == EQ.charAt(0) && exist_) {
+                    if (_string.charAt(j_) == EQ_CHAR && exist_) {
                         throw new BadMathExpressionException(_string);
                     }
                     break;
@@ -226,15 +217,15 @@ public final class MathResolver {
                 i_++;
                 continue;
             }
-            if (onlySpacesTo(_string, i_, len_, PLUS.charAt(0))) {
+            if (onlySpacesTo(_string, i_, len_, PLUS_CHAR)) {
                 i_++;
                 continue;
             }
-            if (onlySpacesTo(_string, i_, len_, MINUS.charAt(0))) {
+            if (onlySpacesTo(_string, i_, len_, MINUS_CHAR)) {
                 i_++;
                 continue;
             }
-            if (curChar_ == PAR_LEFT || curChar_ == SEP_ARG || curChar_ == AND.charAt(0) || curChar_ == OR.charAt(0)) {
+            if (curChar_ == PAR_LEFT || curChar_ == SEP_ARG || curChar_ == AND_CHAR || curChar_ == OR_CHAR) {
                 if (onlySpacesTo(_string, i_, len_, NEG_BOOL_CHAR)) {
                     i_++;
                     continue;
