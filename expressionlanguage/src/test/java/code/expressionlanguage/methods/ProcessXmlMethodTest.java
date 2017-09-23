@@ -7802,7 +7802,7 @@ public class ProcessXmlMethodTest {
         String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' superclass='pkg.ExTwo'>\n";
         xml_ += "<field access='"+PUBLIC_ACCESS+"' name='inst' class='"+PrimitiveTypeUtil.PRIM_INT+"' value='8i'/>\n";
         xml_ += "<method access='"+PUBLIC_ACCESS+"' modifier='normal' name='superaccess' class='"+PrimitiveTypeUtil.PRIM_INT+"'>\n";
-        xml_ += "<return expression='pkg^ExTwo^^getter()'/>\n";
+        xml_ += "<return expression='^classchoice^pkg^ExTwo^^getter()'/>\n";
         xml_ += "</method>\n";
         xml_ += "<method access='"+PUBLIC_ACCESS+"' modifier='normal' name='getter' class='"+PrimitiveTypeUtil.PRIM_INT+"'>\n";
         xml_ += "<return expression='2i'/>\n";
@@ -7845,7 +7845,7 @@ public class ProcessXmlMethodTest {
         String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' superclass='pkg.ExTwo'>\n";
         xml_ += "<field access='"+PUBLIC_ACCESS+"' name='inst' class='"+PrimitiveTypeUtil.PRIM_INT+"' value='8i'/>\n";
         xml_ += "<method access='"+PUBLIC_ACCESS+"' modifier='normal' name='superaccess' class='"+PrimitiveTypeUtil.PRIM_INT+"'>\n";
-        xml_ += "<return expression='pkg^ExTwo^^getter()'/>\n";
+        xml_ += "<return expression='^classchoice^pkg^ExTwo^^getter()'/>\n";
         xml_ += "</method>\n";
         xml_ += "<method access='"+PUBLIC_ACCESS+"' modifier='normal' name='getter' class='"+PrimitiveTypeUtil.PRIM_INT+"'>\n";
         xml_ += "<return expression='2i'/>\n";
@@ -7892,7 +7892,7 @@ public class ProcessXmlMethodTest {
         String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' superclass='pkg.ExTwo'>\n";
         xml_ += "<field access='"+PUBLIC_ACCESS+"' name='inst' class='"+PrimitiveTypeUtil.PRIM_INT+"' value='8i'/>\n";
         xml_ += "<method access='"+PUBLIC_ACCESS+"' modifier='normal' name='superaccess' class='"+PrimitiveTypeUtil.PRIM_INT+"'>\n";
-        xml_ += "<return expression='pkg^ExTwo^^getter()'/>\n";
+        xml_ += "<return expression='^classchoice^pkg^ExTwo^^getter()'/>\n";
         xml_ += "</method>\n";
         xml_ += "<method access='"+PUBLIC_ACCESS+"' modifier='normal' name='absgetter' class='"+PrimitiveTypeUtil.PRIM_INT+"'>\n";
         xml_ += "<return expression='9i'/>\n";
@@ -7936,7 +7936,7 @@ public class ProcessXmlMethodTest {
         String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' superclass='pkg.ExTwo'>\n";
         xml_ += "<field access='"+PUBLIC_ACCESS+"' name='inst' class='"+PrimitiveTypeUtil.PRIM_INT+"' value='8i'/>\n";
         xml_ += "<method access='"+PUBLIC_ACCESS+"' modifier='normal' name='superaccess' class='"+PrimitiveTypeUtil.PRIM_INT+"'>\n";
-        xml_ += "<return expression='pkg^ExTwo^^getter()'/>\n";
+        xml_ += "<return expression='^classchoice^pkg^ExTwo^^getter()'/>\n";
         xml_ += "</method>\n";
         xml_ += "<method access='"+PUBLIC_ACCESS+"' modifier='normal' name='getter' class='"+PrimitiveTypeUtil.PRIM_INT+"'>\n";
         xml_ += "<return expression='2i'/>\n";
@@ -7993,7 +7993,7 @@ public class ProcessXmlMethodTest {
         String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' superclass='pkg.ExTwo'>\n";
         xml_ += "<field access='"+PUBLIC_ACCESS+"' name='inst' class='"+PrimitiveTypeUtil.PRIM_INT+"' value='8i'/>\n";
         xml_ += "<method access='"+PUBLIC_ACCESS+"' modifier='normal' name='superaccess' class='"+PrimitiveTypeUtil.PRIM_INT+"'>\n";
-        xml_ += "<return expression='pkg^ExTwo^^getter()'/>\n";
+        xml_ += "<return expression='^classchoice^pkg^ExTwo^^getter()'/>\n";
         xml_ += "</method>\n";
         xml_ += "<method access='"+PUBLIC_ACCESS+"' modifier='normal' name='getter' class='"+PrimitiveTypeUtil.PRIM_INT+"'>\n";
         xml_ += "<return expression='2i'/>\n";
@@ -9288,7 +9288,7 @@ public class ProcessXmlMethodTest {
         xml_ += "<field access='"+PUBLIC_ACCESS+"' name='ance' class='"+PrimitiveTypeUtil.PRIM_INT+"'/>\n";
         xml_ += "<constructor access='"+PUBLIC_ACCESS+"' var0='i' class0='"+PrimitiveTypeUtil.PRIM_INT+"'>\n";
         xml_ += "<declareset class='pkg.Int3' var='k' expression='^new.pkg.Ex()'/>\n";
-        xml_ += "<affect left='ance;;;' oper='=' right='k;.pkg^Int3^^doubleValue()'/>\n";
+        xml_ += "<affect left='ance;;;' oper='=' right='k;.^classchoice^pkg^Int3^^doubleValue()'/>\n";
         xml_ += "<affect left='ance;;;' oper='+=' right='i;.;'/>\n";
         xml_ += "</constructor>\n";
         xml_ += "</class>\n";
@@ -9342,7 +9342,7 @@ public class ProcessXmlMethodTest {
         xml_ += "<field access='"+PUBLIC_ACCESS+"' name='ance' class='"+PrimitiveTypeUtil.PRIM_INT+"'/>\n";
         xml_ += "<constructor access='"+PUBLIC_ACCESS+"' var0='i' class0='"+PrimitiveTypeUtil.PRIM_INT+"'>\n";
         xml_ += "<declareset class='pkg.Int3' var='k' expression='^new.pkg.Ex()'/>\n";
-        xml_ += "<affect left='ance;;;' oper='=' right='k;.pkg^Int3^^doubleValue()'/>\n";
+        xml_ += "<affect left='ance;;;' oper='=' right='k;.^classchoice^pkg^Int3^^doubleValue()'/>\n";
         xml_ += "<affect left='ance;;;' oper='+=' right='i;.;'/>\n";
         xml_ += "</constructor>\n";
         xml_ += "</class>\n";
@@ -9400,7 +9400,7 @@ public class ProcessXmlMethodTest {
         xml_ += "<field access='"+PUBLIC_ACCESS+"' name='ance' class='"+PrimitiveTypeUtil.PRIM_INT+"'/>\n";
         xml_ += "<constructor access='"+PUBLIC_ACCESS+"' var0='i' class0='"+PrimitiveTypeUtil.PRIM_INT+"'>\n";
         xml_ += "<declareset class='pkg.Int3' var='k' expression='^new.pkg.Ex()'/>\n";
-        xml_ += "<affect left='ance;;;' oper='=' right='k;.pkg^Int3^^doubleValue()'/>\n";
+        xml_ += "<affect left='ance;;;' oper='=' right='k;.^classchoice^pkg^Int3^^doubleValue()'/>\n";
         xml_ += "<affect left='ance;;;' oper='+=' right='i;.;'/>\n";
         xml_ += "</constructor>\n";
         xml_ += "</class>\n";
@@ -9513,7 +9513,7 @@ public class ProcessXmlMethodTest {
         xml_ += "</class>\n";
         files_.put("pkg/Ex."+Classes.EXT, xml_);
         xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExTwo' package='pkg'>\n";
-        xml_ += "<field access='"+PUBLIC_ACCESS+"' name='ance' class='"+PrimitiveTypeUtil.PRIM_INT+"' value='pkg^Ex^^inst;;;'/>\n";
+        xml_ += "<field access='"+PUBLIC_ACCESS+"' name='ance' class='"+PrimitiveTypeUtil.PRIM_INT+"' value='^classchoice^pkg^Ex^^inst;;;'/>\n";
         xml_ += "</class>\n";
         files_.put("pkg/ExTwo."+Classes.EXT, xml_);
         ContextEl cont_ = new ContextEl();

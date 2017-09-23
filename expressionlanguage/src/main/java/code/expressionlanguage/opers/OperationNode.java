@@ -120,6 +120,9 @@ public abstract class OperationNode implements Operable {
     protected static final String GET_FIELD = ";;;";
     protected static final String CURRENT_INTANCE = "^this";
     protected static final String STATIC_CALL = "^^";
+    protected static final String CLASS_CHOICE = "classchoice";
+
+    protected static final String CLASS_CHOICE_PREF = EXTERN_CLASS + CLASS_CHOICE + EXTERN_CLASS;
 
     protected static final String FCT = "(";
 

@@ -46,6 +46,8 @@ public final class ElResolver {
     private static final char DOT_VAR = '.';
     private static final char EXTERN_CLASS = '^';
     private static final char INTERN_CLASS = '$';
+    private static final String CLASS_CHOICE = "classchoice";
+    private static final String STATIC_CALL = "^^";
     private static final String INSTANCE = "new";
     private static final String STATIC_ACCESS = "static";
 

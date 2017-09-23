@@ -1600,7 +1600,7 @@ public class ElUtilTest {
         Classes.validateAll(files_, cont_);
         setupAccessValue(cont_);
         addImportingPage(cont_);
-        Argument arg_ = ElUtil.processEl("pkg^Ex^^exmeth(6i)", 0, cont_);
+        Argument arg_ = ElUtil.processEl("^classchoice^pkg^Ex^^exmeth(6i)", 0, cont_);
         Object res_ = arg_.getObject();
         assertSame(Integer.class, res_.getClass());
         assertEq(15,(Number) res_);
@@ -1622,7 +1622,7 @@ public class ElUtilTest {
         Classes.validateAll(files_, cont_);
         setupAccessValue(cont_);
         addImportingPage(cont_);
-        Argument arg_ = ElUtil.processEl("pkg^Ex^^inst;;;", 0, cont_);
+        Argument arg_ = ElUtil.processEl("^classchoice^pkg^Ex^^inst;;;", 0, cont_);
         Object res_ = arg_.getObject();
         assertSame(Integer.class, res_.getClass());
         assertEq(2,(Number) res_);
@@ -2380,7 +2380,7 @@ public class ElUtilTest {
         cont_.getLastPage().getLocalVars().putAllMap(localVars_);
         Struct arg_;
         Object res_;
-        ElUtil.processAffect("","","","pkg^Ex^^inst;;;", "2i", "=",cont_);
+        ElUtil.processAffect("","","","^classchoice^pkg^Ex^^inst;;;", "2i", "=",cont_);
         arg_ = cont_.getClasses().getStaticField(new ClassField("pkg.Ex", "inst"));
         res_ = arg_.getInstance();
         assertSame(Integer.class, res_.getClass());
@@ -2411,8 +2411,8 @@ public class ElUtilTest {
         cont_.getLastPage().getLocalVars().putAllMap(localVars_);
         Struct arg_;
         Object res_;
-        ElUtil.processAffect("","","","pkg^Ex^^inst;;;", "2i", "=",cont_);
-        ElUtil.processAffect("","","","pkg^Ex^^inst;;;", "v;.", "=",cont_);
+        ElUtil.processAffect("","","","^classchoice^pkg^Ex^^inst;;;", "2i", "=",cont_);
+        ElUtil.processAffect("","","","^classchoice^pkg^Ex^^inst;;;", "v;.", "=",cont_);
         arg_ = cont_.getClasses().getStaticField(new ClassField("pkg.Ex", "inst"));
         res_ = arg_.getInstance();
         assertNull(res_);
@@ -2603,8 +2603,8 @@ public class ElUtilTest {
         lv_.setClassName(Integer.class.getName());
         localVars_.put("v", lv_);
         cont_.getLastPage().getLocalVars().putAllMap(localVars_);
-        ElUtil.processAffect("","","","pkg^Ex^^inst;;;", "2i", "=",cont_);
-        ElUtil.processAffect("","","","pkg^Ex^^inst;;;", "v;.", "=",cont_);
+        ElUtil.processAffect("","","","^classchoice^pkg^Ex^^inst;;;", "2i", "=",cont_);
+        ElUtil.processAffect("","","","^classchoice^pkg^Ex^^inst;;;", "v;.", "=",cont_);
     }
 
     @Test(expected=DynamicArrayStoreException.class)

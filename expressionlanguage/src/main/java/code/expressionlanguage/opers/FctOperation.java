@@ -222,9 +222,14 @@ public final class FctOperation extends InvokingOperation {
                 throw new BadFormatPathException(trimMeth_+RETURN_LINE+_conf.joinPages());
             }
             String className_ = classMethod_.first();
+            if (!className_.startsWith(CLASS_CHOICE_PREF)) {
+                throw new BadFormatPathException(trimMeth_+RETURN_LINE+_conf.joinPages());
+            }
+            int lenPref_ = CLASS_CHOICE_PREF.length();
+            className_ = className_.substring(lenPref_);
             className_ = StringList.removeAllSpaces(className_);
             className_ = className_.replace(EXTERN_CLASS, DOT_VAR);
-            checkExist(_conf, className_, true, true, getIndexInEl()+off_);
+            checkExist(_conf, className_, true, true, getIndexInEl()+off_ + lenPref_);
             clCurName_ = className_;
             trimMeth_ = classMethod_.last();
             staticChoiceMethod = true;

@@ -127,9 +127,14 @@ public final class ConstantOperation extends OperationNode implements SettableEl
                         throw new BadFormatPathException(str_+RETURN_LINE+_conf.joinPages());
                     }
                     String className_ = classMethod_.first();
+                    if (!className_.startsWith(CLASS_CHOICE_PREF)) {
+                        throw new BadFormatPathException(str_+RETURN_LINE+_conf.joinPages());
+                    }
+                    int lenPref_ = CLASS_CHOICE_PREF.length();
+                    className_ = className_.substring(lenPref_);
                     className_ = StringList.removeAllSpaces(className_);
                     className_ = className_.replace(EXTERN_CLASS, DOT_VAR);
-                    checkExist(_conf, className_, true, true, 0);
+                    checkExist(_conf, className_, true, true, lenPref_);
                     clCurName_ = className_;
                 } else {
                     if (cl_ == null) {
