@@ -474,8 +474,7 @@ final class FormatHtml {
                 throw new BadVariableNameException(_conf.joinPages(), var_, ATTRIBUTE_VAR);
             }
             VariableInformation vi_ = tryToGetVariableInformation(_conf, ip_, n);
-            Class<?> cl_ = vi_.getClassRef();
-            String className_ = cl_.getName();
+            String className_ = vi_.getClassName();
 
             Struct obj_ = vi_.getStruct();
             parameters_.put(var_, tryToCreateVariable(_conf, ip_, className_, obj_));
@@ -504,8 +503,7 @@ final class FormatHtml {
                 throw new BadVariableNameException(_conf.joinPages(), var_, ATTRIBUTE_VAR);
             }
             VariableInformation vi_ = tryToGetVoidVariable(_conf, ip_, n);
-            Class<?> cl_ = vi_.getClassRef();
-            String className_ = cl_.getName();
+            String className_ = vi_.getClassName();
 
             LocalVariable loc_ = new LocalVariable();
             loc_.setClassName(ConstClasses.resolve(className_));
@@ -1571,10 +1569,10 @@ final class FormatHtml {
             Element _set) {
         String var_ = _set.getAttribute(ATTRIBUTE_VAR);
         LocalVariable ret_ = ExtractObject.getCurrentLocVariable(_conf, 0, _ip.getReturnedValues(), var_);
-        Object elt_ = tryToGetObject(_conf, _ip, _set);
+        Struct elt_ = tryToGetObject(_conf, _ip, _set);
         String className_ = ret_.getClassName();
-        checkClass(_conf, _ip, ConstClasses.classForNameNotInit(className_), elt_);
-        ret_.setElement(elt_);
+        checkClass(_conf, _ip, ConstClasses.classForNameNotInit(className_), elt_.getInstance());
+        ret_.setStruct(elt_);
     }
     private static void processSetClassNameParamTag(Configuration _conf, ImportingPage _ip,
             Element _set) {
@@ -1658,11 +1656,7 @@ final class FormatHtml {
             throw new BadVariableNameException(_conf.joinPages(), var_, ATTRIBUTE_VAR);
         }
         VariableInformation vi_ = tryToGetVariableInformation(_conf, _ip, _set);
-        Class<?> classRef_ = vi_.getClassRef();
-        String className_ = classRef_.getName();
-        if (classRef_.isPrimitive()) {
-            className_ = PrimitiveTypeUtil.PRIM+className_;
-        }
+        String className_ = vi_.getClassName();
         Struct obj_ = vi_.getStruct();
         _ip.getLocalVars().put(var_, tryToCreateVariable(_conf, _ip, className_, obj_));
     }
@@ -1683,7 +1677,7 @@ final class FormatHtml {
         vi_.setClassRef(cl_);
         return vi_;
     }
-    static Object tryToGetObject(Configuration _conf, ImportingPage _ip,
+    static Struct tryToGetObject(Configuration _conf, ImportingPage _ip,
             Element _element) {
         String numExpr_ = _element.getAttribute(NUMBER_EXPRESSION);
         Object obj_;
@@ -1697,39 +1691,39 @@ final class FormatHtml {
             _ip.setOffset(0);
             obj_ = ExtractObject.evaluateMathExpression(_ip, _conf, eval_, numExpr_);
             ExtractObject.checkNullPointer(_conf, obj_);
-            return obj_;
+            return new Struct(obj_);
         } else {
             _ip.setProcessingAttribute(EXPRESSION_ATTRIBUTE);
             _ip.setLookForAttrValue(true);
             _ip.setOffset(0);
             if (_element.hasAttribute(IS_STRING_CONST_ATTRIBUTE)){
                 if (!_element.hasAttribute(EXPRESSION_ATTRIBUTE)) {
-                    obj_ = null;
+                    return new Struct();
                 } else {
                     obj_ = expression_;
                 }
-                return obj_;
+                return new Struct(obj_);
             } else if (_element.hasAttribute(IS_CHAR_CONST_ATTRIBUTE)){
                 if (!_element.hasAttribute(EXPRESSION_ATTRIBUTE)) {
-                    obj_ = null;
+                    return new Struct();
                 } else {
                     obj_ = ExtractObject.getChar(_conf, expression_);
                 }
-                return obj_;
+                return new Struct(obj_);
             } else if (_element.hasAttribute(IS_BOOL_CONST_ATTRIBUTE)){
                 if (!_element.hasAttribute(EXPRESSION_ATTRIBUTE)) {
-                    obj_ = null;
+                    return new Struct();
                 } else {
                     obj_ = Boolean.parseBoolean(expression_);
                 }
-                return obj_;
+                return new Struct(obj_);
             } else if (StringList.isNumber(expression_)) {
                 obj_ = ExtractObject.instanceByString(_conf, long.class, expression_);
-                return obj_;
+                return new Struct(obj_);
             } else if (expression_.startsWith(INSTANTIATE_PREFIX)){
-                return ElUtil.processEl(expression_, 0, _conf.toContextEl()).getObject();
+                return ElUtil.processEl(expression_, 0, _conf.toContextEl()).getStruct();
             } else {
-                return ElUtil.processEl(expression_, 0, _conf.toContextEl()).getObject();
+                return ElUtil.processEl(expression_, 0, _conf.toContextEl()).getStruct();
             }
         }
     }
@@ -1918,7 +1912,6 @@ final class FormatHtml {
         }
         String param_ = _className;
         String arg_ = _object.getClassName();
-        param_ = PrimitiveTypeUtil.getPrettyArrayClass(param_);
         if (PrimitiveTypeUtil.canBeUseAsArgument(param_, arg_, _conf.toContextEl().getClasses())) {
             LocalVariable loc_ = new LocalVariable();
             loc_.setClassName(ConstClasses.resolve(_className));

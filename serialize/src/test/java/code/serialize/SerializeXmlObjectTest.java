@@ -2386,7 +2386,7 @@ public class SerializeXmlObjectTest {
     }
 
     @Parameters(method="booleanInputs")
-    @Test(expected=NoSuchDeclaredMethodException.class)
+    @Test(expected=InvokingException.class)
     public void fromXmlStringObject19FailTest(boolean _bool) {
         SerializeXmlObject.setReferences(_bool);
         SerializeXmlObject.setCheckReferences(false);

@@ -39,6 +39,8 @@ public final class ConverterMethod {
     public static Object newInstance(Constructor<?> _method, Object... _args) {
         try {
             return _method.newInstance(_args);
+        } catch (InvocationTargetException _0) {
+            throw new InvokingException(_0, _0.getTargetException());
         } catch (Throwable _0) {
             return null;
         }

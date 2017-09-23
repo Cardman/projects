@@ -1,14 +1,15 @@
 package code.formathtml.util;
+import code.expressionlanguage.PrimitiveTypeUtil;
 import code.expressionlanguage.opers.util.Struct;
 
 public final class VariableInformation {
 
     private Struct element;
 
-    private Class<?> classRef;
+    private String declaringClassName;
 
     public String getClassName() {
-        return classRef.getName();
+        return declaringClassName;
     }
 
     public Struct getStruct() {
@@ -29,12 +30,9 @@ public final class VariableInformation {
         }
     }
 
-    public Class<?> getClassRef() {
-        return classRef;
-    }
-
     public void setClassRef(Class<?> _classRef) {
-        classRef = _classRef;
+        declaringClassName = PrimitiveTypeUtil.getAliasArrayClass(_classRef);
+        System.out.println(declaringClassName);
     }
 
 }

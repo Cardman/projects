@@ -341,6 +341,9 @@ public final class PrimitiveTypeUtil {
 
     public static String getAliasArrayClass(Class<?> _class) {
         String className_ = _class.getName();
+        if (_class.isPrimitive()) {
+            className_ = PRIM + className_;
+        }
         DimComp d_ = getComponentBaseType(className_);
         String compo_ = d_.getComponent();
         return getPrettyArrayType(compo_, d_.getDim());
