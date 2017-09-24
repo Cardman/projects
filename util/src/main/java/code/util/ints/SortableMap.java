@@ -8,6 +8,10 @@ public interface SortableMap<K, V> extends ListableEntries<K, V>, HasComparator<
 
     K lastKey();
 
+    V firstValue();
+
+    V lastValue();
+
     EntryCust<K, V> lowerEntry(K _key);
 
     K lowerKey(K _key);

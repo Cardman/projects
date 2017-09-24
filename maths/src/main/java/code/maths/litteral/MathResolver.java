@@ -173,11 +173,11 @@ public final class MathResolver {
                 if (parsBrackets_.isEmpty()) {
                     throw new BadMathExpressionException(_string);
                 }
-                if (parsBrackets_.getValue(parsBrackets_.size() - 1) != PAR_LEFT) {
+                if (parsBrackets_.lastValue() != PAR_LEFT) {
                     throw new BadMathExpressionException(_string);
                 }
-                d_.getCallings().put(parsBrackets_.getKey(parsBrackets_.size() - 1), i_);
-                parsBrackets_.removeKey(parsBrackets_.getKey(parsBrackets_.size() - 1));
+                d_.getCallings().put(parsBrackets_.lastKey(), i_);
+                parsBrackets_.removeKey(parsBrackets_.lastKey());
             }
             if (curChar_ == SEP_ARG) {
                 if (parsBrackets_.isEmpty()) {
@@ -305,8 +305,8 @@ public final class MathResolver {
         operators_ = new NatTreeMap<Integer,String>();
         NatTreeMap<Integer,Character> parsBrackets_;
         parsBrackets_ = new NatTreeMap<Integer,Character>();
-        Character usedCaller_ = null;
-        Character usedEnder_ = null;
+        char usedCaller_ = 0;
+        char usedEnder_ = 0;
         int prioMax_ = FCT_OPER_PRIO;
         int prio_ = prioMax_;
         int len_ = _string.length();
@@ -416,18 +416,12 @@ public final class MathResolver {
                 continue;
             }
             if (curChar_ == PAR_LEFT) {
-                if (FCT_OPER_PRIO <= prio_) {
-                    operators_.put(i_, String.valueOf(PAR_LEFT));
-                }
                 parsBrackets_.put(i_, curChar_);
                 usedCaller_ = curChar_;
             }
             if (curChar_ == PAR_RIGHT) {
                 usedEnder_ = curChar_;
                 parsBrackets_.removeKey(parsBrackets_.lastKey());
-                if (parsBrackets_.isEmpty() && prio_ == FCT_OPER_PRIO) {
-                    operators_.put(i_, String.valueOf(PAR_RIGHT));
-                }
             }
             if (parsBrackets_.isEmpty() && i_ + 2 <= len_) {
                 String builtOperator_ = EMPTY_STRING;
@@ -524,7 +518,7 @@ public final class MathResolver {
         op_.setPriority(prio_);
         op_.setOperators(operators_);
         if (prioMax_ == prio_) {
-            if (usedCaller_ != null) {
+            if (usedCaller_ != 0) {
                 int indexUsedCaller_ = _string.indexOf(usedCaller_);
                 int index_ = indexUsedCaller_ + 1;
                 int end_ = _string.lastIndexOf(usedEnder_);
@@ -555,7 +549,7 @@ public final class MathResolver {
                         parsBrackets_.put(i, curChar_);
                     }
                     if (curChar_ == PAR_RIGHT) {
-                        parsBrackets_.removeKey(parsBrackets_.getKey(parsBrackets_.size() - 1));
+                        parsBrackets_.removeKey(parsBrackets_.lastKey());
                     }
                     if (curChar_ == SEP_ARG) {
                         if (parsBrackets_.isEmpty()) {

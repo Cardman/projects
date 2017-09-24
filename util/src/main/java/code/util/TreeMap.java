@@ -14,13 +14,8 @@ import code.util.ints.SortableMap;
 
 public final class TreeMap<K, V> extends AbsMap<K, V> implements SortableMap<K, V> {
 
-//    //list cannot be null, even by reflection
-//    private final transient CustList<EntryCust<K,V>> list = new CustList<EntryCust<K,V>>();
-
     @RwXml
     private final Comparator<K> comparator;
-
-    //private transient boolean modified;
 
     @RwXml
     TreeMap() {
@@ -53,78 +48,23 @@ public final class TreeMap<K, V> extends AbsMap<K, V> implements SortableMap<K, 
         putAllMap(_sorted);
     }
 
-//    public TreeMap(ListableEntries<K,V> _map) {
-//        comparator = null;
-//        putAllMap(_map);
-//    }
-
-//    public TreeMap(ListableEntries<K,V> _map, Comparator<K> _cmp) {
-//        comparator = _cmp;
-//        putAllMap(_map);
-//    }
-
     @Override
     public boolean isCorrect() {
         return comparator != null && super.isCorrect();
     }
 
-//    @Override
-//    CustList<EntryCust<K,V>> getList() {
-//        return list;
-//    }
-
-//    public TreeMap(SortedMap<K,V> _map) {
-//        putAll(_map);
-//    }
-
-//    @Override
-//    public void move(K _oldKey, K _newKey) {
-//        int size_ = size();
-//        V value_ = getVal(_oldKey);
-//        removeKey(_oldKey);
-//        if (size_ != size()) {
-//            put(_newKey, value_);
-//        }
-//    }
-
     @Override
     public void putAllMap(ListableEntries<K, V> _m) {
-        //setModified();
         for (EntryCust<K,V> e: _m.entryList()) {
             put(e.getKey(), e.getValue());
         }
     }
     public void putAllTreeMap(SortableMap<K, V> _m) {
-        //setModified();
         for (EntryCust<K,V> e: _m.entryList()) {
             put(e.getKey(), e.getValue());
         }
     }
 
-//    @Override
-//    public boolean contains(K _key) {
-//        return getEntryByKey(_key) != null;
-//    }
-
-//    public boolean has(V _value) {
-//        return containsValue(_value);
-//    }
-//    public static <K,V extends Number> boolean hasNumber(TreeMap<K,V> _map, V _value) {
-//        if (_value == null) {
-//            for (Number s: _map.values()) {
-//                if (s == null) {
-//                    return true;
-//                }
-//            }
-//            return false;
-//        }
-//        for (Number s: _map.values()) {
-//            if (_value.longValue() == s.longValue()) {
-//                return true;
-//            }
-//        }
-//        return false;
-//    }
     @Override
     public Listable<K> getKeysNullValue() {
         Listable<K> list_ = new CustList<K>();
@@ -136,34 +76,11 @@ public final class TreeMap<K, V> extends AbsMap<K, V> implements SortableMap<K, 
         }
         return list_;
     }
-//    @Override
-//    public V getVal(K _key) {
-//        EntryCust<K,V> e_ = getEntryByKey(_key);
-//        if (e_ == null) {
-//            return null;
-//        }
-//        return e_.getValue();
-//    }
+
     @Override
     public CustList<V> getValues(K _key) {
         CustList<V> c_;
         c_ = new CustList<V>();
-//        if (comparator == null) {
-//            for (EntryCust<K, V> e: getList()) {
-//                Comparable<K> k_ = (Comparable<K>) _key;
-//                int res_ = k_.compareTo(e.getKey());
-//                if (res_ == CustList.EQ_CMP) {
-//                    c_.add(e.getValue());
-//                }
-//            }
-//        } else {
-//            for (EntryCust<K, V> e: getList()) {
-//                int res_ = comparator.compare(_key, e.getKey());
-//                if (res_ == CustList.EQ_CMP) {
-//                    c_.add(e.getValue());
-//                }
-//            }
-//        }
         for (EntryCust<K, V> e: getList()) {
             int res_ = comparator.compare(_key, e.getKey());
             if (res_ == CustList.EQ_CMP) {
@@ -172,20 +89,6 @@ public final class TreeMap<K, V> extends AbsMap<K, V> implements SortableMap<K, 
         }
         return c_;
     }
-//    @Override
-//    public void removeKey(K _key) {
-//        int index_ = indexOfEntry(_key);
-//        if (index_ == CustList.INDEX_NOT_FOUND_ELT) {
-//            return;
-//        }
-//        list.removeAt(index_);
-//    }
-
-//    public V removedKey(K _key) {
-//        V val_ = getVal(_key);
-//        remove(_key);
-//        return val_;
-//    }
 
     @Override
     public V getValue(int _index) {
@@ -205,11 +108,6 @@ public final class TreeMap<K, V> extends AbsMap<K, V> implements SortableMap<K, 
         }
         return l_;
     }
-//
-//    @Override
-//    public CustList<EntryCust<K,V>> entryList() {
-//        return list;
-//    }
 
     @Override
     public void put(K _key, V _value) {
@@ -269,6 +167,16 @@ public final class TreeMap<K, V> extends AbsMap<K, V> implements SortableMap<K, 
     @Override
     public K lastKey() {
         return getList().last().getKey();
+    }
+
+    @Override
+    public V firstValue() {
+        return getList().first().getValue();
+    }
+
+    @Override
+    public V lastValue() {
+        return getList().last().getValue();
     }
 
     @Override

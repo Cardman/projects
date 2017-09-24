@@ -4,11 +4,11 @@ import code.maths.NumDiffDenNum;
 import code.maths.Rate;
 import code.maths.exceptions.NegatifExposantException;
 import code.maths.exceptions.ZeroSumEventException;
+import code.util.AbsMap;
 import code.util.CustList;
 import code.util.EqList;
 import code.util.Numbers;
 import code.util.ints.Listable;
-import code.util.ints.ListableEntries;
 
 public abstract class AbMonteCarlo<E> implements IntMonteCarlo {
 
@@ -137,7 +137,7 @@ public abstract class AbMonteCarlo<E> implements IntMonteCarlo {
         return null;
     }
 
-    protected abstract ListableEntries<E,LgInt> getLaw();
+    protected abstract AbsMap<E,LgInt> getLaw();
 
     public boolean isValid() {
         if (getLaw().isEmpty()) {

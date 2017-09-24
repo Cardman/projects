@@ -12,11 +12,6 @@ import code.util.ints.SortableMap;
 */
 public final class NatTreeMap<K extends Comparable<K>, V> extends AbsMap<K, V> implements SortableMap<K, V> {
 
-//    //list cannot be null, even by reflection
-//    private final transient CustList<EntryCust<K,V>> list = new CustList<EntryCust<K,V>>();
-
-    //private transient boolean modified;
-
     public NatTreeMap() {
     }
     public NatTreeMap(ListableEntries<K,V> _map) {
@@ -30,35 +25,15 @@ public final class NatTreeMap<K extends Comparable<K>, V> extends AbsMap<K, V> i
     public NatTreeMap(CollCapacity _capacity) {
         super(_capacity);
     }
-//    public NatTreeMap(SortedMap<K,V> _map) {
-//        putAll(_map);
-//    }
-
-//    @Override
-//    CustList<EntryCust<K,V>> getList() {
-//        return list;
-//    }
-
-//    @Override
-//    public void move(K _oldKey, K _newKey) {
-//        int size_ = size();
-//        V value_ = getVal(_oldKey);
-//        removeKey(_oldKey);
-//        if (size_ != size()) {
-//            put(_newKey, value_);
-//        }
-//    }
 
     @Override
     public void putAllMap(ListableEntries<K, V> _m) {
-        //setModified();
         for (EntryCust<K,V> e: _m.entryList()) {
             put(e.getKey(), e.getValue());
         }
     }
 
     public void putAllTreeMap(NatTreeMap<K, V> _m) {
-        //setModified();
         for (EntryCust<K,V> e: _m.getList()) {
             put(e.getKey(), e.getValue());
         }
@@ -163,6 +138,16 @@ public final class NatTreeMap<K extends Comparable<K>, V> extends AbsMap<K, V> i
     @Override
     public Comparator<K> comparator() {
         return new NaturalComparator<K>();
+    }
+
+    @Override
+    public V firstValue() {
+        return getList().first().getValue();
+    }
+
+    @Override
+    public V lastValue() {
+        return getList().last().getValue();
     }
 
     @Override
