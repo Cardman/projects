@@ -2,7 +2,6 @@ package code.stream;
 import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
-import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.Collections;
@@ -58,18 +57,14 @@ public final class StreamZipFile {
                 files_.put(entry_.getName(), str_);
             }
             return files_;
-        } catch (RuntimeException _0) {
-            _0.printStackTrace();
-            return null;
-        } catch (IOException _0) {
+        } catch (Throwable _0) {
             _0.printStackTrace();
             return null;
         } finally {
             if (zipFile_ != null) {
                 try {
                     zipFile_.close();
-                } catch (RuntimeException _0) {
-                } catch (IOException _0) {
+                } catch (Throwable _0) {
                 }
             }
         }
@@ -85,18 +80,14 @@ public final class StreamZipFile {
                 files_.put(entry_.getName(), str_);
             }
             return files_;
-        } catch (RuntimeException _0) {
-            _0.printStackTrace();
-            return null;
-        } catch (IOException _0) {
+        } catch (Throwable _0) {
             _0.printStackTrace();
             return null;
         } finally {
             if (zipFile_ != null) {
                 try {
                     zipFile_.close();
-                } catch (RuntimeException _0) {
-                } catch (IOException _0) {
+                } catch (Throwable _0) {
                 }
             }
         }
@@ -137,9 +128,7 @@ public final class StreamZipFile {
             }
             zip_.close();
             fis_.close();
-        } catch (RuntimeException _0) {
-            _0.printStackTrace();
-        } catch (IOException _0) {
+        } catch (Throwable _0) {
             _0.printStackTrace();
         }
         return classNames_;
@@ -149,7 +138,7 @@ public final class StreamZipFile {
         String path_ = ConstFiles.getJarPath();
         try {
             return zippedBinaryFiles(path_);
-        } catch (RuntimeException _0) {
+        } catch (Throwable _0) {
             StringMap<byte[]> map_ = new StringMap<byte[]>();
             for (String f: StreamTextFile.files(path_)) {
                 map_.put(f, StreamBinaryFile.loadFile(path_+f));
@@ -167,18 +156,14 @@ public final class StreamZipFile {
                 files_.add(entry_.getName());
             }
             return files_;
-        } catch (RuntimeException _0) {
-            _0.printStackTrace();
-            return null;
-        } catch (IOException _0) {
+        } catch (Throwable _0) {
             _0.printStackTrace();
             return null;
         } finally {
             if (zipFile_ != null) {
                 try {
                     zipFile_.close();
-                } catch (RuntimeException _0) {
-                } catch (IOException _0) {
+                } catch (Throwable _0) {
                 }
             }
         }
@@ -194,18 +179,14 @@ public final class StreamZipFile {
                 files_.add(entry_.getName());
             }
             return files_;
-        } catch (RuntimeException _0) {
-            _0.printStackTrace();
-            return null;
-        } catch (IOException _0) {
+        } catch (Throwable _0) {
             _0.printStackTrace();
             return null;
         } finally {
             if (zipFile_ != null) {
                 try {
                     zipFile_.close();
-                } catch (RuntimeException _0) {
-                } catch (IOException _0) {
+                } catch (Throwable _0) {
                 }
             }
         }
@@ -236,18 +217,14 @@ public final class StreamZipFile {
                 }
             }
             return files_;
-        } catch (RuntimeException _0) {
-            _0.printStackTrace();
-            return null;
-        } catch (IOException _0) {
+        } catch (Throwable _0) {
             _0.printStackTrace();
             return null;
         } finally {
             if (zipFile_ != null) {
                 try {
                     zipFile_.close();
-                } catch (IOException _0) {
-                } catch (RuntimeException _0) {
+                } catch (Throwable _0) {
                 }
             }
         }
@@ -271,18 +248,14 @@ public final class StreamZipFile {
                 files_.put(entry_.getName(), file_);
             }
             return files_;
-        } catch (RuntimeException _0) {
-            _0.printStackTrace();
-            return null;
-        } catch (IOException _0) {
+        } catch (Throwable _0) {
             _0.printStackTrace();
             return null;
         } finally {
             if (zipFile_ != null) {
                 try {
                     zipFile_.close();
-                } catch (RuntimeException _0) {
-                } catch (IOException _0) {
+                } catch (Throwable _0) {
                 }
             }
         }
@@ -303,18 +276,14 @@ public final class StreamZipFile {
                 files_.put(entry_.getName(), file_);
             }
             return files_;
-        } catch (RuntimeException _0) {
-            _0.printStackTrace();
-            return null;
-        } catch (IOException _0) {
+        } catch (Throwable _0) {
             _0.printStackTrace();
             return null;
         } finally {
             if (zipFile_ != null) {
                 try {
                     zipFile_.close();
-                } catch (IOException _0) {
-                } catch (RuntimeException _0) {
+                } catch (Throwable _0) {
                 }
             }
         }
@@ -334,18 +303,14 @@ public final class StreamZipFile {
                 break;
             }
             return file_;
-        } catch (RuntimeException _0) {
-            _0.printStackTrace();
-            return null;
-        } catch (IOException _0) {
+        } catch (Throwable _0) {
             _0.printStackTrace();
             return null;
         } finally {
             if (zipFile_ != null) {
                 try {
                     zipFile_.close();
-                } catch (RuntimeException _0) {
-                } catch (IOException _0) {
+                } catch (Throwable _0) {
                 }
             }
         }
@@ -360,7 +325,7 @@ public final class StreamZipFile {
         InputStream stream_ = null;
         try {
             stream_ = _zipFile.getInputStream(_entry);
-        } catch (IOException _0) {
+        } catch (Throwable _0) {
             throw new RuntimeIOException(_0);
         }
         BufferedReader br_ = null;
@@ -376,28 +341,25 @@ public final class StreamZipFile {
                 fileBuilder_.append(line_);
                 fileBuilder_.append(RETURN_LINE);
             }
-        } catch (IOException _0) {
+        } catch (Throwable _0) {
             throw new RuntimeIOException(_0);
         } finally {
             if (br_ != null) {
                 try {
                     br_.close();
-                } catch (RuntimeException _0) {
-                } catch (IOException _0) {
+                } catch (Throwable _0) {
                 }
             }
             if (isr_ != null) {
                 try {
                     isr_.close();
-                } catch (RuntimeException _0) {
-                } catch (IOException _0) {
+                } catch (Throwable _0) {
                 }
             }
             if (stream_ != null) {
                 try {
                     stream_.close();
-                } catch (RuntimeException _0) {
-                } catch (IOException _0) {
+                } catch (Throwable _0) {
                 }
             }
         }
@@ -421,7 +383,7 @@ public final class StreamZipFile {
             zos_.closeEntry();
             //remember close it
             zos_.close();
-        }catch(IOException _0){
+        }catch(Throwable _0){
             _0.printStackTrace();
         }
     }
@@ -439,7 +401,7 @@ public final class StreamZipFile {
             zos_.closeEntry();
             // remember close it
             zos_.close();
-        } catch (IOException _0) {
+        } catch (Throwable _0) {
             _0.printStackTrace();
         }
     }

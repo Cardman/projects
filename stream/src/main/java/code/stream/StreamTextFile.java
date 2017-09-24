@@ -272,7 +272,7 @@ public final class StreamTextFile {
         try {
             File file_ = new File(_filePath);
             inputStream_ = new FileInputStream(file_);
-            reader_ = new InputStreamReader(inputStream_, Charset.forName(StandardCharsets.ISO_8859_1.getName()));
+            reader_ = new InputStreamReader(inputStream_, Charset.forName(_encoding));
             br_ = new BufferedReader(reader_);
             return readingFile(LINE_RETURN, br_, file_.length());
         } catch (IOException _0) {

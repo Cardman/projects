@@ -1,7 +1,5 @@
 package code.xml.util;
 
-import java.util.logging.Logger;
-
 import code.resources.ResourceFiles;
 import code.util.StringList;
 import code.util.StringMap;
@@ -14,7 +12,6 @@ public final class ResourcesMessagesUtil {
     private static final String PROPERTIES_PATTERN = "{0}/{1}/{2}.properties";
     private static final String TAB = "\t";
     private static final String DOT = ".";
-    private static final String NO_MESSAGE = "Warning no message for ";
     private static final StringMap<StringMap<StringMap<String>>> LOCALES_MESSAGES = new StringMap<StringMap<StringMap<String>>>();
 
     private ResourcesMessagesUtil() {
@@ -31,7 +28,6 @@ public final class ResourcesMessagesUtil {
         if (!map_.contains(_fileName)) {
             String loadedResourcesMessages_ = ResourceFiles.ressourceFichier(_fileName);
             if (loadedResourcesMessages_.isEmpty()) {
-                Logger.getLogger(ResourcesMessagesUtil.class.getName()).warning(NO_MESSAGE+_fileName);
                 map_.put(_fileName, new StringMap<String>());
                 return map_.getVal(_fileName);
             }

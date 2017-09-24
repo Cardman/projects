@@ -1,7 +1,6 @@
 package aiki.main;
 import java.awt.Image;
 import java.io.File;
-import java.util.logging.Logger;
 
 import aiki.DataBase;
 import aiki.Resources;
@@ -20,10 +19,7 @@ import code.util.consts.ConstFiles;
 
 public class LaunchingPokemon extends SoftApplication {
 
-    private static final String NO_MESSAGE = "Zip not found:";
     private static final String TEMP_FOLDER = "pokemon";
-
-    //private static final Image ICON = getImage(Resources.RESOURCES_FOLDER, Resources.ICON_TXT, Resources.ICON);
 
     private static int _nbInstances_;
 
@@ -64,10 +60,7 @@ public class LaunchingPokemon extends SoftApplication {
             if (zip_ == null) {
                 zip_ = DataBase.EMPTY_STRING;
             }
-            if (!zip_.isEmpty() && !new File(zip_).exists()) {
-                //log inexisting zip file as warning
-                Logger.getLogger(getClass().getName()).warning(NO_MESSAGE+zip_);
-            } else {
+            if (zip_.isEmpty() || new File(zip_).exists()) {
                 fileConfig_ = LaunchingPokemon.getTempFolderSl()+Resources.LOAD_CONFIG_FILE;
             }
         } catch (RuntimeException _0) {
