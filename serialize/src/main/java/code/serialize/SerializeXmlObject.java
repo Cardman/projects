@@ -13,7 +13,6 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
 import code.serialize.exceptions.BadAccessException;
-import code.serialize.exceptions.BadObjectException;
 import code.serialize.exceptions.ClassFoundException;
 import code.serialize.exceptions.DuplicatesKeysException;
 import code.serialize.exceptions.InexistingValueForEnum;
@@ -38,12 +37,10 @@ public final class SerializeXmlObject {
 
     static final String LS_CLASS = "a";
     static final String MP_CLASS = "m";
-//    static final String LS_CLASS = CollectionsUtil.getListClass().getName();
-//    static final String MP_CLASS = CollectionsUtil.getMapClass().getName();
+
     private static final String SEPARATEUR = "/";
     private static final int TAB_WIDTH = 4;
-    private static final String NULL_OBJECT = "null object";
-//    private static final String UNCHECKED = "unchecked";
+
     private static final String DOT = ".";
     private static final String LEFT_PAR = "(";
     private static final String COMMA = ",";
@@ -60,7 +57,6 @@ public final class SerializeXmlObject {
 
     private static final short LIMIT_ASCII = 128;
 
-//    private static boolean _updateFinalFields_ = true;
     private static boolean _references_;
     private static boolean _copying_;
     private static boolean _checkReferences_;
@@ -184,19 +180,10 @@ public final class SerializeXmlObject {
     }
 
     public static Object newObjectFromXmlString(String _xmlString) {
-        Object o_ = newObjectFromXmlStringOrNull(_xmlString);
-        if (o_ != null) {
-            return o_;
-        }
-        throw new BadObjectException(NULL_OBJECT);
-    }
-
-    public static Object newObjectFromXmlStringOrNull(String _xmlString) {
-        //, boolean _acceptNull
         try {
             return fromXmlStringObject(_xmlString);
         } catch (Throwable _0) {
-            throw new BadObjectException(_0);
+            return null;
         }
     }
 

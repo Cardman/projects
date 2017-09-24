@@ -112,6 +112,9 @@ public class LaunchingPokemon extends SoftApplication {
         TopLeftFrame topLeft_;
         try {
             topLeft_ = loadCoords(getTempFolder(), Resources.COORDS);
+            if (topLeft_ == null) {
+                topLeft_ = new TopLeftFrame();
+            }
         } catch(ClassCastException _0) {
             topLeft_ = new TopLeftFrame();
             _0.printStackTrace();

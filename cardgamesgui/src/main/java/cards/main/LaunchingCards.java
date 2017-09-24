@@ -42,6 +42,9 @@ public class LaunchingCards extends SoftApplication {
         TopLeftFrame coordonnees_;
         try {
             coordonnees_=loadCoords(getTempFolder(), FileConst.COORDS);
+            if (coordonnees_ == null) {
+                coordonnees_ = new TopLeftFrame();
+            }
         } catch(ClassCastException _0) {
             _0.printStackTrace();
             coordonnees_ = new TopLeftFrame();

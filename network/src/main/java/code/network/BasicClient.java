@@ -1,6 +1,5 @@
 package code.network;
 import java.io.BufferedReader;
-import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.Socket;
 
@@ -36,11 +35,8 @@ public final class BasicClient extends SendReceive {
                     break;
                 }
                 //on peut traiter les "timeout"
-                Object readObject_;
-                try {
-                    readObject_ = SerializeXmlObject.newObjectFromXmlStringOrNull(input_);
-                } catch (RuntimeException _0) {
-                    _0.printStackTrace();
+                Object readObject_ = SerializeXmlObject.newObjectFromXmlString(input_);
+                if (readObject_ == null) {
                     continue;
                 }
                 if (readObject_ instanceof Exiting) {
@@ -50,10 +46,7 @@ public final class BasicClient extends SendReceive {
                 }
                 ThreadInvoker.invokeNow(new LoopClient(window, readObject_, getSocket()));
             }
-        } catch (IOException _0) {
-            _0.printStackTrace();
-            SwingUtilities.invokeLater(new Quitting(window, getSocket()));
-        } catch (RuntimeException _0) {
+        } catch (Throwable _0) {
             _0.printStackTrace();
             SwingUtilities.invokeLater(new Quitting(window, getSocket()));
         }

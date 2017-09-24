@@ -22,7 +22,6 @@ import org.xml.sax.SAXException;
 import code.resources.ResourceFiles;
 import code.resources.exceptions.RuntimeIOException;
 import code.serialize.SerializeXmlObject;
-import code.serialize.exceptions.BadObjectException;
 import code.util.CustList;
 import code.util.InsCaseStringMap;
 import code.util.StringList;
@@ -364,13 +363,7 @@ public final class StreamTextFile {
         try {
             return SerializeXmlObject.fromXmlStringObject(content_);
         } catch (Throwable _0) {
-            if (content_ == null) {
-                content_ = EMPTY_STRING;
-            }
-            String message_ = content_ + LINE_RETURN;
-            message_ += _0.getClass().getName() + LINE_RETURN;
-            message_ += _0.getMessage();
-            throw new BadObjectException(message_);
+            return null;
         }
     }
 
@@ -379,13 +372,7 @@ public final class StreamTextFile {
         try {
             return SerializeXmlObject.fromXmlStringObject(content_);
         } catch (Throwable _0) {
-            if (content_ == null) {
-                content_ = EMPTY_STRING;
-            }
-            String message_ = content_ + LINE_RETURN;
-            message_ += _0.getClass().getName() + LINE_RETURN;
-            message_ += _0.getMessage();
-            throw new BadObjectException(message_);
+            return null;
         }
     }
 

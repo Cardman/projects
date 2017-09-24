@@ -1,6 +1,6 @@
 package code.network;
 import java.io.BufferedReader;
-import java.io.IOException;
+import java.io.Closeable;
 import java.io.InputStreamReader;
 import java.net.Socket;
 
@@ -15,9 +15,11 @@ public abstract class BasicServer extends SendReceive {
 
     @Override
     public void run() {
+        InputStreamReader isr_ = null;
+        BufferedReader in_ = null;
         try {
-            InputStreamReader isr_ = new InputStreamReader(getSocket().getInputStream());
-            BufferedReader in_ = new BufferedReader(isr_);
+            isr_ = new InputStreamReader(getSocket().getInputStream());
+            in_ = new BufferedReader(isr_);
             String input_;
 
             while (true) {
@@ -25,25 +27,35 @@ public abstract class BasicServer extends SendReceive {
                 if (input_ == null) {
                     break;
                 }
-                Object readObject_ = null;
-                try {
-                    readObject_ = SerializeXmlObject.newObjectFromXmlStringOrNull(input_);
-                } catch (RuntimeException _0) {
-                    _0.printStackTrace();
+                Object readObject_ = SerializeXmlObject.newObjectFromXmlString(input_);
+                if (readObject_ == null) {
                     continue;
                 }
                 loopServer(input_, readObject_);
             }
-            in_.close();
-            isr_.close();
-            getSocket().close();
-
-        } catch (IOException _0) {
+            close(in_);
+            close(isr_);
+            close(getSocket());
+        } catch (Throwable _0) {
             _0.printStackTrace();
-        } catch (RuntimeException _0) {
-            _0.printStackTrace();
+            close(in_);
+            close(isr_);
+            close(getSocket());
         }
     }
 
+    private static void close(Closeable _close) {
+        try {
+            _close.close();
+        } catch (Throwable _0) {
+        }
+    }
+
+    private static void close(Socket _close) {
+        try {
+            _close.close();
+        } catch (Throwable _0) {
+        }
+    }
     public abstract void loopServer(String _input, Object _object);
 }

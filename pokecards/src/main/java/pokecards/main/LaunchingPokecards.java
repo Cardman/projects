@@ -42,6 +42,9 @@ public class LaunchingPokecards extends SoftApplication {
         TopLeftFrame topLeft_;
         try {
             topLeft_ = loadCoords(getTempFolder(),COORDS);
+            if (topLeft_ == null) {
+                topLeft_ = new TopLeftFrame();
+            }
         } catch (ClassCastException _0) {
             topLeft_ = new TopLeftFrame();
         } catch (BadObjectException _0) {
