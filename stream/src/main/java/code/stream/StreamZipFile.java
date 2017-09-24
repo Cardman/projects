@@ -4,12 +4,14 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.nio.charset.Charset;
 import java.util.Collections;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
 import java.util.zip.ZipInputStream;
 import java.util.zip.ZipOutputStream;
 
+import code.resources.StandardCharsets;
 import code.stream.exceptions.RuntimeIOException;
 import code.util.CustList;
 import code.util.InsCaseStringMap;
@@ -21,6 +23,7 @@ public final class StreamZipFile {
 
     private static final long MAX_BYTES = Long.MAX_VALUE;
 
+    private static final int BYTE_ARRAY_SIZE = 4096;
     private static final String EMPTY_STRING = "";
     private static final String CLASS_EXT = "class";
     private static final String RETURN_LINE = "\n";
@@ -79,6 +82,47 @@ public final class StreamZipFile {
                 String str_ = getContentOfZippedFile(zipFile_, entry_);
                 files_.put(entry_.getName(), str_);
             }
+            return files_;
+        } catch (Throwable _0) {
+            _0.printStackTrace();
+            return null;
+        } finally {
+            if (zipFile_ != null) {
+                try {
+                    zipFile_.close();
+                } catch (Throwable _0) {
+                }
+            }
+        }
+    }
+    public static InsCaseStringMap<String> zippedTextFilesInsFromBytes(String _zipFileName) {
+        ZipFile zipFile_ = null;
+        try {
+            zipFile_ = new ZipFile(_zipFileName);
+
+            InsCaseStringMap<String> files_ = new InsCaseStringMap<String>();
+            FileInputStream fis_ = new FileInputStream(_zipFileName);
+            ZipInputStream zip_ = new ZipInputStream(fis_);
+            ZipEntry entry_ = zip_.getNextEntry();
+            while (entry_ != null) {
+            	if (entry_.isDirectory()) {
+                    entry_ = zip_.getNextEntry();
+                    continue;
+                }
+            	int index_ = 0;
+            	String fileName_ = entry_.getName();
+            	byte[] bytes_ = new byte[(int) entry_.getSize()];
+            	while (true) {
+            		int res_ = zip_.read(bytes_, index_, Math.min(bytes_.length - index_, BYTE_ARRAY_SIZE));
+            		if (res_ < 1) {
+            			break;
+            		}
+            		index_+=res_;
+            	}
+                files_.put(fileName_, new String(bytes_, Charset.forName(StandardCharsets.UTF_8.getName())));
+            	entry_=zip_.getNextEntry();
+            }
+            zip_.close();
             return files_;
         } catch (Throwable _0) {
             _0.printStackTrace();
