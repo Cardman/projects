@@ -11,6 +11,8 @@ public interface UniqueRootedBlock {
 
     String getSuperClass();
 
+    StringList getDirectGenericInterfaces();
+
     StringList getDirectInterfaces();
 
     StringList getAllDirectInterfaces();

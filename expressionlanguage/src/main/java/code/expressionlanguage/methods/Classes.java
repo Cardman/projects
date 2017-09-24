@@ -212,10 +212,10 @@ public final class Classes {
                     throw new BadClassNameException(cl_.getFullName());
                 }
                 String fullDef_ = cl_.getFullDefinition();
-                if (StringList.getAllTypes(fullDef_) == null) {
+                StringList params_ = StringList.getAllTypes(fullDef_);
+                if (params_ == null) {
                     throw new BadClassNameException(fullDef_);
                 }
-                StringList params_ = StringList.getAllTypes(fullDef_);
                 StringList varTypes_ = new StringList();
                 for (String p: params_.mid(CustList.SECOND_INDEX)) {
                     if (!p.startsWith(Templates.PREFIX_VAR_TYPE)) {
@@ -235,35 +235,8 @@ public final class Classes {
                     StringList constraints_ = new StringList();
                     if (indexDef_ != CustList.INDEX_NOT_FOUND_ELT) {
                         for (String b: StringList.splitChars(parts_.last().substring(Templates.EXTENDS_DEF.length()), Templates.SEP_BOUNDS)) {
-                            if (!Templates.isCorrectWrite(b)) {
-                                throw new BadClassNameException(fullDef_);
-                            }
-                            for (char c: b.toCharArray()) {
-                                if (StringList.isWordChar(c)) {
-                                    continue;
-                                }
-                                if (c == DOT) {
-                                    continue;
-                                }
-                                if (c == LT) {
-                                    continue;
-                                }
-                                if (c == GT) {
-                                    continue;
-                                }
-                                if (c == COMMA) {
-                                    continue;
-                                }
-                                if (c == PREF) {
-                                    continue;
-                                }
-                                if (c == PRIM) {
-                                    continue;
-                                }
-                                if (c == ARR_BEG) {
-                                    continue;
-                                }
-                                throw new BadClassNameException(fullDef_);
+                            if (!isCorrectTemplate(b)) {
+                                throw new BadClassNameException(b);
                             }
                             constraints_.add(b);
                         }
@@ -275,6 +248,11 @@ public final class Classes {
                     cl_.getParamTypes().add(type_);
                 }
                 cl_.buildMapParamType();
+                for (String s: cl_.getDirectSuperTypes()) {
+                    if (!isCorrectTemplate(s)) {
+                        throw new BadClassNameException(s);
+                    }
+                }
                 try {
                     Class<?> clNat_ = ConstClasses.classForNameNotInit(file_);
                     throw new AlreadyExistingClassException(clNat_.getName());
@@ -324,6 +302,39 @@ public final class Classes {
             }
         }
         _context.setHtml(EMPTY_STRING);
+    }
+    private static boolean isCorrectTemplate(String _temp) {
+        if (!Templates.isCorrectWrite(_temp)) {
+            return false;
+        }
+        for (char c: _temp.toCharArray()) {
+            if (StringList.isWordChar(c)) {
+                continue;
+            }
+            if (c == DOT) {
+                continue;
+            }
+            if (c == LT) {
+                continue;
+            }
+            if (c == GT) {
+                continue;
+            }
+            if (c == COMMA) {
+                continue;
+            }
+            if (c == PREF) {
+                continue;
+            }
+            if (c == PRIM) {
+                continue;
+            }
+            if (c == ARR_BEG) {
+                continue;
+            }
+            return false;
+        }
+        return true;
     }
     public CustList<FoundErrorInterpret> getErrorsDet() {
         return errorsDet;
@@ -647,6 +658,9 @@ public final class Classes {
                 r_.getAllSuperTypes().addAllElts(((InterfaceBlock)r_).getAllSuperClasses());
             }
         }
+//        for (String c: classesInheriting) {
+//            
+//        }
     }
     public StringList getSortedSuperInterfaces(StringList _interfaces) {
         StringList sortedSuperInterfaces_ = new StringList();

@@ -102,6 +102,9 @@ public abstract class Block extends Blockable {
     protected static final String PAR_RIGHT = ")";
     protected static final String RETURN_LINE = "\n";
     protected static final String EMPTY_STRING = "";
+    protected static final String LT = "<";
+    protected static final String GT = ">";
+    protected static final String SEP_TMP = ",";
 
     private static final String TRUE_STRING = "true";
 

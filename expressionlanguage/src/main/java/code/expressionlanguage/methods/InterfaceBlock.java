@@ -159,8 +159,25 @@ public final class InterfaceBlock extends RootBlock {
     }
 
     @Override
-    public StringList getDirectSuperClasses() {
+    public StringList getDirectGenericSuperClasses() {
         StringList classes_ = new StringList(superInterfaces);
+        if (superInterfaces.isEmpty()) {
+            classes_.add(Object.class.getName());
+        }
+        return classes_;
+    }
+
+    @Override
+    public StringList getDirectSuperClasses() {
+        StringList classes_ = new StringList();
+        for (String s: superInterfaces) {
+            int index_ = s.indexOf(LT);
+            if (index_ > CustList.INDEX_NOT_FOUND_ELT) {
+                classes_.add(s.substring(CustList.FIRST_INDEX, index_));
+            } else {
+                classes_.add(s);
+            }
+        }
         if (superInterfaces.isEmpty()) {
             classes_.add(Object.class.getName());
         }

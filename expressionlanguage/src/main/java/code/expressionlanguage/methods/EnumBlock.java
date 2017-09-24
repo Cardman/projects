@@ -147,6 +147,20 @@ public final class EnumBlock extends RootBlock implements UniqueRootedBlock {
     }
     @Override
     public StringList getDirectInterfaces() {
+        StringList direct_ = new StringList();
+        for (String s: directInterfaces) {
+            int index_ = s.indexOf(LT);
+            if (index_ > CustList.INDEX_NOT_FOUND_ELT) {
+                direct_.add(s.substring(CustList.FIRST_INDEX, index_));
+            } else {
+                direct_.add(s);
+            }
+        }
+        return direct_;
+    }
+
+    @Override
+    public StringList getDirectGenericInterfaces() {
         return directInterfaces;
     }
 
@@ -244,6 +258,18 @@ public final class EnumBlock extends RootBlock implements UniqueRootedBlock {
     @Override
     public String getTagName() {
         return TAG_ENUM;
+    }
+
+    @Override
+    public StringList getDirectGenericSuperClasses() {
+        StringList classes_ = new StringList();
+        int index_ = getSuperClass().indexOf(LT);
+        if (index_ > CustList.INDEX_NOT_FOUND_ELT) {
+            classes_.add(getSuperClass().substring(CustList.FIRST_INDEX, index_));
+        } else {
+            classes_.add(getSuperClass());
+        }
+        return classes_;
     }
 
     @Override

@@ -4,6 +4,7 @@ import org.w3c.dom.Element;
 
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.PrimitiveTypeUtil;
+import code.expressionlanguage.Templates;
 import code.expressionlanguage.methods.util.AbstractMethod;
 import code.expressionlanguage.methods.util.BadAccessMethod;
 import code.expressionlanguage.methods.util.BadFieldName;
@@ -63,6 +64,8 @@ public abstract class RootBlock extends BracedBlock implements AccessibleBlock {
     public abstract StringList getAllSuperClasses();
 
     public abstract StringList getAllSuperTypes();
+
+    public abstract StringList getDirectGenericSuperClasses();
 
     public abstract StringList getDirectSuperClasses();
 
@@ -305,6 +308,35 @@ public abstract class RootBlock extends BracedBlock implements AccessibleBlock {
 
     public abstract StringList getDirectSuperTypes();
 
+    public final StringList getAllGenericSuperTypes(ContextEl _context) {
+        StringList list_ = new StringList();
+        StringList vars_ = new StringList();
+        for (TypeVar t: getParamTypes()) {
+            vars_.add(Templates.PREFIX_VAR_TYPE+t.getName());
+        }
+        StringList current_;
+        if (vars_.isEmpty()) {
+            current_ = new StringList(getFullName());
+        } else {
+            current_ = new StringList(getFullName()+LT+vars_.join(SEP_TMP)+GT);
+        }
+        while (true) {
+            StringList next_ = new StringList();
+            for (String c: current_) {
+                StringList superTypes_ = _context.getClasses().getClassBody(c).getDirectSuperTypes();
+                for (String t: superTypes_) {
+                    String format_ = Templates.format(c, t, _context.getClasses());
+                    list_.add(format_);
+                    next_.add(t);
+                }
+            }
+            if (next_.isEmpty()) {
+                break;
+            }
+            current_ = next_;
+        }
+        return list_;
+    }
     public final void checkCompatibility(ContextEl _context) {
         ObjectMap<FctConstraints, StringList> signatures_ = getAllInstanceSignatures(_context.getClasses());
         ObjectMap<FctConstraints, String> localSignatures_ = getLocalSignatures(_context.getClasses());

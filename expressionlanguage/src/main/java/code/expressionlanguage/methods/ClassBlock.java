@@ -165,9 +165,24 @@ public final class ClassBlock extends RootBlock implements UniqueRootedBlock {
     public StringList getAllInterfaces() {
         return allInterfaces;
     }
+
+    @Override
+    public StringList getDirectGenericInterfaces() {
+        return directInterfaces;
+    }
+
     @Override
     public StringList getDirectInterfaces() {
-        return directInterfaces;
+        StringList direct_ = new StringList();
+        for (String s: directInterfaces) {
+            int index_ = s.indexOf(LT);
+            if (index_ > CustList.INDEX_NOT_FOUND_ELT) {
+                direct_.add(s.substring(CustList.FIRST_INDEX, index_));
+            } else {
+                direct_.add(s);
+            }
+        }
+        return direct_;
     }
 
     @Override
@@ -297,6 +312,18 @@ public final class ClassBlock extends RootBlock implements UniqueRootedBlock {
     @Override
     public String getTagName() {
         return TAG_CLASS;
+    }
+
+    @Override
+    public StringList getDirectGenericSuperClasses() {
+        StringList classes_ = new StringList();
+        int index_ = superClass.indexOf(LT);
+        if (index_ > CustList.INDEX_NOT_FOUND_ELT) {
+            classes_.add(superClass.substring(CustList.FIRST_INDEX, index_));
+        } else {
+            classes_.add(superClass);
+        }
+        return classes_;
     }
 
     @Override
