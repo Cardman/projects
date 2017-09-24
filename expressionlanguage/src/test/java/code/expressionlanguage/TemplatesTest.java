@@ -124,6 +124,62 @@ public class TemplatesTest {
     }
 
     @Test
+    public void format9Test() {
+        String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' template='&lt;#T&gt;'/>\n";
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex."+Classes.EXT, xml_);
+        ContextEl cont_ = unfullValidateOverridingMethods(files_);
+        cont_.setAccessValue(new AccessValueEx());
+        Classes classes_ = cont_.getClasses();
+        assertTrue(classes_.getErrorsDet().toString(), classes_.getErrorsDet().isEmpty());
+        String first_ = "pkg.Ex<#E>";
+        String second_ = "#T";
+        assertEq("#E",Templates.format(first_, second_, classes_));
+    }
+
+    @Test
+    public void format10Test() {
+        String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' template='&lt;#T&gt;'/>\n";
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex."+Classes.EXT, xml_);
+        ContextEl cont_ = unfullValidateOverridingMethods(files_);
+        cont_.setAccessValue(new AccessValueEx());
+        Classes classes_ = cont_.getClasses();
+        assertTrue(classes_.getErrorsDet().toString(), classes_.getErrorsDet().isEmpty());
+        String first_ = "pkg.Ex<java.lang.String>";
+        String second_ = "#T";
+        assertEq("java.lang.String",Templates.format(first_, second_, classes_));
+    }
+
+    @Test
+    public void format11Test() {
+        String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' template='&lt;#T,#U&gt;'/>\n";
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex."+Classes.EXT, xml_);
+        ContextEl cont_ = unfullValidateOverridingMethods(files_);
+        cont_.setAccessValue(new AccessValueEx());
+        Classes classes_ = cont_.getClasses();
+        assertTrue(classes_.getErrorsDet().toString(), classes_.getErrorsDet().isEmpty());
+        String first_ = "pkg.Ex<java.lang.String,java.lang.Object>";
+        String second_ = "#U";
+        assertEq("java.lang.Object",Templates.format(first_, second_, classes_));
+    }
+
+    @Test
+    public void format12Test() {
+        String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' template='&lt;#T,#U&gt;'/>\n";
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex."+Classes.EXT, xml_);
+        ContextEl cont_ = unfullValidateOverridingMethods(files_);
+        cont_.setAccessValue(new AccessValueEx());
+        Classes classes_ = cont_.getClasses();
+        assertTrue(classes_.getErrorsDet().toString(), classes_.getErrorsDet().isEmpty());
+        String first_ = "pkg.Ex<java.lang.String,java.lang.Object>";
+        String second_ = "#T";
+        assertEq("java.lang.String",Templates.format(first_, second_, classes_));
+    }
+
+    @Test
     public void eqTypes1Test() {
         String first_ = String.class.getName();
         String second_ = Integer.class.getName();

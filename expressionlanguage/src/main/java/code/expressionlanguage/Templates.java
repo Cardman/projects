@@ -302,6 +302,19 @@ public final class Templates {
     static StringMap<String> getVarTypes(String _className, Classes _classes) {
         StringList types_ = StringList.getAllTypes(_className);
         String className_ = PrimitiveTypeUtil.getArrayClass(types_.first());
+        if (_classes != null) {
+            RootBlock root_ = _classes.getClassBody(className_);
+            if (root_ != null) {
+                StringMap<String> varTypes_ = new StringMap<String>();
+                int i_ = CustList.FIRST_INDEX;
+                for (TypeVar t: root_.getParamTypes()) {
+                    i_++;
+                    String arg_ = types_.get(i_);
+                    varTypes_.put(t.getName(), arg_);
+                }
+                return varTypes_;
+            }
+        }
         Class<?> cl_ = ConstClasses.classForNameNotInit(className_);
         int i_ = CustList.FIRST_INDEX;
         StringMap<String> varTypes_ = new StringMap<String>();

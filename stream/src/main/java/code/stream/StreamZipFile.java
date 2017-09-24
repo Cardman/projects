@@ -105,22 +105,22 @@ public final class StreamZipFile {
             ZipInputStream zip_ = new ZipInputStream(fis_);
             ZipEntry entry_ = zip_.getNextEntry();
             while (entry_ != null) {
-            	if (entry_.isDirectory()) {
+                if (entry_.isDirectory()) {
                     entry_ = zip_.getNextEntry();
                     continue;
                 }
-            	int index_ = 0;
-            	String fileName_ = entry_.getName();
-            	byte[] bytes_ = new byte[(int) entry_.getSize()];
-            	while (true) {
-            		int res_ = zip_.read(bytes_, index_, Math.min(bytes_.length - index_, BYTE_ARRAY_SIZE));
-            		if (res_ < 1) {
-            			break;
-            		}
-            		index_+=res_;
-            	}
+                int index_ = 0;
+                String fileName_ = entry_.getName();
+                byte[] bytes_ = new byte[(int) entry_.getSize()];
+                while (true) {
+                    int res_ = zip_.read(bytes_, index_, Math.min(bytes_.length - index_, BYTE_ARRAY_SIZE));
+                    if (res_ < 1) {
+                        break;
+                    }
+                    index_+=res_;
+                }
                 files_.put(fileName_, new String(bytes_, Charset.forName(StandardCharsets.UTF_8.getName())));
-            	entry_=zip_.getNextEntry();
+                entry_=zip_.getNextEntry();
             }
             zip_.close();
             return files_;
