@@ -10,37 +10,46 @@ import code.util.IdMap;
 
 public final class ExpressionLanguage {
 
-    private static final String EMPTY_STRING = "";
-    private final String expression;
     private final OperationNode root;
     private final CustList<OperationNode> operations;
     private final boolean alwaysCalculated;
-    private SettableElResult settable;
+    private final SettableElResult settable;
+    private final IdMap<OperationNode,ArgumentsPair> arguments;
     private OperationNode currentOper;
-    private IdMap<OperationNode,ArgumentsPair> arguments = new IdMap<OperationNode,ArgumentsPair>();
     private Argument argument;
 
     public ExpressionLanguage(CustList<OperationNode> _operations) {
-        expression = EMPTY_STRING;
         operations = _operations;
+        root = operations.last();
+        arguments = buildArguments();
+        alwaysCalculated = root.isCalculated(arguments);
+        settable = buildSettable();
+    }
+
+    private SettableElResult buildSettable() {
+        if (root instanceof SettableElResult) {
+            return (SettableElResult) root;
+        }
+        if (operations.size() > 1){
+            OperationNode beforeLast_ = operations.getPrev(operations.getLastIndex());
+            if (beforeLast_ instanceof SettableElResult) {
+                return (SettableElResult) beforeLast_;
+            }
+        }
+        return null;
+    }
+
+    private IdMap<OperationNode,ArgumentsPair> buildArguments() {
+        IdMap<OperationNode,ArgumentsPair> arguments_;
+        arguments_ = new IdMap<OperationNode,ArgumentsPair>();
         for (OperationNode o: operations) {
             ArgumentsPair a_ = new ArgumentsPair();
             a_.setArgument(o.getArgument());
             a_.setPreviousArgument(o.getPreviousArgument());
-            arguments.put(o, a_);
+            arguments_.put(o, a_);
         }
-        root = operations.last();
-        if (root instanceof SettableElResult) {
-            settable = (SettableElResult) root;
-        } else if (operations.size() > 1){
-            OperationNode beforeLast_ = operations.getPrev(operations.getLastIndex());
-            if (beforeLast_ instanceof SettableElResult) {
-                settable = (SettableElResult) beforeLast_;
-            }
-        }
-        alwaysCalculated = root.isCalculated(arguments);
+        return arguments_;
     }
-
     public SettableElResult getSettable() {
         return settable;
     }
@@ -64,10 +73,6 @@ public final class ExpressionLanguage {
 
     public IdMap<OperationNode, ArgumentsPair> getArguments() {
         return arguments;
-    }
-
-    public String getExpression() {
-        return expression;
     }
 
     public Argument calculateMember(ContextEl _context) {

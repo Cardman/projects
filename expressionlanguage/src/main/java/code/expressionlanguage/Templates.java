@@ -295,7 +295,7 @@ public final class Templates {
         }
         return true;
     }
-    static String format(String _first, String _second, Classes _classes) {
+    public static String format(String _first, String _second, Classes _classes) {
         StringMap<String> varTypes_ = getVarTypes(_first, _classes);
         return getFormattedType(_second, varTypes_);
     }

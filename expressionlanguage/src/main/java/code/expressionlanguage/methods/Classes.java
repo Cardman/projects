@@ -624,7 +624,7 @@ public final class Classes {
             String superClass_ = bl_.getSuperClass();
             StringList needed_;
             if (!StringList.quickEq(superClass_, Object.class.getName())) {
-                UniqueRootedBlock super_ = (UniqueRootedBlock) classesBodies.getVal(bl_.getSuperClass());
+                UniqueRootedBlock super_ = (UniqueRootedBlock) classesBodies.getVal(superClass_);
                 all_.addAllElts(super_.getAllInterfaces());
                 allDirect_.addAllElts(super_.getAllDirectInterfaces());
                 needed_ = super_.getAllSortedInterfaces();

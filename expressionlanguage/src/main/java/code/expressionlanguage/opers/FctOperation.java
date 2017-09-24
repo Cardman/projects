@@ -156,11 +156,6 @@ public final class FctOperation extends InvokingOperation {
             CustList<ClassArgumentMatching> firstArgs_ = listClasses(chidren_);
             constId = getDeclaredCustConstructor(_conf, new ClassArgumentMatching(clCurName_), ClassArgumentMatching.toArgArray(firstArgs_));
             if (constId != null) {
-                String glClass_ = _conf.getLastPage().getGlobalClass();
-                if (!classes_.canAccessConstructor(glClass_, clCurName_, constId)) {
-                    ConstructorBlock ctr_ = classes_.getConstructorBody(clCurName_, constId);
-                    throw new BadAccessException(ctr_.getId().getSignature()+RETURN_LINE+_conf.joinPages());
-                }
                 setResultClass(new ClassArgumentMatching(OperationNode.VOID_RETURN));
                 return;
             }
@@ -180,9 +175,8 @@ public final class FctOperation extends InvokingOperation {
             String superClass_ = meta_.getSuperClass();
             constId = getDeclaredCustConstructor(_conf, new ClassArgumentMatching(superClass_), ClassArgumentMatching.toArgArray(firstArgs_));
             if (constId != null) {
-                String glClass_ = _conf.getLastPage().getGlobalClass();
-                if (!classes_.canAccessConstructor(glClass_, superClass_, constId)) {
-                    ConstructorBlock ctr_ = classes_.getConstructorBody(clCurName_, constId);
+                if (!classes_.canAccessConstructor(clCurName_, superClass_, constId)) {
+                    ConstructorBlock ctr_ = classes_.getConstructorBody(superClass_, constId);
                     throw new BadAccessException(ctr_.getId().getSignature()+RETURN_LINE+_conf.joinPages());
                 }
                 setResultClass(new ClassArgumentMatching(OperationNode.VOID_RETURN));
