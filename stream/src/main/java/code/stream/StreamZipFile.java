@@ -17,7 +17,6 @@ import code.util.CustList;
 import code.util.InsCaseStringMap;
 import code.util.StringList;
 import code.util.StringMap;
-import code.util.consts.ConstFiles;
 
 public final class StreamZipFile {
 
@@ -30,24 +29,7 @@ public final class StreamZipFile {
 
     private static final String DOT = ".";
 
-    private static final StringList FILES_JAR = new StringList();
     private StreamZipFile() {
-    }
-    public static String getInsensitiveCaseFileInJar(String _file) {
-        String file_ = StringList.replaceBackSlash(_file);
-        for (String s: getFilesInJar()) {
-            if (s.equalsIgnoreCase(file_)) {
-                return s;
-            }
-        }
-        return _file;
-    }
-    public static StringList getFilesInJar() {
-        if (FILES_JAR.isEmpty()) {
-            FILES_JAR.addAllElts(zippedFiles());
-            FILES_JAR.replaceBackSlashesInStrings();
-        }
-        return new StringList(FILES_JAR);
     }
     public static StringMap<String> zippedTextFiles(String _zipFileName) {
         ZipFile zipFile_ = null;
@@ -137,10 +119,6 @@ public final class StreamZipFile {
         }
     }
 
-    public static StringList classesFromCurrentJar() {
-        return classesFromJar(ConstFiles.getJarPath());
-    }
-
     public static StringList classesFromJar(String _jarFileName) {
         StringList classNames_ = new StringList();
         try {
@@ -176,41 +154,6 @@ public final class StreamZipFile {
             _0.printStackTrace();
         }
         return classNames_;
-    }
-
-    public static StringMap<byte[]> zippedBinaryFilesFromCurrentJar() {
-        String path_ = ConstFiles.getJarPath();
-        try {
-            return zippedBinaryFiles(path_);
-        } catch (Throwable _0) {
-            StringMap<byte[]> map_ = new StringMap<byte[]>();
-            for (String f: StreamTextFile.files(path_)) {
-                map_.put(f, StreamBinaryFile.loadFile(path_+f));
-            }
-            return map_;
-        }
-    }
-
-    public static StringList zippedFiles() {
-        StringList files_ = new StringList();
-        ZipFile zipFile_ = null;
-        try {
-            zipFile_ = new ZipFile(ConstFiles.getJarPath());
-            for (ZipEntry entry_ :Collections.list(zipFile_.entries())) {
-                files_.add(entry_.getName());
-            }
-            return files_;
-        } catch (Throwable _0) {
-            _0.printStackTrace();
-            return null;
-        } finally {
-            if (zipFile_ != null) {
-                try {
-                    zipFile_.close();
-                } catch (Throwable _0) {
-                }
-            }
-        }
     }
 
     public static StringList zippedFiles(String _zipFileName) {

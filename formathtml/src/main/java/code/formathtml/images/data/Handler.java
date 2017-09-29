@@ -1,6 +1,4 @@
 package code.formathtml.images.data;
-import java.io.File;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
 import java.net.URLStreamHandler;
@@ -8,7 +6,6 @@ import java.net.URLStreamHandler;
 import javax.imageio.ImageIO;
 
 import code.util.CustList;
-import code.util.consts.ConstFiles;
 
 public class Handler extends URLStreamHandler {
 
@@ -24,10 +21,7 @@ public class Handler extends URLStreamHandler {
 
     public static void install() {
         ImageIO.setUseCache(false);
-        try {
-            new DataConnection(new File(ConstFiles.getInitFolder()).toURI().toURL());
-        } catch (MalformedURLException _0) {
-        }
+        new DataConnection(null);
         String pkgName_ = Handler.class.getPackage().getName();
         String pkg_ = pkgName_.substring(CustList.FIRST_INDEX, pkgName_.lastIndexOf(DOT));
 
