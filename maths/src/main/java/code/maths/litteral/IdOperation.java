@@ -26,7 +26,6 @@ public final class IdOperation extends MethodOperation {
     @Override
     void calculateChildren() {
         NatTreeMap<Integer, String> vs_ = getOperations().getValues();
-//        vs_.removeKey(vs_.firstKey());
         getChildren().putAllMap(vs_);
     }
 }

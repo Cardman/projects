@@ -57,7 +57,6 @@ public final class ConstantOperation extends OperationNode {
                 return;
             }
             setResultClass(MathType.BOOLEAN);
-//            setResultClass(new ClassMatching(ConstClasses.classForName(locVar_.getClassName(), false)));
             return;
         }
         throw new UndefinedVariableException(str_, String.valueOf(getIndexInEl()));

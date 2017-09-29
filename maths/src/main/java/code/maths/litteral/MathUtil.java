@@ -62,16 +62,6 @@ final class MathUtil {
                     }
                 }
                 next_.add(e);
-//                boolean add_ = true;
-//                for (SortedNode o: TreeRetrieving.getDirectChildren(e)) {
-//                    if (((OperationNode)o).getOrder() == CustList.INDEX_NOT_FOUND_ELT) {
-//                        add_ = false;
-//                        break;
-//                    }
-//                }
-//                if (add_) {
-//                    next_.add(e);
-//                }
             }
             if (next_.isEmpty()) {
                 break;

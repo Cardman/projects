@@ -21,7 +21,6 @@ public final class MultOperation extends NumericOperation {
 
     @Override
     MathType analyzeOper(MathType _a, String _op, MathType _b, int _offset) {
-//        return getResultClass(_a, _b);
         if (_a != MathType.RATE || _b != MathType.RATE) {
             throw new NotNumberException(String.valueOf(_offset));
         }

@@ -223,13 +223,6 @@ public final class FctOperation extends InvokingOperation {
             } else if (chidren_.last().getResultClass() != MathType.RATE) {
                 throw new NotNumberException(String.valueOf(getIndexInEl()));
             }
-//            if (chidren_.first().getResultClass() != MathType.RATE) {
-//                if (chidren_.get(CustList.SECOND_INDEX).getResultClass() != MathType.RATE) {
-//                    if (chidren_.last().getResultClass() != MathType.RATE) {
-//                        throw new AnalyzingException();
-//                    }
-//                }
-//            }
             setResultClass(MathType.RATE);
             return;
         }

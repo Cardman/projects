@@ -34,29 +34,11 @@ public final class EqOperation extends PrimitiveBoolOperation {
     void analyze(CustList<OperationNode> _nodes, StringMap<String> _conf) {
         CustList<OperationNode> chidren_ = getChildrenAmong(_nodes, true);
         MathType first_ = chidren_.first().getResultClass();
-//        if (first_ != boolean.class && first_ != Boolean.class) {
-//            throw new AnalyzingException();
-//        }
         MathType second_ = chidren_.last().getResultClass();
         if (first_ == second_) {
             setResultClass(MathType.BOOLEAN);
             return;
         }
-//        if (second_ != boolean.class && second_ != Boolean.class) {
-//            throw new AnalyzingException();
-//        }
-//        ClassMatching wrappedOne_ = NumericOperation.toPrimitive(first_, true);
-//        ClassMatching wrappedTwo_ = NumericOperation.toPrimitive(second_, true);
-//        if (wrappedOne_.isPrimitive()) {
-//            if (wrappedTwo_.isPrimitive()) {
-//                setResultClass(new ClassMatching(boolean.class));
-//                return;
-//            }
-//        }
-//        if (first_.isAssignableFrom(second_) || second_.isAssignableFrom(first_)) {
-//            setResultClass(new ClassMatching(boolean.class));
-//            return;
-//        }
         throw new NotEqualableException(String.valueOf(getIndexInEl()));
     }
 

@@ -67,22 +67,6 @@ public abstract class NumericOperation extends MethodOperation {
     @Override
     void calculate(CustList<OperationNode> _nodes, StringMap<String> _conf) {
         CustList<OperationNode> chidren_ = getChildrenAmong(_nodes, false);
-//        for (OperationNode o: _nodes) {
-//            if (o.getParent() == this) {
-//                chidren_.add(o);
-//            }
-//        }
-//        boolean ready_ = true;
-//        for (OperationNode o: chidren_) {
-//            if (o.getArgument() == null) {
-//                ready_ = false;
-//                break;
-//            }
-//        }
-//        if (!ready_) {
-//            return;
-//        }
-//        int key_ = getOperations().getOperators().firstKey();
         Argument a_ = chidren_.first().getArgument();
         Argument r_;
         int i_ = CustList.SECOND_INDEX;

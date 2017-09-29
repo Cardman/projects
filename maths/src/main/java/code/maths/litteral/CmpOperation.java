@@ -35,14 +35,6 @@ public final class CmpOperation extends PrimitiveBoolOperation {
             setResultClass(MathType.BOOLEAN);
             return;
         }
-//        ClassMatching classFirst_ = NumericOperation.toPrimitive(first_, true);
-//        ClassMatching classSecond_ = NumericOperation.toPrimitive(second_, true);
-//        if (classFirst_.isPrimitive()) {
-//            if (classSecond_.isPrimitive()) {
-//                setResultClass(new ClassMatching(boolean.class));
-//                return;
-//            }
-//        }
         throw new NotComparableException(String.valueOf(getIndexInEl()));
     }
     @Override
@@ -73,26 +65,6 @@ public final class CmpOperation extends PrimitiveBoolOperation {
         }
         setArgument(arg_);
         setNextSiblingsArg(arg_);
-//        MethodOperation par_ = getParent();
-//        if (b_ && par_ instanceof OrOperation) {
-//            List<OperationNode> opers_ = new List<OperationNode>();
-//            for (SortedNode s: TreeRetrieving.getDirectChildren(par_)) {
-//                opers_.add((OperationNode) s);
-//            }
-//            int len_ = opers_.size();
-//            for (int i = getIndexChild() + 1; i < len_; i++) {
-//                opers_.get(i).setArgument(arg_);
-//            }
-//        } else if (!b_ && par_ instanceof AndOperation) {
-//            List<OperationNode> opers_ = new List<OperationNode>();
-//            for (SortedNode s: TreeRetrieving.getDirectChildren(par_)) {
-//                opers_.add((OperationNode) s);
-//            }
-//            int len_ = opers_.size();
-//            for (int i = getIndexChild() + 1; i < len_; i++) {
-//                opers_.get(i).setArgument(arg_);
-//            }
-//        }
     }
 
     @Override

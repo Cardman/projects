@@ -145,10 +145,6 @@ abstract class OperationNode {
 
     protected static final String DIV_FCT = "div";
 
-//    private static final String RETURN_LINE = "\n";
-//    private static final String SPACE = " ";
-//    private static final String RETURN_TAB = RETURN_LINE+"\t";
-
     private MethodOperation parent;
 
     private boolean initializedNextSibling;
@@ -164,8 +160,6 @@ abstract class OperationNode {
     private int indexInEl;
 
     private int order = CustList.INDEX_NOT_FOUND_ELT;
-
-//    private ImportingPage importingPage;
 
     private StringMap<String> conf;
 
@@ -261,23 +255,10 @@ abstract class OperationNode {
             return null;
         }
         String value_ = children_.getValue(indexChild + 1);
-//        OperationsSequence r_ = MathResolver.getOperationsSequence(indexInEl, value_, conf);
         Delimiters d_ = getOperations().getDelimiter();
         int curKey_ = children_.getKey(indexChild + 1);
         d_.setChildOffest(curKey_);
         OperationsSequence r_ = MathResolver.getOperationsSequence(p_.getIndexInEl(), value_, conf, d_);
-//        if (r_.getOperators().isEmpty()) {
-//            nextSibling = new ConstantOperation(value_, children_.getKey(indexChild + 1), importingPage, p_, r_, indexChild + 1);
-//            return nextSibling;
-//        }
-//        if (r_.getPriority() == ExpressionLanguageResolver.getMaxPriority()) {
-//            nextSibling = new FctOperation(value_, children_.getKey(indexChild + 1), importingPage, indexChild + 1, p_, r_);
-//            return nextSibling;
-//        }
-//        if (r_.getPriority() == ExpressionLanguageResolver.ARR_OPER_PRIO) {
-//            nextSibling = new ArrOperation(value_, children_.getKey(indexChild + 1), importingPage, indexChild + 1, p_, r_);
-//            return nextSibling;
-//        }
         nextSibling = createOperationNode(value_, p_.getIndexInEl()+curKey_, conf, indexChild + 1, p_, r_);
         return nextSibling;
     }
@@ -295,7 +276,6 @@ abstract class OperationNode {
         int len_ = _args.length;
         Object[] classes_ = new Object[len_];
         for (int i = CustList.FIRST_INDEX; i < len_; i++) {
-//            _expected.get(i);
             classes_[i] = _args[i].getObject();
         }
         return classes_;
@@ -348,18 +328,6 @@ abstract class OperationNode {
     public StringMap<String> getConf() {
         return conf;
     }
-
-//    public ImportingPage getImportingPage() {
-//        return importingPage;
-//    }
-
-//    public boolean isVararg() {
-//        return vararg;
-//    }
-//
-//    public boolean isFirstOptArg() {
-//        return firstOptArg;
-//    }
 
     public int getIndexInEl() {
         return indexInEl;
@@ -416,12 +384,4 @@ abstract class OperationNode {
     public void setNeedPrevious(boolean _needPrevious) {
         needPrevious = _needPrevious;
     }
-
-//    public boolean isCalulated() {
-//        return calulated;
-//    }
-//
-//    public void setCalulated(boolean _calulated) {
-//        calulated = _calulated;
-//    }
 }
