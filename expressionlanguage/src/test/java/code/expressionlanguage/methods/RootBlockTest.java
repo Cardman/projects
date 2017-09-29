@@ -71,6 +71,52 @@ public class RootBlockTest {
         assertEq(Object.class.getName(), superTypes_.last());
     }
 
+    @Test
+    public void getAllGenericSuperTypes4Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        String xml_;
+        xml_ = "<interface access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' template='&lt;#E&gt;'/>\n";
+        files_.put("pkg/Ex."+Classes.EXT, xml_);
+        xml_ = "<interface access='"+PUBLIC_ACCESS+"' name='ExTwo' package='pkg' template='&lt;#T&gt;' class0='pkg.Ex&lt;#T&gt;'/>\n";
+        files_.put("pkg/ExTwo."+Classes.EXT, xml_);
+        xml_ = "<interface access='"+PUBLIC_ACCESS+"' name='ExThree' package='pkg' template='&lt;#S&gt;' class0='pkg.Ex&lt;#S&gt;'/>\n";
+        files_.put("pkg/ExThree."+Classes.EXT, xml_);
+        xml_ = "<interface access='"+PUBLIC_ACCESS+"' name='ExFour' package='pkg' class0='pkg.ExTwo&lt;java.lang.String&gt;' class1='pkg.ExThree&lt;java.lang.String&gt;'/>\n";
+        files_.put("pkg/ExFour."+Classes.EXT, xml_);
+        ContextEl cont_ = unfullValidateOverridingMethods(files_);
+        cont_.setAccessValue(new AccessValueEx());
+        Classes classes_ = cont_.getClasses();
+        StringList superTypes_ = classes_.getClassBody("pkg.ExFour").getAllGenericSuperTypes(cont_);
+        assertEq(4, superTypes_.size());
+        assertEq("pkg.ExTwo<java.lang.String>", superTypes_.first());
+        assertEq("pkg.ExThree<java.lang.String>", superTypes_.get(1));
+        assertEq("pkg.Ex<java.lang.String>", superTypes_.get(2));
+        assertEq("pkg.Ex<java.lang.String>", superTypes_.last());
+    }
+
+    @Test
+    public void getAllGenericSuperTypes5Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        String xml_;
+        xml_ = "<interface access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' template='&lt;#E&gt;'/>\n";
+        files_.put("pkg/Ex."+Classes.EXT, xml_);
+        xml_ = "<interface access='"+PUBLIC_ACCESS+"' name='ExTwo' package='pkg' template='&lt;#T&gt;' class0='pkg.Ex&lt;#T&gt;'/>\n";
+        files_.put("pkg/ExTwo."+Classes.EXT, xml_);
+        xml_ = "<interface access='"+PUBLIC_ACCESS+"' name='ExThree' package='pkg' template='&lt;#S&gt;' class0='pkg.Ex&lt;#S&gt;'/>\n";
+        files_.put("pkg/ExThree."+Classes.EXT, xml_);
+        xml_ = "<interface access='"+PUBLIC_ACCESS+"' name='ExFour' package='pkg' class0='pkg.ExTwo&lt;java.lang.Number&gt;' class1='pkg.ExThree&lt;java.lang.String&gt;'/>\n";
+        files_.put("pkg/ExFour."+Classes.EXT, xml_);
+        ContextEl cont_ = unfullValidateOverridingMethods(files_);
+        cont_.setAccessValue(new AccessValueEx());
+        Classes classes_ = cont_.getClasses();
+        StringList superTypes_ = classes_.getClassBody("pkg.ExFour").getAllGenericSuperTypes(cont_);
+        assertEq(4, superTypes_.size());
+        assertEq("pkg.ExTwo<java.lang.Number>", superTypes_.first());
+        assertEq("pkg.ExThree<java.lang.String>", superTypes_.get(1));
+        assertEq("pkg.Ex<java.lang.Number>", superTypes_.get(2));
+        assertEq("pkg.Ex<java.lang.String>", superTypes_.last());
+    }
+
     private static ContextEl unfullValidateOverridingMethods(StringMap<String> _files) {
         ContextEl cont_ = new ContextEl();
         Classes classes_ = new Classes(_files, cont_);
