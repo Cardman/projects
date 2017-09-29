@@ -446,7 +446,22 @@ public final class ElResolver {
                             _conf.getLastPage().setOffset(afterSuper_);
                             throw new BadExpressionLanguageException(_string+RETURN_LINE+_conf.joinPages());
                         }
-                        i_ = afterSuper_ + 1;
+                        afterSuper_++;
+                        while (afterSuper_ < len_) {
+                            if (_string.charAt(afterSuper_) == _end) {
+                                _conf.getLastPage().setOffset(afterSuper_);
+                                throw new BadExpressionLanguageException(_string+RETURN_LINE+_conf.joinPages());
+                            }
+                            if (!StringList.isWordChar(_string.charAt(afterSuper_))) {
+                                if (_string.charAt(afterSuper_) == EXTERN_CLASS) {
+                                    _conf.getLastPage().setOffset(afterSuper_);
+                                    throw new BadExpressionLanguageException(_string+RETURN_LINE+_conf.joinPages());
+                                }
+                                break;
+                            }
+                            afterSuper_++;
+                        }
+                        i_ = afterSuper_;
                         continue;
                     }
                     if (procWordFirstChar(_string, i_ + 1, CLASS_CHOICE, len_)) {
@@ -1031,7 +1046,18 @@ public final class ElResolver {
                             _conf.getLastPage().setOffset(afterSuper_);
                             throw new BadExpressionLanguageException(_string+RETURN_LINE+_conf.joinPages());
                         }
-                        i_ = afterSuper_ + 1;
+                        afterSuper_++;
+                        while (afterSuper_ < len_) {
+                            if (!StringList.isWordChar(_string.charAt(afterSuper_))) {
+                                if (_string.charAt(afterSuper_) == EXTERN_CLASS) {
+                                    _conf.getLastPage().setOffset(afterSuper_);
+                                    throw new BadExpressionLanguageException(_string+RETURN_LINE+_conf.joinPages());
+                                }
+                                break;
+                            }
+                            afterSuper_++;
+                        }
+                        i_ = afterSuper_;
                         continue;
                     }
                     if (procWordFirstChar(_string, i_ + 1, CLASS_CHOICE, len_)) {
