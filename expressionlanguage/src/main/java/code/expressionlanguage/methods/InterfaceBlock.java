@@ -113,7 +113,7 @@ public final class InterfaceBlock extends RootBlock {
     }
 
     @Override
-    public StringList getDirectSuperTypes() {
+    public StringList getDirectGenericSuperTypes() {
         return new StringList(superInterfaces);
     }
 

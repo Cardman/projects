@@ -134,7 +134,7 @@ public final class EnumBlock extends RootBlock implements UniqueRootedBlock {
     }
 
     @Override
-    public StringList getDirectSuperTypes() {
+    public StringList getDirectGenericSuperTypes() {
         StringList superTypes_ = new StringList();
         superTypes_.add(getSuperClass());
         superTypes_.addAllElts(directInterfaces);
@@ -261,7 +261,7 @@ public final class EnumBlock extends RootBlock implements UniqueRootedBlock {
     }
 
     @Override
-    public StringList getDirectGenericSuperClasses() {
+    public StringList getDirectSuperClasses() {
         StringList classes_ = new StringList();
         int index_ = getSuperClass().indexOf(LT);
         if (index_ > CustList.INDEX_NOT_FOUND_ELT) {
@@ -273,10 +273,15 @@ public final class EnumBlock extends RootBlock implements UniqueRootedBlock {
     }
 
     @Override
-    public StringList getDirectSuperClasses() {
+    public StringList getDirectGenericSuperClasses() {
         StringList classes_ = new StringList();
         classes_.add(getSuperClass());
         return classes_;
+    }
+
+    @Override
+    public String getGenericSuperClass() {
+        return Object.class.getName();
     }
 
     @Override

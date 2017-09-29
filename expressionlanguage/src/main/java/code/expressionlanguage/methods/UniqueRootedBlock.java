@@ -9,6 +9,8 @@ public interface UniqueRootedBlock {
 
     void validateConstructors(ContextEl _cont);
 
+    String getGenericSuperClass();
+
     String getSuperClass();
 
     StringList getDirectGenericInterfaces();

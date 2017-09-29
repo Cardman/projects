@@ -248,7 +248,7 @@ public final class Classes {
                     cl_.getParamTypes().add(type_);
                 }
                 cl_.buildMapParamType();
-                for (String s: cl_.getDirectSuperTypes()) {
+                for (String s: cl_.getDirectGenericSuperTypes()) {
                     if (!isCorrectTemplate(s)) {
                         throw new BadClassNameException(s);
                     }

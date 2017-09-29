@@ -140,7 +140,7 @@ public final class ClassBlock extends RootBlock implements UniqueRootedBlock {
     }
 
     @Override
-    public StringList getDirectSuperTypes() {
+    public StringList getDirectGenericSuperTypes() {
         StringList superTypes_ = new StringList();
         superTypes_.add(superClass);
         superTypes_.addAllElts(directInterfaces);
@@ -149,6 +149,15 @@ public final class ClassBlock extends RootBlock implements UniqueRootedBlock {
 
     @Override
     public String getSuperClass() {
+        int index_ = superClass.indexOf(LT);
+        if (index_ > CustList.INDEX_NOT_FOUND_ELT) {
+            return superClass.substring(CustList.FIRST_INDEX, index_);
+        }
+        return superClass;
+    }
+
+    @Override
+    public String getGenericSuperClass() {
         return superClass;
     }
 
@@ -317,19 +326,19 @@ public final class ClassBlock extends RootBlock implements UniqueRootedBlock {
     @Override
     public StringList getDirectGenericSuperClasses() {
         StringList classes_ = new StringList();
-        int index_ = superClass.indexOf(LT);
-        if (index_ > CustList.INDEX_NOT_FOUND_ELT) {
-            classes_.add(superClass.substring(CustList.FIRST_INDEX, index_));
-        } else {
-            classes_.add(superClass);
-        }
+        classes_.add(superClass);
         return classes_;
     }
 
     @Override
     public StringList getDirectSuperClasses() {
         StringList classes_ = new StringList();
-        classes_.add(superClass);
+        int index_ = superClass.indexOf(LT);
+        if (index_ > CustList.INDEX_NOT_FOUND_ELT) {
+            classes_.add(superClass.substring(CustList.FIRST_INDEX, index_));
+        } else {
+            classes_.add(superClass);
+        }
         return classes_;
     }
 
