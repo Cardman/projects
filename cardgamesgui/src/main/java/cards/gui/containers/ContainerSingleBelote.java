@@ -644,7 +644,7 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
         /*On place les cartes de l'utilisateur*/
         setCanPlay(_ecouteur);
         updateCardsInPanelBelote(getPanelHand(),mainUtilisateur_);
-        getWindow().revalidate();
+        getWindow().pack();
     }
     public void finPliBelote(CardBelote _carteJouee) {
         setCanPlay(false);

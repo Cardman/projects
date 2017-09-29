@@ -935,7 +935,7 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
         /*On place les cartes de l'utilisateur*/
         setCanPlay(_ecouteur);
         updateCardsInPanelTarotJeu(getPanelHand(), mainUtilisateur_);
-        getWindow().revalidate();
+        getWindow().pack();
     }
     public void finPliTarot(CardTarot _carteJouee) {
         setCanPlay(false);

@@ -1051,7 +1051,7 @@ public final class MainWindow extends NetGroupFrame {
         htmlDialogs.first().getSession().setFiles(Resources.ACCESS_TO_DEFAULT_FILES);
         htmlDialogs.first().getSession().setDataBase(facade.getData());
         htmlDialogs.first().getSession().initializeOnlyConf(Resources.ACCESS_TO_DEFAULT_DATA);
-        htmlDialogs.first().revalidate();
+        htmlDialogs.first().pack();
 //        try {
 ////            if (successfulCompile) {
 ////                htmlDialogs.first().getSession().initialize(Resources.CONFIG_DATA);

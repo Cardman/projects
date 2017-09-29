@@ -1072,7 +1072,7 @@ public class Battle extends ChildFrame {
 //        htmlDialogs.first().getSession().setFiles(facade.getData().getWebFight(), Resources.ACCESS_TO_DEFAULT_FILES);
         htmlDialogs.first().getSession().setFiles(Resources.ACCESS_TO_DEFAULT_FILES);
         htmlDialogs.first().getSession().initializeOnlyConf(Resources.ACCESS_TO_DEFAULT_FIGHT);
-        htmlDialogs.first().revalidate();
+        htmlDialogs.first().pack();
 //        try {
 ////            if (window.isSuccessfulCompile()) {
 ////                htmlDialogs.first().getSession().initialize(Resources.CONFIG_FIGHT);

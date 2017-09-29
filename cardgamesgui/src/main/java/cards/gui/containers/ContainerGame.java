@@ -157,7 +157,7 @@ public class ContainerGame implements Packable, Containable {
         return getWindow().getJMenuBar();
     }
     public void revalidate() {
-        getWindow().revalidate();
+        getWindow().revalidateFrame();
     }
     @Override
     public void pack() {

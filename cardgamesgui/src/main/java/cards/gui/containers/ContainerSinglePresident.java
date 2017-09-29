@@ -507,7 +507,7 @@ public class ContainerSinglePresident extends ContainerPresident implements
         /*On place les cartes de l'utilisateur*/
         setCanPlay(_ecouteur);
         updateCardsInPanelPresident(getPanelHand(),mainUtilisateur_);
-        getWindow().revalidate();
+        getWindow().pack();
     }
 
     @Override
