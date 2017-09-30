@@ -98,6 +98,8 @@ public final class Classes {
     private static final String EMPTY_STRING = "";
     private static final String JOINER = ";";
 
+    private static final String VARARG = "...";
+
     private final StringMap<RootBlock> classesBodies;
 
     private final ObjectMap<ClassField,Struct> staticFields;
@@ -1385,7 +1387,7 @@ public final class Classes {
         return null;
     }
 
-    public CustList<MethodBlock> getMethodBodiesByFormattedId(String _genericClassName, String _methodName, StringList _parametersTypes) {
+    public CustList<MethodBlock> getMethodBodiesByFormattedId(String _genericClassName, String _methodName, StringList _parametersTypes, boolean _vararg) {
         CustList<MethodBlock> methods_ = new CustList<MethodBlock>();
         StringList types_ = StringList.getAllTypes(_genericClassName);
         String base_ = types_.first();
@@ -1406,6 +1408,15 @@ public final class Classes {
                 EqList<ClassName> list_ = method_.getId().getClassNames();
                 if (list_.size() != nbParams_) {
                     continue;
+                }
+                if (nbParams_ > 0 && _vararg) {
+                    if (!method_.isVarargs()) {
+                        continue;
+                    }
+                } else {
+                    if (method_.isVarargs()) {
+                        continue;
+                    }
                 }
                 boolean all_ = true;
                 for (int i = CustList.FIRST_INDEX; i < nbParams_; i++) {
