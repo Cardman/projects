@@ -159,6 +159,7 @@ public final class ConstantOperation extends OperationNode implements SettableEl
                         if (custClass_.getCategory() != ClassCategory.CLASS) {
                             throw new NoSuchDeclaredFieldException(key_+RETURN_LINE+_conf.joinPages());
                         }
+                        cl_ = new ClassArgumentMatching(custClass_.getSuperClass());
                         r_ = getDeclaredCustField(_conf, isStaticAccess(), cl_, superClassAccess_, key_);
                     } else {
                         key_ = str_.substring(CustList.FIRST_INDEX, str_.length() - GET_FIELD.length());
