@@ -22,6 +22,7 @@ import code.expressionlanguage.methods.util.BadInheritedClass;
 import code.expressionlanguage.methods.util.BadVariableName;
 import code.expressionlanguage.methods.util.ClassEdge;
 import code.expressionlanguage.methods.util.DeadCodeMethod;
+import code.expressionlanguage.methods.util.DuplicateGenericSuperTypes;
 import code.expressionlanguage.methods.util.EqualsEl;
 import code.expressionlanguage.methods.util.FoundErrorInterpret;
 import code.expressionlanguage.methods.util.MissingReturnMethod;
@@ -94,6 +95,7 @@ public final class Classes {
     private static final String HAS_NEXT = "hasNext()";
     private static final String NEXT = "next()";
     private static final String EMPTY_STRING = "";
+    private static final String JOINER = ";";
 
     private final StringMap<RootBlock> classesBodies;
 
@@ -348,6 +350,10 @@ public final class Classes {
         try {
             _context.setClasses(classes_);
             classes_.validateInheritingClasses(_context);
+            if (!classes_.errorsDet.isEmpty()) {
+                throw new AnalyzingErrorsException(classes_.errorsDet);
+            }
+            classes_.validateSingleParameterizedClasses(_context);
             if (!classes_.errorsDet.isEmpty()) {
                 throw new AnalyzingErrorsException(classes_.errorsDet);
             }
@@ -658,10 +664,40 @@ public final class Classes {
                 r_.getAllSuperTypes().addAllElts(((InterfaceBlock)r_).getAllSuperClasses());
             }
         }
-//        for (String c: classesInheriting) {
-//            
-//        }
     }
+    public void validateSingleParameterizedClasses(ContextEl _context) {
+        for (String c: classesInheriting) {
+            RootBlock r_ = getClassBody(c);
+            StringList genericSuperTypes_ = r_.getAllGenericSuperTypes(_context);
+            StringMap<StringList> baseParams_ = getBaseParams(genericSuperTypes_);
+            for (EntryCust<String, StringList> e: baseParams_.entryList()) {
+                if (e.getValue().size() > 1) {
+                    DuplicateGenericSuperTypes duplicate_;
+                    duplicate_ = new DuplicateGenericSuperTypes();
+                    duplicate_.setFileName(c);
+                    duplicate_.setRc(new RowCol());
+                    duplicate_.setGenericSuperTypes(e.getValue());
+                    errorsDet.add(duplicate_);
+                }
+            }
+        }
+    }
+    public static StringMap<StringList> getBaseParams(StringList _genericSuperTypes) {
+        StringMap<StringList> baseParams_ = new StringMap<StringList>();
+        for (String t: _genericSuperTypes) {
+            StringList baseParam_ = StringList.getAllTypes(t);
+            String key_ = baseParam_.first();
+            String join_ = baseParam_.mid(CustList.SECOND_INDEX).join(JOINER);
+            if (baseParams_.contains(key_)) {
+                baseParams_.getVal(key_).add(join_);
+                baseParams_.getVal(key_).removeDuplicates();
+            } else {
+                baseParams_.put(key_, new StringList(join_));
+            }
+        }
+        return baseParams_;
+    }
+
     public StringList getSortedSuperInterfaces(StringList _interfaces) {
         StringList sortedSuperInterfaces_ = new StringList();
         for (String i: _interfaces) {
@@ -1293,6 +1329,45 @@ public final class Classes {
             return c.getValue();
         }
         return null;
+    }
+
+    public CustList<MethodBlock> getMethodBodiesByFormattedId(String _genericClassName, String _methodName, StringList _parametersTypes) {
+        CustList<MethodBlock> methods_ = new CustList<MethodBlock>();
+        StringList types_ = StringList.getAllTypes(_genericClassName);
+        String base_ = types_.first();
+        int nbParams_ = _parametersTypes.size();
+        for (EntryCust<String, RootBlock> c: classesBodies.entryList()) {
+            if (!StringList.quickEq(c.getKey(), base_)) {
+                continue;
+            }
+            CustList<Block> bl_ = getDirectChildren(c.getValue());
+            for (Block b: bl_) {
+                if (!(b instanceof MethodBlock)) {
+                    continue;
+                }
+                MethodBlock method_ = (MethodBlock) b;
+                if (!StringList.quickEq(_methodName, method_.getName())) {
+                    continue;
+                }
+                EqList<ClassName> list_ = method_.getId().getClassNames();
+                if (list_.size() != nbParams_) {
+                    continue;
+                }
+                boolean all_ = true;
+                for (int i = CustList.FIRST_INDEX; i < nbParams_; i++) {
+                    String type_ = Templates.format(_genericClassName, list_.get(i).getName(), this);
+                    if (!StringList.quickEq(type_, _parametersTypes.get(i))) {
+                        all_ = false;
+                        break;
+                    }
+                }
+                if (!all_) {
+                    continue;
+                }
+                methods_.add(method_);
+            }
+        }
+        return methods_;
     }
 
     public MethodBlock getMethodBody(String _className, FctConstraints _methodId) {
