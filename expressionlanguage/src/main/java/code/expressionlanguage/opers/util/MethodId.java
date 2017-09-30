@@ -51,10 +51,21 @@ public final class MethodId implements Equallable<MethodId> {
         if (!StringList.quickEq(_obj.name, name)) {
             return false;
         }
-        if (classNames.size() != _obj.classNames.size()) {
+        int len_ = classNames.size();
+        if (len_ != _obj.classNames.size()) {
             return false;
         }
-        int len_ = classNames.size();
+        if (!classNames.isEmpty()) {
+            if (classNames.last().isVararg()) {
+                if (!_obj.classNames.last().isVararg()) {
+                    return false;
+                }
+            } else {
+                if (_obj.classNames.last().isVararg()) {
+                    return false;
+                }
+            }
+        }
         for (int i = 0; i < len_; i++) {
             if (!classNames.get(i).eq(_obj.classNames.get(i))) {
                 return false;
@@ -65,6 +76,13 @@ public final class MethodId implements Equallable<MethodId> {
 
     public String getName() {
         return name;
+    }
+
+    public boolean isVararg() {
+        if (classNames.isEmpty()) {
+            return false;
+        }
+        return classNames.last().isVararg();
     }
 
     public EqList<ClassName> getClassNames() {
