@@ -1,4 +1,5 @@
 package code.expressionlanguage.methods;
+import java.lang.reflect.Modifier;
 import java.util.Iterator;
 
 import org.w3c.dom.Document;
@@ -633,12 +634,16 @@ public final class Classes {
             for (TypeVar t: dBl_.getParamTypes()) {
                 boolean existNative_ = false;
                 boolean existCustom_ = false;
-                for (String b: mapping_.getAllUpperBounds(t.getName())) {
+                boolean ok_ = true;
+                StringList upper_ = mapping_.getAllUpperBounds(t.getName());
+                StringList upperNotObj_ = new StringList();
+                for (String b: upper_) {
                     StringList baseParams_ = StringList.getAllTypes(b);
                     String base_ = PrimitiveTypeUtil.getQuickComponentBaseType(baseParams_.first()).getComponent();
                     if (StringList.quickEq(base_, Object.class.getName())) {
                         continue;
                     }
+                    upperNotObj_.add(b);
                     if (classesBodies.contains(base_)) {
                         existCustom_ = true;
                     } else {
@@ -661,6 +666,70 @@ public final class Classes {
                     un_.setFileName(c);
                     un_.setRc(new RowCol());
                     errorsDet.add(un_);
+                    ok_ = false;
+                }
+                StringMap<StringList> baseParams_ = getBaseParams(upper_);
+                for (EntryCust<String, StringList> e: baseParams_.entryList()) {
+                    if (e.getValue().size() > 1) {
+                        DuplicateGenericSuperTypes duplicate_;
+                        duplicate_ = new DuplicateGenericSuperTypes();
+                        duplicate_.setFileName(c);
+                        duplicate_.setRc(new RowCol());
+                        duplicate_.setGenericSuperTypes(e.getValue());
+                        errorsDet.add(duplicate_);
+                    }
+                }
+                if (ok_) {
+                    int nbAbs_ = 0;
+                    int nbFinal_ = 0;
+                    if (existNative_) {
+                        for (String b: upperNotObj_) {
+                            StringList baseParamsUpp_ = StringList.getAllTypes(b);
+                            String base_ = PrimitiveTypeUtil.getQuickComponentBaseType(baseParamsUpp_.first()).getComponent();
+                            Class<?> cl_ = ConstClasses.classForNameNotInit(base_);
+                            if (cl_.isInterface()) {
+                                continue;
+                            }
+                            if (cl_.isEnum()) {
+                                nbFinal_++;
+                                continue;
+                            }
+                            if (Modifier.isAbstract(cl_.getModifiers())) {
+                                nbAbs_++;
+                            }
+                            if (Modifier.isFinal(cl_.getModifiers())) {
+                                nbFinal_++;
+                            }
+                        }
+                    } else {
+                        for (String b: upperNotObj_) {
+                            StringList baseParamsUpp_ = StringList.getAllTypes(b);
+                            String base_ = PrimitiveTypeUtil.getQuickComponentBaseType(baseParamsUpp_.first()).getComponent();
+                            RootBlock r_ = getClassBody(base_);
+                            if (r_ instanceof InterfaceBlock) {
+                                continue;
+                            }
+                            if (r_ instanceof EnumBlock) {
+                                nbFinal_++;
+                                continue;
+                            }
+                            if (r_.isAbstractType()) {
+                                nbAbs_++;
+                            }
+                            if (r_.isFinalType()) {
+                                nbFinal_++;
+                            }
+                        }
+                    }
+                    if (nbAbs_ > 1 || nbFinal_ > 0) {
+                        //error
+                        BadInheritedClass inh_;
+                        inh_ = new BadInheritedClass();
+                        inh_.setFileName(c);
+                        inh_.setRc(new RowCol());
+                        inh_.setClassName(c);
+                        errorsDet.add(inh_);
+                    }
                 }
             }
         }
@@ -669,15 +738,19 @@ public final class Classes {
         }
         for (String c: classesInheriting) {
             RootBlock dBl_ = classesBodies.getVal(c);
+            StringList allGene_ = dBl_.getAllGenericSuperClasses();
             StringList all_ = dBl_.getAllSuperClasses();
             StringList direct_ = dBl_.getDirectSuperClasses();
+            StringList directGene_ = dBl_.getDirectGenericSuperClasses();
             all_.addAllElts(direct_);
+            allGene_.addAllElts(directGene_);
             for (String b: direct_) {
                 if (StringList.quickEq(b, Object.class.getName())) {
                     continue;
                 }
                 RootBlock bBl_ = classesBodies.getVal(b);
                 all_.addAllElts(bBl_.getAllSuperClasses());
+                allGene_.addAllElts(bBl_.getAllGenericSuperClasses());
             }
         }
         for (String c: classesInheriting) {
@@ -686,27 +759,27 @@ public final class Classes {
             }
             UniqueRootedBlock bl_ = (UniqueRootedBlock) classesBodies.getVal(c);
             StringList all_ = bl_.getAllInterfaces();
+            StringList allGene_ = bl_.getAllGenericInterfaces();
             StringList direct_ = bl_.getDirectInterfaces();
-            StringList allDirect_ = bl_.getAllDirectInterfaces();
-            allDirect_.addAllElts(direct_);
+            StringList directGene_ = bl_.getDirectGenericInterfaces();
             all_.addAllElts(direct_);
+            allGene_.addAllElts(directGene_);
             for (String i: direct_) {
                 RootBlock i_ = classesBodies.getVal(i);
                 all_.addAllElts(i_.getAllSuperClasses());
+                allGene_.addAllElts(i_.getAllGenericSuperClasses());
             }
             String superClass_ = bl_.getSuperClass();
             StringList needed_;
             if (!StringList.quickEq(superClass_, Object.class.getName())) {
                 UniqueRootedBlock super_ = (UniqueRootedBlock) classesBodies.getVal(superClass_);
                 all_.addAllElts(super_.getAllInterfaces());
-                allDirect_.addAllElts(super_.getAllDirectInterfaces());
                 needed_ = super_.getAllSortedInterfaces();
             } else {
                 needed_ = new StringList();
             }
             all_.removeAllObj(Object.class.getName());
             all_.removeDuplicates();
-            allDirect_.removeDuplicates();
             bl_.getAllSortedInterfaces().addAllElts(getSortedSuperInterfaces(all_));
             bl_.getAllNeededSortedInterfaces().addAllElts(bl_.getAllSortedInterfaces());
             bl_.getAllNeededSortedInterfaces().removeAllElements(needed_);
@@ -1387,6 +1460,9 @@ public final class Classes {
         return null;
     }
 
+    public CustList<MethodBlock> getMethodBodiesByFormattedId(String _genericClassName, MethodId _id) {
+        return getMethodBodiesByFormattedId(_genericClassName, _id.getName(), _id.getParametersTypes(), _id.isVararg());
+    }
     public CustList<MethodBlock> getMethodBodiesByFormattedId(String _genericClassName, String _methodName, StringList _parametersTypes, boolean _vararg) {
         CustList<MethodBlock> methods_ = new CustList<MethodBlock>();
         StringList types_ = StringList.getAllTypes(_genericClassName);

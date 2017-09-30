@@ -78,6 +78,14 @@ public final class MethodId implements Equallable<MethodId> {
         return name;
     }
 
+    public StringList getParametersTypes() {
+        StringList params_ = new StringList();
+        for (ClassName c: classNames) {
+            params_.add(c.getName());
+        }
+        return params_;
+    }
+
     public boolean isVararg() {
         if (classNames.isEmpty()) {
             return false;

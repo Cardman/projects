@@ -7,7 +7,8 @@ import org.junit.Test;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.PrimitiveTypeUtil;
 import code.expressionlanguage.opers.OperationNode;
-import code.expressionlanguage.opers.util.FctConstraints;
+import code.expressionlanguage.opers.util.ClassName;
+import code.expressionlanguage.opers.util.MethodId;
 import code.util.CustList;
 import code.util.EqList;
 import code.util.ObjectMap;
@@ -453,10 +454,10 @@ public class ClassesTest {
         ContextEl context_ = unfullValidateOverridingMethods(files_);
         Classes classes_ = context_.getClasses();
         InterfaceBlock i_ = (InterfaceBlock) classes_.getClassBody("pkg.ExFour");
-        ObjectMap<FctConstraints, StringList> sgn_ = i_.getAllInstanceSignatures(classes_);
+        ObjectMap<MethodId, StringList> sgn_ = i_.getAllInstanceSignatures(classes_);
         sgn_ = RootBlock.getAllOverridingMethods(sgn_, classes_);
         assertEq(1, sgn_.size());
-        assertEq(new StringList("pkg.ExFour"),sgn_.getVal(new FctConstraints("absgetter", new EqList<StringList>())));
+        assertEq(new StringList("pkg.ExFour"),sgn_.getVal(new MethodId("absgetter", new EqList<ClassName>())));
     }
 
     @Test
@@ -480,12 +481,12 @@ public class ClassesTest {
         ContextEl context_ = unfullValidateOverridingMethods(files_);
         Classes classes_ = context_.getClasses();
         InterfaceBlock i_ = (InterfaceBlock) classes_.getClassBody("pkg.Ex");
-        ObjectMap<FctConstraints, StringList> sgn_ = i_.getAllInstanceSignatures(classes_);
+        ObjectMap<MethodId, StringList> sgn_ = i_.getAllInstanceSignatures(classes_);
         assertEq(1, sgn_.size());
-        assertEq(new StringList("pkg.Ex","pkg.ExFour"),sgn_.getVal(new FctConstraints("absgetter", new EqList<StringList>())));
+        assertEq(new StringList("pkg.Ex","pkg.ExFour"),sgn_.getVal(new MethodId("absgetter", new EqList<ClassName>())));
         sgn_ = RootBlock.getAllOverridingMethods(sgn_, classes_);
         assertEq(1, sgn_.size());
-        assertEq(new StringList("pkg.Ex"),sgn_.getVal(new FctConstraints("absgetter", new EqList<StringList>())));
+        assertEq(new StringList("pkg.Ex"),sgn_.getVal(new MethodId("absgetter", new EqList<ClassName>())));
     }
 
     @Test
@@ -511,12 +512,12 @@ public class ClassesTest {
         ContextEl context_ = unfullValidateOverridingMethods(files_);
         Classes classes_ = context_.getClasses();
         InterfaceBlock i_ = (InterfaceBlock) classes_.getClassBody("pkg.Ex");
-        ObjectMap<FctConstraints, StringList> sgn_ = i_.getAllInstanceSignatures(classes_);
+        ObjectMap<MethodId, StringList> sgn_ = i_.getAllInstanceSignatures(classes_);
         assertEq(1, sgn_.size());
-        assertEq(new StringList("pkg.ExTwo","pkg.ExThree"),sgn_.getVal(new FctConstraints("absgetter", new EqList<StringList>())));
+        assertEq(new StringList("pkg.ExTwo","pkg.ExThree"),sgn_.getVal(new MethodId("absgetter", new EqList<ClassName>())));
         sgn_ = RootBlock.getAllOverridingMethods(sgn_, classes_);
         assertEq(1, sgn_.size());
-        assertEq(new StringList("pkg.ExTwo","pkg.ExThree"),sgn_.getVal(new FctConstraints("absgetter", new EqList<StringList>())));
+        assertEq(new StringList("pkg.ExTwo","pkg.ExThree"),sgn_.getVal(new MethodId("absgetter", new EqList<ClassName>())));
     }
     private ContextEl unfullValidateOverridingMethods(StringMap<String> _files) {
         ContextEl cont_ = new ContextEl();

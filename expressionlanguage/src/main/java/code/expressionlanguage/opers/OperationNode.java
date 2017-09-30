@@ -834,7 +834,7 @@ public abstract class OperationNode implements Operable {
         signatures_ = new ObjectMap<FctConstraints, StringList>();
         if (_static) {
             ObjectMap<FctConstraints, String> signaturesInt_;
-            signaturesInt_ = intBl_.getLocalSignatures(classes_);
+            signaturesInt_ = intBl_.getLocalSignaturesErasure(classes_);
             StringList subList_ = new StringList();
             for (EntryCust<FctConstraints, String> m: signaturesInt_.entryList()) {
                 MethodBlock m_ = classes_.getMethodBody(clCurName_, m.getKey());
@@ -851,7 +851,7 @@ public abstract class OperationNode implements Operable {
                 }
                 InterfaceBlock superBl_ = (InterfaceBlock) classes_.getClassBody(s);
                 ObjectMap<FctConstraints, StringList> signaturesInt_;
-                signaturesInt_ = superBl_.getAllInstanceSignatures(classes_);
+                signaturesInt_ = superBl_.getAllInstanceSignaturesErasure(classes_);
                 for (EntryCust<FctConstraints, StringList> m: signaturesInt_.entryList()) {
                     StringList subList_ = new StringList();
                     for (String i: m.getValue()) {
@@ -876,7 +876,7 @@ public abstract class OperationNode implements Operable {
         
         ObjectMap<FctConstraints, StringList> ov_;
         if (!_static) {
-            ov_ = RootBlock.getAllOverridingMethods(signatures_, classes_);
+            ov_ = RootBlock.getAllOverridingMethodsErasure(signatures_, classes_);
         } else {
             ov_ = signatures_;
         }

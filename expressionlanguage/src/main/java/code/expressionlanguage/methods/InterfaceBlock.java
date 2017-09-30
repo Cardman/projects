@@ -16,6 +16,8 @@ public final class InterfaceBlock extends RootBlock {
 
     private final StringList superInterfaces;
 
+    private final StringList allGenericSuperClasses = new StringList();
+
     private final StringList allSuperClasses = new StringList();
 
     private final StringList allSuperTypes = new StringList();
@@ -68,7 +70,7 @@ public final class InterfaceBlock extends RootBlock {
 
     @Override
     public void setupBasicOverrides(ContextEl _context) {
-        StringList all_ = getAllSuperClasses();
+        StringList all_ = getAllGenericSuperTypes(_context.getClasses());
         for (Block b: Classes.getDirectChildren(this)) {
             if (b instanceof MethodBlock) {
                 MethodBlock mCl_ = (MethodBlock) b;
@@ -80,7 +82,7 @@ public final class InterfaceBlock extends RootBlock {
                         continue;
                     }
                     CustList<MethodBlock> methods_ ;
-                    methods_ = _context.getClasses().getMethodBodiesByFormattedId(s, mCl_.getName(), mCl_.getParametersTypes(), mCl_.isVarargs());
+                    methods_ = _context.getClasses().getMethodBodiesByFormattedId(s, mCl_.getId());
                     if (methods_.isEmpty()) {
                         continue;
                     }
@@ -103,7 +105,7 @@ public final class InterfaceBlock extends RootBlock {
                 }
                 mDer_.getAllOverridenClasses().addAllElts(mDer_.getOverridenClasses());
                 for (String s: mDer_.getOverridenClasses()) {
-                    MethodBlock mBase_ = _context.getClasses().getMethodBodiesByFormattedId(s, mDer_.getName(), mDer_.getParametersTypes(), mDer_.isVarargs()).first();
+                    MethodBlock mBase_ = _context.getClasses().getMethodBodiesByFormattedId(s, mDer_.getId()).first();
                     if (mBase_.isStaticMethod()) {
                         continue;
                     }
@@ -214,5 +216,15 @@ public final class InterfaceBlock extends RootBlock {
     @Override
     public StringList getAllInterfaces() {
         return getAllSuperClasses();
+    }
+
+    @Override
+    public StringList getAllGenericSuperClasses() {
+        return allGenericSuperClasses;
+    }
+
+    @Override
+    public StringList getAllGenericInterfaces() {
+        return getAllGenericSuperClasses();
     }
 }

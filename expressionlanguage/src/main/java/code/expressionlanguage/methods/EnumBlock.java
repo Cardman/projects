@@ -26,6 +26,8 @@ public final class EnumBlock extends RootBlock implements UniqueRootedBlock {
 
     private final StringList allSuperClasses = new StringList();
 
+    private final StringList allGenericSuperClasses = new StringList();
+
     private final StringList allSuperTypes = new StringList();
 
     private final StringList directInterfaces = new StringList();
@@ -33,6 +35,8 @@ public final class EnumBlock extends RootBlock implements UniqueRootedBlock {
     private final StringList allDirectInterfaces = new StringList();
 
     private final StringList allInterfaces = new StringList();
+
+    private final StringList allGenericInterfaces = new StringList();
 
     private final StringList allSortedInterfaces = new StringList();
 
@@ -89,7 +93,7 @@ public final class EnumBlock extends RootBlock implements UniqueRootedBlock {
                 _context.getClasses().getErrorsDet().add(r_);
             }
         }
-        StringList all_ = getAllSuperClasses();
+        StringList all_ = getAllGenericSuperTypes(_context.getClasses());
         for (Block b: Classes.getDirectChildren(this)) {
             if (b instanceof MethodBlock) {
                 MethodBlock mCl_ = (MethodBlock) b;
@@ -101,7 +105,7 @@ public final class EnumBlock extends RootBlock implements UniqueRootedBlock {
                         continue;
                     }
                     CustList<MethodBlock> methods_ ;
-                    methods_ = _context.getClasses().getMethodBodiesByFormattedId(s, mCl_.getName(), mCl_.getParametersTypes(), mCl_.isVarargs());
+                    methods_ = _context.getClasses().getMethodBodiesByFormattedId(s, mCl_.getId());
                     if (methods_.isEmpty()) {
                         continue;
                     }
@@ -124,7 +128,7 @@ public final class EnumBlock extends RootBlock implements UniqueRootedBlock {
                 }
                 mDer_.getAllOverridenClasses().addAllElts(mDer_.getOverridenClasses());
                 for (String s: mDer_.getOverridenClasses()) {
-                    MethodBlock mBase_ = _context.getClasses().getMethodBodiesByFormattedId(s, mDer_.getName(), mDer_.getParametersTypes(), mDer_.isVarargs()).first();
+                    MethodBlock mBase_ = _context.getClasses().getMethodBodiesByFormattedId(s, mDer_.getId()).first();
                     if (mBase_.isStaticMethod()) {
                         continue;
                     }
@@ -309,5 +313,15 @@ public final class EnumBlock extends RootBlock implements UniqueRootedBlock {
     @Override
     public boolean mustImplement() {
         return true;
+    }
+
+    @Override
+    public StringList getAllGenericSuperClasses() {
+        return allGenericSuperClasses;
+    }
+
+    @Override
+    public StringList getAllGenericInterfaces() {
+        return allGenericInterfaces;
     }
 }
