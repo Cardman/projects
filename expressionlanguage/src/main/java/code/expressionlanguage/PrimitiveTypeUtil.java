@@ -16,6 +16,7 @@ import code.util.EntryCust;
 import code.util.Numbers;
 import code.util.StringList;
 import code.util.TreeMap;
+import code.util.consts.ConstClasses;
 import code.util.exceptions.RuntimeClassNotFoundException;
 
 public final class PrimitiveTypeUtil {
@@ -241,6 +242,34 @@ public final class PrimitiveTypeUtil {
             d_++;
             comp_ = res_;
         }
+    }
+
+    public static boolean correctNbParameters(String _genericClass, Classes _classes) {
+        StringList params_ = StringList.getAllTypes(_genericClass);
+        String base_ = params_.first();
+        int nbParams_ = params_.size() - 1;
+        if (_classes != null) {
+            RootBlock r_ = _classes.getClassBody(base_);
+            if (r_ != null) {
+                return r_.getParamTypes().size() == nbParams_;
+            }
+        }
+        Class<?> cl_ = ConstClasses.classForNameNotInit(base_);
+        return cl_.getTypeParameters().length == nbParams_;
+    }
+
+    public static boolean correctNbParametersOrBase(String _genericClass, Classes _classes) {
+        StringList params_ = StringList.getAllTypes(_genericClass);
+        String base_ = params_.first();
+        int nbParams_ = params_.size() - 1;
+        if (_classes != null) {
+            RootBlock r_ = _classes.getClassBody(base_);
+            if (r_ != null) {
+                return r_.getParamTypes().size() == nbParams_ || nbParams_ == 0;
+            }
+        }
+        Class<?> cl_ = ConstClasses.classForNameNotInit(base_);
+        return cl_.getTypeParameters().length == nbParams_ || nbParams_ == 0;
     }
 
     public static boolean isArrayAssignable(String _arrArg, String _arrParam, Classes _classes) {

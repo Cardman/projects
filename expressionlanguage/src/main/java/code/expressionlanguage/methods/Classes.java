@@ -7,6 +7,7 @@ import org.w3c.dom.Element;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.CustEnum;
 import code.expressionlanguage.ElUtil;
+import code.expressionlanguage.Mapping;
 import code.expressionlanguage.PageEl;
 import code.expressionlanguage.PrimitiveTypeUtil;
 import code.expressionlanguage.Templates;
@@ -611,6 +612,49 @@ public final class Classes {
             classesInheriting.add(c.getId());
         }
         classesInheriting.removeAllObj(Object.class.getName());
+        for (String c: classesInheriting) {
+            RootBlock dBl_ = classesBodies.getVal(c);
+            Mapping mapping_ = new Mapping();
+            for (TypeVar t: dBl_.getParamTypes()) {
+                mapping_.getMapping().put(t.getName(), t.getConstraints());
+            }
+            for (TypeVar t: dBl_.getParamTypes()) {
+                boolean existNative_ = false;
+                boolean existCustom_ = false;
+                for (String b: mapping_.getAllUpperBounds(t.getName())) {
+                    StringList baseParams_ = StringList.getAllTypes(b);
+                    String base_ = baseParams_.first();
+                    if (StringList.quickEq(base_, Object.class.getName())) {
+                        continue;
+                    }
+                    if (classesBodies.contains(base_)) {
+                        existCustom_ = true;
+                    } else {
+                        try {
+                            ConstClasses.classForNameNotInit(base_);
+                            existNative_ = true;
+                        } catch (Exception _0) {
+                            UnknownClassName un_ = new UnknownClassName();
+                            un_.setClassName(base_);
+                            un_.setFileName(c);
+                            un_.setRc(new RowCol());
+                            errorsDet.add(un_);
+                        }
+                    }
+                }
+                if (existNative_ && existCustom_) {
+                    UnknownClassName un_ = new UnknownClassName();
+                    //TODO all conflicting classes
+                    un_.setClassName(c);
+                    un_.setFileName(c);
+                    un_.setRc(new RowCol());
+                    errorsDet.add(un_);
+                }
+            }
+        }
+        if (!errorsDet.isEmpty()) {
+            return;
+        }
         for (String c: classesInheriting) {
             RootBlock dBl_ = classesBodies.getVal(c);
             StringList all_ = dBl_.getAllSuperClasses();

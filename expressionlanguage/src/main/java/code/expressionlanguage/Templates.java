@@ -5,7 +5,9 @@ import java.lang.reflect.Type;
 import java.lang.reflect.TypeVariable;
 
 import code.expressionlanguage.methods.Classes;
+import code.expressionlanguage.methods.InterfaceBlock;
 import code.expressionlanguage.methods.RootBlock;
+import code.expressionlanguage.methods.UniqueRootedBlock;
 import code.expressionlanguage.methods.util.TypeVar;
 import code.expressionlanguage.opers.util.DimComp;
 import code.util.CustList;
@@ -237,14 +239,45 @@ public final class Templates {
     }
     public static boolean isSimpleCorrectTemplate(String _className, StringMap<StringList> _inherit, Classes _classes) {
         StringList types_ = StringList.getAllTypes(_className);
+        if (!PrimitiveTypeUtil.correctNbParameters(_className, _classes)) {
+            return false;
+        }
         int i_ = CustList.FIRST_INDEX;
         String className_ = types_.first();
         className_ = PrimitiveTypeUtil.getArrayClass(className_);
-        Class<?> cl_ = ConstClasses.classForNameNotInit(className_);
-        if (cl_.getTypeParameters().length != types_.size() - 1) {
-            return false;
+        EqList<StringList> boundsAll_ = null;
+        if (_classes != null) {
+            RootBlock r_ = _classes.getClassBody(className_);
+            if (r_ != null) {
+                boundsAll_ = new EqList<StringList>();
+                for (TypeVar t:r_.getParamTypes()) {
+                    StringList localBound_ = new StringList();
+                    for (String b: t.getConstraints()) {
+                        localBound_.add(b);
+                    }
+                    boundsAll_.add(localBound_);
+                }
+            }
         }
-        for (TypeVariable<?> t: cl_.getTypeParameters()) {
+        if (boundsAll_ == null) {
+            boundsAll_ = new EqList<StringList>();
+            Class<?> cl_ = ConstClasses.classForNameNotInit(className_);
+            for (TypeVariable<?> t: cl_.getTypeParameters()) {
+                StringList localBound_ = new StringList();
+                for (Type b: t.getBounds()) {
+                    String typeString_ = getName(b);
+                    String ext_;
+                    if (!typeString_.contains(SEP_CLASS)) {
+                        ext_ = PREFIX_VAR_TYPE + typeString_;
+                    } else {
+                        ext_ = insertPrefixVarType(typeString_);
+                    }
+                    localBound_.add(ext_);
+                }
+                boundsAll_.add(localBound_);
+            }
+        }
+        for (StringList t: boundsAll_) {
             i_++;
             String arg_ = types_.get(i_);
             DimComp dimCompArg_ = PrimitiveTypeUtil.getQuickComponentBaseType(arg_);
@@ -260,15 +293,10 @@ public final class Templates {
             } else {
                 bounds_.add(arg_);
             }
-            for (Type e: t.getBounds()) {
+            for (String e: t) {
                 Mapping m_ = new Mapping();
-                String typeBound_ = getName(e);
-                String ext_;
-                if (!typeBound_.contains(SEP_CLASS)) {
-                    ext_ = PREFIX_VAR_TYPE + typeBound_;
-                } else {
-                    ext_ = insertPrefixVarType(typeBound_);
-                }
+                String typeBound_ = e;
+                String ext_ = typeBound_;
                 String param_ = format(_className, ext_, _classes);
                 m_.setParam(param_);
                 boolean ok_ = false;
@@ -922,15 +950,12 @@ public final class Templates {
                     StringList allTypes_ = StringList.getAllTypes(c);
                     String baseClass_ = allTypes_.first();
                     baseClass_ = PrimitiveTypeUtil.getArrayClass(baseClass_);
-                    Class<?> cl_ = ConstClasses.classForNameNotInit(baseClass_);
-                    if (cl_.getTypeParameters().length != allTypes_.size() - 1) {
+                    if (!PrimitiveTypeUtil.correctNbParameters(c, _classes)) {
                         return null;
                     }
-                    Class<?> superCl_ = cl_.getSuperclass();
-                    if (superCl_ != null) {
-                        String superClass_ = superCl_.getName();
-                        String geneSuperClass_ = getName(cl_.getGenericSuperclass());
-                        geneSuperClass_ = insertPrefixVarType(geneSuperClass_);
+                    String superClass_ = getSuperClassName(baseClass_, _classes);
+                    if (superClass_ != null) {
+                        String geneSuperClass_ = getGenericSuperClassName(c, _classes);
                         geneSuperClass_ = format(c, geneSuperClass_, _classes);
                         if (StringList.quickEq(superClass_, classParam_)) {
                             generic_ = PrimitiveTypeUtil.getPrettyArrayType(geneSuperClass_, dim_);
@@ -942,12 +967,11 @@ public final class Templates {
                         }
                     }
                     int i_ = CustList.INDEX_NOT_FOUND_ELT;
-                    for (Class<?> s: cl_.getInterfaces()) {
+                    for (String s: getSuperInterfaceNames(baseClass_, _classes)) {
                         i_++;
-                        String geneSuperInterface_ = getName(cl_.getGenericInterfaces()[i_]);
-                        geneSuperInterface_ = insertPrefixVarType(geneSuperInterface_);
+                        String geneSuperInterface_ = getGenericSuperInterfaceName(c, i_, _classes);
                         geneSuperInterface_ = format(c, geneSuperInterface_, _classes);
-                        if (StringList.quickEq(s.getName(), classParam_)) {
+                        if (StringList.quickEq(s, classParam_)) {
                             generic_ = PrimitiveTypeUtil.getPrettyArrayType(geneSuperInterface_, dim_);
                             break;
                         }
@@ -1017,6 +1041,70 @@ public final class Templates {
             return str_.substring(0, str_.indexOf(TEMPLATE_BEGIN));
         }
         return str_;
+    }
+
+    private static String getSuperClassName(String _className, Classes _classes) {
+        if (_classes != null) {
+            RootBlock r_ = _classes.getClassBody(_className);
+            if (r_ instanceof UniqueRootedBlock) {
+                return ((UniqueRootedBlock)r_).getSuperClass();
+            }
+            if (r_ instanceof InterfaceBlock) {
+                return null;
+            }
+        }
+        Class<?> cl_ = ConstClasses.classForNameNotInit(_className).getSuperclass();
+        if (cl_ == null) {
+            return null;
+        }
+        return cl_.getName();
+    }
+
+    private static String getGenericSuperClassName(String _genericClassName, Classes _classes) {
+        StringList allTypes_ = StringList.getAllTypes(_genericClassName);
+        String baseClass_ = allTypes_.first();
+        if (_classes != null) {
+            RootBlock r_ = _classes.getClassBody(baseClass_);
+            if (r_ instanceof UniqueRootedBlock) {
+                return ((UniqueRootedBlock)r_).getGenericSuperClass();
+            }
+        }
+        String genericSuper_ = getName(ConstClasses.classForNameNotInit(baseClass_).getGenericSuperclass());
+        return insertPrefixVarType(genericSuper_);
+    }
+
+    private static StringList getSuperInterfaceNames(String _className, Classes _classes) {
+        if (_classes != null) {
+            RootBlock r_ = _classes.getClassBody(_className);
+            if (r_ instanceof UniqueRootedBlock) {
+                return ((UniqueRootedBlock)r_).getDirectInterfaces();
+            }
+            if (r_ instanceof InterfaceBlock) {
+                return ((InterfaceBlock)r_).getDirectSuperClasses();
+            }
+        }
+        Class<?> cl_ = ConstClasses.classForNameNotInit(_className);
+        StringList interfaces_ = new StringList();
+        for (Class<?> i: cl_.getInterfaces()) {
+            interfaces_.add(i.getName());
+        }
+        return interfaces_;
+    }
+
+    private static String getGenericSuperInterfaceName(String _genericClassName, int _index, Classes _classes) {
+        StringList allTypes_ = StringList.getAllTypes(_genericClassName);
+        String baseClass_ = allTypes_.first();
+        if (_classes != null) {
+            RootBlock r_ = _classes.getClassBody(baseClass_);
+            if (r_ instanceof UniqueRootedBlock) {
+                return ((UniqueRootedBlock)r_).getDirectGenericInterfaces().get(_index);
+            }
+            if (r_ instanceof InterfaceBlock) {
+                return ((InterfaceBlock)r_).getDirectGenericSuperClasses().get(_index);
+            }
+        }
+        String genericSuper_ = getName(ConstClasses.classForNameNotInit(baseClass_).getGenericInterfaces()[_index]);
+        return insertPrefixVarType(genericSuper_);
     }
 
     private static String getName(Type _t) {

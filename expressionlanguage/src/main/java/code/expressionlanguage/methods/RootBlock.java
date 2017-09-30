@@ -45,7 +45,7 @@ public abstract class RootBlock extends BracedBlock implements AccessibleBlock {
 
     private final String templateDef;
 
-    private ObjectMap<ClassMethodId, StringList> allOverridingMethods;
+    private ObjectMap<MethodId, StringList> allOverridingMethods;
 
     private CustList<TypeVar> paramTypes = new CustList<TypeVar>();
 
@@ -54,7 +54,7 @@ public abstract class RootBlock extends BracedBlock implements AccessibleBlock {
     RootBlock(Element _el, ContextEl _importingPage, int _indexChild,
             BracedBlock _m) {
         super(_el, _importingPage, _indexChild, _m);
-        allOverridingMethods = new ObjectMap<ClassMethodId, StringList>();
+        allOverridingMethods = new ObjectMap<MethodId, StringList>();
         name = _el.getAttribute(ATTRIBUTE_NAME);
         packageName = _el.getAttribute(ATTRIBUTE_PACKAGE);
         access = AccessEnum.valueOf(_el.getAttribute(ATTRIBUTE_ACCESS));
@@ -124,7 +124,7 @@ public abstract class RootBlock extends BracedBlock implements AccessibleBlock {
         return access;
     }
 
-    public ObjectMap<ClassMethodId, StringList> getAllOverridingMethods() {
+    public ObjectMap<MethodId, StringList> getAllOverridingMethods() {
         return allOverridingMethods;
     }
 
