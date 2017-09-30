@@ -124,7 +124,7 @@ public final class EnumBlock extends RootBlock implements UniqueRootedBlock {
                 }
                 mDer_.getAllOverridenClasses().addAllElts(mDer_.getOverridenClasses());
                 for (String s: mDer_.getOverridenClasses()) {
-                    MethodBlock mBase_ = _context.getClasses().getMethodBody(s, mDer_.getConstraints(_context.getClasses()));
+                    MethodBlock mBase_ = _context.getClasses().getMethodBodiesByFormattedId(s, mDer_.getName(), mDer_.getParametersTypes(), mDer_.isVarargs()).first();
                     if (mBase_.isStaticMethod()) {
                         continue;
                     }
