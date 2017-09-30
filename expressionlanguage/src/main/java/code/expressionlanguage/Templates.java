@@ -237,14 +237,58 @@ public final class Templates {
         }
         return true;
     }
+    public static boolean isSimpleCorrectTemplateAll(String _className, StringMap<StringList> _inherit, Classes _classes) {
+        if (!isSimpleCorrectTemplate(_className, _inherit, _classes)) {
+            return false;
+        }
+        StringList current_ = new StringList(_className);
+        while (true) {
+            StringList next_ = new StringList();
+            for (String c: current_) {
+                StringList types_ = StringList.getAllTypes(c);
+                String base_ = PrimitiveTypeUtil.getQuickComponentBaseType(types_.first()).getComponent();
+                if (_classes != null) {
+                    if (base_.startsWith(PREFIX_VAR_TYPE)) {
+                        continue;
+                    }
+                    if (base_.startsWith(PrimitiveTypeUtil.PRIM)) {
+                        continue;
+                    }
+                    if (_classes.getClassBody(base_) == null) {
+                        try {
+                            ConstClasses.classForNameNotInit(base_);
+                        } catch (Exception _0) {
+                            return false;
+                        }
+                    }
+                }
+                for (String n: types_.mid(1)) {
+                    if (!isSimpleCorrectTemplate(n, _inherit, _classes)) {
+                        return false;
+                    }
+                    next_.add(n);
+                }
+            }
+            if (next_.isEmpty()) {
+                return true;
+            }
+            current_ = next_;
+        }
+    }
     public static boolean isSimpleCorrectTemplate(String _className, StringMap<StringList> _inherit, Classes _classes) {
         StringList types_ = StringList.getAllTypes(_className);
+        String className_ = types_.first();
+        className_ = PrimitiveTypeUtil.getQuickComponentBaseType(className_).getComponent();
+        if (className_.startsWith(PrimitiveTypeUtil.PRIM)) {
+            return ConstClasses.getPrimitiveClass(className_.substring(1)) != null;
+        }
+        if (className_.startsWith(PREFIX_VAR_TYPE)) {
+            return _inherit.contains(className_.substring(1));
+        }
         if (!PrimitiveTypeUtil.correctNbParameters(_className, _classes)) {
             return false;
         }
         int i_ = CustList.FIRST_INDEX;
-        String className_ = types_.first();
-        className_ = PrimitiveTypeUtil.getQuickComponentBaseType(className_).getComponent();
         EqList<StringList> boundsAll_ = null;
         if (_classes != null) {
             RootBlock r_ = _classes.getClassBody(className_);

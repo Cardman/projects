@@ -62,7 +62,14 @@ public final class ClassBlock extends RootBlock implements UniqueRootedBlock {
 
     @Override
     public void setupBasicOverrides(ContextEl _context) {
-        StringList all_ = getAllSuperClasses();
+        StringList all_ = getAllGenericSuperTypes(_context.getClasses());
+        StringList classNames_ = new StringList();
+        for (String s: all_) {
+            String base_ = StringList.getAllTypes(s).first();
+            if (_context.getClasses().getClassBody(base_) instanceof ClassBlock) {
+                classNames_.add(s);
+            }
+        }
         String fullName_ = getFullName();
         StringList direct_ = getDirectSuperClasses();
         for (String b: direct_) {
@@ -92,19 +99,20 @@ public final class ClassBlock extends RootBlock implements UniqueRootedBlock {
                 if (mCl_.isStaticMethod()) {
                     continue;
                 }
-                FctConstraints mDer_ = mCl_.getConstraints(_context.getClasses());
-                for (String s: all_) {
+                for (String s: classNames_) {
                     if (StringList.quickEq(s, Object.class.getName())) {
                         continue;
                     }
-                    MethodBlock m_ = _context.getClasses().getMethodBody(s, mDer_);
-                    if (m_ == null) {
+                    CustList<MethodBlock> methods_ ;
+                    methods_ = _context.getClasses().getMethodBodiesByFormattedId(s, mCl_.getName(), mCl_.getParametersTypes(), mCl_.isVarargs());
+                    if (methods_.isEmpty()) {
                         continue;
                     }
+                    MethodBlock m_ = methods_.first();
                     if (m_.isStaticMethod()) {
                         continue;
                     }
-                    if (!_context.getClasses().canAccessMethod(getFullName(), s, mDer_)) {
+                    if (!_context.getClasses().canAccess(getFullName(), m_)) {
                         continue;
                     }
                     if (m_.isFinalMethod()) {
@@ -135,6 +143,7 @@ public final class ClassBlock extends RootBlock implements UniqueRootedBlock {
                     }
                     mDer_.getAllOverridenClasses().addAllElts(mBase_.getAllOverridenClasses());
                 }
+                getAllOverridingMethods().put(mDer_.getId(), mDer_.getAllOverridenClasses());
             }
         }
     }

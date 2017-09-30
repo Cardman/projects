@@ -31,8 +31,6 @@ import code.util.EqList;
 import code.util.ObjectMap;
 import code.util.StringList;
 import code.util.StringMap;
-import code.util.consts.ConstClasses;
-import code.util.exceptions.RuntimeClassNotFoundException;
 import code.xml.RowCol;
 
 public abstract class RootBlock extends BracedBlock implements AccessibleBlock {
@@ -163,46 +161,57 @@ public abstract class RootBlock extends BracedBlock implements AccessibleBlock {
         String className_ = getFullName();
         CustList<Block> bl_ = Classes.getDirectChildren(this);
         for (Block b: bl_) {
+            boolean staticContext_;
+            if (b instanceof MethodBlock) {
+                staticContext_ = ((MethodBlock)b).isStaticMethod();
+            } else if (b instanceof InfoBlock) {
+                staticContext_ = ((InfoBlock)b).isStaticField();
+            } else if (b instanceof ConstructorBlock) {
+                staticContext_ = false;
+            } else {
+                staticContext_ = true;
+            }
+            StringMap<StringList> vars_ = new StringMap<StringList>();
+            if (!staticContext_) {
+                for (TypeVar t: getParamTypes()) {
+                    vars_.put(t.getName(), t.getConstraints());
+                }
+            }
             for (EntryCust<String, String> n: b.getClassNames().entryList()) {
                 String classNameLoc_ = n.getValue();
-                try {
-                    String base_ = PrimitiveTypeUtil.getQuickComponentBaseType(classNameLoc_).getComponent();
-                    if (_context.getClasses().getClassBody(base_) != null) {
-                        continue;
-                    }
-                    if (!StringList.quickEq(classNameLoc_, OperationNode.VOID_RETURN)) {
-                        if (classNameLoc_.startsWith(PrimitiveTypeUtil.PRIM)) {
-                            Class<?> cl_ = ConstClasses.getPrimitiveClass(classNameLoc_.substring(1));
-                            if (cl_ == null) {
-                                throw new RuntimeClassNotFoundException(classNameLoc_);
-                            }
-                        } else {
-                            classNameLoc_ = PrimitiveTypeUtil.getArrayClass(classNameLoc_);
-                            ConstClasses.classForNameNotInit(classNameLoc_);
-                        }
-                    } else {
-                        if ((b instanceof MethodBlock)) {
-                            if (!StringList.quickEq(n.getKey(), ATTRIBUTE_CLASS)) {
-                                UnknownClassName un_ = new UnknownClassName();
-                                un_.setClassName(classNameLoc_);
-                                un_.setFileName(className_);
-                                un_.setRc(b.getRowCol(0, _context.getTabWidth(), n.getKey()));
-                                _context.getClasses().getErrorsDet().add(un_);
-                            }
-                        } else {
+                if (StringList.quickEq(classNameLoc_, OperationNode.VOID_RETURN)) {
+                    if ((b instanceof MethodBlock)) {
+                        if (!StringList.quickEq(n.getKey(), ATTRIBUTE_CLASS)) {
                             UnknownClassName un_ = new UnknownClassName();
                             un_.setClassName(classNameLoc_);
                             un_.setFileName(className_);
                             un_.setRc(b.getRowCol(0, _context.getTabWidth(), n.getKey()));
                             _context.getClasses().getErrorsDet().add(un_);
                         }
+                    } else {
+                        UnknownClassName un_ = new UnknownClassName();
+                        un_.setClassName(classNameLoc_);
+                        un_.setFileName(className_);
+                        un_.setRc(b.getRowCol(0, _context.getTabWidth(), n.getKey()));
+                        _context.getClasses().getErrorsDet().add(un_);
                     }
-                } catch (RuntimeClassNotFoundException _0) {
+                    continue;
+                }
+                if (!Templates.isCorrectWrite(classNameLoc_)) {
                     UnknownClassName un_ = new UnknownClassName();
                     un_.setClassName(classNameLoc_);
                     un_.setFileName(className_);
                     un_.setRc(b.getRowCol(0, _context.getTabWidth(), n.getKey()));
                     _context.getClasses().getErrorsDet().add(un_);
+                    continue;
+                }
+                if (!Templates.isSimpleCorrectTemplateAll(classNameLoc_, vars_, _context.getClasses())) {
+                    UnknownClassName un_ = new UnknownClassName();
+                    un_.setClassName(classNameLoc_);
+                    un_.setFileName(className_);
+                    un_.setRc(b.getRowCol(0, _context.getTabWidth(), n.getKey()));
+                    _context.getClasses().getErrorsDet().add(un_);
+                    continue;
                 }
             }
             if (b instanceof Returnable) {

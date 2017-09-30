@@ -100,15 +100,16 @@ public final class EnumBlock extends RootBlock implements UniqueRootedBlock {
                     if (StringList.quickEq(s, Object.class.getName())) {
                         continue;
                     }
-                    FctConstraints mDer_ = ((MethodBlock) b).getConstraints(_context.getClasses());
-                    MethodBlock m_ = _context.getClasses().getMethodBody(s, mDer_);
-                    if (m_ == null) {
+                    CustList<MethodBlock> methods_ ;
+                    methods_ = _context.getClasses().getMethodBodiesByFormattedId(s, mCl_.getName(), mCl_.getParametersTypes(), mCl_.isVarargs());
+                    if (methods_.isEmpty()) {
                         continue;
                     }
+                    MethodBlock m_ = methods_.first();
                     if (m_.isStaticMethod()) {
                         continue;
                     }
-                    if (_context.getClasses().canAccessMethod(getFullName(), s, mDer_)) {
+                    if (_context.getClasses().canAccess(getFullName(), m_)) {
                         ((MethodBlock) b).getOverridenClasses().add(s);
                         break;
                     }
@@ -129,6 +130,7 @@ public final class EnumBlock extends RootBlock implements UniqueRootedBlock {
                     }
                     mDer_.getAllOverridenClasses().addAllElts(mBase_.getAllOverridenClasses());
                 }
+                getAllOverridingMethods().put(mDer_.getId(), mDer_.getAllOverridenClasses());
             }
         }
     }

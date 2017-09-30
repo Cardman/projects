@@ -250,14 +250,14 @@ public final class PrimitiveTypeUtil {
         StringList params_ = StringList.getAllTypes(_genericClass);
         String base_ = params_.first();
         int nbParams_ = params_.size() - 1;
+        String baseArr_ = getQuickComponentBaseType(base_).getComponent();
         if (_classes != null) {
-            String baseArr_ = getQuickComponentBaseType(base_).getComponent();
             RootBlock r_ = _classes.getClassBody(baseArr_);
             if (r_ != null) {
                 return r_.getParamTypes().size() == nbParams_;
             }
         }
-        Class<?> cl_ = ConstClasses.classForNameNotInit(base_);
+        Class<?> cl_ = ConstClasses.classForNameNotInit(baseArr_);
         return cl_.getTypeParameters().length == nbParams_;
     }
 
