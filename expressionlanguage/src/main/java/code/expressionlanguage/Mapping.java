@@ -1,13 +1,33 @@
 package code.expressionlanguage;
 
+import code.expressionlanguage.methods.util.ClassEdge;
+import code.util.EntryCust;
 import code.util.StringList;
 import code.util.StringMap;
+import code.util.graphs.Graph;
 
 public class Mapping {
 
     private String arg;
     private String param;
     private StringMap<StringList> mapping = new StringMap<StringList>();
+
+    public boolean isCyclic() {
+        Graph<ClassEdge> graph_ = new Graph<ClassEdge>();
+        for (EntryCust<String, StringList> e: mapping.entryList()) {
+            for (String s: e.getValue()) {
+                if (StringList.quickEq(s, Object.class.getName())) {
+                    graph_.addSegment(new ClassEdge(e.getKey()), new ClassEdge(s));
+                    continue;
+                }
+                if (!s.startsWith(Templates.PREFIX_VAR_TYPE)) {
+                    continue;
+                }
+                graph_.addSegment(new ClassEdge(e.getKey()), new ClassEdge(s.substring(1)));
+            }
+        }
+        return graph_.hasCycle();
+    }
 
     public StringList getAllUpperBounds(String _className) {
         StringList visitedBounds_ = new StringList();

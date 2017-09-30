@@ -618,12 +618,22 @@ public final class Classes {
             for (TypeVar t: dBl_.getParamTypes()) {
                 mapping_.getMapping().put(t.getName(), t.getConstraints());
             }
+            if (mapping_.isCyclic()) {
+                BadInheritedClass b_;
+                b_ = new BadInheritedClass();
+                //TODO better message
+                b_.setClassName(c);
+                b_.setFileName(c);
+                b_.setRc(new RowCol());
+                errorsDet.add(b_);
+                continue;
+            }
             for (TypeVar t: dBl_.getParamTypes()) {
                 boolean existNative_ = false;
                 boolean existCustom_ = false;
                 for (String b: mapping_.getAllUpperBounds(t.getName())) {
                     StringList baseParams_ = StringList.getAllTypes(b);
-                    String base_ = baseParams_.first();
+                    String base_ = PrimitiveTypeUtil.getQuickComponentBaseType(baseParams_.first()).getComponent();
                     if (StringList.quickEq(base_, Object.class.getName())) {
                         continue;
                     }

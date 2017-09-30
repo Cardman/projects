@@ -208,6 +208,7 @@ public final class PrimitiveTypeUtil {
     public static String getPrettyArrayType(String _className) {
         return ARR_CLASS+_className;
     }
+    /**Custom classes*/
     public static DimComp getQuickComponentBaseType(String _className) {
         int d_ = 0;
         String className_ = _className;
@@ -226,6 +227,7 @@ public final class PrimitiveTypeUtil {
         }
     }
 
+    /**Native classes*/
     public static DimComp getComponentBaseType(String _className) {
         int d_ = 0;
         String className_ = _className;
@@ -249,7 +251,8 @@ public final class PrimitiveTypeUtil {
         String base_ = params_.first();
         int nbParams_ = params_.size() - 1;
         if (_classes != null) {
-            RootBlock r_ = _classes.getClassBody(base_);
+            String baseArr_ = getQuickComponentBaseType(base_).getComponent();
+            RootBlock r_ = _classes.getClassBody(baseArr_);
             if (r_ != null) {
                 return r_.getParamTypes().size() == nbParams_;
             }
@@ -423,11 +426,16 @@ public final class PrimitiveTypeUtil {
             return AssignableFrom.YES;
         }
         if (_classes != null) {
+            DimComp dPar_ = PrimitiveTypeUtil.getQuickComponentBaseType(_param);
+            String p_ = dPar_.getComponent();
+            RootBlock clParBl_ = _classes.getClassBody(p_);
             DimComp dArg_ = PrimitiveTypeUtil.getQuickComponentBaseType(_arg);
             String a_ = dArg_.getComponent();
             RootBlock clArgBl_ = _classes.getClassBody(a_);
             if (clArgBl_ != null) {
-                DimComp dPar_ = PrimitiveTypeUtil.getQuickComponentBaseType(_param);
+                if (clParBl_ == null && !StringList.quickEq(p_, Object.class.getName())) {
+                    return AssignableFrom.NO;
+                }
                 if (dArg_.getDim() > 0 && dPar_.getDim() > 0) {
                     if (isArrayAssignable(_arg, _param, _classes)) {
                         return AssignableFrom.YES;
@@ -446,9 +454,6 @@ public final class PrimitiveTypeUtil {
                 }
                 return AssignableFrom.NO;
             }
-            DimComp dPar_ = PrimitiveTypeUtil.getQuickComponentBaseType(_param);
-            String p_ = dPar_.getComponent();
-            RootBlock clParBl_ = _classes.getClassBody(p_);
             if (clParBl_ != null) {
                 return AssignableFrom.NO;
             }

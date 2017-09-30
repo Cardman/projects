@@ -30,6 +30,7 @@ import code.util.CustList;
 import code.util.EnumList;
 import code.util.EnumMap;
 import code.util.EqList;
+import code.util.IdList;
 import code.util.StringList;
 import code.util.StringMap;
 import code.util.ints.Cmp;
@@ -60,6 +61,7 @@ public class TemplatesTest {
     private static final String ARR_VAR_T = "[#T";
     private static final String STRING_LIST = StringList.class.getName();
     private static final String CUST_LIST = CustList.class.getName();
+    private static final String ID_LIST = IdList.class.getName();
     private static final String ENUM_LIST = EnumList.class.getName();
     private static final String ENUM_MAP = EnumMap.class.getName();
     private static final String CMP = Cmp.class.getName();
@@ -1599,7 +1601,7 @@ public class TemplatesTest {
 
     @Test
     public void isSimpleCorrect52Test() {
-    	StringMap<String> files_ = new StringMap<String>();
+        StringMap<String> files_ = new StringMap<String>();
         String xml_;
         xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg'/>\n";
         files_.put("pkg/Ex."+Classes.EXT, xml_);
@@ -1613,7 +1615,7 @@ public class TemplatesTest {
 
     @Test
     public void isSimpleCorrect54Test() {
-    	StringMap<String> files_ = new StringMap<String>();
+        StringMap<String> files_ = new StringMap<String>();
         String xml_;
         xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg'/>\n";
         files_.put("pkg/Ex."+Classes.EXT, xml_);
@@ -1627,7 +1629,7 @@ public class TemplatesTest {
 
     @Test
     public void isSimpleCorrect55Test() {
-    	StringMap<String> files_ = new StringMap<String>();
+        StringMap<String> files_ = new StringMap<String>();
         String xml_;
         xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg'/>\n";
         files_.put("pkg/Ex."+Classes.EXT, xml_);
@@ -1643,7 +1645,7 @@ public class TemplatesTest {
 
     @Test
     public void isSimpleCorrect56Test() {
-    	StringMap<String> files_ = new StringMap<String>();
+        StringMap<String> files_ = new StringMap<String>();
         String xml_;
         xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg'/>\n";
         files_.put("pkg/Ex."+Classes.EXT, xml_);
@@ -1659,7 +1661,7 @@ public class TemplatesTest {
 
     @Test
     public void isSimpleCorrect57Test() {
-    	StringMap<String> files_ = new StringMap<String>();
+        StringMap<String> files_ = new StringMap<String>();
         String xml_;
         xml_ = "<interface access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg'/>\n";
         files_.put("pkg/Ex."+Classes.EXT, xml_);
@@ -1675,7 +1677,7 @@ public class TemplatesTest {
 
     @Test
     public void isSimpleCorrect58Test() {
-    	StringMap<String> files_ = new StringMap<String>();
+        StringMap<String> files_ = new StringMap<String>();
         String xml_;
         xml_ = "<interface access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg'/>\n";
         files_.put("pkg/Ex."+Classes.EXT, xml_);
@@ -1691,7 +1693,7 @@ public class TemplatesTest {
 
     @Test
     public void isSimpleCorrect59Test() {
-    	StringMap<String> files_ = new StringMap<String>();
+        StringMap<String> files_ = new StringMap<String>();
         String xml_;
         xml_ = "<interface access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg'/>\n";
         files_.put("pkg/Ex."+Classes.EXT, xml_);
@@ -1707,7 +1709,7 @@ public class TemplatesTest {
 
     @Test
     public void isSimpleCorrect60Test() {
-    	StringMap<String> files_ = new StringMap<String>();
+        StringMap<String> files_ = new StringMap<String>();
         String xml_;
         xml_ = "<interface access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg'/>\n";
         files_.put("pkg/Ex."+Classes.EXT, xml_);
@@ -1723,7 +1725,7 @@ public class TemplatesTest {
 
     @Test
     public void isSimpleCorrect61Test() {
-    	StringMap<String> files_ = new StringMap<String>();
+        StringMap<String> files_ = new StringMap<String>();
         String xml_;
         xml_ = "<interface access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg'/>\n";
         files_.put("pkg/Ex."+Classes.EXT, xml_);
@@ -1739,7 +1741,7 @@ public class TemplatesTest {
 
     @Test
     public void isSimpleCorrect62Test() {
-    	StringMap<String> files_ = new StringMap<String>();
+        StringMap<String> files_ = new StringMap<String>();
         String xml_;
         xml_ = "<interface access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg'/>\n";
         files_.put("pkg/Ex."+Classes.EXT, xml_);
@@ -1755,11 +1757,228 @@ public class TemplatesTest {
 
     @Test
     public void isSimpleCorrect63Test() {
-    	
+        StringMap<String> files_ = new StringMap<String>();
+        String xml_;
+        xml_ = "<interface access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' template='&lt;#F&gt;'/>\n";
+        files_.put("pkg/Ex."+Classes.EXT, xml_);
+        xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExTwo' package='pkg' class0='pkg.Ex&lt;#E&gt;' template='&lt;#E&gt;'/>\n";
+        files_.put("pkg/ExTwo."+Classes.EXT, xml_);
+        ContextEl cont_ = unfullValidateOverridingMethods(files_);
+        Classes classes_ = cont_.getClasses();
+        Mapping m_ = new Mapping();
+        m_.getMapping().put("T", new StringList("java.lang.Object"));
+        m_.setArg("pkg.ExTwo<#T>");
+        m_.setParam("pkg.Ex<#T>");
+        assertTrue(Templates.isSimpleCorrect(m_, classes_));
     }
+
+    @Test
+    public void isSimpleCorrect64Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        String xml_;
+        xml_ = "<interface access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' template='&lt;#F&gt;'/>\n";
+        files_.put("pkg/Ex."+Classes.EXT, xml_);
+        xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExTwo' package='pkg' class0='pkg.Ex&lt;#E&gt;' template='&lt;#E&gt;'/>\n";
+        files_.put("pkg/ExTwo."+Classes.EXT, xml_);
+        ContextEl cont_ = unfullValidateOverridingMethods(files_);
+        Classes classes_ = cont_.getClasses();
+        Mapping m_ = new Mapping();
+        m_.getMapping().put("T", new StringList("java.lang.Object"));
+        m_.setArg("pkg.Ex<#T>");
+        m_.setParam("pkg.ExTwo<#T>");
+        assertTrue(!Templates.isSimpleCorrect(m_, classes_));
+    }
+
+    @Test
+    public void isSimpleCorrect65Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        String xml_;
+        xml_ = "<interface access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' template='&lt;#F&gt;'/>\n";
+        files_.put("pkg/Ex."+Classes.EXT, xml_);
+        xml_ = "<interface access='"+PUBLIC_ACCESS+"' name='ExTwo' package='pkg' class0='pkg.Ex&lt;#E&gt;' template='&lt;#E&gt;'/>\n";
+        files_.put("pkg/ExTwo."+Classes.EXT, xml_);
+        ContextEl cont_ = unfullValidateOverridingMethods(files_);
+        Classes classes_ = cont_.getClasses();
+        Mapping m_ = new Mapping();
+        m_.getMapping().put("T", new StringList("java.lang.Object"));
+        m_.setArg("pkg.ExTwo<#T>");
+        m_.setParam("pkg.Ex<#T>");
+        assertTrue(Templates.isSimpleCorrect(m_, classes_));
+    }
+
+    @Test
+    public void isSimpleCorrect66Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        String xml_;
+        xml_ = "<interface access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' template='&lt;#F&gt;'/>\n";
+        files_.put("pkg/Ex."+Classes.EXT, xml_);
+        xml_ = "<interface access='"+PUBLIC_ACCESS+"' name='ExTwo' package='pkg' class0='pkg.Ex&lt;#E&gt;' template='&lt;#E&gt;'/>\n";
+        files_.put("pkg/ExTwo."+Classes.EXT, xml_);
+        ContextEl cont_ = unfullValidateOverridingMethods(files_);
+        Classes classes_ = cont_.getClasses();
+        Mapping m_ = new Mapping();
+        m_.getMapping().put("T", new StringList("java.lang.Object"));
+        m_.setArg("pkg.Ex<#T>");
+        m_.setParam("pkg.ExTwo<#T>");
+        assertTrue(!Templates.isSimpleCorrect(m_, classes_));
+    }
+
+    @Test
+    public void isSimpleCorrect67Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        String xml_;
+        xml_ = "<interface access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' template='&lt;#F&gt;'/>\n";
+        files_.put("pkg/Ex."+Classes.EXT, xml_);
+        xml_ = "<interface access='"+PUBLIC_ACCESS+"' name='ExTwo' package='pkg' class0='pkg.Ex&lt;#E&gt;' template='&lt;#E&gt;'/>\n";
+        files_.put("pkg/ExTwo."+Classes.EXT, xml_);
+        ContextEl cont_ = unfullValidateOverridingMethods(files_);
+        Classes classes_ = cont_.getClasses();
+        Mapping m_ = new Mapping();
+        m_.getMapping().put("S", new StringList("java.lang.Object"));
+        m_.setArg(ID_LIST+"<#S>");
+        m_.setParam(CUST_LIST+"<#S>");
+        assertTrue(Templates.isSimpleCorrect(m_, classes_));
+    }
+
+    @Test
+    public void isSimpleCorrect68Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        String xml_;
+        xml_ = "<interface access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' template='&lt;#F&gt;'/>\n";
+        files_.put("pkg/Ex."+Classes.EXT, xml_);
+        xml_ = "<interface access='"+PUBLIC_ACCESS+"' name='ExTwo' package='pkg' class0='pkg.Ex&lt;#E&gt;' template='&lt;#E&gt;'/>\n";
+        files_.put("pkg/ExTwo."+Classes.EXT, xml_);
+        ContextEl cont_ = unfullValidateOverridingMethods(files_);
+        Classes classes_ = cont_.getClasses();
+        Mapping m_ = new Mapping();
+        m_.getMapping().put("S", new StringList("java.lang.Object"));
+        m_.setArg(CUST_LIST+"<#S>");
+        m_.setParam(ID_LIST+"<#S>");
+        assertTrue(!Templates.isSimpleCorrect(m_, classes_));
+    }
+
+    @Test
+    public void isSimpleCorrect69Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        String xml_;
+        xml_ = "<interface access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' template='&lt;#F:[java.lang.Object&gt;'/>\n";
+        files_.put("pkg/Ex."+Classes.EXT, xml_);
+        xml_ = "<interface access='"+PUBLIC_ACCESS+"' name='ExTwo' package='pkg' class0='pkg.Ex&lt;#E&gt;' template='&lt;#E:[java.lang.Object&gt;'/>\n";
+        files_.put("pkg/ExTwo."+Classes.EXT, xml_);
+        ContextEl cont_ = unfullValidateOverridingMethods(files_);
+        Classes classes_ = cont_.getClasses();
+        Mapping m_ = new Mapping();
+        m_.getMapping().put("T", new StringList("[java.lang.Object"));
+        m_.setArg("pkg.ExTwo<#T>");
+        m_.setParam("pkg.Ex<#T>");
+        assertTrue(Templates.isSimpleCorrect(m_, classes_));
+    }
+
+    @Test
+    public void isSimpleCorrect70Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        String xml_;
+        xml_ = "<interface access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' template='&lt;#F:[java.lang.Object&gt;'/>\n";
+        files_.put("pkg/Ex."+Classes.EXT, xml_);
+        xml_ = "<interface access='"+PUBLIC_ACCESS+"' name='ExTwo' package='pkg' class0='pkg.Ex&lt;#E&gt;' template='&lt;#E:[java.lang.Object&gt;'/>\n";
+        files_.put("pkg/ExTwo."+Classes.EXT, xml_);
+        ContextEl cont_ = unfullValidateOverridingMethods(files_);
+        Classes classes_ = cont_.getClasses();
+        Mapping m_ = new Mapping();
+        m_.getMapping().put("T", new StringList("[java.lang.Object"));
+        m_.setArg("pkg.Ex<#T>");
+        m_.setParam("pkg.ExTwo<#T>");
+        assertTrue(!Templates.isSimpleCorrect(m_, classes_));
+    }
+
+    @Test
+    public void isSimpleCorrect72Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        String xml_;
+        xml_ = "<interface access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' template='&lt;#F:[java.lang.Object&gt;'/>\n";
+        files_.put("pkg/Ex."+Classes.EXT, xml_);
+        xml_ = "<interface access='"+PUBLIC_ACCESS+"' name='ExTwo' package='pkg' class0='pkg.Ex&lt;#E&gt;' template='&lt;#E:[java.lang.Object&gt;'/>\n";
+        files_.put("pkg/ExTwo."+Classes.EXT, xml_);
+        ContextEl cont_ = unfullValidateOverridingMethods(files_);
+        Classes classes_ = cont_.getClasses();
+        Mapping m_ = new Mapping();
+        m_.getMapping().put("T", new StringList("[java.lang.Object"));
+        m_.getMapping().put("S", new StringList("[[java.lang.Object"));
+        m_.setArg("pkg.Ex<#S>");
+        m_.setParam("pkg.ExTwo<#T>");
+        assertTrue(!Templates.isSimpleCorrect(m_, classes_));
+    }
+
+    @Test
+    public void isSimpleCorrect73Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        String xml_;
+        xml_ = "<interface access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' template='&lt;#F&gt;'/>\n";
+        files_.put("pkg/Ex."+Classes.EXT, xml_);
+        xml_ = "<interface access='"+PUBLIC_ACCESS+"' name='ExTwo' package='pkg' class0='pkg.Ex&lt;#E&gt;' template='&lt;#E&gt;'/>\n";
+        files_.put("pkg/ExTwo."+Classes.EXT, xml_);
+        ContextEl cont_ = unfullValidateOverridingMethods(files_);
+        Classes classes_ = cont_.getClasses();
+        Mapping m_ = new Mapping();
+        m_.getMapping().put("T", new StringList("[java.lang.Object"));
+        m_.setArg("[[pkg.ExTwo<#T>");
+        m_.setParam("[pkg.Ex<#T>");
+        assertTrue(!Templates.isSimpleCorrect(m_, classes_));
+    }
+
+    @Test
+    public void isSimpleCorrect74Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        String xml_;
+        xml_ = "<interface access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' template='&lt;#F&gt;'/>\n";
+        files_.put("pkg/Ex."+Classes.EXT, xml_);
+        xml_ = "<interface access='"+PUBLIC_ACCESS+"' name='ExTwo' package='pkg' class0='pkg.Ex&lt;#E&gt;' template='&lt;#E&gt;'/>\n";
+        files_.put("pkg/ExTwo."+Classes.EXT, xml_);
+        ContextEl cont_ = unfullValidateOverridingMethods(files_);
+        Classes classes_ = cont_.getClasses();
+        Mapping m_ = new Mapping();
+        m_.getMapping().put("T", new StringList("[java.lang.Object"));
+        m_.setArg("[pkg.Ex<#T>");
+        m_.setParam("[[pkg.ExTwo<#T>");
+        assertTrue(!Templates.isSimpleCorrect(m_, classes_));
+    }
+
+    @Test
+    public void isSimpleCorrect75Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        String xml_;
+        xml_ = "<interface access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' template='&lt;#F&gt;'/>\n";
+        files_.put("pkg/Ex."+Classes.EXT, xml_);
+        xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExTwo' package='pkg' class0='pkg.Ex&lt;java.lang.Object&gt;'/>\n";
+        files_.put("pkg/ExTwo."+Classes.EXT, xml_);
+        ContextEl cont_ = unfullValidateOverridingMethods(files_);
+        Classes classes_ = cont_.getClasses();
+        Mapping m_ = new Mapping();
+        m_.setArg("pkg.ExTwo");
+        m_.setParam("pkg.Ex<java.lang.Object>");
+        assertTrue(Templates.isSimpleCorrect(m_, classes_));
+    }
+
+    @Test
+    public void isSimpleCorrect76Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        String xml_;
+        xml_ = "<interface access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' template='&lt;#F&gt;'/>\n";
+        files_.put("pkg/Ex."+Classes.EXT, xml_);
+        xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExTwo' package='pkg' class0='pkg.Ex&lt;java.lang.Object&gt;'/>\n";
+        files_.put("pkg/ExTwo."+Classes.EXT, xml_);
+        ContextEl cont_ = unfullValidateOverridingMethods(files_);
+        Classes classes_ = cont_.getClasses();
+        Mapping m_ = new Mapping();
+        m_.getMapping().put("T", new StringList("java.lang.Object"));
+        m_.setArg("pkg.Ex<java.lang.Object>");
+        m_.setParam("pkg.ExTwo");
+        assertTrue(!Templates.isSimpleCorrect(m_, classes_));
+    }
+
     @Test
     public void isSimpleCorrect100Test() {
-    	StringMap<String> files_ = new StringMap<String>();
+        StringMap<String> files_ = new StringMap<String>();
         String xml_;
         xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' template='&lt;#E&gt;'/>\n";
         files_.put("pkg/Ex."+Classes.EXT, xml_);
@@ -2026,6 +2245,440 @@ public class TemplatesTest {
         t_.put("I", new StringList("#J"));
         t_.put("H", new StringList("#I"));
         assertTrue(Templates.isSimpleCorrectTemplate(TRANSITIVE_TEMPLATING+"<#J,#I,#H>", t_,null));
+    }
+
+    @Test
+    public void isSimpleCorrectTemplate51Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        String xml_;
+        xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg'/>\n";
+        files_.put("pkg/Ex."+Classes.EXT, xml_);
+        ContextEl cont_ = unfullValidateOverridingMethods(files_);
+        Classes classes_ = cont_.getClasses();
+        StringMap<StringList> t_ = new StringMap<StringList>();
+        assertTrue(Templates.isSimpleCorrectTemplate("pkg.Ex", t_,classes_));
+    }
+
+    @Test
+    public void isSimpleCorrectTemplate52Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        String xml_;
+        xml_ = "<enum access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg'/>\n";
+        files_.put("pkg/Ex."+Classes.EXT, xml_);
+        ContextEl cont_ = unfullValidateOverridingMethods(files_);
+        Classes classes_ = cont_.getClasses();
+        StringMap<StringList> t_ = new StringMap<StringList>();
+        assertTrue(Templates.isSimpleCorrectTemplate("pkg.Ex", t_,classes_));
+    }
+
+    @Test
+    public void isSimpleCorrectTemplate53Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        String xml_;
+        xml_ = "<interface access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg'/>\n";
+        files_.put("pkg/Ex."+Classes.EXT, xml_);
+        ContextEl cont_ = unfullValidateOverridingMethods(files_);
+        Classes classes_ = cont_.getClasses();
+        StringMap<StringList> t_ = new StringMap<StringList>();
+        assertTrue(Templates.isSimpleCorrectTemplate("pkg.Ex", t_,classes_));
+    }
+
+    @Test
+    public void isSimpleCorrectTemplate54Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        String xml_;
+        xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg'/>\n";
+        files_.put("pkg/Ex."+Classes.EXT, xml_);
+        ContextEl cont_ = unfullValidateOverridingMethods(files_);
+        Classes classes_ = cont_.getClasses();
+        StringMap<StringList> t_ = new StringMap<StringList>();
+        assertTrue(Templates.isSimpleCorrectTemplate("[pkg.Ex", t_,classes_));
+    }
+
+    @Test
+    public void isSimpleCorrectTemplate55Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        String xml_;
+        xml_ = "<enum access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg'/>\n";
+        files_.put("pkg/Ex."+Classes.EXT, xml_);
+        ContextEl cont_ = unfullValidateOverridingMethods(files_);
+        Classes classes_ = cont_.getClasses();
+        StringMap<StringList> t_ = new StringMap<StringList>();
+        assertTrue(Templates.isSimpleCorrectTemplate("[pkg.Ex", t_,classes_));
+    }
+
+    @Test
+    public void isSimpleCorrectTemplate56Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        String xml_;
+        xml_ = "<interface access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg'/>\n";
+        files_.put("pkg/Ex."+Classes.EXT, xml_);
+        ContextEl cont_ = unfullValidateOverridingMethods(files_);
+        Classes classes_ = cont_.getClasses();
+        StringMap<StringList> t_ = new StringMap<StringList>();
+        assertTrue(Templates.isSimpleCorrectTemplate("[pkg.Ex", t_,classes_));
+    }
+
+    @Test
+    public void isSimpleCorrectTemplate57Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        String xml_;
+        xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' template='&lt;#T&gt;'/>\n";
+        files_.put("pkg/Ex."+Classes.EXT, xml_);
+        ContextEl cont_ = unfullValidateOverridingMethods(files_);
+        Classes classes_ = cont_.getClasses();
+        StringMap<StringList> t_ = new StringMap<StringList>();
+        assertTrue(Templates.isSimpleCorrectTemplate("pkg.Ex<java.lang.Object>", t_,classes_));
+    }
+
+    @Test
+    public void isSimpleCorrectTemplate58Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        String xml_;
+        xml_ = "<interface access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' template='&lt;#T&gt;'/>\n";
+        files_.put("pkg/Ex."+Classes.EXT, xml_);
+        ContextEl cont_ = unfullValidateOverridingMethods(files_);
+        Classes classes_ = cont_.getClasses();
+        StringMap<StringList> t_ = new StringMap<StringList>();
+        assertTrue(Templates.isSimpleCorrectTemplate("pkg.Ex<java.lang.Object>", t_,classes_));
+    }
+
+    @Test
+    public void isSimpleCorrectTemplate59Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        String xml_;
+        xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' template='&lt;#T&gt;'/>\n";
+        files_.put("pkg/Ex."+Classes.EXT, xml_);
+        ContextEl cont_ = unfullValidateOverridingMethods(files_);
+        Classes classes_ = cont_.getClasses();
+        StringMap<StringList> t_ = new StringMap<StringList>();
+        assertTrue(Templates.isSimpleCorrectTemplate("[pkg.Ex<java.lang.Object>", t_,classes_));
+    }
+
+    @Test
+    public void isSimpleCorrectTemplate60Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        String xml_;
+        xml_ = "<interface access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' template='&lt;#T&gt;'/>\n";
+        files_.put("pkg/Ex."+Classes.EXT, xml_);
+        ContextEl cont_ = unfullValidateOverridingMethods(files_);
+        Classes classes_ = cont_.getClasses();
+        StringMap<StringList> t_ = new StringMap<StringList>();
+        assertTrue(Templates.isSimpleCorrectTemplate("[pkg.Ex<java.lang.Object>", t_,classes_));
+    }
+
+    @Test
+    public void isSimpleCorrectTemplate61Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        String xml_;
+        xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' template='&lt;#T&gt;'/>\n";
+        files_.put("pkg/Ex."+Classes.EXT, xml_);
+        ContextEl cont_ = unfullValidateOverridingMethods(files_);
+        Classes classes_ = cont_.getClasses();
+        StringMap<StringList> t_ = new StringMap<StringList>();
+        t_.put("E", new StringList("java.lang.Object"));
+        assertTrue(Templates.isSimpleCorrectTemplate("[pkg.Ex<#E>", t_,classes_));
+    }
+
+    @Test
+    public void isSimpleCorrectTemplate62Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        String xml_;
+        xml_ = "<interface access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' template='&lt;#T&gt;'/>\n";
+        files_.put("pkg/Ex."+Classes.EXT, xml_);
+        ContextEl cont_ = unfullValidateOverridingMethods(files_);
+        Classes classes_ = cont_.getClasses();
+        StringMap<StringList> t_ = new StringMap<StringList>();
+        t_.put("E", new StringList("java.lang.Object"));
+        assertTrue(Templates.isSimpleCorrectTemplate("[pkg.Ex<#E>", t_,classes_));
+    }
+
+    @Test
+    public void isSimpleCorrectTemplate63Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        String xml_;
+        xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' template='&lt;#T:java.lang.Number&gt;'/>\n";
+        files_.put("pkg/Ex."+Classes.EXT, xml_);
+        ContextEl cont_ = unfullValidateOverridingMethods(files_);
+        Classes classes_ = cont_.getClasses();
+        StringMap<StringList> t_ = new StringMap<StringList>();
+        t_.put("E", new StringList("java.lang.Integer"));
+        assertTrue(Templates.isSimpleCorrectTemplate("[pkg.Ex<#E>", t_,classes_));
+    }
+
+    @Test
+    public void isSimpleCorrectTemplate64Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        String xml_;
+        xml_ = "<interface access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' template='&lt;#T:java.lang.Number&gt;'/>\n";
+        files_.put("pkg/Ex."+Classes.EXT, xml_);
+        ContextEl cont_ = unfullValidateOverridingMethods(files_);
+        Classes classes_ = cont_.getClasses();
+        StringMap<StringList> t_ = new StringMap<StringList>();
+        t_.put("E", new StringList("java.lang.Integer"));
+        assertTrue(Templates.isSimpleCorrectTemplate("[pkg.Ex<#E>", t_,classes_));
+    }
+
+    @Test
+    public void isSimpleCorrectTemplate65Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        String xml_;
+        xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' template='&lt;#T:java.lang.Number&gt;'/>\n";
+        files_.put("pkg/Ex."+Classes.EXT, xml_);
+        ContextEl cont_ = unfullValidateOverridingMethods(files_);
+        Classes classes_ = cont_.getClasses();
+        StringMap<StringList> t_ = new StringMap<StringList>();
+        t_.put("E", new StringList("java.lang.Object"));
+        assertTrue(!Templates.isSimpleCorrectTemplate("[pkg.Ex<#E>", t_,classes_));
+    }
+
+    @Test
+    public void isSimpleCorrectTemplate66Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        String xml_;
+        xml_ = "<interface access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' template='&lt;#T:java.lang.Number&gt;'/>\n";
+        files_.put("pkg/Ex."+Classes.EXT, xml_);
+        ContextEl cont_ = unfullValidateOverridingMethods(files_);
+        Classes classes_ = cont_.getClasses();
+        StringMap<StringList> t_ = new StringMap<StringList>();
+        t_.put("E", new StringList("java.lang.Object"));
+        assertTrue(!Templates.isSimpleCorrectTemplate("[pkg.Ex<#E>", t_,classes_));
+    }
+
+    @Test
+    public void isSimpleCorrectTemplate67Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        String xml_;
+        xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' template='&lt;#T:java.lang.Number&gt;'/>\n";
+        files_.put("pkg/Ex."+Classes.EXT, xml_);
+        ContextEl cont_ = unfullValidateOverridingMethods(files_);
+        Classes classes_ = cont_.getClasses();
+        StringMap<StringList> t_ = new StringMap<StringList>();
+        assertTrue(!Templates.isSimpleCorrectTemplate("[pkg.Ex<java.lang.Object>", t_,classes_));
+    }
+
+    @Test
+    public void isSimpleCorrectTemplate68Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        String xml_;
+        xml_ = "<interface access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' template='&lt;#T:java.lang.Number&gt;'/>\n";
+        files_.put("pkg/Ex."+Classes.EXT, xml_);
+        ContextEl cont_ = unfullValidateOverridingMethods(files_);
+        Classes classes_ = cont_.getClasses();
+        StringMap<StringList> t_ = new StringMap<StringList>();
+        assertTrue(!Templates.isSimpleCorrectTemplate("[pkg.Ex<java.lang.Object>", t_,classes_));
+    }
+
+    @Test
+    public void isSimpleCorrectTemplate69Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        String xml_;
+        xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' template='&lt;#T:[java.lang.Number&gt;'/>\n";
+        files_.put("pkg/Ex."+Classes.EXT, xml_);
+        ContextEl cont_ = unfullValidateOverridingMethods(files_);
+        Classes classes_ = cont_.getClasses();
+        StringMap<StringList> t_ = new StringMap<StringList>();
+        assertTrue(Templates.isSimpleCorrectTemplate("[pkg.Ex<[java.lang.Integer>", t_,classes_));
+    }
+
+    @Test
+    public void isSimpleCorrectTemplate70Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        String xml_;
+        xml_ = "<interface access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' template='&lt;#T:[java.lang.Number&gt;'/>\n";
+        files_.put("pkg/Ex."+Classes.EXT, xml_);
+        ContextEl cont_ = unfullValidateOverridingMethods(files_);
+        Classes classes_ = cont_.getClasses();
+        StringMap<StringList> t_ = new StringMap<StringList>();
+        assertTrue(Templates.isSimpleCorrectTemplate("[pkg.Ex<[java.lang.Integer>", t_,classes_));
+    }
+
+    @Test
+    public void isSimpleCorrectTemplate71Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        String xml_;
+        xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' template='&lt;#T:[java.lang.Number&gt;'/>\n";
+        files_.put("pkg/Ex."+Classes.EXT, xml_);
+        ContextEl cont_ = unfullValidateOverridingMethods(files_);
+        Classes classes_ = cont_.getClasses();
+        StringMap<StringList> t_ = new StringMap<StringList>();
+        assertTrue(!Templates.isSimpleCorrectTemplate("[pkg.Ex<[java.lang.Object>", t_,classes_));
+    }
+
+    @Test
+    public void isSimpleCorrectTemplate72Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        String xml_;
+        xml_ = "<interface access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' template='&lt;#T:[java.lang.Number&gt;'/>\n";
+        files_.put("pkg/Ex."+Classes.EXT, xml_);
+        ContextEl cont_ = unfullValidateOverridingMethods(files_);
+        Classes classes_ = cont_.getClasses();
+        StringMap<StringList> t_ = new StringMap<StringList>();
+        assertTrue(!Templates.isSimpleCorrectTemplate("[pkg.Ex<[java.lang.Object>", t_,classes_));
+    }
+
+    @Test
+    public void isSimpleCorrectTemplate73Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        String xml_;
+        xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' template='&lt;#T:pkg.ExThree&gt;'/>\n";
+        files_.put("pkg/Ex."+Classes.EXT, xml_);
+        xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExTwo' package='pkg' superclass='pkg.ExThree'/>\n";
+        files_.put("pkg/ExTwo."+Classes.EXT, xml_);
+        xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExThree' package='pkg'/>\n";
+        files_.put("pkg/ExThree."+Classes.EXT, xml_);
+        ContextEl cont_ = unfullValidateOverridingMethods(files_);
+        Classes classes_ = cont_.getClasses();
+        StringMap<StringList> t_ = new StringMap<StringList>();
+        t_.put("E", new StringList("pkg.ExTwo"));
+        assertTrue(Templates.isSimpleCorrectTemplate("[pkg.Ex<#E>", t_,classes_));
+    }
+
+    @Test
+    public void isSimpleCorrectTemplate74Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        String xml_;
+        xml_ = "<interface access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' template='&lt;#T:pkg.ExThree&gt;'/>\n";
+        files_.put("pkg/Ex."+Classes.EXT, xml_);
+        xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExTwo' package='pkg' superclass='pkg.ExThree'/>\n";
+        files_.put("pkg/ExTwo."+Classes.EXT, xml_);
+        xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExThree' package='pkg'/>\n";
+        files_.put("pkg/ExThree."+Classes.EXT, xml_);
+        ContextEl cont_ = unfullValidateOverridingMethods(files_);
+        Classes classes_ = cont_.getClasses();
+        StringMap<StringList> t_ = new StringMap<StringList>();
+        t_.put("E", new StringList("pkg.ExTwo"));
+        assertTrue(Templates.isSimpleCorrectTemplate("[pkg.Ex<#E>", t_,classes_));
+    }
+
+    @Test
+    public void isSimpleCorrectTemplate75Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        String xml_;
+        xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' template='&lt;#T:pkg.ExThree&gt;'/>\n";
+        files_.put("pkg/Ex."+Classes.EXT, xml_);
+        xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExTwo' package='pkg'/>\n";
+        files_.put("pkg/ExTwo."+Classes.EXT, xml_);
+        xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExThree' package='pkg' superclass='pkg.ExTwo'/>\n";
+        files_.put("pkg/ExThree."+Classes.EXT, xml_);
+        ContextEl cont_ = unfullValidateOverridingMethods(files_);
+        Classes classes_ = cont_.getClasses();
+        StringMap<StringList> t_ = new StringMap<StringList>();
+        t_.put("E", new StringList("pkg.ExTwo"));
+        assertTrue(!Templates.isSimpleCorrectTemplate("[pkg.Ex<#E>", t_,classes_));
+    }
+
+    @Test
+    public void isSimpleCorrectTemplate76Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        String xml_;
+        xml_ = "<interface access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' template='&lt;#T:pkg.ExThree&gt;'/>\n";
+        files_.put("pkg/Ex."+Classes.EXT, xml_);
+        xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExTwo' package='pkg'/>\n";
+        files_.put("pkg/ExTwo."+Classes.EXT, xml_);
+        xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExThree' package='pkg' superclass='pkg.ExTwo'/>\n";
+        files_.put("pkg/ExThree."+Classes.EXT, xml_);
+        ContextEl cont_ = unfullValidateOverridingMethods(files_);
+        Classes classes_ = cont_.getClasses();
+        StringMap<StringList> t_ = new StringMap<StringList>();
+        t_.put("E", new StringList("pkg.ExTwo"));
+        assertTrue(!Templates.isSimpleCorrectTemplate("[pkg.Ex<#E>", t_,classes_));
+    }
+
+    @Test
+    public void isSimpleCorrectTemplate77Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        String xml_;
+        xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' template='&lt;#T:pkg.ExThree&gt;'/>\n";
+        files_.put("pkg/Ex."+Classes.EXT, xml_);
+        xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExTwo' package='pkg'/>\n";
+        files_.put("pkg/ExTwo."+Classes.EXT, xml_);
+        xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExThree' package='pkg' superclass='pkg.ExTwo'/>\n";
+        files_.put("pkg/ExThree."+Classes.EXT, xml_);
+        ContextEl cont_ = unfullValidateOverridingMethods(files_);
+        Classes classes_ = cont_.getClasses();
+        StringMap<StringList> t_ = new StringMap<StringList>();
+        assertTrue(!Templates.isSimpleCorrectTemplate("[pkg.Ex<pkg.ExTwo>", t_,classes_));
+    }
+
+    @Test
+    public void isSimpleCorrectTemplate78Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        String xml_;
+        xml_ = "<interface access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' template='&lt;#T:pkg.ExThree&gt;'/>\n";
+        files_.put("pkg/Ex."+Classes.EXT, xml_);
+        xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExTwo' package='pkg'/>\n";
+        files_.put("pkg/ExTwo."+Classes.EXT, xml_);
+        xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExThree' package='pkg' superclass='pkg.ExTwo'/>\n";
+        files_.put("pkg/ExThree."+Classes.EXT, xml_);
+        ContextEl cont_ = unfullValidateOverridingMethods(files_);
+        Classes classes_ = cont_.getClasses();
+        StringMap<StringList> t_ = new StringMap<StringList>();
+        assertTrue(!Templates.isSimpleCorrectTemplate("[pkg.Ex<pkg.ExTwo>", t_,classes_));
+    }
+
+    @Test
+    public void isSimpleCorrectTemplate79Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        String xml_;
+        xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' template='&lt;#T:[pkg.ExThree&gt;'/>\n";
+        files_.put("pkg/Ex."+Classes.EXT, xml_);
+        xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExTwo' package='pkg' superclass='pkg.ExThree'/>\n";
+        files_.put("pkg/ExTwo."+Classes.EXT, xml_);
+        xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExThree' package='pkg'/>\n";
+        files_.put("pkg/ExThree."+Classes.EXT, xml_);
+        ContextEl cont_ = unfullValidateOverridingMethods(files_);
+        Classes classes_ = cont_.getClasses();
+        StringMap<StringList> t_ = new StringMap<StringList>();
+        assertTrue(Templates.isSimpleCorrectTemplate("[pkg.Ex<[pkg.ExTwo>", t_,classes_));
+    }
+
+    @Test
+    public void isSimpleCorrectTemplate80Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        String xml_;
+        xml_ = "<interface access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' template='&lt;#T:[pkg.ExThree&gt;'/>\n";
+        files_.put("pkg/Ex."+Classes.EXT, xml_);
+        xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExTwo' package='pkg' superclass='pkg.ExThree'/>\n";
+        files_.put("pkg/ExTwo."+Classes.EXT, xml_);
+        xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExThree' package='pkg'/>\n";
+        files_.put("pkg/ExThree."+Classes.EXT, xml_);
+        ContextEl cont_ = unfullValidateOverridingMethods(files_);
+        Classes classes_ = cont_.getClasses();
+        StringMap<StringList> t_ = new StringMap<StringList>();
+        assertTrue(Templates.isSimpleCorrectTemplate("[pkg.Ex<[pkg.ExTwo>", t_,classes_));
+    }
+
+    @Test
+    public void isSimpleCorrectTemplate81Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        String xml_;
+        xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' template='&lt;#T:[pkg.ExTwo&gt;'/>\n";
+        files_.put("pkg/Ex."+Classes.EXT, xml_);
+        xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExTwo' package='pkg' superclass='pkg.ExThree'/>\n";
+        files_.put("pkg/ExTwo."+Classes.EXT, xml_);
+        xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExThree' package='pkg'/>\n";
+        files_.put("pkg/ExThree."+Classes.EXT, xml_);
+        ContextEl cont_ = unfullValidateOverridingMethods(files_);
+        Classes classes_ = cont_.getClasses();
+        StringMap<StringList> t_ = new StringMap<StringList>();
+        assertTrue(!Templates.isSimpleCorrectTemplate("[pkg.Ex<[pkg.ExThree>", t_,classes_));
+    }
+
+    @Test
+    public void isSimpleCorrectTemplate82Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        String xml_;
+        xml_ = "<interface access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' template='&lt;#T:[pkg.ExTwo&gt;'/>\n";
+        files_.put("pkg/Ex."+Classes.EXT, xml_);
+        xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExTwo' package='pkg' superclass='pkg.ExThree'/>\n";
+        files_.put("pkg/ExTwo."+Classes.EXT, xml_);
+        xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExThree' package='pkg'/>\n";
+        files_.put("pkg/ExThree."+Classes.EXT, xml_);
+        ContextEl cont_ = unfullValidateOverridingMethods(files_);
+        Classes classes_ = cont_.getClasses();
+        StringMap<StringList> t_ = new StringMap<StringList>();
+        assertTrue(!Templates.isSimpleCorrectTemplate("[pkg.Ex<[pkg.ExThree>", t_,classes_));
     }
 
     @Test

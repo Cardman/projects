@@ -244,7 +244,7 @@ public final class Templates {
         }
         int i_ = CustList.FIRST_INDEX;
         String className_ = types_.first();
-        className_ = PrimitiveTypeUtil.getArrayClass(className_);
+        className_ = PrimitiveTypeUtil.getQuickComponentBaseType(className_).getComponent();
         EqList<StringList> boundsAll_ = null;
         if (_classes != null) {
             RootBlock r_ = _classes.getClassBody(className_);
@@ -281,7 +281,6 @@ public final class Templates {
             i_++;
             String arg_ = types_.get(i_);
             DimComp dimCompArg_ = PrimitiveTypeUtil.getQuickComponentBaseType(arg_);
-            int dimArg_ = dimCompArg_.getDim();
             String comp_ = dimCompArg_.getComponent();
             boolean lookInInherit_ = comp_.startsWith(PREFIX_VAR_TYPE);
             StringList bounds_ = new StringList();
@@ -302,14 +301,6 @@ public final class Templates {
                 boolean ok_ = false;
                 for (String v: bounds_) {
                     m_.setArg(v);
-                    String boundArr_ = PrimitiveTypeUtil.getPrettyArrayType(v, dimArg_);
-                    DimComp dimCompBoundArg_ = PrimitiveTypeUtil.getQuickComponentBaseType(boundArr_);
-                    int dimBoundArg_ = dimCompBoundArg_.getDim();
-                    if (dimBoundArg_ > 0) {
-                        if (!PrimitiveTypeUtil.isArrayAssignable(boundArr_, param_, _classes)) {
-                            continue;
-                        }
-                    }
                     m_.setMapping(_inherit);
                     if (isSimpleCorrect(m_, _classes)) {
                         ok_ = true;
@@ -329,7 +320,7 @@ public final class Templates {
     }
     static StringMap<String> getVarTypes(String _className, Classes _classes) {
         StringList types_ = StringList.getAllTypes(_className);
-        String className_ = PrimitiveTypeUtil.getArrayClass(types_.first());
+        String className_ = PrimitiveTypeUtil.getQuickComponentBaseType(types_.first()).getComponent();
         if (_classes != null) {
             RootBlock root_ = _classes.getClassBody(className_);
             if (root_ != null) {
@@ -949,7 +940,7 @@ public final class Templates {
                 for (String c: curClasses_) {
                     StringList allTypes_ = StringList.getAllTypes(c);
                     String baseClass_ = allTypes_.first();
-                    baseClass_ = PrimitiveTypeUtil.getArrayClass(baseClass_);
+                    baseClass_ = PrimitiveTypeUtil.getQuickComponentBaseType(baseClass_).getComponent();
                     if (!PrimitiveTypeUtil.correctNbParameters(c, _classes)) {
                         return null;
                     }
@@ -1065,7 +1056,7 @@ public final class Templates {
         String baseClass_ = allTypes_.first();
         if (_classes != null) {
             RootBlock r_ = _classes.getClassBody(baseClass_);
-            if (r_ instanceof UniqueRootedBlock) {
+            if (r_ != null) {
                 return ((UniqueRootedBlock)r_).getGenericSuperClass();
             }
         }
