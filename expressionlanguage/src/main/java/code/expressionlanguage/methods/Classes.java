@@ -722,7 +722,7 @@ public final class Classes {
     public void validateSingleParameterizedClasses(ContextEl _context) {
         for (String c: classesInheriting) {
             RootBlock r_ = getClassBody(c);
-            StringList genericSuperTypes_ = r_.getAllGenericSuperTypes(_context);
+            StringList genericSuperTypes_ = r_.getAllGenericSuperTypes(this);
             StringMap<StringList> baseParams_ = getBaseParams(genericSuperTypes_);
             for (EntryCust<String, StringList> e: baseParams_.entryList()) {
                 if (e.getValue().size() > 1) {

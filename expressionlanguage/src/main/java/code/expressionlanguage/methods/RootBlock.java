@@ -308,7 +308,7 @@ public abstract class RootBlock extends BracedBlock implements AccessibleBlock {
 
     public abstract StringList getDirectGenericSuperTypes();
 
-    public final StringList getAllGenericSuperTypes(ContextEl _context) {
+    public final StringList getAllGenericSuperTypes(Classes _classes) {
         StringList list_ = new StringList();
         StringList vars_ = new StringList();
         for (TypeVar t: getParamTypes()) {
@@ -327,9 +327,9 @@ public abstract class RootBlock extends BracedBlock implements AccessibleBlock {
                 if (StringList.quickEq(baseType_, Object.class.getName())) {
                     continue;
                 }
-                StringList superTypes_ = _context.getClasses().getClassBody(baseType_).getDirectGenericSuperTypes();
+                StringList superTypes_ = _classes.getClassBody(baseType_).getDirectGenericSuperTypes();
                 for (String t: superTypes_) {
-                    String format_ = Templates.format(c, t, _context.getClasses());
+                    String format_ = Templates.format(c, t, _classes);
                     list_.add(format_);
                     next_.add(format_);
                 }

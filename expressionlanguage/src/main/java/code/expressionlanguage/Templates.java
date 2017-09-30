@@ -935,15 +935,20 @@ public final class Templates {
             }
         }
         if (generic_ == null) {
+            for (String c: curClasses_) {
+                StringList allTypes_ = StringList.getAllTypes(c);
+                String baseClass_ = allTypes_.first();
+                baseClass_ = PrimitiveTypeUtil.getQuickComponentBaseType(baseClass_).getComponent();
+                if (!PrimitiveTypeUtil.correctNbParameters(c, _classes)) {
+                    return null;
+                }
+            }
             while (true) {
                 StringList nextClasses_ = new StringList();
                 for (String c: curClasses_) {
                     StringList allTypes_ = StringList.getAllTypes(c);
                     String baseClass_ = allTypes_.first();
                     baseClass_ = PrimitiveTypeUtil.getQuickComponentBaseType(baseClass_).getComponent();
-                    if (!PrimitiveTypeUtil.correctNbParameters(c, _classes)) {
-                        return null;
-                    }
                     String superClass_ = getSuperClassName(baseClass_, _classes);
                     if (superClass_ != null) {
                         String geneSuperClass_ = getGenericSuperClassName(c, _classes);

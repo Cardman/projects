@@ -25,7 +25,7 @@ public class RootBlockTest {
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
         cont_.setAccessValue(new AccessValueEx());
         Classes classes_ = cont_.getClasses();
-        StringList superTypes_ = classes_.getClassBody("pkg.ExTwo").getAllGenericSuperTypes(cont_);
+        StringList superTypes_ = classes_.getClassBody("pkg.ExTwo").getAllGenericSuperTypes(classes_);
         assertEq(2, superTypes_.size());
         assertEq("pkg.Ex<#T>", superTypes_.first());
         assertEq(Object.class.getName(), superTypes_.last());
@@ -44,7 +44,7 @@ public class RootBlockTest {
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
         cont_.setAccessValue(new AccessValueEx());
         Classes classes_ = cont_.getClasses();
-        StringList superTypes_ = classes_.getClassBody("pkg.ExThree").getAllGenericSuperTypes(cont_);
+        StringList superTypes_ = classes_.getClassBody("pkg.ExThree").getAllGenericSuperTypes(classes_);
         assertEq(3, superTypes_.size());
         assertEq("pkg.ExTwo<#S>", superTypes_.first());
         assertEq("pkg.Ex<#S>", superTypes_.get(1));
@@ -64,7 +64,7 @@ public class RootBlockTest {
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
         cont_.setAccessValue(new AccessValueEx());
         Classes classes_ = cont_.getClasses();
-        StringList superTypes_ = classes_.getClassBody("pkg.ExThree").getAllGenericSuperTypes(cont_);
+        StringList superTypes_ = classes_.getClassBody("pkg.ExThree").getAllGenericSuperTypes(classes_);
         assertEq(3, superTypes_.size());
         assertEq("pkg.ExTwo<java.lang.String>", superTypes_.first());
         assertEq("pkg.Ex<java.lang.String>", superTypes_.get(1));
@@ -86,7 +86,7 @@ public class RootBlockTest {
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
         cont_.setAccessValue(new AccessValueEx());
         Classes classes_ = cont_.getClasses();
-        StringList superTypes_ = classes_.getClassBody("pkg.ExFour").getAllGenericSuperTypes(cont_);
+        StringList superTypes_ = classes_.getClassBody("pkg.ExFour").getAllGenericSuperTypes(classes_);
         assertEq(4, superTypes_.size());
         assertEq("pkg.ExTwo<java.lang.String>", superTypes_.first());
         assertEq("pkg.ExThree<java.lang.String>", superTypes_.get(1));
@@ -109,7 +109,7 @@ public class RootBlockTest {
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
         cont_.setAccessValue(new AccessValueEx());
         Classes classes_ = cont_.getClasses();
-        StringList superTypes_ = classes_.getClassBody("pkg.ExFour").getAllGenericSuperTypes(cont_);
+        StringList superTypes_ = classes_.getClassBody("pkg.ExFour").getAllGenericSuperTypes(classes_);
         assertEq(4, superTypes_.size());
         assertEq("pkg.ExTwo<java.lang.Number>", superTypes_.first());
         assertEq("pkg.ExThree<java.lang.String>", superTypes_.get(1));
