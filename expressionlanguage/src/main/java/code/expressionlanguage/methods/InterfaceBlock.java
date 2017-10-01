@@ -222,7 +222,7 @@ public final class InterfaceBlock extends RootBlock {
         StringList allGenericSuperClasses_ = new StringList();
         for (String s: allSuperTypes_) {
             String base_ = StringList.getAllTypes(s).first();
-            if (_classes.getClassBody(base_) instanceof ClassBlock) {
+            if (_classes.getClassBody(base_) instanceof InterfaceBlock) {
                 allGenericSuperClasses_.add(s);
             }
         }
