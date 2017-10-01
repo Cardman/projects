@@ -22,10 +22,6 @@ public final class MethodBlock extends NamedFunctionBlock {
 
     private final boolean normalMethod;
 
-    private StringList overridenClasses;
-
-    private StringList allOverridenClasses;
-
     private final String declaringType;
 
     public MethodBlock(Element _el, ContextEl _importingPage, int _indexChild,
@@ -36,8 +32,6 @@ public final class MethodBlock extends NamedFunctionBlock {
         finalMethod = StringList.quickEq(modifier_, VALUE_FINAL);
         abstractMethod = StringList.quickEq(modifier_, VALUE_ABSTRACT);
         normalMethod = StringList.quickEq(modifier_, VALUE_NORMAL);
-        overridenClasses = new StringList();
-        allOverridenClasses = new StringList();
         declaringType = getRooted().getFullName();
     }
 
@@ -63,14 +57,6 @@ public final class MethodBlock extends NamedFunctionBlock {
 
     public String getDeclaringType() {
         return declaringType;
-    }
-
-    public StringList getOverridenClasses() {
-        return overridenClasses;
-    }
-
-    public StringList getAllOverridenClasses() {
-        return allOverridenClasses;
     }
 
     public MethodId getFormattedId(String _genericClass, Classes _classes) {

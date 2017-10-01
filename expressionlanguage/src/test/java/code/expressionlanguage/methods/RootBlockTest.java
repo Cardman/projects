@@ -348,6 +348,32 @@ public class RootBlockTest {
         assertEq(1, superTypes_.size());
         assertEq("pkg.Int<#F>", superTypes_.first());
     }
+    @Test
+    public void test8() {
+        StringMap<String> files_ = new StringMap<String>();
+        String xml_;
+        xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExTwo' package='pkg' template='&lt;#T:pkg.Int&lt;java.lang.String&gt;&amp;pkg.Int2&lt;java.lang.String&gt;&gt;'>\n";
+        xml_ += "</class>\n";
+        files_.put("pkg/ExTwo."+Classes.EXT, xml_);
+        xml_ = "<interface access='"+PUBLIC_ACCESS+"' name='Int' package='pkg' template='&lt;#F&gt;'>\n";
+        xml_ += "<method access='"+PUBLIC_ACCESS+"' name='instancemethod' class='"+OperationNode.VOID_RETURN+"' modifier='normal' var0='i' class0='#F'>\n";
+        xml_ += "</method>\n";
+        xml_ += "</interface>\n";
+        files_.put("pkg/Int."+Classes.EXT, xml_);
+        xml_ = "<interface access='"+PUBLIC_ACCESS+"' name='Int2' package='pkg' template='&lt;#U&gt;'>\n";
+        xml_ += "<method access='"+PUBLIC_ACCESS+"' name='instancemethod' class='"+OperationNode.VOID_RETURN+"' modifier='normal' var0='i' class0='#U'>\n";
+        xml_ += "</method>\n";
+        xml_ += "</interface>\n";
+        files_.put("pkg/Int2."+Classes.EXT, xml_);
+        ContextEl cont_ = unfullValidateOverridingMethods(files_);
+        Classes classes_ = cont_.getClasses();
+        classes_.validateSingleParameterizedClasses(cont_);
+        assertTrue(classes_.getErrorsDet().toString(), classes_.getErrorsDet().isEmpty());
+        classes_.validateIds(cont_);
+        assertTrue(classes_.getErrorsDet().toString(), classes_.getErrorsDet().isEmpty());
+        classes_.validateOverridingInherit(cont_);
+        assertTrue(classes_.getErrorsDet().toString(), classes_.getErrorsDet().isEmpty());
+    }
     private static ContextEl unfullValidateOverridingMethods(StringMap<String> _files) {
         ContextEl cont_ = new ContextEl();
         Classes classes_ = new Classes(_files, cont_);

@@ -164,7 +164,8 @@ public abstract class RootBlock extends BracedBlock implements AccessibleBlock {
         EqList<FctConstraints> ids_ = new EqList<FctConstraints>();
         StringList idsField_ = new StringList();
         String className_ = getFullName();
-        CustList<Block> bl_ = Classes.getDirectChildren(this);
+        CustList<Block> bl_;
+        bl_ = Classes.getDirectChildren(this);
         for (Block b: bl_) {
             boolean staticContext_;
             if (b instanceof MethodBlock) {
@@ -174,51 +175,57 @@ public abstract class RootBlock extends BracedBlock implements AccessibleBlock {
             } else if (b instanceof ConstructorBlock) {
                 staticContext_ = false;
             } else {
-                staticContext_ = true;
+                staticContext_ = ((AloneBlock)b).isStaticContext();
             }
+            CustList<Block> blLoc_ = Classes.getSortedDescNodes(b);
             StringMap<StringList> vars_ = new StringMap<StringList>();
             if (!staticContext_) {
                 for (TypeVar t: getParamTypes()) {
                     vars_.put(t.getName(), t.getConstraints());
                 }
             }
-            for (EntryCust<String, String> n: b.getClassNames().entryList()) {
-                String classNameLoc_ = n.getValue();
-                if (StringList.quickEq(classNameLoc_, OperationNode.VOID_RETURN)) {
-                    if ((b instanceof MethodBlock)) {
-                        if (!StringList.quickEq(n.getKey(), ATTRIBUTE_CLASS)) {
-                            UnknownClassName un_ = new UnknownClassName();
-                            un_.setClassName(classNameLoc_);
-                            un_.setFileName(className_);
-                            un_.setRc(b.getRowCol(0, _context.getTabWidth(), n.getKey()));
-                            _context.getClasses().getErrorsDet().add(un_);
+            for (Block a: blLoc_) {
+                for (EntryCust<String, String> n: a.getClassNames().entryList()) {
+                    String classNameLoc_ = n.getValue();
+                    if (StringList.quickEq(classNameLoc_, OperationNode.VOID_RETURN)) {
+                        if (a == b) {
+                            if ((b instanceof MethodBlock)) {
+                                if (!StringList.quickEq(n.getKey(), ATTRIBUTE_CLASS)) {
+                                    UnknownClassName un_ = new UnknownClassName();
+                                    un_.setClassName(classNameLoc_);
+                                    un_.setFileName(className_);
+                                    un_.setRc(b.getRowCol(0, _context.getTabWidth(), n.getKey()));
+                                    _context.getClasses().getErrorsDet().add(un_);
+                                }
+                                continue;
+                            }
                         }
-                    } else {
+                        UnknownClassName un_ = new UnknownClassName();
+                        un_.setClassName(classNameLoc_);
+                        un_.setFileName(className_);
+                        un_.setRc(b.getRowCol(0, _context.getTabWidth(), n.getKey()));
+                        _context.getClasses().getErrorsDet().add(un_);
+                        continue;
+                    }
+                    if (!Templates.isCorrectWrite(classNameLoc_)) {
+                        UnknownClassName un_ = new UnknownClassName();
+                        un_.setClassName(classNameLoc_);
+                        un_.setFileName(className_);
+                        un_.setRc(b.getRowCol(0, _context.getTabWidth(), n.getKey()));
+                        _context.getClasses().getErrorsDet().add(un_);
+                        continue;
+                    }
+                    if (!Templates.isSimpleCorrectTemplateAll(classNameLoc_, vars_, _context.getClasses())) {
                         UnknownClassName un_ = new UnknownClassName();
                         un_.setClassName(classNameLoc_);
                         un_.setFileName(className_);
                         un_.setRc(b.getRowCol(0, _context.getTabWidth(), n.getKey()));
                         _context.getClasses().getErrorsDet().add(un_);
                     }
-                    continue;
-                }
-                if (!Templates.isCorrectWrite(classNameLoc_)) {
-                    UnknownClassName un_ = new UnknownClassName();
-                    un_.setClassName(classNameLoc_);
-                    un_.setFileName(className_);
-                    un_.setRc(b.getRowCol(0, _context.getTabWidth(), n.getKey()));
-                    _context.getClasses().getErrorsDet().add(un_);
-                    continue;
-                }
-                if (!Templates.isSimpleCorrectTemplateAll(classNameLoc_, vars_, _context.getClasses())) {
-                    UnknownClassName un_ = new UnknownClassName();
-                    un_.setClassName(classNameLoc_);
-                    un_.setFileName(className_);
-                    un_.setRc(b.getRowCol(0, _context.getTabWidth(), n.getKey()));
-                    _context.getClasses().getErrorsDet().add(un_);
-                    continue;
                 }
             }
+        }
+        for (Block b: bl_) {
             if (b instanceof Returnable) {
                 Returnable method_ = (Returnable) b;
                 String name_ = method_.getName();
@@ -354,6 +361,91 @@ public abstract class RootBlock extends BracedBlock implements AccessibleBlock {
             current_ = next_;
         }
         return list_;
+    }
+    public final void checkCompatibilityBounds(ContextEl _context) {
+        Classes classesRef_ = _context.getClasses();
+        ObjectMap<MethodId, String> localSignatures_;
+        localSignatures_ = new ObjectMap<MethodId, String>();
+        ObjectMap<MethodId, StringList> signatures_;
+        signatures_ = new ObjectMap<MethodId, StringList>();
+        StringMap<StringList> vars_ = new StringMap<StringList>();
+        Mapping mapping_ = new Mapping();
+        for (TypeVar t: getParamTypes()) {
+            vars_.put(t.getName(), t.getConstraints());
+            mapping_.getMapping().put(t.getName(), t.getConstraints());
+        }
+        for (TypeVar t: getParamTypes()) {
+            StringList upper_ = mapping_.getAllUpperBounds(t.getName());
+            for (String c: upper_) {
+                if (StringList.quickEq(c, Object.class.getName())) {
+                    continue;
+                }
+                String base_ = StringList.getAllTypes(c).first();
+                RootBlock r_ = classesRef_.getClassBody(base_);
+                for (EntryCust<MethodId, StringList> e: r_.getAllOverridingMethods().entryList()) {
+                    for (String s: e.getValue()) {
+                        if (StringList.quickEq(s, Object.class.getName())) {
+                            continue;
+                        }
+                        String baseBound_ = StringList.getAllTypes(s).first();
+                        if (classesRef_.getClassBody(baseBound_) != null) {
+                            MethodBlock m_ = classesRef_.getMethodBodiesByFormattedId(s, e.getKey()).first();
+                            MethodId id_ = m_.getFormattedId(c, classesRef_);
+                            String formattedType_ = Templates.format(c, s, classesRef_);
+                            addClass(signatures_, id_, formattedType_);
+                        }
+                    }
+                }
+            }
+        }
+        for (EntryCust<MethodId, StringList> e: signatures_.entryList()) {
+            StringMap<StringList> map_ = Classes.getBaseParams(e.getValue());
+            for (EntryCust<String,StringList> m:map_.entryList()) {
+                if (m.getValue().size() > 1) {
+                    for (String s: m.getValue()) {
+                        MethodBlock mDer_ = _context.getClasses().getMethodBodiesByFormattedId(s, e.getKey()).first();
+                        IncompatibilityReturnType err_ = new IncompatibilityReturnType();
+                        err_.setFileName(getFullName());
+                        err_.setRc(getRowCol(0, _context.getTabWidth(), ATTRIBUTE_NAME));
+                        err_.setReturnType(mDer_.getReturnType());
+                        err_.setMethod(mDer_.getId());
+                        err_.setParentClass(s);
+                        _context.getClasses().getErrorsDet().add(err_);
+                    }
+                }
+            }
+        }
+        ObjectMap<MethodId, StringList> ov_;
+        ov_ = RootBlock.getAllOverridingMethods(signatures_, _context.getClasses());
+        ObjectMap<MethodId, StringList> er_;
+        er_ = RootBlock.areCompatible(localSignatures_, vars_, ov_, _context.getClasses());
+        for (EntryCust<MethodId, StringList> e: er_.entryList()) {
+            MethodId id_ = e.getKey();
+            for (String s: e.getValue()) {
+                MethodBlock mDer_ = _context.getClasses().getMethodBodiesByFormattedId(s, id_).first();
+                IncompatibilityReturnType err_ = new IncompatibilityReturnType();
+                err_.setFileName(getFullName());
+                err_.setRc(getRowCol(0, _context.getTabWidth(), ATTRIBUTE_NAME));
+                err_.setReturnType(mDer_.getReturnType());
+                err_.setMethod(mDer_.getId());
+                err_.setParentClass(s);
+                _context.getClasses().getErrorsDet().add(err_);
+            }
+        }
+        er_ = RootBlock.areModifierCompatible(ov_, _context.getClasses());
+        for (EntryCust<MethodId, StringList> e: er_.entryList()) {
+            MethodId id_ = e.getKey();
+            for (String s: e.getValue()) {
+                MethodBlock mDer_ = _context.getClasses().getMethodBodiesByFormattedId(s, id_).first();
+                IncompatibilityReturnType err_ = new IncompatibilityReturnType();
+                err_.setFileName(getFullName());
+                err_.setRc(getRowCol(0, _context.getTabWidth(), ATTRIBUTE_NAME));
+                err_.setReturnType(mDer_.getReturnType());
+                err_.setMethod(mDer_.getId());
+                err_.setParentClass(s);
+                _context.getClasses().getErrorsDet().add(err_);
+            }
+        }
     }
     public final void checkCompatibility(ContextEl _context) {
         ObjectMap<MethodId, StringList> signatures_ = getAllInstanceSignatures(_context.getClasses());
@@ -525,7 +617,7 @@ public abstract class RootBlock extends BracedBlock implements AccessibleBlock {
                     if (method_.isEmpty()) {
                         continue;
                     }
-                    if (!method_.first().getAllOverridenClasses().containsStr(m.getClassName())) {
+                    if (!getAllOverridingMethods().getVal(m.getConstraints()).containsStr(m.getClassName())) {
                         continue;
                     }
                     if (!method_.first().isConcreteMethod()) {

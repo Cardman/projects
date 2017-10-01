@@ -6,6 +6,7 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.methods.exceptions.CyclicCallingException;
 import code.expressionlanguage.methods.util.BadAccessMethod;
 import code.expressionlanguage.methods.util.ConstructorEdge;
+import code.expressionlanguage.methods.util.DuplicateParamMethod;
 import code.expressionlanguage.methods.util.ReservedMethod;
 import code.expressionlanguage.opers.OperationNode;
 import code.expressionlanguage.opers.util.ClassMetaInfo;
@@ -22,6 +23,7 @@ import code.util.ObjectMap;
 import code.util.ObjectNotNullMap;
 import code.util.StringList;
 import code.util.graphs.Graph;
+import code.xml.RowCol;
 
 public final class EnumBlock extends RootBlock implements UniqueRootedBlock {
 
@@ -91,7 +93,6 @@ public final class EnumBlock extends RootBlock implements UniqueRootedBlock {
                 _context.getClasses().getErrorsDet().add(r_);
             }
         }
-        StringList all_ = getAllGenericSuperTypes(classesRef_);
         for (Block b: Classes.getDirectChildren(this)) {
             if (b instanceof MethodBlock) {
                 MethodBlock mCl_ = (MethodBlock) b;
@@ -99,24 +100,6 @@ public final class EnumBlock extends RootBlock implements UniqueRootedBlock {
                     continue;
                 }
                 addClass(getAllOverridingMethods(), mCl_.getId(), getFullDefinition());
-                for (String s: all_) {
-                    if (StringList.quickEq(s, Object.class.getName())) {
-                        continue;
-                    }
-                    CustList<MethodBlock> methods_ ;
-                    methods_ = _context.getClasses().getMethodBodiesByFormattedId(s, mCl_.getId());
-                    if (methods_.isEmpty()) {
-                        continue;
-                    }
-                    MethodBlock m_ = methods_.first();
-                    if (m_.isStaticMethod()) {
-                        continue;
-                    }
-                    if (_context.getClasses().canAccess(getFullName(), m_)) {
-                        ((MethodBlock) b).getOverridenClasses().add(s);
-                        break;
-                    }
-                }
             }
         }
         for (Block b: Classes.getDirectChildren(this)) {
@@ -125,18 +108,18 @@ public final class EnumBlock extends RootBlock implements UniqueRootedBlock {
                 if (mDer_.isStaticMethod()) {
                     continue;
                 }
-                mDer_.getAllOverridenClasses().addAllElts(mDer_.getOverridenClasses());
-                for (String s: mDer_.getOverridenClasses()) {
-                    MethodBlock mBase_ = _context.getClasses().getMethodBodiesByFormattedId(s, mDer_.getId()).first();
-                    if (mBase_.isStaticMethod()) {
-                        continue;
-                    }
-                    mDer_.getAllOverridenClasses().addAllElts(mBase_.getAllOverridenClasses());
-                }
                 for (String s: getAllGenericSuperTypes(classesRef_)) {
                     CustList<MethodBlock> mBases_ = classesRef_.getMethodBodiesByFormattedId(s, mDer_.getId());
                     if (mBases_.isEmpty()) {
                         continue;
+                    }
+                    if (mBases_.size() > 1) {
+                        DuplicateParamMethod duplicate_ = new DuplicateParamMethod();
+                        duplicate_.setFileName(getFullName());
+                        duplicate_.setRc(new RowCol());
+                        duplicate_.setCommonSignature(mDer_.getId().getSignature());
+                        duplicate_.setOtherType(s);
+                        classesRef_.getErrorsDet().add(duplicate_);
                     }
                     MethodBlock mBase_ = mBases_.first();
                     if (mBase_.isStaticMethod()) {
@@ -282,6 +265,7 @@ public final class EnumBlock extends RootBlock implements UniqueRootedBlock {
     @Override
     public NatTreeMap<String,String> getClassNames() {
         NatTreeMap<String,String> tr_ = new NatTreeMap<String,String>();
+        tr_.put(ATTRIBUTE_NAME, getFullDefinition());
         int i_ = 0;
         for (String t: directInterfaces) {
             tr_.put(ATTRIBUTE_CLASS+i_, t);

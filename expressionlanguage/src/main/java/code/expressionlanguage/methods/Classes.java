@@ -240,7 +240,7 @@ public final class Classes {
                     varTypes_.add(parts_.first());
                     StringList constraints_ = new StringList();
                     if (indexDef_ != CustList.INDEX_NOT_FOUND_ELT) {
-                        for (String b: StringList.splitChars(parts_.last().substring(Templates.EXTENDS_DEF.length()), Templates.SEP_BOUNDS)) {
+                        for (String b: StringList.splitChars(parts_.last().substring(1), Templates.SEP_BOUNDS)) {
                             if (!isCorrectTemplate(b)) {
                                 throw new BadClassNameException(b);
                             }
@@ -403,6 +403,10 @@ public final class Classes {
             return list_;
         }
         Block c_ = _root;
+        if (c_.getFirstChild() == null) {
+            list_.add(c_);
+            return list_;
+        }
         while (true) {
             if (c_ == null) {
                 break;
@@ -464,6 +468,10 @@ public final class Classes {
             return list_;
         }
         InterfaceNode c_ = _root;
+        if (c_.getFirstChild() == null) {
+            list_.add(c_);
+            return list_;
+        }
         while (true) {
             if (c_ == null) {
                 break;
@@ -968,6 +976,10 @@ public final class Classes {
             bl_.setupBasicOverrides(_context);
             bl_.checkImplements(_context);
         }
+        for (String c: classesInheriting) {
+            RootBlock bl_ = classesBodies.getVal(c);
+            bl_.checkCompatibilityBounds(_context);
+        }
     }
     public void validateClassesAccess(ContextEl _context) {
         PageEl page_ = new PageEl();
@@ -980,24 +992,17 @@ public final class Classes {
                 Block b_ = (Block) e;
                 for (EntryCust<String, String> n: b_.getClassNames().entryList()) {
                     String classNameLoc_ = n.getValue();
-                    try {
-                        String base_ = PrimitiveTypeUtil.getQuickComponentBaseType(classNameLoc_).getComponent();
-                        if (classesBodies.contains(base_)) {
-                            if (!canAccessClass(className_, base_)) {
+                    StringList parts_ = StringList.splitChars(classNameLoc_, LT, GT, ARR_BEG, COMMA, Templates.SEP_BOUNDS, Templates.EXTENDS_DEF);
+                    for (String p: parts_) {
+                        if (classesBodies.contains(p)) {
+                            if (!canAccessClass(className_, p)) {
                                 BadAccessClass err_ = new BadAccessClass();
                                 err_.setFileName(className_);
                                 err_.setRc(b_.getRowCol(0, _context.getTabWidth(), n.getKey()));
                                 err_.setId(classNameLoc_);
                                 errorsDet.add(err_);
                             }
-                            continue;
                         }
-                    } catch (RuntimeClassNotFoundException _0) {
-                        UnknownClassName un_ = new UnknownClassName();
-                        un_.setClassName(classNameLoc_);
-                        un_.setFileName(className_);
-                        un_.setRc(b_.getRowCol(0, _context.getTabWidth(), n.getKey()));
-                        errorsDet.add(un_);
                     }
                 }
             }

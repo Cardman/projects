@@ -642,9 +642,9 @@ public abstract class OperationNode implements Operable {
         FctConstraints id_ = _idMeth.getConstraints();
         String stopClass_ = _idMeth.getClassName();
         while (true) {
+            RootBlock clBlock_ = classes_.getClassBody(clCurName_);
             MethodBlock method_ = classes_.getMethodBody(clCurName_, id_);
             if (method_ == null) {
-                ClassBlock clBlock_ = (ClassBlock) classes_.getClassBody(clCurName_);
                 ObjectMap<FctConstraints, String> def_;
                 def_ = clBlock_.getDefaultMethods();
                 if (def_.contains(_idMeth.getConstraints())) {
@@ -665,7 +665,7 @@ public abstract class OperationNode implements Operable {
                 return clCurName_;
             }
             String superClass_ = custClass_.getSuperClass();
-            if (!method_.getAllOverridenClasses().containsStr(stopClass_)) {
+            if (!clBlock_.getAllOverridingMethods().getVal(method_.getId()).containsStr(stopClass_)) {
                 custClass_ = classes_.getClassMetaInfo(superClass_);
                 clCurName_ = superClass_;
                 continue;

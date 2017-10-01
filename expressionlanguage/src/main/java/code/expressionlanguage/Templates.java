@@ -24,7 +24,7 @@ public final class Templates {
     public static final String TEMPLATE_END = ">";
     public static final String TEMPLATE_BEGIN = "<";
     public static final String WILD_CARD = "?";
-    public static final String EXTENDS_DEF = ":";
+    public static final char EXTENDS_DEF = ':';
     public static final String EXTENDS = "~";
     public static final char SEP_BOUNDS = '&';
     public static final String SEP_CLASS = ".";

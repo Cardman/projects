@@ -4,6 +4,7 @@ import org.w3c.dom.Element;
 
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.methods.util.BadAccessMethod;
+import code.expressionlanguage.methods.util.DuplicateParamMethod;
 import code.expressionlanguage.methods.util.UnexpectedTagName;
 import code.expressionlanguage.opers.util.FctConstraints;
 import code.util.CustList;
@@ -69,7 +70,6 @@ public final class InterfaceBlock extends RootBlock {
     @Override
     public void setupBasicOverrides(ContextEl _context) {
         Classes classesRef_ = _context.getClasses();
-        StringList all_ = getAllGenericSuperTypes(classesRef_);
         for (Block b: Classes.getDirectChildren(this)) {
             if (b instanceof MethodBlock) {
                 MethodBlock mCl_ = (MethodBlock) b;
@@ -77,24 +77,6 @@ public final class InterfaceBlock extends RootBlock {
                     continue;
                 }
                 addClass(getAllOverridingMethods(), mCl_.getId(), getFullDefinition());
-                for (String s: all_) {
-                    if (StringList.quickEq(s, Object.class.getName())) {
-                        continue;
-                    }
-                    CustList<MethodBlock> methods_ ;
-                    methods_ = classesRef_.getMethodBodiesByFormattedId(s, mCl_.getId());
-                    if (methods_.isEmpty()) {
-                        continue;
-                    }
-                    MethodBlock m_ = methods_.first();
-                    if (m_.isStaticMethod()) {
-                        continue;
-                    }
-                    if (classesRef_.canAccess(getFullName(), m_)) {
-                        ((MethodBlock) b).getOverridenClasses().add(s);
-                        break;
-                    }
-                }
             }
         }
         for (Block b: Classes.getDirectChildren(this)) {
@@ -103,18 +85,18 @@ public final class InterfaceBlock extends RootBlock {
                 if (mDer_.isStaticMethod()) {
                     continue;
                 }
-                mDer_.getAllOverridenClasses().addAllElts(mDer_.getOverridenClasses());
-                for (String s: mDer_.getOverridenClasses()) {
-                    MethodBlock mBase_ = classesRef_.getMethodBodiesByFormattedId(s, mDer_.getId()).first();
-                    if (mBase_.isStaticMethod()) {
-                        continue;
-                    }
-                    mDer_.getAllOverridenClasses().addAllElts(mBase_.getAllOverridenClasses());
-                }
                 for (String s: getAllGenericSuperTypes(classesRef_)) {
                     CustList<MethodBlock> mBases_ = classesRef_.getMethodBodiesByFormattedId(s, mDer_.getId());
                     if (mBases_.isEmpty()) {
                         continue;
+                    }
+                    if (mBases_.size() > 1) {
+                        DuplicateParamMethod duplicate_ = new DuplicateParamMethod();
+                        duplicate_.setFileName(getFullName());
+                        duplicate_.setRc(new RowCol());
+                        duplicate_.setCommonSignature(mDer_.getId().getSignature());
+                        duplicate_.setOtherType(s);
+                        classesRef_.getErrorsDet().add(duplicate_);
                     }
                     MethodBlock mBase_ = mBases_.first();
                     if (mBase_.isStaticMethod()) {
@@ -147,6 +129,7 @@ public final class InterfaceBlock extends RootBlock {
     @Override
     public NatTreeMap<String,String> getClassNames() {
         NatTreeMap<String,String> tr_ = new NatTreeMap<String,String>();
+        tr_.put(ATTRIBUTE_NAME, getFullDefinition());
         int i_ = 0;
         for (String t: superInterfaces) {
             tr_.put(ATTRIBUTE_CLASS+i_, t);
