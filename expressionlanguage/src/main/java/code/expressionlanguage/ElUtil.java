@@ -17,6 +17,7 @@ import code.expressionlanguage.methods.Block;
 import code.expressionlanguage.methods.util.ArgumentsPair;
 import code.expressionlanguage.methods.util.ExpLanguages;
 import code.expressionlanguage.methods.util.InstancingStep;
+import code.expressionlanguage.methods.util.TypeVar;
 import code.expressionlanguage.opers.Calculation;
 import code.expressionlanguage.opers.ComparatorOrder;
 import code.expressionlanguage.opers.ConstantOperation;
@@ -29,6 +30,7 @@ import code.util.CustList;
 import code.util.EntryCust;
 import code.util.IdMap;
 import code.util.StringList;
+import code.util.StringMap;
 import code.util.exceptions.NullObjectException;
 import code.util.exceptions.RuntimeClassNotFoundException;
 
@@ -98,7 +100,20 @@ public final class ElUtil {
                 }
                 throw new PrimitiveTypeException(_conf.joinPages());
             }
-            if (!PrimitiveTypeUtil.canBeUseAsArgument(clMatchLeft_.getName(), clMatchRight_.getName(), _conf.getClasses())) {
+            StringMap<StringList> vars_ = new StringMap<StringList>();
+            if (!_staticContext && _conf.getClasses() != null) {
+                String globalClass_ = page_.getGlobalClass();
+                if (globalClass_ != null && _conf.getClasses().getClassBody(globalClass_) != null) {
+                    for (TypeVar t: _conf.getClasses().getClassBody(globalClass_).getParamTypes()) {
+                        vars_.put(t.getName(), t.getConstraints());
+                    }
+                }
+            }
+            Mapping mapping_ = new Mapping();
+            mapping_.setMapping(vars_);
+            mapping_.setArg(clMatchRight_.getName());
+            mapping_.setParam(clMatchLeft_.getName());
+            if (!Templates.isSimpleCorrect(mapping_, _conf.getClasses())) {
                 throw new DynamicCastClassException(_conf.joinPages());
             }
         }

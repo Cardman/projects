@@ -1,5 +1,8 @@
 package code.expressionlanguage.methods;
 
+import java.lang.reflect.Method;
+import java.lang.reflect.Type;
+
 import org.w3c.dom.Element;
 
 import code.expressionlanguage.ContextEl;
@@ -32,6 +35,7 @@ import code.util.EqList;
 import code.util.ObjectMap;
 import code.util.StringList;
 import code.util.StringMap;
+import code.util.consts.ConstClasses;
 import code.xml.RowCol;
 
 public abstract class RootBlock extends BracedBlock implements AccessibleBlock {
@@ -382,18 +386,35 @@ public abstract class RootBlock extends BracedBlock implements AccessibleBlock {
                 }
                 String base_ = StringList.getAllTypes(c).first();
                 RootBlock r_ = classesRef_.getClassBody(base_);
-                for (EntryCust<MethodId, StringList> e: r_.getAllOverridingMethods().entryList()) {
-                    for (String s: e.getValue()) {
-                        if (StringList.quickEq(s, Object.class.getName())) {
-                            continue;
-                        }
-                        String baseBound_ = StringList.getAllTypes(s).first();
-                        if (classesRef_.getClassBody(baseBound_) != null) {
+                if (r_ != null) {
+                    for (EntryCust<MethodId, StringList> e: r_.getAllOverridingMethods().entryList()) {
+                        for (String s: e.getValue()) {
+                            if (StringList.quickEq(s, Object.class.getName())) {
+                                continue;
+                            }
                             MethodBlock m_ = classesRef_.getMethodBodiesByFormattedId(s, e.getKey()).first();
+                            if (!classesRef_.canAccess(getFullName(), m_)) {
+                                continue;
+                            }
                             MethodId id_ = m_.getFormattedId(c, classesRef_);
                             String formattedType_ = Templates.format(c, s, classesRef_);
                             addClass(signatures_, id_, formattedType_);
                         }
+                    }
+                } else {
+                    Class<?> clBound_ = ConstClasses.classForNameNotInit(base_);
+                    for (Method m: clBound_.getMethods()) {
+                        EqList<ClassName> types_ = new EqList<ClassName>();
+                        int len_ = m.getParameterTypes().length;
+                        for (int i = 0; i < len_; i++) {
+                            Type p_ = m.getGenericParameterTypes()[i];
+                            String alias_ = getTypeName(p_);
+                            alias_ = insertPrefixVarType(alias_);
+                            String formatted_ = Templates.format(c, alias_, classesRef_);
+                            types_.add(new ClassName(formatted_, i + 1 == len_ && m.isVarArgs()));
+                        }
+                        MethodId id_ = new MethodId(m.getName(), types_);
+                        addClass(signatures_, id_, c);
                     }
                 }
             }
@@ -447,6 +468,34 @@ public abstract class RootBlock extends BracedBlock implements AccessibleBlock {
             }
         }
     }
+
+    private static String getTypeName(Type _t) {
+        if (_t instanceof Class<?>) {
+            return PrimitiveTypeUtil.getAliasArrayClass((Class<?>)_t);
+        }
+        return _t.toString();
+    }
+    private static String insertPrefixVarType(String _wildCard) {
+        String str_ = _wildCard;
+        StringList allTypes_ = StringList.getAllTypes(str_);
+        int nbTypes_ = allTypes_.size();
+        if (nbTypes_ == 1) {
+            return str_;
+        }
+        StringBuilder newType_ = new StringBuilder(allTypes_.first());
+        newType_.append(LT);
+        for (int i = CustList.SECOND_INDEX; i < nbTypes_; i++) {
+            if (!allTypes_.get(i).contains(DOT)) {
+                newType_.append(Templates.PREFIX_VAR_TYPE);
+            }
+            newType_.append(allTypes_.get(i));
+            newType_.append(SEP_TMP);
+        }
+        newType_.deleteCharAt(newType_.length()-1);
+        newType_.append(GT);
+        return newType_.toString();
+    }
+
     public final void checkCompatibility(ContextEl _context) {
         ObjectMap<MethodId, StringList> signatures_ = getAllInstanceSignatures(_context.getClasses());
         ObjectMap<MethodId, String> localSignatures_ = getLocalSignatures(_context.getClasses());

@@ -4,12 +4,14 @@ import org.w3c.dom.Element;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.ElUtil;
+import code.expressionlanguage.Mapping;
 import code.expressionlanguage.PageEl;
-import code.expressionlanguage.PrimitiveTypeUtil;
 import code.expressionlanguage.ReadWrite;
+import code.expressionlanguage.Templates;
 import code.expressionlanguage.exceptions.DynamicCastClassException;
 import code.expressionlanguage.methods.exceptions.BadConstructorCall;
 import code.expressionlanguage.methods.exceptions.BadReturnException;
+import code.expressionlanguage.methods.util.TypeVar;
 import code.expressionlanguage.opers.Calculation;
 import code.expressionlanguage.opers.ExpressionLanguage;
 import code.expressionlanguage.opers.OperationNode;
@@ -18,6 +20,7 @@ import code.expressionlanguage.stacks.TryBlockStack;
 import code.util.CustList;
 import code.util.NatTreeMap;
 import code.util.StringList;
+import code.util.StringMap;
 
 public final class ReturnMehod extends Leaf implements CallingFinally {
 
@@ -91,7 +94,18 @@ public final class ReturnMehod extends Leaf implements CallingFinally {
             }
         } else {
             opRet = ElUtil.getAnalyzedOperations(expression, _cont, Calculation.staticCalculation(f_.isStaticContext()));
-            if (!PrimitiveTypeUtil.canBeUseAsArgument(retType_, opRet.last().getResultClass().getName(), _cont.getClasses())) {
+            StringMap<StringList> vars_ = new StringMap<StringList>();
+            if (!f_.isStaticContext()) {
+                String globalClass_ = page_.getGlobalClass();
+                for (TypeVar t: _cont.getClasses().getClassBody(globalClass_).getParamTypes()) {
+                    vars_.put(t.getName(), t.getConstraints());
+                }
+            }
+            Mapping mapping_ = new Mapping();
+            mapping_.setMapping(vars_);
+            mapping_.setArg(opRet.last().getResultClass().getName());
+            mapping_.setParam(retType_);
+            if (!Templates.isSimpleCorrect(mapping_, _cont.getClasses())) {
                 throw new DynamicCastClassException(_cont.joinPages());
             }
         }

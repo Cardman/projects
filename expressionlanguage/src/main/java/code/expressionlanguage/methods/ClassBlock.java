@@ -98,6 +98,25 @@ public final class ClassBlock extends RootBlock implements UniqueRootedBlock {
             classesRef_.getErrorsDet().add(inherit_);
         }
         for (Block b: Classes.getDirectChildren(this)) {
+            if (!(b instanceof ConstructorBlock)) {
+                continue;
+            }
+            ConstructorBlock c_ = (ConstructorBlock) b;
+            for (String s: classNames_) {
+                if (StringList.quickEq(s, Object.class.getName())) {
+                    continue;
+                }
+                if (classesRef_.getConstructorBodiesByFormattedId(s, c_.getId()).size() > 1) {
+                    DuplicateParamMethod duplicate_ = new DuplicateParamMethod();
+                    duplicate_.setFileName(getFullName());
+                    duplicate_.setRc(new RowCol());
+                    duplicate_.setCommonSignature(c_.getId().getSignature());
+                    duplicate_.setOtherType(s);
+                    classesRef_.getErrorsDet().add(duplicate_);
+                }
+            }
+        }
+        for (Block b: Classes.getDirectChildren(this)) {
             if (b instanceof MethodBlock) {
                 MethodBlock mCl_ = (MethodBlock) b;
                 if (mCl_.isStaticMethod()) {

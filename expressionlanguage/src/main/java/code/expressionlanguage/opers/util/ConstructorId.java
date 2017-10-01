@@ -54,6 +54,17 @@ public final class ConstructorId implements Equallable<ConstructorId> {
         if (classNames.size() != _obj.classNames.size()) {
             return false;
         }
+        if (!classNames.isEmpty()) {
+            if (classNames.last().isVararg()) {
+                if (!_obj.classNames.last().isVararg()) {
+                    return false;
+                }
+            } else {
+                if (_obj.classNames.last().isVararg()) {
+                    return false;
+                }
+            }
+        }
         int len_ = classNames.size();
         for (int i = 0; i < len_; i++) {
             if (!classNames.get(i).eq(_obj.classNames.get(i))) {
@@ -61,6 +72,21 @@ public final class ConstructorId implements Equallable<ConstructorId> {
             }
         }
         return true;
+    }
+
+    public StringList getParametersTypes() {
+        StringList params_ = new StringList();
+        for (ClassName c: classNames) {
+            params_.add(c.getName());
+        }
+        return params_;
+    }
+
+    public boolean isVararg() {
+        if (classNames.isEmpty()) {
+            return false;
+        }
+        return classNames.last().isVararg();
     }
 
     public String getName() {
