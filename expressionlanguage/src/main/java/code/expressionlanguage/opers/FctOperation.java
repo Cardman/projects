@@ -224,11 +224,6 @@ public final class FctOperation extends InvokingOperation {
                     throw new NullObjectException(_conf.joinPages());
                 }
                 str_ = StringList.removeAllSpaces(str_);
-                MethodOperation parent_ = getParent();
-                if (parent_ instanceof InvokingOperation) {
-                    //TODO multiple cast
-                    ((InvokingOperation)parent_).isCallMethodCtor();
-                }
                 checkExist(_conf, str_, true, true, chidren_.first().getIndexInEl()+1);
                 setResultClass(new ClassArgumentMatching(str_));
                 return;
@@ -694,6 +689,9 @@ public final class FctOperation extends InvokingOperation {
     boolean isCallMethodCtor() {
         String trimMeth_ = methodName.trim();
         if (StringList.quickEq(trimMeth_, EXTERN_CLASS+VAR_ARG)) {
+            return false;
+        }
+        if (StringList.quickEq(trimMeth_, EXTERN_CLASS+FIRST_OPT)) {
             return false;
         }
         if (StringList.quickEq(trimMeth_, EXTERN_CLASS+INSTANCEOF)) {

@@ -4,6 +4,7 @@ import org.w3c.dom.Element;
 
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.methods.exceptions.CyclicCallingException;
+import code.expressionlanguage.methods.util.BadAccessMethod;
 import code.expressionlanguage.methods.util.ConstructorEdge;
 import code.expressionlanguage.methods.util.ReservedMethod;
 import code.expressionlanguage.opers.OperationNode;
@@ -54,6 +55,7 @@ public final class EnumBlock extends RootBlock implements UniqueRootedBlock {
 
     @Override
     public void setupBasicOverrides(ContextEl _context) {
+        Classes classesRef_ = _context.getClasses();
         CustList<Block> ch_ = Classes.getDirectChildren(this);
         for (Block c: ch_) {
             if (!(c instanceof MethodBlock)) {
@@ -89,13 +91,14 @@ public final class EnumBlock extends RootBlock implements UniqueRootedBlock {
                 _context.getClasses().getErrorsDet().add(r_);
             }
         }
-        StringList all_ = getAllGenericSuperTypes(_context.getClasses());
+        StringList all_ = getAllGenericSuperTypes(classesRef_);
         for (Block b: Classes.getDirectChildren(this)) {
             if (b instanceof MethodBlock) {
                 MethodBlock mCl_ = (MethodBlock) b;
                 if (mCl_.isStaticMethod()) {
                     continue;
                 }
+                addClass(getAllOverridingMethods(), mCl_.getId(), getFullDefinition());
                 for (String s: all_) {
                     if (StringList.quickEq(s, Object.class.getName())) {
                         continue;
@@ -130,7 +133,52 @@ public final class EnumBlock extends RootBlock implements UniqueRootedBlock {
                     }
                     mDer_.getAllOverridenClasses().addAllElts(mBase_.getAllOverridenClasses());
                 }
-                getAllOverridingMethods().put(mDer_.getId(), mDer_.getAllOverridenClasses());
+                for (String s: getAllGenericSuperTypes(classesRef_)) {
+                    CustList<MethodBlock> mBases_ = classesRef_.getMethodBodiesByFormattedId(s, mDer_.getId());
+                    if (mBases_.isEmpty()) {
+                        continue;
+                    }
+                    MethodBlock mBase_ = mBases_.first();
+                    if (mBase_.isStaticMethod()) {
+                        continue;
+                    }
+                    if (!_context.getClasses().canAccess(getFullName(), mBase_)) {
+                        continue;
+                    }
+                    addClass(getAllOverridingMethods(), mDer_.getId(), s);
+                }
+            }
+        }
+        for (String s: getAllGenericInterfaces(classesRef_)) {
+            String base_ = StringList.getAllTypes(s).first();
+            RootBlock r_ = classesRef_.getClassBody(base_);
+            for (Block b: Classes.getDirectChildren(r_)) {
+                if (!(b instanceof MethodBlock)) {
+                    continue;
+                }
+                MethodBlock mDer_ = (MethodBlock) b;
+                if (mDer_.isStaticMethod()) {
+                    continue;
+                }
+                MethodId id_ = mDer_.getFormattedId(s, classesRef_);
+                CustList<MethodBlock> mBases_ = classesRef_.getMethodBodiesByFormattedId(getFullDefinition(), id_);
+                if (mBases_.isEmpty()) {
+                    continue;
+                }
+                MethodBlock mBase_ = mBases_.first();
+                if (mBase_.isStaticMethod()) {
+                    continue;
+                }
+                if (mDer_.getAccess().ordinal() > mBase_.getAccess().ordinal()) {
+                    BadAccessMethod err_;
+                    err_ = new BadAccessMethod();
+                    err_.setFileName(getFullName());
+                    err_.setRc(mDer_.getAttributes().getVal(ATTRIBUTE_ACCESS));
+                    err_.setId(mDer_.getId());
+                    classesRef_.getErrorsDet().add(err_);
+                }
+                addClass(getAllOverridingMethods(), id_, getFullDefinition());
+                addClass(getAllOverridingMethods(), id_, s);
             }
         }
     }

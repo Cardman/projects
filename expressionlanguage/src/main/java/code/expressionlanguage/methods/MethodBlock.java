@@ -2,6 +2,8 @@ package code.expressionlanguage.methods;
 import org.w3c.dom.Element;
 
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.Templates;
+import code.expressionlanguage.methods.util.TypeVar;
 import code.expressionlanguage.opers.util.ClassName;
 import code.expressionlanguage.opers.util.FctConstraints;
 import code.expressionlanguage.opers.util.MethodId;
@@ -69,6 +71,43 @@ public final class MethodBlock extends NamedFunctionBlock {
 
     public StringList getAllOverridenClasses() {
         return allOverridenClasses;
+    }
+
+    public MethodId getFormattedId(String _genericClass, Classes _classes) {
+        String name_ = getName();
+        StringList types_ = getParametersTypes();
+        int len_ = types_.size();
+        EqList<ClassName> pTypes_ = new EqList<ClassName>();
+        for (int i = CustList.FIRST_INDEX; i < len_; i++) {
+            String n_ = types_.get(i);
+            String formatted_ = Templates.format(_genericClass, n_, _classes);
+            pTypes_.add(new ClassName(formatted_, i + 1 == len_ && isVarargs()));
+        }
+        return new MethodId(name_, pTypes_);
+    }
+
+    public MethodId getFormattedId(Classes _classes) {
+        String className_ = declaringType;
+        StringList vars_ = new StringList();
+        for (TypeVar t: _classes.getClassBody(className_).getParamTypes()) {
+            vars_.add(Templates.PREFIX_VAR_TYPE+t.getName());
+        }
+        String current_;
+        if (vars_.isEmpty()) {
+            current_ = className_;
+        } else {
+            current_ = className_+LT+vars_.join(SEP_TMP)+GT;
+        }
+        String name_ = getName();
+        StringList types_ = getParametersTypes();
+        int len_ = types_.size();
+        EqList<ClassName> pTypes_ = new EqList<ClassName>();
+        for (int i = CustList.FIRST_INDEX; i < len_; i++) {
+            String n_ = types_.get(i);
+            String formatted_ = Templates.format(current_, n_, _classes);
+            pTypes_.add(new ClassName(formatted_, i + 1 == len_ && isVarargs()));
+        }
+        return new MethodId(name_, pTypes_);
     }
 
     public MethodId getId() {

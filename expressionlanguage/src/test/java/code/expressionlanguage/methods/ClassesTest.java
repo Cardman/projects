@@ -312,6 +312,23 @@ public class ClassesTest {
     }
 
     @Test
+    public void getMethodBodiesByFormattedId14Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        String xml_;
+        xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' template='&lt;#E&gt;'>\n";
+        xml_ += "<method access='"+PUBLIC_ACCESS+"' name='instancemethod' class='"+OperationNode.VOID_RETURN+"' modifier='normal' var0='i' class0='#E'>\n";
+        xml_ += "</method>\n";
+        xml_ += "</class>\n";
+        files_.put("pkg/Ex."+Classes.EXT, xml_);
+        xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExTwo' package='pkg' template='&lt;#T&gt;' superclass='pkg.Ex&lt;#T&gt;'/>\n";
+        files_.put("pkg/ExTwo."+Classes.EXT, xml_);
+        ContextEl context_ = unfullValidateOverridingClasses(files_);
+        Classes classes_ = context_.getClasses();
+        CustList<MethodBlock> methods_ = classes_.getMethodBodiesByFormattedId("pkg.Ex<#F>", "instancemethod", new StringList("#G"), false);
+        assertEq(0, methods_.size());
+    }
+
+    @Test
     public void getSortedSuperInterfaces1Test() {
         StringMap<String> files_ = new StringMap<String>();
         String xml_;

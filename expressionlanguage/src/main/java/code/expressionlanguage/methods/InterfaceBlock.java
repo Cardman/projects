@@ -68,19 +68,21 @@ public final class InterfaceBlock extends RootBlock {
 
     @Override
     public void setupBasicOverrides(ContextEl _context) {
-        StringList all_ = getAllGenericSuperTypes(_context.getClasses());
+        Classes classesRef_ = _context.getClasses();
+        StringList all_ = getAllGenericSuperTypes(classesRef_);
         for (Block b: Classes.getDirectChildren(this)) {
             if (b instanceof MethodBlock) {
                 MethodBlock mCl_ = (MethodBlock) b;
                 if (mCl_.isStaticMethod()) {
                     continue;
                 }
+                addClass(getAllOverridingMethods(), mCl_.getId(), getFullDefinition());
                 for (String s: all_) {
                     if (StringList.quickEq(s, Object.class.getName())) {
                         continue;
                     }
                     CustList<MethodBlock> methods_ ;
-                    methods_ = _context.getClasses().getMethodBodiesByFormattedId(s, mCl_.getId());
+                    methods_ = classesRef_.getMethodBodiesByFormattedId(s, mCl_.getId());
                     if (methods_.isEmpty()) {
                         continue;
                     }
@@ -88,7 +90,7 @@ public final class InterfaceBlock extends RootBlock {
                     if (m_.isStaticMethod()) {
                         continue;
                     }
-                    if (_context.getClasses().canAccess(getFullName(), m_)) {
+                    if (classesRef_.canAccess(getFullName(), m_)) {
                         ((MethodBlock) b).getOverridenClasses().add(s);
                         break;
                     }
@@ -103,13 +105,26 @@ public final class InterfaceBlock extends RootBlock {
                 }
                 mDer_.getAllOverridenClasses().addAllElts(mDer_.getOverridenClasses());
                 for (String s: mDer_.getOverridenClasses()) {
-                    MethodBlock mBase_ = _context.getClasses().getMethodBodiesByFormattedId(s, mDer_.getId()).first();
+                    MethodBlock mBase_ = classesRef_.getMethodBodiesByFormattedId(s, mDer_.getId()).first();
                     if (mBase_.isStaticMethod()) {
                         continue;
                     }
                     mDer_.getAllOverridenClasses().addAllElts(mBase_.getAllOverridenClasses());
                 }
-                getAllOverridingMethods().put(mDer_.getId(), mDer_.getAllOverridenClasses());
+                for (String s: getAllGenericSuperTypes(classesRef_)) {
+                    CustList<MethodBlock> mBases_ = classesRef_.getMethodBodiesByFormattedId(s, mDer_.getId());
+                    if (mBases_.isEmpty()) {
+                        continue;
+                    }
+                    MethodBlock mBase_ = mBases_.first();
+                    if (mBase_.isStaticMethod()) {
+                        continue;
+                    }
+                    if (!classesRef_.canAccess(getFullName(), mBase_)) {
+                        continue;
+                    }
+                    addClass(getAllOverridingMethods(), mDer_.getId(), s);
+                }
             }
         }
     }
