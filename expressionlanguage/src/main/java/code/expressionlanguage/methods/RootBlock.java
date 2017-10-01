@@ -61,7 +61,7 @@ public abstract class RootBlock extends BracedBlock implements AccessibleBlock {
 
     public abstract StringList getAllSuperClasses();
 
-    public abstract StringList getAllGenericSuperClasses();
+    public abstract StringList getAllGenericSuperClasses(Classes _classes);
 
     public abstract StringList getAllSuperTypes();
 
@@ -72,7 +72,7 @@ public abstract class RootBlock extends BracedBlock implements AccessibleBlock {
     public abstract boolean isFinalType();
     public abstract boolean isAbstractType();
 
-    public abstract StringList getAllGenericInterfaces();
+    public abstract StringList getAllGenericInterfaces(Classes _classes);
 
     public abstract StringList getAllInterfaces();
 
@@ -395,7 +395,7 @@ public abstract class RootBlock extends BracedBlock implements AccessibleBlock {
         if (mustImplement()) {
             concreteClass_ = true;
         }
-        StringList allSuperClass_ = getAllGenericSuperClasses();
+        StringList allSuperClass_ = getAllGenericSuperClasses(_context.getClasses());
         for (String s: allSuperClass_) {
             Block superBl_ = _context.getClasses().getClassBody(s);
             for (Block b: Classes.getDirectChildren(superBl_)) {
@@ -525,7 +525,7 @@ public abstract class RootBlock extends BracedBlock implements AccessibleBlock {
         }
         ObjectMap<MethodId, StringList> ov_;
         ov_ = RootBlock.getAllOverridingMethods(signatures_, _context.getClasses());
-        allSuperClass_ = getAllGenericSuperClasses();
+        allSuperClass_ = getAllGenericSuperClasses(_context.getClasses());
         StringList allAssSuperClass_ = new StringList(allSuperClass_);
         allAssSuperClass_.add(getFullDefinition());
         for (EntryCust<MethodId, StringList> e: ov_.entryList()) {

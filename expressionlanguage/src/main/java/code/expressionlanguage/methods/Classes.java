@@ -738,19 +738,15 @@ public final class Classes {
         }
         for (String c: classesInheriting) {
             RootBlock dBl_ = classesBodies.getVal(c);
-            StringList allGene_ = dBl_.getAllGenericSuperClasses();
             StringList all_ = dBl_.getAllSuperClasses();
             StringList direct_ = dBl_.getDirectSuperClasses();
-            StringList directGene_ = dBl_.getDirectGenericSuperClasses();
             all_.addAllElts(direct_);
-            allGene_.addAllElts(directGene_);
             for (String b: direct_) {
                 if (StringList.quickEq(b, Object.class.getName())) {
                     continue;
                 }
                 RootBlock bBl_ = classesBodies.getVal(b);
                 all_.addAllElts(bBl_.getAllSuperClasses());
-                allGene_.addAllElts(bBl_.getAllGenericSuperClasses());
             }
         }
         for (String c: classesInheriting) {
@@ -759,15 +755,11 @@ public final class Classes {
             }
             UniqueRootedBlock bl_ = (UniqueRootedBlock) classesBodies.getVal(c);
             StringList all_ = bl_.getAllInterfaces();
-            StringList allGene_ = bl_.getAllGenericInterfaces();
             StringList direct_ = bl_.getDirectInterfaces();
-            StringList directGene_ = bl_.getDirectGenericInterfaces();
             all_.addAllElts(direct_);
-            allGene_.addAllElts(directGene_);
             for (String i: direct_) {
                 RootBlock i_ = classesBodies.getVal(i);
                 all_.addAllElts(i_.getAllSuperClasses());
-                allGene_.addAllElts(i_.getAllGenericSuperClasses());
             }
             String superClass_ = bl_.getSuperClass();
             StringList needed_;

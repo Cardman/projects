@@ -16,8 +16,6 @@ public final class InterfaceBlock extends RootBlock {
 
     private final StringList superInterfaces;
 
-    private final StringList allGenericSuperClasses = new StringList();
-
     private final StringList allSuperClasses = new StringList();
 
     private final StringList allSuperTypes = new StringList();
@@ -219,12 +217,20 @@ public final class InterfaceBlock extends RootBlock {
     }
 
     @Override
-    public StringList getAllGenericSuperClasses() {
-        return allGenericSuperClasses;
+    public StringList getAllGenericSuperClasses(Classes _classes) {
+        StringList allSuperTypes_ = getAllGenericSuperTypes(_classes);
+        StringList allGenericSuperClasses_ = new StringList();
+        for (String s: allSuperTypes_) {
+            String base_ = StringList.getAllTypes(s).first();
+            if (_classes.getClassBody(base_) instanceof ClassBlock) {
+                allGenericSuperClasses_.add(s);
+            }
+        }
+        return allGenericSuperClasses_;
     }
 
     @Override
-    public StringList getAllGenericInterfaces() {
-        return getAllGenericSuperClasses();
+    public StringList getAllGenericInterfaces(Classes _classes) {
+        return getAllGenericSuperClasses(_classes);
     }
 }

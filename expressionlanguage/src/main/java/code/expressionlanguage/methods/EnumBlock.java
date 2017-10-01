@@ -26,8 +26,6 @@ public final class EnumBlock extends RootBlock implements UniqueRootedBlock {
 
     private final StringList allSuperClasses = new StringList();
 
-    private final StringList allGenericSuperClasses = new StringList();
-
     private final StringList allSuperTypes = new StringList();
 
     private final StringList directInterfaces = new StringList();
@@ -35,8 +33,6 @@ public final class EnumBlock extends RootBlock implements UniqueRootedBlock {
     private final StringList allDirectInterfaces = new StringList();
 
     private final StringList allInterfaces = new StringList();
-
-    private final StringList allGenericInterfaces = new StringList();
 
     private final StringList allSortedInterfaces = new StringList();
 
@@ -316,12 +312,28 @@ public final class EnumBlock extends RootBlock implements UniqueRootedBlock {
     }
 
     @Override
-    public StringList getAllGenericSuperClasses() {
-        return allGenericSuperClasses;
+    public StringList getAllGenericSuperClasses(Classes _classes) {
+        StringList allSuperTypes_ = getAllGenericSuperTypes(_classes);
+        StringList allGenericSuperClasses_ = new StringList();
+        for (String s: allSuperTypes_) {
+            String base_ = StringList.getAllTypes(s).first();
+            if (_classes.getClassBody(base_) instanceof ClassBlock) {
+                allGenericSuperClasses_.add(s);
+            }
+        }
+        return allGenericSuperClasses_;
     }
 
     @Override
-    public StringList getAllGenericInterfaces() {
-        return allGenericInterfaces;
+    public StringList getAllGenericInterfaces(Classes _classes) {
+        StringList allSuperTypes_ = getAllGenericSuperTypes(_classes);
+        StringList allGenericInterfaces_ = new StringList();
+        for (String s: allSuperTypes_) {
+            String base_ = StringList.getAllTypes(s).first();
+            if (_classes.getClassBody(base_) instanceof InterfaceBlock) {
+                allGenericInterfaces_.add(s);
+            }
+        }
+        return allGenericInterfaces_;
     }
 }
