@@ -15,6 +15,7 @@ import code.util.CustList;
 import code.util.EntryCust;
 import code.util.Numbers;
 import code.util.StringList;
+import code.util.StringMap;
 import code.util.TreeMap;
 import code.util.consts.ConstClasses;
 import code.util.exceptions.RuntimeClassNotFoundException;
@@ -107,10 +108,12 @@ public final class PrimitiveTypeUtil {
                 }
             } else {
                 for (String j: _classNames) {
-                    if (StringList.quickEq(i, j)) {
+                    String baseSup_ = StringList.getAllTypes(i).first();
+                    String baseSub_ = StringList.getAllTypes(j).first();
+                    if (StringList.quickEq(baseSup_, baseSub_)) {
                         continue;
                     }
-                    if (canBeUseAsArgument(i, j, _classes)) {
+                    if (canBeUseAsArgument(baseSup_, baseSub_, _classes)) {
                         sub_ = false;
                         break;
                     }
@@ -149,6 +152,46 @@ public final class PrimitiveTypeUtil {
             } else {
                 for (String j: _classNames) {
                     if (!canBeUseAsArgument(j, i, _classes)) {
+                        sub_ = false;
+                        break;
+                    }
+                }
+            }
+            if (sub_) {
+                return i;
+            }
+        }
+        return NO_SUB_CLASS;
+    }
+    public static String getSubslass(StringList _classNames, StringMap<StringList> _vars, Classes _classes) {
+        boolean hasPrim_ = false;
+        boolean hasObj_ = false;
+        for (String i: _classNames) {
+            if (i.startsWith(PRIM)) {
+                hasPrim_ = true;
+            } else {
+                hasObj_ = true;
+            }
+        }
+        if (hasPrim_ && hasObj_) {
+            return NO_SUB_CLASS;
+        }
+        Mapping mapping_ = new Mapping();
+        mapping_.getMapping().putAllMap(_vars);
+        for (String i: _classNames) {
+            boolean sub_ = true;
+            if (StringList.quickEq(i, OperationNode.VOID_RETURN)) {
+                for (String j: _classNames) {
+                    if (!StringList.quickEq(i, j)) {
+                        sub_ = false;
+                        break;
+                    }
+                }
+            } else {
+                mapping_.setParam(i);
+                for (String j: _classNames) {
+                    mapping_.setArg(j);
+                    if (!Templates.isSimpleCorrect(mapping_, _classes)) {
                         sub_ = false;
                         break;
                     }
