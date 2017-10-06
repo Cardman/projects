@@ -152,7 +152,7 @@ public class CustList<T> implements Listable<T> {
 
     @Override
     public Iterator<T> iterator() {
-        return list.iterator();
+        return new CustIter<T>(this);
     }
 
     @Override

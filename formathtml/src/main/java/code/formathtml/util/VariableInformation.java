@@ -32,7 +32,6 @@ public final class VariableInformation {
 
     public void setClassRef(Class<?> _classRef) {
         declaringClassName = PrimitiveTypeUtil.getAliasArrayClass(_classRef);
-        System.out.println(declaringClassName);
     }
 
 }

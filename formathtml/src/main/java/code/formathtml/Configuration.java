@@ -14,6 +14,7 @@ import code.util.CustList;
 import code.util.EntryCust;
 import code.util.StringList;
 import code.util.StringMap;
+import code.util.StringMapObject;
 import code.util.annot.RwXml;
 import code.util.ints.MathFactory;
 
@@ -227,7 +228,7 @@ public class Configuration {
             ExtractObject.setDataBase(this, strBean_, new Struct());
         }
         if (_bean == null || _bean.getForms() == null) {
-            ExtractObject.setForms(this, strBean_, new Struct(new StringMap<Object>()));
+            ExtractObject.setForms(this, strBean_, new Struct(new StringMapObject()));
         } else {
             ExtractObject.setForms(this, strBean_, new Struct(_bean.getForms()));
         }

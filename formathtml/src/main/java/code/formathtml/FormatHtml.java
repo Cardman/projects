@@ -82,6 +82,7 @@ import code.util.NumberMap;
 import code.util.ObjectMap;
 import code.util.StringList;
 import code.util.StringMap;
+import code.util.StringMapObject;
 import code.util.consts.ConstClasses;
 import code.util.exceptions.NullObjectException;
 import code.util.exceptions.RuntimeClassNotFoundException;
@@ -336,20 +337,19 @@ final class FormatHtml {
         }
         ImportingPage ip_ = _conf.getLastPage();
         String prefix_ = ip_.getPrefix();
-        Struct forms_ = ExtractObject.getForms(_conf, bean_);
-        Struct formsMap_ = ExtractObject.getForms(_conf, _mainBean);
+        StringMapObject forms_ = (StringMapObject) ExtractObject.getForms(_conf, bean_).getInstance();
+        StringMapObject formsMap_ = (StringMapObject) ExtractObject.getForms(_conf, _mainBean).getInstance();
         if (_keepField) {
             for (Element f_: XmlParser.childrenElements(_node)) {
                 if (!StringList.quickEq(f_.getNodeName(),prefix_+FORM_BLOCK_TAG)) {
                     continue;
                 }
                 String name_ = f_.getAttribute(ATTRIBUTE_FORM);
-                Struct strName_ = new Struct(name_);
-                ExtractObject.put(_conf, forms_, strName_, ExtractObject.getVal(_conf, formsMap_, strName_));
+                forms_.put(name_, formsMap_.getVal(name_));
             }
         } else {
             //add option for copying forms (default copy)
-            ExtractObject.putAllMap(_conf, forms_, formsMap_);
+            forms_.putAllMap(formsMap_);
         }
     }
 
@@ -4085,7 +4085,7 @@ final class FormatHtml {
             container_ = ElUtil.processEl(mapAttr_, 0, _conf.toContextEl()).getStruct();
             Object o_ = container_.getInstance();
             mapCast_ = o_;
-            iterable_ = ExtractObject.getKeys(_conf, mapAttr_.length(), container_).getInstance();
+            iterable_ = o_;
             if (iterable_ == null) {
                 throw new NullObjectException(_conf.joinPages());
             }

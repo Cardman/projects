@@ -49,6 +49,7 @@ import code.util.NatTreeMap;
 import code.util.NumberMap;
 import code.util.StringList;
 import code.util.StringMap;
+import code.util.StringMapObject;
 
 @SuppressWarnings("static-method")
 public class NavigationTest {
@@ -1128,7 +1129,7 @@ public class NavigationTest {
         assertXmlEqualNoPrefix("<html xmlns:c='javahtml' xmlns='javahtml'><body><form n-f=\"0\" action=\"\" c:command=\"$bean_two.go\" name=\"myform\"><input n-i=\"0\" name=\"bean_two.typedString\" type=\"text\" value=\"TYPED_STRING\"/></form></body></html>", nav_.getHtmlText());
         beanTwo_ = (BeanTwo) conf_.getBeans().getVal("bean_two");
         assertEq("TYPED_STRING", beanTwo_.getTypedString());
-        StringMap<Object> map_ = beanTwo_.getForms();
+        StringMapObject map_ = beanTwo_.getForms();
         assertEq(8, map_.size());
         assertEq(false, map_.getVal("checked"));
         assertEq("ONE", map_.getVal("typedString"));
@@ -1207,7 +1208,7 @@ public class NavigationTest {
         assertXmlEqualNoPrefix("<html xmlns:c='javahtml' xmlns='javahtml'><body><form n-f=\"0\" action=\"\" c:command=\"$bean_two.go\" name=\"myform\"><input n-i=\"0\" name=\"bean_two.typedString\" type=\"text\" value=\"ONE2\"/></form></body></html>", nav_.getHtmlText());
         beanTwo_ = (BeanTwo) conf_.getBeans().getVal("bean_two");
         assertEq("ONE2", beanTwo_.getTypedString());
-        StringMap<Object> map_ = beanTwo_.getForms();
+        StringMapObject map_ = beanTwo_.getForms();
         assertEq(8, map_.size());
         assertEq(false, map_.getVal("checked"));
         assertEq("ONE", map_.getVal("typedString"));
@@ -1285,7 +1286,7 @@ public class NavigationTest {
         assertEq("bean_one", nav_.getCurrentBeanName());
         assertXmlEqualNoPrefix("<html xmlns:c='javahtml' xmlns='javahtml'><body>HEAD<a n-a=\"0\" c:command=\"$bean_one.goToNullPage\" href=\"\"/></body></html>", nav_.getHtmlText());
         bean_ = (BeanOne) conf_.getBeans().getVal("bean_one");
-        StringMap<Object> map_ = bean_.getForms();
+        StringMapObject map_ = bean_.getForms();
         assertEq(8, map_.size());
         assertEq(false, map_.getVal("checked"));
         assertEq("ONE_TWO", map_.getVal("typedString"));
@@ -1365,7 +1366,7 @@ public class NavigationTest {
         assertXmlEqualNoPrefix("<html xmlns:c='javahtml' xmlns='javahtml'><body><form n-f=\"0\" action=\"\" c:command=\"$bean_two.go\" name=\"myform\"><input n-i=\"0\" id=\"txt\" name=\"bean_two.typedString\" type=\"text\" c:validator=\"rate_val\" value=\"ONE_TWO\"/></form></body></html>", nav_.getHtmlText());
         beanTwo_ = (BeanTwo) conf_.getBeans().getVal("bean_two");
         assertEq("TYPED_STRING", beanTwo_.getTypedString());
-        StringMap<Object> map_ = beanTwo_.getForms();
+        StringMapObject map_ = beanTwo_.getForms();
         assertEq(0, map_.size());
         assertEq(0, conf_.getBeans().getVal("bean_one").getForms().size());
         assertEq(0, conf_.getBeans().getVal("bean_two").getForms().size());
@@ -1435,7 +1436,7 @@ public class NavigationTest {
         assertXmlEqualNoPrefix("<html xmlns:c='javahtml' xmlns='javahtml'><body><form n-f=\"0\" action=\"\" c:command=\"$bean_two.go\" name=\"myform\"><input n-i=\"0\" id=\"txt\" name=\"bean_two.typedString\" type=\"text\" c:validator=\"rate_val\" value=\"ONE_TWO\"/><span c:for=\"txt\">ONE_TWO is not a no zero rate</span></form></body></html>", nav_.getHtmlText());
         beanTwo_ = (BeanTwo) conf_.getBeans().getVal("bean_two");
         assertEq("TYPED_STRING", beanTwo_.getTypedString());
-        StringMap<Object> map_ = beanTwo_.getForms();
+        StringMapObject map_ = beanTwo_.getForms();
         assertEq(0, map_.size());
         assertEq(0, conf_.getBeans().getVal("bean_one").getForms().size());
         assertEq(0, conf_.getBeans().getVal("bean_two").getForms().size());
@@ -1505,7 +1506,7 @@ public class NavigationTest {
         assertXmlEqualNoPrefix("<html xmlns:c='javahtml' xmlns='javahtml'><body><form n-f=\"0\" action=\"\" c:command=\"$bean_two.go\" name=\"myform\"><input n-i=\"0\" id=\"txt\" name=\"bean_two.typedString\" type=\"text\" c:validator=\"rate_val\" value=\"1/22\"/><span c:for=\"txt\"> </span></form></body></html>", nav_.getHtmlText());
         beanTwo_ = (BeanTwo) conf_.getBeans().getVal("bean_two");
         assertEq("1/22", beanTwo_.getTypedString());
-        StringMap<Object> map_ = beanTwo_.getForms();
+        StringMapObject map_ = beanTwo_.getForms();
         assertEq(8, map_.size());
         assertEq(false, map_.getVal("checked"));
         assertEq("1/2", map_.getVal("typedString"));
@@ -1584,7 +1585,7 @@ public class NavigationTest {
         assertXmlEqualNoPrefix("<html xmlns:c='javahtml' xmlns='javahtml'><body><form n-f=\"0\" action=\"\" c:command=\"$bean_two.go\" name=\"myform\"><input n-i=\"0\" name=\"bean_two.typedString\" type=\"text\" value=\"TYPED_STRING\"/></form></body></html>", nav_.getHtmlText());
         beanTwo_ = (BeanTwo) conf_.getBeans().getVal("bean_two");
         assertEq("TYPED_STRING", beanTwo_.getTypedString());
-        StringMap<Object> map_ = beanTwo_.getForms();
+        StringMapObject map_ = beanTwo_.getForms();
         assertEq(8, map_.size());
         assertEq(false, map_.getVal("checked"));
         assertEq("", map_.getVal("typedString"));
@@ -1664,7 +1665,7 @@ public class NavigationTest {
         assertXmlEqualNoPrefix("<html xmlns:c='javahtml' xmlns='javahtml'><body><form n-f=\"0\" action=\"\" c:command=\"$bean_two.go\" name=\"myform\"><input n-i=\"0\" id=\"txt\" name=\"bean_two.typedString\" type=\"text\" c:validator=\"rate_val\" value=\"ONE_TWO\"/><span c:for=\"txt\" c:valueMessage=\"msg_example,five\">ONE_TWO in error</span></form></body></html>", nav_.getHtmlText());
         beanTwo_ = (BeanTwo) conf_.getBeans().getVal("bean_two");
         assertEq("TYPED_STRING", beanTwo_.getTypedString());
-        StringMap<Object> map_ = beanTwo_.getForms();
+        StringMapObject map_ = beanTwo_.getForms();
         assertEq(0, map_.size());
         assertEq(0, conf_.getBeans().getVal("bean_one").getForms().size());
         assertEq(0, conf_.getBeans().getVal("bean_two").getForms().size());
@@ -1732,7 +1733,7 @@ public class NavigationTest {
         assertEq("bean_one", nav_.getCurrentBeanName());
         assertXmlEqualNoPrefix("<html xmlns:c='javahtml' xmlns='javahtml'><body>HEAD<a n-a=\"0\" c:command=\"$bean_one.goToNullPage\" href=\"\"/></body></html>", nav_.getHtmlText());
         bean_ = (BeanOne) conf_.getBeans().getVal("bean_one");
-        StringMap<Object> map_ = bean_.getForms();
+        StringMapObject map_ = bean_.getForms();
         assertEq(8, map_.size());
         assertEq(false, map_.getVal("checked"));
         assertEq("TYPED_STRING", map_.getVal("typedString"));
@@ -1810,7 +1811,7 @@ public class NavigationTest {
         assertEq("bean_one", nav_.getCurrentBeanName());
         assertXmlEqualNoPrefix("<html xmlns:c='javahtml' xmlns='javahtml'><body>HEAD<a n-a=\"0\" c:command=\"$bean_one.goToNullPage\" href=\"\"/></body></html>", nav_.getHtmlText());
         bean_ = (BeanOne) conf_.getBeans().getVal("bean_one");
-        StringMap<Object> map_ = bean_.getForms();
+        StringMapObject map_ = bean_.getForms();
         assertEq(8, map_.size());
         assertEq(true, map_.getVal("checked"));
         assertEq("TYPED_STRING", map_.getVal("typedString"));
@@ -1888,7 +1889,7 @@ public class NavigationTest {
         assertEq("bean_one", nav_.getCurrentBeanName());
         assertXmlEqualNoPrefix("<html xmlns:c='javahtml' xmlns='javahtml'><body>HEAD<a n-a=\"0\" c:command=\"$bean_one.goToNullPage\" href=\"\"/></body></html>", nav_.getHtmlText());
         bean_ = (BeanOne) conf_.getBeans().getVal("bean_one");
-        StringMap<Object> map_ = bean_.getForms();
+        StringMapObject map_ = bean_.getForms();
         assertEq(8, map_.size());
         assertEq(false, map_.getVal("checked"));
         assertEq("TYPED_STRING", map_.getVal("typedString"));
@@ -1966,7 +1967,7 @@ public class NavigationTest {
         assertEq("bean_one", nav_.getCurrentBeanName());
         assertXmlEqualNoPrefix("<html xmlns:c='javahtml' xmlns='javahtml'><body>HEAD<a n-a=\"0\" c:command=\"$bean_one.goToNullPage\" href=\"\"/></body></html>", nav_.getHtmlText());
         bean_ = (BeanOne) conf_.getBeans().getVal("bean_one");
-        StringMap<Object> map_ = bean_.getForms();
+        StringMapObject map_ = bean_.getForms();
         assertEq(8, map_.size());
         assertEq(false, map_.getVal("checked"));
         assertEq("TYPED_STRING", map_.getVal("typedString"));
@@ -2047,7 +2048,7 @@ public class NavigationTest {
         assertXmlEqualNoPrefix("<html xmlns:c='javahtml' xmlns='javahtml'><body><form n-f=\"0\" action=\"\" c:command=\"$bean_two.go\" name=\"myform\"><input n-i=\"0\" name=\"bean_two.typedString\" type=\"text\" value=\"TYPED_STRING\"/></form></body></html>", nav_.getHtmlText());
         beanTwo_ = (BeanTwo) conf_.getBeans().getVal("bean_two");
         assertEq("TYPED_STRING", beanTwo_.getTypedString());
-        StringMap<Object> map_ = beanTwo_.getForms();
+        StringMapObject map_ = beanTwo_.getForms();
         assertEq(8, map_.size());
         assertEq(false, map_.getVal("checked"));
         assertEq("TWO", map_.getVal("typedString"));
@@ -2127,7 +2128,7 @@ public class NavigationTest {
         assertEq("bean_one", nav_.getCurrentBeanName());
         assertXmlEqualNoPrefix("<html xmlns:c='javahtml' xmlns='javahtml'><body>HEAD<a n-a=\"0\" c:command=\"$bean_one.goToNullPage\" href=\"\"/></body></html>", nav_.getHtmlText());
         bean_ = (BeanOne) conf_.getBeans().getVal("bean_one");
-        StringMap<Object> map_ = bean_.getForms();
+        StringMapObject map_ = bean_.getForms();
         assertEq(8, map_.size());
         assertEq(false, map_.getVal("checked"));
         assertEq("TYPED_STRING", map_.getVal("typedString"));
@@ -2205,7 +2206,7 @@ public class NavigationTest {
         assertEq("bean_one", nav_.getCurrentBeanName());
         assertXmlEqualNoPrefix("<html xmlns:c='javahtml' xmlns='javahtml'><body>HEAD<a n-a=\"0\" c:command=\"$bean_one.goToNullPage\" href=\"\"/></body></html>", nav_.getHtmlText());
         bean_ = (BeanOne) conf_.getBeans().getVal("bean_one");
-        StringMap<Object> map_ = bean_.getForms();
+        StringMapObject map_ = bean_.getForms();
         assertEq(8, map_.size());
         assertEq(false, map_.getVal("checked"));
         assertEq("TYPED_STRING", map_.getVal("typedString"));
@@ -2282,7 +2283,7 @@ public class NavigationTest {
         assertEq("bean_one", nav_.getCurrentBeanName());
         assertXmlEqualNoPrefix("<html xmlns:c='javahtml' xmlns='javahtml'><body>HEAD<a n-a=\"0\" c:command=\"$bean_one.goToNullPage\" href=\"\"/></body></html>", nav_.getHtmlText());
         bean_ = (BeanOne) conf_.getBeans().getVal("bean_one");
-        StringMap<Object> map_ = bean_.getForms();
+        StringMapObject map_ = bean_.getForms();
         assertEq(8, map_.size());
         assertEq(false, map_.getVal("checked"));
         assertEq("TYPED_STRING", map_.getVal("typedString"));
@@ -2359,7 +2360,7 @@ public class NavigationTest {
         assertEq("bean_one", nav_.getCurrentBeanName());
         assertXmlEqualNoPrefix("<html xmlns:c='javahtml' xmlns='javahtml'><body>HEAD<a n-a=\"0\" c:command=\"$bean_one.goToNullPage\" href=\"\"/></body></html>", nav_.getHtmlText());
         bean_ = (BeanOne) conf_.getBeans().getVal("bean_one");
-        StringMap<Object> map_ = bean_.getForms();
+        StringMapObject map_ = bean_.getForms();
         assertEq(8, map_.size());
         assertEq(false, map_.getVal("checked"));
         assertEq("TYPED_STRING", map_.getVal("typedString"));
@@ -2436,7 +2437,7 @@ public class NavigationTest {
         assertEq("bean_one", nav_.getCurrentBeanName());
         assertXmlEqualNoPrefix("<html xmlns:c='javahtml' xmlns='javahtml'><body>HEAD<a n-a=\"0\" c:command=\"$bean_one.goToNullPage\" href=\"\"/></body></html>", nav_.getHtmlText());
         bean_ = (BeanOne) conf_.getBeans().getVal("bean_one");
-        StringMap<Object> map_ = bean_.getForms();
+        StringMapObject map_ = bean_.getForms();
         assertEq(8, map_.size());
         assertEq(false, map_.getVal("checked"));
         assertEq("TYPED_STRING", map_.getVal("typedString"));
@@ -2516,7 +2517,7 @@ public class NavigationTest {
         assertEq("bean_one", nav_.getCurrentBeanName());
         assertXmlEqualNoPrefix("<html xmlns:c='javahtml' xmlns='javahtml'><body>HEAD<a n-a=\"0\" c:command=\"$bean_one.goToNullPage\" href=\"\"/></body></html>", nav_.getHtmlText());
         bean_ = (BeanOne) conf_.getBeans().getVal("bean_one");
-        StringMap<Object> map_ = bean_.getForms();
+        StringMapObject map_ = bean_.getForms();
         assertEq(8, map_.size());
         assertEq(false, map_.getVal("checked"));
         assertEq("TYPED_STRING", map_.getVal("typedString"));
@@ -2594,7 +2595,7 @@ public class NavigationTest {
         assertEq("bean_one", nav_.getCurrentBeanName());
         assertXmlEqualNoPrefix("<html xmlns:c='javahtml' xmlns='javahtml'><body>HEAD<a n-a=\"0\" c:command=\"$bean_one.goToNullPage\" href=\"\"/></body></html>", nav_.getHtmlText());
         bean_ = (BeanOne) conf_.getBeans().getVal("bean_one");
-        StringMap<Object> map_ = bean_.getForms();
+        StringMapObject map_ = bean_.getForms();
         assertEq(8, map_.size());
         assertEq(false, map_.getVal("checked"));
         assertEq("ONE_TWO", map_.getVal("typedString"));
@@ -2673,7 +2674,7 @@ public class NavigationTest {
         assertEq("bean_one", nav_.getCurrentBeanName());
         assertXmlEqualNoPrefix("<html xmlns:c='javahtml' xmlns='javahtml'><body>HEAD<a n-a=\"0\" c:command=\"$bean_one.goToNullPage\" href=\"\"/></body></html>", nav_.getHtmlText());
         bean_ = (BeanOne) conf_.getBeans().getVal("bean_one");
-        StringMap<Object> map_ = bean_.getForms();
+        StringMapObject map_ = bean_.getForms();
         assertEq(8, map_.size());
         assertEq(false, map_.getVal("checked"));
         assertEq("ONE_TWO", map_.getVal("typedString"));
@@ -2751,7 +2752,7 @@ public class NavigationTest {
         assertEq("bean_one", nav_.getCurrentBeanName());
         assertXmlEqualNoPrefix("<html xmlns:c='javahtml' xmlns='javahtml'><body>HEAD<a n-a=\"0\" c:command=\"$bean_one.goToNullPage\" href=\"\"/></body></html>", nav_.getHtmlText());
         bean_ = (BeanOne) conf_.getBeans().getVal("bean_one");
-        StringMap<Object> map_ = bean_.getForms();
+        StringMapObject map_ = bean_.getForms();
         assertEq(8, map_.size());
         assertEq(false, map_.getVal("checked"));
         assertEq("TYPED_STRING", map_.getVal("typedString"));
@@ -2830,7 +2831,7 @@ public class NavigationTest {
         assertEq("bean_one", nav_.getCurrentBeanName());
         assertXmlEqualNoPrefix("<html xmlns:c='javahtml' xmlns='javahtml'><body>HEAD<a n-a=\"0\" c:command=\"$bean_one.goToNullPage\" href=\"\"/></body></html>", nav_.getHtmlText());
         bean_ = (BeanOne) conf_.getBeans().getVal("bean_one");
-        StringMap<Object> map_ = bean_.getForms();
+        StringMapObject map_ = bean_.getForms();
         assertEq(8, map_.size());
         assertEq(false, map_.getVal("checked"));
         assertEq("TYPED_STRING", map_.getVal("typedString"));
@@ -2909,7 +2910,7 @@ public class NavigationTest {
         assertEq("bean_one", nav_.getCurrentBeanName());
         assertXmlEqualNoPrefix("<html xmlns:c='javahtml' xmlns='javahtml'><body>HEAD<a n-a=\"0\" c:command=\"$bean_one.goToNullPage\" href=\"\"/></body></html>", nav_.getHtmlText());
         bean_ = (BeanOne) conf_.getBeans().getVal("bean_one");
-        StringMap<Object> map_ = bean_.getForms();
+        StringMapObject map_ = bean_.getForms();
         assertEq(8, map_.size());
         assertEq(false, map_.getVal("checked"));
         assertEq("TYPED_STRING", map_.getVal("typedString"));
@@ -2988,7 +2989,7 @@ public class NavigationTest {
         assertEq("bean_one", nav_.getCurrentBeanName());
         assertXmlEqualNoPrefix("<html xmlns:c='javahtml' xmlns='javahtml'><body>HEAD<a n-a=\"0\" c:command=\"$bean_one.goToNullPage\" href=\"\"/></body></html>", nav_.getHtmlText());
         bean_ = (BeanOne) conf_.getBeans().getVal("bean_one");
-        StringMap<Object> map_ = bean_.getForms();
+        StringMapObject map_ = bean_.getForms();
         assertEq(8, map_.size());
         assertEq(false, map_.getVal("checked"));
         assertEq("TYPED_STRING", map_.getVal("typedString"));
@@ -3068,7 +3069,7 @@ public class NavigationTest {
         assertXmlEqualNoPrefix("<html xmlns:c='javahtml' xmlns='javahtml'><body><form n-f=\"0\" action=\"\" c:command=\"$bean_two.go\" name=\"myform\"><input n-i=\"0\" checked=\"checked\" id=\"txt\" name=\"bean_two.nullableCheckbox\" type=\"checkbox\" c:validator=\"rate_val\" value=\"\"/></form></body></html>", nav_.getHtmlText());
         beanTwo_ = (BeanTwo) conf_.getBeans().getVal("bean_two");
         assertEq("TYPED_STRING", beanTwo_.getTypedString());
-        StringMap<Object> map_ = beanTwo_.getForms();
+        StringMapObject map_ = beanTwo_.getForms();
         assertEq(0, map_.size());
         assertEq(0, conf_.getBeans().getVal("bean_one").getForms().size());
         assertEq(0, conf_.getBeans().getVal("bean_two").getForms().size());
@@ -3138,7 +3139,7 @@ public class NavigationTest {
         assertXmlEqualNoPrefix("<html xmlns:c='javahtml' xmlns='javahtml'><body><form n-f=\"0\" action=\"\" c:command=\"$bean_two.go\" name=\"myform\"><input n-i=\"0\" id=\"txt\" name=\"bean_two.nullableCheckbox\" type=\"checkbox\" c:validator=\"rate_val\" value=\"\"/></form></body></html>", nav_.getHtmlText());
         beanTwo_ = (BeanTwo) conf_.getBeans().getVal("bean_two");
         assertEq("TYPED_STRING", beanTwo_.getTypedString());
-        StringMap<Object> map_ = beanTwo_.getForms();
+        StringMapObject map_ = beanTwo_.getForms();
         assertEq(0, map_.size());
         assertEq(0, conf_.getBeans().getVal("bean_one").getForms().size());
         assertEq(0, conf_.getBeans().getVal("bean_two").getForms().size());
@@ -3219,7 +3220,7 @@ public class NavigationTest {
         assertXmlEqualNoPrefix("<html xmlns:c='javahtml' xmlns='javahtml'><body><form n-f=\"0\" action=\"\" c:command=\"$bean_two.go\" name=\"myform\"><input n-i=\"0\" id=\"txt\" name=\"bean_two.typedString\" type=\"text\" c:validator=\"rate_val\" value=\"ONE_TWO\"/><span c:for=\"txt\">ONE_TWO is not a no zero rate</span><input n-i=\"1\" name=\"bean_two.nullableCheckbox\" type=\"checkbox\" value=\"\"/><select n-i=\"2\" c:className=\""+ENUM+"\" name=\"bean_two.chosenNumber\"><option value=\"ONE\">ONE</option><option value=\"TWO\">TWO</option><option value=\"THREE\">THREE</option></select></form></body></html>", nav_.getHtmlText());
         beanTwo_ = (BeanTwo) conf_.getBeans().getVal("bean_two");
         assertEq("TYPED_STRING", beanTwo_.getTypedString());
-        StringMap<Object> map_ = beanTwo_.getForms();
+        StringMapObject map_ = beanTwo_.getForms();
         assertEq(0, map_.size());
         assertEq(0, conf_.getBeans().getVal("bean_one").getForms().size());
         assertEq(0, conf_.getBeans().getVal("bean_two").getForms().size());
@@ -3301,7 +3302,7 @@ public class NavigationTest {
         assertXmlEqualNoPrefix("<html xmlns:c='javahtml' xmlns='javahtml'><body><form n-f=\"0\" action=\"\" c:command=\"$bean_two.go\" name=\"myform\"><input n-i=\"0\" id=\"txt\" name=\"bean_two.typedString\" type=\"text\" c:validator=\"rate_val\" value=\"ONE_TWO\"/><span c:for=\"txt\">ONE_TWO is not a no zero rate</span><input n-i=\"1\" name=\"bean_two.nullableCheckbox\" type=\"checkbox\" value=\"\"/><select n-i=\"2\" c:className=\""+ENUM+"\" name=\"bean_two.chosenNumber\"><option value=\"ONE\">ONE</option><option selected=\"selected\" value=\"TWO\">TWO</option><option value=\"THREE\">THREE</option></select></form></body></html>", nav_.getHtmlText());
         beanTwo_ = (BeanTwo) conf_.getBeans().getVal("bean_two");
         assertEq("TYPED_STRING", beanTwo_.getTypedString());
-        StringMap<Object> map_ = beanTwo_.getForms();
+        StringMapObject map_ = beanTwo_.getForms();
         assertEq(0, map_.size());
         assertEq(0, conf_.getBeans().getVal("bean_one").getForms().size());
         assertEq(0, conf_.getBeans().getVal("bean_two").getForms().size());
@@ -3383,7 +3384,7 @@ public class NavigationTest {
         assertXmlEqualNoPrefix("<html xmlns:c='javahtml' xmlns='javahtml'><body><form n-f=\"0\" action=\"\" c:command=\"$bean_two.go\" name=\"myform\"><input n-i=\"0\" id=\"txt\" name=\"bean_two.nullableInt\" type=\"number\" c:validator=\"rate_val\" value=\"2\"/><span c:for=\"txt\">2 is not a no zero rate</span><input n-i=\"1\" name=\"bean_two.nullableCheckbox\" type=\"checkbox\" value=\"\"/><select n-i=\"2\" c:className=\""+ENUM+"\" name=\"bean_two.chosenNumber\"><option value=\"ONE\">ONE</option><option selected=\"selected\" value=\"TWO\">TWO</option><option value=\"THREE\">THREE</option></select></form></body></html>", nav_.getHtmlText());
         beanTwo_ = (BeanTwo) conf_.getBeans().getVal("bean_two");
         assertEq("TYPED_STRING", beanTwo_.getTypedString());
-        StringMap<Object> map_ = beanTwo_.getForms();
+        StringMapObject map_ = beanTwo_.getForms();
         assertEq(0, map_.size());
         assertEq(0, conf_.getBeans().getVal("bean_one").getForms().size());
         assertEq(0, conf_.getBeans().getVal("bean_two").getForms().size());
@@ -3465,7 +3466,7 @@ public class NavigationTest {
         assertXmlEqualNoPrefix("<html xmlns:c='javahtml' xmlns='javahtml'><body><form n-f=\"0\" action=\"\" c:command=\"$bean_two.go\" name=\"myform\"><input n-i=\"0\" id=\"txt\" name=\"bean_two.nullableInt\" type=\"range\" c:validator=\"rate_val\" value=\"2\"/><span c:for=\"txt\">2 is not a no zero rate</span><input n-i=\"1\" name=\"bean_two.nullableCheckbox\" type=\"checkbox\" value=\"\"/><select n-i=\"2\" c:className=\""+ENUM+"\" name=\"bean_two.chosenNumber\"><option value=\"ONE\">ONE</option><option selected=\"selected\" value=\"TWO\">TWO</option><option value=\"THREE\">THREE</option></select></form></body></html>", nav_.getHtmlText());
         beanTwo_ = (BeanTwo) conf_.getBeans().getVal("bean_two");
         assertEq("TYPED_STRING", beanTwo_.getTypedString());
-        StringMap<Object> map_ = beanTwo_.getForms();
+        StringMapObject map_ = beanTwo_.getForms();
         assertEq(0, map_.size());
         assertEq(0, conf_.getBeans().getVal("bean_one").getForms().size());
         assertEq(0, conf_.getBeans().getVal("bean_two").getForms().size());
@@ -3546,7 +3547,7 @@ public class NavigationTest {
         assertEq("bean_one", nav_.getCurrentBeanName());
         assertXmlEqualNoPrefix("<html xmlns:c='javahtml' xmlns='javahtml'><body>HEAD<a n-a=\"0\" c:command=\"$bean_one.goToNullPage\" href=\"\"/></body></html>", nav_.getHtmlText());
         bean_ = (BeanOne) conf_.getBeans().getVal("bean_one");
-        StringMap<Object> map_ = bean_.getForms();
+        StringMapObject map_ = bean_.getForms();
         assertEq(8, map_.size());
         assertEq(false, map_.getVal("checked"));
         assertEq("TYPED_STRING", map_.getVal("typedString"));
@@ -3635,7 +3636,7 @@ public class NavigationTest {
         assertEq("bean_one", nav_.getCurrentBeanName());
         assertXmlEqualNoPrefix("<html xmlns:c='javahtml' xmlns='javahtml'><body>HEAD<a n-a=\"0\" c:command=\"$bean_one.goToNullPage\" href=\"\"/></body></html>", nav_.getHtmlText());
         bean_ = (BeanOne) conf_.getBeans().getVal("bean_one");
-        StringMap<Object> map_ = bean_.getForms();
+        StringMapObject map_ = bean_.getForms();
         assertEq(8, map_.size());
         assertEq(false, map_.getVal("checked"));
         assertEq("TYPED_STRING", map_.getVal("typedString"));
@@ -3719,7 +3720,7 @@ public class NavigationTest {
         assertXmlEqualNoPrefix("<html xmlns:c='javahtml' xmlns='javahtml'><body><form n-f=\"0\" action=\"\" c:command=\"$bean_two.go\" name=\"myform\"><input n-i=\"0\" id=\"txt\" name=\"bean_two.typedString\" type=\"text\" c:validator=\"rate_val\" value=\"TWO\"/><span c:for=\"txt\">TWO is not a no zero rate</span><input n-i=\"1\" id=\"checking\" name=\"bean_two.field\" type=\"text\" c:validator=\"rate_val\" value=\"ONE\"/><span c:for=\"checking\">ONE is not a no zero rate</span></form></body></html>", nav_.getHtmlText());
         beanTwo_ = (BeanTwo) conf_.getBeans().getVal("bean_two");
         assertEq("TYPED_STRING", beanTwo_.getTypedString());
-        StringMap<Object> map_ = beanTwo_.getForms();
+        StringMapObject map_ = beanTwo_.getForms();
         assertEq(0, map_.size());
         assertEq(0, conf_.getBeans().getVal("bean_one").getForms().size());
         assertEq(0, conf_.getBeans().getVal("bean_two").getForms().size());
@@ -3797,7 +3798,7 @@ public class NavigationTest {
         assertXmlEqualNoPrefix("<html xmlns:c='javahtml' xmlns='javahtml'><body><form n-f=\"0\" action=\"\" c:command=\"$bean_two.go\" name=\"myform\"><input n-i=\"0\" id=\"txt\" name=\"bean_two.typedString\" type=\"text\" value=\"TYPED_STRING\"/><input n-i=\"1\" id=\"checking\" name=\"bean_two.choose\" type=\"text\" value=\"\"/></form></body></html>", nav_.getHtmlText());
         beanTwo_ = (BeanTwo) conf_.getBeans().getVal("bean_two");
         assertEq("TYPED_STRING", beanTwo_.getTypedString());
-        StringMap<Object> map_ = beanTwo_.getForms();
+        StringMapObject map_ = beanTwo_.getForms();
         assertEq(8, map_.size());
         assertEq(false, map_.getVal("checked"));
         assertEq("", map_.getVal("typedString"));
@@ -3878,7 +3879,7 @@ public class NavigationTest {
         assertEq("bean_one", nav_.getCurrentBeanName());
         assertXmlEqualNoPrefix("<html xmlns:c='javahtml' xmlns='javahtml'><body>HEAD<a n-a=\"0\" c:command=\"$bean_one.goToNullPage\" href=\"\"/></body></html>", nav_.getHtmlText());
         bean_ = (BeanOne) conf_.getBeans().getVal("bean_one");
-        StringMap<Object> map_ = bean_.getForms();
+        StringMapObject map_ = bean_.getForms();
         assertEq(8, map_.size());
         assertEq(false, map_.getVal("checked"));
         assertEq("ONE", map_.getVal("typedString"));
@@ -3960,7 +3961,7 @@ public class NavigationTest {
         assertXmlEqualNoPrefix("<html xmlns:c='javahtml' xmlns='javahtml'><body><form n-f=\"0\" action=\"\" c:command=\"$bean_two.go(-6)\" name=\"myform\"><input n-i=\"0\" name=\"bean_two.typedString\" type=\"text\" value=\"TYPED_STRING\"/></form></body></html>", nav_.getHtmlText());
         beanTwo_ = (BeanTwo) conf_.getBeans().getVal("bean_two");
         assertEq("TYPED_STRING", beanTwo_.getTypedString());
-        StringMap<Object> map_ = beanTwo_.getForms();
+        StringMapObject map_ = beanTwo_.getForms();
         assertEq(8, map_.size());
         assertEq(false, map_.getVal("checked"));
         assertEq("ONE", map_.getVal("typedString"));
@@ -4041,7 +4042,7 @@ public class NavigationTest {
         assertEq("bean_one", nav_.getCurrentBeanName());
         assertXmlEqualNoPrefix("<html xmlns:c='javahtml' xmlns='javahtml'><body>HEAD<a n-a=\"0\" c:command=\"$bean_one.goToNullPage\" href=\"\"/></body></html>", nav_.getHtmlText());
         bean_ = (BeanOne) conf_.getBeans().getVal("bean_one");
-        StringMap<Object> map_ = bean_.getForms();
+        StringMapObject map_ = bean_.getForms();
         assertEq(0, map_.size());
         assertEq(0, conf_.getBeans().getVal("bean_one").getForms().size());
         assertEq(0, conf_.getBeans().getVal("bean_two").getForms().size());
@@ -4113,7 +4114,7 @@ public class NavigationTest {
         assertXmlEqualNoPrefix("<html xmlns:c='javahtml' xmlns='javahtml'><body><form n-f=\"0\" action=\"\" c:command=\"$bean_two.validate\" name=\"myform\"><input n-i=\"0\" name=\"bean_two.typedString\" type=\"text\" value=\"TYPED_STRING\"/></form></body></html>", nav_.getHtmlText());
         beanTwo_ = (BeanTwo) conf_.getBeans().getVal("bean_two");
         assertEq("TYPED_STRING", beanTwo_.getTypedString());
-        StringMap<Object> map_ = beanTwo_.getForms();
+        StringMapObject map_ = beanTwo_.getForms();
         assertEq(8, map_.size());
         assertEq(false, map_.getVal("checked"));
         assertEq("ONE", map_.getVal("typedString"));
@@ -4195,7 +4196,7 @@ public class NavigationTest {
         assertXmlEqualNoPrefix("<html xmlns:c='javahtml' xmlns='javahtml'><body><form n-f=\"0\" action=\"\" c:command=\"$bean_two.validate\" name=\"myform\"><input n-i=\"0\" name=\"bean_two.typedString\" type=\"text\" value=\"TYPED_STRING\"/><input type=\"submit\" value=\"OK\"/></form></body></html>", nav_.getHtmlText());
         beanTwo_ = (BeanTwo) conf_.getBeans().getVal("bean_two");
         assertEq("TYPED_STRING", beanTwo_.getTypedString());
-        StringMap<Object> map_ = beanTwo_.getForms();
+        StringMapObject map_ = beanTwo_.getForms();
         assertEq(8, map_.size());
         assertEq(false, map_.getVal("checked"));
         assertEq("ONE", map_.getVal("typedString"));
@@ -4277,7 +4278,7 @@ public class NavigationTest {
         assertXmlEqualNoPrefix("<html xmlns:c='javahtml' xmlns='javahtml'><body><form n-f=\"0\" action=\"\" c:command=\"$bean_two.validate\" name=\"myform\"><input n-i=\"0\" name=\"bean_two.typedString\" type=\"text\" value=\"TYPED_STRING\"/><input type=\"submit\" value=\"OK\"/></form></body></html>", nav_.getHtmlText());
         beanTwo_ = (BeanTwo) conf_.getBeans().getVal("bean_two");
         assertEq("TYPED_STRING", beanTwo_.getTypedString());
-        StringMap<Object> map_ = beanTwo_.getForms();
+        StringMapObject map_ = beanTwo_.getForms();
         assertEq(8, map_.size());
         assertEq(false, map_.getVal("checked"));
         assertEq("ONE", map_.getVal("typedString"));
@@ -4360,7 +4361,7 @@ public class NavigationTest {
         assertXmlEqualNoPrefix("<html xmlns:c='javahtml' xmlns='javahtml'><body><form n-f=\"0\" action=\"\" c:command=\"$bean_two.validate\" name=\"myform\"><input n-i=\"0\" name=\"bean_two.typedString\" type=\"text\" value=\"TYPED_STRING\"/><input type=\"submit\" value=\"OK\"/></form><form n-f=\"1\" action=\"\" c:command=\"$bean_two.validate\" name=\"myform2\"><input n-i=\"0\" name=\"bean_two.field\" type=\"text\" value=\"\"/></form></body></html>", nav_.getHtmlText());
         beanTwo_ = (BeanTwo) conf_.getBeans().getVal("bean_two");
         assertEq("TYPED_STRING", beanTwo_.getTypedString());
-        StringMap<Object> map_ = beanTwo_.getForms();
+        StringMapObject map_ = beanTwo_.getForms();
         assertEq(8, map_.size());
         assertEq(false, map_.getVal("checked"));
         assertEq("TYPED_STRING", map_.getVal("typedString"));
@@ -4425,7 +4426,7 @@ public class NavigationTest {
         assertEq("bean_one", nav_.getCurrentBeanName());
         assertXmlEqualNoPrefix("<html xmlns:c='javahtml' xmlns='javahtml'><body>HEAD<a n-a=\"0\" c:command=\"$bean_one.goToNullPage\" href=\"\"/></body></html>", nav_.getHtmlText());
         bean_ = (BeanOne) conf_.getBeans().getVal("bean_one");
-        StringMap<Object> map_ = bean_.getForms();
+        StringMapObject map_ = bean_.getForms();
         assertEq(8, map_.size());
         assertEq(false, map_.getVal("checked"));
         assertEq("TYPED_STRING", map_.getVal("typedString"));
@@ -4504,7 +4505,7 @@ public class NavigationTest {
         assertEq("bean_one", nav_.getCurrentBeanName());
         assertXmlEqualNoPrefix("<html xmlns:c='javahtml' xmlns='javahtml'><body>HEAD<a n-a=\"0\" c:command=\"$bean_one.goToNullPage\" href=\"\"/></body></html>", nav_.getHtmlText());
         bean_ = (BeanOne) conf_.getBeans().getVal("bean_one");
-        StringMap<Object> map_ = bean_.getForms();
+        StringMapObject map_ = bean_.getForms();
         assertEq(8, map_.size());
         assertEq(false, map_.getVal("checked"));
         assertEq("ONE_TWO", map_.getVal("typedString"));
@@ -4584,7 +4585,7 @@ public class NavigationTest {
         assertXmlEqualNoPrefix("<html xmlns:c='javahtml' xmlns='javahtml'><body><form n-f=\"0\" action=\"\" c:command=\"$bean_two.go\" name=\"myform\"><input n-i=\"0\" id=\"txt\" name=\"bean_two.typedString\" type=\"text\" c:validator=\"rate_val\" value=\"0\"/><span c:for=\"txt\">0 is unacceptable</span></form></body></html>", nav_.getHtmlText());
         beanTwo_ = (BeanTwo) conf_.getBeans().getVal("bean_two");
         assertEq("TYPED_STRING", beanTwo_.getTypedString());
-        StringMap<Object> map_ = beanTwo_.getForms();
+        StringMapObject map_ = beanTwo_.getForms();
         assertEq(0, map_.size());
         assertEq(0, conf_.getBeans().getVal("bean_one").getForms().size());
         assertEq(0, conf_.getBeans().getVal("bean_two").getForms().size());
@@ -4653,7 +4654,7 @@ public class NavigationTest {
         assertXmlEqualNoPrefix("<html xmlns:c='javahtml' xmlns='javahtml'><body><form n-f=\"0\" action=\"\" c:command=\"$bean_two.go\" name=\"myform\"><input n-i=\"0\" name=\"bean_two.typedString\" type=\"text\" value=\""+(char)228+" %2\"/></form></body></html>", nav_.getHtmlText());
         beanTwo_ = (BeanTwo) conf_.getBeans().getVal("bean_two");
         assertEq((char)228+" %2", beanTwo_.getTypedString());
-        StringMap<Object> map_ = beanTwo_.getForms();
+        StringMapObject map_ = beanTwo_.getForms();
         assertEq(8, map_.size());
         assertEq(false, map_.getVal("checked"));
         assertEq((char)228+" %", map_.getVal("typedString"));
@@ -4733,7 +4734,7 @@ public class NavigationTest {
         assertXmlEqualNoPrefix("<html xmlns:c='javahtml' xmlns='javahtml'><body><form n-f=\"0\" action=\"\" c:command=\"$bean_two.go\" name=\"myform\"><input n-i=\"0\" name=\"bean_two.typedString\" type=\"text\" value=\""+(char)376+"2\"/></form></body></html>", nav_.getHtmlText());
         beanTwo_ = (BeanTwo) conf_.getBeans().getVal("bean_two");
         assertEq((char)376+"2", beanTwo_.getTypedString());
-        StringMap<Object> map_ = beanTwo_.getForms();
+        StringMapObject map_ = beanTwo_.getForms();
         assertEq(8, map_.size());
         assertEq(false, map_.getVal("checked"));
         assertEq(""+(char)376, map_.getVal("typedString"));
@@ -4812,7 +4813,7 @@ public class NavigationTest {
         assertEq("bean_one", nav_.getCurrentBeanName());
         assertXmlEqualNoPrefix("<html xmlns:c='javahtml' xmlns='javahtml'><body>HEAD<a n-a=\"0\" c:command=\"$bean_one.goToNullPage\" href=\"\"/></body></html>", nav_.getHtmlText());
         bean_ = (BeanOne) conf_.getBeans().getVal("bean_one");
-        StringMap<Object> map_ = bean_.getForms();
+        StringMapObject map_ = bean_.getForms();
         assertEq(8, map_.size());
         assertEq(false, map_.getVal("checked"));
         assertEq("TYPED_STRING", map_.getVal("typedString"));
@@ -4886,7 +4887,7 @@ public class NavigationTest {
 //        assertXMLEqualNoPrefix("<html bean=\"bean_three\"><body>HEAD<form action=\"\" c:command=\"page1.html\" name=\"myform\"><input name=\"bean_three.index\" type=\"radio\" value=\"2\" varValue=\"numbers[0]\"/><input checked=\"checked\" name=\"bean_three.index\" type=\"radio\" value=\"4\" varValue=\"numbers[1]\"/><input name=\"bean_three.index\" type=\"radio\" value=\"6\" varValue=\"numbers[2]\"/><input type=\"submit\" value=\"OK\"/></form></body></html>", nav_.getHtmlText());
         assertXmlEqualNoPrefix("<html xmlns:c='javahtml' xmlns='javahtml'><body>HEAD<form n-f=\"0\" action=\"\" c:command=\"page1.html\" name=\"myform\"><input n-i=\"0\" name=\"bean_three.index\" type=\"radio\" value=\"2\"/><input n-i=\"0\" checked=\"checked\" name=\"bean_three.index\" type=\"radio\" value=\"4\"/><input n-i=\"0\" name=\"bean_three.index\" type=\"radio\" value=\"6\"/><input type=\"submit\" value=\"OK\"/></form></body></html>", nav_.getHtmlText());
         bean_ = (BeanThree) conf_.getBeans().getVal("bean_three");
-        StringMap<Object> map_ = bean_.getForms();
+        StringMapObject map_ = bean_.getForms();
         assertEq(0, map_.size());
         assertEq(4, bean_.getIndex());
 //        assertEq(6, bean_.getIndexTwo());
@@ -4957,7 +4958,7 @@ public class NavigationTest {
         assertXmlEqualNoPrefix("<html xmlns:c='javahtml' xmlns='javahtml'><body><form n-f=\"0\" action=\"\" c:command=\"$bean_two.go\" name=\"myform\"><input n-i=\"0\" id=\"txt\" name=\"bean_two.typedString\" type=\"text\" c:validator=\"rate_val\" value=\"ONE_TWO\"/><span c:for=\"txt\" c:valueMessage=\"msg_example,five\">ONE_TWO in error</span><span>Text</span></form></body></html>", nav_.getHtmlText());
         beanTwo_ = (BeanTwo) conf_.getBeans().getVal("bean_two");
         assertEq("TYPED_STRING", beanTwo_.getTypedString());
-        StringMap<Object> map_ = beanTwo_.getForms();
+        StringMapObject map_ = beanTwo_.getForms();
         assertEq(0, map_.size());
         assertEq(0, conf_.getBeans().getVal("bean_one").getForms().size());
         assertEq(0, conf_.getBeans().getVal("bean_two").getForms().size());
@@ -5026,7 +5027,7 @@ public class NavigationTest {
         assertXmlEqualNoPrefix("<html xmlns:c='javahtml' xmlns='javahtml'><body><form n-f=\"0\" action=\"$bean_two.go\" name=\"myform\"><input n-i=\"0\" name=\"bean_two.typedString\" type=\"text\" value=\"TYPED_STRING\"/></form></body></html>", nav_.getHtmlText());
         beanTwo_ = (BeanTwo) conf_.getBeans().getVal("bean_two");
         assertEq("TYPED_STRING", beanTwo_.getTypedString());
-        StringMap<Object> map_ = beanTwo_.getForms();
+        StringMapObject map_ = beanTwo_.getForms();
         assertEq(8, map_.size());
         assertEq(false, map_.getVal("checked"));
         assertEq("ONE", map_.getVal("typedString"));
@@ -5105,7 +5106,7 @@ public class NavigationTest {
         assertXmlEqualNoPrefix("<html xmlns:c='javahtml' xmlns='javahtml'><body><form n-f=\"0\" action=\"$bean_two.go:\" name=\"myform\"><input n-i=\"0\" name=\"bean_two.typedString\" type=\"text\" value=\"TYPED_STRING\"/></form></body></html>", nav_.getHtmlText());
         beanTwo_ = (BeanTwo) conf_.getBeans().getVal("bean_two");
         assertEq("ONE", beanTwo_.getTypedString());
-        StringMap<Object> map_ = beanTwo_.getForms();
+        StringMapObject map_ = beanTwo_.getForms();
         assertEq(0, map_.size());
         assertEq(0, conf_.getBeans().getVal("bean_one").getForms().size());
         assertEq("",nav_.getTitle());
@@ -5167,7 +5168,7 @@ public class NavigationTest {
 //        assertXMLEqualNoPrefix("<html bean=\"bean_three\"><body>HEAD<form action=\"\" c:command=\"page1.html\" name=\"myform\"><input name=\"bean_three.index\" type=\"radio\" value=\"2\" varValue=\"numbers[0]\"/><input name=\"bean_three.index\" type=\"radio\" value=\"4\" varValue=\"numbers[1]\"/><input name=\"bean_three.index\" type=\"radio\" value=\"6\" varValue=\"numbers[2]\"/><input type=\"submit\" value=\"OK\"/></form></body></html>", nav_.getHtmlText());
         assertXmlEqualNoPrefix("<html xmlns:c='javahtml' xmlns='javahtml'><body>HEAD<form n-f=\"0\" action=\"\" c:command=\"page1.html\" name=\"myform\"><input n-i=\"0\" name=\"bean_three.index\" type=\"radio\" value=\"2\"/><input n-i=\"0\"  name=\"bean_three.index\" type=\"radio\" value=\"4\"/><input n-i=\"0\"  name=\"bean_three.index\" type=\"radio\" value=\"6\"/><input type=\"submit\" value=\"OK\"/></form></body></html>", nav_.getHtmlText());
         bean_ = (BeanThree) conf_.getBeans().getVal("bean_three");
-        StringMap<Object> map_ = bean_.getForms();
+        StringMapObject map_ = bean_.getForms();
         assertEq(0, map_.size());
         assertEq(-1, bean_.getIndex());
         assertEq(-1, bean_.getIndexTwo());
@@ -5231,7 +5232,7 @@ public class NavigationTest {
 //        assertXMLEqualNoPrefix("<html bean=\"bean_three\"><body>HEAD<form action=\"\" c:command=\"page1.html\" name=\"myform\"><input name=\"bean_three.index\" type=\"radio\" value=\"2\" varValue=\"numbers[0]\" groupId=\"myradio\" validator=\"checkselected\"/><input name=\"bean_three.index\" type=\"radio\" value=\"4\" varValue=\"numbers[1]\" groupId=\"myradio\" validator=\"checkselected\"/><input name=\"bean_three.index\" type=\"radio\" value=\"6\" varValue=\"numbers[2]\" groupId=\"myradio\" validator=\"checkselected\"/><span for=\"myradio\">not selected</span><input type=\"submit\" value=\"OK\"/></form></body></html>", nav_.getHtmlText());
         assertXmlEqualNoPrefix("<html xmlns:c='javahtml' xmlns='javahtml'><body>HEAD<form n-f=\"0\" action=\"\" c:command=\"page1.html\" name=\"myform\"><input n-i=\"0\" name=\"bean_three.index\" type=\"radio\" value=\"2\" c:groupId=\"myradio\" c:validator=\"checkselected\"/><input n-i=\"0\" name=\"bean_three.index\" type=\"radio\" value=\"4\" c:groupId=\"myradio\" c:validator=\"checkselected\"/><input n-i=\"0\" name=\"bean_three.index\" type=\"radio\" value=\"6\" c:groupId=\"myradio\" c:validator=\"checkselected\"/><span c:for=\"myradio\">not selected</span><input type=\"submit\" value=\"OK\"/></form></body></html>", nav_.getHtmlText());
         bean_ = (BeanThree) conf_.getBeans().getVal("bean_three");
-        StringMap<Object> map_ = bean_.getForms();
+        StringMapObject map_ = bean_.getForms();
         assertEq(0, map_.size());
         assertEq(-1, bean_.getIndex());
         assertEq(-1, bean_.getIndexTwo());
@@ -5295,7 +5296,7 @@ public class NavigationTest {
 //        assertXMLEqualNoPrefix("<html bean=\"bean_three\"><body>HEAD<form action=\"\" c:command=\"page1.html\" name=\"myform\"><input name=\"bean_three.index\" type=\"radio\" value=\"2\" varValue=\"numbers[0]\" groupId=\"myradio\" validator=\"checkselected\"/><input checked=\"checked\" name=\"bean_three.index\" type=\"radio\" value=\"4\" varValue=\"numbers[1]\" groupId=\"myradio\" validator=\"checkselected\"/><input name=\"bean_three.index\" type=\"radio\" value=\"6\" varValue=\"numbers[2]\" groupId=\"myradio\" validator=\"checkselected\"/><span for=\"myradio\"> </span><input type=\"submit\" value=\"OK\"/></form></body></html>", nav_.getHtmlText());
         assertXmlEqualNoPrefix("<html xmlns:c='javahtml' xmlns='javahtml'><body>HEAD<form n-f=\"0\" action=\"\" c:command=\"page1.html\" name=\"myform\"><input n-i=\"0\" name=\"bean_three.index\" type=\"radio\" value=\"2\" c:groupId=\"myradio\" c:validator=\"checkselected\"/><input n-i=\"0\" checked=\"checked\" name=\"bean_three.index\" type=\"radio\" value=\"4\" c:groupId=\"myradio\" c:validator=\"checkselected\"/><input n-i=\"0\" name=\"bean_three.index\" type=\"radio\" value=\"6\" c:groupId=\"myradio\" c:validator=\"checkselected\"/><span c:for=\"myradio\"> </span><input type=\"submit\" value=\"OK\"/></form></body></html>", nav_.getHtmlText());
         bean_ = (BeanThree) conf_.getBeans().getVal("bean_three");
-        StringMap<Object> map_ = bean_.getForms();
+        StringMapObject map_ = bean_.getForms();
         assertEq(0, map_.size());
         assertEq(4, bean_.getIndex());
         assertEq(-1, bean_.getIndexTwo());
@@ -5363,7 +5364,7 @@ public class NavigationTest {
         assertXmlEqualNoPrefix("<html xmlns:c='javahtml' xmlns='javahtml'><body><form n-f=\"0\" action=\"\" c:command=\"$bean_two.go\" name=\"myform\"><input n-i=\"0\" name=\"bean_two.typedString\" type=\"text\" value=\""+(char)228+" %2\"/></form></body></html>", nav_.getHtmlText());
         beanTwo_ = (BeanTwo) conf_.getBeans().getVal("bean_two");
         assertEq((char)228+" %2", beanTwo_.getTypedString());
-        StringMap<Object> map_ = beanTwo_.getForms();
+        StringMapObject map_ = beanTwo_.getForms();
         assertEq(8, map_.size());
         assertEq(false, map_.getVal("checked"));
         assertEq((char)228+" %", map_.getVal("typedString"));
@@ -5442,7 +5443,7 @@ public class NavigationTest {
         assertEq("bean_one", nav_.getCurrentBeanName());
         assertXmlEqualNoPrefix("<html xmlns:c='javahtml' xmlns='javahtml'><body>HEAD<a n-a=\"0\" c:command=\"$bean_one.goToNullPage\" href=\"\"/></body></html>", nav_.getHtmlText());
         bean_ = (BeanOne) conf_.getBeans().getVal("bean_one");
-        StringMap<Object> map_ = bean_.getForms();
+        StringMapObject map_ = bean_.getForms();
         assertEq(3, map_.size());
         StringList stLi_ = (StringList) map_.getVal("selectedStrings");
         assertEq(2, stLi_.size());
@@ -5520,7 +5521,7 @@ public class NavigationTest {
         assertEq("bean_one", nav_.getCurrentBeanName());
         assertXmlEqualNoPrefix("<html xmlns:c='javahtml' xmlns='javahtml'><body>HEAD<a n-a=\"0\" c:command=\"$bean_one.goToNullPage\" href=\"\"/></body></html>", nav_.getHtmlText());
         bean_ = (BeanOne) conf_.getBeans().getVal("bean_one");
-        StringMap<Object> map_ = bean_.getForms();
+        StringMapObject map_ = bean_.getForms();
         assertEq(3, map_.size());
         StringList stLi_ = (StringList) map_.getVal("selectedStrings");
         assertEq(2, stLi_.size());
@@ -5597,7 +5598,7 @@ public class NavigationTest {
         assertEq("page2.html", nav_.getCurrentUrl());
         assertEq("bean_two", nav_.getCurrentBeanName());
         assertXmlEqualNoPrefix("<html xmlns:c='javahtml' xmlns='javahtml'><body><form n-f=\"0\" action=\"\" c:command=\"$bean_two.go\" name=\"myform\"><select n-i=\"0\" c:className=\""+ENUMS+"\" id=\"combo\" multiple=\"multiple\" name=\"bean_two.chosenNumbers\" c:validator=\"validator\"><option value=\"ONE\">ONE</option><option selected=\"selected\" value=\"TWO\">TWO</option><option value=\"THREE\">THREE</option><option value=\"FOUR\" selected=\"selected\">FOUR</option><option value=\"FIVE\">FIVE</option><option value=\"SIX\">SIX</option></select><span c:for=\"combo\">Bad selection</span></form></body></html>", nav_.getHtmlText());
-        StringMap<Object> map_ = conf_.getBeans().getVal("bean_two").getForms();
+        StringMapObject map_ = conf_.getBeans().getVal("bean_two").getForms();
         assertEq(0, map_.size());
         assertEq("",nav_.getTitle());
         assertEq("",nav_.getReferenceScroll());
@@ -5663,7 +5664,7 @@ public class NavigationTest {
         assertEq("bean_one", nav_.getCurrentBeanName());
         assertXmlEqualNoPrefix("<html xmlns:c='javahtml' xmlns='javahtml'><body>HEAD<a n-a=\"0\" c:command=\"$bean_one.goToNullPage\" href=\"\"/></body></html>", nav_.getHtmlText());
         bean_ = (BeanOne) conf_.getBeans().getVal("bean_one");
-        StringMap<Object> map_ = bean_.getForms();
+        StringMapObject map_ = bean_.getForms();
         assertEq(3, map_.size());
         StringList stLi_ = (StringList) map_.getVal("selectedStrings");
         assertEq(2, stLi_.size());
@@ -5741,7 +5742,7 @@ public class NavigationTest {
         assertEq("bean_one", nav_.getCurrentBeanName());
         assertXmlEqualNoPrefix("<html xmlns:c='javahtml' xmlns='javahtml'><body>HEAD<a n-a=\"0\" c:command=\"$bean_one.goToNullPage\" href=\"\"/></body></html>", nav_.getHtmlText());
         bean_ = (BeanOne) conf_.getBeans().getVal("bean_one");
-        StringMap<Object> map_ = bean_.getForms();
+        StringMapObject map_ = bean_.getForms();
         assertEq(3, map_.size());
         StringList stLi_ = (StringList) map_.getVal("selectedStrings");
         assertEq(2, stLi_.size());
@@ -5818,7 +5819,7 @@ public class NavigationTest {
         assertEq("page2.html", nav_.getCurrentUrl());
         assertEq("bean_two", nav_.getCurrentBeanName());
         assertXmlEqualNoPrefix("<html xmlns:c='javahtml' xmlns='javahtml'><body><form n-f=\"0\" action=\"\" c:command=\"$bean_two.go\" name=\"myform\"><select n-i=\"0\" c:className=\""+ENUMS+"\" id=\"combo\" multiple=\"multiple\" name=\"bean_two.chosenNumbers\" c:validator=\"validator\"><option value=\"ONE\">1</option><option selected=\"selected\" value=\"TWO\">2</option><option value=\"THREE\">3</option><option value=\"FOUR\" selected=\"selected\">4</option><option value=\"FIVE\">5</option><option value=\"SIX\">6</option></select><span c:for=\"combo\">Bad selection</span></form></body></html>", nav_.getHtmlText());
-        StringMap<Object> map_ = conf_.getBeans().getVal("bean_two").getForms();
+        StringMapObject map_ = conf_.getBeans().getVal("bean_two").getForms();
         assertEq(0, map_.size());
         assertEq("",nav_.getTitle());
         assertEq("",nav_.getReferenceScroll());
@@ -5885,7 +5886,7 @@ public class NavigationTest {
         assertEq("bean_one", nav_.getCurrentBeanName());
         assertXmlEqualNoPrefix("<html xmlns:c='javahtml' xmlns='javahtml'><body>HEAD<a n-a=\"0\" c:command=\"$bean_one.goToNullPage\" href=\"\"/></body></html>", nav_.getHtmlText());
         bean_ = (BeanOne) conf_.getBeans().getVal("bean_one");
-        StringMap<Object> map_ = bean_.getForms();
+        StringMapObject map_ = bean_.getForms();
         assertEq(3, map_.size());
         StringList stLi_ = (StringList) map_.getVal("selectedStrings");
         assertEq(2, stLi_.size());
@@ -5963,7 +5964,7 @@ public class NavigationTest {
         assertEq("bean_one", nav_.getCurrentBeanName());
         assertXmlEqualNoPrefix("<html xmlns:c='javahtml' xmlns='javahtml'><body>HEAD<a n-a=\"0\" c:command=\"$bean_one.goToNullPage\" href=\"\"/></body></html>", nav_.getHtmlText());
         bean_ = (BeanOne) conf_.getBeans().getVal("bean_one");
-        StringMap<Object> map_ = bean_.getForms();
+        StringMapObject map_ = bean_.getForms();
         assertEq(3, map_.size());
         StringList stLi_ = (StringList) map_.getVal("selectedStrings");
         assertEq(2, stLi_.size());
@@ -6039,7 +6040,7 @@ public class NavigationTest {
         assertXmlEqualNoPrefix("<html xmlns:c='javahtml' xmlns='javahtml'><body>HEAD<a n-a=\"0\" c:command=\"$bean_one.goToNullPage\" href=\"\"/></body></html>", nav_.getHtmlText());
         beanTwo_ = (BeanTwo) conf_.getBeans().getVal("bean_two");
         assertNull(beanTwo_.getTypedString());
-        StringMap<Object> map_ = beanTwo_.getForms();
+        StringMapObject map_ = beanTwo_.getForms();
         assertEq(8, map_.size());
         assertEq(false, map_.getVal("checked"));
         assertEq("MY_STRING", map_.getVal("typedString"));
@@ -6131,7 +6132,7 @@ public class NavigationTest {
         assertXmlEqualNoPrefix("<html xmlns:c='javahtml' xmlns='javahtml'><body><form n-f=\"0\" action=\"\" c:command=\"$bean_two.go\" name=\"myform\"><textarea n-i=\"0\" id=\"txt\" name=\"bean_two.typedString\" c:validator=\"rate_val\">ONE_TWO</textarea><span c:for=\"txt\">ONE_TWO is not a no zero rate</span><input n-i=\"1\" name=\"bean_two.nullableCheckbox\" type=\"checkbox\" value=\"\"/><select n-i=\"2\" c:className=\""+ENUM+"\" name=\"bean_two.chosenNumber\"><option value=\"ONE\">ONE</option><option value=\"TWO\">TWO</option><option value=\"THREE\">THREE</option></select></form></body></html>", nav_.getHtmlText());
         beanTwo_ = (BeanTwo) conf_.getBeans().getVal("bean_two");
         assertEq("TYPED_STRING", beanTwo_.getTypedString());
-        StringMap<Object> map_ = beanTwo_.getForms();
+        StringMapObject map_ = beanTwo_.getForms();
         assertEq(0, map_.size());
         assertEq(0, conf_.getBeans().getVal("bean_one").getForms().size());
         assertEq(0, conf_.getBeans().getVal("bean_two").getForms().size());
@@ -6199,7 +6200,7 @@ public class NavigationTest {
         assertXmlEqualNoPrefix("<html xmlns:c='javahtml' xmlns='javahtml'><body>HEAD<a n-a=\"0\" c:command=\"$bean_one.goToNullPage\" href=\"\"/></body></html>", nav_.getHtmlText());
         beanTwo_ = (BeanTwo) conf_.getBeans().getVal("bean_two");
         assertNull(beanTwo_.getTypedString());
-        StringMap<Object> map_ = beanTwo_.getForms();
+        StringMapObject map_ = beanTwo_.getForms();
         assertEq(8, map_.size());
         assertEq(false, map_.getVal("checked"));
         assertEq("MY_STRING", map_.getVal("typedString"));
@@ -6278,7 +6279,7 @@ public class NavigationTest {
         assertXmlEqualNoPrefix("<html xmlns:c='javahtml' xmlns='javahtml'><body>HEAD<a n-a=\"0\" c:command=\"$bean_one.goToNullPage\" href=\"\"/></body></html>", nav_.getHtmlText());
         beanTwo_ = (BeanTwo) conf_.getBeans().getVal("bean_two");
         assertNull(beanTwo_.getTypedString());
-        StringMap<Object> map_ = beanTwo_.getForms();
+        StringMapObject map_ = beanTwo_.getForms();
         assertEq(8, map_.size());
         assertEq(false, map_.getVal("checked"));
         assertEq("MY_STRING", map_.getVal("typedString"));
@@ -6344,7 +6345,7 @@ public class NavigationTest {
         assertXmlEqualNoPrefix("<html xmlns:c='javahtml' xmlns='javahtml'><body>HEAD<a n-a=\"0\" c:command=\"$bean_one.goToNullPage\" href=\"\"/></body></html>", nav_.getHtmlText());
         beanTwo_ = (BeanTwo) conf_.getBeans().getVal("bean_two");
         assertNull(beanTwo_.getTypedString());
-        StringMap<Object> map_ = beanTwo_.getForms();
+        StringMapObject map_ = beanTwo_.getForms();
         assertEq(8, map_.size());
         assertEq(false, map_.getVal("checked"));
 //        assertEq("MY_STRING", map_.getVal("typedString"));
@@ -6419,7 +6420,7 @@ public class NavigationTest {
         assertEq("bean_six", nav_.getCurrentBeanName());
         assertXmlEqualNoPrefix("<html xmlns:c='javahtml' xmlns='javahtml'><body>HEAD<form n-f=\"0\" action=\"\" c:command=\"page1.html\" name=\"myform\"><input n-i=\"0\" c:className=\""+ENUM+"\" type=\"radio\" name=\"bean_six.myEnumThree\" value=\"ONE\"/><input n-i=\"0\" c:className=\""+ENUM+"\" type=\"radio\" name=\"bean_six.myEnumThree\" value=\"TWO\"/><input type=\"submit\" value=\"OK\"/></form></body></html>", nav_.getHtmlText());
         bean_ = (BeanSix) conf_.getBeans().getVal("bean_six");
-        StringMap<Object> map_ = bean_.getForms();
+        StringMapObject map_ = bean_.getForms();
         assertEq(0, map_.size());
         assertNull(bean_.getMyEnumOne());
         assertEq(EnumNumber.ONE, bean_.getMyEnumTwo());
@@ -6482,7 +6483,7 @@ public class NavigationTest {
         assertEq("bean_six", nav_.getCurrentBeanName());
         assertXmlEqualNoPrefix("<html xmlns:c='javahtml' xmlns='javahtml'><body>HEAD<form n-f=\"0\" action=\"\" c:command=\"page1.html\" name=\"myform\"><input n-i=\"0\" c:className=\""+ENUM+"\" type=\"radio\" name=\"bean_six.myEnumOne\" value=\"ONE\"/><input n-i=\"0\" c:className=\""+ENUM+"\" type=\"radio\" name=\"bean_six.myEnumOne\" value=\"TWO\"/><input type=\"submit\" value=\"OK\"/></form></body></html>", nav_.getHtmlText());
         bean_ = (BeanSix) conf_.getBeans().getVal("bean_six");
-        StringMap<Object> map_ = bean_.getForms();
+        StringMapObject map_ = bean_.getForms();
         assertEq(0, map_.size());
         assertNull(bean_.getMyEnumOne());
         assertEq(EnumNumber.ONE, bean_.getMyEnumTwo());
@@ -6545,7 +6546,7 @@ public class NavigationTest {
         assertEq("bean_six", nav_.getCurrentBeanName());
         assertXmlEqualNoPrefix("<html xmlns:c='javahtml' xmlns='javahtml'><body>HEAD<form n-f=\"0\" action=\"\" c:command=\"page1.html\" name=\"myform\"><input n-i=\"0\" checked=\"checked\" c:className=\""+ENUM+"\" type=\"radio\" name=\"bean_six.myEnumTwo\" value=\"ONE\"/><input n-i=\"0\" c:className=\""+ENUM+"\" type=\"radio\" name=\"bean_six.myEnumTwo\" value=\"TWO\"/><input type=\"submit\" value=\"OK\"/></form></body></html>", nav_.getHtmlText());
         bean_ = (BeanSix) conf_.getBeans().getVal("bean_six");
-        StringMap<Object> map_ = bean_.getForms();
+        StringMapObject map_ = bean_.getForms();
         assertEq(0, map_.size());
         assertNull(bean_.getMyEnumOne());
         assertEq(EnumNumber.ONE, bean_.getMyEnumTwo());
@@ -6612,7 +6613,7 @@ public class NavigationTest {
         assertEq("bean_one", nav_.getCurrentBeanName());
         assertXmlEqualNoPrefix("<html xmlns:c='javahtml' xmlns='javahtml'><body>HEAD<a n-a=\"0\" c:command=\"$bean_one.goToNullPage\" href=\"\"/></body></html>", nav_.getHtmlText());
         bean_ = (BeanOne) conf_.getBeans().getVal("bean_one");
-        StringMap<Object> map_ = bean_.getForms();
+        StringMapObject map_ = bean_.getForms();
         assertEq(3, map_.size());
         StringList stLi_ = (StringList) map_.getVal("selectedStrings");
         assertEq(2, stLi_.size());
@@ -6685,7 +6686,7 @@ public class NavigationTest {
         assertEq("bean_one", nav_.getCurrentBeanName());
         assertXmlEqualNoPrefix("<html xmlns:c='javahtml' xmlns='javahtml'><body>HEAD<a n-a=\"0\" c:command=\"$bean_one.goToNullPage\" href=\"\"/></body></html>", nav_.getHtmlText());
         bean_ = (BeanOne) conf_.getBeans().getVal("bean_one");
-        StringMap<Object> map_ = bean_.getForms();
+        StringMapObject map_ = bean_.getForms();
         assertEq(3, map_.size());
         StringList stLi_ = (StringList) map_.getVal("selectedStrings");
         assertEq(2, stLi_.size());
@@ -6754,7 +6755,7 @@ public class NavigationTest {
         assertEq("bean_six", nav_.getCurrentBeanName());
         assertXmlEqualNoPrefix("<html xmlns:c='javahtml' xmlns='javahtml'><body>HEAD<form n-f=\"0\" action=\"\" c:command=\"page1.html\" name=\"myform\"><input n-i=\"0\" c:className=\""+ENUM+"\" type=\"radio\" name=\"bean_six.myEnumThree\" value=\"ONE\"/><input n-i=\"0\" checked=\"checked\" c:className=\""+ENUM+"\" type=\"radio\" name=\"bean_six.myEnumThree\" value=\"TWO\"/><input type=\"submit\" value=\"OK\"/></form></body></html>", nav_.getHtmlText());
         bean_ = (BeanSix) conf_.getBeans().getVal("bean_six");
-        StringMap<Object> map_ = bean_.getForms();
+        StringMapObject map_ = bean_.getForms();
         assertEq(0, map_.size());
         assertNull(bean_.getMyEnumOne());
         assertEq(EnumNumber.ONE, bean_.getMyEnumTwo());
@@ -6817,7 +6818,7 @@ public class NavigationTest {
         assertEq("bean_six", nav_.getCurrentBeanName());
         assertXmlEqualNoPrefix("<html xmlns:c='javahtml' xmlns='javahtml'><body>HEAD<form n-f=\"0\" action=\"\" c:command=\"page1.html\" name=\"myform\"><input n-i=\"0\" c:className=\""+ENUM+"\" type=\"radio\" name=\"bean_six.myEnumOne\" value=\"ONE\"/><input n-i=\"0\" checked=\"checked\" c:className=\""+ENUM+"\" type=\"radio\" name=\"bean_six.myEnumOne\" value=\"TWO\"/><input type=\"submit\" value=\"OK\"/></form></body></html>", nav_.getHtmlText());
         bean_ = (BeanSix) conf_.getBeans().getVal("bean_six");
-        StringMap<Object> map_ = bean_.getForms();
+        StringMapObject map_ = bean_.getForms();
         assertEq(0, map_.size());
         assertEq(EnumNumber.TWO, bean_.getMyEnumOne());
         assertEq(EnumNumber.ONE, bean_.getMyEnumTwo());
@@ -6880,7 +6881,7 @@ public class NavigationTest {
         assertEq("bean_six", nav_.getCurrentBeanName());
         assertXmlEqualNoPrefix("<html xmlns:c='javahtml' xmlns='javahtml'><body>HEAD<form n-f=\"0\" action=\"\" c:command=\"page1.html\" name=\"myform\"><input n-i=\"0\" c:className=\""+ENUM+"\" type=\"radio\" name=\"bean_six.myEnumTwo\" value=\"ONE\"/><input n-i=\"0\" checked=\"checked\" c:className=\""+ENUM+"\" type=\"radio\" name=\"bean_six.myEnumTwo\" value=\"TWO\"/><input type=\"submit\" value=\"OK\"/></form></body></html>", nav_.getHtmlText());
         bean_ = (BeanSix) conf_.getBeans().getVal("bean_six");
-        StringMap<Object> map_ = bean_.getForms();
+        StringMapObject map_ = bean_.getForms();
         assertEq(0, map_.size());
         assertNull(bean_.getMyEnumOne());
         assertEq(EnumNumber.TWO, bean_.getMyEnumTwo());
@@ -6950,7 +6951,7 @@ public class NavigationTest {
 //        assertXMLEqualNoPrefix("<html xmlns:c='javahtml' xmlns='javahtml'><body><form n-f=\"0\" action=\"\" name=\"myform\" c:command=\"$bean_one.validateStrings\"><input n-i=\"0\" type=\"text\" name=\"bean_one.getComposites()[0].getString()\" varMethod=\"setString\" value=\"ONE\" varValue=\"c;getString()\"/><input n-i=\"1\" type=\"text\" name=\"bean_one.getComposites()[1].getString()\" varMethod=\"setString\" value=\"TWO\" varValue=\"c;getString()\"/></form></body></html>", nav_.getHtmlText());
         assertXmlEqualNoPrefix("<html xmlns:c='javahtml' xmlns='javahtml'><body><form n-f=\"0\" action=\"\" name=\"myform\" c:command=\"$bean_one.validateStrings\"><input n-i=\"0\" type=\"text\" name=\"bean_one.c;getString()\" c:varMethod=\"setString\" value=\"ONE\"/><input n-i=\"1\" type=\"text\" name=\"bean_one.c;getString()\" c:varMethod=\"setString\" value=\"TWO\"/></form></body></html>", nav_.getHtmlText());
         bean_ = (BeanOne) conf_.getBeans().getVal("bean_one");
-        StringMap<Object> map_ = bean_.getForms();
+        StringMapObject map_ = bean_.getForms();
         assertEq(0, map_.size());
         assertEq("ONE", bean_.getComposites().get(0).getString());
         assertEq("TWO", bean_.getComposites().get(1).getString());
@@ -7023,7 +7024,7 @@ public class NavigationTest {
 //        assertXMLEqualNoPrefix("<html xmlns:c='javahtml' xmlns='javahtml'><body><form n-f=\"0\" action=\"\" name=\"myform\" c:command=\"$bean_one.validateStrings\"><input n-i=\"0\" type=\"text\" name=\"bean_one.getComposites()[0].getString()\" varMethod=\"setString\" value=\"ONE\" varValue=\"c;getString()\" c:className=\"java.lang.String\"/><input n-i=\"1\" type=\"text\" name=\"bean_one.getComposites()[1].getString()\" varMethod=\"setString\" value=\"TWO\" varValue=\"c;getString()\" c:className=\"java.lang.String\"/></form></body></html>", nav_.getHtmlText());
         assertXmlEqualNoPrefix("<html xmlns:c='javahtml' xmlns='javahtml'><body><form n-f=\"0\" action=\"\" name=\"myform\" c:command=\"$bean_one.validateStrings\"><input n-i=\"0\" type=\"text\" name=\"bean_one.c;getString()\" c:varMethod=\"setString\" value=\"ONE\" c:className=\"java.lang.String\"/><input n-i=\"1\" type=\"text\" name=\"bean_one.c;getString()\" c:varMethod=\"setString\" value=\"TWO\" c:className=\"java.lang.String\"/></form></body></html>", nav_.getHtmlText());
         bean_ = (BeanOne) conf_.getBeans().getVal("bean_one");
-        StringMap<Object> map_ = bean_.getForms();
+        StringMapObject map_ = bean_.getForms();
         assertEq(0, map_.size());
         assertEq("ONE", bean_.getComposites().get(0).getString());
         assertEq("TWO", bean_.getComposites().get(1).getString());
@@ -7095,7 +7096,7 @@ public class NavigationTest {
 //        assertXMLEqualNoPrefix("<html bean=\"bean_seven\"><body><form n-f=\"0\" action=\"\" name=\"myform\" c:command=\"$bean_seven.validateStrings\"><input n-i=\"0\" type=\"text\" name=\"bean_seven.getStrings()[0]\" value=\"ONE\" varValue=\"c;\" c:className=\"java.lang.String\"/><input n-i=\"1\" type=\"text\" name=\"bean_seven.getStrings()[1]\" value=\"TWO\" varValue=\"c;\" c:className=\"java.lang.String\"/></form></body></html>", nav_.getHtmlText());
         assertXmlEqualNoPrefix("<html xmlns:c='javahtml' xmlns='javahtml'><body><form n-f=\"0\" action=\"\" name=\"myform\" c:command=\"$bean_seven.validateStrings\"><input n-i=\"0\" type=\"text\" name=\"bean_seven.c;\" value=\"ONE\" c:className=\"java.lang.String\"/><input n-i=\"1\" type=\"text\" name=\"bean_seven.c;\" value=\"TWO\" c:className=\"java.lang.String\"/></form></body></html>", nav_.getHtmlText());
         bean_ = (BeanSeven) conf_.getBeans().getVal("bean_seven");
-        StringMap<Object> map_ = bean_.getForms();
+        StringMapObject map_ = bean_.getForms();
         assertEq(0, map_.size());
 //        assertEq(new StringList("ONE","TWO"), map_.getVal("strings"));
         assertEq("ONE", bean_.getStrings().get(0));
@@ -7168,7 +7169,7 @@ public class NavigationTest {
 //        assertXMLEqualNoPrefix("<html bean=\"bean_seven\"><body><form n-f=\"0\" action=\"\" name=\"myform\" c:command=\"$bean_seven.validateStringsSave\"><input n-i=\"0\" type=\"text\" name=\"bean_seven.getStrings()[0]\" value=\"ONE\" varValue=\"c;\" c:className=\"java.lang.String\"/><input n-i=\"1\" type=\"text\" name=\"bean_seven.getStrings()[1]\" value=\"TWO\" varValue=\"c;\" c:className=\"java.lang.String\"/></form></body></html>", nav_.getHtmlText());
         assertXmlEqualNoPrefix("<html xmlns:c='javahtml' xmlns='javahtml'><body><form n-f=\"0\" action=\"\" name=\"myform\" c:command=\"$bean_seven.validateStringsSave\"><input n-i=\"0\" type=\"text\" name=\"bean_seven.c;\" value=\"ONE\" c:className=\"java.lang.String\"/><input n-i=\"1\" type=\"text\" name=\"bean_seven.c;\" value=\"TWO\" c:className=\"java.lang.String\"/></form></body></html>", nav_.getHtmlText());
         bean_ = (BeanSeven) conf_.getBeans().getVal("bean_seven");
-        StringMap<Object> map_ = bean_.getForms();
+        StringMapObject map_ = bean_.getForms();
         assertEq(1, map_.size());
         assertEq(new StringList("ONE","TWO"), (StringList)map_.getVal("strings"));
         assertEq("ONE", bean_.getStrings().get(0));
@@ -7241,7 +7242,7 @@ public class NavigationTest {
 //        assertXMLEqualNoPrefix("<html bean=\"bean_seven\"><body><form n-f=\"0\" action=\"\" name=\"myform\" c:command=\"$bean_seven.validateMap\"><input n-i=\"0\" type=\"text\" name=\"bean_seven.getTree()[0]goto!value\" value=\"3\" varValue=\"v;\" c:className=\"java.lang.Integer\"/><input n-i=\"1\" type=\"text\" name=\"bean_seven.getTree()[1]goto!value\" value=\"4\" varValue=\"v;\" c:className=\"java.lang.Integer\"/></form></body></html>", nav_.getHtmlText());
         assertXmlEqualNoPrefix("<html xmlns:c='javahtml' xmlns='javahtml'><body><form n-f=\"0\" action=\"\" name=\"myform\" c:command=\"$bean_seven.validateMap\"><input n-i=\"0\" type=\"text\" name=\"bean_seven.v;\" value=\"3\" c:className=\"java.lang.Integer\"/><input n-i=\"1\" type=\"text\" name=\"bean_seven.v;\" value=\"4\" c:className=\"java.lang.Integer\"/></form></body></html>", nav_.getHtmlText());
         bean_ = (BeanSeven) conf_.getBeans().getVal("bean_seven");
-        StringMap<Object> map_ = bean_.getForms();
+        StringMapObject map_ = bean_.getForms();
         assertEq(0, map_.size());
         assertEq(2, bean_.getTree().size());
         assertEq(3, bean_.getTree().getVal("keyone").intValue());
@@ -7322,7 +7323,7 @@ public class NavigationTest {
         beanTwo_ = (BeanTwo) conf_.getBeans().getVal("bean_two");
         assertEq(EnumNumber.TWO, beanTwo_.getChosenNumber());
         assertEq("TYPED_STRING", beanTwo_.getTypedString());
-        StringMap<Object> map_ = beanTwo_.getForms();
+        StringMapObject map_ = beanTwo_.getForms();
         assertEq(0, map_.size());
         assertEq(0, conf_.getBeans().getVal("bean_one").getForms().size());
         assertEq(0, conf_.getBeans().getVal("bean_two").getForms().size());
@@ -7391,7 +7392,7 @@ public class NavigationTest {
 //        assertXMLEqualNoPrefix("<html bean=\"bean_seven\"><body><form n-f=\"0\" action=\"\" name=\"myform\" c:command=\"$bean_seven.validateMap\"><input n-i=\"0\" type=\"text\" name=\"bean_seven.getTree()[0]goto!key\" value=\"keyfour\" varValue=\"k;\" c:className=\"java.lang.String\"/><input n-i=\"1\" type=\"text\" name=\"bean_seven.getTree()[1]goto!key\" value=\"keythree\" varValue=\"k;\" c:className=\"java.lang.String\"/></form></body></html>", nav_.getHtmlText());
         assertXmlEqualNoPrefix("<html xmlns:c='javahtml' xmlns='javahtml'><body><form n-f=\"0\" action=\"\" name=\"myform\" c:command=\"$bean_seven.validateMap\"><input n-i=\"0\" type=\"text\" name=\"bean_seven.k;\" value=\"keyfour\" c:className=\"java.lang.String\"/><input n-i=\"1\" type=\"text\" name=\"bean_seven.k;\" value=\"keythree\" c:className=\"java.lang.String\"/></form></body></html>", nav_.getHtmlText());
         bean_ = (BeanSeven) conf_.getBeans().getVal("bean_seven");
-        StringMap<Object> map_ = bean_.getForms();
+        StringMapObject map_ = bean_.getForms();
         assertEq(0, map_.size());
         assertEq(2, bean_.getTree().size());
         assertEq(1, bean_.getTree().getVal("keythree").intValue());
@@ -7464,7 +7465,7 @@ public class NavigationTest {
         setupBeansAfter(conf_);
         assertXmlEqualNoPrefix("<html xmlns:c='javahtml' xmlns='javahtml'><body><form name='myform' n-f='0' action='' c:command='$bean_seven.validateIntsSave'><input n-i='0' type='text' c:className='java.lang.Integer' name='bean_seven.i;' value='2'/><input n-i='1' type='text' c:className='java.lang.Integer' name='bean_seven.i;' value='4'/></form></body></html>", nav_.getHtmlText());
         bean_ = (BeanSeven) conf_.getBeans().getVal("bean_seven");
-        StringMap<Object> map_ = bean_.getForms();
+        StringMapObject map_ = bean_.getForms();
         assertEq(1, map_.size());
         Ints savedNbs_ = (Ints) map_.getVal("numbers");
         assertEq(2, savedNbs_.size());

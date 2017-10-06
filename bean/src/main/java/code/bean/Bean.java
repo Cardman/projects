@@ -1,5 +1,5 @@
 package code.bean;
-import code.util.StringMap;
+import code.util.StringMapObject;
 import code.util.annot.RwXml;
 
 @RwXml
@@ -7,7 +7,7 @@ public class Bean {
 
     private transient Object dataBase;
 
-    private transient StringMap<Object> forms;
+    private transient StringMapObject forms;
 
     private String scope;
 
@@ -26,11 +26,11 @@ public class Bean {
         dataBase = _dataBase;
     }
 
-    public StringMap<Object> getForms() {
+    public StringMapObject getForms() {
         return forms;
     }
 
-    public void setForms(StringMap<Object> _forms) {
+    public void setForms(StringMapObject _forms) {
         if (_forms == null) {
             return;
         }

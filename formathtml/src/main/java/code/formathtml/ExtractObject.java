@@ -2,7 +2,6 @@ package code.formathtml;
 import java.lang.reflect.Constructor;
 import java.math.BigDecimal;
 import java.math.BigInteger;
-import java.util.Iterator;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicLong;
 
@@ -25,9 +24,9 @@ import code.serialize.exceptions.InvokingException;
 import code.serialize.exceptions.NoSuchDeclaredMethodException;
 import code.serialize.exceptions.RuntimeInstantiationException;
 import code.util.CustList;
-import code.util.EntryCust;
 import code.util.StringList;
 import code.util.StringMap;
+import code.util.StringMapObject;
 import code.util.consts.ConstClasses;
 import code.util.exceptions.NullObjectException;
 import code.util.exceptions.RuntimeClassNotFoundException;
@@ -72,16 +71,12 @@ final class ExtractObject {
     private static final char QUOTE = 39;
     private static final String GET_STRING ="getString";
     private static final String NAME ="name";
-    private static final String PUT ="put";
-    private static final String PUT_ALL_MAP ="putAllMap";
     private static final String TO_STRING ="toString";
     private static final String ITERATOR ="iterator";
     private static final String HAS_NEXT ="hasNext";
     private static final String NEXT ="next";
-    private static final String GET_KEYS ="getKeys";
     private static final String ENTRY_LIST ="entryList";
     private static final String GET_KEY ="getKey";
-    private static final String GET_VAL ="getVal";
     private static final String GET_VALUE ="getValue";
     private static final String GET_SCOPE ="getScope";
     private static final String SET_SCOPE ="setScope";
@@ -377,75 +372,50 @@ final class ExtractObject {
         if (_addpage) {
             _conf.addPage(new ImportingPage(false));
         }
-        getResult(_conf, 0, BEFORE_DISPLAYING, _it, _it.getClassName());
+        getResult(_conf, 0, BEFORE_DISPLAYING, _it);
         if (_addpage) {
             _conf.removeLastPage();
         }
     }
 
     static Struct getDataBase(Configuration _conf, Struct _it) {
-        return getResult(_conf, 0, GET_DATA_BASE, _it, _it.getClassName());
+        return getResult(_conf, 0, GET_DATA_BASE, _it);
     }
 
     static void setDataBase(Configuration _conf, Struct _it, Struct _dataBase) {
-        setResult(_conf, 0, SET_DATA_BASE, _it, _dataBase, _it.getClassName(), Object.class.getName());
+        setResult(_conf, 0, SET_DATA_BASE, _it, _dataBase, Object.class.getName());
     }
 
     static String getLanguage(Configuration _conf, Struct _it) {
-        return (String) getResult(_conf, 0, GET_LANGUAGE, _it, _it.getClassName()).getInstance();
+        return (String) getResult(_conf, 0, GET_LANGUAGE, _it).getInstance();
     }
 
     static void setLanguage(Configuration _conf, Struct _it, String _scope) {
-        setResult(_conf, 0, SET_LANGUAGE, _it, new Struct(_scope), _it.getClassName(), String.class.getName());
+        setResult(_conf, 0, SET_LANGUAGE, _it, new Struct(_scope), String.class.getName());
     }
 
     static String getScope(Configuration _conf, Struct _it) {
-        return (String) getResult(_conf, 0, GET_SCOPE, _it, _it.getClassName()).getInstance();
+        return (String) getResult(_conf, 0, GET_SCOPE, _it).getInstance();
     }
 
     static void setScope(Configuration _conf, Struct _it, String _scope) {
-        setResult(_conf, 0, SET_SCOPE, _it, new Struct(_scope), _it.getClassName(), String.class.getName());
+        setResult(_conf, 0, SET_SCOPE, _it, new Struct(_scope), String.class.getName());
     }
 
     static Struct getForms(Configuration _conf, Struct _it) {
-        return getResult(_conf, 0, GET_FORMS, _it, _it.getClassName());
+        return getResult(_conf, 0, GET_FORMS, _it);
     }
 
     static void setForms(Configuration _conf, Struct _it, Struct _forms) {
-        setResult(_conf, 0, SET_FORMS, _it, _forms, _it.getClassName(), StringMap.class.getName());
+        setResult(_conf, 0, SET_FORMS, _it, _forms, StringMapObject.class.getName());
     }
 
     static Struct getKey(Configuration _conf, Struct _it) {
-        return getResult(_conf, 0, GET_KEY, _it, EntryCust.class.getName());
-    }
-    
-    static Struct getVal(Configuration _conf, Struct _it, Struct _key) {
-        ImportingPage ip_ = _conf.getLastPage();
-        String varName_ = ip_.getNextTempVar();
-        LocalVariable var_ = new LocalVariable();
-        var_.setStruct(_it);
-        var_.setClassName(ListableEntries.class.getName());
-        ip_.getLocalVars().put(varName_, var_);
-        String keyName_ = ip_.getNextTempVar();
-        var_ = new LocalVariable();
-        var_.setStruct(_key);
-        var_.setClassName(Object.class.getName());
-        ip_.getLocalVars().put(keyName_, var_);
-        String expression_ = varName_+GET_LOC_VAR+GET_VAL+BEGIN_ARGS+keyName_+GET_LOC_VAR+END_ARGS;
-        try {
-            Struct value_ = ElUtil.processEl(expression_, 0, _conf.toContextEl()).getStruct();
-            ip_.getLocalVars().removeKey(varName_);
-            ip_.getLocalVars().removeKey(keyName_);
-            return value_;
-        } catch (Throwable _0) {
-            ip_.getLocalVars().removeKey(varName_);
-            ip_.getLocalVars().removeKey(keyName_);
-            throw new InvokeRedinedMethException(_conf.joinPages(), new Struct(_0));
-        }
+        return getResult(_conf, 0, GET_KEY, _it);
     }
 
     static Struct getValue(Configuration _conf, Struct _it) {
-        return getResult(_conf, 0, GET_VALUE, _it, EntryCust.class.getName());
+        return getResult(_conf, 0, GET_VALUE, _it);
     }
 
     static char getChar(Configuration _conf, String _obj) {
@@ -497,91 +467,34 @@ final class ExtractObject {
         if (_obj.isNull()) {
             return String.valueOf(_obj.getInstance());
         }
-        return (String) getResult(_conf, 0, TO_STRING, _obj, _obj.getClassName()).getInstance();
+        return (String) getResult(_conf, 0, TO_STRING, _obj).getInstance();
     }
     static String toString(Configuration _conf, Struct _obj) {
-        return (String) getResult(_conf, 0, TO_STRING, _obj, _obj.getClassName()).getInstance();
+        return (String) getResult(_conf, 0, TO_STRING, _obj).getInstance();
     }
     static Struct iterator(Configuration _conf, Struct _it) {
-        return getResult(_conf, 0, ITERATOR, _it, Iterable.class.getName());
+        return getResult(_conf, 0, ITERATOR, _it);
     }
     static boolean hasNext(Configuration _conf, Struct _it) {
-        return (Boolean) getResult(_conf, 0, HAS_NEXT, _it, Iterator.class.getName()).getInstance();
+        return (Boolean) getResult(_conf, 0, HAS_NEXT, _it).getInstance();
     }
     static Struct next(Configuration _conf, Struct _it) {
-        return getResult(_conf, 0, NEXT, _it, Iterator.class.getName());
+        return getResult(_conf, 0, NEXT, _it);
     }
     static Struct entryList(Configuration _conf, int _offsIndex, Struct _container) {
-        return getResult(_conf, _offsIndex, ENTRY_LIST, _container, ListableEntries.class.getName());
-    }
-    static Struct getKeys(Configuration _conf, int _offsIndex, Struct _container) {
-        return getResult(_conf, _offsIndex, GET_KEYS, _container, ListableEntries.class.getName());
+        return getResult(_conf, _offsIndex, ENTRY_LIST, _container);
     }
 
     static String name(Configuration _conf, Struct _instance) {
-        return (String) getResult(_conf, 0, NAME, _instance, _instance.getClassName()).getInstance();
+        return (String) getResult(_conf, 0, NAME, _instance).getInstance();
     }
 
-    static void put(Configuration _conf, Struct _instance, Struct _key, Struct _value) {
+    static Struct getResult(Configuration _conf, int _offsIndex, String _methodName, Struct _instance) {
         ImportingPage ip_ = _conf.getLastPage();
         String varName_ = ip_.getNextTempVar();
         LocalVariable var_ = new LocalVariable();
         var_.setStruct(_instance);
-        var_.setClassName(ListableEntries.class.getName());
-        ip_.getLocalVars().put(varName_, var_);
-        String keyName_ = ip_.getNextTempVar();
-        var_ = new LocalVariable();
-        var_.setStruct(_key);
-        var_.setClassName(Object.class.getName());
-        ip_.getLocalVars().put(keyName_, var_);
-        String valueName_ = ip_.getNextTempVar();
-        var_ = new LocalVariable();
-        var_.setStruct(_value);
-        var_.setClassName(Object.class.getName());
-        ip_.getLocalVars().put(valueName_, var_);
-        String expression_ = varName_+GET_LOC_VAR+PUT+BEGIN_ARGS+keyName_+GET_LOC_VAR+SEP_ARGS+valueName_+GET_LOC_VAR+END_ARGS;
-        try {
-            ElUtil.processEl(expression_, 0, _conf.toContextEl()).getStruct();
-            ip_.getLocalVars().removeKey(varName_);
-            ip_.getLocalVars().removeKey(keyName_);
-            ip_.getLocalVars().removeKey(valueName_);
-        } catch (Throwable _0) {
-            ip_.getLocalVars().removeKey(varName_);
-            ip_.getLocalVars().removeKey(keyName_);
-            ip_.getLocalVars().removeKey(valueName_);
-            throw new InvokeRedinedMethException(_conf.joinPages(), new Struct(_0));
-        }
-    }
-    static void putAllMap(Configuration _conf, Struct _instance, Struct _map) {
-        ImportingPage ip_ = _conf.getLastPage();
-        String varName_ = ip_.getNextTempVar();
-        LocalVariable var_ = new LocalVariable();
-        var_.setStruct(_instance);
-        var_.setClassName(ListableEntries.class.getName());
-        ip_.getLocalVars().put(varName_, var_);
-        String keyName_ = ip_.getNextTempVar();
-        var_ = new LocalVariable();
-        var_.setStruct(_map);
-        var_.setClassName(ListableEntries.class.getName());
-        ip_.getLocalVars().put(keyName_, var_);
-        String expression_ = varName_+GET_LOC_VAR+PUT_ALL_MAP+BEGIN_ARGS+keyName_+GET_LOC_VAR+END_ARGS;
-        try {
-            ElUtil.processEl(expression_, 0, _conf.toContextEl()).getStruct();
-            ip_.getLocalVars().removeKey(varName_);
-            ip_.getLocalVars().removeKey(keyName_);
-        } catch (Throwable _0) {
-            ip_.getLocalVars().removeKey(varName_);
-            ip_.getLocalVars().removeKey(keyName_);
-            throw new InvokeRedinedMethException(_conf.joinPages(), new Struct(_0));
-        }
-    }
-
-    static Struct getResult(Configuration _conf, int _offsIndex, String _methodName, Struct _instance, String _className) {
-        ImportingPage ip_ = _conf.getLastPage();
-        String varName_ = ip_.getNextTempVar();
-        LocalVariable var_ = new LocalVariable();
-        var_.setStruct(_instance);
-        var_.setClassName(_className);
+        var_.setClassName(_instance.getClassName());
         ip_.getLocalVars().put(varName_, var_);
         String expression_ = varName_+GET_LOC_VAR+_methodName+NO_PARAM_METHOD;
         try {
@@ -595,12 +508,12 @@ final class ExtractObject {
         }
     }
     static void setResult(Configuration _conf, int _offsIndex, String _methodName, Struct _instance, Struct _argument,
-            String _className, String _argumentClassName) {
+            String _argumentClassName) {
         ImportingPage ip_ = _conf.getLastPage();
         String varName_ = ip_.getNextTempVar();
         LocalVariable var_ = new LocalVariable();
         var_.setStruct(_instance);
-        var_.setClassName(_className);
+        var_.setClassName(_instance.getClassName());
         ip_.getLocalVars().put(varName_, var_);
         String argName_ = ip_.getNextTempVar();
         var_ = new LocalVariable();
