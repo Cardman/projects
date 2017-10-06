@@ -260,13 +260,23 @@ public final class Classes {
                         throw new BadClassNameException(s);
                     }
                 }
+                for (TypeVar t: cl_.getParamTypes()) {
+                    for (String u: t.getConstraints()) {
+                        if (!u.startsWith(Templates.PREFIX_VAR_TYPE)) {
+                            continue;
+                        }
+                        if (!cl_.getParamTypesMap().contains(u.substring(1))) {
+                            throw new BadClassNameException(u);
+                        }
+                    }
+                }
                 try {
                     Class<?> clNat_ = ConstClasses.classForNameNotInit(file_);
                     throw new AlreadyExistingClassException(clNat_.getName());
                 } catch (RuntimeClassNotFoundException _0) {
                 }
                 Block rootBl_ = (Block) cl_;
-                CustList<Block> all_ = getSortedDescNodes(rootBl_);
+                CustList<Block> all_ = getSortedDescNodesRoot(rootBl_);
                 for (Block b: all_) {
                     b.setConf(null);
                     b.setupChars(content_);
@@ -398,16 +408,33 @@ public final class Classes {
             throw _0;
         }
     }
+    public static CustList<Block> getSortedDescNodesRoot(Block _root) {
+        CustList<Block> list_ = new CustList<Block>();
+        if (_root == null) {
+            return list_;
+        }
+        Block c_ = _root;
+        while (true) {
+            if (c_ == null) {
+                break;
+            }
+            list_.add(c_);
+            c_ = getNext(c_, _root);
+        }
+        return list_;
+    }
     public static CustList<Block> getSortedDescNodes(Block _root) {
         CustList<Block> list_ = new CustList<Block>();
         if (_root == null) {
             return list_;
         }
         Block c_ = _root;
-        if (c_.getFirstChild() == null) {
-            list_.add(c_);
+        Block f_ = c_.getFirstChild();
+        list_.add(c_);
+        if (f_ == null) {
             return list_;
         }
+        c_ = f_;
         while (true) {
             if (c_ == null) {
                 break;
