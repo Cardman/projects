@@ -219,7 +219,7 @@ public abstract class RootBlock extends BracedBlock implements AccessibleBlock {
                         _context.getClasses().getErrorsDet().add(un_);
                         continue;
                     }
-                    if (!Templates.isSimpleCorrectTemplateAll(classNameLoc_, vars_, _context.getClasses())) {
+                    if (!Templates.isCorrectTemplateAll(classNameLoc_, vars_, _context.getClasses())) {
                         UnknownClassName un_ = new UnknownClassName();
                         un_.setClassName(classNameLoc_);
                         un_.setFileName(className_);
@@ -643,7 +643,7 @@ public abstract class RootBlock extends BracedBlock implements AccessibleBlock {
                         classesRef_.getErrorsDet().add(err_);
                         //throw ex
                     }
-                } else if (!Templates.isSimpleCorrect(mapping_, classesRef_)) {
+                } else if (!Templates.isCorrect(mapping_, classesRef_)) {
                     //throw ex
                     BadReturnTypeInherit err_;
                     err_ = new BadReturnTypeInherit();
@@ -758,7 +758,7 @@ public abstract class RootBlock extends BracedBlock implements AccessibleBlock {
                             classesRef_.getErrorsDet().add(err_);
                             //throw ex
                         }
-                    } else if (!Templates.isSimpleCorrect(mapping_, classesRef_)) {
+                    } else if (!Templates.isCorrect(mapping_, classesRef_)) {
                         //throw ex
                         BadReturnTypeInherit err_;
                         err_ = new BadReturnTypeInherit();
@@ -957,7 +957,7 @@ public abstract class RootBlock extends BracedBlock implements AccessibleBlock {
                     if (StringList.quickEq(formattedSup_, subType_)) {
                         continue;
                     }
-                    if (!Templates.isSimpleCorrect(mapping_, _classes)) {
+                    if (!Templates.isCorrect(mapping_, _classes)) {
                         addClass(output_, e.getKey(), subInt_);
                         addClass(output_, e.getKey(), s);
                     }
@@ -1044,7 +1044,7 @@ public abstract class RootBlock extends BracedBlock implements AccessibleBlock {
                     if (StringList.quickEq(formattedSupType_, subType_)) {
                         continue;
                     }
-                    if (!Templates.isSimpleCorrect(map_, _classes)) {
+                    if (!Templates.isCorrect(map_, _classes)) {
                         addClass(output_, e.getKey(), subInt_);
                         addClass(output_, e.getKey(), s);
                     }

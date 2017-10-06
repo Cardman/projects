@@ -131,7 +131,7 @@ public final class FieldBlock extends Leaf implements InfoBlock {
         mapping_.setMapping(vars_);
         mapping_.setArg(opValue.last().getResultClass().getName());
         mapping_.setParam(className);
-        if (!Templates.isSimpleCorrect(mapping_, _cont.getClasses())) {
+        if (!Templates.isCorrect(mapping_, _cont.getClasses())) {
             throw new DynamicCastClassException(_cont.joinPages());
         }
     }

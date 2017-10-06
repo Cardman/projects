@@ -191,7 +191,7 @@ public final class PrimitiveTypeUtil {
                 mapping_.setParam(i);
                 for (String j: _classNames) {
                     mapping_.setArg(j);
-                    if (!Templates.isSimpleCorrect(mapping_, _classes)) {
+                    if (!Templates.isCorrect(mapping_, _classes)) {
                         sub_ = false;
                         break;
                     }

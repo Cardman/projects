@@ -105,7 +105,7 @@ public final class ReturnMehod extends Leaf implements CallingFinally {
             mapping_.setMapping(vars_);
             mapping_.setArg(opRet.last().getResultClass().getName());
             mapping_.setParam(retType_);
-            if (!Templates.isSimpleCorrect(mapping_, _cont.getClasses())) {
+            if (!Templates.isCorrect(mapping_, _cont.getClasses())) {
                 throw new DynamicCastClassException(_cont.joinPages());
             }
         }

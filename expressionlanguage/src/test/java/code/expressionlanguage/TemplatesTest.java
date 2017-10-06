@@ -10,7 +10,6 @@ import code.expressionlanguage.classes.CmpList;
 import code.expressionlanguage.classes.CustBigInt;
 import code.expressionlanguage.classes.CustEqList;
 import code.expressionlanguage.classes.CustSecEqList;
-import code.expressionlanguage.classes.CustTemp;
 import code.expressionlanguage.classes.EnumNumber;
 import code.expressionlanguage.classes.GoodCmp;
 import code.expressionlanguage.classes.IOne;
@@ -65,7 +64,6 @@ public class TemplatesTest {
     private static final String ENUM_LIST = EnumList.class.getName();
     private static final String ENUM_MAP = EnumMap.class.getName();
     private static final String CMP = Cmp.class.getName();
-    private static final String TMPL = CustTemp.class.getName();
     private static final String MY_EQ_CLASS = MyEqClass.class.getName();
     private static final String MY_CMP_CLASS = MyCmpClass.class.getName();
 
@@ -193,76 +191,6 @@ public class TemplatesTest {
         String first_ = CUST_LIST+"<java.lang.Object>";
         String second_ = "#T";
         assertEq("java.lang.Object",Templates.format(first_, second_, classes_));
-    }
-
-    @Test
-    public void eqTypes1Test() {
-        String first_ = String.class.getName();
-        String second_ = Integer.class.getName();
-        assertTrue(!Templates.eqTypes(first_, second_));
-    }
-
-    @Test
-    public void eqTypes2Test() {
-        String first_ = CUST_LIST+"<"+String.class.getName()+">";
-        String second_ = CUST_LIST+"<"+Integer.class.getName()+">";
-        assertTrue(!Templates.eqTypes(first_, second_));
-    }
-
-    @Test
-    public void eqTypes3Test() {
-        String first_ = CUST_LIST+"<?~"+Integer.class.getName()+">";
-        String second_ = CUST_LIST+"<"+Integer.class.getName()+">";
-        assertTrue(!Templates.eqTypes(first_, second_));
-    }
-
-    @Test
-    public void eqTypes4Test() {
-        String first_ = CUST_LIST+"<"+Integer.class.getName()+">";
-        String second_ = CUST_LIST+"<?~"+Integer.class.getName()+">";
-        assertTrue(!Templates.eqTypes(first_, second_));
-    }
-
-    @Test
-    public void eqTypes5Test() {
-        String first_ = CUST_LIST+"<?~"+String.class.getName()+">";
-        String second_ = CUST_LIST+"<?~"+Integer.class.getName()+">";
-        assertTrue(!Templates.eqTypes(first_, second_));
-    }
-
-    @Test
-    public void eqTypes6Test() {
-        String first_ = TMPL+"<"+String.class.getName()+","+Integer.class.getName()+">";
-        String second_ = TMPL+"<"+Integer.class.getName()+","+String.class.getName()+">";
-        assertTrue(!Templates.eqTypes(first_, second_));
-    }
-
-    @Test
-    public void eqTypes7Test() {
-        String first_ = TMPL+"<?~"+String.class.getName()+"&"+Integer.class.getName()+","+String.class.getName()+">";
-        String second_ = TMPL+"<?~"+Integer.class.getName()+"&"+String.class.getName()+","+String.class.getName()+">";
-        assertTrue(Templates.eqTypes(first_, second_));
-    }
-
-    @Test
-    public void eqTypes8Test() {
-        String first_ = TMPL+"<"+String.class.getName()+","+Integer.class.getName()+">";
-        String second_ = TMPL+"<"+String.class.getName()+","+Integer.class.getName()+">";
-        assertTrue(Templates.eqTypes(first_, second_));
-    }
-
-    @Test
-    public void eqTypes9Test() {
-        String first_ = TMPL+"<?~"+String.class.getName()+"&"+String.class.getName()+","+Integer.class.getName()+">";
-        String second_ = TMPL+"<?~"+String.class.getName()+","+Integer.class.getName()+">";
-        assertTrue(Templates.eqTypes(first_, second_));
-    }
-
-    @Test
-    public void eqTypes10Test() {
-        String first_ = TMPL+"<?~"+String.class.getName()+"&"+Integer.class.getName()+","+Integer.class.getName()+">";
-        String second_ = TMPL+"<?~"+String.class.getName()+","+Integer.class.getName()+">";
-        assertTrue(!Templates.eqTypes(first_, second_));
     }
 
     @Test
@@ -413,6 +341,791 @@ public class TemplatesTest {
     }
 
     @Test
+    public void isCorrectWrite24Test() {
+        assertTrue(!Templates.isCorrectWrite("code.util.CustList<<java.lang.String>>"));
+    }
+    @Test
+    public void isCorrect1Test() {
+        Mapping m_ = new Mapping();
+        m_.setArg("java.lang.Object");
+        m_.setParam("java.lang.Object");
+        assertTrue(Templates.isCorrect(m_, null));
+    }
+
+    @Test
+    public void isCorrect2Test() {
+        Mapping m_ = new Mapping();
+        m_.setArg("java.lang.String");
+        m_.setParam("java.lang.Object");
+        assertTrue(Templates.isCorrect(m_, null));
+    }
+
+    @Test
+    public void isCorrect3Test() {
+        Mapping m_ = new Mapping();
+        m_.setArg("java.lang.Object");
+        m_.setParam("java.lang.String");
+        assertTrue(!Templates.isCorrect(m_, null));
+    }
+
+    @Test
+    public void isCorrect4Test() {
+        Mapping m_ = new Mapping();
+        m_.setArg("java.util.List<java.lang.Object>");
+        m_.setParam("java.util.List<java.lang.Object>");
+        assertTrue(Templates.isCorrect(m_, null));
+    }
+
+    @Test
+    public void isCorrect5Test() {
+        Mapping m_ = new Mapping();
+        m_.setArg("java.util.List<java.lang.String>");
+        m_.setParam("java.util.List<java.lang.Object>");
+        assertTrue(!Templates.isCorrect(m_, null));
+    }
+
+    @Test
+    public void isCorrect6Test() {
+        Mapping m_ = new Mapping();
+        m_.setArg("java.util.List<java.lang.Object>");
+        m_.setParam("java.util.List<java.lang.String>");
+        assertTrue(!Templates.isCorrect(m_, null));
+    }
+
+    @Test
+    public void isCorrect7Test() {
+        Mapping m_ = new Mapping();
+        m_.setArg("#E");
+        m_.setParam("java.lang.Object");
+        StringMap<StringList> t_ = new StringMap<StringList>();
+        t_.put("E", new StringList("java.lang.Enum<#E>"));
+        m_.setMapping(t_);
+        assertTrue(Templates.isCorrect(m_,null));
+    }
+
+    @Test
+    public void isCorrect8Test() {
+        Mapping m_ = new Mapping();
+        m_.setArg("#E");
+        m_.setParam("java.lang.Number");
+        StringMap<StringList> t_ = new StringMap<StringList>();
+        t_.put("E", new StringList("java.lang.Integer"));
+        m_.setMapping(t_);
+        assertTrue(Templates.isCorrect(m_,null));
+    }
+
+    @Test
+    public void isCorrect9Test() {
+        Mapping m_ = new Mapping();
+        m_.setArg("#E");
+        m_.setParam("[java.lang.Number");
+        StringMap<StringList> t_ = new StringMap<StringList>();
+        t_.put("E", new StringList("[java.lang.Integer"));
+        m_.setMapping(t_);
+        assertTrue(Templates.isCorrect(m_,null));
+    }
+
+    @Test
+    public void isCorrect10Test() {
+        Mapping m_ = new Mapping();
+        m_.setArg("#E");
+        m_.setParam("[java.lang.Number");
+        StringMap<StringList> t_ = new StringMap<StringList>();
+        t_.put("E", new StringList("java.lang.Integer"));
+        m_.setMapping(t_);
+        assertTrue(!Templates.isCorrect(m_,null));
+    }
+
+    @Test
+    public void isCorrect11Test() {
+        Mapping m_ = new Mapping();
+        m_.setArg(ENUM_LIST+"<java.lang.Enum<#E>>");
+        m_.setParam(CUST_LIST+"<java.lang.Enum<#E>>");
+        StringMap<StringList> t_ = new StringMap<StringList>();
+        t_.put("E", new StringList("java.lang.Enum<#E>"));
+        m_.setMapping(t_);
+        assertTrue(Templates.isCorrect(m_,null));
+    }
+
+    @Test
+    public void isCorrect12Test() {
+        Mapping m_ = new Mapping();
+        m_.setArg(ENUM_LIST+"<#E>");
+        m_.setParam(CUST_LIST+"<#E>");
+        StringMap<StringList> t_ = new StringMap<StringList>();
+        t_.put("E", new StringList("java.lang.Enum<#E>"));
+        m_.setMapping(t_);
+        assertTrue(Templates.isCorrect(m_,null));
+    }
+
+    @Test
+    public void isCorrect13Test() {
+        Mapping m_ = new Mapping();
+        m_.setArg(ENUM_LIST+"<#F>");
+        m_.setParam(CUST_LIST+"<#F>");
+        StringMap<StringList> t_ = new StringMap<StringList>();
+        t_.put("F", new StringList("java.lang.Enum<#F>"));
+        m_.setMapping(t_);
+        assertTrue(Templates.isCorrect(m_,null));
+    }
+
+    @Test
+    public void isCorrect14Test() {
+        Mapping m_ = new Mapping();
+        m_.setArg("java.util.List<#F>");
+        m_.setParam("java.util.Collection<#F>");
+        StringMap<StringList> t_ = new StringMap<StringList>();
+        t_.put("F", new StringList("java.lang.Enum<#F>"));
+        m_.setMapping(t_);
+        assertTrue(Templates.isCorrect(m_,null));
+    }
+
+    @Test
+    public void isCorrect15Test() {
+        Mapping m_ = new Mapping();
+        m_.setArg(STRING_LIST);
+        m_.setParam(CUST_LIST+"<java.lang.String>");
+        StringMap<StringList> t_ = new StringMap<StringList>();
+        m_.setMapping(t_);
+        assertTrue(Templates.isCorrect(m_,null));
+    }
+
+    @Test
+    public void isCorrect16Test() {
+        Mapping m_ = new Mapping();
+        m_.setArg(STRING_LIST);
+        m_.setParam(CUST_LIST+"<java.lang.Object>");
+        StringMap<StringList> t_ = new StringMap<StringList>();
+        m_.setMapping(t_);
+        assertTrue(!Templates.isCorrect(m_,null));
+    }
+
+    @Test
+    public void isCorrect17Test() {
+        Mapping m_ = new Mapping();
+        m_.setArg("#E");
+        m_.setParam("java.lang.Number");
+        StringMap<StringList> t_ = new StringMap<StringList>();
+        t_.put("E", new StringList("[java.lang.Integer"));
+        m_.setMapping(t_);
+        assertTrue(!Templates.isCorrect(m_,null));
+    }
+
+    @Test
+    public void isCorrect18Test() {
+        Mapping m_ = new Mapping();
+        m_.setArg("#E");
+        m_.setParam("java.io.Serializable");
+        StringMap<StringList> t_ = new StringMap<StringList>();
+        t_.put("E", new StringList("java.util.ArrayList<java.lang.Object>"));
+        m_.setMapping(t_);
+        assertTrue(Templates.isCorrect(m_,null));
+    }
+
+    @Test
+    public void isCorrect20Test() {
+        Mapping m_ = new Mapping();
+        m_.setArg("#T");
+        m_.setParam("#S");
+        StringMap<StringList> t_ = new StringMap<StringList>();
+        t_.put("T", new StringList("#S"));
+        t_.put("S", new StringList("java.lang.Object"));
+        m_.setMapping(t_);
+        assertTrue(Templates.isCorrect(m_,null));
+    }
+    @Test
+    public void isCorrect21Test() {
+        Mapping m_ = new Mapping();
+        m_.setArg("#S");
+        m_.setParam("#T");
+        StringMap<StringList> t_ = new StringMap<StringList>();
+        t_.put("T", new StringList("#S"));
+        t_.put("S", new StringList("java.lang.Object"));
+        m_.setMapping(t_);
+        assertTrue(!Templates.isCorrect(m_,null));
+    }
+
+    @Test
+    public void isCorrect22Test() {
+        Mapping m_ = new Mapping();
+        m_.setArg(CUST_LIST+"<java.lang.String>");
+        m_.setParam("java.lang.Object");
+        StringMap<StringList> t_ = new StringMap<StringList>();
+        m_.setMapping(t_);
+        assertTrue(Templates.isCorrect(m_,null));
+    }
+
+    @Test
+    public void isCorrect23Test() {
+        Mapping m_ = new Mapping();
+        m_.setArg(ARR_STRING);
+        m_.setParam(ARR_OBJECT);
+        StringMap<StringList> t_ = new StringMap<StringList>();
+        m_.setMapping(t_);
+        assertTrue(Templates.isCorrect(m_,null));
+    }
+
+    @Test
+    public void isCorrect27Test() {
+        Mapping m_ = new Mapping();
+        m_.setArg(CUST_LIST+"<#U>");
+        m_.setParam(CUST_LIST+"<#S>");
+        StringMap<StringList> t_ = new StringMap<StringList>();
+        t_.put("U", new StringList("#S"));
+        t_.put("S", new StringList("java.lang.Object"));
+        m_.setMapping(t_);
+        assertTrue(!Templates.isCorrect(m_,null));
+    }
+
+    @Test
+    public void isCorrect33Test() {
+        Mapping m_ = new Mapping();
+        m_.setArg("#T");
+        m_.setParam(CUST_LIST+"<#S>");
+        StringMap<StringList> t_ = new StringMap<StringList>();
+        t_.put("T", new StringList("#U"));
+        t_.put("U", new StringList(CUST_LIST+"<#S>"));
+        t_.put("S", new StringList("java.lang.Object"));
+        m_.setMapping(t_);
+        assertTrue(Templates.isCorrect(m_,null));
+    }
+
+    @Test
+    public void isCorrect34Test() {
+        Mapping m_ = new Mapping();
+        m_.setArg("#T");
+        m_.setParam(Listable.class.getName()+"<#S>");
+        StringMap<StringList> t_ = new StringMap<StringList>();
+        t_.put("T", new StringList("#U"));
+        t_.put("U", new StringList(CUST_LIST+"<#S>"));
+        t_.put("S", new StringList("java.lang.Object"));
+        m_.setMapping(t_);
+        assertTrue(Templates.isCorrect(m_,null));
+    }
+ 
+    @Test
+    public void isCorrect35Test() {
+        Mapping m_ = new Mapping();
+        m_.setArg("#T");
+        m_.setParam(CUST_LIST+"<#S>");
+        StringMap<StringList> t_ = new StringMap<StringList>();
+        t_.put("T", new StringList("#U"));
+        t_.put("U", new StringList(Listable.class.getName()+"<#S>"));
+        t_.put("S", new StringList("java.lang.Object"));
+        m_.setMapping(t_);
+        assertTrue(!Templates.isCorrect(m_,null));
+    }
+
+    @Test
+    public void isCorrect36Test() {
+        Mapping m_ = new Mapping();
+        m_.setArg(ARR_VAR_T);
+        m_.setParam(ARR_VAR_S);
+        StringMap<StringList> t_ = new StringMap<StringList>();
+        t_.put("T", new StringList("#S"));
+        t_.put("S", new StringList("java.lang.Object"));
+        m_.setMapping(t_);
+        assertTrue(Templates.isCorrect(m_,null));
+    }
+
+    @Test
+    public void isCorrect37Test() {
+        Mapping m_ = new Mapping();
+        m_.setArg(ARR_VAR_S);
+        m_.setParam(ARR_VAR_T);
+        StringMap<StringList> t_ = new StringMap<StringList>();
+        t_.put("T", new StringList("#S"));
+        t_.put("S", new StringList("java.lang.Object"));
+        m_.setMapping(t_);
+        assertTrue(!Templates.isCorrect(m_,null));
+    }
+
+    @Test
+    public void isCorrect38Test() {
+        Mapping m_ = new Mapping();
+        m_.setArg(ARR_VAR_S);
+        m_.setParam(ARR_VAR_T);
+        StringMap<StringList> t_ = new StringMap<StringList>();
+        t_.put("T", new StringList("#S"));
+        t_.put("S", new StringList("java.lang.Object"));
+        m_.setMapping(t_);
+        assertTrue(!Templates.isCorrect(m_,null));
+    }
+
+    @Test
+    public void isCorrect39Test() {
+        Mapping m_ = new Mapping();
+        m_.setArg(ARR_VAR_T);
+        m_.setParam(ARR_VAR_S);
+        StringMap<StringList> t_ = new StringMap<StringList>();
+        t_.put("T", new StringList("#S"));
+        t_.put("S", new StringList("java.lang.Object"));
+        m_.setMapping(t_);
+        assertTrue(Templates.isCorrect(m_,null));
+    }
+    
+    @Test
+    public void isCorrect46Test() {
+        Mapping m_ = new Mapping();
+        m_.setArg(ARR_ITHREE);
+        m_.setParam(ARR_ITWO);
+        StringMap<StringList> t_ = new StringMap<StringList>();
+        m_.setMapping(t_);
+        assertTrue(Templates.isCorrect(m_,null));
+    }
+
+    @Test
+    public void isCorrect47Test() {
+        Mapping m_ = new Mapping();
+        m_.setArg("["+MyImpl.class.getName());
+        m_.setParam(ARR_ITWO);
+        StringMap<StringList> t_ = new StringMap<StringList>();
+        m_.setMapping(t_);
+        assertTrue(Templates.isCorrect(m_,null));
+    }
+
+    @Test
+    public void isCorrect48Test() {
+        Mapping m_ = new Mapping();
+        m_.setArg("#H");
+        m_.setParam(CUST_BIG_INT);
+        StringMap<StringList> t_ = new StringMap<StringList>();
+        t_.put("J", new StringList(CUST_BIG_INT));
+        t_.put("I", new StringList("#J"));
+        t_.put("H", new StringList("#I"));
+        m_.setMapping(t_);
+        assertTrue(Templates.isCorrect(m_,null));
+    }
+
+    @Test
+    public void isCorrect49Test() {
+        Mapping m_ = new Mapping();
+        m_.setArg("#H");
+        m_.setParam("#J");
+        StringMap<StringList> t_ = new StringMap<StringList>();
+        t_.put("J", new StringList(CUST_BIG_INT));
+        t_.put("I", new StringList("#J"));
+        t_.put("H", new StringList("#I"));
+        m_.setMapping(t_);
+        assertTrue(Templates.isCorrect(m_,null));
+    }
+
+    @Test
+    public void isCorrect50Test() {
+        Mapping m_ = new Mapping();
+        m_.setArg("#H");
+        m_.setParam(Object.class.getName());
+        StringMap<StringList> t_ = new StringMap<StringList>();
+        t_.put("H", new StringList());
+        m_.setMapping(t_);
+        assertTrue(Templates.isCorrect(m_,null));
+    }
+
+    @Test
+    public void isCorrect51Test() {
+        Mapping m_ = new Mapping();
+        m_.setArg("#H");
+        m_.setParam("#J");
+        StringMap<StringList> t_ = new StringMap<StringList>();
+        t_.put("J", new StringList(CUST_BIG_INT));
+        t_.put("I", new StringList("#J"));
+        t_.put("K", new StringList("#J"));
+        t_.put("L", new StringList("#K"));
+        t_.put("H", new StringList("#L","#I"));
+        m_.setMapping(t_);
+        assertTrue(Templates.isCorrect(m_,null));
+    }
+
+    @Test
+    public void isCorrect52Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        String xml_;
+        xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg'/>\n";
+        files_.put("pkg/Ex."+Classes.EXT, xml_);
+        ContextEl cont_ = unfullValidateOverridingMethods(files_);
+        Classes classes_ = cont_.getClasses();
+        Mapping m_ = new Mapping();
+        m_.setArg("pkg.Ex");
+        m_.setParam("pkg.Ex");
+        assertTrue(Templates.isCorrect(m_, classes_));
+    }
+
+    @Test
+    public void isCorrect54Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        String xml_;
+        xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg'/>\n";
+        files_.put("pkg/Ex."+Classes.EXT, xml_);
+        ContextEl cont_ = unfullValidateOverridingMethods(files_);
+        Classes classes_ = cont_.getClasses();
+        Mapping m_ = new Mapping();
+        m_.setArg("java.lang.Number");
+        m_.setParam("pkg.Ex");
+        assertTrue(!Templates.isCorrect(m_, classes_));
+    }
+
+    @Test
+    public void isCorrect55Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        String xml_;
+        xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg'/>\n";
+        files_.put("pkg/Ex."+Classes.EXT, xml_);
+        xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExTwo' package='pkg' superclass='pkg.Ex'/>\n";
+        files_.put("pkg/ExTwo."+Classes.EXT, xml_);
+        ContextEl cont_ = unfullValidateOverridingMethods(files_);
+        Classes classes_ = cont_.getClasses();
+        Mapping m_ = new Mapping();
+        m_.setArg("pkg.ExTwo");
+        m_.setParam("pkg.Ex");
+        assertTrue(Templates.isCorrect(m_, classes_));
+    }
+
+    @Test
+    public void isCorrect56Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        String xml_;
+        xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg'/>\n";
+        files_.put("pkg/Ex."+Classes.EXT, xml_);
+        xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExTwo' package='pkg' superclass='pkg.Ex'/>\n";
+        files_.put("pkg/ExTwo."+Classes.EXT, xml_);
+        ContextEl cont_ = unfullValidateOverridingMethods(files_);
+        Classes classes_ = cont_.getClasses();
+        Mapping m_ = new Mapping();
+        m_.setArg("pkg.Ex");
+        m_.setParam("pkg.ExTwo");
+        assertTrue(!Templates.isCorrect(m_, classes_));
+    }
+
+    @Test
+    public void isCorrect57Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        String xml_;
+        xml_ = "<interface access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg'/>\n";
+        files_.put("pkg/Ex."+Classes.EXT, xml_);
+        xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExTwo' package='pkg' class0='pkg.Ex'/>\n";
+        files_.put("pkg/ExTwo."+Classes.EXT, xml_);
+        ContextEl cont_ = unfullValidateOverridingMethods(files_);
+        Classes classes_ = cont_.getClasses();
+        Mapping m_ = new Mapping();
+        m_.setArg("pkg.ExTwo");
+        m_.setParam("pkg.Ex");
+        assertTrue(Templates.isCorrect(m_, classes_));
+    }
+
+    @Test
+    public void isCorrect58Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        String xml_;
+        xml_ = "<interface access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg'/>\n";
+        files_.put("pkg/Ex."+Classes.EXT, xml_);
+        xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExTwo' package='pkg' class0='pkg.Ex'/>\n";
+        files_.put("pkg/ExTwo."+Classes.EXT, xml_);
+        ContextEl cont_ = unfullValidateOverridingMethods(files_);
+        Classes classes_ = cont_.getClasses();
+        Mapping m_ = new Mapping();
+        m_.setArg("pkg.Ex");
+        m_.setParam("pkg.ExTwo");
+        assertTrue(!Templates.isCorrect(m_, classes_));
+    }
+
+    @Test
+    public void isCorrect59Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        String xml_;
+        xml_ = "<interface access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg'/>\n";
+        files_.put("pkg/Ex."+Classes.EXT, xml_);
+        xml_ = "<interface access='"+PUBLIC_ACCESS+"' name='ExTwo' package='pkg' class0='pkg.Ex'/>\n";
+        files_.put("pkg/ExTwo."+Classes.EXT, xml_);
+        ContextEl cont_ = unfullValidateOverridingMethods(files_);
+        Classes classes_ = cont_.getClasses();
+        Mapping m_ = new Mapping();
+        m_.setArg("pkg.ExTwo");
+        m_.setParam("pkg.Ex");
+        assertTrue(Templates.isCorrect(m_, classes_));
+    }
+
+    @Test
+    public void isCorrect60Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        String xml_;
+        xml_ = "<interface access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg'/>\n";
+        files_.put("pkg/Ex."+Classes.EXT, xml_);
+        xml_ = "<interface access='"+PUBLIC_ACCESS+"' name='ExTwo' package='pkg' class0='pkg.Ex'/>\n";
+        files_.put("pkg/ExTwo."+Classes.EXT, xml_);
+        ContextEl cont_ = unfullValidateOverridingMethods(files_);
+        Classes classes_ = cont_.getClasses();
+        Mapping m_ = new Mapping();
+        m_.setArg("pkg.Ex");
+        m_.setParam("pkg.ExTwo");
+        assertTrue(!Templates.isCorrect(m_, classes_));
+    }
+
+    @Test
+    public void isCorrect61Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        String xml_;
+        xml_ = "<interface access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg'/>\n";
+        files_.put("pkg/Ex."+Classes.EXT, xml_);
+        xml_ = "<enum access='"+PUBLIC_ACCESS+"' name='ExTwo' package='pkg' class0='pkg.Ex'/>\n";
+        files_.put("pkg/ExTwo."+Classes.EXT, xml_);
+        ContextEl cont_ = unfullValidateOverridingMethods(files_);
+        Classes classes_ = cont_.getClasses();
+        Mapping m_ = new Mapping();
+        m_.setArg("pkg.ExTwo");
+        m_.setParam("pkg.Ex");
+        assertTrue(Templates.isCorrect(m_, classes_));
+    }
+
+    @Test
+    public void isCorrect62Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        String xml_;
+        xml_ = "<interface access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg'/>\n";
+        files_.put("pkg/Ex."+Classes.EXT, xml_);
+        xml_ = "<enum access='"+PUBLIC_ACCESS+"' name='ExTwo' package='pkg' class0='pkg.Ex'/>\n";
+        files_.put("pkg/ExTwo."+Classes.EXT, xml_);
+        ContextEl cont_ = unfullValidateOverridingMethods(files_);
+        Classes classes_ = cont_.getClasses();
+        Mapping m_ = new Mapping();
+        m_.setArg("pkg.Ex");
+        m_.setParam("pkg.ExTwo");
+        assertTrue(!Templates.isCorrect(m_, classes_));
+    }
+
+    @Test
+    public void isCorrect63Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        String xml_;
+        xml_ = "<interface access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' template='&lt;#F&gt;'/>\n";
+        files_.put("pkg/Ex."+Classes.EXT, xml_);
+        xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExTwo' package='pkg' class0='pkg.Ex&lt;#E&gt;' template='&lt;#E&gt;'/>\n";
+        files_.put("pkg/ExTwo."+Classes.EXT, xml_);
+        ContextEl cont_ = unfullValidateOverridingMethods(files_);
+        Classes classes_ = cont_.getClasses();
+        Mapping m_ = new Mapping();
+        m_.getMapping().put("T", new StringList("java.lang.Object"));
+        m_.setArg("pkg.ExTwo<#T>");
+        m_.setParam("pkg.Ex<#T>");
+        assertTrue(Templates.isCorrect(m_, classes_));
+    }
+
+    @Test
+    public void isCorrect64Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        String xml_;
+        xml_ = "<interface access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' template='&lt;#F&gt;'/>\n";
+        files_.put("pkg/Ex."+Classes.EXT, xml_);
+        xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExTwo' package='pkg' class0='pkg.Ex&lt;#E&gt;' template='&lt;#E&gt;'/>\n";
+        files_.put("pkg/ExTwo."+Classes.EXT, xml_);
+        ContextEl cont_ = unfullValidateOverridingMethods(files_);
+        Classes classes_ = cont_.getClasses();
+        Mapping m_ = new Mapping();
+        m_.getMapping().put("T", new StringList("java.lang.Object"));
+        m_.setArg("pkg.Ex<#T>");
+        m_.setParam("pkg.ExTwo<#T>");
+        assertTrue(!Templates.isCorrect(m_, classes_));
+    }
+
+    @Test
+    public void isCorrect65Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        String xml_;
+        xml_ = "<interface access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' template='&lt;#F&gt;'/>\n";
+        files_.put("pkg/Ex."+Classes.EXT, xml_);
+        xml_ = "<interface access='"+PUBLIC_ACCESS+"' name='ExTwo' package='pkg' class0='pkg.Ex&lt;#E&gt;' template='&lt;#E&gt;'/>\n";
+        files_.put("pkg/ExTwo."+Classes.EXT, xml_);
+        ContextEl cont_ = unfullValidateOverridingMethods(files_);
+        Classes classes_ = cont_.getClasses();
+        Mapping m_ = new Mapping();
+        m_.getMapping().put("T", new StringList("java.lang.Object"));
+        m_.setArg("pkg.ExTwo<#T>");
+        m_.setParam("pkg.Ex<#T>");
+        assertTrue(Templates.isCorrect(m_, classes_));
+    }
+
+    @Test
+    public void isCorrect66Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        String xml_;
+        xml_ = "<interface access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' template='&lt;#F&gt;'/>\n";
+        files_.put("pkg/Ex."+Classes.EXT, xml_);
+        xml_ = "<interface access='"+PUBLIC_ACCESS+"' name='ExTwo' package='pkg' class0='pkg.Ex&lt;#E&gt;' template='&lt;#E&gt;'/>\n";
+        files_.put("pkg/ExTwo."+Classes.EXT, xml_);
+        ContextEl cont_ = unfullValidateOverridingMethods(files_);
+        Classes classes_ = cont_.getClasses();
+        Mapping m_ = new Mapping();
+        m_.getMapping().put("T", new StringList("java.lang.Object"));
+        m_.setArg("pkg.Ex<#T>");
+        m_.setParam("pkg.ExTwo<#T>");
+        assertTrue(!Templates.isCorrect(m_, classes_));
+    }
+
+    @Test
+    public void isCorrect67Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        String xml_;
+        xml_ = "<interface access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' template='&lt;#F&gt;'/>\n";
+        files_.put("pkg/Ex."+Classes.EXT, xml_);
+        xml_ = "<interface access='"+PUBLIC_ACCESS+"' name='ExTwo' package='pkg' class0='pkg.Ex&lt;#E&gt;' template='&lt;#E&gt;'/>\n";
+        files_.put("pkg/ExTwo."+Classes.EXT, xml_);
+        ContextEl cont_ = unfullValidateOverridingMethods(files_);
+        Classes classes_ = cont_.getClasses();
+        Mapping m_ = new Mapping();
+        m_.getMapping().put("S", new StringList("java.lang.Object"));
+        m_.setArg(ID_LIST+"<#S>");
+        m_.setParam(CUST_LIST+"<#S>");
+        assertTrue(Templates.isCorrect(m_, classes_));
+    }
+
+    @Test
+    public void isCorrect68Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        String xml_;
+        xml_ = "<interface access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' template='&lt;#F&gt;'/>\n";
+        files_.put("pkg/Ex."+Classes.EXT, xml_);
+        xml_ = "<interface access='"+PUBLIC_ACCESS+"' name='ExTwo' package='pkg' class0='pkg.Ex&lt;#E&gt;' template='&lt;#E&gt;'/>\n";
+        files_.put("pkg/ExTwo."+Classes.EXT, xml_);
+        ContextEl cont_ = unfullValidateOverridingMethods(files_);
+        Classes classes_ = cont_.getClasses();
+        Mapping m_ = new Mapping();
+        m_.getMapping().put("S", new StringList("java.lang.Object"));
+        m_.setArg(CUST_LIST+"<#S>");
+        m_.setParam(ID_LIST+"<#S>");
+        assertTrue(!Templates.isCorrect(m_, classes_));
+    }
+
+    @Test
+    public void isCorrect69Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        String xml_;
+        xml_ = "<interface access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' template='&lt;#F:[java.lang.Object&gt;'/>\n";
+        files_.put("pkg/Ex."+Classes.EXT, xml_);
+        xml_ = "<interface access='"+PUBLIC_ACCESS+"' name='ExTwo' package='pkg' class0='pkg.Ex&lt;#E&gt;' template='&lt;#E:[java.lang.Object&gt;'/>\n";
+        files_.put("pkg/ExTwo."+Classes.EXT, xml_);
+        ContextEl cont_ = unfullValidateOverridingMethods(files_);
+        Classes classes_ = cont_.getClasses();
+        Mapping m_ = new Mapping();
+        m_.getMapping().put("T", new StringList("[java.lang.Object"));
+        m_.setArg("pkg.ExTwo<#T>");
+        m_.setParam("pkg.Ex<#T>");
+        assertTrue(Templates.isCorrect(m_, classes_));
+    }
+
+    @Test
+    public void isCorrect70Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        String xml_;
+        xml_ = "<interface access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' template='&lt;#F:[java.lang.Object&gt;'/>\n";
+        files_.put("pkg/Ex."+Classes.EXT, xml_);
+        xml_ = "<interface access='"+PUBLIC_ACCESS+"' name='ExTwo' package='pkg' class0='pkg.Ex&lt;#E&gt;' template='&lt;#E:[java.lang.Object&gt;'/>\n";
+        files_.put("pkg/ExTwo."+Classes.EXT, xml_);
+        ContextEl cont_ = unfullValidateOverridingMethods(files_);
+        Classes classes_ = cont_.getClasses();
+        Mapping m_ = new Mapping();
+        m_.getMapping().put("T", new StringList("[java.lang.Object"));
+        m_.setArg("pkg.Ex<#T>");
+        m_.setParam("pkg.ExTwo<#T>");
+        assertTrue(!Templates.isCorrect(m_, classes_));
+    }
+
+    @Test
+    public void isCorrect72Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        String xml_;
+        xml_ = "<interface access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' template='&lt;#F:[java.lang.Object&gt;'/>\n";
+        files_.put("pkg/Ex."+Classes.EXT, xml_);
+        xml_ = "<interface access='"+PUBLIC_ACCESS+"' name='ExTwo' package='pkg' class0='pkg.Ex&lt;#E&gt;' template='&lt;#E:[java.lang.Object&gt;'/>\n";
+        files_.put("pkg/ExTwo."+Classes.EXT, xml_);
+        ContextEl cont_ = unfullValidateOverridingMethods(files_);
+        Classes classes_ = cont_.getClasses();
+        Mapping m_ = new Mapping();
+        m_.getMapping().put("T", new StringList("[java.lang.Object"));
+        m_.getMapping().put("S", new StringList("[[java.lang.Object"));
+        m_.setArg("pkg.Ex<#S>");
+        m_.setParam("pkg.ExTwo<#T>");
+        assertTrue(!Templates.isCorrect(m_, classes_));
+    }
+
+    @Test
+    public void isCorrect73Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        String xml_;
+        xml_ = "<interface access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' template='&lt;#F&gt;'/>\n";
+        files_.put("pkg/Ex."+Classes.EXT, xml_);
+        xml_ = "<interface access='"+PUBLIC_ACCESS+"' name='ExTwo' package='pkg' class0='pkg.Ex&lt;#E&gt;' template='&lt;#E&gt;'/>\n";
+        files_.put("pkg/ExTwo."+Classes.EXT, xml_);
+        ContextEl cont_ = unfullValidateOverridingMethods(files_);
+        Classes classes_ = cont_.getClasses();
+        Mapping m_ = new Mapping();
+        m_.getMapping().put("T", new StringList("[java.lang.Object"));
+        m_.setArg("[[pkg.ExTwo<#T>");
+        m_.setParam("[pkg.Ex<#T>");
+        assertTrue(!Templates.isCorrect(m_, classes_));
+    }
+
+    @Test
+    public void isCorrect74Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        String xml_;
+        xml_ = "<interface access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' template='&lt;#F&gt;'/>\n";
+        files_.put("pkg/Ex."+Classes.EXT, xml_);
+        xml_ = "<interface access='"+PUBLIC_ACCESS+"' name='ExTwo' package='pkg' class0='pkg.Ex&lt;#E&gt;' template='&lt;#E&gt;'/>\n";
+        files_.put("pkg/ExTwo."+Classes.EXT, xml_);
+        ContextEl cont_ = unfullValidateOverridingMethods(files_);
+        Classes classes_ = cont_.getClasses();
+        Mapping m_ = new Mapping();
+        m_.getMapping().put("T", new StringList("[java.lang.Object"));
+        m_.setArg("[pkg.Ex<#T>");
+        m_.setParam("[[pkg.ExTwo<#T>");
+        assertTrue(!Templates.isCorrect(m_, classes_));
+    }
+
+    @Test
+    public void isCorrect75Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        String xml_;
+        xml_ = "<interface access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' template='&lt;#F&gt;'/>\n";
+        files_.put("pkg/Ex."+Classes.EXT, xml_);
+        xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExTwo' package='pkg' class0='pkg.Ex&lt;java.lang.Object&gt;'/>\n";
+        files_.put("pkg/ExTwo."+Classes.EXT, xml_);
+        ContextEl cont_ = unfullValidateOverridingMethods(files_);
+        Classes classes_ = cont_.getClasses();
+        Mapping m_ = new Mapping();
+        m_.setArg("pkg.ExTwo");
+        m_.setParam("pkg.Ex<java.lang.Object>");
+        assertTrue(Templates.isCorrect(m_, classes_));
+    }
+
+    @Test
+    public void isCorrect76Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        String xml_;
+        xml_ = "<interface access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' template='&lt;#F&gt;'/>\n";
+        files_.put("pkg/Ex."+Classes.EXT, xml_);
+        xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExTwo' package='pkg' class0='pkg.Ex&lt;java.lang.Object&gt;'/>\n";
+        files_.put("pkg/ExTwo."+Classes.EXT, xml_);
+        ContextEl cont_ = unfullValidateOverridingMethods(files_);
+        Classes classes_ = cont_.getClasses();
+        Mapping m_ = new Mapping();
+        m_.getMapping().put("T", new StringList("java.lang.Object"));
+        m_.setArg("pkg.Ex<java.lang.Object>");
+        m_.setParam("pkg.ExTwo");
+        assertTrue(!Templates.isCorrect(m_, classes_));
+    }
+
+    @Test
+    public void isCorrect77Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        String xml_;
+        xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' template='&lt;#E&gt;'/>\n";
+        files_.put("pkg/Ex."+Classes.EXT, xml_);
+        xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExTwo' package='pkg' template='&lt;#T&gt;' superclass='pkg.Ex&lt;#T&gt;'/>\n";
+        files_.put("pkg/ExTwo."+Classes.EXT, xml_);
+        ContextEl cont_ = unfullValidateOverridingMethods(files_);
+        cont_.getClasses();
+    }
+
+    @Test
     public void isCorrectTemplate1Test() {
         assertTrue(Templates.isCorrectTemplate(ENUM_LIST+"<"+ENUM+">", new StringMap<StringList>(),null));
     }
@@ -420,21 +1133,6 @@ public class TemplatesTest {
     @Test
     public void isCorrectTemplate2Test() {
         assertTrue(!Templates.isCorrectTemplate(ENUM_LIST+"<java.lang.String>", new StringMap<StringList>(),null));
-    }
-
-    @Test
-    public void isCorrectTemplate3Test() {
-        assertTrue(Templates.isCorrectTemplate("java.util.List<? ~ java.lang.Object>", new StringMap<StringList>(),null));
-    }
-
-    @Test
-    public void isCorrectTemplate4Test() {
-        assertTrue(Templates.isCorrectTemplate("java.util.List<? ~ java.lang.String>", new StringMap<StringList>(),null));
-    }
-
-    @Test
-    public void isCorrectTemplate5Test() {
-        assertTrue(!Templates.isCorrectTemplate(ENUM_LIST+"<? ~ java.lang.String>", new StringMap<StringList>(),null));
     }
 
     @Test
@@ -613,47 +1311,6 @@ public class TemplatesTest {
     }
 
     @Test
-    public void isCorrectTemplate34Test() {
-        assertTrue(Templates.isCorrectTemplate(CMP_LIST+"<?>", new StringMap<StringList>(),null));
-    }
-
-    @Test
-    public void isCorrectTemplate35Test() {
-        Mapping m_ = new Mapping();
-        StringMap<StringList> t_ = new StringMap<StringList>();
-        t_.put("T", new StringList("java.lang.Enum<#T>"));
-        m_.setMapping(t_);
-        assertTrue(!Templates.isCorrectTemplate(ENUM_LIST+"<? ~ java.lang.Enum<#T>&"+CMP+"<#T>>", t_,null));
-    }
-
-    @Test
-    public void isCorrectTemplate36Test() {
-        Mapping m_ = new Mapping();
-        StringMap<StringList> t_ = new StringMap<StringList>();
-        t_.put("T", new StringList("java.lang.Enum<#T>"));
-        m_.setMapping(t_);
-        assertTrue(Templates.isCorrectTemplate(CUST_LIST+"<? ~ java.lang.Enum<#T>&java.lang.Enum<#T>>", t_,null));
-    }
-
-    @Test
-    public void isCorrectTemplate37Test() {
-        Mapping m_ = new Mapping();
-        StringMap<StringList> t_ = new StringMap<StringList>();
-        t_.put("T", new StringList("java.lang.Enum<#T>"));
-        m_.setMapping(t_);
-        assertTrue(Templates.isCorrectTemplate(CUST_LIST+"<"+CUST_LIST+"<? ~ java.lang.Enum<#T>&java.lang.Enum<#T>>>", t_,null));
-    }
-
-    @Test
-    public void isCorrectTemplate38Test() {
-        Mapping m_ = new Mapping();
-        StringMap<StringList> t_ = new StringMap<StringList>();
-        t_.put("T", new StringList("java.lang.Enum<#T>"));
-        m_.setMapping(t_);
-        assertTrue(Templates.isCorrectTemplate(CUST_LIST+"<? ~ java.lang.Enum<#T>&"+CMP+"<#T>>", t_,null));
-    }
-
-    @Test
     public void isCorrectTemplate39Test() {
         assertTrue(!Templates.isCorrectTemplate(ENUM_LIST, new StringMap<StringList>(),null));
     }
@@ -664,7 +1321,7 @@ public class TemplatesTest {
         t_.put("E", new StringList("java.math.BigInteger"));
         assertTrue(!Templates.isCorrectTemplate(TEMPLATING+"<"+CUST_BIG_INT+",#E>", t_,null));
     }
-
+    
     @Test
     public void isCorrectTemplate41Test() {
         StringMap<StringList> t_ = new StringMap<StringList>();
@@ -719,1536 +1376,16 @@ public class TemplatesTest {
     }
 
     @Test
-    public void isCorrect1Test() {
-        Mapping m_ = new Mapping();
-        m_.setArg("java.lang.Object");
-        m_.setParam("java.lang.Object");
-        assertTrue(Templates.isCorrect(m_, null));
-    }
-
-    @Test
-    public void isCorrect2Test() {
-        Mapping m_ = new Mapping();
-        m_.setArg("java.lang.String");
-        m_.setParam("java.lang.Object");
-        assertTrue(Templates.isCorrect(m_, null));
-    }
-
-    @Test
-    public void isCorrect3Test() {
-        Mapping m_ = new Mapping();
-        m_.setArg("java.lang.Object");
-        m_.setParam("java.lang.String");
-        assertTrue(!Templates.isCorrect(m_, null));
-    }
-
-    @Test
-    public void isCorrect4Test() {
-        Mapping m_ = new Mapping();
-        m_.setArg("java.util.List<java.lang.Object>");
-        m_.setParam("java.util.List<java.lang.Object>");
-        assertTrue(Templates.isCorrect(m_, null));
-    }
-
-    @Test
-    public void isCorrect5Test() {
-        Mapping m_ = new Mapping();
-        m_.setArg("java.util.List<java.lang.String>");
-        m_.setParam("java.util.List<java.lang.Object>");
-        assertTrue(!Templates.isCorrect(m_, null));
-    }
-
-    @Test
-    public void isCorrect6Test() {
-        Mapping m_ = new Mapping();
-        m_.setArg("java.util.List<java.lang.Object>");
-        m_.setParam("java.util.List<java.lang.String>");
-        assertTrue(!Templates.isCorrect(m_, null));
-    }
-
-    @Test
-    public void isCorrect7Test() {
-        Mapping m_ = new Mapping();
-        m_.setArg("java.util.List<? ~ java.lang.Object>");
-        m_.setParam("java.util.List<? ~ java.lang.Object>");
-        assertTrue(Templates.isCorrect(m_, null));
-    }
-
-    @Test
-    public void isCorrect8Test() {
-        Mapping m_ = new Mapping();
-        m_.setArg("java.util.List<? ~ java.lang.String>");
-        m_.setParam("java.util.List<? ~ java.lang.Object>");
-        assertTrue(Templates.isCorrect(m_, null));
-    }
-
-    @Test
-    public void isCorrect9Test() {
-        Mapping m_ = new Mapping();
-        m_.setArg("java.util.List<? ~ java.lang.Object>");
-        m_.setParam("java.util.List<? ~ java.lang.String>");
-        assertTrue(!Templates.isCorrect(m_, null));
-    }
-
-    @Test
-    public void isCorrect10Test() {
-        Mapping m_ = new Mapping();
-        m_.setArg(ENUM_LIST+"<? ~ java.lang.Enum<#E>>");
-        m_.setParam(CUST_LIST+"<? ~ java.lang.Enum<#E>>");
-        StringMap<StringList> t_ = new StringMap<StringList>();
-        t_.put("E", new StringList("java.lang.Enum<#E>"));
-        m_.setMapping(t_);
-        assertTrue(Templates.isCorrect(m_,null));
-    }
-
-    @Test
-    public void isCorrect11Test() {
-        Mapping m_ = new Mapping();
-        m_.setArg(ENUM_LIST+"<java.lang.Enum<#E>>");
-        m_.setParam(CUST_LIST+"<java.lang.Enum<#E>>");
-        StringMap<StringList> t_ = new StringMap<StringList>();
-        t_.put("E", new StringList("java.lang.Enum<#E>"));
-        m_.setMapping(t_);
-        assertTrue(Templates.isCorrect(m_,null));
-    }
-
-    @Test
-    public void isCorrect12Test() {
-        Mapping m_ = new Mapping();
-        m_.setArg(ENUM_LIST+"<#E>");
-        m_.setParam(CUST_LIST+"<#E>");
-        StringMap<StringList> t_ = new StringMap<StringList>();
-        t_.put("E", new StringList("java.lang.Enum<#E>"));
-        m_.setMapping(t_);
-        assertTrue(Templates.isCorrect(m_,null));
-    }
-
-    @Test
-    public void isCorrect13Test() {
-        Mapping m_ = new Mapping();
-        m_.setArg(ENUM_LIST+"<#F>");
-        m_.setParam(CUST_LIST+"<#F>");
-        StringMap<StringList> t_ = new StringMap<StringList>();
-        t_.put("F", new StringList("java.lang.Enum<#F>"));
-        m_.setMapping(t_);
-        assertTrue(Templates.isCorrect(m_,null));
-    }
-
-    @Test
-    public void isCorrect14Test() {
-        Mapping m_ = new Mapping();
-        m_.setArg("java.util.List<#F>");
-        m_.setParam("java.util.Collection<#F>");
-        StringMap<StringList> t_ = new StringMap<StringList>();
-        t_.put("F", new StringList("java.lang.Enum<#F>"));
-        m_.setMapping(t_);
-        assertTrue(Templates.isCorrect(m_,null));
-    }
-
-    @Test
-    public void isCorrect15Test() {
-        Mapping m_ = new Mapping();
-        m_.setArg(STRING_LIST);
-        m_.setParam(CUST_LIST+"<java.lang.String>");
-        StringMap<StringList> t_ = new StringMap<StringList>();
-        m_.setMapping(t_);
-        assertTrue(Templates.isCorrect(m_,null));
-    }
-
-    @Test
-    public void isCorrect16Test() {
-        Mapping m_ = new Mapping();
-        m_.setArg(STRING_LIST);
-        m_.setParam(CUST_LIST+"<java.lang.Object>");
-        StringMap<StringList> t_ = new StringMap<StringList>();
-        m_.setMapping(t_);
-        assertTrue(!Templates.isCorrect(m_,null));
-    }
-
-    @Test
-    public void isCorrect17Test() {
-        Mapping m_ = new Mapping();
-        m_.setArg(STRING_LIST);
-        m_.setParam(CUST_LIST+"<? ~ java.lang.String>");
-        StringMap<StringList> t_ = new StringMap<StringList>();
-        m_.setMapping(t_);
-        assertTrue(Templates.isCorrect(m_,null));
-    }
-
-    @Test
-    public void isCorrect18Test() {
-        Mapping m_ = new Mapping();
-        m_.setArg(STRING_LIST);
-        m_.setParam(CUST_LIST+"<? ~ java.lang.Object>");
-        StringMap<StringList> t_ = new StringMap<StringList>();
-        m_.setMapping(t_);
-        assertTrue(Templates.isCorrect(m_,null));
-    }
-
-    @Test
-    public void isCorrect19Test() {
-        Mapping m_ = new Mapping();
-        m_.setArg(ENUM_LIST+"<? ~ java.lang.Enum<#T>>");
-        m_.setParam(CUST_LIST+"<? ~ java.lang.Enum<#T>>");
-        StringMap<StringList> t_ = new StringMap<StringList>();
-        t_.put("T", new StringList("java.lang.Enum<#T>"));
-        m_.setMapping(t_);
-        assertTrue(Templates.isCorrect(m_,null));
-    }
-
-    @Test
-    public void isCorrect20Test() {
-        Mapping m_ = new Mapping();
-        m_.setArg("#T");
-        m_.setParam("#S");
-        StringMap<StringList> t_ = new StringMap<StringList>();
-        t_.put("T", new StringList("#S"));
-        t_.put("S", new StringList("java.lang.Object"));
-        m_.setMapping(t_);
-        assertTrue(Templates.isCorrect(m_,null));
-    }
-    @Test
-    public void isCorrect21Test() {
-        Mapping m_ = new Mapping();
-        m_.setArg("#S");
-        m_.setParam("#T");
-        StringMap<StringList> t_ = new StringMap<StringList>();
-        t_.put("T", new StringList("#S"));
-        t_.put("S", new StringList("java.lang.Object"));
-        m_.setMapping(t_);
-        assertTrue(!Templates.isCorrect(m_,null));
-    }
-
-    @Test
-    public void isCorrect22Test() {
-        Mapping m_ = new Mapping();
-        m_.setArg(CUST_LIST+"<java.lang.String>");
-        m_.setParam("java.lang.Object");
-        StringMap<StringList> t_ = new StringMap<StringList>();
-        m_.setMapping(t_);
-        assertTrue(Templates.isCorrect(m_,null));
-    }
-
-    @Test
-    public void isCorrect23Test() {
-        Mapping m_ = new Mapping();
-        m_.setArg(CUST_LIST+"<? ~ "+ARR_STRING+">");
-        m_.setParam(CUST_LIST+"<? ~ "+ARR_OBJECT+">");
-        StringMap<StringList> t_ = new StringMap<StringList>();
-        m_.setMapping(t_);
-        assertTrue(Templates.isCorrect(m_,null));
-    }
-
-    @Test
-    public void isCorrect24Test() {
-        Mapping m_ = new Mapping();
-        m_.setArg(ENUM_LIST+"<? ~ java.lang.Enum<#T>&"+CMP+"<#T>>");
-        m_.setParam(CUST_LIST+"<? ~ java.lang.Enum<#T>>");
-        StringMap<StringList> t_ = new StringMap<StringList>();
-        t_.put("T", new StringList("java.lang.Enum<#T>"));
-        m_.setMapping(t_);
-        assertTrue(Templates.isCorrect(m_,null));
-    }
-
-    @Test
-    public void isCorrect25Test() {
-        Mapping m_ = new Mapping();
-        m_.setArg(ENUM_LIST+"<? ~ java.lang.Enum<#T>>");
-        m_.setParam(CUST_LIST+"<? ~ java.lang.Enum<#T>&"+CMP+"<#T>>");
-        StringMap<StringList> t_ = new StringMap<StringList>();
-        t_.put("T", new StringList("java.lang.Enum<#T>"));
-        m_.setMapping(t_);
-        assertTrue(!Templates.isCorrect(m_,null));
-    }
-
-    @Test
-    public void isCorrect26Test() {
-        Mapping m_ = new Mapping();
-        m_.setArg(CUST_LIST+"<? ~ "+ARR_OBJECT+">");
-        m_.setParam(CUST_LIST+"<? ~ "+ARR_STRING+">");
-        StringMap<StringList> t_ = new StringMap<StringList>();
-        m_.setMapping(t_);
-        assertTrue(!Templates.isCorrect(m_,null));
-    }
-
-    @Test
-    public void isCorrect27Test() {
-        Mapping m_ = new Mapping();
-        m_.setArg(CUST_LIST+"<#U>");
-        m_.setParam(CUST_LIST+"<#S>");
-        StringMap<StringList> t_ = new StringMap<StringList>();
-        t_.put("U", new StringList("#S"));
-        t_.put("S", new StringList("java.lang.Object"));
-        m_.setMapping(t_);
-        assertTrue(!Templates.isCorrect(m_,null));
-    }
-
-    @Test
-    public void isCorrect28Test() {
-        Mapping m_ = new Mapping();
-        m_.setArg(CUST_LIST+"<? ~ #T>");
-        m_.setParam(CUST_LIST+"<? ~ #S>");
-        StringMap<StringList> t_ = new StringMap<StringList>();
-        t_.put("T", new StringList("#S"));
-        t_.put("S", new StringList("java.lang.Object"));
-        m_.setMapping(t_);
-        assertTrue(Templates.isCorrect(m_,null));
-    }
-    @Test
-    public void isCorrect29Test() {
-        Mapping m_ = new Mapping();
-        m_.setArg(CUST_LIST+"<#T>");
-        m_.setParam(CUST_LIST+"<? ~ #S>");
-        StringMap<StringList> t_ = new StringMap<StringList>();
-        t_.put("T", new StringList("#S"));
-        t_.put("S", new StringList("java.lang.Object"));
-        m_.setMapping(t_);
-        assertTrue(Templates.isCorrect(m_,null));
-    }
-
-    @Test
-    public void isCorrect30Test() {
-        Mapping m_ = new Mapping();
-        m_.setArg(CUST_LIST+"<java.lang.Integer>");
-        m_.setParam(CUST_LIST+"<? ~ #S>");
-        StringMap<StringList> t_ = new StringMap<StringList>();
-        t_.put("S", new StringList("java.lang.Number"));
-        m_.setMapping(t_);
-        assertTrue(!Templates.isCorrect(m_,null));
-    }
-    @Test
-    public void isCorrect31Test() {
-        Mapping m_ = new Mapping();
-        m_.setArg(CUST_LIST+"<? ~ #S>");
-        m_.setParam(CUST_LIST+"<java.lang.Number>");
-        StringMap<StringList> t_ = new StringMap<StringList>();
-        t_.put("S", new StringList("java.lang.Integer"));
-        m_.setMapping(t_);
-        assertTrue(!Templates.isCorrect(m_,null));
-    }
-
-    @Test
-    public void isCorrect32Test() {
-        Mapping m_ = new Mapping();
-        m_.setArg("#T");
-        m_.setParam(CUST_LIST+"<? ~ #S>");
-        StringMap<StringList> t_ = new StringMap<StringList>();
-        t_.put("T", new StringList("#U"));
-        t_.put("U", new StringList(CUST_LIST+"<? ~ #S>"));
-        t_.put("S", new StringList("java.lang.Object"));
-        m_.setMapping(t_);
-        assertTrue(Templates.isCorrect(m_,null));
-    }
-
-    @Test
-    public void isCorrect33Test() {
-        Mapping m_ = new Mapping();
-        m_.setArg("#T");
-        m_.setParam(CUST_LIST+"<#S>");
-        StringMap<StringList> t_ = new StringMap<StringList>();
-        t_.put("T", new StringList("#U"));
-        t_.put("U", new StringList(CUST_LIST+"<#S>"));
-        t_.put("S", new StringList("java.lang.Object"));
-        m_.setMapping(t_);
-        assertTrue(Templates.isCorrect(m_,null));
-    }
-
-    @Test
-    public void isCorrect34Test() {
-        Mapping m_ = new Mapping();
-        m_.setArg("#T");
-        m_.setParam(Listable.class.getName()+"<#S>");
-        StringMap<StringList> t_ = new StringMap<StringList>();
-        t_.put("T", new StringList("#U"));
-        t_.put("U", new StringList(CUST_LIST+"<#S>"));
-        t_.put("S", new StringList("java.lang.Object"));
-        m_.setMapping(t_);
-        assertTrue(Templates.isCorrect(m_,null));
-    }
- 
-    @Test
-    public void isCorrect35Test() {
-        Mapping m_ = new Mapping();
-        m_.setArg("#T");
-        m_.setParam(CUST_LIST+"<#S>");
-        StringMap<StringList> t_ = new StringMap<StringList>();
-        t_.put("T", new StringList("#U"));
-        t_.put("U", new StringList(Listable.class.getName()+"<#S>"));
-        t_.put("S", new StringList("java.lang.Object"));
-        m_.setMapping(t_);
-        assertTrue(!Templates.isCorrect(m_,null));
-    }
-
-    @Test
-    public void isCorrect36Test() {
-        Mapping m_ = new Mapping();
-        m_.setArg(ARR_VAR_T);
-        m_.setParam(ARR_VAR_S);
-        StringMap<StringList> t_ = new StringMap<StringList>();
-        t_.put("T", new StringList("#S"));
-        t_.put("S", new StringList("java.lang.Object"));
-        m_.setMapping(t_);
-        assertTrue(Templates.isCorrect(m_,null));
-    }
-
-    @Test
-    public void isCorrect37Test() {
-        Mapping m_ = new Mapping();
-        m_.setArg(ARR_VAR_S);
-        m_.setParam(ARR_VAR_T);
-        StringMap<StringList> t_ = new StringMap<StringList>();
-        t_.put("T", new StringList("#S"));
-        t_.put("S", new StringList("java.lang.Object"));
-        m_.setMapping(t_);
-        assertTrue(!Templates.isCorrect(m_,null));
-    }
-
-    @Test
-    public void isCorrect38Test() {
-        Mapping m_ = new Mapping();
-        m_.setArg(CUST_LIST+"<? ~"+ARR_VAR_S+">");
-        m_.setParam(CUST_LIST+"<? ~"+ARR_VAR_T+">");
-        StringMap<StringList> t_ = new StringMap<StringList>();
-        t_.put("T", new StringList("#S"));
-        t_.put("S", new StringList("java.lang.Object"));
-        m_.setMapping(t_);
-        assertTrue(!Templates.isCorrect(m_,null));
-    }
-
-    @Test
-    public void isCorrect39Test() {
-        Mapping m_ = new Mapping();
-        m_.setArg(CUST_LIST+"<? ~"+ARR_VAR_T+">");
-        m_.setParam(CUST_LIST+"<? ~"+ARR_VAR_S+">");
-        StringMap<StringList> t_ = new StringMap<StringList>();
-        t_.put("T", new StringList("#S"));
-        t_.put("S", new StringList("java.lang.Object"));
-        m_.setMapping(t_);
-        assertTrue(Templates.isCorrect(m_,null));
-    }
-
-    @Test
-    public void isCorrect40Test() {
-        Mapping m_ = new Mapping();
-        m_.setArg(CUST_LIST+"<?>");
-        m_.setParam(CUST_LIST+"<?>");
-        StringMap<StringList> t_ = new StringMap<StringList>();
-        m_.setMapping(t_);
-        assertTrue(Templates.isCorrect(m_,null));
-    }
-
-    @Test
-    public void isCorrect41Test() {
-        Mapping m_ = new Mapping();
-        m_.setArg(CUST_LIST+"<?>");
-        m_.setParam("java.lang.Iterable<?>");
-        StringMap<StringList> t_ = new StringMap<StringList>();
-        m_.setMapping(t_);
-        assertTrue(Templates.isCorrect(m_,null));
-    }
-
-    @Test
-    public void isCorrect42Test() {
-        Mapping m_ = new Mapping();
-        m_.setArg("java.lang.Iterable<?>");
-        m_.setParam(CUST_LIST+"<?>");
-        StringMap<StringList> t_ = new StringMap<StringList>();
-        m_.setMapping(t_);
-        assertTrue(!Templates.isCorrect(m_,null));
-    }
-
-    @Test
-    public void isCorrect43Test() {
-        Mapping m_ = new Mapping();
-        m_.setArg(CUST_LIST+"<?>");
-        m_.setParam(CUST_LIST+"<? ~ java.lang.Object>");
-        StringMap<StringList> t_ = new StringMap<StringList>();
-        m_.setMapping(t_);
-        assertTrue(Templates.isCorrect(m_,null));
-    }
-
-    @Test
-    public void isCorrect44Test() {
-        Mapping m_ = new Mapping();
-        m_.setArg(CUST_LIST+"<?>");
-        m_.setParam("java.lang.Iterable<? ~ java.lang.Object>");
-        StringMap<StringList> t_ = new StringMap<StringList>();
-        m_.setMapping(t_);
-        assertTrue(Templates.isCorrect(m_,null));
-    }
-
-    @Test
-    public void isCorrect45Test() {
-        Mapping m_ = new Mapping();
-        m_.setArg("java.lang.Iterable<?>");
-        m_.setParam(CUST_LIST+"<? ~ java.lang.Object>");
-        StringMap<StringList> t_ = new StringMap<StringList>();
-        m_.setMapping(t_);
-        assertTrue(!Templates.isCorrect(m_,null));
-    }
-    
-    @Test
-    public void isCorrect46Test() {
-        Mapping m_ = new Mapping();
-        m_.setArg(CUST_LIST+"<? ~ "+ARR_ITHREE+">");
-        m_.setParam(CUST_LIST+"<? ~ "+ARR_ITWO+">");
-        StringMap<StringList> t_ = new StringMap<StringList>();
-        m_.setMapping(t_);
-        assertTrue(Templates.isCorrect(m_,null));
-    }
-
-    @Test
-    public void isCorrect47Test() {
-        Mapping m_ = new Mapping();
-        m_.setArg(CUST_LIST+"<? ~ ["+MyImpl.class.getName()+">");
-        m_.setParam(CUST_LIST+"<? ~ "+ARR_ITWO+">");
-        StringMap<StringList> t_ = new StringMap<StringList>();
-        m_.setMapping(t_);
-        assertTrue(Templates.isCorrect(m_,null));
-    }
-
-    @Test
-    public void isSimpleCorrect1Test() {
-        Mapping m_ = new Mapping();
-        m_.setArg("java.lang.Object");
-        m_.setParam("java.lang.Object");
-        assertTrue(Templates.isSimpleCorrect(m_, null));
-    }
-
-    @Test
-    public void isSimpleCorrect2Test() {
-        Mapping m_ = new Mapping();
-        m_.setArg("java.lang.String");
-        m_.setParam("java.lang.Object");
-        assertTrue(Templates.isSimpleCorrect(m_, null));
-    }
-
-    @Test
-    public void isSimpleCorrect3Test() {
-        Mapping m_ = new Mapping();
-        m_.setArg("java.lang.Object");
-        m_.setParam("java.lang.String");
-        assertTrue(!Templates.isSimpleCorrect(m_, null));
-    }
-
-    @Test
-    public void isSimpleCorrect4Test() {
-        Mapping m_ = new Mapping();
-        m_.setArg("java.util.List<java.lang.Object>");
-        m_.setParam("java.util.List<java.lang.Object>");
-        assertTrue(Templates.isSimpleCorrect(m_, null));
-    }
-
-    @Test
-    public void isSimpleCorrect5Test() {
-        Mapping m_ = new Mapping();
-        m_.setArg("java.util.List<java.lang.String>");
-        m_.setParam("java.util.List<java.lang.Object>");
-        assertTrue(!Templates.isSimpleCorrect(m_, null));
-    }
-
-    @Test
-    public void isSimpleCorrect6Test() {
-        Mapping m_ = new Mapping();
-        m_.setArg("java.util.List<java.lang.Object>");
-        m_.setParam("java.util.List<java.lang.String>");
-        assertTrue(!Templates.isSimpleCorrect(m_, null));
-    }
-
-    @Test
-    public void isSimpleCorrect7Test() {
-        Mapping m_ = new Mapping();
-        m_.setArg("#E");
-        m_.setParam("java.lang.Object");
-        StringMap<StringList> t_ = new StringMap<StringList>();
-        t_.put("E", new StringList("java.lang.Enum<#E>"));
-        m_.setMapping(t_);
-        assertTrue(Templates.isSimpleCorrect(m_,null));
-    }
-
-    @Test
-    public void isSimpleCorrect8Test() {
-        Mapping m_ = new Mapping();
-        m_.setArg("#E");
-        m_.setParam("java.lang.Number");
-        StringMap<StringList> t_ = new StringMap<StringList>();
-        t_.put("E", new StringList("java.lang.Integer"));
-        m_.setMapping(t_);
-        assertTrue(Templates.isSimpleCorrect(m_,null));
-    }
-
-    @Test
-    public void isSimpleCorrect9Test() {
-        Mapping m_ = new Mapping();
-        m_.setArg("#E");
-        m_.setParam("[java.lang.Number");
-        StringMap<StringList> t_ = new StringMap<StringList>();
-        t_.put("E", new StringList("[java.lang.Integer"));
-        m_.setMapping(t_);
-        assertTrue(Templates.isSimpleCorrect(m_,null));
-    }
-
-    @Test
-    public void isSimpleCorrect10Test() {
-        Mapping m_ = new Mapping();
-        m_.setArg("#E");
-        m_.setParam("[java.lang.Number");
-        StringMap<StringList> t_ = new StringMap<StringList>();
-        t_.put("E", new StringList("java.lang.Integer"));
-        m_.setMapping(t_);
-        assertTrue(!Templates.isSimpleCorrect(m_,null));
-    }
-
-    @Test
-    public void isSimpleCorrect11Test() {
-        Mapping m_ = new Mapping();
-        m_.setArg(ENUM_LIST+"<java.lang.Enum<#E>>");
-        m_.setParam(CUST_LIST+"<java.lang.Enum<#E>>");
-        StringMap<StringList> t_ = new StringMap<StringList>();
-        t_.put("E", new StringList("java.lang.Enum<#E>"));
-        m_.setMapping(t_);
-        assertTrue(Templates.isSimpleCorrect(m_,null));
-    }
-
-    @Test
-    public void isSimpleCorrect12Test() {
-        Mapping m_ = new Mapping();
-        m_.setArg(ENUM_LIST+"<#E>");
-        m_.setParam(CUST_LIST+"<#E>");
-        StringMap<StringList> t_ = new StringMap<StringList>();
-        t_.put("E", new StringList("java.lang.Enum<#E>"));
-        m_.setMapping(t_);
-        assertTrue(Templates.isSimpleCorrect(m_,null));
-    }
-
-    @Test
-    public void isSimpleCorrect13Test() {
-        Mapping m_ = new Mapping();
-        m_.setArg(ENUM_LIST+"<#F>");
-        m_.setParam(CUST_LIST+"<#F>");
-        StringMap<StringList> t_ = new StringMap<StringList>();
-        t_.put("F", new StringList("java.lang.Enum<#F>"));
-        m_.setMapping(t_);
-        assertTrue(Templates.isSimpleCorrect(m_,null));
-    }
-
-    @Test
-    public void isSimpleCorrect14Test() {
-        Mapping m_ = new Mapping();
-        m_.setArg("java.util.List<#F>");
-        m_.setParam("java.util.Collection<#F>");
-        StringMap<StringList> t_ = new StringMap<StringList>();
-        t_.put("F", new StringList("java.lang.Enum<#F>"));
-        m_.setMapping(t_);
-        assertTrue(Templates.isSimpleCorrect(m_,null));
-    }
-
-    @Test
-    public void isSimpleCorrect15Test() {
-        Mapping m_ = new Mapping();
-        m_.setArg(STRING_LIST);
-        m_.setParam(CUST_LIST+"<java.lang.String>");
-        StringMap<StringList> t_ = new StringMap<StringList>();
-        m_.setMapping(t_);
-        assertTrue(Templates.isSimpleCorrect(m_,null));
-    }
-
-    @Test
-    public void isSimpleCorrect16Test() {
-        Mapping m_ = new Mapping();
-        m_.setArg(STRING_LIST);
-        m_.setParam(CUST_LIST+"<java.lang.Object>");
-        StringMap<StringList> t_ = new StringMap<StringList>();
-        m_.setMapping(t_);
-        assertTrue(!Templates.isSimpleCorrect(m_,null));
-    }
-
-    @Test
-    public void isSimpleCorrect17Test() {
-        Mapping m_ = new Mapping();
-        m_.setArg("#E");
-        m_.setParam("java.lang.Number");
-        StringMap<StringList> t_ = new StringMap<StringList>();
-        t_.put("E", new StringList("[java.lang.Integer"));
-        m_.setMapping(t_);
-        assertTrue(!Templates.isSimpleCorrect(m_,null));
-    }
-
-    @Test
-    public void isSimpleCorrect18Test() {
-        Mapping m_ = new Mapping();
-        m_.setArg("#E");
-        m_.setParam("java.io.Serializable");
-        StringMap<StringList> t_ = new StringMap<StringList>();
-        t_.put("E", new StringList("java.util.ArrayList<java.lang.Object>"));
-        m_.setMapping(t_);
-        assertTrue(Templates.isSimpleCorrect(m_,null));
-    }
-
-    @Test
-    public void isSimpleCorrect20Test() {
-        Mapping m_ = new Mapping();
-        m_.setArg("#T");
-        m_.setParam("#S");
-        StringMap<StringList> t_ = new StringMap<StringList>();
-        t_.put("T", new StringList("#S"));
-        t_.put("S", new StringList("java.lang.Object"));
-        m_.setMapping(t_);
-        assertTrue(Templates.isSimpleCorrect(m_,null));
-    }
-    @Test
-    public void isSimpleCorrect21Test() {
-        Mapping m_ = new Mapping();
-        m_.setArg("#S");
-        m_.setParam("#T");
-        StringMap<StringList> t_ = new StringMap<StringList>();
-        t_.put("T", new StringList("#S"));
-        t_.put("S", new StringList("java.lang.Object"));
-        m_.setMapping(t_);
-        assertTrue(!Templates.isSimpleCorrect(m_,null));
-    }
-
-    @Test
-    public void isSimpleCorrect22Test() {
-        Mapping m_ = new Mapping();
-        m_.setArg(CUST_LIST+"<java.lang.String>");
-        m_.setParam("java.lang.Object");
-        StringMap<StringList> t_ = new StringMap<StringList>();
-        m_.setMapping(t_);
-        assertTrue(Templates.isSimpleCorrect(m_,null));
-    }
-
-    @Test
-    public void isSimpleCorrect23Test() {
-        Mapping m_ = new Mapping();
-        m_.setArg(ARR_STRING);
-        m_.setParam(ARR_OBJECT);
-        StringMap<StringList> t_ = new StringMap<StringList>();
-        m_.setMapping(t_);
-        assertTrue(Templates.isSimpleCorrect(m_,null));
-    }
-
-    @Test
-    public void isSimpleCorrect27Test() {
-        Mapping m_ = new Mapping();
-        m_.setArg(CUST_LIST+"<#U>");
-        m_.setParam(CUST_LIST+"<#S>");
-        StringMap<StringList> t_ = new StringMap<StringList>();
-        t_.put("U", new StringList("#S"));
-        t_.put("S", new StringList("java.lang.Object"));
-        m_.setMapping(t_);
-        assertTrue(!Templates.isSimpleCorrect(m_,null));
-    }
-
-    @Test
-    public void isSimpleCorrect33Test() {
-        Mapping m_ = new Mapping();
-        m_.setArg("#T");
-        m_.setParam(CUST_LIST+"<#S>");
-        StringMap<StringList> t_ = new StringMap<StringList>();
-        t_.put("T", new StringList("#U"));
-        t_.put("U", new StringList(CUST_LIST+"<#S>"));
-        t_.put("S", new StringList("java.lang.Object"));
-        m_.setMapping(t_);
-        assertTrue(Templates.isSimpleCorrect(m_,null));
-    }
-
-    @Test
-    public void isSimpleCorrect34Test() {
-        Mapping m_ = new Mapping();
-        m_.setArg("#T");
-        m_.setParam(Listable.class.getName()+"<#S>");
-        StringMap<StringList> t_ = new StringMap<StringList>();
-        t_.put("T", new StringList("#U"));
-        t_.put("U", new StringList(CUST_LIST+"<#S>"));
-        t_.put("S", new StringList("java.lang.Object"));
-        m_.setMapping(t_);
-        assertTrue(Templates.isSimpleCorrect(m_,null));
-    }
- 
-    @Test
-    public void isSimpleCorrect35Test() {
-        Mapping m_ = new Mapping();
-        m_.setArg("#T");
-        m_.setParam(CUST_LIST+"<#S>");
-        StringMap<StringList> t_ = new StringMap<StringList>();
-        t_.put("T", new StringList("#U"));
-        t_.put("U", new StringList(Listable.class.getName()+"<#S>"));
-        t_.put("S", new StringList("java.lang.Object"));
-        m_.setMapping(t_);
-        assertTrue(!Templates.isSimpleCorrect(m_,null));
-    }
-
-    @Test
-    public void isSimpleCorrect36Test() {
-        Mapping m_ = new Mapping();
-        m_.setArg(ARR_VAR_T);
-        m_.setParam(ARR_VAR_S);
-        StringMap<StringList> t_ = new StringMap<StringList>();
-        t_.put("T", new StringList("#S"));
-        t_.put("S", new StringList("java.lang.Object"));
-        m_.setMapping(t_);
-        assertTrue(Templates.isSimpleCorrect(m_,null));
-    }
-
-    @Test
-    public void isSimpleCorrect37Test() {
-        Mapping m_ = new Mapping();
-        m_.setArg(ARR_VAR_S);
-        m_.setParam(ARR_VAR_T);
-        StringMap<StringList> t_ = new StringMap<StringList>();
-        t_.put("T", new StringList("#S"));
-        t_.put("S", new StringList("java.lang.Object"));
-        m_.setMapping(t_);
-        assertTrue(!Templates.isSimpleCorrect(m_,null));
-    }
-
-    @Test
-    public void isSimpleCorrect38Test() {
-        Mapping m_ = new Mapping();
-        m_.setArg(ARR_VAR_S);
-        m_.setParam(ARR_VAR_T);
-        StringMap<StringList> t_ = new StringMap<StringList>();
-        t_.put("T", new StringList("#S"));
-        t_.put("S", new StringList("java.lang.Object"));
-        m_.setMapping(t_);
-        assertTrue(!Templates.isSimpleCorrect(m_,null));
-    }
-
-    @Test
-    public void isSimpleCorrect39Test() {
-        Mapping m_ = new Mapping();
-        m_.setArg(ARR_VAR_T);
-        m_.setParam(ARR_VAR_S);
-        StringMap<StringList> t_ = new StringMap<StringList>();
-        t_.put("T", new StringList("#S"));
-        t_.put("S", new StringList("java.lang.Object"));
-        m_.setMapping(t_);
-        assertTrue(Templates.isSimpleCorrect(m_,null));
-    }
-    
-    @Test
-    public void isSimpleCorrect46Test() {
-        Mapping m_ = new Mapping();
-        m_.setArg(ARR_ITHREE);
-        m_.setParam(ARR_ITWO);
-        StringMap<StringList> t_ = new StringMap<StringList>();
-        m_.setMapping(t_);
-        assertTrue(Templates.isSimpleCorrect(m_,null));
-    }
-
-    @Test
-    public void isSimpleCorrect47Test() {
-        Mapping m_ = new Mapping();
-        m_.setArg("["+MyImpl.class.getName());
-        m_.setParam(ARR_ITWO);
-        StringMap<StringList> t_ = new StringMap<StringList>();
-        m_.setMapping(t_);
-        assertTrue(Templates.isSimpleCorrect(m_,null));
-    }
-
-    @Test
-    public void isSimpleCorrect48Test() {
-        Mapping m_ = new Mapping();
-        m_.setArg("#H");
-        m_.setParam(CUST_BIG_INT);
+    public void isCorrectTemplate50Test() {
         StringMap<StringList> t_ = new StringMap<StringList>();
         t_.put("J", new StringList(CUST_BIG_INT));
         t_.put("I", new StringList("#J"));
         t_.put("H", new StringList("#I"));
-        m_.setMapping(t_);
-        assertTrue(Templates.isSimpleCorrect(m_,null));
+        assertTrue(Templates.isCorrectTemplate(TRANSITIVE_TEMPLATING+"<#J,#I,#H>", t_,null));
     }
 
     @Test
-    public void isSimpleCorrect49Test() {
-        Mapping m_ = new Mapping();
-        m_.setArg("#H");
-        m_.setParam("#J");
-        StringMap<StringList> t_ = new StringMap<StringList>();
-        t_.put("J", new StringList(CUST_BIG_INT));
-        t_.put("I", new StringList("#J"));
-        t_.put("H", new StringList("#I"));
-        m_.setMapping(t_);
-        assertTrue(Templates.isSimpleCorrect(m_,null));
-    }
-
-    @Test
-    public void isSimpleCorrect50Test() {
-        Mapping m_ = new Mapping();
-        m_.setArg("#H");
-        m_.setParam(Object.class.getName());
-        StringMap<StringList> t_ = new StringMap<StringList>();
-        t_.put("H", new StringList());
-        m_.setMapping(t_);
-        assertTrue(Templates.isSimpleCorrect(m_,null));
-    }
-
-    @Test
-    public void isSimpleCorrect51Test() {
-        Mapping m_ = new Mapping();
-        m_.setArg("#H");
-        m_.setParam("#J");
-        StringMap<StringList> t_ = new StringMap<StringList>();
-        t_.put("J", new StringList(CUST_BIG_INT));
-        t_.put("I", new StringList("#J"));
-        t_.put("K", new StringList("#J"));
-        t_.put("L", new StringList("#K"));
-        t_.put("H", new StringList("#L","#I"));
-        m_.setMapping(t_);
-        assertTrue(Templates.isSimpleCorrect(m_,null));
-    }
-
-    @Test
-    public void isSimpleCorrect52Test() {
-        StringMap<String> files_ = new StringMap<String>();
-        String xml_;
-        xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg'/>\n";
-        files_.put("pkg/Ex."+Classes.EXT, xml_);
-        ContextEl cont_ = unfullValidateOverridingMethods(files_);
-        Classes classes_ = cont_.getClasses();
-        Mapping m_ = new Mapping();
-        m_.setArg("pkg.Ex");
-        m_.setParam("pkg.Ex");
-        assertTrue(Templates.isSimpleCorrect(m_, classes_));
-    }
-
-    @Test
-    public void isSimpleCorrect54Test() {
-        StringMap<String> files_ = new StringMap<String>();
-        String xml_;
-        xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg'/>\n";
-        files_.put("pkg/Ex."+Classes.EXT, xml_);
-        ContextEl cont_ = unfullValidateOverridingMethods(files_);
-        Classes classes_ = cont_.getClasses();
-        Mapping m_ = new Mapping();
-        m_.setArg("java.lang.Number");
-        m_.setParam("pkg.Ex");
-        assertTrue(!Templates.isSimpleCorrect(m_, classes_));
-    }
-
-    @Test
-    public void isSimpleCorrect55Test() {
-        StringMap<String> files_ = new StringMap<String>();
-        String xml_;
-        xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg'/>\n";
-        files_.put("pkg/Ex."+Classes.EXT, xml_);
-        xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExTwo' package='pkg' superclass='pkg.Ex'/>\n";
-        files_.put("pkg/ExTwo."+Classes.EXT, xml_);
-        ContextEl cont_ = unfullValidateOverridingMethods(files_);
-        Classes classes_ = cont_.getClasses();
-        Mapping m_ = new Mapping();
-        m_.setArg("pkg.ExTwo");
-        m_.setParam("pkg.Ex");
-        assertTrue(Templates.isSimpleCorrect(m_, classes_));
-    }
-
-    @Test
-    public void isSimpleCorrect56Test() {
-        StringMap<String> files_ = new StringMap<String>();
-        String xml_;
-        xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg'/>\n";
-        files_.put("pkg/Ex."+Classes.EXT, xml_);
-        xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExTwo' package='pkg' superclass='pkg.Ex'/>\n";
-        files_.put("pkg/ExTwo."+Classes.EXT, xml_);
-        ContextEl cont_ = unfullValidateOverridingMethods(files_);
-        Classes classes_ = cont_.getClasses();
-        Mapping m_ = new Mapping();
-        m_.setArg("pkg.Ex");
-        m_.setParam("pkg.ExTwo");
-        assertTrue(!Templates.isSimpleCorrect(m_, classes_));
-    }
-
-    @Test
-    public void isSimpleCorrect57Test() {
-        StringMap<String> files_ = new StringMap<String>();
-        String xml_;
-        xml_ = "<interface access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg'/>\n";
-        files_.put("pkg/Ex."+Classes.EXT, xml_);
-        xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExTwo' package='pkg' class0='pkg.Ex'/>\n";
-        files_.put("pkg/ExTwo."+Classes.EXT, xml_);
-        ContextEl cont_ = unfullValidateOverridingMethods(files_);
-        Classes classes_ = cont_.getClasses();
-        Mapping m_ = new Mapping();
-        m_.setArg("pkg.ExTwo");
-        m_.setParam("pkg.Ex");
-        assertTrue(Templates.isSimpleCorrect(m_, classes_));
-    }
-
-    @Test
-    public void isSimpleCorrect58Test() {
-        StringMap<String> files_ = new StringMap<String>();
-        String xml_;
-        xml_ = "<interface access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg'/>\n";
-        files_.put("pkg/Ex."+Classes.EXT, xml_);
-        xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExTwo' package='pkg' class0='pkg.Ex'/>\n";
-        files_.put("pkg/ExTwo."+Classes.EXT, xml_);
-        ContextEl cont_ = unfullValidateOverridingMethods(files_);
-        Classes classes_ = cont_.getClasses();
-        Mapping m_ = new Mapping();
-        m_.setArg("pkg.Ex");
-        m_.setParam("pkg.ExTwo");
-        assertTrue(!Templates.isSimpleCorrect(m_, classes_));
-    }
-
-    @Test
-    public void isSimpleCorrect59Test() {
-        StringMap<String> files_ = new StringMap<String>();
-        String xml_;
-        xml_ = "<interface access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg'/>\n";
-        files_.put("pkg/Ex."+Classes.EXT, xml_);
-        xml_ = "<interface access='"+PUBLIC_ACCESS+"' name='ExTwo' package='pkg' class0='pkg.Ex'/>\n";
-        files_.put("pkg/ExTwo."+Classes.EXT, xml_);
-        ContextEl cont_ = unfullValidateOverridingMethods(files_);
-        Classes classes_ = cont_.getClasses();
-        Mapping m_ = new Mapping();
-        m_.setArg("pkg.ExTwo");
-        m_.setParam("pkg.Ex");
-        assertTrue(Templates.isSimpleCorrect(m_, classes_));
-    }
-
-    @Test
-    public void isSimpleCorrect60Test() {
-        StringMap<String> files_ = new StringMap<String>();
-        String xml_;
-        xml_ = "<interface access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg'/>\n";
-        files_.put("pkg/Ex."+Classes.EXT, xml_);
-        xml_ = "<interface access='"+PUBLIC_ACCESS+"' name='ExTwo' package='pkg' class0='pkg.Ex'/>\n";
-        files_.put("pkg/ExTwo."+Classes.EXT, xml_);
-        ContextEl cont_ = unfullValidateOverridingMethods(files_);
-        Classes classes_ = cont_.getClasses();
-        Mapping m_ = new Mapping();
-        m_.setArg("pkg.Ex");
-        m_.setParam("pkg.ExTwo");
-        assertTrue(!Templates.isSimpleCorrect(m_, classes_));
-    }
-
-    @Test
-    public void isSimpleCorrect61Test() {
-        StringMap<String> files_ = new StringMap<String>();
-        String xml_;
-        xml_ = "<interface access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg'/>\n";
-        files_.put("pkg/Ex."+Classes.EXT, xml_);
-        xml_ = "<enum access='"+PUBLIC_ACCESS+"' name='ExTwo' package='pkg' class0='pkg.Ex'/>\n";
-        files_.put("pkg/ExTwo."+Classes.EXT, xml_);
-        ContextEl cont_ = unfullValidateOverridingMethods(files_);
-        Classes classes_ = cont_.getClasses();
-        Mapping m_ = new Mapping();
-        m_.setArg("pkg.ExTwo");
-        m_.setParam("pkg.Ex");
-        assertTrue(Templates.isSimpleCorrect(m_, classes_));
-    }
-
-    @Test
-    public void isSimpleCorrect62Test() {
-        StringMap<String> files_ = new StringMap<String>();
-        String xml_;
-        xml_ = "<interface access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg'/>\n";
-        files_.put("pkg/Ex."+Classes.EXT, xml_);
-        xml_ = "<enum access='"+PUBLIC_ACCESS+"' name='ExTwo' package='pkg' class0='pkg.Ex'/>\n";
-        files_.put("pkg/ExTwo."+Classes.EXT, xml_);
-        ContextEl cont_ = unfullValidateOverridingMethods(files_);
-        Classes classes_ = cont_.getClasses();
-        Mapping m_ = new Mapping();
-        m_.setArg("pkg.Ex");
-        m_.setParam("pkg.ExTwo");
-        assertTrue(!Templates.isSimpleCorrect(m_, classes_));
-    }
-
-    @Test
-    public void isSimpleCorrect63Test() {
-        StringMap<String> files_ = new StringMap<String>();
-        String xml_;
-        xml_ = "<interface access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' template='&lt;#F&gt;'/>\n";
-        files_.put("pkg/Ex."+Classes.EXT, xml_);
-        xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExTwo' package='pkg' class0='pkg.Ex&lt;#E&gt;' template='&lt;#E&gt;'/>\n";
-        files_.put("pkg/ExTwo."+Classes.EXT, xml_);
-        ContextEl cont_ = unfullValidateOverridingMethods(files_);
-        Classes classes_ = cont_.getClasses();
-        Mapping m_ = new Mapping();
-        m_.getMapping().put("T", new StringList("java.lang.Object"));
-        m_.setArg("pkg.ExTwo<#T>");
-        m_.setParam("pkg.Ex<#T>");
-        assertTrue(Templates.isSimpleCorrect(m_, classes_));
-    }
-
-    @Test
-    public void isSimpleCorrect64Test() {
-        StringMap<String> files_ = new StringMap<String>();
-        String xml_;
-        xml_ = "<interface access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' template='&lt;#F&gt;'/>\n";
-        files_.put("pkg/Ex."+Classes.EXT, xml_);
-        xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExTwo' package='pkg' class0='pkg.Ex&lt;#E&gt;' template='&lt;#E&gt;'/>\n";
-        files_.put("pkg/ExTwo."+Classes.EXT, xml_);
-        ContextEl cont_ = unfullValidateOverridingMethods(files_);
-        Classes classes_ = cont_.getClasses();
-        Mapping m_ = new Mapping();
-        m_.getMapping().put("T", new StringList("java.lang.Object"));
-        m_.setArg("pkg.Ex<#T>");
-        m_.setParam("pkg.ExTwo<#T>");
-        assertTrue(!Templates.isSimpleCorrect(m_, classes_));
-    }
-
-    @Test
-    public void isSimpleCorrect65Test() {
-        StringMap<String> files_ = new StringMap<String>();
-        String xml_;
-        xml_ = "<interface access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' template='&lt;#F&gt;'/>\n";
-        files_.put("pkg/Ex."+Classes.EXT, xml_);
-        xml_ = "<interface access='"+PUBLIC_ACCESS+"' name='ExTwo' package='pkg' class0='pkg.Ex&lt;#E&gt;' template='&lt;#E&gt;'/>\n";
-        files_.put("pkg/ExTwo."+Classes.EXT, xml_);
-        ContextEl cont_ = unfullValidateOverridingMethods(files_);
-        Classes classes_ = cont_.getClasses();
-        Mapping m_ = new Mapping();
-        m_.getMapping().put("T", new StringList("java.lang.Object"));
-        m_.setArg("pkg.ExTwo<#T>");
-        m_.setParam("pkg.Ex<#T>");
-        assertTrue(Templates.isSimpleCorrect(m_, classes_));
-    }
-
-    @Test
-    public void isSimpleCorrect66Test() {
-        StringMap<String> files_ = new StringMap<String>();
-        String xml_;
-        xml_ = "<interface access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' template='&lt;#F&gt;'/>\n";
-        files_.put("pkg/Ex."+Classes.EXT, xml_);
-        xml_ = "<interface access='"+PUBLIC_ACCESS+"' name='ExTwo' package='pkg' class0='pkg.Ex&lt;#E&gt;' template='&lt;#E&gt;'/>\n";
-        files_.put("pkg/ExTwo."+Classes.EXT, xml_);
-        ContextEl cont_ = unfullValidateOverridingMethods(files_);
-        Classes classes_ = cont_.getClasses();
-        Mapping m_ = new Mapping();
-        m_.getMapping().put("T", new StringList("java.lang.Object"));
-        m_.setArg("pkg.Ex<#T>");
-        m_.setParam("pkg.ExTwo<#T>");
-        assertTrue(!Templates.isSimpleCorrect(m_, classes_));
-    }
-
-    @Test
-    public void isSimpleCorrect67Test() {
-        StringMap<String> files_ = new StringMap<String>();
-        String xml_;
-        xml_ = "<interface access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' template='&lt;#F&gt;'/>\n";
-        files_.put("pkg/Ex."+Classes.EXT, xml_);
-        xml_ = "<interface access='"+PUBLIC_ACCESS+"' name='ExTwo' package='pkg' class0='pkg.Ex&lt;#E&gt;' template='&lt;#E&gt;'/>\n";
-        files_.put("pkg/ExTwo."+Classes.EXT, xml_);
-        ContextEl cont_ = unfullValidateOverridingMethods(files_);
-        Classes classes_ = cont_.getClasses();
-        Mapping m_ = new Mapping();
-        m_.getMapping().put("S", new StringList("java.lang.Object"));
-        m_.setArg(ID_LIST+"<#S>");
-        m_.setParam(CUST_LIST+"<#S>");
-        assertTrue(Templates.isSimpleCorrect(m_, classes_));
-    }
-
-    @Test
-    public void isSimpleCorrect68Test() {
-        StringMap<String> files_ = new StringMap<String>();
-        String xml_;
-        xml_ = "<interface access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' template='&lt;#F&gt;'/>\n";
-        files_.put("pkg/Ex."+Classes.EXT, xml_);
-        xml_ = "<interface access='"+PUBLIC_ACCESS+"' name='ExTwo' package='pkg' class0='pkg.Ex&lt;#E&gt;' template='&lt;#E&gt;'/>\n";
-        files_.put("pkg/ExTwo."+Classes.EXT, xml_);
-        ContextEl cont_ = unfullValidateOverridingMethods(files_);
-        Classes classes_ = cont_.getClasses();
-        Mapping m_ = new Mapping();
-        m_.getMapping().put("S", new StringList("java.lang.Object"));
-        m_.setArg(CUST_LIST+"<#S>");
-        m_.setParam(ID_LIST+"<#S>");
-        assertTrue(!Templates.isSimpleCorrect(m_, classes_));
-    }
-
-    @Test
-    public void isSimpleCorrect69Test() {
-        StringMap<String> files_ = new StringMap<String>();
-        String xml_;
-        xml_ = "<interface access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' template='&lt;#F:[java.lang.Object&gt;'/>\n";
-        files_.put("pkg/Ex."+Classes.EXT, xml_);
-        xml_ = "<interface access='"+PUBLIC_ACCESS+"' name='ExTwo' package='pkg' class0='pkg.Ex&lt;#E&gt;' template='&lt;#E:[java.lang.Object&gt;'/>\n";
-        files_.put("pkg/ExTwo."+Classes.EXT, xml_);
-        ContextEl cont_ = unfullValidateOverridingMethods(files_);
-        Classes classes_ = cont_.getClasses();
-        Mapping m_ = new Mapping();
-        m_.getMapping().put("T", new StringList("[java.lang.Object"));
-        m_.setArg("pkg.ExTwo<#T>");
-        m_.setParam("pkg.Ex<#T>");
-        assertTrue(Templates.isSimpleCorrect(m_, classes_));
-    }
-
-    @Test
-    public void isSimpleCorrect70Test() {
-        StringMap<String> files_ = new StringMap<String>();
-        String xml_;
-        xml_ = "<interface access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' template='&lt;#F:[java.lang.Object&gt;'/>\n";
-        files_.put("pkg/Ex."+Classes.EXT, xml_);
-        xml_ = "<interface access='"+PUBLIC_ACCESS+"' name='ExTwo' package='pkg' class0='pkg.Ex&lt;#E&gt;' template='&lt;#E:[java.lang.Object&gt;'/>\n";
-        files_.put("pkg/ExTwo."+Classes.EXT, xml_);
-        ContextEl cont_ = unfullValidateOverridingMethods(files_);
-        Classes classes_ = cont_.getClasses();
-        Mapping m_ = new Mapping();
-        m_.getMapping().put("T", new StringList("[java.lang.Object"));
-        m_.setArg("pkg.Ex<#T>");
-        m_.setParam("pkg.ExTwo<#T>");
-        assertTrue(!Templates.isSimpleCorrect(m_, classes_));
-    }
-
-    @Test
-    public void isSimpleCorrect72Test() {
-        StringMap<String> files_ = new StringMap<String>();
-        String xml_;
-        xml_ = "<interface access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' template='&lt;#F:[java.lang.Object&gt;'/>\n";
-        files_.put("pkg/Ex."+Classes.EXT, xml_);
-        xml_ = "<interface access='"+PUBLIC_ACCESS+"' name='ExTwo' package='pkg' class0='pkg.Ex&lt;#E&gt;' template='&lt;#E:[java.lang.Object&gt;'/>\n";
-        files_.put("pkg/ExTwo."+Classes.EXT, xml_);
-        ContextEl cont_ = unfullValidateOverridingMethods(files_);
-        Classes classes_ = cont_.getClasses();
-        Mapping m_ = new Mapping();
-        m_.getMapping().put("T", new StringList("[java.lang.Object"));
-        m_.getMapping().put("S", new StringList("[[java.lang.Object"));
-        m_.setArg("pkg.Ex<#S>");
-        m_.setParam("pkg.ExTwo<#T>");
-        assertTrue(!Templates.isSimpleCorrect(m_, classes_));
-    }
-
-    @Test
-    public void isSimpleCorrect73Test() {
-        StringMap<String> files_ = new StringMap<String>();
-        String xml_;
-        xml_ = "<interface access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' template='&lt;#F&gt;'/>\n";
-        files_.put("pkg/Ex."+Classes.EXT, xml_);
-        xml_ = "<interface access='"+PUBLIC_ACCESS+"' name='ExTwo' package='pkg' class0='pkg.Ex&lt;#E&gt;' template='&lt;#E&gt;'/>\n";
-        files_.put("pkg/ExTwo."+Classes.EXT, xml_);
-        ContextEl cont_ = unfullValidateOverridingMethods(files_);
-        Classes classes_ = cont_.getClasses();
-        Mapping m_ = new Mapping();
-        m_.getMapping().put("T", new StringList("[java.lang.Object"));
-        m_.setArg("[[pkg.ExTwo<#T>");
-        m_.setParam("[pkg.Ex<#T>");
-        assertTrue(!Templates.isSimpleCorrect(m_, classes_));
-    }
-
-    @Test
-    public void isSimpleCorrect74Test() {
-        StringMap<String> files_ = new StringMap<String>();
-        String xml_;
-        xml_ = "<interface access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' template='&lt;#F&gt;'/>\n";
-        files_.put("pkg/Ex."+Classes.EXT, xml_);
-        xml_ = "<interface access='"+PUBLIC_ACCESS+"' name='ExTwo' package='pkg' class0='pkg.Ex&lt;#E&gt;' template='&lt;#E&gt;'/>\n";
-        files_.put("pkg/ExTwo."+Classes.EXT, xml_);
-        ContextEl cont_ = unfullValidateOverridingMethods(files_);
-        Classes classes_ = cont_.getClasses();
-        Mapping m_ = new Mapping();
-        m_.getMapping().put("T", new StringList("[java.lang.Object"));
-        m_.setArg("[pkg.Ex<#T>");
-        m_.setParam("[[pkg.ExTwo<#T>");
-        assertTrue(!Templates.isSimpleCorrect(m_, classes_));
-    }
-
-    @Test
-    public void isSimpleCorrect75Test() {
-        StringMap<String> files_ = new StringMap<String>();
-        String xml_;
-        xml_ = "<interface access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' template='&lt;#F&gt;'/>\n";
-        files_.put("pkg/Ex."+Classes.EXT, xml_);
-        xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExTwo' package='pkg' class0='pkg.Ex&lt;java.lang.Object&gt;'/>\n";
-        files_.put("pkg/ExTwo."+Classes.EXT, xml_);
-        ContextEl cont_ = unfullValidateOverridingMethods(files_);
-        Classes classes_ = cont_.getClasses();
-        Mapping m_ = new Mapping();
-        m_.setArg("pkg.ExTwo");
-        m_.setParam("pkg.Ex<java.lang.Object>");
-        assertTrue(Templates.isSimpleCorrect(m_, classes_));
-    }
-
-    @Test
-    public void isSimpleCorrect76Test() {
-        StringMap<String> files_ = new StringMap<String>();
-        String xml_;
-        xml_ = "<interface access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' template='&lt;#F&gt;'/>\n";
-        files_.put("pkg/Ex."+Classes.EXT, xml_);
-        xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExTwo' package='pkg' class0='pkg.Ex&lt;java.lang.Object&gt;'/>\n";
-        files_.put("pkg/ExTwo."+Classes.EXT, xml_);
-        ContextEl cont_ = unfullValidateOverridingMethods(files_);
-        Classes classes_ = cont_.getClasses();
-        Mapping m_ = new Mapping();
-        m_.getMapping().put("T", new StringList("java.lang.Object"));
-        m_.setArg("pkg.Ex<java.lang.Object>");
-        m_.setParam("pkg.ExTwo");
-        assertTrue(!Templates.isSimpleCorrect(m_, classes_));
-    }
-
-    @Test
-    public void isSimpleCorrect100Test() {
-        StringMap<String> files_ = new StringMap<String>();
-        String xml_;
-        xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' template='&lt;#E&gt;'/>\n";
-        files_.put("pkg/Ex."+Classes.EXT, xml_);
-        xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExTwo' package='pkg' template='&lt;#T&gt;' superclass='pkg.Ex&lt;#T&gt;'/>\n";
-        files_.put("pkg/ExTwo."+Classes.EXT, xml_);
-        ContextEl cont_ = unfullValidateOverridingMethods(files_);
-        cont_.getClasses();
-    }
-
-    @Test
-    public void isSimpleCorrectTemplate1Test() {
-        assertTrue(Templates.isSimpleCorrectTemplate(ENUM_LIST+"<"+ENUM+">", new StringMap<StringList>(),null));
-    }
-
-    @Test
-    public void isSimpleCorrectTemplate2Test() {
-        assertTrue(!Templates.isSimpleCorrectTemplate(ENUM_LIST+"<java.lang.String>", new StringMap<StringList>(),null));
-    }
-
-    @Test
-    public void isSimpleCorrectTemplate6Test() {
-        StringMap<StringList> t_ = new StringMap<StringList>();
-        t_.put("E", new StringList("java.lang.Object"));
-        assertTrue(Templates.isSimpleCorrectTemplate("java.util.List<#E>", t_,null));
-    }
-
-    @Test
-    public void isSimpleCorrectTemplate7Test() {
-        StringMap<StringList> t_ = new StringMap<StringList>();
-        t_.put("E", new StringList("java.lang.Object"));
-        assertTrue(!Templates.isSimpleCorrectTemplate(ENUM_LIST+"<#E>", t_,null));
-    }
-
-    @Test
-    public void isSimpleCorrectTemplate8Test() {
-        StringMap<StringList> t_ = new StringMap<StringList>();
-        t_.put("E", new StringList("java.lang.Enum<#E>"));
-        assertTrue(Templates.isSimpleCorrectTemplate(ENUM_LIST+"<#E>", t_,null));
-    }
-
-    @Test
-    public void isSimpleCorrectTemplate9Test() {
-        StringMap<StringList> t_ = new StringMap<StringList>();
-        t_.put("E", new StringList("java.lang.Enum<#E>",CMP+"<#E>"));
-        assertTrue(Templates.isSimpleCorrectTemplate(ENUM_LIST+"<#E>", t_,null));
-    }
-
-    @Test
-    public void isSimpleCorrectTemplate10Test() {
-        StringMap<StringList> t_ = new StringMap<StringList>();
-        t_.put("E", new StringList(CMP+"<E>","java.lang.Enum<#E>"));
-        assertTrue(Templates.isSimpleCorrectTemplate(ENUM_LIST+"<#E>", t_,null));
-    }
-
-    @Test
-    public void isSimpleCorrectTemplate11Test() {
-        assertTrue(Templates.isSimpleCorrectTemplate("java.util.List<java.lang.Object>", new StringMap<StringList>(),null));
-    }
-
-    @Test
-    public void isSimpleCorrectTemplate12Test() {
-        assertTrue(Templates.isSimpleCorrectTemplate("java.util.List<java.lang.String>", new StringMap<StringList>(),null));
-    }
-
-    @Test
-    public void isSimpleCorrectTemplate13Test() {
-        assertTrue(Templates.isSimpleCorrectTemplate("java.util.List<"+ARR_OBJECT+">", new StringMap<StringList>(),null));
-    }
-
-    @Test
-    public void isSimpleCorrectTemplate14Test() {
-        assertTrue(Templates.isSimpleCorrectTemplate("java.util.List<"+ARR_STRING+">", new StringMap<StringList>(),null));
-    }
-
-    @Test
-    public void isSimpleCorrectTemplate15Test() {
-        assertTrue(Templates.isSimpleCorrectTemplate("java.util.List<"+ARR_INT+">", new StringMap<StringList>(),null));
-    }
-
-    @Test
-    public void isSimpleCorrectTemplate16Test() {
-        assertTrue(!Templates.isSimpleCorrectTemplate(ENUM_LIST+"<"+ARR_OBJECT+">", new StringMap<StringList>(),null));
-    }
-
-    @Test
-    public void isSimpleCorrectTemplate17Test() {
-        assertTrue(!Templates.isSimpleCorrectTemplate(ENUM_LIST+"<"+ARR_STRING+">", new StringMap<StringList>(),null));
-    }
-
-    @Test
-    public void isSimpleCorrectTemplate18Test() {
-        assertTrue(!Templates.isSimpleCorrectTemplate(ENUM_LIST+"<"+ARR_INT+">", new StringMap<StringList>(),null));
-    }
-
-    @Test
-    public void isSimpleCorrectTemplate19Test() {
-        assertTrue(!Templates.isSimpleCorrectTemplate(ENUM_LIST+"<"+ARR_ENUM+">", new StringMap<StringList>(),null));
-    }
-
-    @Test
-    public void isSimpleCorrectTemplate20Test() {
-        StringMap<StringList> t_ = new StringMap<StringList>();
-        t_.put("E", new StringList("java.lang.Enum<#E>"));
-        assertTrue(Templates.isSimpleCorrectTemplate("java.util.List<"+ARR_VAR_E+">", t_,null));
-    }
-
-    @Test
-    public void isSimpleCorrectTemplate21Test() {
-        StringMap<StringList> t_ = new StringMap<StringList>();
-        t_.put("E", new StringList("java.lang.Enum<#E>"));
-        assertTrue(!Templates.isSimpleCorrectTemplate(ENUM_LIST+"<"+ARR_VAR_E+">", t_,null));
-    }
-
-    @Test
-    public void isSimpleCorrectTemplate22Test() {
-        StringMap<StringList> t_ = new StringMap<StringList>();
-        assertTrue(Templates.isSimpleCorrectTemplate(ENUM_MAP+"<"+ENUM+","+CUST_BIG_INT+">", t_,null));
-    }
-
-    @Test
-    public void isSimpleCorrectTemplate23Test() {
-        StringMap<StringList> t_ = new StringMap<StringList>();
-        t_.put("E", new StringList("java.lang.Enum<#E>"));
-        assertTrue(Templates.isSimpleCorrectTemplate(TEMPLATING+"<java.math.BigInteger,"+CUST_BIG_INT+">", t_,null));
-    }
-
-    @Test
-    public void isSimpleCorrectTemplate24Test() {
-        StringMap<StringList> t_ = new StringMap<StringList>();
-        t_.put("E", new StringList("java.lang.Enum<#E>"));
-        assertTrue(!Templates.isSimpleCorrectTemplate(TEMPLATING+"<"+CUST_BIG_INT+",java.math.BigInteger>", t_,null));
-    }
-
-    @Test
-    public void isSimpleCorrectTemplate25Test() {
-        StringMap<StringList> t_ = new StringMap<StringList>();
-        assertTrue(Templates.isSimpleCorrectTemplate(TEMPLATING+"<java.math.BigInteger,"+CUST_BIG_INT+">", t_,null));
-    }
-
-    @Test
-    public void isSimpleCorrectTemplate26Test() {
-        StringMap<StringList> t_ = new StringMap<StringList>();
-        assertTrue(!Templates.isSimpleCorrectTemplate(TEMPLATING+"<"+CUST_BIG_INT+",java.math.BigInteger>", t_,null));
-    }
-
-    @Test
-    public void isSimpleCorrectTemplate27Test() {
-        StringMap<StringList> t_ = new StringMap<StringList>();
-        t_.put("T", new StringList("java.lang.Enum<#T>"));
-        assertTrue(Templates.isSimpleCorrectTemplate("java.util.List<"+ARR_VAR_T+">", t_,null));
-    }
-
-    @Test
-    public void isSimpleCorrectTemplate28Test() {
-        StringMap<StringList> t_ = new StringMap<StringList>();
-        t_.put("F", new StringList("java.lang.Enum<#F>"));
-        assertTrue(Templates.isSimpleCorrectTemplate("java.util.List<"+ARR_VAR_F+">", t_,null));
-    }
-    @Test
-    public void isSimpleCorrectTemplate29Test() {
-        Mapping m_ = new Mapping();
-        StringMap<StringList> t_ = new StringMap<StringList>();
-        t_.put("T", new StringList("java.lang.Enum<#T>",CMP+"<#T>"));
-        m_.setMapping(t_);
-        assertTrue(Templates.isSimpleCorrectTemplate(TEMPLATING_BIS+"<#T>", t_, null));
-    }
-
-    @Test
-    public void isSimpleCorrectTemplate30Test() {
-        Mapping m_ = new Mapping();
-        StringMap<StringList> t_ = new StringMap<StringList>();
-        t_.put("T", new StringList("java.lang.Enum<#T>",CMP+"<#T>"));
-        m_.setMapping(t_);
-        assertTrue(Templates.isSimpleCorrectTemplate(ENUM_LIST+"<#T>", t_, null));
-    }
-    @Test
-    public void isSimpleCorrectTemplate31Test() {
-        Mapping m_ = new Mapping();
-        StringMap<StringList> t_ = new StringMap<StringList>();
-        t_.put("T", new StringList("java.lang.Enum<#T>"));
-        m_.setMapping(t_);
-        assertTrue(!Templates.isSimpleCorrectTemplate(TEMPLATING_BIS+"<#T>", t_, null));
-    }
-    
-    @Test
-    public void isSimpleCorrectTemplate32Test() {
-        assertTrue(!Templates.isSimpleCorrectTemplate(CMP_LIST+"<"+STRANGE_CMP_LIST+">", new StringMap<StringList>(),null));
-    }
-
-    @Test
-    public void isSimpleCorrectTemplate33Test() {
-        assertTrue(Templates.isSimpleCorrectTemplate(CMP_LIST+"<"+GOOD_CMP_LIST+">", new StringMap<StringList>(),null));
-    }
-
-    @Test
-    public void isSimpleCorrectTemplate39Test() {
-        assertTrue(!Templates.isSimpleCorrectTemplate(ENUM_LIST, new StringMap<StringList>(),null));
-    }
-    
-    @Test
-    public void isSimpleCorrectTemplate40Test() {
-        StringMap<StringList> t_ = new StringMap<StringList>();
-        t_.put("E", new StringList("java.math.BigInteger"));
-        assertTrue(!Templates.isSimpleCorrectTemplate(TEMPLATING+"<"+CUST_BIG_INT+",#E>", t_,null));
-    }
-    
-    @Test
-    public void isSimpleCorrectTemplate41Test() {
-        StringMap<StringList> t_ = new StringMap<StringList>();
-        t_.put("E", new StringList(CUST_BIG_INT));
-        assertTrue(Templates.isSimpleCorrectTemplate(TEMPLATING+"<"+CUST_BIG_INT+",#E>", t_,null));
-    }
-
-    @Test
-    public void isSimpleCorrectTemplate42Test() {
-        StringMap<StringList> t_ = new StringMap<StringList>();
-        assertTrue(!Templates.isSimpleCorrectTemplate(TEMPLATING+"<"+CUST_BIG_INT+",#E>", t_,null));
-    }
-
-    @Test
-    public void isSimpleCorrectTemplate43Test() {
-        assertTrue(!Templates.isSimpleCorrectTemplate(CMP_LIST+"<"+MY_EQ_CLASS+">", new StringMap<StringList>(),null));
-    }
-
-    @Test
-    public void isSimpleCorrectTemplate44Test() {
-        assertTrue(Templates.isSimpleCorrectTemplate(CMP_LIST+"<"+MY_CMP_CLASS+">", new StringMap<StringList>(),null));
-    }
-
-    @Test
-    public void isSimpleCorrectTemplate45Test() {
-        assertTrue(!Templates.isSimpleCorrectTemplate(CMP_LIST+"<"+CMP+">", new StringMap<StringList>(),null));
-    }
-
-    @Test
-    public void isSimpleCorrectTemplate46Test() {
-        assertTrue(!Templates.isSimpleCorrectTemplate(CUST_SEC_LIST+"<"+AbEqList.class.getName()+">", new StringMap<StringList>(),null));
-    }
-
-    @Test
-    public void isSimpleCorrectTemplate47Test() {
-        assertTrue(!Templates.isSimpleCorrectTemplate(CUST_EQ_LIST+"<"+Cmp.class.getName()+">", new StringMap<StringList>(),null));
-    }
-
-    @Test
-    public void isSimpleCorrectTemplate48Test() {
-        StringMap<StringList> t_ = new StringMap<StringList>();
-        t_.put("E", new StringList(CMP));
-        assertTrue(!Templates.isSimpleCorrectTemplate(CUST_EQ_LIST+"<#E>", t_,null));
-    }
-
-    @Test
-    public void isSimpleCorrectTemplate49Test() {
-        StringMap<StringList> t_ = new StringMap<StringList>();
-        t_.put("E", new StringList(CMP));
-        t_.put("F", new StringList("#E"));
-        assertTrue(!Templates.isSimpleCorrectTemplate(CUST_EQ_LIST+"<#F>", t_,null));
-    }
-
-    @Test
-    public void isSimpleCorrectTemplate50Test() {
-        StringMap<StringList> t_ = new StringMap<StringList>();
-        t_.put("J", new StringList(CUST_BIG_INT));
-        t_.put("I", new StringList("#J"));
-        t_.put("H", new StringList("#I"));
-        assertTrue(Templates.isSimpleCorrectTemplate(TRANSITIVE_TEMPLATING+"<#J,#I,#H>", t_,null));
-    }
-
-    @Test
-    public void isSimpleCorrectTemplate51Test() {
+    public void isCorrectTemplate51Test() {
         StringMap<String> files_ = new StringMap<String>();
         String xml_;
         xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg'/>\n";
@@ -2256,11 +1393,11 @@ public class TemplatesTest {
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
         Classes classes_ = cont_.getClasses();
         StringMap<StringList> t_ = new StringMap<StringList>();
-        assertTrue(Templates.isSimpleCorrectTemplate("pkg.Ex", t_,classes_));
+        assertTrue(Templates.isCorrectTemplate("pkg.Ex", t_,classes_));
     }
 
     @Test
-    public void isSimpleCorrectTemplate52Test() {
+    public void isCorrectTemplate52Test() {
         StringMap<String> files_ = new StringMap<String>();
         String xml_;
         xml_ = "<enum access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg'/>\n";
@@ -2268,11 +1405,11 @@ public class TemplatesTest {
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
         Classes classes_ = cont_.getClasses();
         StringMap<StringList> t_ = new StringMap<StringList>();
-        assertTrue(Templates.isSimpleCorrectTemplate("pkg.Ex", t_,classes_));
+        assertTrue(Templates.isCorrectTemplate("pkg.Ex", t_,classes_));
     }
 
     @Test
-    public void isSimpleCorrectTemplate53Test() {
+    public void isCorrectTemplate53Test() {
         StringMap<String> files_ = new StringMap<String>();
         String xml_;
         xml_ = "<interface access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg'/>\n";
@@ -2280,11 +1417,11 @@ public class TemplatesTest {
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
         Classes classes_ = cont_.getClasses();
         StringMap<StringList> t_ = new StringMap<StringList>();
-        assertTrue(Templates.isSimpleCorrectTemplate("pkg.Ex", t_,classes_));
+        assertTrue(Templates.isCorrectTemplate("pkg.Ex", t_,classes_));
     }
 
     @Test
-    public void isSimpleCorrectTemplate54Test() {
+    public void isCorrectTemplate54Test() {
         StringMap<String> files_ = new StringMap<String>();
         String xml_;
         xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg'/>\n";
@@ -2292,11 +1429,11 @@ public class TemplatesTest {
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
         Classes classes_ = cont_.getClasses();
         StringMap<StringList> t_ = new StringMap<StringList>();
-        assertTrue(Templates.isSimpleCorrectTemplate("[pkg.Ex", t_,classes_));
+        assertTrue(Templates.isCorrectTemplate("[pkg.Ex", t_,classes_));
     }
 
     @Test
-    public void isSimpleCorrectTemplate55Test() {
+    public void isCorrectTemplate55Test() {
         StringMap<String> files_ = new StringMap<String>();
         String xml_;
         xml_ = "<enum access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg'/>\n";
@@ -2304,11 +1441,11 @@ public class TemplatesTest {
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
         Classes classes_ = cont_.getClasses();
         StringMap<StringList> t_ = new StringMap<StringList>();
-        assertTrue(Templates.isSimpleCorrectTemplate("[pkg.Ex", t_,classes_));
+        assertTrue(Templates.isCorrectTemplate("[pkg.Ex", t_,classes_));
     }
 
     @Test
-    public void isSimpleCorrectTemplate56Test() {
+    public void isCorrectTemplate56Test() {
         StringMap<String> files_ = new StringMap<String>();
         String xml_;
         xml_ = "<interface access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg'/>\n";
@@ -2316,11 +1453,11 @@ public class TemplatesTest {
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
         Classes classes_ = cont_.getClasses();
         StringMap<StringList> t_ = new StringMap<StringList>();
-        assertTrue(Templates.isSimpleCorrectTemplate("[pkg.Ex", t_,classes_));
+        assertTrue(Templates.isCorrectTemplate("[pkg.Ex", t_,classes_));
     }
 
     @Test
-    public void isSimpleCorrectTemplate57Test() {
+    public void isCorrectTemplate57Test() {
         StringMap<String> files_ = new StringMap<String>();
         String xml_;
         xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' template='&lt;#T&gt;'/>\n";
@@ -2328,11 +1465,11 @@ public class TemplatesTest {
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
         Classes classes_ = cont_.getClasses();
         StringMap<StringList> t_ = new StringMap<StringList>();
-        assertTrue(Templates.isSimpleCorrectTemplate("pkg.Ex<java.lang.Object>", t_,classes_));
+        assertTrue(Templates.isCorrectTemplate("pkg.Ex<java.lang.Object>", t_,classes_));
     }
 
     @Test
-    public void isSimpleCorrectTemplate58Test() {
+    public void isCorrectTemplate58Test() {
         StringMap<String> files_ = new StringMap<String>();
         String xml_;
         xml_ = "<interface access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' template='&lt;#T&gt;'/>\n";
@@ -2340,11 +1477,11 @@ public class TemplatesTest {
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
         Classes classes_ = cont_.getClasses();
         StringMap<StringList> t_ = new StringMap<StringList>();
-        assertTrue(Templates.isSimpleCorrectTemplate("pkg.Ex<java.lang.Object>", t_,classes_));
+        assertTrue(Templates.isCorrectTemplate("pkg.Ex<java.lang.Object>", t_,classes_));
     }
 
     @Test
-    public void isSimpleCorrectTemplate59Test() {
+    public void isCorrectTemplate59Test() {
         StringMap<String> files_ = new StringMap<String>();
         String xml_;
         xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' template='&lt;#T&gt;'/>\n";
@@ -2352,11 +1489,11 @@ public class TemplatesTest {
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
         Classes classes_ = cont_.getClasses();
         StringMap<StringList> t_ = new StringMap<StringList>();
-        assertTrue(Templates.isSimpleCorrectTemplate("[pkg.Ex<java.lang.Object>", t_,classes_));
+        assertTrue(Templates.isCorrectTemplate("[pkg.Ex<java.lang.Object>", t_,classes_));
     }
 
     @Test
-    public void isSimpleCorrectTemplate60Test() {
+    public void isCorrectTemplate60Test() {
         StringMap<String> files_ = new StringMap<String>();
         String xml_;
         xml_ = "<interface access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' template='&lt;#T&gt;'/>\n";
@@ -2364,11 +1501,11 @@ public class TemplatesTest {
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
         Classes classes_ = cont_.getClasses();
         StringMap<StringList> t_ = new StringMap<StringList>();
-        assertTrue(Templates.isSimpleCorrectTemplate("[pkg.Ex<java.lang.Object>", t_,classes_));
+        assertTrue(Templates.isCorrectTemplate("[pkg.Ex<java.lang.Object>", t_,classes_));
     }
 
     @Test
-    public void isSimpleCorrectTemplate61Test() {
+    public void isCorrectTemplate61Test() {
         StringMap<String> files_ = new StringMap<String>();
         String xml_;
         xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' template='&lt;#T&gt;'/>\n";
@@ -2377,11 +1514,11 @@ public class TemplatesTest {
         Classes classes_ = cont_.getClasses();
         StringMap<StringList> t_ = new StringMap<StringList>();
         t_.put("E", new StringList("java.lang.Object"));
-        assertTrue(Templates.isSimpleCorrectTemplate("[pkg.Ex<#E>", t_,classes_));
+        assertTrue(Templates.isCorrectTemplate("[pkg.Ex<#E>", t_,classes_));
     }
 
     @Test
-    public void isSimpleCorrectTemplate62Test() {
+    public void isCorrectTemplate62Test() {
         StringMap<String> files_ = new StringMap<String>();
         String xml_;
         xml_ = "<interface access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' template='&lt;#T&gt;'/>\n";
@@ -2390,11 +1527,11 @@ public class TemplatesTest {
         Classes classes_ = cont_.getClasses();
         StringMap<StringList> t_ = new StringMap<StringList>();
         t_.put("E", new StringList("java.lang.Object"));
-        assertTrue(Templates.isSimpleCorrectTemplate("[pkg.Ex<#E>", t_,classes_));
+        assertTrue(Templates.isCorrectTemplate("[pkg.Ex<#E>", t_,classes_));
     }
 
     @Test
-    public void isSimpleCorrectTemplate63Test() {
+    public void isCorrectTemplate63Test() {
         StringMap<String> files_ = new StringMap<String>();
         String xml_;
         xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' template='&lt;#T:java.lang.Number&gt;'/>\n";
@@ -2403,11 +1540,11 @@ public class TemplatesTest {
         Classes classes_ = cont_.getClasses();
         StringMap<StringList> t_ = new StringMap<StringList>();
         t_.put("E", new StringList("java.lang.Integer"));
-        assertTrue(Templates.isSimpleCorrectTemplate("[pkg.Ex<#E>", t_,classes_));
+        assertTrue(Templates.isCorrectTemplate("[pkg.Ex<#E>", t_,classes_));
     }
 
     @Test
-    public void isSimpleCorrectTemplate64Test() {
+    public void isCorrectTemplate64Test() {
         StringMap<String> files_ = new StringMap<String>();
         String xml_;
         xml_ = "<interface access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' template='&lt;#T:java.lang.Number&gt;'/>\n";
@@ -2416,11 +1553,11 @@ public class TemplatesTest {
         Classes classes_ = cont_.getClasses();
         StringMap<StringList> t_ = new StringMap<StringList>();
         t_.put("E", new StringList("java.lang.Integer"));
-        assertTrue(Templates.isSimpleCorrectTemplate("[pkg.Ex<#E>", t_,classes_));
+        assertTrue(Templates.isCorrectTemplate("[pkg.Ex<#E>", t_,classes_));
     }
 
     @Test
-    public void isSimpleCorrectTemplate65Test() {
+    public void isCorrectTemplate65Test() {
         StringMap<String> files_ = new StringMap<String>();
         String xml_;
         xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' template='&lt;#T:java.lang.Number&gt;'/>\n";
@@ -2429,11 +1566,11 @@ public class TemplatesTest {
         Classes classes_ = cont_.getClasses();
         StringMap<StringList> t_ = new StringMap<StringList>();
         t_.put("E", new StringList("java.lang.Object"));
-        assertTrue(!Templates.isSimpleCorrectTemplate("[pkg.Ex<#E>", t_,classes_));
+        assertTrue(!Templates.isCorrectTemplate("[pkg.Ex<#E>", t_,classes_));
     }
 
     @Test
-    public void isSimpleCorrectTemplate66Test() {
+    public void isCorrectTemplate66Test() {
         StringMap<String> files_ = new StringMap<String>();
         String xml_;
         xml_ = "<interface access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' template='&lt;#T:java.lang.Number&gt;'/>\n";
@@ -2442,11 +1579,11 @@ public class TemplatesTest {
         Classes classes_ = cont_.getClasses();
         StringMap<StringList> t_ = new StringMap<StringList>();
         t_.put("E", new StringList("java.lang.Object"));
-        assertTrue(!Templates.isSimpleCorrectTemplate("[pkg.Ex<#E>", t_,classes_));
+        assertTrue(!Templates.isCorrectTemplate("[pkg.Ex<#E>", t_,classes_));
     }
 
     @Test
-    public void isSimpleCorrectTemplate67Test() {
+    public void isCorrectTemplate67Test() {
         StringMap<String> files_ = new StringMap<String>();
         String xml_;
         xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' template='&lt;#T:java.lang.Number&gt;'/>\n";
@@ -2454,11 +1591,11 @@ public class TemplatesTest {
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
         Classes classes_ = cont_.getClasses();
         StringMap<StringList> t_ = new StringMap<StringList>();
-        assertTrue(!Templates.isSimpleCorrectTemplate("[pkg.Ex<java.lang.Object>", t_,classes_));
+        assertTrue(!Templates.isCorrectTemplate("[pkg.Ex<java.lang.Object>", t_,classes_));
     }
 
     @Test
-    public void isSimpleCorrectTemplate68Test() {
+    public void isCorrectTemplate68Test() {
         StringMap<String> files_ = new StringMap<String>();
         String xml_;
         xml_ = "<interface access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' template='&lt;#T:java.lang.Number&gt;'/>\n";
@@ -2466,11 +1603,11 @@ public class TemplatesTest {
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
         Classes classes_ = cont_.getClasses();
         StringMap<StringList> t_ = new StringMap<StringList>();
-        assertTrue(!Templates.isSimpleCorrectTemplate("[pkg.Ex<java.lang.Object>", t_,classes_));
+        assertTrue(!Templates.isCorrectTemplate("[pkg.Ex<java.lang.Object>", t_,classes_));
     }
 
     @Test
-    public void isSimpleCorrectTemplate69Test() {
+    public void isCorrectTemplate69Test() {
         StringMap<String> files_ = new StringMap<String>();
         String xml_;
         xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' template='&lt;#T:[java.lang.Number&gt;'/>\n";
@@ -2478,11 +1615,11 @@ public class TemplatesTest {
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
         Classes classes_ = cont_.getClasses();
         StringMap<StringList> t_ = new StringMap<StringList>();
-        assertTrue(Templates.isSimpleCorrectTemplate("[pkg.Ex<[java.lang.Integer>", t_,classes_));
+        assertTrue(Templates.isCorrectTemplate("[pkg.Ex<[java.lang.Integer>", t_,classes_));
     }
 
     @Test
-    public void isSimpleCorrectTemplate70Test() {
+    public void isCorrectTemplate70Test() {
         StringMap<String> files_ = new StringMap<String>();
         String xml_;
         xml_ = "<interface access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' template='&lt;#T:[java.lang.Number&gt;'/>\n";
@@ -2490,11 +1627,11 @@ public class TemplatesTest {
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
         Classes classes_ = cont_.getClasses();
         StringMap<StringList> t_ = new StringMap<StringList>();
-        assertTrue(Templates.isSimpleCorrectTemplate("[pkg.Ex<[java.lang.Integer>", t_,classes_));
+        assertTrue(Templates.isCorrectTemplate("[pkg.Ex<[java.lang.Integer>", t_,classes_));
     }
 
     @Test
-    public void isSimpleCorrectTemplate71Test() {
+    public void isCorrectTemplate71Test() {
         StringMap<String> files_ = new StringMap<String>();
         String xml_;
         xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' template='&lt;#T:[java.lang.Number&gt;'/>\n";
@@ -2502,11 +1639,11 @@ public class TemplatesTest {
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
         Classes classes_ = cont_.getClasses();
         StringMap<StringList> t_ = new StringMap<StringList>();
-        assertTrue(!Templates.isSimpleCorrectTemplate("[pkg.Ex<[java.lang.Object>", t_,classes_));
+        assertTrue(!Templates.isCorrectTemplate("[pkg.Ex<[java.lang.Object>", t_,classes_));
     }
 
     @Test
-    public void isSimpleCorrectTemplate72Test() {
+    public void isCorrectTemplate72Test() {
         StringMap<String> files_ = new StringMap<String>();
         String xml_;
         xml_ = "<interface access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' template='&lt;#T:[java.lang.Number&gt;'/>\n";
@@ -2514,11 +1651,11 @@ public class TemplatesTest {
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
         Classes classes_ = cont_.getClasses();
         StringMap<StringList> t_ = new StringMap<StringList>();
-        assertTrue(!Templates.isSimpleCorrectTemplate("[pkg.Ex<[java.lang.Object>", t_,classes_));
+        assertTrue(!Templates.isCorrectTemplate("[pkg.Ex<[java.lang.Object>", t_,classes_));
     }
 
     @Test
-    public void isSimpleCorrectTemplate73Test() {
+    public void isCorrectTemplate73Test() {
         StringMap<String> files_ = new StringMap<String>();
         String xml_;
         xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' template='&lt;#T:pkg.ExThree&gt;'/>\n";
@@ -2531,11 +1668,11 @@ public class TemplatesTest {
         Classes classes_ = cont_.getClasses();
         StringMap<StringList> t_ = new StringMap<StringList>();
         t_.put("E", new StringList("pkg.ExTwo"));
-        assertTrue(Templates.isSimpleCorrectTemplate("[pkg.Ex<#E>", t_,classes_));
+        assertTrue(Templates.isCorrectTemplate("[pkg.Ex<#E>", t_,classes_));
     }
 
     @Test
-    public void isSimpleCorrectTemplate74Test() {
+    public void isCorrectTemplate74Test() {
         StringMap<String> files_ = new StringMap<String>();
         String xml_;
         xml_ = "<interface access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' template='&lt;#T:pkg.ExThree&gt;'/>\n";
@@ -2548,11 +1685,11 @@ public class TemplatesTest {
         Classes classes_ = cont_.getClasses();
         StringMap<StringList> t_ = new StringMap<StringList>();
         t_.put("E", new StringList("pkg.ExTwo"));
-        assertTrue(Templates.isSimpleCorrectTemplate("[pkg.Ex<#E>", t_,classes_));
+        assertTrue(Templates.isCorrectTemplate("[pkg.Ex<#E>", t_,classes_));
     }
 
     @Test
-    public void isSimpleCorrectTemplate75Test() {
+    public void isCorrectTemplate75Test() {
         StringMap<String> files_ = new StringMap<String>();
         String xml_;
         xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' template='&lt;#T:pkg.ExThree&gt;'/>\n";
@@ -2565,11 +1702,11 @@ public class TemplatesTest {
         Classes classes_ = cont_.getClasses();
         StringMap<StringList> t_ = new StringMap<StringList>();
         t_.put("E", new StringList("pkg.ExTwo"));
-        assertTrue(!Templates.isSimpleCorrectTemplate("[pkg.Ex<#E>", t_,classes_));
+        assertTrue(!Templates.isCorrectTemplate("[pkg.Ex<#E>", t_,classes_));
     }
 
     @Test
-    public void isSimpleCorrectTemplate76Test() {
+    public void isCorrectTemplate76Test() {
         StringMap<String> files_ = new StringMap<String>();
         String xml_;
         xml_ = "<interface access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' template='&lt;#T:pkg.ExThree&gt;'/>\n";
@@ -2582,11 +1719,11 @@ public class TemplatesTest {
         Classes classes_ = cont_.getClasses();
         StringMap<StringList> t_ = new StringMap<StringList>();
         t_.put("E", new StringList("pkg.ExTwo"));
-        assertTrue(!Templates.isSimpleCorrectTemplate("[pkg.Ex<#E>", t_,classes_));
+        assertTrue(!Templates.isCorrectTemplate("[pkg.Ex<#E>", t_,classes_));
     }
 
     @Test
-    public void isSimpleCorrectTemplate77Test() {
+    public void isCorrectTemplate77Test() {
         StringMap<String> files_ = new StringMap<String>();
         String xml_;
         xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' template='&lt;#T:pkg.ExThree&gt;'/>\n";
@@ -2598,11 +1735,11 @@ public class TemplatesTest {
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
         Classes classes_ = cont_.getClasses();
         StringMap<StringList> t_ = new StringMap<StringList>();
-        assertTrue(!Templates.isSimpleCorrectTemplate("[pkg.Ex<pkg.ExTwo>", t_,classes_));
+        assertTrue(!Templates.isCorrectTemplate("[pkg.Ex<pkg.ExTwo>", t_,classes_));
     }
 
     @Test
-    public void isSimpleCorrectTemplate78Test() {
+    public void isCorrectTemplate78Test() {
         StringMap<String> files_ = new StringMap<String>();
         String xml_;
         xml_ = "<interface access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' template='&lt;#T:pkg.ExThree&gt;'/>\n";
@@ -2614,11 +1751,11 @@ public class TemplatesTest {
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
         Classes classes_ = cont_.getClasses();
         StringMap<StringList> t_ = new StringMap<StringList>();
-        assertTrue(!Templates.isSimpleCorrectTemplate("[pkg.Ex<pkg.ExTwo>", t_,classes_));
+        assertTrue(!Templates.isCorrectTemplate("[pkg.Ex<pkg.ExTwo>", t_,classes_));
     }
 
     @Test
-    public void isSimpleCorrectTemplate79Test() {
+    public void isCorrectTemplate79Test() {
         StringMap<String> files_ = new StringMap<String>();
         String xml_;
         xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' template='&lt;#T:[pkg.ExThree&gt;'/>\n";
@@ -2630,11 +1767,11 @@ public class TemplatesTest {
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
         Classes classes_ = cont_.getClasses();
         StringMap<StringList> t_ = new StringMap<StringList>();
-        assertTrue(Templates.isSimpleCorrectTemplate("[pkg.Ex<[pkg.ExTwo>", t_,classes_));
+        assertTrue(Templates.isCorrectTemplate("[pkg.Ex<[pkg.ExTwo>", t_,classes_));
     }
 
     @Test
-    public void isSimpleCorrectTemplate80Test() {
+    public void isCorrectTemplate80Test() {
         StringMap<String> files_ = new StringMap<String>();
         String xml_;
         xml_ = "<interface access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' template='&lt;#T:[pkg.ExThree&gt;'/>\n";
@@ -2646,11 +1783,11 @@ public class TemplatesTest {
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
         Classes classes_ = cont_.getClasses();
         StringMap<StringList> t_ = new StringMap<StringList>();
-        assertTrue(Templates.isSimpleCorrectTemplate("[pkg.Ex<[pkg.ExTwo>", t_,classes_));
+        assertTrue(Templates.isCorrectTemplate("[pkg.Ex<[pkg.ExTwo>", t_,classes_));
     }
 
     @Test
-    public void isSimpleCorrectTemplate81Test() {
+    public void isCorrectTemplate81Test() {
         StringMap<String> files_ = new StringMap<String>();
         String xml_;
         xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' template='&lt;#T:[pkg.ExTwo&gt;'/>\n";
@@ -2662,11 +1799,11 @@ public class TemplatesTest {
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
         Classes classes_ = cont_.getClasses();
         StringMap<StringList> t_ = new StringMap<StringList>();
-        assertTrue(!Templates.isSimpleCorrectTemplate("[pkg.Ex<[pkg.ExThree>", t_,classes_));
+        assertTrue(!Templates.isCorrectTemplate("[pkg.Ex<[pkg.ExThree>", t_,classes_));
     }
 
     @Test
-    public void isSimpleCorrectTemplate82Test() {
+    public void isCorrectTemplate82Test() {
         StringMap<String> files_ = new StringMap<String>();
         String xml_;
         xml_ = "<interface access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' template='&lt;#T:[pkg.ExTwo&gt;'/>\n";
@@ -2678,11 +1815,11 @@ public class TemplatesTest {
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
         Classes classes_ = cont_.getClasses();
         StringMap<StringList> t_ = new StringMap<StringList>();
-        assertTrue(!Templates.isSimpleCorrectTemplate("[pkg.Ex<[pkg.ExThree>", t_,classes_));
+        assertTrue(!Templates.isCorrectTemplate("[pkg.Ex<[pkg.ExThree>", t_,classes_));
     }
 
     @Test
-    public void isSimpleCorrectTemplateAll1Test() {
+    public void isCorrectTemplateAll1Test() {
         StringMap<String> files_ = new StringMap<String>();
         String xml_;
         xml_ = "<interface access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' template='&lt;#T:[pkg.ExTwo&gt;'/>\n";
@@ -2694,11 +1831,11 @@ public class TemplatesTest {
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
         Classes classes_ = cont_.getClasses();
         StringMap<StringList> t_ = new StringMap<StringList>();
-        assertTrue(Templates.isSimpleCorrectTemplateAll("java.lang.Object", t_,classes_));
+        assertTrue(Templates.isCorrectTemplateAll("java.lang.Object", t_,classes_));
     }
 
     @Test
-    public void isSimpleCorrectTemplateAll2Test() {
+    public void isCorrectTemplateAll2Test() {
         StringMap<String> files_ = new StringMap<String>();
         String xml_;
         xml_ = "<interface access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' template='&lt;#T:[pkg.ExTwo&gt;'/>\n";
@@ -2710,11 +1847,11 @@ public class TemplatesTest {
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
         Classes classes_ = cont_.getClasses();
         StringMap<StringList> t_ = new StringMap<StringList>();
-        assertTrue(Templates.isSimpleCorrectTemplateAll("$int", t_,classes_));
+        assertTrue(Templates.isCorrectTemplateAll("$int", t_,classes_));
     }
 
     @Test
-    public void isSimpleCorrectTemplateAll3Test() {
+    public void isCorrectTemplateAll3Test() {
         StringMap<String> files_ = new StringMap<String>();
         String xml_;
         xml_ = "<interface access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' template='&lt;#T:[pkg.ExTwo&gt;'/>\n";
@@ -2726,11 +1863,11 @@ public class TemplatesTest {
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
         Classes classes_ = cont_.getClasses();
         StringMap<StringList> t_ = new StringMap<StringList>();
-        assertTrue(Templates.isSimpleCorrectTemplateAll("[java.lang.Object", t_,classes_));
+        assertTrue(Templates.isCorrectTemplateAll("[java.lang.Object", t_,classes_));
     }
 
     @Test
-    public void isSimpleCorrectTemplateAll4Test() {
+    public void isCorrectTemplateAll4Test() {
         StringMap<String> files_ = new StringMap<String>();
         String xml_;
         xml_ = "<interface access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' template='&lt;#T:[pkg.ExTwo&gt;'/>\n";
@@ -2742,11 +1879,11 @@ public class TemplatesTest {
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
         Classes classes_ = cont_.getClasses();
         StringMap<StringList> t_ = new StringMap<StringList>();
-        assertTrue(Templates.isSimpleCorrectTemplateAll("[$int", t_,classes_));
+        assertTrue(Templates.isCorrectTemplateAll("[$int", t_,classes_));
     }
 
     @Test
-    public void isSimpleCorrectTemplateAll5Test() {
+    public void isCorrectTemplateAll5Test() {
         StringMap<String> files_ = new StringMap<String>();
         String xml_;
         xml_ = "<interface access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' template='&lt;#T:[pkg.ExTwo&gt;'/>\n";
@@ -2758,11 +1895,11 @@ public class TemplatesTest {
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
         Classes classes_ = cont_.getClasses();
         StringMap<StringList> t_ = new StringMap<StringList>();
-        assertTrue(Templates.isSimpleCorrectTemplateAll(CUST_LIST+"<java.lang.Object>", t_,classes_));
+        assertTrue(Templates.isCorrectTemplateAll(CUST_LIST+"<java.lang.Object>", t_,classes_));
     }
 
     @Test
-    public void isSimpleCorrectTemplateAll6Test() {
+    public void isCorrectTemplateAll6Test() {
         StringMap<String> files_ = new StringMap<String>();
         String xml_;
         xml_ = "<interface access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' template='&lt;#T:[pkg.ExTwo&gt;'/>\n";
@@ -2774,11 +1911,11 @@ public class TemplatesTest {
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
         Classes classes_ = cont_.getClasses();
         StringMap<StringList> t_ = new StringMap<StringList>();
-        assertTrue(Templates.isSimpleCorrectTemplateAll(CUST_LIST+"<[java.lang.Object>", t_,classes_));
+        assertTrue(Templates.isCorrectTemplateAll(CUST_LIST+"<[java.lang.Object>", t_,classes_));
     }
 
     @Test
-    public void isSimpleCorrectTemplateAll7Test() {
+    public void isCorrectTemplateAll7Test() {
         StringMap<String> files_ = new StringMap<String>();
         String xml_;
         xml_ = "<interface access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' template='&lt;#T:[pkg.ExTwo&gt;'/>\n";
@@ -2790,11 +1927,11 @@ public class TemplatesTest {
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
         Classes classes_ = cont_.getClasses();
         StringMap<StringList> t_ = new StringMap<StringList>();
-        assertTrue(Templates.isSimpleCorrectTemplateAll(CUST_LIST+"<"+CUST_LIST+"<[java.lang.Object>>", t_,classes_));
+        assertTrue(Templates.isCorrectTemplateAll(CUST_LIST+"<"+CUST_LIST+"<[java.lang.Object>>", t_,classes_));
     }
 
     @Test
-    public void isSimpleCorrectTemplateAll8Test() {
+    public void isCorrectTemplateAll8Test() {
         StringMap<String> files_ = new StringMap<String>();
         String xml_;
         xml_ = "<interface access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' template='&lt;#T:[pkg.ExTwo&gt;'/>\n";
@@ -2806,11 +1943,11 @@ public class TemplatesTest {
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
         Classes classes_ = cont_.getClasses();
         StringMap<StringList> t_ = new StringMap<StringList>();
-        assertTrue(!Templates.isSimpleCorrectTemplateAll(ENUM_LIST+"<"+ENUM_LIST+"<java.lang.Object>>", t_,classes_));
+        assertTrue(!Templates.isCorrectTemplateAll(ENUM_LIST+"<"+ENUM_LIST+"<java.lang.Object>>", t_,classes_));
     }
 
     @Test
-    public void isSimpleCorrectTemplateAll9Test() {
+    public void isCorrectTemplateAll9Test() {
         StringMap<String> files_ = new StringMap<String>();
         String xml_;
         xml_ = "<interface access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' template='&lt;#T:[pkg.ExTwo&gt;'/>\n";
@@ -2822,11 +1959,11 @@ public class TemplatesTest {
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
         Classes classes_ = cont_.getClasses();
         StringMap<StringList> t_ = new StringMap<StringList>();
-        assertTrue(!Templates.isSimpleCorrectTemplateAll(CUST_LIST+"<"+ENUM_LIST+"<java.lang.Object>>", t_,classes_));
+        assertTrue(!Templates.isCorrectTemplateAll(CUST_LIST+"<"+ENUM_LIST+"<java.lang.Object>>", t_,classes_));
     }
 
     @Test
-    public void isSimpleCorrectTemplateAll10Test() {
+    public void isCorrectTemplateAll10Test() {
         StringMap<String> files_ = new StringMap<String>();
         String xml_;
         xml_ = "<interface access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' template='&lt;#T:[pkg.ExTwo&gt;'/>\n";
@@ -2838,11 +1975,11 @@ public class TemplatesTest {
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
         Classes classes_ = cont_.getClasses();
         StringMap<StringList> t_ = new StringMap<StringList>();
-        assertTrue(!Templates.isSimpleCorrectTemplateAll(CUST_LIST+"<"+CUST_LIST+"<"+CUST_LIST+">>", t_,classes_));
+        assertTrue(!Templates.isCorrectTemplateAll(CUST_LIST+"<"+CUST_LIST+"<"+CUST_LIST+">>", t_,classes_));
     }
 
     @Test
-    public void isSimpleCorrectTemplateAll11Test() {
+    public void isCorrectTemplateAll11Test() {
         StringMap<String> files_ = new StringMap<String>();
         String xml_;
         xml_ = "<interface access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' template='&lt;#T:[pkg.ExTwo&gt;'/>\n";
@@ -2854,11 +1991,11 @@ public class TemplatesTest {
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
         Classes classes_ = cont_.getClasses();
         StringMap<StringList> t_ = new StringMap<StringList>();
-        assertTrue(Templates.isSimpleCorrectTemplateAll(CUST_LIST+"<"+CUST_LIST+"<pkg.ExThree>>", t_,classes_));
+        assertTrue(Templates.isCorrectTemplateAll(CUST_LIST+"<"+CUST_LIST+"<pkg.ExThree>>", t_,classes_));
     }
 
     @Test
-    public void isSimpleCorrectTemplateAll12Test() {
+    public void isCorrectTemplateAll12Test() {
         StringMap<String> files_ = new StringMap<String>();
         String xml_;
         xml_ = "<interface access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' template='&lt;#T:[pkg.ExTwo&gt;'/>\n";
@@ -2870,28 +2007,11 @@ public class TemplatesTest {
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
         Classes classes_ = cont_.getClasses();
         StringMap<StringList> t_ = new StringMap<StringList>();
-        assertTrue(!Templates.isSimpleCorrectTemplateAll(CUST_LIST+"<"+CUST_LIST+"<pkg.Ex>>", t_,classes_));
+        assertTrue(!Templates.isCorrectTemplateAll(CUST_LIST+"<"+CUST_LIST+"<pkg.Ex>>", t_,classes_));
     }
 
     @Test
-    public void isSimpleCorrectTemplateAll13Test() {
-        StringMap<String> files_ = new StringMap<String>();
-        String xml_;
-        xml_ = "<interface access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' template='&lt;#T:[pkg.ExTwo&gt;'/>\n";
-        files_.put("pkg/Ex."+Classes.EXT, xml_);
-        xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExTwo' package='pkg' superclass='pkg.ExThree'/>\n";
-        files_.put("pkg/ExTwo."+Classes.EXT, xml_);
-        xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExThree' package='pkg'/>\n";
-        files_.put("pkg/ExThree."+Classes.EXT, xml_);
-        ContextEl cont_ = unfullValidateOverridingMethods(files_);
-        Classes classes_ = cont_.getClasses();
-        StringMap<StringList> t_ = new StringMap<StringList>();
-        t_.put("E", new StringList("java.lang.Object"));
-        assertTrue(Templates.isSimpleCorrectTemplateAll(CUST_LIST+"<"+CUST_LIST+"<#E>>", t_,classes_));
-    }
-
-    @Test
-    public void isSimpleCorrectTemplateAll14Test() {
+    public void isCorrectTemplateAll13Test() {
         StringMap<String> files_ = new StringMap<String>();
         String xml_;
         xml_ = "<interface access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' template='&lt;#T:[pkg.ExTwo&gt;'/>\n";
@@ -2904,7 +2024,24 @@ public class TemplatesTest {
         Classes classes_ = cont_.getClasses();
         StringMap<StringList> t_ = new StringMap<StringList>();
         t_.put("E", new StringList("java.lang.Object"));
-        assertTrue(!Templates.isSimpleCorrectTemplateAll(CUST_LIST+"<"+CUST_LIST+"<#F>>", t_,classes_));
+        assertTrue(Templates.isCorrectTemplateAll(CUST_LIST+"<"+CUST_LIST+"<#E>>", t_,classes_));
+    }
+
+    @Test
+    public void isCorrectTemplateAll14Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        String xml_;
+        xml_ = "<interface access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' template='&lt;#T:[pkg.ExTwo&gt;'/>\n";
+        files_.put("pkg/Ex."+Classes.EXT, xml_);
+        xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExTwo' package='pkg' superclass='pkg.ExThree'/>\n";
+        files_.put("pkg/ExTwo."+Classes.EXT, xml_);
+        xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExThree' package='pkg'/>\n";
+        files_.put("pkg/ExThree."+Classes.EXT, xml_);
+        ContextEl cont_ = unfullValidateOverridingMethods(files_);
+        Classes classes_ = cont_.getClasses();
+        StringMap<StringList> t_ = new StringMap<StringList>();
+        t_.put("E", new StringList("java.lang.Object"));
+        assertTrue(!Templates.isCorrectTemplateAll(CUST_LIST+"<"+CUST_LIST+"<#F>>", t_,classes_));
     }
 
     @Test
