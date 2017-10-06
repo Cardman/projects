@@ -69,7 +69,6 @@ import aiki.map.util.ScreenCoords;
 import aiki.util.Coords;
 import aiki.util.LevelPoint;
 import aiki.util.Point;
-import code.images.Image;
 import code.maths.LgInt;
 import code.maths.Rate;
 import code.maths.montecarlo.MonteCarloEq;
@@ -642,17 +641,6 @@ public class Game {
         ScreenCoords center_;
         center_ = new ScreenCoords(map_.getSpaceBetweenLeftAndHeros()+_dx,map_.getSpaceBetweenTopAndHeros()+_dy);
         StringList images_ = map_.getForegroundImages().getVal(center_);
-//        EnvironmentType currentEnv_ = map_.currentBlock(playerCoords).getType();
-//        Sex sex_ = player.getSex();
-//        ImageHeroKey key_;
-//        key_ = new ImageHeroKey(currentEnv_, playerOrientation, sex_);
-//        int side_ = map_.getSideLength();
-//        if (_data.getOverWorldHeros().contains(key_)) {
-//            images_.add(Image.clipSixtyFour(_data.getOverWorldHeros().getVal(key_), CustList.FIRST_INDEX, CustList.FIRST_INDEX, side_, side_));
-//        } else {
-//            key_ = new ImageHeroKey(EnvironmentType.ROAD, playerOrientation, sex_);
-//            images_.add(Image.clipSixtyFour(_data.getOverWorldHeros().getVal(key_), CustList.FIRST_INDEX, CustList.FIRST_INDEX, side_, side_));
-//        }
         images_.add(getMiniHeros(_data));
     }
 
@@ -662,12 +650,11 @@ public class Game {
         Sex sex_ = player.getSex();
         ImageHeroKey key_;
         key_ = new ImageHeroKey(currentEnv_, playerOrientation, sex_);
-        int side_ = map_.getSideLength();
         if (_data.getOverWorldHeros().contains(key_)) {
-            return Image.clipSixtyFour(_data.getOverWorldHeros().getVal(key_), CustList.FIRST_INDEX, CustList.FIRST_INDEX, side_, side_);
+            return _data.getOverWorldHeros().getVal(key_);
         }
         key_ = new ImageHeroKey(EnvironmentType.ROAD, playerOrientation, sex_);
-        return Image.clipSixtyFour(_data.getOverWorldHeros().getVal(key_), CustList.FIRST_INDEX, CustList.FIRST_INDEX, side_, side_);
+        return _data.getOverWorldHeros().getVal(key_);
     }
 
     public String getBackHeros(DataBase _data) {

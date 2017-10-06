@@ -31,7 +31,6 @@ import aiki.map.util.ScreenCoords;
 import aiki.util.Coords;
 import aiki.util.LevelPoint;
 import aiki.util.Point;
-import code.images.Image;
 import code.maths.LgInt;
 import code.maths.Rate;
 import code.maths.montecarlo.MonteCarloString;
@@ -2090,7 +2089,7 @@ public class GameTest extends InitializationDataBase {
         Sex sex_ = game_.getPlayer().getSex();
         ImageHeroKey key_;
         key_ = new ImageHeroKey(currentEnv_, game_.getPlayerOrientation(), sex_);
-        String img_ = Image.clipSixtyFour(_data_.getOverWorldHeros().getVal(key_), 0, 0, 2, 2);
+        String img_ = _data_.getOverWorldHeros().getVal(key_);
         assertEq(img_, foreGround_.getVal(new ScreenCoords(4,4)).first());
     }
 
@@ -2119,7 +2118,7 @@ public class GameTest extends InitializationDataBase {
         Sex sex_ = game_.getPlayer().getSex();
         ImageHeroKey key_;
         key_ = new ImageHeroKey(currentEnv_, game_.getPlayerOrientation(), sex_);
-        String img_ = Image.clipSixtyFour(_data_.getOverWorldHeros().getVal(key_), 0, 0, 2, 2);
+        String img_ = _data_.getOverWorldHeros().getVal(key_);
         assertEq(img_, foreGround_.getVal(new ScreenCoords(4,4)).first());
     }
 
@@ -2150,7 +2149,7 @@ public class GameTest extends InitializationDataBase {
         Sex sex_ = game_.getPlayer().getSex();
         ImageHeroKey key_;
         key_ = new ImageHeroKey(currentEnv_, game_.getPlayerOrientation(), sex_);
-        String img_ = Image.clipSixtyFour(_data_.getOverWorldHeros().getVal(key_), 0, 0, 2, 2);
+        String img_ = _data_.getOverWorldHeros().getVal(key_);
         assertEq(img_, foreGround_.getVal(new ScreenCoords(4,4)).first());
     }
 
@@ -2187,7 +2186,7 @@ public class GameTest extends InitializationDataBase {
         Sex sex_ = game_.getPlayer().getSex();
         ImageHeroKey key_;
         key_ = new ImageHeroKey(currentEnv_, game_.getPlayerOrientation(), sex_);
-        String img_ = Image.clipSixtyFour(_data_.getOverWorldHeros().getVal(key_), 0, 0, 2, 2);
+        String img_ = _data_.getOverWorldHeros().getVal(key_);
         assertEq(img_, foreGround_.getVal(new ScreenCoords(4,4)).first());
     }
 
@@ -2214,7 +2213,7 @@ public class GameTest extends InitializationDataBase {
         Sex sex_ = game_.getPlayer().getSex();
         ImageHeroKey key_;
         key_ = new ImageHeroKey(currentEnv_, game_.getPlayerOrientation(), sex_);
-        String img_ = Image.clipSixtyFour(_data_.getOverWorldHeros().getVal(key_), 0, 0, 2, 2);
+        String img_ = _data_.getOverWorldHeros().getVal(key_);
         assertEq(img_, foreGround_.getVal(new ScreenCoords(4,4)).first());
     }
 
@@ -2242,7 +2241,7 @@ public class GameTest extends InitializationDataBase {
         Sex sex_ = game_.getPlayer().getSex();
         ImageHeroKey key_;
         key_ = new ImageHeroKey(currentEnv_, game_.getPlayerOrientation(), sex_);
-        String img_ = Image.clipSixtyFour(_data_.getOverWorldHeros().getVal(key_), 0, 0, 2, 2);
+        String img_ = _data_.getOverWorldHeros().getVal(key_);
         assertEq(img_, foreGround_.getVal(new ScreenCoords(4,4)).first());
     }
 
@@ -2273,7 +2272,7 @@ public class GameTest extends InitializationDataBase {
         Sex sex_ = game_.getPlayer().getSex();
         ImageHeroKey key_;
         key_ = new ImageHeroKey(currentEnv_, game_.getPlayerOrientation(), sex_);
-        String img_ = Image.clipSixtyFour(_data_.getOverWorldHeros().getVal(key_), 0, 0, 2, 2);
+        String img_ = _data_.getOverWorldHeros().getVal(key_);
         assertEq(img_, foreGround_.getVal(new ScreenCoords(4,4)).first());
     }
 
@@ -2310,7 +2309,7 @@ public class GameTest extends InitializationDataBase {
         Sex sex_ = game_.getPlayer().getSex();
         ImageHeroKey key_;
         key_ = new ImageHeroKey(currentEnv_, game_.getPlayerOrientation(), sex_);
-        String img_ = Image.clipSixtyFour(_data_.getOverWorldHeros().getVal(key_), 0, 0, 2, 2);
+        String img_ = _data_.getOverWorldHeros().getVal(key_);
         assertEq(img_, foreGround_.getVal(new ScreenCoords(4,4)).first());
     }
 
@@ -2339,7 +2338,7 @@ public class GameTest extends InitializationDataBase {
         key_ = new ImageHeroKey(currentEnv_, game_.getPlayerOrientation(), sex_);
         assertTrue(!_data_.getOverWorldHeros().contains(key_));
         key_ = new ImageHeroKey(EnvironmentType.ROAD, game_.getPlayerOrientation(), sex_);
-        String img_ = Image.clipSixtyFour(_data_.getOverWorldHeros().getVal(key_), 0, 0, 2, 2);
+        String img_ = _data_.getOverWorldHeros().getVal(key_);
         assertEq(img_, foreGround_.getVal(new ScreenCoords(4,4)).first());
     }
 
@@ -2368,7 +2367,7 @@ public class GameTest extends InitializationDataBase {
         key_ = new ImageHeroKey(currentEnv_, game_.getPlayerOrientation(), sex_);
         assertTrue(!_data_.getOverWorldHeros().contains(key_));
         key_ = new ImageHeroKey(EnvironmentType.ROAD, game_.getPlayerOrientation(), sex_);
-        String img_ = Image.clipSixtyFour(_data_.getOverWorldHeros().getVal(key_), 0, 0, 2, 2);
+        String img_ = _data_.getOverWorldHeros().getVal(key_);
         assertEq(img_, foreGround_.getVal(new ScreenCoords(4,4)).first());
     }
 
@@ -2397,7 +2396,7 @@ public class GameTest extends InitializationDataBase {
         Sex sex_ = game_.getPlayer().getSex();
         ImageHeroKey key_;
         key_ = new ImageHeroKey(currentEnv_, game_.getPlayerOrientation(), sex_);
-        String img_ = Image.clipSixtyFour(_data_.getOverWorldHeros().getVal(key_), 0, 0, 2, 2);
+        String img_ = _data_.getOverWorldHeros().getVal(key_);
         assertEq(img_, foreGround_.getVal(new ScreenCoords(4,4)).first());
     }
 
@@ -2426,7 +2425,7 @@ public class GameTest extends InitializationDataBase {
         Sex sex_ = game_.getPlayer().getSex();
         ImageHeroKey key_;
         key_ = new ImageHeroKey(currentEnv_, game_.getPlayerOrientation(), sex_);
-        String img_ = Image.clipSixtyFour(_data_.getOverWorldHeros().getVal(key_), 0, 0, 2, 2);
+        String img_ = _data_.getOverWorldHeros().getVal(key_);
         assertEq(img_, foreGround_.getVal(new ScreenCoords(4,4)).first());
     }
 
@@ -2457,7 +2456,7 @@ public class GameTest extends InitializationDataBase {
         Sex sex_ = game_.getPlayer().getSex();
         ImageHeroKey key_;
         key_ = new ImageHeroKey(currentEnv_, game_.getPlayerOrientation(), sex_);
-        String img_ = Image.clipSixtyFour(_data_.getOverWorldHeros().getVal(key_), 0, 0, 2, 2);
+        String img_ = _data_.getOverWorldHeros().getVal(key_);
         assertEq(img_, foreGround_.getVal(new ScreenCoords(4,4)).first());
     }
 
@@ -2500,7 +2499,7 @@ public class GameTest extends InitializationDataBase {
         Sex sex_ = game_.getPlayer().getSex();
         ImageHeroKey key_;
         key_ = new ImageHeroKey(currentEnv_, game_.getPlayerOrientation(), sex_);
-        String img_ = Image.clipSixtyFour(_data_.getOverWorldHeros().getVal(key_), 0, 0, 2, 2);
+        String img_ = _data_.getOverWorldHeros().getVal(key_);
         assertEq(img_, foreGround_.getVal(new ScreenCoords(4,4)).first());
     }
 
@@ -2529,7 +2528,7 @@ public class GameTest extends InitializationDataBase {
         Sex sex_ = game_.getPlayer().getSex();
         ImageHeroKey key_;
         key_ = new ImageHeroKey(currentEnv_, game_.getPlayerOrientation(), sex_);
-        String img_ = Image.clipSixtyFour(_data_.getOverWorldHeros().getVal(key_), 0, 0, 2, 2);
+        String img_ = _data_.getOverWorldHeros().getVal(key_);
         assertEq(img_, foreGround_.getVal(new ScreenCoords(4,4)).first());
     }
 
@@ -2558,7 +2557,7 @@ public class GameTest extends InitializationDataBase {
         Sex sex_ = game_.getPlayer().getSex();
         ImageHeroKey key_;
         key_ = new ImageHeroKey(currentEnv_, game_.getPlayerOrientation(), sex_);
-        String img_ = Image.clipSixtyFour(_data_.getOverWorldHeros().getVal(key_), 0, 0, 2, 2);
+        String img_ = _data_.getOverWorldHeros().getVal(key_);
         assertEq(img_, foreGround_.getVal(new ScreenCoords(4,4)).first());
     }
 
@@ -2589,7 +2588,7 @@ public class GameTest extends InitializationDataBase {
         Sex sex_ = game_.getPlayer().getSex();
         ImageHeroKey key_;
         key_ = new ImageHeroKey(currentEnv_, game_.getPlayerOrientation(), sex_);
-        String img_ = Image.clipSixtyFour(_data_.getOverWorldHeros().getVal(key_), 0, 0, 2, 2);
+        String img_ = _data_.getOverWorldHeros().getVal(key_);
         assertEq(img_, foreGround_.getVal(new ScreenCoords(4,4)).first());
     }
 
@@ -2620,7 +2619,7 @@ public class GameTest extends InitializationDataBase {
         Sex sex_ = game_.getPlayer().getSex();
         ImageHeroKey key_;
         key_ = new ImageHeroKey(currentEnv_, game_.getPlayerOrientation(), sex_);
-        String img_ = Image.clipSixtyFour(_data_.getOverWorldHeros().getVal(key_), 0, 0, 2, 2);
+        String img_ = _data_.getOverWorldHeros().getVal(key_);
         assertEq(img_, foreGround_.getVal(new ScreenCoords(4,4)).first());
     }
 
@@ -2649,7 +2648,7 @@ public class GameTest extends InitializationDataBase {
         Sex sex_ = game_.getPlayer().getSex();
         ImageHeroKey key_;
         key_ = new ImageHeroKey(currentEnv_, game_.getPlayerOrientation(), sex_);
-        String img_ = Image.clipSixtyFour(_data_.getOverWorldHeros().getVal(key_), 0, 0, 2, 2);
+        String img_ = _data_.getOverWorldHeros().getVal(key_);
         assertEq(img_, foreGround_.getVal(new ScreenCoords(4,4)).first());
     }
 
@@ -2678,7 +2677,7 @@ public class GameTest extends InitializationDataBase {
         Sex sex_ = game_.getPlayer().getSex();
         ImageHeroKey key_;
         key_ = new ImageHeroKey(currentEnv_, game_.getPlayerOrientation(), sex_);
-        String img_ = Image.clipSixtyFour(_data_.getOverWorldHeros().getVal(key_), 0, 0, 2, 2);
+        String img_ = _data_.getOverWorldHeros().getVal(key_);
         assertEq(img_, foreGround_.getVal(new ScreenCoords(4,4)).first());
     }
 
@@ -2708,7 +2707,7 @@ public class GameTest extends InitializationDataBase {
         key_ = new ImageHeroKey(currentEnv_, game_.getPlayerOrientation(), sex_);
         assertTrue(!_data_.getOverWorldHeros().contains(key_));
         key_ = new ImageHeroKey(EnvironmentType.ROAD, game_.getPlayerOrientation(), sex_);
-        String img_ = Image.clipSixtyFour(_data_.getOverWorldHeros().getVal(key_), 0, 0, 2, 2);
+        String img_ = _data_.getOverWorldHeros().getVal(key_);
         assertEq(img_, foreGround_.getVal(new ScreenCoords(4,4)).first());
     }
 
@@ -2738,7 +2737,7 @@ public class GameTest extends InitializationDataBase {
         key_ = new ImageHeroKey(currentEnv_, game_.getPlayerOrientation(), sex_);
         assertTrue(!_data_.getOverWorldHeros().contains(key_));
         key_ = new ImageHeroKey(EnvironmentType.ROAD, game_.getPlayerOrientation(), sex_);
-        String img_ = Image.clipSixtyFour(_data_.getOverWorldHeros().getVal(key_), 0, 0, 2, 2);
+        String img_ = _data_.getOverWorldHeros().getVal(key_);
         assertEq(img_, foreGround_.getVal(new ScreenCoords(4,4)).first());
     }
 
@@ -2765,7 +2764,7 @@ public class GameTest extends InitializationDataBase {
         Sex sex_ = game_.getPlayer().getSex();
         ImageHeroKey key_;
         key_ = new ImageHeroKey(currentEnv_, game_.getPlayerOrientation(), sex_);
-        String img_ = Image.clipSixtyFour(_data_.getOverWorldHeros().getVal(key_), 0, 0, 2, 2);
+        String img_ = _data_.getOverWorldHeros().getVal(key_);
         assertEq(img_, foreGround_.getVal(new ScreenCoords(4,4)).first());
     }
 
@@ -2792,7 +2791,7 @@ public class GameTest extends InitializationDataBase {
         Sex sex_ = game_.getPlayer().getSex();
         ImageHeroKey key_;
         key_ = new ImageHeroKey(currentEnv_, game_.getPlayerOrientation(), sex_);
-        String img_ = Image.clipSixtyFour(_data_.getOverWorldHeros().getVal(key_), 0, 0, 2, 2);
+        String img_ = _data_.getOverWorldHeros().getVal(key_);
         assertEq(img_, foreGround_.getVal(new ScreenCoords(4,4)).first());
     }
 
@@ -2819,7 +2818,7 @@ public class GameTest extends InitializationDataBase {
         Sex sex_ = game_.getPlayer().getSex();
         ImageHeroKey key_;
         key_ = new ImageHeroKey(currentEnv_, game_.getPlayerOrientation(), sex_);
-        String img_ = Image.clipSixtyFour(_data_.getOverWorldHeros().getVal(key_), 0, 0, 2, 2);
+        String img_ = _data_.getOverWorldHeros().getVal(key_);
         assertEq(img_, foreGround_.getVal(new ScreenCoords(4,4)).first());
     }
 
@@ -2846,7 +2845,7 @@ public class GameTest extends InitializationDataBase {
         Sex sex_ = game_.getPlayer().getSex();
         ImageHeroKey key_;
         key_ = new ImageHeroKey(currentEnv_, game_.getPlayerOrientation(), sex_);
-        String img_ = Image.clipSixtyFour(_data_.getOverWorldHeros().getVal(key_), 0, 0, 2, 2);
+        String img_ = _data_.getOverWorldHeros().getVal(key_);
         assertEq(img_, foreGround_.getVal(new ScreenCoords(4,4)).first());
     }
 
@@ -2872,7 +2871,7 @@ public class GameTest extends InitializationDataBase {
         Sex sex_ = game_.getPlayer().getSex();
         ImageHeroKey key_;
         key_ = new ImageHeroKey(currentEnv_, game_.getPlayerOrientation(), sex_);
-        String img_ = Image.clipSixtyFour(_data_.getOverWorldHeros().getVal(key_), 0, 0, 2, 2);
+        String img_ = _data_.getOverWorldHeros().getVal(key_);
         assertEq(img_, foreGround_.getVal(new ScreenCoords(4,4)).first());
     }
 
@@ -2898,7 +2897,7 @@ public class GameTest extends InitializationDataBase {
         Sex sex_ = game_.getPlayer().getSex();
         ImageHeroKey key_;
         key_ = new ImageHeroKey(currentEnv_, game_.getPlayerOrientation(), sex_);
-        String img_ = Image.clipSixtyFour(_data_.getOverWorldHeros().getVal(key_), 0, 0, 2, 2);
+        String img_ = _data_.getOverWorldHeros().getVal(key_);
         assertEq(img_, foreGround_.getVal(new ScreenCoords(4,4)).first());
     }
 
@@ -2924,7 +2923,7 @@ public class GameTest extends InitializationDataBase {
         Sex sex_ = game_.getPlayer().getSex();
         ImageHeroKey key_;
         key_ = new ImageHeroKey(currentEnv_, game_.getPlayerOrientation(), sex_);
-        String img_ = Image.clipSixtyFour(_data_.getOverWorldHeros().getVal(key_), 0, 0, 2, 2);
+        String img_ = _data_.getOverWorldHeros().getVal(key_);
         assertEq(img_, foreGround_.getVal(new ScreenCoords(4,4)).first());
     }
 
@@ -2950,7 +2949,7 @@ public class GameTest extends InitializationDataBase {
         Sex sex_ = game_.getPlayer().getSex();
         ImageHeroKey key_;
         key_ = new ImageHeroKey(currentEnv_, game_.getPlayerOrientation(), sex_);
-        String img_ = Image.clipSixtyFour(_data_.getOverWorldHeros().getVal(key_), 0, 0, 2, 2);
+        String img_ = _data_.getOverWorldHeros().getVal(key_);
         assertEq(img_, foreGround_.getVal(new ScreenCoords(4,4)).first());
     }
 
