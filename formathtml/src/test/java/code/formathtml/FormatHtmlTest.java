@@ -28,12 +28,12 @@ import code.formathtml.classes.BeanUtil;
 import code.formathtml.classes.Composite;
 import code.formathtml.classes.EnumNumber;
 import code.formathtml.classes.EnumNumbers;
+import code.formathtml.classes.GeneObjs;
 import code.formathtml.classes.MyTranslator;
 import code.formathtml.classes.RateEq;
 import code.formathtml.classes.SimpleMathFactory;
 import code.formathtml.exceptions.KeyValueException;
 import code.formathtml.exceptions.RenderingException;
-import code.util.CustList;
 import code.util.StringList;
 import code.util.StringMap;
 import code.util.StringMapObject;
@@ -53,7 +53,7 @@ public class FormatHtmlTest {
     private static final String ARR_ARR_OBJECT = "[[java.lang.Object";
     private static final String ARR_STRING = "[java.lang.String";
     private static final String STRING_LIST = StringList.class.getName();
-    private static final String CUST_LIST = CustList.class.getName();
+    private static final String GENE_OBJS = GeneObjs.class.getName();
 
     private static final String PKG = "code.formathtml.classes";
     private static final String ENUM = EnumNumber.class.getName();
@@ -8605,7 +8605,7 @@ public class FormatHtmlTest {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
-        String html_ = "<html xmlns:c='javahtml'><body><c:set var=\"list\" expression=\"^new."+CUST_LIST+"()\" className='"+CUST_LIST+"'/>{list;.size()}</body></html>";
+        String html_ = "<html xmlns:c='javahtml'><body><c:set var=\"list\" expression=\"^new."+STRING_LIST+"()\" className='"+STRING_LIST+"'/>{list;.size()}</body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
         files_.put("page1.html", html_);
@@ -8638,7 +8638,7 @@ public class FormatHtmlTest {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
-        String html_ = "<html xmlns:c='javahtml'><body><c:set var=\"list\" expression=\"^new."+CUST_LIST+"()\" className=\""+CUST_LIST+"\"/><c:set var=\"listTwo\" expression=\"^new."+CUST_LIST+"(list;.)\" className=\""+CUST_LIST+"\"/>{listTwo;.size()}</body></html>";
+        String html_ = "<html xmlns:c='javahtml'><body><c:set var=\"list\" expression=\"^new."+GENE_OBJS+"()\" className=\""+GENE_OBJS+"\"/><c:set var=\"listTwo\" expression=\"^new."+GENE_OBJS+"(list;.)\" className=\""+GENE_OBJS+"\"/>{listTwo;.size()}</body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
         files_.put("page1.html", html_);
@@ -8671,7 +8671,7 @@ public class FormatHtmlTest {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
-        String html_ = "<html xmlns:c='javahtml'><body><c:set var=\"list\" expression=\"^new."+CUST_LIST+"()\"/><c:set var=\"listTwo\" expression=\"^new."+CUST_LIST+"(^vararg(&quot;java.lang.Object&quot;),^firstopt(list;.))\" className=\""+CUST_LIST+"\"/>{listTwo;.size()}</body></html>";
+        String html_ = "<html xmlns:c='javahtml'><body><c:set var=\"list\" expression=\"^new."+GENE_OBJS+"()\"/><c:set var=\"listTwo\" expression=\"^new."+GENE_OBJS+"(^vararg(&quot;java.lang.Object&quot;),^firstopt(list;.))\" className=\""+GENE_OBJS+"\"/>{listTwo;.size()}</body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
         files_.put("page1.html", html_);
@@ -8705,7 +8705,7 @@ public class FormatHtmlTest {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
-        String html_ = "<html xmlns:c='javahtml'><body><c:set var=\"elt\" expression=\"2\"/><c:set var=\"elt\" expression=\"elt;.\" className=\"java.lang.Object\"/><c:set var=\"list\" expression=\"^new."+CUST_LIST+"()\" className='"+CUST_LIST+"'/><c:set expression=\"list;.add(elt;.)\"/>{list;.size()}-{list;.get(0i)}</body></html>";
+        String html_ = "<html xmlns:c='javahtml'><body><c:set var=\"elt\" expression=\"2\"/><c:set var=\"elt\" expression=\"elt;.\" className=\"java.lang.Object\"/><c:set var=\"list\" expression=\"^new."+GENE_OBJS+"()\" className='"+GENE_OBJS+"'/><c:set expression=\"list;.add(elt;.)\"/>{list;.size()}-{list;.get(0i)}</body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
         files_.put("page1.html", html_);
@@ -9138,7 +9138,7 @@ public class FormatHtmlTest {
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
 //        String html_ = "<html xmlns:c='javahtml'><body><c:set var=\"list\" expression=\"new.util.List()\" className=\"java.util.List\"/><c:set expression='list;.add(class(\"java.lang.Object\",1i))'/><c:set expression='list;.add(class(\"java.lang.Object\",2i))'/><c:set var=\"listTwo\" expression=\"new.util.List(list;.)\" className=\"util.List\"/>{listTwo;.size()}</body></html>";
-        String html_ = "<html xmlns:c='javahtml'><body><c:set var=\"list\" expression=\"^new."+CUST_LIST+"()\" className=\""+CUST_LIST+"\"/><c:set expression='list;.add(^class(\"java.lang.Object\",1i))'/><c:set expression='list;.add(^class(\"java.lang.Object\",2i))'/><c:set var=\"listTwo\" expression=\"^new."+CUST_LIST+"(list;.)\" className=\""+CUST_LIST+"\"/>{listTwo;.size()}</body></html>";
+        String html_ = "<html xmlns:c='javahtml'><body><c:set var=\"list\" expression=\"^new."+GENE_OBJS+"()\" className=\""+GENE_OBJS+"\"/><c:set expression='list;.add(^class(\"java.lang.Object\",1i))'/><c:set expression='list;.add(^class(\"java.lang.Object\",2i))'/><c:set var=\"listTwo\" expression=\"^new."+GENE_OBJS+"(list;.)\" className=\""+GENE_OBJS+"\"/>{listTwo;.size()}</body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
         files_.put("page1.html", html_);
@@ -9172,7 +9172,7 @@ public class FormatHtmlTest {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
-        String html_ = "<html xmlns:c='javahtml'><body><c:set var=\"list\" expression=\"^new."+CUST_LIST+"()\" className=\""+CUST_LIST+"\"/><c:set expression='list;.add(^class(\"java.lang.Object\",1i))'/><c:set expression='list;.add(^class(\"java.lang.Object\",2i))'/><c:set var=\"listTwo\" expression=\"^new."+CUST_LIST+"(^vararg(&quot;java.lang.Object&quot;),^firstopt(^class(&quot;java.lang.Object&quot;,list;.)))\" className=\""+CUST_LIST+"\"/>{listTwo;.size()}</body></html>";
+        String html_ = "<html xmlns:c='javahtml'><body><c:set var=\"list\" expression=\"^new."+GENE_OBJS+"()\" className=\""+GENE_OBJS+"\"/><c:set expression='list;.add(^class(\"java.lang.Object\",1i))'/><c:set expression='list;.add(^class(\"java.lang.Object\",2i))'/><c:set var=\"listTwo\" expression=\"^new."+GENE_OBJS+"(^vararg(&quot;java.lang.Object&quot;),^firstopt(^class(&quot;java.lang.Object&quot;,list;.)))\" className=\""+GENE_OBJS+"\"/>{listTwo;.size()}</body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
         files_.put("page1.html", html_);
@@ -9396,7 +9396,7 @@ public class FormatHtmlTest {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
-        String html_ = "<html xmlns:c='javahtml'><body><c:set var=\"list\" expression=\"^new."+CUST_LIST+"()\" className=\"java.lang.Iterable\"/><c:set var=\"listTwo\" expression=\"^new."+CUST_LIST+"(list;.)\" className=\""+CUST_LIST+"\"/>{listTwo;.size()}</body></html>";
+        String html_ = "<html xmlns:c='javahtml'><body><c:set var=\"list\" expression=\"^new."+GENE_OBJS+"()\" className=\"java.lang.Iterable\"/><c:set var=\"listTwo\" expression=\"^new."+GENE_OBJS+"(list;.)\" className=\""+GENE_OBJS+"\"/>{listTwo;.size()}</body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
         files_.put("page1.html", html_);
