@@ -1019,6 +1019,26 @@ public abstract class Level {
         return bl_;
     }
 
+    public Block getSafeBlockByPoint(Point _point) {
+        for (Point i: blocks.getKeys()) {
+            Block block_ = blocks.getVal(i);
+            short w_ = block_.getWidth();
+            short h_ = block_.getHeight();
+            short xi_ = i.getx();
+            short yi_ = i.gety();
+            int xr_ = xi_ + w_;
+            int yb_ = yi_ + h_;
+            short xp_ = _point.getx();
+            short yp_ = _point.gety();
+            if (xp_ >= xi_ && xp_ < xr_) {
+                if (yp_ >= yi_ && yp_ < yb_) {
+                    return block_;
+                }
+            }
+        }
+        return new Block();
+    }
+
     public Block getBlockByPoint(Point _point) {
         for (Point i: blocks.getKeys()) {
             Block block_ = blocks.getVal(i);

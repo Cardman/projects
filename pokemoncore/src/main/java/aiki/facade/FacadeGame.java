@@ -326,7 +326,7 @@ public class FacadeGame implements WithMathFactory {
         data.getMap().getBackgroundImages().clear();
         data.getMap().getForegroundImages().clear();
         data.getMap().calculateIntersectWithScreen(game.getPlayerCoords());
-        data.getMap().calculateBackgroundImagesFromTiles(data.getImages(), 0, 0);
+        data.getMap().calculateBackgroundImagesFromTiles(data, 0, 0);
         game.calculateImagesFromTiles(data, 0, 0);
     }
 
@@ -342,7 +342,7 @@ public class FacadeGame implements WithMathFactory {
 //        data.getMap().moveCamera(_direction);
         int dx_ = Math.abs(_direction.getx());
         int dy_ = Math.abs(_direction.gety());
-        data.getMap().calculateBackgroundImagesFromTiles(data.getImages(), dx_, dy_);
+        data.getMap().calculateBackgroundImagesFromTiles(data, dx_, dy_);
         game.calculateImagesFromTiles(data, _direction.getx(), _direction.gety());
         //end
 

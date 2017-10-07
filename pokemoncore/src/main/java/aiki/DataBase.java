@@ -112,6 +112,7 @@ import aiki.map.pokemon.PokemonTeam;
 import aiki.map.pokemon.WildPk;
 import aiki.map.pokemon.enums.Gender;
 import aiki.map.tree.util.Dims;
+import aiki.map.util.ScreenCoords;
 import aiki.map.util.TileMiniMap;
 import aiki.util.Coords;
 import aiki.util.LawNumber;
@@ -387,6 +388,8 @@ public class DataBase implements WithMathFactory {
 
     @CheckedData
     private StringMap<String> images = new StringMap<String>();
+
+    private StringMap<ObjectMap<ScreenCoords,String>> imagesTiles = new StringMap<ObjectMap<ScreenCoords,String>>();
 
     @CheckedData
     private StringMap<String> miniMap = new StringMap<String>();
@@ -1612,6 +1615,24 @@ public class DataBase implements WithMathFactory {
                 throw new DataException();
             }
         }
+        int side_ = map.getSideLength();
+        for (EntryCust<String, String> i: images.entryList()) {
+            String img_ = i.getValue();
+            String name_ = i.getKey();
+            PairNumber<Integer,Integer> dimsBlock_ = ConverterBufferedImage.getDimensions(img_);
+            Dims d_ = new Dims();
+            d_.setWidth((short) (dimsBlock_.getFirst()/side_));
+            d_.setHeight((short) (dimsBlock_.getSecond()/side_));
+            ObjectMap<ScreenCoords, String> tiles_;
+            tiles_ = new ObjectMap<ScreenCoords, String>();
+            for (short x = 0; x < d_.getWidth(); x++) {
+                for (short y = 0; y < d_.getHeight(); y++) {
+                    ScreenCoords sc_ = new ScreenCoords((short)x, (short)y);
+                    tiles_.put(sc_, Image.clipSixtyFour(img_, x * side_, y * side_, side_, side_));
+                }
+            }
+            imagesTiles.put(name_, tiles_);
+        }
     }
 
     public void validateTranslations() {
@@ -2300,6 +2321,7 @@ public class DataBase implements WithMathFactory {
         completeVariables();
         filesNames_.clear();
         images = new StringMap<String>();
+        imagesTiles = new StringMap<ObjectMap<ScreenCoords,String>>();
         StringList images_;
 //        images_ = listRelativePaths_.filterIgnoreCase(BEGIN_REG_EXP+IMAGES_FOLDER+SEPARATOR_FILES+NOT_EMPTY_STRING);
         images_ = listRelativePaths_.filterStrictBeginIgnoreCase(IMAGES_FOLDER+SEPARATOR_FILES);
@@ -3396,6 +3418,7 @@ public class DataBase implements WithMathFactory {
         trainers = new StringMap<String>();
         people = new StringMap<String>();
         images = new StringMap<String>();
+        imagesTiles = new StringMap<ObjectMap<ScreenCoords,String>>();
         links = new StringMap<String>();
         miniMap = new StringMap<String>();
         for (Place p: map.getPlaces().values()) {
@@ -3581,6 +3604,24 @@ public class DataBase implements WithMathFactory {
 //            if (!Image.isValid(i)) {
 //                throw new DataException();
 //            }
+        }
+        int side_ = map.getSideLength();
+        for (EntryCust<String, String> i: images.entryList()) {
+            String img_ = i.getValue();
+            String name_ = i.getKey();
+            PairNumber<Integer,Integer> dimsBlock_ = ConverterBufferedImage.getDimensions(img_);
+            Dims d_ = new Dims();
+            d_.setWidth((short) (dimsBlock_.getFirst()/side_));
+            d_.setHeight((short) (dimsBlock_.getSecond()/side_));
+            ObjectMap<ScreenCoords, String> tiles_;
+            tiles_ = new ObjectMap<ScreenCoords, String>();
+            for (short x = 0; x < d_.getWidth(); x++) {
+                for (short y = 0; y < d_.getHeight(); y++) {
+                    ScreenCoords sc_ = new ScreenCoords((short)x, (short)y);
+                    tiles_.put(sc_, Image.clipSixtyFour(img_, x * side_, y * side_, side_, side_));
+                }
+            }
+            imagesTiles.put(name_, tiles_);
         }
         _perCentLoading_ = 100;
     }
@@ -7563,6 +7604,16 @@ public class DataBase implements WithMathFactory {
 
     public StringMap<String> getImages() {
         return images;
+    }
+
+    public String getImageTile(String _name, ScreenCoords _coords) {
+        for (EntryCust<String, ObjectMap<ScreenCoords,String>> e: imagesTiles.entryList()) {
+            if(!e.getKey().equalsIgnoreCase(_name)) {
+                continue;
+            }
+            return e.getValue().getVal(_coords);
+        }
+        return EMPTY_STRING;
     }
 
     public String getMiniMap(String _name) {

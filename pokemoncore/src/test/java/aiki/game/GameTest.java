@@ -2076,7 +2076,7 @@ public class GameTest extends InitializationDataBase {
         DataMap map_ = _data_.getMap();
         map_.calculateIntersectWithScreen(game_.getPlayerCoords());
         map_.getBackgroundImages().clear();
-        map_.calculateBackgroundImagesFromTiles(_data_.getImages(), 0, 0);
+        map_.calculateBackgroundImagesFromTiles(_data_, 0, 0);
         game_.calculateImagesFromTiles(_data_, 0, 0);
         ObjectMap<ScreenCoords,StringList> foreGround_;
         foreGround_ = map_.getForegroundImages();
@@ -2102,7 +2102,7 @@ public class GameTest extends InitializationDataBase {
         DataMap map_ = _data_.getMap();
         map_.calculateIntersectWithScreen(game_.getPlayerCoords());
         map_.getBackgroundImages().clear();
-        map_.calculateBackgroundImagesFromTiles(_data_.getImages(), 0, 0);
+        map_.calculateBackgroundImagesFromTiles(_data_, 0, 0);
         game_.calculateImagesFromTiles(_data_, 0, 0);
         ObjectMap<ScreenCoords,StringList> foreGround_;
         foreGround_ = map_.getForegroundImages();
@@ -2129,7 +2129,7 @@ public class GameTest extends InitializationDataBase {
         game_.setPlayerOrientation(Direction.RIGHT);
         DataMap map_ = _data_.getMap();
         map_.calculateIntersectWithScreen(game_.getPlayerCoords());
-        map_.calculateBackgroundImagesFromTiles(_data_.getImages(), 0, 0);
+        map_.calculateBackgroundImagesFromTiles(_data_, 0, 0);
         game_.calculateImagesFromTiles(_data_, 0, 0);
         ObjectMap<ScreenCoords,StringList> foreGround_;
         foreGround_ = map_.getForegroundImages();
@@ -2170,7 +2170,7 @@ public class GameTest extends InitializationDataBase {
         game_.getPlayer().recevoirPokemon(pokemonDonne_, game_.getDifficulty(), _data_);
         DataMap map_ = _data_.getMap();
         map_.calculateIntersectWithScreen(game_.getPlayerCoords());
-        map_.calculateBackgroundImagesFromTiles(_data_.getImages(), 0, 0);
+        map_.calculateBackgroundImagesFromTiles(_data_, 0, 0);
         game_.calculateImagesFromTiles(_data_, 0, 0);
         ObjectMap<ScreenCoords,StringList> foreGround_;
         foreGround_ = map_.getForegroundImages();
@@ -2196,7 +2196,7 @@ public class GameTest extends InitializationDataBase {
         DataMap map_ = _data_.getMap();
         map_.calculateIntersectWithScreen(game_.getPlayerCoords());
         map_.getBackgroundImages().clear();
-        map_.calculateBackgroundImagesFromTiles(_data_.getImages(), 0, 0);
+        map_.calculateBackgroundImagesFromTiles(_data_, 0, 0);
         game_.calculateImagesFromTiles(_data_, 0, 0);
         ObjectMap<ScreenCoords,StringList> foreGround_;
         foreGround_ = map_.getForegroundImages();
@@ -2221,7 +2221,7 @@ public class GameTest extends InitializationDataBase {
         game_.setPlayerOrientation(Direction.RIGHT);
         DataMap map_ = _data_.getMap();
         map_.calculateIntersectWithScreen(game_.getPlayerCoords());
-        map_.calculateBackgroundImagesFromTiles(_data_.getImages(), 0, 0);
+        map_.calculateBackgroundImagesFromTiles(_data_, 0, 0);
         game_.calculateImagesFromTiles(_data_, 0, 0);
         ObjectMap<ScreenCoords,StringList> foreGround_;
         foreGround_ = map_.getForegroundImages();
@@ -2248,7 +2248,7 @@ public class GameTest extends InitializationDataBase {
         game_.setPlayerOrientation(Direction.RIGHT);
         DataMap map_ = _data_.getMap();
         map_.calculateIntersectWithScreen(game_.getPlayerCoords());
-        map_.calculateBackgroundImagesFromTiles(_data_.getImages(), 0, 0);
+        map_.calculateBackgroundImagesFromTiles(_data_, 0, 0);
         game_.calculateImagesFromTiles(_data_, 0, 0);
         ObjectMap<ScreenCoords,StringList> foreGround_;
         foreGround_ = map_.getForegroundImages();
@@ -2289,7 +2289,7 @@ public class GameTest extends InitializationDataBase {
         game_.getPlayer().recevoirPokemon(pokemonDonne_, game_.getDifficulty(), _data_);
         DataMap map_ = _data_.getMap();
         map_.calculateIntersectWithScreen(game_.getPlayerCoords());
-        map_.calculateBackgroundImagesFromTiles(_data_.getImages(), 0, 0);
+        map_.calculateBackgroundImagesFromTiles(_data_, 0, 0);
         game_.calculateImagesFromTiles(_data_, 0, 0);
         ObjectMap<ScreenCoords,StringList> foreGround_;
         foreGround_ = map_.getForegroundImages();
@@ -2314,7 +2314,7 @@ public class GameTest extends InitializationDataBase {
         game_.setPlayerOrientation(Direction.RIGHT);
         DataMap map_ = _data_.getMap();
         map_.calculateIntersectWithScreen(game_.getPlayerCoords());
-        map_.calculateBackgroundImagesFromTiles(_data_.getImages(), 0, 0);
+        map_.calculateBackgroundImagesFromTiles(_data_, 0, 0);
         game_.calculateImagesFromTiles(_data_, 0, 0);
         ObjectMap<ScreenCoords,StringList> foreGround_;
         foreGround_ = map_.getForegroundImages();
@@ -2342,7 +2342,7 @@ public class GameTest extends InitializationDataBase {
         game_.setPlayerOrientation(Direction.RIGHT);
         DataMap map_ = _data_.getMap();
         map_.calculateIntersectWithScreen(game_.getPlayerCoords());
-        map_.calculateBackgroundImagesFromTiles(_data_.getImages(), 0, 0);
+        map_.calculateBackgroundImagesFromTiles(_data_, 0, 0);
         game_.calculateImagesFromTiles(_data_, 0, 0);
         ObjectMap<ScreenCoords,StringList> foreGround_;
         foreGround_ = map_.getForegroundImages();
@@ -2372,7 +2372,7 @@ public class GameTest extends InitializationDataBase {
         DataMap map_ = _data_.getMap();
         map_.calculateIntersectWithScreen(game_.getPlayerCoords());
         map_.getBackgroundImages().clear();
-        map_.calculateBackgroundImagesFromTiles(_data_.getImages(), 0, 0);
+        map_.calculateBackgroundImagesFromTiles(_data_, 0, 0);
         game_.calculateImagesFromTiles(_data_, 0, 0);
         ObjectMap<ScreenCoords,StringList> foreGround_;
         foreGround_ = map_.getForegroundImages();
@@ -2400,7 +2400,7 @@ public class GameTest extends InitializationDataBase {
         DataMap map_ = _data_.getMap();
         map_.calculateIntersectWithScreen(game_.getPlayerCoords());
         map_.getBackgroundImages().clear();
-        map_.calculateBackgroundImagesFromTiles(_data_.getImages(), 0, 0);
+        map_.calculateBackgroundImagesFromTiles(_data_, 0, 0);
         game_.calculateImagesFromTiles(_data_, 0, 0);
         ObjectMap<ScreenCoords,StringList> foreGround_;
         foreGround_ = map_.getForegroundImages();
@@ -2427,7 +2427,7 @@ public class GameTest extends InitializationDataBase {
         DataMap map_ = _data_.getMap();
         map_.calculateIntersectWithScreen(game_.getPlayerCoords());
         map_.getBackgroundImages().clear();
-        map_.calculateBackgroundImagesFromTiles(_data_.getImages(), 0, 0);
+        map_.calculateBackgroundImagesFromTiles(_data_, 0, 0);
         game_.calculateImagesFromTiles(_data_, 0, 0);
         ObjectMap<ScreenCoords,StringList> foreGround_;
         foreGround_ = map_.getForegroundImages();
@@ -2469,7 +2469,7 @@ public class GameTest extends InitializationDataBase {
         DataMap map_ = _data_.getMap();
         map_.calculateIntersectWithScreen(game_.getPlayerCoords());
         map_.getBackgroundImages().clear();
-        map_.calculateBackgroundImagesFromTiles(_data_.getImages(), 0, 0);
+        map_.calculateBackgroundImagesFromTiles(_data_, 0, 0);
         game_.calculateImagesFromTiles(_data_, 0, 0);
         ObjectMap<ScreenCoords,StringList> foreGround_;
         foreGround_ = map_.getForegroundImages();
@@ -2499,7 +2499,7 @@ public class GameTest extends InitializationDataBase {
         DataMap map_ = _data_.getMap();
         map_.calculateIntersectWithScreen(game_.getPlayerCoords());
         map_.getBackgroundImages().clear();
-        map_.calculateBackgroundImagesFromTiles(_data_.getImages(), 0, 0);
+        map_.calculateBackgroundImagesFromTiles(_data_, 0, 0);
         game_.calculateImagesFromTiles(_data_, 0, 0);
         ObjectMap<ScreenCoords,StringList> foreGround_;
         foreGround_ = map_.getForegroundImages();
@@ -2527,7 +2527,7 @@ public class GameTest extends InitializationDataBase {
         DataMap map_ = _data_.getMap();
         map_.calculateIntersectWithScreen(game_.getPlayerCoords());
         map_.getBackgroundImages().clear();
-        map_.calculateBackgroundImagesFromTiles(_data_.getImages(), 0, 0);
+        map_.calculateBackgroundImagesFromTiles(_data_, 0, 0);
         game_.calculateImagesFromTiles(_data_, 0, 0);
         ObjectMap<ScreenCoords,StringList> foreGround_;
         foreGround_ = map_.getForegroundImages();
@@ -2555,7 +2555,7 @@ public class GameTest extends InitializationDataBase {
         DataMap map_ = _data_.getMap();
         map_.calculateIntersectWithScreen(game_.getPlayerCoords());
         map_.getBackgroundImages().clear();
-        map_.calculateBackgroundImagesFromTiles(_data_.getImages(), 0, 0);
+        map_.calculateBackgroundImagesFromTiles(_data_, 0, 0);
         game_.calculateImagesFromTiles(_data_, 0, 0);
         ObjectMap<ScreenCoords,StringList> foreGround_;
         foreGround_ = map_.getForegroundImages();
@@ -2585,7 +2585,7 @@ public class GameTest extends InitializationDataBase {
         DataMap map_ = _data_.getMap();
         map_.calculateIntersectWithScreen(game_.getPlayerCoords());
         map_.getBackgroundImages().clear();
-        map_.calculateBackgroundImagesFromTiles(_data_.getImages(), 0, 0);
+        map_.calculateBackgroundImagesFromTiles(_data_, 0, 0);
         game_.calculateImagesFromTiles(_data_, 0, 0);
         ObjectMap<ScreenCoords,StringList> foreGround_;
         foreGround_ = map_.getForegroundImages();
@@ -2615,7 +2615,7 @@ public class GameTest extends InitializationDataBase {
         DataMap map_ = _data_.getMap();
         map_.calculateIntersectWithScreen(game_.getPlayerCoords());
         map_.getBackgroundImages().clear();
-        map_.calculateBackgroundImagesFromTiles(_data_.getImages(), 0, 0);
+        map_.calculateBackgroundImagesFromTiles(_data_, 0, 0);
         game_.calculateImagesFromTiles(_data_, 0, 0);
         ObjectMap<ScreenCoords,StringList> foreGround_;
         foreGround_ = map_.getForegroundImages();
@@ -2643,7 +2643,7 @@ public class GameTest extends InitializationDataBase {
         DataMap map_ = _data_.getMap();
         map_.calculateIntersectWithScreen(game_.getPlayerCoords());
         map_.getBackgroundImages().clear();
-        map_.calculateBackgroundImagesFromTiles(_data_.getImages(), 0, 0);
+        map_.calculateBackgroundImagesFromTiles(_data_, 0, 0);
         game_.calculateImagesFromTiles(_data_, 0, 0);
         ObjectMap<ScreenCoords,StringList> foreGround_;
         foreGround_ = map_.getForegroundImages();
@@ -2671,7 +2671,7 @@ public class GameTest extends InitializationDataBase {
         DataMap map_ = _data_.getMap();
         map_.calculateIntersectWithScreen(game_.getPlayerCoords());
         map_.getBackgroundImages().clear();
-        map_.calculateBackgroundImagesFromTiles(_data_.getImages(), 0, 0);
+        map_.calculateBackgroundImagesFromTiles(_data_, 0, 0);
         game_.calculateImagesFromTiles(_data_, 0, 0);
         ObjectMap<ScreenCoords,StringList> foreGround_;
         foreGround_ = map_.getForegroundImages();
@@ -2700,7 +2700,7 @@ public class GameTest extends InitializationDataBase {
         DataMap map_ = _data_.getMap();
         map_.calculateIntersectWithScreen(game_.getPlayerCoords());
         map_.getBackgroundImages().clear();
-        map_.calculateBackgroundImagesFromTiles(_data_.getImages(), 0, 0);
+        map_.calculateBackgroundImagesFromTiles(_data_, 0, 0);
         game_.calculateImagesFromTiles(_data_, 0, 0);
         ObjectMap<ScreenCoords,StringList> foreGround_;
         foreGround_ = map_.getForegroundImages();
@@ -2729,7 +2729,7 @@ public class GameTest extends InitializationDataBase {
         DataMap map_ = _data_.getMap();
         map_.calculateIntersectWithScreen(game_.getPlayerCoords());
         map_.getBackgroundImages().clear();
-        map_.calculateBackgroundImagesFromTiles(_data_.getImages(), 0, 0);
+        map_.calculateBackgroundImagesFromTiles(_data_, 0, 0);
         game_.calculateImagesFromTiles(_data_, 0, 0);
         ObjectMap<ScreenCoords,StringList> foreGround_;
         foreGround_ = map_.getForegroundImages();
@@ -2755,7 +2755,7 @@ public class GameTest extends InitializationDataBase {
         DataMap map_ = _data_.getMap();
         map_.calculateIntersectWithScreen(game_.getPlayerCoords());
         map_.getBackgroundImages().clear();
-        map_.calculateBackgroundImagesFromTiles(_data_.getImages(), 0, 0);
+        map_.calculateBackgroundImagesFromTiles(_data_, 0, 0);
         game_.calculateImagesFromTiles(_data_, 0, 0);
         ObjectMap<ScreenCoords,StringList> foreGround_;
         foreGround_ = map_.getForegroundImages();
@@ -2781,7 +2781,7 @@ public class GameTest extends InitializationDataBase {
         DataMap map_ = _data_.getMap();
         map_.calculateIntersectWithScreen(game_.getPlayerCoords());
         map_.getBackgroundImages().clear();
-        map_.calculateBackgroundImagesFromTiles(_data_.getImages(), 0, 0);
+        map_.calculateBackgroundImagesFromTiles(_data_, 0, 0);
         game_.calculateImagesFromTiles(_data_, 0, 0);
         ObjectMap<ScreenCoords,StringList> foreGround_;
         foreGround_ = map_.getForegroundImages();
@@ -2807,7 +2807,7 @@ public class GameTest extends InitializationDataBase {
         DataMap map_ = _data_.getMap();
         map_.calculateIntersectWithScreen(game_.getPlayerCoords());
         map_.getBackgroundImages().clear();
-        map_.calculateBackgroundImagesFromTiles(_data_.getImages(), 0, 0);
+        map_.calculateBackgroundImagesFromTiles(_data_, 0, 0);
         game_.calculateImagesFromTiles(_data_, 0, 0);
         ObjectMap<ScreenCoords,StringList> foreGround_;
         foreGround_ = map_.getForegroundImages();
@@ -2833,7 +2833,7 @@ public class GameTest extends InitializationDataBase {
         DataMap map_ = _data_.getMap();
         map_.calculateIntersectWithScreen(game_.getPlayerCoords());
         map_.getBackgroundImages().clear();
-        map_.calculateBackgroundImagesFromTiles(_data_.getImages(), 0, 0);
+        map_.calculateBackgroundImagesFromTiles(_data_, 0, 0);
         game_.calculateImagesFromTiles(_data_, 0, 0);
         ObjectMap<ScreenCoords,StringList> foreGround_;
         foreGround_ = map_.getForegroundImages();
@@ -2858,7 +2858,7 @@ public class GameTest extends InitializationDataBase {
         DataMap map_ = _data_.getMap();
         map_.calculateIntersectWithScreen(game_.getPlayerCoords());
         map_.getBackgroundImages().clear();
-        map_.calculateBackgroundImagesFromTiles(_data_.getImages(), 0, 0);
+        map_.calculateBackgroundImagesFromTiles(_data_, 0, 0);
         game_.calculateImagesFromTiles(_data_, 0, 0);
         ObjectMap<ScreenCoords,StringList> foreGround_;
         foreGround_ = map_.getForegroundImages();
@@ -2883,7 +2883,7 @@ public class GameTest extends InitializationDataBase {
         DataMap map_ = _data_.getMap();
         map_.calculateIntersectWithScreen(game_.getPlayerCoords());
         map_.getBackgroundImages().clear();
-        map_.calculateBackgroundImagesFromTiles(_data_.getImages(), 0, 0);
+        map_.calculateBackgroundImagesFromTiles(_data_, 0, 0);
         game_.calculateImagesFromTiles(_data_, 0, 0);
         ObjectMap<ScreenCoords,StringList> foreGround_;
         foreGround_ = map_.getForegroundImages();
@@ -2908,7 +2908,7 @@ public class GameTest extends InitializationDataBase {
         DataMap map_ = _data_.getMap();
         map_.calculateIntersectWithScreen(game_.getPlayerCoords());
         map_.getBackgroundImages().clear();
-        map_.calculateBackgroundImagesFromTiles(_data_.getImages(), 0, 0);
+        map_.calculateBackgroundImagesFromTiles(_data_, 0, 0);
         game_.calculateImagesFromTiles(_data_, 0, 0);
         ObjectMap<ScreenCoords,StringList> foreGround_;
         foreGround_ = map_.getForegroundImages();

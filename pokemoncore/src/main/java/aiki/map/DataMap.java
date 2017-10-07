@@ -1,7 +1,6 @@
 package aiki.map;
 import aiki.DataBase;
 import aiki.comparators.ComparatorMiniMapCoords;
-import aiki.comparators.ComparatorScreenCoords;
 import aiki.exceptions.BlockNotFoundException;
 import aiki.exceptions.DataException;
 import aiki.exceptions.NoWildPokemonException;
@@ -65,7 +64,6 @@ import aiki.map.util.TileMiniMap;
 import aiki.util.Coords;
 import aiki.util.LevelPoint;
 import aiki.util.Point;
-import code.images.Image;
 import code.serialize.CheckedData;
 import code.util.CustList;
 import code.util.EntryCust;
@@ -74,7 +72,6 @@ import code.util.EqList;
 import code.util.NumberMap;
 import code.util.Numbers;
 import code.util.ObjectMap;
-import code.util.ReversibleMap;
 import code.util.StringList;
 import code.util.StringMap;
 import code.util.TreeMap;
@@ -3138,51 +3135,26 @@ public class DataMap {
         tiles = liste_;
     }
 
-    public void calculateBackgroundImagesFromTiles(StringMap<String> _images, int _dx, int _dy) {
-        ReversibleMap<ScreenCoords, Coords> ids_;
-        ids_ = new ReversibleMap<ScreenCoords, Coords>();
+    public void calculateBackgroundImagesFromTiles(DataBase _data, int _dx, int _dy) {
         for (ScreenCoords k: tiles.getKeys()) {
             Coords coords_ = tiles.getVal(k);
-            try {
-                Place place_ = places.getVal(coords_.getNumberPlace());
-                Level level_ = place_.getLevelByCoords(coords_);
-                Point pt_ = coords_.getLevel().getPoint();
-                Point idBlock_ = level_.getBlockIdByPoint(pt_);
-                Coords coordsId_ = new Coords(coords_);
-                coordsId_.getLevel().getPoint().affect(idBlock_);
-                ids_.put(k, coordsId_);
-            } catch (RuntimeException _0) {
-            }
-        }
-        EqList<ScreenCoords> topsLeft_;
-        topsLeft_ = new EqList<ScreenCoords>();
-        ObjectMap<Coords, EqList<ScreenCoords>> reverse_;
-        reverse_ = ids_.reverseMap();
-        for (Coords c: reverse_.getKeys()) {
-            EqList<ScreenCoords> l_;
-            l_ = reverse_.getVal(c);
-            l_.sortElts(new ComparatorScreenCoords());
-            topsLeft_.add(l_.first());
-        }
-        for (ScreenCoords k: topsLeft_) {
-            Coords coords_ = tiles.getVal(k);
-            Coords coordsId_ = ids_.getVal(k);
             Place place_ = places.getVal(coords_.getNumberPlace());
+            if (place_ == null) {
+                continue;
+            }
             Level level_ = place_.getLevelByCoords(coords_);
             Point pt_ = coords_.getLevel().getPoint();
-            Point idBlock_ = coordsId_.getLevel().getPoint();
-            Block block_ = level_.getBlocks().getVal(idBlock_);
-            String img_ = DataBase.getValueCaseInsensitive(_images, block_.getTileFileName());
-            int x_ = (pt_.getx() - idBlock_.getx()) * sideLength;
-            int y_ = (pt_.gety() - idBlock_.gety()) * sideLength;
-            int w_;
-            w_ = Math.min(block_.getWidth(), screenWidth - k.getXcoords() + 2 * _dx);
-            int h_;
-            h_ = Math.min(block_.getHeight(), screenHeight - k.getYcoords() + 2 * _dy);
-            try {
-                backgroundImages.put(k,Image.clipSixtyFour(img_, x_, y_, w_ * sideLength, h_ * sideLength));
-            } catch (RuntimeException _0) {
+            Block bl_ = level_.getSafeBlockByPoint(pt_);
+            if (!bl_.isValid()) {
+                continue;
             }
+            Point idBlock_ = level_.getBlockIdByPoint(pt_);
+            String file_ = bl_.getTileFileName();
+            int x_ = pt_.getx() - idBlock_.getx();
+            int y_ = pt_.gety() - idBlock_.gety();
+            ScreenCoords c_ = new ScreenCoords(x_, y_);
+            String img_ = _data.getImageTile(file_, c_);
+            backgroundImages.put(k, img_);
         }
     }
 
