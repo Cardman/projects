@@ -3158,18 +3158,6 @@ public class DataMap {
         topsLeft_ = new EqList<ScreenCoords>();
         ObjectMap<Coords, EqList<ScreenCoords>> reverse_;
         reverse_ = ids_.reverseMap();
-//        reverse_ = new Map<Coords, CustList<ScreenCoords>>();
-//        for (EntryCust<ScreenCoords, Coords> e: ids_.entryList()) {
-//            Coords c_ = e.getValue();
-//            ScreenCoords s_ = e.getKey();
-//            if (reverse_.contains(c_)) {
-//                reverse_.getVal(c_).add(s_);
-//            } else {
-//                CustList<ScreenCoords> l_;
-//                l_ = new CustList<ScreenCoords>(s_);
-//                reverse_.put(c_, l_);
-//            }
-//        }
         for (Coords c: reverse_.getKeys()) {
             EqList<ScreenCoords> l_;
             l_ = reverse_.getVal(c);
@@ -3184,7 +3172,6 @@ public class DataMap {
             Point pt_ = coords_.getLevel().getPoint();
             Point idBlock_ = coordsId_.getLevel().getPoint();
             Block block_ = level_.getBlocks().getVal(idBlock_);
-//            String img_ = _images.getVal(block_.getTileFileName());
             String img_ = DataBase.getValueCaseInsensitive(_images, block_.getTileFileName());
             int x_ = (pt_.getx() - idBlock_.getx()) * sideLength;
             int y_ = (pt_.gety() - idBlock_.gety()) * sideLength;

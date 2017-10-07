@@ -6574,52 +6574,6 @@ public class DataBase implements WithMathFactory {
         return tokens_.containsObj(_word);
     }
 
-    public void toBaseSixtyFour() {
-        for (String n: images.getKeys()) {
-            images.put(n, ConverterBufferedImage.toBaseSixtyFourQuick(images.getVal(n)));
-        }
-        for (String n: links.getKeys()) {
-            links.put(n, ConverterBufferedImage.toBaseSixtyFourQuick(links.getVal(n)));
-        }
-        for (String n: people.getKeys()) {
-            people.put(n, ConverterBufferedImage.toBaseSixtyFourQuick(people.getVal(n)));
-        }
-        for (ImageHeroKey k: frontHeros.getKeys()) {
-            String image_ = frontHeros.getVal(k);
-            frontHeros.put(k, ConverterBufferedImage.toBaseSixtyFourQuick(image_));
-        }
-        for (ImageHeroKey k: backHeros.getKeys()) {
-            String image_ = backHeros.getVal(k);
-            backHeros.put(k, ConverterBufferedImage.toBaseSixtyFourQuick(image_));
-        }
-        for (ImageHeroKey k: overWorldHeros.getKeys()) {
-            String image_ = overWorldHeros.getVal(k);
-            overWorldHeros.put(k, ConverterBufferedImage.toBaseSixtyFourQuick(image_));
-        }
-        for (String n: trainers.getKeys()) {
-            trainers.put(n, ConverterBufferedImage.toBaseSixtyFourQuick(trainers.getVal(n)));
-        }
-        for (String n: maxiPkFront.getKeys()) {
-            maxiPkFront.put(n, ConverterBufferedImage.toBaseSixtyFourQuick(maxiPkFront.getVal(n)));
-        }
-        for (String n: maxiPkBack.getKeys()) {
-            maxiPkBack.put(n, ConverterBufferedImage.toBaseSixtyFourQuick(maxiPkBack.getVal(n)));
-        }
-        for (String n: miniPk.getKeys()) {
-            miniPk.put(n, ConverterBufferedImage.toBaseSixtyFourQuick(miniPk.getVal(n)));
-        }
-        for (String n: miniItems.getKeys()) {
-            miniItems.put(n, ConverterBufferedImage.toBaseSixtyFourQuick(miniItems.getVal(n)));
-        }
-        imageTmHm = ConverterBufferedImage.toBaseSixtyFourQuick(imageTmHm);
-        storage = ConverterBufferedImage.toBaseSixtyFourQuick(storage);
-//        files_.put(IMAGE_TM_HM_FILES+IMG_FILES_RES_EXT_TXT, imageTmHm);
-//        files_.put(IMAGE_STORAGE_FILES+IMG_FILES_RES_EXT_TXT, storage);
-//        if (!endGameImage.isEmpty()) {
-//            files_.put(END_GAME_IMAGE+IMG_FILES_RES_EXT_TXT, endGameImage);
-//        }
-    }
-
     public StringMap<String> getTextFiles() {
         return getTextFiles(true);
     }

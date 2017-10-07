@@ -2077,7 +2077,6 @@ public class GameTest extends InitializationDataBase {
         map_.calculateIntersectWithScreen(game_.getPlayerCoords());
         map_.getBackgroundImages().clear();
         map_.calculateBackgroundImagesFromTiles(_data_.getImages(), 0, 0);
-        assertEq(9, map_.getBackgroundImages().size());
         game_.calculateImagesFromTiles(_data_, 0, 0);
         ObjectMap<ScreenCoords,StringList> foreGround_;
         foreGround_ = map_.getForegroundImages();
@@ -2104,7 +2103,6 @@ public class GameTest extends InitializationDataBase {
         map_.calculateIntersectWithScreen(game_.getPlayerCoords());
         map_.getBackgroundImages().clear();
         map_.calculateBackgroundImagesFromTiles(_data_.getImages(), 0, 0);
-        //assertEq(9, map_.getBackgroundImages().size());
         game_.calculateImagesFromTiles(_data_, 0, 0);
         ObjectMap<ScreenCoords,StringList> foreGround_;
         foreGround_ = map_.getForegroundImages();
@@ -2132,7 +2130,6 @@ public class GameTest extends InitializationDataBase {
         DataMap map_ = _data_.getMap();
         map_.calculateIntersectWithScreen(game_.getPlayerCoords());
         map_.calculateBackgroundImagesFromTiles(_data_.getImages(), 0, 0);
-        //assertEq(9, map_.getBackgroundImages().size());
         game_.calculateImagesFromTiles(_data_, 0, 0);
         ObjectMap<ScreenCoords,StringList> foreGround_;
         foreGround_ = map_.getForegroundImages();
@@ -2174,7 +2171,6 @@ public class GameTest extends InitializationDataBase {
         DataMap map_ = _data_.getMap();
         map_.calculateIntersectWithScreen(game_.getPlayerCoords());
         map_.calculateBackgroundImagesFromTiles(_data_.getImages(), 0, 0);
-        //assertEq(9, map_.getBackgroundImages().size());
         game_.calculateImagesFromTiles(_data_, 0, 0);
         ObjectMap<ScreenCoords,StringList> foreGround_;
         foreGround_ = map_.getForegroundImages();
@@ -2201,7 +2197,6 @@ public class GameTest extends InitializationDataBase {
         map_.calculateIntersectWithScreen(game_.getPlayerCoords());
         map_.getBackgroundImages().clear();
         map_.calculateBackgroundImagesFromTiles(_data_.getImages(), 0, 0);
-        assertEq(9, map_.getBackgroundImages().size());
         game_.calculateImagesFromTiles(_data_, 0, 0);
         ObjectMap<ScreenCoords,StringList> foreGround_;
         foreGround_ = map_.getForegroundImages();
@@ -2227,7 +2222,6 @@ public class GameTest extends InitializationDataBase {
         DataMap map_ = _data_.getMap();
         map_.calculateIntersectWithScreen(game_.getPlayerCoords());
         map_.calculateBackgroundImagesFromTiles(_data_.getImages(), 0, 0);
-        //assertEq(9, map_.getBackgroundImages().size());
         game_.calculateImagesFromTiles(_data_, 0, 0);
         ObjectMap<ScreenCoords,StringList> foreGround_;
         foreGround_ = map_.getForegroundImages();
@@ -2255,7 +2249,6 @@ public class GameTest extends InitializationDataBase {
         DataMap map_ = _data_.getMap();
         map_.calculateIntersectWithScreen(game_.getPlayerCoords());
         map_.calculateBackgroundImagesFromTiles(_data_.getImages(), 0, 0);
-        //assertEq(9, map_.getBackgroundImages().size());
         game_.calculateImagesFromTiles(_data_, 0, 0);
         ObjectMap<ScreenCoords,StringList> foreGround_;
         foreGround_ = map_.getForegroundImages();
@@ -2297,7 +2290,6 @@ public class GameTest extends InitializationDataBase {
         DataMap map_ = _data_.getMap();
         map_.calculateIntersectWithScreen(game_.getPlayerCoords());
         map_.calculateBackgroundImagesFromTiles(_data_.getImages(), 0, 0);
-        //assertEq(9, map_.getBackgroundImages().size());
         game_.calculateImagesFromTiles(_data_, 0, 0);
         ObjectMap<ScreenCoords,StringList> foreGround_;
         foreGround_ = map_.getForegroundImages();
@@ -2323,7 +2315,6 @@ public class GameTest extends InitializationDataBase {
         DataMap map_ = _data_.getMap();
         map_.calculateIntersectWithScreen(game_.getPlayerCoords());
         map_.calculateBackgroundImagesFromTiles(_data_.getImages(), 0, 0);
-        //assertEq(9, map_.getBackgroundImages().size());
         game_.calculateImagesFromTiles(_data_, 0, 0);
         ObjectMap<ScreenCoords,StringList> foreGround_;
         foreGround_ = map_.getForegroundImages();
@@ -2352,7 +2343,6 @@ public class GameTest extends InitializationDataBase {
         DataMap map_ = _data_.getMap();
         map_.calculateIntersectWithScreen(game_.getPlayerCoords());
         map_.calculateBackgroundImagesFromTiles(_data_.getImages(), 0, 0);
-        //assertEq(9, map_.getBackgroundImages().size());
         game_.calculateImagesFromTiles(_data_, 0, 0);
         ObjectMap<ScreenCoords,StringList> foreGround_;
         foreGround_ = map_.getForegroundImages();
@@ -2383,7 +2373,6 @@ public class GameTest extends InitializationDataBase {
         map_.calculateIntersectWithScreen(game_.getPlayerCoords());
         map_.getBackgroundImages().clear();
         map_.calculateBackgroundImagesFromTiles(_data_.getImages(), 0, 0);
-        //assertEq(9, map_.getBackgroundImages().size());
         game_.calculateImagesFromTiles(_data_, 0, 0);
         ObjectMap<ScreenCoords,StringList> foreGround_;
         foreGround_ = map_.getForegroundImages();
@@ -2412,7 +2401,6 @@ public class GameTest extends InitializationDataBase {
         map_.calculateIntersectWithScreen(game_.getPlayerCoords());
         map_.getBackgroundImages().clear();
         map_.calculateBackgroundImagesFromTiles(_data_.getImages(), 0, 0);
-        //assertEq(9, map_.getBackgroundImages().size());
         game_.calculateImagesFromTiles(_data_, 0, 0);
         ObjectMap<ScreenCoords,StringList> foreGround_;
         foreGround_ = map_.getForegroundImages();
@@ -2440,7 +2428,6 @@ public class GameTest extends InitializationDataBase {
         map_.calculateIntersectWithScreen(game_.getPlayerCoords());
         map_.getBackgroundImages().clear();
         map_.calculateBackgroundImagesFromTiles(_data_.getImages(), 0, 0);
-        //assertEq(9, map_.getBackgroundImages().size());
         game_.calculateImagesFromTiles(_data_, 0, 0);
         ObjectMap<ScreenCoords,StringList> foreGround_;
         foreGround_ = map_.getForegroundImages();
@@ -2483,7 +2470,6 @@ public class GameTest extends InitializationDataBase {
         map_.calculateIntersectWithScreen(game_.getPlayerCoords());
         map_.getBackgroundImages().clear();
         map_.calculateBackgroundImagesFromTiles(_data_.getImages(), 0, 0);
-        //assertEq(9, map_.getBackgroundImages().size());
         game_.calculateImagesFromTiles(_data_, 0, 0);
         ObjectMap<ScreenCoords,StringList> foreGround_;
         foreGround_ = map_.getForegroundImages();
@@ -2514,7 +2500,6 @@ public class GameTest extends InitializationDataBase {
         map_.calculateIntersectWithScreen(game_.getPlayerCoords());
         map_.getBackgroundImages().clear();
         map_.calculateBackgroundImagesFromTiles(_data_.getImages(), 0, 0);
-        assertEq(1, map_.getBackgroundImages().size());
         game_.calculateImagesFromTiles(_data_, 0, 0);
         ObjectMap<ScreenCoords,StringList> foreGround_;
         foreGround_ = map_.getForegroundImages();
@@ -2543,7 +2528,6 @@ public class GameTest extends InitializationDataBase {
         map_.calculateIntersectWithScreen(game_.getPlayerCoords());
         map_.getBackgroundImages().clear();
         map_.calculateBackgroundImagesFromTiles(_data_.getImages(), 0, 0);
-        assertEq(1, map_.getBackgroundImages().size());
         game_.calculateImagesFromTiles(_data_, 0, 0);
         ObjectMap<ScreenCoords,StringList> foreGround_;
         foreGround_ = map_.getForegroundImages();
@@ -2572,7 +2556,6 @@ public class GameTest extends InitializationDataBase {
         map_.calculateIntersectWithScreen(game_.getPlayerCoords());
         map_.getBackgroundImages().clear();
         map_.calculateBackgroundImagesFromTiles(_data_.getImages(), 0, 0);
-        assertEq(1, map_.getBackgroundImages().size());
         game_.calculateImagesFromTiles(_data_, 0, 0);
         ObjectMap<ScreenCoords,StringList> foreGround_;
         foreGround_ = map_.getForegroundImages();
@@ -2603,7 +2586,6 @@ public class GameTest extends InitializationDataBase {
         map_.calculateIntersectWithScreen(game_.getPlayerCoords());
         map_.getBackgroundImages().clear();
         map_.calculateBackgroundImagesFromTiles(_data_.getImages(), 0, 0);
-        assertEq(1, map_.getBackgroundImages().size());
         game_.calculateImagesFromTiles(_data_, 0, 0);
         ObjectMap<ScreenCoords,StringList> foreGround_;
         foreGround_ = map_.getForegroundImages();
@@ -2634,7 +2616,6 @@ public class GameTest extends InitializationDataBase {
         map_.calculateIntersectWithScreen(game_.getPlayerCoords());
         map_.getBackgroundImages().clear();
         map_.calculateBackgroundImagesFromTiles(_data_.getImages(), 0, 0);
-        assertEq(1, map_.getBackgroundImages().size());
         game_.calculateImagesFromTiles(_data_, 0, 0);
         ObjectMap<ScreenCoords,StringList> foreGround_;
         foreGround_ = map_.getForegroundImages();
@@ -2663,7 +2644,6 @@ public class GameTest extends InitializationDataBase {
         map_.calculateIntersectWithScreen(game_.getPlayerCoords());
         map_.getBackgroundImages().clear();
         map_.calculateBackgroundImagesFromTiles(_data_.getImages(), 0, 0);
-        assertEq(1, map_.getBackgroundImages().size());
         game_.calculateImagesFromTiles(_data_, 0, 0);
         ObjectMap<ScreenCoords,StringList> foreGround_;
         foreGround_ = map_.getForegroundImages();
@@ -2692,7 +2672,6 @@ public class GameTest extends InitializationDataBase {
         map_.calculateIntersectWithScreen(game_.getPlayerCoords());
         map_.getBackgroundImages().clear();
         map_.calculateBackgroundImagesFromTiles(_data_.getImages(), 0, 0);
-        //assertEq(9, map_.getBackgroundImages().size());
         game_.calculateImagesFromTiles(_data_, 0, 0);
         ObjectMap<ScreenCoords,StringList> foreGround_;
         foreGround_ = map_.getForegroundImages();
@@ -2722,7 +2701,6 @@ public class GameTest extends InitializationDataBase {
         map_.calculateIntersectWithScreen(game_.getPlayerCoords());
         map_.getBackgroundImages().clear();
         map_.calculateBackgroundImagesFromTiles(_data_.getImages(), 0, 0);
-        //assertEq(9, map_.getBackgroundImages().size());
         game_.calculateImagesFromTiles(_data_, 0, 0);
         ObjectMap<ScreenCoords,StringList> foreGround_;
         foreGround_ = map_.getForegroundImages();
@@ -2752,7 +2730,6 @@ public class GameTest extends InitializationDataBase {
         map_.calculateIntersectWithScreen(game_.getPlayerCoords());
         map_.getBackgroundImages().clear();
         map_.calculateBackgroundImagesFromTiles(_data_.getImages(), 0, 0);
-        //assertEq(9, map_.getBackgroundImages().size());
         game_.calculateImagesFromTiles(_data_, 0, 0);
         ObjectMap<ScreenCoords,StringList> foreGround_;
         foreGround_ = map_.getForegroundImages();
@@ -2779,7 +2756,6 @@ public class GameTest extends InitializationDataBase {
         map_.calculateIntersectWithScreen(game_.getPlayerCoords());
         map_.getBackgroundImages().clear();
         map_.calculateBackgroundImagesFromTiles(_data_.getImages(), 0, 0);
-        //assertEq(9, map_.getBackgroundImages().size());
         game_.calculateImagesFromTiles(_data_, 0, 0);
         ObjectMap<ScreenCoords,StringList> foreGround_;
         foreGround_ = map_.getForegroundImages();
@@ -2806,7 +2782,6 @@ public class GameTest extends InitializationDataBase {
         map_.calculateIntersectWithScreen(game_.getPlayerCoords());
         map_.getBackgroundImages().clear();
         map_.calculateBackgroundImagesFromTiles(_data_.getImages(), 0, 0);
-        //assertEq(9, map_.getBackgroundImages().size());
         game_.calculateImagesFromTiles(_data_, 0, 0);
         ObjectMap<ScreenCoords,StringList> foreGround_;
         foreGround_ = map_.getForegroundImages();
@@ -2833,7 +2808,6 @@ public class GameTest extends InitializationDataBase {
         map_.calculateIntersectWithScreen(game_.getPlayerCoords());
         map_.getBackgroundImages().clear();
         map_.calculateBackgroundImagesFromTiles(_data_.getImages(), 0, 0);
-        //assertEq(9, map_.getBackgroundImages().size());
         game_.calculateImagesFromTiles(_data_, 0, 0);
         ObjectMap<ScreenCoords,StringList> foreGround_;
         foreGround_ = map_.getForegroundImages();
@@ -2860,7 +2834,6 @@ public class GameTest extends InitializationDataBase {
         map_.calculateIntersectWithScreen(game_.getPlayerCoords());
         map_.getBackgroundImages().clear();
         map_.calculateBackgroundImagesFromTiles(_data_.getImages(), 0, 0);
-        //assertEq(9, map_.getBackgroundImages().size());
         game_.calculateImagesFromTiles(_data_, 0, 0);
         ObjectMap<ScreenCoords,StringList> foreGround_;
         foreGround_ = map_.getForegroundImages();
@@ -2886,7 +2859,6 @@ public class GameTest extends InitializationDataBase {
         map_.calculateIntersectWithScreen(game_.getPlayerCoords());
         map_.getBackgroundImages().clear();
         map_.calculateBackgroundImagesFromTiles(_data_.getImages(), 0, 0);
-        //assertEq(9, map_.getBackgroundImages().size());
         game_.calculateImagesFromTiles(_data_, 0, 0);
         ObjectMap<ScreenCoords,StringList> foreGround_;
         foreGround_ = map_.getForegroundImages();
@@ -2912,7 +2884,6 @@ public class GameTest extends InitializationDataBase {
         map_.calculateIntersectWithScreen(game_.getPlayerCoords());
         map_.getBackgroundImages().clear();
         map_.calculateBackgroundImagesFromTiles(_data_.getImages(), 0, 0);
-        //assertEq(9, map_.getBackgroundImages().size());
         game_.calculateImagesFromTiles(_data_, 0, 0);
         ObjectMap<ScreenCoords,StringList> foreGround_;
         foreGround_ = map_.getForegroundImages();
@@ -2938,7 +2909,6 @@ public class GameTest extends InitializationDataBase {
         map_.calculateIntersectWithScreen(game_.getPlayerCoords());
         map_.getBackgroundImages().clear();
         map_.calculateBackgroundImagesFromTiles(_data_.getImages(), 0, 0);
-        //assertEq(9, map_.getBackgroundImages().size());
         game_.calculateImagesFromTiles(_data_, 0, 0);
         ObjectMap<ScreenCoords,StringList> foreGround_;
         foreGround_ = map_.getForegroundImages();

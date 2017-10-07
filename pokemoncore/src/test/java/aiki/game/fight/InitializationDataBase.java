@@ -863,7 +863,6 @@ public class InitializationDataBase {
         data_.getMap().initializeLinks();
         data_.initializeWildPokemon();
         data_.getMap().initInteractiveElements();
-        data_.toBaseSixtyFour();
         data_.completeVariables();
         initTableTypes(data_);
         initConstants(data_);
