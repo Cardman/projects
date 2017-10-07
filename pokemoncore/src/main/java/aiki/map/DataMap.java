@@ -3138,16 +3138,13 @@ public class DataMap {
     public void calculateBackgroundImagesFromTiles(DataBase _data, int _dx, int _dy) {
         for (ScreenCoords k: tiles.getKeys()) {
             Coords coords_ = tiles.getVal(k);
-            Place place_ = places.getVal(coords_.getNumberPlace());
-            if (place_ == null) {
+            if (!coords_.isValid()) {
                 continue;
             }
+            Place place_ = places.getVal(coords_.getNumberPlace());
             Level level_ = place_.getLevelByCoords(coords_);
             Point pt_ = coords_.getLevel().getPoint();
             Block bl_ = level_.getSafeBlockByPoint(pt_);
-            if (!bl_.isValid()) {
-                continue;
-            }
             Point idBlock_ = level_.getBlockIdByPoint(pt_);
             String file_ = bl_.getTileFileName();
             int x_ = pt_.getx() - idBlock_.getx();

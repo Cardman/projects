@@ -3,9 +3,9 @@ import static aiki.EquallablePkUtil.assertEq;
 import static org.junit.Assert.assertTrue;
 
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 
+import aiki.DataBase;
 import aiki.map.buildings.Building;
 import aiki.map.buildings.Gym;
 import aiki.map.enums.Direction;
@@ -22,11 +22,9 @@ import aiki.map.util.ScreenCoords;
 import aiki.util.Coords;
 import aiki.util.LevelPoint;
 import aiki.util.Point;
-import code.images.ConverterBufferedImage;
 import code.images.Image;
 import code.util.NumberMap;
 import code.util.ObjectMap;
-import code.util.PairNumber;
 import code.util.StringList;
 import code.util.StringMap;
 
@@ -468,195 +466,299 @@ public class DataMapScreenTest {
         assertEq(new Point((short)5,(short)1), intersect_.getVal(new ScreenCoords(2,2)).getLevel().getPoint());
     }
 
-    @Ignore
     @Test
     public void calculateBackgroundImagesFromTiles1Test() {
         dataMap.setSideLength(2);
+        DataBase data_ = new DataBase();
         StringMap<String> images_ = new StringMap<String>();
         StringList list_ = new StringList("3","4","5","6");
         StringList voie_ = new StringList("6");
         for (int i = 0; i < 9; i++) {
             voie_.addAllElts(list_);
         }
-        images_.put(VOIE, ConverterBufferedImage.toBaseSixtyFourQuick(voie_.join(Image.SEPARATOR_CHAR)));
+        images_.put(VOIE, voie_.join(Image.SEPARATOR_CHAR));
         StringList voieTwo_ = new StringList("12");
         for (int i = 0; i < 18; i++) {
             voieTwo_.addAllElts(list_);
         }
-        images_.put(VOIE2, ConverterBufferedImage.toBaseSixtyFourQuick(voieTwo_.join(Image.SEPARATOR_CHAR)));
+        images_.put(VOIE2, voieTwo_.join(Image.SEPARATOR_CHAR));
         StringList voieThree_ = new StringList("6");
         for (int i = 0; i < 18; i++) {
             voieThree_.addAllElts(list_);
         }
-        images_.put(VOIE3, ConverterBufferedImage.toBaseSixtyFourQuick(voieThree_.join(Image.SEPARATOR_CHAR)));
+        images_.put(VOIE3, voieThree_.join(Image.SEPARATOR_CHAR));
+        data_.getImages().putAllMap(images_);
+        data_.setMap(dataMap);
+        data_.setupPseudoImages();
         Coords begin_ = new Coords();
         begin_.setNumberPlace((short) 0);
         begin_.setLevel(new LevelPoint());
         begin_.getLevel().setLevelIndex((byte) 0);
         begin_.getLevel().setPoint(new Point((short)1,(short)1));
         dataMap.calculateIntersectWithScreen(begin_);
-        dataMap.calculateBackgroundImagesFromTiles(null, 0, 0);
+        dataMap.calculateBackgroundImagesFromTiles(data_, 0, 0);
         ObjectMap<ScreenCoords, String> backGroundImages_ = dataMap.getBackgroundImages();
-        assertEq(5, backGroundImages_.size());
-        PairNumber<Integer,Integer> dims_;
-        dims_ = ConverterBufferedImage.getDimensions(backGroundImages_.getVal(new ScreenCoords(6,0)));
-        assertEq(6, dims_.getFirst().intValue());
-        assertEq(6, dims_.getSecond().intValue());
-        dims_ = ConverterBufferedImage.getDimensions(backGroundImages_.getVal(new ScreenCoords(3,3)));
-        assertEq(6, dims_.getFirst().intValue());
-        assertEq(6, dims_.getSecond().intValue());
-        dims_ = ConverterBufferedImage.getDimensions(backGroundImages_.getVal(new ScreenCoords(6,3)));
-        assertEq(6, dims_.getFirst().intValue());
-        assertEq(6, dims_.getSecond().intValue());
-        dims_ = ConverterBufferedImage.getDimensions(backGroundImages_.getVal(new ScreenCoords(3,6)));
-        assertEq(6, dims_.getFirst().intValue());
-        assertEq(6, dims_.getSecond().intValue());
-        dims_ = ConverterBufferedImage.getDimensions(backGroundImages_.getVal(new ScreenCoords(6,6)));
-        assertEq(6, dims_.getFirst().intValue());
-        assertEq(6, dims_.getSecond().intValue());
+        assertEq(45, backGroundImages_.size());
+        assertTrue(backGroundImages_.contains(new ScreenCoords(3,3)));
+        assertTrue(backGroundImages_.contains(new ScreenCoords(3,4)));
+        assertTrue(backGroundImages_.contains(new ScreenCoords(3,5)));
+        assertTrue(backGroundImages_.contains(new ScreenCoords(3,6)));
+        assertTrue(backGroundImages_.contains(new ScreenCoords(3,7)));
+        assertTrue(backGroundImages_.contains(new ScreenCoords(3,8)));
+        assertTrue(backGroundImages_.contains(new ScreenCoords(4,3)));
+        assertTrue(backGroundImages_.contains(new ScreenCoords(4,4)));
+        assertTrue(backGroundImages_.contains(new ScreenCoords(4,5)));
+        assertTrue(backGroundImages_.contains(new ScreenCoords(4,6)));
+        assertTrue(backGroundImages_.contains(new ScreenCoords(4,7)));
+        assertTrue(backGroundImages_.contains(new ScreenCoords(4,8)));
+        assertTrue(backGroundImages_.contains(new ScreenCoords(5,3)));
+        assertTrue(backGroundImages_.contains(new ScreenCoords(5,4)));
+        assertTrue(backGroundImages_.contains(new ScreenCoords(5,5)));
+        assertTrue(backGroundImages_.contains(new ScreenCoords(5,6)));
+        assertTrue(backGroundImages_.contains(new ScreenCoords(5,7)));
+        assertTrue(backGroundImages_.contains(new ScreenCoords(5,8)));
+        assertTrue(backGroundImages_.contains(new ScreenCoords(6,0)));
+        assertTrue(backGroundImages_.contains(new ScreenCoords(6,1)));
+        assertTrue(backGroundImages_.contains(new ScreenCoords(6,2)));
+        assertTrue(backGroundImages_.contains(new ScreenCoords(6,3)));
+        assertTrue(backGroundImages_.contains(new ScreenCoords(6,4)));
+        assertTrue(backGroundImages_.contains(new ScreenCoords(6,5)));
+        assertTrue(backGroundImages_.contains(new ScreenCoords(6,6)));
+        assertTrue(backGroundImages_.contains(new ScreenCoords(6,7)));
+        assertTrue(backGroundImages_.contains(new ScreenCoords(6,8)));
+        assertTrue(backGroundImages_.contains(new ScreenCoords(7,0)));
+        assertTrue(backGroundImages_.contains(new ScreenCoords(7,1)));
+        assertTrue(backGroundImages_.contains(new ScreenCoords(7,2)));
+        assertTrue(backGroundImages_.contains(new ScreenCoords(7,3)));
+        assertTrue(backGroundImages_.contains(new ScreenCoords(7,4)));
+        assertTrue(backGroundImages_.contains(new ScreenCoords(7,5)));
+        assertTrue(backGroundImages_.contains(new ScreenCoords(7,6)));
+        assertTrue(backGroundImages_.contains(new ScreenCoords(7,7)));
+        assertTrue(backGroundImages_.contains(new ScreenCoords(7,8)));
+        assertTrue(backGroundImages_.contains(new ScreenCoords(8,0)));
+        assertTrue(backGroundImages_.contains(new ScreenCoords(8,1)));
+        assertTrue(backGroundImages_.contains(new ScreenCoords(8,2)));
+        assertTrue(backGroundImages_.contains(new ScreenCoords(8,3)));
+        assertTrue(backGroundImages_.contains(new ScreenCoords(8,4)));
+        assertTrue(backGroundImages_.contains(new ScreenCoords(8,5)));
+        assertTrue(backGroundImages_.contains(new ScreenCoords(8,6)));
+        assertTrue(backGroundImages_.contains(new ScreenCoords(8,7)));
+        assertTrue(backGroundImages_.contains(new ScreenCoords(8,8)));
     }
 
-    @Ignore
     @Test
     public void calculateBackgroundImagesFromTiles2Test() {
         dataMap.setSideLength(2);
+        DataBase data_ = new DataBase();
         StringMap<String> images_ = new StringMap<String>();
         StringList list_ = new StringList("3","4","5","6");
         StringList voie_ = new StringList("6");
         for (int i = 0; i < 9; i++) {
             voie_.addAllElts(list_);
         }
-        images_.put(VOIE, ConverterBufferedImage.toBaseSixtyFourQuick(voie_.join(Image.SEPARATOR_CHAR)));
+        images_.put(VOIE, voie_.join(Image.SEPARATOR_CHAR));
         StringList voieTwo_ = new StringList("12");
         for (int i = 0; i < 18; i++) {
             voieTwo_.addAllElts(list_);
         }
-        images_.put(VOIE2, ConverterBufferedImage.toBaseSixtyFourQuick(voieTwo_.join(Image.SEPARATOR_CHAR)));
+        images_.put(VOIE2, voieTwo_.join(Image.SEPARATOR_CHAR));
         StringList voieThree_ = new StringList("6");
         for (int i = 0; i < 18; i++) {
             voieThree_.addAllElts(list_);
         }
-        images_.put(VOIE3, ConverterBufferedImage.toBaseSixtyFourQuick(voieThree_.join(Image.SEPARATOR_CHAR)));
+        images_.put(VOIE3, voieThree_.join(Image.SEPARATOR_CHAR));
         Coords begin_ = new Coords();
         begin_.setNumberPlace((short) 0);
         begin_.setLevel(new LevelPoint());
         begin_.getLevel().setLevelIndex((byte) 0);
         begin_.getLevel().setPoint(new Point((short)1,(short)0));
+        data_.getImages().putAllMap(images_);
+        data_.setMap(dataMap);
+        data_.setupPseudoImages();
         dataMap.calculateIntersectWithScreen(begin_);
-        dataMap.calculateBackgroundImagesFromTiles(null, 0, 0);
+        dataMap.calculateBackgroundImagesFromTiles(data_, 0, 0);
         ObjectMap<ScreenCoords, String> backGroundImages_ = dataMap.getBackgroundImages();
-        assertEq(5, backGroundImages_.size());
-        PairNumber<Integer,Integer> dims_;
-        dims_ = ConverterBufferedImage.getDimensions(backGroundImages_.getVal(new ScreenCoords(6,0)));
-        assertEq(6, dims_.getFirst().intValue());
-        assertEq(8, dims_.getSecond().intValue());
-        dims_ = ConverterBufferedImage.getDimensions(backGroundImages_.getVal(new ScreenCoords(3,4)));
-        assertEq(6, dims_.getFirst().intValue());
-        assertEq(6, dims_.getSecond().intValue());
-        dims_ = ConverterBufferedImage.getDimensions(backGroundImages_.getVal(new ScreenCoords(6,4)));
-        assertEq(6, dims_.getFirst().intValue());
-        assertEq(6, dims_.getSecond().intValue());
-        dims_ = ConverterBufferedImage.getDimensions(backGroundImages_.getVal(new ScreenCoords(3,7)));
-        assertEq(6, dims_.getFirst().intValue());
-        assertEq(4, dims_.getSecond().intValue());
-        dims_ = ConverterBufferedImage.getDimensions(backGroundImages_.getVal(new ScreenCoords(6,7)));
-        assertEq(6, dims_.getFirst().intValue());
-        assertEq(4, dims_.getSecond().intValue());
+        assertEq(42, backGroundImages_.size());
+        assertTrue(backGroundImages_.contains(new ScreenCoords(3,4)));
+        assertTrue(backGroundImages_.contains(new ScreenCoords(3,5)));
+        assertTrue(backGroundImages_.contains(new ScreenCoords(3,6)));
+        assertTrue(backGroundImages_.contains(new ScreenCoords(3,7)));
+        assertTrue(backGroundImages_.contains(new ScreenCoords(3,8)));
+        assertTrue(backGroundImages_.contains(new ScreenCoords(4,4)));
+        assertTrue(backGroundImages_.contains(new ScreenCoords(4,5)));
+        assertTrue(backGroundImages_.contains(new ScreenCoords(4,6)));
+        assertTrue(backGroundImages_.contains(new ScreenCoords(4,7)));
+        assertTrue(backGroundImages_.contains(new ScreenCoords(4,8)));
+        assertTrue(backGroundImages_.contains(new ScreenCoords(5,4)));
+        assertTrue(backGroundImages_.contains(new ScreenCoords(5,5)));
+        assertTrue(backGroundImages_.contains(new ScreenCoords(5,6)));
+        assertTrue(backGroundImages_.contains(new ScreenCoords(5,7)));
+        assertTrue(backGroundImages_.contains(new ScreenCoords(5,8)));
+        assertTrue(backGroundImages_.contains(new ScreenCoords(6,0)));
+        assertTrue(backGroundImages_.contains(new ScreenCoords(6,1)));
+        assertTrue(backGroundImages_.contains(new ScreenCoords(6,2)));
+        assertTrue(backGroundImages_.contains(new ScreenCoords(6,3)));
+        assertTrue(backGroundImages_.contains(new ScreenCoords(6,4)));
+        assertTrue(backGroundImages_.contains(new ScreenCoords(6,5)));
+        assertTrue(backGroundImages_.contains(new ScreenCoords(6,6)));
+        assertTrue(backGroundImages_.contains(new ScreenCoords(6,7)));
+        assertTrue(backGroundImages_.contains(new ScreenCoords(6,8)));
+        assertTrue(backGroundImages_.contains(new ScreenCoords(7,0)));
+        assertTrue(backGroundImages_.contains(new ScreenCoords(7,1)));
+        assertTrue(backGroundImages_.contains(new ScreenCoords(7,2)));
+        assertTrue(backGroundImages_.contains(new ScreenCoords(7,3)));
+        assertTrue(backGroundImages_.contains(new ScreenCoords(7,4)));
+        assertTrue(backGroundImages_.contains(new ScreenCoords(7,5)));
+        assertTrue(backGroundImages_.contains(new ScreenCoords(7,6)));
+        assertTrue(backGroundImages_.contains(new ScreenCoords(7,7)));
+        assertTrue(backGroundImages_.contains(new ScreenCoords(7,8)));
+        assertTrue(backGroundImages_.contains(new ScreenCoords(8,0)));
+        assertTrue(backGroundImages_.contains(new ScreenCoords(8,1)));
+        assertTrue(backGroundImages_.contains(new ScreenCoords(8,2)));
+        assertTrue(backGroundImages_.contains(new ScreenCoords(8,3)));
+        assertTrue(backGroundImages_.contains(new ScreenCoords(8,4)));
+        assertTrue(backGroundImages_.contains(new ScreenCoords(8,5)));
+        assertTrue(backGroundImages_.contains(new ScreenCoords(8,6)));
+        assertTrue(backGroundImages_.contains(new ScreenCoords(8,7)));
+        assertTrue(backGroundImages_.contains(new ScreenCoords(8,8)));
     }
 
-    @Ignore
     @Test
     public void calculateBackgroundImagesFromTiles3Test() {
         dataMap.setSideLength(2);
+        DataBase data_ = new DataBase();
         StringMap<String> images_ = new StringMap<String>();
         StringList list_ = new StringList("3","4","5","6");
         StringList voie_ = new StringList("6");
         for (int i = 0; i < 9; i++) {
             voie_.addAllElts(list_);
         }
-        images_.put(VOIE, ConverterBufferedImage.toBaseSixtyFourQuick(voie_.join(Image.SEPARATOR_CHAR)));
+        images_.put(VOIE, voie_.join(Image.SEPARATOR_CHAR));
         StringList voieTwo_ = new StringList("12");
         for (int i = 0; i < 18; i++) {
             voieTwo_.addAllElts(list_);
         }
-        images_.put(VOIE2, ConverterBufferedImage.toBaseSixtyFourQuick(voieTwo_.join(Image.SEPARATOR_CHAR)));
+        images_.put(VOIE2, voieTwo_.join(Image.SEPARATOR_CHAR));
         StringList voieThree_ = new StringList("6");
         for (int i = 0; i < 18; i++) {
             voieThree_.addAllElts(list_);
         }
-        images_.put(VOIE3, ConverterBufferedImage.toBaseSixtyFourQuick(voieThree_.join(Image.SEPARATOR_CHAR)));
+        images_.put(VOIE3, voieThree_.join(Image.SEPARATOR_CHAR));
         Coords begin_ = new Coords();
         begin_.setNumberPlace((short) 0);
         begin_.setLevel(new LevelPoint());
         begin_.getLevel().setLevelIndex((byte) 0);
         begin_.getLevel().setPoint(new Point((short)0,(short)1));
+        data_.getImages().putAllMap(images_);
+        data_.setMap(dataMap);
+        data_.setupPseudoImages();
         dataMap.calculateIntersectWithScreen(begin_);
-        dataMap.calculateBackgroundImagesFromTiles(null, 0, 0);
+        dataMap.calculateBackgroundImagesFromTiles(data_, 0, 0);
         ObjectMap<ScreenCoords, String> backGroundImages_ = dataMap.getBackgroundImages();
-        assertEq(5, backGroundImages_.size());
-        PairNumber<Integer,Integer> dims_;
-        dims_ = ConverterBufferedImage.getDimensions(backGroundImages_.getVal(new ScreenCoords(7,0)));
-        assertEq(4, dims_.getFirst().intValue());
-        assertEq(6, dims_.getSecond().intValue());
-        dims_ = ConverterBufferedImage.getDimensions(backGroundImages_.getVal(new ScreenCoords(4,3)));
-        assertEq(6, dims_.getFirst().intValue());
-        assertEq(6, dims_.getSecond().intValue());
-        dims_ = ConverterBufferedImage.getDimensions(backGroundImages_.getVal(new ScreenCoords(7,3)));
-        assertEq(4, dims_.getFirst().intValue());
-        assertEq(6, dims_.getSecond().intValue());
-        dims_ = ConverterBufferedImage.getDimensions(backGroundImages_.getVal(new ScreenCoords(4,6)));
-        assertEq(6, dims_.getFirst().intValue());
-        assertEq(6, dims_.getSecond().intValue());
-        dims_ = ConverterBufferedImage.getDimensions(backGroundImages_.getVal(new ScreenCoords(7,6)));
-        assertEq(4, dims_.getFirst().intValue());
-        assertEq(6, dims_.getSecond().intValue());
+        assertEq(36, backGroundImages_.size());
+        assertTrue(backGroundImages_.contains(new ScreenCoords(4,3)));
+        assertTrue(backGroundImages_.contains(new ScreenCoords(4,4)));
+        assertTrue(backGroundImages_.contains(new ScreenCoords(4,5)));
+        assertTrue(backGroundImages_.contains(new ScreenCoords(4,6)));
+        assertTrue(backGroundImages_.contains(new ScreenCoords(4,7)));
+        assertTrue(backGroundImages_.contains(new ScreenCoords(4,8)));
+        assertTrue(backGroundImages_.contains(new ScreenCoords(5,3)));
+        assertTrue(backGroundImages_.contains(new ScreenCoords(5,4)));
+        assertTrue(backGroundImages_.contains(new ScreenCoords(5,5)));
+        assertTrue(backGroundImages_.contains(new ScreenCoords(5,6)));
+        assertTrue(backGroundImages_.contains(new ScreenCoords(5,7)));
+        assertTrue(backGroundImages_.contains(new ScreenCoords(5,8)));
+        assertTrue(backGroundImages_.contains(new ScreenCoords(6,3)));
+        assertTrue(backGroundImages_.contains(new ScreenCoords(6,4)));
+        assertTrue(backGroundImages_.contains(new ScreenCoords(6,5)));
+        assertTrue(backGroundImages_.contains(new ScreenCoords(6,6)));
+        assertTrue(backGroundImages_.contains(new ScreenCoords(6,7)));
+        assertTrue(backGroundImages_.contains(new ScreenCoords(6,8)));
+        assertTrue(backGroundImages_.contains(new ScreenCoords(7,0)));
+        assertTrue(backGroundImages_.contains(new ScreenCoords(7,1)));
+        assertTrue(backGroundImages_.contains(new ScreenCoords(7,2)));
+        assertTrue(backGroundImages_.contains(new ScreenCoords(7,3)));
+        assertTrue(backGroundImages_.contains(new ScreenCoords(7,4)));
+        assertTrue(backGroundImages_.contains(new ScreenCoords(7,5)));
+        assertTrue(backGroundImages_.contains(new ScreenCoords(7,6)));
+        assertTrue(backGroundImages_.contains(new ScreenCoords(7,7)));
+        assertTrue(backGroundImages_.contains(new ScreenCoords(7,8)));
+        assertTrue(backGroundImages_.contains(new ScreenCoords(8,0)));
+        assertTrue(backGroundImages_.contains(new ScreenCoords(8,1)));
+        assertTrue(backGroundImages_.contains(new ScreenCoords(8,2)));
+        assertTrue(backGroundImages_.contains(new ScreenCoords(8,3)));
+        assertTrue(backGroundImages_.contains(new ScreenCoords(8,4)));
+        assertTrue(backGroundImages_.contains(new ScreenCoords(8,5)));
+        assertTrue(backGroundImages_.contains(new ScreenCoords(8,6)));
+        assertTrue(backGroundImages_.contains(new ScreenCoords(8,7)));
+        assertTrue(backGroundImages_.contains(new ScreenCoords(8,8)));
     }
 
-    @Ignore
     @Test
     public void calculateBackgroundImagesFromTiles4Test() {
         dataMap.setSideLength(2);
+        DataBase data_ = new DataBase();
         StringMap<String> images_ = new StringMap<String>();
         StringList list_ = new StringList("3","4","5","6");
         StringList voie_ = new StringList("6");
         for (int i = 0; i < 9; i++) {
             voie_.addAllElts(list_);
         }
-        images_.put(VOIE, ConverterBufferedImage.toBaseSixtyFourQuick(voie_.join(Image.SEPARATOR_CHAR)));
+        images_.put(VOIE, voie_.join(Image.SEPARATOR_CHAR));
         StringList voieTwo_ = new StringList("12");
         for (int i = 0; i < 18; i++) {
             voieTwo_.addAllElts(list_);
         }
-        images_.put(VOIE2, ConverterBufferedImage.toBaseSixtyFourQuick(voieTwo_.join(Image.SEPARATOR_CHAR)));
+        images_.put(VOIE2, voieTwo_.join(Image.SEPARATOR_CHAR));
         StringList voieThree_ = new StringList("6");
         for (int i = 0; i < 18; i++) {
             voieThree_.addAllElts(list_);
         }
-        images_.put(VOIE3, ConverterBufferedImage.toBaseSixtyFourQuick(voieThree_.join(Image.SEPARATOR_CHAR)));
+        images_.put(VOIE3, voieThree_.join(Image.SEPARATOR_CHAR));
         Coords begin_ = new Coords();
         begin_.setNumberPlace((short) 0);
         begin_.setLevel(new LevelPoint());
         begin_.getLevel().setLevelIndex((byte) 0);
         begin_.getLevel().setPoint(new Point((short)8,(short)8));
+        data_.getImages().putAllMap(images_);
+        data_.setMap(dataMap);
+        data_.setupPseudoImages();
         dataMap.calculateIntersectWithScreen(begin_);
-        dataMap.calculateBackgroundImagesFromTiles(null, 0, 0);
+        dataMap.calculateBackgroundImagesFromTiles(data_, 0, 0);
         ObjectMap<ScreenCoords, String> backGroundImages_ = dataMap.getBackgroundImages();
-        assertEq(5, backGroundImages_.size());
-        PairNumber<Integer,Integer> dims_;
-        dims_ = ConverterBufferedImage.getDimensions(backGroundImages_.getVal(new ScreenCoords(0,0)));
-        assertEq(4, dims_.getFirst().intValue());
-        assertEq(4, dims_.getSecond().intValue());
-        dims_ = ConverterBufferedImage.getDimensions(backGroundImages_.getVal(new ScreenCoords(2,0)));
-        assertEq(6, dims_.getFirst().intValue());
-        assertEq(4, dims_.getSecond().intValue());
-        dims_ = ConverterBufferedImage.getDimensions(backGroundImages_.getVal(new ScreenCoords(5,0)));
-        assertEq(8, dims_.getFirst().intValue());
-        assertEq(4, dims_.getSecond().intValue());
-        dims_ = ConverterBufferedImage.getDimensions(backGroundImages_.getVal(new ScreenCoords(0,2)));
-        assertEq(4, dims_.getFirst().intValue());
-        assertEq(6, dims_.getSecond().intValue());
-        dims_ = ConverterBufferedImage.getDimensions(backGroundImages_.getVal(new ScreenCoords(2,2)));
-        assertEq(6, dims_.getFirst().intValue());
-        assertEq(6, dims_.getSecond().intValue());
+        assertEq(33, backGroundImages_.size());
+        assertTrue(backGroundImages_.contains(new ScreenCoords(0,0)));
+        assertTrue(backGroundImages_.contains(new ScreenCoords(0,1)));
+        assertTrue(backGroundImages_.contains(new ScreenCoords(0,2)));
+        assertTrue(backGroundImages_.contains(new ScreenCoords(0,3)));
+        assertTrue(backGroundImages_.contains(new ScreenCoords(0,4)));
+        assertTrue(backGroundImages_.contains(new ScreenCoords(1,0)));
+        assertTrue(backGroundImages_.contains(new ScreenCoords(1,1)));
+        assertTrue(backGroundImages_.contains(new ScreenCoords(1,2)));
+        assertTrue(backGroundImages_.contains(new ScreenCoords(1,3)));
+        assertTrue(backGroundImages_.contains(new ScreenCoords(1,4)));
+        assertTrue(backGroundImages_.contains(new ScreenCoords(2,0)));
+        assertTrue(backGroundImages_.contains(new ScreenCoords(2,1)));
+        assertTrue(backGroundImages_.contains(new ScreenCoords(2,2)));
+        assertTrue(backGroundImages_.contains(new ScreenCoords(2,3)));
+        assertTrue(backGroundImages_.contains(new ScreenCoords(2,4)));
+        assertTrue(backGroundImages_.contains(new ScreenCoords(3,0)));
+        assertTrue(backGroundImages_.contains(new ScreenCoords(3,1)));
+        assertTrue(backGroundImages_.contains(new ScreenCoords(3,2)));
+        assertTrue(backGroundImages_.contains(new ScreenCoords(3,3)));
+        assertTrue(backGroundImages_.contains(new ScreenCoords(3,4)));
+        assertTrue(backGroundImages_.contains(new ScreenCoords(4,0)));
+        assertTrue(backGroundImages_.contains(new ScreenCoords(4,1)));
+        assertTrue(backGroundImages_.contains(new ScreenCoords(4,2)));
+        assertTrue(backGroundImages_.contains(new ScreenCoords(4,3)));
+        assertTrue(backGroundImages_.contains(new ScreenCoords(4,4)));
+        assertTrue(backGroundImages_.contains(new ScreenCoords(5,0)));
+        assertTrue(backGroundImages_.contains(new ScreenCoords(5,1)));
+        assertTrue(backGroundImages_.contains(new ScreenCoords(6,0)));
+        assertTrue(backGroundImages_.contains(new ScreenCoords(6,1)));
+        assertTrue(backGroundImages_.contains(new ScreenCoords(7,0)));
+        assertTrue(backGroundImages_.contains(new ScreenCoords(7,1)));
+        assertTrue(backGroundImages_.contains(new ScreenCoords(8,0)));
+        assertTrue(backGroundImages_.contains(new ScreenCoords(8,1)));
     }
 }

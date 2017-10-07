@@ -3625,6 +3625,26 @@ public class DataBase implements WithMathFactory {
         }
         _perCentLoading_ = 100;
     }
+    public void setupPseudoImages() {
+        int side_ = map.getSideLength();
+        for (EntryCust<String, String> i: images.entryList()) {
+            String img_ = i.getValue();
+            String name_ = i.getKey();
+            PairNumber<Integer,Integer> dimsBlock_ = Image.getDimensions(img_, side_);
+            Dims d_ = new Dims();
+            d_.setWidth((short) dimsBlock_.getFirst().shortValue());
+            d_.setHeight((short) dimsBlock_.getSecond().shortValue());
+            ObjectMap<ScreenCoords, String> tiles_;
+            tiles_ = new ObjectMap<ScreenCoords, String>();
+            for (short x = 0; x < d_.getWidth(); x++) {
+                for (short y = 0; y < d_.getHeight(); y++) {
+                    ScreenCoords sc_ = new ScreenCoords((short)x, (short)y);
+                    tiles_.put(sc_, Image.clip(img_, x * side_, y * side_, side_, side_));
+                }
+            }
+            imagesTiles.put(name_, tiles_);
+        }
+    }
     public static void deleteLineReturn(StringMap<String> _map) {
         for (EntryCust<String,String> e: _map.entryList()) {
             String value_ = e.getValue();
@@ -7659,6 +7679,10 @@ public class DataBase implements WithMathFactory {
 
     public DataMap getMap() {
         return map;
+    }
+
+    public void setMap(DataMap _map) {
+        map = _map;
     }
 
     public Combos getCombos() {

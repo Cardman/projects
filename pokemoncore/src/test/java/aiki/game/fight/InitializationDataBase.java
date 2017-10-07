@@ -886,6 +886,7 @@ public class InitializationDataBase {
         data_.setCheckTranslation(false);
         CheckNumericStringsFight.validateNumericBooleanStrings(data_, false);
         data_.getMap().validate(data_);
+        data_.setupPseudoImages();
         return data_;
     }
 
