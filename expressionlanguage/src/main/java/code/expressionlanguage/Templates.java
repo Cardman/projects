@@ -15,7 +15,6 @@ import code.util.EqList;
 import code.util.StringList;
 import code.util.StringMap;
 import code.util.consts.ConstClasses;
-import code.util.opers.CollectionsUtil;
 
 public final class Templates {
 
@@ -26,6 +25,7 @@ public final class Templates {
     public static final char SEP_BOUNDS = '&';
     public static final String SEP_CLASS = ".";
     public static final String PREFIX_VAR_TYPE = "#";
+    public static final char PREFIX_VAR_TYPE_CHAR = '#';
     private static final String EMPTY_STRING = "";
 
     private Templates() {
@@ -296,41 +296,41 @@ public final class Templates {
     }
 
     static String getFormattedType(String _type, StringMap<String> _varTypes) {
-        StringList wordsAsTokens_ = StringList.getWordsSeparators(_type);
-        StringList newList_ = new StringList();
-        for (String t: wordsAsTokens_) {
-            if (newList_.isEmpty()) {
-                newList_.add(t);
+        StringBuilder str_ = new StringBuilder();
+        int len_ = _type.length();
+        int diese_ = 0;
+        boolean var_ = false;
+        for (int i = 0; i < len_; i++) {
+            if (_type.charAt(i) == PREFIX_VAR_TYPE_CHAR) {
+                var_ = true;
+                diese_ = i;
                 continue;
             }
-            if (StringList.isWord(t)) {
-                if (newList_.last().endsWith(SEP_CLASS)) {
-                    newList_.setLast(newList_.last()+t);
-                } else {
-                    newList_.add(t);
-                }
-            } else if (StringList.quickEq(t,SEP_CLASS)) {
-                newList_.setLast(newList_.last()+t);
+            if (!var_) {
+                str_.append(_type.charAt(i));
+                continue;
+            }
+            if (StringList.isWordChar(_type.charAt(i))) {
+                continue;
+            }
+            String sub_ = _type.substring(diese_+1, i);
+            if (_varTypes.contains(sub_)) {
+                str_.append(_varTypes.getVal(sub_));
             } else {
-                newList_.add(t);
+                str_.append(sub_);
+            }
+            str_.append(_type.charAt(i));
+            var_ = false;
+        }
+        if (var_) {
+            String sub_ = _type.substring(diese_+1);
+            if (_varTypes.contains(sub_)) {
+                str_.append(_varTypes.getVal(sub_));
+            } else {
+                str_.append(sub_);
             }
         }
-        int len_ = newList_.size();
-        for (int i = CollectionsUtil.getFirstIndex(); i < len_; i++) {
-            if (i % 2 == CollectionsUtil.getFirstIndex() % 2) {
-                continue;
-            }
-            String type_ = newList_.get(i);
-            if (_varTypes.contains(type_)) {
-                String previous_ = newList_.getPrev(i);
-                int indexDiese_ = previous_.lastIndexOf(PREFIX_VAR_TYPE);
-                if (indexDiese_ != CustList.INDEX_NOT_FOUND_ELT) {
-                    newList_.set(i - 1, previous_.substring(0, indexDiese_));
-                    newList_.set(i,_varTypes.getVal(type_));
-                }
-            }
-        }
-        return newList_.join(EMPTY_STRING);
+        return str_.toString();
     }
     public static boolean isCorrect(Mapping _m, Classes _classes) {
         String arg_ = _m.getArg();

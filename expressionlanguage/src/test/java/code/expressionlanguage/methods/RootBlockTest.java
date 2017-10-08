@@ -374,6 +374,165 @@ public class RootBlockTest {
         classes_.validateOverridingInherit(cont_);
         assertTrue(classes_.getErrorsDet().toString(), classes_.getErrorsDet().isEmpty());
     }
+    @Test
+    public void test9() {
+        StringMap<String> files_ = new StringMap<String>();
+        String xml_;
+        xml_ = "<class modifier='abstract' access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' template='&lt;#E&gt;'>\n";
+        xml_ += "<method access='"+PUBLIC_ACCESS+"' name='instancemethod' class='"+OperationNode.VOID_RETURN+"' modifier='abstract' var0='i' class0='#E'>\n";
+        xml_ += "</method>\n";
+        xml_ += "</class>\n";
+        files_.put("pkg/Ex."+Classes.EXT, xml_);
+        xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExTwo' package='pkg' template='&lt;#T&gt;' superclass='pkg.Ex&lt;#T&gt;'>\n";
+        xml_ += "<method access='"+PUBLIC_ACCESS+"' name='instancemethod' class='"+OperationNode.VOID_RETURN+"' modifier='normal' var0='i' class0='#T'>\n";
+        xml_ += "</method>\n";
+        xml_ += "</class>\n";
+        files_.put("pkg/ExTwo."+Classes.EXT, xml_);
+        ContextEl cont_ = unfullValidateOverridingMethods(files_);
+        Classes classes_ = cont_.getClasses();
+        classes_.validateSingleParameterizedClasses(cont_);
+        assertTrue(classes_.getErrorsDet().toString(), classes_.getErrorsDet().isEmpty());
+        classes_.validateIds(cont_);
+        assertTrue(classes_.getErrorsDet().toString(), classes_.getErrorsDet().isEmpty());
+        classes_.validateOverridingInherit(cont_);
+        assertTrue(classes_.getErrorsDet().toString(), classes_.getErrorsDet().isEmpty());
+        ObjectMap<MethodId, StringList> map_ = classes_.getClassBody("pkg.ExTwo").getAllOverridingMethods();
+        assertEq(1, map_.size());
+        StringList superTypes_ = map_.getVal(new MethodId("instancemethod", new EqList<ClassName>(new ClassName("#T", false))));
+        assertEq(2, superTypes_.size());
+        assertEq("pkg.ExTwo<#T>", superTypes_.first());
+        assertEq("pkg.Ex<#T>", superTypes_.last());
+        map_ = classes_.getClassBody("pkg.Ex").getAllOverridingMethods();
+        assertEq(1, map_.size());
+        superTypes_ = map_.getVal(new MethodId("instancemethod", new EqList<ClassName>(new ClassName("#E", false))));
+        assertEq(1, superTypes_.size());
+        assertEq("pkg.Ex<#E>", superTypes_.first());
+    }
+    @Test
+    public void test10() {
+        StringMap<String> files_ = new StringMap<String>();
+        String xml_;
+        xml_ = "<interface modifier='abstract' access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' template='&lt;#E&gt;'>\n";
+        xml_ += "<method access='"+PUBLIC_ACCESS+"' name='instancemethod' class='"+OperationNode.VOID_RETURN+"' modifier='abstract' var0='i' class0='#E'>\n";
+        xml_ += "</method>\n";
+        xml_ += "</interface>\n";
+        files_.put("pkg/Ex."+Classes.EXT, xml_);
+        xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExTwo' package='pkg' template='&lt;#T&gt;' class0='pkg.Ex&lt;#T&gt;'>\n";
+        xml_ += "<method access='"+PUBLIC_ACCESS+"' name='instancemethod' class='"+OperationNode.VOID_RETURN+"' modifier='normal' var0='i' class0='#T'>\n";
+        xml_ += "</method>\n";
+        xml_ += "</class>\n";
+        files_.put("pkg/ExTwo."+Classes.EXT, xml_);
+        ContextEl cont_ = unfullValidateOverridingMethods(files_);
+        Classes classes_ = cont_.getClasses();
+        classes_.validateSingleParameterizedClasses(cont_);
+        assertTrue(classes_.getErrorsDet().toString(), classes_.getErrorsDet().isEmpty());
+        classes_.validateIds(cont_);
+        assertTrue(classes_.getErrorsDet().toString(), classes_.getErrorsDet().isEmpty());
+        classes_.validateOverridingInherit(cont_);
+        assertTrue(classes_.getErrorsDet().toString(), classes_.getErrorsDet().isEmpty());
+        ObjectMap<MethodId, StringList> map_ = classes_.getClassBody("pkg.ExTwo").getAllOverridingMethods();
+        assertEq(1, map_.size());
+        StringList superTypes_ = map_.getVal(new MethodId("instancemethod", new EqList<ClassName>(new ClassName("#T", false))));
+        assertEq(2, superTypes_.size());
+        assertEq("pkg.ExTwo<#T>", superTypes_.first());
+        assertEq("pkg.Ex<#T>", superTypes_.last());
+        map_ = classes_.getClassBody("pkg.Ex").getAllOverridingMethods();
+        assertEq(1, map_.size());
+        superTypes_ = map_.getVal(new MethodId("instancemethod", new EqList<ClassName>(new ClassName("#E", false))));
+        assertEq(1, superTypes_.size());
+        assertEq("pkg.Ex<#E>", superTypes_.first());
+    }
+    @Test
+    public void test11() {
+        StringMap<String> files_ = new StringMap<String>();
+        String xml_;
+        xml_ = "<interface modifier='abstract' access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' template='&lt;#E&gt;'>\n";
+        xml_ += "<method access='"+PUBLIC_ACCESS+"' name='instancemethod' class='"+OperationNode.VOID_RETURN+"' modifier='abstract' var0='i' class0='#E'>\n";
+        xml_ += "</method>\n";
+        xml_ += "</interface>\n";
+        files_.put("pkg/Ex."+Classes.EXT, xml_);
+        xml_ = "<interface access='"+PUBLIC_ACCESS+"' name='ExTwo' package='pkg' template='&lt;#F&gt;' class0='pkg.Ex&lt;#F&gt;'>\n";
+        xml_ += "<method access='"+PUBLIC_ACCESS+"' name='instancemethod' class='"+OperationNode.VOID_RETURN+"' modifier='normal' var0='i' class0='#F'>\n";
+        xml_ += "</method>\n";
+        xml_ += "</interface>\n";
+        files_.put("pkg/ExTwo."+Classes.EXT, xml_);
+        xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExThree' package='pkg' template='&lt;#T&gt;' class0='pkg.ExTwo&lt;#T&gt;'>\n";
+        xml_ += "</class>\n";
+        files_.put("pkg/ExThree."+Classes.EXT, xml_);
+        ContextEl cont_ = unfullValidateOverridingMethods(files_);
+        Classes classes_ = cont_.getClasses();
+        classes_.validateSingleParameterizedClasses(cont_);
+        assertTrue(classes_.getErrorsDet().toString(), classes_.getErrorsDet().isEmpty());
+        classes_.validateIds(cont_);
+        assertTrue(classes_.getErrorsDet().toString(), classes_.getErrorsDet().isEmpty());
+        classes_.validateOverridingInherit(cont_);
+        assertTrue(classes_.getErrorsDet().toString(), classes_.getErrorsDet().isEmpty());
+        ObjectMap<MethodId, StringList> map_ = classes_.getClassBody("pkg.ExTwo").getAllOverridingMethods();
+        assertEq(1, map_.size());
+        StringList superTypes_ = map_.getVal(new MethodId("instancemethod", new EqList<ClassName>(new ClassName("#F", false))));
+        assertEq(2, superTypes_.size());
+        assertEq("pkg.ExTwo<#F>", superTypes_.first());
+        assertEq("pkg.Ex<#F>", superTypes_.last());
+        map_ = classes_.getClassBody("pkg.Ex").getAllOverridingMethods();
+        assertEq(1, map_.size());
+        superTypes_ = map_.getVal(new MethodId("instancemethod", new EqList<ClassName>(new ClassName("#E", false))));
+        assertEq(1, superTypes_.size());
+        assertEq("pkg.Ex<#E>", superTypes_.first());
+        map_ = classes_.getClassBody("pkg.ExThree").getAllOverridingMethods();
+        assertEq(1, map_.size());
+        superTypes_ = map_.getVal(new MethodId("instancemethod", new EqList<ClassName>(new ClassName("#T", false))));
+        assertEq(2, superTypes_.size());
+        assertEq("pkg.ExTwo<#T>", superTypes_.first());
+        assertEq("pkg.Ex<#T>", superTypes_.last());
+        assertEq(0, classes_.getClassBody("pkg.Ex").getDefaultMethodIds().size());
+        ObjectMap<MethodId, String> defs_ = classes_.getClassBody("pkg.ExTwo").getDefaultMethodIds();
+        assertEq(0, defs_.size());
+        defs_ = classes_.getClassBody("pkg.ExThree").getDefaultMethodIds();
+        assertEq(1, defs_.size());
+        assertEq("pkg.ExTwo<#T>", defs_.getVal(new MethodId("instancemethod", new EqList<ClassName>(new ClassName("#T", false)))));
+    }
+    @Test
+    public void test12() {
+        StringMap<String> files_ = new StringMap<String>();
+        String xml_;
+        xml_ = "<class modifier='abstract' access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' template='&lt;#E&gt;'>\n";
+        xml_ += "<method access='"+PUBLIC_ACCESS+"' name='instancemethod' class='"+OperationNode.VOID_RETURN+"' modifier='abstract' var0='i' class0='#E'>\n";
+        xml_ += "</method>\n";
+        xml_ += "</class>\n";
+        files_.put("pkg/Ex."+Classes.EXT, xml_);
+        xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExTwo' package='pkg' template='&lt;#T&gt;' superclass='pkg.Ex&lt;#T&gt;'>\n";
+        xml_ += "</class>\n";
+        files_.put("pkg/ExTwo."+Classes.EXT, xml_);
+        ContextEl cont_ = unfullValidateOverridingMethods(files_);
+        Classes classes_ = cont_.getClasses();
+        classes_.validateSingleParameterizedClasses(cont_);
+        assertTrue(classes_.getErrorsDet().toString(), classes_.getErrorsDet().isEmpty());
+        classes_.validateIds(cont_);
+        assertTrue(classes_.getErrorsDet().toString(), classes_.getErrorsDet().isEmpty());
+        classes_.validateOverridingInherit(cont_);
+        assertTrue(!classes_.getErrorsDet().isEmpty());
+    }
+    @Test
+    public void test13() {
+        StringMap<String> files_ = new StringMap<String>();
+        String xml_;
+        xml_ = "<interface modifier='abstract' access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' template='&lt;#E&gt;'>\n";
+        xml_ += "<method access='"+PUBLIC_ACCESS+"' name='instancemethod' class='"+OperationNode.VOID_RETURN+"' modifier='abstract' var0='i' class0='#E'>\n";
+        xml_ += "</method>\n";
+        xml_ += "</interface>\n";
+        files_.put("pkg/Ex."+Classes.EXT, xml_);
+        xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExTwo' package='pkg' template='&lt;#T&gt;' class0='pkg.Ex&lt;#T&gt;'>\n";
+        xml_ += "</class>\n";
+        files_.put("pkg/ExTwo."+Classes.EXT, xml_);
+        ContextEl cont_ = unfullValidateOverridingMethods(files_);
+        Classes classes_ = cont_.getClasses();
+        classes_.validateSingleParameterizedClasses(cont_);
+        assertTrue(classes_.getErrorsDet().toString(), classes_.getErrorsDet().isEmpty());
+        classes_.validateIds(cont_);
+        assertTrue(classes_.getErrorsDet().toString(), classes_.getErrorsDet().isEmpty());
+        classes_.validateOverridingInherit(cont_);
+        assertTrue(classes_.getErrorsDet().toString(), !classes_.getErrorsDet().isEmpty());
+    }
     private static ContextEl unfullValidateOverridingMethods(StringMap<String> _files) {
         ContextEl cont_ = new ContextEl();
         Classes classes_ = new Classes(_files, cont_);

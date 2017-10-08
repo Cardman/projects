@@ -19,7 +19,6 @@ import code.util.CustList;
 import code.util.EntryCust;
 import code.util.EqList;
 import code.util.NatTreeMap;
-import code.util.ObjectMap;
 import code.util.ObjectNotNullMap;
 import code.util.StringList;
 import code.util.graphs.Graph;
@@ -43,8 +42,6 @@ public final class EnumBlock extends RootBlock implements UniqueRootedBlock {
 
     private final ObjectNotNullMap<ClassMethodId, Boolean> availableMethods = new ObjectNotNullMap<ClassMethodId, Boolean>();
 
-    private final ObjectMap<FctConstraints, String> defaultMethods = new ObjectMap<FctConstraints, String>();
-
     public EnumBlock(Element _el, ContextEl _importingPage, int _indexChild,
             BracedBlock _m) {
         super(_el, _importingPage, _indexChild, _m);
@@ -58,92 +55,93 @@ public final class EnumBlock extends RootBlock implements UniqueRootedBlock {
     @Override
     public void setupBasicOverrides(ContextEl _context) {
         Classes classesRef_ = _context.getClasses();
-        CustList<Block> ch_ = Classes.getDirectChildren(this);
-        for (Block c: ch_) {
-            if (!(c instanceof MethodBlock)) {
+        for (MethodBlock m: Classes.getMethodBlocks(this)) {
+            if (m.getId().eq(new MethodId(OperationNode.METH_NAME, new EqList<ClassName>()))) {
+                ReservedMethod r_ = new ReservedMethod();
+                r_.setFileName(getFullName());
+                r_.setRc(m.getRowCol(0, _context.getTabWidth(), EMPTY_STRING));
+                r_.setMethodeId(m.getId());
+                _context.getClasses().getErrorsDet().add(r_);
+            }
+            if (m.getId().eq(new MethodId(OperationNode.METH_ORDINAL, new EqList<ClassName>()))) {
+                ReservedMethod r_ = new ReservedMethod();
+                r_.setFileName(getFullName());
+                r_.setRc(m.getRowCol(0, _context.getTabWidth(), EMPTY_STRING));
+                r_.setMethodeId(m.getId());
+                _context.getClasses().getErrorsDet().add(r_);
+            }
+            if (m.getId().eq(new MethodId(OperationNode.METH_VALUES, new EqList<ClassName>()))) {
+                ReservedMethod r_ = new ReservedMethod();
+                r_.setFileName(getFullName());
+                r_.setRc(m.getRowCol(0, _context.getTabWidth(), EMPTY_STRING));
+                r_.setMethodeId(m.getId());
+                _context.getClasses().getErrorsDet().add(r_);
+            }
+            if (m.getId().eq(new MethodId(OperationNode.METH_VALUEOF, new EqList<ClassName>(new ClassName(String.class.getName(), false))))) {
+                ReservedMethod r_ = new ReservedMethod();
+                r_.setFileName(getFullName());
+                r_.setRc(m.getRowCol(0, _context.getTabWidth(), EMPTY_STRING));
+                r_.setMethodeId(m.getId());
+                _context.getClasses().getErrorsDet().add(r_);
+            }
+        }
+        for (MethodBlock m: Classes.getMethodBlocks(this)) {
+            if (m.isStaticMethod()) {
                 continue;
             }
-            MethodBlock m_ = (MethodBlock) c;
-            if (m_.getId().eq(new MethodId(OperationNode.METH_NAME, new EqList<ClassName>()))) {
-                ReservedMethod r_ = new ReservedMethod();
-                r_.setFileName(getFullName());
-                r_.setRc(m_.getRowCol(0, _context.getTabWidth(), EMPTY_STRING));
-                r_.setMethodeId(m_.getId());
-                _context.getClasses().getErrorsDet().add(r_);
-            }
-            if (m_.getId().eq(new MethodId(OperationNode.METH_ORDINAL, new EqList<ClassName>()))) {
-                ReservedMethod r_ = new ReservedMethod();
-                r_.setFileName(getFullName());
-                r_.setRc(m_.getRowCol(0, _context.getTabWidth(), EMPTY_STRING));
-                r_.setMethodeId(m_.getId());
-                _context.getClasses().getErrorsDet().add(r_);
-            }
-            if (m_.getId().eq(new MethodId(OperationNode.METH_VALUES, new EqList<ClassName>()))) {
-                ReservedMethod r_ = new ReservedMethod();
-                r_.setFileName(getFullName());
-                r_.setRc(m_.getRowCol(0, _context.getTabWidth(), EMPTY_STRING));
-                r_.setMethodeId(m_.getId());
-                _context.getClasses().getErrorsDet().add(r_);
-            }
-            if (m_.getId().eq(new MethodId(OperationNode.METH_VALUEOF, new EqList<ClassName>(new ClassName(String.class.getName(), false))))) {
-                ReservedMethod r_ = new ReservedMethod();
-                r_.setFileName(getFullName());
-                r_.setRc(m_.getRowCol(0, _context.getTabWidth(), EMPTY_STRING));
-                r_.setMethodeId(m_.getId());
-                _context.getClasses().getErrorsDet().add(r_);
-            }
+            addClass(getAllOverridingMethods(), m.getId(), getFullDefinition());
         }
-        for (Block b: Classes.getDirectChildren(this)) {
-            if (b instanceof MethodBlock) {
-                MethodBlock mCl_ = (MethodBlock) b;
-                if (mCl_.isStaticMethod()) {
+        for (MethodBlock m: Classes.getMethodBlocks(this)) {
+            if (m.isStaticMethod()) {
+                continue;
+            }
+            for (String s: getAllGenericSuperTypes(classesRef_)) {
+                CustList<MethodBlock> mBases_ = classesRef_.getMethodBodiesByFormattedId(s, m.getId());
+                if (mBases_.isEmpty()) {
                     continue;
                 }
-                addClass(getAllOverridingMethods(), mCl_.getId(), getFullDefinition());
-            }
-        }
-        for (Block b: Classes.getDirectChildren(this)) {
-            if (b instanceof MethodBlock) {
-                MethodBlock mDer_ = (MethodBlock) b;
-                if (mDer_.isStaticMethod()) {
+                if (mBases_.size() > 1) {
+                    DuplicateParamMethod duplicate_ = new DuplicateParamMethod();
+                    duplicate_.setFileName(getFullName());
+                    duplicate_.setRc(new RowCol());
+                    duplicate_.setCommonSignature(m.getId().getSignature());
+                    duplicate_.setOtherType(s);
+                    classesRef_.getErrorsDet().add(duplicate_);
+                }
+                MethodBlock mBase_ = mBases_.first();
+                if (mBase_.isStaticMethod()) {
                     continue;
                 }
-                for (String s: getAllGenericSuperTypes(classesRef_)) {
-                    CustList<MethodBlock> mBases_ = classesRef_.getMethodBodiesByFormattedId(s, mDer_.getId());
-                    if (mBases_.isEmpty()) {
-                        continue;
-                    }
-                    if (mBases_.size() > 1) {
-                        DuplicateParamMethod duplicate_ = new DuplicateParamMethod();
-                        duplicate_.setFileName(getFullName());
-                        duplicate_.setRc(new RowCol());
-                        duplicate_.setCommonSignature(mDer_.getId().getSignature());
-                        duplicate_.setOtherType(s);
-                        classesRef_.getErrorsDet().add(duplicate_);
-                    }
-                    MethodBlock mBase_ = mBases_.first();
-                    if (mBase_.isStaticMethod()) {
-                        continue;
-                    }
-                    if (!_context.getClasses().canAccess(getFullName(), mBase_)) {
-                        continue;
-                    }
-                    addClass(getAllOverridingMethods(), mDer_.getId(), s);
+                if (!_context.getClasses().canAccess(getFullName(), mBase_)) {
+                    continue;
                 }
+                addClass(getAllOverridingMethods(), m.getId(), s);
+            }
+        }
+        for (String s: getAllGenericSuperTypes(classesRef_)) {
+            String base_ = StringList.getAllTypes(s).first();
+            RootBlock r_ = classesRef_.getClassBody(base_);
+            for (MethodBlock m: Classes.getMethodBlocks(r_)) {
+                if (m.isStaticMethod()) {
+                    continue;
+                }
+                MethodId id_ = m.getFormattedId(s, classesRef_);
+                CustList<MethodBlock> mBases_ = classesRef_.getMethodBodiesByFormattedId(getFullDefinition(), id_);
+                if (!mBases_.isEmpty()) {
+                    continue;
+                }
+                MethodId idReal_ = m.getFormattedId(s, classesRef_);
+                addClass(getAllOverridingMethods(), idReal_, s);
             }
         }
         for (String s: getAllGenericInterfaces(classesRef_)) {
             String base_ = StringList.getAllTypes(s).first();
             RootBlock r_ = classesRef_.getClassBody(base_);
-            for (Block b: Classes.getDirectChildren(r_)) {
-                if (!(b instanceof MethodBlock)) {
+            for (MethodBlock m: Classes.getMethodBlocks(r_)) {
+                if (m.isStaticMethod()) {
                     continue;
                 }
-                MethodBlock mDer_ = (MethodBlock) b;
-                if (mDer_.isStaticMethod()) {
-                    continue;
-                }
-                MethodId id_ = mDer_.getFormattedId(s, classesRef_);
+                MethodId id_ = m.getFormattedId(s, classesRef_);
                 CustList<MethodBlock> mBases_ = classesRef_.getMethodBodiesByFormattedId(getFullDefinition(), id_);
                 if (mBases_.isEmpty()) {
                     continue;
@@ -152,12 +150,12 @@ public final class EnumBlock extends RootBlock implements UniqueRootedBlock {
                 if (mBase_.isStaticMethod()) {
                     continue;
                 }
-                if (mDer_.getAccess().ordinal() > mBase_.getAccess().ordinal()) {
+                if (m.getAccess().ordinal() > mBase_.getAccess().ordinal()) {
                     BadAccessMethod err_;
                     err_ = new BadAccessMethod();
                     err_.setFileName(getFullName());
-                    err_.setRc(mDer_.getAttributes().getVal(ATTRIBUTE_ACCESS));
-                    err_.setId(mDer_.getId());
+                    err_.setRc(m.getAttributes().getVal(ATTRIBUTE_ACCESS));
+                    err_.setId(m.getId());
                     classesRef_.getErrorsDet().add(err_);
                 }
                 addClass(getAllOverridingMethods(), id_, getFullDefinition());
@@ -216,10 +214,6 @@ public final class EnumBlock extends RootBlock implements UniqueRootedBlock {
         return availableMethods;
     }
 
-    @Override
-    public ObjectMap<FctConstraints, String> getDefaultMethods() {
-        return defaultMethods;
-    }
     @Override
     public void validateConstructors(ContextEl _cont) {
         ClassMetaInfo curMeta_ = _cont.getClasses().getClassMetaInfo(getFullName());

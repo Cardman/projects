@@ -477,6 +477,15 @@ public final class Classes {
         }
         return null;
     }
+    public static CustList<MethodBlock> getMethodBlocks(RootBlock _element) {
+        CustList<MethodBlock> methods_ = new CustList<MethodBlock>();
+        for (Block b: Classes.getDirectChildren(_element)) {
+            if (b instanceof MethodBlock) {
+                methods_.add((MethodBlock) b);
+            }
+        }
+        return methods_;
+    }
     public static CustList<Block> getDirectChildren(Block _element) {
         CustList<Block> list_ = new CustList<Block>();
         if (_element == null) {
