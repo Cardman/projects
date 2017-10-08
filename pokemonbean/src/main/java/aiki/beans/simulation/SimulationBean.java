@@ -1423,12 +1423,7 @@ public class SimulationBean extends CommonBean {
         displayIfError = true;
         ok = true;
         DataBase data_ = (DataBase) getDataBase();
-        try {
-            simulation.prepareMovesToBeLearntOneFight(data_);
-        } catch (RuntimeException _0) {
-            ok = false;
-            return;
-        }
+        simulation.prepareMovesToBeLearntOneFight(data_);
         if (!simulation.isOk()) {
             ok = false;
             return;
