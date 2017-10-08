@@ -42,6 +42,7 @@ import aiki.map.characters.TrainerMultiFights;
 import aiki.map.characters.enums.GeranceType;
 import aiki.map.characters.enums.SellType;
 import aiki.map.enums.Direction;
+import aiki.map.levels.AreaApparition;
 import aiki.map.levels.LevelCave;
 import aiki.map.levels.LevelWithWildPokemon;
 import aiki.map.places.Campaign;
@@ -474,12 +475,14 @@ public class MapLevelBean extends CommonBean {
         for (Direction d: Direction.values()) {
             getForms().put(PROPONE_LINK_VAR+d, false);
         }
-        Place p_ = data_.getMap().getPlaces().getVal(pl_.shortValue());
-        try {
-            Campaign c_ = (Campaign) p_;
-            LevelWithWildPokemon level_ = (LevelWithWildPokemon) c_.getLevels().getVal(lev_.byteValue());
-            getForms().put(AREA, level_.getAreaByPoint(pt_));
-        } catch (RuntimeException _0) {
+        Coords current_ = new Coords();
+        current_.setNumberPlace(pl_.shortValue());
+        current_.setLevel(new LevelPoint());
+        current_.getLevel().setLevelIndex(lev_.byteValue());
+        current_.getLevel().setPoint(pt_);
+        AreaApparition app_ = data_.getMap().getAreaByCoords(current_);
+        if (!app_.isVirtual()) {
+            getForms().put(AREA, app_);
         }
         return AREA;
     }
@@ -488,20 +491,22 @@ public class MapLevelBean extends CommonBean {
     private String clickTile(Long _index) {
         Point pt_ = tiles.getKey(_index.intValue());
         getForms().put(CURRENT_TILE, pt_);
-        //Level level_ = (Level) getForms().getVal(LEVEL_MAP);
         Number pl_ = (Number) getForms().getVal(PLACE_MAP_INDEX);
         Number lev_ = (Number) getForms().getVal(LEVEL_MAP_INDEX);
         DataBase data_ = (DataBase) getDataBase();
+        Coords current_ = new Coords();
+        current_.setNumberPlace(pl_.shortValue());
+        current_.setLevel(new LevelPoint());
+        current_.getLevel().setLevelIndex(lev_.byteValue());
+        current_.getLevel().setPoint(pt_);
+        AreaApparition app_ = data_.getMap().getAreaByCoords(current_);
+        boolean seeArea_ = false;
+        if (!app_.isVirtual()) {
+            getForms().put(AREA, app_);
+            seeArea_ = true;
+        }
         Place p_ = data_.getMap().getPlaces().getVal(pl_.shortValue());
         StringMap<Boolean> booleans_ = new StringMap<Boolean>();
-        boolean seeArea_ = false;
-        try {
-            Campaign c_ = (Campaign) p_;
-            LevelWithWildPokemon level_ = (LevelWithWildPokemon) c_.getLevels().getVal(lev_.byteValue());
-            getForms().put(AREA, level_.getAreaByPoint(pt_));
-            seeArea_ = true;
-        } catch (RuntimeException _0) {
-        }
         booleans_.put(SEE_AREA,seeArea_);
         try {
             Coords coords_ = new Coords();
@@ -544,7 +549,6 @@ public class MapLevelBean extends CommonBean {
                 nbTrue_++;
             }
         }
-//        if (booleans_.values().indexesOfObject(true).size() > DataBase.ONE_POSSIBLE_CHOICE)
         if (nbTrue_ > DataBase.ONE_POSSIBLE_CHOICE) {
             for (EntryCust<String, Boolean> e: booleans_.entryList()) {
                 getForms().put(e.getKey(), e.getValue());
@@ -555,27 +559,6 @@ public class MapLevelBean extends CommonBean {
         if (!return_.isEmpty()) {
             return return_;
         }
-        //getForms().put(FROM_LIST, false);
-//        for (Short p: data_.getMap().getPlaces().getKeys()) {
-//            Place place_ = data_.getMap().getPlaces().getVal(p);
-//            if (!(place_ instanceof League)) {
-//                continue;
-//            }
-//            League l_ = (League) place_;
-//            Coords access_ = l_.getAccessCoords();
-//            if (!Numbers.eq(pl_, access_.getNumberPlace())) {
-//                continue;
-//            }
-//            if (!Numbers.eq(lev_, access_.getLevel().getLevelIndex())) {
-//                continue;
-//            }
-//            if (!Point.eq(pt_, access_.getLevel().getPoint())) {
-//                continue;
-//            }
-//            getForms().put(LEVEL_MAP_INDEX, CustList.FIRST_INDEX);
-//            getForms().put(PLACE_MAP_INDEX, p);
-//            return LEVEL;
-//        }
         if (p_ instanceof InitializedPlace && !getForms().contains(INSIDE)) {
             Coords coords_ = new Coords();
             coords_.setNumberPlace(pl_.shortValue());
@@ -592,100 +575,10 @@ public class MapLevelBean extends CommonBean {
                 }
             }
         }
-//            if (i_.getLinksWithCaves().contains(pt_)) {
-//                Coords c_ = i_.getLinksWithCaves().getVal(pt_).getCoords();
-//                getForms().put(LEVEL_MAP_INDEX, c_.getLevel().getLevelIndex());
-//                getForms().put(PLACE_MAP_INDEX, c_.getNumberPlace());
-//                return LEVEL;
-//            }
-//        }
-//        if (p_ instanceof Cave) {
-//            Cave c_ = (Cave) p_;
-//            LevelPoint lp_ = new LevelPoint();
-//            lp_.setLevelIndex(lev_.byteValue());
-//            lp_.setPoint(pt_);
-//            if (c_.getLinksWithOtherPlaces().contains(lp_)) {
-//                Coords coords_ = c_.getLinksWithOtherPlaces().getVal(lp_).getCoords();
-//                getForms().put(LEVEL_MAP_INDEX, coords_.getLevel().getLevelIndex());
-//                getForms().put(PLACE_MAP_INDEX, coords_.getNumberPlace());
-//                return LEVEL;
-//            }
-//            if (c_.getLevels().getVal(lev_.byteValue()).getLinksOtherLevels().contains(pt_)) {
-//                Coords coords_ = c_.getLevels().getVal(lev_.byteValue()).getLinksOtherLevels().getVal(pt_).getCoords();
-//                getForms().put(LEVEL_MAP_INDEX, coords_.getLevel().getLevelIndex());
-//                getForms().put(PLACE_MAP_INDEX, coords_.getNumberPlace());
-//                return LEVEL;
-//            }
-//        }
-//        if (p_ instanceof League) {
-//            League l_ = (League) p_;
-//            if (Point.eq(l_.getRooms().get(lev_.byteValue()).getAccessPoint(), pt_)) {
-//                if (lev_.byteValue() < l_.getRooms().size() - 1) {
-//                    getForms().put(LEVEL_MAP_INDEX, lev_.byteValue() + 1);
-//                    return LEVEL;
-//                }
-//                Coords coords_ = data_.getMap().getBegin();
-//                getForms().put(LEVEL_MAP_INDEX, coords_.getLevel().getLevelIndex());
-//                getForms().put(PLACE_MAP_INDEX, coords_.getNumberPlace());
-//                return LEVEL;
-//            }
-//            if (Point.eq(l_.getRooms().get(lev_.byteValue()).getTrainerCoords(), pt_)) {
-//                getForms().put(TRAINER, l_.getRooms().get(lev_.byteValue()).getTrainer());
-//                return TRAINER_ONE_FIGHT;
-//            }
-//        }
-//        if (p_ instanceof City) {
-//            City c_ = (City) p_;
-//            if (getForms().contains(INSIDE)) {
-//                Point ptInside_ = (Point) getForms().getVal(INSIDE);
-//                Building b_ = c_.getBuildings().getVal(ptInside_);
-//                if (Point.eq(b_.getExitCity(), pt_)) {
-//                    getForms().removeKey(INSIDE);
-//                    return LEVEL;
-//                }
-//                if (b_ instanceof Gym) {
-//                    Gym g_ = (Gym) b_;
-//                    if (g_.getLevel().getGymTrainers().contains(pt_)) {
-//                        getForms().put(TRAINER, g_.getLevel().getGymTrainers().getVal(pt_));
-//                        return TRAINER_ONE_FIGHT;
-//                    }
-//                    if (Point.eq(g_.getLevel().getGymLeaderCoords(), pt_)) {
-//                        getForms().put(TRAINER, g_.getLevel().getGymLeader());
-//                        return TRAINER_ONE_FIGHT;
-//                    }
-//                }
-//                return DataBase.EMPTY_STRING;
-//            }
-//            if (c_.getBuildings().contains(pt_)) {
-//                getForms().put(INSIDE, pt_);
-//                return LEVEL;
-//            }
-//        }
         if (p_ instanceof Campaign) {
-            Campaign c_ = (Campaign) p_;
-            LevelWithWildPokemon l_ = (LevelWithWildPokemon) c_.getLevels().getVal(lev_.byteValue());
-//            if (l_.getDualFights().contains(pt_)) {
-//                getForms().put(TRAINER, l_.getDualFights().getVal(pt_).getFoeTrainer());
-//                getForms().put(ALLY, l_.getDualFights().getVal(pt_).getAlly());
-//                return DUAL;
-//            }
-//            for (Point ptKey_: l_.getDualFights().getKeys()) {
-//                DualFight d_ = l_.getDualFights().getVal(ptKey_);
-//                if (Point.eq(d_.getPt(), pt_)) {
-//                    getForms().put(TRAINER, l_.getDualFights().getVal(ptKey_).getFoeTrainer());
-//                    getForms().put(ALLY, l_.getDualFights().getVal(ptKey_).getAlly());
-//                    return DUAL;
-//                }
-//            }
-//            if (l_.getLegendaryPks().contains(pt_)) {
-//                getForms().put(LEG_PK, l_.getLegendaryPks().getVal(pt_));
-//                return LEG_PK;
-//            }
-            try {
-//                getForms().put(AREA, c_.getLevels().getVal(lev_.byteValue()).getAreaByPoint(pt_));
-                getForms().put(AREA, l_.getAreaByPoint(pt_));
+            if (!app_.isVirtual()) {
+                getForms().put(AREA, app_);
                 return AREA;
-            } catch (RuntimeException _0) {
             }
         }
         return DataBase.EMPTY_STRING;

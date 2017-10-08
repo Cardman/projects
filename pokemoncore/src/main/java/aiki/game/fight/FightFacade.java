@@ -34,6 +34,7 @@ import aiki.map.characters.GymLeader;
 import aiki.map.characters.GymTrainer;
 import aiki.map.characters.TrainerLeague;
 import aiki.map.characters.TrainerMultiFights;
+import aiki.map.levels.Block;
 import aiki.map.levels.enums.EnvironmentType;
 import aiki.map.pokemon.PokemonPlayer;
 import aiki.map.pokemon.WildPk;
@@ -137,11 +138,16 @@ public final class FightFacade {
 
     public static void initTypeEnv(Fight _fight,Coords _coords, Difficulty _diff, DataBase _d){
         DataMap d_ = _d.getMap();
-        try {
-            LevelPoint lp_ = _coords.getLevel();
-            _fight.setEnvType(d_.getPlaces().getVal(_coords.getNumberPlace()).getLevelByCoords(_coords).getBlockByPoint(lp_.getPoint()).getType());
-        } catch (RuntimeException _0) {
-            _fight.setEnvType(EnvironmentType.ROAD);
+        if (_coords.isValid()) {
+        	LevelPoint lp_ = _coords.getLevel();
+            Block bl_ = d_.getPlaces().getVal(_coords.getNumberPlace()).getLevelByCoords(_coords).getSafeBlockByPoint(lp_.getPoint());
+            if (bl_.isValid()) {
+            	_fight.setEnvType(bl_.getType());
+            } else {
+            	_fight.setEnvType(EnvironmentType.ROAD);
+            }
+        } else {
+        	_fight.setEnvType(EnvironmentType.ROAD);
         }
         FightSending.firstEffectWhileSendingTeams(_fight, _diff, _d);
         if(!_fight.getFightType().isWild()){

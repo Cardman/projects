@@ -1,13 +1,12 @@
 package aiki;
+import aiki.fight.pokemon.enums.GenderRepartition;
+import aiki.map.pokemon.PokemonPlayer;
+import aiki.map.pokemon.UsablePokemon;
 import code.util.CustList;
 import code.util.NatTreeMap;
 import code.util.StringList;
 import code.util.StringMap;
 import code.util.annot.RwXml;
-import aiki.exceptions.DataException;
-import aiki.fight.pokemon.enums.GenderRepartition;
-import aiki.map.pokemon.PokemonPlayer;
-import aiki.map.pokemon.UsablePokemon;
 
 @RwXml
 public class ExchangedData {
@@ -36,11 +35,10 @@ public class ExchangedData {
         i_--;
         for (UsablePokemon u: _otherTeam) {
             i_++;
-            try {
-                setPokemon((PokemonPlayer) u);
-                check();
+            setPokemon((PokemonPlayer) u);
+            check();
+            if (getPokemon() != null) {
                 team_.put(i_, (PokemonPlayer) u);
-            } catch (DataException _0) {
             }
         }
         return team_;
@@ -49,21 +47,21 @@ public class ExchangedData {
     public void check() {
         if (!genderRepartitions.contains(pokemon.getName())) {
             pokemon = null;
-            throw new DataException();
+            return;
         }
         GenderRepartition g_ = genderRepartitions.getVal(pokemon.getName());
         if (!g_.getPossibleGenders().containsObj(pokemon.getGender())) {
             pokemon = null;
-            throw new DataException();
+            return;
         }
         if (!getAbilities().containsObj(pokemon.getAbility())) {
             pokemon = null;
-            throw new DataException();
+            return;
         }
         if (!pokemon.getItem().isEmpty()) {
             if (!getItems().containsObj(pokemon.getItem())) {
                 pokemon = null;
-                throw new DataException();
+                return;
             }
         }
     }

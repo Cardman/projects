@@ -1263,11 +1263,7 @@ public final class MainWindow extends NetGroupFrame {
         }
         if (_readObject instanceof PokemonPlayer) {
             PokemonPlayer pk_ = (PokemonPlayer) _readObject;
-            try {
-                facade.receivePokemonPlayer(pk_);
-            } catch (RuntimeException _0) {
-                _0.printStackTrace();
-            }
+            facade.receivePokemonPlayer(pk_);
             scenePanel.seeNetPokemonDetail();
             return;
         }

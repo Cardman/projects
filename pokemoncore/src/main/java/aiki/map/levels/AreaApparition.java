@@ -85,6 +85,10 @@ public class AreaApparition {
         return wildPokemonRand_;
     }
 
+    public boolean isVirtual() {
+        return multFight < 1;
+    }
+
     public int getPokemonListLength(boolean _walking) {
         if (_walking) {
             return wildPokemon.size();

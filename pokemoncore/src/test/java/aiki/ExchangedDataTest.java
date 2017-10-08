@@ -1,12 +1,12 @@
 package aiki;
 import static aiki.EquallablePkUtil.assertEq;
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
-import aiki.exceptions.DataException;
 import aiki.fight.pokemon.enums.GenderRepartition;
 import aiki.game.UsesOfMove;
 import aiki.game.fight.InitializationDataBase;
@@ -287,6 +287,7 @@ public class ExchangedDataTest extends InitializationDataBase {
         PokemonPlayer pk_ = newPokemonPlayer(PIKACHU, STATIK, Gender.NO_GENDER, NULL_REF);
         ex_.setPokemon(pk_);
         ex_.check();
+        assertNotNull(ex_.getPokemon());
     }
 
     @Test
@@ -295,46 +296,52 @@ public class ExchangedDataTest extends InitializationDataBase {
         PokemonPlayer pk_ = newPokemonPlayer(PIKACHU, STATIK, Gender.NO_GENDER, MULTI_EXP);
         ex_.setPokemon(pk_);
         ex_.check();
+        assertNotNull(ex_.getPokemon());
     }
 
-    @Test(expected=DataException.class)
+    @Test
     public void check3Test() {
         ExchangedData ex_ = new ExchangedData(_data_);
         PokemonPlayer pk_ = newPokemonPlayer(PTITARD, STATIK, Gender.NO_GENDER, NULL_REF);
         ex_.setPokemon(pk_);
         ex_.check();
+        assertNull(ex_.getPokemon());
     }
 
-    @Test(expected=DataException.class)
+    @Test
     public void check4Test() {
         ExchangedData ex_ = new ExchangedData(_data_);
         PokemonPlayer pk_ = newPokemonPlayer(NULL_REF, STATIK, Gender.NO_GENDER, NULL_REF);
         ex_.setPokemon(pk_);
         ex_.check();
+        assertNull(ex_.getPokemon());
     }
 
-    @Test(expected=DataException.class)
+    @Test
     public void check5Test() {
         ExchangedData ex_ = new ExchangedData(_data_);
         PokemonPlayer pk_ = newPokemonPlayer(PIKACHU, STATIK, Gender.NO_GENDER, INVALID_DATA_KEY);
         ex_.setPokemon(pk_);
         ex_.check();
+        assertNull(ex_.getPokemon());
     }
 
-    @Test(expected=DataException.class)
+    @Test
     public void check6Test() {
         ExchangedData ex_ = new ExchangedData(_data_);
         PokemonPlayer pk_ = newPokemonPlayer(PIKACHU, NULL_REF, Gender.NO_GENDER, NULL_REF);
         ex_.setPokemon(pk_);
         ex_.check();
+        assertNull(ex_.getPokemon());
     }
 
-    @Test(expected=DataException.class)
+    @Test
     public void check7Test() {
         ExchangedData ex_ = new ExchangedData(_data_);
         PokemonPlayer pk_ = newPokemonPlayer(PIKACHU, INVALID_DATA_KEY, Gender.NO_GENDER, NULL_REF);
         ex_.setPokemon(pk_);
         ex_.check();
+        assertNull(ex_.getPokemon());
     }
 
     @Test

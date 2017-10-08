@@ -1,7 +1,6 @@
 package aiki.map.levels;
 import aiki.DataBase;
 import aiki.exceptions.DataException;
-import aiki.exceptions.NoWildPokemonException;
 import aiki.fight.pokemon.PokemonData;
 import aiki.fight.pokemon.enums.GenderRepartition;
 import aiki.map.characters.CharacterInRoadCave;
@@ -20,9 +19,6 @@ import code.util.annot.RwXml;
 
 @RwXml
 public class LevelWithWildPokemon extends Level {
-
-    private static final String NO_WILD_POKEMON_ID = "no wild pokemon for the id: ";
-    private static final String NO_WILD_POKEMON_POINT = "no wild pokemon for the point: ";
 
     private CustList<AreaApparition> wildPokemonAreas;
 
@@ -57,14 +53,14 @@ public class LevelWithWildPokemon extends Level {
             index_++;
         }
         for (EntryCust<Point,Block> e: getBlocks().entryList()) {
-            try {
-                AreaApparition a_ = getAreaByBlockId(e.getKey());
-                if (!a_.getWildPokemonFishing().isEmpty()) {
-                    if (e.getValue().getType() != EnvironmentType.WATER) {
-                        throw new DataException();
-                    }
+        	AreaApparition a_ = getAreaByBlockId(e.getKey());
+        	if (a_.isVirtual()) {
+        		continue;
+        	}
+            if (!a_.getWildPokemonFishing().isEmpty()) {
+                if (e.getValue().getType() != EnvironmentType.WATER) {
+                    throw new DataException();
                 }
-            } catch (NoWildPokemonException _0) {
             }
         }
         EqList<Point> keys_ = new EqList<Point>();
@@ -376,14 +372,14 @@ public class LevelWithWildPokemon extends Level {
     public AreaApparition getAreaByBlockId(Point _key) {
         int index_ = getBlocks().getVal(_key).getIndexApparition();
         if (index_ < 0) {
-            throw new NoWildPokemonException(NO_WILD_POKEMON_ID+_key);
+        	return new AreaApparition();
         }
         return wildPokemonAreas.get(index_);
     }
     public AreaApparition getAreaByPoint(Point _point) {
-        int index_ = getBlockByPoint(_point).getIndexApparition();
+        int index_ = getSafeBlockByPoint(_point).getIndexApparition();
         if (index_ < 0) {
-            throw new NoWildPokemonException(NO_WILD_POKEMON_POINT+_point);
+            return new AreaApparition();
         }
         return wildPokemonAreas.get(index_);
     }

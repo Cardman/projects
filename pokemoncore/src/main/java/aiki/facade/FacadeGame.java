@@ -1314,6 +1314,9 @@ public class FacadeGame implements WithMathFactory {
     public void receivePokemonPlayer(PokemonPlayer _pkPlayerOtherPlayer) {
         exchangeData.setPokemon(_pkPlayerOtherPlayer);
         exchangeData.check();
+        if (exchangeData.getPokemon() == null) {
+            return;
+        }
         _pkPlayerOtherPlayer.initilializeFromExchange(data);
         setSelectedOtherPokemon(true);
         selectedTeamPokemon = false;
@@ -2236,14 +2239,14 @@ public class FacadeGame implements WithMathFactory {
     //%%%%end%%%% hosting pokemon
 
     public boolean isFishArea() {
-        try {
-            Coords next_ = closestTile();
-            Place pl_ = data.getMap().getPlaces().getVal(next_.getNumberPlace());
-            Level l_ = pl_.getLevelByCoords(next_);
-            if (l_.getBlockByPoint(next_.getLevel().getPoint()).getType() == EnvironmentType.WATER) {
-                return true;
-            }
-        } catch (RuntimeException _0) {
+    	Coords next_ = closestTile();
+        if (!next_.isValid()) {
+        	return false;
+        }
+        Place pl_ = data.getMap().getPlaces().getVal(next_.getNumberPlace());
+        Level l_ = pl_.getLevelByCoords(next_);
+        if (l_.getSafeBlockByPoint(next_.getLevel().getPoint()).getType() == EnvironmentType.WATER) {
+            return true;
         }
         return false;
     }

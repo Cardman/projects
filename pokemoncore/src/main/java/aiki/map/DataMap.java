@@ -1,9 +1,7 @@
 package aiki.map;
 import aiki.DataBase;
 import aiki.comparators.ComparatorMiniMapCoords;
-import aiki.exceptions.BlockNotFoundException;
 import aiki.exceptions.DataException;
-import aiki.exceptions.NoWildPokemonException;
 import aiki.fight.items.EvolvingItem;
 import aiki.fight.items.EvolvingStone;
 import aiki.fight.items.Item;
@@ -580,16 +578,14 @@ public class DataMap {
             NumberMap<Byte,Level> levels_;
             levels_ = pl_.getLevels();
             LevelWithWildPokemon level_ = (LevelWithWildPokemon) levels_.getVal(c.getLevel().getLevelIndex());
-            try {
-                AreaApparition area_ = level_.getAreaByPoint(c.getLevel().getPoint());
+            AreaApparition area_ = level_.getAreaByPoint(c.getLevel().getPoint());
+            if (!area_.isVirtual()) {
                 for (WildPk pk_: area_.getWildPokemon()) {
                     wildPk_.add(pk_.getName());
                 }
                 for (WildPk pk_: area_.getWildPokemonFishing()) {
                     wildPk_.add(pk_.getName());
                 }
-//            } catch (Exception e_) {
-            } catch (NoWildPokemonException _0) {
             }
             if (level_.containsPokemon(c.getLevel().getPoint())) {
                 WildPk pk_ = level_.getPokemon(c.getLevel().getPoint());
@@ -760,6 +756,19 @@ public class DataMap {
                 throw new DataException();
             }
         }
+    }
+
+    public AreaApparition getAreaByCoords(Coords _coords) {
+        if (!_coords.isValid()) {
+            return new AreaApparition();
+        }
+        Place pl_ = places.getVal(_coords.getNumberPlace());
+        Level l_ = pl_.getLevelByCoords(_coords);
+        if (!(l_ instanceof LevelWithWildPokemon)) {
+            return new AreaApparition();
+        }
+        LevelWithWildPokemon lv_ = (LevelWithWildPokemon) l_;
+        return lv_.getAreaByPoint(_coords.getLevel().getPoint());
     }
 
     public void initializeTree() {
@@ -1560,56 +1569,44 @@ public class DataMap {
                     if (!level_.isEmpty(ptNext_)) {
                         continue;
                     }
-                    try {
-                        Block block_ = level_.getBlockByPoint(ptNext_);
-                        if (block_.getType() == EnvironmentType.NOTHING) {
-                            if (pl_ instanceof City) {
-                                if(((City)pl_).getBuildings().contains(ptNext_)) {
-                                    Building building_ = ((City)pl_).getBuildings().getVal(ptNext_);
-//                                    if (building_ instanceof Gym) {
-//                                        Coords coords_ = new Coords(_id);
-//                                        coords_.affectInside(ptNext_);
-//                                        coords_.getLevel().setPoint(building_.getExitCity());
-//                                        Condition cond_ = initCondition(coords_,gymCond_);
-//                                        return_.put(coords_,cond_);
-//                                    }
-                                    Coords coords_ = new Coords(_id);
-                                    coords_.affectInside(ptNext_);
-                                    coords_.getLevel().setPoint(building_.getExitCity());
-                                    Condition cond_ = initCondition(coords_,gymCond_);
-                                    return_.put(coords_,cond_);
-                                    continue;
-                                }
-                            }
-                            if (pl_.getLinksWithCaves().contains(ptNext_)) {
-                                Coords coords_ = new Coords(_id);
-                                coords_.getLevel().setPoint(ptNext_);
+                    Block block_ = level_.getSafeBlockByPoint(ptNext_);
+                    if (!block_.isValid()) {
+                        if (links_.contains(new PlaceInterConnect(pt_,d))) {
+                            Coords coords_ = links_.getVal(new PlaceInterConnect(pt_,d));
+                            InitializedPlace plNext_ = (InitializedPlace) places.getVal(coords_.getNumberPlace());
+                            Level levelNext_ = plNext_.getLevel();
+                            Point newPoint_ = coords_.getLevel().getPoint();
+                            if (levelNext_.getEnvBlockByPoint(newPoint_).isValid()) {
                                 Condition cond_ = initCondition(coords_,gymCond_);
                                 return_.put(coords_,cond_);
                             }
-                            continue;
                         }
-                        Coords coords_ = new Coords(_id);
-                        coords_.getLevel().setPoint(ptNext_);
-                        Condition cond_ = initCondition(coords_,gymCond_);
-                        return_.put(coords_,cond_);
-                    } catch (BlockNotFoundException _0) {
-                        if (links_.contains(new PlaceInterConnect(pt_,d))) {
-                            Coords coords_ = links_.getVal(new PlaceInterConnect(pt_,d));
-                            try {
-                                InitializedPlace plNext_ = (InitializedPlace) places.getVal(coords_.getNumberPlace());
-                                Level levelNext_ = plNext_.getLevel();
-                                Point newPoint_ = coords_.getLevel().getPoint();
-                                levelNext_.getEnvBlockByPoint(newPoint_);
-//                            } catch (Exception e2) {
-                            } catch (BlockNotFoundException _1) {
+                        continue;
+                    }
+                    if (block_.getType() == EnvironmentType.NOTHING) {
+                        if (pl_ instanceof City) {
+                            if(((City)pl_).getBuildings().contains(ptNext_)) {
+                                Building building_ = ((City)pl_).getBuildings().getVal(ptNext_);
+                                Coords coords_ = new Coords(_id);
+                                coords_.affectInside(ptNext_);
+                                coords_.getLevel().setPoint(building_.getExitCity());
+                                Condition cond_ = initCondition(coords_,gymCond_);
+                                return_.put(coords_,cond_);
                                 continue;
                             }
+                        }
+                        if (pl_.getLinksWithCaves().contains(ptNext_)) {
+                            Coords coords_ = new Coords(_id);
+                            coords_.getLevel().setPoint(ptNext_);
                             Condition cond_ = initCondition(coords_,gymCond_);
                             return_.put(coords_,cond_);
-                            continue;
                         }
+                        continue;
                     }
+                    Coords coords_ = new Coords(_id);
+                    coords_.getLevel().setPoint(ptNext_);
+                    Condition cond_ = initCondition(coords_,gymCond_);
+                    return_.put(coords_,cond_);
                 }
             }
         } else if (place_ instanceof Cave) {
@@ -1633,8 +1630,8 @@ public class DataMap {
                 if (!level_.isEmpty(ptNext_)) {
                     continue;
                 }
-                try {
-                    Block block_ = level_.getBlockByPoint(ptNext_);
+                Block block_ = level_.getSafeBlockByPoint(ptNext_);
+                if (block_.isValid()) {
                     if (block_.getType() == EnvironmentType.NOTHING) {
                         Coords coords_ = new Coords(_id);
                         coords_.getLevel().setPoint(ptNext_);
@@ -1648,7 +1645,6 @@ public class DataMap {
                     coords_.getLevel().setPoint(ptNext_);
                     Condition cond_ = initCondition(coords_,gymCond_);
                     return_.put(coords_,cond_);
-                } catch (BlockNotFoundException _0) {
                 }
             }
         } else {
@@ -1672,13 +1668,11 @@ public class DataMap {
                 if (!level_.isEmpty(ptNext_)) {
                     continue;
                 }
-                try {
-                    level_.getEnvBlockByPoint(ptNext_);
+                if (level_.getEnvBlockByPoint(ptNext_).isValid()) {
                     Coords coords_ = new Coords(_id);
                     coords_.getLevel().setPoint(ptNext_);
                     Condition cond_ = initCondition(coords_,gymCond_);
                     return_.put(coords_,cond_);
-                } catch (BlockNotFoundException _0) {
                 }
             }
         }
@@ -3145,11 +3139,8 @@ public class DataMap {
             Level level_ = place_.getLevelByCoords(coords_);
             Point pt_ = coords_.getLevel().getPoint();
             Block bl_ = level_.getSafeBlockByPoint(pt_);
-            Point idBlock_ = level_.getBlockIdByPoint(pt_);
+            ScreenCoords c_ = level_.getScreenCoordsByPoint(pt_);
             String file_ = bl_.getTileFileName();
-            int x_ = pt_.getx() - idBlock_.getx();
-            int y_ = pt_.gety() - idBlock_.gety();
-            ScreenCoords c_ = new ScreenCoords(x_, y_);
             String img_ = _data.getImageTile(file_, c_);
             backgroundImages.put(k, img_);
         }
@@ -3170,10 +3161,7 @@ public class DataMap {
         Place currentPlace_=places.getVal(_currentCoords.getNumberPlace());
         Level currentLevel_=currentPlace_.getLevelByCoords(_currentCoords);
         Point closestPoint_ = _currentCoords.getLevel().getPoint();
-        try {
-            currentLevel_.getBlockByPoint(closestPoint_);
-            return new Coords(_currentCoords);
-        } catch (BlockNotFoundException _0) {
+        if (!currentLevel_.getSafeBlockByPoint(closestPoint_).isValid()) {
             if (currentPlace_ instanceof InitializedPlace) {
                 if (!_currentCoords.isInside()) {
                     ObjectMap<PlaceInterConnect,Coords> rc_ = ((InitializedPlace)currentPlace_).getPointsWithCitiesAndOtherRoads();
@@ -3185,18 +3173,16 @@ public class DataMap {
             }
             return new Coords();
         }
+        return new Coords(_currentCoords);
     }
 
     public Coords closestTile(Coords _currentCoords,Direction _direction){
         Place currentPlace_=places.getVal(_currentCoords.getNumberPlace());
         Level currentLevel_=currentPlace_.getLevelByCoords(_currentCoords);
-        try {
-            Coords closestCoords_ = new Coords(_currentCoords);
-            Point closestPoint_ = closestCoords_.getLevel().getPoint();
-            closestPoint_.moveTo(_direction);
-            currentLevel_.getBlockByPoint(closestPoint_);
-            return closestCoords_;
-        } catch (BlockNotFoundException _0) {
+        Coords closestCoords_ = new Coords(_currentCoords);
+        Point closestPoint_ = closestCoords_.getLevel().getPoint();
+        closestPoint_.moveTo(_direction);
+        if (!currentLevel_.getSafeBlockByPoint(closestPoint_).isValid()) {
             if (currentPlace_ instanceof InitializedPlace) {
                 if (!_currentCoords.isInside()) {
                     ObjectMap<PlaceInterConnect,Coords> rc_ = ((InitializedPlace)currentPlace_).getPointsWithCitiesAndOtherRoads();
@@ -3208,18 +3194,15 @@ public class DataMap {
             }
             return new Coords();
         }
+        return closestCoords_;
     }
 
     public Block currentBlock(Coords _currentCoords){
         Place currentPlace_=places.getVal(_currentCoords.getNumberPlace());
         Level currentLevel_=currentPlace_.getLevelByCoords(_currentCoords);
-        try {
-            Coords closestCoords_ = new Coords(_currentCoords);
-            Point closestPoint_ = closestCoords_.getLevel().getPoint();
-            return currentLevel_.getBlockByPoint(closestPoint_);
-        } catch (BlockNotFoundException _0) {
-            return new Block();
-        }
+        Coords closestCoords_ = new Coords(_currentCoords);
+        Point closestPoint_ = closestCoords_.getLevel().getPoint();
+        return currentLevel_.getSafeBlockByPoint(closestPoint_);
     }
 
     public Tree getTree() {

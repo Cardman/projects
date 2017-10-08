@@ -3,10 +3,7 @@ import aiki.DataBase;
 import aiki.ImageHeroKey;
 import aiki.Resources;
 import aiki.comments.Comment;
-import aiki.exceptions.AppearingException;
-import aiki.exceptions.BlockNotFoundException;
 import aiki.exceptions.GameLoadException;
-import aiki.exceptions.OrientationException;
 import aiki.fight.pokemon.PokemonData;
 import aiki.fight.pokemon.enums.GenderRepartition;
 import aiki.game.enums.InterfaceType;
@@ -46,6 +43,7 @@ import aiki.map.characters.enums.GeranceType;
 import aiki.map.characters.enums.SellType;
 import aiki.map.enums.Direction;
 import aiki.map.levels.AreaApparition;
+import aiki.map.levels.Block;
 import aiki.map.levels.Level;
 import aiki.map.levels.LevelCave;
 import aiki.map.levels.LevelIndoorGym;
@@ -416,10 +414,8 @@ public class Game {
         boolean correctCoords_ = true;
         Place curPlace_ = _data.getMap().getPlaces().getVal(playerCoords.getNumberPlace());
         Level curLevel_ = curPlace_.getLevelByCoords(playerCoords);
-        try {
-            curLevel_.getEnvBlockByPoint(playerCoords.getLevel().getPoint());
-        } catch (BlockNotFoundException _0) {
-            correctCoords_ = false;
+        if (!curLevel_.getEnvBlockByPoint(playerCoords.getLevel().getPoint()).isValid()) {
+        	correctCoords_ = false;
         }
         Coords coords_ = new Coords(playerCoords);
         if (!isEmpty(_data.getMap(), playerCoords)) {
@@ -1254,22 +1250,14 @@ public class Game {
     public void initFishing(DataBase _d) {
         DataMap d_=_d.getMap();
         Coords voisin_ = closestTile(d_);
-        AreaApparition area_;
-        try {
-            Level level_ = d_.getPlaces().getVal(voisin_.getNumberPlace()).getLevelByCoords(voisin_);
-            area_ = ((LevelWithWildPokemon)level_).getAreaByPoint(voisin_.getLevel().getPoint());
-        } catch (RuntimeException _0) {
+        AreaApparition area_ = d_.getAreaByCoords(voisin_);
+        if (area_.isVirtual()) {
             return;
         }
-//        CustList<WildPokemon> list_ = area_.getWildPokemonFishingList();
-//        if (list_.isEmpty()) {
-//            return;
-//        }
         if (area_.getPokemonListLength(false) == CustList.SIZE_EMPTY) {
             return;
         }
         if(!difficulty.getRandomWildFight()){
-//            newIndex(false, indexPeriodFishing, list_, _d);
             newIndex(false, indexPeriodFishing, area_, _d);
             return;
         }
@@ -2070,28 +2058,19 @@ public class Game {
         incrementStepsToLayEggs(_d);
         DataMap d_=_d.getMap();
         Coords voisin_;
-        try {
-            nbSteps = 0;
-            if(_direction != playerOrientation){
-                playerOrientation = _direction;
-                throw new OrientationException();
-            }
-            movingHero(d_);
-            if (visitedPlaces.contains(playerCoords)) {
-                visitedPlaces.put(playerCoords, true);
-            }
-            voisin_ = closestTile(d_);
-            player.moveLoop(nbSteps, difficulty, _d);
-            commentGame.addComment(player.getCommentGame());
-        } catch (RuntimeException _0) {
-            voisin_ = closestTile(d_);
-            if (voisin_.isValid()) {
-                directInteraction(voisin_, d_);
-                return;
-            }
-            interfaceType=InterfaceType.RIEN;
+        nbSteps = 0;
+        if(_direction != playerOrientation){
+            playerOrientation = _direction;
+            directInteraction(d_);
             return;
         }
+        movingHero(d_);
+        if (visitedPlaces.contains(playerCoords)) {
+            visitedPlaces.put(playerCoords, true);
+        }
+        voisin_ = closestTile(d_);
+        player.moveLoop(nbSteps, difficulty, _d);
+        commentGame.addComment(player.getCommentGame());
         if (nbSteps > 0) {
             processWalkingAreaApparition(voisin_, _d);
         }
@@ -2105,23 +2084,24 @@ public class Game {
         }
     }
 
+    void directInteraction(DataMap _d) {
+        Coords voisin_ = closestTile(_d);
+        if (voisin_.isValid()) {
+            directInteraction(voisin_, _d);
+            return;
+        }
+        interfaceType=InterfaceType.RIEN;
+    }
+
     void processWalkingAreaApparition(Coords _coords, DataBase _d) {
         DataMap d_ = _d.getMap();
-        Place pl_ = d_.getPlaces().getVal(playerCoords.getNumberPlace());
-        AreaApparition area_;
-        try {
-            if (player.getRepousseActif()) {
-                throw new AppearingException();
-            }
-            Level level_ = pl_.getLevelByCoords(playerCoords);
-            LevelWithWildPokemon levelWild_ = (LevelWithWildPokemon) level_;
-            area_= levelWild_.getAreaByPoint(playerCoords.getLevel().getPoint());
-        } catch (RuntimeException _0) {
-            if (_coords.isValid()) {
-                directInteraction(_coords, d_);
-                return;
-            }
-            interfaceType=InterfaceType.RIEN;
+        if (player.getRepousseActif()) {
+            directInteractionValid(_coords, d_);
+            return;
+        }
+        AreaApparition area_ = d_.getAreaByCoords(playerCoords);
+        if (area_.isVirtual()) {
+            directInteractionValid(_coords, d_);
             return;
         }
         if(!difficulty.getRandomWildFight()){
@@ -2132,14 +2112,17 @@ public class Game {
             newRandomPokemon(area_.getWildPokemonRand(), _d);
         }
         if (!fight.getFightType().isExisting()) {
-            if (_coords.isValid()) {
-                directInteraction(_coords, d_);
-                return;
-            }
-            interfaceType=InterfaceType.RIEN;
+            directInteractionValid(_coords, d_);
         }
     }
 
+    private void directInteractionValid(Coords _coords, DataMap _d) {
+        if (_coords.isValid()) {
+            directInteraction(_coords, _d);
+            return;
+        }
+        interfaceType=InterfaceType.RIEN;
+    }
     void incrementPeriod(AreaApparition _area, DataBase _d) {
         indexStep++;
         if(indexStep >= _area.getAvgNbSteps()){
@@ -2244,7 +2227,7 @@ public class Game {
                 return;
             }
         }
-        if (nextlevel_.getBlockByPoint(nextPt_).getType() == EnvironmentType.NOTHING) {
+        if (nextlevel_.getSafeBlockByPoint(nextPt_).getType() == EnvironmentType.NOTHING) {
             return;
         }
         if (playerCoords.isInside()) {
@@ -2458,12 +2441,10 @@ public class Game {
             }
             return;
         }
-        try {
-            if (level_.getBlockByPoint(_voisin.getLevel().getPoint()).getType() == EnvironmentType.WATER) {
-                interfaceType=InterfaceType.PECHE;
-                return;
-            }
-        } catch (BlockNotFoundException _0) {
+        Block bl_ = level_.getSafeBlockByPoint(_voisin.getLevel().getPoint());
+        if (bl_.isValid() && bl_.getType() == EnvironmentType.WATER) {
+            interfaceType=InterfaceType.PECHE;
+            return;
         }
         interfaceType=InterfaceType.RIEN;
     }
