@@ -1,6 +1,5 @@
 package aiki.map.levels;
 import aiki.DataBase;
-import aiki.exceptions.BlockNotFoundException;
 import aiki.exceptions.DataException;
 import aiki.map.buildings.Building;
 import aiki.map.characters.CharacterInRoadCave;
@@ -33,8 +32,6 @@ import code.util.comparators.ComparatorBoolean;
 
 @RwXml
 public abstract class Level {
-
-    private static final String CONTAINING_BLOCK_NOT_FOUND = "containing block not found for:";
 
     /**Left top for key, rectangle block for value that is an obstacle or an area of wild pokemon. */
     private ObjectMap<Point,Block> blocks;
@@ -990,61 +987,9 @@ public abstract class Level {
         }
         return true;
     }
-    
-    public Point getBlockIdByPoint(Point _point) {
-    	for (Point i: blocks.getKeys()) {
-    		Block block_ = blocks.getVal(i);
-    		short w_ = block_.getWidth();
-    		short h_ = block_.getHeight();
-    		short xi_ = i.getx();
-    		short yi_ = i.gety();
-    		int xr_ = xi_ + w_;
-    		int yb_ = yi_ + h_;
-    		short xp_ = _point.getx();
-    		short yp_ = _point.gety();
-    		if (xp_ >= xi_ && xp_ < xr_) {
-    			if (yp_ >= yi_ && yp_ < yb_) {
-    				return i;
-    			}
-    		}
-    	}
-    	throw new BlockNotFoundException(CONTAINING_BLOCK_NOT_FOUND+_point);
-    }
 
     public ScreenCoords getScreenCoordsByPoint(Point _point) {
-    	ScreenCoords out_ = new ScreenCoords();
-    	for (Point i: blocks.getKeys()) {
-            Block block_ = blocks.getVal(i);
-            short w_ = block_.getWidth();
-            short h_ = block_.getHeight();
-            short xi_ = i.getx();
-            short yi_ = i.gety();
-            int xr_ = xi_ + w_;
-            int yb_ = yi_ + h_;
-            short xp_ = _point.getx();
-            short yp_ = _point.gety();
-            if (xp_ >= xi_ && xp_ < xr_) {
-                if (yp_ >= yi_ && yp_ < yb_) {
-                	out_.setXcoords(_point.getx()-i.getx());
-                	out_.setYcoords(_point.gety()-i.gety());
-                    return out_;
-                }
-            }
-        }
-    	out_.setXcoords(-1);
-    	out_.setYcoords(-1);
-        return out_;
-    }
-
-    public Block getEnvBlockByPoint(Point _point) {
-        Block bl_ = getSafeBlockByPoint(_point);
-        if (bl_.getType() == EnvironmentType.NOTHING) {
-        	return new Block();
-        }
-        return bl_;
-    }
-
-    public Block getSafeBlockByPoint(Point _point) {
+        ScreenCoords out_ = new ScreenCoords();
         for (Point i: blocks.getKeys()) {
             Block block_ = blocks.getVal(i);
             short w_ = block_.getWidth();
@@ -1057,11 +1002,23 @@ public abstract class Level {
             short yp_ = _point.gety();
             if (xp_ >= xi_ && xp_ < xr_) {
                 if (yp_ >= yi_ && yp_ < yb_) {
-                    return block_;
+                    out_.setXcoords(_point.getx()-i.getx());
+                    out_.setYcoords(_point.gety()-i.gety());
+                    return out_;
                 }
             }
         }
-        return new Block();
+        out_.setXcoords(-1);
+        out_.setYcoords(-1);
+        return out_;
+    }
+
+    public Block getEnvBlockByPoint(Point _point) {
+        Block bl_ = getBlockByPoint(_point);
+        if (bl_.getType() == EnvironmentType.NOTHING) {
+            return new Block();
+        }
+        return bl_;
     }
 
     public Block getBlockByPoint(Point _point) {
@@ -1081,8 +1038,9 @@ public abstract class Level {
                 }
             }
         }
-        throw new BlockNotFoundException(CONTAINING_BLOCK_NOT_FOUND+_point);
+        return new Block();
     }
+
     public Limits limits(){
         Point leftTopPoint_=new Point((short)0,(short)0);
         Point rightBottomPoint_=new Point((short)0,(short)0);

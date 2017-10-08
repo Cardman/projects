@@ -415,7 +415,7 @@ public class Game {
         Place curPlace_ = _data.getMap().getPlaces().getVal(playerCoords.getNumberPlace());
         Level curLevel_ = curPlace_.getLevelByCoords(playerCoords);
         if (!curLevel_.getEnvBlockByPoint(playerCoords.getLevel().getPoint()).isValid()) {
-        	correctCoords_ = false;
+            correctCoords_ = false;
         }
         Coords coords_ = new Coords(playerCoords);
         if (!isEmpty(_data.getMap(), playerCoords)) {
@@ -2227,7 +2227,7 @@ public class Game {
                 return;
             }
         }
-        if (nextlevel_.getSafeBlockByPoint(nextPt_).getType() == EnvironmentType.NOTHING) {
+        if (nextlevel_.getBlockByPoint(nextPt_).getType() == EnvironmentType.NOTHING) {
             return;
         }
         if (playerCoords.isInside()) {
@@ -2441,7 +2441,7 @@ public class Game {
             }
             return;
         }
-        Block bl_ = level_.getSafeBlockByPoint(_voisin.getLevel().getPoint());
+        Block bl_ = level_.getBlockByPoint(_voisin.getLevel().getPoint());
         if (bl_.isValid() && bl_.getType() == EnvironmentType.WATER) {
             interfaceType=InterfaceType.PECHE;
             return;

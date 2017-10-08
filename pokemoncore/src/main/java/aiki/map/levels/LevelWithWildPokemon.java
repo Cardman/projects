@@ -53,10 +53,10 @@ public class LevelWithWildPokemon extends Level {
             index_++;
         }
         for (EntryCust<Point,Block> e: getBlocks().entryList()) {
-        	AreaApparition a_ = getAreaByBlockId(e.getKey());
-        	if (a_.isVirtual()) {
-        		continue;
-        	}
+            AreaApparition a_ = getAreaByBlockId(e.getKey());
+            if (a_.isVirtual()) {
+                continue;
+            }
             if (!a_.getWildPokemonFishing().isEmpty()) {
                 if (e.getValue().getType() != EnvironmentType.WATER) {
                     throw new DataException();
@@ -372,12 +372,12 @@ public class LevelWithWildPokemon extends Level {
     public AreaApparition getAreaByBlockId(Point _key) {
         int index_ = getBlocks().getVal(_key).getIndexApparition();
         if (index_ < 0) {
-        	return new AreaApparition();
+            return new AreaApparition();
         }
         return wildPokemonAreas.get(index_);
     }
     public AreaApparition getAreaByPoint(Point _point) {
-        int index_ = getSafeBlockByPoint(_point).getIndexApparition();
+        int index_ = getBlockByPoint(_point).getIndexApparition();
         if (index_ < 0) {
             return new AreaApparition();
         }

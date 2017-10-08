@@ -139,15 +139,15 @@ public final class FightFacade {
     public static void initTypeEnv(Fight _fight,Coords _coords, Difficulty _diff, DataBase _d){
         DataMap d_ = _d.getMap();
         if (_coords.isValid()) {
-        	LevelPoint lp_ = _coords.getLevel();
-            Block bl_ = d_.getPlaces().getVal(_coords.getNumberPlace()).getLevelByCoords(_coords).getSafeBlockByPoint(lp_.getPoint());
+            LevelPoint lp_ = _coords.getLevel();
+            Block bl_ = d_.getPlaces().getVal(_coords.getNumberPlace()).getLevelByCoords(_coords).getBlockByPoint(lp_.getPoint());
             if (bl_.isValid()) {
-            	_fight.setEnvType(bl_.getType());
+                _fight.setEnvType(bl_.getType());
             } else {
-            	_fight.setEnvType(EnvironmentType.ROAD);
+                _fight.setEnvType(EnvironmentType.ROAD);
             }
         } else {
-        	_fight.setEnvType(EnvironmentType.ROAD);
+            _fight.setEnvType(EnvironmentType.ROAD);
         }
         FightSending.firstEffectWhileSendingTeams(_fight, _diff, _d);
         if(!_fight.getFightType().isWild()){

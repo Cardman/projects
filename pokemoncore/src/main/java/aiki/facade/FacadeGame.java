@@ -2239,13 +2239,13 @@ public class FacadeGame implements WithMathFactory {
     //%%%%end%%%% hosting pokemon
 
     public boolean isFishArea() {
-    	Coords next_ = closestTile();
+        Coords next_ = closestTile();
         if (!next_.isValid()) {
-        	return false;
+            return false;
         }
         Place pl_ = data.getMap().getPlaces().getVal(next_.getNumberPlace());
         Level l_ = pl_.getLevelByCoords(next_);
-        if (l_.getSafeBlockByPoint(next_.getLevel().getPoint()).getType() == EnvironmentType.WATER) {
+        if (l_.getBlockByPoint(next_.getLevel().getPoint()).getType() == EnvironmentType.WATER) {
             return true;
         }
         return false;

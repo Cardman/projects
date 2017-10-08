@@ -1,38 +1,34 @@
 package aiki.map.levels;
 import static org.junit.Assert.assertSame;
+import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
-import code.util.CustList;
-import code.util.EqList;
-import code.util.ObjectMap;
-import aiki.exceptions.BlockNotFoundException;
-import aiki.exceptions.NoWildPokemonException;
-import aiki.map.levels.AreaApparition;
-import aiki.map.levels.Block;
-import aiki.map.levels.LevelWithWildPokemon;
 import aiki.map.levels.enums.EnvironmentType;
 import aiki.map.pokemon.WildPk;
 import aiki.map.pokemon.enums.Gender;
 import aiki.util.Point;
+import code.util.CustList;
+import code.util.EqList;
+import code.util.ObjectMap;
 
 @SuppressWarnings("static-method")
 public class LevelWithWildPokemonTest {
 
-    @Test(expected=BlockNotFoundException.class)
+    @Test
     public void getAreaByPoint1FailTest() {
         LevelWithWildPokemon level_ = new LevelWithWildPokemon();
         level_.setBlocks(new ObjectMap<Point,Block>());
-        level_.getAreaByPoint(new Point((short)0,(short)0));
+        assertTrue(level_.getAreaByPoint(new Point((short)0,(short)0)).isVirtual());
     }
 
-    @Test(expected=NoWildPokemonException.class)
+    @Test
     public void getAreaByPoint2FailTest() {
         LevelWithWildPokemon level_ = new LevelWithWildPokemon();
         level_.setBlocks(new ObjectMap<Point,Block>());
         Block block_ = new Block((short)5, (short)3, EnvironmentType.ROAD, "");
         level_.getBlocks().put(new Point((short)0,(short)0), block_);
-        level_.getAreaByPoint(new Point((short)0,(short)0));
+        assertTrue(level_.getAreaByPoint(new Point((short)0,(short)0)).isVirtual());
     }
 
     @Test

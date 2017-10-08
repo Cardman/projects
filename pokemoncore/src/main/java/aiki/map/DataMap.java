@@ -1569,7 +1569,7 @@ public class DataMap {
                     if (!level_.isEmpty(ptNext_)) {
                         continue;
                     }
-                    Block block_ = level_.getSafeBlockByPoint(ptNext_);
+                    Block block_ = level_.getBlockByPoint(ptNext_);
                     if (!block_.isValid()) {
                         if (links_.contains(new PlaceInterConnect(pt_,d))) {
                             Coords coords_ = links_.getVal(new PlaceInterConnect(pt_,d));
@@ -1630,7 +1630,7 @@ public class DataMap {
                 if (!level_.isEmpty(ptNext_)) {
                     continue;
                 }
-                Block block_ = level_.getSafeBlockByPoint(ptNext_);
+                Block block_ = level_.getBlockByPoint(ptNext_);
                 if (block_.isValid()) {
                     if (block_.getType() == EnvironmentType.NOTHING) {
                         Coords coords_ = new Coords(_id);
@@ -3138,7 +3138,7 @@ public class DataMap {
             Place place_ = places.getVal(coords_.getNumberPlace());
             Level level_ = place_.getLevelByCoords(coords_);
             Point pt_ = coords_.getLevel().getPoint();
-            Block bl_ = level_.getSafeBlockByPoint(pt_);
+            Block bl_ = level_.getBlockByPoint(pt_);
             ScreenCoords c_ = level_.getScreenCoordsByPoint(pt_);
             String file_ = bl_.getTileFileName();
             String img_ = _data.getImageTile(file_, c_);
@@ -3161,7 +3161,7 @@ public class DataMap {
         Place currentPlace_=places.getVal(_currentCoords.getNumberPlace());
         Level currentLevel_=currentPlace_.getLevelByCoords(_currentCoords);
         Point closestPoint_ = _currentCoords.getLevel().getPoint();
-        if (!currentLevel_.getSafeBlockByPoint(closestPoint_).isValid()) {
+        if (!currentLevel_.getBlockByPoint(closestPoint_).isValid()) {
             if (currentPlace_ instanceof InitializedPlace) {
                 if (!_currentCoords.isInside()) {
                     ObjectMap<PlaceInterConnect,Coords> rc_ = ((InitializedPlace)currentPlace_).getPointsWithCitiesAndOtherRoads();
@@ -3182,7 +3182,7 @@ public class DataMap {
         Coords closestCoords_ = new Coords(_currentCoords);
         Point closestPoint_ = closestCoords_.getLevel().getPoint();
         closestPoint_.moveTo(_direction);
-        if (!currentLevel_.getSafeBlockByPoint(closestPoint_).isValid()) {
+        if (!currentLevel_.getBlockByPoint(closestPoint_).isValid()) {
             if (currentPlace_ instanceof InitializedPlace) {
                 if (!_currentCoords.isInside()) {
                     ObjectMap<PlaceInterConnect,Coords> rc_ = ((InitializedPlace)currentPlace_).getPointsWithCitiesAndOtherRoads();
@@ -3202,7 +3202,7 @@ public class DataMap {
         Level currentLevel_=currentPlace_.getLevelByCoords(_currentCoords);
         Coords closestCoords_ = new Coords(_currentCoords);
         Point closestPoint_ = closestCoords_.getLevel().getPoint();
-        return currentLevel_.getSafeBlockByPoint(closestPoint_);
+        return currentLevel_.getBlockByPoint(closestPoint_);
     }
 
     public Tree getTree() {

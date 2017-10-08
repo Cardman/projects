@@ -1,9 +1,6 @@
 package aiki;
 import org.junit.Assert;
 
-import code.maths.LgInt;
-import code.maths.Rate;
-import code.util.StringList;
 import aiki.fight.enums.EndTurnType;
 import aiki.fight.enums.Statistic;
 import aiki.fight.moves.effects.enums.PointViewChangementType;
@@ -21,8 +18,12 @@ import aiki.map.enums.Direction;
 import aiki.map.levels.enums.EnvironmentType;
 import aiki.map.pokemon.enums.Gender;
 import aiki.map.tree.util.Dims;
+import aiki.map.util.ScreenCoords;
 import aiki.util.Coords;
 import aiki.util.Point;
+import code.maths.LgInt;
+import code.maths.Rate;
+import code.util.StringList;
 
 public final class EquallablePkUtil {
 
@@ -69,8 +70,13 @@ public final class EquallablePkUtil {
         Assert.assertNotNull(_result);
         Assert.assertTrue(_expected+DIFF+_result, _expected.eq(_result));
     }
-
+    
     public static void assertEq(Dims _expected, Dims _result) {
+        Assert.assertNotNull(_result);
+        Assert.assertTrue(_expected+DIFF+_result, _expected.eq(_result));
+    }
+
+    public static void assertEq(ScreenCoords _expected, ScreenCoords _result) {
         Assert.assertNotNull(_result);
         Assert.assertTrue(_expected+DIFF+_result, _expected.eq(_result));
     }

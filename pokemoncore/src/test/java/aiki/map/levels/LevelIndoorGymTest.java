@@ -5,14 +5,12 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
-import code.util.ObjectMap;
-import aiki.exceptions.BlockNotFoundException;
 import aiki.map.characters.GymTrainer;
-import aiki.map.levels.Block;
-import aiki.map.levels.LevelIndoorGym;
 import aiki.map.levels.enums.EnvironmentType;
 import aiki.map.util.Limits;
+import aiki.map.util.ScreenCoords;
 import aiki.util.Point;
+import code.util.ObjectMap;
 
 @SuppressWarnings("static-method")
 public class LevelIndoorGymTest {
@@ -103,20 +101,22 @@ public class LevelIndoorGymTest {
         assertEq(2, limits_.getBottomRight().gety());
     }
 
-    @Test(expected=BlockNotFoundException.class)
-    public void getBlockIdByPoint1FailTest() {
+    @Test
+    public void getScreenCoordsByPoint1FailTest() {
         LevelIndoorGym level_ = new LevelIndoorGym();
         level_.setBlocks(new ObjectMap<Point,Block>());
-        level_.getBlockIdByPoint(new Point((short)0,(short)0));
+        ScreenCoords blockId_ = level_.getScreenCoordsByPoint(new Point((short)0,(short)0));
+        assertEq(new ScreenCoords(-1,-1), blockId_);
     }
 
-    @Test(expected=BlockNotFoundException.class)
-    public void getBlockIdByPoint2FailTest() {
+    @Test
+    public void getScreenCoordsByPoint2FailTest() {
         LevelIndoorGym level_ = new LevelIndoorGym();
         level_.setBlocks(new ObjectMap<Point,Block>());
         Block block_ = new Block((short)5, (short)3, EnvironmentType.ROAD, "");
         level_.getBlocks().put(new Point((short)0,(short)0), block_);
-        level_.getBlockIdByPoint(new Point((short)5,(short)3));
+        ScreenCoords blockId_ = level_.getScreenCoordsByPoint(new Point((short)5,(short)3));
+        assertEq(new ScreenCoords(-1,-1), blockId_);
     }
 
     @Test
@@ -124,25 +124,25 @@ public class LevelIndoorGymTest {
         LevelIndoorGym level_ = new LevelIndoorGym();
         level_.setBlocks(new ObjectMap<Point,Block>());
         Block block_ = new Block((short)5, (short)3, EnvironmentType.ROAD, "");
-        level_.getBlocks().put(new Point((short)0,(short)0), block_);
-        Point blockId_ = level_.getBlockIdByPoint(new Point((short)1,(short)1));
-        assertEq(new Point((short)0,(short)0), blockId_);
+        level_.getBlocks().put(new Point((short)1,(short)1), block_);
+        ScreenCoords blockId_ = level_.getScreenCoordsByPoint(new Point((short)2,(short)2));
+        assertEq(new ScreenCoords(1,1), blockId_);
     }
 
-    @Test(expected=BlockNotFoundException.class)
+    @Test
     public void getBlockByPoint1FailTest() {
         LevelIndoorGym level_ = new LevelIndoorGym();
         level_.setBlocks(new ObjectMap<Point,Block>());
-        level_.getBlockByPoint(new Point((short)0,(short)0));
+        assertTrue(!level_.getBlockByPoint(new Point((short)0,(short)0)).isValid());
     }
 
-    @Test(expected=BlockNotFoundException.class)
+    @Test
     public void getBlockByPoint2FailTest() {
         LevelIndoorGym level_ = new LevelIndoorGym();
         level_.setBlocks(new ObjectMap<Point,Block>());
         Block block_ = new Block((short)5, (short)3, EnvironmentType.ROAD, "");
         level_.getBlocks().put(new Point((short)0,(short)0), block_);
-        level_.getBlockByPoint(new Point((short)5,(short)3));
+        assertTrue(!level_.getBlockByPoint(new Point((short)5,(short)3)).isValid());
     }
 
     @Test
