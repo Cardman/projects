@@ -869,6 +869,13 @@ public class Player {
         return ((PokemonPlayer) getSelectedPkTeam()).getMoves().getKeys();
     }
 
+    public boolean isValidPkPlayerChoice() {
+        if (!team.isValidIndex(chosenTeamPokemon)) {
+            return false;
+        }
+        return team.get(chosenTeamPokemon) instanceof PokemonPlayer;
+    }
+
     public UsablePokemon getSelectedPkTeam() {
         return team.get(chosenTeamPokemon);
     }

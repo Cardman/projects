@@ -1364,12 +1364,7 @@ public class FacadeGame implements WithMathFactory {
 
     public void setChosenTeamPokemon(short _chosenPokemon) {
         game.getPlayer().setChosenTeamPokemon(_chosenPokemon);
-        try {
-            selectedTeamPokemon = getSelectedPkTeam() instanceof PokemonPlayer;
-//        } catch (Exception e_) {
-        } catch (IndexOutOfBoundsException _0) {
-            selectedTeamPokemon = false;
-        }
+        selectedTeamPokemon = game.getPlayer().isValidPkPlayerChoice();
         selectedBoxPokemon = false;
         selectedHostedPokemon = false;
     }
