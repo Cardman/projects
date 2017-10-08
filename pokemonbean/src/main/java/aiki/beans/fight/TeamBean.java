@@ -142,10 +142,7 @@ public class TeamBean extends CommonFightBean {
         playerFightersAgainstFoe = new NatTreeMap<Byte,Numbers<Byte> >();
         for (byte p: team_.getPlayerFightersAgainstFoeSet()) {
             Numbers<Byte> numbers_ = new Numbers<Byte>();
-            try {
-                numbers_.addAllElts(team_.getPlayerFightersAgainstFoeVal(p));
-            } catch (RuntimeException _0) {
-            }
+            numbers_.addAllElts(team_.getPlayerFightersAgainstFoeVal(p));
             numbers_.sort();
             playerFightersAgainstFoe.put(p, numbers_);
         }

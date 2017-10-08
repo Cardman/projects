@@ -508,12 +508,12 @@ public class MapLevelBean extends CommonBean {
         Place p_ = data_.getMap().getPlaces().getVal(pl_.shortValue());
         StringMap<Boolean> booleans_ = new StringMap<Boolean>();
         booleans_.put(SEE_AREA,seeArea_);
-        try {
-            Coords coords_ = new Coords();
-            coords_.setNumberPlace(pl_.shortValue());
-            coords_.setLevel(new LevelPoint());
-            coords_.getLevel().setLevelIndex(lev_.byteValue());
-            coords_.getLevel().setPoint(pt_);
+        Coords coords_ = new Coords();
+        coords_.setNumberPlace(pl_.shortValue());
+        coords_.setLevel(new LevelPoint());
+        coords_.getLevel().setLevelIndex(lev_.byteValue());
+        coords_.getLevel().setPoint(pt_);
+        if (p_ instanceof InitializedPlace) {
             InitializedPlace i_ = (InitializedPlace) p_;
             EnumList<Direction> points_ = new EnumList<Direction>();
             for (PlaceInterConnect p: i_.getPointsWithCitiesAndOtherRoads().getKeys()) {
@@ -531,7 +531,7 @@ public class MapLevelBean extends CommonBean {
                     booleans_.put(PROPONE_LINK_VAR+d, false);
                 }
             }
-        } catch (RuntimeException _0) {
+        } else {
             booleans_.put(PROPONE_LINK,false);
             for (Direction d: Direction.values()) {
                 booleans_.put(PROPONE_LINK_VAR+d, false);
@@ -560,7 +560,7 @@ public class MapLevelBean extends CommonBean {
             return return_;
         }
         if (p_ instanceof InitializedPlace && !getForms().contains(INSIDE)) {
-            Coords coords_ = new Coords();
+            coords_ = new Coords();
             coords_.setNumberPlace(pl_.shortValue());
             coords_.setLevel(new LevelPoint());
             coords_.getLevel().setLevelIndex(lev_.byteValue());
