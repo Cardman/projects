@@ -341,18 +341,23 @@ public final class InstanceOperation extends InvokingOperation {
             }
             Argument a_ = new Argument();
             if (elts_) {
-                Object o_ = newClassicArray(_conf, instanceClassName_, realClassName_, args_);
+                if (cust_) {
+                    Struct[] array_ = new Struct[nbCh_];
+                    for (int i = CustList.FIRST_INDEX; i < nbCh_; i++) {
+                        Argument chArg_ = _arguments.get(i);
+                        array_[i] = chArg_.getStruct();
+                    }
+                    String clArr_ = PrimitiveTypeUtil.getPrettyArrayType(realClassName_, args_.length);
+                    a_.setStruct(new Struct(array_,clArr_));
+                    return a_;
+                }
+                Object[] array_ = (Object[]) newClassicArray(_conf, instanceClassName_, realClassName_, args_);
                 for (int i = CustList.FIRST_INDEX; i < nbCh_; i++) {
                     Argument chArg_ = _arguments.get(i);
                     Struct str_ = chArg_.getStruct();
-                    if (cust_) {
-                        Array.set(o_, i, str_);
-                    } else {
-                        Array.set(o_, i, str_.getInstance());
-                    }
+                    array_[i] = str_.getInstance();
                 }
-                String clArr_ = PrimitiveTypeUtil.getPrettyArrayType(realClassName_, args_.length);
-                a_.setStruct(new Struct(o_,clArr_));
+                a_.setStruct(new Struct(array_));
                 return a_;
             } else if (cust_) {
                 Numbers<Integer> dims_;
@@ -364,8 +369,7 @@ public final class InstanceOperation extends InvokingOperation {
                 return a_;
             } else {
                 Object o_ = newClassicArray(_conf, instanceClassName_, realClassName_, args_);
-                String clArr_ = PrimitiveTypeUtil.getPrettyArrayType(realClassName_, args_.length);
-                a_.setStruct(new Struct(o_,clArr_));
+                a_.setStruct(new Struct(o_));
                 return a_;
             }
         }
@@ -413,7 +417,7 @@ public final class InstanceOperation extends InvokingOperation {
                     Array.set(o_, i, str_.getInstance());
                 }
             }
-            a_.setStruct(new Struct(o_,PrimitiveTypeUtil.getPrettyArrayType(realClassName_, args_.length)));
+            a_.setStruct(new Struct(o_));
             return a_;
         }
         if (possibleInitClass) {
