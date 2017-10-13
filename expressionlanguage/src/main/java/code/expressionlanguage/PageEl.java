@@ -56,8 +56,6 @@ public final class PageEl {
 
     private String globalClass;
 
-    private String enumName = EMPTY_STRING;
-
     private Argument globalArgument;
 
     private StringMap<LoopVariable> vars = new StringMap<LoopVariable>();
@@ -273,14 +271,6 @@ public final class PageEl {
 
     public void setGlobalClass(String _globalClass) {
         globalClass = _globalClass;
-    }
-
-    public String getEnumName() {
-        return enumName;
-    }
-
-    public void setEnumName(String _enumName) {
-        enumName = _enumName;
     }
 
     public Argument getGlobalArgument() {

@@ -53,6 +53,8 @@ public final class InstanceOperation extends InvokingOperation {
 
     private FctConstraints constId;
 
+    private String fieldName = EMPTY_STRING;
+
     public InstanceOperation(int _index, ContextEl _importingPage,
             int _indexChild, MethodOperation _m, OperationsSequence _op) {
         super(_index, _importingPage, _indexChild, _m, _op);
@@ -61,11 +63,11 @@ public final class InstanceOperation extends InvokingOperation {
 
     @Override
     public void analyze(CustList<OperationNode> _nodes, ContextEl _conf,
-            boolean _enumContext, String _op) {
-        analyzeCommon(_nodes, _conf, _enumContext, _op);
+            String _fieldName, String _op) {
+        analyzeCommon(_nodes, _conf, _fieldName, _op);
     }
 
-    void analyzeCommon(CustList<OperationNode> _nodes, ContextEl _conf, boolean _enumContext, String _op) {
+    void analyzeCommon(CustList<OperationNode> _nodes, ContextEl _conf, String _fieldName, String _op) {
         Classes classes_ = _conf.getClasses();
         CustList<OperationNode> chidren_ = getChildrenNodes();
         int off_ = StringList.getFirstPrintableCharIndex(methodName);
@@ -174,7 +176,7 @@ public final class InstanceOperation extends InvokingOperation {
                     }
                 }
             }
-            analyzeCtor(_nodes, _conf, _enumContext, _op, realClassName_, firstArgs_, intern_);
+            analyzeCtor(_nodes, _conf, _fieldName, _op, realClassName_, firstArgs_, intern_);
             return;
         }
         ClassArgumentMatching arg_ = getPreviousResultClass();
@@ -183,10 +185,10 @@ public final class InstanceOperation extends InvokingOperation {
         }
         firstArgs_.add(CustList.FIRST_INDEX, arg_);
         realClassName_ = arg_.getName()+INTERN_CLASS+realClassName_;
-        analyzeCtor(_nodes, _conf, _enumContext, _op, realClassName_, firstArgs_, intern_);
+        analyzeCtor(_nodes, _conf, _fieldName, _op, realClassName_, firstArgs_, intern_);
     }
 
-    void analyzeCtor(CustList<OperationNode> _nodes, ContextEl _conf, boolean _enumContext, String _op, String _realClassName, CustList<ClassArgumentMatching> _firstArgs, boolean _intern) {
+    void analyzeCtor(CustList<OperationNode> _nodes, ContextEl _conf, String _fieldName, String _op, String _realClassName, CustList<ClassArgumentMatching> _firstArgs, boolean _intern) {
         Classes classes_ = _conf.getClasses();
         String realClassName_ = _realClassName;
         if (StringList.quickEq(realClassName_, OperationNode.VOID_RETURN)) {
@@ -205,9 +207,10 @@ public final class InstanceOperation extends InvokingOperation {
                 throw new IllegalClassConstructorException(realClassName_+RETURN_LINE+_conf.joinPages());
             }
             if (custClass_.getCategory() == ClassCategory.ENUM) {
-                if (!_enumContext) {
+                if (_fieldName.isEmpty() || _nodes.last() != this) {
                     throw new IllegalClassConstructorException(realClassName_+RETURN_LINE+_conf.joinPages());
                 }
+                fieldName = _fieldName;
             }
             possibleInitClass = true;
             setResultClass(new ClassArgumentMatching(realClassName_));
@@ -459,7 +462,7 @@ public final class InstanceOperation extends InvokingOperation {
                 return ProcessXmlMethod.instanceArgument(className_, needed_, constId, _arguments, _conf);
             }
             StringList called_ = _conf.getLastPage().getCallingConstr().getCalledConstructors();
-            throw new CustomFoundConstructorException(className_, called_, constId, needed_, _arguments, InstancingStep.NEWING);
+            throw new CustomFoundConstructorException(className_, fieldName, called_, constId, needed_, _arguments, InstancingStep.NEWING);
         }
         return newInstance(_conf, needed_, 0, contructor, Argument.toArgArray(_arguments));
     }

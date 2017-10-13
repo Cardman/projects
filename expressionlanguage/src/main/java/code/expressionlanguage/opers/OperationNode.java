@@ -210,7 +210,7 @@ public abstract class OperationNode implements Operable {
         indexChild = _indexChild;
     }
 
-    public abstract void analyze(CustList<OperationNode> _nodes, ContextEl _conf, boolean _enumContext, String _op);
+    public abstract void analyze(CustList<OperationNode> _nodes, ContextEl _conf, String _fieldName, String _op);
 
     public abstract void calculate(CustList<OperationNode> _nodes, ContextEl _conf, String _op);
 

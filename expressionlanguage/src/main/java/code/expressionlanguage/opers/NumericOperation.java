@@ -890,7 +890,7 @@ public abstract class NumericOperation extends MethodOperation {
 
     @Override
     public final void analyze(CustList<OperationNode> _nodes, ContextEl _conf,
-            boolean _enumContext, String _op) {
+            String _fieldName, String _op) {
         analyzeCommon(_nodes, _conf, _op);
     }
 

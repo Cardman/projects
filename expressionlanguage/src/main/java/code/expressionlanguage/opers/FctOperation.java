@@ -87,7 +87,7 @@ public final class FctOperation extends InvokingOperation {
 
     @Override
     public void analyze(CustList<OperationNode> _nodes, ContextEl _conf,
-            boolean _enumContext, String _op) {
+            String _fieldName, String _op) {
         analyzeCommon(_nodes, _conf, _op);
     }
 
@@ -451,7 +451,7 @@ public final class FctOperation extends InvokingOperation {
                 StringList called_ = _conf.getLastPage().getCallingConstr().getCalledConstructors();
                 called_.add(clCurName_);
                 Argument global_ = _conf.getLastPage().getGlobalArgument();
-                throw new CustomFoundConstructorException(clCurName_, called_, constId, global_, firstArgs_, InstancingStep.USING_THIS);
+                throw new CustomFoundConstructorException(clCurName_, EMPTY_STRING, called_, constId, global_, firstArgs_, InstancingStep.USING_THIS);
             }
             if (StringList.quickEq(trimMeth_,EXTERN_CLASS+SUPER_ACCESS)) {
                 String clCurName_ = _conf.getLastPage().getGlobalClass();
@@ -461,7 +461,7 @@ public final class FctOperation extends InvokingOperation {
                 called_.add(superClass_);
                 _conf.getLastPage().clearCurrentEls();
                 Argument global_ = _conf.getLastPage().getGlobalArgument();
-                throw new CustomFoundConstructorException(superClass_, called_, constId, global_, firstArgs_, InstancingStep.USING_SUPER);
+                throw new CustomFoundConstructorException(superClass_, EMPTY_STRING, called_, constId, global_, firstArgs_, InstancingStep.USING_SUPER);
             }
         }
         if (StringList.quickEq(trimMeth_,EXTERN_CLASS+INSTANCEOF)) {

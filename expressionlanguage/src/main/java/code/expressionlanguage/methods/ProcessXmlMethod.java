@@ -70,6 +70,7 @@ public final class ProcessXmlMethod {
         call_.setArgument(_global);
         call_.setId(_id);
         call_.setInstancingStep(InstancingStep.NEWING);
+        call_.setFieldName(EMPTY_STRING);
         PageEl page_ = createInstancing(_class, call_, _args, _cont);
         _cont.addPage(page_);
         loopCallings(_cont);
@@ -227,11 +228,7 @@ public final class ProcessXmlMethod {
             if (global_ != null) {
                 str_ = global_.getStruct();
             }
-            String fieldName_ = EMPTY_STRING;
-            if (!_cont.isEmptyPages()) {
-                PageEl last_ = _cont.getLastPage();
-                fieldName_ = last_.getEnumName();
-            }
+            String fieldName_ = _call.getFieldName();
             if (fieldName_.isEmpty()) {
                 argGl_.setStruct(new Struct(new CustBase(),_class, fields_, str_));
             } else {
@@ -243,8 +240,6 @@ public final class ProcessXmlMethod {
                 }
             }
         } else {
-            PageEl last_ = _cont.getLastPage();
-            page_.setEnumName(last_.getEnumName());
             argGl_.setStruct(global_.getStruct());
         }
         page_.setReadUrl(_class);
@@ -447,7 +442,7 @@ public final class ProcessXmlMethod {
                 StringList called_ = ip_.getCallingConstr().getCalledConstructors();
                 called_.add(superClass_);
                 Argument global_ = ip_.getGlobalArgument();
-                throw new CustomFoundConstructorException(superClass_, called_, super_, global_, new CustList<Argument>(), InstancingStep.USING_SUPER);
+                throw new CustomFoundConstructorException(superClass_, EMPTY_STRING, called_, super_, global_, new CustList<Argument>(), InstancingStep.USING_SUPER);
             }
             if (meta_.getCategory() != ClassCategory.INTERFACE) {
                 UniqueRootedBlock root_ = (UniqueRootedBlock) _conf.getClasses().getClassBody(curClass_);
@@ -457,7 +452,7 @@ public final class ProcessXmlMethod {
                         FctConstraints super_ = new FctConstraints(superClass_, new EqList<StringList>());
                         StringList called_ = ip_.getCallingConstr().getCalledConstructors();
                         Argument global_ = ip_.getGlobalArgument();
-                        throw new CustomFoundConstructorException(i, called_, super_, global_, new CustList<Argument>(), InstancingStep.USING_SUPER);
+                        throw new CustomFoundConstructorException(i, EMPTY_STRING, called_, super_, global_, new CustList<Argument>(), InstancingStep.USING_SUPER);
                     }
                 }
             }

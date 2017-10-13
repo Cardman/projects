@@ -84,7 +84,7 @@ public final class ConstantOperation extends OperationNode implements SettableEl
 
     @Override
     public void analyze(CustList<OperationNode> _nodes, ContextEl _conf,
-            boolean _enumContext, String _op) {
+            String _fieldName, String _op) {
         analyzeCalculate(_conf);
         if (getArgument() != null) {
             String str_ = getOperations().getValues().getValue(CustList.FIRST_INDEX).trim();

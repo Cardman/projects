@@ -5,12 +5,10 @@ import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.ElUtil;
 import code.expressionlanguage.PageEl;
-import code.expressionlanguage.exceptions.IllegalClassConstructorException;
 import code.expressionlanguage.methods.exceptions.BadConstructorCall;
 import code.expressionlanguage.methods.exceptions.BadFieldException;
 import code.expressionlanguage.opers.Calculation;
 import code.expressionlanguage.opers.ExpressionLanguage;
-import code.expressionlanguage.opers.InstanceOperation;
 import code.expressionlanguage.opers.OperationNode;
 import code.expressionlanguage.opers.util.ClassField;
 import code.expressionlanguage.opers.util.Struct;
@@ -93,20 +91,7 @@ public final class ElementBlock extends Leaf implements InfoBlock{
         page_.setOffset(0);
         String className_ = getClassName();
         String fullInstance_ = NEW+className_ + PAR_LEFT + value + PAR_RIGHT;
-        opValue = ElUtil.getAnalyzedOperations(fullInstance_, _cont, new Calculation(true));
-        for (OperationNode o: opValue) {
-            if (o == opValue.last()) {
-                continue;
-            }
-            if (!(o instanceof InstanceOperation)) {
-                continue;
-            }
-            InstanceOperation i_ = (InstanceOperation) o;
-            String enumName_ = i_.getConstId().getName();
-            if (_cont.getClasses().getClassBody(enumName_) instanceof EnumBlock) {
-                throw new IllegalClassConstructorException(enumName_+RETURN_LINE+_cont.joinPages());
-            }
-        }
+        opValue = ElUtil.getAnalyzedOperations(fullInstance_, _cont, new Calculation(fieldName));
     }
 
     @Override
@@ -146,7 +131,6 @@ public final class ElementBlock extends Leaf implements InfoBlock{
             ip_.setProcessingAttribute(ATTRIBUTE_VALUE);
             ip_.setOffset(0);
             String name_ = getFieldName();
-            ip_.setEnumName(name_);
             Struct struct_;
             ExpressionLanguage el_ = ip_.getCurrentEl(this, CustList.FIRST_INDEX, getValueEl());
             Argument arg_ = el_.calculateMember(_cont);
@@ -156,7 +140,6 @@ public final class ElementBlock extends Leaf implements InfoBlock{
             RootBlock r_ = getRooted();
             ClassField staticField_ = new ClassField(r_.getFullName(), name_);
             _cont.getClasses().initializeStaticField(staticField_, struct_);
-            ip_.setEnumName(EMPTY_STRING);
         }
         processBlock(_cont);
     }

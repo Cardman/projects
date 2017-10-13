@@ -66,11 +66,11 @@ public final class ElUtil {
         page_.setOffset(0);
         page_.setProcessingAttribute(_attrLeft);
         analyzeSetting(true, allLeft_, _conf);
-        analyze(allLeft_, _conf, _staticContext, false, _oper);
+        analyze(allLeft_, _conf, _staticContext, EMPTY_STRING, _oper);
         analyzeSetting(false, allLeft_, _conf);
         page_.setOffset(0);
         page_.setProcessingAttribute(_attrRight);
-        analyze(allRight_, _conf, _staticContext, false, _oper);
+        analyze(allRight_, _conf, _staticContext, EMPTY_STRING, _oper);
         page_.setOffset(0);
         page_.setProcessingAttribute(_attrLeft);
         ClassArgumentMatching clMatchRight_ = opRight_.getResultClass();
@@ -238,14 +238,14 @@ public final class ElUtil {
             _conf.getLastPage().setOffset(d_.getIndexBegin());
         }
         boolean staticContext_ = _calcul.isStaticAcces();
-        boolean enumContext_ = _calcul.isEnumAcces();
+        String fieldName_ = _calcul.getFieldName();
         String oper_ = _calcul.getOper();
         if (_calcul.isLeftStep()) {
             analyzeSetting(true, all_, _conf);
-            analyze(all_, _conf, staticContext_, enumContext_, oper_);
+            analyze(all_, _conf, staticContext_, fieldName_, oper_);
             analyzeSetting(false, all_, _conf);
         } else {
-            analyze(all_, _conf, staticContext_, enumContext_, oper_);
+            analyze(all_, _conf, staticContext_, fieldName_, oper_);
         }
         return all_;
     }
@@ -384,13 +384,13 @@ public final class ElUtil {
         return list_;
     }
 
-    static void analyze(CustList<OperationNode> _nodes, ContextEl _context, boolean _staticContext, boolean _isEnumContext, String _op) {
+    static void analyze(CustList<OperationNode> _nodes, ContextEl _context, boolean _staticContext, String _fieldName, String _op) {
         PageEl page_ = _context.getLastPage();
         for (OperationNode e: _nodes) {
             if (e.getPreviousResultClass() == null) {
                 e.setPreviousResultClass(new ClassArgumentMatching(page_.getGlobalClass()), _staticContext);
             }
-            e.analyze(_nodes, _context, _isEnumContext, _op);
+            e.analyze(_nodes, _context, _fieldName, _op);
         }
     }
 
@@ -402,7 +402,7 @@ public final class ElUtil {
             if (e.getPreviousResultClass() == null && arg_ != null) {
                 e.setPreviousResultClass(new ClassArgumentMatching(page_.getGlobalClass()), static_);
             }
-            e.analyze(_nodes, _context, false, EMPTY_STRING);
+            e.analyze(_nodes, _context, EMPTY_STRING, EMPTY_STRING);
         }
     }
     /**@throws InvokeRedinedMethException

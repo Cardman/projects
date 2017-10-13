@@ -186,15 +186,11 @@ public final class FieldBlock extends Leaf implements InfoBlock {
                     struct_ = new Struct(value_);
                 }
             } else {
-                if (static_) {
-                    ip_.setEnumName(fieldName);
-                }
                 ExpressionLanguage el_ = ip_.getCurrentEl(this, CustList.FIRST_INDEX, getValueEl());
                 Argument arg_ = el_.calculateMember(_cont);
                 struct_ = arg_.getStruct();
                 el_.setCurrentOper(null);
                 ip_.clearCurrentEls();
-                ip_.setEnumName(EMPTY_STRING);
             }
             RootBlock r_ = getRooted();
             ClassField staticField_ = new ClassField(r_.getFullName(), name_);

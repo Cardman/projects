@@ -6,6 +6,8 @@ import code.util.StringList;
 
 public final class CallConstructor {
 
+    private String fieldName;
+
     private InstancingStep instancingStep = InstancingStep.NOTHING;
 
     private FctConstraints id;
@@ -20,6 +22,14 @@ public final class CallConstructor {
     private boolean initializedFields;
 
     private boolean firstField;
+
+    public String getFieldName() {
+        return fieldName;
+    }
+
+    public void setFieldName(String _fieldName) {
+        fieldName = _fieldName;
+    }
 
     public InstancingStep getInstancingStep() {
         return instancingStep;

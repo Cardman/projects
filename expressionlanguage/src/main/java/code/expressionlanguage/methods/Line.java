@@ -138,7 +138,7 @@ public final class Line extends Leaf implements StackableBlock {
                         FctConstraints super_ = new FctConstraints(superClass_, new EqList<StringList>());
                         StringList called_ = ip_.getCallingConstr().getCalledConstructors();
                         Argument global_ = ip_.getGlobalArgument();
-                        throw new CustomFoundConstructorException(i, called_, super_, global_, new CustList<Argument>(), InstancingStep.USING_SUPER);
+                        throw new CustomFoundConstructorException(i, EMPTY_STRING, called_, super_, global_, new CustList<Argument>(), InstancingStep.USING_SUPER);
                     }
                 }
                 if (!ip_.getCallingConstr().isFirstField()) {

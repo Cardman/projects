@@ -10,6 +10,8 @@ public class CustomFoundConstructorException extends RuntimeException {
 
     private final String className;
 
+    private final String fieldName;
+
     private final FctConstraints id;
 
     private final Argument currentObject;
@@ -19,9 +21,10 @@ public class CustomFoundConstructorException extends RuntimeException {
     private final InstancingStep instanceStep;
     private final StringList called;
 
-    public CustomFoundConstructorException(String _className, StringList _calledConstructors,
+    public CustomFoundConstructorException(String _className, String _fieldName, StringList _calledConstructors,
             FctConstraints _id, Argument _currentObject, CustList<Argument> _arguments, InstancingStep _instance) {
         className = _className;
+        fieldName = _fieldName;
         id = _id;
         currentObject = _currentObject;
         called = _calledConstructors;
@@ -31,6 +34,7 @@ public class CustomFoundConstructorException extends RuntimeException {
 
     public CallConstructor getCall() {
         CallConstructor call_ = new CallConstructor();
+        call_.setFieldName(fieldName);
         call_.setArgument(currentObject);
         call_.getCalledConstructors().addAllElts(called);
         call_.setId(id);

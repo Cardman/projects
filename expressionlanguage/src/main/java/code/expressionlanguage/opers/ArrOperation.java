@@ -30,7 +30,7 @@ public final class ArrOperation extends MethodOperation implements SettableElRes
 
     @Override
     public void analyze(CustList<OperationNode> _nodes, ContextEl _conf,
-            boolean _enumContext, String _op) {
+            String _fieldName, String _op) {
         analyzeCommon(_conf);
     }
 
