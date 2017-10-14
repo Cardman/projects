@@ -123,6 +123,22 @@ public abstract class RootBlock extends BracedBlock implements AccessibleBlock {
         return paramTypes;
     }
 
+    public String getGenericString() {
+        String base_ = getFullName();
+        if (paramTypes.isEmpty()) {
+            return base_;
+        }
+        StringBuilder generic_ = new StringBuilder(base_);
+        StringList vars_ = new StringList();
+        for (TypeVar t:paramTypes) {
+            vars_.add(Templates.PREFIX_VAR_TYPE+t.getName());
+        }
+        generic_.append(Templates.TEMPLATE_BEGIN);
+        generic_.append(vars_.join(Templates.TEMPLATE_SEP));
+        generic_.append(Templates.TEMPLATE_END);
+        return generic_.toString();
+    }
+
     public String getFullDefinition() {
         return getFullName()+getTemplateDef();
     }
@@ -370,7 +386,7 @@ public abstract class RootBlock extends BracedBlock implements AccessibleBlock {
             if (m.isStaticMethod()) {
                 continue;
             }
-            addClass(getAllOverridingMethods(), m.getId(), getFullDefinition());
+            addClass(getAllOverridingMethods(), m.getId(), getGenericString());
         }
         for (String s: all_) {
             String base_ = StringList.getAllTypes(s).first();
@@ -380,7 +396,7 @@ public abstract class RootBlock extends BracedBlock implements AccessibleBlock {
                     continue;
                 }
                 MethodId id_ = m.getFormattedId(s, classesRef_);
-                CustList<MethodBlock> mBases_ = classesRef_.getMethodBodiesByFormattedId(getFullDefinition(), id_);
+                CustList<MethodBlock> mBases_ = classesRef_.getMethodBodiesByFormattedId(getGenericString(), id_);
                 if (!mBases_.isEmpty()) {
                     MethodBlock mBas_ = mBases_.first();
                     MethodId mId_ = mBas_.getId();
@@ -710,7 +726,7 @@ public abstract class RootBlock extends BracedBlock implements AccessibleBlock {
             }
             String retDerive_ = mDer_.getReturnType();
             for (String o: getAllOverridingMethods().getVal(idFor_)) {
-                if (StringList.quickEq(o, getFullDefinition())) {
+                if (StringList.quickEq(o, getGenericString())) {
                     continue;
                 }
                 MethodBlock mBase_ = classesRef_.getMethodBodiesByFormattedId(o, idFor_).first();
@@ -763,7 +779,7 @@ public abstract class RootBlock extends BracedBlock implements AccessibleBlock {
         if (concreteClass_) {
             for (ClassFormattedMethodId m: abstractMethods_) {
                 StringList allAssignable_ = new StringList();
-                allAssignable_.add(getFullDefinition());
+                allAssignable_.add(getGenericString());
                 allAssignable_.addAllElts(allSuperClass_);
                 boolean ok_ = false;
                 for (String s: allAssignable_) {
@@ -814,7 +830,7 @@ public abstract class RootBlock extends BracedBlock implements AccessibleBlock {
         ov_ = RootBlock.getAllOverridingMethods(signatures_, classesRef_);
         allSuperClass_ = getAllGenericSuperClasses(classesRef_);
         StringList allAssSuperClass_ = new StringList();
-        allAssSuperClass_.add(getFullDefinition());
+        allAssSuperClass_.add(getGenericString());
         allAssSuperClass_.addAllElts(allSuperClass_);
         for (EntryCust<MethodId, StringList> e: ov_.entryList()) {
             for (String s: allAssSuperClass_) {
@@ -919,7 +935,6 @@ public abstract class RootBlock extends BracedBlock implements AccessibleBlock {
             if (!addDefault_) {
                 continue;
             }
-            getDefaultMethods().put(current_.first().getConstraints(classesRef_), e.getValue());
             getDefaultMethodIds().put(current_.first().getFormattedId(e.getValue(), classesRef_), e.getValue());
         }
     }
@@ -932,7 +947,7 @@ public abstract class RootBlock extends BracedBlock implements AccessibleBlock {
                 if (method_.isStaticMethod()) {
                     continue;
                 }
-                map_.put(method_.getId(), new StringList(getFullDefinition()));
+                map_.put(method_.getId(), new StringList(getGenericString()));
             }
         }
         for (String s: getAllGenericSuperTypes(_classes)) {
@@ -950,55 +965,18 @@ public abstract class RootBlock extends BracedBlock implements AccessibleBlock {
         }
         return map_;
     }
-    public final ObjectMap<FctConstraints, StringList> getAllInstanceSignaturesErasure(Classes _classes) {
-        ObjectMap<FctConstraints, StringList> map_;
-        map_ = new ObjectMap<FctConstraints, StringList>();
-        for (Block b: Classes.getDirectChildren(this)) {
-            if (b instanceof MethodBlock) {
-                MethodBlock method_ = (MethodBlock) b;
-                if (method_.isStaticMethod()) {
-                    continue;
-                }
-                map_.put(method_.getConstraints(_classes), new StringList(getFullName()));
-            }
-        }
-        for (String s: getAllSuperTypes()) {
-            RootBlock b_ = (RootBlock) _classes.getClassBody(s);
-            for (Block b: Classes.getDirectChildren(b_)) {
-                if (b instanceof MethodBlock) {
-                    MethodBlock method_ = (MethodBlock) b;
-                    if (method_.isStaticMethod()) {
-                        continue;
-                    }
-                    addClassErause(map_, method_.getConstraints(_classes), s);
-                }
-            }
-        }
-        return map_;
-    }
     public final ObjectMap<MethodId, String> getLocalSignatures(Classes _classes) {
         ObjectMap<MethodId, String> map_;
         map_ = new ObjectMap<MethodId, String>();
         for (Block b: Classes.getDirectChildren(this)) {
             if (b instanceof MethodBlock) {
                 MethodBlock method_ = (MethodBlock) b;
-                map_.put(method_.getId(), getFullDefinition());
+                map_.put(method_.getId(), getGenericString());
             }
         }
         return map_;
     }
 
-    public final ObjectMap<FctConstraints, String> getLocalSignaturesErasure(Classes _classes) {
-        ObjectMap<FctConstraints, String> map_;
-        map_ = new ObjectMap<FctConstraints, String>();
-        for (Block b: Classes.getDirectChildren(this)) {
-            if (b instanceof MethodBlock) {
-                MethodBlock method_ = (MethodBlock) b;
-                map_.put(method_.getConstraints(_classes), getFullName());
-            }
-        }
-        return map_;
-    }
     public static ObjectMap<MethodId, StringList> getAllOverridingMethods(
             ObjectMap<MethodId, StringList> _methodIds,
             Classes _classes) {

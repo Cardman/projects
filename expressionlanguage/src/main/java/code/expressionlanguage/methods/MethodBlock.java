@@ -5,7 +5,6 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.Templates;
 import code.expressionlanguage.methods.util.TypeVar;
 import code.expressionlanguage.opers.util.ClassName;
-import code.expressionlanguage.opers.util.FctConstraints;
 import code.expressionlanguage.opers.util.MethodId;
 import code.expressionlanguage.opers.util.MethodModifier;
 import code.util.CustList;
@@ -171,10 +170,4 @@ public final class MethodBlock extends NamedFunctionBlock {
     public RootBlock belong() {
         return (RootBlock) getParent();
     }
-
-    @Override
-    public FctConstraints getConstraints(Classes _classes) {
-        return getBaseConstraints(declaringType, _classes);
-    }
-
 }

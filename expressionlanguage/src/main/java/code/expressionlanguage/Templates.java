@@ -1,6 +1,5 @@
 package code.expressionlanguage;
 
-import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 import java.lang.reflect.TypeVariable;
 
@@ -27,7 +26,6 @@ public final class Templates {
     public static final String SEP_CLASS = ".";
     public static final String PREFIX_VAR_TYPE = "#";
     public static final char PREFIX_VAR_TYPE_CHAR = '#';
-    private static final String EMPTY_STRING = "";
 
     private Templates() {
     }
@@ -345,68 +343,6 @@ public final class Templates {
         }
         return true;
     }
-    public static StringList getClassLeftMostBounds(String _className, Classes _classes) {
-        StringList bounds_ = new StringList();
-        StringMap<StringList> localBounds_ = new StringMap<StringList>();
-        boolean custom_ = false;
-        if (_classes != null) {
-            RootBlock cl_ = _classes.getClassBody(_className);
-            if (cl_ != null) {
-                custom_ = true;
-                for (TypeVar t: cl_.getParamTypes()) {
-                    StringList localBound_ = new StringList();
-                    for (String c: t.getConstraints()) {
-                        if (c.contains(TEMPLATE_BEGIN)) {
-                            localBound_.add(c.substring(CustList.FIRST_INDEX, c.indexOf(TEMPLATE_BEGIN)));
-                        } else {
-                            localBound_.add(c);
-                        }
-                    }
-                    localBounds_.put(PREFIX_VAR_TYPE+t.getName(), localBound_);
-                }
-            }
-        }
-        if (!custom_) {
-            String baseClass_ = PrimitiveTypeUtil.getArrayClass(_className);
-            Class<?> cl_ = ConstClasses.classForNameNotInit(baseClass_);
-            for (TypeVariable<?> t: cl_.getTypeParameters()) {
-                StringList localBound_ = new StringList();
-                for (Type b: t.getBounds()) {
-                    String typeString_ = getBaseName(b);
-                    if (!typeString_.contains(SEP_CLASS)) {
-                        localBound_.add(PREFIX_VAR_TYPE+typeString_);
-                    } else {
-                        localBound_.add(typeString_);
-                    }
-                }
-                localBounds_.put(PREFIX_VAR_TYPE+t.getName(), localBound_);
-            }
-        }
-        for (String t: localBounds_.getKeys()) {
-            StringList current_ = new StringList(t);
-            String classBound_ = EMPTY_STRING;
-            while (true) {
-                StringList next_ = new StringList();
-                for (String c: current_) {
-                    StringList bound_ = localBounds_.getVal(c);
-                    for (String n: bound_) {
-                        if (localBounds_.contains(n)) {
-                            next_.add(n);
-                        } else {
-                            classBound_ = n;
-                            break;
-                        }
-                    }
-                }
-                if (!classBound_.isEmpty()) {
-                    break;
-                }
-                current_ = next_;
-            }
-            bounds_.add(classBound_);
-        }
-        return bounds_;
-    }
     private static MappingPairs getSimpleMapping(Mapping _m, Classes _classes) {
         String arg_ = _m.getArg();
         String param_ = _m.getParam();
@@ -560,17 +496,6 @@ public final class Templates {
         MappingPairs m_ = new MappingPairs();
         m_.setPairsArgParam(pairsArgParam_);
         return m_;
-    }
-
-    private static String getBaseName(Type _t) {
-        if (_t instanceof Class<?>) {
-            return ((Class<?>)_t).getName();
-        }
-        String str_ = _t.toString();
-        if (_t instanceof ParameterizedType) {
-            return str_.substring(0, str_.indexOf(TEMPLATE_BEGIN));
-        }
-        return str_;
     }
 
     private static String getSuperClassName(String _className, Classes _classes) {

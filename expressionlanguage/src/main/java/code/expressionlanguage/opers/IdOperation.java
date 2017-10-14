@@ -4,6 +4,7 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.OperationsSequence;
 import code.expressionlanguage.exceptions.BadNumberValuesException;
 import code.expressionlanguage.methods.util.ArgumentsPair;
+import code.expressionlanguage.opers.util.ConstructorId;
 import code.util.CustList;
 import code.util.IdMap;
 import code.util.NatTreeMap;
@@ -14,6 +15,25 @@ public final class IdOperation extends MethodOperation {
     public IdOperation(int _index, ContextEl _importingPage,
             int _indexChild, MethodOperation _m, OperationsSequence _op) {
         super(_index, _importingPage, _indexChild, _m, _op);
+    }
+
+    @Override
+    public boolean isOtherConstructorClass() {
+        return false;
+    }
+
+    @Override
+    public ConstructorId getConstId() {
+        return null;
+    }
+
+    @Override
+    public boolean isPossibleInitClass() {
+        return false;
+    }
+    @Override
+    public boolean isSuperConstructorCall() {
+        return false;
     }
 
     @Override

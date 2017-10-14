@@ -10,6 +10,7 @@ import code.expressionlanguage.exceptions.NotNumberException;
 import code.expressionlanguage.methods.Block;
 import code.expressionlanguage.methods.util.ArgumentsPair;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
+import code.expressionlanguage.opers.util.ConstructorId;
 import code.expressionlanguage.opers.util.Struct;
 import code.util.CustList;
 import code.util.EntryCust;
@@ -962,6 +963,25 @@ public abstract class NumericOperation extends MethodOperation {
             i_++;
         }
         setSimpleArgument(a_, _conf);
+    }
+
+    @Override
+    public boolean isOtherConstructorClass() {
+        return false;
+    }
+
+    @Override
+    public ConstructorId getConstId() {
+        return null;
+    }
+
+    @Override
+    public boolean isPossibleInitClass() {
+        return false;
+    }
+    @Override
+    public boolean isSuperConstructorCall() {
+        return false;
     }
 
     @Override

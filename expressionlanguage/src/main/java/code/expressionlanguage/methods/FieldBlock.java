@@ -123,7 +123,8 @@ public final class FieldBlock extends Leaf implements InfoBlock {
         StringMap<StringList> vars_ = new StringMap<StringList>();
         if (!staticField) {
             String globalClass_ = page_.getGlobalClass();
-            for (TypeVar t: _cont.getClasses().getClassBody(globalClass_).getParamTypes()) {
+            String curClassBase_ = StringList.getAllTypes(globalClass_).first();
+            for (TypeVar t: _cont.getClasses().getClassBody(curClassBase_).getParamTypes()) {
                 vars_.put(t.getName(), t.getConstraints());
             }
         }

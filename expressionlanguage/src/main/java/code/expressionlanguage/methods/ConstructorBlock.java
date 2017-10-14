@@ -3,11 +3,11 @@ import org.w3c.dom.Element;
 
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.PageEl;
+import code.expressionlanguage.Templates;
 import code.expressionlanguage.methods.util.InstancingStep;
 import code.expressionlanguage.opers.OperationNode;
 import code.expressionlanguage.opers.util.ClassName;
 import code.expressionlanguage.opers.util.ConstructorId;
-import code.expressionlanguage.opers.util.FctConstraints;
 import code.util.CustList;
 import code.util.EqList;
 import code.util.StringList;
@@ -15,9 +15,9 @@ import code.util.StringList;
 public final class ConstructorBlock extends NamedFunctionBlock {
 
     private InstancingStep instancing;
-    private FctConstraints constIdSameClass;
+    private ConstructorId constIdSameClass;
 
-    private FctConstraints constId;
+    private ConstructorId constId;
 
     private boolean implicitCallSuper;
 
@@ -38,7 +38,18 @@ public final class ConstructorBlock extends NamedFunctionBlock {
         }
         return new ConstructorId(name_, pTypes_);
     }
-
+    public ConstructorId getFormattedId(String _genericClass, Classes _classes) {
+        String name_ = getName();
+        StringList types_ = getParametersTypes();
+        int len_ = types_.size();
+        EqList<ClassName> pTypes_ = new EqList<ClassName>();
+        for (int i = CustList.FIRST_INDEX; i < len_; i++) {
+            String n_ = types_.get(i);
+            String formatted_ = Templates.format(_genericClass, n_, _classes);
+            pTypes_.add(new ClassName(formatted_, i + 1 == len_ && isVarargs()));
+        }
+        return new ConstructorId(name_, pTypes_);
+    }
     public void setupInstancingStep(ContextEl _cont) {
         PageEl page_ = _cont.getLastPage();
         page_.setProcessingAttribute(EMPTY_STRING);
@@ -88,11 +99,11 @@ public final class ConstructorBlock extends NamedFunctionBlock {
         return ch_.getNextSibling();
     }
 
-    public FctConstraints getConstIdSameClass() {
+    public ConstructorId getConstIdSameClass() {
         return constIdSameClass;
     }
 
-    public FctConstraints getConstId() {
+    public ConstructorId getConstId() {
         return constId;
     }
 
@@ -134,12 +145,5 @@ public final class ConstructorBlock extends NamedFunctionBlock {
     @Override
     public RootBlock belong() {
         return (RootBlock) getParent();
-    }
-
-    @Override
-    public FctConstraints getConstraints(Classes _classes) {
-        RootBlock clBlock_ = (RootBlock) getParent();
-        String name_ = clBlock_.getFullName();
-        return getBaseConstraints(name_, _classes);
     }
 }

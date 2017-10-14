@@ -2,7 +2,7 @@ package code.expressionlanguage.exceptions;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.methods.util.CallConstructor;
 import code.expressionlanguage.methods.util.InstancingStep;
-import code.expressionlanguage.opers.util.FctConstraints;
+import code.expressionlanguage.opers.util.ConstructorId;
 import code.util.CustList;
 import code.util.StringList;
 
@@ -12,7 +12,7 @@ public class CustomFoundConstructorException extends RuntimeException {
 
     private final String fieldName;
 
-    private final FctConstraints id;
+    private final ConstructorId id;
 
     private final Argument currentObject;
 
@@ -22,7 +22,7 @@ public class CustomFoundConstructorException extends RuntimeException {
     private final StringList called;
 
     public CustomFoundConstructorException(String _className, String _fieldName, StringList _calledConstructors,
-            FctConstraints _id, Argument _currentObject, CustList<Argument> _arguments, InstancingStep _instance) {
+            ConstructorId _id, Argument _currentObject, CustList<Argument> _arguments, InstancingStep _instance) {
         className = _className;
         fieldName = _fieldName;
         id = _id;
@@ -46,7 +46,7 @@ public class CustomFoundConstructorException extends RuntimeException {
         return className;
     }
 
-    public FctConstraints getId() {
+    public ConstructorId getId() {
         return id;
     }
 

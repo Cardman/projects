@@ -11,8 +11,8 @@ import code.expressionlanguage.opers.OperationNode;
 import code.expressionlanguage.opers.util.ClassMetaInfo;
 import code.expressionlanguage.opers.util.ClassMethodId;
 import code.expressionlanguage.opers.util.ClassName;
+import code.expressionlanguage.opers.util.ConstructorId;
 import code.expressionlanguage.opers.util.ConstructorMetaInfo;
-import code.expressionlanguage.opers.util.FctConstraints;
 import code.expressionlanguage.opers.util.MethodId;
 import code.util.CustList;
 import code.util.EntryCust;
@@ -85,7 +85,7 @@ public final class EnumBlock extends RootBlock implements UniqueRootedBlock {
         useSuperTypesOverrides(_context);
         Classes classesRef_ = _context.getClasses();
         StringList classNames_ = getAllGenericSuperClasses(classesRef_);
-        StringList classes_ = new StringList(getFullDefinition());
+        StringList classes_ = new StringList(getGenericString());
         classes_.addAllElts(classNames_);
         for (String s: getAllGenericInterfaces(classesRef_)) {
             String base_ = StringList.getAllTypes(s).first();
@@ -171,24 +171,24 @@ public final class EnumBlock extends RootBlock implements UniqueRootedBlock {
     @Override
     public void validateConstructors(ContextEl _cont) {
         ClassMetaInfo curMeta_ = _cont.getClasses().getClassMetaInfo(getFullName());
-        ObjectNotNullMap<FctConstraints, ConstructorMetaInfo> c_;
+        ObjectNotNullMap<ConstructorId, ConstructorMetaInfo> c_;
         c_ = curMeta_.getConstructors();
-        for (EntryCust<FctConstraints, ConstructorMetaInfo> e: c_.entryList()) {
-            ConstructorBlock b_ = _cont.getClasses().getConstructorBody(getFullName(), e.getKey());
+        for (EntryCust<ConstructorId, ConstructorMetaInfo> e: c_.entryList()) {
+            ConstructorBlock b_ = _cont.getClasses().getConstructorBodiesByFormattedId(getGenericString(), e.getKey()).first();
             b_.setupInstancingStep(_cont);
         }
-        EqList<FctConstraints> l_ = new EqList<FctConstraints>();
-        for (EntryCust<FctConstraints, ConstructorMetaInfo> e: c_.entryList()) {
-            ConstructorBlock b_ = _cont.getClasses().getConstructorBody(getFullName(), e.getKey());
+        EqList<ConstructorId> l_ = new EqList<ConstructorId>();
+        for (EntryCust<ConstructorId, ConstructorMetaInfo> e: c_.entryList()) {
+            ConstructorBlock b_ = _cont.getClasses().getConstructorBodiesByFormattedId(getGenericString(), e.getKey()).first();
             if (b_.getConstIdSameClass() != null) {
                 l_.add(e.getKey());
             }
         }
         Graph<ConstructorEdge> graph_;
         graph_ = new Graph<ConstructorEdge>();
-        for (FctConstraints f: l_) {
-            ConstructorBlock b_ = _cont.getClasses().getConstructorBody(getFullName(), f);
-            FctConstraints co_ = b_.getConstIdSameClass();
+        for (ConstructorId f: l_) {
+            ConstructorBlock b_ = _cont.getClasses().getConstructorBodiesByFormattedId(getGenericString(), f).first();
+            ConstructorId co_ = b_.getConstIdSameClass();
             ConstructorEdge f_ = new ConstructorEdge(f);
             ConstructorEdge t_ = new ConstructorEdge(co_);
             graph_.addSegment(f_, t_);

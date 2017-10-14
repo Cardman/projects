@@ -1,6 +1,6 @@
 package code.expressionlanguage.exceptions;
 import code.expressionlanguage.Argument;
-import code.expressionlanguage.opers.util.FctConstraints;
+import code.expressionlanguage.opers.util.MethodId;
 import code.util.CustList;
 
 public class CustomFoundMethodException extends RuntimeException {
@@ -9,11 +9,11 @@ public class CustomFoundMethodException extends RuntimeException {
 
     private final String className;
 
-    private final FctConstraints id;
+    private final MethodId id;
 
     private final CustList<Argument> arguments;
 
-    public CustomFoundMethodException(Argument _gl,String _className, FctConstraints _id, CustList<Argument> _arguments) {
+    public CustomFoundMethodException(Argument _gl,String _className, MethodId _id, CustList<Argument> _arguments) {
         gl = _gl;
         className = _className;
         id = _id;
@@ -28,7 +28,7 @@ public class CustomFoundMethodException extends RuntimeException {
         return className;
     }
 
-    public FctConstraints getId() {
+    public MethodId getId() {
         return id;
     }
 

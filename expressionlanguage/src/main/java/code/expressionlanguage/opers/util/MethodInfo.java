@@ -9,7 +9,7 @@ public final class MethodInfo implements Parametrable {
 
     private static final String DOT = ".";
 
-    private FctConstraints constraints;
+    private MethodId constraints;
 
     private Method method;
 
@@ -27,11 +27,11 @@ public final class MethodInfo implements Parametrable {
         return method.getDeclaringClass()+DOT+method.getName()+LEFT_PAR+parameters+RIGHT_PAR;
     }
 
-    public FctConstraints getConstraints() {
+    public MethodId getConstraints() {
         return constraints;
     }
 
-    public void setConstraints(FctConstraints _constraints) {
+    public void setConstraints(MethodId _constraints) {
         constraints = _constraints;
     }
 

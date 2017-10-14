@@ -9,8 +9,8 @@ import code.expressionlanguage.methods.util.BadInheritedClass;
 import code.expressionlanguage.methods.util.ConstructorEdge;
 import code.expressionlanguage.methods.util.DuplicateParamMethod;
 import code.expressionlanguage.opers.util.ClassMetaInfo;
+import code.expressionlanguage.opers.util.ConstructorId;
 import code.expressionlanguage.opers.util.ConstructorMetaInfo;
-import code.expressionlanguage.opers.util.FctConstraints;
 import code.expressionlanguage.opers.util.MethodId;
 import code.util.CustList;
 import code.util.EntryCust;
@@ -105,7 +105,7 @@ public final class ClassBlock extends RootBlock implements UniqueRootedBlock {
                 }
             }
         }
-        StringList classes_ = new StringList(getFullDefinition());
+        StringList classes_ = new StringList(getGenericString());
         classes_.addAllElts(classNames_);
         useSuperTypesOverrides(_context);
         for (String s: getAllGenericInterfaces(classesRef_)) {
@@ -213,30 +213,30 @@ public final class ClassBlock extends RootBlock implements UniqueRootedBlock {
     public void validateConstructors(ContextEl _cont) {
         boolean opt_ = optionalCallConstr(_cont);
         ClassMetaInfo curMeta_ = _cont.getClasses().getClassMetaInfo(getFullName());
-        ObjectNotNullMap<FctConstraints, ConstructorMetaInfo> c_;
+        ObjectNotNullMap<ConstructorId, ConstructorMetaInfo> c_;
         c_ = curMeta_.getConstructors();
-        for (EntryCust<FctConstraints, ConstructorMetaInfo> e: c_.entryList()) {
-            ConstructorBlock b_ = _cont.getClasses().getConstructorBody(getFullName(), e.getKey());
+        for (EntryCust<ConstructorId, ConstructorMetaInfo> e: c_.entryList()) {
+            ConstructorBlock b_ = _cont.getClasses().getConstructorBodiesByFormattedId(getGenericString(), e.getKey()).first();
             b_.setupInstancingStep(_cont);
         }
-        for (EntryCust<FctConstraints, ConstructorMetaInfo> e: c_.entryList()) {
-            ConstructorBlock b_ = _cont.getClasses().getConstructorBody(getFullName(), e.getKey());
+        for (EntryCust<ConstructorId, ConstructorMetaInfo> e: c_.entryList()) {
+            ConstructorBlock b_ = _cont.getClasses().getConstructorBodiesByFormattedId(getGenericString(), e.getKey()).first();
             if (b_.implicitConstr() && !opt_) {
                 throw new UndefinedSuperConstructorException(_cont.joinPages());
             }
         }
-        EqList<FctConstraints> l_ = new EqList<FctConstraints>();
-        for (EntryCust<FctConstraints, ConstructorMetaInfo> e: c_.entryList()) {
-            ConstructorBlock b_ = _cont.getClasses().getConstructorBody(getFullName(), e.getKey());
+        EqList<ConstructorId> l_ = new EqList<ConstructorId>();
+        for (EntryCust<ConstructorId, ConstructorMetaInfo> e: c_.entryList()) {
+            ConstructorBlock b_ = _cont.getClasses().getConstructorBodiesByFormattedId(getGenericString(), e.getKey()).first();
             if (b_.getConstIdSameClass() != null) {
                 l_.add(e.getKey());
             }
         }
         Graph<ConstructorEdge> graph_;
         graph_ = new Graph<ConstructorEdge>();
-        for (FctConstraints f: l_) {
-            ConstructorBlock b_ = _cont.getClasses().getConstructorBody(getFullName(), f);
-            FctConstraints co_ = b_.getConstIdSameClass();
+        for (ConstructorId f: l_) {
+            ConstructorBlock b_ = _cont.getClasses().getConstructorBodiesByFormattedId(getGenericString(), f).first();
+            ConstructorId co_ = b_.getConstIdSameClass();
             ConstructorEdge f_ = new ConstructorEdge(f);
             ConstructorEdge t_ = new ConstructorEdge(co_);
             graph_.addSegment(f_, t_);
@@ -250,14 +250,14 @@ public final class ClassBlock extends RootBlock implements UniqueRootedBlock {
 
     public AccessEnum getMaximumAccessConstructors(ContextEl _cont) {
         ClassMetaInfo curMeta_ = _cont.getClasses().getClassMetaInfo(getFullName());
-        ObjectNotNullMap<FctConstraints, ConstructorMetaInfo> c_;
+        ObjectNotNullMap<ConstructorId, ConstructorMetaInfo> c_;
         c_ = curMeta_.getConstructors();
         if (c_.isEmpty()) {
             return AccessEnum.PUBLIC;
         }
         AccessEnum a_ = AccessEnum.PRIVATE;
-        for (EntryCust<FctConstraints, ConstructorMetaInfo> e: c_.entryList()) {
-            ConstructorBlock b_ = _cont.getClasses().getConstructorBody(getFullName(), e.getKey());
+        for (EntryCust<ConstructorId, ConstructorMetaInfo> e: c_.entryList()) {
+            ConstructorBlock b_ = _cont.getClasses().getConstructorBodiesByFormattedId(getGenericString(), e.getKey()).first();
             if (b_.getAccess().ordinal() < a_.ordinal()) {
                 a_ = b_.getAccess();
             }
@@ -270,16 +270,17 @@ public final class ClassBlock extends RootBlock implements UniqueRootedBlock {
         if (clMeta_ == null) {
             return true;
         }
-        ObjectNotNullMap<FctConstraints, ConstructorMetaInfo> m_;
+        ObjectNotNullMap<ConstructorId, ConstructorMetaInfo> m_;
         m_ = clMeta_.getConstructors();
         if (m_.isEmpty()) {
             return true;
         }
-        for (EntryCust<FctConstraints, ConstructorMetaInfo> e: m_.entryList()) {
-            if (!_cont.getClasses().canAccessConstructor(getFullName(), superClass, e.getKey())) {
+        for (EntryCust<ConstructorId, ConstructorMetaInfo> e: m_.entryList()) {
+            CustList<ConstructorBlock> formatted_ = _cont.getClasses().getConstructorBodiesByFormattedId(superClass, e.getKey());
+            if (!_cont.getClasses().canAccess(getFullName(), formatted_.first())) {
                 continue;
             }
-            if (e.getKey().getConstraints().isEmpty()) {
+            if (e.getKey().getParametersTypes().isEmpty()) {
                 return true;
             }
         }

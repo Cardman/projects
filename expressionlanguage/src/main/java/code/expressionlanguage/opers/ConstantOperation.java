@@ -25,6 +25,7 @@ import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.opers.util.ClassCategory;
 import code.expressionlanguage.opers.util.ClassField;
 import code.expressionlanguage.opers.util.ClassMetaInfo;
+import code.expressionlanguage.opers.util.ConstructorId;
 import code.expressionlanguage.opers.util.FieldMetaInfo;
 import code.expressionlanguage.opers.util.FieldResult;
 import code.expressionlanguage.opers.util.SearchingMemberStatus;
@@ -172,7 +173,11 @@ public final class ConstantOperation extends OperationNode implements SettableEl
                     }
                     e_ = r_.getId();
                     String glClass_ = _conf.getLastPage().getGlobalClass();
-                    if (!_conf.getClasses().canAccessField(glClass_, e_.getDeclaringClass(), key_)) {
+                    String curClassBase_ = null;
+                    if (glClass_ != null) {
+                        curClassBase_ = StringList.getAllTypes(glClass_).first();
+                    }
+                    if (!_conf.getClasses().canAccessField(curClassBase_, e_.getDeclaringClass(), key_)) {
                         throw new BadAccessException(clCurName_+DOT+key_+RETURN_LINE+_conf.joinPages());
                     }
                     fieldMetaInfo = e_;
@@ -734,7 +739,11 @@ public final class ConstantOperation extends OperationNode implements SettableEl
                 checkExist(_cont, classStr_, false, false, 0);
             } else {
                 //TODO exclude primitive
-                if (!classes_.canAccessClass(glClass_, classStr_)) {
+                String curClassBase_ = null;
+                if (glClass_ != null) {
+                    curClassBase_ = StringList.getAllTypes(glClass_).first();
+                }
+                if (!classes_.canAccessClass(curClassBase_, classStr_)) {
                     throw new BadAccessException(classStr_+RETURN_LINE+_cont.joinPages());
                 }
                 possibleInitClass = true;
@@ -774,6 +783,21 @@ public final class ConstantOperation extends OperationNode implements SettableEl
     @Override
     public boolean resultCanBeSet() {
         return variable;
+    }
+
+    @Override
+    public boolean isSuperConstructorCall() {
+        return false;
+    }
+
+    @Override
+    public boolean isOtherConstructorClass() {
+        return false;
+    }
+
+    @Override
+    public ConstructorId getConstId() {
+        return null;
     }
 
     @Override

@@ -24,8 +24,10 @@ import code.expressionlanguage.methods.util.InstancingStep;
 import code.expressionlanguage.opers.util.ClassCategory;
 import code.expressionlanguage.opers.util.ClassField;
 import code.expressionlanguage.opers.util.ClassMetaInfo;
-import code.expressionlanguage.opers.util.FctConstraints;
+import code.expressionlanguage.opers.util.ClassName;
+import code.expressionlanguage.opers.util.ConstructorId;
 import code.expressionlanguage.opers.util.FieldMetaInfo;
+import code.expressionlanguage.opers.util.MethodId;
 import code.expressionlanguage.opers.util.Struct;
 import code.expressionlanguage.stacks.RemovableVars;
 import code.expressionlanguage.stacks.TryBlockStack;
@@ -65,7 +67,7 @@ public final class ProcessXmlMethod {
         _cont.addPage(createInstancingClass(_class, _cont));
         loopCallings(_cont);
     }
-    public static Argument instanceArgument(String _class, Argument _global, FctConstraints _id, CustList<Argument> _args, ContextEl _cont) {
+    public static Argument instanceArgument(String _class, Argument _global, ConstructorId _id, CustList<Argument> _args, ContextEl _cont) {
         CallConstructor call_ = new CallConstructor();
         call_.setArgument(_global);
         call_.setId(_id);
@@ -77,9 +79,9 @@ public final class ProcessXmlMethod {
         return page_.getReturnedArgument();
     }
 
-    public static Argument calculateArgument(Argument _global, String _class, FctConstraints _method, CustList<Argument> _args, ContextEl _cont) {
+    public static Argument calculateArgument(Argument _global, String _class, MethodId _method, CustList<Argument> _args, ContextEl _cont) {
         Classes classes_ = _cont.getClasses();
-        MethodBlock method_ = classes_.getMethodBody(_class, _method);
+        MethodBlock method_ = classes_.getMethodBodiesByFormattedId(_class, _method).first();
         Block firstChild_ = method_.getFirstChild();
         if (firstChild_ == null) {
             Argument a_ = new Argument();
@@ -154,20 +156,20 @@ public final class ProcessXmlMethod {
 
     private static PageEl createCallingMethod(CustomFoundMethodException _e, ContextEl _conf) {
         String cl_ = _e.getClassName();
-        FctConstraints id_ = _e.getId();
+        MethodId id_ = _e.getId();
         CustList<Argument> args_ = _e.getArguments();
         Argument gl_ = _e.getGl();
         return createCallingMethod(gl_, cl_, id_, args_, _conf);
     }
-    private static PageEl createCallingMethod(Argument _gl, String _class, FctConstraints _method, CustList<Argument> _args, ContextEl _conf) {
+    private static PageEl createCallingMethod(Argument _gl, String _class, MethodId _method, CustList<Argument> _args, ContextEl _conf) {
         Classes classes_ = _conf.getClasses();
         String cl_ = _class;
         PageEl pageLoc_ = new PageEl();
         pageLoc_.setGlobalArgument(_gl);
         pageLoc_.setGlobalClass(_class);
         pageLoc_.setReadUrl(_class);
-        FctConstraints id_ = _method;
-        MethodBlock methodLoc_ = classes_.getMethodBody(cl_, id_);
+        MethodId id_ = _method;
+        MethodBlock methodLoc_ = classes_.getMethodBodiesByFormattedId(cl_, id_).first();
         StringList paramsLoc_ = methodLoc_.getParametersNames();
         StringList typesLoc_ = methodLoc_.getParametersTypes();
         CustList<Argument> args_ = _args;
@@ -194,11 +196,12 @@ public final class ProcessXmlMethod {
     private static PageEl createInstancing(String _class, CallConstructor _call, CustList<Argument> _args, ContextEl _cont) {
         PageEl page_ = new PageEl();
         Argument global_ = _call.getArgument();
-        FctConstraints id_ = _call.getId();
+        ConstructorId id_ = _call.getId();
         InstancingStep in_ = _call.getInstancingStep();
         Classes classes_ = _cont.getClasses();
         RootBlock class_ = classes_.getClassBody(_class);
-        ConstructorBlock method_ = classes_.getConstructorBody(_class, id_);
+        CustList<ConstructorBlock> methods_ = classes_.getConstructorBodiesByFormattedId(_class, id_);
+        ConstructorBlock method_ = null;
         Argument argGl_ = new Argument();
         if (in_ == InstancingStep.NEWING) {
             StringList allClasses_ = new StringList(_class);
@@ -246,7 +249,8 @@ public final class ProcessXmlMethod {
         page_.setGlobalClass(_class);
         page_.setGlobalArgument(argGl_);
         ReadWrite rw_ = new ReadWrite();
-        if (method_ != null) {
+        if (!methods_.isEmpty()) {
+            method_ = methods_.first();
             StringList params_ = method_.getParametersNames();
             StringList types_ = method_.getParametersTypes();
             int len_ = params_.size();
@@ -403,7 +407,8 @@ public final class ProcessXmlMethod {
         Block en_ = rw_.getBlock();
         if (ip_.isInitializingClass()) {
             String curClass_ = ip_.getGlobalClass();
-            ClassMetaInfo meta_ = _conf.getClasses().getClassMetaInfo(curClass_);
+            String curClassBase_ = StringList.getAllTypes(curClass_).first();
+            ClassMetaInfo meta_ = _conf.getClasses().getClassMetaInfo(curClassBase_);
             String superClass_ = meta_.getSuperClass();
             ClassMetaInfo s_ = _conf.getClasses().getClassMetaInfo(superClass_);
             if (s_ != null && !_conf.getClasses().isInitialized(superClass_)) {
@@ -411,7 +416,7 @@ public final class ProcessXmlMethod {
                 throw new NotInitializedClassException(superClass_);
             }
             if (meta_.getCategory() != ClassCategory.INTERFACE) {
-                UniqueRootedBlock root_ = (UniqueRootedBlock) _conf.getClasses().getClassBody(curClass_);
+                UniqueRootedBlock root_ = (UniqueRootedBlock) _conf.getClasses().getClassBody(curClassBase_);
                 for (String i: root_.getAllNeededSortedInterfaces()) {
                     if (!_conf.getClasses().isInitialized(i)) {
                         _conf.getClasses().initialize(i);
@@ -434,22 +439,23 @@ public final class ProcessXmlMethod {
             CallConstructor caller_ = ip_.getCallingConstr();
             boolean calledImpl_ = caller_.isCalledImplicitConstructor();
             String curClass_ = ip_.getGlobalClass();
-            ClassMetaInfo meta_ = _conf.getClasses().getClassMetaInfo(curClass_);
+            String curClassBase_ = StringList.getAllTypes(curClass_).first();
+            ClassMetaInfo meta_ = _conf.getClasses().getClassMetaInfo(curClassBase_);
             String superClass_ = meta_.getSuperClass();
             if (!calledImpl_ && !StringList.quickEq(superClass_, Object.class.getName()) && meta_.getCategory() != ClassCategory.INTERFACE) {
                 ip_.getCallingConstr().setCalledImplicitConstructor(true);
-                FctConstraints super_ = new FctConstraints(superClass_, new EqList<StringList>());
+                ConstructorId super_ = new ConstructorId(superClass_, new EqList<ClassName>());
                 StringList called_ = ip_.getCallingConstr().getCalledConstructors();
                 called_.add(superClass_);
                 Argument global_ = ip_.getGlobalArgument();
                 throw new CustomFoundConstructorException(superClass_, EMPTY_STRING, called_, super_, global_, new CustList<Argument>(), InstancingStep.USING_SUPER);
             }
             if (meta_.getCategory() != ClassCategory.INTERFACE) {
-                UniqueRootedBlock root_ = (UniqueRootedBlock) _conf.getClasses().getClassBody(curClass_);
+                UniqueRootedBlock root_ = (UniqueRootedBlock) _conf.getClasses().getClassBody(curClassBase_);
                 for (String i: root_.getAllNeededSortedInterfaces()) {
                     if (!ip_.getIntializedInterfaces().containsStr(i)) {
                         ip_.getIntializedInterfaces().add(i);
-                        FctConstraints super_ = new FctConstraints(superClass_, new EqList<StringList>());
+                        ConstructorId super_ = new ConstructorId(superClass_, new EqList<ClassName>());
                         StringList called_ = ip_.getCallingConstr().getCalledConstructors();
                         Argument global_ = ip_.getGlobalArgument();
                         throw new CustomFoundConstructorException(i, EMPTY_STRING, called_, super_, global_, new CustList<Argument>(), InstancingStep.USING_SUPER);
@@ -457,7 +463,7 @@ public final class ProcessXmlMethod {
                 }
             }
             if (!caller_.isFirstField()) {
-                RootBlock class_ = _conf.getClasses().getClassBody(curClass_);
+                RootBlock class_ = _conf.getClasses().getClassBody(curClassBase_);
                 Block first_ = class_.getFirstChild();
                 if (first_ == null) {
                     ip_.exitFromConstructor();
@@ -504,7 +510,8 @@ public final class ProcessXmlMethod {
                 return;
             }
             String curClass_ = ip_.getGlobalClass();
-            _conf.getClasses().successInitClass(curClass_);
+            String curClassBase_ = StringList.getAllTypes(curClass_).first();
+            _conf.getClasses().successInitClass(curClassBase_);
             ip_.setNullReadWrite();
             return;
         }

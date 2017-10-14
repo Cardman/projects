@@ -11,7 +11,7 @@ public final class ConstructorInfo implements Parametrable {
 
     private ConstructorId constr;
 
-    private FctConstraints constraints;
+    private ConstructorId constraints;
 
     private Constructor<?> constructor;
 
@@ -33,11 +33,11 @@ public final class ConstructorInfo implements Parametrable {
         constr = _constr;
     }
 
-    public FctConstraints getConstraints() {
+    public ConstructorId getConstraints() {
         return constraints;
     }
 
-    public void setConstraints(FctConstraints _constraints) {
+    public void setConstraints(ConstructorId _constraints) {
         constraints = _constraints;
     }
 

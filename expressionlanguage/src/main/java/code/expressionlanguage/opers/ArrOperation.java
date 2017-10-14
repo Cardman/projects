@@ -13,6 +13,7 @@ import code.expressionlanguage.exceptions.DynamicArrayStoreException;
 import code.expressionlanguage.exceptions.NotArrayException;
 import code.expressionlanguage.methods.util.ArgumentsPair;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
+import code.expressionlanguage.opers.util.ConstructorId;
 import code.expressionlanguage.opers.util.Struct;
 import code.util.CustList;
 import code.util.IdMap;
@@ -32,6 +33,25 @@ public final class ArrOperation extends MethodOperation implements SettableElRes
     public void analyze(CustList<OperationNode> _nodes, ContextEl _conf,
             String _fieldName, String _op) {
         analyzeCommon(_conf);
+    }
+
+    @Override
+    public boolean isOtherConstructorClass() {
+        return false;
+    }
+
+    @Override
+    public ConstructorId getConstId() {
+        return null;
+    }
+
+    @Override
+    public boolean isPossibleInitClass() {
+        return false;
+    }
+    @Override
+    public boolean isSuperConstructorCall() {
+        return false;
     }
 
     void analyzeCommon(ContextEl _conf) {

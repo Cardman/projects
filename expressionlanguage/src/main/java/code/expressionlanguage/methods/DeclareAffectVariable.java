@@ -83,7 +83,8 @@ public final class DeclareAffectVariable extends Leaf implements InitVariable {
         StringMap<StringList> vars_ = new StringMap<StringList>();
         if (!f_.isStaticContext()) {
             String globalClass_ = page_.getGlobalClass();
-            for (TypeVar t: _cont.getClasses().getClassBody(globalClass_).getParamTypes()) {
+            String curClassBase_ = StringList.getAllTypes(globalClass_).first();
+            for (TypeVar t: _cont.getClasses().getClassBody(curClassBase_).getParamTypes()) {
                 vars_.put(t.getName(), t.getConstraints());
             }
         }

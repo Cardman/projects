@@ -40,7 +40,6 @@ import code.expressionlanguage.opers.util.ClassMetaInfo;
 import code.expressionlanguage.opers.util.ClassName;
 import code.expressionlanguage.opers.util.ConstructorId;
 import code.expressionlanguage.opers.util.ConstructorMetaInfo;
-import code.expressionlanguage.opers.util.FctConstraints;
 import code.expressionlanguage.opers.util.FieldMetaInfo;
 import code.expressionlanguage.opers.util.MethodId;
 import code.expressionlanguage.opers.util.MethodMetaInfo;
@@ -98,9 +97,6 @@ public final class Classes {
     private static final String HAS_NEXT = "hasNext()";
     private static final String NEXT = "next()";
     private static final String EMPTY_STRING = "";
-    private static final String JOINER = ";";
-
-    private static final String VARARG = "...";
 
     private final StringMap<RootBlock> classesBodies;
 
@@ -853,7 +849,7 @@ public final class Classes {
         for (String t: _genericSuperTypes) {
             StringList baseParam_ = StringList.getAllTypes(t);
             String key_ = baseParam_.first();
-            String join_ = baseParam_.mid(CustList.SECOND_INDEX).join(JOINER);
+            String join_ = baseParam_.mid(CustList.SECOND_INDEX).join(COMMA);
             if (baseParams_.contains(key_)) {
                 baseParams_.getVal(key_).add(join_);
                 baseParams_.getVal(key_).removeDuplicates();
@@ -1150,41 +1146,6 @@ public final class Classes {
         return canAccess(_className, i_);
     }
 
-    public boolean canAccessConstructor(String _className, String _accessedClass, FctConstraints _id) {
-        Block access_ = (Block) getClassBody(_accessedClass);
-        CustList<Block> bl_ = getDirectChildren(access_);
-        ConstructorBlock i_ = null;
-        for (Block b: bl_) {
-            if (b instanceof ConstructorBlock) {
-                if (((ConstructorBlock)b).getConstraints(this).eq(_id)) {
-                    i_ = (ConstructorBlock)b;
-                }
-            }
-        }
-        if (i_ == null) {
-            return true;
-        }
-        return canAccess(_className, i_);
-    }
-
-    public boolean canAccessMethod(String _className, String _accessedClass, FctConstraints _id) {
-        RootBlock access_ = getClassBody(_accessedClass);
-        CustList<Block> bl_ = getDirectChildren(access_);
-        MethodBlock i_ = null;
-        for (Block b: bl_) {
-            if (b instanceof MethodBlock) {
-                if (((MethodBlock)b).getConstraints(this).eq(_id)) {
-                    i_ = (MethodBlock)b;
-                }
-            }
-        }
-        if (i_ == null) {
-            String int_ = access_.getDefaultMethods().getVal(_id);
-            i_ = getMethodBody(int_, _id);
-        }
-        return canAccess(_className, i_);
-    }
-
     public boolean canAccessClass(String _className, String _accessedClass) {
         RootBlock access_ = getClassBody(_accessedClass);
         return canAccess(_className, access_);
@@ -1193,6 +1154,9 @@ public final class Classes {
     public boolean canAccess(String _className, AccessibleBlock _block) {
         if (_block.getAccess() == AccessEnum.PUBLIC) {
             return true;
+        }
+        if (_className == null) {
+            return false;
         }
         RootBlock root_ = getClassBody(_className);
         RootBlock belong_ = _block.belong();
@@ -1271,12 +1235,12 @@ public final class Classes {
             CustList<Block> bl_ = getDirectChildren(c.getValue());
             for (Block b: bl_) {
                 if (b instanceof InfoBlock) {
-                    page_.setGlobalClass(c.getKey());
+                    page_.setGlobalClass(c.getValue().getGenericString());
                     InfoBlock method_ = (InfoBlock) b;
                     method_.buildExpressionLanguage(_context);
                 }
                 if (b instanceof AloneBlock) {
-                    page_.setGlobalClass(c.getKey());
+                    page_.setGlobalClass(c.getValue().getGenericString());
                     AloneBlock method_ = (AloneBlock) b;
                     method_.buildFctInstructions(_context);
                     page_.getLocalVars().clear();
@@ -1284,7 +1248,7 @@ public final class Classes {
                     page_.getVars().clear();
                 }
                 if (b instanceof Returnable) {
-                    page_.setGlobalClass(c.getKey());
+                    page_.setGlobalClass(c.getValue().getGenericString());
                     Returnable method_ = (Returnable) b;
                     StringList params_ = method_.getParametersNames();
                     StringList types_ = method_.getParametersTypes();
@@ -1308,12 +1272,12 @@ public final class Classes {
             CustList<Block> bl_ = getDirectChildren(c.getValue());
             for (Block b: bl_) {
                 if (b instanceof InfoBlock) {
-                    page_.setGlobalClass(c.getKey());
+                    page_.setGlobalClass(c.getValue().getGenericString());
                     InfoBlock method_ = (InfoBlock) b;
                     method_.checkCallConstructor(_context);
                 }
                 if (b instanceof FunctionBlock) {
-                    page_.setGlobalClass(c.getKey());
+                    page_.setGlobalClass(c.getValue().getGenericString());
                     FunctionBlock method_ = (FunctionBlock) b;
                     method_.checkFctConstrCalls(_context);
                 }
@@ -1545,24 +1509,6 @@ public final class Classes {
         return methods_;
     }
 
-    public MethodBlock getMethodBody(String _className, FctConstraints _methodId) {
-        for (EntryCust<String, RootBlock> c: classesBodies.entryList()) {
-            if (!StringList.quickEq(c.getKey(), _className)) {
-                continue;
-            }
-            CustList<Block> bl_ = getDirectChildren(c.getValue());
-            for (Block b: bl_) {
-                if (!(b instanceof MethodBlock)) {
-                    continue;
-                }
-                MethodBlock method_ = (MethodBlock) b;
-                if (method_.getConstraints(this).eq(_methodId)) {
-                    return method_;
-                }
-            }
-        }
-        return null;
-    }
     public CustList<ConstructorBlock> getConstructorBodiesByFormattedId(String _genericClassName, ConstructorId _id) {
         return getConstructorBodiesByFormattedId(_genericClassName, _id.getParametersTypes(), _id.isVararg());
     }
@@ -1609,24 +1555,6 @@ public final class Classes {
             }
         }
         return methods_;
-    }
-    public ConstructorBlock getConstructorBody(String _className, FctConstraints _methodId) {
-        for (EntryCust<String, RootBlock> c: classesBodies.entryList()) {
-            if (!StringList.quickEq(c.getKey(), _className)) {
-                continue;
-            }
-            CustList<Block> bl_ = getDirectChildren(c.getValue());
-            for (Block b: bl_) {
-                if (!(b instanceof ConstructorBlock)) {
-                    continue;
-                }
-                ConstructorBlock method_ = (ConstructorBlock) b;
-                if (method_.getConstraints(this).eq(_methodId)) {
-                    return method_;
-                }
-            }
-        }
-        return null;
     }
     public boolean isInitialized(String _name) {
         return initializedClasses.getVal(_name);
@@ -1700,15 +1628,17 @@ public final class Classes {
         return staticFields.getVal(_clField);
     }
     public ClassMetaInfo getClassMetaInfo(String _name) {
+        StringList types_ = StringList.getAllTypes(_name);
+        String base_ = types_.first();
         for (EntryCust<String, RootBlock> c: classesBodies.entryList()) {
-            ObjectNotNullMap<FctConstraints, MethodMetaInfo> infos_;
-            infos_ = new ObjectNotNullMap<FctConstraints, MethodMetaInfo>();
+            ObjectNotNullMap<MethodId, MethodMetaInfo> infos_;
+            infos_ = new ObjectNotNullMap<MethodId, MethodMetaInfo>();
             StringMap<FieldMetaInfo> infosFields_;
             infosFields_ = new StringMap<FieldMetaInfo>();
-            ObjectNotNullMap<FctConstraints, ConstructorMetaInfo> infosConst_;
-            infosConst_ = new ObjectNotNullMap<FctConstraints, ConstructorMetaInfo>();
+            ObjectNotNullMap<ConstructorId, ConstructorMetaInfo> infosConst_;
+            infosConst_ = new ObjectNotNullMap<ConstructorId, ConstructorMetaInfo>();
             String k_ = c.getKey();
-            if (!StringList.quickEq(k_, _name)) {
+            if (!StringList.quickEq(k_, base_)) {
                 continue;
             }
             RootBlock clblock_ = c.getValue();
@@ -1726,21 +1656,21 @@ public final class Classes {
                 }
                 if (b instanceof MethodBlock) {
                     MethodBlock method_ = (MethodBlock) b;
-                    FctConstraints id_ = method_.getConstraints(this);
+                    MethodId id_ = method_.getId();
                     String ret_ = method_.getReturnType();
                     MethodMetaInfo met_ = new MethodMetaInfo(method_.getDeclaringType(), method_.getModifier(), ret_);
                     infos_.put(id_, met_);
                 }
                 if (b instanceof ConstructorBlock) {
                     ConstructorBlock method_ = (ConstructorBlock) b;
-                    FctConstraints id_ = method_.getConstraints(this);
+                    ConstructorId id_ = method_.getId();
                     String ret_ = OperationNode.VOID_RETURN;
                     ConstructorMetaInfo met_ = new ConstructorMetaInfo(ret_);
                     infosConst_.put(id_, met_);
                 }
             }
             if (clblock_ instanceof InterfaceBlock) {
-                return new ClassMetaInfo(((InterfaceBlock)clblock_).getDirectSuperClasses(), infosFields_,infos_, infosConst_, ClassCategory.INTERFACE);
+                return new ClassMetaInfo(((InterfaceBlock)clblock_).getDirectGenericSuperClasses(), infosFields_,infos_, infosConst_, ClassCategory.INTERFACE);
             }
             ClassCategory cat_ = ClassCategory.CLASS;
             if (clblock_ instanceof EnumBlock) {
@@ -1750,7 +1680,7 @@ public final class Classes {
             }
             boolean abs_ = clblock_.isAbstractType();
             boolean final_ = clblock_.isFinalType();
-            return new ClassMetaInfo(((UniqueRootedBlock) clblock_).getSuperClass(), infosFields_,infos_, infosConst_, cat_, abs_, final_);
+            return new ClassMetaInfo(((UniqueRootedBlock) clblock_).getGenericSuperClass(), infosFields_,infos_, infosConst_, cat_, abs_, final_);
         }
         return null;
     }

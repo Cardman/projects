@@ -4,6 +4,7 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.OperationsSequence;
 import code.expressionlanguage.exceptions.BadNumberValuesException;
 import code.expressionlanguage.methods.util.ArgumentsPair;
+import code.expressionlanguage.opers.util.ConstructorId;
 import code.util.CustList;
 import code.util.IdMap;
 import code.util.NatTreeMap;
@@ -29,6 +30,25 @@ public final class DotOperation extends MethodOperation {
             throw new BadNumberValuesException(_conf.joinPages());
         }
         setResultClass(chidren_.last().getResultClass());
+    }
+
+    @Override
+    public boolean isOtherConstructorClass() {
+        return false;
+    }
+
+    @Override
+    public ConstructorId getConstId() {
+        return null;
+    }
+
+    @Override
+    public boolean isPossibleInitClass() {
+        return false;
+    }
+    @Override
+    public boolean isSuperConstructorCall() {
+        return false;
     }
 
     /**@throws NullObjectException*/

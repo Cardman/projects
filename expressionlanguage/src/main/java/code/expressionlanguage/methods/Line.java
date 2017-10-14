@@ -12,7 +12,8 @@ import code.expressionlanguage.opers.Calculation;
 import code.expressionlanguage.opers.ExpressionLanguage;
 import code.expressionlanguage.opers.OperationNode;
 import code.expressionlanguage.opers.util.ClassMetaInfo;
-import code.expressionlanguage.opers.util.FctConstraints;
+import code.expressionlanguage.opers.util.ClassName;
+import code.expressionlanguage.opers.util.ConstructorId;
 import code.util.CustList;
 import code.util.EqList;
 import code.util.NatTreeMap;
@@ -75,7 +76,7 @@ public final class Line extends Leaf implements StackableBlock {
         }
     }
 
-    public FctConstraints getConstId() {
+    public ConstructorId getConstId() {
         return opExp.last().getConstId();
     }
 
@@ -128,14 +129,15 @@ public final class Line extends Leaf implements StackableBlock {
         PageEl ip_ = _cont.getLastPage();
         if (isCallSuper()) {
             String curClass_ = ip_.getGlobalClass();
-            ClassMetaInfo meta_ = _cont.getClasses().getClassMetaInfo(curClass_);
+            String curClassBase_ = StringList.getAllTypes(curClass_).first();
+            ClassMetaInfo meta_ = _cont.getClasses().getClassMetaInfo(curClassBase_);
             String superClass_ = meta_.getSuperClass();
             if (ip_.getCallingConstr().getCalledConstructors().containsObj(superClass_)) {
-                UniqueRootedBlock root_ = (UniqueRootedBlock) _cont.getClasses().getClassBody(curClass_);
+                UniqueRootedBlock root_ = (UniqueRootedBlock) _cont.getClasses().getClassBody(curClassBase_);
                 for (String i: root_.getAllNeededSortedInterfaces()) {
                     if (!ip_.getIntializedInterfaces().containsStr(i)) {
                         ip_.getIntializedInterfaces().add(i);
-                        FctConstraints super_ = new FctConstraints(superClass_, new EqList<StringList>());
+                        ConstructorId super_ = new ConstructorId(superClass_, new EqList<ClassName>());
                         StringList called_ = ip_.getCallingConstr().getCalledConstructors();
                         Argument global_ = ip_.getGlobalArgument();
                         throw new CustomFoundConstructorException(i, EMPTY_STRING, called_, super_, global_, new CustList<Argument>(), InstancingStep.USING_SUPER);
@@ -143,7 +145,7 @@ public final class Line extends Leaf implements StackableBlock {
                 }
                 if (!ip_.getCallingConstr().isFirstField()) {
                     ip_.getCallingConstr().setFirstField(true);
-                    RootBlock class_ = _cont.getClasses().getClassBody(curClass_);
+                    RootBlock class_ = _cont.getClasses().getClassBody(curClassBase_);
                     Block firstChild_ = class_.getFirstChild();
                     ip_.getReadWrite().setBlock(firstChild_);
                     return;

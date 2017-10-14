@@ -23,12 +23,10 @@ import code.expressionlanguage.opers.OperationNode;
 import code.expressionlanguage.opers.util.ClassField;
 import code.expressionlanguage.opers.util.ClassName;
 import code.expressionlanguage.opers.util.ConstructorId;
-import code.expressionlanguage.opers.util.FctConstraints;
 import code.expressionlanguage.opers.util.MethodId;
 import code.expressionlanguage.opers.util.Struct;
 import code.util.CustList;
 import code.util.EqList;
-import code.util.StringList;
 import code.util.StringMap;
 
 @SuppressWarnings("static-method")
@@ -5378,13 +5376,13 @@ public class ProcessXmlMethodTest {
     }
 
     static Argument calculateArgument(String _class, MethodId _method, CustList<Argument> _args, ContextEl _cont) {
-        EqList<StringList> constraints_ = new EqList<StringList>();
+        EqList<ClassName> constraints_ = new EqList<ClassName>();
         for (ClassName c: _method.getClassNames()) {
-            constraints_.add(new StringList(c.getName()));
+            constraints_.add(new ClassName(c.getName(),false));
         }
-        FctConstraints fct_ = new FctConstraints(_method.getName(),constraints_);
+        MethodId fct_ = new MethodId(_method.getName(),constraints_);
         Classes classes_ = _cont.getClasses();
-        MethodBlock method_ = classes_.getMethodBody(_class, fct_);
+        MethodBlock method_ = classes_.getMethodBodiesByFormattedId(_class, fct_).first();
         Block firstChild_ = method_.getFirstChild();
         if (firstChild_ == null) {
             Argument a_ = new Argument();
@@ -10689,12 +10687,12 @@ public class ProcessXmlMethodTest {
 
     public static Argument instanceArgument(String _class, Argument _global, ConstructorId _id, CustList<Argument> _args, ContextEl _cont) {
         int len_ = _id.getClassNames().size();
-        EqList<StringList> constraints_ = new EqList<StringList>();
+        EqList<ClassName> constraints_ = new EqList<ClassName>();
         for (int i = CustList.FIRST_INDEX; i < len_; i++) {
             String n_ = _id.getClassNames().get(i).getName();
-            constraints_.add(new StringList(n_));
+            constraints_.add(new ClassName(n_,false));
         }
-        FctConstraints id_ = new FctConstraints(_id.getName(),constraints_);
+        ConstructorId id_ = new ConstructorId(_id.getName(),constraints_);
         return ProcessXmlMethod.instanceArgument(_class, _global, id_, _args, _cont);
     }
 

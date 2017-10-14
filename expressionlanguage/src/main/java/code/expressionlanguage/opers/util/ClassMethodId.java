@@ -6,9 +6,9 @@ public final class ClassMethodId implements Equallable<ClassMethodId> {
 
     private final String className;
 
-    private final FctConstraints constraints;
+    private final MethodId constraints;
 
-    public ClassMethodId(String _className, FctConstraints _constraints) {
+    public ClassMethodId(String _className, MethodId _constraints) {
         className = _className;
         constraints = _constraints;
     }
@@ -17,7 +17,7 @@ public final class ClassMethodId implements Equallable<ClassMethodId> {
         return className;
     }
 
-    public FctConstraints getConstraints() {
+    public MethodId getConstraints() {
         return constraints;
     }
 

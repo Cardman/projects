@@ -3,12 +3,7 @@ package code.expressionlanguage.methods;
 import org.w3c.dom.Element;
 
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.PrimitiveTypeUtil;
-import code.expressionlanguage.Templates;
-import code.expressionlanguage.opers.util.DimComp;
-import code.expressionlanguage.opers.util.FctConstraints;
 import code.util.CustList;
-import code.util.EqList;
 import code.util.NatTreeMap;
 import code.util.StringList;
 
@@ -99,41 +94,5 @@ public abstract class NamedFunctionBlock extends MemberCallingsBlock implements 
     @Override
     public final AccessEnum getAccess() {
         return access;
-    }
-
-    public FctConstraints getBaseConstraints(String _type,Classes _classes) {
-        EqList<StringList> ctrs_ = new EqList<StringList>();
-        StringList l_ = getParametersTypes();
-        StringList bounds_ = Templates.getClassLeftMostBounds(_type, _classes);
-        RootBlock r_ = _classes.getClassBody(_type);
-        int nbArgs_ = l_.size();
-        for (int i = CustList.FIRST_INDEX; i < nbArgs_; i++) {
-            String paramType_ = l_.get(i);
-            DimComp dimComp_ = PrimitiveTypeUtil.getQuickComponentBaseType(paramType_);
-            int dim_ = dimComp_.getDim();
-            String paramTypeArr_ = dimComp_.getComponent();
-            boolean addPrefix_ = false;
-            if (varargs && i + 1 == nbArgs_) {
-                addPrefix_ = true;
-            }
-            String res_;
-            if (paramTypeArr_.startsWith(Templates.PREFIX_VAR_TYPE)) {
-                String t_ = paramTypeArr_.substring(Templates.PREFIX_VAR_TYPE.length());
-                res_ = PrimitiveTypeUtil.getPrettyArrayType(bounds_.get(r_.getIndex(t_)), dim_);
-            } else if (paramType_.contains(Templates.TEMPLATE_BEGIN)){
-                res_ = paramType_.substring(CustList.FIRST_INDEX, paramType_.indexOf(Templates.TEMPLATE_BEGIN));
-            } else {
-                res_ = l_.get(i);
-            }
-            if (addPrefix_) {
-                res_ = PrimitiveTypeUtil.getPrettyArrayType(res_);
-            }
-            ctrs_.add(new StringList(res_));
-        }
-        String name_ = getName();
-        if (name_.isEmpty()) {
-            return new FctConstraints(_type, ctrs_);
-        }
-        return new FctConstraints(name_, ctrs_);
     }
 }

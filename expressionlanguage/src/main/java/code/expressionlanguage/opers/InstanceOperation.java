@@ -31,8 +31,8 @@ import code.expressionlanguage.methods.util.InstancingStep;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.opers.util.ClassCategory;
 import code.expressionlanguage.opers.util.ClassMetaInfo;
+import code.expressionlanguage.opers.util.ConstructorId;
 import code.expressionlanguage.opers.util.DimComp;
-import code.expressionlanguage.opers.util.FctConstraints;
 import code.expressionlanguage.opers.util.Struct;
 import code.serialize.exceptions.BadAccessException;
 import code.util.CustList;
@@ -52,7 +52,7 @@ public final class InstanceOperation extends InvokingOperation {
 
     private Constructor<?> contructor;
 
-    private FctConstraints constId;
+    private ConstructorId constId;
 
     private String fieldName = EMPTY_STRING;
 
@@ -216,8 +216,13 @@ public final class InstanceOperation extends InvokingOperation {
         constId = getDeclaredCustConstructor(_conf, new ClassArgumentMatching(realClassName_), ClassArgumentMatching.toArgArray(_firstArgs));
         if (constId != null) {
             String glClass_ = _conf.getLastPage().getGlobalClass();
-            if (!classes_.canAccessConstructor(glClass_, realClassName_, constId)) {
-                ConstructorBlock ctr_ = classes_.getConstructorBody(realClassName_, constId);
+            CustList<ConstructorBlock> ctors_ = classes_.getConstructorBodiesByFormattedId(realClassName_, constId);
+            String curClassBase_ = null;
+            if (glClass_ != null) {
+                curClassBase_ = StringList.getAllTypes(glClass_).first();
+            }
+            if (!ctors_.isEmpty() && !classes_.canAccess(curClassBase_, ctors_.first())) {
+                ConstructorBlock ctr_ = ctors_.first();
                 throw new BadAccessException(ctr_.getId().getSignature()+RETURN_LINE+_conf.joinPages());
             }
             possibleInitClass = true;
@@ -253,6 +258,25 @@ public final class InstanceOperation extends InvokingOperation {
         contructor = const_;
         setAccess(contructor, _conf);
         setResultClass(new ClassArgumentMatching(realClassName_));
+    }
+
+    @Override
+    public boolean isOtherConstructorClass() {
+        return false;
+    }
+
+    @Override
+    public ConstructorId getConstId() {
+        return null;
+    }
+
+    @Override
+    public boolean isPossibleInitClass() {
+        return false;
+    }
+    @Override
+    public boolean isSuperConstructorCall() {
+        return false;
     }
 
     @Override
@@ -469,8 +493,8 @@ public final class InstanceOperation extends InvokingOperation {
         if (constId != null) {
             String className_ = constId.getName();
             StringList params_ = new StringList();
-            for (StringList c: constId.getConstraints()) {
-                params_.add(c.first());
+            for (String c: constId.getParametersTypes()) {
+                params_.add(c);
             }
             checkArgumentsForInvoking(_conf, params_, getObjects(Argument.toArgArray(_arguments)));
             if (_processInit) {

@@ -13,6 +13,7 @@ import code.expressionlanguage.ElResolver;
 import code.expressionlanguage.ElUtil;
 import code.expressionlanguage.OperationsSequence;
 import code.expressionlanguage.PrimitiveTypeUtil;
+import code.expressionlanguage.Templates;
 import code.expressionlanguage.exceptions.ErrorCausingException;
 import code.expressionlanguage.exceptions.InvokeException;
 import code.expressionlanguage.exceptions.StaticAccessException;
@@ -34,12 +35,14 @@ import code.expressionlanguage.opers.util.ClassMetaInfo;
 import code.expressionlanguage.opers.util.ClassMethodId;
 import code.expressionlanguage.opers.util.ClassMethodIdResult;
 import code.expressionlanguage.opers.util.ClassMethodIdReturn;
+import code.expressionlanguage.opers.util.ClassName;
+import code.expressionlanguage.opers.util.ConstructorId;
 import code.expressionlanguage.opers.util.ConstructorInfo;
 import code.expressionlanguage.opers.util.ConstructorMetaInfo;
-import code.expressionlanguage.opers.util.FctConstraints;
 import code.expressionlanguage.opers.util.Fcts;
 import code.expressionlanguage.opers.util.FieldMetaInfo;
 import code.expressionlanguage.opers.util.FieldResult;
+import code.expressionlanguage.opers.util.MethodId;
 import code.expressionlanguage.opers.util.MethodInfo;
 import code.expressionlanguage.opers.util.MethodMetaInfo;
 import code.expressionlanguage.opers.util.MethodModifier;
@@ -66,7 +69,7 @@ import code.util.consts.ConstClasses;
 import code.util.exceptions.NullObjectException;
 import code.util.exceptions.RuntimeClassNotFoundException;
 
-public abstract class OperationNode implements Operable {
+public abstract class OperationNode {
 
     public static final String VOID_RETURN = "$void";
     public static final String METH_NAME = "name";
@@ -325,29 +328,17 @@ public abstract class OperationNode implements Operable {
         return false;
     }
 
-    @Override
-    public boolean isPossibleInitClass() {
-        return false;
-    }
+    public abstract boolean isPossibleInitClass();
 
     public final boolean isSuperThis() {
         return isSuperConstructorCall() || isOtherConstructorClass();
     }
 
-    @Override
-    public boolean isSuperConstructorCall() {
-        return false;
-    }
+    public abstract boolean isSuperConstructorCall();
 
-    @Override
-    public boolean isOtherConstructorClass() {
-        return false;
-    }
+    public abstract boolean isOtherConstructorClass();
 
-    @Override
-    public FctConstraints getConstId() {
-        return null;
-    }
+    public abstract ConstructorId getConstId();
 
     public abstract OperationNode getFirstChild();
 
@@ -478,7 +469,7 @@ public abstract class OperationNode implements Operable {
         }
         throw new NoSuchDeclaredFieldException(traces_.join(RETURN_TAB)+RETURN_LINE+_cont.joinPages());
     }
-    static FctConstraints getDeclaredCustConstructor(ContextEl _conf, ClassArgumentMatching _class, ClassArgumentMatching..._args) {
+    static ConstructorId getDeclaredCustConstructor(ContextEl _conf, ClassArgumentMatching _class, ClassArgumentMatching..._args) {
         Classes classes_ = _conf.getClasses();
         if (classes_ == null) {
             return null;
@@ -490,25 +481,25 @@ public abstract class OperationNode implements Operable {
             return null;
         }
         String glClass_ = _conf.getLastPage().getGlobalClass();
-        CustList<FctConstraints> possibleMethods_ = new CustList<FctConstraints>();
+        CustList<ConstructorId> possibleMethods_ = new CustList<ConstructorId>();
         for (ClassArgumentMatching c:_args) {
             if (c.matchVoid()) {
                 throw new VoidArgumentException(clCurName_+RETURN_LINE+_conf.joinPages());
             }
         }
-        ObjectNotNullMap<FctConstraints, ConstructorMetaInfo> constructors_;
+        ObjectNotNullMap<ConstructorId, ConstructorMetaInfo> constructors_;
         constructors_ = custClass_.getConstructors();
         if (constructors_.isEmpty()) {
             if (_args.length == 0) {
-                return new FctConstraints(clCurName_, new EqList<StringList>());
+                return new ConstructorId(clCurName_, new EqList<ClassName>());
             }
         }
-        for (EntryCust<FctConstraints, ConstructorMetaInfo> e: constructors_.entryList()) {
-            EqList<StringList> params_ = e.getKey().getConstraints();
+        for (EntryCust<ConstructorId, ConstructorMetaInfo> e: constructors_.entryList()) {
+            StringList params_ = e.getKey().getParametersTypes();
             ClassMatching[] p_ = new ClassMatching[params_.size()];
             int i_ = CustList.FIRST_INDEX;
-            for (StringList c: params_) {
-                p_[i_] = new ClassMatching(c.first());
+            for (String c: params_) {
+                p_[i_] = new ClassMatching(c);
                 i_++;
             }
             if (!isPossibleMethod(_conf, p_, _args)) {
@@ -542,13 +533,13 @@ public abstract class OperationNode implements Operable {
         }
         ArgumentsGroup gr_ = new ArgumentsGroup(classes_, _args);
         Parametrables<ConstructorInfo> signatures_ = new Parametrables<ConstructorInfo>();
-        for (FctConstraints m: possibleMethods_) {
+        for (ConstructorId m: possibleMethods_) {
             ParametersGroup p_ = new ParametersGroup();
-            for (StringList c: m.getConstraints()) {
-                p_.add(new ClassMatching(c.first()));
+            for (String c: m.getParametersTypes()) {
+                p_.add(new ClassMatching(c));
             }
             ConstructorInfo mloc_ = new ConstructorInfo();
-            ConstructorBlock ctr_ = classes_.getConstructorBody(clCurName_, m);
+            ConstructorBlock ctr_ = classes_.getConstructorBodiesByFormattedId(clCurName_, m).first();
             mloc_.setConstr(ctr_.getId());
             mloc_.setConstraints(m);
             mloc_.setParameters(p_);
@@ -567,10 +558,16 @@ public abstract class OperationNode implements Operable {
         }
         return signatures_.first().getConstraints();
     }
-    private static CustList<FctConstraints> filterCtr(String _glClass, String _accessedClass, CustList<FctConstraints> _found, ContextEl _conf) {
-        CustList<FctConstraints> accessible_ = new CustList<FctConstraints>();
-        for (FctConstraints i: _found) {
-            if (_conf.getClasses().canAccessConstructor(_glClass, _accessedClass, i)) {
+    private static CustList<ConstructorId> filterCtr(String _glClass, String _accessedClass, CustList<ConstructorId> _found, ContextEl _conf) {
+        CustList<ConstructorId> accessible_ = new CustList<ConstructorId>();
+        for (ConstructorId i: _found) {
+            CustList<ConstructorBlock> ctors_ = _conf.getClasses().getConstructorBodiesByFormattedId(_accessedClass, i);
+            if (ctors_.isEmpty()) {
+                accessible_.add(i);
+                continue;
+            }
+            String curClassBase_ = StringList.getAllTypes(_glClass).first();
+            if (_conf.getClasses().canAccess(curClassBase_, ctors_.first())) {
                 accessible_.add(i);
             }
         }
@@ -631,14 +628,14 @@ public abstract class OperationNode implements Operable {
         if (_interface) {
             return getDynDeclaredCustMethodByInterface(_conf, _realClassName, _idMeth);
         }
-        FctConstraints id_ = _idMeth.getConstraints();
+        MethodId id_ = _idMeth.getConstraints();
         String stopClass_ = _idMeth.getClassName();
         while (true) {
             RootBlock clBlock_ = classes_.getClassBody(clCurName_);
-            MethodBlock method_ = classes_.getMethodBody(clCurName_, id_);
-            if (method_ == null) {
-                ObjectMap<FctConstraints, String> def_;
-                def_ = clBlock_.getDefaultMethods();
+            CustList<MethodBlock> methods_ = classes_.getMethodBodiesByFormattedId(clCurName_, id_);
+            if (methods_.isEmpty()) {
+                ObjectMap<MethodId, String> def_;
+                def_ = clBlock_.getDefaultMethodIds();
                 if (def_.contains(_idMeth.getConstraints())) {
                     return def_.getVal(_idMeth.getConstraints());
                 }
@@ -647,6 +644,7 @@ public abstract class OperationNode implements Operable {
                 clCurName_ = superClass_;
                 continue;
             }
+            MethodBlock method_ = methods_.first();
             if (method_.isAbstractMethod()) {
                 String superClass_ = custClass_.getSuperClass();
                 custClass_ = classes_.getClassMetaInfo(superClass_);
@@ -682,7 +680,7 @@ public abstract class OperationNode implements Operable {
             }
         }
         if (_superClass && custClass_.getCategory() == ClassCategory.INTERFACE) {
-            ObjectNotNullMap<FctConstraints, MethodMetaInfo> methodsInst_;
+            ObjectNotNullMap<MethodId, MethodMetaInfo> methodsInst_;
             methodsInst_ = getInterfacesMethods(_conf, false, _class, _name, _argsClass);
             ClassMethodIdResult resInst_ = getDeclaredCustMethodByInterface(_conf, methodsInst_, _class, _name, _argsClass);
             boolean foundInst_ = false;
@@ -691,7 +689,7 @@ public abstract class OperationNode implements Operable {
                     foundInst_ = true;
                 }
             }
-            ObjectNotNullMap<FctConstraints, MethodMetaInfo> methodsStatic_;
+            ObjectNotNullMap<MethodId, MethodMetaInfo> methodsStatic_;
             methodsStatic_ = getInterfacesMethods(_conf, true, _class, _name, _argsClass);
             ClassMethodIdResult resStatic_ = getDeclaredCustMethodByInterface(_conf, methodsStatic_, _class, _name, _argsClass);
             if (foundInst_) {
@@ -774,11 +772,15 @@ public abstract class OperationNode implements Operable {
         ClassMethodIdReturn idRet_ = new ClassMethodIdReturn();
         idRet_.setId(_res.getId());
         String clCurName_ = _res.getId().getClassName();
-        MethodBlock m_ = classes_.getMethodBody(clCurName_, _res.getId().getConstraints());
-        if (m_ == null) {
+        CustList<MethodBlock> methods_ = classes_.getMethodBodiesByFormattedId(clCurName_, _res.getId().getConstraints());
+        MethodBlock m_;
+        if (methods_.isEmpty()) {
             UniqueRootedBlock u_ = (UniqueRootedBlock) classes_.getClassBody(clCurName_);
-            String int_ = u_.getDefaultMethods().getVal(_res.getId().getConstraints());
-            m_ = classes_.getMethodBody(int_, _res.getId().getConstraints());
+            String int_ = u_.getDefaultMethodIds().getVal(_res.getId().getConstraints());
+            int_ = Templates.format(clCurName_, int_, classes_);
+            m_ = classes_.getMethodBodiesByFormattedId(int_, _res.getId().getConstraints()).first();
+        } else {
+            m_ = methods_.first();
         }
         idRet_.setReturnType(m_.getReturnType());
         idRet_.setStaticMethod(m_.isStaticMethod());
@@ -809,11 +811,11 @@ public abstract class OperationNode implements Operable {
     }
     private static ClassMethodIdResult getDeclaredCustMethodByInterface(
             ContextEl _conf,
-            ObjectNotNullMap<FctConstraints, MethodMetaInfo> _methods,
+            ObjectNotNullMap<MethodId, MethodMetaInfo> _methods,
             ClassArgumentMatching _class, String _name, ClassArgumentMatching... _argsClass) {
         return getCustResult(_conf, _class, _methods, true, _name, _argsClass);
     }
-    private static ObjectNotNullMap<FctConstraints, MethodMetaInfo> getInterfacesMethods(
+    private static ObjectNotNullMap<MethodId, MethodMetaInfo> getInterfacesMethods(
             ContextEl _conf, boolean _static, ClassArgumentMatching _class, String _name, ClassArgumentMatching... _argsClass) {
         Classes classes_ = _conf.getClasses();
         String clCurName_ = _class.getName();
@@ -822,14 +824,14 @@ public abstract class OperationNode implements Operable {
         if (!_static) {
             superInts_.addAllElts(intBl_.getAllSuperClasses());
         }
-        ObjectMap<FctConstraints, StringList> signatures_;
-        signatures_ = new ObjectMap<FctConstraints, StringList>();
+        ObjectMap<MethodId, StringList> signatures_;
+        signatures_ = new ObjectMap<MethodId, StringList>();
         if (_static) {
-            ObjectMap<FctConstraints, String> signaturesInt_;
-            signaturesInt_ = intBl_.getLocalSignaturesErasure(classes_);
+            ObjectMap<MethodId, String> signaturesInt_;
+            signaturesInt_ = intBl_.getLocalSignatures(classes_);
             StringList subList_ = new StringList();
-            for (EntryCust<FctConstraints, String> m: signaturesInt_.entryList()) {
-                MethodBlock m_ = classes_.getMethodBody(clCurName_, m.getKey());
+            for (EntryCust<MethodId, String> m: signaturesInt_.entryList()) {
+                MethodBlock m_ = classes_.getMethodBodiesByFormattedId(clCurName_, m.getKey()).first();
                 if (!m_.isStaticMethod()) {
                     continue;
                 }
@@ -842,12 +844,13 @@ public abstract class OperationNode implements Operable {
                     continue;
                 }
                 InterfaceBlock superBl_ = (InterfaceBlock) classes_.getClassBody(s);
-                ObjectMap<FctConstraints, StringList> signaturesInt_;
-                signaturesInt_ = superBl_.getAllInstanceSignaturesErasure(classes_);
-                for (EntryCust<FctConstraints, StringList> m: signaturesInt_.entryList()) {
+                ObjectMap<MethodId, StringList> signaturesInt_;
+                signaturesInt_ = superBl_.getAllInstanceSignatures(classes_);
+                for (EntryCust<MethodId, StringList> m: signaturesInt_.entryList()) {
                     StringList subList_ = new StringList();
                     for (String i: m.getValue()) {
-                        MethodBlock m_ = classes_.getMethodBody(i, m.getKey());
+                        String formattedCl_ = Templates.format(s, i, classes_);
+                        MethodBlock m_ = classes_.getMethodBodiesByFormattedId(formattedCl_, m.getKey()).first();
                         if (m_.isStaticMethod()) {
                             continue;
                         }
@@ -866,19 +869,20 @@ public abstract class OperationNode implements Operable {
             }
         }
         
-        ObjectMap<FctConstraints, StringList> ov_;
+        ObjectMap<MethodId, StringList> ov_;
         if (!_static) {
-            ov_ = RootBlock.getAllOverridingMethodsErasure(signatures_, classes_);
+            ov_ = RootBlock.getAllOverridingMethods(signatures_, classes_);
         } else {
             ov_ = signatures_;
         }
-        ObjectNotNullMap<FctConstraints, MethodMetaInfo> methods_;
-        methods_ = new ObjectNotNullMap<FctConstraints, MethodMetaInfo>();
+        ObjectNotNullMap<MethodId, MethodMetaInfo> methods_;
+        methods_ = new ObjectNotNullMap<MethodId, MethodMetaInfo>();
         String cl_ = EMPTY_STRING;
-        for (EntryCust<FctConstraints, StringList> e: ov_.entryList()) {
+        for (EntryCust<MethodId, StringList> e: ov_.entryList()) {
             StringList retTypes_ = new StringList();
             for (String i: e.getValue()) {
-                MethodBlock m_ = classes_.getMethodBody(i, e.getKey());
+                String formattedCl_ = Templates.format(clCurName_, i, classes_);
+                MethodBlock m_ = classes_.getMethodBodiesByFormattedId(formattedCl_, e.getKey()).first();
                 retTypes_.add(m_.getReturnType());
             }
             String ret_ = PrimitiveTypeUtil.getSubslass(retTypes_, classes_);
@@ -898,13 +902,13 @@ public abstract class OperationNode implements Operable {
         ClassMetaInfo custClass_ = null;
         String clCurName_ = _realClassName;
         custClass_ = classes_.getClassMetaInfo(clCurName_);
-        FctConstraints id_ = _idMeth.getConstraints();
+        MethodId id_ = _idMeth.getConstraints();
         while (true) {
-            MethodBlock method_ = classes_.getMethodBody(clCurName_, id_);
-            if (method_ == null) {
+            CustList<MethodBlock> methods_ = classes_.getMethodBodiesByFormattedId(clCurName_, id_);
+            if (methods_.isEmpty()) {
                 ClassBlock clBlock_ = (ClassBlock) classes_.getClassBody(clCurName_);
-                ObjectMap<FctConstraints, String> def_;
-                def_ = clBlock_.getDefaultMethods();
+                ObjectMap<MethodId, String> def_;
+                def_ = clBlock_.getDefaultMethodIds();
                 if (def_.contains(_idMeth.getConstraints())) {
                     return def_.getVal(_idMeth.getConstraints());
                 }
@@ -913,6 +917,7 @@ public abstract class OperationNode implements Operable {
                 clCurName_ = superClass_;
                 continue;
             }
+            MethodBlock method_ = methods_.first();
             if (method_.isAbstractMethod()) {
                 String superClass_ = custClass_.getSuperClass();
                 custClass_ = classes_.getClassMetaInfo(superClass_);
@@ -927,9 +932,9 @@ public abstract class OperationNode implements Operable {
         ClassMetaInfo custClass_ = null;
         String clCurName_ = _class.getName();
         custClass_ = classes_.getClassMetaInfo(clCurName_);
-        ObjectNotNullMap<FctConstraints, MethodMetaInfo> methods_;
-        methods_ = new ObjectNotNullMap<FctConstraints, MethodMetaInfo>();
-        for (EntryCust<FctConstraints, MethodMetaInfo> e: custClass_.getMethods().entryList()) {
+        ObjectNotNullMap<MethodId, MethodMetaInfo> methods_;
+        methods_ = new ObjectNotNullMap<MethodId, MethodMetaInfo>();
+        for (EntryCust<MethodId, MethodMetaInfo> e: custClass_.getMethods().entryList()) {
             if (e.getValue().isStatic()) {
                 if (_static) {
                     methods_.put(e.getKey(), e.getValue());
@@ -941,8 +946,9 @@ public abstract class OperationNode implements Operable {
             }
         }
         RootBlock clBl_ = classes_.getClassBody(clCurName_);
-        for (EntryCust<FctConstraints, String> e: clBl_.getDefaultMethods().entryList()) {
-            MethodBlock m_ = classes_.getMethodBody(e.getValue(), e.getKey());
+        for (EntryCust<MethodId, String> e: clBl_.getDefaultMethodIds().entryList()) {
+            String formattedCl_ = Templates.format(clCurName_, e.getValue(), classes_);
+            MethodBlock m_ = classes_.getMethodBodiesByFormattedId(formattedCl_, e.getKey()).first();
             String ret_ = m_.getReturnType();
             MethodMetaInfo info_ = new MethodMetaInfo(e.getValue(), MethodModifier.NORMAL, ret_);
             methods_.put(e.getKey(), info_);
@@ -950,21 +956,21 @@ public abstract class OperationNode implements Operable {
         return getCustResult(_conf, _class, methods_, false, _name, _argsClass);
     }
     private static ClassMethodIdResult getCustResult(ContextEl _conf, ClassArgumentMatching _class,
-            ObjectNotNullMap<FctConstraints, MethodMetaInfo> _methods, boolean _int,
+            ObjectNotNullMap<MethodId, MethodMetaInfo> _methods, boolean _int,
             String _name, ClassArgumentMatching... _argsClass) {
         Classes classes_ = _conf.getClasses();
         String clCurName_ = _class.getName();
-        CustList<FctConstraints> possibleMethods_ = new CustList<FctConstraints>();
+        CustList<MethodId> possibleMethods_ = new CustList<MethodId>();
         String glClass_ = _conf.getLastPage().getGlobalClass();
-        for (EntryCust<FctConstraints, MethodMetaInfo> e: _methods.entryList()) {
+        for (EntryCust<MethodId, MethodMetaInfo> e: _methods.entryList()) {
             if (!StringList.quickEq(e.getKey().getName(), _name)) {
                 continue;
             }
-            EqList<StringList> params_ = e.getKey().getConstraints();
+            StringList params_ = e.getKey().getParametersTypes();
             ClassMatching[] p_ = new ClassMatching[params_.size()];
             int i_ = CustList.FIRST_INDEX;
-            for (StringList c: params_) {
-                p_[i_] = new ClassMatching(c.first());
+            for (String c: params_) {
+                p_[i_] = new ClassMatching(c);
                 i_++;
             }
             if (!isPossibleMethod(_conf, p_, _argsClass)) {
@@ -978,7 +984,7 @@ public abstract class OperationNode implements Operable {
             return res_;
         }
         if (possibleMethods_.size() == CustList.ONE_ELEMENT) {
-            FctConstraints methodId_ = possibleMethods_.first();
+            MethodId methodId_ = possibleMethods_.first();
             ClassMethodId cl_ = new ClassMethodId(clCurName_, methodId_);
             ClassMethodIdResult res_ = new ClassMethodIdResult();
             res_.setStatus(SearchingMemberStatus.UNIQ);
@@ -995,10 +1001,10 @@ public abstract class OperationNode implements Operable {
         }
         ArgumentsGroup gr_ = new ArgumentsGroup(classes_, _argsClass);
         Parametrables<MethodInfo> signatures_ = new Parametrables<MethodInfo>();
-        for (FctConstraints m: possibleMethods_) {
+        for (MethodId m: possibleMethods_) {
             ParametersGroup p_ = new ParametersGroup();
-            for (StringList c: m.getConstraints()) {
-                p_.add(new ClassMatching(c.first()));
+            for (String c: m.getParametersTypes()) {
+                p_.add(new ClassMatching(c));
             }
             MethodInfo mloc_ = new MethodInfo();
             mloc_.setClassName(_methods.getVal(m).getClassName());
@@ -1015,17 +1021,19 @@ public abstract class OperationNode implements Operable {
             res_.setStatus(SearchingMemberStatus.ZERO);
             return res_;
         }
-        FctConstraints constraints_ = signatures_.first().getConstraints();
+        MethodId constraints_ = signatures_.first().getConstraints();
         ClassMethodId cl_ = new ClassMethodId(clCurName_, constraints_);
         ClassMethodIdResult res_ = new ClassMethodIdResult();
         res_.setStatus(SearchingMemberStatus.UNIQ);
         res_.setId(cl_);
         return res_;
     }
-    private static EqList<FctConstraints> filterMeth(String _glClass, String _accessedClass, CustList<FctConstraints> _found, ContextEl _conf) {
-        EqList<FctConstraints> accessible_ = new EqList<FctConstraints>();
-        for (FctConstraints i: _found) {
-            if (_conf.getClasses().canAccessMethod(_glClass, _accessedClass, i)) {
+    private static EqList<MethodId> filterMeth(String _glClass, String _accessedClass, CustList<MethodId> _found, ContextEl _conf) {
+        EqList<MethodId> accessible_ = new EqList<MethodId>();
+        for (MethodId i: _found) {
+            MethodBlock m_ = _conf.getClasses().getMethodBodiesByFormattedId(_accessedClass, i).first();
+            String curClassBase_ = StringList.getAllTypes(_glClass).first();
+            if (_conf.getClasses().canAccess(curClassBase_, m_)) {
                 accessible_.add(i);
             }
         }
