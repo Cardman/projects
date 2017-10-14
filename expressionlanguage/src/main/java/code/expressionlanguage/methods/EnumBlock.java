@@ -6,7 +6,6 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.methods.exceptions.CyclicCallingException;
 import code.expressionlanguage.methods.util.BadAccessMethod;
 import code.expressionlanguage.methods.util.ConstructorEdge;
-import code.expressionlanguage.methods.util.DuplicateParamMethod;
 import code.expressionlanguage.methods.util.ReservedMethod;
 import code.expressionlanguage.opers.OperationNode;
 import code.expressionlanguage.opers.util.ClassMetaInfo;
@@ -22,7 +21,6 @@ import code.util.NatTreeMap;
 import code.util.ObjectNotNullMap;
 import code.util.StringList;
 import code.util.graphs.Graph;
-import code.xml.RowCol;
 
 public final class EnumBlock extends RootBlock implements UniqueRootedBlock {
 
@@ -54,7 +52,6 @@ public final class EnumBlock extends RootBlock implements UniqueRootedBlock {
 
     @Override
     public void setupBasicOverrides(ContextEl _context) {
-        Classes classesRef_ = _context.getClasses();
         for (MethodBlock m: Classes.getMethodBlocks(this)) {
             if (m.getId().eq(new MethodId(OperationNode.METH_NAME, new EqList<ClassName>()))) {
                 ReservedMethod r_ = new ReservedMethod();
@@ -85,55 +82,11 @@ public final class EnumBlock extends RootBlock implements UniqueRootedBlock {
                 _context.getClasses().getErrorsDet().add(r_);
             }
         }
-        for (MethodBlock m: Classes.getMethodBlocks(this)) {
-            if (m.isStaticMethod()) {
-                continue;
-            }
-            addClass(getAllOverridingMethods(), m.getId(), getFullDefinition());
-        }
-        for (MethodBlock m: Classes.getMethodBlocks(this)) {
-            if (m.isStaticMethod()) {
-                continue;
-            }
-            for (String s: getAllGenericSuperTypes(classesRef_)) {
-                CustList<MethodBlock> mBases_ = classesRef_.getMethodBodiesByFormattedId(s, m.getId());
-                if (mBases_.isEmpty()) {
-                    continue;
-                }
-                if (mBases_.size() > 1) {
-                    DuplicateParamMethod duplicate_ = new DuplicateParamMethod();
-                    duplicate_.setFileName(getFullName());
-                    duplicate_.setRc(new RowCol());
-                    duplicate_.setCommonSignature(m.getId().getSignature());
-                    duplicate_.setOtherType(s);
-                    classesRef_.getErrorsDet().add(duplicate_);
-                }
-                MethodBlock mBase_ = mBases_.first();
-                if (mBase_.isStaticMethod()) {
-                    continue;
-                }
-                if (!_context.getClasses().canAccess(getFullName(), mBase_)) {
-                    continue;
-                }
-                addClass(getAllOverridingMethods(), m.getId(), s);
-            }
-        }
-        for (String s: getAllGenericSuperTypes(classesRef_)) {
-            String base_ = StringList.getAllTypes(s).first();
-            RootBlock r_ = classesRef_.getClassBody(base_);
-            for (MethodBlock m: Classes.getMethodBlocks(r_)) {
-                if (m.isStaticMethod()) {
-                    continue;
-                }
-                MethodId id_ = m.getFormattedId(s, classesRef_);
-                CustList<MethodBlock> mBases_ = classesRef_.getMethodBodiesByFormattedId(getFullDefinition(), id_);
-                if (!mBases_.isEmpty()) {
-                    continue;
-                }
-                MethodId idReal_ = m.getFormattedId(s, classesRef_);
-                addClass(getAllOverridingMethods(), idReal_, s);
-            }
-        }
+        useSuperTypesOverrides(_context);
+        Classes classesRef_ = _context.getClasses();
+        StringList classNames_ = getAllGenericSuperClasses(classesRef_);
+        StringList classes_ = new StringList(getFullDefinition());
+        classes_.addAllElts(classNames_);
         for (String s: getAllGenericInterfaces(classesRef_)) {
             String base_ = StringList.getAllTypes(s).first();
             RootBlock r_ = classesRef_.getClassBody(base_);
@@ -142,24 +95,25 @@ public final class EnumBlock extends RootBlock implements UniqueRootedBlock {
                     continue;
                 }
                 MethodId id_ = m.getFormattedId(s, classesRef_);
-                CustList<MethodBlock> mBases_ = classesRef_.getMethodBodiesByFormattedId(getFullDefinition(), id_);
-                if (mBases_.isEmpty()) {
-                    continue;
+                for (String c: classes_) {
+                    CustList<MethodBlock> mBases_ = classesRef_.getMethodBodiesByFormattedId(c, id_);
+                    if (mBases_.isEmpty()) {
+                        continue;
+                    }
+                    MethodBlock mBase_ = mBases_.first();
+                    if (mBase_.isStaticMethod()) {
+                        continue;
+                    }
+                    if (m.getAccess().ordinal() > mBase_.getAccess().ordinal()) {
+                        BadAccessMethod err_;
+                        err_ = new BadAccessMethod();
+                        err_.setFileName(getFullName());
+                        err_.setRc(m.getAttributes().getVal(ATTRIBUTE_ACCESS));
+                        err_.setId(m.getId());
+                        classesRef_.getErrorsDet().add(err_);
+                    }
+                    break;
                 }
-                MethodBlock mBase_ = mBases_.first();
-                if (mBase_.isStaticMethod()) {
-                    continue;
-                }
-                if (m.getAccess().ordinal() > mBase_.getAccess().ordinal()) {
-                    BadAccessMethod err_;
-                    err_ = new BadAccessMethod();
-                    err_.setFileName(getFullName());
-                    err_.setRc(m.getAttributes().getVal(ATTRIBUTE_ACCESS));
-                    err_.setId(m.getId());
-                    classesRef_.getErrorsDet().add(err_);
-                }
-                addClass(getAllOverridingMethods(), id_, getFullDefinition());
-                addClass(getAllOverridingMethods(), id_, s);
             }
         }
     }

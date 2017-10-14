@@ -35,7 +35,6 @@ public final class Templates {
         if (!PrimitiveTypeUtil.canBeUseAsArgument(_baseSuperType, _baseType, _classes)) {
             return null;
         }
-        Class<?> clSup_ = ConstClasses.classForNameNotInit(_baseSuperType);
         StringList curClasses_ = new StringList(_baseType);
         StringList visitedClasses_ = new StringList(_baseType);
         String generic_ = null;
@@ -85,9 +84,8 @@ public final class Templates {
             }
             curClasses_ = nextClasses_;
         }
-        int len_ = clSup_.getTypeParameters().length;
         StringList foundSuperClass_ = StringList.getAllTypes(generic_);
-        len_ = foundSuperClass_.size();
+        int len_ = foundSuperClass_.size();
         StringList args_ = new StringList();
         for (int i = CustList.SECOND_INDEX; i < len_; i++) {
             args_.add(foundSuperClass_.get(i));

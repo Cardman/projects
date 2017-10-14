@@ -1,6 +1,7 @@
 package code.expressionlanguage.methods;
 
 import java.lang.reflect.Method;
+import java.lang.reflect.Modifier;
 import java.lang.reflect.Type;
 
 import org.w3c.dom.Element;
@@ -18,6 +19,7 @@ import code.expressionlanguage.methods.util.BadParamName;
 import code.expressionlanguage.methods.util.BadReturnTypeInherit;
 import code.expressionlanguage.methods.util.DuplicateField;
 import code.expressionlanguage.methods.util.DuplicateMethod;
+import code.expressionlanguage.methods.util.DuplicateParamMethod;
 import code.expressionlanguage.methods.util.DuplicateParamName;
 import code.expressionlanguage.methods.util.FinalMethod;
 import code.expressionlanguage.methods.util.IncompatibilityReturnType;
@@ -341,6 +343,99 @@ public abstract class RootBlock extends BracedBlock implements AccessibleBlock {
     }
     public abstract void setupBasicOverrides(ContextEl _context);
 
+    final void useSuperTypesOverrides(ContextEl _context) {
+        Classes classesRef_ = _context.getClasses();
+        StringList all_ = getAllGenericSuperTypes(classesRef_);
+        for (MethodBlock m: Classes.getMethodBlocks(this)) {
+            if (m.isStaticMethod()) {
+                continue;
+            }
+            addClass(getAllOverridingMethods(), m.getId(), getFullDefinition());
+        }
+        for (String s: all_) {
+            String base_ = StringList.getAllTypes(s).first();
+            RootBlock r_ = classesRef_.getClassBody(base_);
+            for (MethodBlock m: Classes.getMethodBlocks(r_)) {
+                if (m.isStaticMethod()) {
+                    continue;
+                }
+                MethodId id_ = m.getFormattedId(s, classesRef_);
+                CustList<MethodBlock> mBases_ = classesRef_.getMethodBodiesByFormattedId(getFullDefinition(), id_);
+                if (!mBases_.isEmpty()) {
+                    MethodBlock mBas_ = mBases_.first();
+                    MethodId mId_ = mBas_.getId();
+                    for (String d: getDirectGenericSuperTypes()) {
+                        if (StringList.quickEq(d, Object.class.getName())) {
+                            continue;
+                        }
+                        CustList<MethodBlock> mBasesSuper_ = classesRef_.getMethodBodiesByFormattedId(d, mId_);
+                        if (mBasesSuper_.isEmpty()) {
+                            continue;
+                        }
+                        if (mBasesSuper_.size() > 1) {
+                            DuplicateParamMethod duplicate_ = new DuplicateParamMethod();
+                            duplicate_.setFileName(getFullName());
+                            duplicate_.setRc(new RowCol());
+                            duplicate_.setCommonSignature(mId_.getSignature());
+                            duplicate_.setOtherType(d);
+                            classesRef_.getErrorsDet().add(duplicate_);
+                        }
+                        MethodBlock mBase_ = mBasesSuper_.first();
+                        if (mBase_.isStaticMethod()) {
+                            continue;
+                        }
+                        if (!classesRef_.canAccess(getFullName(), mBase_)) {
+                            continue;
+                        }
+                        if (mBase_.isFinalMethod()) {
+                            FinalMethod err_;
+                            err_ = new FinalMethod();
+                            err_.setFileName(getFullName());
+                            err_.setRc(mBas_.getAttributes().getVal(ATTRIBUTE_NAME));
+                            err_.setClassName(d);
+                            err_.setId(mId_);
+                            classesRef_.getErrorsDet().add(err_);
+                        }
+                        addClass(getAllOverridingMethods(), mId_, d);
+                    }
+                    for (String d: getAllGenericSuperTypes(classesRef_)) {
+                        if (StringList.quickEq(d, Object.class.getName())) {
+                            continue;
+                        }
+                        RootBlock rGene_ = classesRef_.getClassBody(StringList.getAllTypes(d).first());
+                        for (EntryCust<MethodId, StringList> e: rGene_.getAllOverridingMethods().entryList()) {
+                            if (e.getKey().format(d, classesRef_).eq(mId_)) {
+                                CustList<MethodBlock> methods_ = classesRef_.getMethodBodiesByFormattedId(d, mId_);
+                                if (methods_.isEmpty()) {
+                                    continue;
+                                }
+                                MethodBlock m_ = methods_.first();
+                                if (!classesRef_.canAccess(getFullName(), m_)) {
+                                    continue;
+                                }
+                                if (m_.isFinalMethod()) {
+                                    FinalMethod err_;
+                                    err_ = new FinalMethod();
+                                    err_.setFileName(getFullName());
+                                    err_.setRc(mBas_.getAttributes().getVal(ATTRIBUTE_NAME));
+                                    err_.setClassName(d);
+                                    err_.setId(mId_);
+                                    classesRef_.getErrorsDet().add(err_);
+                                }
+                                for (String t: e.getValue()) {
+                                    String formatted_ = Templates.format(d, t, classesRef_);
+                                    addClass(getAllOverridingMethods(), mId_, formatted_);
+                                }
+                            }
+                        }
+                    }
+                    continue;
+                }
+                MethodId idReal_ = m.getFormattedId(s, classesRef_);
+                addClass(getAllOverridingMethods(), idReal_, s);
+            }
+        }
+    }
     public abstract StringList getDirectGenericSuperTypes();
 
     public final StringList getAllGenericSuperTypes(Classes _classes) {
@@ -406,6 +501,9 @@ public abstract class RootBlock extends BracedBlock implements AccessibleBlock {
                             if (!classesRef_.canAccess(getFullName(), m_)) {
                                 continue;
                             }
+                            if (m_.isStaticMethod()) {
+                                continue;
+                            }
                             MethodId id_ = m_.getFormattedId(c, classesRef_);
                             String formattedType_ = Templates.format(c, s, classesRef_);
                             addClass(signatures_, id_, formattedType_);
@@ -414,6 +512,9 @@ public abstract class RootBlock extends BracedBlock implements AccessibleBlock {
                 } else {
                     Class<?> clBound_ = ConstClasses.classForNameNotInit(base_);
                     for (Method m: clBound_.getMethods()) {
+                        if (Modifier.isStatic(m.getModifiers())) {
+                            continue;
+                        }
                         EqList<ClassName> types_ = new EqList<ClassName>();
                         int len_ = m.getParameterTypes().length;
                         int nbParams_ = m.getTypeParameters().length;
@@ -953,6 +1054,37 @@ public abstract class RootBlock extends BracedBlock implements AccessibleBlock {
             }
             StringList retClasses_ = new StringList();
             for (String s: e.getValue()) {
+                String base_ = StringList.getAllTypes(s).first();
+                if (_classes.getClassBody(base_) == null) {
+                    Class<?> clBound_ = ConstClasses.classForNameNotInit(base_);
+                    for (Method m: clBound_.getMethods()) {
+                        if (Modifier.isStatic(m.getModifiers())) {
+                            continue;
+                        }
+                        EqList<ClassName> types_ = new EqList<ClassName>();
+                        int len_ = m.getParameterTypes().length;
+                        int nbParams_ = m.getTypeParameters().length;
+                        for (int i = 0; i < len_; i++) {
+                            Class<?> cl_ = m.getParameterTypes()[i];
+                            String defaultName_ = cl_.getName();
+                            Type p_ = m.getGenericParameterTypes()[i];
+                            String alias_ = NativeTypeUtil.getFormattedType(defaultName_, nbParams_, p_);
+                            String formatted_ = Templates.format(s, alias_, _classes);
+                            types_.add(new ClassName(formatted_, i + 1 == len_ && m.isVarArgs()));
+                        }
+                        MethodId id_ = new MethodId(m.getName(), types_);
+                        if (!id_.eq(cst_)) {
+                            continue;
+                        }
+                        Class<?> cl_ = m.getReturnType();
+                        String defaultName_ = cl_.getName();
+                        Type returnType_ = m.getGenericReturnType();
+                        String alias_ = NativeTypeUtil.getFormattedType(defaultName_, nbParams_, returnType_);
+                        String formatted_ = Templates.format(s, alias_, _classes);
+                        retClasses_.add(formatted_);
+                    }
+                    continue;
+                }
                 MethodBlock sup_ = _classes.getMethodBodiesByFormattedId(s, cst_).first();
                 if (sup_.isStaticMethod()) {
                     continue;
@@ -978,6 +1110,10 @@ public abstract class RootBlock extends BracedBlock implements AccessibleBlock {
             StringList fClasses_ = new StringList();
             StringList aClasses_ = new StringList();
             for (String s: e.getValue()) {
+                String base_ = StringList.getAllTypes(s).first();
+                if (_classes.getClassBody(base_) == null) {
+                    continue;
+                }
                 MethodBlock sup_ = _classes.getMethodBodiesByFormattedId(s, cst_).first();
                 if (sup_.isStaticMethod()) {
                     continue;

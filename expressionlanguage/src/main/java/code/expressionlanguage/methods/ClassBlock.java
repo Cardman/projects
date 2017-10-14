@@ -8,7 +8,6 @@ import code.expressionlanguage.methods.util.BadAccessMethod;
 import code.expressionlanguage.methods.util.BadInheritedClass;
 import code.expressionlanguage.methods.util.ConstructorEdge;
 import code.expressionlanguage.methods.util.DuplicateParamMethod;
-import code.expressionlanguage.methods.util.FinalMethod;
 import code.expressionlanguage.opers.util.ClassMetaInfo;
 import code.expressionlanguage.opers.util.ConstructorMetaInfo;
 import code.expressionlanguage.opers.util.FctConstraints;
@@ -63,14 +62,7 @@ public final class ClassBlock extends RootBlock implements UniqueRootedBlock {
     @Override
     public void setupBasicOverrides(ContextEl _context) {
         Classes classesRef_ = _context.getClasses();
-        StringList all_ = getAllGenericSuperTypes(classesRef_);
-        StringList classNames_ = new StringList();
-        for (String s: all_) {
-            String base_ = StringList.getAllTypes(s).first();
-            if (classesRef_.getClassBody(base_) instanceof ClassBlock) {
-                classNames_.add(s);
-            }
-        }
+        StringList classNames_ = getAllGenericSuperClasses(classesRef_);
         String fullName_ = getFullName();
         StringList direct_ = getDirectSuperClasses();
         for (String b: direct_) {
@@ -113,66 +105,9 @@ public final class ClassBlock extends RootBlock implements UniqueRootedBlock {
                 }
             }
         }
-        for (MethodBlock m: Classes.getMethodBlocks(this)) {
-            if (m.isStaticMethod()) {
-                continue;
-            }
-            addClass(getAllOverridingMethods(), m.getId(), getFullDefinition());
-        }
-        for (MethodBlock m: Classes.getMethodBlocks(this)) {
-            if (m.isStaticMethod()) {
-                continue;
-            }
-            for (String s: getAllGenericSuperTypes(classesRef_)) {
-                CustList<MethodBlock> mBases_ = classesRef_.getMethodBodiesByFormattedId(s, m.getId());
-                if (mBases_.isEmpty()) {
-                    continue;
-                }
-                if (mBases_.size() > 1) {
-                    DuplicateParamMethod duplicate_ = new DuplicateParamMethod();
-                    duplicate_.setFileName(getFullName());
-                    duplicate_.setRc(new RowCol());
-                    duplicate_.setCommonSignature(m.getId().getSignature());
-                    duplicate_.setOtherType(s);
-                    classesRef_.getErrorsDet().add(duplicate_);
-                }
-                MethodBlock mBase_ = mBases_.first();
-                if (mBase_.isStaticMethod()) {
-                    continue;
-                }
-                if (!classesRef_.canAccess(getFullName(), mBase_)) {
-                    continue;
-                }
-                if (mBase_.isFinalMethod()) {
-                    FinalMethod err_;
-                    err_ = new FinalMethod();
-                    err_.setFileName(getFullName());
-                    err_.setRc(m.getAttributes().getVal(ATTRIBUTE_NAME));
-                    err_.setClassName(s);
-                    err_.setId(m.getId());
-                    classesRef_.getErrorsDet().add(err_);
-                }
-                addClass(getAllOverridingMethods(), m.getId(), s);
-            }
-        }
         StringList classes_ = new StringList(getFullDefinition());
         classes_.addAllElts(classNames_);
-        for (String s: all_) {
-            String base_ = StringList.getAllTypes(s).first();
-            RootBlock r_ = classesRef_.getClassBody(base_);
-            for (MethodBlock m: Classes.getMethodBlocks(r_)) {
-                if (m.isStaticMethod()) {
-                    continue;
-                }
-                MethodId id_ = m.getFormattedId(s, classesRef_);
-                CustList<MethodBlock> mBases_ = classesRef_.getMethodBodiesByFormattedId(getFullDefinition(), id_);
-                if (!mBases_.isEmpty()) {
-                    continue;
-                }
-                MethodId idReal_ = m.getFormattedId(s, classesRef_);
-                addClass(getAllOverridingMethods(), idReal_, s);
-            }
-        }
+        useSuperTypesOverrides(_context);
         for (String s: getAllGenericInterfaces(classesRef_)) {
             String base_ = StringList.getAllTypes(s).first();
             RootBlock r_ = classesRef_.getClassBody(base_);
@@ -198,8 +133,6 @@ public final class ClassBlock extends RootBlock implements UniqueRootedBlock {
                         err_.setId(m.getId());
                         classesRef_.getErrorsDet().add(err_);
                     }
-                    addClass(getAllOverridingMethods(), id_, c);
-                    addClass(getAllOverridingMethods(), id_, s);
                     break;
                 }
             }
