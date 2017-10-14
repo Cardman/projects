@@ -10,6 +10,7 @@ import code.expressionlanguage.methods.RootBlock;
 import code.expressionlanguage.methods.UniqueRootedBlock;
 import code.expressionlanguage.methods.util.TypeVar;
 import code.expressionlanguage.opers.util.DimComp;
+import code.expressionlanguage.types.NativeTypeUtil;
 import code.util.CustList;
 import code.util.EqList;
 import code.util.StringList;
@@ -30,7 +31,7 @@ public final class Templates {
 
     private Templates() {
     }
-    /**This method works only on native classes*/
+
     public static StringList getTypesByBases(String _baseType, String _baseSuperType, Classes _classes) {
         if (!PrimitiveTypeUtil.canBeUseAsArgument(_baseSuperType, _baseType, _classes)) {
             return null;
@@ -38,51 +39,52 @@ public final class Templates {
         StringList curClasses_ = new StringList(_baseType);
         StringList visitedClasses_ = new StringList(_baseType);
         String generic_ = null;
-        while (true) {
-            StringList nextClasses_ = new StringList();
-            for (String c: curClasses_) {
-                StringList allTypes_ = StringList.getAllTypes(c);
-                String baseClass_ = allTypes_.first();
-                baseClass_ = PrimitiveTypeUtil.getArrayClass(baseClass_);
-                Class<?> cl_ = ConstClasses.classForNameNotInit(baseClass_);
-                if (cl_.getTypeParameters().length != allTypes_.size() - 1) {
-                    return null;
+        if (StringList.quickEq(_baseSuperType, _baseType)) {
+            generic_ = _baseType;
+        }
+        if (generic_ == null) {
+            while (true) {
+                StringList nextClasses_ = new StringList();
+                for (String c: curClasses_) {
+                    StringList allTypes_ = StringList.getAllTypes(c);
+                    String baseClass_ = allTypes_.first();
+                    baseClass_ = PrimitiveTypeUtil.getArrayClass(baseClass_);
+                    if (!PrimitiveTypeUtil.correctNbParameters(c, _classes)) {
+                        return null;
+                    }
+                    String superClass_ = getSuperClassName(baseClass_, _classes);
+                    if (superClass_ != null) {
+                        String geneSuperClass_ = getGenericSuperClassName(c, _classes);
+                        geneSuperClass_ = format(c, geneSuperClass_, _classes);
+                        if (StringList.quickEq(superClass_, _baseSuperType)) {
+                            generic_ = geneSuperClass_;
+                            break;
+                        }
+                        if (!visitedClasses_.containsStr(geneSuperClass_)) {
+                            nextClasses_.add(geneSuperClass_);
+                            visitedClasses_.add(geneSuperClass_);
+                        }
+                    }
+                    int i_ = CustList.INDEX_NOT_FOUND_ELT;
+                    for (String s: getSuperInterfaceNames(baseClass_, _classes)) {
+                        i_++;
+                        String geneSuperInterface_ = getGenericSuperInterfaceName(c, i_, _classes);
+                        geneSuperInterface_ = format(c, geneSuperInterface_, _classes);
+                        if (StringList.quickEq(s, _baseSuperType)) {
+                            generic_ = geneSuperInterface_;
+                            break;
+                        }
+                        if (!visitedClasses_.containsStr(geneSuperInterface_)) {
+                            nextClasses_.add(geneSuperInterface_);
+                            visitedClasses_.add(geneSuperInterface_);
+                        }
+                    }
                 }
-                Class<?> superCl_ = cl_.getSuperclass();
-                if (superCl_ != null) {
-                    String superClass_ = superCl_.getName();
-                    String geneSuperClass_ = getName(cl_.getGenericSuperclass());
-                    geneSuperClass_ = insertPrefixVarType(geneSuperClass_);
-                    geneSuperClass_ = format(c, geneSuperClass_, _classes);
-                    if (StringList.quickEq(superClass_, _baseSuperType)) {
-                        generic_ = geneSuperClass_;
-                        break;
-                    }
-                    if (!visitedClasses_.containsStr(geneSuperClass_)) {
-                        nextClasses_.add(geneSuperClass_);
-                        visitedClasses_.add(geneSuperClass_);
-                    }
+                if (generic_ != null) {
+                    break;
                 }
-                int i_ = CustList.INDEX_NOT_FOUND_ELT;
-                for (Class<?> s: cl_.getInterfaces()) {
-                    i_++;
-                    String geneSuperInterface_ = getName(cl_.getGenericInterfaces()[i_]);
-                    geneSuperInterface_ = insertPrefixVarType(geneSuperInterface_);
-                    geneSuperInterface_ = format(c, geneSuperInterface_, _classes);
-                    if (StringList.quickEq(s.getName(), _baseSuperType)) {
-                        generic_ = geneSuperInterface_;
-                        break;
-                    }
-                    if (!visitedClasses_.containsStr(geneSuperInterface_)) {
-                        nextClasses_.add(geneSuperInterface_);
-                        visitedClasses_.add(geneSuperInterface_);
-                    }
-                }
+                curClasses_ = nextClasses_;
             }
-            if (generic_ != null) {
-                break;
-            }
-            curClasses_ = nextClasses_;
         }
         StringList foundSuperClass_ = StringList.getAllTypes(generic_);
         int len_ = foundSuperClass_.size();
@@ -213,13 +215,7 @@ public final class Templates {
             for (TypeVariable<?> t: cl_.getTypeParameters()) {
                 StringList localBound_ = new StringList();
                 for (Type b: t.getBounds()) {
-                    String typeString_ = getName(b);
-                    String ext_;
-                    if (!typeString_.contains(SEP_CLASS)) {
-                        ext_ = PREFIX_VAR_TYPE + typeString_;
-                    } else {
-                        ext_ = insertPrefixVarType(typeString_);
-                    }
+                    String ext_ = NativeTypeUtil.getPrettyType(b);
                     localBound_.add(ext_);
                 }
                 boundsAll_.add(localBound_);
@@ -349,48 +345,6 @@ public final class Templates {
         }
         return true;
     }
-    static EqList<StringList> getClassBounds(String _className, Classes _classes) {
-        StringList allTypes_ = StringList.getAllTypes(_className);
-        String baseClass_ = PrimitiveTypeUtil.getArrayClass(allTypes_.first());
-        Class<?> cl_ = ConstClasses.classForNameNotInit(baseClass_);
-        if (cl_.getTypeParameters().length != allTypes_.size() - 1) {
-            return null;
-        }
-        EqList<StringList> bounds_ = new EqList<StringList>();
-        StringMap<StringList> localBounds_ = new StringMap<StringList>();
-        for (TypeVariable<?> t: cl_.getTypeParameters()) {
-            StringList localBound_ = new StringList();
-            for (Type b: t.getBounds()) {
-                String typeString_ = getName(b);
-                String ext_ = insertPrefixVarType(typeString_);
-                localBound_.add(ext_);
-            }
-            localBounds_.put(t.getName(), localBound_);
-        }
-        for (String t: localBounds_.getKeys()) {
-            StringList current_ = new StringList(t);
-            StringList classBounds_ = new StringList();
-            while (true) {
-                StringList next_ = new StringList();
-                for (String c: current_) {
-                    StringList bound_ = localBounds_.getVal(c);
-                    for (String n: bound_) {
-                        if (localBounds_.contains(n)) {
-                            next_.add(n);
-                        } else {
-                            classBounds_.add(format(_className, n, _classes));
-                        }
-                    }
-                }
-                if (next_.isEmpty()) {
-                    break;
-                }
-                current_ = next_;
-            }
-            bounds_.add(classBounds_);
-        }
-        return bounds_;
-    }
     public static StringList getClassLeftMostBounds(String _className, Classes _classes) {
         StringList bounds_ = new StringList();
         StringMap<StringList> localBounds_ = new StringMap<StringList>();
@@ -453,27 +407,6 @@ public final class Templates {
         }
         return bounds_;
     }
-    private static String insertPrefixVarType(String _wildCard) {
-        String str_ = _wildCard;
-        StringList allTypes_ = StringList.getAllTypes(str_);
-        int nbTypes_ = allTypes_.size();
-        if (nbTypes_ == 1) {
-            return str_;
-        }
-        StringBuilder newType_ = new StringBuilder(allTypes_.first());
-        newType_.append(TEMPLATE_BEGIN);
-        for (int i = CustList.SECOND_INDEX; i < nbTypes_; i++) {
-            if (!allTypes_.get(i).contains(SEP_CLASS)) {
-                newType_.append(PREFIX_VAR_TYPE);
-            }
-            newType_.append(allTypes_.get(i));
-            newType_.append(TEMPLATE_SEP);
-        }
-        newType_.deleteCharAt(newType_.length()-1);
-        newType_.append(TEMPLATE_END);
-        return newType_.toString();
-    }
-
     private static MappingPairs getSimpleMapping(Mapping _m, Classes _classes) {
         String arg_ = _m.getArg();
         String param_ = _m.getParam();
@@ -666,8 +599,7 @@ public final class Templates {
                 return ((UniqueRootedBlock)r_).getGenericSuperClass();
             }
         }
-        String genericSuper_ = getName(ConstClasses.classForNameNotInit(baseClass_).getGenericSuperclass());
-        return insertPrefixVarType(genericSuper_);
+        return NativeTypeUtil.getPrettyType(ConstClasses.classForNameNotInit(baseClass_).getGenericSuperclass());
     }
 
     private static StringList getSuperInterfaceNames(String _className, Classes _classes) {
@@ -700,14 +632,6 @@ public final class Templates {
                 return ((InterfaceBlock)r_).getDirectGenericSuperClasses().get(_index);
             }
         }
-        String genericSuper_ = getName(ConstClasses.classForNameNotInit(baseClass_).getGenericInterfaces()[_index]);
-        return insertPrefixVarType(genericSuper_);
-    }
-
-    private static String getName(Type _t) {
-        if (_t instanceof Class<?>) {
-            return ((Class<?>)_t).getName();
-        }
-        return _t.toString();
+        return NativeTypeUtil.getPrettyType(ConstClasses.classForNameNotInit(baseClass_).getGenericInterfaces()[_index]);
     }
 }

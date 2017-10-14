@@ -28,7 +28,6 @@ import code.util.AbEqList;
 import code.util.CustList;
 import code.util.EnumList;
 import code.util.EnumMap;
-import code.util.EqList;
 import code.util.IdList;
 import code.util.StringList;
 import code.util.StringMap;
@@ -222,6 +221,58 @@ public class TemplatesTest {
     @Test
     public void getTypesByBases5Test() {
         StringList t_ = Templates.getTypesByBases(Listable.class.getName(), Iterable.class.getName(), null);
+        assertNull(t_);
+    }
+
+    @Test
+    public void getTypesByBases6Test() {
+        StringList t_ = Templates.getTypesByBases("java.lang.String", "java.lang.String", null);
+        assertEq(0, t_.size());
+    }
+
+    @Test
+    public void getTypesByBases7Test() {
+        StringList t_ = Templates.getTypesByBases(Listable.class.getName(), Listable.class.getName(), null);
+        assertEq(0, t_.size());
+    }
+
+    @Test
+    public void getTypesByBases8Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        String xml_;
+        xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg'/>\n";
+        files_.put("pkg/Ex."+Classes.EXT, xml_);
+        ContextEl cont_ = unfullValidateOverridingMethods(files_);
+        Classes classes_ = cont_.getClasses();
+        StringList t_ = Templates.getTypesByBases("pkg.Ex", "pkg.Ex", classes_);
+        assertEq(0, t_.size());
+    }
+
+    @Test
+    public void getTypesByBases9Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        String xml_;
+        xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg'/>\n";
+        files_.put("pkg/Ex."+Classes.EXT, xml_);
+        xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExTwo' package='pkg' superclass='pkg.Ex'/>\n";
+        files_.put("pkg/ExTwo."+Classes.EXT, xml_);
+        ContextEl cont_ = unfullValidateOverridingMethods(files_);
+        Classes classes_ = cont_.getClasses();
+        StringList t_ = Templates.getTypesByBases("pkg.ExTwo", "pkg.Ex", classes_);
+        assertEq(0, t_.size());
+    }
+
+    @Test
+    public void getTypesByBases10Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        String xml_;
+        xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg'/>\n";
+        files_.put("pkg/Ex."+Classes.EXT, xml_);
+        xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExTwo' package='pkg' superclass='pkg.Ex'/>\n";
+        files_.put("pkg/ExTwo."+Classes.EXT, xml_);
+        ContextEl cont_ = unfullValidateOverridingMethods(files_);
+        Classes classes_ = cont_.getClasses();
+        StringList t_ = Templates.getTypesByBases("pkg.Ex", "pkg.ExTwo", classes_);
         assertNull(t_);
     }
 
@@ -2042,40 +2093,6 @@ public class TemplatesTest {
         StringMap<StringList> t_ = new StringMap<StringList>();
         t_.put("E", new StringList("java.lang.Object"));
         assertTrue(!Templates.isCorrectTemplateAll(CUST_LIST+"<"+CUST_LIST+"<#F>>", t_,classes_));
-    }
-
-    @Test
-    public void getClassBounds1Test() {
-        EqList<StringList> bounds_;
-        bounds_ = Templates.getClassBounds(TEMPLATING+"<java.math.BigInteger,"+CUST_BIG_INT+">", null);
-        assertEq(2, bounds_.size());
-        assertEq(1, bounds_.get(0).size());
-        assertEq(Number.class.getName(), bounds_.get(0).first());
-        assertEq(1, bounds_.get(1).size());
-        assertEq(Number.class.getName(), bounds_.get(1).first());
-    }
-
-    @Test
-    public void getClassBounds2Test() {
-        EqList<StringList> bounds_;
-        bounds_ = Templates.getClassBounds(CustList.class.getName()+"<"+MY_CMP_CLASS+">", null);
-        assertEq(1, bounds_.size());
-        assertEq(1, bounds_.get(0).size());
-        assertEq(Object.class.getName(), bounds_.get(0).first());
-    }
-
-    @Test
-    public void getClassBounds3Test() {
-        EqList<StringList> bounds_;
-        bounds_ = Templates.getClassBounds("java.math.BigInteger", null);
-        assertEq(0, bounds_.size());
-    }
-
-    @Test
-    public void getClassBounds4Test() {
-        EqList<StringList> bounds_;
-        bounds_ = Templates.getClassBounds(CMP, null);
-        assertNull(bounds_);
     }
 
     @Test

@@ -29,6 +29,7 @@ import code.expressionlanguage.methods.util.UnknownClassName;
 import code.expressionlanguage.opers.OperationNode;
 import code.expressionlanguage.opers.util.ClassFormattedMethodId;
 import code.expressionlanguage.opers.util.ClassName;
+import code.expressionlanguage.opers.util.ConstructorId;
 import code.expressionlanguage.opers.util.FctConstraints;
 import code.expressionlanguage.opers.util.MethodId;
 import code.expressionlanguage.types.NativeTypeUtil;
@@ -177,7 +178,8 @@ public abstract class RootBlock extends BracedBlock implements AccessibleBlock {
 
     public final void validateIds(ContextEl _context) {
         validateClassNames(_context);
-        EqList<FctConstraints> ids_ = new EqList<FctConstraints>();
+        EqList<MethodId> idMethods_ = new EqList<MethodId>();
+        EqList<ConstructorId> idConstructors_ = new EqList<ConstructorId>();
         StringList idsField_ = new StringList();
         String className_ = getFullName();
         CustList<Block> bl_;
@@ -266,18 +268,36 @@ public abstract class RootBlock extends BracedBlock implements AccessibleBlock {
                 if (name_.isEmpty()) {
                     name_ = className_;
                 }
-                FctConstraints fct_ = method_.getConstraints(_context.getClasses());
-                MethodId id_ = new MethodId(name_, pTypes_);
-                for (FctConstraints m: ids_) {
-                    if (m.eq(fct_)) {
-                        RowCol r_ = method_.getRowCol(0, _context.getTabWidth(), EMPTY_STRING);
-                        DuplicateMethod duplicate_;
-                        duplicate_ = new DuplicateMethod();
-                        duplicate_.setRc(r_);
-                        duplicate_.setFileName(className_);
-                        duplicate_.setId(id_);
-                        _context.getClasses().getErrorsDet().add(duplicate_);
+                if (method_ instanceof MethodBlock) {
+                    MethodId id_ = new MethodId(name_, pTypes_);
+                    for (MethodId m: idMethods_) {
+                        if (m.eq(id_)) {
+                            RowCol r_ = method_.getRowCol(0, _context.getTabWidth(), EMPTY_STRING);
+                            DuplicateMethod duplicate_;
+                            duplicate_ = new DuplicateMethod();
+                            duplicate_.setRc(r_);
+                            duplicate_.setFileName(className_);
+                            duplicate_.setId(id_);
+                            _context.getClasses().getErrorsDet().add(duplicate_);
+                        }
                     }
+                    idMethods_.add(id_);
+                }
+                if (method_ instanceof ConstructorBlock) {
+                    ConstructorId idCt_ = new ConstructorId(name_, pTypes_);
+                    for (ConstructorId m: idConstructors_) {
+                        if (m.eq(idCt_)) {
+                            RowCol r_ = method_.getRowCol(0, _context.getTabWidth(), EMPTY_STRING);
+                            DuplicateMethod duplicate_;
+                            duplicate_ = new DuplicateMethod();
+                            duplicate_.setRc(r_);
+                            duplicate_.setFileName(className_);
+                            MethodId id_ = new MethodId(name_, pTypes_);
+                            duplicate_.setId(id_);
+                            _context.getClasses().getErrorsDet().add(duplicate_);
+                        }
+                    }
+                    idConstructors_.add(idCt_);
                 }
                 StringList l_ = method_.getParametersNames();
                 if (l_.size() != len_) {
@@ -287,6 +307,7 @@ public abstract class RootBlock extends BracedBlock implements AccessibleBlock {
                     b_.setRc(method_.getRowCol(0, _context.getTabWidth(), EMPTY_STRING));
                     b_.setNbTypes(len_);
                     b_.setNbVars(l_.size());
+                    MethodId id_ = new MethodId(name_, pTypes_);
                     b_.setId(id_);
                     _context.getClasses().getErrorsDet().add(b_);
                 }
@@ -313,7 +334,6 @@ public abstract class RootBlock extends BracedBlock implements AccessibleBlock {
                     }
                     i_++;
                 }
-                ids_.add(fct_);
             } else if (b instanceof InfoBlock) {
                 InfoBlock method_ = (InfoBlock) b;
                 String name_ = method_.getFieldName();
