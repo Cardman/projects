@@ -60,10 +60,11 @@ public final class ClassArgumentMatching {
         return false;
     }
     public Class<?> getClazz() {
-        if (className.startsWith(PrimitiveTypeUtil.PRIM)) {
-            return ConstClasses.getPrimitiveClass(className.substring(1));
+        String className_ = StringList.getAllTypes(className).first();
+        if (className_.startsWith(PrimitiveTypeUtil.PRIM)) {
+            return ConstClasses.getPrimitiveClass(className_.substring(1));
         }
-        return ConstClasses.classForNameNotInit(PrimitiveTypeUtil.getArrayClass(className));
+        return ConstClasses.classForNameNotInit(PrimitiveTypeUtil.getArrayClass(className_));
     }
 
     public boolean isArray() {

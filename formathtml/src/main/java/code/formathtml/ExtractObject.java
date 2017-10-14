@@ -336,6 +336,33 @@ final class ExtractObject {
         }
         classForName(_conf, _offest, _className);
     }
+    static String classNameForName(Configuration _conf, int _offest, String _className) {
+        try {
+            if (_className.startsWith(PrimitiveTypeUtil.PRIM)) {
+                Class<?> cl_ = ConstClasses.getPrimitiveClass(_className.substring(1));
+                if (cl_ == null) {
+                    throw new RuntimeClassNotFoundException(_className+RETURN_LINE+_conf.joinPages());
+                }
+                return _className;
+            }
+            if (StringList.quickEq(_className, ConstClasses.LISTABLE_ALIAS)) {
+                return Listable.class.getName();
+            }
+            if (StringList.quickEq(_className, ConstClasses.LISTABLE_ENTRIES_ALIAS)) {
+                return ListableEntries.class.getName();
+            }
+            String className_ = ConstClasses.getMapping(_className);
+            if (className_ != null) {
+                ConstClasses.classForNameNotInit(className_);
+                return className_;
+            }
+            ConstClasses.classForNameNotInit(PrimitiveTypeUtil.getArrayClass(_className));
+            return _className;
+        } catch (Throwable _0) {
+            _conf.getLastPage().addToOffset(_offest);
+            throw new RuntimeClassNotFoundException(_className+RETURN_LINE+_conf.joinPages());
+        }
+    }
     static Class<?> classForName(Configuration _conf, int _offest, String _className) {
         try {
             if (_className.startsWith(PrimitiveTypeUtil.PRIM)) {

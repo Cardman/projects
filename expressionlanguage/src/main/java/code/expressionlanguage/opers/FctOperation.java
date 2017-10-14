@@ -42,6 +42,7 @@ import code.expressionlanguage.opers.util.ConstructorId;
 import code.expressionlanguage.opers.util.FctConstraints;
 import code.expressionlanguage.opers.util.FieldMetaInfo;
 import code.expressionlanguage.opers.util.Struct;
+import code.expressionlanguage.types.NativeTypeUtil;
 import code.serialize.exceptions.BadAccessException;
 import code.serialize.exceptions.NoSuchDeclaredMethodException;
 import code.util.CustList;
@@ -378,7 +379,7 @@ public final class FctOperation extends InvokingOperation {
         if (firstArgs_.isEmpty()) {
             if (StringList.quickEq(trimMeth_, GET_CLASS)) {
                 method = getDeclaredMethod(_conf, isStaticAccess(), new ClassArgumentMatching(Object.class.getName()), trimMeth_, ClassArgumentMatching.toArgArray(firstArgs_));
-                setResultClass(new ClassArgumentMatching(PrimitiveTypeUtil.getAliasArrayClass(Class.class)));
+                setResultClass(new ClassArgumentMatching(NativeTypeUtil.getPrettyType(Class.class)));
                 return;
             }
         }
@@ -389,11 +390,7 @@ public final class FctOperation extends InvokingOperation {
         }
         method = m_;
         setAccess(method, _conf);
-        if (m_.getReturnType().isPrimitive()) {
-            setResultClass(new ClassArgumentMatching(PrimitiveTypeUtil.PRIM+m_.getReturnType().getName()));
-        } else {
-            setResultClass(new ClassArgumentMatching(PrimitiveTypeUtil.getAliasArrayClass(m_.getReturnType())));
-        }
+        setResultClass(new ClassArgumentMatching(NativeTypeUtil.getPrettyType(m_.getGenericReturnType())));
     }
 
     @Override

@@ -6,29 +6,33 @@ import java.lang.reflect.Type;
 
 abstract class NativeType {
 
-    private boolean initNextSibling;
+    static final String EMPTY_STRING = "";
+    static final String PREFIX = "#";
+    static final String ARRAY = "[";
+    static final String TEMPLATE_BEGIN = "<";
+    static final String TEMPLATE_SEP = ",";
+    static final String TEMPLATE_END = ">";
 
     private Type type;
-
-    private NativeType nextSibling;
 
     private ParentType parent;
 
     private int index;
 
+    private String prefix = EMPTY_STRING;
+
     NativeType(Type _type, ParentType _parent, int _index) {
         type = _type;
         parent = _parent;
         index = _index;
+        if (index > 0) {
+            prefix = TEMPLATE_SEP;
+        }
     }
 
     abstract NativeType getFirstChild();
 
     final NativeType getNextSibling() {
-        if (initNextSibling) {
-            return nextSibling;
-        }
-        initNextSibling = true;
         ParentType parent_ = getParent();
         if (!(parent_ instanceof NativeTemplate)) {
             return null;
@@ -39,8 +43,7 @@ abstract class NativeType {
         if (index + 1 >= args_.length) {
             return null;
         }
-        nextSibling = createNativeType(args_[index + 1], index + 1, temp_);
-        return nextSibling;
+        return createNativeType(args_[index + 1], index + 1, temp_);
     }
     static NativeType createNativeType(Type _type, int _index, ParentType _parent) {
         if (_type instanceof Class<?>) {
@@ -58,15 +61,21 @@ abstract class NativeType {
         return new NativeVariable(_type, _parent, _index);
     }
 
+    final String getPrefixBegin() {
+        return getPrefix()+getBegin();
+    }
+
+    abstract String getBegin();
+
     final ParentType getParent() {
         return parent;
     }
 
-    final int getIndex() {
-        return index;
-    }
-
     final Type getType() {
         return type;
+    }
+
+    final String getPrefix() {
+        return prefix;
     }
 }

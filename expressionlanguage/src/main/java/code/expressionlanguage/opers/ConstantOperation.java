@@ -29,6 +29,7 @@ import code.expressionlanguage.opers.util.FieldMetaInfo;
 import code.expressionlanguage.opers.util.FieldResult;
 import code.expressionlanguage.opers.util.SearchingMemberStatus;
 import code.expressionlanguage.opers.util.Struct;
+import code.expressionlanguage.types.NativeTypeUtil;
 import code.expressionlanguage.variables.LocalVariable;
 import code.expressionlanguage.variables.LoopVariable;
 import code.serialize.ConverterMethod;
@@ -275,11 +276,7 @@ public final class ConstantOperation extends OperationNode implements SettableEl
         }
         field = f_;
         setAccess(field, _conf);
-        if (f_.getType().isPrimitive()) {
-            setResultClass(new ClassArgumentMatching(PrimitiveTypeUtil.PRIM+f_.getType().getName()));
-        } else {
-            setResultClass(new ClassArgumentMatching(PrimitiveTypeUtil.getAliasArrayClass(f_.getType())));
-        }
+        setResultClass(new ClassArgumentMatching(NativeTypeUtil.getPrettyType(f_.getGenericType())));
     }
     @Override
     public Argument calculate(IdMap<OperationNode, ArgumentsPair> _nodes,

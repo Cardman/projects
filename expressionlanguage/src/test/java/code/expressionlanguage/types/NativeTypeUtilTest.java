@@ -72,4 +72,19 @@ public class NativeTypeUtilTest {
         String res_ = NativeTypeUtil.getPrettyType(TypeCases.getField("TEMPLATE_DOUBLE_END").getGenericType());
         assertEq("code.util.CustList<code.util.CustList<java.lang.String>>", res_);
     }
+    @Test
+    public void getPrettyType14Test() {
+        String res_ = NativeTypeUtil.getPrettyType(TypeCases.getField("INT_CST").getGenericType());
+        assertEq("$int", res_);
+    }
+    @Test
+    public void getPrettyType15Test() {
+        String res_ = NativeTypeUtil.getPrettyType(TypeCases.getField("INT_ARR_CST").getGenericType());
+        assertEq("[$int", res_);
+    }
+    @Test
+    public void getPrettyType16Test() {
+        String res_ = NativeTypeUtil.getPrettyType(TypeCases.getField("INT_GENE_ARR_CST").getGenericType());
+        assertEq("code.util.CustList<[$int>", res_);
+    }
 }

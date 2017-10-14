@@ -29,6 +29,7 @@ import code.expressionlanguage.opers.util.ClassFormattedMethodId;
 import code.expressionlanguage.opers.util.ClassName;
 import code.expressionlanguage.opers.util.FctConstraints;
 import code.expressionlanguage.opers.util.MethodId;
+import code.expressionlanguage.types.NativeTypeUtil;
 import code.util.CustList;
 import code.util.EntryCust;
 import code.util.EqList;
@@ -415,10 +416,12 @@ public abstract class RootBlock extends BracedBlock implements AccessibleBlock {
                     for (Method m: clBound_.getMethods()) {
                         EqList<ClassName> types_ = new EqList<ClassName>();
                         int len_ = m.getParameterTypes().length;
+                        int nbParams_ = m.getTypeParameters().length;
                         for (int i = 0; i < len_; i++) {
+                            Class<?> cl_ = m.getParameterTypes()[i];
+                            String defaultName_ = cl_.getName();
                             Type p_ = m.getGenericParameterTypes()[i];
-                            String alias_ = getTypeName(p_);
-                            alias_ = insertPrefixVarType(alias_);
+                            String alias_ = NativeTypeUtil.getFormattedType(defaultName_, nbParams_, p_);
                             String formatted_ = Templates.format(c, alias_, classesRef_);
                             types_.add(new ClassName(formatted_, i + 1 == len_ && m.isVarArgs()));
                         }
@@ -476,33 +479,6 @@ public abstract class RootBlock extends BracedBlock implements AccessibleBlock {
                 _context.getClasses().getErrorsDet().add(err_);
             }
         }
-    }
-
-    private static String getTypeName(Type _t) {
-        if (_t instanceof Class<?>) {
-            return PrimitiveTypeUtil.getAliasArrayClass((Class<?>)_t);
-        }
-        return _t.toString();
-    }
-    private static String insertPrefixVarType(String _wildCard) {
-        String str_ = _wildCard;
-        StringList allTypes_ = StringList.getAllTypes(str_);
-        int nbTypes_ = allTypes_.size();
-        if (nbTypes_ == 1) {
-            return str_;
-        }
-        StringBuilder newType_ = new StringBuilder(allTypes_.first());
-        newType_.append(LT);
-        for (int i = CustList.SECOND_INDEX; i < nbTypes_; i++) {
-            if (!allTypes_.get(i).contains(DOT)) {
-                newType_.append(Templates.PREFIX_VAR_TYPE);
-            }
-            newType_.append(allTypes_.get(i));
-            newType_.append(SEP_TMP);
-        }
-        newType_.deleteCharAt(newType_.length()-1);
-        newType_.append(GT);
-        return newType_.toString();
     }
 
     public final void checkCompatibility(ContextEl _context) {

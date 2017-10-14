@@ -1674,7 +1674,7 @@ final class FormatHtml {
             className_ = cl_.getName();
         }
         VariableInformation vi_ = new VariableInformation();
-        vi_.setClassRef(cl_);
+        vi_.setClassName(className_);
         return vi_;
     }
     static Struct tryToGetObject(Configuration _conf, ImportingPage _ip,
@@ -1858,12 +1858,12 @@ final class FormatHtml {
                     _ip.setProcessingAttribute(ATTRIBUTE_CLASS_NAME);
                     _ip.setLookForAttrValue(true);
                     _ip.setOffset(0);
-                    cl_ = ExtractObject.classForName(_conf, 0, className_);
+                    className_ = ExtractObject.classNameForName(_conf, 0, className_);
                 }
             }
         }
         VariableInformation vi_ = new VariableInformation();
-        vi_.setClassRef(cl_);
+        vi_.setClassName(className_);
         if (useStruct_) {
             vi_.setStruct(struct_);
         } else {

@@ -1,36 +1,41 @@
 package code.expressionlanguage.types;
 
-import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
-import java.lang.reflect.TypeVariable;
+
+import code.util.StringList;
 
 public final class NativeTypeUtil {
 
-    static final String PREFIX = "#";
-    static final String ARRAY = "[";
-    static final String TEMPLATE_BEGIN = "<";
-    static final String TEMPLATE_SEP = ",";
-    static final String TEMPLATE_END = ">";
+    private static final String WILD_CARD = "?";
 
     private NativeTypeUtil() {
+    }
+
+    public static String getFormattedType(String _typeName, int _nbParams, Type _type) {
+        if (_typeName.contains(WILD_CARD)) {
+            return StringList.getAllTypes(_typeName).first();
+        }
+        if (_nbParams > 0) {
+            return StringList.getAllTypes(_typeName).first();
+        }
+        return getPrettyType(_type);
     }
 
     public static String getPrettyType(Type _type) {
         NativeType root_ = NativeType.createNativeType(_type, 0, null);
         StringBuilder type_ = new StringBuilder();
-        type_.append(begin(root_));
+        type_.append(root_.getBegin());
         NativeType current_ = root_;
         while (true) {
             NativeType next_ = current_.getFirstChild();
             if (next_ != null) {
-                type_.append(begin(next_));
+                type_.append(next_.getBegin());
                 current_ = next_;
                 continue;
             }
             next_ = current_.getNextSibling();
             if (next_ != null) {
-                type_.append(TEMPLATE_SEP);
-                type_.append(begin(next_));
+                type_.append(next_.getPrefixBegin());
                 current_ = next_;
                 continue;
             }
@@ -38,49 +43,22 @@ public final class NativeTypeUtil {
             if (parentType_ == null) {
                 break;
             }
-            type_.append(end(parentType_));
+            type_.append(parentType_.getEnd());
             next_ = parentType_.getNextSibling();
             while (next_ == null) {
                 ParentType parent_ = parentType_.getParent();
                 if (parent_ == null) {
                     break;
                 }
-                type_.append(end(parent_));
+                type_.append(parent_.getEnd());
                 next_ = parent_.getNextSibling();
                 parentType_ = parent_;
             }
             if (next_ == null) {
                 break;
             }
-            type_.append(TEMPLATE_SEP);
-            type_.append(begin(next_));
+            type_.append(next_.getPrefixBegin());
             current_ = next_;
-        }
-        return type_.toString();
-    }
-    static String begin(NativeType _type) {
-        StringBuilder type_ = new StringBuilder();
-        if (_type instanceof NativeArray) {
-            type_.append(ARRAY);
-        }
-        if (_type instanceof NativeTemplate) {
-            Class<?> cl_ = (Class<?>) ((ParameterizedType)((NativeTemplate)_type).getType()).getRawType();
-            type_.append(cl_.getName()+TEMPLATE_BEGIN);
-        }
-        if (_type instanceof NativeClass) {
-            Class<?> cl_ = (Class<?>)((NativeClass)_type).getType();
-            type_.append(cl_.getName());
-        }
-        if (_type instanceof NativeVariable) {
-            TypeVariable<?> cl_ = (TypeVariable<?>)((NativeVariable)_type).getType();
-            type_.append(PREFIX+cl_.getName());
-        }
-        return type_.toString();
-    }
-    static String end(NativeType _type) {
-        StringBuilder type_ = new StringBuilder();
-        if (_type instanceof NativeTemplate) {
-            type_.append(TEMPLATE_END);
         }
         return type_.toString();
     }

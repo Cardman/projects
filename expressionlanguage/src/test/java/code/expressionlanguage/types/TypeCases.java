@@ -11,12 +11,15 @@ class TypeCases<E> {
     public static final String SIMPLE_CLASS = null;
     public static final String[] SIMPLE_ARRAY = null;
     public static final CustList<String> TEMPLATE = null;
-public     static final IdMap<String,String> TEMPLATE_DOUBLE = null;
+    public static final IdMap<String,String> TEMPLATE_DOUBLE = null;
     public static final IdMap<IdMap<String,String>,String> TEMPLATE_COMPLEX = null;
     public static final IdMap<String[],String> TEMPLATE_COMPLEX_ARR = null;
     public static final CustList<String[]> TEMPLATE_ARRAY = null;
     public static final CustList<String>[] ARRAY_TEMPLATE = null;
     public static final CustList<CustList<String>> TEMPLATE_DOUBLE_END = null;
+    public static final int INT_CST = 0;
+    public static final int[] INT_ARR_CST = null;
+    public static final CustList<int[]> INT_GENE_ARR_CST = null;
     public E returnMethod() {
         return null;
     }

@@ -1,5 +1,4 @@
 package code.formathtml.util;
-import code.expressionlanguage.PrimitiveTypeUtil;
 import code.expressionlanguage.opers.util.Struct;
 
 public final class VariableInformation {
@@ -30,8 +29,8 @@ public final class VariableInformation {
         }
     }
 
-    public void setClassRef(Class<?> _classRef) {
-        declaringClassName = PrimitiveTypeUtil.getAliasArrayClass(_classRef);
+    public void setClassName(String _className) {
+        declaringClassName = _className;
     }
 
 }

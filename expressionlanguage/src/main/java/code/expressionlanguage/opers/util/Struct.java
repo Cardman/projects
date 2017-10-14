@@ -1,7 +1,7 @@
 package code.expressionlanguage.opers.util;
 import java.lang.reflect.Field;
 
-import code.expressionlanguage.PrimitiveTypeUtil;
+import code.expressionlanguage.types.NativeTypeUtil;
 import code.serialize.ConverterMethod;
 import code.util.EntryCust;
 import code.util.ObjectMap;
@@ -21,11 +21,11 @@ public final class Struct {
         this(null, (String)null);
     }
     public Struct(Object _instance) {
-        this(_instance, PrimitiveTypeUtil.getAliasArrayClass(_instance.getClass()));
+        this(_instance, NativeTypeUtil.getPrettyType(_instance.getClass()));
     }
 
     public Struct(Object _instance, Struct _parent) {
-        this(_instance, PrimitiveTypeUtil.getAliasArrayClass(_instance.getClass()), new ObjectMap<ClassField,Struct>(), _parent);
+        this(_instance, NativeTypeUtil.getPrettyType(_instance.getClass()), new ObjectMap<ClassField,Struct>(), _parent);
     }
 
     public Struct(Object _instance, String _className) {
@@ -91,7 +91,7 @@ public final class Struct {
         if (instance == null) {
             return null;
         }
-        String prettyClassName_ = PrimitiveTypeUtil.getAliasArrayClass(instance.getClass());
+        String prettyClassName_ = NativeTypeUtil.getPrettyType(instance.getClass());
         return StringList.quickEq(className, prettyClassName_);
     }
 
