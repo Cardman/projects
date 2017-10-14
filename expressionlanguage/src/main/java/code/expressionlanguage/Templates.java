@@ -260,6 +260,55 @@ public final class Templates {
         StringMap<String> varTypes_ = getVarTypes(_first, _classes);
         return getFormattedType(_second, varTypes_);
     }
+    public static String getGenericString(String _className, Classes _classes) {
+        StringList types_ = StringList.getAllTypes(_className);
+        String className_ = PrimitiveTypeUtil.getQuickComponentBaseType(types_.first()).getComponent();
+        if (_classes != null) {
+            RootBlock root_ = _classes.getClassBody(className_);
+            if (root_ != null) {
+                return root_.getGenericString();
+            }
+        }
+        Class<?> cl_ = ConstClasses.classForNameNotInit(className_);
+        if (cl_.getTypeParameters().length == 0) {
+            return className_;
+        }
+        StringBuilder generic_ = new StringBuilder(className_);
+        StringList vars_ = new StringList();
+        for (TypeVariable<?> t: cl_.getTypeParameters()) {
+            vars_.add(PREFIX_VAR_TYPE+t.getName());
+        }
+        generic_.append(TEMPLATE_BEGIN);
+        generic_.append(vars_.join(TEMPLATE_SEP));
+        generic_.append(TEMPLATE_END);
+        return generic_.toString();
+    }
+    public static CustList<TypeVar> getConstraints(String _className, Classes _classes) {
+        StringList types_ = StringList.getAllTypes(_className);
+        String className_ = PrimitiveTypeUtil.getQuickComponentBaseType(types_.first()).getComponent();
+        if (_classes != null) {
+            RootBlock root_ = _classes.getClassBody(className_);
+            if (root_ != null) {
+                return root_.getParamTypes();
+            }
+        }
+        Class<?> cl_ = ConstClasses.classForNameNotInit(className_);
+        if (cl_.getTypeParameters().length == 0) {
+            return new CustList<TypeVar>();
+        }
+        CustList<TypeVar> vars_ = new CustList<TypeVar>();
+        for (TypeVariable<?> t: cl_.getTypeParameters()) {
+            TypeVar t_ = new TypeVar();
+            t_.setName(t.getName());
+            StringList list_ = new StringList();
+            for (Type b: t.getBounds()) {
+                list_.add(NativeTypeUtil.getPrettyType(b));
+            }
+            t_.setConstraints(list_);
+            vars_.add(t_);
+        }
+        return vars_;
+    }
     static StringMap<String> getVarTypes(String _className, Classes _classes) {
         StringList types_ = StringList.getAllTypes(_className);
         String className_ = PrimitiveTypeUtil.getQuickComponentBaseType(types_.first()).getComponent();

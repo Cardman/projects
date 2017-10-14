@@ -4,7 +4,6 @@ import code.expressionlanguage.Delimiters;
 import code.expressionlanguage.ElResolver;
 import code.expressionlanguage.ElUtil;
 import code.expressionlanguage.OperationsSequence;
-import code.expressionlanguage.opers.util.ConstructorId;
 import code.util.CustList;
 import code.util.NatTreeMap;
 

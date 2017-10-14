@@ -13,21 +13,21 @@ public abstract class PrimitiveBoolOperation extends MethodOperation {
     }
 
     @Override
-    public boolean isOtherConstructorClass() {
+    public final boolean isOtherConstructorClass() {
         return false;
     }
 
     @Override
-    public ConstructorId getConstId() {
+    public final ConstructorId getConstId() {
         return null;
     }
 
     @Override
-    public boolean isPossibleInitClass() {
+    public final boolean isPossibleInitClass() {
         return false;
     }
     @Override
-    public boolean isSuperConstructorCall() {
+    public final boolean isSuperConstructorCall() {
         return false;
     }
 

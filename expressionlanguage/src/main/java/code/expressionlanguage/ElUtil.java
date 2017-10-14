@@ -14,7 +14,6 @@ import code.expressionlanguage.exceptions.PrimitiveTypeException;
 import code.expressionlanguage.exceptions.SettingMemberException;
 import code.expressionlanguage.exceptions.UnwrappingException;
 import code.expressionlanguage.methods.Block;
-import code.expressionlanguage.methods.RootBlock;
 import code.expressionlanguage.methods.util.ArgumentsPair;
 import code.expressionlanguage.methods.util.ExpLanguages;
 import code.expressionlanguage.methods.util.InstancingStep;
@@ -102,24 +101,14 @@ public final class ElUtil {
                 throw new PrimitiveTypeException(_conf.joinPages());
             }
             StringMap<StringList> vars_ = new StringMap<StringList>();
-            RootBlock root_ = null;
             boolean buildMap_ = true;
             if (_staticContext) {
                 buildMap_ = false;
-            } else if (_conf.getClasses() == null) {
-                buildMap_ = false;
             } else if (page_.getGlobalClass() == null) {
                 buildMap_ = false;
-            } else {
-                String globalClass_ = page_.getGlobalClass();
-                globalClass_ = StringList.getAllTypes(globalClass_).first();
-                root_ = _conf.getClasses().getClassBody(globalClass_);
-                if (root_ == null) {
-                    buildMap_ = false;
-                }
             }
             if (buildMap_) {
-                for (TypeVar t: root_.getParamTypes()) {
+                for (TypeVar t: Templates.getConstraints(page_.getGlobalClass(), _conf.getClasses())) {
                     vars_.put(t.getName(), t.getConstraints());
                 }
             }
