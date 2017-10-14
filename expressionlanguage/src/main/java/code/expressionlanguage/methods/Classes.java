@@ -829,7 +829,8 @@ public final class Classes {
     }
     public void validateSingleParameterizedClasses(ContextEl _context) {
         for (String c: classesInheriting) {
-            RootBlock r_ = getClassBody(c);
+            String baseClass_ = StringList.getAllTypes(c).first();
+            RootBlock r_ = getClassBody(baseClass_);
             StringList genericSuperTypes_ = r_.getAllGenericSuperTypes(this);
             StringMap<StringList> baseParams_ = getBaseParams(genericSuperTypes_);
             for (EntryCust<String, StringList> e: baseParams_.entryList()) {
@@ -871,7 +872,8 @@ public final class Classes {
                     if (StringList.quickEq(c, Object.class.getName())) {
                         continue;
                     }
-                    InterfaceBlock int_ = (InterfaceBlock) getClassBody(c);
+                    String baseClass_ = StringList.getAllTypes(c).first();
+                    InterfaceBlock int_ = (InterfaceBlock) getClassBody(baseClass_);
                     StringList directSuperInterfaces_ = int_.getDirectSuperClasses();
                     for (String s:directSuperInterfaces_) {
                         if (superInterfaces_.containsStr(s)) {
@@ -894,7 +896,8 @@ public final class Classes {
                 if (StringList.quickEq(s, Object.class.getName())) {
                     continue;
                 }
-                InterfaceBlock int_ = (InterfaceBlock) getClassBody(s);
+                String baseClass_ = StringList.getAllTypes(s).first();
+                InterfaceBlock int_ = (InterfaceBlock) getClassBody(baseClass_);
                 StringList directSuperInterfaces_ = int_.getDirectSuperClasses();
                 InterfaceNode current_ = is_.getVal(s);
                 for (String r: directSuperInterfaces_) {
@@ -1133,21 +1136,22 @@ public final class Classes {
     }
 
     public boolean canAccessField(String _className, String _accessedClass, String _name) {
-        Block access_ = (Block) getClassBody(_accessedClass);
+        String baseClass_ = StringList.getAllTypes(_accessedClass).first();
+        Block access_ = (Block) getClassBody(baseClass_);
         CustList<Block> bl_ = getDirectChildren(access_);
-        InfoBlock i_ = null;
         for (Block b: bl_) {
             if (b instanceof InfoBlock) {
                 if (StringList.quickEq(((InfoBlock)b).getFieldName(), _name)) {
-                    i_ = (InfoBlock)b;
+                    return canAccess(_className,(InfoBlock)b);
                 }
             }
         }
-        return canAccess(_className, i_);
+        return false;
     }
 
     public boolean canAccessClass(String _className, String _accessedClass) {
-        RootBlock access_ = getClassBody(_accessedClass);
+        String baseClass_ = StringList.getAllTypes(_accessedClass).first();
+        RootBlock access_ = getClassBody(baseClass_);
         return canAccess(_className, access_);
     }
 
@@ -1158,7 +1162,8 @@ public final class Classes {
         if (_className == null) {
             return false;
         }
-        RootBlock root_ = getClassBody(_className);
+        String baseClass_ = StringList.getAllTypes(_className).first();
+        RootBlock root_ = getClassBody(baseClass_);
         RootBlock belong_ = _block.belong();
         if (_block.getAccess() == AccessEnum.PROTECTED) {
             if (PrimitiveTypeUtil.canBeUseAsArgument(belong_.getFullName(), _className, this)) {
@@ -1461,7 +1466,7 @@ public final class Classes {
     public CustList<MethodBlock> getMethodBodiesByFormattedId(String _genericClassName, MethodId _id) {
         return getMethodBodiesByFormattedId(_genericClassName, _id.getName(), _id.getParametersTypes(), _id.isVararg());
     }
-    public CustList<MethodBlock> getMethodBodiesByFormattedId(String _genericClassName, String _methodName, StringList _parametersTypes, boolean _vararg) {
+    CustList<MethodBlock> getMethodBodiesByFormattedId(String _genericClassName, String _methodName, StringList _parametersTypes, boolean _vararg) {
         CustList<MethodBlock> methods_ = new CustList<MethodBlock>();
         StringList types_ = StringList.getAllTypes(_genericClassName);
         String base_ = types_.first();
@@ -1512,7 +1517,7 @@ public final class Classes {
     public CustList<ConstructorBlock> getConstructorBodiesByFormattedId(String _genericClassName, ConstructorId _id) {
         return getConstructorBodiesByFormattedId(_genericClassName, _id.getParametersTypes(), _id.isVararg());
     }
-    public CustList<ConstructorBlock> getConstructorBodiesByFormattedId(String _genericClassName, StringList _parametersTypes, boolean _vararg) {
+    private CustList<ConstructorBlock> getConstructorBodiesByFormattedId(String _genericClassName, StringList _parametersTypes, boolean _vararg) {
         CustList<ConstructorBlock> methods_ = new CustList<ConstructorBlock>();
         StringList types_ = StringList.getAllTypes(_genericClassName);
         String base_ = types_.first();

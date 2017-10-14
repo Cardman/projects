@@ -631,7 +631,8 @@ public abstract class OperationNode {
         MethodId id_ = _idMeth.getConstraints();
         String stopClass_ = _idMeth.getClassName();
         while (true) {
-            RootBlock clBlock_ = classes_.getClassBody(clCurName_);
+            String baseClass_ = StringList.getAllTypes(clCurName_).first();
+            RootBlock clBlock_ = classes_.getClassBody(baseClass_);
             CustList<MethodBlock> methods_ = classes_.getMethodBodiesByFormattedId(clCurName_, id_);
             if (methods_.isEmpty()) {
                 ObjectMap<MethodId, String> def_;
@@ -775,7 +776,8 @@ public abstract class OperationNode {
         CustList<MethodBlock> methods_ = classes_.getMethodBodiesByFormattedId(clCurName_, _res.getId().getConstraints());
         MethodBlock m_;
         if (methods_.isEmpty()) {
-            UniqueRootedBlock u_ = (UniqueRootedBlock) classes_.getClassBody(clCurName_);
+            String baseClass_ = StringList.getAllTypes(clCurName_).first();
+            UniqueRootedBlock u_ = (UniqueRootedBlock) classes_.getClassBody(baseClass_);
             String int_ = u_.getDefaultMethodIds().getVal(_res.getId().getConstraints());
             int_ = Templates.format(clCurName_, int_, classes_);
             m_ = classes_.getMethodBodiesByFormattedId(int_, _res.getId().getConstraints()).first();
@@ -819,7 +821,8 @@ public abstract class OperationNode {
             ContextEl _conf, boolean _static, ClassArgumentMatching _class, String _name, ClassArgumentMatching... _argsClass) {
         Classes classes_ = _conf.getClasses();
         String clCurName_ = _class.getName();
-        InterfaceBlock intBl_ = (InterfaceBlock) classes_.getClassBody(clCurName_);
+        String baseClass_ = StringList.getAllTypes(clCurName_).first();
+        InterfaceBlock intBl_ = (InterfaceBlock) classes_.getClassBody(baseClass_);
         StringList superInts_ = new StringList(clCurName_);
         if (!_static) {
             superInts_.addAllElts(intBl_.getAllSuperClasses());
@@ -843,7 +846,8 @@ public abstract class OperationNode {
                 if (StringList.quickEq(s, Object.class.getName())) {
                     continue;
                 }
-                InterfaceBlock superBl_ = (InterfaceBlock) classes_.getClassBody(s);
+                baseClass_ = StringList.getAllTypes(s).first();
+                InterfaceBlock superBl_ = (InterfaceBlock) classes_.getClassBody(baseClass_);
                 ObjectMap<MethodId, StringList> signaturesInt_;
                 signaturesInt_ = superBl_.getAllInstanceSignatures(classes_);
                 for (EntryCust<MethodId, StringList> m: signaturesInt_.entryList()) {
@@ -904,9 +908,10 @@ public abstract class OperationNode {
         custClass_ = classes_.getClassMetaInfo(clCurName_);
         MethodId id_ = _idMeth.getConstraints();
         while (true) {
+            String baseClass_ = StringList.getAllTypes(clCurName_).first();
             CustList<MethodBlock> methods_ = classes_.getMethodBodiesByFormattedId(clCurName_, id_);
             if (methods_.isEmpty()) {
-                ClassBlock clBlock_ = (ClassBlock) classes_.getClassBody(clCurName_);
+                ClassBlock clBlock_ = (ClassBlock) classes_.getClassBody(baseClass_);
                 ObjectMap<MethodId, String> def_;
                 def_ = clBlock_.getDefaultMethodIds();
                 if (def_.contains(_idMeth.getConstraints())) {
@@ -945,7 +950,8 @@ public abstract class OperationNode {
                 }
             }
         }
-        RootBlock clBl_ = classes_.getClassBody(clCurName_);
+        String baseClass_ = StringList.getAllTypes(clCurName_).first();
+        RootBlock clBl_ = classes_.getClassBody(baseClass_);
         for (EntryCust<MethodId, String> e: clBl_.getDefaultMethodIds().entryList()) {
             String formattedCl_ = Templates.format(clCurName_, e.getValue(), classes_);
             MethodBlock m_ = classes_.getMethodBodiesByFormattedId(formattedCl_, e.getKey()).first();

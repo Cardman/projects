@@ -408,7 +408,13 @@ public abstract class RootBlock extends BracedBlock implements AccessibleBlock {
                         if (mBasesSuper_.isEmpty()) {
                             continue;
                         }
-                        if (mBasesSuper_.size() > 1) {
+                        int nbInstances_ = 0;
+                        for (MethodBlock g: mBasesSuper_) {
+                            if (!g.isStaticMethod()) {
+                                nbInstances_++;
+                            }
+                        }
+                        if (nbInstances_ > 1) {
                             DuplicateParamMethod duplicate_ = new DuplicateParamMethod();
                             duplicate_.setFileName(getFullName());
                             duplicate_.setRc(new RowCol());

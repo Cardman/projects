@@ -368,7 +368,8 @@ public final class FctOperation extends InvokingOperation {
                 if (!methods_.isEmpty()) {
                     m_ = methods_.first();
                 } else {
-                    String className_ = classes_.getClassBody(foundClass_).getDefaultMethodIds().getVal(methodId);
+                    String baseFoundClass_ = StringList.getAllTypes(foundClass_).first();
+                    String className_ = classes_.getClassBody(baseFoundClass_).getDefaultMethodIds().getVal(methodId);
                     m_ = classes_.getMethodBodiesByFormattedId(className_, methodId).first();
                 }
                 String curClassBase_ = null;

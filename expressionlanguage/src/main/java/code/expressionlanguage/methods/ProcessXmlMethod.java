@@ -139,7 +139,8 @@ public final class ProcessXmlMethod {
     private static PageEl createInstancingClass(String _class, ContextEl _cont) {
         Classes classes_ = _cont.getClasses();
         classes_.preInitializeStaticFields(_class);
-        RootBlock class_ = classes_.getClassBody(_class);
+        String baseClass_ = StringList.getAllTypes(_class).first();
+        RootBlock class_ = classes_.getClassBody(baseClass_);
         Block firstChild_ = class_.getFirstChild();
         PageEl page_ = new PageEl();
         Argument argGl_ = new Argument();
@@ -199,7 +200,8 @@ public final class ProcessXmlMethod {
         ConstructorId id_ = _call.getId();
         InstancingStep in_ = _call.getInstancingStep();
         Classes classes_ = _cont.getClasses();
-        RootBlock class_ = classes_.getClassBody(_class);
+        String baseClass_ = StringList.getAllTypes(_class).first();
+        RootBlock class_ = classes_.getClassBody(baseClass_);
         CustList<ConstructorBlock> methods_ = classes_.getConstructorBodiesByFormattedId(_class, id_);
         ConstructorBlock method_ = null;
         Argument argGl_ = new Argument();
