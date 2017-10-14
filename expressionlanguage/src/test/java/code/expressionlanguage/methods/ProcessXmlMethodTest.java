@@ -5375,7 +5375,7 @@ public class ProcessXmlMethodTest {
         calculateArgument("pkg.Ex", id_, args_, cont_);
     }
 
-    static Argument calculateArgument(String _class, MethodId _method, CustList<Argument> _args, ContextEl _cont) {
+    private static Argument calculateArgument(String _class, MethodId _method, CustList<Argument> _args, ContextEl _cont) {
         EqList<ClassName> constraints_ = new EqList<ClassName>();
         for (ClassName c: _method.getClassNames()) {
             constraints_.add(new ClassName(c.getName(),false));
@@ -10685,7 +10685,7 @@ public class ProcessXmlMethodTest {
         Classes.validateAll(files_, cont_);
     }
 
-    public static Argument instanceArgument(String _class, Argument _global, ConstructorId _id, CustList<Argument> _args, ContextEl _cont) {
+    private static Argument instanceArgument(String _class, Argument _global, ConstructorId _id, CustList<Argument> _args, ContextEl _cont) {
         int len_ = _id.getClassNames().size();
         EqList<ClassName> constraints_ = new EqList<ClassName>();
         for (int i = CustList.FIRST_INDEX; i < len_; i++) {

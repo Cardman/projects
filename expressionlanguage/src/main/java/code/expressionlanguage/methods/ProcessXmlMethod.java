@@ -5,6 +5,7 @@ import code.expressionlanguage.CustBase;
 import code.expressionlanguage.PageEl;
 import code.expressionlanguage.PrimitiveTypeUtil;
 import code.expressionlanguage.ReadWrite;
+import code.expressionlanguage.Templates;
 import code.expressionlanguage.exceptions.BadIndexException;
 import code.expressionlanguage.exceptions.CustomFoundConstructorException;
 import code.expressionlanguage.exceptions.CustomFoundMethodException;
@@ -164,13 +165,12 @@ public final class ProcessXmlMethod {
     }
     private static PageEl createCallingMethod(Argument _gl, String _class, MethodId _method, CustList<Argument> _args, ContextEl _conf) {
         Classes classes_ = _conf.getClasses();
-        String cl_ = _class;
         PageEl pageLoc_ = new PageEl();
         pageLoc_.setGlobalArgument(_gl);
         pageLoc_.setGlobalClass(_class);
         pageLoc_.setReadUrl(_class);
         MethodId id_ = _method;
-        MethodBlock methodLoc_ = classes_.getMethodBodiesByFormattedId(cl_, id_).first();
+        MethodBlock methodLoc_ = classes_.getMethodBodiesByFormattedId(_class, id_).first();
         StringList paramsLoc_ = methodLoc_.getParametersNames();
         StringList typesLoc_ = methodLoc_.getParametersTypes();
         CustList<Argument> args_ = _args;
@@ -458,11 +458,11 @@ public final class ProcessXmlMethod {
                 for (String i: root_.getAllNeededSortedInterfaces()) {
                     if (!ip_.getIntializedInterfaces().containsStr(i)) {
                         ip_.getIntializedInterfaces().add(i);
-                        
                         ConstructorId super_ = new ConstructorId(superClassBase_, new EqList<ClassName>());
                         StringList called_ = ip_.getCallingConstr().getCalledConstructors();
                         Argument global_ = ip_.getGlobalArgument();
-                        throw new CustomFoundConstructorException(i, EMPTY_STRING, called_, super_, global_, new CustList<Argument>(), InstancingStep.USING_SUPER);
+                        String generic_ = Templates.getGenericTypeByBases(curClass_, i, _conf.getClasses());
+                        throw new CustomFoundConstructorException(generic_, EMPTY_STRING, called_, super_, global_, new CustList<Argument>(), InstancingStep.USING_SUPER);
                     }
                 }
             }

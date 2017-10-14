@@ -5,6 +5,7 @@ import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.ElUtil;
 import code.expressionlanguage.PageEl;
+import code.expressionlanguage.Templates;
 import code.expressionlanguage.exceptions.CustomFoundConstructorException;
 import code.expressionlanguage.methods.exceptions.BadConstructorCall;
 import code.expressionlanguage.methods.util.InstancingStep;
@@ -141,7 +142,8 @@ public final class Line extends Leaf implements StackableBlock {
                         ConstructorId super_ = new ConstructorId(baseSuperClass_, new EqList<ClassName>());
                         StringList called_ = ip_.getCallingConstr().getCalledConstructors();
                         Argument global_ = ip_.getGlobalArgument();
-                        throw new CustomFoundConstructorException(i, EMPTY_STRING, called_, super_, global_, new CustList<Argument>(), InstancingStep.USING_SUPER);
+                        String generic_ = Templates.getGenericTypeByBases(curClass_, i, _cont.getClasses());
+                        throw new CustomFoundConstructorException(generic_, EMPTY_STRING, called_, super_, global_, new CustList<Argument>(), InstancingStep.USING_SUPER);
                     }
                 }
                 if (!ip_.getCallingConstr().isFirstField()) {

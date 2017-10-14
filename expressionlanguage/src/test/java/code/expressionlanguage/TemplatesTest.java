@@ -189,51 +189,51 @@ public class TemplatesTest {
         String second_ = "#T";
         assertEq("java.lang.Object",Templates.format(first_, second_, classes_));
     }
-
+    
     @Test
     public void getTypesByBases1Test() {
         StringList t_ = Templates.getTypesByBases("java.lang.String", "java.lang.Object", null);
         assertEq(0, t_.size());
     }
-
+    
     @Test
     public void getTypesByBases2Test() {
         StringList t_ = Templates.getTypesByBases("java.lang.Object", "java.lang.String", null);
         assertNull(t_);
     }
-
+    
     @Test
     public void getTypesByBases3Test() {
         StringList t_ = Templates.getTypesByBases(StringList.class.getName(), Listable.class.getName(), null);
         assertEq(1, t_.size());
         assertEq("java.lang.String", t_.get(0));
     }
-
+    
     @Test
     public void getTypesByBases4Test() {
         StringList t_ = Templates.getTypesByBases(StringList.class.getName(), Iterable.class.getName(), null);
         assertEq(1, t_.size());
         assertEq("java.lang.String", t_.get(0));
     }
-
+    
     @Test
     public void getTypesByBases5Test() {
         StringList t_ = Templates.getTypesByBases(Listable.class.getName(), Iterable.class.getName(), null);
         assertNull(t_);
     }
-
+    
     @Test
     public void getTypesByBases6Test() {
         StringList t_ = Templates.getTypesByBases("java.lang.String", "java.lang.String", null);
         assertEq(0, t_.size());
     }
-
+    
     @Test
     public void getTypesByBases7Test() {
         StringList t_ = Templates.getTypesByBases(Listable.class.getName(), Listable.class.getName(), null);
         assertEq(0, t_.size());
     }
-
+    
     @Test
     public void getTypesByBases8Test() {
         StringMap<String> files_ = new StringMap<String>();
@@ -245,7 +245,7 @@ public class TemplatesTest {
         StringList t_ = Templates.getTypesByBases("pkg.Ex", "pkg.Ex", classes_);
         assertEq(0, t_.size());
     }
-
+    
     @Test
     public void getTypesByBases9Test() {
         StringMap<String> files_ = new StringMap<String>();
@@ -259,7 +259,7 @@ public class TemplatesTest {
         StringList t_ = Templates.getTypesByBases("pkg.ExTwo", "pkg.Ex", classes_);
         assertEq(0, t_.size());
     }
-
+    
     @Test
     public void getTypesByBases10Test() {
         StringMap<String> files_ = new StringMap<String>();
@@ -271,6 +271,88 @@ public class TemplatesTest {
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
         Classes classes_ = cont_.getClasses();
         StringList t_ = Templates.getTypesByBases("pkg.Ex", "pkg.ExTwo", classes_);
+        assertNull(t_);
+    }
+
+    @Test
+    public void getGenericTypeByBases1Test() {
+        String t_ = Templates.getGenericTypeByBases("java.lang.String", "java.lang.Object", null);
+        assertEq("java.lang.Object", t_);
+    }
+
+    @Test
+    public void getGenericTypeByBases2Test() {
+        String t_ = Templates.getGenericTypeByBases("java.lang.Object", "java.lang.String", null);
+        assertNull(t_);
+    }
+
+    @Test
+    public void getGenericTypeByBases3Test() {
+        String t_ = Templates.getGenericTypeByBases(StringList.class.getName(), Listable.class.getName(), null);
+        assertEq("code.util.ints.Listable<java.lang.String>", t_);
+    }
+
+    @Test
+    public void getGenericTypeByBases4Test() {
+        String t_ = Templates.getGenericTypeByBases(StringList.class.getName(), Iterable.class.getName(), null);
+        assertEq("java.lang.Iterable<java.lang.String>", t_);
+    }
+
+    @Test
+    public void getGenericTypeByBases5Test() {
+        String t_ = Templates.getGenericTypeByBases(Listable.class.getName(), Iterable.class.getName(), null);
+        assertNull(t_);
+    }
+
+    @Test
+    public void getGenericTypeByBases6Test() {
+        String t_ = Templates.getGenericTypeByBases("java.lang.String", "java.lang.String", null);
+        assertEq("java.lang.String", t_);
+    }
+
+    @Test
+    public void getGenericTypeByBases7Test() {
+        String t_ = Templates.getGenericTypeByBases(Listable.class.getName(), Listable.class.getName(), null);
+        assertEq("code.util.ints.Listable", t_);
+    }
+
+    @Test
+    public void getGenericTypeByBases8Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        String xml_;
+        xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg'/>\n";
+        files_.put("pkg/Ex."+Classes.EXT, xml_);
+        ContextEl cont_ = unfullValidateOverridingMethods(files_);
+        Classes classes_ = cont_.getClasses();
+        String t_ = Templates.getGenericTypeByBases("pkg.Ex", "pkg.Ex", classes_);
+        assertEq("pkg.Ex", t_);
+    }
+
+    @Test
+    public void getGenericTypeByBases9Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        String xml_;
+        xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg'/>\n";
+        files_.put("pkg/Ex."+Classes.EXT, xml_);
+        xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExTwo' package='pkg' superclass='pkg.Ex'/>\n";
+        files_.put("pkg/ExTwo."+Classes.EXT, xml_);
+        ContextEl cont_ = unfullValidateOverridingMethods(files_);
+        Classes classes_ = cont_.getClasses();
+        String t_ = Templates.getGenericTypeByBases("pkg.ExTwo", "pkg.Ex", classes_);
+        assertEq("pkg.Ex", t_);
+    }
+
+    @Test
+    public void getGenericTypeByBases10Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        String xml_;
+        xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg'/>\n";
+        files_.put("pkg/Ex."+Classes.EXT, xml_);
+        xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExTwo' package='pkg' superclass='pkg.Ex'/>\n";
+        files_.put("pkg/ExTwo."+Classes.EXT, xml_);
+        ContextEl cont_ = unfullValidateOverridingMethods(files_);
+        Classes classes_ = cont_.getClasses();
+        String t_ = Templates.getGenericTypeByBases("pkg.Ex", "pkg.ExTwo", classes_);
         assertNull(t_);
     }
 

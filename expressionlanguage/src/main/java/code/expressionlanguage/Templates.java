@@ -31,6 +31,19 @@ public final class Templates {
     }
 
     public static StringList getTypesByBases(String _baseType, String _baseSuperType, Classes _classes) {
+        String generic_ = getGenericTypeByBases(_baseType, _baseSuperType, _classes);
+        if (generic_ == null) {
+            return null;
+        }
+        StringList foundSuperClass_ = StringList.getAllTypes(generic_);
+        int len_ = foundSuperClass_.size();
+        StringList args_ = new StringList();
+        for (int i = CustList.SECOND_INDEX; i < len_; i++) {
+            args_.add(foundSuperClass_.get(i));
+        }
+        return args_;
+    }
+    public static String getGenericTypeByBases(String _baseType, String _baseSuperType, Classes _classes) {
         if (!PrimitiveTypeUtil.canBeUseAsArgument(_baseSuperType, _baseType, _classes)) {
             return null;
         }
@@ -84,13 +97,7 @@ public final class Templates {
                 curClasses_ = nextClasses_;
             }
         }
-        StringList foundSuperClass_ = StringList.getAllTypes(generic_);
-        int len_ = foundSuperClass_.size();
-        StringList args_ = new StringList();
-        for (int i = CustList.SECOND_INDEX; i < len_; i++) {
-            args_.add(foundSuperClass_.get(i));
-        }
-        return args_;
+        return generic_;
     }
     public static boolean isCorrectWrite(String _className) {
         StringList current_ = new StringList(_className);
@@ -557,7 +564,8 @@ public final class Templates {
                 return null;
             }
         }
-        Class<?> cl_ = ConstClasses.classForObjectNameNotInit(_className).getSuperclass();
+        String baseClass_ = PrimitiveTypeUtil.getArrayClass(_className);
+        Class<?> cl_ = ConstClasses.classForObjectNameNotInit(baseClass_).getSuperclass();
         if (cl_ == null) {
             return null;
         }
@@ -573,6 +581,7 @@ public final class Templates {
                 return ((UniqueRootedBlock)r_).getGenericSuperClass();
             }
         }
+        baseClass_ = PrimitiveTypeUtil.getArrayClass(baseClass_);
         return NativeTypeUtil.getPrettyType(ConstClasses.classForObjectNameNotInit(baseClass_).getGenericSuperclass());
     }
 
@@ -586,7 +595,8 @@ public final class Templates {
                 return ((InterfaceBlock)r_).getDirectSuperClasses();
             }
         }
-        Class<?> cl_ = ConstClasses.classForObjectNameNotInit(_className);
+        String baseClass_ = PrimitiveTypeUtil.getArrayClass(_className);
+        Class<?> cl_ = ConstClasses.classForObjectNameNotInit(baseClass_);
         StringList interfaces_ = new StringList();
         for (Class<?> i: cl_.getInterfaces()) {
             interfaces_.add(i.getName());
@@ -606,6 +616,7 @@ public final class Templates {
                 return ((InterfaceBlock)r_).getDirectGenericSuperClasses().get(_index);
             }
         }
+        baseClass_ = PrimitiveTypeUtil.getArrayClass(baseClass_);
         return NativeTypeUtil.getPrettyType(ConstClasses.classForObjectNameNotInit(baseClass_).getGenericInterfaces()[_index]);
     }
 }

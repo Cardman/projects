@@ -1167,7 +1167,7 @@ public final class Classes {
         RootBlock root_ = getClassBody(baseClass_);
         RootBlock belong_ = _block.belong();
         if (_block.getAccess() == AccessEnum.PROTECTED) {
-            if (PrimitiveTypeUtil.canBeUseAsArgument(belong_.getFullName(), _className, this)) {
+            if (PrimitiveTypeUtil.canBeUseAsArgument(belong_.getFullName(), baseClass_, this)) {
                 return true;
             }
             if (StringList.quickEq(belong_.getPackageName(), root_.getPackageName())) {
@@ -1563,23 +1563,28 @@ public final class Classes {
         return methods_;
     }
     public boolean isInitialized(String _name) {
-        return initializedClasses.getVal(_name);
+        String base_ = StringList.getAllTypes(_name).first();
+        return initializedClasses.getVal(base_);
     }
     public boolean isSuccessfulInitialized(String _name) {
-        return successfulInitializedClasses.getVal(_name);
+        String base_ = StringList.getAllTypes(_name).first();
+        return successfulInitializedClasses.getVal(base_);
     }
     public void initialize(String _name) {
-        initializedClasses.put(_name, true);
+        String base_ = StringList.getAllTypes(_name).first();
+        initializedClasses.put(base_, true);
     }
     public void successInitClass(String _name) {
-        successfulInitializedClasses.put(_name, true);
+        String base_ = StringList.getAllTypes(_name).first();
+        successfulInitializedClasses.put(base_, true);
     }
     public void preInitializeStaticFields(String _className) {
+        String base_ = StringList.getAllTypes(_className).first();
         StringMap<FieldBlock> fieldsInfos_;
         fieldsInfos_ = new StringMap<FieldBlock>();
         for (EntryCust<String, RootBlock> c: classesBodies.entryList()) {
             String k_ = c.getKey();
-            if (!StringList.quickEq(k_, _className)) {
+            if (!StringList.quickEq(k_, base_)) {
                 continue;
             }
             CustList<Block> bl_ = getDirectChildren(c.getValue());
@@ -1589,7 +1594,7 @@ public final class Classes {
                     String m_ = method_.getFieldName();
                     if (method_.isStaticField()) {
                         Struct str_ = method_.getDefaultStruct();
-                        staticFields.put(new ClassField(_className, m_), str_);
+                        staticFields.put(new ClassField(base_, m_), str_);
                         continue;
                     }
                     fieldsInfos_.put(m_, method_);
@@ -1598,7 +1603,7 @@ public final class Classes {
         }
         for (EntryCust<String, RootBlock> c: classesBodies.entryList()) {
             String k_ = c.getKey();
-            if (!StringList.quickEq(k_, _className)) {
+            if (!StringList.quickEq(k_, base_)) {
                 continue;
             }
             CustList<Block> bl_ = getDirectChildren(c.getValue());
@@ -1609,22 +1614,22 @@ public final class Classes {
                     ElementBlock method_ = (ElementBlock) b;
                     String m_ = method_.getFieldName();
                     CustEnum enum_;
-                    enum_ = new CustEnum(_className, m_, i_);
+                    enum_ = new CustEnum(base_, m_, i_);
                     ObjectMap<ClassField,Struct> fields_;
                     fields_ = new ObjectMap<ClassField,Struct>();
                     for (EntryCust<String, FieldBlock> f: fieldsInfos_.entryList()) {
                         String f_ = f.getKey();
                         FieldBlock inf_ = f.getValue();
-                        fields_.put(new ClassField(_className, f_), inf_.getDefaultStruct());
+                        fields_.put(new ClassField(base_, f_), inf_.getDefaultStruct());
                     }
                     Struct str_;
-                    str_ = new Struct(enum_, _className, fields_);
-                    staticFields.put(new ClassField(_className, m_), str_);
+                    str_ = new Struct(enum_, base_, fields_);
+                    staticFields.put(new ClassField(base_, m_), str_);
                     values_.add(str_);
                     i_++;
                 }
             }
-            values.put(_className, values_);
+            values.put(base_, values_);
         }
     }
     public void initializeStaticField(ClassField _clField, Struct _str) {
