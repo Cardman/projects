@@ -398,7 +398,7 @@ public abstract class OperationNode {
                         throw new RuntimeClassNotFoundException(baseName_);
                     }
                 } else {
-                    ConstClasses.classForNameNotInit(PrimitiveTypeUtil.getArrayClass(baseName_));
+                    ConstClasses.classForObjectNameNotInit(PrimitiveTypeUtil.getArrayClass(baseName_));
                 }
             } catch (RuntimeClassNotFoundException _0) {
                 if (_setOffset) {
@@ -540,7 +540,7 @@ public abstract class OperationNode {
             }
             ConstructorInfo mloc_ = new ConstructorInfo();
             ConstructorBlock ctr_ = classes_.getConstructorBodiesByFormattedId(clCurName_, m).first();
-            mloc_.setConstr(ctr_.getId());
+            mloc_.setConstr(ctr_.getGenericId());
             mloc_.setConstraints(m);
             mloc_.setParameters(p_);
             signatures_.add(mloc_);
@@ -934,19 +934,28 @@ public abstract class OperationNode {
     }
     private static ClassMethodIdResult getDeclaredCustMethodByClass(ContextEl _conf, boolean _static, ClassArgumentMatching _class, String _name, ClassArgumentMatching... _argsClass) {
         Classes classes_ = _conf.getClasses();
-        ClassMetaInfo custClass_ = null;
+        ClassMetaInfo custClass_;
         String clCurName_ = _class.getName();
+        String baseCurName_ = StringList.getAllTypes(clCurName_).first();
+        RootBlock root_ = classes_.getClassBody(baseCurName_);
         custClass_ = classes_.getClassMetaInfo(clCurName_);
         ObjectNotNullMap<MethodId, MethodMetaInfo> methods_;
         methods_ = new ObjectNotNullMap<MethodId, MethodMetaInfo>();
-        for (EntryCust<MethodId, MethodMetaInfo> e: custClass_.getMethods().entryList()) {
-            if (e.getValue().isStatic()) {
-                if (_static) {
+        if (_static) {
+            for (EntryCust<MethodId, MethodMetaInfo> e: custClass_.getMethods().entryList()) {
+                if (e.getValue().isStatic()) {
                     methods_.put(e.getKey(), e.getValue());
                 }
-            } else {
-                if (!_static) {
-                    methods_.put(e.getKey(), e.getValue());
+            }
+        } else {
+            String generic_ = root_.getGenericString();
+            for (EntryCust<MethodId, StringList> e: root_.getAllOverridingMethods().entryList()) {
+                for (String c: e.getValue()) {
+                    if (StringList.quickEq(c, generic_)) {
+                        MethodBlock m_ = classes_.getMethodBodiesByFormattedId(generic_, e.getKey()).first();
+                        MethodMetaInfo info_ = new MethodMetaInfo(c, MethodModifier.NORMAL, m_.getReturnType());
+                        methods_.put(e.getKey(), info_);
+                    }
                 }
             }
         }

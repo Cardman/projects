@@ -229,13 +229,13 @@ public final class InstanceOperation extends InvokingOperation {
             setResultClass(new ClassArgumentMatching(realClassName_));
             return;
         }
+        if (realClassName_.startsWith(PrimitiveTypeUtil.PRIM)) {
+            throw new PrimitiveTypeException(realClassName_+RETURN_LINE+_conf.joinPages());
+        }
         Class<?> cl_;
         try {
             realClassName_ = PrimitiveTypeUtil.getArrayClass(realClassName_);
-            cl_ = ConstClasses.classForNameNotInit(realClassName_);
-            if (cl_.isPrimitive()) {
-                throw new PrimitiveTypeException(realClassName_+RETURN_LINE+_conf.joinPages());
-            }
+            cl_ = ConstClasses.classForObjectNameNotInit(realClassName_);
         } catch (RuntimeClassNotFoundException _0_) {
             throw new RuntimeClassNotFoundException(realClassName_+RETURN_LINE+_conf.joinPages());
         }
@@ -438,7 +438,7 @@ public final class InstanceOperation extends InvokingOperation {
                 if (instanceClassName_.startsWith(PrimitiveTypeUtil.PRIM)) {
                     cl_ = ConstClasses.getPrimitiveClass(instanceClassName_.substring(1));
                 } else {
-                    cl_ = ConstClasses.classForNameNotInit(PrimitiveTypeUtil.getArrayClass(instanceClassName_));
+                    cl_ = ConstClasses.classForObjectNameNotInit(PrimitiveTypeUtil.getArrayClass(instanceClassName_));
                 }
             } catch (RuntimeClassNotFoundException _0_) {
                 throw new RuntimeClassNotFoundException(realClassName_+RETURN_LINE+_conf.joinPages());
@@ -508,7 +508,7 @@ public final class InstanceOperation extends InvokingOperation {
     static Object newClassicArray(ContextEl _conf, String _instanceClassName, String _realClassName,int[] _args) {
         Class<?> cl_;
         try {
-            cl_ = ConstClasses.classForNameNotInit(PrimitiveTypeUtil.getArrayClass(_instanceClassName));
+            cl_ = ConstClasses.classForObjectNameNotInit(PrimitiveTypeUtil.getArrayClass(_instanceClassName));
         } catch (RuntimeClassNotFoundException _0_) {
             throw new RuntimeClassNotFoundException(_realClassName+RETURN_LINE+_conf.joinPages());
         }

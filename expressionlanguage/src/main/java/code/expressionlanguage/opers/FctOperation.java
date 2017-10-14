@@ -289,7 +289,7 @@ public final class FctOperation extends InvokingOperation {
         }
         if (classes_ != null) {
             String glClass_ = _conf.getLastPage().getGlobalClass();
-            ClassMetaInfo custClass_ = null;
+            ClassMetaInfo custClass_;
             custClass_ = classes_.getClassMetaInfo(clCurName_);
             if (custClass_ != null) {
                 for (ClassArgumentMatching c:firstArgs_) {
@@ -459,18 +459,20 @@ public final class FctOperation extends InvokingOperation {
         if (constId != null) {
             if (StringList.quickEq(trimMeth_,EXTERN_CLASS+CURRENT)) {
                 String clCurName_ = _conf.getLastPage().getGlobalClass();
+                String clCurNameBase_ = StringList.getAllTypes(clCurName_).first();
                 CustList<Argument> firstArgs_ = listArguments(chidren_, _arguments, false);
                 StringList called_ = _conf.getLastPage().getCallingConstr().getCalledConstructors();
-                called_.add(clCurName_);
+                called_.add(clCurNameBase_);
                 Argument global_ = _conf.getLastPage().getGlobalArgument();
                 throw new CustomFoundConstructorException(clCurName_, EMPTY_STRING, called_, constId, global_, firstArgs_, InstancingStep.USING_THIS);
             }
             if (StringList.quickEq(trimMeth_,EXTERN_CLASS+SUPER_ACCESS)) {
                 String clCurName_ = _conf.getLastPage().getGlobalClass();
                 String superClass_ = _conf.getClasses().getClassMetaInfo(clCurName_).getSuperClass();
+                String superClassBase_ = StringList.getAllTypes(superClass_).first();
                 CustList<Argument> firstArgs_ = listArguments(chidren_, _arguments, false);
                 StringList called_ = _conf.getLastPage().getCallingConstr().getCalledConstructors();
-                called_.add(superClass_);
+                called_.add(superClassBase_);
                 _conf.getLastPage().clearCurrentEls();
                 Argument global_ = _conf.getLastPage().getGlobalArgument();
                 throw new CustomFoundConstructorException(superClass_, EMPTY_STRING, called_, constId, global_, firstArgs_, InstancingStep.USING_SUPER);
@@ -509,7 +511,7 @@ public final class FctOperation extends InvokingOperation {
                 str_ = PrimitiveTypeUtil.getArrayClass(str_);
                 Class<?> cl_;
                 try {
-                    cl_ = ConstClasses.classForNameNotInit(str_);
+                    cl_ = ConstClasses.classForObjectNameNotInit(str_);
                 } catch (RuntimeClassNotFoundException _0_) {
                     setRelativeOffsetPossibleLastPage(chidren_.first().getIndexInEl()+1, _conf);
                     throw new RuntimeClassNotFoundException(str_+RETURN_LINE+_conf.joinPages());
@@ -661,7 +663,7 @@ public final class FctOperation extends InvokingOperation {
         if (method.getParameterTypes().length == 0) {
             if (StringList.quickEq(method.getName(), GET_CLASS)) {
                 Argument argres_ = new Argument();
-                argres_.setObject(ConstClasses.classForNameNotInit(PrimitiveTypeUtil.getArrayClass(arg_.getObjectClassName())));
+                argres_.setObject(ConstClasses.classForObjectNameNotInit(PrimitiveTypeUtil.getArrayClass(arg_.getObjectClassName())));
                 return argres_;
             }
         }

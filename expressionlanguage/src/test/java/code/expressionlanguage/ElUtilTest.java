@@ -1485,7 +1485,7 @@ public class ElUtilTest {
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
         LocalVariable lv_ = new LocalVariable();
         lv_.setElement(1l);
-        lv_.setClassName(long.class.getName());
+        lv_.setClassName("$long");
         localVars_.put("arg", lv_);
         context_.getLastPage().getLocalVars().putAllMap(localVars_);
         Argument arg_ = ElUtil.processEl("getOverridenThree(arg;.)",0, context_);

@@ -1571,7 +1571,7 @@ final class FormatHtml {
         LocalVariable ret_ = ExtractObject.getCurrentLocVariable(_conf, 0, _ip.getReturnedValues(), var_);
         Struct elt_ = tryToGetObject(_conf, _ip, _set);
         String className_ = ret_.getClassName();
-        checkClass(_conf, _ip, ConstClasses.classForNameNotInit(className_), elt_.getInstance());
+        checkClass(_conf, _ip, ConstClasses.classForObjectNameNotInit(className_), elt_.getInstance());
         ret_.setStruct(elt_);
     }
     private static void processSetClassNameParamTag(Configuration _conf, ImportingPage _ip,
@@ -1785,7 +1785,7 @@ final class FormatHtml {
                     className_ = cl_.getName();
                 } else if (StringList.isNumber(expression_)) {
                     cl_ = long.class;
-                    className_ = cl_.getName();
+                    className_ = PrimitiveTypeUtil.PRIM_LONG;
                     obj_ = ExtractObject.instanceByString(_conf, long.class, expression_);
                 } else if (expression_.startsWith(INSTANTIATE_PREFIX)){
                     Argument a_ = ElUtil.processEl(expression_, 0, _conf.toContextEl());
@@ -4213,7 +4213,7 @@ final class FormatHtml {
             LoopVariable lv_ = new LoopVariable();
             className_ = currentForNode_.getAttribute(ATTRIBUTE_CLASS_NAME);
             if (className_.isEmpty()) {
-                className_ = long.class.getName();
+                className_ = PrimitiveTypeUtil.PRIM_LONG;
             }
             Class<?> cl_ = ExtractObject.classForName(_conf, 0, className_);
             lv_.setClassName(ConstClasses.resolve(className_));

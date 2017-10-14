@@ -353,10 +353,10 @@ final class ExtractObject {
             }
             String className_ = ConstClasses.getMapping(_className);
             if (className_ != null) {
-                ConstClasses.classForNameNotInit(className_);
+                ConstClasses.classForObjectNameNotInit(className_);
                 return className_;
             }
-            ConstClasses.classForNameNotInit(PrimitiveTypeUtil.getArrayClass(_className));
+            ConstClasses.classForObjectNameNotInit(PrimitiveTypeUtil.getArrayClass(_className));
             return _className;
         } catch (Throwable _0) {
             _conf.getLastPage().addToOffset(_offest);
@@ -380,9 +380,9 @@ final class ExtractObject {
             }
             String className_ = ConstClasses.getMapping(_className);
             if (className_ != null) {
-                return ConstClasses.classForNameNotInit(className_);
+                return ConstClasses.classForObjectNameNotInit(className_);
             }
-            return ConstClasses.classForNameNotInit(PrimitiveTypeUtil.getArrayClass(_className));
+            return ConstClasses.classForObjectNameNotInit(PrimitiveTypeUtil.getArrayClass(_className));
         } catch (Throwable _0) {
             _conf.getLastPage().addToOffset(_offest);
             throw new RuntimeClassNotFoundException(_className+RETURN_LINE+_conf.joinPages());

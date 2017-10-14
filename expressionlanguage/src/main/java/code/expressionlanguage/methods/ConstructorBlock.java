@@ -38,8 +38,20 @@ public final class ConstructorBlock extends NamedFunctionBlock {
         }
         return new ConstructorId(name_, pTypes_);
     }
+    public ConstructorId getGenericId() {
+        RootBlock clBlock_ = (RootBlock) getParent();
+        String name_ = clBlock_.getGenericString();
+        StringList types_ = getParametersTypes();
+        int len_ = types_.size();
+        EqList<ClassName> pTypes_ = new EqList<ClassName>();
+        for (int i = CustList.FIRST_INDEX; i < len_; i++) {
+            String n_ = types_.get(i);
+            pTypes_.add(new ClassName(n_, i + 1 == len_ && isVarargs()));
+        }
+        return new ConstructorId(name_, pTypes_);
+    }
     public ConstructorId getFormattedId(String _genericClass, Classes _classes) {
-        String name_ = getName();
+        String name_ = Templates.format(_genericClass, getName(), _classes);
         StringList types_ = getParametersTypes();
         int len_ = types_.size();
         EqList<ClassName> pTypes_ = new EqList<ClassName>();

@@ -444,11 +444,12 @@ public final class ProcessXmlMethod {
             String curClassBase_ = StringList.getAllTypes(curClass_).first();
             ClassMetaInfo meta_ = _conf.getClasses().getClassMetaInfo(curClassBase_);
             String superClass_ = meta_.getSuperClass();
+            String superClassBase_ = StringList.getAllTypes(superClass_).first();
             if (!calledImpl_ && !StringList.quickEq(superClass_, Object.class.getName()) && meta_.getCategory() != ClassCategory.INTERFACE) {
                 ip_.getCallingConstr().setCalledImplicitConstructor(true);
-                ConstructorId super_ = new ConstructorId(superClass_, new EqList<ClassName>());
+                ConstructorId super_ = new ConstructorId(superClassBase_, new EqList<ClassName>());
                 StringList called_ = ip_.getCallingConstr().getCalledConstructors();
-                called_.add(superClass_);
+                called_.add(superClassBase_);
                 Argument global_ = ip_.getGlobalArgument();
                 throw new CustomFoundConstructorException(superClass_, EMPTY_STRING, called_, super_, global_, new CustList<Argument>(), InstancingStep.USING_SUPER);
             }
@@ -457,7 +458,8 @@ public final class ProcessXmlMethod {
                 for (String i: root_.getAllNeededSortedInterfaces()) {
                     if (!ip_.getIntializedInterfaces().containsStr(i)) {
                         ip_.getIntializedInterfaces().add(i);
-                        ConstructorId super_ = new ConstructorId(superClass_, new EqList<ClassName>());
+                        
+                        ConstructorId super_ = new ConstructorId(superClassBase_, new EqList<ClassName>());
                         StringList called_ = ip_.getCallingConstr().getCalledConstructors();
                         Argument global_ = ip_.getGlobalArgument();
                         throw new CustomFoundConstructorException(i, EMPTY_STRING, called_, super_, global_, new CustList<Argument>(), InstancingStep.USING_SUPER);
@@ -525,7 +527,7 @@ public final class ProcessXmlMethod {
             if (_className.startsWith(PrimitiveTypeUtil.PRIM)) {
                 return ConstClasses.getPrimitiveClass(_className.substring(1));
             }
-            return ConstClasses.classForNameNotInit(PrimitiveTypeUtil.getArrayClass(_className));
+            return ConstClasses.classForObjectNameNotInit(PrimitiveTypeUtil.getArrayClass(_className));
         } catch (Throwable _0) {
             _conf.getLastPage().addToOffset(_offest);
             throw new RuntimeClassNotFoundException(_className+RETURN_LINE+_conf.joinPages());

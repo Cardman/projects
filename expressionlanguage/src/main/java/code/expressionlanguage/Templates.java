@@ -46,7 +46,7 @@ public final class Templates {
                 for (String c: curClasses_) {
                     StringList allTypes_ = StringList.getAllTypes(c);
                     String baseClass_ = allTypes_.first();
-                    baseClass_ = PrimitiveTypeUtil.getArrayClass(baseClass_);
+//                    baseClass_ = PrimitiveTypeUtil.getArrayClass(baseClass_);
                     if (!PrimitiveTypeUtil.correctNbParameters(c, _classes)) {
                         return null;
                     }
@@ -160,7 +160,7 @@ public final class Templates {
                     }
                     if (_classes.getClassBody(base_) == null) {
                         try {
-                            ConstClasses.classForNameNotInit(base_);
+                            ConstClasses.classForObjectNameNotInit(base_);
                         } catch (Exception _0) {
                             return false;
                         }
@@ -209,7 +209,7 @@ public final class Templates {
         }
         if (boundsAll_ == null) {
             boundsAll_ = new EqList<StringList>();
-            Class<?> cl_ = ConstClasses.classForNameNotInit(className_);
+            Class<?> cl_ = ConstClasses.classForObjectNameNotInit(className_);
             for (TypeVariable<?> t: cl_.getTypeParameters()) {
                 StringList localBound_ = new StringList();
                 for (Type b: t.getBounds()) {
@@ -269,7 +269,7 @@ public final class Templates {
                 return root_.getGenericString();
             }
         }
-        Class<?> cl_ = ConstClasses.classForNameNotInit(className_);
+        Class<?> cl_ = ConstClasses.classForObjectNameNotInit(className_);
         if (cl_.getTypeParameters().length == 0) {
             return className_;
         }
@@ -292,7 +292,7 @@ public final class Templates {
                 return root_.getParamTypes();
             }
         }
-        Class<?> cl_ = ConstClasses.classForNameNotInit(className_);
+        Class<?> cl_ = ConstClasses.classForObjectNameNotInit(className_);
         if (cl_.getTypeParameters().length == 0) {
             return new CustList<TypeVar>();
         }
@@ -325,7 +325,7 @@ public final class Templates {
                 return varTypes_;
             }
         }
-        Class<?> cl_ = ConstClasses.classForNameNotInit(className_);
+        Class<?> cl_ = ConstClasses.classForObjectNameNotInit(className_);
         int i_ = CustList.FIRST_INDEX;
         StringMap<String> varTypes_ = new StringMap<String>();
         for (TypeVariable<?> t: cl_.getTypeParameters()) {
@@ -557,7 +557,7 @@ public final class Templates {
                 return null;
             }
         }
-        Class<?> cl_ = ConstClasses.classForNameNotInit(_className).getSuperclass();
+        Class<?> cl_ = ConstClasses.classForObjectNameNotInit(_className).getSuperclass();
         if (cl_ == null) {
             return null;
         }
@@ -573,7 +573,7 @@ public final class Templates {
                 return ((UniqueRootedBlock)r_).getGenericSuperClass();
             }
         }
-        return NativeTypeUtil.getPrettyType(ConstClasses.classForNameNotInit(baseClass_).getGenericSuperclass());
+        return NativeTypeUtil.getPrettyType(ConstClasses.classForObjectNameNotInit(baseClass_).getGenericSuperclass());
     }
 
     private static StringList getSuperInterfaceNames(String _className, Classes _classes) {
@@ -586,7 +586,7 @@ public final class Templates {
                 return ((InterfaceBlock)r_).getDirectSuperClasses();
             }
         }
-        Class<?> cl_ = ConstClasses.classForNameNotInit(_className);
+        Class<?> cl_ = ConstClasses.classForObjectNameNotInit(_className);
         StringList interfaces_ = new StringList();
         for (Class<?> i: cl_.getInterfaces()) {
             interfaces_.add(i.getName());
@@ -606,6 +606,6 @@ public final class Templates {
                 return ((InterfaceBlock)r_).getDirectGenericSuperClasses().get(_index);
             }
         }
-        return NativeTypeUtil.getPrettyType(ConstClasses.classForNameNotInit(baseClass_).getGenericInterfaces()[_index]);
+        return NativeTypeUtil.getPrettyType(ConstClasses.classForObjectNameNotInit(baseClass_).getGenericInterfaces()[_index]);
     }
 }

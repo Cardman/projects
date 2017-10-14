@@ -3,7 +3,6 @@ import code.expressionlanguage.PrimitiveTypeUtil;
 import code.expressionlanguage.methods.Classes;
 import code.util.StringList;
 import code.util.consts.ConstClasses;
-import code.util.exceptions.RuntimeClassNotFoundException;
 
 public final class ClassMatching {
 
@@ -51,17 +50,7 @@ public final class ClassMatching {
     }
 
     public boolean isPrimitive() {
-        if (className.first().startsWith(PrimitiveTypeUtil.PRIM)) {
-            return true;
-        }
-        try {
-            return getSingleNativeClass().isPrimitive();
-        } catch (RuntimeClassNotFoundException _0) {
-            return false;
-        }
-    }
-    private Class<?> getSingleNativeClass() {
-        return ConstClasses.classForNameNotInit(PrimitiveTypeUtil.getArrayClass(className.first()));
+        return className.first().startsWith(PrimitiveTypeUtil.PRIM);
     }
 
     public static Class<?> getSingleNativeClass(String _className) {

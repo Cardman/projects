@@ -40,7 +40,7 @@ public final class UnaryOperation extends PrimitiveBoolOperation {
         }
         int intOrder_ = PrimitiveTypeUtil.getOrderClass(int.class);
         if (PrimitiveTypeUtil.getOrderClass(cl_) < intOrder_) {
-            cl_ = new ClassArgumentMatching(int.class.getName());
+            cl_ = new ClassArgumentMatching(PrimitiveTypeUtil.PRIM_INT);
         }
         setResultClass(cl_);
     }

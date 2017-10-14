@@ -884,7 +884,7 @@ public abstract class NumericOperation extends MethodOperation {
         }
         int intOrder_ = PrimitiveTypeUtil.getOrderClass(int.class);
         if (max_ < intOrder_) {
-            arg_ = new ClassArgumentMatching(int.class.getName());
+            arg_ = new ClassArgumentMatching(PrimitiveTypeUtil.PRIM_INT);
         }
         return PrimitiveTypeUtil.toPrimitive(arg_, true);
     }

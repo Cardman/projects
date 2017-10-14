@@ -43,7 +43,7 @@ public final class PageEl {
 
     private CallConstructor callingConstr = new CallConstructor();
 
-    private StringList intializedInterfaces = new StringList();
+    private final StringList intializedInterfaces = new StringList();
 
     /**Only used while throwing exception*/
     private Block currentBlock;
@@ -220,10 +220,6 @@ public final class PageEl {
 
     public StringList getIntializedInterfaces() {
         return intializedInterfaces;
-    }
-
-    public void setIntializedInterfaces(StringList _intializedInterfaces) {
-        intializedInterfaces = _intializedInterfaces;
     }
 
     public Block getCurrentBlock() {

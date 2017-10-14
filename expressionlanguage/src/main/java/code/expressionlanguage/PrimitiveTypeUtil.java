@@ -300,7 +300,7 @@ public final class PrimitiveTypeUtil {
                 return r_.getParamTypes().size() == nbParams_;
             }
         }
-        Class<?> cl_ = ConstClasses.classForNameNotInit(baseArr_);
+        Class<?> cl_ = ConstClasses.classForObjectNameNotInit(baseArr_);
         return cl_.getTypeParameters().length == nbParams_;
     }
 
@@ -314,7 +314,7 @@ public final class PrimitiveTypeUtil {
                 return r_.getParamTypes().size() == nbParams_ || nbParams_ == 0;
             }
         }
-        Class<?> cl_ = ConstClasses.classForNameNotInit(base_);
+        Class<?> cl_ = ConstClasses.classForObjectNameNotInit(base_);
         return cl_.getTypeParameters().length == nbParams_ || nbParams_ == 0;
     }
 

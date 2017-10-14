@@ -267,7 +267,7 @@ public final class Classes {
                     }
                 }
                 try {
-                    Class<?> clNat_ = ConstClasses.classForNameNotInit(file_);
+                    Class<?> clNat_ = ConstClasses.classForObjectNameNotInit(file_);
                     throw new AlreadyExistingClassException(clNat_.getName());
                 } catch (RuntimeClassNotFoundException _0) {
                 }
@@ -279,8 +279,9 @@ public final class Classes {
                     b.setCompleteGroup();
                     b.setNullAssociateElement();
                 }
-                initializedClasses.put(file_, false);
-                classesBodies.put(file_, cl_);
+                String fullName_ = cl_.getFullName();
+                initializedClasses.put(fullName_, false);
+                classesBodies.put(fullName_, cl_);
             } catch (UnknownBlockException _0) {
                 RowCol where_ = _0.getRc();
                 UnexpectedTagName t_ = new UnexpectedTagName();
@@ -689,7 +690,7 @@ public final class Classes {
                         existCustom_ = true;
                     } else {
                         try {
-                            ConstClasses.classForNameNotInit(base_);
+                            ConstClasses.classForObjectNameNotInit(base_);
                             existNative_ = true;
                         } catch (Exception _0) {
                             UnknownClassName un_ = new UnknownClassName();
@@ -727,7 +728,7 @@ public final class Classes {
                         for (String b: upperNotObj_) {
                             StringList baseParamsUpp_ = StringList.getAllTypes(b);
                             String base_ = PrimitiveTypeUtil.getQuickComponentBaseType(baseParamsUpp_.first()).getComponent();
-                            Class<?> cl_ = ConstClasses.classForNameNotInit(base_);
+                            Class<?> cl_ = ConstClasses.classForObjectNameNotInit(base_);
                             if (cl_.isInterface()) {
                                 continue;
                             }
@@ -1668,7 +1669,7 @@ public final class Classes {
                 }
                 if (b instanceof ConstructorBlock) {
                     ConstructorBlock method_ = (ConstructorBlock) b;
-                    ConstructorId id_ = method_.getId();
+                    ConstructorId id_ = method_.getGenericId();
                     String ret_ = OperationNode.VOID_RETURN;
                     ConstructorMetaInfo met_ = new ConstructorMetaInfo(ret_);
                     infosConst_.put(id_, met_);

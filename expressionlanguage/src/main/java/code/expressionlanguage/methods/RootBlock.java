@@ -408,9 +408,11 @@ public abstract class RootBlock extends BracedBlock implements AccessibleBlock {
                         if (mBasesSuper_.isEmpty()) {
                             continue;
                         }
+                        MethodBlock found_ = null;
                         int nbInstances_ = 0;
                         for (MethodBlock g: mBasesSuper_) {
                             if (!g.isStaticMethod()) {
+                                found_ = g;
                                 nbInstances_++;
                             }
                         }
@@ -422,10 +424,10 @@ public abstract class RootBlock extends BracedBlock implements AccessibleBlock {
                             duplicate_.setOtherType(d);
                             classesRef_.getErrorsDet().add(duplicate_);
                         }
-                        MethodBlock mBase_ = mBasesSuper_.first();
-                        if (mBase_.isStaticMethod()) {
+                        if (found_ == null) {
                             continue;
                         }
+                        MethodBlock mBase_ = found_;
                         if (!classesRef_.canAccess(getFullName(), mBase_)) {
                             continue;
                         }
@@ -552,7 +554,7 @@ public abstract class RootBlock extends BracedBlock implements AccessibleBlock {
                         }
                     }
                 } else {
-                    Class<?> clBound_ = ConstClasses.classForNameNotInit(base_);
+                    Class<?> clBound_ = ConstClasses.classForObjectNameNotInit(base_);
                     for (Method m: clBound_.getMethods()) {
                         if (Modifier.isStatic(m.getModifiers())) {
                             continue;
@@ -1060,7 +1062,7 @@ public abstract class RootBlock extends BracedBlock implements AccessibleBlock {
             for (String s: e.getValue()) {
                 String base_ = StringList.getAllTypes(s).first();
                 if (_classes.getClassBody(base_) == null) {
-                    Class<?> clBound_ = ConstClasses.classForNameNotInit(base_);
+                    Class<?> clBound_ = ConstClasses.classForObjectNameNotInit(base_);
                     for (Method m: clBound_.getMethods()) {
                         if (Modifier.isStatic(m.getModifiers())) {
                             continue;

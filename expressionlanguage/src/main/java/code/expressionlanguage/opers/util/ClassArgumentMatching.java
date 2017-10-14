@@ -64,7 +64,7 @@ public final class ClassArgumentMatching {
         if (className_.startsWith(PrimitiveTypeUtil.PRIM)) {
             return ConstClasses.getPrimitiveClass(className_.substring(1));
         }
-        return ConstClasses.classForNameNotInit(PrimitiveTypeUtil.getArrayClass(className_));
+        return ConstClasses.classForObjectNameNotInit(PrimitiveTypeUtil.getArrayClass(className_));
     }
 
     public boolean isArray() {
@@ -86,7 +86,7 @@ public final class ClassArgumentMatching {
 
     public CustList<Class<?>> getDeclaredClasses() {
         try {
-            Class<?> cl_ = ConstClasses.classForNameNotInit(PrimitiveTypeUtil.getArrayClass(className));
+            Class<?> cl_ = ConstClasses.classForObjectNameNotInit(PrimitiveTypeUtil.getArrayClass(className));
             CustList<Class<?>> cls_ = new CustList<Class<?>>();
             for (Class<?> c: cl_.getDeclaredClasses()) {
                 cls_.add(c);
@@ -116,15 +116,7 @@ public final class ClassArgumentMatching {
     }
 
     public boolean isPrimitive() {
-        if (className.startsWith(PrimitiveTypeUtil.PRIM)) {
-            return true;
-        }
-        try {
-            Class<?> cl_ = ConstClasses.classForNameNotInit(PrimitiveTypeUtil.getArrayClass(className));
-            return cl_.isPrimitive();
-        } catch (RuntimeClassNotFoundException _0_) {
-            return false;
-        }
+        return className.startsWith(PrimitiveTypeUtil.PRIM);
     }
 
     public String getName() {
