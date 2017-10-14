@@ -7,6 +7,7 @@ import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.OperationsSequence;
 import code.expressionlanguage.PrimitiveTypeUtil;
+import code.expressionlanguage.exceptions.AbstractClassConstructorException;
 import code.expressionlanguage.exceptions.BadIndexTypeException;
 import code.expressionlanguage.exceptions.CustomFoundConstructorException;
 import code.expressionlanguage.exceptions.DynamicCastClassException;
@@ -194,23 +195,30 @@ public final class InstanceOperation extends InvokingOperation {
         if (StringList.quickEq(realClassName_, OperationNode.VOID_RETURN)) {
             throw new VoidArgumentException(_conf.joinPages());
         }
-        constId = getDeclaredCustConstructor(_conf, new ClassArgumentMatching(realClassName_), ClassArgumentMatching.toArgArray(_firstArgs));
-        if (constId != null) {
+        if (classes_ != null) {
             ClassMetaInfo custClass_ = null;
             custClass_ = classes_.getClassMetaInfo(realClassName_);
+            if (custClass_ != null) {
+                if (custClass_.isAbstractType() && custClass_.getCategory() != ClassCategory.ENUM) {
+                    throw new AbstractClassConstructorException(realClassName_+RETURN_LINE+_conf.joinPages());
+                }
+                if (custClass_.getCategory() == ClassCategory.INTERFACE) {
+                    throw new IllegalClassConstructorException(realClassName_+RETURN_LINE+_conf.joinPages());
+                }
+                if (custClass_.getCategory() == ClassCategory.ENUM) {
+                    if (_fieldName.isEmpty() || _nodes.last() != this) {
+                        throw new IllegalClassConstructorException(realClassName_+RETURN_LINE+_conf.joinPages());
+                    }
+                    fieldName = _fieldName;
+                }
+            }
+        }
+        constId = getDeclaredCustConstructor(_conf, new ClassArgumentMatching(realClassName_), ClassArgumentMatching.toArgArray(_firstArgs));
+        if (constId != null) {
             String glClass_ = _conf.getLastPage().getGlobalClass();
             if (!classes_.canAccessConstructor(glClass_, realClassName_, constId)) {
                 ConstructorBlock ctr_ = classes_.getConstructorBody(realClassName_, constId);
                 throw new BadAccessException(ctr_.getId().getSignature()+RETURN_LINE+_conf.joinPages());
-            }
-            if (custClass_.getCategory() == ClassCategory.INTERFACE) {
-                throw new IllegalClassConstructorException(realClassName_+RETURN_LINE+_conf.joinPages());
-            }
-            if (custClass_.getCategory() == ClassCategory.ENUM) {
-                if (_fieldName.isEmpty() || _nodes.last() != this) {
-                    throw new IllegalClassConstructorException(realClassName_+RETURN_LINE+_conf.joinPages());
-                }
-                fieldName = _fieldName;
             }
             possibleInitClass = true;
             setResultClass(new ClassArgumentMatching(realClassName_));
@@ -234,6 +242,9 @@ public final class InstanceOperation extends InvokingOperation {
         }
         if (_intern && isStaticAccess() && !Modifier.isStatic(cl_.getModifiers())) {
             throw new StaticAccessException(_conf.joinPages());
+        }
+        if (Modifier.isAbstract(cl_.getModifiers())) {
+            throw new AbstractClassConstructorException(realClassName_+RETURN_LINE+_conf.joinPages());
         }
         Constructor<?> const_ = getDeclaredConstructor(_conf, 0, new ClassArgumentMatching(realClassName_), ClassArgumentMatching.toArgArray(_firstArgs));
         if (!canBeUsed(const_, _conf)) {

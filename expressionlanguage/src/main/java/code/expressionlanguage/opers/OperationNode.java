@@ -13,7 +13,6 @@ import code.expressionlanguage.ElResolver;
 import code.expressionlanguage.ElUtil;
 import code.expressionlanguage.OperationsSequence;
 import code.expressionlanguage.PrimitiveTypeUtil;
-import code.expressionlanguage.exceptions.AbstractClassConstructorException;
 import code.expressionlanguage.exceptions.ErrorCausingException;
 import code.expressionlanguage.exceptions.InvokeException;
 import code.expressionlanguage.exceptions.StaticAccessException;
@@ -490,9 +489,6 @@ public abstract class OperationNode implements Operable {
         if (custClass_ == null) {
             return null;
         }
-        if (custClass_.isAbstractType() && custClass_.getCategory() != ClassCategory.ENUM) {
-            throw new AbstractClassConstructorException(_class.getName()+RETURN_LINE+_conf.joinPages());
-        }
         String glClass_ = _conf.getLastPage().getGlobalClass();
         CustList<FctConstraints> possibleMethods_ = new CustList<FctConstraints>();
         for (ClassArgumentMatching c:_args) {
@@ -581,10 +577,6 @@ public abstract class OperationNode implements Operable {
         return accessible_;
     }
     static Constructor<?> getDeclaredConstructor(ContextEl _conf, int _offsetIncr, ClassArgumentMatching _class, ClassArgumentMatching..._args) {
-        if (Modifier.isAbstract(_class.getClazz().getModifiers())) {
-            _conf.getLastPage().addToOffset(_offsetIncr);
-            throw new AbstractClassConstructorException(_class.getName()+RETURN_LINE+_conf.joinPages());
-        }
         for (ClassArgumentMatching c:_args) {
             if (c.matchVoid()) {
                 throw new VoidArgumentException(_class.getName()+RETURN_LINE+_conf.joinPages());

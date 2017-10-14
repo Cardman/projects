@@ -193,9 +193,6 @@ public final class PageEl {
     public CallingClassConstructor getCall() {
         return getCallingConstr().getInstancingStep().getCall();
     }
-    public boolean isCalling() {
-        return getCallingConstr().getInstancingStep().isCalling();
-    }
 
     public boolean isInstancing() {
         return getCallingConstr().getInstancingStep().isInstancing();
