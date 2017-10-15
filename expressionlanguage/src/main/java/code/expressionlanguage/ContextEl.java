@@ -22,6 +22,10 @@ public final class ContextEl {
 
     private int stackOverFlow;
 
+    private transient PageEl analyzing;
+
+    private transient boolean staticBlock;
+
     private transient boolean ambigous;
 
     private transient ElementOffsetsNext elements;
@@ -137,16 +141,42 @@ public final class ContextEl {
         importing.add(_page);
     }
 
+    public String getInfos() {
+        return analyzing.getInfos();
+    }
+
     public String joinPages() {
         StringList l_ = new StringList();
         for (PageEl p: importing) {
             l_.add(p.getInfos());
         }
+        if (analyzing != null) {
+            l_.add(analyzing.getInfos());
+        }
         return l_.join(RETURN_LINE);
     }
 
+    public PageEl getAnalyzing() {
+        return analyzing;
+    }
+
+    public void setAnalyzing(PageEl _analyzing) {
+        analyzing = _analyzing;
+    }
+
+    public boolean isStaticBlock() {
+        return staticBlock;
+    }
+
+    public void setStaticBlock(boolean _staticBlock) {
+        staticBlock = _staticBlock;
+    }
+
     public PageEl getLastPage() {
-        return importing.last();
+        if (!importing.isEmpty()) {
+            return importing.last();
+        }
+        return analyzing;
     }
 
     public String getCurrentUrl() {

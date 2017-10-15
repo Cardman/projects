@@ -393,7 +393,6 @@ public final class Classes {
             if (!classes_.errorsDet.isEmpty()) {
                 throw new AnalyzingErrorsException(classes_.errorsDet);
             }
-            _context.clearPages();
         } catch (AnalyzingErrorsException _0) {
             _context.setClasses(bk_);
             throw _0;
@@ -563,8 +562,7 @@ public final class Classes {
     }
     public void validateInheritingClasses(ContextEl _context) {
         PageEl page_ = new PageEl();
-        _context.clearPages();
-        _context.addPage(page_);
+        _context.setAnalyzing(page_);
         Graph<ClassEdge> inherit_;
         inherit_ = new Graph<ClassEdge>();
         for (EntryCust<String, RootBlock> c: classesBodies.entryList()) {
@@ -996,8 +994,7 @@ public final class Classes {
     }
     public void validateIds(ContextEl _context) {
         PageEl page_ = new PageEl();
-        _context.clearPages();
-        _context.addPage(page_);
+        _context.setAnalyzing(page_);
         for (String c: classesInheriting) {
             RootBlock bl_ = classesBodies.getVal(c);
             bl_.validateIds(_context);
@@ -1005,8 +1002,7 @@ public final class Classes {
     }
     public void validateOverridingInherit(ContextEl _context) {
         PageEl page_ = new PageEl();
-        _context.clearPages();
-        _context.addPage(page_);
+        _context.setAnalyzing(page_);
         for (String c: classesInheriting) {
             RootBlock bl_ = classesBodies.getVal(c);
             bl_.checkCompatibility(_context);
@@ -1020,8 +1016,7 @@ public final class Classes {
     }
     public void validateClassesAccess(ContextEl _context) {
         PageEl page_ = new PageEl();
-        _context.clearPages();
-        _context.addPage(page_);
+        _context.setAnalyzing(page_);
         for (EntryCust<String, RootBlock> c: classesBodies.entryList()) {
             String className_ = c.getKey();
             CustList<Block> bl_ = getSortedDescNodes(c.getValue());
@@ -1048,8 +1043,7 @@ public final class Classes {
     //validate local variables names and loop variables names
     public void validateLocalVariableNamesId(ContextEl _context) {
         PageEl page_ = new PageEl();
-        _context.clearPages();
-        _context.addPage(page_);
+        _context.setAnalyzing(page_);
         for (EntryCust<String, RootBlock> c: classesBodies.entryList()) {
             String className_ = c.getKey();
             CustList<Block> bl_ = getSortedDescNodes(c.getValue());
@@ -1222,8 +1216,7 @@ public final class Classes {
     //validate el and its possible returned type
     public void validateEl(ContextEl _context) {
         PageEl page_ = new PageEl();
-        _context.clearPages();
-        _context.addPage(page_);
+        _context.setAnalyzing(page_);
         for (EntryCust<String, RootBlock> c: classesBodies.entryList()) {
             CustList<Block> bl_ = getDirectChildren(c.getValue());
             for (Block b: bl_) {
@@ -1301,8 +1294,7 @@ public final class Classes {
     //validate dead code
     public void validateReturns(ContextEl _context) {
         PageEl page_ = new PageEl();
-        _context.clearPages();
-        _context.addPage(page_);
+        _context.setAnalyzing(page_);
         for (EntryCust<String, RootBlock> c: classesBodies.entryList()) {
             String className_ = c.getKey();
             CustList<Block> bl_ = getDirectChildren(c.getValue());

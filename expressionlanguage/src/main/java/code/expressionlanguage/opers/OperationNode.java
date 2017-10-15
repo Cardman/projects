@@ -203,6 +203,7 @@ public abstract class OperationNode {
 
     private boolean needGlobalArgument;
     private boolean staticAccess;
+    private boolean staticBlock;
 
     OperationNode(int _indexInEl, ContextEl _importingPage, int _indexChild, MethodOperation _m, OperationsSequence _op) {
         parent = _m;
@@ -220,16 +221,10 @@ public abstract class OperationNode {
 
 
     public final void setRelativeOffsetPossibleLastPage(int _offset, ContextEl _cont) {
-        if (_cont.isEmptyPages()) {
-            return;
-        }
         _cont.getLastPage().setOffset(operations.getDelimiter().getIndexBegin()+_offset);
     }
 
     public static void addRelativeToOffsetPossibleLastPage(int _offset, ContextEl _cont) {
-        if (_cont.isEmptyPages()) {
-            return;
-        }
         _cont.getLastPage().addToOffset(_offset);
     }
 
@@ -1708,6 +1703,14 @@ public abstract class OperationNode {
     public final void setPreviousResultClass(ClassArgumentMatching _previousResultClass, boolean _staticAccess) {
         previousResultClass = _previousResultClass;
         staticAccess = _staticAccess;
+    }
+
+    public final boolean isStaticBlock() {
+        return staticBlock;
+    }
+
+    public final void setStaticBlock(boolean _staticBlock) {
+        staticBlock = _staticBlock;
     }
 
     public final boolean isVoidArg() {

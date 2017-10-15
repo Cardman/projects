@@ -88,39 +88,6 @@ public final class InstanceOperation extends InvokingOperation {
         } else {
             realClassName_ = className_;
         }
-        if (realClassName_.startsWith(ARR) && realClassName_.contains(DOT)) {
-            if (chidren_.isEmpty() && !elts_) {
-                throw new EmptyArrayDimensionsException(realClassName_+RETURN_LINE+_conf.joinPages());
-            }
-            if (!elts_) {
-                for (OperationNode o: chidren_) {
-                    setRelativeOffsetPossibleLastPage(o.getIndexInEl()+off_, _conf);
-                    if (!o.getResultClass().isNumericInt()) {
-                        ClassArgumentMatching cl_ = o.getResultClass();
-                        throw new BadIndexTypeException(cl_+RETURN_LINE+_conf.joinPages());
-                    }
-                }
-            } else {
-                String eltType_ = PrimitiveTypeUtil.getQuickComponentType(realClassName_);
-                for (OperationNode o: chidren_) {
-                    setRelativeOffsetPossibleLastPage(o.getIndexInEl()+off_, _conf);
-                    String argType_ = o.getResultClass().getName();
-                    if (!PrimitiveTypeUtil.canBeUseAsArgument(eltType_, argType_, classes_)) {
-                        throw new DynamicCastClassException(argType_+RETURN_LINE+eltType_+RETURN_LINE+_conf.joinPages());
-                    }
-                }
-            }
-            realClassName_ = realClassName_.substring(ARR.length());
-            realClassName_ = realClassName_.replace(EXTERN_CLASS, DOT_VAR);
-            setRelativeOffsetPossibleLastPage(getIndexInEl()+off_, _conf);
-            checkExist(_conf, realClassName_, true, false, 0);
-            if (!elts_) {
-                setResultClass(new ClassArgumentMatching(PrimitiveTypeUtil.getPrettyArrayType(realClassName_, chidren_.size())));
-                return;
-            }
-            setResultClass(new ClassArgumentMatching(PrimitiveTypeUtil.getPrettyArrayType(realClassName_, CustList.ONE_ELEMENT)));
-            return;
-        }
         if (realClassName_.startsWith(ARR)) {
             if (chidren_.isEmpty() && !elts_) {
                 throw new EmptyArrayDimensionsException(realClassName_+RETURN_LINE+_conf.joinPages());
@@ -144,7 +111,6 @@ public final class InstanceOperation extends InvokingOperation {
                 }
             }
             realClassName_ = realClassName_.substring(ARR.length());
-            realClassName_ = realClassName_.replace(EXTERN_CLASS, DOT_VAR);
             setRelativeOffsetPossibleLastPage(getIndexInEl()+off_, _conf);
             checkExist(_conf, realClassName_, true, false, 0);
             if (!elts_) {
@@ -337,7 +303,7 @@ public final class InstanceOperation extends InvokingOperation {
         } else {
             realClassName_ = className_;
         }
-        if (realClassName_.startsWith(ARR) && realClassName_.contains(DOT)) {
+        if (realClassName_.startsWith(ARR)) {
             int[] args_;
             if (elts_) {
                 args_ = new int[CustList.ONE_ELEMENT];
@@ -360,7 +326,6 @@ public final class InstanceOperation extends InvokingOperation {
                 }
             }
             realClassName_ = realClassName_.substring(ARR.length());
-            realClassName_ = realClassName_.replace(EXTERN_CLASS, DOT_VAR);
             boolean cust_ = false;
             Classes classes_ = _conf.getClasses();
             ClassMetaInfo custClass_ = null;
@@ -386,13 +351,23 @@ public final class InstanceOperation extends InvokingOperation {
                     a_.setStruct(new Struct(array_,clArr_));
                     return a_;
                 }
-                Object[] array_ = (Object[]) newClassicArray(_conf, instanceClassName_, realClassName_, args_);
-                for (int i = CustList.FIRST_INDEX; i < nbCh_; i++) {
-                    Argument chArg_ = _arguments.get(i);
-                    Struct str_ = chArg_.getStruct();
-                    array_[i] = str_.getInstance();
+                Object array_ = newClassicArray(_conf, instanceClassName_, realClassName_, args_);
+                if (array_ instanceof Object[]) {
+                    Object[] arrayObj_ = (Object[]) array_;
+                    for (int i = CustList.FIRST_INDEX; i < nbCh_; i++) {
+                        Argument chArg_ = _arguments.get(i);
+                        Struct str_ = chArg_.getStruct();
+                        arrayObj_[i] = str_.getInstance();
+                    }
+                    a_.setStruct(new Struct(arrayObj_));
+                } else {
+                    for (int i = CustList.FIRST_INDEX; i < nbCh_; i++) {
+                        Argument chArg_ = _arguments.get(i);
+                        Struct str_ = chArg_.getStruct();
+                        Array.set(array_, i, str_.getInstance());
+                    }
+                    a_.setStruct(new Struct(array_));
                 }
-                a_.setStruct(new Struct(array_));
                 return a_;
             } else if (cust_) {
                 Numbers<Integer> dims_;
@@ -407,53 +382,6 @@ public final class InstanceOperation extends InvokingOperation {
                 a_.setStruct(new Struct(o_));
                 return a_;
             }
-        }
-        if (realClassName_.startsWith(ARR)) {
-            int[] args_ = new int[chidren_.size()];
-            if (elts_) {
-                args_ = new int[CustList.ONE_ELEMENT];
-                args_[CustList.FIRST_INDEX] = chidren_.size();
-            } else {
-                args_ = new int[chidren_.size()];
-                int i_ = CustList.FIRST_INDEX;
-                for (OperationNode o: chidren_) {
-                    Number n_ = (Number)_arguments.get(i_).getObject();
-                    setRelativeOffsetPossibleLastPage(o.getIndexInEl()+off_, _conf);
-                    if (n_ == null) {
-                        throw new NullObjectException(i_+RETURN_LINE+_conf.joinPages());
-                    }
-                    int dim_ = n_.intValue();
-                    if (dim_ < 0) {
-                        throw new NegativeSizeException(String.valueOf(dim_)+RETURN_LINE+i_+RETURN_LINE+_conf.joinPages());
-                    }
-                    args_[i_] = dim_;
-                    i_++;
-                }
-            }
-            realClassName_ = realClassName_.substring(ARR.length());
-            realClassName_ = realClassName_.replace(EXTERN_CLASS, DOT_VAR);
-            instanceClassName_ = realClassName_;
-            Class<?> cl_;
-            try {
-                if (instanceClassName_.startsWith(PrimitiveTypeUtil.PRIM)) {
-                    cl_ = ConstClasses.getPrimitiveClass(instanceClassName_.substring(1));
-                } else {
-                    cl_ = ConstClasses.classForObjectNameNotInit(PrimitiveTypeUtil.getArrayClass(instanceClassName_));
-                }
-            } catch (RuntimeClassNotFoundException _0_) {
-                throw new RuntimeClassNotFoundException(realClassName_+RETURN_LINE+_conf.joinPages());
-            }
-            Object o_ = Array.newInstance(cl_, args_);
-            Argument a_ = new Argument();
-            if (elts_) {
-                for (int i = CustList.FIRST_INDEX; i < nbCh_; i++) {
-                    Argument chArg_ = _arguments.get(i);
-                    Struct str_ = chArg_.getStruct();
-                    Array.set(o_, i, str_.getInstance());
-                }
-            }
-            a_.setStruct(new Struct(o_));
-            return a_;
         }
         if (possibleInitClass) {
             if (!_conf.getClasses().isInitialized(realClassName_)) {
@@ -508,7 +436,11 @@ public final class InstanceOperation extends InvokingOperation {
     static Object newClassicArray(ContextEl _conf, String _instanceClassName, String _realClassName,int[] _args) {
         Class<?> cl_;
         try {
-            cl_ = ConstClasses.classForObjectNameNotInit(PrimitiveTypeUtil.getArrayClass(_instanceClassName));
+            if (_instanceClassName.startsWith(PrimitiveTypeUtil.PRIM)) {
+                cl_ = ConstClasses.getPrimitiveClass(_instanceClassName.substring(1));
+            } else {
+                cl_ = ConstClasses.classForObjectNameNotInit(PrimitiveTypeUtil.getArrayClass(_instanceClassName));
+            }
         } catch (RuntimeClassNotFoundException _0_) {
             throw new RuntimeClassNotFoundException(_realClassName+RETURN_LINE+_conf.joinPages());
         }

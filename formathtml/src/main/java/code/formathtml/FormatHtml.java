@@ -444,7 +444,7 @@ final class FormatHtml {
                     ip_.getLocalVars().put(nameValue_, lv_);
                     String expressionLeft_ = nameVar_ + GET_LOC_VAR + fieldName_;
                     String expressionRight_ = nameValue_ + GET_LOC_VAR;
-                    ElUtil.processAffect(EMPTY_STRING, ATTRIBUTE_NAME, ATTRIBUTE_VALUE, expressionLeft_, expressionRight_, String.valueOf(EQUALS), _conf.toContextEl(), true);
+                    ElUtil.processAffect(EMPTY_STRING, ATTRIBUTE_NAME, ATTRIBUTE_VALUE, expressionLeft_, expressionRight_, String.valueOf(EQUALS), _conf.toContextEl(), true, true);
                     ip_.getLocalVars().removeKey(nameVar_);
                     ip_.getLocalVars().removeKey(nameValue_);
                 }

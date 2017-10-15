@@ -22,6 +22,11 @@ import code.util.StringList;
 
 public final class Line extends Leaf implements StackableBlock {
 
+    private static final char EXTERN_CLASS = '^';
+    private static final String SUPER_ACCESS = "super";
+    private static final String CURRENT = "this";
+    private static final char PAR_LEFT = '(';
+
     private final String expression;
 
     private CustList<OperationNode> opExp;
@@ -63,18 +68,14 @@ public final class Line extends Leaf implements StackableBlock {
     @Override
     public void buildExpressionLanguage(ContextEl _cont) {
         FunctionBlock f_ = getFunction();
-        boolean st_ = f_.isStaticContext() || callSuper || callThis;
+        boolean stBlock_ = f_.isStaticContext();
+        callSuper = expression.trim().startsWith(EXTERN_CLASS+SUPER_ACCESS+PAR_LEFT);
+        callThis = expression.trim().startsWith(EXTERN_CLASS+CURRENT+PAR_LEFT);
+        boolean st_ = stBlock_ || callSuper || callThis;
         PageEl page_ = _cont.getLastPage();
         page_.setProcessingAttribute(ATTRIBUTE_EXPRESSION);
         page_.setOffset(0);
-        opExp = ElUtil.getAnalyzedOperations(expression, _cont, Calculation.staticCalculation(st_));
-        OperationNode r_ = opExp.last();
-        if (r_.isSuperConstructorCall()) {
-            callSuper = true;
-        }
-        if (r_.isOtherConstructorClass()) {
-            callThis = true;
-        }
+        opExp = ElUtil.getAnalyzedOperations(expression, _cont, Calculation.staticCalculation(st_, stBlock_));
     }
 
     public ConstructorId getConstId() {

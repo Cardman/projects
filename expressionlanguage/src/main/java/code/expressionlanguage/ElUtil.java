@@ -41,7 +41,7 @@ public final class ElUtil {
     }
 
     public static ExpLanguages analyzeAffect(String _attrOp, String _attrLeft, String _attrRight,
-            String _left, String _right, String _oper, ContextEl _conf, boolean _staticContext) {
+            String _left, String _right, String _oper, ContextEl _conf, boolean _staticContext, boolean _hiddenVarTypes) {
         PageEl page_ = _conf.getLastPage();
         page_.setOffset(0);
         page_.setProcessingAttribute(_attrLeft);
@@ -66,11 +66,11 @@ public final class ElUtil {
         page_.setOffset(0);
         page_.setProcessingAttribute(_attrLeft);
         analyzeSetting(true, allLeft_, _conf);
-        analyze(allLeft_, _conf, _staticContext, EMPTY_STRING, _oper);
+        analyze(allLeft_, _conf, _staticContext, _hiddenVarTypes, EMPTY_STRING, _oper);
         analyzeSetting(false, allLeft_, _conf);
         page_.setOffset(0);
         page_.setProcessingAttribute(_attrRight);
-        analyze(allRight_, _conf, _staticContext, EMPTY_STRING, _oper);
+        analyze(allRight_, _conf, _staticContext, _hiddenVarTypes, EMPTY_STRING, _oper);
         page_.setOffset(0);
         page_.setProcessingAttribute(_attrLeft);
         ClassArgumentMatching clMatchRight_ = opRight_.getResultClass();
@@ -195,17 +195,20 @@ public final class ElUtil {
             String _left, String _right, String _oper, ContextEl _conf) {
         Argument arg_ = _conf.getLastPage().getGlobalArgument();
         boolean staticContext_ = arg_ == null || arg_.isNull();
-        processAffect(_attrOp, _attrLeft, _attrRight, _left, _right, _oper, _conf, staticContext_);
+        processAffect(_attrOp, _attrLeft, _attrRight, _left, _right, _oper, _conf, staticContext_, staticContext_);
     }
     public static void processAffect(String _attrOp, String _attrLeft, String _attrRight,
-            String _left, String _right, String _oper, ContextEl _conf, boolean _staticContext) {
-        ExpLanguages members_ = analyzeAffect(_attrOp, _attrLeft, _attrRight, _left, _right, _oper, _conf, _staticContext);
+            String _left, String _right, String _oper, ContextEl _conf, boolean _staticContext, boolean _hiddentVarTypes) {
+        _conf.setAnalyzing(new PageEl());
+        ExpLanguages members_ = analyzeAffect(_attrOp, _attrLeft, _attrRight, _left, _right, _oper, _conf, _staticContext, _hiddentVarTypes);
+        _conf.setAnalyzing(null);
         ExpressionLanguage left_ = members_.getLeft();
         ExpressionLanguage right_ = members_.getRight();
         tryToCalculateAffect(left_, _conf, right_, _oper);
     }
 
     public static Argument processEl(String _el, ContextEl _conf, int _minIndex, char _begin, char _end) {
+        _conf.setAnalyzing(new PageEl());
         Delimiters d_ = ElResolver.checkSyntaxDelimiters(_el, _conf, _minIndex, _begin, _end);
         String el_ = _el.substring(d_.getIndexBegin(), d_.getIndexEnd()+1);
         _conf.setNextIndex(d_.getIndexEnd()+2);
@@ -216,13 +219,8 @@ public final class ElUtil {
         for (OperationNode o: all_) {
             o.setConf(null);
         }
-        if (!_conf.isEmptyPages()) {
-            _conf.getLastPage().setOffset(d_.getIndexBegin());
-        }
         analyze(all_, _conf);
-        if (!_conf.isEmptyPages()) {
-            _conf.getLastPage().setOffset(d_.getIndexBegin());
-        }
+        _conf.setAnalyzing(null);
         calculate(all_, _conf, EMPTY_STRING);
         Argument arg_ = op_.getArgument();
         return arg_;
@@ -237,23 +235,22 @@ public final class ElUtil {
         for (OperationNode o: all_) {
             o.setConf(null);
         }
-        if (!_conf.isEmptyPages()) {
-            _conf.getLastPage().setOffset(d_.getIndexBegin());
-        }
         boolean staticContext_ = _calcul.isStaticAcces();
+        boolean hiddenVarTypes_ = _calcul.isStaticBlock();
         String fieldName_ = _calcul.getFieldName();
         String oper_ = _calcul.getOper();
         if (_calcul.isLeftStep()) {
             analyzeSetting(true, all_, _conf);
-            analyze(all_, _conf, staticContext_, fieldName_, oper_);
+            analyze(all_, _conf, staticContext_, hiddenVarTypes_, fieldName_, oper_);
             analyzeSetting(false, all_, _conf);
         } else {
-            analyze(all_, _conf, staticContext_, fieldName_, oper_);
+            analyze(all_, _conf, staticContext_, hiddenVarTypes_, fieldName_, oper_);
         }
         return all_;
     }
 
     public static Argument processEl(String _el, int _index, ContextEl _conf) {
+        _conf.setAnalyzing(new PageEl());
         Delimiters d_ = ElResolver.checkSyntax(_el, _conf, _index);
         String el_ = _el.substring(_index);
         ElResolver.secondCheckSyntax(el_, _conf, d_);
@@ -263,13 +260,8 @@ public final class ElUtil {
         for (OperationNode o: all_) {
             o.setConf(null);
         }
-        if (!_conf.isEmptyPages()) {
-            _conf.getLastPage().setOffset(d_.getIndexBegin());
-        }
         analyze(all_, _conf);
-        if (!_conf.isEmptyPages()) {
-            _conf.getLastPage().setOffset(d_.getIndexBegin());
-        }
+        _conf.setAnalyzing(null);
         calculate(all_, _conf, EMPTY_STRING);
         Argument arg_  = op_.getArgument();
         return arg_;
@@ -387,9 +379,10 @@ public final class ElUtil {
         return list_;
     }
 
-    static void analyze(CustList<OperationNode> _nodes, ContextEl _context, boolean _staticContext, String _fieldName, String _op) {
+    static void analyze(CustList<OperationNode> _nodes, ContextEl _context, boolean _staticContext, boolean _staticBlock,String _fieldName, String _op) {
         PageEl page_ = _context.getLastPage();
         for (OperationNode e: _nodes) {
+            e.setStaticBlock(_staticBlock);
             if (e.getPreviousResultClass() == null) {
                 e.setPreviousResultClass(new ClassArgumentMatching(page_.getGlobalClass()), _staticContext);
             }
@@ -402,6 +395,7 @@ public final class ElUtil {
         Argument arg_ = page_.getGlobalArgument();
         boolean static_ = arg_ == null || arg_.isNull();
         for (OperationNode e: _nodes) {
+            e.setStaticBlock(static_);
             if (e.getPreviousResultClass() == null && arg_ != null) {
                 e.setPreviousResultClass(new ClassArgumentMatching(page_.getGlobalClass()), static_);
             }
