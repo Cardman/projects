@@ -1310,7 +1310,7 @@ public class ElUtilTest {
         Argument arg_ = ElUtil.processEl("^new."+ARR_INT+"(0i).getClass().getName()",0, context_);
         Object res_ = arg_.getObject();
         assertSame(String.class, res_.getClass());
-        assertEq("[I", res_);
+        assertEq("[$int", res_);
     }
 
     @Test
@@ -1327,7 +1327,7 @@ public class ElUtilTest {
         Argument arg_ = ElUtil.processEl("^new."+ARR_INTEGER+"(0i).getClass().getName()",0, context_);
         Object res_ = arg_.getObject();
         assertSame(String.class, res_.getClass());
-        assertEq("[Ljava.lang.Integer;", res_);
+        assertEq("[java.lang.Integer", res_);
     }
 
     @Test
@@ -1344,7 +1344,7 @@ public class ElUtilTest {
         Argument arg_ = ElUtil.processEl("^new."+ARR_ARR_INT+"(0i).getClass().getName()",0, context_);
         Object res_ = arg_.getObject();
         assertSame(String.class, res_.getClass());
-        assertEq("[[I", res_);
+        assertEq("[[$int", res_);
     }
 
     @Test
@@ -1361,7 +1361,7 @@ public class ElUtilTest {
         Argument arg_ = ElUtil.processEl("^new."+ARR_ARR_INTEGER+"(0i).getClass().getName()",0, context_);
         Object res_ = arg_.getObject();
         assertSame(String.class, res_.getClass());
-        assertEq("[[Ljava.lang.Integer;", res_);
+        assertEq("[[java.lang.Integer", res_);
     }
 
     @Test

@@ -206,7 +206,7 @@ public final class ProcessXmlMethod {
         ConstructorBlock method_ = null;
         Argument argGl_ = new Argument();
         if (in_ == InstancingStep.NEWING) {
-            StringList allClasses_ = new StringList(_class);
+            StringList allClasses_ = new StringList(baseClass_);
             allClasses_.addAllElts(class_.getAllSuperTypes());
             ObjectMap<ClassField,Struct> fields_;
             fields_ = new ObjectMap<ClassField,Struct>();
@@ -451,7 +451,8 @@ public final class ProcessXmlMethod {
                 StringList called_ = ip_.getCallingConstr().getCalledConstructors();
                 called_.add(superClassBase_);
                 Argument global_ = ip_.getGlobalArgument();
-                throw new CustomFoundConstructorException(superClass_, EMPTY_STRING, called_, super_, global_, new CustList<Argument>(), InstancingStep.USING_SUPER);
+                String generic_ = Templates.getFullTypeByBases(curClass_, superClassBase_, _conf.getClasses());
+                throw new CustomFoundConstructorException(generic_, EMPTY_STRING, called_, super_, global_, new CustList<Argument>(), InstancingStep.USING_SUPER);
             }
             if (meta_.getCategory() != ClassCategory.INTERFACE) {
                 UniqueRootedBlock root_ = (UniqueRootedBlock) _conf.getClasses().getClassBody(curClassBase_);

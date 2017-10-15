@@ -8771,7 +8771,7 @@ public class FormatHtmlTest {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
-        String html_ = "<html xmlns:c='javahtml'><body>{^static^"+BEAN_UTIL_HAT+".sum(1i,2i)}_{^static^"+BEAN_UTIL_HAT+".NB_BEANS}_{^class(\""+BEAN_UTIL+"\")}</body></html>";
+        String html_ = "<html xmlns:c='javahtml'><body>{^static^"+BEAN_UTIL_HAT+".sum(1i,2i)}_{^static^"+BEAN_UTIL_HAT+".NB_BEANS}_{^class(\""+BEAN_UTIL+"\").getName()}</body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
         files_.put("page1.html", html_);
@@ -8795,7 +8795,7 @@ public class FormatHtmlTest {
         conf_.setDocument(doc_);
         setup(conf_);
         String render_ = FormatHtml.processHtml(doc_, "bean_seven", conf_, locale_, files_);
-        assertXmlEqualRuntime("<html xmlns:c='javahtml' xmlns='javahtml'><body>3_8_class "+BEAN_UTIL+"</body></html>", render_);
+        assertXmlEqualRuntime("<html xmlns:c='javahtml' xmlns='javahtml'><body>3_8_"+BEAN_UTIL+"</body></html>", render_);
     }
 
 
@@ -9029,7 +9029,7 @@ public class FormatHtmlTest {
         conf_.setDocument(doc_);
         setup(conf_);
         String render_ = FormatHtml.processHtml(doc_, "bean_one", conf_, locale_, files_);
-        assertXmlEqualRuntime("<html xmlns:c='javahtml' xmlns='javahtml'><body>2_1_[[Ljava.lang.Object;</body></html>", render_);
+        assertXmlEqualRuntime("<html xmlns:c='javahtml' xmlns='javahtml'><body>2_1_[[java.lang.Object</body></html>", render_);
     }
 
     @Test
@@ -9266,7 +9266,7 @@ public class FormatHtmlTest {
         conf_.setDocument(doc_);
         setup(conf_);
         String render_ = FormatHtml.processHtml(doc_, "bean_one", conf_, locale_, files_);
-        assertXmlEqualRuntime("<html xmlns:c='javahtml' xmlns='javahtml'><body>2_[Ljava.lang.String;_ab</body></html>", render_);
+        assertXmlEqualRuntime("<html xmlns:c='javahtml' xmlns='javahtml'><body>2_[java.lang.String_ab</body></html>", render_);
     }
 
     @Test(expected=RenderingException.class)

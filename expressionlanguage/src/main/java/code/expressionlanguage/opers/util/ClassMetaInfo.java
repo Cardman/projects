@@ -10,6 +10,8 @@ public final class ClassMetaInfo {
 
     private static final String EMPTY_STRING = "";
 
+    private final String name;
+
     private final String superClass;
 
     private final StringList superInterfaces = new StringList();
@@ -25,12 +27,14 @@ public final class ClassMetaInfo {
 
     private final boolean finalType;
 
-    public ClassMetaInfo(String _superClass,StringMap<FieldMetaInfo> _fields,
+    public ClassMetaInfo(String _name,
+            String _superClass,StringMap<FieldMetaInfo> _fields,
             ObjectNotNullMap<MethodId, MethodMetaInfo> _methods,
             ObjectNotNullMap<ConstructorId, ConstructorMetaInfo> _constructors,
             ClassCategory _category,
             boolean _abstractType,
             boolean _finalType) {
+        name = _name;
         superClass = _superClass;
         fields = _fields;
         methods = _methods;
@@ -40,10 +44,12 @@ public final class ClassMetaInfo {
         finalType = _finalType;
     }
 
-    public ClassMetaInfo(StringList _superInterfaces,StringMap<FieldMetaInfo> _fields,
+    public ClassMetaInfo(String _name,
+            StringList _superInterfaces,StringMap<FieldMetaInfo> _fields,
             ObjectNotNullMap<MethodId, MethodMetaInfo> _methods,
             ObjectNotNullMap<ConstructorId, ConstructorMetaInfo> _constructors,
             ClassCategory _category) {
+        name = _name;
         superInterfaces.addAllElts(_superInterfaces);
         superClass = EMPTY_STRING;
         fields = _fields;
@@ -65,6 +71,10 @@ public final class ClassMetaInfo {
             list_.add(className_);
         }
         return list_;
+    }
+
+    public String getName() {
+        return name;
     }
 
     public String getSuperClass() {

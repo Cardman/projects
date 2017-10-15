@@ -99,6 +99,7 @@ public final class FctOperation extends InvokingOperation {
         int off_ = StringList.getFirstPrintableCharIndex(methodName);
         setRelativeOffsetPossibleLastPage(getIndexInEl()+off_, _conf);
         String trimMeth_ = methodName.trim();
+        boolean staticBlock_ = isStaticBlock();
         if (StringList.quickEq(trimMeth_, EXTERN_CLASS+VAR_ARG)) {
             setVararg(true);
             if (!(getParent() instanceof InvokingOperation)) {
@@ -156,7 +157,7 @@ public final class FctOperation extends InvokingOperation {
             String clCurName_ = _conf.getLastPage().getGlobalClass();
             otherConstructorClass = true;
             CustList<ClassArgumentMatching> firstArgs_ = listClasses(chidren_);
-            constId = getDeclaredCustConstructor(_conf, new ClassArgumentMatching(clCurName_), ClassArgumentMatching.toArgArray(firstArgs_));
+            constId = getDeclaredCustConstructor(_conf, staticBlock_, new ClassArgumentMatching(clCurName_), ClassArgumentMatching.toArgArray(firstArgs_));
             if (constId != null) {
                 setResultClass(new ClassArgumentMatching(OperationNode.VOID_RETURN));
                 return;
@@ -175,7 +176,7 @@ public final class FctOperation extends InvokingOperation {
             CustList<ClassArgumentMatching> firstArgs_ = listClasses(chidren_);
             ClassMetaInfo meta_ = _conf.getClasses().getClassMetaInfo(clCurName_);
             String superClass_ = meta_.getSuperClass();
-            constId = getDeclaredCustConstructor(_conf, new ClassArgumentMatching(superClass_), ClassArgumentMatching.toArgArray(firstArgs_));
+            constId = getDeclaredCustConstructor(_conf, staticBlock_, new ClassArgumentMatching(superClass_), ClassArgumentMatching.toArgArray(firstArgs_));
             if (constId != null) {
                 CustList<ConstructorBlock> ctors_ = classes_.getConstructorBodiesByFormattedId(superClass_, constId);
                 if (!ctors_.isEmpty() && !classes_.canAccess(clCurName_, ctors_.first())) {
@@ -209,7 +210,7 @@ public final class FctOperation extends InvokingOperation {
                     setRelativeOffsetPossibleLastPage(chidren_.first().getIndexInEl()+1, _conf);
                     throw new NotStringException(chidren_.first().getResultClass()+RETURN_LINE+_conf.joinPages());
                 }
-                setResultClass(new ClassArgumentMatching(Class.class.getName()));
+                setResultClass(new ClassArgumentMatching(ClassMetaInfo.class.getName()));
                 return;
             }
             if (chidren_.size() == 2) {
@@ -359,7 +360,7 @@ public final class FctOperation extends InvokingOperation {
                     custClass_ = classes_.getClassMetaInfo(clCurName_);
                     interfaceChoice = custClass_.getCategory() == ClassCategory.INTERFACE;
                 }
-                ClassMethodIdReturn clMeth_ = getDeclaredCustMethod(_conf, isStaticAccess(), new ClassArgumentMatching(clCurName_), trimMeth_, superClassAccess_, ClassArgumentMatching.toArgArray(firstArgs_));
+                ClassMethodIdReturn clMeth_ = getDeclaredCustMethod(_conf, staticBlock_, isStaticAccess(), new ClassArgumentMatching(clCurName_), trimMeth_, superClassAccess_, ClassArgumentMatching.toArgArray(firstArgs_));
                 methodId = clMeth_.getId().getConstraints();
                 String foundClass_ = clMeth_.getId().getClassName();
                 classMethodId = clMeth_.getId();
@@ -393,12 +394,12 @@ public final class FctOperation extends InvokingOperation {
         }
         if (firstArgs_.isEmpty()) {
             if (StringList.quickEq(trimMeth_, GET_CLASS)) {
-                method = getDeclaredMethod(_conf, isStaticAccess(), new ClassArgumentMatching(Object.class.getName()), trimMeth_, ClassArgumentMatching.toArgArray(firstArgs_));
-                setResultClass(new ClassArgumentMatching(NativeTypeUtil.getPrettyType(Class.class)));
+                method = getDeclaredMethod(_conf, staticBlock_, isStaticAccess(), new ClassArgumentMatching(Object.class.getName()), trimMeth_, ClassArgumentMatching.toArgArray(firstArgs_));
+                setResultClass(new ClassArgumentMatching(NativeTypeUtil.getPrettyType(ClassMetaInfo.class)));
                 return;
             }
         }
-        Method m_ = getDeclaredMethod(_conf, isStaticAccess(), clCur_, trimMeth_, ClassArgumentMatching.toArgArray(firstArgs_));
+        Method m_ = getDeclaredMethod(_conf, staticBlock_, isStaticAccess(), clCur_, trimMeth_, ClassArgumentMatching.toArgArray(firstArgs_));
         if (!canBeUsed(m_, _conf)) {
             setRelativeOffsetPossibleLastPage(getIndexInEl()+off_, _conf);
             throw new BadAccessException(m_.toString()+RETURN_LINE+_conf.joinPages());
@@ -516,8 +517,9 @@ public final class FctOperation extends InvokingOperation {
                     setRelativeOffsetPossibleLastPage(chidren_.first().getIndexInEl()+1, _conf);
                     throw new RuntimeClassNotFoundException(str_+RETURN_LINE+_conf.joinPages());
                 }
+                ClassMetaInfo res_ = new ClassMetaInfo(str_, null, null, null, null, null,false,false);
                 Argument arg_ = new Argument();
-                arg_.setObject(cl_);
+                arg_.setObject(res_);
                 return arg_;
             }
             if (chidren_.size() == 2) {
@@ -663,7 +665,8 @@ public final class FctOperation extends InvokingOperation {
         if (method.getParameterTypes().length == 0) {
             if (StringList.quickEq(method.getName(), GET_CLASS)) {
                 Argument argres_ = new Argument();
-                argres_.setObject(ConstClasses.classForObjectNameNotInit(PrimitiveTypeUtil.getArrayClass(arg_.getObjectClassName())));
+                ClassMetaInfo res_ = new ClassMetaInfo(arg_.getObjectClassName(), null, null, null, null, null,false,false);
+                argres_.setObject(res_);
                 return argres_;
             }
         }

@@ -1674,7 +1674,7 @@ public final class Classes {
                 }
             }
             if (clblock_ instanceof InterfaceBlock) {
-                return new ClassMetaInfo(((InterfaceBlock)clblock_).getDirectGenericSuperClasses(), infosFields_,infos_, infosConst_, ClassCategory.INTERFACE);
+                return new ClassMetaInfo(_name, ((InterfaceBlock)clblock_).getDirectGenericSuperClasses(), infosFields_,infos_, infosConst_, ClassCategory.INTERFACE);
             }
             ClassCategory cat_ = ClassCategory.CLASS;
             if (clblock_ instanceof EnumBlock) {
@@ -1684,7 +1684,7 @@ public final class Classes {
             }
             boolean abs_ = clblock_.isAbstractType();
             boolean final_ = clblock_.isFinalType();
-            return new ClassMetaInfo(((UniqueRootedBlock) clblock_).getGenericSuperClass(), infosFields_,infos_, infosConst_, cat_, abs_, final_);
+            return new ClassMetaInfo(_name, ((UniqueRootedBlock) clblock_).getGenericSuperClass(), infosFields_,infos_, infosConst_, cat_, abs_, final_);
         }
         return null;
     }
