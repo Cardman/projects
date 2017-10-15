@@ -43,6 +43,65 @@ public final class Templates {
         }
         return args_;
     }
+    public static String getFullTypeByBases(String _subType, String _superType, Classes _classes) {
+        String baseSubType_ = StringList.getAllTypes(_subType).first();
+        String baseSuperType_ = StringList.getAllTypes(_superType).first();
+        if (!PrimitiveTypeUtil.canBeUseAsArgument(baseSuperType_, baseSubType_, _classes)) {
+            return null;
+        }
+        StringList curClasses_ = new StringList(_subType);
+        StringList visitedClasses_ = new StringList(_subType);
+        String generic_ = null;
+        if (StringList.quickEq(_subType, _superType)) {
+            generic_ = _superType;
+        }
+        if (generic_ == null) {
+            for (String c: curClasses_) {
+                if (!PrimitiveTypeUtil.correctNbParameters(c, _classes)) {
+                    return null;
+                }
+            }
+            while (true) {
+                StringList nextClasses_ = new StringList();
+                for (String c: curClasses_) {
+                    StringList allTypes_ = StringList.getAllTypes(c);
+                    String baseClass_ = allTypes_.first();
+                    String superClass_ = getSuperClassName(baseClass_, _classes);
+                    if (superClass_ != null) {
+                        String geneSuperClass_ = getGenericSuperClassName(c, _classes);
+                        geneSuperClass_ = format(c, geneSuperClass_, _classes);
+                        if (StringList.quickEq(superClass_, baseSuperType_)) {
+                            generic_ = geneSuperClass_;
+                            break;
+                        }
+                        if (!visitedClasses_.containsStr(geneSuperClass_)) {
+                            nextClasses_.add(geneSuperClass_);
+                            visitedClasses_.add(geneSuperClass_);
+                        }
+                    }
+                    int i_ = CustList.INDEX_NOT_FOUND_ELT;
+                    for (String s: getSuperInterfaceNames(baseClass_, _classes)) {
+                        i_++;
+                        String geneSuperInterface_ = getGenericSuperInterfaceName(c, i_, _classes);
+                        geneSuperInterface_ = format(c, geneSuperInterface_, _classes);
+                        if (StringList.quickEq(s, baseSuperType_)) {
+                            generic_ = geneSuperInterface_;
+                            break;
+                        }
+                        if (!visitedClasses_.containsStr(geneSuperInterface_)) {
+                            nextClasses_.add(geneSuperInterface_);
+                            visitedClasses_.add(geneSuperInterface_);
+                        }
+                    }
+                }
+                if (generic_ != null) {
+                    break;
+                }
+                curClasses_ = nextClasses_;
+            }
+        }
+        return generic_;
+    }
     public static String getGenericTypeByBases(String _baseType, String _baseSuperType, Classes _classes) {
         if (!PrimitiveTypeUtil.canBeUseAsArgument(_baseSuperType, _baseType, _classes)) {
             return null;
@@ -54,15 +113,16 @@ public final class Templates {
             generic_ = _baseType;
         }
         if (generic_ == null) {
+            for (String c: curClasses_) {
+                if (!PrimitiveTypeUtil.correctNbParameters(c, _classes)) {
+                    return null;
+                }
+            }
             while (true) {
                 StringList nextClasses_ = new StringList();
                 for (String c: curClasses_) {
                     StringList allTypes_ = StringList.getAllTypes(c);
                     String baseClass_ = allTypes_.first();
-//                    baseClass_ = PrimitiveTypeUtil.getArrayClass(baseClass_);
-                    if (!PrimitiveTypeUtil.correctNbParameters(c, _classes)) {
-                        return null;
-                    }
                     String superClass_ = getSuperClassName(baseClass_, _classes);
                     if (superClass_ != null) {
                         String geneSuperClass_ = getGenericSuperClassName(c, _classes);

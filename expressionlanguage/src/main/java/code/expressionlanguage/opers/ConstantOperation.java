@@ -119,31 +119,31 @@ public final class ConstantOperation extends OperationNode implements SettableEl
         if (str_.endsWith(GET_FIELD)) {
             Classes classes_ = _conf.getClasses();
             ClassMetaInfo custClass_ = null;
-            if (classes_ != null) {
-                needGlobalArgument();
-                ClassArgumentMatching cl_ = getPreviousResultClass();
-                String clCurName_;
-                if (str_.contains(STATIC_CALL)) {
-                    StringList classMethod_ = StringList.splitStrings(str_, STATIC_CALL);
-                    if (classMethod_.size() != 2) {
-                        throw new BadFormatPathException(str_+RETURN_LINE+_conf.joinPages());
-                    }
-                    String className_ = classMethod_.first();
-                    if (!className_.startsWith(CLASS_CHOICE_PREF)) {
-                        throw new BadFormatPathException(str_+RETURN_LINE+_conf.joinPages());
-                    }
-                    int lenPref_ = CLASS_CHOICE_PREF.length();
-                    className_ = className_.substring(lenPref_);
-                    className_ = StringList.removeAllSpaces(className_);
-                    className_ = className_.replace(EXTERN_CLASS, DOT_VAR);
-                    checkExist(_conf, className_, true, true, lenPref_);
-                    clCurName_ = className_;
-                } else {
-                    if (cl_ == null) {
-                        throw new NullGlobalObjectException(_conf.joinPages());
-                    }
-                    clCurName_ = cl_.getName();
+            needGlobalArgument();
+            ClassArgumentMatching cl_ = getPreviousResultClass();
+            String clCurName_;
+            if (str_.contains(STATIC_CALL)) {
+                StringList classMethod_ = StringList.splitStrings(str_, STATIC_CALL);
+                if (classMethod_.size() != 2) {
+                    throw new BadFormatPathException(str_+RETURN_LINE+_conf.joinPages());
                 }
+                String className_ = classMethod_.first();
+                if (!className_.startsWith(CLASS_CHOICE_PREF)) {
+                    throw new BadFormatPathException(str_+RETURN_LINE+_conf.joinPages());
+                }
+                int lenPref_ = CLASS_CHOICE_PREF.length();
+                className_ = className_.substring(lenPref_);
+                className_ = StringList.removeAllSpaces(className_);
+                className_ = className_.replace(EXTERN_CLASS, DOT_VAR);
+                checkExist(_conf, className_, true, true, lenPref_);
+                clCurName_ = className_;
+            } else {
+                if (cl_ == null) {
+                    throw new NullGlobalObjectException(_conf.joinPages());
+                }
+                clCurName_ = cl_.getName();
+            }
+            if (classes_ != null) {
                 custClass_ = classes_.getClassMetaInfo(clCurName_);
                 if (custClass_ != null) {
                     String key_;
@@ -192,6 +192,33 @@ public final class ConstantOperation extends OperationNode implements SettableEl
                     return;
                 }
             }
+            if (cl_ == null) {
+                throw new NullGlobalObjectException(_conf.joinPages());
+            }
+            String key_ = str_.substring(CustList.FIRST_INDEX, str_.length() - GET_FIELD.length());
+            if (cl_.isArray()) {
+                if (StringList.quickEq(key_, LENGTH)) {
+                    setResultClass(new ClassArgumentMatching(PrimitiveTypeUtil.PRIM_INT));
+                    return;
+                }
+                throw new NoSuchDeclaredFieldException(cl_.getName()+RETURN_LINE+key_+RETURN_LINE+_conf.joinPages());
+            }
+            Field f_ = getDeclaredField(_conf, cl_, key_);
+            if (!canBeUsed(f_, _conf)) {
+                throw new BadAccessException(f_.getDeclaringClass().getName()+DOT+key_+RETURN_LINE+_conf.joinPages());
+            }
+            if (Modifier.isFinal(f_.getModifiers())) {
+                if (resultCanBeSet()) {
+                    finalField = true;
+                }
+            }
+            if (isStaticAccess() && !Modifier.isStatic(f_.getModifiers())) {
+                throw new StaticAccessException(_conf.joinPages());
+            }
+            field = f_;
+            setAccess(field, _conf);
+            setResultClass(new ClassArgumentMatching(NativeTypeUtil.getPrettyType(f_.getGenericType())));
+            return;
         }
         if (str_.endsWith(GET_PARAM)) {
             if (getParent() == null) {
@@ -405,10 +432,6 @@ public final class ConstantOperation extends OperationNode implements SettableEl
         if (str_.endsWith(GET_LOC_VAR)) {
             String key_ = str_.substring(CustList.FIRST_INDEX, str_.length() - GET_LOC_VAR.length());
             LocalVariable locVar_ = ip_.getLocalVars().getVal(key_);
-            if (resultCanBeSet()) {
-                a_ = Argument.createVoid();
-                return a_;
-            }
             a_ = new Argument();
             a_.setStruct(locVar_.getStruct());
             return a_;

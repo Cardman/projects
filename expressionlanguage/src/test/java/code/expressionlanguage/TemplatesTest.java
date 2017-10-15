@@ -276,43 +276,43 @@ public class TemplatesTest {
 
     @Test
     public void getGenericTypeByBases1Test() {
-        String t_ = Templates.getGenericTypeByBases("java.lang.String", "java.lang.Object", null);
+        String t_ = Templates.getFullTypeByBases("java.lang.String", "java.lang.Object", null);
         assertEq("java.lang.Object", t_);
     }
 
     @Test
     public void getGenericTypeByBases2Test() {
-        String t_ = Templates.getGenericTypeByBases("java.lang.Object", "java.lang.String", null);
+        String t_ = Templates.getFullTypeByBases("java.lang.Object", "java.lang.String", null);
         assertNull(t_);
     }
 
     @Test
     public void getGenericTypeByBases3Test() {
-        String t_ = Templates.getGenericTypeByBases(StringList.class.getName(), Listable.class.getName(), null);
+        String t_ = Templates.getFullTypeByBases(StringList.class.getName(), Listable.class.getName(), null);
         assertEq("code.util.ints.Listable<java.lang.String>", t_);
     }
 
     @Test
     public void getGenericTypeByBases4Test() {
-        String t_ = Templates.getGenericTypeByBases(StringList.class.getName(), Iterable.class.getName(), null);
+        String t_ = Templates.getFullTypeByBases(StringList.class.getName(), Iterable.class.getName(), null);
         assertEq("java.lang.Iterable<java.lang.String>", t_);
     }
 
     @Test
     public void getGenericTypeByBases5Test() {
-        String t_ = Templates.getGenericTypeByBases(Listable.class.getName(), Iterable.class.getName(), null);
+        String t_ = Templates.getFullTypeByBases(Listable.class.getName(), Iterable.class.getName(), null);
         assertNull(t_);
     }
 
     @Test
     public void getGenericTypeByBases6Test() {
-        String t_ = Templates.getGenericTypeByBases("java.lang.String", "java.lang.String", null);
+        String t_ = Templates.getFullTypeByBases("java.lang.String", "java.lang.String", null);
         assertEq("java.lang.String", t_);
     }
 
     @Test
     public void getGenericTypeByBases7Test() {
-        String t_ = Templates.getGenericTypeByBases(Listable.class.getName(), Listable.class.getName(), null);
+        String t_ = Templates.getFullTypeByBases(Listable.class.getName(), Listable.class.getName(), null);
         assertEq("code.util.ints.Listable", t_);
     }
 
@@ -324,7 +324,7 @@ public class TemplatesTest {
         files_.put("pkg/Ex."+Classes.EXT, xml_);
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
         Classes classes_ = cont_.getClasses();
-        String t_ = Templates.getGenericTypeByBases("pkg.Ex", "pkg.Ex", classes_);
+        String t_ = Templates.getFullTypeByBases("pkg.Ex", "pkg.Ex", classes_);
         assertEq("pkg.Ex", t_);
     }
 
@@ -338,7 +338,7 @@ public class TemplatesTest {
         files_.put("pkg/ExTwo."+Classes.EXT, xml_);
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
         Classes classes_ = cont_.getClasses();
-        String t_ = Templates.getGenericTypeByBases("pkg.ExTwo", "pkg.Ex", classes_);
+        String t_ = Templates.getFullTypeByBases("pkg.ExTwo", "pkg.Ex", classes_);
         assertEq("pkg.Ex", t_);
     }
 
@@ -352,10 +352,43 @@ public class TemplatesTest {
         files_.put("pkg/ExTwo."+Classes.EXT, xml_);
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
         Classes classes_ = cont_.getClasses();
-        String t_ = Templates.getGenericTypeByBases("pkg.Ex", "pkg.ExTwo", classes_);
+        String t_ = Templates.getFullTypeByBases("pkg.Ex", "pkg.ExTwo", classes_);
         assertNull(t_);
     }
 
+    @Test
+    public void getGenericTypeByBases11Test() {
+        String t_ = Templates.getFullTypeByBases(Listable.class.getName()+"<#E>", Iterable.class.getName(), null);
+        assertEq("java.lang.Iterable<#E>",t_);
+    }
+
+    @Test
+    public void getGenericTypeByBases12Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        String xml_;
+        xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' template='&lt;#T&gt;'/>\n";
+        files_.put("pkg/Ex."+Classes.EXT, xml_);
+        xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExTwo' package='pkg' superclass='pkg.Ex&lt;#U&gt;' template='&lt;#U&gt;'/>\n";
+        files_.put("pkg/ExTwo."+Classes.EXT, xml_);
+        ContextEl cont_ = unfullValidateOverridingMethods(files_);
+        Classes classes_ = cont_.getClasses();
+        String t_ = Templates.getFullTypeByBases("pkg.ExTwo<#V>", "pkg.Ex", classes_);
+        assertEq("pkg.Ex<#V>", t_);
+    }
+
+    @Test
+    public void getGenericTypeByBases13Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        String xml_;
+        xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' template='&lt;#T&gt;'/>\n";
+        files_.put("pkg/Ex."+Classes.EXT, xml_);
+        xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExTwo' package='pkg' superclass='pkg.Ex&lt;java.lang.Number&gt;'/>\n";
+        files_.put("pkg/ExTwo."+Classes.EXT, xml_);
+        ContextEl cont_ = unfullValidateOverridingMethods(files_);
+        Classes classes_ = cont_.getClasses();
+        String t_ = Templates.getFullTypeByBases("pkg.ExTwo", "pkg.Ex", classes_);
+        assertEq("pkg.Ex<java.lang.Number>", t_);
+    }
     @Test
     public void isCorrectWrite1Test() {
         assertTrue(Templates.isCorrectWrite("java.lang.String"));

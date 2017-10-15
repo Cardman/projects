@@ -461,7 +461,7 @@ public final class ProcessXmlMethod {
                         ConstructorId super_ = new ConstructorId(superClassBase_, new EqList<ClassName>());
                         StringList called_ = ip_.getCallingConstr().getCalledConstructors();
                         Argument global_ = ip_.getGlobalArgument();
-                        String generic_ = Templates.getGenericTypeByBases(curClass_, i, _conf.getClasses());
+                        String generic_ = Templates.getFullTypeByBases(curClass_, i, _conf.getClasses());
                         throw new CustomFoundConstructorException(generic_, EMPTY_STRING, called_, super_, global_, new CustList<Argument>(), InstancingStep.USING_SUPER);
                     }
                 }
