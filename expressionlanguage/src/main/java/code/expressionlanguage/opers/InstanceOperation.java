@@ -121,7 +121,6 @@ public final class InstanceOperation extends InvokingOperation {
             return;
         }
         CustList<ClassArgumentMatching> firstArgs_ = listClasses(chidren_);
-        realClassName_ = realClassName_.replace(EXTERN_CLASS, DOT_VAR);
         boolean intern_ = true;
         if (!isIntermediateDotted()) {
             intern_ = false;

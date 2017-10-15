@@ -199,7 +199,11 @@ public final class ElUtil {
     }
     public static void processAffect(String _attrOp, String _attrLeft, String _attrRight,
             String _left, String _right, String _oper, ContextEl _conf, boolean _staticContext, boolean _hiddentVarTypes) {
-        _conf.setAnalyzing(new PageEl());
+        if (_conf.isEmptyPages()) {
+            _conf.setAnalyzing(new PageEl());
+        } else {
+            _conf.setAnalyzing(_conf.getLastPage());
+        }
         ExpLanguages members_ = analyzeAffect(_attrOp, _attrLeft, _attrRight, _left, _right, _oper, _conf, _staticContext, _hiddentVarTypes);
         _conf.setAnalyzing(null);
         ExpressionLanguage left_ = members_.getLeft();
@@ -208,7 +212,11 @@ public final class ElUtil {
     }
 
     public static Argument processEl(String _el, ContextEl _conf, int _minIndex, char _begin, char _end) {
-        _conf.setAnalyzing(new PageEl());
+        if (_conf.isEmptyPages()) {
+            _conf.setAnalyzing(new PageEl());
+        } else {
+            _conf.setAnalyzing(_conf.getLastPage());
+        }
         Delimiters d_ = ElResolver.checkSyntaxDelimiters(_el, _conf, _minIndex, _begin, _end);
         String el_ = _el.substring(d_.getIndexBegin(), d_.getIndexEnd()+1);
         _conf.setNextIndex(d_.getIndexEnd()+2);
@@ -250,7 +258,11 @@ public final class ElUtil {
     }
 
     public static Argument processEl(String _el, int _index, ContextEl _conf) {
-        _conf.setAnalyzing(new PageEl());
+        if (_conf.isEmptyPages()) {
+            _conf.setAnalyzing(new PageEl());
+        } else {
+            _conf.setAnalyzing(_conf.getLastPage());
+        }
         Delimiters d_ = ElResolver.checkSyntax(_el, _conf, _index);
         String el_ = _el.substring(_index);
         ElResolver.secondCheckSyntax(el_, _conf, d_);

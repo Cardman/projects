@@ -196,28 +196,7 @@ public final class ConstantOperation extends OperationNode implements SettableEl
                 throw new NullGlobalObjectException(_conf.joinPages());
             }
             String key_ = str_.substring(CustList.FIRST_INDEX, str_.length() - GET_FIELD.length());
-            if (cl_.isArray()) {
-                if (StringList.quickEq(key_, LENGTH)) {
-                    setResultClass(new ClassArgumentMatching(PrimitiveTypeUtil.PRIM_INT));
-                    return;
-                }
-                throw new NoSuchDeclaredFieldException(cl_.getName()+RETURN_LINE+key_+RETURN_LINE+_conf.joinPages());
-            }
-            Field f_ = getDeclaredField(_conf, cl_, key_);
-            if (!canBeUsed(f_, _conf)) {
-                throw new BadAccessException(f_.getDeclaringClass().getName()+DOT+key_+RETURN_LINE+_conf.joinPages());
-            }
-            if (Modifier.isFinal(f_.getModifiers())) {
-                if (resultCanBeSet()) {
-                    finalField = true;
-                }
-            }
-            if (isStaticAccess() && !Modifier.isStatic(f_.getModifiers())) {
-                throw new StaticAccessException(_conf.joinPages());
-            }
-            field = f_;
-            setAccess(field, _conf);
-            setResultClass(new ClassArgumentMatching(NativeTypeUtil.getPrettyType(f_.getGenericType())));
+            analyzeNativeField(_conf, key_);
             return;
         }
         if (str_.endsWith(GET_PARAM)) {
@@ -287,16 +266,20 @@ public final class ConstantOperation extends OperationNode implements SettableEl
         if (cl_ == null) {
             throw new NullGlobalObjectException(_conf.joinPages());
         }
+        analyzeNativeField(_conf, str_);
+    }
+    private void analyzeNativeField(ContextEl _conf, String _key) {
+        ClassArgumentMatching cl_ = getPreviousResultClass();
         if (cl_.isArray()) {
-            if (StringList.quickEq(str_, LENGTH)) {
+            if (StringList.quickEq(_key, LENGTH)) {
                 setResultClass(new ClassArgumentMatching(PrimitiveTypeUtil.PRIM_INT));
                 return;
             }
-            throw new NoSuchDeclaredFieldException(cl_.getName()+RETURN_LINE+str_+RETURN_LINE+_conf.joinPages());
+            throw new NoSuchDeclaredFieldException(cl_.getName()+RETURN_LINE+_key+RETURN_LINE+_conf.joinPages());
         }
-        Field f_ = getDeclaredField(_conf, cl_, str_);
+        Field f_ = getDeclaredField(_conf, cl_, _key);
         if (!canBeUsed(f_, _conf)) {
-            throw new BadAccessException(f_.getDeclaringClass().getName()+DOT+str_+RETURN_LINE+_conf.joinPages());
+            throw new BadAccessException(f_.getDeclaringClass().getName()+DOT+_key+RETURN_LINE+_conf.joinPages());
         }
         if (Modifier.isFinal(f_.getModifiers())) {
             if (resultCanBeSet()) {
@@ -464,11 +447,6 @@ public final class ConstantOperation extends OperationNode implements SettableEl
         if (!Modifier.isStatic(field.getModifiers()) && obj_ == null) {
             throw new NullObjectException(_conf.joinPages());
         }
-        if (resultCanBeSet()) {
-            a_ = Argument.createVoid();
-            a_.setStruct(arg_.getStruct());
-            return a_;
-        }
         Object res_;
         try {
             res_ = ConverterMethod.getField(field, obj_);
@@ -505,20 +483,18 @@ public final class ConstantOperation extends OperationNode implements SettableEl
             locVar_.setStruct(res_.getStruct());
             return res_;
         }
-        Struct struct_ = _argument.getStruct();
         Argument right_ = ip_.getRightArgument();
         Argument left_ = new Argument();
         Argument res_;
+        Argument previous_ = _previous;
         if (fieldId != null) {
             Classes classes_ = _conf.getClasses();
-            Argument previous_ = _previous;
             if (right_.isNull() && fieldMetaInfo.getType().startsWith(PrimitiveTypeUtil.PRIM)) {
                 throw new NullObjectException(_conf.joinPages());
             }
+            Struct structField_ = null;
             if (fieldMetaInfo.isStaticField()) {
-                Struct structField_ = classes_.getStaticField(fieldId);
-                left_.setStruct(structField_);
-                res_ = NumericOperation.calculateAffect(left_, _conf, right_, _op);
+                structField_ = classes_.getStaticField(fieldId);
             } else {
                 if (previous_.isNull()) {
                     throw new NullObjectException(_conf.joinPages());
@@ -528,10 +504,10 @@ public final class ConstantOperation extends OperationNode implements SettableEl
                 if (!PrimitiveTypeUtil.canBeUseAsArgument(classNameFound_, argClassName_, classes_)) {
                     throw new DynamicCastClassException(argClassName_+RETURN_LINE+classNameFound_+RETURN_LINE+_conf.joinPages());
                 }
-                Struct structField_ = previous_.getStruct().getStruct(fieldId, field);
-                left_.setStruct(structField_);
-                res_ = NumericOperation.calculateAffect(left_, _conf, right_, _op);
+                structField_ = previous_.getStruct().getStruct(fieldId, field);
             }
+            left_.setStruct(structField_);
+            res_ = NumericOperation.calculateAffect(left_, _conf, right_, _op);
             if (fieldMetaInfo.isStaticField()) {
                 classes_.initializeStaticField(fieldId, res_.getStruct());
             } else {
@@ -540,7 +516,12 @@ public final class ConstantOperation extends OperationNode implements SettableEl
             Argument a_ = _argument;
             return a_;
         }
-        Object obj_ = struct_.getInstance();
+        if (!Modifier.isStatic(field.getModifiers())) {
+            if (previous_.isNull()) {
+                throw new NullObjectException(_conf.joinPages());
+            }
+        }
+        Object obj_ = previous_.getStruct().getInstance();
         Object field_ = ConverterMethod.getField(field, obj_);
         if (field_ == null) {
             left_.setStruct(new Struct());

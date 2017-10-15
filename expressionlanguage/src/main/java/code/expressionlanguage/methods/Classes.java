@@ -393,6 +393,7 @@ public final class Classes {
             if (!classes_.errorsDet.isEmpty()) {
                 throw new AnalyzingErrorsException(classes_.errorsDet);
             }
+            _context.setAnalyzing(null);
         } catch (AnalyzingErrorsException _0) {
             _context.setClasses(bk_);
             throw _0;

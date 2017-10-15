@@ -173,10 +173,10 @@ public final class ContextEl {
     }
 
     public PageEl getLastPage() {
-        if (!importing.isEmpty()) {
-            return importing.last();
+        if (analyzing != null) {
+            return analyzing;
         }
-        return analyzing;
+        return importing.last();
     }
 
     public String getCurrentUrl() {

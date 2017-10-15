@@ -110,21 +110,12 @@ public final class ArrOperation extends MethodOperation implements SettableElRes
             IdMap<OperationNode, ArgumentsPair> _nodes, ContextEl _conf,
             String _op) {
         CustList<OperationNode> chidren_ = getChildrenNodes();
+        Argument a_ = _nodes.getVal(this).getArgument();
         Struct array_;
-        array_ = _nodes.getVal(this).getArgument().getStruct();
+        array_ = a_.getStruct();
         setRelativeOffsetPossibleLastPage(chidren_.first().getIndexInEl(), _conf);
-        OperationNode lastElement_ = null;
-        if (resultCanBeSet()) {
-            lastElement_ = chidren_.last();
-        }
-        if (lastElement_ != null) {
-            affectArray(array_, _nodes.getVal(lastElement_).getArgument(), lastElement_.getIndexInEl(), _op, _conf);
-            Argument a_ = _nodes.getVal(this).getArgument();
-            setSimpleArgument(a_, _conf, _nodes);
-            return a_;
-        }
-        Argument a_ = new Argument();
-        a_.setStruct(array_);
+        OperationNode lastElement_ = chidren_.last();
+        affectArray(array_, _nodes.getVal(lastElement_).getArgument(), lastElement_.getIndexInEl(), _op, _conf);
         setSimpleArgument(a_, _conf, _nodes);
         return a_;
     }
@@ -148,19 +139,11 @@ public final class ArrOperation extends MethodOperation implements SettableElRes
     public void calculateSetting(CustList<OperationNode> _nodes,
             ContextEl _conf, String _op) {
         CustList<OperationNode> chidren_ = getChildrenNodes();
+        Argument a_ = getArgument();
         Struct array_;
-        array_ = getArgument().getStruct();
-        OperationNode lastElement_ = null;
-        if (resultCanBeSet()) {
-            lastElement_ = chidren_.last();
-        }
-        if (lastElement_ != null) {
-            affectArray(array_, lastElement_.getArgument(), lastElement_.getIndexInEl(), _op, _conf);
-            setSimpleArgument(getArgument(), _conf);
-            return;
-        }
-        Argument a_ = new Argument();
-        a_.setStruct(array_);
+        array_ = a_.getStruct();
+        OperationNode lastElement_ = chidren_.last();
+        affectArray(array_, lastElement_.getArgument(), lastElement_.getIndexInEl(), _op, _conf);
         setSimpleArgument(a_, _conf);
     }
 
