@@ -30,6 +30,7 @@ import code.expressionlanguage.classes.InternsClasses.InternStaticStandard.Inter
 import code.expressionlanguage.classes.MyImpl;
 import code.expressionlanguage.classes.StrangeInit;
 import code.expressionlanguage.exceptions.AbstractClassConstructorException;
+import code.expressionlanguage.exceptions.BadExpressionLanguageException;
 import code.expressionlanguage.exceptions.DynamicArrayStoreException;
 import code.expressionlanguage.exceptions.DynamicCastClassException;
 import code.expressionlanguage.exceptions.ErrorCausingException;
@@ -48,7 +49,6 @@ import code.expressionlanguage.opers.util.ClassField;
 import code.expressionlanguage.opers.util.Struct;
 import code.expressionlanguage.variables.LocalVariable;
 import code.expressionlanguage.variables.LoopVariable;
-import code.serialize.exceptions.NoSuchDeclaredFieldException;
 import code.serialize.exceptions.NoSuchDeclaredMethodException;
 import code.util.StringList;
 import code.util.StringMap;
@@ -1910,8 +1910,8 @@ public class ElUtilTest {
         addImportingPage(context_);
         ElUtil.processEl("^static^"+COMPOSITE_HAT+".integer",0, context_);
     }
-    
-    @Test(expected=NoSuchDeclaredFieldException.class)
+
+    @Test(expected=BadExpressionLanguageException.class)
     public void processEl13FailTest() {
         ContextEl context_ = new ContextEl();
         setupAccessValue(context_);

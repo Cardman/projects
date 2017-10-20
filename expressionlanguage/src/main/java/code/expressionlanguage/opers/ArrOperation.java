@@ -161,7 +161,7 @@ public final class ArrOperation extends MethodOperation implements SettableElRes
         }
         Argument res_;
         res_ = NumericOperation.calculateAffect(left_, _conf, right_, _op);
-        setElement(_array, o_, res_.getStruct(), _conf, _indexEl);
+        setElement(_array, o_, res_.getStruct(), _conf);
     }
 
     Argument getArgument(int _maxIndexChildren, ContextEl _conf) {
@@ -197,8 +197,14 @@ public final class ArrOperation extends MethodOperation implements SettableElRes
         }
         return Struct.wrapOrId(output_);
     }
-    void setElement(Struct _struct, Object _index, Struct _value, ContextEl _conf, int _indexEl) {
-        setRelativeOffsetPossibleLastPage(_indexEl, _conf);
+    static void setCheckedElement(Struct _array,Object _index, Argument _element, ContextEl _conf) {
+        String base_ = PrimitiveTypeUtil.getQuickComponentType(_array.getClassName());
+        if (_element.isNull() && base_.startsWith(PrimitiveTypeUtil.PRIM)) {
+            throw new NullObjectException(_conf.joinPages());
+        }
+        setElement(_array, _index, _element.getStruct(), _conf);
+    }
+    static void setElement(Struct _struct, Object _index, Struct _value, ContextEl _conf) {
         if (_struct.isNull()) {
             throw new NullObjectException(_conf.joinPages());
         }

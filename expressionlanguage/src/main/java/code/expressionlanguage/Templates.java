@@ -8,6 +8,8 @@ import code.expressionlanguage.methods.InterfaceBlock;
 import code.expressionlanguage.methods.RootBlock;
 import code.expressionlanguage.methods.UniqueRootedBlock;
 import code.expressionlanguage.methods.util.TypeVar;
+import code.expressionlanguage.opers.OperationNode;
+import code.expressionlanguage.opers.util.ClassMetaInfo;
 import code.expressionlanguage.opers.util.DimComp;
 import code.expressionlanguage.types.NativeTypeUtil;
 import code.util.CustList;
@@ -15,6 +17,7 @@ import code.util.EqList;
 import code.util.StringList;
 import code.util.StringMap;
 import code.util.consts.ConstClasses;
+import code.util.exceptions.RuntimeClassNotFoundException;
 
 public final class Templates {
 
@@ -30,6 +33,42 @@ public final class Templates {
     private Templates() {
     }
 
+    public static boolean existAllClassParts(String _className, StringList _variables, Classes _classes) {
+        for (String s: StringList.splitStrings(_className, TEMPLATE_BEGIN,TEMPLATE_SEP,TEMPLATE_END)) {
+            if (s.isEmpty()) {
+                continue;
+            }
+            String baseName_ = PrimitiveTypeUtil.getQuickComponentBaseType(s).getComponent();
+            if (StringList.quickEq(baseName_, OperationNode.VOID_RETURN)) {
+                return false;
+            }
+            if (baseName_.startsWith(PREFIX_VAR_TYPE)) {
+                if (!_variables.containsStr(baseName_.substring(1))) {
+                    return false;
+                }
+                continue;
+            }
+            ClassMetaInfo custClass_ = null;
+            if (_classes != null) {
+                custClass_ = _classes.getClassMetaInfo(baseName_);
+            }
+            if (custClass_ == null) {
+                try {
+                    if (baseName_.startsWith(PrimitiveTypeUtil.PRIM)) {
+                        Class<?> cl_ = ConstClasses.getPrimitiveClass(baseName_.substring(1));
+                        if (cl_ == null) {
+                            return false;
+                        }
+                    } else {
+                        ConstClasses.classForObjectNameNotInit(baseName_);
+                    }
+                } catch (RuntimeClassNotFoundException _0) {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
     public static StringList getTypesByBases(String _baseType, String _baseSuperType, Classes _classes) {
         String generic_ = getGenericTypeByBases(_baseType, _baseSuperType, _classes);
         if (generic_ == null) {

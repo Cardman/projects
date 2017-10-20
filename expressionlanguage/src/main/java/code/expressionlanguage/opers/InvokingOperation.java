@@ -1,6 +1,4 @@
 package code.expressionlanguage.opers;
-import java.lang.reflect.Array;
-
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.OperationsSequence;
@@ -8,8 +6,6 @@ import code.expressionlanguage.PrimitiveTypeUtil;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.opers.util.Struct;
 import code.util.CustList;
-import code.util.Numbers;
-import code.util.consts.ConstClasses;
 
 public abstract class InvokingOperation extends MethodOperation {
 
@@ -50,7 +46,7 @@ public abstract class InvokingOperation extends MethodOperation {
         return firstArgs_;
     }
 
-    static CustList<Argument> listArguments(CustList<OperationNode> _children, CustList<Argument> _nodes, boolean _nativeMethod) {
+    static CustList<Argument> listArguments(CustList<OperationNode> _children, CustList<Argument> _nodes, ContextEl _context,boolean _nativeMethod) {
         if (!_children.isEmpty() && _children.first().isVararg()) {
             CustList<Argument> firstArgs_ = new CustList<Argument>();
             CustList<Argument> optArgs_ = new CustList<Argument>();
@@ -76,26 +72,23 @@ public abstract class InvokingOperation extends MethodOperation {
             Argument argRem_ = new Argument();
             String g_ = _children.first().getResultClass().getName();
             if (_nativeMethod) {
-                OperationNode o_ = _children.first();
-                String className_ = o_.getResultClass().getName();
-                if (className_.startsWith(PrimitiveTypeUtil.PRIM)) {
-                    className_ = className_.substring(1);
-                }
-                Class<?> cl_ = ConstClasses.classForNameNotInit(PrimitiveTypeUtil.getArrayClass(className_));
-                array_ = Array.newInstance(cl_, optArgs_.size());
                 int len_ = optArgs_.size();
+                array_ = InstanceOperation.newClassicArray(_context, g_, g_, new int[]{len_});
+                Struct arr_ = new Struct(array_);
                 for (int i = 0; i < len_; i++) {
-                    Array.set(array_, i, optArgs_.get(i).getObject());
+                    Argument chArg_ = optArgs_.get(i);
+                    ArrOperation.setCheckedElement(arr_, i, chArg_, _context);
                 }
-                argRem_.setObject(array_);
+                argRem_.setStruct(arr_);
             } else {
-                Struct str_ = PrimitiveTypeUtil.newCustomArray(g_, new Numbers<Integer>(optArgs_.size()));
-                array_ = str_.getInstance();
                 int len_ = optArgs_.size();
-                for (int i = 0; i < len_; i++) {
-                    Array.set(array_, i, optArgs_.get(i).getStruct());
+                Struct[] str_ = new Struct[len_];
+                for (int i = CustList.FIRST_INDEX; i < len_; i++) {
+                    Argument chArg_ = optArgs_.get(i);
+                    str_[i] = chArg_.getStruct();
                 }
-                argRem_.setStruct(str_);
+                String clArr_ = PrimitiveTypeUtil.getPrettyArrayType(g_);
+                argRem_.setStruct(new Struct(str_,clArr_));
             }
             firstArgs_.add(argRem_);
             return firstArgs_;

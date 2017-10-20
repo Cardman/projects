@@ -117,7 +117,7 @@ public final class InstanceOperation extends InvokingOperation {
             }
             realClassName_ = realClassName_.substring(ARR.length());
             setRelativeOffsetPossibleLastPage(getIndexInEl()+off_, _conf);
-            checkExist(_conf, realClassName_, true, false, 0);
+            checkExist(_conf, realClassName_, false, 0);
             if (!elts_) {
                 setResultClass(new ClassArgumentMatching(PrimitiveTypeUtil.getPrettyArrayType(realClassName_, chidren_.size())));
                 return;
@@ -361,22 +361,12 @@ public final class InstanceOperation extends InvokingOperation {
                     return a_;
                 }
                 Object array_ = newClassicArray(_conf, instanceClassName_, realClassName_, args_);
-                if (array_ instanceof Object[]) {
-                    Object[] arrayObj_ = (Object[]) array_;
-                    for (int i = CustList.FIRST_INDEX; i < nbCh_; i++) {
-                        Argument chArg_ = _arguments.get(i);
-                        Struct str_ = chArg_.getStruct();
-                        arrayObj_[i] = str_.getInstance();
-                    }
-                    a_.setStruct(new Struct(arrayObj_));
-                } else {
-                    for (int i = CustList.FIRST_INDEX; i < nbCh_; i++) {
-                        Argument chArg_ = _arguments.get(i);
-                        Struct str_ = chArg_.getStruct();
-                        Array.set(array_, i, str_.getInstance());
-                    }
-                    a_.setStruct(new Struct(array_));
+                Struct strArr_ = new Struct(array_);
+                for (int i = CustList.FIRST_INDEX; i < nbCh_; i++) {
+                    Argument chArg_ = _arguments.get(i);
+                    ArrOperation.setCheckedElement(strArr_, i, chArg_, _conf);
                 }
+                a_.setStruct(strArr_);
                 return a_;
             } else if (cust_) {
                 Numbers<Integer> dims_;
@@ -401,7 +391,7 @@ public final class InstanceOperation extends InvokingOperation {
                 ProcessXmlMethod.initializeClass(realClassName_, _conf);
             }
         }
-        CustList<Argument> firstArgs_ = listArguments(chidren_, _arguments, true);
+        CustList<Argument> firstArgs_ = listArguments(chidren_, _arguments, _conf, true);
         if (!isIntermediateDotted()) {
             Class<?> class_ = null;
             if (StringList.isWord(realClassName_)) {
@@ -466,7 +456,7 @@ public final class InstanceOperation extends InvokingOperation {
             } else {
                 cl_ = ConstClasses.classForObjectNameNotInit(PrimitiveTypeUtil.getArrayClass(_instanceClassName));
             }
-        } catch (RuntimeClassNotFoundException _0_) {
+        } catch (RuntimeClassNotFoundException _0) {
             throw new RuntimeClassNotFoundException(_realClassName+RETURN_LINE+_conf.joinPages());
         }
         return Array.newInstance(cl_, _args);

@@ -129,7 +129,7 @@ public final class FctOperation extends InvokingOperation {
                 throw new NullObjectException(_conf.joinPages());
             }
             str_ = StringList.removeAllSpaces(str_);
-            checkExist(_conf, str_, true, true, chidren_.first().getIndexInEl()+1);
+            checkExist(_conf, str_, true, chidren_.first().getIndexInEl()+1);
             setResultClass(new ClassArgumentMatching(str_));
             setSimpleArgument(new Argument());
             return;
@@ -199,6 +199,17 @@ public final class FctOperation extends InvokingOperation {
                     setRelativeOffsetPossibleLastPage(chidren_.first().getIndexInEl()+1, _conf);
                     throw new NotStringException(chidren_.first().getResultClass()+RETURN_LINE+_conf.joinPages());
                 }
+                if (chidren_.first().getArgument() == null) {
+                    setRelativeOffsetPossibleLastPage(chidren_.first().getIndexInEl()+1, _conf);
+                    throw new NullObjectException(_conf.joinPages());
+                }
+                String str_ = (String) chidren_.first().getArgument() .getObject();
+                if (str_ == null) {
+                    setRelativeOffsetPossibleLastPage(chidren_.first().getIndexInEl()+1, _conf);
+                    throw new NullObjectException(_conf.joinPages());
+                }
+                str_ = StringList.removeAllSpaces(str_);
+                checkExist(_conf, str_, true, chidren_.first().getIndexInEl()+1);
                 setResultClass(new ClassArgumentMatching(PrimitiveTypeUtil.PRIM_BOOLEAN));
                 return;
             }
@@ -228,7 +239,7 @@ public final class FctOperation extends InvokingOperation {
                     throw new NullObjectException(_conf.joinPages());
                 }
                 str_ = StringList.removeAllSpaces(str_);
-                checkExist(_conf, str_, true, true, chidren_.first().getIndexInEl()+1);
+                checkExist(_conf, str_, true, chidren_.first().getIndexInEl()+1);
                 setResultClass(new ClassArgumentMatching(str_));
                 return;
             }
@@ -275,7 +286,7 @@ public final class FctOperation extends InvokingOperation {
             className_ = className_.substring(lenPref_);
             className_ = StringList.removeAllSpaces(className_);
             className_ = className_.replace(EXTERN_CLASS, DOT_VAR);
-            checkExist(_conf, className_, true, true, getIndexInEl()+off_ + lenPref_);
+            checkExist(_conf, className_, true, getIndexInEl()+off_ + lenPref_);
             clCurName_ = className_;
             trimMeth_ = classMethod_.last();
             staticChoiceMethod = true;
@@ -461,7 +472,7 @@ public final class FctOperation extends InvokingOperation {
             if (StringList.quickEq(trimMeth_,EXTERN_CLASS+CURRENT)) {
                 String clCurName_ = _conf.getLastPage().getGlobalClass();
                 String clCurNameBase_ = StringList.getAllTypes(clCurName_).first();
-                CustList<Argument> firstArgs_ = listArguments(chidren_, _arguments, false);
+                CustList<Argument> firstArgs_ = listArguments(chidren_, _arguments, _conf, false);
                 StringList called_ = _conf.getLastPage().getCallingConstr().getCalledConstructors();
                 called_.add(clCurNameBase_);
                 Argument global_ = _conf.getLastPage().getGlobalArgument();
@@ -471,7 +482,7 @@ public final class FctOperation extends InvokingOperation {
                 String clCurName_ = _conf.getLastPage().getGlobalClass();
                 String superClass_ = _conf.getClasses().getClassMetaInfo(clCurName_).getSuperClass();
                 String superClassBase_ = StringList.getAllTypes(superClass_).first();
-                CustList<Argument> firstArgs_ = listArguments(chidren_, _arguments, false);
+                CustList<Argument> firstArgs_ = listArguments(chidren_, _arguments, _conf, false);
                 StringList called_ = _conf.getLastPage().getCallingConstr().getCalledConstructors();
                 called_.add(superClassBase_);
                 _conf.getLastPage().clearCurrentEls();
@@ -482,12 +493,7 @@ public final class FctOperation extends InvokingOperation {
         if (StringList.quickEq(trimMeth_,EXTERN_CLASS+INSTANCEOF)) {
             if (chidren_.size() == 2) {
                 String str_ = (String) _arguments.first().getObject();
-                if (str_ == null) {
-                    setRelativeOffsetPossibleLastPage(chidren_.first().getIndexInEl()+1, _conf);
-                    throw new NullObjectException(_conf.joinPages());
-                }
                 str_ = StringList.removeAllSpaces(str_);
-                checkExist(_conf, str_, false, true, chidren_.first().getIndexInEl()+1);
                 Argument sec_ = _arguments.last();
                 if (sec_.isNull()) {
                     Argument arg_ = new Argument();
@@ -565,7 +571,7 @@ public final class FctOperation extends InvokingOperation {
         CustList<Argument> firstArgs_;
         Argument arg_ = _previous;
         if (methodId != null) {
-            firstArgs_ = listArguments(chidren_, _arguments, false);
+            firstArgs_ = listArguments(chidren_, _arguments, _conf, false);
             String classNameFound_;
             if (!staticMethod) {
                 if (arg_.isNull()) {
@@ -657,7 +663,7 @@ public final class FctOperation extends InvokingOperation {
             }
             throw new CustomFoundMethodException(arg_, classNameFound_, methodId, firstArgs_);
         }
-        firstArgs_ = listArguments(chidren_, _arguments, true);
+        firstArgs_ = listArguments(chidren_, _arguments, _conf, true);
         Object obj_ = arg_.getObject();
         if (!Modifier.isStatic(method.getModifiers()) && obj_ == null) {
             throw new NullObjectException(_conf.joinPages());

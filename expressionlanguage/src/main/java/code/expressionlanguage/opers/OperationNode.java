@@ -379,9 +379,9 @@ public abstract class OperationNode {
         }
         _conf.getAccessValue().setAccess(_field, _conf);
     }
-    void checkExist(ContextEl _cont, String _className, boolean _checkVoid, boolean _setOffset, int _offset) {
+    void checkExist(ContextEl _cont, String _className, boolean _setOffset, int _offset) {
         Classes classes_ = _cont.getClasses();
-        if (_checkVoid && StringList.quickEq(_className, OperationNode.VOID_RETURN)) {
+        if (StringList.quickEq(_className, OperationNode.VOID_RETURN)) {
             throw new VoidArgumentException(_cont.joinPages());
         }
         ClassMetaInfo custClass_ = null;
