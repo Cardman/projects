@@ -12,7 +12,6 @@ import code.util.EntryCust;
 import code.util.EqList;
 import code.util.StringList;
 import code.util.StringMap;
-import code.util.consts.ConstClasses;
 import code.util.opers.CollectionsUtil;
 
 public class TemplatesAdv {
@@ -33,8 +32,7 @@ public class TemplatesAdv {
         StringList types_ = StringList.getAllTypes(_className);
         int i_ = CustList.FIRST_INDEX;
         String className_ = types_.first();
-        className_ = PrimitiveTypeUtil.getArrayClass(className_);
-        Class<?> cl_ = ConstClasses.classForObjectNameNotInit(className_);
+        Class<?> cl_ = PrimitiveTypeUtil.getSingleNativeClass(className_);
         if (cl_.getTypeParameters().length != types_.size() - 1) {
             return false;
         }
@@ -140,7 +138,7 @@ public class TemplatesAdv {
                 return varTypes_;
             }
         }
-        Class<?> cl_ = ConstClasses.classForObjectNameNotInit(className_);
+        Class<?> cl_ = PrimitiveTypeUtil.getSingleNativeClass(className_);
         int i_ = CustList.FIRST_INDEX;
         StringMap<String> varTypes_ = new StringMap<String>();
         for (TypeVariable<?> t: cl_.getTypeParameters()) {
@@ -328,8 +326,7 @@ public class TemplatesAdv {
     }
     static EqList<StringList> getClassBounds(String _className, Classes _classes) {
         StringList allTypes_ = StringList.getAllTypes(_className);
-        String baseClass_ = PrimitiveTypeUtil.getArrayClass(allTypes_.first());
-        Class<?> cl_ = ConstClasses.classForObjectNameNotInit(baseClass_);
+        Class<?> cl_ = PrimitiveTypeUtil.getSingleNativeClass(allTypes_.first());
         if (cl_.getTypeParameters().length != allTypes_.size() - 1) {
             return null;
         }
@@ -484,8 +481,7 @@ public class TemplatesAdv {
                 for (String c: curClasses_) {
                     StringList allTypes_ = StringList.getAllTypes(c);
                     String baseClass_ = allTypes_.first();
-                    baseClass_ = PrimitiveTypeUtil.getArrayClass(baseClass_);
-                    Class<?> cl_ = ConstClasses.classForObjectNameNotInit(baseClass_);
+                    Class<?> cl_ = PrimitiveTypeUtil.getSingleNativeClass(baseClass_);
                     if (cl_.getTypeParameters().length != allTypes_.size() - 1) {
                         return null;
                     }

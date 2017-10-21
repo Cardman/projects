@@ -52,7 +52,6 @@ import code.util.ObjectMap;
 import code.util.ObjectNotNullMap;
 import code.util.StringList;
 import code.util.StringMap;
-import code.util.consts.ConstClasses;
 import code.util.exceptions.RuntimeClassNotFoundException;
 import code.util.graphs.Graph;
 import code.xml.ElementOffsetsNext;
@@ -267,7 +266,7 @@ public final class Classes {
                     }
                 }
                 try {
-                    Class<?> clNat_ = ConstClasses.classForObjectNameNotInit(file_);
+                    Class<?> clNat_ = PrimitiveTypeUtil.getSingleNativeClass(file_);
                     throw new AlreadyExistingClassException(clNat_.getName());
                 } catch (RuntimeClassNotFoundException _0) {
                 }
@@ -656,124 +655,6 @@ public final class Classes {
             classesInheriting.add(c.getId());
         }
         classesInheriting.removeAllObj(Object.class.getName());
-        for (String c: classesInheriting) {
-            RootBlock dBl_ = classesBodies.getVal(c);
-            Mapping mapping_ = new Mapping();
-            for (TypeVar t: dBl_.getParamTypes()) {
-                mapping_.getMapping().put(t.getName(), t.getConstraints());
-            }
-            if (mapping_.isCyclic()) {
-                BadInheritedClass b_;
-                b_ = new BadInheritedClass();
-                //TODO better message
-                b_.setClassName(c);
-                b_.setFileName(c);
-                b_.setRc(new RowCol());
-                errorsDet.add(b_);
-                continue;
-            }
-            for (TypeVar t: dBl_.getParamTypes()) {
-                boolean existNative_ = false;
-                boolean existCustom_ = false;
-                boolean ok_ = true;
-                StringList upper_ = mapping_.getAllUpperBounds(t.getName());
-                StringList upperNotObj_ = new StringList();
-                for (String b: upper_) {
-                    StringList baseParams_ = StringList.getAllTypes(b);
-                    String base_ = PrimitiveTypeUtil.getQuickComponentBaseType(baseParams_.first()).getComponent();
-                    if (StringList.quickEq(base_, Object.class.getName())) {
-                        continue;
-                    }
-                    upperNotObj_.add(b);
-                    if (classesBodies.contains(base_)) {
-                        existCustom_ = true;
-                    } else {
-                        try {
-                            ConstClasses.classForObjectNameNotInit(base_);
-                            existNative_ = true;
-                        } catch (Exception _0) {
-                            UnknownClassName un_ = new UnknownClassName();
-                            un_.setClassName(base_);
-                            un_.setFileName(c);
-                            un_.setRc(new RowCol());
-                            errorsDet.add(un_);
-                        }
-                    }
-                }
-                if (existNative_ && existCustom_) {
-                    UnknownClassName un_ = new UnknownClassName();
-                    //TODO all conflicting classes
-                    un_.setClassName(c);
-                    un_.setFileName(c);
-                    un_.setRc(new RowCol());
-                    errorsDet.add(un_);
-                    ok_ = false;
-                }
-                StringMap<StringList> baseParams_ = getBaseParams(upper_);
-                for (EntryCust<String, StringList> e: baseParams_.entryList()) {
-                    if (e.getValue().size() > 1) {
-                        DuplicateGenericSuperTypes duplicate_;
-                        duplicate_ = new DuplicateGenericSuperTypes();
-                        duplicate_.setFileName(c);
-                        duplicate_.setRc(new RowCol());
-                        duplicate_.setGenericSuperTypes(e.getValue());
-                        errorsDet.add(duplicate_);
-                    }
-                }
-                if (ok_) {
-                    int nbAbs_ = 0;
-                    int nbFinal_ = 0;
-                    if (existNative_) {
-                        for (String b: upperNotObj_) {
-                            StringList baseParamsUpp_ = StringList.getAllTypes(b);
-                            String base_ = PrimitiveTypeUtil.getQuickComponentBaseType(baseParamsUpp_.first()).getComponent();
-                            Class<?> cl_ = ConstClasses.classForObjectNameNotInit(base_);
-                            if (cl_.isInterface()) {
-                                continue;
-                            }
-                            if (cl_.isEnum()) {
-                                nbFinal_++;
-                                continue;
-                            }
-                            if (Modifier.isAbstract(cl_.getModifiers())) {
-                                nbAbs_++;
-                            }
-                            if (Modifier.isFinal(cl_.getModifiers())) {
-                                nbFinal_++;
-                            }
-                        }
-                    } else {
-                        for (String b: upperNotObj_) {
-                            StringList baseParamsUpp_ = StringList.getAllTypes(b);
-                            String base_ = PrimitiveTypeUtil.getQuickComponentBaseType(baseParamsUpp_.first()).getComponent();
-                            RootBlock r_ = getClassBody(base_);
-                            if (r_ instanceof InterfaceBlock) {
-                                continue;
-                            }
-                            if (r_ instanceof EnumBlock) {
-                                nbFinal_++;
-                                continue;
-                            }
-                            if (r_.isAbstractType()) {
-                                nbAbs_++;
-                            }
-                            if (r_.isFinalType()) {
-                                nbFinal_++;
-                            }
-                        }
-                    }
-                    if (nbAbs_ > 1 || nbFinal_ > 0) {
-                        //error
-                        BadInheritedClass inh_;
-                        inh_ = new BadInheritedClass();
-                        inh_.setFileName(c);
-                        inh_.setRc(new RowCol());
-                        inh_.setClassName(c);
-                        errorsDet.add(inh_);
-                    }
-                }
-            }
-        }
         if (!errorsDet.isEmpty()) {
             return;
         }
@@ -824,6 +705,161 @@ public final class Classes {
                 r_.getAllSuperTypes().addAllElts(((UniqueRootedBlock)r_).getAllInterfaces());
             } else {
                 r_.getAllSuperTypes().addAllElts(((InterfaceBlock)r_).getAllSuperClasses());
+            }
+        }
+        for (String c: classesInheriting) {
+            RootBlock dBl_ = classesBodies.getVal(c);
+            Mapping mapping_ = new Mapping();
+            StringList variables_ = new StringList();
+            boolean ok_ = true;
+            for (TypeVar t: dBl_.getParamTypes()) {
+                mapping_.getMapping().put(t.getName(), t.getConstraints());
+                variables_.add(t.getName());
+                for (String b: t.getConstraints()) {
+                    if (!Templates.existAllClassParts(b, variables_, this)) {
+                        UnknownClassName un_ = new UnknownClassName();
+                        un_.setClassName(b);
+                        un_.setFileName(c);
+                        un_.setRc(new RowCol());
+                        errorsDet.add(un_);
+                        ok_ = false;
+                    }
+                }
+            }
+            if (!ok_) {
+                continue;
+            }
+            if (mapping_.isCyclic()) {
+                BadInheritedClass b_;
+                b_ = new BadInheritedClass();
+                //TODO better message
+                b_.setClassName(c);
+                b_.setFileName(c);
+                b_.setRc(new RowCol());
+                errorsDet.add(b_);
+                continue;
+            }
+            for (TypeVar t: dBl_.getParamTypes()) {
+                boolean existNative_ = false;
+                boolean existCustom_ = false;
+                StringList upper_ = mapping_.getAllUpperBounds(t.getName());
+                StringList upperNotObj_ = new StringList();
+                for (String b: upper_) {
+                    StringList baseParams_ = StringList.getAllTypes(b);
+                    String base_ = PrimitiveTypeUtil.getQuickComponentBaseType(baseParams_.first()).getComponent();
+                    if (StringList.quickEq(base_, Object.class.getName())) {
+                        continue;
+                    }
+                    upperNotObj_.add(b);
+                    if (classesBodies.contains(base_)) {
+                        existCustom_ = true;
+                    } else {
+                        existNative_ = true;
+                    }
+                }
+                if (existNative_ && existCustom_) {
+                    UnknownClassName un_ = new UnknownClassName();
+                    //TODO all conflicting classes
+                    un_.setClassName(c);
+                    un_.setFileName(c);
+                    un_.setRc(new RowCol());
+                    errorsDet.add(un_);
+                    ok_ = false;
+                }
+                StringMap<StringList> baseParams_ = getBaseParams(upper_);
+                for (EntryCust<String, StringList> e: baseParams_.entryList()) {
+                    if (e.getValue().size() > 1) {
+                        DuplicateGenericSuperTypes duplicate_;
+                        duplicate_ = new DuplicateGenericSuperTypes();
+                        duplicate_.setFileName(c);
+                        duplicate_.setRc(new RowCol());
+                        duplicate_.setGenericSuperTypes(e.getValue());
+                        errorsDet.add(duplicate_);
+                    }
+                }
+                if (ok_) {
+                    int nbAbs_ = 0;
+                    int nbFinal_ = 0;
+                    if (existNative_) {
+                        for (String b: upperNotObj_) {
+                            StringList baseParamsUpp_ = StringList.getAllTypes(b);
+                            String base_ = PrimitiveTypeUtil.getQuickComponentBaseType(baseParamsUpp_.first()).getComponent();
+                            Class<?> cl_ = PrimitiveTypeUtil.getSingleNativeClass(base_);
+                            if (cl_.isInterface()) {
+                                continue;
+                            }
+                            if (cl_.isEnum()) {
+                                nbFinal_++;
+                                continue;
+                            }
+                            if (Modifier.isAbstract(cl_.getModifiers())) {
+                                nbAbs_++;
+                            }
+                            if (Modifier.isFinal(cl_.getModifiers())) {
+                                nbFinal_++;
+                            }
+                        }
+                    } else {
+                        for (String b: upperNotObj_) {
+                            StringList baseParamsUpp_ = StringList.getAllTypes(b);
+                            String base_ = PrimitiveTypeUtil.getQuickComponentBaseType(baseParamsUpp_.first()).getComponent();
+                            RootBlock r_ = getClassBody(base_);
+                            if (r_ instanceof InterfaceBlock) {
+                                continue;
+                            }
+                            if (r_ instanceof EnumBlock) {
+                                nbFinal_++;
+                                continue;
+                            }
+                            if (r_.isAbstractType()) {
+                                nbAbs_++;
+                            }
+                            if (r_.isFinalType()) {
+                                nbFinal_++;
+                            }
+                        }
+                    }
+                    if (nbAbs_ > 1 || nbFinal_ > 0) {
+                        //error
+                        BadInheritedClass inh_;
+                        inh_ = new BadInheritedClass();
+                        inh_.setFileName(c);
+                        inh_.setRc(new RowCol());
+                        inh_.setClassName(c);
+                        errorsDet.add(inh_);
+                    }
+                }
+            }
+        }
+        for (EntryCust<String, RootBlock> c: classesBodies.entryList()) {
+            String d_ = c.getKey();
+            RootBlock bl_ = c.getValue();
+            StringList variables_ = new StringList();
+            StringMap<StringList> map_;
+            map_ = new StringMap<StringList>();
+            for (TypeVar t: bl_.getParamTypes()) {
+                variables_.add(t.getName());
+                map_.put(t.getName(), t.getConstraints());
+            }
+            for (TypeVar t: bl_.getParamTypes()) {
+                for (String b: t.getConstraints()) {
+                    if (!Templates.correctClassParts(b, map_, this)) {
+                        UnknownClassName un_ = new UnknownClassName();
+                        un_.setClassName(b);
+                        un_.setFileName(d_);
+                        un_.setRc(new RowCol());
+                        errorsDet.add(un_);
+                    }
+                }
+            }
+            for (String s: bl_.getDirectGenericSuperClasses()) {
+                if (!Templates.correctClassParts(s, map_, _context.getClasses())) {
+                    UnknownClassName un_ = new UnknownClassName();
+                    un_.setClassName(s);
+                    un_.setFileName(d_);
+                    un_.setRc(new RowCol());
+                    errorsDet.add(un_);
+                }
             }
         }
     }
@@ -1631,6 +1667,20 @@ public final class Classes {
     public Struct getStaticField(ClassField _clField) {
         return staticFields.getVal(_clField);
     }
+
+    public boolean isCustomType(String _name) {
+        StringList types_ = StringList.getAllTypes(_name);
+        String base_ = types_.first();
+        for (EntryCust<String, RootBlock> c: classesBodies.entryList()) {
+            String k_ = c.getKey();
+            if (!StringList.quickEq(k_, base_)) {
+                continue;
+            }
+            return true;
+        }
+        return false;
+    }
+
     public ClassMetaInfo getClassMetaInfo(String _name) {
         StringList types_ = StringList.getAllTypes(_name);
         String base_ = types_.first();

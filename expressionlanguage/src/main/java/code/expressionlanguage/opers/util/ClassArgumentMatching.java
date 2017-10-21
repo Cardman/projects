@@ -4,7 +4,6 @@ import code.expressionlanguage.methods.Classes;
 import code.expressionlanguage.opers.OperationNode;
 import code.util.CustList;
 import code.util.StringList;
-import code.util.consts.ConstClasses;
 import code.util.exceptions.RuntimeClassNotFoundException;
 
 public final class ClassArgumentMatching {
@@ -64,7 +63,7 @@ public final class ClassArgumentMatching {
         if (PrimitiveTypeUtil.isPrimitive(className_)) {
             return PrimitiveTypeUtil.getPrimitiveClass(className_);
         }
-        return ConstClasses.classForObjectNameNotInit(PrimitiveTypeUtil.getArrayClass(className_));
+        return PrimitiveTypeUtil.getSingleNativeClass(className_);
     }
 
     public boolean isArray() {
@@ -86,7 +85,7 @@ public final class ClassArgumentMatching {
 
     public CustList<Class<?>> getDeclaredClasses() {
         try {
-            Class<?> cl_ = ConstClasses.classForObjectNameNotInit(PrimitiveTypeUtil.getArrayClass(className));
+            Class<?> cl_ = PrimitiveTypeUtil.getSingleNativeClass(className);
             CustList<Class<?>> cls_ = new CustList<Class<?>>();
             for (Class<?> c: cl_.getDeclaredClasses()) {
                 cls_.add(c);

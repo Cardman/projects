@@ -53,10 +53,6 @@ public final class ClassMatching {
         return PrimitiveTypeUtil.isPrimitive(className.first());
     }
 
-    public static Class<?> getSingleNativeClass(String _className) {
-        return ConstClasses.classForNameNotInit(PrimitiveTypeUtil.getArrayClass(_className));
-    }
-
     public StringList getClassName() {
         return className;
     }

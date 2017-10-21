@@ -41,7 +41,6 @@ import code.util.IdMap;
 import code.util.NatTreeMap;
 import code.util.Numbers;
 import code.util.StringList;
-import code.util.consts.ConstClasses;
 import code.util.exceptions.NullObjectException;
 import code.util.exceptions.RuntimeClassNotFoundException;
 
@@ -205,8 +204,7 @@ public final class InstanceOperation extends InvokingOperation {
         }
         Class<?> cl_;
         try {
-            realClassName_ = PrimitiveTypeUtil.getArrayClass(realClassName_);
-            cl_ = ConstClasses.classForObjectNameNotInit(realClassName_);
+            cl_ = PrimitiveTypeUtil.getSingleNativeClass(realClassName_);
         } catch (RuntimeClassNotFoundException _0_) {
             throw new RuntimeClassNotFoundException(realClassName_+RETURN_LINE+_conf.joinPages());
         }
@@ -454,7 +452,7 @@ public final class InstanceOperation extends InvokingOperation {
             if (PrimitiveTypeUtil.isPrimitive(_instanceClassName)) {
                 cl_ = PrimitiveTypeUtil.getPrimitiveClass(_instanceClassName);
             } else {
-                cl_ = ConstClasses.classForObjectNameNotInit(PrimitiveTypeUtil.getArrayClass(_instanceClassName));
+                cl_ = PrimitiveTypeUtil.getSingleNativeClass(_instanceClassName);
             }
         } catch (RuntimeClassNotFoundException _0) {
             throw new RuntimeClassNotFoundException(_realClassName+RETURN_LINE+_conf.joinPages());

@@ -52,6 +52,11 @@ public final class PrimitiveTypeUtil {
     private PrimitiveTypeUtil() {
     }
 
+    public static Class<?> getSingleNativeClass(String _className) {
+        String base_ = StringList.getAllTypes(_className).first();
+        return ConstClasses.classForObjectNameNotInit(getArrayClass(base_));
+    }
+
     public static boolean primitiveTypeNullObject(String _className, Struct _instance) {
         if (!_className.startsWith(PRIM)) {
             return false;
@@ -228,14 +233,14 @@ public final class PrimitiveTypeUtil {
         }
         return cl_;
     }
-    public static String getArrayType(String _className, int _nb) {
+    private static String getArrayType(String _className, int _nb) {
         String cl_ = _className;
         for (int i = CustList.FIRST_INDEX; i < _nb; i++) {
             cl_ = getArrayType(cl_);
         }
         return cl_;
     }
-    public static String getArrayType(String _className) {
+    private static String getArrayType(String _className) {
         if (StringList.quickEq(_className, PRIM_BOOLEAN)) {
             return ARR_CLASS+BOOLEAN;
         }
@@ -289,7 +294,7 @@ public final class PrimitiveTypeUtil {
     }
 
     /**Native classes*/
-    public static DimComp getComponentBaseType(String _className) {
+    private static DimComp getComponentBaseType(String _className) {
         int d_ = 0;
         String className_ = _className;
         String comp_ = getComponentType(className_);
@@ -305,35 +310,6 @@ public final class PrimitiveTypeUtil {
             d_++;
             comp_ = res_;
         }
-    }
-
-    public static boolean correctNbParameters(String _genericClass, Classes _classes) {
-        StringList params_ = StringList.getAllTypes(_genericClass);
-        String base_ = params_.first();
-        int nbParams_ = params_.size() - 1;
-        String baseArr_ = getQuickComponentBaseType(base_).getComponent();
-        if (_classes != null) {
-            RootBlock r_ = _classes.getClassBody(baseArr_);
-            if (r_ != null) {
-                return r_.getParamTypes().size() == nbParams_;
-            }
-        }
-        Class<?> cl_ = ConstClasses.classForObjectNameNotInit(baseArr_);
-        return cl_.getTypeParameters().length == nbParams_;
-    }
-
-    public static boolean correctNbParametersOrBase(String _genericClass, Classes _classes) {
-        StringList params_ = StringList.getAllTypes(_genericClass);
-        String base_ = params_.first();
-        int nbParams_ = params_.size() - 1;
-        if (_classes != null) {
-            RootBlock r_ = _classes.getClassBody(base_);
-            if (r_ != null) {
-                return r_.getParamTypes().size() == nbParams_ || nbParams_ == 0;
-            }
-        }
-        Class<?> cl_ = ConstClasses.classForObjectNameNotInit(base_);
-        return cl_.getTypeParameters().length == nbParams_ || nbParams_ == 0;
     }
 
     public static boolean isArrayAssignable(String _arrArg, String _arrParam, Classes _classes) {
@@ -367,7 +343,7 @@ public final class PrimitiveTypeUtil {
         return _className.substring(CustList.SECOND_INDEX);
     }
 
-    public static String getComponentType(String _className) {
+    private static String getComponentType(String _className) {
         if (!_className.startsWith(ARR_CLASS)) {
             return null;
         }
@@ -442,7 +418,7 @@ public final class PrimitiveTypeUtil {
         return getPrettyArrayType(compo_, d_.getDim());
     }
 
-    public static String getArrayClass(String _class) {
+    private static String getArrayClass(String _class) {
         DimComp d_ = getQuickComponentBaseType(_class);
         String compo_ = d_.getComponent();
         return getArrayType(compo_, d_.getDim());
@@ -600,7 +576,7 @@ public final class PrimitiveTypeUtil {
     public static int getOrderClass(ClassMatching _class) {
         for (String c: _class.getClassName()) {
             try {
-                return getOrderClass(ClassMatching.getSingleNativeClass(c));
+                return getOrderClass(getSingleNativeClass(c));
             } catch (RuntimeClassNotFoundException _0) {
             }
         }

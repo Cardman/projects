@@ -9,14 +9,12 @@ import code.expressionlanguage.methods.RootBlock;
 import code.expressionlanguage.methods.UniqueRootedBlock;
 import code.expressionlanguage.methods.util.TypeVar;
 import code.expressionlanguage.opers.OperationNode;
-import code.expressionlanguage.opers.util.ClassMetaInfo;
 import code.expressionlanguage.opers.util.DimComp;
 import code.expressionlanguage.types.NativeTypeUtil;
 import code.util.CustList;
 import code.util.EqList;
 import code.util.StringList;
 import code.util.StringMap;
-import code.util.consts.ConstClasses;
 import code.util.exceptions.RuntimeClassNotFoundException;
 
 public final class Templates {
@@ -31,6 +29,17 @@ public final class Templates {
     public static final char PREFIX_VAR_TYPE_CHAR = '#';
 
     private Templates() {
+    }
+
+    public static boolean correctClassParts(String _className, StringMap<StringList> _mapping, Classes _classes) {
+        if (!isCorrectWrite(_className)) {
+            return false;
+        }
+        StringList variables_ = _mapping.getKeys();
+        if (!existAllClassParts(_className, variables_, _classes)) {
+            return false;
+        }
+        return isCorrectTemplateAll(_className, _mapping, _classes);
     }
 
     public static boolean existAllClassParts(String _className, StringList _variables, Classes _classes) {
@@ -48,11 +57,11 @@ public final class Templates {
                 }
                 continue;
             }
-            ClassMetaInfo custClass_ = null;
+            boolean custClass_ = false;
             if (_classes != null) {
-                custClass_ = _classes.getClassMetaInfo(baseName_);
+                custClass_ = _classes.isCustomType(baseName_);
             }
-            if (custClass_ == null) {
+            if (!custClass_) {
                 try {
                     if (PrimitiveTypeUtil.isPrimitive(baseName_)) {
                         Class<?> cl_ = PrimitiveTypeUtil.getPrimitiveClass(baseName_);
@@ -60,7 +69,7 @@ public final class Templates {
                             return false;
                         }
                     } else {
-                        ConstClasses.classForObjectNameNotInit(baseName_);
+                        PrimitiveTypeUtil.getSingleNativeClass(baseName_);
                     }
                 } catch (RuntimeClassNotFoundException _0) {
                     return false;
@@ -96,7 +105,7 @@ public final class Templates {
         }
         if (generic_ == null) {
             for (String c: curClasses_) {
-                if (!PrimitiveTypeUtil.correctNbParameters(c, _classes)) {
+                if (!correctNbParameters(c, _classes)) {
                     return null;
                 }
             }
@@ -153,7 +162,7 @@ public final class Templates {
         }
         if (generic_ == null) {
             for (String c: curClasses_) {
-                if (!PrimitiveTypeUtil.correctNbParameters(c, _classes)) {
+                if (!correctNbParameters(c, _classes)) {
                     return null;
                 }
             }
@@ -247,7 +256,7 @@ public final class Templates {
             current_ = next_;
         }
     }
-    public static boolean isCorrectTemplateAll(String _className, StringMap<StringList> _inherit, Classes _classes) {
+    static boolean isCorrectTemplateAll(String _className, StringMap<StringList> _inherit, Classes _classes) {
         if (!isCorrectTemplate(_className, _inherit, _classes)) {
             return false;
         }
@@ -256,22 +265,6 @@ public final class Templates {
             StringList next_ = new StringList();
             for (String c: current_) {
                 StringList types_ = StringList.getAllTypes(c);
-                String base_ = PrimitiveTypeUtil.getQuickComponentBaseType(types_.first()).getComponent();
-                if (_classes != null) {
-                    if (base_.startsWith(PREFIX_VAR_TYPE)) {
-                        continue;
-                    }
-                    if (PrimitiveTypeUtil.isPrimitive(base_)) {
-                        continue;
-                    }
-                    if (_classes.getClassBody(base_) == null) {
-                        try {
-                            ConstClasses.classForObjectNameNotInit(base_);
-                        } catch (Exception _0) {
-                            return false;
-                        }
-                    }
-                }
                 for (String n: types_.mid(1)) {
                     if (!isCorrectTemplate(n, _inherit, _classes)) {
                         return false;
@@ -285,7 +278,7 @@ public final class Templates {
             current_ = next_;
         }
     }
-    public static boolean isCorrectTemplate(String _className, StringMap<StringList> _inherit, Classes _classes) {
+    static boolean isCorrectTemplate(String _className, StringMap<StringList> _inherit, Classes _classes) {
         StringList types_ = StringList.getAllTypes(_className);
         String className_ = types_.first();
         className_ = PrimitiveTypeUtil.getQuickComponentBaseType(className_).getComponent();
@@ -295,7 +288,7 @@ public final class Templates {
         if (className_.startsWith(PREFIX_VAR_TYPE)) {
             return _inherit.contains(className_.substring(1));
         }
-        if (!PrimitiveTypeUtil.correctNbParameters(_className, _classes)) {
+        if (!correctNbParameters(_className, _classes)) {
             return false;
         }
         int i_ = CustList.FIRST_INDEX;
@@ -315,7 +308,7 @@ public final class Templates {
         }
         if (boundsAll_ == null) {
             boundsAll_ = new EqList<StringList>();
-            Class<?> cl_ = ConstClasses.classForObjectNameNotInit(className_);
+            Class<?> cl_ = PrimitiveTypeUtil.getSingleNativeClass(className_);
             for (TypeVariable<?> t: cl_.getTypeParameters()) {
                 StringList localBound_ = new StringList();
                 for (Type b: t.getBounds()) {
@@ -375,7 +368,7 @@ public final class Templates {
                 return root_.getGenericString();
             }
         }
-        Class<?> cl_ = ConstClasses.classForObjectNameNotInit(className_);
+        Class<?> cl_ = PrimitiveTypeUtil.getSingleNativeClass(className_);
         if (cl_.getTypeParameters().length == 0) {
             return className_;
         }
@@ -398,7 +391,7 @@ public final class Templates {
                 return root_.getParamTypes();
             }
         }
-        Class<?> cl_ = ConstClasses.classForObjectNameNotInit(className_);
+        Class<?> cl_ = PrimitiveTypeUtil.getSingleNativeClass(className_);
         if (cl_.getTypeParameters().length == 0) {
             return new CustList<TypeVar>();
         }
@@ -431,7 +424,7 @@ public final class Templates {
                 return varTypes_;
             }
         }
-        Class<?> cl_ = ConstClasses.classForObjectNameNotInit(className_);
+        Class<?> cl_ = PrimitiveTypeUtil.getSingleNativeClass(className_);
         int i_ = CustList.FIRST_INDEX;
         StringMap<String> varTypes_ = new StringMap<String>();
         for (TypeVariable<?> t: cl_.getTypeParameters()) {
@@ -588,7 +581,7 @@ public final class Templates {
                 StringList allTypes_ = StringList.getAllTypes(c);
                 String baseClass_ = allTypes_.first();
                 baseClass_ = PrimitiveTypeUtil.getQuickComponentBaseType(baseClass_).getComponent();
-                if (!PrimitiveTypeUtil.correctNbParameters(c, _classes)) {
+                if (!correctNbParameters(c, _classes)) {
                     return null;
                 }
             }
@@ -663,8 +656,7 @@ public final class Templates {
                 return null;
             }
         }
-        String baseClass_ = PrimitiveTypeUtil.getArrayClass(_className);
-        Class<?> cl_ = ConstClasses.classForObjectNameNotInit(baseClass_).getSuperclass();
+        Class<?> cl_ = PrimitiveTypeUtil.getSingleNativeClass(_className).getSuperclass();
         if (cl_ == null) {
             return null;
         }
@@ -680,8 +672,8 @@ public final class Templates {
                 return ((UniqueRootedBlock)r_).getGenericSuperClass();
             }
         }
-        baseClass_ = PrimitiveTypeUtil.getArrayClass(baseClass_);
-        return NativeTypeUtil.getPrettyType(ConstClasses.classForObjectNameNotInit(baseClass_).getGenericSuperclass());
+        Class<?> cl_ = PrimitiveTypeUtil.getSingleNativeClass(baseClass_);
+        return NativeTypeUtil.getPrettyType(cl_.getGenericSuperclass());
     }
 
     private static StringList getSuperInterfaceNames(String _className, Classes _classes) {
@@ -694,8 +686,7 @@ public final class Templates {
                 return ((InterfaceBlock)r_).getDirectSuperClasses();
             }
         }
-        String baseClass_ = PrimitiveTypeUtil.getArrayClass(_className);
-        Class<?> cl_ = ConstClasses.classForObjectNameNotInit(baseClass_);
+        Class<?> cl_ = PrimitiveTypeUtil.getSingleNativeClass(_className);
         StringList interfaces_ = new StringList();
         for (Class<?> i: cl_.getInterfaces()) {
             interfaces_.add(i.getName());
@@ -715,7 +706,36 @@ public final class Templates {
                 return ((InterfaceBlock)r_).getDirectGenericSuperClasses().get(_index);
             }
         }
-        baseClass_ = PrimitiveTypeUtil.getArrayClass(baseClass_);
-        return NativeTypeUtil.getPrettyType(ConstClasses.classForObjectNameNotInit(baseClass_).getGenericInterfaces()[_index]);
+        Class<?> cl_ = PrimitiveTypeUtil.getSingleNativeClass(baseClass_);
+        return NativeTypeUtil.getPrettyType(cl_.getGenericInterfaces()[_index]);
+    }
+
+    private static boolean correctNbParameters(String _genericClass, Classes _classes) {
+        StringList params_ = StringList.getAllTypes(_genericClass);
+        String base_ = params_.first();
+        int nbParams_ = params_.size() - 1;
+        String baseArr_ = PrimitiveTypeUtil.getQuickComponentBaseType(base_).getComponent();
+        if (_classes != null) {
+            RootBlock r_ = _classes.getClassBody(baseArr_);
+            if (r_ != null) {
+                return r_.getParamTypes().size() == nbParams_;
+            }
+        }
+        Class<?> cl_ = PrimitiveTypeUtil.getSingleNativeClass(baseArr_);
+        return cl_.getTypeParameters().length == nbParams_;
+    }
+
+    static boolean correctNbParametersOrBase(String _genericClass, Classes _classes) {
+        StringList params_ = StringList.getAllTypes(_genericClass);
+        String base_ = params_.first();
+        int nbParams_ = params_.size() - 1;
+        if (_classes != null) {
+            RootBlock r_ = _classes.getClassBody(base_);
+            if (r_ != null) {
+                return r_.getParamTypes().size() == nbParams_ || nbParams_ == 0;
+            }
+        }
+        Class<?> cl_ = PrimitiveTypeUtil.getSingleNativeClass(base_);
+        return cl_.getTypeParameters().length == nbParams_ || nbParams_ == 0;
     }
 }

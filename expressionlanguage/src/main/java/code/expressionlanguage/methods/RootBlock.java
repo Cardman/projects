@@ -39,7 +39,6 @@ import code.util.EqList;
 import code.util.ObjectMap;
 import code.util.StringList;
 import code.util.StringMap;
-import code.util.consts.ConstClasses;
 import code.xml.RowCol;
 
 public abstract class RootBlock extends BracedBlock implements AccessibleBlock {
@@ -241,15 +240,7 @@ public abstract class RootBlock extends BracedBlock implements AccessibleBlock {
                         _context.getClasses().getErrorsDet().add(un_);
                         continue;
                     }
-                    if (!Templates.isCorrectWrite(classNameLoc_)) {
-                        UnknownClassName un_ = new UnknownClassName();
-                        un_.setClassName(classNameLoc_);
-                        un_.setFileName(className_);
-                        un_.setRc(b.getRowCol(0, _context.getTabWidth(), n.getKey()));
-                        _context.getClasses().getErrorsDet().add(un_);
-                        continue;
-                    }
-                    if (!Templates.isCorrectTemplateAll(classNameLoc_, vars_, _context.getClasses())) {
+                    if (!Templates.correctClassParts(classNameLoc_, vars_, _context.getClasses())) {
                         UnknownClassName un_ = new UnknownClassName();
                         un_.setClassName(classNameLoc_);
                         un_.setFileName(className_);
@@ -554,7 +545,7 @@ public abstract class RootBlock extends BracedBlock implements AccessibleBlock {
                         }
                     }
                 } else {
-                    Class<?> clBound_ = ConstClasses.classForObjectNameNotInit(base_);
+                    Class<?> clBound_ = PrimitiveTypeUtil.getSingleNativeClass(base_);
                     for (Method m: clBound_.getMethods()) {
                         if (Modifier.isStatic(m.getModifiers())) {
                             continue;
@@ -1062,7 +1053,7 @@ public abstract class RootBlock extends BracedBlock implements AccessibleBlock {
             for (String s: e.getValue()) {
                 String base_ = StringList.getAllTypes(s).first();
                 if (_classes.getClassBody(base_) == null) {
-                    Class<?> clBound_ = ConstClasses.classForObjectNameNotInit(base_);
+                    Class<?> clBound_ = PrimitiveTypeUtil.getSingleNativeClass(base_);
                     for (Method m: clBound_.getMethods()) {
                         if (Modifier.isStatic(m.getModifiers())) {
                             continue;

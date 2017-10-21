@@ -38,7 +38,6 @@ import code.util.EntryCust;
 import code.util.EqList;
 import code.util.ObjectMap;
 import code.util.StringList;
-import code.util.consts.ConstClasses;
 import code.util.exceptions.NullObjectException;
 import code.util.exceptions.RuntimeClassNotFoundException;
 
@@ -528,7 +527,7 @@ public final class ProcessXmlMethod {
             if (PrimitiveTypeUtil.isPrimitive(_className)) {
                 return PrimitiveTypeUtil.getPrimitiveClass(_className);
             }
-            return ConstClasses.classForObjectNameNotInit(PrimitiveTypeUtil.getArrayClass(_className));
+            return PrimitiveTypeUtil.getSingleNativeClass(_className);
         } catch (Throwable _0) {
             _conf.getLastPage().addToOffset(_offest);
             throw new RuntimeClassNotFoundException(_className+RETURN_LINE+_conf.joinPages());

@@ -1571,7 +1571,7 @@ final class FormatHtml {
         LocalVariable ret_ = ExtractObject.getCurrentLocVariable(_conf, 0, _ip.getReturnedValues(), var_);
         Struct elt_ = tryToGetObject(_conf, _ip, _set);
         String className_ = ret_.getClassName();
-        checkClass(_conf, _ip, ConstClasses.classForObjectNameNotInit(className_), elt_.getInstance());
+        checkClass(_conf, _ip, PrimitiveTypeUtil.getSingleNativeClass(className_), elt_.getInstance());
         ret_.setStruct(elt_);
     }
     private static void processSetClassNameParamTag(Configuration _conf, ImportingPage _ip,
@@ -3440,14 +3440,12 @@ final class FormatHtml {
 
     private static void processOptionsMapEnum(Configuration _conf, Struct _extractedMap,
             String _default, Document _docSelect, Element _docElementSelect, String _className) {
-        boolean isEnumClass_;
-        try {
-            Class<?> class_ = ConstClasses.classAliasForObjectNameNotInit(_className);
-            isEnumClass_ = class_.isEnum();
-        } catch (Throwable _0) {
-            if (_className.isEmpty()) {
-                isEnumClass_ = false;
-            } else {
+        boolean isEnumClass_ = false;
+        if (!_className.isEmpty()) {
+            try {
+                Class<?> class_ = ConstClasses.classAliasForObjectNameNotInit(_className);
+                isEnumClass_ = class_.isEnum();
+            } catch (Throwable _0) {
                 throw new RuntimeClassNotFoundException(_className+_conf.joinPages());
             }
         }

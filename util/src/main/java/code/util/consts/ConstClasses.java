@@ -125,6 +125,8 @@ public final class ConstClasses {
         return mapping_;
     }
 
+    /**DO NOT USE DEFAULT PACKAGE FOR ALL CLASSES
+    @throws RuntimeClassNotFoundException*/
     public static Class<?> classAliasForNameNotInit(String _className) {
         if (StringList.quickEq(_className, ConstClasses.SELECTED_BOOLEAN)) {
             return SelectedBoolean.class;
@@ -139,7 +141,11 @@ public final class ConstClasses {
         if (className_ != null) {
             return ConstClasses.classForObjectNameNotInit(className_);
         }
-        return ConstClasses.classForNameNotInit(_className);
+        Class<?> primitive_ = getPrimitiveClass(_className);
+        if (primitive_ != null) {
+            return primitive_;
+        }
+        return classForNameObjectClasses(_className, false);
     }
     public static String resolve(String _alias) {
         if (StringList.quickEq(_alias, ConstClasses.SELECTED_BOOLEAN)) {
@@ -168,19 +174,6 @@ public final class ConstClasses {
 
     /**DO NOT USE DEFAULT PACKAGE FOR ALL CLASSES
     @throws RuntimeClassNotFoundException*/
-    public static Class<?> classForNameNotInit(String _name) {
-        return classForNameKnownClasses(_name, false);
-    }
-
-    /**@throws RuntimeClassNotFoundException*/
-    private static Class<?> classForNameKnownClasses(String _name, boolean _initialize) {
-        Class<?> primitive_ = getPrimitiveClass(_name);
-        if (primitive_ != null) {
-            return primitive_;
-        }
-        return classForNameObjectClasses(_name, _initialize);
-    }
-
     public static Class<?> classAliasForObjectNameNotInit(String _name) {
         String className_ = ConstClasses.getMapping(_name);
         if (className_ != null) {

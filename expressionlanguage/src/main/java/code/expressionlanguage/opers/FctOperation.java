@@ -52,7 +52,6 @@ import code.util.EqList;
 import code.util.IdMap;
 import code.util.NatTreeMap;
 import code.util.StringList;
-import code.util.consts.ConstClasses;
 import code.util.exceptions.NullObjectException;
 import code.util.exceptions.RuntimeClassNotFoundException;
 
@@ -515,10 +514,19 @@ public final class FctOperation extends InvokingOperation {
                     throw new NullObjectException(_conf.joinPages());
                 }
                 str_ = StringList.removeAllSpaces(str_);
-                str_ = PrimitiveTypeUtil.getArrayClass(str_);
+                if (PrimitiveTypeUtil.isPrimitive(str_)) {
+                    if (PrimitiveTypeUtil.getPrimitiveClass(str_) == null) {
+                        setRelativeOffsetPossibleLastPage(chidren_.first().getIndexInEl()+1, _conf);
+                        throw new RuntimeClassNotFoundException(str_+RETURN_LINE+_conf.joinPages());
+                    }
+                    ClassMetaInfo res_ = new ClassMetaInfo(str_, null, null, null, null, null,false,false);
+                    Argument arg_ = new Argument();
+                    arg_.setObject(res_);
+                    return arg_;
+                }
                 Class<?> cl_;
                 try {
-                    cl_ = ConstClasses.classForObjectNameNotInit(str_);
+                    cl_ = PrimitiveTypeUtil.getSingleNativeClass(str_);
                 } catch (RuntimeClassNotFoundException _0_) {
                     setRelativeOffsetPossibleLastPage(chidren_.first().getIndexInEl()+1, _conf);
                     throw new RuntimeClassNotFoundException(str_+RETURN_LINE+_conf.joinPages());

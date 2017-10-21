@@ -69,7 +69,7 @@ import code.util.NatTreeMap;
 import code.util.ObjectMap;
 import code.util.ObjectNotNullMap;
 import code.util.StringList;
-import code.util.consts.ConstClasses;
+import code.util.StringMap;
 import code.util.exceptions.NullObjectException;
 import code.util.exceptions.RuntimeClassNotFoundException;
 
@@ -379,32 +379,21 @@ public abstract class OperationNode {
         }
         _conf.getAccessValue().setAccess(_field, _conf);
     }
-    void checkExist(ContextEl _cont, String _className, boolean _setOffset, int _offset) {
+    void checkExist(ContextEl _cont, String _className,boolean _setOffset, int _offset) {
+        StringMap<StringList> map_;
+        map_ = new StringMap<StringList>();
         Classes classes_ = _cont.getClasses();
-        if (StringList.quickEq(_className, OperationNode.VOID_RETURN)) {
-            throw new VoidArgumentException(_cont.joinPages());
-        }
-        ClassMetaInfo custClass_ = null;
-        String baseName_ = PrimitiveTypeUtil.getQuickComponentBaseType(_className).getComponent();
-        if (classes_ != null) {
-            custClass_ = classes_.getClassMetaInfo(baseName_);
-        }
-        if (custClass_ == null) {
-            try {
-                if (PrimitiveTypeUtil.isPrimitive(baseName_)) {
-                    Class<?> cl_ = PrimitiveTypeUtil.getPrimitiveClass(baseName_);
-                    if (cl_ == null) {
-                        throw new RuntimeClassNotFoundException(baseName_);
-                    }
-                } else {
-                    ConstClasses.classForObjectNameNotInit(PrimitiveTypeUtil.getArrayClass(baseName_));
-                }
-            } catch (RuntimeClassNotFoundException _0) {
-                if (_setOffset) {
-                    setRelativeOffsetPossibleLastPage(_offset, _cont);
-                }
-                throw new RuntimeClassNotFoundException(_className+RETURN_LINE+_cont.joinPages());
+        if (!isStaticBlock()) {
+            String glClass_ = _cont.getLastPage().getGlobalClass();
+            for (TypeVar t: Templates.getConstraints(glClass_, classes_)) {
+                map_.put(t.getName(), t.getConstraints());
             }
+        }
+        if (!Templates.correctClassParts(_className, map_, classes_)) {
+            if (_setOffset) {
+                setRelativeOffsetPossibleLastPage(_offset, _cont);
+            }
+            throw new RuntimeClassNotFoundException(_className+RETURN_LINE+_cont.joinPages());
         }
     }
     static FieldResult getDeclaredCustField(ContextEl _cont, boolean _staticContext, ClassArgumentMatching _class, boolean _superClass, String _name) {
