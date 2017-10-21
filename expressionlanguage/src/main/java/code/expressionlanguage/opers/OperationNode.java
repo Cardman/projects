@@ -391,8 +391,8 @@ public abstract class OperationNode {
         }
         if (custClass_ == null) {
             try {
-                if (baseName_.startsWith(PrimitiveTypeUtil.PRIM)) {
-                    Class<?> cl_ = ConstClasses.getPrimitiveClass(baseName_.substring(1));
+                if (PrimitiveTypeUtil.isPrimitive(baseName_)) {
+                    Class<?> cl_ = PrimitiveTypeUtil.getPrimitiveClass(baseName_);
                     if (cl_ == null) {
                         throw new RuntimeClassNotFoundException(baseName_);
                     }
@@ -1468,7 +1468,7 @@ public abstract class OperationNode {
         int len_ = _params.size();
         StringList traces_ = new StringList();
         for (int i = 0; i < len_; i++) {
-            if (_params.get(i).startsWith(PrimitiveTypeUtil.PRIM) && _args[i].isNull()) {
+            if (PrimitiveTypeUtil.primitiveTypeNullObject(_params.get(i), _args[i])) {
                 traces_.add(i+RETURN_LINE+_params.get(i)+RETURN_LINE+null);
             }
         }

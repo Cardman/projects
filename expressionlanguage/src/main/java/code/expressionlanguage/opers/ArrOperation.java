@@ -156,7 +156,7 @@ public final class ArrOperation extends MethodOperation implements SettableElRes
         left_.setStruct(leftObj_);
         Argument right_ = ip_.getRightArgument();
         String base_ = PrimitiveTypeUtil.getQuickComponentType(_array.getClassName());
-        if (right_.isNull() && base_.startsWith(PrimitiveTypeUtil.PRIM)) {
+        if (PrimitiveTypeUtil.primitiveTypeNullObject(base_, right_.getStruct())) {
             throw new NullObjectException(_conf.joinPages());
         }
         Argument res_;
@@ -199,7 +199,7 @@ public final class ArrOperation extends MethodOperation implements SettableElRes
     }
     static void setCheckedElement(Struct _array,Object _index, Argument _element, ContextEl _conf) {
         String base_ = PrimitiveTypeUtil.getQuickComponentType(_array.getClassName());
-        if (_element.isNull() && base_.startsWith(PrimitiveTypeUtil.PRIM)) {
+        if (PrimitiveTypeUtil.primitiveTypeNullObject(base_, _element.getStruct())) {
             throw new NullObjectException(_conf.joinPages());
         }
         setElement(_array, _index, _element.getStruct(), _conf);

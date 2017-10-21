@@ -475,7 +475,7 @@ public final class ConstantOperation extends OperationNode implements SettableEl
             Argument left_ = new Argument();
             left_.setStruct(locVar_.getStruct());
             Argument right_ = ip_.getRightArgument();
-            if (right_.isNull() && locVar_.getClassName().startsWith(PrimitiveTypeUtil.PRIM)) {
+            if (PrimitiveTypeUtil.primitiveTypeNullObject(locVar_.getClassName(), right_.getStruct())) {
                 throw new NullObjectException(_conf.joinPages());
             }
             Argument res_;
@@ -489,7 +489,7 @@ public final class ConstantOperation extends OperationNode implements SettableEl
         Argument previous_ = _previous;
         if (fieldId != null) {
             Classes classes_ = _conf.getClasses();
-            if (right_.isNull() && fieldMetaInfo.getType().startsWith(PrimitiveTypeUtil.PRIM)) {
+            if (PrimitiveTypeUtil.primitiveTypeNullObject(fieldMetaInfo.getType(), right_.getStruct())) {
                 throw new NullObjectException(_conf.joinPages());
             }
             Struct structField_ = null;

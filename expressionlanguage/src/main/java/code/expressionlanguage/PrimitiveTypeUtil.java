@@ -52,6 +52,24 @@ public final class PrimitiveTypeUtil {
     private PrimitiveTypeUtil() {
     }
 
+    public static boolean primitiveTypeNullObject(String _className, Struct _instance) {
+        if (!_className.startsWith(PRIM)) {
+            return false;
+        }
+        return _instance.isNull();
+    }
+    
+    public static Class<?> getPrimitiveClass(String _className) {
+        if (!isPrimitive(_className)) {
+            return null;
+        }
+        return ConstClasses.getPrimitiveClass(_className.substring(PRIM.length()));
+    }
+
+    public static boolean isPrimitive(String _className) {
+        return _className.startsWith(PRIM);
+    }
+
     public static Struct newCustomArray(String _className, Numbers<Integer> _dims) {
         TreeMap<Numbers<Integer>,Struct> indexesArray_;
         indexesArray_ = new TreeMap<Numbers<Integer>,Struct>(new IndexesComparator());

@@ -510,7 +510,7 @@ public class PrimitiveTypeUtilTest {
         files_.put("pkg/ExFour."+Classes.EXT, xml_);
         ContextEl context_ = unfullValidateOverridingMethods(files_);
         Classes classes_ = context_.getClasses();
-        assertTrue(!PrimitiveTypeUtil.canBeUseAsArgument(PrimitiveTypeUtil.PRIM,null,classes_));
+        assertTrue(!PrimitiveTypeUtil.canBeUseAsArgument(PrimitiveTypeUtil.PRIM_INT,null,classes_));
     }
 
     @Test

@@ -531,19 +531,19 @@ public final class FctOperation extends InvokingOperation {
             if (chidren_.size() == 2) {
                 OperationNode oTwo_ = chidren_.last();
                 Argument objArg_ = _arguments.last();
+                Argument classArg_ = _arguments.first();
+                String paramName_ = (String) classArg_.getObject();
+                if (PrimitiveTypeUtil.primitiveTypeNullObject(paramName_, objArg_.getStruct())) {
+                    throw new NullObjectException(_conf.joinPages());
+                }
                 if (objArg_.isNull()) {
                     Argument arg_ = new Argument();
                     return arg_;
                 }
-                Argument classArg_ = _arguments.first();
                 String argClassName_ = objArg_.getObjectClassName();
                 ClassArgumentMatching resCl_ = getResultClass();
-                String paramName_ = (String) classArg_.getObject();
                 String className_ = oTwo_.getResultClass().getName();
-                if (className_.startsWith(PrimitiveTypeUtil.PRIM)) {
-                    className_ = className_.substring(1);
-                }
-                if (!resCl_.isPrimitive() || ConstClasses.getPrimitiveClass(className_) == null) {
+                if (!resCl_.isPrimitive() || PrimitiveTypeUtil.getPrimitiveClass(className_) == null) {
                     if (!PrimitiveTypeUtil.canBeUseAsArgument(paramName_, argClassName_, classes_)) {
                         setRelativeOffsetPossibleLastPage(chidren_.last().getIndexInEl(), _conf);
                         throw new DynamicCastClassException(argClassName_+RETURN_LINE+paramName_+RETURN_LINE+_conf.joinPages());

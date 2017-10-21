@@ -200,7 +200,7 @@ public final class InstanceOperation extends InvokingOperation {
             setResultClass(new ClassArgumentMatching(realClassName_));
             return;
         }
-        if (realClassName_.startsWith(PrimitiveTypeUtil.PRIM)) {
+        if (PrimitiveTypeUtil.isPrimitive(realClassName_)) {
             throw new PrimitiveTypeException(realClassName_+RETURN_LINE+_conf.joinPages());
         }
         Class<?> cl_;
@@ -451,8 +451,8 @@ public final class InstanceOperation extends InvokingOperation {
     static Object newClassicArray(ContextEl _conf, String _instanceClassName, String _realClassName,int[] _args) {
         Class<?> cl_;
         try {
-            if (_instanceClassName.startsWith(PrimitiveTypeUtil.PRIM)) {
-                cl_ = ConstClasses.getPrimitiveClass(_instanceClassName.substring(1));
+            if (PrimitiveTypeUtil.isPrimitive(_instanceClassName)) {
+                cl_ = PrimitiveTypeUtil.getPrimitiveClass(_instanceClassName);
             } else {
                 cl_ = ConstClasses.classForObjectNameNotInit(PrimitiveTypeUtil.getArrayClass(_instanceClassName));
             }

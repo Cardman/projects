@@ -50,7 +50,7 @@ public final class ClassMatching {
     }
 
     public boolean isPrimitive() {
-        return className.first().startsWith(PrimitiveTypeUtil.PRIM);
+        return PrimitiveTypeUtil.isPrimitive(className.first());
     }
 
     public static Class<?> getSingleNativeClass(String _className) {

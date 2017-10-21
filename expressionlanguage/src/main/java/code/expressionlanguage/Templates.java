@@ -54,8 +54,8 @@ public final class Templates {
             }
             if (custClass_ == null) {
                 try {
-                    if (baseName_.startsWith(PrimitiveTypeUtil.PRIM)) {
-                        Class<?> cl_ = ConstClasses.getPrimitiveClass(baseName_.substring(1));
+                    if (PrimitiveTypeUtil.isPrimitive(baseName_)) {
+                        Class<?> cl_ = PrimitiveTypeUtil.getPrimitiveClass(baseName_);
                         if (cl_ == null) {
                             return false;
                         }
@@ -213,10 +213,10 @@ public final class Templates {
                     return false;
                 }
                 String compo_ = PrimitiveTypeUtil.getQuickComponentBaseType(base_).getComponent();
-                if (base_.startsWith(PrimitiveTypeUtil.PRIM) && already_) {
+                if (PrimitiveTypeUtil.isPrimitive(base_) && already_) {
                     return false;
                 }
-                if (compo_.startsWith(PrimitiveTypeUtil.PRIM)) {
+                if (PrimitiveTypeUtil.isPrimitive(compo_)) {
                     if (!StringList.isWord(compo_.substring(PrimitiveTypeUtil.PRIM.length()))) {
                         return false;
                     }
@@ -261,7 +261,7 @@ public final class Templates {
                     if (base_.startsWith(PREFIX_VAR_TYPE)) {
                         continue;
                     }
-                    if (base_.startsWith(PrimitiveTypeUtil.PRIM)) {
+                    if (PrimitiveTypeUtil.isPrimitive(base_)) {
                         continue;
                     }
                     if (_classes.getClassBody(base_) == null) {
@@ -289,8 +289,8 @@ public final class Templates {
         StringList types_ = StringList.getAllTypes(_className);
         String className_ = types_.first();
         className_ = PrimitiveTypeUtil.getQuickComponentBaseType(className_).getComponent();
-        if (className_.startsWith(PrimitiveTypeUtil.PRIM)) {
-            return ConstClasses.getPrimitiveClass(className_.substring(1)) != null;
+        if (PrimitiveTypeUtil.isPrimitive(className_)) {
+            return PrimitiveTypeUtil.getPrimitiveClass(className_) != null;
         }
         if (className_.startsWith(PREFIX_VAR_TYPE)) {
             return _inherit.contains(className_.substring(1));
@@ -542,7 +542,7 @@ public final class Templates {
             MappingPairs m_ = new MappingPairs();
             return m_;
         }
-        if (baseArrayArg_.startsWith(PrimitiveTypeUtil.PRIM)) {
+        if (PrimitiveTypeUtil.isPrimitive(baseArrayArg_)) {
             return null;
         }
         for (String a: bounds_) {

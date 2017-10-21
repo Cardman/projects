@@ -525,8 +525,8 @@ public final class ProcessXmlMethod {
     }
     static Class<?> classForName(ContextEl _conf, int _offest, String _className) {
         try {
-            if (_className.startsWith(PrimitiveTypeUtil.PRIM)) {
-                return ConstClasses.getPrimitiveClass(_className.substring(1));
+            if (PrimitiveTypeUtil.isPrimitive(_className)) {
+                return PrimitiveTypeUtil.getPrimitiveClass(_className);
             }
             return ConstClasses.classForObjectNameNotInit(PrimitiveTypeUtil.getArrayClass(_className));
         } catch (Throwable _0) {

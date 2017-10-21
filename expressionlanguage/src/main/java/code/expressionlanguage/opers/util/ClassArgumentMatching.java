@@ -61,8 +61,8 @@ public final class ClassArgumentMatching {
     }
     public Class<?> getClazz() {
         String className_ = StringList.getAllTypes(className).first();
-        if (className_.startsWith(PrimitiveTypeUtil.PRIM)) {
-            return ConstClasses.getPrimitiveClass(className_.substring(1));
+        if (PrimitiveTypeUtil.isPrimitive(className_)) {
+            return PrimitiveTypeUtil.getPrimitiveClass(className_);
         }
         return ConstClasses.classForObjectNameNotInit(PrimitiveTypeUtil.getArrayClass(className_));
     }
@@ -116,7 +116,7 @@ public final class ClassArgumentMatching {
     }
 
     public boolean isPrimitive() {
-        return className.startsWith(PrimitiveTypeUtil.PRIM);
+        return PrimitiveTypeUtil.isPrimitive(className);
     }
 
     public String getName() {
