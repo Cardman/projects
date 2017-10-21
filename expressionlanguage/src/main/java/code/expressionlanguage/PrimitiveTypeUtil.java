@@ -150,42 +150,6 @@ public final class PrimitiveTypeUtil {
         types_.removeDuplicates();
         return types_;
     }
-    public static String getSubslass(StringList _classNames, Classes _classes) {
-        boolean hasPrim_ = false;
-        boolean hasObj_ = false;
-        for (String i: _classNames) {
-            if (i.startsWith(PRIM)) {
-                hasPrim_ = true;
-            } else {
-                hasObj_ = true;
-            }
-        }
-        if (hasPrim_ && hasObj_) {
-            return NO_SUB_CLASS;
-        }
-        for (String i: _classNames) {
-            boolean sub_ = true;
-            if (StringList.quickEq(i, OperationNode.VOID_RETURN)) {
-                for (String j: _classNames) {
-                    if (!StringList.quickEq(i, j)) {
-                        sub_ = false;
-                        break;
-                    }
-                }
-            } else {
-                for (String j: _classNames) {
-                    if (!canBeUseAsArgument(j, i, _classes)) {
-                        sub_ = false;
-                        break;
-                    }
-                }
-            }
-            if (sub_) {
-                return i;
-            }
-        }
-        return NO_SUB_CLASS;
-    }
     public static String getSubslass(StringList _classNames, StringMap<StringList> _vars, Classes _classes) {
         boolean hasPrim_ = false;
         boolean hasObj_ = false;

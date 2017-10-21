@@ -113,6 +113,8 @@ public final class Templates {
                     String geneSuperClass_ = NativeTypeUtil.getPrettyType(cl_.getGenericSuperclass());
                     if (correctNbParameters(c, _classes)) {
                         geneSuperClass_ = format(c, geneSuperClass_, _classes);
+                    } else {
+                        geneSuperClass_ = StringList.getAllTypes(geneSuperClass_).first();
                     }
                     nextClasses_.add(geneSuperClass_);
                     visitedClasses_.add(geneSuperClass_);
@@ -121,6 +123,8 @@ public final class Templates {
                     String geneSuperInterface_ = NativeTypeUtil.getPrettyType(s);
                     if (correctNbParameters(c, _classes)) {
                         geneSuperInterface_ = format(c, geneSuperInterface_, _classes);
+                    } else {
+                        geneSuperInterface_ = StringList.getAllTypes(geneSuperInterface_).first();
                     }
                     nextClasses_.add(geneSuperInterface_);
                     visitedClasses_.add(geneSuperInterface_);
@@ -144,7 +148,9 @@ public final class Templates {
         StringList visitedClasses_ = new StringList(_subType);
         String generic_ = null;
         if (StringList.quickEq(_subType, _superType)) {
-            generic_ = _superType;
+            generic_ = _subType;
+        } else if (StringList.quickEq(baseSubType_, _superType)) {
+            generic_ = _subType;
         }
         if (generic_ == null) {
             for (String c: curClasses_) {

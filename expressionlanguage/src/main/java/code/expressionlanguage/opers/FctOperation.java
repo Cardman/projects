@@ -29,8 +29,11 @@ import code.expressionlanguage.exceptions.VarargException;
 import code.expressionlanguage.exceptions.VoidArgumentException;
 import code.expressionlanguage.methods.Classes;
 import code.expressionlanguage.methods.ConstructorBlock;
+import code.expressionlanguage.methods.EnumBlock;
+import code.expressionlanguage.methods.InterfaceBlock;
 import code.expressionlanguage.methods.MethodBlock;
 import code.expressionlanguage.methods.ProcessXmlMethod;
+import code.expressionlanguage.methods.UniqueRootedBlock;
 import code.expressionlanguage.methods.exceptions.UndefinedConstructorException;
 import code.expressionlanguage.methods.util.ArgumentsPair;
 import code.expressionlanguage.methods.util.InstancingStep;
@@ -68,7 +71,6 @@ public final class FctOperation extends InvokingOperation {
     private ConstructorId constId;
 
     private ClassMethodId classMethodId;
-    private MethodId methodId;
 
     private boolean staticMethod;
 
@@ -173,10 +175,11 @@ public final class FctOperation extends InvokingOperation {
         if (StringList.quickEq(trimMeth_, EXTERN_CLASS+SUPER_ACCESS)) {
             //validate calling of super constructors
             String clCurName_ = _conf.getLastPage().getGlobalClass();
+            String base_ = StringList.getAllTypes(clCurName_).first();
             superConstructorCall = true;
             CustList<ClassArgumentMatching> firstArgs_ = listClasses(chidren_);
-            ClassMetaInfo meta_ = _conf.getClasses().getClassMetaInfo(clCurName_);
-            String superClass_ = meta_.getSuperClass();
+            UniqueRootedBlock unique_ =(UniqueRootedBlock) _conf.getClasses().getClassBody(base_);
+            String superClass_ = Templates.format(clCurName_, unique_.getGenericSuperClass(), classes_);
             constId = getDeclaredCustConstructor(_conf, staticBlock_, new ClassArgumentMatching(superClass_), ClassArgumentMatching.toArgArray(firstArgs_));
             if (constId != null) {
                 CustList<ConstructorBlock> ctors_ = classes_.getConstructorBodiesByFormattedId(superClass_, constId);
@@ -302,21 +305,20 @@ public final class FctOperation extends InvokingOperation {
         }
         if (classes_ != null) {
             String glClass_ = _conf.getLastPage().getGlobalClass();
-            ClassMetaInfo custClass_;
-            custClass_ = classes_.getClassMetaInfo(clCurName_);
-            if (custClass_ != null) {
+            if (classes_.isCustomType(clCurName_)) {
                 for (ClassArgumentMatching c:firstArgs_) {
                     if (c.matchVoid()) {
                         throw new VoidArgumentException(clCurName_+DOT+trimMeth_+RETURN_LINE+_conf.joinPages());
                     }
                 }
-                if (custClass_.getCategory() == ClassCategory.ENUM) {
+                String baseClass_ = StringList.getAllTypes(clCurName_).first();
+                if (classes_.getClassBody(baseClass_) instanceof EnumBlock) {
                     if (StringList.quickEq(trimMeth_, METH_NAME) && firstArgs_.isEmpty()) {
                         if (isStaticAccess()) {
                             throw new StaticAccessException(_conf.joinPages());
                         }
-                        methodId = new MethodId(METH_NAME, new EqList<ClassName>());
-                        classMethodId = new ClassMethodId(clCurName_, methodId);
+                        MethodId methodId_ = new MethodId(METH_NAME, new EqList<ClassName>());
+                        classMethodId = new ClassMethodId(clCurName_, methodId_);
                         setResultClass(new ClassArgumentMatching(String.class.getName()));
                         return;
                     }
@@ -324,14 +326,14 @@ public final class FctOperation extends InvokingOperation {
                         if (isStaticAccess()) {
                             throw new StaticAccessException(_conf.joinPages());
                         }
-                        methodId = new MethodId(METH_ORDINAL, new EqList<ClassName>());
-                        classMethodId = new ClassMethodId(clCurName_, methodId);
+                        MethodId methodId_ = new MethodId(METH_ORDINAL, new EqList<ClassName>());
+                        classMethodId = new ClassMethodId(clCurName_, methodId_);
                         setResultClass(new ClassArgumentMatching(PrimitiveTypeUtil.PRIM_INT));
                         return;
                     }
                     if (StringList.quickEq(trimMeth_, METH_VALUES) && firstArgs_.isEmpty()) {
-                        methodId = new MethodId(METH_VALUES, new EqList<ClassName>());
-                        classMethodId = new ClassMethodId(clCurName_, methodId);
+                        MethodId methodId_ = new MethodId(METH_VALUES, new EqList<ClassName>());
+                        classMethodId = new ClassMethodId(clCurName_, methodId_);
                         ClassName ret_ = new ClassName(PrimitiveTypeUtil.getPrettyArrayType(clCurName_), false);
                         staticMethod = true;
                         setResultClass(new ClassArgumentMatching(ret_.getName()));
@@ -341,8 +343,8 @@ public final class FctOperation extends InvokingOperation {
                         if (!StringList.quickEq(firstArgs_.first().getName(), String.class.getName())) {
                             throw new NoSuchDeclaredMethodException(trimMeth_+RETURN_LINE+_conf.joinPages());
                         }
-                        methodId = new MethodId(METH_VALUEOF, new EqList<ClassName>(new ClassName(String.class.getName(), false)));
-                        classMethodId = new ClassMethodId(clCurName_, methodId);
+                        MethodId methodId_ = new MethodId(METH_VALUEOF, new EqList<ClassName>(new ClassName(String.class.getName(), false)));
+                        classMethodId = new ClassMethodId(clCurName_, methodId_);
                         ClassName ret_ = new ClassName(clCurName_, false);
                         staticMethod = true;
                         setResultClass(new ClassArgumentMatching(ret_.getName()));
@@ -356,34 +358,34 @@ public final class FctOperation extends InvokingOperation {
                     staticChoiceMethod = true;
                     superClassAccess_ = false;
                 } else if (trimMeth_.startsWith(EXTERN_CLASS+SUPER_ACCESS+EXTERN_CLASS)) {
-                    String superClass_ = custClass_.getSuperClass();
+                    if (!(classes_.getClassBody(baseClass_) instanceof UniqueRootedBlock)) {
+                        throw new NoSuchDeclaredMethodException(trimMeth_+RETURN_LINE+_conf.joinPages());
+                    }
+                    UniqueRootedBlock unique_ = (UniqueRootedBlock) classes_.getClassBody(baseClass_);
+                    String superClass_ = unique_.getSuperClass();
                     if (StringList.quickEq(superClass_, Object.class.getName())) {
                         throw new NoSuchDeclaredMethodException(trimMeth_+RETURN_LINE+_conf.joinPages());
                     }
-                    if (custClass_.getCategory() != ClassCategory.CLASS) {
-                        throw new NoSuchDeclaredMethodException(trimMeth_+RETURN_LINE+_conf.joinPages());
-                    }
                     trimMeth_ = trimMeth_.substring((EXTERN_CLASS+SUPER_ACCESS+EXTERN_CLASS).length());
-                    clCurName_ = superClass_;
+                    clCurName_ = Templates.format(clCurName_, unique_.getGenericSuperClass(), classes_);
                     staticChoiceMethod = true;
                     superAccessMethod = true;
                 }
                 if (superClassAccess_) {
-                    custClass_ = classes_.getClassMetaInfo(clCurName_);
-                    interfaceChoice = custClass_.getCategory() == ClassCategory.INTERFACE;
+                    interfaceChoice = classes_.getClassBody(baseClass_) instanceof InterfaceBlock;
                 }
                 ClassMethodIdReturn clMeth_ = getDeclaredCustMethod(_conf, staticBlock_, isStaticAccess(), new ClassArgumentMatching(clCurName_), trimMeth_, superClassAccess_, ClassArgumentMatching.toArgArray(firstArgs_));
-                methodId = clMeth_.getId().getConstraints();
+                MethodId methodId_ = clMeth_.getId().getConstraints();
                 String foundClass_ = clMeth_.getId().getClassName();
                 classMethodId = clMeth_.getId();
-                CustList<MethodBlock> methods_ = classes_.getMethodBodiesByFormattedId(foundClass_, methodId);
+                CustList<MethodBlock> methods_ = classes_.getMethodBodiesByFormattedId(foundClass_, methodId_);
                 MethodBlock m_;
                 if (!methods_.isEmpty()) {
                     m_ = methods_.first();
                 } else {
                     String baseFoundClass_ = StringList.getAllTypes(foundClass_).first();
-                    String className_ = classes_.getClassBody(baseFoundClass_).getDefaultMethodIds().getVal(methodId);
-                    m_ = classes_.getMethodBodiesByFormattedId(className_, methodId).first();
+                    String className_ = classes_.getClassBody(baseFoundClass_).getDefaultMethodIds().getVal(methodId_);
+                    m_ = classes_.getMethodBodiesByFormattedId(className_, methodId_).first();
                 }
                 String curClassBase_ = null;
                 if (glClass_ != null) {
@@ -481,7 +483,9 @@ public final class FctOperation extends InvokingOperation {
             }
             if (StringList.quickEq(trimMeth_,EXTERN_CLASS+SUPER_ACCESS)) {
                 String clCurName_ = _conf.getLastPage().getGlobalClass();
-                String superClass_ = _conf.getClasses().getClassMetaInfo(clCurName_).getSuperClass();
+                String base_ = StringList.getAllTypes(clCurName_).first();
+                UniqueRootedBlock unique_ =(UniqueRootedBlock) _conf.getClasses().getClassBody(base_);
+                String superClass_ = Templates.format(clCurName_, unique_.getGenericSuperClass(), classes_);
                 String superClassBase_ = StringList.getAllTypes(superClass_).first();
                 CustList<Argument> firstArgs_ = listArguments(chidren_, _arguments, _conf, false);
                 StringList called_ = _conf.getLastPage().getCallingConstr().getCalledConstructors();
@@ -588,7 +592,8 @@ public final class FctOperation extends InvokingOperation {
         }
         CustList<Argument> firstArgs_;
         Argument arg_ = _previous;
-        if (methodId != null) {
+        if (classMethodId != null) {
+            MethodId methodId_ = classMethodId.getConstraints();
             firstArgs_ = listArguments(chidren_, _arguments, _conf, false);
             String classNameFound_;
             if (!staticMethod) {
@@ -599,14 +604,14 @@ public final class FctOperation extends InvokingOperation {
                 String className_ = arg_.getStruct().getClassName();
                 custClass_ = classes_.getClassMetaInfo(className_);
                 if (custClass_.getCategory() == ClassCategory.ENUM) {
-                    if (methodId.eq(new MethodId(METH_NAME, new EqList<ClassName>()))) {
+                    if (methodId_.eq(new MethodId(METH_NAME, new EqList<ClassName>()))) {
                         CustEnum cen_ = (CustEnum) arg_.getStruct().getInstance();
                         String name_ = cen_.name();
                         Argument argres_ = new Argument();
                         argres_.setObject(name_);
                         return argres_;
                     }
-                    if (methodId.eq(new MethodId(METH_ORDINAL, new EqList<ClassName>()))) {
+                    if (methodId_.eq(new MethodId(METH_ORDINAL, new EqList<ClassName>()))) {
                         CustEnum cen_ = (CustEnum) arg_.getStruct().getInstance();
                         int name_ = cen_.ordinal();
                         Argument argres_ = new Argument();
@@ -638,7 +643,7 @@ public final class FctOperation extends InvokingOperation {
                 }
                 custClass_ = classes_.getClassMetaInfo(classNameFound_);
                 if (custClass_.getCategory() == ClassCategory.ENUM) {
-                    if (methodId.eq(new MethodId(METH_VALUES, new EqList<ClassName>()))) {
+                    if (methodId_.eq(new MethodId(METH_VALUES, new EqList<ClassName>()))) {
                         CustList<Struct> enums_ = new CustList<Struct>();
                         for (EntryCust<String, FieldMetaInfo> e: custClass_.getFields().entryList()) {
                             if (e.getValue().isEnumElement()) {
@@ -656,7 +661,7 @@ public final class FctOperation extends InvokingOperation {
                         argres_.setStruct(new Struct(o_,clArr_));
                         return argres_;
                     }
-                    if (methodId.eq(new MethodId(METH_VALUEOF, new EqList<ClassName>(new ClassName(String.class.getName(),false))))) {
+                    if (methodId_.eq(new MethodId(METH_VALUEOF, new EqList<ClassName>(new ClassName(String.class.getName(),false))))) {
                         if (firstArgs_.first().isNull()) {
                             throw new NullObjectException(_conf.joinPages());
                         }
@@ -672,14 +677,14 @@ public final class FctOperation extends InvokingOperation {
                 }
             }
             StringList params_ = new StringList();
-            for (String c: methodId.getParametersTypes()) {
+            for (String c: methodId_.getParametersTypes()) {
                 params_.add(c);
             }
             checkArgumentsForInvoking(_conf, params_, getObjects(Argument.toArgArray(firstArgs_)));
             if (_processInit) {
-                return ProcessXmlMethod.calculateArgument(arg_, classNameFound_, methodId, firstArgs_, _conf);
+                return ProcessXmlMethod.calculateArgument(arg_, classNameFound_, methodId_, firstArgs_, _conf);
             }
-            throw new CustomFoundMethodException(arg_, classNameFound_, methodId, firstArgs_);
+            throw new CustomFoundMethodException(arg_, classNameFound_, methodId_, firstArgs_);
         }
         firstArgs_ = listArguments(chidren_, _arguments, _conf, true);
         Object obj_ = arg_.getObject();

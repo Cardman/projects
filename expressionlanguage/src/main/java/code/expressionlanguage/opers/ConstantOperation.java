@@ -737,13 +737,8 @@ public final class ConstantOperation extends OperationNode implements SettableEl
             String classStr_ = StringList.removeAllSpaces(class_.toString());
             String glClass_ = _cont.getLastPage().getGlobalClass();
             Classes classes_ = _cont.getClasses();
-            ClassMetaInfo custClass_ = null;
-            if (classes_ != null) {
-                custClass_ = classes_.getClassMetaInfo(classStr_);
-            }
-            if (custClass_ == null) {
-                checkExist(_cont, classStr_, false, 0);
-            } else {
+            checkExist(_cont, classStr_, false, 0);
+            if (classes_ != null && classes_.isCustomType(classStr_)) {
                 //TODO exclude primitive
                 String curClassBase_ = null;
                 if (glClass_ != null) {

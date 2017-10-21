@@ -390,6 +390,19 @@ public class TemplatesTest {
         assertEq("pkg.Ex<java.lang.Number>", t_);
     }
     @Test
+    public void getGenericTypeByBases14Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        String xml_;
+        xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' template='&lt;#T&gt;'/>\n";
+        files_.put("pkg/Ex."+Classes.EXT, xml_);
+        xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExTwo' package='pkg' superclass='pkg.Ex&lt;#U&gt;' template='&lt;#U&gt;'/>\n";
+        files_.put("pkg/ExTwo."+Classes.EXT, xml_);
+        ContextEl cont_ = unfullValidateOverridingMethods(files_);
+        Classes classes_ = cont_.getClasses();
+        String t_ = Templates.getFullTypeByBases("pkg.Ex<#V>", "pkg.Ex", classes_);
+        assertEq("pkg.Ex<#V>", t_);
+    }
+    @Test
     public void isCorrectWrite1Test() {
         assertTrue(Templates.isCorrectWrite("java.lang.String"));
     }
@@ -2208,6 +2221,82 @@ public class TemplatesTest {
         assertTrue(!Templates.isCorrectTemplateAll(CUST_LIST+"<"+CUST_LIST+"<#F>>", t_,classes_));
     }
 
+    @Test
+    public void getAllGenericSuperTypes1Test() {
+        StringList superTypes_ = Templates.getAllGenericSuperTypes("java.lang.Iterable", null);
+        assertEq(1, superTypes_.size());
+        assertEq("java.lang.Iterable", superTypes_.get(0));
+    }
+
+    @Test
+    public void getAllGenericSuperTypes2Test() {
+        StringList superTypes_ = Templates.getAllGenericSuperTypes("code.util.ints.Listable", null);
+        assertEq(4, superTypes_.size());
+        assertEq("code.util.ints.Listable", superTypes_.get(0));
+        assertEq("java.lang.Iterable", superTypes_.get(1));
+        assertEq("code.util.ints.Countable", superTypes_.get(2));
+        assertEq("code.util.ints.SimpleIterable", superTypes_.get(3));
+    }
+
+    @Test
+    public void getAllGenericSuperTypes3Test() {
+        StringList superTypes_ = Templates.getAllGenericSuperTypes("code.util.ints.Listable<#U>", null);
+        assertEq(4, superTypes_.size());
+        assertEq("code.util.ints.Listable<#U>", superTypes_.get(0));
+        assertEq("java.lang.Iterable<#U>", superTypes_.get(1));
+        assertEq("code.util.ints.Countable", superTypes_.get(2));
+        assertEq("code.util.ints.SimpleIterable", superTypes_.get(3));
+    }
+
+    @Test
+    public void getAllGenericSuperTypes4Test() {
+        StringList superTypes_ = Templates.getAllGenericSuperTypes("code.util.CustList<#U>", null);
+        assertEq(6, superTypes_.size());
+        assertEq("code.util.CustList<#U>", superTypes_.get(0));
+        assertEq("java.lang.Object", superTypes_.get(1));
+        assertEq("code.util.ints.Listable<#U>", superTypes_.get(2));
+        assertEq("java.lang.Iterable<#U>", superTypes_.get(3));
+        assertEq("code.util.ints.Countable", superTypes_.get(4));
+        assertEq("code.util.ints.SimpleIterable", superTypes_.get(5));
+    }
+
+    @Test
+    public void getAllGenericSuperTypes5Test() {
+        StringList superTypes_ = Templates.getAllGenericSuperTypes("code.util.CustList", null);
+        assertEq(6, superTypes_.size());
+        assertEq("code.util.CustList", superTypes_.get(0));
+        assertEq("java.lang.Object", superTypes_.get(1));
+        assertEq("code.util.ints.Listable", superTypes_.get(2));
+        assertEq("java.lang.Iterable", superTypes_.get(3));
+        assertEq("code.util.ints.Countable", superTypes_.get(4));
+        assertEq("code.util.ints.SimpleIterable", superTypes_.get(5));
+    }
+
+    @Test
+    public void getAllGenericSuperTypes6Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        String xml_;
+        xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' template='&lt;#T:[java.lang.Number&gt;'/>\n";
+        files_.put("pkg/Ex."+Classes.EXT, xml_);
+        ContextEl cont_ = unfullValidateOverridingMethods(files_);
+        Classes classes_ = cont_.getClasses();
+        StringList superTypes_ = Templates.getAllGenericSuperTypes("pkg.Ex<#E>", classes_);
+        assertEq(1, superTypes_.size());
+        assertEq("java.lang.Object", superTypes_.get(0));
+    }
+
+    @Test
+    public void getAllGenericSuperTypes7Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        String xml_;
+        xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' template='&lt;#T:[java.lang.Number&gt;'/>\n";
+        files_.put("pkg/Ex."+Classes.EXT, xml_);
+        ContextEl cont_ = unfullValidateOverridingMethods(files_);
+        Classes classes_ = cont_.getClasses();
+        StringList superTypes_ = Templates.getAllGenericSuperTypes("java.lang.Object", classes_);
+        assertEq(1, superTypes_.size());
+        assertEq("java.lang.Object", superTypes_.get(0));
+    }
     private ContextEl unfullValidateOverridingMethods(StringMap<String> _files) {
         ContextEl cont_ = new ContextEl();
         Classes classes_ = new Classes(_files, cont_);
