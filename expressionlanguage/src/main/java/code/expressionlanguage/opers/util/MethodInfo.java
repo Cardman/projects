@@ -19,6 +19,8 @@ public final class MethodInfo implements Parametrable {
 
     private String returnType;
 
+    private boolean staticMethod;
+
     @Override
     public String toString() {
         if (method == null) {
@@ -68,5 +70,14 @@ public final class MethodInfo implements Parametrable {
 
     public void setClassName(String _className) {
         className = _className;
+    }
+
+    @Override
+    public boolean isStatic() {
+        return staticMethod;
+    }
+
+    public void setStatic(boolean _staticMethod) {
+        staticMethod = _staticMethod;
     }
 }

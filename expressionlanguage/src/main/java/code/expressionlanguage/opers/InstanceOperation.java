@@ -5,6 +5,7 @@ import java.lang.reflect.Modifier;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.Mapping;
 import code.expressionlanguage.OperationsSequence;
 import code.expressionlanguage.PrimitiveTypeUtil;
 import code.expressionlanguage.Templates;
@@ -29,6 +30,7 @@ import code.expressionlanguage.methods.ConstructorBlock;
 import code.expressionlanguage.methods.ProcessXmlMethod;
 import code.expressionlanguage.methods.util.ArgumentsPair;
 import code.expressionlanguage.methods.util.InstancingStep;
+import code.expressionlanguage.methods.util.TypeVar;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.opers.util.ClassCategory;
 import code.expressionlanguage.opers.util.ClassMetaInfo;
@@ -41,6 +43,7 @@ import code.util.IdMap;
 import code.util.NatTreeMap;
 import code.util.Numbers;
 import code.util.StringList;
+import code.util.StringMap;
 import code.util.exceptions.NullObjectException;
 import code.util.exceptions.RuntimeClassNotFoundException;
 
@@ -88,10 +91,6 @@ public final class InstanceOperation extends InvokingOperation {
         } else {
             realClassName_ = className_;
         }
-        if (!isStaticBlock()) {
-            String glClass_ = _conf.getLastPage().getGlobalClass();
-            realClassName_ = Templates.format(glClass_, realClassName_, classes_);
-        }
         if (realClassName_.startsWith(ARR)) {
             if (chidren_.isEmpty() && !elts_) {
                 throw new EmptyArrayDimensionsException(realClassName_+RETURN_LINE+_conf.joinPages());
@@ -105,11 +104,23 @@ public final class InstanceOperation extends InvokingOperation {
                     }
                 }
             } else {
+                StringMap<StringList> map_;
+                map_ = new StringMap<StringList>();
+                if (!isStaticBlock()) {
+                    String glClass_ = _conf.getLastPage().getGlobalClass();
+                    for (TypeVar t: Templates.getConstraints(glClass_, classes_)) {
+                        map_.put(t.getName(), t.getConstraints());
+                    }
+                }
                 String eltType_ = PrimitiveTypeUtil.getQuickComponentType(realClassName_);
+                Mapping mapping_ = new Mapping();
+                mapping_.setParam(eltType_);
                 for (OperationNode o: chidren_) {
                     setRelativeOffsetPossibleLastPage(o.getIndexInEl()+off_, _conf);
                     String argType_ = o.getResultClass().getName();
-                    if (!PrimitiveTypeUtil.canBeUseAsArgument(eltType_, argType_, classes_)) {
+                    mapping_.setArg(argType_);
+                    mapping_.setMapping(map_);
+                    if (!Templates.isCorrect(mapping_, classes_)) {
                         throw new DynamicCastClassException(argType_+RETURN_LINE+eltType_+RETURN_LINE+_conf.joinPages());
                     }
                 }

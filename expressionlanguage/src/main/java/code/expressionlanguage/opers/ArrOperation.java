@@ -3,9 +3,11 @@ import java.lang.reflect.Array;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.Mapping;
 import code.expressionlanguage.OperationsSequence;
 import code.expressionlanguage.PageEl;
 import code.expressionlanguage.PrimitiveTypeUtil;
+import code.expressionlanguage.Templates;
 import code.expressionlanguage.exceptions.BadIndexException;
 import code.expressionlanguage.exceptions.BadIndexTypeException;
 import code.expressionlanguage.exceptions.BadNumberValuesException;
@@ -227,7 +229,10 @@ public final class ArrOperation extends MethodOperation implements SettableElRes
         }
         String componentType_ = PrimitiveTypeUtil.getQuickComponentType(_struct.getClassName());
         String elementType_ = _value.getClassName();
-        if (!PrimitiveTypeUtil.canBeUseAsArgument(componentType_, elementType_, _conf.getClasses())) {
+        Mapping mapping_ = new Mapping();
+        mapping_.setArg(elementType_);
+        mapping_.setParam(componentType_);
+        if (!Templates.isCorrect(mapping_, _conf.getClasses())) {
             throw new DynamicArrayStoreException(componentType_, elementType_, _conf.joinPages());
         }
         if (!_value.isJavaObject()) {

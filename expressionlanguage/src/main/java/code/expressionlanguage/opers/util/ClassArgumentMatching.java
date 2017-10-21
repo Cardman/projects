@@ -96,16 +96,6 @@ public final class ClassArgumentMatching {
         }
     }
 
-    public boolean isAssignableFrom(ClassMatching _arg, Classes _classes) {
-        for (String c: _arg.getClassName()) {
-            if (!PrimitiveTypeUtil.canBeUseAsArgument(className, c, _classes)) {
-                continue;
-            }
-            return true;
-        }
-        return false;
-    }
-
     public boolean isVariable() {
         return variable;
     }

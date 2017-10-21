@@ -987,17 +987,6 @@ public abstract class RootBlock extends BracedBlock implements AccessibleBlock {
         return map_;
     }
 
-    public static ObjectMap<FctConstraints, StringList> getAllOverridingMethodsErasure(
-            ObjectMap<FctConstraints, StringList> _methodIds,
-            Classes _classes) {
-        ObjectMap<FctConstraints, StringList> map_;
-        map_ = new ObjectMap<FctConstraints, StringList>();
-        for (EntryCust<FctConstraints, StringList> e: _methodIds.entryList()) {
-            map_.put(e.getKey(), PrimitiveTypeUtil.getSubclasses(e.getValue(), _classes));
-        }
-        return map_;
-    }
-    
     public static ObjectMap<MethodId, StringList> areCompatible(
             ObjectMap<MethodId, String> _localMethodIds,
             StringMap<StringList> _vars,

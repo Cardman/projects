@@ -526,7 +526,14 @@ public abstract class OperationNode {
             trace_ += PAR_RIGHT;
             throw new NoSuchDeclaredConstructorException(trace_+RETURN_LINE+_conf.joinPages());
         }
-        ArgumentsGroup gr_ = new ArgumentsGroup(classes_, _args);
+        StringMap<StringList> map_;
+        map_ = new StringMap<StringList>();
+        if (!_staticBlock) {
+            for (TypeVar t: Templates.getConstraints(glClass_, classes_)) {
+                map_.put(t.getName(), t.getConstraints());
+            }
+        }
+        ArgumentsGroup gr_ = new ArgumentsGroup(classes_, map_, _args);
         Parametrables<ConstructorInfo> signatures_ = new Parametrables<ConstructorInfo>();
         for (ConstructorId m: possibleMethods_) {
             ParametersGroup p_ = new ParametersGroup();
@@ -538,6 +545,7 @@ public abstract class OperationNode {
             mloc_.setConstr(ctr_.getGenericId());
             mloc_.setConstraints(m);
             mloc_.setParameters(p_);
+            mloc_.setClassName(clCurName_);
             signatures_.add(mloc_);
         }
         sortCtors(signatures_, gr_);
@@ -608,7 +616,15 @@ public abstract class OperationNode {
         if (possibleConstructors_.size() == CustList.ONE_ELEMENT) {
             return possibleConstructors_.first();
         }
-        ArgumentsGroup gr_ = new ArgumentsGroup(_conf.getClasses(), _args);
+        StringMap<StringList> map_;
+        map_ = new StringMap<StringList>();
+        if (!_staticBlock) {
+            String glClass_ = _conf.getLastPage().getGlobalClass();
+            for (TypeVar t: Templates.getConstraints(glClass_, classes_)) {
+                map_.put(t.getName(), t.getConstraints());
+            }
+        }
+        ArgumentsGroup gr_ = new ArgumentsGroup(classes_, map_, _args);
         Parametrables<ConstructorInfo> signatures_ = new Parametrables<ConstructorInfo>();
         for (Constructor<?> m: possibleConstructors_) {
             ParametersGroup p_ = new ParametersGroup();
@@ -616,6 +632,7 @@ public abstract class OperationNode {
                 p_.add(new ClassMatching(PrimitiveTypeUtil.getAliasArrayClass(c)));
             }
             ConstructorInfo mloc_ = new ConstructorInfo();
+            mloc_.setClassName(className_);
             mloc_.setMethod(m);
             mloc_.setParameters(p_);
             signatures_.add(mloc_);
@@ -1024,7 +1041,14 @@ public abstract class OperationNode {
             res_.setStatus(SearchingMemberStatus.ZERO);
             return res_;
         }
-        ArgumentsGroup gr_ = new ArgumentsGroup(classes_, _argsClass);
+        StringMap<StringList> map_;
+        map_ = new StringMap<StringList>();
+        if (!_staticBlock) {
+            for (TypeVar t: Templates.getConstraints(glClass_, classes_)) {
+                map_.put(t.getName(), t.getConstraints());
+            }
+        }
+        ArgumentsGroup gr_ = new ArgumentsGroup(classes_, map_, _argsClass);
         Parametrables<MethodInfo> signatures_ = new Parametrables<MethodInfo>();
         for (MethodId m: possibleMethods_) {
             ParametersGroup p_ = new ParametersGroup();
@@ -1033,6 +1057,7 @@ public abstract class OperationNode {
             }
             MethodInfo mloc_ = new MethodInfo();
             mloc_.setClassName(_methods.getVal(m).getClassName());
+            mloc_.setStatic(_methods.getVal(m).getModifier() == MethodModifier.STATIC);
             mloc_.setConstraints(m);
             mloc_.setParameters(p_);
             mloc_.setReturnType(_methods.getVal(m).getReturnType());
@@ -1135,6 +1160,7 @@ public abstract class OperationNode {
     private static ClassMethodIdResult getResult(ContextEl _conf, boolean _staticBlock, boolean _static, String _class,
             CustList<Method> _methods,
             String _name, ClassArgumentMatching... _argsClass) {
+        Classes classes_ = _conf.getClasses();
         CustList<Method> possibleMethods_ = new CustList<Method>();
         for (Method m: _methods) {
             if (_static) {
@@ -1172,7 +1198,15 @@ public abstract class OperationNode {
             res_.setMethod(possibleMethods_.first());
             return res_;
         }
-        ArgumentsGroup gr_ = new ArgumentsGroup(_conf.getClasses(), _argsClass);
+        StringMap<StringList> map_;
+        map_ = new StringMap<StringList>();
+        if (!_staticBlock) {
+            String glClass_ = _conf.getLastPage().getGlobalClass();
+            for (TypeVar t: Templates.getConstraints(glClass_, classes_)) {
+                map_.put(t.getName(), t.getConstraints());
+            }
+        }
+        ArgumentsGroup gr_ = new ArgumentsGroup(classes_, map_, _argsClass);
         Parametrables<MethodInfo> signatures_ = new Parametrables<MethodInfo>();
         for (Method m: possibleMethods_) {
             ParametersGroup p_ = new ParametersGroup();
@@ -1182,6 +1216,7 @@ public abstract class OperationNode {
             MethodInfo mloc_ = new MethodInfo();
             mloc_.setMethod(m);
             mloc_.setClassName(_class);
+            mloc_.setStatic(Modifier.isStatic(m.getModifiers()));
             mloc_.setParameters(p_);
             mloc_.setReturnType(PrimitiveTypeUtil.getAliasArrayClass(m.getReturnType()));
             signatures_.add(mloc_);
@@ -1203,10 +1238,11 @@ public abstract class OperationNode {
         if (_params.length != _argsClass.length) {
             return false;
         }
+        Classes classes_ = _context.getClasses();
         String glClass_ = _context.getLastPage().getGlobalClass();
         CustList<TypeVar> vars_;
         if (!_staticBlock) {
-            vars_ = Templates.getConstraints(glClass_, _context.getClasses());
+            vars_ = Templates.getConstraints(glClass_, classes_);
         } else {
             vars_ = new CustList<TypeVar>();
         }
@@ -1220,20 +1256,13 @@ public abstract class OperationNode {
                 }
                 continue;
             }
-            boolean ok_ = true;
             Mapping map_ = new Mapping();
             map_.setArg(_argsClass[i].getName());
             for (TypeVar t: vars_) {
                 map_.getMapping().put(t.getName(), t.getConstraints());
             }
-            for (String t: _params[i].getClassName()) {
-                map_.setParam(t);
-                if (!Templates.isCorrect(map_, _context.getClasses())) {
-                    ok_ = false;
-                    break;
-                }
-            }
-            if (!ok_) {
+            map_.setParam(_params[i].getClassName());
+            if (!Templates.isCorrect(map_, classes_)) {
                 skip_ = true;
                 break;
             }
@@ -1303,8 +1332,11 @@ public abstract class OperationNode {
             _list.swapIndexes(CustList.FIRST_INDEX, _i);
         }
     }
-    static boolean ok(ArgumentsGroup _context,Parametrable _o1, Parametrable _o2) {
+    static int compare(ArgumentsGroup _context, Parametrable _o1, Parametrable _o2) {
         int len_ = _o1.getParameters().size();
+        Classes classes_ = _context.getClasses();
+        StringMap<StringList> map_;
+        map_ = _context.getMap();
         for (int i = CustList.FIRST_INDEX; i < len_; i++) {
             ClassArgumentMatching selected_ = _context.get(i);
             ClassMatching one_ = _o1.getParameters().get(i);
@@ -1312,59 +1344,23 @@ public abstract class OperationNode {
             if (one_.matchClass(two_)) {
                 continue;
             }
-            if (selected_.isVariable()) {
-                if (two_.isAssignableFrom(one_, _context.getClasses())) {
-                    continue;
-                }
-                return false;
-            }
-            ClassMatching toPrOne_ = one_;
-            ClassMatching toPrTwo_ = two_;
-            boolean onePrimExcl_ = false;
-            boolean twoPrimExcl_ = false;
-            if (one_.isPrimitive() && !two_.isPrimitive()) {
-                onePrimExcl_ = true;
-            }
-            if (!one_.isPrimitive() && two_.isPrimitive()) {
-                twoPrimExcl_ = true;
-            }
-            if (selected_.isPrimitive()) {
-                if (onePrimExcl_) {
-                    return true;
-                }
-                toPrOne_ = PrimitiveTypeUtil.toAllPrimitive(one_);
-                toPrTwo_ = PrimitiveTypeUtil.toAllPrimitive(two_);
-            } else {
-                ClassArgumentMatching clMatch_ = PrimitiveTypeUtil.toAllPrimitive(selected_, true);
-                if (clMatch_.isPrimitive()) {
-                    if (twoPrimExcl_) {
-                        return true;
-                    }
-                    toPrOne_ = PrimitiveTypeUtil.toAllPrimitive(one_);
-                    toPrTwo_ = PrimitiveTypeUtil.toAllPrimitive(two_);
+            if (!_o1.isStatic()) {
+                String glClass_ = _o1.getClassName();
+                if (Templates.correctNbParameters(glClass_, classes_)) {
+                    one_ = new ClassMatching(Templates.format(glClass_, one_.getClassName(), classes_));
                 }
             }
-            if (toPrTwo_.isAssignableFrom(toPrOne_, _context.getClasses())) {
-                return true;
-            }
-            return false;
-        }
-        return false;
-    }
-    static int compare(ArgumentsGroup _context,Parametrable _o1, Parametrable _o2) {
-        int len_ = _o1.getParameters().size();
-        for (int i = CustList.FIRST_INDEX; i < len_; i++) {
-            ClassArgumentMatching selected_ = _context.get(i);
-            ClassMatching one_ = _o1.getParameters().get(i);
-            ClassMatching two_ = _o2.getParameters().get(i);
-            if (one_.matchClass(two_)) {
-                continue;
+            if (!_o2.isStatic()) {
+                String glClass_ = _o2.getClassName();
+                if (Templates.correctNbParameters(glClass_, classes_)) {
+                    two_ = new ClassMatching(Templates.format(glClass_, two_.getClassName(), classes_));
+                }
             }
             if (selected_.isVariable()) {
-                if (one_.isAssignableFrom(two_, _context.getClasses())) {
+                if (one_.isAssignableFrom(two_, map_, classes_)) {
                     return CustList.SWAP_SORT;
                 }
-                if (two_.isAssignableFrom(one_, _context.getClasses())) {
+                if (two_.isAssignableFrom(one_, map_, classes_)) {
                     return CustList.NO_SWAP_SORT;
                 }
                 _o1.getParameters().setError(true);
@@ -1403,17 +1399,21 @@ public abstract class OperationNode {
                     toPrTwo_ = PrimitiveTypeUtil.toAllPrimitive(two_);
                 }
             }
-            if (toPrOne_.isAssignableFrom(toPrTwo_, _context.getClasses())) {
+            if (toPrOne_.isAssignableFrom(toPrTwo_, map_, classes_)) {
                 return CustList.SWAP_SORT;
             }
-            if (toPrTwo_.isAssignableFrom(toPrOne_, _context.getClasses())) {
+            if (toPrTwo_.isAssignableFrom(toPrOne_, map_, classes_)) {
                 return CustList.NO_SWAP_SORT;
             }
             _o1.getParameters().setError(true);
             _o2.getParameters().setError(true);
             return CustList.NO_SWAP_SORT;
         }
-        if (PrimitiveTypeUtil.canBeUseAsArgument(_o1.getReturnType(), _o2.getReturnType(), _context.getClasses())) {
+        Mapping mapping_ = new Mapping();
+        mapping_.setMapping(map_);
+        mapping_.setArg(_o2.getReturnType());
+        mapping_.setParam(_o1.getReturnType());
+        if (Templates.isCorrect(mapping_, classes_)) {
             return CustList.SWAP_SORT;
         }
         return CustList.NO_SWAP_SORT;

@@ -76,4 +76,9 @@ public final class ConstructorInfo implements Parametrable {
         }
         return constraints.getName();
     }
+
+    @Override
+    public boolean isStatic() {
+        return false;
+    }
 }

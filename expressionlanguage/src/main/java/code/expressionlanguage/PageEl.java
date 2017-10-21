@@ -266,6 +266,20 @@ public final class PageEl {
         globalClass = _globalClass;
     }
 
+    public String format(String _type, Classes _classes) {
+        boolean static_ = false;
+        Argument gl_ = globalArgument;
+        if (gl_ == null) {
+            static_ = true;
+        } else if (gl_.isNull()) {
+            static_ = true;
+        }
+        if (!static_) {
+            return Templates.format(globalClass, _type, _classes);
+        }
+        return _type;
+    }
+
     public Argument getGlobalArgument() {
         return globalArgument;
     }

@@ -1,18 +1,17 @@
 package code.expressionlanguage.opers.util;
+import code.expressionlanguage.Mapping;
 import code.expressionlanguage.PrimitiveTypeUtil;
+import code.expressionlanguage.Templates;
 import code.expressionlanguage.methods.Classes;
 import code.util.StringList;
-import code.util.consts.ConstClasses;
+import code.util.StringMap;
 
 public final class ClassMatching {
 
-    private StringList className;
+    private String className;
 
-    public ClassMatching(StringList _className) {
-        className = _className;
-    }
     public ClassMatching(String _className) {
-        className = new StringList(_className);
+        className = _className;
     }
 
     @Override
@@ -20,40 +19,29 @@ public final class ClassMatching {
         return className.toString();
     }
     public boolean matchClass(String _className) {
-        return StringList.equalsSet(className, new StringList(_className));
+        return StringList.quickEq(className, _className);
     }
     public boolean matchClass(Class<?> _class) {
-        return StringList.equalsSet(className, new StringList(_class.getName()));
+        return StringList.quickEq(className, _class.getName());
     }
 
     public boolean matchClass(ClassMatching _className) {
-        return StringList.equalsSet(className, _className.className);
+        return StringList.quickEq(className, _className.className);
     }
 
-    public boolean isAssignableFrom(ClassMatching _c, Classes _classes) {
-        for (String p: className) {
-            if (StringList.quickEq(p, Object.class.getName())) {
-                continue;
-            }
-            boolean ok_ = false;
-            for (String c: _c.getClassName()) {
-                if (PrimitiveTypeUtil.canBeUseAsArgument(p, c, _classes)) {
-                    ok_  = true;
-                    break;
-                }
-            }
-            if (!ok_) {
-                return false;
-            }
-        }
-        return true;
+    public boolean isAssignableFrom(ClassMatching _c, StringMap<StringList> _map, Classes _classes) {
+        Mapping map_ = new Mapping();
+        map_.setMapping(_map);
+        map_.setArg(_c.getClassName());
+        map_.setParam(className);
+        return Templates.isCorrect(map_, _classes);
     }
 
     public boolean isPrimitive() {
-        return PrimitiveTypeUtil.isPrimitive(className.first());
+        return PrimitiveTypeUtil.isPrimitive(className);
     }
 
-    public StringList getClassName() {
+    public String getClassName() {
         return className;
     }
 }

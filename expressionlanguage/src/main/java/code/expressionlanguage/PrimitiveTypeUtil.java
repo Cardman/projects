@@ -573,15 +573,6 @@ public final class PrimitiveTypeUtil {
             return 0;
         }
     }
-    public static int getOrderClass(ClassMatching _class) {
-        for (String c: _class.getClassName()) {
-            try {
-                return getOrderClass(getSingleNativeClass(c));
-            } catch (RuntimeClassNotFoundException _0) {
-            }
-        }
-        return 0;
-    }
     public static boolean isPrimitiveOrWrapper(String _className) {
         if (_className.startsWith(PRIM)) {
             return true;
@@ -680,10 +671,7 @@ public final class PrimitiveTypeUtil {
         return 0;
     }
     public static ClassMatching toAllPrimitive(ClassMatching _class) {
-        if (_class.getClassName().size() != 1) {
-            return _class;
-        }
-        ClassArgumentMatching cl_ = new ClassArgumentMatching(_class.getClassName().first());
+        ClassArgumentMatching cl_ = new ClassArgumentMatching(_class.getClassName());
         return new ClassMatching(toAllPrimitive(cl_, true).getName());
     }
     public static ClassArgumentMatching toAllPrimitive(ClassArgumentMatching _class, boolean _id) {

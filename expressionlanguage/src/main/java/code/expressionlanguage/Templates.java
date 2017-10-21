@@ -753,7 +753,7 @@ public final class Templates {
         return NativeTypeUtil.getPrettyType(cl_.getGenericInterfaces()[_index]);
     }
 
-    private static boolean correctNbParameters(String _genericClass, Classes _classes) {
+    public static boolean correctNbParameters(String _genericClass, Classes _classes) {
         StringList params_ = StringList.getAllTypes(_genericClass);
         String base_ = params_.first();
         int nbParams_ = params_.size() - 1;

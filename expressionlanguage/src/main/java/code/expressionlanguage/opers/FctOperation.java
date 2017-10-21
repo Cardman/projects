@@ -5,8 +5,10 @@ import java.lang.reflect.Modifier;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.CustEnum;
+import code.expressionlanguage.Mapping;
 import code.expressionlanguage.OperationsSequence;
 import code.expressionlanguage.PrimitiveTypeUtil;
+import code.expressionlanguage.Templates;
 import code.expressionlanguage.exceptions.AbstractMethodException;
 import code.expressionlanguage.exceptions.BadFormatPathException;
 import code.expressionlanguage.exceptions.BadNumberArgumentException;
@@ -500,7 +502,11 @@ public final class FctOperation extends InvokingOperation {
                     return arg_;
                 }
                 String className_ = sec_.getStruct().getClassName();
-                boolean res_ = PrimitiveTypeUtil.canBeUseAsArgument(str_, className_, classes_);
+                Mapping mapping_ = new Mapping();
+                mapping_.setArg(className_);
+                str_ = _conf.getLastPage().format(str_, classes_);
+                mapping_.setParam(str_);
+                boolean res_ = Templates.isCorrect(mapping_, classes_);
                 Argument arg_ = new Argument();
                 arg_.setObject(res_);
                 return arg_;
@@ -552,7 +558,11 @@ public final class FctOperation extends InvokingOperation {
                 ClassArgumentMatching resCl_ = getResultClass();
                 String className_ = oTwo_.getResultClass().getName();
                 if (!resCl_.isPrimitive() || PrimitiveTypeUtil.getPrimitiveClass(className_) == null) {
-                    if (!PrimitiveTypeUtil.canBeUseAsArgument(paramName_, argClassName_, classes_)) {
+                    Mapping mapping_ = new Mapping();
+                    mapping_.setArg(argClassName_);
+                    paramName_ = _conf.getLastPage().format(paramName_, classes_);
+                    mapping_.setParam(paramName_);
+                    if (!Templates.isCorrect(mapping_, classes_)) {
                         setRelativeOffsetPossibleLastPage(chidren_.last().getIndexInEl(), _conf);
                         throw new DynamicCastClassException(argClassName_+RETURN_LINE+paramName_+RETURN_LINE+_conf.joinPages());
                     }
