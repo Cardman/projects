@@ -38,7 +38,6 @@ public final class ConstructorId implements Equallable<ConstructorId> {
     }
 
     public ConstructorId format(String _genericClass, Classes _classes) {
-        String name_ = getName();
         StringList types_ = getParametersTypes();
         int len_ = types_.size();
         EqList<ClassName> pTypes_ = new EqList<ClassName>();
@@ -47,7 +46,7 @@ public final class ConstructorId implements Equallable<ConstructorId> {
             String formatted_ = Templates.format(_genericClass, n_, _classes);
             pTypes_.add(new ClassName(formatted_, i + 1 == len_ && isVararg()));
         }
-        return new ConstructorId(name_, pTypes_);
+        return new ConstructorId(_genericClass, pTypes_);
     }
 
     public String getSignature() {

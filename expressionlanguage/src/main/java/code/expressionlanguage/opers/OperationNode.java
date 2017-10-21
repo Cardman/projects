@@ -510,10 +510,11 @@ public abstract class OperationNode {
             throw new NoSuchDeclaredConstructorException(trace_+RETURN_LINE+_conf.joinPages());
         }
         if (possibleMethods_.size() == CustList.ONE_ELEMENT) {
+            ConstructorId ctor_ = possibleMethods_.first();
             if (_staticBlock) {
-                return possibleMethods_.first();
+                return ctor_;
             }
-            return possibleMethods_.first().format(clCurName_, classes_);
+            return ctor_.format(clCurName_, classes_);
         }
         possibleMethods_ = filterCtr(glClass_, clCurName_, possibleMethods_, _conf);
         if (possibleMethods_.isEmpty()) {
@@ -559,10 +560,11 @@ public abstract class OperationNode {
             trace_ += PAR_RIGHT;
             throw new NoSuchDeclaredConstructorException(trace_+RETURN_LINE+_conf.joinPages());
         }
+        ConstructorId ctor_ = signatures_.first().getConstraints();
         if (_staticBlock) {
-            return signatures_.first().getConstraints();
+            return ctor_;
         }
-        return signatures_.first().getConstraints().format(clCurName_, classes_);
+        return ctor_.format(clCurName_, classes_);
     }
     private static CustList<ConstructorId> filterCtr(String _glClass, String _accessedClass, CustList<ConstructorId> _found, ContextEl _conf) {
         CustList<ConstructorId> accessible_ = new CustList<ConstructorId>();
@@ -816,18 +818,22 @@ public abstract class OperationNode {
     }
     private static ClassMethodIdResult getDeclaredCustMethodByClassInherit(ContextEl _conf, boolean _staticBlock, boolean _static, ClassArgumentMatching _class, String _name, boolean _superClass, ClassArgumentMatching... _argsClass) {
         Classes classes_ = _conf.getClasses();
-        ClassMetaInfo custClass_ = null;
         String clCurName_ = _class.getName();
-        custClass_ = classes_.getClassMetaInfo(clCurName_);
-        while (custClass_ != null) {
-            ClassMethodIdResult res_ = getDeclaredCustMethodByClass(_conf, _staticBlock, _static, new ClassArgumentMatching(clCurName_), _name, _argsClass);
+        String base_ = StringList.getAllTypes(clCurName_).first();
+        RootBlock r_ = classes_.getClassBody(base_);
+        StringList classeNames_ = new StringList();
+        classeNames_.add(r_.getFullName());
+        classeNames_.addAllElts(r_.getAllSuperClasses());
+        for (String s: classeNames_) {
+            if (StringList.quickEq(s, Object.class.getName())) {
+                continue;
+            }
+            String formatted_ = Templates.getFullTypeByBases(clCurName_, s, classes_);
+            ClassMethodIdResult res_ = getDeclaredCustMethodByClass(_conf, _staticBlock, _static, new ClassArgumentMatching(formatted_), _name, _argsClass);
             if (res_.getStatus() == SearchingMemberStatus.ZERO) {
                 if (!_superClass) {
                     return res_;
                 }
-                String superClass_ = custClass_.getSuperClass();
-                custClass_ = classes_.getClassMetaInfo(superClass_);
-                clCurName_ = superClass_;
                 continue;
             }
             return res_;

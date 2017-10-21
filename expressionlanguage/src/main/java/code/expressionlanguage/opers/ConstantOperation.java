@@ -390,8 +390,9 @@ public final class ConstantOperation extends OperationNode implements SettableEl
             }
             String argClassName_ = arg_.getObjectClassName();
             String classNameFound_ = fieldId.getClassName();
-            if (!PrimitiveTypeUtil.canBeUseAsArgument(classNameFound_, argClassName_, classes_)) {
-                throw new DynamicCastClassException(argClassName_+RETURN_LINE+classNameFound_+RETURN_LINE+_conf.joinPages());
+            String base_ = StringList.getAllTypes(argClassName_).first();
+            if (!PrimitiveTypeUtil.canBeUseAsArgument(classNameFound_, base_, classes_)) {
+                throw new DynamicCastClassException(base_+RETURN_LINE+classNameFound_+RETURN_LINE+_conf.joinPages());
             }
             Struct struct_ = arg_.getStruct().getStruct(fieldId, field);
             a_ = new Argument();
@@ -501,8 +502,9 @@ public final class ConstantOperation extends OperationNode implements SettableEl
                 }
                 String argClassName_ = previous_.getObjectClassName();
                 String classNameFound_ = fieldId.getClassName();
-                if (!PrimitiveTypeUtil.canBeUseAsArgument(classNameFound_, argClassName_, classes_)) {
-                    throw new DynamicCastClassException(argClassName_+RETURN_LINE+classNameFound_+RETURN_LINE+_conf.joinPages());
+                String base_ = StringList.getAllTypes(argClassName_).first();
+                if (!PrimitiveTypeUtil.canBeUseAsArgument(classNameFound_, base_, classes_)) {
+                    throw new DynamicCastClassException(base_+RETURN_LINE+classNameFound_+RETURN_LINE+_conf.joinPages());
                 }
                 structField_ = previous_.getStruct().getStruct(fieldId, field);
             }
