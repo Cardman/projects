@@ -3,7 +3,7 @@ import java.util.ListIterator;
 
 import code.util.Numbers;
 
-public interface Listable<T> extends Iterable<T>, Countable {
+public interface Listable<T> extends Iterable<T>, Countable, SimpleIterable {
 
     Listable<T> getReverse();
 

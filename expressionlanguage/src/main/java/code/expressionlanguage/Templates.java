@@ -91,6 +91,49 @@ public final class Templates {
         }
         return args_;
     }
+    public static StringList getAllGenericSuperTypes(String _className, Classes _classes) {
+        StringList types_ = StringList.getAllTypes(_className);
+        String className_ = types_.first();
+        if (_classes != null) {
+            RootBlock root_ = _classes.getClassBody(className_);
+            if (root_ != null) {
+                return root_.getAllGenericSuperTypes(_classes);
+            }
+        }
+        StringList curClasses_ = new StringList(_className);
+        StringList visitedClasses_ = new StringList(_className);
+        while (true) {
+            StringList nextClasses_ = new StringList();
+            for (String c: curClasses_) {
+                StringList allTypes_ = StringList.getAllTypes(c);
+                String baseClass_ = allTypes_.first();
+                Class<?> cl_ = PrimitiveTypeUtil.getSingleNativeClass(baseClass_);
+                Class<?> superClass_ = cl_.getSuperclass();
+                if (superClass_ != null) {
+                    String geneSuperClass_ = NativeTypeUtil.getPrettyType(cl_.getGenericSuperclass());
+                    if (correctNbParameters(c, _classes)) {
+                        geneSuperClass_ = format(c, geneSuperClass_, _classes);
+                    }
+                    nextClasses_.add(geneSuperClass_);
+                    visitedClasses_.add(geneSuperClass_);
+                }
+                for (Type s: cl_.getGenericInterfaces()) {
+                    String geneSuperInterface_ = NativeTypeUtil.getPrettyType(s);
+                    if (correctNbParameters(c, _classes)) {
+                        geneSuperInterface_ = format(c, geneSuperInterface_, _classes);
+                    }
+                    nextClasses_.add(geneSuperInterface_);
+                    visitedClasses_.add(geneSuperInterface_);
+                }
+            }
+            if (nextClasses_.isEmpty()) {
+                break;
+            }
+            curClasses_ = nextClasses_;
+        }
+        visitedClasses_.removeDuplicates();
+        return visitedClasses_;
+    }
     public static String getFullTypeByBases(String _subType, String _superType, Classes _classes) {
         String baseSubType_ = StringList.getAllTypes(_subType).first();
         String baseSuperType_ = StringList.getAllTypes(_superType).first();
@@ -150,7 +193,7 @@ public final class Templates {
         }
         return generic_;
     }
-    public static String getGenericTypeByBases(String _baseType, String _baseSuperType, Classes _classes) {
+    static String getGenericTypeByBases(String _baseType, String _baseSuperType, Classes _classes) {
         if (!PrimitiveTypeUtil.canBeUseAsArgument(_baseSuperType, _baseType, _classes)) {
             return null;
         }

@@ -2,7 +2,7 @@ package code.util.ints;
 import code.util.EntryCust;
 
 
-public interface ListableEntries<K,V> extends CheckableMap, Countable {
+public interface ListableEntries<K,V> extends CheckableMap, Countable, SimpleEntries {
 
     void move(K _oldKey, K _newKey);
 

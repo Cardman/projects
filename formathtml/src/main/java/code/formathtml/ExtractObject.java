@@ -24,6 +24,7 @@ import code.serialize.exceptions.InvokingException;
 import code.serialize.exceptions.NoSuchDeclaredMethodException;
 import code.serialize.exceptions.RuntimeInstantiationException;
 import code.util.CustList;
+import code.util.SimpleItr;
 import code.util.StringList;
 import code.util.StringMap;
 import code.util.StringMapObject;
@@ -33,6 +34,9 @@ import code.util.exceptions.RuntimeClassNotFoundException;
 import code.util.ints.Listable;
 import code.util.ints.ListableEntries;
 import code.util.ints.MathFactory;
+import code.util.ints.SimpleEntries;
+import code.util.ints.SimpleEntry;
+import code.util.ints.SimpleIterable;
 import code.xml.XmlParser;
 
 final class ExtractObject {
@@ -72,10 +76,10 @@ final class ExtractObject {
     private static final String GET_STRING ="getString";
     private static final String NAME ="name";
     private static final String TO_STRING ="toString";
-    private static final String ITERATOR ="iterator";
+    private static final String ITERATOR ="simpleIterator";
     private static final String HAS_NEXT ="hasNext";
     private static final String NEXT ="next";
-    private static final String ENTRY_LIST ="entryList";
+    private static final String ENTRY_LIST ="entries";
     private static final String GET_KEY ="getKey";
     private static final String GET_VALUE ="getValue";
     private static final String GET_SCOPE ="getScope";
@@ -438,11 +442,36 @@ final class ExtractObject {
     }
 
     static Struct getKey(Configuration _conf, Struct _it) {
-        return getResult(_conf, 0, GET_KEY, _it);
+        if (!_it.isJavaObject()) {
+            return getResult(_conf, 0, GET_KEY, _it);
+        }
+        SimpleEntry inst_ = (SimpleEntry) _it.getInstance();
+        if (inst_.getKey() == null) {
+            return new Struct();
+        }
+        try {
+            Struct out_ = new Struct(inst_.getKey());
+            return out_;
+        } catch (Throwable _0) {
+            _0.printStackTrace();
+            throw new InvokeRedinedMethException(_conf.joinPages(), new Struct(_0));
+        }
     }
 
     static Struct getValue(Configuration _conf, Struct _it) {
-        return getResult(_conf, 0, GET_VALUE, _it);
+        if (!_it.isJavaObject()) {
+            return getResult(_conf, 0, GET_VALUE, _it);
+        }
+        SimpleEntry inst_ = (SimpleEntry) _it.getInstance();
+        if (inst_.getValue() == null) {
+            return new Struct();
+        }
+        try {
+            Struct out_ = new Struct(inst_.getValue());
+            return out_;
+        } catch (Throwable _0) {
+            throw new InvokeRedinedMethException(_conf.joinPages(), new Struct(_0));
+        }
     }
 
     static char getChar(Configuration _conf, String _obj) {
@@ -484,9 +513,7 @@ final class ExtractObject {
         }
     }
     static void checkNullPointer(Configuration _conf, Object _obj) {
-        try {
-            _obj.getClass();
-        } catch (NullPointerException _0) {
+        if (_obj == null) {
             throw new NullObjectException(_conf.joinPages());
         }
     }
@@ -494,22 +521,65 @@ final class ExtractObject {
         if (_obj.isNull()) {
             return String.valueOf(_obj.getInstance());
         }
-        return (String) getResult(_conf, 0, TO_STRING, _obj).getInstance();
+        return toString(_conf, _obj);
     }
     static String toString(Configuration _conf, Struct _obj) {
-        return (String) getResult(_conf, 0, TO_STRING, _obj).getInstance();
+        if (!_obj.isJavaObject()) {
+            return (String) getResult(_conf, 0, TO_STRING, _obj).getInstance();
+        }
+        try {
+            return _obj.getInstance().toString();
+        } catch (Throwable _0) {
+            throw new InvokeRedinedMethException(_conf.joinPages(), new Struct(_0));
+        }
     }
     static Struct iterator(Configuration _conf, Struct _it) {
-        return getResult(_conf, 0, ITERATOR, _it);
+        if (!_it.isJavaObject()) {
+            return getResult(_conf, 0, ITERATOR, _it);
+        }
+        SimpleIterable inst_ = (SimpleIterable) _it.getInstance();
+        try {
+            Struct out_ = new Struct(inst_.simpleIterator());
+            return out_;
+        } catch (Throwable _0) {
+            throw new InvokeRedinedMethException(_conf.joinPages(), new Struct(_0));
+        }
     }
     static boolean hasNext(Configuration _conf, Struct _it) {
-        return (Boolean) getResult(_conf, 0, HAS_NEXT, _it).getInstance();
+        if (!_it.isJavaObject()) {
+            return (Boolean) getResult(_conf, 0, HAS_NEXT, _it).getInstance();
+        }
+        SimpleItr inst_ = (SimpleItr) _it.getInstance();
+        try {
+            return inst_.hasNext();
+        } catch (Throwable _0) {
+            throw new InvokeRedinedMethException(_conf.joinPages(), new Struct(_0));
+        }
     }
     static Struct next(Configuration _conf, Struct _it) {
-        return getResult(_conf, 0, NEXT, _it);
+        if (!_it.isJavaObject()) {
+            return getResult(_conf, 0, NEXT, _it);
+        }
+        SimpleItr inst_ = (SimpleItr) _it.getInstance();
+        try {
+            Struct out_ = new Struct(inst_.next());
+            return out_;
+        } catch (Throwable _0) {
+            throw new InvokeRedinedMethException(_conf.joinPages(), new Struct(_0));
+        }
     }
     static Struct entryList(Configuration _conf, int _offsIndex, Struct _container) {
-        return getResult(_conf, _offsIndex, ENTRY_LIST, _container);
+        if (!_container.isJavaObject()) {
+            return getResult(_conf, 0, ENTRY_LIST, _container);
+        }
+        SimpleEntries inst_ = (SimpleEntries) _container.getInstance();
+        try {
+            Struct out_ = new Struct(inst_.entries());
+            return out_;
+        } catch (Throwable _0) {
+            _conf.getLastPage().addToOffset(_offsIndex);
+            throw new InvokeRedinedMethException(_conf.joinPages(), new Struct(_0));
+        }
     }
 
     static String name(Configuration _conf, Struct _instance) {

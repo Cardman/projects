@@ -448,4 +448,9 @@ public class CustList<T> implements Listable<T> {
         return INDEX_NOT_FOUND_ELT;
     }
 
+    @Override
+    public SimpleItr simpleIterator() {
+        return new SimpleItr(list.toArray());
+    }
+
 }

@@ -1,6 +1,7 @@
 package code.util;
 import code.util.ints.Listable;
 import code.util.ints.ListableEntries;
+import code.util.ints.SimpleIterable;
 
 
 
@@ -21,6 +22,11 @@ public abstract class AbsMap<K, V> implements ListableEntries<K, V> {
             return null;
         }
         return _e.getKey();
+    }
+
+    @Override
+    public SimpleIterable entries() {
+        return new CustList<EntryCust<K,V>>(getList());
     }
 
     @Override

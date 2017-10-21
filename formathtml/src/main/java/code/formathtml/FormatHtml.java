@@ -3365,7 +3365,7 @@ final class FormatHtml {
                     throw new DynamicCastClassException();
                 }
             }
-        } catch (RuntimeException _0) {
+        } catch (RuntimeException _0) {_0.printStackTrace();
             throw new BadEnumeratingException(_list, _conf.joinPages());
         }
     }

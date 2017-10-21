@@ -557,7 +557,7 @@ public abstract class RootBlock extends BracedBlock implements AccessibleBlock {
                             Class<?> cl_ = m.getParameterTypes()[i];
                             String defaultName_ = cl_.getName();
                             Type p_ = m.getGenericParameterTypes()[i];
-                            String alias_ = NativeTypeUtil.getFormattedType(defaultName_, nbParams_, p_);
+                            String alias_ = NativeTypeUtil.getFormattedType(defaultName_, p_.toString(), nbParams_, p_);
                             String formatted_ = Templates.format(c, alias_, classesRef_);
                             types_.add(new ClassName(formatted_, i + 1 == len_ && m.isVarArgs()));
                         }
@@ -1065,7 +1065,7 @@ public abstract class RootBlock extends BracedBlock implements AccessibleBlock {
                             Class<?> cl_ = m.getParameterTypes()[i];
                             String defaultName_ = cl_.getName();
                             Type p_ = m.getGenericParameterTypes()[i];
-                            String alias_ = NativeTypeUtil.getFormattedType(defaultName_, nbParams_, p_);
+                            String alias_ = NativeTypeUtil.getFormattedType(defaultName_, p_.toString(), nbParams_, p_);
                             String formatted_ = Templates.format(s, alias_, _classes);
                             types_.add(new ClassName(formatted_, i + 1 == len_ && m.isVarArgs()));
                         }
@@ -1076,7 +1076,7 @@ public abstract class RootBlock extends BracedBlock implements AccessibleBlock {
                         Class<?> cl_ = m.getReturnType();
                         String defaultName_ = cl_.getName();
                         Type returnType_ = m.getGenericReturnType();
-                        String alias_ = NativeTypeUtil.getFormattedType(defaultName_, nbParams_, returnType_);
+                        String alias_ = NativeTypeUtil.getFormattedType(defaultName_, returnType_.toString(), nbParams_, returnType_);
                         String formatted_ = Templates.format(s, alias_, _classes);
                         retClasses_.add(formatted_);
                     }

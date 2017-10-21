@@ -320,6 +320,9 @@ public final class Classes {
         if (!Templates.isCorrectWrite(_temp)) {
             return false;
         }
+        if (PrimitiveTypeUtil.isPrimitive(_temp)) {
+            return false;
+        }
         for (char c: _temp.toCharArray()) {
             if (StringList.isWordChar(c)) {
                 continue;

@@ -2,8 +2,6 @@ package code.expressionlanguage.types;
 
 import java.lang.reflect.Type;
 
-import code.util.StringList;
-
 public final class NativeTypeUtil {
 
     private static final String WILD_CARD = "?";
@@ -11,12 +9,12 @@ public final class NativeTypeUtil {
     private NativeTypeUtil() {
     }
 
-    public static String getFormattedType(String _typeName, int _nbParams, Type _type) {
-        if (_typeName.contains(WILD_CARD)) {
-            return StringList.getAllTypes(_typeName).first();
+    public static String getFormattedType(String _typeName, String _foundTypeName, int _nbParams, Type _type) {
+        if (_foundTypeName.contains(WILD_CARD)) {
+            return _typeName;
         }
         if (_nbParams > 0) {
-            return StringList.getAllTypes(_typeName).first();
+            return _typeName;
         }
         return getPrettyType(_type);
     }

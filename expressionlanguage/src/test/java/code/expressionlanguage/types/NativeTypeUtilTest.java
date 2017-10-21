@@ -87,4 +87,19 @@ public class NativeTypeUtilTest {
         String res_ = NativeTypeUtil.getPrettyType(TypeCases.getField("INT_GENE_ARR_CST").getGenericType());
         assertEq("code.util.CustList<[$int>", res_);
     }
+    @Test
+    public void getFormattedType1Test() {
+        String res_ = NativeTypeUtil.getFormattedType("java.lang.Class", "java.lang.Class<?>", 0, null);
+        assertEq("java.lang.Class", res_);
+    }
+    @Test
+    public void getFormattedType2Test() {
+        String res_ = NativeTypeUtil.getFormattedType("java.lang.Class", "java.lang.Class<#E>", 1, null);
+        assertEq("java.lang.Class", res_);
+    }
+    @Test
+    public void getFormattedType3Test() {
+        String res_ = NativeTypeUtil.getFormattedType(Object.class.getName(), Object.class.getName(), 0, Object.class);
+        assertEq("java.lang.Object", res_);
+    }
 }

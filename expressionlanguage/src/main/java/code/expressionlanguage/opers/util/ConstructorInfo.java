@@ -15,6 +15,8 @@ public final class ConstructorInfo implements Parametrable {
 
     private Constructor<?> constructor;
 
+    private String className;
+
     private ParametersGroup parameters;
 
     @Override
@@ -59,11 +61,12 @@ public final class ConstructorInfo implements Parametrable {
     }
 
     @Override
-    public Class<?> getDeclaringClass() {
-        if (constructor == null) {
-            return null;
-        }
-        return constructor.getDeclaringClass();
+    public String getClassName() {
+        return className;
+    }
+
+    public void setClassName(String _className) {
+        className = _className;
     }
 
     @Override

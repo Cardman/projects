@@ -6,5 +6,5 @@ public interface Parametrable {
 
     String getReturnType();
 
-    Class<?> getDeclaringClass();
+    String getClassName();
 }

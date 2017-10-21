@@ -1,7 +1,9 @@
 package code.util;
 
+import code.util.ints.SimpleEntry;
 
-public final class EntryCust<K, V> {
+
+public final class EntryCust<K, V> implements SimpleEntry {
 
     private static final String SEPARATOR = " ";
 
@@ -14,22 +16,15 @@ public final class EntryCust<K, V> {
         value = _v;
     }
 
-    //@Override
+    @Override
     public K getKey() {
         return key;
     }
 
-    //@Override
+    @Override
     public V getValue() {
         return value;
     }
-
-    //@Override
-//    public V setValue(V _v) {
-//        V old_ = value;
-//        setValueOnly(_v);
-//        return old_;
-//    }
 
     public void setValue(V _v) {
         value = _v;

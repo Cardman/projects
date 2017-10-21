@@ -7,6 +7,7 @@ import java.util.ListIterator;
 import code.util.CustList;
 import code.util.EqList;
 import code.util.Numbers;
+import code.util.SimpleItr;
 import code.util.ints.Listable;
 
 public class Ints implements Listable<Integer> {
@@ -270,4 +271,8 @@ public class Ints implements Listable<Integer> {
         return ints.eq(_g);
     }
 
+    @Override
+    public SimpleItr simpleIterator() {
+        return new SimpleItr(ints.toArray());
+    }
 }
