@@ -647,6 +647,10 @@ public final class FctOperation extends InvokingOperation {
                                 throw new DynamicCastClassException(baseArgClassName_+RETURN_LINE+classNameFound_+RETURN_LINE+_conf.joinPages());
                             }
                             classNameFound_ = Templates.getFullTypeByBases(argClassName_, classNameFound_, classes_);
+                            if (classes_.getMethodBodiesByFormattedId(classNameFound_, methodId_.format(classNameFound_, classes_)).isEmpty()) {
+                                setRelativeOffsetPossibleLastPage(chidren_.last().getIndexInEl(), _conf);
+                                throw new DynamicCastClassException(baseArgClassName_+RETURN_LINE+classNameFound_+RETURN_LINE+_conf.joinPages());
+                            }
                         }
                         methodId_ = methodId_.format(classNameFound_, classes_);
                         int indexType_ = CustList.FIRST_INDEX;

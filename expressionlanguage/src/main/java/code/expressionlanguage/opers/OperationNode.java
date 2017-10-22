@@ -832,7 +832,7 @@ public abstract class OperationNode {
         ClassMethodId idCl_ = _res.getId();
         String clCurName_ = idCl_.getClassName();
         MethodId id_ = idCl_.getConstraints();
-        id_ = id_.format(clCurName_, classes_);
+        id_ = id_.generalFormat(clCurName_, classes_);
         idRet_.setId(new ClassMethodId(clCurName_, id_));
         CustList<MethodBlock> methods_ = classes_.getMethodBodiesByFormattedId(clCurName_, id_);
         MethodBlock m_;
@@ -842,7 +842,7 @@ public abstract class OperationNode {
             String int_ = u_.getDefaultMethodIds().getVal(id_);
             int_ = Templates.generalFormat(clCurName_, int_, classes_);
             id_ = idCl_.getConstraints();
-            id_ = id_.format(int_, classes_);
+            id_ = id_.generalFormat(int_, classes_);
             m_ = classes_.getMethodBodiesByFormattedId(int_, id_).first();
         } else {
             m_ = methods_.first();

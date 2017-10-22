@@ -1532,7 +1532,7 @@ public final class Classes {
                 }
                 boolean all_ = true;
                 for (int i = CustList.FIRST_INDEX; i < nbParams_; i++) {
-                    String type_ = Templates.format(_genericClassName, list_.get(i).getName(), this);
+                    String type_ = Templates.generalFormat(_genericClassName, list_.get(i).getName(), this);
                     if (!StringList.quickEq(type_, _parametersTypes.get(i))) {
                         all_ = false;
                         break;
