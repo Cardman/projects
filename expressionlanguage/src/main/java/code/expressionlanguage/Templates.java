@@ -118,21 +118,13 @@ public final class Templates {
                 Class<?> superClass_ = cl_.getSuperclass();
                 if (superClass_ != null) {
                     String geneSuperClass_ = NativeTypeUtil.getPrettyType(cl_.getGenericSuperclass());
-                    if (correctNbParameters(c, _classes)) {
-                        geneSuperClass_ = format(c, geneSuperClass_, _classes);
-                    } else {
-                        geneSuperClass_ = StringList.getAllTypes(geneSuperClass_).first();
-                    }
+                    geneSuperClass_ = generalFormat(c, geneSuperClass_, _classes);
                     nextClasses_.add(geneSuperClass_);
                     visitedClasses_.add(geneSuperClass_);
                 }
                 for (Type s: cl_.getGenericInterfaces()) {
                     String geneSuperInterface_ = NativeTypeUtil.getPrettyType(s);
-                    if (correctNbParameters(c, _classes)) {
-                        geneSuperInterface_ = format(c, geneSuperInterface_, _classes);
-                    } else {
-                        geneSuperInterface_ = StringList.getAllTypes(geneSuperInterface_).first();
-                    }
+                    geneSuperInterface_ = generalFormat(c, geneSuperInterface_, _classes);
                     nextClasses_.add(geneSuperInterface_);
                     visitedClasses_.add(geneSuperInterface_);
                 }
@@ -411,8 +403,12 @@ public final class Templates {
         }
         return true;
     }
+    public static String generalFormat(String _first, String _second, Classes _classes) {
+        StringMap<String> varTypes_ = getVarTypes(_first, false, _classes);
+        return getFormattedType(_second, varTypes_);
+    }
     public static String format(String _first, String _second, Classes _classes) {
-        StringMap<String> varTypes_ = getVarTypes(_first, _classes);
+        StringMap<String> varTypes_ = getVarTypes(_first, true, _classes);
         return getFormattedType(_second, varTypes_);
     }
     public static String getGenericString(String _className, Classes _classes) {
@@ -464,15 +460,31 @@ public final class Templates {
         }
         return vars_;
     }
-    static StringMap<String> getVarTypes(String _className, Classes _classes) {
+    static StringMap<String> getVarTypes(String _className, boolean _checkExact,Classes _classes) {
         StringList types_ = StringList.getAllTypes(_className);
         String className_ = PrimitiveTypeUtil.getQuickComponentBaseType(types_.first()).getComponent();
         if (_classes != null) {
             RootBlock root_ = _classes.getClassBody(className_);
             if (root_ != null) {
                 StringMap<String> varTypes_ = new StringMap<String>();
+                CustList<TypeVar> typeVar_ = root_.getParamTypes();
+                if (typeVar_.size() != types_.size() - 1 && !_checkExact) {
+                    Mapping map_ = new Mapping();
+                    for (TypeVar t: typeVar_) {
+                        map_.getMapping().put(t.getName(), t.getConstraints());
+                    }
+                    for (TypeVar t: typeVar_) {
+                        StringList bounds_ = map_.getAllUpperBounds(t.getName());
+                        if (bounds_.size() == 1) {
+                            varTypes_.put(t.getName(), bounds_.first());
+                        } else {
+                            varTypes_.put(t.getName(), Object.class.getName());
+                        }
+                    }
+                    return varTypes_;
+                }
                 int i_ = CustList.FIRST_INDEX;
-                for (TypeVar t: root_.getParamTypes()) {
+                for (TypeVar t: typeVar_) {
                     i_++;
                     String arg_ = types_.get(i_);
                     varTypes_.put(t.getName(), arg_);
@@ -483,6 +495,22 @@ public final class Templates {
         Class<?> cl_ = PrimitiveTypeUtil.getSingleNativeClass(className_);
         int i_ = CustList.FIRST_INDEX;
         StringMap<String> varTypes_ = new StringMap<String>();
+        CustList<TypeVar> typeVar_ = getConstraints(className_, _classes);
+        if (cl_.getTypeParameters().length != types_.size() - 1 && !_checkExact) {
+            Mapping map_ = new Mapping();
+            for (TypeVar t: typeVar_) {
+                map_.getMapping().put(t.getName(), t.getConstraints());
+            }
+            for (TypeVar t: typeVar_) {
+                StringList bounds_ = map_.getAllUpperBounds(t.getName());
+                if (bounds_.size() == 1) {
+                    varTypes_.put(t.getName(), bounds_.first());
+                } else {
+                    varTypes_.put(t.getName(), Object.class.getName());
+                }
+            }
+            return varTypes_;
+        }
         for (TypeVariable<?> t: cl_.getTypeParameters()) {
             i_++;
             String arg_ = types_.get(i_);
@@ -516,6 +544,7 @@ public final class Templates {
             if (_varTypes.contains(sub_)) {
                 str_.append(_varTypes.getVal(sub_));
             } else {
+                sub_ = _type.substring(diese_, i);
                 str_.append(sub_);
             }
             str_.append(_type.charAt(i));
@@ -526,6 +555,7 @@ public final class Templates {
             if (_varTypes.contains(sub_)) {
                 str_.append(_varTypes.getVal(sub_));
             } else {
+                sub_ = _type.substring(diese_);
                 str_.append(sub_);
             }
         }

@@ -377,7 +377,7 @@ public abstract class OperationNode {
         }
         _conf.getAccessValue().setAccess(_field, _conf);
     }
-    void checkCorrect(ContextEl _cont, String _className,boolean _setOffset, int _offset) {
+    final void checkCorrect(ContextEl _cont, String _className,boolean _setOffset, int _offset) {
         StringMap<StringList> map_;
         map_ = new StringMap<StringList>();
         Classes classes_ = _cont.getClasses();
@@ -394,7 +394,7 @@ public abstract class OperationNode {
             throw new RuntimeClassNotFoundException(_className+RETURN_LINE+_cont.joinPages());
         }
     }
-    void checkExistBase(ContextEl _cont, String _className,boolean _setOffset, int _offset) {
+    final void checkExistBase(ContextEl _cont, String _className,boolean _setOffset, int _offset) {
         StringMap<StringList> map_;
         map_ = new StringMap<StringList>();
         Classes classes_ = _cont.getClasses();
@@ -840,9 +840,7 @@ public abstract class OperationNode {
             String baseClass_ = StringList.getAllTypes(clCurName_).first();
             UniqueRootedBlock u_ = (UniqueRootedBlock) classes_.getClassBody(baseClass_);
             String int_ = u_.getDefaultMethodIds().getVal(id_);
-            if (Templates.correctNbParameters(clCurName_, classes_)) {
-                int_ = Templates.format(clCurName_, int_, classes_);
-            }
+            int_ = Templates.generalFormat(clCurName_, int_, classes_);
             id_ = idCl_.getConstraints();
             id_ = id_.format(int_, classes_);
             m_ = classes_.getMethodBodiesByFormattedId(int_, id_).first();
@@ -850,9 +848,7 @@ public abstract class OperationNode {
             m_ = methods_.first();
         }
         String ret_ = m_.getReturnType();
-        if (Templates.correctNbParameters(clCurName_, classes_)) {
-            ret_ = Templates.format(clCurName_, ret_, classes_);
-        }
+        ret_ = Templates.generalFormat(clCurName_, ret_, classes_);
         idRet_.setReturnType(ret_);
         idRet_.setStaticMethod(m_.isStaticMethod());
         idRet_.setAbstractMethod(m_.isAbstractMethod());
@@ -1060,9 +1056,7 @@ public abstract class OperationNode {
                     if (StringList.quickEq(c, generic_)) {
                         MethodBlock m_ = classes_.getMethodBodiesByFormattedId(generic_, e.getKey()).first();
                         String returnType_ = m_.getReturnType();
-                        if (Templates.correctNbParameters(clCurName_, classes_)) {
-                            returnType_ = Templates.format(clCurName_, returnType_, classes_);
-                        }
+                        returnType_ = Templates.generalFormat(clCurName_, returnType_, classes_);
                         MethodMetaInfo info_ = new MethodMetaInfo(c, MethodModifier.NORMAL, returnType_);
                         methods_.put(e.getKey(), info_);
                     }
@@ -1073,16 +1067,10 @@ public abstract class OperationNode {
         RootBlock clBl_ = classes_.getClassBody(baseClass_);
         for (EntryCust<MethodId, String> e: clBl_.getDefaultMethodIds().entryList()) {
             String formattedCl_;
-            if (Templates.correctNbParameters(clCurName_, classes_)) {
-                formattedCl_ = Templates.format(clCurName_, e.getValue(), classes_);
-            } else {
-                formattedCl_ = clCurName_;
-            }
+            formattedCl_ = Templates.generalFormat(clCurName_, e.getValue(), classes_);
             MethodBlock m_ = classes_.getMethodBodiesByFormattedId(formattedCl_, e.getKey()).first();
             String ret_ = m_.getReturnType();
-            if (Templates.correctNbParameters(clCurName_, classes_)) {
-                ret_ = Templates.format(clCurName_, ret_, classes_);
-            }
+            ret_ = Templates.generalFormat(clCurName_, ret_, classes_);
             MethodMetaInfo info_ = new MethodMetaInfo(e.getValue(), MethodModifier.NORMAL, ret_);
             methods_.put(e.getKey(), info_);
         }
@@ -1353,12 +1341,7 @@ public abstract class OperationNode {
             for (TypeVar t: vars_) {
                 map_.getMapping().put(t.getName(), t.getConstraints());
             }
-            if (Templates.correctNbParameters(_class, classes_)) {
-                map_.setParam(Templates.format(_class, _params[i].getClassName(), classes_));
-            } else {
-//              map_.setParam(_params[i].getClassName());
-                map_.setParam(Object.class.getName());
-            }
+            map_.setParam(Templates.generalFormat(_class, _params[i].getClassName(), classes_));
             if (!Templates.isCorrect(map_, classes_)) {
                 skip_ = true;
                 break;
@@ -1438,20 +1421,16 @@ public abstract class OperationNode {
             ClassArgumentMatching selected_ = _context.get(i);
             ClassMatching one_ = _o1.getParameters().get(i);
             ClassMatching two_ = _o2.getParameters().get(i);
-            if (one_.matchClass(two_)) {
-                continue;
-            }
             if (!_o1.isStatic()) {
                 String glClass_ = _o1.getClassName();
-                if (Templates.correctNbParameters(glClass_, classes_)) {
-                    one_ = new ClassMatching(Templates.format(glClass_, one_.getClassName(), classes_));
-                }
+                one_ = new ClassMatching(Templates.generalFormat(glClass_, one_.getClassName(), classes_));
             }
             if (!_o2.isStatic()) {
                 String glClass_ = _o2.getClassName();
-                if (Templates.correctNbParameters(glClass_, classes_)) {
-                    two_ = new ClassMatching(Templates.format(glClass_, two_.getClassName(), classes_));
-                }
+                two_ = new ClassMatching(Templates.generalFormat(glClass_, two_.getClassName(), classes_));
+            }
+            if (one_.matchClass(two_)) {
+                continue;
             }
             if (selected_.isVariable()) {
                 if (one_.isAssignableFrom(two_, map_, classes_)) {

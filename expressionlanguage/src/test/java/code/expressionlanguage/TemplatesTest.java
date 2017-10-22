@@ -189,7 +189,216 @@ public class TemplatesTest {
         String second_ = "#T";
         assertEq("java.lang.Object",Templates.format(first_, second_, classes_));
     }
-    
+
+    @Test
+    public void format14Test() {
+        String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' template='&lt;#T,#U&gt;'/>\n";
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex."+Classes.EXT, xml_);
+        ContextEl cont_ = unfullValidateOverridingMethods(files_);
+        cont_.setAccessValue(new AccessValueEx());
+        Classes classes_ = cont_.getClasses();
+        assertTrue(classes_.getErrorsDet().toString(), classes_.getErrorsDet().isEmpty());
+        String first_ = "pkg.Ex<java.lang.String,java.lang.Object>";
+        String second_ = "#V";
+        assertEq("#V",Templates.format(first_, second_, classes_));
+    }
+
+    @Test
+    public void format15Test() {
+        String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' template='&lt;#T,#U&gt;'/>\n";
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex."+Classes.EXT, xml_);
+        ContextEl cont_ = unfullValidateOverridingMethods(files_);
+        cont_.setAccessValue(new AccessValueEx());
+        Classes classes_ = cont_.getClasses();
+        assertTrue(classes_.getErrorsDet().toString(), classes_.getErrorsDet().isEmpty());
+        String first_ = "pkg.Ex<java.lang.String,java.lang.Object>";
+        String second_ = "code.util.CustList<#V>";
+        assertEq("code.util.CustList<#V>",Templates.format(first_, second_, classes_));
+    }
+
+    @Test
+    public void generalFormat1Test() {
+        String first_ = String.class.getName();
+        String second_ = Integer.class.getName();
+        assertEq(second_,Templates.generalFormat(first_, second_, null));
+    }
+
+    @Test
+    public void generalFormat2Test() {
+        String first_ = CUST_LIST+"<"+String.class.getName()+">";
+        String second_ = Integer.class.getName();
+        assertEq(second_,Templates.generalFormat(first_, second_, null));
+    }
+
+    @Test
+    public void generalFormat3Test() {
+        String first_ = CUST_LIST+"<E>";
+        String second_ = Integer.class.getName();
+        assertEq(second_,Templates.generalFormat(first_, second_, null));
+    }
+
+    @Test
+    public void generalFormat4Test() {
+        String first_ = CUST_LIST+"<#E>";
+        String second_ = Integer.class.getName();
+        assertEq(second_,Templates.generalFormat(first_, second_, null));
+    }
+
+    @Test
+    public void generalFormat5Test() {
+        String first_ = CUST_LIST+"<"+Integer.class.getName()+">";
+        String second_ = "T";
+        assertEq("T",Templates.generalFormat(first_, second_, null));
+    }
+
+    @Test
+    public void generalFormat6Test() {
+        String first_ = CUST_LIST+"<"+Integer.class.getName()+">";
+        String second_ = "#T";
+        assertEq(Integer.class.getName(),Templates.generalFormat(first_, second_, null));
+    }
+
+    @Test
+    public void generalFormat7Test() {
+        String first_ = CUST_LIST+"<#E>";
+        String second_ = "T";
+        assertEq("T",Templates.generalFormat(first_, second_, null));
+    }
+
+    @Test
+    public void generalFormat8Test() {
+        String first_ = CUST_LIST+"<#E>";
+        String second_ = "#T";
+        assertEq("#E",Templates.generalFormat(first_, second_, null));
+    }
+
+    @Test
+    public void generalFormat9Test() {
+        String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' template='&lt;#T&gt;'/>\n";
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex."+Classes.EXT, xml_);
+        ContextEl cont_ = unfullValidateOverridingMethods(files_);
+        cont_.setAccessValue(new AccessValueEx());
+        Classes classes_ = cont_.getClasses();
+        assertTrue(classes_.getErrorsDet().toString(), classes_.getErrorsDet().isEmpty());
+        String first_ = "pkg.Ex<#E>";
+        String second_ = "#T";
+        assertEq("#E",Templates.generalFormat(first_, second_, classes_));
+    }
+
+    @Test
+    public void generalFormat10Test() {
+        String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' template='&lt;#T&gt;'/>\n";
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex."+Classes.EXT, xml_);
+        ContextEl cont_ = unfullValidateOverridingMethods(files_);
+        cont_.setAccessValue(new AccessValueEx());
+        Classes classes_ = cont_.getClasses();
+        assertTrue(classes_.getErrorsDet().toString(), classes_.getErrorsDet().isEmpty());
+        String first_ = "pkg.Ex<java.lang.String>";
+        String second_ = "#T";
+        assertEq("java.lang.String",Templates.generalFormat(first_, second_, classes_));
+    }
+
+    @Test
+    public void generalFormat11Test() {
+        String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' template='&lt;#T,#U&gt;'/>\n";
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex."+Classes.EXT, xml_);
+        ContextEl cont_ = unfullValidateOverridingMethods(files_);
+        cont_.setAccessValue(new AccessValueEx());
+        Classes classes_ = cont_.getClasses();
+        assertTrue(classes_.getErrorsDet().toString(), classes_.getErrorsDet().isEmpty());
+        String first_ = "pkg.Ex<java.lang.String,java.lang.Object>";
+        String second_ = "#U";
+        assertEq("java.lang.Object",Templates.generalFormat(first_, second_, classes_));
+    }
+
+    @Test
+    public void generalFormat12Test() {
+        String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' template='&lt;#T,#U&gt;'/>\n";
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex."+Classes.EXT, xml_);
+        ContextEl cont_ = unfullValidateOverridingMethods(files_);
+        cont_.setAccessValue(new AccessValueEx());
+        Classes classes_ = cont_.getClasses();
+        assertTrue(classes_.getErrorsDet().toString(), classes_.getErrorsDet().isEmpty());
+        String first_ = "pkg.Ex<java.lang.String,java.lang.Object>";
+        String second_ = "#T";
+        assertEq("java.lang.String",Templates.generalFormat(first_, second_, classes_));
+    }
+
+    @Test
+    public void generalFormat13Test() {
+        String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' template='&lt;#T,#U&gt;'/>\n";
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex."+Classes.EXT, xml_);
+        ContextEl cont_ = unfullValidateOverridingMethods(files_);
+        cont_.setAccessValue(new AccessValueEx());
+        Classes classes_ = cont_.getClasses();
+        assertTrue(classes_.getErrorsDet().toString(), classes_.getErrorsDet().isEmpty());
+        String first_ = CUST_LIST+"<java.lang.Object>";
+        String second_ = "#T";
+        assertEq("java.lang.Object",Templates.generalFormat(first_, second_, classes_));
+    }
+
+    @Test
+    public void generalFormat14Test() {
+        String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' template='&lt;#T,#U&gt;'/>\n";
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex."+Classes.EXT, xml_);
+        ContextEl cont_ = unfullValidateOverridingMethods(files_);
+        cont_.setAccessValue(new AccessValueEx());
+        Classes classes_ = cont_.getClasses();
+        assertTrue(classes_.getErrorsDet().toString(), classes_.getErrorsDet().isEmpty());
+        String first_ = "pkg.Ex<java.lang.String,java.lang.Object>";
+        String second_ = "#V";
+        assertEq("#V",Templates.generalFormat(first_, second_, classes_));
+    }
+
+    @Test
+    public void generalFormat15Test() {
+        String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' template='&lt;#T,#U&gt;'/>\n";
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex."+Classes.EXT, xml_);
+        ContextEl cont_ = unfullValidateOverridingMethods(files_);
+        cont_.setAccessValue(new AccessValueEx());
+        Classes classes_ = cont_.getClasses();
+        assertTrue(classes_.getErrorsDet().toString(), classes_.getErrorsDet().isEmpty());
+        String first_ = "pkg.Ex<java.lang.String,java.lang.Object>";
+        String second_ = "code.util.CustList<#V>";
+        assertEq("code.util.CustList<#V>",Templates.generalFormat(first_, second_, classes_));
+    }
+
+    @Test
+    public void generalFormat16Test() {
+        String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' template='&lt;#T:java.lang.Number,#U&gt;'/>\n";
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex."+Classes.EXT, xml_);
+        ContextEl cont_ = unfullValidateOverridingMethods(files_);
+        cont_.setAccessValue(new AccessValueEx());
+        Classes classes_ = cont_.getClasses();
+        assertTrue(classes_.getErrorsDet().toString(), classes_.getErrorsDet().isEmpty());
+        String first_ = "pkg.Ex";
+        String second_ = "code.util.CustList<#T>";
+        assertEq("code.util.CustList<java.lang.Number>",Templates.generalFormat(first_, second_, classes_));
+    }
+    @Test
+    public void generalFormat17Test() {
+        String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' template='&lt;#T:java.lang.Number,#U&gt;'/>\n";
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex."+Classes.EXT, xml_);
+        ContextEl cont_ = unfullValidateOverridingMethods(files_);
+        cont_.setAccessValue(new AccessValueEx());
+        Classes classes_ = cont_.getClasses();
+        assertTrue(classes_.getErrorsDet().toString(), classes_.getErrorsDet().isEmpty());
+        String first_ = "code.util.CustList";
+        String second_ = "pkg.Ex<#T,#T>";
+        assertEq("pkg.Ex<java.lang.Object,java.lang.Object>",Templates.generalFormat(first_, second_, classes_));
+    }
+
     @Test
     public void getTypesByBases1Test() {
         StringList t_ = Templates.getTypesByBases("java.lang.String", "java.lang.Object", null);
@@ -2233,7 +2442,7 @@ public class TemplatesTest {
         StringList superTypes_ = Templates.getAllGenericSuperTypes("code.util.ints.Listable", null);
         assertEq(4, superTypes_.size());
         assertEq("code.util.ints.Listable", superTypes_.get(0));
-        assertEq("java.lang.Iterable", superTypes_.get(1));
+        assertEq("java.lang.Iterable<java.lang.Object>", superTypes_.get(1));
         assertEq("code.util.ints.Countable", superTypes_.get(2));
         assertEq("code.util.ints.SimpleIterable", superTypes_.get(3));
     }
@@ -2266,8 +2475,8 @@ public class TemplatesTest {
         assertEq(6, superTypes_.size());
         assertEq("code.util.CustList", superTypes_.get(0));
         assertEq("java.lang.Object", superTypes_.get(1));
-        assertEq("code.util.ints.Listable", superTypes_.get(2));
-        assertEq("java.lang.Iterable", superTypes_.get(3));
+        assertEq("code.util.ints.Listable<java.lang.Object>", superTypes_.get(2));
+        assertEq("java.lang.Iterable<java.lang.Object>", superTypes_.get(3));
         assertEq("code.util.ints.Countable", superTypes_.get(4));
         assertEq("code.util.ints.SimpleIterable", superTypes_.get(5));
     }
