@@ -32,6 +32,13 @@ public final class Templates {
     }
 
     public static boolean correctClassParts(String _className, StringMap<StringList> _mapping, Classes _classes) {
+        if (!existClassParts(_className, _mapping, _classes)) {
+            return false;
+        }
+        return isCorrectTemplateAll(_className, _mapping, _classes);
+    }
+
+    public static boolean existClassParts(String _className, StringMap<StringList> _mapping, Classes _classes) {
         if (!isCorrectWrite(_className)) {
             return false;
         }
@@ -39,7 +46,7 @@ public final class Templates {
         if (!existAllClassParts(_className, variables_, _classes)) {
             return false;
         }
-        return isCorrectTemplateAll(_className, _mapping, _classes);
+        return true;
     }
 
     public static boolean existAllClassParts(String _className, StringList _variables, Classes _classes) {
@@ -485,6 +492,9 @@ public final class Templates {
     }
 
     static String getFormattedType(String _type, StringMap<String> _varTypes) {
+        if (_varTypes.isEmpty()) {
+            return _type;
+        }
         StringBuilder str_ = new StringBuilder();
         int len_ = _type.length();
         int diese_ = 0;

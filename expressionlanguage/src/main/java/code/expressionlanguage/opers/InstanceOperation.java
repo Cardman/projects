@@ -127,7 +127,7 @@ public final class InstanceOperation extends InvokingOperation {
             }
             realClassName_ = realClassName_.substring(ARR.length());
             setRelativeOffsetPossibleLastPage(getIndexInEl()+off_, _conf);
-            checkExist(_conf, realClassName_, false, 0);
+            checkCorrect(_conf, realClassName_, false, 0);
             if (!elts_) {
                 setResultClass(new ClassArgumentMatching(PrimitiveTypeUtil.getPrettyArrayType(realClassName_, chidren_.size())));
                 return;
@@ -428,27 +428,21 @@ public final class InstanceOperation extends InvokingOperation {
         }
         if (constId != null) {
             String className_ = constId.getName();
-            if (!isStaticBlock()) {
-                String glClass_ = _conf.getLastPage().getGlobalClass();
+            String glClass_ = _conf.getLastPage().getGlobalClass();
+            if (glClass_ != null) {
                 className_ = Templates.format(glClass_, className_, _conf.getClasses());
             }
             StringList params_ = new StringList();
             for (String c: constId.getParametersTypes()) {
                 String class_ = c;
-                if (!isStaticBlock()) {
-                    String glClass_ = _conf.getLastPage().getGlobalClass();
+                if (glClass_ != null) {
                     class_ = Templates.format(glClass_, class_, _conf.getClasses());
                 }
                 params_.add(class_);
             }
             checkArgumentsForInvoking(_conf, params_, getObjects(Argument.toArgArray(_arguments)));
             ConstructorId cid_;
-            if (!isStaticBlock()) {
-                String glClass_ = _conf.getLastPage().getGlobalClass();
-                cid_ = constId.format(glClass_, _conf.getClasses());
-            } else {
-                cid_ = constId;
-            }
+            cid_ = constId.format(glClass_, _conf.getClasses());
             if (_processInit) {
                 return ProcessXmlMethod.instanceArgument(className_, needed_, cid_, _arguments, _conf);
             }

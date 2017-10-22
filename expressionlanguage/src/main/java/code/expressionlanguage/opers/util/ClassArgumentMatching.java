@@ -1,6 +1,5 @@
 package code.expressionlanguage.opers.util;
 import code.expressionlanguage.PrimitiveTypeUtil;
-import code.expressionlanguage.methods.Classes;
 import code.expressionlanguage.opers.OperationNode;
 import code.util.CustList;
 import code.util.StringList;

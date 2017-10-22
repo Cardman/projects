@@ -135,7 +135,7 @@ public final class ConstantOperation extends OperationNode implements SettableEl
                 className_ = className_.substring(lenPref_);
                 className_ = StringList.removeAllSpaces(className_);
                 className_ = className_.replace(EXTERN_CLASS, DOT_VAR);
-                checkExist(_conf, className_, true, lenPref_);
+                checkCorrect(_conf, className_, true, lenPref_);
                 clCurName_ = className_;
             } else {
                 if (cl_ == null) {
@@ -550,7 +550,7 @@ public final class ConstantOperation extends OperationNode implements SettableEl
             str_ = str_.substring(CustList.SECOND_INDEX);
             str_ = StringList.removeAllSpaces(str_);
             Argument a_ = new Argument();
-            checkExist(_cont, str_, false, 0);
+            checkCorrect(_cont, str_, false, 0);
             argClassName = str_;
             setSimpleArgument(a_);
             return;
@@ -737,7 +737,7 @@ public final class ConstantOperation extends OperationNode implements SettableEl
             String classStr_ = StringList.removeAllSpaces(class_.toString());
             String glClass_ = _cont.getLastPage().getGlobalClass();
             Classes classes_ = _cont.getClasses();
-            checkExist(_cont, classStr_, false, 0);
+            checkCorrect(_cont, classStr_, false, 0);
             if (classes_ != null && classes_.isCustomType(classStr_)) {
                 //TODO exclude primitive
                 String curClassBase_ = null;
