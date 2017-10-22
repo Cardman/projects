@@ -96,7 +96,7 @@
 		</module>
 		<module name="MethodLength">
 			<property name="tokens" value="METHOD_DEF" />
-			<property name="max" value="600" />
+			<property name="max" value="768" />
 		</module>
 		<module name="ParameterNumber">
 			<property name="max" value="10" />
@@ -130,7 +130,7 @@
 
 		<module name="IllegalToken">
 			<property name="tokens"
-				value="LABELED_STAT,BAND,BAND_ASSIGN,BNOT,BOR,BOR_ASSIGN,BSR,BSR_ASSIGN,BXOR,BXOR_ASSIGN,EMPTY_STAT,LITERAL_ASSERT,LITERAL_NATIVE,RESOURCE,RESOURCE_SPECIFICATION,RESOURCES,SL,SL_ASSIGN,SR,SR_ASSIGN,STRICTFP,UNARY_PLUS,INC,DEC" />
+				value="LABELED_STAT,BAND,BAND_ASSIGN,BNOT,BOR,BOR_ASSIGN,BSR,BSR_ASSIGN,BXOR,BXOR_ASSIGN,EMPTY_STAT,LITERAL_ASSERT,LITERAL_NATIVE,RESOURCE,RESOURCE_SPECIFICATION,RESOURCES,SL,SL_ASSIGN,SR,SR_ASSIGN,STRICTFP,INC,DEC" />
 		</module>
 
 

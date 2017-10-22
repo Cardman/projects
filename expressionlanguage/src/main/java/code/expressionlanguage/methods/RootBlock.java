@@ -222,7 +222,7 @@ public abstract class RootBlock extends BracedBlock implements AccessibleBlock {
                     String classNameLoc_ = n.getValue();
                     if (StringList.quickEq(classNameLoc_, OperationNode.VOID_RETURN)) {
                         if (a == b) {
-                            if ((b instanceof MethodBlock)) {
+                            if (b instanceof MethodBlock) {
                                 if (!StringList.quickEq(n.getKey(), ATTRIBUTE_CLASS)) {
                                     UnknownClassName un_ = new UnknownClassName();
                                     un_.setClassName(classNameLoc_);

@@ -609,12 +609,12 @@ public class RootBlockTest {
         StringMap<String> files_ = new StringMap<String>();
         String xml_;
         xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg'>\n";
-        xml_ += "<method access='"+PUBLIC_ACCESS+"' name='instancemethod' class='java.lang.Number' modifier='normal' class='$void'>\n";
+        xml_ += "<method access='"+PUBLIC_ACCESS+"' name='instancemethod' class='java.lang.Number' var0='i' modifier='normal' class0='$int'>\n";
         xml_ += "</method>\n";
         xml_ += "</class>\n";
         files_.put("pkg/Ex."+Classes.EXT, xml_);
         xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExTwo' package='pkg' superclass='pkg.Ex' template='&lt;#E&gt;'>\n";
-        xml_ += "<method access='"+PUBLIC_ACCESS+"' name='instancemethod' class='#E' modifier='normal' class='$void'>\n";
+        xml_ += "<method access='"+PUBLIC_ACCESS+"' name='instancemethod' class='#E' var0='i' modifier='normal' class0='$int'>\n";
         xml_ += "</method>\n";
         xml_ += "</class>\n";
         files_.put("pkg/ExTwo."+Classes.EXT, xml_);

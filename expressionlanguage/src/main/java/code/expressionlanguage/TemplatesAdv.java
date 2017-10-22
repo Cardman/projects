@@ -14,7 +14,7 @@ import code.util.StringList;
 import code.util.StringMap;
 import code.util.opers.CollectionsUtil;
 
-public class TemplatesAdv {
+public final class TemplatesAdv {
 
     public static final String TEMPLATE_SEP = ",";
     public static final String TEMPLATE_END = ">";

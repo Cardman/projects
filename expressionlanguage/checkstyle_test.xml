@@ -103,7 +103,7 @@
 
 		<module name="IllegalToken">
 			<property name="tokens"
-				value="LABELED_STAT,BAND,BAND_ASSIGN,BNOT,BOR,BOR_ASSIGN,BSR,BSR_ASSIGN,BXOR,BXOR_ASSIGN,EMPTY_STAT,LITERAL_ASSERT,LITERAL_NATIVE,RESOURCE,RESOURCE_SPECIFICATION,RESOURCES,SL,SL_ASSIGN,SR,SR_ASSIGN,STRICTFP,UNARY_PLUS,INC,DEC" />
+				value="LABELED_STAT,BAND,BAND_ASSIGN,BNOT,BOR,BOR_ASSIGN,BSR,BSR_ASSIGN,BXOR,BXOR_ASSIGN,EMPTY_STAT,LITERAL_ASSERT,LITERAL_NATIVE,RESOURCE,RESOURCE_SPECIFICATION,RESOURCES,SL,SL_ASSIGN,SR,SR_ASSIGN,STRICTFP,INC,DEC" />
 		</module>
 
 
@@ -121,7 +121,7 @@
 		<module name="RightCurly" />
 
 		<!-- <module name="DesignForExtension" /> -->
-		<module name="HideUtilityClassConstructor" />
+		<!-- <module name="HideUtilityClassConstructor" /> -->
 		<module name="InnerTypeLast" />
 		<module name="InterfaceIsType" />
 		<module name="MutableException" />
