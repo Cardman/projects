@@ -754,6 +754,7 @@ public abstract class OperationNode {
             if (foundInst_) {
                 ClassMethodIdReturn idRet_ = new ClassMethodIdReturn();
                 idRet_.setId(new ClassMethodId(_class.getName(), resInst_.getId().getConstraints()));
+                idRet_.setRealId(resInst_.getId().getConstraints());
                 idRet_.setReturnType(methodsInst_.getVal(resInst_.getId().getConstraints()).getReturnType());
                 return idRet_;
             }
@@ -771,6 +772,7 @@ public abstract class OperationNode {
             if (resStatic_.getStatus() == SearchingMemberStatus.UNIQ) {
                 ClassMethodIdReturn idRet_ = new ClassMethodIdReturn();
                 idRet_.setId(new ClassMethodId(_class.getName(), resStatic_.getId().getConstraints()));
+                idRet_.setRealId(resStatic_.getId().getConstraints());
                 idRet_.setReturnType(methodsStatic_.getVal(resStatic_.getId().getConstraints()).getReturnType());
                 idRet_.setStaticMethod(true);
                 return idRet_;
@@ -832,6 +834,7 @@ public abstract class OperationNode {
         ClassMethodId idCl_ = _res.getId();
         String clCurName_ = idCl_.getClassName();
         MethodId id_ = idCl_.getConstraints();
+        idRet_.setRealId(id_);
         id_ = id_.generalFormat(clCurName_, classes_);
         idRet_.setId(new ClassMethodId(clCurName_, id_));
         CustList<MethodBlock> methods_ = classes_.getMethodBodiesByFormattedId(clCurName_, id_);

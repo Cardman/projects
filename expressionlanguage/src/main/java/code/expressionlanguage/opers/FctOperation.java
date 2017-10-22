@@ -71,6 +71,7 @@ public final class FctOperation extends InvokingOperation {
     private ConstructorId constId;
 
     private ClassMethodId classMethodId;
+    private MethodId realId;
 
     private boolean staticMethod;
 
@@ -325,6 +326,7 @@ public final class FctOperation extends InvokingOperation {
                         }
                         MethodId methodId_ = new MethodId(METH_NAME, new EqList<ClassName>());
                         classMethodId = new ClassMethodId(clCurName_, methodId_);
+                        realId = methodId_;
                         setResultClass(new ClassArgumentMatching(String.class.getName()));
                         return;
                     }
@@ -334,12 +336,14 @@ public final class FctOperation extends InvokingOperation {
                         }
                         MethodId methodId_ = new MethodId(METH_ORDINAL, new EqList<ClassName>());
                         classMethodId = new ClassMethodId(clCurName_, methodId_);
+                        realId = methodId_;
                         setResultClass(new ClassArgumentMatching(PrimitiveTypeUtil.PRIM_INT));
                         return;
                     }
                     if (StringList.quickEq(trimMeth_, METH_VALUES) && firstArgs_.isEmpty()) {
                         MethodId methodId_ = new MethodId(METH_VALUES, new EqList<ClassName>());
                         classMethodId = new ClassMethodId(clCurName_, methodId_);
+                        realId = methodId_;
                         ClassName ret_ = new ClassName(PrimitiveTypeUtil.getPrettyArrayType(clCurName_), false);
                         staticMethod = true;
                         setResultClass(new ClassArgumentMatching(ret_.getName()));
@@ -351,6 +355,7 @@ public final class FctOperation extends InvokingOperation {
                         }
                         MethodId methodId_ = new MethodId(METH_VALUEOF, new EqList<ClassName>(new ClassName(String.class.getName(), false)));
                         classMethodId = new ClassMethodId(clCurName_, methodId_);
+                        realId = methodId_;
                         ClassName ret_ = new ClassName(clCurName_, false);
                         staticMethod = true;
                         setResultClass(new ClassArgumentMatching(ret_.getName()));
@@ -384,6 +389,7 @@ public final class FctOperation extends InvokingOperation {
                 MethodId methodId_ = clMeth_.getId().getConstraints();
                 String foundClass_ = clMeth_.getId().getClassName();
                 classMethodId = clMeth_.getId();
+                realId = clMeth_.getRealId();
                 CustList<MethodBlock> methods_ = classes_.getMethodBodiesByFormattedId(foundClass_, methodId_);
                 MethodBlock m_;
                 if (!methods_.isEmpty()) {
@@ -639,6 +645,7 @@ public final class FctOperation extends InvokingOperation {
                                 setRelativeOffsetPossibleLastPage(chidren_.last().getIndexInEl(), _conf);
                                 throw new DynamicCastClassException(argClassName_+RETURN_LINE+classNameFound_+RETURN_LINE+_conf.joinPages());
                             }
+                            methodId_ = methodId_.format(classNameFound_, classes_);
                         } else {
                             classNameFound_ = StringList.getAllTypes(classNameFound_).first();
                             String baseArgClassName_ = StringList.getAllTypes(argClassName_).first();
@@ -647,12 +654,8 @@ public final class FctOperation extends InvokingOperation {
                                 throw new DynamicCastClassException(baseArgClassName_+RETURN_LINE+classNameFound_+RETURN_LINE+_conf.joinPages());
                             }
                             classNameFound_ = Templates.getFullTypeByBases(argClassName_, classNameFound_, classes_);
-                            if (classes_.getMethodBodiesByFormattedId(classNameFound_, methodId_.format(classNameFound_, classes_)).isEmpty()) {
-                                setRelativeOffsetPossibleLastPage(chidren_.last().getIndexInEl(), _conf);
-                                throw new DynamicCastClassException(baseArgClassName_+RETURN_LINE+classNameFound_+RETURN_LINE+_conf.joinPages());
-                            }
+                            methodId_ = realId.format(classNameFound_, classes_);
                         }
-                        methodId_ = methodId_.format(classNameFound_, classes_);
                         int indexType_ = CustList.FIRST_INDEX;
                         for (Argument a: firstArgs_) {
                             Struct str_ = a.getStruct();

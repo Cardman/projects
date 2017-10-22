@@ -3,6 +3,7 @@ package code.expressionlanguage.opers.util;
 public final class ClassMethodIdReturn {
 
     private ClassMethodId id;
+    private MethodId realId;
 
     private String returnType;
 
@@ -16,6 +17,14 @@ public final class ClassMethodIdReturn {
 
     public void setId(ClassMethodId _id) {
         id = _id;
+    }
+
+    public MethodId getRealId() {
+        return realId;
+    }
+
+    public void setRealId(MethodId _realId) {
+        realId = _realId;
     }
 
     public String getReturnType() {

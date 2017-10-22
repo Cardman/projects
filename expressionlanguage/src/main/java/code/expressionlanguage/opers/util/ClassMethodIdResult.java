@@ -7,6 +7,7 @@ import code.util.CustList;
 public class ClassMethodIdResult {
 
     private ClassMethodId id;
+    private MethodId realId;
 
     private Method method;
 
@@ -20,6 +21,14 @@ public class ClassMethodIdResult {
 
     public void setId(ClassMethodId _id) {
         id = _id;
+    }
+
+    public MethodId getRealId() {
+        return realId;
+    }
+
+    public void setRealId(MethodId _realId) {
+        realId = _realId;
     }
 
     public Method getMethod() {
