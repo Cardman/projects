@@ -4,9 +4,8 @@ import java.io.InputStream;
 import java.net.URL;
 import java.net.URLConnection;
 
-import javax.xml.bind.DatatypeConverter;
-
 import code.images.ConverterBufferedImage;
+import code.resources.BaseSixtyFourUtil;
 import code.util.StringList;
 
 public class DataConnection extends URLConnection {
@@ -33,12 +32,12 @@ public class DataConnection extends URLConnection {
         for (String f: AVAILABLE_FORMATS) {
             if (skippedPrefix_.startsWith(f)) {
                 data_ = skippedPrefix_.substring(f.length()+SUFFIX.length());
-                byte[] bytes_ = DatatypeConverter.parseBase64Binary(data_);
+                byte[] bytes_ = BaseSixtyFourUtil.parseBaseSixtyFourBinary(data_);
                 return new ByteArrayInputStream(bytes_);
             }
         }
         data_ = data_.substring(BASE_64.length());
-        byte[] bytes_ = DatatypeConverter.parseBase64Binary(data_);
+        byte[] bytes_ = BaseSixtyFourUtil.parseBaseSixtyFourBinary(data_);
         return new ByteArrayInputStream(bytes_);
     }
 }

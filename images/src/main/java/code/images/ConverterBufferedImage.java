@@ -17,12 +17,12 @@ import javax.imageio.metadata.IIOMetadata;
 import javax.imageio.metadata.IIOMetadataNode;
 import javax.imageio.stream.ImageInputStream;
 import javax.imageio.stream.ImageOutputStream;
-import javax.xml.bind.DatatypeConverter;
 
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
+import code.resources.BaseSixtyFourUtil;
 import code.util.CustList;
 import code.util.EqList;
 import code.util.Numbers;
@@ -183,7 +183,7 @@ public final class ConverterBufferedImage {
             ImageIO.write( _buffer, IMG_EXT, baos_ );
             baos_.flush();
             byte[] imageInByte_ = baos_.toByteArray();
-            contourChart_ = DatatypeConverter.printBase64Binary(imageInByte_);
+            contourChart_ = BaseSixtyFourUtil.printBaseSixtyFourBinary(imageInByte_);
         } catch (IOException _0) {
         }
         return contourChart_;
@@ -212,7 +212,7 @@ public final class ConverterBufferedImage {
             baos_.flush();
             byte[] imageInByte_ = baos_.toByteArray();
             StringBuilder sb_ = new StringBuilder();
-            sb_.append(DatatypeConverter.printBase64Binary(imageInByte_));
+            sb_.append(BaseSixtyFourUtil.printBaseSixtyFourBinary(imageInByte_));
             contourChart_ = sb_.toString();
         } catch (IOException _0) {
         }
@@ -220,7 +220,7 @@ public final class ConverterBufferedImage {
     }
 
     public static String toBaseSixtyFourOptGif(ImageReader _reader) {
-        return DatatypeConverter.printBase64Binary(toBytesOptGif(_reader));
+        return BaseSixtyFourUtil.printBaseSixtyFourBinary(toBytesOptGif(_reader));
     }
 
     public static byte[] toBytesOptGif(ImageReader _reader) {
@@ -322,7 +322,7 @@ public final class ConverterBufferedImage {
             baos_.flush();
             byte[] imageInByte_ = baos_.toByteArray();
             StringBuilder sb_ = new StringBuilder();
-            sb_.append(DatatypeConverter.printBase64Binary(imageInByte_));
+            sb_.append(BaseSixtyFourUtil.printBaseSixtyFourBinary(imageInByte_));
             contourChart_ = sb_.toString();
         } catch (IOException _0) {
         }
@@ -330,15 +330,15 @@ public final class ConverterBufferedImage {
     }
 
     public static String toBaseSixtyFourGif(GifAnimation _gif) {
-        return DatatypeConverter.printBase64Binary(toBytesGif(_gif));
+        return BaseSixtyFourUtil.printBaseSixtyFourBinary(toBytesGif(_gif));
     }
 
     public static String toBaseSixtyFourGif(CustList<BufferedImage> _images, long _delayHundreds, boolean _loop) {
-        return DatatypeConverter.printBase64Binary(toBytesGif(_images, _delayHundreds, _loop));
+        return BaseSixtyFourUtil.printBaseSixtyFourBinary(toBytesGif(_images, _delayHundreds, _loop));
     }
 
     public static GifAnimation getAnimation(String _string) {
-        return getAnimation(DatatypeConverter.parseBase64Binary(_string));
+        return getAnimation(BaseSixtyFourUtil.parseBaseSixtyFourBinary(_string));
     }
 
     public static GifAnimation getAnimation(byte[] _data) {
@@ -431,7 +431,7 @@ public final class ConverterBufferedImage {
             byte[] imageInByte_ = baos_.toByteArray();
             StringBuilder sb_ = new StringBuilder();
             sb_.append(DATA_IMAGE+_format+BASE64);
-            sb_.append(DatatypeConverter.printBase64Binary(imageInByte_));
+            sb_.append(BaseSixtyFourUtil.printBaseSixtyFourBinary(imageInByte_));
             contourChart_ = sb_.toString();
         } catch (IOException _0) {
         }
@@ -555,7 +555,7 @@ public final class ConverterBufferedImage {
     public static ImageReader getGifImage(String _imageString) {
         byte[] imageByte_;
         try {
-            imageByte_ = DatatypeConverter.parseBase64Binary(_imageString);
+            imageByte_ = BaseSixtyFourUtil.parseBaseSixtyFourBinary(_imageString);
             ByteArrayInputStream bis_ = new ByteArrayInputStream(imageByte_);
             ImageReader reader_ = ImageIO.getImageReadersByFormatName(GIF).next();
             ImageInputStream ciis_ = ImageIO.createImageInputStream(bis_);
@@ -572,7 +572,7 @@ public final class ConverterBufferedImage {
         BufferedImage image_ = null;
         byte[] imageByte_;
         try {
-            imageByte_ = DatatypeConverter.parseBase64Binary(_imageString);
+            imageByte_ = BaseSixtyFourUtil.parseBaseSixtyFourBinary(_imageString);
             ByteArrayInputStream bis_ = new ByteArrayInputStream(imageByte_);
             image_ = ImageIO.read(bis_);
             bis_.close();

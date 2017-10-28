@@ -8,8 +8,8 @@ import javax.sound.sampled.Clip;
 import javax.sound.sampled.LineListener;
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
-import javax.xml.bind.DatatypeConverter;
 
+import code.resources.BaseSixtyFourUtil;
 import code.resources.ClipStream;
 import code.resources.ResourceFiles;
 
@@ -60,11 +60,11 @@ public final class StreamSoundFile {
     }
 
     public static ClipStream openClip(String _imageString) {
-        return openClip(DatatypeConverter.parseBase64Binary(_imageString), null);
+        return openClip(BaseSixtyFourUtil.parseBaseSixtyFourBinary(_imageString), null);
     }
 
     public static ClipStream openClip(String _imageString, LineListener _l) {
-        return openClip(DatatypeConverter.parseBase64Binary(_imageString), _l);
+        return openClip(BaseSixtyFourUtil.parseBaseSixtyFourBinary(_imageString), _l);
     }
 
     public static ClipStream openClip(byte[] _file) {
