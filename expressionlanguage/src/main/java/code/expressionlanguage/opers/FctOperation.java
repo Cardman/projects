@@ -671,6 +671,9 @@ public final class FctOperation extends InvokingOperation {
                             }
                             indexType_++;
                         }
+                    } else {
+                        classNameFound_ = Templates.format(arg_.getObjectClassName(), classNameFound_, classes_);
+                        methodId_ = methodId_.format(classNameFound_, classes_);
                     }
                 } else {
                     classNameFound_ = getDynDeclaredCustMethod(_conf, arg_.getObjectClassName(), interfaceChoice, classMethodId);

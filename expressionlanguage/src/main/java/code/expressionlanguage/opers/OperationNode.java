@@ -42,6 +42,7 @@ import code.expressionlanguage.opers.util.ConstructorId;
 import code.expressionlanguage.opers.util.ConstructorInfo;
 import code.expressionlanguage.opers.util.ConstructorMetaInfo;
 import code.expressionlanguage.opers.util.Fcts;
+import code.expressionlanguage.opers.util.FieldInfo;
 import code.expressionlanguage.opers.util.FieldMetaInfo;
 import code.expressionlanguage.opers.util.FieldResult;
 import code.expressionlanguage.opers.util.MethodId;
@@ -418,10 +419,19 @@ public abstract class OperationNode {
     }
     static FieldResult getDeclaredCustFieldByContext(ContextEl _cont, boolean _static, ClassArgumentMatching _class, boolean _superClass, String _name) {
         String clCurName_ = _class.getName();
-        ClassMetaInfo custClass_;
+        String base_ = StringList.getAllTypes(clCurName_).first();
         Classes classes_ = _cont.getClasses();
-        custClass_ = classes_.getClassMetaInfo(clCurName_);
-        while (custClass_ != null) {
+        RootBlock root_ = classes_.getClassBody(base_);
+        StringList classeNames_ = new StringList();
+        classeNames_.add(root_.getFullName());
+        classeNames_.addAllElts(root_.getAllSuperClasses());
+        for (String s: classeNames_) {
+            if (StringList.quickEq(s, Object.class.getName())) {
+                continue;
+            }
+            String formatted_ = Templates.getFullTypeByBases(clCurName_, s, classes_);
+            ClassMetaInfo custClass_;
+            custClass_ = classes_.getClassMetaInfo(s);
             for (EntryCust<String, FieldMetaInfo> e: custClass_.getFields().entryList()) {
                 if (!StringList.quickEq(e.getKey(), _name)) {
                     continue;
@@ -436,7 +446,10 @@ public abstract class OperationNode {
                     }
                 }
                 FieldResult r_ = new FieldResult();
-                r_.setId(e.getValue());
+                String formattedType_ = e.getValue().getType();
+                formattedType_ = Templates.generalFormat(formatted_, formattedType_, classes_);
+                FieldInfo f_ = new FieldInfo(_name, formatted_, formattedType_, _static, e.getValue().isFinalField());
+                r_.setId(f_);
                 r_.setStatus(SearchingMemberStatus.UNIQ);
                 return r_;
             }
@@ -445,8 +458,6 @@ public abstract class OperationNode {
                 r_.setStatus(SearchingMemberStatus.ZERO);
                 return r_;
             }
-            clCurName_ = custClass_.getSuperClass();
-            custClass_ = classes_.getClassMetaInfo(clCurName_);
         }
         FieldResult r_ = new FieldResult();
         r_.setStatus(SearchingMemberStatus.ZERO);

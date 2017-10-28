@@ -4,17 +4,17 @@ import java.lang.reflect.Field;
 
 public class FieldResult {
 
-    private FieldMetaInfo id;
+    private FieldInfo id;
 
     private Field field;
 
     private SearchingMemberStatus status;
 
-    public FieldMetaInfo getId() {
+    public FieldInfo getId() {
         return id;
     }
 
-    public void setId(FieldMetaInfo _id) {
+    public void setId(FieldInfo _id) {
         id = _id;
     }
 

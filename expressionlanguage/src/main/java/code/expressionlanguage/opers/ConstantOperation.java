@@ -27,7 +27,7 @@ import code.expressionlanguage.opers.util.ClassCategory;
 import code.expressionlanguage.opers.util.ClassField;
 import code.expressionlanguage.opers.util.ClassMetaInfo;
 import code.expressionlanguage.opers.util.ConstructorId;
-import code.expressionlanguage.opers.util.FieldMetaInfo;
+import code.expressionlanguage.opers.util.FieldInfo;
 import code.expressionlanguage.opers.util.FieldResult;
 import code.expressionlanguage.opers.util.SearchingMemberStatus;
 import code.expressionlanguage.opers.util.Struct;
@@ -70,7 +70,7 @@ public final class ConstantOperation extends OperationNode implements SettableEl
 
     private String argClassName;
     private ClassField fieldId;
-    private FieldMetaInfo fieldMetaInfo;
+    private FieldInfo fieldMetaInfo;
 
     private Field field;
 
@@ -150,7 +150,7 @@ public final class ConstantOperation extends OperationNode implements SettableEl
                     String key_;
                     boolean superClassAccess_ = true;
                     FieldResult r_;
-                    FieldMetaInfo e_;
+                    FieldInfo e_;
                     if (str_.contains(STATIC_CALL)) {
                         StringList classMethod_ = StringList.splitStrings(str_, STATIC_CALL);
                         key_ = classMethod_.last();
@@ -178,7 +178,7 @@ public final class ConstantOperation extends OperationNode implements SettableEl
                     if (glClass_ != null) {
                         curClassBase_ = StringList.getAllTypes(glClass_).first();
                     }
-                    if (!_conf.getClasses().canAccessField(curClassBase_, e_.getDeclaringClass(), key_)) {
+                    if (!_conf.getClasses().canAccessField(curClassBase_, e_.getDeclaringBaseClass(), key_)) {
                         throw new BadAccessException(clCurName_+DOT+key_+RETURN_LINE+_conf.joinPages());
                     }
                     fieldMetaInfo = e_;
@@ -187,7 +187,7 @@ public final class ConstantOperation extends OperationNode implements SettableEl
                             finalField = true;
                         }
                     }
-                    fieldId = new ClassField(e_.getDeclaringClass(), e_.getName());
+                    fieldId = new ClassField(e_.getDeclaringBaseClass(), e_.getName());
                     String c_ = fieldMetaInfo.getType();
                     setResultClass(new ClassArgumentMatching(c_));
                     return;
