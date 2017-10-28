@@ -2544,6 +2544,218 @@ public class ElResolverTest {
         assertEq(ElResolver.DOT_PRIO, seq_.getPriority());
     }
 
+    @Test
+    public void getOperationsSequence128Test() {
+        ContextEl conf_ = new ContextEl();
+        addImportingPage(conf_, false);
+        String el_ = "1e2";
+        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
+        NatTreeMap<Integer,String> opers_ = seq_.getOperators();
+        assertEq(0, opers_.size());
+        NatTreeMap<Integer,String> values_ = seq_.getValues();
+        assertEq(1, values_.size());
+        assertEq("1e2", values_.getVal(0));
+        assertEq(ElResolver.CONST_PRIO, seq_.getPriority());
+    }
+
+    @Test
+    public void getOperationsSequence129Test() {
+        ContextEl conf_ = new ContextEl();
+        addImportingPage(conf_, false);
+        String el_ = "1e-2";
+        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
+        NatTreeMap<Integer,String> opers_ = seq_.getOperators();
+        assertEq(0, opers_.size());
+        NatTreeMap<Integer,String> values_ = seq_.getValues();
+        assertEq(1, values_.size());
+        assertEq("1e-2", values_.getVal(0));
+        assertEq(ElResolver.CONST_PRIO, seq_.getPriority());
+    }
+
+    @Test
+    public void getOperationsSequence130Test() {
+        ContextEl conf_ = new ContextEl();
+        addImportingPage(conf_, false);
+        String el_ = "1.0e2";
+        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
+        NatTreeMap<Integer,String> opers_ = seq_.getOperators();
+        assertEq(0, opers_.size());
+        NatTreeMap<Integer,String> values_ = seq_.getValues();
+        assertEq(1, values_.size());
+        assertEq("1.0e2", values_.getVal(0));
+        assertEq(ElResolver.CONST_PRIO, seq_.getPriority());
+    }
+
+    @Test
+    public void getOperationsSequence131Test() {
+        ContextEl conf_ = new ContextEl();
+        addImportingPage(conf_, false);
+        String el_ = "1.0e-2";
+        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
+        NatTreeMap<Integer,String> opers_ = seq_.getOperators();
+        assertEq(0, opers_.size());
+        NatTreeMap<Integer,String> values_ = seq_.getValues();
+        assertEq(1, values_.size());
+        assertEq("1.0e-2", values_.getVal(0));
+        assertEq(ElResolver.CONST_PRIO, seq_.getPriority());
+    }
+
+    @Test
+    public void getOperationsSequence132Test() {
+        ContextEl conf_ = new ContextEl();
+        addImportingPage(conf_, false);
+        String el_ = "1.e2";
+        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
+        NatTreeMap<Integer,String> opers_ = seq_.getOperators();
+        assertEq(0, opers_.size());
+        NatTreeMap<Integer,String> values_ = seq_.getValues();
+        assertEq(1, values_.size());
+        assertEq("1.e2", values_.getVal(0));
+        assertEq(ElResolver.CONST_PRIO, seq_.getPriority());
+    }
+
+    @Test
+    public void getOperationsSequence133Test() {
+        ContextEl conf_ = new ContextEl();
+        addImportingPage(conf_, false);
+        String el_ = "1.e-2";
+        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
+        NatTreeMap<Integer,String> opers_ = seq_.getOperators();
+        assertEq(0, opers_.size());
+        NatTreeMap<Integer,String> values_ = seq_.getValues();
+        assertEq(1, values_.size());
+        assertEq("1.e-2", values_.getVal(0));
+        assertEq(ElResolver.CONST_PRIO, seq_.getPriority());
+    }
+
+    @Test
+    public void getOperationsSequence134Test() {
+        ContextEl conf_ = new ContextEl();
+        addImportingPage(conf_, false);
+        String el_ = ".1e2";
+        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
+        NatTreeMap<Integer,String> opers_ = seq_.getOperators();
+        assertEq(0, opers_.size());
+        NatTreeMap<Integer,String> values_ = seq_.getValues();
+        assertEq(1, values_.size());
+        assertEq(".1e2", values_.getVal(0));
+        assertEq(ElResolver.CONST_PRIO, seq_.getPriority());
+    }
+
+    @Test
+    public void getOperationsSequence135Test() {
+        ContextEl conf_ = new ContextEl();
+        addImportingPage(conf_, false);
+        String el_ = ".1e-2";
+        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
+        NatTreeMap<Integer,String> opers_ = seq_.getOperators();
+        assertEq(0, opers_.size());
+        NatTreeMap<Integer,String> values_ = seq_.getValues();
+        assertEq(1, values_.size());
+        assertEq(".1e-2", values_.getVal(0));
+        assertEq(ElResolver.CONST_PRIO, seq_.getPriority());
+    }
+
+    @Test
+    public void getOperationsSequence136Test() {
+        ContextEl conf_ = new ContextEl();
+        addImportingPage(conf_, false);
+        String el_ = ".1";
+        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
+        NatTreeMap<Integer,String> opers_ = seq_.getOperators();
+        assertEq(0, opers_.size());
+        NatTreeMap<Integer,String> values_ = seq_.getValues();
+        assertEq(1, values_.size());
+        assertEq(".1", values_.getVal(0));
+        assertEq(ElResolver.CONST_PRIO, seq_.getPriority());
+    }
+
+    @Test
+    public void getOperationsSequence137Test() {
+        ContextEl conf_ = new ContextEl();
+        addImportingPage(conf_, false);
+        String el_ = "-.1";
+        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
+        NatTreeMap<Integer,String> opers_ = seq_.getOperators();
+        assertEq(0, opers_.size());
+        NatTreeMap<Integer,String> values_ = seq_.getValues();
+        assertEq(1, values_.size());
+        assertEq("-.1", values_.getVal(0));
+        assertEq(ElResolver.CONST_PRIO, seq_.getPriority());
+    }
+
+    @Test
+    public void getOperationsSequence138Test() {
+        ContextEl conf_ = new ContextEl();
+        addImportingPage(conf_, false);
+        String el_ = "-.1e2";
+        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
+        NatTreeMap<Integer,String> opers_ = seq_.getOperators();
+        assertEq(0, opers_.size());
+        NatTreeMap<Integer,String> values_ = seq_.getValues();
+        assertEq(1, values_.size());
+        assertEq("-.1e2", values_.getVal(0));
+        assertEq(ElResolver.CONST_PRIO, seq_.getPriority());
+    }
+
+    @Test
+    public void getOperationsSequence139Test() {
+        ContextEl conf_ = new ContextEl();
+        addImportingPage(conf_, false);
+        String el_ = "-.1e-2";
+        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
+        NatTreeMap<Integer,String> opers_ = seq_.getOperators();
+        assertEq(0, opers_.size());
+        NatTreeMap<Integer,String> values_ = seq_.getValues();
+        assertEq(1, values_.size());
+        assertEq("-.1e-2", values_.getVal(0));
+        assertEq(ElResolver.CONST_PRIO, seq_.getPriority());
+    }
+
+    @Test
+    public void getOperationsSequence140Test() {
+        ContextEl conf_ = new ContextEl();
+        addImportingPage(conf_, false);
+        String el_ = "1.";
+        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
+        NatTreeMap<Integer,String> opers_ = seq_.getOperators();
+        assertEq(0, opers_.size());
+        NatTreeMap<Integer,String> values_ = seq_.getValues();
+        assertEq(1, values_.size());
+        assertEq("1.", values_.getVal(0));
+        assertEq(ElResolver.CONST_PRIO, seq_.getPriority());
+    }
+
+    @Test
+    public void getOperationsSequence141Test() {
+        ContextEl conf_ = new ContextEl();
+        addImportingPage(conf_, false);
+        String el_ = "-.1e-2+.5";
+        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
+        NatTreeMap<Integer,String> opers_ = seq_.getOperators();
+        assertEq(1, opers_.size());
+        assertEq("+", opers_.getVal(6));
+        NatTreeMap<Integer,String> values_ = seq_.getValues();
+        assertEq(2, values_.size());
+        assertEq("-.1e-2", values_.getVal(0));
+        assertEq(".5", values_.getVal(7));
+        assertEq(ElResolver.ADD_PRIO, seq_.getPriority());
+    }
+
     @Test(expected=BadComparisonException.class)
     public void getOperationsSequence1FailTest() {
         ContextEl conf_ = new ContextEl();
@@ -3112,6 +3324,66 @@ public class ElResolverTest {
         BeanOne b_ = new BeanOne();
         addBean(conf_, b_);
         String el_ = "^static^pkg^classname";
+        ElResolver.checkSyntax(el_, conf_, 0);
+    }
+
+    @Test(expected=BadExpressionLanguageException.class)
+    public void checkSyntax41FailTest() {
+        ContextEl conf_ = new ContextEl();
+        addImportingPage(conf_, false);
+        BeanOne b_ = new BeanOne();
+        addBean(conf_, b_);
+        String el_ = ".1.0";
+        ElResolver.checkSyntax(el_, conf_, 0);
+    }
+
+    @Test(expected=BadExpressionLanguageException.class)
+    public void checkSyntax42FailTest() {
+        ContextEl conf_ = new ContextEl();
+        addImportingPage(conf_, false);
+        BeanOne b_ = new BeanOne();
+        addBean(conf_, b_);
+        String el_ = "1e.0";
+        ElResolver.checkSyntax(el_, conf_, 0);
+    }
+
+    @Test(expected=BadExpressionLanguageException.class)
+    public void checkSyntax43FailTest() {
+        ContextEl conf_ = new ContextEl();
+        addImportingPage(conf_, false);
+        BeanOne b_ = new BeanOne();
+        addBean(conf_, b_);
+        String el_ = "1e";
+        ElResolver.checkSyntax(el_, conf_, 0);
+    }
+
+    @Test(expected=BadExpressionLanguageException.class)
+    public void checkSyntax44FailTest() {
+        ContextEl conf_ = new ContextEl();
+        addImportingPage(conf_, false);
+        BeanOne b_ = new BeanOne();
+        addBean(conf_, b_);
+        String el_ = "1.0e.2";
+        ElResolver.checkSyntax(el_, conf_, 0);
+    }
+
+    @Test(expected=BadExpressionLanguageException.class)
+    public void checkSyntax45FailTest() {
+        ContextEl conf_ = new ContextEl();
+        addImportingPage(conf_, false);
+        BeanOne b_ = new BeanOne();
+        addBean(conf_, b_);
+        String el_ = "1.0e5.2";
+        ElResolver.checkSyntax(el_, conf_, 0);
+    }
+
+    @Test(expected=BadExpressionLanguageException.class)
+    public void checkSyntax46FailTest() {
+        ContextEl conf_ = new ContextEl();
+        addImportingPage(conf_, false);
+        BeanOne b_ = new BeanOne();
+        addBean(conf_, b_);
+        String el_ = "1.0.2";
         ElResolver.checkSyntax(el_, conf_, 0);
     }
 

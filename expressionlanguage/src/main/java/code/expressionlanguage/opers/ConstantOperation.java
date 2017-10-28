@@ -11,6 +11,7 @@ import code.expressionlanguage.PageEl;
 import code.expressionlanguage.PrimitiveTypeUtil;
 import code.expressionlanguage.exceptions.BadFormatPathException;
 import code.expressionlanguage.exceptions.DynamicCastClassException;
+import code.expressionlanguage.exceptions.DynamicNumberFormatException;
 import code.expressionlanguage.exceptions.EmptyPartException;
 import code.expressionlanguage.exceptions.ErrorCausingException;
 import code.expressionlanguage.exceptions.NotInitializedClassException;
@@ -543,7 +544,7 @@ public final class ConstantOperation extends OperationNode implements SettableEl
         String str_ = originalStr_.trim();
         int off_ = StringList.getFirstPrintableCharIndex(originalStr_);
         setRelativeOffsetPossibleLastPage(getIndexInEl()+off_, _cont);
-        if (str_.isEmpty()) {
+        if (StringList.removeAllSpaces(str_).isEmpty()) {
             throw new EmptyPartException(_cont.joinPages());
         }
         if (isVararg()) {
@@ -755,13 +756,23 @@ public final class ConstantOperation extends OperationNode implements SettableEl
             setArguments(a_);
             return;
         }
-        try {
-            str_ = StringList.removeAllSpaces(str_);
-            argClassName = Argument.getArgClassNameOf(str_);
-            Argument arg_ = Argument.numberToArgument(str_);
-            setSimpleArgument(arg_);
-        } catch (RuntimeException _0) {
+        str_ = StringList.removeAllSpaces(str_);
+        if (str_.indexOf(GET_VAR) != CustList.INDEX_NOT_FOUND_ELT) {
+            return;
         }
+        if (Character.isLetter(str_.charAt(CustList.FIRST_INDEX))) {
+            return;
+        }
+        if (StringList.quickEq(str_, CURRENT_INTANCE)) {
+            return;
+        }
+        String argClassName_ = Argument.getArgClassNameOf(str_);
+        if (argClassName_.isEmpty()) {
+            throw new DynamicNumberFormatException(str_+RETURN_LINE+_cont.joinPages());
+        }
+        argClassName = argClassName_;
+        Argument arg_ = Argument.numberToArgument(str_);
+        setSimpleArgument(arg_);
     }
 
     private boolean hasDottedPreviousSibling() {

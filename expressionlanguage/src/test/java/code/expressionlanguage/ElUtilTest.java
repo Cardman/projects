@@ -1797,6 +1797,17 @@ public class ElUtilTest {
         assertEq(-1, (Number)res_);
     }
 
+    @Test
+    public void processEl125Test() {
+        ContextEl context_ = new ContextEl();
+        setupAccessValue(context_);
+        addImportingPage(context_);
+        Argument arg_ = ElUtil.processEl("-.25e0+.5",0, context_);
+        Object res_ = arg_.getObject();
+        assertSame(Double.class, res_.getClass());
+        assertEq(0.25d, (Number)res_);
+    }
+
     @Test(expected=NoSuchDeclaredMethodException.class)
     public void processEl1FailTest() {
         ContextEl context_ = new ContextEl();

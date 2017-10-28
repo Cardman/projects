@@ -46,7 +46,6 @@ public final class ElUtil {
         page_.setOffset(0);
         page_.setProcessingAttribute(_attrLeft);
         Delimiters dLeft_ = ElResolver.checkSyntax(_left, _conf, CustList.FIRST_INDEX);
-        ElResolver.secondCheckSyntax(_left, _conf, dLeft_);
         OperationsSequence opTwoLeft_ = ElResolver.getOperationsSequence(CustList.FIRST_INDEX, _left, _conf, dLeft_);
         OperationNode opLeft_ = OperationNode.createOperationNode(CustList.FIRST_INDEX, _conf, CustList.FIRST_INDEX, null, opTwoLeft_);
         CustList<OperationNode> allLeft_ = getOperationNodes(opLeft_);
@@ -56,7 +55,6 @@ public final class ElUtil {
         page_.setOffset(0);
         page_.setProcessingAttribute(_attrRight);
         Delimiters dRight_ = ElResolver.checkSyntax(_right, _conf, CustList.FIRST_INDEX);
-        ElResolver.secondCheckSyntax(_right, _conf, dLeft_);
         OperationsSequence opTwoRight_ = ElResolver.getOperationsSequence(CustList.FIRST_INDEX, _right, _conf, dRight_);
         OperationNode opRight_ = OperationNode.createOperationNode(CustList.FIRST_INDEX, _conf, CustList.FIRST_INDEX, null, opTwoRight_);
         CustList<OperationNode> allRight_ = getOperationNodes(opRight_);
@@ -209,7 +207,6 @@ public final class ElUtil {
         Delimiters d_ = ElResolver.checkSyntaxDelimiters(_el, _conf, _minIndex, _begin, _end);
         String el_ = _el.substring(d_.getIndexBegin(), d_.getIndexEnd()+1);
         _conf.setNextIndex(d_.getIndexEnd()+2);
-        ElResolver.secondCheckSyntax(el_, _conf, d_);
         OperationsSequence opTwo_ = ElResolver.getOperationsSequence(CustList.FIRST_INDEX, el_, _conf, d_);
         OperationNode op_ = OperationNode.createOperationNode(CustList.FIRST_INDEX, _conf, CustList.FIRST_INDEX, null, opTwo_);
         CustList<OperationNode> all_ = getOperationNodes(op_);
@@ -224,7 +221,6 @@ public final class ElUtil {
 
     public static CustList<OperationNode> getAnalyzedOperations(String _el, ContextEl _conf, Calculation _calcul) {
         Delimiters d_ = ElResolver.checkSyntax(_el, _conf, CustList.FIRST_INDEX);
-        ElResolver.secondCheckSyntax(_el, _conf, d_);
         OperationsSequence opTwo_ = ElResolver.getOperationsSequence(CustList.FIRST_INDEX, _el, _conf, d_);
         OperationNode op_ = OperationNode.createOperationNode(CustList.FIRST_INDEX, _conf, CustList.FIRST_INDEX, null, opTwo_);
         CustList<OperationNode> all_ = getOperationNodes(op_);
@@ -248,7 +244,6 @@ public final class ElUtil {
     public static Argument processEl(String _el, int _index, ContextEl _conf) {
         Delimiters d_ = ElResolver.checkSyntax(_el, _conf, _index);
         String el_ = _el.substring(_index);
-        ElResolver.secondCheckSyntax(el_, _conf, d_);
         OperationsSequence opTwo_ = ElResolver.getOperationsSequence(CustList.FIRST_INDEX, el_, _conf, d_);
         OperationNode op_ = OperationNode.createOperationNode(CustList.FIRST_INDEX, _conf, CustList.FIRST_INDEX, null, opTwo_);
         CustList<OperationNode> all_ = getOperationNodes(op_);
