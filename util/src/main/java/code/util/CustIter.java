@@ -2,7 +2,7 @@ package code.util;
 
 import java.util.Iterator;
 
-public class CustIter<T> implements Iterator<T> {
+public final class CustIter<T> implements Iterator<T> {
 
     private CustList<T> list;
     private int index;

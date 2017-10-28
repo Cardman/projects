@@ -449,7 +449,7 @@ public class CustList<T> implements Listable<T> {
     }
 
     @Override
-    public SimpleItr simpleIterator() {
+    public final SimpleItr simpleIterator() {
         return new SimpleItr(list.toArray());
     }
 

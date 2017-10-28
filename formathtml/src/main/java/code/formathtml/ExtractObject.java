@@ -70,8 +70,7 @@ final class ExtractObject {
     private static final String CALL_METHOD = "$";
     private static final String ATTRIBUTE_VALUE = "value";
     private static final String ATTRIBUTE_ESCAPED_EAMP = "escapedamp";
-    private static final char BEGIN_TR = '[';
-    private static final char END_TR = ']';
+    private static final char SEP_TR = ',';
     private static final char QUOTE = 39;
     private static final String GET_STRING ="getString";
     private static final String NAME ="name";
@@ -124,29 +123,41 @@ final class ExtractObject {
             }
             if (cur_ == LEFT_EL) {
                 StringBuilder tr_ = new StringBuilder();
-                if (i_ + 1 < length_ && _pattern.charAt(i_ + 1) == BEGIN_TR) {
-                    int j_ = i_ + 1;
-                    boolean ok_ = false;
+                int indexSepTr_ = _pattern.indexOf(SEP_TR, i_ + 1);
+                boolean processTr_ = false;
+                if (i_ + 1 < length_ && indexSepTr_ != CustList.INDEX_NOT_FOUND_ELT) {
+                    boolean allWord_ = true;
+                    boolean existWord_ = false;
+                    int j_ = i_;
                     while (true) {
-                        if (_pattern.charAt(j_) == END_TR) {
-                            j_++;
-                            i_ = j_;
-                            ok_ = true;
+                        if (j_ == indexSepTr_) {
                             break;
                         }
                         if (j_ > i_+1 && !StringList.isWordChar(_pattern.charAt(j_))) {
-                            _conf.getLastPage().setOffset(i_);
-                            throw new BadExpressionLanguageException(arg_.toString()+RETURN_LINE+_conf.joinPages());
-                        }
-                        j_++;
-                        if (j_ >= length_) {
+                            allWord_ = false;
                             break;
                         }
-                        tr_.append(_pattern.charAt(j_));
+                        if (StringList.isWordChar(_pattern.charAt(j_))) {
+                            existWord_ = true;
+                        }
+                        j_++;
                     }
-                    if (!ok_) {
+                    if (!existWord_) {
                         _conf.getLastPage().setOffset(i_);
                         throw new BadExpressionLanguageException(arg_.toString()+RETURN_LINE+_conf.joinPages());
+                    }
+                    processTr_ = allWord_;
+                }
+                if (processTr_) {
+                    int j_ = i_;
+                    while (true) {
+                        if (j_ == indexSepTr_) {
+                            j_++;
+                            i_ = j_;
+                            break;
+                        }
+                        j_++;
+                        tr_.append(_pattern.charAt(j_));
                     }
                     tr_.deleteCharAt(tr_.length()-1);
                 } else {
@@ -449,13 +460,8 @@ final class ExtractObject {
         if (inst_.getKey() == null) {
             return new Struct();
         }
-        try {
-            Struct out_ = new Struct(inst_.getKey());
-            return out_;
-        } catch (Throwable _0) {
-            _0.printStackTrace();
-            throw new InvokeRedinedMethException(_conf.joinPages(), new Struct(_0));
-        }
+        Struct out_ = new Struct(inst_.getKey());
+        return out_;
     }
 
     static Struct getValue(Configuration _conf, Struct _it) {
@@ -466,12 +472,8 @@ final class ExtractObject {
         if (inst_.getValue() == null) {
             return new Struct();
         }
-        try {
-            Struct out_ = new Struct(inst_.getValue());
-            return out_;
-        } catch (Throwable _0) {
-            throw new InvokeRedinedMethException(_conf.joinPages(), new Struct(_0));
-        }
+        Struct out_ = new Struct(inst_.getValue());
+        return out_;
     }
 
     static char getChar(Configuration _conf, String _obj) {
@@ -538,48 +540,31 @@ final class ExtractObject {
             return getResult(_conf, 0, ITERATOR, _it);
         }
         SimpleIterable inst_ = (SimpleIterable) _it.getInstance();
-        try {
-            Struct out_ = new Struct(inst_.simpleIterator());
-            return out_;
-        } catch (Throwable _0) {
-            throw new InvokeRedinedMethException(_conf.joinPages(), new Struct(_0));
-        }
+        Struct out_ = new Struct(inst_.simpleIterator());
+        return out_;
     }
     static boolean hasNext(Configuration _conf, Struct _it) {
         if (!_it.isJavaObject()) {
             return (Boolean) getResult(_conf, 0, HAS_NEXT, _it).getInstance();
         }
         SimpleItr inst_ = (SimpleItr) _it.getInstance();
-        try {
-            return inst_.hasNext();
-        } catch (Throwable _0) {
-            throw new InvokeRedinedMethException(_conf.joinPages(), new Struct(_0));
-        }
+        return inst_.hasNext();
     }
     static Struct next(Configuration _conf, Struct _it) {
         if (!_it.isJavaObject()) {
             return getResult(_conf, 0, NEXT, _it);
         }
         SimpleItr inst_ = (SimpleItr) _it.getInstance();
-        try {
-            Struct out_ = new Struct(inst_.next());
-            return out_;
-        } catch (Throwable _0) {
-            throw new InvokeRedinedMethException(_conf.joinPages(), new Struct(_0));
-        }
+        Struct out_ = new Struct(inst_.next());
+        return out_;
     }
     static Struct entryList(Configuration _conf, int _offsIndex, Struct _container) {
         if (!_container.isJavaObject()) {
             return getResult(_conf, 0, ENTRY_LIST, _container);
         }
         SimpleEntries inst_ = (SimpleEntries) _container.getInstance();
-        try {
-            Struct out_ = new Struct(inst_.entries());
-            return out_;
-        } catch (Throwable _0) {
-            _conf.getLastPage().addToOffset(_offsIndex);
-            throw new InvokeRedinedMethException(_conf.joinPages(), new Struct(_0));
-        }
+        Struct out_ = new Struct(inst_.entries());
+        return out_;
     }
 
     static String name(Configuration _conf, Struct _instance) {

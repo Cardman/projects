@@ -3,35 +3,23 @@ import java.lang.reflect.Array;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
-import java.util.AbstractList;
-import java.util.Iterator;
 
 import code.serialize.exceptions.NullSerialException;
 import code.serialize.exceptions.RefException;
-import code.util.EntryCust;
+import code.util.SimpleItr;
 import code.util.annot.NullableField;
 import code.util.annot.RwXml;
 import code.util.ints.Listable;
 import code.util.ints.ListableEntries;
+import code.util.ints.SimpleEntries;
+import code.util.ints.SimpleEntry;
+import code.util.ints.SimpleIterable;
+import code.util.ints.SimpleList;
 import code.util.ints.Viewable;
 import code.util.opers.CollectionsUtil;
 
 final class CurrentSerializableElements {
 
-    private static final String ENTRY_LIST ="entryList";
-    private static final String TO_ARRAY ="toArray";
-    private static final String ITERATOR ="iterator";
-    private static final String HAS_NEXT ="hasNext";
-    private static final String NEXT ="next";
-    private static final String GET_KEY ="getKey";
-    private static final String GET_VALUE ="getValue";
-    private static final Method ENTRY_LIST_METHOD = SerializeXmlObject.getMethod(ListableEntries.class, ENTRY_LIST);
-    private static final Method TO_ARRAY_METHOD = SerializeXmlObject.getMethod(Listable.class, TO_ARRAY);
-    private static final Method ITERATOR_METHOD = SerializeXmlObject.getMethod(Iterable.class, ITERATOR);
-    private static final Method HAS_NEXT_METHOD = SerializeXmlObject.getMethod(Iterator.class, HAS_NEXT);
-    private static final Method NEXT_METHOD = SerializeXmlObject.getMethod(Iterator.class, NEXT);
-    private static final Method GET_KEY_METHOD = SerializeXmlObject.getMethod(EntryCust.class, GET_KEY);
-    private static final Method GET_VALUE_METHOD = SerializeXmlObject.getMethod(EntryCust.class, GET_VALUE);
     private SerialList<TemplateSerial> allComposites = new SerialList<TemplateSerial>();
     private SerialList<TemplateSerial> news = new SerialList<TemplateSerial>();
     private SerialList<TemplateSerial> currents = new SerialList<TemplateSerial>();
@@ -53,15 +41,15 @@ final class CurrentSerializableElements {
                 setComponents(new SerialList<ElementsSerial>());
                 Object currentValue_ = e.getValue();
                 Class<?> cl_ = currentValue_.getClass();
-                if (Listable.class.isAssignableFrom(cl_)) {
+                if (currentValue_ instanceof SimpleList) {
 
                     for (Object o: toArray(currentValue_)) {
                         addElementInListWithoutIdRef(o);
                     }
                 }
-                if (ListableEntries.class.isAssignableFrom(cl_)) {
-                    Object list_ = entryList(currentValue_);
-                    Object it_ = iterator(list_);
+                if (currentValue_ instanceof SimpleEntries) {
+                    SimpleIterable list_ = entryList(currentValue_);
+                    SimpleItr it_ = iterator(list_);
                     while (hasNext(it_)) {
                         Object entry_ = next(it_);
                         Object key_ = getKey(entry_);
@@ -83,9 +71,6 @@ final class CurrentSerializableElements {
                     ((XmlTransientable)currentValue_).beforeSave();
                 }
                 while (cl_ != Object.class) {
-                    if (cl_.getSuperclass() == AbstractList.class) {
-                        break;
-                    }
                     for (Field f: cl_.getDeclaredFields()) {
                         if (Modifier.isTransient(f.getModifiers())) {
                             if (!SerializeXmlObject.isCopying()) {
@@ -130,8 +115,8 @@ final class CurrentSerializableElements {
                     }
                 }
                 if (ListableEntries.class.isAssignableFrom(cl_)) {
-                    Object list_ = entryList(currentValue_);
-                    Object it_ = iterator(list_);
+                    SimpleIterable list_ = entryList(currentValue_);
+                    SimpleItr it_ = iterator(list_);
                     while (hasNext(it_)) {
                         Object entry_ = next(it_);
                         Object key_ = getKey(entry_);
@@ -152,12 +137,6 @@ final class CurrentSerializableElements {
                 }
 
                 while (cl_ != Object.class) {
-                    if (cl_.getSuperclass() == AbstractList.class) {
-                        break;
-                    }
-//                    if (cl_.getSuperclass() == SerializeXmlObject.MP_CLASS) {
-//                        break;
-//                    }
                     for (Field f: cl_.getDeclaredFields()) {
                         if (Modifier.isTransient(f.getModifiers())) {
                             continue;
@@ -197,8 +176,8 @@ final class CurrentSerializableElements {
                     }
                 }
                 if (ListableEntries.class.isAssignableFrom(cl_)) {
-                    Object list_ = entryList(currentValue_);
-                    Object it_ = iterator(list_);
+                    SimpleIterable list_ = entryList(currentValue_);
+                    SimpleItr it_ = iterator(list_);
                     while (hasNext(it_)) {
                         Object entry_ = next(it_);
                         Object key_ = getKey(entry_);
@@ -211,12 +190,6 @@ final class CurrentSerializableElements {
                 }
 
                 while (cl_ != Object.class) {
-                    if (cl_.getSuperclass() == AbstractList.class) {
-                        break;
-                    }
-//                    if (cl_.getSuperclass() == SerializeXmlObject.MP_CLASS) {
-//                        break;
-//                    }
                     for (Field f: cl_.getDeclaredFields()) {
                         if (Modifier.isTransient(f.getModifiers())) {
                             continue;
@@ -255,8 +228,8 @@ final class CurrentSerializableElements {
                     }
                 }
                 if (ListableEntries.class.isAssignableFrom(cl_)) {
-                    Object list_ = entryList(currentValue_);
-                    Object it_ = iterator(list_);
+                    SimpleIterable list_ = entryList(currentValue_);
+                    SimpleItr it_ = iterator(list_);
                     while (hasNext(it_)) {
                         Object entry_ = next(it_);
                         Object key_ = getKey(entry_);
@@ -269,12 +242,6 @@ final class CurrentSerializableElements {
                 }
 
                 while (cl_ != Object.class) {
-                    if (cl_.getSuperclass() == AbstractList.class) {
-                        break;
-                    }
-//                    if (cl_.getSuperclass() == SerializeXmlObject.MP_CLASS) {
-//                        break;
-//                    }
                     for (Field f: cl_.getDeclaredFields()) {
                         if (Modifier.isTransient(f.getModifiers())) {
                             continue;
@@ -315,8 +282,8 @@ final class CurrentSerializableElements {
                     }
                 }
                 if (ListableEntries.class.isAssignableFrom(cl_)) {
-                    Object list_ = entryList(currentValue_);
-                    Object it_ = iterator(list_);
+                    SimpleIterable list_ = entryList(currentValue_);
+                    SimpleItr it_ = iterator(list_);
                     while (hasNext(it_)) {
                         Object entry_ = next(it_);
                         Object key_ = getKey(entry_);
@@ -333,12 +300,6 @@ final class CurrentSerializableElements {
                 }
 
                 while (cl_ != Object.class) {
-                    if (cl_.getSuperclass() == AbstractList.class) {
-                        break;
-                    }
-//                    if (cl_.getSuperclass() == SerializeXmlObject.MP_CLASS) {
-//                        break;
-//                    }
                     for (Field f: cl_.getDeclaredFields()) {
                         if (Modifier.isTransient(f.getModifiers())) {
                             continue;
@@ -382,8 +343,8 @@ final class CurrentSerializableElements {
                     }
                 }
                 if (ListableEntries.class.isAssignableFrom(cl_)) {
-                    Object list_ = entryList(currentValue_);
-                    Object it_ = iterator(list_);
+                    SimpleIterable list_ = entryList(currentValue_);
+                    SimpleItr it_ = iterator(list_);
                     while (hasNext(it_)) {
                         Object entry_ = next(it_);
                         Object key_ = getKey(entry_);
@@ -400,9 +361,6 @@ final class CurrentSerializableElements {
                 }
 
                 while (cl_ != Object.class) {
-                    if (cl_.getSuperclass() == AbstractList.class) {
-                        break;
-                    }
                     for (Field f: cl_.getDeclaredFields()) {
                         if (Modifier.isTransient(f.getModifiers())) {
                             continue;
@@ -436,15 +394,15 @@ final class CurrentSerializableElements {
                 setComponents(new SerialList<ElementsSerial>());
                 Object currentValue_ = e.getValue();
                 Class<?> cl_ = currentValue_.getClass();
-                if (Listable.class.isAssignableFrom(cl_)) {
+                if (currentValue_ instanceof SimpleList) {
 
                     for (Object o: toArray(currentValue_)) {
                         addElementInList(o);
                     }
                 }
-                if (ListableEntries.class.isAssignableFrom(cl_)) {
-                    Object list_ = entryList(currentValue_);
-                    Object it_ = iterator(list_);
+                if (currentValue_ instanceof SimpleEntries) {
+                    SimpleIterable list_ = entryList(currentValue_);
+                    SimpleItr it_ = iterator(list_);
                     while (hasNext(it_)) {
                         Object entry_ = next(it_);
                         Object key_ = getKey(entry_);
@@ -466,12 +424,6 @@ final class CurrentSerializableElements {
                     ((XmlTransientable)currentValue_).beforeSave();
                 }
                 while (cl_ != Object.class) {
-                    if (cl_.getSuperclass() == AbstractList.class) {
-                        break;
-                    }
-//                    if (cl_.getSuperclass() == SerializeXmlObject.MP_CLASS) {
-//                        break;
-//                    }
                     for (Field f: cl_.getDeclaredFields()) {
                         if (Modifier.isTransient(f.getModifiers())) {
                             if (!SerializeXmlObject.isCopying()) {
@@ -485,9 +437,6 @@ final class CurrentSerializableElements {
                         Object value_ = ConverterMethod.getField(f, currentValue_);
                         addElementInSerializable(value_, cl_, f.getName());
                     }
-//                    if (cl_ == EnumSerializeXmlObject.MP_CLASS) {
-//                        break;
-//                    }
                     cl_ = cl_.getSuperclass();
                 }
                 addComponentsToComposite(e);
@@ -500,28 +449,28 @@ final class CurrentSerializableElements {
     }
 
     private static Object[] toArray(Object _value) {
-        return (Object[]) ConverterMethod.invokeMethod(TO_ARRAY_METHOD, _value);
+        return ((SimpleIterable)_value).toArray();
     }
-    private static Object entryList(Object _container) {
-        return ConverterMethod.invokeMethod(ENTRY_LIST_METHOD, _container);
+    private static SimpleIterable entryList(Object _container) {
+        return ((SimpleEntries)_container).entries();
     }
 
     private static Object getKey(Object _it) {
-        return ConverterMethod.invokeMethod(GET_KEY_METHOD, _it);
+        return ((SimpleEntry)_it).getKey();
     }
 
     private static Object getValue(Object _it) {
-        return ConverterMethod.invokeMethod(GET_VALUE_METHOD, _it);
+        return ((SimpleEntry)_it).getValue();
     }
 
-    private static Object iterator(Object _it) {
-        return ConverterMethod.invokeMethod(ITERATOR_METHOD, _it);
+    private static SimpleItr iterator(SimpleIterable _it) {
+        return _it.simpleIterator();
     }
-    private static boolean hasNext(Object _it) {
-        return (Boolean) ConverterMethod.invokeMethod(HAS_NEXT_METHOD, _it);
+    private static boolean hasNext(SimpleItr _it) {
+        return _it.hasNext();
     }
-    private static Object next(Object _it) {
-        return ConverterMethod.invokeMethod(NEXT_METHOD, _it);
+    private static Object next(SimpleItr _it) {
+        return _it.next();
     }
 
     private void addComponentsToComposite(TemplateSerial _e) {

@@ -2,7 +2,7 @@ package code.util;
 
 import java.util.Iterator;
 
-public class SimpleItr implements Iterator<Object>{
+public final class SimpleItr implements Iterator<Object>{
 
     private Object[] list;
     private int index;

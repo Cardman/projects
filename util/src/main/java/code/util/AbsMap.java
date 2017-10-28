@@ -25,12 +25,12 @@ public abstract class AbsMap<K, V> implements ListableEntries<K, V> {
     }
 
     @Override
-    public SimpleIterable entries() {
+    public final SimpleIterable entries() {
         return new CustList<EntryCust<K,V>>(getList());
     }
 
     @Override
-    public Iterable<EntryCust<K, V>> entryList() {
+    public final Iterable<EntryCust<K, V>> entryList() {
         return new CustList<EntryCust<K,V>>(getList());
     }
 

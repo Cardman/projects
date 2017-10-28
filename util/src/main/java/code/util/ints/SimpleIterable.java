@@ -5,4 +5,6 @@ import code.util.SimpleItr;
 public interface SimpleIterable {
 
     SimpleItr simpleIterator();
+
+    Object[] toArray();
 }

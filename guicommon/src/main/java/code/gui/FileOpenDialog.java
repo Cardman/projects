@@ -220,7 +220,8 @@ public final class FileOpenDialog extends FileDialog implements SingleFileSelect
 //            closeWindow();
 //            return;
 //        }
-        if (getFileName().getText().isEmpty()) {
+        String fileName_ = getFileName().getText();
+        if (fileName_.isEmpty()) {
             ConfirmDialog.showMessage(this, messages.getVal(ERROR_TYPING), messages.getVal(ERROR_TITLE), Constants.getLanguage(), JOptionPane.ERROR_MESSAGE);
             return;
 //            if (getFileTable().getSelectedRowCount() != 1) {
@@ -238,7 +239,12 @@ public final class FileOpenDialog extends FileDialog implements SingleFileSelect
 //            closeWindow();
 //            return;
         }
-        selectedPath_ = getCurrentFolder() + getFileName().getText()+getExtension();
+        String extFileName_ = fileName_+getExtension();
+        if (!new File(extFileName_).isAbsolute()) {
+            selectedPath_ = getCurrentFolder() + extFileName_;
+        } else {
+            selectedPath_ = extFileName_;
+        }
         if (!new File(selectedPath_).exists()) {
             ConfirmDialog.showMessage(this, StringList.simpleFormat(messages.getVal(ERROR_MESSAGE), selectedPath_), messages.getVal(ERROR_TITLE), Constants.getLanguage(), JOptionPane.ERROR_MESSAGE);
             selectedPath_ = null;
