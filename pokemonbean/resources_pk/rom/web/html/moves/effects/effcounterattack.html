@@ -97,9 +97,9 @@
 					<br/>
 				</p>
 			</c:if>
-			<c:if condition="!mapVarsFail.isEmpty()">
+			<c:if condition="!getMapVarsFailCounter().isEmpty()">
 				<ul>
-					<c:for key="c" map="mapVarsFail" value="r">
+					<c:for key="c" map="getMapVarsFailCounter()" value="r">
 						<li>{c;} :
 							<c:message quoted="" value="msg_effcounterattack,formula">
 								<param value="r;"/>

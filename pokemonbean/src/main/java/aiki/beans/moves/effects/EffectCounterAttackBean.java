@@ -30,8 +30,7 @@ public class EffectCounterAttackBean extends EffectBean {
     @Accessible
     private StringList reasonsCounter;
 
-    @Accessible
-    private NatTreeMap<String,String> mapVarsFail;
+    private NatTreeMap<String,String> mapVarsFailCounter;
 
     @Override
     public void beforeDisplaying() {
@@ -98,7 +97,11 @@ public class EffectCounterAttackBean extends EffectBean {
         for (String k: desc_) {
             mapVarsFail_.put(k, mapVars_.getVal(k));
         }
-        mapVarsFail = mapVarsFail_;
+        mapVarsFailCounter = mapVarsFail_;
+    }
+
+    public NatTreeMap<String, String> getMapVarsFailCounter() {
+        return mapVarsFailCounter;
     }
 
     @Accessible

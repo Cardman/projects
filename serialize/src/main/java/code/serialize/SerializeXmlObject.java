@@ -1,6 +1,5 @@
 package code.serialize;
 import java.io.StringWriter;
-import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 
 import javax.xml.transform.TransformerException;
@@ -18,7 +17,6 @@ import code.serialize.exceptions.DuplicatesKeysException;
 import code.serialize.exceptions.InexistingValueForEnum;
 import code.serialize.exceptions.InvokingException;
 import code.serialize.exceptions.NoAttributeForSerializable;
-import code.serialize.exceptions.NoSuchDeclaredFieldException;
 import code.serialize.exceptions.NoSuchDeclaredMethodException;
 import code.serialize.exceptions.NoValueException;
 import code.serialize.exceptions.RefException;
@@ -41,12 +39,7 @@ public final class SerializeXmlObject {
     private static final String SEPARATEUR = "/";
     private static final int TAB_WIDTH = 4;
 
-    private static final String DOT = ".";
-    private static final String LEFT_PAR = "(";
-    private static final String COMMA = ",";
-    private static final String RIGHT_PAR = ")";
     private static final String EMPTY_STRING = "";
-    private static final String RETURN_TAB = "\n\t";
     private static final String ALL = "*";
 
     private static final String BEGIN_ESC = "&#";
@@ -66,48 +59,13 @@ public final class SerializeXmlObject {
 
     /**@throws NoSuchDeclaredMethodException*/
     public static Method getMethod(Class<?> _class, String _name, Class<?>... _argsClass) {
-        Class<?> class_ = _class;
-        StringList traces_ = new StringList();
-        while (class_ != null) {
-            boolean addToTrace_ = false;
-            try {
-                Method method_ = class_.getMethod(_name, _argsClass);
-                return method_;
-            } catch (NoSuchMethodException _0) {
-                if (class_.getSuperclass() == Object.class) {
-                    addToTrace_ = true;
-                }
-            }
-            if (addToTrace_) {
-                String trace_ = _class.getName()+DOT+_name+LEFT_PAR;
-                StringList classes_ = new StringList();
-                for (Class<?> c: _argsClass) {
-                    classes_.add(c.getName());
-                }
-                trace_ += classes_.join(COMMA);
-                trace_ += RIGHT_PAR;
-                traces_.add(trace_);
-            }
-            class_ = class_.getSuperclass();
+        try {
+            Method method_ = _class.getMethod(_name, _argsClass);
+            return method_;
+        } catch (NoSuchMethodException _0) {
+            //Normally no error because parameters are known when this method is used.
+            return null;
         }
-        throw new NoSuchDeclaredMethodException(traces_.join(RETURN_TAB));
-    }
-
-    /**@throws NoSuchDeclaredFieldException*/
-    public static Field getDeclaredField(Class<?> _class, String _name) {
-        Class<?> class_ = _class;
-        StringList traces_ = new StringList();
-        while (class_ != null) {
-            try {
-                Field field_ = class_.getDeclaredField(_name);
-                return field_;
-            } catch (NoSuchFieldException _0) {
-                String trace_ = class_.getName()+DOT+_name;
-                traces_.add(trace_);
-            }
-            class_ = class_.getSuperclass();
-        }
-        throw new NoSuchDeclaredFieldException(traces_.join(RETURN_TAB));
     }
 
     public static String replaceClassFields(String _xmlFile,

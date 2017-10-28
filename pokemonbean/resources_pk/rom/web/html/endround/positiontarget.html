@@ -12,10 +12,10 @@
 		</c:import>
 		<p>
 			<c:message value="msg_positiontarget,effect"/>
-			<c:if condition="!moves.isEmpty()">
+			<c:if condition="!getMovesSameCategory().isEmpty()">
 				<c:message value="msg_positiontarget,anticipe"/>
 				<ul>
-					<c:for list="moves" var="m">
+					<c:for list="getMovesSameCategory()" var="m">
 						<li>
 							<a c:command="$clickMove({m;;})" href="">{getTrMove(m;;)}</a>
 						</li>

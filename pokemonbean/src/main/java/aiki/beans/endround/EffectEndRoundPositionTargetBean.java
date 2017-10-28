@@ -1,17 +1,15 @@
 package aiki.beans.endround;
-import code.bean.Accessible;
-import code.util.StringList;
-import code.util.StringMap;
 import aiki.DataBase;
 import aiki.comparators.ComparatorTrStrings;
 import aiki.fight.moves.MoveData;
 import aiki.fight.moves.effects.Effect;
 import aiki.fight.moves.effects.EffectEndRoundPositionTargetRelation;
+import code.util.StringList;
+import code.util.StringMap;
 
 public class EffectEndRoundPositionTargetBean extends EffectEndRoundBean {
 
-    @Accessible
-    private StringList moves;
+    private StringList movesSameCategory;
 
     @Override
     public void beforeDisplaying() {
@@ -31,19 +29,21 @@ public class EffectEndRoundPositionTargetBean extends EffectEndRoundBean {
         }
         moves_.removeDuplicates();
         moves_.sortElts(new ComparatorTrStrings(translatedMoves_));
-        moves = moves_;
+        movesSameCategory = moves_;
     }
 
-    @Accessible
-    private String getTrMove(Long _index) {
+    public StringList getMovesSameCategory() {
+        return movesSameCategory;
+    }
+
+    public String getTrMove(Long _index) {
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translatedMoves_;
         translatedMoves_ = data_.getTranslatedMoves().getVal(getLanguage());
-        return translatedMoves_.getVal(moves.get(_index.intValue()));
+        return translatedMoves_.getVal(movesSameCategory.get(_index.intValue()));
     }
 
-    @Accessible
-    private String clickMove(Long _index) {
+    public String clickMove(Long _index) {
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> translatedMoves_;
         translatedMoves_ = data_.getTranslatedMoves().getVal(getLanguage());
