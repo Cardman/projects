@@ -962,7 +962,7 @@ final class FormatHtml {
             throw new InvokeException(_conf.joinPages(), new Struct(o_));
         }
         if (StringList.quickEq(en_.getNodeName(),prefix_+TRY_TAG)) {
-            processAfterBlock(_conf, ip_);
+            rw_.setRead(en_.getFirstChild());
             Node n_ = en_.getNextSibling();
             TryHtmlStack tryStack_ = new TryHtmlStack();
             while (n_ != null) {
@@ -2040,6 +2040,9 @@ final class FormatHtml {
                     throw new BadElseException(_conf.joinPages());
                 }
             } else if (StringList.quickEq(en_.getNodeName(),prefix_+TRY_TAG)) {
+                if (en_.getFirstChild() == null) {
+                    throw new BadCatchException(_conf.joinPages());
+                }
                 Node next_ = en_.getNextSibling();
                 boolean existCatch_ = false;
                 while (next_ != null) {
