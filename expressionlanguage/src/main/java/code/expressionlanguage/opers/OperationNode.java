@@ -1203,7 +1203,7 @@ public abstract class OperationNode {
         }
         return accessible_;
     }
-    static Method getDeclaredMethod(ContextEl _cont, boolean _staticBlock, boolean _staticContext, ClassArgumentMatching _class, String _name, ClassArgumentMatching... _argsClass) {
+    static Method getDeclaredMethod(boolean _failIfError, ContextEl _cont, boolean _staticBlock, boolean _staticContext, ClassArgumentMatching _class, String _name, ClassArgumentMatching... _argsClass) {
         Class<?> class_ = _class.getClazz();
         class_ = PrimitiveTypeUtil.toBooleanWrapper(class_, true);
         for (ClassArgumentMatching c:_argsClass) {
@@ -1213,9 +1213,9 @@ public abstract class OperationNode {
         }
         ClassMethodIdResult resInst_ = getDeclaredMethodLoop(_cont, _staticBlock, false, _class, _name, _argsClass);
         ClassMethodIdResult resStatic_ = getDeclaredMethodLoop(_cont, _staticBlock, true, _class, _name, _argsClass);
-        return getFoundMethod(_cont, _staticContext, resInst_, resStatic_, _class, _name, _argsClass);
+        return getFoundMethod(_failIfError, _cont, _staticContext, resInst_, resStatic_, _class, _name, _argsClass);
     }
-    private static Method getFoundMethod(ContextEl _cont, boolean _staticContext,
+    private static Method getFoundMethod(boolean _failIfError, ContextEl _cont, boolean _staticContext,
             ClassMethodIdResult _resInst, ClassMethodIdResult _resStatic,
             ClassArgumentMatching _class, String _name, ClassArgumentMatching... _argsClass) {
         boolean foundInst_ = false;
@@ -1227,7 +1227,7 @@ public abstract class OperationNode {
         if (foundInst_) {
             return _resInst.getMethod();
         }
-        if (!_staticContext && _cont.isAmbigous()) {
+        if (!_staticContext && _cont.isAmbigous() && _failIfError) {
             String clCurName_ = _class.getName();
             String trace_ = clCurName_+DOT+_name+PAR_LEFT;
             StringList classesNames_ = new StringList();
@@ -1240,6 +1240,9 @@ public abstract class OperationNode {
         }
         if (_resStatic.getStatus() == SearchingMemberStatus.UNIQ) {
             return _resStatic.getMethod();
+        }
+        if (!_failIfError) {
+            return null;
         }
         if (_resInst.getStatus() == SearchingMemberStatus.UNIQ) {
             //static access

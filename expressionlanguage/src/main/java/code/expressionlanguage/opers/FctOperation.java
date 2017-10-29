@@ -323,19 +323,37 @@ public final class FctOperation extends InvokingOperation {
             for (TypeVar t: gl_.getParamTypes()) {
                 mapping_.put(t.getName(), t.getConstraints());
             }
-            for (TypeVar t: gl_.getParamTypes()) {
-                String name_ = t.getName();
-                for (String u:Mapping.getAllUpperBounds(mapping_, name_)) {
-                    String baseUpper_ = StringList.getAllTypes(u).first();
-                    if (!classes_.isCustomType(baseUpper_)) {
-                        break;
-                    }
-                    analyzeCustomClass(_conf, u, false);
-                    if (foundBound) {
-                        return;
-                    }
+            boolean custom_ = true;
+            for (String u:Mapping.getAllUpperBounds(mapping_, clCurName_.substring(1))) {
+                String baseUpper_ = StringList.getAllTypes(u).first();
+                if (!classes_.isCustomType(baseUpper_)) {
+                    custom_ = false;
+                    break;
+                }
+                analyzeCustomClass(_conf, u, false);
+                if (foundBound) {
+                    return;
                 }
             }
+            if (custom_) {
+                throw new NoSuchDeclaredMethodException(trimMeth_+RETURN_LINE+_conf.joinPages());
+            }
+            for (String u:Mapping.getAllUpperBounds(mapping_, clCurName_.substring(1))) {
+                ClassArgumentMatching clVar_ = new ClassArgumentMatching(u);
+                Method m_ = getDeclaredMethod(false, _conf, staticBlock_, isStaticAccess(), clVar_, trimMeth_, ClassArgumentMatching.toArgArray(firstArgs_));
+                if (m_ != null) {
+                    if (!canBeUsed(m_, _conf)) {
+                        setRelativeOffsetPossibleLastPage(getIndexInEl()+off_, _conf);
+                        throw new BadAccessException(m_.toString()+RETURN_LINE+_conf.joinPages());
+                    }
+                    method = m_;
+                    staticMethod = Modifier.isStatic(m_.getModifiers());
+                    setAccess(m_, _conf);
+                    setResultClass(new ClassArgumentMatching(NativeTypeUtil.getPrettyType(m_.getGenericReturnType())));
+                    return;
+                }
+            }
+            throw new NoSuchDeclaredMethodException(trimMeth_+RETURN_LINE+_conf.joinPages());
         }
         if (classes_ != null) {
             if (classes_.isCustomType(clCurName_)) {
@@ -352,7 +370,7 @@ public final class FctOperation extends InvokingOperation {
         if (clCur_.getClassOrNull() == null) {
             throw new RuntimeClassNotFoundException(clCur_.getName()+RETURN_LINE+_conf.joinPages());
         }
-        Method m_ = getDeclaredMethod(_conf, staticBlock_, isStaticAccess(), clCur_, trimMeth_, ClassArgumentMatching.toArgArray(firstArgs_));
+        Method m_ = getDeclaredMethod(true, _conf, staticBlock_, isStaticAccess(), clCur_, trimMeth_, ClassArgumentMatching.toArgArray(firstArgs_));
         if (!canBeUsed(m_, _conf)) {
             setRelativeOffsetPossibleLastPage(getIndexInEl()+off_, _conf);
             throw new BadAccessException(m_.toString()+RETURN_LINE+_conf.joinPages());
