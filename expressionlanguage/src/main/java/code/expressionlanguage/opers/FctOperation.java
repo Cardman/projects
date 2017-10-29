@@ -33,10 +33,12 @@ import code.expressionlanguage.methods.EnumBlock;
 import code.expressionlanguage.methods.InterfaceBlock;
 import code.expressionlanguage.methods.MethodBlock;
 import code.expressionlanguage.methods.ProcessXmlMethod;
+import code.expressionlanguage.methods.RootBlock;
 import code.expressionlanguage.methods.UniqueRootedBlock;
 import code.expressionlanguage.methods.exceptions.UndefinedConstructorException;
 import code.expressionlanguage.methods.util.ArgumentsPair;
 import code.expressionlanguage.methods.util.InstancingStep;
+import code.expressionlanguage.methods.util.TypeVar;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.opers.util.ClassCategory;
 import code.expressionlanguage.opers.util.ClassField;
@@ -57,6 +59,7 @@ import code.util.EqList;
 import code.util.IdMap;
 import code.util.NatTreeMap;
 import code.util.StringList;
+import code.util.StringMap;
 import code.util.exceptions.NullObjectException;
 import code.util.exceptions.RuntimeClassNotFoundException;
 
@@ -85,6 +88,8 @@ public final class FctOperation extends InvokingOperation {
     private boolean staticChoiceMethodTemplate;
     private boolean interfaceChoice;
     private boolean superAccessMethod;
+
+    private boolean foundBound;
 
     public FctOperation(int _index, ContextEl _importingPage,
             int _indexChild, MethodOperation _m, OperationsSequence _op) {
@@ -310,111 +315,31 @@ public final class FctOperation extends InvokingOperation {
         if (StringList.quickEq(clCurName_, OperationNode.VOID_RETURN)) {
             throw new VoidArgumentException(_conf.joinPages());
         }
-        if (classes_ != null) {
+        if (clCurName_.startsWith(Templates.PREFIX_VAR_TYPE)) {
             String glClass_ = _conf.getLastPage().getGlobalClass();
+            String curClassBase_ = StringList.getAllTypes(glClass_).first();
+            RootBlock gl_ = classes_.getClassBody(curClassBase_);
+            StringMap<StringList> mapping_ = new StringMap<StringList>();
+            for (TypeVar t: gl_.getParamTypes()) {
+                mapping_.put(t.getName(), t.getConstraints());
+            }
+            for (TypeVar t: gl_.getParamTypes()) {
+                String name_ = t.getName();
+                for (String u:Mapping.getAllUpperBounds(mapping_, name_)) {
+                    String baseUpper_ = StringList.getAllTypes(u).first();
+                    if (!classes_.isCustomType(baseUpper_)) {
+                        break;
+                    }
+                    analyzeCustomClass(_conf, u, false);
+                    if (foundBound) {
+                        return;
+                    }
+                }
+            }
+        }
+        if (classes_ != null) {
             if (classes_.isCustomType(clCurName_)) {
-                for (ClassArgumentMatching c:firstArgs_) {
-                    if (c.matchVoid()) {
-                        throw new VoidArgumentException(clCurName_+DOT+trimMeth_+RETURN_LINE+_conf.joinPages());
-                    }
-                }
-                String baseClass_ = StringList.getAllTypes(clCurName_).first();
-                if (classes_.getClassBody(baseClass_) instanceof EnumBlock) {
-                    if (StringList.quickEq(trimMeth_, METH_NAME) && firstArgs_.isEmpty()) {
-                        if (isStaticAccess()) {
-                            throw new StaticAccessException(_conf.joinPages());
-                        }
-                        MethodId methodId_ = new MethodId(METH_NAME, new EqList<ClassName>());
-                        classMethodId = new ClassMethodId(clCurName_, methodId_);
-                        realId = methodId_;
-                        setResultClass(new ClassArgumentMatching(String.class.getName()));
-                        return;
-                    }
-                    if (StringList.quickEq(trimMeth_, METH_ORDINAL) && firstArgs_.isEmpty()) {
-                        if (isStaticAccess()) {
-                            throw new StaticAccessException(_conf.joinPages());
-                        }
-                        MethodId methodId_ = new MethodId(METH_ORDINAL, new EqList<ClassName>());
-                        classMethodId = new ClassMethodId(clCurName_, methodId_);
-                        realId = methodId_;
-                        setResultClass(new ClassArgumentMatching(PrimitiveTypeUtil.PRIM_INT));
-                        return;
-                    }
-                    if (StringList.quickEq(trimMeth_, METH_VALUES) && firstArgs_.isEmpty()) {
-                        MethodId methodId_ = new MethodId(METH_VALUES, new EqList<ClassName>());
-                        classMethodId = new ClassMethodId(clCurName_, methodId_);
-                        realId = methodId_;
-                        ClassName ret_ = new ClassName(PrimitiveTypeUtil.getPrettyArrayType(clCurName_), false);
-                        staticMethod = true;
-                        setResultClass(new ClassArgumentMatching(ret_.getName()));
-                        return;
-                    }
-                    if (StringList.quickEq(trimMeth_, METH_VALUEOF) && firstArgs_.size() == CustList.ONE_ELEMENT) {
-                        if (!StringList.quickEq(firstArgs_.first().getName(), String.class.getName())) {
-                            throw new NoSuchDeclaredMethodException(trimMeth_+RETURN_LINE+_conf.joinPages());
-                        }
-                        MethodId methodId_ = new MethodId(METH_VALUEOF, new EqList<ClassName>(new ClassName(String.class.getName(), false)));
-                        classMethodId = new ClassMethodId(clCurName_, methodId_);
-                        realId = methodId_;
-                        ClassName ret_ = new ClassName(clCurName_, false);
-                        staticMethod = true;
-                        setResultClass(new ClassArgumentMatching(ret_.getName()));
-                        return;
-                    }
-                }
-                boolean superClassAccess_ = true;
-                if (trimMeth_.contains(STATIC_CALL)) {
-                    StringList classMethod_ = StringList.splitStrings(trimMeth_, STATIC_CALL);
-                    trimMeth_ = classMethod_.last();
-                    staticChoiceMethod = true;
-                    superClassAccess_ = false;
-                } else if (trimMeth_.startsWith(EXTERN_CLASS+SUPER_ACCESS+EXTERN_CLASS)) {
-                    if (!(classes_.getClassBody(baseClass_) instanceof UniqueRootedBlock)) {
-                        throw new NoSuchDeclaredMethodException(trimMeth_+RETURN_LINE+_conf.joinPages());
-                    }
-                    UniqueRootedBlock unique_ = (UniqueRootedBlock) classes_.getClassBody(baseClass_);
-                    String superClass_ = unique_.getSuperClass();
-                    if (StringList.quickEq(superClass_, Object.class.getName())) {
-                        throw new NoSuchDeclaredMethodException(trimMeth_+RETURN_LINE+_conf.joinPages());
-                    }
-                    trimMeth_ = trimMeth_.substring((EXTERN_CLASS+SUPER_ACCESS+EXTERN_CLASS).length());
-                    clCurName_ = Templates.format(clCurName_, unique_.getGenericSuperClass(), classes_);
-                    staticChoiceMethod = true;
-                    superAccessMethod = true;
-                }
-                if (superClassAccess_) {
-                    interfaceChoice = classes_.getClassBody(baseClass_) instanceof InterfaceBlock;
-                }
-                ClassMethodIdReturn clMeth_ = getDeclaredCustMethod(_conf, staticBlock_, isStaticAccess(), new ClassArgumentMatching(clCurName_), trimMeth_, superClassAccess_, ClassArgumentMatching.toArgArray(firstArgs_));
-                MethodId methodId_ = clMeth_.getId().getConstraints();
-                String foundClass_ = clMeth_.getId().getClassName();
-                classMethodId = clMeth_.getId();
-                realId = clMeth_.getRealId();
-                CustList<MethodBlock> methods_ = classes_.getMethodBodiesByFormattedId(foundClass_, methodId_);
-                MethodBlock m_;
-                if (!methods_.isEmpty()) {
-                    m_ = methods_.first();
-                } else {
-                    String baseFoundClass_ = StringList.getAllTypes(foundClass_).first();
-                    String className_ = classes_.getClassBody(baseFoundClass_).getDefaultMethodIds().getVal(methodId_);
-                    m_ = classes_.getMethodBodiesByFormattedId(className_, methodId_).first();
-                }
-                String curClassBase_ = null;
-                if (glClass_ != null) {
-                    curClassBase_ = StringList.getAllTypes(glClass_).first();
-                }
-                if (!classes_.canAccess(curClassBase_, m_)) {
-                    setRelativeOffsetPossibleLastPage(getIndexInEl()+off_, _conf);
-                    throw new BadAccessException(clMeth_.getId().getConstraints().getSignature()+RETURN_LINE+_conf.joinPages());
-                }
-                staticMethod = clMeth_.isStaticMethod();
-                if (staticChoiceMethod) {
-                    if (clMeth_.isAbstractMethod()) {
-                        setRelativeOffsetPossibleLastPage(getIndexInEl()+off_, _conf);
-                        throw new AbstractMethodException(clMeth_.getId().getConstraints().getSignature()+RETURN_LINE+_conf.joinPages());
-                    }
-                }
-                setResultClass(new ClassArgumentMatching(clMeth_.getReturnType()));
+                analyzeCustomClass(_conf, clCurName_, true);
                 return;
             }
         }
@@ -423,6 +348,9 @@ public final class FctOperation extends InvokingOperation {
                 setResultClass(new ClassArgumentMatching(NativeTypeUtil.getPrettyType(ClassMetaInfo.class)));
                 return;
             }
+        }
+        if (clCur_.getClassOrNull() == null) {
+            throw new RuntimeClassNotFoundException(clCur_.getName()+RETURN_LINE+_conf.joinPages());
         }
         Method m_ = getDeclaredMethod(_conf, staticBlock_, isStaticAccess(), clCur_, trimMeth_, ClassArgumentMatching.toArgArray(firstArgs_));
         if (!canBeUsed(m_, _conf)) {
@@ -435,6 +363,127 @@ public final class FctOperation extends InvokingOperation {
         setResultClass(new ClassArgumentMatching(NativeTypeUtil.getPrettyType(m_.getGenericReturnType())));
     }
 
+    private void analyzeCustomClass(ContextEl _conf, String _subType, boolean _failIfError) {
+        Classes classes_ = _conf.getClasses();
+        CustList<OperationNode> chidren_ = getChildrenNodes();
+        int off_ = StringList.getFirstPrintableCharIndex(methodName);
+        setRelativeOffsetPossibleLastPage(getIndexInEl()+off_, _conf);
+        String trimMeth_ = methodName.trim();
+        boolean staticBlock_ = isStaticBlock();
+        CustList<ClassArgumentMatching> firstArgs_ = listClasses(chidren_);
+        String clCurName_ = _subType;
+        if (StringList.quickEq(clCurName_, OperationNode.VOID_RETURN)) {
+            throw new VoidArgumentException(_conf.joinPages());
+        }
+        String glClass_ = _conf.getLastPage().getGlobalClass();
+        for (ClassArgumentMatching c:firstArgs_) {
+            if (c.matchVoid()) {
+                throw new VoidArgumentException(clCurName_+DOT+trimMeth_+RETURN_LINE+_conf.joinPages());
+            }
+        }
+        String baseClass_ = StringList.getAllTypes(clCurName_).first();
+        if (classes_.getClassBody(baseClass_) instanceof EnumBlock) {
+            if (StringList.quickEq(trimMeth_, METH_NAME) && firstArgs_.isEmpty()) {
+                if (isStaticAccess() && _failIfError) {
+                    throw new StaticAccessException(_conf.joinPages());
+                }
+                MethodId methodId_ = new MethodId(METH_NAME, new EqList<ClassName>());
+                classMethodId = new ClassMethodId(clCurName_, methodId_);
+                realId = methodId_;
+                setResultClass(new ClassArgumentMatching(String.class.getName()));
+                foundBound = true;
+                return;
+            }
+            if (StringList.quickEq(trimMeth_, METH_ORDINAL) && firstArgs_.isEmpty()) {
+                if (isStaticAccess() && _failIfError) {
+                    throw new StaticAccessException(_conf.joinPages());
+                }
+                MethodId methodId_ = new MethodId(METH_ORDINAL, new EqList<ClassName>());
+                classMethodId = new ClassMethodId(clCurName_, methodId_);
+                realId = methodId_;
+                setResultClass(new ClassArgumentMatching(PrimitiveTypeUtil.PRIM_INT));
+                foundBound = true;
+                return;
+            }
+            if (StringList.quickEq(trimMeth_, METH_VALUES) && firstArgs_.isEmpty()) {
+                MethodId methodId_ = new MethodId(METH_VALUES, new EqList<ClassName>());
+                classMethodId = new ClassMethodId(clCurName_, methodId_);
+                realId = methodId_;
+                ClassName ret_ = new ClassName(PrimitiveTypeUtil.getPrettyArrayType(clCurName_), false);
+                staticMethod = true;
+                setResultClass(new ClassArgumentMatching(ret_.getName()));
+                foundBound = true;
+                return;
+            }
+            if (StringList.quickEq(trimMeth_, METH_VALUEOF) && firstArgs_.size() == CustList.ONE_ELEMENT) {
+                if (!StringList.quickEq(firstArgs_.first().getName(), String.class.getName())) {
+                    throw new NoSuchDeclaredMethodException(trimMeth_+RETURN_LINE+_conf.joinPages());
+                }
+                MethodId methodId_ = new MethodId(METH_VALUEOF, new EqList<ClassName>(new ClassName(String.class.getName(), false)));
+                classMethodId = new ClassMethodId(clCurName_, methodId_);
+                realId = methodId_;
+                ClassName ret_ = new ClassName(clCurName_, false);
+                staticMethod = true;
+                setResultClass(new ClassArgumentMatching(ret_.getName()));
+                foundBound = true;
+                return;
+            }
+        }
+        boolean superClassAccess_ = true;
+        if (trimMeth_.contains(STATIC_CALL)) {
+            StringList classMethod_ = StringList.splitStrings(trimMeth_, STATIC_CALL);
+            trimMeth_ = classMethod_.last();
+            staticChoiceMethod = true;
+            superClassAccess_ = false;
+        } else if (trimMeth_.startsWith(EXTERN_CLASS+SUPER_ACCESS+EXTERN_CLASS)) {
+            if (!(classes_.getClassBody(baseClass_) instanceof UniqueRootedBlock) && _failIfError) {
+                throw new NoSuchDeclaredMethodException(trimMeth_+RETURN_LINE+_conf.joinPages());
+            }
+            UniqueRootedBlock unique_ = (UniqueRootedBlock) classes_.getClassBody(baseClass_);
+            String superClass_ = unique_.getSuperClass();
+            if (StringList.quickEq(superClass_, Object.class.getName()) && _failIfError) {
+                throw new NoSuchDeclaredMethodException(trimMeth_+RETURN_LINE+_conf.joinPages());
+            }
+            trimMeth_ = trimMeth_.substring((EXTERN_CLASS+SUPER_ACCESS+EXTERN_CLASS).length());
+            clCurName_ = Templates.format(clCurName_, unique_.getGenericSuperClass(), classes_);
+            staticChoiceMethod = true;
+            superAccessMethod = true;
+        }
+        if (superClassAccess_) {
+            interfaceChoice = classes_.getClassBody(baseClass_) instanceof InterfaceBlock;
+        }
+        ClassMethodIdReturn clMeth_ = getDeclaredCustMethod(_failIfError, _conf, staticBlock_, isStaticAccess(), new ClassArgumentMatching(clCurName_), trimMeth_, superClassAccess_, ClassArgumentMatching.toArgArray(firstArgs_));
+        MethodId methodId_ = clMeth_.getId().getConstraints();
+        String foundClass_ = clMeth_.getId().getClassName();
+        classMethodId = clMeth_.getId();
+        realId = clMeth_.getRealId();
+        CustList<MethodBlock> methods_ = classes_.getMethodBodiesByFormattedId(foundClass_, methodId_);
+        MethodBlock m_;
+        if (!methods_.isEmpty()) {
+            m_ = methods_.first();
+        } else {
+            String baseFoundClass_ = StringList.getAllTypes(foundClass_).first();
+            String className_ = classes_.getClassBody(baseFoundClass_).getDefaultMethodIds().getVal(realId);
+            m_ = classes_.getMethodBodiesByFormattedId(className_, realId).first();
+        }
+        String curClassBase_ = null;
+        if (glClass_ != null) {
+            curClassBase_ = StringList.getAllTypes(glClass_).first();
+        }
+        if (!classes_.canAccess(curClassBase_, m_) && _failIfError) {
+            setRelativeOffsetPossibleLastPage(getIndexInEl()+off_, _conf);
+            throw new BadAccessException(clMeth_.getId().getConstraints().getSignature()+RETURN_LINE+_conf.joinPages());
+        }
+        staticMethod = clMeth_.isStaticMethod();
+        if (staticChoiceMethod) {
+            if (clMeth_.isAbstractMethod() && _failIfError) {
+                setRelativeOffsetPossibleLastPage(getIndexInEl()+off_, _conf);
+                throw new AbstractMethodException(clMeth_.getId().getConstraints().getSignature()+RETURN_LINE+_conf.joinPages());
+            }
+        }
+        setResultClass(new ClassArgumentMatching(clMeth_.getReturnType()));
+        foundBound = true;
+    }
     @Override
     public Argument calculate(IdMap<OperationNode,ArgumentsPair> _nodes, ContextEl _conf, String _op) {
         return calculateCommon(_nodes, _conf, _op);
@@ -676,7 +725,7 @@ public final class FctOperation extends InvokingOperation {
                         methodId_ = methodId_.format(classNameFound_, classes_);
                     }
                 } else {
-                    classNameFound_ = getDynDeclaredCustMethod(_conf, arg_.getObjectClassName(), interfaceChoice, classMethodId);
+                    classNameFound_ = getDynDeclaredCustMethod(_conf, arg_.getObjectClassName(), interfaceChoice, classMethodId, realId);
                     methodId_ = methodId_.format(classNameFound_, classes_);
                 }
             } else {

@@ -65,6 +65,18 @@ public final class ClassArgumentMatching {
         return PrimitiveTypeUtil.getSingleNativeClass(className_);
     }
 
+    public Class<?> getClassOrNull() {
+        try {
+            String className_ = StringList.getAllTypes(className).first();
+            if (PrimitiveTypeUtil.isPrimitive(className_)) {
+                return PrimitiveTypeUtil.getPrimitiveClass(className_);
+            }
+            return PrimitiveTypeUtil.getSingleNativeClass(className_);
+        } catch (RuntimeClassNotFoundException _0) {
+            return null;
+        }
+    }
+
     public boolean isArray() {
         return className.startsWith(ARR_CLASS);
     }

@@ -231,7 +231,8 @@ public final class InstanceOperation extends InvokingOperation {
         if (Modifier.isAbstract(cl_.getModifiers())) {
             throw new AbstractClassConstructorException(realClassName_+RETURN_LINE+_conf.joinPages());
         }
-        Constructor<?> const_ = getDeclaredConstructor(_conf, staticBlock_, 0, new ClassArgumentMatching(realClassName_), ClassArgumentMatching.toArgArray(_firstArgs));
+        ClassArgumentMatching arg_ = new ClassArgumentMatching(realClassName_);
+        Constructor<?> const_ = getDeclaredConstructor(_conf, staticBlock_, 0, arg_, ClassArgumentMatching.toArgArray(_firstArgs));
         if (!canBeUsed(const_, _conf)) {
             throw new BadAccessException(const_+RETURN_LINE+_conf.joinPages());
         }

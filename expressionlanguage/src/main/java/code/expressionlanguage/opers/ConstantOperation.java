@@ -9,6 +9,7 @@ import code.expressionlanguage.ElResolver;
 import code.expressionlanguage.OperationsSequence;
 import code.expressionlanguage.PageEl;
 import code.expressionlanguage.PrimitiveTypeUtil;
+import code.expressionlanguage.Templates;
 import code.expressionlanguage.exceptions.BadFormatPathException;
 import code.expressionlanguage.exceptions.DynamicCastClassException;
 import code.expressionlanguage.exceptions.DynamicNumberFormatException;
@@ -21,11 +22,11 @@ import code.expressionlanguage.exceptions.StaticAccessException;
 import code.expressionlanguage.exceptions.UndefinedVariableException;
 import code.expressionlanguage.methods.Classes;
 import code.expressionlanguage.methods.ProcessXmlMethod;
+import code.expressionlanguage.methods.RootBlock;
+import code.expressionlanguage.methods.UniqueRootedBlock;
 import code.expressionlanguage.methods.util.ArgumentsPair;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
-import code.expressionlanguage.opers.util.ClassCategory;
 import code.expressionlanguage.opers.util.ClassField;
-import code.expressionlanguage.opers.util.ClassMetaInfo;
 import code.expressionlanguage.opers.util.ConstructorId;
 import code.expressionlanguage.opers.util.FieldInfo;
 import code.expressionlanguage.opers.util.FieldResult;
@@ -41,6 +42,7 @@ import code.util.CustList;
 import code.util.IdMap;
 import code.util.StringList;
 import code.util.exceptions.NullObjectException;
+import code.util.exceptions.RuntimeClassNotFoundException;
 
 public final class ConstantOperation extends OperationNode implements SettableElResult {
     private static final String ATTRIBUTE = "attribute";
@@ -119,7 +121,6 @@ public final class ConstantOperation extends OperationNode implements SettableEl
         }
         if (str_.endsWith(GET_FIELD)) {
             Classes classes_ = _conf.getClasses();
-            ClassMetaInfo custClass_ = null;
             needGlobalArgument();
             ClassArgumentMatching cl_ = getPreviousResultClass();
             String clCurName_;
@@ -136,7 +137,11 @@ public final class ConstantOperation extends OperationNode implements SettableEl
                 className_ = className_.substring(lenPref_);
                 className_ = StringList.removeAllSpaces(className_);
                 className_ = className_.replace(EXTERN_CLASS, DOT_VAR);
-                checkCorrect(_conf, className_, true, lenPref_);
+                if (className_.contains(Templates.TEMPLATE_BEGIN)) {
+                    checkCorrect(_conf, className_, true, lenPref_);
+                } else {
+                    checkExistBase(_conf, className_, true, lenPref_);
+                }
                 clCurName_ = className_;
             } else {
                 if (cl_ == null) {
@@ -145,8 +150,9 @@ public final class ConstantOperation extends OperationNode implements SettableEl
                 clCurName_ = cl_.getName();
             }
             if (classes_ != null) {
-                custClass_ = classes_.getClassMetaInfo(clCurName_);
-                if (custClass_ != null) {
+                if (classes_.isCustomType(clCurName_)) {
+                    String base_ = StringList.getAllTypes(clCurName_).first();
+                    RootBlock root_ = classes_.getClassBody(base_);
                     String key_;
                     boolean superClassAccess_ = true;
                     FieldResult r_;
@@ -159,14 +165,20 @@ public final class ConstantOperation extends OperationNode implements SettableEl
                         r_ = getDeclaredCustField(_conf, isStaticAccess(), new ClassArgumentMatching(clCurName_), superClassAccess_, key_);
                     } else if (str_.startsWith(EXTERN_CLASS+SUPER_ACCESS+EXTERN_CLASS)) {
                         key_ = str_.substring((EXTERN_CLASS+SUPER_ACCESS+EXTERN_CLASS).length(), str_.length() - GET_FIELD.length());
-                        if (custClass_.getCategory() != ClassCategory.CLASS) {
+                        if (!(root_ instanceof UniqueRootedBlock)) {
                             throw new NoSuchDeclaredFieldException(key_+RETURN_LINE+_conf.joinPages());
                         }
-                        cl_ = new ClassArgumentMatching(custClass_.getSuperClass());
+                        String superClass_ = ((UniqueRootedBlock)root_).getSuperClass();
+                        superClass_ = StringList.getAllTypes(superClass_).first();
+                        superClass_ = Templates.getFullTypeByBases(clCurName_, superClass_, classes_);
+                        if (StringList.quickEq(superClass_, Object.class.getName())) {
+                            throw new NoSuchDeclaredFieldException(key_+RETURN_LINE+_conf.joinPages());
+                        }
+                        cl_ = new ClassArgumentMatching(superClass_);
                         r_ = getDeclaredCustField(_conf, isStaticAccess(), cl_, superClassAccess_, key_);
                     } else {
                         key_ = str_.substring(CustList.FIRST_INDEX, str_.length() - GET_FIELD.length());
-                        superClassAccess_ = custClass_.getCategory() == ClassCategory.CLASS;
+                        superClassAccess_ = root_ instanceof UniqueRootedBlock;
                         r_ = getDeclaredCustField(_conf, isStaticAccess(), cl_, superClassAccess_, key_);
                     }
                     if (r_.getStatus() == SearchingMemberStatus.ZERO) {
@@ -277,6 +289,9 @@ public final class ConstantOperation extends OperationNode implements SettableEl
                 return;
             }
             throw new NoSuchDeclaredFieldException(cl_.getName()+RETURN_LINE+_key+RETURN_LINE+_conf.joinPages());
+        }
+        if (cl_.getClassOrNull() == null) {
+            throw new RuntimeClassNotFoundException(cl_.getName()+RETURN_LINE+_conf.joinPages());
         }
         Field f_ = getDeclaredField(_conf, cl_, _key);
         if (!canBeUsed(f_, _conf)) {

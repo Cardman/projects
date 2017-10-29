@@ -28,8 +28,11 @@ public class Mapping {
         }
         return graph_.hasCycle();
     }
-
     public StringList getAllUpperBounds(String _className) {
+        return getAllUpperBounds(mapping, _className);
+    }
+
+    public static StringList getAllUpperBounds(StringMap<StringList> _mapping, String _className) {
         StringList visitedBounds_ = new StringList();
         StringList currentBounds_ = new StringList(_className);
         while (true) {
@@ -39,11 +42,11 @@ public class Mapping {
                 if (c.startsWith(Templates.PREFIX_VAR_TYPE)) {
                     var_ = c.substring(1);
                 }
-                if (!mapping.contains(var_)) {
+                if (!_mapping.contains(var_)) {
                     visitedBounds_.add(c);
                     continue;
                 }
-                for (String n: mapping.getVal(var_)) {
+                for (String n: _mapping.getVal(var_)) {
                     nextBounds_.add(n);
                 }
             }
