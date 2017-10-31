@@ -447,8 +447,9 @@ public abstract class OperationNode {
                 }
                 FieldResult r_ = new FieldResult();
                 String formattedType_ = e.getValue().getType();
+                String realType_ = formattedType_;
                 formattedType_ = Templates.generalFormat(formatted_, formattedType_, classes_);
-                FieldInfo f_ = new FieldInfo(_name, formatted_, formattedType_, _static, e.getValue().isFinalField());
+                FieldInfo f_ = new FieldInfo(_name, formatted_, formattedType_, realType_, _static, e.getValue().isFinalField());
                 r_.setId(f_);
                 r_.setStatus(SearchingMemberStatus.UNIQ);
                 return r_;
@@ -668,13 +669,13 @@ public abstract class OperationNode {
         }
         return signatures_.first().getMethod();
     }
-    static String getDynDeclaredCustMethod(ContextEl _conf, String _realClassName, boolean _interface, ClassMethodId _idMeth, MethodId _realId) {
+    static String getDynDeclaredCustMethod(ContextEl _conf, String _realClassName, boolean _interface, ClassMethodId _idMeth) {
         Classes classes_ = _conf.getClasses();
         ClassMetaInfo custClass_ = null;
         String clCurName_ = _realClassName;
         custClass_ = classes_.getClassMetaInfo(clCurName_);
         if (_interface) {
-            return getDynDeclaredCustMethodByInterface(_conf, _realClassName, _idMeth, _realId);
+            return getDynDeclaredCustMethodByInterface(_conf, _realClassName, _idMeth);
         }
         MethodId id_ = _idMeth.getConstraints();
         String glClass_ = _conf.getLastPage().getGlobalClass();
@@ -696,10 +697,12 @@ public abstract class OperationNode {
             if (methods_.isEmpty()) {
                 ObjectMap<MethodId, String> def_;
                 def_ = clBlock_.getDefaultMethodIds();
-                MethodId defId_ = _realId.format(genericString_, classes_);
-                if (def_.contains(defId_)) {
-                    String className_ = def_.getVal(defId_);
-                    return Templates.generalFormat(formatted_, className_, classes_);
+                for (EntryCust<MethodId, String> p: def_.entryList()) {
+                    MethodId key_ = p.getKey().format(formatted_, classes_);
+                    if (key_.eq(format_)) {
+                        String className_ = p.getValue();
+                        return Templates.generalFormat(formatted_, className_, classes_);
+                    }
                 }
                 continue;
             }
@@ -1008,7 +1011,7 @@ public abstract class OperationNode {
         }
         return methods_;
     }
-    private static String getDynDeclaredCustMethodByInterface(ContextEl _conf, String _realClassName, ClassMethodId _idMeth, MethodId _realId) {
+    private static String getDynDeclaredCustMethodByInterface(ContextEl _conf, String _realClassName, ClassMethodId _idMeth) {
         Classes classes_ = _conf.getClasses();
         ClassMetaInfo custClass_ = null;
         String clCurName_ = _realClassName;
@@ -1031,10 +1034,12 @@ public abstract class OperationNode {
             if (methods_.isEmpty()) {
                 ObjectMap<MethodId, String> def_;
                 def_ = clBlock_.getDefaultMethodIds();
-                MethodId defId_ = _realId.generalFormat(genericSubType_, classes_);
-                if (def_.contains(defId_)) {
-                    String className_ = def_.getVal(defId_);
-                    return Templates.generalFormat(formatted_, className_, classes_);
+                for (EntryCust<MethodId, String> p: def_.entryList()) {
+                    MethodId key_ = p.getKey().format(formatted_, classes_);
+                    if (key_.eq(format_)) {
+                        String className_ = p.getValue();
+                        return Templates.generalFormat(formatted_, className_, classes_);
+                    }
                 }
                 continue;
             }

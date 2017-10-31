@@ -7,13 +7,16 @@ public final class FieldInfo {
     private final String declaringClass;
     private final String declaringBaseClass;
     private final String type;
+    private final String realType;
     private final boolean staticField;
     private final boolean finalField;
-    public FieldInfo(String _name,String _declaringClass, String _type, boolean _staticField, boolean _finalField) {
+    public FieldInfo(String _name,String _declaringClass, String _type, String _realType,
+            boolean _staticField, boolean _finalField) {
         name = _name;
         declaringClass = _declaringClass;
         declaringBaseClass = StringList.getAllTypes(_declaringClass).first();
         type = _type;
+        realType = _realType;
         staticField = _staticField;
         finalField = _finalField;
     }
@@ -28,6 +31,9 @@ public final class FieldInfo {
     }
     public String getType() {
         return type;
+    }
+    public String getRealType() {
+        return realType;
     }
     public boolean isStaticField() {
         return staticField;

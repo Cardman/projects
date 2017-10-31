@@ -6,6 +6,7 @@ import java.lang.reflect.Modifier;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.ElResolver;
+import code.expressionlanguage.Mapping;
 import code.expressionlanguage.OperationsSequence;
 import code.expressionlanguage.PageEl;
 import code.expressionlanguage.PrimitiveTypeUtil;
@@ -77,6 +78,8 @@ public final class ConstantOperation extends OperationNode implements SettableEl
     private Field field;
 
     private boolean dottedPrevious;
+    private boolean staticChoiceFieldTemplate;
+    private boolean staticChoiceField;
 
     public ConstantOperation(int _index, ContextEl _importingPage, int _indexChild, MethodOperation _m, OperationsSequence _op) {
         super(_index, _importingPage, _indexChild, _m, _op);
@@ -137,7 +140,9 @@ public final class ConstantOperation extends OperationNode implements SettableEl
                 className_ = className_.substring(lenPref_);
                 className_ = StringList.removeAllSpaces(className_);
                 className_ = className_.replace(EXTERN_CLASS, DOT_VAR);
+                staticChoiceField = true;
                 if (className_.contains(Templates.TEMPLATE_BEGIN)) {
+                    staticChoiceFieldTemplate = true;
                     checkCorrect(_conf, className_, true, lenPref_);
                 } else {
                     checkExistBase(_conf, className_, true, lenPref_);
@@ -532,6 +537,24 @@ public final class ConstantOperation extends OperationNode implements SettableEl
                     throw new DynamicCastClassException(base_+RETURN_LINE+classNameFound_+RETURN_LINE+_conf.joinPages());
                 }
                 structField_ = argument_.getStruct().getStruct(fieldId, field);
+            }
+            if (argument_ != null) {
+                if (staticChoiceField) {
+                    if (!staticChoiceFieldTemplate) {
+                        String argClassName_ = argument_.getObjectClassName();
+                        String classNameFound_ = fieldId.getClassName();
+                        classNameFound_ = StringList.getAllTypes(classNameFound_).first();
+                        classNameFound_ = Templates.getFullTypeByBases(argClassName_, classNameFound_, classes_);
+                        String type_ = fieldMetaInfo.getRealType();
+                        type_ = Templates.format(classNameFound_, type_, classes_);
+                        Mapping map_ = new Mapping();
+                        map_.setArg(right_.getObjectClassName());
+                        map_.setParam(type_);
+                        if (!Templates.isCorrect(map_, classes_)) {
+                            throw new DynamicCastClassException(right_.getObjectClassName()+RETURN_LINE+type_+RETURN_LINE+_conf.joinPages());
+                        }
+                    }
+                }
             }
             left_.setStruct(structField_);
             res_ = NumericOperation.calculateAffect(left_, _conf, right_, _op);

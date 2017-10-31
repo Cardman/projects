@@ -323,33 +323,14 @@ public final class FctOperation extends InvokingOperation {
             for (TypeVar t: gl_.getParamTypes()) {
                 mapping_.put(t.getName(), t.getConstraints());
             }
-            boolean custom_ = true;
             for (String u:Mapping.getAllUpperBounds(mapping_, clCurName_.substring(1))) {
                 String baseUpper_ = StringList.getAllTypes(u).first();
                 if (!classes_.isCustomType(baseUpper_)) {
-                    custom_ = false;
-                    break;
+                    analyzeNativeClass(_conf, u, false);
+                } else {
+                    analyzeCustomClass(_conf, u, false);
                 }
-                analyzeCustomClass(_conf, u, false);
                 if (foundBound) {
-                    return;
-                }
-            }
-            if (custom_) {
-                throw new NoSuchDeclaredMethodException(trimMeth_+RETURN_LINE+_conf.joinPages());
-            }
-            for (String u:Mapping.getAllUpperBounds(mapping_, clCurName_.substring(1))) {
-                ClassArgumentMatching clVar_ = new ClassArgumentMatching(u);
-                Method m_ = getDeclaredMethod(false, _conf, staticBlock_, isStaticAccess(), clVar_, trimMeth_, ClassArgumentMatching.toArgArray(firstArgs_));
-                if (m_ != null) {
-                    if (!canBeUsed(m_, _conf)) {
-                        setRelativeOffsetPossibleLastPage(getIndexInEl()+off_, _conf);
-                        throw new BadAccessException(m_.toString()+RETURN_LINE+_conf.joinPages());
-                    }
-                    method = m_;
-                    staticMethod = Modifier.isStatic(m_.getModifiers());
-                    setAccess(m_, _conf);
-                    setResultClass(new ClassArgumentMatching(NativeTypeUtil.getPrettyType(m_.getGenericReturnType())));
                     return;
                 }
             }
@@ -370,15 +351,7 @@ public final class FctOperation extends InvokingOperation {
         if (clCur_.getClassOrNull() == null) {
             throw new RuntimeClassNotFoundException(clCur_.getName()+RETURN_LINE+_conf.joinPages());
         }
-        Method m_ = getDeclaredMethod(true, _conf, staticBlock_, isStaticAccess(), clCur_, trimMeth_, ClassArgumentMatching.toArgArray(firstArgs_));
-        if (!canBeUsed(m_, _conf)) {
-            setRelativeOffsetPossibleLastPage(getIndexInEl()+off_, _conf);
-            throw new BadAccessException(m_.toString()+RETURN_LINE+_conf.joinPages());
-        }
-        method = m_;
-        staticMethod = Modifier.isStatic(m_.getModifiers());
-        setAccess(m_, _conf);
-        setResultClass(new ClassArgumentMatching(NativeTypeUtil.getPrettyType(m_.getGenericReturnType())));
+        analyzeNativeClass(_conf, clCurName_, true);
     }
 
     private void analyzeCustomClass(ContextEl _conf, String _subType, boolean _failIfError) {
@@ -502,6 +475,28 @@ public final class FctOperation extends InvokingOperation {
         setResultClass(new ClassArgumentMatching(clMeth_.getReturnType()));
         foundBound = true;
     }
+    private void analyzeNativeClass(ContextEl _conf, String _subType, boolean _failIfError) {
+        ClassArgumentMatching clVar_ = new ClassArgumentMatching(_subType);
+        int off_ = StringList.getFirstPrintableCharIndex(methodName);
+        String trimMeth_ = methodName.trim();
+        boolean staticBlock_ = isStaticBlock();
+        CustList<OperationNode> chidren_ = getChildrenNodes();
+        CustList<ClassArgumentMatching> firstArgs_ = listClasses(chidren_);
+        Method m_ = getDeclaredMethod(_failIfError, _conf, staticBlock_, isStaticAccess(), clVar_, trimMeth_, ClassArgumentMatching.toArgArray(firstArgs_));
+        if (m_ == null) {
+            return;
+        }
+        if (!canBeUsed(m_, _conf) && _failIfError) {
+            setRelativeOffsetPossibleLastPage(getIndexInEl()+off_, _conf);
+            throw new BadAccessException(m_.toString()+RETURN_LINE+_conf.joinPages());
+        }
+        method = m_;
+        staticMethod = Modifier.isStatic(m_.getModifiers());
+        setAccess(m_, _conf);
+        setResultClass(new ClassArgumentMatching(NativeTypeUtil.getPrettyType(m_.getGenericReturnType())));
+        foundBound = true;
+    }
+
     @Override
     public Argument calculate(IdMap<OperationNode,ArgumentsPair> _nodes, ContextEl _conf, String _op) {
         return calculateCommon(_nodes, _conf, _op);
@@ -743,7 +738,7 @@ public final class FctOperation extends InvokingOperation {
                         methodId_ = methodId_.format(classNameFound_, classes_);
                     }
                 } else {
-                    classNameFound_ = getDynDeclaredCustMethod(_conf, arg_.getObjectClassName(), interfaceChoice, classMethodId, realId);
+                    classNameFound_ = getDynDeclaredCustMethod(_conf, arg_.getObjectClassName(), interfaceChoice, classMethodId);
                     methodId_ = methodId_.format(classNameFound_, classes_);
                 }
             } else {
