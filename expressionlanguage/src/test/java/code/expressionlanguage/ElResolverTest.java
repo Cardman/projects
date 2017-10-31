@@ -2756,6 +2756,21 @@ public class ElResolverTest {
         assertEq(ElResolver.ADD_PRIO, seq_.getPriority());
     }
 
+    @Test
+    public void getOperationsSequence142Test() {
+        ContextEl conf_ = new ContextEl();
+        addImportingPage(conf_, false);
+        String el_ = "-.1e-2d";
+        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
+        NatTreeMap<Integer,String> opers_ = seq_.getOperators();
+        assertEq(0, opers_.size());
+        NatTreeMap<Integer,String> values_ = seq_.getValues();
+        assertEq(1, values_.size());
+        assertEq("-.1e-2d", values_.getVal(0));
+        assertEq(ElResolver.CONST_PRIO, seq_.getPriority());
+    }
+
     @Test(expected=BadComparisonException.class)
     public void getOperationsSequence1FailTest() {
         ContextEl conf_ = new ContextEl();

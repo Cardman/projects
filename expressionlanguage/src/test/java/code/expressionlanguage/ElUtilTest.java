@@ -2110,6 +2110,19 @@ public class ElUtilTest {
         ElUtil.processEl(el_, 0, context_);
     }
 
+    @Test(expected=BadExpressionLanguageException.class)
+    public void processEl30FailTest() {
+        ContextEl context_ = new ContextEl();
+        setupAccessValue(context_);
+        addImportingPage(context_);
+        Composite composite_ = new Composite();
+        composite_.setInteger(6);
+        composite_.setPrivateInt(5);
+        addBean(context_, composite_);
+        String el_ = "";
+        ElUtil.processEl(el_, 0, context_);
+    }
+
     @Test
     public void processAffect1Test() {
         ContextEl context_ = new ContextEl();

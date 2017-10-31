@@ -2,7 +2,6 @@ package code.expressionlanguage;
 import code.expressionlanguage.exceptions.BadComparisonException;
 import code.expressionlanguage.exceptions.BadExpressionLanguageException;
 import code.expressionlanguage.exceptions.BadNumberArgumentException;
-import code.expressionlanguage.exceptions.EmptyPartException;
 import code.util.CustList;
 import code.util.NatTreeMap;
 import code.util.StringList;
@@ -1580,10 +1579,6 @@ public final class ElResolver {
             }
             i_++;
         }
-        if (i_ >= len_) {
-            _conf.getLastPage().setOffset(_d.getIndexBegin()+_offset+i_);
-            throw new EmptyPartException(_string+RETURN_LINE+_conf.joinPages());
-        }
         int firstPrintChar_ = i_;
         int lastPrintChar_ = len_ - 1;
         while (lastPrintChar_ >= 0) {
@@ -1766,11 +1761,9 @@ public final class ElResolver {
                 continue;
             }
             if (curChar_ == DOT_VAR) {
-                if (i_ < len_) {
-                    if (isNumber(i_ + 1, len_, _string)) {
-                        i_ = processNb(i_ + 1, len_, firstPrintChar_, _string, true);
-                        continue;
-                    }
+                if (isNumber(i_ + 1, len_, _string)) {
+                    i_ = processNb(i_ + 1, len_, firstPrintChar_, _string, true);
+                    continue;
                 }
             }
             if (StringList.isWordChar(curChar_)) {
@@ -2064,7 +2057,7 @@ public final class ElResolver {
                         i_++;
                         continue;
                     }
-                    if (nbDots_ == 0) {
+                    if (nbDots_ == 0 && !exp_) {
                         return false;
                     }
                     i_++;

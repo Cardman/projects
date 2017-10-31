@@ -386,6 +386,10 @@ public final class ConstantOperation extends OperationNode implements SettableEl
         }
         if (fieldId != null) {
             Classes classes_ = _conf.getClasses();
+            Argument arg_ = _previous;
+            if (resultCanBeSet()) {
+                return arg_;
+            }
             if (fieldMetaInfo.isStaticField()) {
                 String className_ = fieldId.getClassName();
                 if (!_conf.getClasses().isInitialized(className_)) {
@@ -400,7 +404,6 @@ public final class ConstantOperation extends OperationNode implements SettableEl
                 a_.setStruct(struct_);
                 return a_;
             }
-            Argument arg_ = _previous;
             if (arg_.isNull()) {
                 throw new NullObjectException(_conf.joinPages());
             }
@@ -430,6 +433,9 @@ public final class ConstantOperation extends OperationNode implements SettableEl
             return a_;
         }
         if (str_.endsWith(GET_LOC_VAR)) {
+            if (resultCanBeSet()) {
+                return Argument.createVoid();
+            }
             String key_ = str_.substring(CustList.FIRST_INDEX, str_.length() - GET_LOC_VAR.length());
             LocalVariable locVar_ = ip_.getLocalVars().getVal(key_);
             a_ = new Argument();
@@ -459,6 +465,9 @@ public final class ConstantOperation extends OperationNode implements SettableEl
             a_ = new Argument();
             a_.setStruct(new Struct(Array.getLength(arg_.getObject())));
             return a_;
+        }
+        if (resultCanBeSet()) {
+            return arg_;
         }
         Object obj_ = arg_.getObject();
         if (!Modifier.isStatic(field.getModifiers()) && obj_ == null) {
@@ -500,10 +509,10 @@ public final class ConstantOperation extends OperationNode implements SettableEl
             locVar_.setStruct(res_.getStruct());
             return res_;
         }
+        Argument argument_ = _argument;
         Argument right_ = ip_.getRightArgument();
         Argument left_ = new Argument();
         Argument res_;
-        Argument previous_ = _previous;
         if (fieldId != null) {
             Classes classes_ = _conf.getClasses();
             if (PrimitiveTypeUtil.primitiveTypeNullObject(fieldMetaInfo.getType(), right_.getStruct())) {
@@ -513,33 +522,33 @@ public final class ConstantOperation extends OperationNode implements SettableEl
             if (fieldMetaInfo.isStaticField()) {
                 structField_ = classes_.getStaticField(fieldId);
             } else {
-                if (previous_.isNull()) {
+                if (argument_.isNull()) {
                     throw new NullObjectException(_conf.joinPages());
                 }
-                String argClassName_ = previous_.getObjectClassName();
+                String argClassName_ = argument_.getObjectClassName();
                 String classNameFound_ = fieldId.getClassName();
                 String base_ = StringList.getAllTypes(argClassName_).first();
                 if (!PrimitiveTypeUtil.canBeUseAsArgument(classNameFound_, base_, classes_)) {
                     throw new DynamicCastClassException(base_+RETURN_LINE+classNameFound_+RETURN_LINE+_conf.joinPages());
                 }
-                structField_ = previous_.getStruct().getStruct(fieldId, field);
+                structField_ = argument_.getStruct().getStruct(fieldId, field);
             }
             left_.setStruct(structField_);
             res_ = NumericOperation.calculateAffect(left_, _conf, right_, _op);
             if (fieldMetaInfo.isStaticField()) {
                 classes_.initializeStaticField(fieldId, res_.getStruct());
             } else {
-                previous_.getStruct().setStruct(fieldId, res_.getStruct());
+                argument_.getStruct().setStruct(fieldId, res_.getStruct());
             }
-            Argument a_ = _argument;
+            Argument a_ = res_;
             return a_;
         }
         if (!Modifier.isStatic(field.getModifiers())) {
-            if (previous_.isNull()) {
+            if (argument_.isNull()) {
                 throw new NullObjectException(_conf.joinPages());
             }
         }
-        Object obj_ = previous_.getStruct().getInstance();
+        Object obj_ = argument_.getStruct().getInstance();
         Object field_ = ConverterMethod.getField(field, obj_);
         if (field_ == null) {
             left_.setStruct(new Struct());
@@ -551,7 +560,7 @@ public final class ConstantOperation extends OperationNode implements SettableEl
         }
         res_ = NumericOperation.calculateAffect(left_, _conf, right_, _op);
         ConverterMethod.setField(field, obj_, res_.getObject());
-        Argument a_ = _argument;
+        Argument a_ = res_;
         return a_;
     }
     private void analyzeCalculate(ContextEl _cont) {
