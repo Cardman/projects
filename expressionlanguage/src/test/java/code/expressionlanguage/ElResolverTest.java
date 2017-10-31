@@ -4,9 +4,7 @@ import static code.expressionlanguage.EquallableElUtil.assertEq;
 import org.junit.Test;
 
 import code.expressionlanguage.classes.BeanOne;
-import code.expressionlanguage.exceptions.BadComparisonException;
 import code.expressionlanguage.exceptions.BadExpressionLanguageException;
-import code.expressionlanguage.exceptions.BadNumberArgumentException;
 import code.util.NatTreeMap;
 
 @SuppressWarnings("static-method")
@@ -2770,75 +2768,6 @@ public class ElResolverTest {
         assertEq("-.1e-2d", values_.getVal(0));
         assertEq(ElResolver.CONST_PRIO, seq_.getPriority());
     }
-
-    @Test(expected=BadComparisonException.class)
-    public void getOperationsSequence1FailTest() {
-        ContextEl conf_ = new ContextEl();
-        addImportingPage(conf_, false);
-        BeanOne b_ = new BeanOne();
-        addBean(conf_, b_);
-        String el_ = "field!=anotherfield!=anotherfield";
-        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
-        ElResolver.getOperationsSequence(0, el_, conf_, d_);
-    }
-
-    @Test(expected=BadComparisonException.class)
-    public void getOperationsSequence2FailTest() {
-        ContextEl conf_ = new ContextEl();
-        addImportingPage(conf_, false);
-        BeanOne b_ = new BeanOne();
-        addBean(conf_, b_);
-        String el_ = "field<anotherfield<anotherfield";
-        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
-        ElResolver.getOperationsSequence(0, el_, conf_, d_);
-    }
-
-    @Test(expected=BadNumberArgumentException.class)
-    public void getOperationsSequence3FailTest() {
-        ContextEl conf_ = new ContextEl();
-        addImportingPage(conf_, false);
-        BeanOne b_ = new BeanOne();
-        addBean(conf_, b_);
-        String el_ = "(a,b)";
-        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
-        ElResolver.getOperationsSequence(0, el_, conf_, d_);
-    }
-
-//    @Test(expected=BadExpressionLanguageException.class)
-//    public void getPriority1FailTest() {
-//        String el_ = "6*('\\u9gcb'+8)";
-//        ElResolver.getPriority(el_);
-//    }
-//
-//    @Test(expected=BadExpressionLanguageException.class)
-//    public void getPriority2FailTest() {
-//        String el_ = "6*('\\g'+8)";
-//        ElResolver.getPriority(el_);
-//    }
-//
-//    @Test(expected=BadExpressionLanguageException.class)
-//    public void getPriority3FailTest() {
-//        String el_ = "6*('ab'+8)";
-//        ElResolver.getPriority(el_);
-//    }
-//
-//    @Test(expected=BadExpressionLanguageException.class)
-//    public void getPriority4FailTest() {
-//        String el_ = "6*('a'+[8)]";
-//        ElResolver.getPriority(el_);
-//    }
-//
-//    @Test(expected=BadExpressionLanguageException.class)
-//    public void getPriority5FailTest() {
-//        String el_ = "6*['a'+(8])";
-//        ElResolver.getPriority(el_);
-//    }
-//
-//    @Test(expected=BadExpressionLanguageException.class)
-//    public void getPriority6FailTest() {
-//        String el_ = "6?*('a'+[8])";
-//        ElResolver.getPriority(el_);
-//    }
 
     @Test
     public void checkSyntaxDelimiters1Test() {

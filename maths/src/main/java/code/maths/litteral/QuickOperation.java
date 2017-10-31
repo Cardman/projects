@@ -13,7 +13,7 @@ public abstract class QuickOperation extends PrimitiveBoolOperation {
 
     @Override
     void analyze(CustList<OperationNode> _nodes, StringMap<String> _conf) {
-        CustList<OperationNode> chidren_ = getChildrenAmong(_nodes, true);
+        CustList<OperationNode> chidren_ = getChildrenNodes();
         for (OperationNode o: chidren_) {
             if (o.getResultClass() != MathType.BOOLEAN) {
                 throw new NotBooleanException(String.valueOf(o.getIndexInEl()));
@@ -24,7 +24,7 @@ public abstract class QuickOperation extends PrimitiveBoolOperation {
 
     @Override
     void calculate(CustList<OperationNode> _nodes, StringMap<String> _conf) {
-        CustList<OperationNode> chidren_ = getChildrenAmong(_nodes, false);
+        CustList<OperationNode> chidren_ = getChildrenNodes();
         setArgument(chidren_.last().getArgument());
         setNextSiblingsArg(chidren_.last().getArgument());
     }

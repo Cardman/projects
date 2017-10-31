@@ -25,7 +25,7 @@ public final class FctOperation extends InvokingOperation {
 
     @Override
     void analyze(CustList<OperationNode> _nodes, StringMap<String> _conf) {
-        CustList<OperationNode> chidren_ = getChildrenAmong(_nodes, true);
+        CustList<OperationNode> chidren_ = getChildrenNodes();
         if (StringList.quickEq(methodName,PUIS)) {
             if (chidren_.size() != 2) {
                 throw new BadNumberArgumentException(String.valueOf(getIndexInEl()));
@@ -421,7 +421,7 @@ public final class FctOperation extends InvokingOperation {
     }
     @Override
     void calculate(CustList<OperationNode> _nodes, StringMap<String> _conf) {
-        CustList<OperationNode> chidren_ = getChildrenAmong(_nodes, false);
+        CustList<OperationNode> chidren_ = getChildrenNodes();
         if (StringList.quickEq(methodName,PUIS)) {
             Rate base_=(Rate) chidren_.first().getArgument().getObject();
             Rate exposant_=(Rate) chidren_.last().getArgument().getObject();

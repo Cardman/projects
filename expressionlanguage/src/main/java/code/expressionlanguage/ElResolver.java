@@ -1,7 +1,5 @@
 package code.expressionlanguage;
-import code.expressionlanguage.exceptions.BadComparisonException;
 import code.expressionlanguage.exceptions.BadExpressionLanguageException;
-import code.expressionlanguage.exceptions.BadNumberArgumentException;
 import code.util.CustList;
 import code.util.NatTreeMap;
 import code.util.StringList;
@@ -1579,6 +1577,14 @@ public final class ElResolver {
             }
             i_++;
         }
+        if (i_ >= len_) {
+            OperationsSequence op_ = new OperationsSequence();
+            op_.setOperators(new NatTreeMap<Integer, String>());
+            op_.setupValues(_string);
+            op_.addOffset(_offset);
+            op_.setDelimiter(_d);
+            return op_;
+        }
         int firstPrintChar_ = i_;
         int lastPrintChar_ = len_ - 1;
         while (lastPrintChar_ >= 0) {
@@ -1895,22 +1901,22 @@ public final class ElResolver {
             }
             i_++;
         }
-        if (prio_ == CMP_PRIO) {
-            if (operators_.size() != CustList.ONE_ELEMENT) {
-                if (operators_.size() > CustList.ONE_ELEMENT) {
-                    _conf.getLastPage().setOffset(_d.getIndexBegin()+_offset+operators_.getKey(CustList.SECOND_INDEX));
-                }
-                throw new BadComparisonException(_string+RETURN_LINE+_conf.joinPages());
-            }
-        }
-        if (prio_ == EQ_PRIO) {
-            if (operators_.size() != CustList.ONE_ELEMENT) {
-                if (operators_.size() > CustList.ONE_ELEMENT) {
-                    _conf.getLastPage().setOffset(_d.getIndexBegin()+_offset+operators_.getKey(CustList.SECOND_INDEX));
-                }
-                throw new BadComparisonException(_string+RETURN_LINE+_conf.joinPages());
-            }
-        }
+//        if (prio_ == CMP_PRIO) {
+//            if (operators_.size() != CustList.ONE_ELEMENT) {
+//                if (operators_.size() > CustList.ONE_ELEMENT) {
+//                    _conf.getLastPage().setOffset(_d.getIndexBegin()+_offset+operators_.getKey(CustList.SECOND_INDEX));
+//                }
+//                throw new BadComparisonException(_string+RETURN_LINE+_conf.joinPages());
+//            }
+//        }
+//        if (prio_ == EQ_PRIO) {
+//            if (operators_.size() != CustList.ONE_ELEMENT) {
+//                if (operators_.size() > CustList.ONE_ELEMENT) {
+//                    _conf.getLastPage().setOffset(_d.getIndexBegin()+_offset+operators_.getKey(CustList.SECOND_INDEX));
+//                }
+//                throw new BadComparisonException(_string+RETURN_LINE+_conf.joinPages());
+//            }
+//        }
         if (!suffixVar_.toString().isEmpty()) {
             if (prio_ == DOT_PRIO) {
                 if (!onlySpacesTo(_string, minIndexDot_-1, len_, ARR_LEFT)) {
@@ -1987,10 +1993,10 @@ public final class ElResolver {
                 }
                 newOperators_.put(end_, String.valueOf(usedEnder_));
                 String fctName_ = _string.substring(CustList.FIRST_INDEX, _string.indexOf(usedCaller_));
-                if (fctName_.trim().isEmpty() && newOperators_.size() > 2) {
-                    _conf.getLastPage().setOffset(_d.getIndexBegin()+_offset+newOperators_.getKey(CustList.SECOND_INDEX));
-                    throw new BadNumberArgumentException(_string+RETURN_LINE+_conf.joinPages());
-                }
+//                if (fctName_.trim().isEmpty() && newOperators_.size() > 2) {
+//                    _conf.getLastPage().setOffset(_d.getIndexBegin()+_offset+newOperators_.getKey(CustList.SECOND_INDEX));
+//                    throw new BadNumberArgumentException(_string+RETURN_LINE+_conf.joinPages());
+//                }
                 op_.setFctName(fctName_);
                 op_.setUseFct(true);
                 op_.setOperators(newOperators_);

@@ -1,5 +1,6 @@
 package code.maths.litteral;
 import code.maths.Rate;
+import code.maths.litteral.exceptions.BadMathExpressionException;
 import code.maths.litteral.exceptions.NotComparableException;
 import code.util.CustList;
 import code.util.NatTreeMap;
@@ -28,7 +29,10 @@ public final class CmpOperation extends PrimitiveBoolOperation {
     }
     @Override
     void analyze(CustList<OperationNode> _nodes, StringMap<String> _conf) {
-        CustList<OperationNode> chidren_ = getChildrenAmong(_nodes, true);
+        CustList<OperationNode> chidren_ = getChildrenNodes();
+        if (chidren_.size() != 2) {
+            throw new BadMathExpressionException();
+        }
         MathType first_ = chidren_.first().getResultClass();
         MathType second_ = chidren_.last().getResultClass();
         if (first_ == MathType.RATE && second_ == MathType.RATE) {
@@ -39,7 +43,7 @@ public final class CmpOperation extends PrimitiveBoolOperation {
     }
     @Override
     void calculate(CustList<OperationNode> _nodes, StringMap<String> _conf) {
-        CustList<OperationNode> chidren_ = getChildrenAmong(_nodes, false);
+        CustList<OperationNode> chidren_ = getChildrenNodes();
         Argument first_ = chidren_.first().getArgument();
         Argument second_ = chidren_.last().getArgument();
         boolean complement_ = false;

@@ -17,12 +17,10 @@ public abstract class MethodOperation extends OperationNode {
         calculateChildren();
     }
 
-    CustList<OperationNode> getChildrenAmong(CustList<OperationNode> _nodes, boolean _analayze) {
+    final CustList<OperationNode> getChildrenNodes() {
         CustList<OperationNode> chidren_ = new CustList<OperationNode>();
-        for (OperationNode o: _nodes) {
-            if (o.getParent() == this) {
-                chidren_.add(o);
-            }
+        for (OperationNode o: MathUtil.getDirectChildren(this)) {
+            chidren_.add(o);
         }
         return chidren_;
     }
@@ -30,12 +28,12 @@ public abstract class MethodOperation extends OperationNode {
     abstract void calculateChildren();
 
     @Override
-    boolean isFirstChild() {
+    final boolean isFirstChild() {
         return getIndexChild() == CustList.FIRST_INDEX;
     }
 
     @Override
-    public OperationNode getFirstChild() {
+    public final OperationNode getFirstChild() {
         if (initializedFirstChild) {
             return firstChild;
         }

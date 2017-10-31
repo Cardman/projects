@@ -48,7 +48,7 @@ public abstract class NumericOperation extends MethodOperation {
 
     @Override
     void analyze(CustList<OperationNode> _nodes, StringMap<String> _conf) {
-        CustList<OperationNode> chidren_ = getChildrenAmong(_nodes, true);
+        CustList<OperationNode> chidren_ = getChildrenNodes();
         MathType a_ = chidren_.first().getResultClass();
         MathType r_;
         int i_ = CustList.SECOND_INDEX;
@@ -66,7 +66,7 @@ public abstract class NumericOperation extends MethodOperation {
 
     @Override
     void calculate(CustList<OperationNode> _nodes, StringMap<String> _conf) {
-        CustList<OperationNode> chidren_ = getChildrenAmong(_nodes, false);
+        CustList<OperationNode> chidren_ = getChildrenNodes();
         Argument a_ = chidren_.first().getArgument();
         Argument r_;
         int i_ = CustList.SECOND_INDEX;

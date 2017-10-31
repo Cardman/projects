@@ -317,6 +317,14 @@ public final class MathResolver {
             }
             i_++;
         }
+        if (i_ >= len_) {
+            OperationsSequence op_ = new OperationsSequence();
+            op_.setOperators(new NatTreeMap<Integer, String>());
+            op_.setupValues(_string);
+            op_.addOffset(_offset);
+            op_.setDelimiter(_d);
+            return op_;
+        }
         int firstPrintChar_ = i_;
         int lastPrintChar_ = len_ - 1;
         while (lastPrintChar_ >= 0) {
@@ -504,16 +512,16 @@ public final class MathResolver {
             }
             i_++;
         }
-        if (prio_ == CMP_PRIO) {
-            if (operators_.size() != CustList.ONE_ELEMENT) {
-                throw new BadMathExpressionException(_string);
-            }
-        }
-        if (prio_ == EQ_PRIO) {
-            if (operators_.size() != CustList.ONE_ELEMENT) {
-                throw new BadMathExpressionException(_string);
-            }
-        }
+//        if (prio_ == CMP_PRIO) {
+//            if (operators_.size() != CustList.ONE_ELEMENT) {
+//                throw new BadMathExpressionException(_string);
+//            }
+//        }
+//        if (prio_ == EQ_PRIO) {
+//            if (operators_.size() != CustList.ONE_ELEMENT) {
+//                throw new BadMathExpressionException(_string);
+//            }
+//        }
         OperationsSequence op_ = new OperationsSequence();
         op_.setPriority(prio_);
         op_.setOperators(operators_);
@@ -559,10 +567,10 @@ public final class MathResolver {
                 }
                 newOperators_.put(end_, String.valueOf(usedEnder_));
                 String fctName_ = _string.substring(CustList.FIRST_INDEX, _string.indexOf(usedCaller_));
-                if (fctName_.trim().isEmpty() && newOperators_.size() > 2) {
-                    throw new BadMathExpressionException(_string);
-                }
-                op_.setFctName(_string.substring(CustList.FIRST_INDEX, _string.indexOf(usedCaller_)));
+//                if (fctName_.trim().isEmpty() && newOperators_.size() > 2) {
+//                    throw new BadMathExpressionException(_string);
+//                }
+                op_.setFctName(fctName_);
                 op_.setUseFct(true);
                 op_.setOperators(newOperators_);
             }
@@ -599,10 +607,10 @@ public final class MathResolver {
                 return false;
             }
             i_++;
-            if (i_ <= _to) {
-                if (!Character.isDigit(_string.charAt(i_))) {
-                    return false;
-                }
+        }
+        if (i_ <= _to) {
+            if (!Character.isDigit(_string.charAt(i_))) {
+                return false;
             }
         }
         int nbDots_ = 0;

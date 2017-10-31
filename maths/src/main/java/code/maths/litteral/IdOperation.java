@@ -1,4 +1,5 @@
 package code.maths.litteral;
+import code.maths.litteral.exceptions.BadMathExpressionException;
 import code.util.CustList;
 import code.util.NatTreeMap;
 import code.util.StringMap;
@@ -12,13 +13,16 @@ public final class IdOperation extends MethodOperation {
 
     @Override
     void analyze(CustList<OperationNode> _nodes, StringMap<String> _conf) {
-        CustList<OperationNode> chidren_ = getChildrenAmong(_nodes, true);
+        CustList<OperationNode> chidren_ = getChildrenNodes();
+        if (chidren_.size() != 1) {
+            throw new BadMathExpressionException();
+        }
         setResultClass(chidren_.first().getResultClass());
     }
 
     @Override
     void calculate(CustList<OperationNode> _nodes, StringMap<String> _conf) {
-        CustList<OperationNode> chidren_ = getChildrenAmong(_nodes, false);
+        CustList<OperationNode> chidren_ = getChildrenNodes();
         setArgument(chidren_.first().getArgument());
         setNextSiblingsArg(chidren_.first().getArgument());
     }

@@ -31,8 +31,10 @@ import code.expressionlanguage.classes.MyImpl;
 import code.expressionlanguage.classes.StrangeInit;
 import code.expressionlanguage.exceptions.AbstractClassConstructorException;
 import code.expressionlanguage.exceptions.BadExpressionLanguageException;
+import code.expressionlanguage.exceptions.BadNumberValuesException;
 import code.expressionlanguage.exceptions.DynamicArrayStoreException;
 import code.expressionlanguage.exceptions.DynamicCastClassException;
+import code.expressionlanguage.exceptions.EmptyPartException;
 import code.expressionlanguage.exceptions.ErrorCausingException;
 import code.expressionlanguage.exceptions.FinalMemberException;
 import code.expressionlanguage.exceptions.IllegalClassConstructorException;
@@ -2109,7 +2111,7 @@ public class ElUtilTest {
         String el_ = "varArgsParam(^firstopt(6),\"6\")";
         ElUtil.processEl(el_, 0, context_);
     }
-
+    
     @Test(expected=BadExpressionLanguageException.class)
     public void processEl30FailTest() {
         ContextEl context_ = new ContextEl();
@@ -2121,6 +2123,49 @@ public class ElUtilTest {
         addBean(context_, composite_);
         String el_ = "";
         ElUtil.processEl(el_, 0, context_);
+    }
+
+    @Test(expected=EmptyPartException.class)
+    public void processEl31FailTest() {
+        ContextEl context_ = new ContextEl();
+        setupAccessValue(context_);
+        addImportingPage(context_);
+        Composite composite_ = new Composite();
+        composite_.setInteger(6);
+        composite_.setPrivateInt(5);
+        addBean(context_, composite_);
+        String el_ = "get(,)";
+        ElUtil.processEl(el_, 0, context_);
+    }
+
+    @Test(expected=BadNumberValuesException.class)
+    public void processEl32FailTest() {
+        ContextEl conf_ = new ContextEl();
+        addImportingPage(conf_);
+        BeanOne b_ = new BeanOne();
+        addBean(conf_, b_);
+        String el_ = "1!=2!=3";
+        ElUtil.processEl(el_, 0, conf_);
+    }
+
+    @Test(expected=BadNumberValuesException.class)
+    public void processEl33FailTest() {
+        ContextEl conf_ = new ContextEl();
+        addImportingPage(conf_);
+        BeanOne b_ = new BeanOne();
+        addBean(conf_, b_);
+        String el_ = "1<2<3";
+        ElUtil.processEl(el_, 0, conf_);
+    }
+
+    @Test(expected=BadNumberValuesException.class)
+    public void processEl34FailTest() {
+        ContextEl conf_ = new ContextEl();
+        addImportingPage(conf_);
+        BeanOne b_ = new BeanOne();
+        addBean(conf_, b_);
+        String el_ = "(3,4)";
+        ElUtil.processEl(el_, 0, conf_);
     }
 
     @Test
