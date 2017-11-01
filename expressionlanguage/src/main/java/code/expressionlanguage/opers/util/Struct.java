@@ -17,36 +17,28 @@ public final class Struct {
 
     private final Struct parent;
 
-    private Boolean nativeObject;
-
     public Struct() {
         this(null, (String)null);
-        nativeObject = null;
     }
     public Struct(Object _instance) {
         this(_instance, NativeTypeUtil.getPrettyType(_instance.getClass()));
-        nativeObject = true; 
     }
 
     public Struct(Object _instance, Struct _parent) {
         this(_instance, NativeTypeUtil.getPrettyType(_instance.getClass()), new ObjectMap<ClassField,Struct>(), _parent);
-        nativeObject = true;
     }
 
     public Struct(Object _instance, String _className) {
         this(_instance, _className, new ObjectMap<ClassField,Struct>());
-        nativeObject = false;
     }
 
     public Struct(Object _instance, String _className, boolean _nativeObject) {
         this(_instance, _className, new ObjectMap<ClassField,Struct>());
-        nativeObject = _nativeObject;
     }
 
     public Struct(Object _instance, String _className,
             ObjectMap<ClassField,Struct> _fields) {
         this(_instance, _className, _fields, null);
-        nativeObject = false;
     }
 
     public Struct(Object _instance, String _className,
@@ -55,7 +47,6 @@ public final class Struct {
         instance = _instance;
         fields = _fields;
         parent = _parent;
-        nativeObject = false;
     }
 
     public static Struct wrapOrId(Object _element) {
@@ -71,10 +62,6 @@ public final class Struct {
 
     public boolean sameReference(Struct _other) {
         return instance == _other.instance;
-    }
-
-    public Boolean isNativeObject() {
-        return nativeObject;
     }
 
     public Struct getStruct(Field _field) {

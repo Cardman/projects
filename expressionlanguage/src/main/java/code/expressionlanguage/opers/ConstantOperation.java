@@ -537,12 +537,8 @@ public final class ConstantOperation extends OperationNode implements SettableEl
                     throw new DynamicCastClassException(base_+RETURN_LINE+classNameFound_+RETURN_LINE+_conf.joinPages());
                 }
                 structField_ = argument_.getStruct().getStruct(fieldId, field);
-            }
-            if (argument_ != null) {
                 if (staticChoiceField) {
                     if (!staticChoiceFieldTemplate) {
-                        String argClassName_ = argument_.getObjectClassName();
-                        String classNameFound_ = fieldId.getClassName();
                         classNameFound_ = StringList.getAllTypes(classNameFound_).first();
                         classNameFound_ = Templates.getFullTypeByBases(argClassName_, classNameFound_, classes_);
                         String type_ = fieldMetaInfo.getRealType();

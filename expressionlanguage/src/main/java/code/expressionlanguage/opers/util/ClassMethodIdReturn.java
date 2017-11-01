@@ -1,9 +1,13 @@
 package code.expressionlanguage.opers.util;
 
+import code.expressionlanguage.methods.MethodBlock;
+
 public final class ClassMethodIdReturn {
 
     private ClassMethodId id;
+    private MethodBlock method;
     private MethodId realId;
+    private String realClass;
 
     private String returnType;
 
@@ -19,12 +23,28 @@ public final class ClassMethodIdReturn {
         id = _id;
     }
 
+    public MethodBlock getMethod() {
+        return method;
+    }
+
+    public void setMethod(MethodBlock _method) {
+        method = _method;
+    }
+
     public MethodId getRealId() {
         return realId;
     }
 
     public void setRealId(MethodId _realId) {
         realId = _realId;
+    }
+
+    public String getRealClass() {
+        return realClass;
+    }
+
+    public void setRealClass(String _realClass) {
+        realClass = _realClass;
     }
 
     public String getReturnType() {

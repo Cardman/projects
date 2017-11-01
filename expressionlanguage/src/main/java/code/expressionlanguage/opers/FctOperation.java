@@ -75,6 +75,8 @@ public final class FctOperation extends InvokingOperation {
 
     private ClassMethodId classMethodId;
     private MethodId realId;
+    private String realClass;
+    private MethodBlock methodBlock;
 
     private boolean staticMethod;
 
@@ -444,19 +446,11 @@ public final class FctOperation extends InvokingOperation {
             interfaceChoice = classes_.getClassBody(baseClass_) instanceof InterfaceBlock;
         }
         ClassMethodIdReturn clMeth_ = getDeclaredCustMethod(_failIfError, _conf, staticBlock_, isStaticAccess(), new ClassArgumentMatching(clCurName_), trimMeth_, superClassAccess_, ClassArgumentMatching.toArgArray(firstArgs_));
-        MethodId methodId_ = clMeth_.getId().getConstraints();
-        String foundClass_ = clMeth_.getId().getClassName();
         classMethodId = clMeth_.getId();
         realId = clMeth_.getRealId();
-        CustList<MethodBlock> methods_ = classes_.getMethodBodiesByFormattedId(foundClass_, methodId_);
-        MethodBlock m_;
-        if (!methods_.isEmpty()) {
-            m_ = methods_.first();
-        } else {
-            String baseFoundClass_ = StringList.getAllTypes(foundClass_).first();
-            String className_ = classes_.getClassBody(baseFoundClass_).getDefaultMethodIds().getVal(realId);
-            m_ = classes_.getMethodBodiesByFormattedId(className_, realId).first();
-        }
+        realClass = clMeth_.getRealClass();
+        MethodBlock m_ = clMeth_.getMethod();
+        methodBlock = m_;
         String curClassBase_ = null;
         if (glClass_ != null) {
             curClassBase_ = StringList.getAllTypes(glClass_).first();
@@ -698,8 +692,7 @@ public final class FctOperation extends InvokingOperation {
                     if (!superAccessMethod) {
                         String argClassName_ = arg_.getObjectClassName();
                         if (staticChoiceMethodTemplate) {
-                            String glClass_ = _conf.getLastPage().getGlobalClass();
-                            classNameFound_ = Templates.format(glClass_, classNameFound_, classes_);
+                            classNameFound_ = Templates.format(argClassName_, classNameFound_, classes_);
                             Mapping map_ = new Mapping();
                             map_.setArg(argClassName_);
                             map_.setParam(classNameFound_);
@@ -707,7 +700,7 @@ public final class FctOperation extends InvokingOperation {
                                 setRelativeOffsetPossibleLastPage(chidren_.last().getIndexInEl(), _conf);
                                 throw new DynamicCastClassException(argClassName_+RETURN_LINE+classNameFound_+RETURN_LINE+_conf.joinPages());
                             }
-                            methodId_ = methodId_.format(classNameFound_, classes_);
+                            methodId_ = realId.format(classNameFound_, classes_);
                         } else {
                             classNameFound_ = StringList.getAllTypes(classNameFound_).first();
                             String baseArgClassName_ = StringList.getAllTypes(argClassName_).first();
@@ -739,7 +732,12 @@ public final class FctOperation extends InvokingOperation {
                     }
                 } else {
                     classNameFound_ = getDynDeclaredCustMethod(_conf, arg_.getObjectClassName(), interfaceChoice, classMethodId);
-                    methodId_ = methodId_.format(classNameFound_, classes_);
+                    MethodId candidate_ = methodId_.format(classNameFound_, classes_);
+                    if (classes_.getMethodBodiesByFormattedId(classNameFound_, candidate_).isEmpty()) {
+                        methodId_ = realId.format(classNameFound_, classes_);
+                    } else {
+                        methodId_ = candidate_;
+                    }
                 }
             } else {
                 ClassMetaInfo custClass_ = null;

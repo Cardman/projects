@@ -8,6 +8,7 @@ public class ClassMethodIdResult {
 
     private ClassMethodId id;
     private MethodId realId;
+    private String realClass;
 
     private Method method;
 
@@ -29,6 +30,14 @@ public class ClassMethodIdResult {
 
     public void setRealId(MethodId _realId) {
         realId = _realId;
+    }
+
+    public String getRealClass() {
+        return realClass;
+    }
+
+    public void setRealClass(String _realClass) {
+        realClass = _realClass;
     }
 
     public Method getMethod() {

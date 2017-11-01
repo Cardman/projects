@@ -1,7 +1,6 @@
 package code.expressionlanguage.methods;
 
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.opers.util.FctConstraints;
 import code.expressionlanguage.opers.util.MethodId;
 import code.util.ObjectMap;
 import code.util.StringList;
@@ -30,6 +29,5 @@ public interface UniqueRootedBlock {
 
     StringList getAllInterfaces();
 
-    ObjectMap<FctConstraints, String> getDefaultMethods();
     ObjectMap<MethodId, String> getDefaultMethodIds();
 }

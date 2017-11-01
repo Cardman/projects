@@ -30,7 +30,6 @@ import code.expressionlanguage.opers.OperationNode;
 import code.expressionlanguage.opers.util.ClassFormattedMethodId;
 import code.expressionlanguage.opers.util.ClassName;
 import code.expressionlanguage.opers.util.ConstructorId;
-import code.expressionlanguage.opers.util.FctConstraints;
 import code.expressionlanguage.opers.util.MethodId;
 import code.expressionlanguage.types.NativeTypeUtil;
 import code.util.CustList;
@@ -56,8 +55,6 @@ public abstract class RootBlock extends BracedBlock implements AccessibleBlock {
     private CustList<TypeVar> paramTypes = new CustList<TypeVar>();
 
     private StringMap<TypeVar> paramTypesMap = new StringMap<TypeVar>();
-
-    private final ObjectMap<FctConstraints, String> defaultMethods = new ObjectMap<FctConstraints, String>();
 
     private final ObjectMap<MethodId, String> defaultMethodids = new ObjectMap<MethodId, String>();
 
@@ -88,9 +85,6 @@ public abstract class RootBlock extends BracedBlock implements AccessibleBlock {
 
     public abstract StringList getAllInterfaces();
 
-    public final ObjectMap<FctConstraints, String> getDefaultMethods() {
-        return defaultMethods;
-    }
     public final ObjectMap<MethodId, String> getDefaultMethodIds() {
         return defaultMethodids;
     }
@@ -964,6 +958,20 @@ public abstract class RootBlock extends BracedBlock implements AccessibleBlock {
         }
         return map_;
     }
+    public final ObjectMap<MethodId, String> getLocalInstanceSignatures(Classes _classes) {
+        ObjectMap<MethodId, String> map_;
+        map_ = new ObjectMap<MethodId, String>();
+        for (Block b: Classes.getDirectChildren(this)) {
+            if (b instanceof MethodBlock) {
+                MethodBlock method_ = (MethodBlock) b;
+                if (method_.isStaticMethod()) {
+                    continue;
+                }
+                map_.put(method_.getId(), getGenericString());
+            }
+        }
+        return map_;
+    }
     public final ObjectMap<MethodId, String> getLocalSignatures(Classes _classes) {
         ObjectMap<MethodId, String> map_;
         map_ = new ObjectMap<MethodId, String>();
@@ -1226,15 +1234,6 @@ public abstract class RootBlock extends BracedBlock implements AccessibleBlock {
     }
     
     protected static void addClass(ObjectMap<MethodId, StringList> _map, MethodId _key, String _class) {
-        if (_map.contains(_key)) {
-            _map.getVal(_key).add(_class);
-            _map.getVal(_key).removeDuplicates();
-        } else {
-            _map.put(_key, new StringList(_class));
-        }
-    }
-
-    protected static void addClassErause(ObjectMap<FctConstraints, StringList> _map, FctConstraints _key, String _class) {
         if (_map.contains(_key)) {
             _map.getVal(_key).add(_class);
             _map.getVal(_key).removeDuplicates();

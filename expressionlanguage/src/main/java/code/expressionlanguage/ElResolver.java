@@ -1515,6 +1515,9 @@ public final class ElResolver {
         if (j_ < len_ && _string.charAt(j_) == DOT_VAR) {
             return -j_;
         }
+        if (j_ < len_ && Character.isLetter(_string.charAt(j_))) {
+            j_++;
+        }
         return j_;
     }
     private static boolean onlySpacesTo(String _string, int _index, int _length, char _end) {
