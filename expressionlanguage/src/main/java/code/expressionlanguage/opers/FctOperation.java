@@ -60,6 +60,7 @@ import code.util.IdMap;
 import code.util.NatTreeMap;
 import code.util.StringList;
 import code.util.StringMap;
+import code.util.comparators.ComparatorIndexes;
 import code.util.exceptions.NullObjectException;
 import code.util.exceptions.RuntimeClassNotFoundException;
 
@@ -75,8 +76,6 @@ public final class FctOperation extends InvokingOperation {
 
     private ClassMethodId classMethodId;
     private MethodId realId;
-    private String realClass;
-    private MethodBlock methodBlock;
 
     private boolean staticMethod;
 
@@ -88,7 +87,7 @@ public final class FctOperation extends InvokingOperation {
 
     private boolean staticChoiceMethod;
     private boolean staticChoiceMethodTemplate;
-    private boolean interfaceChoice;
+
     private boolean superAccessMethod;
 
     private boolean foundBound;
@@ -442,15 +441,10 @@ public final class FctOperation extends InvokingOperation {
             staticChoiceMethod = true;
             superAccessMethod = true;
         }
-        if (superClassAccess_) {
-            interfaceChoice = classes_.getClassBody(baseClass_) instanceof InterfaceBlock;
-        }
         ClassMethodIdReturn clMeth_ = getDeclaredCustMethod(_failIfError, _conf, staticBlock_, isStaticAccess(), new ClassArgumentMatching(clCurName_), trimMeth_, superClassAccess_, ClassArgumentMatching.toArgArray(firstArgs_));
         classMethodId = clMeth_.getId();
         realId = clMeth_.getRealId();
-        realClass = clMeth_.getRealClass();
         MethodBlock m_ = clMeth_.getMethod();
-        methodBlock = m_;
         String curClassBase_ = null;
         if (glClass_ != null) {
             curClassBase_ = StringList.getAllTypes(glClass_).first();
@@ -727,17 +721,52 @@ public final class FctOperation extends InvokingOperation {
                             indexType_++;
                         }
                     } else {
-                        classNameFound_ = Templates.format(arg_.getObjectClassName(), classNameFound_, classes_);
-                        methodId_ = methodId_.format(classNameFound_, classes_);
+                        String argClassName_ = getPreviousResultClass().getName();
+                        argClassName_ = Templates.getGenericString(argClassName_, classes_);
+                        String baseArg_ = StringList.getAllTypes(argClassName_).first();
+                        String classNameFoundLoc_ = classMethodId.getClassName();
+                        String base_ = StringList.getAllTypes(classNameFoundLoc_).first();
+                        classNameFoundLoc_ = Templates.getFullTypeByBases(argClassName_, base_, classes_);
+                        MethodId methodIdLoc_ = realId.format(classNameFoundLoc_, classes_);
+                        RootBlock r_ = classes_.getClassBody(baseArg_);
+                        if (r_.getDefaultMethodIds().contains(methodIdLoc_)) {
+                            String interface_ = r_.getDefaultMethodIds().getVal(methodIdLoc_);
+                            classNameFound_ = Templates.format(classNameFoundLoc_, interface_, classes_);
+                        } else {
+                            classNameFound_ = classNameFoundLoc_;
+                        }
+                        methodId_ = methodIdLoc_;
                     }
                 } else {
-                    classNameFound_ = getDynDeclaredCustMethod(_conf, arg_.getObjectClassName(), interfaceChoice, classMethodId);
-                    MethodId candidate_ = methodId_.format(classNameFound_, classes_);
-                    if (classes_.getMethodBodiesByFormattedId(classNameFound_, candidate_).isEmpty()) {
-                        methodId_ = realId.format(classNameFound_, classes_);
-                    } else {
-                        methodId_ = candidate_;
+                    String argClassName_ = arg_.getObjectClassName();
+                    argClassName_ = Templates.getGenericString(argClassName_, classes_);
+                    String baseArg_ = StringList.getAllTypes(argClassName_).first();
+                    classNameFound_ = classMethodId.getClassName();
+                    String base_ = StringList.getAllTypes(classNameFound_).first();
+                    classNameFound_ = Templates.getFullTypeByBases(argClassName_, base_, classes_);
+                    MethodId methodIdLoc_ = realId.format(classNameFound_, classes_);
+                    RootBlock r_ = classes_.getClassBody(baseArg_);
+                    StringList allBaseClasses_ = new StringList(baseArg_);
+                    allBaseClasses_.addAllElts(r_.getAllSuperClasses());
+                    StringList foundSuperClasses_ = new StringList();
+                    StringList allSuperClasses_ = new StringList(argClassName_);
+                    for (String t: r_.getAllSuperClasses()) {
+                        allSuperClasses_.add(Templates.getFullTypeByBases(argClassName_, t, classes_));
                     }
+                    for (String t: r_.getAllOverridingMethods().getVal(methodIdLoc_)) {
+                        String baseSuperType_ = StringList.getAllTypes(t).first();
+                        if (classes_.getClassBody(baseSuperType_) instanceof InterfaceBlock) {
+                            continue;
+                        }
+                        foundSuperClasses_.add(t);
+                    }
+                    if (foundSuperClasses_.isEmpty()) {
+                        classNameFound_ = r_.getDefaultMethodIds().getVal(methodIdLoc_);
+                    } else {
+                        foundSuperClasses_.sortElts(new ComparatorIndexes<String>(allSuperClasses_));
+                        classNameFound_ = foundSuperClasses_.first();
+                    }
+                    methodId_ = methodIdLoc_;
                 }
             } else {
                 ClassMetaInfo custClass_ = null;

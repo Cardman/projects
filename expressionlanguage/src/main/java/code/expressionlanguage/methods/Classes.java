@@ -1496,6 +1496,19 @@ public final class Classes {
         return null;
     }
 
+    public CustList<MethodBlock> getMethodBodiesById(String _genericClassName, MethodId _id) {
+        CustList<MethodBlock> methods_ = new CustList<MethodBlock>();
+        StringList types_ = StringList.getAllTypes(_genericClassName);
+        String base_ = types_.first();
+        RootBlock r_ = getClassBody(base_);
+        for (MethodBlock m: Classes.getMethodBlocks(r_)) {
+            if (m.getId().eq(_id)) {
+                methods_.add(m);
+                break;
+            }
+        }
+        return methods_;
+    }
     public CustList<MethodBlock> getMethodBodiesByFormattedId(String _genericClassName, MethodId _id) {
         return getMethodBodiesByFormattedId(_genericClassName, _id.getName(), _id.getParametersTypes(), _id.isVararg());
     }

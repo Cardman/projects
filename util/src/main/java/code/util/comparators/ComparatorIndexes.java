@@ -1,13 +1,13 @@
 package code.util.comparators;
 import java.util.Comparator;
 
-import code.util.EnumList;
+import code.util.AbEqList;
 
-public final class ComparatorIndexes<T extends Enum<T>> implements Comparator<T> {
+public final class ComparatorIndexes<T> implements Comparator<T> {
 
-    private EnumList<T> order;
+    private AbEqList<T> order;
 
-    public ComparatorIndexes(EnumList<T> _order) {
+    public ComparatorIndexes(AbEqList<T> _order) {
         order = _order;
     }
 

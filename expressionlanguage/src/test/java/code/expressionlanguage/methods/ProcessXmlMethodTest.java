@@ -7531,7 +7531,7 @@ public class ProcessXmlMethodTest {
         field_ = str_.getFields().getVal(new ClassField("pkgtwo.ExThree", "ance"));
         assertEq(Integer.class.getName(), field_.getRealClassName());
         assertEq(Integer.class.getName(), field_.getClassName());
-        assertEq(5, (Number)field_.getInstance());
+        assertEq(2, (Number)field_.getInstance());
     }
 
     @Test
@@ -7570,7 +7570,7 @@ public class ProcessXmlMethodTest {
         field_ = str_.getFields().getVal(new ClassField("pkgtwo.ExThree", "ance"));
         assertEq(Integer.class.getName(), field_.getRealClassName());
         assertEq(Integer.class.getName(), field_.getClassName());
-        assertEq(5, (Number)field_.getInstance());
+        assertEq(2, (Number)field_.getInstance());
     }
 
     @Test
@@ -8078,7 +8078,7 @@ public class ProcessXmlMethodTest {
         field_ = str_.getFields().getVal(new ClassField("pkgtwo.ExThree", "ance"));
         assertEq(Integer.class.getName(), field_.getRealClassName());
         assertEq(Integer.class.getName(), field_.getClassName());
-        assertEq(5, (Number)field_.getInstance());
+        assertEq(2, (Number)field_.getInstance());
     }
     @Test
     public void instanceArgument56Test() {
