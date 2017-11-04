@@ -121,7 +121,9 @@ public final class EnumBlock extends RootBlock implements UniqueRootedBlock {
     @Override
     public StringList getDirectGenericSuperTypes() {
         StringList superTypes_ = new StringList();
-        superTypes_.add(getSuperClass());
+        if (!StringList.quickEq(getSuperClass(), Object.class.getName())) {
+            superTypes_.add(getSuperClass());
+        }
         superTypes_.addAllElts(directInterfaces);
         return superTypes_;
     }

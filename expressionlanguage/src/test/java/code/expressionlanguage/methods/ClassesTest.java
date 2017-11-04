@@ -7,9 +7,11 @@ import org.junit.Test;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.PrimitiveTypeUtil;
 import code.expressionlanguage.opers.OperationNode;
+import code.expressionlanguage.opers.util.ClassMethodId;
 import code.expressionlanguage.opers.util.ClassName;
 import code.expressionlanguage.opers.util.MethodId;
 import code.util.CustList;
+import code.util.EntryCust;
 import code.util.EqList;
 import code.util.ObjectMap;
 import code.util.StringList;
@@ -471,8 +473,8 @@ public class ClassesTest {
         ContextEl context_ = unfullValidateOverridingMethods(files_);
         Classes classes_ = context_.getClasses();
         InterfaceBlock i_ = (InterfaceBlock) classes_.getClassBody("pkg.ExFour");
-        ObjectMap<MethodId, StringList> sgn_ = i_.getAllInstanceSignatures(classes_);
-        sgn_ = RootBlock.getAllOverridingMethods(sgn_, classes_);
+        ObjectMap<MethodId, StringList> sgn_ = toList(i_.getAllInstanceSignatures(classes_));
+        sgn_ = toList(RootBlock.getAllOverridingMethods(toId(sgn_), classes_));
         assertEq(1, sgn_.size());
         assertEq(new StringList("pkg.ExFour"),sgn_.getVal(new MethodId("absgetter", new EqList<ClassName>())));
     }
@@ -498,10 +500,10 @@ public class ClassesTest {
         ContextEl context_ = unfullValidateOverridingMethods(files_);
         Classes classes_ = context_.getClasses();
         InterfaceBlock i_ = (InterfaceBlock) classes_.getClassBody("pkg.Ex");
-        ObjectMap<MethodId, StringList> sgn_ = i_.getAllInstanceSignatures(classes_);
+        ObjectMap<MethodId, StringList> sgn_ = toList(i_.getAllInstanceSignatures(classes_));
         assertEq(1, sgn_.size());
         assertEq(new StringList("pkg.Ex","pkg.ExFour"),sgn_.getVal(new MethodId("absgetter", new EqList<ClassName>())));
-        sgn_ = RootBlock.getAllOverridingMethods(sgn_, classes_);
+        sgn_ = toList(RootBlock.getAllOverridingMethods(toId(sgn_), classes_));
         assertEq(1, sgn_.size());
         assertEq(new StringList("pkg.Ex"),sgn_.getVal(new MethodId("absgetter", new EqList<ClassName>())));
     }
@@ -529,10 +531,10 @@ public class ClassesTest {
         ContextEl context_ = unfullValidateOverridingMethods(files_);
         Classes classes_ = context_.getClasses();
         InterfaceBlock i_ = (InterfaceBlock) classes_.getClassBody("pkg.Ex");
-        ObjectMap<MethodId, StringList> sgn_ = i_.getAllInstanceSignatures(classes_);
+        ObjectMap<MethodId, StringList> sgn_ = toList(i_.getAllInstanceSignatures(classes_));
         assertEq(1, sgn_.size());
         assertEq(new StringList("pkg.ExTwo","pkg.ExThree"),sgn_.getVal(new MethodId("absgetter", new EqList<ClassName>())));
-        sgn_ = RootBlock.getAllOverridingMethods(sgn_, classes_);
+        sgn_ = toList(RootBlock.getAllOverridingMethods(toId(sgn_), classes_));
         assertEq(1, sgn_.size());
         assertEq(new StringList("pkg.ExTwo","pkg.ExThree"),sgn_.getVal(new MethodId("absgetter", new EqList<ClassName>())));
     }
@@ -559,5 +561,29 @@ public class ClassesTest {
         classes_.validateSingleParameterizedClasses(cont_);
         assertTrue(classes_.getErrorsDet().toString(), classes_.getErrorsDet().isEmpty());
         return cont_;
+    }
+
+    private ObjectMap<MethodId, StringList> toList(ObjectMap<MethodId, EqList<ClassMethodId>> _m) {
+        ObjectMap<MethodId, StringList> m_ = new ObjectMap<MethodId, StringList>();
+        for (EntryCust<MethodId, EqList<ClassMethodId>> e: _m.entryList()) {
+            StringList l_ = new StringList();
+            for (ClassMethodId c: e.getValue()) {
+                l_.add(c.getClassName());
+            }
+            m_.put(e.getKey(), l_);
+        }
+        return m_;
+    }
+
+    private ObjectMap<MethodId, EqList<ClassMethodId>> toId(ObjectMap<MethodId, StringList> _m) {
+        ObjectMap<MethodId, EqList<ClassMethodId>> m_ = new ObjectMap<MethodId, EqList<ClassMethodId>>();
+        for (EntryCust<MethodId, StringList> e: _m.entryList()) {
+            EqList<ClassMethodId> l_ = new EqList<ClassMethodId>();
+            for (String c: e.getValue()) {
+                l_.add(new ClassMethodId(c, e.getKey()));
+            }
+            m_.put(e.getKey(), l_);
+        }
+        return m_;
     }
 }

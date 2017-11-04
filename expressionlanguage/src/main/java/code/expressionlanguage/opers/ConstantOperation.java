@@ -4,8 +4,10 @@ import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
 
 import code.expressionlanguage.Argument;
+import code.expressionlanguage.ArgumentCall;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.ElResolver;
+import code.expressionlanguage.InitializatingClass;
 import code.expressionlanguage.Mapping;
 import code.expressionlanguage.OperationsSequence;
 import code.expressionlanguage.PageEl;
@@ -322,7 +324,12 @@ public final class ConstantOperation extends OperationNode implements SettableEl
 
     Argument calculateArgument(IdMap<OperationNode, ArgumentsPair> _nodes,
             ContextEl _conf, String _op) {
-        Argument arg_ = getCommonArgument(false, _nodes.getVal(this).getArgument(), _nodes.getVal(this).getPreviousArgument(), _conf, _op);
+        Argument previous_ = _nodes.getVal(this).getPreviousArgument();
+        ArgumentCall argres_ = getCommonArgument(_nodes.getVal(this).getArgument(), previous_, _conf, _op);
+        if (argres_.isInitClass()) {
+            throw new NotInitializedClassException(argres_.getInitClass().getClassName());
+        }
+        Argument arg_ = argres_.getArgument();
         setSimpleArgument(arg_, _conf, _nodes);
         return arg_;
     }
@@ -330,7 +337,8 @@ public final class ConstantOperation extends OperationNode implements SettableEl
     public Argument calculateSetting(
             IdMap<OperationNode, ArgumentsPair> _nodes, ContextEl _conf,
             String _op) {
-        Argument arg_ = getCommonSetting(true,  _nodes.getVal(this).getArgument(), _nodes.getVal(this).getPreviousArgument(), _conf, _op);
+        Argument previous_ = _nodes.getVal(this).getPreviousArgument();
+        Argument arg_ = getCommonSetting(_nodes.getVal(this).getArgument(), previous_, _conf, _op);
         setSimpleArgument(arg_, _conf, _nodes);
         return arg_;
     }
@@ -346,7 +354,16 @@ public final class ConstantOperation extends OperationNode implements SettableEl
 
     void calculateArgument(CustList<OperationNode> _nodes, ContextEl _conf,
             String _op) {
-        Argument arg_ = getCommonArgument(true, getArgument(), getPreviousArgument(), _conf, _op);
+        Argument previous_ = getPreviousArgument();
+        ArgumentCall argres_ = getCommonArgument(getArgument(), previous_, _conf, _op);
+        if (argres_.isInitClass()) {
+            ProcessXmlMethod.initializeClass(argres_.getInitClass().getClassName(), _conf);
+            if (isPossibleInitClass()) {
+                return;
+            }
+            argres_ = getCommonArgument(getArgument(), previous_, _conf, _op);
+        }
+        Argument arg_ = argres_.getArgument();
         if (arg_ == null) {
             return;
         }
@@ -356,26 +373,23 @@ public final class ConstantOperation extends OperationNode implements SettableEl
     @Override
     public void calculateSetting(CustList<OperationNode> _nodes,
             ContextEl _conf, String _op) {
-        Argument arg_ = getCommonSetting(true, getArgument(), getPreviousArgument(), _conf, _op);
+        Argument arg_ = getCommonSetting(getArgument(), getPreviousArgument(), _conf, _op);
         setSimpleArgument(arg_, _conf);
     }
 
-    Argument getCommonArgument(boolean _processInit, Argument _argument, Argument _previous, ContextEl _conf,
+    ArgumentCall getCommonArgument(Argument _argument, Argument _previous, ContextEl _conf,
             String _op) {
         if (isPossibleInitClass()) {
             String className_ = getResultClass().getName();
             if (!_conf.getClasses().isInitialized(className_)) {
                 _conf.getClasses().initialize(className_);
-                if (!_processInit) {
-                    throw new NotInitializedClassException(className_);
-                }
-                ProcessXmlMethod.initializeClass(className_, _conf);
-                return null;
+                InitializatingClass inv_ = new InitializatingClass(className_);
+                return ArgumentCall.newCall(inv_);
             }
         }
         Argument cur_ = _argument;
         if (cur_ != null) {
-            return cur_;
+            return ArgumentCall.newArgument(cur_);
         }
         Argument a_ = new Argument();
         String originalStr_ = getOperations().getValues().getValue(CustList.FIRST_INDEX);
@@ -387,27 +401,25 @@ public final class ConstantOperation extends OperationNode implements SettableEl
             Struct struct_ = ip_.getGlobalArgument().getStruct();
             a_ = new Argument();
             a_.setStruct(struct_);
-            return a_;
+            return ArgumentCall.newArgument(a_);
         }
         if (fieldId != null) {
             Classes classes_ = _conf.getClasses();
             Argument arg_ = _previous;
             if (resultCanBeSet()) {
-                return arg_;
+                return ArgumentCall.newArgument(arg_);
             }
             if (fieldMetaInfo.isStaticField()) {
                 String className_ = fieldId.getClassName();
                 if (!_conf.getClasses().isInitialized(className_)) {
                     _conf.getClasses().initialize(className_);
-                    if (!_processInit) {
-                        throw new NotInitializedClassException(className_);
-                    }
-                    ProcessXmlMethod.initializeClass(className_, _conf);
+                    InitializatingClass inv_ = new InitializatingClass(className_);
+                    return ArgumentCall.newCall(inv_);
                 }
                 Struct struct_ = classes_.getStaticField(fieldId);
                 a_ = new Argument();
                 a_.setStruct(struct_);
-                return a_;
+                return ArgumentCall.newArgument(a_);
             }
             if (arg_.isNull()) {
                 throw new NullObjectException(_conf.joinPages());
@@ -421,45 +433,45 @@ public final class ConstantOperation extends OperationNode implements SettableEl
             Struct struct_ = arg_.getStruct().getStruct(fieldId, field);
             a_ = new Argument();
             a_.setStruct(struct_);
-            return a_;
+            return ArgumentCall.newArgument(a_);
         }
         if (str_.endsWith(GET_PARAM)) {
             String key_ = str_.substring(CustList.FIRST_INDEX, str_.length() - GET_PARAM.length());
             LocalVariable locVar_ = ip_.getParameters().getVal(key_);
             a_ = new Argument();
             a_.setStruct(locVar_.getStruct());
-            return a_;
+            return ArgumentCall.newArgument(a_);
         }
         if (str_.endsWith(GET_CATCH_VAR)) {
             String key_ = str_.substring(CustList.FIRST_INDEX, str_.length() - GET_CATCH_VAR.length());
             LocalVariable locVar_ = ip_.getCatchVars().getVal(key_);
             a_ = new Argument();
             a_.setStruct(locVar_.getStruct());
-            return a_;
+            return ArgumentCall.newArgument(a_);
         }
         if (str_.endsWith(GET_LOC_VAR)) {
             if (resultCanBeSet()) {
-                return Argument.createVoid();
+                return ArgumentCall.newArgument(Argument.createVoid());
             }
             String key_ = str_.substring(CustList.FIRST_INDEX, str_.length() - GET_LOC_VAR.length());
             LocalVariable locVar_ = ip_.getLocalVars().getVal(key_);
             a_ = new Argument();
             a_.setStruct(locVar_.getStruct());
-            return a_;
+            return ArgumentCall.newArgument(a_);
         }
         if (str_.endsWith(GET_INDEX)) {
             String key_ = str_.substring(CustList.FIRST_INDEX, str_.length() - GET_INDEX.length());
             LoopVariable locVar_ = ip_.getVars().getVal(key_);
             a_ = new Argument();
             a_.setStruct(new Struct(locVar_.getIndex()));
-            return a_;
+            return ArgumentCall.newArgument(a_);
         }
         if (str_.endsWith(GET_ATTRIBUTE)) {
             String key_ = str_.substring(CustList.FIRST_INDEX, str_.length() - GET_ATTRIBUTE.length());
             LoopVariable locVar_ = ip_.getVars().getVal(key_);
             a_ = new Argument();
             a_.setStruct(locVar_.getStruct());
-            return a_;
+            return ArgumentCall.newArgument(a_);
         }
         ClassArgumentMatching cl_ = getPreviousResultClass();
         Argument arg_ = _previous;
@@ -469,10 +481,10 @@ public final class ConstantOperation extends OperationNode implements SettableEl
             }
             a_ = new Argument();
             a_.setStruct(new Struct(Array.getLength(arg_.getObject())));
-            return a_;
+            return ArgumentCall.newArgument(a_);
         }
         if (resultCanBeSet()) {
-            return arg_;
+            return ArgumentCall.newArgument(arg_);
         }
         Object obj_ = arg_.getObject();
         if (!Modifier.isStatic(field.getModifiers()) && obj_ == null) {
@@ -490,10 +502,10 @@ public final class ConstantOperation extends OperationNode implements SettableEl
         } else {
             a_.setStruct(new Struct(res_));
         }
-        return a_;
+        return ArgumentCall.newArgument(a_);
     }
 
-    Argument getCommonSetting(boolean _processInit, Argument _argument, Argument _previous, ContextEl _conf, String _op) {
+    Argument getCommonSetting(Argument _argument, Argument _previous, ContextEl _conf, String _op) {
         PageEl ip_ = _conf.getLastPage();
 
         String originalStr_ = getOperations().getValues().getValue(CustList.FIRST_INDEX);

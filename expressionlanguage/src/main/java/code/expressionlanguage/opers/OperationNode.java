@@ -740,7 +740,7 @@ public abstract class OperationNode {
             return toFoundMethod(_conf, resStatic_);
         }
         if (!_failIfError) {
-            return new ClassMethodIdReturn();
+            return new ClassMethodIdReturn(false);
         }
         if (resInst_.getStatus() == SearchingMemberStatus.UNIQ) {
             //static access
@@ -757,22 +757,23 @@ public abstract class OperationNode {
     }
     private static ClassMethodIdReturn toFoundMethod(ContextEl _conf, ClassMethodIdResult _res){
         Classes classes_ = _conf.getClasses();
-        ClassMethodIdReturn idRet_ = new ClassMethodIdReturn();
+        ClassMethodIdReturn idRet_ = new ClassMethodIdReturn(true);
         ClassMethodId idCl_ = _res.getId();
         String clCurName_ = idCl_.getClassName();
         MethodId id_ = idCl_.getConstraints();
-        idRet_.setRealId(_res.getRealId());
+        MethodId realId_ = _res.getRealId();
+        idRet_.setRealId(realId_);
         idRet_.setRealClass(_res.getRealClass());
         idRet_.setId(new ClassMethodId(clCurName_, id_));
-        CustList<MethodBlock> methods_ = classes_.getMethodBodiesByFormattedId(clCurName_, id_);
+        CustList<MethodBlock> methods_ = classes_.getMethodBodiesById(clCurName_, realId_);
         MethodBlock m_;
         if (methods_.isEmpty()) {
             String baseClass_ = StringList.getAllTypes(clCurName_).first();
             UniqueRootedBlock u_ = (UniqueRootedBlock) classes_.getClassBody(baseClass_);
-            String int_ = u_.getDefaultMethodIds().getVal(_res.getRealId());
-            int_ = Templates.generalFormat(clCurName_, int_, classes_);
-            id_ = idCl_.getConstraints();
-            m_ = classes_.getMethodBodiesByFormattedId(int_, id_.format(clCurName_, classes_)).first();
+            ClassMethodId def_ = u_.getDefaultMethodIds().getVal(realId_);
+            String int_ = def_.getClassName();
+            id_ = def_.getConstraints();
+            m_ = classes_.getMethodBodiesById(int_, id_).first();
         } else {
             m_ = methods_.first();
         }
@@ -861,26 +862,28 @@ public abstract class OperationNode {
             }
         } else {
             String generic_ = root_.getGenericString();
-            for (EntryCust<MethodId, StringList> e: root_.getAllOverridingMethods().entryList()) {
-                CustList<MethodBlock> methodsLoc_ = classes_.getMethodBodiesByFormattedId(generic_, e.getKey());
+            for (EntryCust<MethodId, EqList<ClassMethodId>> e: root_.getAllOverridingMethods().entryList()) {
+                MethodId id_ = e.getKey();
+                CustList<MethodBlock> methodsLoc_ = classes_.getMethodBodiesById(generic_, id_);
                 if (methodsLoc_.isEmpty()) {
                     continue;
                 }
                 MethodBlock m_ = methodsLoc_.first();
                 String returnType_ = m_.getReturnType();
                 returnType_ = Templates.generalFormat(clCurName_, returnType_, classes_);
-                MethodMetaInfo info_ = new MethodMetaInfo(generic_, MethodModifier.NORMAL, returnType_);
+                MethodMetaInfo info_ = new MethodMetaInfo(generic_, id_, MethodModifier.NORMAL, returnType_);
                 methods_.put(e.getKey(), info_);
             }
         }
         if (!_static) {
-            for (EntryCust<MethodId, String> e: root_.getDefaultMethodIds().entryList()) {
-                String formattedCl_;
-                formattedCl_ = Templates.generalFormat(clCurName_, e.getValue(), classes_);
-                MethodBlock m_ = classes_.getMethodBodiesByFormattedId(formattedCl_, e.getKey().format(clCurName_, classes_)).first();
+            for (EntryCust<MethodId, ClassMethodId> e: root_.getDefaultMethodIds().entryList()) {
+                ClassMethodId idCl_ = e.getValue();
+                String cl_ = idCl_.getClassName();
+                MethodId id_ = idCl_.getConstraints();
+                MethodBlock m_ = classes_.getMethodBodiesById(cl_, id_).first();
                 String ret_ = m_.getReturnType();
                 ret_ = Templates.generalFormat(clCurName_, ret_, classes_);
-                MethodMetaInfo info_ = new MethodMetaInfo(e.getValue(), MethodModifier.NORMAL, ret_);
+                MethodMetaInfo info_ = new MethodMetaInfo(cl_, id_, MethodModifier.NORMAL, ret_);
                 methods_.put(e.getKey(), info_);
             }
         }
@@ -1000,8 +1003,19 @@ public abstract class OperationNode {
     }
     private static EqList<MethodId> filterMeth(String _glClass, String _accessedClass, CustList<MethodId> _found, ContextEl _conf) {
         EqList<MethodId> accessible_ = new EqList<MethodId>();
+        Classes classes_ = _conf.getClasses();
+        String base_ = StringList.getAllTypes(_accessedClass).first();
+        RootBlock root_ = classes_.getClassBody(base_);
         for (MethodId i: _found) {
-            MethodBlock m_ = _conf.getClasses().getMethodBodiesByFormattedId(_accessedClass, i).first();
+            CustList<MethodBlock> methods_ = classes_.getMethodBodiesById(_accessedClass, i);
+            MethodBlock m_;
+            if (methods_.isEmpty()) {
+                ClassMethodId id_ = root_.getDefaultMethodIds().getVal(i);
+                String interface_ = id_.getClassName();
+                m_ = _conf.getClasses().getMethodBodiesById(interface_, id_.getConstraints()).first();
+            } else {
+                m_ = methods_.first();
+            }
             String curClassBase_ = StringList.getAllTypes(_glClass).first();
             if (_conf.getClasses().canAccess(curClassBase_, m_)) {
                 accessible_.add(i);

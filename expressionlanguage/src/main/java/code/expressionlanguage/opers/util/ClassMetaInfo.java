@@ -1,7 +1,4 @@
 package code.expressionlanguage.opers.util;
-import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.methods.Classes;
-import code.expressionlanguage.methods.UniqueRootedBlock;
 import code.util.ObjectNotNullMap;
 import code.util.StringList;
 import code.util.StringMap;
@@ -58,19 +55,6 @@ public final class ClassMetaInfo {
         category = _category;
         abstractType = true;
         finalType = false;
-    }
-
-    public StringList getSuperClasses(ContextEl _cont) {
-        StringList list_ = new StringList();
-        String className_ = superClass;
-        Classes classes_ = _cont.getClasses();
-        list_.add(className_);
-        while (!StringList.quickEq(className_, Object.class.getName())) {
-            UniqueRootedBlock clBl_ = (UniqueRootedBlock) classes_.getClassBody(className_);
-            className_ = clBl_.getSuperClass();
-            list_.add(className_);
-        }
-        return list_;
     }
 
     public String getName() {

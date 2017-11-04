@@ -64,11 +64,7 @@ public final class ClassBlock extends RootBlock implements UniqueRootedBlock {
         Classes classesRef_ = _context.getClasses();
         StringList classNames_ = getAllGenericSuperClasses(classesRef_);
         String fullName_ = getFullName();
-        StringList direct_ = getDirectSuperClasses();
-        for (String b: direct_) {
-            if (StringList.quickEq(b, Object.class.getName())) {
-                continue;
-            }
+        for (String b: getCustomDirectSuperClasses()) {
             ClassBlock bBl_ = (ClassBlock) classesRef_.getClassBody(b);
             AccessEnum acc_ = bBl_.getMaximumAccessConstructors(_context);
             if (acc_.ordinal() <= AccessEnum.PROTECTED.ordinal()) {
@@ -92,9 +88,6 @@ public final class ClassBlock extends RootBlock implements UniqueRootedBlock {
             }
             ConstructorBlock c_ = (ConstructorBlock) b;
             for (String s: classNames_) {
-                if (StringList.quickEq(s, Object.class.getName())) {
-                    continue;
-                }
                 if (classesRef_.getConstructorBodiesByFormattedId(s, c_.getId()).size() > 1) {
                     DuplicateParamMethod duplicate_ = new DuplicateParamMethod();
                     duplicate_.setFileName(getFullName());
@@ -142,7 +135,9 @@ public final class ClassBlock extends RootBlock implements UniqueRootedBlock {
     @Override
     public StringList getDirectGenericSuperTypes() {
         StringList superTypes_ = new StringList();
-        superTypes_.add(superClass);
+        if (!StringList.quickEq(superClass, Object.class.getName())) {
+            superTypes_.add(superClass);
+        }
         superTypes_.addAllElts(directInterfaces);
         return superTypes_;
     }

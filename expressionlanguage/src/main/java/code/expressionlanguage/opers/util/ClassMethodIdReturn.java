@@ -4,6 +4,7 @@ import code.expressionlanguage.methods.MethodBlock;
 
 public final class ClassMethodIdReturn {
 
+    private final boolean foundMethod;
     private ClassMethodId id;
     private MethodBlock method;
     private MethodId realId;
@@ -14,6 +15,14 @@ public final class ClassMethodIdReturn {
     private boolean staticMethod;
 
     private boolean abstractMethod;
+
+    public ClassMethodIdReturn(boolean _foundMethod) {
+        foundMethod = _foundMethod;
+    }
+
+    public boolean isFoundMethod() {
+        return foundMethod;
+    }
 
     public ClassMethodId getId() {
         return id;

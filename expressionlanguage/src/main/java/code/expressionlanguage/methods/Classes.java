@@ -750,9 +750,6 @@ public final class Classes {
                 for (String b: upper_) {
                     StringList baseParams_ = StringList.getAllTypes(b);
                     String base_ = PrimitiveTypeUtil.getQuickComponentBaseType(baseParams_.first()).getComponent();
-                    if (StringList.quickEq(base_, Object.class.getName())) {
-                        continue;
-                    }
                     upperNotObj_.add(b);
                     if (classesBodies.contains(base_)) {
                         existCustom_ = true;
@@ -889,12 +886,11 @@ public final class Classes {
         for (String t: _genericSuperTypes) {
             StringList baseParam_ = StringList.getAllTypes(t);
             String key_ = baseParam_.first();
-            String join_ = baseParam_.mid(CustList.SECOND_INDEX).join(COMMA);
             if (baseParams_.contains(key_)) {
-                baseParams_.getVal(key_).add(join_);
+                baseParams_.getVal(key_).add(t);
                 baseParams_.getVal(key_).removeDuplicates();
             } else {
-                baseParams_.put(key_, new StringList(join_));
+                baseParams_.put(key_, new StringList(t));
             }
         }
         return baseParams_;
@@ -908,12 +904,9 @@ public final class Classes {
             while (true) {
                 StringList nextInterfaces_ = new StringList();
                 for (String c: currentInterfaces_) {
-                    if (StringList.quickEq(c, Object.class.getName())) {
-                        continue;
-                    }
                     String baseClass_ = StringList.getAllTypes(c).first();
                     InterfaceBlock int_ = (InterfaceBlock) getClassBody(baseClass_);
-                    StringList directSuperInterfaces_ = int_.getDirectSuperClasses();
+                    StringList directSuperInterfaces_ = int_.getCustomDirectSuperClasses();
                     for (String s:directSuperInterfaces_) {
                         if (superInterfaces_.containsStr(s)) {
                             continue;
@@ -932,12 +925,9 @@ public final class Classes {
             i_.setInterfaceName(superInterfaces_.first());
             is_.put(superInterfaces_.first(), i_);
             for (String s: superInterfaces_) {
-                if (StringList.quickEq(s, Object.class.getName())) {
-                    continue;
-                }
                 String baseClass_ = StringList.getAllTypes(s).first();
                 InterfaceBlock int_ = (InterfaceBlock) getClassBody(baseClass_);
-                StringList directSuperInterfaces_ = int_.getDirectSuperClasses();
+                StringList directSuperInterfaces_ = int_.getCustomDirectSuperClasses();
                 InterfaceNode current_ = is_.getVal(s);
                 for (String r: directSuperInterfaces_) {
                     InterfaceNode intNode_ = is_.getVal(r);
@@ -1022,9 +1012,6 @@ public final class Classes {
             all_.sortElts(new ComparatorInterfaceNode());
             for (InterfaceNode j: all_) {
                 String name_ = j.getInterfaceName();
-                if (StringList.quickEq(name_, Object.class.getName())) {
-                    continue;
-                }
                 if (!sortedSuperInterfaces_.containsStr(name_)) {
                     sortedSuperInterfaces_.add(name_);
                 }
@@ -1545,7 +1532,7 @@ public final class Classes {
                 }
                 boolean all_ = true;
                 for (int i = CustList.FIRST_INDEX; i < nbParams_; i++) {
-                    String type_ = Templates.generalFormat(_genericClassName, list_.get(i).getName(), this);
+                    String type_ = Templates.format(_genericClassName, list_.get(i).getName(), this);
                     if (!StringList.quickEq(type_, _parametersTypes.get(i))) {
                         all_ = false;
                         break;
@@ -1728,7 +1715,7 @@ public final class Classes {
                     MethodBlock method_ = (MethodBlock) b;
                     MethodId id_ = method_.getId();
                     String ret_ = method_.getReturnType();
-                    MethodMetaInfo met_ = new MethodMetaInfo(method_.getDeclaringType(), method_.getModifier(), ret_);
+                    MethodMetaInfo met_ = new MethodMetaInfo(method_.getDeclaringType(), id_, method_.getModifier(), ret_);
                     infos_.put(id_, met_);
                 }
                 if (b instanceof ConstructorBlock) {

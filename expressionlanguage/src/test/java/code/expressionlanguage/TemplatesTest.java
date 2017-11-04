@@ -2494,8 +2494,7 @@ public class TemplatesTest {
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
         Classes classes_ = cont_.getClasses();
         StringList superTypes_ = Templates.getAllGenericSuperTypes("pkg.Ex<#E>", classes_);
-        assertEq(1, superTypes_.size());
-        assertEq("java.lang.Object", superTypes_.get(0));
+        assertEq(0, superTypes_.size());
     }
 
     @Test
