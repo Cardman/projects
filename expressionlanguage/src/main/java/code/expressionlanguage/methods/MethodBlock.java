@@ -34,6 +34,11 @@ public final class MethodBlock extends NamedFunctionBlock {
         declaringType = getRooted().getFullName();
     }
 
+    @Override
+    public String getSignature() {
+        return getId().getSignature();
+    }
+
     public MethodModifier getModifier() {
         if (staticMethod) {
             return MethodModifier.STATIC;
@@ -68,7 +73,7 @@ public final class MethodBlock extends NamedFunctionBlock {
             String formatted_ = Templates.format(_genericClass, n_, _classes);
             pTypes_.add(new ClassName(formatted_, i + 1 == len_ && isVarargs()));
         }
-        return new MethodId(name_, pTypes_);
+        return new MethodId(isStaticMethod(), name_, pTypes_);
     }
 
     public MethodId getFormattedId(Classes _classes) {
@@ -92,7 +97,7 @@ public final class MethodBlock extends NamedFunctionBlock {
             String formatted_ = Templates.format(current_, n_, _classes);
             pTypes_.add(new ClassName(formatted_, i + 1 == len_ && isVarargs()));
         }
-        return new MethodId(name_, pTypes_);
+        return new MethodId(isStaticMethod(), name_, pTypes_);
     }
 
     public MethodId getId() {
@@ -104,7 +109,7 @@ public final class MethodBlock extends NamedFunctionBlock {
             String n_ = types_.get(i);
             pTypes_.add(new ClassName(n_, i + 1 == len_ && isVarargs()));
         }
-        return new MethodId(name_, pTypes_);
+        return new MethodId(isStaticMethod(), name_, pTypes_);
     }
 
 

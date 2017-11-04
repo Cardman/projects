@@ -53,28 +53,28 @@ public final class EnumBlock extends RootBlock implements UniqueRootedBlock {
     @Override
     public void setupBasicOverrides(ContextEl _context) {
         for (MethodBlock m: Classes.getMethodBlocks(this)) {
-            if (m.getId().eq(new MethodId(OperationNode.METH_NAME, new EqList<ClassName>()))) {
+            if (m.getId().eq(new MethodId(false, OperationNode.METH_NAME, new EqList<ClassName>()))) {
                 ReservedMethod r_ = new ReservedMethod();
                 r_.setFileName(getFullName());
                 r_.setRc(m.getRowCol(0, _context.getTabWidth(), EMPTY_STRING));
                 r_.setMethodeId(m.getId());
                 _context.getClasses().getErrorsDet().add(r_);
             }
-            if (m.getId().eq(new MethodId(OperationNode.METH_ORDINAL, new EqList<ClassName>()))) {
+            if (m.getId().eq(new MethodId(false, OperationNode.METH_ORDINAL, new EqList<ClassName>()))) {
                 ReservedMethod r_ = new ReservedMethod();
                 r_.setFileName(getFullName());
                 r_.setRc(m.getRowCol(0, _context.getTabWidth(), EMPTY_STRING));
                 r_.setMethodeId(m.getId());
                 _context.getClasses().getErrorsDet().add(r_);
             }
-            if (m.getId().eq(new MethodId(OperationNode.METH_VALUES, new EqList<ClassName>()))) {
+            if (m.getId().eq(new MethodId(true, OperationNode.METH_VALUES, new EqList<ClassName>()))) {
                 ReservedMethod r_ = new ReservedMethod();
                 r_.setFileName(getFullName());
                 r_.setRc(m.getRowCol(0, _context.getTabWidth(), EMPTY_STRING));
                 r_.setMethodeId(m.getId());
                 _context.getClasses().getErrorsDet().add(r_);
             }
-            if (m.getId().eq(new MethodId(OperationNode.METH_VALUEOF, new EqList<ClassName>(new ClassName(String.class.getName(), false))))) {
+            if (m.getId().eq(new MethodId(true, OperationNode.METH_VALUEOF, new EqList<ClassName>(new ClassName(String.class.getName(), false))))) {
                 ReservedMethod r_ = new ReservedMethod();
                 r_.setFileName(getFullName());
                 r_.setRc(m.getRowCol(0, _context.getTabWidth(), EMPTY_STRING));

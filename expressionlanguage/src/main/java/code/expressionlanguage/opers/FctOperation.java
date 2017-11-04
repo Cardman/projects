@@ -382,7 +382,7 @@ public final class FctOperation extends InvokingOperation {
                     }
                     return;
                 }
-                MethodId methodId_ = new MethodId(METH_NAME, new EqList<ClassName>());
+                MethodId methodId_ = new MethodId(false, METH_NAME, new EqList<ClassName>());
                 classMethodId = new ClassMethodId(clCurName_, methodId_);
                 realId = methodId_;
                 setResultClass(new ClassArgumentMatching(String.class.getName()));
@@ -396,7 +396,7 @@ public final class FctOperation extends InvokingOperation {
                     }
                     return;
                 }
-                MethodId methodId_ = new MethodId(METH_ORDINAL, new EqList<ClassName>());
+                MethodId methodId_ = new MethodId(false, METH_ORDINAL, new EqList<ClassName>());
                 classMethodId = new ClassMethodId(clCurName_, methodId_);
                 realId = methodId_;
                 setResultClass(new ClassArgumentMatching(PrimitiveTypeUtil.PRIM_INT));
@@ -404,7 +404,7 @@ public final class FctOperation extends InvokingOperation {
                 return;
             }
             if (StringList.quickEq(trimMeth_, METH_VALUES) && firstArgs_.isEmpty()) {
-                MethodId methodId_ = new MethodId(METH_VALUES, new EqList<ClassName>());
+                MethodId methodId_ = new MethodId(true, METH_VALUES, new EqList<ClassName>());
                 classMethodId = new ClassMethodId(clCurName_, methodId_);
                 realId = methodId_;
                 ClassName ret_ = new ClassName(PrimitiveTypeUtil.getPrettyArrayType(clCurName_), false);
@@ -417,7 +417,7 @@ public final class FctOperation extends InvokingOperation {
                 if (!StringList.quickEq(firstArgs_.first().getName(), String.class.getName())) {
                     throw new NoSuchDeclaredMethodException(trimMeth_+RETURN_LINE+_conf.joinPages());
                 }
-                MethodId methodId_ = new MethodId(METH_VALUEOF, new EqList<ClassName>(new ClassName(String.class.getName(), false)));
+                MethodId methodId_ = new MethodId(true, METH_VALUEOF, new EqList<ClassName>(new ClassName(String.class.getName(), false)));
                 classMethodId = new ClassMethodId(clCurName_, methodId_);
                 realId = methodId_;
                 ClassName ret_ = new ClassName(clCurName_, false);
@@ -752,14 +752,14 @@ public final class FctOperation extends InvokingOperation {
             String className_ = arg_.getStruct().getClassName();
             custClass_ = classes_.getClassMetaInfo(className_);
             if (custClass_.getCategory() == ClassCategory.ENUM) {
-                if (methodId_.eq(new MethodId(METH_NAME, new EqList<ClassName>()))) {
+                if (methodId_.eq(new MethodId(false, METH_NAME, new EqList<ClassName>()))) {
                     CustEnum cen_ = (CustEnum) arg_.getStruct().getInstance();
                     String name_ = cen_.name();
                     Argument argres_ = new Argument();
                     argres_.setObject(name_);
                     return ArgumentCall.newArgument(argres_);
                 }
-                if (methodId_.eq(new MethodId(METH_ORDINAL, new EqList<ClassName>()))) {
+                if (methodId_.eq(new MethodId(false, METH_ORDINAL, new EqList<ClassName>()))) {
                     CustEnum cen_ = (CustEnum) arg_.getStruct().getInstance();
                     int name_ = cen_.ordinal();
                     Argument argres_ = new Argument();
@@ -830,7 +830,7 @@ public final class FctOperation extends InvokingOperation {
             }
             custClass_ = classes_.getClassMetaInfo(classNameFound_);
             if (custClass_.getCategory() == ClassCategory.ENUM) {
-                if (methodId_.eq(new MethodId(METH_VALUES, new EqList<ClassName>()))) {
+                if (methodId_.eq(new MethodId(true, METH_VALUES, new EqList<ClassName>()))) {
                     CustList<Struct> enums_ = new CustList<Struct>();
                     for (EntryCust<String, FieldMetaInfo> e: custClass_.getFields().entryList()) {
                         if (e.getValue().isEnumElement()) {
@@ -848,7 +848,7 @@ public final class FctOperation extends InvokingOperation {
                     argres_.setStruct(new Struct(o_,clArr_));
                     return ArgumentCall.newArgument(argres_);
                 }
-                if (methodId_.eq(new MethodId(METH_VALUEOF, new EqList<ClassName>(new ClassName(String.class.getName(),false))))) {
+                if (methodId_.eq(new MethodId(true, METH_VALUEOF, new EqList<ClassName>(new ClassName(String.class.getName(),false))))) {
                     if (firstArgs_.first().isNull()) {
                         throw new NullObjectException(_conf.joinPages());
                     }

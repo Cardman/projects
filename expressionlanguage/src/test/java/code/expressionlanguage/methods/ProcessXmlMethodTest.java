@@ -5381,7 +5381,7 @@ public class ProcessXmlMethodTest {
         for (ClassName c: _method.getClassNames()) {
             constraints_.add(new ClassName(c.getName(),false));
         }
-        MethodId fct_ = new MethodId(_method.getName(),constraints_);
+        MethodId fct_ = new MethodId(_method.isStaticMethod(), _method.getName(),constraints_);
         Classes classes_ = _cont.getClasses();
         MethodBlock method_ = classes_.getMethodBodiesByFormattedId(_class, fct_).first();
         Block firstChild_ = method_.getFirstChild();
@@ -11884,7 +11884,7 @@ public class ProcessXmlMethodTest {
         for (String c: _classNames) {
             cl_.add(new ClassName(c, false));
         }
-        return new MethodId(_name, cl_);
+        return new MethodId(true, _name, cl_);
     }
 
     private static MethodId getMethodId(String _name, boolean _vararg, String..._classNames) {
@@ -11893,7 +11893,7 @@ public class ProcessXmlMethodTest {
             boolean var_ = _vararg && _classNames.length == cl_.size() + 1;
             cl_.add(new ClassName(c, var_));
         }
-        return new MethodId(_name, cl_);
+        return new MethodId(true, _name, cl_);
     }
 
     private static ConstructorId getConstructorId(String _name, String..._classNames) {

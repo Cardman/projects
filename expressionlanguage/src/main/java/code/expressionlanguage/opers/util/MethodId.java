@@ -1,5 +1,6 @@
 package code.expressionlanguage.opers.util;
 import java.lang.reflect.Method;
+import java.lang.reflect.Modifier;
 
 import code.expressionlanguage.Templates;
 import code.expressionlanguage.methods.Classes;
@@ -15,16 +16,20 @@ public final class MethodId implements Equallable<MethodId> {
     private static final String LEFT = "(";
     private static final String RIGHT = ")";
 
+    private final boolean staticMethod;
+
     private final String name;
 
     private final EqList<ClassName> classNames;
 
-    public MethodId(String _name, EqList<ClassName> _classNames) {
+    public MethodId(boolean _staticMethod,String _name, EqList<ClassName> _classNames) {
+        staticMethod = _staticMethod;
         name = _name;
         classNames = _classNames;
     }
 
     public MethodId(Method _method) {
+        staticMethod = Modifier.isStatic(_method.getModifiers());
         name = _method.getName();
         classNames = new EqList<ClassName>();
         boolean varargMeth_ = _method.isVarArgs();
@@ -57,6 +62,9 @@ public final class MethodId implements Equallable<MethodId> {
         if (len_ != _obj.classNames.size()) {
             return false;
         }
+        if (staticMethod != _obj.staticMethod) {
+            return false;
+        }
         if (!classNames.isEmpty()) {
             if (classNames.last().isVararg()) {
                 if (!_obj.classNames.last().isVararg()) {
@@ -86,11 +94,15 @@ public final class MethodId implements Equallable<MethodId> {
             String formatted_ = Templates.format(_genericClass, n_, _classes);
             pTypes_.add(new ClassName(formatted_, i + 1 == len_ && isVararg()));
         }
-        return new MethodId(name_, pTypes_);
+        return new MethodId(isStaticMethod(), name_, pTypes_);
     }
 
     public String getName() {
         return name;
+    }
+
+    public boolean isStaticMethod() {
+        return staticMethod;
     }
 
     public StringList getParametersTypes() {

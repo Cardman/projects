@@ -1371,16 +1371,13 @@ public final class Classes {
                     for (Block d: all_) {
                         d.setStoppable();
                     }
-                    String name_ = EMPTY_STRING;
-                    EqList<ClassName> pTypes_ = new EqList<ClassName>();
-                    MethodId id_ = new MethodId(name_, pTypes_);
                     for (Block d: all_) {
                         RowCol rc_ = d.existDeadCodeInBlock(0, _context.getTabWidth());
                         if (rc_.getRow() > 0) {
                             DeadCodeMethod deadCode_ = new DeadCodeMethod();
                             deadCode_.setFileName(className_);
                             deadCode_.setRc(rc_);
-                            deadCode_.setId(id_);
+                            deadCode_.setId(EMPTY_STRING);
                             errorsDet.add(deadCode_);
                         }
                     }
@@ -1445,12 +1442,11 @@ public final class Classes {
                         String n_ = types_.get(i);
                         pTypes_.add(new ClassName(n_, i + 1 == len_ && method_.isVarargs()));
                     }
-                    MethodId id_ = new MethodId(name_, pTypes_);
                     if (!r_.isExitable() && !StringList.quickEq(method_.getReturnType(), OperationNode.VOID_RETURN)) {
                         MissingReturnMethod miss_ = new MissingReturnMethod();
                         miss_.setRc(method_.getRowCol(0, _context.getTabWidth(), EMPTY_STRING));
                         miss_.setFileName(className_);
-                        miss_.setId(id_);
+                        miss_.setId(method_.getSignature());
                         miss_.setReturning(method_.getReturnType());
                         errorsDet.add(miss_);
                     }
@@ -1460,7 +1456,7 @@ public final class Classes {
                             DeadCodeMethod deadCode_ = new DeadCodeMethod();
                             deadCode_.setFileName(className_);
                             deadCode_.setRc(rc_);
-                            deadCode_.setId(id_);
+                            deadCode_.setId(method_.getSignature());
                             errorsDet.add(deadCode_);
                         }
                     }
@@ -1497,9 +1493,9 @@ public final class Classes {
         return methods_;
     }
     public CustList<MethodBlock> getMethodBodiesByFormattedId(String _genericClassName, MethodId _id) {
-        return getMethodBodiesByFormattedId(_genericClassName, _id.getName(), _id.getParametersTypes(), _id.isVararg());
+        return getMethodBodiesByFormattedId(_id.isStaticMethod(), _genericClassName, _id.getName(), _id.getParametersTypes(), _id.isVararg());
     }
-    CustList<MethodBlock> getMethodBodiesByFormattedId(String _genericClassName, String _methodName, StringList _parametersTypes, boolean _vararg) {
+    CustList<MethodBlock> getMethodBodiesByFormattedId(boolean _static, String _genericClassName, String _methodName, StringList _parametersTypes, boolean _vararg) {
         CustList<MethodBlock> methods_ = new CustList<MethodBlock>();
         StringList types_ = StringList.getAllTypes(_genericClassName);
         String base_ = types_.first();
@@ -1519,6 +1515,9 @@ public final class Classes {
                 }
                 EqList<ClassName> list_ = method_.getId().getClassNames();
                 if (list_.size() != nbParams_) {
+                    continue;
+                }
+                if (_static != method_.isStaticMethod()) {
                     continue;
                 }
                 if (nbParams_ > 0 && _vararg) {

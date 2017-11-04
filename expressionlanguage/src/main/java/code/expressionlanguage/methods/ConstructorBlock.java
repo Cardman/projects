@@ -26,6 +26,11 @@ public final class ConstructorBlock extends NamedFunctionBlock {
         super(_el, _importingPage, _indexChild, _m);
     }
 
+    @Override
+    public String getSignature() {
+        return getId().getSignature();
+    }
+
     public ConstructorId getId() {
         RootBlock clBlock_ = (RootBlock) getParent();
         String name_ = clBlock_.getFullName();

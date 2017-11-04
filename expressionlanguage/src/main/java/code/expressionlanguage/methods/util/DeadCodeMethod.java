@@ -1,22 +1,21 @@
 package code.expressionlanguage.methods.util;
-import code.expressionlanguage.opers.util.MethodId;
 
 public final class DeadCodeMethod extends FoundErrorInterpret {
 
     private static final String CLASS_NAME = "dead code for method";
 
-    private MethodId id;
+    private String id;
 
     @Override
     public String toString() {
-        return super.toString()+CLASS_NAME+SEP_KEY_VAL+id.getSignature()+SEP_INFO;
+        return super.toString()+CLASS_NAME+SEP_KEY_VAL+id+SEP_INFO;
     }
 
-    public MethodId getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(MethodId _id) {
+    public void setId(String _id) {
         id = _id;
     }
 }

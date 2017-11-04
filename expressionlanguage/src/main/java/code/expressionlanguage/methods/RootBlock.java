@@ -17,6 +17,7 @@ import code.expressionlanguage.methods.util.BadMethodName;
 import code.expressionlanguage.methods.util.BadNumberArgMethod;
 import code.expressionlanguage.methods.util.BadParamName;
 import code.expressionlanguage.methods.util.BadReturnTypeInherit;
+import code.expressionlanguage.methods.util.DuplicateConstructor;
 import code.expressionlanguage.methods.util.DuplicateField;
 import code.expressionlanguage.methods.util.DuplicateMethod;
 import code.expressionlanguage.methods.util.DuplicateParamMethod;
@@ -277,8 +278,10 @@ public abstract class RootBlock extends BracedBlock implements AccessibleBlock {
                 if (name_.isEmpty()) {
                     name_ = className_;
                 }
+                String sgn_ = method_.getSignature();
                 if (method_ instanceof MethodBlock) {
-                    MethodId id_ = new MethodId(name_, pTypes_);
+                    boolean st_ = ((MethodBlock)method_).isStaticMethod();
+                    MethodId id_ = new MethodId(st_, name_, pTypes_);
                     for (MethodId m: idMethods_) {
                         if (m.eq(id_)) {
                             RowCol r_ = method_.getRowCol(0, _context.getTabWidth(), EMPTY_STRING);
@@ -297,11 +300,11 @@ public abstract class RootBlock extends BracedBlock implements AccessibleBlock {
                     for (ConstructorId m: idConstructors_) {
                         if (m.eq(idCt_)) {
                             RowCol r_ = method_.getRowCol(0, _context.getTabWidth(), EMPTY_STRING);
-                            DuplicateMethod duplicate_;
-                            duplicate_ = new DuplicateMethod();
+                            DuplicateConstructor duplicate_;
+                            duplicate_ = new DuplicateConstructor();
                             duplicate_.setRc(r_);
                             duplicate_.setFileName(className_);
-                            MethodId id_ = new MethodId(name_, pTypes_);
+                            ConstructorId id_ = new ConstructorId(name_, pTypes_);
                             duplicate_.setId(id_);
                             _context.getClasses().getErrorsDet().add(duplicate_);
                         }
@@ -316,8 +319,7 @@ public abstract class RootBlock extends BracedBlock implements AccessibleBlock {
                     b_.setRc(method_.getRowCol(0, _context.getTabWidth(), EMPTY_STRING));
                     b_.setNbTypes(len_);
                     b_.setNbVars(l_.size());
-                    MethodId id_ = new MethodId(name_, pTypes_);
-                    b_.setId(id_);
+                    b_.setId(sgn_);
                     _context.getClasses().getErrorsDet().add(b_);
                 }
                 StringList seen_ = new StringList();
@@ -547,8 +549,8 @@ public abstract class RootBlock extends BracedBlock implements AccessibleBlock {
                             types_.add(new ClassName(formatted_, i + 1 == len_ && m.isVarArgs()));
                             realTypes_.add(new ClassName(alias_, i + 1 == len_ && m.isVarArgs()));
                         }
-                        MethodId id_ = new MethodId(m.getName(), types_);
-                        MethodId realId_ = new MethodId(m.getName(), realTypes_);
+                        MethodId id_ = new MethodId(false, m.getName(), types_);
+                        MethodId realId_ = new MethodId(false, m.getName(), realTypes_);
                         addClass(signatures_, id_, new ClassMethodId(c, realId_));
                     }
                 }
@@ -1101,7 +1103,7 @@ public abstract class RootBlock extends BracedBlock implements AccessibleBlock {
                             String formatted_ = Templates.format(name_, alias_, _classes);
                             types_.add(new ClassName(formatted_, i + 1 == len_ && m.isVarArgs()));
                         }
-                        MethodId id_ = new MethodId(m.getName(), types_);
+                        MethodId id_ = new MethodId(false, m.getName(), types_);
                         if (!id_.eq(cst_)) {
                             continue;
                         }

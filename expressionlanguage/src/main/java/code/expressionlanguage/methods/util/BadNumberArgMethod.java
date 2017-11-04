@@ -1,12 +1,11 @@
 package code.expressionlanguage.methods.util;
-import code.expressionlanguage.opers.util.MethodId;
 import code.util.StringList;
 
 public final class BadNumberArgMethod extends FoundErrorInterpret {
 
     private static final String CLASS_NAME = "bad matching arguments number; type:{0} variables:{1} in {2}";
 
-    private MethodId id;
+    private String id;
 
     private int nbTypes;
 
@@ -14,15 +13,15 @@ public final class BadNumberArgMethod extends FoundErrorInterpret {
 
     @Override
     public String toString() {
-        String message_ = StringList.simpleFormat(CLASS_NAME, nbTypes, nbVars, id.getSignature());
+        String message_ = StringList.simpleFormat(CLASS_NAME, nbTypes, nbVars, id);
         return super.toString()+message_+SEP_INFO;
     }
 
-    public MethodId getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(MethodId _id) {
+    public void setId(String _id) {
         id = _id;
     }
 

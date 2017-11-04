@@ -149,13 +149,13 @@ public class RootBlockTest {
         assertTrue(classes_.getErrorsDet().toString(), classes_.getErrorsDet().isEmpty());
         ObjectMap<MethodId, StringList> map_ = toList(classes_.getClassBody("pkg.ExTwo").getAllOverridingMethods());
         assertEq(1, map_.size());
-        StringList superTypes_ = map_.getVal(new MethodId("instancemethod", new EqList<ClassName>(new ClassName("#T", false))));
+        StringList superTypes_ = map_.getVal(new MethodId(false,"instancemethod", new EqList<ClassName>(new ClassName("#T", false))));
         assertEq(2, superTypes_.size());
         assertEq("pkg.ExTwo<#T>", superTypes_.first());
         assertEq("pkg.Ex<#T>", superTypes_.last());
         map_ = toList(classes_.getClassBody("pkg.Ex").getAllOverridingMethods());
         assertEq(1, map_.size());
-        superTypes_ = map_.getVal(new MethodId("instancemethod", new EqList<ClassName>(new ClassName("#E", false))));
+        superTypes_ = map_.getVal(new MethodId(false,"instancemethod", new EqList<ClassName>(new ClassName("#E", false))));
         assertEq(1, superTypes_.size());
         assertEq("pkg.Ex<#E>", superTypes_.first());
     }
@@ -184,13 +184,13 @@ public class RootBlockTest {
         assertTrue(classes_.getErrorsDet().toString(), classes_.getErrorsDet().isEmpty());
         ObjectMap<MethodId, StringList> map_ = toList(classes_.getClassBody("pkg.ExTwo").getAllOverridingMethods());
         assertEq(1, map_.size());
-        StringList superTypes_ = map_.getVal(new MethodId("instancemethod", new EqList<ClassName>(new ClassName("java.lang.String", false))));
+        StringList superTypes_ = map_.getVal(new MethodId(false, "instancemethod", new EqList<ClassName>(new ClassName("java.lang.String", false))));
         assertEq(2, superTypes_.size());
         assertEq("pkg.ExTwo", superTypes_.first());
         assertEq("pkg.Ex<java.lang.String>", superTypes_.last());
         map_ = toList(classes_.getClassBody("pkg.Ex").getAllOverridingMethods());
         assertEq(1, map_.size());
-        superTypes_ = map_.getVal(new MethodId("instancemethod", new EqList<ClassName>(new ClassName("#E", false))));
+        superTypes_ = map_.getVal(new MethodId(false, "instancemethod", new EqList<ClassName>(new ClassName("#E", false))));
         assertEq(1, superTypes_.size());
         assertEq("pkg.Ex<#E>", superTypes_.first());
     }
@@ -219,13 +219,13 @@ public class RootBlockTest {
         assertTrue(classes_.getErrorsDet().toString(), classes_.getErrorsDet().isEmpty());
         ObjectMap<MethodId, StringList> map_ = toList(classes_.getClassBody("pkg.ExTwo").getAllOverridingMethods());
         assertEq(1, map_.size());
-        StringList superTypes_ = map_.getVal(new MethodId("instancemethod", new EqList<ClassName>()));
+        StringList superTypes_ = map_.getVal(new MethodId(false, "instancemethod", new EqList<ClassName>()));
         assertEq(2, superTypes_.size());
         assertEq("pkg.ExTwo<#T>", superTypes_.first());
         assertEq("pkg.Ex<#T>", superTypes_.last());
         map_ = toList(classes_.getClassBody("pkg.Ex").getAllOverridingMethods());
         assertEq(1, map_.size());
-        superTypes_ = map_.getVal(new MethodId("instancemethod", new EqList<ClassName>()));
+        superTypes_ = map_.getVal(new MethodId(false, "instancemethod", new EqList<ClassName>()));
         assertEq(1, superTypes_.size());
         assertEq("pkg.Ex<#E>", superTypes_.first());
     }
@@ -253,13 +253,13 @@ public class RootBlockTest {
         assertTrue(classes_.getErrorsDet().toString(), classes_.getErrorsDet().isEmpty());
         ObjectMap<MethodId, StringList> map_ = toList(classes_.getClassBody("pkg.ExTwo").getAllOverridingMethods());
         assertEq(1, map_.size());
-        StringList superTypes_ = map_.getVal(new MethodId("instancemethod", new EqList<ClassName>()));
+        StringList superTypes_ = map_.getVal(new MethodId(false, "instancemethod", new EqList<ClassName>()));
         assertEq(2, superTypes_.size());
         assertEq("pkg.ExTwo", superTypes_.first());
         assertEq("pkg.Ex<java.lang.String>", superTypes_.last());
         map_ = toList(classes_.getClassBody("pkg.Ex").getAllOverridingMethods());
         assertEq(1, map_.size());
-        superTypes_ = map_.getVal(new MethodId("instancemethod", new EqList<ClassName>()));
+        superTypes_ = map_.getVal(new MethodId(false, "instancemethod", new EqList<ClassName>()));
         assertEq(1, superTypes_.size());
         assertEq("pkg.Ex<#E>", superTypes_.first());
     }
@@ -287,13 +287,13 @@ public class RootBlockTest {
         assertTrue(classes_.getErrorsDet().toString(), classes_.getErrorsDet().isEmpty());
         ObjectMap<MethodId, StringList> map_ = toList(classes_.getClassBody("pkg.ExTwo").getAllOverridingMethods());
         assertEq(1, map_.size());
-        StringList superTypes_ = map_.getVal(new MethodId("instancemethod", new EqList<ClassName>()));
+        StringList superTypes_ = map_.getVal(new MethodId(false, "instancemethod", new EqList<ClassName>()));
         assertEq(2, superTypes_.size());
         assertEq("pkg.ExTwo<#E>", superTypes_.first());
         assertEq("pkg.Ex", superTypes_.last());
         map_ = toList(classes_.getClassBody("pkg.Ex").getAllOverridingMethods());
         assertEq(1, map_.size());
-        superTypes_ = map_.getVal(new MethodId("instancemethod", new EqList<ClassName>()));
+        superTypes_ = map_.getVal(new MethodId(false, "instancemethod", new EqList<ClassName>()));
         assertEq(1, superTypes_.size());
         assertEq("pkg.Ex", superTypes_.first());
     }
@@ -326,19 +326,19 @@ public class RootBlockTest {
         assertTrue(classes_.getErrorsDet().toString(), classes_.getErrorsDet().isEmpty());
         ObjectMap<MethodId, StringList> map_ = toList(classes_.getClassBody("pkg.ExTwo").getAllOverridingMethods());
         assertEq(1, map_.size());
-        StringList superTypes_ = map_.getVal(new MethodId("instancemethod", new EqList<ClassName>(new ClassName("#T", false))));
+        StringList superTypes_ = map_.getVal(new MethodId(false, "instancemethod", new EqList<ClassName>(new ClassName("#T", false))));
         assertEq(3, superTypes_.size());
         assertEq("pkg.ExTwo<#T>", superTypes_.first());
         assertEq("pkg.Ex<#T>", superTypes_.get(1));
         assertEq("pkg.Int<#T>", superTypes_.last());
         map_ = toList(classes_.getClassBody("pkg.Ex").getAllOverridingMethods());
         assertEq(1, map_.size());
-        superTypes_ = map_.getVal(new MethodId("instancemethod", new EqList<ClassName>(new ClassName("#E", false))));
+        superTypes_ = map_.getVal(new MethodId(false, "instancemethod", new EqList<ClassName>(new ClassName("#E", false))));
         assertEq(1, superTypes_.size());
         assertEq("pkg.Ex<#E>", superTypes_.first());
         map_ = toList(classes_.getClassBody("pkg.Int").getAllOverridingMethods());
         assertEq(1, map_.size());
-        superTypes_ = map_.getVal(new MethodId("instancemethod", new EqList<ClassName>(new ClassName("#F", false))));
+        superTypes_ = map_.getVal(new MethodId(false, "instancemethod", new EqList<ClassName>(new ClassName("#F", false))));
         assertEq(1, superTypes_.size());
         assertEq("pkg.Int<#F>", superTypes_.first());
     }
@@ -369,18 +369,18 @@ public class RootBlockTest {
         assertTrue(classes_.getErrorsDet().toString(), classes_.getErrorsDet().isEmpty());
         ObjectMap<MethodId, StringList> map_ = toList(classes_.getClassBody("pkg.ExTwo").getAllOverridingMethods());
         assertEq(1, map_.size());
-        StringList superTypes_ = map_.getVal(new MethodId("instancemethod", new EqList<ClassName>(new ClassName("#T", false))));
+        StringList superTypes_ = map_.getVal(new MethodId(false, "instancemethod", new EqList<ClassName>(new ClassName("#T", false))));
         assertEq(2, superTypes_.size());
         assertEq("pkg.Ex<#T>", superTypes_.first());
         assertEq("pkg.Int<#T>", superTypes_.last());
         map_ = toList(classes_.getClassBody("pkg.Ex").getAllOverridingMethods());
         assertEq(1, map_.size());
-        superTypes_ = map_.getVal(new MethodId("instancemethod", new EqList<ClassName>(new ClassName("#E", false))));
+        superTypes_ = map_.getVal(new MethodId(false, "instancemethod", new EqList<ClassName>(new ClassName("#E", false))));
         assertEq(1, superTypes_.size());
         assertEq("pkg.Ex<#E>", superTypes_.first());
         map_ = toList(classes_.getClassBody("pkg.Int").getAllOverridingMethods());
         assertEq(1, map_.size());
-        superTypes_ = map_.getVal(new MethodId("instancemethod", new EqList<ClassName>(new ClassName("#F", false))));
+        superTypes_ = map_.getVal(new MethodId(false, "instancemethod", new EqList<ClassName>(new ClassName("#F", false))));
         assertEq(1, superTypes_.size());
         assertEq("pkg.Int<#F>", superTypes_.first());
     }
@@ -434,13 +434,13 @@ public class RootBlockTest {
         assertTrue(classes_.getErrorsDet().toString(), classes_.getErrorsDet().isEmpty());
         ObjectMap<MethodId, StringList> map_ = toList(classes_.getClassBody("pkg.ExTwo").getAllOverridingMethods());
         assertEq(1, map_.size());
-        StringList superTypes_ = map_.getVal(new MethodId("instancemethod", new EqList<ClassName>(new ClassName("#T", false))));
+        StringList superTypes_ = map_.getVal(new MethodId(false,"instancemethod", new EqList<ClassName>(new ClassName("#T", false))));
         assertEq(2, superTypes_.size());
         assertEq("pkg.ExTwo<#T>", superTypes_.first());
         assertEq("pkg.Ex<#T>", superTypes_.last());
         map_ = toList(classes_.getClassBody("pkg.Ex").getAllOverridingMethods());
         assertEq(1, map_.size());
-        superTypes_ = map_.getVal(new MethodId("instancemethod", new EqList<ClassName>(new ClassName("#E", false))));
+        superTypes_ = map_.getVal(new MethodId(false,"instancemethod", new EqList<ClassName>(new ClassName("#E", false))));
         assertEq(1, superTypes_.size());
         assertEq("pkg.Ex<#E>", superTypes_.first());
     }
@@ -468,13 +468,13 @@ public class RootBlockTest {
         assertTrue(classes_.getErrorsDet().toString(), classes_.getErrorsDet().isEmpty());
         ObjectMap<MethodId, StringList> map_ = toList(classes_.getClassBody("pkg.ExTwo").getAllOverridingMethods());
         assertEq(1, map_.size());
-        StringList superTypes_ = map_.getVal(new MethodId("instancemethod", new EqList<ClassName>(new ClassName("#T", false))));
+        StringList superTypes_ = map_.getVal(new MethodId(false,"instancemethod", new EqList<ClassName>(new ClassName("#T", false))));
         assertEq(2, superTypes_.size());
         assertEq("pkg.ExTwo<#T>", superTypes_.first());
         assertEq("pkg.Ex<#T>", superTypes_.last());
         map_ = toList(classes_.getClassBody("pkg.Ex").getAllOverridingMethods());
         assertEq(1, map_.size());
-        superTypes_ = map_.getVal(new MethodId("instancemethod", new EqList<ClassName>(new ClassName("#E", false))));
+        superTypes_ = map_.getVal(new MethodId(false,"instancemethod", new EqList<ClassName>(new ClassName("#E", false))));
         assertEq(1, superTypes_.size());
         assertEq("pkg.Ex<#E>", superTypes_.first());
     }
@@ -505,18 +505,18 @@ public class RootBlockTest {
         assertTrue(classes_.getErrorsDet().toString(), classes_.getErrorsDet().isEmpty());
         ObjectMap<MethodId, StringList> map_ = toList(classes_.getClassBody("pkg.ExTwo").getAllOverridingMethods());
         assertEq(1, map_.size());
-        StringList superTypes_ = map_.getVal(new MethodId("instancemethod", new EqList<ClassName>(new ClassName("#F", false))));
+        StringList superTypes_ = map_.getVal(new MethodId(false,"instancemethod", new EqList<ClassName>(new ClassName("#F", false))));
         assertEq(2, superTypes_.size());
         assertEq("pkg.ExTwo<#F>", superTypes_.first());
         assertEq("pkg.Ex<#F>", superTypes_.last());
         map_ = toList(classes_.getClassBody("pkg.Ex").getAllOverridingMethods());
         assertEq(1, map_.size());
-        superTypes_ = map_.getVal(new MethodId("instancemethod", new EqList<ClassName>(new ClassName("#E", false))));
+        superTypes_ = map_.getVal(new MethodId(false,"instancemethod", new EqList<ClassName>(new ClassName("#E", false))));
         assertEq(1, superTypes_.size());
         assertEq("pkg.Ex<#E>", superTypes_.first());
         map_ = toList(classes_.getClassBody("pkg.ExThree").getAllOverridingMethods());
         assertEq(1, map_.size());
-        superTypes_ = map_.getVal(new MethodId("instancemethod", new EqList<ClassName>(new ClassName("#T", false))));
+        superTypes_ = map_.getVal(new MethodId(false,"instancemethod", new EqList<ClassName>(new ClassName("#T", false))));
         assertEq(2, superTypes_.size());
         assertEq("pkg.ExTwo<#T>", superTypes_.first());
         assertEq("pkg.Ex<#T>", superTypes_.last());
@@ -525,7 +525,7 @@ public class RootBlockTest {
         assertEq(0, defs_.size());
         defs_ = classes_.getClassBody("pkg.ExThree").getDefaultMethodIds();
         assertEq(1, defs_.size());
-        assertEq("pkg.ExTwo<#T>", defs_.getVal(new MethodId("instancemethod", new EqList<ClassName>(new ClassName("#T", false)))).getClassName());
+        assertEq("pkg.ExTwo<#T>", defs_.getVal(new MethodId(false,"instancemethod", new EqList<ClassName>(new ClassName("#T", false)))).getClassName());
     }
     @Test
     public void test12() {
@@ -593,13 +593,13 @@ public class RootBlockTest {
         assertTrue(classes_.getErrorsDet().toString(), classes_.getErrorsDet().isEmpty());
         ObjectMap<MethodId, StringList> map_ = toList(classes_.getClassBody("pkg.ExTwo").getAllOverridingMethods());
         assertEq(1, map_.size());
-        StringList superTypes_ = map_.getVal(new MethodId("instancemethod", new EqList<ClassName>()));
+        StringList superTypes_ = map_.getVal(new MethodId(false,"instancemethod", new EqList<ClassName>()));
         assertEq(2, superTypes_.size());
         assertEq("pkg.ExTwo<#E>", superTypes_.first());
         assertEq("pkg.Ex", superTypes_.last());
         map_ = toList(classes_.getClassBody("pkg.Ex").getAllOverridingMethods());
         assertEq(1, map_.size());
-        superTypes_ = map_.getVal(new MethodId("instancemethod", new EqList<ClassName>()));
+        superTypes_ = map_.getVal(new MethodId(false,"instancemethod", new EqList<ClassName>()));
         assertEq(1, superTypes_.size());
         assertEq("pkg.Ex", superTypes_.first());
     }
@@ -655,20 +655,20 @@ public class RootBlockTest {
         assertTrue(classes_.getErrorsDet().toString(), classes_.getErrorsDet().isEmpty());
         ObjectMap<MethodId, StringList> map_ = toList(classes_.getClassBody("pkgtwo.ExThree").getAllOverridingMethods());
         assertEq(1, map_.size());
-        StringList superTypes_ = map_.getVal(new MethodId("instancemethod", new EqList<ClassName>()));
+        StringList superTypes_ = map_.getVal(new MethodId(false, "instancemethod", new EqList<ClassName>()));
         assertEq(3, superTypes_.size());
         assertEq("pkgtwo.ExThree", superTypes_.first());
         assertEq("pkg.ExTwo", superTypes_.get(1));
         assertEq("pkg.Ex", superTypes_.last());
         map_ = toList(classes_.getClassBody("pkg.ExTwo").getAllOverridingMethods());
         assertEq(1, map_.size());
-        superTypes_ = map_.getVal(new MethodId("instancemethod", new EqList<ClassName>()));
+        superTypes_ = map_.getVal(new MethodId(false, "instancemethod", new EqList<ClassName>()));
         assertEq(2, superTypes_.size());
         assertEq("pkg.ExTwo", superTypes_.first());
         assertEq("pkg.Ex", superTypes_.last());
         map_ = toList(classes_.getClassBody("pkg.Ex").getAllOverridingMethods());
         assertEq(1, map_.size());
-        superTypes_ = map_.getVal(new MethodId("instancemethod", new EqList<ClassName>()));
+        superTypes_ = map_.getVal(new MethodId(false, "instancemethod", new EqList<ClassName>()));
         assertEq(1, superTypes_.size());
         assertEq("pkg.Ex", superTypes_.first());
     }
@@ -695,15 +695,15 @@ public class RootBlockTest {
         classes_.validateOverridingInherit(cont_);
         assertTrue(classes_.getErrorsDet().toString(), classes_.getErrorsDet().isEmpty());
         ObjectMap<MethodId, StringList> map_ = toList(classes_.getClassBody("pkg.ExTwo").getAllOverridingMethods());
-        StringList superTypes_ = map_.getVal(new MethodId("instancemethod", new EqList<ClassName>()));
+        StringList superTypes_ = map_.getVal(new MethodId(false, "instancemethod", new EqList<ClassName>()));
         assertEq(1, map_.size());
-        superTypes_ = map_.getVal(new MethodId("instancemethod", new EqList<ClassName>()));
+        superTypes_ = map_.getVal(new MethodId(false, "instancemethod", new EqList<ClassName>()));
         assertEq(2, superTypes_.size());
         assertEq("pkg.ExTwo", superTypes_.first());
         assertEq("pkg.Ex", superTypes_.last());
         map_ = toList(classes_.getClassBody("pkg.Ex").getAllOverridingMethods());
         assertEq(1, map_.size());
-        superTypes_ = map_.getVal(new MethodId("instancemethod", new EqList<ClassName>()));
+        superTypes_ = map_.getVal(new MethodId(false, "instancemethod", new EqList<ClassName>()));
         assertEq(1, superTypes_.size());
         assertEq("pkg.Ex", superTypes_.first());
     }
@@ -732,17 +732,17 @@ public class RootBlockTest {
         assertTrue(classes_.getErrorsDet().toString(), classes_.getErrorsDet().isEmpty());
         ObjectMap<MethodId, StringList> map_ = toList(classes_.getClassBody("pkg.ExTwo").getAllOverridingMethods());
         assertEq(1, map_.size());
-        StringList superTypes_ = map_.getVal(new MethodId("instancemethod", new EqList<ClassName>(new ClassName("#T", false))));
+        StringList superTypes_ = map_.getVal(new MethodId(false, "instancemethod", new EqList<ClassName>(new ClassName("#T", false))));
         assertEq(1, superTypes_.size());
         assertEq("pkg.Int<#T>", superTypes_.first());
         ObjectMap<MethodId, ClassMethodId> def_ = classes_.getClassBody("pkg.ExTwo").getDefaultMethodIds();
         assertEq(1, def_.size());
-        assertEq("pkg.Int<#T>", def_.getVal(new MethodId("instancemethod", new EqList<ClassName>(new ClassName("#T", false)))).getClassName());
+        assertEq("pkg.Int<#T>", def_.getVal(new MethodId(false, "instancemethod", new EqList<ClassName>(new ClassName("#T", false)))).getClassName());
         map_ = toList(classes_.getClassBody("pkg.Ex").getAllOverridingMethods());
         assertEq(0, map_.size());
         map_ = toList(classes_.getClassBody("pkg.Int").getAllOverridingMethods());
         assertEq(1, map_.size());
-        superTypes_ = map_.getVal(new MethodId("instancemethod", new EqList<ClassName>(new ClassName("#F", false))));
+        superTypes_ = map_.getVal(new MethodId(false, "instancemethod", new EqList<ClassName>(new ClassName("#F", false))));
         assertEq(1, superTypes_.size());
         assertEq("pkg.Int<#F>", superTypes_.first());
     }
@@ -771,23 +771,23 @@ public class RootBlockTest {
         assertTrue(classes_.getErrorsDet().toString(), classes_.getErrorsDet().isEmpty());
         ObjectMap<MethodId, StringList> map_ = toList(classes_.getClassBody("pkg.ExTwo").getAllOverridingMethods());
         assertEq(1, map_.size());
-        StringList superTypes_ = map_.getVal(new MethodId("instancemethod", new EqList<ClassName>(new ClassName("#T", false))));
+        StringList superTypes_ = map_.getVal(new MethodId(false, "instancemethod", new EqList<ClassName>(new ClassName("#T", false))));
         assertEq(1, superTypes_.size());
         assertEq("pkg.Int<#T>", superTypes_.first());
         ObjectMap<MethodId, ClassMethodId> def_ = classes_.getClassBody("pkg.ExTwo").getDefaultMethodIds();
         assertEq(1, def_.size());
-        assertEq("pkg.Int<#T>", def_.getVal(new MethodId("instancemethod", new EqList<ClassName>(new ClassName("#T", false)))).getClassName());
+        assertEq("pkg.Int<#T>", def_.getVal(new MethodId(false, "instancemethod", new EqList<ClassName>(new ClassName("#T", false)))).getClassName());
         map_ = toList(classes_.getClassBody("pkg.Ex").getAllOverridingMethods());
         assertEq(1, map_.size());
-        superTypes_ = map_.getVal(new MethodId("instancemethod", new EqList<ClassName>(new ClassName("#E", false))));
+        superTypes_ = map_.getVal(new MethodId(false, "instancemethod", new EqList<ClassName>(new ClassName("#E", false))));
         assertEq(1, superTypes_.size());
         assertEq("pkg.Int<#E>", superTypes_.first());
         def_ = classes_.getClassBody("pkg.Ex").getDefaultMethodIds();
         assertEq(1, def_.size());
-        assertEq("pkg.Int<#E>", def_.getVal(new MethodId("instancemethod", new EqList<ClassName>(new ClassName("#E", false)))).getClassName());
+        assertEq("pkg.Int<#E>", def_.getVal(new MethodId(false, "instancemethod", new EqList<ClassName>(new ClassName("#E", false)))).getClassName());
         map_ = toList(classes_.getClassBody("pkg.Int").getAllOverridingMethods());
         assertEq(1, map_.size());
-        superTypes_ = map_.getVal(new MethodId("instancemethod", new EqList<ClassName>(new ClassName("#F", false))));
+        superTypes_ = map_.getVal(new MethodId(false, "instancemethod", new EqList<ClassName>(new ClassName("#F", false))));
         assertEq(1, superTypes_.size());
         assertEq("pkg.Int<#F>", superTypes_.first());
     }
