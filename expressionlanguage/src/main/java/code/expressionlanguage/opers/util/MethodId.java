@@ -89,19 +89,6 @@ public final class MethodId implements Equallable<MethodId> {
         return new MethodId(name_, pTypes_);
     }
 
-    public MethodId generalFormat(String _genericClass, Classes _classes) {
-        String name_ = getName();
-        StringList types_ = getParametersTypes();
-        int len_ = types_.size();
-        EqList<ClassName> pTypes_ = new EqList<ClassName>();
-        for (int i = CustList.FIRST_INDEX; i < len_; i++) {
-            String n_ = types_.get(i);
-            String formatted_ = Templates.generalFormat(_genericClass, n_, _classes);
-            pTypes_.add(new ClassName(formatted_, i + 1 == len_ && isVararg()));
-        }
-        return new MethodId(name_, pTypes_);
-    }
-
     public String getName() {
         return name;
     }

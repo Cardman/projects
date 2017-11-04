@@ -1,6 +1,7 @@
 package code.expressionlanguage.opers;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
+import java.lang.reflect.Type;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ArgumentCall;
@@ -114,7 +115,6 @@ public final class FctOperation extends InvokingOperation {
         int off_ = StringList.getFirstPrintableCharIndex(methodName);
         setRelativeOffsetPossibleLastPage(getIndexInEl()+off_, _conf);
         String trimMeth_ = methodName.trim();
-        boolean staticBlock_ = isStaticBlock();
         if (StringList.quickEq(trimMeth_, EXTERN_CLASS+VAR_ARG)) {
             setVararg(true);
             if (!(getParent() instanceof InvokingOperation)) {
@@ -172,7 +172,7 @@ public final class FctOperation extends InvokingOperation {
             String clCurName_ = _conf.getLastPage().getGlobalClass();
             otherConstructorClass = true;
             CustList<ClassArgumentMatching> firstArgs_ = listClasses(chidren_);
-            constId = getDeclaredCustConstructor(_conf, staticBlock_, new ClassArgumentMatching(clCurName_), ClassArgumentMatching.toArgArray(firstArgs_));
+            constId = getDeclaredCustConstructor(_conf, new ClassArgumentMatching(clCurName_), ClassArgumentMatching.toArgArray(firstArgs_));
             if (constId != null) {
                 setResultClass(new ClassArgumentMatching(OperationNode.VOID_RETURN));
                 return;
@@ -192,7 +192,7 @@ public final class FctOperation extends InvokingOperation {
             CustList<ClassArgumentMatching> firstArgs_ = listClasses(chidren_);
             UniqueRootedBlock unique_ =(UniqueRootedBlock) _conf.getClasses().getClassBody(base_);
             String superClass_ = Templates.format(clCurName_, unique_.getGenericSuperClass(), classes_);
-            constId = getDeclaredCustConstructor(_conf, staticBlock_, new ClassArgumentMatching(superClass_), ClassArgumentMatching.toArgArray(firstArgs_));
+            constId = getDeclaredCustConstructor(_conf, new ClassArgumentMatching(superClass_), ClassArgumentMatching.toArgArray(firstArgs_));
             if (constId != null) {
                 CustList<ConstructorBlock> ctors_ = classes_.getConstructorBodiesByFormattedId(superClass_, constId);
                 if (!ctors_.isEmpty() && !classes_.canAccess(clCurName_, ctors_.first())) {
@@ -365,7 +365,6 @@ public final class FctOperation extends InvokingOperation {
         int off_ = StringList.getFirstPrintableCharIndex(methodName);
         setRelativeOffsetPossibleLastPage(getIndexInEl()+off_, _conf);
         String trimMeth_ = methodName.trim();
-        boolean staticBlock_ = isStaticBlock();
         CustList<ClassArgumentMatching> firstArgs_ = listClasses(chidren_);
         String clCurName_ = _subType;
         String glClass_ = _conf.getLastPage().getGlobalClass();
@@ -456,7 +455,7 @@ public final class FctOperation extends InvokingOperation {
             staticChoiceMethod_ = true;
             superAccessMethod_ = true;
         }
-        ClassMethodIdReturn clMeth_ = getDeclaredCustMethod(_failIfError, _conf, staticBlock_, isStaticAccess(), new ClassArgumentMatching(clCurName_), trimMeth_, superClassAccess_, ClassArgumentMatching.toArgArray(firstArgs_));
+        ClassMethodIdReturn clMeth_ = getDeclaredCustMethod(_failIfError, _conf, isStaticAccess(), new ClassArgumentMatching(clCurName_), trimMeth_, superClassAccess_, ClassArgumentMatching.toArgArray(firstArgs_));
         if (!clMeth_.isFoundMethod()) {
             return;
         }
@@ -501,10 +500,9 @@ public final class FctOperation extends InvokingOperation {
         ClassArgumentMatching clVar_ = new ClassArgumentMatching(_subType);
         int off_ = StringList.getFirstPrintableCharIndex(methodName);
         String trimMeth_ = methodName.trim();
-        boolean staticBlock_ = isStaticBlock();
         CustList<OperationNode> chidren_ = getChildrenNodes();
         CustList<ClassArgumentMatching> firstArgs_ = listClasses(chidren_);
-        Method m_ = getDeclaredMethod(_failIfError, _conf, staticBlock_, isStaticAccess(), clVar_, trimMeth_, ClassArgumentMatching.toArgArray(firstArgs_));
+        Method m_ = getDeclaredMethod(_failIfError, _conf, isStaticAccess(), clVar_, trimMeth_, ClassArgumentMatching.toArgArray(firstArgs_));
         if (m_ == null) {
             return;
         }
@@ -518,7 +516,10 @@ public final class FctOperation extends InvokingOperation {
         method = m_;
         staticMethod = Modifier.isStatic(m_.getModifiers());
         setAccess(m_, _conf);
-        setResultClass(new ClassArgumentMatching(NativeTypeUtil.getPrettyType(m_.getGenericReturnType())));
+        int nbParams_ = m_.getTypeParameters().length;
+        Type type_ = m_.getGenericReturnType();
+        String pre_ = NativeTypeUtil.getFormattedType(m_.getReturnType().getName(), type_.toString(), nbParams_, type_);
+        setResultClass(new ClassArgumentMatching(pre_));
         foundBound = true;
     }
 

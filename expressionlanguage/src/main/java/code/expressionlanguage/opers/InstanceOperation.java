@@ -110,8 +110,8 @@ public final class InstanceOperation extends InvokingOperation {
             } else {
                 StringMap<StringList> map_;
                 map_ = new StringMap<StringList>();
-                if (!isStaticBlock()) {
-                    String glClass_ = _conf.getLastPage().getGlobalClass();
+                String glClass_ = _conf.getLastPage().getGlobalClass();
+                if (glClass_ != null) {
                     for (TypeVar t: Templates.getConstraints(glClass_, classes_)) {
                         map_.put(t.getName(), t.getConstraints());
                     }
@@ -175,7 +175,6 @@ public final class InstanceOperation extends InvokingOperation {
 
     void analyzeCtor(CustList<OperationNode> _nodes, ContextEl _conf, String _fieldName, String _op, String _realClassName, CustList<ClassArgumentMatching> _firstArgs, boolean _intern) {
         Classes classes_ = _conf.getClasses();
-        boolean staticBlock_ = isStaticBlock();
         String realClassName_ = _realClassName;
         if (StringList.quickEq(realClassName_, OperationNode.VOID_RETURN)) {
             throw new VoidArgumentException(_conf.joinPages());
@@ -196,9 +195,10 @@ public final class InstanceOperation extends InvokingOperation {
                     }
                     fieldName = _fieldName;
                 }
+                checkCorrect(_conf, realClassName_, false, 0);
+                constId = getDeclaredCustConstructor(_conf, new ClassArgumentMatching(realClassName_), ClassArgumentMatching.toArgArray(_firstArgs));
             }
         }
-        constId = getDeclaredCustConstructor(_conf, staticBlock_, new ClassArgumentMatching(realClassName_), ClassArgumentMatching.toArgArray(_firstArgs));
         if (constId != null) {
             String glClass_ = _conf.getLastPage().getGlobalClass();
             CustList<ConstructorBlock> ctors_ = classes_.getConstructorBodiesByFormattedId(realClassName_, constId);
@@ -236,7 +236,7 @@ public final class InstanceOperation extends InvokingOperation {
             throw new AbstractClassConstructorException(realClassName_+RETURN_LINE+_conf.joinPages());
         }
         ClassArgumentMatching arg_ = new ClassArgumentMatching(realClassName_);
-        Constructor<?> const_ = getDeclaredConstructor(_conf, staticBlock_, 0, arg_, ClassArgumentMatching.toArgArray(_firstArgs));
+        Constructor<?> const_ = getDeclaredConstructor(_conf, 0, arg_, ClassArgumentMatching.toArgArray(_firstArgs));
         if (!canBeUsed(const_, _conf)) {
             throw new BadAccessException(const_+RETURN_LINE+_conf.joinPages());
         }
@@ -346,8 +346,8 @@ public final class InstanceOperation extends InvokingOperation {
         } else {
             realClassName_ = className_;
         }
-        if (!isStaticBlock()) {
-            String glClass_ = _conf.getLastPage().getGlobalClass();
+        String glClass_ = _conf.getLastPage().getGlobalClass();
+        if (glClass_ != null) {
             realClassName_ = Templates.format(glClass_, realClassName_, _conf.getClasses());
         }
         if (realClassName_.startsWith(ARR)) {
