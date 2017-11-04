@@ -1403,6 +1403,18 @@ public final class ElResolver {
             }
             k_++;
         }
+        if (var_) {
+            return false;
+        }
+        while (k_ < _max) {
+            if (!Character.isWhitespace(_string.charAt(k_))) {
+                if (_string.charAt(k_) == PAR_LEFT) {
+                    var_ = true;
+                }
+                break;
+            }
+            k_++;
+        }
         return Character.isDigit(first_) && !var_;
     }
 

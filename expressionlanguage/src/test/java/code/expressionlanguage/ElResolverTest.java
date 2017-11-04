@@ -2770,6 +2770,29 @@ public class ElResolverTest {
     }
 
     @Test
+    public void getOperationsSequence143Test() {
+        ContextEl conf_ = new ContextEl();
+        addImportingPage(conf_, false);
+        BeanOne b_ = new BeanOne();
+        addBean(conf_, b_);
+        String el_ = "1bs(4,3)";
+        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
+        NatTreeMap<Integer,String> opers_ = seq_.getOperators();
+//        assertEq(0, opers_.size());
+        assertEq(3, opers_.size());
+        assertEq("(", opers_.getVal(3));
+        assertEq(",", opers_.getVal(5));
+        assertEq(")", opers_.getVal(7));
+        NatTreeMap<Integer,String> values_ = seq_.getValues();
+        assertEq(3, values_.size());
+        assertEq("1bs", values_.getVal(0));
+        assertEq("4", values_.getVal(4));
+        assertEq("3", values_.getVal(6));
+        assertEq(ElResolver.FCT_OPER_PRIO, seq_.getPriority());
+    }
+
+    @Test
     public void checkSyntaxDelimiters1Test() {
         ContextEl conf_ = new ContextEl();
         addImportingPage(conf_, false);
