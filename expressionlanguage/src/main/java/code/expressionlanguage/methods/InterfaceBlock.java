@@ -3,7 +3,6 @@ package code.expressionlanguage.methods;
 import org.w3c.dom.Element;
 
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.methods.util.BadAccessMethod;
 import code.expressionlanguage.methods.util.UnexpectedTagName;
 import code.util.CustList;
 import code.util.NatTreeMap;
@@ -34,16 +33,6 @@ public final class InterfaceBlock extends RootBlock {
         CustList<Block> bl_ = Classes.getDirectChildren(this);
         for (Block b: bl_) {
             if (b instanceof MethodBlock) {
-                MethodBlock m_ = (MethodBlock) b;
-                if (m_.getAccess() != AccessEnum.PUBLIC) {
-                    //TODO protected and package method cases
-                    BadAccessMethod err_;
-                    err_ = new BadAccessMethod();
-                    err_.setFileName(getFullName());
-                    err_.setRc(m_.getAttributes().getVal(ATTRIBUTE_ACCESS));
-                    err_.setId(m_.getId());
-                    _context.getClasses().getErrorsDet().add(err_);
-                }
                 continue;
             }
             if (b instanceof InfoBlock) {

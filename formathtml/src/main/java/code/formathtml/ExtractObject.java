@@ -13,6 +13,7 @@ import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.ElUtil;
 import code.expressionlanguage.PrimitiveTypeUtil;
+import code.expressionlanguage.Templates;
 import code.expressionlanguage.exceptions.BadExpressionLanguageException;
 import code.expressionlanguage.exceptions.InvokeRedinedMethException;
 import code.expressionlanguage.exceptions.UndefinedVariableException;
@@ -77,7 +78,7 @@ final class ExtractObject {
     private static final String GET_STRING ="getString";
     private static final String NAME ="name";
     private static final String TO_STRING ="toString";
-    private static final String ITERATOR ="simpleIterator";
+    private static final String ITERATOR ="iterator";
     private static final String HAS_NEXT ="hasNext";
     private static final String NEXT ="next";
     private static final String ENTRY_LIST ="entries";
@@ -213,7 +214,7 @@ final class ExtractObject {
                             String filName_ = _ip.getNextTempVar();
                             lv_ = new LocalVariable();
                             lv_.setElement(_files);
-                            lv_.setClassName(StringMap.class.getName());
+                            lv_.setClassName(StringMap.class.getName()+Templates.TEMPLATE_BEGIN+String.class.getName()+Templates.TEMPLATE_END);
                             _ip.getLocalVars().put(filName_, lv_);
                             String beanName_ = _ip.getNextTempVar();
                             lv_ = new LocalVariable();

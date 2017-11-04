@@ -1,18 +1,20 @@
 package code.expressionlanguage.methods;
 import java.lang.reflect.Array;
-import java.util.Iterator;
 
 import org.w3c.dom.Element;
 
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.ElUtil;
+import code.expressionlanguage.Mapping;
 import code.expressionlanguage.PageEl;
 import code.expressionlanguage.PrimitiveTypeUtil;
 import code.expressionlanguage.ReadWrite;
+import code.expressionlanguage.Templates;
 import code.expressionlanguage.exceptions.DynamicCastClassException;
 import code.expressionlanguage.methods.exceptions.AlreadyDefinedVarException;
 import code.expressionlanguage.methods.exceptions.BadConstructorCall;
 import code.expressionlanguage.methods.exceptions.BadLoopException;
+import code.expressionlanguage.methods.util.TypeVar;
 import code.expressionlanguage.opers.Calculation;
 import code.expressionlanguage.opers.ExpressionLanguage;
 import code.expressionlanguage.opers.OperationNode;
@@ -22,6 +24,7 @@ import code.expressionlanguage.variables.LocalVariable;
 import code.expressionlanguage.variables.LoopVariable;
 import code.util.CustList;
 import code.util.NatTreeMap;
+import code.util.StringList;
 import code.util.StringMap;
 import code.util.exceptions.NullObjectException;
 
@@ -107,8 +110,48 @@ public final class ForEachLoop extends BracedStack implements ForLoop {
         opList = ElUtil.getAnalyzedOperations(expression, _cont, Calculation.staticCalculation(f_.isStaticContext()));
         OperationNode el_ = opList.last();
         Classes classes_ = _cont.getClasses();
-        if (!PrimitiveTypeUtil.canBeUseAsArgument(Iterable.class.getName(), el_.getResultClass().getName(), classes_)) {
-            if (!el_.getResultClass().isArray()) {
+        if (el_.getResultClass().isArray()) {
+            String compo_ = PrimitiveTypeUtil.getQuickComponentType(el_.getResultClass().getName());
+            Mapping mapping_ = new Mapping();
+            mapping_.setArg(compo_);
+            mapping_.setParam(className);
+            StringMap<StringList> vars_ = new StringMap<StringList>();
+            if (!f_.isStaticContext()) {
+                String globalClass_ = page_.getGlobalClass();
+                String curClassBase_ = StringList.getAllTypes(globalClass_).first();
+                for (TypeVar t: _cont.getClasses().getClassBody(curClassBase_).getParamTypes()) {
+                    vars_.put(t.getName(), t.getConstraints());
+                }
+            }
+            mapping_.setMapping(vars_);
+            if (!Templates.isCorrect(mapping_, _cont.getClasses())) {
+                String str_ = el_.getResultClass().getName();
+                throw new DynamicCastClassException(str_+RETURN_LINE+_cont.joinPages());
+            }
+        } else {
+            String type_ = Templates.getFullTypeByBases(el_.getResultClass().getName(), Iterable.class.getName(), classes_);
+            if (type_ == null) {
+                type_ = Templates.getFullTypeByBases(el_.getResultClass().getName(), PredefinedClasses.ITERABLE, classes_);
+            }
+            if (type_ != null) {
+                Mapping mapping_ = new Mapping();
+                String paramArg_ = StringList.getAllTypes(type_).last();
+                mapping_.setArg(paramArg_);
+                mapping_.setParam(className);
+                StringMap<StringList> vars_ = new StringMap<StringList>();
+                if (!f_.isStaticContext()) {
+                    String globalClass_ = page_.getGlobalClass();
+                    String curClassBase_ = StringList.getAllTypes(globalClass_).first();
+                    for (TypeVar t: _cont.getClasses().getClassBody(curClassBase_).getParamTypes()) {
+                        vars_.put(t.getName(), t.getConstraints());
+                    }
+                }
+                mapping_.setMapping(vars_);
+                if (!Templates.isCorrect(mapping_, _cont.getClasses())) {
+                    String str_ = el_.getResultClass().getName();
+                    throw new DynamicCastClassException(str_+RETURN_LINE+_cont.joinPages());
+                }
+            } else {
                 String str_ = el_.getResultClass().getName();
                 throw new DynamicCastClassException(str_+RETURN_LINE+_cont.joinPages());
             }
@@ -181,7 +224,7 @@ public final class ForEachLoop extends BracedStack implements ForLoop {
         } else {
             String locName_ = _cont.getClasses().getIteratorVar();
             LocalVariable locVar_ = new LocalVariable();
-            locVar_.setClassName(Iterable.class.getName());
+            locVar_.setClassName(its_.getClassName());
             locVar_.setStruct(its_);
             _cont.getLastPage().getLocalVars().put(locName_, locVar_);
             ExpressionLanguage dynTwo_ = _cont.getClasses().getEqIterator();
@@ -290,9 +333,10 @@ public final class ForEachLoop extends BracedStack implements ForLoop {
         PageEl ip_ = _conf.getLastPage();
         LoopBlockStack l_ = (LoopBlockStack) ip_.getLastStack();
         String locName_ = _conf.getClasses().getHasNextVar();
+        Struct strIter_ = l_.getStructIterator();
         LocalVariable locVar_ = new LocalVariable();
-        locVar_.setClassName(Iterator.class.getName());
-        locVar_.setStruct(l_.getStructIterator());
+        locVar_.setClassName(strIter_.getClassName());
+        locVar_.setStruct(strIter_);
         _conf.getLastPage().getLocalVars().put(locName_, locVar_);
         ExpressionLanguage dynTwo_ = _conf.getClasses().getEqHasNext();
         ExpressionLanguage dyn_ = _conf.getLastPage().getCurrentEl(this, CustList.FIRST_INDEX, dynTwo_);
@@ -314,7 +358,7 @@ public final class ForEachLoop extends BracedStack implements ForLoop {
         if (iterator_ != null) {
             String locName_ = _conf.getClasses().getNextVar();
             LocalVariable locVar_ = new LocalVariable();
-            locVar_.setClassName(Iterator.class.getName());
+            locVar_.setClassName(iterator_.getClassName());
             locVar_.setStruct(iterator_);
             _conf.getLastPage().getLocalVars().put(locName_, locVar_);
             ExpressionLanguage dynTwo_ = _conf.getClasses().getEqNext();

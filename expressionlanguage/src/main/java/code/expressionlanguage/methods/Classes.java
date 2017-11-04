@@ -120,6 +120,7 @@ public final class Classes {
         classesBodies = new StringMap<RootBlock>();
 
         errorsDet = new CustList<FoundErrorInterpret>();
+        StringList classesFiles_ = new StringList();
         StringList classes_ = new StringList();
 
         staticFields = new ObjectMap<ClassField,Struct>();
@@ -172,12 +173,12 @@ public final class Classes {
                 String content_ = f.getValue();
                 file_ = file_.substring(CustList.FIRST_INDEX, file_.indexOf(DOT));
                 file_ = file_.replace(SEP_FILE, DOT);
-                for (String e: classes_) {
+                for (String e: classesFiles_) {
                     if (e.equalsIgnoreCase(file_)) {
                         throw new AlreadyExistingClassException(file_);
                     }
                 }
-                classes_.add(file_);
+                classesFiles_.add(file_);
                 Document doc_ = XmlParser.parseSaxHtmlRowCol(content_);
                 _context.setHtml(content_);
                 _context.setElements(new ElementOffsetsNext(new RowCol(), 0, 0));
@@ -187,100 +188,16 @@ public final class Classes {
                     throw new XmlParseException();
                 }
                 int tabWidth_ = _context.getTabWidth();
+                RootBlock cl_ = (RootBlock) bl_;
+                for (String e: classes_) {
+                    if (StringList.quickEq(e, cl_.getFullName())) {
+                        throw new AlreadyExistingClassException(file_);
+                    }
+                }
+                classes_.add(cl_.getFullName());
                 ElementOffsetsNext e_ = _context.getElements();
                 ElementOffsetsNext ne_ = XmlParser.getIndexesOfElementOrAttribute(content_, e_, root_, tabWidth_);
-                bl_.setAttributes(ne_.getAttributes());
-                bl_.setEndHeader(ne_.getEndHeader());
-                bl_.setTabs(ne_.getTabs());
-                bl_.setOffsets(ne_.getOffsets());
-                RootBlock cl_ = (RootBlock) bl_;
-                String packageName_;
-                packageName_ = cl_.getPackageName();
-                if (packageName_.isEmpty()) {
-                    throw new BadClassNameException(cl_.getFullName());
-                }
-                StringList elements_ = StringList.splitChars(packageName_, DOT);
-                for (String e: elements_) {
-                    if (!StringList.isWord(e)) {
-                        throw new BadClassNameException(cl_.getFullName());
-                    }
-                }
-                String className_;
-                className_ = cl_.getName();
-                if (!StringList.isWord(className_)) {
-                    throw new BadClassNameException(cl_.getFullName());
-                }
-                if (!cl_.getFullName().equalsIgnoreCase(file_)) {
-                    throw new BadClassNameException(cl_.getFullName());
-                }
-                String fullDef_ = cl_.getFullDefinition();
-                StringList params_ = StringList.getAllTypes(fullDef_);
-                if (params_ == null) {
-                    throw new BadClassNameException(fullDef_);
-                }
-                StringList varTypes_ = new StringList();
-                for (String p: params_.mid(CustList.SECOND_INDEX)) {
-                    if (!p.startsWith(Templates.PREFIX_VAR_TYPE)) {
-                        throw new BadClassNameException(fullDef_);
-                    }
-                    String name_ = p.substring(Templates.PREFIX_VAR_TYPE.length());
-                    TypeVar type_ = new TypeVar();
-                    int indexDef_ = name_.indexOf(Templates.EXTENDS_DEF);
-                    StringList parts_ = StringList.splitInTwo(name_, indexDef_);
-                    if (!StringList.isWord(parts_.first())) {
-                        throw new BadClassNameException(fullDef_);
-                    }
-                    if (varTypes_.containsStr(parts_.first())) {
-                        throw new BadClassNameException(fullDef_);
-                    }
-                    varTypes_.add(parts_.first());
-                    StringList constraints_ = new StringList();
-                    if (indexDef_ != CustList.INDEX_NOT_FOUND_ELT) {
-                        for (String b: StringList.splitChars(parts_.last().substring(1), Templates.SEP_BOUNDS)) {
-                            if (!isCorrectTemplate(b)) {
-                                throw new BadClassNameException(b);
-                            }
-                            constraints_.add(b);
-                        }
-                    } else {
-                        constraints_.add(Object.class.getName());
-                    }
-                    type_.setConstraints(constraints_);
-                    type_.setName(parts_.first());
-                    cl_.getParamTypes().add(type_);
-                }
-                cl_.buildMapParamType();
-                for (String s: cl_.getDirectGenericSuperTypes()) {
-                    if (!isCorrectTemplate(s)) {
-                        throw new BadClassNameException(s);
-                    }
-                }
-                for (TypeVar t: cl_.getParamTypes()) {
-                    for (String u: t.getConstraints()) {
-                        if (!u.startsWith(Templates.PREFIX_VAR_TYPE)) {
-                            continue;
-                        }
-                        if (!cl_.getParamTypesMap().contains(u.substring(1))) {
-                            throw new BadClassNameException(u);
-                        }
-                    }
-                }
-                try {
-                    Class<?> clNat_ = PrimitiveTypeUtil.getSingleNativeClass(file_);
-                    throw new AlreadyExistingClassException(clNat_.getName());
-                } catch (RuntimeClassNotFoundException _0) {
-                }
-                Block rootBl_ = (Block) cl_;
-                CustList<Block> all_ = getSortedDescNodesRoot(rootBl_);
-                for (Block b: all_) {
-                    b.setConf(null);
-                    b.setupChars(content_);
-                    b.setCompleteGroup();
-                    b.setNullAssociateElement();
-                }
-                String fullName_ = cl_.getFullName();
-                initializedClasses.put(fullName_, false);
-                classesBodies.put(fullName_, cl_);
+                processCustomClass(cl_, false, content_, _context, ne_);
             } catch (UnknownBlockException _0) {
                 RowCol where_ = _0.getRc();
                 UnexpectedTagName t_ = new UnexpectedTagName();
@@ -314,7 +231,118 @@ public final class Classes {
                 errorsDet.add(bad_);
             }
         }
+        String content_ = PredefinedClasses.getIterableType();
+        processPredefinedClass(content_, _context);
+        content_ = PredefinedClasses.getIteratorType();
+        processPredefinedClass(content_, _context);
         _context.setHtml(EMPTY_STRING);
+    }
+    private void processPredefinedClass(String _content, ContextEl _context) {
+        Document doc_ = XmlParser.parseSaxHtmlRowCol(_content);
+        _context.setHtml(_content);
+        _context.setElements(new ElementOffsetsNext(new RowCol(), 0, 0));
+        Element root_ = doc_.getDocumentElement();
+        Block bl_ = Block.createOperationNode(root_, _context, 0, null);
+        int tabWidth_ = _context.getTabWidth();
+        RootBlock cl_ = (RootBlock) bl_;
+        ElementOffsetsNext e_ = _context.getElements();
+        ElementOffsetsNext ne_ = XmlParser.getIndexesOfElementOrAttribute(_content, e_, root_, tabWidth_);
+        processCustomClass(cl_, true, _content, _context, ne_);
+    }
+    private void processCustomClass(RootBlock _root, boolean _predefined, String _content, ContextEl _context, ElementOffsetsNext _elt) {
+        RootBlock bl_ = _root;
+        ElementOffsetsNext ne_ = _elt;
+        bl_.setAttributes(ne_.getAttributes());
+        bl_.setEndHeader(ne_.getEndHeader());
+        bl_.setTabs(ne_.getTabs());
+        bl_.setOffsets(ne_.getOffsets());
+        RootBlock cl_ = (RootBlock) bl_;
+        String packageName_;
+        packageName_ = cl_.getPackageName();
+        if (!_predefined) {
+            if (packageName_.isEmpty()) {
+                throw new BadClassNameException(cl_.getFullName());
+            }
+            StringList elements_ = StringList.splitChars(packageName_, DOT);
+            for (String e: elements_) {
+                if (!StringList.isWord(e)) {
+                    throw new BadClassNameException(cl_.getFullName());
+                }
+            }
+            String className_;
+            className_ = cl_.getName();
+            if (!StringList.isWord(className_)) {
+                throw new BadClassNameException(cl_.getFullName());
+            }
+        }
+        String fullDef_ = cl_.getFullDefinition();
+        StringList params_ = StringList.getAllTypes(fullDef_);
+        if (params_ == null) {
+            throw new BadClassNameException(fullDef_);
+        }
+        StringList varTypes_ = new StringList();
+        for (String p: params_.mid(CustList.SECOND_INDEX)) {
+            if (!p.startsWith(Templates.PREFIX_VAR_TYPE)) {
+                throw new BadClassNameException(fullDef_);
+            }
+            String name_ = p.substring(Templates.PREFIX_VAR_TYPE.length());
+            TypeVar type_ = new TypeVar();
+            int indexDef_ = name_.indexOf(Templates.EXTENDS_DEF);
+            StringList parts_ = StringList.splitInTwo(name_, indexDef_);
+            if (!StringList.isWord(parts_.first())) {
+                throw new BadClassNameException(fullDef_);
+            }
+            if (varTypes_.containsStr(parts_.first())) {
+                throw new BadClassNameException(fullDef_);
+            }
+            varTypes_.add(parts_.first());
+            StringList constraints_ = new StringList();
+            if (indexDef_ != CustList.INDEX_NOT_FOUND_ELT) {
+                for (String b: StringList.splitChars(parts_.last().substring(1), Templates.SEP_BOUNDS)) {
+                    if (!isCorrectTemplate(b)) {
+                        throw new BadClassNameException(b);
+                    }
+                    constraints_.add(b);
+                }
+            } else {
+                constraints_.add(Object.class.getName());
+            }
+            type_.setConstraints(constraints_);
+            type_.setName(parts_.first());
+            cl_.getParamTypes().add(type_);
+        }
+        cl_.buildMapParamType();
+        for (String s: cl_.getDirectGenericSuperTypes()) {
+            if (!isCorrectTemplate(s)) {
+                throw new BadClassNameException(s);
+            }
+        }
+        for (TypeVar t: cl_.getParamTypes()) {
+            for (String u: t.getConstraints()) {
+                if (!u.startsWith(Templates.PREFIX_VAR_TYPE)) {
+                    continue;
+                }
+                if (!cl_.getParamTypesMap().contains(u.substring(1))) {
+                    throw new BadClassNameException(u);
+                }
+            }
+        }
+        try {
+            Class<?> clNat_ = PrimitiveTypeUtil.getSingleNativeClass(cl_.getFullName());
+            throw new AlreadyExistingClassException(clNat_.getName());
+        } catch (RuntimeClassNotFoundException _0) {
+        }
+        Block rootBl_ = (Block) cl_;
+        CustList<Block> all_ = getSortedDescNodesRoot(rootBl_);
+        for (Block b: all_) {
+            b.setConf(null);
+            b.setupChars(_content);
+            b.setCompleteGroup();
+            b.setNullAssociateElement();
+        }
+        String fullName_ = cl_.getFullName();
+        initializedClasses.put(fullName_, false);
+        classesBodies.put(fullName_, cl_);
     }
     private static boolean isCorrectTemplate(String _temp) {
         if (!Templates.isCorrectWrite(_temp)) {

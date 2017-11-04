@@ -2,6 +2,7 @@ package code.expressionlanguage.opers;
 import java.lang.reflect.Array;
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
+import java.lang.reflect.Type;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ArgumentCall;
@@ -314,7 +315,9 @@ public final class ConstantOperation extends OperationNode implements SettableEl
         }
         field = f_;
         setAccess(field, _conf);
-        setResultClass(new ClassArgumentMatching(NativeTypeUtil.getPrettyType(f_.getGenericType())));
+        Type type_ = f_.getGenericType();
+        String pre_ = NativeTypeUtil.getFormattedType(f_.getType().getName(), type_.toString(), 0, type_);
+        setResultClass(new ClassArgumentMatching(pre_));
     }
     @Override
     public Argument calculate(IdMap<OperationNode, ArgumentsPair> _nodes,

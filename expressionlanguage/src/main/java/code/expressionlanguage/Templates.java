@@ -5,6 +5,7 @@ import java.lang.reflect.TypeVariable;
 
 import code.expressionlanguage.methods.Classes;
 import code.expressionlanguage.methods.InterfaceBlock;
+import code.expressionlanguage.methods.PredefinedClasses;
 import code.expressionlanguage.methods.RootBlock;
 import code.expressionlanguage.methods.UniqueRootedBlock;
 import code.expressionlanguage.methods.util.TypeVar;
@@ -278,9 +279,17 @@ public final class Templates {
                         return false;
                     }
                 } else if (!compo_.startsWith(PREFIX_VAR_TYPE)) {
-                    for (String p: StringList.splitStrings(compo_, SEP_CLASS)) {
-                        if (!StringList.isWord(p)) {
-                            return false;
+                    boolean pred_ = false;
+                    if (StringList.quickEq(compo_, PredefinedClasses.ITERABLE)) {
+                        pred_ = true;
+                    } else if (StringList.quickEq(compo_, PredefinedClasses.ITERATOR)) {
+                        pred_ = true;
+                    }
+                    if (!pred_) {
+                        for (String p: StringList.splitStrings(compo_, SEP_CLASS)) {
+                            if (!StringList.isWord(p)) {
+                                return false;
+                            }
                         }
                     }
                 }

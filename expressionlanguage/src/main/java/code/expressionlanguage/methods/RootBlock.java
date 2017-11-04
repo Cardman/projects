@@ -167,7 +167,11 @@ public abstract class RootBlock extends BracedBlock implements AccessibleBlock {
     }
 
     public final String getFullName() {
-        return getPackageName()+DOT+getName();
+        String packageName_ = getPackageName();
+        if (packageName_.isEmpty()) {
+            return getName();
+        }
+        return packageName_+DOT+getName();
     }
 
     protected void validateClassNames(ContextEl _context) {
@@ -405,10 +409,8 @@ public abstract class RootBlock extends BracedBlock implements AccessibleBlock {
                         MethodBlock found_ = null;
                         int nbInstances_ = 0;
                         for (MethodBlock g: mBasesSuper_) {
-                            if (!g.isStaticMethod()) {
-                                found_ = g;
-                                nbInstances_++;
-                            }
+                            found_ = g;
+                            nbInstances_++;
                         }
                         if (nbInstances_ > 1) {
                             DuplicateParamMethod duplicate_ = new DuplicateParamMethod();
@@ -848,16 +850,7 @@ public abstract class RootBlock extends BracedBlock implements AccessibleBlock {
                 }
                 MethodBlock mDer_ = mDers_.first();
                 String retDerive_ = mDer_.getReturnType();
-                if (mDer_.getAccess() != AccessEnum.PUBLIC) {
-                    BadAccessMethod err_;
-                    err_ = new BadAccessMethod();
-                    err_.setFileName(getFullName());
-                    err_.setRc(mDer_.getAttributes().getVal(ATTRIBUTE_ACCESS));
-                    err_.setId(mDer_.getId());
-                    classesRef_.getErrorsDet().add(err_);
-                    continue;
-                }
-                if(mDer_.isStaticMethod()) {
+                if (mDer_.isStaticMethod()) {
                     continue;
                 }
                 for (ClassMethodId i: e.getValue()) {

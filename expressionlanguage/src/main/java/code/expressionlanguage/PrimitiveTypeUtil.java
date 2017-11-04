@@ -3,6 +3,7 @@ import code.expressionlanguage.methods.Block;
 import code.expressionlanguage.methods.Classes;
 import code.expressionlanguage.methods.ConstructorBlock;
 import code.expressionlanguage.methods.MethodBlock;
+import code.expressionlanguage.methods.PredefinedClasses;
 import code.expressionlanguage.methods.RootBlock;
 import code.expressionlanguage.opers.OperationNode;
 import code.expressionlanguage.opers.util.AssignableFrom;
@@ -54,11 +55,17 @@ public final class PrimitiveTypeUtil {
 
     public static Class<?> getSingleNativeClass(String _className) {
         String base_ = StringList.getAllTypes(_className).first();
-        return ConstClasses.classForObjectNameNotInit(getArrayClass(base_));
+        return ConstClasses.classForNameNotInit(getArrayClass(base_));
     }
 
     public static boolean primitiveTypeNullObject(String _className, Struct _instance) {
         if (!_className.startsWith(PRIM)) {
+            return false;
+        }
+        if (_className.startsWith(PredefinedClasses.ITERABLE)) {
+            return false;
+        }
+        if (_className.startsWith(PredefinedClasses.ITERATOR)) {
             return false;
         }
         return _instance.isNull();
@@ -72,6 +79,12 @@ public final class PrimitiveTypeUtil {
     }
 
     public static boolean isPrimitive(String _className) {
+        if (_className.startsWith(PredefinedClasses.ITERABLE)) {
+            return false;
+        }
+        if (_className.startsWith(PredefinedClasses.ITERATOR)) {
+            return false;
+        }
         return _className.startsWith(PRIM);
     }
 
@@ -154,7 +167,7 @@ public final class PrimitiveTypeUtil {
         boolean hasPrim_ = false;
         boolean hasObj_ = false;
         for (String i: _classNames) {
-            if (i.startsWith(PRIM)) {
+            if (isPrimitive(i)) {
                 hasPrim_ = true;
             } else {
                 hasObj_ = true;
@@ -538,6 +551,12 @@ public final class PrimitiveTypeUtil {
         }
     }
     public static boolean isPrimitiveOrWrapper(String _className) {
+        if (_className.startsWith(PredefinedClasses.ITERABLE)) {
+            return false;
+        }
+        if (_className.startsWith(PredefinedClasses.ITERATOR)) {
+            return false;
+        }
         if (_className.startsWith(PRIM)) {
             return true;
         }
