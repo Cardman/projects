@@ -222,12 +222,13 @@ public final class ForEachLoop extends BracedStack implements ForLoop {
                 finished_ = true;
             }
         } else {
-            String locName_ = _cont.getClasses().getIteratorVar();
+            boolean native_ = its_.isJavaObject();
+            String locName_ = _cont.getClasses().getIteratorVar(native_);
             LocalVariable locVar_ = new LocalVariable();
             locVar_.setClassName(its_.getClassName());
             locVar_.setStruct(its_);
             _cont.getLastPage().getLocalVars().put(locName_, locVar_);
-            ExpressionLanguage dynTwo_ = _cont.getClasses().getEqIterator();
+            ExpressionLanguage dynTwo_ = _cont.getClasses().getEqIterator(native_);
             ExpressionLanguage dyn_ = _cont.getLastPage().getCurrentEl(this, CustList.SECOND_INDEX, dynTwo_);
             iterStr_ = dyn_.calculateMember(_cont).getStruct();
             _cont.getLastPage().getLocalVars().removeKey(locName_);
@@ -244,9 +245,6 @@ public final class ForEachLoop extends BracedStack implements ForLoop {
         ip_.addBlock(l_);
         ip_.clearCurrentEls();
         l_.setEvaluatingKeepLoop(true);
-        if (iterStr_ != null) {
-            finished_ = !iteratorHasNext(_cont);
-        }
         String indexClassName_;
         indexClassName_ = getClassIndexName();
         String className_;
@@ -260,6 +258,9 @@ public final class ForEachLoop extends BracedStack implements ForLoop {
         StringMap<LoopVariable> varsLoop_ = ip_.getVars();
         String var_ = getVariableName();
         varsLoop_.put(var_, lv_);
+        if (iterStr_ != null) {
+            finished_ = !iteratorHasNext(_cont);
+        }
         if (finished_) {
             removeVarAndLoop(ip_);
             _cont.getLastPage().clearCurrentEls();
@@ -332,13 +333,14 @@ public final class ForEachLoop extends BracedStack implements ForLoop {
     private boolean iteratorHasNext(ContextEl _conf) {
         PageEl ip_ = _conf.getLastPage();
         LoopBlockStack l_ = (LoopBlockStack) ip_.getLastStack();
-        String locName_ = _conf.getClasses().getHasNextVar();
         Struct strIter_ = l_.getStructIterator();
+        boolean native_ = strIter_.isJavaObject();
+        String locName_ = _conf.getClasses().getHasNextVar(native_);
         LocalVariable locVar_ = new LocalVariable();
         locVar_.setClassName(strIter_.getClassName());
         locVar_.setStruct(strIter_);
         _conf.getLastPage().getLocalVars().put(locName_, locVar_);
-        ExpressionLanguage dynTwo_ = _conf.getClasses().getEqHasNext();
+        ExpressionLanguage dynTwo_ = _conf.getClasses().getEqHasNext(native_);
         ExpressionLanguage dyn_ = _conf.getLastPage().getCurrentEl(this, CustList.FIRST_INDEX, dynTwo_);
         boolean hasNext_ = (Boolean) dyn_.calculateMember(_conf).getObject();
         _conf.getLastPage().getLocalVars().removeKey(locName_);
@@ -356,12 +358,13 @@ public final class ForEachLoop extends BracedStack implements ForLoop {
         LoopVariable lv_ = _vars.getVal(var_);
         Struct iterator_ = _l.getStructIterator();
         if (iterator_ != null) {
-            String locName_ = _conf.getClasses().getNextVar();
+            boolean native_ = iterator_.isJavaObject();
+            String locName_ = _conf.getClasses().getNextVar(native_);
             LocalVariable locVar_ = new LocalVariable();
             locVar_.setClassName(iterator_.getClassName());
             locVar_.setStruct(iterator_);
             _conf.getLastPage().getLocalVars().put(locName_, locVar_);
-            ExpressionLanguage dynTwo_ = _conf.getClasses().getEqNext();
+            ExpressionLanguage dynTwo_ = _conf.getClasses().getEqNext(native_);
             ExpressionLanguage dyn_ = _conf.getLastPage().getCurrentEl(this, CustList.SECOND_INDEX, dynTwo_);
             Struct element_ = dyn_.calculateMember(_conf).getStruct();
             lv_.setElement(element_);

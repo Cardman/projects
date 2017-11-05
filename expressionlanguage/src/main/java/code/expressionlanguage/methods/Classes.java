@@ -115,6 +115,12 @@ public final class Classes {
     private CustList<OperationNode> expsIterator;
     private CustList<OperationNode> expsHasNext;
     private CustList<OperationNode> expsNext;
+    private String iteratorVarCust;
+    private String hasNextVarCust;
+    private String nextVarCust;
+    private CustList<OperationNode> expsIteratorCust;
+    private CustList<OperationNode> expsHasNextCust;
+    private CustList<OperationNode> expsNextCust;
 
     public Classes(StringMap<String> _files, ContextEl _context) {
         classesBodies = new StringMap<RootBlock>();
@@ -1178,11 +1184,35 @@ public final class Classes {
         nextVar = locName_;
         exp_ = locName_ + LOC_VAR + NEXT;
         expsNext = ElUtil.getAnalyzedOperations(exp_, _context, Calculation.staticCalculation(true));
+        locName_ = page_.getNextTempVar(this);
+        locVar_ = new LocalVariable();
+        locVar_.setClassName(PredefinedClasses.ITERABLE);
+        page_.getLocalVars().put(locName_, locVar_);
+        iteratorVarCust = locName_;
+        exp_ = locName_ + LOC_VAR + ITERATOR;
+        expsIteratorCust = ElUtil.getAnalyzedOperations(exp_, _context, Calculation.staticCalculation(true));
+        locName_ = page_.getNextTempVar(this);
+        locVar_ = new LocalVariable();
+        locVar_.setClassName(PredefinedClasses.ITERATOR);
+        page_.getLocalVars().put(locName_, locVar_);
+        hasNextVarCust = locName_;
+        exp_ = locName_ + LOC_VAR + HAS_NEXT;
+        expsHasNextCust = ElUtil.getAnalyzedOperations(exp_, _context, Calculation.staticCalculation(true));
+        locName_ = page_.getNextTempVar(this);
+        locVar_ = new LocalVariable();
+        locVar_.setClassName(PredefinedClasses.ITERATOR);
+        page_.getLocalVars().put(locName_, locVar_);
+        nextVarCust = locName_;
+        exp_ = locName_ + LOC_VAR + NEXT;
+        expsNextCust = ElUtil.getAnalyzedOperations(exp_, _context, Calculation.staticCalculation(true));
         page_.getLocalVars().removeKey(fifthArg_);
         page_.getLocalVars().removeKey(sixthArg_);
         page_.getLocalVars().removeKey(iteratorVar);
         page_.getLocalVars().removeKey(hasNextVar);
         page_.getLocalVars().removeKey(nextVar);
+        page_.getLocalVars().removeKey(iteratorVarCust);
+        page_.getLocalVars().removeKey(hasNextVarCust);
+        page_.getLocalVars().removeKey(nextVarCust);
     }
 
     public boolean canAccessField(String _className, String _accessedClass, String _name) {
@@ -1240,28 +1270,46 @@ public final class Classes {
         return natEqEl;
     }
 
-    public String getIteratorVar() {
-        return iteratorVar;
+    public String getIteratorVar(boolean _native) {
+        if (_native) {
+            return iteratorVar;
+        }
+        return iteratorVarCust;
     }
 
-    public String getHasNextVar() {
-        return hasNextVar;
+    public String getHasNextVar(boolean _native) {
+        if (_native) {
+            return hasNextVar;
+        }
+        return hasNextVarCust;
     }
 
-    public String getNextVar() {
-        return nextVar;
+    public String getNextVar(boolean _native) {
+        if (_native) {
+            return nextVar;
+        }
+        return nextVarCust;
     }
 
-    public ExpressionLanguage getEqIterator() {
-        return new ExpressionLanguage(expsIterator);
+    public ExpressionLanguage getEqIterator(boolean _native) {
+        if (_native) {
+            return new ExpressionLanguage(expsIterator);
+        }
+        return new ExpressionLanguage(expsIteratorCust);
     }
 
-    public ExpressionLanguage getEqHasNext() {
-        return new ExpressionLanguage(expsHasNext);
+    public ExpressionLanguage getEqHasNext(boolean _native) {
+        if (_native) {
+            return new ExpressionLanguage(expsHasNext);
+        }
+        return new ExpressionLanguage(expsHasNextCust);
     }
 
-    public ExpressionLanguage getEqNext() {
-        return new ExpressionLanguage(expsNext);
+    public ExpressionLanguage getEqNext(boolean _native) {
+        if (_native) {
+            return new ExpressionLanguage(expsNext);
+        }
+        return new ExpressionLanguage(expsNextCust);
     }
 
     public ExpressionLanguage getEqNatEl() {

@@ -1198,6 +1198,122 @@ public class ProcessXmlMethodTwoTest {
         assertEq(Integer.class.getName(), field_.getClassName());
         assertEq(3, (Number)field_.getInstance());
     }
+
+    @Test
+    public void instanceArgument122Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg'>\n";
+        xml_ += "<field access='"+PUBLIC_ACCESS+"' name='inst' class='"+CUST_LIST_FULL+"&lt;java.lang.Number&gt;' value='^new."+CUST_LIST_FULL+"&lt;java.lang.Number&gt;()'/>\n";
+        xml_ += "<field access='"+PUBLIC_ACCESS+"' name='one' class='$int'/>\n";
+        xml_ += "<field access='"+PUBLIC_ACCESS+"' name='two' class='$int'/>\n";
+        xml_ += "<field access='"+PUBLIC_ACCESS+"' name='three' class='$int'/>\n";
+        xml_ += "<instance>\n";
+        xml_ += "<line expression='inst;;;add(3i)'/>\n";
+        xml_ += "<line expression='inst;;;add(1i)'/>\n";
+        xml_ += "<line expression='inst;;;add(2i)'/>\n";
+        xml_ += "<affect left='one;;;' oper='=' right='inst;;;get(0i).intValue()'/>\n";
+        xml_ += "<affect left='two;;;' oper='=' right='inst;;;get(1i).intValue()'/>\n";
+        xml_ += "<affect left='three;;;' oper='=' right='inst;;;get(2i).intValue()'/>\n";
+        xml_ += "</instance>\n";
+        xml_ += "</class>\n";
+        files_.put("pkg/Ex."+Classes.EXT, xml_);
+        files_.put(CUST_ITER_PATH, getCustomIterator());
+        files_.put(CUST_LIST_PATH, getCustomList());
+        ContextEl cont_ = new ContextEl(50);
+        cont_.setAccessValue(new AccessValueEx());
+        Classes.validateAll(files_, cont_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        ConstructorId id_ = getConstructorId("pkg.Ex");
+        ProcessXmlMethod.initializeClass("pkg.Ex", cont_);
+        Argument ret_;
+        ret_ = instanceArgument("pkg.Ex", null, id_, args_, cont_);
+        assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
+        Struct str_ = ret_.getStruct();
+        assertEq(CustBase.class.getName(), str_.getRealClassName());
+        assertEq("pkg.Ex", str_.getClassName());
+        Struct field_;
+        field_ = str_.getFields().getVal(new ClassField("pkg.Ex", "one"));
+        assertEq(Integer.class.getName(), field_.getRealClassName());
+        assertEq(Integer.class.getName(), field_.getClassName());
+        assertEq(3, (Number)field_.getInstance());
+        field_ = str_.getFields().getVal(new ClassField("pkg.Ex", "two"));
+        assertEq(Integer.class.getName(), field_.getRealClassName());
+        assertEq(Integer.class.getName(), field_.getClassName());
+        assertEq(1, (Number)field_.getInstance());
+        field_ = str_.getFields().getVal(new ClassField("pkg.Ex", "three"));
+        assertEq(Integer.class.getName(), field_.getRealClassName());
+        assertEq(Integer.class.getName(), field_.getClassName());
+        assertEq(2, (Number)field_.getInstance());
+    }
+    @Test
+    public void instanceArgument123Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg'>\n";
+        xml_ += "<field access='"+PUBLIC_ACCESS+"' name='inst' class='"+CUST_LIST_FULL+"&lt;java.lang.Number&gt;' value='^new."+CUST_LIST_FULL+"&lt;java.lang.Number&gt;()'/>\n";
+        xml_ += "<field access='"+PUBLIC_ACCESS+"' name='res' class='$int'/>\n";
+        xml_ += "<instance>\n";
+        xml_ += "<line expression='inst;;;add(3i)'/>\n";
+        xml_ += "<line expression='inst;;;add(1i)'/>\n";
+        xml_ += "<line expression='inst;;;add(2i)'/>\n";
+        xml_ += "<foreach class='java.lang.Number' var='e' expression='inst;;;'>\n";
+        xml_ += "<affect left='res;;;' oper='+=' right='e;intValue()'/>\n";
+        xml_ += "</foreach>\n";
+        xml_ += "</instance>\n";
+        xml_ += "</class>\n";
+        files_.put("pkg/Ex."+Classes.EXT, xml_);
+        files_.put(CUST_ITER_PATH, getCustomIterator());
+        files_.put(CUST_LIST_PATH, getCustomList());
+        ContextEl cont_ = new ContextEl(50);
+        cont_.setAccessValue(new AccessValueEx());
+        Classes.validateAll(files_, cont_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        ConstructorId id_ = getConstructorId("pkg.Ex");
+        ProcessXmlMethod.initializeClass("pkg.Ex", cont_);
+        Argument ret_;
+        ret_ = instanceArgument("pkg.Ex", null, id_, args_, cont_);
+        assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
+        Struct str_ = ret_.getStruct();
+        assertEq(CustBase.class.getName(), str_.getRealClassName());
+        assertEq("pkg.Ex", str_.getClassName());
+        Struct field_;
+        field_ = str_.getFields().getVal(new ClassField("pkg.Ex", "res"));
+        assertEq(Integer.class.getName(), field_.getRealClassName());
+        assertEq(Integer.class.getName(), field_.getClassName());
+        assertEq(6, (Number)field_.getInstance());
+    }
+    @Test
+    public void instanceArgument124Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg'>\n";
+        xml_ += "<field access='"+PUBLIC_ACCESS+"' name='inst' class='"+CUST_LIST_FULL+"&lt;java.lang.Number&gt;' value='^new."+CUST_LIST_FULL+"&lt;java.lang.Number&gt;()'/>\n";
+        xml_ += "<field access='"+PUBLIC_ACCESS+"' name='res' class='$int' value='123i'/>\n";
+        xml_ += "<instance>\n";
+        xml_ += "<foreach class='java.lang.Number' var='e' expression='inst;;;'>\n";
+        xml_ += "<affect left='res;;;' oper='+=' right='e;intValue()'/>\n";
+        xml_ += "</foreach>\n";
+        xml_ += "</instance>\n";
+        xml_ += "</class>\n";
+        files_.put("pkg/Ex."+Classes.EXT, xml_);
+        files_.put(CUST_ITER_PATH, getCustomIterator());
+        files_.put(CUST_LIST_PATH, getCustomList());
+        ContextEl cont_ = new ContextEl(50);
+        cont_.setAccessValue(new AccessValueEx());
+        Classes.validateAll(files_, cont_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        ConstructorId id_ = getConstructorId("pkg.Ex");
+        ProcessXmlMethod.initializeClass("pkg.Ex", cont_);
+        Argument ret_;
+        ret_ = instanceArgument("pkg.Ex", null, id_, args_, cont_);
+        assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
+        Struct str_ = ret_.getStruct();
+        assertEq(CustBase.class.getName(), str_.getRealClassName());
+        assertEq("pkg.Ex", str_.getClassName());
+        Struct field_;
+        field_ = str_.getFields().getVal(new ClassField("pkg.Ex", "res"));
+        assertEq(Integer.class.getName(), field_.getRealClassName());
+        assertEq(Integer.class.getName(), field_.getClassName());
+        assertEq(123, (Number)field_.getInstance());
+    }
     //TODO change error
     @Test(expected=InvokeRedinedMethException.class)
     public void instanceArgument2FailTest() {
