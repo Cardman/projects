@@ -42,6 +42,8 @@ public class ProcessXmlMethodTwoTest {
     private static final String CUST_LIST = "CustList";
     private static final String CUST_ITER_FULL = CUST_PKG+".CustIter";
     private static final String CUST_LIST_FULL = CUST_PKG+".CustList";
+    private static final String CUST_ITER_PATH = CUST_PKG+"/CustIter."+Classes.EXT;
+    private static final String CUST_LIST_PATH = CUST_PKG+"/CustList."+Classes.EXT;
     @Test
     public void instanceArgument95Test() {
         StringMap<String> files_ = new StringMap<String>();
@@ -1162,6 +1164,40 @@ public class ProcessXmlMethodTwoTest {
         assertEq(2, (Number) subField_.getInstance());
     }
 
+    @Test
+    public void instanceArgument121Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg'>\n";
+        xml_ += "<field access='"+PUBLIC_ACCESS+"' name='inst' class='"+CUST_LIST_FULL+"&lt;java.lang.Number&gt;' value='^new."+CUST_LIST_FULL+"&lt;java.lang.Number&gt;()'/>\n";
+        xml_ += "<field access='"+PUBLIC_ACCESS+"' name='res' class='$int'/>\n";
+        xml_ += "<instance>\n";
+        xml_ += "<line expression='inst;;;add(3i)'/>\n";
+        xml_ += "<line expression='inst;;;add(1i)'/>\n";
+        xml_ += "<line expression='inst;;;add(2i)'/>\n";
+        xml_ += "<affect left='res;;;' oper='=' right='inst;;;size()'/>\n";
+        xml_ += "</instance>\n";
+        xml_ += "</class>\n";
+        files_.put("pkg/Ex."+Classes.EXT, xml_);
+        files_.put(CUST_ITER_PATH, getCustomIterator());
+        files_.put(CUST_LIST_PATH, getCustomList());
+        ContextEl cont_ = new ContextEl(50);
+        cont_.setAccessValue(new AccessValueEx());
+        Classes.validateAll(files_, cont_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        ConstructorId id_ = getConstructorId("pkg.Ex");
+        ProcessXmlMethod.initializeClass("pkg.Ex", cont_);
+        Argument ret_;
+        ret_ = instanceArgument("pkg.Ex", null, id_, args_, cont_);
+        assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
+        Struct str_ = ret_.getStruct();
+        assertEq(CustBase.class.getName(), str_.getRealClassName());
+        assertEq("pkg.Ex", str_.getClassName());
+        Struct field_;
+        field_ = str_.getFields().getVal(new ClassField("pkg.Ex", "res"));
+        assertEq(Integer.class.getName(), field_.getRealClassName());
+        assertEq(Integer.class.getName(), field_.getClassName());
+        assertEq(3, (Number)field_.getInstance());
+    }
     //TODO change error
     @Test(expected=InvokeRedinedMethException.class)
     public void instanceArgument2FailTest() {
@@ -1293,7 +1329,7 @@ public class ProcessXmlMethodTwoTest {
     }
 
     private static String getCustomList() {
-        String xml_ = "<class access='"+PUBLIC_ACCESS+"' package='"+CUST_PKG+"' name='"+CUST_LIST+"' templates='&lt;#U&gt;' class0='"+PredefinedClasses.ITERABLE+"&lt;#U&gt;'>\n";
+        String xml_ = "<class access='"+PUBLIC_ACCESS+"' package='"+CUST_PKG+"' name='"+CUST_LIST+"' template='&lt;#U&gt;' class0='"+PredefinedClasses.ITERABLE+"&lt;#U&gt;'>\n";
         xml_ += "<field access='"+PRIVATE_ACCESS+"' name='list' class='[#U'/>\n";
         xml_ += "<field access='"+PRIVATE_ACCESS+"' name='length' class='$int'/>\n";
         xml_ += "<constructor access='"+PUBLIC_ACCESS+"'>\n";
@@ -1303,7 +1339,7 @@ public class ProcessXmlMethodTwoTest {
         xml_ += "<line expression='add(length;;;,elt;.;)'/>\n";
         xml_ += "</method>\n";
         xml_ += "<method access='"+PUBLIC_ACCESS+"' name='add' modifier='normal' class='$void' class0='$int' var0='index' class1='#U' var1='elt'>\n";
-        xml_ += "<declareset class='[#U' var='newlist' expression='^new.[#U(length;;;+1)'/>\n";
+        xml_ += "<declareset class='[#U' var='newlist' expression='^new.[#U(length;;;+1i)'/>\n";
         xml_ += "<for init='0i' var='i' class='"+PrimitiveTypeUtil.PRIM_INT+"' expression='index;.;' step='1i'>\n";
         xml_ += "<affect left='newlist;.[i;]' oper='=' right='list;;;[i;]'/>\n";
         xml_ += "</for>\n";
@@ -1314,17 +1350,17 @@ public class ProcessXmlMethodTwoTest {
         xml_ += "<affect left='length;;;' oper='++'/>\n";
         xml_ += "<affect left='list;;;' oper='=' right='newlist;.'/>\n";
         xml_ += "</method>\n";
-        xml_ += "<method access='"+PUBLIC_ACCESS+"' name='size' modifier='normal' class='#U'>\n";
+        xml_ += "<method access='"+PUBLIC_ACCESS+"' name='size' modifier='normal' class='$int'>\n";
         xml_ += "<return expression='length;;;'/>\n";
         xml_ += "</method>\n";
-        xml_ += "<method access='"+PUBLIC_ACCESS+"' name='get' modifier='normal' class='#U' class0='#int' var0='index'>\n";
+        xml_ += "<method access='"+PUBLIC_ACCESS+"' name='get' modifier='normal' class='#U' class0='$int' var0='index'>\n";
         xml_ += "<return expression='list;;;[index;.;]'/>\n";
         xml_ += "</method>\n";
-        xml_ += "<method access='"+PUBLIC_ACCESS+"' name='set' modifier='normal' class='$void' class0='#int' var0='index' class1='#U' var1='elt'>\n";
+        xml_ += "<method access='"+PUBLIC_ACCESS+"' name='set' modifier='normal' class='$void' class0='$int' var0='index' class1='#U' var1='elt'>\n";
         xml_ += "<affect left='list;;;[index;.;]' oper='=' right='elt;.;'/>\n";
         xml_ += "</method>\n";
-        xml_ += "<method access='"+PUBLIC_ACCESS+"' name='remove' modifier='normal' class='$void' class0='#int' var0='index'>\n";
-        xml_ += "<for init='0i' var='index;.;' class='"+PrimitiveTypeUtil.PRIM_INT+"' expression='length;;;-1i' step='1i'>\n";
+        xml_ += "<method access='"+PUBLIC_ACCESS+"' name='remove' modifier='normal' class='$void' class0='$int' var0='index'>\n";
+        xml_ += "<for init='index;.;' var='i' class='"+PrimitiveTypeUtil.PRIM_INT+"' expression='length;;;-1i' step='1i'>\n";
         xml_ += "<affect left='list;;;[i;]' oper='=' right='list;;;[i;+1i]'/>\n";
         xml_ += "</for>\n";
         xml_ += "<affect left='list;;;[length;;;-1i]' oper='=' right='null'/>\n";
@@ -1337,7 +1373,7 @@ public class ProcessXmlMethodTwoTest {
         return xml_;
     }
     private static String getCustomIterator() {
-        String xml_ = "<class access='"+PUBLIC_ACCESS+"' package='"+CUST_PKG+"' name='"+CUST_ITER+"' templates='&lt;#T&gt;' class0='"+PredefinedClasses.ITERATOR+"&lt;#T&gt;'>\n";
+        String xml_ = "<class access='"+PUBLIC_ACCESS+"' package='"+CUST_PKG+"' name='"+CUST_ITER+"' template='&lt;#T&gt;' class0='"+PredefinedClasses.ITERATOR+"&lt;#T&gt;'>\n";
         xml_ += "<field access='"+PRIVATE_ACCESS+"' name='list' class='"+CUST_LIST_FULL+"&lt;#T&gt;'/>\n";
         xml_ += "<field access='"+PRIVATE_ACCESS+"' name='length' class='$int'/>\n";
         xml_ += "<field access='"+PRIVATE_ACCESS+"' name='index' class='$int'/>\n";

@@ -608,7 +608,8 @@ public final class FctOperation extends InvokingOperation {
         }
         if (constId != null) {
             if (StringList.quickEq(trimMeth_,EXTERN_CLASS+CURRENT)) {
-                String clCurName_ = _conf.getLastPage().getGlobalClass();
+                Argument arg_ = _conf.getLastPage().getGlobalArgument();
+                String clCurName_ = arg_.getObjectClassName();
                 String clCurNameBase_ = StringList.getAllTypes(clCurName_).first();
                 CustList<Argument> firstArgs_ = listArguments(chidren_, _arguments, _conf, false);
                 StringList called_ = _conf.getLastPage().getCallingConstr().getCalledConstructors();
@@ -618,10 +619,14 @@ public final class FctOperation extends InvokingOperation {
                 return ArgumentCall.newCall(inv_);
             }
             if (StringList.quickEq(trimMeth_,EXTERN_CLASS+SUPER_ACCESS)) {
-                String clCurName_ = _conf.getLastPage().getGlobalClass();
-                String base_ = StringList.getAllTypes(clCurName_).first();
+                Argument arg_ = _conf.getLastPage().getGlobalArgument();
+                String clCurName_ = arg_.getObjectClassName();
+                String gl_ = _conf.getLastPage().getGlobalClass();
+                gl_ = StringList.getAllTypes(gl_).first();
+                String base_ = StringList.getAllTypes(gl_).first();
+                gl_ = Templates.getFullTypeByBases(clCurName_, gl_, classes_);
                 UniqueRootedBlock unique_ =(UniqueRootedBlock) _conf.getClasses().getClassBody(base_);
-                String superClass_ = Templates.format(clCurName_, unique_.getGenericSuperClass(), classes_);
+                String superClass_ = Templates.format(gl_, unique_.getGenericSuperClass(), classes_);
                 String superClassBase_ = StringList.getAllTypes(superClass_).first();
                 CustList<Argument> firstArgs_ = listArguments(chidren_, _arguments, _conf, false);
                 StringList called_ = _conf.getLastPage().getCallingConstr().getCalledConstructors();

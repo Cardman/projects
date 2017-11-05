@@ -346,8 +346,13 @@ public final class InstanceOperation extends InvokingOperation {
         } else {
             realClassName_ = className_;
         }
-        String glClass_ = _conf.getLastPage().getGlobalClass();
-        if (glClass_ != null) {
+        Argument arg_ = _conf.getLastPage().getGlobalArgument();
+        if (arg_ != null && !arg_.isNull()) {
+            String glClass_ = arg_.getObjectClassName();
+            String gl_ = _conf.getLastPage().getGlobalClass();
+            gl_ = StringList.getAllTypes(gl_).first();
+            gl_ = Templates.getFullTypeByBases(glClass_, gl_, _conf.getClasses());
+            glClass_ = gl_;
             realClassName_ = Templates.format(glClass_, realClassName_, _conf.getClasses());
         }
         if (realClassName_.startsWith(ARR)) {
@@ -457,8 +462,14 @@ public final class InstanceOperation extends InvokingOperation {
             return ArgumentCall.newArgument(newInstance(_conf, needed_, 0, contructor, Argument.toArgArray(_arguments)));
         }
         String className_ = constId.getName();
-        String glClass_ = _conf.getLastPage().getGlobalClass();
-        if (glClass_ != null) {
+        Argument arg_ = _conf.getLastPage().getGlobalArgument();
+        String glClass_ = null;
+        if (arg_ != null && !arg_.isNull()) {
+            glClass_ = arg_.getObjectClassName();
+            String gl_ = _conf.getLastPage().getGlobalClass();
+            gl_ = StringList.getAllTypes(gl_).first();
+            gl_ = Templates.getFullTypeByBases(glClass_, gl_, _conf.getClasses());
+            glClass_ = gl_;
             className_ = Templates.format(glClass_, className_, _conf.getClasses());
         }
         StringList params_ = new StringList();
@@ -471,7 +482,11 @@ public final class InstanceOperation extends InvokingOperation {
         }
         checkArgumentsForInvoking(_conf, params_, getObjects(Argument.toArgArray(_arguments)));
         ConstructorId cid_;
-        cid_ = constId.format(glClass_, _conf.getClasses());
+        if (glClass_ != null) {
+            cid_ = constId.format(glClass_, _conf.getClasses());
+        } else {
+            cid_ = constId;
+        }
         StringList called_ = _conf.getLastPage().getCallingConstr().getCalledConstructors();
         InvokingConstructor inv_ = new InvokingConstructor(className_, fieldName, cid_, needed_, _arguments, InstancingStep.NEWING, called_);
         return ArgumentCall.newCall(inv_);
