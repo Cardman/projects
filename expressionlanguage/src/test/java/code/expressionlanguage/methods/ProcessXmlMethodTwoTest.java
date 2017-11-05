@@ -37,6 +37,11 @@ public class ProcessXmlMethodTwoTest {
     private static final String PROTECTED_ACCESS = "PROTECTED";
     private static final String PACKAGE_ACCESS = "PACKAGE";
     private static final String PRIVATE_ACCESS = "PRIVATE";
+    private static final String CUST_PKG = "pkg";
+    private static final String CUST_ITER = "CustIter";
+    private static final String CUST_LIST = "CustList";
+    private static final String CUST_ITER_FULL = CUST_PKG+".CustIter";
+    private static final String CUST_LIST_FULL = CUST_PKG+".CustList";
     @Test
     public void instanceArgument95Test() {
         StringMap<String> files_ = new StringMap<String>();
@@ -1285,6 +1290,71 @@ public class ProcessXmlMethodTwoTest {
         }
         ConstructorId id_ = new ConstructorId(_id.getName(),constraints_);
         return ProcessXmlMethod.instanceArgument(_class, _global, id_, _args, _cont);
+    }
+
+    private static String getCustomList() {
+        String xml_ = "<class access='"+PUBLIC_ACCESS+"' package='"+CUST_PKG+"' name='"+CUST_LIST+"' templates='&lt;#U&gt;' class0='"+PredefinedClasses.ITERABLE+"&lt;#U&gt;'>\n";
+        xml_ += "<field access='"+PRIVATE_ACCESS+"' name='list' class='[#U'/>\n";
+        xml_ += "<field access='"+PRIVATE_ACCESS+"' name='length' class='$int'/>\n";
+        xml_ += "<constructor access='"+PUBLIC_ACCESS+"'>\n";
+        xml_ += "<affect left='list;;;' oper='=' right='^new.[#U(0i)'/>\n";
+        xml_ += "</constructor>\n";
+        xml_ += "<method access='"+PUBLIC_ACCESS+"' name='add' modifier='normal' class='$void' class0='#U' var0='elt'>\n";
+        xml_ += "<line expression='add(length;;;,elt;.;)'/>\n";
+        xml_ += "</method>\n";
+        xml_ += "<method access='"+PUBLIC_ACCESS+"' name='add' modifier='normal' class='$void' class0='$int' var0='index' class1='#U' var1='elt'>\n";
+        xml_ += "<declareset class='[#U' var='newlist' expression='^new.[#U(length;;;+1)'/>\n";
+        xml_ += "<for init='0i' var='i' class='"+PrimitiveTypeUtil.PRIM_INT+"' expression='index;.;' step='1i'>\n";
+        xml_ += "<affect left='newlist;.[i;]' oper='=' right='list;;;[i;]'/>\n";
+        xml_ += "</for>\n";
+        xml_ += "<affect left='newlist;.[index;.;]' oper='=' right='elt;.;'/>\n";
+        xml_ += "<for init='index;.;+1i' var='i' class='"+PrimitiveTypeUtil.PRIM_INT+"' expression='length;;;+1i' step='1i'>\n";
+        xml_ += "<affect left='newlist;.[i;]' oper='=' right='list;;;[i;-1i]'/>\n";
+        xml_ += "</for>\n";
+        xml_ += "<affect left='length;;;' oper='++'/>\n";
+        xml_ += "<affect left='list;;;' oper='=' right='newlist;.'/>\n";
+        xml_ += "</method>\n";
+        xml_ += "<method access='"+PUBLIC_ACCESS+"' name='size' modifier='normal' class='#U'>\n";
+        xml_ += "<return expression='length;;;'/>\n";
+        xml_ += "</method>\n";
+        xml_ += "<method access='"+PUBLIC_ACCESS+"' name='get' modifier='normal' class='#U' class0='#int' var0='index'>\n";
+        xml_ += "<return expression='list;;;[index;.;]'/>\n";
+        xml_ += "</method>\n";
+        xml_ += "<method access='"+PUBLIC_ACCESS+"' name='set' modifier='normal' class='$void' class0='#int' var0='index' class1='#U' var1='elt'>\n";
+        xml_ += "<affect left='list;;;[index;.;]' oper='=' right='elt;.;'/>\n";
+        xml_ += "</method>\n";
+        xml_ += "<method access='"+PUBLIC_ACCESS+"' name='remove' modifier='normal' class='$void' class0='#int' var0='index'>\n";
+        xml_ += "<for init='0i' var='index;.;' class='"+PrimitiveTypeUtil.PRIM_INT+"' expression='length;;;-1i' step='1i'>\n";
+        xml_ += "<affect left='list;;;[i;]' oper='=' right='list;;;[i;+1i]'/>\n";
+        xml_ += "</for>\n";
+        xml_ += "<affect left='list;;;[length;;;-1i]' oper='=' right='null'/>\n";
+        xml_ += "<affect left='length;;;' oper='--'/>\n";
+        xml_ += "</method>\n";
+        xml_ += "<method access='"+PUBLIC_ACCESS+"' name='iterator' modifier='normal' class='"+PredefinedClasses.ITERATOR+"&lt;#U&gt;'>\n";
+        xml_ += "<return expression='^new."+CUST_ITER_FULL+"&lt;#U&gt;(^this)'/>\n";
+        xml_ += "</method>\n";
+        xml_ += "</class>";
+        return xml_;
+    }
+    private static String getCustomIterator() {
+        String xml_ = "<class access='"+PUBLIC_ACCESS+"' package='"+CUST_PKG+"' name='"+CUST_ITER+"' templates='&lt;#T&gt;' class0='"+PredefinedClasses.ITERATOR+"&lt;#T&gt;'>\n";
+        xml_ += "<field access='"+PRIVATE_ACCESS+"' name='list' class='"+CUST_LIST_FULL+"&lt;#T&gt;'/>\n";
+        xml_ += "<field access='"+PRIVATE_ACCESS+"' name='length' class='$int'/>\n";
+        xml_ += "<field access='"+PRIVATE_ACCESS+"' name='index' class='$int'/>\n";
+        xml_ += "<constructor access='"+PUBLIC_ACCESS+"' var0='i' class0='"+CUST_LIST_FULL+"&lt;#T&gt;'>\n";
+        xml_ += "<affect left='list;;;' oper='=' right='i;.;'/>\n";
+        xml_ += "<affect left='length;;;' oper='=' right='list;;;size()'/>\n";
+        xml_ += "</constructor>\n";
+        xml_ += "<method access='"+PUBLIC_ACCESS+"' name='next' modifier='normal' class='#T'>\n";
+        xml_ += "<declareset class='#T' var='out' expression='list;;;get(index;;;)'/>\n";
+        xml_ += "<affect left='index;;;' oper='++'/>\n";
+        xml_ += "<return expression='out;.'/>\n";
+        xml_ += "</method>\n";
+        xml_ += "<method access='"+PUBLIC_ACCESS+"' name='hasNext' modifier='normal' class='$boolean'>\n";
+        xml_ += "<return expression='index;;;&lt;length;;;'/>\n";
+        xml_ += "</method>\n";
+        xml_ += "</class>";
+        return xml_;
     }
 
     private static MethodId getMethodId(String _name, String..._classNames) {
