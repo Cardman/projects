@@ -393,9 +393,16 @@ public abstract class OperationNode {
             throw new RuntimeClassNotFoundException(_className+RETURN_LINE+_cont.joinPages());
         }
     }
-    final void checkExistBase(ContextEl _cont, String _className,boolean _setOffset, int _offset) {
+    final void checkExistBase(ContextEl _cont, boolean _allowVarTypes, String _className,boolean _setOffset, int _offset) {
         StringMap<StringList> map_;
         map_ = new StringMap<StringList>();
+        if (_allowVarTypes) {
+            Classes classes_ = _cont.getClasses();
+            String glClass_ = _cont.getLastPage().getGlobalClass();
+            for (TypeVar t: Templates.getConstraints(glClass_, classes_)) {
+                map_.put(t.getName(), t.getConstraints());
+            }
+        }
         Classes classes_ = _cont.getClasses();
         if (!Templates.existClassParts(_className, map_, classes_)) {
             if (_setOffset) {

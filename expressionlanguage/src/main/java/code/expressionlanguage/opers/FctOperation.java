@@ -96,6 +96,7 @@ public final class FctOperation extends InvokingOperation {
     private boolean superAccessMethod;
 
     private boolean foundBound;
+    private boolean correctTemplate = true;
 
     public FctOperation(int _index, ContextEl _importingPage,
             int _indexChild, MethodOperation _m, OperationsSequence _op) {
@@ -225,7 +226,14 @@ public final class FctOperation extends InvokingOperation {
                     throw new NullObjectException(_conf.joinPages());
                 }
                 str_ = StringList.removeAllSpaces(str_);
-                checkCorrect(_conf, str_, true, chidren_.first().getIndexInEl()+1);
+                if (str_.contains(Templates.TEMPLATE_BEGIN)) {
+                    checkCorrect(_conf, str_, true, chidren_.first().getIndexInEl()+1);
+                } else {
+                    checkExistBase(_conf, !isStaticBlock(), str_, true, chidren_.first().getIndexInEl()+1);
+                    if (!str_.startsWith(Templates.PREFIX_VAR_TYPE)) {
+                        correctTemplate = Templates.correctNbParameters(str_, classes_);
+                    }
+                }
                 setResultClass(new ClassArgumentMatching(PrimitiveTypeUtil.PRIM_BOOLEAN));
                 return;
             }
@@ -306,7 +314,7 @@ public final class FctOperation extends InvokingOperation {
                 staticChoiceMethodTemplate = true;
                 checkCorrect(_conf, className_, true, getIndexInEl()+off_ + lenPref_);
             } else {
-                checkExistBase(_conf, className_, true, getIndexInEl()+off_ + lenPref_);
+                checkExistBase(_conf, false, className_, true, getIndexInEl()+off_ + lenPref_);
             }
             clCurName_ = className_;
             trimMeth_ = classMethod_.last();
@@ -625,25 +633,30 @@ public final class FctOperation extends InvokingOperation {
             }
         }
         if (StringList.quickEq(trimMeth_,EXTERN_CLASS+INSTANCEOF)) {
-            if (chidren_.size() == 2) {
-                String str_ = (String) _arguments.first().getObject();
-                str_ = StringList.removeAllSpaces(str_);
-                Argument sec_ = _arguments.last();
-                if (sec_.isNull()) {
-                    Argument arg_ = new Argument();
-                    arg_.setObject(false);
-                    return ArgumentCall.newArgument(arg_);
-                }
-                String className_ = sec_.getStruct().getClassName();
-                Mapping mapping_ = new Mapping();
-                mapping_.setArg(className_);
-                str_ = _conf.getLastPage().format(str_, classes_);
-                mapping_.setParam(str_);
-                boolean res_ = Templates.isCorrect(mapping_, classes_);
+            String str_ = (String) _arguments.first().getObject();
+            str_ = StringList.removeAllSpaces(str_);
+            Argument sec_ = _arguments.last();
+            if (sec_.isNull()) {
+                Argument arg_ = new Argument();
+                arg_.setObject(false);
+                return ArgumentCall.newArgument(arg_);
+            }
+            String className_ = sec_.getStruct().getClassName();
+            if (!correctTemplate) {
+                className_ = StringList.getAllTypes(className_).first();
+                boolean res_ = PrimitiveTypeUtil.canBeUseAsArgument(str_, className_, classes_);
                 Argument arg_ = new Argument();
                 arg_.setObject(res_);
                 return ArgumentCall.newArgument(arg_);
             }
+            Mapping mapping_ = new Mapping();
+            mapping_.setArg(className_);
+            str_ = _conf.getLastPage().format(str_, classes_);
+            mapping_.setParam(str_);
+            boolean res_ = Templates.isCorrect(mapping_, classes_);
+            Argument arg_ = new Argument();
+            arg_.setObject(res_);
+            return ArgumentCall.newArgument(arg_);
         }
         if (StringList.quickEq(trimMeth_,EXTERN_CLASS+CAST)) {
             if (chidren_.size() == 1) {

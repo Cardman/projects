@@ -148,7 +148,7 @@ public final class ConstantOperation extends OperationNode implements SettableEl
                     staticChoiceFieldTemplate = true;
                     checkCorrect(_conf, className_, true, lenPref_);
                 } else {
-                    checkExistBase(_conf, className_, true, lenPref_);
+                    checkExistBase(_conf, false, className_, true, lenPref_);
                 }
                 clCurName_ = className_;
             } else {
@@ -797,7 +797,7 @@ public final class ConstantOperation extends OperationNode implements SettableEl
             String base_ = StringList.getAllTypes(classStr_).first();
             String glClass_ = _cont.getLastPage().getGlobalClass();
             Classes classes_ = _cont.getClasses();
-            checkExistBase(_cont, base_, false, 0);
+            checkExistBase(_cont, false, base_, false, 0);
             if (classes_ != null && classes_.isCustomType(classStr_)) {
                 //TODO exclude primitive
                 String curClassBase_ = null;
