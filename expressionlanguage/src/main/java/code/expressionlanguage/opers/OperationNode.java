@@ -1235,7 +1235,7 @@ public abstract class OperationNode {
             }
             checkOnlyDem_ = false;
             nbDem_--;
-            startOpt_ = _params.length;
+            startOpt_ = _params.length - 1;
         }
         Classes classes_ = _context.getClasses();
         String glClass_ = _context.getLastPage().getGlobalClass();
