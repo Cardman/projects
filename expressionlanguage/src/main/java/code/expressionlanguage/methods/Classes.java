@@ -96,6 +96,7 @@ public final class Classes {
     private static final String HAS_NEXT = "hasNext()";
     private static final String NEXT = "next()";
     private static final String EMPTY_STRING = "";
+    private static final String VARARG = "...";
 
     private final StringMap<RootBlock> classesBodies;
 
@@ -1355,11 +1356,26 @@ public final class Classes {
                     StringList params_ = method_.getParametersNames();
                     StringList types_ = method_.getParametersTypes();
                     int len_ = params_.size();
-                    for (int i = CustList.FIRST_INDEX; i < len_; i++) {
-                        String p_ = params_.get(i);
-                        String c_ = types_.get(i);
+                    if (!method_.isVarargs()) {
+                        for (int i = CustList.FIRST_INDEX; i < len_; i++) {
+                            String p_ = params_.get(i);
+                            String c_ = types_.get(i);
+                            LocalVariable lv_ = new LocalVariable();
+                            lv_.setClassName(c_);
+                            page_.getParameters().put(p_, lv_);
+                        }
+                    } else {
+                        for (int i = CustList.FIRST_INDEX; i < len_ - 1; i++) {
+                            String p_ = params_.get(i);
+                            String c_ = types_.get(i);
+                            LocalVariable lv_ = new LocalVariable();
+                            lv_.setClassName(c_);
+                            page_.getParameters().put(p_, lv_);
+                        }
+                        String p_ = params_.last();
+                        String c_ = types_.last();
                         LocalVariable lv_ = new LocalVariable();
-                        lv_.setClassName(c_);
+                        lv_.setClassName(c_+VARARG);
                         page_.getParameters().put(p_, lv_);
                     }
                     method_.buildFctInstructions(_context);
@@ -1510,7 +1526,6 @@ public final class Classes {
                         d.setStoppable();
                     }
                     Block r_ = all_.last();
-                    String name_ = method_.getName();
                     StringList types_ = method_.getParametersTypes();
                     int len_ = types_.size();
                     EqList<ClassName> pTypes_ = new EqList<ClassName>();

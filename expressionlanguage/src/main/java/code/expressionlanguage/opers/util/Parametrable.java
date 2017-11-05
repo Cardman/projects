@@ -9,4 +9,6 @@ public interface Parametrable {
     String getClassName();
 
     boolean isStatic();
+
+    boolean isVararg();
 }

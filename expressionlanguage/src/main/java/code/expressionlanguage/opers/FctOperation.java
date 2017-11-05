@@ -28,6 +28,7 @@ import code.expressionlanguage.exceptions.NotEqualableException;
 import code.expressionlanguage.exceptions.NotInitializedClassException;
 import code.expressionlanguage.exceptions.NotStringException;
 import code.expressionlanguage.exceptions.NullGlobalObjectException;
+import code.expressionlanguage.exceptions.PrimitiveTypeException;
 import code.expressionlanguage.exceptions.StaticAccessException;
 import code.expressionlanguage.exceptions.UnwrappingException;
 import code.expressionlanguage.exceptions.VarargException;
@@ -98,6 +99,8 @@ public final class FctOperation extends InvokingOperation {
     private boolean foundBound;
     private boolean correctTemplate = true;
 
+    private int naturalVararg = -1;
+
     public FctOperation(int _index, ContextEl _importingPage,
             int _indexChild, MethodOperation _m, OperationsSequence _op) {
         super(_index, _importingPage, _indexChild, _m, _op);
@@ -116,6 +119,7 @@ public final class FctOperation extends InvokingOperation {
         int off_ = StringList.getFirstPrintableCharIndex(methodName);
         setRelativeOffsetPossibleLastPage(getIndexInEl()+off_, _conf);
         String trimMeth_ = methodName.trim();
+        boolean varargOnly_ = lookOnlyForVarArg();
         if (StringList.quickEq(trimMeth_, EXTERN_CLASS+VAR_ARG)) {
             setVararg(true);
             if (!(getParent() instanceof InvokingOperation)) {
@@ -172,9 +176,12 @@ public final class FctOperation extends InvokingOperation {
             //validate calling of constructors of the current class
             String clCurName_ = _conf.getLastPage().getGlobalClass();
             otherConstructorClass = true;
-            CustList<ClassArgumentMatching> firstArgs_ = listClasses(chidren_);
-            constId = getDeclaredCustConstructor(_conf, new ClassArgumentMatching(clCurName_), ClassArgumentMatching.toArgArray(firstArgs_));
+            CustList<ClassArgumentMatching> firstArgs_ = listClasses(chidren_, _conf);
+            constId = getDeclaredCustConstructor(_conf, varargOnly_, new ClassArgumentMatching(clCurName_), ClassArgumentMatching.toArgArray(firstArgs_));
             if (constId != null) {
+                if (constId.isVararg() && !varargOnly_) {
+                    naturalVararg = constId.getParametersTypes().size() - 1;
+                }
                 setResultClass(new ClassArgumentMatching(OperationNode.VOID_RETURN));
                 return;
             }
@@ -190,15 +197,18 @@ public final class FctOperation extends InvokingOperation {
             String clCurName_ = _conf.getLastPage().getGlobalClass();
             String base_ = StringList.getAllTypes(clCurName_).first();
             superConstructorCall = true;
-            CustList<ClassArgumentMatching> firstArgs_ = listClasses(chidren_);
+            CustList<ClassArgumentMatching> firstArgs_ = listClasses(chidren_, _conf);
             UniqueRootedBlock unique_ =(UniqueRootedBlock) _conf.getClasses().getClassBody(base_);
             String superClass_ = Templates.format(clCurName_, unique_.getGenericSuperClass(), classes_);
-            constId = getDeclaredCustConstructor(_conf, new ClassArgumentMatching(superClass_), ClassArgumentMatching.toArgArray(firstArgs_));
+            constId = getDeclaredCustConstructor(_conf, varargOnly_, new ClassArgumentMatching(superClass_), ClassArgumentMatching.toArgArray(firstArgs_));
             if (constId != null) {
                 CustList<ConstructorBlock> ctors_ = classes_.getConstructorBodiesByFormattedId(superClass_, constId);
                 if (!ctors_.isEmpty() && !classes_.canAccess(clCurName_, ctors_.first())) {
                     ConstructorBlock ctr_ = ctors_.first();
                     throw new BadAccessException(ctr_.getId().getSignature()+RETURN_LINE+_conf.joinPages());
+                }
+                if (constId.isVararg() && !varargOnly_) {
+                    naturalVararg = constId.getParametersTypes().size() - 1;
                 }
                 setResultClass(new ClassArgumentMatching(OperationNode.VOID_RETURN));
                 return;
@@ -294,7 +304,7 @@ public final class FctOperation extends InvokingOperation {
             return;
         }
         needGlobalArgument();
-        CustList<ClassArgumentMatching> firstArgs_ = listClasses(chidren_);
+        CustList<ClassArgumentMatching> firstArgs_ = listClasses(chidren_, _conf);
         ClassArgumentMatching clCur_ = getPreviousResultClass();
         String clCurName_;
         if (trimMeth_.contains(STATIC_CALL)) {
@@ -373,9 +383,10 @@ public final class FctOperation extends InvokingOperation {
         int off_ = StringList.getFirstPrintableCharIndex(methodName);
         setRelativeOffsetPossibleLastPage(getIndexInEl()+off_, _conf);
         String trimMeth_ = methodName.trim();
-        CustList<ClassArgumentMatching> firstArgs_ = listClasses(chidren_);
+        CustList<ClassArgumentMatching> firstArgs_ = listClasses(chidren_, _conf);
         String clCurName_ = _subType;
         String glClass_ = _conf.getLastPage().getGlobalClass();
+        boolean varargOnly_ = lookOnlyForVarArg();
         for (ClassArgumentMatching c:firstArgs_) {
             if (c.matchVoid()) {
                 throw new VoidArgumentException(clCurName_+DOT+trimMeth_+RETURN_LINE+_conf.joinPages());
@@ -463,7 +474,7 @@ public final class FctOperation extends InvokingOperation {
             staticChoiceMethod_ = true;
             superAccessMethod_ = true;
         }
-        ClassMethodIdReturn clMeth_ = getDeclaredCustMethod(_failIfError, _conf, isStaticAccess(), new ClassArgumentMatching(clCurName_), trimMeth_, superClassAccess_, ClassArgumentMatching.toArgArray(firstArgs_));
+        ClassMethodIdReturn clMeth_ = getDeclaredCustMethod(_failIfError, _conf, varargOnly_, isStaticAccess(), new ClassArgumentMatching(clCurName_), trimMeth_, superClassAccess_, ClassArgumentMatching.toArgArray(firstArgs_));
         if (!clMeth_.isFoundMethod()) {
             return;
         }
@@ -498,6 +509,9 @@ public final class FctOperation extends InvokingOperation {
             classMethodId = clMeth_.getId();
         }
         realId = clMeth_.getRealId();
+        if (realId.isVararg() && !varargOnly_) {
+            naturalVararg = realId.getParametersTypes().size() - 1;
+        }
         superAccessMethod = superAccessMethod_;
         staticChoiceMethod = staticChoiceMethod_;
         staticMethod = clMeth_.isStaticMethod();
@@ -505,12 +519,17 @@ public final class FctOperation extends InvokingOperation {
         foundBound = true;
     }
     private void analyzeNativeClass(ContextEl _conf, String _subType, boolean _failIfError) {
-        ClassArgumentMatching clVar_ = new ClassArgumentMatching(_subType);
         int off_ = StringList.getFirstPrintableCharIndex(methodName);
+        if (PrimitiveTypeUtil.isPrimitive(_subType)) {
+            setRelativeOffsetPossibleLastPage(getIndexInEl()+off_, _conf);
+            throw new PrimitiveTypeException(_subType+RETURN_LINE+_conf.joinPages());
+        }
+        ClassArgumentMatching clVar_ = new ClassArgumentMatching(_subType);
         String trimMeth_ = methodName.trim();
         CustList<OperationNode> chidren_ = getChildrenNodes();
-        CustList<ClassArgumentMatching> firstArgs_ = listClasses(chidren_);
-        Method m_ = getDeclaredMethod(_failIfError, _conf, isStaticAccess(), clVar_, trimMeth_, ClassArgumentMatching.toArgArray(firstArgs_));
+        CustList<ClassArgumentMatching> firstArgs_ = listClasses(chidren_, _conf);
+        boolean varargOnly_ = lookOnlyForVarArg();
+        Method m_ = getDeclaredMethod(_failIfError, _conf, varargOnly_, isStaticAccess(), clVar_, trimMeth_, ClassArgumentMatching.toArgArray(firstArgs_));
         if (m_ == null) {
             return;
         }
@@ -522,6 +541,9 @@ public final class FctOperation extends InvokingOperation {
             return;
         }
         method = m_;
+        if (m_.isVarArgs() && !varargOnly_) {
+            naturalVararg = m_.getParameterTypes().length - 1;
+        }
         staticMethod = Modifier.isStatic(m_.getModifiers());
         setAccess(m_, _conf);
         int nbParams_ = m_.getTypeParameters().length;
@@ -611,7 +633,7 @@ public final class FctOperation extends InvokingOperation {
                 Argument arg_ = _conf.getLastPage().getGlobalArgument();
                 String clCurName_ = arg_.getObjectClassName();
                 String clCurNameBase_ = StringList.getAllTypes(clCurName_).first();
-                CustList<Argument> firstArgs_ = listArguments(chidren_, _arguments, _conf, false);
+                CustList<Argument> firstArgs_ = listArguments(chidren_, naturalVararg, _arguments, _conf);
                 StringList called_ = _conf.getLastPage().getCallingConstr().getCalledConstructors();
                 called_.add(clCurNameBase_);
                 Argument global_ = _conf.getLastPage().getGlobalArgument();
@@ -628,7 +650,7 @@ public final class FctOperation extends InvokingOperation {
                 UniqueRootedBlock unique_ =(UniqueRootedBlock) _conf.getClasses().getClassBody(base_);
                 String superClass_ = Templates.format(gl_, unique_.getGenericSuperClass(), classes_);
                 String superClassBase_ = StringList.getAllTypes(superClass_).first();
-                CustList<Argument> firstArgs_ = listArguments(chidren_, _arguments, _conf, false);
+                CustList<Argument> firstArgs_ = listArguments(chidren_, naturalVararg, _arguments, _conf);
                 StringList called_ = _conf.getLastPage().getCallingConstr().getCalledConstructors();
                 called_.add(superClassBase_);
                 _conf.getLastPage().clearCurrentEls();
@@ -656,7 +678,14 @@ public final class FctOperation extends InvokingOperation {
             }
             Mapping mapping_ = new Mapping();
             mapping_.setArg(className_);
-            str_ = _conf.getLastPage().format(str_, classes_);
+            Argument glObj_ = _conf.getLastPage().getGlobalArgument();
+            if (glObj_ != null && !glObj_.isNull()) {
+                String glClass_ = glObj_.getObjectClassName();
+                String gl_ = _conf.getLastPage().getGlobalClass();
+                gl_ = StringList.getAllTypes(gl_).first();
+                gl_ = Templates.getFullTypeByBases(glClass_, gl_, classes_);
+                str_ = Templates.format(gl_, str_, classes_);
+            }
             mapping_.setParam(str_);
             boolean res_ = Templates.isCorrect(mapping_, classes_);
             Argument arg_ = new Argument();
@@ -740,7 +769,7 @@ public final class FctOperation extends InvokingOperation {
         CustList<Argument> firstArgs_;
         Argument arg_ = _previous;
         if (classMethodId == null) {
-            firstArgs_ = listArguments(chidren_, _arguments, _conf, true);
+            firstArgs_ = listArguments(chidren_, naturalVararg, _arguments, _conf);
             Object obj_ = arg_.getObject();
             if (!staticMethod && obj_ == null) {
                 throw new NullObjectException(_conf.joinPages());
@@ -754,13 +783,13 @@ public final class FctOperation extends InvokingOperation {
                 }
             }
             String clCur_ = getPreviousResultClass().getName();
-            Struct ret_ = invokeMethod(_conf, 0, clCur_, method, obj_, Argument.toArgArray(firstArgs_));
+            Struct ret_ = invokeMethod(_conf, 0, naturalVararg > -1, clCur_, method, obj_, Argument.toArgArray(firstArgs_));
             Argument argres_ = new Argument();
             argres_.setStruct(ret_);
             return ArgumentCall.newArgument(argres_);
         }
         MethodId methodId_ = classMethodId.getConstraints();
-        firstArgs_ = listArguments(chidren_, _arguments, _conf, false);
+        firstArgs_ = listArguments(chidren_, naturalVararg, _arguments, _conf);
         String classNameFound_;
         if (!staticMethod) {
             if (arg_.isNull()) {
@@ -885,7 +914,7 @@ public final class FctOperation extends InvokingOperation {
         for (String c: methodId_.getParametersTypes()) {
             params_.add(c);
         }
-        checkArgumentsForInvoking(_conf, params_, getObjects(Argument.toArgArray(firstArgs_)));
+        checkArgumentsForInvoking(_conf, naturalVararg > -1, params_, getObjects(Argument.toArgArray(firstArgs_)));
         InvokingMethod inv_ = new InvokingMethod(arg_, classNameFound_, methodId_, firstArgs_);
         return ArgumentCall.newCall(inv_);
     }

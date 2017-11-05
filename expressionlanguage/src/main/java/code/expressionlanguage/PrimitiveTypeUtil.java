@@ -811,11 +811,11 @@ public final class PrimitiveTypeUtil {
     }
 
     public static Object defaultValue(String _class) {
-        ClassArgumentMatching cl_ = new ClassArgumentMatching(_class);
-        if (cl_.isPrimitive()) {
-            if (StringList.quickEq(cl_.getName(), PrimitiveTypeUtil.PRIM_BOOLEAN)) {
+        if (isPrimitive(_class)) {
+            if (StringList.quickEq(_class, PrimitiveTypeUtil.PRIM_BOOLEAN)) {
                 return false;
             }
+            ClassArgumentMatching cl_ = new ClassArgumentMatching(_class);
             return convert(cl_.getClazz(), 0);
         }
         return null;

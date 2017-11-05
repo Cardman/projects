@@ -80,4 +80,12 @@ public final class MethodInfo implements Parametrable {
     public void setStatic(boolean _staticMethod) {
         staticMethod = _staticMethod;
     }
+
+    @Override
+    public boolean isVararg() {
+        if (method == null) {
+            return constraints.isVararg();
+        }
+        return method.isVarArgs();
+    }
 }

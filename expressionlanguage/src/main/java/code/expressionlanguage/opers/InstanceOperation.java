@@ -63,6 +63,8 @@ public final class InstanceOperation extends InvokingOperation {
 
     private String fieldName = EMPTY_STRING;
 
+    private int naturalVararg = -1;
+
     public InstanceOperation(int _index, ContextEl _importingPage,
             int _indexChild, MethodOperation _m, OperationsSequence _op) {
         super(_index, _importingPage, _indexChild, _m, _op);
@@ -139,7 +141,7 @@ public final class InstanceOperation extends InvokingOperation {
             setResultClass(new ClassArgumentMatching(PrimitiveTypeUtil.getPrettyArrayType(realClassName_, CustList.ONE_ELEMENT)));
             return;
         }
-        CustList<ClassArgumentMatching> firstArgs_ = listClasses(chidren_);
+        CustList<ClassArgumentMatching> firstArgs_ = listClasses(chidren_, _conf);
         boolean intern_ = true;
         if (!isIntermediateDotted()) {
             intern_ = false;
@@ -179,6 +181,7 @@ public final class InstanceOperation extends InvokingOperation {
         if (StringList.quickEq(realClassName_, OperationNode.VOID_RETURN)) {
             throw new VoidArgumentException(_conf.joinPages());
         }
+        boolean varargOnly_ = lookOnlyForVarArg();
         if (classes_ != null) {
             ClassMetaInfo custClass_ = null;
             custClass_ = classes_.getClassMetaInfo(realClassName_);
@@ -196,10 +199,13 @@ public final class InstanceOperation extends InvokingOperation {
                     fieldName = _fieldName;
                 }
                 checkCorrect(_conf, realClassName_, false, 0);
-                constId = getDeclaredCustConstructor(_conf, new ClassArgumentMatching(realClassName_), ClassArgumentMatching.toArgArray(_firstArgs));
+                constId = getDeclaredCustConstructor(_conf, varargOnly_, new ClassArgumentMatching(realClassName_), ClassArgumentMatching.toArgArray(_firstArgs));
             }
         }
         if (constId != null) {
+            if (constId.isVararg() && !varargOnly_) {
+                naturalVararg = constId.getParametersTypes().size() - 1;
+            }
             String glClass_ = _conf.getLastPage().getGlobalClass();
             CustList<ConstructorBlock> ctors_ = classes_.getConstructorBodiesByFormattedId(realClassName_, constId);
             String curClassBase_ = null;
@@ -236,11 +242,14 @@ public final class InstanceOperation extends InvokingOperation {
             throw new AbstractClassConstructorException(realClassName_+RETURN_LINE+_conf.joinPages());
         }
         ClassArgumentMatching arg_ = new ClassArgumentMatching(realClassName_);
-        Constructor<?> const_ = getDeclaredConstructor(_conf, 0, arg_, ClassArgumentMatching.toArgArray(_firstArgs));
+        Constructor<?> const_ = getDeclaredConstructor(_conf, varargOnly_, 0, arg_, ClassArgumentMatching.toArgArray(_firstArgs));
         if (!canBeUsed(const_, _conf)) {
             throw new BadAccessException(const_+RETURN_LINE+_conf.joinPages());
         }
         contructor = const_;
+        if (contructor.isVarArgs() && !varargOnly_) {
+            naturalVararg = contructor.getParameterTypes().length - 1;
+        }
         setAccess(contructor, _conf);
         setResultClass(new ClassArgumentMatching(realClassName_));
     }
@@ -395,12 +404,13 @@ public final class InstanceOperation extends InvokingOperation {
             if (elts_) {
                 if (cust_) {
                     Struct[] array_ = new Struct[nbCh_];
+                    String clArr_ = PrimitiveTypeUtil.getPrettyArrayType(realClassName_, args_.length);
+                    Struct str_ = new Struct(array_,clArr_);
                     for (int i = CustList.FIRST_INDEX; i < nbCh_; i++) {
                         Argument chArg_ = _arguments.get(i);
-                        array_[i] = chArg_.getStruct();
+                        ArrOperation.setCheckedElement(str_, i, chArg_, _conf);
                     }
-                    String clArr_ = PrimitiveTypeUtil.getPrettyArrayType(realClassName_, args_.length);
-                    a_.setStruct(new Struct(array_,clArr_));
+                    a_.setStruct(str_);
                     return ArgumentCall.newArgument(a_);
                 }
                 Object array_ = newClassicArray(_conf, instanceClassName_, realClassName_, args_);
@@ -432,7 +442,7 @@ public final class InstanceOperation extends InvokingOperation {
                 return ArgumentCall.newCall(inv_);
             }
         }
-        CustList<Argument> firstArgs_ = listArguments(chidren_, _arguments, _conf, true);
+        CustList<Argument> firstArgs_ = listArguments(chidren_, naturalVararg, _arguments, _conf);
         if (!isIntermediateDotted()) {
             Class<?> class_ = null;
             if (StringList.isWord(realClassName_)) {
@@ -459,7 +469,7 @@ public final class InstanceOperation extends InvokingOperation {
             _arguments.add(CustList.FIRST_INDEX, arg_);
         }
         if (constId == null) {
-            return ArgumentCall.newArgument(newInstance(_conf, needed_, 0, contructor, Argument.toArgArray(_arguments)));
+            return ArgumentCall.newArgument(newInstance(_conf, needed_, 0, naturalVararg > -1, contructor, Argument.toArgArray(_arguments)));
         }
         String className_ = constId.getName();
         Argument arg_ = _conf.getLastPage().getGlobalArgument();
@@ -480,7 +490,7 @@ public final class InstanceOperation extends InvokingOperation {
             }
             params_.add(class_);
         }
-        checkArgumentsForInvoking(_conf, params_, getObjects(Argument.toArgArray(_arguments)));
+        checkArgumentsForInvoking(_conf, naturalVararg > -1, params_, getObjects(Argument.toArgArray(_arguments)));
         ConstructorId cid_;
         if (glClass_ != null) {
             cid_ = constId.format(glClass_, _conf.getClasses());

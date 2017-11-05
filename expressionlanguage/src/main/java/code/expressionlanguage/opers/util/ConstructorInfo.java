@@ -81,4 +81,13 @@ public final class ConstructorInfo implements Parametrable {
     public boolean isStatic() {
         return false;
     }
+
+    @Override
+    public boolean isVararg() {
+        if (constructor == null) {
+            return constraints.isVararg();
+        }
+        return constructor.isVarArgs();
+    }
+
 }

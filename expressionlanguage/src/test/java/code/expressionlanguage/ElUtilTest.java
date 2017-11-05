@@ -850,12 +850,12 @@ public class ElUtilTest {
         long[] arr_ = new long[7];
         LocalVariable lv_ = new LocalVariable();
         lv_.setElement(arr_);
-        lv_.setClassName(long[].class.getName());
+        lv_.setClassName(ARR_LONG);
         localVars_.put("v", lv_);
         lv_ = new LocalVariable();
         arr_ = new long[8];
         lv_.setElement(arr_);
-        lv_.setClassName(long[].class.getName());
+        lv_.setClassName(ARR_LONG);
         localVars_.put("2", lv_);
         ContextEl context_ = new ContextEl();
         setupAccessValue(context_);

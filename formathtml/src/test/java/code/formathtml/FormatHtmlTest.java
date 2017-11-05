@@ -9269,6 +9269,39 @@ public class FormatHtmlTest {
         assertXmlEqualRuntime("<html xmlns:c='javahtml' xmlns='javahtml'><body>2_[java.lang.String_ab</body></html>", render_);
     }
 
+    @Test
+    public void processImports42Test() {
+        String locale_ = "LOCALE";
+        String folder_ = "messages";
+        String relative_ = "sample/file";
+        String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
+        String html_ = "<html xmlns:c='javahtml'><body><c:set var=\"list\" expression=\"^new."+GENE_OBJS+"()\" className=\"java.lang.Iterable\"/><c:set var=\"listTwo\" expression=\"^new."+GENE_OBJS+"(list;.)\" className=\""+GENE_OBJS+"\"/>{listTwo;.size()}</body></html>";
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
+        files_.put("page1.html", html_);
+        BeanOne bean_ = new BeanOne();
+        bean_.getComposite().getStrings().add("FIRST");
+        bean_.getComposite().getStrings().add("SECOND");
+        bean_.getComposite().setInteger(5);
+        bean_.getComposites().get(0).setStrings(new StringList("F"));
+        bean_.getComposites().get(1).setStrings(new StringList("S"));
+        Configuration conf_ = new Configuration();
+        conf_.setBeans(new StringMap<Bean>());
+        conf_.getBeans().put("bean_one", bean_);
+        conf_.setMessagesFolder(folder_);
+        conf_.setProperties(new StringMap<String>());
+        conf_.getProperties().put("msg_example", relative_);
+        conf_.setTranslators(new StringMap<Translator>());
+        conf_.getTranslators().put("trans", new MyTranslator());
+        conf_.setMathFactory(new SimpleMathFactory());
+        Document doc_ = XmlParser.parseSaxHtml(html_, false, true);
+        conf_.setDocument(doc_);
+        conf_.setHtml(html_);
+        setup(conf_);
+        String render_ = FormatHtml.processHtml(doc_, "bean_one", conf_, locale_, files_);
+        assertXmlEqualRuntime("<html xmlns:c='javahtml' xmlns='javahtml'><body>1</body></html>", render_);
+    }
+
     @Test(expected=RenderingException.class)
     public void processImports1FailTest() {
         String locale_ = "LOCALE";
@@ -9388,38 +9421,6 @@ public class FormatHtmlTest {
 //        String render_ = FormatHtml.processImports(html_, conf_, locale_, files_);
 //        assertXMLEqualRuntime("<html xmlns:c='javahtml' xmlns='javahtml'><body><a c:command=\"go\" href=\"\">TITLE2</a></body></html>", render_);
 //        assertEq(0, beanTwo_.getForms().size());
-    }
-
-    @Test(expected=RenderingException.class)
-    public void processImports4FailTest() {
-        String locale_ = "LOCALE";
-        String folder_ = "messages";
-        String relative_ = "sample/file";
-        String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
-        String html_ = "<html xmlns:c='javahtml'><body><c:set var=\"list\" expression=\"^new."+GENE_OBJS+"()\" className=\"java.lang.Iterable\"/><c:set var=\"listTwo\" expression=\"^new."+GENE_OBJS+"(list;.)\" className=\""+GENE_OBJS+"\"/>{listTwo;.size()}</body></html>";
-        StringMap<String> files_ = new StringMap<String>();
-        files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
-        files_.put("page1.html", html_);
-        BeanOne bean_ = new BeanOne();
-        bean_.getComposite().getStrings().add("FIRST");
-        bean_.getComposite().getStrings().add("SECOND");
-        bean_.getComposite().setInteger(5);
-        bean_.getComposites().get(0).setStrings(new StringList("F"));
-        bean_.getComposites().get(1).setStrings(new StringList("S"));
-        Configuration conf_ = new Configuration();
-        conf_.setBeans(new StringMap<Bean>());
-        conf_.getBeans().put("bean_one", bean_);
-        conf_.setMessagesFolder(folder_);
-        conf_.setProperties(new StringMap<String>());
-        conf_.getProperties().put("msg_example", relative_);
-        conf_.setTranslators(new StringMap<Translator>());
-        conf_.getTranslators().put("trans", new MyTranslator());
-        conf_.setMathFactory(new SimpleMathFactory());
-        Document doc_ = XmlParser.parseSaxHtml(html_, false, true);
-        conf_.setDocument(doc_);
-        conf_.setHtml(html_);
-        setup(conf_);
-        FormatHtml.processHtml(doc_, "bean_one", conf_, locale_, files_);
     }
 
     @Test(expected=RenderingException.class)

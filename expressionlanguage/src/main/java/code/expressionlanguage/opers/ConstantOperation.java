@@ -228,7 +228,12 @@ public final class ConstantOperation extends OperationNode implements SettableEl
             String key_ = str_.substring(CustList.FIRST_INDEX, str_.length() - GET_PARAM.length());
             LocalVariable locVar_ = ip_.getParameters().getVal(key_);
             if (locVar_ != null) {
-                setResultClass(new ClassArgumentMatching(locVar_.getClassName()));
+                String paramType_ = locVar_.getClassName();
+                if (paramType_.endsWith(VARARG_SUFFIX)) {
+                    paramType_ = StringList.replace(paramType_, VARARG_SUFFIX, EMPTY_STRING);
+                    paramType_ = PrimitiveTypeUtil.getPrettyArrayType(paramType_);
+                }
+                setResultClass(new ClassArgumentMatching(paramType_));
                 return;
             }
             throw new UndefinedVariableException(_conf.joinPages(), key_, PARAMETER);

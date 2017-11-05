@@ -45,9 +45,10 @@ public final class MethodId implements Equallable<MethodId> {
     public String getSignature() {
         StringList classNames_ = new StringList();
         for (ClassName c: classNames) {
-            classNames_.add(c.getName());
             if (c.isVararg()) {
-                classNames_.add(VARARG);
+                classNames_.add(c.getName()+VARARG);
+            } else {
+                classNames_.add(c.getName());
             }
         }
         return name+LEFT+classNames_.join(SEP_TYPE)+RIGHT;
