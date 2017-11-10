@@ -90,4 +90,9 @@ public final class ConstructorInfo implements Parametrable {
         return constructor.isVarArgs();
     }
 
+    @Override
+    public Identifiable getId() {
+        return getConstraints();
+    }
+
 }

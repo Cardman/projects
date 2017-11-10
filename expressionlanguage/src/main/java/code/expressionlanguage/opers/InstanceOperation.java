@@ -39,8 +39,10 @@ import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.opers.util.ClassCategory;
 import code.expressionlanguage.opers.util.ClassMetaInfo;
 import code.expressionlanguage.opers.util.ConstructorId;
+import code.expressionlanguage.opers.util.ConstrustorIdVarArg;
 import code.expressionlanguage.opers.util.DimComp;
 import code.expressionlanguage.opers.util.Struct;
+import code.expressionlanguage.types.NativeTypeUtil;
 import code.serialize.exceptions.BadAccessException;
 import code.util.CustList;
 import code.util.IdMap;
@@ -64,6 +66,8 @@ public final class InstanceOperation extends InvokingOperation {
     private String fieldName = EMPTY_STRING;
 
     private int naturalVararg = -1;
+
+    private String lastType = EMPTY_STRING;
 
     public InstanceOperation(int _index, ContextEl _importingPage,
             int _indexChild, MethodOperation _m, OperationsSequence _op) {
@@ -182,6 +186,7 @@ public final class InstanceOperation extends InvokingOperation {
             throw new VoidArgumentException(_conf.joinPages());
         }
         boolean varargOnly_ = lookOnlyForVarArg();
+        ConstrustorIdVarArg ctorRes_ = null;
         if (classes_ != null) {
             ClassMetaInfo custClass_ = null;
             custClass_ = classes_.getClassMetaInfo(realClassName_);
@@ -199,12 +204,14 @@ public final class InstanceOperation extends InvokingOperation {
                     fieldName = _fieldName;
                 }
                 checkCorrect(_conf, realClassName_, false, 0);
-                constId = getDeclaredCustConstructor(_conf, varargOnly_, new ClassArgumentMatching(realClassName_), ClassArgumentMatching.toArgArray(_firstArgs));
+                ctorRes_ = getDeclaredCustConstructor(_conf, varargOnly_, new ClassArgumentMatching(realClassName_), ClassArgumentMatching.toArgArray(_firstArgs));
             }
         }
-        if (constId != null) {
-            if (constId.isVararg() && !varargOnly_) {
+        if (ctorRes_ != null) {
+            constId = ctorRes_.getConstId();
+            if (ctorRes_.isVarArgToCall()) {
                 naturalVararg = constId.getParametersTypes().size() - 1;
+                lastType = constId.getParametersTypes().last();
             }
             String glClass_ = _conf.getLastPage().getGlobalClass();
             CustList<ConstructorBlock> ctors_ = classes_.getConstructorBodiesByFormattedId(realClassName_, constId);
@@ -248,7 +255,10 @@ public final class InstanceOperation extends InvokingOperation {
         }
         contructor = const_;
         if (contructor.isVarArgs() && !varargOnly_) {
-            naturalVararg = contructor.getParameterTypes().length - 1;
+            Class<?>[] params_ = contructor.getParameterTypes();
+            naturalVararg = params_.length - 1;
+            lastType = NativeTypeUtil.getPrettyType(params_[naturalVararg]);
+            lastType = PrimitiveTypeUtil.getQuickComponentType(lastType);
         }
         setAccess(contructor, _conf);
         setResultClass(new ClassArgumentMatching(realClassName_));
@@ -442,7 +452,7 @@ public final class InstanceOperation extends InvokingOperation {
                 return ArgumentCall.newCall(inv_);
             }
         }
-        CustList<Argument> firstArgs_ = listArguments(chidren_, naturalVararg, _arguments, _conf);
+        CustList<Argument> firstArgs_ = listArguments(chidren_, naturalVararg, lastType, _arguments, _conf);
         if (!isIntermediateDotted()) {
             Class<?> class_ = null;
             if (StringList.isWord(realClassName_)) {

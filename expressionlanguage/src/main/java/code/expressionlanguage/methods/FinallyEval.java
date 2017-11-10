@@ -77,12 +77,6 @@ public final class FinallyEval extends BracedStack implements Eval, IncrNextGrou
         PageEl ip_ = _cont.getLastPage();
         TryBlockStack ts_ = (TryBlockStack) ip_.getLastStack();
         ts_.setVisitedCatch(getIndexInGroup()-1);
-        TryBlockStack tryStack_ = (TryBlockStack) ip_.getLastStack();
-        CallingFinally ret_ = tryStack_.getCalling();
-        if (ret_ instanceof ReturnMehod) {
-            ip_.getReadWrite().setBlock(getFirstChild());
-            return;
-        }
         if (ts_.isVisitedFinally()) {
             ip_.removeLastBlock();
             processBlock(_cont);
@@ -97,22 +91,6 @@ public final class FinallyEval extends BracedStack implements Eval, IncrNextGrou
         ReadWrite rw_ = ip_.getReadWrite();
         interruptAfterFinally(ip_);
         TryBlockStack tryStack_ = (TryBlockStack) ip_.getLastStack();
-        CallingFinally ret_ = tryStack_.getCalling();
-        if (ret_ instanceof ReturnMehod) {
-            ip_.removeLastBlock();
-            ret_.removeBlockFinally(_context);
-            FunctionBlock f_ = getFunction();
-            if (f_ instanceof AloneBlock) {
-                if (ip_.getReadWrite() == null) {
-                    Block bn_ = ((AloneBlock)f_).getNextSibling();
-                    if (bn_ != null) {
-                        rw_.setBlock(bn_);
-                        ip_.setReadWrite(rw_);
-                    }
-                }
-            }
-            return;
-        }
         CallingFinally call_ = tryStack_.getCalling();
         if (call_ != null) {
             ip_.removeLastBlock();

@@ -16,6 +16,8 @@ public final class ClassMethodIdReturn {
 
     private boolean abstractMethod;
 
+    private boolean varArgToCall;
+
     public ClassMethodIdReturn(boolean _foundMethod) {
         foundMethod = _foundMethod;
     }
@@ -79,4 +81,13 @@ public final class ClassMethodIdReturn {
     public void setAbstractMethod(boolean _abstractMethod) {
         abstractMethod = _abstractMethod;
     }
+
+    public boolean isVarArgToCall() {
+        return varArgToCall;
+    }
+
+    public void setVarArgToCall(boolean _varArgToCall) {
+        varArgToCall = _varArgToCall;
+    }
+
 }

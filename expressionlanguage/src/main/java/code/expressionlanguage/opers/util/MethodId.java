@@ -9,7 +9,7 @@ import code.util.EqList;
 import code.util.StringList;
 import code.util.ints.Equallable;
 
-public final class MethodId implements Equallable<MethodId> {
+public final class MethodId implements Equallable<MethodId>, Identifiable {
 
     private static final String VARARG = "...";
     private static final String SEP_TYPE = ",";
@@ -98,14 +98,17 @@ public final class MethodId implements Equallable<MethodId> {
         return new MethodId(isStaticMethod(), name_, pTypes_);
     }
 
+    @Override
     public String getName() {
         return name;
     }
 
+    @Override
     public boolean isStaticMethod() {
         return staticMethod;
     }
 
+    @Override
     public StringList getParametersTypes() {
         StringList params_ = new StringList();
         for (ClassName c: classNames) {
@@ -114,6 +117,7 @@ public final class MethodId implements Equallable<MethodId> {
         return params_;
     }
 
+    @Override
     public boolean isVararg() {
         if (classNames.isEmpty()) {
             return false;

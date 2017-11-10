@@ -16,6 +16,8 @@ public class ClassMethodIdResult {
 
     private CustList<MethodInfo> methods;
 
+    private boolean varArgToCall;
+
     public ClassMethodId getId() {
         return id;
     }
@@ -62,5 +64,13 @@ public class ClassMethodIdResult {
 
     public void setMethods(CustList<MethodInfo> _methods) {
         methods = _methods;
+    }
+
+    public boolean isVarArgToCall() {
+        return varArgToCall;
+    }
+
+    public void setVarArgToCall(boolean _varArgToCall) {
+        varArgToCall = _varArgToCall;
     }
 }

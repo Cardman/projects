@@ -1,0 +1,11 @@
+package code.expressionlanguage.opers.util;
+
+import code.util.StringList;
+
+public interface Identifiable {
+
+    boolean isVararg();
+    boolean isStaticMethod();
+    String getName();
+    StringList getParametersTypes();
+}

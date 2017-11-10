@@ -79,6 +79,14 @@ public final class PageEl {
     private String processingAttribute = EMPTY_STRING;
 
     public String getInfos() {
+        return READ_URL+SEP_KEY_VAL+readUrl+SEP_INFO+getCommonInfosAndRc(getTrace());
+    }
+
+    public String getCommonInfosAndRc(RowCol _rc) {
+        return getCommonInfos()+_rc;
+    }
+
+    public RowCol getTrace() {
         RowCol rc_ = new RowCol();
         if (currentBlock != null){
             StringMap<RowCol> a_;
@@ -93,11 +101,7 @@ public final class PageEl {
             endHeader_ = currentBlock.getEndHeader();
             rc_ = XmlParser.getOffset(processingAttribute, a_, e_, offset, o_, t_, endHeader_, tabWidth);
         }
-        return READ_URL+SEP_KEY_VAL+readUrl+SEP_INFO+getCommonInfosAndRc(rc_);
-    }
-
-    public String getCommonInfosAndRc(RowCol _rc) {
-        return getCommonInfos()+_rc;
+        return rc_;
     }
 
     private String getCommonInfos() {

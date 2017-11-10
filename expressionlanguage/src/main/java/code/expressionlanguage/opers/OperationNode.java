@@ -40,10 +40,12 @@ import code.expressionlanguage.opers.util.ClassName;
 import code.expressionlanguage.opers.util.ConstructorId;
 import code.expressionlanguage.opers.util.ConstructorInfo;
 import code.expressionlanguage.opers.util.ConstructorMetaInfo;
+import code.expressionlanguage.opers.util.ConstrustorIdVarArg;
 import code.expressionlanguage.opers.util.Fcts;
 import code.expressionlanguage.opers.util.FieldInfo;
 import code.expressionlanguage.opers.util.FieldMetaInfo;
 import code.expressionlanguage.opers.util.FieldResult;
+import code.expressionlanguage.opers.util.Identifiable;
 import code.expressionlanguage.opers.util.MethodId;
 import code.expressionlanguage.opers.util.MethodInfo;
 import code.expressionlanguage.opers.util.MethodMetaInfo;
@@ -357,8 +359,9 @@ public abstract class OperationNode {
         Delimiters d_ = getOperations().getDelimiter();
         int curKey_ = children_.getKey(indexChild + 1);
         d_.setChildOffest(curKey_);
-        OperationsSequence r_ = ElResolver.getOperationsSequence(p_.getIndexInEl(), value_, conf, d_);
-        nextSibling = createOperationNode(p_.getIndexInEl()+curKey_, conf, indexChild + 1, p_, r_);
+        int offset_ = p_.getIndexInEl()+curKey_;
+        OperationsSequence r_ = ElResolver.getOperationsSequence(offset_, value_, conf, d_);
+        nextSibling = createOperationNode(offset_, conf, indexChild + 1, p_, r_);
         nextSibling.previousSibling = this;
         return nextSibling;
     }
@@ -485,7 +488,7 @@ public abstract class OperationNode {
         }
         throw new NoSuchDeclaredFieldException(traces_.join(RETURN_TAB)+RETURN_LINE+_cont.joinPages());
     }
-    static ConstructorId getDeclaredCustConstructor(ContextEl _conf, boolean _varargOnly, ClassArgumentMatching _class, ClassArgumentMatching..._args) {
+    static ConstrustorIdVarArg getDeclaredCustConstructor(ContextEl _conf, boolean _varargOnly, ClassArgumentMatching _class, ClassArgumentMatching..._args) {
         Classes classes_ = _conf.getClasses();
         if (classes_ == null) {
             return null;
@@ -507,40 +510,24 @@ public abstract class OperationNode {
         constructors_ = custClass_.getConstructors();
         if (constructors_.isEmpty()) {
             if (_args.length == 0) {
-                return new ConstructorId(clCurName_, new EqList<ClassName>());
+                ConstrustorIdVarArg out_;
+                out_ = new ConstrustorIdVarArg();
+                out_.setConstId(new ConstructorId(clCurName_, new EqList<ClassName>()));
+                return out_;
             }
         }
         for (EntryCust<ConstructorId, ConstructorMetaInfo> e: constructors_.entryList()) {
+            ConstructorId ctor_ = e.getKey();
             if (_varargOnly) {
-                if (!e.getKey().isVararg()) {
+                if (!ctor_.isVararg()) {
                     continue;
                 }
             }
-            StringList params_ = e.getKey().getParametersTypes();
-            int nbParams_ = params_.size();
-            ClassMatching[] p_ = new ClassMatching[nbParams_];
-            int i_ = CustList.FIRST_INDEX;
-            if (!e.getKey().isVararg()) {
-                for (String c: params_) {
-                    p_[i_] = new ClassMatching(c);
-                    i_++;
-                }
-            } else {
-                for (String c: params_) {
-                    if (i_ == nbParams_ - 1) {
-                        String c_ = StringList.replace(c, VARARG_SUFFIX, EMPTY_STRING);
-                        c_ = PrimitiveTypeUtil.getPrettyArrayType(c_);
-                        p_[i_] = new ClassMatching(c_);
-                    } else {
-                        p_[i_] = new ClassMatching(c);
-                    }
-                    i_++;
-                }
-            }
-            if (!isPossibleMethod(_conf, clCurName_, _varargOnly, e.getKey().isVararg(), p_, _args)) {
+            ClassMatching[] p_ = getParameters(ctor_);
+            if (!isPossibleMethod(_conf, clCurName_, _varargOnly, ctor_.isVararg(), p_, _args)) {
                 continue;
             }
-            possibleMethods_.add(e.getKey());
+            possibleMethods_.add(ctor_);
         }
         if (possibleMethods_.isEmpty()) {
             String trace_ = clCurName_+PAR_LEFT;
@@ -554,7 +541,15 @@ public abstract class OperationNode {
         }
         if (possibleMethods_.size() == CustList.ONE_ELEMENT) {
             ConstructorId ctor_ = possibleMethods_.first();
-            return ctor_.format(clCurName_, classes_);
+            ConstrustorIdVarArg out_;
+            out_ = new ConstrustorIdVarArg();
+            if (ctor_.isVararg() && !_varargOnly) {
+                if (varArgWrap(classes_, glClass_, clCurName_, ctor_, _args)) {
+                    out_.setVarArgToCall(true);
+                }
+            }
+            out_.setConstId(ctor_.format(clCurName_, classes_));
+            return out_;
         }
         possibleMethods_ = filterCtr(glClass_, clCurName_, possibleMethods_, _conf);
         if (possibleMethods_.isEmpty()) {
@@ -575,6 +570,7 @@ public abstract class OperationNode {
             }
         }
         ArgumentsGroup gr_ = new ArgumentsGroup(classes_, map_, _args);
+        gr_.setGlobalClass(glClass_);
         Parametrables<ConstructorInfo> signatures_ = new Parametrables<ConstructorInfo>();
         for (ConstructorId m: possibleMethods_) {
             ParametersGroup p_ = new ParametersGroup();
@@ -601,7 +597,15 @@ public abstract class OperationNode {
             throw new NoSuchDeclaredConstructorException(trace_+RETURN_LINE+_conf.joinPages());
         }
         ConstructorId ctor_ = signatures_.first().getConstraints();
-        return ctor_.format(clCurName_, classes_);
+        ConstrustorIdVarArg out_;
+        out_ = new ConstrustorIdVarArg();
+        if (ctor_.isVararg() && !_varargOnly) {
+            if (varArgWrap(classes_, glClass_, clCurName_, ctor_, _args)) {
+                out_.setVarArgToCall(true);
+            }
+        }
+        out_.setConstId(ctor_.format(clCurName_, classes_));
+        return out_;
     }
     private static CustList<ConstructorId> filterCtr(String _glClass, String _accessedClass, CustList<ConstructorId> _found, ContextEl _conf) {
         CustList<ConstructorId> accessible_ = new CustList<ConstructorId>();
@@ -660,6 +664,7 @@ public abstract class OperationNode {
             }
         }
         ArgumentsGroup gr_ = new ArgumentsGroup(classes_, map_, _args);
+        gr_.setGlobalClass(glClass_);
         Parametrables<ConstructorInfo> signatures_ = new Parametrables<ConstructorInfo>();
         for (Constructor<?> m: possibleConstructors_) {
             ParametersGroup p_ = new ParametersGroup();
@@ -783,6 +788,7 @@ public abstract class OperationNode {
         idRet_.setRealId(realId_);
         idRet_.setRealClass(_res.getRealClass());
         idRet_.setId(new ClassMethodId(clCurName_, id_));
+        idRet_.setVarArgToCall(_res.isVarArgToCall());
         CustList<MethodBlock> methods_ = classes_.getMethodBodiesById(clCurName_, realId_);
         MethodBlock m_;
         if (methods_.isEmpty()) {
@@ -915,37 +921,17 @@ public abstract class OperationNode {
         CustList<MethodId> possibleMethods_ = new CustList<MethodId>();
         String glClass_ = _conf.getLastPage().getGlobalClass();
         for (EntryCust<MethodId, MethodMetaInfo> e: _methods.entryList()) {
+            MethodId key_ = e.getKey();
             if (_varargOnly) {
-                if (!e.getKey().isVararg()) {
+                if (!key_.isVararg()) {
                     continue;
                 }
             }
-            MethodId key_ = e.getKey();
             if (!StringList.quickEq(key_.getName(), _name)) {
                 continue;
             }
-            StringList params_ = key_.getParametersTypes();
-            int nbParams_ = params_.size();
-            ClassMatching[] p_ = new ClassMatching[nbParams_];
-            int i_ = CustList.FIRST_INDEX;
-            if (!e.getKey().isVararg()) {
-                for (String c: params_) {
-                    p_[i_] = new ClassMatching(c);
-                    i_++;
-                }
-            } else {
-                for (String c: params_) {
-                    if (i_ == nbParams_ - 1) {
-                        String c_ = StringList.replace(c, VARARG_SUFFIX, EMPTY_STRING);
-                        c_ = PrimitiveTypeUtil.getPrettyArrayType(c_);
-                        p_[i_] = new ClassMatching(c_);
-                    } else {
-                        p_[i_] = new ClassMatching(c);
-                    }
-                    i_++;
-                }
-            }
-            if (!isPossibleMethod(_conf, clCurName_, _varargOnly, e.getKey().isVararg(), p_, _argsClass)) {
+            ClassMatching[] p_ = getParameters(key_);
+            if (!isPossibleMethod(_conf, clCurName_, _varargOnly, key_.isVararg(), p_, _argsClass)) {
                 continue;
             }
             possibleMethods_.add(key_);
@@ -965,6 +951,9 @@ public abstract class OperationNode {
                 ClassMethodIdResult res_ = new ClassMethodIdResult();
                 res_.setStatus(SearchingMemberStatus.UNIQ);
                 res_.setId(cl_);
+                if (!_varargOnly && varArgWrap(classes_, glClass_, clCurName_, methodId_, _argsClass)) {
+                    res_.setVarArgToCall(true);
+                }
                 res_.setRealId(realId_);
                 res_.setRealClass(info_.getClassName());
                 return res_;
@@ -974,6 +963,9 @@ public abstract class OperationNode {
             ClassMethodIdResult res_ = new ClassMethodIdResult();
             res_.setStatus(SearchingMemberStatus.UNIQ);
             res_.setId(cl_);
+            if (!_varargOnly && varArgWrap(classes_, glClass_, clCurName_, methodId_, _argsClass)) {
+                res_.setVarArgToCall(true);
+            }
             res_.setRealId(realId_);
             res_.setRealClass(info_.getClassName());
             return res_;
@@ -992,6 +984,7 @@ public abstract class OperationNode {
             }
         }
         ArgumentsGroup gr_ = new ArgumentsGroup(classes_, map_, _argsClass);
+        gr_.setGlobalClass(glClass_);
         Parametrables<MethodInfo> signatures_ = new Parametrables<MethodInfo>();
         for (MethodId m: possibleMethods_) {
             ParametersGroup p_ = new ParametersGroup();
@@ -999,7 +992,7 @@ public abstract class OperationNode {
                 p_.add(new ClassMatching(c));
             }
             MethodInfo mloc_ = new MethodInfo();
-            mloc_.setClassName(_methods.getVal(m).getClassName());
+            mloc_.setClassName(clCurName_);
             mloc_.setStatic(_methods.getVal(m).getModifier() == MethodModifier.STATIC);
             mloc_.setConstraints(m);
             mloc_.setParameters(p_);
@@ -1023,6 +1016,9 @@ public abstract class OperationNode {
             ClassMethodIdResult res_ = new ClassMethodIdResult();
             res_.setStatus(SearchingMemberStatus.UNIQ);
             res_.setId(cl_);
+            if (!_varargOnly && varArgWrap(classes_, glClass_, clCurName_, constraints_, _argsClass)) {
+                res_.setVarArgToCall(true);
+            }
             res_.setRealId(realId_);
             res_.setRealClass(info_.getClassName());
             return res_;
@@ -1032,6 +1028,9 @@ public abstract class OperationNode {
         ClassMethodIdResult res_ = new ClassMethodIdResult();
         res_.setStatus(SearchingMemberStatus.UNIQ);
         res_.setId(cl_);
+        if (!_varargOnly && varArgWrap(classes_, glClass_, clCurName_, constraints_, _argsClass)) {
+            res_.setVarArgToCall(true);
+        }
         res_.setRealId(realId_);
         res_.setRealClass(info_.getClassName());
         return res_;
@@ -1187,6 +1186,7 @@ public abstract class OperationNode {
             }
         }
         ArgumentsGroup gr_ = new ArgumentsGroup(classes_, map_, _argsClass);
+        gr_.setGlobalClass(glClass_);
         Parametrables<MethodInfo> signatures_ = new Parametrables<MethodInfo>();
         for (Method m: possibleMethods_) {
             ParametersGroup p_ = new ParametersGroup();
@@ -1274,6 +1274,10 @@ public abstract class OperationNode {
                 map_.getMapping().put(t.getName(), t.getConstraints());
             }
             String param_ = _params[last_].getClassName();
+            map_.setParam(Templates.generalFormat(_class, param_, classes_));
+            if (Templates.isCorrect(map_, classes_)) {
+                return true;
+            }
             if (!_varargOnly) {
                 param_ = PrimitiveTypeUtil.getQuickComponentType(param_);
             }
@@ -1296,6 +1300,56 @@ public abstract class OperationNode {
             }
         }
         return true;
+    }
+    static boolean varArgWrap(Classes _classes, String _globalClass, String _class, Identifiable _id, ClassArgumentMatching..._argsClass) {
+        if (!_id.isVararg()) {
+            return false;
+        }
+        ClassMatching[] p_ = getParameters(_id);
+        if (p_.length != _argsClass.length) {
+            return true;
+        }
+        Classes classes_ = _classes;
+        String glClass_ = _globalClass;
+        CustList<TypeVar> vars_;
+        if (glClass_ != null) {
+            vars_ = Templates.getConstraints(glClass_, classes_);
+        } else {
+            vars_ = new CustList<TypeVar>();
+        }
+        Mapping map_ = new Mapping();
+        int last_ = p_.length - 1;
+        String param_ = p_[last_].getClassName();
+        for (TypeVar t: vars_) {
+            map_.getMapping().put(t.getName(), t.getConstraints());
+        }
+        map_.setArg(_argsClass[last_].getName());
+        map_.setParam(Templates.generalFormat(_class, param_, classes_));
+        return !Templates.isCorrect(map_, classes_);
+    }
+    static ClassMatching[] getParameters(Identifiable _id) {
+        StringList params_ = _id.getParametersTypes();
+        int nbParams_ = params_.size();
+        ClassMatching[] p_ = new ClassMatching[nbParams_];
+        int i_ = CustList.FIRST_INDEX;
+        if (!_id.isVararg()) {
+            for (String c: params_) {
+                p_[i_] = new ClassMatching(c);
+                i_++;
+            }
+        } else {
+            for (String c: params_) {
+                if (i_ == nbParams_ - 1) {
+                    String c_ = StringList.replace(c, VARARG_SUFFIX, EMPTY_STRING);
+                    c_ = PrimitiveTypeUtil.getPrettyArrayType(c_);
+                    p_[i_] = new ClassMatching(c_);
+                } else {
+                    p_[i_] = new ClassMatching(c);
+                }
+                i_++;
+            }
+        }
+        return p_;
     }
     static Argument newInstance(ContextEl _conf, Argument _need, int _offsetIncr, boolean _natvararg, Constructor<?> _const, Argument... _args) {
         Struct[] args_ = getObjects(_args);
@@ -1365,6 +1419,7 @@ public abstract class OperationNode {
         Classes classes_ = _context.getClasses();
         StringMap<StringList> map_;
         map_ = _context.getMap();
+        String glClass_ = _context.getGlobalClass();
         String glClassOne_ = _o1.getClassName();
         String glClassTwo_ = _o2.getClassName();
         if (_o1.isVararg()) {
@@ -1383,6 +1438,14 @@ public abstract class OperationNode {
                     return CustList.SWAP_SORT;
                 }
                 if (len_ > _o2.getParameters().size()) {
+                    return CustList.NO_SWAP_SORT;
+                }
+                boolean varOne_ = varArgWrap(classes_, glClass_, _o1.getClassName(), _o1.getId(), _context.getArgumentsArray());
+                boolean varTwo_ = varArgWrap(classes_, glClass_, _o2.getClassName(), _o2.getId(), _context.getArgumentsArray());
+                if (varOne_ && !varTwo_) {
+                    return CustList.SWAP_SORT;
+                }
+                if (!varOne_ && varTwo_) {
                     return CustList.NO_SWAP_SORT;
                 }
             }

@@ -88,4 +88,9 @@ public final class MethodInfo implements Parametrable {
         }
         return method.isVarArgs();
     }
+
+    @Override
+    public Identifiable getId() {
+        return getConstraints();
+    }
 }

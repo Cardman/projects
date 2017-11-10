@@ -8,7 +8,7 @@ import code.util.EqList;
 import code.util.StringList;
 import code.util.ints.Equallable;
 
-public final class ConstructorId implements Equallable<ConstructorId> {
+public final class ConstructorId implements Equallable<ConstructorId>, Identifiable {
 
     private static final String VARARG = "...";
     private static final String SEP_TYPE = ",";
@@ -89,6 +89,7 @@ public final class ConstructorId implements Equallable<ConstructorId> {
         return true;
     }
 
+    @Override
     public StringList getParametersTypes() {
         StringList params_ = new StringList();
         for (ClassName c: classNames) {
@@ -97,6 +98,7 @@ public final class ConstructorId implements Equallable<ConstructorId> {
         return params_;
     }
 
+    @Override
     public boolean isVararg() {
         if (classNames.isEmpty()) {
             return false;
@@ -104,11 +106,17 @@ public final class ConstructorId implements Equallable<ConstructorId> {
         return classNames.last().isVararg();
     }
 
+    @Override
     public String getName() {
         return name;
     }
 
     public EqList<ClassName> getClassNames() {
         return new EqList<ClassName>(classNames);
+    }
+
+    @Override
+    public boolean isStaticMethod() {
+        return false;
     }
 }

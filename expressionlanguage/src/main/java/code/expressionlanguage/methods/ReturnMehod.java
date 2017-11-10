@@ -141,7 +141,6 @@ public final class ReturnMehod extends Leaf implements CallingFinally {
     @Override
     public void processEl(ContextEl _cont) {
         PageEl ip_ = _cont.getLastPage();
-        ReadWrite rw_ = ip_.getReadWrite();
         if (!isEmpty()) {
             ip_.setOffset(0);
             ip_.setProcessingAttribute(ATTRIBUTE_EXPRESSION);
@@ -157,16 +156,6 @@ public final class ReturnMehod extends Leaf implements CallingFinally {
                 _cont.getLastPage().setReturnedArgument(void_);
             } else if (f_ instanceof ConstructorBlock) {
                 _cont.getLastPage().setArgumentForConstructor();
-            } else {
-                removeBlockFinally(_cont);
-                if (ip_.getReadWrite() == null) {
-                    Block bn_ = ((AloneBlock)f_).getNextSibling();
-                    if (bn_ != null) {
-                        rw_.setBlock(bn_);
-                        ip_.setReadWrite(rw_);
-                    }
-                }
-                return;
             }
         }
         removeBlockFinally(_cont);
@@ -174,6 +163,7 @@ public final class ReturnMehod extends Leaf implements CallingFinally {
 
     @Override
     public void removeBlockFinally(ContextEl _conf) {
+        FunctionBlock f_ = getFunction();
         PageEl ip_ = _conf.getLastPage();
         while (!ip_.noBlock()) {
             RemovableVars bl_ = ip_.getLastStack();
@@ -183,6 +173,26 @@ public final class ReturnMehod extends Leaf implements CallingFinally {
                 ((TryBlockStack)bl_).setCalling(this);
                 return;
             }
+        }
+        if (!(f_ instanceof AloneBlock)) {
+            ip_.setNullReadWrite();
+            return;
+        }
+        Block bn_ = ((AloneBlock)f_).getNextSibling();
+        ReadWrite rw_ = ip_.getReadWrite();
+        if (bn_ != null) {
+            rw_.setBlock(bn_);
+            return;
+        }
+        ConstructorBlock ctor_ = ip_.getCallingConstr().getUsedConstructor();
+        Block initBlock_ = null;
+        if (ctor_ != null) {
+            initBlock_ = ctor_.getFirstChild();
+        }
+        if (initBlock_ != null) {
+            ip_.getCallingConstr().setInitializedFields(true);
+            rw_.setBlock(initBlock_);
+            return;
         }
         ip_.setNullReadWrite();
     }

@@ -53,6 +53,7 @@ import code.expressionlanguage.opers.util.ClassMethodId;
 import code.expressionlanguage.opers.util.ClassMethodIdReturn;
 import code.expressionlanguage.opers.util.ClassName;
 import code.expressionlanguage.opers.util.ConstructorId;
+import code.expressionlanguage.opers.util.ConstrustorIdVarArg;
 import code.expressionlanguage.opers.util.FieldMetaInfo;
 import code.expressionlanguage.opers.util.MethodId;
 import code.expressionlanguage.opers.util.Struct;
@@ -98,6 +99,8 @@ public final class FctOperation extends InvokingOperation {
 
     private boolean foundBound;
     private boolean correctTemplate = true;
+
+    private String lastType = EMPTY_STRING;
 
     private int naturalVararg = -1;
 
@@ -177,10 +180,13 @@ public final class FctOperation extends InvokingOperation {
             String clCurName_ = _conf.getLastPage().getGlobalClass();
             otherConstructorClass = true;
             CustList<ClassArgumentMatching> firstArgs_ = listClasses(chidren_, _conf);
-            constId = getDeclaredCustConstructor(_conf, varargOnly_, new ClassArgumentMatching(clCurName_), ClassArgumentMatching.toArgArray(firstArgs_));
-            if (constId != null) {
-                if (constId.isVararg() && !varargOnly_) {
+            ConstrustorIdVarArg ctorRes_;
+            ctorRes_ = getDeclaredCustConstructor(_conf, varargOnly_, new ClassArgumentMatching(clCurName_), ClassArgumentMatching.toArgArray(firstArgs_));
+            if (ctorRes_ != null) {
+                constId = ctorRes_.getConstId();
+                if (ctorRes_.isVarArgToCall()) {
                     naturalVararg = constId.getParametersTypes().size() - 1;
+                    lastType = constId.getParametersTypes().last();
                 }
                 setResultClass(new ClassArgumentMatching(OperationNode.VOID_RETURN));
                 return;
@@ -200,15 +206,18 @@ public final class FctOperation extends InvokingOperation {
             CustList<ClassArgumentMatching> firstArgs_ = listClasses(chidren_, _conf);
             UniqueRootedBlock unique_ =(UniqueRootedBlock) _conf.getClasses().getClassBody(base_);
             String superClass_ = Templates.format(clCurName_, unique_.getGenericSuperClass(), classes_);
-            constId = getDeclaredCustConstructor(_conf, varargOnly_, new ClassArgumentMatching(superClass_), ClassArgumentMatching.toArgArray(firstArgs_));
-            if (constId != null) {
+            ConstrustorIdVarArg ctorRes_;
+            ctorRes_ = getDeclaredCustConstructor(_conf, varargOnly_, new ClassArgumentMatching(superClass_), ClassArgumentMatching.toArgArray(firstArgs_));
+            if (ctorRes_ != null) {
+                constId = ctorRes_.getConstId();
                 CustList<ConstructorBlock> ctors_ = classes_.getConstructorBodiesByFormattedId(superClass_, constId);
                 if (!ctors_.isEmpty() && !classes_.canAccess(clCurName_, ctors_.first())) {
                     ConstructorBlock ctr_ = ctors_.first();
                     throw new BadAccessException(ctr_.getId().getSignature()+RETURN_LINE+_conf.joinPages());
                 }
-                if (constId.isVararg() && !varargOnly_) {
+                if (ctorRes_.isVarArgToCall()) {
                     naturalVararg = constId.getParametersTypes().size() - 1;
+                    lastType = constId.getParametersTypes().last();
                 }
                 setResultClass(new ClassArgumentMatching(OperationNode.VOID_RETURN));
                 return;
@@ -509,8 +518,9 @@ public final class FctOperation extends InvokingOperation {
             classMethodId = clMeth_.getId();
         }
         realId = clMeth_.getRealId();
-        if (realId.isVararg() && !varargOnly_) {
+        if (clMeth_.isVarArgToCall()) {
             naturalVararg = realId.getParametersTypes().size() - 1;
+            lastType = realId.getParametersTypes().last();
         }
         superAccessMethod = superAccessMethod_;
         staticChoiceMethod = staticChoiceMethod_;
@@ -542,7 +552,10 @@ public final class FctOperation extends InvokingOperation {
         }
         method = m_;
         if (m_.isVarArgs() && !varargOnly_) {
-            naturalVararg = m_.getParameterTypes().length - 1;
+            Class<?>[] params_ = m_.getParameterTypes();
+            naturalVararg = params_.length - 1;
+            lastType = NativeTypeUtil.getPrettyType(params_[naturalVararg]);
+            lastType = PrimitiveTypeUtil.getQuickComponentType(lastType);
         }
         staticMethod = Modifier.isStatic(m_.getModifiers());
         setAccess(m_, _conf);
@@ -633,7 +646,7 @@ public final class FctOperation extends InvokingOperation {
                 Argument arg_ = _conf.getLastPage().getGlobalArgument();
                 String clCurName_ = arg_.getObjectClassName();
                 String clCurNameBase_ = StringList.getAllTypes(clCurName_).first();
-                CustList<Argument> firstArgs_ = listArguments(chidren_, naturalVararg, _arguments, _conf);
+                CustList<Argument> firstArgs_ = listArguments(chidren_, naturalVararg, lastType, _arguments, _conf);
                 StringList called_ = _conf.getLastPage().getCallingConstr().getCalledConstructors();
                 called_.add(clCurNameBase_);
                 Argument global_ = _conf.getLastPage().getGlobalArgument();
@@ -650,7 +663,7 @@ public final class FctOperation extends InvokingOperation {
                 UniqueRootedBlock unique_ =(UniqueRootedBlock) _conf.getClasses().getClassBody(base_);
                 String superClass_ = Templates.format(gl_, unique_.getGenericSuperClass(), classes_);
                 String superClassBase_ = StringList.getAllTypes(superClass_).first();
-                CustList<Argument> firstArgs_ = listArguments(chidren_, naturalVararg, _arguments, _conf);
+                CustList<Argument> firstArgs_ = listArguments(chidren_, naturalVararg, lastType, _arguments, _conf);
                 StringList called_ = _conf.getLastPage().getCallingConstr().getCalledConstructors();
                 called_.add(superClassBase_);
                 _conf.getLastPage().clearCurrentEls();
@@ -769,7 +782,7 @@ public final class FctOperation extends InvokingOperation {
         CustList<Argument> firstArgs_;
         Argument arg_ = _previous;
         if (classMethodId == null) {
-            firstArgs_ = listArguments(chidren_, naturalVararg, _arguments, _conf);
+            firstArgs_ = listArguments(chidren_, naturalVararg, lastType, _arguments, _conf);
             Object obj_ = arg_.getObject();
             if (!staticMethod && obj_ == null) {
                 throw new NullObjectException(_conf.joinPages());
@@ -789,7 +802,7 @@ public final class FctOperation extends InvokingOperation {
             return ArgumentCall.newArgument(argres_);
         }
         MethodId methodId_ = classMethodId.getConstraints();
-        firstArgs_ = listArguments(chidren_, naturalVararg, _arguments, _conf);
+        firstArgs_ = listArguments(chidren_, naturalVararg, lastType, _arguments, _conf);
         String classNameFound_;
         if (!staticMethod) {
             if (arg_.isNull()) {

@@ -6,6 +6,8 @@ public interface Parametrable {
 
     String getReturnType();
 
+    Identifiable getId();
+
     String getClassName();
 
     boolean isStatic();

@@ -75,7 +75,7 @@ public abstract class InvokingOperation extends MethodOperation {
         return firstArgs_;
     }
 
-    static CustList<Argument> listArguments(CustList<OperationNode> _children, int _natVararg, CustList<Argument> _nodes, ContextEl _context) {
+    static CustList<Argument> listArguments(CustList<OperationNode> _children, int _natVararg, String _lastType, CustList<Argument> _nodes, ContextEl _context) {
         if (!_children.isEmpty() && _children.first().isVararg()) {
             CustList<Argument> firstArgs_ = new CustList<Argument>();
             CustList<Argument> optArgs_ = new CustList<Argument>();
@@ -150,7 +150,7 @@ public abstract class InvokingOperation extends MethodOperation {
                 }
             }
             Argument argRem_ = new Argument();
-            String g_ = _children.first().getResultClass().getName();
+            String g_ = _lastType;
             Argument glObj_ = _context.getLastPage().getGlobalArgument();
             boolean native_ = true;
             if (glObj_ != null && !glObj_.isNull()) {

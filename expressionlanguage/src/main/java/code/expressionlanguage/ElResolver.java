@@ -1677,19 +1677,15 @@ public final class ElResolver {
             }
             i_++;
         }
-        StringBuilder suffixVar_ = new StringBuilder();
         //i_ < len_
         if (_string.charAt(i_) == GET_VAR) {
-            suffixVar_.append(_string.charAt(i_));
             i_++;
             while (true) {
                 if (_string.charAt(i_) == GET_VAR) {
-                    suffixVar_.append(_string.charAt(i_));
                     i_++;
                     continue;
                 }
                 if (_string.charAt(i_) == DOT_VAR) {
-                    suffixVar_.append(_string.charAt(i_));
                     i_++;
                     continue;
                 }
@@ -1707,6 +1703,7 @@ public final class ElResolver {
             minIndexDot_ = i_;
             if (!onlySpacesTo(_string, minIndexDot_-1, len_, ARR_LEFT)) {
                 prio_ = DOT_PRIO;
+                operators_.put(i_, EMPTY_STRING);
             }
         }
         i_ = CustList.FIRST_INDEX;
@@ -1915,29 +1912,6 @@ public final class ElResolver {
                 continue;
             }
             i_++;
-        }
-//        if (prio_ == CMP_PRIO) {
-//            if (operators_.size() != CustList.ONE_ELEMENT) {
-//                if (operators_.size() > CustList.ONE_ELEMENT) {
-//                    _conf.getLastPage().setOffset(_d.getIndexBegin()+_offset+operators_.getKey(CustList.SECOND_INDEX));
-//                }
-//                throw new BadComparisonException(_string+RETURN_LINE+_conf.joinPages());
-//            }
-//        }
-//        if (prio_ == EQ_PRIO) {
-//            if (operators_.size() != CustList.ONE_ELEMENT) {
-//                if (operators_.size() > CustList.ONE_ELEMENT) {
-//                    _conf.getLastPage().setOffset(_d.getIndexBegin()+_offset+operators_.getKey(CustList.SECOND_INDEX));
-//                }
-//                throw new BadComparisonException(_string+RETURN_LINE+_conf.joinPages());
-//            }
-//        }
-        if (!suffixVar_.toString().isEmpty()) {
-            if (prio_ == DOT_PRIO) {
-                if (!onlySpacesTo(_string, minIndexDot_-1, len_, ARR_LEFT)) {
-                    operators_.put(minIndexDot_, EMPTY_STRING);
-                }
-            }
         }
         OperationsSequence op_ = new OperationsSequence();
         op_.setPriority(prio_);

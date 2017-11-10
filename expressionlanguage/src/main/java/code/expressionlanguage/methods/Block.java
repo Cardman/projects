@@ -212,30 +212,33 @@ public abstract class Block extends Blockable {
         }
         BracedBlock par_ = parElt_.getElement();
         if (par_ == null) {
-            Block na_ = getNextNodeWrite(_conf);
             ReadWrite rw_ = ip_.getReadWrite();
-            rw_.setBlock(na_);
+            Block n_ = null;
+            n_ = getNextSibling();
+            if (n_ != null) {
+                rw_.setBlock(n_);
+                return;
+            }
+            n_ = getParent();
+            Block next_ = n_.getNextSibling();
+            rw_.setBlock(next_);
             return;
         }
         par_.removeLocalVars(ip_);
         ((StackableBlockGroup)par_).exitStack(_conf);
     }
     static ParentStackBlock getParentOfLastNode(Block _current, ContextEl _conf) {
-        if (_current instanceof StackableBlock) {
-            return _current.getParentOfLastNode(_conf);
-        }
         Block n_ = _current.getNextSibling();
         if (n_ != null) {
             return new ParentStackBlock(null);
         }
+        if (_current instanceof StackableBlock) {
+            return _current.getParentOfLastNode(_conf);
+        }
         return null;
     }
     final ParentStackBlock getParentOfLastNode(ContextEl _conf) {
-        Block n_ = getNextSibling();
-        if (n_ != null) {
-            return new ParentStackBlock(null);
-        }
-        n_ = getParent();
+        Block n_ = getParent();
         //n_ != null because strictly in class
         PageEl ip_ = _conf.getLastPage();
         Block root_ = ip_.getBlockRoot();
@@ -277,16 +280,6 @@ public abstract class Block extends Blockable {
             return new ParentStackBlock(null);
         }
         return null;
-    }
-    final Block getNextNodeWrite(ContextEl _conf) {
-        Block n_ = null;
-        n_ = getNextSibling();
-        if (n_ != null) {
-            return n_;
-        }
-        n_ = getParent();
-        Block next_ = n_.getNextSibling();
-        return next_;
     }
     public final RowCol getRowCol(int _offset, int _tabWidth,String _attribute) {
         return XmlParser.getOffset(_attribute, attributes, encoded, _offset, offsets, tabs, endHeader, _tabWidth);
