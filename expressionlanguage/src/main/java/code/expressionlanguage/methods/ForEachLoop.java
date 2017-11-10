@@ -357,6 +357,7 @@ public final class ForEachLoop extends BracedStack implements ForLoop {
         String var_ = getVariableName();
         LoopVariable lv_ = _vars.getVal(var_);
         Struct iterator_ = _l.getStructIterator();
+        Struct element_;
         if (iterator_ != null) {
             boolean native_ = iterator_.isJavaObject();
             String locName_ = _conf.getClasses().getNextVar(native_);
@@ -366,11 +367,14 @@ public final class ForEachLoop extends BracedStack implements ForLoop {
             _conf.getLastPage().getLocalVars().put(locName_, locVar_);
             ExpressionLanguage dynTwo_ = _conf.getClasses().getEqNext(native_);
             ExpressionLanguage dyn_ = _conf.getLastPage().getCurrentEl(this, CustList.SECOND_INDEX, dynTwo_);
-            Struct element_ = dyn_.calculateMember(_conf).getStruct();
-            lv_.setElement(element_);
+            element_ = dyn_.calculateMember(_conf).getStruct();
         } else {
-            lv_.setElement(Array.get(lv_.getContainer().getInstance(), (int) _l.getIndex()));
+            element_ = PrimitiveTypeUtil.getElement(lv_.getContainer(), (int) _l.getIndex());
         }
+        if (PrimitiveTypeUtil.primitiveTypeNullObject(getClassName(), element_)) {
+            throw new NullObjectException(_conf.joinPages());
+        }
+        lv_.setStruct(element_);
         lv_.setIndex(lv_.getIndex() + 1);
     }
 

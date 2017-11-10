@@ -1,4 +1,6 @@
 package code.expressionlanguage;
+import java.lang.reflect.Array;
+
 import code.expressionlanguage.methods.Block;
 import code.expressionlanguage.methods.Classes;
 import code.expressionlanguage.methods.ConstructorBlock;
@@ -70,7 +72,14 @@ public final class PrimitiveTypeUtil {
         }
         return _instance.isNull();
     }
-    
+    public static Struct getElement(Struct _struct, int _index) {
+        Object arrayInst_ = _struct.getInstance();
+        Object output_ = Array.get(arrayInst_, _index);
+        if (output_ == null) {
+            return new Struct();
+        }
+        return Struct.wrapOrId(output_);
+    }
     public static Class<?> getPrimitiveClass(String _className) {
         if (!isPrimitive(_className)) {
             return null;
