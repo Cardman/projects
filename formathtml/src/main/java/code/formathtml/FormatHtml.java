@@ -625,7 +625,7 @@ final class FormatHtml {
                 ip_.setOffset(0);
                 currentNode_ = rw_.getWrite();
                 if (en_ instanceof Comment) {
-                    processElementOrText(_conf, ip_);
+                    processElementOrText(_conf, ip_, true);
                     continue;
                 }
                 if (en_.getNodeName().startsWith(ip_.getPrefix()) && !ip_.getPrefix().isEmpty()) {
@@ -660,14 +660,14 @@ final class FormatHtml {
                         currentAnchor_++;
                         indexes_.setAnchor(currentAnchor_);
                     }
-                    processElementOrText(_conf, ip_);
+                    processElementOrText(_conf, ip_, true);
                     continue;
                 }
                 String content_ = en_.getTextContent();
                 if (content_.trim().isEmpty()) {
                     Text t_ = doc_.createTextNode(content_);
                     currentNode_.appendChild(t_);
-                    processElementOrText(_conf, ip_);
+                    processElementOrText(_conf, ip_, true);
                     continue;
                 }
                 if (interpretBrackets(en_)) {
@@ -675,7 +675,7 @@ final class FormatHtml {
                 }
                 Text t_ = doc_.createTextNode(content_);
                 currentNode_.appendChild(t_);
-                processElementOrText(_conf, ip_);
+                processElementOrText(_conf, ip_, true);
             } catch (Throwable _0){
                 Throwable realCaught_ = _0;
                 if (_0 instanceof WrapperException) {
@@ -3643,119 +3643,27 @@ final class FormatHtml {
             en_ = en_.getFirstChild();
             rw_.setRead(en_);
         } else {
-            processBlock(_conf, _ip);
+            processElementOrText(_conf, _ip, false);
         }
     }
-
 
     private static void processBlock(Configuration _conf, ImportingPage _ip) {
-        ReadWriteHtml rw_ = _ip.getReadWrite();
-        Node en_ = rw_.getRead();
-        Node currentNode_ = rw_.getWrite();
-        ParentElement parElt_ = getParentOfLastNode(_conf, en_, false);
-        if (parElt_ == null) {
-            _ip.setReadWrite(null);
-            return;
-        }
-        Element par_ = parElt_.getElement();
-        if (par_ == null) {
-            NodeAction na_ = getNextNodeWrite(_conf, en_, false);
-            int i_ = 0;
-            while (na_.getActions().get(i_) == ActionNext.PARENT_NODE) {
-                currentNode_ = currentNode_.getParentNode();
-                i_ ++;
-            }
-            en_ = na_.getNode();
-            rw_.setRead(en_);
-            rw_.setWrite(currentNode_);
-            return;
-        }
-        if (isCatchNode(_conf, par_)) {
-            TryHtmlStack tryStack_ = (TryHtmlStack) _ip.getLastStack();
-            Element catch_ = tryStack_.getCurrentCatchNode();
-            String var_ = catch_.getAttribute(ATTRIBUTE_VAR);
-            StringMap<LocalVariable> vars_ = _ip.getCatchVars();
-            vars_.removeKey(var_);
-            //exit catch block
-            currentNode_ = tryStack_.getWriteNode();
-            rw_.setRead(catch_);
-            rw_.setWrite(currentNode_);
-            return;
-        }
-        if (isFinallyNode(_conf, par_)) {
-            interruptAfterFinally(_ip);
-            if (_ip.isReturning()) {
-                _ip.removeLastBlock();
-                removeBlockFinally(_conf, _ip);
-                return;
-            }
-            TryHtmlStack tryStack_ = (TryHtmlStack) _ip.getLastStack();
-            Element catch_ = tryStack_.getCurrentCatchNode();
-            currentNode_ = tryStack_.getWriteNode();
-            tryStack_.setVisitedFinally(true);
-            rw_.setRead(catch_);
-            rw_.setWrite(currentNode_);
-            return;
-        }
-        if (isLoopNode(_conf, par_)) {
-            processLastElementLoop(_conf, _ip);
-        } else {
-            if (isTryNode(_conf, par_)) {
-                TryHtmlStack tryStack_ = (TryHtmlStack) _ip.getLastStack();
-                currentNode_ = tryStack_.getWriteNode();
-                rw_.setRead(par_.getNextSibling());
-                rw_.setWrite(currentNode_);
-                return;
-            }
-            if (isInstructionNode(_conf, par_)) {
-                IfHtmlStack if_ = (IfHtmlStack) _ip.getLastStack();
-                if (if_.lastVisitedNode() == par_) {
-                    rw_.setRead(par_);
-                } else {
-                    rw_.setRead(par_.getNextSibling());
-                }
-                currentNode_ = if_.getWriteNode();
-                rw_.setWrite(currentNode_);
-                return;
-            }
-            if (isSwitchNode(_conf, par_)) {
-                SwitchHtmlStack if_ = (SwitchHtmlStack) _ip.getLastStack();
-                if (if_.lastVisitedNode() == par_) {
-                    Node sib_ = par_.getNextSibling();
-                    Document d_ = rw_.getWrite().getOwnerDocument();
-                    while (sib_ != null) {
-                        if (sib_ instanceof Text) {
-                            Text n_ = d_.createTextNode(sib_.getTextContent());
-                            if_.getWriteNode().appendChild(n_);
-                        }
-                        sib_ = sib_.getNextSibling();
-                    }
-                    if_.setFinished(true);
-                    rw_.setRead(if_.getReadNode());
-                } else {
-                    if_.increment();
-                    rw_.setRead(par_.getNextSibling());
-                }
-                currentNode_ = if_.getWriteNode();
-                rw_.setWrite(currentNode_);
-                return;
-            }
-        }
+        processElementOrText(_conf, _ip, false);
     }
 
 
-    private static void processElementOrText(Configuration _conf, ImportingPage _ip) {
+    private static void processElementOrText(Configuration _conf, ImportingPage _ip, boolean _firstChild) {
         ReadWriteHtml rw_ = _ip.getReadWrite();
         Node en_ = rw_.getRead();
         Node currentNode_ = rw_.getWrite();
-        ParentElement parElt_ = getParentOfLastNode(_conf, en_, true);
+        ParentElement parElt_ = getParentOfLastNode(_conf, en_, _firstChild);
         if (parElt_ == null) {
             _ip.setReadWrite(null);
             return;
         }
         Element par_ = parElt_.getElement();
         if (par_ == null) {
-            NodeAction na_ = getNextNodeWrite(_conf, en_, true);
+            NodeAction na_ = getNextNodeWrite(_conf, en_, _firstChild);
             if (na_.getActions().first() == ActionNext.FIRST_CHILD) {
                 currentNode_ = currentNode_.getLastChild();
             } else {
