@@ -8,13 +8,4 @@ public class GettingFieldException extends RuntimeException {
     public GettingFieldException(String _message) {
         super(_message);
     }
-
-    public GettingFieldException(Throwable _cause) {
-        super(_cause);
-    }
-
-    public GettingFieldException(String _message, Throwable _cause) {
-        super(_message, _cause);
-    }
-
 }

@@ -17,13 +17,4 @@ public class AnalyzingErrorsException extends RuntimeException {
     public AnalyzingErrorsException(String _message) {
         super(_message);
     }
-
-    public AnalyzingErrorsException(Throwable _cause) {
-        super(_cause);
-    }
-
-    public AnalyzingErrorsException(String _message, Throwable _cause) {
-        super(_message, _cause);
-    }
-
 }

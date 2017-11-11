@@ -161,7 +161,7 @@ final class ObjectSerial extends TemplateSerial {
             out_.setObject(ConverterMethod.newInstance(constr_));
             return out_;
         } catch (NoSuchMethodException _0) {
-            throw new NoSuchDeclaredMethodException(_0);
+            throw new NoSuchDeclaredMethodException(_0.getMessage());
         }
     }
     @Override

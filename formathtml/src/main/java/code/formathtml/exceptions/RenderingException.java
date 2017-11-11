@@ -6,7 +6,6 @@ public class RenderingException extends RuntimeException {
 
     private Struct custCause;
     public RenderingException(Struct _cause) {
-        super((Throwable)_cause.getInstance());
         custCause = _cause;
     }
 

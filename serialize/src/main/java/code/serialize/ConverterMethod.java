@@ -40,7 +40,7 @@ public final class ConverterMethod {
         try {
             return _method.newInstance(_args);
         } catch (InvocationTargetException _0) {
-            throw new InvokingException(_0, _0.getTargetException());
+            throw new InvokingException(_0.getTargetException());
         } catch (Throwable _0) {
             return null;
         }
@@ -62,7 +62,7 @@ public final class ConverterMethod {
         } catch (IllegalAccessException _0) {
             throw new BadAccessException(_0, _method.toString());
         } catch (InvocationTargetException _0) {
-            throw new InvokingException(_0, _0.getTargetException());
+            throw new InvokingException(_0.getTargetException());
         }
     }
 

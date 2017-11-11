@@ -937,9 +937,9 @@ public final class Navigation {
         try {
             cases_ = session.getNavigation().getVal(_method);
         } catch (Error _0) {
-            throw new NavCaseNotFoundException(_method+RETURN_LINE+session.joinPages(),_0);
+            throw new NavCaseNotFoundException(_method+RETURN_LINE+session.joinPages());
         } catch (RuntimeException _0) {
-            throw new NavCaseNotFoundException(_method+RETURN_LINE+session.joinPages(),_0);
+            throw new NavCaseNotFoundException(_method+RETURN_LINE+session.joinPages());
         }
         if (cases_ == null) {
             throw new NavCaseNotFoundException(_method+RETURN_LINE+session.joinPages());

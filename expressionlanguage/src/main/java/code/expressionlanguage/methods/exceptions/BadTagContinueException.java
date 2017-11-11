@@ -8,13 +8,4 @@ public class BadTagContinueException extends RuntimeException {
     public BadTagContinueException(String _message) {
         super(_message);
     }
-
-    public BadTagContinueException(Throwable _cause) {
-        super(_cause);
-    }
-
-    public BadTagContinueException(String _message, Throwable _cause) {
-        super(_message, _cause);
-    }
-
 }

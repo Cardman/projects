@@ -16,6 +16,7 @@ import javax.swing.text.html.FormSubmitEvent;
 
 import code.formathtml.HtmlPage;
 import code.formathtml.Navigation;
+import code.formathtml.exceptions.RenderingException;
 import code.formathtml.util.FormInputCoords;
 import code.formathtml.util.NodeContainer;
 import code.util.CustList;
@@ -289,6 +290,8 @@ public final class ThreadAnchorForm extends Thread {
             session.getNav().processAnchorRequest(anchorRef);
             session.setupText(timer);
             return;
+        } catch (RenderingException _0) {
+            processErrors((Throwable) _0.getCustCause().getInstance());
         } catch (RuntimeException _0) {
             processErrors(_0);
         } catch (Error _0) {

@@ -15,20 +15,11 @@ public abstract class IndirectException extends RuntimeException {
     }
 
     public IndirectException(Struct _cause) {
-        super(getCause(_cause));
         cause = _cause;
     }
 
     public IndirectException(String _message, Struct _cause) {
-        super(_message, getCause(_cause));
         cause = _cause;
-    }
-
-    private static Throwable getCause(Struct _cause) {
-        if (_cause.getInstance() instanceof Throwable) {
-            return (Throwable) _cause.getInstance();
-        }
-        return null;
     }
 
     public Struct getCustCause() {
