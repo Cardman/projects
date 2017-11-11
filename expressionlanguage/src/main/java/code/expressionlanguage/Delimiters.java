@@ -14,6 +14,7 @@ public final class Delimiters {
     private char begin;
     private char end;
     private boolean partOfString;
+    private Numbers<Integer> allowedOperatorsIndexes = new Numbers<Integer>();
     private NatTreeMap<Integer,Integer> delimitersStringsChars = new NatTreeMap<Integer,Integer>();
     private NatTreeMap<Integer,Integer> callings = new NatTreeMap<Integer,Integer>();
     public boolean inStringOrCharConst(int _index) {
@@ -51,6 +52,10 @@ public final class Delimiters {
             }
         }
         return nbCalls_;
+    }
+
+    public Numbers<Integer> getAllowedOperatorsIndexes() {
+        return allowedOperatorsIndexes;
     }
 
     public int getFirstPrintableChar() {
