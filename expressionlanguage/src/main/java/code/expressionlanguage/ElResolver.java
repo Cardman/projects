@@ -1390,10 +1390,6 @@ public final class ElResolver {
                 }
                 newOperators_.put(end_, String.valueOf(usedEnder_));
                 String fctName_ = _string.substring(CustList.FIRST_INDEX, _string.indexOf(usedCaller_));
-//                if (fctName_.trim().isEmpty() && newOperators_.size() > 2) {
-//                    _conf.getLastPage().setOffset(_d.getIndexBegin()+_offset+newOperators_.getKey(CustList.SECOND_INDEX));
-//                    throw new BadNumberArgumentException(_string+RETURN_LINE+_conf.joinPages());
-//                }
                 op_.setFctName(fctName_);
                 op_.setUseFct(true);
                 op_.setOperators(newOperators_);

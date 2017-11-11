@@ -45,8 +45,9 @@ public abstract class MethodOperation extends OperationNode {
         Delimiters d_ = getOperations().getDelimiter();
         int curKey_ = children.getKey(0);
         d_.setChildOffest(curKey_);
-        OperationsSequence r_ = MathResolver.getOperationsSequence(getIndexInEl(), value_, getConf(), d_);
-        firstChild = createOperationNode(value_, getIndexInEl()+curKey_, getConf(), CustList.FIRST_INDEX, this, r_);
+        int offset_ = getIndexInEl()+curKey_;
+        OperationsSequence r_ = MathResolver.getOperationsSequence(offset_, value_, getConf(), d_);
+        firstChild = createOperationNode(value_, offset_, getConf(), CustList.FIRST_INDEX, this, r_);
         return firstChild;
     }
 

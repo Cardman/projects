@@ -10,7 +10,6 @@ final class MathUtil {
     static Argument processEl(String _el, int _index, boolean _onlycheckSyntax, StringMap<String> _conf) {
         Delimiters d_ = MathResolver.checkSyntax(_el, _index);
         String el_ = _el.substring(_index);
-        MathResolver.secondCheckSyntax(el_, d_);
         OperationsSequence opTwo_ = MathResolver.getOperationsSequence(CustList.FIRST_INDEX, el_, _conf, d_);
         OperationNode op_ = OperationNode.createOperationNode(el_, CustList.FIRST_INDEX, _conf, CustList.FIRST_INDEX, null, opTwo_);
         CustList<OperationNode> all_ = getOperationNodes(op_);

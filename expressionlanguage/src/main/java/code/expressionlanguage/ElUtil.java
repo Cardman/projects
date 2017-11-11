@@ -207,8 +207,8 @@ public final class ElUtil {
         Delimiters d_ = ElResolver.checkSyntaxDelimiters(_el, _conf, _minIndex, _begin, _end);
         String el_ = _el.substring(d_.getIndexBegin(), d_.getIndexEnd()+1);
         _conf.setNextIndex(d_.getIndexEnd()+2);
-        OperationsSequence opTwo_ = ElResolver.getOperationsSequence(CustList.FIRST_INDEX, el_, _conf, d_);
-        OperationNode op_ = OperationNode.createOperationNode(CustList.FIRST_INDEX, _conf, CustList.FIRST_INDEX, null, opTwo_);
+        OperationsSequence opTwo_ = ElResolver.getOperationsSequence(_minIndex, el_, _conf, d_);
+        OperationNode op_ = OperationNode.createOperationNode(_minIndex, _conf, CustList.FIRST_INDEX, null, opTwo_);
         CustList<OperationNode> all_ = getOperationNodes(op_);
         for (OperationNode o: all_) {
             o.setConf(null);
@@ -244,8 +244,8 @@ public final class ElUtil {
     public static Argument processEl(String _el, int _index, ContextEl _conf) {
         Delimiters d_ = ElResolver.checkSyntax(_el, _conf, _index);
         String el_ = _el.substring(_index);
-        OperationsSequence opTwo_ = ElResolver.getOperationsSequence(CustList.FIRST_INDEX, el_, _conf, d_);
-        OperationNode op_ = OperationNode.createOperationNode(CustList.FIRST_INDEX, _conf, CustList.FIRST_INDEX, null, opTwo_);
+        OperationsSequence opTwo_ = ElResolver.getOperationsSequence(_index, el_, _conf, d_);
+        OperationNode op_ = OperationNode.createOperationNode(_index, _conf, CustList.FIRST_INDEX, null, opTwo_);
         CustList<OperationNode> all_ = getOperationNodes(op_);
         for (OperationNode o: all_) {
             o.setConf(null);

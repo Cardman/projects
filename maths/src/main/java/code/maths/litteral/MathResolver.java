@@ -50,7 +50,6 @@ public final class MathResolver {
 
     private static final char OR_CHAR = '|';
 
-    private static final char[] OPERATORS_CHARS = new char[]{'!','+','-','*',':','>','=','<','&','|',',','(',')'};
     private MathResolver(){
     }
 
@@ -196,109 +195,6 @@ public final class MathResolver {
         d_.setIndexEnd(i_-1);
         return d_;
     }
-    static void secondCheckSyntax(String _string, Delimiters _d) {
-        int len_ = _string.length();
-        int i_ = CustList.FIRST_INDEX;
-        i_ = CustList.FIRST_INDEX;
-        while (i_ < len_) {
-            char curChar_ = _string.charAt(i_);
-            if (_d.inStringOrCharConst(i_)) {
-                i_++;
-                continue;
-            }
-            boolean contained_ = false;
-            for (char c: OPERATORS_CHARS) {
-                if (c == curChar_) {
-                    contained_ = true;
-                    break;
-                }
-            }
-            if (!contained_) {
-                i_++;
-                continue;
-            }
-            if (onlySpacesTo(_string, i_, len_, PLUS_CHAR)) {
-                i_++;
-                continue;
-            }
-            if (onlySpacesTo(_string, i_, len_, MINUS_CHAR)) {
-                i_++;
-                continue;
-            }
-            if (curChar_ == PAR_LEFT || curChar_ == SEP_ARG || curChar_ == AND_CHAR || curChar_ == OR_CHAR) {
-                if (onlySpacesTo(_string, i_, len_, NEG_BOOL_CHAR)) {
-                    i_++;
-                    continue;
-                }
-            }
-            if (onlySpacesTo(_string, i_, len_, PAR_LEFT)) {
-                if (curChar_ == PAR_RIGHT) {
-                    throw new BadMathExpressionException(_string);
-                }
-                i_++;
-                continue;
-            }
-            if (onlySpacesTo(_string, i_, len_, PAR_RIGHT)) {
-                if (curChar_ == PAR_LEFT || curChar_ == PAR_RIGHT) {
-                    i_++;
-                    continue;
-                }
-                throw new BadMathExpressionException(_string);
-            }
-            if (curChar_ == PAR_RIGHT) {
-                i_++;
-                continue;
-            }
-            if (curChar_ == NEG_BOOL_CHAR) {
-                if (onlySpacesTo(_string, i_, len_, NEG_BOOL_CHAR)) {
-                    i_++;
-                    continue;
-                }
-                if (onlySpacesTo(_string, i_, len_, EQ_CHAR)) {
-                    i_++;
-                    continue;
-                }
-            }
-            if (curChar_ == GREATER_CHAR || curChar_ == LOWER_CHAR) {
-                if (onlySpacesTo(_string, i_, len_, EQ_CHAR)) {
-                    i_++;
-                    continue;
-                }
-            }
-            if (curChar_ == EQ_CHAR) {
-                if (onlySpacesTo(_string, i_, len_, NEG_BOOL_CHAR)) {
-                    i_++;
-                    continue;
-                }
-            }
-            for (char c: OPERATORS_CHARS) {
-                if (onlySpacesTo(_string, i_, len_, c)) {
-                    throw new BadMathExpressionException(_string);
-                }
-            }
-            i_++;
-        }
-    }
-    private static boolean onlySpacesTo(String _string, int _index, int _length, char _end) {
-        int i_ = _index;
-        int len_ = _length;
-        if (i_ + 1 < len_) {
-            int j_ = i_ + 1;
-            while (j_ < len_) {
-                if (!Character.isWhitespace(_string.charAt(j_))) {
-                    break;
-                }
-                j_++;
-            }
-            if (j_ < len_) {
-                if (_string.charAt(j_) == _end) {
-                    return true;
-                }
-            }
-        }
-        return false;
-    }
-
     static OperationsSequence getOperationsSequence(int _offset, String _string,
             StringMap<String> _conf, Delimiters _d) {
         NatTreeMap<Integer,String> operators_;
@@ -321,7 +217,6 @@ public final class MathResolver {
             OperationsSequence op_ = new OperationsSequence();
             op_.setOperators(new NatTreeMap<Integer, String>());
             op_.setupValues(_string);
-            op_.addOffset(_offset);
             op_.setDelimiter(_d);
             return op_;
         }
@@ -338,7 +233,6 @@ public final class MathResolver {
             OperationsSequence op_ = new OperationsSequence();
             op_.setOperators(new NatTreeMap<Integer, String>());
             op_.setupValues(_string);
-            op_.addOffset(_offset);
             op_.setDelimiter(_d);
             return op_;
         }
@@ -346,7 +240,6 @@ public final class MathResolver {
             OperationsSequence op_ = new OperationsSequence();
             op_.setOperators(new NatTreeMap<Integer, String>());
             op_.setupValues(_string);
-            op_.addOffset(_offset);
             op_.setDelimiter(_d);
             return op_;
         }
@@ -354,7 +247,6 @@ public final class MathResolver {
             OperationsSequence op_ = new OperationsSequence();
             op_.setOperators(new NatTreeMap<Integer, String>());
             op_.setupValues(_string);
-            op_.addOffset(_offset);
             op_.setDelimiter(_d);
             return op_;
         }
@@ -362,7 +254,6 @@ public final class MathResolver {
             OperationsSequence op_ = new OperationsSequence();
             op_.setOperators(new NatTreeMap<Integer, String>());
             op_.setupValues(_string);
-            op_.addOffset(_offset);
             op_.setDelimiter(_d);
             return op_;
         }
@@ -370,7 +261,6 @@ public final class MathResolver {
             OperationsSequence op_ = new OperationsSequence();
             op_.setOperators(new NatTreeMap<Integer, String>());
             op_.setupValues(_string);
-            op_.addOffset(_offset);
             op_.setDelimiter(_d);
             return op_;
         }
@@ -512,16 +402,6 @@ public final class MathResolver {
             }
             i_++;
         }
-//        if (prio_ == CMP_PRIO) {
-//            if (operators_.size() != CustList.ONE_ELEMENT) {
-//                throw new BadMathExpressionException(_string);
-//            }
-//        }
-//        if (prio_ == EQ_PRIO) {
-//            if (operators_.size() != CustList.ONE_ELEMENT) {
-//                throw new BadMathExpressionException(_string);
-//            }
-//        }
         OperationsSequence op_ = new OperationsSequence();
         op_.setPriority(prio_);
         op_.setOperators(operators_);
@@ -567,16 +447,12 @@ public final class MathResolver {
                 }
                 newOperators_.put(end_, String.valueOf(usedEnder_));
                 String fctName_ = _string.substring(CustList.FIRST_INDEX, _string.indexOf(usedCaller_));
-//                if (fctName_.trim().isEmpty() && newOperators_.size() > 2) {
-//                    throw new BadMathExpressionException(_string);
-//                }
                 op_.setFctName(fctName_);
                 op_.setUseFct(true);
                 op_.setOperators(newOperators_);
             }
         }
         op_.setupValues(_string);
-        op_.addOffset(_offset);
         op_.setDelimiter(_d);
         return op_;
     }

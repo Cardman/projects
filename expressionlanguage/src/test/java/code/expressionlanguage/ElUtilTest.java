@@ -1445,6 +1445,7 @@ public class ElUtilTest {
         Object res_ = arg_.getObject();
         assertSame(String.class, res_.getClass());
         assertEq("9 hello world {every body ;)", res_);
+        assertEq(43, context_.getNextIndex());
     }
 
     @Test
@@ -1456,6 +1457,7 @@ public class ElUtilTest {
         Object res_ = arg_.getObject();
         assertSame(Integer.class, res_.getClass());
         assertEq(11, (Number)res_);
+        assertEq(30, context_.getNextIndex());
     }
 
     @Test
@@ -1808,6 +1810,45 @@ public class ElUtilTest {
         Object res_ = arg_.getObject();
         assertSame(Double.class, res_.getClass());
         assertEq(0.25d, (Number)res_);
+    }
+
+    @Test
+    public void processEl126Test() {
+        ContextEl context_ = new ContextEl();
+        setupAccessValue(context_);
+        addImportingPage(context_);
+        Argument arg_ = ElUtil.processEl(" {(1+2)*3+\" hello\"+\" world {every body ;)\"}{5*8} ", context_, 2 ,'{','}');
+        Object res_ = arg_.getObject();
+        assertSame(String.class, res_.getClass());
+        assertEq("9 hello world {every body ;)", res_);
+        int nextIndex_ = context_.getNextIndex();
+        assertEq(43, nextIndex_);
+        arg_ = ElUtil.processEl(" {(1+2)*3+\" hello\"+\" world {every body ;)\"}{5*8} ", context_, nextIndex_+1 ,'{','}');
+        res_ = arg_.getObject();
+        assertSame(Long.class, res_.getClass());
+        assertEq(40, (Number) res_);
+        nextIndex_ = context_.getNextIndex();
+        assertEq(48, nextIndex_);
+        
+    }
+
+    @Test
+    public void processEl127Test() {
+        ContextEl context_ = new ContextEl();
+        setupAccessValue(context_);
+        addImportingPage(context_);
+        Argument arg_ = ElUtil.processEl(" {(\"hello \"+\"world\").length()}{5*8} ", context_, 2 ,'{','}');
+        Object res_ = arg_.getObject();
+        assertSame(Integer.class, res_.getClass());
+        assertEq(11, (Number)res_);
+        int nextIndex_ = context_.getNextIndex();
+        assertEq(30, nextIndex_);
+        arg_ = ElUtil.processEl(" {(\"hello \"+\"world\").length()}{5*8} ", context_, nextIndex_+1 ,'{','}');
+        res_ = arg_.getObject();
+        assertSame(Long.class, res_.getClass());
+        assertEq(40, (Number) res_);
+        nextIndex_ = context_.getNextIndex();
+        assertEq(35, nextIndex_);
     }
 
     @Test(expected=NoSuchDeclaredMethodException.class)

@@ -258,8 +258,9 @@ abstract class OperationNode {
         Delimiters d_ = getOperations().getDelimiter();
         int curKey_ = children_.getKey(indexChild + 1);
         d_.setChildOffest(curKey_);
-        OperationsSequence r_ = MathResolver.getOperationsSequence(p_.getIndexInEl(), value_, conf, d_);
-        nextSibling = createOperationNode(value_, p_.getIndexInEl()+curKey_, conf, indexChild + 1, p_, r_);
+        int offset_ = p_.getIndexInEl()+curKey_;
+        OperationsSequence r_ = MathResolver.getOperationsSequence(offset_, value_, conf, d_);
+        nextSibling = createOperationNode(value_, offset_, conf, indexChild + 1, p_, r_);
         return nextSibling;
     }
 
