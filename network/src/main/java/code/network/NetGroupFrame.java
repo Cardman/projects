@@ -106,7 +106,7 @@ public abstract class NetGroupFrame extends GroupFrame implements NetWindow {
             PrintWriter out_ = new PrintWriter(socket.getOutputStream(), true);
             out_.println(SerializeXmlObject.toXmlString(_serializable));
         } catch (IOException _0) {
-            throw new RuntimeIOException(_0);
+            throw new RuntimeIOException(_0.getMessage());
         }
     }
 

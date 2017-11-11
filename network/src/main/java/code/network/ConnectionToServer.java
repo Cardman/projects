@@ -23,7 +23,7 @@ public final class ConnectionToServer extends Thread {
         try {
             serverSocket.close();
         } catch (IOException _0) {
-            throw new RuntimeIOException(_0);
+            throw new RuntimeIOException(_0.getMessage());
         }
     }
 
@@ -54,9 +54,9 @@ public final class ConnectionToServer extends Thread {
             try {
                 socket = serverSocket.accept();
             } catch (SocketException _0) {
-                throw new RuntimeSocketException(_0);
+                throw new RuntimeSocketException(_0.getMessage());
             } catch (IOException _0) {
-                throw new RuntimeIOException(_0);
+                throw new RuntimeIOException(_0.getMessage());
             }
         }
         return socket;

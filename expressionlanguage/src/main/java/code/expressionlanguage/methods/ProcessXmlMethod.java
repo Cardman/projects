@@ -123,8 +123,7 @@ public final class ProcessXmlMethod {
                 if (_0 instanceof WrapperException) {
                     realCaught_ = ((WrapperException)_0).getWrapped();
                 }
-                Throwable t_ = throwException(_cont, realCaught_);
-                if (t_ == null) {
+                if (!throwException(_cont, realCaught_)) {
                     continue;
                 }
                 throw new InvokeRedinedMethException(new Struct(_0));
@@ -278,14 +277,13 @@ public final class ProcessXmlMethod {
         try {
             _conf.addPage(_page);
         } catch (StackOverFlow _0) {
-            Throwable t_ = throwException(_conf, _0);
-            if (t_ == null) {
+            if (!throwException(_conf, _0)) {
                 return;
             }
             throw _0;
         }
     }
-    private static Throwable throwException(ContextEl _conf, Throwable _t) {
+    private static boolean throwException(ContextEl _conf, Throwable _t) {
         CatchEval catchElt_ = null;
         boolean indirect_ = _t instanceof IndirectException;
         Struct custCause_;
@@ -313,7 +311,7 @@ public final class ProcessXmlMethod {
                             try_.setThrownException(new WrapperException(_t));
                             bkIp_.clearCurrentEls();
                             bkIp_.getReadWrite().setBlock(try_.getCatchBlocks().last());
-                            return null;
+                            return false;
                         }
                     }
                     bkIp_.removeLastBlock();
@@ -327,18 +325,10 @@ public final class ProcessXmlMethod {
                     }
                     CatchEval ca_ = (CatchEval) e;
                     String name_ = ca_.getClassName();
-                    if (!indirect_) {
-                        if (PrimitiveTypeUtil.canBeUseAsArgument(name_, _t.getClass().getName(), _conf.getClasses())) {
-                            catchElt_ = ca_;
-                            try_.setVisitedCatch(i_);
-                            break;
-                        }
-                    } else {
-                        if (PrimitiveTypeUtil.canBeUseAsArgument(name_, custCause_.getClassName(), _conf.getClasses())) {
-                            catchElt_ = ca_;
-                            try_.setVisitedCatch(i_);
-                            break;
-                        }
+                    if (PrimitiveTypeUtil.canBeUseAsArgument(name_, custCause_.getClassName(), _conf.getClasses())) {
+                        catchElt_ = ca_;
+                        try_.setVisitedCatch(i_);
+                        break;
                     }
                     i_++;
                 }
@@ -349,31 +339,26 @@ public final class ProcessXmlMethod {
                     if (catchElement_.getFirstChild() != null) {
                         String var_ = catchElement_.getVariableName();
                         LocalVariable lv_ = new LocalVariable();
-                        Throwable t_ = _t;
-                        if (indirect_) {
-                            lv_.setStruct(custCause_);
-                        } else {
-                            lv_.setStruct(new Struct(t_));
-                        }
+                        lv_.setStruct(custCause_);
                         lv_.setClassName(catchElement_.getClassName());
                         bkIp_.getCatchVars().put(var_, lv_);
                         bkIp_.getReadWrite().setBlock(catchElement_.getFirstChild());
-                        return null;
+                        return false;
                     }
                     bkIp_.getReadWrite().setBlock(catchElement_);
-                    return null;
+                    return false;
                 }
                 if (addFinallyClause_) {
                     try_.setThrownException(new WrapperException(_t));
                     bkIp_.clearCurrentEls();
                     bkIp_.getReadWrite().setBlock(try_.getCatchBlocks().last());
-                    return null;
+                    return false;
                 }
                 bkIp_.removeLastBlock();
             }
             _conf.removeLastPage();
         }
-        return _t;
+        return true;
     }
     /**@throws InvokeRedinedMethException
     @throws DivideZeroException

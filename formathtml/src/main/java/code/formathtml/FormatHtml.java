@@ -681,8 +681,7 @@ final class FormatHtml {
                 if (_0 instanceof WrapperException) {
                     realCaught_ = ((WrapperException)_0).getWrapped();
                 }
-                Throwable t_ = throwException(_conf, realCaught_);
-                if (t_ == null) {
+                if (!throwException(_conf, realCaught_)) {
                     continue;
                 }
                 throw new RenderingException(new Struct(_0));
@@ -701,7 +700,7 @@ final class FormatHtml {
         return XmlParser.toHtml(doc_);
     }
 
-    static Throwable throwException(Configuration _conf, Throwable _t) {
+    static boolean throwException(Configuration _conf, Throwable _t) {
         Element catchElt_ = null;
         boolean indirect_ = _t instanceof IndirectException;
         Struct custCause_;
@@ -737,7 +736,7 @@ final class FormatHtml {
                             Element newCurrentNode_ = try_.getWriteNode();
                             bkIp_.getReadWrite().setRead(try_.getCatchNodes().last());
                             bkIp_.getReadWrite().setWrite(newCurrentNode_);
-                            return null;
+                            return false;
                         }
                     }
                     bkIp_.removeLastBlock();
@@ -750,18 +749,10 @@ final class FormatHtml {
                         break;
                     }
                     String name_ = e.getAttribute(ATTRIBUTE_CLASS_NAME);
-                    if (!indirect_) {
-                        if (PrimitiveTypeUtil.canBeUseAsArgument(name_, _t.getClass().getName(), _conf.toContextEl().getClasses())) {
-                            catchElt_ = e;
-                            try_.setVisitedCatch(i_);
-                            break;
-                        }
-                    } else {
-                        if (PrimitiveTypeUtil.canBeUseAsArgument(name_, custCause_.getClassName(), _conf.toContextEl().getClasses())) {
-                            catchElt_ = e;
-                            try_.setVisitedCatch(i_);
-                            break;
-                        }
+                    if (PrimitiveTypeUtil.canBeUseAsArgument(name_, custCause_.getClassName(), _conf.toContextEl().getClasses())) {
+                        catchElt_ = e;
+                        try_.setVisitedCatch(i_);
+                        break;
                     }
                     i_++;
                 }
@@ -772,34 +763,29 @@ final class FormatHtml {
                     if (catchElement_.getFirstChild() != null) {
                         String var_ = catchElement_.getAttribute(ATTRIBUTE_VAR);
                         LocalVariable lv_ = new LocalVariable();
-                        Throwable t_ = _t;
-                        if (indirect_) {
-                            lv_.setStruct(custCause_);
-                        } else {
-                            lv_.setStruct(new Struct(t_));
-                        }
+                        lv_.setStruct(custCause_);
                         lv_.setClassName(ConstClasses.resolve(catchElement_.getAttribute(ATTRIBUTE_CLASS_NAME)));
                         bkIp_.getCatchVars().put(var_, lv_);
                         bkIp_.getReadWrite().setRead(catchElement_.getFirstChild());
                         bkIp_.getReadWrite().setWrite(newCurrentNode_);
-                        return null;
+                        return false;
                     }
                     bkIp_.getReadWrite().setRead(catchElement_);
                     bkIp_.getReadWrite().setWrite(newCurrentNode_);
-                    return null;
+                    return false;
                 }
                 if (addFinallyClause_) {
                     try_.setThrownException(new WrapperException(_t));
                     Element newCurrentNode_ = try_.getWriteNode();
                     bkIp_.getReadWrite().setRead(try_.getCatchNodes().last());
                     bkIp_.getReadWrite().setWrite(newCurrentNode_);
-                    return null;
+                    return false;
                 }
                 bkIp_.removeLastBlock();
             }
             _conf.removeLastPage();
         }
-        return _t;
+        return true;
     }
 
     /**@throws InvokeRedinedMethException

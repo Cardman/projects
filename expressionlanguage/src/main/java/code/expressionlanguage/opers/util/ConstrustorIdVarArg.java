@@ -2,9 +2,19 @@ package code.expressionlanguage.opers.util;
 
 public final class ConstrustorIdVarArg {
 
+    private ConstructorId realId;
+
     private ConstructorId constId;
 
     private boolean varArgToCall;
+
+    public ConstructorId getRealId() {
+        return realId;
+    }
+
+    public void setRealId(ConstructorId _realId) {
+        realId = _realId;
+    }
 
     public ConstructorId getConstId() {
         return constId;

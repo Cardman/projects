@@ -211,7 +211,7 @@ public final class InstanceOperation extends InvokingOperation {
             constId = ctorRes_.getConstId();
             if (ctorRes_.isVarArgToCall()) {
                 naturalVararg = constId.getParametersTypes().size() - 1;
-                lastType = constId.getParametersTypes().last();
+                lastType = ctorRes_.getRealId().getParametersTypes().last();
             }
             String glClass_ = _conf.getLastPage().getGlobalClass();
             CustList<ConstructorBlock> ctors_ = classes_.getConstructorBodiesByFormattedId(realClassName_, constId);

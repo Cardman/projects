@@ -512,7 +512,8 @@ public abstract class OperationNode {
             if (_args.length == 0) {
                 ConstrustorIdVarArg out_;
                 out_ = new ConstrustorIdVarArg();
-                out_.setConstId(new ConstructorId(clCurName_, new EqList<ClassName>()));
+                out_.setRealId(new ConstructorId(clCurName_, new EqList<ClassName>()));
+                out_.setConstId(out_.getRealId());
                 return out_;
             }
         }
@@ -548,6 +549,7 @@ public abstract class OperationNode {
                     out_.setVarArgToCall(true);
                 }
             }
+            out_.setRealId(ctor_);
             out_.setConstId(ctor_.format(clCurName_, classes_));
             return out_;
         }
@@ -604,6 +606,7 @@ public abstract class OperationNode {
                 out_.setVarArgToCall(true);
             }
         }
+        out_.setRealId(ctor_);
         out_.setConstId(ctor_.format(clCurName_, classes_));
         return out_;
     }

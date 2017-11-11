@@ -2,7 +2,7 @@ package code.network;
 
 public class RuntimeSocketException extends RuntimeException {
 
-    public RuntimeSocketException(Throwable _t) {
-        super(_t);
+    public RuntimeSocketException(String _message) {
+        super(_message);
     }
 }

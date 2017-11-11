@@ -186,7 +186,7 @@ public final class FctOperation extends InvokingOperation {
                 constId = ctorRes_.getConstId();
                 if (ctorRes_.isVarArgToCall()) {
                     naturalVararg = constId.getParametersTypes().size() - 1;
-                    lastType = constId.getParametersTypes().last();
+                    lastType = ctorRes_.getRealId().getParametersTypes().last();
                 }
                 setResultClass(new ClassArgumentMatching(OperationNode.VOID_RETURN));
                 return;
@@ -217,7 +217,7 @@ public final class FctOperation extends InvokingOperation {
                 }
                 if (ctorRes_.isVarArgToCall()) {
                     naturalVararg = constId.getParametersTypes().size() - 1;
-                    lastType = constId.getParametersTypes().last();
+                    lastType = ctorRes_.getRealId().getParametersTypes().last();
                 }
                 setResultClass(new ClassArgumentMatching(OperationNode.VOID_RETURN));
                 return;
