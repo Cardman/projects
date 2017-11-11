@@ -17,7 +17,6 @@ import code.expressionlanguage.PageEl;
 import code.expressionlanguage.PrimitiveTypeUtil;
 import code.expressionlanguage.classes.Ints;
 import code.expressionlanguage.classes.PickableList;
-import code.expressionlanguage.exceptions.StackOverFlow;
 import code.expressionlanguage.methods.exceptions.UndefinedConstructorException;
 import code.expressionlanguage.opers.OperationNode;
 import code.expressionlanguage.opers.util.ClassField;
@@ -5310,8 +5309,8 @@ public class ProcessXmlMethodTest {
         assertEq(11110, (Number)ret_.getObject());
     }
 
-    @Test(expected=StackOverFlow.class)
-    public void calculateArgument1FailTest() {
+    @Test
+    public void calculateArgument1045Test() {
         String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg'>\n";
         xml_ += "<method access='"+PUBLIC_ACCESS+"' modifier='static' name='exmeth' class='"+PrimitiveTypeUtil.PRIM_INT+"'>\n";
         xml_ += "<return expression='exmethsec()+1i'/>\n";
@@ -5356,23 +5355,29 @@ public class ProcessXmlMethodTest {
         xml_ += "<return expression='l;.;removeAndExistAfter(1i)'/>\n";
         xml_ += "</method>\n";
         xml_ += "<method access='"+PUBLIC_ACCESS+"' modifier='static' name='factrec' class='"+PrimitiveTypeUtil.PRIM_INT+"' class0='"+PrimitiveTypeUtil.PRIM_INT+"' var0='l'>\n";
+        xml_ += "<try>\n";
         xml_ += "<if condition='l;.;&lt;=0'>\n";
         xml_ += "\t<return expression='1i'/>\n";
         xml_ += "</if>\n";
         xml_ += "<return expression='l;.;*factrec(l;.;-1i)'/>\n";
+        xml_ += "</try>\n";
+        xml_ += "<catch var='e' class='code.expressionlanguage.exceptions.StackOverFlow'>\n";
+        xml_ += "<return expression='-1i'/>\n";
+        xml_ += "</catch>\n";
         xml_ += "</method>\n";
         xml_ += "</class>\n";
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = new ContextEl(50);
+        ContextEl cont_ = new ContextEl(2);
         cont_.setAccessValue(new AccessValueEx());
         files_.put("pkg/Ex."+Classes.EXT, xml_);
         Classes.validateAll(files_, cont_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("factrec", PrimitiveTypeUtil.PRIM_INT);
         Argument v_ = new Argument();
-        v_.setObject(50);
+        v_.setObject(2);
         args_.add(v_);
-        calculateArgument("pkg.Ex", id_, args_, cont_);
+        Argument ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
+        assertEq(-2, (Number)ret_.getObject());
     }
 
     private static Argument calculateArgument(String _class, MethodId _method, CustList<Argument> _args, ContextEl _cont) {
@@ -10952,7 +10957,7 @@ public class ProcessXmlMethodTest {
         assertEq(15, (Number) array_[0]);
     }
     @Test(expected=UndefinedConstructorException.class)
-    public void instanceArgument1FailTest() {
+    public void validateAll1FailTest() {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = new ContextEl(50);
         cont_.setAccessValue(new AccessValueEx());

@@ -12,7 +12,6 @@ import code.expressionlanguage.CustBase;
 import code.expressionlanguage.PrimitiveTypeUtil;
 import code.expressionlanguage.classes.Ints;
 import code.expressionlanguage.classes.PickableList;
-import code.expressionlanguage.exceptions.InvokeRedinedMethException;
 import code.expressionlanguage.opers.util.ClassField;
 import code.expressionlanguage.opers.util.ClassName;
 import code.expressionlanguage.opers.util.ConstructorId;
@@ -1314,13 +1313,54 @@ public class ProcessXmlMethodTwoTest {
         assertEq(Integer.class.getName(), field_.getClassName());
         assertEq(123, (Number)field_.getInstance());
     }
-    //TODO change error
-    @Test(expected=InvokeRedinedMethException.class)
-    public void instanceArgument2FailTest() {
+    @Test
+    public void instanceArgument125Test() {
         StringMap<String> files_ = new StringMap<String>();
         String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg'>\n";
-        xml_ += "<field access='"+PUBLIC_ACCESS+"' name='inst' class='pkg.ExTwo&lt;java.lang.Number&gt;' value='^new.pkg.ExTwo&lt;java.lang.Number&gt;(8i)'/>\n";
-        xml_ += "<field access='"+PUBLIC_ACCESS+"' name='ance' class='pkg.ExTwo&lt;java.lang.String&gt;' value='^new.pkg.ExTwo&lt;java.lang.String&gt;(8i)'/>\n";
+        xml_ += "<field access='"+PUBLIC_ACCESS+"' name='inst' class='"+CUST_LIST_FULL+"&lt;java.lang.Number&gt;' value='^new."+CUST_LIST_FULL+"&lt;java.lang.Number&gt;()'/>\n";
+        xml_ += "<field access='"+PUBLIC_ACCESS+"' name='res' class='$int'/>\n";
+        xml_ += "<instance>\n";
+        xml_ += "<line expression='inst;;;add(3i)'/>\n";
+        xml_ += "<line expression='inst;;;add(1i)'/>\n";
+        xml_ += "<line expression='inst;;;add(2i)'/>\n";
+        xml_ += "<affect left='res;;;' oper='=' right='inst;;;iterator().next().intValue()'/>\n";
+        xml_ += "</instance>\n";
+        xml_ += "</class>\n";
+        files_.put("pkg/Ex."+Classes.EXT, xml_);
+        files_.put(CUST_ITER_PATH, getCustomIterator());
+        files_.put(CUST_LIST_PATH, getCustomList());
+        ContextEl cont_ = new ContextEl(50);
+        cont_.setAccessValue(new AccessValueEx());
+        Classes.validateAll(files_, cont_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        ConstructorId id_ = getConstructorId("pkg.Ex");
+        ProcessXmlMethod.initializeClass("pkg.Ex", cont_);
+        Argument ret_;
+        ret_ = instanceArgument("pkg.Ex", null, id_, args_, cont_);
+        assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
+        Struct str_ = ret_.getStruct();
+        assertEq(CustBase.class.getName(), str_.getRealClassName());
+        assertEq("pkg.Ex", str_.getClassName());
+        Struct field_;
+        field_ = str_.getFields().getVal(new ClassField("pkg.Ex", "res"));
+        assertEq(Integer.class.getName(), field_.getRealClassName());
+        assertEq(Integer.class.getName(), field_.getClassName());
+        assertEq(3, (Number)field_.getInstance());
+    }
+    @Test
+    public void instanceArgument126Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg'>\n";
+        xml_ += "<field access='"+PUBLIC_ACCESS+"' name='inst' class='pkg.ExTwo&lt;java.lang.Number&gt;'/>\n";
+        xml_ += "<field access='"+PUBLIC_ACCESS+"' name='ance' class='pkg.ExTwo&lt;java.lang.String&gt;'/>\n";
+        xml_ += "<instance>\n";
+        xml_ += "<try>\n";
+        xml_ += "<affect left='ance;;;' oper='=' right='^new.pkg.ExTwo&lt;java.lang.String&gt;(8i)'/>\n";
+        xml_ += "</try>\n";
+        xml_ += "<catch var='e' class='code.expressionlanguage.exceptions.DynamicCastClassException'>\n";
+        xml_ += "<affect left='inst;;;' oper='=' right='^new.pkg.ExTwo&lt;java.lang.Number&gt;(8i)'/>\n";
+        xml_ += "</catch>\n";
+        xml_ += "</instance>\n";
         xml_ += "</class>\n";
         files_.put("pkg/Ex."+Classes.EXT, xml_);
         xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExTwo' package='pkg' template='&lt;#T&gt;'>\n";
@@ -1350,21 +1390,25 @@ public class ProcessXmlMethodTwoTest {
         subField_ = field_.getFields().getVal(new ClassField("pkg.ExTwo", "inst"));
         assertEq(Integer.class.getName(), subField_.getRealClassName());
         assertEq(Integer.class.getName(), subField_.getClassName());
-        assertEq(1, (Number) subField_.getInstance());
+        assertEq(8, (Number) subField_.getInstance());
         field_ = str_.getFields().getVal(new ClassField("pkg.Ex", "ance"));
-        assertEq(CustBase.class.getName(), field_.getRealClassName());
-        assertEq("pkg.ExTwo<java.lang.String>", field_.getClassName());
-        subField_ = field_.getFields().getVal(new ClassField("pkg.ExTwo", "inst"));
-        assertEq(Integer.class.getName(), subField_.getRealClassName());
-        assertEq(Integer.class.getName(), subField_.getClassName());
-        assertEq(2, (Number) subField_.getInstance());
+        assertTrue(field_.isNull());
     }
-    @Test(expected=InvokeRedinedMethException.class)
-    public void instanceArgument3FailTest() {
+    //TODO change error
+    @Test
+    public void instanceArgument127Test() {
         StringMap<String> files_ = new StringMap<String>();
         String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg'>\n";
         xml_ += "<field access='"+PUBLIC_ACCESS+"' name='inst' class='pkg.ExTwo&lt;java.lang.Number&gt;' value='^new.pkg.ExThree&lt;java.lang.Number&gt;()'/>\n";
-        xml_ += "<field access='"+PUBLIC_ACCESS+"' name='ance' class='"+PrimitiveTypeUtil.PRIM_INT+"' value='inst;;;^classchoice^pkg^ExTwo^^get(\"\")'/>\n";
+        xml_ += "<field access='"+PUBLIC_ACCESS+"' name='ance' class='"+PrimitiveTypeUtil.PRIM_INT+"'/>\n";
+        xml_ += "<instance>\n";
+        xml_ += "<try>\n";
+        xml_ += "<affect left='ance;;;' oper='=' right='inst;;;^classchoice^pkg^ExTwo^^get(\"\")'/>\n";
+        xml_ += "</try>\n";
+        xml_ += "<catch var='e' class='code.expressionlanguage.exceptions.DynamicCastClassException'>\n";
+        xml_ += "<affect left='ance;;;' oper='=' right='2i'/>\n";
+        xml_ += "</catch>\n";
+        xml_ += "</instance>\n";
         xml_ += "</class>\n";
         files_.put("pkg/Ex."+Classes.EXT, xml_);
         xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExTwo' package='pkg' template='&lt;#T&gt;'>\n";
@@ -1385,18 +1429,35 @@ public class ProcessXmlMethodTwoTest {
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
         ProcessXmlMethod.initializeClass("pkg.Ex", cont_);
-        instanceArgument("pkg.Ex", null, id_, args_, cont_);
+        Argument ret_;
+        ret_ = instanceArgument("pkg.Ex", null, id_, args_, cont_);
+        Struct str_ = ret_.getStruct();
+        assertEq(CustBase.class.getName(), str_.getRealClassName());
+        assertEq("pkg.Ex", str_.getClassName());
+        Struct field_;
+        field_ = str_.getFields().getVal(new ClassField("pkg.Ex", "inst"));
+        assertEq(CustBase.class.getName(), field_.getRealClassName());
+        assertEq("pkg.ExThree<java.lang.Number>", field_.getClassName());
+        field_ = str_.getFields().getVal(new ClassField("pkg.Ex", "ance"));
+        assertEq(Integer.class.getName(), field_.getRealClassName());
+        assertEq(Integer.class.getName(), field_.getClassName());
+        assertEq(2, (Number)field_.getInstance());
     }
-    @Test(expected=InvokeRedinedMethException.class)
+    @Test
     public void instanceArgument4FailTest() {
         StringMap<String> files_ = new StringMap<String>();
         String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg'>\n";
         xml_ += "<field access='"+PUBLIC_ACCESS+"' name='inst' class='pkg.ExTwo&lt;java.lang.Number&gt;' value='^new.pkg.ExThree&lt;java.lang.Number&gt;()'/>\n";
         xml_ += "<field access='"+PUBLIC_ACCESS+"' name='ance' class='java.lang.Number'/>\n";
         xml_ += "<instance>\n";
+        xml_ += "<try>\n";
         xml_ += "<affect left='inst;;;^classchoice^pkg^ExThree^^get;;;' oper='=' right='&quot;&quot;'/>\n";
         xml_ += "<affect left='inst;;;get;;;' oper='=' right='1i'/>\n";
         xml_ += "<affect left='ance;;;' oper='=' right='inst;;;getter()'/>\n";
+        xml_ += "</try>\n";
+        xml_ += "<catch var='e' class='code.expressionlanguage.exceptions.DynamicCastClassException'>\n";
+        xml_ += "<affect left='ance;;;' oper='=' right='2i'/>\n";
+        xml_ += "</catch>\n";
         xml_ += "</instance>\n";
         xml_ += "</class>\n";
         files_.put("pkg/Ex."+Classes.EXT, xml_);
@@ -1431,7 +1492,7 @@ public class ProcessXmlMethodTwoTest {
         field_ = str_.getFields().getVal(new ClassField("pkg.Ex", "ance"));
         assertEq(Integer.class.getName(), field_.getRealClassName());
         assertEq(Integer.class.getName(), field_.getClassName());
-        assertEq(3, (Number)field_.getInstance());
+        assertEq(2, (Number)field_.getInstance());
     }
     private static Argument instanceArgument(String _class, Argument _global, ConstructorId _id, CustList<Argument> _args, ContextEl _cont) {
         int len_ = _id.getClassNames().size();
