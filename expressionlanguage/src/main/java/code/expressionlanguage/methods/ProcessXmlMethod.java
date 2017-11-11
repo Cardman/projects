@@ -22,7 +22,6 @@ import code.expressionlanguage.exceptions.UnwrappingException;
 import code.expressionlanguage.exceptions.WrapperException;
 import code.expressionlanguage.methods.util.CallConstructor;
 import code.expressionlanguage.methods.util.InstancingStep;
-import code.expressionlanguage.opers.util.ClassCategory;
 import code.expressionlanguage.opers.util.ClassField;
 import code.expressionlanguage.opers.util.ClassMetaInfo;
 import code.expressionlanguage.opers.util.ClassName;
@@ -409,20 +408,19 @@ public final class ProcessXmlMethod {
         if (ip_.isInitializingClass()) {
             String curClass_ = ip_.getGlobalClass();
             String curClassBase_ = StringList.getAllTypes(curClass_).first();
-            ClassMetaInfo meta_ = _conf.getClasses().getClassMetaInfo(curClassBase_);
-            String superClass_ = meta_.getSuperClass();
-            ClassMetaInfo s_ = _conf.getClasses().getClassMetaInfo(superClass_);
-            if (s_ != null && !_conf.getClasses().isInitialized(superClass_)) {
-                _conf.getClasses().initialize(superClass_);
-                throw new NotInitializedClassException(superClass_);
+            RootBlock root_ =  _conf.getClasses().getClassBody(curClassBase_);
+            if (root_ instanceof UniqueRootedBlock) {
+                String superClass_ = ((UniqueRootedBlock) root_).getSuperClass();
+                ClassMetaInfo s_ = _conf.getClasses().getClassMetaInfo(superClass_);
+                if (s_ != null && !_conf.getClasses().isInitialized(superClass_)) {
+                    _conf.getClasses().initialize(superClass_);
+                    throw new NotInitializedClassException(superClass_);
+                }
             }
-            if (meta_.getCategory() != ClassCategory.INTERFACE) {
-                UniqueRootedBlock root_ = (UniqueRootedBlock) _conf.getClasses().getClassBody(curClassBase_);
-                for (String i: root_.getAllNeededSortedInterfaces()) {
-                    if (!_conf.getClasses().isInitialized(i)) {
-                        _conf.getClasses().initialize(i);
-                        throw new NotInitializedClassException(i);
-                    }
+            for (String i: root_.getAllNeededSortedInterfaces()) {
+                if (!_conf.getClasses().isInitialized(i)) {
+                    _conf.getClasses().initialize(i);
+                    throw new NotInitializedClassException(i);
                 }
             }
         }
@@ -444,20 +442,18 @@ public final class ProcessXmlMethod {
             String curClassBase_ = StringList.getAllTypes(curClass_).first();
             String formatted_ = Templates.getFullTypeByBases(instClass_, curClassBase_, _conf.getClasses());
             RootBlock class_ = _conf.getClasses().getClassBody(curClassBase_);
-            ClassMetaInfo meta_ = _conf.getClasses().getClassMetaInfo(curClassBase_);
-            String superClass_ = meta_.getSuperClass();
-            String superClassBase_ = StringList.getAllTypes(superClass_).first();
-            if (!calledImpl_ && !StringList.quickEq(superClass_, Object.class.getName()) && class_ instanceof UniqueRootedBlock) {
-                ip_.getCallingConstr().setCalledImplicitConstructor(true);
-                ConstructorId super_ = new ConstructorId(superClassBase_, new EqList<ClassName>());
-                StringList called_ = ip_.getCallingConstr().getCalledConstructors();
-                called_.add(superClassBase_);
-                Argument global_ = ip_.getGlobalArgument();
-                String generic_ = Templates.getFullTypeByBases(formatted_, superClassBase_, _conf.getClasses());
-                throw new CustomFoundConstructorException(generic_, EMPTY_STRING, called_, super_, global_, new CustList<Argument>(), InstancingStep.USING_SUPER);
-            }
             if (class_ instanceof UniqueRootedBlock) {
                 UniqueRootedBlock root_ = (UniqueRootedBlock) class_;
+                String superClassBase_ = root_.getSuperClass();
+                if (!calledImpl_ && !StringList.quickEq(superClassBase_, Object.class.getName())) {
+                    ip_.getCallingConstr().setCalledImplicitConstructor(true);
+                    ConstructorId super_ = new ConstructorId(superClassBase_, new EqList<ClassName>());
+                    StringList called_ = ip_.getCallingConstr().getCalledConstructors();
+                    called_.add(superClassBase_);
+                    Argument global_ = ip_.getGlobalArgument();
+                    String generic_ = Templates.getFullTypeByBases(formatted_, superClassBase_, _conf.getClasses());
+                    throw new CustomFoundConstructorException(generic_, EMPTY_STRING, called_, super_, global_, new CustList<Argument>(), InstancingStep.USING_SUPER);
+                }
                 for (String i: root_.getAllNeededSortedInterfaces()) {
                     if (!ip_.getIntializedInterfaces().containsStr(i)) {
                         ip_.getIntializedInterfaces().add(i);

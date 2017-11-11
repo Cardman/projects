@@ -710,10 +710,7 @@ public final class Classes {
             }
         }
         for (String c: classesInheriting) {
-            if (!(classesBodies.getVal(c) instanceof UniqueRootedBlock)) {
-                continue;
-            }
-            UniqueRootedBlock bl_ = (UniqueRootedBlock) classesBodies.getVal(c);
+            RootBlock bl_ = classesBodies.getVal(c);
             StringList all_ = bl_.getAllInterfaces();
             StringList direct_ = bl_.getDirectInterfaces();
             all_.addAllElts(direct_);
@@ -721,14 +718,13 @@ public final class Classes {
                 RootBlock i_ = classesBodies.getVal(i);
                 all_.addAllElts(i_.getAllSuperClasses());
             }
-            String superClass_ = bl_.getSuperClass();
-            StringList needed_;
-            if (!StringList.quickEq(superClass_, Object.class.getName())) {
-                UniqueRootedBlock super_ = (UniqueRootedBlock) classesBodies.getVal(superClass_);
-                all_.addAllElts(super_.getAllInterfaces());
-                needed_ = super_.getAllSortedInterfaces();
-            } else {
-                needed_ = new StringList();
+            StringList needed_ = new StringList();
+            for (String s: bl_.getDirectSuperClasses()) {
+                if (!StringList.quickEq(s, Object.class.getName())) {
+                    RootBlock super_ = classesBodies.getVal(s);
+                    all_.addAllElts(super_.getAllInterfaces());
+                    needed_.addAllElts(super_.getAllSortedInterfaces());
+                }
             }
             all_.removeAllObj(Object.class.getName());
             all_.removeDuplicates();

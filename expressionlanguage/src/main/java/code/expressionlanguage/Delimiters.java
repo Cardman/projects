@@ -11,6 +11,9 @@ public final class Delimiters {
     private int childOffest;
     private int indexBegin;
     private int indexEnd;
+    private char begin;
+    private char end;
+    private boolean partOfString;
     private NatTreeMap<Integer,Integer> delimitersStringsChars = new NatTreeMap<Integer,Integer>();
     private NatTreeMap<Integer,Integer> callings = new NatTreeMap<Integer,Integer>();
     public boolean inStringOrCharConst(int _index) {
@@ -80,6 +83,24 @@ public final class Delimiters {
     }
     public void setIndexEnd(int _indexEnd) {
         indexEnd = _indexEnd;
+    }
+    public char getBegin() {
+        return begin;
+    }
+    public void setBegin(char _begin) {
+        begin = _begin;
+    }
+    public char getEnd() {
+        return end;
+    }
+    public void setEnd(char _end) {
+        end = _end;
+    }
+    public boolean isPartOfString() {
+        return partOfString;
+    }
+    public void setPartOfString(boolean _partOfString) {
+        partOfString = _partOfString;
     }
     public NatTreeMap<Integer, Integer> getDelimitersStringsChars() {
         return delimitersStringsChars;

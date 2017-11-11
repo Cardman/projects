@@ -17,6 +17,10 @@ public final class InterfaceBlock extends RootBlock {
 
     private final StringList allSuperTypes = new StringList();
 
+    private final StringList allSortedInterfaces = new StringList();
+
+    private final StringList allNeededSortedInterfaces = new StringList();
+
     public InterfaceBlock(Element _el, ContextEl _importingPage, int _indexChild,
             BracedBlock _m) {
         super(_el, _importingPage, _indexChild, _m);
@@ -170,5 +174,28 @@ public final class InterfaceBlock extends RootBlock {
     @Override
     public StringList getAllGenericInterfaces(Classes _classes) {
         return getAllGenericSuperClasses(_classes);
+    }
+    @Override
+    public StringList getDirectInterfaces() {
+        StringList classes_ = new StringList();
+        for (String s: superInterfaces) {
+            int index_ = s.indexOf(LT);
+            if (index_ > CustList.INDEX_NOT_FOUND_ELT) {
+                classes_.add(s.substring(CustList.FIRST_INDEX, index_));
+            } else {
+                classes_.add(s);
+            }
+        }
+        return classes_;
+    }
+
+    @Override
+    public StringList getAllNeededSortedInterfaces() {
+        return allNeededSortedInterfaces;
+    }
+
+    @Override
+    public StringList getAllSortedInterfaces() {
+        return allSortedInterfaces;
     }
 }

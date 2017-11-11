@@ -81,17 +81,6 @@ public final class OperationsSequence {
         values.put(beginValuePart_, str_);
     }
 
-    public void addOffset(int _offset) {
-        int len_;
-        len_ = values.size();
-        for (int i = len_ - 1; i >= CustList.FIRST_INDEX; i--) {
-            values.move(values.getKey(i), values.getKey(i)+_offset);
-        }
-        len_ = operators.size();
-        for (int i = len_ - 1; i >= CustList.FIRST_INDEX; i--) {
-            operators.move(operators.getKey(i), operators.getKey(i)+_offset);
-        }
-    }
     public String getFctName() {
         return fctName;
     }

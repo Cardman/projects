@@ -862,7 +862,7 @@ public abstract class OperationNode {
          String clCurName_ = _class.getName();
          String baseClass_ = StringList.getAllTypes(clCurName_).first();
          InterfaceBlock intBl_ = (InterfaceBlock) classes_.getClassBody(baseClass_);
-         StringList superInts_ = new StringList(clCurName_);
+         StringList superInts_ = new StringList(baseClass_);
          if (!_static) {
              superInts_.addAllElts(intBl_.getAllSuperClasses());
          }

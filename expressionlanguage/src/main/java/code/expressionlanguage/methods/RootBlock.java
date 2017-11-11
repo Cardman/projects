@@ -1279,4 +1279,10 @@ public abstract class RootBlock extends BracedBlock implements AccessibleBlock {
             _map.put(_key, new EqList<ClassMethodId>(_class));
         }
     }
+
+    public abstract StringList getAllSortedInterfaces();
+
+    public abstract StringList getAllNeededSortedInterfaces();
+
+    public abstract StringList getDirectInterfaces();
 }
