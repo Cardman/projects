@@ -9,7 +9,7 @@ import org.w3c.dom.NodeList;
 import org.w3c.dom.Text;
 
 import code.bean.Bean;
-import code.bean.validator.ValidatorException;
+import code.bean.validator.Message;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ElUtil;
 import code.expressionlanguage.Templates;
@@ -604,18 +604,15 @@ public final class Navigation {
             expression_ += nodName_+GET_LOC_VAR + SEP_ARGS;
             expression_ += objName_+GET_LOC_VAR + END_ARGS;
             try {
-                try {
-                    ElUtil.processEl(expression_, 0, session.toContextEl());
-                } catch (IndirectException _0) {
-                    Object ex_ = _0.getCustCause().getInstance();
-                    if (ex_ instanceof ValidatorException) {
-                        ValidatorException valEx_ = (ValidatorException) ex_;
-                        errors_.put(id_, valEx_.format());
-                        errorsArgs_.put(id_, valEx_.getArgs());
-                    } else {
-                        throw (RuntimeException) ex_;
-                    }
+                Argument message_ = ElUtil.processEl(expression_, 0, session.toContextEl());
+                if (!message_.isNull()) {
+                    Message messageTr_ = (Message) message_.getObject();
+                    errors_.put(id_, messageTr_.format());
+                    errorsArgs_.put(id_, messageTr_.getArgs());
                 }
+            } catch (IndirectException _0) {
+                Struct ex_ = _0.getCustCause();
+                throw new InvokeRedinedMethException(session.joinPages(), ex_);
             } catch (Throwable _0) {
                 throw new InvokeRedinedMethException(session.joinPages(), new Struct(_0));
             }

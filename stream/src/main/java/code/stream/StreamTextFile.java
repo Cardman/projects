@@ -20,7 +20,6 @@ import org.w3c.dom.Element;
 import org.xml.sax.SAXException;
 
 import code.resources.ResourceFiles;
-import code.resources.exceptions.RuntimeIOException;
 import code.serialize.SerializeXmlObject;
 import code.util.CustList;
 import code.util.InsCaseStringMap;
@@ -354,7 +353,7 @@ public final class StreamTextFile {
             }
             return strBuilder_.toString();
         } catch (IOException _0) {
-            throw new RuntimeIOException(_0);
+            return null;
         }
     }
 

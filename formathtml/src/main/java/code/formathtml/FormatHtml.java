@@ -705,14 +705,10 @@ final class FormatHtml {
         Element catchElt_ = null;
         boolean indirect_ = _t instanceof IndirectException;
         Struct custCause_;
-        if (_t instanceof IndirectException) {
+        if (indirect_) {
             custCause_ = ((IndirectException)_t).getCustCause();
         } else {
-            if (_t.getCause() == null) {
-                custCause_ = new Struct();
-            } else {
-                custCause_ = new Struct(_t.getCause());
-            }
+            custCause_ = new Struct(_t);
         }
         while (!_conf.noPages()) {
             ImportingPage bkIp_ = _conf.getLastPage();

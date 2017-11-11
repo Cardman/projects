@@ -7,7 +7,4 @@ public class RuntimeClassNotFoundException extends RuntimeException {
     public RuntimeClassNotFoundException(String _message) {
         super(_message);
     }
-    public RuntimeClassNotFoundException(Throwable _t) {
-        super(_t);
-    }
 }

@@ -292,12 +292,7 @@ public final class ProcessXmlMethod {
         if (indirect_) {
             custCause_ = ((IndirectException)_t).getCustCause();
         } else {
-            Throwable cause_ = _t.getCause();
-            if (cause_ == null) {
-                custCause_ = new Struct();
-            } else {
-                custCause_ = new Struct(cause_);
-            }
+            custCause_ = new Struct(_t);
         }
         while (!_conf.isEmptyPages()) {
             PageEl bkIp_ = _conf.getLastPage();

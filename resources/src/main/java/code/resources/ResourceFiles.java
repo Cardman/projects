@@ -20,8 +20,6 @@ import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.ImageIcon;
 
-import code.resources.exceptions.RuntimeIOException;
-
 public final class ResourceFiles {
     public static final String SEPARATEUR = "/";
     private static final String LINE_RETURN = "\n";
@@ -279,7 +277,7 @@ public final class ResourceFiles {
             }
             return strBuilder_.toString();
         } catch (IOException _0) {
-            throw new RuntimeIOException(_0);
+            return null;
         }
     }
 
