@@ -512,6 +512,10 @@ public final class FctOperation extends InvokingOperation {
             clCurName_ = Templates.format(clCurName_, unique_.getGenericSuperClass(), classes_);
             staticChoiceMethod_ = true;
             superAccessMethod_ = true;
+        } else if (trimMeth_.startsWith(EXTERN_CLASS+CURRENT+EXTERN_CLASS)) {
+            trimMeth_ = trimMeth_.substring((EXTERN_CLASS+CURRENT+EXTERN_CLASS).length());
+            staticChoiceMethod_ = true;
+            superAccessMethod_ = true;
         }
         ClassMethodIdReturn clMeth_ = getDeclaredCustMethod(_failIfError, _conf, varargOnly_, isStaticAccess(), new ClassArgumentMatching(clCurName_), trimMeth_, superClassAccess_, ClassArgumentMatching.toArgArray(firstArgs_));
         if (!clMeth_.isFoundMethod()) {

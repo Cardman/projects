@@ -383,7 +383,43 @@ public final class ElResolver {
                     if (procWordFirstChar(_string, i_ + 1, THIS, len_)) {
                         int afterSuper_ = i_ + 1 + THIS.length();
                         i_ = afterSuper_;
-                        hatMethod_ = false;
+                        boolean foundHat_ = false;
+                        while (afterSuper_ < len_) {
+                            if (_string.charAt(afterSuper_) == EXTERN_CLASS) {
+                                foundHat_ = true;
+                                break;
+                            }
+                            if (!Character.isWhitespace(_string.charAt(afterSuper_))) {
+                                break;
+                            }
+                            afterSuper_++;
+                        }
+                        if (!foundHat_) {
+                            hatMethod_ = false;
+                            i_ = afterSuper_;
+                            continue;
+                        }
+                        if (afterSuper_ + 1 >= len_) {
+                            _conf.getLastPage().setOffset(afterSuper_);
+                            throw new BadExpressionLanguageException(_string+RETURN_LINE+_conf.joinPages());
+                        }
+                        afterSuper_++;
+                        while (afterSuper_ < len_) {
+                            if (Character.isWhitespace(_string.charAt(afterSuper_))) {
+                                afterSuper_++;
+                                continue;
+                            }
+                            if (!StringList.isWordChar(_string.charAt(afterSuper_))) {
+                                if (_string.charAt(afterSuper_) == EXTERN_CLASS) {
+                                    _conf.getLastPage().setOffset(afterSuper_);
+                                    throw new BadExpressionLanguageException(_string+RETURN_LINE+_conf.joinPages());
+                                }
+                                hatMethod_ = false;
+                                break;
+                            }
+                            afterSuper_++;
+                        }
+                        i_ = afterSuper_;
                         continue;
                     }
                     for (String s: new String[]{VAR_ARG,FIRST_OPT,CLASS,INSTANCEOF,BOOLEAN}) {
