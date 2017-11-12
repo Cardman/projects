@@ -70,6 +70,9 @@ public final class PrimitiveTypeUtil {
         if (_className.startsWith(PredefinedClasses.ITERATOR)) {
             return false;
         }
+        if (_className.startsWith(PredefinedClasses.ENUM)) {
+            return false;
+        }
         return _instance.isNull();
     }
     public static Struct getElement(Struct _struct, int _index) {
@@ -92,6 +95,9 @@ public final class PrimitiveTypeUtil {
             return false;
         }
         if (_className.startsWith(PredefinedClasses.ITERATOR)) {
+            return false;
+        }
+        if (_className.startsWith(PredefinedClasses.ENUM)) {
             return false;
         }
         return _className.startsWith(PRIM);
@@ -564,6 +570,9 @@ public final class PrimitiveTypeUtil {
             return false;
         }
         if (_className.startsWith(PredefinedClasses.ITERATOR)) {
+            return false;
+        }
+        if (_className.startsWith(PredefinedClasses.ENUM)) {
             return false;
         }
         if (_className.startsWith(PRIM)) {

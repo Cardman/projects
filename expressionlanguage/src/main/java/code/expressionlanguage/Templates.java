@@ -284,6 +284,8 @@ public final class Templates {
                         pred_ = true;
                     } else if (StringList.quickEq(compo_, PredefinedClasses.ITERATOR)) {
                         pred_ = true;
+                    } else if (StringList.quickEq(compo_, PredefinedClasses.ENUM)) {
+                        pred_ = true;
                     }
                     if (!pred_) {
                         for (String p: StringList.splitStrings(compo_, SEP_CLASS)) {

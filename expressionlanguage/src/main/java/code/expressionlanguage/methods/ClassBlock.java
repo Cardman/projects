@@ -48,12 +48,12 @@ public final class ClassBlock extends RootBlock implements UniqueRootedBlock {
         if (superClass_.trim().isEmpty()) {
             superClass_ = Object.class.getName();
         }
+        superClass = superClass_;
         int i_ = CustList.FIRST_INDEX;
         while (_el.hasAttribute(ATTRIBUTE_CLASS+i_)) {
             directInterfaces.add(_el.getAttribute(ATTRIBUTE_CLASS+i_));
             i_++;
         }
-        superClass = superClass_;
         String modifier_ = _el.getAttribute(ATTRIBUTE_MODIFIER);
         finalType = StringList.quickEq(modifier_, VALUE_FINAL);
         abstractType = StringList.quickEq(modifier_, VALUE_ABSTRACT);

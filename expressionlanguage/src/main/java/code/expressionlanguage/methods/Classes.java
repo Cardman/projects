@@ -242,6 +242,8 @@ public final class Classes {
         processPredefinedClass(content_, _context);
         content_ = PredefinedClasses.getIteratorType();
         processPredefinedClass(content_, _context);
+        content_ = PredefinedClasses.getEnumType();
+        processPredefinedClass(content_, _context);
         _context.setHtml(EMPTY_STRING);
     }
     private void processPredefinedClass(String _content, ContextEl _context) {
@@ -637,6 +639,17 @@ public final class Classes {
                         enum_.setFileName(d_);
                         enum_.setRc(new RowCol());
                         errorsDet.add(enum_);
+                    }
+                    if (!(bl_ instanceof EnumBlock)) {
+                        if (StringList.quickEq(super_.getFullName(), PredefinedClasses.ENUM)) {
+                            BadInheritedClass enum_;
+                            enum_ = new BadInheritedClass();
+                            String n_ = s;
+                            enum_.setClassName(n_);
+                            enum_.setFileName(d_);
+                            enum_.setRc(new RowCol());
+                            errorsDet.add(enum_);
+                        }
                     }
                 }
                 inherit_.addSegment(new ClassEdge(d_), new ClassEdge(s));

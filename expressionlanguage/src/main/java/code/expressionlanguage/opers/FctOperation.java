@@ -38,6 +38,7 @@ import code.expressionlanguage.methods.ConstructorBlock;
 import code.expressionlanguage.methods.EnumBlock;
 import code.expressionlanguage.methods.InterfaceBlock;
 import code.expressionlanguage.methods.MethodBlock;
+import code.expressionlanguage.methods.PredefinedClasses;
 import code.expressionlanguage.methods.ProcessXmlMethod;
 import code.expressionlanguage.methods.RootBlock;
 import code.expressionlanguage.methods.UniqueRootedBlock;
@@ -402,7 +403,36 @@ public final class FctOperation extends InvokingOperation {
             }
         }
         String baseClass_ = StringList.getAllTypes(clCurName_).first();
-        if (classes_.getClassBody(baseClass_) instanceof EnumBlock) {
+        if (StringList.quickEq(baseClass_, PredefinedClasses.ENUM)) {
+            if (StringList.quickEq(trimMeth_, METH_NAME) && firstArgs_.isEmpty()) {
+                if (isStaticAccess()) {
+                    if (_failIfError) {
+                        throw new StaticAccessException(_conf.joinPages());
+                    }
+                    return;
+                }
+                MethodId methodId_ = new MethodId(false, METH_NAME, new EqList<ClassName>());
+                classMethodId = new ClassMethodId(clCurName_, methodId_);
+                realId = methodId_;
+                setResultClass(new ClassArgumentMatching(String.class.getName()));
+                foundBound = true;
+                return;
+            }
+            if (StringList.quickEq(trimMeth_, METH_ORDINAL) && firstArgs_.isEmpty()) {
+                if (isStaticAccess()) {
+                    if (_failIfError) {
+                        throw new StaticAccessException(_conf.joinPages());
+                    }
+                    return;
+                }
+                MethodId methodId_ = new MethodId(false, METH_ORDINAL, new EqList<ClassName>());
+                classMethodId = new ClassMethodId(clCurName_, methodId_);
+                realId = methodId_;
+                setResultClass(new ClassArgumentMatching(PrimitiveTypeUtil.PRIM_INT));
+                foundBound = true;
+                return;
+            }
+        } else if (classes_.getClassBody(baseClass_) instanceof EnumBlock) {
             if (StringList.quickEq(trimMeth_, METH_NAME) && firstArgs_.isEmpty()) {
                 if (isStaticAccess()) {
                     if (_failIfError) {

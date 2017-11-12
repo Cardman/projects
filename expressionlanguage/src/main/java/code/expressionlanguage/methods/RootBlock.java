@@ -782,7 +782,14 @@ public abstract class RootBlock extends BracedBlock implements AccessibleBlock {
             }
         }
         if (concreteClass_) {
+            boolean isEnum_ = this instanceof EnumBlock;
             for (ClassFormattedMethodId m: abstractMethods_) {
+                if (isEnum_ && m.getConstraints().eq(new MethodId(false, OperationNode.METH_NAME, new EqList<ClassName>()))) {
+                    continue;
+                }
+                if (isEnum_ && m.getConstraints().eq(new MethodId(false, OperationNode.METH_ORDINAL, new EqList<ClassName>()))) {
+                    continue;
+                }
                 StringList allAssignable_ = new StringList();
                 allAssignable_.add(getGenericString());
                 allAssignable_.addAllElts(allSuperClass_);
@@ -898,8 +905,16 @@ public abstract class RootBlock extends BracedBlock implements AccessibleBlock {
         }
         abstractMethods_ = RootBlock.remainingMethodsToImplement(ov_, classesRef_);
         if (concreteClass_) {
+            boolean isEnum_ = this instanceof EnumBlock;
             for (ClassFormattedMethodId m: abstractMethods_) {
+                if (isEnum_ && m.getConstraints().eq(new MethodId(false, OperationNode.METH_NAME, new EqList<ClassName>()))) {
+                    continue;
+                }
+                if (isEnum_ && m.getConstraints().eq(new MethodId(false, OperationNode.METH_ORDINAL, new EqList<ClassName>()))) {
+                    continue;
+                }
                 boolean ok_ = false;
+                ok_ = false;
                 for (String s: allAssSuperClass_) {
                     CustList<MethodBlock> method_ = classesRef_.getMethodBodiesByFormattedId(s, m.getConstraints());
                     if (method_.isEmpty()) {
