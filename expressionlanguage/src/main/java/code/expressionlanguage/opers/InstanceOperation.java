@@ -63,6 +63,8 @@ public final class InstanceOperation extends InvokingOperation {
 
     private ConstructorId constId;
 
+    private String className;
+
     private String fieldName = EMPTY_STRING;
 
     private int naturalVararg = -1;
@@ -208,13 +210,14 @@ public final class InstanceOperation extends InvokingOperation {
             }
         }
         if (ctorRes_ != null) {
-            constId = ctorRes_.getConstId();
+            constId = ctorRes_.getRealId();
+            className = ctorRes_.getConstId().getName();
             if (ctorRes_.isVarArgToCall()) {
                 naturalVararg = constId.getParametersTypes().size() - 1;
                 lastType = ctorRes_.getRealId().getParametersTypes().last();
             }
             String glClass_ = _conf.getLastPage().getGlobalClass();
-            CustList<ConstructorBlock> ctors_ = classes_.getConstructorBodiesByFormattedId(realClassName_, constId);
+            CustList<ConstructorBlock> ctors_ = classes_.getConstructorBodiesById(realClassName_, constId);
             String curClassBase_ = null;
             if (glClass_ != null) {
                 curClassBase_ = StringList.getAllTypes(glClass_).first();
@@ -481,7 +484,7 @@ public final class InstanceOperation extends InvokingOperation {
         if (constId == null) {
             return ArgumentCall.newArgument(newInstance(_conf, needed_, 0, naturalVararg > -1, contructor, Argument.toArgArray(_arguments)));
         }
-        String className_ = constId.getName();
+        String className_ = className;
         Argument arg_ = _conf.getLastPage().getGlobalArgument();
         String glClass_ = null;
         if (arg_ != null && !arg_.isNull()) {
@@ -495,20 +498,12 @@ public final class InstanceOperation extends InvokingOperation {
         StringList params_ = new StringList();
         for (String c: constId.getParametersTypes()) {
             String class_ = c;
-            if (glClass_ != null) {
-                class_ = Templates.format(glClass_, class_, _conf.getClasses());
-            }
+            class_ = Templates.format(className_, class_, _conf.getClasses());
             params_.add(class_);
         }
         checkArgumentsForInvoking(_conf, naturalVararg > -1, params_, getObjects(Argument.toArgArray(_arguments)));
-        ConstructorId cid_;
-        if (glClass_ != null) {
-            cid_ = constId.format(glClass_, _conf.getClasses());
-        } else {
-            cid_ = constId;
-        }
         StringList called_ = _conf.getLastPage().getCallingConstr().getCalledConstructors();
-        InvokingConstructor inv_ = new InvokingConstructor(className_, fieldName, cid_, needed_, _arguments, InstancingStep.NEWING, called_);
+        InvokingConstructor inv_ = new InvokingConstructor(className_, fieldName, constId, needed_, _arguments, InstancingStep.NEWING, called_);
         return ArgumentCall.newCall(inv_);
     }
     static Object newClassicArray(ContextEl _conf, String _instanceClassName, String _realClassName,int[] _args) {

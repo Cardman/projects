@@ -17,8 +17,6 @@ public final class ConstructorBlock extends NamedFunctionBlock {
     private InstancingStep instancing;
     private ConstructorId constIdSameClass;
 
-    private ConstructorId constId;
-
     private boolean implicitCallSuper;
 
     public ConstructorBlock(Element _el, ContextEl _importingPage, int _indexChild,
@@ -79,13 +77,11 @@ public final class ConstructorBlock extends NamedFunctionBlock {
         }
         Line l_ = (Line) first_;
         if (l_.isCallSuper()) {
-            constId = l_.getConstId();
             instancing = InstancingStep.USING_SUPER;
             return;
         }
         if (l_.isCallThis()) {
             constIdSameClass = l_.getConstId();
-            constId = constIdSameClass;
             instancing = InstancingStep.USING_THIS;
             return;
         }
@@ -118,10 +114,6 @@ public final class ConstructorBlock extends NamedFunctionBlock {
 
     public ConstructorId getConstIdSameClass() {
         return constIdSameClass;
-    }
-
-    public ConstructorId getConstId() {
-        return constId;
     }
 
     @Override

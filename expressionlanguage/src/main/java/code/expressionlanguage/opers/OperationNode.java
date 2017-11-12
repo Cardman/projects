@@ -580,7 +580,7 @@ public abstract class OperationNode {
                 p_.add(new ClassMatching(c));
             }
             ConstructorInfo mloc_ = new ConstructorInfo();
-            ConstructorBlock ctr_ = classes_.getConstructorBodiesByFormattedId(clCurName_, m.format(clCurName_, classes_)).first();
+            ConstructorBlock ctr_ = classes_.getConstructorBodiesById(clCurName_, m).first();
             mloc_.setConstr(ctr_.getGenericId());
             mloc_.setConstraints(m);
             mloc_.setParameters(p_);
@@ -614,7 +614,7 @@ public abstract class OperationNode {
         CustList<ConstructorId> accessible_ = new CustList<ConstructorId>();
         String curClassBase_ = StringList.getAllTypes(_glClass).first();
         for (ConstructorId i: _found) {
-            CustList<ConstructorBlock> ctors_ = _conf.getClasses().getConstructorBodiesByFormattedId(_accessedClass, i);
+            CustList<ConstructorBlock> ctors_ = _conf.getClasses().getConstructorBodiesById(_accessedClass, i);
             if (_conf.getClasses().canAccess(curClassBase_, ctors_.first())) {
                 accessible_.add(i);
             }

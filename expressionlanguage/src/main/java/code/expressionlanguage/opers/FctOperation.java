@@ -183,7 +183,7 @@ public final class FctOperation extends InvokingOperation {
             ConstrustorIdVarArg ctorRes_;
             ctorRes_ = getDeclaredCustConstructor(_conf, varargOnly_, new ClassArgumentMatching(clCurName_), ClassArgumentMatching.toArgArray(firstArgs_));
             if (ctorRes_ != null) {
-                constId = ctorRes_.getConstId();
+                constId = ctorRes_.getRealId();
                 if (ctorRes_.isVarArgToCall()) {
                     naturalVararg = constId.getParametersTypes().size() - 1;
                     lastType = ctorRes_.getRealId().getParametersTypes().last();
@@ -209,8 +209,8 @@ public final class FctOperation extends InvokingOperation {
             ConstrustorIdVarArg ctorRes_;
             ctorRes_ = getDeclaredCustConstructor(_conf, varargOnly_, new ClassArgumentMatching(superClass_), ClassArgumentMatching.toArgArray(firstArgs_));
             if (ctorRes_ != null) {
-                constId = ctorRes_.getConstId();
-                CustList<ConstructorBlock> ctors_ = classes_.getConstructorBodiesByFormattedId(superClass_, constId);
+                constId = ctorRes_.getRealId();
+                CustList<ConstructorBlock> ctors_ = classes_.getConstructorBodiesById(superClass_, constId);
                 if (!ctors_.isEmpty() && !classes_.canAccess(clCurName_, ctors_.first())) {
                     ConstructorBlock ctr_ = ctors_.first();
                     throw new BadAccessException(ctr_.getId().getSignature()+RETURN_LINE+_conf.joinPages());
@@ -840,7 +840,6 @@ public final class FctOperation extends InvokingOperation {
                             setRelativeOffsetPossibleLastPage(chidren_.last().getIndexInEl(), _conf);
                             throw new DynamicCastClassException(argClassName_+RETURN_LINE+classNameFound_+RETURN_LINE+_conf.joinPages());
                         }
-                        methodId_ = realId.format(classNameFound_, classes_);
                     } else {
                         classNameFound_ = StringList.getAllTypes(classNameFound_).first();
                         String baseArgClassName_ = StringList.getAllTypes(argClassName_).first();
@@ -866,9 +865,10 @@ public final class FctOperation extends InvokingOperation {
                         }
                         indexType_++;
                     }
+                    methodId_ = realId;
                 } else {
                     classNameFound_ = classMethodId.getClassName();
-                    methodId_ = classMethodId.getConstraints();
+                    methodId_ = realId;
                 }
             } else {
                 String argClassName_ = arg_.getObjectClassName();
@@ -931,6 +931,32 @@ public final class FctOperation extends InvokingOperation {
         InvokingMethod inv_ = new InvokingMethod(arg_, classNameFound_, methodId_, firstArgs_);
         return ArgumentCall.newCall(inv_);
     }
+    public static StringMap<ClassMethodId> getConcreteMethodsToCall(String _classFound, MethodId _realId, ContextEl _conf) {
+        StringMap<ClassMethodId> eq_ = new StringMap<ClassMethodId>();
+        Classes classes_ = _conf.getClasses();
+        String baseClassFound_ = StringList.getAllTypes(_classFound).first();
+        for (RootBlock c: classes_.getClassBodies()) {
+            String name_ = c.getFullName();
+            if (!PrimitiveTypeUtil.canBeUseAsArgument(baseClassFound_, name_, classes_)) {
+                continue;
+            }
+            String argClassName_ = c.getGenericString();
+            String classNameFound_ = Templates.getFullTypeByBases(argClassName_, baseClassFound_, classes_);
+            MethodId methodIdLoc_ = _realId.format(classNameFound_, classes_);
+            if (!c.getAllOverridingMethods().contains(methodIdLoc_)) {
+                continue;
+            }
+            ClassMethodId idClass_ = getMethodToCall(argClassName_, methodIdLoc_, _realId, _conf);
+            String classToSearch_ = idClass_.getClassName();
+            MethodId idMethod_ = idClass_.getConstraints();
+            CustList<MethodBlock> methods_ = classes_.getMethodBodiesById(classToSearch_, idMethod_);
+            if (!methods_.first().isConcreteMethod()) {
+                continue;
+            }
+            eq_.put(name_, idClass_);
+        }
+        return eq_;
+    }
     private static ClassMethodId getMethodToCall(String _baseToSearch, MethodId _id, MethodId _realId, ContextEl _conf) {
         Classes classes_ = _conf.getClasses();
         String argClassName_ = _baseToSearch;
@@ -953,13 +979,25 @@ public final class FctOperation extends InvokingOperation {
             foundSuperClasses_.add(t_);
         }
         String classNameFound_;
+        MethodId realId_;
         if (foundSuperClasses_.isEmpty()) {
-            classNameFound_ = r_.getDefaultMethodIds().getVal(_id).getClassName();
+            ClassMethodId methId_ = r_.getDefaultMethodIds().getVal(_id);
+            classNameFound_ = methId_.getClassName();
+            realId_ = methId_.getConstraints();
         } else {
             foundSuperClasses_.sortElts(new ComparatorIndexes<String>(allSuperClasses_));
             classNameFound_ = foundSuperClasses_.first();
+            int i_ = 0;
+            while (true) {
+                ClassMethodId methId_ = r_.getAllOverridingMethods().getVal(_id).get(i_);
+                if (StringList.quickEq(methId_.getClassName(), classNameFound_)) {
+                    realId_ = methId_.getConstraints();
+                    break;
+                }
+                i_++;
+            }
         }
-        return new ClassMethodId(classNameFound_, _id);
+        return new ClassMethodId(classNameFound_, realId_);
     }
     public boolean isTernary() {
         return ternary;

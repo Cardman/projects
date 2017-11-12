@@ -5387,7 +5387,7 @@ public class ProcessXmlMethodTest {
         }
         MethodId fct_ = new MethodId(_method.isStaticMethod(), _method.getName(),constraints_);
         Classes classes_ = _cont.getClasses();
-        MethodBlock method_ = classes_.getMethodBodiesByFormattedId(_class, fct_).first();
+        MethodBlock method_ = classes_.getMethodBodiesById(_class, fct_).first();
         Block firstChild_ = method_.getFirstChild();
         if (firstChild_ == null) {
             Argument a_ = new Argument();
@@ -6113,7 +6113,7 @@ public class ProcessXmlMethodTest {
         assertEq(8, (Number)field_.getInstance());
     }
 
-    @Test//
+    @Test
     public void instanceArgument16Test() {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = new ContextEl(50);
@@ -6153,7 +6153,7 @@ public class ProcessXmlMethodTest {
         assertEq(24, (Number)field_.getInstance());
     }
 
-    @Test//
+    @Test
     public void instanceArgument17Test() {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = new ContextEl(50);

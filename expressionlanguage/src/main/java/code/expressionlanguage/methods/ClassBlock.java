@@ -207,22 +207,23 @@ public final class ClassBlock extends RootBlock implements UniqueRootedBlock {
     @Override
     public void validateConstructors(ContextEl _cont) {
         boolean opt_ = optionalCallConstr(_cont);
-        ClassMetaInfo curMeta_ = _cont.getClasses().getClassMetaInfo(getFullName());
+        String idType_ = getFullName();
+        ClassMetaInfo curMeta_ = _cont.getClasses().getClassMetaInfo(idType_);
         ObjectNotNullMap<ConstructorId, ConstructorMetaInfo> c_;
         c_ = curMeta_.getConstructors();
         for (EntryCust<ConstructorId, ConstructorMetaInfo> e: c_.entryList()) {
-            ConstructorBlock b_ = _cont.getClasses().getConstructorBodiesByFormattedId(getGenericString(), e.getKey()).first();
+            ConstructorBlock b_ = _cont.getClasses().getConstructorBodiesById(idType_, e.getKey()).first();
             b_.setupInstancingStep(_cont);
         }
         for (EntryCust<ConstructorId, ConstructorMetaInfo> e: c_.entryList()) {
-            ConstructorBlock b_ = _cont.getClasses().getConstructorBodiesByFormattedId(getGenericString(), e.getKey()).first();
+            ConstructorBlock b_ = _cont.getClasses().getConstructorBodiesById(idType_, e.getKey()).first();
             if (b_.implicitConstr() && !opt_) {
                 throw new UndefinedSuperConstructorException(_cont.joinPages());
             }
         }
         EqList<ConstructorId> l_ = new EqList<ConstructorId>();
         for (EntryCust<ConstructorId, ConstructorMetaInfo> e: c_.entryList()) {
-            ConstructorBlock b_ = _cont.getClasses().getConstructorBodiesByFormattedId(getGenericString(), e.getKey()).first();
+            ConstructorBlock b_ = _cont.getClasses().getConstructorBodiesById(idType_, e.getKey()).first();
             if (b_.getConstIdSameClass() != null) {
                 l_.add(e.getKey());
             }
@@ -230,7 +231,7 @@ public final class ClassBlock extends RootBlock implements UniqueRootedBlock {
         Graph<ConstructorEdge> graph_;
         graph_ = new Graph<ConstructorEdge>();
         for (ConstructorId f: l_) {
-            ConstructorBlock b_ = _cont.getClasses().getConstructorBodiesByFormattedId(getGenericString(), f).first();
+            ConstructorBlock b_ = _cont.getClasses().getConstructorBodiesById(idType_, f).first();
             ConstructorId co_ = b_.getConstIdSameClass();
             ConstructorEdge f_ = new ConstructorEdge(f);
             ConstructorEdge t_ = new ConstructorEdge(co_);
@@ -244,7 +245,8 @@ public final class ClassBlock extends RootBlock implements UniqueRootedBlock {
     }
 
     public AccessEnum getMaximumAccessConstructors(ContextEl _cont) {
-        ClassMetaInfo curMeta_ = _cont.getClasses().getClassMetaInfo(getFullName());
+        String idType_ = getFullName();
+        ClassMetaInfo curMeta_ = _cont.getClasses().getClassMetaInfo(idType_);
         ObjectNotNullMap<ConstructorId, ConstructorMetaInfo> c_;
         c_ = curMeta_.getConstructors();
         if (c_.isEmpty()) {
@@ -252,7 +254,7 @@ public final class ClassBlock extends RootBlock implements UniqueRootedBlock {
         }
         AccessEnum a_ = AccessEnum.PRIVATE;
         for (EntryCust<ConstructorId, ConstructorMetaInfo> e: c_.entryList()) {
-            ConstructorBlock b_ = _cont.getClasses().getConstructorBodiesByFormattedId(getGenericString(), e.getKey()).first();
+            ConstructorBlock b_ = _cont.getClasses().getConstructorBodiesById(idType_, e.getKey()).first();
             if (b_.getAccess().ordinal() < a_.ordinal()) {
                 a_ = b_.getAccess();
             }
@@ -271,7 +273,7 @@ public final class ClassBlock extends RootBlock implements UniqueRootedBlock {
             return true;
         }
         for (EntryCust<ConstructorId, ConstructorMetaInfo> e: m_.entryList()) {
-            CustList<ConstructorBlock> formatted_ = _cont.getClasses().getConstructorBodiesByFormattedId(superClass, e.getKey());
+            CustList<ConstructorBlock> formatted_ = _cont.getClasses().getConstructorBodiesById(superClass, e.getKey());
             if (!_cont.getClasses().canAccess(getFullName(), formatted_.first())) {
                 continue;
             }

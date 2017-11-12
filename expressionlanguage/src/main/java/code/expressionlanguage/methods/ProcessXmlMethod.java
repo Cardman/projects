@@ -80,7 +80,7 @@ public final class ProcessXmlMethod {
 
     public static Argument calculateArgument(Argument _global, String _class, MethodId _method, CustList<Argument> _args, ContextEl _cont) {
         Classes classes_ = _cont.getClasses();
-        MethodBlock method_ = classes_.getMethodBodiesByFormattedId(_class, _method).first();
+        MethodBlock method_ = classes_.getMethodBodiesById(_class, _method).first();
         Block firstChild_ = method_.getFirstChild();
         if (firstChild_ == null) {
             Argument a_ = new Argument();
@@ -167,7 +167,7 @@ public final class ProcessXmlMethod {
         pageLoc_.setGlobalClass(_class);
         pageLoc_.setReadUrl(_class);
         MethodId id_ = _method;
-        MethodBlock methodLoc_ = classes_.getMethodBodiesByFormattedId(_class, id_).first();
+        MethodBlock methodLoc_ = classes_.getMethodBodiesById(_class, id_).first();
         StringList paramsLoc_ = methodLoc_.getParametersNames();
         StringList typesLoc_ = methodLoc_.getParametersTypes();
         CustList<Argument> args_ = _args;
@@ -199,7 +199,7 @@ public final class ProcessXmlMethod {
         Classes classes_ = _cont.getClasses();
         String baseClass_ = StringList.getAllTypes(_class).first();
         RootBlock class_ = classes_.getClassBody(baseClass_);
-        CustList<ConstructorBlock> methods_ = classes_.getConstructorBodiesByFormattedId(_class, id_);
+        CustList<ConstructorBlock> methods_ = classes_.getConstructorBodiesById(_class, id_);
         ConstructorBlock method_ = null;
         Argument argGl_ = new Argument();
         if (in_ == InstancingStep.NEWING) {

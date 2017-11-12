@@ -172,16 +172,17 @@ public final class EnumBlock extends RootBlock implements UniqueRootedBlock {
 
     @Override
     public void validateConstructors(ContextEl _cont) {
-        ClassMetaInfo curMeta_ = _cont.getClasses().getClassMetaInfo(getFullName());
+        String idType_ = getFullName();
+        ClassMetaInfo curMeta_ = _cont.getClasses().getClassMetaInfo(idType_);
         ObjectNotNullMap<ConstructorId, ConstructorMetaInfo> c_;
         c_ = curMeta_.getConstructors();
         for (EntryCust<ConstructorId, ConstructorMetaInfo> e: c_.entryList()) {
-            ConstructorBlock b_ = _cont.getClasses().getConstructorBodiesByFormattedId(getGenericString(), e.getKey()).first();
+            ConstructorBlock b_ = _cont.getClasses().getConstructorBodiesById(idType_, e.getKey()).first();
             b_.setupInstancingStep(_cont);
         }
         EqList<ConstructorId> l_ = new EqList<ConstructorId>();
         for (EntryCust<ConstructorId, ConstructorMetaInfo> e: c_.entryList()) {
-            ConstructorBlock b_ = _cont.getClasses().getConstructorBodiesByFormattedId(getGenericString(), e.getKey()).first();
+            ConstructorBlock b_ = _cont.getClasses().getConstructorBodiesById(idType_, e.getKey()).first();
             if (b_.getConstIdSameClass() != null) {
                 l_.add(e.getKey());
             }
@@ -189,7 +190,7 @@ public final class EnumBlock extends RootBlock implements UniqueRootedBlock {
         Graph<ConstructorEdge> graph_;
         graph_ = new Graph<ConstructorEdge>();
         for (ConstructorId f: l_) {
-            ConstructorBlock b_ = _cont.getClasses().getConstructorBodiesByFormattedId(getGenericString(), f).first();
+            ConstructorBlock b_ = _cont.getClasses().getConstructorBodiesById(idType_, f).first();
             ConstructorId co_ = b_.getConstIdSameClass();
             ConstructorEdge f_ = new ConstructorEdge(f);
             ConstructorEdge t_ = new ConstructorEdge(co_);

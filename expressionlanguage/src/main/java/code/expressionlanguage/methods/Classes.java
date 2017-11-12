@@ -1556,6 +1556,10 @@ public final class Classes {
         return localVariablesNames;
     }
 
+    public CustList<RootBlock> getClassBodies() {
+       return classesBodies.values();
+    }
+
     public RootBlock getClassBody(String _className) {
         for (EntryCust<String, RootBlock> c: classesBodies.entryList()) {
             if (!StringList.quickEq(c.getKey(), _className)) {
@@ -1619,6 +1623,54 @@ public final class Classes {
                 boolean all_ = true;
                 for (int i = CustList.FIRST_INDEX; i < nbParams_; i++) {
                     String type_ = Templates.format(_genericClassName, list_.get(i).getName(), this);
+                    if (!StringList.quickEq(type_, _parametersTypes.get(i))) {
+                        all_ = false;
+                        break;
+                    }
+                }
+                if (!all_) {
+                    continue;
+                }
+                methods_.add(method_);
+            }
+        }
+        return methods_;
+    }
+
+    public CustList<ConstructorBlock> getConstructorBodiesById(String _genericClassName, ConstructorId _id) {
+        return getConstructorBodiesById(_genericClassName, _id.getParametersTypes(), _id.isVararg());
+    }
+    private CustList<ConstructorBlock> getConstructorBodiesById(String _genericClassName, StringList _parametersTypes, boolean _vararg) {
+        CustList<ConstructorBlock> methods_ = new CustList<ConstructorBlock>();
+        StringList types_ = StringList.getAllTypes(_genericClassName);
+        String base_ = types_.first();
+        int nbParams_ = _parametersTypes.size();
+        for (EntryCust<String, RootBlock> c: classesBodies.entryList()) {
+            if (!StringList.quickEq(c.getKey(), base_)) {
+                continue;
+            }
+            CustList<Block> bl_ = getDirectChildren(c.getValue());
+            for (Block b: bl_) {
+                if (!(b instanceof ConstructorBlock)) {
+                    continue;
+                }
+                ConstructorBlock method_ = (ConstructorBlock) b;
+                EqList<ClassName> list_ = method_.getId().getClassNames();
+                if (list_.size() != nbParams_) {
+                    continue;
+                }
+                if (nbParams_ > 0 && _vararg) {
+                    if (!method_.isVarargs()) {
+                        continue;
+                    }
+                } else {
+                    if (method_.isVarargs()) {
+                        continue;
+                    }
+                }
+                boolean all_ = true;
+                for (int i = CustList.FIRST_INDEX; i < nbParams_; i++) {
+                    String type_ = list_.get(i).getName();
                     if (!StringList.quickEq(type_, _parametersTypes.get(i))) {
                         all_ = false;
                         break;

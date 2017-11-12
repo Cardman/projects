@@ -25,8 +25,6 @@ public final class ElResolver {
     private static final char ESCAPE_META_CHAR = '\\';
     private static final char DELIMITER_CHAR = 39;
     private static final char DELIMITER_STRING = 34;
-    private static final char VAR_TYPE = '#';
-    private static final char PRIMITIVE_TYPE = '$';
     private static final char UNICODE = 'u';
     private static final char IND_FORM = 'f';
     private static final char IND_LINE = 'n';
@@ -912,7 +910,6 @@ public final class ElResolver {
         int prio_ = prioMax_;
         int len_ = _string.length();
         int i_ = CustList.FIRST_INDEX;
-        int minIndexDot_ = CustList.FIRST_INDEX;
         while (i_ < len_) {
             if (!Character.isWhitespace(_string.charAt(i_))) {
                 break;
@@ -1020,8 +1017,7 @@ public final class ElResolver {
                 j_++;
             }
             //j_ < len_
-            minIndexDot_ = i_;
-            if (!onlySpacesTo(_string, minIndexDot_-1, len_, ARR_LEFT)) {
+            if (!onlySpacesTo(_string, i_-1, len_, ARR_LEFT)) {
                 prio_ = DOT_PRIO;
                 operators_.put(i_, EMPTY_STRING);
             }
