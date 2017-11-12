@@ -445,6 +445,27 @@ public final class ElResolver {
                 }
                 continue;
             }
+            if (curChar_ == DOT_VAR) {
+                if (i_ < len_) {
+                    if (isNumber(i_ + 1, len_, _string)) {
+                        int res_ = processNb(i_ + 1, len_, firstPrintableWordChar_, _string, true);
+                        if (res_ < 0) {
+                            _conf.getLastPage().setOffset(-res_);
+                            throw new BadExpressionLanguageException(_string+RETURN_LINE+_conf.joinPages());
+                        }
+                        i_ = res_;
+                        continue;
+                    }
+                }
+                if (parsBrackets_.isEmpty()) {
+                    if (i_ + 1 >= len_) {
+                        if (!foundSemiColumn_) {
+                            _conf.getLastPage().setOffset(i_);
+                            throw new BadExpressionLanguageException(_string+RETURN_LINE+_conf.joinPages());
+                        }
+                    }
+                }
+            }
             if (curChar_ == ESCAPE_META_CHAR) {
                 _conf.getLastPage().setOffset(i_);
                 throw new BadExpressionLanguageException(_string+RETURN_LINE+_conf.joinPages());
@@ -478,11 +499,9 @@ public final class ElResolver {
                 }
             }
             if (curChar_ == PAR_LEFT) {
-                d_.getAllowedOperatorsIndexes().add(i_);
                 parsBrackets_.put(i_, curChar_);
             }
             if (curChar_ == PAR_RIGHT) {
-                d_.getAllowedOperatorsIndexes().add(i_);
                 if (parsBrackets_.isEmpty()) {
                     _conf.getLastPage().setOffset(i_);
                     throw new BadExpressionLanguageException(_string+RETURN_LINE+_conf.joinPages());
@@ -495,11 +514,9 @@ public final class ElResolver {
                 parsBrackets_.removeKey(parsBrackets_.lastKey());
             }
             if (curChar_ == ARR_LEFT) {
-                d_.getAllowedOperatorsIndexes().add(i_);
                 parsBrackets_.put(i_, curChar_);
             }
             if (curChar_ == ARR_RIGHT) {
-                d_.getAllowedOperatorsIndexes().add(i_);
                 if (parsBrackets_.isEmpty()) {
                     _conf.getLastPage().setOffset(i_);
                     throw new BadExpressionLanguageException(_string+RETURN_LINE+_conf.joinPages());
@@ -512,43 +529,12 @@ public final class ElResolver {
                 parsBrackets_.removeKey(parsBrackets_.lastKey());
             }
             if (curChar_ == SEP_ARG) {
-                d_.getAllowedOperatorsIndexes().add(i_);
                 if (parsBrackets_.isEmpty()) {
                     _conf.getLastPage().setOffset(i_);
                     throw new BadExpressionLanguageException(_string+RETURN_LINE+_conf.joinPages());
                 }
             }
-            if (curChar_ == DOT_VAR) {
-                if (i_ < len_) {
-                    if (isNumber(i_ + 1, len_, _string)) {
-                        int res_ = processNb(i_ + 1, len_, firstPrintableWordChar_, _string, true);
-                        if (res_ < 0) {
-                            _conf.getLastPage().setOffset(-res_);
-                            throw new BadExpressionLanguageException(_string+RETURN_LINE+_conf.joinPages());
-                        }
-                        i_ = res_;
-                        continue;
-                    }
-                }
-                if (parsBrackets_.isEmpty()) {
-                    if (i_ + 1 >= len_) {
-                        if (!foundSemiColumn_) {
-                            _conf.getLastPage().setOffset(i_);
-                            throw new BadExpressionLanguageException(_string+RETURN_LINE+_conf.joinPages());
-                        }
-                    }
-                }
-            }
-            boolean added_ = false;
-            if (curChar_ == VAR_TYPE) {
-                added_ = true;
-            }
-            if (curChar_ == PRIMITIVE_TYPE) {
-                added_ = true;
-            }
-            if (!added_) {
-                d_.getAllowedOperatorsIndexes().add(i_);
-            }
+            d_.getAllowedOperatorsIndexes().add(i_);
             if (partOfString_ && curChar_ == end_) {
                 partOfString_ = false;
                 break;
@@ -1040,7 +1026,6 @@ public final class ElResolver {
                 operators_.put(i_, EMPTY_STRING);
             }
         }
-        i_ = CustList.FIRST_INDEX;
         while (i_ < len_) {
             char curChar_ = _string.charAt(i_);
             if (constChar_) {
@@ -1131,14 +1116,12 @@ public final class ElResolver {
                     int increment_ = 1;
                     if (curChar_ == DOT_VAR) {
                         builtOperator_ += DOT_VAR;
-                        if (i_ > minIndexDot_) {
-                            if (prio_ > DOT_PRIO) {
-                                clearOperators_ = true;
-                                prio_ = DOT_PRIO;
-                            }
-                            if (prio_ == DOT_PRIO) {
-                                foundOperator_ = true;
-                            }
+                        if (prio_ > DOT_PRIO) {
+                            clearOperators_ = true;
+                            prio_ = DOT_PRIO;
+                        }
+                        if (prio_ == DOT_PRIO) {
+                            foundOperator_ = true;
                         }
                     }
                     if (curChar_ == NEG_BOOL_CHAR) {
