@@ -488,7 +488,7 @@ public abstract class OperationNode {
         }
         throw new NoSuchDeclaredFieldException(traces_.join(RETURN_TAB)+RETURN_LINE+_cont.joinPages());
     }
-    static ConstrustorIdVarArg getDeclaredCustConstructor(ContextEl _conf, boolean _varargOnly, ClassArgumentMatching _class, ClassArgumentMatching..._args) {
+    static ConstrustorIdVarArg getDeclaredCustConstructor(ContextEl _conf, int _varargOnly, ClassArgumentMatching _class, ClassArgumentMatching..._args) {
         Classes classes_ = _conf.getClasses();
         if (classes_ == null) {
             return null;
@@ -519,7 +519,7 @@ public abstract class OperationNode {
         }
         for (EntryCust<ConstructorId, ConstructorMetaInfo> e: constructors_.entryList()) {
             ConstructorId ctor_ = e.getKey();
-            if (_varargOnly) {
+            if (_varargOnly > -1) {
                 if (!ctor_.isVararg()) {
                     continue;
                 }
@@ -544,7 +544,7 @@ public abstract class OperationNode {
             ConstructorId ctor_ = possibleMethods_.first();
             ConstrustorIdVarArg out_;
             out_ = new ConstrustorIdVarArg();
-            if (ctor_.isVararg() && !_varargOnly) {
+            if (ctor_.isVararg() && _varargOnly == -1) {
                 if (varArgWrap(classes_, glClass_, clCurName_, ctor_, _args)) {
                     out_.setVarArgToCall(true);
                 }
@@ -601,7 +601,7 @@ public abstract class OperationNode {
         ConstructorId ctor_ = signatures_.first().getConstraints();
         ConstrustorIdVarArg out_;
         out_ = new ConstrustorIdVarArg();
-        if (ctor_.isVararg() && !_varargOnly) {
+        if (ctor_.isVararg() && _varargOnly == -1) {
             if (varArgWrap(classes_, glClass_, clCurName_, ctor_, _args)) {
                 out_.setVarArgToCall(true);
             }
@@ -621,7 +621,7 @@ public abstract class OperationNode {
         }
         return accessible_;
     }
-    static Constructor<?> getDeclaredConstructor(ContextEl _conf, boolean _varargOnly, int _offsetIncr, ClassArgumentMatching _class, ClassArgumentMatching..._args) {
+    static Constructor<?> getDeclaredConstructor(ContextEl _conf, int _varargOnly, int _offsetIncr, ClassArgumentMatching _class, ClassArgumentMatching..._args) {
         String className_ = _class.getName();
         for (ClassArgumentMatching c:_args) {
             if (c.matchVoid()) {
@@ -631,7 +631,7 @@ public abstract class OperationNode {
         Classes classes_ = _conf.getClasses();
         CustList<Constructor<?>> possibleConstructors_ = new CustList<Constructor<?>>();
         for (Constructor<?> m: _class.getClazz().getDeclaredConstructors()) {
-            if (_varargOnly) {
+            if (_varargOnly > -1) {
                 if (!m.isVarArgs()) {
                     continue;
                 }
@@ -693,7 +693,7 @@ public abstract class OperationNode {
         }
         return signatures_.first().getMethod();
     }
-    static ClassMethodIdReturn getDeclaredCustMethod(boolean _failIfError, ContextEl _conf, boolean _varargOnly, boolean _staticContext, ClassArgumentMatching _class, String _name, boolean _superClass, ClassArgumentMatching... _argsClass) {
+    static ClassMethodIdReturn getDeclaredCustMethod(boolean _failIfError, ContextEl _conf, int _varargOnly, boolean _staticContext, ClassArgumentMatching _class, String _name, boolean _superClass, ClassArgumentMatching... _argsClass) {
         Classes classes_ = _conf.getClasses();
         String clCurName_ = _class.getName();
         String baseClass_ = StringList.getAllTypes(clCurName_).first();
@@ -812,7 +812,7 @@ public abstract class OperationNode {
         idRet_.setAbstractMethod(m_.isAbstractMethod());
         return idRet_;
     }
-    private static ClassMethodIdResult getDeclaredCustMethodByClassInherit(ContextEl _conf, boolean _varargOnly, boolean _static, ClassArgumentMatching _class, String _name, boolean _superClass, ClassArgumentMatching... _argsClass) {
+    private static ClassMethodIdResult getDeclaredCustMethodByClassInherit(ContextEl _conf, int _varargOnly, boolean _static, ClassArgumentMatching _class, String _name, boolean _superClass, ClassArgumentMatching... _argsClass) {
         Classes classes_ = _conf.getClasses();
         String clCurName_ = _class.getName();
         String base_ = StringList.getAllTypes(clCurName_).first();
@@ -838,7 +838,7 @@ public abstract class OperationNode {
         res_.setStatus(SearchingMemberStatus.ZERO);
         return res_;
     }
-    private static ClassMethodIdResult getDeclaredCustMethodByInterfaceInherit(ContextEl _conf, boolean _varargOnly, boolean _static, ClassArgumentMatching _class, String _name, boolean _superClass, ClassArgumentMatching... _argsClass) {
+    private static ClassMethodIdResult getDeclaredCustMethodByInterfaceInherit(ContextEl _conf, int _varargOnly, boolean _static, ClassArgumentMatching _class, String _name, boolean _superClass, ClassArgumentMatching... _argsClass) {
         Classes classes_ = _conf.getClasses();
         String clCurName_ = _class.getName();
         StringList classeNames_ = getAllSuperInterfaces(_conf, _static, _class);
@@ -871,7 +871,7 @@ public abstract class OperationNode {
          }
          return superInts_;
     }
-    private static ClassMethodIdResult getDeclaredCustMethodByType(ContextEl _conf, boolean _varargOnly,
+    private static ClassMethodIdResult getDeclaredCustMethodByType(ContextEl _conf, int _varargOnly,
             boolean _static, String _fromClass, ClassArgumentMatching _class, String _name, ClassArgumentMatching... _argsClass) {
         Classes classes_ = _conf.getClasses();
         String clCurName_ = _class.getName();
@@ -916,7 +916,7 @@ public abstract class OperationNode {
         }
         return getCustResult(_conf, _varargOnly, _class, methods_, _name, _argsClass);
     }
-    private static ClassMethodIdResult getCustResult(ContextEl _conf, boolean _varargOnly, ClassArgumentMatching _class,
+    private static ClassMethodIdResult getCustResult(ContextEl _conf, int _varargOnly, ClassArgumentMatching _class,
             ObjectNotNullMap<MethodId, MethodMetaInfo> _methods,
             String _name, ClassArgumentMatching... _argsClass) {
         Classes classes_ = _conf.getClasses();
@@ -925,7 +925,7 @@ public abstract class OperationNode {
         String glClass_ = _conf.getLastPage().getGlobalClass();
         for (EntryCust<MethodId, MethodMetaInfo> e: _methods.entryList()) {
             MethodId key_ = e.getKey();
-            if (_varargOnly) {
+            if (_varargOnly > -1) {
                 if (!key_.isVararg()) {
                     continue;
                 }
@@ -954,7 +954,7 @@ public abstract class OperationNode {
                 ClassMethodIdResult res_ = new ClassMethodIdResult();
                 res_.setStatus(SearchingMemberStatus.UNIQ);
                 res_.setId(cl_);
-                if (!_varargOnly && varArgWrap(classes_, glClass_, clCurName_, methodId_, _argsClass)) {
+                if (_varargOnly == -1 && varArgWrap(classes_, glClass_, clCurName_, methodId_, _argsClass)) {
                     res_.setVarArgToCall(true);
                 }
                 res_.setRealId(realId_);
@@ -966,7 +966,7 @@ public abstract class OperationNode {
             ClassMethodIdResult res_ = new ClassMethodIdResult();
             res_.setStatus(SearchingMemberStatus.UNIQ);
             res_.setId(cl_);
-            if (!_varargOnly && varArgWrap(classes_, glClass_, clCurName_, methodId_, _argsClass)) {
+            if (_varargOnly == -1 && varArgWrap(classes_, glClass_, clCurName_, methodId_, _argsClass)) {
                 res_.setVarArgToCall(true);
             }
             res_.setRealId(realId_);
@@ -1019,7 +1019,7 @@ public abstract class OperationNode {
             ClassMethodIdResult res_ = new ClassMethodIdResult();
             res_.setStatus(SearchingMemberStatus.UNIQ);
             res_.setId(cl_);
-            if (!_varargOnly && varArgWrap(classes_, glClass_, clCurName_, constraints_, _argsClass)) {
+            if (_varargOnly == -1 && varArgWrap(classes_, glClass_, clCurName_, constraints_, _argsClass)) {
                 res_.setVarArgToCall(true);
             }
             res_.setRealId(realId_);
@@ -1031,7 +1031,7 @@ public abstract class OperationNode {
         ClassMethodIdResult res_ = new ClassMethodIdResult();
         res_.setStatus(SearchingMemberStatus.UNIQ);
         res_.setId(cl_);
-        if (!_varargOnly && varArgWrap(classes_, glClass_, clCurName_, constraints_, _argsClass)) {
+        if (_varargOnly == -1 && varArgWrap(classes_, glClass_, clCurName_, constraints_, _argsClass)) {
             res_.setVarArgToCall(true);
         }
         res_.setRealId(realId_);
@@ -1060,7 +1060,7 @@ public abstract class OperationNode {
         }
         return accessible_;
     }
-    static Method getDeclaredMethod(boolean _failIfError, ContextEl _cont, boolean _varargOnly, boolean _staticContext, ClassArgumentMatching _class, String _name, ClassArgumentMatching... _argsClass) {
+    static Method getDeclaredMethod(boolean _failIfError, ContextEl _cont, int _varargOnly, boolean _staticContext, ClassArgumentMatching _class, String _name, ClassArgumentMatching... _argsClass) {
         Class<?> class_ = _class.getClazz();
         class_ = PrimitiveTypeUtil.toBooleanWrapper(class_, true);
         for (ClassArgumentMatching c:_argsClass) {
@@ -1115,7 +1115,7 @@ public abstract class OperationNode {
         trace_ += PAR_RIGHT;
         throw new NoSuchDeclaredMethodException(trace_+RETURN_LINE+_cont.joinPages());
     }
-    static ClassMethodIdResult getDeclaredMethodLoop(ContextEl _cont, boolean _varargOnly, boolean _static, ClassArgumentMatching _class,
+    static ClassMethodIdResult getDeclaredMethodLoop(ContextEl _cont, int _varargOnly, boolean _static, ClassArgumentMatching _class,
             String _name, ClassArgumentMatching... _argsClass) {
         StringList classNames_ = Templates.getAllGenericSuperTypes(_class.getName(), _cont.getClasses());
         for (String c: classNames_) {
@@ -1131,7 +1131,7 @@ public abstract class OperationNode {
         res_.setStatus(SearchingMemberStatus.ZERO);
         return res_;
     }
-    private static ClassMethodIdResult getResult(ContextEl _conf, boolean _varargOnly, boolean _static, String _class,
+    private static ClassMethodIdResult getResult(ContextEl _conf, int _varargOnly, boolean _static, String _class,
             CustList<Method> _methods,
             String _name, ClassArgumentMatching... _argsClass) {
         Classes classes_ = _conf.getClasses();
@@ -1146,7 +1146,7 @@ public abstract class OperationNode {
                     continue;
                 }
             }
-            if (_varargOnly) {
+            if (_varargOnly > -1) {
                 if (!m.isVarArgs()) {
                     continue;
                 }
@@ -1224,7 +1224,7 @@ public abstract class OperationNode {
         res_.setMethod(signatures_.first().getMethod());
         return res_;
     }
-    static boolean isPossibleMethod(ContextEl _context, String _class, boolean _varargOnly, boolean _vararg, ClassMatching[] _params, ClassArgumentMatching..._argsClass) {
+    static boolean isPossibleMethod(ContextEl _context, String _class, int _varargOnly, boolean _vararg, ClassMatching[] _params, ClassArgumentMatching..._argsClass) {
         int startOpt_ = _argsClass.length;
         boolean checkOnlyDem_ = true;
         int nbDem_ = _params.length;
@@ -1236,9 +1236,16 @@ public abstract class OperationNode {
             if (_params.length > _argsClass.length + 1) {
                 return false;
             }
-            checkOnlyDem_ = false;
-            nbDem_--;
-            startOpt_ = _params.length - 1;
+            if (_varargOnly != 0) {
+                checkOnlyDem_ = false;
+                nbDem_--;
+                startOpt_ = _params.length - 1;
+            }
+            if (_varargOnly > 0) {
+                if (startOpt_ != _varargOnly - 1) {
+                    return false;
+                }
+            }
         }
         Classes classes_ = _context.getClasses();
         String glClass_ = _context.getLastPage().getGlobalClass();
@@ -1281,9 +1288,7 @@ public abstract class OperationNode {
             if (Templates.isCorrect(map_, classes_)) {
                 return true;
             }
-            if (!_varargOnly) {
-                param_ = PrimitiveTypeUtil.getQuickComponentType(param_);
-            }
+            param_ = PrimitiveTypeUtil.getQuickComponentType(param_);
             map_.setParam(Templates.generalFormat(_class, param_, classes_));
             return Templates.isCorrect(map_, classes_);
         }

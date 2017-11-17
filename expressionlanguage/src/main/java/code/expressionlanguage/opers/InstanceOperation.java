@@ -188,7 +188,7 @@ public final class InstanceOperation extends InvokingOperation {
         if (StringList.quickEq(realClassName_, OperationNode.VOID_RETURN)) {
             throw new VoidArgumentException(_conf.joinPages());
         }
-        boolean varargOnly_ = lookOnlyForVarArg();
+        int varargOnly_ = lookOnlyForVarArg();
         ConstrustorIdVarArg ctorRes_ = null;
         if (classes_ != null) {
             ClassMetaInfo custClass_ = null;
@@ -215,7 +215,7 @@ public final class InstanceOperation extends InvokingOperation {
             className = ctorRes_.getConstId().getName();
             if (ctorRes_.isVarArgToCall()) {
                 naturalVararg = constId.getParametersTypes().size() - 1;
-                lastType = ctorRes_.getRealId().getParametersTypes().last();
+                lastType = constId.getParametersTypes().last();
             }
             String glClass_ = _conf.getLastPage().getGlobalClass();
             CustList<ConstructorBlock> ctors_ = classes_.getConstructorBodiesById(realClassName_, constId);
@@ -258,7 +258,7 @@ public final class InstanceOperation extends InvokingOperation {
             throw new BadAccessException(const_+RETURN_LINE+_conf.joinPages());
         }
         contructor = const_;
-        if (contructor.isVarArgs() && !varargOnly_) {
+        if (contructor.isVarArgs() && varargOnly_ == -1) {
             Class<?>[] params_ = contructor.getParameterTypes();
             naturalVararg = params_.length - 1;
             lastType = NativeTypeUtil.getPrettyType(params_[naturalVararg]);

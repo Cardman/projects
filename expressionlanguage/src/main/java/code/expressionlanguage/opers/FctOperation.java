@@ -124,7 +124,7 @@ public final class FctOperation extends InvokingOperation {
         int off_ = StringList.getFirstPrintableCharIndex(methodName);
         setRelativeOffsetPossibleLastPage(getIndexInEl()+off_, _conf);
         String trimMeth_ = methodName.trim();
-        boolean varargOnly_ = lookOnlyForVarArg();
+        int varargOnly_ = lookOnlyForVarArg();
         if (StringList.quickEq(trimMeth_, EXTERN_CLASS+VAR_ARG)) {
             setVararg(true);
             if (!(getParent() instanceof InvokingOperation)) {
@@ -397,7 +397,7 @@ public final class FctOperation extends InvokingOperation {
         CustList<ClassArgumentMatching> firstArgs_ = listClasses(chidren_, _conf);
         String clCurName_ = _subType;
         String glClass_ = _conf.getLastPage().getGlobalClass();
-        boolean varargOnly_ = lookOnlyForVarArg();
+        int varargOnly_ = lookOnlyForVarArg();
         for (ClassArgumentMatching c:firstArgs_) {
             if (c.matchVoid()) {
                 throw new VoidArgumentException(clCurName_+DOT+trimMeth_+RETURN_LINE+_conf.joinPages());
@@ -534,6 +534,11 @@ public final class FctOperation extends InvokingOperation {
             }
             return;
         }
+        if (clMeth_.isVarArgToCall()) {
+            StringList paramtTypes_ = clMeth_.getId().getConstraints().getParametersTypes();
+            naturalVararg = paramtTypes_.size() - 1;
+            lastType = paramtTypes_.last();
+        }
         if (staticChoiceMethod_) {
             if (m_.isAbstractMethod()) {
                 if (_failIfError) {
@@ -553,10 +558,6 @@ public final class FctOperation extends InvokingOperation {
             classMethodId = clMeth_.getId();
         }
         realId = clMeth_.getRealId();
-        if (clMeth_.isVarArgToCall()) {
-            naturalVararg = realId.getParametersTypes().size() - 1;
-            lastType = realId.getParametersTypes().last();
-        }
         superAccessMethod = superAccessMethod_;
         staticChoiceMethod = staticChoiceMethod_;
         staticMethod = clMeth_.isStaticMethod();
@@ -573,7 +574,7 @@ public final class FctOperation extends InvokingOperation {
         String trimMeth_ = methodName.trim();
         CustList<OperationNode> chidren_ = getChildrenNodes();
         CustList<ClassArgumentMatching> firstArgs_ = listClasses(chidren_, _conf);
-        boolean varargOnly_ = lookOnlyForVarArg();
+        int varargOnly_ = lookOnlyForVarArg();
         Method m_ = getDeclaredMethod(_failIfError, _conf, varargOnly_, isStaticAccess(), clVar_, trimMeth_, ClassArgumentMatching.toArgArray(firstArgs_));
         if (m_ == null) {
             return;
@@ -586,7 +587,7 @@ public final class FctOperation extends InvokingOperation {
             return;
         }
         method = m_;
-        if (m_.isVarArgs() && !varargOnly_) {
+        if (m_.isVarArgs() && varargOnly_ == -1) {
             Class<?>[] params_ = m_.getParameterTypes();
             naturalVararg = params_.length - 1;
             lastType = NativeTypeUtil.getPrettyType(params_[naturalVararg]);

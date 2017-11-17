@@ -11178,6 +11178,126 @@ public class ProcessXmlMethodTest {
         assertEq(Integer.class.getName(), field_.getClassName());
         assertEq(5, (Number)field_.getInstance());
     }
+    @Test
+    public void instanceArgument107Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg'>\n";
+        xml_ += "<field access='"+PUBLIC_ACCESS+"' name='array' class='"+ARR_INTEGER+"' value='^new."+ARR_INTEGER+"[](1i)'/>\n";
+        xml_ += "<field access='"+PUBLIC_ACCESS+"' name='elt' class='"+PrimitiveTypeUtil.PRIM_INT+"' value='2i'/>\n";
+        xml_ += "<instance>\n";
+        xml_ += "<affect left='ref()[0i]' oper='=' right='getter(^vararg(&quot;$int&quot;),^firstopt(8i))'/>\n";
+        xml_ += "</instance>\n";
+        xml_ += "<method access='"+PUBLIC_ACCESS+"' modifier='final' name='ref' class='"+ARR_OBJECT+"'>\n";
+        xml_ += "<return expression='array;;;'/>\n";
+        xml_ += "</method>\n";
+        xml_ += "<method access='"+PUBLIC_ACCESS+"' modifier='final' name='getter' class='"+PrimitiveTypeUtil.PRIM_INT+"' var0='i' class0='$int...'>\n";
+        xml_ += "<declare var='t' class='$int'/>\n";
+        xml_ += "<foreach class='java.lang.Number' var='e' expression='i;.;'>\n";
+        xml_ += "<affect left='t;.' oper='+=' right='e;intValue()'/>\n";
+        xml_ += "</foreach>\n";
+        xml_ += "<return expression='elt;;;+t;.'/>\n";
+        xml_ += "</method>\n";
+        xml_ += "</class>\n";
+        files_.put("pkg/Ex."+Classes.EXT, xml_);
+        ContextEl cont_ = new ContextEl(50);
+        cont_.setAccessValue(new AccessValueEx());
+        Classes.validateAll(files_, cont_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        ConstructorId id_ = getConstructorId("pkg.Ex");
+        ProcessXmlMethod.initializeClass("pkg.Ex", cont_);
+        Argument ret_;
+        ret_ = instanceArgument("pkg.Ex", null, id_, args_, cont_);
+        Struct str_ = ret_.getStruct();
+        assertEq(CustBase.class.getName(), str_.getRealClassName());
+        assertEq("pkg.Ex", str_.getClassName());
+        assertTrue(!str_.isJavaObject());
+        Struct field_;
+        field_ = str_.getFields().getVal(new ClassField("pkg.Ex", "array"));
+        assertEq(Integer[].class.getName(), field_.getRealClassName());
+        assertEq(ARR_INTEGER, field_.getClassName());
+        Object[] array_ = (Object[]) field_.getInstance();
+        assertEq(10, (Number) array_[0]);
+    }
+    @Test
+    public void instanceArgument108Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg'>\n";
+        xml_ += "<field access='"+PUBLIC_ACCESS+"' name='array' class='"+ARR_INTEGER+"' value='^new."+ARR_INTEGER+"[](1i)'/>\n";
+        xml_ += "<field access='"+PUBLIC_ACCESS+"' name='elt' class='"+PrimitiveTypeUtil.PRIM_INT+"' value='2i'/>\n";
+        xml_ += "<instance>\n";
+        xml_ += "<affect left='ref()[0i]' oper='=' right='getter()'/>\n";
+        xml_ += "</instance>\n";
+        xml_ += "<method access='"+PUBLIC_ACCESS+"' modifier='final' name='ref' class='"+ARR_OBJECT+"'>\n";
+        xml_ += "<return expression='array;;;'/>\n";
+        xml_ += "</method>\n";
+        xml_ += "<method access='"+PUBLIC_ACCESS+"' modifier='final' name='getter' class='"+PrimitiveTypeUtil.PRIM_INT+"' var0='i' class0='$int...'>\n";
+        xml_ += "<declare var='t' class='$int'/>\n";
+        xml_ += "<foreach class='java.lang.Number' var='e' expression='i;.;'>\n";
+        xml_ += "<affect left='t;.' oper='+=' right='e;intValue()'/>\n";
+        xml_ += "</foreach>\n";
+        xml_ += "<return expression='elt;;;+t;.'/>\n";
+        xml_ += "</method>\n";
+        xml_ += "</class>\n";
+        files_.put("pkg/Ex."+Classes.EXT, xml_);
+        ContextEl cont_ = new ContextEl(50);
+        cont_.setAccessValue(new AccessValueEx());
+        Classes.validateAll(files_, cont_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        ConstructorId id_ = getConstructorId("pkg.Ex");
+        ProcessXmlMethod.initializeClass("pkg.Ex", cont_);
+        Argument ret_;
+        ret_ = instanceArgument("pkg.Ex", null, id_, args_, cont_);
+        Struct str_ = ret_.getStruct();
+        assertEq(CustBase.class.getName(), str_.getRealClassName());
+        assertEq("pkg.Ex", str_.getClassName());
+        assertTrue(!str_.isJavaObject());
+        Struct field_;
+        field_ = str_.getFields().getVal(new ClassField("pkg.Ex", "array"));
+        assertEq(Integer[].class.getName(), field_.getRealClassName());
+        assertEq(ARR_INTEGER, field_.getClassName());
+        Object[] array_ = (Object[]) field_.getInstance();
+        assertEq(2, (Number) array_[0]);
+    }
+    @Test
+    public void instanceArgument109Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg'>\n";
+        xml_ += "<field access='"+PUBLIC_ACCESS+"' name='array' class='"+ARR_INTEGER+"' value='^new."+ARR_INTEGER+"[](1i)'/>\n";
+        xml_ += "<field access='"+PUBLIC_ACCESS+"' name='elt' class='"+PrimitiveTypeUtil.PRIM_INT+"' value='2i'/>\n";
+        xml_ += "<instance>\n";
+        xml_ += "<affect left='ref()[0i]' oper='=' right='getter(^vararg(&quot;$int&quot;))'/>\n";
+        xml_ += "</instance>\n";
+        xml_ += "<method access='"+PUBLIC_ACCESS+"' modifier='final' name='ref' class='"+ARR_OBJECT+"'>\n";
+        xml_ += "<return expression='array;;;'/>\n";
+        xml_ += "</method>\n";
+        xml_ += "<method access='"+PUBLIC_ACCESS+"' modifier='final' name='getter' class='"+PrimitiveTypeUtil.PRIM_INT+"' var0='i' class0='$int...'>\n";
+        xml_ += "<declare var='t' class='$int'/>\n";
+        xml_ += "<foreach class='java.lang.Number' var='e' expression='i;.;'>\n";
+        xml_ += "<affect left='t;.' oper='+=' right='e;intValue()'/>\n";
+        xml_ += "</foreach>\n";
+        xml_ += "<return expression='elt;;;+t;.'/>\n";
+        xml_ += "</method>\n";
+        xml_ += "</class>\n";
+        files_.put("pkg/Ex."+Classes.EXT, xml_);
+        ContextEl cont_ = new ContextEl(50);
+        cont_.setAccessValue(new AccessValueEx());
+        Classes.validateAll(files_, cont_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        ConstructorId id_ = getConstructorId("pkg.Ex");
+        ProcessXmlMethod.initializeClass("pkg.Ex", cont_);
+        Argument ret_;
+        ret_ = instanceArgument("pkg.Ex", null, id_, args_, cont_);
+        Struct str_ = ret_.getStruct();
+        assertEq(CustBase.class.getName(), str_.getRealClassName());
+        assertEq("pkg.Ex", str_.getClassName());
+        assertTrue(!str_.isJavaObject());
+        Struct field_;
+        field_ = str_.getFields().getVal(new ClassField("pkg.Ex", "array"));
+        assertEq(Integer[].class.getName(), field_.getRealClassName());
+        assertEq(ARR_INTEGER, field_.getClassName());
+        Object[] array_ = (Object[]) field_.getInstance();
+        assertEq(2, (Number) array_[0]);
+    }
     @Test(expected=UndefinedConstructorException.class)
     public void validateAll1FailTest() {
         StringMap<String> files_ = new StringMap<String>();

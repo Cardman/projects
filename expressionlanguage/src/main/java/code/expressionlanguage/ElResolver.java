@@ -1158,7 +1158,7 @@ public final class ElResolver {
                     }
                     if (curChar_ == NEG_BOOL_CHAR) {
                         builtOperator_ += NEG_BOOL_CHAR;
-                        if (i_ == firstPrintChar_) {
+                        if (nextChar_ != EQ_CHAR) {
                             foundOperator_ = true;
                             prio_ = UNARY_PRIO;
                         } else {

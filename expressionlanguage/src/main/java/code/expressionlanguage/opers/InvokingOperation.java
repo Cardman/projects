@@ -179,12 +179,24 @@ public abstract class InvokingOperation extends MethodOperation {
         return firstArgs_;
     }
 
-    final boolean lookOnlyForVarArg() {
+    final int lookOnlyForVarArg() {
         OperationNode first_ = getFirstChild();
         if (first_ == null) {
-            return false;
+            return -1;
         }
-        return first_.isVararg();
+        if (!first_.isVararg()) {
+            return -1;
+        }
+        CustList<OperationNode> ch_ = getChildrenNodes();
+        int firstOpt_ = 0;
+        int len_ = ch_.size();
+        for (int i = 1; i < len_;i++) {
+            if (ch_.get(i).isFirstOptArg()) {
+                firstOpt_ = i;
+                break;
+            }
+        }
+        return firstOpt_;
     }
 
     abstract boolean isCallMethodCtor();

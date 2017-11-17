@@ -329,7 +329,7 @@ public final class MathResolver {
                 int increment_ = 1;
                 if (curChar_ == NEG_BOOL_CHAR) {
                     builtOperator_ += NEG_BOOL_CHAR;
-                    if (i_ == firstPrintChar_) {
+                    if (nextChar_ != EQ_CHAR) {
                         foundOperator_ = true;
                         prio_ = UNARY_PRIO;
                     } else {
