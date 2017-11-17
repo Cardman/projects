@@ -3,6 +3,7 @@ import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.Mapping;
 import code.expressionlanguage.OperationsSequence;
+import code.expressionlanguage.PageEl;
 import code.expressionlanguage.PrimitiveTypeUtil;
 import code.expressionlanguage.Templates;
 import code.expressionlanguage.exceptions.DynamicCastClassException;
@@ -99,19 +100,12 @@ public abstract class InvokingOperation extends MethodOperation {
             }
             Argument argRem_ = new Argument();
             String g_ = _children.first().getResultClass().getName();
-            Argument glObj_ = _context.getLastPage().getGlobalArgument();
+            PageEl page_ = _context.getLastPage();
+            Classes classes_ = _context.getClasses();
+            g_ = page_.formatVarType(g_, classes_);
             boolean native_ = true;
-            if (glObj_ != null && !glObj_.isNull()) {
-                String glClass_ = glObj_.getObjectClassName();
-                String gl_ = _context.getLastPage().getGlobalClass();
-                gl_ = StringList.getAllTypes(gl_).first();
-                gl_ = Templates.getFullTypeByBases(glClass_, gl_, _context.getClasses());
-                glClass_ = gl_;
-                g_ = Templates.format(glClass_, g_, _context.getClasses());
-                Classes classes_ = _context.getClasses();
-                if (classes_ != null) {
-                    native_ = !_context.getClasses().isCustomType(g_);
-                }
+            if (classes_ != null) {
+                native_ = !_context.getClasses().isCustomType(g_);
             }
             if (native_) {
                 int len_ = optArgs_.size();
@@ -150,20 +144,12 @@ public abstract class InvokingOperation extends MethodOperation {
                 }
             }
             Argument argRem_ = new Argument();
-            String g_ = _lastType;
-            Argument glObj_ = _context.getLastPage().getGlobalArgument();
+            PageEl page_ = _context.getLastPage();
+            Classes classes_ = _context.getClasses();
+            String g_ = page_.formatVarType(_lastType, classes_) ;
             boolean native_ = true;
-            if (glObj_ != null && !glObj_.isNull()) {
-                String glClass_ = glObj_.getObjectClassName();
-                String gl_ = _context.getLastPage().getGlobalClass();
-                gl_ = StringList.getAllTypes(gl_).first();
-                gl_ = Templates.getFullTypeByBases(glClass_, gl_, _context.getClasses());
-                glClass_ = gl_;
-                g_ = Templates.format(glClass_, g_, _context.getClasses());
-                Classes classes_ = _context.getClasses();
-                if (classes_ != null) {
-                    native_ = !_context.getClasses().isCustomType(g_);
-                }
+            if (classes_ != null) {
+                native_ = !classes_.isCustomType(g_);
             }
             if (native_) {
                 int len_ = optArgs_.size();

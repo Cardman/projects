@@ -284,6 +284,20 @@ public final class PageEl {
         return _type;
     }
 
+    public String formatVarType(String _varType, Classes _classes) {
+        if (globalArgument == null) {
+            return _varType;
+        }
+        if (globalArgument.isNull()) {
+            return _varType;
+        }
+        String objClass_ = globalArgument.getObjectClassName();
+        String gl_ = globalClass;
+        gl_ = StringList.getAllTypes(gl_).first();
+        gl_ = Templates.getFullTypeByBases(objClass_, gl_, _classes);
+        return Templates.format(gl_, _varType, _classes);
+    }
+
     public Argument getGlobalArgument() {
         return globalArgument;
     }

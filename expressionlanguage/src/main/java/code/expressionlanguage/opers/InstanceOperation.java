@@ -11,6 +11,7 @@ import code.expressionlanguage.InvokingConstructor;
 import code.expressionlanguage.InvokingMethod;
 import code.expressionlanguage.Mapping;
 import code.expressionlanguage.OperationsSequence;
+import code.expressionlanguage.PageEl;
 import code.expressionlanguage.PrimitiveTypeUtil;
 import code.expressionlanguage.Templates;
 import code.expressionlanguage.exceptions.AbstractClassConstructorException;
@@ -368,15 +369,9 @@ public final class InstanceOperation extends InvokingOperation {
         } else {
             realClassName_ = className_;
         }
-        Argument arg_ = _conf.getLastPage().getGlobalArgument();
-        if (arg_ != null && !arg_.isNull()) {
-            String glClass_ = arg_.getObjectClassName();
-            String gl_ = _conf.getLastPage().getGlobalClass();
-            gl_ = StringList.getAllTypes(gl_).first();
-            gl_ = Templates.getFullTypeByBases(glClass_, gl_, _conf.getClasses());
-            glClass_ = gl_;
-            realClassName_ = Templates.format(glClass_, realClassName_, _conf.getClasses());
-        }
+        PageEl page_ = _conf.getLastPage();
+        Classes classes_ = _conf.getClasses();
+        realClassName_ = page_.formatVarType(realClassName_, classes_);
         if (realClassName_.startsWith(ARR)) {
             int[] args_;
             if (elts_) {
@@ -401,7 +396,6 @@ public final class InstanceOperation extends InvokingOperation {
             }
             realClassName_ = realClassName_.substring(ARR.length());
             boolean cust_ = false;
-            Classes classes_ = _conf.getClasses();
             ClassMetaInfo custClass_ = null;
             instanceClassName_ = realClassName_;
             if (classes_ != null) {
@@ -485,20 +479,13 @@ public final class InstanceOperation extends InvokingOperation {
             return ArgumentCall.newArgument(newInstance(_conf, needed_, 0, naturalVararg > -1, contructor, Argument.toArgArray(_arguments)));
         }
         String className_ = className;
-        Argument arg_ = _conf.getLastPage().getGlobalArgument();
-        String glClass_ = null;
-        if (arg_ != null && !arg_.isNull()) {
-            glClass_ = arg_.getObjectClassName();
-            String gl_ = _conf.getLastPage().getGlobalClass();
-            gl_ = StringList.getAllTypes(gl_).first();
-            gl_ = Templates.getFullTypeByBases(glClass_, gl_, _conf.getClasses());
-            glClass_ = gl_;
-            className_ = Templates.format(glClass_, className_, _conf.getClasses());
-        }
+        PageEl page_ = _conf.getLastPage();
+        Classes classes_ = _conf.getClasses();
+        className_ = page_.formatVarType(className_, classes_);
         StringList params_ = new StringList();
         for (String c: constId.getParametersTypes()) {
             String class_ = c;
-            class_ = Templates.format(className_, class_, _conf.getClasses());
+            class_ = Templates.format(className_, class_, classes_);
             params_.add(class_);
         }
         checkArgumentsForInvoking(_conf, naturalVararg > -1, params_, getObjects(Argument.toArgArray(_arguments)));

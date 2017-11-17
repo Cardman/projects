@@ -12,6 +12,7 @@ import code.expressionlanguage.InvokingConstructor;
 import code.expressionlanguage.InvokingMethod;
 import code.expressionlanguage.Mapping;
 import code.expressionlanguage.OperationsSequence;
+import code.expressionlanguage.PageEl;
 import code.expressionlanguage.PrimitiveTypeUtil;
 import code.expressionlanguage.Templates;
 import code.expressionlanguage.exceptions.AbstractMethodException;
@@ -683,8 +684,7 @@ public final class FctOperation extends InvokingOperation {
                 CustList<Argument> firstArgs_ = listArguments(chidren_, naturalVararg, lastType, _arguments, _conf);
                 StringList called_ = _conf.getLastPage().getCallingConstr().getCalledConstructors();
                 called_.add(clCurNameBase_);
-                Argument global_ = _conf.getLastPage().getGlobalArgument();
-                InvokingConstructor inv_ = new InvokingConstructor(clCurName_, EMPTY_STRING, constId, global_, firstArgs_, InstancingStep.USING_THIS, called_);
+                InvokingConstructor inv_ = new InvokingConstructor(clCurName_, EMPTY_STRING, constId, arg_, firstArgs_, InstancingStep.USING_THIS, called_);
                 return ArgumentCall.newCall(inv_);
             }
             if (StringList.quickEq(trimMeth_,EXTERN_CLASS+SUPER_ACCESS)) {
@@ -701,8 +701,7 @@ public final class FctOperation extends InvokingOperation {
                 StringList called_ = _conf.getLastPage().getCallingConstr().getCalledConstructors();
                 called_.add(superClassBase_);
                 _conf.getLastPage().clearCurrentEls();
-                Argument global_ = _conf.getLastPage().getGlobalArgument();
-                InvokingConstructor inv_ = new InvokingConstructor(superClass_, EMPTY_STRING, constId, global_, firstArgs_, InstancingStep.USING_SUPER, called_);
+                InvokingConstructor inv_ = new InvokingConstructor(superClass_, EMPTY_STRING, constId, arg_, firstArgs_, InstancingStep.USING_SUPER, called_);
                 return ArgumentCall.newCall(inv_);
             }
         }
@@ -725,14 +724,8 @@ public final class FctOperation extends InvokingOperation {
             }
             Mapping mapping_ = new Mapping();
             mapping_.setArg(className_);
-            Argument glObj_ = _conf.getLastPage().getGlobalArgument();
-            if (glObj_ != null && !glObj_.isNull()) {
-                String glClass_ = glObj_.getObjectClassName();
-                String gl_ = _conf.getLastPage().getGlobalClass();
-                gl_ = StringList.getAllTypes(gl_).first();
-                gl_ = Templates.getFullTypeByBases(glClass_, gl_, classes_);
-                str_ = Templates.format(gl_, str_, classes_);
-            }
+            PageEl page_ = _conf.getLastPage();
+            str_ = page_.formatVarType(str_, classes_);
             mapping_.setParam(str_);
             boolean res_ = Templates.isCorrect(mapping_, classes_);
             Argument arg_ = new Argument();

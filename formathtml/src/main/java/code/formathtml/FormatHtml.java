@@ -616,6 +616,7 @@ final class FormatHtml {
                     }
                     ip_ = _conf.getLastPage();
                     ip_.getLocalVars().putAllMap(last_.getReturnedValues());
+                    processBlock(_conf, ip_);
                     continue;
                 }
                 rw_ = ip_.getReadWrite();
@@ -1395,7 +1396,6 @@ final class FormatHtml {
             newIp_.getParameters().putAllMap(params_);
             newIp_.getReturnedValues().putAllMap(returnedValues_);
             checkSyntax(_conf, newElt_.getRoot().getOwnerDocument(), newElt_.getHtml());
-            processBlock(_conf, ip_);
             return newIp_;
         }
         if (StringList.quickEq(en_.getNodeName(),prefix_+TAG_DO)) {
