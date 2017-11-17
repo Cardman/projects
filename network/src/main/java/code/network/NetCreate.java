@@ -116,11 +116,15 @@ public final class NetCreate {
         StringList addresses_ = new StringList();
         if (_ipType.getClassIp() == null) {
             try {
+                //InetAddress.getAllByName throws UnknownHostException
+                //if no IP address for the host could be found,
+                //or if a scope_id was specified for a global IPv6 address.
                 for (InetAddress i: InetAddress.getAllByName(_host)) {
                     addresses_.add(i.getHostAddress());
                 }
             } catch (UnknownHostException _0) {
-                _0.printStackTrace();
+                return null;
+            } catch (Throwable _0) {
             }
             return addresses_;
         }

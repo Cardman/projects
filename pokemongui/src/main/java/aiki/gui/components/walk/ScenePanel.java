@@ -3,7 +3,6 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridLayout;
-import java.net.Socket;
 
 import javax.swing.BoxLayout;
 import javax.swing.JCheckBox;
@@ -15,23 +14,6 @@ import javax.swing.JTextArea;
 import javax.swing.Timer;
 import javax.swing.ToolTipManager;
 
-import code.gui.ConfirmDialog;
-import code.gui.GroupFrame;
-import code.gui.LabelButton;
-import code.gui.Separator;
-import code.gui.SessionEditorPane;
-import code.gui.WrappedTextArea;
-import code.maths.LgInt;
-import code.network.NetCreate;
-import code.network.enums.IpType;
-import code.util.CustList;
-import code.util.EntryCust;
-import code.util.NatTreeMap;
-import code.util.StringList;
-import code.util.StringMap;
-import code.util.consts.ConstFiles;
-import code.util.consts.Constants;
-import code.xml.util.ExtractFromFiles;
 import aiki.DataBase;
 import aiki.Resources;
 import aiki.comparators.TrMovesComparator;
@@ -98,6 +80,25 @@ import aiki.map.pokemon.PokemonPlayer;
 import aiki.map.pokemon.UsablePokemon;
 import aiki.network.Net;
 import aiki.network.stream.SentPokemon;
+import code.gui.ConfirmDialog;
+import code.gui.GroupFrame;
+import code.gui.LabelButton;
+import code.gui.Separator;
+import code.gui.SessionEditorPane;
+import code.gui.WrappedTextArea;
+import code.maths.LgInt;
+import code.network.NetCreate;
+import code.network.SocketResults;
+import code.network.enums.ErrorHostConnectionType;
+import code.network.enums.IpType;
+import code.util.CustList;
+import code.util.EntryCust;
+import code.util.NatTreeMap;
+import code.util.StringList;
+import code.util.StringMap;
+import code.util.consts.ConstFiles;
+import code.util.consts.Constants;
+import code.xml.util.ExtractFromFiles;
 
 public class ScenePanel extends JPanel {
 
@@ -238,6 +239,8 @@ public class ScenePanel extends JPanel {
     private static final String SPACE = " ";
 
     private static final String BUG = "bug";
+
+    private static final String UNKNOWN_HOST = "unknownHost";
 
     private static final String NOT_CONNECTED = "notConnected";
 
@@ -742,21 +745,21 @@ public class ScenePanel extends JPanel {
         if (!DialogServer.isChoosen()) {
             return;
         }
-//        if (window.showErrorMessageDialog(ForwardingJavaCompiler.getMess(Constants.getLanguage()))) {
-//            return;
-//        }
-//        String fileName_ = ConstFiles.getFolderJarPath() + Resources.PORT_INI;
         String fileName_ = ConstFiles.getInitFolder() + Resources.PORT_INI;
         int port_ = NetCreate.tryToGetPort(fileName_, Net.getPort());
         if (DialogServer.isCreate()) {
-            //hasCreatedServer = true;
             window.createServer(ip_, DialogServer.getIpType(), port_);
             return;
         }
-        Socket connected_ = window.createClient(ip_, DialogServer.getIpType(), false, port_);
-        if (connected_ == null) {
+        SocketResults connected_ = window.createClient(ip_, DialogServer.getIpType(), false, port_);
+        if (connected_.getError() != ErrorHostConnectionType.NOTHING) {
+            if (connected_.getError() == ErrorHostConnectionType.UNKNOWN_HOST) {
+                String formatted_ = _messages_.getVal(UNKNOWN_HOST);
+                formatted_ = StringList.simpleStringsFormat(formatted_, ip_);
+                ConfirmDialog.showMessage(window, _messages_.getVal(BUG), formatted_, Constants.getLanguage(),JOptionPane.ERROR_MESSAGE);
+                return;
+            }
             ConfirmDialog.showMessage(window, _messages_.getVal(BUG), _messages_.getVal(NOT_CONNECTED), Constants.getLanguage(),JOptionPane.ERROR_MESSAGE);
-            //JOptionPane.showMessageDialog(window, _messages_.getVal(BUG), _messages_.getVal(NOT_CONNECTED), JOptionPane.INFORMATION_MESSAGE);
             return;
         }
         window.setIndexInGame((byte) CustList.SECOND_INDEX);

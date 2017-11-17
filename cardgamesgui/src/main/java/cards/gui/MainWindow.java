@@ -149,6 +149,8 @@ import code.network.BasicClient;
 import code.network.Exiting;
 import code.network.NetCreate;
 import code.network.NetGroupFrame;
+import code.network.SocketResults;
+import code.network.enums.ErrorHostConnectionType;
 import code.network.enums.IpType;
 import code.stream.StreamTextFile;
 import code.util.CustList;
@@ -437,6 +439,8 @@ public final class MainWindow extends NetGroupFrame {
     private static final String DIALOG_ACCESS = "cards.gui.MainWindow";
 
     private static final String TOO_MANY = "tooMany";
+
+    private static final String UNKNOWN_HOST = "unknownHost";
 
     private static final String NOT_CONNECTED = "notConnected";
 
@@ -2107,7 +2111,6 @@ public final class MainWindow extends NetGroupFrame {
         } else if (choosenGameMultiPlayers_ == GameEnum.BELOTE) {
             containerGame = new ContainerMultiBelote(this,DialogServer.isCreate());
         }
-//        String fileName_ = ConstFiles.getFolderJarPath() + FileConst.PORT_INI;
         String fileName_ = ConstFiles.getInitFolder() + FileConst.PORT_INI;
         int port_ = NetCreate.tryToGetPort(fileName_, Net.getPort());
         if (DialogServer.isCreate()) {
@@ -2116,9 +2119,15 @@ public final class MainWindow extends NetGroupFrame {
             createServer(ip_, DialogServer.getIpType(), port_);
             return;
         }
-        Socket connected_ = createClient(ip_, DialogServer.getIpType(), false, port_);
-        if (connected_ == null) {
+        SocketResults connected_ = createClient(ip_, DialogServer.getIpType(), false, port_);
+        if (connected_.getError() != ErrorHostConnectionType.NOTHING) {
             containerGame = new ContainerGame(this);
+            if (connected_.getError() == ErrorHostConnectionType.UNKNOWN_HOST) {
+                String formatted_ = getMessages().getVal(UNKNOWN_HOST);
+                formatted_ = StringList.simpleStringsFormat(formatted_, ip_);
+                ConfirmDialog.showMessage(this, getMessages().getVal(BUG), formatted_, Constants.getLanguage(), JOptionPane.ERROR_MESSAGE);
+                return;
+            }
             ConfirmDialog.showMessage(this, getMessages().getVal(BUG), getMessages().getVal(NOT_CONNECTED), Constants.getLanguage(), JOptionPane.ERROR_MESSAGE);
             return;
         }

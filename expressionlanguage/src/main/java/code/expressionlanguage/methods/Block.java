@@ -10,10 +10,6 @@ import code.expressionlanguage.methods.exceptions.UnknownBlockException;
 import code.expressionlanguage.methods.util.CallConstructor;
 import code.expressionlanguage.methods.util.ParentStackBlock;
 import code.expressionlanguage.methods.util.SearchingReturnThrow;
-import code.expressionlanguage.stacks.IfBlockStack;
-import code.expressionlanguage.stacks.RemovableVars;
-import code.expressionlanguage.stacks.SwitchBlockStack;
-import code.expressionlanguage.stacks.TryBlockStack;
 import code.util.CustList;
 import code.util.NatTreeMap;
 import code.util.Numbers;
@@ -238,7 +234,7 @@ public abstract class Block extends Blockable {
         return null;
     }
     final ParentStackBlock getParentOfLastNode(ContextEl _conf) {
-        Block n_ = getParent();
+        BracedBlock n_ = getParent();
         //n_ != null because strictly in class
         PageEl ip_ = _conf.getLastPage();
         Block root_ = ip_.getBlockRoot();
@@ -253,27 +249,8 @@ public abstract class Block extends Blockable {
             //directly at the root => last element in the block root
             return null;
         }
-        BracedBlock b_ = null;
         if (!ip_.noBlock()) {
-            RemovableVars bl_ = ip_.getLastStack();
-            b_ = bl_.getBlock();
-            if (bl_ instanceof TryBlockStack) {
-                TryBlockStack t_ = (TryBlockStack)bl_;
-                int vis_ = t_.getVisitedCatch();
-                if (vis_ > CustList.INDEX_NOT_FOUND_ELT) {
-                    b_ = t_.getCatchBlocks().get(vis_);
-                }
-            } else if (bl_ instanceof IfBlockStack) {
-                IfBlockStack t_ = (IfBlockStack)bl_;
-                b_ = t_.getCurentVisitedBlock();
-            } else if (bl_ instanceof SwitchBlockStack) {
-                SwitchBlockStack t_ = (SwitchBlockStack)bl_;
-                b_ = t_.getCurentVisitedBlock();
-            }
-        }
-        if (b_ == n_) {
-            //n_ != null => b_ != null
-            return new ParentStackBlock(b_);
+            return new ParentStackBlock(n_);
         }
         Block next_ = n_.getNextSibling();
         if (next_ != null) {
@@ -646,27 +623,16 @@ public abstract class Block extends Blockable {
     }
 
     protected final void removeLocalVariablesFromParent(ContextEl _cont) {
-        if (!isLastLeaf()) {
-            return;
-        }
-        for (Block s: Classes.getDirectChildren(parent)) {
-            if (s instanceof InitVariable) {
-                String var_ = ((InitVariable)s).getVariableName();
-                _cont.getLastPage().getLocalVars().removeKey(var_);
-            }
-        }
+        PageEl page_ = _cont.getLastPage();
+        parent.removeLocalVars(page_);
         if (parent instanceof ForLoop) {
             String var_ = ((ForLoop)parent).getVariableName();
-            _cont.getLastPage().getVars().removeKey(var_);
+            page_.getVars().removeKey(var_);
         }
         if (parent instanceof CatchEval) {
             String var_ = ((CatchEval)parent).getVariableName();
-            _cont.getLastPage().getCatchVars().removeKey(var_);
+            page_.getCatchVars().removeKey(var_);
         }
-    }
-
-    protected final boolean isLastLeaf() {
-        return getFirstChild() == null && getNextSibling() == null;
     }
 
     public abstract String getTagName();

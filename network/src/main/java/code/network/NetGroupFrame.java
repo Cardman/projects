@@ -4,17 +4,16 @@ import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.util.logging.Logger;
+import java.net.UnknownHostException;
 
 import code.gui.GroupFrame;
+import code.network.enums.ErrorHostConnectionType;
 import code.network.enums.IpType;
 import code.serialize.SerializeXmlObject;
 import code.stream.exceptions.RuntimeIOException;
 import code.util.StringList;
 
 public abstract class NetGroupFrame extends GroupFrame implements NetWindow {
-
-    private static final String NO_POSSIBILITY_TO_CONNECT = "no possibility to connect on host:{0} with protocol: {1}";
 
     private Socket socket;
 
@@ -54,7 +53,7 @@ public abstract class NetGroupFrame extends GroupFrame implements NetWindow {
         connection.fermer();
     }
 
-    public Socket createClient(String _host, IpType _ipType, boolean _first, int _port) {
+    public SocketResults createClient(String _host, IpType _ipType, boolean _first, int _port) {
         port = _port;
         if (_first) {
             try {
@@ -62,28 +61,34 @@ public abstract class NetGroupFrame extends GroupFrame implements NetWindow {
                 new BasicClient(socket_, this).start();
                 initIndexInGame(_first);
                 socket = socket_;
-                return socket_;
-            } catch (IOException _0) {
-                _0.printStackTrace();
-                return null;
+                return new SocketResults(socket_);
+            } catch (SecurityException _0) {
+                return new SocketResults(ErrorHostConnectionType.SECURITY);
+            } catch (UnknownHostException _0) {
+                return new SocketResults(ErrorHostConnectionType.UNKNOWN_HOST);
+            } catch (Throwable _0) {
+                return new SocketResults(ErrorHostConnectionType.UNKNOWN_ERROR);
             }
         }
         StringList allAddresses_ = NetCreate.getAllAddresses(_ipType, _host);
+        if (allAddresses_ == null) {
+            return new SocketResults(ErrorHostConnectionType.UNKNOWN_HOST);
+        }
         if (allAddresses_.isEmpty()) {
-            //TODO put message in error
-            String error_ = StringList.simpleFormat(NO_POSSIBILITY_TO_CONNECT, _host, _ipType);
-            Logger.getLogger(getClass().getName()).warning(error_);
-            return null;
+            return new SocketResults(ErrorHostConnectionType.NO_ADDRESS);
         }
         try {
             Socket socket_ = new Socket(allAddresses_.first(), _port);
             new BasicClient(socket_, this).start();
             initIndexInGame(_first);
             socket = socket_;
-            return socket_;
-        } catch (IOException _0) {
-            _0.printStackTrace();
-            return null;
+            return new SocketResults(socket_);
+        } catch (SecurityException _0) {
+            return new SocketResults(ErrorHostConnectionType.SECURITY);
+        } catch (UnknownHostException _0) {
+            return new SocketResults(ErrorHostConnectionType.UNKNOWN_HOST);
+        } catch (Throwable _0) {
+            return new SocketResults(ErrorHostConnectionType.UNKNOWN_ERROR);
         }
     }
 
