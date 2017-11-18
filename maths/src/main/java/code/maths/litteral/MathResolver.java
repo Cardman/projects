@@ -465,9 +465,12 @@ public final class MathResolver {
             increment_++;
         }
         while (j_ <= _to) {
-            if (_string.charAt(j_) != MINUS_CHAR) {
-                if (_string.charAt(j_) != NEG_BOOL_CHAR) {
-                    break;
+            char ch_ = _string.charAt(j_);
+            if (ch_ != MINUS_CHAR) {
+                if (ch_ != NEG_BOOL_CHAR) {
+                    if (!Character.isWhitespace(ch_)) {
+                        break;
+                    }
                 }
             }
             increment_++;

@@ -84,6 +84,50 @@ public class MatrixTest {
     }
 
     @Test
+    public void inv5Test() {
+        Matrix mat_ = new Matrix();
+        Vect vect_ = new Vect();
+        vect_.add(Rate.zero());
+        vect_.add(Rate.zero());
+        mat_.addLine(vect_);
+        vect_ = new Vect();
+        vect_.add(Rate.zero());
+        vect_.add(Rate.zero());
+        mat_.addLine(vect_);
+        Matrix res_ = mat_.inv();
+        assertEq(2, res_.nbLines());
+        assertEq(2, res_.nbCols());
+        assertEq(Rate.zero(), res_.cell(0, 0));
+        assertEq(Rate.zero(), res_.cell(0, 1));
+        assertEq(Rate.zero(), res_.cell(1, 0));
+        assertEq(Rate.zero(), res_.cell(1, 1));
+    }
+
+    @Test
+    public void inv6Test() {
+        Matrix mat_ = new Matrix();
+        Vect vect_ = new Vect();
+        vect_.add(Rate.zero());
+        vect_.add(Rate.zero());
+        vect_.add(Rate.zero());
+        mat_.addLine(vect_);
+        vect_ = new Vect();
+        vect_.add(Rate.zero());
+        vect_.add(Rate.zero());
+        vect_.add(Rate.zero());
+        mat_.addLine(vect_);
+        Matrix res_ = mat_.inv();
+        assertEq(3, res_.nbLines());
+        assertEq(2, res_.nbCols());
+        assertEq(Rate.zero(), res_.cell(0, 0));
+        assertEq(Rate.zero(), res_.cell(0, 1));
+        assertEq(Rate.zero(), res_.cell(1, 0));
+        assertEq(Rate.zero(), res_.cell(1, 1));
+        assertEq(Rate.zero(), res_.cell(2, 0));
+        assertEq(Rate.zero(), res_.cell(2, 1));
+    }
+
+    @Test
     public void det1Test() {
         Matrix mat_ = new Matrix();
         Vect vect_ = new Vect();

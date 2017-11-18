@@ -15,7 +15,6 @@ import cards.belote.HandBelote;
 import cards.consts.GameType;
 import cards.facade.Nicknames;
 import cards.facade.enumerations.GameEnum;
-import cards.facade.exceptions.RemainingCardsException;
 import cards.gui.MainWindow;
 import cards.gui.comboboxes.StringComboBox;
 import cards.gui.dialogs.enums.SaveDealMode;
@@ -116,12 +115,10 @@ public final class EditorBelote extends DialogBelote implements SetterSelectedCa
     }
     @Override
     public String sauvegarder() {
-//        BeloteCardsScrollableList plc_;
-//        plc_=(BeloteCardsScrollableList)panelsCards.getComponent(0);
         if(stack.taille()==0) {
             return validerEgalite();
         }
-        throw new RemainingCardsException();
+        return null;
     }
     @Override
     public void releverErreurs() {

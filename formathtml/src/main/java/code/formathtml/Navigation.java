@@ -30,7 +30,6 @@ import code.resources.ResourceFiles;
 import code.serialize.ConverterMethod;
 import code.serialize.SerializeXmlObject;
 import code.serialize.exceptions.InexistingValueForEnum;
-import code.serialize.exceptions.NoSuchConverterMethodException;
 import code.serialize.exceptions.NoSuchDeclaredMethodException;
 import code.util.CustList;
 import code.util.EntryCust;
@@ -736,11 +735,18 @@ public final class Navigation {
         if (Number.class.isAssignableFrom(class_) || class_.isPrimitive()) {
             return ExtractObject.instanceByString(session, class_,_value);
         }
-        try {
-            return ConverterMethod.newObject(class_, _value);
-        } catch (NoSuchConverterMethodException _0) {
-        } catch (Throwable _0) {
-            throw new InvokeRedinedMethException(session.joinPages(),new Struct(_0));
+        Method method_ = ConverterMethod.getFromStringMethod(class_);
+        if (method_ != null) {
+            Object instance_;
+            try {
+                instance_ = method_.invoke(null, _value);
+            } catch (Throwable _0) {
+                instance_ = null;
+            }
+            if (instance_ == null) {
+                throw new InvokeRedinedMethException(session.joinPages());
+            }
+            return instance_;
         }
         return _value;
     }

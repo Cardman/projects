@@ -241,19 +241,22 @@ public final class EvolvedNote implements XmlTransientable, Equallable<EvolvedNo
         //pitch < MIN_PITCH && pitch > REST + 2
         int pitch_;
         if (pause) {
-            pitch_ = tryGetPitch(Pitches.REST);
+            pitch_ = Pitches.REST;
         } else {
-            pitch_ = tryGetPitch(value.getPitch() + DELTA * level + diese(diese));
+            pitch_ = value.getPitch() + DELTA * level + diese(diese);
+        }
+        if (!isValidPitch(pitch_)) {
+            pitch_ = Pitches.REST;
         }
         note = new Note(pitch_, getDouble(durationNum, durationDen));
         note.setDuration(getDouble(durationNum, durationDen));
         note.setDynamic(dynamic);
     }
 
-    private static int tryGetPitch(int _pitch) {
+    private static boolean isValidPitch(int _pitch) {
         if (_pitch < Note.MIN_PITCH && _pitch > Note.REST + 2) {
-            throw new PitchExecption(_pitch);
+            return false;
         }
-        return _pitch;
+        return true;
     }
 }

@@ -8,6 +8,11 @@ import javax.swing.JTextField;
 import javax.swing.SpinnerListModel;
 import javax.swing.WindowConstants;
 
+import cards.belote.enumerations.DealingBelote;
+import cards.facade.enumerations.GameEnum;
+import cards.gui.MainWindow;
+import cards.president.RulesPresident;
+import cards.tarot.enumerations.DealingTarot;
 import code.gui.AbstractDialogServer;
 import code.gui.LabelButton;
 import code.gui.events.ClosingDialogEvent;
@@ -19,12 +24,6 @@ import code.util.EnumList;
 import code.util.EnumMap;
 import code.util.Numbers;
 import code.util.StringMap;
-import cards.belote.enumerations.DealingBelote;
-import cards.facade.enumerations.GameEnum;
-import cards.facade.exceptions.FileRulesException;
-import cards.gui.MainWindow;
-import cards.president.RulesPresident;
-import cards.tarot.enumerations.DealingTarot;
 
 public final class DialogServer extends DialogCards implements AbstractDialogServer{
     private static final String DIALOG_ACCESS = "cards.gui.dialogs.DialogServer";
@@ -37,7 +36,6 @@ public final class DialogServer extends DialogCards implements AbstractDialogSer
     private static final String JOIN_SERVER = "joinServer";
     private static final String NUMBER_PLAYERS = "numberPlayers";
     private static final String TITLE = "title";
-    private static final String UNKNOWN_GAME = "unknown game";
     private JTextField ipOrHostName;
     private ComboBoxIpType ipType;
     private boolean create;
@@ -103,7 +101,7 @@ public final class DialogServer extends DialogCards implements AbstractDialogSer
             nbPlayers = new JSpinner(new SpinnerListModel(nombreJoueursPossible_.toArray()));
             panel_.add(new JLabel(messages.getVal(NUMBER_PLAYERS)));
             panel_.add(nbPlayers);
-        } else if (_game == GameEnum.BELOTE) {
+        } else {
             Numbers<Integer> nombreJoueursPossible_=new Numbers<Integer>();
             EnumList<DealingBelote> repValides_ = new EnumList<DealingBelote>(DealingBelote.getRepartitionsValides());
             int minJoueurs_=repValides_.get(0).getNombreJoueurs();
@@ -123,8 +121,6 @@ public final class DialogServer extends DialogCards implements AbstractDialogSer
             nbPlayers = new JSpinner(new SpinnerListModel(nombreJoueursPossible_.toArray()));
             panel_.add(new JLabel(messages.getVal(NUMBER_PLAYERS)));
             panel_.add(nbPlayers);
-        } else {
-            throw new FileRulesException(UNKNOWN_GAME);
         }
         JLabel ipServer_ = new JLabel(messages.getVal(IP_SERVER));
         ipServer_.setToolTipText(messages.getVal(IP_SERVER_TOOL_TIP));

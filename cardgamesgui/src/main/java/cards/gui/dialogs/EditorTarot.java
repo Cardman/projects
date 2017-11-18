@@ -11,7 +11,6 @@ import javax.swing.SpinnerListModel;
 import cards.consts.GameType;
 import cards.facade.Nicknames;
 import cards.facade.enumerations.GameEnum;
-import cards.facade.exceptions.RemainingCardsException;
 import cards.gui.MainWindow;
 import cards.gui.comboboxes.StringComboBox;
 import cards.gui.dialogs.enums.SaveDealMode;
@@ -117,12 +116,10 @@ public final class EditorTarot extends DialogTarot implements SetterSelectedCard
 
     @Override
     public String sauvegarder() {
-//        TarotCardsScrollableList plc_;
-//        plc_=(TarotCardsScrollableList)panelsCards.getComponent(0);
         if(stack.taille()==0) {
             return validerEgalite();
         }
-        throw new RemainingCardsException();
+        return null;
     }
     @Override
     public void releverErreurs() {

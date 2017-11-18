@@ -27,7 +27,6 @@ import cards.enumerations.Launching;
 import cards.facade.Nicknames;
 import cards.facade.SoftParams;
 import cards.facade.enumerations.GameEnum;
-import cards.facade.exceptions.FileRulesException;
 import cards.gameresults.ResultsGame;
 import cards.gui.containers.ContainerGame;
 import cards.gui.containers.ContainerMulti;
@@ -549,7 +548,8 @@ public final class MainWindow extends NetGroupFrame {
         try{
             reglesBelote = (RulesBelote) StreamTextFile.loadObject(LaunchingCards.getTempFolderSl()+FileConst.RULES_BELOTE);
             if (!reglesBelote.isValidRules()) {
-                throw new FileRulesException();
+                reglesBelote = new RulesBelote();
+                StreamTextFile.saveObject(LaunchingCards.getTempFolderSl()+FileConst.RULES_BELOTE, reglesBelote);
             }
         }catch(RuntimeException _0) {
             _0.printStackTrace();
@@ -567,7 +567,8 @@ public final class MainWindow extends NetGroupFrame {
         try{
             reglesPresident = (RulesPresident) StreamTextFile.loadObject(LaunchingCards.getTempFolderSl()+FileConst.RULES_PRESIDENT);
             if (!reglesPresident.isValidRules()) {
-                throw new FileRulesException();
+                reglesPresident = new RulesPresident();
+                StreamTextFile.saveObject(LaunchingCards.getTempFolderSl()+FileConst.RULES_PRESIDENT, reglesPresident);
             }
         }catch(RuntimeException _0) {
             _0.printStackTrace();
@@ -585,7 +586,8 @@ public final class MainWindow extends NetGroupFrame {
         try{
             reglesTarot = (RulesTarot) StreamTextFile.loadObject(LaunchingCards.getTempFolderSl()+FileConst.RULES_TAROT);
             if (!reglesTarot.isValidRules()) {
-                throw new FileRulesException();
+                reglesTarot = new RulesTarot();
+                StreamTextFile.saveObject(LaunchingCards.getTempFolderSl()+FileConst.RULES_TAROT, reglesTarot);
             }
         }catch(RuntimeException _0) {
             _0.printStackTrace();
@@ -615,7 +617,8 @@ public final class MainWindow extends NetGroupFrame {
         try{
             pseudosJoueurs = (Nicknames) StreamTextFile.loadObject(LaunchingCards.getTempFolderSl()+FileConst.PLAYERS);
             if (!pseudosJoueurs.isValidNicknames()) {
-                throw new FileRulesException();
+                pseudosJoueurs = new Nicknames(Constants.getLanguage());
+                pseudosJoueurs.sauvegarder(LaunchingCards.getTempFolderSl()+FileConst.PLAYERS);
             }
         }catch(RuntimeException _0) {
             _0.printStackTrace();

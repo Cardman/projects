@@ -7,7 +7,6 @@ import java.lang.reflect.Modifier;
 
 import code.serialize.exceptions.BadAccessException;
 import code.serialize.exceptions.InvokingException;
-import code.serialize.exceptions.NoSuchConverterMethodException;
 import code.util.CustList;
 import code.xml.FromAndToString;
 
@@ -21,19 +20,6 @@ public final class ConverterMethod {
     public static boolean isPrimitivableClass(Class<?> _cl) {
         Method method_ = ConverterMethod.getFromStringMethod(_cl);
         return method_ != null;
-    }
-
-    public static Object newObject(Class<?> _cl, String _arg) {
-        Method method_ = ConverterMethod.getFromStringMethod(_cl);
-        if (method_ == null) {
-            throw new NoSuchConverterMethodException(_cl.toString());
-        }
-        try {
-            method_ = ConverterMethod.getFromStringMethod(_cl);
-            return method_.invoke(null, _arg);
-        } catch (Throwable _0) {
-            throw new InvokingException(_0);
-        }
     }
 
     public static Object newInstance(Constructor<?> _method, Object... _args) {

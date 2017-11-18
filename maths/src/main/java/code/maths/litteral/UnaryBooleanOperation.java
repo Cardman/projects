@@ -1,4 +1,5 @@
 package code.maths.litteral;
+import code.maths.litteral.exceptions.BadNumberArgumentException;
 import code.maths.litteral.exceptions.NotBooleanException;
 import code.util.CustList;
 import code.util.NatTreeMap;
@@ -14,6 +15,9 @@ public final class UnaryBooleanOperation extends PrimitiveBoolOperation {
     @Override
     void analyze(CustList<OperationNode> _nodes, StringMap<String> _conf) {
         CustList<OperationNode> chidren_ = getChildrenNodes();
+        if (chidren_.size() != 1) {
+            throw new BadNumberArgumentException(String.valueOf(getIndexInEl()));
+        }
         if (chidren_.first().getResultClass()!= MathType.BOOLEAN) {
             throw new NotBooleanException(String.valueOf(getIndexInEl()));
         }

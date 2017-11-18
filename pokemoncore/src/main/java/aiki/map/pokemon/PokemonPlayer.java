@@ -2,7 +2,6 @@ package aiki.map.pokemon;
 import aiki.DataBase;
 import aiki.Resources;
 import aiki.comments.Comment;
-import aiki.exceptions.DataException;
 import aiki.exceptions.GameLoadException;
 import aiki.fight.enums.Statistic;
 import aiki.fight.items.Ball;
@@ -552,30 +551,6 @@ public final class PokemonPlayer extends Pokemon implements UsablePokemon {
             status = new StringList();
         }
         trading = false;
-    }
-
-    public void checkData(DataBase _dateBase) {
-        if (!_dateBase.getPokedex().contains(getName())) {
-            throw new DataException();
-        }
-        PokemonData fPk_ = _dateBase.getPokemon(getName());
-        if (!fPk_.getGenderRep().getPossibleGenders().containsObj(getGender())) {
-            throw new DataException();
-        }
-        if (!_dateBase.getAbilities().contains(getAbility())) {
-            throw new DataException();
-        }
-        if (!getItem().isEmpty()) {
-            if (!_dateBase.getItems().contains(getItem())) {
-                throw new DataException();
-            }
-        }
-        if (getLevel() < _dateBase.getMinLevel()) {
-            throw new DataException();
-        }
-        if (getLevel() > _dateBase.getMaxLevel()) {
-            throw new DataException();
-        }
     }
 
     public short evGagnes(short _increment, Statistic _stat,short _maxEv){

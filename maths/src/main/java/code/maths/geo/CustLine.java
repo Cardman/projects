@@ -166,6 +166,10 @@ public class CustLine {
         return new RatePoint(vect_.cell(0,0),vect_.cell(1,0));
     }
 
+    public boolean isDefined() {
+        return !cst.isZero();
+    }
+
     public Rate getxRate() {
         return xRate;
     }

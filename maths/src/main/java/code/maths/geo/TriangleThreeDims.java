@@ -54,8 +54,15 @@ public final class TriangleThreeDims {
         Rate gy_ = new Rate(gxy_.getSecond(), gd_);
         PairNumber<Long,Long> cxy_ = c_.getPair();
         long cd_ = c_.getCommon();
-        Rate cx_ = new Rate(cxy_.getFirst(), cd_);
-        Rate cy_ = new Rate(cxy_.getSecond(), cd_);
+        Rate cx_;
+        Rate cy_;
+        if (cd_ == 0) {
+            cx_ = new Rate(gx_);
+            cy_ = new Rate(gy_);
+        } else {
+            cx_ = new Rate(cxy_.getFirst(), cd_);
+            cy_ = new Rate(cxy_.getSecond(), cd_);
+        }
         return new CustLine(new RatePoint(gx_, gy_), new RatePoint(cx_, cy_));
     }
 

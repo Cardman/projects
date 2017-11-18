@@ -50,9 +50,9 @@ public final class OperationsSequence {
             values.put(beginValuePart_, str_);
             i_++;
         }
-        beginValuePart_ = endValuePart_ + operators.getValue(i_-1).length();
-        str_ = _string.substring(beginValuePart_);
         if (priority != MathResolver.FCT_OPER_PRIO) {
+            beginValuePart_ = endValuePart_ + operators.lastValue().length();
+            str_ = _string.substring(beginValuePart_);
             values.put(beginValuePart_, str_);
         }
     }

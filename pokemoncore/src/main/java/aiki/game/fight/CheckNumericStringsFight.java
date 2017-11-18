@@ -107,7 +107,7 @@ public final class CheckNumericStringsFight {
         //NumericString.setCheckSyntax(false);
     }
 
-    static void checkDamageStr(DataBase _data) {
+    private static void checkDamageStr(DataBase _data) {
         String numericExp_;
         numericExp_ = _data.getDamageFormula();
         NumericableString<Rate> num_;
@@ -123,7 +123,7 @@ public final class CheckNumericStringsFight {
         }
     }
 
-    static void checkCombosStr(DataBase _data,
+    private static void checkCombosStr(DataBase _data,
             StringMap<String> _varsDiff, StringMap<String> _varsSame,
             StringMap<String> _boolVarsNotSending,
             StringMap<String> _boolVarsDiffNotSending) {
@@ -140,7 +140,7 @@ public final class CheckNumericStringsFight {
         }
     }
 
-    static void checkStatusStr(DataBase _data,
+    private static void checkStatusStr(DataBase _data,
             StringMap<String> _varsDiff, StringMap<String> _varsFighter,
             StringMap<String> _boolVarsDiffNotSending) {
         for (Status s: _data.getStatus().values()) {
@@ -170,7 +170,7 @@ public final class CheckNumericStringsFight {
         }
     }
 
-    static void checkItemsStr(DataBase _data,
+    private static void checkItemsStr(DataBase _data,
             Difficulty _diff, Fight _fight, TeamPosition _userFighter,
             TeamPosition _foeFighter, StringMap<String> _varsDiff,
             StringMap<String> _varsFighter, StringMap<String> _varsSame,
@@ -313,7 +313,7 @@ public final class CheckNumericStringsFight {
         }
     }
 
-    static void checkAbilitiesStr(DataBase _data,
+    private static void checkAbilitiesStr(DataBase _data,
             Difficulty _diff, Fight _fight, TeamPosition _userFighter,
             TeamPosition _foeFighter, StringMap<String> _varsDiff,
             StringMap<String> _varsFighter, StringMap<String> _varsSame,
@@ -452,7 +452,7 @@ public final class CheckNumericStringsFight {
         }
     }
 
-    static void checkMovesStr(DataBase _data,
+    private static void checkMovesStr(DataBase _data,
             Difficulty _diff, Fight _fight, TeamPosition _userFighter,
             TeamPosition _foeFighter, StringMap<String> _varsDiff,
             StringMap<String> _varsSame,
@@ -658,7 +658,7 @@ public final class CheckNumericStringsFight {
         }
     }
 
-    static void checkRateGrowLevel(DataBase _data, boolean _validateLevel) {
+    private static void checkRateGrowLevel(DataBase _data, boolean _validateLevel) {
         if (_validateLevel) {
             long minLevel_ = _data.getMinLevel();
             long maxLevel_ = _data.getMaxLevel();
@@ -701,7 +701,7 @@ public final class CheckNumericStringsFight {
         }
     }
 
-    static void checkBoolStrings(DataBase _data,
+    private static void checkBoolStrings(DataBase _data,
             StringMap<String> _variablesSame,
             StringMap<String> _boolVarsSending, String _fail) {
         NumericableString<Boolean> chBool_;
@@ -720,7 +720,7 @@ public final class CheckNumericStringsFight {
         }
     }
 
-    static void checkBoosts(DataBase _data) {
+    private static void checkBoosts(DataBase _data) {
         long minBoost_ = _data.getMinBoost();
         long defBoost_ = _data.getDefaultBoost();
         long maxBoost_ = _data.getMaxBoost();
@@ -789,7 +789,7 @@ public final class CheckNumericStringsFight {
         }
     }
 
-    static void checkNumString(DataBase _data,
+    private static void checkNumString(DataBase _data,
             StringMap<String> _variablesDiff, String _numString) {
         NumericableString<Rate> num_ = _data.createNumericableString(_numString, _variablesDiff);
         checkIfVarPresent(num_.beforeEvaluated());
@@ -803,7 +803,7 @@ public final class CheckNumericStringsFight {
         }
     }
 
-    static void checkExpGrowth(DataBase _data) {
+    private static void checkExpGrowth(DataBase _data) {
         long minLevel_ = _data.getMinLevel();
         long maxLevel_ = _data.getMaxLevel();
         String varName_ = DataBase.VAR_PREFIX+Fighter.NIVEAU;
@@ -831,7 +831,7 @@ public final class CheckNumericStringsFight {
         }
     }
 
-    static void checkNumericStringsBalls(DataBase _data,
+    private static void checkNumericStringsBalls(DataBase _data,
             Fight _fight) {
         StringMap<String> vars_;
         vars_ = new StringMap<String>();
@@ -896,7 +896,7 @@ public final class CheckNumericStringsFight {
         }
     }
 
-    static StringMap<String> calculateBooleanValuesForValidation(
+    private static StringMap<String> calculateBooleanValuesForValidation(
             Fight _fight,
             TeamPosition _lanceur,TeamPosition _cible,
             boolean _sending,

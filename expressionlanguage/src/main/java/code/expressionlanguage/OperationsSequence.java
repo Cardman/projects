@@ -76,7 +76,7 @@ public final class OperationsSequence {
             values.put(beginValuePart_, str_);
             i_++;
         }
-        beginValuePart_ = endValuePart_ + operators.getValue(i_-1).length();
+        beginValuePart_ = endValuePart_ + operators.lastValue().length();
         str_ = _string.substring(beginValuePart_);
         values.put(beginValuePart_, str_);
     }

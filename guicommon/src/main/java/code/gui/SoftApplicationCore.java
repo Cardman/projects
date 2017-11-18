@@ -34,6 +34,8 @@ public abstract class SoftApplicationCore {
 
     private static final String LANGUAGE = "langue.xml";
 
+    private static final String EMPTY_STRING = "";
+
     protected void loadLaungage(String _dir, String[] _args, Image _icon) {
 //        SerializeXmlObject.setReferences(false);
 //        SerializeXmlObject.setCheckReferences(false);
@@ -59,11 +61,8 @@ public abstract class SoftApplicationCore {
         SerializeXmlObject.setReferences(false);
         SerializeXmlObject.setCheckReferences(false);
 //        SerializeXmlObject.setUpdateFinalFields(false);
-        String language_;
-        try {
-            language_ = loadLanguage(_dir);
-        }catch(LangueException _0) {
-            _0.printStackTrace();
+        String language_ = loadLanguage(_dir);
+        if (language_.isEmpty()) {
             proponeLanguage(_dir, _args, _icon);
             return false;
         }
@@ -118,7 +117,7 @@ public abstract class SoftApplicationCore {
 //        String content_ = StreamTextFile.contentsOfFile(ConstFiles.getFolderJarPath()+LANGUAGE_TXT);
         String content_ = StreamTextFile.contentsOfFile(ConstFiles.getInitFolder()+LANGUAGE_TXT);
         if (content_ == null) {
-            throw new LangueException();
+            return EMPTY_STRING;
         }
         content_ = content_.trim();
         boolean valide_ = false;
@@ -128,7 +127,7 @@ public abstract class SoftApplicationCore {
             }
         }
         if(!valide_) {
-            throw new LangueException();
+            return EMPTY_STRING;
         }
         return content_;
     }

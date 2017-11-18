@@ -60,6 +60,9 @@ public final class Tetrahedron {
     public boolean isInCircum(CustPointThreeDims _point) {
         RatePointThreeDims omega_;
         omega_ = getCircumCenter();
+        if (omega_ == null) {
+            return false;
+        }
         Rate xr_ = omega_.getXcoords();
         Rate yr_ = omega_.getYcoords();
         Rate zr_ = omega_.getZcoords();
@@ -148,6 +151,9 @@ public final class Tetrahedron {
         v_.add(Rate.one());
         denMatrix_.addLineRef(v_);
         Rate r_= Rate.multiply(denMatrix_.detSquare(), new Rate(2));
+        if (r_.isZero()) {
+            return null;
+        }
         Matrix xMatrix_ = new Matrix();
         v_ = new Vect();
         v_.add(new Rate(sumOne_));

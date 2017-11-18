@@ -257,7 +257,8 @@ public class MainWindow extends GroupFrame {
                     }
                     songsList.removeAllString(EMPTY);
                     if (songsList.isEmpty()) {
-                        throw new NoSuchSongException();
+                        JOptionPane.showMessageDialog(this, _messages_.getVal(CANNOT_READ_MESSAGE_WPL), _messages_.getVal(CANNOT_READ_TITLE), JOptionPane.ERROR_MESSAGE);
+                        return;
                     }
                     if (random.isSelected()) {
                         StringList songsList_ = new StringList();

@@ -1444,10 +1444,13 @@ public final class ElResolver {
             increment_++;
         }
         while (j_ <= _to) {
-            if (_string.charAt(j_) != MINUS_CHAR) {
-                if (_string.charAt(j_) != NEG_BOOL_CHAR) {
-                    if (_string.charAt(j_) != PLUS_CHAR) {
-                        break;
+            char ch_ = _string.charAt(j_);
+            if (ch_ != MINUS_CHAR) {
+                if (ch_ != NEG_BOOL_CHAR) {
+                    if (ch_ != PLUS_CHAR) {
+                        if (!Character.isWhitespace(ch_)) {
+                            break;
+                        }
                     }
                 }
             }

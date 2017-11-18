@@ -59,6 +59,9 @@ final class StringObjectSerial extends PrimitiveSerial {
             throw new NoSuchDeclaredMethodException();
         }
         value = ConverterMethod.invokeMethod(method_, null, value_.getNodeValue());
+        if (value == null) {
+            throw new NoValueException(classNameInst_);
+        }
     }
 
     @Override

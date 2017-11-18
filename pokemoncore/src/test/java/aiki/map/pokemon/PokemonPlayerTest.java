@@ -5,7 +5,6 @@ import static org.junit.Assert.assertTrue;
 import org.junit.Test;
 
 import aiki.DataBase;
-import aiki.exceptions.DataException;
 import aiki.fight.enums.Statistic;
 import aiki.fight.items.Berry;
 import aiki.fight.items.Boost;
@@ -2272,127 +2271,6 @@ public class PokemonPlayerTest extends InitializationDataBase {
         assertEq(POKE_BALL, sent_.getUsedBallCatching());
         assertEq(new Rate("1033/80"), sent_.pvMax(_data_));
         assertEq(new Rate("1033/80"), sent_.getRemainingHp());
-    }
-
-    @Test
-    public void checkData1Test() {
-        PokemonPlayer sent_ = new PokemonPlayer();
-        sent_.setName(PIKACHU);
-        sent_.setLevel((short) 1);
-        sent_.setAbility(STATIK);
-        sent_.setItem(NULL_REF);
-        sent_.setGender(Gender.NO_GENDER);
-        sent_.checkData(_data_);
-    }
-
-    @Test
-    public void checkData2Test() {
-        PokemonPlayer sent_ = new PokemonPlayer();
-        sent_.setName(PIKACHU);
-        sent_.setLevel((short) 1);
-        sent_.setAbility(STATIK);
-        sent_.setItem(OEUF_CHANCE);
-        sent_.setGender(Gender.NO_GENDER);
-        sent_.checkData(_data_);
-    }
-
-    @Test(expected=DataException.class)
-    public void checkData1FailTest() {
-        PokemonPlayer sent_ = new PokemonPlayer();
-        sent_.setName(PIKACHU);
-        sent_.setLevel((short) 1);
-        sent_.setAbility(STATIK);
-        sent_.setItem(NULL_REF);
-        sent_.setGender(Gender.MALE);
-        sent_.checkData(_data_);
-    }
-
-    @Test(expected=DataException.class)
-    public void checkData2FailTest() {
-        PokemonPlayer sent_ = new PokemonPlayer();
-        sent_.setName(PIKACHU);
-        sent_.setLevel((short) 1);
-        sent_.setAbility(STATIK);
-        sent_.setItem(NULL_REF);
-        sent_.setGender(Gender.FEMALE);
-        sent_.checkData(_data_);
-    }
-
-    @Test(expected=DataException.class)
-    public void checkData3FailTest() {
-        PokemonPlayer sent_ = new PokemonPlayer();
-        sent_.setName(NULL_REF);
-        sent_.setLevel((short) 1);
-        sent_.setAbility(STATIK);
-        sent_.setItem(NULL_REF);
-        sent_.setGender(Gender.NO_GENDER);
-        sent_.checkData(_data_);
-    }
-
-    @Test(expected=DataException.class)
-    public void checkData4FailTest() {
-        PokemonPlayer sent_ = new PokemonPlayer();
-        sent_.setName(INVALID_DATA_KEY);
-        sent_.setLevel((short) 1);
-        sent_.setAbility(STATIK);
-        sent_.setItem(NULL_REF);
-        sent_.setGender(Gender.NO_GENDER);
-        sent_.checkData(_data_);
-    }
-
-    @Test(expected=DataException.class)
-    public void checkData5FailTest() {
-        PokemonPlayer sent_ = new PokemonPlayer();
-        sent_.setName(INVALID_DATA_KEY);
-        sent_.setLevel((short) 1);
-        sent_.setAbility(STATIK);
-        sent_.setItem(NULL_REF);
-        sent_.setGender(Gender.NO_GENDER);
-        sent_.checkData(_data_);
-    }
-
-    @Test(expected=DataException.class)
-    public void checkData6FailTest() {
-        PokemonPlayer sent_ = new PokemonPlayer();
-        sent_.setName(PIKACHU);
-        sent_.setLevel((short) 1);
-        sent_.setAbility(INVALID_DATA_KEY);
-        sent_.setItem(NULL_REF);
-        sent_.setGender(Gender.NO_GENDER);
-        sent_.checkData(_data_);
-    }
-
-    @Test(expected=DataException.class)
-    public void checkData7FailTest() {
-        PokemonPlayer sent_ = new PokemonPlayer();
-        sent_.setName(PIKACHU);
-        sent_.setLevel((short) -1);
-        sent_.setAbility(STATIK);
-        sent_.setItem(NULL_REF);
-        sent_.setGender(Gender.NO_GENDER);
-        sent_.checkData(_data_);
-    }
-
-    @Test(expected=DataException.class)
-    public void checkData8FailTest() {
-        PokemonPlayer sent_ = new PokemonPlayer();
-        sent_.setName(PIKACHU);
-        sent_.setLevel((short) 300);
-        sent_.setAbility(STATIK);
-        sent_.setItem(NULL_REF);
-        sent_.setGender(Gender.NO_GENDER);
-        sent_.checkData(_data_);
-    }
-
-    @Test(expected=DataException.class)
-    public void checkData9FailTest() {
-        PokemonPlayer sent_ = new PokemonPlayer();
-        sent_.setName(PIKACHU);
-        sent_.setLevel((short) 300);
-        sent_.setAbility(STATIK);
-        sent_.setItem(INVALID_DATA_KEY);
-        sent_.setGender(Gender.NO_GENDER);
-        sent_.checkData(_data_);
     }
 
     private static void loopMoving(PokemonPlayer _pk, int _nb) {

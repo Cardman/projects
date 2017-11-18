@@ -2793,6 +2793,96 @@ public class ElResolverTest {
     }
 
     @Test
+    public void getOperationsSequence144Test() {
+        ContextEl conf_ = new ContextEl();
+        addImportingPage(conf_, false);
+        BeanOne b_ = new BeanOne();
+        addBean(conf_, b_);
+        String el_ = " !a";
+        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
+        NatTreeMap<Integer,String> opers_ = seq_.getOperators();
+        assertEq(1, opers_.size());
+        assertEq("!", opers_.getVal(1));
+        NatTreeMap<Integer,String> values_ = seq_.getValues();
+        assertEq(1, values_.size());
+        assertEq("a", values_.getVal(2));
+        assertEq(ElResolver.UNARY_PRIO, seq_.getPriority());
+    }
+
+    @Test
+    public void getOperationsSequence145Test() {
+        ContextEl conf_ = new ContextEl();
+        addImportingPage(conf_, false);
+        BeanOne b_ = new BeanOne();
+        addBean(conf_, b_);
+        String el_ = "! a";
+        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
+        NatTreeMap<Integer,String> opers_ = seq_.getOperators();
+        assertEq(1, opers_.size());
+        assertEq("!", opers_.getVal(0));
+        NatTreeMap<Integer,String> values_ = seq_.getValues();
+        assertEq(1, values_.size());
+        assertEq(" a", values_.getVal(1));
+        assertEq(ElResolver.UNARY_PRIO, seq_.getPriority());
+    }
+
+    @Test
+    public void getOperationsSequence146Test() {
+        ContextEl conf_ = new ContextEl();
+        addImportingPage(conf_, false);
+        BeanOne b_ = new BeanOne();
+        addBean(conf_, b_);
+        String el_ = "-- a";
+        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
+        NatTreeMap<Integer,String> opers_ = seq_.getOperators();
+        assertEq(1, opers_.size());
+        assertEq("-", opers_.getVal(0));
+        NatTreeMap<Integer,String> values_ = seq_.getValues();
+        assertEq(1, values_.size());
+        assertEq("- a", values_.getVal(1));
+        assertEq(ElResolver.UNARY_PRIO, seq_.getPriority());
+    }
+
+    @Test
+    public void getOperationsSequence147Test() {
+        ContextEl conf_ = new ContextEl();
+        addImportingPage(conf_, false);
+        BeanOne b_ = new BeanOne();
+        addBean(conf_, b_);
+        String el_ = "- -a";
+        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
+        NatTreeMap<Integer,String> opers_ = seq_.getOperators();
+        assertEq(1, opers_.size());
+        assertEq("-", opers_.getVal(0));
+        NatTreeMap<Integer,String> values_ = seq_.getValues();
+        assertEq(1, values_.size());
+        assertEq(" -a", values_.getVal(1));
+        assertEq(ElResolver.UNARY_PRIO, seq_.getPriority());
+    }
+
+    @Test
+    public void getOperationsSequence148Test() {
+        ContextEl conf_ = new ContextEl();
+        addImportingPage(conf_, false);
+        BeanOne b_ = new BeanOne();
+        addBean(conf_, b_);
+        String el_ = " --a";
+        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
+        NatTreeMap<Integer,String> opers_ = seq_.getOperators();
+        assertEq(1, opers_.size());
+        assertEq("-", opers_.getVal(1));
+        NatTreeMap<Integer,String> values_ = seq_.getValues();
+        assertEq(1, values_.size());
+        assertEq("-a", values_.getVal(2));
+        assertEq(ElResolver.UNARY_PRIO, seq_.getPriority());
+    }
+
+    @Test
     public void checkSyntaxDelimiters1Test() {
         ContextEl conf_ = new ContextEl();
         addImportingPage(conf_, false);

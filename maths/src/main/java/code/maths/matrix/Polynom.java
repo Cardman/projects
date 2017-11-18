@@ -268,6 +268,9 @@ public final class Polynom implements Equallable<Polynom>{
         coeffs_ = new PairEq<PairEq<Polynom,Polynom>,PairEq<Polynom,Polynom> >();
         coeffs_.setFirst(new PairEq<Polynom,Polynom>(new Polynom(),new Polynom()));
         coeffs_.setSecond(new PairEq<Polynom,Polynom>(new Polynom(),new Polynom()));
+        if (_b.isZero()) {
+            return coeffs_;
+        }
         EqList<Polynom> quots_ = new EqList<Polynom>();
         PairEq<Polynom,Polynom> qrinit_;
         if(dg()>_b.dg()) {
@@ -542,6 +545,12 @@ public final class Polynom implements Equallable<Polynom>{
     }
 
     public PairEq<Polynom,Polynom> divisionEuclidienne(Polynom _div) {
+        if (_div.isZero()) {
+            PairEq<Polynom,Polynom> qr_ = new PairEq<Polynom,Polynom>();
+            qr_.setFirst(new Polynom());
+            qr_.setSecond(new Polynom());
+            return qr_;
+        }
         Polynom dividende_= new Polynom(this);
         Polynom quot_ = new Polynom();
         long degBef_;

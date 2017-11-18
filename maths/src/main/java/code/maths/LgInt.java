@@ -282,6 +282,9 @@ public final class LgInt implements Cmp<LgInt> {
         r_ = new PairEq<PairEq<LgInt,LgInt>,PairEq<LgInt,LgInt>>();
         r_.setFirst(new PairEq<LgInt,LgInt>(zero(),zero()));
         r_.setSecond(new PairEq<LgInt,LgInt>(zero(),zero()));
+        if (_b.isZero()) {
+            return r_;
+        }
         EqList<LgInt> quot_ = new EqList<LgInt>();
         PairEq<LgInt,LgInt> qr_ = new PairEq<LgInt,LgInt>();
         boolean greater_ = strGreater(this, _b);
@@ -750,6 +753,7 @@ public final class LgInt implements Cmp<LgInt> {
         long absBase_ = _nombre.remainByBase();
         long diffAbsBase_ = diffTotalPartiel_.remainByBase();
         nombre_ = (int) Math.min(absBase_, diffAbsBase_);
+        // nombre_ < _nombreTotalElements / 2
         for (int i = CustList.FIRST_INDEX; i < nombre_; i++) {
             LgInt temp_ = new LgInt(i);
             numerateur_.add(minus(_nombreTotalElements, temp_));
