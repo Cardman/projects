@@ -968,13 +968,34 @@ public final class FctOperation extends InvokingOperation {
             if (!PrimitiveTypeUtil.canBeUseAsArgument(baseClassFound_, name_, classes_)) {
                 continue;
             }
-            String argClassName_ = c.getGenericString();
-            String classNameFound_ = Templates.getFullTypeByBases(argClassName_, baseClassFound_, classes_);
-            MethodId methodIdLoc_ = _realId.format(classNameFound_, classes_);
-            if (!c.getAllOverridingMethods().contains(methodIdLoc_)) {
+            if (!(classes_.getClassBody(name_) instanceof UniqueRootedBlock)) {
                 continue;
             }
-            ClassMethodId idClass_ = getMethodToCall(argClassName_, methodIdLoc_, _realId, _conf);
+            String foundClass_ = EMPTY_STRING;
+            MethodId k_ = null;
+            String subClass_ = name_;
+            while (foundClass_.isEmpty()) {
+                if (StringList.quickEq(subClass_, Object.class.getName())) {
+                    break;
+                }
+                UniqueRootedBlock subClassBlock_ = (UniqueRootedBlock) classes_.getClassBody(subClass_);
+                String gene_ = subClassBlock_.getGenericString();
+                String v_ = Templates.getFullTypeByBases(gene_, baseClassFound_, classes_);
+                MethodId l_ = _realId.format(v_, classes_);
+                for (ClassMethodId j: subClassBlock_.getAllOverridingMethods().getVal(l_)) {
+                    String baseSuper_ = StringList.getAllTypes(j.getClassName()).first();
+                    if (StringList.quickEq(baseSuper_, baseClassFound_)) {
+                        foundClass_ = j.getClassName();
+                        k_ = j.getConstraints();
+                        break;
+                    }
+                }
+                subClass_ = subClassBlock_.getSuperClass();
+            }
+            if (foundClass_.isEmpty()) {
+                continue;
+            }
+            ClassMethodId idClass_ = new ClassMethodId(foundClass_, k_);
             String classToSearch_ = idClass_.getClassName();
             MethodId idMethod_ = idClass_.getConstraints();
             CustList<MethodBlock> methods_ = classes_.getMethodBodiesById(classToSearch_, idMethod_);

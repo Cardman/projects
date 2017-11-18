@@ -1013,6 +1013,82 @@ public abstract class RootBlock extends BracedBlock implements AccessibleBlock {
         }
         return map_;
     }
+    public final StringMap<ClassMethodId> getConcreteMethodsToCall(MethodId _realId, ContextEl _conf) {
+        StringMap<ClassMethodId> eq_ = new StringMap<ClassMethodId>();
+        Classes classes_ = _conf.getClasses();
+        String baseClassFound_ = getFullName();
+        for (RootBlock c: classes_.getClassBodies()) {
+            String name_ = c.getFullName();
+            if (!PrimitiveTypeUtil.canBeUseAsArgument(baseClassFound_, name_, classes_)) {
+                continue;
+            }
+            if (!classes_.getClassBody(name_).mustImplement()) {
+                continue;
+            }
+            String foundClass_ = EMPTY_STRING;
+            MethodId k_ = null;
+            String subClass_ = name_;
+            while (foundClass_.isEmpty()) {
+                UniqueRootedBlock subClassBlock_ = (UniqueRootedBlock) classes_.getClassBody(subClass_);
+                String gene_ = subClassBlock_.getGenericString();
+                String v_ = Templates.getFullTypeByBases(gene_, baseClassFound_, classes_);
+                MethodId l_ = _realId.format(v_, classes_);
+                if (subClassBlock_.getAllOverridingMethods().contains(l_)) {
+                    for (ClassMethodId j: subClassBlock_.getAllOverridingMethods().getVal(l_)) {
+                        String baseSuper_ = StringList.getAllTypes(j.getClassName()).first();
+                        if (StringList.quickEq(baseSuper_, baseClassFound_)) {
+                            foundClass_ = subClass_;
+                            k_ = l_;
+                            break;
+                        }
+                    }
+                    if (foundClass_.isEmpty() && subClassBlock_.getDefaultMethodIds().contains(l_)) {
+                        ClassMethodId clMet_ = subClassBlock_.getDefaultMethodIds().getVal(l_);
+                        foundClass_ = clMet_.getClassName();
+                        foundClass_ = StringList.getAllTypes(foundClass_).first();
+                        k_ = clMet_.getConstraints();
+                    }
+                }
+                subClass_ = subClassBlock_.getSuperClass();
+                if (StringList.quickEq(subClass_, Object.class.getName())) {
+                    break;
+                }
+                subClassBlock_ = (UniqueRootedBlock) classes_.getClassBody(subClass_);
+                String superClassName_ = subClassBlock_.getSuperClass();
+                if (!PrimitiveTypeUtil.canBeUseAsArgument(baseClassFound_, superClassName_, classes_)) {
+                    break;
+                }
+            }
+            if (foundClass_.isEmpty()) {
+                continue;
+            }
+            ClassMethodId idClass_ = new ClassMethodId(foundClass_, k_);
+            String classToSearch_ = idClass_.getClassName();
+            MethodId idMethod_ = idClass_.getConstraints();
+            CustList<MethodBlock> methods_ = classes_.getMethodBodiesById(classToSearch_, idMethod_);
+            if (!methods_.isEmpty()) {
+                if (!methods_.first().isConcreteMethod()) {
+                    continue;
+                }
+            } else {
+                RootBlock sub_ = classes_.getClassBody(classToSearch_);
+                if (!sub_.getDefaultMethodIds().contains(idMethod_)) {
+                    continue;
+                }
+                idClass_ = sub_.getDefaultMethodIds().getVal(idMethod_);
+                classToSearch_ = idClass_.getClassName();
+                classToSearch_ = StringList.getAllTypes(classToSearch_).first();
+                idMethod_ = idClass_.getConstraints();
+                idClass_ = new ClassMethodId(classToSearch_, idMethod_);
+                MethodBlock def_ = classes_.getMethodBodiesById(classToSearch_, idMethod_).first();
+                if (!def_.isConcreteMethod()) {
+                    continue;
+                }
+            }
+            eq_.put(name_, idClass_);
+        }
+        return eq_;
+    }
 
     public static ObjectMap<MethodId, EqList<ClassMethodId>> getAllOverridingMethods(
             ObjectMap<MethodId, EqList<ClassMethodId>> _methodIds,

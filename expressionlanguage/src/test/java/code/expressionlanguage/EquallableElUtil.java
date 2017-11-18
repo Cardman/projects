@@ -2,6 +2,7 @@ package code.expressionlanguage;
 
 import org.junit.Assert;
 
+import code.expressionlanguage.opers.util.MethodId;
 import code.util.StringList;
 
 public final class EquallableElUtil {
@@ -31,6 +32,11 @@ public final class EquallableElUtil {
         Assert.assertNotNull(_result);
         Assert.assertSame(String.class,_result.getClass());
         Assert.assertTrue(_expected+DIFF+_result, StringList.quickEq(_expected, (String)_result));
+    }
+
+    public static void assertEq(MethodId _expected, MethodId _result) {
+        Assert.assertNotNull(_result);
+        Assert.assertTrue(_expected.getSignature()+DIFF+_result.getSignature(), _expected.eq(_result));
     }
 
     public static void assertEq(Number _expected, Number _result) {

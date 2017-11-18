@@ -3,6 +3,7 @@ package code.expressionlanguage.methods;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.opers.util.ClassMethodId;
 import code.expressionlanguage.opers.util.MethodId;
+import code.util.EqList;
 import code.util.ObjectMap;
 import code.util.StringList;
 
@@ -31,4 +32,8 @@ public interface UniqueRootedBlock {
     StringList getAllInterfaces();
 
     ObjectMap<MethodId, ClassMethodId> getDefaultMethodIds();
+
+    String getGenericString();
+
+    ObjectMap<MethodId, EqList<ClassMethodId>> getAllOverridingMethods();
 }

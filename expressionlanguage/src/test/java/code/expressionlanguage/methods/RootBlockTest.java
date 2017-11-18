@@ -158,6 +158,22 @@ public class RootBlockTest {
         superTypes_ = map_.getVal(new MethodId(false,"instancemethod", new EqList<ClassName>(new ClassName("#E", false))));
         assertEq(1, superTypes_.size());
         assertEq("pkg.Ex<#E>", superTypes_.first());
+        MethodId id_ = new MethodId(false,"instancemethod", new EqList<ClassName>(new ClassName("#E", false)));
+        MethodId resId_;
+        ClassMethodId res_;
+        RootBlock r_ = classes_.getClassBody("pkg.Ex");
+        StringMap<ClassMethodId> concrete_ = r_.getConcreteMethodsToCall(id_, cont_);
+        assertEq(2, concrete_.size());
+        assertTrue(concrete_.contains("pkg.ExTwo"));
+        res_ = concrete_.getVal("pkg.ExTwo");
+        resId_ = new MethodId(false,"instancemethod", new EqList<ClassName>(new ClassName("#T", false)));
+        assertEq("pkg.ExTwo", res_.getClassName());
+        assertEq(resId_, res_.getConstraints());
+        assertTrue(concrete_.contains("pkg.Ex"));
+        res_ = concrete_.getVal("pkg.Ex");
+        resId_ = new MethodId(false,"instancemethod", new EqList<ClassName>(new ClassName("#E", false)));
+        assertEq("pkg.Ex", res_.getClassName());
+        assertEq(resId_, res_.getConstraints());
     }
 
     @Test
@@ -341,6 +357,17 @@ public class RootBlockTest {
         superTypes_ = map_.getVal(new MethodId(false, "instancemethod", new EqList<ClassName>(new ClassName("#F", false))));
         assertEq(1, superTypes_.size());
         assertEq("pkg.Int<#F>", superTypes_.first());
+        MethodId id_ = new MethodId(false,"instancemethod", new EqList<ClassName>(new ClassName("#F", false)));
+        MethodId resId_;
+        ClassMethodId res_;
+        RootBlock r_ = classes_.getClassBody("pkg.Int");
+        StringMap<ClassMethodId> concrete_ = r_.getConcreteMethodsToCall(id_, cont_);
+        assertEq(1, concrete_.size());
+        assertTrue(concrete_.contains("pkg.ExTwo"));
+        res_ = concrete_.getVal("pkg.ExTwo");
+        resId_ = new MethodId(false,"instancemethod", new EqList<ClassName>(new ClassName("#T", false)));
+        assertEq("pkg.ExTwo", res_.getClassName());
+        assertEq(resId_, res_.getConstraints());
     }
     @Test
     public void test7() {
@@ -526,6 +553,26 @@ public class RootBlockTest {
         defs_ = classes_.getClassBody("pkg.ExThree").getDefaultMethodIds();
         assertEq(1, defs_.size());
         assertEq("pkg.ExTwo<#T>", defs_.getVal(new MethodId(false,"instancemethod", new EqList<ClassName>(new ClassName("#T", false)))).getClassName());
+        MethodId id_ = new MethodId(false,"instancemethod", new EqList<ClassName>(new ClassName("#F", false)));
+        MethodId resId_;
+        ClassMethodId res_;
+        RootBlock r_ = classes_.getClassBody("pkg.ExTwo");
+        StringMap<ClassMethodId> concrete_ = r_.getConcreteMethodsToCall(id_, cont_);
+        assertEq(1, concrete_.size());
+        assertTrue(concrete_.contains("pkg.ExThree"));
+        res_ = concrete_.getVal("pkg.ExThree");
+        resId_ = new MethodId(false,"instancemethod", new EqList<ClassName>(new ClassName("#F", false)));
+        assertEq("pkg.ExTwo", res_.getClassName());
+        assertEq(resId_, res_.getConstraints());
+        id_ = new MethodId(false,"instancemethod", new EqList<ClassName>(new ClassName("#E", false)));
+        r_ = classes_.getClassBody("pkg.Ex");
+        concrete_ = r_.getConcreteMethodsToCall(id_, cont_);
+        assertEq(1, concrete_.size());
+        assertTrue(concrete_.contains("pkg.ExThree"));
+        res_ = concrete_.getVal("pkg.ExThree");
+        resId_ = new MethodId(false,"instancemethod", new EqList<ClassName>(new ClassName("#F", false)));
+        assertEq("pkg.ExTwo", res_.getClassName());
+        assertEq(resId_, res_.getConstraints());
     }
     @Test
     public void test12() {
@@ -745,6 +792,17 @@ public class RootBlockTest {
         superTypes_ = map_.getVal(new MethodId(false, "instancemethod", new EqList<ClassName>(new ClassName("#F", false))));
         assertEq(1, superTypes_.size());
         assertEq("pkg.Int<#F>", superTypes_.first());
+        MethodId id_ = new MethodId(false,"instancemethod", new EqList<ClassName>(new ClassName("#T", false)));
+        MethodId resId_;
+        ClassMethodId res_;
+        RootBlock r_ = classes_.getClassBody("pkg.ExTwo");
+        StringMap<ClassMethodId> concrete_ = r_.getConcreteMethodsToCall(id_, cont_);
+        assertEq(1, concrete_.size());
+        assertTrue(concrete_.contains("pkg.ExTwo"));
+        res_ = concrete_.getVal("pkg.ExTwo");
+        resId_ = new MethodId(false,"instancemethod", new EqList<ClassName>(new ClassName("#F", false)));
+        assertEq("pkg.Int", res_.getClassName());
+        assertEq(resId_, res_.getConstraints());
     }
     @Test
     public void test19() {
@@ -790,6 +848,53 @@ public class RootBlockTest {
         superTypes_ = map_.getVal(new MethodId(false, "instancemethod", new EqList<ClassName>(new ClassName("#F", false))));
         assertEq(1, superTypes_.size());
         assertEq("pkg.Int<#F>", superTypes_.first());
+    }
+    @Test
+    public void testMockOverrides() {
+        StringMap<String> files_ = new StringMap<String>();
+        String xml_;
+        xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' template='&lt;#E&gt;'>\n";
+        xml_ += "<method access='"+PUBLIC_ACCESS+"' name='instancemethod' class='"+OperationNode.VOID_RETURN+"' modifier='normal' var0='i' class0='#E'>\n";
+        xml_ += "</method>\n";
+        xml_ += "</class>\n";
+        files_.put("pkg/Ex."+Classes.EXT, xml_);
+        xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExTwo' package='pkg' template='&lt;#T&gt;' superclass='pkg.Ex&lt;#T&gt;'>\n";
+        xml_ += "<method access='"+PUBLIC_ACCESS+"' name='instancemethod' class='"+OperationNode.VOID_RETURN+"' modifier='normal' var0='i' class0='#T'>\n";
+        xml_ += "</method>\n";
+        xml_ += "</class>\n";
+        files_.put("pkg/ExTwo."+Classes.EXT, xml_);
+        ContextEl cont_ = unfullValidateOverridingMethods(files_);
+        Classes classes_ = cont_.getClasses();
+        classes_.validateSingleParameterizedClasses(cont_);
+        assertTrue(classes_.getErrorsDet().toString(), classes_.getErrorsDet().isEmpty());
+        classes_.validateIds(cont_);
+        assertTrue(classes_.getErrorsDet().toString(), classes_.getErrorsDet().isEmpty());
+        ObjectMap<MethodId, EqList<ClassMethodId>> map_;
+        MethodId geneId_;
+        ClassMethodId geneClassId_;
+        MethodId realId_;
+        map_ = classes_.getClassBody("pkg.ExTwo").getAllOverridingMethods();
+        map_.clear();
+        geneId_ = new MethodId(false,"instancemethod", new EqList<ClassName>(new ClassName("#T", false)));
+        realId_ = new MethodId(false,"instancemethod", new EqList<ClassName>(new ClassName("#T", false)));
+        geneClassId_ = new ClassMethodId("pkg.ExTwo<#T>",realId_);
+        map_.put(geneId_, new EqList<ClassMethodId>(geneClassId_));
+        map_ = classes_.getClassBody("pkg.Ex").getAllOverridingMethods();
+        map_.clear();
+        geneId_ = new MethodId(false,"instancemethod", new EqList<ClassName>(new ClassName("#E", false)));
+        realId_ = new MethodId(false,"instancemethod", new EqList<ClassName>(new ClassName("#E", false)));
+        geneClassId_ = new ClassMethodId("pkg.Ex<#E>",realId_);
+        map_.put(geneId_, new EqList<ClassMethodId>(geneClassId_));
+        MethodId id_ = new MethodId(false,"instancemethod", new EqList<ClassName>(new ClassName("#E", false)));
+        MethodId resId_;
+        ClassMethodId res_;
+        RootBlock r_ = classes_.getClassBody("pkg.Ex");
+        StringMap<ClassMethodId> concrete_ = r_.getConcreteMethodsToCall(id_, cont_);
+        assertEq(1, concrete_.size());
+        res_ = concrete_.getVal("pkg.Ex");
+        resId_ = new MethodId(false,"instancemethod", new EqList<ClassName>(new ClassName("#E", false)));
+        assertEq("pkg.Ex", res_.getClassName());
+        assertEq(resId_, res_.getConstraints());
     }
     private static ContextEl unfullValidateOverridingMethods(StringMap<String> _files) {
         ContextEl cont_ = new ContextEl();
