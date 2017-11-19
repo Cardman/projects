@@ -671,43 +671,88 @@ public final class Classes {
             }
             return;
         }
-        EqList<ClassEdge> elts_ = inherit_.getElementsListCopy();
-        int order_ = 0;
-        while (true) {
-            EqList<ClassEdge> next_ = new EqList<ClassEdge>();
-            for (ClassEdge e: elts_) {
-                if (e.getOrder() > CustList.INDEX_NOT_FOUND_ELT) {
+        if (_context.getOptions().isBreadthFirst()) {
+            StringList allTypes_ = new StringList();
+            StringList allInterfaces_;
+            allInterfaces_ = new StringList();
+            for (EntryCust<String, RootBlock> c: classesBodies.entryList()) {
+                RootBlock bl_ = c.getValue();
+                if (!(bl_ instanceof InterfaceBlock)) {
                     continue;
                 }
-                EqList<ClassEdge> list_ = inherit_.getChildren(e);
-                boolean allNb_ = true;
-                for (ClassEdge s: list_) {
-                    ClassEdge s_ = inherit_.getElementByEq(s);
-                    if (s_.getOrder() == CustList.INDEX_NOT_FOUND_ELT) {
-                        allNb_ = false;
-                        break;
+                if (!bl_.getDirectInterfaces().isEmpty()) {
+                    continue;
+                }
+                String key_ = c.getKey();
+                StringList loc_ = breadthFirst(key_);
+                for (String s: loc_) {
+                    if (!allInterfaces_.containsStr(s)) {
+                        allInterfaces_.add(s);
                     }
                 }
-                if (!allNb_) {
+            }
+            allTypes_.addAllElts(allInterfaces_);
+            StringList allOthers_;
+            allOthers_ = new StringList();
+            for (EntryCust<String, RootBlock> c: classesBodies.entryList()) {
+                RootBlock bl_ = c.getValue();
+                if (!(bl_ instanceof UniqueRootedBlock)) {
                     continue;
                 }
-                next_.add(e);
+                UniqueRootedBlock unique_ = (UniqueRootedBlock) bl_;
+                if (!StringList.quickEq(unique_.getSuperClass(), Object.class.getName())) {
+                    continue;
+                }
+                String key_ = c.getKey();
+                StringList loc_ = breadthFirst(key_);
+                for (String s: loc_) {
+                    if (!allOthers_.containsStr(s)) {
+                        allOthers_.add(s);
+                    }
+                }
             }
-            if (next_.isEmpty()) {
-                break;
+            allTypes_.addAllElts(allOthers_);
+            classesInheriting.clear();
+            classesInheriting.addAllElts(allTypes_);
+        } else {
+            EqList<ClassEdge> elts_ = inherit_.getElementsListCopy();
+            int order_ = 0;
+            while (true) {
+                EqList<ClassEdge> next_ = new EqList<ClassEdge>();
+                for (ClassEdge e: elts_) {
+                    if (e.getOrder() > CustList.INDEX_NOT_FOUND_ELT) {
+                        continue;
+                    }
+                    EqList<ClassEdge> list_ = inherit_.getChildren(e);
+                    boolean allNb_ = true;
+                    for (ClassEdge s: list_) {
+                        ClassEdge s_ = inherit_.getElementByEq(s);
+                        if (s_.getOrder() == CustList.INDEX_NOT_FOUND_ELT) {
+                            allNb_ = false;
+                            break;
+                        }
+                    }
+                    if (!allNb_) {
+                        continue;
+                    }
+                    next_.add(e);
+                }
+                if (next_.isEmpty()) {
+                    break;
+                }
+                for (ClassEdge o: next_) {
+                    o.setOrder(order_);
+                    order_++;
+                }
             }
-            for (ClassEdge o: next_) {
-                o.setOrder(order_);
-                order_++;
+            elts_.sortElts(new ComparatorClassEdge());
+            for (ClassEdge c: elts_) {
+                classesInheriting.add(c.getId());
             }
-        }
-        elts_.sortElts(new ComparatorClassEdge());
-        for (ClassEdge c: elts_) {
-            classesInheriting.add(c.getId());
-        }
-        classesInheriting.removeAllObj(Object.class.getName());
-        if (!errorsDet.isEmpty()) {
-            return;
+            classesInheriting.removeAllObj(Object.class.getName());
+            if (!errorsDet.isEmpty()) {
+                return;
+            }
         }
         for (String c: classesInheriting) {
             RootBlock dBl_ = classesBodies.getVal(c);
@@ -754,8 +799,9 @@ public final class Classes {
                 r_.getAllSuperTypes().addAllElts(((InterfaceBlock)r_).getAllSuperClasses());
             }
         }
-        for (String c: classesInheriting) {
-            RootBlock dBl_ = classesBodies.getVal(c);
+        for (EntryCust<String, RootBlock> s: classesBodies.entryList()) {
+            String c = s.getKey();
+            RootBlock dBl_ = s.getValue();
             Mapping mapping_ = new Mapping();
             StringList variables_ = new StringList();
             boolean ok_ = true;
@@ -908,16 +954,15 @@ public final class Classes {
         }
     }
     public void validateSingleParameterizedClasses(ContextEl _context) {
-        for (String c: classesInheriting) {
-            String baseClass_ = StringList.getAllTypes(c).first();
-            RootBlock r_ = getClassBody(baseClass_);
+        for (EntryCust<String, RootBlock> i: classesBodies.entryList()) {
+            RootBlock r_ = i.getValue();
             StringList genericSuperTypes_ = r_.getAllGenericSuperTypes(this);
             StringMap<StringList> baseParams_ = getBaseParams(genericSuperTypes_);
             for (EntryCust<String, StringList> e: baseParams_.entryList()) {
                 if (e.getValue().size() > 1) {
                     DuplicateGenericSuperTypes duplicate_;
                     duplicate_ = new DuplicateGenericSuperTypes();
-                    duplicate_.setFileName(c);
+                    duplicate_.setFileName(i.getKey());
                     duplicate_.setRc(new RowCol());
                     duplicate_.setGenericSuperTypes(e.getValue());
                     errorsDet.add(duplicate_);
@@ -940,6 +985,76 @@ public final class Classes {
         return baseParams_;
     }
 
+    public StringList getSortedSuperInterfaces(StringList _already, String _interface) {
+        StringList superInterfaces_ = new StringList(_interface);
+        StringList currentInterfaces_ = new StringList(_interface);
+        while (true) {
+            StringList nextInterfaces_ = new StringList();
+            for (String c: currentInterfaces_) {
+                String baseClass_ = StringList.getAllTypes(c).first();
+                RootBlock int_ = getClassBody(baseClass_);
+                StringList directSuperInterfaces_ = int_.getCustomDirectSuperClasses();
+                for (String s:directSuperInterfaces_) {
+                    superInterfaces_.add(s);
+                    nextInterfaces_.add(s);
+                }
+            }
+            if (nextInterfaces_.isEmpty()) {
+                break;
+            }
+            currentInterfaces_ = nextInterfaces_;
+        }
+        StringList superInterfacesSet_ = new StringList();
+        for (String s: superInterfaces_.getReverse()) {
+            if (_already.containsStr(s)) {
+                continue;
+            }
+            if (!superInterfacesSet_.containsStr(s)) {
+                superInterfacesSet_.add(s);
+            }
+        }
+        return superInterfacesSet_;
+    }
+    public StringList breadthFirst(String _parent) {
+
+        StringList all_ = new StringList();
+        int maxDepth_ = classesBodies.size(); 
+        StringList nodeQueue_ = new StringList();
+        nodeQueue_.add(_parent);
+
+        int currentDepth_ = 0, 
+        elementsToDepthIncrease_ = 1, 
+        nextElementsToDepthIncrease_ = 0;
+
+        while (!nodeQueue_.isEmpty()) {
+            String current_ = nodeQueue_.first();
+            nodeQueue_.remove(0);
+            all_.add(current_);
+            RootBlock info_ = getClassBody(current_);
+            StringList direct_ = info_.getDirectSubTypes(this);
+            nextElementsToDepthIncrease_ += direct_.size();
+            elementsToDepthIncrease_--;
+            if (elementsToDepthIncrease_ == 0) {
+                currentDepth_++;
+                if (currentDepth_ > maxDepth_) {
+                    break;
+                }
+                elementsToDepthIncrease_ = nextElementsToDepthIncrease_;
+                nextElementsToDepthIncrease_ = 0;
+            }
+            for (String child : direct_) {
+                nodeQueue_.add(child);
+            }
+        }
+        StringList unique_ = new StringList();
+        for (String c: all_) {
+            if (!unique_.containsStr(c)) {
+                unique_.add(c);
+            }
+        }
+        return unique_;
+    }
+
     public StringList getSortedSuperInterfaces(StringList _interfaces) {
         StringList sortedSuperInterfaces_ = new StringList();
         for (String i: _interfaces) {
@@ -949,7 +1064,7 @@ public final class Classes {
                 StringList nextInterfaces_ = new StringList();
                 for (String c: currentInterfaces_) {
                     String baseClass_ = StringList.getAllTypes(c).first();
-                    InterfaceBlock int_ = (InterfaceBlock) getClassBody(baseClass_);
+                    RootBlock int_ = getClassBody(baseClass_);
                     StringList directSuperInterfaces_ = int_.getCustomDirectSuperClasses();
                     for (String s:directSuperInterfaces_) {
                         if (superInterfaces_.containsStr(s)) {
@@ -970,7 +1085,7 @@ public final class Classes {
             is_.put(superInterfaces_.first(), i_);
             for (String s: superInterfaces_) {
                 String baseClass_ = StringList.getAllTypes(s).first();
-                InterfaceBlock int_ = (InterfaceBlock) getClassBody(baseClass_);
+                RootBlock int_ = getClassBody(baseClass_);
                 StringList directSuperInterfaces_ = int_.getCustomDirectSuperClasses();
                 InterfaceNode current_ = is_.getVal(s);
                 for (String r: directSuperInterfaces_) {
@@ -1066,8 +1181,8 @@ public final class Classes {
     public void validateIds(ContextEl _context) {
         PageEl page_ = new PageEl();
         _context.setAnalyzing(page_);
-        for (String c: classesInheriting) {
-            RootBlock bl_ = classesBodies.getVal(c);
+        for (EntryCust<String, RootBlock> c: classesBodies.entryList()) {
+            RootBlock bl_ = c.getValue();
             bl_.validateIds(_context);
         }
     }

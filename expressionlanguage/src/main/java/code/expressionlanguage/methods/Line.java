@@ -138,7 +138,7 @@ public final class Line extends Leaf implements StackableBlock {
             String superClass_ = meta_.getSuperClass();
             String baseSuperClass_ = StringList.getAllTypes(superClass_).first();
             if (ip_.getCallingConstr().getCalledConstructors().containsObj(baseSuperClass_)) {
-                UniqueRootedBlock root_ = (UniqueRootedBlock) _cont.getClasses().getClassBody(curClassBase_);
+                RootBlock root_ = _cont.getClasses().getClassBody(curClassBase_);
                 for (String i: root_.getAllNeededSortedInterfaces()) {
                     if (!ip_.getIntializedInterfaces().containsStr(i)) {
                         ip_.getIntializedInterfaces().add(i);

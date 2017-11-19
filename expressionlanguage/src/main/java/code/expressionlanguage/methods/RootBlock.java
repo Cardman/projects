@@ -936,6 +936,22 @@ public abstract class RootBlock extends BracedBlock implements AccessibleBlock {
             getDefaultMethodIds().put(id_, clId_);
         }
     }
+    public final StringList getDirectSubTypes(Classes _conf) {
+        StringList subTypes_ = new StringList();
+        Classes classes_ = _conf;
+        String baseClassFound_ = getFullName();
+        for (RootBlock c: classes_.getClassBodies()) {
+            String name_ = c.getFullName();
+            RootBlock r_ = classes_.getClassBody(name_);
+            if (r_.getDirectInterfaces().containsStr(baseClassFound_)) {
+                subTypes_.add(name_);
+            }
+            if (r_.getDirectSuperClasses().containsStr(baseClassFound_)) {
+                subTypes_.add(name_);
+            }
+        }
+        return subTypes_;
+    }
     public final ObjectMap<MethodId, EqList<ClassMethodId>> getAllInstanceSignatures(Classes _classes) {
         ObjectMap<MethodId, EqList<ClassMethodId>> map_;
         map_ = new ObjectMap<MethodId, EqList<ClassMethodId>>();

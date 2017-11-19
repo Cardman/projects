@@ -22,6 +22,8 @@ public final class ContextEl {
 
     private int stackOverFlow;
 
+    private Options options = new Options();
+
     private transient PageEl analyzing;
 
     private transient boolean staticBlock;
@@ -48,6 +50,10 @@ public final class ContextEl {
 
     public ContextEl(int _stackOverFlow) {
         stackOverFlow = _stackOverFlow;
+    }
+
+    public Options getOptions() {
+        return options;
     }
 
     public void setOffsetPossibleLastPage(int _offset) {

@@ -21,10 +21,6 @@ public interface UniqueRootedBlock {
     StringList getAllGenericInterfaces(Classes _classes);
     StringList getAllDirectInterfaces();
 
-    StringList getAllSortedInterfaces();
-
-    StringList getAllNeededSortedInterfaces();
-
     StringList getAllSuperClasses();
 
     StringList getAllSuperTypes();
