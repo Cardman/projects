@@ -1189,33 +1189,13 @@ public final class Classes {
     public void validateOverridingInherit(ContextEl _context) {
         PageEl page_ = new PageEl();
         _context.setAnalyzing(page_);
-        StringList interfaces_ = new StringList();
-        StringList otherTypes_ = new StringList();
         for (String c: classesInheriting) {
             RootBlock bl_ = classesBodies.getVal(c);
-            if (bl_ instanceof InterfaceBlock) {
-                interfaces_.add(c);
-            } else {
-                otherTypes_.add(c);
-            }
-        }
-        for (String c: interfaces_) {
-            RootBlock bl_ = classesBodies.getVal(c);
             bl_.checkCompatibility(_context);
             bl_.setupBasicOverrides(_context);
             bl_.checkImplements(_context);
         }
-        for (String c: interfaces_) {
-            RootBlock bl_ = classesBodies.getVal(c);
-            bl_.checkCompatibilityBounds(_context);
-        }
-        for (String c: otherTypes_) {
-            RootBlock bl_ = classesBodies.getVal(c);
-            bl_.checkCompatibility(_context);
-            bl_.setupBasicOverrides(_context);
-            bl_.checkImplements(_context);
-        }
-        for (String c: otherTypes_) {
+        for (String c: classesInheriting) {
             RootBlock bl_ = classesBodies.getVal(c);
             bl_.checkCompatibilityBounds(_context);
         }
