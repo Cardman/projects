@@ -3,6 +3,7 @@ package code.expressionlanguage.methods;
 import org.w3c.dom.Element;
 
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.Templates;
 import code.expressionlanguage.methods.exceptions.CyclicCallingException;
 import code.expressionlanguage.methods.exceptions.UndefinedSuperConstructorException;
 import code.expressionlanguage.methods.util.BadAccessMethod;
@@ -128,7 +129,8 @@ public final class EnumBlock extends RootBlock implements UniqueRootedBlock {
             }
         }
         useSuperTypesOverrides(_context);
-        StringList classes_ = new StringList(getGenericString());
+        String gene_ = getGenericString();
+        StringList classes_ = new StringList(gene_);
         classes_.addAllElts(classNames_);
         for (String s: getAllGenericInterfaces(classesRef_)) {
             String base_ = StringList.getAllTypes(s).first();
@@ -137,9 +139,10 @@ public final class EnumBlock extends RootBlock implements UniqueRootedBlock {
                 if (m.isStaticMethod()) {
                     continue;
                 }
-                MethodId id_ = m.getFormattedId(s, classesRef_);
+                String formattedSuper_ = Templates.getFullTypeByBases(gene_, s, classesRef_);
+                MethodId id_ = m.getId().format(formattedSuper_, classesRef_);
                 for (String c: classes_) {
-                    CustList<MethodBlock> mBases_ = classesRef_.getMethodBodiesByFormattedId(c, id_);
+                    CustList<MethodBlock> mBases_ = classesRef_.getMethodBodiesById(c, id_);
                     if (mBases_.isEmpty()) {
                         continue;
                     }

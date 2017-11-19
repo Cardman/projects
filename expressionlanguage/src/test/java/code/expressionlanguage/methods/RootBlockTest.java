@@ -896,6 +896,57 @@ public class RootBlockTest {
         assertEq("pkg.Ex", res_.getClassName());
         assertEq(resId_, res_.getConstraints());
     }
+    @Test
+    public void testMockOverrides2() {
+        StringMap<String> files_ = new StringMap<String>();
+        String xml_;
+        xml_ = "<interface modifier='abstract' access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' template='&lt;#E&gt;'>\n";
+        xml_ += "<method access='"+PUBLIC_ACCESS+"' name='instancemethod' class='"+OperationNode.VOID_RETURN+"' modifier='abstract' var0='i' class0='#E'>\n";
+        xml_ += "</method>\n";
+        xml_ += "</interface>\n";
+        files_.put("pkg/Ex."+Classes.EXT, xml_);
+        xml_ = "<interface access='"+PUBLIC_ACCESS+"' name='ExTwo' package='pkg' template='&lt;#F&gt;' class0='pkg.Ex&lt;#F&gt;'>\n";
+        xml_ += "<method access='"+PUBLIC_ACCESS+"' name='instancemethod' class='"+OperationNode.VOID_RETURN+"' modifier='normal' var0='i' class0='#F'>\n";
+        xml_ += "</method>\n";
+        xml_ += "</interface>\n";
+        files_.put("pkg/ExTwo."+Classes.EXT, xml_);
+        xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExThree' package='pkg' template='&lt;#T&gt;' class0='pkg.ExTwo&lt;#T&gt;'>\n";
+        xml_ += "</class>\n";
+        files_.put("pkg/ExThree."+Classes.EXT, xml_);
+        ContextEl cont_ = unfullValidateOverridingMethods(files_);
+        Classes classes_ = cont_.getClasses();
+        classes_.validateSingleParameterizedClasses(cont_);
+        assertTrue(classes_.getErrorsDet().toString(), classes_.getErrorsDet().isEmpty());
+        classes_.validateIds(cont_);
+        assertTrue(classes_.getErrorsDet().toString(), classes_.getErrorsDet().isEmpty());
+        ObjectMap<MethodId, EqList<ClassMethodId>> map_;
+        MethodId geneId_;
+        ClassMethodId geneClassId_;
+        ClassMethodId geneClassIdTwo_;
+        MethodId realId_;
+        map_ = classes_.getClassBody("pkg.ExTwo").getAllOverridingMethods();
+        map_.clear();
+        geneId_ = new MethodId(false,"instancemethod", new EqList<ClassName>(new ClassName("#F", false)));
+        realId_ = new MethodId(false,"instancemethod", new EqList<ClassName>(new ClassName("#F", false)));
+        geneClassId_ = new ClassMethodId("pkg.ExTwo<#F>",realId_);
+        realId_ = new MethodId(false,"instancemethod", new EqList<ClassName>(new ClassName("#E", false)));
+        geneClassIdTwo_ = new ClassMethodId("pkg.Ex<#F>",realId_);
+        map_.put(geneId_, new EqList<ClassMethodId>(geneClassId_,geneClassIdTwo_));
+        map_ = classes_.getClassBody("pkg.Ex").getAllOverridingMethods();
+        map_.clear();
+        geneId_ = new MethodId(false,"instancemethod", new EqList<ClassName>(new ClassName("#E", false)));
+        realId_ = new MethodId(false,"instancemethod", new EqList<ClassName>(new ClassName("#E", false)));
+        geneClassId_ = new ClassMethodId("pkg.Ex<#E>",realId_);
+        map_.put(geneId_, new EqList<ClassMethodId>(geneClassId_));
+        MethodId id_ = new MethodId(false,"instancemethod", new EqList<ClassName>(new ClassName("#F", false)));
+        RootBlock r_ = classes_.getClassBody("pkg.ExTwo");
+        StringMap<ClassMethodId> concrete_ = r_.getConcreteMethodsToCall(id_, cont_);
+        assertEq(0, concrete_.size());
+        id_ = new MethodId(false,"instancemethod", new EqList<ClassName>(new ClassName("#E", false)));
+        r_ = classes_.getClassBody("pkg.Ex");
+        concrete_ = r_.getConcreteMethodsToCall(id_, cont_);
+        assertEq(0, concrete_.size());
+    }
     private static ContextEl unfullValidateOverridingMethods(StringMap<String> _files) {
         ContextEl cont_ = new ContextEl();
         Classes classes_ = new Classes(_files, cont_);
