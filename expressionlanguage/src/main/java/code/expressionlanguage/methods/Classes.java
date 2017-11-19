@@ -1018,13 +1018,8 @@ public final class Classes {
     public StringList breadthFirst(String _parent) {
 
         StringList all_ = new StringList();
-        int maxDepth_ = classesBodies.size(); 
         StringList nodeQueue_ = new StringList();
         nodeQueue_.add(_parent);
-
-        int currentDepth_ = 0, 
-        elementsToDepthIncrease_ = 1, 
-        nextElementsToDepthIncrease_ = 0;
 
         while (!nodeQueue_.isEmpty()) {
             String current_ = nodeQueue_.first();
@@ -1032,16 +1027,6 @@ public final class Classes {
             all_.add(current_);
             RootBlock info_ = getClassBody(current_);
             StringList direct_ = info_.getDirectSubTypes(this);
-            nextElementsToDepthIncrease_ += direct_.size();
-            elementsToDepthIncrease_--;
-            if (elementsToDepthIncrease_ == 0) {
-                currentDepth_++;
-                if (currentDepth_ > maxDepth_) {
-                    break;
-                }
-                elementsToDepthIncrease_ = nextElementsToDepthIncrease_;
-                nextElementsToDepthIncrease_ = 0;
-            }
             for (String child : direct_) {
                 nodeQueue_.add(child);
             }
