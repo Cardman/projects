@@ -37,7 +37,6 @@ import code.expressionlanguage.exceptions.VoidArgumentException;
 import code.expressionlanguage.methods.Classes;
 import code.expressionlanguage.methods.ConstructorBlock;
 import code.expressionlanguage.methods.EnumBlock;
-import code.expressionlanguage.methods.InterfaceBlock;
 import code.expressionlanguage.methods.MethodBlock;
 import code.expressionlanguage.methods.PredefinedClasses;
 import code.expressionlanguage.methods.ProcessXmlMethod;
@@ -69,7 +68,6 @@ import code.util.IdMap;
 import code.util.NatTreeMap;
 import code.util.StringList;
 import code.util.StringMap;
-import code.util.comparators.ComparatorIndexes;
 import code.util.exceptions.NullObjectException;
 import code.util.exceptions.RuntimeClassNotFoundException;
 
@@ -105,6 +103,8 @@ public final class FctOperation extends InvokingOperation {
     private String lastType = EMPTY_STRING;
 
     private int naturalVararg = -1;
+
+    private StringMap<ClassMethodId> overriding = new StringMap<ClassMethodId>();
 
     public FctOperation(int _index, ContextEl _importingPage,
             int _indexChild, MethodOperation _m, OperationsSequence _op) {
@@ -534,11 +534,6 @@ public final class FctOperation extends InvokingOperation {
             }
             return;
         }
-        if (clMeth_.isVarArgToCall()) {
-            StringList paramtTypes_ = clMeth_.getId().getConstraints().getParametersTypes();
-            naturalVararg = paramtTypes_.size() - 1;
-            lastType = paramtTypes_.last();
-        }
         if (staticChoiceMethod_) {
             if (m_.isAbstractMethod()) {
                 if (_failIfError) {
@@ -556,6 +551,16 @@ public final class FctOperation extends InvokingOperation {
             }
         } else {
             classMethodId = clMeth_.getId();
+            String foundClass_ = classMethodId.getClassName();
+            foundClass_ = StringList.getAllTypes(foundClass_).first();
+            RootBlock info_ = classes_.getClassBody(foundClass_);
+            MethodId id_ = clMeth_.getRealId();
+            overriding = info_.getConcreteMethodsToCall(id_, _conf);
+        }
+        if (clMeth_.isVarArgToCall()) {
+            StringList paramtTypes_ = clMeth_.getId().getConstraints().getParametersTypes();
+            naturalVararg = paramtTypes_.size() - 1;
+            lastType = paramtTypes_.last();
         }
         realId = clMeth_.getRealId();
         superAccessMethod = superAccessMethod_;
@@ -901,12 +906,14 @@ public final class FctOperation extends InvokingOperation {
             } else {
                 String argClassName_ = arg_.getObjectClassName();
                 argClassName_ = Templates.getGenericString(argClassName_, classes_);
-                String base_ = StringList.getAllTypes(classNameFound_).first();
-                classNameFound_ = Templates.getFullTypeByBases(argClassName_, base_, classes_);
-                MethodId methodIdLoc_ = realId.format(classNameFound_, classes_);
-                ClassMethodId res_ = getMethodToCall(argClassName_, methodIdLoc_, realId, _conf);
-                classNameFound_ = res_.getClassName();
-                methodId_ = res_.getConstraints();
+                String base_ = StringList.getAllTypes(argClassName_).first();
+                if (overriding.contains(base_)) {
+                    ClassMethodId res_ = overriding.getVal(base_);
+                    classNameFound_ = res_.getClassName();
+                    methodId_ = res_.getConstraints();
+                } else {
+                    methodId_ = realId;
+                }
             }
         } else {
             ClassMetaInfo custClass_ = null;
@@ -1005,48 +1012,6 @@ public final class FctOperation extends InvokingOperation {
             eq_.put(name_, idClass_);
         }
         return eq_;
-    }
-    private static ClassMethodId getMethodToCall(String _baseToSearch, MethodId _id, MethodId _realId, ContextEl _conf) {
-        Classes classes_ = _conf.getClasses();
-        String argClassName_ = _baseToSearch;
-        argClassName_ = Templates.getGenericString(argClassName_, classes_);
-        String baseArg_ = StringList.getAllTypes(argClassName_).first();
-        RootBlock r_ = classes_.getClassBody(baseArg_);
-        StringList allBaseClasses_ = new StringList(baseArg_);
-        allBaseClasses_.addAllElts(r_.getAllSuperClasses());
-        StringList foundSuperClasses_ = new StringList();
-        StringList allSuperClasses_ = new StringList(argClassName_);
-        for (String t: r_.getAllSuperClasses()) {
-            allSuperClasses_.add(Templates.getFullTypeByBases(argClassName_, t, classes_));
-        }
-        for (ClassMethodId t: r_.getAllOverridingMethods().getVal(_id)) {
-            String t_ = t.getClassName();
-            String baseSuperType_ = StringList.getAllTypes(t_).first();
-            if (classes_.getClassBody(baseSuperType_) instanceof InterfaceBlock) {
-                continue;
-            }
-            foundSuperClasses_.add(t_);
-        }
-        String classNameFound_;
-        MethodId realId_;
-        if (foundSuperClasses_.isEmpty()) {
-            ClassMethodId methId_ = r_.getDefaultMethodIds().getVal(_id);
-            classNameFound_ = methId_.getClassName();
-            realId_ = methId_.getConstraints();
-        } else {
-            foundSuperClasses_.sortElts(new ComparatorIndexes<String>(allSuperClasses_));
-            classNameFound_ = foundSuperClasses_.first();
-            int i_ = 0;
-            while (true) {
-                ClassMethodId methId_ = r_.getAllOverridingMethods().getVal(_id).get(i_);
-                if (StringList.quickEq(methId_.getClassName(), classNameFound_)) {
-                    realId_ = methId_.getConstraints();
-                    break;
-                }
-                i_++;
-            }
-        }
-        return new ClassMethodId(classNameFound_, realId_);
     }
     public boolean isTernary() {
         return ternary;

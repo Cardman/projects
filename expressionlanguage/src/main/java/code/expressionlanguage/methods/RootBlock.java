@@ -40,6 +40,7 @@ import code.util.EqList;
 import code.util.ObjectMap;
 import code.util.StringList;
 import code.util.StringMap;
+import code.util.comparators.ComparatorIndexes;
 import code.xml.RowCol;
 
 public abstract class RootBlock extends BracedBlock implements AccessibleBlock {
@@ -1025,67 +1026,71 @@ public abstract class RootBlock extends BracedBlock implements AccessibleBlock {
             if (!classes_.getClassBody(name_).mustImplement()) {
                 continue;
             }
-            String foundClass_ = EMPTY_STRING;
-            MethodId k_ = null;
             String subClass_ = name_;
-            while (foundClass_.isEmpty()) {
-                UniqueRootedBlock subClassBlock_ = (UniqueRootedBlock) classes_.getClassBody(subClass_);
-                String gene_ = subClassBlock_.getGenericString();
-                String v_ = Templates.getFullTypeByBases(gene_, baseClassFound_, classes_);
-                MethodId l_ = _realId.format(v_, classes_);
-                if (subClassBlock_.getAllOverridingMethods().contains(l_)) {
-                    for (ClassMethodId j: subClassBlock_.getAllOverridingMethods().getVal(l_)) {
-                        String baseSuper_ = StringList.getAllTypes(j.getClassName()).first();
-                        if (StringList.quickEq(baseSuper_, baseClassFound_)) {
-                            foundClass_ = subClass_;
-                            k_ = l_;
-                            break;
-                        }
-                    }
-                    if (foundClass_.isEmpty() && subClassBlock_.getDefaultMethodIds().contains(l_)) {
-                        ClassMethodId clMet_ = subClassBlock_.getDefaultMethodIds().getVal(l_);
-                        foundClass_ = clMet_.getClassName();
-                        foundClass_ = StringList.getAllTypes(foundClass_).first();
-                        k_ = clMet_.getConstraints();
-                    }
+            UniqueRootedBlock subClassBlock_ = (UniqueRootedBlock) classes_.getClassBody(subClass_);
+            if (subClassBlock_ instanceof EnumBlock) {
+                if (_realId.eq(new MethodId(false, OperationNode.METH_NAME, new EqList<ClassName>()))) {
+                    continue;
                 }
-                subClass_ = subClassBlock_.getSuperClass();
-                if (StringList.quickEq(subClass_, Object.class.getName())) {
-                    break;
-                }
-                subClassBlock_ = (UniqueRootedBlock) classes_.getClassBody(subClass_);
-                String superClassName_ = subClassBlock_.getSuperClass();
-                if (!PrimitiveTypeUtil.canBeUseAsArgument(baseClassFound_, superClassName_, classes_)) {
-                    break;
+                if (_realId.eq(new MethodId(false, OperationNode.METH_ORDINAL, new EqList<ClassName>()))) {
+                    continue;
                 }
             }
-            if (foundClass_.isEmpty()) {
+            String gene_ = subClassBlock_.getGenericString();
+            String v_ = Templates.getFullTypeByBases(gene_, baseClassFound_, classes_);
+            MethodId l_ = _realId.format(v_, classes_);
+            boolean found_ = false;
+            if (subClassBlock_.getAllOverridingMethods().contains(l_)) {
+                for (ClassMethodId j: subClassBlock_.getAllOverridingMethods().getVal(l_)) {
+                    String baseSuper_ = StringList.getAllTypes(j.getClassName()).first();
+                    if (StringList.quickEq(baseSuper_, baseClassFound_)) {
+                        found_ = true;
+                        break;
+                    }
+                }
+                if (subClassBlock_.getDefaultMethodIds().contains(l_)) {
+                    found_ = true;
+                }
+            }
+            if (!found_) {
                 continue;
             }
-            ClassMethodId idClass_ = new ClassMethodId(foundClass_, k_);
-            String classToSearch_ = idClass_.getClassName();
-            MethodId idMethod_ = idClass_.getConstraints();
-            CustList<MethodBlock> methods_ = classes_.getMethodBodiesById(classToSearch_, idMethod_);
-            if (!methods_.isEmpty()) {
-                if (!methods_.first().isConcreteMethod()) {
+            StringList allBaseClasses_ = new StringList(subClass_);
+            allBaseClasses_.addAllElts(subClassBlock_.getAllSuperClasses());
+            StringList foundSuperClasses_ = new StringList();
+            StringList allSuperClasses_ = new StringList(gene_);
+            for (String t: subClassBlock_.getAllSuperClasses()) {
+                allSuperClasses_.add(Templates.getFullTypeByBases(gene_, t, classes_));
+            }
+            for (ClassMethodId t: subClassBlock_.getAllOverridingMethods().getVal(l_)) {
+                String t_ = t.getClassName();
+                String baseSuperType_ = StringList.getAllTypes(t_).first();
+                if (classes_.getClassBody(baseSuperType_) instanceof InterfaceBlock) {
                     continue;
                 }
+                foundSuperClasses_.add(t_);
+            }
+            String classNameFound_;
+            MethodId realId_;
+            if (foundSuperClasses_.isEmpty()) {
+                ClassMethodId methId_ = subClassBlock_.getDefaultMethodIds().getVal(l_);
+                classNameFound_ = methId_.getClassName();
+                realId_ = methId_.getConstraints();
             } else {
-                RootBlock sub_ = classes_.getClassBody(classToSearch_);
-                if (!sub_.getDefaultMethodIds().contains(idMethod_)) {
-                    continue;
-                }
-                idClass_ = sub_.getDefaultMethodIds().getVal(idMethod_);
-                classToSearch_ = idClass_.getClassName();
-                classToSearch_ = StringList.getAllTypes(classToSearch_).first();
-                idMethod_ = idClass_.getConstraints();
-                idClass_ = new ClassMethodId(classToSearch_, idMethod_);
-                MethodBlock def_ = classes_.getMethodBodiesById(classToSearch_, idMethod_).first();
-                if (!def_.isConcreteMethod()) {
-                    continue;
+                foundSuperClasses_.sortElts(new ComparatorIndexes<String>(allSuperClasses_));
+                classNameFound_ = foundSuperClasses_.first();
+                int i_ = 0;
+                while (true) {
+                    ClassMethodId methId_ = subClassBlock_.getAllOverridingMethods().getVal(l_).get(i_);
+                    if (StringList.quickEq(methId_.getClassName(), classNameFound_)) {
+                        realId_ = methId_.getConstraints();
+                        break;
+                    }
+                    i_++;
                 }
             }
-            eq_.put(name_, idClass_);
+            classNameFound_ = StringList.getAllTypes(classNameFound_).first();
+            eq_.put(name_, new ClassMethodId(classNameFound_, realId_));
         }
         return eq_;
     }
