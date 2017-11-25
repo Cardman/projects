@@ -890,8 +890,12 @@ public class RootBlockTest {
         ClassMethodId res_;
         RootBlock r_ = classes_.getClassBody("pkg.Ex");
         StringMap<ClassMethodId> concrete_ = r_.getConcreteMethodsToCall(id_, cont_);
-        assertEq(1, concrete_.size());
+        assertEq(2, concrete_.size());
         res_ = concrete_.getVal("pkg.Ex");
+        resId_ = new MethodId(false,"instancemethod", new EqList<ClassName>(new ClassName("#E", false)));
+        assertEq("pkg.Ex", res_.getClassName());
+        assertEq(resId_, res_.getConstraints());
+        res_ = concrete_.getVal("pkg.ExTwo");
         resId_ = new MethodId(false,"instancemethod", new EqList<ClassName>(new ClassName("#E", false)));
         assertEq("pkg.Ex", res_.getClassName());
         assertEq(resId_, res_.getConstraints());

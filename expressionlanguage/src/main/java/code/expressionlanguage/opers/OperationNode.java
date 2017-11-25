@@ -552,7 +552,15 @@ public abstract class OperationNode {
             out_.setConstId(ctor_.format(clCurName_, classes_));
             return out_;
         }
-        possibleMethods_ = filterCtr(glClass_, clCurName_, possibleMethods_, _conf);
+        CustList<ConstructorId> accessible_ = new CustList<ConstructorId>();
+        String curClassBase_ = StringList.getAllTypes(glClass_).first();
+        for (ConstructorId i: possibleMethods_) {
+            CustList<ConstructorBlock> ctors_ = _conf.getClasses().getConstructorBodiesById(clCurName_, i);
+            if (_conf.getClasses().canAccess(curClassBase_, ctors_.first())) {
+                accessible_.add(i);
+            }
+        }
+        possibleMethods_ = accessible_;
         if (possibleMethods_.isEmpty()) {
             String trace_ = clCurName_+PAR_LEFT;
             StringList classesNames_ = new StringList();
@@ -608,17 +616,6 @@ public abstract class OperationNode {
         out_.setRealId(ctor_);
         out_.setConstId(ctor_.format(clCurName_, classes_));
         return out_;
-    }
-    private static CustList<ConstructorId> filterCtr(String _glClass, String _accessedClass, CustList<ConstructorId> _found, ContextEl _conf) {
-        CustList<ConstructorId> accessible_ = new CustList<ConstructorId>();
-        String curClassBase_ = StringList.getAllTypes(_glClass).first();
-        for (ConstructorId i: _found) {
-            CustList<ConstructorBlock> ctors_ = _conf.getClasses().getConstructorBodiesById(_accessedClass, i);
-            if (_conf.getClasses().canAccess(curClassBase_, ctors_.first())) {
-                accessible_.add(i);
-            }
-        }
-        return accessible_;
     }
     static Constructor<?> getDeclaredConstructor(ContextEl _conf, int _varargOnly, int _offsetIncr, ClassArgumentMatching _class, ClassArgumentMatching..._args) {
         String className_ = _class.getName();
@@ -701,7 +698,7 @@ public abstract class OperationNode {
                 throw new VoidArgumentException(clCurName_+DOT+_name+RETURN_LINE+_conf.joinPages());
             }
         }
-        if (_superClass && classes_.getClassBody(baseClass_) instanceof InterfaceBlock) {
+        if (classes_.getClassBody(baseClass_) instanceof InterfaceBlock) {
             ClassMethodIdResult resInst_ = getDeclaredCustMethodByInterfaceInherit(_conf, _varargOnly, false, _class, _name, _superClass, _argsClass);
             boolean foundInst_ = false;
             if (!_staticContext) {
@@ -788,14 +785,21 @@ public abstract class OperationNode {
         MethodId id_ = idCl_.getConstraints();
         MethodId realId_ = _res.getRealId();
         idRet_.setRealId(realId_);
-        idRet_.setRealClass(_res.getRealClass());
+        String realClass_ = _res.getRealClass();
+        idRet_.setRealClass(realClass_);
         idRet_.setId(new ClassMethodId(clCurName_, id_));
         idRet_.setVarArgToCall(_res.isVarArgToCall());
-        CustList<MethodBlock> methods_ = classes_.getMethodBodiesById(_res.getRealClass(), realId_);
+        CustList<MethodBlock> methods_ = classes_.getMethodBodiesById(realClass_, realId_);
         MethodBlock m_ = methods_.first();
         idRet_.setMethod(m_);
         String ret_ = m_.getReturnType();
-        ret_ = Templates.generalFormat(clCurName_, ret_, classes_);
+        String formatted_;
+        if (!Templates.correctNbParameters(clCurName_, classes_)) {
+            formatted_ = clCurName_;
+        } else {
+            formatted_ = Templates.getFullTypeByBases(clCurName_, realClass_, classes_);
+        }
+        ret_ = Templates.generalFormat(formatted_, ret_, classes_);
         idRet_.setReturnType(ret_);
         idRet_.setStaticMethod(m_.isStaticMethod());
         idRet_.setAbstractMethod(m_.isAbstractMethod());
@@ -961,7 +965,7 @@ public abstract class OperationNode {
                 res_.setStatus(SearchingMemberStatus.UNIQ);
                 res_.setId(cl_);
                 className_ = Templates.getFullTypeByBases(clCurName_, className_, classes_);
-                if (_varargOnly == -1 && varArgWrap(classes_, glClass_, className_, realId_, _argsClass)) {
+                if (_varargOnly == -1 && varArgWrap(classes_, glClass_, className_, info_.getRealId(), _argsClass)) {
                     res_.setVarArgToCall(true);
                 }
                 res_.setRealId(info_.getRealId());
@@ -1010,13 +1014,14 @@ public abstract class OperationNode {
         Parametrables<MethodInfo> signatures_ = new Parametrables<MethodInfo>();
         for (ClassMethodId m: possibleMethods_) {
             ParametersGroup p_ = new ParametersGroup();
-            for (String c: m.getConstraints().getParametersTypes()) {
+            MethodId realId_ = _methods.getVal(m).getRealId();
+            for (String c: realId_.getParametersTypes()) {
                 p_.add(new ClassMatching(c));
             }
             MethodInfo mloc_ = new MethodInfo();
             mloc_.setClassName(m.getClassName());
             mloc_.setStatic(_methods.getVal(m).getModifier() == MethodModifier.STATIC);
-            mloc_.setConstraints(_methods.getVal(m).getRealId());
+            mloc_.setConstraints(realId_);
             mloc_.setParameters(p_);
             mloc_.setReturnType(_methods.getVal(m).getReturnType());
             signatures_.add(mloc_);
@@ -1042,7 +1047,7 @@ public abstract class OperationNode {
             if (_varargOnly == -1 && varArgWrap(classes_, glClass_, clCurName_, constraints_, _argsClass)) {
                 res_.setVarArgToCall(true);
             }
-            res_.setRealId(info_.getRealId());
+            res_.setRealId(constraints_);
             res_.setRealClass(info_.getClassName());
             return res_;
         }
@@ -1052,10 +1057,10 @@ public abstract class OperationNode {
         res_.setStatus(SearchingMemberStatus.UNIQ);
         res_.setId(cl_);
         String formattedType_ = Templates.getFullTypeByBases(clCurName_, className_, classes_);
-        if (_varargOnly == -1 && varArgWrap(classes_, glClass_, formattedType_, info_.getRealId(), _argsClass)) {
+        if (_varargOnly == -1 && varArgWrap(classes_, glClass_, formattedType_, constraints_, _argsClass)) {
             res_.setVarArgToCall(true);
         }
-        res_.setRealId(info_.getRealId());
+        res_.setRealId(constraints_);
         res_.setRealClass(info_.getClassName());
         return res_;
     }

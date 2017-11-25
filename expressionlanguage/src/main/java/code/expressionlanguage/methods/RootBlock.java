@@ -603,7 +603,7 @@ public abstract class RootBlock extends BracedBlock implements AccessibleBlock {
                 _context.getClasses().getErrorsDet().add(err_);
             }
         }
-        er_ = RootBlock.areModifierCompatible(ov_, _context.getClasses());
+        er_ = RootBlock.areModifierCompatible(ov_, vars_, _context.getClasses());
         for (EntryCust<MethodId, EqList<ClassMethodId>> e: er_.entryList()) {
             for (ClassMethodId s: e.getValue()) {
                 String s_ = s.getClassName();
@@ -667,7 +667,7 @@ public abstract class RootBlock extends BracedBlock implements AccessibleBlock {
                 _context.getClasses().getErrorsDet().add(err_);
             }
         }
-        er_ = RootBlock.areModifierCompatible(ov_, _context.getClasses());
+        er_ = RootBlock.areModifierCompatible(ov_, vars_, _context.getClasses());
         for (EntryCust<MethodId, EqList<ClassMethodId>> e: er_.entryList()) {
             for (ClassMethodId s: e.getValue()) {
                 String s_ = s.getClassName();
@@ -913,7 +913,7 @@ public abstract class RootBlock extends BracedBlock implements AccessibleBlock {
             }
         }
         ObjectMap<MethodId, ClassMethodId> def_;
-        def_ = RootBlock.defaultMethods(signatures_, classesRef_);
+        def_ = RootBlock.defaultMethods(ov_, classesRef_);
         for (EntryCust<MethodId, ClassMethodId> e: def_.entryList()) {
             ClassMethodId v_ = e.getValue();
             String e_ = v_.getClassName();
@@ -1019,8 +1019,7 @@ public abstract class RootBlock extends BracedBlock implements AccessibleBlock {
             if (!classes_.getClassBody(name_).mustImplement()) {
                 continue;
             }
-            String subClass_ = name_;
-            UniqueRootedBlock subClassBlock_ = (UniqueRootedBlock) classes_.getClassBody(subClass_);
+            UniqueRootedBlock subClassBlock_ = (UniqueRootedBlock) classes_.getClassBody(name_);
             if (subClassBlock_ instanceof EnumBlock) {
                 if (_realId.eq(new MethodId(false, OperationNode.METH_NAME, new EqList<ClassName>()))) {
                     continue;
@@ -1029,65 +1028,72 @@ public abstract class RootBlock extends BracedBlock implements AccessibleBlock {
                     continue;
                 }
             }
-            String gene_ = subClassBlock_.getGenericString();
-            String v_ = Templates.getFullTypeByBases(gene_, baseClassFound_, classes_);
-            MethodId l_ = _realId.format(v_, classes_);
-            ObjectMap<MethodId, EqList<ClassMethodId>> ov_ = subClassBlock_.getAllOverridingMethods();
-            if (!ov_.contains(l_)) {
-                continue;
-            }
-            boolean found_ = false;
-            StringList allBaseClasses_ = new StringList(subClass_);
+            StringList allBaseClasses_ = new StringList(name_);
             allBaseClasses_.addAllElts(subClassBlock_.getAllSuperClasses());
-            StringList foundSuperClasses_ = new StringList();
-            StringList allSuperClasses_ = new StringList(gene_);
-            for (String t: subClassBlock_.getAllSuperClasses()) {
-                allSuperClasses_.add(Templates.getFullTypeByBases(gene_, t, classes_));
-            }
-            EqList<ClassMethodId> list_ = ov_.getVal(l_);
-            //pkg.ExTwo & pkg.Int3
-            for (ClassMethodId t: list_) {
-                String t_ = t.getClassName();
-                String baseSuperType_ = StringList.getAllTypes(t_).first();
-                if (StringList.quickEq(baseSuperType_, baseClassFound_)) {
-                    found_ = true;
-                }
-                if (classes_.getClassBody(baseSuperType_) instanceof InterfaceBlock) {
+            for (String s: allBaseClasses_) {
+                if (!PrimitiveTypeUtil.canBeUseAsArgument(baseClassFound_, s, classes_)) {
                     continue;
                 }
-                foundSuperClasses_.add(t_);
-            }
-            if (subClassBlock_.getDefaultMethodIds().contains(l_)) {
-                // => no super class is found in getAllOverridingMethods
-                found_ = true;
-            }
-            if (!found_) {
-                continue;
-            }
-            String classNameFound_;
-            MethodId realId_;
-            foundSuperClasses_.sortElts(new ComparatorIndexes<String>(allSuperClasses_));
-            if (subClassBlock_.getDefaultMethodIds().contains(l_)) {
-                foundSuperClasses_.add(subClassBlock_.getDefaultMethodIds().getVal(l_).getClassName());
-            }
-            if (foundSuperClasses_.isEmpty()) {
-                continue;
-            }
-            classNameFound_ = foundSuperClasses_.first();
-            int i_ = 0;
-            while (true) {
-                ClassMethodId methId_ = list_.get(i_);
-                if (StringList.quickEq(methId_.getClassName(), classNameFound_)) {
-                    realId_ = methId_.getConstraints();
-                    break;
+                RootBlock r_ = classes_.getClassBody(s);
+                String gene_ = r_.getGenericString();
+                String v_ = Templates.getFullTypeByBases(gene_, baseClassFound_, classes_);
+                MethodId l_ = _realId.format(v_, classes_);
+                ObjectMap<MethodId, EqList<ClassMethodId>> ov_ = r_.getAllOverridingMethods();
+                if (!ov_.contains(l_)) {
+                    continue;
                 }
-                i_++;
+                boolean found_ = false;
+                StringList foundSuperClasses_ = new StringList();
+                StringList allSuperClasses_ = new StringList(gene_);
+                for (String t: r_.getAllSuperClasses()) {
+                    allSuperClasses_.add(Templates.getFullTypeByBases(gene_, t, classes_));
+                }
+                EqList<ClassMethodId> list_ = ov_.getVal(l_);
+                //pkg.ExTwo & pkg.Int3
+                for (ClassMethodId t: list_) {
+                    String t_ = t.getClassName();
+                    String baseSuperType_ = StringList.getAllTypes(t_).first();
+                    if (StringList.quickEq(baseSuperType_, baseClassFound_)) {
+                        found_ = true;
+                    }
+                    if (classes_.getClassBody(baseSuperType_) instanceof InterfaceBlock) {
+                        continue;
+                    }
+                    foundSuperClasses_.add(t_);
+                }
+                if (r_.getDefaultMethodIds().contains(l_)) {
+                    // => no super class is found in getAllOverridingMethods
+                    found_ = true;
+                }
+                if (!found_) {
+                    continue;
+                }
+                String classNameFound_;
+                MethodId realId_;
+                foundSuperClasses_.sortElts(new ComparatorIndexes<String>(allSuperClasses_));
+                if (r_.getDefaultMethodIds().contains(l_)) {
+                    foundSuperClasses_.add(r_.getDefaultMethodIds().getVal(l_).getClassName());
+                }
+                if (foundSuperClasses_.isEmpty()) {
+                    continue;
+                }
+                classNameFound_ = foundSuperClasses_.first();
+                int i_ = 0;
+                while (true) {
+                    ClassMethodId methId_ = list_.get(i_);
+                    if (StringList.quickEq(methId_.getClassName(), classNameFound_)) {
+                        realId_ = methId_.getConstraints();
+                        break;
+                    }
+                    i_++;
+                }
+                classNameFound_ = StringList.getAllTypes(classNameFound_).first();
+                if (classes_.getMethodBodiesById(classNameFound_, realId_).first().isAbstractMethod()) {
+                    continue;
+                }
+                eq_.put(name_, new ClassMethodId(classNameFound_, realId_));
+                break;
             }
-            classNameFound_ = StringList.getAllTypes(classNameFound_).first();
-            if (classes_.getMethodBodiesById(classNameFound_, realId_).first().isAbstractMethod()) {
-                continue;
-            }
-            eq_.put(name_, new ClassMethodId(classNameFound_, realId_));
         }
         return eq_;
     }
@@ -1149,6 +1155,7 @@ public abstract class RootBlock extends BracedBlock implements AccessibleBlock {
                     continue;
                 }
                 String subType_ = sub_.getReturnType();
+                subType_ = Templates.format(name_, subType_, _classes);
                 mapping_.setArg(subType_);
                 for (ClassMethodId s: e.getValue()) {
                     String supName_ = s.getClassName();
@@ -1209,9 +1216,21 @@ public abstract class RootBlock extends BracedBlock implements AccessibleBlock {
                 String ret_ = sup_.getReturnType();
                 retClasses_.add(Templates.format(name_, ret_, _classes));
             }
-            if (!retClasses_.isEmpty() && PrimitiveTypeUtil.getSubslass(retClasses_, _vars, _classes).isEmpty()) {
-                for (ClassMethodId c: classes_) {
-                    addClass(output_, e.getKey(), c);
+            if (!retClasses_.isEmpty()) {
+                if (PrimitiveTypeUtil.getSubslass(retClasses_, _vars, _classes).isEmpty()) {
+                    for (ClassMethodId c: classes_) {
+                        addClass(output_, e.getKey(), c);
+                    }
+                } else {
+                    StringMap<StringList> map_ = Classes.getBaseParams(retClasses_);
+                    for (EntryCust<String,StringList> m:map_.entryList()) {
+                        if (m.getValue().size() > 1) {
+                            for (ClassMethodId c: classes_) {
+                                addClass(output_, e.getKey(), c);
+                            }
+                            break;
+                        }
+                    }
                 }
             }
         }
@@ -1219,7 +1238,7 @@ public abstract class RootBlock extends BracedBlock implements AccessibleBlock {
     }
 
     public static ObjectMap<MethodId, EqList<ClassMethodId>> areModifierCompatible(
-            ObjectMap<MethodId, EqList<ClassMethodId>> _methodIds, Classes _classes) {
+            ObjectMap<MethodId, EqList<ClassMethodId>> _methodIds, StringMap<StringList> _vars, Classes _classes) {
         ObjectMap<MethodId, EqList<ClassMethodId>> output_;
         output_ = new ObjectMap<MethodId, EqList<ClassMethodId>>();
         for (EntryCust<MethodId, EqList<ClassMethodId>> e: _methodIds.entryList()) {
@@ -1269,15 +1288,10 @@ public abstract class RootBlock extends BracedBlock implements AccessibleBlock {
                 Mapping map_ = new Mapping();
                 ClassMethodId subInt_ = fClasses_.first();
                 String subIntName_ = subInt_.getClassName();
-                String subIntBase_ = StringList.getAllTypes(subIntName_).first();
-                RootBlock r_ = _classes.getClassBody(subIntBase_);
-                StringMap<StringList> vars_ = new StringMap<StringList>();
-                for (TypeVar t: r_.getParamTypes()) {
-                    vars_.put(t.getName(), t.getConstraints());
-                }
-                map_.getMapping().putAllMap(vars_);
+                map_.getMapping().putAllMap(_vars);
                 MethodBlock sub_ = _classes.getMethodBodiesById(subIntName_, subInt_.getConstraints()).first();
                 String subType_ = sub_.getReturnType();
+                subType_ = Templates.format(subIntName_, subType_, _classes);
                 map_.setParam(subType_);
                 for (ClassMethodId s: e.getValue()) {
                     String s_ = s.getClassName();

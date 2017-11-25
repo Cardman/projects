@@ -104,8 +104,6 @@ public final class FctOperation extends InvokingOperation {
 
     private int naturalVararg = -1;
 
-    private StringMap<ClassMethodId> overriding = new StringMap<ClassMethodId>();
-
     public FctOperation(int _index, ContextEl _importingPage,
             int _indexChild, MethodOperation _m, OperationsSequence _op) {
         super(_index, _importingPage, _indexChild, _m, _op);
@@ -552,10 +550,8 @@ public final class FctOperation extends InvokingOperation {
         } else {
             String foundClass_ = clMeth_.getRealClass();
             foundClass_ = StringList.getAllTypes(foundClass_).first();
-            RootBlock info_ = classes_.getClassBody(foundClass_);
             MethodId id_ = m_.getId();
-            classMethodId = new ClassMethodId(m_.getDeclaringType(), id_);
-            overriding = info_.getConcreteMethodsToCall(id_, _conf);
+            classMethodId = new ClassMethodId(foundClass_, id_);
         }
         realId = m_.getId();
         if (clMeth_.isVarArgToCall()) {
@@ -901,11 +897,16 @@ public final class FctOperation extends InvokingOperation {
                 }
                 methodId_ = realId;
             } else {
+                classNameFound_ = classMethodId.getClassName();
                 String argClassName_ = arg_.getObjectClassName();
                 argClassName_ = Templates.getGenericString(argClassName_, classes_);
                 String base_ = StringList.getAllTypes(argClassName_).first();
-                if (overriding.contains(base_)) {
-                    ClassMethodId res_ = overriding.getVal(base_);
+                classNameFound_ = StringList.getAllTypes(classNameFound_).first();
+                RootBlock info_ = classes_.getClassBody(classNameFound_);
+                MethodId id_ = classMethodId.getConstraints();
+                StringMap<ClassMethodId> overriding_ = info_.getConcreteMethodsToCall(id_, _conf);
+                if (overriding_.contains(base_)) {
+                    ClassMethodId res_ = overriding_.getVal(base_);
                     classNameFound_ = res_.getClassName();
                     methodId_ = res_.getConstraints();
                 } else {
