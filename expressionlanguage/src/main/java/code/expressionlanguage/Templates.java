@@ -149,7 +149,7 @@ public final class Templates {
         String generic_ = null;
         if (StringList.quickEq(_subType, _superType)) {
             generic_ = _subType;
-        } else if (StringList.quickEq(baseSubType_, _superType)) {
+        } else if (StringList.quickEq(baseSubType_, baseSuperType_)) {
             generic_ = _subType;
         }
         if (generic_ == null) {

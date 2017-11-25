@@ -550,19 +550,19 @@ public final class FctOperation extends InvokingOperation {
                 classMethodId = clMeth_.getId();
             }
         } else {
-            classMethodId = clMeth_.getId();
-            String foundClass_ = classMethodId.getClassName();
+            String foundClass_ = clMeth_.getRealClass();
             foundClass_ = StringList.getAllTypes(foundClass_).first();
             RootBlock info_ = classes_.getClassBody(foundClass_);
-            MethodId id_ = clMeth_.getRealId();
+            MethodId id_ = m_.getId();
+            classMethodId = new ClassMethodId(m_.getDeclaringType(), id_);
             overriding = info_.getConcreteMethodsToCall(id_, _conf);
         }
+        realId = m_.getId();
         if (clMeth_.isVarArgToCall()) {
             StringList paramtTypes_ = clMeth_.getId().getConstraints().getParametersTypes();
             naturalVararg = paramtTypes_.size() - 1;
             lastType = paramtTypes_.last();
         }
-        realId = clMeth_.getRealId();
         superAccessMethod = superAccessMethod_;
         staticChoiceMethod = staticChoiceMethod_;
         staticMethod = clMeth_.isStaticMethod();
@@ -860,8 +860,8 @@ public final class FctOperation extends InvokingOperation {
                     return ArgumentCall.newArgument(argres_);
                 }
             }
-            classNameFound_ = classMethodId.getClassName();
             if (staticChoiceMethod) {
+                classNameFound_ = classMethodId.getClassName();
                 if (!superAccessMethod) {
                     String argClassName_ = arg_.getObjectClassName();
                     if (staticChoiceMethodTemplate) {
@@ -898,11 +898,8 @@ public final class FctOperation extends InvokingOperation {
                         }
                         indexType_++;
                     }
-                    methodId_ = realId;
-                } else {
-                    classNameFound_ = classMethodId.getClassName();
-                    methodId_ = realId;
                 }
+                methodId_ = realId;
             } else {
                 String argClassName_ = arg_.getObjectClassName();
                 argClassName_ = Templates.getGenericString(argClassName_, classes_);
@@ -912,6 +909,7 @@ public final class FctOperation extends InvokingOperation {
                     classNameFound_ = res_.getClassName();
                     methodId_ = res_.getConstraints();
                 } else {
+                    classNameFound_ = classMethodId.getClassName();
                     methodId_ = realId;
                 }
             }
