@@ -27,7 +27,7 @@ public final class Constants {
         }
     }
 
-    public static Iterable<String> getAvailableLanguages() {
+    public static StringList getAvailableLanguages() {
         return new StringList(Languages.getLanguages());
     }
 

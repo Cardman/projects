@@ -72,7 +72,7 @@ public final class StringList extends AbEqList<String> implements Equallable<Str
         super(_capacity);
     }
 
-    public static boolean equalsSet(Listable<String> _list1,Listable<String> _list2) {
+    public static boolean equalsSet(StringList _list1,StringList _list2) {
         for (String c: _list2) {
             boolean contains_ = false;
             for (String d: _list1) {
@@ -140,49 +140,8 @@ public final class StringList extends AbEqList<String> implements Equallable<Str
         }
         return true;
     }
-    public static boolean equalsSet(Listable<String> _list1,Iterable<String> _list2) {
-        for (String c: _list2) {
-            boolean contains_ = false;
-            for (String d: _list1) {
-                if (c == null) {
-                    if (d == null) {
-                        contains_ = true;
-                        break;
-                    }
-                    continue;
-                }
-                if (d != null && quickEq(c, d)) {
-                    contains_ = true;
-                    break;
-                }
-            }
-            if (!contains_) {
-                return false;
-            }
-        }
-        for (String c: _list1) {
-            boolean contains_ = false;
-            for (String d: _list2) {
-                if (c == null) {
-                    if (d == null) {
-                        contains_ = true;
-                        break;
-                    }
-                    continue;
-                }
-                if (d != null && quickEq(c, d)) {
-                    contains_ = true;
-                    break;
-                }
-            }
-            if (!contains_) {
-                return false;
-            }
-        }
-        return true;
-    }
 
-    public static boolean eqStrings(Listable<String> _list1,Listable<String> _list2) {
+    public static boolean eqStrings(StringList _list1,StringList _list2) {
         if (_list1 == null) {
             return _list2 == null;
         }
