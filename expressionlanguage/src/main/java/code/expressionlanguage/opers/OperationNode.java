@@ -812,7 +812,7 @@ public abstract class OperationNode {
             }
             String formatted_ = Templates.getFullTypeByBases(clCurName_, s, classes_);
             ObjectNotNullMap<ClassMethodId, MethodMetaInfo> methods_;
-            methods_ = getDeclaredCustMethodByType(_conf, _varargOnly, _static, clCurName_, new ClassArgumentMatching(formatted_), _name, _argsClass);
+            methods_ = getDeclaredCustMethodByType(_conf, _varargOnly, _static, _superClass, clCurName_, new ClassArgumentMatching(formatted_), _name, _argsClass);
             ClassMethodIdResult res_ = getCustResult(_conf, _varargOnly, methods_, correctTemplated_, _name, _argsClass);
             if (res_.getStatus() == SearchingMemberStatus.ZERO) {
                 if (!_superClass) {
@@ -837,7 +837,7 @@ public abstract class OperationNode {
             }
             String formatted_ = Templates.getFullTypeByBases(clCurName_, s, classes_);
             ObjectNotNullMap<ClassMethodId, MethodMetaInfo> methods_;
-            methods_ = getDeclaredCustMethodByType(_conf, _varargOnly, _static, clCurName_, new ClassArgumentMatching(formatted_), _name, _argsClass);
+            methods_ = getDeclaredCustMethodByType(_conf, _varargOnly, _static, _superClass, clCurName_, new ClassArgumentMatching(formatted_), _name, _argsClass);
             ClassMethodIdResult res_ = getCustResult(_conf, _varargOnly, methods_, correctTemplated_, _name, _argsClass);
             if (res_.getStatus() == SearchingMemberStatus.ZERO) {
                 if (!_superClass) {
@@ -864,7 +864,7 @@ public abstract class OperationNode {
     }
     private static ObjectNotNullMap<ClassMethodId, MethodMetaInfo>
             getDeclaredCustMethodByType(ContextEl _conf, int _varargOnly,
-            boolean _static, String _fromClass, ClassArgumentMatching _class, String _name, ClassArgumentMatching... _argsClass) {
+            boolean _static, boolean _superClass, String _fromClass, ClassArgumentMatching _class, String _name, ClassArgumentMatching... _argsClass) {
         Classes classes_ = _conf.getClasses();
         String clCurName_ = _class.getName();
         String baseCurName_ = StringList.getAllTypes(clCurName_).first();
@@ -913,7 +913,7 @@ public abstract class OperationNode {
                 methods_.put(clId_, info_);
             }
         }
-        if (!_static) {
+        if (!_static && _superClass) {
             for (EntryCust<MethodId, ClassMethodId> e: root_.getDefaultMethodIds().entryList()) {
                 ClassMethodId idCl_ = e.getValue();
                 String cl_ = idCl_.getClassName();
@@ -922,12 +922,7 @@ public abstract class OperationNode {
                 String ret_ = m_.getReturnType();
                 ret_ = Templates.generalFormat(cl_, ret_, classes_);
                 ret_ = Templates.generalFormat(clCurName_, ret_, classes_);
-                String formattedClass_;
-                if (Templates.correctNbParameters(clCurName_, classes_)) {
-                    formattedClass_ = Templates.getFullTypeByBases(clCurName_, cl_, classes_);
-                } else {
-                    formattedClass_ = StringList.getAllTypes(cl_).first();
-                }
+                String formattedClass_ = Templates.getFullTypeByBases(clCurName_, cl_, classes_);
                 MethodMetaInfo info_ = new MethodMetaInfo(formattedClass_, id_, MethodModifier.NORMAL, ret_);
                 methods_.put(new ClassMethodId(cl_, e.getKey()), info_);
             }

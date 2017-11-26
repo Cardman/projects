@@ -1176,8 +1176,8 @@ public final class Classes {
         _context.setAnalyzing(page_);
         for (String c: classesInheriting) {
             RootBlock bl_ = classesBodies.getVal(c);
-            bl_.checkCompatibility(_context);
             bl_.setupBasicOverrides(_context);
+            bl_.checkCompatibility(_context);
             bl_.checkImplements(_context);
         }
         for (String c: classesInheriting) {

@@ -7535,7 +7535,7 @@ public class ProcessXmlMethodTest {
         field_ = str_.getFields().getVal(new ClassField("pkgtwo.ExThree", "ance"));
         assertEq(Integer.class.getName(), field_.getRealClassName());
         assertEq(Integer.class.getName(), field_.getClassName());
-        assertEq(2, (Number)field_.getInstance());
+        assertEq(5, (Number)field_.getInstance());
     }
 
     @Test
@@ -7574,7 +7574,7 @@ public class ProcessXmlMethodTest {
         field_ = str_.getFields().getVal(new ClassField("pkgtwo.ExThree", "ance"));
         assertEq(Integer.class.getName(), field_.getRealClassName());
         assertEq(Integer.class.getName(), field_.getClassName());
-        assertEq(2, (Number)field_.getInstance());
+        assertEq(5, (Number)field_.getInstance());
     }
 
     @Test
@@ -8057,7 +8057,8 @@ public class ProcessXmlMethodTest {
         xml_ += "</class>\n";
         files_.put("pkg/Ex."+Classes.EXT, xml_);
         xml_ = "<class access='"+PUBLIC_ACCESS+"' modifier='abstract' name='ExTwo' package='pkgtwo'>\n";
-        xml_ += "<method access='"+PACKAGE_ACCESS+"' modifier='abstract' name='getter' class='"+PrimitiveTypeUtil.PRIM_INT+"'>\n";
+        xml_ += "<method access='"+PACKAGE_ACCESS+"' modifier='final' name='getter' class='"+PrimitiveTypeUtil.PRIM_INT+"'>\n";
+        xml_ += "<return expression='5i'/>\n";
         xml_ += "</method>\n";
         xml_ += "</class>\n";
         files_.put("pkgtwo/ExTwo."+Classes.EXT, xml_);
@@ -8081,7 +8082,7 @@ public class ProcessXmlMethodTest {
         field_ = str_.getFields().getVal(new ClassField("pkgtwo.ExThree", "ance"));
         assertEq(Integer.class.getName(), field_.getRealClassName());
         assertEq(Integer.class.getName(), field_.getClassName());
-        assertEq(2, (Number)field_.getInstance());
+        assertEq(5, (Number)field_.getInstance());
     }
     @Test
     public void instanceArgument56Test() {
@@ -11297,6 +11298,41 @@ public class ProcessXmlMethodTest {
         assertEq(ARR_INTEGER, field_.getClassName());
         Object[] array_ = (Object[]) field_.getInstance();
         assertEq(2, (Number) array_[0]);
+    }
+    @Test
+    public void instanceArgument110Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = new ContextEl();
+        String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' superclass='pkgtwo.ExTwo'>\n";
+        xml_ += "</class>\n";
+        files_.put("pkg/Ex."+Classes.EXT, xml_);
+        xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExTwo' package='pkgtwo'>\n";
+        xml_ += "<method access='"+PACKAGE_ACCESS+"' modifier='normal' name='getter' class='"+PrimitiveTypeUtil.PRIM_INT+"'>\n";
+        xml_ += "<return expression='5i'/>\n";
+        xml_ += "</method>\n";
+        xml_ += "</class>\n";
+        files_.put("pkgtwo/ExTwo."+Classes.EXT, xml_);
+        xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExThree' package='pkgtwo'>\n";
+        xml_ += "<field access='"+PUBLIC_ACCESS+"' name='inst' class='pkgtwo.ExTwo' value='^new.pkg.Ex()'/>\n";
+        xml_ += "<field access='"+PUBLIC_ACCESS+"' name='ance' class='"+PrimitiveTypeUtil.PRIM_INT+"' value='inst;;;getter()'/>\n";
+        xml_ += "</class>\n";
+        files_.put("pkgtwo/ExThree."+Classes.EXT, xml_);
+        cont_.setAccessValue(new AccessValueEx());
+        Classes.validateAll(files_, cont_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        ConstructorId id_ = getConstructorId("pkgtwo.ExThree");
+        ProcessXmlMethod.initializeClass("pkgtwo.ExThree", cont_);
+        Argument ret_;
+        ret_ = instanceArgument("pkgtwo.ExThree", null, id_, args_, cont_);
+        assertTrue(cont_.getClasses().isInitialized("pkgtwo.ExThree"));
+        Struct str_ = ret_.getStruct();
+        assertEq(CustBase.class.getName(), str_.getRealClassName());
+        assertEq("pkgtwo.ExThree", str_.getClassName());
+        Struct field_;
+        field_ = str_.getFields().getVal(new ClassField("pkgtwo.ExThree", "ance"));
+        assertEq(Integer.class.getName(), field_.getRealClassName());
+        assertEq(Integer.class.getName(), field_.getClassName());
+        assertEq(5, (Number)field_.getInstance());
     }
     @Test(expected=UndefinedConstructorException.class)
     public void validateAll1FailTest() {

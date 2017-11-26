@@ -745,9 +745,8 @@ public class RootBlockTest {
         StringList superTypes_ = map_.getVal(new MethodId(false, "instancemethod", new EqList<ClassName>()));
         assertEq(1, map_.size());
         superTypes_ = map_.getVal(new MethodId(false, "instancemethod", new EqList<ClassName>()));
-        assertEq(2, superTypes_.size());
+        assertEq(1, superTypes_.size());
         assertEq("pkg.ExTwo", superTypes_.first());
-        assertEq("pkg.Ex", superTypes_.last());
         map_ = toList(classes_.getClassBody("pkg.Ex").getAllOverridingMethods());
         assertEq(1, map_.size());
         superTypes_ = map_.getVal(new MethodId(false, "instancemethod", new EqList<ClassName>()));
