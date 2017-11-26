@@ -1019,7 +1019,13 @@ public abstract class OperationNode {
                 p_.add(new ClassMatching(c));
             }
             MethodInfo mloc_ = new MethodInfo();
-            mloc_.setClassName(m.getClassName());
+            String formattedType_;
+            if (!Templates.correctNbParameters(clCurName_, classes_)) {
+                formattedType_ = m.getClassName();
+            } else {
+                formattedType_ = Templates.getFullTypeByBases(clCurName_, m.getClassName(), classes_);
+            }
+            mloc_.setClassName(formattedType_);
             mloc_.setStatic(_methods.getVal(m).getModifier() == MethodModifier.STATIC);
             mloc_.setConstraints(realId_);
             mloc_.setParameters(p_);
@@ -1541,6 +1547,13 @@ public abstract class OperationNode {
         if (Templates.isCorrect(mapping_, classes_)) {
             return CustList.SWAP_SORT;
         }
+        mapping_.setArg(_o1.getReturnType());
+        mapping_.setParam(_o2.getReturnType());
+        if (Templates.isCorrect(mapping_, classes_)) {
+            return CustList.NO_SWAP_SORT;
+        }
+        _o1.getParameters().setError(true);
+        _o2.getParameters().setError(true);
         return CustList.NO_SWAP_SORT;
     }
     static void checkArgumentsForInvoking(ContextEl _cont,boolean _natvararg, StringList _params,Struct... _args) {
