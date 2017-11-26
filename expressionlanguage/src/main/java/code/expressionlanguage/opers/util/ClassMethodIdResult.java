@@ -18,6 +18,10 @@ public class ClassMethodIdResult {
 
     private boolean varArgToCall;
 
+    private boolean correctTemplated;
+
+    private String returnType;
+
     public ClassMethodId getId() {
         return id;
     }
@@ -73,4 +77,21 @@ public class ClassMethodIdResult {
     public void setVarArgToCall(boolean _varArgToCall) {
         varArgToCall = _varArgToCall;
     }
+
+    public boolean isCorrectTemplated() {
+        return correctTemplated;
+    }
+
+    public void setCorrectTemplated(boolean _correctTemplated) {
+        correctTemplated = _correctTemplated;
+    }
+
+    public String getReturnType() {
+        return returnType;
+    }
+
+    public void setReturnType(String _returnType) {
+        returnType = _returnType;
+    }
+
 }
