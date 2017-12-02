@@ -1863,8 +1863,8 @@ public final class Classes {
     }
     public void preInitializeStaticFields(String _className) {
         String base_ = StringList.getAllTypes(_className).first();
-        StringMap<FieldBlock> fieldsInfos_;
-        fieldsInfos_ = new StringMap<FieldBlock>();
+        ObjectMap<ClassField, FieldBlock> fieldsInfos_;
+        fieldsInfos_ = new ObjectMap<ClassField, FieldBlock>();
         for (EntryCust<String, RootBlock> c: classesBodies.entryList()) {
             String k_ = c.getKey();
             if (!StringList.quickEq(k_, base_)) {
@@ -1880,7 +1880,7 @@ public final class Classes {
                         staticFields.put(new ClassField(base_, m_), str_);
                         continue;
                     }
-                    fieldsInfos_.put(m_, method_);
+                    fieldsInfos_.put(new ClassField(base_, m_), method_);
                 }
             }
         }
@@ -1902,7 +1902,7 @@ public final class Classes {
                         if (method_.isStaticField()) {
                             continue;
                         }
-                        fieldsInfos_.put(m_, method_);
+                        fieldsInfos_.put(new ClassField(s, m_), method_);
                     }
                 }
             }
@@ -1923,10 +1923,9 @@ public final class Classes {
                     enum_ = new CustEnum(base_, m_, i_);
                     ObjectMap<ClassField,Struct> fields_;
                     fields_ = new ObjectMap<ClassField,Struct>();
-                    for (EntryCust<String, FieldBlock> f: fieldsInfos_.entryList()) {
-                        String f_ = f.getKey();
+                    for (EntryCust<ClassField, FieldBlock> f: fieldsInfos_.entryList()) {
                         FieldBlock inf_ = f.getValue();
-                        fields_.put(new ClassField(base_, f_), inf_.getDefaultStruct());
+                        fields_.put(f.getKey(), inf_.getDefaultStruct());
                     }
                     Struct str_;
                     str_ = new Struct(enum_, base_, fields_);

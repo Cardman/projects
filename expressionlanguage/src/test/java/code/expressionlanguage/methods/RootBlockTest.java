@@ -791,10 +791,10 @@ public class RootBlockTest {
         superTypes_ = map_.getVal(new MethodId(false, "instancemethod", new EqList<ClassName>(new ClassName("#F", false))));
         assertEq(1, superTypes_.size());
         assertEq("pkg.Int<#F>", superTypes_.first());
-        MethodId id_ = new MethodId(false,"instancemethod", new EqList<ClassName>(new ClassName("#T", false)));
+        MethodId id_ = new MethodId(false,"instancemethod", new EqList<ClassName>(new ClassName("#F", false)));
         MethodId resId_;
         ClassMethodId res_;
-        RootBlock r_ = classes_.getClassBody("pkg.ExTwo");
+        RootBlock r_ = classes_.getClassBody("pkg.Int");
         StringMap<ClassMethodId> concrete_ = r_.getConcreteMethodsToCall(id_, cont_);
         assertEq(1, concrete_.size());
         assertTrue(concrete_.contains("pkg.ExTwo"));
