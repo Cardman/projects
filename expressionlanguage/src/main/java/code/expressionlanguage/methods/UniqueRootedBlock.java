@@ -27,8 +27,6 @@ public interface UniqueRootedBlock {
 
     StringList getAllInterfaces();
 
-    ObjectMap<MethodId, ClassMethodId> getDefaultMethodIds();
-
     String getGenericString();
 
     ObjectMap<MethodId, EqList<ClassMethodId>> getAllOverridingMethods();
