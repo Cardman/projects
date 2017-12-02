@@ -3,14 +3,17 @@ package code.expressionlanguage.methods;
 import org.w3c.dom.Element;
 
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.Mapping;
 import code.expressionlanguage.Templates;
 import code.expressionlanguage.methods.exceptions.CyclicCallingException;
 import code.expressionlanguage.methods.exceptions.UndefinedSuperConstructorException;
 import code.expressionlanguage.methods.util.BadAccessMethod;
 import code.expressionlanguage.methods.util.BadInheritedClass;
+import code.expressionlanguage.methods.util.BadReturnTypeInherit;
 import code.expressionlanguage.methods.util.ConstructorEdge;
 import code.expressionlanguage.methods.util.DuplicateParamMethod;
 import code.expressionlanguage.methods.util.ReservedMethod;
+import code.expressionlanguage.methods.util.TypeVar;
 import code.expressionlanguage.opers.OperationNode;
 import code.expressionlanguage.opers.util.ClassMetaInfo;
 import code.expressionlanguage.opers.util.ClassName;
@@ -23,6 +26,7 @@ import code.util.EqList;
 import code.util.NatTreeMap;
 import code.util.ObjectNotNullMap;
 import code.util.StringList;
+import code.util.StringMap;
 import code.util.graphs.Graph;
 import code.xml.RowCol;
 
@@ -129,6 +133,10 @@ public final class EnumBlock extends RootBlock implements UniqueRootedBlock {
             }
         }
         useSuperTypesOverrides(_context);
+        StringMap<StringList> vars_ = new StringMap<StringList>();
+        for (TypeVar t: getParamTypes()) {
+            vars_.put(t.getName(), t.getConstraints());
+        }
         String gene_ = getGenericString();
         StringList classes_ = new StringList(gene_);
         classes_.addAllElts(classNames_);
@@ -156,6 +164,37 @@ public final class EnumBlock extends RootBlock implements UniqueRootedBlock {
                         err_.setFileName(getFullName());
                         err_.setRc(m.getAttributes().getVal(ATTRIBUTE_ACCESS));
                         err_.setId(m.getId());
+                        classesRef_.getErrorsDet().add(err_);
+                    }
+                    String retBase_ = m.getReturnType();
+                    String retDerive_ = mBase_.getReturnType();
+                    String formattedRetDer_ = Templates.format(c, retDerive_, classesRef_);
+                    String formattedRetBase_ = Templates.format(s, retBase_, classesRef_);
+                    Mapping mapping_ = new Mapping();
+                    mapping_.getMapping().putAllMap(vars_);
+                    mapping_.setArg(formattedRetDer_);
+                    mapping_.setParam(formattedRetBase_);
+                    if (StringList.quickEq(retBase_, OperationNode.VOID_RETURN)) {
+                        if (!StringList.quickEq(retDerive_, OperationNode.VOID_RETURN)) {
+                            BadReturnTypeInherit err_;
+                            err_ = new BadReturnTypeInherit();
+                            err_.setFileName(getFullName());
+                            err_.setRc(mBase_.getAttributes().getVal(ATTRIBUTE_CLASS));
+                            err_.setReturnType(retDerive_);
+                            err_.setMethod(mBase_.getId());
+                            err_.setParentClass(c);
+                            classesRef_.getErrorsDet().add(err_);
+                            //throw ex
+                        }
+                    } else if (!Templates.isCorrect(mapping_, classesRef_)) {
+                        //throw ex
+                        BadReturnTypeInherit err_;
+                        err_ = new BadReturnTypeInherit();
+                        err_.setFileName(getFullName());
+                        err_.setRc(mBase_.getAttributes().getVal(ATTRIBUTE_CLASS));
+                        err_.setReturnType(retDerive_);
+                        err_.setMethod(mBase_.getId());
+                        err_.setParentClass(c);
                         classesRef_.getErrorsDet().add(err_);
                     }
                     break;

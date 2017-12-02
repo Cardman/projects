@@ -1889,6 +1889,29 @@ public final class Classes {
             if (!StringList.quickEq(k_, base_)) {
                 continue;
             }
+            for (String s: c.getValue().getAllSuperTypes()) {
+                ClassMetaInfo clMetaLoc_ = getClassMetaInfo(s);
+                if (clMetaLoc_ == null) {
+                    continue;
+                }
+                CustList<Block> bl_ = getDirectChildren(c.getValue());
+                for (Block b: bl_) {
+                    if (b instanceof FieldBlock) {
+                        FieldBlock method_ = (FieldBlock) b;
+                        String m_ = method_.getFieldName();
+                        if (method_.isStaticField()) {
+                            continue;
+                        }
+                        fieldsInfos_.put(m_, method_);
+                    }
+                }
+            }
+        }
+        for (EntryCust<String, RootBlock> c: classesBodies.entryList()) {
+            String k_ = c.getKey();
+            if (!StringList.quickEq(k_, base_)) {
+                continue;
+            }
             CustList<Block> bl_ = getDirectChildren(c.getValue());
             int i_ = CustList.FIRST_INDEX;
             CustList<Struct> values_ = new CustList<Struct>();

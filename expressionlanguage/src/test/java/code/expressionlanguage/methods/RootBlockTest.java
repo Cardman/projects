@@ -944,11 +944,21 @@ public class RootBlockTest {
         MethodId id_ = new MethodId(false,"instancemethod", new EqList<ClassName>(new ClassName("#F", false)));
         RootBlock r_ = classes_.getClassBody("pkg.ExTwo");
         StringMap<ClassMethodId> concrete_ = r_.getConcreteMethodsToCall(id_, cont_);
-        assertEq(0, concrete_.size());
+        assertEq(1, concrete_.size());
+        MethodId resId_;
+        ClassMethodId res_;
+        res_ = concrete_.getVal("pkg.ExThree");
+        resId_ = new MethodId(false,"instancemethod", new EqList<ClassName>(new ClassName("#F", false)));
+        assertEq("pkg.ExTwo", res_.getClassName());
+        assertEq(resId_, res_.getConstraints());
         id_ = new MethodId(false,"instancemethod", new EqList<ClassName>(new ClassName("#E", false)));
         r_ = classes_.getClassBody("pkg.Ex");
         concrete_ = r_.getConcreteMethodsToCall(id_, cont_);
-        assertEq(0, concrete_.size());
+        assertEq(1, concrete_.size());
+        res_ = concrete_.getVal("pkg.ExThree");
+        resId_ = new MethodId(false,"instancemethod", new EqList<ClassName>(new ClassName("#F", false)));
+        assertEq("pkg.ExTwo", res_.getClassName());
+        assertEq(resId_, res_.getConstraints());
     }
     private static ContextEl unfullValidateOverridingMethods(StringMap<String> _files) {
         ContextEl cont_ = new ContextEl();
