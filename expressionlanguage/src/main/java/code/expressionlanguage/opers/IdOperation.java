@@ -48,6 +48,10 @@ public final class IdOperation extends MethodOperation {
             setRelativeOffsetPossibleLastPage(getIndexInEl(), _conf);
             throw new BadNumberValuesException(_conf.joinPages());
         }
+        if (isIntermediateDotted()) {
+            setRelativeOffsetPossibleLastPage(getIndexInEl(), _conf);
+            throw new BadNumberValuesException(_conf.joinPages());
+        }
         setResultClass(chidren_.first().getResultClass());
     }
 

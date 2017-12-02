@@ -201,8 +201,6 @@ public final class MathResolver {
         operators_ = new NatTreeMap<Integer,String>();
         NatTreeMap<Integer,Character> parsBrackets_;
         parsBrackets_ = new NatTreeMap<Integer,Character>();
-        char usedCaller_ = 0;
-        char usedEnder_ = 0;
         int prioMax_ = FCT_OPER_PRIO;
         int prio_ = prioMax_;
         int len_ = _string.length();
@@ -266,6 +264,8 @@ public final class MathResolver {
         }
         boolean constString_ = false;
         boolean escapedMeta_ = false;
+        boolean useFct_ = false;
+        String fctName_ = EMPTY_STRING;
         while (i_ < len_) {
             char curChar_ = _string.charAt(i_);
             if (constString_) {
@@ -314,12 +314,21 @@ public final class MathResolver {
                 continue;
             }
             if (curChar_ == PAR_LEFT) {
+                if (parsBrackets_.isEmpty() && prio_ == FCT_OPER_PRIO) {
+                    useFct_ = true;
+                    fctName_ = _string.substring(CustList.FIRST_INDEX, i_);
+                    operators_.put(i_, String.valueOf(PAR_LEFT));
+                }
                 parsBrackets_.put(i_, curChar_);
-                usedCaller_ = curChar_;
+            }
+            if (curChar_ == SEP_ARG && parsBrackets_.size() == 1 && prio_ == FCT_OPER_PRIO) {
+                operators_.put(i_, String.valueOf(SEP_ARG));
             }
             if (curChar_ == PAR_RIGHT) {
-                usedEnder_ = curChar_;
                 parsBrackets_.removeKey(parsBrackets_.lastKey());
+                if (parsBrackets_.isEmpty() && prio_ == FCT_OPER_PRIO) {
+                    operators_.put(i_, String.valueOf(PAR_RIGHT));
+                }
             }
             if (parsBrackets_.isEmpty() && i_ + 2 <= len_) {
                 String builtOperator_ = EMPTY_STRING;
@@ -393,6 +402,8 @@ public final class MathResolver {
                 }
                 if (foundOperator_) {
                     if (clearOperators_) {
+                        useFct_ = false;
+                        fctName_ = EMPTY_STRING;
                         operators_.clear();
                     }
                     operators_.put(i_,builtOperator_);
@@ -405,53 +416,8 @@ public final class MathResolver {
         OperationsSequence op_ = new OperationsSequence();
         op_.setPriority(prio_);
         op_.setOperators(operators_);
-        if (prioMax_ == prio_) {
-            if (usedCaller_ != 0) {
-                int indexUsedCaller_ = _string.indexOf(usedCaller_);
-                int index_ = indexUsedCaller_ + 1;
-                int end_ = _string.lastIndexOf(usedEnder_);
-                NatTreeMap<Integer,String> newOperators_;
-                newOperators_ = new NatTreeMap<Integer,String>();
-                newOperators_.put(indexUsedCaller_, String.valueOf(usedCaller_));
-                for (int i = index_; i < end_; i++) {
-                    char curChar_ = _string.charAt(i);
-                    if (constString_) {
-                        if (!escapedMeta_) {
-                            if (curChar_ == ESCAPE_META_CHAR) {
-                                escapedMeta_ = true;
-                                continue;
-                            }
-                            if (curChar_ == DELIMITER_STRING_END) {
-                                constString_ = false;
-                                continue;
-                            }
-                            continue;
-                        }
-                        escapedMeta_ = false;
-                        continue;
-                    }
-                    if (curChar_ == DELIMITER_STRING_BEGIN) {
-                        constString_ = true;
-                    }
-                    if (curChar_ == PAR_LEFT) {
-                        parsBrackets_.put(i, curChar_);
-                    }
-                    if (curChar_ == PAR_RIGHT) {
-                        parsBrackets_.removeKey(parsBrackets_.lastKey());
-                    }
-                    if (curChar_ == SEP_ARG) {
-                        if (parsBrackets_.isEmpty()) {
-                            newOperators_.put(i, String.valueOf(SEP_ARG));
-                        }
-                    }
-                }
-                newOperators_.put(end_, String.valueOf(usedEnder_));
-                String fctName_ = _string.substring(CustList.FIRST_INDEX, _string.indexOf(usedCaller_));
-                op_.setFctName(fctName_);
-                op_.setUseFct(true);
-                op_.setOperators(newOperators_);
-            }
-        }
+        op_.setFctName(fctName_);
+        op_.setUseFct(useFct_);
         op_.setupValues(_string);
         op_.setDelimiter(_d);
         return op_;
