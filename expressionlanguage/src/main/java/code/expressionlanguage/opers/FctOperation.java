@@ -866,6 +866,7 @@ public final class FctOperation extends InvokingOperation {
                             } else {
                                 Mapping map_ = new Mapping();
                                 String param_ = methodId_.getParametersTypes().last();
+                                param_ = PrimitiveTypeUtil.getPrettyArrayType(param_);
                                 String argClass_ = _arguments.last().getObjectClassName();
                                 map_.setArg(argClass_);
                                 map_.setParam(param_);
