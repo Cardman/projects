@@ -79,25 +79,31 @@ public final class Comment extends CharacterData {
     }
 
     @Override
-    public void appendChild(Node _newChild) {
+    public void appendChild(ChangeableChild _newChild) {
         // TODO Auto-generated method stub
         
     }
 
     @Override
-    public void removeChild(Node _oldChild) {
+    public void removeChild(ChangeableChild _oldChild) {
         // TODO Auto-generated method stub
         
     }
 
     @Override
-    public void replaceChild(Node _newChild, Node _oldChild) {
+    public void replaceChild(ChangeableChild _newChild, ChangeableChild _oldChild) {
         // TODO Auto-generated method stub
         
     }
 
     @Override
-    public void insertBefore(Node _newChild, Node _refChild) {
+    public void insertBefore(ChangeableChild _newChild, ChangeableChild _refChild) {
+        // TODO Auto-generated method stub
+        
+    }
+
+    @Override
+    public void insertAfter(ChangeableChild _newChild, ChangeableChild _refChild) {
         // TODO Auto-generated method stub
         
     }

@@ -4,7 +4,7 @@ public abstract class Node {
 
     private Document ownerDocument;
 
-    private Node parentNode;
+    private Element parentNode;
 
     protected Node(Document _ownerDocument) {
         ownerDocument = _ownerDocument;
@@ -13,25 +13,26 @@ public abstract class Node {
     public Document getOwnerDocument() {
         return ownerDocument;
     }
-    public Node getParentNode() {
+    public Element getParentNode() {
         return parentNode;
     }
-    protected void setParentNode(Node _parentNode) {
+    protected void setParentNode(Element _parentNode) {
         parentNode = _parentNode;
     }
     public abstract NamedNodeMap getAttributes();
-    public abstract Node getNextSibling();
-    public abstract Node getPreviousSibling();
-    public abstract Node getFirstChild();
-    public abstract Node getLastChild();
+    public abstract ChangeableChild getNextSibling();
+    public abstract ChangeableChild getPreviousSibling();
+    public abstract ChangeableChild getFirstChild();
+    public abstract ChangeableChild getLastChild();
     public abstract NodeList getChildNodes();
     public abstract String getNodeName();
     public abstract String getNodeValue();
 
-    public abstract void appendChild(Node _newChild);
-    public abstract void removeChild(Node _oldChild);
-    public abstract void replaceChild(Node _newChild, Node _oldChild);
-    public abstract void insertBefore(Node _newChild, Node _refChild);
+    public abstract void appendChild(ChangeableChild _newChild);
+    public abstract void removeChild(ChangeableChild _oldChild);
+    public abstract void replaceChild(ChangeableChild _newChild, ChangeableChild _oldChild);
+    public abstract void insertBefore(ChangeableChild _newChild, ChangeableChild _refChild);
+    public abstract void insertAfter(ChangeableChild _newChild, ChangeableChild _refChild);
 
     public abstract boolean hasChildNodes();
 

@@ -99,19 +99,23 @@ public final class Text extends CharacterData {
     }
 
     @Override
-    public void appendChild(Node _newChild) {
+    public void appendChild(ChangeableChild _newChild) {
     }
 
     @Override
-    public void removeChild(Node _oldChild) {
+    public void removeChild(ChangeableChild _oldChild) {
     }
 
     @Override
-    public void replaceChild(Node _newChild, Node _oldChild) {
+    public void replaceChild(ChangeableChild _newChild, ChangeableChild _oldChild) {
     }
 
     @Override
-    public void insertBefore(Node _newChild, Node _refChild) {
+    public void insertBefore(ChangeableChild _newChild, ChangeableChild _refChild) {
+    }
+
+    @Override
+    public void insertAfter(ChangeableChild _newChild, ChangeableChild _refChild) {
     }
 
     @Override

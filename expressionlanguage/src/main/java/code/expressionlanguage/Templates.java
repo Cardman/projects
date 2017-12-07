@@ -190,6 +190,9 @@ public final class Templates {
                             visitedClasses_.add(geneSuperInterface_);
                         }
                     }
+                    if (generic_ != null) {
+                        break;
+                    }
                 }
                 if (generic_ != null) {
                     break;
@@ -246,6 +249,9 @@ public final class Templates {
                             nextClasses_.add(geneSuperInterface_);
                             visitedClasses_.add(geneSuperInterface_);
                         }
+                    }
+                    if (generic_ != null) {
+                        break;
                     }
                 }
                 if (generic_ != null) {
@@ -717,6 +723,9 @@ public final class Templates {
                             nextClasses_.add(geneSuperInterface_);
                             visitedClasses_.add(geneSuperInterface_);
                         }
+                    }
+                    if (generic_ != null) {
+                        break;
                     }
                 }
                 if (generic_ != null) {

@@ -5,6 +5,14 @@ import code.util.StringList;
 
 public final class Element extends ChangeableChild {
 
+    private static final String BEGIN_TAG = "<";
+
+    private static final String END_LEAF = "/>";
+
+    private static final String BEGIN_FOOTER = "</";
+
+    private static final String END_TAG = ">";
+
     private static final String EMPTY_STRING = "";
 
     private String tagName;
@@ -177,7 +185,7 @@ public final class Element extends ChangeableChild {
     }
 
     @Override
-    public void appendChild(Node _newChild) {
+    public void appendChild(ChangeableChild _newChild) {
         _newChild.setParentNode(this);
         if (getFirstChild() == null) {
             setFirstChild((ChangeableChild) _newChild);
@@ -190,7 +198,7 @@ public final class Element extends ChangeableChild {
     }
 
     @Override
-    public void removeChild(Node _oldChild) {
+    public void removeChild(ChangeableChild _oldChild) {
         ChangeableChild child_ = getFirstChild();
         while (child_ != null) {
             if (child_ == _oldChild) {
@@ -224,7 +232,7 @@ public final class Element extends ChangeableChild {
     }
 
     @Override
-    public void replaceChild(Node _newChild, Node _oldChild) {
+    public void replaceChild(ChangeableChild _newChild, ChangeableChild _oldChild) {
         ChangeableChild child_ = getFirstChild();
         while (child_ != null) {
             if (child_ == _oldChild) {
@@ -263,11 +271,122 @@ public final class Element extends ChangeableChild {
     }
 
     @Override
-    public void insertBefore(Node _newChild, Node _refChild) {
-        // TODO Auto-generated method stub
-        
+    public void insertBefore(ChangeableChild _newChild, ChangeableChild _refChild) {
+        ChangeableChild child_ = getFirstChild();
+        while (child_ != null) {
+            if (child_ == _refChild) {
+                ChangeableChild previous_ = _refChild.getPreviousSibling();
+                _newChild.setParentNode(this);
+                if (previous_ == null) {
+                    setFirstChild(_newChild);
+                    _newChild.setNextSibling(_refChild);
+                    _refChild.setPreviousSibling(_newChild);
+                    return;
+                }
+                _refChild.setPreviousSibling(_newChild);
+                previous_.setNextSibling(_newChild);
+                _newChild.setNextSibling(_refChild);
+                _newChild.setPreviousSibling(previous_);
+                return;
+            }
+            child_ = child_.getNextSibling();
+        }
     }
 
+    public void insertAfter(ChangeableChild _newChild, ChangeableChild _refChild) {
+        ChangeableChild child_ = getFirstChild();
+        while (child_ != null) {
+            if (child_ == _refChild) {
+                ChangeableChild next_ = _refChild.getNextSibling();
+                _newChild.setParentNode(this);
+                if (next_ == null) {
+                    setLastChild(_newChild);
+                    _newChild.setPreviousSibling(_refChild);
+                    _refChild.setNextSibling(_newChild);
+                    return;
+                }
+                _refChild.setNextSibling(_newChild);
+                next_.setPreviousSibling(_newChild);
+                _newChild.setPreviousSibling(_refChild);
+                _newChild.setNextSibling(next_);
+                return;
+            }
+            child_ = child_.getNextSibling();
+        }
+    }
+
+    public String export() {
+        Element root_ = this;
+        ChangeableChild current_ = getFirstChild();
+        StringBuilder str_ = new StringBuilder();
+        if (current_ == null) {
+            str_.append(BEGIN_TAG+getTagName());
+            if (!attributes.isEmpty()) {
+                for (Attr a: attributes) {
+                    str_.append(a.export());
+                }
+            }
+            str_.append(END_LEAF);
+            return str_.toString();
+        }
+        while (true) {
+            if (current_ == null) {
+                break;
+            }
+            if (current_ instanceof Element) {
+                Element elt_ = (Element) current_;
+                str_.append(BEGIN_TAG+elt_.getTagName());
+                if (!elt_.attributes.isEmpty()) {
+                    for (Attr a: elt_.attributes) {
+                        str_.append(a.export());
+                    }
+                }
+            }
+            if (current_ instanceof Text) {
+                Text txt_ = (Text) current_;
+                str_.append(DocumentBuilder.escape(txt_.getData(), false));
+            }
+            ChangeableChild next_ = current_.getFirstChild();
+            if (next_ != null) {
+                str_.append(END_TAG);
+                current_ = next_;
+                continue;
+            }
+            if (current_ instanceof Element) {
+                str_.append(END_LEAF);
+            }
+            next_ = current_.getNextSibling();
+            if (next_ != null) {
+                current_ = next_;
+                continue;
+            }
+            Element parent_ = current_.getParentNode();
+            if (parent_ == null) {
+                current_ = null;
+                continue;
+            }
+            str_.append(BEGIN_FOOTER+parent_.getTagName()+END_TAG);
+            if (parent_ == root_) {
+                current_ = null;
+                continue;
+            }
+            next_ = parent_.getNextSibling();
+            while (next_ == null) {
+                Element par_ = parent_.getParentNode();
+                if (par_ == null) {
+                    break;
+                }
+                str_.append(BEGIN_FOOTER+par_.getTagName()+END_TAG);
+                if (par_ == root_) {
+                    break;
+                }
+                next_ = par_.getNextSibling();
+                parent_ = par_;
+            }
+            current_ = next_;
+        }
+        return str_.toString();
+    }
     @Override
     public boolean hasChildNodes() {
         return getFirstChild() != null;

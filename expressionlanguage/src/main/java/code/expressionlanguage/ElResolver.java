@@ -1176,11 +1176,10 @@ public final class ElResolver {
                             if (prio_ > EQ_PRIO) {
                                 clearOperators_ = true;
                                 prio_ = EQ_PRIO;
-                                increment_++;
-                                builtOperator_ += EQ_CHAR;
                             }
                             if (prio_ == EQ_PRIO) {
                                 foundOperator_ = true;
+                                builtOperator_ += EQ_CHAR;
                             }
                         }
                         if (foundOperator_) {
@@ -1201,9 +1200,11 @@ public final class ElResolver {
                     }
                     if (prioOpMult_ > 0) {
                         builtOperator_ += curChar_;
-                        if (i_ == firstPrintChar_) {
-                            foundOperator_ = true;
-                            prio_ = UNARY_PRIO;
+                        if (i_ == firstPrintChar_ && prioOpMult_ == ADD_PRIO) {
+                            if (prio_ > UNARY_PRIO) {
+                                foundOperator_ = true;
+                                prio_ = UNARY_PRIO;
+                            }
                         } else {
                             if (prio_ > prioOpMult_) {
                                 clearOperators_ = true;

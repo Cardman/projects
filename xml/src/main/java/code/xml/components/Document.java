@@ -57,19 +57,19 @@ public final class Document extends Node {
         return null;
     }
     @Override
-    public Node getNextSibling() {
+    public ChangeableChild getNextSibling() {
         return null;
     }
     @Override
-    public Node getPreviousSibling() {
+    public ChangeableChild getPreviousSibling() {
         return null;
     }
     @Override
-    public Node getFirstChild() {
+    public ChangeableChild getFirstChild() {
         return getDocumentElement();
     }
     @Override
-    public Node getLastChild() {
+    public ChangeableChild getLastChild() {
         return getDocumentElement();
     }
     @Override
@@ -90,23 +90,32 @@ public final class Document extends Node {
         return null;
     }
     @Override
-    public void appendChild(Node _newChild) {
+    public void appendChild(ChangeableChild _newChild) {
         Element element_ = (Element) _newChild;
         documentElement = element_;
     }
     @Override
-    public void removeChild(Node _oldChild) {
+    public void removeChild(ChangeableChild _oldChild) {
         documentElement = null;
     }
     @Override
-    public void replaceChild(Node _newChild, Node _oldChild) {
+    public void replaceChild(ChangeableChild _newChild, ChangeableChild _oldChild) {
         Element element_ = (Element) _newChild;
         documentElement = element_;
     }
     @Override
-    public void insertBefore(Node _newChild, Node _refChild) {
+    public void insertBefore(ChangeableChild _newChild, ChangeableChild _refChild) {
         Element element_ = (Element) _newChild;
         documentElement = element_;
+    }
+    @Override
+    public void insertAfter(ChangeableChild _newChild, ChangeableChild _refChild) {
+        Element element_ = (Element) _newChild;
+        documentElement = element_;
+    }
+
+    public String export() {
+        return documentElement.export();
     }
     @Override
     public boolean hasChildNodes() {

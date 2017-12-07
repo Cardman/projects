@@ -927,18 +927,19 @@ public final class DocumentBuilder {
         Document doc_ = new Document(getTabWidth());
         int len_ = _input.length();
         int indexFoot_ = 0;
-        boolean inHead_ = false;
-        boolean inFoot_ = false;
+        ReadingState state_ = ReadingState.HEADER;
+//        boolean inHead_ = false;
+//        boolean inFoot_ = false;
 //        boolean inComment_ = false;
-        boolean inAttibuteName_ = false;
-        boolean inAttibuteValue_ = false;
-        boolean inText_ = false;
+//        boolean inAttibuteName_ = false;
+//        boolean inAttibuteValue_ = false;
+//        boolean inText_ = false;
         boolean addChild_ = true;
         char delimiterAttr_ = 0;
         StringBuilder attributeName_ = new StringBuilder();
         StringBuilder tagName_ = new StringBuilder();
         StringList stack_ = new StringList();
-        int row_ = 0;
+        int row_ = 1;
         int col_ = 0;
         StringBuilder currentText_ = new StringBuilder();
         Element currentElement_ = null;
@@ -946,13 +947,19 @@ public final class DocumentBuilder {
 //        StringBuilder currentComment_ = new StringBuilder();
         StringBuilder attributeValue_ = new StringBuilder();
         NamedNodeMap attrs_ = new NamedNodeMap();
-        int i_ = CustList.FIRST_INDEX;
-        if (_input.charAt(i_) != LT) {
+        if (_input.isEmpty()) {
             res_.setLocation(new RowCol());
             return res_;
         }
-        inHead_ = true;
+        int i_ = CustList.FIRST_INDEX;
         col_ = 1;
+        if (_input.charAt(i_) != LT) {
+            RowCol rc_ = new RowCol();
+            rc_.setRow(row_);
+            rc_.setCol(col_);
+            res_.setLocation(rc_);
+            return res_;
+        }
         i_++;
         while (i_ < len_) {
             char curChar_ = _input.charAt(i_);
@@ -965,7 +972,7 @@ public final class DocumentBuilder {
                     col_ += doc_.getTabWidth() - 1;
                 }
             }
-            if (inHead_) {
+            if (state_ == ReadingState.HEADER) {
                 if (curChar_ == LT_CHAR) {
                     break;
                 }
@@ -1004,34 +1011,33 @@ public final class DocumentBuilder {
                             break;
                         }
                     }
-                    if (i_ + 1 >= len_) {
+                    tagName_.delete(CustList.FIRST_INDEX, tagName_.length());
+                    if (i_ + 2 >= len_) {
                         break;
                     }
                     if (_input.charAt(i_ + 1) == LT_CHAR) {
-                        if (i_ + 2 < len_ && _input.charAt(i_ + 2) == SLASH) {
+                        if (_input.charAt(i_ + 2) == SLASH) {
                             i_++;
                             //_input.charAt(i_) == '<'
                             i_++;
                             //_input.charAt(i_) == '/'
                             i_++;
                             //_input.charAt(i_) is the first character of end tag
-                            inFoot_ = true;
+                            state_ = ReadingState.FOOTER;
                             indexFoot_ = i_;
-                            inHead_ = false;
                             continue;
                         }
                         i_++;
                         i_++;
+                        state_ = ReadingState.HEADER;
                         addChild_ = true;
                         continue;
                     }
-                    inHead_ = false;
-                    inText_ = true;
+                    state_ = ReadingState.TEXT;
                     i_++;
                     continue;
                 }
                 if (Character.isWhitespace(curChar_)) {
-                    stack_.add(tagName_.toString()+GT_CHAR);
                     int nextPrintable_ = i_;
                     while (nextPrintable_ < len_) {
                         char next_ = _input.charAt(nextPrintable_);
@@ -1043,8 +1049,7 @@ public final class DocumentBuilder {
                     if (nextPrintable_ == len_) {
                         break;
                     }
-                    inHead_ = false;
-                    inAttibuteName_ = true;
+                    state_ = ReadingState.ATTR_NAME;
                     i_ = nextPrintable_;
                     continue;
                 }
@@ -1063,7 +1068,7 @@ public final class DocumentBuilder {
                 i_++;
                 continue;
             }
-            if (inAttibuteName_) {
+            if (state_ == ReadingState.ATTR_NAME) {
                 if (curChar_ == LT_CHAR) {
                     break;
                 }
@@ -1123,15 +1128,16 @@ public final class DocumentBuilder {
                         break;
                     }
                     i_ = nextPrintable_;
+                } else {
+                    i_++;
                 }
                 char del_ = _input.charAt(i_);
                 delimiterAttr_ = del_;
-                inAttibuteValue_ = true;
-                inAttibuteName_ = false;
+                state_ = ReadingState.ATTR_VALUE;
                 i_++;
                 continue;
             }
-            if (inAttibuteValue_) {
+            if (state_ == ReadingState.ATTR_VALUE) {
                 if (curChar_ == LT_CHAR) {
                     break;
                 }
@@ -1171,7 +1177,6 @@ public final class DocumentBuilder {
                     }
                     endHead_ = true;
                     addChild_ = false;
-                    i_++;
                 }
                 if (nextPr_ == GT_CHAR) {
                     i_ = nextPrintable_;
@@ -1195,40 +1200,37 @@ public final class DocumentBuilder {
                             break;
                         }
                     }
-                    if (i_ + 1 >= len_) {
+                    tagName_.delete(CustList.FIRST_INDEX, tagName_.length());
+                    if (i_ + 2 >= len_) {
                         break;
                     }
                     if (_input.charAt(i_ + 1) == LT_CHAR) {
-                        if (i_ + 2 < len_ && _input.charAt(i_ + 2) == SLASH) {
+                        if (_input.charAt(i_ + 2) == SLASH) {
                             i_++;
                             //_input.charAt(i_) == '<'
                             i_++;
                             //_input.charAt(i_) == '/'
                             i_++;
                             //_input.charAt(i_) is the first character of end tag
-                            inFoot_ = true;
+                            state_ = ReadingState.FOOTER;
                             indexFoot_ = i_;
-                            inHead_ = false;
                             continue;
                         }
-                        inHead_ = true;
-                        inAttibuteValue_ = false;
+                        state_ = ReadingState.HEADER;
                         addChild_ = true;
                         i_++;
                         i_++;
                         continue;
                     }
-                    inHead_ = false;
-                    inText_ = true;
+                    state_ = ReadingState.TEXT;
                     i_++;
                     continue;
                 }
-                inAttibuteName_ = true;
-                inAttibuteValue_ = false;
+                state_ = ReadingState.ATTR_NAME;
                 i_ = nextPrintable_;
                 continue;
             }
-            if (inText_) {
+            if (state_ == ReadingState.TEXT) {
                 if (curChar_ == GT_CHAR) {
                     break;
                 }
@@ -1246,18 +1248,16 @@ public final class DocumentBuilder {
                 if (_input.charAt(i_ + 1) == SLASH) {
                     i_++;
                     i_++;
-                    inFoot_ = true;
                     indexFoot_ = i_;
-                    inText_ = false;
+                    state_ = ReadingState.FOOTER;
                     continue;
                 }
                 i_++;
-                inHead_ = true;
-                inText_ = false;
+                state_ = ReadingState.HEADER;
                 addChild_ = true;
                 continue;
             }
-            if (inFoot_) {
+            if (state_ == ReadingState.FOOTER) {
                 int indexTag_ = i_ - indexFoot_;
                 String lastTag_ = stack_.last();
                 if (lastTag_.charAt(indexTag_) != _input.charAt(i_)) {
@@ -1274,31 +1274,28 @@ public final class DocumentBuilder {
                         finished_ = true;
                         break;
                     }
-                    if (i_ + 1 >= len_) {
+                    if (i_ + 2 >= len_) {
                         break;
                     }
                     if (_input.charAt(i_ + 1) == LT_CHAR) {
-                        if (i_ + 2 < len_ && _input.charAt(i_ + 2) == SLASH) {
+                        if (_input.charAt(i_ + 2) == SLASH) {
                             i_++;
                             //_input.charAt(i_) == '<'
                             i_++;
                             //_input.charAt(i_) == '/'
                             i_++;
                             //_input.charAt(i_) is the first character of end tag
-                            inFoot_ = true;
                             indexFoot_ = i_;
-                            inHead_ = false;
+                            state_ = ReadingState.FOOTER;
                             continue;
                         }
                         i_++;
                         i_++;
-                        inHead_ = true;
-                        inText_ = false;
+                        state_ = ReadingState.HEADER;
                         addChild_ = true;
                         continue;
                     }
-                    inHead_ = false;
-                    inText_ = true;
+                    state_ = ReadingState.TEXT;
                     i_++;
                     continue;
                 }
