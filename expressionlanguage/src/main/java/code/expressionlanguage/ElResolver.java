@@ -986,13 +986,77 @@ public final class ElResolver {
                     return op_;
                 }
             }
-        }
-        if (isFloatingNumber(_string, firstPrintChar_, lastPrintChar_)) {
-            OperationsSequence op_ = new OperationsSequence();
-            op_.setOperators(new NatTreeMap<Integer, String>());
-            op_.setupValues(_string);
-            op_.setDelimiter(_d);
-            return op_;
+            if (StringList.quickEq(_string.substring(firstPrintChar_ + 1, len_), THIS)) {
+                OperationsSequence op_ = new OperationsSequence();
+                op_.setOperators(new NatTreeMap<Integer, String>());
+                op_.setupValues(_string);
+                op_.setDelimiter(_d);
+                return op_;
+            }
+            if (procWordFirstChar(_string, firstPrintChar_ + 1, SUPER, len_)) {
+                boolean hatMethod_ = false;
+                int afterSuper_ = i_ + 1 + SUPER.length();
+                boolean foundHat_ = false;
+                while (afterSuper_ < len_) {
+                    if (_string.charAt(afterSuper_) == EXTERN_CLASS) {
+                        foundHat_ = true;
+                        hatMethod_ = false;
+                        break;
+                    }
+                    if (_string.charAt(afterSuper_) == PAR_LEFT) {
+                        hatMethod_ = true;
+                        break;
+                    }
+                    afterSuper_++;
+                }
+                if (foundHat_) {
+                    afterSuper_++;
+                    while (afterSuper_ < len_) {
+                        if (_string.charAt(afterSuper_) == PAR_LEFT) {
+                            hatMethod_ = true;
+                            break;
+                        }
+                        afterSuper_++;
+                    }
+                }
+                if (!hatMethod_) {
+                    OperationsSequence op_ = new OperationsSequence();
+                    op_.setOperators(new NatTreeMap<Integer, String>());
+                    op_.setupValues(_string);
+                    op_.setDelimiter(_d);
+                    return op_;
+                }
+            }
+            if (procWordFirstChar(_string, firstPrintChar_ + 1, CLASS_CHOICE, len_)) {
+                int afterSuper_ = i_ + 1 + CLASS_CHOICE.length();
+                boolean hatMethod_ = false;
+                while (afterSuper_ < len_) {
+                    if (_string.charAt(afterSuper_) == EXTERN_CLASS) {
+                        afterSuper_++;
+                        continue;
+                    }
+                    if (Character.isWhitespace(_string.charAt(afterSuper_))) {
+                        afterSuper_++;
+                        continue;
+                    }
+                    if (_string.charAt(afterSuper_) == GET_VAR) {
+                        afterSuper_++;
+                        continue;
+                    }
+                    if (!StringList.isWordChar(_string.charAt(afterSuper_))) {
+                        hatMethod_ = true;
+                        break;
+                    }
+                    afterSuper_++;
+                }
+                if (!hatMethod_) {
+                    OperationsSequence op_ = new OperationsSequence();
+                    op_.setOperators(new NatTreeMap<Integer, String>());
+                    op_.setupValues(_string);
+                    op_.setDelimiter(_d);
+                    return op_;
+                }
+            }
         }
         if (isIntegerNumber(_string, firstPrintChar_, lastPrintChar_)) {
             OperationsSequence op_ = new OperationsSequence();
@@ -1001,7 +1065,21 @@ public final class ElResolver {
             op_.setDelimiter(_d);
             return op_;
         }
-        if (isVariableOrWord(_string, firstPrintChar_, lastPrintChar_)) {
+        if (isFloatingNumber(_string, firstPrintChar_, lastPrintChar_)) {
+            OperationsSequence op_ = new OperationsSequence();
+            op_.setOperators(new NatTreeMap<Integer, String>());
+            op_.setupValues(_string);
+            op_.setDelimiter(_d);
+            return op_;
+        }
+        if (isVariable(_string, firstPrintChar_, lastPrintChar_)) {
+            OperationsSequence op_ = new OperationsSequence();
+            op_.setOperators(new NatTreeMap<Integer, String>());
+            op_.setupValues(_string);
+            op_.setDelimiter(_d);
+            return op_;
+        }
+        if (isWord(_string, firstPrintChar_, lastPrintChar_)) {
             OperationsSequence op_ = new OperationsSequence();
             op_.setOperators(new NatTreeMap<Integer, String>());
             op_.setupValues(_string);
@@ -1263,18 +1341,16 @@ public final class ElResolver {
                 return false;
             }
             i_++;
-            if (i_ <= _to) {
-                if (!Character.isDigit(_string.charAt(i_))) {
-                    return false;
-                }
+        }
+        if (i_ <= _to) {
+            if (!Character.isDigit(_string.charAt(i_))) {
+                return false;
             }
+        } else {
+            return false;
         }
         while (i_ <= _to) {
-            if (!Character.isDigit(_string.charAt(i_))) {
-                if (Character.isLetter(_string.charAt(i_))) {
-                    i_++;
-                    continue;
-                }
+            if (!StringList.isWordChar(_string.charAt(i_))) {
                 return false;
             }
             i_++;
@@ -1299,6 +1375,8 @@ public final class ElResolver {
             if (!Character.isDigit(_string.charAt(i_))) {
                 return false;
             }
+        } else {
+            return false;
         }
         int nbDots_ = 0;
         boolean exp_ = false;
@@ -1332,15 +1410,19 @@ public final class ElResolver {
         }
         return true;
     }
-    static boolean isVariableOrWord(String _string, int _from, int _to) {
+    static boolean isVariable(String _string, int _from, int _to) {
         int i_ = _from;
+        boolean var_ = false;
         while (i_ <= _to) {
             if (!StringList.isWordChar(_string.charAt(i_))) {
+                if (_string.charAt(i_) == GET_VAR) {
+                    var_ = true;
+                }
                 break;
             }
             i_++;
         }
-        if (i_ <= _to && _string.charAt(i_) != GET_VAR) {
+        if (!var_) {
             return false;
         }
         while (i_ <= _to) {
@@ -1348,6 +1430,16 @@ public final class ElResolver {
                 if (_string.charAt(i_) != DOT_VAR) {
                     return false;
                 }
+            }
+            i_++;
+        }
+        return true;
+    }
+    static boolean isWord(String _string, int _from, int _to) {
+        int i_ = _from;
+        while (i_ <= _to) {
+            if (!StringList.isWordChar(_string.charAt(i_))) {
+                return false;
             }
             i_++;
         }

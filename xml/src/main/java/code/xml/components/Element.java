@@ -319,15 +319,16 @@ public final class Element extends ChangeableChild {
         Element root_ = this;
         ChangeableChild current_ = getFirstChild();
         StringBuilder str_ = new StringBuilder();
-        if (current_ == null) {
-            str_.append(BEGIN_TAG+getTagName());
-            if (!attributes.isEmpty()) {
-                for (Attr a: attributes) {
-                    str_.append(a.export());
-                }
+        str_.append(BEGIN_TAG+getTagName());
+        if (!attributes.isEmpty()) {
+            for (Attr a: attributes) {
+                str_.append(a.export());
             }
+        }
+        if (current_ == null) {
             str_.append(END_LEAF);
-            return str_.toString();
+        } else {
+            str_.append(END_TAG);
         }
         while (true) {
             if (current_ == null) {
