@@ -1,16 +1,11 @@
 package code.formathtml;
-import static org.custommonkey.xmlunit.XMLAssert.assertXMLEqual;
-
-import java.io.IOException;
+import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 import org.w3c.dom.Document;
-import org.xml.sax.SAXException;
 
 import code.bean.Bean;
 import code.bean.translator.Translator;
-import code.formathtml.Configuration;
-import code.formathtml.FormatHtml;
 import code.formathtml.classes.BeanOne;
 import code.formathtml.classes.MyTranslator;
 import code.formathtml.classes.PickableList;
@@ -18,6 +13,7 @@ import code.formathtml.classes.SimpleMathFactory;
 import code.util.StringList;
 import code.util.StringMap;
 import code.xml.XmlParser;
+import code.xml.components.DocumentBuilder;
 
 @SuppressWarnings("static-method")
 public class FormatHtmlWhileTest {
@@ -236,15 +232,7 @@ public class FormatHtmlWhileTest {
 
 
     private static void assertXmlEqualRuntime(String _htmlExp, String _htmlRes) {
-        try {
-            assertXMLEqual(_htmlExp, _htmlRes);
-        } catch (RuntimeException _0) {
-            throw new CustRuntimeException(_0.getMessage());
-        } catch (SAXException _0) {
-            throw new CustRuntimeException(_0.getMessage());
-        } catch (IOException _0) {
-            throw new CustRuntimeException(_0.getMessage());
-        }
+        assertTrue(DocumentBuilder.equalsDocs(_htmlExp, _htmlRes));
     }
 
 }

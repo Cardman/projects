@@ -1,8 +1,6 @@
 package code.formathtml;
 import static code.formathtml.EquallableExUtil.assertEq;
-import static org.custommonkey.xmlunit.XMLAssert.assertXMLEqual;
-
-import java.io.IOException;
+import static org.junit.Assert.assertTrue;
 
 import javax.imageio.ImageIO;
 
@@ -10,7 +8,6 @@ import org.junit.BeforeClass;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.w3c.dom.Document;
-import org.xml.sax.SAXException;
 
 import code.bean.Bean;
 import code.bean.translator.Translator;
@@ -41,6 +38,7 @@ import code.util.consts.ConstClasses;
 import code.util.consts.Constants;
 import code.util.ints.ListableEntries;
 import code.xml.XmlParser;
+import code.xml.components.DocumentBuilder;
 import code.xml.exceptions.XmlParseException;
 
 @SuppressWarnings("static-method")
@@ -9639,15 +9637,7 @@ public class FormatHtmlTest {
 //    }
 
     private static void assertXmlEqualRuntime(String _htmlExp, String _htmlRes) {
-        try {
-            assertXMLEqual(_htmlExp, _htmlRes);
-        } catch (RuntimeException _0) {
-            throw new CustRuntimeException(_0.getMessage());
-        } catch (SAXException _0) {
-            throw new CustRuntimeException(_0.getMessage());
-        } catch (IOException _0) {
-            throw new CustRuntimeException(_0.getMessage());
-        }
+        assertTrue(DocumentBuilder.equalsDocs(_htmlExp, _htmlRes));
     }
 
 }

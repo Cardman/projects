@@ -15,7 +15,7 @@ public final class Document extends Node {
     }
 
     public Attr createAttribute(String _name) {
-        Attr attr_ = new Attr(this);
+        Attr attr_ = new Attr();
         attr_.setName(_name);
         return attr_;
     }

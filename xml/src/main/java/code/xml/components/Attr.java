@@ -21,7 +21,7 @@ public final class Attr implements Info {
 
     private int index = CustList.INDEX_NOT_FOUND_ELT;
 
-    protected Attr(Document _ownerDocument) {
+    protected Attr() {
     }
 
     protected int getIndex() {

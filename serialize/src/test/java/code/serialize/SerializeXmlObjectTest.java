@@ -1,13 +1,11 @@
 package code.serialize;
 import static code.serialize.EquallableExUtil.assertEq;
 import static junitparams.JUnitParamsRunner.$;
-import static org.custommonkey.xmlunit.XMLAssert.assertXMLEqual;
 import static org.junit.Assert.assertNotSame;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
 
-import java.io.IOException;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -18,7 +16,6 @@ import junitparams.Parameters;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.xml.sax.SAXException;
 
 import code.serialize.classes.AbMap;
 import code.serialize.classes.Composite;
@@ -94,6 +91,7 @@ import code.util.StringMap;
 import code.util.TreeMap;
 import code.util.comparators.NaturalComparator;
 import code.util.exceptions.RuntimeClassNotFoundException;
+import code.xml.components.DocumentBuilder;
 
 @SuppressWarnings("static-method")
 @RunWith(JUnitParamsRunner.class)
@@ -170,7 +168,7 @@ public class SerializeXmlObjectTest {
     public void toXmlString1Test(boolean _bool) {
         SerializeXmlObject.setReferences(_bool);
         SerializeXmlObject.setCheckReferences(false);
-        assertXmlEqualRuntime("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?><java.lang.Integer value=\"1\"/>",SerializeXmlObject.toXmlString(1));
+        assertXmlEqualRuntime("<java.lang.Integer value=\"1\"/>",SerializeXmlObject.toXmlString(1));
     }
 
     @Parameters(method="booleanInputs")
@@ -178,7 +176,7 @@ public class SerializeXmlObjectTest {
     public void toXmlString2Test(boolean _bool) {
         SerializeXmlObject.setReferences(_bool);
         SerializeXmlObject.setCheckReferences(false);
-        assertXmlEqualRuntime("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?><java.lang.Boolean value=\"true\"/>",SerializeXmlObject.toXmlString(true));
+        assertXmlEqualRuntime("<java.lang.Boolean value=\"true\"/>",SerializeXmlObject.toXmlString(true));
     }
 
     @Parameters(method="booleanInputs")
@@ -186,7 +184,7 @@ public class SerializeXmlObjectTest {
     public void toXmlString3Test(boolean _bool) {
         SerializeXmlObject.setReferences(_bool);
         SerializeXmlObject.setCheckReferences(false);
-        assertXmlEqualRuntime("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?><java.lang.Character value=\"_\"/>",SerializeXmlObject.toXmlString('_'));
+        assertXmlEqualRuntime("<java.lang.Character value=\"_\"/>",SerializeXmlObject.toXmlString('_'));
     }
 
     @Parameters(method="booleanInputs")
@@ -194,7 +192,7 @@ public class SerializeXmlObjectTest {
     public void toXmlString4Test(boolean _bool) {
         SerializeXmlObject.setReferences(_bool);
         SerializeXmlObject.setCheckReferences(false);
-        assertXmlEqualRuntime("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?><java.lang.String value=\"&quot;STRING&#376;&amp;&lt;'&gt;&#128;&quot;\"/>",SerializeXmlObject.toXmlString("\"STRING"+(char)376+"&<'>"+(char)128+"\""));
+        assertXmlEqualRuntime("<java.lang.String value=\"&quot;STRING&#376;&amp;&lt;'&gt;&#128;&quot;\"/>",SerializeXmlObject.toXmlString("\"STRING"+(char)376+"&<'>"+(char)128+"\""));
     }
 
     @Parameters(method="booleanInputs")
@@ -202,7 +200,7 @@ public class SerializeXmlObjectTest {
     public void toXmlString5Test(boolean _bool) {
         SerializeXmlObject.setReferences(_bool);
         SerializeXmlObject.setCheckReferences(false);
-        assertXmlEqualRuntime("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?><"+MY_ENUM+" value=\"ONE\"/>",SerializeXmlObject.toXmlString(MyEnum.ONE));
+        assertXmlEqualRuntime("<"+MY_ENUM+" value=\"ONE\"/>",SerializeXmlObject.toXmlString(MyEnum.ONE));
     }
 
     @Parameters(method="booleanInputs")
@@ -212,7 +210,7 @@ public class SerializeXmlObjectTest {
         SerializeXmlObject.setCheckReferences(false);
         Primitive pr_ = new Primitive();
         pr_.setPrimitive(2);
-        assertXmlEqualRuntime("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?><"+PRIMITIVE+" value=\"2\"/>",SerializeXmlObject.toXmlString(pr_));
+        assertXmlEqualRuntime("<"+PRIMITIVE+" value=\"2\"/>",SerializeXmlObject.toXmlString(pr_));
     }
 
     @Parameters(method="booleanInputs")
@@ -222,7 +220,7 @@ public class SerializeXmlObjectTest {
         SerializeXmlObject.setCheckReferences(false);
         PrimitiveTwo pr_ = new PrimitiveTwo();
         pr_.setPrimitive(2);
-        assertXmlEqualRuntime("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?><"+PRIMITIVE_TWO+" value=\"2\"/>",SerializeXmlObject.toXmlString(pr_));
+        assertXmlEqualRuntime("<"+PRIMITIVE_TWO+" value=\"2\"/>",SerializeXmlObject.toXmlString(pr_));
     }
 
     @Parameters(method="booleanInputs")
@@ -243,7 +241,7 @@ public class SerializeXmlObjectTest {
         pr_.setPrimitiveTwo(prThree_);
         pr_.setString("STR");
         pr_.setTransientMember("unsaved");
-        assertXmlEqualRuntime("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?><"+COMPOSITE+"><java.lang.Integer class=\""+COMPOSITE+"\" field=\"integer\" value=\"15\"/><java.lang.Boolean class=\""+COMPOSITE+"\" field=\"bool\" value=\"true\"/><java.lang.String class=\""+COMPOSITE+"\" field=\"string\" value=\"STR\"/><java.lang.Character class=\""+COMPOSITE+"\" field=\"character\" value=\"8\"/><"+MY_ENUM+" class=\""+COMPOSITE+"\" field=\"element\" value=\"TWO\"/><"+PRIMITIVE+" class=\""+COMPOSITE+"\" field=\"primitive\" value=\"6\"/><"+PRIMITIVE_TWO+" class=\""+COMPOSITE+"\" field=\"primitiveTwo\" value=\"8\"/></"+COMPOSITE+">",SerializeXmlObject.toXmlString(pr_));
+        assertXmlEqualRuntime("<"+COMPOSITE+"><java.lang.Integer class=\""+COMPOSITE+"\" field=\"integer\" value=\"15\"/><java.lang.Boolean class=\""+COMPOSITE+"\" field=\"bool\" value=\"true\"/><java.lang.String class=\""+COMPOSITE+"\" field=\"string\" value=\"STR\"/><java.lang.Character class=\""+COMPOSITE+"\" field=\"character\" value=\"8\"/><"+MY_ENUM+" class=\""+COMPOSITE+"\" field=\"element\" value=\"TWO\"/><"+PRIMITIVE+" class=\""+COMPOSITE+"\" field=\"primitive\" value=\"6\"/><"+PRIMITIVE_TWO+" class=\""+COMPOSITE+"\" field=\"primitiveTwo\" value=\"8\"/></"+COMPOSITE+">",SerializeXmlObject.toXmlString(pr_));
     }
 
     @Parameters(method="booleanInputs")
@@ -264,7 +262,7 @@ public class SerializeXmlObjectTest {
         pr_.setPrimitiveTwo(prThree_);
         pr_.setString(null);
         pr_.setTransientMember("unsaved");
-        assertXmlEqualRuntime("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?><"+COMPOSITE+"><java.lang.Integer class=\""+COMPOSITE+"\" field=\"integer\" value=\"15\"/><java.lang.Boolean class=\""+COMPOSITE+"\" field=\"bool\" value=\"true\"/><null class=\""+COMPOSITE+"\" field=\"string\"/><java.lang.Character class=\""+COMPOSITE+"\" field=\"character\" value=\"8\"/><"+MY_ENUM+" class=\""+COMPOSITE+"\" field=\"element\" value=\"TWO\"/><"+PRIMITIVE+" class=\""+COMPOSITE+"\" field=\"primitive\" value=\"6\"/><"+PRIMITIVE_TWO+" class=\""+COMPOSITE+"\" field=\"primitiveTwo\" value=\"8\"/></"+COMPOSITE+">",SerializeXmlObject.toXmlString(pr_));
+        assertXmlEqualRuntime("<"+COMPOSITE+"><java.lang.Integer class=\""+COMPOSITE+"\" field=\"integer\" value=\"15\"/><java.lang.Boolean class=\""+COMPOSITE+"\" field=\"bool\" value=\"true\"/><null class=\""+COMPOSITE+"\" field=\"string\"/><java.lang.Character class=\""+COMPOSITE+"\" field=\"character\" value=\"8\"/><"+MY_ENUM+" class=\""+COMPOSITE+"\" field=\"element\" value=\"TWO\"/><"+PRIMITIVE+" class=\""+COMPOSITE+"\" field=\"primitive\" value=\"6\"/><"+PRIMITIVE_TWO+" class=\""+COMPOSITE+"\" field=\"primitiveTwo\" value=\"8\"/></"+COMPOSITE+">",SerializeXmlObject.toXmlString(pr_));
     }
 
     @Parameters(method="booleanInputs")
@@ -287,7 +285,7 @@ public class SerializeXmlObjectTest {
         containers_.setArrayDouble(new int[][]{new int[]{5,9},new int[]{4}});
 //        assertEq("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?><"+CONTAINERS+"><"+STRING_LIST+" class=\""+CONTAINERS+"\" field=\"list\"><java.lang.String class='"+SerializeXmlObject.LS_CLASS+"' value=\"ELEMENT\"/></"+STRING_LIST+"><"+TREE_MAP+" class=\""+CONTAINERS+"\" field=\"treemap\"><java.lang.String class='"+SerializeXmlObject.MP_CLASS+"' key=\"\" value=\"A\"/><java.lang.String class='"+SerializeXmlObject.MP_CLASS+"' key=\"\" value=\"B\"/><java.lang.Integer class='"+SerializeXmlObject.MP_CLASS+"' value=\"1\"/><java.lang.Integer class='"+SerializeXmlObject.MP_CLASS+"' value=\"2\"/></"+TREE_MAP+"><util.Map class=\""+CONTAINERS+"\" field=\"map\"><java.lang.String class='"+SerializeXmlObject.MP_CLASS+"' key=\"\" value=\"STR\"/><"+MY_ENUM+" class='"+SerializeXmlObject.MP_CLASS+"' value=\"ONE\"/></util.Map><array class=\""+CONTAINERS+"\" field=\"array\" type=\"int\"><java.lang.Integer value=\"5\"/><java.lang.Integer value=\"9\"/></array><array class=\""+CONTAINERS+"\" field=\"arrayDouble\" type=\"[I\"><array type=\"int\"><java.lang.Integer value=\"5\"/><java.lang.Integer value=\"9\"/></array><array type=\"int\"><java.lang.Integer value=\"4\"/></array></array></"+CONTAINERS+">", SerializeXmlObject.toXmlString(containers_));
 //        assertXMLEqualRuntime("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?><"+CONTAINERS+"><"+STRING_LIST+" class=\""+CONTAINERS+"\" field=\"list\"><java.lang.String class='"+SerializeXmlObject.LS_CLASS+"' value=\"ELEMENT\"/></"+STRING_LIST+"><"+TREE_MAP+" class=\""+CONTAINERS+"\" field=\"treemap\"><java.lang.String class='"+SerializeXmlObject.MP_CLASS+"' key=\"\" value=\"A\"/><java.lang.Integer class='"+SerializeXmlObject.MP_CLASS+"' value=\"1\"/><java.lang.String class='"+SerializeXmlObject.MP_CLASS+"' key=\"\" value=\"B\"/><java.lang.Integer class='"+SerializeXmlObject.MP_CLASS+"' value=\"2\"/></"+TREE_MAP+"><util.Map class=\""+CONTAINERS+"\" field=\"map\"><java.lang.String class='"+SerializeXmlObject.MP_CLASS+"' key=\"\" value=\"STR\"/><"+MY_ENUM+" class='"+SerializeXmlObject.MP_CLASS+"' value=\"ONE\"/></util.Map><array class=\""+CONTAINERS+"\" field=\"array\" type=\"int\"><java.lang.Integer value=\"5\"/><java.lang.Integer value=\"9\"/></array><array class=\""+CONTAINERS+"\" field=\"arrayDouble\" type=\"[I\"><array type=\"int\"><java.lang.Integer value=\"5\"/><java.lang.Integer value=\"9\"/></array><array type=\"int\"><java.lang.Integer value=\"4\"/></array></array></"+CONTAINERS+">", SerializeXmlObject.toXmlString(containers_));
-        assertXmlEqualRuntime("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?><"+CONTAINERS+"><"+STRING_LIST+" class=\""+CONTAINERS+"\" field=\"list\"><java.lang.String class='"+SerializeXmlObject.LS_CLASS+"' value=\"ELEMENT\"/></"+STRING_LIST+"><"+TREE_MAP+" class=\""+CONTAINERS+"\" field=\"treemap\"><java.lang.String class='"+SerializeXmlObject.MP_CLASS+"' key=\"\" value=\"A\"/><java.lang.Integer class='"+SerializeXmlObject.MP_CLASS+"' value=\"1\"/><java.lang.String class='"+SerializeXmlObject.MP_CLASS+"' key=\"\" value=\"B\"/><java.lang.Integer class='"+SerializeXmlObject.MP_CLASS+"' value=\"2\"/><"+NATURAL_COMPARATOR+" class=\""+TREE_MAP+"\" field=\"comparator\"/></"+TREE_MAP+"><"+STRING_MAP+" class=\""+CONTAINERS+"\" field=\"map\"><java.lang.String class='"+SerializeXmlObject.MP_CLASS+"' key=\"\" value=\"STR\"/><"+MY_ENUM+" class='"+SerializeXmlObject.MP_CLASS+"' value=\"ONE\"/></"+STRING_MAP+"><array class=\""+CONTAINERS+"\" field=\"array\" type=\"int\"><java.lang.Integer value=\"5\"/><java.lang.Integer value=\"9\"/></array><array class=\""+CONTAINERS+"\" field=\"arrayDouble\" type=\"[I\"><array type=\"int\"><java.lang.Integer value=\"5\"/><java.lang.Integer value=\"9\"/></array><array type=\"int\"><java.lang.Integer value=\"4\"/></array></array></"+CONTAINERS+">", SerializeXmlObject.toXmlString(containers_));
+        assertXmlEqualRuntime("<"+CONTAINERS+"><"+STRING_LIST+" class=\""+CONTAINERS+"\" field=\"list\"><java.lang.String class='"+SerializeXmlObject.LS_CLASS+"' value=\"ELEMENT\"/></"+STRING_LIST+"><"+TREE_MAP+" class=\""+CONTAINERS+"\" field=\"treemap\"><java.lang.String class='"+SerializeXmlObject.MP_CLASS+"' key=\"\" value=\"A\"/><java.lang.Integer class='"+SerializeXmlObject.MP_CLASS+"' value=\"1\"/><java.lang.String class='"+SerializeXmlObject.MP_CLASS+"' key=\"\" value=\"B\"/><java.lang.Integer class='"+SerializeXmlObject.MP_CLASS+"' value=\"2\"/><"+NATURAL_COMPARATOR+" class=\""+TREE_MAP+"\" field=\"comparator\"/></"+TREE_MAP+"><"+STRING_MAP+" class=\""+CONTAINERS+"\" field=\"map\"><java.lang.String class='"+SerializeXmlObject.MP_CLASS+"' key=\"\" value=\"STR\"/><"+MY_ENUM+" class='"+SerializeXmlObject.MP_CLASS+"' value=\"ONE\"/></"+STRING_MAP+"><array class=\""+CONTAINERS+"\" field=\"array\" type=\"int\"><java.lang.Integer value=\"5\"/><java.lang.Integer value=\"9\"/></array><array class=\""+CONTAINERS+"\" field=\"arrayDouble\" type=\"[I\"><array type=\"int\"><java.lang.Integer value=\"5\"/><java.lang.Integer value=\"9\"/></array><array type=\"int\"><java.lang.Integer value=\"4\"/></array></array></"+CONTAINERS+">", SerializeXmlObject.toXmlString(containers_));
     }
 
     @Test
@@ -300,7 +298,7 @@ public class SerializeXmlObjectTest {
         refOne_.setRefTwo(refTwo_);
         refTwo_.setRefOne(refOne_);
         refs_.setRef(refOne_);
-        assertXmlEqualRuntime("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?><"+REFS+"><"+REF_ONE+" class=\""+REFS+"\" field=\"ref\" id=\"0\"><"+REF_TWO+" class=\""+REF_ONE+"\" field=\"refTwo\"><"+REF_ONE+" class=\""+REF_TWO+"\" field=\"refOne\" ref=\"0\"/></"+REF_TWO+"></"+REF_ONE+"></"+REFS+">", SerializeXmlObject.toXmlString(refs_));
+        assertXmlEqualRuntime("<"+REFS+"><"+REF_ONE+" class=\""+REFS+"\" field=\"ref\" id=\"0\"><"+REF_TWO+" class=\""+REF_ONE+"\" field=\"refTwo\"><"+REF_ONE+" class=\""+REF_TWO+"\" field=\"refOne\" ref=\"0\"/></"+REF_TWO+"></"+REF_ONE+"></"+REFS+">", SerializeXmlObject.toXmlString(refs_));
     }
 
     @Test
@@ -327,7 +325,7 @@ public class SerializeXmlObjectTest {
         array_[0] = pr_;
         array_[1] = pr_;
         refs_.setArray(array_);
-        assertXmlEqualRuntime("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?><"+REFS_ARRAY+"><array class=\""+REFS_ARRAY+"\" field=\"array\" type=\"java.lang.Object\"><"+COMPOSITE_TWO+" id=\"0\"><java.lang.Integer class=\""+COMPOSITE_TWO+"\" field=\"primitive\" value=\"4\"/></"+COMPOSITE_TWO+"><"+COMPOSITE_TWO+" ref=\"0\"/></array></"+REFS_ARRAY+">", SerializeXmlObject.toXmlString(refs_));
+        assertXmlEqualRuntime("<"+REFS_ARRAY+"><array class=\""+REFS_ARRAY+"\" field=\"array\" type=\"java.lang.Object\"><"+COMPOSITE_TWO+" id=\"0\"><java.lang.Integer class=\""+COMPOSITE_TWO+"\" field=\"primitive\" value=\"4\"/></"+COMPOSITE_TWO+"><"+COMPOSITE_TWO+" ref=\"0\"/></array></"+REFS_ARRAY+">", SerializeXmlObject.toXmlString(refs_));
     }
 
     @Test
@@ -341,7 +339,7 @@ public class SerializeXmlObjectTest {
         array_[0] = pr_;
         array_[1] = pr_;
         refs_.setArray(array_);
-        assertXmlEqualRuntime("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?><"+REFS_ARRAY+"><array class=\""+REFS_ARRAY+"\" field=\"array\" type=\"java.lang.Object\"><"+COMPOSITE_TWO+" id=\"0\"><java.lang.Integer class=\""+COMPOSITE_TWO+"\" field=\"primitive\" value=\"4\"/></"+COMPOSITE_TWO+"><"+COMPOSITE_TWO+" ref=\"0\"/></array></"+REFS_ARRAY+">", SerializeXmlObject.toXmlString(refs_));
+        assertXmlEqualRuntime("<"+REFS_ARRAY+"><array class=\""+REFS_ARRAY+"\" field=\"array\" type=\"java.lang.Object\"><"+COMPOSITE_TWO+" id=\"0\"><java.lang.Integer class=\""+COMPOSITE_TWO+"\" field=\"primitive\" value=\"4\"/></"+COMPOSITE_TWO+"><"+COMPOSITE_TWO+" ref=\"0\"/></array></"+REFS_ARRAY+">", SerializeXmlObject.toXmlString(refs_));
     }
 
     @Test
@@ -358,7 +356,7 @@ public class SerializeXmlObjectTest {
         array_.add(refTwo_);
         array_.add(refOne_);
         refs_.setList(array_);
-        assertXmlEqualRuntime("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?><"+REFS_LIST+"><"+CUST_LIST+" class=\""+REFS_LIST+"\" field=\"list\"><"+REF_ONE+" class='"+SerializeXmlObject.LS_CLASS+"' id=\"0\"><"+REF_TWO+" class=\""+REF_ONE+"\" field=\"refTwo\" ref=\"1\"/></"+REF_ONE+"><"+REF_TWO+" class='"+SerializeXmlObject.LS_CLASS+"' id=\"1\"><"+REF_ONE+" class=\""+REF_TWO+"\" field=\"refOne\" ref=\"0\"/></"+REF_TWO+"><"+REF_ONE+" class='"+SerializeXmlObject.LS_CLASS+"' ref=\"0\"/></"+CUST_LIST+"></"+REFS_LIST+">", SerializeXmlObject.toXmlString(refs_));
+        assertXmlEqualRuntime("<"+REFS_LIST+"><"+CUST_LIST+" class=\""+REFS_LIST+"\" field=\"list\"><"+REF_ONE+" class='"+SerializeXmlObject.LS_CLASS+"' id=\"0\"><"+REF_TWO+" class=\""+REF_ONE+"\" field=\"refTwo\" ref=\"1\"/></"+REF_ONE+"><"+REF_TWO+" class='"+SerializeXmlObject.LS_CLASS+"' id=\"1\"><"+REF_ONE+" class=\""+REF_TWO+"\" field=\"refOne\" ref=\"0\"/></"+REF_TWO+"><"+REF_ONE+" class='"+SerializeXmlObject.LS_CLASS+"' ref=\"0\"/></"+CUST_LIST+"></"+REFS_LIST+">", SerializeXmlObject.toXmlString(refs_));
     }
 
     @Parameters(method="booleanInputs")
@@ -370,7 +368,7 @@ public class SerializeXmlObjectTest {
         EnumMap<MyEnum,String> map_ = new EnumMap<MyEnum,String>();
         map_.put(MyEnum.ONE, "STR_ONE");
         containers_.setMap(map_);
-        assertXmlEqualRuntime("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?><"+MAPS+"><"+ENUM_MAP+" class=\""+MAPS+"\" field=\"map\"><"+MY_ENUM+" class='"+SerializeXmlObject.MP_CLASS+"' key=\"\" value=\"ONE\"/><java.lang.String class='"+SerializeXmlObject.MP_CLASS+"' value=\"STR_ONE\"/></"+ENUM_MAP+"></"+MAPS+">", SerializeXmlObject.toXmlString(containers_));
+        assertXmlEqualRuntime("<"+MAPS+"><"+ENUM_MAP+" class=\""+MAPS+"\" field=\"map\"><"+MY_ENUM+" class='"+SerializeXmlObject.MP_CLASS+"' key=\"\" value=\"ONE\"/><java.lang.String class='"+SerializeXmlObject.MP_CLASS+"' value=\"STR_ONE\"/></"+ENUM_MAP+"></"+MAPS+">", SerializeXmlObject.toXmlString(containers_));
     }
 
     @Parameters(method="booleanInputs")
@@ -382,7 +380,7 @@ public class SerializeXmlObjectTest {
         IdMap<Object,String> map_ = new IdMap<Object,String>();
         map_.put(null, "STR_ONE");
         containers_.setMap(map_);
-        assertXmlEqualRuntime("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?><"+MAPS+"><"+ID_MAP+" class=\""+MAPS+"\" field=\"map\"><null class='"+SerializeXmlObject.MP_CLASS+"' key=\"\"/><java.lang.String class='"+SerializeXmlObject.MP_CLASS+"' value=\"STR_ONE\"/></"+ID_MAP+"></"+MAPS+">", SerializeXmlObject.toXmlString(containers_));
+        assertXmlEqualRuntime("<"+MAPS+"><"+ID_MAP+" class=\""+MAPS+"\" field=\"map\"><null class='"+SerializeXmlObject.MP_CLASS+"' key=\"\"/><java.lang.String class='"+SerializeXmlObject.MP_CLASS+"' value=\"STR_ONE\"/></"+ID_MAP+"></"+MAPS+">", SerializeXmlObject.toXmlString(containers_));
     }
 
     @Parameters(method="booleanInputs")
@@ -394,7 +392,7 @@ public class SerializeXmlObjectTest {
         BooleanMap<String> map_ = new BooleanMap<String>();
         map_.put(true, "STR_ONE");
         containers_.setMap(map_);
-        assertXmlEqualRuntime("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?><"+MAPS+"><"+BOOLEAN_MAP+" class=\""+MAPS+"\" field=\"map\"><java.lang.Boolean class='"+SerializeXmlObject.MP_CLASS+"' key=\"\" value=\"true\"/><java.lang.String class='"+SerializeXmlObject.MP_CLASS+"' value=\"STR_ONE\"/></"+BOOLEAN_MAP+"></"+MAPS+">", SerializeXmlObject.toXmlString(containers_));
+        assertXmlEqualRuntime("<"+MAPS+"><"+BOOLEAN_MAP+" class=\""+MAPS+"\" field=\"map\"><java.lang.Boolean class='"+SerializeXmlObject.MP_CLASS+"' key=\"\" value=\"true\"/><java.lang.String class='"+SerializeXmlObject.MP_CLASS+"' value=\"STR_ONE\"/></"+BOOLEAN_MAP+"></"+MAPS+">", SerializeXmlObject.toXmlString(containers_));
     }
 
     @Parameters(method="booleanInputs")
@@ -406,7 +404,7 @@ public class SerializeXmlObjectTest {
         NumberMap<Long,String> map_ = new NumberMap<Long,String>();
         map_.put(1L, "STR_ONE");
         containers_.setMap(map_);
-        assertXmlEqualRuntime("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?><"+MAPS+"><"+NUMBER_MAP+" class=\""+MAPS+"\" field=\"map\"><java.lang.Long class='"+SerializeXmlObject.MP_CLASS+"' key=\"\" value=\"1\"/><java.lang.String class='"+SerializeXmlObject.MP_CLASS+"' value=\"STR_ONE\"/></"+NUMBER_MAP+"></"+MAPS+">", SerializeXmlObject.toXmlString(containers_));
+        assertXmlEqualRuntime("<"+MAPS+"><"+NUMBER_MAP+" class=\""+MAPS+"\" field=\"map\"><java.lang.Long class='"+SerializeXmlObject.MP_CLASS+"' key=\"\" value=\"1\"/><java.lang.String class='"+SerializeXmlObject.MP_CLASS+"' value=\"STR_ONE\"/></"+NUMBER_MAP+"></"+MAPS+">", SerializeXmlObject.toXmlString(containers_));
     }
 
     @Parameters(method="booleanInputs")
@@ -418,7 +416,7 @@ public class SerializeXmlObjectTest {
         NumberMap<Short,String> map_ = new NumberMap<Short,String>();
         map_.put(new Short((short)1), "STR_ONE");
         containers_.setMap(map_);
-        assertXmlEqualRuntime("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?><"+MAPS+"><"+NUMBER_MAP+" class=\""+MAPS+"\" field=\"map\"><java.lang.Short class='"+SerializeXmlObject.MP_CLASS+"' key=\"\" value=\"1\"/><java.lang.String class='"+SerializeXmlObject.MP_CLASS+"' value=\"STR_ONE\"/></"+NUMBER_MAP+"></"+MAPS+">", SerializeXmlObject.toXmlString(containers_));
+        assertXmlEqualRuntime("<"+MAPS+"><"+NUMBER_MAP+" class=\""+MAPS+"\" field=\"map\"><java.lang.Short class='"+SerializeXmlObject.MP_CLASS+"' key=\"\" value=\"1\"/><java.lang.String class='"+SerializeXmlObject.MP_CLASS+"' value=\"STR_ONE\"/></"+NUMBER_MAP+"></"+MAPS+">", SerializeXmlObject.toXmlString(containers_));
     }
 
     @Parameters(method="booleanInputs")
@@ -430,7 +428,7 @@ public class SerializeXmlObjectTest {
         NumberMap<Byte,String> map_ = new NumberMap<Byte,String>();
         map_.put(new Byte((byte)1), "STR_ONE");
         containers_.setMap(map_);
-        assertXmlEqualRuntime("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?><"+MAPS+"><"+NUMBER_MAP+" class=\""+MAPS+"\" field=\"map\"><java.lang.Byte class='"+SerializeXmlObject.MP_CLASS+"' key=\"\" value=\"1\"/><java.lang.String class='"+SerializeXmlObject.MP_CLASS+"' value=\"STR_ONE\"/></"+NUMBER_MAP+"></"+MAPS+">", SerializeXmlObject.toXmlString(containers_));
+        assertXmlEqualRuntime("<"+MAPS+"><"+NUMBER_MAP+" class=\""+MAPS+"\" field=\"map\"><java.lang.Byte class='"+SerializeXmlObject.MP_CLASS+"' key=\"\" value=\"1\"/><java.lang.String class='"+SerializeXmlObject.MP_CLASS+"' value=\"STR_ONE\"/></"+NUMBER_MAP+"></"+MAPS+">", SerializeXmlObject.toXmlString(containers_));
     }
 
     @Parameters(method="booleanInputs")
@@ -442,7 +440,7 @@ public class SerializeXmlObjectTest {
         NumberMap<Float,String> map_ = new NumberMap<Float,String>();
         map_.put(new Float(1), "STR_ONE");
         containers_.setMap(map_);
-        assertXmlEqualRuntime("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?><"+MAPS+"><"+NUMBER_MAP+" class=\""+MAPS+"\" field=\"map\"><java.lang.Float class='"+SerializeXmlObject.MP_CLASS+"' key=\"\" value=\"1.0\"/><java.lang.String class='"+SerializeXmlObject.MP_CLASS+"' value=\"STR_ONE\"/></"+NUMBER_MAP+"></"+MAPS+">", SerializeXmlObject.toXmlString(containers_));
+        assertXmlEqualRuntime("<"+MAPS+"><"+NUMBER_MAP+" class=\""+MAPS+"\" field=\"map\"><java.lang.Float class='"+SerializeXmlObject.MP_CLASS+"' key=\"\" value=\"1.0\"/><java.lang.String class='"+SerializeXmlObject.MP_CLASS+"' value=\"STR_ONE\"/></"+NUMBER_MAP+"></"+MAPS+">", SerializeXmlObject.toXmlString(containers_));
     }
 
     @Parameters(method="booleanInputs")
@@ -454,7 +452,7 @@ public class SerializeXmlObjectTest {
         NumberMap<Double,String> map_ = new NumberMap<Double,String>();
         map_.put(new Double(1), "STR_ONE");
         containers_.setMap(map_);
-        assertXmlEqualRuntime("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?><"+MAPS+"><"+NUMBER_MAP+" class=\""+MAPS+"\" field=\"map\"><java.lang.Double class='"+SerializeXmlObject.MP_CLASS+"' key=\"\" value=\"1.0\"/><java.lang.String class='"+SerializeXmlObject.MP_CLASS+"' value=\"STR_ONE\"/></"+NUMBER_MAP+"></"+MAPS+">", SerializeXmlObject.toXmlString(containers_));
+        assertXmlEqualRuntime("<"+MAPS+"><"+NUMBER_MAP+" class=\""+MAPS+"\" field=\"map\"><java.lang.Double class='"+SerializeXmlObject.MP_CLASS+"' key=\"\" value=\"1.0\"/><java.lang.String class='"+SerializeXmlObject.MP_CLASS+"' value=\"STR_ONE\"/></"+NUMBER_MAP+"></"+MAPS+">", SerializeXmlObject.toXmlString(containers_));
     }
 
     @Parameters(method="booleanInputs")
@@ -466,7 +464,7 @@ public class SerializeXmlObjectTest {
         NumberMap<BigInteger,String> map_ = new NumberMap<BigInteger,String>();
         map_.put(new BigInteger("1"), "STR_ONE");
         containers_.setMap(map_);
-        assertXmlEqualRuntime("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?><"+MAPS+"><"+NUMBER_MAP+" class=\""+MAPS+"\" field=\"map\"><java.math.BigInteger class='"+SerializeXmlObject.MP_CLASS+"' key=\"\" value=\"1\"/><java.lang.String class='"+SerializeXmlObject.MP_CLASS+"' value=\"STR_ONE\"/></"+NUMBER_MAP+"></"+MAPS+">", SerializeXmlObject.toXmlString(containers_));
+        assertXmlEqualRuntime("<"+MAPS+"><"+NUMBER_MAP+" class=\""+MAPS+"\" field=\"map\"><java.math.BigInteger class='"+SerializeXmlObject.MP_CLASS+"' key=\"\" value=\"1\"/><java.lang.String class='"+SerializeXmlObject.MP_CLASS+"' value=\"STR_ONE\"/></"+NUMBER_MAP+"></"+MAPS+">", SerializeXmlObject.toXmlString(containers_));
     }
 
     @Parameters(method="booleanInputs")
@@ -478,7 +476,7 @@ public class SerializeXmlObjectTest {
         NumberMap<BigDecimal,String> map_ = new NumberMap<BigDecimal,String>();
         map_.put(new BigDecimal("1.0"), "STR_ONE");
         containers_.setMap(map_);
-        assertXmlEqualRuntime("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?><"+MAPS+"><"+NUMBER_MAP+" class=\""+MAPS+"\" field=\"map\"><java.math.BigDecimal class='"+SerializeXmlObject.MP_CLASS+"' key=\"\" value=\"1.0\"/><java.lang.String class='"+SerializeXmlObject.MP_CLASS+"' value=\"STR_ONE\"/></"+NUMBER_MAP+"></"+MAPS+">", SerializeXmlObject.toXmlString(containers_));
+        assertXmlEqualRuntime("<"+MAPS+"><"+NUMBER_MAP+" class=\""+MAPS+"\" field=\"map\"><java.math.BigDecimal class='"+SerializeXmlObject.MP_CLASS+"' key=\"\" value=\"1.0\"/><java.lang.String class='"+SerializeXmlObject.MP_CLASS+"' value=\"STR_ONE\"/></"+NUMBER_MAP+"></"+MAPS+">", SerializeXmlObject.toXmlString(containers_));
     }
 
     @Parameters(method="booleanInputs")
@@ -490,7 +488,7 @@ public class SerializeXmlObjectTest {
         NumberMap<AtomicInteger,String> map_ = new NumberMap<AtomicInteger,String>();
         map_.put(new AtomicInteger(1), "STR_ONE");
         containers_.setMap(map_);
-        assertXmlEqualRuntime("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?><"+MAPS+"><"+NUMBER_MAP+" class=\""+MAPS+"\" field=\"map\"><java.util.concurrent.atomic.AtomicInteger class='"+SerializeXmlObject.MP_CLASS+"' key=\"\" value=\"1\"/><java.lang.String class='"+SerializeXmlObject.MP_CLASS+"' value=\"STR_ONE\"/></"+NUMBER_MAP+"></"+MAPS+">", SerializeXmlObject.toXmlString(containers_));
+        assertXmlEqualRuntime("<"+MAPS+"><"+NUMBER_MAP+" class=\""+MAPS+"\" field=\"map\"><java.util.concurrent.atomic.AtomicInteger class='"+SerializeXmlObject.MP_CLASS+"' key=\"\" value=\"1\"/><java.lang.String class='"+SerializeXmlObject.MP_CLASS+"' value=\"STR_ONE\"/></"+NUMBER_MAP+"></"+MAPS+">", SerializeXmlObject.toXmlString(containers_));
     }
 
     @Parameters(method="booleanInputs")
@@ -502,7 +500,7 @@ public class SerializeXmlObjectTest {
         NumberMap<AtomicLong,String> map_ = new NumberMap<AtomicLong,String>();
         map_.put(new AtomicLong(1), "STR_ONE");
         containers_.setMap(map_);
-        assertXmlEqualRuntime("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?><"+MAPS+"><"+NUMBER_MAP+" class=\""+MAPS+"\" field=\"map\"><java.util.concurrent.atomic.AtomicLong class='"+SerializeXmlObject.MP_CLASS+"' key=\"\" value=\"1\"/><java.lang.String class='"+SerializeXmlObject.MP_CLASS+"' value=\"STR_ONE\"/></"+NUMBER_MAP+"></"+MAPS+">", SerializeXmlObject.toXmlString(containers_));
+        assertXmlEqualRuntime("<"+MAPS+"><"+NUMBER_MAP+" class=\""+MAPS+"\" field=\"map\"><java.util.concurrent.atomic.AtomicLong class='"+SerializeXmlObject.MP_CLASS+"' key=\"\" value=\"1\"/><java.lang.String class='"+SerializeXmlObject.MP_CLASS+"' value=\"STR_ONE\"/></"+NUMBER_MAP+"></"+MAPS+">", SerializeXmlObject.toXmlString(containers_));
     }
 
     @Parameters(method="booleanInputs")
@@ -510,7 +508,7 @@ public class SerializeXmlObjectTest {
     public void toXmlString28Test(boolean _bool) {
         SerializeXmlObject.setReferences(_bool);
         SerializeXmlObject.setCheckReferences(false);
-        assertXmlEqualRuntime("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?><null/>",SerializeXmlObject.toXmlString(null));
+        assertXmlEqualRuntime("<null/>",SerializeXmlObject.toXmlString(null));
     }
 
     @Parameters(method="booleanInputs")
@@ -520,7 +518,7 @@ public class SerializeXmlObjectTest {
         SerializeXmlObject.setCheckReferences(false);
         RefsArray array_ = new RefsArray();
         array_.setArray(new Object[1]);
-        assertXmlEqualRuntime("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?><"+REFS_ARRAY+"><array class=\""+REFS_ARRAY+"\" field=\"array\" type=\"java.lang.Object\"><null/></array></"+REFS_ARRAY+">",SerializeXmlObject.toXmlString(array_));
+        assertXmlEqualRuntime("<"+REFS_ARRAY+"><array class=\""+REFS_ARRAY+"\" field=\"array\" type=\"java.lang.Object\"><null/></array></"+REFS_ARRAY+">",SerializeXmlObject.toXmlString(array_));
     }
 
     @Parameters(method="booleanInputs")
@@ -530,7 +528,7 @@ public class SerializeXmlObjectTest {
         SerializeXmlObject.setCheckReferences(false);
         RefsArray array_ = new RefsArray();
         array_.setArray(new Integer[1][4]);
-        assertXmlEqualRuntime("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?><"+REFS_ARRAY+"><array class=\""+REFS_ARRAY+"\" field=\"array\" type=\"[Ljava.lang.Integer;\"><array type=\"java.lang.Integer\"><null/><null/><null/><null/></array></array></"+REFS_ARRAY+">",SerializeXmlObject.toXmlString(array_));
+        assertXmlEqualRuntime("<"+REFS_ARRAY+"><array class=\""+REFS_ARRAY+"\" field=\"array\" type=\"[Ljava.lang.Integer;\"><array type=\"java.lang.Integer\"><null/><null/><null/><null/></array></array></"+REFS_ARRAY+">",SerializeXmlObject.toXmlString(array_));
     }
 
     @Parameters(method="booleanInputs")
@@ -540,7 +538,7 @@ public class SerializeXmlObjectTest {
         SerializeXmlObject.setCheckReferences(false);
         RefsArray array_ = new RefsArray();
         array_.setArray(new boolean[1][1]);
-        assertXmlEqualRuntime("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?><"+REFS_ARRAY+"><array class=\""+REFS_ARRAY+"\" field=\"array\" type=\"[Z\"><array type=\"boolean\"><java.lang.Boolean value=\"false\"/></array></array></"+REFS_ARRAY+">",SerializeXmlObject.toXmlString(array_));
+        assertXmlEqualRuntime("<"+REFS_ARRAY+"><array class=\""+REFS_ARRAY+"\" field=\"array\" type=\"[Z\"><array type=\"boolean\"><java.lang.Boolean value=\"false\"/></array></array></"+REFS_ARRAY+">",SerializeXmlObject.toXmlString(array_));
     }
 
     @Parameters(method="booleanInputs")
@@ -550,7 +548,7 @@ public class SerializeXmlObjectTest {
         SerializeXmlObject.setCheckReferences(false);
         RefsArray array_ = new RefsArray();
         array_.setArray(new int[1][1]);
-        assertXmlEqualRuntime("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?><"+REFS_ARRAY+"><array class=\""+REFS_ARRAY+"\" field=\"array\" type=\"[I\"><array type=\"int\"><java.lang.Integer value=\"0\"/></array></array></"+REFS_ARRAY+">",SerializeXmlObject.toXmlString(array_));
+        assertXmlEqualRuntime("<"+REFS_ARRAY+"><array class=\""+REFS_ARRAY+"\" field=\"array\" type=\"[I\"><array type=\"int\"><java.lang.Integer value=\"0\"/></array></array></"+REFS_ARRAY+">",SerializeXmlObject.toXmlString(array_));
     }
 
     @Parameters(method="booleanInputs")
@@ -560,7 +558,7 @@ public class SerializeXmlObjectTest {
         SerializeXmlObject.setCheckReferences(false);
         RefsArray array_ = new RefsArray();
         array_.setArray(new boolean[1][1][1]);
-        assertXmlEqualRuntime("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?><"+REFS_ARRAY+"><array class=\""+REFS_ARRAY+"\" field=\"array\" type=\"[[Z\"><array type=\"[Z\"><array type=\"boolean\"><java.lang.Boolean value=\"false\"/></array></array></array></"+REFS_ARRAY+">",SerializeXmlObject.toXmlString(array_));
+        assertXmlEqualRuntime("<"+REFS_ARRAY+"><array class=\""+REFS_ARRAY+"\" field=\"array\" type=\"[[Z\"><array type=\"[Z\"><array type=\"boolean\"><java.lang.Boolean value=\"false\"/></array></array></array></"+REFS_ARRAY+">",SerializeXmlObject.toXmlString(array_));
     }
 
     @Parameters(method="booleanInputs")
@@ -570,7 +568,7 @@ public class SerializeXmlObjectTest {
         SerializeXmlObject.setCheckReferences(false);
         RefsArray array_ = new RefsArray();
         array_.setArray(new int[1][1][1]);
-        assertXmlEqualRuntime("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?><"+REFS_ARRAY+"><array class=\""+REFS_ARRAY+"\" field=\"array\" type=\"[[I\"><array type=\"[I\"><array type=\"int\"><java.lang.Integer value=\"0\"/></array></array></array></"+REFS_ARRAY+">",SerializeXmlObject.toXmlString(array_));
+        assertXmlEqualRuntime("<"+REFS_ARRAY+"><array class=\""+REFS_ARRAY+"\" field=\"array\" type=\"[[I\"><array type=\"[I\"><array type=\"int\"><java.lang.Integer value=\"0\"/></array></array></array></"+REFS_ARRAY+">",SerializeXmlObject.toXmlString(array_));
     }
 
     @Parameters(method="booleanInputs")
@@ -580,7 +578,7 @@ public class SerializeXmlObjectTest {
         SerializeXmlObject.setCheckReferences(false);
         RefsArray array_ = new RefsArray();
         array_.setArray(new long[1][1]);
-        assertXmlEqualRuntime("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?><"+REFS_ARRAY+"><array class=\""+REFS_ARRAY+"\" field=\"array\" type=\"[J\"><array type=\"long\"><java.lang.Long value=\"0\"/></array></array></"+REFS_ARRAY+">",SerializeXmlObject.toXmlString(array_));
+        assertXmlEqualRuntime("<"+REFS_ARRAY+"><array class=\""+REFS_ARRAY+"\" field=\"array\" type=\"[J\"><array type=\"long\"><java.lang.Long value=\"0\"/></array></array></"+REFS_ARRAY+">",SerializeXmlObject.toXmlString(array_));
     }
 
     @Parameters(method="booleanInputs")
@@ -590,7 +588,7 @@ public class SerializeXmlObjectTest {
         SerializeXmlObject.setCheckReferences(false);
         RefsArray array_ = new RefsArray();
         array_.setArray(new short[1][1]);
-        assertXmlEqualRuntime("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?><"+REFS_ARRAY+"><array class=\""+REFS_ARRAY+"\" field=\"array\" type=\"[S\"><array type=\"short\"><java.lang.Short value=\"0\"/></array></array></"+REFS_ARRAY+">",SerializeXmlObject.toXmlString(array_));
+        assertXmlEqualRuntime("<"+REFS_ARRAY+"><array class=\""+REFS_ARRAY+"\" field=\"array\" type=\"[S\"><array type=\"short\"><java.lang.Short value=\"0\"/></array></array></"+REFS_ARRAY+">",SerializeXmlObject.toXmlString(array_));
     }
 
     @Parameters(method="booleanInputs")
@@ -600,7 +598,7 @@ public class SerializeXmlObjectTest {
         SerializeXmlObject.setCheckReferences(false);
         RefsArray array_ = new RefsArray();
         array_.setArray(new byte[1][1]);
-        assertXmlEqualRuntime("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?><"+REFS_ARRAY+"><array class=\""+REFS_ARRAY+"\" field=\"array\" type=\"[B\"><array type=\"byte\"><java.lang.Byte value=\"0\"/></array></array></"+REFS_ARRAY+">",SerializeXmlObject.toXmlString(array_));
+        assertXmlEqualRuntime("<"+REFS_ARRAY+"><array class=\""+REFS_ARRAY+"\" field=\"array\" type=\"[B\"><array type=\"byte\"><java.lang.Byte value=\"0\"/></array></array></"+REFS_ARRAY+">",SerializeXmlObject.toXmlString(array_));
     }
 
     @Parameters(method="booleanInputs")
@@ -613,7 +611,7 @@ public class SerializeXmlObjectTest {
         ch_[0][0] = '0';
         array_.setArray(ch_);
 //        assertXMLEqualRuntime("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?><"+REFS_ARRAY+"><array class=\""+REFS_ARRAY+"\" field=\"array\" type=\"[C\"><array type=\"char\"><java.lang.Character value=\"&#0;\"/></array></array></"+REFS_ARRAY+">",SerializeXmlObject.toXmlString(array_));
-        assertXmlEqualRuntime("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?><"+REFS_ARRAY+"><array class=\""+REFS_ARRAY+"\" field=\"array\" type=\"[C\"><array type=\"char\"><java.lang.Character value=\"0\"/></array></array></"+REFS_ARRAY+">",SerializeXmlObject.toXmlString(array_));
+        assertXmlEqualRuntime("<"+REFS_ARRAY+"><array class=\""+REFS_ARRAY+"\" field=\"array\" type=\"[C\"><array type=\"char\"><java.lang.Character value=\"0\"/></array></array></"+REFS_ARRAY+">",SerializeXmlObject.toXmlString(array_));
     }
 
     @Parameters(method="booleanInputs")
@@ -623,7 +621,7 @@ public class SerializeXmlObjectTest {
         SerializeXmlObject.setCheckReferences(false);
         RefsArray array_ = new RefsArray();
         array_.setArray(new float[1][1]);
-        assertXmlEqualRuntime("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?><"+REFS_ARRAY+"><array class=\""+REFS_ARRAY+"\" field=\"array\" type=\"[F\"><array type=\"float\"><java.lang.Float value=\"0.0\"/></array></array></"+REFS_ARRAY+">",SerializeXmlObject.toXmlString(array_));
+        assertXmlEqualRuntime("<"+REFS_ARRAY+"><array class=\""+REFS_ARRAY+"\" field=\"array\" type=\"[F\"><array type=\"float\"><java.lang.Float value=\"0.0\"/></array></array></"+REFS_ARRAY+">",SerializeXmlObject.toXmlString(array_));
     }
 
     @Parameters(method="booleanInputs")
@@ -633,7 +631,7 @@ public class SerializeXmlObjectTest {
         SerializeXmlObject.setCheckReferences(false);
         RefsArray array_ = new RefsArray();
         array_.setArray(new double[1][1]);
-        assertXmlEqualRuntime("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?><"+REFS_ARRAY+"><array class=\""+REFS_ARRAY+"\" field=\"array\" type=\"[D\"><array type=\"double\"><java.lang.Double value=\"0.0\"/></array></array></"+REFS_ARRAY+">",SerializeXmlObject.toXmlString(array_));
+        assertXmlEqualRuntime("<"+REFS_ARRAY+"><array class=\""+REFS_ARRAY+"\" field=\"array\" type=\"[D\"><array type=\"double\"><java.lang.Double value=\"0.0\"/></array></array></"+REFS_ARRAY+">",SerializeXmlObject.toXmlString(array_));
     }
 
     @Parameters(method="booleanInputs")
@@ -645,7 +643,7 @@ public class SerializeXmlObjectTest {
         IdMap<Object,String> map_ = new IdMap<Object,String>();
         map_.put(new Object[0], "STR_ONE");
         containers_.setMap(map_);
-        assertXmlEqualRuntime("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?><"+MAPS+"><"+ID_MAP+" class=\""+MAPS+"\" field=\"map\"><array class='"+SerializeXmlObject.MP_CLASS+"' key=\"\" type=\"java.lang.Object\"/><java.lang.String class='"+SerializeXmlObject.MP_CLASS+"' value=\"STR_ONE\"/></"+ID_MAP+"></"+MAPS+">", SerializeXmlObject.toXmlString(containers_));
+        assertXmlEqualRuntime("<"+MAPS+"><"+ID_MAP+" class=\""+MAPS+"\" field=\"map\"><array class='"+SerializeXmlObject.MP_CLASS+"' key=\"\" type=\"java.lang.Object\"/><java.lang.String class='"+SerializeXmlObject.MP_CLASS+"' value=\"STR_ONE\"/></"+ID_MAP+"></"+MAPS+">", SerializeXmlObject.toXmlString(containers_));
     }
 
     @Parameters(method="booleanInputs")
@@ -658,7 +656,7 @@ public class SerializeXmlObjectTest {
         tree_.put("A", 1);
         tree_.put("B", 2);
         containers_.setObject(tree_);
-        assertXmlEqualRuntime("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?><"+CONTAINER+"><"+TREE_MAP+" class=\""+CONTAINER+"\" field=\"object\"><java.lang.String class='"+SerializeXmlObject.MP_CLASS+"' key=\"\" value=\"B\"/><java.lang.Integer class='"+SerializeXmlObject.MP_CLASS+"' value=\"2\"/><java.lang.String class='"+SerializeXmlObject.MP_CLASS+"' key=\"\" value=\"A\"/><java.lang.Integer class='"+SerializeXmlObject.MP_CLASS+"' value=\"1\"/><"+MY_STRING_COMPARATOR+" class=\""+TREE_MAP+"\" field=\"comparator\"><java.lang.Integer class=\""+MY_STRING_COMPARATOR+"\" field=\"mult\" value=\"-1\"/></"+MY_STRING_COMPARATOR+"></"+TREE_MAP+"></"+CONTAINER+">", SerializeXmlObject.toXmlString(containers_));
+        assertXmlEqualRuntime("<"+CONTAINER+"><"+TREE_MAP+" class=\""+CONTAINER+"\" field=\"object\"><java.lang.String class='"+SerializeXmlObject.MP_CLASS+"' key=\"\" value=\"B\"/><java.lang.Integer class='"+SerializeXmlObject.MP_CLASS+"' value=\"2\"/><java.lang.String class='"+SerializeXmlObject.MP_CLASS+"' key=\"\" value=\"A\"/><java.lang.Integer class='"+SerializeXmlObject.MP_CLASS+"' value=\"1\"/><"+MY_STRING_COMPARATOR+" class=\""+TREE_MAP+"\" field=\"comparator\"><java.lang.Integer class=\""+MY_STRING_COMPARATOR+"\" field=\"mult\" value=\"-1\"/></"+MY_STRING_COMPARATOR+"></"+TREE_MAP+"></"+CONTAINER+">", SerializeXmlObject.toXmlString(containers_));
     }
 
     @Test
@@ -668,7 +666,7 @@ public class SerializeXmlObjectTest {
         RefsArray array_ = new RefsArray();
         int[] arrayInt_ = new int[1];
         array_.setArray(new int[][]{arrayInt_, arrayInt_});
-        assertXmlEqualRuntime("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?><"+REFS_ARRAY+"><array class=\""+REFS_ARRAY+"\" field=\"array\" type=\"[I\"><array id=\"0\" type=\"int\"><java.lang.Integer value=\"0\"/></array><array ref=\"0\" type=\"int\"/></array></"+REFS_ARRAY+">", SerializeXmlObject.toXmlString(array_));
+        assertXmlEqualRuntime("<"+REFS_ARRAY+"><array class=\""+REFS_ARRAY+"\" field=\"array\" type=\"[I\"><array id=\"0\" type=\"int\"><java.lang.Integer value=\"0\"/></array><array ref=\"0\" type=\"int\"/></array></"+REFS_ARRAY+">", SerializeXmlObject.toXmlString(array_));
     }
 
     @Parameters(method="booleanInputs")
@@ -682,7 +680,7 @@ public class SerializeXmlObjectTest {
         comp_.setPrimitive(4);
         array_[0] = comp_;
         container_.setObject(array_);
-        assertXmlEqualRuntime("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?><"+CONTAINER+"><array class=\""+CONTAINER+"\" field=\"object\" type=\"java.lang.Object\"><"+COMPOSITE_TWO+"><java.lang.Integer class=\""+COMPOSITE_TWO+"\" field=\"primitive\" value=\"4\"/></"+COMPOSITE_TWO+"></array></"+CONTAINER+">", SerializeXmlObject.toXmlString(container_));
+        assertXmlEqualRuntime("<"+CONTAINER+"><array class=\""+CONTAINER+"\" field=\"object\" type=\"java.lang.Object\"><"+COMPOSITE_TWO+"><java.lang.Integer class=\""+COMPOSITE_TWO+"\" field=\"primitive\" value=\"4\"/></"+COMPOSITE_TWO+"></array></"+CONTAINER+">", SerializeXmlObject.toXmlString(container_));
     }
 
     @Test
@@ -696,7 +694,7 @@ public class SerializeXmlObjectTest {
         array_[0] = comp_;
         array_[1] = comp_;
         container_.setObject(array_);
-        assertXmlEqualRuntime("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?><"+CONTAINER+"><array class=\""+CONTAINER+"\" field=\"object\" type=\"java.lang.Object\"><"+COMPOSITE_TWO+" id=\"0\"><java.lang.Integer class=\""+COMPOSITE_TWO+"\" field=\"primitive\" value=\"4\"/></"+COMPOSITE_TWO+"><"+COMPOSITE_TWO+" ref=\"0\"/></array></"+CONTAINER+">", SerializeXmlObject.toXmlString(container_));
+        assertXmlEqualRuntime("<"+CONTAINER+"><array class=\""+CONTAINER+"\" field=\"object\" type=\"java.lang.Object\"><"+COMPOSITE_TWO+" id=\"0\"><java.lang.Integer class=\""+COMPOSITE_TWO+"\" field=\"primitive\" value=\"4\"/></"+COMPOSITE_TWO+"><"+COMPOSITE_TWO+" ref=\"0\"/></array></"+CONTAINER+">", SerializeXmlObject.toXmlString(container_));
     }
 
     @Test
@@ -707,7 +705,7 @@ public class SerializeXmlObjectTest {
         Object[] arrayInt_ = new Object[1];
         arrayInt_[0] = arrayInt_;
         array_.setArray(arrayInt_);
-        assertXmlEqualRuntime("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?><"+REFS_ARRAY+"><array class=\""+REFS_ARRAY+"\" field=\"array\" id=\"0\" type=\"java.lang.Object\"><array ref=\"0\" type=\"java.lang.Object\"/></array></"+REFS_ARRAY+">", SerializeXmlObject.toXmlString(array_));
+        assertXmlEqualRuntime("<"+REFS_ARRAY+"><array class=\""+REFS_ARRAY+"\" field=\"array\" id=\"0\" type=\"java.lang.Object\"><array ref=\"0\" type=\"java.lang.Object\"/></array></"+REFS_ARRAY+">", SerializeXmlObject.toXmlString(array_));
     }
 
     @Parameters(method="booleanInputs")
@@ -722,7 +720,7 @@ public class SerializeXmlObjectTest {
         comp_.setPrimitive(4);
         map_.put(comp_, "FOUR");
         container_.setObject(map_);
-        assertXmlEqualRuntime("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?><"+CONTAINER+"><"+OBJECT_MAP+" class=\""+CONTAINER+"\" field=\"object\"><"+COMPOSITE_TWO+" class='"+SerializeXmlObject.MP_CLASS+"' key=\"\"><java.lang.Integer class=\""+COMPOSITE_TWO+"\" field=\"primitive\" value=\"4\"/></"+COMPOSITE_TWO+"><java.lang.String class='"+SerializeXmlObject.MP_CLASS+"' value=\"FOUR\"/></"+OBJECT_MAP+"></"+CONTAINER+">", SerializeXmlObject.toXmlString(container_));
+        assertXmlEqualRuntime("<"+CONTAINER+"><"+OBJECT_MAP+" class=\""+CONTAINER+"\" field=\"object\"><"+COMPOSITE_TWO+" class='"+SerializeXmlObject.MP_CLASS+"' key=\"\"><java.lang.Integer class=\""+COMPOSITE_TWO+"\" field=\"primitive\" value=\"4\"/></"+COMPOSITE_TWO+"><java.lang.String class='"+SerializeXmlObject.MP_CLASS+"' value=\"FOUR\"/></"+OBJECT_MAP+"></"+CONTAINER+">", SerializeXmlObject.toXmlString(container_));
     }
 
     @Test
@@ -737,7 +735,7 @@ public class SerializeXmlObjectTest {
         array_[1] = pr_;
         array_[2] = pr_;
         refs_.setArray(array_);
-        assertXmlEqualRuntime("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?><"+REFS_ARRAY+"><array class=\""+REFS_ARRAY+"\" field=\"array\" type=\"java.lang.Object\"><"+COMPOSITE_TWO+" id=\"0\"><java.lang.Integer class=\""+COMPOSITE_TWO+"\" field=\"primitive\" value=\"4\"/></"+COMPOSITE_TWO+"><"+COMPOSITE_TWO+" ref=\"0\"/><"+COMPOSITE_TWO+" ref=\"0\"/></array></"+REFS_ARRAY+">", SerializeXmlObject.toXmlString(refs_));
+        assertXmlEqualRuntime("<"+REFS_ARRAY+"><array class=\""+REFS_ARRAY+"\" field=\"array\" type=\"java.lang.Object\"><"+COMPOSITE_TWO+" id=\"0\"><java.lang.Integer class=\""+COMPOSITE_TWO+"\" field=\"primitive\" value=\"4\"/></"+COMPOSITE_TWO+"><"+COMPOSITE_TWO+" ref=\"0\"/><"+COMPOSITE_TWO+" ref=\"0\"/></array></"+REFS_ARRAY+">", SerializeXmlObject.toXmlString(refs_));
     }
 
     @Test
@@ -765,7 +763,7 @@ public class SerializeXmlObjectTest {
         tree_.put("A", 1);
         tree_.put("B", 2);
         containers_.setObject(tree_);
-        assertXmlEqualRuntime("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?><"+CONTAINER+"><"+NAT_TREE_MAP+" class=\""+CONTAINER+"\" field=\"object\"><java.lang.String class='"+SerializeXmlObject.MP_CLASS+"' key=\"\" value=\"A\"/><java.lang.Integer class='"+SerializeXmlObject.MP_CLASS+"' value=\"1\"/><java.lang.String class='"+SerializeXmlObject.MP_CLASS+"' key=\"\" value=\"B\"/><java.lang.Integer class='"+SerializeXmlObject.MP_CLASS+"' value=\"2\"/></"+NAT_TREE_MAP+"></"+CONTAINER+">", SerializeXmlObject.toXmlString(containers_));
+        assertXmlEqualRuntime("<"+CONTAINER+"><"+NAT_TREE_MAP+" class=\""+CONTAINER+"\" field=\"object\"><java.lang.String class='"+SerializeXmlObject.MP_CLASS+"' key=\"\" value=\"A\"/><java.lang.Integer class='"+SerializeXmlObject.MP_CLASS+"' value=\"1\"/><java.lang.String class='"+SerializeXmlObject.MP_CLASS+"' key=\"\" value=\"B\"/><java.lang.Integer class='"+SerializeXmlObject.MP_CLASS+"' value=\"2\"/></"+NAT_TREE_MAP+"></"+CONTAINER+">", SerializeXmlObject.toXmlString(containers_));
     }
 
     @Parameters(method="booleanInputs")
@@ -783,7 +781,7 @@ public class SerializeXmlObjectTest {
         comp_.setPrimitive(4);
         map_.put(comp_, "FOUR");
         container_.setObject(map_);
-        assertXmlEqualRuntime("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?><"+CONTAINER+"><"+ID_MAP+" class=\""+CONTAINER+"\" field=\"object\"><"+COMPOSITE_TWO+" class='"+SerializeXmlObject.MP_CLASS+"' key=\"\"><java.lang.Integer class=\""+COMPOSITE_TWO+"\" field=\"primitive\" value=\"4\"/></"+COMPOSITE_TWO+"><java.lang.String class='"+SerializeXmlObject.MP_CLASS+"' value=\"FOUR\"/><"+COMPOSITE_TWO+" class='"+SerializeXmlObject.MP_CLASS+"' key=\"\"><java.lang.Integer class=\""+COMPOSITE_TWO+"\" field=\"primitive\" value=\"4\"/></"+COMPOSITE_TWO+"><java.lang.String class='"+SerializeXmlObject.MP_CLASS+"' value=\"FOUR\"/></"+ID_MAP+"></"+CONTAINER+">", SerializeXmlObject.toXmlString(container_));
+        assertXmlEqualRuntime("<"+CONTAINER+"><"+ID_MAP+" class=\""+CONTAINER+"\" field=\"object\"><"+COMPOSITE_TWO+" class='"+SerializeXmlObject.MP_CLASS+"' key=\"\"><java.lang.Integer class=\""+COMPOSITE_TWO+"\" field=\"primitive\" value=\"4\"/></"+COMPOSITE_TWO+"><java.lang.String class='"+SerializeXmlObject.MP_CLASS+"' value=\"FOUR\"/><"+COMPOSITE_TWO+" class='"+SerializeXmlObject.MP_CLASS+"' key=\"\"><java.lang.Integer class=\""+COMPOSITE_TWO+"\" field=\"primitive\" value=\"4\"/></"+COMPOSITE_TWO+"><java.lang.String class='"+SerializeXmlObject.MP_CLASS+"' value=\"FOUR\"/></"+ID_MAP+"></"+CONTAINER+">", SerializeXmlObject.toXmlString(container_));
     }
 
     @Parameters(method="booleanInputs")
@@ -795,7 +793,7 @@ public class SerializeXmlObjectTest {
         PrimitiveThree p_ = new PrimitiveThree();
         p_.setPrimitive(2);
         containers_.setObject(p_);
-        assertXmlEqualRuntime("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?><"+CONTAINER+"><"+PRIMITIVE_THREE+" class=\""+CONTAINER+"\" field=\"object\" value=\"2\"/></"+CONTAINER+">", SerializeXmlObject.toXmlString(containers_));
+        assertXmlEqualRuntime("<"+CONTAINER+"><"+PRIMITIVE_THREE+" class=\""+CONTAINER+"\" field=\"object\" value=\"2\"/></"+CONTAINER+">", SerializeXmlObject.toXmlString(containers_));
     }
 
     @Parameters(method="booleanInputs")
@@ -2569,14 +2567,6 @@ public class SerializeXmlObjectTest {
     }
 
     private static void assertXmlEqualRuntime(String _htmlExp, String _htmlRes) {
-        try {
-            assertXMLEqual(_htmlExp, _htmlRes);
-        } catch (RuntimeException _0) {
-            throw new CustRuntimeException(_0.getMessage());
-        } catch (SAXException _0) {
-            throw new CustRuntimeException(_0.getMessage());
-        } catch (IOException _0) {
-            throw new CustRuntimeException(_0.getMessage());
-        }
+        assertTrue(DocumentBuilder.equalsDocs(_htmlExp, _htmlRes));
     }
 }
