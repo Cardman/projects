@@ -11,6 +11,7 @@
 		<aiki.beans.validators.UnselectedRadio class="m"/>
 	</sm>
 	<sm class="cfg" field="translators"/>
+	<java.lang.String class="cfg" field="prefix" value="c"/>
 	<sm class="cfg" field="beans">
 		<java.lang.String class="m" key="" value="welcome"/>
 		<b class="m">

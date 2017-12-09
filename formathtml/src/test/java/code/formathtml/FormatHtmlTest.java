@@ -8130,7 +8130,7 @@ public class FormatHtmlTest {
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
         String html_ = "<html c:bean=\"bean_one\" xmlns:c='javahtml' xmlns='javahtml'><body><c:import page=\"page2.html\"><a/><c:package name=\""+PKG+"\"><a/><c:class name=\"BeanTwo\"><a/><c:field name=\"typedString\" value=\"message\"><a/></c:field></c:class></c:package></c:import>Next text</body></html>";
-        String htmlTwo_ = "<html d:bean=\"bean_two\" xmlns:d='javahtml' xmlns='javahtml'><body><a href=\"DELETE\" d:command=\"go\">{typedString}</a></body></html>";
+        String htmlTwo_ = "<html c:bean=\"bean_two\" xmlns:c='javahtml' xmlns='javahtml'><body><a href=\"DELETE\" c:command=\"go\">{typedString}</a></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
         files_.put("page1.html", html_);
@@ -8209,7 +8209,7 @@ public class FormatHtmlTest {
         String locale_ = "LOCALE";
         String folder_ = "messages";
         String relative_ = "sample/file";
-        String content_ = "one=Description one\ntwo=<html xmlns:d=\"javahtml\" xmlns=\"javahtml\">Description <a href=\"\" d:command=\"$go\">two</a></html>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
+        String content_ = "one=Description one\ntwo=<html xmlns:c=\"javahtml\" xmlns=\"javahtml\">Description <a href=\"\" c:command=\"$go\">two</a></html>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
         String html_ = "<html c:bean=\"bean_one\" xmlns:c='javahtml' xmlns='javahtml'><body><c:import page=\"page2.html\" keepfields=\"y\"><a/><c:package name=\""+PKG+"\"><a/><c:class name=\"BeanTwo\"><a/><c:field name=\"typedString\" value=\"message\"><a/></c:field></c:class></c:package><c:form form=\"key\"/></c:import></body></html>";
         String htmlTwo_ = "<html c:bean=\"bean_two\" xmlns:c='javahtml' xmlns='javahtml'><body><a href=\"DELETE\" c:command=\"go\">{typedString}</a><c:message value='msg_example,two'/></body></html>";
         StringMap<String> files_ = new StringMap<String>();
@@ -9582,6 +9582,7 @@ public class FormatHtmlTest {
         FormatHtml.processHtml(doc_, "bean_one", conf_, locale_, files_);
     }
     private static void setup(Configuration _conf) {
+        _conf.setPrefix("c");
         _conf.setupValiatorsTranslators("LOCALE");
     }
 //    @Ignore

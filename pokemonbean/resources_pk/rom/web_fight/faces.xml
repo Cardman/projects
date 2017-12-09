@@ -2,6 +2,7 @@
 	<java.lang.String class="cfg" field="firstUrl" value="web_fight/html/fight.html"/>
 	<sm class="cfg" field="validators"/>
 	<sm class="cfg" field="translators"/>
+    <java.lang.String class="cfg" field="prefix" value="c"/>
 	<sm class="cfg" field="beans">
 		<java.lang.String class="m" key="" value="fighter"/>
 		<b class="m">

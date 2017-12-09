@@ -21,7 +21,6 @@
 			</c:if>
 			<c:if condition="giveConst()">
 				<c:if condition="isDefAbility()">
-					<c:set className="java.lang.Long" expression="^class(&quot;java.lang.Integer&quot;,index).longValue()" var="abilityIndex"/>
 					<c:message value="msg_effswitchabilities,give_const">
 						<param value="getTrAbility(^class(&quot;$long&quot;,index))"/>
 						<param value="index"/>

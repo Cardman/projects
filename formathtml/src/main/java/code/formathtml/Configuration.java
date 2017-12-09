@@ -62,6 +62,8 @@ public class Configuration {
     private StringMap<String> lateValidators = new StringMap<String>();
     private StringMap<String> lateTranslators = new StringMap<String>();
 
+    private String prefix = EMPTY_STRING;
+
     private final transient StringMap<Struct> builtBeans = new StringMap<Struct>();
     private final transient StringMap<Struct> builtValidators = new StringMap<Struct>();
     private final transient StringMap<Struct> builtTranslators = new StringMap<Struct>();
@@ -78,8 +80,6 @@ public class Configuration {
 
     private transient String resourceUrl;
 
-    private transient String prefix = EMPTY_STRING;
-
     private transient volatile boolean interrupt;
 
     public Configuration() {
@@ -95,7 +95,11 @@ public class Configuration {
         htmlPage = new HtmlPage();
         document = null;
         currentUrl = firstUrl;
-        prefix = EMPTY_STRING;
+        if (prefix == null) {
+            prefix = EMPTY_STRING;
+        } else {
+            prefix += SEP;
+        }
         if (namespaceUri == null) {
             namespaceUri = EMPTY_STRING;
         }
@@ -368,12 +372,6 @@ public class Configuration {
 
     public final void setDocument(Document _document) {
         document = _document;
-        prefix = document.lookupPrefix(namespaceUri);
-        if (prefix == null) {
-            prefix = EMPTY_STRING;
-        } else {
-            prefix += SEP;
-        }
     }
 
     public final String joinPages() {
@@ -427,7 +425,7 @@ public class Configuration {
     }
 
     public final void setPrefix(String _prefix) {
-        prefix = _prefix;
+        prefix = _prefix + SEP;
     }
 
     public final String getNamespaceUri() {

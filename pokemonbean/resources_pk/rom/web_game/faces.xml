@@ -6,6 +6,7 @@
 		<java.lang.String class="m" key="" value="short_validator"/>
 		<aiki.beans.validators.ShortValidator class="m"/>
 	</sm>
+    <java.lang.String class="cfg" field="prefix" value="c"/>
 	<sm class="cfg" field="translators"/>
 	<sm class="cfg" field="beans">
 		<java.lang.String class="m" key="" value="difficulty"/>

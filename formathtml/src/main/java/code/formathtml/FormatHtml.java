@@ -589,7 +589,7 @@ final class FormatHtml {
         _conf.addPage(ip_);
         checkSyntax(_conf, _docOrig, ip_.getHtml());
         Node en_ = r_;
-        Document doc_ = XmlParser.newXmlDocument(true);
+        Document doc_ = XmlParser.newXmlDocument();
         Node currentNode_ = doc_;
         ReadWriteHtml rw_ = new ReadWriteHtml();
         rw_.setRead(en_);
@@ -687,6 +687,7 @@ final class FormatHtml {
                 if (!throwException(_conf, realCaught_)) {
                     continue;
                 }
+                _0.printStackTrace();
                 throw new RenderingException(new Struct(_0));
             }
         }
@@ -3879,7 +3880,7 @@ final class FormatHtml {
                 } else {
                     newNodeName_ = nodeName_;
                 }
-                currentNode_ = _doc.createElementNS(_conf.getNamespaceUri(), newNodeName_);
+                currentNode_ = _doc.createElement(newNodeName_);
                 setPrefixedAttributes(_doc, _conf, _read, currentNode_, prefix_);
             }
         } else {
@@ -4320,13 +4321,7 @@ final class FormatHtml {
     }
 
     private static String getPrefix(Configuration _conf, Document _doc) {
-        String prefix_ = _doc.lookupPrefix(_conf.getNamespaceUri());
-        if (prefix_ == null) {
-            prefix_ = EMPTY_STRING;
-        } else {
-            prefix_ += SEP_PREFIX;
-        }
-        return prefix_;
+        return _conf.getPrefix();
     }
     static Struct getBean(Configuration _conf, String _beanName) {
         try {

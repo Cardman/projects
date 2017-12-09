@@ -227,6 +227,7 @@ public class FormatHtmlWhileTest {
     }
 
     private static void setup(Configuration _conf) {
+        _conf.setPrefix("c");
         _conf.setupValiatorsTranslators("LOCALE");
     }
 

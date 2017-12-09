@@ -80,6 +80,7 @@ public class NavigationTest {
         //beanTwo_.setClassName(BeanTwo.class.getName());
         beanTwo_.setScope("session");
         Configuration conf_ = new Configuration();
+        conf_.setPrefix("c");
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
         conf_.getBeans().put("bean_two", beanTwo_);
@@ -125,6 +126,7 @@ public class NavigationTest {
         //beanTwo_.setClassName(BeanTwo.class.getName());
         beanTwo_.setScope("session");
         Configuration conf_ = new Configuration();
+        conf_.setPrefix("c");
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
         conf_.getBeans().put("bean_two", beanTwo_);
@@ -385,6 +387,7 @@ public class NavigationTest {
         //beanTwo_.setClassName(BeanTwo.class.getName());
         beanTwo_.setScope("session");
         Configuration conf_ = new Configuration();
+        conf_.setPrefix("c");
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
         conf_.getBeans().put("bean_two", beanTwo_);
@@ -433,6 +436,7 @@ public class NavigationTest {
         //beanTwo_.setClassName(BeanTwo.class.getName());
         beanTwo_.setScope("request");
         Configuration conf_ = new Configuration();
+        conf_.setPrefix("c");
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
         conf_.getBeans().put("bean_two", beanTwo_);
@@ -481,6 +485,7 @@ public class NavigationTest {
         //beanTwo_.setClassName(BeanTwo.class.getName());
         beanTwo_.setScope("request");
         Configuration conf_ = new Configuration();
+        conf_.setPrefix("c");
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
         conf_.getBeans().put("bean_two", beanTwo_);
@@ -532,6 +537,7 @@ public class NavigationTest {
         //beanTwo_.setClassName(BeanTwo.class.getName());
         beanTwo_.setScope("request");
         Configuration conf_ = new Configuration();
+        conf_.setPrefix("c");
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
         conf_.getBeans().put("bean_two", beanTwo_);
@@ -583,6 +589,7 @@ public class NavigationTest {
         //beanTwo_.setClassName(BeanTwo.class.getName());
         beanTwo_.setScope("request");
         Configuration conf_ = new Configuration();
+        conf_.setPrefix("c");
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
         conf_.getBeans().put("bean_two", beanTwo_);
@@ -634,6 +641,7 @@ public class NavigationTest {
         //beanTwo_.setClassName(BeanTwo.class.getName());
         beanTwo_.setScope("request");
         Configuration conf_ = new Configuration();
+        conf_.setPrefix("c");
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
         conf_.getBeans().put("bean_two", beanTwo_);
@@ -685,6 +693,7 @@ public class NavigationTest {
         //beanTwo_.setClassName(BeanTwo.class.getName());
         beanTwo_.setScope("request");
         Configuration conf_ = new Configuration();
+        conf_.setPrefix("c");
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
         conf_.getBeans().put("bean_two", beanTwo_);
@@ -736,6 +745,7 @@ public class NavigationTest {
         //beanTwo_.setClassName(BeanTwo.class.getName());
         beanTwo_.setScope("request");
         Configuration conf_ = new Configuration();
+        conf_.setPrefix("c");
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
         conf_.getBeans().put("bean_two", beanTwo_);
@@ -788,6 +798,7 @@ public class NavigationTest {
         //beanTwo_.setClassName(BeanTwo.class.getName());
         beanTwo_.setScope("request");
         Configuration conf_ = new Configuration();
+        conf_.setPrefix("c");
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
         conf_.getBeans().put("bean_two", beanTwo_);
@@ -839,6 +850,7 @@ public class NavigationTest {
         //beanTwo_.setClassName(BeanTwo.class.getName());
         beanTwo_.setScope("session");
         Configuration conf_ = new Configuration();
+        conf_.setPrefix("c");
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
         conf_.getBeans().put("bean_two", beanTwo_);
@@ -887,6 +899,7 @@ public class NavigationTest {
         //beanTwo_.setClassName(BeanTwo.class.getName());
         beanTwo_.setScope("session");
         Configuration conf_ = new Configuration();
+        conf_.setPrefix("c");
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
         conf_.getBeans().put("bean_two", beanTwo_);
@@ -936,6 +949,7 @@ public class NavigationTest {
         //beanTwo_.setClassName(BeanTwo.class.getName());
         beanTwo_.setScope("request");
         Configuration conf_ = new Configuration();
+        conf_.setPrefix("c");
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
         conf_.getBeans().put("bean_two", beanTwo_);
@@ -987,6 +1001,7 @@ public class NavigationTest {
         //beanTwo_.setClassName(BeanTwo.class.getName());
 //        beanTwo_.setScope("request");
         Configuration conf_ = new Configuration();
+        conf_.setPrefix("c");
         conf_.setBeans(new StringMap<Bean>());
 //        conf_.getBeans().put("bean_one", bean_);
 //        conf_.getBeans().put("bean_two", beanTwo_);
@@ -1035,6 +1050,7 @@ public class NavigationTest {
         //beanTwo_.setClassName(BeanTwo.class.getName());
         beanTwo_.setScope("request");
         Configuration conf_ = new Configuration();
+        conf_.setPrefix("c");
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_seven", bean_);
         conf_.getBeans().put("bean_two", beanTwo_);
@@ -1086,6 +1102,7 @@ public class NavigationTest {
         //beanTwo_.setClassName(BeanTwo.class.getName());
         beanTwo_.setScope("request");
         Configuration conf_ = new Configuration();
+        conf_.setPrefix("c");
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
         conf_.getBeans().put("bean_two", beanTwo_);
@@ -1165,6 +1182,7 @@ public class NavigationTest {
         //beanTwo_.setClassName(BeanTwo.class.getName());
         beanTwo_.setScope("session");
         Configuration conf_ = new Configuration();
+        conf_.setPrefix("c");
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
         conf_.getBeans().put("bean_two", beanTwo_);
@@ -1244,6 +1262,7 @@ public class NavigationTest {
         //beanTwo_.setClassName(BeanTwo.class.getName());
         beanTwo_.setScope("request");
         Configuration conf_ = new Configuration();
+        conf_.setPrefix("c");
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
         conf_.getBeans().put("bean_two", beanTwo_);
@@ -1322,6 +1341,7 @@ public class NavigationTest {
         //beanTwo_.setClassName(BeanTwo.class.getName());
         beanTwo_.setScope("request");
         Configuration conf_ = new Configuration();
+        conf_.setPrefix("c");
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
         conf_.getBeans().put("bean_two", beanTwo_);
@@ -1392,6 +1412,7 @@ public class NavigationTest {
         //beanTwo_.setClassName(BeanTwo.class.getName());
         beanTwo_.setScope("request");
         Configuration conf_ = new Configuration();
+        conf_.setPrefix("c");
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
         conf_.getBeans().put("bean_two", beanTwo_);
@@ -1462,6 +1483,7 @@ public class NavigationTest {
         //beanTwo_.setClassName(BeanTwo.class.getName());
         beanTwo_.setScope("session");
         Configuration conf_ = new Configuration();
+        conf_.setPrefix("c");
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
         conf_.getBeans().put("bean_two", beanTwo_);
@@ -1542,6 +1564,7 @@ public class NavigationTest {
         //beanTwo_.setClassName(BeanTwo.class.getName());
         beanTwo_.setScope("request");
         Configuration conf_ = new Configuration();
+        conf_.setPrefix("c");
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
         conf_.getBeans().put("bean_two", beanTwo_);
@@ -1621,6 +1644,7 @@ public class NavigationTest {
         //beanTwo_.setClassName(BeanTwo.class.getName());
         beanTwo_.setScope("request");
         Configuration conf_ = new Configuration();
+        conf_.setPrefix("c");
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
         conf_.getBeans().put("bean_two", beanTwo_);
@@ -1691,6 +1715,7 @@ public class NavigationTest {
         //beanTwo_.setClassName(BeanTwo.class.getName());
         beanTwo_.setScope("request");
         Configuration conf_ = new Configuration();
+        conf_.setPrefix("c");
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
         conf_.getBeans().put("bean_two", beanTwo_);
@@ -1769,6 +1794,7 @@ public class NavigationTest {
         //beanTwo_.setClassName(BeanTwo.class.getName());
         beanTwo_.setScope("request");
         Configuration conf_ = new Configuration();
+        conf_.setPrefix("c");
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
         conf_.getBeans().put("bean_two", beanTwo_);
@@ -1847,6 +1873,7 @@ public class NavigationTest {
         //beanTwo_.setClassName(BeanTwo.class.getName());
         beanTwo_.setScope("request");
         Configuration conf_ = new Configuration();
+        conf_.setPrefix("c");
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
         conf_.getBeans().put("bean_two", beanTwo_);
@@ -1925,6 +1952,7 @@ public class NavigationTest {
         //beanTwo_.setClassName(BeanTwo.class.getName());
         beanTwo_.setScope("request");
         Configuration conf_ = new Configuration();
+        conf_.setPrefix("c");
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
         conf_.getBeans().put("bean_two", beanTwo_);
@@ -2003,6 +2031,7 @@ public class NavigationTest {
         //beanTwo_.setClassName(BeanTwo.class.getName());
         beanTwo_.setScope("request");
         Configuration conf_ = new Configuration();
+        conf_.setPrefix("c");
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
         conf_.getBeans().put("bean_two", beanTwo_);
@@ -2084,6 +2113,7 @@ public class NavigationTest {
         //beanTwo_.setClassName(BeanTwo.class.getName());
         beanTwo_.setScope("request");
         Configuration conf_ = new Configuration();
+        conf_.setPrefix("c");
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
         conf_.getBeans().put("bean_two", beanTwo_);
@@ -2164,6 +2194,7 @@ public class NavigationTest {
         //beanTwo_.setClassName(BeanTwo.class.getName());
         beanTwo_.setScope("request");
         Configuration conf_ = new Configuration();
+        conf_.setPrefix("c");
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
         conf_.getBeans().put("bean_two", beanTwo_);
@@ -2241,6 +2272,7 @@ public class NavigationTest {
         //beanTwo_.setClassName(BeanTwo.class.getName());
         beanTwo_.setScope("request");
         Configuration conf_ = new Configuration();
+        conf_.setPrefix("c");
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
         conf_.getBeans().put("bean_two", beanTwo_);
@@ -2318,6 +2350,7 @@ public class NavigationTest {
         //beanTwo_.setClassName(BeanTwo.class.getName());
         beanTwo_.setScope("request");
         Configuration conf_ = new Configuration();
+        conf_.setPrefix("c");
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
         conf_.getBeans().put("bean_two", beanTwo_);
@@ -2395,6 +2428,7 @@ public class NavigationTest {
         //beanTwo_.setClassName(BeanTwo.class.getName());
         beanTwo_.setScope("request");
         Configuration conf_ = new Configuration();
+        conf_.setPrefix("c");
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
         conf_.getBeans().put("bean_two", beanTwo_);
@@ -2473,6 +2507,7 @@ public class NavigationTest {
         //beanTwo_.setClassName(BeanTwo.class.getName());
         beanTwo_.setScope("request");
         Configuration conf_ = new Configuration();
+        conf_.setPrefix("c");
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
         conf_.getBeans().put("bean_two", beanTwo_);
@@ -2552,6 +2587,7 @@ public class NavigationTest {
         //beanTwo_.setClassName(BeanTwo.class.getName());
         beanTwo_.setScope("request");
         Configuration conf_ = new Configuration();
+        conf_.setPrefix("c");
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
         conf_.getBeans().put("bean_two", beanTwo_);
@@ -2631,6 +2667,7 @@ public class NavigationTest {
         //beanTwo_.setClassName(BeanTwo.class.getName());
         beanTwo_.setScope("request");
         Configuration conf_ = new Configuration();
+        conf_.setPrefix("c");
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
         conf_.getBeans().put("bean_two", beanTwo_);
@@ -2710,6 +2747,7 @@ public class NavigationTest {
         //beanTwo_.setClassName(BeanTwo.class.getName());
         beanTwo_.setScope("request");
         Configuration conf_ = new Configuration();
+        conf_.setPrefix("c");
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
         conf_.getBeans().put("bean_two", beanTwo_);
@@ -2788,6 +2826,7 @@ public class NavigationTest {
         //beanTwo_.setClassName(BeanTwo.class.getName());
         beanTwo_.setScope("request");
         Configuration conf_ = new Configuration();
+        conf_.setPrefix("c");
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
         conf_.getBeans().put("bean_two", beanTwo_);
@@ -2867,6 +2906,7 @@ public class NavigationTest {
         //beanTwo_.setClassName(BeanTwo.class.getName());
         beanTwo_.setScope("request");
         Configuration conf_ = new Configuration();
+        conf_.setPrefix("c");
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
         conf_.getBeans().put("bean_two", beanTwo_);
@@ -2946,6 +2986,7 @@ public class NavigationTest {
         //beanTwo_.setClassName(BeanTwo.class.getName());
         beanTwo_.setScope("request");
         Configuration conf_ = new Configuration();
+        conf_.setPrefix("c");
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
         conf_.getBeans().put("bean_two", beanTwo_);
@@ -3025,6 +3066,7 @@ public class NavigationTest {
         //beanTwo_.setClassName(BeanTwo.class.getName());
         beanTwo_.setScope("request");
         Configuration conf_ = new Configuration();
+        conf_.setPrefix("c");
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
         conf_.getBeans().put("bean_two", beanTwo_);
@@ -3095,6 +3137,7 @@ public class NavigationTest {
         //beanTwo_.setClassName(BeanTwo.class.getName());
         beanTwo_.setScope("request");
         Configuration conf_ = new Configuration();
+        conf_.setPrefix("c");
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
         conf_.getBeans().put("bean_two", beanTwo_);
@@ -3165,6 +3208,7 @@ public class NavigationTest {
         //beanTwo_.setClassName(BeanTwo.class.getName());
         beanTwo_.setScope("request");
         Configuration conf_ = new Configuration();
+        conf_.setPrefix("c");
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
         conf_.getBeans().put("bean_two", beanTwo_);
@@ -3246,6 +3290,7 @@ public class NavigationTest {
         //beanTwo_.setClassName(BeanTwo.class.getName());
         beanTwo_.setScope("request");
         Configuration conf_ = new Configuration();
+        conf_.setPrefix("c");
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
         conf_.getBeans().put("bean_two", beanTwo_);
@@ -3328,6 +3373,7 @@ public class NavigationTest {
         //beanTwo_.setClassName(BeanTwo.class.getName());
         beanTwo_.setScope("request");
         Configuration conf_ = new Configuration();
+        conf_.setPrefix("c");
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
         conf_.getBeans().put("bean_two", beanTwo_);
@@ -3410,6 +3456,7 @@ public class NavigationTest {
         //beanTwo_.setClassName(BeanTwo.class.getName());
         beanTwo_.setScope("request");
         Configuration conf_ = new Configuration();
+        conf_.setPrefix("c");
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
         conf_.getBeans().put("bean_two", beanTwo_);
@@ -3492,6 +3539,7 @@ public class NavigationTest {
         //beanTwo_.setClassName(BeanTwo.class.getName());
         beanTwo_.setScope("request");
         Configuration conf_ = new Configuration();
+        conf_.setPrefix("c");
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
         conf_.getBeans().put("bean_two", beanTwo_);
@@ -3581,6 +3629,7 @@ public class NavigationTest {
         //beanTwo_.setClassName(BeanTwo.class.getName());
         beanTwo_.setScope("request");
         Configuration conf_ = new Configuration();
+        conf_.setPrefix("c");
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
         conf_.getBeans().put("bean_two", beanTwo_);
@@ -3670,6 +3719,7 @@ public class NavigationTest {
         //beanTwo_.setClassName(BeanTwo.class.getName());
         beanTwo_.setScope("request");
         Configuration conf_ = new Configuration();
+        conf_.setPrefix("c");
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
         conf_.getBeans().put("bean_two", beanTwo_);
@@ -3747,6 +3797,7 @@ public class NavigationTest {
         //beanTwo_.setClassName(BeanTwo.class.getName());
         beanTwo_.setScope("request");
         Configuration conf_ = new Configuration();
+        conf_.setPrefix("c");
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
         conf_.getBeans().put("bean_two", beanTwo_);
@@ -3834,6 +3885,7 @@ public class NavigationTest {
         //beanTwo_.setClassName(BeanTwo.class.getName());
         beanTwo_.setScope("request");
         Configuration conf_ = new Configuration();
+        conf_.setPrefix("c");
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
         conf_.getBeans().put("bean_two", beanTwo_);
@@ -3915,6 +3967,7 @@ public class NavigationTest {
         //beanTwo_.setClassName(BeanTwo.class.getName());
         beanTwo_.setScope("request");
         Configuration conf_ = new Configuration();
+        conf_.setPrefix("c");
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
         conf_.getBeans().put("bean_two", beanTwo_);
@@ -3997,6 +4050,7 @@ public class NavigationTest {
         //beanTwo_.setClassName(BeanTwo.class.getName());
         beanTwo_.setScope("request");
         Configuration conf_ = new Configuration();
+        conf_.setPrefix("c");
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
         conf_.getBeans().put("bean_two", beanTwo_);
@@ -4068,6 +4122,7 @@ public class NavigationTest {
         //beanTwo_.setClassName(BeanTwo.class.getName());
         beanTwo_.setScope("request");
         Configuration conf_ = new Configuration();
+        conf_.setPrefix("c");
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
         conf_.getBeans().put("bean_two", beanTwo_);
@@ -4150,6 +4205,7 @@ public class NavigationTest {
         //beanTwo_.setClassName(BeanTwo.class.getName());
         beanTwo_.setScope("request");
         Configuration conf_ = new Configuration();
+        conf_.setPrefix("c");
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
         conf_.getBeans().put("bean_two", beanTwo_);
@@ -4232,6 +4288,7 @@ public class NavigationTest {
         //beanTwo_.setClassName(BeanTwo.class.getName());
         beanTwo_.setScope("request");
         Configuration conf_ = new Configuration();
+        conf_.setPrefix("c");
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
         conf_.getBeans().put("bean_two", beanTwo_);
@@ -4315,6 +4372,7 @@ public class NavigationTest {
         //beanTwo_.setClassName(BeanTwo.class.getName());
         beanTwo_.setScope("request");
         Configuration conf_ = new Configuration();
+        conf_.setPrefix("c");
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
         conf_.getBeans().put("bean_two", beanTwo_);
@@ -4397,6 +4455,7 @@ public class NavigationTest {
         //beanTwo_.setClassName(BeanTwo.class.getName());
         beanTwo_.setScope("request");
         Configuration conf_ = new Configuration();
+        conf_.setPrefix("c");
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
         conf_.getBeans().put("bean_two", beanTwo_);
@@ -4462,6 +4521,7 @@ public class NavigationTest {
         //beanTwo_.setClassName(BeanTwo.class.getName());
         beanTwo_.setScope("request");
         Configuration conf_ = new Configuration();
+        conf_.setPrefix("c");
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
         conf_.getBeans().put("bean_two", beanTwo_);
@@ -4541,6 +4601,7 @@ public class NavigationTest {
         //beanTwo_.setClassName(BeanTwo.class.getName());
         beanTwo_.setScope("request");
         Configuration conf_ = new Configuration();
+        conf_.setPrefix("c");
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
         conf_.getBeans().put("bean_two", beanTwo_);
@@ -4611,6 +4672,7 @@ public class NavigationTest {
         //beanTwo_.setClassName(BeanTwo.class.getName());
         beanTwo_.setScope("session");
         Configuration conf_ = new Configuration();
+        conf_.setPrefix("c");
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
         conf_.getBeans().put("bean_two", beanTwo_);
@@ -4690,6 +4752,7 @@ public class NavigationTest {
         //beanTwo_.setClassName(BeanTwo.class.getName());
         beanTwo_.setScope("session");
         Configuration conf_ = new Configuration();
+        conf_.setPrefix("c");
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
         conf_.getBeans().put("bean_two", beanTwo_);
@@ -4770,6 +4833,7 @@ public class NavigationTest {
         //beanTwo_.setClassName(BeanTwo.class.getName());
         beanTwo_.setScope("request");
         Configuration conf_ = new Configuration();
+        conf_.setPrefix("c");
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
         conf_.getBeans().put("bean_two", beanTwo_);
@@ -4844,6 +4908,7 @@ public class NavigationTest {
         //bean_.setClassName(BeanThree.class.getName());
         bean_.setScope("session");
         Configuration conf_ = new Configuration();
+        conf_.setPrefix("c");
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_three", bean_);
         conf_.setMessagesFolder(folder_);
@@ -4913,6 +4978,7 @@ public class NavigationTest {
         //beanTwo_.setClassName(BeanTwo.class.getName());
         beanTwo_.setScope("request");
         Configuration conf_ = new Configuration();
+        conf_.setPrefix("c");
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
         conf_.getBeans().put("bean_two", beanTwo_);
@@ -4984,6 +5050,7 @@ public class NavigationTest {
         //beanTwo_.setClassName(BeanTwo.class.getName());
         beanTwo_.setScope("request");
         Configuration conf_ = new Configuration();
+        conf_.setPrefix("c");
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
         conf_.getBeans().put("bean_two", beanTwo_);
@@ -5063,6 +5130,7 @@ public class NavigationTest {
         //beanTwo_.setClassName(BeanTwo.class.getName());
         beanTwo_.setScope("request");
         Configuration conf_ = new Configuration();
+        conf_.setPrefix("c");
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
         conf_.getBeans().put("bean_two", beanTwo_);
@@ -5125,6 +5193,7 @@ public class NavigationTest {
         //bean_.setClassName(BeanThree.class.getName());
         bean_.setScope("session");
         Configuration conf_ = new Configuration();
+        conf_.setPrefix("c");
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_three", bean_);
         conf_.setMessagesFolder(folder_);
@@ -5188,6 +5257,7 @@ public class NavigationTest {
         //bean_.setClassName(BeanThree.class.getName());
         bean_.setScope("session");
         Configuration conf_ = new Configuration();
+        conf_.setPrefix("c");
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_three", bean_);
         conf_.setMessagesFolder(folder_);
@@ -5252,6 +5322,7 @@ public class NavigationTest {
         //bean_.setClassName(BeanThree.class.getName());
         bean_.setScope("session");
         Configuration conf_ = new Configuration();
+        conf_.setPrefix("c");
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_three", bean_);
         conf_.setMessagesFolder(folder_);
@@ -5321,6 +5392,7 @@ public class NavigationTest {
         //beanTwo_.setClassName(BeanTwo.class.getName());
         beanTwo_.setScope("session");
         Configuration conf_ = new Configuration();
+        conf_.setPrefix("c");
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
         conf_.getBeans().put("bean_two", beanTwo_);
@@ -5400,6 +5472,7 @@ public class NavigationTest {
         //beanTwo_.setClassName(BeanTwo.class.getName());
         beanTwo_.setScope("request");
         Configuration conf_ = new Configuration();
+        conf_.setPrefix("c");
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
         conf_.getBeans().put("bean_two", beanTwo_);
@@ -5477,6 +5550,7 @@ public class NavigationTest {
         //beanTwo_.setClassName(BeanTwo.class.getName());
         beanTwo_.setScope("request");
         Configuration conf_ = new Configuration();
+        conf_.setPrefix("c");
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
         conf_.getBeans().put("bean_two", beanTwo_);
@@ -5555,6 +5629,7 @@ public class NavigationTest {
         //beanTwo_.setClassName(BeanTwo.class.getName());
         beanTwo_.setScope("request");
         Configuration conf_ = new Configuration();
+        conf_.setPrefix("c");
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
         conf_.getBeans().put("bean_two", beanTwo_);
@@ -5621,6 +5696,7 @@ public class NavigationTest {
         //beanTwo_.setClassName(BeanTwo.class.getName());
         beanTwo_.setScope("request");
         Configuration conf_ = new Configuration();
+        conf_.setPrefix("c");
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
         conf_.getBeans().put("bean_two", beanTwo_);
@@ -5698,6 +5774,7 @@ public class NavigationTest {
         //beanTwo_.setClassName(BeanTwo.class.getName());
         beanTwo_.setScope("request");
         Configuration conf_ = new Configuration();
+        conf_.setPrefix("c");
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
         conf_.getBeans().put("bean_two", beanTwo_);
@@ -5776,6 +5853,7 @@ public class NavigationTest {
         //beanTwo_.setClassName(BeanTwo.class.getName());
         beanTwo_.setScope("request");
         Configuration conf_ = new Configuration();
+        conf_.setPrefix("c");
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
         conf_.getBeans().put("bean_two", beanTwo_);
@@ -5842,6 +5920,7 @@ public class NavigationTest {
         //beanTwo_.setClassName(BeanTwo.class.getName());
         beanTwo_.setScope("request");
         Configuration conf_ = new Configuration();
+        conf_.setPrefix("c");
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
         conf_.getBeans().put("bean_two", beanTwo_);
@@ -5920,6 +5999,7 @@ public class NavigationTest {
         //beanTwo_.setClassName(BeanTwo.class.getName());
         beanTwo_.setScope("request");
         Configuration conf_ = new Configuration();
+        conf_.setPrefix("c");
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
         conf_.getBeans().put("bean_two", beanTwo_);
@@ -5998,6 +6078,7 @@ public class NavigationTest {
         //beanTwo_.setClassName(BeanTwo.class.getName());
         beanTwo_.setScope("request");
         Configuration conf_ = new Configuration();
+        conf_.setPrefix("c");
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
         conf_.getBeans().put("bean_two", beanTwo_);
@@ -6077,6 +6158,7 @@ public class NavigationTest {
         //beanTwo_.setClassName(BeanTwo.class.getName());
         beanTwo_.setScope("request");
         Configuration conf_ = new Configuration();
+        conf_.setPrefix("c");
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
         conf_.getBeans().put("bean_two", beanTwo_);
@@ -6158,6 +6240,7 @@ public class NavigationTest {
         //beanTwo_.setClassName(BeanTwo.class.getName());
         beanTwo_.setScope("request");
         Configuration conf_ = new Configuration();
+        conf_.setPrefix("c");
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
         conf_.getBeans().put("bean_two", beanTwo_);
@@ -6237,6 +6320,7 @@ public class NavigationTest {
         //beanTwo_.setClassName(BeanTwo.class.getName());
         beanTwo_.setScope("request");
         Configuration conf_ = new Configuration();
+        conf_.setPrefix("c");
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
         conf_.getBeans().put("bean_two", beanTwo_);
@@ -6316,6 +6400,7 @@ public class NavigationTest {
         //beanTwo_.setClassName(BeanTwo.class.getName());
         beanTwo_.setScope("request");
         Configuration conf_ = new Configuration();
+        conf_.setPrefix("c");
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
         conf_.getBeans().put("bean_two", beanTwo_);
@@ -6378,6 +6463,7 @@ public class NavigationTest {
         //bean_.setClassName(BeanThree.class.getName());
         bean_.setScope("session");
         Configuration conf_ = new Configuration();
+        conf_.setPrefix("c");
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_six", bean_);
         conf_.setMessagesFolder(folder_);
@@ -6441,6 +6527,7 @@ public class NavigationTest {
         //bean_.setClassName(BeanThree.class.getName());
         bean_.setScope("session");
         Configuration conf_ = new Configuration();
+        conf_.setPrefix("c");
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_six", bean_);
         conf_.setMessagesFolder(folder_);
@@ -6504,6 +6591,7 @@ public class NavigationTest {
         //bean_.setClassName(BeanThree.class.getName());
         bean_.setScope("session");
         Configuration conf_ = new Configuration();
+        conf_.setPrefix("c");
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_six", bean_);
         conf_.setMessagesFolder(folder_);
@@ -6572,6 +6660,7 @@ public class NavigationTest {
         //beanTwo_.setClassName(BeanTwo.class.getName());
         beanTwo_.setScope("request");
         Configuration conf_ = new Configuration();
+        conf_.setPrefix("c");
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
         conf_.getBeans().put("bean_two", beanTwo_);
@@ -6645,6 +6734,7 @@ public class NavigationTest {
         //beanTwo_.setClassName(BeanTwo.class.getName());
         beanTwo_.setScope("request");
         Configuration conf_ = new Configuration();
+        conf_.setPrefix("c");
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
         conf_.getBeans().put("bean_two", beanTwo_);
@@ -6713,6 +6803,7 @@ public class NavigationTest {
         //bean_.setClassName(BeanThree.class.getName());
         bean_.setScope("session");
         Configuration conf_ = new Configuration();
+        conf_.setPrefix("c");
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_six", bean_);
         conf_.setMessagesFolder(folder_);
@@ -6776,6 +6867,7 @@ public class NavigationTest {
         //bean_.setClassName(BeanThree.class.getName());
         bean_.setScope("session");
         Configuration conf_ = new Configuration();
+        conf_.setPrefix("c");
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_six", bean_);
         conf_.setMessagesFolder(folder_);
@@ -6839,6 +6931,7 @@ public class NavigationTest {
         //bean_.setClassName(BeanThree.class.getName());
         bean_.setScope("session");
         Configuration conf_ = new Configuration();
+        conf_.setPrefix("c");
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_six", bean_);
         conf_.setMessagesFolder(folder_);
@@ -6904,6 +6997,7 @@ public class NavigationTest {
         bean_.getComposite().getStrings().add("SECOND");
         bean_.getComposite().setInteger(5);
         Configuration conf_ = new Configuration();
+        conf_.setPrefix("c");
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
         conf_.setMessagesFolder(folder_);
@@ -6977,6 +7071,7 @@ public class NavigationTest {
         bean_.getComposite().getStrings().add("SECOND");
         bean_.getComposite().setInteger(5);
         Configuration conf_ = new Configuration();
+        conf_.setPrefix("c");
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
         conf_.setMessagesFolder(folder_);
@@ -7050,6 +7145,7 @@ public class NavigationTest {
         bean_.getComposite().getStrings().add("SECOND");
         bean_.getComposite().setInteger(5);
         Configuration conf_ = new Configuration();
+        conf_.setPrefix("c");
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_seven", bean_);
         conf_.setMessagesFolder(folder_);
@@ -7123,6 +7219,7 @@ public class NavigationTest {
         bean_.getComposite().getStrings().add("SECOND");
         bean_.getComposite().setInteger(5);
         Configuration conf_ = new Configuration();
+        conf_.setPrefix("c");
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_seven", bean_);
         conf_.setMessagesFolder(folder_);
@@ -7196,6 +7293,7 @@ public class NavigationTest {
         bean_.getComposite().getStrings().add("SECOND");
         bean_.getComposite().setInteger(5);
         Configuration conf_ = new Configuration();
+        conf_.setPrefix("c");
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_seven", bean_);
         conf_.setMessagesFolder(folder_);
@@ -7272,6 +7370,7 @@ public class NavigationTest {
         //beanTwo_.setClassName(BeanTwo.class.getName());
         beanTwo_.setScope("request");
         Configuration conf_ = new Configuration();
+        conf_.setPrefix("c");
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
         conf_.getBeans().put("bean_two", beanTwo_);
@@ -7346,6 +7445,7 @@ public class NavigationTest {
         bean_.getComposite().getStrings().add("SECOND");
         bean_.getComposite().setInteger(5);
         Configuration conf_ = new Configuration();
+        conf_.setPrefix("c");
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_seven", bean_);
         conf_.setMessagesFolder(folder_);
@@ -7422,6 +7522,7 @@ public class NavigationTest {
         bean_.getComposites().get(0).setStrings(new StringList("F"));
         bean_.getComposites().get(1).setStrings(new StringList("S"));
         Configuration conf_ = new Configuration();
+        conf_.setPrefix("c");
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_seven", bean_);
         conf_.setMessagesFolder(folder_);
@@ -7503,6 +7604,7 @@ public class NavigationTest {
         BeanEight bean_ = new BeanEight();
         bean_.setScope("session");
         Configuration conf_ = new Configuration();
+        conf_.setPrefix("c");
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_seven", bean_);
         conf_.setMessagesFolder(folder_);
@@ -7763,6 +7865,7 @@ public class NavigationTest {
         BeanEight bean_ = new BeanEight();
         bean_.setScope("session");
         Configuration conf_ = new Configuration();
+        conf_.setPrefix("c");
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_seven", bean_);
         conf_.setMessagesFolder(folder_);
@@ -8194,6 +8297,7 @@ public class NavigationTest {
         //beanTwo_.setClassName(BeanTwo.class.getName());
         beanTwo_.setScope("request");
         Configuration conf_ = new Configuration();
+        conf_.setPrefix("c");
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
         conf_.getBeans().put("bean_two", beanTwo_);
@@ -8251,6 +8355,7 @@ public class NavigationTest {
         //beanTwo_.setClassName(BeanTwo.class.getName());
         beanTwo_.setScope("request");
         Configuration conf_ = new Configuration();
+        conf_.setPrefix("c");
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
         conf_.getBeans().put("bean_two", beanTwo_);
@@ -8306,6 +8411,7 @@ public class NavigationTest {
         //beanTwo_.setClassName(BeanTwo.class.getName());
         beanTwo_.setScope("request");
         Configuration conf_ = new Configuration();
+        conf_.setPrefix("c");
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
         conf_.getBeans().put("bean_two", beanTwo_);
@@ -8351,6 +8457,7 @@ public class NavigationTest {
         //beanTwo_.setClassName(BeanTwo.class.getName());
         beanTwo_.setScope("request");
         Configuration conf_ = new Configuration();
+        conf_.setPrefix("c");
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
         conf_.getBeans().put("bean_two", beanTwo_);
@@ -8450,6 +8557,7 @@ public class NavigationTest {
         //beanTwo_.setClassName(BeanTwo.class.getName());
         beanTwo_.setScope("request");
         Configuration conf_ = new Configuration();
+        conf_.setPrefix("c");
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
         conf_.getBeans().put("bean_two", beanTwo_);

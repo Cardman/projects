@@ -9,6 +9,7 @@
 			<java.lang.String class="b" field="className" value="aiki.beans.game.GameProgressionBean"/>
 		</b>
 	</sm>
+    <java.lang.String class="cfg" field="prefix" value="c"/>
 	<sm class="cfg" field="navigation"/>
 	<sm class="cfg" field="properties">
 		<java.lang.String class="m" key="" value="msg_prog"/>
