@@ -710,7 +710,7 @@ public class ExtractObjectTest {
         addImportingPage(conf_, false);
         addBean(conf_, bean_);
         ImportingPage ip_ = conf_.getLastPage();
-        assertEq(true,(Boolean)ExtractObject.evaluateMathExpression(ip_, conf_, true, "false|true"));
+        assertEq(true,ExtractObject.evaluateMathExpression(ip_, conf_, true, "false|true"));
 //        Document doc_ = XmlParser.parseSaxHtml(html_, false, true);
 //        conf_.setDocument(doc_);
 //        conf_.setHtml(html_);
@@ -745,7 +745,7 @@ public class ExtractObjectTest {
         addImportingPage(conf_, false);
         addBean(conf_, bean_);
         ImportingPage ip_ = conf_.getLastPage();
-        assertEq(false,(Boolean)ExtractObject.evaluateMathExpression(ip_, conf_, true, "false"));
+        assertEq(false,ExtractObject.evaluateMathExpression(ip_, conf_, true, "false"));
 //        Document doc_ = XmlParser.parseSaxHtml(html_, false, true);
 //        conf_.setDocument(doc_);
 //        conf_.setHtml(html_);
@@ -814,7 +814,7 @@ public class ExtractObjectTest {
         addImportingPage(conf_, false);
         addBean(conf_, bean_);
         ImportingPage ip_ = conf_.getLastPage();
-        assertEq(false,(Boolean)ExtractObject.evaluateMathExpression(ip_, conf_, true, "`composite.strings.isEmpty()`"));
+        assertEq(false,ExtractObject.evaluateMathExpression(ip_, conf_, true, "`composite.strings.isEmpty()`"));
 //        Document doc_ = XmlParser.parseSaxHtml(html_, false, true);
 //        conf_.setHtml(html_);
 //        conf_.setDocument(doc_);
@@ -846,7 +846,7 @@ public class ExtractObjectTest {
         addImportingPage(conf_, false);
         addBean(conf_, bean_);
         ImportingPage ip_ = conf_.getLastPage();
-        assertEq(true,(Boolean)ExtractObject.evaluateMathExpression(ip_, conf_, true, "`composite.strings.isEmpty()`"));
+        assertEq(true,ExtractObject.evaluateMathExpression(ip_, conf_, true, "`composite.strings.isEmpty()`"));
     }
 
     @Test

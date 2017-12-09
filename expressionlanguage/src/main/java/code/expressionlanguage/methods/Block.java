@@ -458,7 +458,7 @@ public abstract class Block extends Blockable {
         Block par_ = getParent();
         CustList<Block> ch_ = Classes.getDirectChildren(par_);
         for (Block s: ch_) {
-            Block c_ = (Block) s;
+            Block c_ = s;
             if (c_ instanceof FinallyEval) {
                 continue;
             }
@@ -479,14 +479,14 @@ public abstract class Block extends Blockable {
         if (ch_.isEmpty()) {
             return;
         }
-        Block b_ = (Block) ch_.last();
+        Block b_ = ch_.last();
         if (b_.isStoppable() && b_.getFirstChild() == null) {
             setStoppable(true);
             return;
         }
         int lastIndexFoundGr_ = CustList.INDEX_NOT_FOUND_ELT;
         for (int i = ch_.size() - 1; i >= CustList.FIRST_INDEX; i--) {
-            Block c_ = (Block) ch_.get(i);
+            Block c_ = ch_.get(i);
             if (c_ instanceof FinallyEval) {
                 continue;
             }
@@ -498,10 +498,10 @@ public abstract class Block extends Blockable {
         if (lastIndexFoundGr_ == CustList.INDEX_NOT_FOUND_ELT) {
             return;
         }
-        int indexGr_ = ((Block) ch_.get(lastIndexFoundGr_)).indexGroup;
+        int indexGr_ = ch_.get(lastIndexFoundGr_).indexGroup;
         boolean all_ = true;
         for (int i = lastIndexFoundGr_; i >= CustList.FIRST_INDEX; i--) {
-            Block c_ = (Block) ch_.get(i);
+            Block c_ = ch_.get(i);
             if (c_.indexGroup != indexGr_) {
                 break;
             }
@@ -522,9 +522,9 @@ public abstract class Block extends Blockable {
         }
         int len_ = ch_.size();
         boolean stoppableBlock_ = false;
-        int indexGr_ = ((Block) ch_.first()).indexGroup;
+        int indexGr_ = ch_.first().indexGroup;
         for (int i = CustList.FIRST_INDEX; i < len_; i++) {
-            Block b_ = (Block) ch_.get(i);
+            Block b_ = ch_.get(i);
             if (b_.indexGroup != indexGr_ && stoppableBlock_) {
                 return b_.getRowCol(_offset, _tabWidth, EMPTY_STRING);
             }
@@ -550,14 +550,14 @@ public abstract class Block extends Blockable {
         if (ch_.isEmpty()) {
             return;
         }
-        Block b_ = (Block) ch_.last();
+        Block b_ = ch_.last();
         if (b_.isExitable() && b_.getFirstChild() == null) {
             setExitable(true);
             return;
         }
         int lastIndexFoundGr_ = CustList.INDEX_NOT_FOUND_ELT;
         for (int i = ch_.size() - 1; i >= CustList.FIRST_INDEX; i--) {
-            Block c_ = (Block) ch_.get(i);
+            Block c_ = ch_.get(i);
             if (c_ instanceof FinallyEval) {
                 continue;
             }
@@ -569,10 +569,10 @@ public abstract class Block extends Blockable {
         if (lastIndexFoundGr_ == CustList.INDEX_NOT_FOUND_ELT) {
             return;
         }
-        int indexGr_ = ((Block) ch_.get(lastIndexFoundGr_)).indexGroup;
+        int indexGr_ = ch_.get(lastIndexFoundGr_).indexGroup;
         boolean all_ = true;
         for (int i = lastIndexFoundGr_; i >= CustList.FIRST_INDEX; i--) {
-            Block c_ = (Block) ch_.get(i);
+            Block c_ = ch_.get(i);
             if (c_.indexGroup != indexGr_) {
                 break;
             }

@@ -3,7 +3,7 @@ package code.xml.components;
 import code.util.CustList;
 import code.util.StringList;
 
-public final class Element extends ChangeableChild {
+public final class Element extends Node {
 
     private static final String BEGIN_TAG = "<";
 
@@ -48,16 +48,6 @@ public final class Element extends ChangeableChild {
         }
         return null;
     }
-    
-    public Attr getAttributeNodeNS(String _namespace, String _localName) {
-        // TODO Auto-generated method stub
-        return null;
-    }
-
-    public String getAttributeNS(String _namespace, String _localName) {
-        // TODO Auto-generated method stub
-        return null;
-    }
 
     public boolean hasAttribute(String _name) {
         for (Attr a: attributes) {
@@ -65,11 +55,6 @@ public final class Element extends ChangeableChild {
                 return true;
             }
         }
-        return false;
-    }
-
-    public boolean hasAttributeNS(String _namespace, String localName) {
-        // TODO Auto-generated method stub
         return false;
     }
 
@@ -185,25 +170,25 @@ public final class Element extends ChangeableChild {
     }
 
     @Override
-    public void appendChild(ChangeableChild _newChild) {
+    public void appendChild(Node _newChild) {
         _newChild.setParentNode(this);
         if (getFirstChild() == null) {
-            setFirstChild((ChangeableChild) _newChild);
-            setLastChild((ChangeableChild) _newChild);
+            setFirstChild(_newChild);
+            setLastChild(_newChild);
             return;
         }
-        getLastChild().setNextSibling((ChangeableChild) _newChild);
-        ((ChangeableChild) _newChild).setPreviousSibling(getLastChild());
-        setLastChild((ChangeableChild) _newChild);
+        getLastChild().setNextSibling(_newChild);
+        _newChild.setPreviousSibling(getLastChild());
+        setLastChild(_newChild);
     }
 
     @Override
-    public void removeChild(ChangeableChild _oldChild) {
-        ChangeableChild child_ = getFirstChild();
+    public void removeChild(Node _oldChild) {
+        Node child_ = getFirstChild();
         while (child_ != null) {
             if (child_ == _oldChild) {
-                ChangeableChild previous_ = child_.getPreviousSibling();
-                ChangeableChild next_ = child_.getNextSibling();
+                Node previous_ = child_.getPreviousSibling();
+                Node next_ = child_.getNextSibling();
                 _oldChild.setParentNode(null);
                 if (previous_ == null && next_ == null) {
                     setFirstChild(null);
@@ -232,38 +217,38 @@ public final class Element extends ChangeableChild {
     }
 
     @Override
-    public void replaceChild(ChangeableChild _newChild, ChangeableChild _oldChild) {
-        ChangeableChild child_ = getFirstChild();
+    public void replaceChild(Node _newChild, Node _oldChild) {
+        Node child_ = getFirstChild();
         while (child_ != null) {
             if (child_ == _oldChild) {
-                ChangeableChild previous_ = child_.getPreviousSibling();
-                ChangeableChild next_ = child_.getNextSibling();
+                Node previous_ = child_.getPreviousSibling();
+                Node next_ = child_.getNextSibling();
                 _oldChild.setParentNode(null);
                 _newChild.setParentNode(this);
                 if (previous_ == null && next_ == null) {
-                    setFirstChild((ChangeableChild) _newChild);
-                    setLastChild((ChangeableChild) _newChild);
+                    setFirstChild(_newChild);
+                    setLastChild(_newChild);
                     return;
                 }
                 if (next_ == null) {
                     //previous_ != null
-                    previous_.setNextSibling((ChangeableChild) _newChild);
-                    ((ChangeableChild) _newChild).setPreviousSibling(previous_);
-                    setLastChild((ChangeableChild) _newChild);
+                    previous_.setNextSibling(_newChild);
+                    _newChild.setPreviousSibling(previous_);
+                    setLastChild(_newChild);
                     return;
                 }
                 if (previous_ == null) {
                     //next_ != null
-                    next_.setPreviousSibling((ChangeableChild) _newChild);
-                    ((ChangeableChild)_newChild).setNextSibling(next_);
-                    setFirstChild((ChangeableChild) _newChild);
+                    next_.setPreviousSibling(_newChild);
+                    _newChild.setNextSibling(next_);
+                    setFirstChild(_newChild);
                     return;
                 }
                 //previous_ != null && next_ != null
-                previous_.setNextSibling((ChangeableChild) _newChild);
-                next_.setPreviousSibling((ChangeableChild) _newChild);
-                ((ChangeableChild) _newChild).setNextSibling(next_);
-                ((ChangeableChild) _newChild).setPreviousSibling(previous_);
+                previous_.setNextSibling(_newChild);
+                next_.setPreviousSibling(_newChild);
+                _newChild.setNextSibling(next_);
+                _newChild.setPreviousSibling(previous_);
                 return;
             }
             child_ = child_.getNextSibling();
@@ -271,11 +256,11 @@ public final class Element extends ChangeableChild {
     }
 
     @Override
-    public void insertBefore(ChangeableChild _newChild, ChangeableChild _refChild) {
-        ChangeableChild child_ = getFirstChild();
+    public void insertBefore(Node _newChild, Node _refChild) {
+        Node child_ = getFirstChild();
         while (child_ != null) {
             if (child_ == _refChild) {
-                ChangeableChild previous_ = _refChild.getPreviousSibling();
+                Node previous_ = _refChild.getPreviousSibling();
                 _newChild.setParentNode(this);
                 if (previous_ == null) {
                     setFirstChild(_newChild);
@@ -293,11 +278,12 @@ public final class Element extends ChangeableChild {
         }
     }
 
-    public void insertAfter(ChangeableChild _newChild, ChangeableChild _refChild) {
-        ChangeableChild child_ = getFirstChild();
+    @Override
+    public void insertAfter(Node _newChild, Node _refChild) {
+        Node child_ = getFirstChild();
         while (child_ != null) {
             if (child_ == _refChild) {
-                ChangeableChild next_ = _refChild.getNextSibling();
+                Node next_ = _refChild.getNextSibling();
                 _newChild.setParentNode(this);
                 if (next_ == null) {
                     setLastChild(_newChild);
@@ -317,7 +303,7 @@ public final class Element extends ChangeableChild {
 
     public String export() {
         Element root_ = this;
-        ChangeableChild current_ = getFirstChild();
+        Node current_ = getFirstChild();
         StringBuilder str_ = new StringBuilder();
         str_.append(BEGIN_TAG+getTagName());
         if (!attributes.isEmpty()) {
@@ -347,7 +333,7 @@ public final class Element extends ChangeableChild {
                 Text txt_ = (Text) current_;
                 str_.append(DocumentBuilder.escape(txt_.getData(), false));
             }
-            ChangeableChild next_ = current_.getFirstChild();
+            Node next_ = current_.getFirstChild();
             if (next_ != null) {
                 str_.append(END_TAG);
                 current_ = next_;
@@ -394,60 +380,18 @@ public final class Element extends ChangeableChild {
     }
 
     @Override
-    public String getNamespace() {
-        // TODO Auto-generated method stub
-        return null;
-    }
-
-    @Override
-    public String getPrefix() {
-        // TODO Auto-generated method stub
-        return null;
-    }
-
-    @Override
-    public void setPrefix(String _prefix) {
-        // TODO Auto-generated method stub
-        
-    }
-
-    @Override
     public boolean hasAttributes() {
         return !attributes.isEmpty();
     }
 
     @Override
-    public long compareDocumentPosition(Node _other) {
+    public long compareDocumentPosition(Info _other) {
         // TODO Auto-generated method stub
         return 0;
     }
 
     @Override
     public String getTextContent() {
-        // TODO Auto-generated method stub
-        return null;
-    }
-
-    @Override
-    public void setTextContent(String _textContent) {
-        // TODO Auto-generated method stub
-        
-    }
-
-    @Override
-    public String lookupPrefix(String _namespace) {
-        // TODO Auto-generated method stub
-        return null;
-    }
-
-    @Override
-    public boolean isDefaultNamespace(String _namespace) {
-        // TODO Auto-generated method stub
-        return false;
-    }
-
-    @Override
-    public String lookupNamespace(String _prefix) {
         // TODO Auto-generated method stub
         return null;
     }

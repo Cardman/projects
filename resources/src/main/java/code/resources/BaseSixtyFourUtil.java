@@ -26,10 +26,10 @@ public final class BaseSixtyFourUtil {
                 v_ = (byte) (52 + Byte.parseByte(String.valueOf(ch_)));
             } else if (Character.isLetter(ch_)) {
                 if (Character.isLowerCase(ch_)) {
-                    int diff_ = ((int)ch_) - ((int)'a');
+                    int diff_ = (ch_) - ('a');
                     v_ = (byte) (26+diff_);
                 } else {
-                    int diff_ = ((int)ch_) - ((int)'A');
+                    int diff_ = (ch_) - ('A');
                     v_ = (byte) diff_;
                 }
             } else if (ch_ == '+') {
@@ -157,13 +157,13 @@ public final class BaseSixtyFourUtil {
     }
     public static char encode(int _i) {
         if (_i < 26) {
-            return (char) (((int)'A')+_i);
+            return (char) ('A'+_i);
         }
         if (_i < 52) {
-            return (char) (((int)'a')-26+_i);
+            return (char) ('a'-26+_i);
         }
         if (_i < 62) {
-            return (char) (((int)'0')-52+_i);
+            return (char) ('0'-52+_i);
         }
         if (_i == 62) {
             return '+';

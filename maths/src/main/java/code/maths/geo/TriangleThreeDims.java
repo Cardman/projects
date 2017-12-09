@@ -73,7 +73,7 @@ public final class TriangleThreeDims {
         long y_ = firstPoint.getYcoords();
         y_ += secondPoint.getYcoords();
         y_ += thirdPoint.getYcoords();
-        return new CompactPlanePoint(new PairNumber<Long,Long>(x_, y_),(long) NB_POINTS);
+        return new CompactPlanePoint(new PairNumber<Long,Long>(x_, y_),NB_POINTS);
     }
 
     public CompactPlanePoint getCircumCenter() {

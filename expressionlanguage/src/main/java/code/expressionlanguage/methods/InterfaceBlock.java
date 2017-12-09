@@ -45,8 +45,8 @@ public final class InterfaceBlock extends RootBlock {
             if (b instanceof AloneBlock) {
                 continue;
             }
-            RowCol where_ = ((Block)b).getRowCol(0, _context.getTabWidth(), EMPTY_STRING);
-            String tagName_ = ((Block)b).getTagName();
+            RowCol where_ = b.getRowCol(0, _context.getTabWidth(), EMPTY_STRING);
+            String tagName_ = b.getTagName();
             UnexpectedTagName unexp_ = new UnexpectedTagName();
             unexp_.setFileName(getFullName());
             unexp_.setFoundTag(tagName_);

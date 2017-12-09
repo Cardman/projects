@@ -5451,8 +5451,8 @@ public class NavigationTest {
         assertEq("FOUR", stLi_.last());
         EnumNumbers l_ = (EnumNumbers) map_.getVal("chosenNumbers");
         assertEq(2, l_.size());
-        assertEq(EnumNumber.TWO, (EnumNumber) l_.first());
-        assertEq(EnumNumber.THREE, (EnumNumber) l_.last());
+        assertEq(EnumNumber.TWO, l_.first());
+        assertEq(EnumNumber.THREE, l_.last());
         assertTrue(map_.contains("chosenNumbersNull"));
         assertNull(map_.getVal("chosenNumbersNull"));
         assertSame(conf_.getBeans().getVal("bean_one").getForms(), conf_.getBeans().getVal("bean_two").getForms());
@@ -5672,8 +5672,8 @@ public class NavigationTest {
         assertEq("FOUR", stLi_.last());
         EnumNumbers l_ = (EnumNumbers) map_.getVal("chosenNumbers");
         assertEq(2, l_.size());
-        assertEq(EnumNumber.TWO, (EnumNumber) l_.first());
-        assertEq(EnumNumber.THREE, (EnumNumber) l_.last());
+        assertEq(EnumNumber.TWO, l_.first());
+        assertEq(EnumNumber.THREE, l_.last());
         assertTrue(map_.contains("chosenNumbersNull"));
         assertNull(map_.getVal("chosenNumbersNull"));
         assertSame(conf_.getBeans().getVal("bean_one").getForms(), conf_.getBeans().getVal("bean_two").getForms());
@@ -5894,8 +5894,8 @@ public class NavigationTest {
         assertEq("FOUR", stLi_.last());
         EnumNumbers l_ = (EnumNumbers) map_.getVal("chosenNumbers");
         assertEq(2, l_.size());
-        assertEq(EnumNumber.TWO, (EnumNumber) l_.first());
-        assertEq(EnumNumber.THREE, (EnumNumber) l_.last());
+        assertEq(EnumNumber.TWO, l_.first());
+        assertEq(EnumNumber.THREE, l_.last());
         assertTrue(map_.contains("chosenNumbersNull"));
         assertNull(map_.getVal("chosenNumbersNull"));
         assertSame(conf_.getBeans().getVal("bean_one").getForms(), conf_.getBeans().getVal("bean_two").getForms());
@@ -5972,8 +5972,8 @@ public class NavigationTest {
         assertEq("FOUR", stLi_.last());
         EnumNumbers l_ = (EnumNumbers) map_.getVal("chosenNumbers");
         assertEq(2, l_.size());
-        assertEq(EnumNumber.TWO, (EnumNumber) l_.first());
-        assertEq(EnumNumber.THREE, (EnumNumber) l_.last());
+        assertEq(EnumNumber.TWO, l_.first());
+        assertEq(EnumNumber.THREE, l_.last());
         assertTrue(map_.contains("chosenNumbersNull"));
         assertNull(map_.getVal("chosenNumbersNull"));
         assertSame(conf_.getBeans().getVal("bean_one").getForms(), conf_.getBeans().getVal("bean_two").getForms());

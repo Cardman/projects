@@ -1627,7 +1627,7 @@ public class DataBase implements WithMathFactory {
             tiles_ = new ObjectMap<ScreenCoords, String>();
             for (short x = 0; x < d_.getWidth(); x++) {
                 for (short y = 0; y < d_.getHeight(); y++) {
-                    ScreenCoords sc_ = new ScreenCoords((short)x, (short)y);
+                    ScreenCoords sc_ = new ScreenCoords(x, y);
                     tiles_.put(sc_, Image.clipSixtyFour(img_, x * side_, y * side_, side_, side_));
                 }
             }
@@ -3617,7 +3617,7 @@ public class DataBase implements WithMathFactory {
             tiles_ = new ObjectMap<ScreenCoords, String>();
             for (short x = 0; x < d_.getWidth(); x++) {
                 for (short y = 0; y < d_.getHeight(); y++) {
-                    ScreenCoords sc_ = new ScreenCoords((short)x, (short)y);
+                    ScreenCoords sc_ = new ScreenCoords(x, y);
                     tiles_.put(sc_, Image.clipSixtyFour(img_, x * side_, y * side_, side_, side_));
                 }
             }
@@ -3632,13 +3632,13 @@ public class DataBase implements WithMathFactory {
             String name_ = i.getKey();
             PairNumber<Integer,Integer> dimsBlock_ = Image.getDimensions(img_, side_);
             Dims d_ = new Dims();
-            d_.setWidth((short) dimsBlock_.getFirst().shortValue());
-            d_.setHeight((short) dimsBlock_.getSecond().shortValue());
+            d_.setWidth(dimsBlock_.getFirst().shortValue());
+            d_.setHeight(dimsBlock_.getSecond().shortValue());
             ObjectMap<ScreenCoords, String> tiles_;
             tiles_ = new ObjectMap<ScreenCoords, String>();
             for (short x = 0; x < d_.getWidth(); x++) {
                 for (short y = 0; y < d_.getHeight(); y++) {
-                    ScreenCoords sc_ = new ScreenCoords((short)x, (short)y);
+                    ScreenCoords sc_ = new ScreenCoords(x, y);
                     tiles_.put(sc_, Image.clip(img_, x * side_, y * side_, side_, side_));
                 }
             }
@@ -3648,13 +3648,13 @@ public class DataBase implements WithMathFactory {
     public static void deleteLineReturn(StringMap<String> _map) {
         for (EntryCust<String,String> e: _map.entryList()) {
             String value_ = e.getValue();
-            e.setValue(StringList.removeStrings((String)value_, Constants.RETURN_LINE));
+            e.setValue(StringList.removeStrings(value_, Constants.RETURN_LINE));
         }
     }
     public static void deleteLineReturn(ListableEntries<ImageHeroKey, String> _map) {
         for (EntryCust<ImageHeroKey, String> e: _map.entryList()) {
             String value_ = e.getValue();
-            e.setValue(StringList.removeStrings((String)value_, Constants.RETURN_LINE));
+            e.setValue(StringList.removeStrings(value_, Constants.RETURN_LINE));
         }
     }
     private static StringList getElements(StringList _list, String _prefixWord) {

@@ -149,7 +149,7 @@ public final class ProcessXmlMethod {
         ReadWrite rw_ = new ReadWrite();
         rw_.setBlock(firstChild_);
         page_.setReadWrite(rw_);
-        page_.setBlockRoot((Block) class_);
+        page_.setBlockRoot(class_);
         return page_;
     }
 
@@ -270,7 +270,7 @@ public final class ProcessXmlMethod {
         page_.setReadWrite(rw_);
         page_.getCallingConstr().setInstancingStep(in_);
         page_.getCallingConstr().setUsedConstructor(method_);
-        page_.setBlockRoot((Block) class_);
+        page_.setBlockRoot(class_);
         return page_;
     }
     private static void addPage(ContextEl _conf, PageEl _page) {
@@ -297,7 +297,7 @@ public final class ProcessXmlMethod {
             while (!bkIp_.noBlock()) {
                 RemovableVars bl_ = bkIp_.getLastStack();
                 if (!(bl_ instanceof TryBlockStack)) {
-                    ((RemovableVars)bl_).removeVarAndLoop(bkIp_);
+                    bl_.removeVarAndLoop(bkIp_);
                     continue;
                 }
                 TryBlockStack try_ = (TryBlockStack)bl_;

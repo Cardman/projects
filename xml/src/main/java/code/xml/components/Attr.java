@@ -3,7 +3,7 @@ package code.xml.components;
 import code.util.CustList;
 import code.util.StringList;
 
-public final class Attr {
+public final class Attr implements Info {
 
     private static final String BEG_ATTR = " ";
 
@@ -74,5 +74,11 @@ public final class Attr {
             return false;
         }
         return true;
+    }
+
+    @Override
+    public long compareDocumentPosition(Info _other) {
+        // TODO Auto-generated method stub
+        return 0;
     }
 }

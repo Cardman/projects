@@ -758,7 +758,7 @@ final class FormatHtml {
                     i_++;
                 }
                 if (catchElt_ != null) {
-                    Element newCurrentNode_ = ((BlockHtml)bkIp_.getLastStack()).getWriteNode();
+                    Element newCurrentNode_ = bkIp_.getLastStack().getWriteNode();
                     Element catchElement_ = catchElt_;
                     try_.setThrownException(null);
                     if (catchElement_.getFirstChild() != null) {
@@ -1003,7 +1003,7 @@ final class FormatHtml {
         }
         if (ExtractCondition.isBeginOfConditionNode(_conf, en_)) {
             if (!ip_.noBlock()) {
-                BlockHtml bl_ = (BlockHtml) ip_.getLastStack();
+                BlockHtml bl_ = ip_.getLastStack();
                 if (bl_.getReadNode() == en_) {
                     ip_.removeLastBlock();
                     processBlock(_conf, ip_);
@@ -1058,7 +1058,7 @@ final class FormatHtml {
         }
         if (StringList.quickEq(en_.getNodeName(),prefix_+TAG_SWITCH)) {
             if (!ip_.noBlock()) {
-                BlockHtml bl_ = (BlockHtml) ip_.getLastStack();
+                BlockHtml bl_ = ip_.getLastStack();
                 if (bl_.getReadNode() == en_) {
                     ip_.removeLastBlock();
                     processBlock(_conf, ip_);
@@ -1866,21 +1866,21 @@ final class FormatHtml {
             loc_.setClassName(ConstClasses.resolve(_className));
             try {
                 if (clMatch_.getClazz() == int.class) {
-                    loc_.setElement((Integer)_object.getInstance());
+                    loc_.setElement(_object.getInstance());
                 } else if (clMatch_.getClazz() == long.class) {
-                    loc_.setElement((Long)_object.getInstance());
+                    loc_.setElement(_object.getInstance());
                 } else if (clMatch_.getClazz() == byte.class) {
-                    loc_.setElement((Byte)_object.getInstance());
+                    loc_.setElement(_object.getInstance());
                 } else if (clMatch_.getClazz() == short.class) {
-                    loc_.setElement((Short)_object.getInstance());
+                    loc_.setElement(_object.getInstance());
                 } else if (clMatch_.getClazz() == float.class) {
-                    loc_.setElement((Float)_object.getInstance());
+                    loc_.setElement(_object.getInstance());
                 } else if (clMatch_.getClazz() == double.class) {
-                    loc_.setElement((Double)_object.getInstance());
+                    loc_.setElement(_object.getInstance());
                 } else if (clMatch_.getClazz() == char.class) {
-                    loc_.setElement((Character)_object.getInstance());
+                    loc_.setElement(_object.getInstance());
                 } else {
-                    loc_.setElement((Boolean)_object.getInstance());
+                    loc_.setElement(_object.getInstance());
                 }
             } catch (ClassCastException _0) {
                 throw new DynamicCastClassException(_object.getClass().getName()+SPACE+_className+RETURN_LINE+_conf.joinPages());
@@ -3221,10 +3221,10 @@ final class FormatHtml {
     private static void processOptionsList(Configuration _conf, Document _doc,
             Node _currentModifiedNode, Element _n, String _id, String _groupId, boolean _multiple) {
         String list_ = _n.getAttribute(ATTRIBUTE_LIST);
-        String name_ = ((Element) _n).getAttribute(ATTRIBUTE_NAME);
-        boolean update_ = ((Element) _n).hasAttribute(ATTRIBUTE_UPDATE);
-        String varValue_ = ((Element) _n).getAttribute(ATTRIBUTE_VAR_VALUE);
-        String varMethod_ = ((Element) _n).getAttribute(VAR_METHOD);
+        String name_ = _n.getAttribute(ATTRIBUTE_NAME);
+        boolean update_ = _n.hasAttribute(ATTRIBUTE_UPDATE);
+        String varValue_ = _n.getAttribute(ATTRIBUTE_VAR_VALUE);
+        String varMethod_ = _n.getAttribute(VAR_METHOD);
         IdList<Struct> returnedVarValue_ = null;
         if (!varValue_.isEmpty()) {
             _conf.getLastPage().setProcessingAttribute(ATTRIBUTE_VAR_VALUE);
@@ -3246,7 +3246,7 @@ final class FormatHtml {
         _conf.getLastPage().setOffset(0);
         Struct li_ = ElUtil.processEl(list_, 0, _conf.toContextEl()).getStruct();
         Struct extractedList_ = li_;
-        String default_ = ((Element) _n).getAttribute(DEFAULT_ATTRIBUTE);
+        String default_ = _n.getAttribute(DEFAULT_ATTRIBUTE);
         Element docElementSelect_ = _doc.createElement(SELECT_TAG);
         if (!_id.isEmpty() || !_groupId.isEmpty()) {
             if (!_id.isEmpty()) {
@@ -3254,7 +3254,7 @@ final class FormatHtml {
             } else {
                 docElementSelect_.setAttribute(_conf.getPrefix()+ATTRIBUTE_GROUP_ID, _groupId);
             }
-            docElementSelect_.setAttribute(_conf.getPrefix()+ATTRIBUTE_VALIDATOR, ((Element) _n).getAttribute(ATTRIBUTE_VALIDATOR));
+            docElementSelect_.setAttribute(_conf.getPrefix()+ATTRIBUTE_VALIDATOR, _n.getAttribute(ATTRIBUTE_VALIDATOR));
         }
         if (_multiple) {
             docElementSelect_.setAttribute(ATTRIBUTE_MULTIPLE, ATTRIBUTE_MULTIPLE);
@@ -3337,7 +3337,7 @@ final class FormatHtml {
         if (!varMethod_.isEmpty()) {
             docElementSelect_.setAttribute(_conf.getPrefix()+VAR_METHOD, varMethod_);
         }
-        docElementSelect_.setAttribute(_conf.getPrefix()+ATTRIBUTE_CLASS_NAME, ((Element) _n).getAttribute(ATTRIBUTE_CLASS_NAME));
+        docElementSelect_.setAttribute(_conf.getPrefix()+ATTRIBUTE_CLASS_NAME, _n.getAttribute(ATTRIBUTE_CLASS_NAME));
         _currentModifiedNode.appendChild(docElementSelect_);
     }
 
@@ -4168,7 +4168,7 @@ final class FormatHtml {
         ImportingPage ip_ = _conf.getLastPage();
         Element b_ = null;
         if (!ip_.noBlock()) {
-            BlockHtml bl_ = (BlockHtml) ip_.getLastStack();
+            BlockHtml bl_ = ip_.getLastStack();
             b_ = bl_.getReadNode();
             if (bl_ instanceof TryHtmlStack) {
                 TryHtmlStack t_ = (TryHtmlStack)bl_;

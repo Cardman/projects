@@ -1548,7 +1548,7 @@ public abstract class OperationNode {
         Boolean b_ = (Boolean) o_;
         if (res_ < 3) {
             CustList<OperationNode> l_ = ElUtil.getDirectChildren(par_);
-            OperationNode opElt_ = (OperationNode) l_.get(res_);
+            OperationNode opElt_ = l_.get(res_);
             opElt_.setSimpleArgument(_arg);
             return;
         }
@@ -1575,7 +1575,7 @@ public abstract class OperationNode {
         Boolean b_ = (Boolean) o_;
         if (res_ < 3) {
             CustList<OperationNode> l_ = ElUtil.getDirectChildren(par_);
-            OperationNode opElt_ = (OperationNode) l_.get(res_);
+            OperationNode opElt_ = l_.get(res_);
             _nodes.getVal(opElt_).setArgument(_arg);
             return;
         }

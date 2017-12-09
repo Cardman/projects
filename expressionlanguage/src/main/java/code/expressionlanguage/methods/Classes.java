@@ -265,7 +265,7 @@ public final class Classes {
         bl_.setEndHeader(ne_.getEndHeader());
         bl_.setTabs(ne_.getTabs());
         bl_.setOffsets(ne_.getOffsets());
-        RootBlock cl_ = (RootBlock) bl_;
+        RootBlock cl_ = bl_;
         String packageName_;
         packageName_ = cl_.getPackageName();
         if (!_predefined) {
@@ -341,7 +341,7 @@ public final class Classes {
             throw new AlreadyExistingClassException(clNat_.getName());
         } catch (RuntimeClassNotFoundException _0) {
         }
-        Block rootBl_ = (Block) cl_;
+        Block rootBl_ = cl_;
         CustList<Block> all_ = getSortedDescNodesRoot(rootBl_);
         for (Block b: all_) {
             b.setConf(null);
@@ -1138,7 +1138,7 @@ public final class Classes {
                     }
                     CustList<InterfaceNode> list_ = getDirectChildren(e);
                     if (!list_.isEmpty()) {
-                        InterfaceNode op_ = (InterfaceNode) list_.last();
+                        InterfaceNode op_ = list_.last();
                         if (op_.getOrder() == CustList.INDEX_NOT_FOUND_ELT) {
                             continue;
                         }
@@ -1192,7 +1192,7 @@ public final class Classes {
             String className_ = c.getKey();
             CustList<Block> bl_ = getSortedDescNodes(c.getValue());
             for (Block e: bl_) {
-                Block b_ = (Block) e;
+                Block b_ = e;
                 for (EntryCust<String, String> n: b_.getClassNames().entryList()) {
                     String classNameLoc_ = n.getValue();
                     StringList parts_ = StringList.splitChars(classNameLoc_, LT, GT, ARR_BEG, COMMA, Templates.SEP_BOUNDS, Templates.EXTENDS_DEF);
@@ -1219,7 +1219,7 @@ public final class Classes {
             String className_ = c.getKey();
             CustList<Block> bl_ = getSortedDescNodes(c.getValue());
             for (Block b: bl_) {
-                Block block_ = (Block)b;
+                Block block_ = b;
                 if (b instanceof InitVariable) {
                     String var_ = ((InitVariable)b).getVariableName();
                     if (!StringList.isWord(var_)) {
@@ -1327,7 +1327,7 @@ public final class Classes {
 
     public boolean canAccessField(String _className, String _accessedClass, String _name) {
         String baseClass_ = StringList.getAllTypes(_accessedClass).first();
-        Block access_ = (Block) getClassBody(baseClass_);
+        Block access_ = getClassBody(baseClass_);
         CustList<Block> bl_ = getDirectChildren(access_);
         for (Block b: bl_) {
             if (b instanceof InfoBlock) {
@@ -1531,7 +1531,7 @@ public final class Classes {
                     CustList<Block> chSort_ = getSortedDescNodes(b);
                     CustList<Block> all_ = new CustList<Block>();
                     for (Block s: chSort_) {
-                        all_.add((Block) s);
+                        all_.add(s);
                     }
                     int order_ = 0;
                     while (true) {
@@ -1543,7 +1543,7 @@ public final class Classes {
                             CustList<Block> list_ = getDirectChildren(e);
                             boolean allNb_ = true;
                             for (Block s: list_) {
-                                Block op_ = (Block) s;
+                                Block op_ = s;
                                 if (op_.getOrder() == CustList.INDEX_NOT_FOUND_ELT) {
                                     allNb_ = false;
                                     break;
@@ -1593,7 +1593,7 @@ public final class Classes {
                     CustList<Block> chSort_ = getSortedDescNodes(b);
                     CustList<Block> all_ = new CustList<Block>();
                     for (Block s: chSort_) {
-                        all_.add((Block) s);
+                        all_.add(s);
                     }
                     int order_ = 0;
                     while (true) {
@@ -1605,7 +1605,7 @@ public final class Classes {
                             CustList<Block> list_ = getDirectChildren(e);
                             boolean allNb_ = true;
                             for (Block s: list_) {
-                                Block op_ = (Block) s;
+                                Block op_ = s;
                                 if (op_.getOrder() == CustList.INDEX_NOT_FOUND_ELT) {
                                     allNb_ = false;
                                     break;
@@ -1972,7 +1972,7 @@ public final class Classes {
                 continue;
             }
             RootBlock clblock_ = c.getValue();
-            CustList<Block> bl_ = getDirectChildren((Block)clblock_);
+            CustList<Block> bl_ = getDirectChildren(clblock_);
             for (Block b: bl_) {
                 if (b instanceof InfoBlock) {
                     InfoBlock method_ = (InfoBlock) b;

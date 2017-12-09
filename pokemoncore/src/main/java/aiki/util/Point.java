@@ -55,9 +55,6 @@ public final class Point implements Equallable<Point> {
 
     @Override
     public boolean eq(Point _obj) {
-        if (!(_obj instanceof Point)) {
-            return false;
-        }
         if (!Numbers.eq(xCoord, _obj.xCoord)) {
             return false;
         }

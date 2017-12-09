@@ -94,7 +94,7 @@ public final class EvolvedPhrase implements XmlTransientable, MidListable<Evolve
 
     @Override
     public boolean contains(EvolvedNote _o) {
-        return notes.containsObj((EvolvedNote) _o);
+        return notes.containsObj(_o);
     }
 
     @Override

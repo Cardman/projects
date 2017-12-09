@@ -79,31 +79,31 @@ public final class Comment extends CharacterData {
     }
 
     @Override
-    public void appendChild(ChangeableChild _newChild) {
+    public void appendChild(Node _newChild) {
         // TODO Auto-generated method stub
         
     }
 
     @Override
-    public void removeChild(ChangeableChild _oldChild) {
+    public void removeChild(Node _oldChild) {
         // TODO Auto-generated method stub
         
     }
 
     @Override
-    public void replaceChild(ChangeableChild _newChild, ChangeableChild _oldChild) {
+    public void replaceChild(Node _newChild, Node _oldChild) {
         // TODO Auto-generated method stub
         
     }
 
     @Override
-    public void insertBefore(ChangeableChild _newChild, ChangeableChild _refChild) {
+    public void insertBefore(Node _newChild, Node _refChild) {
         // TODO Auto-generated method stub
         
     }
 
     @Override
-    public void insertAfter(ChangeableChild _newChild, ChangeableChild _refChild) {
+    public void insertAfter(Node _newChild, Node _refChild) {
         // TODO Auto-generated method stub
         
     }
@@ -115,31 +115,13 @@ public final class Comment extends CharacterData {
     }
 
     @Override
-    public String getNamespace() {
-        // TODO Auto-generated method stub
-        return null;
-    }
-
-    @Override
-    public String getPrefix() {
-        // TODO Auto-generated method stub
-        return null;
-    }
-
-    @Override
-    public void setPrefix(String _prefix) {
-        // TODO Auto-generated method stub
-        
-    }
-
-    @Override
     public boolean hasAttributes() {
         // TODO Auto-generated method stub
         return false;
     }
 
     @Override
-    public long compareDocumentPosition(Node _other) {
+    public long compareDocumentPosition(Info _other) {
         // TODO Auto-generated method stub
         return 0;
     }
@@ -154,24 +136,6 @@ public final class Comment extends CharacterData {
     public void setTextContent(String _textContent) {
         // TODO Auto-generated method stub
         
-    }
-
-    @Override
-    public String lookupPrefix(String _namespace) {
-        // TODO Auto-generated method stub
-        return null;
-    }
-
-    @Override
-    public boolean isDefaultNamespace(String _namespace) {
-        // TODO Auto-generated method stub
-        return false;
-    }
-
-    @Override
-    public String lookupNamespace(String _prefix) {
-        // TODO Auto-generated method stub
-        return null;
     }
 
     @Override

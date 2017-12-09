@@ -113,7 +113,7 @@ public final class EvolvedPart implements XmlTransientable, MidListable<EvolvedP
 
     @Override
     public boolean contains(EvolvedPhrase _o) {
-        return phrases.containsObj((EvolvedPhrase) _o);
+        return phrases.containsObj(_o);
     }
 
     @Override

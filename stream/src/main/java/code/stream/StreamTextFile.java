@@ -108,7 +108,7 @@ public final class StreamTextFile {
         FileInfo f_ = new FileInfo(new File(_folder));
         StringList files_ = new StringList();
         for (FileInfo s: getSortedDescNodes(f_)) {
-            FileInfo c_ = (FileInfo) s;
+            FileInfo c_ = s;
             files_.add(StringList.replaceBackSlash(c_.getInfo().getAbsolutePath()));
         }
         return files_;

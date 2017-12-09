@@ -3122,7 +3122,7 @@ public class ProcessXmlMethodTest {
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
         assertNull(ret_.getObject());
         assertEq(1, l_.size());
-        assertEq(5, (Number)l_.first());
+        assertEq(5, l_.first());
     }
 
     @Test

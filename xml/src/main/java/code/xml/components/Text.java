@@ -99,23 +99,23 @@ public final class Text extends CharacterData {
     }
 
     @Override
-    public void appendChild(ChangeableChild _newChild) {
+    public void appendChild(Node _newChild) {
     }
 
     @Override
-    public void removeChild(ChangeableChild _oldChild) {
+    public void removeChild(Node _oldChild) {
     }
 
     @Override
-    public void replaceChild(ChangeableChild _newChild, ChangeableChild _oldChild) {
+    public void replaceChild(Node _newChild, Node _oldChild) {
     }
 
     @Override
-    public void insertBefore(ChangeableChild _newChild, ChangeableChild _refChild) {
+    public void insertBefore(Node _newChild, Node _refChild) {
     }
 
     @Override
-    public void insertAfter(ChangeableChild _newChild, ChangeableChild _refChild) {
+    public void insertAfter(Node _newChild, Node _refChild) {
     }
 
     @Override
@@ -124,30 +124,12 @@ public final class Text extends CharacterData {
     }
 
     @Override
-    public String getNamespace() {
-        // TODO Auto-generated method stub
-        return null;
-    }
-
-    @Override
-    public String getPrefix() {
-        // TODO Auto-generated method stub
-        return null;
-    }
-
-    @Override
-    public void setPrefix(String _prefix) {
-        // TODO Auto-generated method stub
-        
-    }
-
-    @Override
     public boolean hasAttributes() {
         return false;
     }
 
     @Override
-    public long compareDocumentPosition(Node _other) {
+    public long compareDocumentPosition(Info _other) {
         // TODO Auto-generated method stub
         return 0;
     }
@@ -170,24 +152,6 @@ public final class Text extends CharacterData {
     protected void setEscapedTextContent(String _escapedTextContent) {
         escapedTextContent = _escapedTextContent;
         textContent = DocumentBuilder.transformSpecialChars(_escapedTextContent);
-    }
-
-    @Override
-    public String lookupPrefix(String _namespace) {
-        // TODO Auto-generated method stub
-        return null;
-    }
-
-    @Override
-    public boolean isDefaultNamespace(String _namespace) {
-        // TODO Auto-generated method stub
-        return false;
-    }
-
-    @Override
-    public String lookupNamespace(String _prefix) {
-        // TODO Auto-generated method stub
-        return null;
     }
 
     @Override

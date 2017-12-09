@@ -35,9 +35,6 @@ public final class NbEffectFighterCoords implements Equallable<NbEffectFighterCo
 
     @Override
     public boolean eq(NbEffectFighterCoords _obj) {
-        if (!(_obj instanceof NbEffectFighterCoords)) {
-            return false;
-        }
         if (!Numbers.eq(number, _obj.getNumber())) {
             return false;
         }

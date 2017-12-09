@@ -95,7 +95,7 @@ public class EffectEndRoundBean extends CommonBean {
             mapVarsFailEndRound = new NatTreeMap<String,String>();
             return;
         }
-        EffectEndRound effect_ = getEffect((long) index);
+        EffectEndRound effect_ = getEffect(index);
         if (effect_ == null) {
             endRoundRank = element.getNumberIncrement();
             reasonsEndRound = new StringList();

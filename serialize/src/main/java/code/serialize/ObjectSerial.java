@@ -427,7 +427,7 @@ final class ObjectSerial extends TemplateSerial {
         return ListableEntries.class.isInstance(value);
     }
     boolean isCorrect() {
-        return (Boolean) ((CheckableMap)value).isCorrect();
+        return ((CheckableMap)value).isCorrect();
     }
 
 }

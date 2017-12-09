@@ -1247,7 +1247,7 @@ public class SerializeXmlObjectTest {
         MapsAtomicInteger containers_ = (MapsAtomicInteger) SerializeXmlObject.fromXmlStringObject(xml_);
         assertSame(NumberMap.class, containers_.getMap().getClass());
         assertEq(1, containers_.getMap().size());
-        AtomicInteger at_ = (AtomicInteger) containers_.getMap().getKeys().first();
+        AtomicInteger at_ = containers_.getMap().getKeys().first();
         assertEq(1, at_.intValue());
         assertEq("STR_ONE", containers_.getMap().getVal(at_));
     }
@@ -1267,7 +1267,7 @@ public class SerializeXmlObjectTest {
         MapsAtomicLong containers_ = (MapsAtomicLong) SerializeXmlObject.fromXmlStringObject(xml_);
         assertSame(NumberMap.class, containers_.getMap().getClass());
         assertEq(1, containers_.getMap().size());
-        AtomicLong at_ = (AtomicLong) containers_.getMap().getKeys().first();
+        AtomicLong at_ = containers_.getMap().getKeys().first();
         assertEq(1, at_.intValue());
         assertEq("STR_ONE", containers_.getMap().getVal(at_));
     }
@@ -1559,8 +1559,8 @@ public class SerializeXmlObjectTest {
         assertEq(2, tree_.size());
         assertEq("B", tree_.getKey(0));
         assertEq("A", tree_.getKey(1));
-        assertEq(1, (Number)tree_.getVal("A"));
-        assertEq(2, (Number)tree_.getVal("B"));
+        assertEq(1, tree_.getVal("A"));
+        assertEq(2, tree_.getVal("B"));
         assertEq(2, tree_.getValue(0));
         assertEq(1, tree_.getValue(1));
     }
@@ -1605,7 +1605,7 @@ public class SerializeXmlObjectTest {
         xml_ += "</"+CONTAINER_ARRAY+">";
         ContainerArray containers_ = (ContainerArray) SerializeXmlObject.fromXmlStringObject(xml_);
         assertSame(Object[].class, containers_.getObject().getClass());
-        Object[] tree_ = (Object[]) containers_.getObject();
+        Object[] tree_ = containers_.getObject();
         assertEq(1, tree_.length);
         CompositeTwo comp_ = (CompositeTwo) tree_[0];
         assertEq(4, comp_.getPrimitive().intValue());
@@ -1702,7 +1702,7 @@ public class SerializeXmlObjectTest {
         assertEq(2, tree_.size());
         CompositeTwo comp_ = new CompositeTwo();
         comp_.setPrimitive(4);
-        assertEq(comp_, (CompositeTwo)tree_.get(0));
+        assertEq(comp_, tree_.get(0));
         assertSame(tree_.get(0), tree_.get(1));
     }
 
@@ -1728,8 +1728,8 @@ public class SerializeXmlObjectTest {
         assertEq(4, tree_.size());
         CompositeTwo comp_ = new CompositeTwo();
         comp_.setPrimitive(4);
-        assertEq(comp_, (CompositeTwo)tree_.get(0));
-        assertEq(comp_, (CompositeTwo)tree_.get(2));
+        assertEq(comp_, tree_.get(0));
+        assertEq(comp_, tree_.get(2));
         assertSame(tree_.get(0), tree_.get(1));
         assertSame(tree_.get(2), tree_.get(3));
     }
@@ -1760,8 +1760,8 @@ public class SerializeXmlObjectTest {
         assertEq(4, tree_.size());
         CompositeTwo comp_ = new CompositeTwo();
         comp_.setPrimitive(4);
-        assertEq(comp_, (CompositeTwo)tree_.getVal("ref1"));
-        assertEq(comp_, (CompositeTwo)tree_.getVal("ref3"));
+        assertEq(comp_, tree_.getVal("ref1"));
+        assertEq(comp_, tree_.getVal("ref3"));
         assertSame(tree_.getVal("ref1"), tree_.getVal("ref2"));
         assertSame(tree_.getVal("ref3"), tree_.getVal("ref4"));
     }
@@ -1882,9 +1882,9 @@ public class SerializeXmlObjectTest {
         NatTreeMap<String,Integer> tree_ = containers_.getObject();
         assertEq(2, tree_.size());
         assertEq("A", tree_.getKey(0));
-        assertEq(1, (Number)tree_.getValue(0));
+        assertEq(1, tree_.getValue(0));
         assertEq("B", tree_.getKey(1));
-        assertEq(2, (Number)tree_.getValue(1));
+        assertEq(2, tree_.getValue(1));
     }
 
     @Parameters(method="booleanInputs")
@@ -1906,8 +1906,8 @@ public class SerializeXmlObjectTest {
         ContainerIdMapRef containers_ = (ContainerIdMapRef) SerializeXmlObject.fromXmlStringObject(xml_);
         IdMap<CompositeTwo,CompositeTwo> tree_ = containers_.getObject();
         assertEq(2, tree_.size());
-        CompositeTwo k1_ = (CompositeTwo) tree_.getKey(0);
-        CompositeTwo k2_ = (CompositeTwo) tree_.getKey(1);
+        CompositeTwo k1_ = tree_.getKey(0);
+        CompositeTwo k2_ = tree_.getKey(1);
         assertEq(4, k1_.getPrimitive().intValue());
         assertEq(4, k2_.getPrimitive().intValue());
         assertEq("FOUR", tree_.getVal(k1_));
@@ -2097,7 +2097,7 @@ public class SerializeXmlObjectTest {
         MapsInteger containers_ = (MapsInteger) SerializeXmlObject.fromXmlStringObject(xml_);
         assertSame(NumberMap.class, containers_.getMap().getClass());
         assertEq(1, containers_.getMap().size());
-        Integer at_ = (Integer) containers_.getMap().getKeys().first();
+        Integer at_ = containers_.getMap().getKeys().first();
         assertEq(1, at_.intValue());
         assertEq("STR_ONE", containers_.getMap().getVal(at_));
     }

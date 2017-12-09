@@ -19,10 +19,6 @@ public final class Document extends Node {
         attr_.setName(_name);
         return attr_;
     }
-    public Attr createAttributeNS(String _namespace, String _qualifiedName) {
-        // TODO Auto-generated method stub
-        return null;
-    }
     public Comment createComment(String _data) {
         // TODO Auto-generated method stub
         Comment comment_ = new Comment(this);
@@ -34,10 +30,6 @@ public final class Document extends Node {
         return element_;
     }
 
-    public Element createElementNS(String _namespace, String _qualifiedName) {
-        // TODO Auto-generated method stub
-        return null;
-    }
     public Text createTextNode(String _data) {
         Text text_ = new Text(this);
         text_.setTextContent(_data);
@@ -56,22 +48,7 @@ public final class Document extends Node {
     public NamedNodeMap getAttributes() {
         return null;
     }
-    @Override
-    public ChangeableChild getNextSibling() {
-        return null;
-    }
-    @Override
-    public ChangeableChild getPreviousSibling() {
-        return null;
-    }
-    @Override
-    public ChangeableChild getFirstChild() {
-        return getDocumentElement();
-    }
-    @Override
-    public ChangeableChild getLastChild() {
-        return getDocumentElement();
-    }
+
     @Override
     public NodeList getChildNodes() {
         NodeList list_ = new NodeList();
@@ -90,28 +67,38 @@ public final class Document extends Node {
         return null;
     }
     @Override
-    public void appendChild(ChangeableChild _newChild) {
+    public void appendChild(Node _newChild) {
         Element element_ = (Element) _newChild;
         documentElement = element_;
+        setFirstChild(documentElement);
+        setLastChild(documentElement);
     }
     @Override
-    public void removeChild(ChangeableChild _oldChild) {
+    public void removeChild(Node _oldChild) {
         documentElement = null;
+        setFirstChild(null);
+        setLastChild(null);
     }
     @Override
-    public void replaceChild(ChangeableChild _newChild, ChangeableChild _oldChild) {
+    public void replaceChild(Node _newChild, Node _oldChild) {
         Element element_ = (Element) _newChild;
         documentElement = element_;
+        setFirstChild(documentElement);
+        setLastChild(documentElement);
     }
     @Override
-    public void insertBefore(ChangeableChild _newChild, ChangeableChild _refChild) {
+    public void insertBefore(Node _newChild, Node _refChild) {
         Element element_ = (Element) _newChild;
         documentElement = element_;
+        setFirstChild(documentElement);
+        setLastChild(documentElement);
     }
     @Override
-    public void insertAfter(ChangeableChild _newChild, ChangeableChild _refChild) {
+    public void insertAfter(Node _newChild, Node _refChild) {
         Element element_ = (Element) _newChild;
         documentElement = element_;
+        setFirstChild(documentElement);
+        setLastChild(documentElement);
     }
 
     public String export() {
@@ -122,51 +109,16 @@ public final class Document extends Node {
         return documentElement != null;
     }
     @Override
-    public String getNamespace() {
-        // TODO Auto-generated method stub
-        return null;
-    }
-    @Override
-    public String getPrefix() {
-        // TODO Auto-generated method stub
-        return null;
-    }
-    @Override
-    public void setPrefix(String _prefix) {
-        // TODO Auto-generated method stub
-        
-    }
-    @Override
     public boolean hasAttributes() {
         return false;
     }
     @Override
-    public long compareDocumentPosition(Node _other) {
+    public long compareDocumentPosition(Info _other) {
         // TODO Auto-generated method stub
         return 0;
     }
     @Override
     public String getTextContent() {
-        // TODO Auto-generated method stub
-        return null;
-    }
-    @Override
-    public void setTextContent(String _textContent) {
-        // TODO Auto-generated method stub
-        
-    }
-    @Override
-    public String lookupPrefix(String _namespace) {
-        // TODO Auto-generated method stub
-        return null;
-    }
-    @Override
-    public boolean isDefaultNamespace(String _namespace) {
-        // TODO Auto-generated method stub
-        return false;
-    }
-    @Override
-    public String lookupNamespace(String _prefix) {
         // TODO Auto-generated method stub
         return null;
     }

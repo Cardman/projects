@@ -183,8 +183,8 @@ public abstract class RootBlock extends BracedBlock implements AccessibleBlock {
                 continue;
             }
             //TODO intern classes
-            RowCol where_ = ((Block)b).getRowCol(0, _context.getTabWidth(), EMPTY_STRING);
-            String tagName_ = ((Block)b).getTagName();
+            RowCol where_ = b.getRowCol(0, _context.getTabWidth(), EMPTY_STRING);
+            String tagName_ = b.getTagName();
             UnexpectedTagName unexp_ = new UnexpectedTagName();
             unexp_.setFileName(getFullName());
             unexp_.setFoundTag(tagName_);
@@ -844,7 +844,7 @@ public abstract class RootBlock extends BracedBlock implements AccessibleBlock {
         }
         if (concreteClass_) {
             for (MethodBlock b: Classes.getMethodBlocks(this)) {
-                MethodBlock mDer_ = (MethodBlock) b;
+                MethodBlock mDer_ = b;
                 MethodId idFor_ = mDer_.getId();
                 if (mDer_.isAbstractMethod()) {
                     AbstractMethod err_;
@@ -967,7 +967,7 @@ public abstract class RootBlock extends BracedBlock implements AccessibleBlock {
         }
         for (String s: getAllGenericSuperTypes(_classes)) {
             String base_ = StringList.getAllTypes(s).first();
-            RootBlock b_ = (RootBlock) _classes.getClassBody(base_);
+            RootBlock b_ = _classes.getClassBody(base_);
             for (Block b: Classes.getDirectChildren(b_)) {
                 if (b instanceof MethodBlock) {
                     MethodBlock method_ = (MethodBlock) b;

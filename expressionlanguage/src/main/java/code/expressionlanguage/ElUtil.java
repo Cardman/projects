@@ -275,7 +275,7 @@ public final class ElUtil {
                     if (index_ >= CustList.FIRST_INDEX) {
                         CustList<OperationNode> sn_ = getDirectChildren(cur_.getParent());
                         OperationNode s_ = sn_.get(index_);
-                        OperationNode prev_ = (OperationNode) s_;
+                        OperationNode prev_ = s_;
                         if (prev_.getOrder() == CustList.INDEX_NOT_FOUND_ELT) {
                             tonumber_ = false;
                             break;
@@ -288,7 +288,7 @@ public final class ElUtil {
                 }
                 CustList<OperationNode> list_ = getDirectChildren(e);
                 if (!list_.isEmpty()) {
-                    OperationNode op_ = (OperationNode) list_.last();
+                    OperationNode op_ = list_.last();
                     if (op_.getOrder() == CustList.INDEX_NOT_FOUND_ELT) {
                         continue;
                     }

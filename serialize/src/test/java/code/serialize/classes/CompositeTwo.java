@@ -18,7 +18,7 @@ public final class CompositeTwo implements Equallable<CompositeTwo> {
 
     @Override
     public boolean eq(CompositeTwo _obj) {
-        CompositeTwo comp_ = (CompositeTwo) _obj;
+        CompositeTwo comp_ = _obj;
         if (primitive == null) {
             return comp_.primitive == null;
         }
