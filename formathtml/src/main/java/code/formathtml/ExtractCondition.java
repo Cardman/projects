@@ -41,10 +41,10 @@ final class ExtractCondition {
 
     static boolean evaluateGenericCondition(Element _en, Configuration _conf, ImportingPage _ip) {
         String prefix_ = _conf.getLastPage().getPrefix();
-        if (StringList.quickEq(_en.getNodeName(), prefix_+IF_BLOCK_TAG)) {
+        if (StringList.quickEq(_en.getTagName(), prefix_+IF_BLOCK_TAG)) {
             return evaluateCondition(_en, _conf, _ip);
         }
-        if (StringList.quickEq(_en.getNodeName(), prefix_+ELSE_IF_BLOCK_TAG)) {
+        if (StringList.quickEq(_en.getTagName(), prefix_+ELSE_IF_BLOCK_TAG)) {
             return evaluateCondition(_en, _conf, _ip);
         }
         _ip.setProcessingAttribute(EMPTY_STRING);
@@ -54,7 +54,7 @@ final class ExtractCondition {
         if (defined_.isEmpty()) {
             throw new BadConditionExpressionException(_conf.joinPages());
         }
-        if (StringList.quickEq(_en.getNodeName(), prefix_+TAG_IF_DEF_PARAM) || StringList.quickEq(_en.getNodeName(), prefix_+TAG_ELSE_IF_DEF_PARAM)) {
+        if (StringList.quickEq(_en.getTagName(), prefix_+TAG_IF_DEF_PARAM) || StringList.quickEq(_en.getTagName(), prefix_+TAG_ELSE_IF_DEF_PARAM)) {
             StringMap<LocalVariable> locVars_ = _ip.getParameters();
             boolean return_ = true;
             for (String a: StringList.splitChars(defined_, COMMA_CHAR)) {
@@ -211,7 +211,10 @@ final class ExtractCondition {
     }
 
     static boolean isBeginOfConditionNode(Configuration _conf, Node _node) {
-        String nodeName_ = _node.getNodeName();
+        if (!(_node instanceof Element)) {
+            return false;
+        }
+        String nodeName_ = ((Element) _node).getTagName();
         String prefix_ = _conf.getLastPage().getPrefix();
         if (StringList.quickEq(nodeName_, prefix_+IF_BLOCK_TAG)) {
             return true;
@@ -225,7 +228,10 @@ final class ExtractCondition {
         return false;
     }
     static boolean isContentOfConditionNode(Configuration _conf, Node _node) {
-        String nodeName_ = _node.getNodeName();
+        if (!(_node instanceof Element)) {
+            return false;
+        }
+        String nodeName_ = ((Element) _node).getTagName();
         String prefix_ = _conf.getLastPage().getPrefix();
         if (StringList.quickEq(nodeName_, prefix_+ELSE_IF_BLOCK_TAG)) {
             return true;

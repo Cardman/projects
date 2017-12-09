@@ -86,7 +86,7 @@ public final class MethodUtil {
     }
     public static int indexOfBeginNode(Node _node, String _html, int _from) {
         if (_node instanceof Element) {
-            return _html.indexOf(LT_BEGIN_TAG+_node.getNodeName(), _from) + 1;
+            return _html.indexOf(LT_BEGIN_TAG+((Element) _node).getTagName(), _from) + 1;
         }
         if (_node instanceof Text) {
             int indexText_ = _html.indexOf(GT_TAG, _from);

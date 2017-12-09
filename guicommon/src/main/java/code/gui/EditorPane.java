@@ -10,6 +10,7 @@ import javax.swing.text.SimpleAttributeSet;
 import javax.swing.text.StyledDocument;
 import javax.swing.text.html.HTMLEditorKit;
 
+import org.w3c.dom.Attr;
 import org.w3c.dom.Document;
 import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
@@ -98,15 +99,15 @@ public class EditorPane extends JTextPane {
             if (map_ == null) {
                 continue;
             }
-            Node href_ = map_.getNamedItem(ATTRIBUTE_HREF);
+            Attr href_ = (Attr) map_.getNamedItem(ATTRIBUTE_HREF);
             if (href_ == null) {
                 continue;
             }
-            Node title_ = map_.getNamedItem(ATTRIBUTE_TITLE);
+            Attr title_ = (Attr) map_.getNamedItem(ATTRIBUTE_TITLE);
             if (title_ == null) {
                 continue;
             }
-            tooltips.add(title_.getNodeValue());
+            tooltips.add(title_.getValue());
         }
         getHtmlKit().setAutoFormSubmission(_autoSubmission);
         setContentType(CONTENT_TYPE);

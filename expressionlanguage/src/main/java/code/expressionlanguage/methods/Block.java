@@ -649,101 +649,101 @@ public abstract class Block extends Blockable {
     public abstract NatTreeMap<String,String> getClassNames();
     public static Block createOperationNode(Element _el, ContextEl _conf,
             int _indexChild, BracedBlock _m) {
-        if (StringList.quickEq(_el.getNodeName(),TAG_AFFECT)) {
+        if (StringList.quickEq(_el.getTagName(),TAG_AFFECT)) {
             if (!_el.hasAttribute(ATTRIBUTE_RIGHT)) {
                 return new SemiAffectation(_el, _conf, _indexChild, _m);
             }
             return new Affectation(_el, _conf, _indexChild, _m);
         }
-        if (StringList.quickEq(_el.getNodeName(),TAG_BREAK)) {
+        if (StringList.quickEq(_el.getTagName(),TAG_BREAK)) {
             return new BreakBlock(_el, _conf, _indexChild, _m);
         }
-        if (StringList.quickEq(_el.getNodeName(),TAG_CASE)) {
+        if (StringList.quickEq(_el.getTagName(),TAG_CASE)) {
             return new CaseCondition(_el, _conf, _indexChild, _m);
         }
-        if (StringList.quickEq(_el.getNodeName(),TAG_CATCH)) {
+        if (StringList.quickEq(_el.getTagName(),TAG_CATCH)) {
             return new CatchEval(_el, _conf, _indexChild, _m);
         }
-        if (StringList.quickEq(_el.getNodeName(),TAG_CLASS)) {
+        if (StringList.quickEq(_el.getTagName(),TAG_CLASS)) {
             return new ClassBlock(_el, _conf, _indexChild, _m);
         }
-        if (StringList.quickEq(_el.getNodeName(),TAG_CONSTRUCTOR)) {
+        if (StringList.quickEq(_el.getTagName(),TAG_CONSTRUCTOR)) {
             return new ConstructorBlock(_el, _conf, _indexChild, _m);
         }
-        if (StringList.quickEq(_el.getNodeName(),TAG_CONTINUE)) {
+        if (StringList.quickEq(_el.getTagName(),TAG_CONTINUE)) {
             return new ContinueBlock(_el, _conf, _indexChild, _m);
         }
-        if (StringList.quickEq(_el.getNodeName(),TAG_DECLARE)) {
+        if (StringList.quickEq(_el.getTagName(),TAG_DECLARE)) {
             return new DeclareVariable(_el, _conf, _indexChild, _m);
         }
-        if (StringList.quickEq(_el.getNodeName(),TAG_DECLARE_SET)) {
+        if (StringList.quickEq(_el.getTagName(),TAG_DECLARE_SET)) {
             return new DeclareAffectVariable(_el, _conf, _indexChild, _m);
         }
-        if (StringList.quickEq(_el.getNodeName(),TAG_DEFAULT)) {
+        if (StringList.quickEq(_el.getTagName(),TAG_DEFAULT)) {
             return new DefaultCondition(_el, _conf, _indexChild, _m);
         }
-        if (StringList.quickEq(_el.getNodeName(),TAG_DO)) {
+        if (StringList.quickEq(_el.getTagName(),TAG_DO)) {
             return new DoBlock(_el, _conf, _indexChild, _m);
         }
-        if (StringList.quickEq(_el.getNodeName(),TAG_ELEMENT)) {
+        if (StringList.quickEq(_el.getTagName(),TAG_ELEMENT)) {
             return new ElementBlock(_el, _conf, _indexChild, _m);
         }
-        if (StringList.quickEq(_el.getNodeName(),TAG_ELSE)) {
+        if (StringList.quickEq(_el.getTagName(),TAG_ELSE)) {
             return new ElseCondition(_el, _conf, _indexChild, _m);
         }
-        if (StringList.quickEq(_el.getNodeName(),TAG_ELSEIF)) {
+        if (StringList.quickEq(_el.getTagName(),TAG_ELSEIF)) {
             return new ElseIfCondition(_el, _conf, _indexChild, _m);
         }
-        if (StringList.quickEq(_el.getNodeName(),TAG_ENUM)) {
+        if (StringList.quickEq(_el.getTagName(),TAG_ENUM)) {
             return new EnumBlock(_el, _conf, _indexChild, _m);
         }
-        if (StringList.quickEq(_el.getNodeName(),TAG_FIELD)) {
+        if (StringList.quickEq(_el.getTagName(),TAG_FIELD)) {
             return new FieldBlock(_el, _conf, _indexChild, _m);
         }
-        if (StringList.quickEq(_el.getNodeName(),TAG_FINALLY)) {
+        if (StringList.quickEq(_el.getTagName(),TAG_FINALLY)) {
             return new FinallyEval(_el, _conf, _indexChild, _m);
         }
-        if (StringList.quickEq(_el.getNodeName(),TAG_FOR)) {
+        if (StringList.quickEq(_el.getTagName(),TAG_FOR)) {
             return new ForIterativeLoop(_el, _conf, _indexChild, _m);
         }
-        if (StringList.quickEq(_el.getNodeName(),TAG_FOREACH)) {
+        if (StringList.quickEq(_el.getTagName(),TAG_FOREACH)) {
             return new ForEachLoop(_el, _conf, _indexChild, _m);
         }
-        if (StringList.quickEq(_el.getNodeName(),TAG_IF)) {
+        if (StringList.quickEq(_el.getTagName(),TAG_IF)) {
             return new IfCondition(_el, _conf, _indexChild, _m);
         }
-        if (StringList.quickEq(_el.getNodeName(),TAG_INSTANCE)) {
+        if (StringList.quickEq(_el.getTagName(),TAG_INSTANCE)) {
             return new InstanceBlock(_el, _conf, _indexChild, _m);
         }
-        if (StringList.quickEq(_el.getNodeName(),TAG_INTERFACE)) {
+        if (StringList.quickEq(_el.getTagName(),TAG_INTERFACE)) {
             return new InterfaceBlock(_el, _conf, _indexChild, _m);
         }
-        if (StringList.quickEq(_el.getNodeName(),TAG_LINE)) {
+        if (StringList.quickEq(_el.getTagName(),TAG_LINE)) {
             return new Line(_el, _conf, _indexChild, _m);
         }
-        if (StringList.quickEq(_el.getNodeName(),TAG_METHOD)) {
+        if (StringList.quickEq(_el.getTagName(),TAG_METHOD)) {
             return new MethodBlock(_el, _conf, _indexChild, _m);
         }
-        if (StringList.quickEq(_el.getNodeName(),TAG_RETURN)) {
+        if (StringList.quickEq(_el.getTagName(),TAG_RETURN)) {
             return new ReturnMehod(_el, _conf, _indexChild, _m);
         }
-        if (StringList.quickEq(_el.getNodeName(),TAG_STATIC)) {
+        if (StringList.quickEq(_el.getTagName(),TAG_STATIC)) {
             return new StaticBlock(_el, _conf, _indexChild, _m);
         }
-        if (StringList.quickEq(_el.getNodeName(),TAG_SWITCH)) {
+        if (StringList.quickEq(_el.getTagName(),TAG_SWITCH)) {
             return new SwitchBlock(_el, _conf, _indexChild, _m);
         }
-        if (StringList.quickEq(_el.getNodeName(),TAG_THROW)) {
+        if (StringList.quickEq(_el.getTagName(),TAG_THROW)) {
             return new Throwing(_el, _conf, _indexChild, _m);
         }
-        if (StringList.quickEq(_el.getNodeName(),TAG_TRY)) {
+        if (StringList.quickEq(_el.getTagName(),TAG_TRY)) {
             return new TryEval(_el, _conf, _indexChild, _m);
         }
-        if (StringList.quickEq(_el.getNodeName(),TAG_WHILE)) {
+        if (StringList.quickEq(_el.getTagName(),TAG_WHILE)) {
             return new WhileCondition(_el, _conf, _indexChild, _m);
         }
         RowCol rc_ = getRowColBeginElt(_conf.getHtml(), 0, _conf.getTabWidth(), _el);
-        throw new UnknownBlockException(_el.getNodeName(), rc_);
+        throw new UnknownBlockException(_el.getTagName(), rc_);
     }
     protected final ContextEl getConf() {
         return conf;

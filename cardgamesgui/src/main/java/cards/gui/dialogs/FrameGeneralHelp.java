@@ -109,7 +109,7 @@ public final class FrameGeneralHelp extends ChildFrame {
         CustList<Node> noeudsActuels_ = new CustList<Node>();
         noeudsActuels_.add(element_);
         StringList cheminsActuels_ = new StringList();
-        cheminsActuels_.add(FileConst.RESOURCES_HELP+StreamTextFile.SEPARATEUR+Constants.getLanguage()+StreamTextFile.SEPARATEUR+ element_.getNodeName());
+        cheminsActuels_.add(FileConst.RESOURCES_HELP+StreamTextFile.SEPARATEUR+Constants.getLanguage()+StreamTextFile.SEPARATEUR+ element_.getTagName());
         Numbers<Integer> indices_ = new Numbers<Integer>();
         indices_.add(Integer.parseInt(element_.getAttribute(POSITION)));
 //            CustList<CustList<Integer>> cheminsNumeriques_ = new CustList<CustList<Integer>>();
@@ -121,7 +121,7 @@ public final class FrameGeneralHelp extends ChildFrame {
 //            elementRacine_.ajouterInfo(StreamTextFile.ressourceFichier(
 //                    FileConst.RESOURCES_HELP+StreamTextFile.SEPARATEUR+Constants.getLanguage(), element_.getNodeName() + FileConst.TXT_EXT));
         elementRacine_.ajouterInfo(FileConst.RESOURCES_HELP+StreamTextFile.SEPARATEUR+Constants.getLanguage() + StreamTextFile.SEPARATEUR
-                + element_.getNodeName() + FileConst.XML_EXT);
+                + element_.getTagName() + FileConst.XML_EXT);
         elementsBis.put(indices_, elementRacine_);
         while (true) {
             CustList<Node> nouveauxElements_ = new CustList<Node>();
@@ -143,12 +143,12 @@ public final class FrameGeneralHelp extends ChildFrame {
                         ElementHelp noeud_ = new ElementHelp(e2_
                                 .getAttribute(TEXTE));
                         nouveauxChemins_.add(cheminCourant_ + StreamTextFile.SEPARATEUR
-                                + e2_.getNodeName());
+                                + e2_.getTagName());
                         // + infos
 //                            noeud_.ajouterInfo(StreamTextFile.ressourceFichier(
 //                                    cheminCourant_, e2.getNodeName() + FileConst.TXT_EXT));
                         noeud_.ajouterInfo(cheminCourant_ + StreamTextFile.SEPARATEUR
-                                + e2_.getNodeName() + FileConst.XML_EXT);
+                                + e2_.getTagName() + FileConst.XML_EXT);
                         nouveauxElements_.add(e2_);
                         Numbers<Integer> cheminNumCourantBis_ = new Numbers<Integer>(
                                 cheminNumCourant_);

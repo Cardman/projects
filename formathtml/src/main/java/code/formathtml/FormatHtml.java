@@ -1,6 +1,8 @@
 package code.formathtml;
 import java.lang.reflect.Array;
 
+import org.w3c.dom.Attr;
+import org.w3c.dom.CharacterData;
 import org.w3c.dom.Comment;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -341,7 +343,7 @@ final class FormatHtml {
         StringMapObject formsMap_ = (StringMapObject) ExtractObject.getForms(_conf, _mainBean).getInstance();
         if (_keepField) {
             for (Element f_: XmlParser.childrenElements(_node)) {
-                if (!StringList.quickEq(f_.getNodeName(),prefix_+FORM_BLOCK_TAG)) {
+                if (!StringList.quickEq(f_.getTagName(),prefix_+FORM_BLOCK_TAG)) {
                     continue;
                 }
                 String name_ = f_.getAttribute(ATTRIBUTE_FORM);
@@ -359,12 +361,12 @@ final class FormatHtml {
         ImportingPage ip_ = _conf.getLastPage();
         String prefix_ = ip_.getPrefix();
         for (Element n: XmlParser.childrenElements(_node)) {
-            if (!StringList.quickEq(n.getNodeName(),prefix_+PACKAGE_BLOCK_TAG)) {
+            if (!StringList.quickEq(n.getTagName(),prefix_+PACKAGE_BLOCK_TAG)) {
                 continue;
             }
             String package_ = n.getAttribute(ATTRIBUTE_NAME);
             for (Element nTwo_: XmlParser.childrenElements(n)) {
-                if (!StringList.quickEq(nTwo_.getNodeName(),prefix_+CLASS_BLOCK_TAG)) {
+                if (!StringList.quickEq(nTwo_.getTagName(),prefix_+CLASS_BLOCK_TAG)) {
                     continue;
                 }
                 String className_ = nTwo_.getAttribute(ATTRIBUTE_NAME);
@@ -385,7 +387,7 @@ final class FormatHtml {
                     throw new RuntimeClassNotFoundException(searchedClass_+RETURN_LINE+_conf.joinPages());
                 }
                 for (Element nThree_: XmlParser.childrenElements(nTwo_)) {
-                    if (!StringList.quickEq(nThree_.getNodeName(),prefix_+FIELD_BLOCK_TAG)) {
+                    if (!StringList.quickEq(nThree_.getTagName(),prefix_+FIELD_BLOCK_TAG)) {
                         continue;
                     }
                     if (nThree_.hasAttribute(ATTRIBUTE_METHOD)) {
@@ -457,7 +459,7 @@ final class FormatHtml {
         StringMap<LocalVariable> parameters_ = new StringMap<LocalVariable>();
         String prefix_ = ip_.getPrefix();
         for (Element n: XmlParser.childrenElements(_node)) {
-            if (!StringList.quickEq(n.getNodeName(),prefix_+PARAM_BLOCK_TAG)) {
+            if (!StringList.quickEq(n.getTagName(),prefix_+PARAM_BLOCK_TAG)) {
                 continue;
             }
             ip_.setProcessingNode(n);
@@ -486,7 +488,7 @@ final class FormatHtml {
         StringMap<LocalVariable> parameters_ = new StringMap<LocalVariable>();
         String prefix_ = ip_.getPrefix();
         for (Element n: XmlParser.childrenElements(_node)) {
-            if (!StringList.quickEq(n.getNodeName(),prefix_+SET_BLOCK_TAG)) {
+            if (!StringList.quickEq(n.getTagName(),prefix_+SET_BLOCK_TAG)) {
                 continue;
             }
             ip_.setProcessingNode(n);
@@ -629,21 +631,21 @@ final class FormatHtml {
                     processElementOrText(_conf, ip_, true);
                     continue;
                 }
-                if (en_.getNodeName().startsWith(ip_.getPrefix()) && !ip_.getPrefix().isEmpty()) {
-                    if (StringList.quickEq(en_.getNodeName(),ip_.getPrefix()+EXIT_TAG)) {
-                        _conf.clearPages();
-                        break;
-                    }
-                    ImportingPage ret_ = processProcessingTags(_conf, doc_, ip_, containersMap_, containers_, indexes_, currentForm_, mainBean_, _loc, _files, _resourcesFolder);
-                    if (ret_ != null ) {
-                        ip_ = ret_;
-                        continue;
-                    }
-                }
                 if (en_ instanceof Element) {
+                    if (((Element) en_).getTagName().startsWith(ip_.getPrefix()) && !ip_.getPrefix().isEmpty()) {
+                        if (StringList.quickEq(((Element) en_).getTagName(),ip_.getPrefix()+EXIT_TAG)) {
+                            _conf.clearPages();
+                            break;
+                        }
+                        ImportingPage ret_ = processProcessingTags(_conf, doc_, ip_, containersMap_, containers_, indexes_, currentForm_, mainBean_, _loc, _files, _resourcesFolder);
+                        if (ret_ != null ) {
+                            ip_ = ret_;
+                            continue;
+                        }
+                    }
                     appendChild(doc_, _conf, currentNode_, (Element) en_);
                     Element tag_ = (Element) currentNode_.getLastChild();
-                    if (StringList.quickEq(en_.getNodeName(),TAG_FORM)) {
+                    if (StringList.quickEq(((Element) en_).getTagName(),TAG_FORM)) {
                         curForm_ = tag_;
                         containersMap_.put(currentForm_, containers_);
                         containers_ = new NatTreeMap<Long, NodeContainer>();
@@ -652,10 +654,10 @@ final class FormatHtml {
                     }
                     processAttributes(_conf, _loc, _files, ip_, doc_, tag_,
                             indexes_, containersMap_, containers_, _resourcesFolder);
-                    if (StringList.quickEq(en_.getNodeName(),TAG_FORM)) {
+                    if (StringList.quickEq(((Element) en_).getTagName(),TAG_FORM)) {
                         curForm_.setAttribute(NUMBER_FORM, String.valueOf(currentForm_ - 1));
                     }
-                    if (StringList.quickEq(tag_.getNodeName(), TAG_A) && (tag_.hasAttribute(_conf.getPrefix()+ATTRIBUTE_COMMAND)|| !tag_.getAttribute(ATTRIBUTE_HREF).isEmpty() )) {
+                    if (StringList.quickEq(tag_.getTagName(), TAG_A) && (tag_.hasAttribute(_conf.getPrefix()+ATTRIBUTE_COMMAND)|| !tag_.getAttribute(ATTRIBUTE_HREF).isEmpty() )) {
                         currentAnchor_ = indexes_.getAnchor();
                         tag_.setAttribute(NUMBER_ANCHOR, String.valueOf(currentAnchor_));
                         currentAnchor_++;
@@ -671,7 +673,7 @@ final class FormatHtml {
                     processElementOrText(_conf, ip_, true);
                     continue;
                 }
-                if (interpretBrackets(en_)) {
+                if (interpretBrackets((CharacterData) en_)) {
                     content_ = ExtractObject.formatNumVariables(content_, _conf, ip_, _files);
                 }
                 Text t_ = doc_.createTextNode(content_);
@@ -727,11 +729,11 @@ final class FormatHtml {
                 }
                 TryHtmlStack try_ = (TryHtmlStack)bl_;
                 boolean addFinallyClause_ = true;
-                if (!StringList.quickEq(try_.getCatchNodes().last().getNodeName(), prefix_+TAG_FINALLY)) {
+                if (!StringList.quickEq(try_.getCatchNodes().last().getTagName(), prefix_+TAG_FINALLY)) {
                     addFinallyClause_ = false;
                 }
                 if (try_.getVisitedCatch() >= CustList.FIRST_INDEX) {
-                    if (!StringList.quickEq(try_.getCurrentCatchNode().getNodeName(), prefix_+TAG_FINALLY)) {
+                    if (!StringList.quickEq(try_.getCurrentCatchNode().getTagName(), prefix_+TAG_FINALLY)) {
                         if (addFinallyClause_) {
                             try_.setThrownException(new WrapperException(_t));
                             Element newCurrentNode_ = try_.getWriteNode();
@@ -746,7 +748,7 @@ final class FormatHtml {
                 //process try block
                 int i_ = 0;
                 for (Element e: try_.getCatchNodes()) {
-                    if (StringList.quickEq(e.getNodeName(), prefix_+TAG_FINALLY)) {
+                    if (StringList.quickEq(e.getTagName(), prefix_+TAG_FINALLY)) {
                         break;
                     }
                     String name_ = e.getAttribute(ATTRIBUTE_CLASS_NAME);
@@ -825,35 +827,35 @@ final class FormatHtml {
         IndexesFormInput indexes_ = _indexes;
         long currentAnchor_ = _indexes.getAnchor();
         Document doc_ = _doc;
-        Node en_ = rw_.getRead();
+        Element en_ = (Element) rw_.getRead();
         ImportingPage ip_ = _ip;
         Node currentNode_ = rw_.getWrite();
-        if (StringList.quickEq(en_.getNodeName(), prefix_+SET_BLOCK_TAG)) {
-            Element set_ = (Element) en_;
+        if (StringList.quickEq(en_.getTagName(), prefix_+SET_BLOCK_TAG)) {
+            Element set_ = en_;
             processSetTag(_conf, ip_, set_);
             processBlock(_conf, ip_);
             return ip_;
         }
-        if (StringList.quickEq(en_.getNodeName(), prefix_+PARAM_BLOCK_TAG)) {
-            Element set_ = (Element) en_;
+        if (StringList.quickEq(en_.getTagName(), prefix_+PARAM_BLOCK_TAG)) {
+            Element set_ = en_;
             processSetClassNameParamTag(_conf, _ip, set_);
             processBlock(_conf, ip_);
             return ip_;
         }
-        if (StringList.quickEq(en_.getNodeName(), prefix_+SET_RETURNED_VALUE_BLOCK_TAG)) {
-            Element set_ = (Element) en_;
+        if (StringList.quickEq(en_.getTagName(), prefix_+SET_RETURNED_VALUE_BLOCK_TAG)) {
+            Element set_ = en_;
             processSetReturnValueTag(_conf, ip_, set_);
             processBlock(_conf, ip_);
             return ip_;
         }
-        if (StringList.quickEq(en_.getNodeName(), prefix_+UNSET_BLOCK_TAG)) {
-            Element set_ = (Element) en_;
+        if (StringList.quickEq(en_.getTagName(), prefix_+UNSET_BLOCK_TAG)) {
+            Element set_ = en_;
             String var_ = set_.getAttribute(ATTRIBUTE_VAR);
             ip_.getLocalVars().removeKey(var_);
             processBlock(_conf, _ip);
             return ip_;
         }
-        if (StringList.quickEq(en_.getNodeName(),prefix_+CONTINUE_TAG)) {
+        if (StringList.quickEq(en_.getTagName(),prefix_+CONTINUE_TAG)) {
             while (true) {
                 BlockHtml blStack_ = ip_.getLastStack();
                 if (blStack_ instanceof LoopHtmlStack) {
@@ -873,7 +875,7 @@ final class FormatHtml {
             processLastElementLoop(_conf, ip_);
             return ip_;
         }
-        if (StringList.quickEq(en_.getNodeName(),prefix_+BREAK_TAG)) {
+        if (StringList.quickEq(en_.getTagName(),prefix_+BREAK_TAG)) {
             BreakableHtmlStack stack_ = null;
             while (true) {
                 BlockHtml blStack_ = ip_.getLastStack();
@@ -900,12 +902,12 @@ final class FormatHtml {
             stack_.setFinished(true);
             return ip_;
         }
-        if (StringList.quickEq(en_.getNodeName(),prefix_+RETURN_TAG)) {
+        if (StringList.quickEq(en_.getTagName(),prefix_+RETURN_TAG)) {
             ip_.setReturning(true);
             return removeBlockFinally(_conf, ip_);
         }
 
-        if (StringList.quickEq(en_.getNodeName(),prefix_+CATCH_TAG)) {
+        if (StringList.quickEq(en_.getTagName(),prefix_+CATCH_TAG)) {
             TryHtmlStack ts_ = (TryHtmlStack) ip_.getLastStack();
             ts_.setThrownException(null);
             if (ts_.getLastCatchNode() == en_) {
@@ -916,7 +918,7 @@ final class FormatHtml {
             }
             return ip_;
         }
-        if (StringList.quickEq(en_.getNodeName(),prefix_+TAG_FINALLY)) {
+        if (StringList.quickEq(en_.getTagName(),prefix_+TAG_FINALLY)) {
             TryHtmlStack ts_ = (TryHtmlStack) ip_.getLastStack();
             ts_.setVisitedCatch(ts_.getCatchNodes().size()-1);
             if (ip_.isReturning()) {
@@ -931,8 +933,8 @@ final class FormatHtml {
             processAfterBlock(_conf, ip_);
             return ip_;
         }
-        if (StringList.quickEq(en_.getNodeName(),prefix_+THROW_TAG)) {
-            String el_ = ((Element)en_).getAttribute(EXPRESSION_ATTRIBUTE);
+        if (StringList.quickEq(en_.getTagName(),prefix_+THROW_TAG)) {
+            String el_ = en_.getAttribute(EXPRESSION_ATTRIBUTE);
             ContextEl cont_ = _conf.toContextEl();
             Argument arg_ = ElUtil.processEl(el_, 0, cont_);
             if (!PrimitiveTypeUtil.canBeUseAsArgument(Throwable.class.getName(), arg_.getObjectClassName(), cont_.getClasses())) {
@@ -944,7 +946,7 @@ final class FormatHtml {
             }
             throw new InvokeException(_conf.joinPages(), new Struct(o_));
         }
-        if (StringList.quickEq(en_.getNodeName(),prefix_+TRY_TAG)) {
+        if (StringList.quickEq(en_.getTagName(),prefix_+TRY_TAG)) {
             rw_.setRead(en_.getFirstChild());
             Node n_ = en_.getNextSibling();
             TryHtmlStack tryStack_ = new TryHtmlStack();
@@ -957,8 +959,8 @@ final class FormatHtml {
                     n_ = n_.getNextSibling();
                     continue;
                 }
-                if (!StringList.quickEq(n_.getNodeName(), prefix_+CATCH_TAG)) {
-                    if (!StringList.quickEq(n_.getNodeName(), prefix_+TAG_FINALLY)) {
+                if (!StringList.quickEq(((Element) n_).getTagName(), prefix_+CATCH_TAG)) {
+                    if (!StringList.quickEq(((Element) n_).getTagName(), prefix_+TAG_FINALLY)) {
                         break;
                     }
                 }
@@ -966,11 +968,11 @@ final class FormatHtml {
                 n_ = n_.getNextSibling();
             }
             tryStack_.setWriteNode((Element) currentNode_);
-            tryStack_.setReadNode((Element) en_);
+            tryStack_.setReadNode(en_);
             ip_.addBlock(tryStack_);
             return ip_;
         }
-        if (StringList.quickEq(en_.getNodeName(),prefix_+ELSE_BLOCK_TAG)) {
+        if (StringList.quickEq(en_.getTagName(),prefix_+ELSE_BLOCK_TAG)) {
             IfHtmlStack if_ = (IfHtmlStack) ip_.getLastStack();
             if_.changeVisitedElement(en_);
             if (!if_.isEntered()) {
@@ -986,7 +988,7 @@ final class FormatHtml {
             IfHtmlStack if_ = (IfHtmlStack) ip_.getLastStack();
             if_.changeVisitedElement(en_);
             if (!if_.isEntered()) {
-                boolean assert_ = ExtractCondition.evaluateGenericCondition((Element) en_, _conf, ip_);
+                boolean assert_ = ExtractCondition.evaluateGenericCondition(en_, _conf, ip_);
                 if (assert_) {
                     if_.setEntered(true);
                     processAfterBlock(_conf, ip_);
@@ -1011,7 +1013,7 @@ final class FormatHtml {
                 }
             }
             IfHtmlStack if_ = new IfHtmlStack();
-            if_.getNodes().add((Element) en_);
+            if_.getNodes().add(en_);
             Node n_ = en_.getNextSibling();
             while (n_ != null) {
                 if (n_ instanceof Text) {
@@ -1022,7 +1024,7 @@ final class FormatHtml {
                     n_ = n_.getNextSibling();
                     continue;
                 }
-                if (!StringList.quickEq(n_.getNodeName(),prefix_+ELSE_BLOCK_TAG)) {
+                if (!StringList.quickEq(((Element) n_).getTagName(),prefix_+ELSE_BLOCK_TAG)) {
                     if (!ExtractCondition.isContentOfConditionNode(_conf, n_)) {
                         break;
                     }
@@ -1030,10 +1032,10 @@ final class FormatHtml {
                 if_.getNodes().add((Element) n_);
                 n_ = n_.getNextSibling();
             }
-            if_.setReadNode((Element) en_);
+            if_.setReadNode(en_);
             if_.setWriteNode((Element) currentNode_);
             if_.setVisitedBlock(CustList.FIRST_INDEX);
-            boolean assert_ = ExtractCondition.evaluateGenericCondition((Element) en_, _conf, ip_);
+            boolean assert_ = ExtractCondition.evaluateGenericCondition(en_, _conf, ip_);
             if (assert_) {
                 if (en_.hasChildNodes()) {
                     ip_.addBlock(if_);
@@ -1056,7 +1058,7 @@ final class FormatHtml {
             }
             return ip_;
         }
-        if (StringList.quickEq(en_.getNodeName(),prefix_+TAG_SWITCH)) {
+        if (StringList.quickEq(en_.getTagName(),prefix_+TAG_SWITCH)) {
             if (!ip_.noBlock()) {
                 BlockHtml bl_ = ip_.getLastStack();
                 if (bl_.getReadNode() == en_) {
@@ -1079,12 +1081,12 @@ final class FormatHtml {
                 if_.getNodes().add((Element) n_);
                 n_ = n_.getNextSibling();
             }
-            if_.setReadNode((Element) en_);
+            if_.setReadNode(en_);
             if_.setWriteNode((Element) currentNode_);
             ip_.setProcessingAttribute(EXPRESSION_ATTRIBUTE);
             ip_.setOffset(0);
             ip_.setLookForAttrValue(true);
-            String expr_ = ((Element) en_).getAttribute(EXPRESSION_ATTRIBUTE);
+            String expr_ = en_.getAttribute(EXPRESSION_ATTRIBUTE);
             Argument arg_ = ElUtil.processEl(expr_, 0, _conf.toContextEl());
             if_.setStruct(arg_.getStruct());
             if (if_.getNodes().isEmpty()) {
@@ -1096,7 +1098,7 @@ final class FormatHtml {
             ip_.addBlock(if_);
             return ip_;
         }
-        if (StringList.quickEq(en_.getNodeName(),prefix_+TAG_CASE)) {
+        if (StringList.quickEq(en_.getTagName(),prefix_+TAG_CASE)) {
             SwitchHtmlStack sw_ = (SwitchHtmlStack) ip_.getLastStack();
             Struct value_ = sw_.getStruct();
             if (sw_.isEntered()) {
@@ -1116,7 +1118,7 @@ final class FormatHtml {
                 ip_.setProcessingAttribute(EXPRESSION_ATTRIBUTE);
                 ip_.setOffset(0);
                 ip_.setLookForAttrValue(true);
-                String expr_ = ((Element) en_).getAttribute(EXPRESSION_ATTRIBUTE);
+                String expr_ = en_.getAttribute(EXPRESSION_ATTRIBUTE);
                 Argument arg_ = ElUtil.processEl(expr_, 0, _conf.toContextEl());
                 //TODO processEl
                 boolean enter_ = false;
@@ -1164,7 +1166,7 @@ final class FormatHtml {
                 return ip_;
             }
         }
-        if (StringList.quickEq(en_.getNodeName(),prefix_+TAG_DEFAULT)) {
+        if (StringList.quickEq(en_.getTagName(),prefix_+TAG_DEFAULT)) {
             SwitchHtmlStack sw_ = (SwitchHtmlStack) ip_.getLastStack();
             if (sw_.isEntered()) {
                 if (!en_.hasChildNodes()) {
@@ -1206,19 +1208,19 @@ final class FormatHtml {
                 return ip_;
             }
         }
-        if (StringList.quickEq(en_.getNodeName(),prefix_+SELECT_TAG)) {
-            String map_ = ((Element) en_).getAttribute(ATTRIBUTE_MAP);
-            String id_ = ((Element) en_).getAttribute(ATTRIBUTE_ID);
-            String groupId_ = ((Element) en_).getAttribute(ATTRIBUTE_GROUP_ID);
-            String class_ = ((Element) en_).getAttribute(ATTRIBUTE_CLASS);
-            boolean multiple_ = ((Element) en_).hasAttribute(ATTRIBUTE_MULTIPLE);
+        if (StringList.quickEq(en_.getTagName(),prefix_+SELECT_TAG)) {
+            String map_ = en_.getAttribute(ATTRIBUTE_MAP);
+            String id_ = en_.getAttribute(ATTRIBUTE_ID);
+            String groupId_ = en_.getAttribute(ATTRIBUTE_GROUP_ID);
+            String class_ = en_.getAttribute(ATTRIBUTE_CLASS);
+            boolean multiple_ = en_.hasAttribute(ATTRIBUTE_MULTIPLE);
             //TODO converter
             if (!map_.isEmpty()) {
                 processOptionsMap(_conf, doc_,
                         currentNode_, en_, map_, id_, groupId_, multiple_);
             } else {
                 processOptionsList(_conf,
-                        doc_, currentNode_, (Element) en_, id_, groupId_, multiple_);
+                        doc_, currentNode_, en_, id_, groupId_, multiple_);
             }
             Element selectTag_ = (Element) currentNode_.getLastChild();
             //format class before evaluate it
@@ -1266,8 +1268,8 @@ final class FormatHtml {
             processBlock(_conf, ip_);
             return ip_;
         }
-        if (StringList.quickEq(en_.getNodeName(),prefix_+MESSAGE_BLOCK_TAG)) {
-            Element element_ = (Element) en_;
+        if (StringList.quickEq(en_.getTagName(),prefix_+MESSAGE_BLOCK_TAG)) {
+            Element element_ = en_;
             String formatted_ = ExtractObject.formatMessage(_conf, _loc, ip_, element_, _files, _resourcesFolder);
             if (!element_.getAttribute(ATTRIBUTE_ESCAPED).isEmpty()) {
                 Text n_ = doc_.createTextNode(formatted_);
@@ -1343,7 +1345,7 @@ final class FormatHtml {
                     Element tag_ = (Element) currentNode_.getLastChild();
                     processAttributes(_conf, _loc, _files, ipMess_, doc_, tag_,
                             indexes_, containersMap_, containers_, _resourcesFolder);
-                    if (StringList.quickEq(tag_.getNodeName(), TAG_A) && (tag_.hasAttribute(_conf.getPrefix()+ATTRIBUTE_COMMAND)|| !tag_.getAttribute(ATTRIBUTE_HREF).isEmpty() )) {
+                    if (StringList.quickEq(tag_.getTagName(), TAG_A) && (tag_.hasAttribute(_conf.getPrefix()+ATTRIBUTE_COMMAND)|| !tag_.getAttribute(ATTRIBUTE_HREF).isEmpty() )) {
                         tag_.setAttribute(NUMBER_ANCHOR, String.valueOf(currentAnchor_));
                         currentAnchor_++;
                         _indexes.setAnchor(currentAnchor_);
@@ -1356,15 +1358,15 @@ final class FormatHtml {
             processBlock(_conf, ip_);
             return ip_;
         }
-        if (StringList.quickEq(en_.getNodeName(),prefix_+IMPORT_BLOCK_TAG)) {
-            BeanElement newElt_ = tryToOpenDocument((Element) en_, ip_, _conf, _files, _resourcesFolder);
+        if (StringList.quickEq(en_.getTagName(),prefix_+IMPORT_BLOCK_TAG)) {
+            BeanElement newElt_ = tryToOpenDocument(en_, ip_, _conf, _files, _resourcesFolder);
             if (newElt_ == null) {
                 processBlock(_conf, ip_);
                 return ip_;
             }
             StringMap<LocalVariable> params_ = newParametersBeforeRender(_conf, en_);
             StringMap<LocalVariable> returnedValues_ = newReturnedValues(_conf, en_);
-            boolean keepField_ = ((Element)en_).hasAttribute(KEEPFIELD_ATTRIBUTE);
+            boolean keepField_ = en_.hasAttribute(KEEPFIELD_ATTRIBUTE);
             String beanName_ = newElt_.getBeanName();
             setBeanForms(_conf, _mainBean, en_, keepField_,
                     beanName_);
@@ -1398,7 +1400,7 @@ final class FormatHtml {
             checkSyntax(_conf, newElt_.getRoot().getOwnerDocument(), newElt_.getHtml());
             return newIp_;
         }
-        if (StringList.quickEq(en_.getNodeName(),prefix_+TAG_DO)) {
+        if (StringList.quickEq(en_.getTagName(),prefix_+TAG_DO)) {
             LoopHtmlStack c_ = null;
             if (!ip_.noBlock() && ip_.getLastStack() instanceof LoopHtmlStack){
                 c_ = (LoopHtmlStack) ip_.getLastStack();
@@ -1448,7 +1450,7 @@ final class FormatHtml {
             processAfterBlock(_conf, ip_);
             return ip_;
         }
-        if (StringList.quickEq(en_.getNodeName(),prefix_+WHILE_BLOCK_TAG)) {
+        if (StringList.quickEq(en_.getTagName(),prefix_+WHILE_BLOCK_TAG)) {
             LoopHtmlStack c_ = null;
             if (!ip_.noBlock() && ip_.getLastStack() instanceof LoopHtmlStack){
                 c_ = (LoopHtmlStack) ip_.getLastStack();
@@ -1463,7 +1465,7 @@ final class FormatHtml {
                 return ip_;
             }
             if (en_.getFirstChild() == null) {
-                while (ExtractCondition.evaluateCondition((Element) en_, _conf, _ip)) {
+                while (ExtractCondition.evaluateCondition(en_, _conf, _ip)) {
                     continue;
                 }
                 processBlock(_conf, ip_);
@@ -1479,7 +1481,7 @@ final class FormatHtml {
             processAfterBlock(_conf, ip_);
             return ip_;
         }
-        if (StringList.quickEq(en_.getNodeName(),prefix_+FOR_BLOCK_TAG)) {
+        if (StringList.quickEq(en_.getTagName(),prefix_+FOR_BLOCK_TAG)) {
             LoopHtmlStack c_ = null;
             if (!ip_.noBlock() && ip_.getLastStack() instanceof LoopHtmlStack){
                 c_ = (LoopHtmlStack) ip_.getLastStack();
@@ -1528,7 +1530,7 @@ final class FormatHtml {
                     String var_ = catchBlock_.getAttribute(ATTRIBUTE_VAR);
                     ip_.getCatchVars().removeKey(var_);
                 }
-                if (StringList.quickEq(t_.getLastCatchNode().getNodeName(), prefix_+TAG_FINALLY)) {
+                if (StringList.quickEq(t_.getLastCatchNode().getTagName(), prefix_+TAG_FINALLY)) {
                     if (t_.getLastCatchNode().hasChildNodes()) {
                         rw_.setRead(t_.getLastCatchNode());
                         rw_.setWrite(t_.getWriteNode());
@@ -1942,7 +1944,7 @@ final class FormatHtml {
         throw new NotCastableException(_object.getClass().getName()+SPACE+_class.getName()+RETURN_LINE+_conf.joinPages());
     }
     static void checkSyntax(Configuration _conf,Document _doc, String _html) {
-        Node root_ = _doc.getDocumentElement();
+        Element root_ = _doc.getDocumentElement();
         Node en_ = root_;
         int indexGlobal_ = _html.indexOf(LT_BEGIN_TAG)+1;
         CustList<StringList> vars_ = new CustList<StringList>();
@@ -1952,254 +1954,36 @@ final class FormatHtml {
         String prefix_ = _conf.getLastPage().getPrefix();
         while (true) {
             _conf.getLastPage().setProcessingNode(en_);
-            if (StringList.quickEq(en_.getNodeName(), prefix_+FOR_BLOCK_TAG)) {
-                StringList varsLoc_ = checkForLoop(_conf, (Element) en_, _html);
-                for (StringList l: vars_) {
-                    for (String v: l) {
-                        if (varsLoc_.containsStr(v)) {
-                            CustList<StringList> alls_ = new CustList<StringList>();
-                            for (StringList g: vars_) {
-                                alls_.add(g);
+            if (en_ instanceof Element) {
+                Element elt_ = (Element) en_;
+                if (StringList.quickEq(elt_.getTagName(), prefix_+FOR_BLOCK_TAG)) {
+                    StringList varsLoc_ = checkForLoop(_conf, elt_, _html);
+                    for (StringList l: vars_) {
+                        for (String v: l) {
+                            if (varsLoc_.containsStr(v)) {
+                                CustList<StringList> alls_ = new CustList<StringList>();
+                                for (StringList g: vars_) {
+                                    alls_.add(g);
+                                }
+                                throw new AlreadyDefinedVarException(alls_+RETURN_LINE+v+RETURN_LINE+_conf.joinPages());
                             }
-                            throw new AlreadyDefinedVarException(alls_+RETURN_LINE+v+RETURN_LINE+_conf.joinPages());
                         }
                     }
-                }
-                if (en_.hasChildNodes()) {
-                    vars_.add(varsLoc_);
-                }
-            } else if (StringList.quickEq(en_.getNodeName(), prefix_+SELECT_TAG)) {
-                if (((Element) en_).getAttribute(ATTRIBUTE_MAP).isEmpty()) {
-                    if (((Element) en_).getAttribute(ATTRIBUTE_LIST).isEmpty()) {
-                        _conf.getLastPage().setProcessingAttribute(EMPTY_STRING);
-                        _conf.getLastPage().setOffset(0);
-                        _conf.getLastPage().setLookForAttrValue(false);
-                        throw new BadSelectException(_conf.joinPages());
+                    if (elt_.hasChildNodes()) {
+                        vars_.add(varsLoc_);
                     }
-                }
-            } else if (ExtractCondition.isContentOfConditionNode(_conf, en_)) {
-                Node prev_ = en_.getPreviousSibling();
-                boolean existIf_ = false;
-                while (prev_ != null) {
-                    if (prev_ instanceof Text && prev_.getTextContent().trim().isEmpty()) {
-                        prev_ = prev_.getPreviousSibling();
-                        continue;
-                    }
-                    if (prev_ instanceof Comment) {
-                        prev_ = prev_.getPreviousSibling();
-                        continue;
-                    }
-                    if (ExtractCondition.isContentOfConditionNode(_conf, prev_)) {
-                        prev_ = prev_.getPreviousSibling();
-                        continue;
-                    }
-                    existIf_ = ExtractCondition.isBeginOfConditionNode(_conf, prev_);
-                    break;
-                }
-                if (!existIf_) {
-                    throw new BadElseIfException(_conf.joinPages());
-                }
-            } else if (StringList.quickEq(en_.getNodeName(),prefix_+ELSE_BLOCK_TAG)) {
-                Node prev_ = en_.getPreviousSibling();
-                boolean existIf_ = false;
-                while (prev_ != null) {
-                    if (prev_ instanceof Text && prev_.getTextContent().trim().isEmpty()) {
-                        prev_ = prev_.getPreviousSibling();
-                        continue;
-                    }
-                    if (prev_ instanceof Comment) {
-                        prev_ = prev_.getPreviousSibling();
-                        continue;
-                    }
-                    if (ExtractCondition.isContentOfConditionNode(_conf, prev_)) {
-                        prev_ = prev_.getPreviousSibling();
-                        continue;
-                    }
-                    existIf_ = ExtractCondition.isBeginOfConditionNode(_conf, prev_);
-                    break;
-                }
-                if (!existIf_) {
-                    throw new BadElseException(_conf.joinPages());
-                }
-            } else if (StringList.quickEq(en_.getNodeName(),prefix_+TRY_TAG)) {
-                if (en_.getFirstChild() == null) {
-                    throw new BadCatchException(_conf.joinPages());
-                }
-                Node next_ = en_.getNextSibling();
-                boolean existCatch_ = false;
-                while (next_ != null) {
-                    if (next_ instanceof Text && next_.getTextContent().trim().isEmpty()) {
-                        next_ = next_.getNextSibling();
-                        continue;
-                    }
-                    if (next_ instanceof Comment) {
-                        next_ = next_.getNextSibling();
-                        continue;
-                    }
-                    if (StringList.quickEq(next_.getNodeName(),prefix_+TAG_FINALLY)) {
-                        existCatch_ = true;
-                        break;
-                    }
-                    existCatch_ = StringList.quickEq(next_.getNodeName(),prefix_+CATCH_TAG);
-                    break;
-                }
-                if (!existCatch_) {
-                    throw new BadCatchException(_conf.joinPages());
-                }
-            } else if (StringList.quickEq(en_.getNodeName(),prefix_+CATCH_TAG)) {
-                String className_ = ((Element)en_).getAttribute(ATTRIBUTE_CLASS_NAME);
-                _conf.getLastPage().setProcessingAttribute(ATTRIBUTE_CLASS_NAME);
-                _conf.getLastPage().setOffset(0);
-                _conf.getLastPage().setLookForAttrValue(false);
-                Class<?> class_ = ExtractObject.classForName(_conf, 0, className_);
-                if (!Throwable.class.isAssignableFrom(class_)) {
-                    throw new DynamicCastClassException(class_+RETURN_LINE+_conf.joinPages());
-                }
-                String var_ = ((Element)en_).getAttribute(ATTRIBUTE_VAR);
-                if (!StringList.isWord(var_)) {
-                    throw new BadVariableNameException(var_, _conf.joinPages(), ATTRIBUTE_VAR);
-                }
-                Node prev_ = en_.getPreviousSibling();
-                boolean existTry_ = false;
-                while (prev_ != null) {
-                    if (prev_ instanceof Text && prev_.getTextContent().trim().isEmpty()) {
-                        prev_ = prev_.getPreviousSibling();
-                        continue;
-                    }
-                    if (prev_ instanceof Comment) {
-                        prev_ = prev_.getPreviousSibling();
-                        continue;
-                    }
-                    if (StringList.quickEq(prev_.getNodeName(),prefix_+CATCH_TAG)) {
-                        prev_ = prev_.getPreviousSibling();
-                        continue;
-                    }
-                    existTry_ = StringList.quickEq(prev_.getNodeName(),prefix_+TRY_TAG);
-                    break;
-                }
-                if (!existTry_) {
-                    throw new BadTryException(_conf.joinPages());
-                }
-                for (String v: catchVars_) {
-                    if (StringList.quickEq(var_, v)) {
-                        CustList<StringList> alls_ = new CustList<StringList>();
-                        for (StringList g: vars_) {
-                            alls_.add(g);
+                } else if (StringList.quickEq(elt_.getTagName(), prefix_+SELECT_TAG)) {
+                    if (elt_.getAttribute(ATTRIBUTE_MAP).isEmpty()) {
+                        if (elt_.getAttribute(ATTRIBUTE_LIST).isEmpty()) {
+                            _conf.getLastPage().setProcessingAttribute(EMPTY_STRING);
+                            _conf.getLastPage().setOffset(0);
+                            _conf.getLastPage().setLookForAttrValue(false);
+                            throw new BadSelectException(_conf.joinPages());
                         }
-                        throw new AlreadyDefinedVarException(alls_+RETURN_LINE+v+RETURN_LINE+_conf.joinPages());
                     }
-                }
-                if (en_.hasChildNodes()) {
-                    catchVars_.add(var_);
-                }
-            } else if (StringList.quickEq(en_.getNodeName(),prefix_+TAG_FINALLY)) {
-                if (en_.getFirstChild() == null) {
-                    throw new BadTryException(_conf.joinPages());
-                }
-                Node prev_ = en_.getPreviousSibling();
-                boolean existTry_ = false;
-                while (prev_ != null) {
-                    if (prev_ instanceof Text && prev_.getTextContent().trim().isEmpty()) {
-                        prev_ = prev_.getPreviousSibling();
-                        continue;
-                    }
-                    if (prev_ instanceof Comment) {
-                        prev_ = prev_.getPreviousSibling();
-                        continue;
-                    }
-                    if (StringList.quickEq(prev_.getNodeName(),prefix_+CATCH_TAG)) {
-                        prev_ = prev_.getPreviousSibling();
-                        continue;
-                    }
-                    existTry_ = StringList.quickEq(prev_.getNodeName(),prefix_+TRY_TAG);
-                    break;
-                }
-                if (!existTry_) {
-                    throw new BadTryException(_conf.joinPages());
-                }
-            } else if (StringList.quickEq(en_.getNodeName(),prefix_+BREAK_TAG)) {
-                Node parent_ = en_.getParentNode();
-                boolean ok_ = false;
-                while (parent_ != null) {
-                    if (StringList.quickEq(parent_.getNodeName(),prefix_+FOR_BLOCK_TAG)) {
-                        ok_ = true;
-                        break;
-                    }
-                    if (StringList.quickEq(parent_.getNodeName(),prefix_+WHILE_BLOCK_TAG)) {
-                        ok_ = true;
-                        break;
-                    }
-                    if (StringList.quickEq(parent_.getNodeName(),prefix_+TAG_DO)) {
-                        ok_ = true;
-                        break;
-                    }
-                    if (StringList.quickEq(parent_.getNodeName(),prefix_+TAG_SWITCH)) {
-                        ok_ = true;
-                        break;
-                    }
-                    parent_ = parent_.getParentNode();
-                }
-                if (!ok_) {
-                    throw new BadTagBreakException(_conf.joinPages());
-                }
-            } else if (StringList.quickEq(en_.getNodeName(),prefix_+CONTINUE_TAG)) {
-                Node parent_ = en_.getParentNode();
-                boolean ok_ = false;
-                while (parent_ != null) {
-                    if (StringList.quickEq(parent_.getNodeName(),prefix_+FOR_BLOCK_TAG)) {
-                        ok_ = true;
-                        break;
-                    }
-                    if (StringList.quickEq(parent_.getNodeName(),prefix_+WHILE_BLOCK_TAG)) {
-                        ok_ = true;
-                        break;
-                    }
-                    if (StringList.quickEq(parent_.getNodeName(),prefix_+TAG_DO)) {
-                        ok_ = true;
-                        break;
-                    }
-                    parent_ = parent_.getParentNode();
-                }
-                if (!ok_) {
-                    throw new BadTagContinueException(_conf.joinPages());
-                }
-            } else if (StringList.quickEq(en_.getNodeName(),prefix_+TAG_SWITCH)) {
-                Node first_ = en_.getFirstChild();
-                while (first_ != null) {
-                    if (first_ instanceof Text) {
-                        if (first_.getTextContent().trim().isEmpty()) {
-                            first_ = first_.getNextSibling();
-                            continue;
-                        }
-                        throw new BadSwitchException(_conf.joinPages());
-                    }
-                    if (first_ instanceof Comment) {
-                        first_ = first_.getNextSibling();
-                        continue;
-                    }
-                    Element elt_ = (Element) first_;
-                    if (StringList.quickEq(elt_.getNodeName(),prefix_+TAG_CASE)) {
-                        first_ = first_.getNextSibling();
-                        continue;
-                    }
-                    if (StringList.quickEq(elt_.getNodeName(),prefix_+TAG_DEFAULT)) {
-                        first_ = first_.getNextSibling();
-                        continue;
-                    }
-                    throw new BadSwitchException(_conf.joinPages());
-                }
-            } else if (StringList.quickEq(en_.getNodeName(),prefix_+TAG_CASE)) {
-                if (en_.getParentNode() == null || !StringList.quickEq(en_.getParentNode().getNodeName(), prefix_+TAG_SWITCH)) {
-                    throw new BadCaseException(_conf.joinPages());
-                }
-            } else if (StringList.quickEq(en_.getNodeName(),prefix_+TAG_DEFAULT)) {
-                if (en_.getParentNode() == null || !StringList.quickEq(en_.getParentNode().getNodeName(), prefix_+TAG_SWITCH)) {
-                    throw new BadDefaultException(_conf.joinPages());
-                }
-            } else if (StringList.quickEq(en_.getNodeName(),prefix_+WHILE_BLOCK_TAG)) {
-                if (en_.getFirstChild() != null) {
-                    Node prev_ = en_.getPreviousSibling();
-                    boolean existDo_ = false;
+                } else if (ExtractCondition.isContentOfConditionNode(_conf, elt_)) {
+                    Node prev_ = elt_.getPreviousSibling();
+                    boolean existIf_ = false;
                     while (prev_ != null) {
                         if (prev_ instanceof Text && prev_.getTextContent().trim().isEmpty()) {
                             prev_ = prev_.getPreviousSibling();
@@ -2209,40 +1993,273 @@ final class FormatHtml {
                             prev_ = prev_.getPreviousSibling();
                             continue;
                         }
-                        existDo_ = StringList.quickEq(prev_.getNodeName(),prefix_+TAG_DO);
+                        if (ExtractCondition.isContentOfConditionNode(_conf, prev_)) {
+                            prev_ = prev_.getPreviousSibling();
+                            continue;
+                        }
+                        existIf_ = ExtractCondition.isBeginOfConditionNode(_conf, prev_);
                         break;
                     }
-                    if (existDo_) {
+                    if (!existIf_) {
+                        throw new BadElseIfException(_conf.joinPages());
+                    }
+                } else if (StringList.quickEq(elt_.getTagName(),prefix_+ELSE_BLOCK_TAG)) {
+                    Node prev_ = elt_.getPreviousSibling();
+                    boolean existIf_ = false;
+                    while (prev_ != null) {
+                        if (prev_ instanceof Text && prev_.getTextContent().trim().isEmpty()) {
+                            prev_ = prev_.getPreviousSibling();
+                            continue;
+                        }
+                        if (prev_ instanceof Comment) {
+                            prev_ = prev_.getPreviousSibling();
+                            continue;
+                        }
+                        if (ExtractCondition.isContentOfConditionNode(_conf, prev_)) {
+                            prev_ = prev_.getPreviousSibling();
+                            continue;
+                        }
+                        existIf_ = ExtractCondition.isBeginOfConditionNode(_conf, prev_);
+                        break;
+                    }
+                    if (!existIf_) {
+                        throw new BadElseException(_conf.joinPages());
+                    }
+                } else if (StringList.quickEq(elt_.getTagName(),prefix_+TRY_TAG)) {
+                    if (elt_.getFirstChild() == null) {
+                        throw new BadCatchException(_conf.joinPages());
+                    }
+                    Node next_ = elt_.getNextSibling();
+                    boolean existCatch_ = false;
+                    while (next_ != null) {
+                        if (next_ instanceof Text && next_.getTextContent().trim().isEmpty()) {
+                            next_ = next_.getNextSibling();
+                            continue;
+                        }
+                        if (next_ instanceof Comment) {
+                            next_ = next_.getNextSibling();
+                            continue;
+                        }
+                        if (next_ instanceof Text){
+                            break;
+                        }
+                        if (StringList.quickEq(((Element) next_).getTagName(),prefix_+TAG_FINALLY)) {
+                            existCatch_ = true;
+                            break;
+                        }
+                        existCatch_ = StringList.quickEq(((Element) next_).getTagName(),prefix_+CATCH_TAG);
+                        break;
+                    }
+                    if (!existCatch_) {
+                        throw new BadCatchException(_conf.joinPages());
+                    }
+                } else if (StringList.quickEq(elt_.getTagName(),prefix_+CATCH_TAG)) {
+                    String className_ = elt_.getAttribute(ATTRIBUTE_CLASS_NAME);
+                    _conf.getLastPage().setProcessingAttribute(ATTRIBUTE_CLASS_NAME);
+                    _conf.getLastPage().setOffset(0);
+                    _conf.getLastPage().setLookForAttrValue(false);
+                    Class<?> class_ = ExtractObject.classForName(_conf, 0, className_);
+                    if (!Throwable.class.isAssignableFrom(class_)) {
+                        throw new DynamicCastClassException(class_+RETURN_LINE+_conf.joinPages());
+                    }
+                    String var_ = elt_.getAttribute(ATTRIBUTE_VAR);
+                    if (!StringList.isWord(var_)) {
+                        throw new BadVariableNameException(var_, _conf.joinPages(), ATTRIBUTE_VAR);
+                    }
+                    Node prev_ = elt_.getPreviousSibling();
+                    boolean existTry_ = false;
+                    while (prev_ != null) {
+                        if (prev_ instanceof Text && prev_.getTextContent().trim().isEmpty()) {
+                            prev_ = prev_.getPreviousSibling();
+                            continue;
+                        }
+                        if (prev_ instanceof Comment) {
+                            prev_ = prev_.getPreviousSibling();
+                            continue;
+                        }
+                        if (prev_ instanceof Text){
+                            break;
+                        }
+                        if (StringList.quickEq(((Element) prev_).getTagName(),prefix_+CATCH_TAG)) {
+                            prev_ = prev_.getPreviousSibling();
+                            continue;
+                        }
+                        existTry_ = StringList.quickEq(((Element) prev_).getTagName(),prefix_+TRY_TAG);
+                        break;
+                    }
+                    if (!existTry_) {
+                        throw new BadTryException(_conf.joinPages());
+                    }
+                    for (String v: catchVars_) {
+                        if (StringList.quickEq(var_, v)) {
+                            CustList<StringList> alls_ = new CustList<StringList>();
+                            for (StringList g: vars_) {
+                                alls_.add(g);
+                            }
+                            throw new AlreadyDefinedVarException(alls_+RETURN_LINE+v+RETURN_LINE+_conf.joinPages());
+                        }
+                    }
+                    if (elt_.hasChildNodes()) {
+                        catchVars_.add(var_);
+                    }
+                } else if (StringList.quickEq(elt_.getTagName(),prefix_+TAG_FINALLY)) {
+                    if (elt_.getFirstChild() == null) {
+                        throw new BadTryException(_conf.joinPages());
+                    }
+                    Node prev_ = elt_.getPreviousSibling();
+                    boolean existTry_ = false;
+                    while (prev_ != null) {
+                        if (prev_ instanceof Text && prev_.getTextContent().trim().isEmpty()) {
+                            prev_ = prev_.getPreviousSibling();
+                            continue;
+                        }
+                        if (prev_ instanceof Comment) {
+                            prev_ = prev_.getPreviousSibling();
+                            continue;
+                        }
+                        if (prev_ instanceof Text){
+                            break;
+                        }
+                        if (StringList.quickEq(((Element) prev_).getTagName(),prefix_+CATCH_TAG)) {
+                            prev_ = prev_.getPreviousSibling();
+                            continue;
+                        }
+                        existTry_ = StringList.quickEq(((Element) prev_).getTagName(),prefix_+TRY_TAG);
+                        break;
+                    }
+                    if (!existTry_) {
+                        throw new BadTryException(_conf.joinPages());
+                    }
+                } else if (StringList.quickEq(elt_.getTagName(),prefix_+BREAK_TAG)) {
+                    Element parent_ = (Element) elt_.getParentNode();
+                    boolean ok_ = false;
+                    while (parent_ != null) {
+                        if (StringList.quickEq(parent_.getTagName(),prefix_+FOR_BLOCK_TAG)) {
+                            ok_ = true;
+                            break;
+                        }
+                        if (StringList.quickEq(parent_.getTagName(),prefix_+WHILE_BLOCK_TAG)) {
+                            ok_ = true;
+                            break;
+                        }
+                        if (StringList.quickEq(parent_.getTagName(),prefix_+TAG_DO)) {
+                            ok_ = true;
+                            break;
+                        }
+                        if (StringList.quickEq(parent_.getTagName(),prefix_+TAG_SWITCH)) {
+                            ok_ = true;
+                            break;
+                        }
+                        parent_ = (Element) parent_.getParentNode();
+                    }
+                    if (!ok_) {
+                        throw new BadTagBreakException(_conf.joinPages());
+                    }
+                } else if (StringList.quickEq(elt_.getTagName(),prefix_+CONTINUE_TAG)) {
+                    Element parent_ = (Element) elt_.getParentNode();
+                    boolean ok_ = false;
+                    while (parent_ != null) {
+                        if (StringList.quickEq(parent_.getTagName(),prefix_+FOR_BLOCK_TAG)) {
+                            ok_ = true;
+                            break;
+                        }
+                        if (StringList.quickEq(parent_.getTagName(),prefix_+WHILE_BLOCK_TAG)) {
+                            ok_ = true;
+                            break;
+                        }
+                        if (StringList.quickEq(parent_.getTagName(),prefix_+TAG_DO)) {
+                            ok_ = true;
+                            break;
+                        }
+                        parent_ = (Element) parent_.getParentNode();
+                    }
+                    if (!ok_) {
+                        throw new BadTagContinueException(_conf.joinPages());
+                    }
+                } else if (StringList.quickEq(elt_.getTagName(),prefix_+TAG_SWITCH)) {
+                    Node first_ = elt_.getFirstChild();
+                    while (first_ != null) {
+                        if (first_ instanceof Text) {
+                            if (first_.getTextContent().trim().isEmpty()) {
+                                first_ = first_.getNextSibling();
+                                continue;
+                            }
+                            throw new BadSwitchException(_conf.joinPages());
+                        }
+                        if (first_ instanceof Comment) {
+                            first_ = first_.getNextSibling();
+                            continue;
+                        }
+                        if (StringList.quickEq(((Element) first_).getTagName(),prefix_+TAG_CASE)) {
+                            first_ = first_.getNextSibling();
+                            continue;
+                        }
+                        if (StringList.quickEq(((Element) first_).getTagName(),prefix_+TAG_DEFAULT)) {
+                            first_ = first_.getNextSibling();
+                            continue;
+                        }
+                        throw new BadSwitchException(_conf.joinPages());
+                    }
+                } else if (StringList.quickEq(elt_.getTagName(),prefix_+TAG_CASE)) {
+                    if (elt_.getParentNode() == null || !StringList.quickEq(((Element) elt_.getParentNode()).getTagName(), prefix_+TAG_SWITCH)) {
+                        throw new BadCaseException(_conf.joinPages());
+                    }
+                } else if (StringList.quickEq(elt_.getTagName(),prefix_+TAG_DEFAULT)) {
+                    if (elt_.getParentNode() == null || !StringList.quickEq(((Element) elt_.getParentNode()).getTagName(), prefix_+TAG_SWITCH)) {
+                        throw new BadDefaultException(_conf.joinPages());
+                    }
+                } else if (StringList.quickEq(elt_.getTagName(),prefix_+WHILE_BLOCK_TAG)) {
+                    if (elt_.getFirstChild() != null) {
+                        Node prev_ = elt_.getPreviousSibling();
+                        boolean existDo_ = false;
+                        while (prev_ != null) {
+                            if (prev_ instanceof Text && prev_.getTextContent().trim().isEmpty()) {
+                                prev_ = prev_.getPreviousSibling();
+                                continue;
+                            }
+                            if (prev_ instanceof Comment) {
+                                prev_ = prev_.getPreviousSibling();
+                                continue;
+                            }
+                            if (prev_ instanceof Text){
+                                break;
+                            }
+                            existDo_ = StringList.quickEq(((Element) prev_).getTagName(),prefix_+TAG_DO);
+                            break;
+                        }
+                        if (existDo_) {
+                            throw new BadLoopException(_conf.joinPages());
+                        }
+                    }
+                } else if (StringList.quickEq(elt_.getTagName(),prefix_+TAG_DO)) {
+                    Node next_ = elt_.getNextSibling();
+                    boolean existWhile_ = false;
+                    while (next_ != null) {
+                        if (next_ instanceof Text && next_.getTextContent().trim().isEmpty()) {
+                            next_ = next_.getNextSibling();
+                            continue;
+                        }
+                        if (next_ instanceof Comment) {
+                            next_ = next_.getNextSibling();
+                            continue;
+                        }
+                        if (next_ instanceof Text){
+                            break;
+                        }
+                        existWhile_ = StringList.quickEq(((Element) next_).getTagName(),prefix_+WHILE_BLOCK_TAG);
+                        break;
+                    }
+                    if (!existWhile_) {
                         throw new BadLoopException(_conf.joinPages());
                     }
                 }
-            } else if (StringList.quickEq(en_.getNodeName(),prefix_+TAG_DO)) {
-                Node next_ = en_.getNextSibling();
-                boolean existWhile_ = false;
-                while (next_ != null) {
-                    if (next_ instanceof Text && next_.getTextContent().trim().isEmpty()) {
-                        next_ = next_.getNextSibling();
-                        continue;
-                    }
-                    if (next_ instanceof Comment) {
-                        next_ = next_.getNextSibling();
-                        continue;
-                    }
-                    existWhile_ = StringList.quickEq(next_.getNodeName(),prefix_+WHILE_BLOCK_TAG);
-                    break;
-                }
-                if (!existWhile_) {
-                    throw new BadLoopException(_conf.joinPages());
-                }
-            }
-            if (en_ instanceof Element) {
                 int endHeader_ = _html.indexOf(GT_TAG, indexGlobal_);
-                int beginHeader_ = indexGlobal_ + en_.getNodeName().length();
+                int beginHeader_ = indexGlobal_ + elt_.getTagName().length();
                 StringMap<AttributePart> attr_;
                 attr_ = getAttributes(_html, beginHeader_, endHeader_);
                 for (EntryCust<String, AttributePart> e: attr_.entryList()) {
                     NodeAttribute nodeAttr_ = new NodeAttribute();
-                    nodeAttr_.setNode(en_);
+                    nodeAttr_.setNode(elt_);
                     nodeAttr_.setAttribue(e.getKey());
                     infos_.put(nodeAttr_, getIndexesSpecChars(_html, true, e.getValue(), indexGlobal_));
                 }
@@ -2277,27 +2294,27 @@ final class FormatHtml {
                 continue;
             }
             n_ = en_.getParentNode();
-            if (StringList.quickEq(n_.getNodeName(), prefix_+FOR_BLOCK_TAG)) {
-                vars_.removeLast();
-            }
-            if (StringList.quickEq(n_.getNodeName(), prefix_+CATCH_TAG)) {
-                catchVars_.removeLast();
-            }
             if (n_ == root_) {
                 _conf.getLastPage().setEncodedChars(infos_);
                 return;
             }
+            if (StringList.quickEq(((Element) n_).getTagName(), prefix_+FOR_BLOCK_TAG)) {
+                vars_.removeLast();
+            }
+            if (StringList.quickEq(((Element) n_).getTagName(), prefix_+CATCH_TAG)) {
+                catchVars_.removeLast();
+            }
             Node next_ = n_.getNextSibling();
             while (next_ == null) {
-                Node par_ = n_.getParentNode();
-                if (StringList.quickEq(par_.getNodeName(), prefix_+FOR_BLOCK_TAG)) {
-                    vars_.removeLast();
-                }
-                if (StringList.quickEq(par_.getNodeName(), prefix_+CATCH_TAG)) {
-                    catchVars_.removeLast();
-                }
+                Element par_ = (Element) n_.getParentNode();
                 if (par_ == root_) {
                     break;
+                }
+                if (StringList.quickEq(par_.getTagName(), prefix_+FOR_BLOCK_TAG)) {
+                    vars_.removeLast();
+                }
+                if (StringList.quickEq(par_.getTagName(), prefix_+CATCH_TAG)) {
+                    catchVars_.removeLast();
                 }
                 next_ = par_.getNextSibling();
                 n_ = par_;
@@ -2321,7 +2338,7 @@ final class FormatHtml {
             _conf.getLastPage().setProcessingNode(en_);
             if (en_ instanceof Element) {
                 int endHeader_ = _html.indexOf(GT_TAG, indexGlobal_);
-                int beginHeader_ = indexGlobal_ + en_.getNodeName().length();
+                int beginHeader_ = indexGlobal_ + ((Element) en_).getTagName().length();
                 StringMap<AttributePart> attr_;
                 attr_ = getAttributes(_html, beginHeader_, endHeader_);
                 for (EntryCust<String, AttributePart> e: attr_.entryList()) {
@@ -2445,7 +2462,7 @@ final class FormatHtml {
     }
     private static int indexOfBeginNode(Node _node, String _html, int _from) {
         if (_node instanceof Element) {
-            return _html.indexOf(LT_BEGIN_TAG+_node.getNodeName(), _from) + 1;
+            return _html.indexOf(LT_BEGIN_TAG+((Element) _node).getTagName(), _from) + 1;
         }
         if (_node instanceof Text) {
             int indexText_ = _html.indexOf(GT_TAG, _from);
@@ -2503,14 +2520,14 @@ final class FormatHtml {
         throw new BadLoopException(_conf.joinPages());
     }
 
-    private static boolean interpretBrackets(Node _node) {
-        Node par_ = _node.getParentNode();
-        if (!StringList.quickEq(par_.getNodeName(), TAG_STYLE)) {
-            if (!StringList.quickEq(par_.getNodeName(), SCRIPT)) {
+    private static boolean interpretBrackets(CharacterData _node) {
+        Element par_ = (Element) _node.getParentNode();
+        if (!StringList.quickEq(par_.getTagName(), TAG_STYLE)) {
+            if (!StringList.quickEq(par_.getTagName(), SCRIPT)) {
                 return true;
             }
         }
-        Element elt_ = (Element) par_;
+        Element elt_ = par_;
         return !elt_.getAttribute(INTERPRET).isEmpty();
     }
 
@@ -2619,19 +2636,19 @@ final class FormatHtml {
                 if (StringList.quickEq(type_,CHECKBOX)) {
                     class_= Boolean.class.getName();
                 }
-                if (StringList.quickEq(_input.getNodeName(), SELECT_TAG)) {
+                if (StringList.quickEq(_input.getTagName(), SELECT_TAG)) {
                     type_ = SELECT_TAG;
                     if (_input.hasAttribute(ATTRIBUTE_MULTIPLE)) {
                         class_ = Object.class.getName();
                         class_ = CustList.class.getName()+BEG_TEMP+class_+END_TEMP;
                     }
                 }
-                if (StringList.quickEq(_input.getNodeName(), TEXT_AREA)) {
+                if (StringList.quickEq(_input.getTagName(), TEXT_AREA)) {
                     type_ = TEXT_AREA;
                     class_ = String.class.getName();
                 }
             } else {
-                if (StringList.quickEq(_input.getNodeName(), SELECT_TAG)) {
+                if (StringList.quickEq(_input.getTagName(), SELECT_TAG)) {
                     type_ = SELECT_TAG;
                     if (_input.hasAttribute(ATTRIBUTE_MULTIPLE)) {
                         StringList params_ = Templates.getTypesByBases(class_, Listable.class.getName(), _conf.toContextEl().getClasses());
@@ -2640,7 +2657,7 @@ final class FormatHtml {
                         }
                     }
                 }
-                if (StringList.quickEq(_input.getNodeName(), TEXT_AREA)) {
+                if (StringList.quickEq(_input.getTagName(), TEXT_AREA)) {
                     type_ = TEXT_AREA;
                 }
             }
@@ -2685,7 +2702,7 @@ final class FormatHtml {
         NamedNodeMap mapAttr_ = _tag.getAttributes();
         int nbAttrs_ = mapAttr_.getLength();
         for (int i = 0; i < nbAttrs_; i++) {
-            attributesNames_.add(mapAttr_.item(i).getNodeName());
+            attributesNames_.add(((Attr)mapAttr_.item(i)).getName());
         }
         allAttributesNames_.addAllElts(attributesNames_);
         attributesNames_.removeAllString(ATTRIBUTE_ID);
@@ -2702,7 +2719,7 @@ final class FormatHtml {
             groupId_ = interpretPartiallyIds(_conf, _ip, groupId_);
             _tag.setAttribute(_conf.getPrefix()+ATTRIBUTE_GROUP_ID, groupId_);
         }
-        if (StringList.quickEq(_tag.getNodeName(),prefixWrite_+SUBMIT_BLOCK_TAG) && !prefixWrite_.isEmpty()) {
+        if (StringList.quickEq(_tag.getTagName(),prefixWrite_+SUBMIT_BLOCK_TAG) && !prefixWrite_.isEmpty()) {
             attributesNames_.removeAllString(ATTRIBUTE_VALUE_SUBMIT);
             String value_ = _tag.getAttribute(ATTRIBUTE_VALUE_SUBMIT);
             StringList elts_ = StringList.splitStrings(value_, COMMA);
@@ -2742,7 +2759,7 @@ final class FormatHtml {
             _tag.setAttribute(ATTRIBUTE_TYPE, SUBMIT_TYPE);
             _doc.renameNode(_tag, null, INPUT_TAG);
         }
-        if (StringList.quickEq(_tag.getNodeName(),prefixWrite_+TAG_A) && !prefixWrite_.isEmpty()) {
+        if (StringList.quickEq(_tag.getTagName(),prefixWrite_+TAG_A) && !prefixWrite_.isEmpty()) {
             attributesNames_.removeAllString(ATTRIBUTE_VALUE);
             String value_ = _tag.getAttribute(ATTRIBUTE_VALUE);
             StringList elts_ = StringList.splitStrings(value_, COMMA);
@@ -2780,9 +2797,9 @@ final class FormatHtml {
             _tag.setAttribute(ATTRIBUTE_TITLE, StringList.simpleFormat(preformatted_, objects_.toArray()));
             _doc.renameNode(_tag, null, TAG_A);
         }
-        if (StringList.quickEq(_tag.getNodeName(),prefixWrite_+TAG_IMG) && !prefixWrite_.isEmpty()) {
+        if (StringList.quickEq(_tag.getTagName(),prefixWrite_+TAG_IMG) && !prefixWrite_.isEmpty()) {
             _doc.renameNode(_tag, null, TAG_IMG);
-        } else if (StringList.quickEq(_tag.getNodeName(),TAG_IMG)) {
+        } else if (StringList.quickEq(_tag.getTagName(),TAG_IMG)) {
             String src_ = _tag.getAttribute(ATTRIBUTE_SRC);
             if (!src_.isEmpty()) {
                 _ip.setProcessingAttribute(ATTRIBUTE_SRC);
@@ -2803,7 +2820,7 @@ final class FormatHtml {
                 _tag.removeAttribute(_conf.getPrefix()+ATTRIBUTE_ENCODE_IMG);
             }
         }
-        if (StringList.quickEq(_tag.getNodeName(),TAG_LINK)) {
+        if (StringList.quickEq(_tag.getTagName(),TAG_LINK)) {
             NodeList heads_ = _doc.getElementsByTagName(TAG_HEAD);
             attributesNames_.removeAllString(ATTRIBUTE_HREF);
             attributesNames_.removeAllString(ATTRIBUTE_REL);
@@ -2812,7 +2829,7 @@ final class FormatHtml {
                 Element head_ = (Element) heads_.item(CustList.FIRST_INDEX);
                 CustList<Element> children_ = new CustList<Element>();
                 for (Element c: XmlParser.childrenElements(head_)) {
-                    if (!StringList.quickEq(c.getNodeName(), TAG_STYLE)) {
+                    if (!StringList.quickEq(c.getTagName(), TAG_STYLE)) {
                         continue;
                     }
                     children_.add(c);
@@ -2859,7 +2876,7 @@ final class FormatHtml {
                 }
             }
         }
-        if (StringList.quickEq(_tag.getNodeName(),TAG_STYLE)) {
+        if (StringList.quickEq(_tag.getTagName(),TAG_STYLE)) {
             NodeList links_ = _doc.getElementsByTagName(TAG_LINK);
             int len_ = links_.getLength();
             StringList refs_ = new StringList();
@@ -2883,16 +2900,16 @@ final class FormatHtml {
                 text_.appendData(filesContents_.join(RETURN_LINE));
             }
         }
-        if (StringList.quickEq(_tag.getNodeName(),SCRIPT)) {
+        if (StringList.quickEq(_tag.getTagName(),SCRIPT)) {
             NamedNodeMap map_ = _tag.getAttributes();
-            Node href_ = map_.getNamedItem(ATTRIBUTE_HREF);
+            Attr href_ = (Attr) map_.getNamedItem(ATTRIBUTE_HREF);
             if (href_ != null){
                 _ip.setProcessingAttribute(ATTRIBUTE_HREF);
                 _ip.setLookForAttrValue(true);
                 _ip.setOffset(0);
                 attributesNames_.removeAllString(ATTRIBUTE_HREF);
                 attributesNames_.removeAllString(ATTRIBUTE_TYPE);
-                String ref_ = href_.getNodeValue();
+                String ref_ = href_.getValue();
                 ref_ = ExtractObject.formatNumVariables(ref_, _conf, _ip, _files);
                 _tag.setAttribute(ATTRIBUTE_TYPE, SCRIPT_TYPE);
                 Text txt_ = _doc.createTextNode(ExtractFromResources.getContentFile(_conf, _files,ref_,_resourcesFolder));
@@ -2900,7 +2917,7 @@ final class FormatHtml {
             }
         }
         String accessName_ = EMPTY_STRING;
-        if (StringList.quickEq(_tag.getNodeName(),INPUT_TAG)) {
+        if (StringList.quickEq(_tag.getTagName(),INPUT_TAG)) {
             //format name
             attributesNames_.removeAllString(ATTRIBUTE_VALUE);
             attributesNames_.removeAllString(ATTRIBUTE_NAME);
@@ -2920,7 +2937,7 @@ final class FormatHtml {
                 _tag.setAttribute(ATTRIBUTE_NAME, beanName_+DOT+name_);
             }
         }
-        if (StringList.quickEq(_tag.getNodeName(),TEXT_AREA)) {
+        if (StringList.quickEq(_tag.getTagName(),TEXT_AREA)) {
             //format name
             attributesNames_.removeAllString(ATTRIBUTE_NAME);
             attributesNames_.removeAllString(_conf.getPrefix()+ATTRIBUTE_CLASS_NAME);
@@ -2939,20 +2956,20 @@ final class FormatHtml {
             }
         }
         if (_tag.hasAttribute(_conf.getPrefix()+ATTRIBUTE_VAR_VALUE)) {
-            if (StringList.quickEq(_tag.getNodeName(),INPUT_TAG)) {
+            if (StringList.quickEq(_tag.getTagName(),INPUT_TAG)) {
                 attributesNames_.removeAllString(_conf.getPrefix()+ATTRIBUTE_VAR_VALUE);
                 attributesNames_.removeAllString(ATTRIBUTE_VALUE);
                 attributesNames_.removeAllString(CHECKED);
                 setValueInput(_conf, _tag);
                 _tag.removeAttribute(_conf.getPrefix()+ATTRIBUTE_VAR_VALUE);
             }
-            if (StringList.quickEq(_tag.getNodeName(),TEXT_AREA)) {
+            if (StringList.quickEq(_tag.getTagName(),TEXT_AREA)) {
                 attributesNames_.removeAllString(_conf.getPrefix()+ATTRIBUTE_VAR_VALUE);
                 setValueTextArea(_conf, _doc, _tag);
                 _tag.removeAttribute(_conf.getPrefix()+ATTRIBUTE_VAR_VALUE);
             }
         }
-        if (StringList.quickEq(_tag.getNodeName(),INPUT_TAG)) {
+        if (StringList.quickEq(_tag.getTagName(),INPUT_TAG)) {
             attributesNames_.removeAllString(ATTRIBUTE_TYPE);
             if (StringList.quickEq(_tag.getAttribute(ATTRIBUTE_TYPE),RADIO)) {
                 attributesNames_.removeAllString(CHECKED);
@@ -2980,7 +2997,7 @@ final class FormatHtml {
                 }
             }
         }
-        if (StringList.quickEq(_tag.getNodeName(),SPAN_TAG)) {
+        if (StringList.quickEq(_tag.getTagName(),SPAN_TAG)) {
             String forId_ = _tag.getAttribute(_conf.getPrefix()+ATTRIBUTE_FOR);
             if (!forId_.isEmpty()) {
                 _ip.setProcessingAttribute(_conf.getPrefix()+ATTRIBUTE_FOR);
@@ -2993,7 +3010,7 @@ final class FormatHtml {
                 }
             }
         }
-        if (StringList.quickEq(_tag.getNodeName(),TAG_A)) {
+        if (StringList.quickEq(_tag.getTagName(),TAG_A)) {
             String attr_ = _tag.getAttribute(ATTRIBUTE_HREF);
             if (!attr_.isEmpty()) {
                 attributesNames_.removeAllString(ATTRIBUTE_HREF);
@@ -3020,7 +3037,7 @@ final class FormatHtml {
                 _tag.setAttribute(ATTRIBUTE_HREF, EMPTY_STRING);
             }
         }
-        if (StringList.quickEq(_tag.getNodeName(),TAG_FORM)) {
+        if (StringList.quickEq(_tag.getTagName(),TAG_FORM)) {
             String attr_ = _tag.getAttribute(ATTRIBUTE_ACTION);
             if (!attr_.isEmpty()) {
                 CustList<BlockHtml> stacks_ = _ip.getBlockStacks();
@@ -3054,7 +3071,7 @@ final class FormatHtml {
                 _tag.setAttribute(ATTRIBUTE_ACTION, EMPTY_STRING);
             }
         }
-        if (!StringList.quickEq(_tag.getNodeName(),prefixWrite_+TR_END_BLOCK_TAG) || prefixWrite_.isEmpty()) {
+        if (!StringList.quickEq(_tag.getTagName(),prefixWrite_+TR_END_BLOCK_TAG) || prefixWrite_.isEmpty()) {
             for (String a: attributesNames_) {
                 String v_ = _tag.getAttribute(a);
                 if (!v_.isEmpty()) {
@@ -3088,11 +3105,11 @@ final class FormatHtml {
         if (!StringList.quickEq(_link.getAttribute(ATTRIBUTE_REL),STYLESHEET)) {
             return null;
         }
-        Node href_ = map_.getNamedItem(ATTRIBUTE_HREF);
+        Attr href_ = (Attr) map_.getNamedItem(ATTRIBUTE_HREF);
         if (href_ == null){
             return null;
         }
-        return href_.getNodeValue();
+        return href_.getValue();
     }
 
     private static void setValueTextArea(Configuration _conf, Document _doc, Element _tag) {
@@ -3535,7 +3552,7 @@ final class FormatHtml {
         Node n_ = null;
         if (_firstChild) {
             n_ = _node.getFirstChild();
-            if (n_ != null && !StringList.quickEq(_node.getNodeName(), TEXT_AREA)) {
+            if (n_ != null && !StringList.quickEq(((Element) _node).getTagName(), TEXT_AREA)) {
                 na_.getActions().add(ActionNext.FIRST_CHILD);
                 na_.setNode(n_);
                 return na_;
@@ -3571,7 +3588,7 @@ final class FormatHtml {
 
     private static boolean isLoopNode(Configuration _conf, Node _node) {
         String prefix_ = _conf.getLastPage().getPrefix();
-        String nodeName_ = _node.getNodeName();
+        String nodeName_ = ((Element) _node).getTagName();
         if (StringList.quickEq(nodeName_, prefix_+FOR_BLOCK_TAG)) {
             return true;
         }
@@ -3585,7 +3602,7 @@ final class FormatHtml {
     }
     private static boolean isCatchNode(Configuration _conf, Node _node) {
         String prefix_ = _conf.getLastPage().getPrefix();
-        String nodeName_ = _node.getNodeName();
+        String nodeName_ = ((Element) _node).getTagName();
         if (StringList.quickEq(nodeName_, prefix_+CATCH_TAG)) {
             return true;
         }
@@ -3593,7 +3610,7 @@ final class FormatHtml {
     }
     private static boolean isFinallyNode(Configuration _conf, Node _node) {
         String prefix_ = _conf.getLastPage().getPrefix();
-        String nodeName_ = _node.getNodeName();
+        String nodeName_ = ((Element) _node).getTagName();
         if (StringList.quickEq(nodeName_, prefix_+TAG_FINALLY)) {
             return true;
         }
@@ -3602,7 +3619,7 @@ final class FormatHtml {
 
     private static boolean isTryNode(Configuration _conf, Node _node) {
         String prefix_ = _conf.getLastPage().getPrefix();
-        String nodeName_ = _node.getNodeName();
+        String nodeName_ = ((Element) _node).getTagName();
         if (StringList.quickEq(nodeName_, prefix_+TRY_TAG)) {
             return true;
         }
@@ -3610,7 +3627,7 @@ final class FormatHtml {
     }
 
     private static boolean isSwitchNode(Configuration _conf, Node _node) {
-        String nodeName_ = _node.getNodeName();
+        String nodeName_ = ((Element) _node).getTagName();
         String prefix_ = _conf.getLastPage().getPrefix();
         if (StringList.quickEq(nodeName_, prefix_+TAG_CASE)) {
             return true;
@@ -3628,7 +3645,7 @@ final class FormatHtml {
         if (ExtractCondition.isContentOfConditionNode(_conf, _node)) {
             return true;
         }
-        String nodeName_ = _node.getNodeName();
+        String nodeName_ = ((Element) _node).getTagName();
         String prefix_ = _conf.getLastPage().getPrefix();
         if (StringList.quickEq(nodeName_, prefix_+ELSE_BLOCK_TAG)) {
             return true;
@@ -3777,7 +3794,7 @@ final class FormatHtml {
     private static void incrementLoop(Configuration _conf, LoopHtmlStack _l, StringMap<LoopVariable> _vars) {
         Element forLoopLoc_ = _l.getReadNode();
         String prefix_ = _conf.getLastPage().getPrefix();
-        if (!StringList.quickEq(forLoopLoc_.getNodeName(), prefix_+FOR_BLOCK_TAG)) {
+        if (!StringList.quickEq(forLoopLoc_.getTagName(), prefix_+FOR_BLOCK_TAG)) {
             return;
         }
         _l.setIndex(_l.getIndex() + 1);
@@ -3832,7 +3849,7 @@ final class FormatHtml {
         ImportingPage ip_ = _conf.getLastPage();
         String prefix_ = ip_.getPrefix();
         ip_.removeLastBlock();
-        if (!StringList.quickEq(_forLoop.getNodeName(), prefix_+FOR_BLOCK_TAG)) {
+        if (!StringList.quickEq(_forLoop.getTagName(), prefix_+FOR_BLOCK_TAG)) {
             return;
         }
         if (_forLoop.hasAttribute(ATTRIBUTE_LIST) || _forLoop.hasAttribute(ATTRIBUTE_FROM)) {
@@ -3851,13 +3868,13 @@ final class FormatHtml {
         String prefix_ = getPrefix(_conf, _read.getOwnerDocument());
         if (_parent instanceof Document) {
             if (prefix_.isEmpty()) {
-                currentNode_ = _doc.createElement(_read.getNodeName());
+                currentNode_ = _doc.createElement(_read.getTagName());
                 setNormalAttributes(_doc, _conf, _read, currentNode_);
             } else {
-                String nodeName_ = _read.getNodeName();
+                String nodeName_ = _read.getTagName();
                 String newNodeName_;
                 if (nodeName_.startsWith(prefix_)) {
-                    String suffix_ = _read.getNodeName().substring(prefix_.length());
+                    String suffix_ = _read.getTagName().substring(prefix_.length());
                     newNodeName_ = getPrefix(_conf, (Document)_parent)+suffix_;
                 } else {
                     newNodeName_ = nodeName_;
@@ -3868,10 +3885,10 @@ final class FormatHtml {
         } else {
             String replacing_ = _conf.getPrefix();
             if (!prefix_.isEmpty()) {
-                String nodeName_ = _read.getNodeName();
+                String nodeName_ = _read.getTagName();
                 String newNodeName_;
                 if (nodeName_.startsWith(prefix_)) {
-                    String suffix_ = _read.getNodeName().substring(prefix_.length());
+                    String suffix_ = _read.getTagName().substring(prefix_.length());
                     newNodeName_ = replacing_+suffix_;
                 } else {
                     newNodeName_ = nodeName_;
@@ -3879,7 +3896,7 @@ final class FormatHtml {
                 currentNode_ = _doc.createElement(newNodeName_);
                 setPrefixedAttributes(_doc, _conf, _read, currentNode_, prefix_);
             } else {
-                currentNode_ = _doc.createElement(_read.getNodeName());
+                currentNode_ = _doc.createElement(_read.getTagName());
                 setNormalAttributes(_doc, _conf, _read, currentNode_);
             }
         }
@@ -3890,9 +3907,9 @@ final class FormatHtml {
         NamedNodeMap map_ = _read.getAttributes();
         int nbAttrs_ = map_.getLength();
         for (int i = 0; i < nbAttrs_; i++) {
-            Node at_ = map_.item(i);
-            String name_ = at_.getNodeName();
-            String value_ = at_.getNodeValue();
+            Attr at_ = (Attr) map_.item(i);
+            String name_ = at_.getName();
+            String value_ = at_.getValue();
             _write.setAttribute(name_, value_);
         }
     }
@@ -3901,9 +3918,9 @@ final class FormatHtml {
         String mainPrefix_ = _conf.getPrefix();
         int nbAttrs_ = map_.getLength();
         for (int i = 0; i < nbAttrs_; i++) {
-            Node at_ = map_.item(i);
-            String name_ = at_.getNodeName();
-            String value_ = at_.getNodeValue();
+            Attr at_ = (Attr) map_.item(i);
+            String name_ = at_.getName();
+            String value_ = at_.getValue();
             if (!name_.startsWith(_readPrefix)) {
                 _write.setAttribute(name_, value_);
             } else {
@@ -4154,7 +4171,7 @@ final class FormatHtml {
 
     private static ParentElement getParentOfLastNode(Configuration _conf, Node _node, boolean _child) {
         Node n_ = _node.getFirstChild();
-        if (n_ != null && _child && !StringList.quickEq(_node.getNodeName(), TEXT_AREA)) {
+        if (n_ != null && _child && !StringList.quickEq(((Element) _node).getTagName(), TEXT_AREA)) {
             return new ParentElement(null);
         }
         n_ = _node.getNextSibling();
@@ -4218,7 +4235,7 @@ final class FormatHtml {
         _conf.getLastPage().setOffset(0);
         _conf.getLastPage().setLookForAttrValue(false);
         String prefix_ = _conf.getLastPage().getPrefix();
-        if (StringList.quickEq(l_.getReadNode().getNodeName(), prefix_+TAG_DO)) {
+        if (StringList.quickEq(l_.getReadNode().getTagName(), prefix_+TAG_DO)) {
             Node n_ = l_.getReadNode().getNextSibling();
             while (true) {
                 if (n_ instanceof Text) {
@@ -4233,7 +4250,7 @@ final class FormatHtml {
             }
             return ExtractCondition.evaluateCondition((Element) n_, _conf, _ip);
         }
-        if (StringList.quickEq(l_.getReadNode().getNodeName(), prefix_+FOR_BLOCK_TAG)) {
+        if (StringList.quickEq(l_.getReadNode().getTagName(), prefix_+FOR_BLOCK_TAG)) {
             if (l_.getStructIterator() != null) {
                 return ExtractObject.hasNext(_conf, l_.getStructIterator());
             }

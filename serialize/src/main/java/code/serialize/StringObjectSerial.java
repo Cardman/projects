@@ -1,10 +1,10 @@
 package code.serialize;
 import java.lang.reflect.Method;
 
+import org.w3c.dom.Attr;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NamedNodeMap;
-import org.w3c.dom.Node;
 
 import code.serialize.exceptions.InvokingException;
 import code.serialize.exceptions.NoSuchDeclaredMethodException;
@@ -31,26 +31,26 @@ final class StringObjectSerial extends PrimitiveSerial {
         super(_node);
         //
         NamedNodeMap map_ = _node.getAttributes();
-        String name_ = _node.getNodeName();
+        String name_ = _node.getTagName();
 //        if (map_ == null) {
 //            throw new NoAttributeForSerializable(name_);
 //        }
-        Node className_ = map_.getNamedItem(CLASS);
+        Attr className_ = (Attr) map_.getNamedItem(CLASS);
         if (className_ != null) {
-            setClassName(className_.getNodeValue());
+            setClassName(className_.getValue());
         }
-        Node field_ = map_.getNamedItem(FIELD);
+        Attr field_ = (Attr) map_.getNamedItem(FIELD);
         if (field_ != null) {
-            setField(field_.getNodeValue());
+            setField(field_.getValue());
         }
-        Node keyOfMap_ = map_.getNamedItem(KEY);
+        Attr keyOfMap_ = (Attr) map_.getNamedItem(KEY);
         if (keyOfMap_ != null) {
             setKeyOfMap(true);
         }
         Method method_ = null;
         String classNameInst_ = name_+_node.getAttribute(INTERN);
         Class<?> class_ = ConstClasses.classAliasForObjectNameNotInit(classNameInst_);
-        Node value_ = map_.getNamedItem(VALUE);
+        Attr value_ = (Attr) map_.getNamedItem(VALUE);
         if (value_ == null) {
             throw new NoValueException(classNameInst_);
         }
@@ -58,7 +58,7 @@ final class StringObjectSerial extends PrimitiveSerial {
         if (method_ == null) {
             throw new NoSuchDeclaredMethodException();
         }
-        value = ConverterMethod.invokeMethod(method_, null, value_.getNodeValue());
+        value = ConverterMethod.invokeMethod(method_, null, value_.getValue());
         if (value == null) {
             throw new NoValueException(classNameInst_);
         }

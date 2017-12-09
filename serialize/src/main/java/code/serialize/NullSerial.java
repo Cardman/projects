@@ -1,8 +1,8 @@
 package code.serialize;
+import org.w3c.dom.Attr;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NamedNodeMap;
-import org.w3c.dom.Node;
 
 import code.serialize.exceptions.ClassFoundException;
 import code.util.StringList;
@@ -18,22 +18,22 @@ final class NullSerial extends ElementsSerial {
     /**@throws ClassFoundException*/
     NullSerial(Element _node) {
         super(_node);
-        if (!StringList.quickEq(_node.getNodeName(),NULL_ATTR)) {
-            throw new ClassFoundException(_node.getNodeName(), NULL_ATTR);
+        if (!StringList.quickEq(_node.getTagName(),NULL_ATTR)) {
+            throw new ClassFoundException(_node.getTagName(), NULL_ATTR);
         }
         NamedNodeMap map_ = _node.getAttributes();
 //        if (map_ == null) {
 //            throw new NoAttributeForSerializable(NULL_ATTR);
 //        }
-        Node field_ = map_.getNamedItem(FIELD);
+        Attr field_ = (Attr) map_.getNamedItem(FIELD);
         if (field_ != null) {
-            setField(field_.getNodeValue());
+            setField(field_.getValue());
         }
-        Node className_ = map_.getNamedItem(CLASS);
+        Attr className_ = (Attr) map_.getNamedItem(CLASS);
         if (className_ != null) {
-            setClassName(className_.getNodeValue());
+            setClassName(className_.getValue());
         }
-        Node keyOfMap_ = map_.getNamedItem(KEY);
+        Attr keyOfMap_ = (Attr) map_.getNamedItem(KEY);
         if (keyOfMap_ != null) {
             setKeyOfMap(true);
         }

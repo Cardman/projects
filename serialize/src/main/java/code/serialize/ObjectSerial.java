@@ -4,10 +4,10 @@ import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 
+import org.w3c.dom.Attr;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NamedNodeMap;
-import org.w3c.dom.Node;
 
 import code.serialize.exceptions.InvokingException;
 import code.serialize.exceptions.NoSuchDeclaredMethodException;
@@ -66,27 +66,27 @@ final class ObjectSerial extends TemplateSerial {
         ObjectSerial obj_ = new ObjectSerial(_node, _parent);
         NamedNodeMap map_ = _node.getAttributes();
         if(_requiredClass) {
-            Node className_ = map_.getNamedItem(CLASS);
+            Attr className_ = (Attr) map_.getNamedItem(CLASS);
             if (className_ != null) {
-                obj_.setClassName(className_.getNodeValue());
+                obj_.setClassName(className_.getValue());
             }
         }
-        Node field_ = map_.getNamedItem(FIELD);
+        Attr field_ = (Attr) map_.getNamedItem(FIELD);
         if (field_ != null) {
-            obj_.setField(field_.getNodeValue());
+            obj_.setField(field_.getValue());
         }
-        Node keyOfMap_ = map_.getNamedItem(KEY);
+        Attr keyOfMap_ = (Attr) map_.getNamedItem(KEY);
         if (keyOfMap_ != null) {
             obj_.setKeyOfMap(true);
         }
-        Node ref_ = map_.getNamedItem(REF);
+        Attr ref_ = (Attr) map_.getNamedItem(REF);
         if (ref_ != null) {
-            obj_.setRef(Long.parseLong(ref_.getNodeValue()));
+            obj_.setRef(Long.parseLong(ref_.getValue()));
             return obj_;
         }
-        Node id_ = map_.getNamedItem(ID);
+        Attr id_ = (Attr) map_.getNamedItem(ID);
         if (id_ != null) {
-            obj_.setId(Long.parseLong(id_.getNodeValue()));
+            obj_.setId(Long.parseLong(id_.getValue()));
         }
         ClassResult res_ = newInstance(_node);
         if (!res_.isSuccess()) {
@@ -105,16 +105,16 @@ final class ObjectSerial extends TemplateSerial {
         NamedNodeMap map_ = _node.getAttributes();
         ObjectSerial serial_ = new ObjectSerial(_node, null);
         if(_requiredClass) {
-            Node className_ = map_.getNamedItem(CLASS);
+            Attr className_ = (Attr) map_.getNamedItem(CLASS);
             if (className_ != null) {
-                serial_.setClassName(className_.getNodeValue());
+                serial_.setClassName(className_.getValue());
             }
         }
-        Node field_ = map_.getNamedItem(FIELD);
+        Attr field_ = (Attr) map_.getNamedItem(FIELD);
         if (field_ != null) {
-            serial_.setField(field_.getNodeValue());
+            serial_.setField(field_.getValue());
         }
-        Node keyOfMap_ = map_.getNamedItem(KEY);
+        Attr keyOfMap_ = (Attr) map_.getNamedItem(KEY);
         if (keyOfMap_ != null) {
             serial_.setKeyOfMap(true);
         }
@@ -130,7 +130,7 @@ final class ObjectSerial extends TemplateSerial {
         Constructor<?> constr_ = null;
         ClassResult out_ = new ClassResult();
         try {
-            Class<?> class_ = ConstClasses.classAliasForObjectNameNotInit(_node.getNodeName()+_node.getAttribute(INTERN));
+            Class<?> class_ = ConstClasses.classAliasForObjectNameNotInit(_node.getTagName()+_node.getAttribute(INTERN));
             if (class_.isMemberClass() && !Modifier.isStatic(class_.getModifiers())) {
                 Class<?> curClass_ = class_;
                 CustList<Class<?>> classes_ = new CustList<Class<?>>();

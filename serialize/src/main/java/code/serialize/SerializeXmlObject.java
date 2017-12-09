@@ -99,7 +99,7 @@ public final class SerializeXmlObject {
                 }
                 Element elt_ = (Element) node_;
                 for (String f: _classes.getKeys()) {
-                    if (StringList.quickEq(node_.getNodeName(),f)) {
+                    if (StringList.quickEq(((Element) node_).getTagName(),f)) {
                         doc_.renameNode(node_, node_.getNamespaceURI(), _classes.getVal(f));
                     }
                     if (!StringList.quickEq(elt_.getAttribute(ElementsSerial.CLASS),f)) {
@@ -126,7 +126,7 @@ public final class SerializeXmlObject {
                     continue;
                 }
                 for (String f: _classes.getKeys()) {
-                    if (StringList.quickEq(node_.getNodeName(),f)) {
+                    if (StringList.quickEq(((Element) node_).getTagName(),f)) {
                         doc_.renameNode(node_, node_.getNamespaceURI(), _classes.getVal(f));
                     }
                 }
@@ -164,7 +164,7 @@ public final class SerializeXmlObject {
             }
         } catch (RuntimeException _0) {
         }
-        CustList<Node> currentNodesToBeRead_ = new CustList<Node>();
+        CustList<Element> currentNodesToBeRead_ = new CustList<Element>();
         currentNodesToBeRead_.add(root_);
         CustList<TemplateSerial> currentSerializableElements_ = new CustList<TemplateSerial>();
         ObjectSerial rootElement_;
@@ -174,7 +174,7 @@ public final class SerializeXmlObject {
         if (_references_) {
             rootElement_ = ObjectSerial.newSerialWithId(root_, null, false);
             currentSerializableElements_.add(rootElement_);
-            CustList<Node> newNodesToBeRead_ = new CustList<Node>();
+            CustList<Element> newNodesToBeRead_ = new CustList<Element>();
             CustList<TemplateSerial> newSerializableElements_ = new CustList<TemplateSerial>();
             CustList<TemplateSerial> serializableComposite_ = new CustList<TemplateSerial>();
             serializableComposite_.add(rootElement_);
@@ -189,11 +189,11 @@ public final class SerializeXmlObject {
             while (modif_) {
                 modif_ = false;
                 newSerializableElements_ = new CustList<TemplateSerial>();
-                newNodesToBeRead_ = new CustList<Node>();
+                newNodesToBeRead_ = new CustList<Element>();
                 int len_;
                 len_ = currentNodesToBeRead_.size();
                 for (int i = CustList.FIRST_INDEX; i < len_; i++) {
-                    Node currentNode_ = currentNodesToBeRead_.get(i);
+                    Element currentNode_ = currentNodesToBeRead_.get(i);
                     TemplateSerial composite_ = currentSerializableElements_.get(i);
                     CustList<ElementsSerial> elt_ = new CustList<ElementsSerial>();
                     CustList<TemplateSerial> childRefComposites_ = new CustList<TemplateSerial>();
@@ -265,7 +265,7 @@ public final class SerializeXmlObject {
                     composite_.appendElementSerial(_xmlString, elt_);
                 }
                 if (!newSerializableElements_.isEmpty()) {
-                    currentNodesToBeRead_ = new CustList<Node>(newNodesToBeRead_);
+                    currentNodesToBeRead_ = new CustList<Element>(newNodesToBeRead_);
                     currentSerializableElements_ = new CustList<TemplateSerial>(newSerializableElements_);
                     modif_ = true;
                 }
@@ -306,18 +306,18 @@ public final class SerializeXmlObject {
         } else {
             rootElement_ = ObjectSerial.newSerial(root_, false);
             currentSerializableElements_.add(rootElement_);
-            CustList<Node> newNodesToBeRead_ = new CustList<Node>();
+            CustList<Element> newNodesToBeRead_ = new CustList<Element>();
             CustList<TemplateSerial> serializableComposite_ = new CustList<TemplateSerial>();
             CustList<TemplateSerial> newSerializableElements_ = new CustList<TemplateSerial>();
             boolean modif_ = true;
             while (modif_) {
                 modif_ = false;
                 newSerializableElements_ = new CustList<TemplateSerial>();
-                newNodesToBeRead_ = new CustList<Node>();
+                newNodesToBeRead_ = new CustList<Element>();
                 int len_;
                 len_ = currentNodesToBeRead_.size();
                 for (int i = CustList.FIRST_INDEX; i < len_; i++) {
-                    Node currentNode_ = currentNodesToBeRead_.get(i);
+                    Element currentNode_ = currentNodesToBeRead_.get(i);
                     TemplateSerial composite_ = currentSerializableElements_.get(i);
                     CustList<ElementsSerial> elt_ = new CustList<ElementsSerial>();
                     for (Element n : XmlParser.childrenElements(currentNode_)) {
@@ -364,7 +364,7 @@ public final class SerializeXmlObject {
                     composite_.appendElementSerialWithoutRef(_xmlString, elt_);
                 }
                 if (!newSerializableElements_.isEmpty()) {
-                    currentNodesToBeRead_ = new CustList<Node>(newNodesToBeRead_);
+                    currentNodesToBeRead_ = new CustList<Element>(newNodesToBeRead_);
                     currentSerializableElements_ = new CustList<TemplateSerial>(newSerializableElements_);
                     modif_ = true;
                 }
@@ -563,7 +563,7 @@ public final class SerializeXmlObject {
             firstNode_ = document_.createElement(mainObjectClassName_);
         }
         document_.appendChild(firstNode_);
-        CustList<Node> currentNodesToBeCompleted_ = new CustList<Node>();
+        CustList<Element> currentNodesToBeCompleted_ = new CustList<Element>();
         currentNodesToBeCompleted_.add(firstNode_);
         ObjectSerial base_ = new ObjectSerial(_serialisable);
         CurrentSerializableElements currentThread_ = new CurrentSerializableElements(base_);
@@ -571,21 +571,21 @@ public final class SerializeXmlObject {
             currentThread_.initializeObjects();
             CustList<TemplateSerial> currentSerializableElements_ = new CustList<TemplateSerial>();
             currentSerializableElements_.add(base_);
-            CustList<Node> newNodesToBeCompleted_ = new CustList<Node>();
+            CustList<Element> newNodesToBeCompleted_ = new CustList<Element>();
             CustList<TemplateSerial> newSerializableElements_ = new CustList<TemplateSerial>();
             boolean modif_ = true;
             while (modif_) {
                 modif_ = false;
                 newSerializableElements_ = new CustList<TemplateSerial>();
-                newNodesToBeCompleted_ = new CustList<Node>();
+                newNodesToBeCompleted_ = new CustList<Element>();
                 int len_;
                 len_ = currentNodesToBeCompleted_.size();
                 for (int i = CustList.FIRST_INDEX; i < len_; i++) {
-                    Node currentNode_ = currentNodesToBeCompleted_.get(i);
+                    Element currentNode_ = currentNodesToBeCompleted_.get(i);
                     TemplateSerial currentSerializable_ = currentSerializableElements_.get(i);
                     CustList<ElementsSerial> elts_ = currentThread_.getComponentComposite(currentSerializable_);
                     for (ElementsSerial e : elts_) {
-                        Node newNode_ = e.serialize(document_);
+                        Element newNode_ = e.serialize(document_);
                         if (e instanceof TemplateSerial) {
                             TemplateSerial t_ = (TemplateSerial) e;
                             if (t_.getRef() == null) {
@@ -597,7 +597,7 @@ public final class SerializeXmlObject {
                     }
                 }
                 if (!newSerializableElements_.isEmpty()) {
-                    currentNodesToBeCompleted_ = new CustList<Node>(newNodesToBeCompleted_);
+                    currentNodesToBeCompleted_ = new CustList<Element>(newNodesToBeCompleted_);
                     currentSerializableElements_ = new CustList<TemplateSerial>(newSerializableElements_);
                     modif_ = true;
                 }
@@ -606,21 +606,21 @@ public final class SerializeXmlObject {
             currentThread_.initializeObjectsWithoutIdRef();
             CustList<TemplateSerial> currentSerializableElements_ = new CustList<TemplateSerial>();
             currentSerializableElements_.add(base_);
-            CustList<Node> newNodesToBeCompleted_ = new CustList<Node>();
+            CustList<Element> newNodesToBeCompleted_ = new CustList<Element>();
             CustList<TemplateSerial> newSerializableElements_ = new CustList<TemplateSerial>();
             boolean modif_ = true;
             while (modif_) {
                 modif_ = false;
                 newSerializableElements_ = new CustList<TemplateSerial>();
-                newNodesToBeCompleted_ = new CustList<Node>();
+                newNodesToBeCompleted_ = new CustList<Element>();
                 int len_;
                 len_ = currentNodesToBeCompleted_.size();
                 for (int i = CustList.FIRST_INDEX; i < len_; i++) {
-                    Node currentNode_ = currentNodesToBeCompleted_.get(i);
+                    Element currentNode_ = currentNodesToBeCompleted_.get(i);
                     TemplateSerial currentSerializable_ = currentSerializableElements_.get(i);
                     CustList<ElementsSerial> elts_ = currentThread_.getComponentComposite(currentSerializable_);
                     for (ElementsSerial e : elts_) {
-                        Node newNode_ = e.serializeWithoutRef(document_);
+                        Element newNode_ = e.serializeWithoutRef(document_);
                         if (e instanceof TemplateSerial) {
                             TemplateSerial t_ = (TemplateSerial) e;
                             newNodesToBeCompleted_.add(newNode_);
@@ -630,7 +630,7 @@ public final class SerializeXmlObject {
                     }
                 }
                 if (!newSerializableElements_.isEmpty()) {
-                    currentNodesToBeCompleted_ = new CustList<Node>(newNodesToBeCompleted_);
+                    currentNodesToBeCompleted_ = new CustList<Element>(newNodesToBeCompleted_);
                     currentSerializableElements_ = new CustList<TemplateSerial>(newSerializableElements_);
                     modif_ = true;
                 }

@@ -138,11 +138,8 @@ public abstract class SoftApplicationCore {
             return null;
         }
         for(Element e:XmlParser.childrenElements(noeud_)){
-            if(StringList.quickEq(e.getNodeName(),LOCALE)){
-                String code_ = e.getAttributes().getNamedItem(LOCALE).getNodeValue();
-                if (code_ == null) {
-                    return null;
-                }
+            if(StringList.quickEq(e.getTagName(),LOCALE)){
+                String code_ = e.getAttribute(LOCALE);
                 boolean valide_ = false;
                 for (String l: Constants.getAvailableLanguages()) {
                     if (StringList.quickEq(code_,l)) {

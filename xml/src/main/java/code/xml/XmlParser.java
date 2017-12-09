@@ -701,7 +701,7 @@ public final class XmlParser {
         tabsMap_ = new StringMap<Numbers<Integer>>();
         Numbers<Integer> tabs_ = new Numbers<Integer>();
         int index_ = _previous.getNextElt();
-        String nodeName_ = _node.getNodeName();
+        String nodeName_ = _node.getTagName();
         int found_ = _xml.indexOf(LT+nodeName_, index_);
         int nbLineReturns_ = 0;
         int minLine_ = _previous.getNextCol().getRow();
@@ -958,7 +958,7 @@ public final class XmlParser {
         String html_ = _html;
         int index_ = getIndexOfNodeOrAttribute(html_, _element, EMPTY_STRING);
         int endHeader_ = html_.indexOf(GT, index_);
-        int beginHeader_ = index_ + _element.getNodeName().length();
+        int beginHeader_ = index_ + _element.getTagName().length();
         StringMap<AttributePart> attr_;
         attr_ = getAttributes(html_, beginHeader_, endHeader_);
         for (EntryCust<String, AttributePart> e: attr_.entryList()) {
@@ -1032,7 +1032,7 @@ public final class XmlParser {
     }
     public static int indexOfBeginNode(Node _node, String _html, int _from) {
         if (_node instanceof Element) {
-            return _html.indexOf(LT+_node.getNodeName(), _from) + 1;
+            return _html.indexOf(LT+((Element) _node).getTagName(), _from) + 1;
         }
         if (_node instanceof Text) {
             int indexText_ = _html.indexOf(GT, _from);
@@ -1058,9 +1058,12 @@ public final class XmlParser {
         int nbSameNamedNodes_ = CustList.SIZE_EMPTY;
         //        CustList<Node> sameNamedNodes_ = new CustList<Node>();
         if (_node instanceof Element) {
-            String nodeName_ = _node.getNodeName();
+            String nodeName_ = ((Element) _node).getTagName();
             for (Node n: nodesBefore_) {
-                if (StringList.quickEq(n.getNodeName(), nodeName_) && n instanceof Element) {
+                if (!(n instanceof Element)) {
+                    continue;
+                }
+                if (StringList.quickEq(((Element) n).getTagName(), nodeName_)) {
                     nbSameNamedNodes_++;
                 }
             }

@@ -1,7 +1,7 @@
 package code.serialize;
+import org.w3c.dom.Attr;
 import org.w3c.dom.Element;
 import org.w3c.dom.NamedNodeMap;
-import org.w3c.dom.Node;
 
 import code.serialize.exceptions.ClassFoundException;
 import code.serialize.exceptions.NoAttributeForSerializable;
@@ -20,28 +20,28 @@ final class StringSerial extends PrimitiveSerial {
     StringSerial(Element _node) {
         super(_node);
         NamedNodeMap map_ = _node.getAttributes();
-        String name_ = _node.getNodeName();
+        String name_ = _node.getTagName();
 //        if (map_ == null) {
 //            throw new NoAttributeForSerializable(_node.getNodeName());
 //        }
-        Node className_ = map_.getNamedItem(CLASS);
+        Attr className_ = (Attr) map_.getNamedItem(CLASS);
         if (className_ != null) {
-            setClassName(className_.getNodeValue());
+            setClassName(className_.getValue());
         }
-        Node field_ = map_.getNamedItem(FIELD);
+        Attr field_ = (Attr) map_.getNamedItem(FIELD);
         if (field_ != null) {
-            setField(field_.getNodeValue());
+            setField(field_.getValue());
         }
-        Node keyOfMap_ = map_.getNamedItem(KEY);
+        Attr keyOfMap_ = (Attr) map_.getNamedItem(KEY);
         if (keyOfMap_ != null) {
             setKeyOfMap(true);
         }
         if (!name_.equalsIgnoreCase(String.class.getName())) {
             throw new ClassFoundException(name_, String.class.getName());
         }
-        Node value_ = map_.getNamedItem(VALUE);
+        Attr value_ = (Attr) map_.getNamedItem(VALUE);
         if (value_ != null) {
-            value = value_.getNodeValue();
+            value = value_.getValue();
         } else {
             throw new NoAttributeForSerializable(VALUE,name_);
         }

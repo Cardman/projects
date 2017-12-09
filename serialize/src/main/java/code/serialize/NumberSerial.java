@@ -4,9 +4,9 @@ import java.math.BigInteger;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicLong;
 
+import org.w3c.dom.Attr;
 import org.w3c.dom.Element;
 import org.w3c.dom.NamedNodeMap;
-import org.w3c.dom.Node;
 
 import code.serialize.exceptions.ClassFoundException;
 import code.serialize.exceptions.NoAttributeForSerializable;
@@ -28,16 +28,16 @@ final class NumberSerial extends PrimitiveSerial {
     NumberSerial(Element _node) {
         super(_node);
         NamedNodeMap map_ = _node.getAttributes();
-        String name_ = _node.getNodeName();
-        Node className_ = map_.getNamedItem(CLASS);
+        String name_ = _node.getTagName();
+        Attr className_ = (Attr) map_.getNamedItem(CLASS);
         if (className_ != null) {
-            setClassName(className_.getNodeValue());
+            setClassName(className_.getValue());
         }
-        Node field_ = map_.getNamedItem(FIELD);
+        Attr field_ = (Attr) map_.getNamedItem(FIELD);
         if (field_ != null) {
-            setField(field_.getNodeValue());
+            setField(field_.getValue());
         }
-        Node keyOfMap_ = map_.getNamedItem(KEY);
+        Attr keyOfMap_ = (Attr) map_.getNamedItem(KEY);
         if (keyOfMap_ != null) {
             setKeyOfMap(true);
         }

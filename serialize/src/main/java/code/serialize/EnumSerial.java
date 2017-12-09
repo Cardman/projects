@@ -1,8 +1,8 @@
 package code.serialize;
+import org.w3c.dom.Attr;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NamedNodeMap;
-import org.w3c.dom.Node;
 
 import code.serialize.exceptions.ClassFoundException;
 import code.serialize.exceptions.InexistingValueForEnum;
@@ -33,15 +33,15 @@ final class EnumSerial extends PrimitiveSerial {
         super(_node);
         value = initialize(_node);
         NamedNodeMap map_ = _node.getAttributes();
-        Node className_ = map_.getNamedItem(CLASS);
+        Attr className_ = (Attr) map_.getNamedItem(CLASS);
         if (className_ != null) {
-            setClassName(className_.getNodeValue());
+            setClassName(className_.getValue());
         }
-        Node field_ = map_.getNamedItem(FIELD);
+        Attr field_ = (Attr) map_.getNamedItem(FIELD);
         if (field_ != null) {
-            setField(field_.getNodeValue());
+            setField(field_.getValue());
         }
-        Node keyOfMap_ = map_.getNamedItem(KEY);
+        Attr keyOfMap_ = (Attr) map_.getNamedItem(KEY);
         if (keyOfMap_ != null) {
             setKeyOfMap(true);
         }
@@ -52,15 +52,15 @@ final class EnumSerial extends PrimitiveSerial {
     @throws ClassCastException*/
     private static Object initialize(Element _node) {
         NamedNodeMap map_ = _node.getAttributes();
-        Class<?> class_ = ConstClasses.classAliasForObjectNameNotInit(_node.getNodeName()+_node.getAttribute(INTERN));
+        Class<?> class_ = ConstClasses.classAliasForObjectNameNotInit(_node.getTagName()+_node.getAttribute(INTERN));
         if (!class_.isEnum()){
             throw new ClassFoundException(class_.getName());
         }
-        Node valueNode_ = map_.getNamedItem(VALUE);
+        Attr valueNode_ = (Attr) map_.getNamedItem(VALUE);
         if (valueNode_ == null) {
-            throw new NoAttributeForSerializable(VALUE, _node.getNodeName()+_node.getAttribute(INTERN));
+            throw new NoAttributeForSerializable(VALUE, _node.getTagName()+_node.getAttribute(INTERN));
         }
-        String name_ = valueNode_.getNodeValue();
+        String name_ = valueNode_.getValue();
         for (Object s : class_.getEnumConstants()) {
             if (StringList.quickEq(ConverterMethod.getName(s),name_)) {
                 return s;
