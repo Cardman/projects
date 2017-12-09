@@ -301,6 +301,85 @@ public final class Element extends Node {
         }
     }
 
+    public String openTag() {
+        Element root_ = this;
+        Node current_ = getFirstChild();
+        StringBuilder str_ = new StringBuilder();
+        str_.append(BEGIN_TAG+getTagName());
+        if (!attributes.isEmpty()) {
+            for (Attr a: attributes) {
+                str_.append(a.export());
+            }
+        }
+        if (current_ == null) {
+            str_.append(END_TAG);
+            str_.append(BEGIN_FOOTER);
+            str_.append(getTagName());
+            str_.append(END_TAG);
+        } else {
+            str_.append(END_TAG);
+        }
+        while (true) {
+            if (current_ == null) {
+                break;
+            }
+            if (current_ instanceof Element) {
+                Element elt_ = (Element) current_;
+                str_.append(BEGIN_TAG+elt_.getTagName());
+                if (!elt_.attributes.isEmpty()) {
+                    for (Attr a: elt_.attributes) {
+                        str_.append(a.export());
+                    }
+                }
+            }
+            if (current_ instanceof Text) {
+                Text txt_ = (Text) current_;
+                str_.append(DocumentBuilder.escape(txt_.getData(), false));
+            }
+            Node next_ = current_.getFirstChild();
+            if (next_ != null) {
+                str_.append(END_TAG);
+                current_ = next_;
+                continue;
+            }
+            if (current_ instanceof Element) {
+                str_.append(END_TAG);
+                str_.append(BEGIN_FOOTER);
+                str_.append(((Element) current_).getTagName());
+                str_.append(END_TAG);
+            }
+            next_ = current_.getNextSibling();
+            if (next_ != null) {
+                current_ = next_;
+                continue;
+            }
+            Element parent_ = current_.getParentNode();
+            if (parent_ == null) {
+                current_ = null;
+                continue;
+            }
+            str_.append(BEGIN_FOOTER+parent_.getTagName()+END_TAG);
+            if (parent_ == root_) {
+                current_ = null;
+                continue;
+            }
+            next_ = parent_.getNextSibling();
+            while (next_ == null) {
+                Element par_ = parent_.getParentNode();
+                if (par_ == null) {
+                    break;
+                }
+                str_.append(BEGIN_FOOTER+par_.getTagName()+END_TAG);
+                if (par_ == root_) {
+                    break;
+                }
+                next_ = par_.getNextSibling();
+                parent_ = par_;
+            }
+            current_ = next_;
+        }
+        return str_.toString();
+    }
     public String export() {
         Element root_ = this;
         Node current_ = getFirstChild();

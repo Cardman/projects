@@ -101,6 +101,10 @@ public final class Document extends Node {
         setLastChild(documentElement);
     }
 
+    public String exportHtml() {
+        return documentElement.openTag();
+    }
+
     public String export() {
         return documentElement.export();
     }
