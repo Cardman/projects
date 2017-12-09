@@ -512,75 +512,35 @@ public class XmlParserTest {
     }
     @Test(timeout=1000)
     public void getIndexOfNodeOrAttribute25Test() {
-        String html_ = "<tag><!--COMMENT-->"+(char)233+"<ta>"+(char)234+"</ta></tag>";
+        String html_ = "<tag>"+(char)233+"<ta>"+(char)234+"</ta></tag>";
         Document doc_ = XmlParser.parseSax(html_);
         Node node_ = doc_.getDocumentElement();
-        Node n_ = node_.getFirstChild().getNextSibling().getNextSibling().getFirstChild();
-        assertEq(24,XmlParser.getIndexOfNodeOrAttribute(html_, n_, ""));
+        Node n_ = node_.getFirstChild().getNextSibling().getFirstChild();
+        assertEq(10,XmlParser.getIndexOfNodeOrAttribute(html_, n_, ""));
     }
     @Test(timeout=1000)
     public void getIndexOfNodeOrAttribute26Test() {
-        String html_ = "<tag><!--COMMENT-->"+(char)233+"<ta>"+(char)234+"</ta></tag>";
+        String html_ = "<tag>"+(char)233+"<ta>"+(char)234+"</ta></tag>";
         Document doc_ = XmlParser.parseSax(html_);
         Node node_ = doc_.getDocumentElement();
-        Node n_ = node_.getFirstChild().getNextSibling().getNextSibling();
-        assertEq(21,XmlParser.getIndexOfNodeOrAttribute(html_, n_, ""));
+        Node n_ = node_.getFirstChild().getNextSibling();
+        assertEq(7,XmlParser.getIndexOfNodeOrAttribute(html_, n_, ""));
     }
     @Test(timeout=1000)
     public void getIndexOfNodeOrAttribute27Test() {
-        String html_ = "<tag><!--COMMENT-->"+(char)233+"<ta myattr='value'>"+(char)234+"</ta></tag>";
+        String html_ = "<tag>"+(char)233+"<ta myattr='value'>"+(char)234+"</ta></tag>";
         Document doc_ = XmlParser.parseSax(html_);
         Node node_ = doc_.getDocumentElement();
-        Node n_ = node_.getFirstChild().getNextSibling().getNextSibling();
-        assertEq(24,XmlParser.getIndexOfNodeOrAttribute(html_, n_, "myattr"));
+        Node n_ = node_.getFirstChild().getNextSibling();
+        assertEq(10,XmlParser.getIndexOfNodeOrAttribute(html_, n_, "myattr"));
     }
-    @Test(timeout=1000)
+    @Test
     public void getIndexOfNodeOrAttribute28Test() {
-        String html_ = "<tag><!--COMMENT-->"+(char)233+"<ta myattr='value'>"+(char)234+"</ta></tag>";
+        String html_ = "<tag>"+(char)233+"<ta myattr='value'>"+(char)234+"</ta><sta myattr=\"value\">"+(char)234+"</sta></tag>";
         Document doc_ = XmlParser.parseSax(html_);
         Node node_ = doc_.getDocumentElement();
         Node n_ = node_.getFirstChild().getNextSibling().getNextSibling();
-        assertEq(32,XmlParser.getIndexOfNodeOrAttribute(html_, n_, "myattr", true));
-    }
-    @Test(timeout=1000)
-    public void getIndexOfNodeOrAttribute29Test() {
-        String html_ = "<tag><!--COMMENT--><!--COMMENT-->"+(char)233+"<ta myattr='value'>"+(char)234+"</ta></tag>";
-        Document doc_ = XmlParser.parseSax(html_);
-        Node node_ = doc_.getDocumentElement();
-        Node n_ = node_.getFirstChild().getNextSibling().getNextSibling().getNextSibling();
-        assertEq(46,XmlParser.getIndexOfNodeOrAttribute(html_, n_, "myattr", true));
-    }
-    @Test(timeout=1000)
-    public void getIndexOfNodeOrAttribute30Test() {
-        String html_ = "<tag><!--<ta></ta>COMMENT--><!--COMMENT-->"+(char)233+"<ta myattr='value'>"+(char)234+"</ta></tag>";
-        Document doc_ = XmlParser.parseSax(html_);
-        Node node_ = doc_.getDocumentElement();
-        Node n_ = node_.getFirstChild().getNextSibling().getNextSibling().getNextSibling();
-        assertEq(55,XmlParser.getIndexOfNodeOrAttribute(html_, n_, "myattr", true));
-    }
-    @Test(timeout=1000)
-    public void getIndexOfNodeOrAttribute31Test() {
-        String html_ = "<tag><!----><!--COMMENT-->"+(char)233+"<ta myattr='value'>"+(char)234+"</ta></tag>";
-        Document doc_ = XmlParser.parseSax(html_);
-        Node node_ = doc_.getDocumentElement();
-        Node n_ = node_.getFirstChild().getNextSibling().getNextSibling().getNextSibling();
-        assertEq(39,XmlParser.getIndexOfNodeOrAttribute(html_, n_, "myattr", true));
-    }
-    @Test(timeout=1000)
-    public void getIndexOfNodeOrAttribute32Test() {
-        String html_ = "<tag><!-->--><!--COMMENT-->"+(char)233+"<ta myattr='value'>"+(char)234+"</ta></tag>";
-        Document doc_ = XmlParser.parseSax(html_);
-        Node node_ = doc_.getDocumentElement();
-        Node n_ = node_.getFirstChild().getNextSibling().getNextSibling().getNextSibling();
-        assertEq(40,XmlParser.getIndexOfNodeOrAttribute(html_, n_, "myattr", true));
-    }
-    @Test(timeout=1000)
-    public void getIndexOfNodeOrAttribute33Test() {
-        String html_ = "<tag><!--->--><!--COMMENT-->"+(char)233+"<ta myattr='value'>"+(char)234+"</ta></tag>";
-        Document doc_ = XmlParser.parseSax(html_);
-        Node node_ = doc_.getDocumentElement();
-        Node n_ = node_.getFirstChild().getNextSibling().getNextSibling().getNextSibling();
-        assertEq(41,XmlParser.getIndexOfNodeOrAttribute(html_, n_, "myattr", true));
+        assertEq(44,XmlParser.getIndexOfNodeOrAttribute(html_, n_, "myattr", true));
     }
 
     @Test
@@ -803,7 +763,7 @@ public class XmlParserTest {
 
     @Test
     public void getIndexesOfElementOrAttribute8Test() {
-        String html_ = "<tag><!--<ta></ta>COMMENT--><!--COMMENT-->"+(char)233+"<ta myattr='value'>"+(char)234+"</ta></tag>";
+        String html_ = "<tag>"+(char)233+"<ta myattr='value'>"+(char)234+"</ta></tag>";
         Document doc_ = XmlParser.parseSax(html_);
         Node node_ = doc_.getDocumentElement();
         Node n_ = node_;
@@ -811,18 +771,18 @@ public class XmlParserTest {
         rc_.setRow(0);
         rc_.setCol(0);
         ElementOffsetsNext e_ = XmlParser.getIndexesOfElementOrAttribute(html_, new ElementOffsetsNext(rc_, 0, 0), (Element) n_, 4);
-        n_ = node_.getFirstChild().getNextSibling().getNextSibling().getNextSibling();
+        n_ = node_.getFirstChild().getNextSibling();
         e_ = XmlParser.getIndexesOfElementOrAttribute(html_, e_, (Element) n_, 4);
         StringMap<RowCol> m_ = e_.getAttributes();
         assertEq(2, m_.size());
         rc_.setRow(1);
-        rc_.setCol(45);
+        rc_.setCol(8);
         assertEq(rc_, m_.getVal(""));
         rc_.setRow(1);
-        rc_.setCol(56);
+        rc_.setCol(19);
         assertEq(rc_, m_.getVal("myattr"));
         rc_.setRow(1);
-        rc_.setCol(63);
+        rc_.setCol(26);
         assertEq(rc_, e_.getEndHeader());
         assertEq(-1, e_.getNextElt());
 //        assertEq(0, e_.getNextEltLineReturn());
@@ -830,7 +790,7 @@ public class XmlParserTest {
 
     @Test
     public void getIndexesOfElementOrAttribute9Test() {
-        String html_ = "<tag><!--<ta>\n</ta>COMMENT--><!--COMMENT-->"+(char)233+"<ta myattr='value'>"+(char)234+"</ta></tag>";
+        String html_ = "<tag>"+(char)233+"<ta myattr='value'>"+(char)234+"</ta><sta myattr=\"value\">"+(char)234+"</sta></tag>";
         Document doc_ = XmlParser.parseSax(html_);
         Node node_ = doc_.getDocumentElement();
         Node n_ = node_;
@@ -838,18 +798,18 @@ public class XmlParserTest {
         rc_.setRow(0);
         rc_.setCol(0);
         ElementOffsetsNext e_ = XmlParser.getIndexesOfElementOrAttribute(html_, new ElementOffsetsNext(rc_, 0, 0), (Element) n_, 4);
-        n_ = node_.getFirstChild().getNextSibling().getNextSibling().getNextSibling();
+        n_ = node_.getFirstChild().getNextSibling().getNextSibling();
         e_ = XmlParser.getIndexesOfElementOrAttribute(html_, e_, (Element) n_, 4);
         StringMap<RowCol> m_ = e_.getAttributes();
         assertEq(2, m_.size());
-        rc_.setRow(2);
-        rc_.setCol(32);
+        rc_.setRow(1);
+        rc_.setCol(33);
         assertEq(rc_, m_.getVal(""));
-        rc_.setRow(2);
-        rc_.setCol(43);
+        rc_.setRow(1);
+        rc_.setCol(45);
         assertEq(rc_, m_.getVal("myattr"));
-        rc_.setRow(2);
-        rc_.setCol(50);
+        rc_.setRow(1);
+        rc_.setCol(52);
         assertEq(rc_, e_.getEndHeader());
         assertEq(-1, e_.getNextElt());
 //        assertEq(0, e_.getNextEltLineReturn());

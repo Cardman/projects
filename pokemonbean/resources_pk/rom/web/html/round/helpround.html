@@ -409,7 +409,6 @@
 			<c:message value="msg_helpround,round_process_move_invoke_process_fail"/>
 		</c:if>
 		<h3><c:message value="msg_helpround,round_process_move_prep_final"/></h3>
-		<!-- rechargeMoves -->
 		<c:message value="msg_helpround,round_process_move_prep_final_1"/>
 		<c:message value="msg_helpround,round_process_move_prep_final_2"/>
 		<c:message value="msg_helpround,round_process_move_prep_final_3"/>
@@ -480,13 +479,12 @@
 		</c:if>
 		<c:message value="msg_helpround,round_process_move_final_9"/>
 		<c:message value="msg_helpround,round_process_move_final_10_1"/>
-		<!-- TODO explain processing for successful move -->
 		<c:message value="msg_helpround,round_process_move_final_10"/>
-		<!--<ol>
+		<ol>
 			<li><c:message value="msg_helpround,round_process_move_final_succ_1"/></li>
 			<li><c:message value="msg_helpround,round_process_move_final_succ_2"/></li>
 			<li><c:message value="msg_helpround,round_process_move_final_succ_3"/></li>
-		</ol>-->
+		</ol>
 		<c:if condition="!protectAbilities.isEmpty()">
 			<c:message value="msg_helpround,round_process_move_final_11"/>
 			<ul>
@@ -567,16 +565,6 @@
 							</ul>
 						</li>
 					</c:if>
-					<!--
-						<li>
-							<c:message value="msg_helpround,round_process_move_final_16_1_1_4"/>
-							<ul>
-								<c:for var="a" list="itemsFighterStatis">
-									<li><a c:command="$clickItemsFighterStatis({a;;})">{getTrItemsFighterStatis(a;;)}</a></li>
-								</c:for>
-							</ul>
-						</li>
-					-->
 				</ol>
 			</li>
 			<li>
@@ -929,7 +917,6 @@
 				</c:for>
 			</ul>
 		</c:if>
-		<!--<c:message value="msg_helpround,round_process_move_7"/>-->
 		<c:if condition="!substitutingMoves.isEmpty()">
 			<h2><c:message value="msg_helpround,events_after"/></h2>
 			<c:message value="msg_helpround,events_after_1"/>
@@ -1239,12 +1226,12 @@
 					<li><a c:command="$clickMovesTypesDefItem({a;;})">{getTrMovesTypesDefItem(a;;)}</a></li>
 				</c:for>
 			</ul>
-			<!--<c:message value="msg_helpround,round_process_add_on_2_1"/>
+			<c:message value="msg_helpround,round_process_add_on_2_1"/>
 			<ul>
 				<c:for var="a" list="itemsTypesDef">
 					<li><a c:command="$clickItemsTypesDef({a;;})">{getTrItemsTypesDef(a;;)}</a></li>
 				</c:for>
-			</ul>-->
+			</ul>
 		</c:if>
 		<c:if condition="!movesTypesDefWeather.isEmpty()">
 			<c:message value="msg_helpround,round_process_add_on_2_2"/>
@@ -1953,7 +1940,6 @@
 			</tbody>
 		</table>
 		<c:message value="msg_helpround,round_process_add_on_10_3"/>
-		<!-- TODO -->
 		<br/>
 		<h1><c:message value="msg_helpround,round_process_add_on_4"/></h1>
 		<c:message value="msg_helpround,round_process_add_on_4_0_0"/>

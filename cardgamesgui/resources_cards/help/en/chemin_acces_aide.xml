@@ -42,21 +42,6 @@
 				<aide_generale position="0" texte="General help"/>
 			</aide>
 		</menus>
-		<!--<boites_dialogue position="1" texte="Dialog boxes">
-			<sauvegarder position="0" texte="Save a game"/>
-			<charger position="1" texte="Load a game"/>
-			<editer position="2" texte="Edit"/>
-			<belote position="3" texte="Belote"/>
-			<tarot position="4" texte="Tarot"/>
-			<joueurs position="5" texte="Players"/>
-			<lancement position="6" texte="Launching option"/>
-			<temporisation position="7" texte="Timing for playing"/>
-			<interaction position="8" texte="Interacting with cards"/>
-			<auteur position="9" texte="Author"/>
-			<logiciel position="10" texte="Software"/>
-			<conseil position="11" texte="Advise"/>
-			<aide_au_jeu position="12" texte="Help for deal"/>
-		</boites_dialogue>-->
 		<fin_partie position="1" texte="End of deal"/>
 	</logiciel>
 	<jeux position="1" texte="Games">

@@ -533,8 +533,8 @@ public class HtmlRequestTest {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
-        String html_ = "<html bean=\"bean_one\"><body>HEAD<a href=\"\"/><!--COMMENT--><c:import page=\"page1.html\"/></body></html>";
-        String htmlTwo_ = "<html bean=\"bean_two\"><body> NEXT<!--COMMENT--><form action=\"DELETE\" command=\"go\">{typedInt}</form><form action=\"go\">{typedInt}</form></body></html>";
+        String html_ = "<html bean=\"bean_one\"><body>HEAD<a href=\"\"/><c:import page=\"page1.html\"/></body></html>";
+        String htmlTwo_ = "<html bean=\"bean_two\"><body> NEXT<form action=\"DELETE\" command=\"go\">{typedInt}</form><form action=\"go\">{typedInt}</form></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
         files_.put("page1.html", html_);
@@ -567,8 +567,8 @@ public class HtmlRequestTest {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
-        String html_ = "<html bean=\"bean_one\"><body>HEAD<a href=\"\"/><!--COMMENT--><c:import page=\"page1.html\"/></body></html>";
-        String htmlTwo_ = "<html bean=\"bean_two\"><body> NEXT<!--COMMENT--><form action=\"DELETE\" command=\"go\">{typedInt}</form><form action=\"go\">{typedInt}</form></body></html>";
+        String html_ = "<html bean=\"bean_one\"><body>HEAD<a href=\"\"/><c:import page=\"page1.html\"/></body></html>";
+        String htmlTwo_ = "<html bean=\"bean_two\"><body> NEXT<form action=\"DELETE\" command=\"go\">{typedInt}</form><form action=\"go\">{typedInt}</form></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
         files_.put("page1.html", html_);

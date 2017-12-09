@@ -4180,7 +4180,7 @@ public class FormatHtmlTest {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
-        String html_ = "<html xmlns:c='javahtml'><body><c:if condition=\"composite.strings.isEmpty()\">EMPTY</c:if><!--COMMENT--><c:elseif condition=\"hasMoreThanOne()\">NOT EMPTY</c:elseif></body></html>";
+        String html_ = "<html xmlns:c='javahtml'><body><c:if condition=\"composite.strings.isEmpty()\">EMPTY</c:if><c:elseif condition=\"hasMoreThanOne()\">NOT EMPTY</c:elseif></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
         BeanOne bean_ = new BeanOne();
@@ -5071,7 +5071,7 @@ public class FormatHtmlTest {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &amp;lt;{0}&amp;gt;\nfour=''asp''";
-        String html_ = "<html c:bean=\"bean_two\" xmlns:c='javahtml' xmlns='javahtml'><body><a class=\"a_class\">EXAMPLE</a><!-- COMMENT --></body></html>";
+        String html_ = "<html c:bean=\"bean_two\" xmlns:c='javahtml' xmlns='javahtml'><body><a class=\"a_class\">EXAMPLE</a></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
         BeanOne bean_ = new BeanOne();
@@ -5110,7 +5110,7 @@ public class FormatHtmlTest {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &amp;lt;{0}&amp;gt;\nfour=''asp''\ntitle=My page title";
-        String html_ = "<html c:bean=\"bean_two\" xmlns:c='javahtml' xmlns='javahtml'><head><title><c:message value=\"msg_example,title\"/></title></head><body><a class=\"a_class\">EXAMPLE</a><!-- COMMENT --></body></html>";
+        String html_ = "<html c:bean=\"bean_two\" xmlns:c='javahtml' xmlns='javahtml'><head><title><c:message value=\"msg_example,title\"/></title></head><body><a class=\"a_class\">EXAMPLE</a></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
         BeanOne bean_ = new BeanOne();
@@ -5148,7 +5148,7 @@ public class FormatHtmlTest {
         String locale_ = "LOCALE";
         String folder_ = "messages";
         String relative_ = "sample/file";
-        String content_ = "one=Description one\ntwo=Description <a href=\"\"><span>two</span></a><!-- comment -->\nthree=desc &lt;{0}&gt;\nfour=''asp''";
+        String content_ = "one=Description one\ntwo=Description <a href=\"\"><span>two</span></a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
         String html_ = "<html c:bean=\"bean_two\" xmlns:c='javahtml' xmlns='javahtml'><body><c:message value=\"msg_example,two\"/></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
@@ -5387,7 +5387,7 @@ public class FormatHtmlTest {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &amp;lt;{0}&amp;gt;\nfour=''asp''";
-        String html_ = "<html c:bean=\"bean_two\" xmlns:c='javahtml' xmlns='javahtml'><body><a class=\"a_class\">EXAMPLE</a><!-- COMMENT --></body></html>";
+        String html_ = "<html c:bean=\"bean_two\" xmlns:c='javahtml' xmlns='javahtml'><body><a class=\"a_class\">EXAMPLE</a></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
         BeanOne bean_ = new BeanOne();
@@ -5426,7 +5426,7 @@ public class FormatHtmlTest {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &amp;lt;{0}&amp;gt;\nfour=''asp''\ntitle=My page title";
-        String html_ = "<html c:bean=\"bean_two\" xmlns:c='javahtml' xmlns='javahtml'><head><title><c:message value=\"msg_example,title\" escapedamp='true'/></title></head><body><a class=\"a_class\">EXAMPLE</a><!-- COMMENT --></body></html>";
+        String html_ = "<html c:bean=\"bean_two\" xmlns:c='javahtml' xmlns='javahtml'><head><title><c:message value=\"msg_example,title\" escapedamp='true'/></title></head><body><a class=\"a_class\">EXAMPLE</a></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
         BeanOne bean_ = new BeanOne();
@@ -5464,7 +5464,7 @@ public class FormatHtmlTest {
         String locale_ = "LOCALE";
         String folder_ = "messages";
         String relative_ = "sample/file";
-        String content_ = "one=Description one\ntwo=Description <a href=\"\"><span>two</span></a><!-- comment -->\nthree=desc &lt;{0}&gt;\nfour=''asp''";
+        String content_ = "one=Description one\ntwo=Description <a href=\"\"><span>two</span></a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
         String html_ = "<html c:bean=\"bean_two\" xmlns:c='javahtml' xmlns='javahtml'><body><c:message value=\"msg_example,two\" escapedamp='true'/></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
@@ -7975,8 +7975,8 @@ public class FormatHtmlTest {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
-        String html_ = "<html c:bean=\"bean_one\" xmlns:c='javahtml' xmlns='javahtml'><body>HEAD<a href=\"\"/><!--COMMENT--><c:import page=\"page2.html\"><a/><c:package name=\""+PKG+"\"><a/><c:class name=\"BeanTwo\"><a/><c:field name=\"typedInt\" value=\"4i\"><a/></c:field></c:class></c:package></c:import></body></html>";
-        String htmlTwo_ = "<html c:bean=\"bean_two\" xmlns:c='javahtml' xmlns='javahtml'><body> NEXT<!--COMMENT--><a href=\"DELETE\" c:command=\"go\">{typedInt}</a></body></html>";
+        String html_ = "<html c:bean=\"bean_one\" xmlns:c='javahtml' xmlns='javahtml'><body>HEAD<a href=\"\"/><c:import page=\"page2.html\"><a/><c:package name=\""+PKG+"\"><a/><c:class name=\"BeanTwo\"><a/><c:field name=\"typedInt\" value=\"4i\"><a/></c:field></c:class></c:package></c:import></body></html>";
+        String htmlTwo_ = "<html c:bean=\"bean_two\" xmlns:c='javahtml' xmlns='javahtml'><body> NEXT<a href=\"DELETE\" c:command=\"go\">{typedInt}</a></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
         files_.put("page1.html", html_);
@@ -8013,8 +8013,8 @@ public class FormatHtmlTest {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
-        String html_ = "<html c:bean=\"bean_one\" xmlns:c='javahtml' xmlns='javahtml'><body>HEAD<a href=\"\"/><!--COMMENT--><c:import page=\"page2.html\"><a/><c:package name=\""+PKG+"\"><a/><c:class name=\"BeanTwo\"><a/><c:field name=\"typedInt\" value=\"4\"><a/></c:field></c:class></c:package></c:import></body></html>";
-        String htmlTwo_ = "<html c:bean=\"bean_two\" xmlns:c='javahtml' xmlns='javahtml'><body> NEXT<!--COMMENT--><form action=\"DELETE\" c:command=\"go\">{typedInt}</form><form action=\"go\">{typedInt}</form></body></html>";
+        String html_ = "<html c:bean=\"bean_one\" xmlns:c='javahtml' xmlns='javahtml'><body>HEAD<a href=\"\"/><c:import page=\"page2.html\"><a/><c:package name=\""+PKG+"\"><a/><c:class name=\"BeanTwo\"><a/><c:field name=\"typedInt\" value=\"4\"><a/></c:field></c:class></c:package></c:import></body></html>";
+        String htmlTwo_ = "<html c:bean=\"bean_two\" xmlns:c='javahtml' xmlns='javahtml'><body> NEXT<form action=\"DELETE\" c:command=\"go\">{typedInt}</form><form action=\"go\">{typedInt}</form></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
         files_.put("page1.html", html_);
@@ -8053,8 +8053,8 @@ public class FormatHtmlTest {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
-        String html_ = "<html c:bean=\"bean_one\" xmlns:c='javahtml' xmlns='javahtml'><body>HEAD<a href=\"\"/><!--COMMENT--><c:import page=\"page1.html\"/></body></html>";
-        String htmlTwo_ = "<html c:bean=\"bean_two\" xmlns:c='javahtml' xmlns='javahtml'><body> NEXT<!--COMMENT--><form action=\"DELETE\" c:command=\"go\">{typedInt}</form><form action=\"go\">{typedInt}</form></body></html>";
+        String html_ = "<html c:bean=\"bean_one\" xmlns:c='javahtml' xmlns='javahtml'><body>HEAD<a href=\"\"/><c:import page=\"page1.html\"/></body></html>";
+        String htmlTwo_ = "<html c:bean=\"bean_two\" xmlns:c='javahtml' xmlns='javahtml'><body> NEXT<form action=\"DELETE\" c:command=\"go\">{typedInt}</form><form action=\"go\">{typedInt}</form></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
         files_.put("page1.html", html_);
@@ -8334,8 +8334,8 @@ public class FormatHtmlTest {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
-        String html_ = "<html c:bean=\"bean_one\" xmlns:c='javahtml' xmlns='javahtml'><body>HEAD<a href=\"\"/><!--COMMENT--><c:import page=\"page2.html\"><a/><c:package name=\""+PKG+"\"><a/><c:class name=\"BeanTwo\"><a/><c:field method=\"setTypedInt\" name=\"typedInt\" value=\"4i\" className='"+PrimitiveTypeUtil.PRIM_INT+"'><a/></c:field></c:class></c:package></c:import></body></html>";
-        String htmlTwo_ = "<html c:bean=\"bean_two\" xmlns:c='javahtml' xmlns='javahtml'><body> NEXT<!--COMMENT--><a href=\"DELETE\" c:command=\"go\">{typedInt}</a></body></html>";
+        String html_ = "<html c:bean=\"bean_one\" xmlns:c='javahtml' xmlns='javahtml'><body>HEAD<a href=\"\"/><c:import page=\"page2.html\"><a/><c:package name=\""+PKG+"\"><a/><c:class name=\"BeanTwo\"><a/><c:field method=\"setTypedInt\" name=\"typedInt\" value=\"4i\" className='"+PrimitiveTypeUtil.PRIM_INT+"'><a/></c:field></c:class></c:package></c:import></body></html>";
+        String htmlTwo_ = "<html c:bean=\"bean_two\" xmlns:c='javahtml' xmlns='javahtml'><body> NEXT<a href=\"DELETE\" c:command=\"go\">{typedInt}</a></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
         files_.put("page1.html", html_);
@@ -8371,8 +8371,8 @@ public class FormatHtmlTest {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
-        String html_ = "<html c:bean=\"bean_one\" xmlns:c='javahtml' xmlns='javahtml'><body>HEAD<a href=\"\"/><!--COMMENT--><c:import page=\"page2.html\"><a/><c:package name=\""+PKG+"\"><a/><c:class name=\"BeanTwo\"><a/><c:field method=\"setTypedInt\" name=\"typedInt\" value=\"4i\" className='"+PrimitiveTypeUtil.PRIM_INT+"'><a/></c:field></c:class></c:package></c:import></body></html>";
-        String htmlTwo_ = "<html c:bean=\"bean_two\" xmlns:c='javahtml' xmlns='javahtml'><body><emb><ed>T</ed><ed>T</ed></emb> NEXT<!--COMMENT--><a href=\"DELETE\" c:command=\"go\">{typedInt}</a></body></html>";
+        String html_ = "<html c:bean=\"bean_one\" xmlns:c='javahtml' xmlns='javahtml'><body>HEAD<a href=\"\"/><c:import page=\"page2.html\"><a/><c:package name=\""+PKG+"\"><a/><c:class name=\"BeanTwo\"><a/><c:field method=\"setTypedInt\" name=\"typedInt\" value=\"4i\" className='"+PrimitiveTypeUtil.PRIM_INT+"'><a/></c:field></c:class></c:package></c:import></body></html>";
+        String htmlTwo_ = "<html c:bean=\"bean_two\" xmlns:c='javahtml' xmlns='javahtml'><body><emb><ed>T</ed><ed>T</ed></emb> NEXT<a href=\"DELETE\" c:command=\"go\">{typedInt}</a></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
         files_.put("page1.html", html_);
@@ -9205,8 +9205,8 @@ public class FormatHtmlTest {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
-        String html_ = "<html c:bean=\"bean_one\" xmlns:c='javahtml' xmlns='javahtml'><body>HEAD<a href=\"\"/><!--COMMENT--><c:import page=\"page2.html\"><a/><c:package name=\""+PKG+"\"><a/><c:class name=\"BeanTwo\"><a/><c:field method=\"setTypedInt\" name=\"typedInt\" value=\"4b\" className='"+PrimitiveTypeUtil.PRIM_INT+"'><a/></c:field></c:class></c:package></c:import></body></html>";
-        String htmlTwo_ = "<html c:bean=\"bean_two\" xmlns:c='javahtml' xmlns='javahtml'><body> NEXT<!--COMMENT--><a href=\"DELETE\" c:command=\"go\">{typedInt}</a></body></html>";
+        String html_ = "<html c:bean=\"bean_one\" xmlns:c='javahtml' xmlns='javahtml'><body>HEAD<a href=\"\"/><c:import page=\"page2.html\"><a/><c:package name=\""+PKG+"\"><a/><c:class name=\"BeanTwo\"><a/><c:field method=\"setTypedInt\" name=\"typedInt\" value=\"4b\" className='"+PrimitiveTypeUtil.PRIM_INT+"'><a/></c:field></c:class></c:package></c:import></body></html>";
+        String htmlTwo_ = "<html c:bean=\"bean_two\" xmlns:c='javahtml' xmlns='javahtml'><body> NEXT<a href=\"DELETE\" c:command=\"go\">{typedInt}</a></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
         files_.put("page1.html", html_);

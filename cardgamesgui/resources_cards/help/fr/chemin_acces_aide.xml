@@ -42,21 +42,6 @@
 				<aide_generale position="0" texte="Aide g&eacute;n&eacute;rale"/>
 			</aide>
 		</menus>
-		<!--<boites_dialogue position="1" texte="Bo&icirc;tes de dialogue">
-			<sauvegarder position="0" texte="Sauvegarder une partie"/>
-			<charger position="1" texte="Charger une partie"/>
-			<editer position="2" texte="Editer"/>
-			<belote position="3" texte="Belote"/>
-			<tarot position="4" texte="Tarot"/>
-			<joueurs position="5" texte="Joueurs"/>
-			<lancement position="6" texte="Option de lancement"/>
-			<temporisation position="7" texte="Temporisation du jeu"/>
-			<interaction position="8" texte="Interaction avec les cartes"/>
-			<auteur position="9" texte="Auteur"/>
-			<logiciel position="10" texte="Logiciel"/>
-			<conseil position="11" texte="Conseil"/>
-			<aide_au_jeu position="12" texte="Aide au jeu"/>
-		</boites_dialogue>-->
 		<fin_partie position="1" texte="Fin de partie"/>
 	</logiciel>
 	<jeux position="1" texte="Jeux">

@@ -98,7 +98,7 @@ public class ExtractObjectTest {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two";
-        String html_ = "<html xmlns:c='javahtml'><body><c:message value=\"$message\"><!-- Comment --><param value=\"$composite.integer\"/></c:message></body></html>";
+        String html_ = "<html xmlns:c='javahtml'><body><c:message value=\"$message\"><param value=\"$composite.integer\"/></c:message></body></html>";
         Document doc_ = XmlParser.parseSaxHtml(html_);
         StringMap<String> files_ = new StringMap<String>();
         files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
@@ -190,7 +190,7 @@ public class ExtractObjectTest {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc {0}";
-        String html_ = "<html xmlns:c='javahtml'><body><c:message value=\"msg_example,three\"><!-- comment --><param value=\"$composite.integer\"/></c:message></body></html>";
+        String html_ = "<html xmlns:c='javahtml'><body><c:message value=\"msg_example,three\"><param value=\"$composite.integer\"/></c:message></body></html>";
         Document doc_ = XmlParser.parseSaxHtml(html_);
         StringMap<String> files_ = new StringMap<String>();
         files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
@@ -221,7 +221,7 @@ public class ExtractObjectTest {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
-        String html_ = "<html xmlns:c='javahtml'><body><c:message value=\"sample/file,three\"><!-- comment --><param value=\"$composite.integer\"/></c:message></body></html>";
+        String html_ = "<html xmlns:c='javahtml'><body><c:message value=\"sample/file,three\"><param value=\"$composite.integer\"/></c:message></body></html>";
         Document doc_ = XmlParser.parseSaxHtml(html_);
         StringMap<String> files_ = new StringMap<String>();
         files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
@@ -252,7 +252,7 @@ public class ExtractObjectTest {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc \"{0}\"";
-        String html_ = "<html xmlns:c='javahtml'><body><c:message value=\"sample/file,three\"><!-- comment --><param value=\"$composite.integer\"/></c:message></body></html>";
+        String html_ = "<html xmlns:c='javahtml'><body><c:message value=\"sample/file,three\"><param value=\"$composite.integer\"/></c:message></body></html>";
         Document doc_ = XmlParser.parseSaxHtml(html_);
         StringMap<String> files_ = new StringMap<String>();
         files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
@@ -283,7 +283,7 @@ public class ExtractObjectTest {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
-        String html_ = "<html xmlns:c='javahtml'><body><c:message value=\"sample/file,three\"><!-- comment --><param value=\"&quot;\" quoted=\"quoted\"/></c:message></body></html>";
+        String html_ = "<html xmlns:c='javahtml'><body><c:message value=\"sample/file,three\"><param value=\"&quot;\" quoted=\"quoted\"/></c:message></body></html>";
         Document doc_ = XmlParser.parseSaxHtml(html_);
         StringMap<String> files_ = new StringMap<String>();
         files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
@@ -375,7 +375,7 @@ public class ExtractObjectTest {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two";
-        String html_ = "<html xmlns:c='javahtml'><body><c:message value=\"$message\" escapedamp='true'><!-- Comment --><param value=\"$composite.integer\"/></c:message></body></html>";
+        String html_ = "<html xmlns:c='javahtml'><body><c:message value=\"$message\" escapedamp='true'><param value=\"$composite.integer\"/></c:message></body></html>";
         Document doc_ = XmlParser.parseSaxHtml(html_);
         StringMap<String> files_ = new StringMap<String>();
         files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
@@ -467,7 +467,7 @@ public class ExtractObjectTest {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc {0}";
-        String html_ = "<html xmlns:c='javahtml'><body><c:message value=\"msg_example,three\" escapedamp='true'><!-- comment --><param value=\"$composite.integer\"/></c:message></body></html>";
+        String html_ = "<html xmlns:c='javahtml'><body><c:message value=\"msg_example,three\" escapedamp='true'><param value=\"$composite.integer\"/></c:message></body></html>";
         Document doc_ = XmlParser.parseSaxHtml(html_);
         StringMap<String> files_ = new StringMap<String>();
         files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
@@ -498,7 +498,7 @@ public class ExtractObjectTest {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
-        String html_ = "<html xmlns:c='javahtml'><body><c:message value=\"sample/file,three\" escapedamp='true'><!-- comment --><param value=\"$composite.integer\"/></c:message></body></html>";
+        String html_ = "<html xmlns:c='javahtml'><body><c:message value=\"sample/file,three\" escapedamp='true'><param value=\"$composite.integer\"/></c:message></body></html>";
         Document doc_ = XmlParser.parseSaxHtml(html_);
         StringMap<String> files_ = new StringMap<String>();
         files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
@@ -529,7 +529,7 @@ public class ExtractObjectTest {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc \"{0}\"";
-        String html_ = "<html xmlns:c='javahtml'><body><c:message value=\"sample/file,three\" escapedamp='true'><!-- comment --><param value=\"$composite.integer\"/></c:message></body></html>";
+        String html_ = "<html xmlns:c='javahtml'><body><c:message value=\"sample/file,three\" escapedamp='true'><param value=\"$composite.integer\"/></c:message></body></html>";
         Document doc_ = XmlParser.parseSaxHtml(html_);
         StringMap<String> files_ = new StringMap<String>();
         files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
@@ -560,7 +560,7 @@ public class ExtractObjectTest {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
-        String html_ = "<html xmlns:c='javahtml'><body><c:message value=\"sample/file,three\" escapedamp='true'><!-- comment --><param value=\"&quot;\" quoted=\"quoted\"/></c:message></body></html>";
+        String html_ = "<html xmlns:c='javahtml'><body><c:message value=\"sample/file,three\" escapedamp='true'><param value=\"&quot;\" quoted=\"quoted\"/></c:message></body></html>";
         Document doc_ = XmlParser.parseSaxHtml(html_);
         StringMap<String> files_ = new StringMap<String>();
         files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
@@ -592,7 +592,7 @@ public class ExtractObjectTest {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc \"{0}\"";
-        String html_ = "<html xmlns:c='javahtml'><body><c:message value=\"sample/file,three\" escapedamp='true'><!-- comment --><param value=\"$composite.string\" escaped='escaped'/></c:message></body></html>";
+        String html_ = "<html xmlns:c='javahtml'><body><c:message value=\"sample/file,three\" escapedamp='true'><param value=\"$composite.string\" escaped='escaped'/></c:message></body></html>";
         Document doc_ = XmlParser.parseSaxHtml(html_);
         StringMap<String> files_ = new StringMap<String>();
         files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
@@ -623,7 +623,7 @@ public class ExtractObjectTest {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
-        String html_ = "<html xmlns:c='javahtml'><body><c:message value=\"sample/file,three\" escapedamp='true'><!-- comment --><param value=\"{escaped}\" quoted=\"quoted\" escaped=''/></c:message></body></html>";
+        String html_ = "<html xmlns:c='javahtml'><body><c:message value=\"sample/file,three\" escapedamp='true'><param value=\"{escaped}\" quoted=\"quoted\" escaped=''/></c:message></body></html>";
         Document doc_ = XmlParser.parseSaxHtml(html_);
         StringMap<String> files_ = new StringMap<String>();
         files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);

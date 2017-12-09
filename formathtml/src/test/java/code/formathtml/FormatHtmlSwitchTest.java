@@ -1017,7 +1017,7 @@ public class FormatHtmlSwitchTest {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
-        String html_ = "<html xmlns:c='javahtml'><body><c:for var='v' from='0' to='5' step='1'><c:switch expression='v;'><!--COMMENT--><c:case expression='0'>ZERO_{v;}</c:case><!--COMMENT--><c:case expression='1'>ONE_{v;}<c:break/></c:case><!--COMMENT--><c:case expression='2'>TWO_{v;}</c:case><!--COMMENT--><c:case expression='3'>THREE_{v;}<c:break/></c:case><!--COMMENT--><c:default>LIMIT{v;}</c:default><!--COMMENT--></c:switch></c:for>NEXT</body></html>";
+        String html_ = "<html xmlns:c='javahtml'><body><c:for var='v' from='0' to='5' step='1'><c:switch expression='v;'><c:case expression='0'>ZERO_{v;}</c:case><c:case expression='1'>ONE_{v;}<c:break/></c:case><c:case expression='2'>TWO_{v;}</c:case><c:case expression='3'>THREE_{v;}<c:break/></c:case><c:default>LIMIT{v;}</c:default></c:switch></c:for>NEXT</body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
         BeanOne bean_ = new BeanOne();

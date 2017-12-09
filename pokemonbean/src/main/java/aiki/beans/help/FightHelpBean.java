@@ -484,8 +484,8 @@ public class FightHelpBean extends CommonBean {
     @Accessible
     private String rateFormulaCh;
 
-    //@Accessible
-    //private StringList itemsTypesDef;
+    @Accessible
+    private StringList itemsTypesDef;
 
     @Accessible
     private NatTreeMap<Long,Rate> boosts = new NatTreeMap<Long,Rate>();
@@ -579,6 +579,7 @@ public class FightHelpBean extends CommonBean {
         StringMap<String> translatedStatus_ = data_.getTranslatedStatus().getVal(getLanguage());
         StringMap<String> translatedMoves_ = data_.getTranslatedMoves().getVal(getLanguage());
         StringMap<String> translatedTypes_ = data_.getTranslatedTypes().getVal(getLanguage());
+        StringMap<String> translatedItems_ = data_.getTranslatedItems().getVal(getLanguage());
         initSendingMembers();
         privatingMoves = new StringList();
         for (String m: data_.getMoves().getKeys()) {
@@ -690,19 +691,19 @@ public class FightHelpBean extends CommonBean {
         initAccuracyEvasinessElements();
         initStatisticsCalculationElements();
         movesTypesDefItem = new StringList();
-        //itemsTypesDef = new StringList();
+        itemsTypesDef = new StringList();
         for (String m: data_.getMoves().getKeys()) {
             MoveData move_ = data_.getMove(m);
             if (move_.getTypesByOwnedItem().isEmpty()) {
                 continue;
             }
-            //itemsTypesDef.addAll(move_.getTypesByOwnedItem().getKeys());
+            itemsTypesDef.addAllElts(move_.getTypesByOwnedItem().getKeys());
             movesTypesDefItem.add(m);
         }
         movesTypesDefItem.sortElts(new ComparatorTrStrings(translatedMoves_));
-//        itemsTypesDef.removeDuplicates();
-//        itemsTypesDef.removedObj(DataBase.EMPTY_STRING);
-//        itemsTypesDef.sort(new ComparatorTrString<>(translatedItems_));
+        itemsTypesDef.removeDuplicates();
+        itemsTypesDef.removeObj(DataBase.EMPTY_STRING);
+        itemsTypesDef.sortElts(new ComparatorTrStrings(translatedItems_));
         movesTypesDefWeather = new StringList();
         for (String m: data_.getMoves().getKeys()) {
             MoveData move_ = data_.getMove(m);
@@ -5262,6 +5263,19 @@ public class FightHelpBean extends CommonBean {
     private String clickMovesTypesDefItem(Long _index) {
         getForms().put(MOVE, movesTypesDefItem.get(_index.intValue()));
         return MOVE;
+    }
+
+    @Accessible
+    private String getTrItemsTypesDef(Long _index) {
+        DataBase data_ = (DataBase) getDataBase();
+        StringMap<String> translatedItems_ = data_.getTranslatedItems().getVal(getLanguage());
+        return translatedItems_.getVal(itemsTypesDef.get(_index.intValue()));
+    }
+
+    @Accessible
+    private String clickItemsTypesDef(Long _index) {
+        getForms().put(ITEM, itemsTypesDef.get(_index.intValue()));
+        return ITEM;
     }
 
     @Accessible
