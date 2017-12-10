@@ -1,5 +1,8 @@
 /bin/
 /target/
+/.classpath
+/.gitignore
+/.project
 /tmp/
 /avoid_white.png
 /avoid_white_bk2.png
