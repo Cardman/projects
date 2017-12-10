@@ -1360,7 +1360,10 @@ public final class DocumentBuilder {
                 }
                 NamedNodeMap expAttr_ = (NamedNodeMap) infos_.get(indexInfo_+1);
                 if (expAttr_.isEmpty()) {
-                    Object possibleLeaf_ = infos_.get(indexInfo_ + 2);
+                    Object possibleLeaf_ = null;
+                    if (indexInfo_ + 2 < infos_.size()) {
+                        possibleLeaf_ = infos_.get(indexInfo_ + 2);
+                    }
                     if (possibleLeaf_ instanceof String && ((String)possibleLeaf_).isEmpty()) {
                         if (_found.charAt(endIndex_) != SLASH) {
                             break;
@@ -1371,6 +1374,7 @@ public final class DocumentBuilder {
                         if (_found.charAt(endIndex_ + 1) != GT_CHAR) {
                             break;
                         }
+                        endIndex_++;
                         if (deep_ == 0) {
                             break;
                         }
@@ -1395,11 +1399,11 @@ public final class DocumentBuilder {
                                 break;
                             }
                             i_++;
-                            //_expected.charAt(i_) == '<'
+                            //_found.charAt(i_) == '<'
                             i_++;
-                            //_expected.charAt(i_) == '/'
+                            //_found.charAt(i_) == '/'
                             i_++;
-                            //_expected.charAt(i_) is the first character of end tag
+                            //_found.charAt(i_) is the first character of end tag
                             state_ = ReadingState.FOOTER;
                             continue;
                         }
@@ -1424,7 +1428,7 @@ public final class DocumentBuilder {
                 attrs_ = new NamedNodeMap();
                 int nextPrintable_ = endIndex_;
                 while (nextPrintable_ < len_) {
-                    char next_ = _expected.charAt(nextPrintable_);
+                    char next_ = _found.charAt(nextPrintable_);
                     if (!Character.isWhitespace(next_)) {
                         break;
                     }
@@ -1437,20 +1441,24 @@ public final class DocumentBuilder {
                 i_ = nextPrintable_;
                 boolean ok_ = false;
                 while (i_ < len_) {
-                    curChar_ =_expected.charAt(i_);
-                    if (curChar_ == LT_CHAR) {
-                        break;
-                    }
+                    curChar_ =_found.charAt(i_);
                     if (curChar_ == ENCODED) {
-                        break;
-                    }
-                    if (curChar_ == GT_CHAR) {
                         break;
                     }
                     if (curChar_ == SLASH) {
                         break;
                     }
-                    if (!Character.isWhitespace(curChar_) && curChar_ != EQUALS) {
+                    if (curChar_ == LT_CHAR) {
+                        break;
+                    }
+                    if (curChar_ == GT_CHAR) {
+                        break;
+                    }
+                    while (i_ < len_) {
+                        curChar_ = _found.charAt(i_);
+                        if (Character.isWhitespace(curChar_) || curChar_ == EQUALS) {
+                            break;
+                        }
                         attributeName_.append(curChar_);
                         i_++;
                         continue;
@@ -1459,7 +1467,7 @@ public final class DocumentBuilder {
                         //Character.isWhitespace(curChar_)
                         nextPrintable_ = i_;
                         while (nextPrintable_ < len_) {
-                            char next_ = _expected.charAt(nextPrintable_);
+                            char next_ = _found.charAt(nextPrintable_);
                             if (!Character.isWhitespace(next_)) {
                                 break;
                             }
@@ -1468,7 +1476,7 @@ public final class DocumentBuilder {
                         if (nextPrintable_ == len_) {
                             break;
                         }
-                        if (_expected.charAt(nextPrintable_) != EQUALS) {
+                        if (_found.charAt(nextPrintable_) != EQUALS) {
                             break;
                         }
                         i_ = nextPrintable_;
@@ -1476,14 +1484,15 @@ public final class DocumentBuilder {
                     if (i_ + 1 >= len_) {
                         break;
                     }
-                    char nextEq_ = _expected.charAt(i_ + 1);
+                    state_ = ReadingState.ATTR_VALUE;
+                    char nextEq_ = _found.charAt(i_ + 1);
                     if (nextEq_ != APOS_CHAR && nextEq_ != QUOT_CHAR) {
                         if (!Character.isWhitespace(nextEq_)) {
                             break;
                         }
                         nextPrintable_ = i_ + 1;
                         while (nextPrintable_ < len_) {
-                            char next_ = _expected.charAt(nextPrintable_);
+                            char next_ = _found.charAt(nextPrintable_);
                             if (!Character.isWhitespace(next_)) {
                                 break;
                             }
@@ -1492,7 +1501,7 @@ public final class DocumentBuilder {
                         if (nextPrintable_ == len_) {
                             break;
                         }
-                        char nextCharDel_ = _expected.charAt(nextPrintable_);
+                        char nextCharDel_ = _found.charAt(nextPrintable_);
                         if (nextCharDel_ != APOS_CHAR && nextCharDel_ != QUOT_CHAR) {
                             break;
                         }
@@ -1511,7 +1520,7 @@ public final class DocumentBuilder {
                     if (!okName_) {
                         break;
                     }
-                    char del_ = _expected.charAt(i_);
+                    char del_ = _found.charAt(i_);
                     delimiterAttr_ = del_;
                     i_++;
                     curChar_ = _found.charAt(i_);
@@ -1521,10 +1530,13 @@ public final class DocumentBuilder {
                     if (curChar_ == GT_CHAR) {
                         break;
                     }
-                    if (curChar_ != delimiterAttr_) {
+                    while (i_ < len_) {
+                        curChar_ = _found.charAt(i_);
+                        if (curChar_ == delimiterAttr_) {
+                            break;
+                        }
                         attributeValue_.append(curChar_);
                         i_++;
-                        continue;
                     }
                     Attr attr_ = new Attr();
                     attr_.setName(attributeName_.toString());
@@ -1534,7 +1546,7 @@ public final class DocumentBuilder {
                     attributeValue_.delete(0, attributeValue_.length());
                     nextPrintable_ = i_ + 1;
                     while (nextPrintable_ < len_) {
-                        char next_ = _expected.charAt(nextPrintable_);
+                        char next_ = _found.charAt(nextPrintable_);
                         if (!Character.isWhitespace(next_)) {
                             break;
                         }
@@ -1543,16 +1555,18 @@ public final class DocumentBuilder {
                     if (nextPrintable_ == len_) {
                         break;
                     }
-                    char nextPr_ = _expected.charAt(nextPrintable_);
+                    state_ = ReadingState.ATTR_NAME;
+                    char nextPr_ = _found.charAt(nextPrintable_);
                     boolean endHead_ = false;
                     if (nextPr_ == SLASH) {
                         i_ = nextPrintable_ + 1;
                         if (i_ >= len_) {
                             break;
                         }
-                        if (_expected.charAt(i_) != GT_CHAR) {
+                        if (_found.charAt(i_) != GT_CHAR) {
                             break;
                         }
+                        i_ = nextPrintable_;
                         endHead_ = true;
                     }
                     if (nextPr_ == GT_CHAR) {
@@ -1589,7 +1603,10 @@ public final class DocumentBuilder {
                         }
                     }
                 }
-                Object possibleLeaf_ = infos_.get(indexInfo_ + 2);
+                Object possibleLeaf_ = null;
+                if (indexInfo_ + 2 < infos_.size()) {
+                    possibleLeaf_ = infos_.get(indexInfo_ + 2);
+                }
                 if (possibleLeaf_ instanceof String && ((String)possibleLeaf_).isEmpty()) {
                     if (_found.charAt(i_) != SLASH) {
                         break;
@@ -1597,7 +1614,8 @@ public final class DocumentBuilder {
                     if (i_ + 1 >= len_) {
                         break;
                     }
-                    if (_found.charAt(i_ + 1) != GT_CHAR) {
+                    i_++;
+                    if (_found.charAt(i_) != GT_CHAR) {
                         break;
                     }
                     if (deep_ == 0) {
@@ -1623,11 +1641,11 @@ public final class DocumentBuilder {
                             break;
                         }
                         i_++;
-                        //_expected.charAt(i_) == '<'
+                        //_found.charAt(i_) == '<'
                         i_++;
-                        //_expected.charAt(i_) == '/'
+                        //_found.charAt(i_) == '/'
                         i_++;
-                        //_expected.charAt(i_) is the first character of end tag
+                        //_found.charAt(i_) is the first character of end tag
                         state_ = ReadingState.FOOTER;
                         continue;
                     }
@@ -1653,18 +1671,20 @@ public final class DocumentBuilder {
                     break;
                 }
                 String text_ = DocumentBuilder.transformSpecialChars(_found.substring(i_, endText_));
+                text_ = StringList.removeStrings(text_, "\r");
                 if (!StringList.quickEq(text_, info_)) {
                     break;
                 }
-                int endIndex_ = i_ + info_.length();
+                int endIndex_ = endText_;
                 if (_found.charAt(endIndex_) != LT_CHAR) {
                     break;
                 }
+                i_ = endIndex_;
                 if (i_ + 1 >= len_) {
                     break;
                 }
                 indexInfo_++;
-                if (_expected.charAt(i_ + 1) == SLASH) {
+                if (_found.charAt(i_ + 1) == SLASH) {
                     if (infos_.get(indexInfo_) != ReadingState.FOOTER) {
                         break;
                     }
@@ -1684,10 +1704,10 @@ public final class DocumentBuilder {
             }
             if (state_ == ReadingState.FOOTER) {
                 String info_ = (String) infos_.get(indexInfo_);
-                if (!_found.substring(i_).startsWith(info_+GT_CHAR)) {
+                if (!_found.substring(i_).startsWith(info_)) {
                     break;
                 }
-                i_ += info_.length();
+                i_ += info_.length() - 1;
                 //end tag
                 indexInfo_++;
                 deep_--;
@@ -1704,11 +1724,11 @@ public final class DocumentBuilder {
                         }
                         indexInfo_++;
                         i_++;
-                        //_expected.charAt(i_) == '<'
+                        //_found.charAt(i_) == '<'
                         i_++;
-                        //_expected.charAt(i_) == '/'
+                        //_found.charAt(i_) == '/'
                         i_++;
-                        //_expected.charAt(i_) is the first character of end tag
+                        //_found.charAt(i_) is the first character of end tag
                         state_ = ReadingState.FOOTER;
                         continue;
                     }

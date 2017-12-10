@@ -90,7 +90,7 @@ public class EditorPane extends JTextPane {
 
     void setupText(String _text, boolean _autoSubmission) {
         tooltips.clear();
-        Document doc_ = XmlParser.parseSaxHtml(_text, false, true);
+        Document doc_ = XmlParser.parseSaxHtml(_text, false);
         NodeList nodes_ = doc_.getElementsByTagName(TAG_A);
         int size_ = nodes_.getLength();
         for (int i = CustList.FIRST_INDEX;i<size_;i++) {

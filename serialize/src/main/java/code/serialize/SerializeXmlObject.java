@@ -496,7 +496,7 @@ public final class SerializeXmlObject {
             if (XmlParser.isIndentXmlWhileWriting()) {
                 XmlParser.setOmitDeclaration(true);
             }
-            XmlParser.getTransformer().transform(source_, new StreamResult(writer_));
+            XmlParser.getTransformerWithoutHeader().transform(source_, new StreamResult(writer_));
             if (XmlParser.isIndentXmlWhileWriting()) {
                 XmlParser.setOmitDeclaration(omit_);
             }

@@ -1393,45 +1393,11 @@ public final class XmlParser {
 
     public static Document parseSaxHtml(String _xml, boolean _acceptNull) {
         String enc_ = encodeHtml(_xml);
-        //replace map of strings
-        //        Map<String,String> map_ = new Map<String,String>();
-        //        map_.put(PREFIXED_BEGIN, UNPREFIXED_BEGIN);
-        //        map_.put(PREFIXED_END, UNPREFIXED_END);
-        //        String res_ = StringList.replace(enc_, map_);
-        //        StringBuilder escapedXml_ = new StringBuilder();
-        //        for (char c: res_.toCharArray()) {
-            //            if (c >= ASCII_128) {
-        //                escapedXml_.append(ENCODED+NUMBERED_CHAR);
-        //                escapedXml_.append((int)c);
-        //                escapedXml_.append(END_ESCAPED);
-        //            } else {
-        //                escapedXml_.append(c);
-        //            }
-        //        }
-        //        String xmlString_ = escapedXml_.toString();
-        return parseSaxNotNull(enc_, _acceptNull);
-        //        enc_ = StringList.replace(enc_, PREFIXED_BEGIN, UNPREFIXED_BEGIN);
-        //        enc_ = StringList.replace(enc_, PREFIXED_END, UNPREFIXED_END);
-        //        return parseSax(enc_);
-    }
-    public static Document parseSaxHtmlRowCol(String _xml, boolean _acceptNull, boolean _prefix) {
-        String enc_ = encodeHtml(_xml);
         if (_acceptNull) {
-            return parseSax(enc_, _prefix);
+            return parseSax(enc_);
         }
-        return parseSaxNotNullRowCol(enc_, _prefix);
+        return parseSaxNotNull(enc_, false);
     }
-
-    public static Document parseSaxHtml(String _xml, boolean _acceptNull, boolean _prefix) {
-        String enc_ = encodeHtml(_xml);
-        if (_acceptNull) {
-            return parseSax(enc_, _prefix);
-        }
-        return parseSaxNotNull(enc_, false, _prefix);
-    }
-    //    public static String transformSpecialChars(String _htmlText) {
-    //        return transformSpecialChars(_htmlText, true);
-    //    }
 
     public static String transformSpecialChars(String _htmlText) {
         return transformSpecialChars(_htmlText, true);
@@ -2446,73 +2412,6 @@ public final class XmlParser {
         }
     }
 
-    public static Document parseSaxNotNullRowCol(String _xml, boolean _namespace) {
-        DocumentBuilder builder_ = newXmlDocumentBuilder(_namespace);
-        ByteArrayInputStream inputSteam_ = null;
-        try {
-            inputSteam_ = new ByteArrayInputStream(_xml.getBytes());
-            return builder_.parse(inputSteam_);
-        } catch (RuntimeException _0) {
-            throw new XmlParseException(_xml);
-        } catch (SAXParseException _0) {
-            RowCol rc_ = new RowCol();
-            rc_.setCol(_0.getColumnNumber());
-            rc_.setRow(_0.getLineNumber());
-            throw new XmlParseException(rc_, _xml);
-        } catch (SAXException _0) {
-            throw new XmlParseException(_xml);
-        } catch (IOException _0) {
-            throw new XmlParseException(_xml);
-        } finally {
-            try {
-                if (inputSteam_ != null) {
-                    inputSteam_.close();
-                }
-            } catch (IOException _0) {
-                _0.printStackTrace();
-            }
-        }
-    }
-
-
-    public static Document parseSaxNotNull(String _xml, boolean _acceptNull, boolean _namespace) {
-        if (_acceptNull) {
-            return parseSax(_xml, _namespace);
-        }
-        //        DocumentBuilderFactory factory_ = DocumentBuilderFactory.newInstance();
-        //factory_.setNamespaceAware(true);
-        DocumentBuilder builder_ = newXmlDocumentBuilder(_namespace);
-        ByteArrayInputStream inputSteam_ = null;
-        try {
-            inputSteam_ = new ByteArrayInputStream(_xml.getBytes());
-            //            builder_ = factory_.newDocumentBuilder();
-            return builder_.parse(inputSteam_);
-        } catch (RuntimeException _0) {
-            throw new XmlParseException(_xml);
-            //        } catch (ParserConfigurationException _0) {
-            //            return null;
-        } catch (SAXException _0) {
-            throw new XmlParseException(_xml);
-        } catch (IOException _0) {
-            throw new XmlParseException(_xml);
-        } finally {
-            try {
-                if (inputSteam_ != null) {
-                    inputSteam_.close();
-                }
-            } catch (IOException _0) {
-                _0.printStackTrace();
-            }
-        }
-        //        DocumentBuilderFactory dbFactory_ = DocumentBuilderFactory.newInstance();
-        //        DocumentBuilder dBuilder_ = dbFactory_.newDocumentBuilder();
-        //        InputSource is_ = new InputSource();
-        ////        is_.setEncoding(StandardCharsets.UTF_8.name());
-        //        is_.setEncoding(StandardCharsets.ISO_8859_1.name());
-        //        is_.setCharacterStream(new StringReader(_xml));
-        //        return dBuilder_.parse(is_);
-    }
-
     public static Document parseSax(String _xml) {
         if (_xml == null) {
             return null;
@@ -2547,68 +2446,12 @@ public final class XmlParser {
         //        return dBuilder_.parse(is_);
     }
 
-    public static Document parseSax(String _xml, boolean _namespaceAware) {
-        if (_xml == null) {
-            return null;
-        }
-        //        DocumentBuilderFactory factory_ = DocumentBuilderFactory.newInstance();
-        //factory_.setNamespaceAware(true);
-        DocumentBuilder builder_ = newXmlDocumentBuilder(_namespaceAware);
-        ByteArrayInputStream inputSteam_ = new ByteArrayInputStream(_xml.getBytes());
-        try {
-            //            builder_ = factory_.newDocumentBuilder();
-            return builder_.parse(inputSteam_);
-        } catch (SAXException _0) {
-            _0.printStackTrace();
-            return null;
-        } catch (IOException _0) {
-            return null;
-            //        } catch (ParserConfigurationException _0) {
-            //            return null;
-        } finally {
-            try {
-                inputSteam_.close();
-            } catch (IOException _0) {
-                _0.printStackTrace();
-            }
-        }
-        //        DocumentBuilderFactory dbFactory_ = DocumentBuilderFactory.newInstance();
-        //        DocumentBuilder dBuilder_ = dbFactory_.newDocumentBuilder();
-        //        InputSource is_ = new InputSource();
-        ////        is_.setEncoding(StandardCharsets.UTF_8.name());
-        //        is_.setEncoding(StandardCharsets.ISO_8859_1.name());
-        //        is_.setCharacterStream(new StringReader(_xml));
-        //        return dBuilder_.parse(is_);
-    }
-
     public static Document newXmlDocument() {
         try {
             DocumentBuilder builder_;
             builder_ = newXmlDocumentBuilder();
             return builder_.newDocument();
         } catch (RuntimeException _0) {
-            return null;
-        }
-    }
-
-    public static Document newXmlDocument(boolean _namespaceAware) {
-        try {
-            DocumentBuilder builder_;
-            builder_ = newXmlDocumentBuilder(_namespaceAware);
-            return builder_.newDocument();
-        } catch (RuntimeException _0) {
-            return null;
-        }
-    }
-
-    public static DocumentBuilder newXmlDocumentBuilder(boolean _namespaceAware) {
-        try {
-            DocumentBuilderFactory factory_ = DocumentBuilderFactory.newInstance();
-            factory_.setNamespaceAware(_namespaceAware);
-            return factory_.newDocumentBuilder();
-        } catch (RuntimeException _0) {
-            return null;
-        } catch (ParserConfigurationException _0) {
             return null;
         }
     }
@@ -2649,7 +2492,7 @@ public final class XmlParser {
             DOMSource source_ = new DOMSource(_doc);
             StringWriter writer_ = new StringWriter();
             //_indentXmlWhileWriting_
-            getTransformer().transform(source_, new StreamResult(writer_));
+            getTransformerWithoutHeader().transform(source_, new StreamResult(writer_));
             return writer_.getBuffer().toString();
         } catch (RuntimeException _0) {
             return EMPTY_STRING;
@@ -2755,7 +2598,7 @@ public final class XmlParser {
         return indented_.toString();
     }
 
-    private static Transformer getTransformerWithoutHeader() {
+    public static Transformer getTransformerWithoutHeader() {
         //boolean _indent
         Transformer xmlTransformer_ = getTransformer();
         xmlTransformer_.setOutputProperty(OutputKeys.METHOD, XML);
@@ -2763,7 +2606,7 @@ public final class XmlParser {
         return xmlTransformer_;
     }
 
-    public static Transformer getTransformer() {
+    private static Transformer getTransformer() {
         //boolean _indent
         try {
             Transformer xmlTransformer_ = TransformerFactory.newInstance().newTransformer();

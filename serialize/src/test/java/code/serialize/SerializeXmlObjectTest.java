@@ -244,6 +244,26 @@ public class SerializeXmlObjectTest {
         assertXmlEqualRuntime("<"+COMPOSITE+"><java.lang.Integer class=\""+COMPOSITE+"\" field=\"integer\" value=\"15\"/><java.lang.Boolean class=\""+COMPOSITE+"\" field=\"bool\" value=\"true\"/><java.lang.String class=\""+COMPOSITE+"\" field=\"string\" value=\"STR\"/><java.lang.Character class=\""+COMPOSITE+"\" field=\"character\" value=\"8\"/><"+MY_ENUM+" class=\""+COMPOSITE+"\" field=\"element\" value=\"TWO\"/><"+PRIMITIVE+" class=\""+COMPOSITE+"\" field=\"primitive\" value=\"6\"/><"+PRIMITIVE_TWO+" class=\""+COMPOSITE+"\" field=\"primitiveTwo\" value=\"8\"/></"+COMPOSITE+">",SerializeXmlObject.toXmlString(pr_));
     }
 
+    @Test
+    public void toXmlString8Test() {
+        SerializeXmlObject.setReferences(false);
+        SerializeXmlObject.setCheckReferences(false);
+        Composite pr_ = new Composite();
+        pr_.setBool(true);
+        pr_.setCharacter('8');
+        pr_.setElement(MyEnum.TWO);
+        pr_.setInteger(15);
+        Primitive prTwo_ = new Primitive();
+        prTwo_.setPrimitive(6);
+        pr_.setPrimitive(prTwo_);
+        PrimitiveTwo prThree_ = new PrimitiveTwo();
+        prThree_.setPrimitive(8);
+        pr_.setPrimitiveTwo(prThree_);
+        pr_.setString("STR");
+        pr_.setTransientMember("unsaved");
+        assertXmlEqualRuntime("<"+COMPOSITE+"><java.lang.Integer class=\""+COMPOSITE+"\" field=\"integer\" value=\"15\"/><java.lang.Boolean class=\""+COMPOSITE+"\" field=\"bool\" value=\"true\"/><java.lang.String class=\""+COMPOSITE+"\" field=\"string\" value=\"STR\"/><java.lang.Character class=\""+COMPOSITE+"\" field=\"character\" value=\"8\"/><"+MY_ENUM+" class=\""+COMPOSITE+"\" field=\"element\" value=\"TWO\"/><"+PRIMITIVE+" class=\""+COMPOSITE+"\" field=\"primitive\" value=\"6\"/><"+PRIMITIVE_TWO+" class=\""+COMPOSITE+"\" field=\"primitiveTwo\" value=\"8\"/></"+COMPOSITE+">",SerializeXmlObject.toXmlString(pr_));
+    }
+
     @Parameters(method="booleanInputs")
     @Test
     public void toXmlString9Test(boolean _bool) {
@@ -823,7 +843,7 @@ public class SerializeXmlObjectTest {
         SerializeXmlObject.setReferences(_bool);
         SerializeXmlObject.setCheckReferences(false);
         InternStaticStandard int_ = new InternStaticStandard();
-        assertEq("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?><"+INTERNS_CLASSES+" intern=\"$InternStaticStandard\"/>",SerializeXmlObject.toXmlString(int_));
+        assertEq("<"+INTERNS_CLASSES+" intern=\"$InternStaticStandard\"/>",SerializeXmlObject.toXmlString(int_));
     }
 
     @Parameters(method="booleanInputs")
@@ -832,7 +852,7 @@ public class SerializeXmlObjectTest {
         SerializeXmlObject.setReferences(_bool);
         SerializeXmlObject.setCheckReferences(false);
         InternStandardTwo int_ = new InternsClasses().new InternStandardTwo();
-        assertEq("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?><"+INTERNS_CLASSES+" intern=\"$InternStandardTwo\"><"+INTERNS_CLASSES+" class=\""+INTERN_TWO+"\" field=\"this$0\"/></"+INTERNS_CLASSES+">",SerializeXmlObject.toXmlString(int_));
+        assertEq("<"+INTERNS_CLASSES+" intern=\"$InternStandardTwo\"><"+INTERNS_CLASSES+" class=\""+INTERN_TWO+"\" field=\"this$0\"/></"+INTERNS_CLASSES+">",SerializeXmlObject.toXmlString(int_));
     }
 
     @Parameters(method="booleanInputs")
@@ -845,7 +865,7 @@ public class SerializeXmlObjectTest {
         map_ = new EnumMap<MyEnum,String>();
         map_.put(MyEnum.ONE, "1");
         container_.setObject(map_);
-        assertEq("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?><"+CONTAINER+"><"+ENUM_MAP+" class=\""+CONTAINER+"\" field=\"object\"><"+MY_ENUM+" class=\""+SerializeXmlObject.MP_CLASS+"\" key=\"\" value=\"ONE\"/><java.lang.String class=\""+SerializeXmlObject.MP_CLASS+"\" value=\"1\"/></"+ENUM_MAP+"></"+CONTAINER+">", SerializeXmlObject.toXmlString(container_));
+        assertEq("<"+CONTAINER+"><"+ENUM_MAP+" class=\""+CONTAINER+"\" field=\"object\"><"+MY_ENUM+" class=\""+SerializeXmlObject.MP_CLASS+"\" key=\"\" value=\"ONE\"/><java.lang.String class=\""+SerializeXmlObject.MP_CLASS+"\" value=\"1\"/></"+ENUM_MAP+"></"+CONTAINER+">", SerializeXmlObject.toXmlString(container_));
     }
 
     @Parameters(method="booleanInputs")

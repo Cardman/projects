@@ -99,7 +99,7 @@ public class NavigationTest {
         setupBeansAfter(conf_);
         assertEq("page1.html", nav_.getCurrentUrl());
         assertEq("bean_one", nav_.getCurrentBeanName());
-        assertXmlEqualNoPrefix("<html xmlns:c='javahtml' xmlns='javahtml'><body>HEAD<a href=\"\"/> NEXT<form n-f=\"0\" action=\"\" c:command=\"go\">0</form><form n-f=\"1\" action=\"go\">0</form></body></html>", nav_.getHtmlText());
+        assertXmlEqualNoPrefix("<html xmlns:c='javahtml'><body>HEAD<a href=\"\"/> NEXT<form n-f=\"0\" action=\"\" c:command=\"go\">0</form><form n-f=\"1\" action=\"go\">0</form></body></html>", nav_.getHtmlText());
         assertEq(0, conf_.getBeans().getVal("bean_one").getForms().size());
         assertEq(0, conf_.getBeans().getVal("bean_two").getForms().size());
         assertEq("",nav_.getTitle());
@@ -113,8 +113,8 @@ public class NavigationTest {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
-        String html_ = "<html c:bean=\"bean_one\" xmlns:c='javahtml' xmlns='javahtml'><head><title><c:message value=\"msg_example,one\"/></title></head><body>HEAD<a href=\"\"/><c:import page=\"page2.html\"/></body></html>";
-        String htmlTwo_ = "<html c:bean=\"bean_two\" xmlns:c='javahtml' xmlns='javahtml'><body> NEXT<form action=\"DELETE\" c:command=\"go\">{typedInt}</form><form action=\"go\">{typedInt}</form></body></html>";
+        String html_ = "<html c:bean=\"bean_one\" xmlns:c='javahtml'><head><title><c:message value=\"msg_example,one\"/></title></head><body>HEAD<a href=\"\"/><c:import page=\"page2.html\"/></body></html>";
+        String htmlTwo_ = "<html c:bean=\"bean_two\" xmlns:c='javahtml'><body> NEXT<form action=\"DELETE\" c:command=\"go\">{typedInt}</form><form action=\"go\">{typedInt}</form></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
         files_.put("page1.html", html_);
@@ -145,7 +145,7 @@ public class NavigationTest {
         setupBeansAfter(conf_);
         assertEq("page1.html", nav_.getCurrentUrl());
         assertEq("bean_one", nav_.getCurrentBeanName());
-        assertXmlEqualNoPrefix("<html xmlns:c='javahtml' xmlns='javahtml'><head><title>Description one</title></head><body>HEAD<a href=\"\"/> NEXT<form n-f=\"0\" action=\"\" c:command=\"go\">0</form><form n-f=\"1\" action=\"go\">0</form></body></html>", nav_.getHtmlText());
+        assertXmlEqualNoPrefix("<html xmlns:c='javahtml'><head><title>Description one</title></head><body>HEAD<a href=\"\"/> NEXT<form n-f=\"0\" action=\"\" c:command=\"go\">0</form><form n-f=\"1\" action=\"go\">0</form></body></html>", nav_.getHtmlText());
         assertEq(0, conf_.getBeans().getVal("bean_one").getForms().size());
         assertEq(0, conf_.getBeans().getVal("bean_two").getForms().size());
         assertEq("Description one",nav_.getTitle());
@@ -159,8 +159,8 @@ public class NavigationTest {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
-        String html_ = "<html c:bean=\"bean_one\" xmlns:c='javahtml' xmlns='javahtml'><body>HEAD<a href=\"\"/><c:import page=\"page2.html\"/></body></html>";
-        String htmlTwo_ = "<html c:bean=\"bean_two\" xmlns:c='javahtml' xmlns='javahtml'><body> NEXT<form action=\"DELETE\" c:command=\"go\">{typedInt}</form><form action=\"go\">{typedInt}</form></body></html>";
+        String html_ = "<html c:bean=\"bean_one\" xmlns:c='javahtml'><body>HEAD<a href=\"\"/><c:import page=\"page2.html\"/></body></html>";
+        String htmlTwo_ = "<html c:bean=\"bean_two\" xmlns:c='javahtml'><body> NEXT<form action=\"DELETE\" c:command=\"go\">{typedInt}</form><form action=\"go\">{typedInt}</form></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
         files_.put("page1.html", html_);
@@ -202,8 +202,8 @@ public class NavigationTest {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
-        String html_ = "<html c:bean=\"bean_one\" xmlns:c='javahtml' xmlns='javahtml'><body>HEAD<a href=\"\"/><c:import page=\"page2.html\"/></body></html>";
-        String htmlTwo_ = "<html c:bean=\"bean_two\" xmlns:c='javahtml' xmlns='javahtml'><body> NEXT<form action=\"DELETE\" c:command=\"go\">{typedInt}</form><form action=\"go\">{typedInt}</form></body></html>";
+        String html_ = "<html c:bean=\"bean_one\" xmlns:c='javahtml'><body>HEAD<a href=\"\"/><c:import page=\"page2.html\"/></body></html>";
+        String htmlTwo_ = "<html c:bean=\"bean_two\" xmlns:c='javahtml'><body> NEXT<form action=\"DELETE\" c:command=\"go\">{typedInt}</form><form action=\"go\">{typedInt}</form></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
         files_.put("page1.html", html_);
@@ -245,8 +245,8 @@ public class NavigationTest {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
-        String html_ = "<html c:bean=\"bean_one\" xmlns:c='javahtml' xmlns='javahtml'><body>HEAD<a href=\"\"/><c:import page=\"page2.html\"/></body></html>";
-        String htmlTwo_ = "<html c:bean=\"bean_two\" xmlns:c='javahtml' xmlns='javahtml'><body> NEXT<form action=\"DELETE\" c:command=\"go\">{typedInt}</form><form action=\"go\">{typedInt}</form></body></html>";
+        String html_ = "<html c:bean=\"bean_one\" xmlns:c='javahtml'><body>HEAD<a href=\"\"/><c:import page=\"page2.html\"/></body></html>";
+        String htmlTwo_ = "<html c:bean=\"bean_two\" xmlns:c='javahtml'><body> NEXT<form action=\"DELETE\" c:command=\"go\">{typedInt}</form><form action=\"go\">{typedInt}</form></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
         files_.put("page1.html", html_);
@@ -288,8 +288,8 @@ public class NavigationTest {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
-        String html_ = "<html c:bean=\"bean_one\" xmlns:c='javahtml' xmlns='javahtml'><body>HEAD<a href=\"\"/><c:import page=\"page2.html\"/></body></html>";
-        String htmlTwo_ = "<html c:bean=\"bean_two\" xmlns:c='javahtml' xmlns='javahtml'><body> NEXT<form action=\"DELETE\" c:command=\"go\">{typedInt}</form><form action=\"go\">{typedInt}</form></body></html>";
+        String html_ = "<html c:bean=\"bean_one\" xmlns:c='javahtml'><body>HEAD<a href=\"\"/><c:import page=\"page2.html\"/></body></html>";
+        String htmlTwo_ = "<html c:bean=\"bean_two\" xmlns:c='javahtml'><body> NEXT<form action=\"DELETE\" c:command=\"go\">{typedInt}</form><form action=\"go\">{typedInt}</form></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
         files_.put("page1.html", html_);
@@ -331,8 +331,8 @@ public class NavigationTest {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
-        String html_ = "<html c:bean=\"bean_one\" xmlns:c='javahtml' xmlns='javahtml'><body>HEAD<a href=\"\"/><c:import page=\"page2.html\"/></body></html>";
-        String htmlTwo_ = "<html c:bean=\"bean_two\" xmlns:c='javahtml' xmlns='javahtml'><body> NEXT<form action=\"DELETE\" c:command=\"go\">{typedInt}</form><form action=\"go\">{typedInt}</form></body></html>";
+        String html_ = "<html c:bean=\"bean_one\" xmlns:c='javahtml'><body>HEAD<a href=\"\"/><c:import page=\"page2.html\"/></body></html>";
+        String htmlTwo_ = "<html c:bean=\"bean_two\" xmlns:c='javahtml'><body> NEXT<form action=\"DELETE\" c:command=\"go\">{typedInt}</form><form action=\"go\">{typedInt}</form></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
         files_.put("page1.html", html_);
@@ -374,8 +374,8 @@ public class NavigationTest {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
-        String html_ = "<html c:bean=\"bean_one\" xmlns:c='javahtml' xmlns='javahtml'><body>HEAD<a c:command=\"page2.html\" href=\"\"/></body></html>";
-        String htmlTwo_ = "<html c:bean=\"bean_two\" xmlns:c='javahtml' xmlns='javahtml'><body> NEXT<form action=\"DELETE\" c:command=\"go\">{typedInt}</form><form action=\"go\">{typedInt}</form></body></html>";
+        String html_ = "<html c:bean=\"bean_one\" xmlns:c='javahtml'><body>HEAD<a c:command=\"page2.html\" href=\"\"/></body></html>";
+        String htmlTwo_ = "<html c:bean=\"bean_two\" xmlns:c='javahtml'><body> NEXT<form action=\"DELETE\" c:command=\"go\">{typedInt}</form><form action=\"go\">{typedInt}</form></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
         files_.put("page1.html", html_);
@@ -408,7 +408,7 @@ public class NavigationTest {
         setupBeansAfter(conf_);
         assertEq("page2.html", nav_.getCurrentUrl());
         assertEq("bean_two", nav_.getCurrentBeanName());
-        assertXmlEqualNoPrefix("<html xmlns:c='javahtml' xmlns='javahtml'><body> NEXT<form n-f=\"0\" action=\"\" c:command=\"go\">0</form><form n-f=\"1\" action=\"go\">0</form></body></html>", nav_.getHtmlText());
+        assertXmlEqualNoPrefix("<html xmlns:c='javahtml'><body> NEXT<form n-f=\"0\" action=\"\" c:command=\"go\">0</form><form n-f=\"1\" action=\"go\">0</form></body></html>", nav_.getHtmlText());
         assertEq(0, conf_.getBeans().getVal("bean_one").getForms().size());
         assertEq(0, conf_.getBeans().getVal("bean_two").getForms().size());
         assertSame(conf_.getBeans().getVal("bean_one").getForms(), conf_.getBeans().getVal("bean_two").getForms());
@@ -423,8 +423,8 @@ public class NavigationTest {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
-        String html_ = "<html c:bean=\"bean_one\" xmlns:c='javahtml' xmlns='javahtml'><body>HEAD<a c:command=\"page2.html\" href=\"\"/></body></html>";
-        String htmlTwo_ = "<html c:bean=\"bean_two\" xmlns:c='javahtml' xmlns='javahtml'><body> NEXT<form action=\"DELETE\" c:command=\"go\">{typedInt}</form><form action=\"go\">{typedInt}</form></body></html>";
+        String html_ = "<html c:bean=\"bean_one\" xmlns:c='javahtml'><body>HEAD<a c:command=\"page2.html\" href=\"\"/></body></html>";
+        String htmlTwo_ = "<html c:bean=\"bean_two\" xmlns:c='javahtml'><body> NEXT<form action=\"DELETE\" c:command=\"go\">{typedInt}</form><form action=\"go\">{typedInt}</form></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
         files_.put("page1.html", html_);
@@ -457,7 +457,7 @@ public class NavigationTest {
         setupBeansAfter(conf_);
         assertEq("page2.html", nav_.getCurrentUrl());
         assertEq("bean_two", nav_.getCurrentBeanName());
-        assertXmlEqualNoPrefix("<html xmlns:c='javahtml' xmlns='javahtml'><body> NEXT<form n-f=\"0\" action=\"\" c:command=\"go\">0</form><form n-f=\"1\" action=\"go\">0</form></body></html>", nav_.getHtmlText());
+        assertXmlEqualNoPrefix("<html xmlns:c='javahtml'><body> NEXT<form n-f=\"0\" action=\"\" c:command=\"go\">0</form><form n-f=\"1\" action=\"go\">0</form></body></html>", nav_.getHtmlText());
         assertEq(0, conf_.getBeans().getVal("bean_one").getForms().size());
         assertEq(0, conf_.getBeans().getVal("bean_two").getForms().size());
         assertSame(conf_.getBeans().getVal("bean_one").getForms(), conf_.getBeans().getVal("bean_two").getForms());
@@ -472,8 +472,8 @@ public class NavigationTest {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
-        String html_ = "<html c:bean=\"bean_one\" xmlns:c='javahtml' xmlns='javahtml'><body>HEAD<a c:command=\"$goToPage\" href=\"\"/></body></html>";
-        String htmlTwo_ = "<html c:bean=\"bean_two\" xmlns:c='javahtml' xmlns='javahtml'><body> NEXT<form action=\"DELETE\" c:command=\"go\">{typedInt}</form><form action=\"go\">{typedInt}</form></body></html>";
+        String html_ = "<html c:bean=\"bean_one\" xmlns:c='javahtml'><body>HEAD<a c:command=\"$goToPage\" href=\"\"/></body></html>";
+        String htmlTwo_ = "<html c:bean=\"bean_two\" xmlns:c='javahtml'><body> NEXT<form action=\"DELETE\" c:command=\"go\">{typedInt}</form><form action=\"go\">{typedInt}</form></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
         files_.put("page1.html", html_);
@@ -509,7 +509,7 @@ public class NavigationTest {
         setupBeansAfter(conf_);
         assertEq("page2.html", nav_.getCurrentUrl());
         assertEq("bean_two", nav_.getCurrentBeanName());
-        assertXmlEqualNoPrefix("<html xmlns:c='javahtml' xmlns='javahtml'><body> NEXT<form n-f=\"0\" action=\"\" c:command=\"go\">0</form><form n-f=\"1\" action=\"go\">0</form></body></html>", nav_.getHtmlText());
+        assertXmlEqualNoPrefix("<html xmlns:c='javahtml'><body> NEXT<form n-f=\"0\" action=\"\" c:command=\"go\">0</form><form n-f=\"1\" action=\"go\">0</form></body></html>", nav_.getHtmlText());
         assertEq(0, conf_.getBeans().getVal("bean_one").getForms().size());
         assertEq(0, conf_.getBeans().getVal("bean_two").getForms().size());
         assertSame(conf_.getBeans().getVal("bean_one").getForms(), conf_.getBeans().getVal("bean_two").getForms());
@@ -524,8 +524,8 @@ public class NavigationTest {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
-        String html_ = "<html c:bean=\"bean_one\" xmlns:c='javahtml' xmlns='javahtml'><body>HEAD<a c:command=\"$goToNullPage\" href=\"\"/></body></html>";
-        String htmlTwo_ = "<html c:bean=\"bean_two\" xmlns:c='javahtml' xmlns='javahtml'><body> NEXT<form action=\"DELETE\" c:command=\"go\">{typedInt}</form><form action=\"go\">{typedInt}</form></body></html>";
+        String html_ = "<html c:bean=\"bean_one\" xmlns:c='javahtml'><body>HEAD<a c:command=\"$goToNullPage\" href=\"\"/></body></html>";
+        String htmlTwo_ = "<html c:bean=\"bean_two\" xmlns:c='javahtml'><body> NEXT<form action=\"DELETE\" c:command=\"go\">{typedInt}</form><form action=\"go\">{typedInt}</form></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
         files_.put("page1.html", html_);
@@ -561,7 +561,7 @@ public class NavigationTest {
         setupBeansAfter(conf_);
         assertEq("page1.html", nav_.getCurrentUrl());
         assertEq("bean_one", nav_.getCurrentBeanName());
-        assertXmlEqualNoPrefix("<html xmlns:c='javahtml' xmlns='javahtml'><body>HEAD<a n-a=\"0\" c:command=\"$bean_one.goToNullPage\" href=\"\"/></body></html>", nav_.getHtmlText());
+        assertXmlEqualNoPrefix("<html xmlns:c='javahtml'><body>HEAD<a n-a=\"0\" c:command=\"$bean_one.goToNullPage\" href=\"\"/></body></html>", nav_.getHtmlText());
         assertEq(0, conf_.getBeans().getVal("bean_one").getForms().size());
         assertEq(0, conf_.getBeans().getVal("bean_two").getForms().size());
         assertNotSame(conf_.getBeans().getVal("bean_one").getForms(), conf_.getBeans().getVal("bean_two").getForms());
@@ -576,8 +576,8 @@ public class NavigationTest {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
-        String html_ = "<html c:bean=\"bean_one\" xmlns:c='javahtml' xmlns='javahtml'><body>HEAD<a c:command=\"$goToPage(4)\" href=\"\"/></body></html>";
-        String htmlTwo_ = "<html c:bean=\"bean_two\" xmlns:c='javahtml' xmlns='javahtml'><body> NEXT<form action=\"DELETE\" c:command=\"go\">{typedInt}</form><form action=\"go\">{typedInt}</form></body></html>";
+        String html_ = "<html c:bean=\"bean_one\" xmlns:c='javahtml'><body>HEAD<a c:command=\"$goToPage(4)\" href=\"\"/></body></html>";
+        String htmlTwo_ = "<html c:bean=\"bean_two\" xmlns:c='javahtml'><body> NEXT<form action=\"DELETE\" c:command=\"go\">{typedInt}</form><form action=\"go\">{typedInt}</form></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
         files_.put("page1.html", html_);
@@ -613,7 +613,7 @@ public class NavigationTest {
         setupBeansAfter(conf_);
         assertEq("page2.html", nav_.getCurrentUrl());
         assertEq("bean_two", nav_.getCurrentBeanName());
-        assertXmlEqualNoPrefix("<html xmlns:c='javahtml' xmlns='javahtml'><body> NEXT<form n-f=\"0\" action=\"\" c:command=\"go\">0</form><form n-f=\"1\" action=\"go\">0</form></body></html>", nav_.getHtmlText());
+        assertXmlEqualNoPrefix("<html xmlns:c='javahtml'><body> NEXT<form n-f=\"0\" action=\"\" c:command=\"go\">0</form><form n-f=\"1\" action=\"go\">0</form></body></html>", nav_.getHtmlText());
         assertEq(0, conf_.getBeans().getVal("bean_one").getForms().size());
         assertEq(0, conf_.getBeans().getVal("bean_two").getForms().size());
         assertSame(conf_.getBeans().getVal("bean_one").getForms(), conf_.getBeans().getVal("bean_two").getForms());
@@ -628,8 +628,8 @@ public class NavigationTest {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
-        String html_ = "<html c:bean=\"bean_one\" xmlns:c='javahtml' xmlns='javahtml'><body>HEAD<a c:command=\"$goToNullPage\" href=\"\"/></body></html>";
-        String htmlTwo_ = "<html c:bean=\"bean_two\" xmlns:c='javahtml' xmlns='javahtml'><body> NEXT<form action=\"DELETE\" c:command=\"go\">{typedInt}</form><form action=\"go\">{typedInt}</form></body></html>";
+        String html_ = "<html c:bean=\"bean_one\" xmlns:c='javahtml'><body>HEAD<a c:command=\"$goToNullPage\" href=\"\"/></body></html>";
+        String htmlTwo_ = "<html c:bean=\"bean_two\" xmlns:c='javahtml'><body> NEXT<form action=\"DELETE\" c:command=\"go\">{typedInt}</form><form action=\"go\">{typedInt}</form></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
         files_.put("page1.html", html_);
@@ -665,7 +665,7 @@ public class NavigationTest {
         setupBeansAfter(conf_);
         assertEq("page1.html", nav_.getCurrentUrl());
         assertEq("bean_one", nav_.getCurrentBeanName());
-        assertXmlEqualNoPrefix("<html xmlns:c='javahtml' xmlns='javahtml'><body>HEAD<a n-a=\"0\" c:command=\"$bean_one.goToNullPage\" href=\"\"/></body></html>", nav_.getHtmlText());
+        assertXmlEqualNoPrefix("<html xmlns:c='javahtml'><body>HEAD<a n-a=\"0\" c:command=\"$bean_one.goToNullPage\" href=\"\"/></body></html>", nav_.getHtmlText());
         assertEq(0, conf_.getBeans().getVal("bean_one").getForms().size());
         assertEq(0, conf_.getBeans().getVal("bean_two").getForms().size());
         assertNotSame(conf_.getBeans().getVal("bean_one").getForms(), conf_.getBeans().getVal("bean_two").getForms());
@@ -680,8 +680,8 @@ public class NavigationTest {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
-        String html_ = "<html c:bean=\"bean_one\" xmlns:c='javahtml' xmlns='javahtml'><body>HEAD<a c:command=\"$goToPage(4)\" href=\"\"/></body></html>";
-        String htmlTwo_ = "<html c:bean=\"bean_two\" xmlns:c='javahtml' xmlns='javahtml'><body> NEXT<form action=\"DELETE\" c:command=\"go\">{typedInt}</form><form action=\"go\">{typedInt}</form></body></html>";
+        String html_ = "<html c:bean=\"bean_one\" xmlns:c='javahtml'><body>HEAD<a c:command=\"$goToPage(4)\" href=\"\"/></body></html>";
+        String htmlTwo_ = "<html c:bean=\"bean_two\" xmlns:c='javahtml'><body> NEXT<form action=\"DELETE\" c:command=\"go\">{typedInt}</form><form action=\"go\">{typedInt}</form></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
         files_.put("page1.html", html_);
@@ -717,7 +717,7 @@ public class NavigationTest {
         setupBeansAfter(conf_);
         assertEq("page1.html", nav_.getCurrentUrl());
         assertEq("bean_one", nav_.getCurrentBeanName());
-        assertXmlEqualNoPrefix("<html xmlns:c='javahtml' xmlns='javahtml'><body>HEAD<a n-a=\"0\" c:command=\"$bean_one.goToPage(4)\" href=\"\"/></body></html>", nav_.getHtmlText());
+        assertXmlEqualNoPrefix("<html xmlns:c='javahtml'><body>HEAD<a n-a=\"0\" c:command=\"$bean_one.goToPage(4)\" href=\"\"/></body></html>", nav_.getHtmlText());
         assertEq(0, conf_.getBeans().getVal("bean_one").getForms().size());
         assertEq(0, conf_.getBeans().getVal("bean_two").getForms().size());
         assertNotSame(conf_.getBeans().getVal("bean_one").getForms(), conf_.getBeans().getVal("bean_two").getForms());
@@ -770,7 +770,7 @@ public class NavigationTest {
         assertEq("page1.html", nav_.getCurrentUrl());
         assertEq("bean_one", nav_.getCurrentBeanName());
 //        assertXMLEqualNoPrefix("<html><head><title>desc &lt;My quoted title&gt;&amp;eacute;</title></head><body>HEAD<a c:command=\"$bean_one.goToPage(4)\" href=\"\"/></body></html>", nav_.getHtmlText());
-        assertXmlEqualNoPrefix("<html xmlns:c='javahtml' xmlns='javahtml'><head><title>desc &amp;lt;My quoted title&amp;gt;"+(char)233+"</title></head><body>HEAD<a n-a=\"0\" c:command=\"$bean_one.goToPage(4)\" href=\"\"/></body></html>", nav_.getHtmlText());
+        assertXmlEqualNoPrefix("<html xmlns:c='javahtml'><head><title>desc &amp;lt;My quoted title&amp;gt;"+(char)233+"</title></head><body>HEAD<a n-a=\"0\" c:command=\"$bean_one.goToPage(4)\" href=\"\"/></body></html>", nav_.getHtmlText());
         assertEq(0, conf_.getBeans().getVal("bean_one").getForms().size());
         assertEq(0, conf_.getBeans().getVal("bean_two").getForms().size());
         assertNotSame(conf_.getBeans().getVal("bean_one").getForms(), conf_.getBeans().getVal("bean_two").getForms());
@@ -785,8 +785,8 @@ public class NavigationTest {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one&eacute;\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
-        String html_ = "<html c:bean=\"bean_one\" xmlns:c='javahtml' xmlns='javahtml'><head><title><c:message value=\"msg_example,one\"/></title></head><body>HEAD<a c:command=\"$goToPage(4)\" href=\"\"/></body></html>";
-        String htmlTwo_ = "<html c:bean=\"bean_two\" xmlns:c='javahtml' xmlns='javahtml'><body> NEXT<form action=\"DELETE\" c:command=\"go\">{typedInt}</form><form action=\"go\">{typedInt}</form></body></html>";
+        String html_ = "<html c:bean=\"bean_one\" xmlns:c='javahtml'><head><title><c:message value=\"msg_example,one\"/></title></head><body>HEAD<a c:command=\"$goToPage(4)\" href=\"\"/></body></html>";
+        String htmlTwo_ = "<html c:bean=\"bean_two\" xmlns:c='javahtml'><body> NEXT<form action=\"DELETE\" c:command=\"go\">{typedInt}</form><form action=\"go\">{typedInt}</form></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
         files_.put("page1.html", html_);
@@ -822,7 +822,7 @@ public class NavigationTest {
         setupBeansAfter(conf_);
         assertEq("page1.html", nav_.getCurrentUrl());
         assertEq("bean_one", nav_.getCurrentBeanName());
-        assertXmlEqualNoPrefix("<html xmlns:c='javahtml' xmlns='javahtml'><head><title>Description one"+(char)233+"</title></head><body>HEAD<a n-a=\"0\" c:command=\"$bean_one.goToPage(4)\" href=\"\"/></body></html>", nav_.getHtmlText());
+        assertXmlEqualNoPrefix("<html xmlns:c='javahtml'><head><title>Description one"+(char)233+"</title></head><body>HEAD<a n-a=\"0\" c:command=\"$bean_one.goToPage(4)\" href=\"\"/></body></html>", nav_.getHtmlText());
         assertEq(0, conf_.getBeans().getVal("bean_one").getForms().size());
         assertEq(0, conf_.getBeans().getVal("bean_two").getForms().size());
         assertNotSame(conf_.getBeans().getVal("bean_one").getForms(), conf_.getBeans().getVal("bean_two").getForms());
@@ -837,8 +837,8 @@ public class NavigationTest {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
-        String html_ = "<html c:bean=\"bean_one\" xmlns:c='javahtml' xmlns='javahtml'><body>HEAD<a c:command=\"page2.html\" href=\"\"/></body></html>";
-        String htmlTwo_ = "<html c:bean=\"bean_two\" xmlns:c='javahtml' xmlns='javahtml'><body> NEXT<form action=\"DELETE\" c:command=\"go\">{typedInt}</form><form action=\"go\">{typedInt}</form><a name=\"here\">Title loc</a></body></html>";
+        String html_ = "<html c:bean=\"bean_one\" xmlns:c='javahtml'><body>HEAD<a c:command=\"page2.html\" href=\"\"/></body></html>";
+        String htmlTwo_ = "<html c:bean=\"bean_two\" xmlns:c='javahtml'><body> NEXT<form action=\"DELETE\" c:command=\"go\">{typedInt}</form><form action=\"go\">{typedInt}</form><a name=\"here\">Title loc</a></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
         files_.put("page1.html", html_);
@@ -871,7 +871,7 @@ public class NavigationTest {
         setupBeansAfter(conf_);
         assertEq("page2.html#here", nav_.getCurrentUrl());
         assertEq("bean_two", nav_.getCurrentBeanName());
-        assertXmlEqualNoPrefix("<html xmlns:c='javahtml' xmlns='javahtml'><body> NEXT<form n-f=\"0\" action=\"\" c:command=\"go\">0</form><form n-f=\"1\" action=\"go\">0</form><a name=\"here\">Title loc</a></body></html>", nav_.getHtmlText());
+        assertXmlEqualNoPrefix("<html xmlns:c='javahtml'><body> NEXT<form n-f=\"0\" action=\"\" c:command=\"go\">0</form><form n-f=\"1\" action=\"go\">0</form><a name=\"here\">Title loc</a></body></html>", nav_.getHtmlText());
         assertEq(0, conf_.getBeans().getVal("bean_one").getForms().size());
         assertEq(0, conf_.getBeans().getVal("bean_two").getForms().size());
         assertSame(conf_.getBeans().getVal("bean_one").getForms(), conf_.getBeans().getVal("bean_two").getForms());
@@ -886,8 +886,8 @@ public class NavigationTest {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
-        String html_ = "<html c:bean=\"bean_one\" xmlns:c='javahtml' xmlns='javahtml'><body>HEAD<a c:command=\"page2.html\" href=\"\"/></body></html>";
-        String htmlTwo_ = "<html c:bean=\"bean_two\" xmlns:c='javahtml' xmlns='javahtml'><body> NEXT<form action=\"DELETE\" c:command=\"go\">{typedInt}</form><form action=\"go\">{typedInt}</form><a name=\"here\" title=\"Tool tip\">Title loc</a><a href=\"\" name=\"here\">Title href</a><a href=\"a_ref\" name=\"here\" title=\"a_title\">Title real</a></body></html>";
+        String html_ = "<html c:bean=\"bean_one\" xmlns:c='javahtml'><body>HEAD<a c:command=\"page2.html\" href=\"\"/></body></html>";
+        String htmlTwo_ = "<html c:bean=\"bean_two\" xmlns:c='javahtml'><body> NEXT<form action=\"DELETE\" c:command=\"go\">{typedInt}</form><form action=\"go\">{typedInt}</form><a name=\"here\" title=\"Tool tip\">Title loc</a><a href=\"\" name=\"here\">Title href</a><a href=\"a_ref\" name=\"here\" title=\"a_title\">Title real</a></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
         files_.put("page1.html", html_);
@@ -920,7 +920,7 @@ public class NavigationTest {
         setupBeansAfter(conf_);
         assertEq("page2.html#here", nav_.getCurrentUrl());
         assertEq("bean_two", nav_.getCurrentBeanName());
-        assertXmlEqualNoPrefix("<html xmlns:c='javahtml' xmlns='javahtml'><body> NEXT<form n-f=\"0\" action=\"\" c:command=\"go\">0</form><form n-f=\"1\" action=\"go\">0</form><a name=\"here\" title=\"Tool tip\">Title loc</a><a href=\"\" name=\"here\">Title href</a><a n-a=\"0\" href=\"a_ref\" name=\"here\" title=\"a_title\">Title real</a></body></html>", nav_.getHtmlText());
+        assertXmlEqualNoPrefix("<html xmlns:c='javahtml'><body> NEXT<form n-f=\"0\" action=\"\" c:command=\"go\">0</form><form n-f=\"1\" action=\"go\">0</form><a name=\"here\" title=\"Tool tip\">Title loc</a><a href=\"\" name=\"here\">Title href</a><a n-a=\"0\" href=\"a_ref\" name=\"here\" title=\"a_title\">Title real</a></body></html>", nav_.getHtmlText());
         assertEq(0, conf_.getBeans().getVal("bean_one").getForms().size());
         assertEq(0, conf_.getBeans().getVal("bean_two").getForms().size());
         assertSame(conf_.getBeans().getVal("bean_one").getForms(), conf_.getBeans().getVal("bean_two").getForms());
@@ -936,8 +936,8 @@ public class NavigationTest {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one&eacute;\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
-        String html_ = "<html c:bean=\"bean_one\" xmlns:c='javahtml' xmlns='javahtml'><head><title><c:message value=\"msg_example,four\"/></title></head><body>HEAD<a c:command=\"$goToPage(4)\" href=\"\"/></body></html>";
-        String htmlTwo_ = "<html c:bean=\"bean_two\" xmlns:c='javahtml' xmlns='javahtml'><body> NEXT<form action=\"DELETE\" c:command=\"go\">{typedInt}</form><form action=\"go\">{typedInt}</form></body></html>";
+        String html_ = "<html c:bean=\"bean_one\" xmlns:c='javahtml'><head><title><c:message value=\"msg_example,four\"/></title></head><body>HEAD<a c:command=\"$goToPage(4)\" href=\"\"/></body></html>";
+        String htmlTwo_ = "<html c:bean=\"bean_two\" xmlns:c='javahtml'><body> NEXT<form action=\"DELETE\" c:command=\"go\">{typedInt}</form><form action=\"go\">{typedInt}</form></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
         files_.put("page1.html", html_);
@@ -973,7 +973,7 @@ public class NavigationTest {
         setupBeansAfter(conf_);
         assertEq("page1.html", nav_.getCurrentUrl());
         assertEq("bean_one", nav_.getCurrentBeanName());
-        assertXmlEqualNoPrefix("<html xmlns:c='javahtml' xmlns='javahtml'><head><title>'asp'</title></head><body>HEAD<a n-a=\"0\" c:command=\"$bean_one.goToPage(4)\" href=\"\"/></body></html>", nav_.getHtmlText());
+        assertXmlEqualNoPrefix("<html xmlns:c='javahtml'><head><title>'asp'</title></head><body>HEAD<a n-a=\"0\" c:command=\"$bean_one.goToPage(4)\" href=\"\"/></body></html>", nav_.getHtmlText());
         assertEq(0, conf_.getBeans().getVal("bean_one").getForms().size());
         assertEq(0, conf_.getBeans().getVal("bean_two").getForms().size());
         assertNotSame(conf_.getBeans().getVal("bean_one").getForms(), conf_.getBeans().getVal("bean_two").getForms());
@@ -988,8 +988,8 @@ public class NavigationTest {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one&eacute;\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
-        String html_ = "<html xmlns:c='javahtml' xmlns='javahtml'><head><title><c:message value=\"msg_example,four\"/></title></head><body>HEAD<a c:command=\"page2.html\" href=\"\"/></body></html>";
-        String htmlTwo_ = "<html xmlns:c='javahtml' xmlns='javahtml'><body><c:message value=\"msg_example,four\"/> NEXT<form action=\"DELETE\">2</form><form action=\"go\">4</form></body></html>";
+        String html_ = "<html xmlns:c='javahtml'><head><title><c:message value=\"msg_example,four\"/></title></head><body>HEAD<a c:command=\"page2.html\" href=\"\"/></body></html>";
+        String htmlTwo_ = "<html xmlns:c='javahtml'><body><c:message value=\"msg_example,four\"/> NEXT<form action=\"DELETE\">2</form><form action=\"go\">4</form></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
         files_.put("page1.html", html_);
@@ -1025,7 +1025,7 @@ public class NavigationTest {
         setupBeansAfter(conf_);
         assertEq("page2.html", nav_.getCurrentUrl());
         assertEq("", nav_.getCurrentBeanName());
-        assertXmlEqualNoPrefix("<html xmlns:c='javahtml' xmlns='javahtml'><body>'asp' NEXT<form n-f=\"0\" action=\"DELETE\">2</form><form n-f=\"1\" action=\"go\">4</form></body></html>", nav_.getHtmlText());
+        assertXmlEqualNoPrefix("<html xmlns:c='javahtml'><body>'asp' NEXT<form n-f=\"0\" action=\"DELETE\">2</form><form n-f=\"1\" action=\"go\">4</form></body></html>", nav_.getHtmlText());
         assertEq("",nav_.getTitle());
         assertEq("",nav_.getReferenceScroll());
         assertEq(0,nav_.getTooltips().size());
@@ -1037,8 +1037,8 @@ public class NavigationTest {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one&eacute;\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
-        String html_ = "<html c:bean=\"bean_seven\" xmlns:c='javahtml' xmlns='javahtml'><head><title><c:message value=\"msg_example,four\"/></title></head><body>HEAD<a c:command=\"$goTwoArgs(4i,8i)\" href=\"\"/></body></html>";
-        String htmlTwo_ = "<html c:bean=\"bean_two\" xmlns:c='javahtml' xmlns='javahtml'><body> NEXT<form action=\"DELETE\" c:command=\"go\">{typedInt}</form><form action=\"go\">{typedInt}</form></body></html>";
+        String html_ = "<html c:bean=\"bean_seven\" xmlns:c='javahtml'><head><title><c:message value=\"msg_example,four\"/></title></head><body>HEAD<a c:command=\"$goTwoArgs(4i,8i)\" href=\"\"/></body></html>";
+        String htmlTwo_ = "<html c:bean=\"bean_two\" xmlns:c='javahtml'><body> NEXT<form action=\"DELETE\" c:command=\"go\">{typedInt}</form><form action=\"go\">{typedInt}</form></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
         files_.put("page1.html", html_);
@@ -1074,7 +1074,7 @@ public class NavigationTest {
         setupBeansAfter(conf_);
         assertEq("page2.html", nav_.getCurrentUrl());
         assertEq("bean_two", nav_.getCurrentBeanName());
-        assertXmlEqualNoPrefix("<html xmlns:c='javahtml' xmlns='javahtml'><body> NEXT<form n-f=\"0\" action=\"\" c:command=\"go\">0</form><form n-f=\"1\" action=\"go\">0</form></body></html>", nav_.getHtmlText());
+        assertXmlEqualNoPrefix("<html xmlns:c='javahtml'><body> NEXT<form n-f=\"0\" action=\"\" c:command=\"go\">0</form><form n-f=\"1\" action=\"go\">0</form></body></html>", nav_.getHtmlText());
         assertEq(0, conf_.getBeans().getVal("bean_seven").getForms().size());
         assertEq(0, conf_.getBeans().getVal("bean_two").getForms().size());
         assertSame(conf_.getBeans().getVal("bean_seven").getForms(), conf_.getBeans().getVal("bean_two").getForms());
@@ -1089,8 +1089,8 @@ public class NavigationTest {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
-        String html_ = "<html c:bean=\"bean_one\" xmlns:c='javahtml' xmlns='javahtml'><body>HEAD<a c:command=\"$goToNullPage\" href=\"\"/></body></html>";
-        String htmlTwo_ = "<html c:bean=\"bean_two\" xmlns:c='javahtml' xmlns='javahtml'><body><form action=\"DELETE\" name=\"myform\" c:command=\"$go\"><input type=\"text\" name=\"typedString\" c:varValue=\"typedString\"/></form></body></html>";
+        String html_ = "<html c:bean=\"bean_one\" xmlns:c='javahtml'><body>HEAD<a c:command=\"$goToNullPage\" href=\"\"/></body></html>";
+        String htmlTwo_ = "<html c:bean=\"bean_two\" xmlns:c='javahtml'><body><form action=\"DELETE\" name=\"myform\" c:command=\"$go\"><input type=\"text\" name=\"typedString\" c:varValue=\"typedString\"/></form></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
         files_.put("page1.html", html_);
@@ -1140,7 +1140,7 @@ public class NavigationTest {
         setupBeansAfter(conf_);
         assertEq("page2.html", nav_.getCurrentUrl());
         assertEq("bean_two", nav_.getCurrentBeanName());
-        assertXmlEqualNoPrefix("<html xmlns:c='javahtml' xmlns='javahtml'><body><form n-f=\"0\" action=\"\" c:command=\"$bean_two.go\" name=\"myform\"><input n-i=\"0\" name=\"bean_two.typedString\" type=\"text\" value=\"TYPED_STRING\"/></form></body></html>", nav_.getHtmlText());
+        assertXmlEqualNoPrefix("<html xmlns:c='javahtml'><body><form n-f=\"0\" action=\"\" c:command=\"$bean_two.go\" name=\"myform\"><input n-i=\"0\" name=\"bean_two.typedString\" type=\"text\" value=\"TYPED_STRING\"/></form></body></html>", nav_.getHtmlText());
         beanTwo_ = (BeanTwo) conf_.getBeans().getVal("bean_two");
         assertEq("TYPED_STRING", beanTwo_.getTypedString());
         StringMapObject map_ = beanTwo_.getForms();
@@ -1169,8 +1169,8 @@ public class NavigationTest {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
-        String html_ = "<html c:bean=\"bean_one\" xmlns:c='javahtml' xmlns='javahtml'><body>HEAD<a c:command=\"$goToNullPage\" href=\"\"/></body></html>";
-        String htmlTwo_ = "<html c:bean=\"bean_two\" xmlns:c='javahtml' xmlns='javahtml'><body><form action=\"DELETE\" name=\"myform\" c:command=\"$go\"><input type=\"text\" name=\"typedString\" c:varValue=\"typedString\"/></form></body></html>";
+        String html_ = "<html c:bean=\"bean_one\" xmlns:c='javahtml'><body>HEAD<a c:command=\"$goToNullPage\" href=\"\"/></body></html>";
+        String htmlTwo_ = "<html c:bean=\"bean_two\" xmlns:c='javahtml'><body><form action=\"DELETE\" name=\"myform\" c:command=\"$go\"><input type=\"text\" name=\"typedString\" c:varValue=\"typedString\"/></form></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
         files_.put("page1.html", html_);
@@ -1220,7 +1220,7 @@ public class NavigationTest {
         setupBeansAfter(conf_);
         assertEq("page2.html", nav_.getCurrentUrl());
         assertEq("bean_two", nav_.getCurrentBeanName());
-        assertXmlEqualNoPrefix("<html xmlns:c='javahtml' xmlns='javahtml'><body><form n-f=\"0\" action=\"\" c:command=\"$bean_two.go\" name=\"myform\"><input n-i=\"0\" name=\"bean_two.typedString\" type=\"text\" value=\"ONE2\"/></form></body></html>", nav_.getHtmlText());
+        assertXmlEqualNoPrefix("<html xmlns:c='javahtml'><body><form n-f=\"0\" action=\"\" c:command=\"$bean_two.go\" name=\"myform\"><input n-i=\"0\" name=\"bean_two.typedString\" type=\"text\" value=\"ONE2\"/></form></body></html>", nav_.getHtmlText());
         beanTwo_ = (BeanTwo) conf_.getBeans().getVal("bean_two");
         assertEq("ONE2", beanTwo_.getTypedString());
         StringMapObject map_ = beanTwo_.getForms();
@@ -1249,8 +1249,8 @@ public class NavigationTest {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
-        String html_ = "<html c:bean=\"bean_one\" xmlns:c='javahtml' xmlns='javahtml'><body>HEAD<a c:command=\"$goToNullPage\" href=\"\"/></body></html>";
-        String htmlTwo_ = "<html c:bean=\"bean_two\" xmlns:c='javahtml' xmlns='javahtml'><body><form action=\"DELETE\" name=\"myform\" c:command=\"$go\"><input type=\"text\" name=\"typedString\" varValue=\"typedString\"/></form></body></html>";
+        String html_ = "<html c:bean=\"bean_one\" xmlns:c='javahtml'><body>HEAD<a c:command=\"$goToNullPage\" href=\"\"/></body></html>";
+        String htmlTwo_ = "<html c:bean=\"bean_two\" xmlns:c='javahtml'><body><form action=\"DELETE\" name=\"myform\" c:command=\"$go\"><input type=\"text\" name=\"typedString\" varValue=\"typedString\"/></form></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
         files_.put("page1.html", html_);
@@ -1300,7 +1300,7 @@ public class NavigationTest {
         setupBeansAfter(conf_);
         assertEq("page1.html", nav_.getCurrentUrl());
         assertEq("bean_one", nav_.getCurrentBeanName());
-        assertXmlEqualNoPrefix("<html xmlns:c='javahtml' xmlns='javahtml'><body>HEAD<a n-a=\"0\" c:command=\"$bean_one.goToNullPage\" href=\"\"/></body></html>", nav_.getHtmlText());
+        assertXmlEqualNoPrefix("<html xmlns:c='javahtml'><body>HEAD<a n-a=\"0\" c:command=\"$bean_one.goToNullPage\" href=\"\"/></body></html>", nav_.getHtmlText());
         bean_ = (BeanOne) conf_.getBeans().getVal("bean_one");
         StringMapObject map_ = bean_.getForms();
         assertEq(8, map_.size());
@@ -1328,8 +1328,8 @@ public class NavigationTest {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
-        String html_ = "<html c:bean=\"bean_one\" xmlns:c='javahtml' xmlns='javahtml'><body>HEAD<a c:command=\"$goToNullPage\" href=\"\"/></body></html>";
-        String htmlTwo_ = "<html c:bean=\"bean_two\" xmlns:c='javahtml' xmlns='javahtml'><body><form action=\"DELETE\" name=\"myform\" c:command=\"$go\"><input id=\"txt\" type=\"text\" name=\"typedString\" c:varValue=\"typedString\" c:validator=\"rate_val\"/></form></body></html>";
+        String html_ = "<html c:bean=\"bean_one\" xmlns:c='javahtml'><body>HEAD<a c:command=\"$goToNullPage\" href=\"\"/></body></html>";
+        String htmlTwo_ = "<html c:bean=\"bean_two\" xmlns:c='javahtml'><body><form action=\"DELETE\" name=\"myform\" c:command=\"$go\"><input id=\"txt\" type=\"text\" name=\"typedString\" c:varValue=\"typedString\" c:validator=\"rate_val\"/></form></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
         files_.put("page1.html", html_);
@@ -1380,7 +1380,7 @@ public class NavigationTest {
         setupBeansAfter(conf_);
         assertEq("page2.html", nav_.getCurrentUrl());
         assertEq("bean_two", nav_.getCurrentBeanName());
-        assertXmlEqualNoPrefix("<html xmlns:c='javahtml' xmlns='javahtml'><body><form n-f=\"0\" action=\"\" c:command=\"$bean_two.go\" name=\"myform\"><input n-i=\"0\" id=\"txt\" name=\"bean_two.typedString\" type=\"text\" c:validator=\"rate_val\" value=\"ONE_TWO\"/></form></body></html>", nav_.getHtmlText());
+        assertXmlEqualNoPrefix("<html xmlns:c='javahtml'><body><form n-f=\"0\" action=\"\" c:command=\"$bean_two.go\" name=\"myform\"><input n-i=\"0\" id=\"txt\" name=\"bean_two.typedString\" type=\"text\" c:validator=\"rate_val\" value=\"ONE_TWO\"/></form></body></html>", nav_.getHtmlText());
         beanTwo_ = (BeanTwo) conf_.getBeans().getVal("bean_two");
         assertEq("TYPED_STRING", beanTwo_.getTypedString());
         StringMapObject map_ = beanTwo_.getForms();
@@ -1399,8 +1399,8 @@ public class NavigationTest {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
-        String html_ = "<html c:bean=\"bean_one\" xmlns:c='javahtml' xmlns='javahtml'><body>HEAD<a c:command=\"$goToNullPage\" href=\"\"/></body></html>";
-        String htmlTwo_ = "<html c:bean=\"bean_two\" xmlns:c='javahtml' xmlns='javahtml'><body><form action=\"DELETE\" name=\"myform\" c:command=\"$go\"><input id=\"txt\" type=\"text\" name=\"typedString\" c:varValue=\"typedString\" c:validator=\"rate_val\"/><span c:for=\"txt\"/></form></body></html>";
+        String html_ = "<html c:bean=\"bean_one\" xmlns:c='javahtml'><body>HEAD<a c:command=\"$goToNullPage\" href=\"\"/></body></html>";
+        String htmlTwo_ = "<html c:bean=\"bean_two\" xmlns:c='javahtml'><body><form action=\"DELETE\" name=\"myform\" c:command=\"$go\"><input id=\"txt\" type=\"text\" name=\"typedString\" c:varValue=\"typedString\" c:validator=\"rate_val\"/><span c:for=\"txt\"/></form></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
         files_.put("page1.html", html_);
@@ -1451,7 +1451,7 @@ public class NavigationTest {
         setupBeansAfter(conf_);
         assertEq("page2.html", nav_.getCurrentUrl());
         assertEq("bean_two", nav_.getCurrentBeanName());
-        assertXmlEqualNoPrefix("<html xmlns:c='javahtml' xmlns='javahtml'><body><form n-f=\"0\" action=\"\" c:command=\"$bean_two.go\" name=\"myform\"><input n-i=\"0\" id=\"txt\" name=\"bean_two.typedString\" type=\"text\" c:validator=\"rate_val\" value=\"ONE_TWO\"/><span c:for=\"txt\">ONE_TWO is not a no zero rate</span></form></body></html>", nav_.getHtmlText());
+        assertXmlEqualNoPrefix("<html xmlns:c='javahtml'><body><form n-f=\"0\" action=\"\" c:command=\"$bean_two.go\" name=\"myform\"><input n-i=\"0\" id=\"txt\" name=\"bean_two.typedString\" type=\"text\" c:validator=\"rate_val\" value=\"ONE_TWO\"/><span c:for=\"txt\">ONE_TWO is not a no zero rate</span></form></body></html>", nav_.getHtmlText());
         beanTwo_ = (BeanTwo) conf_.getBeans().getVal("bean_two");
         assertEq("TYPED_STRING", beanTwo_.getTypedString());
         StringMapObject map_ = beanTwo_.getForms();
@@ -1470,8 +1470,8 @@ public class NavigationTest {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
-        String html_ = "<html c:bean=\"bean_one\" xmlns:c='javahtml' xmlns='javahtml'><body>HEAD<a c:command=\"$goToNullPage\" href=\"\"/></body></html>";
-        String htmlTwo_ = "<html c:bean=\"bean_two\" xmlns:c='javahtml' xmlns='javahtml'><body><form action=\"DELETE\" name=\"myform\" c:command=\"$go\"><input id=\"txt\" type=\"text\" name=\"typedString\" c:varValue=\"typedString\" c:validator=\"rate_val\"/><span c:for=\"txt\"/></form></body></html>";
+        String html_ = "<html c:bean=\"bean_one\" xmlns:c='javahtml'><body>HEAD<a c:command=\"$goToNullPage\" href=\"\"/></body></html>";
+        String htmlTwo_ = "<html c:bean=\"bean_two\" xmlns:c='javahtml'><body><form action=\"DELETE\" name=\"myform\" c:command=\"$go\"><input id=\"txt\" type=\"text\" name=\"typedString\" c:varValue=\"typedString\" c:validator=\"rate_val\"/><span c:for=\"txt\"/></form></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
         files_.put("page1.html", html_);
@@ -1522,7 +1522,7 @@ public class NavigationTest {
         setupBeansAfter(conf_);
         assertEq("page2.html", nav_.getCurrentUrl());
         assertEq("bean_two", nav_.getCurrentBeanName());
-        assertXmlEqualNoPrefix("<html xmlns:c='javahtml' xmlns='javahtml'><body><form n-f=\"0\" action=\"\" c:command=\"$bean_two.go\" name=\"myform\"><input n-i=\"0\" id=\"txt\" name=\"bean_two.typedString\" type=\"text\" c:validator=\"rate_val\" value=\"1/22\"/><span c:for=\"txt\"> </span></form></body></html>", nav_.getHtmlText());
+        assertXmlEqualNoPrefix("<html xmlns:c='javahtml'><body><form n-f=\"0\" action=\"\" c:command=\"$bean_two.go\" name=\"myform\"><input n-i=\"0\" id=\"txt\" name=\"bean_two.typedString\" type=\"text\" c:validator=\"rate_val\" value=\"1/22\"/><span c:for=\"txt\"> </span></form></body></html>", nav_.getHtmlText());
         beanTwo_ = (BeanTwo) conf_.getBeans().getVal("bean_two");
         assertEq("1/22", beanTwo_.getTypedString());
         StringMapObject map_ = beanTwo_.getForms();
@@ -1602,7 +1602,7 @@ public class NavigationTest {
         setupBeansAfter(conf_);
         assertEq("page2.html", nav_.getCurrentUrl());
         assertEq("bean_two", nav_.getCurrentBeanName());
-        assertXmlEqualNoPrefix("<html xmlns:c='javahtml' xmlns='javahtml'><body><form n-f=\"0\" action=\"\" c:command=\"$bean_two.go\" name=\"myform\"><input n-i=\"0\" name=\"bean_two.typedString\" type=\"text\" value=\"TYPED_STRING\"/></form></body></html>", nav_.getHtmlText());
+        assertXmlEqualNoPrefix("<html xmlns:c='javahtml'><body><form n-f=\"0\" action=\"\" c:command=\"$bean_two.go\" name=\"myform\"><input n-i=\"0\" name=\"bean_two.typedString\" type=\"text\" value=\"TYPED_STRING\"/></form></body></html>", nav_.getHtmlText());
         beanTwo_ = (BeanTwo) conf_.getBeans().getVal("bean_two");
         assertEq("TYPED_STRING", beanTwo_.getTypedString());
         StringMapObject map_ = beanTwo_.getForms();
@@ -1683,7 +1683,7 @@ public class NavigationTest {
         setupBeansAfter(conf_);
         assertEq("page2.html", nav_.getCurrentUrl());
         assertEq("bean_two", nav_.getCurrentBeanName());
-        assertXmlEqualNoPrefix("<html xmlns:c='javahtml' xmlns='javahtml'><body><form n-f=\"0\" action=\"\" c:command=\"$bean_two.go\" name=\"myform\"><input n-i=\"0\" id=\"txt\" name=\"bean_two.typedString\" type=\"text\" c:validator=\"rate_val\" value=\"ONE_TWO\"/><span c:for=\"txt\" c:valueMessage=\"msg_example,five\">ONE_TWO in error</span></form></body></html>", nav_.getHtmlText());
+        assertXmlEqualNoPrefix("<html xmlns:c='javahtml'><body><form n-f=\"0\" action=\"\" c:command=\"$bean_two.go\" name=\"myform\"><input n-i=\"0\" id=\"txt\" name=\"bean_two.typedString\" type=\"text\" c:validator=\"rate_val\" value=\"ONE_TWO\"/><span c:for=\"txt\" c:valueMessage=\"msg_example,five\">ONE_TWO in error</span></form></body></html>", nav_.getHtmlText());
         beanTwo_ = (BeanTwo) conf_.getBeans().getVal("bean_two");
         assertEq("TYPED_STRING", beanTwo_.getTypedString());
         StringMapObject map_ = beanTwo_.getForms();
@@ -1702,8 +1702,8 @@ public class NavigationTest {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
-        String html_ = "<html c:bean=\"bean_one\" xmlns:c='javahtml' xmlns='javahtml'><body>HEAD<a c:command=\"$goToNullPage\" href=\"\"/></body></html>";
-        String htmlTwo_ = "<html c:bean=\"bean_two\" xmlns:c='javahtml' xmlns='javahtml'><body><form action=\"DELETE\" name=\"myform\" c:command=\"$go\"><input type=\"number\" name=\"typedInt\" c:varValue=\"typedInt\"/></form></body></html>";
+        String html_ = "<html c:bean=\"bean_one\" xmlns:c='javahtml'><body>HEAD<a c:command=\"$goToNullPage\" href=\"\"/></body></html>";
+        String htmlTwo_ = "<html c:bean=\"bean_two\" xmlns:c='javahtml'><body><form action=\"DELETE\" name=\"myform\" c:command=\"$go\"><input type=\"number\" name=\"typedInt\" c:varValue=\"typedInt\"/></form></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
         files_.put("page1.html", html_);
@@ -1753,7 +1753,7 @@ public class NavigationTest {
         setupBeansAfter(conf_);
         assertEq("page1.html", nav_.getCurrentUrl());
         assertEq("bean_one", nav_.getCurrentBeanName());
-        assertXmlEqualNoPrefix("<html xmlns:c='javahtml' xmlns='javahtml'><body>HEAD<a n-a=\"0\" c:command=\"$bean_one.goToNullPage\" href=\"\"/></body></html>", nav_.getHtmlText());
+        assertXmlEqualNoPrefix("<html xmlns:c='javahtml'><body>HEAD<a n-a=\"0\" c:command=\"$bean_one.goToNullPage\" href=\"\"/></body></html>", nav_.getHtmlText());
         bean_ = (BeanOne) conf_.getBeans().getVal("bean_one");
         StringMapObject map_ = bean_.getForms();
         assertEq(8, map_.size());
@@ -1781,8 +1781,8 @@ public class NavigationTest {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
-        String html_ = "<html c:bean=\"bean_one\" xmlns:c='javahtml' xmlns='javahtml'><body>HEAD<a c:command=\"$goToNullPage\" href=\"\"/></body></html>";
-        String htmlTwo_ = "<html c:bean=\"bean_two\" xmlns:c='javahtml' xmlns='javahtml'><body><form action=\"DELETE\" name=\"myform\" c:command=\"$go\"><input type=\"checkbox\" name=\"checked\" c:varValue=\"checked\"/></form></body></html>";
+        String html_ = "<html c:bean=\"bean_one\" xmlns:c='javahtml'><body>HEAD<a c:command=\"$goToNullPage\" href=\"\"/></body></html>";
+        String htmlTwo_ = "<html c:bean=\"bean_two\" xmlns:c='javahtml'><body><form action=\"DELETE\" name=\"myform\" c:command=\"$go\"><input type=\"checkbox\" name=\"checked\" c:varValue=\"checked\"/></form></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
         files_.put("page1.html", html_);
@@ -1832,7 +1832,7 @@ public class NavigationTest {
         setupBeansAfter(conf_);
         assertEq("page1.html", nav_.getCurrentUrl());
         assertEq("bean_one", nav_.getCurrentBeanName());
-        assertXmlEqualNoPrefix("<html xmlns:c='javahtml' xmlns='javahtml'><body>HEAD<a n-a=\"0\" c:command=\"$bean_one.goToNullPage\" href=\"\"/></body></html>", nav_.getHtmlText());
+        assertXmlEqualNoPrefix("<html xmlns:c='javahtml'><body>HEAD<a n-a=\"0\" c:command=\"$bean_one.goToNullPage\" href=\"\"/></body></html>", nav_.getHtmlText());
         bean_ = (BeanOne) conf_.getBeans().getVal("bean_one");
         StringMapObject map_ = bean_.getForms();
         assertEq(8, map_.size());
@@ -1860,8 +1860,8 @@ public class NavigationTest {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
-        String html_ = "<html c:bean=\"bean_one\" xmlns:c='javahtml' xmlns='javahtml'><body>HEAD<a c:command=\"$goToNullPage\" href=\"\"/></body></html>";
-        String htmlTwo_ = "<html c:bean=\"bean_two\" xmlns:c='javahtml' xmlns='javahtml'><body><form action=\"DELETE\" name=\"myform\" c:command=\"$go\"><input type=\"checkbox\" name=\"checked\" varValue=\"checked\"/></form></body></html>";
+        String html_ = "<html c:bean=\"bean_one\" xmlns:c='javahtml'><body>HEAD<a c:command=\"$goToNullPage\" href=\"\"/></body></html>";
+        String htmlTwo_ = "<html c:bean=\"bean_two\" xmlns:c='javahtml'><body><form action=\"DELETE\" name=\"myform\" c:command=\"$go\"><input type=\"checkbox\" name=\"checked\" varValue=\"checked\"/></form></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
         files_.put("page1.html", html_);
@@ -1911,7 +1911,7 @@ public class NavigationTest {
         setupBeansAfter(conf_);
         assertEq("page1.html", nav_.getCurrentUrl());
         assertEq("bean_one", nav_.getCurrentBeanName());
-        assertXmlEqualNoPrefix("<html xmlns:c='javahtml' xmlns='javahtml'><body>HEAD<a n-a=\"0\" c:command=\"$bean_one.goToNullPage\" href=\"\"/></body></html>", nav_.getHtmlText());
+        assertXmlEqualNoPrefix("<html xmlns:c='javahtml'><body>HEAD<a n-a=\"0\" c:command=\"$bean_one.goToNullPage\" href=\"\"/></body></html>", nav_.getHtmlText());
         bean_ = (BeanOne) conf_.getBeans().getVal("bean_one");
         StringMapObject map_ = bean_.getForms();
         assertEq(8, map_.size());
@@ -1939,8 +1939,8 @@ public class NavigationTest {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
-        String html_ = "<html c:bean=\"bean_one\" xmlns:c='javahtml' xmlns='javahtml'><body>HEAD<a c:command=\"$goToNullPage\" href=\"\"/></body></html>";
-        String htmlTwo_ = "<html c:bean=\"bean_two\" xmlns:c='javahtml' xmlns='javahtml'><body><form action=\"DELETE\" name=\"myform\" c:command=\"$go\"><c:select className=\""+ENUM+"\" default=\"ONE\" name=\"chosenNumber\" varValue=\"chosenNumber\" list=\"getChosenNumbers()\"/></form></body></html>";
+        String html_ = "<html c:bean=\"bean_one\" xmlns:c='javahtml'><body>HEAD<a c:command=\"$goToNullPage\" href=\"\"/></body></html>";
+        String htmlTwo_ = "<html c:bean=\"bean_two\" xmlns:c='javahtml'><body><form action=\"DELETE\" name=\"myform\" c:command=\"$go\"><c:select className=\""+ENUM+"\" default=\"ONE\" name=\"chosenNumber\" varValue=\"chosenNumber\" list=\"getChosenNumbers()\"/></form></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
         files_.put("page1.html", html_);
@@ -1990,7 +1990,7 @@ public class NavigationTest {
         setupBeansAfter(conf_);
         assertEq("page1.html", nav_.getCurrentUrl());
         assertEq("bean_one", nav_.getCurrentBeanName());
-        assertXmlEqualNoPrefix("<html xmlns:c='javahtml' xmlns='javahtml'><body>HEAD<a n-a=\"0\" c:command=\"$bean_one.goToNullPage\" href=\"\"/></body></html>", nav_.getHtmlText());
+        assertXmlEqualNoPrefix("<html xmlns:c='javahtml'><body>HEAD<a n-a=\"0\" c:command=\"$bean_one.goToNullPage\" href=\"\"/></body></html>", nav_.getHtmlText());
         bean_ = (BeanOne) conf_.getBeans().getVal("bean_one");
         StringMapObject map_ = bean_.getForms();
         assertEq(8, map_.size());
@@ -2018,8 +2018,8 @@ public class NavigationTest {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
-        String html_ = "<html c:bean=\"bean_one\" xmlns:c='javahtml' xmlns='javahtml'><body>HEAD<a c:command=\"$goToNullPage\" href=\"\"/></body></html>";
-        String htmlTwo_ = "<html c:bean=\"bean_two\" xmlns:c='javahtml' xmlns='javahtml'><body><form action=\"DELETE\" name=\"myform\" c:command=\"$go\"><input c:varValue=\"typedString\" name=\"typedString\" type=\"text\"/></form></body></html>";
+        String html_ = "<html c:bean=\"bean_one\" xmlns:c='javahtml'><body>HEAD<a c:command=\"$goToNullPage\" href=\"\"/></body></html>";
+        String htmlTwo_ = "<html c:bean=\"bean_two\" xmlns:c='javahtml'><body><form action=\"DELETE\" name=\"myform\" c:command=\"$go\"><input c:varValue=\"typedString\" name=\"typedString\" type=\"text\"/></form></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
         files_.put("page1.html", html_);
@@ -2071,7 +2071,7 @@ public class NavigationTest {
         setupBeansAfter(conf_);
         assertEq("page2.html", nav_.getCurrentUrl());
         assertEq("bean_two", nav_.getCurrentBeanName());
-        assertXmlEqualNoPrefix("<html xmlns:c='javahtml' xmlns='javahtml'><body><form n-f=\"0\" action=\"\" c:command=\"$bean_two.go\" name=\"myform\"><input n-i=\"0\" name=\"bean_two.typedString\" type=\"text\" value=\"TYPED_STRING\"/></form></body></html>", nav_.getHtmlText());
+        assertXmlEqualNoPrefix("<html xmlns:c='javahtml'><body><form n-f=\"0\" action=\"\" c:command=\"$bean_two.go\" name=\"myform\"><input n-i=\"0\" name=\"bean_two.typedString\" type=\"text\" value=\"TYPED_STRING\"/></form></body></html>", nav_.getHtmlText());
         beanTwo_ = (BeanTwo) conf_.getBeans().getVal("bean_two");
         assertEq("TYPED_STRING", beanTwo_.getTypedString());
         StringMapObject map_ = beanTwo_.getForms();
@@ -2100,8 +2100,8 @@ public class NavigationTest {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
-        String html_ = "<html c:bean=\"bean_one\" xmlns:c='javahtml' xmlns='javahtml'><body>HEAD<a c:command=\"$goToNullPage\" href=\"\"/></body></html>";
-        String htmlTwo_ = "<html c:bean=\"bean_two\" xmlns:c='javahtml' xmlns='javahtml'><body><form action=\"DELETE\" name=\"myform\" c:command=\"$go\"><c:select className=\""+ENUM+"\" default=\"ONE\" name=\"chosenNumber\" varValue=\"chosenNumber\" list=\"getChosenNumbers()\"/></form></body></html>";
+        String html_ = "<html c:bean=\"bean_one\" xmlns:c='javahtml'><body>HEAD<a c:command=\"$goToNullPage\" href=\"\"/></body></html>";
+        String htmlTwo_ = "<html c:bean=\"bean_two\" xmlns:c='javahtml'><body><form action=\"DELETE\" name=\"myform\" c:command=\"$go\"><c:select className=\""+ENUM+"\" default=\"ONE\" name=\"chosenNumber\" varValue=\"chosenNumber\" list=\"getChosenNumbers()\"/></form></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
         files_.put("page1.html", html_);
@@ -2153,7 +2153,7 @@ public class NavigationTest {
         setupBeansAfter(conf_);
         assertEq("page1.html", nav_.getCurrentUrl());
         assertEq("bean_one", nav_.getCurrentBeanName());
-        assertXmlEqualNoPrefix("<html xmlns:c='javahtml' xmlns='javahtml'><body>HEAD<a n-a=\"0\" c:command=\"$bean_one.goToNullPage\" href=\"\"/></body></html>", nav_.getHtmlText());
+        assertXmlEqualNoPrefix("<html xmlns:c='javahtml'><body>HEAD<a n-a=\"0\" c:command=\"$bean_one.goToNullPage\" href=\"\"/></body></html>", nav_.getHtmlText());
         bean_ = (BeanOne) conf_.getBeans().getVal("bean_one");
         StringMapObject map_ = bean_.getForms();
         assertEq(8, map_.size());
@@ -2181,8 +2181,8 @@ public class NavigationTest {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
-        String html_ = "<html c:bean=\"bean_one\" xmlns:c='javahtml' xmlns='javahtml'><body>HEAD<a c:command=\"$goToNullPage\" href=\"\"/></body></html>";
-        String htmlTwo_ = "<html c:bean=\"bean_two\" xmlns:c='javahtml' xmlns='javahtml'><body><form action=\"DELETE\" name=\"myform\" c:command=\"$go\"><input type=\"checkbox\" name=\"nullableCheckbox\" varValue=\"nullableCheckbox\"/></form></body></html>";
+        String html_ = "<html c:bean=\"bean_one\" xmlns:c='javahtml'><body>HEAD<a c:command=\"$goToNullPage\" href=\"\"/></body></html>";
+        String htmlTwo_ = "<html c:bean=\"bean_two\" xmlns:c='javahtml'><body><form action=\"DELETE\" name=\"myform\" c:command=\"$go\"><input type=\"checkbox\" name=\"nullableCheckbox\" varValue=\"nullableCheckbox\"/></form></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
         files_.put("page1.html", html_);
@@ -2232,7 +2232,7 @@ public class NavigationTest {
         setupBeansAfter(conf_);
         assertEq("page1.html", nav_.getCurrentUrl());
         assertEq("bean_one", nav_.getCurrentBeanName());
-        assertXmlEqualNoPrefix("<html xmlns:c='javahtml' xmlns='javahtml'><body>HEAD<a n-a=\"0\" c:command=\"$bean_one.goToNullPage\" href=\"\"/></body></html>", nav_.getHtmlText());
+        assertXmlEqualNoPrefix("<html xmlns:c='javahtml'><body>HEAD<a n-a=\"0\" c:command=\"$bean_one.goToNullPage\" href=\"\"/></body></html>", nav_.getHtmlText());
         bean_ = (BeanOne) conf_.getBeans().getVal("bean_one");
         StringMapObject map_ = bean_.getForms();
         assertEq(8, map_.size());
@@ -2259,8 +2259,8 @@ public class NavigationTest {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
-        String html_ = "<html c:bean=\"bean_one\" xmlns:c='javahtml' xmlns='javahtml'><body>HEAD<a c:command=\"$goToNullPage\" href=\"\"/></body></html>";
-        String htmlTwo_ = "<html c:bean=\"bean_two\" xmlns:c='javahtml' xmlns='javahtml'><body><form action=\"DELETE\" name=\"myform\" c:command=\"$go\"><input class=\"java.lang.Long\" type=\"number\" name=\"nullableInt\" varValue=\"nullableInt\"/></form></body></html>";
+        String html_ = "<html c:bean=\"bean_one\" xmlns:c='javahtml'><body>HEAD<a c:command=\"$goToNullPage\" href=\"\"/></body></html>";
+        String htmlTwo_ = "<html c:bean=\"bean_two\" xmlns:c='javahtml'><body><form action=\"DELETE\" name=\"myform\" c:command=\"$go\"><input class=\"java.lang.Long\" type=\"number\" name=\"nullableInt\" varValue=\"nullableInt\"/></form></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
         files_.put("page1.html", html_);
@@ -2310,7 +2310,7 @@ public class NavigationTest {
         setupBeansAfter(conf_);
         assertEq("page1.html", nav_.getCurrentUrl());
         assertEq("bean_one", nav_.getCurrentBeanName());
-        assertXmlEqualNoPrefix("<html xmlns:c='javahtml' xmlns='javahtml'><body>HEAD<a n-a=\"0\" c:command=\"$bean_one.goToNullPage\" href=\"\"/></body></html>", nav_.getHtmlText());
+        assertXmlEqualNoPrefix("<html xmlns:c='javahtml'><body>HEAD<a n-a=\"0\" c:command=\"$bean_one.goToNullPage\" href=\"\"/></body></html>", nav_.getHtmlText());
         bean_ = (BeanOne) conf_.getBeans().getVal("bean_one");
         StringMapObject map_ = bean_.getForms();
         assertEq(8, map_.size());
@@ -2337,8 +2337,8 @@ public class NavigationTest {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
-        String html_ = "<html c:bean=\"bean_one\" xmlns:c='javahtml' xmlns='javahtml'><body>HEAD<a c:command=\"$goToNullPage\" href=\"\"/></body></html>";
-        String htmlTwo_ = "<html c:bean=\"bean_two\" xmlns:c='javahtml' xmlns='javahtml'><body><form action=\"DELETE\" name=\"myform\" c:command=\"$go\"><input type=\"checkbox\" name=\"nullableCheckbox\" varValue=\"nullableCheckbox\"/></form></body></html>";
+        String html_ = "<html c:bean=\"bean_one\" xmlns:c='javahtml'><body>HEAD<a c:command=\"$goToNullPage\" href=\"\"/></body></html>";
+        String htmlTwo_ = "<html c:bean=\"bean_two\" xmlns:c='javahtml'><body><form action=\"DELETE\" name=\"myform\" c:command=\"$go\"><input type=\"checkbox\" name=\"nullableCheckbox\" varValue=\"nullableCheckbox\"/></form></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
         files_.put("page1.html", html_);
@@ -2388,7 +2388,7 @@ public class NavigationTest {
         setupBeansAfter(conf_);
         assertEq("page1.html", nav_.getCurrentUrl());
         assertEq("bean_one", nav_.getCurrentBeanName());
-        assertXmlEqualNoPrefix("<html xmlns:c='javahtml' xmlns='javahtml'><body>HEAD<a n-a=\"0\" c:command=\"$bean_one.goToNullPage\" href=\"\"/></body></html>", nav_.getHtmlText());
+        assertXmlEqualNoPrefix("<html xmlns:c='javahtml'><body>HEAD<a n-a=\"0\" c:command=\"$bean_one.goToNullPage\" href=\"\"/></body></html>", nav_.getHtmlText());
         bean_ = (BeanOne) conf_.getBeans().getVal("bean_one");
         StringMapObject map_ = bean_.getForms();
         assertEq(8, map_.size());
@@ -2415,8 +2415,8 @@ public class NavigationTest {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
-        String html_ = "<html c:bean=\"bean_one\" xmlns:c='javahtml' xmlns='javahtml'><body>HEAD<a c:command=\"$goToNullPage\" href=\"\"/></body></html>";
-        String htmlTwo_ = "<html c:bean=\"bean_two\" xmlns:c='javahtml' xmlns='javahtml'><body><form action=\"DELETE\" name=\"myform\" c:command=\"$go\"><input c:className=\""+RATE+"\" type=\"text\" name=\"rate\" varValue=\"rate\"/></form></body></html>";
+        String html_ = "<html c:bean=\"bean_one\" xmlns:c='javahtml'><body>HEAD<a c:command=\"$goToNullPage\" href=\"\"/></body></html>";
+        String htmlTwo_ = "<html c:bean=\"bean_two\" xmlns:c='javahtml'><body><form action=\"DELETE\" name=\"myform\" c:command=\"$go\"><input c:className=\""+RATE+"\" type=\"text\" name=\"rate\" varValue=\"rate\"/></form></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
         files_.put("page1.html", html_);
@@ -2466,7 +2466,7 @@ public class NavigationTest {
         setupBeansAfter(conf_);
         assertEq("page1.html", nav_.getCurrentUrl());
         assertEq("bean_one", nav_.getCurrentBeanName());
-        assertXmlEqualNoPrefix("<html xmlns:c='javahtml' xmlns='javahtml'><body>HEAD<a n-a=\"0\" c:command=\"$bean_one.goToNullPage\" href=\"\"/></body></html>", nav_.getHtmlText());
+        assertXmlEqualNoPrefix("<html xmlns:c='javahtml'><body>HEAD<a n-a=\"0\" c:command=\"$bean_one.goToNullPage\" href=\"\"/></body></html>", nav_.getHtmlText());
         bean_ = (BeanOne) conf_.getBeans().getVal("bean_one");
         StringMapObject map_ = bean_.getForms();
         assertEq(8, map_.size());
@@ -2493,9 +2493,9 @@ public class NavigationTest {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
-        String html_ = "<html c:bean=\"bean_one\" xmlns:c='javahtml' xmlns='javahtml'><body>HEAD<a c:command=\"$goToNullPage\" href=\"\"/></body></html>";
-//        String htmlTwo_ = "<html c:bean=\"bean_two\" xmlns:c='javahtml' xmlns='javahtml'><body><form action=\"DELETE\" name=\"myform\" c:command=\"$go\"><input c:className=\"maths.Rate\" type=\"text\" name=\"rate\" varValue=\"rate\"/></form></body></html>";
-        String htmlTwo_ = "<html c:bean=\"bean_two\" xmlns:c='javahtml' xmlns='javahtml'><body><form action=\"DELETE\" name=\"myform\" c:command=\"$go\"><input c:className=\""+RATE+"\" type=\"text\" name=\"rate\" varValue=\"rate\"/></form></body></html>";
+        String html_ = "<html c:bean=\"bean_one\" xmlns:c='javahtml'><body>HEAD<a c:command=\"$goToNullPage\" href=\"\"/></body></html>";
+//        String htmlTwo_ = "<html c:bean=\"bean_two\" xmlns:c='javahtml'><body><form action=\"DELETE\" name=\"myform\" c:command=\"$go\"><input c:className=\"maths.Rate\" type=\"text\" name=\"rate\" varValue=\"rate\"/></form></body></html>";
+        String htmlTwo_ = "<html c:bean=\"bean_two\" xmlns:c='javahtml'><body><form action=\"DELETE\" name=\"myform\" c:command=\"$go\"><input c:className=\""+RATE+"\" type=\"text\" name=\"rate\" varValue=\"rate\"/></form></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
         files_.put("page1.html", html_);
@@ -2547,7 +2547,7 @@ public class NavigationTest {
         setupBeansAfter(conf_);
         assertEq("page1.html", nav_.getCurrentUrl());
         assertEq("bean_one", nav_.getCurrentBeanName());
-        assertXmlEqualNoPrefix("<html xmlns:c='javahtml' xmlns='javahtml'><body>HEAD<a n-a=\"0\" c:command=\"$bean_one.goToNullPage\" href=\"\"/></body></html>", nav_.getHtmlText());
+        assertXmlEqualNoPrefix("<html xmlns:c='javahtml'><body>HEAD<a n-a=\"0\" c:command=\"$bean_one.goToNullPage\" href=\"\"/></body></html>", nav_.getHtmlText());
         bean_ = (BeanOne) conf_.getBeans().getVal("bean_one");
         StringMapObject map_ = bean_.getForms();
         assertEq(8, map_.size());
@@ -2574,8 +2574,8 @@ public class NavigationTest {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
-        String html_ = "<html c:bean=\"bean_one\" xmlns:c='javahtml' xmlns='javahtml'><body>HEAD<a c:command=\"$goToNullPage\" href=\"\"/></body></html>";
-        String htmlTwo_ = "<html c:bean=\"bean_two\" xmlns:c='javahtml' xmlns='javahtml'><body><form action=\"DELETE\" name=\"myform\" c:command=\"$go\"><input id=\"txt\" type=\"text\" name=\"typedString\" varValue=\"typedString\"/></form></body></html>";
+        String html_ = "<html c:bean=\"bean_one\" xmlns:c='javahtml'><body>HEAD<a c:command=\"$goToNullPage\" href=\"\"/></body></html>";
+        String htmlTwo_ = "<html c:bean=\"bean_two\" xmlns:c='javahtml'><body><form action=\"DELETE\" name=\"myform\" c:command=\"$go\"><input id=\"txt\" type=\"text\" name=\"typedString\" varValue=\"typedString\"/></form></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
         files_.put("page1.html", html_);
@@ -2626,7 +2626,7 @@ public class NavigationTest {
         setupBeansAfter(conf_);
         assertEq("page1.html", nav_.getCurrentUrl());
         assertEq("bean_one", nav_.getCurrentBeanName());
-        assertXmlEqualNoPrefix("<html xmlns:c='javahtml' xmlns='javahtml'><body>HEAD<a n-a=\"0\" c:command=\"$bean_one.goToNullPage\" href=\"\"/></body></html>", nav_.getHtmlText());
+        assertXmlEqualNoPrefix("<html xmlns:c='javahtml'><body>HEAD<a n-a=\"0\" c:command=\"$bean_one.goToNullPage\" href=\"\"/></body></html>", nav_.getHtmlText());
         bean_ = (BeanOne) conf_.getBeans().getVal("bean_one");
         StringMapObject map_ = bean_.getForms();
         assertEq(8, map_.size());
@@ -2654,8 +2654,8 @@ public class NavigationTest {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
-        String html_ = "<html c:bean=\"bean_one\" xmlns:c='javahtml' xmlns='javahtml'><body>HEAD<a c:command=\"$goToNullPage\" href=\"\"/></body></html>";
-        String htmlTwo_ = "<html c:bean=\"bean_two\" xmlns:c='javahtml' xmlns='javahtml'><body><form action=\"DELETE\" name=\"myform\" c:command=\"$go\"><input id=\"txt\" type=\"text\" name=\"typedString\" varValue=\"typedString\" valueChangeEvent=\"changeText\"/></form></body></html>";
+        String html_ = "<html c:bean=\"bean_one\" xmlns:c='javahtml'><body>HEAD<a c:command=\"$goToNullPage\" href=\"\"/></body></html>";
+        String htmlTwo_ = "<html c:bean=\"bean_two\" xmlns:c='javahtml'><body><form action=\"DELETE\" name=\"myform\" c:command=\"$go\"><input id=\"txt\" type=\"text\" name=\"typedString\" varValue=\"typedString\" valueChangeEvent=\"changeText\"/></form></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
         files_.put("page1.html", html_);
@@ -2706,7 +2706,7 @@ public class NavigationTest {
         setupBeansAfter(conf_);
         assertEq("page1.html", nav_.getCurrentUrl());
         assertEq("bean_one", nav_.getCurrentBeanName());
-        assertXmlEqualNoPrefix("<html xmlns:c='javahtml' xmlns='javahtml'><body>HEAD<a n-a=\"0\" c:command=\"$bean_one.goToNullPage\" href=\"\"/></body></html>", nav_.getHtmlText());
+        assertXmlEqualNoPrefix("<html xmlns:c='javahtml'><body>HEAD<a n-a=\"0\" c:command=\"$bean_one.goToNullPage\" href=\"\"/></body></html>", nav_.getHtmlText());
         bean_ = (BeanOne) conf_.getBeans().getVal("bean_one");
         StringMapObject map_ = bean_.getForms();
         assertEq(8, map_.size());
@@ -2734,8 +2734,8 @@ public class NavigationTest {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
-        String html_ = "<html c:bean=\"bean_one\" xmlns:c='javahtml' xmlns='javahtml'><body>HEAD<a c:command=\"$goToNullPage\" href=\"\"/></body></html>";
-        String htmlTwo_ = "<html c:bean=\"bean_two\" xmlns:c='javahtml' xmlns='javahtml'><body><form action=\"DELETE\" name=\"myform\" c:command=\"$go\"><c:select default=\"ONE\" name=\"chosenNumber\" varValue=\"chosenNumber\" list=\"getChosenNumbers()\"/></form></body></html>";
+        String html_ = "<html c:bean=\"bean_one\" xmlns:c='javahtml'><body>HEAD<a c:command=\"$goToNullPage\" href=\"\"/></body></html>";
+        String htmlTwo_ = "<html c:bean=\"bean_two\" xmlns:c='javahtml'><body><form action=\"DELETE\" name=\"myform\" c:command=\"$go\"><c:select default=\"ONE\" name=\"chosenNumber\" varValue=\"chosenNumber\" list=\"getChosenNumbers()\"/></form></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
         files_.put("page1.html", html_);
@@ -2785,7 +2785,7 @@ public class NavigationTest {
         setupBeansAfter(conf_);
         assertEq("page1.html", nav_.getCurrentUrl());
         assertEq("bean_one", nav_.getCurrentBeanName());
-        assertXmlEqualNoPrefix("<html xmlns:c='javahtml' xmlns='javahtml'><body>HEAD<a n-a=\"0\" c:command=\"$bean_one.goToNullPage\" href=\"\"/></body></html>", nav_.getHtmlText());
+        assertXmlEqualNoPrefix("<html xmlns:c='javahtml'><body>HEAD<a n-a=\"0\" c:command=\"$bean_one.goToNullPage\" href=\"\"/></body></html>", nav_.getHtmlText());
         bean_ = (BeanOne) conf_.getBeans().getVal("bean_one");
         StringMapObject map_ = bean_.getForms();
         assertEq(8, map_.size());
@@ -2813,8 +2813,8 @@ public class NavigationTest {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
-        String html_ = "<html c:bean=\"bean_one\" xmlns:c='javahtml' xmlns='javahtml'><body>HEAD<a c:command=\"$goToNullPage\" href=\"\"/></body></html>";
-        String htmlTwo_ = "<html c:bean=\"bean_two\" xmlns:c='javahtml' xmlns='javahtml'><body><form action=\"DELETE\" name=\"myform\" c:command=\"$go\"><c:select id=\"combo\" default=\"ONE\" name=\"chosenNumber\" varValue=\"chosenNumber\" list=\"getChosenNumbers()\" c:validator=\"validator\"/><span c:for=\"combo\"/></form></body></html>";
+        String html_ = "<html c:bean=\"bean_one\" xmlns:c='javahtml'><body>HEAD<a c:command=\"$goToNullPage\" href=\"\"/></body></html>";
+        String htmlTwo_ = "<html c:bean=\"bean_two\" xmlns:c='javahtml'><body><form action=\"DELETE\" name=\"myform\" c:command=\"$go\"><c:select id=\"combo\" default=\"ONE\" name=\"chosenNumber\" varValue=\"chosenNumber\" list=\"getChosenNumbers()\" c:validator=\"validator\"/><span c:for=\"combo\"/></form></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
         files_.put("page1.html", html_);
@@ -2865,7 +2865,7 @@ public class NavigationTest {
         setupBeansAfter(conf_);
         assertEq("page1.html", nav_.getCurrentUrl());
         assertEq("bean_one", nav_.getCurrentBeanName());
-        assertXmlEqualNoPrefix("<html xmlns:c='javahtml' xmlns='javahtml'><body>HEAD<a n-a=\"0\" c:command=\"$bean_one.goToNullPage\" href=\"\"/></body></html>", nav_.getHtmlText());
+        assertXmlEqualNoPrefix("<html xmlns:c='javahtml'><body>HEAD<a n-a=\"0\" c:command=\"$bean_one.goToNullPage\" href=\"\"/></body></html>", nav_.getHtmlText());
         bean_ = (BeanOne) conf_.getBeans().getVal("bean_one");
         StringMapObject map_ = bean_.getForms();
         assertEq(8, map_.size());
@@ -2893,8 +2893,8 @@ public class NavigationTest {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
-        String html_ = "<html c:bean=\"bean_one\" xmlns:c='javahtml' xmlns='javahtml'><body>HEAD<a c:command=\"$goToNullPage\" href=\"\"/></body></html>";
-        String htmlTwo_ = "<html c:bean=\"bean_two\" xmlns:c='javahtml' xmlns='javahtml'><body><form action=\"DELETE\" name=\"myform\" c:command=\"$go\"><c:select className=\""+ENUM+"\" id=\"combo\" default=\"ONE\" name=\"chosenNumber\" varValue=\"chosenNumber\" list=\"getChosenNumbers()\" validator=\"validator\"/></form></body></html>";
+        String html_ = "<html c:bean=\"bean_one\" xmlns:c='javahtml'><body>HEAD<a c:command=\"$goToNullPage\" href=\"\"/></body></html>";
+        String htmlTwo_ = "<html c:bean=\"bean_two\" xmlns:c='javahtml'><body><form action=\"DELETE\" name=\"myform\" c:command=\"$go\"><c:select className=\""+ENUM+"\" id=\"combo\" default=\"ONE\" name=\"chosenNumber\" varValue=\"chosenNumber\" list=\"getChosenNumbers()\" validator=\"validator\"/></form></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
         files_.put("page1.html", html_);
@@ -2945,7 +2945,7 @@ public class NavigationTest {
         setupBeansAfter(conf_);
         assertEq("page1.html", nav_.getCurrentUrl());
         assertEq("bean_one", nav_.getCurrentBeanName());
-        assertXmlEqualNoPrefix("<html xmlns:c='javahtml' xmlns='javahtml'><body>HEAD<a n-a=\"0\" c:command=\"$bean_one.goToNullPage\" href=\"\"/></body></html>", nav_.getHtmlText());
+        assertXmlEqualNoPrefix("<html xmlns:c='javahtml'><body>HEAD<a n-a=\"0\" c:command=\"$bean_one.goToNullPage\" href=\"\"/></body></html>", nav_.getHtmlText());
         bean_ = (BeanOne) conf_.getBeans().getVal("bean_one");
         StringMapObject map_ = bean_.getForms();
         assertEq(8, map_.size());
@@ -2973,8 +2973,8 @@ public class NavigationTest {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
-        String html_ = "<html c:bean=\"bean_one\" xmlns:c='javahtml' xmlns='javahtml'><body>HEAD<a c:command=\"$goToNullPage\" href=\"\"/></body></html>";
-        String htmlTwo_ = "<html c:bean=\"bean_two\" xmlns:c='javahtml' xmlns='javahtml'><body><form action=\"DELETE\" name=\"myform\" c:command=\"$go\"><c:select id=\"combo\" default=\"ONE\" name=\"chosenNumber\" varValue=\"chosenNumber\" list=\"getChosenNumbers()\"/></form></body></html>";
+        String html_ = "<html c:bean=\"bean_one\" xmlns:c='javahtml'><body>HEAD<a c:command=\"$goToNullPage\" href=\"\"/></body></html>";
+        String htmlTwo_ = "<html c:bean=\"bean_two\" xmlns:c='javahtml'><body><form action=\"DELETE\" name=\"myform\" c:command=\"$go\"><c:select id=\"combo\" default=\"ONE\" name=\"chosenNumber\" varValue=\"chosenNumber\" list=\"getChosenNumbers()\"/></form></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
         files_.put("page1.html", html_);
@@ -3025,7 +3025,7 @@ public class NavigationTest {
         setupBeansAfter(conf_);
         assertEq("page1.html", nav_.getCurrentUrl());
         assertEq("bean_one", nav_.getCurrentBeanName());
-        assertXmlEqualNoPrefix("<html xmlns:c='javahtml' xmlns='javahtml'><body>HEAD<a n-a=\"0\" c:command=\"$bean_one.goToNullPage\" href=\"\"/></body></html>", nav_.getHtmlText());
+        assertXmlEqualNoPrefix("<html xmlns:c='javahtml'><body>HEAD<a n-a=\"0\" c:command=\"$bean_one.goToNullPage\" href=\"\"/></body></html>", nav_.getHtmlText());
         bean_ = (BeanOne) conf_.getBeans().getVal("bean_one");
         StringMapObject map_ = bean_.getForms();
         assertEq(8, map_.size());
@@ -3053,8 +3053,8 @@ public class NavigationTest {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
-        String html_ = "<html c:bean=\"bean_one\" xmlns:c='javahtml' xmlns='javahtml'><body>HEAD<a c:command=\"$goToNullPage\" href=\"\"/></body></html>";
-        String htmlTwo_ = "<html c:bean=\"bean_two\" xmlns:c='javahtml' xmlns='javahtml'><body><form action=\"DELETE\" name=\"myform\" c:command=\"$go\"><input id=\"txt\" type=\"checkbox\" name=\"nullableCheckbox\" c:varValue=\"nullableCheckbox\" c:validator=\"rate_val\"/></form></body></html>";
+        String html_ = "<html c:bean=\"bean_one\" xmlns:c='javahtml'><body>HEAD<a c:command=\"$goToNullPage\" href=\"\"/></body></html>";
+        String htmlTwo_ = "<html c:bean=\"bean_two\" xmlns:c='javahtml'><body><form action=\"DELETE\" name=\"myform\" c:command=\"$go\"><input id=\"txt\" type=\"checkbox\" name=\"nullableCheckbox\" c:varValue=\"nullableCheckbox\" c:validator=\"rate_val\"/></form></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
         files_.put("page1.html", html_);
@@ -3105,7 +3105,7 @@ public class NavigationTest {
         setupBeansAfter(conf_);
         assertEq("page2.html", nav_.getCurrentUrl());
         assertEq("bean_two", nav_.getCurrentBeanName());
-        assertXmlEqualNoPrefix("<html xmlns:c='javahtml' xmlns='javahtml'><body><form n-f=\"0\" action=\"\" c:command=\"$bean_two.go\" name=\"myform\"><input n-i=\"0\" checked=\"checked\" id=\"txt\" name=\"bean_two.nullableCheckbox\" type=\"checkbox\" c:validator=\"rate_val\" value=\"\"/></form></body></html>", nav_.getHtmlText());
+        assertXmlEqualNoPrefix("<html xmlns:c='javahtml'><body><form n-f=\"0\" action=\"\" c:command=\"$bean_two.go\" name=\"myform\"><input n-i=\"0\" checked=\"checked\" id=\"txt\" name=\"bean_two.nullableCheckbox\" type=\"checkbox\" c:validator=\"rate_val\" value=\"\"/></form></body></html>", nav_.getHtmlText());
         beanTwo_ = (BeanTwo) conf_.getBeans().getVal("bean_two");
         assertEq("TYPED_STRING", beanTwo_.getTypedString());
         StringMapObject map_ = beanTwo_.getForms();
@@ -3124,8 +3124,8 @@ public class NavigationTest {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
-        String html_ = "<html c:bean=\"bean_one\" xmlns:c='javahtml' xmlns='javahtml'><body>HEAD<a c:command=\"$goToNullPage\" href=\"\"/></body></html>";
-        String htmlTwo_ = "<html c:bean=\"bean_two\" xmlns:c='javahtml' xmlns='javahtml'><body><form action=\"DELETE\" name=\"myform\" c:command=\"$go\"><input id=\"txt\" type=\"checkbox\" name=\"nullableCheckbox\" c:varValue=\"nullableCheckbox\" c:validator=\"rate_val\"/></form></body></html>";
+        String html_ = "<html c:bean=\"bean_one\" xmlns:c='javahtml'><body>HEAD<a c:command=\"$goToNullPage\" href=\"\"/></body></html>";
+        String htmlTwo_ = "<html c:bean=\"bean_two\" xmlns:c='javahtml'><body><form action=\"DELETE\" name=\"myform\" c:command=\"$go\"><input id=\"txt\" type=\"checkbox\" name=\"nullableCheckbox\" c:varValue=\"nullableCheckbox\" c:validator=\"rate_val\"/></form></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
         files_.put("page1.html", html_);
@@ -3176,7 +3176,7 @@ public class NavigationTest {
         setupBeansAfter(conf_);
         assertEq("page2.html", nav_.getCurrentUrl());
         assertEq("bean_two", nav_.getCurrentBeanName());
-        assertXmlEqualNoPrefix("<html xmlns:c='javahtml' xmlns='javahtml'><body><form n-f=\"0\" action=\"\" c:command=\"$bean_two.go\" name=\"myform\"><input n-i=\"0\" id=\"txt\" name=\"bean_two.nullableCheckbox\" type=\"checkbox\" c:validator=\"rate_val\" value=\"\"/></form></body></html>", nav_.getHtmlText());
+        assertXmlEqualNoPrefix("<html xmlns:c='javahtml'><body><form n-f=\"0\" action=\"\" c:command=\"$bean_two.go\" name=\"myform\"><input n-i=\"0\" id=\"txt\" name=\"bean_two.nullableCheckbox\" type=\"checkbox\" c:validator=\"rate_val\" value=\"\"/></form></body></html>", nav_.getHtmlText());
         beanTwo_ = (BeanTwo) conf_.getBeans().getVal("bean_two");
         assertEq("TYPED_STRING", beanTwo_.getTypedString());
         StringMapObject map_ = beanTwo_.getForms();
@@ -3195,8 +3195,8 @@ public class NavigationTest {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
-        String html_ = "<html c:bean=\"bean_one\" xmlns:c='javahtml' xmlns='javahtml'><body>HEAD<a c:command=\"$goToNullPage\" href=\"\"/></body></html>";
-        String htmlTwo_ = "<html c:bean=\"bean_two\" xmlns:c='javahtml' xmlns='javahtml'><body><form action=\"DELETE\" name=\"myform\" c:command=\"$go\"><input id=\"txt\" type=\"text\" name=\"typedString\" c:varValue=\"typedString\" c:validator=\"rate_val\"/><span c:for=\"txt\"/><input type=\"checkbox\" name=\"nullableCheckbox\" c:varValue=\"nullableCheckbox\"/><c:select className=\""+ENUM+"\" default=\"ONE\" name=\"chosenNumber\" varValue=\"chosenNumber\" list=\"getChosenNumbers()\"/></form></body></html>";
+        String html_ = "<html c:bean=\"bean_one\" xmlns:c='javahtml'><body>HEAD<a c:command=\"$goToNullPage\" href=\"\"/></body></html>";
+        String htmlTwo_ = "<html c:bean=\"bean_two\" xmlns:c='javahtml'><body><form action=\"DELETE\" name=\"myform\" c:command=\"$go\"><input id=\"txt\" type=\"text\" name=\"typedString\" c:varValue=\"typedString\" c:validator=\"rate_val\"/><span c:for=\"txt\"/><input type=\"checkbox\" name=\"nullableCheckbox\" c:varValue=\"nullableCheckbox\"/><c:select className=\""+ENUM+"\" default=\"ONE\" name=\"chosenNumber\" varValue=\"chosenNumber\" list=\"getChosenNumbers()\"/></form></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
         files_.put("page1.html", html_);
@@ -3258,7 +3258,7 @@ public class NavigationTest {
         setupBeansAfter(conf_);
         assertEq("page2.html", nav_.getCurrentUrl());
         assertEq("bean_two", nav_.getCurrentBeanName());
-        assertXmlEqualNoPrefix("<html xmlns:c='javahtml' xmlns='javahtml'><body><form n-f=\"0\" action=\"\" c:command=\"$bean_two.go\" name=\"myform\"><input n-i=\"0\" id=\"txt\" name=\"bean_two.typedString\" type=\"text\" c:validator=\"rate_val\" value=\"ONE_TWO\"/><span c:for=\"txt\">ONE_TWO is not a no zero rate</span><input n-i=\"1\" name=\"bean_two.nullableCheckbox\" type=\"checkbox\" value=\"\"/><select n-i=\"2\" c:className=\""+ENUM+"\" name=\"bean_two.chosenNumber\"><option value=\"ONE\">ONE</option><option value=\"TWO\">TWO</option><option value=\"THREE\">THREE</option></select></form></body></html>", nav_.getHtmlText());
+        assertXmlEqualNoPrefix("<html xmlns:c='javahtml'><body><form n-f=\"0\" action=\"\" c:command=\"$bean_two.go\" name=\"myform\"><input n-i=\"0\" id=\"txt\" name=\"bean_two.typedString\" type=\"text\" c:validator=\"rate_val\" value=\"ONE_TWO\"/><span c:for=\"txt\">ONE_TWO is not a no zero rate</span><input n-i=\"1\" name=\"bean_two.nullableCheckbox\" type=\"checkbox\" value=\"\"/><select n-i=\"2\" c:className=\""+ENUM+"\" name=\"bean_two.chosenNumber\"><option value=\"ONE\">ONE</option><option value=\"TWO\">TWO</option><option value=\"THREE\">THREE</option></select></form></body></html>", nav_.getHtmlText());
         beanTwo_ = (BeanTwo) conf_.getBeans().getVal("bean_two");
         assertEq("TYPED_STRING", beanTwo_.getTypedString());
         StringMapObject map_ = beanTwo_.getForms();
@@ -3277,8 +3277,8 @@ public class NavigationTest {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
-        String html_ = "<html c:bean=\"bean_one\" xmlns:c='javahtml' xmlns='javahtml'><body>HEAD<a c:command=\"$goToNullPage\" href=\"\"/></body></html>";
-        String htmlTwo_ = "<html c:bean=\"bean_two\" xmlns:c='javahtml' xmlns='javahtml'><body><form action=\"DELETE\" name=\"myform\" c:command=\"$go\"><input id=\"txt\" type=\"text\" name=\"typedString\" c:varValue=\"typedString\" c:validator=\"rate_val\"/><span c:for=\"txt\"/><input type=\"checkbox\" name=\"nullableCheckbox\" c:varValue=\"nullableCheckbox\"/><c:select className=\""+ENUM+"\" default=\"ONE\" name=\"chosenNumber\" varValue=\"chosenNumber\" list=\"getChosenNumbers()\"/></form></body></html>";
+        String html_ = "<html c:bean=\"bean_one\" xmlns:c='javahtml'><body>HEAD<a c:command=\"$goToNullPage\" href=\"\"/></body></html>";
+        String htmlTwo_ = "<html c:bean=\"bean_two\" xmlns:c='javahtml'><body><form action=\"DELETE\" name=\"myform\" c:command=\"$go\"><input id=\"txt\" type=\"text\" name=\"typedString\" c:varValue=\"typedString\" c:validator=\"rate_val\"/><span c:for=\"txt\"/><input type=\"checkbox\" name=\"nullableCheckbox\" c:varValue=\"nullableCheckbox\"/><c:select className=\""+ENUM+"\" default=\"ONE\" name=\"chosenNumber\" varValue=\"chosenNumber\" list=\"getChosenNumbers()\"/></form></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
         files_.put("page1.html", html_);
@@ -3341,7 +3341,7 @@ public class NavigationTest {
         setupBeansAfter(conf_);
         assertEq("page2.html", nav_.getCurrentUrl());
         assertEq("bean_two", nav_.getCurrentBeanName());
-        assertXmlEqualNoPrefix("<html xmlns:c='javahtml' xmlns='javahtml'><body><form n-f=\"0\" action=\"\" c:command=\"$bean_two.go\" name=\"myform\"><input n-i=\"0\" id=\"txt\" name=\"bean_two.typedString\" type=\"text\" c:validator=\"rate_val\" value=\"ONE_TWO\"/><span c:for=\"txt\">ONE_TWO is not a no zero rate</span><input n-i=\"1\" name=\"bean_two.nullableCheckbox\" type=\"checkbox\" value=\"\"/><select n-i=\"2\" c:className=\""+ENUM+"\" name=\"bean_two.chosenNumber\"><option value=\"ONE\">ONE</option><option selected=\"selected\" value=\"TWO\">TWO</option><option value=\"THREE\">THREE</option></select></form></body></html>", nav_.getHtmlText());
+        assertXmlEqualNoPrefix("<html xmlns:c='javahtml'><body><form n-f=\"0\" action=\"\" c:command=\"$bean_two.go\" name=\"myform\"><input n-i=\"0\" id=\"txt\" name=\"bean_two.typedString\" type=\"text\" c:validator=\"rate_val\" value=\"ONE_TWO\"/><span c:for=\"txt\">ONE_TWO is not a no zero rate</span><input n-i=\"1\" name=\"bean_two.nullableCheckbox\" type=\"checkbox\" value=\"\"/><select n-i=\"2\" c:className=\""+ENUM+"\" name=\"bean_two.chosenNumber\"><option value=\"ONE\">ONE</option><option selected=\"selected\" value=\"TWO\">TWO</option><option value=\"THREE\">THREE</option></select></form></body></html>", nav_.getHtmlText());
         beanTwo_ = (BeanTwo) conf_.getBeans().getVal("bean_two");
         assertEq("TYPED_STRING", beanTwo_.getTypedString());
         StringMapObject map_ = beanTwo_.getForms();
@@ -3360,8 +3360,8 @@ public class NavigationTest {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
-        String html_ = "<html c:bean=\"bean_one\" xmlns:c='javahtml' xmlns='javahtml'><body>HEAD<a c:command=\"$goToNullPage\" href=\"\"/></body></html>";
-        String htmlTwo_ = "<html c:bean=\"bean_two\" xmlns:c='javahtml' xmlns='javahtml'><body><form action=\"DELETE\" name=\"myform\" c:command=\"$go\"><input id=\"txt\" type=\"number\" name=\"nullableInt\" c:varValue=\"nullableInt\" c:validator=\"rate_val\"/><span c:for=\"txt\"/><input type=\"checkbox\" name=\"nullableCheckbox\" c:varValue=\"nullableCheckbox\"/><c:select className=\""+ENUM+"\" default=\"ONE\" name=\"chosenNumber\" varValue=\"chosenNumber\" list=\"getChosenNumbers()\"/></form></body></html>";
+        String html_ = "<html c:bean=\"bean_one\" xmlns:c='javahtml'><body>HEAD<a c:command=\"$goToNullPage\" href=\"\"/></body></html>";
+        String htmlTwo_ = "<html c:bean=\"bean_two\" xmlns:c='javahtml'><body><form action=\"DELETE\" name=\"myform\" c:command=\"$go\"><input id=\"txt\" type=\"number\" name=\"nullableInt\" c:varValue=\"nullableInt\" c:validator=\"rate_val\"/><span c:for=\"txt\"/><input type=\"checkbox\" name=\"nullableCheckbox\" c:varValue=\"nullableCheckbox\"/><c:select className=\""+ENUM+"\" default=\"ONE\" name=\"chosenNumber\" varValue=\"chosenNumber\" list=\"getChosenNumbers()\"/></form></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
         files_.put("page1.html", html_);
@@ -3424,7 +3424,7 @@ public class NavigationTest {
         setupBeansAfter(conf_);
         assertEq("page2.html", nav_.getCurrentUrl());
         assertEq("bean_two", nav_.getCurrentBeanName());
-        assertXmlEqualNoPrefix("<html xmlns:c='javahtml' xmlns='javahtml'><body><form n-f=\"0\" action=\"\" c:command=\"$bean_two.go\" name=\"myform\"><input n-i=\"0\" id=\"txt\" name=\"bean_two.nullableInt\" type=\"number\" c:validator=\"rate_val\" value=\"2\"/><span c:for=\"txt\">2 is not a no zero rate</span><input n-i=\"1\" name=\"bean_two.nullableCheckbox\" type=\"checkbox\" value=\"\"/><select n-i=\"2\" c:className=\""+ENUM+"\" name=\"bean_two.chosenNumber\"><option value=\"ONE\">ONE</option><option selected=\"selected\" value=\"TWO\">TWO</option><option value=\"THREE\">THREE</option></select></form></body></html>", nav_.getHtmlText());
+        assertXmlEqualNoPrefix("<html xmlns:c='javahtml'><body><form n-f=\"0\" action=\"\" c:command=\"$bean_two.go\" name=\"myform\"><input n-i=\"0\" id=\"txt\" name=\"bean_two.nullableInt\" type=\"number\" c:validator=\"rate_val\" value=\"2\"/><span c:for=\"txt\">2 is not a no zero rate</span><input n-i=\"1\" name=\"bean_two.nullableCheckbox\" type=\"checkbox\" value=\"\"/><select n-i=\"2\" c:className=\""+ENUM+"\" name=\"bean_two.chosenNumber\"><option value=\"ONE\">ONE</option><option selected=\"selected\" value=\"TWO\">TWO</option><option value=\"THREE\">THREE</option></select></form></body></html>", nav_.getHtmlText());
         beanTwo_ = (BeanTwo) conf_.getBeans().getVal("bean_two");
         assertEq("TYPED_STRING", beanTwo_.getTypedString());
         StringMapObject map_ = beanTwo_.getForms();
@@ -3443,8 +3443,8 @@ public class NavigationTest {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
-        String html_ = "<html c:bean=\"bean_one\" xmlns:c='javahtml' xmlns='javahtml'><body>HEAD<a c:command=\"$goToNullPage\" href=\"\"/></body></html>";
-        String htmlTwo_ = "<html c:bean=\"bean_two\" xmlns:c='javahtml' xmlns='javahtml'><body><form action=\"DELETE\" name=\"myform\" c:command=\"$go\"><input id=\"txt\" type=\"range\" name=\"nullableInt\" c:varValue=\"nullableInt\" c:validator=\"rate_val\"/><span c:for=\"txt\"/><input type=\"checkbox\" name=\"nullableCheckbox\" c:varValue=\"nullableCheckbox\"/><c:select className=\""+ENUM+"\" default=\"ONE\" name=\"chosenNumber\" varValue=\"chosenNumber\" list=\"getChosenNumbers()\"/></form></body></html>";
+        String html_ = "<html c:bean=\"bean_one\" xmlns:c='javahtml'><body>HEAD<a c:command=\"$goToNullPage\" href=\"\"/></body></html>";
+        String htmlTwo_ = "<html c:bean=\"bean_two\" xmlns:c='javahtml'><body><form action=\"DELETE\" name=\"myform\" c:command=\"$go\"><input id=\"txt\" type=\"range\" name=\"nullableInt\" c:varValue=\"nullableInt\" c:validator=\"rate_val\"/><span c:for=\"txt\"/><input type=\"checkbox\" name=\"nullableCheckbox\" c:varValue=\"nullableCheckbox\"/><c:select className=\""+ENUM+"\" default=\"ONE\" name=\"chosenNumber\" varValue=\"chosenNumber\" list=\"getChosenNumbers()\"/></form></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
         files_.put("page1.html", html_);
@@ -3507,7 +3507,7 @@ public class NavigationTest {
         setupBeansAfter(conf_);
         assertEq("page2.html", nav_.getCurrentUrl());
         assertEq("bean_two", nav_.getCurrentBeanName());
-        assertXmlEqualNoPrefix("<html xmlns:c='javahtml' xmlns='javahtml'><body><form n-f=\"0\" action=\"\" c:command=\"$bean_two.go\" name=\"myform\"><input n-i=\"0\" id=\"txt\" name=\"bean_two.nullableInt\" type=\"range\" c:validator=\"rate_val\" value=\"2\"/><span c:for=\"txt\">2 is not a no zero rate</span><input n-i=\"1\" name=\"bean_two.nullableCheckbox\" type=\"checkbox\" value=\"\"/><select n-i=\"2\" c:className=\""+ENUM+"\" name=\"bean_two.chosenNumber\"><option value=\"ONE\">ONE</option><option selected=\"selected\" value=\"TWO\">TWO</option><option value=\"THREE\">THREE</option></select></form></body></html>", nav_.getHtmlText());
+        assertXmlEqualNoPrefix("<html xmlns:c='javahtml'><body><form n-f=\"0\" action=\"\" c:command=\"$bean_two.go\" name=\"myform\"><input n-i=\"0\" id=\"txt\" name=\"bean_two.nullableInt\" type=\"range\" c:validator=\"rate_val\" value=\"2\"/><span c:for=\"txt\">2 is not a no zero rate</span><input n-i=\"1\" name=\"bean_two.nullableCheckbox\" type=\"checkbox\" value=\"\"/><select n-i=\"2\" c:className=\""+ENUM+"\" name=\"bean_two.chosenNumber\"><option value=\"ONE\">ONE</option><option selected=\"selected\" value=\"TWO\">TWO</option><option value=\"THREE\">THREE</option></select></form></body></html>", nav_.getHtmlText());
         beanTwo_ = (BeanTwo) conf_.getBeans().getVal("bean_two");
         assertEq("TYPED_STRING", beanTwo_.getTypedString());
         StringMapObject map_ = beanTwo_.getForms();
@@ -3526,8 +3526,8 @@ public class NavigationTest {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
-        String html_ = "<html c:bean=\"bean_one\" xmlns:c='javahtml' xmlns='javahtml'><body>HEAD<a c:command=\"$goToNullPage\" href=\"\"/></body></html>";
-        String htmlTwo_ = "<html c:bean=\"bean_two\" xmlns:c='javahtml' xmlns='javahtml'><body><form action=\"DELETE\" name=\"myform\" c:command=\"$go\"><input id=\"txt\" type=\"range\" name=\"nullableInt\" c:varValue=\"nullableInt\"/><input type=\"checkbox\" name=\"nullableCheckbox\" c:varValue=\"nullableCheckbox\"/><c:select className=\""+ENUM+"\" default=\"ONE\" name=\"chosenNumber\" varValue=\"chosenNumber\" list=\"getChosenNumbers()\"/></form></body></html>";
+        String html_ = "<html c:bean=\"bean_one\" xmlns:c='javahtml'><body>HEAD<a c:command=\"$goToNullPage\" href=\"\"/></body></html>";
+        String htmlTwo_ = "<html c:bean=\"bean_two\" xmlns:c='javahtml'><body><form action=\"DELETE\" name=\"myform\" c:command=\"$go\"><input id=\"txt\" type=\"range\" name=\"nullableInt\" c:varValue=\"nullableInt\"/><input type=\"checkbox\" name=\"nullableCheckbox\" c:varValue=\"nullableCheckbox\"/><c:select className=\""+ENUM+"\" default=\"ONE\" name=\"chosenNumber\" varValue=\"chosenNumber\" list=\"getChosenNumbers()\"/></form></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
         files_.put("page1.html", html_);
@@ -3590,7 +3590,7 @@ public class NavigationTest {
         setupBeansAfter(conf_);
         assertEq("page1.html", nav_.getCurrentUrl());
         assertEq("bean_one", nav_.getCurrentBeanName());
-        assertXmlEqualNoPrefix("<html xmlns:c='javahtml' xmlns='javahtml'><body>HEAD<a n-a=\"0\" c:command=\"$bean_one.goToNullPage\" href=\"\"/></body></html>", nav_.getHtmlText());
+        assertXmlEqualNoPrefix("<html xmlns:c='javahtml'><body>HEAD<a n-a=\"0\" c:command=\"$bean_one.goToNullPage\" href=\"\"/></body></html>", nav_.getHtmlText());
         bean_ = (BeanOne) conf_.getBeans().getVal("bean_one");
         StringMapObject map_ = bean_.getForms();
         assertEq(8, map_.size());
@@ -3616,8 +3616,8 @@ public class NavigationTest {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
-        String html_ = "<html c:bean=\"bean_one\" xmlns:c='javahtml' xmlns='javahtml'><body>HEAD<a c:command=\"$goToNullPage\" href=\"\"/></body></html>";
-        String htmlTwo_ = "<html c:bean=\"bean_two\" xmlns:c='javahtml' xmlns='javahtml'><body><form action=\"DELETE\" name=\"myform\" c:command=\"$go\"><input c:className=\""+RATE+"\" id=\"txt\" type=\"text\" name=\"rate\" c:varValue=\"rate\" c:validator=\"rate_val\"/><input type=\"checkbox\" name=\"nullableCheckbox\" c:varValue=\"nullableCheckbox\"/><c:select className=\""+ENUM+"\" default=\"ONE\" name=\"chosenNumber\" varValue=\"chosenNumber\" list=\"getChosenNumbers()\"/></form></body></html>";
+        String html_ = "<html c:bean=\"bean_one\" xmlns:c='javahtml'><body>HEAD<a c:command=\"$goToNullPage\" href=\"\"/></body></html>";
+        String htmlTwo_ = "<html c:bean=\"bean_two\" xmlns:c='javahtml'><body><form action=\"DELETE\" name=\"myform\" c:command=\"$go\"><input c:className=\""+RATE+"\" id=\"txt\" type=\"text\" name=\"rate\" c:varValue=\"rate\" c:validator=\"rate_val\"/><input type=\"checkbox\" name=\"nullableCheckbox\" c:varValue=\"nullableCheckbox\"/><c:select className=\""+ENUM+"\" default=\"ONE\" name=\"chosenNumber\" varValue=\"chosenNumber\" list=\"getChosenNumbers()\"/></form></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
         files_.put("page1.html", html_);
@@ -3680,7 +3680,7 @@ public class NavigationTest {
         setupBeansAfter(conf_);
         assertEq("page1.html", nav_.getCurrentUrl());
         assertEq("bean_one", nav_.getCurrentBeanName());
-        assertXmlEqualNoPrefix("<html xmlns:c='javahtml' xmlns='javahtml'><body>HEAD<a n-a=\"0\" c:command=\"$bean_one.goToNullPage\" href=\"\"/></body></html>", nav_.getHtmlText());
+        assertXmlEqualNoPrefix("<html xmlns:c='javahtml'><body>HEAD<a n-a=\"0\" c:command=\"$bean_one.goToNullPage\" href=\"\"/></body></html>", nav_.getHtmlText());
         bean_ = (BeanOne) conf_.getBeans().getVal("bean_one");
         StringMapObject map_ = bean_.getForms();
         assertEq(8, map_.size());
@@ -3706,8 +3706,8 @@ public class NavigationTest {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
-        String html_ = "<html c:bean=\"bean_one\" xmlns:c='javahtml' xmlns='javahtml'><body>HEAD<a c:command=\"$goToNullPage\" href=\"\"/></body></html>";
-        String htmlTwo_ = "<html c:bean=\"bean_two\" xmlns:c='javahtml' xmlns='javahtml'><body><form action=\"DELETE\" name=\"myform\" c:command=\"$go\"><input id=\"txt\" type=\"text\" name=\"typedString\" c:varValue=\"typedString\" c:validator=\"rate_val\"/><span c:for=\"txt\">DELETE</span><input id=\"checking\" type=\"text\" name=\"field\" c:varValue=\"field\" c:validator=\"rate_val\"/><span c:for=\"checking\"/></form></body></html>";
+        String html_ = "<html c:bean=\"bean_one\" xmlns:c='javahtml'><body>HEAD<a c:command=\"$goToNullPage\" href=\"\"/></body></html>";
+        String htmlTwo_ = "<html c:bean=\"bean_two\" xmlns:c='javahtml'><body><form action=\"DELETE\" name=\"myform\" c:command=\"$go\"><input id=\"txt\" type=\"text\" name=\"typedString\" c:varValue=\"typedString\" c:validator=\"rate_val\"/><span c:for=\"txt\">DELETE</span><input id=\"checking\" type=\"text\" name=\"field\" c:varValue=\"field\" c:validator=\"rate_val\"/><span c:for=\"checking\"/></form></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
         files_.put("page1.html", html_);
@@ -3764,7 +3764,7 @@ public class NavigationTest {
         setupBeansAfter(conf_);
         assertEq("page2.html", nav_.getCurrentUrl());
         assertEq("bean_two", nav_.getCurrentBeanName());
-        assertXmlEqualNoPrefix("<html xmlns:c='javahtml' xmlns='javahtml'><body><form n-f=\"0\" action=\"\" c:command=\"$bean_two.go\" name=\"myform\"><input n-i=\"0\" id=\"txt\" name=\"bean_two.typedString\" type=\"text\" c:validator=\"rate_val\" value=\"TWO\"/><span c:for=\"txt\">TWO is not a no zero rate</span><input n-i=\"1\" id=\"checking\" name=\"bean_two.field\" type=\"text\" c:validator=\"rate_val\" value=\"ONE\"/><span c:for=\"checking\">ONE is not a no zero rate</span></form></body></html>", nav_.getHtmlText());
+        assertXmlEqualNoPrefix("<html xmlns:c='javahtml'><body><form n-f=\"0\" action=\"\" c:command=\"$bean_two.go\" name=\"myform\"><input n-i=\"0\" id=\"txt\" name=\"bean_two.typedString\" type=\"text\" c:validator=\"rate_val\" value=\"TWO\"/><span c:for=\"txt\">TWO is not a no zero rate</span><input n-i=\"1\" id=\"checking\" name=\"bean_two.field\" type=\"text\" c:validator=\"rate_val\" value=\"ONE\"/><span c:for=\"checking\">ONE is not a no zero rate</span></form></body></html>", nav_.getHtmlText());
         beanTwo_ = (BeanTwo) conf_.getBeans().getVal("bean_two");
         assertEq("TYPED_STRING", beanTwo_.getTypedString());
         StringMapObject map_ = beanTwo_.getForms();
@@ -3783,9 +3783,9 @@ public class NavigationTest {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
-        String html_ = "<html c:bean=\"bean_one\" xmlns:c='javahtml' xmlns='javahtml'><body>HEAD<a c:command=\"$goToNullPage\" href=\"\"/></body></html>";
-//        String htmlTwo_ = "<html c:bean=\"bean_two\" xmlns:c='javahtml' xmlns='javahtml'><body><form action=\"DELETE\" name=\"myform\" c:command=\"$go\"><input id=\"txt\" type=\"text\" name=\"typedString\" c:varValue=\"typedString\"/><input id=\"checking\" type=\"text\" name=\"choose1_2\" c:varValue=\"choose1_2\"/></form></body></html>";
-        String htmlTwo_ = "<html c:bean=\"bean_two\" xmlns:c='javahtml' xmlns='javahtml'><body><form action=\"DELETE\" name=\"myform\" c:command=\"$go\"><input id=\"txt\" type=\"text\" name=\"typedString\" c:varValue=\"typedString\"/><input id=\"checking\" type=\"text\" name=\"choose\" c:varValue=\"choose\"/></form></body></html>";
+        String html_ = "<html c:bean=\"bean_one\" xmlns:c='javahtml'><body>HEAD<a c:command=\"$goToNullPage\" href=\"\"/></body></html>";
+//        String htmlTwo_ = "<html c:bean=\"bean_two\" xmlns:c='javahtml'><body><form action=\"DELETE\" name=\"myform\" c:command=\"$go\"><input id=\"txt\" type=\"text\" name=\"typedString\" c:varValue=\"typedString\"/><input id=\"checking\" type=\"text\" name=\"choose1_2\" c:varValue=\"choose1_2\"/></form></body></html>";
+        String htmlTwo_ = "<html c:bean=\"bean_two\" xmlns:c='javahtml'><body><form action=\"DELETE\" name=\"myform\" c:command=\"$go\"><input id=\"txt\" type=\"text\" name=\"typedString\" c:varValue=\"typedString\"/><input id=\"checking\" type=\"text\" name=\"choose\" c:varValue=\"choose\"/></form></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
         files_.put("page1.html", html_);
@@ -3842,8 +3842,8 @@ public class NavigationTest {
         setupBeansAfter(conf_);
         assertEq("page2.html", nav_.getCurrentUrl());
         assertEq("bean_two", nav_.getCurrentBeanName());
-//        assertXMLEqualNoPrefix("<html xmlns:c='javahtml' xmlns='javahtml'><body><form n-f=\"0\" action=\"\" c:command=\"$bean_two.go\" name=\"myform\"><input n-i=\"0\" id=\"txt\" name=\"bean_two.typedString\" type=\"text\" value=\"TYPED_STRING\"/><input n-i=\"1\" id=\"checking\" name=\"bean_two.choose1_2\" type=\"text\" value=\"\"/></form></body></html>", nav_.getHtmlText());
-        assertXmlEqualNoPrefix("<html xmlns:c='javahtml' xmlns='javahtml'><body><form n-f=\"0\" action=\"\" c:command=\"$bean_two.go\" name=\"myform\"><input n-i=\"0\" id=\"txt\" name=\"bean_two.typedString\" type=\"text\" value=\"TYPED_STRING\"/><input n-i=\"1\" id=\"checking\" name=\"bean_two.choose\" type=\"text\" value=\"\"/></form></body></html>", nav_.getHtmlText());
+//        assertXMLEqualNoPrefix("<html xmlns:c='javahtml'><body><form n-f=\"0\" action=\"\" c:command=\"$bean_two.go\" name=\"myform\"><input n-i=\"0\" id=\"txt\" name=\"bean_two.typedString\" type=\"text\" value=\"TYPED_STRING\"/><input n-i=\"1\" id=\"checking\" name=\"bean_two.choose1_2\" type=\"text\" value=\"\"/></form></body></html>", nav_.getHtmlText());
+        assertXmlEqualNoPrefix("<html xmlns:c='javahtml'><body><form n-f=\"0\" action=\"\" c:command=\"$bean_two.go\" name=\"myform\"><input n-i=\"0\" id=\"txt\" name=\"bean_two.typedString\" type=\"text\" value=\"TYPED_STRING\"/><input n-i=\"1\" id=\"checking\" name=\"bean_two.choose\" type=\"text\" value=\"\"/></form></body></html>", nav_.getHtmlText());
         beanTwo_ = (BeanTwo) conf_.getBeans().getVal("bean_two");
         assertEq("TYPED_STRING", beanTwo_.getTypedString());
         StringMapObject map_ = beanTwo_.getForms();
@@ -3872,8 +3872,8 @@ public class NavigationTest {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
-        String html_ = "<html c:bean=\"bean_one\" xmlns:c='javahtml' xmlns='javahtml'><body>HEAD<a c:command=\"$goToNullPage\" href=\"\"/></body></html>";
-        String htmlTwo_ = "<html c:bean=\"bean_two\" xmlns:c='javahtml' xmlns='javahtml'><body><form action=\"DELETE\" name=\"myform\" c:command=\"$go(6)\"><input type=\"text\" name=\"typedString\" varValue=\"typedString\"/></form></body></html>";
+        String html_ = "<html c:bean=\"bean_one\" xmlns:c='javahtml'><body>HEAD<a c:command=\"$goToNullPage\" href=\"\"/></body></html>";
+        String htmlTwo_ = "<html c:bean=\"bean_two\" xmlns:c='javahtml'><body><form action=\"DELETE\" name=\"myform\" c:command=\"$go(6)\"><input type=\"text\" name=\"typedString\" varValue=\"typedString\"/></form></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
         files_.put("page1.html", html_);
@@ -3926,7 +3926,7 @@ public class NavigationTest {
         setupBeansAfter(conf_);
         assertEq("page1.html", nav_.getCurrentUrl());
         assertEq("bean_one", nav_.getCurrentBeanName());
-        assertXmlEqualNoPrefix("<html xmlns:c='javahtml' xmlns='javahtml'><body>HEAD<a n-a=\"0\" c:command=\"$bean_one.goToNullPage\" href=\"\"/></body></html>", nav_.getHtmlText());
+        assertXmlEqualNoPrefix("<html xmlns:c='javahtml'><body>HEAD<a n-a=\"0\" c:command=\"$bean_one.goToNullPage\" href=\"\"/></body></html>", nav_.getHtmlText());
         bean_ = (BeanOne) conf_.getBeans().getVal("bean_one");
         StringMapObject map_ = bean_.getForms();
         assertEq(8, map_.size());
@@ -3954,8 +3954,8 @@ public class NavigationTest {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
-        String html_ = "<html c:bean=\"bean_one\" xmlns:c='javahtml' xmlns='javahtml'><body>HEAD<a c:command=\"$goToNullPage\" href=\"\"/></body></html>";
-        String htmlTwo_ = "<html c:bean=\"bean_two\" xmlns:c='javahtml' xmlns='javahtml'><body><form action=\"DELETE\" name=\"myform\" c:command=\"$go(-6)\"><input type=\"text\" name=\"typedString\" c:varValue=\"typedString\"/></form></body></html>";
+        String html_ = "<html c:bean=\"bean_one\" xmlns:c='javahtml'><body>HEAD<a c:command=\"$goToNullPage\" href=\"\"/></body></html>";
+        String htmlTwo_ = "<html c:bean=\"bean_two\" xmlns:c='javahtml'><body><form action=\"DELETE\" name=\"myform\" c:command=\"$go(-6)\"><input type=\"text\" name=\"typedString\" c:varValue=\"typedString\"/></form></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
         files_.put("page1.html", html_);
@@ -4008,7 +4008,7 @@ public class NavigationTest {
         setupBeansAfter(conf_);
         assertEq("page2.html", nav_.getCurrentUrl());
         assertEq("bean_two", nav_.getCurrentBeanName());
-        assertXmlEqualNoPrefix("<html xmlns:c='javahtml' xmlns='javahtml'><body><form n-f=\"0\" action=\"\" c:command=\"$bean_two.go(-6)\" name=\"myform\"><input n-i=\"0\" name=\"bean_two.typedString\" type=\"text\" value=\"TYPED_STRING\"/></form></body></html>", nav_.getHtmlText());
+        assertXmlEqualNoPrefix("<html xmlns:c='javahtml'><body><form n-f=\"0\" action=\"\" c:command=\"$bean_two.go(-6)\" name=\"myform\"><input n-i=\"0\" name=\"bean_two.typedString\" type=\"text\" value=\"TYPED_STRING\"/></form></body></html>", nav_.getHtmlText());
         beanTwo_ = (BeanTwo) conf_.getBeans().getVal("bean_two");
         assertEq("TYPED_STRING", beanTwo_.getTypedString());
         StringMapObject map_ = beanTwo_.getForms();
@@ -4037,8 +4037,8 @@ public class NavigationTest {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
-        String html_ = "<html c:bean=\"bean_one\" xmlns:c='javahtml' xmlns='javahtml'><body>HEAD<a c:command=\"$goToNullPage\" href=\"\"/></body></html>";
-        String htmlTwo_ = "<html c:bean=\"bean_two\" xmlns:c='javahtml' xmlns='javahtml'><body><form action=\"DELETE\" name=\"myform\" c:command=\"page1.html\"><input type=\"text\" name=\"typedString\" varValue=\"typedString\"/></form></body></html>";
+        String html_ = "<html c:bean=\"bean_one\" xmlns:c='javahtml'><body>HEAD<a c:command=\"$goToNullPage\" href=\"\"/></body></html>";
+        String htmlTwo_ = "<html c:bean=\"bean_two\" xmlns:c='javahtml'><body><form action=\"DELETE\" name=\"myform\" c:command=\"page1.html\"><input type=\"text\" name=\"typedString\" varValue=\"typedString\"/></form></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
         files_.put("page1.html", html_);
@@ -4091,7 +4091,7 @@ public class NavigationTest {
         setupBeansAfter(conf_);
         assertEq("page1.html", nav_.getCurrentUrl());
         assertEq("bean_one", nav_.getCurrentBeanName());
-        assertXmlEqualNoPrefix("<html xmlns:c='javahtml' xmlns='javahtml'><body>HEAD<a n-a=\"0\" c:command=\"$bean_one.goToNullPage\" href=\"\"/></body></html>", nav_.getHtmlText());
+        assertXmlEqualNoPrefix("<html xmlns:c='javahtml'><body>HEAD<a n-a=\"0\" c:command=\"$bean_one.goToNullPage\" href=\"\"/></body></html>", nav_.getHtmlText());
         bean_ = (BeanOne) conf_.getBeans().getVal("bean_one");
         StringMapObject map_ = bean_.getForms();
         assertEq(0, map_.size());
@@ -4109,8 +4109,8 @@ public class NavigationTest {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
-        String html_ = "<html c:bean=\"bean_one\" xmlns:c='javahtml' xmlns='javahtml'><body>HEAD<a c:command=\"$goToNullPage\" href=\"\"/></body></html>";
-        String htmlTwo_ = "<html c:bean=\"bean_two\" xmlns:c='javahtml' xmlns='javahtml'><body><form action=\"DELETE\" name=\"myform\" c:command=\"$validate\"><input type=\"text\" name=\"typedString\" c:varValue=\"typedString\"/></form></body></html>";
+        String html_ = "<html c:bean=\"bean_one\" xmlns:c='javahtml'><body>HEAD<a c:command=\"$goToNullPage\" href=\"\"/></body></html>";
+        String htmlTwo_ = "<html c:bean=\"bean_two\" xmlns:c='javahtml'><body><form action=\"DELETE\" name=\"myform\" c:command=\"$validate\"><input type=\"text\" name=\"typedString\" c:varValue=\"typedString\"/></form></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
         files_.put("page1.html", html_);
@@ -4163,7 +4163,7 @@ public class NavigationTest {
         setupBeansAfter(conf_);
         assertEq("page2.html", nav_.getCurrentUrl());
         assertEq("bean_two", nav_.getCurrentBeanName());
-        assertXmlEqualNoPrefix("<html xmlns:c='javahtml' xmlns='javahtml'><body><form n-f=\"0\" action=\"\" c:command=\"$bean_two.validate\" name=\"myform\"><input n-i=\"0\" name=\"bean_two.typedString\" type=\"text\" value=\"TYPED_STRING\"/></form></body></html>", nav_.getHtmlText());
+        assertXmlEqualNoPrefix("<html xmlns:c='javahtml'><body><form n-f=\"0\" action=\"\" c:command=\"$bean_two.validate\" name=\"myform\"><input n-i=\"0\" name=\"bean_two.typedString\" type=\"text\" value=\"TYPED_STRING\"/></form></body></html>", nav_.getHtmlText());
         beanTwo_ = (BeanTwo) conf_.getBeans().getVal("bean_two");
         assertEq("TYPED_STRING", beanTwo_.getTypedString());
         StringMapObject map_ = beanTwo_.getForms();
@@ -4192,8 +4192,8 @@ public class NavigationTest {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
-        String html_ = "<html c:bean=\"bean_one\" xmlns:c='javahtml' xmlns='javahtml'><body>HEAD<a c:command=\"$goToNullPage\" href=\"\"/></body></html>";
-        String htmlTwo_ = "<html c:bean=\"bean_two\" xmlns:c='javahtml' xmlns='javahtml'><body><form action=\"DELETE\" name=\"myform\" c:command=\"$validate\"><input type=\"text\" name=\"typedString\" c:varValue=\"typedString\"/><input type=\"submit\" value=\"OK\"/></form></body></html>";
+        String html_ = "<html c:bean=\"bean_one\" xmlns:c='javahtml'><body>HEAD<a c:command=\"$goToNullPage\" href=\"\"/></body></html>";
+        String htmlTwo_ = "<html c:bean=\"bean_two\" xmlns:c='javahtml'><body><form action=\"DELETE\" name=\"myform\" c:command=\"$validate\"><input type=\"text\" name=\"typedString\" c:varValue=\"typedString\"/><input type=\"submit\" value=\"OK\"/></form></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
         files_.put("page1.html", html_);
@@ -4246,7 +4246,7 @@ public class NavigationTest {
         setupBeansAfter(conf_);
         assertEq("page2.html", nav_.getCurrentUrl());
         assertEq("bean_two", nav_.getCurrentBeanName());
-        assertXmlEqualNoPrefix("<html xmlns:c='javahtml' xmlns='javahtml'><body><form n-f=\"0\" action=\"\" c:command=\"$bean_two.validate\" name=\"myform\"><input n-i=\"0\" name=\"bean_two.typedString\" type=\"text\" value=\"TYPED_STRING\"/><input type=\"submit\" value=\"OK\"/></form></body></html>", nav_.getHtmlText());
+        assertXmlEqualNoPrefix("<html xmlns:c='javahtml'><body><form n-f=\"0\" action=\"\" c:command=\"$bean_two.validate\" name=\"myform\"><input n-i=\"0\" name=\"bean_two.typedString\" type=\"text\" value=\"TYPED_STRING\"/><input type=\"submit\" value=\"OK\"/></form></body></html>", nav_.getHtmlText());
         beanTwo_ = (BeanTwo) conf_.getBeans().getVal("bean_two");
         assertEq("TYPED_STRING", beanTwo_.getTypedString());
         StringMapObject map_ = beanTwo_.getForms();
@@ -4275,8 +4275,8 @@ public class NavigationTest {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
-        String html_ = "<html c:bean=\"bean_one\" xmlns:c='javahtml' xmlns='javahtml'><body>HEAD<a c:command=\"$goToNullPage\" href=\"\"/></body></html>";
-        String htmlTwo_ = "<html c:bean=\"bean_two\" xmlns:c='javahtml' xmlns='javahtml'><body><form action=\"DELETE\" name=\"myform\" c:command=\"$validate\"><input type=\"text\" name=\"typedString\" c:varValue=\"typedString\"/><input type=\"submit\" value=\"OK\"/></form></body></html>";
+        String html_ = "<html c:bean=\"bean_one\" xmlns:c='javahtml'><body>HEAD<a c:command=\"$goToNullPage\" href=\"\"/></body></html>";
+        String htmlTwo_ = "<html c:bean=\"bean_two\" xmlns:c='javahtml'><body><form action=\"DELETE\" name=\"myform\" c:command=\"$validate\"><input type=\"text\" name=\"typedString\" c:varValue=\"typedString\"/><input type=\"submit\" value=\"OK\"/></form></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
         files_.put("page1.html", html_);
@@ -4329,7 +4329,7 @@ public class NavigationTest {
         setupBeansAfter(conf_);
         assertEq("page2.html", nav_.getCurrentUrl());
         assertEq("bean_two", nav_.getCurrentBeanName());
-        assertXmlEqualNoPrefix("<html xmlns:c='javahtml' xmlns='javahtml'><body><form n-f=\"0\" action=\"\" c:command=\"$bean_two.validate\" name=\"myform\"><input n-i=\"0\" name=\"bean_two.typedString\" type=\"text\" value=\"TYPED_STRING\"/><input type=\"submit\" value=\"OK\"/></form></body></html>", nav_.getHtmlText());
+        assertXmlEqualNoPrefix("<html xmlns:c='javahtml'><body><form n-f=\"0\" action=\"\" c:command=\"$bean_two.validate\" name=\"myform\"><input n-i=\"0\" name=\"bean_two.typedString\" type=\"text\" value=\"TYPED_STRING\"/><input type=\"submit\" value=\"OK\"/></form></body></html>", nav_.getHtmlText());
         beanTwo_ = (BeanTwo) conf_.getBeans().getVal("bean_two");
         assertEq("TYPED_STRING", beanTwo_.getTypedString());
         StringMapObject map_ = beanTwo_.getForms();
@@ -4359,8 +4359,8 @@ public class NavigationTest {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
-        String html_ = "<html c:bean=\"bean_one\" xmlns:c='javahtml' xmlns='javahtml'><body>HEAD<a c:command=\"$goToNullPage\" href=\"\"/></body></html>";
-        String htmlTwo_ = "<html c:bean=\"bean_two\" xmlns:c='javahtml' xmlns='javahtml'><body><form action=\"DELETE\" name=\"myform\" c:command=\"$validate\"><input type=\"text\" name=\"typedString\" c:varValue=\"typedString\"/><input type=\"submit\" value=\"OK\"/></form><form c:command=\"$validate\" name=\"myform2\"><input type=\"text\" name=\"field\" c:varValue=\"field\"/></form></body></html>";
+        String html_ = "<html c:bean=\"bean_one\" xmlns:c='javahtml'><body>HEAD<a c:command=\"$goToNullPage\" href=\"\"/></body></html>";
+        String htmlTwo_ = "<html c:bean=\"bean_two\" xmlns:c='javahtml'><body><form action=\"DELETE\" name=\"myform\" c:command=\"$validate\"><input type=\"text\" name=\"typedString\" c:varValue=\"typedString\"/><input type=\"submit\" value=\"OK\"/></form><form c:command=\"$validate\" name=\"myform2\"><input type=\"text\" name=\"field\" c:varValue=\"field\"/></form></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
         files_.put("page1.html", html_);
@@ -4413,7 +4413,7 @@ public class NavigationTest {
         setupBeansAfter(conf_);
         assertEq("page2.html", nav_.getCurrentUrl());
         assertEq("bean_two", nav_.getCurrentBeanName());
-        assertXmlEqualNoPrefix("<html xmlns:c='javahtml' xmlns='javahtml'><body><form n-f=\"0\" action=\"\" c:command=\"$bean_two.validate\" name=\"myform\"><input n-i=\"0\" name=\"bean_two.typedString\" type=\"text\" value=\"TYPED_STRING\"/><input type=\"submit\" value=\"OK\"/></form><form n-f=\"1\" action=\"\" c:command=\"$bean_two.validate\" name=\"myform2\"><input n-i=\"0\" name=\"bean_two.field\" type=\"text\" value=\"\"/></form></body></html>", nav_.getHtmlText());
+        assertXmlEqualNoPrefix("<html xmlns:c='javahtml'><body><form n-f=\"0\" action=\"\" c:command=\"$bean_two.validate\" name=\"myform\"><input n-i=\"0\" name=\"bean_two.typedString\" type=\"text\" value=\"TYPED_STRING\"/><input type=\"submit\" value=\"OK\"/></form><form n-f=\"1\" action=\"\" c:command=\"$bean_two.validate\" name=\"myform2\"><input n-i=\"0\" name=\"bean_two.field\" type=\"text\" value=\"\"/></form></body></html>", nav_.getHtmlText());
         beanTwo_ = (BeanTwo) conf_.getBeans().getVal("bean_two");
         assertEq("TYPED_STRING", beanTwo_.getTypedString());
         StringMapObject map_ = beanTwo_.getForms();
@@ -4442,8 +4442,8 @@ public class NavigationTest {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
-        String html_ = "<html c:bean=\"bean_one\" xmlns:c='javahtml' xmlns='javahtml'><body>HEAD<a c:command=\"$goToNullPage\" href=\"\"/></body></html>";
-        String htmlTwo_ = "<html c:bean=\"bean_two\" xmlns:c='javahtml' xmlns='javahtml'><body><form action=\"DELETE\" name=\"myform\" c:command=\"$go\"><c:select className=\""+ENUM+"\" default=\"ONE\" varValue=\"chosenNumber\" list=\"getChosenNumbers()\"/></form></body></html>";
+        String html_ = "<html c:bean=\"bean_one\" xmlns:c='javahtml'><body>HEAD<a c:command=\"$goToNullPage\" href=\"\"/></body></html>";
+        String htmlTwo_ = "<html c:bean=\"bean_two\" xmlns:c='javahtml'><body><form action=\"DELETE\" name=\"myform\" c:command=\"$go\"><c:select className=\""+ENUM+"\" default=\"ONE\" varValue=\"chosenNumber\" list=\"getChosenNumbers()\"/></form></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
         files_.put("page1.html", html_);
@@ -4480,7 +4480,7 @@ public class NavigationTest {
         setupBeansAfter(conf_);
         assertEq("page1.html", nav_.getCurrentUrl());
         assertEq("bean_one", nav_.getCurrentBeanName());
-        assertXmlEqualNoPrefix("<html xmlns:c='javahtml' xmlns='javahtml'><body>HEAD<a n-a=\"0\" c:command=\"$bean_one.goToNullPage\" href=\"\"/></body></html>", nav_.getHtmlText());
+        assertXmlEqualNoPrefix("<html xmlns:c='javahtml'><body>HEAD<a n-a=\"0\" c:command=\"$bean_one.goToNullPage\" href=\"\"/></body></html>", nav_.getHtmlText());
         bean_ = (BeanOne) conf_.getBeans().getVal("bean_one");
         StringMapObject map_ = bean_.getForms();
         assertEq(8, map_.size());
@@ -4508,8 +4508,8 @@ public class NavigationTest {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
-        String html_ = "<html c:bean=\"bean_one\" xmlns:c='javahtml' xmlns='javahtml'><body>HEAD<a c:command=\"$goToNullPage\" href=\"\"/></body></html>";
-        String htmlTwo_ = "<html c:bean=\"bean_two\" xmlns:c='javahtml' xmlns='javahtml'><body><form action=\"DELETE\" name=\"myform\" c:command=\"$go\"><input id=\"txt\" type=\"text\" name=\"typedString\" varValue=\"typedString\" valueChangeEvent=\"changeTextTwo\"/></form></body></html>";
+        String html_ = "<html c:bean=\"bean_one\" xmlns:c='javahtml'><body>HEAD<a c:command=\"$goToNullPage\" href=\"\"/></body></html>";
+        String htmlTwo_ = "<html c:bean=\"bean_two\" xmlns:c='javahtml'><body><form action=\"DELETE\" name=\"myform\" c:command=\"$go\"><input id=\"txt\" type=\"text\" name=\"typedString\" varValue=\"typedString\" valueChangeEvent=\"changeTextTwo\"/></form></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
         files_.put("page1.html", html_);
@@ -4560,7 +4560,7 @@ public class NavigationTest {
         setupBeansAfter(conf_);
         assertEq("page1.html", nav_.getCurrentUrl());
         assertEq("bean_one", nav_.getCurrentBeanName());
-        assertXmlEqualNoPrefix("<html xmlns:c='javahtml' xmlns='javahtml'><body>HEAD<a n-a=\"0\" c:command=\"$bean_one.goToNullPage\" href=\"\"/></body></html>", nav_.getHtmlText());
+        assertXmlEqualNoPrefix("<html xmlns:c='javahtml'><body>HEAD<a n-a=\"0\" c:command=\"$bean_one.goToNullPage\" href=\"\"/></body></html>", nav_.getHtmlText());
         bean_ = (BeanOne) conf_.getBeans().getVal("bean_one");
         StringMapObject map_ = bean_.getForms();
         assertEq(8, map_.size());
@@ -4588,8 +4588,8 @@ public class NavigationTest {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
-        String html_ = "<html c:bean=\"bean_one\" xmlns:c='javahtml' xmlns='javahtml'><body>HEAD<a c:command=\"$goToNullPage\" href=\"\"/></body></html>";
-        String htmlTwo_ = "<html c:bean=\"bean_two\" xmlns:c='javahtml' xmlns='javahtml'><body><form action=\"DELETE\" name=\"myform\" c:command=\"$go\"><input id=\"txt\" type=\"text\" name=\"typedString\" c:varValue=\"typedString\" c:validator=\"rate_val\"/><span c:for=\"txt\"/></form></body></html>";
+        String html_ = "<html c:bean=\"bean_one\" xmlns:c='javahtml'><body>HEAD<a c:command=\"$goToNullPage\" href=\"\"/></body></html>";
+        String htmlTwo_ = "<html c:bean=\"bean_two\" xmlns:c='javahtml'><body><form action=\"DELETE\" name=\"myform\" c:command=\"$go\"><input id=\"txt\" type=\"text\" name=\"typedString\" c:varValue=\"typedString\" c:validator=\"rate_val\"/><span c:for=\"txt\"/></form></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
         files_.put("page1.html", html_);
@@ -4640,7 +4640,7 @@ public class NavigationTest {
         setupBeansAfter(conf_);
         assertEq("page2.html", nav_.getCurrentUrl());
         assertEq("bean_two", nav_.getCurrentBeanName());
-        assertXmlEqualNoPrefix("<html xmlns:c='javahtml' xmlns='javahtml'><body><form n-f=\"0\" action=\"\" c:command=\"$bean_two.go\" name=\"myform\"><input n-i=\"0\" id=\"txt\" name=\"bean_two.typedString\" type=\"text\" c:validator=\"rate_val\" value=\"0\"/><span c:for=\"txt\">0 is unacceptable</span></form></body></html>", nav_.getHtmlText());
+        assertXmlEqualNoPrefix("<html xmlns:c='javahtml'><body><form n-f=\"0\" action=\"\" c:command=\"$bean_two.go\" name=\"myform\"><input n-i=\"0\" id=\"txt\" name=\"bean_two.typedString\" type=\"text\" c:validator=\"rate_val\" value=\"0\"/><span c:for=\"txt\">0 is unacceptable</span></form></body></html>", nav_.getHtmlText());
         beanTwo_ = (BeanTwo) conf_.getBeans().getVal("bean_two");
         assertEq("TYPED_STRING", beanTwo_.getTypedString());
         StringMapObject map_ = beanTwo_.getForms();
@@ -4659,8 +4659,8 @@ public class NavigationTest {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
-        String html_ = "<html c:bean=\"bean_one\" xmlns:c='javahtml' xmlns='javahtml'><body>HEAD<a c:command=\"$goToNullPage\" href=\"\"/></body></html>";
-        String htmlTwo_ = "<html c:bean=\"bean_two\" xmlns:c='javahtml' xmlns='javahtml'><body><form action=\"DELETE\" name=\"myform\" c:command=\"$go\"><input type=\"text\" name=\"typedString\" c:varValue=\"typedString\"/></form></body></html>";
+        String html_ = "<html c:bean=\"bean_one\" xmlns:c='javahtml'><body>HEAD<a c:command=\"$goToNullPage\" href=\"\"/></body></html>";
+        String htmlTwo_ = "<html c:bean=\"bean_two\" xmlns:c='javahtml'><body><form action=\"DELETE\" name=\"myform\" c:command=\"$go\"><input type=\"text\" name=\"typedString\" c:varValue=\"typedString\"/></form></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
         files_.put("page1.html", html_);
@@ -4710,7 +4710,7 @@ public class NavigationTest {
         setupBeansAfter(conf_);
         assertEq("page2.html", nav_.getCurrentUrl());
         assertEq("bean_two", nav_.getCurrentBeanName());
-        assertXmlEqualNoPrefix("<html xmlns:c='javahtml' xmlns='javahtml'><body><form n-f=\"0\" action=\"\" c:command=\"$bean_two.go\" name=\"myform\"><input n-i=\"0\" name=\"bean_two.typedString\" type=\"text\" value=\""+(char)228+" %2\"/></form></body></html>", nav_.getHtmlText());
+        assertXmlEqualNoPrefix("<html xmlns:c='javahtml'><body><form n-f=\"0\" action=\"\" c:command=\"$bean_two.go\" name=\"myform\"><input n-i=\"0\" name=\"bean_two.typedString\" type=\"text\" value=\""+(char)228+" %2\"/></form></body></html>", nav_.getHtmlText());
         beanTwo_ = (BeanTwo) conf_.getBeans().getVal("bean_two");
         assertEq((char)228+" %2", beanTwo_.getTypedString());
         StringMapObject map_ = beanTwo_.getForms();
@@ -4739,8 +4739,8 @@ public class NavigationTest {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
-        String html_ = "<html c:bean=\"bean_one\" xmlns:c='javahtml' xmlns='javahtml'><body>HEAD<a c:command=\"$goToNullPage\" href=\"\"/></body></html>";
-        String htmlTwo_ = "<html c:bean=\"bean_two\" xmlns:c='javahtml' xmlns='javahtml'><body><form action=\"DELETE\" name=\"myform\" c:command=\"$go\"><input type=\"text\" name=\"typedString\" c:varValue=\"typedString\"/></form></body></html>";
+        String html_ = "<html c:bean=\"bean_one\" xmlns:c='javahtml'><body>HEAD<a c:command=\"$goToNullPage\" href=\"\"/></body></html>";
+        String htmlTwo_ = "<html c:bean=\"bean_two\" xmlns:c='javahtml'><body><form action=\"DELETE\" name=\"myform\" c:command=\"$go\"><input type=\"text\" name=\"typedString\" c:varValue=\"typedString\"/></form></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
         files_.put("page1.html", html_);
@@ -4791,7 +4791,7 @@ public class NavigationTest {
         setupBeansAfter(conf_);
         assertEq("page2.html", nav_.getCurrentUrl());
         assertEq("bean_two", nav_.getCurrentBeanName());
-        assertXmlEqualNoPrefix("<html xmlns:c='javahtml' xmlns='javahtml'><body><form n-f=\"0\" action=\"\" c:command=\"$bean_two.go\" name=\"myform\"><input n-i=\"0\" name=\"bean_two.typedString\" type=\"text\" value=\""+(char)376+"2\"/></form></body></html>", nav_.getHtmlText());
+        assertXmlEqualNoPrefix("<html xmlns:c='javahtml'><body><form n-f=\"0\" action=\"\" c:command=\"$bean_two.go\" name=\"myform\"><input n-i=\"0\" name=\"bean_two.typedString\" type=\"text\" value=\""+(char)376+"2\"/></form></body></html>", nav_.getHtmlText());
         beanTwo_ = (BeanTwo) conf_.getBeans().getVal("bean_two");
         assertEq((char)376+"2", beanTwo_.getTypedString());
         StringMapObject map_ = beanTwo_.getForms();
@@ -4820,8 +4820,8 @@ public class NavigationTest {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
-        String html_ = "<html c:bean=\"bean_one\" xmlns:c='javahtml' xmlns='javahtml'><body>HEAD<a c:command=\"$goToNullPage\" href=\"\"/></body></html>";
-        String htmlTwo_ = "<html c:bean=\"bean_two\" xmlns:c='javahtml' xmlns='javahtml'><body><form action=\"DELETE\" name=\"myform\" c:command=\"$go\"><c:select className=\""+ENUM+"\" id=\"combo\" default=\"ONE\" name=\"chosenNumber\" varValue=\"chosenNumber\" list=\"getChosenNumbers()\" validator=\"validator\"/></form></body></html>";
+        String html_ = "<html c:bean=\"bean_one\" xmlns:c='javahtml'><body>HEAD<a c:command=\"$goToNullPage\" href=\"\"/></body></html>";
+        String htmlTwo_ = "<html c:bean=\"bean_two\" xmlns:c='javahtml'><body><form action=\"DELETE\" name=\"myform\" c:command=\"$go\"><c:select className=\""+ENUM+"\" id=\"combo\" default=\"ONE\" name=\"chosenNumber\" varValue=\"chosenNumber\" list=\"getChosenNumbers()\" validator=\"validator\"/></form></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
         files_.put("page1.html", html_);
@@ -4872,7 +4872,7 @@ public class NavigationTest {
         setupBeansAfter(conf_);
         assertEq("page1.html", nav_.getCurrentUrl());
         assertEq("bean_one", nav_.getCurrentBeanName());
-        assertXmlEqualNoPrefix("<html xmlns:c='javahtml' xmlns='javahtml'><body>HEAD<a n-a=\"0\" c:command=\"$bean_one.goToNullPage\" href=\"\"/></body></html>", nav_.getHtmlText());
+        assertXmlEqualNoPrefix("<html xmlns:c='javahtml'><body>HEAD<a n-a=\"0\" c:command=\"$bean_one.goToNullPage\" href=\"\"/></body></html>", nav_.getHtmlText());
         bean_ = (BeanOne) conf_.getBeans().getVal("bean_one");
         StringMapObject map_ = bean_.getForms();
         assertEq(8, map_.size());
@@ -4900,7 +4900,7 @@ public class NavigationTest {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
-        String html_ = "<html c:bean=\"bean_three\" xmlns:c='javahtml' xmlns='javahtml'><body>HEAD<form action=\"\" c:command=\"page1.html\" name=\"myform\"><c:for var=\"n\" list=\"numbers\"><input type=\"radio\" name=\"index\" c:varValue=\"n;\"/></c:for><input type=\"submit\" value=\"OK\"/></form></body></html>";
+        String html_ = "<html c:bean=\"bean_three\" xmlns:c='javahtml'><body>HEAD<form action=\"\" c:command=\"page1.html\" name=\"myform\"><c:for var=\"n\" list=\"numbers\"><input type=\"radio\" name=\"index\" c:varValue=\"n;\"/></c:for><input type=\"submit\" value=\"OK\"/></form></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
         files_.put("page1.html", html_);
@@ -4947,7 +4947,7 @@ public class NavigationTest {
         assertEq("page1.html", nav_.getCurrentUrl());
         assertEq("bean_three", nav_.getCurrentBeanName());
 //        assertXMLEqualNoPrefix("<html bean=\"bean_three\"><body>HEAD<form action=\"\" c:command=\"page1.html\" name=\"myform\"><input name=\"bean_three.index\" type=\"radio\" value=\"2\" varValue=\"numbers[0]\"/><input checked=\"checked\" name=\"bean_three.index\" type=\"radio\" value=\"4\" varValue=\"numbers[1]\"/><input name=\"bean_three.index\" type=\"radio\" value=\"6\" varValue=\"numbers[2]\"/><input type=\"submit\" value=\"OK\"/></form></body></html>", nav_.getHtmlText());
-        assertXmlEqualNoPrefix("<html xmlns:c='javahtml' xmlns='javahtml'><body>HEAD<form n-f=\"0\" action=\"\" c:command=\"page1.html\" name=\"myform\"><input n-i=\"0\" name=\"bean_three.index\" type=\"radio\" value=\"2\"/><input n-i=\"0\" checked=\"checked\" name=\"bean_three.index\" type=\"radio\" value=\"4\"/><input n-i=\"0\" name=\"bean_three.index\" type=\"radio\" value=\"6\"/><input type=\"submit\" value=\"OK\"/></form></body></html>", nav_.getHtmlText());
+        assertXmlEqualNoPrefix("<html xmlns:c='javahtml'><body>HEAD<form n-f=\"0\" action=\"\" c:command=\"page1.html\" name=\"myform\"><input n-i=\"0\" name=\"bean_three.index\" type=\"radio\" value=\"2\"/><input n-i=\"0\" checked=\"checked\" name=\"bean_three.index\" type=\"radio\" value=\"4\"/><input n-i=\"0\" name=\"bean_three.index\" type=\"radio\" value=\"6\"/><input type=\"submit\" value=\"OK\"/></form></body></html>", nav_.getHtmlText());
         bean_ = (BeanThree) conf_.getBeans().getVal("bean_three");
         StringMapObject map_ = bean_.getForms();
         assertEq(0, map_.size());
@@ -4965,8 +4965,8 @@ public class NavigationTest {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''\nfive={0} in error";
-        String html_ = "<html c:bean=\"bean_one\" xmlns:c='javahtml' xmlns='javahtml'><body>HEAD<a c:command=\"$goToNullPage\" href=\"\"/></body></html>";
-        String htmlTwo_ = "<html c:bean=\"bean_two\" xmlns:c='javahtml' xmlns='javahtml'><body><form action=\"DELETE\" name=\"myform\" c:command=\"$go\"><input id=\"txt\" type=\"text\" name=\"typedString\" c:varValue=\"typedString\" c:validator=\"rate_val\"/><span c:for=\"txt\" c:valueMessage=\"msg_example,five\"/><span>Text</span></form></body></html>";
+        String html_ = "<html c:bean=\"bean_one\" xmlns:c='javahtml'><body>HEAD<a c:command=\"$goToNullPage\" href=\"\"/></body></html>";
+        String htmlTwo_ = "<html c:bean=\"bean_two\" xmlns:c='javahtml'><body><form action=\"DELETE\" name=\"myform\" c:command=\"$go\"><input id=\"txt\" type=\"text\" name=\"typedString\" c:varValue=\"typedString\" c:validator=\"rate_val\"/><span c:for=\"txt\" c:valueMessage=\"msg_example,five\"/><span>Text</span></form></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
         files_.put("page1.html", html_);
@@ -5018,7 +5018,7 @@ public class NavigationTest {
         setupBeansAfter(conf_);
         assertEq("page2.html", nav_.getCurrentUrl());
         assertEq("bean_two", nav_.getCurrentBeanName());
-        assertXmlEqualNoPrefix("<html xmlns:c='javahtml' xmlns='javahtml'><body><form n-f=\"0\" action=\"\" c:command=\"$bean_two.go\" name=\"myform\"><input n-i=\"0\" id=\"txt\" name=\"bean_two.typedString\" type=\"text\" c:validator=\"rate_val\" value=\"ONE_TWO\"/><span c:for=\"txt\" c:valueMessage=\"msg_example,five\">ONE_TWO in error</span><span>Text</span></form></body></html>", nav_.getHtmlText());
+        assertXmlEqualNoPrefix("<html xmlns:c='javahtml'><body><form n-f=\"0\" action=\"\" c:command=\"$bean_two.go\" name=\"myform\"><input n-i=\"0\" id=\"txt\" name=\"bean_two.typedString\" type=\"text\" c:validator=\"rate_val\" value=\"ONE_TWO\"/><span c:for=\"txt\" c:valueMessage=\"msg_example,five\">ONE_TWO in error</span><span>Text</span></form></body></html>", nav_.getHtmlText());
         beanTwo_ = (BeanTwo) conf_.getBeans().getVal("bean_two");
         assertEq("TYPED_STRING", beanTwo_.getTypedString());
         StringMapObject map_ = beanTwo_.getForms();
@@ -5037,8 +5037,8 @@ public class NavigationTest {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
-        String html_ = "<html c:bean=\"bean_one\" xmlns:c='javahtml' xmlns='javahtml'><body>HEAD<a c:command=\"$goToNullPage\" href=\"\"/></body></html>";
-        String htmlTwo_ = "<html c:bean=\"bean_two\" xmlns:c='javahtml' xmlns='javahtml'><body><form action=\"$go\" name=\"myform\"><input type=\"text\" name=\"typedString\" c:varValue=\"typedString\"/></form></body></html>";
+        String html_ = "<html c:bean=\"bean_one\" xmlns:c='javahtml'><body>HEAD<a c:command=\"$goToNullPage\" href=\"\"/></body></html>";
+        String htmlTwo_ = "<html c:bean=\"bean_two\" xmlns:c='javahtml'><body><form action=\"$go\" name=\"myform\"><input type=\"text\" name=\"typedString\" c:varValue=\"typedString\"/></form></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
         files_.put("page1.html", html_);
@@ -5088,7 +5088,7 @@ public class NavigationTest {
         setupBeansAfter(conf_);
         assertEq("page2.html", nav_.getCurrentUrl());
         assertEq("bean_two", nav_.getCurrentBeanName());
-        assertXmlEqualNoPrefix("<html xmlns:c='javahtml' xmlns='javahtml'><body><form n-f=\"0\" action=\"$bean_two.go\" name=\"myform\"><input n-i=\"0\" name=\"bean_two.typedString\" type=\"text\" value=\"TYPED_STRING\"/></form></body></html>", nav_.getHtmlText());
+        assertXmlEqualNoPrefix("<html xmlns:c='javahtml'><body><form n-f=\"0\" action=\"$bean_two.go\" name=\"myform\"><input n-i=\"0\" name=\"bean_two.typedString\" type=\"text\" value=\"TYPED_STRING\"/></form></body></html>", nav_.getHtmlText());
         beanTwo_ = (BeanTwo) conf_.getBeans().getVal("bean_two");
         assertEq("TYPED_STRING", beanTwo_.getTypedString());
         StringMapObject map_ = beanTwo_.getForms();
@@ -5117,8 +5117,8 @@ public class NavigationTest {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
-        String html_ = "<html c:bean=\"bean_one\" xmlns:c='javahtml' xmlns='javahtml'><body>HEAD<a c:command=\"$goToNullPage\" href=\"\"/></body></html>";
-        String htmlTwo_ = "<html c:bean=\"bean_two\" xmlns:c='javahtml' xmlns='javahtml'><body><form action=\"$go:\" name=\"myform\"><input type=\"text\" name=\"typedString\" c:varValue=\"typedString\"/></form></body></html>";
+        String html_ = "<html c:bean=\"bean_one\" xmlns:c='javahtml'><body>HEAD<a c:command=\"$goToNullPage\" href=\"\"/></body></html>";
+        String htmlTwo_ = "<html c:bean=\"bean_two\" xmlns:c='javahtml'><body><form action=\"$go:\" name=\"myform\"><input type=\"text\" name=\"typedString\" c:varValue=\"typedString\"/></form></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
         files_.put("page1.html", html_);
@@ -5168,7 +5168,7 @@ public class NavigationTest {
         setupBeansAfter(conf_);
         assertEq("page2.html", nav_.getCurrentUrl());
         assertEq("bean_two", nav_.getCurrentBeanName());
-        assertXmlEqualNoPrefix("<html xmlns:c='javahtml' xmlns='javahtml'><body><form n-f=\"0\" action=\"$bean_two.go:\" name=\"myform\"><input n-i=\"0\" name=\"bean_two.typedString\" type=\"text\" value=\"TYPED_STRING\"/></form></body></html>", nav_.getHtmlText());
+        assertXmlEqualNoPrefix("<html xmlns:c='javahtml'><body><form n-f=\"0\" action=\"$bean_two.go:\" name=\"myform\"><input n-i=\"0\" name=\"bean_two.typedString\" type=\"text\" value=\"TYPED_STRING\"/></form></body></html>", nav_.getHtmlText());
         beanTwo_ = (BeanTwo) conf_.getBeans().getVal("bean_two");
         assertEq("ONE", beanTwo_.getTypedString());
         StringMapObject map_ = beanTwo_.getForms();
@@ -5185,7 +5185,7 @@ public class NavigationTest {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
-        String html_ = "<html c:bean=\"bean_three\" xmlns:c='javahtml' xmlns='javahtml'><body>HEAD<form action=\"\" c:command=\"page1.html\" name=\"myform\"><c:for var=\"n\" list=\"numbers\"><input type=\"radio\" name=\"index\" c:varValue=\"n;\"/></c:for><input type=\"submit\" value=\"OK\"/></form></body></html>";
+        String html_ = "<html c:bean=\"bean_three\" xmlns:c='javahtml'><body>HEAD<form action=\"\" c:command=\"page1.html\" name=\"myform\"><c:for var=\"n\" list=\"numbers\"><input type=\"radio\" name=\"index\" c:varValue=\"n;\"/></c:for><input type=\"submit\" value=\"OK\"/></form></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
         files_.put("page1.html", html_);
@@ -5232,7 +5232,7 @@ public class NavigationTest {
         assertEq("page1.html", nav_.getCurrentUrl());
         assertEq("bean_three", nav_.getCurrentBeanName());
 //        assertXMLEqualNoPrefix("<html bean=\"bean_three\"><body>HEAD<form action=\"\" c:command=\"page1.html\" name=\"myform\"><input name=\"bean_three.index\" type=\"radio\" value=\"2\" varValue=\"numbers[0]\"/><input name=\"bean_three.index\" type=\"radio\" value=\"4\" varValue=\"numbers[1]\"/><input name=\"bean_three.index\" type=\"radio\" value=\"6\" varValue=\"numbers[2]\"/><input type=\"submit\" value=\"OK\"/></form></body></html>", nav_.getHtmlText());
-        assertXmlEqualNoPrefix("<html xmlns:c='javahtml' xmlns='javahtml'><body>HEAD<form n-f=\"0\" action=\"\" c:command=\"page1.html\" name=\"myform\"><input n-i=\"0\" name=\"bean_three.index\" type=\"radio\" value=\"2\"/><input n-i=\"0\"  name=\"bean_three.index\" type=\"radio\" value=\"4\"/><input n-i=\"0\"  name=\"bean_three.index\" type=\"radio\" value=\"6\"/><input type=\"submit\" value=\"OK\"/></form></body></html>", nav_.getHtmlText());
+        assertXmlEqualNoPrefix("<html xmlns:c='javahtml'><body>HEAD<form n-f=\"0\" action=\"\" c:command=\"page1.html\" name=\"myform\"><input n-i=\"0\" name=\"bean_three.index\" type=\"radio\" value=\"2\"/><input n-i=\"0\"  name=\"bean_three.index\" type=\"radio\" value=\"4\"/><input n-i=\"0\"  name=\"bean_three.index\" type=\"radio\" value=\"6\"/><input type=\"submit\" value=\"OK\"/></form></body></html>", nav_.getHtmlText());
         bean_ = (BeanThree) conf_.getBeans().getVal("bean_three");
         StringMapObject map_ = bean_.getForms();
         assertEq(0, map_.size());
@@ -5249,7 +5249,7 @@ public class NavigationTest {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
-        String html_ = "<html c:bean=\"bean_three\" xmlns:c='javahtml' xmlns='javahtml'><body>HEAD<form action=\"\" c:command=\"page1.html\" name=\"myform\"><c:for var=\"n\" list=\"numbers\"><input type=\"radio\" name=\"index\" c:varValue=\"n;\" c:groupId=\"myradio\" c:validator=\"checkselected\"/></c:for><span c:for=\"myradio\"/><input type=\"submit\" value=\"OK\"/></form></body></html>";
+        String html_ = "<html c:bean=\"bean_three\" xmlns:c='javahtml'><body>HEAD<form action=\"\" c:command=\"page1.html\" name=\"myform\"><c:for var=\"n\" list=\"numbers\"><input type=\"radio\" name=\"index\" c:varValue=\"n;\" c:groupId=\"myradio\" c:validator=\"checkselected\"/></c:for><span c:for=\"myradio\"/><input type=\"submit\" value=\"OK\"/></form></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
         files_.put("page1.html", html_);
@@ -5297,7 +5297,7 @@ public class NavigationTest {
         assertEq("page1.html", nav_.getCurrentUrl());
         assertEq("bean_three", nav_.getCurrentBeanName());
 //        assertXMLEqualNoPrefix("<html bean=\"bean_three\"><body>HEAD<form action=\"\" c:command=\"page1.html\" name=\"myform\"><input name=\"bean_three.index\" type=\"radio\" value=\"2\" varValue=\"numbers[0]\" groupId=\"myradio\" validator=\"checkselected\"/><input name=\"bean_three.index\" type=\"radio\" value=\"4\" varValue=\"numbers[1]\" groupId=\"myradio\" validator=\"checkselected\"/><input name=\"bean_three.index\" type=\"radio\" value=\"6\" varValue=\"numbers[2]\" groupId=\"myradio\" validator=\"checkselected\"/><span for=\"myradio\">not selected</span><input type=\"submit\" value=\"OK\"/></form></body></html>", nav_.getHtmlText());
-        assertXmlEqualNoPrefix("<html xmlns:c='javahtml' xmlns='javahtml'><body>HEAD<form n-f=\"0\" action=\"\" c:command=\"page1.html\" name=\"myform\"><input n-i=\"0\" name=\"bean_three.index\" type=\"radio\" value=\"2\" c:groupId=\"myradio\" c:validator=\"checkselected\"/><input n-i=\"0\" name=\"bean_three.index\" type=\"radio\" value=\"4\" c:groupId=\"myradio\" c:validator=\"checkselected\"/><input n-i=\"0\" name=\"bean_three.index\" type=\"radio\" value=\"6\" c:groupId=\"myradio\" c:validator=\"checkselected\"/><span c:for=\"myradio\">not selected</span><input type=\"submit\" value=\"OK\"/></form></body></html>", nav_.getHtmlText());
+        assertXmlEqualNoPrefix("<html xmlns:c='javahtml'><body>HEAD<form n-f=\"0\" action=\"\" c:command=\"page1.html\" name=\"myform\"><input n-i=\"0\" name=\"bean_three.index\" type=\"radio\" value=\"2\" c:groupId=\"myradio\" c:validator=\"checkselected\"/><input n-i=\"0\" name=\"bean_three.index\" type=\"radio\" value=\"4\" c:groupId=\"myradio\" c:validator=\"checkselected\"/><input n-i=\"0\" name=\"bean_three.index\" type=\"radio\" value=\"6\" c:groupId=\"myradio\" c:validator=\"checkselected\"/><span c:for=\"myradio\">not selected</span><input type=\"submit\" value=\"OK\"/></form></body></html>", nav_.getHtmlText());
         bean_ = (BeanThree) conf_.getBeans().getVal("bean_three");
         StringMapObject map_ = bean_.getForms();
         assertEq(0, map_.size());
@@ -5314,7 +5314,7 @@ public class NavigationTest {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
-        String html_ = "<html c:bean=\"bean_three\" xmlns:c='javahtml' xmlns='javahtml'><body>HEAD<form action=\"\" c:command=\"page1.html\" name=\"myform\"><c:for var=\"n\" list=\"numbers\"><input type=\"radio\" name=\"index\" c:varValue=\"n;\" c:groupId=\"myradio\" c:validator=\"checkselected\"/></c:for><span c:for=\"myradio\"/><input type=\"submit\" value=\"OK\"/></form></body></html>";
+        String html_ = "<html c:bean=\"bean_three\" xmlns:c='javahtml'><body>HEAD<form action=\"\" c:command=\"page1.html\" name=\"myform\"><c:for var=\"n\" list=\"numbers\"><input type=\"radio\" name=\"index\" c:varValue=\"n;\" c:groupId=\"myradio\" c:validator=\"checkselected\"/></c:for><span c:for=\"myradio\"/><input type=\"submit\" value=\"OK\"/></form></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
         files_.put("page1.html", html_);
@@ -5362,7 +5362,7 @@ public class NavigationTest {
         assertEq("page1.html", nav_.getCurrentUrl());
         assertEq("bean_three", nav_.getCurrentBeanName());
 //        assertXMLEqualNoPrefix("<html bean=\"bean_three\"><body>HEAD<form action=\"\" c:command=\"page1.html\" name=\"myform\"><input name=\"bean_three.index\" type=\"radio\" value=\"2\" varValue=\"numbers[0]\" groupId=\"myradio\" validator=\"checkselected\"/><input checked=\"checked\" name=\"bean_three.index\" type=\"radio\" value=\"4\" varValue=\"numbers[1]\" groupId=\"myradio\" validator=\"checkselected\"/><input name=\"bean_three.index\" type=\"radio\" value=\"6\" varValue=\"numbers[2]\" groupId=\"myradio\" validator=\"checkselected\"/><span for=\"myradio\"> </span><input type=\"submit\" value=\"OK\"/></form></body></html>", nav_.getHtmlText());
-        assertXmlEqualNoPrefix("<html xmlns:c='javahtml' xmlns='javahtml'><body>HEAD<form n-f=\"0\" action=\"\" c:command=\"page1.html\" name=\"myform\"><input n-i=\"0\" name=\"bean_three.index\" type=\"radio\" value=\"2\" c:groupId=\"myradio\" c:validator=\"checkselected\"/><input n-i=\"0\" checked=\"checked\" name=\"bean_three.index\" type=\"radio\" value=\"4\" c:groupId=\"myradio\" c:validator=\"checkselected\"/><input n-i=\"0\" name=\"bean_three.index\" type=\"radio\" value=\"6\" c:groupId=\"myradio\" c:validator=\"checkselected\"/><span c:for=\"myradio\"> </span><input type=\"submit\" value=\"OK\"/></form></body></html>", nav_.getHtmlText());
+        assertXmlEqualNoPrefix("<html xmlns:c='javahtml'><body>HEAD<form n-f=\"0\" action=\"\" c:command=\"page1.html\" name=\"myform\"><input n-i=\"0\" name=\"bean_three.index\" type=\"radio\" value=\"2\" c:groupId=\"myradio\" c:validator=\"checkselected\"/><input n-i=\"0\" checked=\"checked\" name=\"bean_three.index\" type=\"radio\" value=\"4\" c:groupId=\"myradio\" c:validator=\"checkselected\"/><input n-i=\"0\" name=\"bean_three.index\" type=\"radio\" value=\"6\" c:groupId=\"myradio\" c:validator=\"checkselected\"/><span c:for=\"myradio\"> </span><input type=\"submit\" value=\"OK\"/></form></body></html>", nav_.getHtmlText());
         bean_ = (BeanThree) conf_.getBeans().getVal("bean_three");
         StringMapObject map_ = bean_.getForms();
         assertEq(0, map_.size());
@@ -5379,8 +5379,8 @@ public class NavigationTest {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
-        String html_ = "<html c:bean=\"bean_one\" xmlns:c='javahtml' xmlns='javahtml'><body>HEAD<a c:command=\"$goToNullPage\" href=\"\"/></body></html>";
-        String htmlTwo_ = "<html c:bean=\"bean_two\" xmlns:c='javahtml' xmlns='javahtml'><body><form action=\"DELETE\" name=\"myform\" c:command=\"$go\"><input type=\"text\" name=\"typedString\" c:varValue=\"typedString\"/></form></body></html>";
+        String html_ = "<html c:bean=\"bean_one\" xmlns:c='javahtml'><body>HEAD<a c:command=\"$goToNullPage\" href=\"\"/></body></html>";
+        String htmlTwo_ = "<html c:bean=\"bean_two\" xmlns:c='javahtml'><body><form action=\"DELETE\" name=\"myform\" c:command=\"$go\"><input type=\"text\" name=\"typedString\" c:varValue=\"typedString\"/></form></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
         files_.put("page1.html", html_);
@@ -5430,7 +5430,7 @@ public class NavigationTest {
         setupBeansAfter(conf_);
         assertEq("page2.html", nav_.getCurrentUrl());
         assertEq("bean_two", nav_.getCurrentBeanName());
-        assertXmlEqualNoPrefix("<html xmlns:c='javahtml' xmlns='javahtml'><body><form n-f=\"0\" action=\"\" c:command=\"$bean_two.go\" name=\"myform\"><input n-i=\"0\" name=\"bean_two.typedString\" type=\"text\" value=\""+(char)228+" %2\"/></form></body></html>", nav_.getHtmlText());
+        assertXmlEqualNoPrefix("<html xmlns:c='javahtml'><body><form n-f=\"0\" action=\"\" c:command=\"$bean_two.go\" name=\"myform\"><input n-i=\"0\" name=\"bean_two.typedString\" type=\"text\" value=\""+(char)228+" %2\"/></form></body></html>", nav_.getHtmlText());
         beanTwo_ = (BeanTwo) conf_.getBeans().getVal("bean_two");
         assertEq((char)228+" %2", beanTwo_.getTypedString());
         StringMapObject map_ = beanTwo_.getForms();
@@ -5459,8 +5459,8 @@ public class NavigationTest {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
-        String html_ = "<html c:bean=\"bean_one\" xmlns:c='javahtml' xmlns='javahtml'><body>HEAD<a c:command=\"$goToNullPage\" href=\"\"/></body></html>";
-        String htmlTwo_ = "<html c:bean=\"bean_two\" xmlns:c='javahtml' xmlns='javahtml'><body><form action=\"DELETE\" name=\"myform\" c:command=\"$go\"><c:select className=\""+ENUM+"\" id=\"combo\" default=\"ONE,FOUR\" name=\"chosenNumbers\" varValue=\"chosenNumbers\" list=\"combobox\" multiple=\"multiple\"/><span for=\"combo\"/></form></body></html>";
+        String html_ = "<html c:bean=\"bean_one\" xmlns:c='javahtml'><body>HEAD<a c:command=\"$goToNullPage\" href=\"\"/></body></html>";
+        String htmlTwo_ = "<html c:bean=\"bean_two\" xmlns:c='javahtml'><body><form action=\"DELETE\" name=\"myform\" c:command=\"$go\"><c:select className=\""+ENUM+"\" id=\"combo\" default=\"ONE,FOUR\" name=\"chosenNumbers\" varValue=\"chosenNumbers\" list=\"combobox\" multiple=\"multiple\"/><span for=\"combo\"/></form></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
         files_.put("page1.html", html_);
@@ -5511,7 +5511,7 @@ public class NavigationTest {
         setupBeansAfter(conf_);
         assertEq("page1.html", nav_.getCurrentUrl());
         assertEq("bean_one", nav_.getCurrentBeanName());
-        assertXmlEqualNoPrefix("<html xmlns:c='javahtml' xmlns='javahtml'><body>HEAD<a n-a=\"0\" c:command=\"$bean_one.goToNullPage\" href=\"\"/></body></html>", nav_.getHtmlText());
+        assertXmlEqualNoPrefix("<html xmlns:c='javahtml'><body>HEAD<a n-a=\"0\" c:command=\"$bean_one.goToNullPage\" href=\"\"/></body></html>", nav_.getHtmlText());
         bean_ = (BeanOne) conf_.getBeans().getVal("bean_one");
         StringMapObject map_ = bean_.getForms();
         assertEq(3, map_.size());
@@ -5537,8 +5537,8 @@ public class NavigationTest {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
-        String html_ = "<html c:bean=\"bean_one\" xmlns:c='javahtml' xmlns='javahtml'><body>HEAD<a c:command=\"$goToNullPage\" href=\"\"/></body></html>";
-        String htmlTwo_ = "<html c:bean=\"bean_two\" xmlns:c='javahtml' xmlns='javahtml'><body><form action=\"DELETE\" name=\"myform\" c:command=\"$go\"><c:select id=\"combo\" default=\"ONE,FOUR\" name=\"chosenNumbers\" varValue=\"chosenNumbers\" list=\"combobox\" validator=\"validator\" multiple=\"multiple\" className='"+ENUMS+"'/><span for=\"combo\"/></form></body></html>";
+        String html_ = "<html c:bean=\"bean_one\" xmlns:c='javahtml'><body>HEAD<a c:command=\"$goToNullPage\" href=\"\"/></body></html>";
+        String htmlTwo_ = "<html c:bean=\"bean_two\" xmlns:c='javahtml'><body><form action=\"DELETE\" name=\"myform\" c:command=\"$go\"><c:select id=\"combo\" default=\"ONE,FOUR\" name=\"chosenNumbers\" varValue=\"chosenNumbers\" list=\"combobox\" validator=\"validator\" multiple=\"multiple\" className='"+ENUMS+"'/><span for=\"combo\"/></form></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
         files_.put("page1.html", html_);
@@ -5590,7 +5590,7 @@ public class NavigationTest {
         setupBeansAfter(conf_);
         assertEq("page1.html", nav_.getCurrentUrl());
         assertEq("bean_one", nav_.getCurrentBeanName());
-        assertXmlEqualNoPrefix("<html xmlns:c='javahtml' xmlns='javahtml'><body>HEAD<a n-a=\"0\" c:command=\"$bean_one.goToNullPage\" href=\"\"/></body></html>", nav_.getHtmlText());
+        assertXmlEqualNoPrefix("<html xmlns:c='javahtml'><body>HEAD<a n-a=\"0\" c:command=\"$bean_one.goToNullPage\" href=\"\"/></body></html>", nav_.getHtmlText());
         bean_ = (BeanOne) conf_.getBeans().getVal("bean_one");
         StringMapObject map_ = bean_.getForms();
         assertEq(3, map_.size());
@@ -5616,8 +5616,8 @@ public class NavigationTest {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
-        String html_ = "<html c:bean=\"bean_one\" xmlns:c='javahtml' xmlns='javahtml'><body>HEAD<a c:command=\"$goToNullPage\" href=\"\"/></body></html>";
-        String htmlTwo_ = "<html c:bean=\"bean_two\" xmlns:c='javahtml' xmlns='javahtml'><body><form action=\"DELETE\" name=\"myform\" c:command=\"$go\"><c:select className=\""+ENUMS+"\" id=\"combo\" default=\"ONE,FOUR\" name=\"chosenNumbers\" varValue=\"chosenNumbers\" list=\"combobox\" validator=\"validator\" multiple=\"multiple\"/><span c:for=\"combo\"/></form></body></html>";
+        String html_ = "<html c:bean=\"bean_one\" xmlns:c='javahtml'><body>HEAD<a c:command=\"$goToNullPage\" href=\"\"/></body></html>";
+        String htmlTwo_ = "<html c:bean=\"bean_two\" xmlns:c='javahtml'><body><form action=\"DELETE\" name=\"myform\" c:command=\"$go\"><c:select className=\""+ENUMS+"\" id=\"combo\" default=\"ONE,FOUR\" name=\"chosenNumbers\" varValue=\"chosenNumbers\" list=\"combobox\" validator=\"validator\" multiple=\"multiple\"/><span c:for=\"combo\"/></form></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
         files_.put("page1.html", html_);
@@ -5669,7 +5669,7 @@ public class NavigationTest {
         setupBeansAfter(conf_);
         assertEq("page2.html", nav_.getCurrentUrl());
         assertEq("bean_two", nav_.getCurrentBeanName());
-        assertXmlEqualNoPrefix("<html xmlns:c='javahtml' xmlns='javahtml'><body><form n-f=\"0\" action=\"\" c:command=\"$bean_two.go\" name=\"myform\"><select n-i=\"0\" c:className=\""+ENUMS+"\" id=\"combo\" multiple=\"multiple\" name=\"bean_two.chosenNumbers\" c:validator=\"validator\"><option value=\"ONE\">ONE</option><option selected=\"selected\" value=\"TWO\">TWO</option><option value=\"THREE\">THREE</option><option value=\"FOUR\" selected=\"selected\">FOUR</option><option value=\"FIVE\">FIVE</option><option value=\"SIX\">SIX</option></select><span c:for=\"combo\">Bad selection</span></form></body></html>", nav_.getHtmlText());
+        assertXmlEqualNoPrefix("<html xmlns:c='javahtml'><body><form n-f=\"0\" action=\"\" c:command=\"$bean_two.go\" name=\"myform\"><select n-i=\"0\" c:className=\""+ENUMS+"\" id=\"combo\" multiple=\"multiple\" name=\"bean_two.chosenNumbers\" c:validator=\"validator\"><option value=\"ONE\">ONE</option><option selected=\"selected\" value=\"TWO\">TWO</option><option value=\"THREE\">THREE</option><option value=\"FOUR\" selected=\"selected\">FOUR</option><option value=\"FIVE\">FIVE</option><option value=\"SIX\">SIX</option></select><span c:for=\"combo\">Bad selection</span></form></body></html>", nav_.getHtmlText());
         StringMapObject map_ = conf_.getBeans().getVal("bean_two").getForms();
         assertEq(0, map_.size());
         assertEq("",nav_.getTitle());
@@ -5683,8 +5683,8 @@ public class NavigationTest {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
-        String html_ = "<html c:bean=\"bean_one\" xmlns:c='javahtml' xmlns='javahtml'><body>HEAD<a c:command=\"$goToNullPage\" href=\"\"/></body></html>";
-        String htmlTwo_ = "<html c:bean=\"bean_two\" xmlns:c='javahtml' xmlns='javahtml'><body><form action=\"DELETE\" name=\"myform\" c:command=\"$go\"><c:select className=\""+ENUM+"\" id=\"combo\" default=\"ONE,FOUR\" name=\"chosenNumbers\" varValue=\"chosenNumbers\" map=\"translations\" multiple=\"multiple\"/><span for=\"combo\"/></form></body></html>";
+        String html_ = "<html c:bean=\"bean_one\" xmlns:c='javahtml'><body>HEAD<a c:command=\"$goToNullPage\" href=\"\"/></body></html>";
+        String htmlTwo_ = "<html c:bean=\"bean_two\" xmlns:c='javahtml'><body><form action=\"DELETE\" name=\"myform\" c:command=\"$go\"><c:select className=\""+ENUM+"\" id=\"combo\" default=\"ONE,FOUR\" name=\"chosenNumbers\" varValue=\"chosenNumbers\" map=\"translations\" multiple=\"multiple\"/><span for=\"combo\"/></form></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
         files_.put("page1.html", html_);
@@ -5735,7 +5735,7 @@ public class NavigationTest {
         setupBeansAfter(conf_);
         assertEq("page1.html", nav_.getCurrentUrl());
         assertEq("bean_one", nav_.getCurrentBeanName());
-        assertXmlEqualNoPrefix("<html xmlns:c='javahtml' xmlns='javahtml'><body>HEAD<a n-a=\"0\" c:command=\"$bean_one.goToNullPage\" href=\"\"/></body></html>", nav_.getHtmlText());
+        assertXmlEqualNoPrefix("<html xmlns:c='javahtml'><body>HEAD<a n-a=\"0\" c:command=\"$bean_one.goToNullPage\" href=\"\"/></body></html>", nav_.getHtmlText());
         bean_ = (BeanOne) conf_.getBeans().getVal("bean_one");
         StringMapObject map_ = bean_.getForms();
         assertEq(3, map_.size());
@@ -5761,8 +5761,8 @@ public class NavigationTest {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
-        String html_ = "<html c:bean=\"bean_one\" xmlns:c='javahtml' xmlns='javahtml'><body>HEAD<a c:command=\"$goToNullPage\" href=\"\"/></body></html>";
-        String htmlTwo_ = "<html c:bean=\"bean_two\" xmlns:c='javahtml' xmlns='javahtml'><body><form action=\"DELETE\" name=\"myform\" c:command=\"$go\"><c:select id=\"combo\" default=\"ONE,FOUR\" name=\"chosenNumbers\" varValue=\"chosenNumbers\" map=\"translations\" validator=\"validator\" multiple=\"multiple\" className='"+ENUMS+"'/><span for=\"combo\"/></form></body></html>";
+        String html_ = "<html c:bean=\"bean_one\" xmlns:c='javahtml'><body>HEAD<a c:command=\"$goToNullPage\" href=\"\"/></body></html>";
+        String htmlTwo_ = "<html c:bean=\"bean_two\" xmlns:c='javahtml'><body><form action=\"DELETE\" name=\"myform\" c:command=\"$go\"><c:select id=\"combo\" default=\"ONE,FOUR\" name=\"chosenNumbers\" varValue=\"chosenNumbers\" map=\"translations\" validator=\"validator\" multiple=\"multiple\" className='"+ENUMS+"'/><span for=\"combo\"/></form></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
         files_.put("page1.html", html_);
@@ -5814,7 +5814,7 @@ public class NavigationTest {
         setupBeansAfter(conf_);
         assertEq("page1.html", nav_.getCurrentUrl());
         assertEq("bean_one", nav_.getCurrentBeanName());
-        assertXmlEqualNoPrefix("<html xmlns:c='javahtml' xmlns='javahtml'><body>HEAD<a n-a=\"0\" c:command=\"$bean_one.goToNullPage\" href=\"\"/></body></html>", nav_.getHtmlText());
+        assertXmlEqualNoPrefix("<html xmlns:c='javahtml'><body>HEAD<a n-a=\"0\" c:command=\"$bean_one.goToNullPage\" href=\"\"/></body></html>", nav_.getHtmlText());
         bean_ = (BeanOne) conf_.getBeans().getVal("bean_one");
         StringMapObject map_ = bean_.getForms();
         assertEq(3, map_.size());
@@ -5840,8 +5840,8 @@ public class NavigationTest {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
-        String html_ = "<html c:bean=\"bean_one\" xmlns:c='javahtml' xmlns='javahtml'><body>HEAD<a c:command=\"$goToNullPage\" href=\"\"/></body></html>";
-        String htmlTwo_ = "<html c:bean=\"bean_two\" xmlns:c='javahtml' xmlns='javahtml'><body><form action=\"DELETE\" name=\"myform\" c:command=\"$go\"><c:select className=\""+ENUMS+"\" id=\"combo\" default=\"ONE,FOUR\" name=\"chosenNumbers\" varValue=\"chosenNumbers\" map=\"translations\" validator=\"validator\" multiple=\"multiple\"/><span c:for=\"combo\"/></form></body></html>";
+        String html_ = "<html c:bean=\"bean_one\" xmlns:c='javahtml'><body>HEAD<a c:command=\"$goToNullPage\" href=\"\"/></body></html>";
+        String htmlTwo_ = "<html c:bean=\"bean_two\" xmlns:c='javahtml'><body><form action=\"DELETE\" name=\"myform\" c:command=\"$go\"><c:select className=\""+ENUMS+"\" id=\"combo\" default=\"ONE,FOUR\" name=\"chosenNumbers\" varValue=\"chosenNumbers\" map=\"translations\" validator=\"validator\" multiple=\"multiple\"/><span c:for=\"combo\"/></form></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
         files_.put("page1.html", html_);
@@ -5893,7 +5893,7 @@ public class NavigationTest {
         setupBeansAfter(conf_);
         assertEq("page2.html", nav_.getCurrentUrl());
         assertEq("bean_two", nav_.getCurrentBeanName());
-        assertXmlEqualNoPrefix("<html xmlns:c='javahtml' xmlns='javahtml'><body><form n-f=\"0\" action=\"\" c:command=\"$bean_two.go\" name=\"myform\"><select n-i=\"0\" c:className=\""+ENUMS+"\" id=\"combo\" multiple=\"multiple\" name=\"bean_two.chosenNumbers\" c:validator=\"validator\"><option value=\"ONE\">1</option><option selected=\"selected\" value=\"TWO\">2</option><option value=\"THREE\">3</option><option value=\"FOUR\" selected=\"selected\">4</option><option value=\"FIVE\">5</option><option value=\"SIX\">6</option></select><span c:for=\"combo\">Bad selection</span></form></body></html>", nav_.getHtmlText());
+        assertXmlEqualNoPrefix("<html xmlns:c='javahtml'><body><form n-f=\"0\" action=\"\" c:command=\"$bean_two.go\" name=\"myform\"><select n-i=\"0\" c:className=\""+ENUMS+"\" id=\"combo\" multiple=\"multiple\" name=\"bean_two.chosenNumbers\" c:validator=\"validator\"><option value=\"ONE\">1</option><option selected=\"selected\" value=\"TWO\">2</option><option value=\"THREE\">3</option><option value=\"FOUR\" selected=\"selected\">4</option><option value=\"FIVE\">5</option><option value=\"SIX\">6</option></select><span c:for=\"combo\">Bad selection</span></form></body></html>", nav_.getHtmlText());
         StringMapObject map_ = conf_.getBeans().getVal("bean_two").getForms();
         assertEq(0, map_.size());
         assertEq("",nav_.getTitle());
@@ -5907,8 +5907,8 @@ public class NavigationTest {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
-        String html_ = "<html c:bean=\"bean_one\" xmlns:c='javahtml' xmlns='javahtml'><body>HEAD<a c:command=\"$goToNullPage\" href=\"\"/></body></html>";
-        String htmlTwo_ = "<html c:bean=\"bean_two\" xmlns:c='javahtml' xmlns='javahtml'><body><form action=\"DELETE\" name=\"myform\" c:command=\"$go\"><c:select className=\""+ENUM+"\" id=\"combo\" default=\"ONE,FOUR\" name=\"chosenNumbers\" varValue=\"chosenNumbers\" list=\"combobox\" validator=\"validator\" multiple=\"multiple\"/><span for=\"combo\"/></form></body></html>";
+        String html_ = "<html c:bean=\"bean_one\" xmlns:c='javahtml'><body>HEAD<a c:command=\"$goToNullPage\" href=\"\"/></body></html>";
+        String htmlTwo_ = "<html c:bean=\"bean_two\" xmlns:c='javahtml'><body><form action=\"DELETE\" name=\"myform\" c:command=\"$go\"><c:select className=\""+ENUM+"\" id=\"combo\" default=\"ONE,FOUR\" name=\"chosenNumbers\" varValue=\"chosenNumbers\" list=\"combobox\" validator=\"validator\" multiple=\"multiple\"/><span for=\"combo\"/></form></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
         files_.put("page1.html", html_);
@@ -5960,7 +5960,7 @@ public class NavigationTest {
         setupBeansAfter(conf_);
         assertEq("page1.html", nav_.getCurrentUrl());
         assertEq("bean_one", nav_.getCurrentBeanName());
-        assertXmlEqualNoPrefix("<html xmlns:c='javahtml' xmlns='javahtml'><body>HEAD<a n-a=\"0\" c:command=\"$bean_one.goToNullPage\" href=\"\"/></body></html>", nav_.getHtmlText());
+        assertXmlEqualNoPrefix("<html xmlns:c='javahtml'><body>HEAD<a n-a=\"0\" c:command=\"$bean_one.goToNullPage\" href=\"\"/></body></html>", nav_.getHtmlText());
         bean_ = (BeanOne) conf_.getBeans().getVal("bean_one");
         StringMapObject map_ = bean_.getForms();
         assertEq(3, map_.size());
@@ -5986,8 +5986,8 @@ public class NavigationTest {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
-        String html_ = "<html c:bean=\"bean_one\" xmlns:c='javahtml' xmlns='javahtml'><body>HEAD<a c:command=\"$goToNullPage\" href=\"\"/></body></html>";
-        String htmlTwo_ = "<html c:bean=\"bean_two\" xmlns:c='javahtml' xmlns='javahtml'><body><form action=\"DELETE\" name=\"myform\" c:command=\"$go\"><c:select className=\""+ENUM+"\" id=\"combo\" default=\"ONE,FOUR\" name=\"chosenNumbers\" varValue=\"chosenNumbers\" map=\"translations\" validator=\"validator\" multiple=\"multiple\"/><span for=\"combo\"/></form></body></html>";
+        String html_ = "<html c:bean=\"bean_one\" xmlns:c='javahtml'><body>HEAD<a c:command=\"$goToNullPage\" href=\"\"/></body></html>";
+        String htmlTwo_ = "<html c:bean=\"bean_two\" xmlns:c='javahtml'><body><form action=\"DELETE\" name=\"myform\" c:command=\"$go\"><c:select className=\""+ENUM+"\" id=\"combo\" default=\"ONE,FOUR\" name=\"chosenNumbers\" varValue=\"chosenNumbers\" map=\"translations\" validator=\"validator\" multiple=\"multiple\"/><span for=\"combo\"/></form></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
         files_.put("page1.html", html_);
@@ -6039,7 +6039,7 @@ public class NavigationTest {
         setupBeansAfter(conf_);
         assertEq("page1.html", nav_.getCurrentUrl());
         assertEq("bean_one", nav_.getCurrentBeanName());
-        assertXmlEqualNoPrefix("<html xmlns:c='javahtml' xmlns='javahtml'><body>HEAD<a n-a=\"0\" c:command=\"$bean_one.goToNullPage\" href=\"\"/></body></html>", nav_.getHtmlText());
+        assertXmlEqualNoPrefix("<html xmlns:c='javahtml'><body>HEAD<a n-a=\"0\" c:command=\"$bean_one.goToNullPage\" href=\"\"/></body></html>", nav_.getHtmlText());
         bean_ = (BeanOne) conf_.getBeans().getVal("bean_one");
         StringMapObject map_ = bean_.getForms();
         assertEq(3, map_.size());
@@ -6065,8 +6065,8 @@ public class NavigationTest {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
-        String html_ = "<html c:bean=\"bean_one\" xmlns:c='javahtml' xmlns='javahtml'><body>HEAD<a c:command=\"$goToNullPage\" href=\"\"/></body></html>";
-        String htmlTwo_ = "<html c:bean=\"bean_two\" xmlns:c='javahtml' xmlns='javahtml'><body><form action=\"DELETE\" name=\"myform\" c:command=\"$goTextArea\"><textarea name=\"typedString\" varValue=\"typedString\"/></form></body></html>";
+        String html_ = "<html c:bean=\"bean_one\" xmlns:c='javahtml'><body>HEAD<a c:command=\"$goToNullPage\" href=\"\"/></body></html>";
+        String htmlTwo_ = "<html c:bean=\"bean_two\" xmlns:c='javahtml'><body><form action=\"DELETE\" name=\"myform\" c:command=\"$goTextArea\"><textarea name=\"typedString\" varValue=\"typedString\"/></form></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
         files_.put("page1.html", html_);
@@ -6115,7 +6115,7 @@ public class NavigationTest {
         nav_.getHtmlPage().setUrl(0);
         nav_.processFormRequest();
         setupBeansAfter(conf_);
-        assertXmlEqualNoPrefix("<html xmlns:c='javahtml' xmlns='javahtml'><body>HEAD<a n-a=\"0\" c:command=\"$bean_one.goToNullPage\" href=\"\"/></body></html>", nav_.getHtmlText());
+        assertXmlEqualNoPrefix("<html xmlns:c='javahtml'><body>HEAD<a n-a=\"0\" c:command=\"$bean_one.goToNullPage\" href=\"\"/></body></html>", nav_.getHtmlText());
         beanTwo_ = (BeanTwo) conf_.getBeans().getVal("bean_two");
         assertNull(beanTwo_.getTypedString());
         StringMapObject map_ = beanTwo_.getForms();
@@ -6145,8 +6145,8 @@ public class NavigationTest {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
-        String html_ = "<html c:bean=\"bean_one\" xmlns:c='javahtml' xmlns='javahtml'><body>HEAD<a c:command=\"$goToNullPage\" href=\"\"/></body></html>";
-        String htmlTwo_ = "<html c:bean=\"bean_two\" xmlns:c='javahtml' xmlns='javahtml'><body><form action=\"DELETE\" name=\"myform\" c:command=\"$go\"><textarea id=\"txt\" name=\"typedString\" c:varValue=\"typedString\" c:validator=\"rate_val\"/><span c:for=\"txt\"/><input type=\"checkbox\" name=\"nullableCheckbox\" c:varValue=\"nullableCheckbox\"/><c:select className=\""+ENUM+"\" default=\"ONE\" name=\"chosenNumber\" varValue=\"chosenNumber\" list=\"getChosenNumbers()\"/></form></body></html>";
+        String html_ = "<html c:bean=\"bean_one\" xmlns:c='javahtml'><body>HEAD<a c:command=\"$goToNullPage\" href=\"\"/></body></html>";
+        String htmlTwo_ = "<html c:bean=\"bean_two\" xmlns:c='javahtml'><body><form action=\"DELETE\" name=\"myform\" c:command=\"$go\"><textarea id=\"txt\" name=\"typedString\" c:varValue=\"typedString\" c:validator=\"rate_val\"/><span c:for=\"txt\"/><input type=\"checkbox\" name=\"nullableCheckbox\" c:varValue=\"nullableCheckbox\"/><c:select className=\""+ENUM+"\" default=\"ONE\" name=\"chosenNumber\" varValue=\"chosenNumber\" list=\"getChosenNumbers()\"/></form></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
         files_.put("page1.html", html_);
@@ -6208,7 +6208,7 @@ public class NavigationTest {
         setupBeansAfter(conf_);
         assertEq("page2.html", nav_.getCurrentUrl());
         assertEq("bean_two", nav_.getCurrentBeanName());
-        assertXmlEqualNoPrefix("<html xmlns:c='javahtml' xmlns='javahtml'><body><form n-f=\"0\" action=\"\" c:command=\"$bean_two.go\" name=\"myform\"><textarea n-i=\"0\" id=\"txt\" name=\"bean_two.typedString\" c:validator=\"rate_val\">ONE_TWO</textarea><span c:for=\"txt\">ONE_TWO is not a no zero rate</span><input n-i=\"1\" name=\"bean_two.nullableCheckbox\" type=\"checkbox\" value=\"\"/><select n-i=\"2\" c:className=\""+ENUM+"\" name=\"bean_two.chosenNumber\"><option value=\"ONE\">ONE</option><option value=\"TWO\">TWO</option><option value=\"THREE\">THREE</option></select></form></body></html>", nav_.getHtmlText());
+        assertXmlEqualNoPrefix("<html xmlns:c='javahtml'><body><form n-f=\"0\" action=\"\" c:command=\"$bean_two.go\" name=\"myform\"><textarea n-i=\"0\" id=\"txt\" name=\"bean_two.typedString\" c:validator=\"rate_val\">ONE_TWO</textarea><span c:for=\"txt\">ONE_TWO is not a no zero rate</span><input n-i=\"1\" name=\"bean_two.nullableCheckbox\" type=\"checkbox\" value=\"\"/><select n-i=\"2\" c:className=\""+ENUM+"\" name=\"bean_two.chosenNumber\"><option value=\"ONE\">ONE</option><option value=\"TWO\">TWO</option><option value=\"THREE\">THREE</option></select></form></body></html>", nav_.getHtmlText());
         beanTwo_ = (BeanTwo) conf_.getBeans().getVal("bean_two");
         assertEq("TYPED_STRING", beanTwo_.getTypedString());
         StringMapObject map_ = beanTwo_.getForms();
@@ -6227,8 +6227,8 @@ public class NavigationTest {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
-        String html_ = "<html c:bean=\"bean_one\" xmlns:c='javahtml' xmlns='javahtml'><body>HEAD<a c:command=\"$goToNullPage\" href=\"\"/></body></html>";
-        String htmlTwo_ = "<html c:bean=\"bean_two\" xmlns:c='javahtml' xmlns='javahtml'><body><form action=\"DELETE\" name=\"myform\" c:command=\"$goTextArea\"><textarea name=\"typedString\" varValue=\"typedString\" c:className=\"java.lang.String\"/></form></body></html>";
+        String html_ = "<html c:bean=\"bean_one\" xmlns:c='javahtml'><body>HEAD<a c:command=\"$goToNullPage\" href=\"\"/></body></html>";
+        String htmlTwo_ = "<html c:bean=\"bean_two\" xmlns:c='javahtml'><body><form action=\"DELETE\" name=\"myform\" c:command=\"$goTextArea\"><textarea name=\"typedString\" varValue=\"typedString\" c:className=\"java.lang.String\"/></form></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
         files_.put("page1.html", html_);
@@ -6277,7 +6277,7 @@ public class NavigationTest {
         nav_.getHtmlPage().setUrl(0);
         nav_.processFormRequest();
         setupBeansAfter(conf_);
-        assertXmlEqualNoPrefix("<html xmlns:c='javahtml' xmlns='javahtml'><body>HEAD<a n-a=\"0\" c:command=\"$bean_one.goToNullPage\" href=\"\"/></body></html>", nav_.getHtmlText());
+        assertXmlEqualNoPrefix("<html xmlns:c='javahtml'><body>HEAD<a n-a=\"0\" c:command=\"$bean_one.goToNullPage\" href=\"\"/></body></html>", nav_.getHtmlText());
         beanTwo_ = (BeanTwo) conf_.getBeans().getVal("bean_two");
         assertNull(beanTwo_.getTypedString());
         StringMapObject map_ = beanTwo_.getForms();
@@ -6307,8 +6307,8 @@ public class NavigationTest {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
-        String html_ = "<html c:bean=\"bean_one\" xmlns:c='javahtml' xmlns='javahtml'><body>HEAD<a c:command=\"$goToNullPage\" href=\"\"/></body></html>";
-        String htmlTwo_ = "<html c:bean=\"bean_two\" xmlns:c='javahtml' xmlns='javahtml'><body><form action=\"DELETE\" name=\"myform\" c:command=\"$goTextArea\"><textarea id=\"my_text_area\" name=\"typedString\" varValue=\"typedString\" c:className=\"java.lang.String\"/></form></body></html>";
+        String html_ = "<html c:bean=\"bean_one\" xmlns:c='javahtml'><body>HEAD<a c:command=\"$goToNullPage\" href=\"\"/></body></html>";
+        String htmlTwo_ = "<html c:bean=\"bean_two\" xmlns:c='javahtml'><body><form action=\"DELETE\" name=\"myform\" c:command=\"$goTextArea\"><textarea id=\"my_text_area\" name=\"typedString\" varValue=\"typedString\" c:className=\"java.lang.String\"/></form></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
         files_.put("page1.html", html_);
@@ -6357,7 +6357,7 @@ public class NavigationTest {
         nav_.getHtmlPage().setUrl(0);
         nav_.processFormRequest();
         setupBeansAfter(conf_);
-        assertXmlEqualNoPrefix("<html xmlns:c='javahtml' xmlns='javahtml'><body>HEAD<a n-a=\"0\" c:command=\"$bean_one.goToNullPage\" href=\"\"/></body></html>", nav_.getHtmlText());
+        assertXmlEqualNoPrefix("<html xmlns:c='javahtml'><body>HEAD<a n-a=\"0\" c:command=\"$bean_one.goToNullPage\" href=\"\"/></body></html>", nav_.getHtmlText());
         beanTwo_ = (BeanTwo) conf_.getBeans().getVal("bean_two");
         assertNull(beanTwo_.getTypedString());
         StringMapObject map_ = beanTwo_.getForms();
@@ -6387,8 +6387,8 @@ public class NavigationTest {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
-        String html_ = "<html c:bean=\"bean_one\" xmlns:c='javahtml' xmlns='javahtml'><body>HEAD<a c:command=\"$goToNullPage\" href=\"\"/></body></html>";
-        String htmlTwo_ = "<html c:bean=\"bean_two\" xmlns:c='javahtml' xmlns='javahtml'><body><form action=\"DELETE\" name=\"myform\" c:command=\"$goTextArea\"><textarea varValue=\"typedString\" c:className=\"java.lang.String\"/></form></body></html>";
+        String html_ = "<html c:bean=\"bean_one\" xmlns:c='javahtml'><body>HEAD<a c:command=\"$goToNullPage\" href=\"\"/></body></html>";
+        String htmlTwo_ = "<html c:bean=\"bean_two\" xmlns:c='javahtml'><body><form action=\"DELETE\" name=\"myform\" c:command=\"$goTextArea\"><textarea varValue=\"typedString\" c:className=\"java.lang.String\"/></form></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
         files_.put("page1.html", html_);
@@ -6424,7 +6424,7 @@ public class NavigationTest {
         nav_.getHtmlPage().setUrl(0);
         nav_.processFormRequest();
         setupBeansAfter(conf_);
-        assertXmlEqualNoPrefix("<html xmlns:c='javahtml' xmlns='javahtml'><body>HEAD<a n-a=\"0\" c:command=\"$bean_one.goToNullPage\" href=\"\"/></body></html>", nav_.getHtmlText());
+        assertXmlEqualNoPrefix("<html xmlns:c='javahtml'><body>HEAD<a n-a=\"0\" c:command=\"$bean_one.goToNullPage\" href=\"\"/></body></html>", nav_.getHtmlText());
         beanTwo_ = (BeanTwo) conf_.getBeans().getVal("bean_two");
         assertNull(beanTwo_.getTypedString());
         StringMapObject map_ = beanTwo_.getForms();
@@ -6455,7 +6455,7 @@ public class NavigationTest {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
-        String html_ = "<html c:bean=\"bean_six\" xmlns:c='javahtml' xmlns='javahtml'><body>HEAD<form action=\"\" c:command=\"page1.html\" name=\"myform\"><input c:className=\""+ENUM+"\" type=\"radio\" name=\"myEnumThree\" value=\"ONE\"/><input c:className=\""+ENUM+"\" type=\"radio\" name=\"myEnumThree\" value=\"TWO\"/><input type=\"submit\" value=\"OK\"/></form></body></html>";
+        String html_ = "<html c:bean=\"bean_six\" xmlns:c='javahtml'><body>HEAD<form action=\"\" c:command=\"page1.html\" name=\"myform\"><input c:className=\""+ENUM+"\" type=\"radio\" name=\"myEnumThree\" value=\"ONE\"/><input c:className=\""+ENUM+"\" type=\"radio\" name=\"myEnumThree\" value=\"TWO\"/><input type=\"submit\" value=\"OK\"/></form></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
         files_.put("page1.html", html_);
@@ -6501,7 +6501,7 @@ public class NavigationTest {
         setupBeansAfter(conf_);
         assertEq("page1.html", nav_.getCurrentUrl());
         assertEq("bean_six", nav_.getCurrentBeanName());
-        assertXmlEqualNoPrefix("<html xmlns:c='javahtml' xmlns='javahtml'><body>HEAD<form n-f=\"0\" action=\"\" c:command=\"page1.html\" name=\"myform\"><input n-i=\"0\" c:className=\""+ENUM+"\" type=\"radio\" name=\"bean_six.myEnumThree\" value=\"ONE\"/><input n-i=\"0\" c:className=\""+ENUM+"\" type=\"radio\" name=\"bean_six.myEnumThree\" value=\"TWO\"/><input type=\"submit\" value=\"OK\"/></form></body></html>", nav_.getHtmlText());
+        assertXmlEqualNoPrefix("<html xmlns:c='javahtml'><body>HEAD<form n-f=\"0\" action=\"\" c:command=\"page1.html\" name=\"myform\"><input n-i=\"0\" c:className=\""+ENUM+"\" type=\"radio\" name=\"bean_six.myEnumThree\" value=\"ONE\"/><input n-i=\"0\" c:className=\""+ENUM+"\" type=\"radio\" name=\"bean_six.myEnumThree\" value=\"TWO\"/><input type=\"submit\" value=\"OK\"/></form></body></html>", nav_.getHtmlText());
         bean_ = (BeanSix) conf_.getBeans().getVal("bean_six");
         StringMapObject map_ = bean_.getForms();
         assertEq(0, map_.size());
@@ -6519,7 +6519,7 @@ public class NavigationTest {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
-        String html_ = "<html c:bean=\"bean_six\" xmlns:c='javahtml' xmlns='javahtml'><body>HEAD<form action=\"\" c:command=\"page1.html\" name=\"myform\"><input c:className=\""+ENUM+"\" type=\"radio\" name=\"myEnumOne\" value=\"ONE\"/><input c:className=\""+ENUM+"\" type=\"radio\" name=\"myEnumOne\" value=\"TWO\"/><input type=\"submit\" value=\"OK\"/></form></body></html>";
+        String html_ = "<html c:bean=\"bean_six\" xmlns:c='javahtml'><body>HEAD<form action=\"\" c:command=\"page1.html\" name=\"myform\"><input c:className=\""+ENUM+"\" type=\"radio\" name=\"myEnumOne\" value=\"ONE\"/><input c:className=\""+ENUM+"\" type=\"radio\" name=\"myEnumOne\" value=\"TWO\"/><input type=\"submit\" value=\"OK\"/></form></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
         files_.put("page1.html", html_);
@@ -6565,7 +6565,7 @@ public class NavigationTest {
         setupBeansAfter(conf_);
         assertEq("page1.html", nav_.getCurrentUrl());
         assertEq("bean_six", nav_.getCurrentBeanName());
-        assertXmlEqualNoPrefix("<html xmlns:c='javahtml' xmlns='javahtml'><body>HEAD<form n-f=\"0\" action=\"\" c:command=\"page1.html\" name=\"myform\"><input n-i=\"0\" c:className=\""+ENUM+"\" type=\"radio\" name=\"bean_six.myEnumOne\" value=\"ONE\"/><input n-i=\"0\" c:className=\""+ENUM+"\" type=\"radio\" name=\"bean_six.myEnumOne\" value=\"TWO\"/><input type=\"submit\" value=\"OK\"/></form></body></html>", nav_.getHtmlText());
+        assertXmlEqualNoPrefix("<html xmlns:c='javahtml'><body>HEAD<form n-f=\"0\" action=\"\" c:command=\"page1.html\" name=\"myform\"><input n-i=\"0\" c:className=\""+ENUM+"\" type=\"radio\" name=\"bean_six.myEnumOne\" value=\"ONE\"/><input n-i=\"0\" c:className=\""+ENUM+"\" type=\"radio\" name=\"bean_six.myEnumOne\" value=\"TWO\"/><input type=\"submit\" value=\"OK\"/></form></body></html>", nav_.getHtmlText());
         bean_ = (BeanSix) conf_.getBeans().getVal("bean_six");
         StringMapObject map_ = bean_.getForms();
         assertEq(0, map_.size());
@@ -6583,7 +6583,7 @@ public class NavigationTest {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
-        String html_ = "<html c:bean=\"bean_six\" xmlns:c='javahtml' xmlns='javahtml'><body>HEAD<form action=\"\" c:command=\"page1.html\" name=\"myform\"><input c:className=\""+ENUM+"\" type=\"radio\" name=\"myEnumTwo\" value=\"ONE\"/><input c:className=\""+ENUM+"\" type=\"radio\" name=\"myEnumTwo\" value=\"TWO\"/><input type=\"submit\" value=\"OK\"/></form></body></html>";
+        String html_ = "<html c:bean=\"bean_six\" xmlns:c='javahtml'><body>HEAD<form action=\"\" c:command=\"page1.html\" name=\"myform\"><input c:className=\""+ENUM+"\" type=\"radio\" name=\"myEnumTwo\" value=\"ONE\"/><input c:className=\""+ENUM+"\" type=\"radio\" name=\"myEnumTwo\" value=\"TWO\"/><input type=\"submit\" value=\"OK\"/></form></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
         files_.put("page1.html", html_);
@@ -6629,7 +6629,7 @@ public class NavigationTest {
         setupBeansAfter(conf_);
         assertEq("page1.html", nav_.getCurrentUrl());
         assertEq("bean_six", nav_.getCurrentBeanName());
-        assertXmlEqualNoPrefix("<html xmlns:c='javahtml' xmlns='javahtml'><body>HEAD<form n-f=\"0\" action=\"\" c:command=\"page1.html\" name=\"myform\"><input n-i=\"0\" checked=\"checked\" c:className=\""+ENUM+"\" type=\"radio\" name=\"bean_six.myEnumTwo\" value=\"ONE\"/><input n-i=\"0\" c:className=\""+ENUM+"\" type=\"radio\" name=\"bean_six.myEnumTwo\" value=\"TWO\"/><input type=\"submit\" value=\"OK\"/></form></body></html>", nav_.getHtmlText());
+        assertXmlEqualNoPrefix("<html xmlns:c='javahtml'><body>HEAD<form n-f=\"0\" action=\"\" c:command=\"page1.html\" name=\"myform\"><input n-i=\"0\" checked=\"checked\" c:className=\""+ENUM+"\" type=\"radio\" name=\"bean_six.myEnumTwo\" value=\"ONE\"/><input n-i=\"0\" c:className=\""+ENUM+"\" type=\"radio\" name=\"bean_six.myEnumTwo\" value=\"TWO\"/><input type=\"submit\" value=\"OK\"/></form></body></html>", nav_.getHtmlText());
         bean_ = (BeanSix) conf_.getBeans().getVal("bean_six");
         StringMapObject map_ = bean_.getForms();
         assertEq(0, map_.size());
@@ -6647,8 +6647,8 @@ public class NavigationTest {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
-        String html_ = "<html c:bean=\"bean_one\" xmlns:c='javahtml' xmlns='javahtml'><body>HEAD<a c:command=\"$goToNullPage\" href=\"\"/></body></html>";
-        String htmlTwo_ = "<html c:bean=\"bean_two\" xmlns:c='javahtml' xmlns='javahtml'><body><form action=\"DELETE\" name=\"myform\" c:command=\"$go\"><c:select className=\""+ENUM+"\" id=\"combo\" default=\"\" name=\"chosenNumbers\" varValue=\"chosenNumbers\" list=\"combobox\" multiple=\"multiple\"/><span for=\"combo\"/></form></body></html>";
+        String html_ = "<html c:bean=\"bean_one\" xmlns:c='javahtml'><body>HEAD<a c:command=\"$goToNullPage\" href=\"\"/></body></html>";
+        String htmlTwo_ = "<html c:bean=\"bean_two\" xmlns:c='javahtml'><body><form action=\"DELETE\" name=\"myform\" c:command=\"$go\"><c:select className=\""+ENUM+"\" id=\"combo\" default=\"\" name=\"chosenNumbers\" varValue=\"chosenNumbers\" list=\"combobox\" multiple=\"multiple\"/><span for=\"combo\"/></form></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
         files_.put("page1.html", html_);
@@ -6697,7 +6697,7 @@ public class NavigationTest {
         setupBeansAfter(conf_);
         assertEq("page1.html", nav_.getCurrentUrl());
         assertEq("bean_one", nav_.getCurrentBeanName());
-        assertXmlEqualNoPrefix("<html xmlns:c='javahtml' xmlns='javahtml'><body>HEAD<a n-a=\"0\" c:command=\"$bean_one.goToNullPage\" href=\"\"/></body></html>", nav_.getHtmlText());
+        assertXmlEqualNoPrefix("<html xmlns:c='javahtml'><body>HEAD<a n-a=\"0\" c:command=\"$bean_one.goToNullPage\" href=\"\"/></body></html>", nav_.getHtmlText());
         bean_ = (BeanOne) conf_.getBeans().getVal("bean_one");
         StringMapObject map_ = bean_.getForms();
         assertEq(3, map_.size());
@@ -6721,8 +6721,8 @@ public class NavigationTest {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
-        String html_ = "<html c:bean=\"bean_one\" xmlns:c='javahtml' xmlns='javahtml'><body>HEAD<a c:command=\"$goToNullPage\" href=\"\"/></body></html>";
-        String htmlTwo_ = "<html c:bean=\"bean_two\" xmlns:c='javahtml' xmlns='javahtml'><body><form action=\"DELETE\" name=\"myform\" c:command=\"$go\"><c:select className=\""+ENUM+"\" id=\"combo\" default=\"ONE,FOUR\" name=\"chosenNumbers\" varValue=\"chosenNumbers\" list=\"combobox\" multiple=\"multiple\"/><span c:for=\"combo\"/></form></body></html>";
+        String html_ = "<html c:bean=\"bean_one\" xmlns:c='javahtml'><body>HEAD<a c:command=\"$goToNullPage\" href=\"\"/></body></html>";
+        String htmlTwo_ = "<html c:bean=\"bean_two\" xmlns:c='javahtml'><body><form action=\"DELETE\" name=\"myform\" c:command=\"$go\"><c:select className=\""+ENUM+"\" id=\"combo\" default=\"ONE,FOUR\" name=\"chosenNumbers\" varValue=\"chosenNumbers\" list=\"combobox\" multiple=\"multiple\"/><span c:for=\"combo\"/></form></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
         files_.put("page1.html", html_);
@@ -6771,7 +6771,7 @@ public class NavigationTest {
         setupBeansAfter(conf_);
         assertEq("page1.html", nav_.getCurrentUrl());
         assertEq("bean_one", nav_.getCurrentBeanName());
-        assertXmlEqualNoPrefix("<html xmlns:c='javahtml' xmlns='javahtml'><body>HEAD<a n-a=\"0\" c:command=\"$bean_one.goToNullPage\" href=\"\"/></body></html>", nav_.getHtmlText());
+        assertXmlEqualNoPrefix("<html xmlns:c='javahtml'><body>HEAD<a n-a=\"0\" c:command=\"$bean_one.goToNullPage\" href=\"\"/></body></html>", nav_.getHtmlText());
         bean_ = (BeanOne) conf_.getBeans().getVal("bean_one");
         StringMapObject map_ = bean_.getForms();
         assertEq(3, map_.size());
@@ -6795,7 +6795,7 @@ public class NavigationTest {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
-        String html_ = "<html c:bean=\"bean_six\" xmlns:c='javahtml' xmlns='javahtml'><body>HEAD<form action=\"\" c:command=\"page1.html\" name=\"myform\"><input c:className=\""+ENUM+"\" type=\"radio\" name=\"myEnumThree\" value=\"ONE\"/><input c:className=\""+ENUM+"\" type=\"radio\" name=\"myEnumThree\" value=\"TWO\"/><input type=\"submit\" value=\"OK\"/></form></body></html>";
+        String html_ = "<html c:bean=\"bean_six\" xmlns:c='javahtml'><body>HEAD<form action=\"\" c:command=\"page1.html\" name=\"myform\"><input c:className=\""+ENUM+"\" type=\"radio\" name=\"myEnumThree\" value=\"ONE\"/><input c:className=\""+ENUM+"\" type=\"radio\" name=\"myEnumThree\" value=\"TWO\"/><input type=\"submit\" value=\"OK\"/></form></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
         files_.put("page1.html", html_);
@@ -6841,7 +6841,7 @@ public class NavigationTest {
         setupBeansAfter(conf_);
         assertEq("page1.html", nav_.getCurrentUrl());
         assertEq("bean_six", nav_.getCurrentBeanName());
-        assertXmlEqualNoPrefix("<html xmlns:c='javahtml' xmlns='javahtml'><body>HEAD<form n-f=\"0\" action=\"\" c:command=\"page1.html\" name=\"myform\"><input n-i=\"0\" c:className=\""+ENUM+"\" type=\"radio\" name=\"bean_six.myEnumThree\" value=\"ONE\"/><input n-i=\"0\" checked=\"checked\" c:className=\""+ENUM+"\" type=\"radio\" name=\"bean_six.myEnumThree\" value=\"TWO\"/><input type=\"submit\" value=\"OK\"/></form></body></html>", nav_.getHtmlText());
+        assertXmlEqualNoPrefix("<html xmlns:c='javahtml'><body>HEAD<form n-f=\"0\" action=\"\" c:command=\"page1.html\" name=\"myform\"><input n-i=\"0\" c:className=\""+ENUM+"\" type=\"radio\" name=\"bean_six.myEnumThree\" value=\"ONE\"/><input n-i=\"0\" checked=\"checked\" c:className=\""+ENUM+"\" type=\"radio\" name=\"bean_six.myEnumThree\" value=\"TWO\"/><input type=\"submit\" value=\"OK\"/></form></body></html>", nav_.getHtmlText());
         bean_ = (BeanSix) conf_.getBeans().getVal("bean_six");
         StringMapObject map_ = bean_.getForms();
         assertEq(0, map_.size());
@@ -6859,7 +6859,7 @@ public class NavigationTest {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
-        String html_ = "<html c:bean=\"bean_six\" xmlns:c='javahtml' xmlns='javahtml'><body>HEAD<form action=\"\" c:command=\"page1.html\" name=\"myform\"><input c:className=\""+ENUM+"\" type=\"radio\" name=\"myEnumOne\" value=\"ONE\"/><input c:className=\""+ENUM+"\" type=\"radio\" name=\"myEnumOne\" value=\"TWO\"/><input type=\"submit\" value=\"OK\"/></form></body></html>";
+        String html_ = "<html c:bean=\"bean_six\" xmlns:c='javahtml'><body>HEAD<form action=\"\" c:command=\"page1.html\" name=\"myform\"><input c:className=\""+ENUM+"\" type=\"radio\" name=\"myEnumOne\" value=\"ONE\"/><input c:className=\""+ENUM+"\" type=\"radio\" name=\"myEnumOne\" value=\"TWO\"/><input type=\"submit\" value=\"OK\"/></form></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
         files_.put("page1.html", html_);
@@ -6905,7 +6905,7 @@ public class NavigationTest {
         setupBeansAfter(conf_);
         assertEq("page1.html", nav_.getCurrentUrl());
         assertEq("bean_six", nav_.getCurrentBeanName());
-        assertXmlEqualNoPrefix("<html xmlns:c='javahtml' xmlns='javahtml'><body>HEAD<form n-f=\"0\" action=\"\" c:command=\"page1.html\" name=\"myform\"><input n-i=\"0\" c:className=\""+ENUM+"\" type=\"radio\" name=\"bean_six.myEnumOne\" value=\"ONE\"/><input n-i=\"0\" checked=\"checked\" c:className=\""+ENUM+"\" type=\"radio\" name=\"bean_six.myEnumOne\" value=\"TWO\"/><input type=\"submit\" value=\"OK\"/></form></body></html>", nav_.getHtmlText());
+        assertXmlEqualNoPrefix("<html xmlns:c='javahtml'><body>HEAD<form n-f=\"0\" action=\"\" c:command=\"page1.html\" name=\"myform\"><input n-i=\"0\" c:className=\""+ENUM+"\" type=\"radio\" name=\"bean_six.myEnumOne\" value=\"ONE\"/><input n-i=\"0\" checked=\"checked\" c:className=\""+ENUM+"\" type=\"radio\" name=\"bean_six.myEnumOne\" value=\"TWO\"/><input type=\"submit\" value=\"OK\"/></form></body></html>", nav_.getHtmlText());
         bean_ = (BeanSix) conf_.getBeans().getVal("bean_six");
         StringMapObject map_ = bean_.getForms();
         assertEq(0, map_.size());
@@ -6923,7 +6923,7 @@ public class NavigationTest {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
-        String html_ = "<html c:bean=\"bean_six\" xmlns:c='javahtml' xmlns='javahtml'><body>HEAD<form action=\"\" c:command=\"page1.html\" name=\"myform\"><input c:className=\""+ENUM+"\" type=\"radio\" name=\"myEnumTwo\" value=\"ONE\"/><input c:className=\""+ENUM+"\" type=\"radio\" name=\"myEnumTwo\" value=\"TWO\"/><input type=\"submit\" value=\"OK\"/></form></body></html>";
+        String html_ = "<html c:bean=\"bean_six\" xmlns:c='javahtml'><body>HEAD<form action=\"\" c:command=\"page1.html\" name=\"myform\"><input c:className=\""+ENUM+"\" type=\"radio\" name=\"myEnumTwo\" value=\"ONE\"/><input c:className=\""+ENUM+"\" type=\"radio\" name=\"myEnumTwo\" value=\"TWO\"/><input type=\"submit\" value=\"OK\"/></form></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
         files_.put("page1.html", html_);
@@ -6969,7 +6969,7 @@ public class NavigationTest {
         setupBeansAfter(conf_);
         assertEq("page1.html", nav_.getCurrentUrl());
         assertEq("bean_six", nav_.getCurrentBeanName());
-        assertXmlEqualNoPrefix("<html xmlns:c='javahtml' xmlns='javahtml'><body>HEAD<form n-f=\"0\" action=\"\" c:command=\"page1.html\" name=\"myform\"><input n-i=\"0\" c:className=\""+ENUM+"\" type=\"radio\" name=\"bean_six.myEnumTwo\" value=\"ONE\"/><input n-i=\"0\" checked=\"checked\" c:className=\""+ENUM+"\" type=\"radio\" name=\"bean_six.myEnumTwo\" value=\"TWO\"/><input type=\"submit\" value=\"OK\"/></form></body></html>", nav_.getHtmlText());
+        assertXmlEqualNoPrefix("<html xmlns:c='javahtml'><body>HEAD<form n-f=\"0\" action=\"\" c:command=\"page1.html\" name=\"myform\"><input n-i=\"0\" c:className=\""+ENUM+"\" type=\"radio\" name=\"bean_six.myEnumTwo\" value=\"ONE\"/><input n-i=\"0\" checked=\"checked\" c:className=\""+ENUM+"\" type=\"radio\" name=\"bean_six.myEnumTwo\" value=\"TWO\"/><input type=\"submit\" value=\"OK\"/></form></body></html>", nav_.getHtmlText());
         bean_ = (BeanSix) conf_.getBeans().getVal("bean_six");
         StringMapObject map_ = bean_.getForms();
         assertEq(0, map_.size());
@@ -6987,7 +6987,7 @@ public class NavigationTest {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
-        String html_ = "<html c:bean=\"bean_one\" xmlns:c='javahtml' xmlns='javahtml'><body><form name=\"myform\" c:command=\"$validateStrings\"><c:for var=\"c\" list=\"getComposites()\" className='"+COMPOSITE+"'><input type=\"text\" name=\"c;getString()\" c:varMethod=\"setString\" c:varValue=\"c;getString()\"/></c:for></form></body></html>";
+        String html_ = "<html c:bean=\"bean_one\" xmlns:c='javahtml'><body><form name=\"myform\" c:command=\"$validateStrings\"><c:for var=\"c\" list=\"getComposites()\" className='"+COMPOSITE+"'><input type=\"text\" name=\"c;getString()\" c:varMethod=\"setString\" c:varValue=\"c;getString()\"/></c:for></form></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
         files_.put("page1.html", html_);
@@ -7013,8 +7013,8 @@ public class NavigationTest {
         nav_.setFiles(files_);
         nav_.initializeSession();
 //        nav_.processFormRequest("bean_one.getComposites()[0].getString()=ONE&bean_one.getComposites()[1].getString()=TWO", "myform");
-//        assertXMLEqualNoPrefix("<html xmlns:c='javahtml' xmlns='javahtml'><body><form n-f=\"0\" action=\"\" name=\"myform\" c:command=\"$bean_one.validateStrings\"><input n-i=\"0\" type=\"text\" name=\"bean_one.getComposites()[0].getString()\" varMethod=\"setString\" value=\"0\" varValue=\"c;getString()\"/><input n-i=\"1\" type=\"text\" name=\"bean_one.getComposites()[1].getString()\" varMethod=\"setString\" value=\"1\" varValue=\"c;getString()\"/></form></body></html>", nav_.getHtmlText());
-        assertXmlEqualNoPrefix("<html xmlns:c='javahtml' xmlns='javahtml'><body><form n-f=\"0\" action=\"\" name=\"myform\" c:command=\"$bean_one.validateStrings\"><input n-i=\"0\" type=\"text\" name=\"bean_one.c;getString()\" c:varMethod=\"setString\" value=\"0\"/><input n-i=\"1\" type=\"text\" name=\"bean_one.c;getString()\" c:varMethod=\"setString\" value=\"1\"/></form></body></html>", nav_.getHtmlText());
+//        assertXMLEqualNoPrefix("<html xmlns:c='javahtml'><body><form n-f=\"0\" action=\"\" name=\"myform\" c:command=\"$bean_one.validateStrings\"><input n-i=\"0\" type=\"text\" name=\"bean_one.getComposites()[0].getString()\" varMethod=\"setString\" value=\"0\" varValue=\"c;getString()\"/><input n-i=\"1\" type=\"text\" name=\"bean_one.getComposites()[1].getString()\" varMethod=\"setString\" value=\"1\" varValue=\"c;getString()\"/></form></body></html>", nav_.getHtmlText());
+        assertXmlEqualNoPrefix("<html xmlns:c='javahtml'><body><form n-f=\"0\" action=\"\" name=\"myform\" c:command=\"$bean_one.validateStrings\"><input n-i=\"0\" type=\"text\" name=\"bean_one.c;getString()\" c:varMethod=\"setString\" value=\"0\"/><input n-i=\"1\" type=\"text\" name=\"bean_one.c;getString()\" c:varMethod=\"setString\" value=\"1\"/></form></body></html>", nav_.getHtmlText());
         HtmlPage htmlPage_ = nav_.getHtmlPage();
         NumberMap<Long,NatTreeMap<Long,NodeContainer>> containersMap_;
         containersMap_ = htmlPage_.getContainers();
@@ -7039,8 +7039,8 @@ public class NavigationTest {
         setupBeansAfter(conf_);
 //        Document doc_ = XmlParser.parseSaxHtml(html_);
 //        String render_ = FormatHtml.processHtml(doc_, "bean_one", conf_, locale_, files_);
-//        assertXMLEqualNoPrefix("<html xmlns:c='javahtml' xmlns='javahtml'><body><form n-f=\"0\" action=\"\" name=\"myform\" c:command=\"$bean_one.validateStrings\"><input n-i=\"0\" type=\"text\" name=\"bean_one.getComposites()[0].getString()\" varMethod=\"setString\" value=\"ONE\" varValue=\"c;getString()\"/><input n-i=\"1\" type=\"text\" name=\"bean_one.getComposites()[1].getString()\" varMethod=\"setString\" value=\"TWO\" varValue=\"c;getString()\"/></form></body></html>", nav_.getHtmlText());
-        assertXmlEqualNoPrefix("<html xmlns:c='javahtml' xmlns='javahtml'><body><form n-f=\"0\" action=\"\" name=\"myform\" c:command=\"$bean_one.validateStrings\"><input n-i=\"0\" type=\"text\" name=\"bean_one.c;getString()\" c:varMethod=\"setString\" value=\"ONE\"/><input n-i=\"1\" type=\"text\" name=\"bean_one.c;getString()\" c:varMethod=\"setString\" value=\"TWO\"/></form></body></html>", nav_.getHtmlText());
+//        assertXMLEqualNoPrefix("<html xmlns:c='javahtml'><body><form n-f=\"0\" action=\"\" name=\"myform\" c:command=\"$bean_one.validateStrings\"><input n-i=\"0\" type=\"text\" name=\"bean_one.getComposites()[0].getString()\" varMethod=\"setString\" value=\"ONE\" varValue=\"c;getString()\"/><input n-i=\"1\" type=\"text\" name=\"bean_one.getComposites()[1].getString()\" varMethod=\"setString\" value=\"TWO\" varValue=\"c;getString()\"/></form></body></html>", nav_.getHtmlText());
+        assertXmlEqualNoPrefix("<html xmlns:c='javahtml'><body><form n-f=\"0\" action=\"\" name=\"myform\" c:command=\"$bean_one.validateStrings\"><input n-i=\"0\" type=\"text\" name=\"bean_one.c;getString()\" c:varMethod=\"setString\" value=\"ONE\"/><input n-i=\"1\" type=\"text\" name=\"bean_one.c;getString()\" c:varMethod=\"setString\" value=\"TWO\"/></form></body></html>", nav_.getHtmlText());
         bean_ = (BeanOne) conf_.getBeans().getVal("bean_one");
         StringMapObject map_ = bean_.getForms();
         assertEq(0, map_.size());
@@ -7061,7 +7061,7 @@ public class NavigationTest {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
-        String html_ = "<html c:bean=\"bean_one\" xmlns:c='javahtml' xmlns='javahtml'><body><form name=\"myform\" c:command=\"$validateStrings\"><c:for var=\"c\" list=\"getComposites()\" className='"+COMPOSITE+"'><input type=\"text\" name=\"c;getString()\" c:varMethod=\"setString\" c:varValue=\"c;getString()\" c:className=\"java.lang.String\"/></c:for></form></body></html>";
+        String html_ = "<html c:bean=\"bean_one\" xmlns:c='javahtml'><body><form name=\"myform\" c:command=\"$validateStrings\"><c:for var=\"c\" list=\"getComposites()\" className='"+COMPOSITE+"'><input type=\"text\" name=\"c;getString()\" c:varMethod=\"setString\" c:varValue=\"c;getString()\" c:className=\"java.lang.String\"/></c:for></form></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
         files_.put("page1.html", html_);
@@ -7087,8 +7087,8 @@ public class NavigationTest {
         nav_.setFiles(files_);
         nav_.initializeSession();
 //        nav_.processFormRequest("bean_one.getComposites()[0].getString()=ONE&bean_one.getComposites()[1].getString()=TWO", "myform");
-//        assertXMLEqualNoPrefix("<html xmlns:c='javahtml' xmlns='javahtml'><body><form n-f=\"0\" action=\"\" name=\"myform\" c:command=\"$bean_one.validateStrings\"><input n-i=\"0\" type=\"text\" name=\"bean_one.getComposites()[0].getString()\" varMethod=\"setString\" value=\"0\" varValue=\"c;getString()\" c:className=\"java.lang.String\"/><input n-i=\"1\" type=\"text\" name=\"bean_one.getComposites()[1].getString()\" varMethod=\"setString\" value=\"1\" varValue=\"c;getString()\" c:className=\"java.lang.String\"/></form></body></html>", nav_.getHtmlText());
-        assertXmlEqualNoPrefix("<html xmlns:c='javahtml' xmlns='javahtml'><body><form n-f=\"0\" action=\"\" name=\"myform\" c:command=\"$bean_one.validateStrings\"><input n-i=\"0\" type=\"text\" name=\"bean_one.c;getString()\" c:varMethod=\"setString\" value=\"0\" c:className=\"java.lang.String\"/><input n-i=\"1\" type=\"text\" name=\"bean_one.c;getString()\" c:varMethod=\"setString\" value=\"1\" c:className=\"java.lang.String\"/></form></body></html>", nav_.getHtmlText());
+//        assertXMLEqualNoPrefix("<html xmlns:c='javahtml'><body><form n-f=\"0\" action=\"\" name=\"myform\" c:command=\"$bean_one.validateStrings\"><input n-i=\"0\" type=\"text\" name=\"bean_one.getComposites()[0].getString()\" varMethod=\"setString\" value=\"0\" varValue=\"c;getString()\" c:className=\"java.lang.String\"/><input n-i=\"1\" type=\"text\" name=\"bean_one.getComposites()[1].getString()\" varMethod=\"setString\" value=\"1\" varValue=\"c;getString()\" c:className=\"java.lang.String\"/></form></body></html>", nav_.getHtmlText());
+        assertXmlEqualNoPrefix("<html xmlns:c='javahtml'><body><form n-f=\"0\" action=\"\" name=\"myform\" c:command=\"$bean_one.validateStrings\"><input n-i=\"0\" type=\"text\" name=\"bean_one.c;getString()\" c:varMethod=\"setString\" value=\"0\" c:className=\"java.lang.String\"/><input n-i=\"1\" type=\"text\" name=\"bean_one.c;getString()\" c:varMethod=\"setString\" value=\"1\" c:className=\"java.lang.String\"/></form></body></html>", nav_.getHtmlText());
         HtmlPage htmlPage_ = nav_.getHtmlPage();
         NumberMap<Long,NatTreeMap<Long,NodeContainer>> containersMap_;
         containersMap_ = htmlPage_.getContainers();
@@ -7113,8 +7113,8 @@ public class NavigationTest {
         setupBeansAfter(conf_);
 //        Document doc_ = XmlParser.parseSaxHtml(html_);
 //        String render_ = FormatHtml.processHtml(doc_, "bean_one", conf_, locale_, files_);
-//        assertXMLEqualNoPrefix("<html xmlns:c='javahtml' xmlns='javahtml'><body><form n-f=\"0\" action=\"\" name=\"myform\" c:command=\"$bean_one.validateStrings\"><input n-i=\"0\" type=\"text\" name=\"bean_one.getComposites()[0].getString()\" varMethod=\"setString\" value=\"ONE\" varValue=\"c;getString()\" c:className=\"java.lang.String\"/><input n-i=\"1\" type=\"text\" name=\"bean_one.getComposites()[1].getString()\" varMethod=\"setString\" value=\"TWO\" varValue=\"c;getString()\" c:className=\"java.lang.String\"/></form></body></html>", nav_.getHtmlText());
-        assertXmlEqualNoPrefix("<html xmlns:c='javahtml' xmlns='javahtml'><body><form n-f=\"0\" action=\"\" name=\"myform\" c:command=\"$bean_one.validateStrings\"><input n-i=\"0\" type=\"text\" name=\"bean_one.c;getString()\" c:varMethod=\"setString\" value=\"ONE\" c:className=\"java.lang.String\"/><input n-i=\"1\" type=\"text\" name=\"bean_one.c;getString()\" c:varMethod=\"setString\" value=\"TWO\" c:className=\"java.lang.String\"/></form></body></html>", nav_.getHtmlText());
+//        assertXMLEqualNoPrefix("<html xmlns:c='javahtml'><body><form n-f=\"0\" action=\"\" name=\"myform\" c:command=\"$bean_one.validateStrings\"><input n-i=\"0\" type=\"text\" name=\"bean_one.getComposites()[0].getString()\" varMethod=\"setString\" value=\"ONE\" varValue=\"c;getString()\" c:className=\"java.lang.String\"/><input n-i=\"1\" type=\"text\" name=\"bean_one.getComposites()[1].getString()\" varMethod=\"setString\" value=\"TWO\" varValue=\"c;getString()\" c:className=\"java.lang.String\"/></form></body></html>", nav_.getHtmlText());
+        assertXmlEqualNoPrefix("<html xmlns:c='javahtml'><body><form n-f=\"0\" action=\"\" name=\"myform\" c:command=\"$bean_one.validateStrings\"><input n-i=\"0\" type=\"text\" name=\"bean_one.c;getString()\" c:varMethod=\"setString\" value=\"ONE\" c:className=\"java.lang.String\"/><input n-i=\"1\" type=\"text\" name=\"bean_one.c;getString()\" c:varMethod=\"setString\" value=\"TWO\" c:className=\"java.lang.String\"/></form></body></html>", nav_.getHtmlText());
         bean_ = (BeanOne) conf_.getBeans().getVal("bean_one");
         StringMapObject map_ = bean_.getForms();
         assertEq(0, map_.size());
@@ -7135,7 +7135,7 @@ public class NavigationTest {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
-        String html_ = "<html c:bean=\"bean_seven\" xmlns:c='javahtml' xmlns='javahtml'><body><form name=\"myform\" c:command=\"$validateStrings\"><c:for var=\"c\" list=\"getStrings()\"><input type=\"text\" name=\"c;\" c:varValue=\"c;\" c:className=\"java.lang.String\"/></c:for></form></body></html>";
+        String html_ = "<html c:bean=\"bean_seven\" xmlns:c='javahtml'><body><form name=\"myform\" c:command=\"$validateStrings\"><c:for var=\"c\" list=\"getStrings()\"><input type=\"text\" name=\"c;\" c:varValue=\"c;\" c:className=\"java.lang.String\"/></c:for></form></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
         files_.put("page1.html", html_);
@@ -7161,7 +7161,7 @@ public class NavigationTest {
         nav_.setFiles(files_);
         nav_.initializeSession();
 //        assertXMLEqualNoPrefix("<html bean=\"bean_seven\"><body><form n-f=\"0\" action=\"\" name=\"myform\" c:command=\"$bean_seven.validateStrings\"><input n-i=\"0\" type=\"text\" name=\"bean_seven.getStrings()[0]\" value=\"FIRST\" varValue=\"c;\" c:className=\"java.lang.String\"/><input n-i=\"1\" type=\"text\" name=\"bean_seven.getStrings()[1]\" value=\"SECOND\" varValue=\"c;\" c:className=\"java.lang.String\"/></form></body></html>", nav_.getHtmlText());
-        assertXmlEqualNoPrefix("<html xmlns:c='javahtml' xmlns='javahtml'><body><form n-f=\"0\" action=\"\" name=\"myform\" c:command=\"$bean_seven.validateStrings\"><input n-i=\"0\" type=\"text\" name=\"bean_seven.c;\" value=\"FIRST\" c:className=\"java.lang.String\"/><input n-i=\"1\" type=\"text\" name=\"bean_seven.c;\" value=\"SECOND\" c:className=\"java.lang.String\"/></form></body></html>", nav_.getHtmlText());
+        assertXmlEqualNoPrefix("<html xmlns:c='javahtml'><body><form n-f=\"0\" action=\"\" name=\"myform\" c:command=\"$bean_seven.validateStrings\"><input n-i=\"0\" type=\"text\" name=\"bean_seven.c;\" value=\"FIRST\" c:className=\"java.lang.String\"/><input n-i=\"1\" type=\"text\" name=\"bean_seven.c;\" value=\"SECOND\" c:className=\"java.lang.String\"/></form></body></html>", nav_.getHtmlText());
         HtmlPage htmlPage_ = nav_.getHtmlPage();
         NumberMap<Long,NatTreeMap<Long,NodeContainer>> containersMap_;
         containersMap_ = htmlPage_.getContainers();
@@ -7187,7 +7187,7 @@ public class NavigationTest {
 //        Document doc_ = XmlParser.parseSaxHtml(html_);
 //        String render_ = FormatHtml.processHtml(doc_, "bean_one", conf_, locale_, files_);
 //        assertXMLEqualNoPrefix("<html bean=\"bean_seven\"><body><form n-f=\"0\" action=\"\" name=\"myform\" c:command=\"$bean_seven.validateStrings\"><input n-i=\"0\" type=\"text\" name=\"bean_seven.getStrings()[0]\" value=\"ONE\" varValue=\"c;\" c:className=\"java.lang.String\"/><input n-i=\"1\" type=\"text\" name=\"bean_seven.getStrings()[1]\" value=\"TWO\" varValue=\"c;\" c:className=\"java.lang.String\"/></form></body></html>", nav_.getHtmlText());
-        assertXmlEqualNoPrefix("<html xmlns:c='javahtml' xmlns='javahtml'><body><form n-f=\"0\" action=\"\" name=\"myform\" c:command=\"$bean_seven.validateStrings\"><input n-i=\"0\" type=\"text\" name=\"bean_seven.c;\" value=\"ONE\" c:className=\"java.lang.String\"/><input n-i=\"1\" type=\"text\" name=\"bean_seven.c;\" value=\"TWO\" c:className=\"java.lang.String\"/></form></body></html>", nav_.getHtmlText());
+        assertXmlEqualNoPrefix("<html xmlns:c='javahtml'><body><form n-f=\"0\" action=\"\" name=\"myform\" c:command=\"$bean_seven.validateStrings\"><input n-i=\"0\" type=\"text\" name=\"bean_seven.c;\" value=\"ONE\" c:className=\"java.lang.String\"/><input n-i=\"1\" type=\"text\" name=\"bean_seven.c;\" value=\"TWO\" c:className=\"java.lang.String\"/></form></body></html>", nav_.getHtmlText());
         bean_ = (BeanSeven) conf_.getBeans().getVal("bean_seven");
         StringMapObject map_ = bean_.getForms();
         assertEq(0, map_.size());
@@ -7209,7 +7209,7 @@ public class NavigationTest {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
-        String html_ = "<html c:bean=\"bean_seven\" xmlns:c='javahtml' xmlns='javahtml'><body><form name=\"myform\" c:command=\"$validateStringsSave\"><c:for var=\"c\" list=\"getStrings()\"><input type=\"text\" name=\"c;\" c:varValue=\"c;\" c:className=\"java.lang.String\"/></c:for></form></body></html>";
+        String html_ = "<html c:bean=\"bean_seven\" xmlns:c='javahtml'><body><form name=\"myform\" c:command=\"$validateStringsSave\"><c:for var=\"c\" list=\"getStrings()\"><input type=\"text\" name=\"c;\" c:varValue=\"c;\" c:className=\"java.lang.String\"/></c:for></form></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
         files_.put("page1.html", html_);
@@ -7235,7 +7235,7 @@ public class NavigationTest {
         nav_.setFiles(files_);
         nav_.initializeSession();
 //        assertXMLEqualNoPrefix("<html bean=\"bean_seven\"><body><form n-f=\"0\" action=\"\" name=\"myform\" c:command=\"$bean_seven.validateStringsSave\"><input n-i=\"0\" type=\"text\" name=\"bean_seven.getStrings()[0]\" value=\"FIRST\" varValue=\"c;\" c:className=\"java.lang.String\"/><input n-i=\"1\" type=\"text\" name=\"bean_seven.getStrings()[1]\" value=\"SECOND\" varValue=\"c;\" c:className=\"java.lang.String\"/></form></body></html>", nav_.getHtmlText());
-        assertXmlEqualNoPrefix("<html xmlns:c='javahtml' xmlns='javahtml'><body><form n-f=\"0\" action=\"\" name=\"myform\" c:command=\"$bean_seven.validateStringsSave\"><input n-i=\"0\" type=\"text\" name=\"bean_seven.c;\" value=\"FIRST\" c:className=\"java.lang.String\"/><input n-i=\"1\" type=\"text\" name=\"bean_seven.c;\" value=\"SECOND\" c:className=\"java.lang.String\"/></form></body></html>", nav_.getHtmlText());
+        assertXmlEqualNoPrefix("<html xmlns:c='javahtml'><body><form n-f=\"0\" action=\"\" name=\"myform\" c:command=\"$bean_seven.validateStringsSave\"><input n-i=\"0\" type=\"text\" name=\"bean_seven.c;\" value=\"FIRST\" c:className=\"java.lang.String\"/><input n-i=\"1\" type=\"text\" name=\"bean_seven.c;\" value=\"SECOND\" c:className=\"java.lang.String\"/></form></body></html>", nav_.getHtmlText());
         HtmlPage htmlPage_ = nav_.getHtmlPage();
         NumberMap<Long,NatTreeMap<Long,NodeContainer>> containersMap_;
         containersMap_ = htmlPage_.getContainers();
@@ -7261,7 +7261,7 @@ public class NavigationTest {
 //        Document doc_ = XmlParser.parseSaxHtml(html_);
 //        String render_ = FormatHtml.processHtml(doc_, "bean_one", conf_, locale_, files_);
 //        assertXMLEqualNoPrefix("<html bean=\"bean_seven\"><body><form n-f=\"0\" action=\"\" name=\"myform\" c:command=\"$bean_seven.validateStringsSave\"><input n-i=\"0\" type=\"text\" name=\"bean_seven.getStrings()[0]\" value=\"ONE\" varValue=\"c;\" c:className=\"java.lang.String\"/><input n-i=\"1\" type=\"text\" name=\"bean_seven.getStrings()[1]\" value=\"TWO\" varValue=\"c;\" c:className=\"java.lang.String\"/></form></body></html>", nav_.getHtmlText());
-        assertXmlEqualNoPrefix("<html xmlns:c='javahtml' xmlns='javahtml'><body><form n-f=\"0\" action=\"\" name=\"myform\" c:command=\"$bean_seven.validateStringsSave\"><input n-i=\"0\" type=\"text\" name=\"bean_seven.c;\" value=\"ONE\" c:className=\"java.lang.String\"/><input n-i=\"1\" type=\"text\" name=\"bean_seven.c;\" value=\"TWO\" c:className=\"java.lang.String\"/></form></body></html>", nav_.getHtmlText());
+        assertXmlEqualNoPrefix("<html xmlns:c='javahtml'><body><form n-f=\"0\" action=\"\" name=\"myform\" c:command=\"$bean_seven.validateStringsSave\"><input n-i=\"0\" type=\"text\" name=\"bean_seven.c;\" value=\"ONE\" c:className=\"java.lang.String\"/><input n-i=\"1\" type=\"text\" name=\"bean_seven.c;\" value=\"TWO\" c:className=\"java.lang.String\"/></form></body></html>", nav_.getHtmlText());
         bean_ = (BeanSeven) conf_.getBeans().getVal("bean_seven");
         StringMapObject map_ = bean_.getForms();
         assertEq(1, map_.size());
@@ -7283,7 +7283,7 @@ public class NavigationTest {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
-        String html_ = "<html c:bean=\"bean_seven\" xmlns:c='javahtml' xmlns='javahtml'><body><form name=\"myform\" c:command=\"$validateMap\"><c:for key=\"k\" value=\"v\" map=\"getTree()\"><input type=\"text\" name=\"v;\" c:varValue=\"v;\" c:className=\"java.lang.Integer\"/></c:for></form></body></html>";
+        String html_ = "<html c:bean=\"bean_seven\" xmlns:c='javahtml'><body><form name=\"myform\" c:command=\"$validateMap\"><c:for key=\"k\" value=\"v\" map=\"getTree()\"><input type=\"text\" name=\"v;\" c:varValue=\"v;\" c:className=\"java.lang.Integer\"/></c:for></form></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
         files_.put("page1.html", html_);
@@ -7309,7 +7309,7 @@ public class NavigationTest {
         nav_.setFiles(files_);
         nav_.initializeSession();
 //        assertXMLEqualNoPrefix("<html bean=\"bean_seven\"><body><form n-f=\"0\" action=\"\" name=\"myform\" c:command=\"$bean_seven.validateMap\"><input n-i=\"0\" type=\"text\" name=\"bean_seven.getTree()[0]goto!value\" value=\"1\" varValue=\"v;\" c:className=\"java.lang.Integer\"/><input n-i=\"1\" type=\"text\" name=\"bean_seven.getTree()[1]goto!value\" value=\"2\" varValue=\"v;\" c:className=\"java.lang.Integer\"/></form></body></html>", nav_.getHtmlText());
-        assertXmlEqualNoPrefix("<html xmlns:c='javahtml' xmlns='javahtml'><body><form n-f=\"0\" action=\"\" name=\"myform\" c:command=\"$bean_seven.validateMap\"><input n-i=\"0\" type=\"text\" name=\"bean_seven.v;\" value=\"1\" c:className=\"java.lang.Integer\"/><input n-i=\"1\" type=\"text\" name=\"bean_seven.v;\" value=\"2\" c:className=\"java.lang.Integer\"/></form></body></html>", nav_.getHtmlText());
+        assertXmlEqualNoPrefix("<html xmlns:c='javahtml'><body><form n-f=\"0\" action=\"\" name=\"myform\" c:command=\"$bean_seven.validateMap\"><input n-i=\"0\" type=\"text\" name=\"bean_seven.v;\" value=\"1\" c:className=\"java.lang.Integer\"/><input n-i=\"1\" type=\"text\" name=\"bean_seven.v;\" value=\"2\" c:className=\"java.lang.Integer\"/></form></body></html>", nav_.getHtmlText());
         HtmlPage htmlPage_ = nav_.getHtmlPage();
         NumberMap<Long,NatTreeMap<Long,NodeContainer>> containersMap_;
         containersMap_ = htmlPage_.getContainers();
@@ -7335,7 +7335,7 @@ public class NavigationTest {
 //        Document doc_ = XmlParser.parseSaxHtml(html_);
 //        String render_ = FormatHtml.processHtml(doc_, "bean_one", conf_, locale_, files_);
 //        assertXMLEqualNoPrefix("<html bean=\"bean_seven\"><body><form n-f=\"0\" action=\"\" name=\"myform\" c:command=\"$bean_seven.validateMap\"><input n-i=\"0\" type=\"text\" name=\"bean_seven.getTree()[0]goto!value\" value=\"3\" varValue=\"v;\" c:className=\"java.lang.Integer\"/><input n-i=\"1\" type=\"text\" name=\"bean_seven.getTree()[1]goto!value\" value=\"4\" varValue=\"v;\" c:className=\"java.lang.Integer\"/></form></body></html>", nav_.getHtmlText());
-        assertXmlEqualNoPrefix("<html xmlns:c='javahtml' xmlns='javahtml'><body><form n-f=\"0\" action=\"\" name=\"myform\" c:command=\"$bean_seven.validateMap\"><input n-i=\"0\" type=\"text\" name=\"bean_seven.v;\" value=\"3\" c:className=\"java.lang.Integer\"/><input n-i=\"1\" type=\"text\" name=\"bean_seven.v;\" value=\"4\" c:className=\"java.lang.Integer\"/></form></body></html>", nav_.getHtmlText());
+        assertXmlEqualNoPrefix("<html xmlns:c='javahtml'><body><form n-f=\"0\" action=\"\" name=\"myform\" c:command=\"$bean_seven.validateMap\"><input n-i=\"0\" type=\"text\" name=\"bean_seven.v;\" value=\"3\" c:className=\"java.lang.Integer\"/><input n-i=\"1\" type=\"text\" name=\"bean_seven.v;\" value=\"4\" c:className=\"java.lang.Integer\"/></form></body></html>", nav_.getHtmlText());
         bean_ = (BeanSeven) conf_.getBeans().getVal("bean_seven");
         StringMapObject map_ = bean_.getForms();
         assertEq(0, map_.size());
@@ -7357,8 +7357,8 @@ public class NavigationTest {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
-        String html_ = "<html c:bean=\"bean_one\" xmlns:c='javahtml' xmlns='javahtml'><body>HEAD<a c:command=\"$goToNullPage\" href=\"\"/></body></html>";
-        String htmlTwo_ = "<html c:bean=\"bean_two\" xmlns:c='javahtml' xmlns='javahtml'><body><form action=\"DELETE\" name=\"myform\" c:command=\"$go\"><input id=\"txt\" type=\"text\" name=\"typedString\" c:varValue=\"typedString\" c:validator=\"rate_val\"/><input type=\"radio\" name=\"chosenNumber\" c:className=\""+ENUM+"\" value=\"ONE\"/><input type=\"radio\" name=\"chosenNumber\" c:className=\""+ENUM+"\" value=\"TWO\"/><span c:for=\"txt\"/></form></body></html>";
+        String html_ = "<html c:bean=\"bean_one\" xmlns:c='javahtml'><body>HEAD<a c:command=\"$goToNullPage\" href=\"\"/></body></html>";
+        String htmlTwo_ = "<html c:bean=\"bean_two\" xmlns:c='javahtml'><body><form action=\"DELETE\" name=\"myform\" c:command=\"$go\"><input id=\"txt\" type=\"text\" name=\"typedString\" c:varValue=\"typedString\" c:validator=\"rate_val\"/><input type=\"radio\" name=\"chosenNumber\" c:className=\""+ENUM+"\" value=\"ONE\"/><input type=\"radio\" name=\"chosenNumber\" c:className=\""+ENUM+"\" value=\"TWO\"/><span c:for=\"txt\"/></form></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
         files_.put("page1.html", html_);
@@ -7415,7 +7415,7 @@ public class NavigationTest {
         setupBeansAfter(conf_);
         assertEq("page2.html", nav_.getCurrentUrl());
         assertEq("bean_two", nav_.getCurrentBeanName());
-        assertXmlEqualNoPrefix("<html xmlns:c='javahtml' xmlns='javahtml'><body><form n-f=\"0\" action=\"\" c:command=\"$bean_two.go\" name=\"myform\"><input n-i=\"0\" id=\"txt\" name=\"bean_two.typedString\" type=\"text\" c:validator=\"rate_val\" value=\"ONE_TWO\"/><input n-i=\"1\" checked=\"checked\" type=\"radio\" name=\"bean_two.chosenNumber\" c:className=\""+ENUM+"\" value=\"ONE\"/><input n-i=\"1\" type=\"radio\" name=\"bean_two.chosenNumber\" c:className=\""+ENUM+"\" value=\"TWO\"/><span c:for=\"txt\">ONE_TWO is not a no zero rate</span></form></body></html>", nav_.getHtmlText());
+        assertXmlEqualNoPrefix("<html xmlns:c='javahtml'><body><form n-f=\"0\" action=\"\" c:command=\"$bean_two.go\" name=\"myform\"><input n-i=\"0\" id=\"txt\" name=\"bean_two.typedString\" type=\"text\" c:validator=\"rate_val\" value=\"ONE_TWO\"/><input n-i=\"1\" checked=\"checked\" type=\"radio\" name=\"bean_two.chosenNumber\" c:className=\""+ENUM+"\" value=\"ONE\"/><input n-i=\"1\" type=\"radio\" name=\"bean_two.chosenNumber\" c:className=\""+ENUM+"\" value=\"TWO\"/><span c:for=\"txt\">ONE_TWO is not a no zero rate</span></form></body></html>", nav_.getHtmlText());
         beanTwo_ = (BeanTwo) conf_.getBeans().getVal("bean_two");
         assertEq(EnumNumber.TWO, beanTwo_.getChosenNumber());
         assertEq("TYPED_STRING", beanTwo_.getTypedString());
@@ -7435,7 +7435,7 @@ public class NavigationTest {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
-        String html_ = "<html c:bean=\"bean_seven\" xmlns:c='javahtml' xmlns='javahtml'><body><form name=\"myform\" c:command=\"$validateMap\"><c:for key=\"k\" value=\"v\" map=\"getTree()\"><input type=\"text\" name=\"k;\" c:varValue=\"k;\" c:className=\"java.lang.String\"/></c:for></form></body></html>";
+        String html_ = "<html c:bean=\"bean_seven\" xmlns:c='javahtml'><body><form name=\"myform\" c:command=\"$validateMap\"><c:for key=\"k\" value=\"v\" map=\"getTree()\"><input type=\"text\" name=\"k;\" c:varValue=\"k;\" c:className=\"java.lang.String\"/></c:for></form></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
         files_.put("page1.html", html_);
@@ -7461,7 +7461,7 @@ public class NavigationTest {
         nav_.setFiles(files_);
         nav_.initializeSession();
 //        assertXMLEqualNoPrefix("<html bean=\"bean_seven\"><body><form n-f=\"0\" action=\"\" name=\"myform\" c:command=\"$bean_seven.validateMap\"><input n-i=\"0\" type=\"text\" name=\"bean_seven.getTree()[0]goto!key\" value=\"keyone\" varValue=\"k;\" c:className=\"java.lang.String\"/><input n-i=\"1\" type=\"text\" name=\"bean_seven.getTree()[1]goto!key\" value=\"keytwo\" varValue=\"k;\" c:className=\"java.lang.String\"/></form></body></html>", nav_.getHtmlText());
-        assertXmlEqualNoPrefix("<html xmlns:c='javahtml' xmlns='javahtml'><body><form n-f=\"0\" action=\"\" name=\"myform\" c:command=\"$bean_seven.validateMap\"><input n-i=\"0\" type=\"text\" name=\"bean_seven.k;\" value=\"keyone\" c:className=\"java.lang.String\"/><input n-i=\"1\" type=\"text\" name=\"bean_seven.k;\" value=\"keytwo\" c:className=\"java.lang.String\"/></form></body></html>", nav_.getHtmlText());
+        assertXmlEqualNoPrefix("<html xmlns:c='javahtml'><body><form n-f=\"0\" action=\"\" name=\"myform\" c:command=\"$bean_seven.validateMap\"><input n-i=\"0\" type=\"text\" name=\"bean_seven.k;\" value=\"keyone\" c:className=\"java.lang.String\"/><input n-i=\"1\" type=\"text\" name=\"bean_seven.k;\" value=\"keytwo\" c:className=\"java.lang.String\"/></form></body></html>", nav_.getHtmlText());
         HtmlPage htmlPage_ = nav_.getHtmlPage();
         NumberMap<Long,NatTreeMap<Long,NodeContainer>> containersMap_;
         containersMap_ = htmlPage_.getContainers();
@@ -7487,7 +7487,7 @@ public class NavigationTest {
 //        Document doc_ = XmlParser.parseSaxHtml(html_);
 //        String render_ = FormatHtml.processHtml(doc_, "bean_one", conf_, locale_, files_);
 //        assertXMLEqualNoPrefix("<html bean=\"bean_seven\"><body><form n-f=\"0\" action=\"\" name=\"myform\" c:command=\"$bean_seven.validateMap\"><input n-i=\"0\" type=\"text\" name=\"bean_seven.getTree()[0]goto!key\" value=\"keyfour\" varValue=\"k;\" c:className=\"java.lang.String\"/><input n-i=\"1\" type=\"text\" name=\"bean_seven.getTree()[1]goto!key\" value=\"keythree\" varValue=\"k;\" c:className=\"java.lang.String\"/></form></body></html>", nav_.getHtmlText());
-        assertXmlEqualNoPrefix("<html xmlns:c='javahtml' xmlns='javahtml'><body><form n-f=\"0\" action=\"\" name=\"myform\" c:command=\"$bean_seven.validateMap\"><input n-i=\"0\" type=\"text\" name=\"bean_seven.k;\" value=\"keyfour\" c:className=\"java.lang.String\"/><input n-i=\"1\" type=\"text\" name=\"bean_seven.k;\" value=\"keythree\" c:className=\"java.lang.String\"/></form></body></html>", nav_.getHtmlText());
+        assertXmlEqualNoPrefix("<html xmlns:c='javahtml'><body><form n-f=\"0\" action=\"\" name=\"myform\" c:command=\"$bean_seven.validateMap\"><input n-i=\"0\" type=\"text\" name=\"bean_seven.k;\" value=\"keyfour\" c:className=\"java.lang.String\"/><input n-i=\"1\" type=\"text\" name=\"bean_seven.k;\" value=\"keythree\" c:className=\"java.lang.String\"/></form></body></html>", nav_.getHtmlText());
         bean_ = (BeanSeven) conf_.getBeans().getVal("bean_seven");
         StringMapObject map_ = bean_.getForms();
         assertEq(0, map_.size());
@@ -7510,7 +7510,7 @@ public class NavigationTest {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
-        String html_ = "<html c:bean=\"bean_seven\" xmlns:c='javahtml' xmlns='javahtml'><body><form name='myform' c:command=\"$validateIntsSave\"><c:for var=\"i\" list=\"arrayInt\"><input type=\"text\" c:className=\"java.lang.Integer\" name=\"i;\" c:varValue=\"i;\"/></c:for></form></body></html>";
+        String html_ = "<html c:bean=\"bean_seven\" xmlns:c='javahtml'><body><form name='myform' c:command=\"$validateIntsSave\"><c:for var=\"i\" list=\"arrayInt\"><input type=\"text\" c:className=\"java.lang.Integer\" name=\"i;\" c:varValue=\"i;\"/></c:for></form></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
         files_.put("page1.html", html_);
@@ -7538,7 +7538,7 @@ public class NavigationTest {
         nav_.setSession(conf_);
         nav_.setFiles(files_);
         nav_.initializeSession();
-        assertXmlEqualNoPrefix("<html xmlns:c='javahtml' xmlns='javahtml'><body><form name='myform' n-f='0' action='' c:command='$bean_seven.validateIntsSave'><input n-i='0' type='text' c:className='java.lang.Integer' name='bean_seven.i;' value='1'/><input n-i='1' type='text' c:className='java.lang.Integer' name='bean_seven.i;' value='3'/></form></body></html>", nav_.getHtmlText());
+        assertXmlEqualNoPrefix("<html xmlns:c='javahtml'><body><form name='myform' n-f='0' action='' c:command='$bean_seven.validateIntsSave'><input n-i='0' type='text' c:className='java.lang.Integer' name='bean_seven.i;' value='1'/><input n-i='1' type='text' c:className='java.lang.Integer' name='bean_seven.i;' value='3'/></form></body></html>", nav_.getHtmlText());
         HtmlPage htmlPage_ = nav_.getHtmlPage();
         NumberMap<Long,NatTreeMap<Long,NodeContainer>> containersMap_;
         containersMap_ = htmlPage_.getContainers();
@@ -7561,7 +7561,7 @@ public class NavigationTest {
         nav_.getHtmlPage().setUrl(0);
         nav_.processFormRequest();
         setupBeansAfter(conf_);
-        assertXmlEqualNoPrefix("<html xmlns:c='javahtml' xmlns='javahtml'><body><form name='myform' n-f='0' action='' c:command='$bean_seven.validateIntsSave'><input n-i='0' type='text' c:className='java.lang.Integer' name='bean_seven.i;' value='2'/><input n-i='1' type='text' c:className='java.lang.Integer' name='bean_seven.i;' value='4'/></form></body></html>", nav_.getHtmlText());
+        assertXmlEqualNoPrefix("<html xmlns:c='javahtml'><body><form name='myform' n-f='0' action='' c:command='$bean_seven.validateIntsSave'><input n-i='0' type='text' c:className='java.lang.Integer' name='bean_seven.i;' value='2'/><input n-i='1' type='text' c:className='java.lang.Integer' name='bean_seven.i;' value='4'/></form></body></html>", nav_.getHtmlText());
         bean_ = (BeanSeven) conf_.getBeans().getVal("bean_seven");
         StringMapObject map_ = bean_.getForms();
         assertEq(1, map_.size());
@@ -7584,7 +7584,7 @@ public class NavigationTest {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
-        String html_ = "<html c:bean=\"bean_seven\" xmlns:c='javahtml' xmlns='javahtml'>";
+        String html_ = "<html c:bean=\"bean_seven\" xmlns:c='javahtml'>";
         html_ += "<body>";
         html_ += "<form name='myform' c:command='$setup'>";
         html_ += "<input type=\"radio\" c:className='$long' name='getRadioLong()' c:varValue='1' c:varMethod='setRadioLong'/>";
@@ -7625,7 +7625,7 @@ public class NavigationTest {
         nav_.setDataBase(d_);
         nav_.initializeSession();
         String res_ = "";
-        res_ += "<html xmlns='javahtml' xmlns:c='javahtml'>";
+        res_ += "<html xmlns:c='javahtml'>";
         res_ += "<body>";
         res_ += "<form action='' c:command='$bean_seven.setup' n-f='0' name='myform'>";
         res_ += "<input c:className='$long' c:varMethod='setRadioLong' n-i='0' name='bean_seven.getRadioLong()' type='radio' value='1'/>";
@@ -7751,7 +7751,7 @@ public class NavigationTest {
         nav_.processFormRequest();
         setupBeansAfter(conf_);
         res_ = "";
-        res_ += "<html xmlns='javahtml' xmlns:c='javahtml'>";
+        res_ += "<html xmlns:c='javahtml'>";
         res_ += "<body>";
         res_ += "<form action='' c:command='$bean_seven.setup' n-f='0' name='myform'>";
         res_ += "<input c:className='$long' c:varMethod='setRadioLong' n-i='0' name='bean_seven.getRadioLong()' type='radio' value='1'/>";
@@ -7843,7 +7843,7 @@ public class NavigationTest {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
-        String html_ = "<html c:bean=\"bean_seven\" xmlns:c='javahtml' xmlns='javahtml'>";
+        String html_ = "<html c:bean=\"bean_seven\" xmlns:c='javahtml'>";
         html_ += "<body>";
         html_ += "<form name='myform' c:command='$setup'>";
         html_ += "<c:for className='code.formathtml.classes.EncapsFields' var='c' list='getComposites()'>";
@@ -7884,7 +7884,7 @@ public class NavigationTest {
         nav_.setFiles(files_);
         nav_.initializeSession();
         String res_ = "";
-        res_ += "<html xmlns='javahtml' xmlns:c='javahtml'>";
+        res_ += "<html xmlns:c='javahtml'>";
         res_ += "<body>";
         res_ += "<form action='' c:command='$bean_seven.setup' n-f='0' name='myform'>";
         res_ += "<input c:className='$long' c:varMethod='setRadioLong' n-i='0' name='bean_seven.c;getRadioLong()' type='radio' value='1'/>";
@@ -8118,7 +8118,7 @@ public class NavigationTest {
         nav_.processFormRequest();
         setupBeansAfter(conf_);
         res_ = "";
-        res_ += "<html xmlns='javahtml' xmlns:c='javahtml'>";
+        res_ += "<html xmlns:c='javahtml'>";
         res_ += "<body>";
         res_ += "<form action='' c:command='$bean_seven.setup' n-f='0' name='myform'>";
         res_ += "<input c:className='$long' c:varMethod='setRadioLong' n-i='0' name='bean_seven.c;getRadioLong()' type='radio' value='1'/>";
@@ -8284,8 +8284,8 @@ public class NavigationTest {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
-        String html_ = "<html c:bean=\"bean_one\" xmlns:c='javahtml' xmlns='javahtml'><body>HEAD<a c:command=\"$goToNullPage\" href=\"\"/></body></html>";
-        String htmlTwo_ = "<html c:bean=\"bean_two\" xmlns:c='javahtml' xmlns='javahtml'><body><form action=\"DELETE\" name=\"myform\" c:command=\"$go\"><c:select className=\""+ENUM+"\" default=\"ONE\" name=\"chosenNumber\" varValue=\"chosenNumber\" list=\"getChosenNumbers()\"/></form></body></html>";
+        String html_ = "<html c:bean=\"bean_one\" xmlns:c='javahtml'><body>HEAD<a c:command=\"$goToNullPage\" href=\"\"/></body></html>";
+        String htmlTwo_ = "<html c:bean=\"bean_two\" xmlns:c='javahtml'><body><form action=\"DELETE\" name=\"myform\" c:command=\"$go\"><c:select className=\""+ENUM+"\" default=\"ONE\" name=\"chosenNumber\" varValue=\"chosenNumber\" list=\"getChosenNumbers()\"/></form></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
         files_.put("page1.html", html_);
@@ -8342,8 +8342,8 @@ public class NavigationTest {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
-        String html_ = "<html c:bean=\"bean_one\" xmlns:c='javahtml' xmlns='javahtml'><body>HEAD<a c:command=\"$goToNullPage\" href=\"\"/></body></html>";
-        String htmlTwo_ = "<html c:bean=\"bean_two\" xmlns:c='javahtml' xmlns='javahtml'><body><form action=\"DELETE\" name=\"myform\" c:command=\"$go\"><c:select className=\""+ENUM+"\" default=\"ONE\" name=\"chosenNumber\" varValue=\"chosenNumber\" list=\"getChosenNumbers()\"/></form></body></html>";
+        String html_ = "<html c:bean=\"bean_one\" xmlns:c='javahtml'><body>HEAD<a c:command=\"$goToNullPage\" href=\"\"/></body></html>";
+        String htmlTwo_ = "<html c:bean=\"bean_two\" xmlns:c='javahtml'><body><form action=\"DELETE\" name=\"myform\" c:command=\"$go\"><c:select className=\""+ENUM+"\" default=\"ONE\" name=\"chosenNumber\" varValue=\"chosenNumber\" list=\"getChosenNumbers()\"/></form></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
         files_.put("page1.html", html_);
@@ -8398,8 +8398,8 @@ public class NavigationTest {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
-        String html_ = "<html c:bean=\"bean_one\" xmlns:c='javahtml' xmlns='javahtml'><body>HEAD<a c:command=\"$goToNullPage\" href=\"\"/></body></html>";
-        String htmlTwo_ = "<html c:bean=\"bean_two\" xmlns:c='javahtml' xmlns='javahtml'><body><form action=\"DELETE\" name=\"myform\" c:command=\"$validate\"><input type=\"text\" name=\"typedString\" varValue=\"typedString\"/><input type=\"submit\" value=\"OK\"/></form><form c:command=\"$validate\" name=\"myform2\"><input type=\"text\" name=\"field\" varValue=\"field\"/></form></body></html>";
+        String html_ = "<html c:bean=\"bean_one\" xmlns:c='javahtml'><body>HEAD<a c:command=\"$goToNullPage\" href=\"\"/></body></html>";
+        String htmlTwo_ = "<html c:bean=\"bean_two\" xmlns:c='javahtml'><body><form action=\"DELETE\" name=\"myform\" c:command=\"$validate\"><input type=\"text\" name=\"typedString\" varValue=\"typedString\"/><input type=\"submit\" value=\"OK\"/></form><form c:command=\"$validate\" name=\"myform2\"><input type=\"text\" name=\"field\" varValue=\"field\"/></form></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
         files_.put("page1.html", html_);
@@ -8444,8 +8444,8 @@ public class NavigationTest {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
-        String html_ = "<html c:bean=\"bean_one\" xmlns:c='javahtml' xmlns='javahtml'><body>HEAD<a c:command=\"$goToNullPage\" href=\"\"/></body></html>";
-        String htmlTwo_ = "<html c:bean=\"bean_two\" xmlns:c='javahtml' xmlns='javahtml'><body><form action=\"DELETE\" name=\"myform\" c:command=\"$go\"><c:select className=\""+ENUM+"\" id=\"combo\" default=\"ONE\" name=\"chosenNumber\" varValue=\"chosenNumber\" list=\"getChosenNumbers()\" validator=\"validator\"/></form></body></html>";
+        String html_ = "<html c:bean=\"bean_one\" xmlns:c='javahtml'><body>HEAD<a c:command=\"$goToNullPage\" href=\"\"/></body></html>";
+        String htmlTwo_ = "<html c:bean=\"bean_two\" xmlns:c='javahtml'><body><form action=\"DELETE\" name=\"myform\" c:command=\"$go\"><c:select className=\""+ENUM+"\" id=\"combo\" default=\"ONE\" name=\"chosenNumber\" varValue=\"chosenNumber\" list=\"getChosenNumbers()\" validator=\"validator\"/></form></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
         files_.put("page1.html", html_);
@@ -8502,8 +8502,8 @@ public class NavigationTest {
 //        String folder_ = "messages";
 //        String relative_ = "sample/file";
 //        String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
-//        String html_ = "<html c:bean=\"bean_one\" xmlns:c='javahtml' xmlns='javahtml'><body>HEAD<a c:command=\"$goToNullPage\" href=\"\"/></body></html>";
-//        String htmlTwo_ = "<html c:bean=\"bean_two\" xmlns:c='javahtml' xmlns='javahtml'><body><form action=\"DELETE\" name=\"myform\" c:command=\"$go\"><input type=\"text\" name=\"typedString\" varValue=\"typedString\"/></form></body></html>";
+//        String html_ = "<html c:bean=\"bean_one\" xmlns:c='javahtml'><body>HEAD<a c:command=\"$goToNullPage\" href=\"\"/></body></html>";
+//        String htmlTwo_ = "<html c:bean=\"bean_two\" xmlns:c='javahtml'><body><form action=\"DELETE\" name=\"myform\" c:command=\"$go\"><input type=\"text\" name=\"typedString\" varValue=\"typedString\"/></form></body></html>";
 //        Map<String,String> files_ = new Map<String,String>();
 //        files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
 //        files_.put("page1.html", html_);
@@ -8544,8 +8544,8 @@ public class NavigationTest {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
-        String html_ = "<html c:bean=\"bean_one\" xmlns:c='javahtml' xmlns='javahtml'><body>HEAD<a c:command=\"$goToNullPage\" href=\"\"/></body></html>";
-        String htmlTwo_ = "<html c:bean=\"bean_two\" xmlns:c='javahtml' xmlns='javahtml'><body><form action=\"DELETE\" name=\"myform\" c:command=\"$go\"><input type=\"text\" name=\"typedString\" c:varValue=\"typedString\" c:varMethod=\"inexistant\"/></form></body></html>";
+        String html_ = "<html c:bean=\"bean_one\" xmlns:c='javahtml'><body>HEAD<a c:command=\"$goToNullPage\" href=\"\"/></body></html>";
+        String htmlTwo_ = "<html c:bean=\"bean_two\" xmlns:c='javahtml'><body><form action=\"DELETE\" name=\"myform\" c:command=\"$go\"><input type=\"text\" name=\"typedString\" c:varValue=\"typedString\" c:varMethod=\"inexistant\"/></form></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
         files_.put("page1.html", html_);
@@ -8600,8 +8600,8 @@ public class NavigationTest {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
-        String html_ = "<html c:bean=\"bean_two\" xmlns:c='javahtml' xmlns='javahtml'><body>HEAD<a c:command=\"$goToNullPage\" href=\"\"/></body></html>";
-        String htmlTwo_ = "<html c:bean=\"bean_one\" xmlns:c='javahtml' xmlns='javahtml'><body><form action=\"DELETE\" name=\"myform\" c:command=\"$go\"><input type=\"text\" c:className='"+PrimitiveTypeUtil.PRIM_INT+"' name=\"composite.privateInt\" varValue=\"composite.getPrivateInt()\"/></form></body></html>";
+        String html_ = "<html c:bean=\"bean_two\" xmlns:c='javahtml'><body>HEAD<a c:command=\"$goToNullPage\" href=\"\"/></body></html>";
+        String htmlTwo_ = "<html c:bean=\"bean_one\" xmlns:c='javahtml'><body><form action=\"DELETE\" name=\"myform\" c:command=\"$go\"><input type=\"text\" c:className='"+PrimitiveTypeUtil.PRIM_INT+"' name=\"composite.privateInt\" varValue=\"composite.getPrivateInt()\"/></form></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
         files_.put("page1.html", html_);

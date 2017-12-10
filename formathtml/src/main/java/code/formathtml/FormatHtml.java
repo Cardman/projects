@@ -289,7 +289,7 @@ final class FormatHtml {
         if (htmlText_ == null) {
             return null;
         }
-        Document doc_ = XmlParser.parseSaxHtml(htmlText_, false, true);
+        Document doc_ = XmlParser.parseSaxHtml(htmlText_, false);
         _conf.setDocument(doc_);
         _conf.clearPages();
         return XmlParser.toHtml(doc_);
@@ -306,7 +306,7 @@ final class FormatHtml {
         String subHtml_ = ExtractFromResources.loadPage(_conf, _files, pageName_,_resourcesFolder);
         Document doc_;
         try {
-            doc_ = XmlParser.parseSaxHtml(subHtml_, false, true);
+            doc_ = XmlParser.parseSaxHtml(subHtml_, false);
         } catch (XmlParseException _0) {
             throw new XmlParseException(_0.getMessage()+RETURN_LINE+_conf.joinPages());
         }
@@ -687,7 +687,6 @@ final class FormatHtml {
                 if (!throwException(_conf, realCaught_)) {
                     continue;
                 }
-                _0.printStackTrace();
                 throw new RenderingException(new Struct(_0));
             }
         }
@@ -1310,7 +1309,7 @@ final class FormatHtml {
             _conf.addPage(ipMess_);
             Document docLoc_;
             try {
-                docLoc_ = XmlParser.parseSaxHtml(ipMess_.getHtml(), false, true);
+                docLoc_ = XmlParser.parseSaxHtml(ipMess_.getHtml(), false);
                 ipMess_.setPrefix(getPrefix(_conf, docLoc_));
                 ipMess_.setRoot(docLoc_.getDocumentElement());
             } catch (XmlParseException _0) {

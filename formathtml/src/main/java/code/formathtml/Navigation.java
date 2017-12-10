@@ -254,7 +254,7 @@ public final class Navigation {
         String text_ = ExtractFromResources.loadPage(session, files, currentUrl_, resourcesFolder);
         String currentBeanName_;
         try {
-            Document doc_ = XmlParser.parseSaxHtml(text_, false, true);
+            Document doc_ = XmlParser.parseSaxHtml(text_, false);
             Element root_ = doc_.getDocumentElement();
             session.setDocument(doc_);
             currentBeanName_ = root_.getAttribute(session.getPrefix()+FormatHtml.BEAN_ATTRIBUTE);
@@ -389,7 +389,7 @@ public final class Navigation {
             textToBeChanged_ = ExtractFromResources.loadPage(session, files, dest_, resourcesFolder);
             String currentBeanName_;
             try {
-                Document doc_ = XmlParser.parseSaxHtml(textToBeChanged_, false, true);
+                Document doc_ = XmlParser.parseSaxHtml(textToBeChanged_, false);
                 Element root_ = doc_.getDocumentElement();
                 session.setDocument(doc_);
                 currentBeanName_ = root_.getAttribute(session.getPrefix()+FormatHtml.BEAN_ATTRIBUTE);
@@ -437,7 +437,7 @@ public final class Navigation {
         textToBeChanged_ = ExtractFromResources.loadPage(session, files, dest_, resourcesFolder);
         String currentBeanName_;
         try {
-            Document doc_ = XmlParser.parseSaxHtml(textToBeChanged_, false, true);
+            Document doc_ = XmlParser.parseSaxHtml(textToBeChanged_, false);
             Element root_ = doc_.getDocumentElement();
             session.setDocument(doc_);
             currentBeanName_ = root_.getAttribute(session.getPrefix()+FormatHtml.BEAN_ATTRIBUTE);
