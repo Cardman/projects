@@ -1437,31 +1437,35 @@ public final class DocumentBuilder {
                 if (nextPrintable_ == len_) {
                     break;
                 }
-                state_ = ReadingState.ATTR_NAME;
                 i_ = nextPrintable_;
                 boolean ok_ = false;
                 while (i_ < len_) {
                     curChar_ =_found.charAt(i_);
-                    if (curChar_ == ENCODED) {
-                        break;
-                    }
-                    if (curChar_ == SLASH) {
-                        break;
-                    }
-                    if (curChar_ == LT_CHAR) {
-                        break;
-                    }
-                    if (curChar_ == GT_CHAR) {
-                        break;
-                    }
+                    boolean okAttrName_ = false;
                     while (i_ < len_) {
                         curChar_ = _found.charAt(i_);
                         if (Character.isWhitespace(curChar_) || curChar_ == EQUALS) {
+                            okAttrName_ = true;
+                            break;
+                        }
+                        if (curChar_ == ENCODED) {
+                            break;
+                        }
+                        if (curChar_ == SLASH) {
+                            break;
+                        }
+                        if (curChar_ == LT_CHAR) {
+                            break;
+                        }
+                        if (curChar_ == GT_CHAR) {
                             break;
                         }
                         attributeName_.append(curChar_);
                         i_++;
                         continue;
+                    }
+                    if (!okAttrName_) {
+                        break;
                     }
                     if (curChar_ != EQUALS) {
                         //Character.isWhitespace(curChar_)
@@ -1484,7 +1488,6 @@ public final class DocumentBuilder {
                     if (i_ + 1 >= len_) {
                         break;
                     }
-                    state_ = ReadingState.ATTR_VALUE;
                     char nextEq_ = _found.charAt(i_ + 1);
                     if (nextEq_ != APOS_CHAR && nextEq_ != QUOT_CHAR) {
                         if (!Character.isWhitespace(nextEq_)) {
@@ -1530,13 +1533,24 @@ public final class DocumentBuilder {
                     if (curChar_ == GT_CHAR) {
                         break;
                     }
+                    boolean okAttrValue_ = false;
                     while (i_ < len_) {
                         curChar_ = _found.charAt(i_);
                         if (curChar_ == delimiterAttr_) {
+                            okAttrValue_ = true;
+                            break;
+                        }
+                        if (curChar_ == LT_CHAR) {
+                            break;
+                        }
+                        if (curChar_ == GT_CHAR) {
                             break;
                         }
                         attributeValue_.append(curChar_);
                         i_++;
+                    }
+                    if (!okAttrValue_) {
+                        break;
                     }
                     Attr attr_ = new Attr();
                     attr_.setName(attributeName_.toString());
@@ -1555,7 +1569,6 @@ public final class DocumentBuilder {
                     if (nextPrintable_ == len_) {
                         break;
                     }
-                    state_ = ReadingState.ATTR_NAME;
                     char nextPr_ = _found.charAt(nextPrintable_);
                     boolean endHead_ = false;
                     if (nextPr_ == SLASH) {

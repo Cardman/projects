@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <cfg>
 	<java.lang.String class="cfg" field="firstUrl" value="resources_cards/classes//cards/belote/detailsresults.html"/>
+    <java.lang.String class="cfg" field="prefix" value="c"/>
 	<sm class="cfg" field="beans">
 		<java.lang.String class="m" key="" value="details"/>
 		<b class="m">
