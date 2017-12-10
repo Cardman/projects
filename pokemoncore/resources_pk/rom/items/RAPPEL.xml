@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?><aiki.fight.items.HealingHpStatus>
+<aiki.fight.items.HealingHpStatus>
 <r class="aiki.fight.items.HealingHpStatus" field="healedHpRate" value="1/2"/>
 <sl class="aiki.fight.items.HealingStatus" field="status"/>
 <java.lang.Boolean class="aiki.fight.items.HealingStatus" field="healingKo" value="true"/>

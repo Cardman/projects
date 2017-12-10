@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?><aiki.fight.abilities.AbilityData>
+<aiki.fight.abilities.AbilityData>
 <ql class="aiki.fight.abilities.AbilityData" field="breakFoeImmune">
 <aiki.fight.util.TypesDuo class="a" value="NORMAL;SPECTRE"/>
 <aiki.fight.util.TypesDuo class="a" value="COMBAT;SPECTRE"/>

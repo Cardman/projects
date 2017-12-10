@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?><cfg>
+<cfg>
 	<java.lang.String class="cfg" field="firstUrl" value="web/html/index.html"/>
 	<sm class="cfg" field="validators">
 		<java.lang.String class="m" key="" value="positive_rate_validator"/>

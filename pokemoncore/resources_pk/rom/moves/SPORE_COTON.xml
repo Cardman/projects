@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?><aiki.fight.moves.StatusMoveData>
+<aiki.fight.moves.StatusMoveData>
 <java.lang.Boolean class="aiki.fight.moves.StatusMoveData" field="thievableMove" value="false"/>
 <java.lang.Boolean class="aiki.fight.moves.StatusMoveData" field="counterableMove" value="true"/>
 <java.lang.Boolean class="aiki.fight.moves.MoveData" field="notTranslated" value="false"/>

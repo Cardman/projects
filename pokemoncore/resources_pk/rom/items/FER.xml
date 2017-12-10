@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?><aiki.fight.items.Boost>
+<aiki.fight.items.Boost>
 <r class="aiki.fight.items.Boost" field="winPp" value="0"/>
 <sm class="aiki.fight.items.Boost" field="happiness">
 <java.lang.String class="m" key="" value="FAIBLO_BALL"/>

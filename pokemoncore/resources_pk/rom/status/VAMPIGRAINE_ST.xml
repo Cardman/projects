@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?><aiki.fight.status.Status>
+<aiki.fight.status.Status>
 <aiki.fight.status.StatusType class="aiki.fight.status.Status" field="statusType" value="RELATION_UNIQUE"/>
 <r class="aiki.fight.status.Status" field="catchingRate" value="3/2"/>
 <l class="aiki.fight.status.Status" field="effectEndRound">

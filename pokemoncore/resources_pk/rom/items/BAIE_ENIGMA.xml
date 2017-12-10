@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?><aiki.fight.items.Berry>
+<aiki.fight.items.Berry>
 <r class="aiki.fight.items.Berry" field="healHpBySuperEffMove" value="1/4"/>
 <java.lang.Boolean class="aiki.fight.items.Berry" field="lawForAttackFirst" value="false"/>
 <sm class="aiki.fight.items.Berry" field="multFoesDamage"/>

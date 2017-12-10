@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?><aiki.fight.status.StatusBeginRound>
+<aiki.fight.status.StatusBeginRound>
 <mcb class="aiki.fight.status.StatusBeginRound" field="lawForUsingAMove">
 <bm class="mcb" field="law"/>
 </mcb>

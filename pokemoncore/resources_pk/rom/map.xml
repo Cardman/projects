@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?><aiki.map.DataMap>
+<aiki.map.DataMap>
 <nm class="aiki.map.DataMap" field="places">
 <java.lang.Short class="m" key="" value="0"/>
 <aiki.map.places.City class="m">

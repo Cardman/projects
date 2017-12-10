@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?><aiki.fight.items.HealingHp>
+<aiki.fight.items.HealingHp>
 <r class="aiki.fight.items.HealingHp" field="hp" value="50"/>
 <sm class="aiki.fight.items.HealingItem" field="happiness">
 <java.lang.String class="m" key="" value="FAIBLO_BALL"/>

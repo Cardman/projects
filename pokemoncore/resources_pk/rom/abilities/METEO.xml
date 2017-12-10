@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?><aiki.fight.abilities.AbilityData>
+<aiki.fight.abilities.AbilityData>
 <ql class="aiki.fight.abilities.AbilityData" field="breakFoeImmune"/>
 <java.lang.Boolean class="aiki.fight.abilities.AbilityData" field="forbidUseBerryAgainstFoes" value="false"/>
 <sm class="aiki.fight.abilities.AbilityData" field="chgtTypeByWeather">

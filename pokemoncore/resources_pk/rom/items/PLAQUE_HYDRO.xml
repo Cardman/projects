@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?><aiki.fight.items.ItemForBattle>
+<aiki.fight.items.ItemForBattle>
 <sl class="aiki.fight.items.ItemForBattle" field="typesPk">
 <java.lang.String class="a" value="EAU"/>
 </sl>

@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?><aiki.fight.status.StatusBeginRoundAutoDamage>
+<aiki.fight.status.StatusBeginRoundAutoDamage>
 <r class="aiki.fight.status.StatusBeginRoundAutoDamage" field="power" value="40"/>
 <aiki.fight.enums.Statistic class="aiki.fight.status.StatusBeginRoundAutoDamage" field="attack" value="ATTACK"/>
 <aiki.fight.enums.Statistic class="aiki.fight.status.StatusBeginRoundAutoDamage" field="defense" value="DEFENSE"/>

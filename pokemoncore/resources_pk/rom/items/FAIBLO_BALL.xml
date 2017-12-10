@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?><aiki.fight.items.Ball>
+<aiki.fight.items.Ball>
 <java.lang.String class="aiki.fight.items.Ball" field="catchingRate" value="puis(VAR__PK_SAUVAGE_NIVEAU,-3/2)+2"/>
 <java.lang.Integer class="aiki.fight.items.Item" field="price" value="400"/>
 </aiki.fight.items.Ball>

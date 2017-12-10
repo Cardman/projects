@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?><aiki.fight.items.HealingPp>
+<aiki.fight.items.HealingPp>
 <java.lang.Long class="aiki.fight.items.HealingPp" field="healedMovePp" value="0"/>
 <java.lang.Long class="aiki.fight.items.HealingPp" field="healingAllMovesFullpp" value="0"/>
 <java.lang.Boolean class="aiki.fight.items.HealingPp" field="healingAllMovesPp" value="true"/>

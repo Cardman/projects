@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+
 <cfg>
 	<java.lang.String class="cfg" field="firstUrl" value="resources_cards/help//aide_generale/jeux.html"/>
 	<sm class="cfg" field="beans"/>

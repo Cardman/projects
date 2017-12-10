@@ -1,3 +1,3 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?><aiki.fight.items.SellingItem>
+<aiki.fight.items.SellingItem>
 <java.lang.Integer class="aiki.fight.items.Item" field="price" value="700"/>
 </aiki.fight.items.SellingItem>

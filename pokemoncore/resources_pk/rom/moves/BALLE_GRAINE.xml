@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?><aiki.fight.moves.DamagingMoveData>
+<aiki.fight.moves.DamagingMoveData>
 <java.lang.String class="aiki.fight.moves.DamagingMoveData" field="category" value="PHYSIQUE"/>
 <java.lang.Boolean class="aiki.fight.moves.DamagingMoveData" field="direct" value="false"/>
 <java.lang.Boolean class="aiki.fight.moves.DamagingMoveData" field="cannotKo" value="false"/>

@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?><aiki.fight.pokemon.PokemonData>
+<aiki.fight.pokemon.PokemonData>
 <java.lang.Integer class="aiki.fight.pokemon.PokemonData" field="number" value="165"/>
 <r class="aiki.fight.pokemon.PokemonData" field="weight" value="54/5"/>
 <sl class="aiki.fight.pokemon.PokemonData" field="types">

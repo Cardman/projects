@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?><cfg>
+<cfg>
 	<java.lang.String class="cfg" field="firstUrl" value="web_prog/html/gameprog.html"/>
 	<sm class="cfg" field="validators"/>
 	<sm class="cfg" field="translators"/>

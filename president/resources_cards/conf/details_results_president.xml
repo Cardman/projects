@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+
 <cfg>
 	<java.lang.String class="cfg" field="firstUrl" value="resources_cards/classes//cards/president/detailsresults.html"/>
     <java.lang.String class="cfg" field="prefix" value="c"/>
