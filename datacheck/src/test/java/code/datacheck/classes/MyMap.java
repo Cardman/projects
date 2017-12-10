@@ -4,6 +4,7 @@ import code.util.EntryCust;
 import code.util.StringList;
 import code.util.ints.Listable;
 import code.util.ints.ListableEntries;
+import code.util.ints.SimpleIterable;
 
 public class MyMap<V> implements ListableEntries<String, V> {
 
@@ -238,6 +239,12 @@ public class MyMap<V> implements ListableEntries<String, V> {
 
     @Override
     public String getKey(int _i) {
+        return null;
+    }
+
+    @Override
+    public SimpleIterable entries() {
+        // TODO Auto-generated method stub
         return null;
     }
 

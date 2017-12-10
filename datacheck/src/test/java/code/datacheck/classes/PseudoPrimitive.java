@@ -1,6 +1,6 @@
 package code.datacheck.classes;
+import code.sml.FromAndToString;
 import code.util.StringList;
-import code.xml.FromAndToString;
 
 public final class PseudoPrimitive {
 

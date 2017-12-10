@@ -4,6 +4,7 @@ import code.util.CustList;
 import code.util.EntryCust;
 import code.util.ints.Listable;
 import code.util.ints.ListableEntries;
+import code.util.ints.SimpleIterable;
 
 public final class ComplexMap<K, V, T> extends AbMap<K, T> {
 
@@ -186,5 +187,10 @@ public final class ComplexMap<K, V, T> extends AbMap<K, T> {
     @Override
     public K getKey(int _i) {
         return map.getKey(_i);
+    }
+
+    @Override
+    public SimpleIterable entries() {
+        return null;
     }
 }

@@ -4,6 +4,7 @@ import java.util.ListIterator;
 
 import code.util.CustList;
 import code.util.Numbers;
+import code.util.SimpleItr;
 import code.util.ints.Listable;
 
 public final class MyList<E> implements Listable<E> {
@@ -240,5 +241,11 @@ public final class MyList<E> implements Listable<E> {
     @Override
     public void swapIndexes(int _i, int _j) {
         elements.swapIndexes(_i, _j);
+    }
+
+    @Override
+    public SimpleItr simpleIterator() {
+        // TODO Auto-generated method stub
+        return null;
     }
 }

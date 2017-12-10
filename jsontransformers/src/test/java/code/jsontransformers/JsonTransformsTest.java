@@ -1,5 +1,5 @@
 package code.jsontransformers;
-import static code.util.opers.EquallableUtil.assertEq;
+import static code.jsontransformers.EquallableUtil.assertEq;
 
 import org.junit.Ignore;
 import org.junit.Test;
