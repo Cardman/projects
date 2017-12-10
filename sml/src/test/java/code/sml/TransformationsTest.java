@@ -4,8 +4,6 @@ import static code.sml.EquallableRowColUtil.assertEq;
 
 import org.junit.Test;
 
-import code.sml.exceptions.BadNumberedCharacterException;
-
 @SuppressWarnings("static-method")
 public class TransformationsTest {
 
@@ -15,23 +13,23 @@ public class TransformationsTest {
     }
     @Test
     public void encodeHtml2Test() {
-    	assertEq("&eacute; changes", DocumentBuilder.encodeHtml("&#233; changes"));
+        assertEq("&#233; changes", DocumentBuilder.encodeHtml("&eacute; changes"));
     }
     @Test
     public void encodeHtmll3Test() {
-    	assertEq("&unknown; changes", DocumentBuilder.encodeHtml("&unknown; changes"));
+        assertEq("&unknown; changes", DocumentBuilder.encodeHtml("&unknown; changes"));
     }
     @Test
     public void encodeHtml4Test() {
-    	assertEq("&#233", DocumentBuilder.encodeHtml("&#233"));
+        assertEq("&#233", DocumentBuilder.encodeHtml("&#233"));
     }
     @Test
     public void encodeHtml5Test() {
-    	assertEq("&#233;", DocumentBuilder.encodeHtml("&#233;"));
+        assertEq("&#233;", DocumentBuilder.encodeHtml("&#233;"));
     }
     @Test
     public void encodeHtml6Test() {
-    	assertEq("&eacute", DocumentBuilder.encodeHtml("&eacute"));
+        assertEq("&eacute", DocumentBuilder.encodeHtml("&eacute"));
     }
     @Test
     public void transformSpecialChars1Test() {
@@ -80,7 +78,7 @@ public class TransformationsTest {
 
     @Test
     public void transformSpecialChars10Test() {
-        assertEq("&amp;", DocumentBuilder.transformSpecialChars("&amp;", true, false, false));
+        assertEq("&", DocumentBuilder.transformSpecialChars("&amp;", true, false, false));
     }
 
     @Test
@@ -98,12 +96,12 @@ public class TransformationsTest {
         assertEq("&", DocumentBuilder.transformSpecialChars("&amp;", true, false, false));
     }
 
-    @Test(expected=BadNumberedCharacterException.class)
+    @Test
     public void transformSpecialChars1FailTest() {
         DocumentBuilder.transformSpecialChars("&#;");
     }
 
-    @Test(expected=BadNumberedCharacterException.class)
+    @Test
     public void transformSpecialChars2FailTest() {
         DocumentBuilder.transformSpecialChars("&#a;");
     }

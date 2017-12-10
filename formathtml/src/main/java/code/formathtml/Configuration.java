@@ -142,7 +142,7 @@ public class Configuration {
         for (String f: content_) {
             boolean found_ = false;
             for (EntryCust<String, String> e: _files.entryList()) {
-                if (e.getKey().equalsIgnoreCase(f)) {
+                if (StringList.quickEq(e.getKey(), f)) {
                     classFiles_.put(f, e.getValue());
                     found_ = true;
                     break;
@@ -184,6 +184,22 @@ public class Configuration {
             return;
         }
         Classes.validateAll(classFiles_, context);
+        StringList types_ = new StringList();
+        for (EntryCust<String, Bean> e: getBeans().entryList()) {
+            types_.add(e.getValue().getClassName());
+        }
+        for (EntryCust<String, String> e: getLateValidators().entryList()) {
+            types_.add(e.getValue());
+        }
+        for (EntryCust<String, String> e: getLateTranslators().entryList()) {
+            types_.add(e.getValue());
+        }
+        for (String s: types_) {
+            if (!context.getClasses().isCustomType(s)) {
+                setupValiatorsTranslators();
+                return;
+            }
+        }
         for (EntryCust<String, String> e: getLateValidators().entryList()) {
             Struct str_ = ElUtil.processEl(INSTANCE+e.getValue()+BEGIN_ARGS+END_ARGS, 0, context).getStruct();
             getBuiltValidators().put(e.getKey(), str_);

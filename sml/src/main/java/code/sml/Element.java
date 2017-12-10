@@ -144,12 +144,12 @@ public final class Element extends Node {
 
     @Override
     public ElementList getChildElements() {
-    	ElementList children_ = new ElementList();
-    	Node child_ = getFirstChild();
+        ElementList children_ = new ElementList();
+        Node child_ = getFirstChild();
         while (child_ != null) {
-        	if (child_ instanceof Element) {
+            if (child_ instanceof Element) {
                 children_.add((Element) child_);
-        	}
+            }
             child_ = child_.getNextSibling();
         }
         return children_;

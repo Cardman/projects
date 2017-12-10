@@ -102,8 +102,8 @@ public final class FrameGeneralHelp extends ChildFrame {
         messages = getMessages(FileConst.FOLDER_MESSAGES_GUI);
         elementsBis.clear();
 //        try {
-        Document doc_ = DocumentBuilder.parseSaxHtml(ResourceFiles.ressourceFichier(FileConst.RESOURCES_HELP+StreamTextFile.SEPARATEUR+Constants.getLanguage()
-                +StreamTextFile.SEPARATEUR+XML_FILE_PATHS), false);
+        Document doc_ = DocumentBuilder.parseSax(ResourceFiles.ressourceFichier(FileConst.RESOURCES_HELP+StreamTextFile.SEPARATEUR+Constants.getLanguage()
+                +StreamTextFile.SEPARATEUR+XML_FILE_PATHS));
         Element element_ = doc_.getDocumentElement();
         CustList<Node> noeudsActuels_ = new CustList<Node>();
         noeudsActuels_.add(element_);

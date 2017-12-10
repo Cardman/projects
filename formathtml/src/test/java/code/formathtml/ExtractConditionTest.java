@@ -45,7 +45,7 @@ public class ExtractConditionTest {
         addImportingPage(conf_, false);
         addBean(conf_, bean_);
         ImportingPage ip_ = conf_.getLastPage();
-        Document doc_ = DocumentBuilder.parseSaxHtml(html_, false);
+        Document doc_ = DocumentBuilder.parseSax(html_);
         Element elt_ = getElement(doc_, "c:if", 0);
 //        conf_.setHtml(html_);
 //        conf_.setDocument(doc_);
@@ -77,7 +77,7 @@ public class ExtractConditionTest {
         addImportingPage(conf_, false);
         addBean(conf_, bean_);
         ImportingPage ip_ = conf_.getLastPage();
-        Document doc_ = DocumentBuilder.parseSaxHtml(html_, false);
+        Document doc_ = DocumentBuilder.parseSax(html_);
         Element elt_ = getElement(doc_, "c:if", 0);
         assertTrue(ExtractCondition.evaluateCondition(elt_, conf_, ip_));
 //        conf_.setHtml(html_);
@@ -113,7 +113,7 @@ public class ExtractConditionTest {
         addImportingPage(conf_, false);
         addBean(conf_, bean_);
         ImportingPage ip_ = conf_.getLastPage();
-        Document doc_ = DocumentBuilder.parseSaxHtml(html_, false);
+        Document doc_ = DocumentBuilder.parseSax(html_);
         Element elt_ = getElement(doc_, "c:if", 0);
         assertTrue(ExtractCondition.evaluateCondition(elt_, conf_, ip_));
         //String render_ = FormatHtml.processHtml(doc_.getDocumentElement(), conf_, files_, bean_);
@@ -145,7 +145,7 @@ public class ExtractConditionTest {
         addImportingPage(conf_, false);
         addBean(conf_, bean_);
         ImportingPage ip_ = conf_.getLastPage();
-        Document doc_ = DocumentBuilder.parseSaxHtml(html_, false);
+        Document doc_ = DocumentBuilder.parseSax(html_);
         Element elt_ = getElement(doc_, "c:if", 0);
         assertTrue(!ExtractCondition.evaluateCondition(elt_, conf_, ip_));
 //        String render_ = FormatHtml.processHtml(doc_.getDocumentElement(), conf_, files_, bean_);
@@ -177,7 +177,7 @@ public class ExtractConditionTest {
         addImportingPage(conf_, false);
         addBean(conf_, bean_);
         ImportingPage ip_ = conf_.getLastPage();
-        Document doc_ = DocumentBuilder.parseSaxHtml(html_, false);
+        Document doc_ = DocumentBuilder.parseSax(html_);
         Element elt_ = getElement(doc_, "c:if", 0);
         assertTrue(!ExtractCondition.evaluateCondition(elt_, conf_, ip_));
         elt_ = getElement(doc_, "c:elseif", 0);
@@ -210,7 +210,7 @@ public class ExtractConditionTest {
         addImportingPage(conf_, false);
         addBean(conf_, bean_);
         ImportingPage ip_ = conf_.getLastPage();
-        Document doc_ = DocumentBuilder.parseSaxHtml(html_, false);
+        Document doc_ = DocumentBuilder.parseSax(html_);
         Element elt_ = getElement(doc_, "c:if", 0);
         assertTrue(!ExtractCondition.evaluateCondition(elt_, conf_, ip_));
         elt_ = getElement(doc_, "c:elseif", 0);
@@ -247,7 +247,7 @@ public class ExtractConditionTest {
         addImportingPage(conf_, false);
         addBean(conf_, bean_);
         ImportingPage ip_ = conf_.getLastPage();
-        Document doc_ = DocumentBuilder.parseSaxHtml(html_, false);
+        Document doc_ = DocumentBuilder.parseSax(html_);
         Element elt_ = getElement(doc_, "c:if", 0);
         assertTrue(!ExtractCondition.evaluateCondition(elt_, conf_, ip_));
 //        String render_ = FormatHtml.processHtml(doc_, "bean_one", conf_, locale_, files_);
@@ -279,7 +279,7 @@ public class ExtractConditionTest {
         addImportingPage(conf_, false);
         addBean(conf_, bean_);
         ImportingPage ip_ = conf_.getLastPage();
-        Document doc_ = DocumentBuilder.parseSaxHtml(html_, false);
+        Document doc_ = DocumentBuilder.parseSax(html_);
         Element elt_ = getElement(doc_, "c:if", 0);
         ExtractCondition.evaluateCondition(elt_, conf_, ip_);
 //        FormatHtml.processHtml(doc_, "bean_one", conf_, locale_, files_);
@@ -307,7 +307,7 @@ public class ExtractConditionTest {
         conf_.getProperties().put("msg_example", relative_);
         conf_.setTranslators(new StringMap<Translator>());
         conf_.getTranslators().put("trans", new MyTranslator());
-        Document doc_ = DocumentBuilder.parseSaxHtml(html_, false);
+        Document doc_ = DocumentBuilder.parseSax(html_);
         conf_.setDocument(doc_);
         addImportingPage(conf_, false);
         addBean(conf_, bean_);
@@ -340,7 +340,7 @@ public class ExtractConditionTest {
         conf_.getProperties().put("msg_example", relative_);
         conf_.setTranslators(new StringMap<Translator>());
         conf_.getTranslators().put("trans", new MyTranslator());
-        Document doc_ = DocumentBuilder.parseSaxHtml(html_, false);
+        Document doc_ = DocumentBuilder.parseSax(html_);
         conf_.setDocument(doc_);
         addImportingPage(conf_, false);
         addBean(conf_, bean_);
@@ -374,7 +374,7 @@ public class ExtractConditionTest {
         conf_.getProperties().put("msg_example", relative_);
         conf_.setTranslators(new StringMap<Translator>());
         conf_.getTranslators().put("trans", new MyTranslator());
-        Document doc_ = DocumentBuilder.parseSaxHtml(html_, false);
+        Document doc_ = DocumentBuilder.parseSax(html_);
         conf_.setDocument(doc_);
         addImportingPage(conf_, false);
         addBean(conf_, bean_);
@@ -406,7 +406,7 @@ public class ExtractConditionTest {
         conf_.getProperties().put("msg_example", relative_);
         conf_.setTranslators(new StringMap<Translator>());
         conf_.getTranslators().put("trans", new MyTranslator());
-        Document doc_ = DocumentBuilder.parseSaxHtml(html_, false);
+        Document doc_ = DocumentBuilder.parseSax(html_);
         conf_.setDocument(doc_);
         addImportingPage(conf_, false);
         addBean(conf_, bean_);
@@ -443,7 +443,7 @@ public class ExtractConditionTest {
         conf_.getProperties().put("msg_example", relative_);
         conf_.setTranslators(new StringMap<Translator>());
         conf_.getTranslators().put("trans", new MyTranslator());
-        Document doc_ = DocumentBuilder.parseSaxHtml(html_, false);
+        Document doc_ = DocumentBuilder.parseSax(html_);
         conf_.setDocument(doc_);
         addImportingPage(conf_, false);
         addBean(conf_, bean_);
@@ -475,7 +475,7 @@ public class ExtractConditionTest {
         conf_.getProperties().put("msg_example", relative_);
         conf_.setTranslators(new StringMap<Translator>());
         conf_.getTranslators().put("trans", new MyTranslator());
-        Document doc_ = DocumentBuilder.parseSaxHtml(html_, false);
+        Document doc_ = DocumentBuilder.parseSax(html_);
         conf_.setDocument(doc_);
         addImportingPage(conf_, false);
         addBean(conf_, bean_);
@@ -511,7 +511,7 @@ public class ExtractConditionTest {
         conf_.getProperties().put("msg_example", relative_);
         conf_.setTranslators(new StringMap<Translator>());
         conf_.getTranslators().put("trans", new MyTranslator());
-        Document doc_ = DocumentBuilder.parseSaxHtml(html_, false);
+        Document doc_ = DocumentBuilder.parseSax(html_);
         conf_.setDocument(doc_);
         addImportingPage(conf_, false);
         addBean(conf_, bean_);

@@ -766,7 +766,7 @@ public class IndexesTest {
     @Test
     public void getSpecialChars1Test() {
         String html_ = "<tag>\n\t<ta where=\"h&quot;'ere&eacute;ccent\" when='n\"ow&apos;sp&#40908;ace'>Content</ta><ta/>233<ta>234</ta></tag>";
-        Document doc_ = DocumentBuilder.parseSaxHtml(html_);
+        Document doc_ = DocumentBuilder.parseSax(html_);
         Node node_ = doc_.getDocumentElement();
         Node n_ = node_.getFirstChild().getNextSibling();
         StringMap<NatTreeMap<Integer,Integer>> t_ = DocumentBuilder.getSpecialChars(html_, (Element) n_);
@@ -784,7 +784,7 @@ public class IndexesTest {
     @Test
     public void getOffset1Test() {
         String html_ = "<tag>\n\t<ta where=\"h&quot;'ere&eacute;ccent\" when='n\"ow&apos;sp&#40908;ace'>Content</ta><ta/>233<ta>234</ta></tag>";
-        Document doc_ = DocumentBuilder.parseSaxHtml(html_);
+        Document doc_ = DocumentBuilder.parseSax(html_);
         Node node_ = doc_.getDocumentElement();
         ElementOffsetsNext init_ = new ElementOffsetsNext(new RowCol(), 0, 0);
         ElementOffsetsNext e_ = DocumentBuilder.getIndexesOfElementOrAttribute(html_, init_, (Element) node_, 4);
@@ -800,7 +800,7 @@ public class IndexesTest {
     @Test
     public void getOffset2Test() {
         String html_ = "<tag>\n\t<ta where=\"h&quot;'ere&eacute;ccent\" when='n\"ow&apos;sp&#40908;ace'>Content</ta><ta/>233<ta>234</ta></tag>";
-        Document doc_ = DocumentBuilder.parseSaxHtml(html_);
+        Document doc_ = DocumentBuilder.parseSax(html_);
         Node node_ = doc_.getDocumentElement();
         ElementOffsetsNext init_ = new ElementOffsetsNext(new RowCol(), 0, 0);
         ElementOffsetsNext e_ = DocumentBuilder.getIndexesOfElementOrAttribute(html_, init_, (Element) node_, 4);
@@ -816,7 +816,7 @@ public class IndexesTest {
     @Test
     public void getOffset3Test() {
         String html_ = "<tag>\n\t<ta where=\"h&quot;'ere&eacute;ccent\" when='n\"ow&apos;sp&#40908;ace'>Content</ta><ta/>233<ta>234</ta></tag>";
-        Document doc_ = DocumentBuilder.parseSaxHtml(html_);
+        Document doc_ = DocumentBuilder.parseSax(html_);
         Node node_ = doc_.getDocumentElement();
         ElementOffsetsNext init_ = new ElementOffsetsNext(new RowCol(), 0, 0);
         ElementOffsetsNext e_ = DocumentBuilder.getIndexesOfElementOrAttribute(html_, init_, (Element) node_, 4);
@@ -832,7 +832,7 @@ public class IndexesTest {
     @Test
     public void getOffset4Test() {
         String html_ = "<tag>\n\t<ta where=\"h&quot;'ere&eacute;ccent\" when='n\"ow&apos;sp&#40908;ace'>Content</ta><ta/>233<ta>234</ta></tag>";
-        Document doc_ = DocumentBuilder.parseSaxHtml(html_);
+        Document doc_ = DocumentBuilder.parseSax(html_);
         Node node_ = doc_.getDocumentElement();
         ElementOffsetsNext init_ = new ElementOffsetsNext(new RowCol(), 0, 0);
         ElementOffsetsNext e_ = DocumentBuilder.getIndexesOfElementOrAttribute(html_, init_, (Element) node_, 4);
@@ -848,7 +848,7 @@ public class IndexesTest {
     @Test
     public void getOffset5Test() {
         String html_ = "<tag>\n\t<ta where=\"h&quot;'ere&eacute;ccent\" when='n\"ow&apos;sp&#40908;ace'>Content</ta><ta/>233<ta>234</ta></tag>";
-        Document doc_ = DocumentBuilder.parseSaxHtml(html_);
+        Document doc_ = DocumentBuilder.parseSax(html_);
         Node node_ = doc_.getDocumentElement();
         ElementOffsetsNext init_ = new ElementOffsetsNext(new RowCol(), 0, 0);
         ElementOffsetsNext e_ = DocumentBuilder.getIndexesOfElementOrAttribute(html_, init_, (Element) node_, 4);
@@ -864,7 +864,7 @@ public class IndexesTest {
     @Test
     public void getOffset6Test() {
         String html_ = "<tag>\n\t<ta where=\"h&quot;'ere&eacute;ccent\" when='n\"ow&apos;sp&#40908;ace'>Content</ta><ta/>233<ta>234</ta></tag>";
-        Document doc_ = DocumentBuilder.parseSaxHtml(html_);
+        Document doc_ = DocumentBuilder.parseSax(html_);
         Node node_ = doc_.getDocumentElement();
         ElementOffsetsNext init_ = new ElementOffsetsNext(new RowCol(), 0, 0);
         ElementOffsetsNext e_ = DocumentBuilder.getIndexesOfElementOrAttribute(html_, init_, (Element) node_, 4);
@@ -881,7 +881,7 @@ public class IndexesTest {
     @Test
     public void getOffset7Test() {
         String html_ = "<tag>\n\t<ta where=\"h&quot;'ere&eacute;ccent\" when='n\"ow&apos;sp&#40908;ace'>Content</ta><ta/>233<ta>234</ta></tag>";
-        Document doc_ = DocumentBuilder.parseSaxHtml(html_);
+        Document doc_ = DocumentBuilder.parseSax(html_);
         Node node_ = doc_.getDocumentElement();
         ElementOffsetsNext init_ = new ElementOffsetsNext(new RowCol(), 0, 0);
         ElementOffsetsNext e_ = DocumentBuilder.getIndexesOfElementOrAttribute(html_, init_, (Element) node_, 4);
@@ -898,7 +898,7 @@ public class IndexesTest {
     @Test
     public void getOffset8Test() {
         String html_ = "<tag>\n\t<ta where=\"\nh&quot;'ere&eacute;ccent\" when='n\"ow&apos;sp&#40908;ace'>Content</ta><ta/>233<ta>234</ta></tag>";
-        Document doc_ = DocumentBuilder.parseSaxHtml(html_);
+        Document doc_ = DocumentBuilder.parseSax(html_);
         Node node_ = doc_.getDocumentElement();
         ElementOffsetsNext init_ = new ElementOffsetsNext(new RowCol(), 0, 0);
         ElementOffsetsNext e_ = DocumentBuilder.getIndexesOfElementOrAttribute(html_, init_, (Element) node_, 4);
@@ -914,7 +914,7 @@ public class IndexesTest {
     @Test
     public void getOffset9Test() {
         String html_ = "<tag>\n\t<ta where=\"\nh&quot;'ere&eacute;ccent\" when='n\"ow&apos;sp&#40908;ace'>Content</ta><ta/>233<ta>234</ta></tag>";
-        Document doc_ = DocumentBuilder.parseSaxHtml(html_);
+        Document doc_ = DocumentBuilder.parseSax(html_);
         Node node_ = doc_.getDocumentElement();
         ElementOffsetsNext init_ = new ElementOffsetsNext(new RowCol(), 0, 0);
         ElementOffsetsNext e_ = DocumentBuilder.getIndexesOfElementOrAttribute(html_, init_, (Element) node_, 4);
@@ -930,7 +930,7 @@ public class IndexesTest {
     @Test
     public void getOffset10Test() {
         String html_ = "<tag>\n\t<ta where=\"\nh&quot;'ere&eacute;ccent\" when='n\"ow&apos;sp&#40908;ace'>Content</ta><ta/>233<ta>234</ta></tag>";
-        Document doc_ = DocumentBuilder.parseSaxHtml(html_);
+        Document doc_ = DocumentBuilder.parseSax(html_);
         Node node_ = doc_.getDocumentElement();
         ElementOffsetsNext init_ = new ElementOffsetsNext(new RowCol(), 0, 0);
         ElementOffsetsNext e_ = DocumentBuilder.getIndexesOfElementOrAttribute(html_, init_, (Element) node_, 4);
@@ -946,7 +946,7 @@ public class IndexesTest {
     @Test
     public void getOffset11Test() {
         String html_ = "<tag>\n\t<ta where=\"\nh&quot;'ere&eacute;ccent\" when='n\"ow&apos;sp&#40908;ace'>Content</ta><ta/>233<ta>234</ta></tag>";
-        Document doc_ = DocumentBuilder.parseSaxHtml(html_);
+        Document doc_ = DocumentBuilder.parseSax(html_);
         Node node_ = doc_.getDocumentElement();
         ElementOffsetsNext init_ = new ElementOffsetsNext(new RowCol(), 0, 0);
         ElementOffsetsNext e_ = DocumentBuilder.getIndexesOfElementOrAttribute(html_, init_, (Element) node_, 4);
@@ -962,7 +962,7 @@ public class IndexesTest {
     @Test
     public void getOffset12Test() {
         String html_ = "<tag>\n\t<ta where=\"\nh&quot;'ere&eacute;ccent\" when='n\"ow&apos;sp&#40908;ace'>Content</ta><ta/>233<ta>234</ta></tag>";
-        Document doc_ = DocumentBuilder.parseSaxHtml(html_);
+        Document doc_ = DocumentBuilder.parseSax(html_);
         Node node_ = doc_.getDocumentElement();
         ElementOffsetsNext init_ = new ElementOffsetsNext(new RowCol(), 0, 0);
         ElementOffsetsNext e_ = DocumentBuilder.getIndexesOfElementOrAttribute(html_, init_, (Element) node_, 4);
@@ -979,7 +979,7 @@ public class IndexesTest {
     @Test
     public void getOffset13Test() {
         String html_ = "<tag>\n\t<ta where=\"\nh&quot;'ere&eacute;ccent\" when='n\"ow&apos;sp&#40908;ace'>Content</ta><ta/>233<ta>234</ta></tag>";
-        Document doc_ = DocumentBuilder.parseSaxHtml(html_);
+        Document doc_ = DocumentBuilder.parseSax(html_);
         Node node_ = doc_.getDocumentElement();
         ElementOffsetsNext init_ = new ElementOffsetsNext(new RowCol(), 0, 0);
         ElementOffsetsNext e_ = DocumentBuilder.getIndexesOfElementOrAttribute(html_, init_, (Element) node_, 4);
@@ -995,7 +995,7 @@ public class IndexesTest {
     @Test
     public void getOffset14Test() {
         String html_ = "<tag>\n\t<ta where=\"\nh&quot;'ere&eacute;ccent\" when='n\"ow&apos;sp&#40908;ace'>Content</ta><ta/>233<ta>234</ta></tag>";
-        Document doc_ = DocumentBuilder.parseSaxHtml(html_);
+        Document doc_ = DocumentBuilder.parseSax(html_);
         Node node_ = doc_.getDocumentElement();
         ElementOffsetsNext init_ = new ElementOffsetsNext(new RowCol(), 0, 0);
         ElementOffsetsNext e_ = DocumentBuilder.getIndexesOfElementOrAttribute(html_, init_, (Element) node_, 4);
@@ -1012,7 +1012,7 @@ public class IndexesTest {
     @Test
     public void getOffset15Test() {
         String html_ = "<tag>\n\t<ta where=\"a\nh&quot;'ere&eacute;ccent\" when='n\"ow&apos;sp&#40908;ace'>Content</ta><ta/>233<ta>234</ta></tag>";
-        Document doc_ = DocumentBuilder.parseSaxHtml(html_);
+        Document doc_ = DocumentBuilder.parseSax(html_);
         Node node_ = doc_.getDocumentElement();
         ElementOffsetsNext init_ = new ElementOffsetsNext(new RowCol(), 0, 0);
         ElementOffsetsNext e_ = DocumentBuilder.getIndexesOfElementOrAttribute(html_, init_, (Element) node_, 4);
@@ -1028,7 +1028,7 @@ public class IndexesTest {
     @Test
     public void getOffset16Test() {
         String html_ = "<tag>\n\t<ta where=\"a\nh&quot;'ere&eacute;ccent\" when='n\"ow&apos;sp&#40908;ace'>Content</ta><ta/>233<ta>234</ta></tag>";
-        Document doc_ = DocumentBuilder.parseSaxHtml(html_);
+        Document doc_ = DocumentBuilder.parseSax(html_);
         Node node_ = doc_.getDocumentElement();
         ElementOffsetsNext init_ = new ElementOffsetsNext(new RowCol(), 0, 0);
         ElementOffsetsNext e_ = DocumentBuilder.getIndexesOfElementOrAttribute(html_, init_, (Element) node_, 4);
@@ -1044,7 +1044,7 @@ public class IndexesTest {
     @Test
     public void getOffset17Test() {
         String html_ = "<tag>\n\t<ta where=\"a\nh&quot;'ere&eacute;ccent\" when='n\"ow&apos;sp&#40908;ace'>Content</ta><ta/>233<ta>234</ta></tag>";
-        Document doc_ = DocumentBuilder.parseSaxHtml(html_);
+        Document doc_ = DocumentBuilder.parseSax(html_);
         Node node_ = doc_.getDocumentElement();
         ElementOffsetsNext init_ = new ElementOffsetsNext(new RowCol(), 0, 0);
         ElementOffsetsNext e_ = DocumentBuilder.getIndexesOfElementOrAttribute(html_, init_, (Element) node_, 4);
@@ -1060,7 +1060,7 @@ public class IndexesTest {
     @Test
     public void getOffset18Test() {
         String html_ = "<tag>\n\t<ta where=\"a\nh&quot;'ere&eacute;ccent\" when='n\"ow&apos;sp&#40908;ace'>Content</ta><ta/>233<ta>234</ta></tag>";
-        Document doc_ = DocumentBuilder.parseSaxHtml(html_);
+        Document doc_ = DocumentBuilder.parseSax(html_);
         Node node_ = doc_.getDocumentElement();
         ElementOffsetsNext init_ = new ElementOffsetsNext(new RowCol(), 0, 0);
         ElementOffsetsNext e_ = DocumentBuilder.getIndexesOfElementOrAttribute(html_, init_, (Element) node_, 4);
@@ -1076,7 +1076,7 @@ public class IndexesTest {
     @Test
     public void getOffset19Test() {
         String html_ = "<tag>\n\t<ta where=\"a\nh&quot;'ere&eacute;ccent\" when='n\"ow&apos;sp&#40908;ace'>Content</ta><ta/>233<ta>234</ta></tag>";
-        Document doc_ = DocumentBuilder.parseSaxHtml(html_);
+        Document doc_ = DocumentBuilder.parseSax(html_);
         Node node_ = doc_.getDocumentElement();
         ElementOffsetsNext init_ = new ElementOffsetsNext(new RowCol(), 0, 0);
         ElementOffsetsNext e_ = DocumentBuilder.getIndexesOfElementOrAttribute(html_, init_, (Element) node_, 4);
@@ -1093,7 +1093,7 @@ public class IndexesTest {
     @Test
     public void getOffset20Test() {
         String html_ = "<tag>\n\t<ta where=\"a\nh&quot;'ere&eacute;ccent\" when='n\"ow&apos;sp&#40908;ace'>Content</ta><ta/>233<ta>234</ta></tag>";
-        Document doc_ = DocumentBuilder.parseSaxHtml(html_);
+        Document doc_ = DocumentBuilder.parseSax(html_);
         Node node_ = doc_.getDocumentElement();
         ElementOffsetsNext init_ = new ElementOffsetsNext(new RowCol(), 0, 0);
         ElementOffsetsNext e_ = DocumentBuilder.getIndexesOfElementOrAttribute(html_, init_, (Element) node_, 4);
@@ -1109,7 +1109,7 @@ public class IndexesTest {
     @Test
     public void getOffset21Test() {
         String html_ = "<tag>\n\t<ta where=\"a\nh&quot;'ere&eacute;ccent\" when='n\"ow&apos;sp&#40908;ace'>Content</ta><ta/>233<ta>234</ta></tag>";
-        Document doc_ = DocumentBuilder.parseSaxHtml(html_);
+        Document doc_ = DocumentBuilder.parseSax(html_);
         Node node_ = doc_.getDocumentElement();
         ElementOffsetsNext init_ = new ElementOffsetsNext(new RowCol(), 0, 0);
         ElementOffsetsNext e_ = DocumentBuilder.getIndexesOfElementOrAttribute(html_, init_, (Element) node_, 4);
@@ -1125,7 +1125,7 @@ public class IndexesTest {
     @Test
     public void getOffset22Test() {
         String html_ = "<tag>\n\t<ta where=\"a\nh&quot;'ere&eacute;ccent\" when='n\"ow&apos;sp&#40908;ace'>Content</ta><ta/>233<ta>234</ta></tag>";
-        Document doc_ = DocumentBuilder.parseSaxHtml(html_);
+        Document doc_ = DocumentBuilder.parseSax(html_);
         Node node_ = doc_.getDocumentElement();
         ElementOffsetsNext init_ = new ElementOffsetsNext(new RowCol(), 0, 0);
         ElementOffsetsNext e_ = DocumentBuilder.getIndexesOfElementOrAttribute(html_, init_, (Element) node_, 4);
@@ -1141,7 +1141,7 @@ public class IndexesTest {
     @Test
     public void getOffset23Test() {
         String html_ = "<tag>\n\t<ta where=\"a\nh&quot;'ere&eacute;ccent\" when='n\"ow&apos;sp&#40908;ace'>Content</ta><ta/>233<ta>234</ta></tag>";
-        Document doc_ = DocumentBuilder.parseSaxHtml(html_);
+        Document doc_ = DocumentBuilder.parseSax(html_);
         Node node_ = doc_.getDocumentElement();
         ElementOffsetsNext init_ = new ElementOffsetsNext(new RowCol(), 0, 0);
         ElementOffsetsNext e_ = DocumentBuilder.getIndexesOfElementOrAttribute(html_, init_, (Element) node_, 4);
@@ -1157,7 +1157,7 @@ public class IndexesTest {
     @Test
     public void getOffset24Test() {
         String html_ = "<tag>\n\t<ta where=\"a\nh&quot;'ere&eacute;ccent\" when='n\"ow&apos;sp&#40908;ace'>Content</ta><ta/>233<ta>234</ta></tag>";
-        Document doc_ = DocumentBuilder.parseSaxHtml(html_);
+        Document doc_ = DocumentBuilder.parseSax(html_);
         Node node_ = doc_.getDocumentElement();
         ElementOffsetsNext init_ = new ElementOffsetsNext(new RowCol(), 0, 0);
         ElementOffsetsNext e_ = DocumentBuilder.getIndexesOfElementOrAttribute(html_, init_, (Element) node_, 4);

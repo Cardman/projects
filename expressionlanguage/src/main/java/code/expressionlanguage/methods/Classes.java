@@ -44,6 +44,7 @@ import code.expressionlanguage.opers.util.Struct;
 import code.expressionlanguage.variables.LocalVariable;
 import code.sml.Document;
 import code.sml.DocumentBuilder;
+import code.sml.DocumentResult;
 import code.sml.Element;
 import code.sml.ElementOffsetsNext;
 import code.sml.RowCol;
@@ -185,7 +186,15 @@ public final class Classes {
                     }
                 }
                 classesFiles_.add(file_);
-                Document doc_ = DocumentBuilder.parseSaxHtmlRowCol(content_);
+                DocumentResult res_ = DocumentBuilder.parseSaxHtmlRowCol(content_);
+                Document doc_ = res_.getDocument();
+                if (doc_ == null) {
+                    BadFileName bad_ = new BadFileName();
+                    bad_.setRc(res_.getLocation());
+                    bad_.setFileName(file_);
+                    errorsDet.add(bad_);
+                    continue;
+                }
                 _context.setHtml(content_);
                 _context.setElements(new ElementOffsetsNext(new RowCol(), 0, 0));
                 Element root_ = doc_.getDocumentElement();
@@ -246,7 +255,8 @@ public final class Classes {
         _context.setHtml(EMPTY_STRING);
     }
     private void processPredefinedClass(String _content, ContextEl _context) {
-        Document doc_ = DocumentBuilder.parseSaxHtmlRowCol(_content);
+        DocumentResult res_ = DocumentBuilder.parseSaxHtmlRowCol(_content);
+        Document doc_ = res_.getDocument();
         _context.setHtml(_content);
         _context.setElements(new ElementOffsetsNext(new RowCol(), 0, 0));
         Element root_ = doc_.getDocumentElement();

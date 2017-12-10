@@ -72,6 +72,7 @@ import code.sml.CharacterData;
 import code.sml.Comment;
 import code.sml.Document;
 import code.sml.DocumentBuilder;
+import code.sml.DocumentResult;
 import code.sml.Element;
 import code.sml.NamedNodeMap;
 import code.sml.Node;
@@ -269,18 +270,6 @@ final class FormatHtml {
         return LT_BEGIN_TAG+TMP_BLOCK_TAG+GT_TAG+_body+LT_END_TAG+TMP_BLOCK_TAG+GT_TAG;
     }
 
-    /**@throws XmlParseException*/
-    static String getCurrentBean(String _htmlText) {
-        String htmlText_ = _htmlText;
-        try {
-            Document doc_ = DocumentBuilder.parseSaxHtml(htmlText_);
-            Element root_ = doc_.getDocumentElement();
-            return root_.getAttribute(BEAN_ATTRIBUTE);
-        } catch (RuntimeException _0) {
-            throw new XmlParseException(htmlText_);
-        }
-    }
-
     static String processImports(String _htmlText, Configuration _conf, String _loc, StringMap<String> _files, String... _resourcesFolder) {
         _conf.getHtmlPage().getSelects().clear();
         _conf.clearPages();
@@ -288,7 +277,11 @@ final class FormatHtml {
         if (htmlText_ == null) {
             return null;
         }
-        Document doc_ = DocumentBuilder.parseSaxHtml(htmlText_, false);
+        DocumentResult res_ = DocumentBuilder.parseSaxNotNullRowCol(htmlText_);
+        Document doc_ = res_.getDocument();
+        if (doc_ == null) {
+            throw new XmlParseException(ExtractFromResources.getRealFilePath(_conf.getCurrentUrl()), htmlText_);
+        }
         _conf.setDocument(doc_);
         _conf.clearPages();
         return DocumentBuilder.toXml(doc_);
@@ -303,11 +296,10 @@ final class FormatHtml {
         }
         pageName_ = ExtractObject.formatNumVariables(pageName_, _conf, _ip, _files);
         String subHtml_ = ExtractFromResources.loadPage(_conf, _files, pageName_,_resourcesFolder);
-        Document doc_;
-        try {
-            doc_ = DocumentBuilder.parseSaxHtml(subHtml_, false);
-        } catch (XmlParseException _0) {
-            throw new XmlParseException(_0.getMessage()+RETURN_LINE+_conf.joinPages());
+        DocumentResult res_ = DocumentBuilder.parseSaxNotNullRowCol(subHtml_);
+        Document doc_ = res_.getDocument();
+        if (doc_ == null) {
+            throw new XmlParseException(res_.getLocation().toString()+RETURN_LINE+_conf.joinPages());
         }
         NodeList bodies_ = doc_.getElementsByTagName(TAG_BODY);
         if (bodies_.getLength() != CustList.ONE_ELEMENT) {
@@ -1306,14 +1298,13 @@ final class FormatHtml {
             ip_.setMessageValue(null);
             ip_.setKey(null);
             _conf.addPage(ipMess_);
-            Document docLoc_;
-            try {
-                docLoc_ = DocumentBuilder.parseSaxHtml(ipMess_.getHtml(), false);
-                ipMess_.setPrefix(getPrefix(_conf, docLoc_));
-                ipMess_.setRoot(docLoc_.getDocumentElement());
-            } catch (XmlParseException _0) {
-                throw new XmlParseException(ipMess_.getHtml()+RETURN_LINE+_conf.joinPages());
+            DocumentResult res_ = DocumentBuilder.parseSaxNotNullRowCol(ipMess_.getHtml());
+            Document docLoc_ = res_.getDocument();
+            if (docLoc_ == null) {
+                throw new XmlParseException(res_.getLocation().toString()+RETURN_LINE+ipMess_.getHtml()+RETURN_LINE+_conf.joinPages());
             }
+            ipMess_.setPrefix(getPrefix(_conf, docLoc_));
+            ipMess_.setRoot(docLoc_.getDocumentElement());
             setEscapedChars(_conf, docLoc_, ipMess_.getHtml());
             Element rootLoc_ = docLoc_.getDocumentElement();
             CustList<NodeAction> nas_ = getDeepChildNodesDocOrder(rootLoc_);

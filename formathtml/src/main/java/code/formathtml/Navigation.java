@@ -27,6 +27,7 @@ import code.serialize.exceptions.InexistingValueForEnum;
 import code.serialize.exceptions.NoSuchDeclaredMethodException;
 import code.sml.Document;
 import code.sml.DocumentBuilder;
+import code.sml.DocumentResult;
 import code.sml.Element;
 import code.sml.Node;
 import code.sml.NodeList;
@@ -252,14 +253,14 @@ public final class Navigation {
         String currentUrl_ = session.getFirstUrl();
         String text_ = ExtractFromResources.loadPage(session, files, currentUrl_, resourcesFolder);
         String currentBeanName_;
-        try {
-            Document doc_ = DocumentBuilder.parseSaxHtml(text_, false);
-            Element root_ = doc_.getDocumentElement();
-            session.setDocument(doc_);
-            currentBeanName_ = root_.getAttribute(session.getPrefix()+FormatHtml.BEAN_ATTRIBUTE);
-        } catch (RuntimeException _0) {
+        DocumentResult res_ = DocumentBuilder.parseSaxNotNullRowCol(text_);
+        Document doc_ = res_.getDocument();
+        if (doc_ == null) {
             throw new XmlParseException(ExtractFromResources.getRealFilePath(currentUrl_), text_);
         }
+        Element root_ = doc_.getDocumentElement();
+        session.setDocument(doc_);
+        currentBeanName_ = root_.getAttribute(session.getPrefix()+FormatHtml.BEAN_ATTRIBUTE);
         htmlText = FormatHtml.processImports(text_, session, language, files, resourcesFolder);
         if (htmlText == null) {
             return;
@@ -278,8 +279,14 @@ public final class Navigation {
             processAnchorRequest(currentUrl);
         } catch (Throwable _0) {
             session.setCurrentUrl(currentUrl);
-            String textToBeChanged_ = ExtractFromResources.loadPage(session, files, StringList.getFirstToken(currentUrl,REF_TAG), resourcesFolder);
-            session.setDocument(DocumentBuilder.parseSaxHtml(textToBeChanged_, false));
+            String currentUrl_ = StringList.getFirstToken(currentUrl,REF_TAG);
+            String textToBeChanged_ = ExtractFromResources.loadPage(session, files, currentUrl_, resourcesFolder);
+            DocumentResult res_ = DocumentBuilder.parseSaxNotNullRowCol(textToBeChanged_);
+            Document doc_ = res_.getDocument();
+            if (doc_ == null) {
+                throw new XmlParseException(ExtractFromResources.getRealFilePath(currentUrl_), textToBeChanged_);
+            }
+            session.setDocument(doc_);
             textToBeChanged_ = FormatHtml.processImports(
                     textToBeChanged_, session, language, files, resourcesFolder);
             if (textToBeChanged_ == null) {
@@ -387,14 +394,14 @@ public final class Navigation {
             String dest_ = StringList.getFirstToken(urlDest_, REF_TAG);
             textToBeChanged_ = ExtractFromResources.loadPage(session, files, dest_, resourcesFolder);
             String currentBeanName_;
-            try {
-                Document doc_ = DocumentBuilder.parseSaxHtml(textToBeChanged_, false);
-                Element root_ = doc_.getDocumentElement();
-                session.setDocument(doc_);
-                currentBeanName_ = root_.getAttribute(session.getPrefix()+FormatHtml.BEAN_ATTRIBUTE);
-            } catch (RuntimeException _0) {
+            DocumentResult res_ = DocumentBuilder.parseSaxNotNullRowCol(textToBeChanged_);
+            Document doc_ = res_.getDocument();
+            if (doc_ == null) {
                 throw new XmlParseException(ExtractFromResources.getRealFilePath(dest_), textToBeChanged_);
             }
+            Element root_ = doc_.getDocumentElement();
+            session.setDocument(doc_);
+            currentBeanName_ = root_.getAttribute(session.getPrefix()+FormatHtml.BEAN_ATTRIBUTE);
             bean_ = getNotNullBean(currentBeanName_);
             ExtractObject.setForms(session, bean_, forms_);
             textToBeChanged_ = FormatHtml.processImports(
@@ -434,15 +441,15 @@ public final class Navigation {
         session.setCurrentUrl(currentUrl_);
         String dest_ = StringList.getFirstToken(_anchorRef, REF_TAG);
         textToBeChanged_ = ExtractFromResources.loadPage(session, files, dest_, resourcesFolder);
-        String currentBeanName_;
-        try {
-            Document doc_ = DocumentBuilder.parseSaxHtml(textToBeChanged_, false);
-            Element root_ = doc_.getDocumentElement();
-            session.setDocument(doc_);
-            currentBeanName_ = root_.getAttribute(session.getPrefix()+FormatHtml.BEAN_ATTRIBUTE);
-        } catch (RuntimeException _0) {
+        DocumentResult res_ = DocumentBuilder.parseSaxNotNullRowCol(textToBeChanged_);
+        Document doc_ = res_.getDocument();
+        if (doc_ == null) {
             throw new XmlParseException(ExtractFromResources.getRealFilePath(dest_), textToBeChanged_);
         }
+        String currentBeanName_;
+        Element root_ = doc_.getDocumentElement();
+        session.setDocument(doc_);
+        currentBeanName_ = root_.getAttribute(session.getPrefix()+FormatHtml.BEAN_ATTRIBUTE);
         bean_ = getBean(currentBeanName_);
         try {
             session.addPage(new ImportingPage(false));

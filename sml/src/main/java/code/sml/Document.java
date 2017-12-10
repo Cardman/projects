@@ -61,7 +61,7 @@ public final class Document extends Node {
 
     @Override
     public ElementList getChildElements() {
-    	ElementList list_ = new ElementList();
+        ElementList list_ = new ElementList();
         if (documentElement != null) {
             list_.add(documentElement);
         }

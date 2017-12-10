@@ -1,6 +1,5 @@
 package code.sml;
 
-import code.sml.exceptions.XmlParseException;
 import code.util.CustList;
 import code.util.EntryCust;
 import code.util.NatTreeMap;
@@ -2654,44 +2653,15 @@ public final class DocumentBuilder {
         return indented_.toString();
     }
 
-    public static Document parseSaxHtml(String _xml) {
-        return parseSaxHtml(_xml, false);
-    }
-
-    public static Document parseSaxHtmlRowCol(String _xml) {
+    public static DocumentResult parseSaxHtmlRowCol(String _xml) {
         String enc_ = DocumentBuilder.encodeHtml(_xml);
         return parseSaxNotNullRowCol(enc_);
     }
 
-    public static Document parseSaxHtml(String _xml, boolean _acceptNull) {
-        String enc_ = DocumentBuilder.encodeHtml(_xml);
-        if (_acceptNull) {
-            return parseSax(enc_);
-        }
-        return parseSaxNotNull(enc_, false);
-    }
-
-    public static Document parseSaxNotNull(String _xml, boolean _acceptNull) {
-        if (_acceptNull) {
-            return parseSax(_xml);
-        }
+    public static DocumentResult parseSaxNotNullRowCol(String _xml) {
         DocumentBuilder builder_ = newXmlDocumentBuilder();
         DocumentResult result_ = builder_.parse(_xml);
-        Document doc_ = result_.getDocument();
-        if (doc_ != null) {
-            return doc_;
-        }
-        throw new XmlParseException(result_.getLocation(), _xml);
-    }
-
-    public static Document parseSaxNotNullRowCol(String _xml) {
-        DocumentBuilder builder_ = newXmlDocumentBuilder();
-        DocumentResult result_ = builder_.parse(_xml);
-        Document doc_ = result_.getDocument();
-        if (doc_ != null) {
-            return doc_;
-        }
-        throw new XmlParseException(result_.getLocation(), _xml);
+        return result_;
     }
 
     public static Document parseSax(String _xml) {

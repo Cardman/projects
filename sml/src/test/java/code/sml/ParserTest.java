@@ -43,37 +43,38 @@ public class ParserTest {
         assertNotNull(DocumentBuilder.parseSax("<tag>&#0;</tag>"));
     }
 
+    @Test
     public void parseSaxHtml1Test() {
-        assertNotNull(DocumentBuilder.parseSaxHtml("<tag>e</tag>", true));
+        assertNotNull(DocumentBuilder.parseSax("<tag>e</tag>"));
     }
 
     @Test
     public void parseSaxHtml2Test() {
-        assertNotNull(DocumentBuilder.parseSaxHtml("<tag>"+(char)233+"</tag>", true));
+        assertNotNull(DocumentBuilder.parseSax("<tag>"+(char)233+"</tag>"));
     }
 
     @Test
     public void parseSaxHtml3Test() {
-        assertNull(DocumentBuilder.parseSaxHtml("<tag>", true));
+        assertNull(DocumentBuilder.parseSax("<tag>"));
     }
 
     @Test
     public void parseSaxHtml4Test() {
-        assertNotNull(DocumentBuilder.parseSaxHtml("<tag/>", true));
+        assertNotNull(DocumentBuilder.parseSax("<tag/>"));
     }
 
     @Test
     public void parseSaxHtml5Test() {
-        assertNotNull(DocumentBuilder.parseSaxHtml("<tag>&#233;</tag>", true));
+        assertNotNull(DocumentBuilder.parseSax("<tag>&#233;</tag>"));
     }
 
     @Test
     public void parseSaxHtml6Test() {
-        assertNotNull(DocumentBuilder.parseSaxHtml("<tag>&eacute;</tag>", true));
+        assertNotNull(DocumentBuilder.parseSax("<tag>&eacute;</tag>"));
     }
 
     @Test
     public void parseSaxHtml7Test() {
-        assertNotNull(DocumentBuilder.parseSaxHtml("<tag>&#0;</tag>", true));
+        assertNotNull(DocumentBuilder.parseSax("<tag>&#0;</tag>"));
     }
 }
