@@ -5,17 +5,6 @@ import javax.swing.JPanel;
 import javax.swing.JSpinner;
 import javax.swing.JTextField;
 
-import code.gui.LabelButton;
-import code.gui.NumComboBox;
-import code.maths.LgInt;
-import code.maths.Rate;
-import code.maths.exceptions.FormatException;
-import code.util.CustList;
-import code.util.EnumMap;
-import code.util.StringMap;
-import code.util.consts.Constants;
-import code.util.pagination.SearchingMode;
-import code.xml.util.ExtractFromFiles;
 import aiki.Resources;
 import aiki.facade.FacadeGame;
 import aiki.gui.components.labels.Header;
@@ -26,6 +15,17 @@ import aiki.gui.components.listeners.NextDeltaEvent;
 import aiki.gui.components.listeners.NextEvent;
 import aiki.gui.components.listeners.PreviousDeltaEvent;
 import aiki.gui.components.listeners.PreviousEvent;
+import code.gui.LabelButton;
+import code.gui.NumComboBox;
+import code.maths.LgInt;
+import code.maths.Rate;
+import code.maths.exceptions.FormatException;
+import code.sml.util.ExtractFromFiles;
+import code.util.CustList;
+import code.util.EnumMap;
+import code.util.StringMap;
+import code.util.consts.Constants;
+import code.util.pagination.SearchingMode;
 
 public abstract class Paginator extends JPanel{
 

@@ -4,6 +4,7 @@ import code.maths.exceptions.FormatException;
 import code.maths.exceptions.NegatifExposantException;
 import code.maths.exceptions.NegativeNumberException;
 import code.serialize.CheckedData;
+import code.sml.FromAndToString;
 import code.util.CustList;
 import code.util.EntryCust;
 import code.util.EqList;
@@ -13,7 +14,6 @@ import code.util.SortableCustList;
 import code.util.StringList;
 import code.util.TreeMap;
 import code.util.ints.Cmp;
-import code.xml.FromAndToString;
 
 /**
 Classe modelisant des entiers longs qui sont une extension du type <i>long</i>.<br/>

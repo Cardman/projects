@@ -1,6 +1,4 @@
 package code.formathtml;
-import code.xml.components.Document;
-
 import code.bean.Bean;
 import code.bean.translator.Translator;
 import code.bean.validator.Validator;
@@ -10,6 +8,7 @@ import code.expressionlanguage.ElUtil;
 import code.expressionlanguage.methods.Classes;
 import code.expressionlanguage.opers.util.Struct;
 import code.resources.ResourceFiles;
+import code.sml.Document;
 import code.util.CustList;
 import code.util.EntryCust;
 import code.util.StringList;

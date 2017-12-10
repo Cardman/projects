@@ -22,6 +22,7 @@ import javax.swing.tree.TreeSelectionModel;
 import code.gui.events.ClickHeaderEvent;
 import code.gui.events.ClickRowEvent;
 import code.gui.events.DeployTreeEvent;
+import code.sml.util.ExtractFromFiles;
 import code.stream.StreamTextFile;
 import code.stream.comparators.FileNameComparator;
 import code.util.CustList;
@@ -29,7 +30,6 @@ import code.util.StringList;
 import code.util.StringMap;
 import code.util.consts.ConstFiles;
 import code.util.consts.Constants;
-import code.xml.util.ExtractFromFiles;
 
 public abstract class FileDialog extends Dialog {
     private static final String DIALOG_ACCESS = "gui.FileDialog";

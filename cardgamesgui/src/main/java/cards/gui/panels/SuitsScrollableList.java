@@ -6,16 +6,16 @@ import javax.swing.JScrollPane;
 import javax.swing.ListSelectionModel;
 import javax.swing.SwingConstants;
 
+import cards.consts.Suit;
+import cards.gui.dialogs.FileConst;
+import cards.gui.labels.selection.SuitCellRenderer;
 import code.gui.EnumListModel;
 import code.gui.Jl;
+import code.sml.util.ExtractFromFiles;
 import code.util.CustList;
 import code.util.EnumList;
 import code.util.StringMap;
 import code.util.consts.Constants;
-import code.xml.util.ExtractFromFiles;
-import cards.consts.Suit;
-import cards.gui.dialogs.FileConst;
-import cards.gui.labels.selection.SuitCellRenderer;
 /**
  */
 public class SuitsScrollableList extends ScrollableList {

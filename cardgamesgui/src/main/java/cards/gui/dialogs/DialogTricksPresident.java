@@ -4,11 +4,11 @@ import java.awt.Dimension;
 import javax.swing.JScrollPane;
 import javax.swing.WindowConstants;
 
-import code.util.StringList;
 import cards.gui.MainWindow;
 import cards.gui.panels.PanelTricksHandsPresident;
 import cards.president.DisplayingPresident;
 import cards.president.TricksHandsPresident;
+import code.util.StringList;
 
 public final class DialogTricksPresident extends DialogCards {
 

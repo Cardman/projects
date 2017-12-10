@@ -3,12 +3,12 @@ import cards.consts.GameType;
 import cards.gameresults.ResultsGame;
 import code.maths.LgInt;
 import code.maths.Rate;
+import code.sml.util.ExtractFromFiles;
 import code.util.CustList;
 import code.util.Numbers;
 import code.util.StringList;
 import code.util.StringMap;
 import code.util.annot.RwXml;
-import code.xml.util.ExtractFromFiles;
 
 @RwXml
 public final class ResultsPresident extends ResultsGame {

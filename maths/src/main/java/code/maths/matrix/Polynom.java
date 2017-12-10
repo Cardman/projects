@@ -2,12 +2,12 @@ package code.maths.matrix;
 import code.maths.LgInt;
 import code.maths.Rate;
 import code.maths.exceptions.NegatifExposantException;
+import code.sml.FromAndToString;
 import code.util.CustList;
 import code.util.EqList;
 import code.util.PairEq;
 import code.util.StringList;
 import code.util.ints.Equallable;
-import code.xml.FromAndToString;
 
 public final class Polynom implements Equallable<Polynom>{
 

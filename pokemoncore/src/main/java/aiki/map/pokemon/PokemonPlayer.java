@@ -33,6 +33,7 @@ import code.maths.Rate;
 import code.maths.montecarlo.MonteCarloEnum;
 import code.maths.montecarlo.MonteCarloString;
 import code.serialize.CheckedData;
+import code.sml.util.ExtractFromFiles;
 import code.util.CustList;
 import code.util.EntryCust;
 import code.util.EnumMap;
@@ -41,7 +42,6 @@ import code.util.StringList;
 import code.util.StringMap;
 import code.util.annot.RwXml;
 import code.util.consts.Constants;
-import code.xml.util.ExtractFromFiles;
 
 @RwXml
 public final class PokemonPlayer extends Pokemon implements UsablePokemon {

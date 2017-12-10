@@ -1,6 +1,5 @@
 package code.formathtml.util;
-import code.xml.components.Node;
-
+import code.sml.Node;
 import code.util.EnumList;
 
 public class NodeAction {

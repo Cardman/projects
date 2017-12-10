@@ -8,6 +8,12 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 
+import cards.belote.BidBeloteSuit;
+import cards.belote.HandBelote;
+import cards.belote.enumerations.CardBelote;
+import cards.consts.Order;
+import cards.consts.Suit;
+import cards.gui.MainWindow;
 import code.gui.Dialog;
 import code.util.CustList;
 import code.util.EnumList;
@@ -15,12 +21,6 @@ import code.util.EnumMap;
 import code.util.EqList;
 import code.util.StringList;
 import code.util.consts.Constants;
-import cards.belote.BidBeloteSuit;
-import cards.belote.HandBelote;
-import cards.belote.enumerations.CardBelote;
-import cards.consts.Order;
-import cards.consts.Suit;
-import cards.gui.MainWindow;
 
 public final class DialogHelpBelote extends Dialog {
 

@@ -1,7 +1,6 @@
 package code.formathtml.util;
-import code.xml.components.Element;
-
 import code.expressionlanguage.stacks.LoopStack;
+import code.sml.Element;
 
 public final class LoopHtmlStack extends LoopStack implements BreakableHtmlStack {
 

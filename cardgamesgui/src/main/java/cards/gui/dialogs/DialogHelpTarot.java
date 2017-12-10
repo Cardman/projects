@@ -8,6 +8,10 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 
+import cards.consts.Suit;
+import cards.gui.MainWindow;
+import cards.tarot.HandTarot;
+import cards.tarot.enumerations.CardTarot;
 import code.gui.Dialog;
 import code.util.CustList;
 import code.util.EnumList;
@@ -15,10 +19,6 @@ import code.util.EnumMap;
 import code.util.EqList;
 import code.util.StringList;
 import code.util.consts.Constants;
-import cards.consts.Suit;
-import cards.gui.MainWindow;
-import cards.tarot.HandTarot;
-import cards.tarot.enumerations.CardTarot;
 
 public final class DialogHelpTarot extends Dialog {
 

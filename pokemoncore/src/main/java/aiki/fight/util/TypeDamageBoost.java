@@ -1,8 +1,8 @@
 package aiki.fight.util;
 import code.maths.Rate;
 import code.serialize.CheckedData;
+import code.sml.FromAndToString;
 import code.util.StringList;
-import code.xml.FromAndToString;
 
 @CheckedData
 public final class TypeDamageBoost {

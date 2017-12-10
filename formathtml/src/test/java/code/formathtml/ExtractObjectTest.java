@@ -6,8 +6,6 @@ import javax.imageio.ImageIO;
 
 import org.junit.BeforeClass;
 import org.junit.Test;
-import code.xml.components.Document;
-import code.xml.components.Element;
 
 import code.bean.Bean;
 import code.bean.translator.Translator;
@@ -18,10 +16,12 @@ import code.formathtml.classes.MyStrangeTranslator;
 import code.formathtml.classes.MyTranslator;
 import code.formathtml.classes.SimpleMathFactory;
 import code.formathtml.exceptions.InexistingTranslatorException;
+import code.sml.Document;
+import code.sml.DocumentBuilder;
+import code.sml.Element;
 import code.util.StringList;
 import code.util.StringMap;
 import code.util.consts.Constants;
-import code.xml.XmlParser;
 
 @SuppressWarnings("static-method")
 public class ExtractObjectTest {
@@ -39,7 +39,7 @@ public class ExtractObjectTest {
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two";
         String html_ = "<html xmlns:c='javahtml'><body><c:message value=\"$composite.integer\"/></body></html>";
-        Document doc_ = XmlParser.parseSaxHtml(html_);
+        Document doc_ = DocumentBuilder.parseSaxHtml(html_);
         StringMap<String> files_ = new StringMap<String>();
         files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
         BeanOne bean_ = new BeanOne();
@@ -69,7 +69,7 @@ public class ExtractObjectTest {
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two";
         String html_ = "<html xmlns:c='javahtml'><body><c:message value=\"$message\"><param value=\"One\" quoted=\"quoted\"/></c:message></body></html>";
-        Document doc_ = XmlParser.parseSaxHtml(html_);
+        Document doc_ = DocumentBuilder.parseSaxHtml(html_);
         StringMap<String> files_ = new StringMap<String>();
         files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
         BeanOne bean_ = new BeanOne();
@@ -99,7 +99,7 @@ public class ExtractObjectTest {
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two";
         String html_ = "<html xmlns:c='javahtml'><body><c:message value=\"$message\"><param value=\"$composite.integer\"/></c:message></body></html>";
-        Document doc_ = XmlParser.parseSaxHtml(html_);
+        Document doc_ = DocumentBuilder.parseSaxHtml(html_);
         StringMap<String> files_ = new StringMap<String>();
         files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
         BeanOne bean_ = new BeanOne();
@@ -129,7 +129,7 @@ public class ExtractObjectTest {
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc {0}";
         String html_ = "<html xmlns:c='javahtml'><body><c:message value=\"msg_example,one\"/></body></html>";
-        Document doc_ = XmlParser.parseSaxHtml(html_);
+        Document doc_ = DocumentBuilder.parseSaxHtml(html_);
         StringMap<String> files_ = new StringMap<String>();
         files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
         BeanOne bean_ = new BeanOne();
@@ -160,7 +160,7 @@ public class ExtractObjectTest {
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc {0}";
         String html_ = "<html xmlns:c='javahtml'><body><c:message value=\"msg_example,three\"><param value=\"elt\" quoted=\"quoted\"/></c:message></body></html>";
-        Document doc_ = XmlParser.parseSaxHtml(html_);
+        Document doc_ = DocumentBuilder.parseSaxHtml(html_);
         StringMap<String> files_ = new StringMap<String>();
         files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
         BeanOne bean_ = new BeanOne();
@@ -191,7 +191,7 @@ public class ExtractObjectTest {
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc {0}";
         String html_ = "<html xmlns:c='javahtml'><body><c:message value=\"msg_example,three\"><param value=\"$composite.integer\"/></c:message></body></html>";
-        Document doc_ = XmlParser.parseSaxHtml(html_);
+        Document doc_ = DocumentBuilder.parseSaxHtml(html_);
         StringMap<String> files_ = new StringMap<String>();
         files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
         BeanOne bean_ = new BeanOne();
@@ -222,7 +222,7 @@ public class ExtractObjectTest {
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
         String html_ = "<html xmlns:c='javahtml'><body><c:message value=\"sample/file,three\"><param value=\"$composite.integer\"/></c:message></body></html>";
-        Document doc_ = XmlParser.parseSaxHtml(html_);
+        Document doc_ = DocumentBuilder.parseSaxHtml(html_);
         StringMap<String> files_ = new StringMap<String>();
         files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
         BeanOne bean_ = new BeanOne();
@@ -253,7 +253,7 @@ public class ExtractObjectTest {
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc \"{0}\"";
         String html_ = "<html xmlns:c='javahtml'><body><c:message value=\"sample/file,three\"><param value=\"$composite.integer\"/></c:message></body></html>";
-        Document doc_ = XmlParser.parseSaxHtml(html_);
+        Document doc_ = DocumentBuilder.parseSaxHtml(html_);
         StringMap<String> files_ = new StringMap<String>();
         files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
         BeanOne bean_ = new BeanOne();
@@ -284,7 +284,7 @@ public class ExtractObjectTest {
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
         String html_ = "<html xmlns:c='javahtml'><body><c:message value=\"sample/file,three\"><param value=\"&quot;\" quoted=\"quoted\"/></c:message></body></html>";
-        Document doc_ = XmlParser.parseSaxHtml(html_);
+        Document doc_ = DocumentBuilder.parseSaxHtml(html_);
         StringMap<String> files_ = new StringMap<String>();
         files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
         BeanOne bean_ = new BeanOne();
@@ -316,7 +316,7 @@ public class ExtractObjectTest {
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two";
         String html_ = "<html xmlns:c='javahtml'><body><c:message value=\"$composite.integer\" escapedamp='true'/></body></html>";
-        Document doc_ = XmlParser.parseSaxHtml(html_);
+        Document doc_ = DocumentBuilder.parseSaxHtml(html_);
         StringMap<String> files_ = new StringMap<String>();
         files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
         BeanOne bean_ = new BeanOne();
@@ -346,7 +346,7 @@ public class ExtractObjectTest {
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two";
         String html_ = "<html xmlns:c='javahtml'><body><c:message value=\"$message\" escapedamp='true'><param value=\"One\" quoted=\"quoted\"/></c:message></body></html>";
-        Document doc_ = XmlParser.parseSaxHtml(html_);
+        Document doc_ = DocumentBuilder.parseSaxHtml(html_);
         StringMap<String> files_ = new StringMap<String>();
         files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
         BeanOne bean_ = new BeanOne();
@@ -376,7 +376,7 @@ public class ExtractObjectTest {
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two";
         String html_ = "<html xmlns:c='javahtml'><body><c:message value=\"$message\" escapedamp='true'><param value=\"$composite.integer\"/></c:message></body></html>";
-        Document doc_ = XmlParser.parseSaxHtml(html_);
+        Document doc_ = DocumentBuilder.parseSaxHtml(html_);
         StringMap<String> files_ = new StringMap<String>();
         files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
         BeanOne bean_ = new BeanOne();
@@ -406,7 +406,7 @@ public class ExtractObjectTest {
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc {0}";
         String html_ = "<html xmlns:c='javahtml'><body><c:message value=\"msg_example,one\" escapedamp='true'/></body></html>";
-        Document doc_ = XmlParser.parseSaxHtml(html_);
+        Document doc_ = DocumentBuilder.parseSaxHtml(html_);
         StringMap<String> files_ = new StringMap<String>();
         files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
         BeanOne bean_ = new BeanOne();
@@ -437,7 +437,7 @@ public class ExtractObjectTest {
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc {0}";
         String html_ = "<html xmlns:c='javahtml'><body><c:message value=\"msg_example,three\" escapedamp='true'><param value=\"elt\" quoted=\"quoted\"/></c:message></body></html>";
-        Document doc_ = XmlParser.parseSaxHtml(html_);
+        Document doc_ = DocumentBuilder.parseSaxHtml(html_);
         StringMap<String> files_ = new StringMap<String>();
         files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
         BeanOne bean_ = new BeanOne();
@@ -468,7 +468,7 @@ public class ExtractObjectTest {
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc {0}";
         String html_ = "<html xmlns:c='javahtml'><body><c:message value=\"msg_example,three\" escapedamp='true'><param value=\"$composite.integer\"/></c:message></body></html>";
-        Document doc_ = XmlParser.parseSaxHtml(html_);
+        Document doc_ = DocumentBuilder.parseSaxHtml(html_);
         StringMap<String> files_ = new StringMap<String>();
         files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
         BeanOne bean_ = new BeanOne();
@@ -499,7 +499,7 @@ public class ExtractObjectTest {
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
         String html_ = "<html xmlns:c='javahtml'><body><c:message value=\"sample/file,three\" escapedamp='true'><param value=\"$composite.integer\"/></c:message></body></html>";
-        Document doc_ = XmlParser.parseSaxHtml(html_);
+        Document doc_ = DocumentBuilder.parseSaxHtml(html_);
         StringMap<String> files_ = new StringMap<String>();
         files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
         BeanOne bean_ = new BeanOne();
@@ -530,7 +530,7 @@ public class ExtractObjectTest {
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc \"{0}\"";
         String html_ = "<html xmlns:c='javahtml'><body><c:message value=\"sample/file,three\" escapedamp='true'><param value=\"$composite.integer\"/></c:message></body></html>";
-        Document doc_ = XmlParser.parseSaxHtml(html_);
+        Document doc_ = DocumentBuilder.parseSaxHtml(html_);
         StringMap<String> files_ = new StringMap<String>();
         files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
         BeanOne bean_ = new BeanOne();
@@ -561,7 +561,7 @@ public class ExtractObjectTest {
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
         String html_ = "<html xmlns:c='javahtml'><body><c:message value=\"sample/file,three\" escapedamp='true'><param value=\"&quot;\" quoted=\"quoted\"/></c:message></body></html>";
-        Document doc_ = XmlParser.parseSaxHtml(html_);
+        Document doc_ = DocumentBuilder.parseSaxHtml(html_);
         StringMap<String> files_ = new StringMap<String>();
         files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
         BeanOne bean_ = new BeanOne();
@@ -593,7 +593,7 @@ public class ExtractObjectTest {
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc \"{0}\"";
         String html_ = "<html xmlns:c='javahtml'><body><c:message value=\"sample/file,three\" escapedamp='true'><param value=\"$composite.string\" escaped='escaped'/></c:message></body></html>";
-        Document doc_ = XmlParser.parseSaxHtml(html_);
+        Document doc_ = DocumentBuilder.parseSaxHtml(html_);
         StringMap<String> files_ = new StringMap<String>();
         files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
         BeanOne bean_ = new BeanOne();
@@ -624,7 +624,7 @@ public class ExtractObjectTest {
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
         String html_ = "<html xmlns:c='javahtml'><body><c:message value=\"sample/file,three\" escapedamp='true'><param value=\"{escaped}\" quoted=\"quoted\" escaped=''/></c:message></body></html>";
-        Document doc_ = XmlParser.parseSaxHtml(html_);
+        Document doc_ = DocumentBuilder.parseSaxHtml(html_);
         StringMap<String> files_ = new StringMap<String>();
         files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
         BeanOne bean_ = new BeanOne();
@@ -676,7 +676,7 @@ public class ExtractObjectTest {
         addBean(conf_, bean_);
         ImportingPage ip_ = conf_.getLastPage();
         assertEq(2L,((Long)ExtractObject.evaluateMathExpression(ip_, conf_, false, "1+1")).longValue());
-//        Document doc_ = XmlParser.parseSaxHtml(html_, false, true);
+//        Document doc_ = DocumentBuilder.parseSaxHtml(html_, false, true);
 //        conf_.setDocument(doc_);
 //        conf_.setHtml(html_);
 //        String render_ = FormatHtml.processHtml(doc_, "bean_one", conf_, locale_, files_);
@@ -711,7 +711,7 @@ public class ExtractObjectTest {
         addBean(conf_, bean_);
         ImportingPage ip_ = conf_.getLastPage();
         assertEq(true,ExtractObject.evaluateMathExpression(ip_, conf_, true, "false|true"));
-//        Document doc_ = XmlParser.parseSaxHtml(html_, false, true);
+//        Document doc_ = DocumentBuilder.parseSaxHtml(html_, false, true);
 //        conf_.setDocument(doc_);
 //        conf_.setHtml(html_);
 //        String render_ = FormatHtml.processHtml(doc_, "bean_one", conf_, locale_, files_);
@@ -746,7 +746,7 @@ public class ExtractObjectTest {
         addBean(conf_, bean_);
         ImportingPage ip_ = conf_.getLastPage();
         assertEq(false,ExtractObject.evaluateMathExpression(ip_, conf_, true, "false"));
-//        Document doc_ = XmlParser.parseSaxHtml(html_, false, true);
+//        Document doc_ = DocumentBuilder.parseSaxHtml(html_, false, true);
 //        conf_.setDocument(doc_);
 //        conf_.setHtml(html_);
 //        String render_ = FormatHtml.processHtml(doc_, "bean_one", conf_, locale_, files_);
@@ -781,7 +781,7 @@ public class ExtractObjectTest {
         addBean(conf_, bean_);
         ImportingPage ip_ = conf_.getLastPage();
         assertEq(6L,((Long)ExtractObject.evaluateMathExpression(ip_, conf_, false, "`composite.integer`+1")).longValue());
-//        Document doc_ = XmlParser.parseSaxHtml(html_, false, true);
+//        Document doc_ = DocumentBuilder.parseSaxHtml(html_, false, true);
 //        conf_.setDocument(doc_);
 //        conf_.setHtml(html_);
 //        String render_ = FormatHtml.processHtml(doc_, "bean_one", conf_, locale_, files_);
@@ -815,7 +815,7 @@ public class ExtractObjectTest {
         addBean(conf_, bean_);
         ImportingPage ip_ = conf_.getLastPage();
         assertEq(false,ExtractObject.evaluateMathExpression(ip_, conf_, true, "`composite.strings.isEmpty()`"));
-//        Document doc_ = XmlParser.parseSaxHtml(html_, false, true);
+//        Document doc_ = DocumentBuilder.parseSaxHtml(html_, false, true);
 //        conf_.setHtml(html_);
 //        conf_.setDocument(doc_);
 //        String render_ = FormatHtml.processHtml(doc_, "bean_one", conf_, locale_, files_);
@@ -871,7 +871,7 @@ public class ExtractObjectTest {
         addImportingPage(conf_, false);
         addBean(conf_, bean_);
         ImportingPage ip_ = conf_.getLastPage();
-//        Document doc_ = XmlParser.parseSaxHtml(html_, false, true);
+//        Document doc_ = DocumentBuilder.parseSaxHtml(html_, false, true);
 //        conf_.setHtml(html_);
 //        String formated_ = FormatHtml.processHtml(doc_, "bean_one", conf_, locale_, files_);
         String formated_ = ExtractObject.formatNumVariables(html_, conf_, ip_, files_);
@@ -901,7 +901,7 @@ public class ExtractObjectTest {
         addImportingPage(conf_, false);
         addBean(conf_, bean_);
         ImportingPage ip_ = conf_.getLastPage();
-//        Document doc_ = XmlParser.parseSaxHtml(html_, false, true);
+//        Document doc_ = DocumentBuilder.parseSaxHtml(html_, false, true);
 //        conf_.setHtml(html_);
         //String formated_ = FormatHtml.processHtml(doc_, "bean_one", conf_, locale_, files_);
 //        String formated_ = ExtractObject.formatNumVariables(html_, conf_, ip_, files_);
@@ -934,7 +934,7 @@ public class ExtractObjectTest {
         addImportingPage(conf_, false);
         addBean(conf_, bean_);
         ImportingPage ip_ = conf_.getLastPage();
-//        Document doc_ = XmlParser.parseSaxHtml(html_, false, true);
+//        Document doc_ = DocumentBuilder.parseSaxHtml(html_, false, true);
 //        conf_.setHtml(html_);
 //        String formated_ = FormatHtml.processHtml(doc_, "bean_one", conf_, locale_, files_);
         String formated_ = ExtractObject.formatNumVariables(html_, conf_, ip_, files_);
@@ -966,7 +966,7 @@ public class ExtractObjectTest {
         addImportingPage(conf_, false);
         addBean(conf_, bean_);
         ImportingPage ip_ = conf_.getLastPage();
-//        Document doc_ = XmlParser.parseSaxHtml(html_, false, true);
+//        Document doc_ = DocumentBuilder.parseSaxHtml(html_, false, true);
 //        conf_.setHtml(html_);
 //        String formated_ = FormatHtml.processHtml(doc_, "bean_one", conf_, locale_, files_);
 //        String formated_ = FormatHtml.formatNamedVariables(html_, conf_, files_, bean_);
@@ -998,7 +998,7 @@ public class ExtractObjectTest {
         addImportingPage(conf_, false);
         addBean(conf_, bean_);
         ImportingPage ip_ = conf_.getLastPage();
-//        Document doc_ = XmlParser.parseSaxHtml(html_, false, true);
+//        Document doc_ = DocumentBuilder.parseSaxHtml(html_, false, true);
 //        conf_.setHtml(html_);
 //        String formated_ = FormatHtml.processHtml(doc_, "bean_one", conf_, locale_, files_);
 //        String formated_ = FormatHtml.formatNamedVariables(html_, conf_, files_, bean_);
@@ -1030,7 +1030,7 @@ public class ExtractObjectTest {
         addImportingPage(conf_, false);
         addBean(conf_, bean_);
         ImportingPage ip_ = conf_.getLastPage();
-//        Document doc_ = XmlParser.parseSaxHtml(html_, false, true);
+//        Document doc_ = DocumentBuilder.parseSaxHtml(html_, false, true);
 //        conf_.setHtml(html_);
 //        String formated_ = FormatHtml.processHtml(doc_, "bean_one", conf_, locale_, files_);
 //        String formated_ = FormatHtml.formatNamedVariables(html_, conf_, files_, null);
@@ -1062,7 +1062,7 @@ public class ExtractObjectTest {
         addImportingPage(conf_, false);
         addBean(conf_, bean_);
         ImportingPage ip_ = conf_.getLastPage();
-//        Document doc_ = XmlParser.parseSaxHtml(html_, false, true);
+//        Document doc_ = DocumentBuilder.parseSaxHtml(html_, false, true);
 //        conf_.setHtml(html_);
 //        String formated_ = FormatHtml.processHtml(doc_, "bean_one", conf_, locale_, files_);
 //        String formated_ = FormatHtml.formatNamedVariables(html_, conf_, files_, null);
@@ -1093,7 +1093,7 @@ public class ExtractObjectTest {
         addImportingPage(conf_, false);
         addBean(conf_, bean_);
         ImportingPage ip_ = conf_.getLastPage();
-//        Document doc_ = XmlParser.parseSaxHtml(html_, false, true);
+//        Document doc_ = DocumentBuilder.parseSaxHtml(html_, false, true);
 //        conf_.setHtml(html_);
 //        String formated_ = FormatHtml.processHtml(doc_, "bean_one", conf_, locale_, files_);
 //        String formated_ = FormatHtml.formatNamedVariables(html_, conf_, files_, null);
@@ -1124,7 +1124,7 @@ public class ExtractObjectTest {
         addImportingPage(conf_, false);
         addBean(conf_, bean_);
         ImportingPage ip_ = conf_.getLastPage();
-//        Document doc_ = XmlParser.parseSaxHtml(html_, false, true);
+//        Document doc_ = DocumentBuilder.parseSaxHtml(html_, false, true);
 //        conf_.setHtml(html_);
 //        String formated_ = FormatHtml.processHtml(doc_, "bean_one", conf_, locale_, files_);
 //        String formated_ = FormatHtml.formatNamedVariables(html_, conf_, files_, null);
@@ -1155,7 +1155,7 @@ public class ExtractObjectTest {
         addImportingPage(conf_, false);
         addBean(conf_, bean_);
         ImportingPage ip_ = conf_.getLastPage();
-//        Document doc_ = XmlParser.parseSaxHtml(html_, false, true);
+//        Document doc_ = DocumentBuilder.parseSaxHtml(html_, false, true);
 //        conf_.setHtml(html_);
 //        String formated_ = FormatHtml.processHtml(doc_, "bean_one", conf_, locale_, files_);
 //        String formated_ = FormatHtml.formatNamedVariables(html_, conf_, files_, null);
@@ -1187,7 +1187,7 @@ public class ExtractObjectTest {
         addImportingPage(conf_, false);
         addBean(conf_, bean_);
         ImportingPage ip_ = conf_.getLastPage();
-//        Document doc_ = XmlParser.parseSaxHtml(html_, false, true);
+//        Document doc_ = DocumentBuilder.parseSaxHtml(html_, false, true);
 //        conf_.setHtml(html_);
 //        String formated_ = FormatHtml.processHtml(doc_, "bean_one", conf_, locale_, files_);
 //        String formated_ = FormatHtml.formatNamedVariables(html_, conf_, files_, null);
@@ -1219,7 +1219,7 @@ public class ExtractObjectTest {
         addImportingPage(conf_, false);
         addBean(conf_, bean_);
         ImportingPage ip_ = conf_.getLastPage();
-//        Document doc_ = XmlParser.parseSaxHtml(html_, false, true);
+//        Document doc_ = DocumentBuilder.parseSaxHtml(html_, false, true);
 //        conf_.setHtml(html_);
 //        String formated_ = FormatHtml.processHtml(doc_, "bean_one", conf_, locale_, files_);
 //        String formated_ = FormatHtml.formatNamedVariables(html_, conf_, files_, null);

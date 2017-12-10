@@ -1,8 +1,7 @@
 package code.expressionlanguage.methods;
 
-import code.xml.components.Element;
-
 import code.expressionlanguage.ContextEl;
+import code.sml.Element;
 import code.util.CustList;
 import code.util.NatTreeMap;
 import code.util.StringList;

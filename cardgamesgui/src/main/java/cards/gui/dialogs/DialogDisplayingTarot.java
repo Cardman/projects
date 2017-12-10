@@ -9,13 +9,6 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.WindowConstants;
 
-import code.gui.ConfirmDialog;
-import code.gui.LabelButton;
-import code.util.EnumList;
-import code.util.EnumMap;
-import code.util.StringMap;
-import code.util.consts.Constants;
-import code.util.ints.Listable;
 import cards.consts.Suit;
 import cards.gui.MainWindow;
 import cards.gui.comboboxes.ComboBoxSuit;
@@ -24,6 +17,13 @@ import cards.gui.dialogs.events.RemoveSuitEvent;
 import cards.gui.dialogs.events.ValidateDisplayingEvent;
 import cards.gui.panels.SuitsScrollableList;
 import cards.tarot.DisplayingTarot;
+import code.gui.ConfirmDialog;
+import code.gui.LabelButton;
+import code.util.EnumList;
+import code.util.EnumMap;
+import code.util.StringMap;
+import code.util.consts.Constants;
+import code.util.ints.Listable;
 
 public final class DialogDisplayingTarot extends DialogCards implements DialogDisplaying {
 

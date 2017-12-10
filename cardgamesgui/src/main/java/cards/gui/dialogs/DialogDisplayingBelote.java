@@ -9,13 +9,6 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.WindowConstants;
 
-import code.gui.ConfirmDialog;
-import code.gui.LabelButton;
-import code.util.EnumList;
-import code.util.EnumMap;
-import code.util.StringMap;
-import code.util.consts.Constants;
-import code.util.ints.Listable;
 import cards.belote.DisplayingBelote;
 import cards.consts.Order;
 import cards.consts.Suit;
@@ -25,6 +18,13 @@ import cards.gui.dialogs.events.AddSuitEvent;
 import cards.gui.dialogs.events.RemoveSuitEvent;
 import cards.gui.dialogs.events.ValidateDisplayingEvent;
 import cards.gui.panels.SuitsScrollableList;
+import code.gui.ConfirmDialog;
+import code.gui.LabelButton;
+import code.util.EnumList;
+import code.util.EnumMap;
+import code.util.StringMap;
+import code.util.consts.Constants;
+import code.util.ints.Listable;
 
 public final class DialogDisplayingBelote extends DialogCards implements DialogDisplaying {
 

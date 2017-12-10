@@ -3,12 +3,12 @@ import code.formathtml.exceptions.BadFilePropertiesException;
 import code.formathtml.exceptions.MessageKeyNotFoundException;
 import code.formathtml.exceptions.NoSuchResourceException;
 import code.resources.ResourceFiles;
+import code.sml.util.ResourcesMessagesUtil;
 import code.util.CustList;
 import code.util.EntryCust;
 import code.util.StringList;
 import code.util.StringMap;
 import code.util.consts.Constants;
-import code.xml.util.ResourcesMessagesUtil;
 
 final class ExtractFromResources {
     static final String RETURN_LINE = "\n";

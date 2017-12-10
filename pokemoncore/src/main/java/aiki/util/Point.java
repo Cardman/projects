@@ -1,10 +1,10 @@
 package aiki.util;
 import aiki.map.enums.Direction;
 import code.serialize.CheckedData;
+import code.sml.FromAndToString;
 import code.util.Numbers;
 import code.util.StringList;
 import code.util.ints.Equallable;
-import code.xml.FromAndToString;
 
 @CheckedData
 public final class Point implements Equallable<Point> {

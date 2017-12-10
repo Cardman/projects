@@ -11,14 +11,6 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
-import code.gui.IntTreeComboBox;
-import code.util.CustList;
-import code.util.NatCmpTreeMap;
-import code.util.NumberMap;
-import code.util.StringList;
-import code.util.StringMap;
-import code.util.consts.Constants;
-import code.xml.util.ExtractFromFiles;
 import cards.gui.containers.ContainerPresident;
 import cards.gui.dialogs.FileConst;
 import cards.gui.labels.GraphicPresidentCard;
@@ -29,6 +21,14 @@ import cards.president.DisplayingPresident;
 import cards.president.HandPresident;
 import cards.president.TrickPresident;
 import cards.president.TricksHandsPresident;
+import code.gui.IntTreeComboBox;
+import code.sml.util.ExtractFromFiles;
+import code.util.CustList;
+import code.util.NatCmpTreeMap;
+import code.util.NumberMap;
+import code.util.StringList;
+import code.util.StringMap;
+import code.util.consts.Constants;
 
 public class PanelTricksHandsPresident extends JPanel implements ViewablePanelTricksHands {
 

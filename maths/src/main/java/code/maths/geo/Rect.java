@@ -1,10 +1,10 @@
 package code.maths.geo;
 import code.serialize.CheckedData;
+import code.sml.FromAndToString;
 import code.util.CustList;
 import code.util.StringList;
 import code.util.annot.RwXml;
 import code.util.ints.Equallable;
-import code.xml.FromAndToString;
 
 @RwXml
 @CheckedData

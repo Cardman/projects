@@ -4,8 +4,6 @@ import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 import java.lang.reflect.Type;
 
-import code.xml.components.Element;
-
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.Mapping;
 import code.expressionlanguage.PrimitiveTypeUtil;
@@ -35,6 +33,8 @@ import code.expressionlanguage.opers.util.ConstructorId;
 import code.expressionlanguage.opers.util.MethodId;
 import code.expressionlanguage.opers.util.OverridingRelation;
 import code.expressionlanguage.types.NativeTypeUtil;
+import code.sml.Element;
+import code.sml.RowCol;
 import code.util.CustList;
 import code.util.EntryCust;
 import code.util.EqList;
@@ -42,7 +42,6 @@ import code.util.ObjectMap;
 import code.util.StringList;
 import code.util.StringMap;
 import code.util.comparators.ComparatorIndexes;
-import code.xml.RowCol;
 
 public abstract class RootBlock extends BracedBlock implements AccessibleBlock {
 

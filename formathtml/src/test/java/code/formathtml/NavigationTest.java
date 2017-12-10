@@ -40,13 +40,13 @@ import code.formathtml.exceptions.RenderingException;
 import code.formathtml.util.NodeContainer;
 import code.formathtml.util.NodeInformations;
 import code.serialize.exceptions.NoSuchDeclaredMethodException;
+import code.sml.DocumentBuilder;
 import code.util.EntryCust;
 import code.util.NatTreeMap;
 import code.util.NumberMap;
 import code.util.StringList;
 import code.util.StringMap;
 import code.util.StringMapObject;
-import code.xml.components.DocumentBuilder;
 
 @SuppressWarnings("static-method")
 public class NavigationTest {

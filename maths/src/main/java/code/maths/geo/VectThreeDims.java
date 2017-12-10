@@ -3,9 +3,9 @@ import code.maths.Rate;
 import code.maths.matrix.Matrix;
 import code.maths.matrix.Vect;
 import code.serialize.CheckedData;
+import code.sml.FromAndToString;
 import code.util.StringList;
 import code.util.ints.Equallable;
-import code.xml.FromAndToString;
 
 @CheckedData
 public final class VectThreeDims implements Equallable<VectThreeDims> {

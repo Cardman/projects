@@ -1,8 +1,8 @@
 package code.formathtml.classes;
+import code.sml.FromAndToString;
 import code.util.CustList;
 import code.util.StringList;
 import code.util.comparators.ComparatorBoolean;
-import code.xml.FromAndToString;
 
 public final class RateEq {
 

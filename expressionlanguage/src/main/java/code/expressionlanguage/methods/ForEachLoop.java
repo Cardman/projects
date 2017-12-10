@@ -1,8 +1,6 @@
 package code.expressionlanguage.methods;
 import java.lang.reflect.Array;
 
-import code.xml.components.Element;
-
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.ElUtil;
 import code.expressionlanguage.Mapping;
@@ -22,6 +20,7 @@ import code.expressionlanguage.opers.util.Struct;
 import code.expressionlanguage.stacks.LoopBlockStack;
 import code.expressionlanguage.variables.LocalVariable;
 import code.expressionlanguage.variables.LoopVariable;
+import code.sml.Element;
 import code.util.CustList;
 import code.util.NatTreeMap;
 import code.util.StringList;

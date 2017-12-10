@@ -1,11 +1,10 @@
 package code.expressionlanguage.methods;
-import code.xml.components.Element;
-
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.PageEl;
 import code.expressionlanguage.ReadWrite;
 import code.expressionlanguage.methods.exceptions.BadLoopException;
 import code.expressionlanguage.stacks.LoopBlockStack;
+import code.sml.Element;
 import code.util.NatTreeMap;
 
 public final class WhileCondition extends Condition implements Loop, IncrNextGroup {

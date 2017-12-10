@@ -1,8 +1,8 @@
 package code.format;
 import code.resources.ResourceFiles;
+import code.sml.DocumentBuilder;
 import code.util.StringList;
 import code.util.StringMap;
-import code.xml.XmlParser;
 
 /**Classe gerant l'affichage des constantes enumerees notamment pour l'encodage et le formattage de chaines de caracteres*/
 public final class Format {
@@ -53,7 +53,7 @@ public final class Format {
 //                cle_ = cle_.replaceAll(NO_WORD_DOT, EMPTY_STRING);
                 cle_ = keepOnlyWordCharsDot(cle_);
                 String valeur_ = line_.substring(indice_+1);
-                valeur_ = XmlParser.transformSpecialChars(valeur_);
+                valeur_ = DocumentBuilder.transformSpecialChars(valeur_);
                 constantes_.put(cle_, valeur_);
             }
             CONSTANTES_FICHIERS.put(_dossier+ResourceFiles.SEPARATEUR+_fichier, constantes_);
@@ -80,7 +80,7 @@ public final class Format {
 //                cle_ = cle_.replaceAll(NO_WORD_DOT, EMPTY_STRING);
                 cle_ = keepOnlyWordCharsDot(cle_);
                 String valeur_ = line_.substring(indice_+1);
-                valeur_ = XmlParser.transformSpecialChars(valeur_);
+                valeur_ = DocumentBuilder.transformSpecialChars(valeur_);
                 constantes_.put(cle_, valeur_);
             }
             CONSTANTES_FICHIERS.put(_dossier+ResourceFiles.SEPARATEUR+_loc+ResourceFiles.SEPARATEUR+_fichier, constantes_);

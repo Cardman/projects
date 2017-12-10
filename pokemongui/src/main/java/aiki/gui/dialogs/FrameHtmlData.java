@@ -9,16 +9,16 @@ import javax.swing.JTextField;
 import javax.swing.ToolTipManager;
 import javax.swing.WindowConstants;
 
+import aiki.Resources;
+import aiki.gui.MainWindow;
 import code.gui.ChildFrame;
 import code.gui.LabelButton;
 import code.gui.ProgressingWebDialog;
 import code.gui.SessionEditorPane;
 import code.gui.events.ClosingChildFrameEvent;
+import code.sml.util.ExtractFromFiles;
 import code.util.StringMap;
 import code.util.consts.Constants;
-import code.xml.util.ExtractFromFiles;
-import aiki.Resources;
-import aiki.gui.MainWindow;
 
 public final class FrameHtmlData extends ChildFrame {
     private static final String DIALOG_ACCESS = "aiki.gui.dialogs.FrameHtmlData";

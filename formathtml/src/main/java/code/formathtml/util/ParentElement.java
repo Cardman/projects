@@ -1,5 +1,5 @@
 package code.formathtml.util;
-import code.xml.components.Element;
+import code.sml.Element;
 
 public final class ParentElement {
 

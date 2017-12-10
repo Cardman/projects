@@ -10,15 +10,14 @@ import javax.swing.text.SimpleAttributeSet;
 import javax.swing.text.StyledDocument;
 import javax.swing.text.html.HTMLEditorKit;
 
-import code.xml.components.Attr;
-import code.xml.components.Document;
-import code.xml.components.NamedNodeMap;
-import code.xml.components.Node;
-import code.xml.components.NodeList;
-
+import code.sml.Attr;
+import code.sml.Document;
+import code.sml.DocumentBuilder;
+import code.sml.NamedNodeMap;
+import code.sml.Node;
+import code.sml.NodeList;
 import code.util.CustList;
 import code.util.StringList;
-import code.xml.XmlParser;
 
 public class EditorPane extends JTextPane {
 
@@ -90,7 +89,7 @@ public class EditorPane extends JTextPane {
 
     void setupText(String _text, boolean _autoSubmission) {
         tooltips.clear();
-        Document doc_ = XmlParser.parseSaxHtml(_text, false);
+        Document doc_ = DocumentBuilder.parseSaxHtml(_text, false);
         NodeList nodes_ = doc_.getElementsByTagName(TAG_A);
         int size_ = nodes_.getLength();
         for (int i = CustList.FIRST_INDEX;i<size_;i++) {

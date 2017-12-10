@@ -1,11 +1,11 @@
 package aiki.util;
 import code.serialize.CheckedData;
+import code.sml.FromAndToString;
 import code.util.CustList;
 import code.util.Numbers;
 import code.util.StringList;
 import code.util.ints.Equallable;
 import code.util.ints.Listable;
-import code.xml.FromAndToString;
 
 @CheckedData
 public final class Coords implements Equallable<Coords> {

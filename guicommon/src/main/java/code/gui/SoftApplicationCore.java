@@ -7,20 +7,19 @@ import java.io.File;
 
 import javax.swing.JFrame;
 
-import code.xml.components.Document;
-import code.xml.components.Element;
-import code.xml.components.Node;
-
 import code.images.ConverterBufferedImage;
 import code.resources.ResourceFiles;
 import code.serialize.SerializeXmlObject;
+import code.sml.Document;
+import code.sml.DocumentBuilder;
+import code.sml.Element;
+import code.sml.Node;
 import code.stream.StreamTextFile;
 import code.util.PairNumber;
 import code.util.StringList;
 import code.util.StringMap;
 import code.util.consts.ConstFiles;
 import code.util.consts.Constants;
-import code.xml.XmlParser;
 
 public abstract class SoftApplicationCore {
 
@@ -137,7 +136,7 @@ public abstract class SoftApplicationCore {
         if (noeud_ == null) {
             return null;
         }
-        for(Element e:XmlParser.childrenElements(noeud_)){
+        for(Element e: noeud_.getChildElements()){
             if(StringList.quickEq(e.getTagName(),LOCALE)){
                 String code_ = e.getAttribute(LOCALE);
                 boolean valide_ = false;
@@ -156,39 +155,16 @@ public abstract class SoftApplicationCore {
     }
 
     public static void saveLanguage(String _folder, String _locale) {
-        Document document_= XmlParser.newXmlDocument();
+        Document document_= DocumentBuilder.newXmlDocument();
         Element info_=document_.createElement(PARAMETERS);
         Element infoPart_ = document_.createElement(LOCALE);
         infoPart_.setAttribute(LOCALE, _locale);
         info_.appendChild(infoPart_);
         document_.appendChild(info_);
-        boolean indent_ = XmlParser.isIndentXmlWhileWriting();
-        XmlParser.setIndentXmlWhileWriting(false);
-        StreamTextFile.saveTextFile(_folder+StreamTextFile.SEPARATEUR+LANGUAGE, XmlParser.toXml(document_));
-        XmlParser.setIndentXmlWhileWriting(indent_);
-//        try {
-//            Document document_= XmlParser.newXmlDocument();
-//            Element info_=document_.createElement(PARAMETERS);
-//            Element infoPart_ = document_.createElement(LOCALE);
-//            infoPart_.setAttribute(LOCALE, _locale);
-//            info_.appendChild(infoPart_);
-//            document_.appendChild(info_);
-//            boolean indent_ = XmlParser.isIndentXmlWhileWriting();
-//            XmlParser.setIndentXmlWhileWriting(false);
-//            StreamTextFile.saveTextFile(_folder+StreamTextFile.SEPARATEUR+LANGUAGE, XmlParser.toXml(document_));
-//            XmlParser.setIndentXmlWhileWriting(indent_);
-////            Transformer xmlTransformeur_= XmlParser.getTransformer(false);
-////            DOMSource source_ = new DOMSource(document_);
-//////            StreamResult resultat_ = new StreamResult(new File(getFolderJarPath()+LANGUAGE));
-////            StreamResult resultat_ = new StreamResult(new File(_folder+StreamTextFile.SEPARATEUR+LANGUAGE));
-////            xmlTransformeur_.transform(source_, resultat_);
-//        } catch (ParserConfigurationException _0) {
-//            _0.printStackTrace();
-////        } catch (TransformerConfigurationException _0) {
-////            _0.printStackTrace();
-////        } catch (TransformerException _0) {
-////            _0.printStackTrace();
-//        }
+        boolean indent_ = DocumentBuilder.isIndentXmlWhileWriting();
+        DocumentBuilder.setIndentXmlWhileWriting(false);
+        StreamTextFile.saveTextFile(_folder+StreamTextFile.SEPARATEUR+LANGUAGE, DocumentBuilder.toXml(document_));
+        DocumentBuilder.setIndentXmlWhileWriting(indent_);
     }
 
     public static void setLocation(JFrame _frame, TopLeftFrame _topLeft) {

@@ -1,6 +1,6 @@
 package code.serialize;
-import code.xml.components.Document;
-import code.xml.components.Element;
+import code.sml.Document;
+import code.sml.Element;
 
 abstract class ElementsSerial {
 

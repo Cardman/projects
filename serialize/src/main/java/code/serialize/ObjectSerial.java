@@ -4,11 +4,6 @@ import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 
-import code.xml.components.Attr;
-import code.xml.components.Document;
-import code.xml.components.Element;
-import code.xml.components.NamedNodeMap;
-
 import code.serialize.exceptions.InvokingException;
 import code.serialize.exceptions.NoSuchDeclaredMethodException;
 import code.serialize.exceptions.RuntimeInstantiationException;
@@ -25,7 +20,11 @@ import code.util.ints.Countable;
 import code.util.ints.Listable;
 import code.util.ints.ListableEntries;
 import code.util.opers.CollectionsUtil;
-import code.xml.XmlParser;
+import code.sml.Attr;
+import code.sml.Document;
+import code.sml.DocumentBuilder;
+import code.sml.Element;
+import code.sml.NamedNodeMap;
 
 final class ObjectSerial extends TemplateSerial {
 
@@ -275,10 +274,10 @@ final class ObjectSerial extends TemplateSerial {
                 }
                 setField(e, class_, e.getValue());
             } catch (RuntimeException _0) {
-                System.err.println(XmlParser.getRowColOfNodeOrAttribute(_xml, e.getNode(), 0, EMPTY_STRING, TAB_WIDTH));
+                System.err.println(DocumentBuilder.getRowColOfNodeOrAttribute(_xml, e.getNode(), 0, EMPTY_STRING, TAB_WIDTH));
                 throw _0;
             } catch (Error _0) {
-                System.err.println(XmlParser.getRowColOfNodeOrAttribute(_xml, e.getNode(), 0, EMPTY_STRING, TAB_WIDTH));
+                System.err.println(DocumentBuilder.getRowColOfNodeOrAttribute(_xml, e.getNode(), 0, EMPTY_STRING, TAB_WIDTH));
                 throw _0;
             }
         }
@@ -286,7 +285,7 @@ final class ObjectSerial extends TemplateSerial {
         if (ListableEntries.class.isInstance(value)) {
             int len_ = keys.size();
             if (len_ != values.size()) {
-                System.err.println(XmlParser.getRowColOfNodeOrAttribute(_xml, getNode(), 0, EMPTY_STRING, TAB_WIDTH));
+                System.err.println(DocumentBuilder.getRowColOfNodeOrAttribute(_xml, getNode(), 0, EMPTY_STRING, TAB_WIDTH));
             }
             for (int i = CollectionsUtil.getFirstIndex(); i< len_; i++) {
                 ConverterMethod.invokeMethod(ADD_ENTRY_METHOD, value, keys.get(i),values.get(i));
@@ -330,17 +329,17 @@ final class ObjectSerial extends TemplateSerial {
                 }
                 setField(e, class_, e.getValue());
             } catch (RuntimeException _0) {
-                System.err.println(XmlParser.getRowColOfNodeOrAttribute(_xml, e.getNode(), 0, EMPTY_STRING, TAB_WIDTH));
+                System.err.println(DocumentBuilder.getRowColOfNodeOrAttribute(_xml, e.getNode(), 0, EMPTY_STRING, TAB_WIDTH));
                 throw _0;
             } catch (Error _0) {
-                System.err.println(XmlParser.getRowColOfNodeOrAttribute(_xml, e.getNode(), 0, EMPTY_STRING, TAB_WIDTH));
+                System.err.println(DocumentBuilder.getRowColOfNodeOrAttribute(_xml, e.getNode(), 0, EMPTY_STRING, TAB_WIDTH));
                 throw _0;
             }
         }
         if (ListableEntries.class.isInstance(value)) {
             int len_ = keys.size();
             if (len_ != values.size()) {
-                System.err.println(XmlParser.getRowColOfNodeOrAttribute(_xml, getNode(), 0, EMPTY_STRING, TAB_WIDTH));
+                System.err.println(DocumentBuilder.getRowColOfNodeOrAttribute(_xml, getNode(), 0, EMPTY_STRING, TAB_WIDTH));
             }
             for (int i = CollectionsUtil.getFirstIndex(); i< len_; i++) {
                 ConverterMethod.invokeMethod(ADD_ENTRY_METHOD, value, keys.get(i),values.get(i));
@@ -416,10 +415,10 @@ final class ObjectSerial extends TemplateSerial {
             }
             setField(_e, class_, _newE.getValue());
         } catch (RuntimeException _0) {
-            System.err.println(XmlParser.getRowColOfNodeOrAttribute(_xml, _e.getNode(), 0, EMPTY_STRING, TAB_WIDTH));
+            System.err.println(DocumentBuilder.getRowColOfNodeOrAttribute(_xml, _e.getNode(), 0, EMPTY_STRING, TAB_WIDTH));
             throw _0;
         } catch (Error _0) {
-            System.err.println(XmlParser.getRowColOfNodeOrAttribute(_xml, _e.getNode(), 0, EMPTY_STRING, TAB_WIDTH));
+            System.err.println(DocumentBuilder.getRowColOfNodeOrAttribute(_xml, _e.getNode(), 0, EMPTY_STRING, TAB_WIDTH));
             throw _0;
         }
     }

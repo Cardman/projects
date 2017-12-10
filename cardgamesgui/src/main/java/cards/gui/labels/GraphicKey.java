@@ -6,12 +6,12 @@ import java.awt.Graphics2D;
 
 import javax.swing.JLabel;
 
+import cards.gui.dialogs.FileConst;
+import code.sml.util.ExtractFromFiles;
 import code.util.CustList;
 import code.util.StringList;
 import code.util.StringMap;
 import code.util.consts.Constants;
-import code.xml.util.ExtractFromFiles;
-import cards.gui.dialogs.FileConst;
 public class GraphicKey extends JLabel {
     private static final String GRAPHIC_KEY = "cards.gui.labels.GraphicKey";
     private static final String DEFAULT="Default";

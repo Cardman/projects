@@ -1,7 +1,7 @@
 package aiki.game;
 import code.serialize.CheckedData;
+import code.sml.FromAndToString;
 import code.util.StringList;
-import code.xml.FromAndToString;
 
 
 @CheckedData

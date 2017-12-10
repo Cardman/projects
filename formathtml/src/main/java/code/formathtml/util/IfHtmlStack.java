@@ -1,8 +1,7 @@
 package code.formathtml.util;
-import code.xml.components.Element;
-import code.xml.components.Node;
-
 import code.expressionlanguage.stacks.IfStack;
+import code.sml.Element;
+import code.sml.Node;
 import code.util.CustList;
 
 public final class IfHtmlStack extends IfStack implements BlockHtml {

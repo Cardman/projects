@@ -1,16 +1,6 @@
 package code.formathtml;
 import java.lang.reflect.Array;
 
-import code.xml.components.Attr;
-import code.xml.components.CharacterData;
-import code.xml.components.Comment;
-import code.xml.components.Document;
-import code.xml.components.Element;
-import code.xml.components.NamedNodeMap;
-import code.xml.components.Node;
-import code.xml.components.NodeList;
-import code.xml.components.Text;
-
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.ElUtil;
@@ -76,6 +66,18 @@ import code.formathtml.util.SwitchHtmlStack;
 import code.formathtml.util.TryHtmlStack;
 import code.formathtml.util.VariableInformation;
 import code.images.ConverterBufferedImage;
+import code.sml.Attr;
+import code.sml.AttributePart;
+import code.sml.CharacterData;
+import code.sml.Comment;
+import code.sml.Document;
+import code.sml.DocumentBuilder;
+import code.sml.Element;
+import code.sml.NamedNodeMap;
+import code.sml.Node;
+import code.sml.NodeList;
+import code.sml.Text;
+import code.sml.exceptions.XmlParseException;
 import code.util.CustList;
 import code.util.EntryCust;
 import code.util.IdList;
@@ -89,9 +91,6 @@ import code.util.consts.ConstClasses;
 import code.util.exceptions.NullObjectException;
 import code.util.exceptions.RuntimeClassNotFoundException;
 import code.util.ints.Listable;
-import code.xml.AttributePart;
-import code.xml.XmlParser;
-import code.xml.exceptions.XmlParseException;
 
 final class FormatHtml {
 
@@ -274,7 +273,7 @@ final class FormatHtml {
     static String getCurrentBean(String _htmlText) {
         String htmlText_ = _htmlText;
         try {
-            Document doc_ = XmlParser.parseSaxHtml(htmlText_);
+            Document doc_ = DocumentBuilder.parseSaxHtml(htmlText_);
             Element root_ = doc_.getDocumentElement();
             return root_.getAttribute(BEAN_ATTRIBUTE);
         } catch (RuntimeException _0) {
@@ -289,10 +288,10 @@ final class FormatHtml {
         if (htmlText_ == null) {
             return null;
         }
-        Document doc_ = XmlParser.parseSaxHtml(htmlText_, false);
+        Document doc_ = DocumentBuilder.parseSaxHtml(htmlText_, false);
         _conf.setDocument(doc_);
         _conf.clearPages();
-        return XmlParser.toHtml(doc_);
+        return DocumentBuilder.toXml(doc_);
     }
 
     static BeanElement tryToOpenDocument(Element _importElement,
@@ -306,7 +305,7 @@ final class FormatHtml {
         String subHtml_ = ExtractFromResources.loadPage(_conf, _files, pageName_,_resourcesFolder);
         Document doc_;
         try {
-            doc_ = XmlParser.parseSaxHtml(subHtml_, false);
+            doc_ = DocumentBuilder.parseSaxHtml(subHtml_, false);
         } catch (XmlParseException _0) {
             throw new XmlParseException(_0.getMessage()+RETURN_LINE+_conf.joinPages());
         }
@@ -342,7 +341,7 @@ final class FormatHtml {
         StringMapObject forms_ = (StringMapObject) ExtractObject.getForms(_conf, bean_).getInstance();
         StringMapObject formsMap_ = (StringMapObject) ExtractObject.getForms(_conf, _mainBean).getInstance();
         if (_keepField) {
-            for (Element f_: XmlParser.childrenElements(_node)) {
+            for (Element f_: _node.getChildElements()) {
                 if (!StringList.quickEq(f_.getTagName(),prefix_+FORM_BLOCK_TAG)) {
                     continue;
                 }
@@ -360,12 +359,12 @@ final class FormatHtml {
         Struct bean_ = getBean(_conf, _beanName);
         ImportingPage ip_ = _conf.getLastPage();
         String prefix_ = ip_.getPrefix();
-        for (Element n: XmlParser.childrenElements(_node)) {
+        for (Element n: _node.getChildElements()) {
             if (!StringList.quickEq(n.getTagName(),prefix_+PACKAGE_BLOCK_TAG)) {
                 continue;
             }
             String package_ = n.getAttribute(ATTRIBUTE_NAME);
-            for (Element nTwo_: XmlParser.childrenElements(n)) {
+            for (Element nTwo_: n.getChildElements()) {
                 if (!StringList.quickEq(nTwo_.getTagName(),prefix_+CLASS_BLOCK_TAG)) {
                     continue;
                 }
@@ -386,7 +385,7 @@ final class FormatHtml {
                 if (!PrimitiveTypeUtil.canBeUseAsArgument(searchedClass_, bean_.getClassName(), _conf.toContextEl().getClasses())) {
                     throw new RuntimeClassNotFoundException(searchedClass_+RETURN_LINE+_conf.joinPages());
                 }
-                for (Element nThree_: XmlParser.childrenElements(nTwo_)) {
+                for (Element nThree_: nTwo_.getChildElements()) {
                     if (!StringList.quickEq(nThree_.getTagName(),prefix_+FIELD_BLOCK_TAG)) {
                         continue;
                     }
@@ -458,7 +457,7 @@ final class FormatHtml {
         ImportingPage ip_ = _conf.getLastPage();
         StringMap<LocalVariable> parameters_ = new StringMap<LocalVariable>();
         String prefix_ = ip_.getPrefix();
-        for (Element n: XmlParser.childrenElements(_node)) {
+        for (Element n: _node.getChildElements()) {
             if (!StringList.quickEq(n.getTagName(),prefix_+PARAM_BLOCK_TAG)) {
                 continue;
             }
@@ -487,7 +486,7 @@ final class FormatHtml {
         ImportingPage ip_ = _conf.getLastPage();
         StringMap<LocalVariable> parameters_ = new StringMap<LocalVariable>();
         String prefix_ = ip_.getPrefix();
-        for (Element n: XmlParser.childrenElements(_node)) {
+        for (Element n: _node.getChildElements()) {
             if (!StringList.quickEq(n.getTagName(),prefix_+SET_BLOCK_TAG)) {
                 continue;
             }
@@ -589,7 +588,7 @@ final class FormatHtml {
         _conf.addPage(ip_);
         checkSyntax(_conf, _docOrig, ip_.getHtml());
         Node en_ = r_;
-        Document doc_ = XmlParser.newXmlDocument();
+        Document doc_ = DocumentBuilder.newXmlDocument();
         Node currentNode_ = doc_;
         ReadWriteHtml rw_ = new ReadWriteHtml();
         rw_.setRead(en_);
@@ -700,7 +699,7 @@ final class FormatHtml {
         }
         _conf.getHtmlPage().setContainers(containersMap_);
         doc_.getDocumentElement().removeAttribute(_conf.getPrefix()+BEAN_ATTRIBUTE);
-        return XmlParser.toHtml(doc_);
+        return DocumentBuilder.toXml(doc_);
     }
 
     static boolean throwException(Configuration _conf, Throwable _t) {
@@ -1309,7 +1308,7 @@ final class FormatHtml {
             _conf.addPage(ipMess_);
             Document docLoc_;
             try {
-                docLoc_ = XmlParser.parseSaxHtml(ipMess_.getHtml(), false);
+                docLoc_ = DocumentBuilder.parseSaxHtml(ipMess_.getHtml(), false);
                 ipMess_.setPrefix(getPrefix(_conf, docLoc_));
                 ipMess_.setRoot(docLoc_.getDocumentElement());
             } catch (XmlParseException _0) {
@@ -2734,7 +2733,7 @@ final class FormatHtml {
             _ip.setLookForAttrValue(true);
             String key_ = elts_.last();
             String preformatted_ = ExtractFromResources.getFormat(messages_, key_, _conf, _loc, fileName_);
-            preformatted_ = XmlParser.transformSpecialChars(preformatted_, _tag.hasAttribute(ATTRIBUTE_ESCAPED_EAMP));
+            preformatted_ = DocumentBuilder.transformSpecialChars(preformatted_, _tag.hasAttribute(ATTRIBUTE_ESCAPED_EAMP));
             _tag.removeAttribute(ATTRIBUTE_VALUE_SUBMIT);
             _tag.removeAttribute(ATTRIBUTE_ESCAPED_EAMP);
             IdList<Object> objects_ = new IdList<Object>();
@@ -2774,7 +2773,7 @@ final class FormatHtml {
             _ip.setLookForAttrValue(true);
             String key_ = elts_.last();
             String preformatted_ = ExtractFromResources.getFormat(messages_, key_, _conf, _loc, fileName_);
-            preformatted_ = XmlParser.transformSpecialChars(preformatted_, _tag.hasAttribute(ATTRIBUTE_ESCAPED_EAMP));
+            preformatted_ = DocumentBuilder.transformSpecialChars(preformatted_, _tag.hasAttribute(ATTRIBUTE_ESCAPED_EAMP));
             _tag.removeAttribute(ATTRIBUTE_VALUE_SUBMIT);
             _tag.removeAttribute(ATTRIBUTE_VALUE);
             IdList<Object> objects_ = new IdList<Object>();
@@ -2828,7 +2827,7 @@ final class FormatHtml {
             if (href_ != null && heads_.getLength() == CustList.ONE_ELEMENT){
                 Element head_ = (Element) heads_.item(CustList.FIRST_INDEX);
                 CustList<Element> children_ = new CustList<Element>();
-                for (Element c: XmlParser.childrenElements(head_)) {
+                for (Element c: head_.getChildElements()) {
                     if (!StringList.quickEq(c.getTagName(), TAG_STYLE)) {
                         continue;
                     }
@@ -2860,7 +2859,7 @@ final class FormatHtml {
                 boolean successAdd_ = children_.isEmpty();
                 if (!successAdd_) {
                     Element eltStyle_ = children_.last();
-                    CustList<Node> chNode_ = XmlParser.childrenNodes(eltStyle_);
+                    CustList<Node> chNode_ = eltStyle_.getChildNodes();
                     if (chNode_.isEmpty()) {
                         Text text_ = _doc.createTextNode(fileContent_);
                         eltStyle_.appendChild(text_);
@@ -2891,7 +2890,7 @@ final class FormatHtml {
             for (String r: refs_) {
                 filesContents_.add(ExtractFromResources.getContentFile(_conf, _files, r, _resourcesFolder));
             }
-            CustList<Node> chNode_ = XmlParser.childrenNodes(_tag);
+            NodeList chNode_ = _tag.getChildNodes();
             if (chNode_.isEmpty()) {
                 Text text_ = _doc.createTextNode(filesContents_.join(RETURN_LINE));
                 _tag.appendChild(text_);

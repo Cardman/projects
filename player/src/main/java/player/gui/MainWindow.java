@@ -15,10 +15,6 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.Timer;
 
-import code.xml.components.Document;
-import code.xml.components.Element;
-import code.xml.components.NodeList;
-
 import code.gui.Clock;
 import code.gui.GroupFrame;
 import code.gui.LabelButton;
@@ -28,6 +24,11 @@ import code.images.ConverterBufferedImage;
 import code.maths.montecarlo.AbMonteCarlo;
 import code.resources.ClipStream;
 import code.resources.ResourceFiles;
+import code.sml.Document;
+import code.sml.DocumentBuilder;
+import code.sml.Element;
+import code.sml.NodeList;
+import code.sml.util.ExtractFromFiles;
 import code.stream.StreamBinaryFile;
 import code.stream.StreamSoundFile;
 import code.stream.StreamTextFile;
@@ -35,8 +36,6 @@ import code.util.CustList;
 import code.util.StringList;
 import code.util.StringMap;
 import code.util.consts.Constants;
-import code.xml.XmlParser;
-import code.xml.util.ExtractFromFiles;
 
 public class MainWindow extends GroupFrame {
     private static final String ACCESS = "player.gui.MainWindow";
@@ -241,7 +240,7 @@ public class MainWindow extends GroupFrame {
                         }
                     }
                     txt_ = escapedXml_.toString();
-                    Document doc_ = XmlParser.parseSax(txt_);
+                    Document doc_ = DocumentBuilder.parseSax(txt_);
                     NodeList e_ = doc_.getElementsByTagName(MEDIA);
                     int len_ = e_.getLength();
                     songsList.clear();

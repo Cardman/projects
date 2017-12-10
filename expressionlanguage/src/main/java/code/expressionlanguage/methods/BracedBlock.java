@@ -1,12 +1,11 @@
 package code.expressionlanguage.methods;
-import code.xml.components.Element;
-import code.xml.components.Node;
-
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.PageEl;
+import code.sml.DocumentBuilder;
+import code.sml.Element;
+import code.sml.ElementOffsetsNext;
+import code.sml.Node;
 import code.util.CustList;
-import code.xml.ElementOffsetsNext;
-import code.xml.XmlParser;
 
 public abstract class BracedBlock extends Block implements BracedBlockInt {
 
@@ -41,7 +40,7 @@ public abstract class BracedBlock extends Block implements BracedBlockInt {
         String html_ = getConf().getHtml();
         int tabWidth_ = getConf().getTabWidth();
         ElementOffsetsNext e_ = getConf().getElements();
-        ElementOffsetsNext ne_ = XmlParser.getIndexesOfElementOrAttribute(html_, e_, eltFirst_, tabWidth_);
+        ElementOffsetsNext ne_ = DocumentBuilder.getIndexesOfElementOrAttribute(html_, e_, eltFirst_, tabWidth_);
         firstChild.setAttributes(ne_.getAttributes());
         firstChild.setEndHeader(ne_.getEndHeader());
         firstChild.setTabs(ne_.getTabs());

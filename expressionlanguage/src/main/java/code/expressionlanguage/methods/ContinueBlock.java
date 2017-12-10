@@ -1,12 +1,11 @@
 package code.expressionlanguage.methods;
-import code.xml.components.Element;
-
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.PageEl;
 import code.expressionlanguage.methods.exceptions.BadTagContinueException;
 import code.expressionlanguage.stacks.LoopBlockStack;
 import code.expressionlanguage.stacks.RemovableVars;
 import code.expressionlanguage.stacks.TryBlockStack;
+import code.sml.Element;
 import code.util.NatTreeMap;
 
 public final class ContinueBlock extends Leaf implements CallingFinally {

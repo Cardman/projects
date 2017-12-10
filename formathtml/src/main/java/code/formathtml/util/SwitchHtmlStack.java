@@ -1,7 +1,6 @@
 package code.formathtml.util;
-import code.xml.components.Element;
-
 import code.expressionlanguage.stacks.SwitchStack;
+import code.sml.Element;
 import code.util.CustList;
 
 public final class SwitchHtmlStack extends SwitchStack implements BreakableHtmlStack {

@@ -1,7 +1,4 @@
 package code.expressionlanguage.methods;
-import code.xml.components.Element;
-import code.xml.components.Node;
-
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.PageEl;
 import code.expressionlanguage.PrimitiveTypeUtil;
@@ -10,14 +7,16 @@ import code.expressionlanguage.methods.exceptions.UnknownBlockException;
 import code.expressionlanguage.methods.util.CallConstructor;
 import code.expressionlanguage.methods.util.ParentStackBlock;
 import code.expressionlanguage.methods.util.SearchingReturnThrow;
+import code.sml.DocumentBuilder;
+import code.sml.Element;
+import code.sml.ElementOffsetsNext;
+import code.sml.Node;
+import code.sml.RowCol;
 import code.util.CustList;
 import code.util.NatTreeMap;
 import code.util.Numbers;
 import code.util.StringList;
 import code.util.StringMap;
-import code.xml.ElementOffsetsNext;
-import code.xml.RowCol;
-import code.xml.XmlParser;
 
 public abstract class Block extends Blockable {
     public static final String EQ = "=";
@@ -259,11 +258,11 @@ public abstract class Block extends Blockable {
         return null;
     }
     public final RowCol getRowCol(int _offset, int _tabWidth,String _attribute) {
-        return XmlParser.getOffset(_attribute, attributes, encoded, _offset, offsets, tabs, endHeader, _tabWidth);
+        return DocumentBuilder.getOffset(_attribute, attributes, encoded, _offset, offsets, tabs, endHeader, _tabWidth);
     }
 
     private static RowCol getRowColBeginElt(String _html, int _offset, int _tabWidth, Element _elt) {
-        return XmlParser.getRowColOfNodeOrAttribute(_html, _elt, _offset, EMPTY_STRING, _tabWidth, false);
+        return DocumentBuilder.getRowColOfNodeOrAttribute(_html, _elt, _offset, EMPTY_STRING, _tabWidth, false);
     }
 
     public final StringMap<NatTreeMap<Integer,Integer>> getEncoded() {
@@ -619,7 +618,7 @@ public abstract class Block extends Blockable {
         }
     }
     public final void setupChars(String _html) {
-        encoded = XmlParser.getSpecialChars(_html, associateElement);
+        encoded = DocumentBuilder.getSpecialChars(_html, associateElement);
     }
 
     protected final void removeLocalVariablesFromParent(ContextEl _cont) {
@@ -792,7 +791,7 @@ public abstract class Block extends Blockable {
         String html_ = conf.getHtml();
         int tabWidth_ = conf.getTabWidth();
         ElementOffsetsNext e_ = conf.getElements();
-        ElementOffsetsNext ne_ = XmlParser.getIndexesOfElementOrAttribute(html_, e_, next_, tabWidth_);
+        ElementOffsetsNext ne_ = DocumentBuilder.getIndexesOfElementOrAttribute(html_, e_, next_, tabWidth_);
         nextSibling.attributes = ne_.getAttributes();
         nextSibling.endHeader = ne_.getEndHeader();
         nextSibling.tabs = ne_.getTabs();

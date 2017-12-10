@@ -11,16 +11,16 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 
+import cards.facade.Nicknames;
+import cards.facade.enumerations.GameEnum;
+import cards.gui.MainWindow;
+import cards.gui.dialogs.events.ListenerNicknames;
 import code.gui.ConfirmDialog;
 import code.gui.LabelButton;
 import code.util.CustList;
 import code.util.StringList;
 import code.util.StringMap;
 import code.util.consts.Constants;
-import cards.facade.Nicknames;
-import cards.facade.enumerations.GameEnum;
-import cards.gui.MainWindow;
-import cards.gui.dialogs.events.ListenerNicknames;
 
 public final class DialogNicknames extends DialogCards {
 

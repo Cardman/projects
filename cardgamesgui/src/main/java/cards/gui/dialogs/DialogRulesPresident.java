@@ -2,10 +2,10 @@ package cards.gui.dialogs;
 import java.awt.BorderLayout;
 import java.awt.Container;
 
-import code.gui.LabelButton;
 import cards.gui.MainWindow;
 import cards.gui.dialogs.events.ValidateRulesEvent;
 import cards.president.RulesPresident;
+import code.gui.LabelButton;
 
 public final class DialogRulesPresident extends DialogPresident implements DialogRules {
     private static final String DIALOG_ACCESS = "cards.gui.dialogs.DialogRulesPresident";

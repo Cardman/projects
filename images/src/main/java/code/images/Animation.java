@@ -1,7 +1,7 @@
 package code.images;
+import code.sml.FromAndToString;
 import code.util.CustList;
 import code.util.StringList;
-import code.xml.FromAndToString;
 
 public final class Animation {
 

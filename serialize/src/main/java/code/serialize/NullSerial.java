@@ -1,8 +1,8 @@
 package code.serialize;
-import code.xml.components.Attr;
-import code.xml.components.Document;
-import code.xml.components.Element;
-import code.xml.components.NamedNodeMap;
+import code.sml.Attr;
+import code.sml.Document;
+import code.sml.Element;
+import code.sml.NamedNodeMap;
 
 import code.serialize.exceptions.ClassFoundException;
 import code.util.StringList;

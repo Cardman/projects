@@ -2,12 +2,6 @@ package code.formathtml;
 import java.awt.image.BufferedImage;
 import java.lang.reflect.Method;
 
-import code.xml.components.Document;
-import code.xml.components.Element;
-import code.xml.components.Node;
-import code.xml.components.NodeList;
-import code.xml.components.Text;
-
 import code.bean.Bean;
 import code.bean.validator.Message;
 import code.expressionlanguage.Argument;
@@ -31,6 +25,13 @@ import code.serialize.ConverterMethod;
 import code.serialize.SerializeXmlObject;
 import code.serialize.exceptions.InexistingValueForEnum;
 import code.serialize.exceptions.NoSuchDeclaredMethodException;
+import code.sml.Document;
+import code.sml.DocumentBuilder;
+import code.sml.Element;
+import code.sml.Node;
+import code.sml.NodeList;
+import code.sml.Text;
+import code.sml.exceptions.XmlParseException;
 import code.util.CustList;
 import code.util.EntryCust;
 import code.util.NatTreeMap;
@@ -42,8 +43,6 @@ import code.util.consts.ConstClasses;
 import code.util.exceptions.RuntimeClassNotFoundException;
 import code.util.ints.Listable;
 import code.util.ints.WithMathFactory;
-import code.xml.XmlParser;
-import code.xml.exceptions.XmlParseException;
 
 public final class Navigation {
 
@@ -234,7 +233,7 @@ public final class Navigation {
     }
 
     public String getHtmlTextFormatted() {
-        return XmlParser.toFormattedHtml(session.getDocument());
+        return session.getDocument().exportHtml();
     }
 
     public String getReferenceScroll() {
@@ -254,7 +253,7 @@ public final class Navigation {
         String text_ = ExtractFromResources.loadPage(session, files, currentUrl_, resourcesFolder);
         String currentBeanName_;
         try {
-            Document doc_ = XmlParser.parseSaxHtml(text_, false);
+            Document doc_ = DocumentBuilder.parseSaxHtml(text_, false);
             Element root_ = doc_.getDocumentElement();
             session.setDocument(doc_);
             currentBeanName_ = root_.getAttribute(session.getPrefix()+FormatHtml.BEAN_ATTRIBUTE);
@@ -280,7 +279,7 @@ public final class Navigation {
         } catch (Throwable _0) {
             session.setCurrentUrl(currentUrl);
             String textToBeChanged_ = ExtractFromResources.loadPage(session, files, StringList.getFirstToken(currentUrl,REF_TAG), resourcesFolder);
-            session.setDocument(XmlParser.parseSaxHtml(textToBeChanged_, false));
+            session.setDocument(DocumentBuilder.parseSaxHtml(textToBeChanged_, false));
             textToBeChanged_ = FormatHtml.processImports(
                     textToBeChanged_, session, language, files, resourcesFolder);
             if (textToBeChanged_ == null) {
@@ -303,10 +302,10 @@ public final class Navigation {
             Element node_;
             if (htmlPage_.isForm()) {
                 Document doc_ = session.getDocument();
-                node_ = XmlParser.getFirstElementByAttribute(doc_, NUMBER_FORM, String.valueOf(htmlPage_.getUrl()));
+                node_ = DocumentBuilder.getFirstElementByAttribute(doc_, NUMBER_FORM, String.valueOf(htmlPage_.getUrl()));
             } else {
                 Document doc_ = session.getDocument();
-                node_ = XmlParser.getFirstElementByAttribute(doc_, NUMBER_ANCHOR, String.valueOf(htmlPage_.getUrl()));
+                node_ = DocumentBuilder.getFirstElementByAttribute(doc_, NUMBER_ANCHOR, String.valueOf(htmlPage_.getUrl()));
                 if (node_.getAttribute(ATTRIBUTE_HREF).isEmpty()) {
                     htmlPage_.setUsedFieldUrl(ip_.getPrefix()+ATTRIBUTE_COMMAND);
                 } else if (node_.getAttribute(ATTRIBUTE_HREF).endsWith(END_PATH)) {
@@ -389,7 +388,7 @@ public final class Navigation {
             textToBeChanged_ = ExtractFromResources.loadPage(session, files, dest_, resourcesFolder);
             String currentBeanName_;
             try {
-                Document doc_ = XmlParser.parseSaxHtml(textToBeChanged_, false);
+                Document doc_ = DocumentBuilder.parseSaxHtml(textToBeChanged_, false);
                 Element root_ = doc_.getDocumentElement();
                 session.setDocument(doc_);
                 currentBeanName_ = root_.getAttribute(session.getPrefix()+FormatHtml.BEAN_ATTRIBUTE);
@@ -437,7 +436,7 @@ public final class Navigation {
         textToBeChanged_ = ExtractFromResources.loadPage(session, files, dest_, resourcesFolder);
         String currentBeanName_;
         try {
-            Document doc_ = XmlParser.parseSaxHtml(textToBeChanged_, false);
+            Document doc_ = DocumentBuilder.parseSaxHtml(textToBeChanged_, false);
             Element root_ = doc_.getDocumentElement();
             session.setDocument(doc_);
             currentBeanName_ = root_.getAttribute(session.getPrefix()+FormatHtml.BEAN_ATTRIBUTE);
@@ -487,7 +486,7 @@ public final class Navigation {
         Document doc_ = session.getDocument();
         String actionCommand_ = EMPTY_STRING;
         //retrieving form that is submitted
-        Element formElement_ = XmlParser.getFirstElementByAttribute(doc_, NUMBER_FORM, String.valueOf(lg_));
+        Element formElement_ = DocumentBuilder.getFirstElementByAttribute(doc_, NUMBER_FORM, String.valueOf(lg_));
         if (formElement_ == null) {
             htmlPage_.setUsedFieldUrl(EMPTY_STRING);
             throw new FormNotFoundException(EMPTY_STRING);
@@ -515,7 +514,7 @@ public final class Navigation {
             if (valId_.isEmpty()) {
                 continue;
             }
-            Element node_ = XmlParser.getElementById(doc_, ATTRIBUTE_ID, ip_.getPrefix()+ATTRIBUTE_GROUP_ID, id_);
+            Element node_ = DocumentBuilder.getElementById(doc_, ATTRIBUTE_ID, ip_.getPrefix()+ATTRIBUTE_GROUP_ID, id_);
             ip_.setProcessingNode(node_);
             ip_.setProcessingAttribute(ip_.getPrefix()+ATTRIBUTE_VALIDATOR);
             ip_.setLookForAttrValue(true);
@@ -658,7 +657,7 @@ public final class Navigation {
             if (!nCont_.isEnabled()) {
                 continue;
             }
-            Element input_ = XmlParser.getFirstElementByAttribute(doc_, NUMBER_INPUT, String.valueOf(e.getKey()));
+            Element input_ = DocumentBuilder.getFirstElementByAttribute(doc_, NUMBER_INPUT, String.valueOf(e.getKey()));
             session.getLastPage().setProcessingNode(input_);
             session.getLastPage().setProcessingAttribute(EMPTY_STRING);
             Struct bean_ = getBean(nCont_.getBeanName());
@@ -878,7 +877,7 @@ public final class Navigation {
             Text text_ = _doc.createTextNode(nCont_.getNodeInformation().getValue().first());
             elt_.appendChild(text_);
         }
-        setupText(XmlParser.toHtml(_doc));
+        setupText(DocumentBuilder.toXml(_doc));
     }
 
     boolean reinitBean(String _dest, String _beanName, String _currentBean) {

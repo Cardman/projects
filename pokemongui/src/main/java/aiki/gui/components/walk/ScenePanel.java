@@ -91,6 +91,7 @@ import code.network.NetCreate;
 import code.network.SocketResults;
 import code.network.enums.ErrorHostConnectionType;
 import code.network.enums.IpType;
+import code.sml.util.ExtractFromFiles;
 import code.util.CustList;
 import code.util.EntryCust;
 import code.util.NatTreeMap;
@@ -98,7 +99,6 @@ import code.util.StringList;
 import code.util.StringMap;
 import code.util.consts.ConstFiles;
 import code.util.consts.Constants;
-import code.xml.util.ExtractFromFiles;
 
 public class ScenePanel extends JPanel {
 

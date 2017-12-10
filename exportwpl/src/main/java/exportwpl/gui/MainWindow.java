@@ -11,13 +11,13 @@ import code.gui.FolderOpenDialog;
 import code.gui.GroupFrame;
 import code.gui.LabelButton;
 import code.gui.SetStyle;
+import code.sml.Document;
+import code.sml.DocumentBuilder;
+import code.sml.Element;
 import code.stream.StreamTextFile;
 import code.util.StringList;
 import code.util.consts.ConstFiles;
 import code.util.consts.Constants;
-import code.xml.components.Document;
-import code.xml.components.DocumentBuilder;
-import code.xml.components.Element;
 
 public class MainWindow extends GroupFrame {
 

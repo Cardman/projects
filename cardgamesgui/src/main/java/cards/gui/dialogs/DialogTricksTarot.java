@@ -4,11 +4,11 @@ import java.awt.Dimension;
 import javax.swing.JScrollPane;
 import javax.swing.WindowConstants;
 
-import code.util.StringList;
 import cards.gui.MainWindow;
 import cards.gui.panels.PanelTricksHandsTarot;
 import cards.tarot.DisplayingTarot;
 import cards.tarot.TricksHandsTarot;
+import code.util.StringList;
 
 public final class DialogTricksTarot extends DialogCards {
 

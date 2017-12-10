@@ -1,9 +1,8 @@
 package code.formathtml.util;
-import code.xml.components.Node;
-
+import code.sml.DocumentBuilder;
+import code.sml.Node;
 import code.util.StringList;
 import code.util.ints.Equallable;
-import code.xml.XmlParser;
 
 public final class NodeAttribute implements Equallable<NodeAttribute> {
 
@@ -13,7 +12,7 @@ public final class NodeAttribute implements Equallable<NodeAttribute> {
 
     @Override
     public String toString() {
-        return XmlParser.getIndexes(node)+attribue;
+        return DocumentBuilder.getIndexes(node)+attribue;
     }
 
     @Override

@@ -1,9 +1,9 @@
 package code.maths.geo;
 import code.maths.Rate;
 import code.serialize.CheckedData;
+import code.sml.FromAndToString;
 import code.util.StringList;
 import code.util.ints.Equallable;
-import code.xml.FromAndToString;
 
 @CheckedData
 public final class RatePoint implements Equallable<RatePoint> {

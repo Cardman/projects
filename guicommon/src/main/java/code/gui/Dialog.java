@@ -5,9 +5,9 @@ import java.awt.Image;
 import javax.swing.JDialog;
 
 import code.gui.events.CrossClosingDialogEvent;
+import code.sml.util.ExtractFromFiles;
 import code.util.StringMap;
 import code.util.consts.Constants;
-import code.xml.util.ExtractFromFiles;
 
 public abstract class Dialog extends JDialog implements ChangeableTitle {
 

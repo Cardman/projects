@@ -1,5 +1,5 @@
 package code.serialize.classes;
-import code.xml.FromAndToString;
+import code.sml.FromAndToString;
 
 public class Primitive {
 

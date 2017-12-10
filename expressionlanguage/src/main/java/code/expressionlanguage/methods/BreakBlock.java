@@ -1,6 +1,4 @@
 package code.expressionlanguage.methods;
-import code.xml.components.Element;
-
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.PageEl;
 import code.expressionlanguage.ReadWrite;
@@ -8,6 +6,7 @@ import code.expressionlanguage.methods.exceptions.BadTagBreakException;
 import code.expressionlanguage.stacks.BreakableBlockStack;
 import code.expressionlanguage.stacks.RemovableVars;
 import code.expressionlanguage.stacks.TryBlockStack;
+import code.sml.Element;
 import code.util.NatTreeMap;
 
 public final class BreakBlock extends Leaf implements CallingFinally {

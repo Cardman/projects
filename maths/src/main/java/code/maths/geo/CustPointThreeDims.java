@@ -1,7 +1,7 @@
 package code.maths.geo;
+import code.sml.FromAndToString;
 import code.util.StringList;
 import code.util.ints.Equallable;
-import code.xml.FromAndToString;
 
 public final class CustPointThreeDims implements Equallable<CustPointThreeDims> {
 

@@ -15,19 +15,18 @@ import javax.xml.validation.Schema;
 import javax.xml.validation.SchemaFactory;
 import javax.xml.validation.Validator;
 
-import code.xml.components.Document;
-import code.xml.components.Element;
 import org.xml.sax.SAXException;
 
 import code.resources.ResourceFiles;
 import code.serialize.SerializeXmlObject;
+import code.sml.Document;
+import code.sml.DocumentBuilder;
+import code.sml.Element;
 import code.util.CustList;
 import code.util.InsCaseStringMap;
 import code.util.StringList;
 import code.util.StringMap;
 import code.util.consts.Constants;
-import code.xml.StandardCharsets;
-import code.xml.XmlParser;
 
 public final class StreamTextFile {
 
@@ -202,13 +201,13 @@ public final class StreamTextFile {
     }
 
     public static Element documentXmlInterne(String _dossier, String _fichier) {
-        Document doc_ = XmlParser.parseSax(ResourceFiles.ressourceFichier(_dossier +SEPARATEUR + _fichier));
+        Document doc_ = DocumentBuilder.parseSax(ResourceFiles.ressourceFichier(_dossier +SEPARATEUR + _fichier));
         Element element_ = doc_.getDocumentElement();
         return element_;
     }
 
     public static Document documentXmlExterne(String _nomFichier) {
-        return XmlParser.parseSax(contentsOfFile(_nomFichier));
+        return DocumentBuilder.parseSax(contentsOfFile(_nomFichier));
     }
 
     public static int nbLines(String _nomFichier) {
@@ -322,7 +321,7 @@ public final class StreamTextFile {
         if (doc_ == null) {
             return null;
         }
-        return XmlParser.documentElement(doc_);
+        return doc_.getDocumentElement();
     }
 
     /**@param lignes_
@@ -400,7 +399,7 @@ public final class StreamTextFile {
 //        try {
 //            DOMSource source_ = SerializeXmlObject.getSource(_object);
 //            StreamResult result_ = new StreamResult(new File(_fileName));
-//            XmlParser.getTransformer(XmlParser.isIndentXmlWhileWriting()).transform(source_, result_);
+//            DocumentBuilder.getTransformer(DocumentBuilder.isIndentXmlWhileWriting()).transform(source_, result_);
 //        } catch (ParserConfigurationException ex) {
 //            ex.printStackTrace();
 //        } catch (TransformerConfigurationException e) {

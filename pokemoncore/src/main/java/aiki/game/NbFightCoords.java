@@ -1,11 +1,11 @@
 package aiki.game;
 import aiki.util.Coords;
 import code.serialize.CheckedData;
+import code.sml.FromAndToString;
 import code.util.Numbers;
 import code.util.StringList;
 import code.util.ints.Equallable;
 import code.util.ints.Listable;
-import code.xml.FromAndToString;
 
 @CheckedData
 public final class NbFightCoords implements Equallable<NbFightCoords> {

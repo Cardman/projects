@@ -12,6 +12,7 @@ import code.formathtml.util.NodeContainer;
 import code.formathtml.util.ValueChangeEvent;
 import code.serialize.ConverterMethod;
 import code.serialize.SerializeXmlObject;
+import code.sml.DocumentBuilder;
 import code.util.CustList;
 import code.util.Numbers;
 import code.util.StringList;
@@ -20,7 +21,6 @@ import code.util.consts.ConstClasses;
 import code.util.exceptions.NullObjectException;
 import code.util.ints.Listable;
 import code.util.ints.ListableEntries;
-import code.xml.XmlParser;
 
 final class HtmlRequest {
 
@@ -50,7 +50,7 @@ final class HtmlRequest {
         }
         StringMap<String> messages_ = ExtractFromResources.getInnerMessagesFromLocaleClass(_conf, _loc, fileName_, _files, _resourcesFolder);
         String preformatted_ = ExtractFromResources.getFormat(messages_, elts_.last(), _conf, _loc, fileName_);
-        preformatted_ = XmlParser.transformSpecialChars(preformatted_, _escapeAmp);
+        preformatted_ = DocumentBuilder.transformSpecialChars(preformatted_, _escapeAmp);
         return StringList.simpleFormat(preformatted_, _args);
     }
 

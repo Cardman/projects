@@ -2,10 +2,10 @@ package cards.gui.dialogs;
 import java.awt.BorderLayout;
 import java.awt.Container;
 
-import code.gui.LabelButton;
 import cards.belote.RulesBelote;
 import cards.gui.MainWindow;
 import cards.gui.dialogs.events.ValidateRulesEvent;
+import code.gui.LabelButton;
 
 public final class DialogRulesBelote extends DialogBelote implements DialogRules {
 

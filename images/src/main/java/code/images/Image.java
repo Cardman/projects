@@ -1,11 +1,11 @@
 package code.images;
 import java.awt.image.BufferedImage;
 
+import code.sml.FromAndToString;
 import code.util.CustList;
 import code.util.Numbers;
 import code.util.PairNumber;
 import code.util.StringList;
-import code.xml.FromAndToString;
 
 public final class Image {
 

@@ -4,10 +4,10 @@ import java.net.Socket;
 import javax.swing.JOptionPane;
 
 import code.gui.ConfirmDialog;
+import code.sml.util.ExtractFromFiles;
 import code.util.StringList;
 import code.util.StringMap;
 import code.util.consts.Constants;
-import code.xml.util.ExtractFromFiles;
 
 /**Thread safe class*/
 public final class Quitting extends Thread {

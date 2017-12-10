@@ -1,6 +1,4 @@
 package code.expressionlanguage.methods;
-import code.xml.components.Element;
-
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.PageEl;
 import code.expressionlanguage.Templates;
@@ -8,6 +6,7 @@ import code.expressionlanguage.methods.util.InstancingStep;
 import code.expressionlanguage.opers.OperationNode;
 import code.expressionlanguage.opers.util.ClassName;
 import code.expressionlanguage.opers.util.ConstructorId;
+import code.sml.Element;
 import code.util.CustList;
 import code.util.EqList;
 import code.util.StringList;

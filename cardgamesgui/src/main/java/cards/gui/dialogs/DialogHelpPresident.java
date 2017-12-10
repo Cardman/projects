@@ -5,15 +5,15 @@ import javax.swing.BoxLayout;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import cards.consts.CardChar;
+import cards.consts.Suit;
+import cards.gui.MainWindow;
+import cards.president.enumerations.CardPresident;
 import code.gui.Dialog;
 import code.util.StringList;
 import code.util.StringMap;
 import code.util.TreeMap;
 import code.util.consts.Constants;
-import cards.consts.CardChar;
-import cards.consts.Suit;
-import cards.gui.MainWindow;
-import cards.president.enumerations.CardPresident;
 
 public final class DialogHelpPresident extends Dialog {
     private static final String DIALOG_ACCESS = "cards.gui.dialogs.DialogHelpPresident";

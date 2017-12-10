@@ -1,6 +1,6 @@
 package code.serialize.classes;
+import code.sml.FromAndToString;
 import code.util.annot.RwXml;
-import code.xml.FromAndToString;
 
 @RwXml
 public class PrimitiveFive {

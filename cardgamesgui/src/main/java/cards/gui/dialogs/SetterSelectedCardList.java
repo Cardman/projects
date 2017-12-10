@@ -2,8 +2,8 @@ package cards.gui.dialogs;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-import code.util.CustList;
 import cards.gui.panels.CardsScrollableList;
+import code.util.CustList;
 
 public interface SetterSelectedCardList {
 

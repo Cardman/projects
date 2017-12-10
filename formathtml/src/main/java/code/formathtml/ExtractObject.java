@@ -5,8 +5,6 @@ import java.math.BigInteger;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicLong;
 
-import code.xml.components.Element;
-
 import code.bean.Bean;
 import code.bean.translator.Translator;
 import code.expressionlanguage.Argument;
@@ -26,6 +24,8 @@ import code.serialize.ConverterMethod;
 import code.serialize.exceptions.InvokingException;
 import code.serialize.exceptions.NoSuchDeclaredMethodException;
 import code.serialize.exceptions.RuntimeInstantiationException;
+import code.sml.DocumentBuilder;
+import code.sml.Element;
 import code.util.CustList;
 import code.util.SimpleItr;
 import code.util.StringList;
@@ -40,7 +40,6 @@ import code.util.ints.MathFactory;
 import code.util.ints.SimpleEntries;
 import code.util.ints.SimpleEntry;
 import code.util.ints.SimpleIterable;
-import code.xml.XmlParser;
 
 final class ExtractObject {
 
@@ -672,9 +671,9 @@ final class ExtractObject {
                 _conf.getLastPage().setKey(key_);
                 _conf.getLastPage().setMessageValue(preformatted_);
             }
-            preformatted_ = XmlParser.transformSpecialChars(preformatted_, _element.hasAttribute(ATTRIBUTE_ESCAPED_EAMP));
+            preformatted_ = DocumentBuilder.transformSpecialChars(preformatted_, _element.hasAttribute(ATTRIBUTE_ESCAPED_EAMP));
         }
-        for (Element n: XmlParser.childrenElements(_element)) {
+        for (Element n: _element.getChildElements()) {
             String attribute_ = n.getAttribute(ATTRIBUTE_VALUE);
             if (n.hasAttribute(ATTRIBUTE_QUOTED)) {
                 if (n.hasAttribute(ATTRIBUTE_ESCAPED)) {

@@ -1,13 +1,12 @@
 package code.formathtml.util;
-import code.xml.components.Element;
-import code.xml.components.Node;
-
+import code.sml.DocumentBuilder;
+import code.sml.Element;
+import code.sml.Node;
+import code.sml.RowCol;
 import code.util.EntryCust;
 import code.util.NatTreeMap;
 import code.util.ObjectMap;
 import code.util.StringList;
-import code.xml.RowCol;
-import code.xml.XmlParser;
 
 public final class ProcessingHtml {
 
@@ -32,7 +31,7 @@ public final class ProcessingHtml {
                 }
             }
         }
-        return XmlParser.getRowColOfNodeOrAttribute(html, processingNode, _offset+delta_, _attribute, _tabWidth, lookForAttrValue);
+        return DocumentBuilder.getRowColOfNodeOrAttribute(html, processingNode, _offset+delta_, _attribute, _tabWidth, lookForAttrValue);
     }
 
     private static int getIndexesCount(NatTreeMap<Integer, Integer> _t, int _offset) {

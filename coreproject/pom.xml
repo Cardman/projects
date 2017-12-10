@@ -16,7 +16,7 @@
 		<module>../resources</module>
 		<module>../bean</module>
 		<module>../util</module>
-		<module>../xml</module>
+		<module>../sml</module>
 		<module>../serialize</module>
 		<module>../stream</module>
 		<module>../musiccore</module>

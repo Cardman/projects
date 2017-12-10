@@ -4,11 +4,11 @@ import java.awt.Dimension;
 import javax.swing.JScrollPane;
 import javax.swing.WindowConstants;
 
-import code.util.StringList;
 import cards.belote.DisplayingBelote;
 import cards.belote.TricksHandsBelote;
 import cards.gui.MainWindow;
 import cards.gui.panels.PanelTricksHandsBelote;
+import code.util.StringList;
 
 public final class DialogTricksBelote extends DialogCards {
 

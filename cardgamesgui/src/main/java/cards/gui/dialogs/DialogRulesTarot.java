@@ -2,10 +2,10 @@ package cards.gui.dialogs;
 import java.awt.BorderLayout;
 import java.awt.Container;
 
-import code.gui.LabelButton;
 import cards.gui.MainWindow;
 import cards.gui.dialogs.events.ValidateRulesEvent;
 import cards.tarot.RulesTarot;
+import code.gui.LabelButton;
 
 public final class DialogRulesTarot extends DialogTarot implements DialogRules {
     private static final String DIALOG_ACCESS = "cards.gui.dialogs.DialogRulesTarot";

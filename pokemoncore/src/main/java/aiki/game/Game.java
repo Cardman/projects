@@ -72,6 +72,7 @@ import code.maths.Rate;
 import code.maths.montecarlo.MonteCarloEq;
 import code.maths.montecarlo.MonteCarloString;
 import code.serialize.CheckedData;
+import code.sml.util.ExtractFromFiles;
 import code.util.CustList;
 import code.util.EntryCust;
 import code.util.EqList;
@@ -84,7 +85,6 @@ import code.util.StringMap;
 import code.util.TreeMap;
 import code.util.annot.RwXml;
 import code.util.consts.Constants;
-import code.xml.util.ExtractFromFiles;
 
 @RwXml
 public class Game {

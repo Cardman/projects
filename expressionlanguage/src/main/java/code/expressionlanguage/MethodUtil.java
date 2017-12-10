@@ -1,11 +1,11 @@
 package code.expressionlanguage;
-import code.xml.components.Element;
-import code.xml.components.Node;
-import code.xml.components.Text;
+import code.sml.Element;
+import code.sml.Node;
+import code.sml.Text;
 
 import code.util.NatTreeMap;
 import code.util.StringMap;
-import code.xml.AttributePart;
+import code.sml.AttributePart;
 
 
 public final class MethodUtil {

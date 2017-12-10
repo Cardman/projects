@@ -129,6 +129,7 @@ import code.maths.montecarlo.MonteCarloString;
 import code.resources.ResourceFiles;
 import code.serialize.CheckedData;
 import code.serialize.SerializeXmlObject;
+import code.sml.DocumentBuilder;
 import code.util.CustList;
 import code.util.EntryCust;
 import code.util.EnumList;
@@ -150,7 +151,6 @@ import code.util.ints.MathFactory;
 import code.util.ints.NumericableString;
 import code.util.ints.WithMathFactory;
 import code.util.pagination.SelectedBoolean;
-import code.xml.XmlParser;
 
 public class DataBase implements WithMathFactory {
 
@@ -2640,7 +2640,7 @@ public class DataBase implements WithMathFactory {
             EnumMap<Gender,String> genders_ = new EnumMap<Gender, String>();
             for (String l2_: StringList.splitChars(files_.getVal(common_ + fileName_), RETURN_LINE_CHAR)) {
                 StringList infos_ = StringList.splitChars(l2_, TAB_CHAR);
-                genders_.put(Gender.valueOf(infos_.first()), XmlParser.transformSpecialChars(infos_.last()));
+                genders_.put(Gender.valueOf(infos_.first()), DocumentBuilder.transformSpecialChars(infos_.last()));
             }
             translatedGenders.put(l, genders_);
             fileName_ = TRANSLATION_FOLDER+SEPARATOR_FILES;
@@ -2649,7 +2649,7 @@ public class DataBase implements WithMathFactory {
             EnumMap<SelectedBoolean,String> booleans_ = new EnumMap<SelectedBoolean, String>();
             for (String l2_: StringList.splitChars(files_.getVal(common_ + fileName_), RETURN_LINE_CHAR)) {
                 StringList infos_ = StringList.splitChars(l2_, TAB_CHAR);
-                booleans_.put(SelectedBoolean.valueOf(infos_.first()), XmlParser.transformSpecialChars(infos_.last()));
+                booleans_.put(SelectedBoolean.valueOf(infos_.first()), DocumentBuilder.transformSpecialChars(infos_.last()));
             }
             translatedBooleans.put(l, booleans_);
             fileName_ = TRANSLATION_FOLDER+SEPARATOR_FILES;
@@ -2658,7 +2658,7 @@ public class DataBase implements WithMathFactory {
             EnumMap<DifficultyWinPointsFight, String> diffWinPts_ = new EnumMap<DifficultyWinPointsFight, String>();
             for (String l2_: StringList.splitChars(files_.getVal(common_ + fileName_), RETURN_LINE_CHAR)) {
                 StringList infos_ = StringList.splitChars(l2_, TAB_CHAR);
-                diffWinPts_.put(DifficultyWinPointsFight.valueOf(infos_.first()), XmlParser.transformSpecialChars(infos_.last()));
+                diffWinPts_.put(DifficultyWinPointsFight.valueOf(infos_.first()), DocumentBuilder.transformSpecialChars(infos_.last()));
             }
             translatedDiffWinPts.put(l, diffWinPts_);
             fileName_ = TRANSLATION_FOLDER+SEPARATOR_FILES;
@@ -2667,7 +2667,7 @@ public class DataBase implements WithMathFactory {
             EnumMap<DifficultyModelLaw, String> diffLaw_ = new EnumMap<DifficultyModelLaw, String>();
             for (String l2_: StringList.splitChars(files_.getVal(common_ + fileName_), RETURN_LINE_CHAR)) {
                 StringList infos_ = StringList.splitChars(l2_, TAB_CHAR);
-                diffLaw_.put(DifficultyModelLaw.valueOf(infos_.first()), XmlParser.transformSpecialChars(infos_.last()));
+                diffLaw_.put(DifficultyModelLaw.valueOf(infos_.first()), DocumentBuilder.transformSpecialChars(infos_.last()));
             }
             translatedDiffModelLaw.put(l, diffLaw_);
             fileName_ = TRANSLATION_FOLDER+SEPARATOR_FILES;
@@ -2676,7 +2676,7 @@ public class DataBase implements WithMathFactory {
             EnumMap<EnvironmentType,String> environments_ = new EnumMap<EnvironmentType, String>();
             for (String l2_: StringList.splitChars(files_.getVal(common_ + fileName_), RETURN_LINE_CHAR)) {
                 StringList infos_ = StringList.splitChars(l2_, TAB_CHAR);
-                environments_.put(EnvironmentType.valueOf(infos_.first()), XmlParser.transformSpecialChars(infos_.last()));
+                environments_.put(EnvironmentType.valueOf(infos_.first()), DocumentBuilder.transformSpecialChars(infos_.last()));
             }
             translatedEnvironment.put(l, environments_);
             fileName_ = TRANSLATION_FOLDER+SEPARATOR_FILES;
@@ -2685,7 +2685,7 @@ public class DataBase implements WithMathFactory {
             EnumMap<Statistic,String> statistics_ = new EnumMap<Statistic, String>();
             for (String l2_: StringList.splitChars(files_.getVal(common_ + fileName_), RETURN_LINE_CHAR)) {
                 StringList infos_ = StringList.splitChars(l2_, TAB_CHAR);
-                statistics_.put(Statistic.valueOf(infos_.first()), XmlParser.transformSpecialChars(infos_.last()));
+                statistics_.put(Statistic.valueOf(infos_.first()), DocumentBuilder.transformSpecialChars(infos_.last()));
             }
             translatedStatistics.put(l, statistics_);
             fileName_ = TRANSLATION_FOLDER+SEPARATOR_FILES;
@@ -2694,7 +2694,7 @@ public class DataBase implements WithMathFactory {
             EnumMap<TargetChoice,String> targets_ = new EnumMap<TargetChoice, String>();
             for (String l2_: StringList.splitChars(files_.getVal(common_ + fileName_), RETURN_LINE_CHAR)) {
                 StringList infos_ = StringList.splitChars(l2_, TAB_CHAR);
-                targets_.put(TargetChoice.valueOf(infos_.first()), XmlParser.transformSpecialChars(infos_.last()));
+                targets_.put(TargetChoice.valueOf(infos_.first()), DocumentBuilder.transformSpecialChars(infos_.last()));
             }
             translatedTargets.put(l, targets_);
             fileName_ = TRANSLATION_FOLDER+SEPARATOR_FILES;
@@ -2703,7 +2703,7 @@ public class DataBase implements WithMathFactory {
             StringMap<String> categories_ = new StringMap<String>();
             for (String l2_: StringList.splitChars(files_.getVal(common_ + fileName_), RETURN_LINE_CHAR)) {
                 StringList infos_ = StringList.splitChars(l2_, TAB_CHAR);
-                categories_.put(infos_.first(), XmlParser.transformSpecialChars(infos_.last()));
+                categories_.put(infos_.first(), DocumentBuilder.transformSpecialChars(infos_.last()));
             }
             translatedCategories.put(l, categories_);
             fileName_ = TRANSLATION_FOLDER+SEPARATOR_FILES;
@@ -2712,7 +2712,7 @@ public class DataBase implements WithMathFactory {
             StringMap<String> types_ = new StringMap<String>();
             for (String l2_: StringList.splitChars(files_.getVal(common_ + fileName_), RETURN_LINE_CHAR)) {
                 StringList infos_ = StringList.splitChars(l2_, TAB_CHAR);
-                types_.put(infos_.first(), XmlParser.transformSpecialChars(infos_.last()));
+                types_.put(infos_.first(), DocumentBuilder.transformSpecialChars(infos_.last()));
             }
             translatedTypes.put(l, types_);
             fileName_ = TRANSLATION_FOLDER+SEPARATOR_FILES;
@@ -2721,7 +2721,7 @@ public class DataBase implements WithMathFactory {
             StringMap<String> pokemon_ = new StringMap<String>();
             for (String l2_: StringList.splitChars(files_.getVal(common_ + fileName_), RETURN_LINE_CHAR)) {
                 StringList infos_ = StringList.splitChars(l2_, TAB_CHAR);
-                pokemon_.put(infos_.first(), XmlParser.transformSpecialChars(infos_.last()));
+                pokemon_.put(infos_.first(), DocumentBuilder.transformSpecialChars(infos_.last()));
             }
             translatedPokemon.put(l, pokemon_);
             fileName_ = TRANSLATION_FOLDER+SEPARATOR_FILES;
@@ -2730,7 +2730,7 @@ public class DataBase implements WithMathFactory {
             StringMap<String> moves_ = new StringMap<String>();
             for (String l2_: StringList.splitChars(files_.getVal(common_ + fileName_), RETURN_LINE_CHAR)) {
                 StringList infos_ = StringList.splitChars(l2_, TAB_CHAR);
-                moves_.put(infos_.first(), XmlParser.transformSpecialChars(infos_.last()));
+                moves_.put(infos_.first(), DocumentBuilder.transformSpecialChars(infos_.last()));
             }
             translatedMoves.put(l, moves_);
             fileName_ = TRANSLATION_FOLDER+SEPARATOR_FILES;
@@ -2739,7 +2739,7 @@ public class DataBase implements WithMathFactory {
             StringMap<String> items_ = new StringMap<String>();
             for (String l2_: StringList.splitChars(files_.getVal(common_ + fileName_), RETURN_LINE_CHAR)) {
                 StringList infos_ = StringList.splitChars(l2_, TAB_CHAR);
-                items_.put(infos_.first(), XmlParser.transformSpecialChars(infos_.last()));
+                items_.put(infos_.first(), DocumentBuilder.transformSpecialChars(infos_.last()));
             }
             translatedItems.put(l, items_);
             fileName_ = TRANSLATION_FOLDER+SEPARATOR_FILES;
@@ -2748,7 +2748,7 @@ public class DataBase implements WithMathFactory {
             StringMap<String> abilities_ = new StringMap<String>();
             for (String l2_: StringList.splitChars(files_.getVal(common_ + fileName_), RETURN_LINE_CHAR)) {
                 StringList infos_ = StringList.splitChars(l2_, TAB_CHAR);
-                abilities_.put(infos_.first(), XmlParser.transformSpecialChars(infos_.last()));
+                abilities_.put(infos_.first(), DocumentBuilder.transformSpecialChars(infos_.last()));
             }
             translatedAbilities.put(l, abilities_);
             fileName_ = TRANSLATION_FOLDER+SEPARATOR_FILES;
@@ -2757,7 +2757,7 @@ public class DataBase implements WithMathFactory {
             StringMap<String> status_ = new StringMap<String>();
             for (String l2_: StringList.splitChars(files_.getVal(common_ + fileName_), RETURN_LINE_CHAR)) {
                 StringList infos_ = StringList.splitChars(l2_, TAB_CHAR);
-                status_.put(infos_.first(), XmlParser.transformSpecialChars(infos_.last()));
+                status_.put(infos_.first(), DocumentBuilder.transformSpecialChars(infos_.last()));
             }
             translatedStatus.put(l, status_);
             fileName_ = TRANSLATION_FOLDER+SEPARATOR_FILES;
@@ -2766,7 +2766,7 @@ public class DataBase implements WithMathFactory {
             StringMap<String> fctsMath_ = new StringMap<String>();
             for (String l2_: StringList.splitChars(files_.getVal(common_ + fileName_), RETURN_LINE_CHAR)) {
                 StringList infos_ = StringList.splitChars(l2_, TAB_CHAR);
-                fctsMath_.put(infos_.first(), XmlParser.transformSpecialChars(infos_.last()));
+                fctsMath_.put(infos_.first(), DocumentBuilder.transformSpecialChars(infos_.last()));
             }
             translatedFctMath.put(l, fctsMath_);
             fileName_ = TRANSLATION_FOLDER+SEPARATOR_FILES;
@@ -2775,7 +2775,7 @@ public class DataBase implements WithMathFactory {
             StringMap<String> descrClasses_ = new StringMap<String>();
             for (String l2_: StringList.splitChars(files_.getVal(common_ + fileName_), RETURN_LINE_CHAR)) {
                 StringList infos_ = StringList.splitChars(l2_, TAB_CHAR);
-                descrClasses_.put(infos_.first(), XmlParser.transformSpecialChars(infos_.last()));
+                descrClasses_.put(infos_.first(), DocumentBuilder.transformSpecialChars(infos_.last()));
             }
             translatedClassesDescriptions.put(l, descrClasses_);
             fileName_ = TRANSLATION_FOLDER+SEPARATOR_FILES;
@@ -2784,7 +2784,7 @@ public class DataBase implements WithMathFactory {
             StringMap<String> litteral_ = new StringMap<String>();
             for (String l2_: StringList.splitChars(files_.getVal(common_ + fileName_), RETURN_LINE_CHAR)) {
                 StringList infos_ = StringList.splitChars(l2_, TAB_CHAR);
-                litteral_.put(infos_.first(), XmlParser.transformSpecialChars(infos_.mid(CustList.SECOND_INDEX, infos_.size()).join(TAB)));
+                litteral_.put(infos_.first(), DocumentBuilder.transformSpecialChars(infos_.mid(CustList.SECOND_INDEX, infos_.size()).join(TAB)));
             }
             litterals.put(l, litteral_);
         }
@@ -3101,7 +3101,7 @@ public class DataBase implements WithMathFactory {
                     continue;
                 }
                 StringList infos_ = StringList.splitChars(l2_, TAB_CHAR);
-                genders_.put(Gender.valueOf(infos_.first()), XmlParser.transformSpecialChars(infos_.last()));
+                genders_.put(Gender.valueOf(infos_.first()), DocumentBuilder.transformSpecialChars(infos_.last()));
             }
             translatedGenders.put(l, genders_);
             fileName_ = TRANSLATION_FOLDER+SEPARATOR_FILES;
@@ -3113,7 +3113,7 @@ public class DataBase implements WithMathFactory {
                     continue;
                 }
                 StringList infos_ = StringList.splitChars(l2_, TAB_CHAR);
-                booleans_.put(SelectedBoolean.valueOf(infos_.first()), XmlParser.transformSpecialChars(infos_.last()));
+                booleans_.put(SelectedBoolean.valueOf(infos_.first()), DocumentBuilder.transformSpecialChars(infos_.last()));
             }
             translatedBooleans.put(l, booleans_);
             fileName_ = TRANSLATION_FOLDER+SEPARATOR_FILES;
@@ -3125,7 +3125,7 @@ public class DataBase implements WithMathFactory {
                     continue;
                 }
                 StringList infos_ = StringList.splitChars(l2_, TAB_CHAR);
-                diffWinPts_.put(DifficultyWinPointsFight.valueOf(infos_.first()), XmlParser.transformSpecialChars(infos_.last()));
+                diffWinPts_.put(DifficultyWinPointsFight.valueOf(infos_.first()), DocumentBuilder.transformSpecialChars(infos_.last()));
             }
             translatedDiffWinPts.put(l, diffWinPts_);
             fileName_ = TRANSLATION_FOLDER+SEPARATOR_FILES;
@@ -3137,7 +3137,7 @@ public class DataBase implements WithMathFactory {
                     continue;
                 }
                 StringList infos_ = StringList.splitChars(l2_, TAB_CHAR);
-                diffLaw_.put(DifficultyModelLaw.valueOf(infos_.first()), XmlParser.transformSpecialChars(infos_.last()));
+                diffLaw_.put(DifficultyModelLaw.valueOf(infos_.first()), DocumentBuilder.transformSpecialChars(infos_.last()));
             }
             translatedDiffModelLaw.put(l, diffLaw_);
             fileName_ = TRANSLATION_FOLDER+SEPARATOR_FILES;
@@ -3149,7 +3149,7 @@ public class DataBase implements WithMathFactory {
                     continue;
                 }
                 StringList infos_ = StringList.splitChars(l2_, TAB_CHAR);
-                environments_.put(EnvironmentType.valueOf(infos_.first()), XmlParser.transformSpecialChars(infos_.last()));
+                environments_.put(EnvironmentType.valueOf(infos_.first()), DocumentBuilder.transformSpecialChars(infos_.last()));
             }
             translatedEnvironment.put(l, environments_);
             fileName_ = TRANSLATION_FOLDER+SEPARATOR_FILES;
@@ -3161,7 +3161,7 @@ public class DataBase implements WithMathFactory {
                     continue;
                 }
                 StringList infos_ = StringList.splitChars(l2_, TAB_CHAR);
-                statistics_.put(Statistic.valueOf(infos_.first()), XmlParser.transformSpecialChars(infos_.last()));
+                statistics_.put(Statistic.valueOf(infos_.first()), DocumentBuilder.transformSpecialChars(infos_.last()));
             }
             translatedStatistics.put(l, statistics_);
             fileName_ = TRANSLATION_FOLDER+SEPARATOR_FILES;
@@ -3173,7 +3173,7 @@ public class DataBase implements WithMathFactory {
                     continue;
                 }
                 StringList infos_ = StringList.splitChars(l2_, TAB_CHAR);
-                targets_.put(TargetChoice.valueOf(infos_.first()), XmlParser.transformSpecialChars(infos_.last()));
+                targets_.put(TargetChoice.valueOf(infos_.first()), DocumentBuilder.transformSpecialChars(infos_.last()));
             }
             translatedTargets.put(l, targets_);
             fileName_ = TRANSLATION_FOLDER+SEPARATOR_FILES;
@@ -3185,7 +3185,7 @@ public class DataBase implements WithMathFactory {
                     continue;
                 }
                 StringList infos_ = StringList.splitChars(l2_, TAB_CHAR);
-                categories_.put(infos_.first(), XmlParser.transformSpecialChars(infos_.last()));
+                categories_.put(infos_.first(), DocumentBuilder.transformSpecialChars(infos_.last()));
             }
             translatedCategories.put(l, categories_);
             fileName_ = TRANSLATION_FOLDER+SEPARATOR_FILES;
@@ -3197,7 +3197,7 @@ public class DataBase implements WithMathFactory {
                     continue;
                 }
                 StringList infos_ = StringList.splitChars(l2_, TAB_CHAR);
-                types_.put(infos_.first(), XmlParser.transformSpecialChars(infos_.last()));
+                types_.put(infos_.first(), DocumentBuilder.transformSpecialChars(infos_.last()));
             }
             translatedTypes.put(l, types_);
             fileName_ = TRANSLATION_FOLDER+SEPARATOR_FILES;
@@ -3209,7 +3209,7 @@ public class DataBase implements WithMathFactory {
                     continue;
                 }
                 StringList infos_ = StringList.splitChars(l2_, TAB_CHAR);
-                pokemon_.put(infos_.first(), XmlParser.transformSpecialChars(infos_.last()));
+                pokemon_.put(infos_.first(), DocumentBuilder.transformSpecialChars(infos_.last()));
             }
             translatedPokemon.put(l, pokemon_);
             fileName_ = TRANSLATION_FOLDER+SEPARATOR_FILES;
@@ -3221,7 +3221,7 @@ public class DataBase implements WithMathFactory {
                     continue;
                 }
                 StringList infos_ = StringList.splitChars(l2_, TAB_CHAR);
-                moves_.put(infos_.first(), XmlParser.transformSpecialChars(infos_.last()));
+                moves_.put(infos_.first(), DocumentBuilder.transformSpecialChars(infos_.last()));
             }
             translatedMoves.put(l, moves_);
             fileName_ = TRANSLATION_FOLDER+SEPARATOR_FILES;
@@ -3233,7 +3233,7 @@ public class DataBase implements WithMathFactory {
                     continue;
                 }
                 StringList infos_ = StringList.splitChars(l2_, TAB_CHAR);
-                items_.put(infos_.first(), XmlParser.transformSpecialChars(infos_.last()));
+                items_.put(infos_.first(), DocumentBuilder.transformSpecialChars(infos_.last()));
             }
             translatedItems.put(l, items_);
             fileName_ = TRANSLATION_FOLDER+SEPARATOR_FILES;
@@ -3245,7 +3245,7 @@ public class DataBase implements WithMathFactory {
                     continue;
                 }
                 StringList infos_ = StringList.splitChars(l2_, TAB_CHAR);
-                abilities_.put(infos_.first(), XmlParser.transformSpecialChars(infos_.last()));
+                abilities_.put(infos_.first(), DocumentBuilder.transformSpecialChars(infos_.last()));
             }
             translatedAbilities.put(l, abilities_);
             fileName_ = TRANSLATION_FOLDER+SEPARATOR_FILES;
@@ -3257,7 +3257,7 @@ public class DataBase implements WithMathFactory {
                     continue;
                 }
                 StringList infos_ = StringList.splitChars(l2_, TAB_CHAR);
-                status_.put(infos_.first(), XmlParser.transformSpecialChars(infos_.last()));
+                status_.put(infos_.first(), DocumentBuilder.transformSpecialChars(infos_.last()));
             }
             translatedStatus.put(l, status_);
             fileName_ = TRANSLATION_FOLDER+SEPARATOR_FILES;
@@ -3269,7 +3269,7 @@ public class DataBase implements WithMathFactory {
                     continue;
                 }
                 StringList infos_ = StringList.splitChars(l2_, TAB_CHAR);
-                fctsMath_.put(infos_.first(), XmlParser.transformSpecialChars(infos_.last()));
+                fctsMath_.put(infos_.first(), DocumentBuilder.transformSpecialChars(infos_.last()));
             }
             translatedFctMath.put(l, fctsMath_);
             fileName_ = TRANSLATION_FOLDER+SEPARATOR_FILES;
@@ -3281,7 +3281,7 @@ public class DataBase implements WithMathFactory {
                     continue;
                 }
                 StringList infos_ = StringList.splitChars(l2_, TAB_CHAR);
-                descrClasses_.put(infos_.first(), XmlParser.transformSpecialChars(infos_.last()));
+                descrClasses_.put(infos_.first(), DocumentBuilder.transformSpecialChars(infos_.last()));
             }
             translatedClassesDescriptions.put(l, descrClasses_);
             fileName_ = TRANSLATION_FOLDER+SEPARATOR_FILES;
@@ -3293,7 +3293,7 @@ public class DataBase implements WithMathFactory {
                     continue;
                 }
                 StringList infos_ = StringList.splitChars(l2_, TAB_CHAR);
-                litteral_.put(infos_.first(), XmlParser.transformSpecialChars(infos_.mid(CustList.SECOND_INDEX, infos_.size()).join(TAB)));
+                litteral_.put(infos_.first(), DocumentBuilder.transformSpecialChars(infos_.mid(CustList.SECOND_INDEX, infos_.size()).join(TAB)));
             }
             litterals.put(l, litteral_);
         }
@@ -6736,7 +6736,7 @@ public class DataBase implements WithMathFactory {
                 StringList words_;
                 words_ = new StringList();
                 words_.add(g);
-                words_.add(XmlParser.encodeToHtml(genders_.getVal(g)));
+                words_.add(DocumentBuilder.encodeToHtml(genders_.getVal(g)));
                 linesGenders_.add(words_.join(TAB));
             }
             String fileName_ = TRANSLATION_FOLDER+SEPARATOR_FILES;
@@ -6751,7 +6751,7 @@ public class DataBase implements WithMathFactory {
                 StringList words_;
                 words_ = new StringList();
                 words_.add(g.name());
-                words_.add(XmlParser.encodeToHtml(genders_.getVal(g)));
+                words_.add(DocumentBuilder.encodeToHtml(genders_.getVal(g)));
                 linesGenders_.add(words_.join(TAB));
             }
             String fileName_ = TRANSLATION_FOLDER+SEPARATOR_FILES;
@@ -6766,7 +6766,7 @@ public class DataBase implements WithMathFactory {
                 StringList words_;
                 words_ = new StringList();
                 words_.add(g.name());
-                words_.add(XmlParser.encodeToHtml(genders_.getVal(g)));
+                words_.add(DocumentBuilder.encodeToHtml(genders_.getVal(g)));
                 linesGenders_.add(words_.join(TAB));
             }
             String fileName_ = TRANSLATION_FOLDER+SEPARATOR_FILES;
@@ -6781,7 +6781,7 @@ public class DataBase implements WithMathFactory {
                 StringList words_;
                 words_ = new StringList();
                 words_.add(g.name());
-                words_.add(XmlParser.encodeToHtml(genders_.getVal(g)));
+                words_.add(DocumentBuilder.encodeToHtml(genders_.getVal(g)));
                 linesGenders_.add(words_.join(TAB));
             }
             String fileName_ = TRANSLATION_FOLDER+SEPARATOR_FILES;
@@ -6796,7 +6796,7 @@ public class DataBase implements WithMathFactory {
                 StringList words_;
                 words_ = new StringList();
                 words_.add(g.name());
-                words_.add(XmlParser.encodeToHtml(genders_.getVal(g)));
+                words_.add(DocumentBuilder.encodeToHtml(genders_.getVal(g)));
                 linesGenders_.add(words_.join(TAB));
             }
             String fileName_ = TRANSLATION_FOLDER+SEPARATOR_FILES;
@@ -6811,7 +6811,7 @@ public class DataBase implements WithMathFactory {
                 StringList words_;
                 words_ = new StringList();
                 words_.add(g.name());
-                words_.add(XmlParser.encodeToHtml(statistics_.getVal(g)));
+                words_.add(DocumentBuilder.encodeToHtml(statistics_.getVal(g)));
                 linesGenders_.add(words_.join(TAB));
             }
             String fileName_ = TRANSLATION_FOLDER+SEPARATOR_FILES;
@@ -6826,7 +6826,7 @@ public class DataBase implements WithMathFactory {
                 StringList words_;
                 words_ = new StringList();
                 words_.add(g.name());
-                words_.add(XmlParser.encodeToHtml(statistics_.getVal(g)));
+                words_.add(DocumentBuilder.encodeToHtml(statistics_.getVal(g)));
                 linesGenders_.add(words_.join(TAB));
             }
             String fileName_ = TRANSLATION_FOLDER+SEPARATOR_FILES;
@@ -6841,7 +6841,7 @@ public class DataBase implements WithMathFactory {
                 StringList words_;
                 words_ = new StringList();
                 words_.add(g.name());
-                words_.add(XmlParser.encodeToHtml(statistics_.getVal(g)));
+                words_.add(DocumentBuilder.encodeToHtml(statistics_.getVal(g)));
                 linesGenders_.add(words_.join(TAB));
             }
             String fileName_ = TRANSLATION_FOLDER+SEPARATOR_FILES;
@@ -6856,7 +6856,7 @@ public class DataBase implements WithMathFactory {
                 StringList words_;
                 words_ = new StringList();
                 words_.add(g);
-                words_.add(XmlParser.encodeToHtml(statistics_.getVal(g)));
+                words_.add(DocumentBuilder.encodeToHtml(statistics_.getVal(g)));
                 linesGenders_.add(words_.join(TAB));
             }
             String fileName_ = TRANSLATION_FOLDER+SEPARATOR_FILES;
@@ -6871,7 +6871,7 @@ public class DataBase implements WithMathFactory {
                 StringList words_;
                 words_ = new StringList();
                 words_.add(g);
-                words_.add(XmlParser.encodeToHtml(pokemon_.getVal(g)));
+                words_.add(DocumentBuilder.encodeToHtml(pokemon_.getVal(g)));
                 linesGenders_.add(words_.join(TAB));
             }
             String fileName_ = TRANSLATION_FOLDER+SEPARATOR_FILES;
@@ -6886,7 +6886,7 @@ public class DataBase implements WithMathFactory {
                 StringList words_;
                 words_ = new StringList();
                 words_.add(g);
-                words_.add(XmlParser.encodeToHtml(moves_.getVal(g)));
+                words_.add(DocumentBuilder.encodeToHtml(moves_.getVal(g)));
                 linesGenders_.add(words_.join(TAB));
             }
             String fileName_ = TRANSLATION_FOLDER+SEPARATOR_FILES;
@@ -6901,7 +6901,7 @@ public class DataBase implements WithMathFactory {
                 StringList words_;
                 words_ = new StringList();
                 words_.add(g);
-                words_.add(XmlParser.encodeToHtml(items_.getVal(g)));
+                words_.add(DocumentBuilder.encodeToHtml(items_.getVal(g)));
                 linesGenders_.add(words_.join(TAB));
             }
             String fileName_ = TRANSLATION_FOLDER+SEPARATOR_FILES;
@@ -6916,7 +6916,7 @@ public class DataBase implements WithMathFactory {
                 StringList words_;
                 words_ = new StringList();
                 words_.add(g);
-                words_.add(XmlParser.encodeToHtml(abilities_.getVal(g)));
+                words_.add(DocumentBuilder.encodeToHtml(abilities_.getVal(g)));
                 linesGenders_.add(words_.join(TAB));
             }
             String fileName_ = TRANSLATION_FOLDER+SEPARATOR_FILES;
@@ -6931,7 +6931,7 @@ public class DataBase implements WithMathFactory {
                 StringList words_;
                 words_ = new StringList();
                 words_.add(g);
-                words_.add(XmlParser.encodeToHtml(status_.getVal(g)));
+                words_.add(DocumentBuilder.encodeToHtml(status_.getVal(g)));
                 linesGenders_.add(words_.join(TAB));
             }
             String fileName_ = TRANSLATION_FOLDER+SEPARATOR_FILES;
@@ -6946,7 +6946,7 @@ public class DataBase implements WithMathFactory {
                 StringList words_;
                 words_ = new StringList();
                 words_.add(g);
-                words_.add(XmlParser.encodeToHtml(status_.getVal(g)));
+                words_.add(DocumentBuilder.encodeToHtml(status_.getVal(g)));
                 linesGenders_.add(words_.join(TAB));
             }
             String fileName_ = TRANSLATION_FOLDER+SEPARATOR_FILES;
@@ -6964,7 +6964,7 @@ public class DataBase implements WithMathFactory {
                 StringList words_;
                 words_ = new StringList();
                 words_.add(g);
-                words_.add(XmlParser.encodeToHtml(status_.getVal(g)));
+                words_.add(DocumentBuilder.encodeToHtml(status_.getVal(g)));
                 linesGenders_.add(words_.join(TAB));
             }
             String fileName_ = TRANSLATION_FOLDER+SEPARATOR_FILES;
@@ -6979,7 +6979,7 @@ public class DataBase implements WithMathFactory {
                 StringList words_;
                 words_ = new StringList();
                 words_.add(g);
-                words_.add(XmlParser.encodeToHtml(status_.getVal(g)));
+                words_.add(DocumentBuilder.encodeToHtml(status_.getVal(g)));
                 linesGenders_.add(words_.join(TAB));
             }
             String fileName_ = TRANSLATION_FOLDER+SEPARATOR_FILES;
@@ -7107,11 +7107,11 @@ public class DataBase implements WithMathFactory {
             }
             String fullToken_ = tokens_.get(i);
 //            if (!StringList.matchingRegExp(fullToken_, FUNCTION).isEmpty()) {
-//                tokens_.set(i, XmlParser.transformSpecialChars(translatedFctMath.getVal(_language).getVal(fullToken_)));
+//                tokens_.set(i, DocumentBuilder.transformSpecialChars(translatedFctMath.getVal(_language).getVal(fullToken_)));
 //                continue;
 //            }
             if (!getFunctionWords(fullToken_).isEmpty()) {
-//                tokens_.set(i, XmlParser.transformSpecialChars(translatedFctMath.getVal(_language).getVal(fullToken_)));
+//                tokens_.set(i, DocumentBuilder.transformSpecialChars(translatedFctMath.getVal(_language).getVal(fullToken_)));
                 tokens_.set(i, translatedFctMath.getVal(_language).getVal(fullToken_));
                 continue;
             }

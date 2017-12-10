@@ -2,9 +2,6 @@ package code.expressionlanguage.methods;
 import java.lang.reflect.Modifier;
 import java.util.Iterator;
 
-import code.xml.components.Document;
-import code.xml.components.Element;
-
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.CustEnum;
 import code.expressionlanguage.ElUtil;
@@ -45,6 +42,12 @@ import code.expressionlanguage.opers.util.MethodId;
 import code.expressionlanguage.opers.util.MethodMetaInfo;
 import code.expressionlanguage.opers.util.Struct;
 import code.expressionlanguage.variables.LocalVariable;
+import code.sml.Document;
+import code.sml.DocumentBuilder;
+import code.sml.Element;
+import code.sml.ElementOffsetsNext;
+import code.sml.RowCol;
+import code.sml.exceptions.XmlParseException;
 import code.util.CustList;
 import code.util.EntryCust;
 import code.util.EqList;
@@ -54,10 +57,6 @@ import code.util.StringList;
 import code.util.StringMap;
 import code.util.exceptions.RuntimeClassNotFoundException;
 import code.util.graphs.Graph;
-import code.xml.ElementOffsetsNext;
-import code.xml.RowCol;
-import code.xml.XmlParser;
-import code.xml.exceptions.XmlParseException;
 
 public final class Classes {
 
@@ -186,7 +185,7 @@ public final class Classes {
                     }
                 }
                 classesFiles_.add(file_);
-                Document doc_ = XmlParser.parseSaxHtmlRowCol(content_);
+                Document doc_ = DocumentBuilder.parseSaxHtmlRowCol(content_);
                 _context.setHtml(content_);
                 _context.setElements(new ElementOffsetsNext(new RowCol(), 0, 0));
                 Element root_ = doc_.getDocumentElement();
@@ -203,7 +202,7 @@ public final class Classes {
                 }
                 classes_.add(cl_.getFullName());
                 ElementOffsetsNext e_ = _context.getElements();
-                ElementOffsetsNext ne_ = XmlParser.getIndexesOfElementOrAttribute(content_, e_, root_, tabWidth_);
+                ElementOffsetsNext ne_ = DocumentBuilder.getIndexesOfElementOrAttribute(content_, e_, root_, tabWidth_);
                 processCustomClass(cl_, false, content_, _context, ne_);
             } catch (UnknownBlockException _0) {
                 RowCol where_ = _0.getRc();
@@ -247,7 +246,7 @@ public final class Classes {
         _context.setHtml(EMPTY_STRING);
     }
     private void processPredefinedClass(String _content, ContextEl _context) {
-        Document doc_ = XmlParser.parseSaxHtmlRowCol(_content);
+        Document doc_ = DocumentBuilder.parseSaxHtmlRowCol(_content);
         _context.setHtml(_content);
         _context.setElements(new ElementOffsetsNext(new RowCol(), 0, 0));
         Element root_ = doc_.getDocumentElement();
@@ -255,7 +254,7 @@ public final class Classes {
         int tabWidth_ = _context.getTabWidth();
         RootBlock cl_ = (RootBlock) bl_;
         ElementOffsetsNext e_ = _context.getElements();
-        ElementOffsetsNext ne_ = XmlParser.getIndexesOfElementOrAttribute(_content, e_, root_, tabWidth_);
+        ElementOffsetsNext ne_ = DocumentBuilder.getIndexesOfElementOrAttribute(_content, e_, root_, tabWidth_);
         processCustomClass(cl_, true, _content, _context, ne_);
     }
     private void processCustomClass(RootBlock _root, boolean _predefined, String _content, ContextEl _context, ElementOffsetsNext _elt) {

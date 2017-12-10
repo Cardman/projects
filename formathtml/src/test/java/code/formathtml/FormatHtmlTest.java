@@ -8,7 +8,6 @@ import org.junit.BeforeClass;
 import org.junit.Ignore;
 import org.junit.Test;
 
-import code.xml.components.Document;
 import code.bean.Bean;
 import code.bean.translator.Translator;
 import code.bean.validator.Validator;
@@ -31,15 +30,15 @@ import code.formathtml.classes.RateEq;
 import code.formathtml.classes.SimpleMathFactory;
 import code.formathtml.exceptions.KeyValueException;
 import code.formathtml.exceptions.RenderingException;
+import code.sml.Document;
+import code.sml.DocumentBuilder;
+import code.sml.exceptions.XmlParseException;
 import code.util.StringList;
 import code.util.StringMap;
 import code.util.StringMapObject;
 import code.util.consts.ConstClasses;
 import code.util.consts.Constants;
 import code.util.ints.ListableEntries;
-import code.xml.XmlParser;
-import code.xml.components.DocumentBuilder;
-import code.xml.exceptions.XmlParseException;
 
 @SuppressWarnings("static-method")
 public class FormatHtmlTest {
@@ -103,7 +102,7 @@ public class FormatHtmlTest {
         conf_.getProperties().put("msg_example", relative_);
         conf_.setTranslators(new StringMap<Translator>());
         conf_.getTranslators().put("trans", new MyTranslator());
-        Document doc_ = XmlParser.parseSaxHtml(html_, false);
+        Document doc_ = DocumentBuilder.parseSaxHtml(html_, false);
         conf_.setHtml(html_);
         conf_.setDocument(doc_);
         setup(conf_);
@@ -134,7 +133,7 @@ public class FormatHtmlTest {
         conf_.getProperties().put("msg_example", relative_);
         conf_.setTranslators(new StringMap<Translator>());
         conf_.getTranslators().put("trans", new MyTranslator());
-        Document doc_ = XmlParser.parseSaxHtml(html_, false);
+        Document doc_ = DocumentBuilder.parseSaxHtml(html_, false);
         conf_.setHtml(html_);
         conf_.setDocument(doc_);
         setup(conf_);
@@ -165,7 +164,7 @@ public class FormatHtmlTest {
         conf_.getProperties().put("msg_example", relative_);
         conf_.setTranslators(new StringMap<Translator>());
         conf_.getTranslators().put("trans", new MyTranslator());
-        Document doc_ = XmlParser.parseSaxHtml(html_, false);
+        Document doc_ = DocumentBuilder.parseSaxHtml(html_, false);
         conf_.setHtml(html_);
         conf_.setDocument(doc_);
         setup(conf_);
@@ -196,7 +195,7 @@ public class FormatHtmlTest {
         conf_.getProperties().put("msg_example", relative_);
         conf_.setTranslators(new StringMap<Translator>());
         conf_.getTranslators().put("trans", new MyTranslator());
-        Document doc_ = XmlParser.parseSaxHtml(html_, false);
+        Document doc_ = DocumentBuilder.parseSaxHtml(html_, false);
         conf_.setHtml(html_);
         conf_.setDocument(doc_);
         setup(conf_);
@@ -228,7 +227,7 @@ public class FormatHtmlTest {
         conf_.getProperties().put("msg_example", relative_);
         conf_.setTranslators(new StringMap<Translator>());
         conf_.getTranslators().put("trans", new MyTranslator());
-        Document doc_ = XmlParser.parseSaxHtml(html_, false);
+        Document doc_ = DocumentBuilder.parseSaxHtml(html_, false);
         conf_.setHtml(html_);
         conf_.setDocument(doc_);
         setup(conf_);
@@ -262,7 +261,7 @@ public class FormatHtmlTest {
         conf_.getProperties().put("msg_example", relative_);
         conf_.setTranslators(new StringMap<Translator>());
         conf_.getTranslators().put("trans", new MyTranslator());
-        Document doc_ = XmlParser.parseSaxHtml(html_, false);
+        Document doc_ = DocumentBuilder.parseSaxHtml(html_, false);
         conf_.setHtml(html_);
         conf_.setDocument(doc_);
         setup(conf_);
@@ -296,7 +295,7 @@ public class FormatHtmlTest {
         conf_.getProperties().put("msg_example", relative_);
         conf_.setTranslators(new StringMap<Translator>());
         conf_.getTranslators().put("trans", new MyTranslator());
-        Document doc_ = XmlParser.parseSaxHtml(html_, false);
+        Document doc_ = DocumentBuilder.parseSaxHtml(html_, false);
         conf_.setHtml(html_);
         conf_.setDocument(doc_);
         setup(conf_);
@@ -328,7 +327,7 @@ public class FormatHtmlTest {
         conf_.getProperties().put("msg_example", relative_);
         conf_.setTranslators(new StringMap<Translator>());
         conf_.getTranslators().put("trans", new MyTranslator());
-        Document doc_ = XmlParser.parseSaxHtml(html_, false);
+        Document doc_ = DocumentBuilder.parseSaxHtml(html_, false);
         conf_.setHtml(html_);
         conf_.setDocument(doc_);
         setup(conf_);
@@ -360,7 +359,7 @@ public class FormatHtmlTest {
         conf_.getProperties().put("msg_example", relative_);
         conf_.setTranslators(new StringMap<Translator>());
         conf_.getTranslators().put("trans", new MyTranslator());
-        Document doc_ = XmlParser.parseSaxHtml(html_, false);
+        Document doc_ = DocumentBuilder.parseSaxHtml(html_, false);
         conf_.setHtml(html_);
         conf_.setDocument(doc_);
         setup(conf_);
@@ -390,7 +389,7 @@ public class FormatHtmlTest {
         conf_.getProperties().put("msg_example", relative_);
         conf_.setTranslators(new StringMap<Translator>());
         conf_.getTranslators().put("trans", new MyTranslator());
-        Document doc_ = XmlParser.parseSaxHtml(html_, false);
+        Document doc_ = DocumentBuilder.parseSaxHtml(html_, false);
         conf_.setHtml(html_);
         conf_.setDocument(doc_);
         setup(conf_);
@@ -421,7 +420,7 @@ public class FormatHtmlTest {
         conf_.getProperties().put("msg_example", relative_);
         conf_.setTranslators(new StringMap<Translator>());
         conf_.getTranslators().put("trans", new MyTranslator());
-        Document doc_ = XmlParser.parseSaxHtml(html_, false);
+        Document doc_ = DocumentBuilder.parseSaxHtml(html_, false);
         conf_.setHtml(html_);
         conf_.setDocument(doc_);
         setup(conf_);
@@ -452,7 +451,7 @@ public class FormatHtmlTest {
         conf_.getProperties().put("msg_example", relative_);
         conf_.setTranslators(new StringMap<Translator>());
         conf_.getTranslators().put("trans", new MyTranslator());
-        Document doc_ = XmlParser.parseSaxHtml(html_, false);
+        Document doc_ = DocumentBuilder.parseSaxHtml(html_, false);
         conf_.setHtml(html_);
         conf_.setDocument(doc_);
         setup(conf_);
@@ -483,7 +482,7 @@ public class FormatHtmlTest {
         conf_.getProperties().put("msg_example", relative_);
         conf_.setTranslators(new StringMap<Translator>());
         conf_.getTranslators().put("trans", new MyTranslator());
-        Document doc_ = XmlParser.parseSaxHtml(html_, false);
+        Document doc_ = DocumentBuilder.parseSaxHtml(html_, false);
         conf_.setDocument(doc_);
         conf_.setHtml(html_);
         setup(conf_);
@@ -514,7 +513,7 @@ public class FormatHtmlTest {
         conf_.getProperties().put("msg_example", relative_);
         conf_.setTranslators(new StringMap<Translator>());
         conf_.getTranslators().put("trans", new MyTranslator());
-        Document doc_ = XmlParser.parseSaxHtml(html_, false);
+        Document doc_ = DocumentBuilder.parseSaxHtml(html_, false);
         conf_.setDocument(doc_);
         conf_.setHtml(html_);
         setup(conf_);
@@ -545,7 +544,7 @@ public class FormatHtmlTest {
         conf_.getProperties().put("msg_example", relative_);
         conf_.setTranslators(new StringMap<Translator>());
         conf_.getTranslators().put("trans", new MyTranslator());
-        Document doc_ = XmlParser.parseSaxHtml(html_, false);
+        Document doc_ = DocumentBuilder.parseSaxHtml(html_, false);
         conf_.setDocument(doc_);
         conf_.setHtml(html_);
         setup(conf_);
@@ -579,7 +578,7 @@ public class FormatHtmlTest {
         conf_.getProperties().put("msg_example", relative_);
         conf_.setTranslators(new StringMap<Translator>());
         conf_.getTranslators().put("trans", new MyTranslator());
-        Document doc_ = XmlParser.parseSaxHtml(html_, false);
+        Document doc_ = DocumentBuilder.parseSaxHtml(html_, false);
         conf_.setDocument(doc_);
         conf_.setHtml(html_);
         setup(conf_);
@@ -614,7 +613,7 @@ public class FormatHtmlTest {
         conf_.getProperties().put("msg_example", relative_);
         conf_.setTranslators(new StringMap<Translator>());
         conf_.getTranslators().put("trans", new MyTranslator());
-        Document doc_ = XmlParser.parseSaxHtml(html_, false);
+        Document doc_ = DocumentBuilder.parseSaxHtml(html_, false);
         conf_.setDocument(doc_);
         conf_.setHtml(html_);
         setup(conf_);
@@ -645,7 +644,7 @@ public class FormatHtmlTest {
         conf_.getProperties().put("msg_example", relative_);
         conf_.setTranslators(new StringMap<Translator>());
         conf_.getTranslators().put("trans", new MyTranslator());
-        Document doc_ = XmlParser.parseSaxHtml(html_, false);
+        Document doc_ = DocumentBuilder.parseSaxHtml(html_, false);
         conf_.setDocument(doc_);
         conf_.setHtml(html_);
         setup(conf_);
@@ -677,7 +676,7 @@ public class FormatHtmlTest {
         conf_.getProperties().put("msg_example", relative_);
         conf_.setTranslators(new StringMap<Translator>());
         conf_.getTranslators().put("trans", new MyTranslator());
-        Document doc_ = XmlParser.parseSaxHtml(html_, false);
+        Document doc_ = DocumentBuilder.parseSaxHtml(html_, false);
         conf_.setDocument(doc_);
         conf_.setHtml(html_);
         setup(conf_);
@@ -707,7 +706,7 @@ public class FormatHtmlTest {
         conf_.getProperties().put("msg_example", relative_);
         conf_.setTranslators(new StringMap<Translator>());
         conf_.getTranslators().put("trans", new MyTranslator());
-        Document doc_ = XmlParser.parseSaxHtml(html_, false);
+        Document doc_ = DocumentBuilder.parseSaxHtml(html_, false);
         conf_.setDocument(doc_);
         conf_.setHtml(html_);
         setup(conf_);
@@ -740,7 +739,7 @@ public class FormatHtmlTest {
         conf_.getProperties().put("msg_example", relative_);
         conf_.setTranslators(new StringMap<Translator>());
         conf_.getTranslators().put("trans", new MyTranslator());
-        Document doc_ = XmlParser.parseSaxHtml(html_, false);
+        Document doc_ = DocumentBuilder.parseSaxHtml(html_, false);
         conf_.setDocument(doc_);
         conf_.setHtml(html_);
         setup(conf_);
@@ -773,7 +772,7 @@ public class FormatHtmlTest {
         conf_.getProperties().put("msg_example", relative_);
         conf_.setTranslators(new StringMap<Translator>());
         conf_.getTranslators().put("trans", new MyTranslator());
-        Document doc_ = XmlParser.parseSaxHtml(html_, false);
+        Document doc_ = DocumentBuilder.parseSaxHtml(html_, false);
         conf_.setDocument(doc_);
         conf_.setHtml(html_);
         setup(conf_);
@@ -806,7 +805,7 @@ public class FormatHtmlTest {
         conf_.getProperties().put("msg_example", relative_);
         conf_.setTranslators(new StringMap<Translator>());
         conf_.getTranslators().put("trans", new MyTranslator());
-        Document doc_ = XmlParser.parseSaxHtml(html_, false);
+        Document doc_ = DocumentBuilder.parseSaxHtml(html_, false);
         conf_.setDocument(doc_);
         conf_.setHtml(html_);
         setup(conf_);
@@ -838,7 +837,7 @@ public class FormatHtmlTest {
         conf_.getProperties().put("msg_example", relative_);
         conf_.setTranslators(new StringMap<Translator>());
         conf_.getTranslators().put("trans", new MyTranslator());
-        Document doc_ = XmlParser.parseSaxHtml(html_, false);
+        Document doc_ = DocumentBuilder.parseSaxHtml(html_, false);
         conf_.setDocument(doc_);
         conf_.setHtml(html_);
         setup(conf_);
@@ -871,7 +870,7 @@ public class FormatHtmlTest {
         conf_.getProperties().put("msg_example", relative_);
         conf_.setTranslators(new StringMap<Translator>());
         conf_.getTranslators().put("trans", new MyTranslator());
-        Document doc_ = XmlParser.parseSaxHtml(html_, false);
+        Document doc_ = DocumentBuilder.parseSaxHtml(html_, false);
         conf_.setDocument(doc_);
         conf_.setHtml(html_);
         setup(conf_);
@@ -902,7 +901,7 @@ public class FormatHtmlTest {
         conf_.getProperties().put("msg_example", relative_);
         conf_.setTranslators(new StringMap<Translator>());
         conf_.getTranslators().put("trans", new MyTranslator());
-        Document doc_ = XmlParser.parseSaxHtml(html_, false);
+        Document doc_ = DocumentBuilder.parseSaxHtml(html_, false);
         conf_.setDocument(doc_);
         conf_.setHtml(html_);
         setup(conf_);
@@ -936,7 +935,7 @@ public class FormatHtmlTest {
         conf_.getProperties().put("msg_example", relative_);
         conf_.setTranslators(new StringMap<Translator>());
         conf_.getTranslators().put("trans", new MyTranslator());
-        Document doc_ = XmlParser.parseSaxHtml(html_, false);
+        Document doc_ = DocumentBuilder.parseSaxHtml(html_, false);
         conf_.setDocument(doc_);
         conf_.setHtml(html_);
         setup(conf_);
@@ -970,7 +969,7 @@ public class FormatHtmlTest {
         conf_.getProperties().put("msg_example", relative_);
         conf_.setTranslators(new StringMap<Translator>());
         conf_.getTranslators().put("trans", new MyTranslator());
-        Document doc_ = XmlParser.parseSaxHtml(html_, false);
+        Document doc_ = DocumentBuilder.parseSaxHtml(html_, false);
         conf_.setDocument(doc_);
         conf_.setHtml(html_);
         setup(conf_);
@@ -1004,7 +1003,7 @@ public class FormatHtmlTest {
         conf_.getProperties().put("msg_example", relative_);
         conf_.setTranslators(new StringMap<Translator>());
         conf_.getTranslators().put("trans", new MyTranslator());
-        Document doc_ = XmlParser.parseSaxHtml(html_, false);
+        Document doc_ = DocumentBuilder.parseSaxHtml(html_, false);
         conf_.setDocument(doc_);
         conf_.setHtml(html_);
         setup(conf_);
@@ -1036,7 +1035,7 @@ public class FormatHtmlTest {
         conf_.getProperties().put("msg_example", relative_);
         conf_.setTranslators(new StringMap<Translator>());
         conf_.getTranslators().put("trans", new MyTranslator());
-        Document doc_ = XmlParser.parseSaxHtml(html_, false);
+        Document doc_ = DocumentBuilder.parseSaxHtml(html_, false);
         conf_.setDocument(doc_);
         conf_.setHtml(html_);
         setup(conf_);
@@ -1066,7 +1065,7 @@ public class FormatHtmlTest {
         conf_.getProperties().put("msg_example", relative_);
         conf_.setTranslators(new StringMap<Translator>());
         conf_.getTranslators().put("trans", new MyTranslator());
-        Document doc_ = XmlParser.parseSaxHtml(html_, false);
+        Document doc_ = DocumentBuilder.parseSaxHtml(html_, false);
         conf_.setDocument(doc_);
         conf_.setHtml(html_);
         setup(conf_);
@@ -1098,7 +1097,7 @@ public class FormatHtmlTest {
         conf_.getProperties().put("msg_example", relative_);
         conf_.setTranslators(new StringMap<Translator>());
         conf_.getTranslators().put("trans", new MyTranslator());
-        Document doc_ = XmlParser.parseSaxHtml(html_, false);
+        Document doc_ = DocumentBuilder.parseSaxHtml(html_, false);
         conf_.setDocument(doc_);
         conf_.setHtml(html_);
         setup(conf_);
@@ -1130,7 +1129,7 @@ public class FormatHtmlTest {
         conf_.getProperties().put("msg_example", relative_);
         conf_.setTranslators(new StringMap<Translator>());
         conf_.getTranslators().put("trans", new MyTranslator());
-        Document doc_ = XmlParser.parseSaxHtml(html_, false);
+        Document doc_ = DocumentBuilder.parseSaxHtml(html_, false);
         conf_.setDocument(doc_);
         conf_.setHtml(html_);
         setup(conf_);
@@ -1160,7 +1159,7 @@ public class FormatHtmlTest {
         conf_.getProperties().put("msg_example", relative_);
         conf_.setTranslators(new StringMap<Translator>());
         conf_.getTranslators().put("trans", new MyTranslator());
-        Document doc_ = XmlParser.parseSaxHtml(html_, false);
+        Document doc_ = DocumentBuilder.parseSaxHtml(html_, false);
         conf_.setDocument(doc_);
         conf_.setHtml(html_);
         setup(conf_);
@@ -1190,7 +1189,7 @@ public class FormatHtmlTest {
         conf_.getProperties().put("msg_example", relative_);
         conf_.setTranslators(new StringMap<Translator>());
         conf_.getTranslators().put("trans", new MyTranslator());
-        Document doc_ = XmlParser.parseSaxHtml(html_, false);
+        Document doc_ = DocumentBuilder.parseSaxHtml(html_, false);
         conf_.setDocument(doc_);
         conf_.setHtml(html_);
         setup(conf_);
@@ -1221,7 +1220,7 @@ public class FormatHtmlTest {
         conf_.getProperties().put("msg_example", relative_);
         conf_.setTranslators(new StringMap<Translator>());
         conf_.getTranslators().put("trans", new MyTranslator());
-        Document doc_ = XmlParser.parseSaxHtml(html_, false);
+        Document doc_ = DocumentBuilder.parseSaxHtml(html_, false);
         conf_.setDocument(doc_);
         conf_.setHtml(html_);
         setup(conf_);
@@ -1252,7 +1251,7 @@ public class FormatHtmlTest {
         conf_.getProperties().put("msg_example", relative_);
         conf_.setTranslators(new StringMap<Translator>());
         conf_.getTranslators().put("trans", new MyTranslator());
-        Document doc_ = XmlParser.parseSaxHtml(html_, false);
+        Document doc_ = DocumentBuilder.parseSaxHtml(html_, false);
         conf_.setDocument(doc_);
         conf_.setHtml(html_);
         setup(conf_);
@@ -1283,7 +1282,7 @@ public class FormatHtmlTest {
         conf_.getProperties().put("msg_example", relative_);
         conf_.setTranslators(new StringMap<Translator>());
         conf_.getTranslators().put("trans", new MyTranslator());
-        Document doc_ = XmlParser.parseSaxHtml(html_, false);
+        Document doc_ = DocumentBuilder.parseSaxHtml(html_, false);
         conf_.setDocument(doc_);
         conf_.setHtml(html_);
         setup(conf_);
@@ -1314,7 +1313,7 @@ public class FormatHtmlTest {
         conf_.getProperties().put("msg_example", relative_);
         conf_.setTranslators(new StringMap<Translator>());
         conf_.getTranslators().put("trans", new MyTranslator());
-        Document doc_ = XmlParser.parseSaxHtml(html_, false);
+        Document doc_ = DocumentBuilder.parseSaxHtml(html_, false);
         conf_.setHtml(html_);
         conf_.setDocument(doc_);
         setup(conf_);
@@ -1345,7 +1344,7 @@ public class FormatHtmlTest {
         conf_.getProperties().put("msg_example", relative_);
         conf_.setTranslators(new StringMap<Translator>());
         conf_.getTranslators().put("trans", new MyTranslator());
-        Document doc_ = XmlParser.parseSaxHtml(html_, false);
+        Document doc_ = DocumentBuilder.parseSaxHtml(html_, false);
         conf_.setHtml(html_);
         conf_.setDocument(doc_);
         setup(conf_);
@@ -1376,7 +1375,7 @@ public class FormatHtmlTest {
         conf_.getProperties().put("msg_example", relative_);
         conf_.setTranslators(new StringMap<Translator>());
         conf_.getTranslators().put("trans", new MyTranslator());
-        Document doc_ = XmlParser.parseSaxHtml(html_, false);
+        Document doc_ = DocumentBuilder.parseSaxHtml(html_, false);
         conf_.setHtml(html_);
         conf_.setDocument(doc_);
         setup(conf_);
@@ -1408,7 +1407,7 @@ public class FormatHtmlTest {
         conf_.getProperties().put("msg_example", relative_);
         conf_.setTranslators(new StringMap<Translator>());
         conf_.getTranslators().put("trans", new MyTranslator());
-        Document doc_ = XmlParser.parseSaxHtml(html_, false);
+        Document doc_ = DocumentBuilder.parseSaxHtml(html_, false);
         conf_.setHtml(html_);
         conf_.setDocument(doc_);
         setup(conf_);
@@ -1438,7 +1437,7 @@ public class FormatHtmlTest {
         conf_.getProperties().put("msg_example", relative_);
         conf_.setTranslators(new StringMap<Translator>());
         conf_.getTranslators().put("trans", new MyTranslator());
-        Document doc_ = XmlParser.parseSaxHtml(html_, false);
+        Document doc_ = DocumentBuilder.parseSaxHtml(html_, false);
         conf_.setHtml(html_);
         conf_.setDocument(doc_);
         setup(conf_);
@@ -1471,7 +1470,7 @@ public class FormatHtmlTest {
         conf_.getProperties().put("msg_example", relative_);
         conf_.setTranslators(new StringMap<Translator>());
         conf_.getTranslators().put("trans", new MyTranslator());
-        Document doc_ = XmlParser.parseSaxHtml(html_, false);
+        Document doc_ = DocumentBuilder.parseSaxHtml(html_, false);
         conf_.setHtml(html_);
         conf_.setDocument(doc_);
         setup(conf_);
@@ -1504,7 +1503,7 @@ public class FormatHtmlTest {
         conf_.getProperties().put("msg_example", relative_);
         conf_.setTranslators(new StringMap<Translator>());
         conf_.getTranslators().put("trans", new MyTranslator());
-        Document doc_ = XmlParser.parseSaxHtml(html_, false);
+        Document doc_ = DocumentBuilder.parseSaxHtml(html_, false);
         conf_.setHtml(html_);
         conf_.setDocument(doc_);
         setup(conf_);
@@ -1537,7 +1536,7 @@ public class FormatHtmlTest {
         conf_.getProperties().put("msg_example", relative_);
         conf_.setTranslators(new StringMap<Translator>());
         conf_.getTranslators().put("trans", new MyTranslator());
-        Document doc_ = XmlParser.parseSaxHtml(html_, false);
+        Document doc_ = DocumentBuilder.parseSaxHtml(html_, false);
         conf_.setHtml(html_);
         conf_.setDocument(doc_);
         setup(conf_);
@@ -1570,7 +1569,7 @@ public class FormatHtmlTest {
         conf_.getProperties().put("msg_example", relative_);
         conf_.setTranslators(new StringMap<Translator>());
         conf_.getTranslators().put("trans", new MyTranslator());
-        Document doc_ = XmlParser.parseSaxHtml(html_, false);
+        Document doc_ = DocumentBuilder.parseSaxHtml(html_, false);
         conf_.setHtml(html_);
         conf_.setDocument(doc_);
         setup(conf_);
@@ -1603,7 +1602,7 @@ public class FormatHtmlTest {
         conf_.getProperties().put("msg_example", relative_);
         conf_.setTranslators(new StringMap<Translator>());
         conf_.getTranslators().put("trans", new MyTranslator());
-        Document doc_ = XmlParser.parseSaxHtml(html_, false);
+        Document doc_ = DocumentBuilder.parseSaxHtml(html_, false);
         conf_.setHtml(html_);
         conf_.setDocument(doc_);
         setup(conf_);
@@ -1634,7 +1633,7 @@ public class FormatHtmlTest {
         conf_.getProperties().put("msg_example", relative_);
         conf_.setTranslators(new StringMap<Translator>());
         conf_.getTranslators().put("trans", new MyTranslator());
-        Document doc_ = XmlParser.parseSaxHtml(html_, false);
+        Document doc_ = DocumentBuilder.parseSaxHtml(html_, false);
         conf_.setHtml(html_);
         conf_.setDocument(doc_);
         setup(conf_);
@@ -1663,7 +1662,7 @@ public class FormatHtmlTest {
         conf_.getProperties().put("msg_example", relative_);
         conf_.setTranslators(new StringMap<Translator>());
         conf_.getTranslators().put("trans", new MyTranslator());
-        Document doc_ = XmlParser.parseSaxHtml(html_, false);
+        Document doc_ = DocumentBuilder.parseSaxHtml(html_, false);
         conf_.setHtml(html_);
         conf_.setDocument(doc_);
         setup(conf_);
@@ -1693,7 +1692,7 @@ public class FormatHtmlTest {
         conf_.getProperties().put("msg_example", relative_);
         conf_.setTranslators(new StringMap<Translator>());
         conf_.getTranslators().put("trans", new MyTranslator());
-        Document doc_ = XmlParser.parseSaxHtml(html_, false);
+        Document doc_ = DocumentBuilder.parseSaxHtml(html_, false);
         conf_.setHtml(html_);
         conf_.setDocument(doc_);
         setup(conf_);
@@ -1721,7 +1720,7 @@ public class FormatHtmlTest {
         conf_.getProperties().put("msg_example", relative_);
         conf_.setTranslators(new StringMap<Translator>());
         conf_.getTranslators().put("trans", new MyTranslator());
-        Document doc_ = XmlParser.parseSaxHtml(html_, false);
+        Document doc_ = DocumentBuilder.parseSaxHtml(html_, false);
         conf_.setHtml(html_);
         conf_.setDocument(doc_);
         setup(conf_);
@@ -1751,7 +1750,7 @@ public class FormatHtmlTest {
         conf_.getProperties().put("msg_example", relative_);
         conf_.setTranslators(new StringMap<Translator>());
         conf_.getTranslators().put("trans", new MyTranslator());
-        Document doc_ = XmlParser.parseSaxHtml(html_, false);
+        Document doc_ = DocumentBuilder.parseSaxHtml(html_, false);
         conf_.setHtml(html_);
         conf_.setDocument(doc_);
         setup(conf_);
@@ -1782,7 +1781,7 @@ public class FormatHtmlTest {
         conf_.getProperties().put("msg_example", relative_);
         conf_.setTranslators(new StringMap<Translator>());
         conf_.getTranslators().put("trans", new MyTranslator());
-        Document doc_ = XmlParser.parseSaxHtml(html_, false);
+        Document doc_ = DocumentBuilder.parseSaxHtml(html_, false);
         conf_.setHtml(html_);
         conf_.setDocument(doc_);
         setup(conf_);
@@ -1810,7 +1809,7 @@ public class FormatHtmlTest {
         conf_.getProperties().put("msg_example", relative_);
         conf_.setTranslators(new StringMap<Translator>());
         conf_.getTranslators().put("trans", new MyTranslator());
-        Document doc_ = XmlParser.parseSaxHtml(html_, false);
+        Document doc_ = DocumentBuilder.parseSaxHtml(html_, false);
         conf_.setHtml(html_);
         conf_.setDocument(doc_);
         setup(conf_);
@@ -1838,7 +1837,7 @@ public class FormatHtmlTest {
         conf_.getProperties().put("msg_example", relative_);
         conf_.setTranslators(new StringMap<Translator>());
         conf_.getTranslators().put("trans", new MyTranslator());
-        Document doc_ = XmlParser.parseSaxHtml(html_, false);
+        Document doc_ = DocumentBuilder.parseSaxHtml(html_, false);
         conf_.setHtml(html_);
         conf_.setDocument(doc_);
         setup(conf_);
@@ -1867,7 +1866,7 @@ public class FormatHtmlTest {
         conf_.getProperties().put("msg_example", relative_);
         conf_.setTranslators(new StringMap<Translator>());
         conf_.getTranslators().put("trans", new MyTranslator());
-        Document doc_ = XmlParser.parseSaxHtml(html_, false);
+        Document doc_ = DocumentBuilder.parseSaxHtml(html_, false);
         conf_.setHtml(html_);
         conf_.setDocument(doc_);
         setup(conf_);
@@ -1896,7 +1895,7 @@ public class FormatHtmlTest {
         conf_.getProperties().put("msg_example", relative_);
         conf_.setTranslators(new StringMap<Translator>());
         conf_.getTranslators().put("trans", new MyTranslator());
-        Document doc_ = XmlParser.parseSaxHtml(html_, false);
+        Document doc_ = DocumentBuilder.parseSaxHtml(html_, false);
         conf_.setHtml(html_);
         conf_.setDocument(doc_);
         setup(conf_);
@@ -1923,7 +1922,7 @@ public class FormatHtmlTest {
         conf_.getProperties().put("msg_example", relative_);
         conf_.setTranslators(new StringMap<Translator>());
         conf_.getTranslators().put("trans", new MyTranslator());
-        Document doc_ = XmlParser.parseSaxHtml(html_, false);
+        Document doc_ = DocumentBuilder.parseSaxHtml(html_, false);
         conf_.setHtml(html_);
         conf_.setDocument(doc_);
         setup(conf_);
@@ -1953,7 +1952,7 @@ public class FormatHtmlTest {
         conf_.getProperties().put("msg_example", relative_);
         conf_.setTranslators(new StringMap<Translator>());
         conf_.getTranslators().put("trans", new MyTranslator());
-        Document doc_ = XmlParser.parseSaxHtml(html_, false);
+        Document doc_ = DocumentBuilder.parseSaxHtml(html_, false);
         conf_.setHtml(html_);
         conf_.setDocument(doc_);
         setup(conf_);
@@ -1983,7 +1982,7 @@ public class FormatHtmlTest {
         conf_.getProperties().put("msg_example", relative_);
         conf_.setTranslators(new StringMap<Translator>());
         conf_.getTranslators().put("trans", new MyTranslator());
-        Document doc_ = XmlParser.parseSaxHtml(html_, false);
+        Document doc_ = DocumentBuilder.parseSaxHtml(html_, false);
         conf_.setHtml(html_);
         conf_.setDocument(doc_);
         setup(conf_);
@@ -2015,7 +2014,7 @@ public class FormatHtmlTest {
         conf_.getProperties().put("msg_example", relative_);
         conf_.setTranslators(new StringMap<Translator>());
         conf_.getTranslators().put("trans", new MyTranslator());
-        Document doc_ = XmlParser.parseSaxHtml(html_, false);
+        Document doc_ = DocumentBuilder.parseSaxHtml(html_, false);
         conf_.setHtml(html_);
         conf_.setDocument(doc_);
         setup(conf_);
@@ -2043,7 +2042,7 @@ public class FormatHtmlTest {
         conf_.getProperties().put("msg_example", relative_);
         conf_.setTranslators(new StringMap<Translator>());
         conf_.getTranslators().put("trans", new MyTranslator());
-        Document doc_ = XmlParser.parseSaxHtml(html_, false);
+        Document doc_ = DocumentBuilder.parseSaxHtml(html_, false);
         conf_.setHtml(html_);
         conf_.setDocument(doc_);
         setup(conf_);
@@ -2076,7 +2075,7 @@ public class FormatHtmlTest {
         conf_.getProperties().put("msg_example", relative_);
         conf_.setTranslators(new StringMap<Translator>());
         conf_.getTranslators().put("trans", new MyTranslator());
-        Document doc_ = XmlParser.parseSaxHtml(html_, false);
+        Document doc_ = DocumentBuilder.parseSaxHtml(html_, false);
         conf_.setHtml(html_);
         conf_.setDocument(doc_);
         setup(conf_);
@@ -2106,7 +2105,7 @@ public class FormatHtmlTest {
         conf_.getProperties().put("msg_example", relative_);
         conf_.setTranslators(new StringMap<Translator>());
         conf_.getTranslators().put("trans", new MyTranslator());
-        Document doc_ = XmlParser.parseSaxHtml(html_, false);
+        Document doc_ = DocumentBuilder.parseSaxHtml(html_, false);
         conf_.setHtml(html_);
         conf_.setDocument(doc_);
         setup(conf_);
@@ -2138,7 +2137,7 @@ public class FormatHtmlTest {
         conf_.getProperties().put("msg_example", relative_);
         conf_.setTranslators(new StringMap<Translator>());
         conf_.getTranslators().put("trans", new MyTranslator());
-        Document doc_ = XmlParser.parseSaxHtml(html_, false);
+        Document doc_ = DocumentBuilder.parseSaxHtml(html_, false);
         conf_.setHtml(html_);
         conf_.setDocument(doc_);
         setup(conf_);
@@ -2170,7 +2169,7 @@ public class FormatHtmlTest {
         conf_.getProperties().put("msg_example", relative_);
         conf_.setTranslators(new StringMap<Translator>());
         conf_.getTranslators().put("trans", new MyTranslator());
-        Document doc_ = XmlParser.parseSaxHtml(html_, false);
+        Document doc_ = DocumentBuilder.parseSaxHtml(html_, false);
         conf_.setHtml(html_);
         conf_.setDocument(doc_);
         setup(conf_);
@@ -2202,7 +2201,7 @@ public class FormatHtmlTest {
         conf_.getProperties().put("msg_example", relative_);
         conf_.setTranslators(new StringMap<Translator>());
         conf_.getTranslators().put("trans", new MyTranslator());
-        Document doc_ = XmlParser.parseSaxHtml(html_, false);
+        Document doc_ = DocumentBuilder.parseSaxHtml(html_, false);
         conf_.setHtml(html_);
         conf_.setDocument(doc_);
         setup(conf_);
@@ -2234,7 +2233,7 @@ public class FormatHtmlTest {
         conf_.getProperties().put("msg_example", relative_);
         conf_.setTranslators(new StringMap<Translator>());
         conf_.getTranslators().put("trans", new MyTranslator());
-        Document doc_ = XmlParser.parseSaxHtml(html_, false);
+        Document doc_ = DocumentBuilder.parseSaxHtml(html_, false);
         conf_.setHtml(html_);
         conf_.setDocument(doc_);
         setup(conf_);
@@ -2266,7 +2265,7 @@ public class FormatHtmlTest {
         conf_.getProperties().put("msg_example", relative_);
         conf_.setTranslators(new StringMap<Translator>());
         conf_.getTranslators().put("trans", new MyTranslator());
-        Document doc_ = XmlParser.parseSaxHtml(html_, false);
+        Document doc_ = DocumentBuilder.parseSaxHtml(html_, false);
         conf_.setHtml(html_);
         conf_.setDocument(doc_);
         setup(conf_);
@@ -2298,7 +2297,7 @@ public class FormatHtmlTest {
         conf_.getProperties().put("msg_example", relative_);
         conf_.setTranslators(new StringMap<Translator>());
         conf_.getTranslators().put("trans", new MyTranslator());
-        Document doc_ = XmlParser.parseSaxHtml(html_, false);
+        Document doc_ = DocumentBuilder.parseSaxHtml(html_, false);
         conf_.setHtml(html_);
         conf_.setDocument(doc_);
         setup(conf_);
@@ -2330,7 +2329,7 @@ public class FormatHtmlTest {
         conf_.getProperties().put("msg_example", relative_);
         conf_.setTranslators(new StringMap<Translator>());
         conf_.getTranslators().put("trans", new MyTranslator());
-        Document doc_ = XmlParser.parseSaxHtml(html_, false);
+        Document doc_ = DocumentBuilder.parseSaxHtml(html_, false);
         conf_.setHtml(html_);
         conf_.setDocument(doc_);
         setup(conf_);
@@ -2360,7 +2359,7 @@ public class FormatHtmlTest {
         conf_.getProperties().put("msg_example", relative_);
         conf_.setTranslators(new StringMap<Translator>());
         conf_.getTranslators().put("trans", new MyTranslator());
-        Document doc_ = XmlParser.parseSaxHtml(html_, false);
+        Document doc_ = DocumentBuilder.parseSaxHtml(html_, false);
         conf_.setHtml(html_);
         conf_.setDocument(doc_);
         setup(conf_);
@@ -2392,7 +2391,7 @@ public class FormatHtmlTest {
         conf_.getProperties().put("msg_example", relative_);
         conf_.setTranslators(new StringMap<Translator>());
         conf_.getTranslators().put("trans", new MyTranslator());
-        Document doc_ = XmlParser.parseSaxHtml(html_, false);
+        Document doc_ = DocumentBuilder.parseSaxHtml(html_, false);
         conf_.setHtml(html_);
         conf_.setDocument(doc_);
         setup(conf_);
@@ -2423,7 +2422,7 @@ public class FormatHtmlTest {
         conf_.getProperties().put("msg_example", relative_);
         conf_.setTranslators(new StringMap<Translator>());
         conf_.getTranslators().put("trans", new MyTranslator());
-        Document doc_ = XmlParser.parseSaxHtml(html_, false);
+        Document doc_ = DocumentBuilder.parseSaxHtml(html_, false);
         conf_.setHtml(html_);
         conf_.setDocument(doc_);
         setup(conf_);
@@ -2454,7 +2453,7 @@ public class FormatHtmlTest {
         conf_.getProperties().put("msg_example", relative_);
         conf_.setTranslators(new StringMap<Translator>());
         conf_.getTranslators().put("trans", new MyTranslator());
-        Document doc_ = XmlParser.parseSaxHtml(html_, false);
+        Document doc_ = DocumentBuilder.parseSaxHtml(html_, false);
         conf_.setHtml(html_);
         conf_.setDocument(doc_);
         setup(conf_);
@@ -2486,7 +2485,7 @@ public class FormatHtmlTest {
         conf_.getProperties().put("msg_example", relative_);
         conf_.setTranslators(new StringMap<Translator>());
         conf_.getTranslators().put("trans", new MyTranslator());
-        Document doc_ = XmlParser.parseSaxHtml(html_, false);
+        Document doc_ = DocumentBuilder.parseSaxHtml(html_, false);
         conf_.setHtml(html_);
         conf_.setDocument(doc_);
         setup(conf_);
@@ -2522,7 +2521,7 @@ public class FormatHtmlTest {
         conf_.getProperties().put("msg_example", relative_);
         conf_.setTranslators(new StringMap<Translator>());
         conf_.getTranslators().put("trans", new MyTranslator());
-        Document doc_ = XmlParser.parseSaxHtml(html_, false);
+        Document doc_ = DocumentBuilder.parseSaxHtml(html_, false);
         conf_.setHtml(html_);
         conf_.setDocument(doc_);
         setup(conf_);
@@ -2556,7 +2555,7 @@ public class FormatHtmlTest {
         conf_.getProperties().put("msg_example", relative_);
         conf_.setTranslators(new StringMap<Translator>());
         conf_.getTranslators().put("trans", new MyTranslator());
-        Document doc_ = XmlParser.parseSaxHtml(html_, false);
+        Document doc_ = DocumentBuilder.parseSaxHtml(html_, false);
         conf_.setDocument(doc_);
         conf_.setHtml(html_);
         setup(conf_);
@@ -2591,7 +2590,7 @@ public class FormatHtmlTest {
         conf_.getProperties().put("msg_example", relative_);
         conf_.setTranslators(new StringMap<Translator>());
         conf_.getTranslators().put("trans", new MyTranslator());
-        Document doc_ = XmlParser.parseSaxHtml(html_, false);
+        Document doc_ = DocumentBuilder.parseSaxHtml(html_, false);
         conf_.setDocument(doc_);
         conf_.setHtml(html_);
         setup(conf_);
@@ -2623,7 +2622,7 @@ public class FormatHtmlTest {
         conf_.getProperties().put("msg_example", relative_);
         conf_.setTranslators(new StringMap<Translator>());
         conf_.getTranslators().put("trans", new MyTranslator());
-        Document doc_ = XmlParser.parseSaxHtml(html_, false);
+        Document doc_ = DocumentBuilder.parseSaxHtml(html_, false);
         conf_.setDocument(doc_);
         conf_.setHtml(html_);
         setup(conf_);
@@ -2653,7 +2652,7 @@ public class FormatHtmlTest {
         conf_.getProperties().put("msg_example", relative_);
         conf_.setTranslators(new StringMap<Translator>());
         conf_.getTranslators().put("trans", new MyTranslator());
-        Document doc_ = XmlParser.parseSaxHtml(html_, false);
+        Document doc_ = DocumentBuilder.parseSaxHtml(html_, false);
         conf_.setDocument(doc_);
         conf_.setHtml(html_);
         setup(conf_);
@@ -2682,7 +2681,7 @@ public class FormatHtmlTest {
         conf_.getProperties().put("msg_example", relative_);
         conf_.setTranslators(new StringMap<Translator>());
         conf_.getTranslators().put("trans", new MyTranslator());
-        Document doc_ = XmlParser.parseSaxHtml(html_, false);
+        Document doc_ = DocumentBuilder.parseSaxHtml(html_, false);
         conf_.setDocument(doc_);
         conf_.setHtml(html_);
         setup(conf_);
@@ -2712,7 +2711,7 @@ public class FormatHtmlTest {
         conf_.getProperties().put("msg_example", relative_);
         conf_.setTranslators(new StringMap<Translator>());
         conf_.getTranslators().put("trans", new MyTranslator());
-        Document doc_ = XmlParser.parseSaxHtml(html_, false);
+        Document doc_ = DocumentBuilder.parseSaxHtml(html_, false);
         conf_.setDocument(doc_);
         conf_.setHtml(html_);
         setup(conf_);
@@ -2742,7 +2741,7 @@ public class FormatHtmlTest {
         conf_.getProperties().put("msg_example", relative_);
         conf_.setTranslators(new StringMap<Translator>());
         conf_.getTranslators().put("trans", new MyTranslator());
-        Document doc_ = XmlParser.parseSaxHtml(html_, false);
+        Document doc_ = DocumentBuilder.parseSaxHtml(html_, false);
         conf_.setDocument(doc_);
         conf_.setHtml(html_);
         setup(conf_);
@@ -2772,7 +2771,7 @@ public class FormatHtmlTest {
         conf_.getProperties().put("msg_example", relative_);
         conf_.setTranslators(new StringMap<Translator>());
         conf_.getTranslators().put("trans", new MyTranslator());
-        Document doc_ = XmlParser.parseSaxHtml(html_, false);
+        Document doc_ = DocumentBuilder.parseSaxHtml(html_, false);
         conf_.setDocument(doc_);
         conf_.setHtml(html_);
         setup(conf_);
@@ -2802,7 +2801,7 @@ public class FormatHtmlTest {
         conf_.getProperties().put("msg_example", relative_);
         conf_.setTranslators(new StringMap<Translator>());
         conf_.getTranslators().put("trans", new MyTranslator());
-        Document doc_ = XmlParser.parseSaxHtml(html_, false);
+        Document doc_ = DocumentBuilder.parseSaxHtml(html_, false);
         conf_.setDocument(doc_);
         conf_.setHtml(html_);
         setup(conf_);
@@ -2832,7 +2831,7 @@ public class FormatHtmlTest {
         conf_.getProperties().put("msg_example", relative_);
         conf_.setTranslators(new StringMap<Translator>());
         conf_.getTranslators().put("trans", new MyTranslator());
-        Document doc_ = XmlParser.parseSaxHtml(html_, false);
+        Document doc_ = DocumentBuilder.parseSaxHtml(html_, false);
         conf_.setDocument(doc_);
         conf_.setHtml(html_);
         setup(conf_);
@@ -2862,7 +2861,7 @@ public class FormatHtmlTest {
         conf_.getProperties().put("msg_example", relative_);
         conf_.setTranslators(new StringMap<Translator>());
         conf_.getTranslators().put("trans", new MyTranslator());
-        Document doc_ = XmlParser.parseSaxHtml(html_, false);
+        Document doc_ = DocumentBuilder.parseSaxHtml(html_, false);
         conf_.setDocument(doc_);
         conf_.setHtml(html_);
         setup(conf_);
@@ -2892,7 +2891,7 @@ public class FormatHtmlTest {
         conf_.getProperties().put("msg_example", relative_);
         conf_.setTranslators(new StringMap<Translator>());
         conf_.getTranslators().put("trans", new MyTranslator());
-        Document doc_ = XmlParser.parseSaxHtml(html_, false);
+        Document doc_ = DocumentBuilder.parseSaxHtml(html_, false);
         conf_.setDocument(doc_);
         conf_.setHtml(html_);
         setup(conf_);
@@ -2922,7 +2921,7 @@ public class FormatHtmlTest {
         conf_.getProperties().put("msg_example", relative_);
         conf_.setTranslators(new StringMap<Translator>());
         conf_.getTranslators().put("trans", new MyTranslator());
-        Document doc_ = XmlParser.parseSaxHtml(html_, false);
+        Document doc_ = DocumentBuilder.parseSaxHtml(html_, false);
         conf_.setDocument(doc_);
         conf_.setHtml(html_);
         setup(conf_);
@@ -2952,7 +2951,7 @@ public class FormatHtmlTest {
         conf_.getProperties().put("msg_example", relative_);
         conf_.setTranslators(new StringMap<Translator>());
         conf_.getTranslators().put("trans", new MyTranslator());
-        Document doc_ = XmlParser.parseSaxHtml(html_, false);
+        Document doc_ = DocumentBuilder.parseSaxHtml(html_, false);
         conf_.setDocument(doc_);
         conf_.setHtml(html_);
         setup(conf_);
@@ -2982,7 +2981,7 @@ public class FormatHtmlTest {
         conf_.getProperties().put("msg_example", relative_);
         conf_.setTranslators(new StringMap<Translator>());
         conf_.getTranslators().put("trans", new MyTranslator());
-        Document doc_ = XmlParser.parseSaxHtml(html_, false);
+        Document doc_ = DocumentBuilder.parseSaxHtml(html_, false);
         conf_.setDocument(doc_);
         conf_.setHtml(html_);
         setup(conf_);
@@ -3015,7 +3014,7 @@ public class FormatHtmlTest {
         conf_.getProperties().put("msg_example", relative_);
         conf_.setTranslators(new StringMap<Translator>());
         conf_.getTranslators().put("trans", new MyTranslator());
-        Document doc_ = XmlParser.parseSaxHtml(html_, false);
+        Document doc_ = DocumentBuilder.parseSaxHtml(html_, false);
         conf_.setDocument(doc_);
         conf_.setHtml(html_);
         setup(conf_);
@@ -3048,7 +3047,7 @@ public class FormatHtmlTest {
         conf_.setTranslators(new StringMap<Translator>());
         conf_.getTranslators().put("trans", new MyTranslator());
         conf_.setMathFactory(new SimpleMathFactory());
-        Document doc_ = XmlParser.parseSaxHtml(html_, false);
+        Document doc_ = DocumentBuilder.parseSaxHtml(html_, false);
         conf_.setDocument(doc_);
         conf_.setHtml(html_);
         setup(conf_);
@@ -3080,7 +3079,7 @@ public class FormatHtmlTest {
         conf_.setTranslators(new StringMap<Translator>());
         conf_.getTranslators().put("trans", new MyTranslator());
         conf_.setMathFactory(new SimpleMathFactory());
-        Document doc_ = XmlParser.parseSaxHtml(html_, false);
+        Document doc_ = DocumentBuilder.parseSaxHtml(html_, false);
         conf_.setDocument(doc_);
         conf_.setHtml(html_);
         setup(conf_);
@@ -3112,7 +3111,7 @@ public class FormatHtmlTest {
         conf_.setTranslators(new StringMap<Translator>());
         conf_.getTranslators().put("trans", new MyTranslator());
         conf_.setMathFactory(new SimpleMathFactory());
-        Document doc_ = XmlParser.parseSaxHtml(html_, false);
+        Document doc_ = DocumentBuilder.parseSaxHtml(html_, false);
         conf_.setDocument(doc_);
         conf_.setHtml(html_);
         setup(conf_);
@@ -3144,7 +3143,7 @@ public class FormatHtmlTest {
         conf_.setTranslators(new StringMap<Translator>());
         conf_.getTranslators().put("trans", new MyTranslator());
         conf_.setMathFactory(new SimpleMathFactory());
-        Document doc_ = XmlParser.parseSaxHtml(html_, false);
+        Document doc_ = DocumentBuilder.parseSaxHtml(html_, false);
         conf_.setHtml(html_);
         conf_.setDocument(doc_);
         setup(conf_);
@@ -3175,7 +3174,7 @@ public class FormatHtmlTest {
         conf_.setTranslators(new StringMap<Translator>());
         conf_.getTranslators().put("trans", new MyTranslator());
         conf_.setMathFactory(new SimpleMathFactory());
-        Document doc_ = XmlParser.parseSaxHtml(html_, false);
+        Document doc_ = DocumentBuilder.parseSaxHtml(html_, false);
         conf_.setHtml(html_);
         conf_.setDocument(doc_);
         setup(conf_);
@@ -3207,7 +3206,7 @@ public class FormatHtmlTest {
         conf_.setTranslators(new StringMap<Translator>());
         conf_.getTranslators().put("trans", new MyTranslator());
         conf_.setMathFactory(new SimpleMathFactory());
-        Document doc_ = XmlParser.parseSaxHtml(html_, false);
+        Document doc_ = DocumentBuilder.parseSaxHtml(html_, false);
         conf_.setHtml(html_);
         conf_.setDocument(doc_);
         setup(conf_);
@@ -3239,7 +3238,7 @@ public class FormatHtmlTest {
         conf_.setTranslators(new StringMap<Translator>());
         conf_.getTranslators().put("trans", new MyTranslator());
         conf_.setMathFactory(new SimpleMathFactory());
-        Document doc_ = XmlParser.parseSaxHtml(html_, false);
+        Document doc_ = DocumentBuilder.parseSaxHtml(html_, false);
         conf_.setHtml(html_);
         conf_.setDocument(doc_);
         setup(conf_);
@@ -3271,7 +3270,7 @@ public class FormatHtmlTest {
         conf_.setTranslators(new StringMap<Translator>());
         conf_.getTranslators().put("trans", new MyTranslator());
         conf_.setMathFactory(new SimpleMathFactory());
-        Document doc_ = XmlParser.parseSaxHtml(html_, false);
+        Document doc_ = DocumentBuilder.parseSaxHtml(html_, false);
         conf_.setHtml(html_);
         conf_.setDocument(doc_);
         setup(conf_);
@@ -3303,7 +3302,7 @@ public class FormatHtmlTest {
         conf_.setTranslators(new StringMap<Translator>());
         conf_.getTranslators().put("trans", new MyTranslator());
         conf_.setMathFactory(new SimpleMathFactory());
-        Document doc_ = XmlParser.parseSaxHtml(html_, false);
+        Document doc_ = DocumentBuilder.parseSaxHtml(html_, false);
         conf_.setHtml(html_);
         conf_.setDocument(doc_);
         setup(conf_);
@@ -3335,7 +3334,7 @@ public class FormatHtmlTest {
         conf_.setTranslators(new StringMap<Translator>());
         conf_.getTranslators().put("trans", new MyTranslator());
         conf_.setMathFactory(new SimpleMathFactory());
-        Document doc_ = XmlParser.parseSaxHtml(html_, false);
+        Document doc_ = DocumentBuilder.parseSaxHtml(html_, false);
         conf_.setHtml(html_);
         conf_.setDocument(doc_);
         setup(conf_);
@@ -3367,7 +3366,7 @@ public class FormatHtmlTest {
         conf_.setTranslators(new StringMap<Translator>());
         conf_.getTranslators().put("trans", new MyTranslator());
         conf_.setMathFactory(new SimpleMathFactory());
-        Document doc_ = XmlParser.parseSaxHtml(html_, false);
+        Document doc_ = DocumentBuilder.parseSaxHtml(html_, false);
         conf_.setHtml(html_);
         conf_.setDocument(doc_);
         setup(conf_);
@@ -3399,7 +3398,7 @@ public class FormatHtmlTest {
         conf_.setTranslators(new StringMap<Translator>());
         conf_.getTranslators().put("trans", new MyTranslator());
         conf_.setMathFactory(new SimpleMathFactory());
-        Document doc_ = XmlParser.parseSaxHtml(html_, false);
+        Document doc_ = DocumentBuilder.parseSaxHtml(html_, false);
         conf_.setHtml(html_);
         conf_.setDocument(doc_);
         setup(conf_);
@@ -3432,7 +3431,7 @@ public class FormatHtmlTest {
         conf_.setTranslators(new StringMap<Translator>());
         conf_.getTranslators().put("trans", new MyTranslator());
         conf_.setMathFactory(new SimpleMathFactory());
-        Document doc_ = XmlParser.parseSaxHtml(html_, false);
+        Document doc_ = DocumentBuilder.parseSaxHtml(html_, false);
         conf_.setHtml(html_);
         conf_.setDocument(doc_);
         setup(conf_);
@@ -3464,7 +3463,7 @@ public class FormatHtmlTest {
         conf_.getProperties().put("msg_example", relative_);
         conf_.setTranslators(new StringMap<Translator>());
         conf_.getTranslators().put("trans", new MyTranslator());
-        Document doc_ = XmlParser.parseSaxHtml(html_, false);
+        Document doc_ = DocumentBuilder.parseSaxHtml(html_, false);
         conf_.setHtml(html_);
         conf_.setDocument(doc_);
         setup(conf_);
@@ -3499,7 +3498,7 @@ public class FormatHtmlTest {
         conf_.getProperties().put("msg_example", relative_);
         conf_.setTranslators(new StringMap<Translator>());
         conf_.getTranslators().put("trans", new MyTranslator());
-        Document doc_ = XmlParser.parseSaxHtml(html_, false);
+        Document doc_ = DocumentBuilder.parseSaxHtml(html_, false);
         conf_.setHtml(html_);
         conf_.setDocument(doc_);
         setup(conf_);
@@ -3534,7 +3533,7 @@ public class FormatHtmlTest {
         conf_.getProperties().put("msg_example", relative_);
         conf_.setTranslators(new StringMap<Translator>());
         conf_.getTranslators().put("trans", new MyTranslator());
-        Document doc_ = XmlParser.parseSaxHtml(html_, false);
+        Document doc_ = DocumentBuilder.parseSaxHtml(html_, false);
         conf_.setHtml(html_);
         conf_.setDocument(doc_);
         setup(conf_);
@@ -3568,7 +3567,7 @@ public class FormatHtmlTest {
         conf_.getProperties().put("msg_example", relative_);
         conf_.setTranslators(new StringMap<Translator>());
         conf_.getTranslators().put("trans", new MyTranslator());
-        Document doc_ = XmlParser.parseSaxHtml(html_, false);
+        Document doc_ = DocumentBuilder.parseSaxHtml(html_, false);
         conf_.setHtml(html_);
         conf_.setDocument(doc_);
         setup(conf_);
@@ -3603,7 +3602,7 @@ public class FormatHtmlTest {
         conf_.getProperties().put("msg_example", relative_);
         conf_.setTranslators(new StringMap<Translator>());
         conf_.getTranslators().put("trans", new MyTranslator());
-        Document doc_ = XmlParser.parseSaxHtml(html_, false);
+        Document doc_ = DocumentBuilder.parseSaxHtml(html_, false);
         conf_.setHtml(html_);
         conf_.setDocument(doc_);
         setup(conf_);
@@ -3638,7 +3637,7 @@ public class FormatHtmlTest {
         conf_.getProperties().put("msg_example", relative_);
         conf_.setTranslators(new StringMap<Translator>());
         conf_.getTranslators().put("trans", new MyTranslator());
-        Document doc_ = XmlParser.parseSaxHtml(html_, false);
+        Document doc_ = DocumentBuilder.parseSaxHtml(html_, false);
         conf_.setHtml(html_);
         conf_.setDocument(doc_);
         setup(conf_);
@@ -3673,7 +3672,7 @@ public class FormatHtmlTest {
         conf_.getProperties().put("msg_example", relative_);
         conf_.setTranslators(new StringMap<Translator>());
         conf_.getTranslators().put("trans", new MyTranslator());
-        Document doc_ = XmlParser.parseSaxHtml(html_, false);
+        Document doc_ = DocumentBuilder.parseSaxHtml(html_, false);
         conf_.setHtml(html_);
         conf_.setDocument(doc_);
         setup(conf_);
@@ -3708,7 +3707,7 @@ public class FormatHtmlTest {
         conf_.getProperties().put("msg_example", relative_);
         conf_.setTranslators(new StringMap<Translator>());
         conf_.getTranslators().put("trans", new MyTranslator());
-        Document doc_ = XmlParser.parseSaxHtml(html_, false);
+        Document doc_ = DocumentBuilder.parseSaxHtml(html_, false);
         conf_.setHtml(html_);
         conf_.setDocument(doc_);
         setup(conf_);
@@ -3743,7 +3742,7 @@ public class FormatHtmlTest {
         conf_.getProperties().put("msg_example", relative_);
         conf_.setTranslators(new StringMap<Translator>());
         conf_.getTranslators().put("trans", new MyTranslator());
-        Document doc_ = XmlParser.parseSaxHtml(html_, false);
+        Document doc_ = DocumentBuilder.parseSaxHtml(html_, false);
         conf_.setHtml(html_);
         conf_.setDocument(doc_);
         setup(conf_);
@@ -3778,7 +3777,7 @@ public class FormatHtmlTest {
         conf_.getProperties().put("msg_example", relative_);
         conf_.setTranslators(new StringMap<Translator>());
         conf_.getTranslators().put("trans", new MyTranslator());
-        Document doc_ = XmlParser.parseSaxHtml(html_, false);
+        Document doc_ = DocumentBuilder.parseSaxHtml(html_, false);
         conf_.setHtml(html_);
         conf_.setDocument(doc_);
         setup(conf_);
@@ -3813,7 +3812,7 @@ public class FormatHtmlTest {
         conf_.getProperties().put("msg_example", relative_);
         conf_.setTranslators(new StringMap<Translator>());
         conf_.getTranslators().put("trans", new MyTranslator());
-        Document doc_ = XmlParser.parseSaxHtml(html_, false);
+        Document doc_ = DocumentBuilder.parseSaxHtml(html_, false);
         conf_.setHtml(html_);
         conf_.setDocument(doc_);
         setup(conf_);
@@ -3848,7 +3847,7 @@ public class FormatHtmlTest {
         conf_.getProperties().put("msg_example", relative_);
         conf_.setTranslators(new StringMap<Translator>());
         conf_.getTranslators().put("trans", new MyTranslator());
-        Document doc_ = XmlParser.parseSaxHtml(html_, false);
+        Document doc_ = DocumentBuilder.parseSaxHtml(html_, false);
         conf_.setHtml(html_);
         conf_.setDocument(doc_);
         setup(conf_);
@@ -3883,7 +3882,7 @@ public class FormatHtmlTest {
         conf_.getProperties().put("msg_example", relative_);
         conf_.setTranslators(new StringMap<Translator>());
         conf_.getTranslators().put("trans", new MyTranslator());
-        Document doc_ = XmlParser.parseSaxHtml(html_, false);
+        Document doc_ = DocumentBuilder.parseSaxHtml(html_, false);
         conf_.setHtml(html_);
         conf_.setDocument(doc_);
         setup(conf_);
@@ -3918,7 +3917,7 @@ public class FormatHtmlTest {
         conf_.getProperties().put("msg_example", relative_);
         conf_.setTranslators(new StringMap<Translator>());
         conf_.getTranslators().put("trans", new MyTranslator());
-        Document doc_ = XmlParser.parseSaxHtml(html_, false);
+        Document doc_ = DocumentBuilder.parseSaxHtml(html_, false);
         conf_.setHtml(html_);
         conf_.setDocument(doc_);
         setup(conf_);
@@ -3953,7 +3952,7 @@ public class FormatHtmlTest {
         conf_.getProperties().put("msg_example", relative_);
         conf_.setTranslators(new StringMap<Translator>());
         conf_.getTranslators().put("trans", new MyTranslator());
-        Document doc_ = XmlParser.parseSaxHtml(html_, false);
+        Document doc_ = DocumentBuilder.parseSaxHtml(html_, false);
         conf_.setHtml(html_);
         conf_.setDocument(doc_);
         setup(conf_);
@@ -3988,7 +3987,7 @@ public class FormatHtmlTest {
         conf_.getProperties().put("msg_example", relative_);
         conf_.setTranslators(new StringMap<Translator>());
         conf_.getTranslators().put("trans", new MyTranslator());
-        Document doc_ = XmlParser.parseSaxHtml(html_, false);
+        Document doc_ = DocumentBuilder.parseSaxHtml(html_, false);
         conf_.setHtml(html_);
         conf_.setDocument(doc_);
         setup(conf_);
@@ -4023,7 +4022,7 @@ public class FormatHtmlTest {
         conf_.getProperties().put("msg_example", relative_);
         conf_.setTranslators(new StringMap<Translator>());
         conf_.getTranslators().put("trans", new MyTranslator());
-        Document doc_ = XmlParser.parseSaxHtml(html_, false);
+        Document doc_ = DocumentBuilder.parseSaxHtml(html_, false);
         conf_.setHtml(html_);
         conf_.setDocument(doc_);
         setup(conf_);
@@ -4058,7 +4057,7 @@ public class FormatHtmlTest {
         conf_.getProperties().put("msg_example", relative_);
         conf_.setTranslators(new StringMap<Translator>());
         conf_.getTranslators().put("trans", new MyTranslator());
-        Document doc_ = XmlParser.parseSaxHtml(html_, false);
+        Document doc_ = DocumentBuilder.parseSaxHtml(html_, false);
         conf_.setHtml(html_);
         conf_.setDocument(doc_);
         setup(conf_);
@@ -4092,7 +4091,7 @@ public class FormatHtmlTest {
         conf_.getProperties().put("msg_example", relative_);
         conf_.setTranslators(new StringMap<Translator>());
         conf_.getTranslators().put("trans", new MyTranslator());
-        Document doc_ = XmlParser.parseSaxHtml(html_, false);
+        Document doc_ = DocumentBuilder.parseSaxHtml(html_, false);
         conf_.setHtml(html_);
         conf_.setDocument(doc_);
         setup(conf_);
@@ -4126,7 +4125,7 @@ public class FormatHtmlTest {
         conf_.getProperties().put("msg_example", relative_);
         conf_.setTranslators(new StringMap<Translator>());
         conf_.getTranslators().put("trans", new MyTranslator());
-        Document doc_ = XmlParser.parseSaxHtml(html_, false);
+        Document doc_ = DocumentBuilder.parseSaxHtml(html_, false);
         conf_.setHtml(html_);
         conf_.setDocument(doc_);
         setup(conf_);
@@ -4161,7 +4160,7 @@ public class FormatHtmlTest {
         conf_.getProperties().put("msg_example", relative_);
         conf_.setTranslators(new StringMap<Translator>());
         conf_.getTranslators().put("trans", new MyTranslator());
-        Document doc_ = XmlParser.parseSaxHtml(html_, false);
+        Document doc_ = DocumentBuilder.parseSaxHtml(html_, false);
         conf_.setHtml(html_);
         conf_.setDocument(doc_);
         setup(conf_);
@@ -4193,7 +4192,7 @@ public class FormatHtmlTest {
         conf_.getProperties().put("msg_example", relative_);
         conf_.setTranslators(new StringMap<Translator>());
         conf_.getTranslators().put("trans", new MyTranslator());
-        Document doc_ = XmlParser.parseSaxHtml(html_, false);
+        Document doc_ = DocumentBuilder.parseSaxHtml(html_, false);
         conf_.setHtml(html_);
         conf_.setDocument(doc_);
         setup(conf_);
@@ -4225,7 +4224,7 @@ public class FormatHtmlTest {
         conf_.getProperties().put("msg_example", relative_);
         conf_.setTranslators(new StringMap<Translator>());
         conf_.getTranslators().put("trans", new MyTranslator());
-        Document doc_ = XmlParser.parseSaxHtml(html_, false);
+        Document doc_ = DocumentBuilder.parseSaxHtml(html_, false);
         conf_.setHtml(html_);
         conf_.setDocument(doc_);
         setup(conf_);
@@ -4256,7 +4255,7 @@ public class FormatHtmlTest {
         conf_.getProperties().put("msg_example", relative_);
         conf_.setTranslators(new StringMap<Translator>());
         conf_.getTranslators().put("trans", new MyTranslator());
-        Document doc_ = XmlParser.parseSaxHtml(html_, false);
+        Document doc_ = DocumentBuilder.parseSaxHtml(html_, false);
         conf_.setHtml(html_);
         conf_.setDocument(doc_);
         setup(conf_);
@@ -4288,7 +4287,7 @@ public class FormatHtmlTest {
         conf_.getProperties().put("msg_example", relative_);
         conf_.setTranslators(new StringMap<Translator>());
         conf_.getTranslators().put("trans", new MyTranslator());
-        Document doc_ = XmlParser.parseSaxHtml(html_, false);
+        Document doc_ = DocumentBuilder.parseSaxHtml(html_, false);
         conf_.setHtml(html_);
         conf_.setDocument(doc_);
         setup(conf_);
@@ -4319,7 +4318,7 @@ public class FormatHtmlTest {
         conf_.getProperties().put("msg_example", relative_);
         conf_.setTranslators(new StringMap<Translator>());
         conf_.getTranslators().put("trans", new MyTranslator());
-        Document doc_ = XmlParser.parseSaxHtml(html_, false);
+        Document doc_ = DocumentBuilder.parseSaxHtml(html_, false);
         conf_.setHtml(html_);
         conf_.setDocument(doc_);
         setup(conf_);
@@ -4347,7 +4346,7 @@ public class FormatHtmlTest {
         conf_.getProperties().put("msg_example", relative_);
         conf_.setTranslators(new StringMap<Translator>());
         conf_.getTranslators().put("trans", new MyTranslator());
-        Document doc_ = XmlParser.parseSaxHtml(html_, false);
+        Document doc_ = DocumentBuilder.parseSaxHtml(html_, false);
         conf_.setDocument(doc_);
         conf_.setHtml(html_);
         setup(conf_);
@@ -4377,7 +4376,7 @@ public class FormatHtmlTest {
         conf_.getProperties().put("msg_example", relative_);
         conf_.setTranslators(new StringMap<Translator>());
         conf_.getTranslators().put("trans", new MyTranslator());
-        Document doc_ = XmlParser.parseSaxHtml(html_, false);
+        Document doc_ = DocumentBuilder.parseSaxHtml(html_, false);
         conf_.setDocument(doc_);
         conf_.setHtml(html_);
         setup(conf_);
@@ -4406,7 +4405,7 @@ public class FormatHtmlTest {
         conf_.getProperties().put("msg_example", relative_);
         conf_.setTranslators(new StringMap<Translator>());
         conf_.getTranslators().put("trans", new MyTranslator());
-        Document doc_ = XmlParser.parseSaxHtml(html_, false);
+        Document doc_ = DocumentBuilder.parseSaxHtml(html_, false);
         conf_.setHtml(html_);
         setup(conf_);
         //String render_ = FormatHtml.processHtml(doc_.getDocumentElement(), conf_, files_, bean_);
@@ -4439,7 +4438,7 @@ public class FormatHtmlTest {
         conf_.getProperties().put("msg_example", relative_);
         conf_.setTranslators(new StringMap<Translator>());
         conf_.getTranslators().put("trans", new MyTranslator());
-        Document doc_ = XmlParser.parseSaxHtml(html_, false);
+        Document doc_ = DocumentBuilder.parseSaxHtml(html_, false);
         conf_.setDocument(doc_);
 //        String render_ = FormatHtml.processHtml(doc_.getDocumentElement(), conf_, files_, beanTwo_);
 //        render_ = removeTags(render_);
@@ -4475,7 +4474,7 @@ public class FormatHtmlTest {
         conf_.getProperties().put("msg_example", relative_);
         conf_.setTranslators(new StringMap<Translator>());
         conf_.getTranslators().put("trans", new MyTranslator());
-        Document doc_ = XmlParser.parseSaxHtml(html_, false);
+        Document doc_ = DocumentBuilder.parseSaxHtml(html_, false);
         conf_.setDocument(doc_);
 //        String render_ = FormatHtml.processHtml(doc_.getDocumentElement(), conf_, files_, beanTwo_);
 //        render_ = removeTags(render_);
@@ -4512,7 +4511,7 @@ public class FormatHtmlTest {
         conf_.getProperties().put("msg_example", relative_);
         conf_.setTranslators(new StringMap<Translator>());
         conf_.getTranslators().put("trans", new MyTranslator());
-        Document doc_ = XmlParser.parseSaxHtml(html_, false);
+        Document doc_ = DocumentBuilder.parseSaxHtml(html_, false);
         conf_.setDocument(doc_);
 //        String render_ = FormatHtml.processHtml(doc_.getDocumentElement(), conf_, files_, beanTwo_);
 //        render_ = removeTags(render_);
@@ -4549,7 +4548,7 @@ public class FormatHtmlTest {
         conf_.getProperties().put("msg_example", relative_);
         conf_.setTranslators(new StringMap<Translator>());
         conf_.getTranslators().put("trans", new MyTranslator());
-        Document doc_ = XmlParser.parseSaxHtml(html_, false);
+        Document doc_ = DocumentBuilder.parseSaxHtml(html_, false);
         conf_.setDocument(doc_);
 //        String render_ = FormatHtml.processHtml(doc_.getDocumentElement(), conf_, files_, beanTwo_);
 //        render_ = removeTags(render_);
@@ -4586,7 +4585,7 @@ public class FormatHtmlTest {
         conf_.getProperties().put("msg_example", relative_);
         conf_.setTranslators(new StringMap<Translator>());
         conf_.getTranslators().put("trans", new MyTranslator());
-        Document doc_ = XmlParser.parseSaxHtml(html_, false);
+        Document doc_ = DocumentBuilder.parseSaxHtml(html_, false);
         conf_.setDocument(doc_);
 //        String render_ = FormatHtml.processHtml(doc_.getDocumentElement(), conf_, files_, beanTwo_);
 //        render_ = removeTags(render_);
@@ -4623,7 +4622,7 @@ public class FormatHtmlTest {
         conf_.getProperties().put("msg_example", relative_);
         conf_.setTranslators(new StringMap<Translator>());
         conf_.getTranslators().put("trans", new MyTranslator());
-        Document doc_ = XmlParser.parseSaxHtml(html_, false);
+        Document doc_ = DocumentBuilder.parseSaxHtml(html_, false);
 //        String render_ = FormatHtml.processHtml(doc_.getDocumentElement(), conf_, files_, beanTwo_);
 //        render_ = removeTags(render_);
 //        render_ = FormatHtml.processVarInputValue(render_, beanTwo_);
@@ -4661,7 +4660,7 @@ public class FormatHtmlTest {
         conf_.getProperties().put("msg_example", relative_);
         conf_.setTranslators(new StringMap<Translator>());
         conf_.getTranslators().put("trans", new MyTranslator());
-        Document doc_ = XmlParser.parseSaxHtml(html_, false);
+        Document doc_ = DocumentBuilder.parseSaxHtml(html_, false);
         conf_.setDocument(doc_);
 //        String render_ = FormatHtml.processHtml(doc_.getDocumentElement(), conf_, files_, beanTwo_);
 //        render_ = removeTags(render_);
@@ -4699,7 +4698,7 @@ public class FormatHtmlTest {
         conf_.getProperties().put("msg_example", relative_);
         conf_.setTranslators(new StringMap<Translator>());
         conf_.getTranslators().put("trans", new MyTranslator());
-        Document doc_ = XmlParser.parseSaxHtml(html_, false);
+        Document doc_ = DocumentBuilder.parseSaxHtml(html_, false);
 //        String render_ = FormatHtml.processHtml(doc_.getDocumentElement(), conf_, files_, beanTwo_);
 //        render_ = removeTags(render_);
 //        render_ = FormatHtml.processVarInputValue(render_, beanTwo_);
@@ -4737,7 +4736,7 @@ public class FormatHtmlTest {
         conf_.getProperties().put("msg_example", relative_);
         conf_.setTranslators(new StringMap<Translator>());
         conf_.getTranslators().put("trans", new MyTranslator());
-        Document doc_ = XmlParser.parseSaxHtml(html_, false);
+        Document doc_ = DocumentBuilder.parseSaxHtml(html_, false);
 //        String render_ = FormatHtml.processHtml(doc_.getDocumentElement(), conf_, files_, beanTwo_);
 //        render_ = removeTags(render_);
 //        render_ = FormatHtml.processVarInputValue(render_, beanTwo_);
@@ -4775,7 +4774,7 @@ public class FormatHtmlTest {
         conf_.getProperties().put("msg_example", relative_);
         conf_.setTranslators(new StringMap<Translator>());
         conf_.getTranslators().put("trans", new MyTranslator());
-        Document doc_ = XmlParser.parseSaxHtml(html_, false);
+        Document doc_ = DocumentBuilder.parseSaxHtml(html_, false);
 //        String render_ = FormatHtml.processHtml(doc_.getDocumentElement(), conf_, files_, beanTwo_);
 //        render_ = removeTags(render_);
 //        render_ = FormatHtml.processVarInputValue(render_, beanTwo_);
@@ -4812,7 +4811,7 @@ public class FormatHtmlTest {
         conf_.getProperties().put("msg_example", relative_);
         conf_.setTranslators(new StringMap<Translator>());
         conf_.getTranslators().put("trans", new MyTranslator());
-        Document doc_ = XmlParser.parseSaxHtml(html_, false);
+        Document doc_ = DocumentBuilder.parseSaxHtml(html_, false);
         conf_.setHtml(html_);
         conf_.setDocument(doc_);
         setup(conf_);
@@ -4851,7 +4850,7 @@ public class FormatHtmlTest {
         conf_.getProperties().put("msg_example", relative_);
         conf_.setTranslators(new StringMap<Translator>());
         conf_.getTranslators().put("trans", new MyTranslator());
-        Document doc_ = XmlParser.parseSaxHtml(html_, false);
+        Document doc_ = DocumentBuilder.parseSaxHtml(html_, false);
         conf_.setHtml(html_);
         conf_.setDocument(doc_);
         setup(conf_);
@@ -4890,7 +4889,7 @@ public class FormatHtmlTest {
         conf_.getProperties().put("msg_example", relative_);
         conf_.setTranslators(new StringMap<Translator>());
         conf_.getTranslators().put("trans", new MyTranslator());
-        Document doc_ = XmlParser.parseSaxHtml(html_, false);
+        Document doc_ = DocumentBuilder.parseSaxHtml(html_, false);
         conf_.setDocument(doc_);
         conf_.setHtml(html_);
         setup(conf_);
@@ -4929,7 +4928,7 @@ public class FormatHtmlTest {
         conf_.getProperties().put("msg_example", relative_);
         conf_.setTranslators(new StringMap<Translator>());
         conf_.getTranslators().put("trans", new MyTranslator());
-        Document doc_ = XmlParser.parseSaxHtml(html_, false);
+        Document doc_ = DocumentBuilder.parseSaxHtml(html_, false);
         conf_.setDocument(doc_);
         conf_.setHtml(html_);
         setup(conf_);
@@ -4970,7 +4969,7 @@ public class FormatHtmlTest {
         conf_.getProperties().put("msg_example", relative_);
         conf_.setTranslators(new StringMap<Translator>());
         conf_.getTranslators().put("trans", new MyTranslator());
-        Document doc_ = XmlParser.parseSaxHtml(html_, false);
+        Document doc_ = DocumentBuilder.parseSaxHtml(html_, false);
         conf_.setDocument(doc_);
         conf_.setHtml(html_);
         setup(conf_);
@@ -5009,7 +5008,7 @@ public class FormatHtmlTest {
         conf_.getProperties().put("msg_example", relative_);
         conf_.setTranslators(new StringMap<Translator>());
         conf_.getTranslators().put("trans", new MyTranslator());
-        Document doc_ = XmlParser.parseSaxHtml(html_, false);
+        Document doc_ = DocumentBuilder.parseSaxHtml(html_, false);
         conf_.setDocument(doc_);
         conf_.setHtml(html_);
         setup(conf_);
@@ -5048,7 +5047,7 @@ public class FormatHtmlTest {
         conf_.getProperties().put("msg_example", relative_);
         conf_.setTranslators(new StringMap<Translator>());
         conf_.getTranslators().put("trans", new MyTranslator());
-        Document doc_ = XmlParser.parseSaxHtml(html_, false);
+        Document doc_ = DocumentBuilder.parseSaxHtml(html_, false);
         conf_.setDocument(doc_);
         conf_.setHtml(html_);
         setup(conf_);
@@ -5088,7 +5087,7 @@ public class FormatHtmlTest {
         conf_.getProperties().put("msg_example", relative_);
         conf_.setTranslators(new StringMap<Translator>());
         conf_.getTranslators().put("trans", new MyTranslator());
-        Document doc_ = XmlParser.parseSaxHtml(html_, false);
+        Document doc_ = DocumentBuilder.parseSaxHtml(html_, false);
         conf_.setDocument(doc_);
         conf_.setHtml(html_);
         setup(conf_);
@@ -5127,7 +5126,7 @@ public class FormatHtmlTest {
         conf_.getProperties().put("msg_example", relative_);
         conf_.setTranslators(new StringMap<Translator>());
         conf_.getTranslators().put("trans", new MyTranslator());
-        Document doc_ = XmlParser.parseSaxHtml(html_, false);
+        Document doc_ = DocumentBuilder.parseSaxHtml(html_, false);
         conf_.setDocument(doc_);
         conf_.setHtml(html_);
         setup(conf_);
@@ -5166,7 +5165,7 @@ public class FormatHtmlTest {
         conf_.getProperties().put("msg_example", relative_);
         conf_.setTranslators(new StringMap<Translator>());
         conf_.getTranslators().put("trans", new MyTranslator());
-        Document doc_ = XmlParser.parseSaxHtml(html_, false);
+        Document doc_ = DocumentBuilder.parseSaxHtml(html_, false);
         conf_.setDocument(doc_);
         conf_.setHtml(html_);
         setup(conf_);
@@ -5206,7 +5205,7 @@ public class FormatHtmlTest {
         conf_.getProperties().put("msg_example", relative_);
         conf_.setTranslators(new StringMap<Translator>());
         conf_.getTranslators().put("trans", new MyTranslator());
-        Document doc_ = XmlParser.parseSaxHtml(html_, false);
+        Document doc_ = DocumentBuilder.parseSaxHtml(html_, false);
         conf_.setDocument(doc_);
         conf_.setHtml(html_);
         setup(conf_);
@@ -5245,7 +5244,7 @@ public class FormatHtmlTest {
         conf_.getProperties().put("msg_example", relative_);
         conf_.setTranslators(new StringMap<Translator>());
         conf_.getTranslators().put("trans", new MyTranslator());
-        Document doc_ = XmlParser.parseSaxHtml(html_, false);
+        Document doc_ = DocumentBuilder.parseSaxHtml(html_, false);
         conf_.setDocument(doc_);
         conf_.setHtml(html_);
         setup(conf_);
@@ -5286,7 +5285,7 @@ public class FormatHtmlTest {
         conf_.getProperties().put("msg_example", relative_);
         conf_.setTranslators(new StringMap<Translator>());
         conf_.getTranslators().put("trans", new MyTranslator());
-        Document doc_ = XmlParser.parseSaxHtml(html_, false);
+        Document doc_ = DocumentBuilder.parseSaxHtml(html_, false);
         conf_.setDocument(doc_);
         conf_.setHtml(html_);
         setup(conf_);
@@ -5325,7 +5324,7 @@ public class FormatHtmlTest {
         conf_.getProperties().put("msg_example", relative_);
         conf_.setTranslators(new StringMap<Translator>());
         conf_.getTranslators().put("trans", new MyTranslator());
-        Document doc_ = XmlParser.parseSaxHtml(html_, false);
+        Document doc_ = DocumentBuilder.parseSaxHtml(html_, false);
         conf_.setDocument(doc_);
         conf_.setHtml(html_);
         setup(conf_);
@@ -5364,7 +5363,7 @@ public class FormatHtmlTest {
         conf_.getProperties().put("msg_example", relative_);
         conf_.setTranslators(new StringMap<Translator>());
         conf_.getTranslators().put("trans", new MyTranslator());
-        Document doc_ = XmlParser.parseSaxHtml(html_, false);
+        Document doc_ = DocumentBuilder.parseSaxHtml(html_, false);
         conf_.setDocument(doc_);
         conf_.setHtml(html_);
         setup(conf_);
@@ -5404,7 +5403,7 @@ public class FormatHtmlTest {
         conf_.getProperties().put("msg_example", relative_);
         conf_.setTranslators(new StringMap<Translator>());
         conf_.getTranslators().put("trans", new MyTranslator());
-        Document doc_ = XmlParser.parseSaxHtml(html_, false);
+        Document doc_ = DocumentBuilder.parseSaxHtml(html_, false);
         conf_.setDocument(doc_);
         conf_.setHtml(html_);
         setup(conf_);
@@ -5443,7 +5442,7 @@ public class FormatHtmlTest {
         conf_.getProperties().put("msg_example", relative_);
         conf_.setTranslators(new StringMap<Translator>());
         conf_.getTranslators().put("trans", new MyTranslator());
-        Document doc_ = XmlParser.parseSaxHtml(html_, false);
+        Document doc_ = DocumentBuilder.parseSaxHtml(html_, false);
         conf_.setDocument(doc_);
         conf_.setHtml(html_);
         setup(conf_);
@@ -5482,7 +5481,7 @@ public class FormatHtmlTest {
         conf_.getProperties().put("msg_example", relative_);
         conf_.setTranslators(new StringMap<Translator>());
         conf_.getTranslators().put("trans", new MyTranslator());
-        Document doc_ = XmlParser.parseSaxHtml(html_, false);
+        Document doc_ = DocumentBuilder.parseSaxHtml(html_, false);
         conf_.setDocument(doc_);
         conf_.setHtml(html_);
         setup(conf_);
@@ -5521,7 +5520,7 @@ public class FormatHtmlTest {
         conf_.getProperties().put("msg_example", relative_);
         conf_.setTranslators(new StringMap<Translator>());
         conf_.getTranslators().put("trans", new MyTranslator());
-        Document doc_ = XmlParser.parseSaxHtml(html_, false);
+        Document doc_ = DocumentBuilder.parseSaxHtml(html_, false);
         conf_.setHtml(html_);
         conf_.setDocument(doc_);
         setup(conf_);
@@ -5563,7 +5562,7 @@ public class FormatHtmlTest {
         conf_.getProperties().put("msg_example", relative_);
         conf_.setTranslators(new StringMap<Translator>());
         conf_.getTranslators().put("trans", new MyTranslator());
-        Document doc_ = XmlParser.parseSaxHtml(html_, false);
+        Document doc_ = DocumentBuilder.parseSaxHtml(html_, false);
         conf_.setHtml(html_);
         conf_.setDocument(doc_);
         setup(conf_);
@@ -5604,7 +5603,7 @@ public class FormatHtmlTest {
         conf_.getProperties().put("msg_example", relative_);
         conf_.setTranslators(new StringMap<Translator>());
         conf_.getTranslators().put("trans", new MyTranslator());
-        Document doc_ = XmlParser.parseSaxHtml(html_, false);
+        Document doc_ = DocumentBuilder.parseSaxHtml(html_, false);
         conf_.setHtml(html_);
         conf_.setDocument(doc_);
         setup(conf_);
@@ -5644,7 +5643,7 @@ public class FormatHtmlTest {
         conf_.getProperties().put("msg_example", relative_);
         conf_.setTranslators(new StringMap<Translator>());
         conf_.getTranslators().put("trans", new MyTranslator());
-        Document doc_ = XmlParser.parseSaxHtml(html_, false);
+        Document doc_ = DocumentBuilder.parseSaxHtml(html_, false);
         conf_.setHtml(html_);
         conf_.setDocument(doc_);
         setup(conf_);
@@ -5685,7 +5684,7 @@ public class FormatHtmlTest {
         conf_.getProperties().put("msg_example", relative_);
         conf_.setTranslators(new StringMap<Translator>());
         conf_.getTranslators().put("trans", new MyTranslator());
-        Document doc_ = XmlParser.parseSaxHtml(html_, false);
+        Document doc_ = DocumentBuilder.parseSaxHtml(html_, false);
         conf_.setHtml(html_);
         conf_.setDocument(doc_);
         setup(conf_);
@@ -5727,7 +5726,7 @@ public class FormatHtmlTest {
         conf_.getProperties().put("msg_example", relative_);
         conf_.setTranslators(new StringMap<Translator>());
         conf_.getTranslators().put("trans", new MyTranslator());
-        Document doc_ = XmlParser.parseSaxHtml(html_, false);
+        Document doc_ = DocumentBuilder.parseSaxHtml(html_, false);
         conf_.setHtml(html_);
         conf_.setDocument(doc_);
         setup(conf_);
@@ -5769,7 +5768,7 @@ public class FormatHtmlTest {
         conf_.getProperties().put("msg_example", relative_);
         conf_.setTranslators(new StringMap<Translator>());
         conf_.getTranslators().put("trans", new MyTranslator());
-        Document doc_ = XmlParser.parseSaxHtml(html_, false);
+        Document doc_ = DocumentBuilder.parseSaxHtml(html_, false);
         conf_.setHtml(html_);
         conf_.setDocument(doc_);
         setup(conf_);
@@ -5811,7 +5810,7 @@ public class FormatHtmlTest {
         conf_.getProperties().put("msg_example", relative_);
         conf_.setTranslators(new StringMap<Translator>());
         conf_.getTranslators().put("trans", new MyTranslator());
-        Document doc_ = XmlParser.parseSaxHtml(html_, false);
+        Document doc_ = DocumentBuilder.parseSaxHtml(html_, false);
         conf_.setDocument(doc_);
         conf_.setHtml(html_);
         setup(conf_);
@@ -5862,7 +5861,7 @@ public class FormatHtmlTest {
 //        bean_.setIndex(1);
         bean_.setIndex(4);
         bean_.setIndexTwo(6);
-        Document doc_ = XmlParser.parseSaxHtml(html_, false);
+        Document doc_ = DocumentBuilder.parseSaxHtml(html_, false);
         conf_.setDocument(doc_);
         conf_.setHtml(html_);
         setup(conf_);
@@ -5904,7 +5903,7 @@ public class FormatHtmlTest {
         conf_.setTranslators(new StringMap<Translator>());
         conf_.getTranslators().put("trans", new MyTranslator());
         conf_.setNavigation(new StringMap<StringMap<String>>());
-        Document doc_ = XmlParser.parseSaxHtml(html_, false);
+        Document doc_ = DocumentBuilder.parseSaxHtml(html_, false);
         conf_.setDocument(doc_);
         conf_.setHtml(html_);
         setup(conf_);
@@ -5947,7 +5946,7 @@ public class FormatHtmlTest {
         conf_.setTranslators(new StringMap<Translator>());
         conf_.getTranslators().put("trans", new MyTranslator());
         conf_.setNavigation(new StringMap<StringMap<String>>());
-        Document doc_ = XmlParser.parseSaxHtml(html_, false);
+        Document doc_ = DocumentBuilder.parseSaxHtml(html_, false);
         conf_.setDocument(doc_);
         conf_.setHtml(html_);
         setup(conf_);
@@ -5989,7 +5988,7 @@ public class FormatHtmlTest {
         conf_.setTranslators(new StringMap<Translator>());
         conf_.getTranslators().put("trans", new MyTranslator());
         conf_.setNavigation(new StringMap<StringMap<String>>());
-        Document doc_ = XmlParser.parseSaxHtml(html_, false);
+        Document doc_ = DocumentBuilder.parseSaxHtml(html_, false);
         conf_.setDocument(doc_);
         conf_.setHtml(html_);
         setup(conf_);
@@ -6033,7 +6032,7 @@ public class FormatHtmlTest {
         conf_.getProperties().put("msg_example", relative_);
         conf_.setTranslators(new StringMap<Translator>());
         conf_.getTranslators().put("trans", new MyTranslator());
-        Document doc_ = XmlParser.parseSaxHtml(html_, false);
+        Document doc_ = DocumentBuilder.parseSaxHtml(html_, false);
         conf_.setHtml(html_);
         conf_.setDocument(doc_);
         setup(conf_);
@@ -6072,7 +6071,7 @@ public class FormatHtmlTest {
         conf_.getProperties().put("msg_example", relative_);
         conf_.setTranslators(new StringMap<Translator>());
         conf_.getTranslators().put("trans", new MyTranslator());
-        Document doc_ = XmlParser.parseSaxHtml(html_, false);
+        Document doc_ = DocumentBuilder.parseSaxHtml(html_, false);
         conf_.setHtml(html_);
         conf_.setDocument(doc_);
         setup(conf_);
@@ -6111,7 +6110,7 @@ public class FormatHtmlTest {
         conf_.getProperties().put("msg_example", relative_);
         conf_.setTranslators(new StringMap<Translator>());
         conf_.getTranslators().put("trans", new MyTranslator());
-        Document doc_ = XmlParser.parseSaxHtml(html_, false);
+        Document doc_ = DocumentBuilder.parseSaxHtml(html_, false);
         conf_.setHtml(html_);
         conf_.setDocument(doc_);
         setup(conf_);
@@ -6151,7 +6150,7 @@ public class FormatHtmlTest {
         conf_.getProperties().put("msg_example", relative_);
         conf_.setTranslators(new StringMap<Translator>());
         conf_.getTranslators().put("trans", new MyTranslator());
-        Document doc_ = XmlParser.parseSaxHtml(html_, false);
+        Document doc_ = DocumentBuilder.parseSaxHtml(html_, false);
         conf_.setHtml(html_);
         conf_.setDocument(doc_);
         setup(conf_);
@@ -6193,7 +6192,7 @@ public class FormatHtmlTest {
         conf_.getProperties().put("msg_example", relative_);
         conf_.setTranslators(new StringMap<Translator>());
         conf_.getTranslators().put("trans", new MyTranslator());
-        Document doc_ = XmlParser.parseSaxHtml(html_, false);
+        Document doc_ = DocumentBuilder.parseSaxHtml(html_, false);
         conf_.setHtml(html_);
         conf_.setDocument(doc_);
         setup(conf_);
@@ -6234,7 +6233,7 @@ public class FormatHtmlTest {
         conf_.getProperties().put("msg_example", relative_);
         conf_.setTranslators(new StringMap<Translator>());
         conf_.getTranslators().put("trans", new MyTranslator());
-        Document doc_ = XmlParser.parseSaxHtml(html_, false);
+        Document doc_ = DocumentBuilder.parseSaxHtml(html_, false);
         conf_.setHtml(html_);
         conf_.setDocument(doc_);
         setup(conf_);
@@ -6274,7 +6273,7 @@ public class FormatHtmlTest {
         conf_.getProperties().put("msg_example", relative_);
         conf_.setTranslators(new StringMap<Translator>());
         conf_.getTranslators().put("trans", new MyTranslator());
-        Document doc_ = XmlParser.parseSaxHtml(html_, false);
+        Document doc_ = DocumentBuilder.parseSaxHtml(html_, false);
         conf_.setHtml(html_);
         conf_.setDocument(doc_);
         setup(conf_);
@@ -6313,7 +6312,7 @@ public class FormatHtmlTest {
         conf_.getProperties().put("msg_example", relative_);
         conf_.setTranslators(new StringMap<Translator>());
         conf_.getTranslators().put("trans", new MyTranslator());
-        Document doc_ = XmlParser.parseSaxHtml(html_, false);
+        Document doc_ = DocumentBuilder.parseSaxHtml(html_, false);
         conf_.setHtml(html_);
         conf_.setDocument(doc_);
         setup(conf_);
@@ -6351,7 +6350,7 @@ public class FormatHtmlTest {
         conf_.getProperties().put("msg_example", relative_);
         conf_.setTranslators(new StringMap<Translator>());
         conf_.getTranslators().put("trans", new MyTranslator());
-        Document doc_ = XmlParser.parseSaxHtml(html_, false);
+        Document doc_ = DocumentBuilder.parseSaxHtml(html_, false);
         conf_.setHtml(html_);
         conf_.setDocument(doc_);
         setup(conf_);
@@ -6391,7 +6390,7 @@ public class FormatHtmlTest {
         conf_.getProperties().put("msg_example", relative_);
         conf_.setTranslators(new StringMap<Translator>());
         conf_.getTranslators().put("trans", new MyTranslator());
-        Document doc_ = XmlParser.parseSaxHtml(html_, false);
+        Document doc_ = DocumentBuilder.parseSaxHtml(html_, false);
         conf_.setHtml(html_);
         conf_.setDocument(doc_);
         setup(conf_);
@@ -6432,7 +6431,7 @@ public class FormatHtmlTest {
         conf_.getProperties().put("msg_example", relative_);
         conf_.setTranslators(new StringMap<Translator>());
         conf_.getTranslators().put("trans", new MyTranslator());
-        Document doc_ = XmlParser.parseSaxHtml(html_, false);
+        Document doc_ = DocumentBuilder.parseSaxHtml(html_, false);
         conf_.setHtml(html_);
         conf_.setDocument(doc_);
         setup(conf_);
@@ -6473,7 +6472,7 @@ public class FormatHtmlTest {
         conf_.getProperties().put("msg_example", relative_);
         conf_.setTranslators(new StringMap<Translator>());
         conf_.getTranslators().put("trans", new MyTranslator());
-        Document doc_ = XmlParser.parseSaxHtml(html_, false);
+        Document doc_ = DocumentBuilder.parseSaxHtml(html_, false);
         conf_.setHtml(html_);
         conf_.setDocument(doc_);
         setup(conf_);
@@ -6514,7 +6513,7 @@ public class FormatHtmlTest {
         conf_.getProperties().put("msg_example", relative_);
         conf_.setTranslators(new StringMap<Translator>());
         conf_.getTranslators().put("trans", new MyTranslator());
-        Document doc_ = XmlParser.parseSaxHtml(html_, false);
+        Document doc_ = DocumentBuilder.parseSaxHtml(html_, false);
         conf_.setDocument(doc_);
         conf_.setHtml(html_);
         setup(conf_);
@@ -6556,7 +6555,7 @@ public class FormatHtmlTest {
         conf_.getProperties().put("msg_example", relative_);
         conf_.setTranslators(new StringMap<Translator>());
         conf_.getTranslators().put("trans", new MyTranslator());
-        Document doc_ = XmlParser.parseSaxHtml(html_, false);
+        Document doc_ = DocumentBuilder.parseSaxHtml(html_, false);
         conf_.setHtml(html_);
         conf_.setDocument(doc_);
         setup(conf_);
@@ -6597,7 +6596,7 @@ public class FormatHtmlTest {
         conf_.getProperties().put("msg_example", relative_);
         conf_.setTranslators(new StringMap<Translator>());
         conf_.getTranslators().put("trans", new MyTranslator());
-        Document doc_ = XmlParser.parseSaxHtml(html_, false);
+        Document doc_ = DocumentBuilder.parseSaxHtml(html_, false);
         conf_.setHtml(html_);
         conf_.setDocument(doc_);
         setup(conf_);
@@ -6639,7 +6638,7 @@ public class FormatHtmlTest {
         conf_.getProperties().put("msg_example", relative_);
         conf_.setTranslators(new StringMap<Translator>());
         conf_.getTranslators().put("trans", new MyTranslator());
-        Document doc_ = XmlParser.parseSaxHtml(html_, false);
+        Document doc_ = DocumentBuilder.parseSaxHtml(html_, false);
         conf_.setDocument(doc_);
         conf_.setHtml(html_);
         setup(conf_);
@@ -6681,7 +6680,7 @@ public class FormatHtmlTest {
         conf_.getProperties().put("msg_example", relative_);
         conf_.setTranslators(new StringMap<Translator>());
         conf_.getTranslators().put("trans", new MyTranslator());
-        Document doc_ = XmlParser.parseSaxHtml(html_, false);
+        Document doc_ = DocumentBuilder.parseSaxHtml(html_, false);
         conf_.setDocument(doc_);
         conf_.setHtml(html_);
         setup(conf_);
@@ -6724,7 +6723,7 @@ public class FormatHtmlTest {
         conf_.getProperties().put("msg_example", relative_);
         conf_.setTranslators(new StringMap<Translator>());
         conf_.getTranslators().put("trans", new MyTranslator());
-        Document doc_ = XmlParser.parseSaxHtml(html_, false);
+        Document doc_ = DocumentBuilder.parseSaxHtml(html_, false);
         conf_.setDocument(doc_);
         conf_.setHtml(html_);
         setup(conf_);
@@ -6767,7 +6766,7 @@ public class FormatHtmlTest {
         conf_.getProperties().put("msg_example", relative_);
         conf_.setTranslators(new StringMap<Translator>());
         conf_.getTranslators().put("trans", new MyTranslator());
-        Document doc_ = XmlParser.parseSaxHtml(html_, false);
+        Document doc_ = DocumentBuilder.parseSaxHtml(html_, false);
         conf_.setDocument(doc_);
         conf_.setHtml(html_);
         setup(conf_);
@@ -6811,7 +6810,7 @@ public class FormatHtmlTest {
         conf_.getProperties().put("msg_example", relative_);
         conf_.setTranslators(new StringMap<Translator>());
         conf_.getTranslators().put("trans", new MyTranslator());
-        Document doc_ = XmlParser.parseSaxHtml(html_, false);
+        Document doc_ = DocumentBuilder.parseSaxHtml(html_, false);
         conf_.setDocument(doc_);
         conf_.setHtml(html_);
         setup(conf_);
@@ -6856,7 +6855,7 @@ public class FormatHtmlTest {
         conf_.getProperties().put("msg_example", relative_);
         conf_.setTranslators(new StringMap<Translator>());
         conf_.getTranslators().put("trans", new MyTranslator());
-        Document doc_ = XmlParser.parseSaxHtml(html_, false);
+        Document doc_ = DocumentBuilder.parseSaxHtml(html_, false);
         conf_.setDocument(doc_);
         conf_.setHtml(html_);
         setup(conf_);
@@ -6901,7 +6900,7 @@ public class FormatHtmlTest {
         conf_.getProperties().put("msg_example", relative_);
         conf_.setTranslators(new StringMap<Translator>());
         conf_.getTranslators().put("trans", new MyTranslator());
-        Document doc_ = XmlParser.parseSaxHtml(html_, false);
+        Document doc_ = DocumentBuilder.parseSaxHtml(html_, false);
         conf_.setDocument(doc_);
         conf_.setHtml(html_);
         setup(conf_);
@@ -6946,7 +6945,7 @@ public class FormatHtmlTest {
         conf_.getProperties().put("msg_example", relative_);
         conf_.setTranslators(new StringMap<Translator>());
         conf_.getTranslators().put("trans", new MyTranslator());
-        Document doc_ = XmlParser.parseSaxHtml(html_, false);
+        Document doc_ = DocumentBuilder.parseSaxHtml(html_, false);
         conf_.setDocument(doc_);
         conf_.setHtml(html_);
         setup(conf_);
@@ -6991,7 +6990,7 @@ public class FormatHtmlTest {
         conf_.getProperties().put("msg_example", relative_);
         conf_.setTranslators(new StringMap<Translator>());
         conf_.getTranslators().put("trans", new MyTranslator());
-        Document doc_ = XmlParser.parseSaxHtml(html_, false);
+        Document doc_ = DocumentBuilder.parseSaxHtml(html_, false);
         conf_.setDocument(doc_);
         conf_.setHtml(html_);
         setup(conf_);
@@ -7037,7 +7036,7 @@ public class FormatHtmlTest {
         conf_.getProperties().put("msg_example", relative_);
         conf_.setTranslators(new StringMap<Translator>());
         conf_.getTranslators().put("trans", new MyTranslator());
-        Document doc_ = XmlParser.parseSaxHtml(html_, false);
+        Document doc_ = DocumentBuilder.parseSaxHtml(html_, false);
         conf_.setDocument(doc_);
         conf_.setHtml(html_);
         setup(conf_);
@@ -7084,7 +7083,7 @@ public class FormatHtmlTest {
         conf_.getProperties().put("msg_example", relative_);
         conf_.setTranslators(new StringMap<Translator>());
         conf_.getTranslators().put("trans", new MyTranslator());
-        Document doc_ = XmlParser.parseSaxHtml(html_, false);
+        Document doc_ = DocumentBuilder.parseSaxHtml(html_, false);
         conf_.setDocument(doc_);
         conf_.setHtml(html_);
         setup(conf_);
@@ -7130,7 +7129,7 @@ public class FormatHtmlTest {
         conf_.getProperties().put("msg_example", relative_);
         conf_.setTranslators(new StringMap<Translator>());
         conf_.getTranslators().put("trans", new MyTranslator());
-        Document doc_ = XmlParser.parseSaxHtml(html_, false);
+        Document doc_ = DocumentBuilder.parseSaxHtml(html_, false);
         conf_.setDocument(doc_);
         conf_.setHtml(html_);
         setup(conf_);
@@ -7175,7 +7174,7 @@ public class FormatHtmlTest {
         conf_.getProperties().put("msg_example", relative_);
         conf_.setTranslators(new StringMap<Translator>());
         conf_.getTranslators().put("trans", new MyTranslator());
-        Document doc_ = XmlParser.parseSaxHtml(html_, false);
+        Document doc_ = DocumentBuilder.parseSaxHtml(html_, false);
         conf_.setDocument(doc_);
         conf_.setHtml(html_);
         setup(conf_);
@@ -7222,7 +7221,7 @@ public class FormatHtmlTest {
         conf_.getProperties().put("msg_example", relative_);
         conf_.setTranslators(new StringMap<Translator>());
         conf_.getTranslators().put("trans", new MyTranslator());
-        Document doc_ = XmlParser.parseSaxHtml(html_, false);
+        Document doc_ = DocumentBuilder.parseSaxHtml(html_, false);
         conf_.setDocument(doc_);
         conf_.setHtml(html_);
         setup(conf_);
@@ -7266,7 +7265,7 @@ public class FormatHtmlTest {
         conf_.getProperties().put("msg_example", relative_);
         conf_.setTranslators(new StringMap<Translator>());
         conf_.getTranslators().put("trans", new MyTranslator());
-        Document doc_ = XmlParser.parseSaxHtml(html_, false);
+        Document doc_ = DocumentBuilder.parseSaxHtml(html_, false);
         conf_.setHtml(html_);
         conf_.setDocument(doc_);
         setup(conf_);
@@ -7312,7 +7311,7 @@ public class FormatHtmlTest {
         conf_.getProperties().put("msg_example", relative_);
         conf_.setTranslators(new StringMap<Translator>());
         conf_.getTranslators().put("trans", new MyTranslator());
-        Document doc_ = XmlParser.parseSaxHtml(html_, false);
+        Document doc_ = DocumentBuilder.parseSaxHtml(html_, false);
         conf_.setHtml(html_);
         conf_.setDocument(doc_);
         setup(conf_);
@@ -7358,7 +7357,7 @@ public class FormatHtmlTest {
         conf_.getProperties().put("msg_example", relative_);
         conf_.setTranslators(new StringMap<Translator>());
         conf_.getTranslators().put("trans", new MyTranslator());
-        Document doc_ = XmlParser.parseSaxHtml(html_, false);
+        Document doc_ = DocumentBuilder.parseSaxHtml(html_, false);
         conf_.setHtml(html_);
         conf_.setDocument(doc_);
         setup(conf_);
@@ -7402,7 +7401,7 @@ public class FormatHtmlTest {
         conf_.getProperties().put("msg_example", relative_);
         conf_.setTranslators(new StringMap<Translator>());
         conf_.getTranslators().put("trans", new MyTranslator());
-        Document doc_ = XmlParser.parseSaxHtml(html_, false);
+        Document doc_ = DocumentBuilder.parseSaxHtml(html_, false);
         conf_.setDocument(doc_);
         conf_.setHtml(html_);
         setup(conf_);
@@ -7449,7 +7448,7 @@ public class FormatHtmlTest {
         conf_.getProperties().put("msg_example", relative_);
         conf_.setTranslators(new StringMap<Translator>());
         conf_.getTranslators().put("trans", new MyTranslator());
-        Document doc_ = XmlParser.parseSaxHtml(html_, false);
+        Document doc_ = DocumentBuilder.parseSaxHtml(html_, false);
         conf_.setDocument(doc_);
         conf_.setHtml(html_);
         setup(conf_);
@@ -7495,7 +7494,7 @@ public class FormatHtmlTest {
         conf_.getProperties().put("msg_example", relative_);
         conf_.setTranslators(new StringMap<Translator>());
         conf_.getTranslators().put("trans", new MyTranslator());
-        Document doc_ = XmlParser.parseSaxHtml(html_, false);
+        Document doc_ = DocumentBuilder.parseSaxHtml(html_, false);
         conf_.setDocument(doc_);
         conf_.setHtml(html_);
         setup(conf_);
@@ -7541,7 +7540,7 @@ public class FormatHtmlTest {
         conf_.getProperties().put("msg_example", relative_);
         conf_.setTranslators(new StringMap<Translator>());
         conf_.getTranslators().put("trans", new MyTranslator());
-        Document doc_ = XmlParser.parseSaxHtml(html_, false);
+        Document doc_ = DocumentBuilder.parseSaxHtml(html_, false);
         conf_.setDocument(doc_);
         conf_.setHtml(html_);
         setup(conf_);
@@ -7576,7 +7575,7 @@ public class FormatHtmlTest {
         conf_.setTranslators(new StringMap<Translator>());
         conf_.getTranslators().put("trans", new MyTranslator());
         conf_.setHtml(html_);
-        conf_.setDocument(XmlParser.parseSaxHtml(html_, false));
+        conf_.setDocument(DocumentBuilder.parseSaxHtml(html_, false));
         setup(conf_);
         String render_ = FormatHtml.processHtmlJava(html_, conf_, locale_, files_);
         assertXmlEqualRuntime("<html xmlns:c='javahtml'><body><a title=\"desc &amp;lt;TITLE2&amp;gt;\">Content</a></body></html>", render_);
@@ -7610,7 +7609,7 @@ public class FormatHtmlTest {
         conf_.setTranslators(new StringMap<Translator>());
         conf_.getTranslators().put("trans", new MyTranslator());
         conf_.setHtml(html_);
-        conf_.setDocument(XmlParser.parseSaxHtml(html_, false));
+        conf_.setDocument(DocumentBuilder.parseSaxHtml(html_, false));
         setup(conf_);
         String render_ = FormatHtml.processHtmlJava(html_, conf_, locale_, files_);
         assertXmlEqualRuntime("<html xmlns:c='javahtml'><body><a title=\"desc &amp;lt;TITLE&amp;gt;\">Content</a></body></html>", render_);
@@ -7643,7 +7642,7 @@ public class FormatHtmlTest {
         conf_.setTranslators(new StringMap<Translator>());
         conf_.getTranslators().put("trans", new MyTranslator());
         conf_.setHtml(html_);
-        conf_.setDocument(XmlParser.parseSaxHtml(html_, false));
+        conf_.setDocument(DocumentBuilder.parseSaxHtml(html_, false));
         setup(conf_);
         String render_ = FormatHtml.processHtmlJava(html_, conf_, locale_, files_);
         assertXmlEqualRuntime("<html xmlns:c='javahtml'><body><tr>Content</tr></body></html>", render_);
@@ -7677,7 +7676,7 @@ public class FormatHtmlTest {
         conf_.setTranslators(new StringMap<Translator>());
         conf_.getTranslators().put("trans", new MyTranslator());
         conf_.setHtml(html_);
-        conf_.setDocument(XmlParser.parseSaxHtml(html_, false));
+        conf_.setDocument(DocumentBuilder.parseSaxHtml(html_, false));
         setup(conf_);
         String render_ = FormatHtml.processHtmlJava(html_, conf_, locale_, files_);
         assertXmlEqualRuntime("<html xmlns:c='javahtml'><body><tr my_attr=\"ex\">Content</tr></body></html>", render_);
@@ -7709,7 +7708,7 @@ public class FormatHtmlTest {
         conf_.getProperties().put("msg_example", relative_);
         conf_.setTranslators(new StringMap<Translator>());
         conf_.getTranslators().put("trans", new MyTranslator());
-        conf_.setDocument(XmlParser.parseSaxHtml(html_, false));
+        conf_.setDocument(DocumentBuilder.parseSaxHtml(html_, false));
         setup(conf_);
         String render_ = FormatHtml.processHtmlJava(html_, conf_, locale_, files_);
         assertXmlEqualRuntime("<html xmlns:c='javahtml'><body><tr>Content1</tr><tr>Content2</tr></body></html>", render_);
@@ -7742,7 +7741,7 @@ public class FormatHtmlTest {
         conf_.getProperties().put("msg_example", relative_);
         conf_.setTranslators(new StringMap<Translator>());
         conf_.getTranslators().put("trans", new MyTranslator());
-        conf_.setDocument(XmlParser.parseSaxHtml(html_, false));
+        conf_.setDocument(DocumentBuilder.parseSaxHtml(html_, false));
         setup(conf_);
         String render_ = FormatHtml.processHtmlJava(html_, conf_, locale_, files_);
         assertXmlEqualRuntime("<html xmlns:c='javahtml'><body><tr>Content1</tr><tr my_attr=\"ex\">Content2</tr></body></html>", render_);
@@ -7774,7 +7773,7 @@ public class FormatHtmlTest {
         conf_.getProperties().put("msg_example", relative_);
         conf_.setTranslators(new StringMap<Translator>());
         conf_.getTranslators().put("trans", new MyTranslator());
-        conf_.setDocument(XmlParser.parseSaxHtml(html_, false));
+        conf_.setDocument(DocumentBuilder.parseSaxHtml(html_, false));
         setup(conf_);
         String render_ = FormatHtml.processHtmlJava(html_, conf_, locale_, files_);
         assertXmlEqualRuntime("<html xmlns:c='javahtml'><body><tr>Content1</tr><tr my_attr=\"ex\">Content2</tr></body></html>", render_);
@@ -7809,7 +7808,7 @@ public class FormatHtmlTest {
         conf_.setTranslators(new StringMap<Translator>());
         conf_.getTranslators().put("trans", new MyTranslator());
         conf_.setHtml(html_);
-        conf_.setDocument(XmlParser.parseSaxHtml(html_, false));
+        conf_.setDocument(DocumentBuilder.parseSaxHtml(html_, false));
         setup(conf_);
         String render_ = FormatHtml.processImports(html_, conf_, locale_, files_);
         assertXmlEqualRuntime("<html xmlns:c='javahtml'><body><a title=\"desc &lt;TITLE&gt;\">Content</a></body></html>", render_);
@@ -7844,7 +7843,7 @@ public class FormatHtmlTest {
         conf_.setTranslators(new StringMap<Translator>());
         conf_.getTranslators().put("trans", new MyTranslator());
         conf_.setHtml(html_);
-        conf_.setDocument(XmlParser.parseSaxHtml(html_, false));
+        conf_.setDocument(DocumentBuilder.parseSaxHtml(html_, false));
         setup(conf_);
         String render_ = FormatHtml.processImports(html_, conf_, locale_, files_);
         assertXmlEqualRuntime("<html xmlns:c='javahtml'><body><a n-a=\"0\" c:command=\"go\" href=\"\">Content</a></body></html>", render_);
@@ -7882,7 +7881,7 @@ public class FormatHtmlTest {
         conf_.setTranslators(new StringMap<Translator>());
         conf_.getTranslators().put("trans", new MyTranslator());
         conf_.setHtml(html_);
-        conf_.setDocument(XmlParser.parseSaxHtml(html_, false));
+        conf_.setDocument(DocumentBuilder.parseSaxHtml(html_, false));
         setup(conf_);
         String render_ = FormatHtml.processImports(html_, conf_, locale_, files_);
         assertXmlEqualRuntime("<html xmlns:c='javahtml'><body/></html>", render_);
@@ -7920,7 +7919,7 @@ public class FormatHtmlTest {
         conf_.setTranslators(new StringMap<Translator>());
         conf_.getTranslators().put("trans", new MyTranslator());
         conf_.setHtml(html_);
-        conf_.setDocument(XmlParser.parseSaxHtml(html_, false));
+        conf_.setDocument(DocumentBuilder.parseSaxHtml(html_, false));
         setup(conf_);
         String render_ = FormatHtml.processImports(html_, conf_, locale_, files_);
         assertXmlEqualRuntime("<html xmlns:c='javahtml'><body><a n-a=\"0\" c:command=\"go\" href=\"\">Content</a></body></html>", render_);
@@ -7959,7 +7958,7 @@ public class FormatHtmlTest {
         conf_.setTranslators(new StringMap<Translator>());
         conf_.getTranslators().put("trans", new MyTranslator());
         conf_.setHtml(html_);
-        conf_.setDocument(XmlParser.parseSaxHtml(html_, false));
+        conf_.setDocument(DocumentBuilder.parseSaxHtml(html_, false));
         setup(conf_);
         String render_ = FormatHtml.processImports(html_, conf_, locale_, files_);
         assertXmlEqualRuntime("<html xmlns:c='javahtml'><body><a n-a=\"0\" c:command=\"go\" href=\"\">Test {0}2</a></body></html>", render_);
@@ -8000,7 +7999,7 @@ public class FormatHtmlTest {
         conf_.setTranslators(new StringMap<Translator>());
         conf_.getTranslators().put("trans", new MyTranslator());
         conf_.setHtml(html_);
-        conf_.setDocument(XmlParser.parseSaxHtml(html_, false));
+        conf_.setDocument(DocumentBuilder.parseSaxHtml(html_, false));
         setup(conf_);
         String render_ = FormatHtml.processImports(html_, conf_, locale_, files_);
         assertXmlEqualRuntime("<html xmlns:c='javahtml'><body>HEAD<a href=\"\"/> NEXT<a n-a=\"0\" c:command=\"go\" href=\"\">4</a></body></html>", render_);
@@ -8038,7 +8037,7 @@ public class FormatHtmlTest {
         conf_.setTranslators(new StringMap<Translator>());
         conf_.getTranslators().put("trans", new MyTranslator());
         conf_.setHtml(htmlTwo_);
-        conf_.setDocument(XmlParser.parseSaxHtml(htmlTwo_, false));
+        conf_.setDocument(DocumentBuilder.parseSaxHtml(htmlTwo_, false));
         setup(conf_);
         String render_ = FormatHtml.processImports(htmlTwo_, conf_, locale_, files_);
         assertXmlEqualRuntime("<html xmlns:c='javahtml'><body> NEXT<form n-f=\"0\" action=\"\" c:command=\"go\">0</form><form n-f=\"1\" action=\"go\">0</form></body></html>", render_);
@@ -8078,7 +8077,7 @@ public class FormatHtmlTest {
         conf_.setTranslators(new StringMap<Translator>());
         conf_.getTranslators().put("trans", new MyTranslator());
         conf_.setHtml(html_);
-        conf_.setDocument(XmlParser.parseSaxHtml(html_, false));
+        conf_.setDocument(DocumentBuilder.parseSaxHtml(html_, false));
         setup(conf_);
         String render_ = FormatHtml.processImports(html_, conf_, locale_, files_);
         assertXmlEqualRuntime("<html xmlns:c='javahtml'><body>HEAD<a href=\"\"/>HEAD<a href=\"\"/>HEAD<a href=\"\"/>HEAD<a href=\"\"/></body></html>", render_);
@@ -8117,7 +8116,7 @@ public class FormatHtmlTest {
         conf_.getProperties().put("msg_example", relative_);
         conf_.setTranslators(new StringMap<Translator>());
         conf_.getTranslators().put("trans", new MyTranslator());
-        conf_.setDocument(XmlParser.parseSaxHtml(html_, false));
+        conf_.setDocument(DocumentBuilder.parseSaxHtml(html_, false));
         setup(conf_);
         String render_ = FormatHtml.processImports(html_, conf_, locale_, files_);
         assertXmlEqualRuntime("<html xmlns:c='javahtml'><body><a n-a=\"0\" c:command=\"go\" href=\"\">Test {0}2</a></body></html>", render_);
@@ -8156,7 +8155,7 @@ public class FormatHtmlTest {
         conf_.getProperties().put("msg_example", relative_);
         conf_.setTranslators(new StringMap<Translator>());
         conf_.getTranslators().put("trans", new MyTranslator());
-        conf_.setDocument(XmlParser.parseSaxHtml(html_, false));
+        conf_.setDocument(DocumentBuilder.parseSaxHtml(html_, false));
         setup(conf_);
         String render_ = FormatHtml.processImports(html_, conf_, locale_, files_);
         assertXmlEqualRuntime("<html xmlns:c='javahtml'><body><a n-a=\"0\" c:command=\"go\" href=\"\">Test {0}2</a>Next text</body></html>", render_);
@@ -8196,7 +8195,7 @@ public class FormatHtmlTest {
         conf_.getProperties().put("msg_example", relative_);
         conf_.setTranslators(new StringMap<Translator>());
         conf_.getTranslators().put("trans", new MyTranslator());
-        conf_.setDocument(XmlParser.parseSaxHtml(html_, false));
+        conf_.setDocument(DocumentBuilder.parseSaxHtml(html_, false));
         setup(conf_);
         String render_ = FormatHtml.processImports(html_, conf_, locale_, files_);
         assertXmlEqualRuntime("<html xmlns:c='javahtml'><body><a n-a=\"0\" c:command=\"go\" href=\"\">Test {0}2</a></body></html>", render_);
@@ -8237,7 +8236,7 @@ public class FormatHtmlTest {
         conf_.getProperties().put("msg_example", relative_);
         conf_.setTranslators(new StringMap<Translator>());
         conf_.getTranslators().put("trans", new MyTranslator());
-        conf_.setDocument(XmlParser.parseSaxHtml(html_, false));
+        conf_.setDocument(DocumentBuilder.parseSaxHtml(html_, false));
         setup(conf_);
         String render_ = FormatHtml.processImports(html_, conf_, locale_, files_);
         assertXmlEqualRuntime("<html xmlns:c='javahtml'><body><a n-a=\"0\" c:command=\"go\" href=\"\">Test {0}2</a>Description <a n-a='1' href=\"\" c:command='$bean_two.go'>two</a></body></html>", render_);
@@ -8278,7 +8277,7 @@ public class FormatHtmlTest {
         conf_.getProperties().put("msg_example", relative_);
         conf_.setTranslators(new StringMap<Translator>());
         conf_.getTranslators().put("trans", new MyTranslator());
-        conf_.setDocument(XmlParser.parseSaxHtml(html_, false));
+        conf_.setDocument(DocumentBuilder.parseSaxHtml(html_, false));
         setup(conf_);
         String render_ = FormatHtml.processImports(html_, conf_, locale_, files_);
         assertXmlEqualRuntime("<html xmlns:c='javahtml'><body><a n-a=\"0\" c:command=\"go\" href=\"\">Test {0}2</a>Description <a n-a='1' href=\"$bean_two.go\">two</a></body></html>", render_);
@@ -8318,7 +8317,7 @@ public class FormatHtmlTest {
         conf_.getProperties().put("msg_example", relative_);
         conf_.setTranslators(new StringMap<Translator>());
         conf_.getTranslators().put("trans", new MyTranslator());
-        conf_.setDocument(XmlParser.parseSaxHtml(html_, false));
+        conf_.setDocument(DocumentBuilder.parseSaxHtml(html_, false));
         setup(conf_);
         String render_ = FormatHtml.processImports(html_, conf_, locale_, files_);
         assertXmlEqualRuntime("<html xmlns:c='javahtml'><body><a n-a=\"0\" c:command=\"go\" href=\"\">Test {0}2</a></body></html>", render_);
@@ -8358,7 +8357,7 @@ public class FormatHtmlTest {
         conf_.getProperties().put("msg_example", relative_);
         conf_.setTranslators(new StringMap<Translator>());
         conf_.getTranslators().put("trans", new MyTranslator());
-        conf_.setDocument(XmlParser.parseSaxHtml(html_, false));
+        conf_.setDocument(DocumentBuilder.parseSaxHtml(html_, false));
         setup(conf_);
         String render_ = FormatHtml.processImports(html_, conf_, locale_, files_);
         assertXmlEqualRuntime("<html xmlns:c='javahtml'><body>HEAD<a href=\"\"/> NEXT<a n-a=\"0\" c:command=\"go\" href=\"\">4</a></body></html>", render_);
@@ -8395,7 +8394,7 @@ public class FormatHtmlTest {
         conf_.getProperties().put("msg_example", relative_);
         conf_.setTranslators(new StringMap<Translator>());
         conf_.getTranslators().put("trans", new MyTranslator());
-        conf_.setDocument(XmlParser.parseSaxHtml(html_, false));
+        conf_.setDocument(DocumentBuilder.parseSaxHtml(html_, false));
         setup(conf_);
         String render_ = FormatHtml.processImports(html_, conf_, locale_, files_);
         assertXmlEqualRuntime("<html xmlns:c='javahtml'><body>HEAD<a href=\"\"/><emb><ed>T</ed><ed>T</ed></emb> NEXT<a n-a=\"0\" c:command=\"go\" href=\"\">4</a></body></html>", render_);
@@ -8433,7 +8432,7 @@ public class FormatHtmlTest {
         conf_.getProperties().put("msg_example", relative_);
         conf_.setTranslators(new StringMap<Translator>());
         conf_.getTranslators().put("trans", new MyTranslator());
-        conf_.setDocument(XmlParser.parseSaxHtml(html_, false));
+        conf_.setDocument(DocumentBuilder.parseSaxHtml(html_, false));
         setup(conf_);
         String render_ = FormatHtml.processImports(html_, conf_, locale_, files_);
         assertXmlEqualRuntime("<html xmlns:c='javahtml'><body><a n-a=\"0\" c:command=\"go\" href=\"\">Test {0}2</a>Next text</body></html>", render_);
@@ -8474,7 +8473,7 @@ public class FormatHtmlTest {
         conf_.getProperties().put("msg_example", relative_);
         conf_.setTranslators(new StringMap<Translator>());
         conf_.getTranslators().put("trans", new MyTranslator());
-        conf_.setDocument(XmlParser.parseSaxHtml(html_, false));
+        conf_.setDocument(DocumentBuilder.parseSaxHtml(html_, false));
         setup(conf_);
         String render_ = FormatHtml.processImports(html_, conf_, locale_, files_);
         assertXmlEqualRuntime("<html xmlns:c='javahtml'><body><a n-a=\"0\" c:command=\"go\" href=\"\">typedString</a>Next text</body></html>", render_);
@@ -8513,7 +8512,7 @@ public class FormatHtmlTest {
         conf_.getProperties().put("msg_example", relative_);
         conf_.setTranslators(new StringMap<Translator>());
         conf_.getTranslators().put("trans", new MyTranslator());
-        conf_.setDocument(XmlParser.parseSaxHtml(html_, false));
+        conf_.setDocument(DocumentBuilder.parseSaxHtml(html_, false));
         setup(conf_);
         String render_ = FormatHtml.processImports(html_, conf_, locale_, files_);
         assertXmlEqualRuntime("<html xmlns:c='javahtml'><body><div><a n-a=\"0\" c:command=\"go\" href=\"\">typedString</a></div>Next text</body></html>", render_);
@@ -8552,7 +8551,7 @@ public class FormatHtmlTest {
         conf_.getProperties().put("msg_example", relative_);
         conf_.setTranslators(new StringMap<Translator>());
         conf_.getTranslators().put("trans", new MyTranslator());
-        conf_.setDocument(XmlParser.parseSaxHtml(html_, false));
+        conf_.setDocument(DocumentBuilder.parseSaxHtml(html_, false));
         setup(conf_);
         String render_ = FormatHtml.processImports(html_, conf_, locale_, files_);
         assertXmlEqualRuntime("<html xmlns:c='javahtml'><body><div><a n-a=\"0\" c:command=\"go\" href=\"\">typedString</a></div>Next text</body></html>", render_);
@@ -8591,7 +8590,7 @@ public class FormatHtmlTest {
         conf_.getProperties().put("msg_example", relative_);
         conf_.setTranslators(new StringMap<Translator>());
         conf_.getTranslators().put("trans", new MyTranslator());
-        conf_.setDocument(XmlParser.parseSaxHtml(html_, false));
+        conf_.setDocument(DocumentBuilder.parseSaxHtml(html_, false));
         setup(conf_);
         String render_ = FormatHtml.processImports(html_, conf_, locale_, files_);
         assertXmlEqualRuntime("<html xmlns:c='javahtml'><body><div><a n-a=\"0\" c:command=\"go\" href=\"\">typedString</a></div></body></html>", render_);
@@ -8623,7 +8622,7 @@ public class FormatHtmlTest {
         conf_.setTranslators(new StringMap<Translator>());
         conf_.getTranslators().put("trans", new MyTranslator());
         conf_.setMathFactory(new SimpleMathFactory());
-        Document doc_ = XmlParser.parseSaxHtml(html_, false);
+        Document doc_ = DocumentBuilder.parseSaxHtml(html_, false);
         conf_.setDocument(doc_);
         conf_.setHtml(html_);
         setup(conf_);
@@ -8656,7 +8655,7 @@ public class FormatHtmlTest {
         conf_.setTranslators(new StringMap<Translator>());
         conf_.getTranslators().put("trans", new MyTranslator());
         conf_.setMathFactory(new SimpleMathFactory());
-        Document doc_ = XmlParser.parseSaxHtml(html_, false);
+        Document doc_ = DocumentBuilder.parseSaxHtml(html_, false);
         conf_.setDocument(doc_);
         conf_.setHtml(html_);
         setup(conf_);
@@ -8689,7 +8688,7 @@ public class FormatHtmlTest {
         conf_.setTranslators(new StringMap<Translator>());
         conf_.getTranslators().put("trans", new MyTranslator());
         conf_.setMathFactory(new SimpleMathFactory());
-        Document doc_ = XmlParser.parseSaxHtml(html_, false);
+        Document doc_ = DocumentBuilder.parseSaxHtml(html_, false);
         conf_.setDocument(doc_);
         conf_.setHtml(html_);
         setup(conf_);
@@ -8723,7 +8722,7 @@ public class FormatHtmlTest {
         conf_.setTranslators(new StringMap<Translator>());
         conf_.getTranslators().put("trans", new MyTranslator());
         conf_.setMathFactory(new SimpleMathFactory());
-        Document doc_ = XmlParser.parseSaxHtml(html_, false);
+        Document doc_ = DocumentBuilder.parseSaxHtml(html_, false);
         conf_.setDocument(doc_);
         conf_.setHtml(html_);
         setup(conf_);
@@ -8756,7 +8755,7 @@ public class FormatHtmlTest {
         conf_.setTranslators(new StringMap<Translator>());
         conf_.getTranslators().put("trans", new MyTranslator());
         conf_.setMathFactory(new SimpleMathFactory());
-        Document doc_ = XmlParser.parseSaxHtml(html_, false);
+        Document doc_ = DocumentBuilder.parseSaxHtml(html_, false);
         conf_.setDocument(doc_);
         conf_.setHtml(html_);
         setup(conf_);
@@ -8789,7 +8788,7 @@ public class FormatHtmlTest {
         conf_.setTranslators(new StringMap<Translator>());
         conf_.getTranslators().put("trans", new MyTranslator());
         conf_.setMathFactory(new SimpleMathFactory());
-        Document doc_ = XmlParser.parseSaxHtml(html_, false);
+        Document doc_ = DocumentBuilder.parseSaxHtml(html_, false);
         conf_.setHtml(html_);
         conf_.setDocument(doc_);
         setup(conf_);
@@ -8823,7 +8822,7 @@ public class FormatHtmlTest {
         conf_.setTranslators(new StringMap<Translator>());
         conf_.getTranslators().put("trans", new MyTranslator());
         conf_.setMathFactory(new SimpleMathFactory());
-        Document doc_ = XmlParser.parseSaxHtml(html_, false);
+        Document doc_ = DocumentBuilder.parseSaxHtml(html_, false);
         conf_.setHtml(html_);
         conf_.setDocument(doc_);
         setup(conf_);
@@ -8856,7 +8855,7 @@ public class FormatHtmlTest {
         conf_.setTranslators(new StringMap<Translator>());
         conf_.getTranslators().put("trans", new MyTranslator());
         conf_.setMathFactory(new SimpleMathFactory());
-        Document doc_ = XmlParser.parseSaxHtml(html_, false);
+        Document doc_ = DocumentBuilder.parseSaxHtml(html_, false);
         conf_.setHtml(html_);
         conf_.setDocument(doc_);
         setup(conf_);
@@ -8890,7 +8889,7 @@ public class FormatHtmlTest {
         conf_.setTranslators(new StringMap<Translator>());
         conf_.getTranslators().put("trans", new MyTranslator());
         conf_.setMathFactory(new SimpleMathFactory());
-        Document doc_ = XmlParser.parseSaxHtml(html_, false);
+        Document doc_ = DocumentBuilder.parseSaxHtml(html_, false);
         conf_.setHtml(html_);
         conf_.setDocument(doc_);
         setup(conf_);
@@ -8923,7 +8922,7 @@ public class FormatHtmlTest {
         conf_.setTranslators(new StringMap<Translator>());
         conf_.getTranslators().put("trans", new MyTranslator());
         conf_.setMathFactory(new SimpleMathFactory());
-        Document doc_ = XmlParser.parseSaxHtml(html_, false);
+        Document doc_ = DocumentBuilder.parseSaxHtml(html_, false);
         conf_.setHtml(html_);
         conf_.setDocument(doc_);
         setup(conf_);
@@ -8957,7 +8956,7 @@ public class FormatHtmlTest {
         conf_.setTranslators(new StringMap<Translator>());
         conf_.getTranslators().put("trans", new MyTranslator());
         conf_.setMathFactory(new SimpleMathFactory());
-        Document doc_ = XmlParser.parseSaxHtml(html_, false);
+        Document doc_ = DocumentBuilder.parseSaxHtml(html_, false);
         conf_.setHtml(html_);
         conf_.setDocument(doc_);
         setup(conf_);
@@ -8990,7 +8989,7 @@ public class FormatHtmlTest {
         conf_.setTranslators(new StringMap<Translator>());
         conf_.getTranslators().put("trans", new MyTranslator());
         conf_.setMathFactory(new SimpleMathFactory());
-        Document doc_ = XmlParser.parseSaxHtml(html_, false);
+        Document doc_ = DocumentBuilder.parseSaxHtml(html_, false);
         conf_.setHtml(html_);
         conf_.setDocument(doc_);
         setup(conf_);
@@ -9023,7 +9022,7 @@ public class FormatHtmlTest {
         conf_.setTranslators(new StringMap<Translator>());
         conf_.getTranslators().put("trans", new MyTranslator());
         conf_.setMathFactory(new SimpleMathFactory());
-        Document doc_ = XmlParser.parseSaxHtml(html_, false);
+        Document doc_ = DocumentBuilder.parseSaxHtml(html_, false);
         conf_.setHtml(html_);
         conf_.setDocument(doc_);
         setup(conf_);
@@ -9056,7 +9055,7 @@ public class FormatHtmlTest {
         conf_.setTranslators(new StringMap<Translator>());
         conf_.getTranslators().put("trans", new MyTranslator());
         conf_.setMathFactory(new SimpleMathFactory());
-        Document doc_ = XmlParser.parseSaxHtml(html_, false);
+        Document doc_ = DocumentBuilder.parseSaxHtml(html_, false);
         conf_.setHtml(html_);
         conf_.setDocument(doc_);
         setup(conf_);
@@ -9089,7 +9088,7 @@ public class FormatHtmlTest {
         conf_.setTranslators(new StringMap<Translator>());
         conf_.getTranslators().put("trans", new MyTranslator());
         conf_.setMathFactory(new SimpleMathFactory());
-        Document doc_ = XmlParser.parseSaxHtml(html_, false);
+        Document doc_ = DocumentBuilder.parseSaxHtml(html_, false);
         conf_.setHtml(html_);
         conf_.setDocument(doc_);
         setup(conf_);
@@ -9122,7 +9121,7 @@ public class FormatHtmlTest {
         conf_.setTranslators(new StringMap<Translator>());
         conf_.getTranslators().put("trans", new MyTranslator());
         conf_.setMathFactory(new SimpleMathFactory());
-        Document doc_ = XmlParser.parseSaxHtml(html_, false);
+        Document doc_ = DocumentBuilder.parseSaxHtml(html_, false);
         conf_.setHtml(html_);
         conf_.setDocument(doc_);
         setup(conf_);
@@ -9156,7 +9155,7 @@ public class FormatHtmlTest {
         conf_.setTranslators(new StringMap<Translator>());
         conf_.getTranslators().put("trans", new MyTranslator());
         conf_.setMathFactory(new SimpleMathFactory());
-        Document doc_ = XmlParser.parseSaxHtml(html_, false);
+        Document doc_ = DocumentBuilder.parseSaxHtml(html_, false);
         conf_.setDocument(doc_);
         conf_.setHtml(html_);
         setup(conf_);
@@ -9190,7 +9189,7 @@ public class FormatHtmlTest {
         conf_.setTranslators(new StringMap<Translator>());
         conf_.getTranslators().put("trans", new MyTranslator());
         conf_.setMathFactory(new SimpleMathFactory());
-        Document doc_ = XmlParser.parseSaxHtml(html_, false);
+        Document doc_ = DocumentBuilder.parseSaxHtml(html_, false);
         conf_.setDocument(doc_);
         conf_.setHtml(html_);
         setup(conf_);
@@ -9229,7 +9228,7 @@ public class FormatHtmlTest {
         conf_.getProperties().put("msg_example", relative_);
         conf_.setTranslators(new StringMap<Translator>());
         conf_.getTranslators().put("trans", new MyTranslator());
-        conf_.setDocument(XmlParser.parseSaxHtml(html_, false));
+        conf_.setDocument(DocumentBuilder.parseSaxHtml(html_, false));
         setup(conf_);
         String render_ = FormatHtml.processImports(html_, conf_, locale_, files_);
         assertXmlEqualRuntime("<html xmlns:c='javahtml'><body>HEAD<a href=\"\"/> NEXT<a n-a=\"0\" c:command=\"go\" href=\"\">4</a></body></html>", render_);
@@ -9260,7 +9259,7 @@ public class FormatHtmlTest {
         conf_.setTranslators(new StringMap<Translator>());
         conf_.getTranslators().put("trans", new MyTranslator());
         conf_.setMathFactory(new SimpleMathFactory());
-        Document doc_ = XmlParser.parseSaxHtml(html_, false);
+        Document doc_ = DocumentBuilder.parseSaxHtml(html_, false);
         conf_.setHtml(html_);
         conf_.setDocument(doc_);
         setup(conf_);
@@ -9293,7 +9292,7 @@ public class FormatHtmlTest {
         conf_.setTranslators(new StringMap<Translator>());
         conf_.getTranslators().put("trans", new MyTranslator());
         conf_.setMathFactory(new SimpleMathFactory());
-        Document doc_ = XmlParser.parseSaxHtml(html_, false);
+        Document doc_ = DocumentBuilder.parseSaxHtml(html_, false);
         conf_.setDocument(doc_);
         conf_.setHtml(html_);
         setup(conf_);
@@ -9333,7 +9332,7 @@ public class FormatHtmlTest {
         conf_.getProperties().put("msg_example", relative_);
         conf_.setTranslators(new StringMap<Translator>());
         conf_.getTranslators().put("trans", new MyTranslator());
-        conf_.setDocument(XmlParser.parseSaxHtml(html_, false));
+        conf_.setDocument(DocumentBuilder.parseSaxHtml(html_, false));
         setup(conf_);
         FormatHtml.processImports(html_, conf_, locale_, files_);
 //        String render_ = FormatHtml.processImports(html_, conf_, locale_, files_);
@@ -9374,7 +9373,7 @@ public class FormatHtmlTest {
         conf_.getProperties().put("msg_example", relative_);
         conf_.setTranslators(new StringMap<Translator>());
         conf_.getTranslators().put("trans", new MyTranslator());
-        conf_.setDocument(XmlParser.parseSaxHtml(html_, false));
+        conf_.setDocument(DocumentBuilder.parseSaxHtml(html_, false));
         setup(conf_);
         FormatHtml.processImports(html_, conf_, locale_, files_);
 //        String render_ = FormatHtml.processImports(html_, conf_, locale_, files_);
@@ -9414,7 +9413,7 @@ public class FormatHtmlTest {
         conf_.getProperties().put("msg_example", relative_);
         conf_.setTranslators(new StringMap<Translator>());
         conf_.getTranslators().put("trans", new MyTranslator());
-        conf_.setDocument(XmlParser.parseSaxHtml(html_, false));
+        conf_.setDocument(DocumentBuilder.parseSaxHtml(html_, false));
         setup(conf_);
         FormatHtml.processImports(html_, conf_, locale_, files_);
 //        String render_ = FormatHtml.processImports(html_, conf_, locale_, files_);
@@ -9447,7 +9446,7 @@ public class FormatHtmlTest {
         conf_.setTranslators(new StringMap<Translator>());
         conf_.getTranslators().put("trans", new MyTranslator());
         conf_.setMathFactory(new SimpleMathFactory());
-        Document doc_ = XmlParser.parseSaxHtml(html_, false);
+        Document doc_ = DocumentBuilder.parseSaxHtml(html_, false);
         conf_.setDocument(doc_);
         conf_.setHtml(html_);
         setup(conf_);
@@ -9479,7 +9478,7 @@ public class FormatHtmlTest {
         conf_.setTranslators(new StringMap<Translator>());
         conf_.getTranslators().put("trans", new MyTranslator());
         conf_.setMathFactory(new SimpleMathFactory());
-        Document doc_ = XmlParser.parseSaxHtml(html_, false);
+        Document doc_ = DocumentBuilder.parseSaxHtml(html_, false);
         conf_.setDocument(doc_);
         conf_.setHtml(html_);
         setup(conf_);
@@ -9511,7 +9510,7 @@ public class FormatHtmlTest {
         conf_.setTranslators(new StringMap<Translator>());
         conf_.getTranslators().put("trans", new MyTranslator());
         conf_.setMathFactory(new SimpleMathFactory());
-        Document doc_ = XmlParser.parseSaxHtml(html_, false);
+        Document doc_ = DocumentBuilder.parseSaxHtml(html_, false);
         conf_.setDocument(doc_);
         conf_.setHtml(html_);
         setup(conf_);
@@ -9543,7 +9542,7 @@ public class FormatHtmlTest {
         conf_.setTranslators(new StringMap<Translator>());
         conf_.getTranslators().put("trans", new MyTranslator());
         conf_.setMathFactory(new SimpleMathFactory());
-        Document doc_ = XmlParser.parseSaxHtml(html_, false);
+        Document doc_ = DocumentBuilder.parseSaxHtml(html_, false);
         conf_.setDocument(doc_);
         conf_.setHtml(html_);
         setup(conf_);
@@ -9576,7 +9575,7 @@ public class FormatHtmlTest {
         conf_.setTranslators(new StringMap<Translator>());
         conf_.getTranslators().put("trans", new MyTranslator());
         conf_.setMathFactory(new SimpleMathFactory());
-        Document doc_ = XmlParser.parseSaxHtml(html_, false);
+        Document doc_ = DocumentBuilder.parseSaxHtml(html_, false);
         conf_.setDocument(doc_);
         conf_.setHtml(html_);
         setup(conf_);
@@ -9632,7 +9631,7 @@ public class FormatHtmlTest {
 //        conf_.setTranslators(new StringMap<Translator>());
 //        conf_.getTranslators().put("trans", new MyTranslator());
 //        conf_.setMathFactory(new SimpleMathFactory());
-//        Document doc_ = XmlParser.parseSaxHtml(html_, false);
+//        Document doc_ = DocumentBuilder.parseSaxHtml(html_, false);
 //        conf_.setHtml(html_);
 //        conf_.setDocument(doc_);
 //        FormatHtml.processHtml(doc_, "bean_seven", conf_, locale_, files_);

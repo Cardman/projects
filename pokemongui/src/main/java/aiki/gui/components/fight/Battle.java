@@ -12,23 +12,6 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.WindowConstants;
 
-import code.gui.ChildFrame;
-import code.gui.ConfirmDialog;
-import code.gui.LabelButton;
-import code.gui.SessionEditorPane;
-import code.gui.WrappedTextArea;
-import code.gui.events.ClosingChildFrameEvent;
-import code.maths.Rate;
-import code.util.BooleanList;
-import code.util.CustList;
-import code.util.EnumList;
-import code.util.NatTreeMap;
-import code.util.Numbers;
-import code.util.StringList;
-import code.util.StringMap;
-import code.util.TreeMap;
-import code.util.consts.Constants;
-import code.xml.util.ExtractFromFiles;
 import aiki.DataBase;
 import aiki.Resources;
 import aiki.comparators.ComparatorTrStrings;
@@ -69,6 +52,23 @@ import aiki.gui.threads.RoundFleeThread;
 import aiki.gui.threads.RoundKoUserThread;
 import aiki.gui.threads.RoundThread;
 import aiki.main.VideoLoading;
+import code.gui.ChildFrame;
+import code.gui.ConfirmDialog;
+import code.gui.LabelButton;
+import code.gui.SessionEditorPane;
+import code.gui.WrappedTextArea;
+import code.gui.events.ClosingChildFrameEvent;
+import code.maths.Rate;
+import code.sml.util.ExtractFromFiles;
+import code.util.BooleanList;
+import code.util.CustList;
+import code.util.EnumList;
+import code.util.NatTreeMap;
+import code.util.Numbers;
+import code.util.StringList;
+import code.util.StringMap;
+import code.util.TreeMap;
+import code.util.consts.Constants;
 
 public class Battle extends ChildFrame {
 

@@ -10,17 +10,17 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JSlider;
 
-import code.gui.LabelButton;
-import code.util.EnumList;
-import code.util.EnumMap;
-import code.util.StringList;
-import code.util.StringMap;
 import cards.facade.SoftParams;
 import cards.facade.enumerations.GameEnum;
 import cards.gui.MainWindow;
 import cards.gui.comboboxes.ComboBoxGameEnum;
 import cards.gui.dialogs.events.ListenerChangeSlide;
 import cards.gui.dialogs.events.ListenerParameters;
+import code.gui.LabelButton;
+import code.util.EnumList;
+import code.util.EnumMap;
+import code.util.StringList;
+import code.util.StringMap;
 
 public final class DialogSoft extends DialogCards {
 

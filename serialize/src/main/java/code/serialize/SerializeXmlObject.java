@@ -17,11 +17,11 @@ import code.util.StringMap;
 import code.util.exceptions.RuntimeClassNotFoundException;
 import code.util.ints.ChangeableMap;
 import code.util.ints.Viewable;
-import code.xml.XmlParser;
-import code.xml.components.Document;
-import code.xml.components.Element;
-import code.xml.components.Node;
-import code.xml.components.NodeList;
+import code.sml.Document;
+import code.sml.DocumentBuilder;
+import code.sml.Element;
+import code.sml.Node;
+import code.sml.NodeList;
 
 public final class SerializeXmlObject {
 
@@ -66,7 +66,7 @@ public final class SerializeXmlObject {
             StringMap<String> _classes,
             StringMap<String> _fields) {
         try {
-            Document doc_ = XmlParser.parseSax(_xmlFile);
+            Document doc_ = DocumentBuilder.parseSax(_xmlFile);
             NodeList list_ = doc_.getElementsByTagName(ALL);
             int length_ = list_.getLength();
             for (int i = CustList.FIRST_INDEX; i < length_; i++) {
@@ -102,7 +102,7 @@ public final class SerializeXmlObject {
                     elt_.setAttribute(ElementsSerial.CLASS, _classes.getVal(f));
                 }
             }
-            return XmlParser.toXml(doc_.getDocumentElement());
+            return DocumentBuilder.toXml(doc_.getDocumentElement());
         } catch (RuntimeException _0) {
             return EMPTY_STRING;
         }
@@ -111,7 +111,7 @@ public final class SerializeXmlObject {
     public static String replaceClass(String _xmlFile,
             StringMap<String> _classes) {
         try {
-            Document doc_ = XmlParser.parseSax(_xmlFile);
+            Document doc_ = DocumentBuilder.parseSax(_xmlFile);
             NodeList list_ = doc_.getElementsByTagName(ALL);
             int length_ = list_.getLength();
             for (int i = CustList.FIRST_INDEX; i < length_; i++) {
@@ -125,7 +125,7 @@ public final class SerializeXmlObject {
                     }
                 }
             }
-            return XmlParser.toXml(doc_.getDocumentElement());
+            return DocumentBuilder.toXml(doc_.getDocumentElement());
         } catch (RuntimeException _0) {
             return EMPTY_STRING;
         }
@@ -150,7 +150,7 @@ public final class SerializeXmlObject {
 //            decoder_.close();
 //            return obj_;
 //        }
-        Element root_ = XmlParser.documentElement(XmlParser.parseSax(_xmlString));
+        Element root_ = DocumentBuilder.parseSax(_xmlString).getDocumentElement();
         try {
             ElementsSerial elt_ = createPrimitive(_xmlString, root_);
             if (elt_ != null) {
@@ -192,7 +192,7 @@ public final class SerializeXmlObject {
                     CustList<ElementsSerial> elt_ = new CustList<ElementsSerial>();
                     CustList<TemplateSerial> childRefComposites_ = new CustList<TemplateSerial>();
                     CustList<TemplateSerial> childIdComposites_ = new CustList<TemplateSerial>();
-                    for (Element n : XmlParser.childrenElements(currentNode_)) {
+                    for (Element n : currentNode_.getChildElements()) {
                         try {
                             ArraySerial serial_ = new ArraySerial(n, composite_);
                             elt_.add(serial_);
@@ -212,10 +212,10 @@ public final class SerializeXmlObject {
                             continue;
                         } catch (ClassFoundException _0) {
                         } catch (RuntimeException _0) {
-                            System.err.println(XmlParser.getRowColOfNodeOrAttribute(_xmlString, n, 0,EMPTY_STRING, TAB_WIDTH));
+                            System.err.println(DocumentBuilder.getRowColOfNodeOrAttribute(_xmlString, n, 0,EMPTY_STRING, TAB_WIDTH));
                             throw _0;
                         } catch (Error _0) {
-                            System.err.println(XmlParser.getRowColOfNodeOrAttribute(_xmlString, n, 0,EMPTY_STRING, TAB_WIDTH));
+                            System.err.println(DocumentBuilder.getRowColOfNodeOrAttribute(_xmlString, n, 0,EMPTY_STRING, TAB_WIDTH));
                             throw _0;
                         }
                         ElementsSerial primitive_ = createPrimitive(_xmlString, n);
@@ -227,10 +227,10 @@ public final class SerializeXmlObject {
                         try {
                             serial_ = ObjectSerial.newSerialWithId(n, composite_, true);
                         } catch (RuntimeException _0) {
-                            System.err.println(XmlParser.getRowColOfNodeOrAttribute(_xmlString, n, 0,EMPTY_STRING, TAB_WIDTH));
+                            System.err.println(DocumentBuilder.getRowColOfNodeOrAttribute(_xmlString, n, 0,EMPTY_STRING, TAB_WIDTH));
                             throw _0;
                         } catch (Error _0) {
-                            System.err.println(XmlParser.getRowColOfNodeOrAttribute(_xmlString, n, 0,EMPTY_STRING, TAB_WIDTH));
+                            System.err.println(DocumentBuilder.getRowColOfNodeOrAttribute(_xmlString, n, 0,EMPTY_STRING, TAB_WIDTH));
                             throw _0;
                         }
                         elt_.add(serial_);
@@ -314,7 +314,7 @@ public final class SerializeXmlObject {
                     Element currentNode_ = currentNodesToBeRead_.get(i);
                     TemplateSerial composite_ = currentSerializableElements_.get(i);
                     CustList<ElementsSerial> elt_ = new CustList<ElementsSerial>();
-                    for (Element n : XmlParser.childrenElements(currentNode_)) {
+                    for (Element n : currentNode_.getChildElements()) {
                         try {
                             ArraySerial serial_ = ArraySerial.newListSerial(n);
                             elt_.add(serial_);
@@ -323,10 +323,10 @@ public final class SerializeXmlObject {
                             continue;
                         } catch (ClassFoundException _0) {
                         } catch (RuntimeException _0) {
-                            System.err.println(XmlParser.getRowColOfNodeOrAttribute(_xmlString, n, 0,EMPTY_STRING, TAB_WIDTH));
+                            System.err.println(DocumentBuilder.getRowColOfNodeOrAttribute(_xmlString, n, 0,EMPTY_STRING, TAB_WIDTH));
                             throw _0;
                         } catch (Error _0) {
-                            System.err.println(XmlParser.getRowColOfNodeOrAttribute(_xmlString, n, 0,EMPTY_STRING, TAB_WIDTH));
+                            System.err.println(DocumentBuilder.getRowColOfNodeOrAttribute(_xmlString, n, 0,EMPTY_STRING, TAB_WIDTH));
                             throw _0;
                         }
                         ElementsSerial primitive_ = createPrimitive(_xmlString, n);
@@ -338,10 +338,10 @@ public final class SerializeXmlObject {
                         try {
                             serial_ = ObjectSerial.newSerial(n, true);
                         } catch (RuntimeException _0) {
-                            System.err.println(XmlParser.getRowColOfNodeOrAttribute(_xmlString, n, 0,EMPTY_STRING, TAB_WIDTH));
+                            System.err.println(DocumentBuilder.getRowColOfNodeOrAttribute(_xmlString, n, 0,EMPTY_STRING, TAB_WIDTH));
                             throw _0;
                         } catch (Error _0) {
-                            System.err.println(XmlParser.getRowColOfNodeOrAttribute(_xmlString, n, 0,EMPTY_STRING, TAB_WIDTH));
+                            System.err.println(DocumentBuilder.getRowColOfNodeOrAttribute(_xmlString, n, 0,EMPTY_STRING, TAB_WIDTH));
                             throw _0;
                         }
                         if (ChangeableMap.class.isInstance(serial_.getValue())) {
@@ -401,7 +401,7 @@ public final class SerializeXmlObject {
 //            throw e_;
         } catch (ClassFoundException _0) {
         } catch (RuntimeException _0) {
-            System.err.println(XmlParser.getRowColOfNodeOrAttribute(_xml, _node, 0, EMPTY_STRING, TAB_WIDTH));
+            System.err.println(DocumentBuilder.getRowColOfNodeOrAttribute(_xml, _node, 0, EMPTY_STRING, TAB_WIDTH));
             throw _0;
         }
         try {
@@ -410,7 +410,7 @@ public final class SerializeXmlObject {
 //            throw e_;
         } catch (ClassFoundException _0) {
         } catch (RuntimeException _0) {
-            System.err.println(XmlParser.getRowColOfNodeOrAttribute(_xml, _node, 0, EMPTY_STRING, TAB_WIDTH));
+            System.err.println(DocumentBuilder.getRowColOfNodeOrAttribute(_xml, _node, 0, EMPTY_STRING, TAB_WIDTH));
             throw _0;
         }
         try {
@@ -419,7 +419,7 @@ public final class SerializeXmlObject {
 //            throw e_;
         } catch (ClassFoundException _0) {
         } catch (RuntimeException _0) {
-            System.err.println(XmlParser.getRowColOfNodeOrAttribute(_xml, _node, 0, EMPTY_STRING, TAB_WIDTH));
+            System.err.println(DocumentBuilder.getRowColOfNodeOrAttribute(_xml, _node, 0, EMPTY_STRING, TAB_WIDTH));
             throw _0;
         }
         try {
@@ -428,7 +428,7 @@ public final class SerializeXmlObject {
 //            throw e_;
         } catch (ClassFoundException _0) {
         } catch (RuntimeException _0) {
-            System.err.println(XmlParser.getRowColOfNodeOrAttribute(_xml, _node, 0, EMPTY_STRING, TAB_WIDTH));
+            System.err.println(DocumentBuilder.getRowColOfNodeOrAttribute(_xml, _node, 0, EMPTY_STRING, TAB_WIDTH));
             throw _0;
         }
         try {
@@ -447,10 +447,10 @@ public final class SerializeXmlObject {
         } catch (ClassCastException _0) {
         } catch (NoValueException _0) {
         } catch (RuntimeException _0) {
-            System.err.println(XmlParser.getRowColOfNodeOrAttribute(_xml, _node, 0, EMPTY_STRING, TAB_WIDTH));
+            System.err.println(DocumentBuilder.getRowColOfNodeOrAttribute(_xml, _node, 0, EMPTY_STRING, TAB_WIDTH));
             throw _0;
         } catch (Error _0) {
-            System.err.println(XmlParser.getRowColOfNodeOrAttribute(_xml, _node, 0, EMPTY_STRING, TAB_WIDTH));
+            System.err.println(DocumentBuilder.getRowColOfNodeOrAttribute(_xml, _node, 0, EMPTY_STRING, TAB_WIDTH));
             throw _0;
         }
         try {
@@ -465,10 +465,10 @@ public final class SerializeXmlObject {
 //        } catch (NullPointerException _0) {
 //            _0.printStackTrace();
         } catch (RuntimeException _0) {
-            System.err.println(XmlParser.getRowColOfNodeOrAttribute(_xml, _node, 0, EMPTY_STRING, TAB_WIDTH));
+            System.err.println(DocumentBuilder.getRowColOfNodeOrAttribute(_xml, _node, 0, EMPTY_STRING, TAB_WIDTH));
             throw _0;
         } catch (Error _0) {
-            System.err.println(XmlParser.getRowColOfNodeOrAttribute(_xml, _node, 0, EMPTY_STRING, TAB_WIDTH));
+            System.err.println(DocumentBuilder.getRowColOfNodeOrAttribute(_xml, _node, 0, EMPTY_STRING, TAB_WIDTH));
             throw _0;
         }
         return null;
@@ -497,21 +497,9 @@ public final class SerializeXmlObject {
                 }
             }
             String xmlString_ = escapedXml_.toString();
-            if (XmlParser.isIndentXmlWhileWriting()) {
-                return XmlParser.indentWithoutTextNode(xmlString_);
+            if (DocumentBuilder.isIndentXmlWhileWriting()) {
+                return DocumentBuilder.indentWithoutTextNode(xmlString_);
             }
-//            XmlParser.getTransformer(XmlParser.isIndentXmlWhileWriting()).transform(source_, new StreamResult(writer_));
-//            String xml_ = writer_.getBuffer().toString();
-//            StringBuilder escapedXml_ = new StringBuilder();
-//            for (char c: xml_.toCharArray()) {
-//                if (c >= LIMIT_ASCII || c < LIMIT_EMPTY_CHARS) {
-//                    escapedXml_.append(BEGIN_ESC);
-//                    escapedXml_.append((int)c);
-//                    escapedXml_.append(END_ESC);
-//                } else {
-//                    escapedXml_.append(c);
-//                }
-//            }
             return xmlString_;
         } catch (RuntimeException _0) {
             _0.printStackTrace();
@@ -524,7 +512,7 @@ public final class SerializeXmlObject {
 
     private static Document getSource(Object _serialisable) {
 //        Document document_ = DocumentBuilderFactory.newInstance().newDocumentBuilder().newDocument();
-        Document document_ = XmlParser.newXmlDocument();
+        Document document_ = DocumentBuilder.newXmlDocument();
         try {
             ElementsSerial primitive_;
             primitive_ = CurrentSerializableElements.createPrimitive(_serialisable);

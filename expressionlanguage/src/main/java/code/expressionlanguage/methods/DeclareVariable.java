@@ -1,11 +1,10 @@
 package code.expressionlanguage.methods;
-import code.xml.components.Element;
-
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.PageEl;
 import code.expressionlanguage.PrimitiveTypeUtil;
 import code.expressionlanguage.methods.exceptions.AlreadyDefinedVarException;
 import code.expressionlanguage.variables.LocalVariable;
+import code.sml.Element;
 import code.util.NatTreeMap;
 import code.util.StringMap;
 

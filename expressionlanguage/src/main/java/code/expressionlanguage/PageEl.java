@@ -9,14 +9,14 @@ import code.expressionlanguage.stacks.LoopBlockStack;
 import code.expressionlanguage.stacks.RemovableVars;
 import code.expressionlanguage.variables.LocalVariable;
 import code.expressionlanguage.variables.LoopVariable;
+import code.sml.DocumentBuilder;
+import code.sml.RowCol;
 import code.util.CustList;
 import code.util.EntryCust;
 import code.util.NatTreeMap;
 import code.util.Numbers;
 import code.util.StringList;
 import code.util.StringMap;
-import code.xml.RowCol;
-import code.xml.XmlParser;
 
 public final class PageEl {
 
@@ -99,7 +99,7 @@ public final class PageEl {
             t_ = currentBlock.getTabs();
             RowCol endHeader_;
             endHeader_ = currentBlock.getEndHeader();
-            rc_ = XmlParser.getOffset(processingAttribute, a_, e_, offset, o_, t_, endHeader_, tabWidth);
+            rc_ = DocumentBuilder.getOffset(processingAttribute, a_, e_, offset, o_, t_, endHeader_, tabWidth);
         }
         return rc_;
     }

@@ -10,10 +10,6 @@ import javax.swing.JTree;
 import javax.swing.WindowConstants;
 import javax.swing.tree.DefaultMutableTreeNode;
 
-import code.xml.components.Document;
-import code.xml.components.Element;
-import code.xml.components.Node;
-
 import cards.gui.MainWindow;
 import cards.gui.dialogs.events.ListenerClickTree;
 import cards.gui.dialogs.help.ElementHelp;
@@ -23,6 +19,10 @@ import code.gui.LabelButton;
 import code.gui.SessionEditorPane;
 import code.gui.events.ClosingChildFrameEvent;
 import code.resources.ResourceFiles;
+import code.sml.Document;
+import code.sml.DocumentBuilder;
+import code.sml.Element;
+import code.sml.Node;
 import code.stream.StreamTextFile;
 import code.util.CustList;
 import code.util.EqList;
@@ -32,7 +32,6 @@ import code.util.StringList;
 import code.util.StringMap;
 import code.util.comparators.ComparatorListSizeElement;
 import code.util.consts.Constants;
-import code.xml.XmlParser;
 
 public final class FrameGeneralHelp extends ChildFrame {
     private static final String DIALOG_ACCESS = "cards.gui.dialogs.FrameGeneralHelp";
@@ -103,7 +102,7 @@ public final class FrameGeneralHelp extends ChildFrame {
         messages = getMessages(FileConst.FOLDER_MESSAGES_GUI);
         elementsBis.clear();
 //        try {
-        Document doc_ = XmlParser.parseSaxHtml(ResourceFiles.ressourceFichier(FileConst.RESOURCES_HELP+StreamTextFile.SEPARATEUR+Constants.getLanguage()
+        Document doc_ = DocumentBuilder.parseSaxHtml(ResourceFiles.ressourceFichier(FileConst.RESOURCES_HELP+StreamTextFile.SEPARATEUR+Constants.getLanguage()
                 +StreamTextFile.SEPARATEUR+XML_FILE_PATHS), false);
         Element element_ = doc_.getDocumentElement();
         CustList<Node> noeudsActuels_ = new CustList<Node>();
@@ -132,7 +131,7 @@ public final class FrameGeneralHelp extends ChildFrame {
                 String cheminCourant_ = cheminsActuels_.get(j_);
                 Numbers<Integer> cheminNumCourant_ = cheminsNumeriquesActuels_
                         .get(j_);
-                for (Element e2_ : XmlParser.childrenElements(e)) {
+                for (Element e2_ : e.getChildElements()) {
 //                        NamedNodeMap attributs_ = e2_.getAttributes();
                     if (e2_.hasAttributes()) {
                         //Node typeNoeud_ = attributs_.getNamedItem(TYPE);

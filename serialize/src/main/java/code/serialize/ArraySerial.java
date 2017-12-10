@@ -1,11 +1,6 @@
 package code.serialize;
 import java.lang.reflect.Array;
 
-import code.xml.components.Attr;
-import code.xml.components.Document;
-import code.xml.components.Element;
-import code.xml.components.NamedNodeMap;
-
 import code.serialize.exceptions.ClassFoundException;
 import code.serialize.exceptions.NoAttributeForSerializable;
 import code.util.CustList;
@@ -14,7 +9,10 @@ import code.util.Numbers;
 import code.util.StringList;
 import code.util.consts.ConstClasses;
 import code.util.opers.CollectionsUtil;
-import code.xml.XmlParser;
+import code.sml.Attr;
+import code.sml.Document;
+import code.sml.Element;
+import code.sml.NamedNodeMap;
 
 /**Integrity is checked at dynamic setting elements is the array.
 A Integer[] array cannot have String elements.
@@ -73,7 +71,7 @@ final class ArraySerial extends TemplateSerial {
         Class<?> class_;
         String typeValue_ = typeName_.getValue();
         class_ = ConstClasses.classAliasForNameNotInit(typeValue_);
-        array = Array.newInstance(class_, XmlParser.childrenElements(_node).size());
+        array = Array.newInstance(class_, _node.getChildElements().size());
     }
 
     /**@throws ClassFoundException
@@ -96,7 +94,7 @@ final class ArraySerial extends TemplateSerial {
         Class<?> class_;
         String typeValue_ = typeName_.getValue();
         class_ = ConstClasses.classAliasForNameNotInit(typeValue_);
-        listSerial_.array = Array.newInstance(class_, XmlParser.childrenElements(_node).size());
+        listSerial_.array = Array.newInstance(class_, _node.getChildElements().size());
         Attr field_ = map_.getNamedItem(FIELD);
         if (field_ != null) {
             listSerial_.setField(field_.getValue());

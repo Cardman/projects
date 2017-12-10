@@ -1,13 +1,13 @@
 package cards.facade;
+import cards.belote.enumerations.DealingBelote;
+import cards.president.RulesPresident;
+import cards.tarot.enumerations.DealingTarot;
+import code.sml.util.ExtractFromFiles;
 import code.stream.StreamTextFile;
 import code.util.CustList;
 import code.util.StringList;
 import code.util.StringMap;
 import code.util.annot.RwXml;
-import code.xml.util.ExtractFromFiles;
-import cards.belote.enumerations.DealingBelote;
-import cards.president.RulesPresident;
-import cards.tarot.enumerations.DealingTarot;
 
 @RwXml
 public final class Nicknames {

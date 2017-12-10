@@ -5,11 +5,11 @@ import javax.swing.BorderFactory;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import cards.gui.MainWindow;
+import cards.network.common.select.TeamsPlayers;
 import code.util.Numbers;
 import code.util.StringList;
 import code.util.StringMap;
-import cards.gui.MainWindow;
-import cards.network.common.select.TeamsPlayers;
 
 public final class DialogTeamsPlayers extends DialogCards {
     private static final String DIALOG_ACCESS = "cards.gui.dialogs.DialogTeamsPlayers";

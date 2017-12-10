@@ -4,16 +4,16 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 
-import code.images.ConverterBufferedImage;
-import code.util.Numbers;
-import code.util.StringList;
-import code.util.StringMap;
-import code.util.consts.Constants;
-import code.xml.util.ExtractFromFiles;
 import aiki.Resources;
 import aiki.facade.FacadeGame;
 import aiki.gui.components.Paginator;
 import aiki.util.SortingHealingItem;
+import code.images.ConverterBufferedImage;
+import code.sml.util.ExtractFromFiles;
+import code.util.Numbers;
+import code.util.StringList;
+import code.util.StringMap;
+import code.util.consts.Constants;
 
 public class HealingItemLabel extends SelectableLabel {
 

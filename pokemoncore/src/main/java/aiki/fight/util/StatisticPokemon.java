@@ -1,9 +1,9 @@
 package aiki.fight.util;
 import aiki.fight.enums.Statistic;
 import code.serialize.CheckedData;
+import code.sml.FromAndToString;
 import code.util.StringList;
 import code.util.ints.Equallable;
-import code.xml.FromAndToString;
 
 @CheckedData
 public final class StatisticPokemon implements Equallable<StatisticPokemon> {

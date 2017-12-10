@@ -1,9 +1,9 @@
 package aiki.game.fight.util;
 import aiki.game.fight.TargetCoords;
 import code.serialize.CheckedData;
+import code.sml.FromAndToString;
 import code.util.StringList;
 import code.util.ints.Equallable;
-import code.xml.FromAndToString;
 
 @CheckedData
 public final class MoveTarget implements Equallable<MoveTarget> {

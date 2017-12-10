@@ -2,9 +2,9 @@ package code.maths.matrix;
 import code.maths.LgInt;
 import code.maths.Rate;
 import code.maths.exceptions.BadDivisionException;
+import code.sml.FromAndToString;
 import code.util.StringList;
 import code.util.ints.Equallable;
-import code.xml.FromAndToString;
 
 public final class FractPol implements Equallable<FractPol> {
 

@@ -1,10 +1,10 @@
 package aiki.game.fight;
 import code.serialize.CheckedData;
+import code.sml.FromAndToString;
 import code.util.CustList;
 import code.util.Numbers;
 import code.util.StringList;
 import code.util.ints.Equallable;
-import code.xml.FromAndToString;
 
 @CheckedData
 public final class TeamPosition implements Equallable<TeamPosition> {

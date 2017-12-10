@@ -10,15 +10,6 @@ import javax.swing.ListSelectionModel;
 import javax.swing.SwingConstants;
 import javax.swing.border.BevelBorder;
 
-import code.gui.CustListModel;
-import code.gui.Jl;
-import code.util.CustList;
-import code.util.NatTreeMap;
-import code.util.Numbers;
-import code.util.StringList;
-import code.util.StringMap;
-import code.util.consts.Constants;
-import code.xml.util.ExtractFromFiles;
 import aiki.Resources;
 import aiki.facade.FacadeGame;
 import aiki.gui.listeners.PokemonHostEvent;
@@ -30,6 +21,15 @@ import aiki.gui.listeners.PokemonSelectionTm;
 import aiki.gui.listeners.PokemonSelectionTrading;
 import aiki.map.pokemon.PokemonPlayer;
 import aiki.map.pokemon.UsablePokemon;
+import code.gui.CustListModel;
+import code.gui.Jl;
+import code.sml.util.ExtractFromFiles;
+import code.util.CustList;
+import code.util.NatTreeMap;
+import code.util.Numbers;
+import code.util.StringList;
+import code.util.StringMap;
+import code.util.consts.Constants;
 
 public class TeamPanel extends JPanel {
     private static final String TEAM_PANEL = "aiki.gui.components.walk.TeamPanel";

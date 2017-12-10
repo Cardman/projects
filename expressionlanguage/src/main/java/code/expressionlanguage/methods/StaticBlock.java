@@ -1,9 +1,8 @@
 package code.expressionlanguage.methods;
-import code.xml.components.Element;
-
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.PageEl;
 import code.expressionlanguage.methods.exceptions.BadStaticException;
+import code.sml.Element;
 import code.util.NatTreeMap;
 
 public final class StaticBlock extends MemberCallingsBlock implements AloneBlock {

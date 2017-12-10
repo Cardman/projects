@@ -1,10 +1,10 @@
 package code.maths.matrix;
 import code.maths.Rate;
+import code.sml.FromAndToString;
 import code.util.CustList;
 import code.util.EqList;
 import code.util.StringList;
 import code.util.ints.Equallable;
-import code.xml.FromAndToString;
 
 public final class Vect implements Equallable<Vect> {
 

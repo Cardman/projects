@@ -10,12 +10,6 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
-import code.gui.NumComboBox;
-import code.util.CustList;
-import code.util.StringList;
-import code.util.StringMap;
-import code.util.consts.Constants;
-import code.xml.util.ExtractFromFiles;
 import cards.gui.containers.ContainerTarot;
 import cards.gui.dialogs.FileConst;
 import cards.gui.labels.GraphicTarotCard;
@@ -26,6 +20,12 @@ import cards.tarot.DisplayingTarot;
 import cards.tarot.TrickTarot;
 import cards.tarot.TricksHandsTarot;
 import cards.tarot.enumerations.CardTarot;
+import code.gui.NumComboBox;
+import code.sml.util.ExtractFromFiles;
+import code.util.CustList;
+import code.util.StringList;
+import code.util.StringMap;
+import code.util.consts.Constants;
 
 public class PanelTricksHandsTarot extends JPanel implements ViewablePanelTricksHands {
 

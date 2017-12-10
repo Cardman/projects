@@ -1,8 +1,8 @@
 package aiki.game.fight;
 import code.serialize.CheckedData;
+import code.sml.FromAndToString;
 import code.util.CustList;
 import code.util.StringList;
-import code.xml.FromAndToString;
 
 
 @CheckedData

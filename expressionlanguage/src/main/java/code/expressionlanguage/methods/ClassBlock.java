@@ -1,6 +1,4 @@
 package code.expressionlanguage.methods;
-import code.xml.components.Element;
-
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.Mapping;
 import code.expressionlanguage.Templates;
@@ -17,6 +15,8 @@ import code.expressionlanguage.opers.util.ClassMetaInfo;
 import code.expressionlanguage.opers.util.ConstructorId;
 import code.expressionlanguage.opers.util.ConstructorMetaInfo;
 import code.expressionlanguage.opers.util.MethodId;
+import code.sml.Element;
+import code.sml.RowCol;
 import code.util.CustList;
 import code.util.EntryCust;
 import code.util.EqList;
@@ -25,7 +25,6 @@ import code.util.ObjectNotNullMap;
 import code.util.StringList;
 import code.util.StringMap;
 import code.util.graphs.Graph;
-import code.xml.RowCol;
 
 public final class ClassBlock extends RootBlock implements UniqueRootedBlock {
 

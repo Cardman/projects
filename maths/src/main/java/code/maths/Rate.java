@@ -3,13 +3,13 @@ import code.maths.exceptions.BadDivisionException;
 import code.maths.exceptions.FormatException;
 import code.maths.exceptions.NegatifExposantException;
 import code.serialize.CheckedData;
+import code.sml.FromAndToString;
 import code.util.CustList;
 import code.util.EqList;
 import code.util.Numbers;
 import code.util.PairEq;
 import code.util.StringList;
 import code.util.ints.Cmp;
-import code.xml.FromAndToString;
 
 @CheckedData
 public final class Rate implements Cmp<Rate> {

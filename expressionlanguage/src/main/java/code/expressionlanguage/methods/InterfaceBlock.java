@@ -1,13 +1,12 @@
 package code.expressionlanguage.methods;
 
-import code.xml.components.Element;
-
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.methods.util.UnexpectedTagName;
+import code.sml.Element;
+import code.sml.RowCol;
 import code.util.CustList;
 import code.util.NatTreeMap;
 import code.util.StringList;
-import code.xml.RowCol;
 
 public final class InterfaceBlock extends RootBlock {
 

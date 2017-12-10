@@ -10,12 +10,6 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
-import code.gui.NumComboBox;
-import code.util.CustList;
-import code.util.StringList;
-import code.util.StringMap;
-import code.util.consts.Constants;
-import code.xml.util.ExtractFromFiles;
 import cards.belote.DealBelote;
 import cards.belote.DisplayingBelote;
 import cards.belote.TrickBelote;
@@ -26,6 +20,12 @@ import cards.gui.dialogs.FileConst;
 import cards.gui.labels.GraphicBeloteCard;
 import cards.gui.panels.events.ListenerCards;
 import cards.gui.panels.events.ListenerTricks;
+import code.gui.NumComboBox;
+import code.sml.util.ExtractFromFiles;
+import code.util.CustList;
+import code.util.StringList;
+import code.util.StringMap;
+import code.util.consts.Constants;
 
 public class PanelTricksHandsBelote extends JPanel implements ViewablePanelTricksHands {
 

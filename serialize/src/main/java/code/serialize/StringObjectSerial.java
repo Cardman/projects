@@ -1,10 +1,10 @@
 package code.serialize;
 import java.lang.reflect.Method;
 
-import code.xml.components.Attr;
-import code.xml.components.Document;
-import code.xml.components.Element;
-import code.xml.components.NamedNodeMap;
+import code.sml.Attr;
+import code.sml.Document;
+import code.sml.Element;
+import code.sml.NamedNodeMap;
 
 import code.serialize.exceptions.InvokingException;
 import code.serialize.exceptions.NoSuchDeclaredMethodException;

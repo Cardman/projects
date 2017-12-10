@@ -91,7 +91,7 @@ import code.util.StringMap;
 import code.util.TreeMap;
 import code.util.comparators.NaturalComparator;
 import code.util.exceptions.RuntimeClassNotFoundException;
-import code.xml.components.DocumentBuilder;
+import code.sml.DocumentBuilder;
 
 @SuppressWarnings("static-method")
 @RunWith(JUnitParamsRunner.class)

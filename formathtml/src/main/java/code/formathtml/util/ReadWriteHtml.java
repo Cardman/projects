@@ -1,5 +1,5 @@
 package code.formathtml.util;
-import code.xml.components.Node;
+import code.sml.Node;
 
 public final class ReadWriteHtml {
 
