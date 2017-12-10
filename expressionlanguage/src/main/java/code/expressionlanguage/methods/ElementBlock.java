@@ -16,7 +16,7 @@ import code.util.NatTreeMap;
 
 public final class ElementBlock extends Leaf implements InfoBlock{
 
-    private static final String NEW = "^new.";
+    private static final String NEW = "$new ";
 
     private final String fieldName;
 

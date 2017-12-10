@@ -47,7 +47,7 @@ public class ProcessXmlMethodTwoTest {
     public void instanceArgument95Test() {
         StringMap<String> files_ = new StringMap<String>();
         String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg'>\n";
-        xml_ += "<field access='"+PUBLIC_ACCESS+"' name='inst' class='pkg.ExTwo&lt;java.lang.Number&gt;' value='^new.pkg.ExTwo&lt;java.lang.Number&gt;()'/>\n";
+        xml_ += "<field access='"+PUBLIC_ACCESS+"' name='inst' class='pkg.ExTwo&lt;java.lang.Number&gt;' value='$new pkg.ExTwo&lt;java.lang.Number&gt;()'/>\n";
         xml_ += "</class>\n";
         files_.put("pkg/Ex."+Classes.EXT, xml_);
         xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExTwo' package='pkg' template='&lt;#T&gt;'>\n";
@@ -80,13 +80,13 @@ public class ProcessXmlMethodTwoTest {
     public void instanceArgument96Test() {
         StringMap<String> files_ = new StringMap<String>();
         String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg'>\n";
-        xml_ += "<field access='"+PUBLIC_ACCESS+"' name='inst' class='pkg.ExTwo&lt;java.lang.Number&gt;' value='^new.pkg.ExTwo&lt;java.lang.Number&gt;(8i)'/>\n";
+        xml_ += "<field access='"+PUBLIC_ACCESS+"' name='inst' class='pkg.ExTwo&lt;java.lang.Number&gt;' value='$new pkg.ExTwo&lt;java.lang.Number&gt;(8i)'/>\n";
         xml_ += "</class>\n";
         files_.put("pkg/Ex."+Classes.EXT, xml_);
         xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExTwo' package='pkg' template='&lt;#T&gt;'>\n";
         xml_ += "<field access='"+PUBLIC_ACCESS+"' name='inst' class='[#T'/>\n";
         xml_ += "<constructor access='"+PUBLIC_ACCESS+"' var0='i' class0='#T'>\n";
-        xml_ += "<affect left='inst;;;' oper='=' right='^new.[#T[](i;.;)'/>\n";
+        xml_ += "<affect left='inst;;;' oper='=' right='$new [#T[](i;.;)'/>\n";
         xml_ += "</constructor>\n";
         xml_ += "</class>\n";
         files_.put("pkg/ExTwo."+Classes.EXT, xml_);
@@ -118,14 +118,14 @@ public class ProcessXmlMethodTwoTest {
     public void instanceArgument97Test() {
         StringMap<String> files_ = new StringMap<String>();
         String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg'>\n";
-        xml_ += "<field access='"+PUBLIC_ACCESS+"' name='inst' class='pkg.ExTwo&lt;java.lang.Number&gt;' value='^new.pkg.ExTwo&lt;java.lang.Number&gt;(8i)'/>\n";
-        xml_ += "<field access='"+PUBLIC_ACCESS+"' name='ance' class='pkg.ExTwo&lt;java.lang.String&gt;' value='^new.pkg.ExTwo&lt;java.lang.String&gt;(8i)'/>\n";
+        xml_ += "<field access='"+PUBLIC_ACCESS+"' name='inst' class='pkg.ExTwo&lt;java.lang.Number&gt;' value='$new pkg.ExTwo&lt;java.lang.Number&gt;(8i)'/>\n";
+        xml_ += "<field access='"+PUBLIC_ACCESS+"' name='ance' class='pkg.ExTwo&lt;java.lang.String&gt;' value='$new pkg.ExTwo&lt;java.lang.String&gt;(8i)'/>\n";
         xml_ += "</class>\n";
         files_.put("pkg/Ex."+Classes.EXT, xml_);
         xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExTwo' package='pkg' template='&lt;#T&gt;'>\n";
         xml_ += "<field access='"+PUBLIC_ACCESS+"' name='inst' class='$int'/>\n";
         xml_ += "<constructor access='"+PUBLIC_ACCESS+"' var0='i' class0='java.lang.Object'>\n";
-        xml_ += "<if condition='^instanceof(&quot;#T&quot;,i;.;)'>\n";
+        xml_ += "<if condition='$instanceof(&quot;#T&quot;,i;.;)'>\n";
         xml_ += "<affect left='inst;;;' oper='=' right='1i'/>\n";
         xml_ += "</if>\n";
         xml_ += "<else>\n";
@@ -167,11 +167,11 @@ public class ProcessXmlMethodTwoTest {
     public void instanceArgument98Test() {
         StringMap<String> files_ = new StringMap<String>();
         String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg'>\n";
-        xml_ += "<field access='"+PUBLIC_ACCESS+"' name='inst' class='pkg.ExTwo&lt;java.lang.Number&gt;' value='^new.pkg.ExTwo&lt;java.lang.Number&gt;()'/>\n";
+        xml_ += "<field access='"+PUBLIC_ACCESS+"' name='inst' class='pkg.ExTwo&lt;java.lang.Number&gt;' value='$new pkg.ExTwo&lt;java.lang.Number&gt;()'/>\n";
         xml_ += "</class>\n";
         files_.put("pkg/Ex."+Classes.EXT, xml_);
         xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExTwo' package='pkg' template='&lt;#T&gt;'>\n";
-        xml_ += "<field access='"+PUBLIC_ACCESS+"' name='inst' class='pkg.ExThree&lt;#T&gt;' value='^new.pkg.ExThree&lt;#T&gt;()'/>\n";
+        xml_ += "<field access='"+PUBLIC_ACCESS+"' name='inst' class='pkg.ExThree&lt;#T&gt;' value='$new pkg.ExThree&lt;#T&gt;()'/>\n";
         xml_ += "</class>\n";
         files_.put("pkg/ExTwo."+Classes.EXT, xml_);
         xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExThree' package='pkg' template='&lt;#U&gt;'>\n";
@@ -208,7 +208,7 @@ public class ProcessXmlMethodTwoTest {
     public void instanceArgument99Test() {
         StringMap<String> files_ = new StringMap<String>();
         String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg'>\n";
-        xml_ += "<field access='"+PUBLIC_ACCESS+"' name='inst' class='pkg.ExTwo&lt;java.lang.Number&gt;' value='^new.pkg.ExTwo&lt;java.lang.Number&gt;()'/>\n";
+        xml_ += "<field access='"+PUBLIC_ACCESS+"' name='inst' class='pkg.ExTwo&lt;java.lang.Number&gt;' value='$new pkg.ExTwo&lt;java.lang.Number&gt;()'/>\n";
         xml_ += "<field access='"+PUBLIC_ACCESS+"' name='ance' class='"+PrimitiveTypeUtil.PRIM_INT+"' value='inst;;;get(8I)'/>\n";
         xml_ += "</class>\n";
         files_.put("pkg/Ex."+Classes.EXT, xml_);
@@ -242,7 +242,7 @@ public class ProcessXmlMethodTwoTest {
     public void instanceArgument100Test() {
         StringMap<String> files_ = new StringMap<String>();
         String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg'>\n";
-        xml_ += "<field access='"+PUBLIC_ACCESS+"' name='inst' class='pkg.ExTwo&lt;java.lang.Number&gt;' value='^new.pkg.ExThree&lt;java.lang.Number&gt;()'/>\n";
+        xml_ += "<field access='"+PUBLIC_ACCESS+"' name='inst' class='pkg.ExTwo&lt;java.lang.Number&gt;' value='$new pkg.ExThree&lt;java.lang.Number&gt;()'/>\n";
         xml_ += "<field access='"+PUBLIC_ACCESS+"' name='ance' class='"+PrimitiveTypeUtil.PRIM_INT+"' value='inst;;;get(8I)'/>\n";
         xml_ += "</class>\n";
         files_.put("pkg/Ex."+Classes.EXT, xml_);
@@ -282,7 +282,7 @@ public class ProcessXmlMethodTwoTest {
     public void instanceArgument101Test() {
         StringMap<String> files_ = new StringMap<String>();
         String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg'>\n";
-        xml_ += "<field access='"+PUBLIC_ACCESS+"' name='inst' class='pkg.ExTwo' value='^new.pkg.ExFour()'/>\n";
+        xml_ += "<field access='"+PUBLIC_ACCESS+"' name='inst' class='pkg.ExTwo' value='$new pkg.ExFour()'/>\n";
         xml_ += "<field access='"+PUBLIC_ACCESS+"' name='ance' class='"+PrimitiveTypeUtil.PRIM_INT+"' value='inst;;;get()'/>\n";
         xml_ += "</class>\n";
         files_.put("pkg/Ex."+Classes.EXT, xml_);
@@ -327,8 +327,8 @@ public class ProcessXmlMethodTwoTest {
     public void instanceArgument102Test() {
         StringMap<String> files_ = new StringMap<String>();
         String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg'>\n";
-        xml_ += "<field access='"+PUBLIC_ACCESS+"' name='inst' class='pkg.ExTwo&lt;java.lang.Number&gt;' value='^new.pkg.ExThree&lt;java.lang.Number&gt;()'/>\n";
-        xml_ += "<field access='"+PUBLIC_ACCESS+"' name='ance' class='"+PrimitiveTypeUtil.PRIM_INT+"' value='inst;;;^classchoice^pkg^ExTwo^^get()'/>\n";
+        xml_ += "<field access='"+PUBLIC_ACCESS+"' name='inst' class='pkg.ExTwo&lt;java.lang.Number&gt;' value='$new pkg.ExThree&lt;java.lang.Number&gt;()'/>\n";
+        xml_ += "<field access='"+PUBLIC_ACCESS+"' name='ance' class='"+PrimitiveTypeUtil.PRIM_INT+"' value='inst;;;$classchoice$pkg$ExTwo$$get()'/>\n";
         xml_ += "</class>\n";
         files_.put("pkg/Ex."+Classes.EXT, xml_);
         xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExTwo' package='pkg' template='&lt;#T:java.lang.Number&gt;'>\n";
@@ -367,8 +367,8 @@ public class ProcessXmlMethodTwoTest {
     public void instanceArgument103Test() {
         StringMap<String> files_ = new StringMap<String>();
         String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg'>\n";
-        xml_ += "<field access='"+PUBLIC_ACCESS+"' name='inst' class='pkg.ExTwo&lt;java.lang.Number&gt;' value='^new.pkg.ExThree&lt;java.lang.Number&gt;()'/>\n";
-        xml_ += "<field access='"+PUBLIC_ACCESS+"' name='ance' class='"+PrimitiveTypeUtil.PRIM_INT+"' value='inst;;;^classchoice^pkg^ExTwo&lt;java^lang^Number&gt;^^get(8I)'/>\n";
+        xml_ += "<field access='"+PUBLIC_ACCESS+"' name='inst' class='pkg.ExTwo&lt;java.lang.Number&gt;' value='$new pkg.ExThree&lt;java.lang.Number&gt;()'/>\n";
+        xml_ += "<field access='"+PUBLIC_ACCESS+"' name='ance' class='"+PrimitiveTypeUtil.PRIM_INT+"' value='inst;;;$classchoice$pkg$ExTwo&lt;java$lang$Number&gt;$$get(8I)'/>\n";
         xml_ += "</class>\n";
         files_.put("pkg/Ex."+Classes.EXT, xml_);
         xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExTwo' package='pkg' template='&lt;#T:java.lang.Number&gt;'>\n";
@@ -408,8 +408,8 @@ public class ProcessXmlMethodTwoTest {
     public void instanceArgument104Test() {
         StringMap<String> files_ = new StringMap<String>();
         String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg'>\n";
-        xml_ += "<field access='"+PUBLIC_ACCESS+"' name='inst' class='pkg.ExTwo&lt;java.lang.Number&gt;' value='^new.pkg.ExThree&lt;java.lang.Number&gt;()'/>\n";
-        xml_ += "<field access='"+PUBLIC_ACCESS+"' name='ance' class='"+PrimitiveTypeUtil.PRIM_INT+"' value='inst;;;^classchoice^pkg^ExTwo^^get(8I)'/>\n";
+        xml_ += "<field access='"+PUBLIC_ACCESS+"' name='inst' class='pkg.ExTwo&lt;java.lang.Number&gt;' value='$new pkg.ExThree&lt;java.lang.Number&gt;()'/>\n";
+        xml_ += "<field access='"+PUBLIC_ACCESS+"' name='ance' class='"+PrimitiveTypeUtil.PRIM_INT+"' value='inst;;;$classchoice$pkg$ExTwo$$get(8I)'/>\n";
         xml_ += "</class>\n";
         files_.put("pkg/Ex."+Classes.EXT, xml_);
         xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExTwo' package='pkg' template='&lt;#T:java.lang.Number&gt;'>\n";
@@ -449,8 +449,8 @@ public class ProcessXmlMethodTwoTest {
     public void instanceArgument105Test() {
         StringMap<String> files_ = new StringMap<String>();
         String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg'>\n";
-        xml_ += "<field access='"+PUBLIC_ACCESS+"' name='inst' class='pkg.ExTwo&lt;java.lang.Number&gt;' value='^new.pkg.ExThree&lt;java.lang.Number&gt;()'/>\n";
-        xml_ += "<field access='"+PUBLIC_ACCESS+"' name='ance' class='"+PrimitiveTypeUtil.PRIM_INT+"' value='inst;;;^classchoice^pkg^ExTwo^^get(1I)'/>\n";
+        xml_ += "<field access='"+PUBLIC_ACCESS+"' name='inst' class='pkg.ExTwo&lt;java.lang.Number&gt;' value='$new pkg.ExThree&lt;java.lang.Number&gt;()'/>\n";
+        xml_ += "<field access='"+PUBLIC_ACCESS+"' name='ance' class='"+PrimitiveTypeUtil.PRIM_INT+"' value='inst;;;$classchoice$pkg$ExTwo$$get(1I)'/>\n";
         xml_ += "</class>\n";
         files_.put("pkg/Ex."+Classes.EXT, xml_);
         xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExTwo' package='pkg' template='&lt;#T&gt;'>\n";
@@ -489,8 +489,8 @@ public class ProcessXmlMethodTwoTest {
     public void instanceArgument106Test() {
         StringMap<String> files_ = new StringMap<String>();
         String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg'>\n";
-        xml_ += "<field access='"+PUBLIC_ACCESS+"' name='inst' class='pkg.ExThree&lt;java.lang.Number&gt;' value='^new.pkg.ExThree&lt;java.lang.Number&gt;()'/>\n";
-        xml_ += "<field access='"+PUBLIC_ACCESS+"' name='ance' class='"+PrimitiveTypeUtil.PRIM_INT+"' value='inst;;;^super^get(1I)'/>\n";
+        xml_ += "<field access='"+PUBLIC_ACCESS+"' name='inst' class='pkg.ExThree&lt;java.lang.Number&gt;' value='$new pkg.ExThree&lt;java.lang.Number&gt;()'/>\n";
+        xml_ += "<field access='"+PUBLIC_ACCESS+"' name='ance' class='"+PrimitiveTypeUtil.PRIM_INT+"' value='inst;;;$super$get(1I)'/>\n";
         xml_ += "</class>\n";
         files_.put("pkg/Ex."+Classes.EXT, xml_);
         xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExTwo' package='pkg' template='&lt;#T&gt;'>\n";
@@ -529,12 +529,12 @@ public class ProcessXmlMethodTwoTest {
     public void instanceArgument107Test() {
         StringMap<String> files_ = new StringMap<String>();
         String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg'>\n";
-        xml_ += "<field access='"+PUBLIC_ACCESS+"' name='inst' class='pkg.ExThree&lt;java.lang.Number&gt;' value='^new.pkg.ExThree&lt;java.lang.Number&gt;()'/>\n";
+        xml_ += "<field access='"+PUBLIC_ACCESS+"' name='inst' class='pkg.ExThree&lt;java.lang.Number&gt;' value='$new pkg.ExThree&lt;java.lang.Number&gt;()'/>\n";
         xml_ += "<field access='"+PUBLIC_ACCESS+"' name='ance' class='java.lang.Number'/>\n";
         xml_ += "<instance>\n";
         xml_ += "<affect left='inst;;;get;;;' oper='=' right='3i'/>\n";
-        xml_ += "<affect left='inst;;;^super^get;;;' oper='=' right='1i'/>\n";
-        xml_ += "<affect left='ance;;;' oper='=' right='inst;;;^super^get;;;'/>\n";
+        xml_ += "<affect left='inst;;;$super$get;;;' oper='=' right='1i'/>\n";
+        xml_ += "<affect left='ance;;;' oper='=' right='inst;;;$super$get;;;'/>\n";
         xml_ += "</instance>\n";
         xml_ += "</class>\n";
         files_.put("pkg/Ex."+Classes.EXT, xml_);
@@ -570,7 +570,7 @@ public class ProcessXmlMethodTwoTest {
     public void instanceArgument108Test() {
         StringMap<String> files_ = new StringMap<String>();
         String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg'>\n";
-        xml_ += "<field access='"+PUBLIC_ACCESS+"' name='inst' class='pkg.ExTwo&lt;java.lang.Number&gt;' value='^new.pkg.ExTwo&lt;java.lang.Number&gt;()'/>\n";
+        xml_ += "<field access='"+PUBLIC_ACCESS+"' name='inst' class='pkg.ExTwo&lt;java.lang.Number&gt;' value='$new pkg.ExTwo&lt;java.lang.Number&gt;()'/>\n";
         xml_ += "<field access='"+PUBLIC_ACCESS+"' name='ance' class='"+PrimitiveTypeUtil.PRIM_INT+"' value='inst;;;get(8I)'/>\n";
         xml_ += "</class>\n";
         files_.put("pkg/Ex."+Classes.EXT, xml_);
@@ -607,7 +607,7 @@ public class ProcessXmlMethodTwoTest {
     public void instanceArgument109Test() {
         StringMap<String> files_ = new StringMap<String>();
         String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg'>\n";
-        xml_ += "<field access='"+PUBLIC_ACCESS+"' name='inst' class='pkg.Int&lt;java.lang.Number&gt;' value='^new.pkg.ExTwo&lt;java.lang.Number&gt;()'/>\n";
+        xml_ += "<field access='"+PUBLIC_ACCESS+"' name='inst' class='pkg.Int&lt;java.lang.Number&gt;' value='$new pkg.ExTwo&lt;java.lang.Number&gt;()'/>\n";
         xml_ += "<field access='"+PUBLIC_ACCESS+"' name='ance' class='"+PrimitiveTypeUtil.PRIM_INT+"' value='inst;;;get(8I)'/>\n";
         xml_ += "</class>\n";
         files_.put("pkg/Ex."+Classes.EXT, xml_);
@@ -647,12 +647,12 @@ public class ProcessXmlMethodTwoTest {
     public void instanceArgument110Test() {
         StringMap<String> files_ = new StringMap<String>();
         String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg'>\n";
-        xml_ += "<field access='"+PUBLIC_ACCESS+"' name='inst' class='pkg.ExThree&lt;java.lang.Number&gt;' value='^new.pkg.ExThree&lt;java.lang.Number&gt;()'/>\n";
+        xml_ += "<field access='"+PUBLIC_ACCESS+"' name='inst' class='pkg.ExThree&lt;java.lang.Number&gt;' value='$new pkg.ExThree&lt;java.lang.Number&gt;()'/>\n";
         xml_ += "<field access='"+PUBLIC_ACCESS+"' name='ance' class='java.lang.Number'/>\n";
         xml_ += "<instance>\n";
         xml_ += "<affect left='inst;;;get;;;' oper='=' right='3i'/>\n";
-        xml_ += "<affect left='inst;;;^super^get;;;' oper='=' right='1i'/>\n";
-        xml_ += "<affect left='ance;;;' oper='=' right='inst;;;^super^getter()'/>\n";
+        xml_ += "<affect left='inst;;;$super$get;;;' oper='=' right='1i'/>\n";
+        xml_ += "<affect left='ance;;;' oper='=' right='inst;;;$super$getter()'/>\n";
         xml_ += "</instance>\n";
         xml_ += "</class>\n";
         files_.put("pkg/Ex."+Classes.EXT, xml_);
@@ -694,10 +694,10 @@ public class ProcessXmlMethodTwoTest {
     public void instanceArgument111Test() {
         StringMap<String> files_ = new StringMap<String>();
         String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg'>\n";
-        xml_ += "<field access='"+PUBLIC_ACCESS+"' name='inst' class='pkg.ExTwo&lt;java.lang.Number&gt;' value='^new.pkg.ExThree&lt;java.lang.Number&gt;()'/>\n";
+        xml_ += "<field access='"+PUBLIC_ACCESS+"' name='inst' class='pkg.ExTwo&lt;java.lang.Number&gt;' value='$new pkg.ExThree&lt;java.lang.Number&gt;()'/>\n";
         xml_ += "<field access='"+PUBLIC_ACCESS+"' name='ance' class='java.lang.Number'/>\n";
         xml_ += "<instance>\n";
-        xml_ += "<affect left='inst;;;^classchoice^pkg^ExThree^^get;;;' oper='=' right='3i'/>\n";
+        xml_ += "<affect left='inst;;;$classchoice$pkg$ExThree$$get;;;' oper='=' right='3i'/>\n";
         xml_ += "<affect left='inst;;;get;;;' oper='=' right='1i'/>\n";
         xml_ += "<affect left='ance;;;' oper='=' right='inst;;;getter()'/>\n";
         xml_ += "</instance>\n";
@@ -741,10 +741,10 @@ public class ProcessXmlMethodTwoTest {
     public void instanceArgument112Test() {
         StringMap<String> files_ = new StringMap<String>();
         String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg'>\n";
-        xml_ += "<field access='"+PUBLIC_ACCESS+"' name='inst' class='pkg.ExTwo&lt;java.lang.Number&gt;' value='^new.pkg.ExThree&lt;java.lang.Number&gt;()'/>\n";
+        xml_ += "<field access='"+PUBLIC_ACCESS+"' name='inst' class='pkg.ExTwo&lt;java.lang.Number&gt;' value='$new pkg.ExThree&lt;java.lang.Number&gt;()'/>\n";
         xml_ += "<field access='"+PUBLIC_ACCESS+"' name='ance' class='java.lang.Number'/>\n";
         xml_ += "<instance>\n";
-        xml_ += "<affect left='inst;;;^classchoice^pkg^ExThree^^get;;;' oper='=' right='3i'/>\n";
+        xml_ += "<affect left='inst;;;$classchoice$pkg$ExThree$$get;;;' oper='=' right='3i'/>\n";
         xml_ += "<affect left='inst;;;get;;;' oper='=' right='1i'/>\n";
         xml_ += "<affect left='ance;;;' oper='=' right='inst;;;getter()'/>\n";
         xml_ += "</instance>\n";
@@ -788,10 +788,10 @@ public class ProcessXmlMethodTwoTest {
     public void instanceArgument113Test() {
         StringMap<String> files_ = new StringMap<String>();
         String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg'>\n";
-        xml_ += "<field access='"+PUBLIC_ACCESS+"' name='inst' class='pkg.ExTwo&lt;java.lang.Number&gt;' value='^new.pkg.ExThree&lt;java.lang.Number&gt;()'/>\n";
+        xml_ += "<field access='"+PUBLIC_ACCESS+"' name='inst' class='pkg.ExTwo&lt;java.lang.Number&gt;' value='$new pkg.ExThree&lt;java.lang.Number&gt;()'/>\n";
         xml_ += "<field access='"+PUBLIC_ACCESS+"' name='ance' class='java.lang.Number'/>\n";
         xml_ += "<instance>\n";
-        xml_ += "<affect left='inst;;;^classchoice^pkg^ExThree^^get;;;' oper='=' right='3i'/>\n";
+        xml_ += "<affect left='inst;;;$classchoice$pkg$ExThree$$get;;;' oper='=' right='3i'/>\n";
         xml_ += "<affect left='inst;;;get;;;' oper='=' right='1i'/>\n";
         xml_ += "<affect left='ance;;;' oper='=' right='inst;;;getter()'/>\n";
         xml_ += "</instance>\n";
@@ -834,7 +834,7 @@ public class ProcessXmlMethodTwoTest {
     public void instanceArgument114Test() {
         StringMap<String> files_ = new StringMap<String>();
         String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg'>\n";
-        xml_ += "<field access='"+PUBLIC_ACCESS+"' name='inst' class='pkg.ExTwo&lt;java.lang.Number&gt;' value='^new.pkg.ExTwo&lt;java.lang.Number&gt;()'/>\n";
+        xml_ += "<field access='"+PUBLIC_ACCESS+"' name='inst' class='pkg.ExTwo&lt;java.lang.Number&gt;' value='$new pkg.ExTwo&lt;java.lang.Number&gt;()'/>\n";
         xml_ += "<field access='"+PUBLIC_ACCESS+"' name='ance' class='"+PrimitiveTypeUtil.PRIM_INT+"' value='inst;;;get(8I)'/>\n";
         xml_ += "</class>\n";
         files_.put("pkg/Ex."+Classes.EXT, xml_);
@@ -868,8 +868,8 @@ public class ProcessXmlMethodTwoTest {
     public void instanceArgument115Test() {
         StringMap<String> files_ = new StringMap<String>();
         String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg'>\n";
-        xml_ += "<field access='"+PUBLIC_ACCESS+"' name='inst' class='pkg.ExTwo&lt;pkg.CustNb&gt;' value='^new.pkg.ExTwo&lt;pkg.CustNb&gt;()'/>\n";
-        xml_ += "<field access='"+PUBLIC_ACCESS+"' name='ance' class='"+PrimitiveTypeUtil.PRIM_INT+"' value='inst;;;get(^new.pkg.CustNb(8i))'/>\n";
+        xml_ += "<field access='"+PUBLIC_ACCESS+"' name='inst' class='pkg.ExTwo&lt;pkg.CustNb&gt;' value='$new pkg.ExTwo&lt;pkg.CustNb&gt;()'/>\n";
+        xml_ += "<field access='"+PUBLIC_ACCESS+"' name='ance' class='"+PrimitiveTypeUtil.PRIM_INT+"' value='inst;;;get($new pkg.CustNb(8i))'/>\n";
         xml_ += "</class>\n";
         files_.put("pkg/Ex."+Classes.EXT, xml_);
         xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExTwo' package='pkg' template='&lt;#T:pkg.CustNb&gt;'>\n";
@@ -912,8 +912,8 @@ public class ProcessXmlMethodTwoTest {
     public void instanceArgument116Test() {
         StringMap<String> files_ = new StringMap<String>();
         String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg'>\n";
-        xml_ += "<field access='"+PUBLIC_ACCESS+"' name='inst' class='pkg.ExTwo&lt;pkg.CustNb&gt;' value='^new.pkg.ExTwo&lt;pkg.CustNb&gt;()'/>\n";
-        xml_ += "<field access='"+PUBLIC_ACCESS+"' name='ance' class='"+PrimitiveTypeUtil.PRIM_INT+"' value='inst;;;get(^new.pkg.CustInt(8i))'/>\n";
+        xml_ += "<field access='"+PUBLIC_ACCESS+"' name='inst' class='pkg.ExTwo&lt;pkg.CustNb&gt;' value='$new pkg.ExTwo&lt;pkg.CustNb&gt;()'/>\n";
+        xml_ += "<field access='"+PUBLIC_ACCESS+"' name='ance' class='"+PrimitiveTypeUtil.PRIM_INT+"' value='inst;;;get($new pkg.CustInt(8i))'/>\n";
         xml_ += "</class>\n";
         files_.put("pkg/Ex."+Classes.EXT, xml_);
         xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExTwo' package='pkg' template='&lt;#T:pkg.CustNb&gt;'>\n";
@@ -962,8 +962,8 @@ public class ProcessXmlMethodTwoTest {
     public void instanceArgument117Test() {
         StringMap<String> files_ = new StringMap<String>();
         String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg'>\n";
-        xml_ += "<field access='"+PUBLIC_ACCESS+"' name='inst' class='pkg.ExTwo&lt;pkg.CustInt&gt;' value='^new.pkg.ExTwo&lt;pkg.CustInt&gt;()'/>\n";
-        xml_ += "<field access='"+PUBLIC_ACCESS+"' name='ance' class='"+PrimitiveTypeUtil.PRIM_INT+"' value='inst;;;get(^new.pkg.CustInt(8i),^new.pkg.CustInt(5i))'/>\n";
+        xml_ += "<field access='"+PUBLIC_ACCESS+"' name='inst' class='pkg.ExTwo&lt;pkg.CustInt&gt;' value='$new pkg.ExTwo&lt;pkg.CustInt&gt;()'/>\n";
+        xml_ += "<field access='"+PUBLIC_ACCESS+"' name='ance' class='"+PrimitiveTypeUtil.PRIM_INT+"' value='inst;;;get($new pkg.CustInt(8i),$new pkg.CustInt(5i))'/>\n";
         xml_ += "</class>\n";
         files_.put("pkg/Ex."+Classes.EXT, xml_);
         xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExTwo' package='pkg' template='&lt;#T:pkg.CustNb&lt;#T&gt;&gt;'>\n";
@@ -1014,8 +1014,8 @@ public class ProcessXmlMethodTwoTest {
     public void instanceArgument118Test() {
         StringMap<String> files_ = new StringMap<String>();
         String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg'>\n";
-        xml_ += "<field access='"+PUBLIC_ACCESS+"' name='inst' class='pkg.ExTwo&lt;pkg.CustInt&gt;' value='^new.pkg.ExTwo&lt;pkg.CustInt&gt;()'/>\n";
-        xml_ += "<field access='"+PUBLIC_ACCESS+"' name='ance' class='"+PrimitiveTypeUtil.PRIM_INT+"' value='inst;;;get(^new.pkg.CustInt(8i),^new.pkg.CustInt(5i))'/>\n";
+        xml_ += "<field access='"+PUBLIC_ACCESS+"' name='inst' class='pkg.ExTwo&lt;pkg.CustInt&gt;' value='$new pkg.ExTwo&lt;pkg.CustInt&gt;()'/>\n";
+        xml_ += "<field access='"+PUBLIC_ACCESS+"' name='ance' class='"+PrimitiveTypeUtil.PRIM_INT+"' value='inst;;;get($new pkg.CustInt(8i),$new pkg.CustInt(5i))'/>\n";
         xml_ += "</class>\n";
         files_.put("pkg/Ex."+Classes.EXT, xml_);
         xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExTwo' package='pkg' template='&lt;#T:pkg.CustNb&lt;#T&gt;&gt;'>\n";
@@ -1070,7 +1070,7 @@ public class ProcessXmlMethodTwoTest {
         ContextEl cont_ = new ContextEl();
         String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' superclass='pkg.ExTwo'>\n";
         xml_ += "<method access='"+PUBLIC_ACCESS+"' modifier='normal' name='superaccess' class='"+PrimitiveTypeUtil.PRIM_INT+"'>\n";
-        xml_ += "<return expression='^super^getter()'/>\n";
+        xml_ += "<return expression='$super$getter()'/>\n";
         xml_ += "</method>\n";
         xml_ += "<method access='"+PUBLIC_ACCESS+"' modifier='normal' name='getter' class='"+PrimitiveTypeUtil.PRIM_INT+"'>\n";
         xml_ += "<return expression='2i'/>\n";
@@ -1087,7 +1087,7 @@ public class ProcessXmlMethodTwoTest {
         xml_ += "</interface>\n";
         files_.put("pkg/Int."+Classes.EXT, xml_);
         xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExThree' package='pkg'>\n";
-        xml_ += "<field access='"+PUBLIC_ACCESS+"' name='inst' class='pkg.Ex' value='^new.pkg.Ex()'/>\n";
+        xml_ += "<field access='"+PUBLIC_ACCESS+"' name='inst' class='pkg.Ex' value='$new pkg.Ex()'/>\n";
         xml_ += "<field access='"+PUBLIC_ACCESS+"' name='ance' class='"+PrimitiveTypeUtil.PRIM_INT+"' value='inst;;;superaccess()'/>\n";
         xml_ += "</class>\n";
         files_.put("pkg/ExThree."+Classes.EXT, xml_);
@@ -1111,14 +1111,14 @@ public class ProcessXmlMethodTwoTest {
     public void instanceArgument120Test() {
         StringMap<String> files_ = new StringMap<String>();
         String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg'>\n";
-        xml_ += "<field access='"+PUBLIC_ACCESS+"' name='inst' class='pkg.ExTwo&lt;java.lang.Number&gt;' value='^new.pkg.ExTwo&lt;java.lang.Number&gt;(^new.pkg.ExThree&lt;java.lang.Number&gt;())'/>\n";
-        xml_ += "<field access='"+PUBLIC_ACCESS+"' name='ance' class='pkg.ExTwo&lt;java.lang.String&gt;' value='^new.pkg.ExTwo&lt;java.lang.String&gt;(^new.pkg.ExFour&lt;java.lang.Number&gt;())'/>\n";
+        xml_ += "<field access='"+PUBLIC_ACCESS+"' name='inst' class='pkg.ExTwo&lt;java.lang.Number&gt;' value='$new pkg.ExTwo&lt;java.lang.Number&gt;($new pkg.ExThree&lt;java.lang.Number&gt;())'/>\n";
+        xml_ += "<field access='"+PUBLIC_ACCESS+"' name='ance' class='pkg.ExTwo&lt;java.lang.String&gt;' value='$new pkg.ExTwo&lt;java.lang.String&gt;($new pkg.ExFour&lt;java.lang.Number&gt;())'/>\n";
         xml_ += "</class>\n";
         files_.put("pkg/Ex."+Classes.EXT, xml_);
         xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExTwo' package='pkg' template='&lt;#T&gt;'>\n";
         xml_ += "<field access='"+PUBLIC_ACCESS+"' name='inst' class='$int'/>\n";
         xml_ += "<constructor access='"+PUBLIC_ACCESS+"' var0='i' class0='java.lang.Object'>\n";
-        xml_ += "<if condition='^instanceof(&quot;pkg.ExThree&quot;,i;.;)'>\n";
+        xml_ += "<if condition='$instanceof(&quot;pkg.ExThree&quot;,i;.;)'>\n";
         xml_ += "<affect left='inst;;;' oper='=' right='1i'/>\n";
         xml_ += "</if>\n";
         xml_ += "<else>\n";
@@ -1167,7 +1167,7 @@ public class ProcessXmlMethodTwoTest {
     public void instanceArgument121Test() {
         StringMap<String> files_ = new StringMap<String>();
         String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg'>\n";
-        xml_ += "<field access='"+PUBLIC_ACCESS+"' name='inst' class='"+CUST_LIST_FULL+"&lt;java.lang.Number&gt;' value='^new."+CUST_LIST_FULL+"&lt;java.lang.Number&gt;()'/>\n";
+        xml_ += "<field access='"+PUBLIC_ACCESS+"' name='inst' class='"+CUST_LIST_FULL+"&lt;java.lang.Number&gt;' value='$new "+CUST_LIST_FULL+"&lt;java.lang.Number&gt;()'/>\n";
         xml_ += "<field access='"+PUBLIC_ACCESS+"' name='res' class='$int'/>\n";
         xml_ += "<instance>\n";
         xml_ += "<line expression='inst;;;add(3i)'/>\n";
@@ -1202,7 +1202,7 @@ public class ProcessXmlMethodTwoTest {
     public void instanceArgument122Test() {
         StringMap<String> files_ = new StringMap<String>();
         String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg'>\n";
-        xml_ += "<field access='"+PUBLIC_ACCESS+"' name='inst' class='"+CUST_LIST_FULL+"&lt;java.lang.Number&gt;' value='^new."+CUST_LIST_FULL+"&lt;java.lang.Number&gt;()'/>\n";
+        xml_ += "<field access='"+PUBLIC_ACCESS+"' name='inst' class='"+CUST_LIST_FULL+"&lt;java.lang.Number&gt;' value='$new "+CUST_LIST_FULL+"&lt;java.lang.Number&gt;()'/>\n";
         xml_ += "<field access='"+PUBLIC_ACCESS+"' name='one' class='$int'/>\n";
         xml_ += "<field access='"+PUBLIC_ACCESS+"' name='two' class='$int'/>\n";
         xml_ += "<field access='"+PUBLIC_ACCESS+"' name='three' class='$int'/>\n";
@@ -1248,7 +1248,7 @@ public class ProcessXmlMethodTwoTest {
     public void instanceArgument123Test() {
         StringMap<String> files_ = new StringMap<String>();
         String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg'>\n";
-        xml_ += "<field access='"+PUBLIC_ACCESS+"' name='inst' class='"+CUST_LIST_FULL+"&lt;java.lang.Number&gt;' value='^new."+CUST_LIST_FULL+"&lt;java.lang.Number&gt;()'/>\n";
+        xml_ += "<field access='"+PUBLIC_ACCESS+"' name='inst' class='"+CUST_LIST_FULL+"&lt;java.lang.Number&gt;' value='$new "+CUST_LIST_FULL+"&lt;java.lang.Number&gt;()'/>\n";
         xml_ += "<field access='"+PUBLIC_ACCESS+"' name='res' class='$int'/>\n";
         xml_ += "<instance>\n";
         xml_ += "<line expression='inst;;;add(3i)'/>\n";
@@ -1284,7 +1284,7 @@ public class ProcessXmlMethodTwoTest {
     public void instanceArgument124Test() {
         StringMap<String> files_ = new StringMap<String>();
         String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg'>\n";
-        xml_ += "<field access='"+PUBLIC_ACCESS+"' name='inst' class='"+CUST_LIST_FULL+"&lt;java.lang.Number&gt;' value='^new."+CUST_LIST_FULL+"&lt;java.lang.Number&gt;()'/>\n";
+        xml_ += "<field access='"+PUBLIC_ACCESS+"' name='inst' class='"+CUST_LIST_FULL+"&lt;java.lang.Number&gt;' value='$new "+CUST_LIST_FULL+"&lt;java.lang.Number&gt;()'/>\n";
         xml_ += "<field access='"+PUBLIC_ACCESS+"' name='res' class='$int' value='123i'/>\n";
         xml_ += "<instance>\n";
         xml_ += "<foreach class='java.lang.Number' var='e' expression='inst;;;'>\n";
@@ -1317,7 +1317,7 @@ public class ProcessXmlMethodTwoTest {
     public void instanceArgument125Test() {
         StringMap<String> files_ = new StringMap<String>();
         String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg'>\n";
-        xml_ += "<field access='"+PUBLIC_ACCESS+"' name='inst' class='"+CUST_LIST_FULL+"&lt;java.lang.Number&gt;' value='^new."+CUST_LIST_FULL+"&lt;java.lang.Number&gt;()'/>\n";
+        xml_ += "<field access='"+PUBLIC_ACCESS+"' name='inst' class='"+CUST_LIST_FULL+"&lt;java.lang.Number&gt;' value='$new "+CUST_LIST_FULL+"&lt;java.lang.Number&gt;()'/>\n";
         xml_ += "<field access='"+PUBLIC_ACCESS+"' name='res' class='$int'/>\n";
         xml_ += "<instance>\n";
         xml_ += "<line expression='inst;;;add(3i)'/>\n";
@@ -1355,10 +1355,10 @@ public class ProcessXmlMethodTwoTest {
         xml_ += "<field access='"+PUBLIC_ACCESS+"' name='ance' class='pkg.ExTwo&lt;java.lang.String&gt;'/>\n";
         xml_ += "<instance>\n";
         xml_ += "<try>\n";
-        xml_ += "<affect left='ance;;;' oper='=' right='^new.pkg.ExTwo&lt;java.lang.String&gt;(8i)'/>\n";
+        xml_ += "<affect left='ance;;;' oper='=' right='$new pkg.ExTwo&lt;java.lang.String&gt;(8i)'/>\n";
         xml_ += "</try>\n";
         xml_ += "<catch var='e' class='code.expressionlanguage.exceptions.DynamicCastClassException'>\n";
-        xml_ += "<affect left='inst;;;' oper='=' right='^new.pkg.ExTwo&lt;java.lang.Number&gt;(8i)'/>\n";
+        xml_ += "<affect left='inst;;;' oper='=' right='$new pkg.ExTwo&lt;java.lang.Number&gt;(8i)'/>\n";
         xml_ += "</catch>\n";
         xml_ += "</instance>\n";
         xml_ += "</class>\n";
@@ -1366,7 +1366,7 @@ public class ProcessXmlMethodTwoTest {
         xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExTwo' package='pkg' template='&lt;#T&gt;'>\n";
         xml_ += "<field access='"+PUBLIC_ACCESS+"' name='inst' class='java.lang.Object'/>\n";
         xml_ += "<constructor access='"+PUBLIC_ACCESS+"' var0='i' class0='java.lang.Object'>\n";
-        xml_ += "<affect left='inst;;;' oper='=' right='^class(&quot;#T&quot;,i;.;)'/>\n";
+        xml_ += "<affect left='inst;;;' oper='=' right='$class(&quot;#T&quot;,i;.;)'/>\n";
         xml_ += "</constructor>\n";
         xml_ += "</class>\n";
         files_.put("pkg/ExTwo."+Classes.EXT, xml_);
@@ -1399,11 +1399,11 @@ public class ProcessXmlMethodTwoTest {
     public void instanceArgument127Test() {
         StringMap<String> files_ = new StringMap<String>();
         String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg'>\n";
-        xml_ += "<field access='"+PUBLIC_ACCESS+"' name='inst' class='pkg.ExTwo&lt;java.lang.Number&gt;' value='^new.pkg.ExThree&lt;java.lang.Number&gt;()'/>\n";
+        xml_ += "<field access='"+PUBLIC_ACCESS+"' name='inst' class='pkg.ExTwo&lt;java.lang.Number&gt;' value='$new pkg.ExThree&lt;java.lang.Number&gt;()'/>\n";
         xml_ += "<field access='"+PUBLIC_ACCESS+"' name='ance' class='"+PrimitiveTypeUtil.PRIM_INT+"'/>\n";
         xml_ += "<instance>\n";
         xml_ += "<try>\n";
-        xml_ += "<affect left='ance;;;' oper='=' right='inst;;;^classchoice^pkg^ExTwo^^get(\"\")'/>\n";
+        xml_ += "<affect left='ance;;;' oper='=' right='inst;;;$classchoice$pkg$ExTwo$$get(\"\")'/>\n";
         xml_ += "</try>\n";
         xml_ += "<catch var='e' class='code.expressionlanguage.exceptions.DynamicCastClassException'>\n";
         xml_ += "<affect left='ance;;;' oper='=' right='2i'/>\n";
@@ -1447,11 +1447,11 @@ public class ProcessXmlMethodTwoTest {
     public void instanceArgument4FailTest() {
         StringMap<String> files_ = new StringMap<String>();
         String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg'>\n";
-        xml_ += "<field access='"+PUBLIC_ACCESS+"' name='inst' class='pkg.ExTwo&lt;java.lang.Number&gt;' value='^new.pkg.ExThree&lt;java.lang.Number&gt;()'/>\n";
+        xml_ += "<field access='"+PUBLIC_ACCESS+"' name='inst' class='pkg.ExTwo&lt;java.lang.Number&gt;' value='$new pkg.ExThree&lt;java.lang.Number&gt;()'/>\n";
         xml_ += "<field access='"+PUBLIC_ACCESS+"' name='ance' class='java.lang.Number'/>\n";
         xml_ += "<instance>\n";
         xml_ += "<try>\n";
-        xml_ += "<affect left='inst;;;^classchoice^pkg^ExThree^^get;;;' oper='=' right='&quot;&quot;'/>\n";
+        xml_ += "<affect left='inst;;;$classchoice$pkg$ExThree$$get;;;' oper='=' right='&quot;&quot;'/>\n";
         xml_ += "<affect left='inst;;;get;;;' oper='=' right='1i'/>\n";
         xml_ += "<affect left='ance;;;' oper='=' right='inst;;;getter()'/>\n";
         xml_ += "</try>\n";
@@ -1510,13 +1510,13 @@ public class ProcessXmlMethodTwoTest {
         xml_ += "<field access='"+PRIVATE_ACCESS+"' name='list' class='[#U'/>\n";
         xml_ += "<field access='"+PRIVATE_ACCESS+"' name='length' class='$int'/>\n";
         xml_ += "<constructor access='"+PUBLIC_ACCESS+"'>\n";
-        xml_ += "<affect left='list;;;' oper='=' right='^new.[#U(0i)'/>\n";
+        xml_ += "<affect left='list;;;' oper='=' right='$new [#U(0i)'/>\n";
         xml_ += "</constructor>\n";
         xml_ += "<method access='"+PUBLIC_ACCESS+"' name='add' modifier='normal' class='$void' class0='#U' var0='elt'>\n";
         xml_ += "<line expression='add(length;;;,elt;.;)'/>\n";
         xml_ += "</method>\n";
         xml_ += "<method access='"+PUBLIC_ACCESS+"' name='add' modifier='normal' class='$void' class0='$int' var0='index' class1='#U' var1='elt'>\n";
-        xml_ += "<declareset class='[#U' var='newlist' expression='^new.[#U(length;;;+1i)'/>\n";
+        xml_ += "<declareset class='[#U' var='newlist' expression='$new [#U(length;;;+1i)'/>\n";
         xml_ += "<for init='0i' var='i' class='"+PrimitiveTypeUtil.PRIM_INT+"' expression='index;.;' step='1i'>\n";
         xml_ += "<affect left='newlist;.[i;]' oper='=' right='list;;;[i;]'/>\n";
         xml_ += "</for>\n";
@@ -1544,7 +1544,7 @@ public class ProcessXmlMethodTwoTest {
         xml_ += "<affect left='length;;;' oper='--'/>\n";
         xml_ += "</method>\n";
         xml_ += "<method access='"+PUBLIC_ACCESS+"' name='iterator' modifier='normal' class='"+PredefinedClasses.ITERATOR+"&lt;#U&gt;'>\n";
-        xml_ += "<return expression='^new."+CUST_ITER_FULL+"&lt;#U&gt;(^this)'/>\n";
+        xml_ += "<return expression='$new "+CUST_ITER_FULL+"&lt;#U&gt;($this)'/>\n";
         xml_ += "</method>\n";
         xml_ += "</class>";
         return xml_;

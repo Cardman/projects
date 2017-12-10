@@ -27,7 +27,7 @@ public class FormatHtmlWhileTest {
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
         String html_ = "<html xmlns:c='javahtml'>";
         html_ += "<body>";
-        html_ += "<c:set var='p' className='"+PICKABLE_LIST+"' expression='^new."+PICKABLE_LIST+"()'/>";
+        html_ += "<c:set var='p' className='"+PICKABLE_LIST+"' expression='$new "+PICKABLE_LIST+"()'/>";
         html_ += "<c:set expression='p;.getList().add(0)'/>";
         html_ += "<c:set expression='p;.getList().add(2)'/>";
         html_ += "<c:while condition='p;.removeAndExistAfter(1i)'/>";
@@ -65,7 +65,7 @@ public class FormatHtmlWhileTest {
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
         String html_ = "<html xmlns:c='javahtml'>";
         html_ += "<body>";
-        html_ += "<c:set var='p' className='"+PICKABLE_LIST+"' expression='^new."+PICKABLE_LIST+"()'/>";
+        html_ += "<c:set var='p' className='"+PICKABLE_LIST+"' expression='$new "+PICKABLE_LIST+"()'/>";
         html_ += "<c:set expression='p;.getList().add(0)'/>";
         html_ += "<c:set expression='p;.getList().add(2)'/>";
         html_ += "<c:do>";
@@ -106,7 +106,7 @@ public class FormatHtmlWhileTest {
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
         String html_ = "<html xmlns:c='javahtml'>";
         html_ += "<body>";
-        html_ += "<c:set var='p' className='"+PICKABLE_LIST+"' expression='^new."+PICKABLE_LIST+"()'/>";
+        html_ += "<c:set var='p' className='"+PICKABLE_LIST+"' expression='$new "+PICKABLE_LIST+"()'/>";
         html_ += "<c:set expression='p;.getList().add(0)'/>";
         html_ += "<c:set expression='p;.getList().add(2)'/>";
         html_ += "<c:do>";
@@ -147,7 +147,7 @@ public class FormatHtmlWhileTest {
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
         String html_ = "<html xmlns:c='javahtml'>";
         html_ += "<body>";
-        html_ += "<c:set var='p' className='"+PICKABLE_LIST+"' expression='^new."+PICKABLE_LIST+"()'/>";
+        html_ += "<c:set var='p' className='"+PICKABLE_LIST+"' expression='$new "+PICKABLE_LIST+"()'/>";
         html_ += "<c:set var='i' className='java.lang.Long' expression='0'/>";
         html_ += "<c:do>";
         html_ += "<c:set expression='p;.getList().clear()'/>";
@@ -194,7 +194,7 @@ public class FormatHtmlWhileTest {
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
         String html_ = "<html xmlns:c='javahtml'>";
         html_ += "<body>";
-        html_ += "<c:set var='p' className='"+PICKABLE_LIST+"' expression='^new."+PICKABLE_LIST+"()'/>";
+        html_ += "<c:set var='p' className='"+PICKABLE_LIST+"' expression='$new "+PICKABLE_LIST+"()'/>";
         html_ += "<c:set expression='p;.getList().add(0)'/>";
         html_ += "<c:set expression='p;.getList().add(2)'/>";
         html_ += "<c:do/>";

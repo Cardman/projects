@@ -97,7 +97,7 @@ public abstract class OperationNode {
     protected static final char FIRST_VAR_ARG = '?';
     protected static final char GET_VAR = ';';
     protected static final char DOT_VAR = '.';
-    protected static final char EXTERN_CLASS = '^';
+    protected static final char EXTERN_CLASS = '$';
     protected static final char INTERN_CLASS = '$';
     protected static final String SUPER_ACCESS = "super";
     protected static final String CURRENT = "this";
@@ -122,8 +122,8 @@ public abstract class OperationNode {
     protected static final char MATH_INTERPRET = '`';
     protected static final String GET_PARAM = ";.;";
     protected static final String GET_FIELD = ";;;";
-    protected static final String CURRENT_INTANCE = "^this";
-    protected static final String STATIC_CALL = "^^";
+    protected static final String CURRENT_INTANCE = "$this";
+    protected static final String STATIC_CALL = "$$";
     protected static final String CLASS_CHOICE = "classchoice";
     protected static final String VAR_ARG = "vararg";
     protected static final String FIRST_OPT = "firstopt";
@@ -238,10 +238,11 @@ public abstract class OperationNode {
             return new ConstantOperation(_index, _conf, _indexChild, _m, _op);
         }
         if (_op.getPriority() == ElResolver.FCT_OPER_PRIO) {
-            if (_op.getFctName().trim().isEmpty()) {
+            String fctName_ = _op.getFctName().trim();
+            if (fctName_.isEmpty()) {
                 return new IdOperation(_index, _conf, _indexChild, _m, _op);
             }
-            if (_op.getFctName().trim().startsWith(EXTERN_CLASS+INSTANCE+DOT_VAR)) {
+            if (fctName_.startsWith(EXTERN_CLASS+INSTANCE)) {
                 return new InstanceOperation(_index, _conf, _indexChild, _m, _op);
             }
             return new FctOperation(_index, _conf, _indexChild, _m, _op);

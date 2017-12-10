@@ -19,7 +19,7 @@ import code.util.ints.MathFactory;
 
 @RwXml
 public class Configuration {
-    private static final String INSTANCE = "^new.";
+    private static final String INSTANCE = "$new ";
 
     private static final char BEGIN_ARGS = '(';
     private static final char END_ARGS = ')';

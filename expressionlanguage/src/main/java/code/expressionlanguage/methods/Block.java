@@ -1,4 +1,5 @@
 package code.expressionlanguage.methods;
+import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.PageEl;
 import code.expressionlanguage.PrimitiveTypeUtil;
@@ -170,7 +171,38 @@ public abstract class Block extends Blockable {
     }
 
     final void processBlock(ContextEl _conf) {
-        ParentStackBlock parElt_ = getParentOfLastNode(this, _conf);
+        ParentStackBlock parElt_;
+        Block nextSibling_ = getNextSibling();
+        if (nextSibling_ != null) {
+            parElt_ = new ParentStackBlock(null);
+        } else if (this instanceof StackableBlock) {
+            BracedBlock n_ = getParent();
+            //n_ != null because strictly in class
+            PageEl ip_ = _conf.getLastPage();
+            Block root_ = ip_.getBlockRoot();
+            if (ip_.isInstancing()) {
+                CallConstructor call_;
+                call_ = ip_.getCallingConstr();
+                if (call_.isInitializedFields()) {
+                    root_ = call_.getUsedConstructor();
+                }
+            }
+            if (n_ == root_) {
+                //directly at the root => last element in the block root
+                parElt_ = null;
+            } else if (!ip_.noBlock()) {
+                parElt_ =  new ParentStackBlock(n_);
+            } else {
+                Block next_ = n_.getNextSibling();
+                if (next_ != null) {
+                    parElt_ = new ParentStackBlock(null);
+                } else {
+                    parElt_ = null;
+                }
+            }
+        } else {
+            parElt_ = null;
+        }
         PageEl ip_ = _conf.getLastPage();
         if (parElt_ == null) {
             Block root_ = ip_.getBlockRoot();
@@ -201,7 +233,9 @@ public abstract class Block extends Blockable {
                 ip_.setNullReadWrite();
                 return;
             }
-            _conf.getLastPage().setReturnedArgument(PrimitiveTypeUtil.defaultValue(root_, _conf.getLastPage().getGlobalArgument()));
+            Argument global_ = _conf.getLastPage().getGlobalArgument();
+            Argument arg_ = PrimitiveTypeUtil.defaultValue(root_, global_);
+            _conf.getLastPage().setReturnedArgument(arg_);
             ip_.setNullReadWrite();
             return;
         }
@@ -221,41 +255,6 @@ public abstract class Block extends Blockable {
         }
         par_.removeLocalVars(ip_);
         ((StackableBlockGroup)par_).exitStack(_conf);
-    }
-    static ParentStackBlock getParentOfLastNode(Block _current, ContextEl _conf) {
-        Block n_ = _current.getNextSibling();
-        if (n_ != null) {
-            return new ParentStackBlock(null);
-        }
-        if (_current instanceof StackableBlock) {
-            return _current.getParentOfLastNode(_conf);
-        }
-        return null;
-    }
-    final ParentStackBlock getParentOfLastNode(ContextEl _conf) {
-        BracedBlock n_ = getParent();
-        //n_ != null because strictly in class
-        PageEl ip_ = _conf.getLastPage();
-        Block root_ = ip_.getBlockRoot();
-        if (ip_.isInstancing()) {
-            CallConstructor call_;
-            call_ = ip_.getCallingConstr();
-            if (call_.isInitializedFields()) {
-                root_ = call_.getUsedConstructor();
-            }
-        }
-        if (n_ == root_) {
-            //directly at the root => last element in the block root
-            return null;
-        }
-        if (!ip_.noBlock()) {
-            return new ParentStackBlock(n_);
-        }
-        Block next_ = n_.getNextSibling();
-        if (next_ != null) {
-            return new ParentStackBlock(null);
-        }
-        return null;
     }
     public final RowCol getRowCol(int _offset, int _tabWidth,String _attribute) {
         return DocumentBuilder.getOffset(_attribute, attributes, encoded, _offset, offsets, tabs, endHeader, _tabWidth);

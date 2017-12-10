@@ -89,7 +89,7 @@ public final class InstanceOperation extends InvokingOperation {
         CustList<OperationNode> chidren_ = getChildrenNodes();
         int off_ = StringList.getFirstPrintableCharIndex(methodName);
         setRelativeOffsetPossibleLastPage(getIndexInEl()+off_, _conf);
-        String className_ = methodName.trim().substring(INSTANCE.length()+2);
+        String className_ = methodName.trim().substring(INSTANCE.length()+1);
         className_ = StringList.removeAllSpaces(className_);
         if (!className_.startsWith(ARR) && className_.endsWith(ARR_DYN)) {
             int len_ = className_.length();
@@ -357,7 +357,7 @@ public final class InstanceOperation extends InvokingOperation {
         int nbCh_ = chidren_.size();
         int off_ = StringList.getFirstPrintableCharIndex(methodName);
         setRelativeOffsetPossibleLastPage(getIndexInEl()+off_, _conf);
-        String className_ = methodName.trim().substring(INSTANCE.length()+2);
+        String className_ = methodName.trim().substring(INSTANCE.length()+1);
         className_ = StringList.removeAllSpaces(className_);
         boolean elts_ = false;
         String realClassName_;
@@ -516,7 +516,7 @@ public final class InstanceOperation extends InvokingOperation {
 
     @Override
     boolean isCallMethodCtor() {
-        String className_ = methodName.trim().substring(INSTANCE.length()+2);
+        String className_ = methodName.trim().substring(INSTANCE.length()+1);
         className_ = StringList.removeAllSpaces(className_);
         String realClassName_;
         if (className_.endsWith(ARR_DYN)) {

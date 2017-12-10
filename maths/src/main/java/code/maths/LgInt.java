@@ -75,7 +75,7 @@ public final class LgInt implements Cmp<LgInt> {
     /**
         construit un nombre entier a partir d'une chaine de caracteres
 
-        @param _chaine chaine de caracteres respectant l'expression reguliere ^\-[0-9]+$
+        @param _chaine chaine de caracteres d'un tiret suivi d'au moins un chiffre
         @throws FormatException
         si la chaine de caracteres <i>_chaine</i> n'est pas telle que:<br/>
         <ul>

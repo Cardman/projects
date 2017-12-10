@@ -21,7 +21,7 @@ import code.util.StringList;
 
 public final class Line extends Leaf implements StackableBlock {
 
-    private static final char EXTERN_CLASS = '^';
+    private static final char EXTERN_CLASS = '$';
     private static final String SUPER_ACCESS = "super";
     private static final String CURRENT = "this";
     private static final char PAR_LEFT = '(';

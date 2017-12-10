@@ -52,7 +52,7 @@ public class ProcessXmlMethodTest {
         xml_ += "<declare var='t' class='"+PrimitiveTypeUtil.PRIM_LONG+"'/>\n";
         xml_ += "<affect left='t;.' oper='=' right='8'/>\n";
 //        xml_ += "<return expression='1i+class(&quot;"+PrimitiveTypeUtil.PRIM_INT+"&quot;,t;.)'/>\n";
-        xml_ += "<return expression='1i+^class(&quot;"+PrimitiveTypeUtil.PRIM_INT+"&quot;,t;.)'/>\n";
+        xml_ += "<return expression='1i+$class(&quot;"+PrimitiveTypeUtil.PRIM_INT+"&quot;,t;.)'/>\n";
         xml_ += "</method>\n";
         xml_ += "</class>\n";
         StringMap<String> files_ = new StringMap<String>();
@@ -86,7 +86,7 @@ public class ProcessXmlMethodTest {
         xml_ += "</case>\n";
         xml_ += "</switch>\n";
 //        xml_ += "<return expression='1i+class(&quot;"+PrimitiveTypeUtil.PRIM_INT+"&quot;,t;.)'/>\n";
-        xml_ += "<return expression='1i+^class(&quot;"+PrimitiveTypeUtil.PRIM_INT+"&quot;,t;.)'/>\n";
+        xml_ += "<return expression='1i+$class(&quot;"+PrimitiveTypeUtil.PRIM_INT+"&quot;,t;.)'/>\n";
         xml_ += "</method>\n";
         xml_ += "</class>\n";
         StringMap<String> files_ = new StringMap<String>();
@@ -113,7 +113,7 @@ public class ProcessXmlMethodTest {
         xml_ += "</case>\n";
         xml_ += "</switch>\n";
 //        xml_ += "<return expression='1i+class(&quot;"+PrimitiveTypeUtil.PRIM_INT+"&quot;,t;.)'/>\n";
-        xml_ += "<return expression='1i+^class(&quot;"+PrimitiveTypeUtil.PRIM_INT+"&quot;,t;.)'/>\n";
+        xml_ += "<return expression='1i+$class(&quot;"+PrimitiveTypeUtil.PRIM_INT+"&quot;,t;.)'/>\n";
         xml_ += "</method>\n";
         xml_ += "</class>\n";
         StringMap<String> files_ = new StringMap<String>();
@@ -141,7 +141,7 @@ public class ProcessXmlMethodTest {
         xml_ += "</case>\n";
         xml_ += "</switch>\n";
 //        xml_ += "<return expression='1i+class(&quot;"+PrimitiveTypeUtil.PRIM_INT+"&quot;,t;.)'/>\n";
-        xml_ += "<return expression='1i+^class(&quot;"+PrimitiveTypeUtil.PRIM_INT+"&quot;,t;.)'/>\n";
+        xml_ += "<return expression='1i+$class(&quot;"+PrimitiveTypeUtil.PRIM_INT+"&quot;,t;.)'/>\n";
         xml_ += "</method>\n";
         xml_ += "</class>\n";
         StringMap<String> files_ = new StringMap<String>();
@@ -168,7 +168,7 @@ public class ProcessXmlMethodTest {
         xml_ += "</case>\n";
         xml_ += "</switch>\n";
 //        xml_ += "<return expression='1i+class(&quot;"+PrimitiveTypeUtil.PRIM_INT+"&quot;,t;.)'/>\n";
-        xml_ += "<return expression='1i+^class(&quot;"+PrimitiveTypeUtil.PRIM_INT+"&quot;,t;.)'/>\n";
+        xml_ += "<return expression='1i+$class(&quot;"+PrimitiveTypeUtil.PRIM_INT+"&quot;,t;.)'/>\n";
         xml_ += "</method>\n";
         xml_ += "</class>\n";
         StringMap<String> files_ = new StringMap<String>();
@@ -198,7 +198,7 @@ public class ProcessXmlMethodTest {
         xml_ += "</case>\n";
         xml_ += "</switch>\n";
 //        xml_ += "<return expression='1i+class(&quot;"+PrimitiveTypeUtil.PRIM_INT+"&quot;,t;.)'/>\n";
-        xml_ += "<return expression='1i+^class(&quot;"+PrimitiveTypeUtil.PRIM_INT+"&quot;,t;.)'/>\n";
+        xml_ += "<return expression='1i+$class(&quot;"+PrimitiveTypeUtil.PRIM_INT+"&quot;,t;.)'/>\n";
         xml_ += "</method>\n";
         xml_ += "</class>\n";
         StringMap<String> files_ = new StringMap<String>();
@@ -226,7 +226,7 @@ public class ProcessXmlMethodTest {
         xml_ += "<case value='9'/>\n";
         xml_ += "</switch>\n";
 //        xml_ += "<return expression='1i+class(&quot;"+PrimitiveTypeUtil.PRIM_INT+"&quot;,t;.)'/>\n";
-        xml_ += "<return expression='1i+^class(&quot;"+PrimitiveTypeUtil.PRIM_INT+"&quot;,t;.)'/>\n";
+        xml_ += "<return expression='1i+$class(&quot;"+PrimitiveTypeUtil.PRIM_INT+"&quot;,t;.)'/>\n";
         xml_ += "</method>\n";
         xml_ += "</class>\n";
         StringMap<String> files_ = new StringMap<String>();
@@ -255,7 +255,7 @@ public class ProcessXmlMethodTest {
         xml_ += "<case value='8'/>\n";
         xml_ += "</switch>\n";
 //        xml_ += "<return expression='1i+class(&quot;"+PrimitiveTypeUtil.PRIM_INT+"&quot;,t;.)'/>\n";
-        xml_ += "<return expression='1i+^class(&quot;"+PrimitiveTypeUtil.PRIM_INT+"&quot;,t;.)'/>\n";
+        xml_ += "<return expression='1i+$class(&quot;"+PrimitiveTypeUtil.PRIM_INT+"&quot;,t;.)'/>\n";
         xml_ += "</method>\n";
         xml_ += "</class>\n";
         StringMap<String> files_ = new StringMap<String>();
@@ -284,7 +284,7 @@ public class ProcessXmlMethodTest {
         xml_ += "<case value='10'/>\n";
         xml_ += "</switch>\n";
 //        xml_ += "<return expression='1i+class(&quot;"+PrimitiveTypeUtil.PRIM_INT+"&quot;,t;.)'/>\n";
-        xml_ += "<return expression='1i+^class(&quot;"+PrimitiveTypeUtil.PRIM_INT+"&quot;,t;.)'/>\n";
+        xml_ += "<return expression='1i+$class(&quot;"+PrimitiveTypeUtil.PRIM_INT+"&quot;,t;.)'/>\n";
         xml_ += "</method>\n";
         xml_ += "</class>\n";
         StringMap<String> files_ = new StringMap<String>();
@@ -314,7 +314,7 @@ public class ProcessXmlMethodTest {
         xml_ += "</default>\n";
         xml_ += "</switch>\n";
 //        xml_ += "<return expression='1i+class(&quot;"+PrimitiveTypeUtil.PRIM_INT+"&quot;,t;.)'/>\n";
-        xml_ += "<return expression='1i+^class(&quot;"+PrimitiveTypeUtil.PRIM_INT+"&quot;,t;.)'/>\n";
+        xml_ += "<return expression='1i+$class(&quot;"+PrimitiveTypeUtil.PRIM_INT+"&quot;,t;.)'/>\n";
         xml_ += "</method>\n";
         xml_ += "</class>\n";
         StringMap<String> files_ = new StringMap<String>();
@@ -342,7 +342,7 @@ public class ProcessXmlMethodTest {
         xml_ += "<default/>\n";
         xml_ += "</switch>\n";
 //        xml_ += "<return expression='1i+class(&quot;"+PrimitiveTypeUtil.PRIM_INT+"&quot;,t;.)'/>\n";
-        xml_ += "<return expression='1i+^class(&quot;"+PrimitiveTypeUtil.PRIM_INT+"&quot;,t;.)'/>\n";
+        xml_ += "<return expression='1i+$class(&quot;"+PrimitiveTypeUtil.PRIM_INT+"&quot;,t;.)'/>\n";
         xml_ += "</method>\n";
         xml_ += "</class>\n";
         StringMap<String> files_ = new StringMap<String>();
@@ -361,15 +361,15 @@ public class ProcessXmlMethodTest {
         String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg'>\n";
         xml_ += "<method access='"+PUBLIC_ACCESS+"' modifier='static' name='exmeth' class='"+PrimitiveTypeUtil.PRIM_INT+"'>\n";
         xml_ += "<declare var='l' class='"+NUMBERS+"'/>\n";
-        xml_ += "<affect left='l;.' oper='=' right='^new."+NUMBERS+"()'/>\n";
+        xml_ += "<affect left='l;.' oper='=' right='$new "+NUMBERS+"()'/>\n";
         xml_ += "<declare var='t' class='"+PrimitiveTypeUtil.PRIM_INT+"'/>\n";
         xml_ += "<affect left='t;.' oper='=' right='0i'/>\n";
         xml_ += "<foreach class='java.lang.Integer' var='e' expression='l;.'>\n";
         xml_ += "<affect left='t;.' oper='+=' right='e;'/>\n";
         xml_ += "</foreach>\n";
-//        xml_ += "<line expression='t;.add(^class(&quot;java.lang.Object&quot;,8i))'/>\n";
+//        xml_ += "<line expression='t;.add($class(&quot;java.lang.Object&quot;,8i))'/>\n";
 //        xml_ += "<line expression='t;.add(class(&quot;java.lang.Object&quot;,2i))'/>\n";
-//        xml_ += "<line expression='t;.add(^class(&quot;java.lang.Object&quot;,2i))'/>\n";
+//        xml_ += "<line expression='t;.add($class(&quot;java.lang.Object&quot;,2i))'/>\n";
         xml_ += "<return expression='t;.'/>\n";
         xml_ += "</method>\n";
         xml_ += "</class>\n";
@@ -390,16 +390,16 @@ public class ProcessXmlMethodTest {
         String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg'>\n";
         xml_ += "<method access='"+PUBLIC_ACCESS+"' modifier='static' name='exmeth' class='"+PrimitiveTypeUtil.PRIM_INT+"'>\n";
         xml_ += "<declare var='l' class='"+NUMBERS+"'/>\n";
-        xml_ += "<affect left='l;.' oper='=' right='^new."+NUMBERS+"()'/>\n";
-        xml_ += "<line expression='l;.add(^class(&quot;java.lang.Object&quot;,8i))'/>\n";
-        xml_ += "<line expression='l;.add(^class(&quot;java.lang.Object&quot;,2i))'/>\n";
+        xml_ += "<affect left='l;.' oper='=' right='$new "+NUMBERS+"()'/>\n";
+        xml_ += "<line expression='l;.add($class(&quot;java.lang.Object&quot;,8i))'/>\n";
+        xml_ += "<line expression='l;.add($class(&quot;java.lang.Object&quot;,2i))'/>\n";
         xml_ += "<declare var='t' class='"+PrimitiveTypeUtil.PRIM_INT+"'/>\n";
         xml_ += "<affect left='t;.' oper='=' right='0i'/>\n";
         xml_ += "<foreach class='java.lang.Integer' var='e' expression='l;.'>\n";
         xml_ += "<affect left='t;.' oper='+=' right='e;'/>\n";
         xml_ += "</foreach>\n";
 //        xml_ += "<line expression='t;.add(class(&quot;java.lang.Object&quot;,2i))'/>\n";
-//        xml_ += "<line expression='t;.add(^class(&quot;java.lang.Object&quot;,2i))'/>\n";
+//        xml_ += "<line expression='t;.add($class(&quot;java.lang.Object&quot;,2i))'/>\n";
         xml_ += "<return expression='t;.'/>\n";
         xml_ += "</method>\n";
         xml_ += "</class>\n";
@@ -420,13 +420,13 @@ public class ProcessXmlMethodTest {
         String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg'>\n";
         xml_ += "<method access='"+PUBLIC_ACCESS+"' modifier='static' name='exmeth' class='"+PrimitiveTypeUtil.PRIM_INT+"'>\n";
         xml_ += "<declare var='l' class='"+NUMBERS+"'/>\n";
-        xml_ += "<affect left='l;.' oper='=' right='^new."+NUMBERS+"()'/>\n";
-        xml_ += "<line expression='l;.add(^class(&quot;java.lang.Object&quot;,8i))'/>\n";
-        xml_ += "<line expression='l;.add(^class(&quot;java.lang.Object&quot;,2i))'/>\n";
+        xml_ += "<affect left='l;.' oper='=' right='$new "+NUMBERS+"()'/>\n";
+        xml_ += "<line expression='l;.add($class(&quot;java.lang.Object&quot;,8i))'/>\n";
+        xml_ += "<line expression='l;.add($class(&quot;java.lang.Object&quot;,2i))'/>\n";
         xml_ += "<declare var='t' class='"+PrimitiveTypeUtil.PRIM_INT+"'/>\n";
         xml_ += "<affect left='t;.' oper='=' right='0i'/>\n";
 //        xml_ += "<line expression='t;.add(class(&quot;java.lang.Object&quot;,2i))'/>\n";
-//        xml_ += "<line expression='t;.add(^class(&quot;java.lang.Object&quot;,2i))'/>\n";
+//        xml_ += "<line expression='t;.add($class(&quot;java.lang.Object&quot;,2i))'/>\n";
         xml_ += "<return expression='t;.'/>\n";
         xml_ += "</method>\n";
         xml_ += "</class>\n";
@@ -447,9 +447,9 @@ public class ProcessXmlMethodTest {
         String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg'>\n";
         xml_ += "<method access='"+PUBLIC_ACCESS+"' modifier='static' name='exmeth' class='"+PrimitiveTypeUtil.PRIM_INT+"'>\n";
         xml_ += "<declare var='l' class='"+NUMBERS+"'/>\n";
-        xml_ += "<affect left='l;.' oper='=' right='^new."+NUMBERS+"()'/>\n";
-        xml_ += "<line expression='l;.add(^class(&quot;java.lang.Object&quot;,8i))'/>\n";
-        xml_ += "<line expression='l;.add(^class(&quot;java.lang.Object&quot;,2i))'/>\n";
+        xml_ += "<affect left='l;.' oper='=' right='$new "+NUMBERS+"()'/>\n";
+        xml_ += "<line expression='l;.add($class(&quot;java.lang.Object&quot;,8i))'/>\n";
+        xml_ += "<line expression='l;.add($class(&quot;java.lang.Object&quot;,2i))'/>\n";
         xml_ += "<declare var='t' class='"+PrimitiveTypeUtil.PRIM_INT+"'/>\n";
         xml_ += "<affect left='t;.' oper='=' right='0i'/>\n";
         xml_ += "<foreach class='java.lang.Integer' var='e' expression='l;.'>\n";
@@ -457,7 +457,7 @@ public class ProcessXmlMethodTest {
         xml_ += "<affect left='t;.' oper='+=' right='e;'/>\n";
         xml_ += "</foreach>\n";
 //        xml_ += "<line expression='t;.add(class(&quot;java.lang.Object&quot;,2i))'/>\n";
-//        xml_ += "<line expression='t;.add(^class(&quot;java.lang.Object&quot;,2i))'/>\n";
+//        xml_ += "<line expression='t;.add($class(&quot;java.lang.Object&quot;,2i))'/>\n";
         xml_ += "<return expression='t;.'/>\n";
         xml_ += "</method>\n";
         xml_ += "</class>\n";
@@ -814,7 +814,7 @@ public class ProcessXmlMethodTest {
         xml_ += "</default>\n";
         xml_ += "</switch>\n";
 //        xml_ += "<return expression='1i+class(&quot;"+PrimitiveTypeUtil.PRIM_INT+"&quot;,t;.)'/>\n";
-        xml_ += "<return expression='1i+^class(&quot;"+PrimitiveTypeUtil.PRIM_INT+"&quot;,t;.)'/>\n";
+        xml_ += "<return expression='1i+$class(&quot;"+PrimitiveTypeUtil.PRIM_INT+"&quot;,t;.)'/>\n";
         xml_ += "</method>\n";
         xml_ += "</class>\n";
         StringMap<String> files_ = new StringMap<String>();
@@ -842,7 +842,7 @@ public class ProcessXmlMethodTest {
         xml_ += "<default/>\n";
         xml_ += "</switch>\n";
 //        xml_ += "<return expression='1i+class(&quot;"+PrimitiveTypeUtil.PRIM_INT+"&quot;,t;.)'/>\n";
-        xml_ += "<return expression='1i+^class(&quot;"+PrimitiveTypeUtil.PRIM_INT+"&quot;,t;.)'/>\n";
+        xml_ += "<return expression='1i+$class(&quot;"+PrimitiveTypeUtil.PRIM_INT+"&quot;,t;.)'/>\n";
         xml_ += "</method>\n";
         xml_ += "</class>\n";
         StringMap<String> files_ = new StringMap<String>();
@@ -873,7 +873,7 @@ public class ProcessXmlMethodTest {
         xml_ += "</default>\n";
         xml_ += "</switch>\n";
 //        xml_ += "<return expression='1i+class(&quot;"+PrimitiveTypeUtil.PRIM_INT+"&quot;,t;.)'/>\n";
-        xml_ += "<return expression='1i+^class(&quot;"+PrimitiveTypeUtil.PRIM_INT+"&quot;,t;.)'/>\n";
+        xml_ += "<return expression='1i+$class(&quot;"+PrimitiveTypeUtil.PRIM_INT+"&quot;,t;.)'/>\n";
         xml_ += "</method>\n";
         xml_ += "</class>\n";
         StringMap<String> files_ = new StringMap<String>();
@@ -899,7 +899,7 @@ public class ProcessXmlMethodTest {
         xml_ += "</case>\n";
         xml_ += "</switch>\n";
 //        xml_ += "<return expression='1i+class(&quot;"+PrimitiveTypeUtil.PRIM_INT+"&quot;,t;.)'/>\n";
-        xml_ += "<return expression='1i+^class(&quot;"+PrimitiveTypeUtil.PRIM_INT+"&quot;,t;.)'/>\n";
+        xml_ += "<return expression='1i+$class(&quot;"+PrimitiveTypeUtil.PRIM_INT+"&quot;,t;.)'/>\n";
         xml_ += "</method>\n";
         xml_ += "</class>\n";
         StringMap<String> files_ = new StringMap<String>();
@@ -1056,7 +1056,7 @@ public class ProcessXmlMethodTest {
         xml_ += "<for init='4i' var='i' class='"+PrimitiveTypeUtil.PRIM_INT+"' expression='0i' step='-1i'>\n";
         xml_ += "<affect left='t;.' oper='+=' right='i;'/>\n";
         xml_ += "</for>\n";
-        xml_ += "<return expression='^class(&quot;"+PrimitiveTypeUtil.PRIM_INT+"&quot;,t;.)'/>\n";
+        xml_ += "<return expression='$class(&quot;"+PrimitiveTypeUtil.PRIM_INT+"&quot;,t;.)'/>\n";
         xml_ += "</method>\n";
         xml_ += "</class>\n";
         StringMap<String> files_ = new StringMap<String>();
@@ -1080,7 +1080,7 @@ public class ProcessXmlMethodTest {
         xml_ += "<for init='4i' var='i' class='"+PrimitiveTypeUtil.PRIM_INT+"' expression='1i' step='-1i' eq=''>\n";
         xml_ += "<affect left='t;.' oper='+=' right='i;'/>\n";
         xml_ += "</for>\n";
-        xml_ += "<return expression='^class(&quot;"+PrimitiveTypeUtil.PRIM_INT+"&quot;,t;.)'/>\n";
+        xml_ += "<return expression='$class(&quot;"+PrimitiveTypeUtil.PRIM_INT+"&quot;,t;.)'/>\n";
         xml_ += "</method>\n";
         xml_ += "</class>\n";
         StringMap<String> files_ = new StringMap<String>();
@@ -1104,7 +1104,7 @@ public class ProcessXmlMethodTest {
         xml_ += "<for init='0i' var='i' class='"+PrimitiveTypeUtil.PRIM_INT+"' expression='4i' step='1i' eq=''>\n";
         xml_ += "<affect left='t;.' oper='+=' right='i;'/>\n";
         xml_ += "</for>\n";
-        xml_ += "<return expression='^class(&quot;"+PrimitiveTypeUtil.PRIM_INT+"&quot;,t;.)'/>\n";
+        xml_ += "<return expression='$class(&quot;"+PrimitiveTypeUtil.PRIM_INT+"&quot;,t;.)'/>\n";
         xml_ += "</method>\n";
         xml_ += "</class>\n";
         StringMap<String> files_ = new StringMap<String>();
@@ -1128,7 +1128,7 @@ public class ProcessXmlMethodTest {
         xml_ += "<for init='4i' var='i' class='"+PrimitiveTypeUtil.PRIM_INT+"' expression='1i' step='-2i' eq=''>\n";
         xml_ += "<affect left='t;.' oper='+=' right='i;'/>\n";
         xml_ += "</for>\n";
-        xml_ += "<return expression='^class(&quot;"+PrimitiveTypeUtil.PRIM_INT+"&quot;,t;.)'/>\n";
+        xml_ += "<return expression='$class(&quot;"+PrimitiveTypeUtil.PRIM_INT+"&quot;,t;.)'/>\n";
         xml_ += "</method>\n";
         xml_ += "</class>\n";
         StringMap<String> files_ = new StringMap<String>();
@@ -1152,7 +1152,7 @@ public class ProcessXmlMethodTest {
         xml_ += "<for init='1i' var='i' class='"+PrimitiveTypeUtil.PRIM_INT+"' expression='4i' step='2i' eq=''>\n";
         xml_ += "<affect left='t;.' oper='+=' right='i;'/>\n";
         xml_ += "</for>\n";
-        xml_ += "<return expression='^class(&quot;"+PrimitiveTypeUtil.PRIM_INT+"&quot;,t;.)'/>\n";
+        xml_ += "<return expression='$class(&quot;"+PrimitiveTypeUtil.PRIM_INT+"&quot;,t;.)'/>\n";
         xml_ += "</method>\n";
         xml_ += "</class>\n";
         StringMap<String> files_ = new StringMap<String>();
@@ -1176,7 +1176,7 @@ public class ProcessXmlMethodTest {
         xml_ += "<for init='4i' var='i' class='"+PrimitiveTypeUtil.PRIM_INT+"' expression='1i' step='2i' eq=''>\n";
         xml_ += "<affect left='t;.' oper='+=' right='i;'/>\n";
         xml_ += "</for>\n";
-        xml_ += "<return expression='^class(&quot;"+PrimitiveTypeUtil.PRIM_INT+"&quot;,t;.)'/>\n";
+        xml_ += "<return expression='$class(&quot;"+PrimitiveTypeUtil.PRIM_INT+"&quot;,t;.)'/>\n";
         xml_ += "</method>\n";
         xml_ += "</class>\n";
         StringMap<String> files_ = new StringMap<String>();
@@ -1201,7 +1201,7 @@ public class ProcessXmlMethodTest {
         xml_ += "<affect left='t;.' oper='+=' right='i;'/>\n";
 //        xml_ += "<affect left='t;.' oper='=' right='t;.+i;'/>\n";
         xml_ += "</for>\n";
-//        xml_ += "<return expression='^class(&quot;"+PrimitiveTypeUtil.PRIM_INT+"&quot;,t;.)'/>\n";
+//        xml_ += "<return expression='$class(&quot;"+PrimitiveTypeUtil.PRIM_INT+"&quot;,t;.)'/>\n";
         xml_ += "<return expression='t;.'/>\n";
         xml_ += "</method>\n";
         xml_ += "</class>\n";
@@ -1226,7 +1226,7 @@ public class ProcessXmlMethodTest {
         xml_ += "<for init='1i' var='i' class='"+PrimitiveTypeUtil.PRIM_INT+"' expression='1i' step='0i'>\n";
         xml_ += "<affect left='t;.' oper='+=' right='i;'/>\n";
         xml_ += "</for>\n";
-        xml_ += "<return expression='^class(&quot;"+PrimitiveTypeUtil.PRIM_INT+"&quot;,t;.)'/>\n";
+        xml_ += "<return expression='$class(&quot;"+PrimitiveTypeUtil.PRIM_INT+"&quot;,t;.)'/>\n";
         xml_ += "</method>\n";
         xml_ += "</class>\n";
         StringMap<String> files_ = new StringMap<String>();
@@ -1248,7 +1248,7 @@ public class ProcessXmlMethodTest {
         xml_ += "<declare var='t' class='"+PrimitiveTypeUtil.PRIM_INT+"'/>\n";
         xml_ += "<affect left='t;.' oper='=' right='0i'/>\n";
         xml_ += "<for init='1i' var='i' class='"+PrimitiveTypeUtil.PRIM_INT+"' expression='4i' step='1i'/>\n";
-        xml_ += "<return expression='^class(&quot;"+PrimitiveTypeUtil.PRIM_INT+"&quot;,t;.)'/>\n";
+        xml_ += "<return expression='$class(&quot;"+PrimitiveTypeUtil.PRIM_INT+"&quot;,t;.)'/>\n";
         xml_ += "</method>\n";
         xml_ += "</class>\n";
         StringMap<String> files_ = new StringMap<String>();
@@ -1270,14 +1270,14 @@ public class ProcessXmlMethodTest {
         xml_ += "<declare var='t' class='"+PrimitiveTypeUtil.PRIM_INT+"'/>\n";
         xml_ += "<affect left='t;.' oper='=' right='0i'/>\n";
         xml_ += "<declare var='a' class='"+ARR_INT+"'/>\n";
-        xml_ += "<affect left='a;.' oper='=' right='^new."+ARR_INT+"(2i)'/>\n";
+        xml_ += "<affect left='a;.' oper='=' right='$new "+ARR_INT+"(2i)'/>\n";
         xml_ += "<affect left='a;.[0i]' oper='=' right='8i'/>\n";
         xml_ += "<affect left='a;.[1i]' oper='=' right='16i'/>\n";
         xml_ += "<foreach var='i' class='"+PrimitiveTypeUtil.PRIM_INT+"' expression='a;.'>\n";
         xml_ += "<affect left='t;.' oper='+=' right='i;'/>\n";
 //        xml_ += "<affect left='t;.' oper='=' right='t;.+i;'/>\n";
         xml_ += "</foreach>\n";
-//        xml_ += "<return expression='^class(&quot;"+PrimitiveTypeUtil.PRIM_INT+"&quot;,t;.)'/>\n";
+//        xml_ += "<return expression='$class(&quot;"+PrimitiveTypeUtil.PRIM_INT+"&quot;,t;.)'/>\n";
         xml_ += "<return expression='t;.'/>\n";
         xml_ += "</method>\n";
         xml_ += "</class>\n";
@@ -1300,11 +1300,11 @@ public class ProcessXmlMethodTest {
         xml_ += "<declare var='t' class='"+PrimitiveTypeUtil.PRIM_INT+"'/>\n";
         xml_ += "<affect left='t;.' oper='=' right='0i'/>\n";
         xml_ += "<declare var='a' class='"+ARR_INT+"'/>\n";
-        xml_ += "<affect left='a;.' oper='=' right='^new."+ARR_INT+"(0i)'/>\n";
+        xml_ += "<affect left='a;.' oper='=' right='$new "+ARR_INT+"(0i)'/>\n";
         xml_ += "<foreach var='i' class='"+PrimitiveTypeUtil.PRIM_INT+"' expression='a;.'>\n";
         xml_ += "<affect left='t;.' oper='+=' right='i;'/>\n";
         xml_ += "</foreach>\n";
-        xml_ += "<return expression='^class(&quot;"+PrimitiveTypeUtil.PRIM_INT+"&quot;,t;.)'/>\n";
+        xml_ += "<return expression='$class(&quot;"+PrimitiveTypeUtil.PRIM_INT+"&quot;,t;.)'/>\n";
         xml_ += "</method>\n";
         xml_ += "</class>\n";
         StringMap<String> files_ = new StringMap<String>();
@@ -1330,7 +1330,7 @@ public class ProcessXmlMethodTest {
         xml_ += "<affect left='t;.' oper='+=' right='j;'/>\n";
         xml_ += "</for>\n";
         xml_ += "</for>\n";
-        xml_ += "<return expression='^class(&quot;"+PrimitiveTypeUtil.PRIM_INT+"&quot;,t;.)'/>\n";
+        xml_ += "<return expression='$class(&quot;"+PrimitiveTypeUtil.PRIM_INT+"&quot;,t;.)'/>\n";
         xml_ += "</method>\n";
         xml_ += "</class>\n";
         StringMap<String> files_ = new StringMap<String>();
@@ -2274,14 +2274,14 @@ public class ProcessXmlMethodTest {
         xml_ += "<declare var='t' class='"+PrimitiveTypeUtil.PRIM_INT+"'/>\n";
         xml_ += "<affect left='t;.' oper='=' right='0i'/>\n";
         xml_ += "<declare var='a' class='"+ARR_INT+"'/>\n";
-        xml_ += "<affect left='a;.' oper='=' right='^new."+ARR_INT+"(2i)'/>\n";
+        xml_ += "<affect left='a;.' oper='=' right='$new "+ARR_INT+"(2i)'/>\n";
         xml_ += "<affect left='a;.[0i]' oper='=' right='8b'/>\n";
         xml_ += "<affect left='a;.[1i]' oper='=' right='16b'/>\n";
         xml_ += "<foreach var='i' class='"+PrimitiveTypeUtil.PRIM_INT+"' expression='a;.'>\n";
         xml_ += "<affect left='t;.' oper='+=' right='i;'/>\n";
 //        xml_ += "<affect left='t;.' oper='=' right='t;.+i;'/>\n";
         xml_ += "</foreach>\n";
-//        xml_ += "<return expression='^class(&quot;"+PrimitiveTypeUtil.PRIM_INT+"&quot;,t;.)'/>\n";
+//        xml_ += "<return expression='$class(&quot;"+PrimitiveTypeUtil.PRIM_INT+"&quot;,t;.)'/>\n";
         xml_ += "<return expression='t;.'/>\n";
         xml_ += "</method>\n";
         xml_ += "</class>\n";
@@ -2304,7 +2304,7 @@ public class ProcessXmlMethodTest {
         xml_ += "<declare var='t' class='"+PrimitiveTypeUtil.PRIM_INT+"'/>\n";
         xml_ += "<affect left='t;.' oper='=' right='0i'/>\n";
         xml_ += "<declare var='a' class='"+ARR_INTEGER+"'/>\n";
-        xml_ += "<affect left='a;.' oper='=' right='^new."+ARR_INTEGER+"(4i)'/>\n";
+        xml_ += "<affect left='a;.' oper='=' right='$new "+ARR_INTEGER+"(4i)'/>\n";
         xml_ += "<affect left='a;.[0i]' oper='=' right='null'/>\n";
         xml_ += "<affect left='a;.[1i]' oper='=' right='1i'/>\n";
         xml_ += "<affect left='a;.[2i]' oper='=' right='null'/>\n";
@@ -2315,7 +2315,7 @@ public class ProcessXmlMethodTest {
         xml_ += "</if>\n";
 //        xml_ += "<affect left='t;.' oper='=' right='t;.+i;'/>\n";
         xml_ += "</foreach>\n";
-//        xml_ += "<return expression='^class(&quot;"+PrimitiveTypeUtil.PRIM_INT+"&quot;,t;.)'/>\n";
+//        xml_ += "<return expression='$class(&quot;"+PrimitiveTypeUtil.PRIM_INT+"&quot;,t;.)'/>\n";
         xml_ += "<return expression='t;.'/>\n";
         xml_ += "</method>\n";
         xml_ += "</class>\n";
@@ -2340,7 +2340,7 @@ public class ProcessXmlMethodTest {
         xml_ += "<declare var='t' class='"+PrimitiveTypeUtil.PRIM_LONG+"'/>\n";
         xml_ += "<affect left='t;.' oper='=' right='8'/>\n";
 //        xml_ += "<return expression='1i+class(&quot;"+PrimitiveTypeUtil.PRIM_INT+"&quot;,t;.)'/>\n";
-        xml_ += "<return expression='1i+^class(&quot;"+PrimitiveTypeUtil.PRIM_INT+"&quot;,t;.)'/>\n";
+        xml_ += "<return expression='1i+$class(&quot;"+PrimitiveTypeUtil.PRIM_INT+"&quot;,t;.)'/>\n";
         xml_ += "</method>\n";
         xml_ += "</class>\n";
         StringMap<String> files_ = new StringMap<String>();
@@ -2372,7 +2372,7 @@ public class ProcessXmlMethodTest {
         xml_ += "<declare var='t' class='"+PrimitiveTypeUtil.PRIM_LONG+"'/>\n";
         xml_ += "<affect left='t;.' oper='=' right='8'/>\n";
 //        xml_ += "<return expression='1i+class(&quot;"+PrimitiveTypeUtil.PRIM_INT+"&quot;,t;.)'/>\n";
-        xml_ += "<return expression='1i+^class(&quot;"+PrimitiveTypeUtil.PRIM_INT+"&quot;,t;.)'/>\n";
+        xml_ += "<return expression='1i+$class(&quot;"+PrimitiveTypeUtil.PRIM_INT+"&quot;,t;.)'/>\n";
         xml_ += "</method>\n";
         xml_ += "</class>\n";
         StringMap<String> files_ = new StringMap<String>();
@@ -2407,15 +2407,15 @@ public class ProcessXmlMethodTest {
         xml_ += "<affect left='t;.' oper='+=' right='i;'/>\n";
         xml_ += "</foreach>\n";
 //        xml_ += "<return expression='1i+class(&quot;"+PrimitiveTypeUtil.PRIM_INT+"&quot;,t;.)'/>\n";
-        xml_ += "<return expression='1i+^class(&quot;"+PrimitiveTypeUtil.PRIM_INT+"&quot;,t;.)'/>\n";
+        xml_ += "<return expression='1i+$class(&quot;"+PrimitiveTypeUtil.PRIM_INT+"&quot;,t;.)'/>\n";
         xml_ += "</method>\n";
         xml_ += "<method access='"+PUBLIC_ACCESS+"' modifier='static' name='exmethlist' class='"+NUMBERS+"'>\n";
         xml_ += "<declare var='t' class='"+NUMBERS+"'/>\n";
-        xml_ += "<affect left='t;.' oper='=' right='^new."+NUMBERS+"()'/>\n";
+        xml_ += "<affect left='t;.' oper='=' right='$new "+NUMBERS+"()'/>\n";
 //        xml_ += "<line expression='t;.add(class(&quot;java.lang.Object&quot;,8i))'/>\n";
-        xml_ += "<line expression='t;.add(^class(&quot;java.lang.Object&quot;,8i))'/>\n";
+        xml_ += "<line expression='t;.add($class(&quot;java.lang.Object&quot;,8i))'/>\n";
 //        xml_ += "<line expression='t;.add(class(&quot;java.lang.Object&quot;,2i))'/>\n";
-        xml_ += "<line expression='t;.add(^class(&quot;java.lang.Object&quot;,2i))'/>\n";
+        xml_ += "<line expression='t;.add($class(&quot;java.lang.Object&quot;,2i))'/>\n";
         xml_ += "<return expression='t;.'/>\n";
         xml_ += "</method>\n";
         xml_ += "</class>\n";
@@ -2452,11 +2452,11 @@ public class ProcessXmlMethodTest {
         xml_ += "<affect left='t;.' oper='+=' right='i;'/>\n";
         xml_ += "</foreach>\n";
 //        xml_ += "<return expression='1i+class(&quot;"+PrimitiveTypeUtil.PRIM_INT+"&quot;,t;.)'/>\n";
-        xml_ += "<return expression='1i+^class(&quot;"+PrimitiveTypeUtil.PRIM_INT+"&quot;,t;.)'/>\n";
+        xml_ += "<return expression='1i+$class(&quot;"+PrimitiveTypeUtil.PRIM_INT+"&quot;,t;.)'/>\n";
         xml_ += "</method>\n";
         xml_ += "<method access='"+PUBLIC_ACCESS+"' modifier='static' name='exmethlist' class='"+NUMBERS+"'>\n";
         xml_ += "<declare var='t' class='"+NUMBERS+"'/>\n";
-        xml_ += "<affect left='t;.' oper='=' right='^new."+NUMBERS+"()'/>\n";
+        xml_ += "<affect left='t;.' oper='=' right='$new "+NUMBERS+"()'/>\n";
 //        xml_ += "<line expression='t;.add(class(&quot;java.lang.Object&quot;,8i))'/>\n";
         xml_ += "<line expression='t;.add(8i)'/>\n";
 //        xml_ += "<line expression='t;.add(class(&quot;java.lang.Object&quot;,2i))'/>\n";
@@ -2494,7 +2494,7 @@ public class ProcessXmlMethodTest {
         xml_ += "<declare var='t' class='"+PrimitiveTypeUtil.PRIM_LONG+"'/>\n";
         xml_ += "<affect left='t;.' oper='=' right='8'/>\n";
 
-        xml_ += "<declareset var='p' class='"+PICKABLE_LIST+"' expression='^new."+PICKABLE_LIST+"()'/>\n";
+        xml_ += "<declareset var='p' class='"+PICKABLE_LIST+"' expression='$new "+PICKABLE_LIST+"()'/>\n";
         xml_ += "<line expression='p;.getList().add(0)'/>\n";
         xml_ += "<line expression='p;.getList().add(2)'/>\n";
         xml_ += "<while condition='p;.removeAndExistAfter(1i)'>\n";
@@ -2504,11 +2504,11 @@ public class ProcessXmlMethodTest {
         xml_ += "<affect left='t;.' oper='+=' right='i;'/>\n";
         xml_ += "</foreach>\n";
 //        xml_ += "<return expression='1i+class(&quot;"+PrimitiveTypeUtil.PRIM_INT+"&quot;,t;.)'/>\n";
-        xml_ += "<return expression='1i+^class(&quot;"+PrimitiveTypeUtil.PRIM_INT+"&quot;,t;.)+p;.getList().size()'/>\n";
+        xml_ += "<return expression='1i+$class(&quot;"+PrimitiveTypeUtil.PRIM_INT+"&quot;,t;.)+p;.getList().size()'/>\n";
         xml_ += "</method>\n";
         xml_ += "<method access='"+PUBLIC_ACCESS+"' modifier='static' name='exmethlist' class='"+NUMBERS+"'>\n";
         xml_ += "<declare var='t' class='"+NUMBERS+"'/>\n";
-        xml_ += "<affect left='t;.' oper='=' right='^new."+NUMBERS+"()'/>\n";
+        xml_ += "<affect left='t;.' oper='=' right='$new "+NUMBERS+"()'/>\n";
 //        xml_ += "<line expression='t;.add(class(&quot;java.lang.Object&quot;,8i))'/>\n";
         xml_ += "<line expression='t;.add(8i)'/>\n";
 //        xml_ += "<line expression='t;.add(class(&quot;java.lang.Object&quot;,2i))'/>\n";
@@ -2546,7 +2546,7 @@ public class ProcessXmlMethodTest {
         xml_ += "<declare var='t' class='"+PrimitiveTypeUtil.PRIM_LONG+"'/>\n";
         xml_ += "<affect left='t;.' oper='=' right='8'/>\n";
 
-        xml_ += "<declareset var='p' class='"+PICKABLE_LIST+"' expression='^new."+PICKABLE_LIST+"()'/>\n";
+        xml_ += "<declareset var='p' class='"+PICKABLE_LIST+"' expression='$new "+PICKABLE_LIST+"()'/>\n";
         xml_ += "<line expression='p;.getList().add(0)'/>\n";
         xml_ += "<line expression='p;.getList().add(2)'/>\n";
 //        xml_ += "<while condition='p;.removeAndExistAfter(1i)'>\n";
@@ -2557,11 +2557,11 @@ public class ProcessXmlMethodTest {
         xml_ += "<affect left='t;.' oper='+=' right='i;'/>\n";
         xml_ += "</foreach>\n";
 //        xml_ += "<return expression='1i+class(&quot;"+PrimitiveTypeUtil.PRIM_INT+"&quot;,t;.)'/>\n";
-        xml_ += "<return expression='1i+^class(&quot;"+PrimitiveTypeUtil.PRIM_INT+"&quot;,t;.)+p;.getList().size()'/>\n";
+        xml_ += "<return expression='1i+$class(&quot;"+PrimitiveTypeUtil.PRIM_INT+"&quot;,t;.)+p;.getList().size()'/>\n";
         xml_ += "</method>\n";
         xml_ += "<method access='"+PUBLIC_ACCESS+"' modifier='static' name='exmethlist' class='"+NUMBERS+"'>\n";
         xml_ += "<declare var='t' class='"+NUMBERS+"'/>\n";
-        xml_ += "<affect left='t;.' oper='=' right='^new."+NUMBERS+"()'/>\n";
+        xml_ += "<affect left='t;.' oper='=' right='$new "+NUMBERS+"()'/>\n";
 //        xml_ += "<line expression='t;.add(class(&quot;java.lang.Object&quot;,8i))'/>\n";
         xml_ += "<line expression='t;.add(8i)'/>\n";
 //        xml_ += "<line expression='t;.add(class(&quot;java.lang.Object&quot;,2i))'/>\n";
@@ -2602,7 +2602,7 @@ public class ProcessXmlMethodTest {
         xml_ += "<declare var='t' class='"+PrimitiveTypeUtil.PRIM_LONG+"'/>\n";
         xml_ += "<affect left='t;.' oper='=' right='8'/>\n";
 
-        xml_ += "<declareset var='p' class='"+PICKABLE_LIST+"' expression='^new."+PICKABLE_LIST+"()'/>\n";
+        xml_ += "<declareset var='p' class='"+PICKABLE_LIST+"' expression='$new "+PICKABLE_LIST+"()'/>\n";
         xml_ += "<line expression='adding(p;.,0)'/>\n";
         xml_ += "<line expression='adding(p;.,2)'/>\n";
 //        xml_ += "<while condition='p;.removeAndExistAfter(1i)'>\n";
@@ -2613,7 +2613,7 @@ public class ProcessXmlMethodTest {
         xml_ += "<affect left='t;.' oper='+=' right='i;'/>\n";
         xml_ += "</foreach>\n";
 //        xml_ += "<return expression='1i+class(&quot;"+PrimitiveTypeUtil.PRIM_INT+"&quot;,t;.)'/>\n";
-        xml_ += "<return expression='1i+^class(&quot;"+PrimitiveTypeUtil.PRIM_INT+"&quot;,t;.)+p;.getList().size()'/>\n";
+        xml_ += "<return expression='1i+$class(&quot;"+PrimitiveTypeUtil.PRIM_INT+"&quot;,t;.)+p;.getList().size()'/>\n";
         xml_ += "</method>\n";
         xml_ += "<method access='"+PUBLIC_ACCESS+"' modifier='static' name='adding' class='"+OperationNode.VOID_RETURN+"' class0='"+PICKABLE_LIST+"' var0='l' class1='java.lang.Object' var1='o'>\n";
         xml_ += "<line expression='l;.;getList().add(o;.;)'/>\n";
@@ -2621,7 +2621,7 @@ public class ProcessXmlMethodTest {
         xml_ += "</method>\n";
         xml_ += "<method access='"+PUBLIC_ACCESS+"' modifier='static' name='exmethlist' class='"+NUMBERS+"'>\n";
         xml_ += "<declare var='t' class='"+NUMBERS+"'/>\n";
-        xml_ += "<affect left='t;.' oper='=' right='^new."+NUMBERS+"()'/>\n";
+        xml_ += "<affect left='t;.' oper='=' right='$new "+NUMBERS+"()'/>\n";
 //        xml_ += "<line expression='t;.add(class(&quot;java.lang.Object&quot;,8i))'/>\n";
         xml_ += "<line expression='t;.add(8i)'/>\n";
 //        xml_ += "<line expression='t;.add(class(&quot;java.lang.Object&quot;,2i))'/>\n";
@@ -2662,7 +2662,7 @@ public class ProcessXmlMethodTest {
         xml_ += "<declare var='t' class='"+PrimitiveTypeUtil.PRIM_LONG+"'/>\n";
         xml_ += "<affect left='t;.' oper='=' right='8'/>\n";
 
-        xml_ += "<declareset var='p' class='"+PICKABLE_LIST+"' expression='^new."+PICKABLE_LIST+"()'/>\n";
+        xml_ += "<declareset var='p' class='"+PICKABLE_LIST+"' expression='$new "+PICKABLE_LIST+"()'/>\n";
         xml_ += "<line expression='adding(p;.,0)'/>\n";
         xml_ += "<line expression='adding(p;.,2)'/>\n";
 //        xml_ += "<while condition='p;.removeAndExistAfter(1i)'>\n";
@@ -2673,14 +2673,14 @@ public class ProcessXmlMethodTest {
         xml_ += "<affect left='t;.' oper='+=' right='i;'/>\n";
         xml_ += "</foreach>\n";
 //        xml_ += "<return expression='1i+class(&quot;"+PrimitiveTypeUtil.PRIM_INT+"&quot;,t;.)'/>\n";
-        xml_ += "<return expression='1i+^class(&quot;"+PrimitiveTypeUtil.PRIM_INT+"&quot;,t;.)+p;.getList().size()'/>\n";
+        xml_ += "<return expression='1i+$class(&quot;"+PrimitiveTypeUtil.PRIM_INT+"&quot;,t;.)+p;.getList().size()'/>\n";
         xml_ += "</method>\n";
         xml_ += "<method access='"+PUBLIC_ACCESS+"' modifier='static' name='adding' class='"+OperationNode.VOID_RETURN+"' class0='"+PICKABLE_LIST+"' var0='l' class1='java.lang.Object' var1='o'>\n";
         xml_ += "<line expression='l;.;getList().add(o;.;)'/>\n";
         xml_ += "</method>\n";
         xml_ += "<method access='"+PUBLIC_ACCESS+"' modifier='static' name='exmethlist' class='"+NUMBERS+"'>\n";
         xml_ += "<declare var='t' class='"+NUMBERS+"'/>\n";
-        xml_ += "<affect left='t;.' oper='=' right='^new."+NUMBERS+"()'/>\n";
+        xml_ += "<affect left='t;.' oper='=' right='$new "+NUMBERS+"()'/>\n";
 //        xml_ += "<line expression='t;.add(class(&quot;java.lang.Object&quot;,8i))'/>\n";
         xml_ += "<line expression='t;.add(8i)'/>\n";
 //        xml_ += "<line expression='t;.add(class(&quot;java.lang.Object&quot;,2i))'/>\n";
@@ -2722,7 +2722,7 @@ public class ProcessXmlMethodTest {
         xml_ += "<declare var='t' class='"+PrimitiveTypeUtil.PRIM_LONG+"'/>\n";
         xml_ += "<affect left='t;.' oper='=' right='8'/>\n";
 
-        xml_ += "<declareset var='p' class='"+PICKABLE_LIST+"' expression='^new."+PICKABLE_LIST+"()'/>\n";
+        xml_ += "<declareset var='p' class='"+PICKABLE_LIST+"' expression='$new "+PICKABLE_LIST+"()'/>\n";
         xml_ += "<line expression='adding(p;.,0)'/>\n";
         xml_ += "<line expression='adding(p;.,2)'/>\n";
 //        xml_ += "<while condition='p;.removeAndExistAfter(1i)'>\n";
@@ -2735,14 +2735,14 @@ public class ProcessXmlMethodTest {
         xml_ += "</if>\n";
         xml_ += "</foreach>\n";
 //        xml_ += "<return expression='1i+class(&quot;"+PrimitiveTypeUtil.PRIM_INT+"&quot;,t;.)'/>\n";
-        xml_ += "<return expression='1i+^class(&quot;"+PrimitiveTypeUtil.PRIM_INT+"&quot;,t;.)+p;.getList().size()'/>\n";
+        xml_ += "<return expression='1i+$class(&quot;"+PrimitiveTypeUtil.PRIM_INT+"&quot;,t;.)+p;.getList().size()'/>\n";
         xml_ += "</method>\n";
         xml_ += "<method access='"+PUBLIC_ACCESS+"' modifier='static' name='adding' class='"+OperationNode.VOID_RETURN+"' class0='"+PICKABLE_LIST+"' var0='l' class1='java.lang.Object' var1='o'>\n";
         xml_ += "<line expression='l;.;getList().add(o;.;)'/>\n";
         xml_ += "</method>\n";
         xml_ += "<method access='"+PUBLIC_ACCESS+"' modifier='static' name='exmethlist' class='"+NUMBERS+"'>\n";
         xml_ += "<declare var='t' class='"+NUMBERS+"'/>\n";
-        xml_ += "<affect left='t;.' oper='=' right='^new."+NUMBERS+"()'/>\n";
+        xml_ += "<affect left='t;.' oper='=' right='$new "+NUMBERS+"()'/>\n";
 //        xml_ += "<line expression='t;.add(class(&quot;java.lang.Object&quot;,8i))'/>\n";
         xml_ += "<line expression='t;.add(8i)'/>\n";
 //        xml_ += "<line expression='t;.add(class(&quot;java.lang.Object&quot;,2i))'/>\n";
@@ -2784,7 +2784,7 @@ public class ProcessXmlMethodTest {
         xml_ += "<declare var='t' class='"+PrimitiveTypeUtil.PRIM_LONG+"'/>\n";
         xml_ += "<affect left='t;.' oper='=' right='8'/>\n";
 
-        xml_ += "<declareset var='p' class='"+PICKABLE_LIST+"' expression='^new."+PICKABLE_LIST+"()'/>\n";
+        xml_ += "<declareset var='p' class='"+PICKABLE_LIST+"' expression='$new "+PICKABLE_LIST+"()'/>\n";
         xml_ += "<line expression='adding(p;.,0)'/>\n";
         xml_ += "<line expression='adding(p;.,2)'/>\n";
 //        xml_ += "<while condition='p;.removeAndExistAfter(1i)'>\n";
@@ -2800,14 +2800,14 @@ public class ProcessXmlMethodTest {
         xml_ += "</else>\n";
         xml_ += "</foreach>\n";
 //        xml_ += "<return expression='1i+class(&quot;"+PrimitiveTypeUtil.PRIM_INT+"&quot;,t;.)'/>\n";
-        xml_ += "<return expression='1i+^class(&quot;"+PrimitiveTypeUtil.PRIM_INT+"&quot;,t;.)+p;.getList().size()'/>\n";
+        xml_ += "<return expression='1i+$class(&quot;"+PrimitiveTypeUtil.PRIM_INT+"&quot;,t;.)+p;.getList().size()'/>\n";
         xml_ += "</method>\n";
         xml_ += "<method access='"+PUBLIC_ACCESS+"' modifier='static' name='adding' class='"+OperationNode.VOID_RETURN+"' class0='"+PICKABLE_LIST+"' var0='l' class1='java.lang.Object' var1='o'>\n";
         xml_ += "<line expression='l;.;getList().add(o;.;)'/>\n";
         xml_ += "</method>\n";
         xml_ += "<method access='"+PUBLIC_ACCESS+"' modifier='static' name='exmethlist' class='"+NUMBERS+"'>\n";
         xml_ += "<declare var='t' class='"+NUMBERS+"'/>\n";
-        xml_ += "<affect left='t;.' oper='=' right='^new."+NUMBERS+"()'/>\n";
+        xml_ += "<affect left='t;.' oper='=' right='$new "+NUMBERS+"()'/>\n";
 //        xml_ += "<line expression='t;.add(class(&quot;java.lang.Object&quot;,8i))'/>\n";
         xml_ += "<line expression='t;.add(8i)'/>\n";
 //        xml_ += "<line expression='t;.add(class(&quot;java.lang.Object&quot;,2i))'/>\n";
@@ -2849,7 +2849,7 @@ public class ProcessXmlMethodTest {
         xml_ += "<declare var='t' class='"+PrimitiveTypeUtil.PRIM_LONG+"'/>\n";
         xml_ += "<affect left='t;.' oper='=' right='8'/>\n";
 
-        xml_ += "<declareset var='p' class='"+PICKABLE_LIST+"' expression='^new."+PICKABLE_LIST+"()'/>\n";
+        xml_ += "<declareset var='p' class='"+PICKABLE_LIST+"' expression='$new "+PICKABLE_LIST+"()'/>\n";
         xml_ += "<line expression='adding(p;.,0)'/>\n";
         xml_ += "<line expression='adding(p;.,2)'/>\n";
 //        xml_ += "<while condition='p;.removeAndExistAfter(1i)'>\n";
@@ -2867,14 +2867,14 @@ public class ProcessXmlMethodTest {
         xml_ += "<affect left='t;.' oper='+=' right='elt;.'/>\n";
         xml_ += "</foreach>\n";
 //        xml_ += "<return expression='1i+class(&quot;"+PrimitiveTypeUtil.PRIM_INT+"&quot;,t;.)'/>\n";
-        xml_ += "<return expression='1i+^class(&quot;"+PrimitiveTypeUtil.PRIM_INT+"&quot;,t;.)+p;.getList().size()'/>\n";
+        xml_ += "<return expression='1i+$class(&quot;"+PrimitiveTypeUtil.PRIM_INT+"&quot;,t;.)+p;.getList().size()'/>\n";
         xml_ += "</method>\n";
         xml_ += "<method access='"+PUBLIC_ACCESS+"' modifier='static' name='adding' class='"+OperationNode.VOID_RETURN+"' class0='"+PICKABLE_LIST+"' var0='l' class1='java.lang.Object' var1='o'>\n";
         xml_ += "<line expression='l;.;getList().add(o;.;)'/>\n";
         xml_ += "</method>\n";
         xml_ += "<method access='"+PUBLIC_ACCESS+"' modifier='static' name='exmethlist' class='"+NUMBERS+"'>\n";
         xml_ += "<declare var='t' class='"+NUMBERS+"'/>\n";
-        xml_ += "<affect left='t;.' oper='=' right='^new."+NUMBERS+"()'/>\n";
+        xml_ += "<affect left='t;.' oper='=' right='$new "+NUMBERS+"()'/>\n";
 //        xml_ += "<line expression='t;.add(class(&quot;java.lang.Object&quot;,8i))'/>\n";
         xml_ += "<line expression='t;.add(8i)'/>\n";
 //        xml_ += "<line expression='t;.add(class(&quot;java.lang.Object&quot;,2i))'/>\n";
@@ -2917,7 +2917,7 @@ public class ProcessXmlMethodTest {
         xml_ += "<declare var='t' class='"+PrimitiveTypeUtil.PRIM_LONG+"'/>\n";
         xml_ += "<affect left='t;.' oper='=' right='8'/>\n";
 
-        xml_ += "<declareset var='p' class='"+PICKABLE_LIST+"' expression='^new."+PICKABLE_LIST+"()'/>\n";
+        xml_ += "<declareset var='p' class='"+PICKABLE_LIST+"' expression='$new "+PICKABLE_LIST+"()'/>\n";
         xml_ += "<line expression='adding(p;.,0)'/>\n";
         xml_ += "<line expression='adding(p;.,2)'/>\n";
 //        xml_ += "<while condition='p;.removeAndExistAfter(1i)'>\n";
@@ -2934,14 +2934,14 @@ public class ProcessXmlMethodTest {
         xml_ += "</else>\n";
         xml_ += "</foreach>\n";
 //        xml_ += "<return expression='1i+class(&quot;"+PrimitiveTypeUtil.PRIM_INT+"&quot;,t;.)'/>\n";
-        xml_ += "<return expression='1i+^class(&quot;"+PrimitiveTypeUtil.PRIM_INT+"&quot;,t;.)+p;.getList().size()'/>\n";
+        xml_ += "<return expression='1i+$class(&quot;"+PrimitiveTypeUtil.PRIM_INT+"&quot;,t;.)+p;.getList().size()'/>\n";
         xml_ += "</method>\n";
         xml_ += "<method access='"+PUBLIC_ACCESS+"' modifier='static' name='adding' class='"+OperationNode.VOID_RETURN+"' class0='"+PICKABLE_LIST+"' var0='l' class1='java.lang.Object' var1='o'>\n";
         xml_ += "<line expression='l;.;getList().add(o;.;)'/>\n";
         xml_ += "</method>\n";
         xml_ += "<method access='"+PUBLIC_ACCESS+"' modifier='static' name='exmethlist' class='"+NUMBERS+"'>\n";
         xml_ += "<declare var='t' class='"+NUMBERS+"'/>\n";
-        xml_ += "<affect left='t;.' oper='=' right='^new."+NUMBERS+"()'/>\n";
+        xml_ += "<affect left='t;.' oper='=' right='$new "+NUMBERS+"()'/>\n";
 //        xml_ += "<line expression='t;.add(class(&quot;java.lang.Object&quot;,8i))'/>\n";
         xml_ += "<line expression='t;.add(8i)'/>\n";
 //        xml_ += "<line expression='t;.add(class(&quot;java.lang.Object&quot;,2i))'/>\n";
@@ -2983,7 +2983,7 @@ public class ProcessXmlMethodTest {
         xml_ += "<declare var='t' class='"+PrimitiveTypeUtil.PRIM_LONG+"'/>\n";
         xml_ += "<affect left='t;.' oper='=' right='8'/>\n";
 
-        xml_ += "<declareset var='p' class='"+PICKABLE_LIST+"' expression='^new."+PICKABLE_LIST+"()'/>\n";
+        xml_ += "<declareset var='p' class='"+PICKABLE_LIST+"' expression='$new "+PICKABLE_LIST+"()'/>\n";
         xml_ += "<line expression='adding(p;.,0)'/>\n";
         xml_ += "<line expression='adding(p;.,2)'/>\n";
 //        xml_ += "<while condition='p;.removeAndExistAfter(1i)'>\n";
@@ -3000,14 +3000,14 @@ public class ProcessXmlMethodTest {
         xml_ += "</else>\n";
         xml_ += "</foreach>\n";
 //        xml_ += "<return expression='1i+class(&quot;"+PrimitiveTypeUtil.PRIM_INT+"&quot;,t;.)'/>\n";
-        xml_ += "<return expression='1i+^class(&quot;"+PrimitiveTypeUtil.PRIM_INT+"&quot;,t;.)+p;.getList().size()'/>\n";
+        xml_ += "<return expression='1i+$class(&quot;"+PrimitiveTypeUtil.PRIM_INT+"&quot;,t;.)+p;.getList().size()'/>\n";
         xml_ += "</method>\n";
         xml_ += "<method access='"+PUBLIC_ACCESS+"' modifier='static' name='adding' class='"+OperationNode.VOID_RETURN+"' class0='"+PICKABLE_LIST+"' var0='l' class1='java.lang.Object' var1='o'>\n";
         xml_ += "<line expression='l;.;getList().add(o;.;)'/>\n";
         xml_ += "</method>\n";
         xml_ += "<method access='"+PUBLIC_ACCESS+"' modifier='static' name='exmethlist' class='"+NUMBERS+"'>\n";
         xml_ += "<declare var='t' class='"+NUMBERS+"'/>\n";
-        xml_ += "<affect left='t;.' oper='=' right='^new."+NUMBERS+"()'/>\n";
+        xml_ += "<affect left='t;.' oper='=' right='$new "+NUMBERS+"()'/>\n";
 //        xml_ += "<line expression='t;.add(class(&quot;java.lang.Object&quot;,8i))'/>\n";
         xml_ += "<line expression='t;.add(8i)'/>\n";
 //        xml_ += "<line expression='t;.add(class(&quot;java.lang.Object&quot;,2i))'/>\n";
@@ -3050,7 +3050,7 @@ public class ProcessXmlMethodTest {
         xml_ += "<declare var='t' class='"+PrimitiveTypeUtil.PRIM_LONG+"'/>\n";
         xml_ += "<affect left='t;.' oper='=' right='8'/>\n";
 
-        xml_ += "<declareset var='p' class='"+PICKABLE_LIST+"' expression='^new."+PICKABLE_LIST+"()'/>\n";
+        xml_ += "<declareset var='p' class='"+PICKABLE_LIST+"' expression='$new "+PICKABLE_LIST+"()'/>\n";
         xml_ += "<line expression='adding(p;.,0)'/>\n";
         xml_ += "<line expression='adding(p;.,2)'/>\n";
 //        xml_ += "<while condition='p;.removeAndExistAfter(1i)'>\n";
@@ -3067,14 +3067,14 @@ public class ProcessXmlMethodTest {
         xml_ += "</else>\n";
         xml_ += "</foreach>\n";
 //        xml_ += "<return expression='1i+class(&quot;"+PrimitiveTypeUtil.PRIM_INT+"&quot;,t;.)'/>\n";
-        xml_ += "<return expression='1i+^class(&quot;"+PrimitiveTypeUtil.PRIM_INT+"&quot;,t;.)+p;.getList().size()'/>\n";
+        xml_ += "<return expression='1i+$class(&quot;"+PrimitiveTypeUtil.PRIM_INT+"&quot;,t;.)+p;.getList().size()'/>\n";
         xml_ += "</method>\n";
         xml_ += "<method access='"+PUBLIC_ACCESS+"' modifier='static' name='adding' class='"+OperationNode.VOID_RETURN+"' class0='"+PICKABLE_LIST+"' var0='l' class1='java.lang.Object' var1='o'>\n";
         xml_ += "<line expression='l;.;getList().add(o;.;)'/>\n";
         xml_ += "</method>\n";
         xml_ += "<method access='"+PUBLIC_ACCESS+"' modifier='static' name='exmethlist' class='"+NUMBERS+"'>\n";
         xml_ += "<declare var='t' class='"+NUMBERS+"'/>\n";
-        xml_ += "<affect left='t;.' oper='=' right='^new."+NUMBERS+"()'/>\n";
+        xml_ += "<affect left='t;.' oper='=' right='$new "+NUMBERS+"()'/>\n";
 //        xml_ += "<line expression='t;.add(class(&quot;java.lang.Object&quot;,8i))'/>\n";
         xml_ += "<line expression='t;.add(8i)'/>\n";
 //        xml_ += "<line expression='t;.add(class(&quot;java.lang.Object&quot;,2i))'/>\n";
@@ -3135,7 +3135,7 @@ public class ProcessXmlMethodTest {
         xml_ += "<declare var='t' class='"+PrimitiveTypeUtil.PRIM_LONG+"'/>\n";
         xml_ += "<affect left='t;.' oper='=' right='8'/>\n";
 
-        xml_ += "<declareset var='p' class='"+PICKABLE_LIST+"' expression='^new."+PICKABLE_LIST+"()'/>\n";
+        xml_ += "<declareset var='p' class='"+PICKABLE_LIST+"' expression='$new "+PICKABLE_LIST+"()'/>\n";
         xml_ += "<line expression='adding(p;.,0)'/>\n";
         xml_ += "<line expression='adding(p;.,2)'/>\n";
 //        xml_ += "<while condition='p;.removeAndExistAfter(1i)'>\n";
@@ -3152,14 +3152,14 @@ public class ProcessXmlMethodTest {
         xml_ += "</else>\n";
         xml_ += "</foreach>\n";
 //        xml_ += "<return expression='1i+class(&quot;"+PrimitiveTypeUtil.PRIM_INT+"&quot;,t;.)'/>\n";
-        xml_ += "<return expression='1i+^class(&quot;"+PrimitiveTypeUtil.PRIM_INT+"&quot;,t;.)+p;.getList().size()'/>\n";
+        xml_ += "<return expression='1i+$class(&quot;"+PrimitiveTypeUtil.PRIM_INT+"&quot;,t;.)+p;.getList().size()'/>\n";
         xml_ += "</method>\n";
         xml_ += "<method access='"+PUBLIC_ACCESS+"' modifier='static' name='adding' class='"+OperationNode.VOID_RETURN+"' class0='"+PICKABLE_LIST+"' var0='l' class1='java.lang.Object' var1='o'>\n";
         xml_ += "<line expression='l;.;getList().add(o;.;)'/>\n";
         xml_ += "</method>\n";
         xml_ += "<method access='"+PUBLIC_ACCESS+"' modifier='static' name='exmethlist' class='"+NUMBERS+"'>\n";
         xml_ += "<declare var='t' class='"+NUMBERS+"'/>\n";
-        xml_ += "<affect left='t;.' oper='=' right='^new."+NUMBERS+"()'/>\n";
+        xml_ += "<affect left='t;.' oper='=' right='$new "+NUMBERS+"()'/>\n";
 //        xml_ += "<line expression='t;.add(class(&quot;java.lang.Object&quot;,8i))'/>\n";
         xml_ += "<line expression='t;.add(8i)'/>\n";
 //        xml_ += "<line expression='t;.add(class(&quot;java.lang.Object&quot;,2i))'/>\n";
@@ -3221,7 +3221,7 @@ public class ProcessXmlMethodTest {
         xml_ += "<declare var='t' class='"+PrimitiveTypeUtil.PRIM_LONG+"'/>\n";
         xml_ += "<affect left='t;.' oper='=' right='8'/>\n";
 
-        xml_ += "<declareset var='p' class='"+PICKABLE_LIST+"' expression='^new."+PICKABLE_LIST+"()'/>\n";
+        xml_ += "<declareset var='p' class='"+PICKABLE_LIST+"' expression='$new "+PICKABLE_LIST+"()'/>\n";
         xml_ += "<line expression='adding(p;.,0)'/>\n";
         xml_ += "<line expression='adding(p;.,2)'/>\n";
 //        xml_ += "<while condition='p;.removeAndExistAfter(1i)'>\n";
@@ -3238,14 +3238,14 @@ public class ProcessXmlMethodTest {
         xml_ += "</else>\n";
         xml_ += "</foreach>\n";
 //        xml_ += "<return expression='1i+class(&quot;"+PrimitiveTypeUtil.PRIM_INT+"&quot;,t;.)'/>\n";
-        xml_ += "<return expression='1i+^class(&quot;"+PrimitiveTypeUtil.PRIM_INT+"&quot;,t;.)+p;.getList().size()'/>\n";
+        xml_ += "<return expression='1i+$class(&quot;"+PrimitiveTypeUtil.PRIM_INT+"&quot;,t;.)+p;.getList().size()'/>\n";
         xml_ += "</method>\n";
         xml_ += "<method access='"+PUBLIC_ACCESS+"' modifier='static' name='adding' class='"+OperationNode.VOID_RETURN+"' class0='"+PICKABLE_LIST+"' var0='l' class1='java.lang.Object' var1='o'>\n";
         xml_ += "<line expression='l;.;getList().add(o;.;)'/>\n";
         xml_ += "</method>\n";
         xml_ += "<method access='"+PUBLIC_ACCESS+"' modifier='static' name='exmethlist' class='"+NUMBERS+"'>\n";
         xml_ += "<declare var='t' class='"+NUMBERS+"'/>\n";
-        xml_ += "<affect left='t;.' oper='=' right='^new."+NUMBERS+"()'/>\n";
+        xml_ += "<affect left='t;.' oper='=' right='$new "+NUMBERS+"()'/>\n";
 //        xml_ += "<line expression='t;.add(class(&quot;java.lang.Object&quot;,8i))'/>\n";
         xml_ += "<line expression='t;.add(8i)'/>\n";
 //        xml_ += "<line expression='t;.add(class(&quot;java.lang.Object&quot;,2i))'/>\n";
@@ -3312,7 +3312,7 @@ public class ProcessXmlMethodTest {
         xml_ += "<declare var='t' class='"+PrimitiveTypeUtil.PRIM_LONG+"'/>\n";
         xml_ += "<affect left='t;.' oper='=' right='8'/>\n";
 
-        xml_ += "<declareset var='p' class='"+PICKABLE_LIST+"' expression='^new."+PICKABLE_LIST+"()'/>\n";
+        xml_ += "<declareset var='p' class='"+PICKABLE_LIST+"' expression='$new "+PICKABLE_LIST+"()'/>\n";
         xml_ += "<line expression='adding(p;.,0)'/>\n";
         xml_ += "<line expression='adding(p;.,2)'/>\n";
 //        xml_ += "<while condition='p;.removeAndExistAfter(1i)'>\n";
@@ -3329,14 +3329,14 @@ public class ProcessXmlMethodTest {
         xml_ += "</else>\n";
         xml_ += "</foreach>\n";
 //        xml_ += "<return expression='1i+class(&quot;"+PrimitiveTypeUtil.PRIM_INT+"&quot;,t;.)'/>\n";
-        xml_ += "<return expression='1i+^class(&quot;"+PrimitiveTypeUtil.PRIM_INT+"&quot;,t;.)+p;.getList().size()'/>\n";
+        xml_ += "<return expression='1i+$class(&quot;"+PrimitiveTypeUtil.PRIM_INT+"&quot;,t;.)+p;.getList().size()'/>\n";
         xml_ += "</method>\n";
         xml_ += "<method access='"+PUBLIC_ACCESS+"' modifier='static' name='adding' class='"+OperationNode.VOID_RETURN+"' class0='"+PICKABLE_LIST+"' var0='l' class1='java.lang.Object' var1='o'>\n";
         xml_ += "<line expression='l;.;getList().add(o;.;)'/>\n";
         xml_ += "</method>\n";
         xml_ += "<method access='"+PUBLIC_ACCESS+"' modifier='static' name='exmethlist' class='"+NUMBERS+"'>\n";
         xml_ += "<declare var='t' class='"+NUMBERS+"'/>\n";
-        xml_ += "<affect left='t;.' oper='=' right='^new."+NUMBERS+"()'/>\n";
+        xml_ += "<affect left='t;.' oper='=' right='$new "+NUMBERS+"()'/>\n";
 //        xml_ += "<line expression='t;.add(class(&quot;java.lang.Object&quot;,8i))'/>\n";
         xml_ += "<line expression='t;.add(8i)'/>\n";
 //        xml_ += "<line expression='t;.add(class(&quot;java.lang.Object&quot;,2i))'/>\n";
@@ -3401,7 +3401,7 @@ public class ProcessXmlMethodTest {
         xml_ += "<declare var='t' class='"+PrimitiveTypeUtil.PRIM_LONG+"'/>\n";
         xml_ += "<affect left='t;.' oper='=' right='8'/>\n";
 
-        xml_ += "<declareset var='p' class='"+PICKABLE_LIST+"' expression='^new."+PICKABLE_LIST+"()'/>\n";
+        xml_ += "<declareset var='p' class='"+PICKABLE_LIST+"' expression='$new "+PICKABLE_LIST+"()'/>\n";
         xml_ += "<line expression='adding(p;.,0)'/>\n";
         xml_ += "<line expression='adding(p;.,2)'/>\n";
 //        xml_ += "<while condition='p;.removeAndExistAfter(1i)'>\n";
@@ -3418,14 +3418,14 @@ public class ProcessXmlMethodTest {
         xml_ += "</else>\n";
         xml_ += "</foreach>\n";
 //        xml_ += "<return expression='1i+class(&quot;"+PrimitiveTypeUtil.PRIM_INT+"&quot;,t;.)'/>\n";
-        xml_ += "<return expression='1i+^class(&quot;"+PrimitiveTypeUtil.PRIM_INT+"&quot;,t;.)+p;.getList().size()'/>\n";
+        xml_ += "<return expression='1i+$class(&quot;"+PrimitiveTypeUtil.PRIM_INT+"&quot;,t;.)+p;.getList().size()'/>\n";
         xml_ += "</method>\n";
         xml_ += "<method access='"+PUBLIC_ACCESS+"' modifier='static' name='adding' class='"+OperationNode.VOID_RETURN+"' class0='"+PICKABLE_LIST+"' var0='l' class1='java.lang.Object' var1='o'>\n";
         xml_ += "<line expression='l;.;getList().add(o;.;)'/>\n";
         xml_ += "</method>\n";
         xml_ += "<method access='"+PUBLIC_ACCESS+"' modifier='static' name='exmethlist' class='"+NUMBERS+"'>\n";
         xml_ += "<declare var='t' class='"+NUMBERS+"'/>\n";
-        xml_ += "<affect left='t;.' oper='=' right='^new."+NUMBERS+"()'/>\n";
+        xml_ += "<affect left='t;.' oper='=' right='$new "+NUMBERS+"()'/>\n";
 //        xml_ += "<line expression='t;.add(class(&quot;java.lang.Object&quot;,8i))'/>\n";
         xml_ += "<line expression='t;.add(8i)'/>\n";
 //        xml_ += "<line expression='t;.add(class(&quot;java.lang.Object&quot;,2i))'/>\n";
@@ -3488,7 +3488,7 @@ public class ProcessXmlMethodTest {
         xml_ += "<declare var='t' class='"+PrimitiveTypeUtil.PRIM_LONG+"'/>\n";
         xml_ += "<affect left='t;.' oper='=' right='8'/>\n";
 
-        xml_ += "<declareset var='p' class='"+PICKABLE_LIST+"' expression='^new."+PICKABLE_LIST+"()'/>\n";
+        xml_ += "<declareset var='p' class='"+PICKABLE_LIST+"' expression='$new "+PICKABLE_LIST+"()'/>\n";
         xml_ += "<line expression='adding(p;.,0)'/>\n";
         xml_ += "<line expression='adding(p;.,2)'/>\n";
 //        xml_ += "<while condition='p;.removeAndExistAfter(1i)'>\n";
@@ -3505,14 +3505,14 @@ public class ProcessXmlMethodTest {
         xml_ += "</else>\n";
         xml_ += "</foreach>\n";
 //        xml_ += "<return expression='1i+class(&quot;"+PrimitiveTypeUtil.PRIM_INT+"&quot;,t;.)'/>\n";
-        xml_ += "<return expression='1i+^class(&quot;"+PrimitiveTypeUtil.PRIM_INT+"&quot;,t;.)+p;.getList().size()'/>\n";
+        xml_ += "<return expression='1i+$class(&quot;"+PrimitiveTypeUtil.PRIM_INT+"&quot;,t;.)+p;.getList().size()'/>\n";
         xml_ += "</method>\n";
         xml_ += "<method access='"+PUBLIC_ACCESS+"' modifier='static' name='adding' class='"+OperationNode.VOID_RETURN+"' class0='"+PICKABLE_LIST+"' var0='l' class1='java.lang.Object' var1='o'>\n";
         xml_ += "<line expression='l;.;getList().add(o;.;)'/>\n";
         xml_ += "</method>\n";
         xml_ += "<method access='"+PUBLIC_ACCESS+"' modifier='static' name='exmethlist' class='"+NUMBERS+"'>\n";
         xml_ += "<declare var='t' class='"+NUMBERS+"'/>\n";
-        xml_ += "<affect left='t;.' oper='=' right='^new."+NUMBERS+"()'/>\n";
+        xml_ += "<affect left='t;.' oper='=' right='$new "+NUMBERS+"()'/>\n";
 //        xml_ += "<line expression='t;.add(class(&quot;java.lang.Object&quot;,8i))'/>\n";
         xml_ += "<line expression='t;.add(8i)'/>\n";
 //        xml_ += "<line expression='t;.add(class(&quot;java.lang.Object&quot;,2i))'/>\n";
@@ -3577,7 +3577,7 @@ public class ProcessXmlMethodTest {
         xml_ += "<declare var='t' class='"+PrimitiveTypeUtil.PRIM_LONG+"'/>\n";
         xml_ += "<affect left='t;.' oper='=' right='8'/>\n";
 
-        xml_ += "<declareset var='p' class='"+PICKABLE_LIST+"' expression='^new."+PICKABLE_LIST+"()'/>\n";
+        xml_ += "<declareset var='p' class='"+PICKABLE_LIST+"' expression='$new "+PICKABLE_LIST+"()'/>\n";
         xml_ += "<line expression='adding(p;.,0)'/>\n";
         xml_ += "<line expression='adding(p;.,2)'/>\n";
 //        xml_ += "<while condition='p;.removeAndExistAfter(1i)'>\n";
@@ -3594,14 +3594,14 @@ public class ProcessXmlMethodTest {
         xml_ += "</else>\n";
         xml_ += "</foreach>\n";
 //        xml_ += "<return expression='1i+class(&quot;"+PrimitiveTypeUtil.PRIM_INT+"&quot;,t;.)'/>\n";
-        xml_ += "<return expression='1i+^class(&quot;"+PrimitiveTypeUtil.PRIM_INT+"&quot;,t;.)+p;.getList().size()'/>\n";
+        xml_ += "<return expression='1i+$class(&quot;"+PrimitiveTypeUtil.PRIM_INT+"&quot;,t;.)+p;.getList().size()'/>\n";
         xml_ += "</method>\n";
         xml_ += "<method access='"+PUBLIC_ACCESS+"' modifier='static' name='adding' class='"+OperationNode.VOID_RETURN+"' class0='"+PICKABLE_LIST+"' var0='l' class1='java.lang.Object' var1='o'>\n";
         xml_ += "<line expression='l;.;getList().add(o;.;)'/>\n";
         xml_ += "</method>\n";
         xml_ += "<method access='"+PUBLIC_ACCESS+"' modifier='static' name='exmethlist' class='"+NUMBERS+"'>\n";
         xml_ += "<declare var='t' class='"+NUMBERS+"'/>\n";
-        xml_ += "<affect left='t;.' oper='=' right='^new."+NUMBERS+"()'/>\n";
+        xml_ += "<affect left='t;.' oper='=' right='$new "+NUMBERS+"()'/>\n";
 //        xml_ += "<line expression='t;.add(class(&quot;java.lang.Object&quot;,8i))'/>\n";
         xml_ += "<line expression='t;.add(8i)'/>\n";
 //        xml_ += "<line expression='t;.add(class(&quot;java.lang.Object&quot;,2i))'/>\n";
@@ -3666,15 +3666,15 @@ public class ProcessXmlMethodTest {
         xml_ += "</foreach>\n";
         xml_ += "</foreach>\n";
 //        xml_ += "<return expression='1i+class(&quot;"+PrimitiveTypeUtil.PRIM_INT+"&quot;,t;.)'/>\n";
-        xml_ += "<return expression='1i+^class(&quot;"+PrimitiveTypeUtil.PRIM_INT+"&quot;,t;.)'/>\n";
+        xml_ += "<return expression='1i+$class(&quot;"+PrimitiveTypeUtil.PRIM_INT+"&quot;,t;.)'/>\n";
         xml_ += "</method>\n";
         xml_ += "<method access='"+PUBLIC_ACCESS+"' modifier='static' name='exmethlist' class='"+NUMBERS+"'>\n";
         xml_ += "<declare var='t' class='"+NUMBERS+"'/>\n";
-        xml_ += "<affect left='t;.' oper='=' right='^new."+NUMBERS+"()'/>\n";
+        xml_ += "<affect left='t;.' oper='=' right='$new "+NUMBERS+"()'/>\n";
 //        xml_ += "<line expression='t;.add(class(&quot;java.lang.Object&quot;,8i))'/>\n";
-        xml_ += "<line expression='t;.add(^class(&quot;java.lang.Object&quot;,8i))'/>\n";
+        xml_ += "<line expression='t;.add($class(&quot;java.lang.Object&quot;,8i))'/>\n";
 //        xml_ += "<line expression='t;.add(class(&quot;java.lang.Object&quot;,2i))'/>\n";
-        xml_ += "<line expression='t;.add(^class(&quot;java.lang.Object&quot;,2i))'/>\n";
+        xml_ += "<line expression='t;.add($class(&quot;java.lang.Object&quot;,2i))'/>\n";
         xml_ += "<return expression='t;.'/>\n";
         xml_ += "</method>\n";
         xml_ += "</class>\n";
@@ -3712,15 +3712,15 @@ public class ProcessXmlMethodTest {
         xml_ += "</foreach>\n";
         xml_ += "</foreach>\n";
 //        xml_ += "<return expression='1i+class(&quot;"+PrimitiveTypeUtil.PRIM_INT+"&quot;,t;.)'/>\n";
-        xml_ += "<return expression='1i+^class(&quot;"+PrimitiveTypeUtil.PRIM_INT+"&quot;,t;.)'/>\n";
+        xml_ += "<return expression='1i+$class(&quot;"+PrimitiveTypeUtil.PRIM_INT+"&quot;,t;.)'/>\n";
         xml_ += "</method>\n";
         xml_ += "<method access='"+PUBLIC_ACCESS+"' modifier='static' name='exmethlist' class='"+NUMBERS+"'>\n";
         xml_ += "<declare var='t' class='"+NUMBERS+"'/>\n";
-        xml_ += "<affect left='t;.' oper='=' right='^new."+NUMBERS+"()'/>\n";
+        xml_ += "<affect left='t;.' oper='=' right='$new "+NUMBERS+"()'/>\n";
 //        xml_ += "<line expression='t;.add(class(&quot;java.lang.Object&quot;,8i))'/>\n";
-        xml_ += "<line expression='t;.add(^class(&quot;java.lang.Object&quot;,8i))'/>\n";
+        xml_ += "<line expression='t;.add($class(&quot;java.lang.Object&quot;,8i))'/>\n";
 //        xml_ += "<line expression='t;.add(class(&quot;java.lang.Object&quot;,2i))'/>\n";
-        xml_ += "<line expression='t;.add(^class(&quot;java.lang.Object&quot;,2i))'/>\n";
+        xml_ += "<line expression='t;.add($class(&quot;java.lang.Object&quot;,2i))'/>\n";
         xml_ += "<return expression='t;.'/>\n";
         xml_ += "</method>\n";
         xml_ += "<method access='"+PUBLIC_ACCESS+"' modifier='static' name='calling' class='"+PrimitiveTypeUtil.PRIM_INT+"'>\n";
@@ -3756,19 +3756,19 @@ public class ProcessXmlMethodTest {
         xml_ += "<affect left='t;.' oper='=' right='8'/>\n";
         xml_ += "<if condition='t;.%2=0'>\n";
         xml_ += "<affect left='t;.' oper='+=' right='8'/>\n";
-        xml_ += "<return expression='1i+^class(&quot;"+PrimitiveTypeUtil.PRIM_INT+"&quot;,t;.)'/>\n";
+        xml_ += "<return expression='1i+$class(&quot;"+PrimitiveTypeUtil.PRIM_INT+"&quot;,t;.)'/>\n";
         xml_ += "</if>\n";
         xml_ += "<elseif condition='t;.&lt;0'>\n";
         xml_ += "<affect left='t;.' oper='+=' right='2'/>\n";
-        xml_ += "<return expression='1i+^class(&quot;"+PrimitiveTypeUtil.PRIM_INT+"&quot;,t;.)'/>\n";
+        xml_ += "<return expression='1i+$class(&quot;"+PrimitiveTypeUtil.PRIM_INT+"&quot;,t;.)'/>\n";
         xml_ += "</elseif>\n";
         xml_ += "<if condition='t;.%2=0'>\n";
         xml_ += "<affect left='t;.' oper='+=' right='8'/>\n";
-        xml_ += "<return expression='1i+^class(&quot;"+PrimitiveTypeUtil.PRIM_INT+"&quot;,t;.)'/>\n";
+        xml_ += "<return expression='1i+$class(&quot;"+PrimitiveTypeUtil.PRIM_INT+"&quot;,t;.)'/>\n";
         xml_ += "</if>\n";
         xml_ += "<else condition='t;.&lt;0'>\n";
         xml_ += "<affect left='t;.' oper='+=' right='2'/>\n";
-        xml_ += "<return expression='1i+^class(&quot;"+PrimitiveTypeUtil.PRIM_INT+"&quot;,t;.)'/>\n";
+        xml_ += "<return expression='1i+$class(&quot;"+PrimitiveTypeUtil.PRIM_INT+"&quot;,t;.)'/>\n";
         xml_ += "</else>\n";
 //        xml_ += "<return expression='1i+class(&quot;"+PrimitiveTypeUtil.PRIM_INT+"&quot;,t;.)'/>\n";
         xml_ += "</method>\n";
@@ -3796,7 +3796,7 @@ public class ProcessXmlMethodTest {
     public void calculateArgument1024Test() {
         String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg'>\n";
         xml_ += "<method access='"+PUBLIC_ACCESS+"' modifier='static' name='exmeth' class='"+PrimitiveTypeUtil.PRIM_INT+"'>\n";
-        xml_ += "<return expression='^static^pkg^ExTwo.exmeth()+8i'/>\n";
+        xml_ += "<return expression='$static$pkg$ExTwo.exmeth()+8i'/>\n";
         xml_ += "</method>\n";
         xml_ += "</class>\n";
         StringMap<String> files_ = new StringMap<String>();
@@ -3808,19 +3808,19 @@ public class ProcessXmlMethodTest {
         xml_ += "<affect left='t;.' oper='=' right='8'/>\n";
         xml_ += "<if condition='t;.%2=0'>\n";
         xml_ += "<affect left='t;.' oper='+=' right='8'/>\n";
-        xml_ += "<return expression='1i+^class(&quot;"+PrimitiveTypeUtil.PRIM_INT+"&quot;,t;.)'/>\n";
+        xml_ += "<return expression='1i+$class(&quot;"+PrimitiveTypeUtil.PRIM_INT+"&quot;,t;.)'/>\n";
         xml_ += "</if>\n";
         xml_ += "<elseif condition='t;.&lt;0'>\n";
         xml_ += "<affect left='t;.' oper='+=' right='2'/>\n";
-        xml_ += "<return expression='1i+^class(&quot;"+PrimitiveTypeUtil.PRIM_INT+"&quot;,t;.)'/>\n";
+        xml_ += "<return expression='1i+$class(&quot;"+PrimitiveTypeUtil.PRIM_INT+"&quot;,t;.)'/>\n";
         xml_ += "</elseif>\n";
         xml_ += "<if condition='t;.%2=0'>\n";
         xml_ += "<affect left='t;.' oper='+=' right='8'/>\n";
-        xml_ += "<return expression='1i+^class(&quot;"+PrimitiveTypeUtil.PRIM_INT+"&quot;,t;.)'/>\n";
+        xml_ += "<return expression='1i+$class(&quot;"+PrimitiveTypeUtil.PRIM_INT+"&quot;,t;.)'/>\n";
         xml_ += "</if>\n";
         xml_ += "<else condition='t;.&lt;0'>\n";
         xml_ += "<affect left='t;.' oper='+=' right='2'/>\n";
-        xml_ += "<return expression='1i+^class(&quot;"+PrimitiveTypeUtil.PRIM_INT+"&quot;,t;.)'/>\n";
+        xml_ += "<return expression='1i+$class(&quot;"+PrimitiveTypeUtil.PRIM_INT+"&quot;,t;.)'/>\n";
         xml_ += "</else>\n";
 //        xml_ += "<return expression='1i+class(&quot;"+PrimitiveTypeUtil.PRIM_INT+"&quot;,t;.)'/>\n";
         xml_ += "</method>\n";
@@ -3847,7 +3847,7 @@ public class ProcessXmlMethodTest {
     public void calculateArgument1025Test() {
         String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg'>\n";
         xml_ += "<method access='"+PUBLIC_ACCESS+"' modifier='static' name='exmeth' class='"+PrimitiveTypeUtil.PRIM_INT+"'>\n";
-        xml_ += "<return expression='^static^pkg^ExTwo.getstatic()+8i'/>\n";
+        xml_ += "<return expression='$static$pkg$ExTwo.getstatic()+8i'/>\n";
         xml_ += "</method>\n";
         xml_ += "</class>\n";
         StringMap<String> files_ = new StringMap<String>();
@@ -3863,19 +3863,19 @@ public class ProcessXmlMethodTest {
         xml_ += "<affect left='t;.' oper='=' right='8'/>\n";
         xml_ += "<if condition='t;.%2=0'>\n";
         xml_ += "<affect left='t;.' oper='+=' right='8'/>\n";
-        xml_ += "<return expression='1i+^class(&quot;"+PrimitiveTypeUtil.PRIM_INT+"&quot;,t;.)'/>\n";
+        xml_ += "<return expression='1i+$class(&quot;"+PrimitiveTypeUtil.PRIM_INT+"&quot;,t;.)'/>\n";
         xml_ += "</if>\n";
         xml_ += "<elseif condition='t;.&lt;0'>\n";
         xml_ += "<affect left='t;.' oper='+=' right='2'/>\n";
-        xml_ += "<return expression='1i+^class(&quot;"+PrimitiveTypeUtil.PRIM_INT+"&quot;,t;.)'/>\n";
+        xml_ += "<return expression='1i+$class(&quot;"+PrimitiveTypeUtil.PRIM_INT+"&quot;,t;.)'/>\n";
         xml_ += "</elseif>\n";
         xml_ += "<if condition='t;.%2=0'>\n";
         xml_ += "<affect left='t;.' oper='+=' right='8'/>\n";
-        xml_ += "<return expression='1i+^class(&quot;"+PrimitiveTypeUtil.PRIM_INT+"&quot;,t;.)'/>\n";
+        xml_ += "<return expression='1i+$class(&quot;"+PrimitiveTypeUtil.PRIM_INT+"&quot;,t;.)'/>\n";
         xml_ += "</if>\n";
         xml_ += "<else condition='t;.&lt;0'>\n";
         xml_ += "<affect left='t;.' oper='+=' right='2'/>\n";
-        xml_ += "<return expression='1i+^class(&quot;"+PrimitiveTypeUtil.PRIM_INT+"&quot;,t;.)'/>\n";
+        xml_ += "<return expression='1i+$class(&quot;"+PrimitiveTypeUtil.PRIM_INT+"&quot;,t;.)'/>\n";
         xml_ += "</else>\n";
 //        xml_ += "<return expression='1i+class(&quot;"+PrimitiveTypeUtil.PRIM_INT+"&quot;,t;.)'/>\n";
         xml_ += "</method>\n";
@@ -3901,7 +3901,7 @@ public class ProcessXmlMethodTest {
     public void calculateArgument1026Test() {
         String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg'>\n";
         xml_ += "<method access='"+PUBLIC_ACCESS+"' modifier='static' name='exmeth' class='"+PrimitiveTypeUtil.PRIM_INT+"'>\n";
-        xml_ += "<return expression='^static^pkg^ExTwo.getstatic()+8i'/>\n";
+        xml_ += "<return expression='$static$pkg$ExTwo.getstatic()+8i'/>\n";
         xml_ += "</method>\n";
         xml_ += "</class>\n";
         StringMap<String> files_ = new StringMap<String>();
@@ -3920,19 +3920,19 @@ public class ProcessXmlMethodTest {
         xml_ += "<affect left='t;.' oper='=' right='8'/>\n";
         xml_ += "<if condition='t;.%2=0'>\n";
         xml_ += "<affect left='t;.' oper='+=' right='8'/>\n";
-        xml_ += "<return expression='1i+^class(&quot;"+PrimitiveTypeUtil.PRIM_INT+"&quot;,t;.)'/>\n";
+        xml_ += "<return expression='1i+$class(&quot;"+PrimitiveTypeUtil.PRIM_INT+"&quot;,t;.)'/>\n";
         xml_ += "</if>\n";
         xml_ += "<elseif condition='t;.&lt;0'>\n";
         xml_ += "<affect left='t;.' oper='+=' right='2'/>\n";
-        xml_ += "<return expression='1i+^class(&quot;"+PrimitiveTypeUtil.PRIM_INT+"&quot;,t;.)'/>\n";
+        xml_ += "<return expression='1i+$class(&quot;"+PrimitiveTypeUtil.PRIM_INT+"&quot;,t;.)'/>\n";
         xml_ += "</elseif>\n";
         xml_ += "<if condition='t;.%2=0'>\n";
         xml_ += "<affect left='t;.' oper='+=' right='8'/>\n";
-        xml_ += "<return expression='1i+^class(&quot;"+PrimitiveTypeUtil.PRIM_INT+"&quot;,t;.)'/>\n";
+        xml_ += "<return expression='1i+$class(&quot;"+PrimitiveTypeUtil.PRIM_INT+"&quot;,t;.)'/>\n";
         xml_ += "</if>\n";
         xml_ += "<else condition='t;.&lt;0'>\n";
         xml_ += "<affect left='t;.' oper='+=' right='2'/>\n";
-        xml_ += "<return expression='1i+^class(&quot;"+PrimitiveTypeUtil.PRIM_INT+"&quot;,t;.)'/>\n";
+        xml_ += "<return expression='1i+$class(&quot;"+PrimitiveTypeUtil.PRIM_INT+"&quot;,t;.)'/>\n";
         xml_ += "</else>\n";
 //        xml_ += "<return expression='1i+class(&quot;"+PrimitiveTypeUtil.PRIM_INT+"&quot;,t;.)'/>\n";
         xml_ += "</method>\n";
@@ -3958,7 +3958,7 @@ public class ProcessXmlMethodTest {
     public void calculateArgument1027Test() {
         String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg'>\n";
         xml_ += "<method access='"+PUBLIC_ACCESS+"' modifier='static' name='exmeth' class='"+PrimitiveTypeUtil.PRIM_INT+"'>\n";
-        xml_ += "<return expression='^static^pkg^ExTwo.getstatic()+8i'/>\n";
+        xml_ += "<return expression='$static$pkg$ExTwo.getstatic()+8i'/>\n";
         xml_ += "</method>\n";
         xml_ += "</class>\n";
         StringMap<String> files_ = new StringMap<String>();
@@ -3980,19 +3980,19 @@ public class ProcessXmlMethodTest {
         xml_ += "<affect left='t;.' oper='=' right='8'/>\n";
         xml_ += "<if condition='t;.%2=0'>\n";
         xml_ += "<affect left='t;.' oper='+=' right='8'/>\n";
-        xml_ += "<return expression='1i+^class(&quot;"+PrimitiveTypeUtil.PRIM_INT+"&quot;,t;.)'/>\n";
+        xml_ += "<return expression='1i+$class(&quot;"+PrimitiveTypeUtil.PRIM_INT+"&quot;,t;.)'/>\n";
         xml_ += "</if>\n";
         xml_ += "<elseif condition='t;.&lt;0'>\n";
         xml_ += "<affect left='t;.' oper='+=' right='2'/>\n";
-        xml_ += "<return expression='1i+^class(&quot;"+PrimitiveTypeUtil.PRIM_INT+"&quot;,t;.)'/>\n";
+        xml_ += "<return expression='1i+$class(&quot;"+PrimitiveTypeUtil.PRIM_INT+"&quot;,t;.)'/>\n";
         xml_ += "</elseif>\n";
         xml_ += "<if condition='t;.%2=0'>\n";
         xml_ += "<affect left='t;.' oper='+=' right='8'/>\n";
-        xml_ += "<return expression='1i+^class(&quot;"+PrimitiveTypeUtil.PRIM_INT+"&quot;,t;.)'/>\n";
+        xml_ += "<return expression='1i+$class(&quot;"+PrimitiveTypeUtil.PRIM_INT+"&quot;,t;.)'/>\n";
         xml_ += "</if>\n";
         xml_ += "<else condition='t;.&lt;0'>\n";
         xml_ += "<affect left='t;.' oper='+=' right='2'/>\n";
-        xml_ += "<return expression='1i+^class(&quot;"+PrimitiveTypeUtil.PRIM_INT+"&quot;,t;.)'/>\n";
+        xml_ += "<return expression='1i+$class(&quot;"+PrimitiveTypeUtil.PRIM_INT+"&quot;,t;.)'/>\n";
         xml_ += "</else>\n";
 //        xml_ += "<return expression='1i+class(&quot;"+PrimitiveTypeUtil.PRIM_INT+"&quot;,t;.)'/>\n";
         xml_ += "</method>\n";
@@ -4018,7 +4018,7 @@ public class ProcessXmlMethodTest {
     public void calculateArgument1028Test() {
         String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg'>\n";
         xml_ += "<method access='"+PUBLIC_ACCESS+"' modifier='static' name='exmeth' class='"+PrimitiveTypeUtil.PRIM_INT+"'>\n";
-        xml_ += "<return expression='^static^pkg^ExTwo.getstatic()+8i'/>\n";
+        xml_ += "<return expression='$static$pkg$ExTwo.getstatic()+8i'/>\n";
         xml_ += "</method>\n";
         xml_ += "</class>\n";
         StringMap<String> files_ = new StringMap<String>();
@@ -4041,19 +4041,19 @@ public class ProcessXmlMethodTest {
         xml_ += "<affect left='t;.' oper='=' right='8'/>\n";
         xml_ += "<if condition='t;.%2=0'>\n";
         xml_ += "<affect left='t;.' oper='+=' right='8'/>\n";
-        xml_ += "<return expression='1i+^class(&quot;"+PrimitiveTypeUtil.PRIM_INT+"&quot;,t;.)'/>\n";
+        xml_ += "<return expression='1i+$class(&quot;"+PrimitiveTypeUtil.PRIM_INT+"&quot;,t;.)'/>\n";
         xml_ += "</if>\n";
         xml_ += "<elseif condition='t;.&lt;0'>\n";
         xml_ += "<affect left='t;.' oper='+=' right='2'/>\n";
-        xml_ += "<return expression='1i+^class(&quot;"+PrimitiveTypeUtil.PRIM_INT+"&quot;,t;.)'/>\n";
+        xml_ += "<return expression='1i+$class(&quot;"+PrimitiveTypeUtil.PRIM_INT+"&quot;,t;.)'/>\n";
         xml_ += "</elseif>\n";
         xml_ += "<if condition='t;.%2=0'>\n";
         xml_ += "<affect left='t;.' oper='+=' right='8'/>\n";
-        xml_ += "<return expression='1i+^class(&quot;"+PrimitiveTypeUtil.PRIM_INT+"&quot;,t;.)'/>\n";
+        xml_ += "<return expression='1i+$class(&quot;"+PrimitiveTypeUtil.PRIM_INT+"&quot;,t;.)'/>\n";
         xml_ += "</if>\n";
         xml_ += "<else condition='t;.&lt;0'>\n";
         xml_ += "<affect left='t;.' oper='+=' right='2'/>\n";
-        xml_ += "<return expression='1i+^class(&quot;"+PrimitiveTypeUtil.PRIM_INT+"&quot;,t;.)'/>\n";
+        xml_ += "<return expression='1i+$class(&quot;"+PrimitiveTypeUtil.PRIM_INT+"&quot;,t;.)'/>\n";
         xml_ += "</else>\n";
 //        xml_ += "<return expression='1i+class(&quot;"+PrimitiveTypeUtil.PRIM_INT+"&quot;,t;.)'/>\n";
         xml_ += "</method>\n";
@@ -4079,7 +4079,7 @@ public class ProcessXmlMethodTest {
     public void calculateArgument1029Test() {
         String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg'>\n";
         xml_ += "<method access='"+PUBLIC_ACCESS+"' modifier='static' name='exmeth' class='"+PrimitiveTypeUtil.PRIM_INT+"'>\n";
-        xml_ += "<return expression='^static^pkg^ExTwo.getstatic()+8i'/>\n";
+        xml_ += "<return expression='$static$pkg$ExTwo.getstatic()+8i'/>\n";
         xml_ += "</method>\n";
         xml_ += "</class>\n";
         StringMap<String> files_ = new StringMap<String>();
@@ -4104,19 +4104,19 @@ public class ProcessXmlMethodTest {
         xml_ += "<affect left='t;.' oper='=' right='8'/>\n";
         xml_ += "<if condition='t;.%2=0'>\n";
         xml_ += "<affect left='t;.' oper='+=' right='8'/>\n";
-        xml_ += "<return expression='1i+^class(&quot;"+PrimitiveTypeUtil.PRIM_INT+"&quot;,t;.)'/>\n";
+        xml_ += "<return expression='1i+$class(&quot;"+PrimitiveTypeUtil.PRIM_INT+"&quot;,t;.)'/>\n";
         xml_ += "</if>\n";
         xml_ += "<elseif condition='t;.&lt;0'>\n";
         xml_ += "<affect left='t;.' oper='+=' right='2'/>\n";
-        xml_ += "<return expression='1i+^class(&quot;"+PrimitiveTypeUtil.PRIM_INT+"&quot;,t;.)'/>\n";
+        xml_ += "<return expression='1i+$class(&quot;"+PrimitiveTypeUtil.PRIM_INT+"&quot;,t;.)'/>\n";
         xml_ += "</elseif>\n";
         xml_ += "<if condition='t;.%2=0'>\n";
         xml_ += "<affect left='t;.' oper='+=' right='8'/>\n";
-        xml_ += "<return expression='1i+^class(&quot;"+PrimitiveTypeUtil.PRIM_INT+"&quot;,t;.)'/>\n";
+        xml_ += "<return expression='1i+$class(&quot;"+PrimitiveTypeUtil.PRIM_INT+"&quot;,t;.)'/>\n";
         xml_ += "</if>\n";
         xml_ += "<else condition='t;.&lt;0'>\n";
         xml_ += "<affect left='t;.' oper='+=' right='2'/>\n";
-        xml_ += "<return expression='1i+^class(&quot;"+PrimitiveTypeUtil.PRIM_INT+"&quot;,t;.)'/>\n";
+        xml_ += "<return expression='1i+$class(&quot;"+PrimitiveTypeUtil.PRIM_INT+"&quot;,t;.)'/>\n";
         xml_ += "</else>\n";
 //        xml_ += "<return expression='1i+class(&quot;"+PrimitiveTypeUtil.PRIM_INT+"&quot;,t;.)'/>\n";
         xml_ += "</method>\n";
@@ -4142,7 +4142,7 @@ public class ProcessXmlMethodTest {
     public void calculateArgument1030Test() {
         String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg'>\n";
         xml_ += "<method access='"+PUBLIC_ACCESS+"' modifier='static' name='exmeth' class='"+PrimitiveTypeUtil.PRIM_INT+"'>\n";
-        xml_ += "<return expression='^static^pkg^ExTwo.getstatic()+8i'/>\n";
+        xml_ += "<return expression='$static$pkg$ExTwo.getstatic()+8i'/>\n";
         xml_ += "</method>\n";
         xml_ += "</class>\n";
         StringMap<String> files_ = new StringMap<String>();
@@ -4170,19 +4170,19 @@ public class ProcessXmlMethodTest {
         xml_ += "<affect left='t;.' oper='=' right='8'/>\n";
         xml_ += "<if condition='t;.%2=0'>\n";
         xml_ += "<affect left='t;.' oper='+=' right='8'/>\n";
-        xml_ += "<return expression='1i+^class(&quot;"+PrimitiveTypeUtil.PRIM_INT+"&quot;,t;.)'/>\n";
+        xml_ += "<return expression='1i+$class(&quot;"+PrimitiveTypeUtil.PRIM_INT+"&quot;,t;.)'/>\n";
         xml_ += "</if>\n";
         xml_ += "<elseif condition='t;.&lt;0'>\n";
         xml_ += "<affect left='t;.' oper='+=' right='2'/>\n";
-        xml_ += "<return expression='1i+^class(&quot;"+PrimitiveTypeUtil.PRIM_INT+"&quot;,t;.)'/>\n";
+        xml_ += "<return expression='1i+$class(&quot;"+PrimitiveTypeUtil.PRIM_INT+"&quot;,t;.)'/>\n";
         xml_ += "</elseif>\n";
         xml_ += "<if condition='t;.%2=0'>\n";
         xml_ += "<affect left='t;.' oper='+=' right='8'/>\n";
-        xml_ += "<return expression='1i+^class(&quot;"+PrimitiveTypeUtil.PRIM_INT+"&quot;,t;.)'/>\n";
+        xml_ += "<return expression='1i+$class(&quot;"+PrimitiveTypeUtil.PRIM_INT+"&quot;,t;.)'/>\n";
         xml_ += "</if>\n";
         xml_ += "<else condition='t;.&lt;0'>\n";
         xml_ += "<affect left='t;.' oper='+=' right='2'/>\n";
-        xml_ += "<return expression='1i+^class(&quot;"+PrimitiveTypeUtil.PRIM_INT+"&quot;,t;.)'/>\n";
+        xml_ += "<return expression='1i+$class(&quot;"+PrimitiveTypeUtil.PRIM_INT+"&quot;,t;.)'/>\n";
         xml_ += "</else>\n";
 //        xml_ += "<return expression='1i+class(&quot;"+PrimitiveTypeUtil.PRIM_INT+"&quot;,t;.)'/>\n";
         xml_ += "</method>\n";
@@ -4208,7 +4208,7 @@ public class ProcessXmlMethodTest {
     public void calculateArgument1031Test() {
         String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg'>\n";
         xml_ += "<method access='"+PUBLIC_ACCESS+"' modifier='static' name='exmeth' class='"+PrimitiveTypeUtil.PRIM_INT+"'>\n";
-        xml_ += "<return expression='^static^pkg^ExTwo.getstatic()+8i'/>\n";
+        xml_ += "<return expression='$static$pkg$ExTwo.getstatic()+8i'/>\n";
         xml_ += "</method>\n";
         xml_ += "</class>\n";
         StringMap<String> files_ = new StringMap<String>();
@@ -4236,19 +4236,19 @@ public class ProcessXmlMethodTest {
         xml_ += "<affect left='t;.' oper='=' right='8'/>\n";
         xml_ += "<if condition='t;.%2=0'>\n";
         xml_ += "<affect left='t;.' oper='+=' right='8'/>\n";
-        xml_ += "<return expression='1i+^class(&quot;"+PrimitiveTypeUtil.PRIM_INT+"&quot;,t;.)'/>\n";
+        xml_ += "<return expression='1i+$class(&quot;"+PrimitiveTypeUtil.PRIM_INT+"&quot;,t;.)'/>\n";
         xml_ += "</if>\n";
         xml_ += "<elseif condition='t;.&lt;0'>\n";
         xml_ += "<affect left='t;.' oper='+=' right='2'/>\n";
-        xml_ += "<return expression='1i+^class(&quot;"+PrimitiveTypeUtil.PRIM_INT+"&quot;,t;.)'/>\n";
+        xml_ += "<return expression='1i+$class(&quot;"+PrimitiveTypeUtil.PRIM_INT+"&quot;,t;.)'/>\n";
         xml_ += "</elseif>\n";
         xml_ += "<if condition='t;.%2=0'>\n";
         xml_ += "<affect left='t;.' oper='+=' right='8'/>\n";
-        xml_ += "<return expression='1i+^class(&quot;"+PrimitiveTypeUtil.PRIM_INT+"&quot;,t;.)'/>\n";
+        xml_ += "<return expression='1i+$class(&quot;"+PrimitiveTypeUtil.PRIM_INT+"&quot;,t;.)'/>\n";
         xml_ += "</if>\n";
         xml_ += "<else condition='t;.&lt;0'>\n";
         xml_ += "<affect left='t;.' oper='+=' right='2'/>\n";
-        xml_ += "<return expression='1i+^class(&quot;"+PrimitiveTypeUtil.PRIM_INT+"&quot;,t;.)'/>\n";
+        xml_ += "<return expression='1i+$class(&quot;"+PrimitiveTypeUtil.PRIM_INT+"&quot;,t;.)'/>\n";
         xml_ += "</else>\n";
 //        xml_ += "<return expression='1i+class(&quot;"+PrimitiveTypeUtil.PRIM_INT+"&quot;,t;.)'/>\n";
         xml_ += "</method>\n";
@@ -4280,7 +4280,7 @@ public class ProcessXmlMethodTest {
         xml_ += "<declare var='t' class='"+PrimitiveTypeUtil.PRIM_LONG+"'/>\n";
         xml_ += "<affect left='t;.' oper='=' right='8'/>\n";
 
-        xml_ += "<declareset var='p' class='"+PICKABLE_LIST+"' expression='^new."+PICKABLE_LIST+"()'/>\n";
+        xml_ += "<declareset var='p' class='"+PICKABLE_LIST+"' expression='$new "+PICKABLE_LIST+"()'/>\n";
         xml_ += "<line expression='adding(p;.,0)'/>\n";
         xml_ += "<line expression='adding(p;.,2)'/>\n";
 //        xml_ += "<while condition='p;.removeAndExistAfter(1i)'>\n";
@@ -4297,14 +4297,14 @@ public class ProcessXmlMethodTest {
         xml_ += "</else>\n";
         xml_ += "</foreach>\n";
 //        xml_ += "<return expression='1i+class(&quot;"+PrimitiveTypeUtil.PRIM_INT+"&quot;,t;.)'/>\n";
-        xml_ += "<return expression='1i+^class(&quot;"+PrimitiveTypeUtil.PRIM_INT+"&quot;,t;.)+p;.getList().size()'/>\n";
+        xml_ += "<return expression='1i+$class(&quot;"+PrimitiveTypeUtil.PRIM_INT+"&quot;,t;.)+p;.getList().size()'/>\n";
         xml_ += "</method>\n";
         xml_ += "<method access='"+PUBLIC_ACCESS+"' modifier='static' name='adding' class='"+OperationNode.VOID_RETURN+"' class0='"+PICKABLE_LIST+"' var0='l' class1='java.lang.Object' var1='o'>\n";
         xml_ += "<line expression='l;.;getList().add(o;.;)'/>\n";
         xml_ += "</method>\n";
         xml_ += "<method access='"+PUBLIC_ACCESS+"' modifier='static' name='exmethlist' class='"+NUMBERS+"'>\n";
         xml_ += "<declare var='t' class='"+NUMBERS+"'/>\n";
-        xml_ += "<affect left='t;.' oper='=' right='^new."+NUMBERS+"()'/>\n";
+        xml_ += "<affect left='t;.' oper='=' right='$new "+NUMBERS+"()'/>\n";
 //        xml_ += "<line expression='t;.add(class(&quot;java.lang.Object&quot;,8i))'/>\n";
         xml_ += "<line expression='t;.add(8i)'/>\n";
 //        xml_ += "<line expression='t;.add(class(&quot;java.lang.Object&quot;,2i))'/>\n";
@@ -4373,7 +4373,7 @@ public class ProcessXmlMethodTest {
         xml_ += "<declare var='t' class='"+PrimitiveTypeUtil.PRIM_LONG+"'/>\n";
         xml_ += "<affect left='t;.' oper='=' right='8'/>\n";
 
-        xml_ += "<declareset var='p' class='"+PICKABLE_LIST+"' expression='^new."+PICKABLE_LIST+"()'/>\n";
+        xml_ += "<declareset var='p' class='"+PICKABLE_LIST+"' expression='$new "+PICKABLE_LIST+"()'/>\n";
         xml_ += "<line expression='adding(p;.,0)'/>\n";
         xml_ += "<line expression='adding(p;.,2)'/>\n";
 //        xml_ += "<while condition='p;.removeAndExistAfter(1i)'>\n";
@@ -4390,14 +4390,14 @@ public class ProcessXmlMethodTest {
         xml_ += "</else>\n";
         xml_ += "</foreach>\n";
 //        xml_ += "<return expression='1i+class(&quot;"+PrimitiveTypeUtil.PRIM_INT+"&quot;,t;.)'/>\n";
-        xml_ += "<return expression='1i+^class(&quot;"+PrimitiveTypeUtil.PRIM_INT+"&quot;,t;.)+p;.getList().size()'/>\n";
+        xml_ += "<return expression='1i+$class(&quot;"+PrimitiveTypeUtil.PRIM_INT+"&quot;,t;.)+p;.getList().size()'/>\n";
         xml_ += "</method>\n";
         xml_ += "<method access='"+PUBLIC_ACCESS+"' modifier='static' name='adding' class='"+OperationNode.VOID_RETURN+"' class0='"+PICKABLE_LIST+"' var0='l' class1='java.lang.Object' var1='o'>\n";
         xml_ += "<line expression='l;.;getList().add(o;.;)'/>\n";
         xml_ += "</method>\n";
         xml_ += "<method access='"+PUBLIC_ACCESS+"' modifier='static' name='exmethlist' class='"+NUMBERS+"'>\n";
         xml_ += "<declare var='t' class='"+NUMBERS+"'/>\n";
-        xml_ += "<affect left='t;.' oper='=' right='^new."+NUMBERS+"()'/>\n";
+        xml_ += "<affect left='t;.' oper='=' right='$new "+NUMBERS+"()'/>\n";
 //        xml_ += "<line expression='t;.add(class(&quot;java.lang.Object&quot;,8i))'/>\n";
         xml_ += "<line expression='t;.add(8i)'/>\n";
 //        xml_ += "<line expression='t;.add(class(&quot;java.lang.Object&quot;,2i))'/>\n";
@@ -4467,7 +4467,7 @@ public class ProcessXmlMethodTest {
         xml_ += "<declare var='t' class='"+PrimitiveTypeUtil.PRIM_LONG+"'/>\n";
         xml_ += "<affect left='t;.' oper='=' right='8'/>\n";
 
-        xml_ += "<declareset var='p' class='"+PICKABLE_LIST+"' expression='^new."+PICKABLE_LIST+"()'/>\n";
+        xml_ += "<declareset var='p' class='"+PICKABLE_LIST+"' expression='$new "+PICKABLE_LIST+"()'/>\n";
         xml_ += "<line expression='adding(p;.,0)'/>\n";
         xml_ += "<line expression='adding(p;.,2)'/>\n";
 //        xml_ += "<while condition='p;.removeAndExistAfter(1i)'>\n";
@@ -4484,14 +4484,14 @@ public class ProcessXmlMethodTest {
         xml_ += "</else>\n";
         xml_ += "</foreach>\n";
 //        xml_ += "<return expression='1i+class(&quot;"+PrimitiveTypeUtil.PRIM_INT+"&quot;,t;.)'/>\n";
-        xml_ += "<return expression='1i+^class(&quot;"+PrimitiveTypeUtil.PRIM_INT+"&quot;,t;.)+p;.getList().size()'/>\n";
+        xml_ += "<return expression='1i+$class(&quot;"+PrimitiveTypeUtil.PRIM_INT+"&quot;,t;.)+p;.getList().size()'/>\n";
         xml_ += "</method>\n";
         xml_ += "<method access='"+PUBLIC_ACCESS+"' modifier='static' name='adding' class='"+OperationNode.VOID_RETURN+"' class0='"+PICKABLE_LIST+"' var0='l' class1='java.lang.Object' var1='o'>\n";
         xml_ += "<line expression='l;.;getList().add(o;.;)'/>\n";
         xml_ += "</method>\n";
         xml_ += "<method access='"+PUBLIC_ACCESS+"' modifier='static' name='exmethlist' class='"+NUMBERS+"'>\n";
         xml_ += "<declare var='t' class='"+NUMBERS+"'/>\n";
-        xml_ += "<affect left='t;.' oper='=' right='^new."+NUMBERS+"()'/>\n";
+        xml_ += "<affect left='t;.' oper='=' right='$new "+NUMBERS+"()'/>\n";
 //        xml_ += "<line expression='t;.add(class(&quot;java.lang.Object&quot;,8i))'/>\n";
         xml_ += "<line expression='t;.add(8i)'/>\n";
 //        xml_ += "<line expression='t;.add(class(&quot;java.lang.Object&quot;,2i))'/>\n";
@@ -4563,7 +4563,7 @@ public class ProcessXmlMethodTest {
         xml_ += "<declare var='t' class='"+PrimitiveTypeUtil.PRIM_LONG+"'/>\n";
         xml_ += "<affect left='t;.' oper='=' right='8'/>\n";
 
-        xml_ += "<declareset var='p' class='"+PICKABLE_LIST+"' expression='^new."+PICKABLE_LIST+"()'/>\n";
+        xml_ += "<declareset var='p' class='"+PICKABLE_LIST+"' expression='$new "+PICKABLE_LIST+"()'/>\n";
         xml_ += "<line expression='adding(p;.,0)'/>\n";
         xml_ += "<line expression='adding(p;.,2)'/>\n";
 //        xml_ += "<while condition='p;.removeAndExistAfter(1i)'>\n";
@@ -4580,14 +4580,14 @@ public class ProcessXmlMethodTest {
         xml_ += "</else>\n";
         xml_ += "</foreach>\n";
 //        xml_ += "<return expression='1i+class(&quot;"+PrimitiveTypeUtil.PRIM_INT+"&quot;,t;.)'/>\n";
-        xml_ += "<return expression='1i+^class(&quot;"+PrimitiveTypeUtil.PRIM_INT+"&quot;,t;.)+p;.getList().size()'/>\n";
+        xml_ += "<return expression='1i+$class(&quot;"+PrimitiveTypeUtil.PRIM_INT+"&quot;,t;.)+p;.getList().size()'/>\n";
         xml_ += "</method>\n";
         xml_ += "<method access='"+PUBLIC_ACCESS+"' modifier='static' name='adding' class='"+OperationNode.VOID_RETURN+"' class0='"+PICKABLE_LIST+"' var0='l' class1='java.lang.Object' var1='o'>\n";
         xml_ += "<line expression='l;.;getList().add(o;.;)'/>\n";
         xml_ += "</method>\n";
         xml_ += "<method access='"+PUBLIC_ACCESS+"' modifier='static' name='exmethlist' class='"+NUMBERS+"'>\n";
         xml_ += "<declare var='t' class='"+NUMBERS+"'/>\n";
-        xml_ += "<affect left='t;.' oper='=' right='^new."+NUMBERS+"()'/>\n";
+        xml_ += "<affect left='t;.' oper='=' right='$new "+NUMBERS+"()'/>\n";
 //        xml_ += "<line expression='t;.add(class(&quot;java.lang.Object&quot;,8i))'/>\n";
         xml_ += "<line expression='t;.add(8i)'/>\n";
 //        xml_ += "<line expression='t;.add(class(&quot;java.lang.Object&quot;,2i))'/>\n";
@@ -4661,7 +4661,7 @@ public class ProcessXmlMethodTest {
         xml_ += "<declare var='t' class='"+PrimitiveTypeUtil.PRIM_LONG+"'/>\n";
         xml_ += "<affect left='t;.' oper='=' right='8'/>\n";
 
-        xml_ += "<declareset var='p' class='"+PICKABLE_LIST+"' expression='^new."+PICKABLE_LIST+"()'/>\n";
+        xml_ += "<declareset var='p' class='"+PICKABLE_LIST+"' expression='$new "+PICKABLE_LIST+"()'/>\n";
         xml_ += "<line expression='adding(p;.,0)'/>\n";
         xml_ += "<line expression='adding(p;.,2)'/>\n";
 //        xml_ += "<while condition='p;.removeAndExistAfter(1i)'>\n";
@@ -4678,14 +4678,14 @@ public class ProcessXmlMethodTest {
         xml_ += "</else>\n";
         xml_ += "</foreach>\n";
 //        xml_ += "<return expression='1i+class(&quot;"+PrimitiveTypeUtil.PRIM_INT+"&quot;,t;.)'/>\n";
-        xml_ += "<return expression='1i+^class(&quot;"+PrimitiveTypeUtil.PRIM_INT+"&quot;,t;.)+p;.getList().size()'/>\n";
+        xml_ += "<return expression='1i+$class(&quot;"+PrimitiveTypeUtil.PRIM_INT+"&quot;,t;.)+p;.getList().size()'/>\n";
         xml_ += "</method>\n";
         xml_ += "<method access='"+PUBLIC_ACCESS+"' modifier='static' name='adding' class='"+OperationNode.VOID_RETURN+"' class0='"+PICKABLE_LIST+"' var0='l' class1='java.lang.Object' var1='o'>\n";
         xml_ += "<line expression='l;.;getList().add(o;.;)'/>\n";
         xml_ += "</method>\n";
         xml_ += "<method access='"+PUBLIC_ACCESS+"' modifier='static' name='exmethlist' class='"+NUMBERS+"'>\n";
         xml_ += "<declare var='t' class='"+NUMBERS+"'/>\n";
-        xml_ += "<affect left='t;.' oper='=' right='^new."+NUMBERS+"()'/>\n";
+        xml_ += "<affect left='t;.' oper='=' right='$new "+NUMBERS+"()'/>\n";
 //        xml_ += "<line expression='t;.add(class(&quot;java.lang.Object&quot;,8i))'/>\n";
         xml_ += "<line expression='t;.add(8i)'/>\n";
 //        xml_ += "<line expression='t;.add(class(&quot;java.lang.Object&quot;,2i))'/>\n";
@@ -4760,7 +4760,7 @@ public class ProcessXmlMethodTest {
         xml_ += "<declare var='t' class='"+PrimitiveTypeUtil.PRIM_LONG+"'/>\n";
         xml_ += "<affect left='t;.' oper='=' right='8'/>\n";
 
-        xml_ += "<declareset var='p' class='"+PICKABLE_LIST+"' expression='^new."+PICKABLE_LIST+"()'/>\n";
+        xml_ += "<declareset var='p' class='"+PICKABLE_LIST+"' expression='$new "+PICKABLE_LIST+"()'/>\n";
         xml_ += "<line expression='adding(p;.,0)'/>\n";
         xml_ += "<line expression='adding(p;.,2)'/>\n";
 //        xml_ += "<while condition='p;.removeAndExistAfter(1i)'>\n";
@@ -4777,14 +4777,14 @@ public class ProcessXmlMethodTest {
         xml_ += "</else>\n";
         xml_ += "</foreach>\n";
 //        xml_ += "<return expression='1i+class(&quot;"+PrimitiveTypeUtil.PRIM_INT+"&quot;,t;.)'/>\n";
-        xml_ += "<return expression='1i+^class(&quot;"+PrimitiveTypeUtil.PRIM_INT+"&quot;,t;.)+p;.getList().size()'/>\n";
+        xml_ += "<return expression='1i+$class(&quot;"+PrimitiveTypeUtil.PRIM_INT+"&quot;,t;.)+p;.getList().size()'/>\n";
         xml_ += "</method>\n";
         xml_ += "<method access='"+PUBLIC_ACCESS+"' modifier='static' name='adding' class='"+OperationNode.VOID_RETURN+"' class0='"+PICKABLE_LIST+"' var0='l' class1='java.lang.Object' var1='o'>\n";
         xml_ += "<line expression='l;.;getList().add(o;.;)'/>\n";
         xml_ += "</method>\n";
         xml_ += "<method access='"+PUBLIC_ACCESS+"' modifier='static' name='exmethlist' class='"+NUMBERS+"'>\n";
         xml_ += "<declare var='t' class='"+NUMBERS+"'/>\n";
-        xml_ += "<affect left='t;.' oper='=' right='^new."+NUMBERS+"()'/>\n";
+        xml_ += "<affect left='t;.' oper='=' right='$new "+NUMBERS+"()'/>\n";
 //        xml_ += "<line expression='t;.add(class(&quot;java.lang.Object&quot;,8i))'/>\n";
         xml_ += "<line expression='t;.add(8i)'/>\n";
 //        xml_ += "<line expression='t;.add(class(&quot;java.lang.Object&quot;,2i))'/>\n";
@@ -4827,7 +4827,7 @@ public class ProcessXmlMethodTest {
         xml_ += "<declare var='t' class='"+PrimitiveTypeUtil.PRIM_LONG+"'/>\n";
         xml_ += "<affect left='t;.' oper='=' right='8'/>\n";
 
-        xml_ += "<declareset var='p' class='"+PICKABLE_LIST+"' expression='^new."+PICKABLE_LIST+"()'/>\n";
+        xml_ += "<declareset var='p' class='"+PICKABLE_LIST+"' expression='$new "+PICKABLE_LIST+"()'/>\n";
         xml_ += "<line expression='adding(p;.,0)'/>\n";
         xml_ += "<line expression='adding(p;.,2)'/>\n";
 //        xml_ += "<while condition='p;.removeAndExistAfter(1i)'>\n";
@@ -4844,14 +4844,14 @@ public class ProcessXmlMethodTest {
         xml_ += "</else>\n";
         xml_ += "</foreach>\n";
 //        xml_ += "<return expression='1i+class(&quot;"+PrimitiveTypeUtil.PRIM_INT+"&quot;,t;.)'/>\n";
-        xml_ += "<return expression='1i+^class(&quot;"+PrimitiveTypeUtil.PRIM_INT+"&quot;,t;.)+p;.getList().size()'/>\n";
+        xml_ += "<return expression='1i+$class(&quot;"+PrimitiveTypeUtil.PRIM_INT+"&quot;,t;.)+p;.getList().size()'/>\n";
         xml_ += "</method>\n";
         xml_ += "<method access='"+PUBLIC_ACCESS+"' modifier='static' name='adding' class='"+OperationNode.VOID_RETURN+"' class0='"+PICKABLE_LIST+"' var0='l' class1='java.lang.Object' var1='o'>\n";
         xml_ += "<line expression='l;.;getList().add(o;.;)'/>\n";
         xml_ += "</method>\n";
         xml_ += "<method access='"+PUBLIC_ACCESS+"' modifier='static' name='exmethlist' class='"+NUMBERS+"'>\n";
         xml_ += "<declare var='t' class='"+NUMBERS+"'/>\n";
-        xml_ += "<affect left='t;.' oper='=' right='^new."+NUMBERS+"()'/>\n";
+        xml_ += "<affect left='t;.' oper='=' right='$new "+NUMBERS+"()'/>\n";
 //        xml_ += "<line expression='t;.add(class(&quot;java.lang.Object&quot;,8i))'/>\n";
         xml_ += "<line expression='t;.add(8i)'/>\n";
 //        xml_ += "<line expression='t;.add(class(&quot;java.lang.Object&quot;,2i))'/>\n";
@@ -4921,7 +4921,7 @@ public class ProcessXmlMethodTest {
         xml_ += "<declare var='t' class='"+PrimitiveTypeUtil.PRIM_LONG+"'/>\n";
         xml_ += "<affect left='t;.' oper='=' right='8'/>\n";
 
-        xml_ += "<declareset var='p' class='"+PICKABLE_LIST+"' expression='^new."+PICKABLE_LIST+"()'/>\n";
+        xml_ += "<declareset var='p' class='"+PICKABLE_LIST+"' expression='$new "+PICKABLE_LIST+"()'/>\n";
         xml_ += "<line expression='adding(p;.,0)'/>\n";
         xml_ += "<line expression='adding(p;.,2)'/>\n";
 //        xml_ += "<while condition='p;.removeAndExistAfter(1i)'>\n";
@@ -4938,14 +4938,14 @@ public class ProcessXmlMethodTest {
         xml_ += "</else>\n";
         xml_ += "</foreach>\n";
 //        xml_ += "<return expression='1i+class(&quot;"+PrimitiveTypeUtil.PRIM_INT+"&quot;,t;.)'/>\n";
-        xml_ += "<return expression='1i+^class(&quot;"+PrimitiveTypeUtil.PRIM_INT+"&quot;,t;.)+p;.getList().size()'/>\n";
+        xml_ += "<return expression='1i+$class(&quot;"+PrimitiveTypeUtil.PRIM_INT+"&quot;,t;.)+p;.getList().size()'/>\n";
         xml_ += "</method>\n";
         xml_ += "<method access='"+PUBLIC_ACCESS+"' modifier='static' name='adding' class='"+OperationNode.VOID_RETURN+"' class0='"+PICKABLE_LIST+"' var0='l' class1='java.lang.Object' var1='o'>\n";
         xml_ += "<line expression='l;.;getList().add(o;.;)'/>\n";
         xml_ += "</method>\n";
         xml_ += "<method access='"+PUBLIC_ACCESS+"' modifier='static' name='exmethlist' class='"+NUMBERS+"'>\n";
         xml_ += "<declare var='t' class='"+NUMBERS+"'/>\n";
-        xml_ += "<affect left='t;.' oper='=' right='^new."+NUMBERS+"()'/>\n";
+        xml_ += "<affect left='t;.' oper='=' right='$new "+NUMBERS+"()'/>\n";
 //        xml_ += "<line expression='t;.add(class(&quot;java.lang.Object&quot;,8i))'/>\n";
         xml_ += "<line expression='t;.add(8i)'/>\n";
 //        xml_ += "<line expression='t;.add(class(&quot;java.lang.Object&quot;,2i))'/>\n";
@@ -4988,7 +4988,7 @@ public class ProcessXmlMethodTest {
         xml_ += "<return expression='1i/0i'/>\n";
         xml_ += "</method>\n";
         xml_ += "<method access='"+PUBLIC_ACCESS+"' modifier='static' name='exception' class='java.lang.Throwable'>\n";
-        xml_ += "<return expression='^new.java.lang.Throwable()'/>\n";
+        xml_ += "<return expression='$new java.lang.Throwable()'/>\n";
         xml_ += "</method>\n";
         xml_ += "</class>\n";
         StringMap<String> files_ = new StringMap<String>();
@@ -5007,7 +5007,7 @@ public class ProcessXmlMethodTest {
     public void calculateArgument1040Test() {
         String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg'>\n";
         xml_ += "<method access='"+PUBLIC_ACCESS+"' modifier='static' name='exmeth' class='"+PrimitiveTypeUtil.PRIM_INT+"'>\n";
-        xml_ += "<return expression='^static^pkg^ExTwo.getstatic()+8i'/>\n";
+        xml_ += "<return expression='$static$pkg$ExTwo.getstatic()+8i'/>\n";
         xml_ += "</method>\n";
         xml_ += "</class>\n";
         StringMap<String> files_ = new StringMap<String>();
@@ -5023,19 +5023,19 @@ public class ProcessXmlMethodTest {
         xml_ += "<affect left='t;.' oper='=' right='8'/>\n";
         xml_ += "<if condition='t;.%2=0'>\n";
         xml_ += "<affect left='t;.' oper='+=' right='8'/>\n";
-        xml_ += "<return expression='1i+^class(&quot;"+PrimitiveTypeUtil.PRIM_INT+"&quot;,t;.)'/>\n";
+        xml_ += "<return expression='1i+$class(&quot;"+PrimitiveTypeUtil.PRIM_INT+"&quot;,t;.)'/>\n";
         xml_ += "</if>\n";
         xml_ += "<elseif condition='t;.&lt;0'>\n";
         xml_ += "<affect left='t;.' oper='+=' right='2'/>\n";
-        xml_ += "<return expression='1i+^class(&quot;"+PrimitiveTypeUtil.PRIM_INT+"&quot;,t;.)'/>\n";
+        xml_ += "<return expression='1i+$class(&quot;"+PrimitiveTypeUtil.PRIM_INT+"&quot;,t;.)'/>\n";
         xml_ += "</elseif>\n";
         xml_ += "<if condition='t;.%2=0'>\n";
         xml_ += "<affect left='t;.' oper='+=' right='8'/>\n";
-        xml_ += "<return expression='1i+^class(&quot;"+PrimitiveTypeUtil.PRIM_INT+"&quot;,t;.)'/>\n";
+        xml_ += "<return expression='1i+$class(&quot;"+PrimitiveTypeUtil.PRIM_INT+"&quot;,t;.)'/>\n";
         xml_ += "</if>\n";
         xml_ += "<else condition='t;.&lt;0'>\n";
         xml_ += "<affect left='t;.' oper='+=' right='2'/>\n";
-        xml_ += "<return expression='1i+^class(&quot;"+PrimitiveTypeUtil.PRIM_INT+"&quot;,t;.)'/>\n";
+        xml_ += "<return expression='1i+$class(&quot;"+PrimitiveTypeUtil.PRIM_INT+"&quot;,t;.)'/>\n";
         xml_ += "</else>\n";
 //        xml_ += "<return expression='1i+class(&quot;"+PrimitiveTypeUtil.PRIM_INT+"&quot;,t;.)'/>\n";
         xml_ += "</method>\n";
@@ -5064,7 +5064,7 @@ public class ProcessXmlMethodTest {
     public void calculateArgument1041Test() {
         String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg'>\n";
         xml_ += "<method access='"+PUBLIC_ACCESS+"' modifier='static' name='exmeth' class='"+PrimitiveTypeUtil.PRIM_INT+"'>\n";
-        xml_ += "<return expression='^static^pkg^ExTwo.getstatic()+8i'/>\n";
+        xml_ += "<return expression='$static$pkg$ExTwo.getstatic()+8i'/>\n";
         xml_ += "</method>\n";
         xml_ += "</class>\n";
         StringMap<String> files_ = new StringMap<String>();
@@ -5080,19 +5080,19 @@ public class ProcessXmlMethodTest {
         xml_ += "<affect left='t;.' oper='=' right='8'/>\n";
         xml_ += "<if condition='t;.%2=0'>\n";
         xml_ += "<affect left='t;.' oper='+=' right='8'/>\n";
-        xml_ += "<return expression='1i+^class(&quot;"+PrimitiveTypeUtil.PRIM_INT+"&quot;,t;.)'/>\n";
+        xml_ += "<return expression='1i+$class(&quot;"+PrimitiveTypeUtil.PRIM_INT+"&quot;,t;.)'/>\n";
         xml_ += "</if>\n";
         xml_ += "<elseif condition='t;.&lt;0'>\n";
         xml_ += "<affect left='t;.' oper='+=' right='2'/>\n";
-        xml_ += "<return expression='1i+^class(&quot;"+PrimitiveTypeUtil.PRIM_INT+"&quot;,t;.)'/>\n";
+        xml_ += "<return expression='1i+$class(&quot;"+PrimitiveTypeUtil.PRIM_INT+"&quot;,t;.)'/>\n";
         xml_ += "</elseif>\n";
         xml_ += "<if condition='t;.%2=0'>\n";
         xml_ += "<affect left='t;.' oper='+=' right='8'/>\n";
-        xml_ += "<return expression='1i+^class(&quot;"+PrimitiveTypeUtil.PRIM_INT+"&quot;,t;.)'/>\n";
+        xml_ += "<return expression='1i+$class(&quot;"+PrimitiveTypeUtil.PRIM_INT+"&quot;,t;.)'/>\n";
         xml_ += "</if>\n";
         xml_ += "<else condition='t;.&lt;0'>\n";
         xml_ += "<affect left='t;.' oper='+=' right='2'/>\n";
-        xml_ += "<return expression='1i+^class(&quot;"+PrimitiveTypeUtil.PRIM_INT+"&quot;,t;.)'/>\n";
+        xml_ += "<return expression='1i+$class(&quot;"+PrimitiveTypeUtil.PRIM_INT+"&quot;,t;.)'/>\n";
         xml_ += "</else>\n";
 //        xml_ += "<return expression='1i+class(&quot;"+PrimitiveTypeUtil.PRIM_INT+"&quot;,t;.)'/>\n";
         xml_ += "</method>\n";
@@ -5122,7 +5122,7 @@ public class ProcessXmlMethodTest {
     public void calculateArgument1042Test() {
         String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg'>\n";
         xml_ += "<method access='"+PUBLIC_ACCESS+"' modifier='static' name='exmeth' class='"+PrimitiveTypeUtil.PRIM_INT+"'>\n";
-        xml_ += "<return expression='^static^pkg^ExTwo.getstatic()+8i'/>\n";
+        xml_ += "<return expression='$static$pkg$ExTwo.getstatic()+8i'/>\n";
         xml_ += "</method>\n";
         xml_ += "</class>\n";
         StringMap<String> files_ = new StringMap<String>();
@@ -5138,19 +5138,19 @@ public class ProcessXmlMethodTest {
         xml_ += "<affect left='t;.' oper='=' right='8'/>\n";
         xml_ += "<if condition='t;.%2=0'>\n";
         xml_ += "<affect left='t;.' oper='+=' right='8'/>\n";
-        xml_ += "<return expression='1i+^class(&quot;"+PrimitiveTypeUtil.PRIM_INT+"&quot;,t;.)'/>\n";
+        xml_ += "<return expression='1i+$class(&quot;"+PrimitiveTypeUtil.PRIM_INT+"&quot;,t;.)'/>\n";
         xml_ += "</if>\n";
         xml_ += "<elseif condition='t;.&lt;0'>\n";
         xml_ += "<affect left='t;.' oper='+=' right='2'/>\n";
-        xml_ += "<return expression='1i+^class(&quot;"+PrimitiveTypeUtil.PRIM_INT+"&quot;,t;.)'/>\n";
+        xml_ += "<return expression='1i+$class(&quot;"+PrimitiveTypeUtil.PRIM_INT+"&quot;,t;.)'/>\n";
         xml_ += "</elseif>\n";
         xml_ += "<if condition='t;.%2=0'>\n";
         xml_ += "<affect left='t;.' oper='+=' right='8'/>\n";
-        xml_ += "<return expression='1i+^class(&quot;"+PrimitiveTypeUtil.PRIM_INT+"&quot;,t;.)'/>\n";
+        xml_ += "<return expression='1i+$class(&quot;"+PrimitiveTypeUtil.PRIM_INT+"&quot;,t;.)'/>\n";
         xml_ += "</if>\n";
         xml_ += "<else condition='t;.&lt;0'>\n";
         xml_ += "<affect left='t;.' oper='+=' right='2'/>\n";
-        xml_ += "<return expression='1i+^class(&quot;"+PrimitiveTypeUtil.PRIM_INT+"&quot;,t;.)'/>\n";
+        xml_ += "<return expression='1i+$class(&quot;"+PrimitiveTypeUtil.PRIM_INT+"&quot;,t;.)'/>\n";
         xml_ += "</else>\n";
 //        xml_ += "<return expression='1i+class(&quot;"+PrimitiveTypeUtil.PRIM_INT+"&quot;,t;.)'/>\n";
         xml_ += "</method>\n";
@@ -5185,7 +5185,7 @@ public class ProcessXmlMethodTest {
     public void calculateArgument1043Test() {
         String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg'>\n";
         xml_ += "<method access='"+PUBLIC_ACCESS+"' modifier='static' name='exmeth' class='"+PrimitiveTypeUtil.PRIM_INT+"'>\n";
-        xml_ += "<return expression='^static^pkg^ExTwo.getstatic()+8i'/>\n";
+        xml_ += "<return expression='$static$pkg$ExTwo.getstatic()+8i'/>\n";
         xml_ += "</method>\n";
         xml_ += "</class>\n";
         StringMap<String> files_ = new StringMap<String>();
@@ -5201,19 +5201,19 @@ public class ProcessXmlMethodTest {
         xml_ += "<affect left='t;.' oper='=' right='8'/>\n";
         xml_ += "<if condition='t;.%2=0'>\n";
         xml_ += "<affect left='t;.' oper='+=' right='8'/>\n";
-        xml_ += "<return expression='1i+^class(&quot;"+PrimitiveTypeUtil.PRIM_INT+"&quot;,t;.)'/>\n";
+        xml_ += "<return expression='1i+$class(&quot;"+PrimitiveTypeUtil.PRIM_INT+"&quot;,t;.)'/>\n";
         xml_ += "</if>\n";
         xml_ += "<elseif condition='t;.&lt;0'>\n";
         xml_ += "<affect left='t;.' oper='+=' right='2'/>\n";
-        xml_ += "<return expression='1i+^class(&quot;"+PrimitiveTypeUtil.PRIM_INT+"&quot;,t;.)'/>\n";
+        xml_ += "<return expression='1i+$class(&quot;"+PrimitiveTypeUtil.PRIM_INT+"&quot;,t;.)'/>\n";
         xml_ += "</elseif>\n";
         xml_ += "<if condition='t;.%2=0'>\n";
         xml_ += "<affect left='t;.' oper='+=' right='8'/>\n";
-        xml_ += "<return expression='1i+^class(&quot;"+PrimitiveTypeUtil.PRIM_INT+"&quot;,t;.)'/>\n";
+        xml_ += "<return expression='1i+$class(&quot;"+PrimitiveTypeUtil.PRIM_INT+"&quot;,t;.)'/>\n";
         xml_ += "</if>\n";
         xml_ += "<else condition='t;.&lt;0'>\n";
         xml_ += "<affect left='t;.' oper='+=' right='2'/>\n";
-        xml_ += "<return expression='1i+^class(&quot;"+PrimitiveTypeUtil.PRIM_INT+"&quot;,t;.)'/>\n";
+        xml_ += "<return expression='1i+$class(&quot;"+PrimitiveTypeUtil.PRIM_INT+"&quot;,t;.)'/>\n";
         xml_ += "</else>\n";
 //        xml_ += "<return expression='1i+class(&quot;"+PrimitiveTypeUtil.PRIM_INT+"&quot;,t;.)'/>\n";
         xml_ += "</method>\n";
@@ -5253,7 +5253,7 @@ public class ProcessXmlMethodTest {
     public void calculateArgument1044Test() {
         String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg'>\n";
         xml_ += "<method access='"+PUBLIC_ACCESS+"' modifier='static' name='exmeth' class='"+PrimitiveTypeUtil.PRIM_INT+"'>\n";
-        xml_ += "<return expression='^static^pkg^ExTwo.getstatic()+8i'/>\n";
+        xml_ += "<return expression='$static$pkg$ExTwo.getstatic()+8i'/>\n";
         xml_ += "</method>\n";
         xml_ += "</class>\n";
         StringMap<String> files_ = new StringMap<String>();
@@ -5269,19 +5269,19 @@ public class ProcessXmlMethodTest {
         xml_ += "<affect left='t;.' oper='=' right='8'/>\n";
         xml_ += "<if condition='t;.%2=0'>\n";
         xml_ += "<affect left='t;.' oper='+=' right='8'/>\n";
-        xml_ += "<return expression='1i+^class(&quot;"+PrimitiveTypeUtil.PRIM_INT+"&quot;,t;.)'/>\n";
+        xml_ += "<return expression='1i+$class(&quot;"+PrimitiveTypeUtil.PRIM_INT+"&quot;,t;.)'/>\n";
         xml_ += "</if>\n";
         xml_ += "<elseif condition='t;.&lt;0'>\n";
         xml_ += "<affect left='t;.' oper='+=' right='2'/>\n";
-        xml_ += "<return expression='1i+^class(&quot;"+PrimitiveTypeUtil.PRIM_INT+"&quot;,t;.)'/>\n";
+        xml_ += "<return expression='1i+$class(&quot;"+PrimitiveTypeUtil.PRIM_INT+"&quot;,t;.)'/>\n";
         xml_ += "</elseif>\n";
         xml_ += "<if condition='t;.%2=0'>\n";
         xml_ += "<affect left='t;.' oper='+=' right='8'/>\n";
-        xml_ += "<return expression='1i+^class(&quot;"+PrimitiveTypeUtil.PRIM_INT+"&quot;,t;.)'/>\n";
+        xml_ += "<return expression='1i+$class(&quot;"+PrimitiveTypeUtil.PRIM_INT+"&quot;,t;.)'/>\n";
         xml_ += "</if>\n";
         xml_ += "<else condition='t;.&lt;0'>\n";
         xml_ += "<affect left='t;.' oper='+=' right='2'/>\n";
-        xml_ += "<return expression='1i+^class(&quot;"+PrimitiveTypeUtil.PRIM_INT+"&quot;,t;.)'/>\n";
+        xml_ += "<return expression='1i+$class(&quot;"+PrimitiveTypeUtil.PRIM_INT+"&quot;,t;.)'/>\n";
         xml_ += "</else>\n";
 //        xml_ += "<return expression='1i+class(&quot;"+PrimitiveTypeUtil.PRIM_INT+"&quot;,t;.)'/>\n";
         xml_ += "</method>\n";
@@ -5319,7 +5319,7 @@ public class ProcessXmlMethodTest {
         xml_ += "<declare var='t' class='"+PrimitiveTypeUtil.PRIM_LONG+"'/>\n";
         xml_ += "<affect left='t;.' oper='=' right='8'/>\n";
 
-        xml_ += "<declareset var='p' class='"+PICKABLE_LIST+"' expression='^new."+PICKABLE_LIST+"()'/>\n";
+        xml_ += "<declareset var='p' class='"+PICKABLE_LIST+"' expression='$new "+PICKABLE_LIST+"()'/>\n";
         xml_ += "<line expression='adding(p;.,0)'/>\n";
         xml_ += "<line expression='adding(p;.,2)'/>\n";
 //        xml_ += "<while condition='p;.removeAndExistAfter(1i)'>\n";
@@ -5336,14 +5336,14 @@ public class ProcessXmlMethodTest {
         xml_ += "</else>\n";
         xml_ += "</foreach>\n";
 //        xml_ += "<return expression='1i+class(&quot;"+PrimitiveTypeUtil.PRIM_INT+"&quot;,t;.)'/>\n";
-        xml_ += "<return expression='1i+^class(&quot;"+PrimitiveTypeUtil.PRIM_INT+"&quot;,t;.)+p;.getList().size()'/>\n";
+        xml_ += "<return expression='1i+$class(&quot;"+PrimitiveTypeUtil.PRIM_INT+"&quot;,t;.)+p;.getList().size()'/>\n";
         xml_ += "</method>\n";
         xml_ += "<method access='"+PUBLIC_ACCESS+"' modifier='static' name='adding' class='"+OperationNode.VOID_RETURN+"' class0='"+PICKABLE_LIST+"' var0='l' class1='java.lang.Object' var1='o'>\n";
         xml_ += "<line expression='l;.;getList().add(o;.;)'/>\n";
         xml_ += "</method>\n";
         xml_ += "<method access='"+PUBLIC_ACCESS+"' modifier='static' name='exmethlist' class='"+NUMBERS+"'>\n";
         xml_ += "<declare var='t' class='"+NUMBERS+"'/>\n";
-        xml_ += "<affect left='t;.' oper='=' right='^new."+NUMBERS+"()'/>\n";
+        xml_ += "<affect left='t;.' oper='=' right='$new "+NUMBERS+"()'/>\n";
 //        xml_ += "<line expression='t;.add(class(&quot;java.lang.Object&quot;,8i))'/>\n";
         xml_ += "<line expression='t;.add(8i)'/>\n";
 //        xml_ += "<line expression='t;.add(class(&quot;java.lang.Object&quot;,2i))'/>\n";
@@ -5519,7 +5519,7 @@ public class ProcessXmlMethodTest {
         xml_ += "<affect left='first;;;' oper='=' right='i;.;'/>\n";
         xml_ += "</constructor>\n";
         xml_ += "<constructor access='"+PUBLIC_ACCESS+"'>\n";
-        xml_ += "<line expression='^this(5i)'/>\n";
+        xml_ += "<line expression='$this(5i)'/>\n";
         xml_ += "</constructor>\n";
         xml_ += "</enum>\n";
         StringMap<String> files_ = new StringMap<String>();
@@ -5654,7 +5654,7 @@ public class ProcessXmlMethodTest {
         xml_ += "<affect left='inst;;;' oper='=' right='i;.;'/>\n";
         xml_ += "</constructor>\n";
         xml_ += "<constructor access='"+PUBLIC_ACCESS+"'>\n";
-        xml_ += "<line expression='^this(0i)'/>\n";
+        xml_ += "<line expression='$this(0i)'/>\n";
         xml_ += "</constructor>\n";
         xml_ += "</class>\n";
         StringMap<String> files_ = new StringMap<String>();
@@ -5690,7 +5690,7 @@ public class ProcessXmlMethodTest {
         xml_ += "<affect left='inst;;;' oper='=' right='i;.;'/>\n";
         xml_ += "</constructor>\n";
         xml_ += "<constructor access='"+PUBLIC_ACCESS+"'>\n";
-        xml_ += "<line expression='^this(4i)'/>\n";
+        xml_ += "<line expression='$this(4i)'/>\n";
         xml_ += "</constructor>\n";
         xml_ += "</class>\n";
         StringMap<String> files_ = new StringMap<String>();
@@ -5724,10 +5724,10 @@ public class ProcessXmlMethodTest {
         xml_ += "<affect left='ance;;;' oper='=' right='j;.;'/>\n";
         xml_ += "</constructor>\n";
         xml_ += "<constructor access='"+PUBLIC_ACCESS+"' var0='i' class0='"+PrimitiveTypeUtil.PRIM_INT+"'>\n";
-        xml_ += "<line expression='^this(5i,i;.;)'/>\n";
+        xml_ += "<line expression='$this(5i,i;.;)'/>\n";
         xml_ += "</constructor>\n";
         xml_ += "<constructor access='"+PUBLIC_ACCESS+"'>\n";
-        xml_ += "<line expression='^this(4i)'/>\n";
+        xml_ += "<line expression='$this(4i)'/>\n";
         xml_ += "</constructor>\n";
         xml_ += "</class>\n";
         StringMap<String> files_ = new StringMap<String>();
@@ -5766,10 +5766,10 @@ public class ProcessXmlMethodTest {
         xml_ += "<affect left='ance;;;' oper='=' right='j;.;'/>\n";
         xml_ += "</constructor>\n";
         xml_ += "<constructor access='"+PUBLIC_ACCESS+"' var0='i' class0='"+PrimitiveTypeUtil.PRIM_INT+"'>\n";
-        xml_ += "<line expression='^this(5i,i;.;)'/>\n";
+        xml_ += "<line expression='$this(5i,i;.;)'/>\n";
         xml_ += "</constructor>\n";
         xml_ += "<constructor access='"+PUBLIC_ACCESS+"'>\n";
-        xml_ += "<line expression='^this(4i)'/>\n";
+        xml_ += "<line expression='$this(4i)'/>\n";
         xml_ += "<affect left='field;;;' oper='=' right='6i'/>\n";
         xml_ += "</constructor>\n";
         xml_ += "</class>\n";
@@ -5816,10 +5816,10 @@ public class ProcessXmlMethodTest {
         xml_ += "<affect left='ance;;;' oper='=' right='j;.;'/>\n";
         xml_ += "</constructor>\n";
         xml_ += "<constructor access='"+PUBLIC_ACCESS+"' var0='i' class0='"+PrimitiveTypeUtil.PRIM_INT+"'>\n";
-        xml_ += "<line expression='^this(5i,i;.;)'/>\n";
+        xml_ += "<line expression='$this(5i,i;.;)'/>\n";
         xml_ += "</constructor>\n";
         xml_ += "<constructor access='"+PUBLIC_ACCESS+"'>\n";
-        xml_ += "<line expression='^this(4i)'/>\n";
+        xml_ += "<line expression='$this(4i)'/>\n";
         xml_ += "<affect left='field;;;' oper='=' right='6i'/>\n";
         xml_ += "</constructor>\n";
         xml_ += "</class>\n";
@@ -5874,10 +5874,10 @@ public class ProcessXmlMethodTest {
         xml_ += "<affect left='ance;;;' oper='=' right='j;.;'/>\n";
         xml_ += "</constructor>\n";
         xml_ += "<constructor access='"+PUBLIC_ACCESS+"' var0='i' class0='"+PrimitiveTypeUtil.PRIM_INT+"'>\n";
-        xml_ += "<line expression='^this(5i,i;.;)'/>\n";
+        xml_ += "<line expression='$this(5i,i;.;)'/>\n";
         xml_ += "</constructor>\n";
         xml_ += "<constructor access='"+PUBLIC_ACCESS+"'>\n";
-        xml_ += "<line expression='^this(4i)'/>\n";
+        xml_ += "<line expression='$this(4i)'/>\n";
         xml_ += "<affect left='field;;;' oper='=' right='6i'/>\n";
         xml_ += "</constructor>\n";
         xml_ += "</class>\n";
@@ -5924,15 +5924,15 @@ public class ProcessXmlMethodTest {
         xml_ += "<field access='"+PUBLIC_ACCESS+"' name='ance' class='"+PrimitiveTypeUtil.PRIM_INT+"' value='3i'/>\n";
         xml_ += "<field access='"+PUBLIC_ACCESS+"' name='field' class='"+PrimitiveTypeUtil.PRIM_INT+"' value='1i'/>\n";
         xml_ += "<constructor access='"+PUBLIC_ACCESS+"' var0='i' class0='"+PrimitiveTypeUtil.PRIM_INT+"' var1='j' class1='"+PrimitiveTypeUtil.PRIM_INT+"'>\n";
-        xml_ += "<line expression='^super(7i)'/>\n";
+        xml_ += "<line expression='$super(7i)'/>\n";
         xml_ += "<affect left='inst;;;' oper='=' right='i;.;'/>\n";
         xml_ += "<affect left='ance;;;' oper='=' right='j;.;'/>\n";
         xml_ += "</constructor>\n";
         xml_ += "<constructor access='"+PUBLIC_ACCESS+"' var0='i' class0='"+PrimitiveTypeUtil.PRIM_INT+"'>\n";
-        xml_ += "<line expression='^this(5i,i;.;)'/>\n";
+        xml_ += "<line expression='$this(5i,i;.;)'/>\n";
         xml_ += "</constructor>\n";
         xml_ += "<constructor access='"+PUBLIC_ACCESS+"'>\n";
-        xml_ += "<line expression='^this(4i)'/>\n";
+        xml_ += "<line expression='$this(4i)'/>\n";
         xml_ += "<affect left='field;;;' oper='=' right='6i'/>\n";
         xml_ += "</constructor>\n";
         xml_ += "</class>\n";
@@ -6168,7 +6168,7 @@ public class ProcessXmlMethodTest {
         xml_ += "<affect left='sec;;;' oper='+=' right='8i'/>\n";
         xml_ += "</instance>\n";
         xml_ += "<constructor access='"+PUBLIC_ACCESS+"'>\n";
-        xml_ += "<line expression='^super(17i)'/>\n";
+        xml_ += "<line expression='$super(17i)'/>\n";
         xml_ += "<affect left='sec;;;' oper='+=' right='16i'/>\n";
         xml_ += "</constructor>\n";
         xml_ += "</class>\n";
@@ -6220,7 +6220,7 @@ public class ProcessXmlMethodTest {
         xml_ += "<affect left='sec;;;' oper='+=' right='8i'/>\n";
         xml_ += "</instance>\n";
         xml_ += "<constructor access='"+PUBLIC_ACCESS+"'>\n";
-        xml_ += "<line expression='^super(17i)'/>\n";
+        xml_ += "<line expression='$super(17i)'/>\n";
         xml_ += "<affect left='sec;;;' oper='+=' right='16i'/>\n";
         xml_ += "</constructor>\n";
         xml_ += "</class>\n";
@@ -6275,7 +6275,7 @@ public class ProcessXmlMethodTest {
         xml_ += "<affect left='sec;;;' oper='+=' right='8i'/>\n";
         xml_ += "</instance>\n";
         xml_ += "<constructor access='"+PUBLIC_ACCESS+"'>\n";
-        xml_ += "<line expression='^super(17i)'/>\n";
+        xml_ += "<line expression='$super(17i)'/>\n";
         xml_ += "<affect left='sec;;;' oper='+=' right='16i'/>\n";
         xml_ += "</constructor>\n";
         xml_ += "</class>\n";
@@ -6327,7 +6327,7 @@ public class ProcessXmlMethodTest {
         xml_ += "</class>\n";
         files_.put("pkg/Ex."+Classes.EXT, xml_);
         xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExTwo' package='pkg'>\n";
-        xml_ += "<field access='"+PUBLIC_ACCESS+"' name='third' class='pkg.ExThree' value='^new.pkg.ExThree(17i)'/>\n";
+        xml_ += "<field access='"+PUBLIC_ACCESS+"' name='third' class='pkg.ExThree' value='$new pkg.ExThree(17i)'/>\n";
         xml_ += "<field access='"+PUBLIC_ACCESS+"' name='sec' class='"+PrimitiveTypeUtil.PRIM_INT+"'/>\n";
         xml_ += "<instance>\n";
         xml_ += "<affect left='sec;;;' oper='+=' right='8i'/>\n";
@@ -6387,7 +6387,7 @@ public class ProcessXmlMethodTest {
         xml_ += "</class>\n";
         files_.put("pkg/Ex."+Classes.EXT, xml_);
         xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExTwo' package='pkg'>\n";
-        xml_ += "<field access='"+PUBLIC_ACCESS+"' name='third' class='pkg.ExThree' value='^new.pkg.ExThree(17i)'/>\n";
+        xml_ += "<field access='"+PUBLIC_ACCESS+"' name='third' class='pkg.ExThree' value='$new pkg.ExThree(17i)'/>\n";
         xml_ += "<field access='"+PUBLIC_ACCESS+"' name='sec' class='"+PrimitiveTypeUtil.PRIM_INT+"'/>\n";
         xml_ += "<instance>\n";
         xml_ += "<affect left='sec;;;' oper='+=' right='8i'/>\n";
@@ -6447,7 +6447,7 @@ public class ProcessXmlMethodTest {
         xml_ += "</class>\n";
         files_.put("pkg/Ex."+Classes.EXT, xml_);
         xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExTwo' package='pkg'>\n";
-        xml_ += "<field access='"+PUBLIC_ACCESS+"' name='third' class='pkg.ExThree' value='^new.pkg.ExThree()'/>\n";
+        xml_ += "<field access='"+PUBLIC_ACCESS+"' name='third' class='pkg.ExThree' value='$new pkg.ExThree()'/>\n";
         xml_ += "<field access='"+PUBLIC_ACCESS+"' name='sec' class='"+PrimitiveTypeUtil.PRIM_INT+"'/>\n";
         xml_ += "<instance>\n";
         xml_ += "<affect left='sec;;;' oper='+=' right='8i'/>\n";
@@ -6460,7 +6460,7 @@ public class ProcessXmlMethodTest {
         xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExThree' package='pkg'>\n";
         xml_ += "<field access='"+PUBLIC_ACCESS+"' name='ance' class='"+PrimitiveTypeUtil.PRIM_INT+"'/>\n";
         xml_ += "<constructor access='"+PUBLIC_ACCESS+"'>\n";
-        xml_ += "<line expression='^this(17i)'/>\n";
+        xml_ += "<line expression='$this(17i)'/>\n";
         xml_ += "</constructor>\n";
         xml_ += "<constructor access='"+PUBLIC_ACCESS+"' var0='i' class0='"+PrimitiveTypeUtil.PRIM_INT+"'>\n";
         xml_ += "<if condition='i;.;&gt;0'>\n";
@@ -6510,11 +6510,11 @@ public class ProcessXmlMethodTest {
         xml_ += "</class>\n";
         files_.put("pkg/Ex."+Classes.EXT, xml_);
         xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExTwo' package='pkg'>\n";
-        xml_ += "<field access='"+PUBLIC_ACCESS+"' name='third' class='"+ARR_CUST+"' value='^new."+ARR_CUST+"(1i)'/>\n";
+        xml_ += "<field access='"+PUBLIC_ACCESS+"' name='third' class='"+ARR_CUST+"' value='$new "+ARR_CUST+"(1i)'/>\n";
         xml_ += "<field access='"+PUBLIC_ACCESS+"' name='sec' class='"+PrimitiveTypeUtil.PRIM_INT+"'/>\n";
         xml_ += "<instance>\n";
         xml_ += "<affect left='sec;;;' oper='+=' right='8i'/>\n";
-        xml_ += "<affect left='third;;;[0i]' oper='=' right='^new.pkg.ExThree()'/>\n";
+        xml_ += "<affect left='third;;;[0i]' oper='=' right='$new pkg.ExThree()'/>\n";
         xml_ += "</instance>\n";
         xml_ += "<constructor access='"+PUBLIC_ACCESS+"'>\n";
         xml_ += "<affect left='sec;;;' oper='+=' right='16i'/>\n";
@@ -6524,7 +6524,7 @@ public class ProcessXmlMethodTest {
         xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExThree' package='pkg'>\n";
         xml_ += "<field access='"+PUBLIC_ACCESS+"' name='ance' class='"+PrimitiveTypeUtil.PRIM_INT+"'/>\n";
         xml_ += "<constructor access='"+PUBLIC_ACCESS+"'>\n";
-        xml_ += "<line expression='^this(17i)'/>\n";
+        xml_ += "<line expression='$this(17i)'/>\n";
         xml_ += "</constructor>\n";
         xml_ += "<constructor access='"+PUBLIC_ACCESS+"' var0='i' class0='"+PrimitiveTypeUtil.PRIM_INT+"'>\n";
         xml_ += "<if condition='i;.;&gt;0'>\n";
@@ -6584,12 +6584,12 @@ public class ProcessXmlMethodTest {
         xml_ += "</class>\n";
         files_.put("pkg/Ex."+Classes.EXT, xml_);
         xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExTwo' package='pkg'>\n";
-        xml_ += "<field access='"+PUBLIC_ACCESS+"' name='third' class='"+ARR_CUST+"' value='^new."+ARR_CUST+"(1i)'/>\n";
+        xml_ += "<field access='"+PUBLIC_ACCESS+"' name='third' class='"+ARR_CUST+"' value='$new "+ARR_CUST+"(1i)'/>\n";
         xml_ += "<field access='"+PUBLIC_ACCESS+"' name='fourth' class='"+PrimitiveTypeUtil.PRIM_INT+"' value='third;;;length'/>\n";
         xml_ += "<field access='"+PUBLIC_ACCESS+"' name='sec' class='"+PrimitiveTypeUtil.PRIM_INT+"'/>\n";
         xml_ += "<instance>\n";
         xml_ += "<affect left='sec;;;' oper='+=' right='8i'/>\n";
-        xml_ += "<affect left='third;;;[0i]' oper='=' right='^new.pkg.ExThree()'/>\n";
+        xml_ += "<affect left='third;;;[0i]' oper='=' right='$new pkg.ExThree()'/>\n";
         xml_ += "</instance>\n";
         xml_ += "<constructor access='"+PUBLIC_ACCESS+"'>\n";
         xml_ += "<affect left='sec;;;' oper='+=' right='16i'/>\n";
@@ -6599,7 +6599,7 @@ public class ProcessXmlMethodTest {
         xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExThree' package='pkg'>\n";
         xml_ += "<field access='"+PUBLIC_ACCESS+"' name='ance' class='"+PrimitiveTypeUtil.PRIM_INT+"'/>\n";
         xml_ += "<constructor access='"+PUBLIC_ACCESS+"'>\n";
-        xml_ += "<line expression='^this(17i)'/>\n";
+        xml_ += "<line expression='$this(17i)'/>\n";
         xml_ += "</constructor>\n";
         xml_ += "<constructor access='"+PUBLIC_ACCESS+"' var0='i' class0='"+PrimitiveTypeUtil.PRIM_INT+"'>\n";
         xml_ += "<if condition='i;.;&gt;0'>\n";
@@ -6664,7 +6664,7 @@ public class ProcessXmlMethodTest {
         xml_ += "<affect left='sec;;;' oper='+=' right='8i'/>\n";
         xml_ += "</instance>\n";
         xml_ += "<constructor access='"+PUBLIC_ACCESS+"'>\n";
-        xml_ += "<line expression='^super(17i)'/>\n";
+        xml_ += "<line expression='$super(17i)'/>\n";
         xml_ += "<affect left='sec;;;' oper='+=' right='16i'/>\n";
         xml_ += "</constructor>\n";
         xml_ += "</class>\n";
@@ -6719,7 +6719,7 @@ public class ProcessXmlMethodTest {
         xml_ += "<affect left='sec;;;' oper='+=' right='8i'/>\n";
         xml_ += "</instance>\n";
         xml_ += "<constructor access='"+PUBLIC_ACCESS+"'>\n";
-        xml_ += "<line expression='^super(17i)'/>\n";
+        xml_ += "<line expression='$super(17i)'/>\n";
         xml_ += "<affect left='sec;;;' oper='+=' right='16i'/>\n";
         xml_ += "</constructor>\n";
         xml_ += "<method access='"+PUBLIC_ACCESS+"' name='instancemethod' class='"+OperationNode.VOID_RETURN+"' modifier='normal' var0='i' class0='"+PrimitiveTypeUtil.PRIM_INT+"'>\n";
@@ -6773,12 +6773,12 @@ public class ProcessXmlMethodTest {
         xml_ += "</class>\n";
         files_.put("pkg/Ex."+Classes.EXT, xml_);
         xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExTwo' package='pkg'>\n";
-        xml_ += "<field access='"+PUBLIC_ACCESS+"' name='third' class='"+ARR_CUST+"' value='^new."+ARR_CUST+"[](^new.pkg.ExThree())'/>\n";
+        xml_ += "<field access='"+PUBLIC_ACCESS+"' name='third' class='"+ARR_CUST+"' value='$new "+ARR_CUST+"[]($new pkg.ExThree())'/>\n";
         xml_ += "<field access='"+PUBLIC_ACCESS+"' name='fourth' class='"+PrimitiveTypeUtil.PRIM_INT+"' value='third;;;length'/>\n";
         xml_ += "<field access='"+PUBLIC_ACCESS+"' name='sec' class='"+PrimitiveTypeUtil.PRIM_INT+"'/>\n";
         xml_ += "<instance>\n";
         xml_ += "<affect left='sec;;;' oper='+=' right='8i'/>\n";
-//        xml_ += "<affect left='third;;;[0i]' oper='=' right='^new.pkg.ExThree()'/>\n";
+//        xml_ += "<affect left='third;;;[0i]' oper='=' right='$new pkg.ExThree()'/>\n";
         xml_ += "</instance>\n";
         xml_ += "<constructor access='"+PUBLIC_ACCESS+"'>\n";
         xml_ += "<affect left='sec;;;' oper='+=' right='16i'/>\n";
@@ -6788,7 +6788,7 @@ public class ProcessXmlMethodTest {
         xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExThree' package='pkg'>\n";
         xml_ += "<field access='"+PUBLIC_ACCESS+"' name='ance' class='"+PrimitiveTypeUtil.PRIM_INT+"'/>\n";
         xml_ += "<constructor access='"+PUBLIC_ACCESS+"'>\n";
-        xml_ += "<line expression='^this(17i)'/>\n";
+        xml_ += "<line expression='$this(17i)'/>\n";
         xml_ += "</constructor>\n";
         xml_ += "<constructor access='"+PUBLIC_ACCESS+"' var0='i' class0='"+PrimitiveTypeUtil.PRIM_INT+"'>\n";
         xml_ += "<if condition='i;.;&gt;0'>\n";
@@ -6848,12 +6848,12 @@ public class ProcessXmlMethodTest {
         xml_ += "</class>\n";
         files_.put("pkg/Ex."+Classes.EXT, xml_);
         xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExTwo' package='pkg'>\n";
-        xml_ += "<field access='"+PUBLIC_ACCESS+"' name='third' class='["+ARR_CUST+"' value='^new."+ARR_CUST+"(1i,1i)'/>\n";
+        xml_ += "<field access='"+PUBLIC_ACCESS+"' name='third' class='["+ARR_CUST+"' value='$new "+ARR_CUST+"(1i,1i)'/>\n";
         xml_ += "<field access='"+PUBLIC_ACCESS+"' name='fourth' class='"+PrimitiveTypeUtil.PRIM_INT+"' value='third;;;length'/>\n";
         xml_ += "<field access='"+PUBLIC_ACCESS+"' name='sec' class='"+PrimitiveTypeUtil.PRIM_INT+"'/>\n";
         xml_ += "<instance>\n";
         xml_ += "<affect left='sec;;;' oper='+=' right='8i'/>\n";
-        xml_ += "<affect left='third;;;[0i][0i]' oper='=' right='^new.pkg.ExThree()'/>\n";
+        xml_ += "<affect left='third;;;[0i][0i]' oper='=' right='$new pkg.ExThree()'/>\n";
         xml_ += "</instance>\n";
         xml_ += "<constructor access='"+PUBLIC_ACCESS+"'>\n";
         xml_ += "<affect left='sec;;;' oper='+=' right='16i'/>\n";
@@ -6863,7 +6863,7 @@ public class ProcessXmlMethodTest {
         xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExThree' package='pkg'>\n";
         xml_ += "<field access='"+PUBLIC_ACCESS+"' name='ance' class='"+PrimitiveTypeUtil.PRIM_INT+"'/>\n";
         xml_ += "<constructor access='"+PUBLIC_ACCESS+"'>\n";
-        xml_ += "<line expression='^this(17i)'/>\n";
+        xml_ += "<line expression='$this(17i)'/>\n";
         xml_ += "</constructor>\n";
         xml_ += "<constructor access='"+PUBLIC_ACCESS+"' var0='i' class0='"+PrimitiveTypeUtil.PRIM_INT+"'>\n";
         xml_ += "<if condition='i;.;&gt;0'>\n";
@@ -6925,7 +6925,7 @@ public class ProcessXmlMethodTest {
         xml_ += "</class>\n";
         files_.put("pkg/Ex."+Classes.EXT, xml_);
         xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExTwo' package='pkg'>\n";
-        xml_ += "<field access='"+PUBLIC_ACCESS+"' name='third' class='pkg.ExThree' value='^new.pkg.ExThree()'/>\n";
+        xml_ += "<field access='"+PUBLIC_ACCESS+"' name='third' class='pkg.ExThree' value='$new pkg.ExThree()'/>\n";
         xml_ += "<field access='"+PUBLIC_ACCESS+"' name='sec' class='"+PrimitiveTypeUtil.PRIM_INT+"'/>\n";
         xml_ += "<instance>\n";
         xml_ += "<affect left='sec;;;' oper='+=' right='8i'/>\n";
@@ -6977,7 +6977,7 @@ public class ProcessXmlMethodTest {
         xml_ += "</class>\n";
         files_.put("pkg/Ex."+Classes.EXT, xml_);
         xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExTwo' package='pkg'>\n";
-        xml_ += "<field access='"+PUBLIC_ACCESS+"' name='third' class='pkg.ExThree' value='^new.pkg.ExThree()'/>\n";
+        xml_ += "<field access='"+PUBLIC_ACCESS+"' name='third' class='pkg.ExThree' value='$new pkg.ExThree()'/>\n";
         xml_ += "<field access='"+PUBLIC_ACCESS+"' name='sec' class='"+PrimitiveTypeUtil.PRIM_INT+"'/>\n";
         xml_ += "<instance>\n";
         xml_ += "<affect left='sec;;;' oper='+=' right='8i'/>\n";
@@ -6994,7 +6994,7 @@ public class ProcessXmlMethodTest {
         xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExThree' package='pkg'>\n";
         xml_ += "<field access='"+PUBLIC_ACCESS+"' name='ance' class='"+PrimitiveTypeUtil.PRIM_INT+"' value='17i'/>\n";
         xml_ += "<method access='"+PUBLIC_ACCESS+"' modifier='normal' name='doubleValue' class='"+PrimitiveTypeUtil.PRIM_INT+"'>\n";
-        xml_ += "<return expression='doubleValue(^this)'/>\n";
+        xml_ += "<return expression='doubleValue($this)'/>\n";
         xml_ += "</method>\n";
         xml_ += "<method access='"+PUBLIC_ACCESS+"' modifier='static' name='doubleValue' class='"+PrimitiveTypeUtil.PRIM_INT+"' class0='pkg.ExThree' var0='param'>\n";
         xml_ += "<return expression='param;.;ance;;;'/>\n";
@@ -7042,7 +7042,7 @@ public class ProcessXmlMethodTest {
         xml_ += "</class>\n";
         files_.put("pkg/ExThree."+Classes.EXT, xml_);
         xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExTwo' package='pkg'>\n";
-        xml_ += "<field access='"+PUBLIC_ACCESS+"' name='inst' class='"+PrimitiveTypeUtil.PRIM_INT+"' value='^new.pkg.ExThree().doubleValue()'/>\n";
+        xml_ += "<field access='"+PUBLIC_ACCESS+"' name='inst' class='"+PrimitiveTypeUtil.PRIM_INT+"' value='$new pkg.ExThree().doubleValue()'/>\n";
         xml_ += "</class>\n";
         files_.put("pkg/ExTwo."+Classes.EXT, xml_);
         Classes.validateAll(files_, cont_);
@@ -7072,11 +7072,11 @@ public class ProcessXmlMethodTest {
         xml_ += "</class>\n";
         files_.put("pkg/ExThree."+Classes.EXT, xml_);
         xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExTwo' package='pkg'>\n";
-        xml_ += "<field access='"+PUBLIC_ACCESS+"' name='two' class='pkg.ExThree' value='^new.pkg.ExThree()'/>\n";
+        xml_ += "<field access='"+PUBLIC_ACCESS+"' name='two' class='pkg.ExThree' value='$new pkg.ExThree()'/>\n";
         xml_ += "</class>\n";
         files_.put("pkg/ExTwo."+Classes.EXT, xml_);
         xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExOne' package='pkg'>\n";
-        xml_ += "<field access='"+PUBLIC_ACCESS+"' name='one' class='pkg.ExTwo' value='^new.pkg.ExTwo()'/>\n";
+        xml_ += "<field access='"+PUBLIC_ACCESS+"' name='one' class='pkg.ExTwo' value='$new pkg.ExTwo()'/>\n";
         xml_ += "<field access='"+PUBLIC_ACCESS+"' name='four' class='"+PrimitiveTypeUtil.PRIM_INT+"' value='one;;;two;;;.three;;;'/>\n";
         xml_ += "</class>\n";
         files_.put("pkg/ExOne."+Classes.EXT, xml_);
@@ -7115,7 +7115,7 @@ public class ProcessXmlMethodTest {
     public void instanceArgument33Test() {
         StringMap<String> files_ = new StringMap<String>();
         String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg'>\n";
-        xml_ += "<field access='"+PUBLIC_ACCESS+"' name='inst' class='pkg.ExEnum' value='^static^pkg^ExEnum.ONE;;;'/>\n";
+        xml_ += "<field access='"+PUBLIC_ACCESS+"' name='inst' class='pkg.ExEnum' value='$static$pkg$ExEnum.ONE;;;'/>\n";
         xml_ += "</class>\n";
         files_.put("pkg/Ex."+Classes.EXT, xml_);
         xml_ = "<enum access='"+PUBLIC_ACCESS+"' name='ExEnum' package='pkg'>\n";
@@ -7149,11 +7149,11 @@ public class ProcessXmlMethodTest {
     public void instanceArgument34Test() {
         StringMap<String> files_ = new StringMap<String>();
         String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg'>\n";
-        xml_ += "<field access='"+PUBLIC_ACCESS+"' name='inst' class='pkg.ExEnum' value='^static^pkg^ExEnum.ONE;;;'/>\n";
+        xml_ += "<field access='"+PUBLIC_ACCESS+"' name='inst' class='pkg.ExEnum' value='$static$pkg$ExEnum.ONE;;;'/>\n";
         xml_ += "</class>\n";
         files_.put("pkg/Ex."+Classes.EXT, xml_);
         xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExEnum' package='pkg'>\n";
-        xml_ += "<field access='"+PUBLIC_ACCESS+"' static='' name='ONE' class='pkg.ExEnum' value='^new.pkg.ExEnum()'/>\n";
+        xml_ += "<field access='"+PUBLIC_ACCESS+"' static='' name='ONE' class='pkg.ExEnum' value='$new pkg.ExEnum()'/>\n";
         xml_ += "<field access='"+PUBLIC_ACCESS+"' name='ance' class='"+PrimitiveTypeUtil.PRIM_INT+"' value='2i'/>\n";
         xml_ += "</class>\n";
         files_.put("pkg/ExEnum."+Classes.EXT, xml_);
@@ -7188,7 +7188,7 @@ public class ProcessXmlMethodTest {
         String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' superclass='pkg.ExTwo'>\n";
         xml_ += "<field access='"+PUBLIC_ACCESS+"' name='inst' class='"+PrimitiveTypeUtil.PRIM_INT+"' value='2i'/>\n";
         xml_ += "<constructor access='"+PUBLIC_ACCESS+"' class0='"+PrimitiveTypeUtil.PRIM_INT+"' var0='i'>\n";
-        xml_ += "<line expression='^super(16i)'/>\n";
+        xml_ += "<line expression='$super(16i)'/>\n";
         xml_ += "<affect left='inst;;;' oper='=' right='i;.;'/>\n";
         xml_ += "<affect left='inst;;;' oper='+=' right='getter()'/>\n";
         xml_ += "</constructor>\n";
@@ -7237,7 +7237,7 @@ public class ProcessXmlMethodTest {
         String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' superclass='pkg.ExTwo'>\n";
         xml_ += "<field access='"+PUBLIC_ACCESS+"' name='inst' class='"+PrimitiveTypeUtil.PRIM_INT+"' value='2i'/>\n";
         xml_ += "<constructor access='"+PUBLIC_ACCESS+"' class0='"+PrimitiveTypeUtil.PRIM_INT+"' var0='i'>\n";
-        xml_ += "<line expression='^super(16i)'/>\n";
+        xml_ += "<line expression='$super(16i)'/>\n";
         xml_ += "<affect left='inst;;;' oper='=' right='i;.;'/>\n";
         xml_ += "<affect left='inst;;;' oper='+=' right='getter()'/>\n";
         xml_ += "</constructor>\n";
@@ -7286,7 +7286,7 @@ public class ProcessXmlMethodTest {
         String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' superclass='pkg.ExTwo'>\n";
         xml_ += "<field access='"+PUBLIC_ACCESS+"' name='inst' class='"+PrimitiveTypeUtil.PRIM_INT+"' value='2i'/>\n";
         xml_ += "<constructor access='"+PUBLIC_ACCESS+"' class0='"+PrimitiveTypeUtil.PRIM_INT+"' var0='i'>\n";
-        xml_ += "<line expression='^super(16i)'/>\n";
+        xml_ += "<line expression='$super(16i)'/>\n";
         xml_ += "<affect left='inst;;;' oper='=' right='i;.;'/>\n";
         xml_ += "<affect left='inst;;;' oper='+=' right='getter()'/>\n";
         xml_ += "</constructor>\n";
@@ -7336,7 +7336,7 @@ public class ProcessXmlMethodTest {
         xml_ += "<field access='"+PUBLIC_ACCESS+"' name='inst' class='"+PrimitiveTypeUtil.PRIM_INT+"' value='2i'/>\n";
         xml_ += "<constructor access='"+PUBLIC_ACCESS+"' class0='"+PrimitiveTypeUtil.PRIM_INT+"' var0='i'>\n";
         xml_ += "<affect left='inst;;;' oper='=' right='i;.;'/>\n";
-        xml_ += "<affect left='inst;;;' oper='+=' right='^static^pkg^ExTwo.getter()'/>\n";
+        xml_ += "<affect left='inst;;;' oper='+=' right='$static$pkg$ExTwo.getter()'/>\n";
         xml_ += "</constructor>\n";
         xml_ += "</class>\n";
         files_.put("pkg/Ex."+Classes.EXT, xml_);
@@ -7376,7 +7376,7 @@ public class ProcessXmlMethodTest {
         xml_ += "<field access='"+PRIVATE_ACCESS+"' name='inst' class='"+PrimitiveTypeUtil.PRIM_INT+"' value='2i'/>\n";
         xml_ += "<constructor access='"+PUBLIC_ACCESS+"' class0='"+PrimitiveTypeUtil.PRIM_INT+"' var0='i'>\n";
         xml_ += "<affect left='inst;;;' oper='=' right='i;.;'/>\n";
-        xml_ += "<affect left='inst;;;' oper='+=' right='^static^pkg^ExTwo.getter()'/>\n";
+        xml_ += "<affect left='inst;;;' oper='+=' right='$static$pkg$ExTwo.getter()'/>\n";
         xml_ += "</constructor>\n";
         xml_ += "</class>\n";
         files_.put("pkg/Ex."+Classes.EXT, xml_);
@@ -7415,7 +7415,7 @@ public class ProcessXmlMethodTest {
         String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' superclass='pkg.ExTwo'>\n";
         xml_ += "<field access='"+PUBLIC_ACCESS+"' name='inst' class='"+PrimitiveTypeUtil.PRIM_INT+"' value='2i'/>\n";
         xml_ += "<constructor access='"+PUBLIC_ACCESS+"' class0='"+PrimitiveTypeUtil.PRIM_INT+"' var0='i'>\n";
-        xml_ += "<line expression='^super(16i)'/>\n";
+        xml_ += "<line expression='$super(16i)'/>\n";
         xml_ += "<affect left='inst;;;' oper='=' right='i;.;'/>\n";
         xml_ += "<affect left='inst;;;' oper='+=' right='getter()'/>\n";
         xml_ += "</constructor>\n";
@@ -7477,7 +7477,7 @@ public class ProcessXmlMethodTest {
         xml_ += "</class>\n";
         files_.put("pkg/ExTwo."+Classes.EXT, xml_);
         xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExThree' package='pkg'>\n";
-        xml_ += "<field access='"+PUBLIC_ACCESS+"' name='inst' class='pkg.ExTwo' value='^new.pkg.Ex()'/>\n";
+        xml_ += "<field access='"+PUBLIC_ACCESS+"' name='inst' class='pkg.ExTwo' value='$new pkg.Ex()'/>\n";
         xml_ += "<field access='"+PUBLIC_ACCESS+"' name='ance' class='"+PrimitiveTypeUtil.PRIM_INT+"' value='inst;;;getter()'/>\n";
         xml_ += "</class>\n";
         files_.put("pkg/ExThree."+Classes.EXT, xml_);
@@ -7516,7 +7516,7 @@ public class ProcessXmlMethodTest {
         xml_ += "</class>\n";
         files_.put("pkgtwo/ExTwo."+Classes.EXT, xml_);
         xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExThree' package='pkgtwo'>\n";
-        xml_ += "<field access='"+PUBLIC_ACCESS+"' name='inst' class='pkgtwo.ExTwo' value='^new.pkg.Ex()'/>\n";
+        xml_ += "<field access='"+PUBLIC_ACCESS+"' name='inst' class='pkgtwo.ExTwo' value='$new pkg.Ex()'/>\n";
         xml_ += "<field access='"+PUBLIC_ACCESS+"' name='ance' class='"+PrimitiveTypeUtil.PRIM_INT+"' value='inst;;;getter()'/>\n";
         xml_ += "</class>\n";
         files_.put("pkgtwo/ExThree."+Classes.EXT, xml_);
@@ -7555,7 +7555,7 @@ public class ProcessXmlMethodTest {
         xml_ += "</class>\n";
         files_.put("pkgtwo/ExTwo."+Classes.EXT, xml_);
         xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExThree' package='pkgtwo'>\n";
-        xml_ += "<field access='"+PUBLIC_ACCESS+"' name='inst' class='pkgtwo.ExTwo' value='^new.pkg.Ex()'/>\n";
+        xml_ += "<field access='"+PUBLIC_ACCESS+"' name='inst' class='pkgtwo.ExTwo' value='$new pkg.Ex()'/>\n";
         xml_ += "<field access='"+PUBLIC_ACCESS+"' name='ance' class='"+PrimitiveTypeUtil.PRIM_INT+"' value='inst;;;getter()'/>\n";
         xml_ += "</class>\n";
         files_.put("pkgtwo/ExThree."+Classes.EXT, xml_);
@@ -7583,7 +7583,7 @@ public class ProcessXmlMethodTest {
         ContextEl cont_ = new ContextEl();
         String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' superclass='pkg.ExTwo'>\n";
         xml_ += "<method access='"+PUBLIC_ACCESS+"' modifier='normal' name='superaccess' class='"+PrimitiveTypeUtil.PRIM_INT+"'>\n";
-        xml_ += "<return expression='^super^getter()'/>\n";
+        xml_ += "<return expression='$super$getter()'/>\n";
         xml_ += "</method>\n";
         xml_ += "<method access='"+PUBLIC_ACCESS+"' modifier='normal' name='getter' class='"+PrimitiveTypeUtil.PRIM_INT+"'>\n";
         xml_ += "<return expression='2i'/>\n";
@@ -7597,7 +7597,7 @@ public class ProcessXmlMethodTest {
         xml_ += "</class>\n";
         files_.put("pkg/ExTwo."+Classes.EXT, xml_);
         xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExThree' package='pkg'>\n";
-        xml_ += "<field access='"+PUBLIC_ACCESS+"' name='inst' class='pkg.Ex' value='^new.pkg.Ex()'/>\n";
+        xml_ += "<field access='"+PUBLIC_ACCESS+"' name='inst' class='pkg.Ex' value='$new pkg.Ex()'/>\n";
         xml_ += "<field access='"+PUBLIC_ACCESS+"' name='ance' class='"+PrimitiveTypeUtil.PRIM_INT+"' value='inst;;;superaccess()'/>\n";
         xml_ += "</class>\n";
         files_.put("pkg/ExThree."+Classes.EXT, xml_);
@@ -7632,7 +7632,7 @@ public class ProcessXmlMethodTest {
         xml_ += "</class>\n";
         files_.put("pkg/Ex."+Classes.EXT, xml_);
         xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExThree' package='pkg'>\n";
-        xml_ += "<field access='"+PUBLIC_ACCESS+"' name='ance' class='"+PrimitiveTypeUtil.PRIM_INT+"' value='^static^pkg^Ex.getter(5i)'/>\n";
+        xml_ += "<field access='"+PUBLIC_ACCESS+"' name='ance' class='"+PrimitiveTypeUtil.PRIM_INT+"' value='$static$pkg$Ex.getter(5i)'/>\n";
         xml_ += "</class>\n";
         files_.put("pkg/ExThree."+Classes.EXT, xml_);
         cont_.setAccessValue(new AccessValueEx());
@@ -7665,7 +7665,7 @@ public class ProcessXmlMethodTest {
         xml_ += "</class>\n";
         files_.put("pkg/Ex."+Classes.EXT, xml_);
         xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExThree' package='pkg'>\n";
-        xml_ += "<field access='"+PUBLIC_ACCESS+"' name='ance' class='"+PrimitiveTypeUtil.PRIM_INT+"' value='^static^pkg^Ex.getter(5i)'/>\n";
+        xml_ += "<field access='"+PUBLIC_ACCESS+"' name='ance' class='"+PrimitiveTypeUtil.PRIM_INT+"' value='$static$pkg$Ex.getter(5i)'/>\n";
         xml_ += "</class>\n";
         files_.put("pkg/ExThree."+Classes.EXT, xml_);
         cont_.setAccessValue(new AccessValueEx());
@@ -7700,7 +7700,7 @@ public class ProcessXmlMethodTest {
         xml_ += "</class>\n";
         files_.put("pkg/Ex."+Classes.EXT, xml_);
         xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExThree' package='pkg'>\n";
-        xml_ += "<field access='"+PUBLIC_ACCESS+"' name='ance' class='"+PrimitiveTypeUtil.PRIM_INT+"' value='^new.pkg.Ex(5i).inst;;;'/>\n";
+        xml_ += "<field access='"+PUBLIC_ACCESS+"' name='ance' class='"+PrimitiveTypeUtil.PRIM_INT+"' value='$new pkg.Ex(5i).inst;;;'/>\n";
         xml_ += "</class>\n";
         files_.put("pkg/ExThree."+Classes.EXT, xml_);
         cont_.setAccessValue(new AccessValueEx());
@@ -7735,7 +7735,7 @@ public class ProcessXmlMethodTest {
         xml_ += "</class>\n";
         files_.put("pkg/Ex."+Classes.EXT, xml_);
         xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExThree' package='pkg'>\n";
-        xml_ += "<field access='"+PUBLIC_ACCESS+"' name='ance' class='"+PrimitiveTypeUtil.PRIM_INT+"' value='^new.pkg.Ex(5i).inst;;;'/>\n";
+        xml_ += "<field access='"+PUBLIC_ACCESS+"' name='ance' class='"+PrimitiveTypeUtil.PRIM_INT+"' value='$new pkg.Ex(5i).inst;;;'/>\n";
         xml_ += "</class>\n";
         files_.put("pkg/ExThree."+Classes.EXT, xml_);
         cont_.setAccessValue(new AccessValueEx());
@@ -7762,7 +7762,7 @@ public class ProcessXmlMethodTest {
         String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' superclass='pkg.ExTwo'>\n";
         xml_ += "<field access='"+PUBLIC_ACCESS+"' name='inst' class='"+PrimitiveTypeUtil.PRIM_INT+"' value='8i'/>\n";
         xml_ += "<method access='"+PUBLIC_ACCESS+"' modifier='normal' name='superaccess' class='"+PrimitiveTypeUtil.PRIM_INT+"'>\n";
-        xml_ += "<return expression='^super^inst;;;'/>\n";
+        xml_ += "<return expression='$super$inst;;;'/>\n";
         xml_ += "</method>\n";
         xml_ += "<method access='"+PUBLIC_ACCESS+"' modifier='normal' name='getter' class='"+PrimitiveTypeUtil.PRIM_INT+"'>\n";
         xml_ += "<return expression='2i'/>\n";
@@ -7777,7 +7777,7 @@ public class ProcessXmlMethodTest {
         xml_ += "</class>\n";
         files_.put("pkg/ExTwo."+Classes.EXT, xml_);
         xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExThree' package='pkg'>\n";
-        xml_ += "<field access='"+PUBLIC_ACCESS+"' name='inst' class='pkg.Ex' value='^new.pkg.Ex()'/>\n";
+        xml_ += "<field access='"+PUBLIC_ACCESS+"' name='inst' class='pkg.Ex' value='$new pkg.Ex()'/>\n";
         xml_ += "<field access='"+PUBLIC_ACCESS+"' name='ance' class='"+PrimitiveTypeUtil.PRIM_INT+"' value='inst;;;superaccess()'/>\n";
         xml_ += "</class>\n";
         files_.put("pkg/ExThree."+Classes.EXT, xml_);
@@ -7805,7 +7805,7 @@ public class ProcessXmlMethodTest {
         String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' superclass='pkg.ExTwo'>\n";
         xml_ += "<field access='"+PUBLIC_ACCESS+"' name='inst' class='"+PrimitiveTypeUtil.PRIM_INT+"' value='8i'/>\n";
         xml_ += "<method access='"+PUBLIC_ACCESS+"' modifier='normal' name='superaccess' class='"+PrimitiveTypeUtil.PRIM_INT+"'>\n";
-        xml_ += "<return expression='^classchoice^pkg^ExTwo^^getter()'/>\n";
+        xml_ += "<return expression='$classchoice$pkg$ExTwo$$getter()'/>\n";
         xml_ += "</method>\n";
         xml_ += "<method access='"+PUBLIC_ACCESS+"' modifier='normal' name='getter' class='"+PrimitiveTypeUtil.PRIM_INT+"'>\n";
         xml_ += "<return expression='2i'/>\n";
@@ -7820,7 +7820,7 @@ public class ProcessXmlMethodTest {
         xml_ += "</class>\n";
         files_.put("pkg/ExTwo."+Classes.EXT, xml_);
         xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExThree' package='pkg'>\n";
-        xml_ += "<field access='"+PUBLIC_ACCESS+"' name='inst' class='pkg.Ex' value='^new.pkg.Ex()'/>\n";
+        xml_ += "<field access='"+PUBLIC_ACCESS+"' name='inst' class='pkg.Ex' value='$new pkg.Ex()'/>\n";
         xml_ += "<field access='"+PUBLIC_ACCESS+"' name='ance' class='"+PrimitiveTypeUtil.PRIM_INT+"' value='inst;;;superaccess()'/>\n";
         xml_ += "</class>\n";
         files_.put("pkg/ExThree."+Classes.EXT, xml_);
@@ -7848,7 +7848,7 @@ public class ProcessXmlMethodTest {
         String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' superclass='pkg.ExTwo'>\n";
         xml_ += "<field access='"+PUBLIC_ACCESS+"' name='inst' class='"+PrimitiveTypeUtil.PRIM_INT+"' value='8i'/>\n";
         xml_ += "<method access='"+PUBLIC_ACCESS+"' modifier='normal' name='superaccess' class='"+PrimitiveTypeUtil.PRIM_INT+"'>\n";
-        xml_ += "<return expression='^classchoice^pkg^ExTwo^^getter()'/>\n";
+        xml_ += "<return expression='$classchoice$pkg$ExTwo$$getter()'/>\n";
         xml_ += "</method>\n";
         xml_ += "<method access='"+PUBLIC_ACCESS+"' modifier='normal' name='getter' class='"+PrimitiveTypeUtil.PRIM_INT+"'>\n";
         xml_ += "<return expression='2i'/>\n";
@@ -7867,7 +7867,7 @@ public class ProcessXmlMethodTest {
         xml_ += "</class>\n";
         files_.put("pkg/ExTwo."+Classes.EXT, xml_);
         xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExThree' package='pkg'>\n";
-        xml_ += "<field access='"+PUBLIC_ACCESS+"' name='inst' class='pkg.ExTwo' value='^new.pkg.Ex()'/>\n";
+        xml_ += "<field access='"+PUBLIC_ACCESS+"' name='inst' class='pkg.ExTwo' value='$new pkg.Ex()'/>\n";
         xml_ += "<field access='"+PUBLIC_ACCESS+"' name='ance' class='"+PrimitiveTypeUtil.PRIM_INT+"' value='inst;;;absgetter()'/>\n";
         xml_ += "</class>\n";
         files_.put("pkg/ExThree."+Classes.EXT, xml_);
@@ -7895,7 +7895,7 @@ public class ProcessXmlMethodTest {
         String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' superclass='pkg.ExTwo'>\n";
         xml_ += "<field access='"+PUBLIC_ACCESS+"' name='inst' class='"+PrimitiveTypeUtil.PRIM_INT+"' value='8i'/>\n";
         xml_ += "<method access='"+PUBLIC_ACCESS+"' modifier='normal' name='superaccess' class='"+PrimitiveTypeUtil.PRIM_INT+"'>\n";
-        xml_ += "<return expression='^classchoice^pkg^ExTwo^^getter()'/>\n";
+        xml_ += "<return expression='$classchoice$pkg$ExTwo$$getter()'/>\n";
         xml_ += "</method>\n";
         xml_ += "<method access='"+PUBLIC_ACCESS+"' modifier='normal' name='absgetter' class='"+PrimitiveTypeUtil.PRIM_INT+"'>\n";
         xml_ += "<return expression='9i'/>\n";
@@ -7911,7 +7911,7 @@ public class ProcessXmlMethodTest {
         xml_ += "</class>\n";
         files_.put("pkg/ExTwo."+Classes.EXT, xml_);
         xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExThree' package='pkg'>\n";
-        xml_ += "<field access='"+PUBLIC_ACCESS+"' name='inst' class='pkg.Ex' value='^new.pkg.Ex()'/>\n";
+        xml_ += "<field access='"+PUBLIC_ACCESS+"' name='inst' class='pkg.Ex' value='$new pkg.Ex()'/>\n";
         xml_ += "<field access='"+PUBLIC_ACCESS+"' name='ance' class='"+PrimitiveTypeUtil.PRIM_INT+"' value='inst;;;superaccess()'/>\n";
         xml_ += "</class>\n";
         files_.put("pkg/ExThree."+Classes.EXT, xml_);
@@ -7939,7 +7939,7 @@ public class ProcessXmlMethodTest {
         String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' superclass='pkg.ExTwo'>\n";
         xml_ += "<field access='"+PUBLIC_ACCESS+"' name='inst' class='"+PrimitiveTypeUtil.PRIM_INT+"' value='8i'/>\n";
         xml_ += "<method access='"+PUBLIC_ACCESS+"' modifier='normal' name='superaccess' class='"+PrimitiveTypeUtil.PRIM_INT+"'>\n";
-        xml_ += "<return expression='^classchoice^pkg^ExTwo^^getter()'/>\n";
+        xml_ += "<return expression='$classchoice$pkg$ExTwo$$getter()'/>\n";
         xml_ += "</method>\n";
         xml_ += "<method access='"+PUBLIC_ACCESS+"' modifier='normal' name='getter' class='"+PrimitiveTypeUtil.PRIM_INT+"'>\n";
         xml_ += "<return expression='2i'/>\n";
@@ -7968,7 +7968,7 @@ public class ProcessXmlMethodTest {
         xml_ += "</class>\n";
         files_.put("pkg/ExFour."+Classes.EXT, xml_);
         xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExThree' package='pkg'>\n";
-        xml_ += "<field access='"+PUBLIC_ACCESS+"' name='inst' class='pkg.ExTwo' value='^new.pkg.Ex()'/>\n";
+        xml_ += "<field access='"+PUBLIC_ACCESS+"' name='inst' class='pkg.ExTwo' value='$new pkg.Ex()'/>\n";
         xml_ += "<field access='"+PUBLIC_ACCESS+"' name='ance' class='"+PrimitiveTypeUtil.PRIM_INT+"' value='inst;;;absgetter()'/>\n";
         xml_ += "</class>\n";
         files_.put("pkg/ExThree."+Classes.EXT, xml_);
@@ -7996,7 +7996,7 @@ public class ProcessXmlMethodTest {
         String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' superclass='pkg.ExTwo'>\n";
         xml_ += "<field access='"+PUBLIC_ACCESS+"' name='inst' class='"+PrimitiveTypeUtil.PRIM_INT+"' value='8i'/>\n";
         xml_ += "<method access='"+PUBLIC_ACCESS+"' modifier='normal' name='superaccess' class='"+PrimitiveTypeUtil.PRIM_INT+"'>\n";
-        xml_ += "<return expression='^classchoice^pkg^ExTwo^^getter()'/>\n";
+        xml_ += "<return expression='$classchoice$pkg$ExTwo$$getter()'/>\n";
         xml_ += "</method>\n";
         xml_ += "<method access='"+PUBLIC_ACCESS+"' modifier='normal' name='getter' class='"+PrimitiveTypeUtil.PRIM_INT+"'>\n";
         xml_ += "<return expression='2i'/>\n";
@@ -8025,7 +8025,7 @@ public class ProcessXmlMethodTest {
         xml_ += "</class>\n";
         files_.put("pkg/ExFour."+Classes.EXT, xml_);
         xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExThree' package='pkg'>\n";
-        xml_ += "<field access='"+PUBLIC_ACCESS+"' name='inst' class='pkg.ExFour' value='^new.pkg.ExFour()'/>\n";
+        xml_ += "<field access='"+PUBLIC_ACCESS+"' name='inst' class='pkg.ExFour' value='$new pkg.ExFour()'/>\n";
         xml_ += "<field access='"+PUBLIC_ACCESS+"' name='ance' class='"+PrimitiveTypeUtil.PRIM_INT+"' value='inst;;;absgetter()'/>\n";
         xml_ += "</class>\n";
         files_.put("pkg/ExThree."+Classes.EXT, xml_);
@@ -8063,7 +8063,7 @@ public class ProcessXmlMethodTest {
         xml_ += "</class>\n";
         files_.put("pkgtwo/ExTwo."+Classes.EXT, xml_);
         xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExThree' package='pkgtwo'>\n";
-        xml_ += "<field access='"+PUBLIC_ACCESS+"' name='inst' class='pkgtwo.ExTwo' value='^new.pkg.Ex()'/>\n";
+        xml_ += "<field access='"+PUBLIC_ACCESS+"' name='inst' class='pkgtwo.ExTwo' value='$new pkg.Ex()'/>\n";
         xml_ += "<field access='"+PUBLIC_ACCESS+"' name='ance' class='"+PrimitiveTypeUtil.PRIM_INT+"' value='inst;;;getter()'/>\n";
         xml_ += "</class>\n";
         files_.put("pkgtwo/ExThree."+Classes.EXT, xml_);
@@ -8094,14 +8094,14 @@ public class ProcessXmlMethodTest {
         xml_ += "</class>\n";
         files_.put("pkg/Ex."+Classes.EXT, xml_);
         xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExTwo' package='pkg'>\n";
-        xml_ += "<field access='"+PUBLIC_ACCESS+"' name='third' class='"+ARR_OBJECT+"' value='^new."+ARR_OBJECT+"(1i)'/>\n";
+        xml_ += "<field access='"+PUBLIC_ACCESS+"' name='third' class='"+ARR_OBJECT+"' value='$new "+ARR_OBJECT+"(1i)'/>\n";
         xml_ += "<field access='"+PUBLIC_ACCESS+"' name='fourth' class='"+PrimitiveTypeUtil.PRIM_INT+"' value='third;;;length'/>\n";
         xml_ += "<field access='"+PUBLIC_ACCESS+"' name='sec' class='"+PrimitiveTypeUtil.PRIM_INT+"'/>\n";
         xml_ += "<field access='"+PUBLIC_ACCESS+"' name='elt' class='pkg.ExThree'/>\n";
         xml_ += "<instance>\n";
         xml_ += "<affect left='sec;;;' oper='+=' right='8i'/>\n";
-        xml_ += "<affect left='third;;;[0i]' oper='=' right='^new.pkg.ExThree()'/>\n";
-        xml_ += "<affect left='elt;;;' oper='=' right='^class(&quot;pkg.ExThree&quot;,third;;;[0i])'/>\n";
+        xml_ += "<affect left='third;;;[0i]' oper='=' right='$new pkg.ExThree()'/>\n";
+        xml_ += "<affect left='elt;;;' oper='=' right='$class(&quot;pkg.ExThree&quot;,third;;;[0i])'/>\n";
         xml_ += "</instance>\n";
         xml_ += "<constructor access='"+PUBLIC_ACCESS+"'>\n";
         xml_ += "<affect left='sec;;;' oper='+=' right='16i'/>\n";
@@ -8111,7 +8111,7 @@ public class ProcessXmlMethodTest {
         xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExThree' package='pkg'>\n";
         xml_ += "<field access='"+PUBLIC_ACCESS+"' name='ance' class='"+PrimitiveTypeUtil.PRIM_INT+"'/>\n";
         xml_ += "<constructor access='"+PUBLIC_ACCESS+"'>\n";
-        xml_ += "<line expression='^this(17i)'/>\n";
+        xml_ += "<line expression='$this(17i)'/>\n";
         xml_ += "</constructor>\n";
         xml_ += "<constructor access='"+PUBLIC_ACCESS+"' var0='i' class0='"+PrimitiveTypeUtil.PRIM_INT+"'>\n";
         xml_ += "<if condition='i;.;&gt;0'>\n";
@@ -8174,14 +8174,14 @@ public class ProcessXmlMethodTest {
         xml_ += "</class>\n";
         files_.put("pkg/Ex."+Classes.EXT, xml_);
         xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExTwo' package='pkg'>\n";
-        xml_ += "<field access='"+PUBLIC_ACCESS+"' name='third' class='["+ARR_OBJECT+"' value='^new."+ARR_OBJECT+"(1i,1i)'/>\n";
+        xml_ += "<field access='"+PUBLIC_ACCESS+"' name='third' class='["+ARR_OBJECT+"' value='$new "+ARR_OBJECT+"(1i,1i)'/>\n";
         xml_ += "<field access='"+PUBLIC_ACCESS+"' name='fourth' class='"+PrimitiveTypeUtil.PRIM_INT+"' value='third;;;length'/>\n";
         xml_ += "<field access='"+PUBLIC_ACCESS+"' name='sec' class='"+PrimitiveTypeUtil.PRIM_INT+"'/>\n";
         xml_ += "<field access='"+PUBLIC_ACCESS+"' name='elt' class='pkg.ExThree'/>\n";
         xml_ += "<instance>\n";
         xml_ += "<affect left='sec;;;' oper='+=' right='8i'/>\n";
-        xml_ += "<affect left='third;;;[0i][0i]' oper='=' right='^new.pkg.ExThree()'/>\n";
-        xml_ += "<affect left='elt;;;' oper='=' right='^class(&quot;pkg.ExThree&quot;,third;;;[0i][0i])'/>\n";
+        xml_ += "<affect left='third;;;[0i][0i]' oper='=' right='$new pkg.ExThree()'/>\n";
+        xml_ += "<affect left='elt;;;' oper='=' right='$class(&quot;pkg.ExThree&quot;,third;;;[0i][0i])'/>\n";
         xml_ += "</instance>\n";
         xml_ += "<constructor access='"+PUBLIC_ACCESS+"'>\n";
         xml_ += "<affect left='sec;;;' oper='+=' right='16i'/>\n";
@@ -8191,7 +8191,7 @@ public class ProcessXmlMethodTest {
         xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExThree' package='pkg'>\n";
         xml_ += "<field access='"+PUBLIC_ACCESS+"' name='ance' class='"+PrimitiveTypeUtil.PRIM_INT+"'/>\n";
         xml_ += "<constructor access='"+PUBLIC_ACCESS+"'>\n";
-        xml_ += "<line expression='^this(17i)'/>\n";
+        xml_ += "<line expression='$this(17i)'/>\n";
         xml_ += "</constructor>\n";
         xml_ += "<constructor access='"+PUBLIC_ACCESS+"' var0='i' class0='"+PrimitiveTypeUtil.PRIM_INT+"'>\n";
         xml_ += "<if condition='i;.;&gt;0'>\n";
@@ -8254,13 +8254,13 @@ public class ProcessXmlMethodTest {
         xml_ += "</class>\n";
         files_.put("pkg/Ex."+Classes.EXT, xml_);
         xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExTwo' package='pkg'>\n";
-        xml_ += "<field access='"+PUBLIC_ACCESS+"' name='third' class='"+ARR_OBJECT+"' value='^new."+ARR_OBJECT+"(1i)'/>\n";
+        xml_ += "<field access='"+PUBLIC_ACCESS+"' name='third' class='"+ARR_OBJECT+"' value='$new "+ARR_OBJECT+"(1i)'/>\n";
         xml_ += "<field access='"+PUBLIC_ACCESS+"' name='fourth' class='"+PrimitiveTypeUtil.PRIM_INT+"' value='third;;;length'/>\n";
         xml_ += "<field access='"+PUBLIC_ACCESS+"' name='sec' class='"+PrimitiveTypeUtil.PRIM_INT+"'/>\n";
         xml_ += "<field access='"+PUBLIC_ACCESS+"' name='elt' class='java.lang.Object'/>\n";
         xml_ += "<instance>\n";
         xml_ += "<affect left='sec;;;' oper='+=' right='8i'/>\n";
-        xml_ += "<affect left='third;;;[0i]' oper='=' right='^new.pkg.ExThree()'/>\n";
+        xml_ += "<affect left='third;;;[0i]' oper='=' right='$new pkg.ExThree()'/>\n";
         xml_ += "<affect left='elt;;;' oper='=' right='third;;;[0i]'/>\n";
         xml_ += "</instance>\n";
         xml_ += "<constructor access='"+PUBLIC_ACCESS+"'>\n";
@@ -8271,7 +8271,7 @@ public class ProcessXmlMethodTest {
         xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExThree' package='pkg'>\n";
         xml_ += "<field access='"+PUBLIC_ACCESS+"' name='ance' class='"+PrimitiveTypeUtil.PRIM_INT+"'/>\n";
         xml_ += "<constructor access='"+PUBLIC_ACCESS+"'>\n";
-        xml_ += "<line expression='^this(17i)'/>\n";
+        xml_ += "<line expression='$this(17i)'/>\n";
         xml_ += "</constructor>\n";
         xml_ += "<constructor access='"+PUBLIC_ACCESS+"' var0='i' class0='"+PrimitiveTypeUtil.PRIM_INT+"'>\n";
         xml_ += "<if condition='i;.;&gt;0'>\n";
@@ -8334,13 +8334,13 @@ public class ProcessXmlMethodTest {
         xml_ += "</class>\n";
         files_.put("pkg/Ex."+Classes.EXT, xml_);
         xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExTwo' package='pkg'>\n";
-        xml_ += "<field access='"+PUBLIC_ACCESS+"' name='third' class='["+ARR_OBJECT+"' value='^new."+ARR_OBJECT+"(1i,1i)'/>\n";
+        xml_ += "<field access='"+PUBLIC_ACCESS+"' name='third' class='["+ARR_OBJECT+"' value='$new "+ARR_OBJECT+"(1i,1i)'/>\n";
         xml_ += "<field access='"+PUBLIC_ACCESS+"' name='fourth' class='"+PrimitiveTypeUtil.PRIM_INT+"' value='third;;;length'/>\n";
         xml_ += "<field access='"+PUBLIC_ACCESS+"' name='sec' class='"+PrimitiveTypeUtil.PRIM_INT+"'/>\n";
         xml_ += "<field access='"+PUBLIC_ACCESS+"' name='elt' class='java.lang.Object'/>\n";
         xml_ += "<instance>\n";
         xml_ += "<affect left='sec;;;' oper='+=' right='8i'/>\n";
-        xml_ += "<affect left='third;;;[0i][0i]' oper='=' right='^new.pkg.ExThree()'/>\n";
+        xml_ += "<affect left='third;;;[0i][0i]' oper='=' right='$new pkg.ExThree()'/>\n";
         xml_ += "<affect left='elt;;;' oper='=' right='third;;;[0i][0i]'/>\n";
         xml_ += "</instance>\n";
         xml_ += "<constructor access='"+PUBLIC_ACCESS+"'>\n";
@@ -8351,7 +8351,7 @@ public class ProcessXmlMethodTest {
         xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExThree' package='pkg'>\n";
         xml_ += "<field access='"+PUBLIC_ACCESS+"' name='ance' class='"+PrimitiveTypeUtil.PRIM_INT+"'/>\n";
         xml_ += "<constructor access='"+PUBLIC_ACCESS+"'>\n";
-        xml_ += "<line expression='^this(17i)'/>\n";
+        xml_ += "<line expression='$this(17i)'/>\n";
         xml_ += "</constructor>\n";
         xml_ += "<constructor access='"+PUBLIC_ACCESS+"' var0='i' class0='"+PrimitiveTypeUtil.PRIM_INT+"'>\n";
         xml_ += "<if condition='i;.;&gt;0'>\n";
@@ -8415,13 +8415,13 @@ public class ProcessXmlMethodTest {
         xml_ += "</class>\n";
         files_.put("pkg/Ex."+Classes.EXT, xml_);
         xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExTwo' package='pkg' class0='pkg.Int'>\n";
-        xml_ += "<field access='"+PUBLIC_ACCESS+"' name='third' class='["+ARR_OBJECT+"' value='^new."+ARR_OBJECT+"(1i,1i)'/>\n";
+        xml_ += "<field access='"+PUBLIC_ACCESS+"' name='third' class='["+ARR_OBJECT+"' value='$new "+ARR_OBJECT+"(1i,1i)'/>\n";
         xml_ += "<field access='"+PUBLIC_ACCESS+"' name='fourth' class='"+PrimitiveTypeUtil.PRIM_INT+"' value='third;;;length'/>\n";
         xml_ += "<field access='"+PUBLIC_ACCESS+"' name='sec' class='"+PrimitiveTypeUtil.PRIM_INT+"'/>\n";
         xml_ += "<field access='"+PUBLIC_ACCESS+"' name='elt' class='java.lang.Object'/>\n";
         xml_ += "<instance>\n";
         xml_ += "<affect left='sec;;;' oper='+=' right='8i'/>\n";
-        xml_ += "<affect left='third;;;[0i][0i]' oper='=' right='^new.pkg.ExThree()'/>\n";
+        xml_ += "<affect left='third;;;[0i][0i]' oper='=' right='$new pkg.ExThree()'/>\n";
         xml_ += "<affect left='elt;;;' oper='=' right='third;;;[0i][0i]'/>\n";
         xml_ += "</instance>\n";
         xml_ += "<constructor access='"+PUBLIC_ACCESS+"'>\n";
@@ -8432,7 +8432,7 @@ public class ProcessXmlMethodTest {
         xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExThree' package='pkg'>\n";
         xml_ += "<field access='"+PUBLIC_ACCESS+"' name='ance' class='"+PrimitiveTypeUtil.PRIM_INT+"'/>\n";
         xml_ += "<constructor access='"+PUBLIC_ACCESS+"'>\n";
-        xml_ += "<line expression='^this(17i)'/>\n";
+        xml_ += "<line expression='$this(17i)'/>\n";
         xml_ += "</constructor>\n";
         xml_ += "<constructor access='"+PUBLIC_ACCESS+"' var0='i' class0='"+PrimitiveTypeUtil.PRIM_INT+"'>\n";
         xml_ += "<if condition='i;.;&gt;0'>\n";
@@ -8502,13 +8502,13 @@ public class ProcessXmlMethodTest {
         xml_ += "</class>\n";
         files_.put("pkg/Ex."+Classes.EXT, xml_);
         xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExTwo' package='pkg' class0='pkg.Int'>\n";
-        xml_ += "<field access='"+PUBLIC_ACCESS+"' name='third' class='["+ARR_OBJECT+"' value='^new."+ARR_OBJECT+"(1i,1i)'/>\n";
+        xml_ += "<field access='"+PUBLIC_ACCESS+"' name='third' class='["+ARR_OBJECT+"' value='$new "+ARR_OBJECT+"(1i,1i)'/>\n";
         xml_ += "<field access='"+PUBLIC_ACCESS+"' name='fourth' class='"+PrimitiveTypeUtil.PRIM_INT+"' value='third;;;length'/>\n";
         xml_ += "<field access='"+PUBLIC_ACCESS+"' name='sec' class='"+PrimitiveTypeUtil.PRIM_INT+"'/>\n";
         xml_ += "<field access='"+PUBLIC_ACCESS+"' name='elt' class='java.lang.Object'/>\n";
         xml_ += "<instance>\n";
         xml_ += "<affect left='sec;;;' oper='+=' right='8i'/>\n";
-        xml_ += "<affect left='third;;;[0i][0i]' oper='=' right='^new.pkg.ExThree()'/>\n";
+        xml_ += "<affect left='third;;;[0i][0i]' oper='=' right='$new pkg.ExThree()'/>\n";
         xml_ += "<affect left='elt;;;' oper='=' right='third;;;[0i][0i]'/>\n";
         xml_ += "</instance>\n";
         xml_ += "<constructor access='"+PUBLIC_ACCESS+"'>\n";
@@ -8519,7 +8519,7 @@ public class ProcessXmlMethodTest {
         xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExThree' package='pkg'>\n";
         xml_ += "<field access='"+PUBLIC_ACCESS+"' name='ance' class='"+PrimitiveTypeUtil.PRIM_INT+"'/>\n";
         xml_ += "<constructor access='"+PUBLIC_ACCESS+"'>\n";
-        xml_ += "<line expression='^this(17i)'/>\n";
+        xml_ += "<line expression='$this(17i)'/>\n";
         xml_ += "</constructor>\n";
         xml_ += "<constructor access='"+PUBLIC_ACCESS+"' var0='i' class0='"+PrimitiveTypeUtil.PRIM_INT+"'>\n";
         xml_ += "<if condition='i;.;&gt;0'>\n";
@@ -8596,13 +8596,13 @@ public class ProcessXmlMethodTest {
         xml_ += "</class>\n";
         files_.put("pkg/Ex."+Classes.EXT, xml_);
         xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExTwo' package='pkg' class0='pkg.Int'>\n";
-        xml_ += "<field access='"+PUBLIC_ACCESS+"' name='third' class='["+ARR_OBJECT+"' value='^new."+ARR_OBJECT+"(1i,1i)'/>\n";
+        xml_ += "<field access='"+PUBLIC_ACCESS+"' name='third' class='["+ARR_OBJECT+"' value='$new "+ARR_OBJECT+"(1i,1i)'/>\n";
         xml_ += "<field access='"+PUBLIC_ACCESS+"' name='fourth' class='"+PrimitiveTypeUtil.PRIM_INT+"' value='third;;;length'/>\n";
         xml_ += "<field access='"+PUBLIC_ACCESS+"' name='sec' class='"+PrimitiveTypeUtil.PRIM_INT+"'/>\n";
         xml_ += "<field access='"+PUBLIC_ACCESS+"' name='elt' class='java.lang.Object'/>\n";
         xml_ += "<instance>\n";
         xml_ += "<affect left='sec;;;' oper='+=' right='8i'/>\n";
-        xml_ += "<affect left='third;;;[0i][0i]' oper='=' right='^new.pkg.ExThree()'/>\n";
+        xml_ += "<affect left='third;;;[0i][0i]' oper='=' right='$new pkg.ExThree()'/>\n";
         xml_ += "<affect left='elt;;;' oper='=' right='third;;;[0i][0i]'/>\n";
         xml_ += "</instance>\n";
         xml_ += "<constructor access='"+PUBLIC_ACCESS+"'>\n";
@@ -8613,7 +8613,7 @@ public class ProcessXmlMethodTest {
         xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExThree' package='pkg'>\n";
         xml_ += "<field access='"+PUBLIC_ACCESS+"' name='ance' class='"+PrimitiveTypeUtil.PRIM_INT+"'/>\n";
         xml_ += "<constructor access='"+PUBLIC_ACCESS+"'>\n";
-        xml_ += "<line expression='^this(17i)'/>\n";
+        xml_ += "<line expression='$this(17i)'/>\n";
         xml_ += "</constructor>\n";
         xml_ += "<constructor access='"+PUBLIC_ACCESS+"' var0='i' class0='"+PrimitiveTypeUtil.PRIM_INT+"'>\n";
         xml_ += "<if condition='i;.;&gt;0'>\n";
@@ -8690,13 +8690,13 @@ public class ProcessXmlMethodTest {
         xml_ += "</class>\n";
         files_.put("pkg/Ex."+Classes.EXT, xml_);
         xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExTwo' package='pkg'>\n";
-        xml_ += "<field access='"+PUBLIC_ACCESS+"' name='third' class='["+ARR_OBJECT+"' value='^new."+ARR_OBJECT+"(1i,1i)'/>\n";
+        xml_ += "<field access='"+PUBLIC_ACCESS+"' name='third' class='["+ARR_OBJECT+"' value='$new "+ARR_OBJECT+"(1i,1i)'/>\n";
         xml_ += "<field access='"+PUBLIC_ACCESS+"' name='fourth' class='"+PrimitiveTypeUtil.PRIM_INT+"' value='third;;;length'/>\n";
         xml_ += "<field access='"+PUBLIC_ACCESS+"' name='sec' class='"+PrimitiveTypeUtil.PRIM_INT+"'/>\n";
         xml_ += "<field access='"+PUBLIC_ACCESS+"' name='elt' class='java.lang.Object'/>\n";
         xml_ += "<instance>\n";
         xml_ += "<affect left='sec;;;' oper='+=' right='8i'/>\n";
-        xml_ += "<affect left='third;;;[0i][0i]' oper='=' right='^new.pkg.ExThree()'/>\n";
+        xml_ += "<affect left='third;;;[0i][0i]' oper='=' right='$new pkg.ExThree()'/>\n";
         xml_ += "<affect left='elt;;;' oper='=' right='third;;;[0i][0i]'/>\n";
         xml_ += "</instance>\n";
         xml_ += "<constructor access='"+PUBLIC_ACCESS+"'>\n";
@@ -8707,7 +8707,7 @@ public class ProcessXmlMethodTest {
         xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExThree' package='pkg'>\n";
         xml_ += "<field access='"+PUBLIC_ACCESS+"' name='ance' class='"+PrimitiveTypeUtil.PRIM_INT+"'/>\n";
         xml_ += "<constructor access='"+PUBLIC_ACCESS+"'>\n";
-        xml_ += "<line expression='^this(17i)'/>\n";
+        xml_ += "<line expression='$this(17i)'/>\n";
         xml_ += "</constructor>\n";
         xml_ += "<constructor access='"+PUBLIC_ACCESS+"' var0='i' class0='"+PrimitiveTypeUtil.PRIM_INT+"'>\n";
         xml_ += "<if condition='i;.;&gt;0'>\n";
@@ -8783,13 +8783,13 @@ public class ProcessXmlMethodTest {
         xml_ += "</class>\n";
         files_.put("pkg/Ex."+Classes.EXT, xml_);
         xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExTwo' package='pkg' class0='pkg.Int'>\n";
-        xml_ += "<field access='"+PUBLIC_ACCESS+"' name='third' class='["+ARR_OBJECT+"' value='^new."+ARR_OBJECT+"(1i,1i)'/>\n";
+        xml_ += "<field access='"+PUBLIC_ACCESS+"' name='third' class='["+ARR_OBJECT+"' value='$new "+ARR_OBJECT+"(1i,1i)'/>\n";
         xml_ += "<field access='"+PUBLIC_ACCESS+"' name='fourth' class='"+PrimitiveTypeUtil.PRIM_INT+"' value='third;;;length'/>\n";
         xml_ += "<field access='"+PUBLIC_ACCESS+"' name='sec' class='"+PrimitiveTypeUtil.PRIM_INT+"'/>\n";
         xml_ += "<field access='"+PUBLIC_ACCESS+"' name='elt' class='java.lang.Object'/>\n";
         xml_ += "<instance>\n";
         xml_ += "<affect left='sec;;;' oper='+=' right='8i'/>\n";
-        xml_ += "<affect left='third;;;[0i][0i]' oper='=' right='^new.pkg.ExThree()'/>\n";
+        xml_ += "<affect left='third;;;[0i][0i]' oper='=' right='$new pkg.ExThree()'/>\n";
         xml_ += "<affect left='elt;;;' oper='=' right='third;;;[0i][0i]'/>\n";
         xml_ += "</instance>\n";
         xml_ += "<constructor access='"+PUBLIC_ACCESS+"'>\n";
@@ -8803,7 +8803,7 @@ public class ProcessXmlMethodTest {
         xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExThree' package='pkg'>\n";
         xml_ += "<field access='"+PUBLIC_ACCESS+"' name='ance' class='"+PrimitiveTypeUtil.PRIM_INT+"'/>\n";
         xml_ += "<constructor access='"+PUBLIC_ACCESS+"'>\n";
-        xml_ += "<line expression='^this(17i)'/>\n";
+        xml_ += "<line expression='$this(17i)'/>\n";
         xml_ += "</constructor>\n";
         xml_ += "<constructor access='"+PUBLIC_ACCESS+"' var0='i' class0='"+PrimitiveTypeUtil.PRIM_INT+"'>\n";
         xml_ += "<if condition='i;.;&gt;0'>\n";
@@ -8876,13 +8876,13 @@ public class ProcessXmlMethodTest {
         xml_ += "</class>\n";
         files_.put("pkg/Ex."+Classes.EXT, xml_);
         xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExTwo' package='pkg'>\n";
-        xml_ += "<field access='"+PUBLIC_ACCESS+"' name='third' class='["+ARR_OBJECT+"' value='^new."+ARR_OBJECT+"(1i,1i)'/>\n";
+        xml_ += "<field access='"+PUBLIC_ACCESS+"' name='third' class='["+ARR_OBJECT+"' value='$new "+ARR_OBJECT+"(1i,1i)'/>\n";
         xml_ += "<field access='"+PUBLIC_ACCESS+"' name='fourth' class='"+PrimitiveTypeUtil.PRIM_INT+"' value='third;;;length'/>\n";
         xml_ += "<field access='"+PUBLIC_ACCESS+"' name='sec' class='"+PrimitiveTypeUtil.PRIM_INT+"'/>\n";
         xml_ += "<field access='"+PUBLIC_ACCESS+"' name='elt' class='java.lang.Object'/>\n";
         xml_ += "<instance>\n";
         xml_ += "<affect left='sec;;;' oper='+=' right='8i'/>\n";
-        xml_ += "<affect left='third;;;[0i][0i]' oper='=' right='^new.pkg.ExThree()'/>\n";
+        xml_ += "<affect left='third;;;[0i][0i]' oper='=' right='$new pkg.ExThree()'/>\n";
         xml_ += "<affect left='elt;;;' oper='=' right='third;;;[0i][0i]'/>\n";
         xml_ += "</instance>\n";
         xml_ += "<constructor access='"+PUBLIC_ACCESS+"'>\n";
@@ -8896,7 +8896,7 @@ public class ProcessXmlMethodTest {
         xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExThree' package='pkg'>\n";
         xml_ += "<field access='"+PUBLIC_ACCESS+"' name='ance' class='"+PrimitiveTypeUtil.PRIM_INT+"'/>\n";
         xml_ += "<constructor access='"+PUBLIC_ACCESS+"'>\n";
-        xml_ += "<line expression='^this(17i)'/>\n";
+        xml_ += "<line expression='$this(17i)'/>\n";
         xml_ += "</constructor>\n";
         xml_ += "<constructor access='"+PUBLIC_ACCESS+"' var0='i' class0='"+PrimitiveTypeUtil.PRIM_INT+"'>\n";
         xml_ += "<if condition='i;.;&gt;0'>\n";
@@ -8972,7 +8972,7 @@ public class ProcessXmlMethodTest {
         xml_ += "</class>\n";
         files_.put("pkg/ExTwo."+Classes.EXT, xml_);
         xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExThree' package='pkg'>\n";
-        xml_ += "<field access='"+PUBLIC_ACCESS+"' name='ance' class='"+PrimitiveTypeUtil.PRIM_INT+"' value='^new.pkg.Ex().doubleValue()'/>\n";
+        xml_ += "<field access='"+PUBLIC_ACCESS+"' name='ance' class='"+PrimitiveTypeUtil.PRIM_INT+"' value='$new pkg.Ex().doubleValue()'/>\n";
         xml_ += "<constructor access='"+PUBLIC_ACCESS+"' var0='i' class0='"+PrimitiveTypeUtil.PRIM_INT+"'>\n";
         xml_ += "<affect left='ance;;;' oper='+=' right='i;.;'/>\n";
         xml_ += "</constructor>\n";
@@ -9023,7 +9023,7 @@ public class ProcessXmlMethodTest {
         xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExThree' package='pkg'>\n";
         xml_ += "<field access='"+PUBLIC_ACCESS+"' name='ance' class='"+PrimitiveTypeUtil.PRIM_INT+"'/>\n";
         xml_ += "<constructor access='"+PUBLIC_ACCESS+"' var0='i' class0='"+PrimitiveTypeUtil.PRIM_INT+"'>\n";
-        xml_ += "<declareset class='pkg.Int3' var='k' expression='^new.pkg.Ex()'/>\n";
+        xml_ += "<declareset class='pkg.Int3' var='k' expression='$new pkg.Ex()'/>\n";
         xml_ += "<affect left='ance;;;' oper='=' right='k;.doubleValue()'/>\n";
         xml_ += "<affect left='ance;;;' oper='+=' right='i;.;'/>\n";
         xml_ += "</constructor>\n";
@@ -9077,7 +9077,7 @@ public class ProcessXmlMethodTest {
         xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExThree' package='pkg'>\n";
         xml_ += "<field access='"+PUBLIC_ACCESS+"' name='ance' class='"+PrimitiveTypeUtil.PRIM_INT+"'/>\n";
         xml_ += "<constructor access='"+PUBLIC_ACCESS+"' var0='i' class0='"+PrimitiveTypeUtil.PRIM_INT+"'>\n";
-        xml_ += "<declareset class='pkg.Int3' var='k' expression='^new.pkg.Ex()'/>\n";
+        xml_ += "<declareset class='pkg.Int3' var='k' expression='$new pkg.Ex()'/>\n";
         xml_ += "<affect left='ance;;;' oper='=' right='k;.doubleValue()'/>\n";
         xml_ += "<affect left='ance;;;' oper='+=' right='i;.;'/>\n";
         xml_ += "</constructor>\n";
@@ -9131,7 +9131,7 @@ public class ProcessXmlMethodTest {
         xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExThree' package='pkg'>\n";
         xml_ += "<field access='"+PUBLIC_ACCESS+"' name='ance' class='"+PrimitiveTypeUtil.PRIM_INT+"'/>\n";
         xml_ += "<constructor access='"+PUBLIC_ACCESS+"' var0='i' class0='"+PrimitiveTypeUtil.PRIM_INT+"'>\n";
-        xml_ += "<declareset class='pkg.Int3' var='k' expression='^new.pkg.Ex()'/>\n";
+        xml_ += "<declareset class='pkg.Int3' var='k' expression='$new pkg.Ex()'/>\n";
         xml_ += "<affect left='ance;;;' oper='=' right='k;.doubleValue()'/>\n";
         xml_ += "<affect left='ance;;;' oper='+=' right='i;.;'/>\n";
         xml_ += "</constructor>\n";
@@ -9184,7 +9184,7 @@ public class ProcessXmlMethodTest {
         xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExThree' package='pkg'>\n";
         xml_ += "<field access='"+PUBLIC_ACCESS+"' name='ance' class='"+PrimitiveTypeUtil.PRIM_INT+"'/>\n";
         xml_ += "<constructor access='"+PUBLIC_ACCESS+"' var0='i' class0='"+PrimitiveTypeUtil.PRIM_INT+"'>\n";
-        xml_ += "<declareset class='pkg.Int3' var='k' expression='^new.pkg.Ex()'/>\n";
+        xml_ += "<declareset class='pkg.Int3' var='k' expression='$new pkg.Ex()'/>\n";
         xml_ += "<affect left='ance;;;' oper='=' right='k;.doubleValue()'/>\n";
         xml_ += "<affect left='ance;;;' oper='+=' right='i;.;'/>\n";
         xml_ += "</constructor>\n";
@@ -9237,7 +9237,7 @@ public class ProcessXmlMethodTest {
         xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExThree' package='pkg'>\n";
         xml_ += "<field access='"+PUBLIC_ACCESS+"' name='ance' class='"+PrimitiveTypeUtil.PRIM_INT+"'/>\n";
         xml_ += "<constructor access='"+PUBLIC_ACCESS+"' var0='i' class0='"+PrimitiveTypeUtil.PRIM_INT+"'>\n";
-        xml_ += "<declareset class='pkg.Int3' var='k' expression='^new.pkg.Ex()'/>\n";
+        xml_ += "<declareset class='pkg.Int3' var='k' expression='$new pkg.Ex()'/>\n";
         xml_ += "<affect left='ance;;;' oper='=' right='k;.doubleValue()'/>\n";
         xml_ += "<affect left='ance;;;' oper='+=' right='i;.;'/>\n";
         xml_ += "</constructor>\n";
@@ -9290,8 +9290,8 @@ public class ProcessXmlMethodTest {
         xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExThree' package='pkg'>\n";
         xml_ += "<field access='"+PUBLIC_ACCESS+"' name='ance' class='"+PrimitiveTypeUtil.PRIM_INT+"'/>\n";
         xml_ += "<constructor access='"+PUBLIC_ACCESS+"' var0='i' class0='"+PrimitiveTypeUtil.PRIM_INT+"'>\n";
-        xml_ += "<declareset class='pkg.Int3' var='k' expression='^new.pkg.Ex()'/>\n";
-        xml_ += "<affect left='ance;;;' oper='=' right='k;.^classchoice^pkg^Int3^^doubleValue()'/>\n";
+        xml_ += "<declareset class='pkg.Int3' var='k' expression='$new pkg.Ex()'/>\n";
+        xml_ += "<affect left='ance;;;' oper='=' right='k;.$classchoice$pkg$Int3$$doubleValue()'/>\n";
         xml_ += "<affect left='ance;;;' oper='+=' right='i;.;'/>\n";
         xml_ += "</constructor>\n";
         xml_ += "</class>\n";
@@ -9344,8 +9344,8 @@ public class ProcessXmlMethodTest {
         xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExThree' package='pkg'>\n";
         xml_ += "<field access='"+PUBLIC_ACCESS+"' name='ance' class='"+PrimitiveTypeUtil.PRIM_INT+"'/>\n";
         xml_ += "<constructor access='"+PUBLIC_ACCESS+"' var0='i' class0='"+PrimitiveTypeUtil.PRIM_INT+"'>\n";
-        xml_ += "<declareset class='pkg.Int3' var='k' expression='^new.pkg.Ex()'/>\n";
-        xml_ += "<affect left='ance;;;' oper='=' right='k;.^classchoice^pkg^Int3^^doubleValue()'/>\n";
+        xml_ += "<declareset class='pkg.Int3' var='k' expression='$new pkg.Ex()'/>\n";
+        xml_ += "<affect left='ance;;;' oper='=' right='k;.$classchoice$pkg$Int3$$doubleValue()'/>\n";
         xml_ += "<affect left='ance;;;' oper='+=' right='i;.;'/>\n";
         xml_ += "</constructor>\n";
         xml_ += "</class>\n";
@@ -9402,8 +9402,8 @@ public class ProcessXmlMethodTest {
         xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExThree' package='pkg'>\n";
         xml_ += "<field access='"+PUBLIC_ACCESS+"' name='ance' class='"+PrimitiveTypeUtil.PRIM_INT+"'/>\n";
         xml_ += "<constructor access='"+PUBLIC_ACCESS+"' var0='i' class0='"+PrimitiveTypeUtil.PRIM_INT+"'>\n";
-        xml_ += "<declareset class='pkg.Int3' var='k' expression='^new.pkg.Ex()'/>\n";
-        xml_ += "<affect left='ance;;;' oper='=' right='k;.^classchoice^pkg^Int3^^doubleValue()'/>\n";
+        xml_ += "<declareset class='pkg.Int3' var='k' expression='$new pkg.Ex()'/>\n";
+        xml_ += "<affect left='ance;;;' oper='=' right='k;.$classchoice$pkg$Int3$$doubleValue()'/>\n";
         xml_ += "<affect left='ance;;;' oper='+=' right='i;.;'/>\n";
         xml_ += "</constructor>\n";
         xml_ += "</class>\n";
@@ -9451,7 +9451,7 @@ public class ProcessXmlMethodTest {
         xml_ += "</class>\n";
         files_.put("pkg/Ex."+Classes.EXT, xml_);
         xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExTwo' package='pkg'>\n";
-        xml_ += "<field access='"+PUBLIC_ACCESS+"' name='third' class='"+ARR_CUST+"' value='^new."+ARR_CUST+"[](^new.pkg.ExThree())'/>\n";
+        xml_ += "<field access='"+PUBLIC_ACCESS+"' name='third' class='"+ARR_CUST+"' value='$new "+ARR_CUST+"[]($new pkg.ExThree())'/>\n";
         xml_ += "<field access='"+PUBLIC_ACCESS+"' name='fourth' class='"+PrimitiveTypeUtil.PRIM_INT+"' value='third;;;length'/>\n";
         xml_ += "<field access='"+PUBLIC_ACCESS+"' name='sec' class='"+PrimitiveTypeUtil.PRIM_INT+"'/>\n";
         xml_ += "<instance>\n";
@@ -9466,7 +9466,7 @@ public class ProcessXmlMethodTest {
         xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExThree' package='pkg'>\n";
         xml_ += "<field access='"+PUBLIC_ACCESS+"' name='ance' class='"+PrimitiveTypeUtil.PRIM_INT+"'/>\n";
         xml_ += "<constructor access='"+PUBLIC_ACCESS+"'>\n";
-        xml_ += "<line expression='^this(17i)'/>\n";
+        xml_ += "<line expression='$this(17i)'/>\n";
         xml_ += "</constructor>\n";
         xml_ += "<constructor access='"+PUBLIC_ACCESS+"' var0='i' class0='"+PrimitiveTypeUtil.PRIM_INT+"'>\n";
         xml_ += "<if condition='i;.;&gt;0'>\n";
@@ -9516,7 +9516,7 @@ public class ProcessXmlMethodTest {
         xml_ += "</class>\n";
         files_.put("pkg/Ex."+Classes.EXT, xml_);
         xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExTwo' package='pkg'>\n";
-        xml_ += "<field access='"+PUBLIC_ACCESS+"' name='ance' class='"+PrimitiveTypeUtil.PRIM_INT+"' value='^classchoice^pkg^Ex^^inst;;;'/>\n";
+        xml_ += "<field access='"+PUBLIC_ACCESS+"' name='ance' class='"+PrimitiveTypeUtil.PRIM_INT+"' value='$classchoice$pkg$Ex$$inst;;;'/>\n";
         xml_ += "</class>\n";
         files_.put("pkg/ExTwo."+Classes.EXT, xml_);
         ContextEl cont_ = new ContextEl();
@@ -9546,7 +9546,7 @@ public class ProcessXmlMethodTest {
         xml_ += "</class>\n";
         files_.put("pkg/Ex."+Classes.EXT, xml_);
         xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExTwo' package='pkg'>\n";
-        xml_ += "<field access='"+PUBLIC_ACCESS+"' name='third' class='pkg.ExThree' value='^new.pkg.ExThree()'/>\n";
+        xml_ += "<field access='"+PUBLIC_ACCESS+"' name='third' class='pkg.ExThree' value='$new pkg.ExThree()'/>\n";
         xml_ += "<field access='"+PUBLIC_ACCESS+"' name='sec' class='"+PrimitiveTypeUtil.PRIM_INT+"'/>\n";
         xml_ += "<field static='' access='"+PUBLIC_ACCESS+"' name='st' class='"+PrimitiveTypeUtil.PRIM_INT+"'/>\n";
         xml_ += "<static>\n";
@@ -9563,7 +9563,7 @@ public class ProcessXmlMethodTest {
         xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExThree' package='pkg' superclass='pkg.ExFour'>\n";
         xml_ += "<field access='"+PUBLIC_ACCESS+"' name='ance' class='"+PrimitiveTypeUtil.PRIM_INT+"' value='17i'/>\n";
         xml_ += "<constructor access='"+PUBLIC_ACCESS+"'>\n";
-        xml_ += "<line expression='^super()'/>\n";
+        xml_ += "<line expression='$super()'/>\n";
         xml_ += "</constructor>\n";
         xml_ += "</class>\n";
         files_.put("pkg/ExThree."+Classes.EXT, xml_);
@@ -9608,7 +9608,7 @@ public class ProcessXmlMethodTest {
         xml_ += "</class>\n";
         files_.put("pkg/Ex."+Classes.EXT, xml_);
         xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExTwo' package='pkg'>\n";
-        xml_ += "<field access='"+PUBLIC_ACCESS+"' name='third' class='pkg.ExThree' value='^new.pkg.ExThree()'/>\n";
+        xml_ += "<field access='"+PUBLIC_ACCESS+"' name='third' class='pkg.ExThree' value='$new pkg.ExThree()'/>\n";
         xml_ += "<field access='"+PUBLIC_ACCESS+"' name='sec' class='"+PrimitiveTypeUtil.PRIM_INT+"'/>\n";
         xml_ += "<field static='' access='"+PUBLIC_ACCESS+"' name='st' class='"+PrimitiveTypeUtil.PRIM_INT+"'/>\n";
         xml_ += "<static>\n";
@@ -9659,7 +9659,7 @@ public class ProcessXmlMethodTest {
         xml_ += "</class>\n";
         files_.put("pkg/Ex."+Classes.EXT, xml_);
         xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExTwo' package='pkg'>\n";
-        xml_ += "<field access='"+PUBLIC_ACCESS+"' name='third' class='pkg.ExThree' value='^new.pkg.ExThree()'/>\n";
+        xml_ += "<field access='"+PUBLIC_ACCESS+"' name='third' class='pkg.ExThree' value='$new pkg.ExThree()'/>\n";
         xml_ += "<field access='"+PUBLIC_ACCESS+"' name='sec' class='"+PrimitiveTypeUtil.PRIM_INT+"'/>\n";
         xml_ += "<field static='' access='"+PUBLIC_ACCESS+"' name='st' class='"+PrimitiveTypeUtil.PRIM_INT+"'/>\n";
         xml_ += "<static>\n";
@@ -9709,13 +9709,13 @@ public class ProcessXmlMethodTest {
         xml_ += "</class>\n";
         files_.put("pkg/Ex."+Classes.EXT, xml_);
         xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExTwo' package='pkg' class0='pkg.Int'>\n";
-        xml_ += "<field access='"+PUBLIC_ACCESS+"' name='third' class='["+ARR_OBJECT+"' value='^new."+ARR_OBJECT+"(1i,1i)'/>\n";
+        xml_ += "<field access='"+PUBLIC_ACCESS+"' name='third' class='["+ARR_OBJECT+"' value='$new "+ARR_OBJECT+"(1i,1i)'/>\n";
         xml_ += "<field access='"+PUBLIC_ACCESS+"' name='fourth' class='"+PrimitiveTypeUtil.PRIM_INT+"' value='third;;;length'/>\n";
         xml_ += "<field access='"+PUBLIC_ACCESS+"' name='sec' class='"+PrimitiveTypeUtil.PRIM_INT+"'/>\n";
         xml_ += "<field access='"+PUBLIC_ACCESS+"' name='elt' class='java.lang.Object'/>\n";
         xml_ += "<instance>\n";
         xml_ += "<affect left='sec;;;' oper='+=' right='8i'/>\n";
-        xml_ += "<affect left='third;;;[0i][0i]' oper='=' right='^new.pkg.ExThree()'/>\n";
+        xml_ += "<affect left='third;;;[0i][0i]' oper='=' right='$new pkg.ExThree()'/>\n";
         xml_ += "<affect left='elt;;;' oper='=' right='third;;;[0i][0i]'/>\n";
         xml_ += "</instance>\n";
         xml_ += "<constructor access='"+PUBLIC_ACCESS+"'>\n";
@@ -9726,7 +9726,7 @@ public class ProcessXmlMethodTest {
         xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExThree' package='pkg'>\n";
         xml_ += "<field access='"+PUBLIC_ACCESS+"' name='ance' class='"+PrimitiveTypeUtil.PRIM_INT+"'/>\n";
         xml_ += "<constructor access='"+PUBLIC_ACCESS+"'>\n";
-        xml_ += "<line expression='^this(17i)'/>\n";
+        xml_ += "<line expression='$this(17i)'/>\n";
         xml_ += "</constructor>\n";
         xml_ += "<constructor access='"+PUBLIC_ACCESS+"' var0='i' class0='"+PrimitiveTypeUtil.PRIM_INT+"'>\n";
         xml_ += "<if condition='i;.;&gt;0'>\n";
@@ -9803,19 +9803,19 @@ public class ProcessXmlMethodTest {
         String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' superclass='pkg.ExTwo' class0='pkg.Int3'>\n";
         xml_ += "<field access='"+PUBLIC_ACCESS+"' name='inst' class='"+PrimitiveTypeUtil.PRIM_INT+"' value='2i'/>\n";
         xml_ += "<constructor access='"+PUBLIC_ACCESS+"'>\n";
-        xml_ += "<line expression='^super()'/>\n";
+        xml_ += "<line expression='$super()'/>\n";
         xml_ += "<affect left='inst;;;' oper='++'/>\n";
         xml_ += "</constructor>\n";
         xml_ += "</class>\n";
         files_.put("pkg/Ex."+Classes.EXT, xml_);
         xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExTwo' package='pkg' class0='pkg.Int'>\n";
-        xml_ += "<field access='"+PUBLIC_ACCESS+"' name='third' class='["+ARR_OBJECT+"' value='^new."+ARR_OBJECT+"(1i,1i)'/>\n";
+        xml_ += "<field access='"+PUBLIC_ACCESS+"' name='third' class='["+ARR_OBJECT+"' value='$new "+ARR_OBJECT+"(1i,1i)'/>\n";
         xml_ += "<field access='"+PUBLIC_ACCESS+"' name='fourth' class='"+PrimitiveTypeUtil.PRIM_INT+"' value='third;;;length'/>\n";
         xml_ += "<field access='"+PUBLIC_ACCESS+"' name='sec' class='"+PrimitiveTypeUtil.PRIM_INT+"'/>\n";
         xml_ += "<field access='"+PUBLIC_ACCESS+"' name='elt' class='java.lang.Object'/>\n";
         xml_ += "<instance>\n";
         xml_ += "<affect left='sec;;;' oper='+=' right='8i'/>\n";
-        xml_ += "<affect left='third;;;[0i][0i]' oper='=' right='^new.pkg.ExThree()'/>\n";
+        xml_ += "<affect left='third;;;[0i][0i]' oper='=' right='$new pkg.ExThree()'/>\n";
         xml_ += "<affect left='elt;;;' oper='=' right='third;;;[0i][0i]'/>\n";
         xml_ += "</instance>\n";
         xml_ += "<constructor access='"+PUBLIC_ACCESS+"'>\n";
@@ -9826,7 +9826,7 @@ public class ProcessXmlMethodTest {
         xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExThree' package='pkg'>\n";
         xml_ += "<field access='"+PUBLIC_ACCESS+"' name='ance' class='"+PrimitiveTypeUtil.PRIM_INT+"'/>\n";
         xml_ += "<constructor access='"+PUBLIC_ACCESS+"'>\n";
-        xml_ += "<line expression='^this(17i)'/>\n";
+        xml_ += "<line expression='$this(17i)'/>\n";
         xml_ += "</constructor>\n";
         xml_ += "<constructor access='"+PUBLIC_ACCESS+"' var0='i' class0='"+PrimitiveTypeUtil.PRIM_INT+"'>\n";
         xml_ += "<if condition='i;.;&gt;0'>\n";
@@ -9906,8 +9906,8 @@ public class ProcessXmlMethodTest {
         xml_ += "</class>\n";
         files_.put("pkg/Ex."+Classes.EXT, xml_);
         xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExThree' package='pkg'>\n";
-        xml_ += "<field access='"+PUBLIC_ACCESS+"' name='inst' class='pkg.Ex' value='^new.pkg.Ex()'/>\n";
-        xml_ += "<field access='"+PUBLIC_ACCESS+"' name='ance' class='pkg.Ex' value='^new.pkg.Ex()'/>\n";
+        xml_ += "<field access='"+PUBLIC_ACCESS+"' name='inst' class='pkg.Ex' value='$new pkg.Ex()'/>\n";
+        xml_ += "<field access='"+PUBLIC_ACCESS+"' name='ance' class='pkg.Ex' value='$new pkg.Ex()'/>\n";
         xml_ += "<constructor access='"+PUBLIC_ACCESS+"'>\n";
         xml_ += "</constructor>\n";
         xml_ += "</class>\n";
@@ -9965,11 +9965,11 @@ public class ProcessXmlMethodTest {
         xml_ += "</class>\n";
         files_.put("pkg/Ex."+Classes.EXT, xml_);
         xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExThree' package='pkg'>\n";
-        xml_ += "<field access='"+PUBLIC_ACCESS+"' name='inst' class='pkg.Ex' value='^new.pkg.Ex()'/>\n";
-        xml_ += "<field access='"+PUBLIC_ACCESS+"' name='ance' class='pkg.Ex' value='^new.pkg.Ex()'/>\n";
+        xml_ += "<field access='"+PUBLIC_ACCESS+"' name='inst' class='pkg.Ex' value='$new pkg.Ex()'/>\n";
+        xml_ += "<field access='"+PUBLIC_ACCESS+"' name='ance' class='pkg.Ex' value='$new pkg.Ex()'/>\n";
         xml_ += "<field access='"+PUBLIC_ACCESS+"' name='ouf' class='$int'/>\n";
         xml_ += "<constructor access='"+PUBLIC_ACCESS+"'>\n";
-        xml_ += "<line expression='^this(17i)'/>\n";
+        xml_ += "<line expression='$this(17i)'/>\n";
         xml_ += "<declare class='$int' var='toto'/>\n";
         xml_ += "</constructor>\n";
         xml_ += "<constructor access='"+PUBLIC_ACCESS+"' var0='i' class0='"+PrimitiveTypeUtil.PRIM_INT+"'>\n";
@@ -10032,11 +10032,11 @@ public class ProcessXmlMethodTest {
         xml_ += "</class>\n";
         files_.put("pkg/Ex."+Classes.EXT, xml_);
         xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExThree' package='pkg'>\n";
-        xml_ += "<field access='"+PUBLIC_ACCESS+"' name='inst' class='pkg.Ex' value='^new.pkg.Ex()'/>\n";
-        xml_ += "<field access='"+PUBLIC_ACCESS+"' name='ance' class='pkg.Ex' value='^new.pkg.Ex()'/>\n";
+        xml_ += "<field access='"+PUBLIC_ACCESS+"' name='inst' class='pkg.Ex' value='$new pkg.Ex()'/>\n";
+        xml_ += "<field access='"+PUBLIC_ACCESS+"' name='ance' class='pkg.Ex' value='$new pkg.Ex()'/>\n";
         xml_ += "<field access='"+PUBLIC_ACCESS+"' name='ouf' class='$int'/>\n";
         xml_ += "<constructor access='"+PUBLIC_ACCESS+"'>\n";
-        xml_ += "<line expression='^this(17i)'/>\n";
+        xml_ += "<line expression='$this(17i)'/>\n";
         xml_ += "</constructor>\n";
         xml_ += "<constructor access='"+PUBLIC_ACCESS+"' var0='i' class0='"+PrimitiveTypeUtil.PRIM_INT+"'>\n";
         xml_ += "<if condition='i;.;&gt;0'>\n";
@@ -10096,13 +10096,13 @@ public class ProcessXmlMethodTest {
         xml_ += "</class>\n";
         files_.put("pkg/Ex."+Classes.EXT, xml_);
         xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExTwo' package='pkg' class0='pkg.Int'>\n";
-        xml_ += "<field access='"+PUBLIC_ACCESS+"' name='third' class='["+ARR_OBJECT+"' value='^new."+ARR_OBJECT+"(1i,1i)'/>\n";
+        xml_ += "<field access='"+PUBLIC_ACCESS+"' name='third' class='["+ARR_OBJECT+"' value='$new "+ARR_OBJECT+"(1i,1i)'/>\n";
         xml_ += "<field access='"+PUBLIC_ACCESS+"' name='fourth' class='"+PrimitiveTypeUtil.PRIM_INT+"' value='third;;;length'/>\n";
         xml_ += "<field access='"+PUBLIC_ACCESS+"' name='sec' class='"+PrimitiveTypeUtil.PRIM_INT+"'/>\n";
         xml_ += "<field access='"+PUBLIC_ACCESS+"' name='elt' class='java.lang.Object'/>\n";
         xml_ += "<instance>\n";
         xml_ += "<affect left='sec;;;' oper='+=' right='8i'/>\n";
-        xml_ += "<affect left='third;;;[0i][0i]' oper='=' right='^new.pkg.ExThree()'/>\n";
+        xml_ += "<affect left='third;;;[0i][0i]' oper='=' right='$new pkg.ExThree()'/>\n";
         xml_ += "<affect left='elt;;;' oper='=' right='third;;;[0i][0i]'/>\n";
         xml_ += "</instance>\n";
         xml_ += "<constructor access='"+PUBLIC_ACCESS+"'>\n";
@@ -10113,7 +10113,7 @@ public class ProcessXmlMethodTest {
         xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExThree' package='pkg'>\n";
         xml_ += "<field access='"+PUBLIC_ACCESS+"' name='ance' class='"+PrimitiveTypeUtil.PRIM_INT+"'/>\n";
         xml_ += "<constructor access='"+PUBLIC_ACCESS+"'>\n";
-        xml_ += "<line expression='^this(17i)'/>\n";
+        xml_ += "<line expression='$this(17i)'/>\n";
         xml_ += "</constructor>\n";
         xml_ += "<constructor access='"+PUBLIC_ACCESS+"' var0='i' class0='"+PrimitiveTypeUtil.PRIM_INT+"'>\n";
         xml_ += "<if condition='i;.;&gt;0'>\n";
@@ -10191,13 +10191,13 @@ public class ProcessXmlMethodTest {
         xml_ += "</class>\n";
         files_.put("pkg/Ex."+Classes.EXT, xml_);
         xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExTwo' package='pkg'>\n";
-        xml_ += "<field access='"+PUBLIC_ACCESS+"' name='third' class='["+ARR_OBJECT+"' value='^new."+ARR_OBJECT+"(1i,1i)'/>\n";
+        xml_ += "<field access='"+PUBLIC_ACCESS+"' name='third' class='["+ARR_OBJECT+"' value='$new "+ARR_OBJECT+"(1i,1i)'/>\n";
         xml_ += "<field access='"+PUBLIC_ACCESS+"' name='fourth' class='"+PrimitiveTypeUtil.PRIM_INT+"' value='third;;;length'/>\n";
         xml_ += "<field access='"+PUBLIC_ACCESS+"' name='sec' class='"+PrimitiveTypeUtil.PRIM_INT+"'/>\n";
         xml_ += "<field access='"+PUBLIC_ACCESS+"' name='elt' class='java.lang.Object'/>\n";
         xml_ += "<instance>\n";
         xml_ += "<affect left='sec;;;' oper='+=' right='8i'/>\n";
-        xml_ += "<affect left='third;;;[0i][0i]' oper='=' right='^new.pkg.ExThree()'/>\n";
+        xml_ += "<affect left='third;;;[0i][0i]' oper='=' right='$new pkg.ExThree()'/>\n";
         xml_ += "<affect left='elt;;;' oper='=' right='third;;;[0i][0i]'/>\n";
         xml_ += "</instance>\n";
         xml_ += "<constructor access='"+PUBLIC_ACCESS+"'>\n";
@@ -10211,7 +10211,7 @@ public class ProcessXmlMethodTest {
         xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExThree' package='pkg'>\n";
         xml_ += "<field access='"+PUBLIC_ACCESS+"' name='ance' class='"+PrimitiveTypeUtil.PRIM_INT+"'/>\n";
         xml_ += "<constructor access='"+PUBLIC_ACCESS+"'>\n";
-        xml_ += "<line expression='^this(17i)'/>\n";
+        xml_ += "<line expression='$this(17i)'/>\n";
         xml_ += "</constructor>\n";
         xml_ += "<constructor access='"+PUBLIC_ACCESS+"' var0='i' class0='"+PrimitiveTypeUtil.PRIM_INT+"'>\n";
         xml_ += "<if condition='i;.;&gt;0'>\n";
@@ -10286,13 +10286,13 @@ public class ProcessXmlMethodTest {
         xml_ += "</class>\n";
         files_.put("pkg/Ex."+Classes.EXT, xml_);
         xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExTwo' package='pkg'>\n";
-        xml_ += "<field access='"+PUBLIC_ACCESS+"' name='third' class='["+ARR_OBJECT+"' value='^new."+ARR_OBJECT+"(1i,1i)'/>\n";
+        xml_ += "<field access='"+PUBLIC_ACCESS+"' name='third' class='["+ARR_OBJECT+"' value='$new "+ARR_OBJECT+"(1i,1i)'/>\n";
         xml_ += "<field access='"+PUBLIC_ACCESS+"' name='fourth' class='"+PrimitiveTypeUtil.PRIM_INT+"' value='third;;;length'/>\n";
         xml_ += "<field access='"+PUBLIC_ACCESS+"' name='sec' class='"+PrimitiveTypeUtil.PRIM_INT+"'/>\n";
         xml_ += "<field access='"+PUBLIC_ACCESS+"' name='elt' class='java.lang.Object'/>\n";
         xml_ += "<instance>\n";
         xml_ += "<affect left='sec;;;' oper='+=' right='8i'/>\n";
-        xml_ += "<affect left='third;;;[0i][0i]' oper='=' right='^new.pkg.ExThree()'/>\n";
+        xml_ += "<affect left='third;;;[0i][0i]' oper='=' right='$new pkg.ExThree()'/>\n";
         xml_ += "<affect left='elt;;;' oper='=' right='third;;;[0i][0i]'/>\n";
         xml_ += "</instance>\n";
         xml_ += "<constructor access='"+PUBLIC_ACCESS+"'>\n";
@@ -10306,7 +10306,7 @@ public class ProcessXmlMethodTest {
         xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExThree' package='pkg'>\n";
         xml_ += "<field access='"+PUBLIC_ACCESS+"' name='ance' class='"+PrimitiveTypeUtil.PRIM_INT+"'/>\n";
         xml_ += "<constructor access='"+PUBLIC_ACCESS+"'>\n";
-        xml_ += "<line expression='^this(17i)'/>\n";
+        xml_ += "<line expression='$this(17i)'/>\n";
         xml_ += "</constructor>\n";
         xml_ += "<constructor access='"+PUBLIC_ACCESS+"' var0='i' class0='"+PrimitiveTypeUtil.PRIM_INT+"'>\n";
         xml_ += "<if condition='i;.;&gt;0'>\n";
@@ -10388,7 +10388,7 @@ public class ProcessXmlMethodTest {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex."+Classes.EXT, xml_);
         xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExCont' package='pkg'>\n";
-        xml_ += "<field access='"+PUBLIC_ACCESS+"' name='inst' class='$int' value='^static^pkg^Ex.TWO;;;.doubleValue()'/>\n";
+        xml_ += "<field access='"+PUBLIC_ACCESS+"' name='inst' class='$int' value='$static$pkg$Ex.TWO;;;.doubleValue()'/>\n";
         xml_ += "</class>\n";
         files_.put("pkg/ExCont."+Classes.EXT, xml_);
         ContextEl cont_ = new ContextEl(50);
@@ -10428,7 +10428,7 @@ public class ProcessXmlMethodTest {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex."+Classes.EXT, xml_);
         xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExCont' package='pkg'>\n";
-        xml_ += "<field access='"+PUBLIC_ACCESS+"' name='inst' class='$int' value='^static^pkg^Ex.ONE;;;.doubleValue()'/>\n";
+        xml_ += "<field access='"+PUBLIC_ACCESS+"' name='inst' class='$int' value='$static$pkg$Ex.ONE;;;.doubleValue()'/>\n";
         xml_ += "</class>\n";
         files_.put("pkg/ExCont."+Classes.EXT, xml_);
         ContextEl cont_ = new ContextEl(50);
@@ -10468,7 +10468,7 @@ public class ProcessXmlMethodTest {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex."+Classes.EXT, xml_);
         xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExCont' package='pkg'>\n";
-        xml_ += "<field access='"+PUBLIC_ACCESS+"' name='inst' class='java.lang.String' value='^static^pkg^Ex.TWO;;;.name()'/>\n";
+        xml_ += "<field access='"+PUBLIC_ACCESS+"' name='inst' class='java.lang.String' value='$static$pkg$Ex.TWO;;;.name()'/>\n";
         xml_ += "</class>\n";
         files_.put("pkg/ExCont."+Classes.EXT, xml_);
         ContextEl cont_ = new ContextEl(50);
@@ -10508,7 +10508,7 @@ public class ProcessXmlMethodTest {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex."+Classes.EXT, xml_);
         xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExCont' package='pkg'>\n";
-        xml_ += "<field access='"+PUBLIC_ACCESS+"' name='inst' class='$int' value='^static^pkg^Ex.TWO;;;.ordinal()'/>\n";
+        xml_ += "<field access='"+PUBLIC_ACCESS+"' name='inst' class='$int' value='$static$pkg$Ex.TWO;;;.ordinal()'/>\n";
         xml_ += "</class>\n";
         files_.put("pkg/ExCont."+Classes.EXT, xml_);
         ContextEl cont_ = new ContextEl(50);
@@ -10548,7 +10548,7 @@ public class ProcessXmlMethodTest {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex."+Classes.EXT, xml_);
         xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExCont' package='pkg'>\n";
-        xml_ += "<field access='"+PUBLIC_ACCESS+"' name='inst' class='$int' value='^static^pkg^Ex.values().length'/>\n";
+        xml_ += "<field access='"+PUBLIC_ACCESS+"' name='inst' class='$int' value='$static$pkg$Ex.values().length'/>\n";
         xml_ += "</class>\n";
         files_.put("pkg/ExCont."+Classes.EXT, xml_);
         ContextEl cont_ = new ContextEl(50);
@@ -10588,7 +10588,7 @@ public class ProcessXmlMethodTest {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex."+Classes.EXT, xml_);
         xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExCont' package='pkg'>\n";
-        xml_ += "<field access='"+PUBLIC_ACCESS+"' name='inst' class='pkg.Ex' value='^static^pkg^Ex.valueOf(&quot;ONE&quot;)'/>\n";
+        xml_ += "<field access='"+PUBLIC_ACCESS+"' name='inst' class='pkg.Ex' value='$static$pkg$Ex.valueOf(&quot;ONE&quot;)'/>\n";
         xml_ += "</class>\n";
         files_.put("pkg/ExCont."+Classes.EXT, xml_);
         ContextEl cont_ = new ContextEl(50);
@@ -10628,7 +10628,7 @@ public class ProcessXmlMethodTest {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex."+Classes.EXT, xml_);
         xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExCont' package='pkg'>\n";
-        xml_ += "<field access='"+PUBLIC_ACCESS+"' name='inst' class='$int' value='^static^pkg^Ex.doubleValue()'/>\n";
+        xml_ += "<field access='"+PUBLIC_ACCESS+"' name='inst' class='$int' value='$static$pkg$Ex.doubleValue()'/>\n";
         xml_ += "</class>\n";
         files_.put("pkg/ExCont."+Classes.EXT, xml_);
         ContextEl cont_ = new ContextEl(50);
@@ -10653,7 +10653,7 @@ public class ProcessXmlMethodTest {
     public void instanceArgument95Test() {
         StringMap<String> files_ = new StringMap<String>();
         String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg'>\n";
-        xml_ += "<field access='"+PUBLIC_ACCESS+"' name='array' class='"+ARR_OBJECT+"' value='^new."+ARR_OBJECT+"(1i)'/>\n";
+        xml_ += "<field access='"+PUBLIC_ACCESS+"' name='array' class='"+ARR_OBJECT+"' value='$new "+ARR_OBJECT+"(1i)'/>\n";
         xml_ += "<field access='"+PUBLIC_ACCESS+"' name='elt' class='"+PrimitiveTypeUtil.PRIM_INT+"' value='2i'/>\n";
         xml_ += "<instance>\n";
         xml_ += "<affect left='ref()[0i]' oper='=' right='getter()'/>\n";
@@ -10689,10 +10689,10 @@ public class ProcessXmlMethodTest {
     public void instanceArgument96Test() {
         StringMap<String> files_ = new StringMap<String>();
         String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg'>\n";
-        xml_ += "<field access='"+PUBLIC_ACCESS+"' name='array' class='"+ARR_INTEGER+"' value='^new."+ARR_INTEGER+"[](1i)'/>\n";
+        xml_ += "<field access='"+PUBLIC_ACCESS+"' name='array' class='"+ARR_INTEGER+"' value='$new "+ARR_INTEGER+"[](1i)'/>\n";
         xml_ += "<field access='"+PUBLIC_ACCESS+"' name='elt' class='"+PrimitiveTypeUtil.PRIM_INT+"' value='2i'/>\n";
         xml_ += "<instance>\n";
-        xml_ += "<affect left='ref()[0i]' oper='=' right='getter(^vararg(&quot;$int&quot;),^firstopt(8i),5i)'/>\n";
+        xml_ += "<affect left='ref()[0i]' oper='=' right='getter($vararg(&quot;$int&quot;),$firstopt(8i),5i)'/>\n";
         xml_ += "</instance>\n";
         xml_ += "<method access='"+PUBLIC_ACCESS+"' modifier='final' name='ref' class='"+ARR_OBJECT+"'>\n";
         xml_ += "<return expression='array;;;'/>\n";
@@ -10729,7 +10729,7 @@ public class ProcessXmlMethodTest {
     public void instanceArgument97Test() {
         StringMap<String> files_ = new StringMap<String>();
         String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg'>\n";
-        xml_ += "<field access='"+PUBLIC_ACCESS+"' name='array' class='"+ARR_INTEGER+"' value='^new."+ARR_INTEGER+"[](1i)'/>\n";
+        xml_ += "<field access='"+PUBLIC_ACCESS+"' name='array' class='"+ARR_INTEGER+"' value='$new "+ARR_INTEGER+"[](1i)'/>\n";
         xml_ += "<field access='"+PUBLIC_ACCESS+"' name='elt' class='"+PrimitiveTypeUtil.PRIM_INT+"' value='2i'/>\n";
         xml_ += "<instance>\n";
         xml_ += "<affect left='ref()[0i]' oper='=' right='getter(8i,5i)'/>\n";
@@ -10769,7 +10769,7 @@ public class ProcessXmlMethodTest {
     public void instanceArgument98Test() {
         StringMap<String> files_ = new StringMap<String>();
         String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg'>\n";
-        xml_ += "<field access='"+PUBLIC_ACCESS+"' name='array' class='"+ARR_INTEGER+"' value='^new."+ARR_INTEGER+"[](1i)'/>\n";
+        xml_ += "<field access='"+PUBLIC_ACCESS+"' name='array' class='"+ARR_INTEGER+"' value='$new "+ARR_INTEGER+"[](1i)'/>\n";
         xml_ += "<field access='"+PUBLIC_ACCESS+"' name='elt' class='"+PrimitiveTypeUtil.PRIM_INT+"' value='2i'/>\n";
         xml_ += "<instance>\n";
         xml_ += "<affect left='ref()[0i]' oper='=' right='getter(8i,5i)'/>\n";
@@ -10816,7 +10816,7 @@ public class ProcessXmlMethodTest {
     public void instanceArgument99Test() {
         StringMap<String> files_ = new StringMap<String>();
         String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg'>\n";
-        xml_ += "<field access='"+PUBLIC_ACCESS+"' name='array' class='"+ARR_INTEGER+"' value='^new."+ARR_INTEGER+"[](1i)'/>\n";
+        xml_ += "<field access='"+PUBLIC_ACCESS+"' name='array' class='"+ARR_INTEGER+"' value='$new "+ARR_INTEGER+"[](1i)'/>\n";
         xml_ += "<field access='"+PUBLIC_ACCESS+"' name='elt' class='"+PrimitiveTypeUtil.PRIM_INT+"' value='2i'/>\n";
         xml_ += "<instance>\n";
         xml_ += "<affect left='ref()[0i]' oper='=' right='getter(8i,5i)'/>\n";
@@ -10864,7 +10864,7 @@ public class ProcessXmlMethodTest {
     public void instanceArgument100Test() {
         StringMap<String> files_ = new StringMap<String>();
         String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg'>\n";
-        xml_ += "<field access='"+PUBLIC_ACCESS+"' name='array' class='"+ARR_INTEGER+"' value='^new."+ARR_INTEGER+"[](1i)'/>\n";
+        xml_ += "<field access='"+PUBLIC_ACCESS+"' name='array' class='"+ARR_INTEGER+"' value='$new "+ARR_INTEGER+"[](1i)'/>\n";
         xml_ += "<field access='"+PUBLIC_ACCESS+"' name='elt' class='"+PrimitiveTypeUtil.PRIM_INT+"' value='2i'/>\n";
         xml_ += "<instance>\n";
         xml_ += "<affect left='ref()[0i]' oper='=' right='getter(8i,5i)'/>\n";
@@ -10913,10 +10913,10 @@ public class ProcessXmlMethodTest {
     public void instanceArgument101Test() {
         StringMap<String> files_ = new StringMap<String>();
         String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg'>\n";
-        xml_ += "<field access='"+PUBLIC_ACCESS+"' name='array' class='"+ARR_INTEGER+"' value='^new."+ARR_INTEGER+"[](1i)'/>\n";
+        xml_ += "<field access='"+PUBLIC_ACCESS+"' name='array' class='"+ARR_INTEGER+"' value='$new "+ARR_INTEGER+"[](1i)'/>\n";
         xml_ += "<field access='"+PUBLIC_ACCESS+"' name='elt' class='"+PrimitiveTypeUtil.PRIM_INT+"' value='2i'/>\n";
         xml_ += "<instance>\n";
-        xml_ += "<affect left='ref()[0i]' oper='=' right='getter(^new.[$int[](8i,5i))'/>\n";
+        xml_ += "<affect left='ref()[0i]' oper='=' right='getter($new [$int[](8i,5i))'/>\n";
         xml_ += "</instance>\n";
         xml_ += "<method access='"+PUBLIC_ACCESS+"' modifier='final' name='ref' class='"+ARR_OBJECT+"'>\n";
         xml_ += "<return expression='array;;;'/>\n";
@@ -10976,7 +10976,7 @@ public class ProcessXmlMethodTest {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex."+Classes.EXT, xml_);
         xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExCont' package='pkg'>\n";
-        xml_ += "<field access='"+PUBLIC_ACCESS+"' name='pre' class='$enum' value='^static^pkg^Ex.TWO;;;'/>\n";
+        xml_ += "<field access='"+PUBLIC_ACCESS+"' name='pre' class='$enum' value='$static$pkg$Ex.TWO;;;'/>\n";
         xml_ += "<field access='"+PUBLIC_ACCESS+"' name='inst' class='java.lang.String' value='pre;;;name()'/>\n";
         xml_ += "</class>\n";
         files_.put("pkg/ExCont."+Classes.EXT, xml_);
@@ -11022,7 +11022,7 @@ public class ProcessXmlMethodTest {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex."+Classes.EXT, xml_);
         xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExCont' package='pkg'>\n";
-        xml_ += "<field access='"+PUBLIC_ACCESS+"' name='pre' class='$enum' value='^static^pkg^Ex.TWO;;;'/>\n";
+        xml_ += "<field access='"+PUBLIC_ACCESS+"' name='pre' class='$enum' value='$static$pkg$Ex.TWO;;;'/>\n";
         xml_ += "<field access='"+PUBLIC_ACCESS+"' name='inst' class='$int' value='pre;;;ordinal()'/>\n";
         xml_ += "</class>\n";
         files_.put("pkg/ExCont."+Classes.EXT, xml_);
@@ -11068,7 +11068,7 @@ public class ProcessXmlMethodTest {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex."+Classes.EXT, xml_);
         xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExCont' package='pkg'>\n";
-        xml_ += "<field access='"+PUBLIC_ACCESS+"' name='pre' class='pkg.Int' value='^static^pkg^Ex.TWO;;;'/>\n";
+        xml_ += "<field access='"+PUBLIC_ACCESS+"' name='pre' class='pkg.Int' value='$static$pkg$Ex.TWO;;;'/>\n";
         xml_ += "<field access='"+PUBLIC_ACCESS+"' name='inst' class='java.lang.String' value='pre;;;name()'/>\n";
         xml_ += "</class>\n";
         files_.put("pkg/ExCont."+Classes.EXT, xml_);
@@ -11114,7 +11114,7 @@ public class ProcessXmlMethodTest {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex."+Classes.EXT, xml_);
         xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExCont' package='pkg'>\n";
-        xml_ += "<field access='"+PUBLIC_ACCESS+"' name='pre' class='pkg.Int' value='^static^pkg^Ex.TWO;;;'/>\n";
+        xml_ += "<field access='"+PUBLIC_ACCESS+"' name='pre' class='pkg.Int' value='$static$pkg$Ex.TWO;;;'/>\n";
         xml_ += "<field access='"+PUBLIC_ACCESS+"' name='inst' class='$int' value='pre;;;ordinal()'/>\n";
         xml_ += "</class>\n";
         files_.put("pkg/ExCont."+Classes.EXT, xml_);
@@ -11158,8 +11158,8 @@ public class ProcessXmlMethodTest {
         xml_ += "</class>\n";
         files_.put("pkgtwo/ExTwo."+Classes.EXT, xml_);
         xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExThree' package='pkgtwo'>\n";
-        xml_ += "<field access='"+PUBLIC_ACCESS+"' name='inst' class='pkgtwo.ExTwo' value='^new.pkg.Ex()'/>\n";
-        xml_ += "<field access='"+PUBLIC_ACCESS+"' name='ance' class='"+PrimitiveTypeUtil.PRIM_INT+"' value='inst;;;^this^getter()'/>\n";
+        xml_ += "<field access='"+PUBLIC_ACCESS+"' name='inst' class='pkgtwo.ExTwo' value='$new pkg.Ex()'/>\n";
+        xml_ += "<field access='"+PUBLIC_ACCESS+"' name='ance' class='"+PrimitiveTypeUtil.PRIM_INT+"' value='inst;;;$this$getter()'/>\n";
         xml_ += "</class>\n";
         files_.put("pkgtwo/ExThree."+Classes.EXT, xml_);
         cont_.setAccessValue(new AccessValueEx());
@@ -11183,10 +11183,10 @@ public class ProcessXmlMethodTest {
     public void instanceArgument107Test() {
         StringMap<String> files_ = new StringMap<String>();
         String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg'>\n";
-        xml_ += "<field access='"+PUBLIC_ACCESS+"' name='array' class='"+ARR_INTEGER+"' value='^new."+ARR_INTEGER+"[](1i)'/>\n";
+        xml_ += "<field access='"+PUBLIC_ACCESS+"' name='array' class='"+ARR_INTEGER+"' value='$new "+ARR_INTEGER+"[](1i)'/>\n";
         xml_ += "<field access='"+PUBLIC_ACCESS+"' name='elt' class='"+PrimitiveTypeUtil.PRIM_INT+"' value='2i'/>\n";
         xml_ += "<instance>\n";
-        xml_ += "<affect left='ref()[0i]' oper='=' right='getter(^vararg(&quot;$int&quot;),^firstopt(8i))'/>\n";
+        xml_ += "<affect left='ref()[0i]' oper='=' right='getter($vararg(&quot;$int&quot;),$firstopt(8i))'/>\n";
         xml_ += "</instance>\n";
         xml_ += "<method access='"+PUBLIC_ACCESS+"' modifier='final' name='ref' class='"+ARR_OBJECT+"'>\n";
         xml_ += "<return expression='array;;;'/>\n";
@@ -11223,7 +11223,7 @@ public class ProcessXmlMethodTest {
     public void instanceArgument108Test() {
         StringMap<String> files_ = new StringMap<String>();
         String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg'>\n";
-        xml_ += "<field access='"+PUBLIC_ACCESS+"' name='array' class='"+ARR_INTEGER+"' value='^new."+ARR_INTEGER+"[](1i)'/>\n";
+        xml_ += "<field access='"+PUBLIC_ACCESS+"' name='array' class='"+ARR_INTEGER+"' value='$new "+ARR_INTEGER+"[](1i)'/>\n";
         xml_ += "<field access='"+PUBLIC_ACCESS+"' name='elt' class='"+PrimitiveTypeUtil.PRIM_INT+"' value='2i'/>\n";
         xml_ += "<instance>\n";
         xml_ += "<affect left='ref()[0i]' oper='=' right='getter()'/>\n";
@@ -11263,10 +11263,10 @@ public class ProcessXmlMethodTest {
     public void instanceArgument109Test() {
         StringMap<String> files_ = new StringMap<String>();
         String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg'>\n";
-        xml_ += "<field access='"+PUBLIC_ACCESS+"' name='array' class='"+ARR_INTEGER+"' value='^new."+ARR_INTEGER+"[](1i)'/>\n";
+        xml_ += "<field access='"+PUBLIC_ACCESS+"' name='array' class='"+ARR_INTEGER+"' value='$new "+ARR_INTEGER+"[](1i)'/>\n";
         xml_ += "<field access='"+PUBLIC_ACCESS+"' name='elt' class='"+PrimitiveTypeUtil.PRIM_INT+"' value='2i'/>\n";
         xml_ += "<instance>\n";
-        xml_ += "<affect left='ref()[0i]' oper='=' right='getter(^vararg(&quot;$int&quot;))'/>\n";
+        xml_ += "<affect left='ref()[0i]' oper='=' right='getter($vararg(&quot;$int&quot;))'/>\n";
         xml_ += "</instance>\n";
         xml_ += "<method access='"+PUBLIC_ACCESS+"' modifier='final' name='ref' class='"+ARR_OBJECT+"'>\n";
         xml_ += "<return expression='array;;;'/>\n";
@@ -11313,7 +11313,7 @@ public class ProcessXmlMethodTest {
         xml_ += "</class>\n";
         files_.put("pkgtwo/ExTwo."+Classes.EXT, xml_);
         xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExThree' package='pkgtwo'>\n";
-        xml_ += "<field access='"+PUBLIC_ACCESS+"' name='inst' class='pkgtwo.ExTwo' value='^new.pkg.Ex()'/>\n";
+        xml_ += "<field access='"+PUBLIC_ACCESS+"' name='inst' class='pkgtwo.ExTwo' value='$new pkg.Ex()'/>\n";
         xml_ += "<field access='"+PUBLIC_ACCESS+"' name='ance' class='"+PrimitiveTypeUtil.PRIM_INT+"' value='inst;;;getter()'/>\n";
         xml_ += "</class>\n";
         files_.put("pkgtwo/ExThree."+Classes.EXT, xml_);
@@ -11344,12 +11344,12 @@ public class ProcessXmlMethodTest {
         xml_ += "</class>\n";
         files_.put("pkg/Ex."+Classes.EXT, xml_);
         xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExTwo' package='pkg'>\n";
-        xml_ += "<field access='"+PUBLIC_ACCESS+"' name='third' class='"+ARR_CUST+"' value='^new."+ARR_CUST+"(1i)'/>\n";
+        xml_ += "<field access='"+PUBLIC_ACCESS+"' name='third' class='"+ARR_CUST+"' value='$new "+ARR_CUST+"(1i)'/>\n";
         xml_ += "<field access='"+PUBLIC_ACCESS+"' name='fourth' class='"+PrimitiveTypeUtil.PRIM_INT+"' value='third;;;length'/>\n";
         xml_ += "<field access='"+PUBLIC_ACCESS+"' name='sec' class='"+PrimitiveTypeUtil.PRIM_INT+"'/>\n";
         xml_ += "<instance>\n";
         xml_ += "<affect left='sec;;;' oper='+=' right='8i'/>\n";
-        xml_ += "<affect left='third;;;[0i]' oper='=' right='^new.pkg.ExThree()'/>\n";
+        xml_ += "<affect left='third;;;[0i]' oper='=' right='$new pkg.ExThree()'/>\n";
         xml_ += "</instance>\n";
         xml_ += "<constructor access='"+PUBLIC_ACCESS+"'>\n";
         xml_ += "<affect left='sec;;;' oper='+=' right='16i'/>\n";
@@ -11359,10 +11359,10 @@ public class ProcessXmlMethodTest {
         xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExThree' package='pkg'>\n";
         xml_ += "<field access='"+PUBLIC_ACCESS+"' name='ance' class='"+PrimitiveTypeUtil.PRIM_INT+"'/>\n";
         xml_ += "<constructor access='"+PUBLIC_ACCESS+"'>\n";
-        xml_ += "<line expression='^this(17i)'/>\n";
+        xml_ += "<line expression='$this(17i)'/>\n";
         xml_ += "</constructor>\n";
         xml_ += "<constructor access='"+PUBLIC_ACCESS+"' var0='i' class0='"+PrimitiveTypeUtil.PRIM_INT+"'>\n";
-        xml_ += "<line expression='^super()'/>\n";
+        xml_ += "<line expression='$super()'/>\n";
         xml_ += "<if condition='i;.;&gt;0'>\n";
         xml_ += "<affect left='ance;;;' oper='=' right='i;.;'/>\n";
         xml_ += "<return/>\n";

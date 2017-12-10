@@ -39,7 +39,7 @@ public final class ElResolver {
     private static final char GET_VAR = ';';
     private static final char DOT_VAR = '.';
     private static final char EXP = 'e';
-    private static final char EXTERN_CLASS = '^';
+    private static final char EXTERN_CLASS = '$';
     private static final String CLASS_CHOICE = "classchoice";
     private static final String INSTANCE = "new";
     private static final String SUPER = "super";
