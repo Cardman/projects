@@ -88,17 +88,6 @@ public final class Text extends CharacterData {
     }
 
     @Override
-    public String getNodeName() {
-        // TODO Auto-generated method stub
-        return null;
-    }
-
-    @Override
-    public String getNodeValue() {
-        return getTextContent();
-    }
-
-    @Override
     public void appendChild(Node _newChild) {
     }
 

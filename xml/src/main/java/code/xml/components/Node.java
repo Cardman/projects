@@ -61,8 +61,6 @@ public abstract class Node implements Info {
     }
     public abstract NamedNodeMap getAttributes();
     public abstract NodeList getChildNodes();
-    public abstract String getNodeName();
-    public abstract String getNodeValue();
 
     public abstract void appendChild(Node _newChild);
     public abstract void removeChild(Node _oldChild);

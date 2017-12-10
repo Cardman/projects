@@ -67,18 +67,6 @@ public final class Comment extends CharacterData {
     }
 
     @Override
-    public String getNodeName() {
-        // TODO Auto-generated method stub
-        return null;
-    }
-
-    @Override
-    public String getNodeValue() {
-        // TODO Auto-generated method stub
-        return null;
-    }
-
-    @Override
     public void appendChild(Node _newChild) {
         // TODO Auto-generated method stub
         

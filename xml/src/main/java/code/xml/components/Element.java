@@ -61,8 +61,8 @@ public final class Element extends Node {
     public void removeAttribute(String _name) {
         int index_ = CustList.INDEX_NOT_FOUND_ELT;
         for (Attr a: attributes) {
+            index_++;
             if (StringList.quickEq(a.getName(), _name)) {
-                index_ = a.getIndex();
                 break;
             }
         }
@@ -70,16 +70,12 @@ public final class Element extends Node {
             return;
         }
         attributes.remove(index_);
-        int len_ = attributes.size();
-        for (int i = index_; i < len_; i++) {
-            attributes.get(i).setIndex(i);
-        }
     }
     public void removeAttributeNode(Attr _oldAttr) {
         int index_ = CustList.INDEX_NOT_FOUND_ELT;
         for (Attr a: attributes) {
+            index_++;
             if (StringList.quickEq(a.getName(), _oldAttr.getName())) {
-                index_ = a.getIndex();
                 break;
             }
         }
@@ -87,13 +83,6 @@ public final class Element extends Node {
             return;
         }
         attributes.remove(index_);
-        int len_ = attributes.size();
-        for (int i = index_; i < len_; i++) {
-            attributes.get(i).setIndex(i);
-        }
-    }
-    public void removeAttributeNS(String _namespace, String localName) {
-        
     }
     public void setAttribute(String _name, String _value) {
         for (Attr a: attributes) {
@@ -102,9 +91,7 @@ public final class Element extends Node {
                 return;
             }
         }
-        int index_ = attributes.size();
         Attr attr_ = getOwnerDocument().createAttribute(_name);
-        attr_.setIndex(index_);
         attr_.setValue(_value);
     }
     protected void setEscapedAttribute(String _name, String _value) {
@@ -114,9 +101,7 @@ public final class Element extends Node {
                 return;
             }
         }
-        int index_ = attributes.size();
         Attr attr_ = getOwnerDocument().createAttribute(_name);
-        attr_.setIndex(index_);
         attr_.setEscapedValue(_value);
     }
     public void setAttributeNode(Attr _newAttr) {
@@ -126,16 +111,8 @@ public final class Element extends Node {
                 return;
             }
         }
-        int index_ = attributes.size();
         Attr attr_ = getOwnerDocument().createAttribute(_newAttr.getName());
-        attr_.setIndex(index_);
         attr_.setValue(_newAttr.getValue());
-    }
-    public void setAttributeNodeNS(Attr newAttr) {
-        
-    }
-    public void setAttributeNS(String _namespace, String qualifiedName, String value) {
-        
     }
 
     @Override
@@ -143,7 +120,7 @@ public final class Element extends Node {
         return attributes;
     }
 
-    public void setAttributes(NamedNodeMap _attributes) {
+    protected void setAttributes(NamedNodeMap _attributes) {
         attributes = _attributes;
     }
 
@@ -156,17 +133,6 @@ public final class Element extends Node {
             child_ = child_.getNextSibling();
         }
         return children_;
-    }
-
-    @Override
-    public String getNodeName() {
-        return getTagName();
-    }
-
-    @Override
-    public String getNodeValue() {
-        // TODO Auto-generated method stub
-        return null;
     }
 
     @Override
@@ -469,10 +435,154 @@ public final class Element extends Node {
         return 0;
     }
 
+    public NodeList getElementsByTagName() {
+        NodeList elements_ = new NodeList();
+        Element root_ = this;
+        elements_.add(root_);
+        Node current_ = getFirstChild();
+        while (true) {
+            if (current_ == null) {
+                break;
+            }
+            if (current_ instanceof Element) {
+                Element elt_ = (Element) current_;
+                elements_.add(elt_);
+            }
+            Node next_ = current_.getFirstChild();
+            if (next_ != null) {
+                current_ = next_;
+                continue;
+            }
+            next_ = current_.getNextSibling();
+            if (next_ != null) {
+                current_ = next_;
+                continue;
+            }
+            Element parent_ = current_.getParentNode();
+            if (parent_ == null) {
+                current_ = null;
+                continue;
+            }
+            if (parent_ == root_) {
+                current_ = null;
+                continue;
+            }
+            next_ = parent_.getNextSibling();
+            while (next_ == null) {
+                Element par_ = parent_.getParentNode();
+                if (par_ == null) {
+                    break;
+                }
+                if (par_ == root_) {
+                    break;
+                }
+                next_ = par_.getNextSibling();
+                parent_ = par_;
+            }
+            current_ = next_;
+        }
+        return elements_;
+    }
+
+    public NodeList getElementsByTagName(String _tagName) {
+        NodeList elements_ = new NodeList();
+        Element root_ = this;
+        if (StringList.quickEq(getTagName(), _tagName)) {
+            elements_.add(root_);
+        }
+        Node current_ = getFirstChild();
+        while (true) {
+            if (current_ == null) {
+                break;
+            }
+            if (current_ instanceof Element) {
+                Element elt_ = (Element) current_;
+                if (StringList.quickEq(elt_.getTagName(), _tagName)) {
+                    elements_.add(elt_);
+                }
+            }
+            Node next_ = current_.getFirstChild();
+            if (next_ != null) {
+                current_ = next_;
+                continue;
+            }
+            next_ = current_.getNextSibling();
+            if (next_ != null) {
+                current_ = next_;
+                continue;
+            }
+            Element parent_ = current_.getParentNode();
+            if (parent_ == null) {
+                current_ = null;
+                continue;
+            }
+            if (parent_ == root_) {
+                current_ = null;
+                continue;
+            }
+            next_ = parent_.getNextSibling();
+            while (next_ == null) {
+                Element par_ = parent_.getParentNode();
+                if (par_ == null) {
+                    break;
+                }
+                if (par_ == root_) {
+                    break;
+                }
+                next_ = par_.getNextSibling();
+                parent_ = par_;
+            }
+            current_ = next_;
+        }
+        return elements_;
+    }
     @Override
     public String getTextContent() {
-        // TODO Auto-generated method stub
-        return null;
+        Element root_ = this;
+        Node current_ = getFirstChild();
+        StringBuilder str_ = new StringBuilder();
+        while (true) {
+            if (current_ == null) {
+                break;
+            }
+            if (current_ instanceof Text) {
+                Text txt_ = (Text) current_;
+                str_.append(txt_.getTextContent());
+            }
+            Node next_ = current_.getFirstChild();
+            if (next_ != null) {
+                current_ = next_;
+                continue;
+            }
+            next_ = current_.getNextSibling();
+            if (next_ != null) {
+                current_ = next_;
+                continue;
+            }
+            Element parent_ = current_.getParentNode();
+            if (parent_ == null) {
+                current_ = null;
+                continue;
+            }
+            if (parent_ == root_) {
+                current_ = null;
+                continue;
+            }
+            next_ = parent_.getNextSibling();
+            while (next_ == null) {
+                Element par_ = parent_.getParentNode();
+                if (par_ == null) {
+                    break;
+                }
+                if (par_ == root_) {
+                    break;
+                }
+                next_ = par_.getNextSibling();
+                parent_ = par_;
+            }
+            current_ = next_;
+        }
+        return str_.toString();
     }
 
     @Override

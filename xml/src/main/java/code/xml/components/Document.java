@@ -1,5 +1,6 @@
 package code.xml.components;
 
+
 public final class Document extends Node {
     private Element documentElement;
 
@@ -58,15 +59,6 @@ public final class Document extends Node {
         return list_;
     }
     @Override
-    public String getNodeName() {
-        // TODO Auto-generated method stub
-        return null;
-    }
-    @Override
-    public String getNodeValue() {
-        return null;
-    }
-    @Override
     public void appendChild(Node _newChild) {
         Element element_ = (Element) _newChild;
         documentElement = element_;
@@ -107,6 +99,13 @@ public final class Document extends Node {
 
     public String export() {
         return documentElement.export();
+    }
+    public NodeList getElementsByTagName() {
+        return documentElement.getElementsByTagName();
+    }
+
+    public NodeList getElementsByTagName(String _tagName) {
+        return documentElement.getElementsByTagName(_tagName);
     }
     @Override
     public boolean hasChildNodes() {

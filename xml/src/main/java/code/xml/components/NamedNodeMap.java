@@ -1,20 +1,25 @@
 package code.xml.components;
 
+import java.util.Iterator;
+
 import code.util.CustList;
 import code.util.StringList;
 import code.util.ints.Listable;
 
-public final class NamedNodeMap extends CustList<Attr> {
+public final class NamedNodeMap implements Iterable<Attr> {
+
+    private CustList<Attr> attrs;
 
     public NamedNodeMap() {
+        attrs = new CustList<Attr>();
     }
 
-    public NamedNodeMap(Attr... _elements) {
-        super(_elements);
+    protected NamedNodeMap(Attr... _elements) {
+        attrs = new CustList<Attr>(_elements);
     }
 
-    public NamedNodeMap(Listable<Attr> _c) {
-        super(_c);
+    protected NamedNodeMap(Listable<Attr> _c) {
+        attrs = new CustList<Attr>(_c);
     }
 
     public Attr getNamedItem(String _key) {
@@ -27,10 +32,27 @@ public final class NamedNodeMap extends CustList<Attr> {
     }
 
     public Attr item(int _i) {
-        return get(_i);
+        return attrs.get(_i);
     }
 
     public int getLength() {
-        return size();
+        return attrs.size();
+    }
+
+    @Override
+    public Iterator<Attr> iterator() {
+        return attrs.iterator();
+    }
+
+    public boolean isEmpty() {
+        return attrs.isEmpty();
+    }
+
+    public int size() {
+        return attrs.size();
+    }
+
+    public void remove(int _index) {
+        attrs.remove(_index);
     }
 }

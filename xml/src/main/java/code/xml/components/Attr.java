@@ -19,17 +19,7 @@ public final class Attr implements Info {
     //value parsed from string 
     private String escapedValue;
 
-    private int index = CustList.INDEX_NOT_FOUND_ELT;
-
     protected Attr() {
-    }
-
-    protected int getIndex() {
-        return index;
-    }
-
-    protected void setIndex(int _index) {
-        index = _index;
     }
 
     protected String export() {
@@ -40,7 +30,7 @@ public final class Attr implements Info {
         return name;
     }
 
-    public void setName(String _name) {
+    protected void setName(String _name) {
         name = _name;
     }
 

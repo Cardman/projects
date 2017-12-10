@@ -939,7 +939,7 @@ public final class DocumentBuilder {
         StringBuilder currentText_ = new StringBuilder();
         boolean finished_ = false;
         StringBuilder attributeValue_ = new StringBuilder();
-        NamedNodeMap attrs_ = new NamedNodeMap();
+        CustList<Attr> attrs_ = new CustList<Attr>();
         if (_expected.isEmpty()) {
             res_.setLocation(new RowCol());
             return false;
@@ -1000,8 +1000,8 @@ public final class DocumentBuilder {
                 if (curChar_ == GT_CHAR) {
                     infos_.add(ReadingState.HEADER);
                     infos_.add(tagName_.toString());
-                    infos_.add(attrs_);
-                    attrs_ = new NamedNodeMap();
+                    infos_.add(new NamedNodeMap(attrs_));
+                    attrs_ = new CustList<Attr>();
                     if (addChild_) {
                         stack_.add(tagName_.toString()+GT_CHAR);
                     } else {
@@ -1197,8 +1197,8 @@ public final class DocumentBuilder {
                 if (endHead_) {
                     infos_.add(ReadingState.HEADER);
                     infos_.add(tagName_.toString());
-                    infos_.add(attrs_);
-                    attrs_ = new NamedNodeMap();
+                    infos_.add(new NamedNodeMap(attrs_));
+                    attrs_ = new CustList<Attr>();
                     if (addChild_) {
                         stack_.add(tagName_.toString()+GT_CHAR);
                     } else {
@@ -1330,7 +1330,7 @@ public final class DocumentBuilder {
         stack_ = new StringList();
         currentText_ = new StringBuilder();
         attributeValue_ = new StringBuilder();
-        attrs_ = new NamedNodeMap();
+        attrs_ = new CustList<Attr>();
         int deep_ = 0;
         //TODO found doc
         int indexInfo_ = CustList.SECOND_INDEX;
@@ -1425,7 +1425,7 @@ public final class DocumentBuilder {
                 if (!Character.isWhitespace(_found.charAt(endIndex_))) {
                     break;
                 }
-                attrs_ = new NamedNodeMap();
+                attrs_ = new CustList<Attr>();
                 int nextPrintable_ = endIndex_;
                 while (nextPrintable_ < len_) {
                     char next_ = _found.charAt(nextPrintable_);
@@ -1792,7 +1792,7 @@ public final class DocumentBuilder {
         boolean finished_ = false;
 //        StringBuilder currentComment_ = new StringBuilder();
         StringBuilder attributeValue_ = new StringBuilder();
-        NamedNodeMap attrs_ = new NamedNodeMap();
+        CustList<Attr> attrs_ = new CustList<Attr>();
         if (_input.isEmpty()) {
             res_.setLocation(new RowCol());
             return res_;
@@ -1841,8 +1841,8 @@ public final class DocumentBuilder {
                 }
                 if (curChar_ == GT_CHAR) {
                     Element element_ = doc_.createElement(tagName_.toString());
-                    element_.setAttributes(attrs_);
-                    attrs_ = new NamedNodeMap();
+                    element_.setAttributes(new NamedNodeMap(attrs_));
+                    attrs_ = new CustList<Attr>();
                     if (doc_.getDocumentElement() == null) {
                         doc_.appendChild(element_);
                     } else {
@@ -2041,8 +2041,8 @@ public final class DocumentBuilder {
                 }
                 if (endHead_) {
                     Element element_ = doc_.createElement(tagName_.toString());
-                    element_.setAttributes(attrs_);
-                    attrs_ = new NamedNodeMap();
+                    element_.setAttributes(new NamedNodeMap(attrs_));
+                    attrs_ = new CustList<Attr>();
                     if (doc_.getDocumentElement() == null) {
                         doc_.appendChild(element_);
                     } else {
