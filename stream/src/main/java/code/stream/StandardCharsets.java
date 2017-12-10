@@ -1,4 +1,4 @@
-package code.xml;
+package code.stream;
 
 public enum StandardCharsets {
     UTF_8("UTF-8"),
