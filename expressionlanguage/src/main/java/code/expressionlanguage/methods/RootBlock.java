@@ -4,7 +4,7 @@ import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 import java.lang.reflect.Type;
 
-import org.w3c.dom.Element;
+import code.xml.components.Element;
 
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.Mapping;

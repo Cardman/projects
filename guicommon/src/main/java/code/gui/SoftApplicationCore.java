@@ -7,9 +7,9 @@ import java.io.File;
 
 import javax.swing.JFrame;
 
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-import org.w3c.dom.Node;
+import code.xml.components.Document;
+import code.xml.components.Element;
+import code.xml.components.Node;
 
 import code.images.ConverterBufferedImage;
 import code.resources.ResourceFiles;

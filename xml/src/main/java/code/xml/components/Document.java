@@ -97,6 +97,14 @@ public final class Document extends Node {
         return documentElement.openTag();
     }
 
+    public void renameNode(Node _node, String _name) {
+        if (!(_node instanceof Element)) {
+            return;
+        }
+        Element elt_ = (Element)_node;
+        elt_.setTagName(_name);
+    }
+
     public String export() {
         return documentElement.export();
     }

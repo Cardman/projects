@@ -6,8 +6,8 @@ import javax.imageio.ImageIO;
 
 import org.junit.BeforeClass;
 import org.junit.Test;
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
+import code.xml.components.Document;
+import code.xml.components.Element;
 
 import code.bean.Bean;
 import code.bean.translator.Translator;

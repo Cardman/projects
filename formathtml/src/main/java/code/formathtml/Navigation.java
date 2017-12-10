@@ -2,11 +2,11 @@ package code.formathtml;
 import java.awt.image.BufferedImage;
 import java.lang.reflect.Method;
 
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
-import org.w3c.dom.Text;
+import code.xml.components.Document;
+import code.xml.components.Element;
+import code.xml.components.Node;
+import code.xml.components.NodeList;
+import code.xml.components.Text;
 
 import code.bean.Bean;
 import code.bean.validator.Message;

@@ -1,5 +1,5 @@
 package code.serialize;
-import org.w3c.dom.Element;
+import code.xml.components.Element;
 
 import code.util.CustList;
 

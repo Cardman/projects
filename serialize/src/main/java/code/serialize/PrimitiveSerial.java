@@ -1,6 +1,6 @@
 package code.serialize;
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
+import code.xml.components.Document;
+import code.xml.components.Element;
 
 abstract class PrimitiveSerial extends ElementsSerial{
 

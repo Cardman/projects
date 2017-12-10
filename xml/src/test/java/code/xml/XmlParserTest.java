@@ -8,9 +8,9 @@ import junitparams.Parameters;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-import org.w3c.dom.Node;
+import code.xml.components.Document;
+import code.xml.components.Element;
+import code.xml.components.Node;
 
 import code.util.NatTreeMap;
 import code.util.Numbers;
@@ -223,12 +223,12 @@ public class XmlParserTest {
 
     @Test
     public void parseSax6Test() {
-        assertNull(XmlParser.parseSax("<tag>&eacute;</tag>"));
+        assertNotNull(XmlParser.parseSax("<tag>&eacute;</tag>"));
     }
 
     @Test
     public void parseSax7Test() {
-        assertNull(XmlParser.parseSax("<tag>&#0;</tag>"));
+        assertNotNull(XmlParser.parseSax("<tag>&#0;</tag>"));
     }
 
     public void parseSaxHtml1Test() {
@@ -262,7 +262,7 @@ public class XmlParserTest {
 
     @Test
     public void parseSaxHtml7Test() {
-        assertNull(XmlParser.parseSaxHtml("<tag>&#0;</tag>", true));
+        assertNotNull(XmlParser.parseSaxHtml("<tag>&#0;</tag>", true));
     }
 
     @Test
@@ -423,7 +423,7 @@ public class XmlParserTest {
 
     @Test(timeout=1000)
     public void getIndexOfNodeOrAttribute15Test() {
-        String html_ = "<tag>233<ta >234</ta></tag>";
+        String html_ = "<tag>233<ta> 234</ta></tag>";
         Document doc_ = XmlParser.parseSax(html_);
         Node node_ = doc_.getDocumentElement();
         Node n_ = node_.getFirstChild().getNextSibling();
@@ -639,7 +639,7 @@ public class XmlParserTest {
     @Test
     public void getIndexesOfElementOrAttribute3Test() {
         String html_ = " <tag>\n"+(char)233+"<ta>"+(char)234+"</ta></tag>";
-        Document doc_ = XmlParser.parseSax(html_);
+        Document doc_ = XmlParser.parseSax(html_.trim());
         Node node_ = doc_.getDocumentElement();
         Node n_ = node_;
         RowCol rc_ = new RowCol();
@@ -687,7 +687,7 @@ public class XmlParserTest {
     @Test
     public void getIndexesOfElementOrAttribute5Test() {
         String html_ = " <tag>\n"+(char)233+"<ta>"+(char)234+"</ta></tag>";
-        Document doc_ = XmlParser.parseSax(html_);
+        Document doc_ = XmlParser.parseSax(html_.trim());
         Node node_ = doc_.getDocumentElement();
         Node n_ = node_;
         RowCol rc_ = new RowCol();
@@ -848,7 +848,7 @@ public class XmlParserTest {
     @Test
     public void getIndexesOfElementOrAttribute11Test() {
         String html_ = "\n<tag>"+(char)233+"<ta>"+(char)234+"</ta></tag>";
-        Document doc_ = XmlParser.parseSax(html_);
+        Document doc_ = XmlParser.parseSax(html_.trim());
         Node node_ = doc_.getDocumentElement();
         Node n_ = node_;
         RowCol rc_ = new RowCol();
@@ -870,7 +870,7 @@ public class XmlParserTest {
     @Test
     public void getIndexesOfElementOrAttribute12Test() {
         String html_ = "\n<tag>\n"+(char)233+"<ta>"+(char)234+"</ta></tag>";
-        Document doc_ = XmlParser.parseSax(html_);
+        Document doc_ = XmlParser.parseSax(html_.trim());
         Node node_ = doc_.getDocumentElement();
         Node n_ = node_;
         RowCol rc_ = new RowCol();
@@ -893,7 +893,7 @@ public class XmlParserTest {
     @Test
     public void getIndexesOfElementOrAttribute13Test() {
         String html_ = "\n <tag>\n"+(char)233+"<ta>"+(char)234+"</ta></tag>";
-        Document doc_ = XmlParser.parseSax(html_);
+        Document doc_ = XmlParser.parseSax(html_.trim());
         Node node_ = doc_.getDocumentElement();
         Node n_ = node_;
         RowCol rc_ = new RowCol();

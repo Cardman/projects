@@ -1,5 +1,5 @@
 package code.formathtml.util;
-import org.w3c.dom.Element;
+import code.xml.components.Element;
 
 import code.expressionlanguage.stacks.SwitchStack;
 import code.util.CustList;

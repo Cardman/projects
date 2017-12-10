@@ -1,7 +1,7 @@
 package code.expressionlanguage;
-import org.w3c.dom.Element;
-import org.w3c.dom.Node;
-import org.w3c.dom.Text;
+import code.xml.components.Element;
+import code.xml.components.Node;
+import code.xml.components.Text;
 
 import code.util.NatTreeMap;
 import code.util.StringMap;

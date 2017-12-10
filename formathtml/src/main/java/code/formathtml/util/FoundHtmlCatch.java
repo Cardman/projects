@@ -1,5 +1,5 @@
 package code.formathtml.util;
-import org.w3c.dom.Element;
+import code.xml.components.Element;
 
 public final class FoundHtmlCatch {
 

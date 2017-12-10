@@ -60,26 +60,30 @@ public final class Element extends Node {
 
     public void removeAttribute(String _name) {
         int index_ = CustList.INDEX_NOT_FOUND_ELT;
+        boolean found_ = false;
         for (Attr a: attributes) {
             index_++;
             if (StringList.quickEq(a.getName(), _name)) {
+                found_ = true;
                 break;
             }
         }
-        if (index_ == CustList.INDEX_NOT_FOUND_ELT) {
+        if (!found_) {
             return;
         }
         attributes.remove(index_);
     }
     public void removeAttributeNode(Attr _oldAttr) {
         int index_ = CustList.INDEX_NOT_FOUND_ELT;
+        boolean found_ = false;
         for (Attr a: attributes) {
             index_++;
             if (StringList.quickEq(a.getName(), _oldAttr.getName())) {
+                found_ = true;
                 break;
             }
         }
-        if (index_ == CustList.INDEX_NOT_FOUND_ELT) {
+        if (!found_) {
             return;
         }
         attributes.remove(index_);
@@ -93,6 +97,7 @@ public final class Element extends Node {
         }
         Attr attr_ = getOwnerDocument().createAttribute(_name);
         attr_.setValue(_value);
+        attributes.add(attr_);
     }
     protected void setEscapedAttribute(String _name, String _value) {
         for (Attr a: attributes) {
@@ -103,6 +108,7 @@ public final class Element extends Node {
         }
         Attr attr_ = getOwnerDocument().createAttribute(_name);
         attr_.setEscapedValue(_value);
+        attributes.add(attr_);
     }
     public void setAttributeNode(Attr _newAttr) {
         for (Attr a: attributes) {
@@ -113,6 +119,7 @@ public final class Element extends Node {
         }
         Attr attr_ = getOwnerDocument().createAttribute(_newAttr.getName());
         attr_.setValue(_newAttr.getValue());
+        attributes.add(attr_);
     }
 
     @Override

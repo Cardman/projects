@@ -1,15 +1,5 @@
 package code.serialize;
-import java.io.StringWriter;
 import java.lang.reflect.Method;
-
-import javax.xml.transform.TransformerException;
-import javax.xml.transform.dom.DOMSource;
-import javax.xml.transform.stream.StreamResult;
-
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
 
 import code.serialize.exceptions.BadAccessException;
 import code.serialize.exceptions.ClassFoundException;
@@ -28,6 +18,10 @@ import code.util.exceptions.RuntimeClassNotFoundException;
 import code.util.ints.ChangeableMap;
 import code.util.ints.Viewable;
 import code.xml.XmlParser;
+import code.xml.components.Document;
+import code.xml.components.Element;
+import code.xml.components.Node;
+import code.xml.components.NodeList;
 
 public final class SerializeXmlObject {
 
@@ -100,7 +94,7 @@ public final class SerializeXmlObject {
                 Element elt_ = (Element) node_;
                 for (String f: _classes.getKeys()) {
                     if (StringList.quickEq(((Element) node_).getTagName(),f)) {
-                        doc_.renameNode(node_, node_.getNamespaceURI(), _classes.getVal(f));
+                        doc_.renameNode(node_,_classes.getVal(f));
                     }
                     if (!StringList.quickEq(elt_.getAttribute(ElementsSerial.CLASS),f)) {
                         continue;
@@ -127,7 +121,7 @@ public final class SerializeXmlObject {
                 }
                 for (String f: _classes.getKeys()) {
                     if (StringList.quickEq(((Element) node_).getTagName(),f)) {
-                        doc_.renameNode(node_, node_.getNamespaceURI(), _classes.getVal(f));
+                        doc_.renameNode(node_,  _classes.getVal(f));
                     }
                 }
             }
@@ -489,18 +483,9 @@ public final class SerializeXmlObject {
 //            return baos_.toString();
 //        }
         try {
-            DOMSource source_ = getSource(_object);
-            StringWriter writer_ = new StringWriter();
+            Document source_ = getSource(_object);
 
-            boolean omit_ = XmlParser.isOmitDeclaration();
-            if (XmlParser.isIndentXmlWhileWriting()) {
-                XmlParser.setOmitDeclaration(true);
-            }
-            XmlParser.getTransformerWithoutHeader().transform(source_, new StreamResult(writer_));
-            if (XmlParser.isIndentXmlWhileWriting()) {
-                XmlParser.setOmitDeclaration(omit_);
-            }
-            String xml_ = writer_.getBuffer().toString();
+            String xml_ = source_.export();
             StringBuilder escapedXml_ = new StringBuilder();
             for (char c: xml_.toCharArray()) {
                 if (c >= LIMIT_ASCII || c < LIMIT_EMPTY_CHARS) {
@@ -534,13 +519,10 @@ public final class SerializeXmlObject {
         } catch (Error _0) {
             _0.printStackTrace();
             return EMPTY_STRING;
-        } catch (TransformerException _0) {
-            _0.printStackTrace();
-            return EMPTY_STRING;
         }
     }
 
-    private static DOMSource getSource(Object _serialisable) {
+    private static Document getSource(Object _serialisable) {
 //        Document document_ = DocumentBuilderFactory.newInstance().newDocumentBuilder().newDocument();
         Document document_ = XmlParser.newXmlDocument();
         try {
@@ -549,7 +531,7 @@ public final class SerializeXmlObject {
             if (primitive_ != null) {
                 Element elt_ = primitive_.serializeWithoutRef(document_);
                 document_.appendChild(elt_);
-                return new DOMSource(document_);
+                return document_;
             }
         } catch (RuntimeException _0) {
         }
@@ -636,7 +618,7 @@ public final class SerializeXmlObject {
                 }
             }
         }
-        return new DOMSource(document_);
+        return document_;
     }
 
     public static void checkNullPointers(Object _object) {

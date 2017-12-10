@@ -1,5 +1,5 @@
 package code.expressionlanguage.methods;
-import org.w3c.dom.Element;
+import code.xml.components.Element;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;

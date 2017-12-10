@@ -843,7 +843,7 @@ public class SerializeXmlObjectTest {
         SerializeXmlObject.setReferences(_bool);
         SerializeXmlObject.setCheckReferences(false);
         InternStaticStandard int_ = new InternStaticStandard();
-        assertEq("<"+INTERNS_CLASSES+" intern=\"$InternStaticStandard\"/>",SerializeXmlObject.toXmlString(int_));
+        assertXmlEqualRuntime("<"+INTERNS_CLASSES+" intern=\"$InternStaticStandard\"/>",SerializeXmlObject.toXmlString(int_));
     }
 
     @Parameters(method="booleanInputs")
@@ -852,7 +852,7 @@ public class SerializeXmlObjectTest {
         SerializeXmlObject.setReferences(_bool);
         SerializeXmlObject.setCheckReferences(false);
         InternStandardTwo int_ = new InternsClasses().new InternStandardTwo();
-        assertEq("<"+INTERNS_CLASSES+" intern=\"$InternStandardTwo\"><"+INTERNS_CLASSES+" class=\""+INTERN_TWO+"\" field=\"this$0\"/></"+INTERNS_CLASSES+">",SerializeXmlObject.toXmlString(int_));
+        assertXmlEqualRuntime("<"+INTERNS_CLASSES+" intern=\"$InternStandardTwo\"><"+INTERNS_CLASSES+" class=\""+INTERN_TWO+"\" field=\"this$0\"/></"+INTERNS_CLASSES+">",SerializeXmlObject.toXmlString(int_));
     }
 
     @Parameters(method="booleanInputs")
@@ -865,7 +865,7 @@ public class SerializeXmlObjectTest {
         map_ = new EnumMap<MyEnum,String>();
         map_.put(MyEnum.ONE, "1");
         container_.setObject(map_);
-        assertEq("<"+CONTAINER+"><"+ENUM_MAP+" class=\""+CONTAINER+"\" field=\"object\"><"+MY_ENUM+" class=\""+SerializeXmlObject.MP_CLASS+"\" key=\"\" value=\"ONE\"/><java.lang.String class=\""+SerializeXmlObject.MP_CLASS+"\" value=\"1\"/></"+ENUM_MAP+"></"+CONTAINER+">", SerializeXmlObject.toXmlString(container_));
+        assertXmlEqualRuntime("<"+CONTAINER+"><"+ENUM_MAP+" class=\""+CONTAINER+"\" field=\"object\"><"+MY_ENUM+" class=\""+SerializeXmlObject.MP_CLASS+"\" key=\"\" value=\"ONE\"/><java.lang.String class=\""+SerializeXmlObject.MP_CLASS+"\" value=\"1\"/></"+ENUM_MAP+"></"+CONTAINER+">", SerializeXmlObject.toXmlString(container_));
     }
 
     @Parameters(method="booleanInputs")

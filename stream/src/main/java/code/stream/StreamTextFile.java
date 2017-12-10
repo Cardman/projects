@@ -15,8 +15,8 @@ import javax.xml.validation.Schema;
 import javax.xml.validation.SchemaFactory;
 import javax.xml.validation.Validator;
 
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
+import code.xml.components.Document;
+import code.xml.components.Element;
 import org.xml.sax.SAXException;
 
 import code.resources.ResourceFiles;
@@ -202,16 +202,8 @@ public final class StreamTextFile {
     }
 
     public static Element documentXmlInterne(String _dossier, String _fichier) {
-//        DocumentBuilderFactory dbFactory_ = DocumentBuilderFactory.newInstance();
-//        DocumentBuilder dBuilder_;
-//        dBuilder_ = dbFactory_.newDocumentBuilder();
-//        InputSource is_ = new InputSource();
-//        String xmlRecords_ = ressourceFichier(_dossier, _fichier);
-//        is_.setCharacterStream(new StringReader(xmlRecords_));
-
         Document doc_ = XmlParser.parseSax(ResourceFiles.ressourceFichier(_dossier +SEPARATEUR + _fichier));
         Element element_ = doc_.getDocumentElement();
-        element_.normalize();
         return element_;
     }
 

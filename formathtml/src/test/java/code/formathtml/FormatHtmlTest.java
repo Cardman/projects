@@ -7,8 +7,8 @@ import javax.imageio.ImageIO;
 import org.junit.BeforeClass;
 import org.junit.Ignore;
 import org.junit.Test;
-import org.w3c.dom.Document;
 
+import code.xml.components.Document;
 import code.bean.Bean;
 import code.bean.translator.Translator;
 import code.bean.validator.Validator;
@@ -2628,7 +2628,7 @@ public class FormatHtmlTest {
         conf_.setHtml(html_);
         setup(conf_);
         String render_ = FormatHtml.processHtml(doc_, "bean_one", conf_, locale_, files_);
-        assertXmlEqualRuntime("<html xmlns:c='javahtml'><body><textarea/></body></html>", render_);
+        assertXmlEqualRuntime("<html xmlns:c='javahtml'><body><textarea></textarea></body></html>", render_);
     }
 
     @Test

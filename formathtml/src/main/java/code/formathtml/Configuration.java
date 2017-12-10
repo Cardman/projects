@@ -1,5 +1,5 @@
 package code.formathtml;
-import org.w3c.dom.Document;
+import code.xml.components.Document;
 
 import code.bean.Bean;
 import code.bean.translator.Translator;

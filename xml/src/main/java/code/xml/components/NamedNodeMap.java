@@ -55,4 +55,8 @@ public final class NamedNodeMap implements Iterable<Attr> {
     public void remove(int _index) {
         attrs.remove(_index);
     }
+
+    protected void add(Attr _attr) {
+        attrs.add(_attr);
+    }
 }

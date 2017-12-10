@@ -1,22 +1,9 @@
 package exportwpl.gui;
 import java.io.File;
-import java.io.StringWriter;
 
 import javax.swing.BoxLayout;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.ParserConfigurationException;
-import javax.xml.transform.OutputKeys;
-import javax.xml.transform.Transformer;
-import javax.xml.transform.TransformerException;
-import javax.xml.transform.TransformerFactory;
-import javax.xml.transform.dom.DOMSource;
-import javax.xml.transform.stream.StreamResult;
-
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
 
 import code.gui.Clock;
 import code.gui.FileSaveDialog;
@@ -28,7 +15,9 @@ import code.stream.StreamTextFile;
 import code.util.StringList;
 import code.util.consts.ConstFiles;
 import code.util.consts.Constants;
-import code.xml.StandardCharsets;
+import code.xml.components.Document;
+import code.xml.components.DocumentBuilder;
+import code.xml.components.Element;
 
 public class MainWindow extends GroupFrame {
 
@@ -94,10 +83,9 @@ public class MainWindow extends GroupFrame {
         if (txt_.isEmpty()) {
             return;
         }
-        DocumentBuilderFactory factory_ = DocumentBuilderFactory.newInstance();
         DocumentBuilder builder_;
         try {
-            builder_ = factory_.newDocumentBuilder();
+            builder_ = DocumentBuilder.newDocumentBuilder();
             Document doc_ = builder_.newDocument();
             Element elt_ = doc_.createElement(SMIL);
             Element body_ = doc_.createElement(BODY);
@@ -110,12 +98,7 @@ public class MainWindow extends GroupFrame {
             body_.appendChild(seq_);
             elt_.appendChild(body_);
             doc_.appendChild(elt_);
-            DOMSource source_ = new DOMSource(doc_);
-            StringWriter writer_ = new StringWriter();
-            Transformer xmlTransformer_ = TransformerFactory.newInstance().newTransformer();
-            xmlTransformer_.setOutputProperty(OutputKeys.ENCODING, StandardCharsets.ISO_8859_1.name());
-            xmlTransformer_.transform(source_, new StreamResult(writer_));
-            String contenu_ = writer_.getBuffer().toString();
+            String contenu_ = doc_.export();
             StringBuilder escapedXml_ = new StringBuilder();
             for (char c: contenu_.toCharArray()) {
                 if (c >= 128) {
@@ -128,10 +111,6 @@ public class MainWindow extends GroupFrame {
             }
             StreamTextFile.saveTextFile(txt_, escapedXml_.toString());
         } catch (RuntimeException _0) {
-            _0.printStackTrace();
-        } catch (TransformerException _0) {
-            _0.printStackTrace();
-        } catch (ParserConfigurationException _0) {
             _0.printStackTrace();
         }
     }

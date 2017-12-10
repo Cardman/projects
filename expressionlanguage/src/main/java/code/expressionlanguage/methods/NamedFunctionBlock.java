@@ -1,6 +1,6 @@
 package code.expressionlanguage.methods;
 
-import org.w3c.dom.Element;
+import code.xml.components.Element;
 
 import code.expressionlanguage.ContextEl;
 import code.util.CustList;

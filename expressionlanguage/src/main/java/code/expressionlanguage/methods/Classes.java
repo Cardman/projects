@@ -2,8 +2,8 @@ package code.expressionlanguage.methods;
 import java.lang.reflect.Modifier;
 import java.util.Iterator;
 
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
+import code.xml.components.Document;
+import code.xml.components.Element;
 
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.CustEnum;

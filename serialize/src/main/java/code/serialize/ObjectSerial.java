@@ -4,10 +4,10 @@ import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 
-import org.w3c.dom.Attr;
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-import org.w3c.dom.NamedNodeMap;
+import code.xml.components.Attr;
+import code.xml.components.Document;
+import code.xml.components.Element;
+import code.xml.components.NamedNodeMap;
 
 import code.serialize.exceptions.InvokingException;
 import code.serialize.exceptions.NoSuchDeclaredMethodException;
@@ -66,25 +66,25 @@ final class ObjectSerial extends TemplateSerial {
         ObjectSerial obj_ = new ObjectSerial(_node, _parent);
         NamedNodeMap map_ = _node.getAttributes();
         if(_requiredClass) {
-            Attr className_ = (Attr) map_.getNamedItem(CLASS);
+            Attr className_ = map_.getNamedItem(CLASS);
             if (className_ != null) {
                 obj_.setClassName(className_.getValue());
             }
         }
-        Attr field_ = (Attr) map_.getNamedItem(FIELD);
+        Attr field_ = map_.getNamedItem(FIELD);
         if (field_ != null) {
             obj_.setField(field_.getValue());
         }
-        Attr keyOfMap_ = (Attr) map_.getNamedItem(KEY);
+        Attr keyOfMap_ = map_.getNamedItem(KEY);
         if (keyOfMap_ != null) {
             obj_.setKeyOfMap(true);
         }
-        Attr ref_ = (Attr) map_.getNamedItem(REF);
+        Attr ref_ = map_.getNamedItem(REF);
         if (ref_ != null) {
             obj_.setRef(Long.parseLong(ref_.getValue()));
             return obj_;
         }
-        Attr id_ = (Attr) map_.getNamedItem(ID);
+        Attr id_ = map_.getNamedItem(ID);
         if (id_ != null) {
             obj_.setId(Long.parseLong(id_.getValue()));
         }
@@ -105,16 +105,16 @@ final class ObjectSerial extends TemplateSerial {
         NamedNodeMap map_ = _node.getAttributes();
         ObjectSerial serial_ = new ObjectSerial(_node, null);
         if(_requiredClass) {
-            Attr className_ = (Attr) map_.getNamedItem(CLASS);
+            Attr className_ = map_.getNamedItem(CLASS);
             if (className_ != null) {
                 serial_.setClassName(className_.getValue());
             }
         }
-        Attr field_ = (Attr) map_.getNamedItem(FIELD);
+        Attr field_ = map_.getNamedItem(FIELD);
         if (field_ != null) {
             serial_.setField(field_.getValue());
         }
-        Attr keyOfMap_ = (Attr) map_.getNamedItem(KEY);
+        Attr keyOfMap_ = map_.getNamedItem(KEY);
         if (keyOfMap_ != null) {
             serial_.setKeyOfMap(true);
         }

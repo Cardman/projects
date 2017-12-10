@@ -5,7 +5,7 @@ import java.math.BigInteger;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicLong;
 
-import org.w3c.dom.Element;
+import code.xml.components.Element;
 
 import code.bean.Bean;
 import code.bean.translator.Translator;

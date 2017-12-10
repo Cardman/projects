@@ -1,10 +1,10 @@
 package code.serialize;
 import java.lang.reflect.Array;
 
-import org.w3c.dom.Attr;
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-import org.w3c.dom.NamedNodeMap;
+import code.xml.components.Attr;
+import code.xml.components.Document;
+import code.xml.components.Element;
+import code.xml.components.NamedNodeMap;
 
 import code.serialize.exceptions.ClassFoundException;
 import code.serialize.exceptions.NoAttributeForSerializable;
@@ -45,28 +45,28 @@ final class ArraySerial extends TemplateSerial {
 //        if (map_ == null) {
 //            throw new NoAttributeForSerializable(_node.getNodeName());
 //        }
-        Attr className_ = (Attr) map_.getNamedItem(CLASS);
+        Attr className_ = map_.getNamedItem(CLASS);
         if (className_ != null) {
             setClassName(className_.getValue());
         }
-        Attr typeName_ = (Attr) map_.getNamedItem(ELEMENT_TYPE);
+        Attr typeName_ = map_.getNamedItem(ELEMENT_TYPE);
         if (typeName_ == null) {
             throw new NoAttributeForSerializable(ELEMENT_TYPE,_node.getTagName());
         }
-        Attr field_ = (Attr) map_.getNamedItem(FIELD);
+        Attr field_ = map_.getNamedItem(FIELD);
         if (field_ != null) {
             setField(field_.getValue());
         }
-        Attr keyOfMap_ = (Attr) map_.getNamedItem(KEY);
+        Attr keyOfMap_ = map_.getNamedItem(KEY);
         if (keyOfMap_ != null) {
             setKeyOfMap(true);
         }
-        Attr ref_ = (Attr) map_.getNamedItem(REF);
+        Attr ref_ = map_.getNamedItem(REF);
         if (ref_ != null) {
             setRef(Long.parseLong(ref_.getValue()));
             return;
         }
-        Attr id_ = (Attr) map_.getNamedItem(ID);
+        Attr id_ = map_.getNamedItem(ID);
         if (id_ != null) {
             setId(Long.parseLong(id_.getValue()));
         }
@@ -86,8 +86,8 @@ final class ArraySerial extends TemplateSerial {
 //        if (map_ == null) {
 //            throw new NoAttributeForSerializable(_node.getNodeName());
 //        }
-        Attr className_ = (Attr) map_.getNamedItem(CLASS);
-        Attr typeName_ = (Attr) map_.getNamedItem(ELEMENT_TYPE);
+        Attr className_ = map_.getNamedItem(CLASS);
+        Attr typeName_ = map_.getNamedItem(ELEMENT_TYPE);
         if (typeName_ == null) {
             throw new NoAttributeForSerializable(ELEMENT_TYPE,_node.getTagName());
         }
@@ -97,11 +97,11 @@ final class ArraySerial extends TemplateSerial {
         String typeValue_ = typeName_.getValue();
         class_ = ConstClasses.classAliasForNameNotInit(typeValue_);
         listSerial_.array = Array.newInstance(class_, XmlParser.childrenElements(_node).size());
-        Attr field_ = (Attr) map_.getNamedItem(FIELD);
+        Attr field_ = map_.getNamedItem(FIELD);
         if (field_ != null) {
             listSerial_.setField(field_.getValue());
         }
-        Attr keyOfMap_ = (Attr) map_.getNamedItem(KEY);
+        Attr keyOfMap_ = map_.getNamedItem(KEY);
         if (keyOfMap_ != null) {
             listSerial_.setKeyOfMap(true);
         }

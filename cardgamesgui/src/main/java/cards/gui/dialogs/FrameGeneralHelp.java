@@ -10,9 +10,9 @@ import javax.swing.JTree;
 import javax.swing.WindowConstants;
 import javax.swing.tree.DefaultMutableTreeNode;
 
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-import org.w3c.dom.Node;
+import code.xml.components.Document;
+import code.xml.components.Element;
+import code.xml.components.Node;
 
 import cards.gui.MainWindow;
 import cards.gui.dialogs.events.ListenerClickTree;

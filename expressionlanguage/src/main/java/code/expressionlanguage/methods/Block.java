@@ -1,6 +1,6 @@
 package code.expressionlanguage.methods;
-import org.w3c.dom.Element;
-import org.w3c.dom.Node;
+import code.xml.components.Element;
+import code.xml.components.Node;
 
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.PageEl;

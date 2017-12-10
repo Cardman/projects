@@ -1,9 +1,10 @@
 package code.xml.components;
 
-import code.util.CustList;
 import code.util.StringList;
 
 public final class Attr implements Info {
+
+    private static final String NULL_VALUE = "";
 
     private static final String BEG_ATTR = " ";
 
@@ -39,8 +40,12 @@ public final class Attr implements Info {
     }
 
     public void setValue(String _value) {
-        value = _value;
-        escapedValue = DocumentBuilder.escape(_value, true);
+        if (_value == null) {
+            value = NULL_VALUE;
+        } else {
+            value = _value;
+        }
+        escapedValue = DocumentBuilder.escape(value, true);
     }
 
     public String getEscapedValue() {

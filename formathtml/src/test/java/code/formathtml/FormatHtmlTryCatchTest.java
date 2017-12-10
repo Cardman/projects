@@ -2,7 +2,7 @@ package code.formathtml;
 import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
-import org.w3c.dom.Document;
+import code.xml.components.Document;
 
 import code.bean.Bean;
 import code.bean.translator.Translator;

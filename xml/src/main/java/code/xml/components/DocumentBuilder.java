@@ -1768,6 +1768,9 @@ public final class DocumentBuilder {
         }
         return false;
     }
+    public Document newDocument() {
+        return new Document(getTabWidth());
+    }
     public DocumentResult parse(String _input) {
         DocumentResult res_ = new DocumentResult();
         Document doc_ = new Document(getTabWidth());

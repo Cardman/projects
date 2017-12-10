@@ -1,6 +1,4 @@
 package aiki.beans.validators;
-import org.w3c.dom.Node;
-
 import code.bean.validator.Message;
 import code.bean.validator.Validator;
 import code.maths.Rate;
@@ -8,7 +6,7 @@ import code.maths.Rate;
 public class RateValidator implements Validator {
 
     @Override
-    public Message validate(Object _navigation, Node _node, Object _value) {
+    public Message validate(Object _navigation, Object _node, Object _value) {
         if (Rate.isValid(_value.toString())) {
             Rate rate_ = new Rate(_value.toString());
             if (rate_.isZeroOrGt()) {

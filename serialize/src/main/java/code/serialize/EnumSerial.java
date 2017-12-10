@@ -1,8 +1,8 @@
 package code.serialize;
-import org.w3c.dom.Attr;
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-import org.w3c.dom.NamedNodeMap;
+import code.xml.components.Attr;
+import code.xml.components.Document;
+import code.xml.components.Element;
+import code.xml.components.NamedNodeMap;
 
 import code.serialize.exceptions.ClassFoundException;
 import code.serialize.exceptions.InexistingValueForEnum;
@@ -33,15 +33,15 @@ final class EnumSerial extends PrimitiveSerial {
         super(_node);
         value = initialize(_node);
         NamedNodeMap map_ = _node.getAttributes();
-        Attr className_ = (Attr) map_.getNamedItem(CLASS);
+        Attr className_ = map_.getNamedItem(CLASS);
         if (className_ != null) {
             setClassName(className_.getValue());
         }
-        Attr field_ = (Attr) map_.getNamedItem(FIELD);
+        Attr field_ = map_.getNamedItem(FIELD);
         if (field_ != null) {
             setField(field_.getValue());
         }
-        Attr keyOfMap_ = (Attr) map_.getNamedItem(KEY);
+        Attr keyOfMap_ = map_.getNamedItem(KEY);
         if (keyOfMap_ != null) {
             setKeyOfMap(true);
         }
@@ -56,7 +56,7 @@ final class EnumSerial extends PrimitiveSerial {
         if (!class_.isEnum()){
             throw new ClassFoundException(class_.getName());
         }
-        Attr valueNode_ = (Attr) map_.getNamedItem(VALUE);
+        Attr valueNode_ = map_.getNamedItem(VALUE);
         if (valueNode_ == null) {
             throw new NoAttributeForSerializable(VALUE, _node.getTagName()+_node.getAttribute(INTERN));
         }

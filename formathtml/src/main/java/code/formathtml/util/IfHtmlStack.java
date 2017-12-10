@@ -1,6 +1,6 @@
 package code.formathtml.util;
-import org.w3c.dom.Element;
-import org.w3c.dom.Node;
+import code.xml.components.Element;
+import code.xml.components.Node;
 
 import code.expressionlanguage.stacks.IfStack;
 import code.util.CustList;

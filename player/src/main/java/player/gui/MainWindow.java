@@ -15,9 +15,9 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.Timer;
 
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-import org.w3c.dom.NodeList;
+import code.xml.components.Document;
+import code.xml.components.Element;
+import code.xml.components.NodeList;
 
 import code.gui.Clock;
 import code.gui.GroupFrame;
