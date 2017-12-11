@@ -23,12 +23,14 @@ import code.expressionlanguage.opers.ComparatorOrder;
 import code.expressionlanguage.opers.ConstantOperation;
 import code.expressionlanguage.opers.DotOperation;
 import code.expressionlanguage.opers.ExpressionLanguage;
+import code.expressionlanguage.opers.MethodOperation;
 import code.expressionlanguage.opers.OperationNode;
 import code.expressionlanguage.opers.SettableElResult;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.util.CustList;
 import code.util.EntryCust;
 import code.util.IdMap;
+import code.util.NatTreeMap;
 import code.util.StringList;
 import code.util.StringMap;
 import code.util.exceptions.NullObjectException;
@@ -323,36 +325,73 @@ public final class ElUtil {
     }
 
     public static OperationNode getNext(OperationNode _current, OperationNode _root) {
-        OperationNode n_ = _current.getFirstChild();
-        if (n_ != null) {
-            return n_;
+        OperationNode next_ = createFirstChild(_current);
+        if (next_ != null) {
+            ((MethodOperation) _current).appendChild(next_);
+            return next_;
         }
-        n_ = _current.getNextSibling();
-        if (n_ != null) {
-            return n_;
+        next_ = createNextSibling(_current);
+        if (next_ != null) {
+            next_.getParent().appendChild(next_);
+            return next_;
         }
-        n_ = _current.getParent();
-        if (n_ == _root) {
+        next_ = _current.getParent();
+        if (next_ == _root) {
             return null;
         }
-        if (n_ != null) {
-            OperationNode next_ = n_.getNextSibling();
-            while (next_ == null) {
-                OperationNode par_ = n_.getParent();
+        if (next_ != null) {
+            OperationNode nextAfter_ = createNextSibling(next_);
+            while (nextAfter_ == null) {
+                OperationNode par_ = next_.getParent();
                 if (par_ == _root) {
                     break;
                 }
                 if (par_ == null) {
                     break;
                 }
-                next_ = par_.getNextSibling();
-                n_ = par_;
+                nextAfter_ = createNextSibling(par_);
+                next_ = par_;
             }
-            if (next_ != null) {
-                return next_;
+            if (nextAfter_ != null) {
+                nextAfter_.getParent().appendChild(nextAfter_);
+                return nextAfter_;
             }
         }
         return null;
+    }
+    private static OperationNode createFirstChild(OperationNode _block) {
+        if (!(_block instanceof MethodOperation)) {
+            return null;
+        }
+        MethodOperation block_ = (MethodOperation) _block;
+        if (block_.getChildren() == null || block_.getChildren().isEmpty()) {
+            return null;
+        }
+        String value_ = block_.getChildren().getValue(0);
+        Delimiters d_ = block_.getOperations().getDelimiter();
+        int curKey_ = block_.getChildren().getKey(0);
+        d_.setChildOffest(curKey_);
+        int offset_ = block_.getIndexInEl()+curKey_;
+        OperationsSequence r_ = ElResolver.getOperationsSequence(offset_, value_, block_.getConf(), d_);
+        return OperationNode.createOperationNode(offset_, block_.getConf(), CustList.FIRST_INDEX, block_, r_);
+    }
+
+    private static OperationNode createNextSibling(OperationNode _block) {
+        MethodOperation p_ = _block.getParent();
+        if (p_ == null) {
+            return null;
+        }
+        NatTreeMap<Integer,String> children_ = p_.getChildren();
+        if (_block.getIndexChild() + 1 >= children_.size()) {
+            return null;
+        }
+        String value_ = children_.getValue(_block.getIndexChild() + 1);
+        Delimiters d_ = _block.getOperations().getDelimiter();
+        int curKey_ = children_.getKey(_block.getIndexChild() + 1);
+        d_.setChildOffest(curKey_);
+        int offset_ = p_.getIndexInEl()+curKey_;
+        OperationsSequence r_ = ElResolver.getOperationsSequence(offset_, value_, _block.getConf(), d_);
+        return OperationNode.createOperationNode(offset_, _block.getConf(), _block.getIndexChild() + 1, p_, r_);
     }
     public static CustList<OperationNode> getDirectChildren(OperationNode _element) {
         CustList<OperationNode> list_ = new CustList<OperationNode>();

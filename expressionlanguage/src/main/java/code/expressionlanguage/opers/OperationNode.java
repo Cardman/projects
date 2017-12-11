@@ -9,7 +9,6 @@ import java.lang.reflect.Type;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.Delimiters;
 import code.expressionlanguage.ElResolver;
 import code.expressionlanguage.ElUtil;
 import code.expressionlanguage.Mapping;
@@ -64,7 +63,6 @@ import code.util.CustList;
 import code.util.EntryCust;
 import code.util.EqList;
 import code.util.IdMap;
-import code.util.NatTreeMap;
 import code.util.ObjectNotNullMap;
 import code.util.StringList;
 import code.util.StringMap;
@@ -179,8 +177,6 @@ public abstract class OperationNode {
     protected static final String VARARG_SUFFIX = "...";
 
     private MethodOperation parent;
-
-    private boolean initializedNextSibling;
 
     private OperationNode previousSibling;
 
@@ -343,27 +339,13 @@ public abstract class OperationNode {
     public abstract OperationNode getFirstChild();
 
     public final OperationNode getNextSibling() {
-        if (initializedNextSibling) {
-            return nextSibling;
-        }
-        initializedNextSibling = true;
-        MethodOperation p_ = getParent();
-        if (p_ == null) {
-            return null;
-        }
-        NatTreeMap<Integer,String> children_ = p_.getChildren();
-        if (indexChild + 1 >= children_.size()) {
-            return null;
-        }
-        String value_ = children_.getValue(indexChild + 1);
-        Delimiters d_ = getOperations().getDelimiter();
-        int curKey_ = children_.getKey(indexChild + 1);
-        d_.setChildOffest(curKey_);
-        int offset_ = p_.getIndexInEl()+curKey_;
-        OperationsSequence r_ = ElResolver.getOperationsSequence(offset_, value_, conf, d_);
-        nextSibling = createOperationNode(offset_, conf, indexChild + 1, p_, r_);
-        nextSibling.previousSibling = this;
         return nextSibling;
+    }
+    final void setNextSibling(OperationNode _nextSibling) {
+        nextSibling = _nextSibling;
+    }
+    final void setPreviousSibling(OperationNode _previousSibling) {
+        previousSibling = _previousSibling;
     }
     static boolean canBeUsed(AccessibleObject _field, ContextEl _conf) {
         if (_field instanceof Member) {

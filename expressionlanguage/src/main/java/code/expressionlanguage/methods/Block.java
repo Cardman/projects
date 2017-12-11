@@ -11,7 +11,6 @@ import code.expressionlanguage.methods.util.SearchingReturnThrow;
 import code.sml.DocumentBuilder;
 import code.sml.Element;
 import code.sml.ElementOffsetsNext;
-import code.sml.Node;
 import code.sml.RowCol;
 import code.util.CustList;
 import code.util.NatTreeMap;
@@ -107,8 +106,6 @@ public abstract class Block extends Blockable {
     private Element associateElement;
 
     private BracedBlock parent;
-
-    private boolean initializedNextSibling;
 
     private ContextEl conf;
 
@@ -761,43 +758,35 @@ public abstract class Block extends Blockable {
     public abstract Block getFirstChild();
 
     public final Block getNextSibling() {
-        if (initializedNextSibling) {
-            return nextSibling;
-        }
-        initializedNextSibling = true;
-        BracedBlock p_ = getParent();
-        if (p_ == null) {
-            return null;
-        }
-        Node n_ = associateElement.getNextSibling();
-        while (n_ != null) {
-            if (n_ instanceof Element) {
-                break;
-            }
-            n_ = n_.getNextSibling();
-        }
-        if (n_ == null) {
-            return null;
-        }
-        Element next_ = (Element) n_;
-        nextSibling = createOperationNode(next_, conf, indexChild + 1, p_);
+        return nextSibling;
+    }
+    public final void setupNextSiblingGroup() {
         if (canBeIncrementedCurGroup() && nextSibling.canBeIncrementedNextGroup()) {
             nextSibling.indexGroup = indexGroup;
             nextSibling.indexInGroup = indexInGroup + 1;
         } else {
             nextSibling.indexGroup = indexGroup+1;
         }
-        String html_ = conf.getHtml();
-        int tabWidth_ = conf.getTabWidth();
-        ElementOffsetsNext e_ = conf.getElements();
-        ElementOffsetsNext ne_ = DocumentBuilder.getIndexesOfElementOrAttribute(html_, e_, next_, tabWidth_);
-        nextSibling.attributes = ne_.getAttributes();
-        nextSibling.endHeader = ne_.getEndHeader();
-        nextSibling.tabs = ne_.getTabs();
-        nextSibling.offsets = ne_.getOffsets();
-        conf.setElements(ne_);
-        nextSibling.previousSibling = this;
-        return nextSibling;
+    }
+    public final int getIndexChild() {
+        return indexChild;
+    }
+    public final void setupMetrics() {
+        String html_ = getConf().getHtml();
+        int tabWidth_ = getConf().getTabWidth();
+        ElementOffsetsNext e_ = getConf().getElements();
+        ElementOffsetsNext ne_ = DocumentBuilder.getIndexesOfElementOrAttribute(html_, e_, associateElement, tabWidth_);
+        setAttributes(ne_.getAttributes());
+        setEndHeader(ne_.getEndHeader());
+        setTabs(ne_.getTabs());
+        setOffsets(ne_.getOffsets());
+        getConf().setElements(ne_);
+    }
+    final void setNextSibling(Block _nextSibling) {
+        nextSibling = _nextSibling;
+    }
+    final void setPreviousSibling(Block _previousSibling) {
+        previousSibling = _previousSibling;
     }
     final void setAttributes(StringMap<RowCol> _attributes) {
         attributes = _attributes;

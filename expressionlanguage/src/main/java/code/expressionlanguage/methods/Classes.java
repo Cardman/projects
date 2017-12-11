@@ -47,6 +47,7 @@ import code.sml.DocumentBuilder;
 import code.sml.DocumentResult;
 import code.sml.Element;
 import code.sml.ElementOffsetsNext;
+import code.sml.Node;
 import code.sml.RowCol;
 import code.sml.exceptions.XmlParseException;
 import code.util.CustList;
@@ -464,7 +465,48 @@ public final class Classes {
                 break;
             }
             list_.add(c_);
-            c_ = getNext(c_, _root);
+            Block next_ = createFirstChild(c_);
+            if (next_ != null) {
+                next_.setupMetrics();
+                ((BracedBlock) c_).appendChild(next_);
+                c_ = next_;
+                continue;
+            }
+            next_ = createNextSibling(c_);
+            if (next_ != null) {
+                next_.getParent().appendChild(next_);
+                c_.setupNextSiblingGroup();
+                next_.setupMetrics();
+                c_ = next_;
+                continue;
+            }
+            next_ = c_.getParent();
+            if (next_ == _root) {
+                c_ = null;
+                continue;
+            }
+            if (next_ != null) {
+                Block nextAfter_ = createNextSibling(next_);
+                while (nextAfter_ == null) {
+                    Block par_ = next_.getParent();
+                    if (par_ == _root) {
+                        break;
+                    }
+                    if (par_ == null) {
+                        break;
+                    }
+                    nextAfter_ = createNextSibling(par_);
+                    next_ = par_;
+                }
+                if (nextAfter_ != null) {
+                    nextAfter_.getParent().appendChild(nextAfter_);
+                    next_.setupNextSiblingGroup();
+                    nextAfter_.setupMetrics();
+                    c_ = nextAfter_;
+                    continue;
+                }
+            }
+            c_ = null;
         }
         return list_;
     }
@@ -490,6 +532,44 @@ public final class Classes {
         return list_;
     }
 
+    private static Block createFirstChild(Block _block) {
+        if (!(_block instanceof BracedBlock)) {
+            return null;
+        }
+        BracedBlock block_ = (BracedBlock) _block;
+        Element elt_ = block_.getAssociateElement();
+        Node first_ = elt_.getFirstChild();
+        while (first_ != null) {
+            if (first_ instanceof Element) {
+                break;
+            }
+            first_ = first_.getNextSibling();
+        }
+        if (first_ == null) {
+            return null;
+        }
+        Element eltFirst_ = (Element) first_;
+        return Block.createOperationNode(eltFirst_, block_.getConf(), CustList.FIRST_INDEX, block_);
+    }
+
+    private static Block createNextSibling(Block _block) {
+        BracedBlock p_ = _block.getParent();
+        if (p_ == null) {
+            return null;
+        }
+        Node n_ = _block.getAssociateElement().getNextSibling();
+        while (n_ != null) {
+            if (n_ instanceof Element) {
+                break;
+            }
+            n_ = n_.getNextSibling();
+        }
+        if (n_ == null) {
+            return null;
+        }
+        Element next_ = (Element) n_;
+        return Block.createOperationNode(next_, _block.getConf(), _block.getIndexChild() + 1, p_);
+    }
     public static Block getNext(Block _current, Block _root) {
         Block n_ = _current.getFirstChild();
         if (n_ != null) {

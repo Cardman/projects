@@ -1,15 +1,11 @@
 package code.expressionlanguage.opers;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.Delimiters;
-import code.expressionlanguage.ElResolver;
 import code.expressionlanguage.ElUtil;
 import code.expressionlanguage.OperationsSequence;
 import code.util.CustList;
 import code.util.NatTreeMap;
 
 public abstract class MethodOperation extends OperationNode {
-
-    private boolean initializedFirstChild;
 
     private OperationNode firstChild;
 
@@ -20,7 +16,22 @@ public abstract class MethodOperation extends OperationNode {
         children = new NatTreeMap<Integer,String>();
         calculateChildren();
     }
-
+    public final void appendChild(OperationNode _child) {
+        if (firstChild == null) {
+            firstChild = _child;
+            return;
+        }
+        OperationNode child_ = firstChild;
+        while (true) {
+            OperationNode sibling_ = child_.getNextSibling();
+            if (sibling_ == null) {
+                _child.setPreviousSibling(child_);
+                child_.setNextSibling(_child);
+                return;
+            }
+            child_ = sibling_;
+        }
+    }
     final CustList<OperationNode> getChildrenNodes() {
         CustList<OperationNode> chidren_ = new CustList<OperationNode>();
         for (OperationNode o: ElUtil.getDirectChildren(this)) {
@@ -37,20 +48,6 @@ public abstract class MethodOperation extends OperationNode {
     }
     @Override
     public final OperationNode getFirstChild() {
-        if (initializedFirstChild) {
-            return firstChild;
-        }
-        initializedFirstChild = true;
-        if (children == null || children.isEmpty()) {
-            return null;
-        }
-        String value_ = children.getValue(0);
-        Delimiters d_ = getOperations().getDelimiter();
-        int curKey_ = children.getKey(0);
-        d_.setChildOffest(curKey_);
-        int offset_ = getIndexInEl()+curKey_;
-        OperationsSequence r_ = ElResolver.getOperationsSequence(offset_, value_, getConf(), d_);
-        firstChild = createOperationNode(offset_, getConf(), CustList.FIRST_INDEX, this, r_);
         return firstChild;
     }
 
