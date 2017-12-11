@@ -1402,11 +1402,11 @@ public final class DocumentBuilder {
                     if (addChild_) {
                         stack_.add(tagName_.toString()+GT_CHAR);
                     } else {
+                        infos_.add(EMPTY_STRING);
                         if (stack_.isEmpty()) {
                             finished_ = true;
                             break;
                         }
-                        infos_.add(EMPTY_STRING);
                     }
                     tagName_.delete(CustList.FIRST_INDEX, tagName_.length());
                     if (i_ + 2 >= len_) {
@@ -1599,11 +1599,11 @@ public final class DocumentBuilder {
                     if (addChild_) {
                         stack_.add(tagName_.toString()+GT_CHAR);
                     } else {
+                        infos_.add(EMPTY_STRING);
                         if (stack_.isEmpty()) {
                             finished_ = true;
                             break;
                         }
-                        infos_.add(EMPTY_STRING);
                     }
                     tagName_.delete(CustList.FIRST_INDEX, tagName_.length());
                     if (i_ + 2 >= len_) {
@@ -1745,13 +1745,13 @@ public final class DocumentBuilder {
             if (state_ == ReadingState.HEADER) {
                 String info_ = (String) infos_.get(indexInfo_);
                 if (!_found.substring(i_).startsWith(info_)) {
-                    break;
+                    return false;
                 }
                 int endIndex_ = i_ + info_.length();
                 if (_found.charAt(endIndex_) != GT_CHAR) {
                     if (_found.charAt(endIndex_) != SLASH) {
                         if (!Character.isWhitespace(_found.charAt(endIndex_))) {
-                            break;
+                            return false;
                         }
                     }
                 }
@@ -1763,13 +1763,13 @@ public final class DocumentBuilder {
                     }
                     if (possibleLeaf_ instanceof String && ((String)possibleLeaf_).isEmpty()) {
                         if (_found.charAt(endIndex_) != SLASH) {
-                            break;
+                            return false;
                         }
                         if (endIndex_ + 1 >= len_) {
-                            break;
+                            return false;
                         }
                         if (_found.charAt(endIndex_ + 1) != GT_CHAR) {
-                            break;
+                            return false;
                         }
                         endIndex_++;
                         if (deep_ == 0) {
@@ -1778,7 +1778,7 @@ public final class DocumentBuilder {
                         indexInfo_++;
                     } else {
                         if (_found.charAt(endIndex_) != GT_CHAR) {
-                            break;
+                            return false;
                         }
                         deep_++;
                     }
@@ -1786,14 +1786,14 @@ public final class DocumentBuilder {
                     indexInfo_++;
                     i_ = endIndex_;
                     if (i_ + 2 >= len_) {
-                        break;
+                        return false;
                     }
                     Object possibleEnd_ = infos_.get(indexInfo_);
                     indexInfo_++;
                     if (_found.charAt(i_ + 1) == LT_CHAR) {
                         if (_found.charAt(i_ + 2) == SLASH) {
                             if (possibleEnd_ != ReadingState.FOOTER) {
-                                break;
+                                return false;
                             }
                             i_++;
                             //_found.charAt(i_) == '<'
@@ -1805,7 +1805,7 @@ public final class DocumentBuilder {
                             continue;
                         }
                         if (possibleEnd_ != ReadingState.HEADER) {
-                            break;
+                            return false;
                         }
                         i_++;
                         i_++;
@@ -1813,14 +1813,14 @@ public final class DocumentBuilder {
                         continue;
                     }
                     if (possibleEnd_ != ReadingState.TEXT) {
-                        break;
+                        return false;
                     }
                     state_ = ReadingState.TEXT;
                     i_++;
                     continue;
                 }
                 if (!Character.isWhitespace(_found.charAt(endIndex_))) {
-                    break;
+                    return false;
                 }
                 attrs_ = new CustList<Attr>();
                 int nextPrintable_ = endIndex_;
@@ -1832,7 +1832,7 @@ public final class DocumentBuilder {
                     nextPrintable_++;
                 }
                 if (nextPrintable_ == len_) {
-                    break;
+                    return false;
                 }
                 i_ = nextPrintable_;
                 boolean ok_ = false;
@@ -1990,7 +1990,7 @@ public final class DocumentBuilder {
                     i_ = nextPrintable_;
                 }
                 if (!ok_) {
-                    break;
+                    return false;
                 }
                 StringList expList_ = new StringList();
                 StringList foundList_ = new StringList();
@@ -2019,14 +2019,14 @@ public final class DocumentBuilder {
                 }
                 if (possibleLeaf_ instanceof String && ((String)possibleLeaf_).isEmpty()) {
                     if (_found.charAt(i_) != SLASH) {
-                        break;
+                        return false;
                     }
                     if (i_ + 1 >= len_) {
-                        break;
+                        return false;
                     }
                     i_++;
                     if (_found.charAt(i_) != GT_CHAR) {
-                        break;
+                        return false;
                     }
                     if (deep_ == 0) {
                         break;
@@ -2034,21 +2034,21 @@ public final class DocumentBuilder {
                     indexInfo_++;
                 } else {
                     if (_found.charAt(i_) != GT_CHAR) {
-                        break;
+                        return false;
                     }
                     deep_++;
                 }
                 indexInfo_++;
                 indexInfo_++;
                 if (i_ + 2 >= len_) {
-                    break;
+                    return false;
                 }
                 Object possibleEnd_ = infos_.get(indexInfo_);
                 indexInfo_++;
                 if (_found.charAt(i_ + 1) == LT_CHAR) {
                     if (_found.charAt(i_ + 2) == SLASH) {
                         if (possibleEnd_ != ReadingState.FOOTER) {
-                            break;
+                            return false;
                         }
                         i_++;
                         //_found.charAt(i_) == '<'
@@ -2060,7 +2060,7 @@ public final class DocumentBuilder {
                         continue;
                     }
                     if (possibleEnd_ != ReadingState.HEADER) {
-                        break;
+                        return false;
                     }
                     i_++;
                     i_++;
@@ -2068,7 +2068,7 @@ public final class DocumentBuilder {
                     continue;
                 }
                 if (possibleEnd_ != ReadingState.TEXT) {
-                    break;
+                    return false;
                 }
                 state_ = ReadingState.TEXT;
                 i_++;
@@ -2078,24 +2078,24 @@ public final class DocumentBuilder {
                 String info_ = (String) infos_.get(indexInfo_);
                 int endText_ = _found.indexOf(LT_CHAR, i_);
                 if (endText_ < CustList.INDEX_NOT_FOUND_ELT) {
-                    break;
+                    return false;
                 }
                 String text_ = DocumentBuilder.transformSpecialCharsLtGt(_found.substring(i_, endText_));
                 if (!StringList.quickEq(text_, info_)) {
-                    break;
+                    return false;
                 }
                 int endIndex_ = endText_;
                 if (_found.charAt(endIndex_) != LT_CHAR) {
-                    break;
+                    return false;
                 }
                 i_ = endIndex_;
                 if (i_ + 1 >= len_) {
-                    break;
+                    return false;
                 }
                 indexInfo_++;
                 if (_found.charAt(i_ + 1) == SLASH) {
                     if (infos_.get(indexInfo_) != ReadingState.FOOTER) {
-                        break;
+                        return false;
                     }
                     indexInfo_++;
                     i_++;
@@ -2104,7 +2104,7 @@ public final class DocumentBuilder {
                     continue;
                 }
                 if (infos_.get(indexInfo_) != ReadingState.HEADER) {
-                    break;
+                    return false;
                 }
                 indexInfo_++;
                 i_++;
@@ -2114,7 +2114,7 @@ public final class DocumentBuilder {
             if (state_ == ReadingState.FOOTER) {
                 String info_ = (String) infos_.get(indexInfo_);
                 if (!_found.substring(i_).startsWith(info_)) {
-                    break;
+                    return false;
                 }
                 i_ += info_.length() - 1;
                 //end tag
@@ -2124,12 +2124,12 @@ public final class DocumentBuilder {
                     break;
                 }
                 if (i_ + 2 >= len_) {
-                    break;
+                    return false;
                 }
                 if (_found.charAt(i_ + 1) == LT_CHAR) {
                     if (_found.charAt(i_ + 2) == SLASH) {
                         if (infos_.get(indexInfo_) != ReadingState.FOOTER) {
-                            break;
+                            return false;
                         }
                         indexInfo_++;
                         i_++;
@@ -2142,7 +2142,7 @@ public final class DocumentBuilder {
                         continue;
                     }
                     if (infos_.get(indexInfo_) != ReadingState.HEADER) {
-                        break;
+                        return false;
                     }
                     indexInfo_++;
                     i_++;
@@ -2151,7 +2151,7 @@ public final class DocumentBuilder {
                     continue;
                 }
                 if (infos_.get(indexInfo_) != ReadingState.TEXT) {
-                    break;
+                    return false;
                 }
                 indexInfo_++;
                 state_ = ReadingState.TEXT;
