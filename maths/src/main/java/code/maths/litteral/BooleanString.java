@@ -704,7 +704,6 @@ final class BooleanString implements NumericableString<Boolean> {
             num_.evaluateExp(_checkSyntax);
             return num_.getResult();
         } catch (RuntimeException _0) {
-            _0.printStackTrace();
             return _default;
         }
     }

@@ -272,9 +272,9 @@ public final class ForIterativeLoop extends BracedStack implements ForLoop {
         realFromValue_ = argFrom_.getObject();
         ip_.setCurrentBlock(null);
         ip_.clearCurrentEls();
-        fromValue_ = (Long)PrimitiveTypeUtil.convert(long.class, realFromValue_);
-        long toValue_ = (Long)PrimitiveTypeUtil.convert(long.class, argTo_.getObject());
-        stepValue_ = (Long)PrimitiveTypeUtil.convert(long.class, argStep_.getObject());
+        fromValue_ = (Long)PrimitiveTypeUtil.convert(PrimitiveTypeUtil.PRIM_LONG, realFromValue_);
+        long toValue_ = (Long)PrimitiveTypeUtil.convert(PrimitiveTypeUtil.PRIM_LONG, argTo_.getObject());
+        stepValue_ = (Long)PrimitiveTypeUtil.convert(PrimitiveTypeUtil.PRIM_LONG, argStep_.getObject());
         if (stepValue_ > 0) {
             if (fromValue_ > toValue_) {
                 stepValue_ = -stepValue_;
@@ -332,10 +332,9 @@ public final class ForIterativeLoop extends BracedStack implements ForLoop {
         String className_;
         LoopVariable lv_ = new LoopVariable();
         className_ = getClassName();
-        Class<?> cl_ = ProcessXmlMethod.classForName(_conf, 0, className_);
         lv_.setClassName(className_);
         lv_.setIndexClassName(indexClassName_);
-        lv_.setElement(PrimitiveTypeUtil.convert(cl_, int_));
+        lv_.setElement(PrimitiveTypeUtil.convert(className_, int_));
         lv_.setStep(stepValue_);
         lv_.setExtendedExpression(EMPTY_STRING);
         varsLoop_.put(var_, lv_);
@@ -378,9 +377,8 @@ public final class ForIterativeLoop extends BracedStack implements ForLoop {
         String var_ = getVariableName();
         LoopVariable lv_ = _vars.getVal(var_);
         Number element_ = (Number) lv_.getElement();
-        Class<?> cl_ = element_.getClass();
         Object o_ = element_.longValue()+lv_.getStep();
-        o_ = PrimitiveTypeUtil.convert(cl_, o_);
+        o_ = PrimitiveTypeUtil.convert(className, o_);
         lv_.setElement(o_);
         lv_.setIndex(lv_.getIndex() + 1);
     }

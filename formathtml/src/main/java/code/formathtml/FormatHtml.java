@@ -4,6 +4,7 @@ import java.lang.reflect.Array;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.ElUtil;
+import code.expressionlanguage.Mapping;
 import code.expressionlanguage.PrimitiveTypeUtil;
 import code.expressionlanguage.Templates;
 import code.expressionlanguage.exceptions.BadExpressionLanguageException;
@@ -18,6 +19,7 @@ import code.expressionlanguage.exceptions.InvokeRedinedMethException;
 import code.expressionlanguage.exceptions.NegativeSizeException;
 import code.expressionlanguage.exceptions.UnwrappingException;
 import code.expressionlanguage.exceptions.WrapperException;
+import code.expressionlanguage.methods.Classes;
 import code.expressionlanguage.methods.exceptions.AlreadyDefinedVarException;
 import code.expressionlanguage.methods.exceptions.BadCaseException;
 import code.expressionlanguage.methods.exceptions.BadCatchException;
@@ -31,6 +33,9 @@ import code.expressionlanguage.methods.exceptions.BadTagContinueException;
 import code.expressionlanguage.methods.exceptions.BadTryException;
 import code.expressionlanguage.methods.exceptions.BadVariableNameException;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
+import code.expressionlanguage.opers.util.CustStruct;
+import code.expressionlanguage.opers.util.NullStruct;
+import code.expressionlanguage.opers.util.StdStruct;
 import code.expressionlanguage.opers.util.Struct;
 import code.expressionlanguage.variables.LocalVariable;
 import code.expressionlanguage.variables.LoopVariable;
@@ -66,6 +71,7 @@ import code.formathtml.util.SwitchHtmlStack;
 import code.formathtml.util.TryHtmlStack;
 import code.formathtml.util.VariableInformation;
 import code.images.ConverterBufferedImage;
+import code.serialize.ConstClasses;
 import code.sml.Attr;
 import code.sml.AttributePart;
 import code.sml.CharacterData;
@@ -88,7 +94,6 @@ import code.util.ObjectMap;
 import code.util.StringList;
 import code.util.StringMap;
 import code.util.StringMapObject;
-import code.util.consts.ConstClasses;
 import code.util.exceptions.NullObjectException;
 import code.util.exceptions.RuntimeClassNotFoundException;
 import code.util.ints.Listable;
@@ -678,7 +683,7 @@ final class FormatHtml {
                 if (!throwException(_conf, realCaught_)) {
                     continue;
                 }
-                throw new RenderingException(new Struct(_0));
+                throw new RenderingException(new StdStruct(_0));
             }
         }
         containersMap_.put(currentForm_, containers_);
@@ -701,7 +706,7 @@ final class FormatHtml {
         if (indirect_) {
             custCause_ = ((IndirectException)_t).getCustCause();
         } else {
-            custCause_ = new Struct(_t);
+            custCause_ = new StdStruct(_t);
         }
         while (!_conf.noPages()) {
             ImportingPage bkIp_ = _conf.getLastPage();
@@ -929,13 +934,13 @@ final class FormatHtml {
             ContextEl cont_ = _conf.toContextEl();
             Argument arg_ = ElUtil.processEl(el_, 0, cont_);
             if (!PrimitiveTypeUtil.canBeUseAsArgument(Throwable.class.getName(), arg_.getObjectClassName(), cont_.getClasses())) {
-                throw new InvokeException(_conf.joinPages(), new Struct(new NullPointerException()));
+                throw new InvokeException(_conf.joinPages(), new StdStruct(new NullPointerException()));
             }
             Throwable o_ = (Throwable) arg_.getObject();
             if (o_ == null) {
                 o_ = new NullPointerException();
             }
-            throw new InvokeException(_conf.joinPages(), new Struct(o_));
+            throw new InvokeException(_conf.joinPages(), new StdStruct(o_));
         }
         if (StringList.quickEq(en_.getTagName(),prefix_+TRY_TAG)) {
             rw_.setRead(en_.getFirstChild());
@@ -1545,22 +1550,21 @@ final class FormatHtml {
         LocalVariable ret_ = ExtractObject.getCurrentLocVariable(_conf, 0, _ip.getReturnedValues(), var_);
         Struct elt_ = tryToGetObject(_conf, _ip, _set);
         String className_ = ret_.getClassName();
-        checkClass(_conf, _ip, PrimitiveTypeUtil.getSingleNativeClass(className_), elt_.getInstance());
+        checkClass(_conf, _ip, new ClassArgumentMatching(className_), elt_);
         ret_.setStruct(elt_);
     }
     private static void processSetClassNameParamTag(Configuration _conf, ImportingPage _ip,
             Element _set) {
         String var_ = _set.getAttribute(ATTRIBUTE_VAR);
         LocalVariable ret_ = ExtractObject.getCurrentLocVariable(_conf, 0, _ip.getParameters(), var_);
-        Object elt_ = ret_.getElement();
         String className_ = _set.getAttribute(ATTRIBUTE_CLASS_NAME);
         if (className_.isEmpty()) {
             className_ = Object.class.getName();
         }
         _ip.setProcessingAttribute(ATTRIBUTE_CLASS_NAME);
         _ip.setLookForAttrValue(true);
-        Class<?> newClassRef_ = ExtractObject.classForName(_conf, 0, className_);
-        checkClass(_conf, _ip, newClassRef_, elt_);
+        ExtractObject.classForName(_conf, 0, className_);
+        checkClass(_conf, _ip, new ClassArgumentMatching(className_), ret_.getStruct());
         ret_.setClassName(ConstClasses.resolve(className_));
     }
     private static void processSetTag(Configuration _conf, ImportingPage _ip,
@@ -1612,7 +1616,7 @@ final class FormatHtml {
                     _conf.getLastPage().setProcessingAttribute(EMPTY_STRING);
                     _conf.getLastPage().setLookForAttrValue(false);
                     _conf.getLastPage().setOffset(0);
-                    throw new SettingArrayException(_conf.joinPages(), new Struct(_0));
+                    throw new SettingArrayException(_conf.joinPages(), new StdStruct(_0));
                 } finally {
                     _ip.getLocalVars().removeKey(nameOne_);
                     _ip.getLocalVars().removeKey(nameTwo_);
@@ -1665,35 +1669,35 @@ final class FormatHtml {
             _ip.setOffset(0);
             obj_ = ExtractObject.evaluateMathExpression(_ip, _conf, eval_, numExpr_);
             ExtractObject.checkNullPointer(_conf, obj_);
-            return new Struct(obj_);
+            return StdStruct.wrapStd(obj_);
         } else {
             _ip.setProcessingAttribute(EXPRESSION_ATTRIBUTE);
             _ip.setLookForAttrValue(true);
             _ip.setOffset(0);
             if (_element.hasAttribute(IS_STRING_CONST_ATTRIBUTE)){
                 if (!_element.hasAttribute(EXPRESSION_ATTRIBUTE)) {
-                    return new Struct();
+                    return NullStruct.NULL_VALUE;
                 } else {
                     obj_ = expression_;
                 }
-                return new Struct(obj_);
+                return StdStruct.wrapStd(obj_);
             } else if (_element.hasAttribute(IS_CHAR_CONST_ATTRIBUTE)){
                 if (!_element.hasAttribute(EXPRESSION_ATTRIBUTE)) {
-                    return new Struct();
+                    return NullStruct.NULL_VALUE;
                 } else {
                     obj_ = ExtractObject.getChar(_conf, expression_);
                 }
-                return new Struct(obj_);
+                return StdStruct.wrapStd(obj_);
             } else if (_element.hasAttribute(IS_BOOL_CONST_ATTRIBUTE)){
                 if (!_element.hasAttribute(EXPRESSION_ATTRIBUTE)) {
-                    return new Struct();
+                    return NullStruct.NULL_VALUE;
                 } else {
                     obj_ = Boolean.parseBoolean(expression_);
                 }
-                return new Struct(obj_);
+                return StdStruct.wrapStd(obj_);
             } else if (StringList.isNumber(expression_)) {
                 obj_ = ExtractObject.instanceByString(_conf, long.class, expression_);
-                return new Struct(obj_);
+                return StdStruct.wrapStd(obj_);
             } else if (expression_.startsWith(INSTANTIATE_PREFIX)){
                 return ElUtil.processEl(expression_, 0, _conf.toContextEl()).getStruct();
             } else {
@@ -1856,27 +1860,22 @@ final class FormatHtml {
             }
             LocalVariable loc_ = new LocalVariable();
             loc_.setClassName(ConstClasses.resolve(_className));
-            try {
-                if (clMatch_.getClazz() == int.class) {
-                    loc_.setElement(_object.getInstance());
-                } else if (clMatch_.getClazz() == long.class) {
-                    loc_.setElement(_object.getInstance());
-                } else if (clMatch_.getClazz() == byte.class) {
-                    loc_.setElement(_object.getInstance());
-                } else if (clMatch_.getClazz() == short.class) {
-                    loc_.setElement(_object.getInstance());
-                } else if (clMatch_.getClazz() == float.class) {
-                    loc_.setElement(_object.getInstance());
-                } else if (clMatch_.getClazz() == double.class) {
-                    loc_.setElement(_object.getInstance());
-                } else if (clMatch_.getClazz() == char.class) {
-                    loc_.setElement(_object.getInstance());
-                } else {
-                    loc_.setElement(_object.getInstance());
-                }
-            } catch (ClassCastException _0) {
-                throw new DynamicCastClassException(_object.getClass().getName()+SPACE+_className+RETURN_LINE+_conf.joinPages());
+            String type_ = _object.getClassName();
+            if (!PrimitiveTypeUtil.isPrimitiveOrWrapper(type_)) {
+                throw new DynamicCastClassException(type_+SPACE+_className+RETURN_LINE+_conf.joinPages());
             }
+            String typeNameArg_ = PrimitiveTypeUtil.toPrimitive(new ClassArgumentMatching(type_), true).getName();
+            if (StringList.quickEq(typeNameArg_, PrimitiveTypeUtil.PRIM_BOOLEAN)) {
+                String typeNameParam_ = PrimitiveTypeUtil.toPrimitive(clMatch_, true).getName();
+                if (!StringList.quickEq(typeNameParam_, PrimitiveTypeUtil.PRIM_BOOLEAN)) {
+                    throw new DynamicCastClassException(type_+SPACE+_className+RETURN_LINE+_conf.joinPages());
+                }
+            } else {
+                if (PrimitiveTypeUtil.getOrderClass(clMatch_) == 0) {
+                    throw new DynamicCastClassException(type_+SPACE+_className+RETURN_LINE+_conf.joinPages());
+                }
+            }
+            loc_.setStruct(_object);
             return loc_;
         }
         if (_object == null) {
@@ -1892,46 +1891,41 @@ final class FormatHtml {
             loc_.setStruct(_object);
             return loc_;
         }
-        throw new NotCastableException(_object.getClass().getName()+SPACE+_className+RETURN_LINE+_conf.joinPages());
+        throw new NotCastableException(arg_+SPACE+_className+RETURN_LINE+_conf.joinPages());
     }
-    static void checkClass(Configuration _conf, ImportingPage _ip, Class<?> _class, Object _object) {
-        if (_class.isPrimitive()) {
-            _ip.setProcessingAttribute(EXPRESSION_ATTRIBUTE);
-            _ip.setLookForAttrValue(true);
-            _ip.setOffset(0);
-            if (_object == null) {
-                throw new NotPrimitivableException(_class.getName()+RETURN_LINE+_conf.joinPages());
+    static void checkClass(Configuration _conf, ImportingPage _ip, ClassArgumentMatching _class, Struct _object) {
+        String paramName_ = _class.getName();
+        if (PrimitiveTypeUtil.primitiveTypeNullObject(paramName_, _object)) {
+            throw new NotPrimitivableException(_class.getName()+RETURN_LINE+_conf.joinPages());
+        }
+        if (_object.isNull()) {
+            return;
+        }
+        _ip.setProcessingAttribute(EXPRESSION_ATTRIBUTE);
+        _ip.setLookForAttrValue(true);
+        _ip.setOffset(0);
+        String argClassName_ = _object.getClassName();
+        Classes classes_ = _conf.toContextEl().getClasses();
+        if (!PrimitiveTypeUtil.isPrimitive(paramName_)) {
+            Mapping mapping_ = new Mapping();
+            mapping_.setArg(argClassName_);
+            paramName_ = _conf.getLastPage().getPageEl().format(paramName_, classes_);
+            mapping_.setParam(paramName_);
+            if (!Templates.isCorrect(mapping_, classes_)) {
+                throw new NotCastableException(_object.getClassName()+SPACE+_class.getName()+RETURN_LINE+_conf.joinPages());
             }
-            try {
-                if (_class == int.class) {
-                    ((Integer)_object).getClass();
-                } else if (_class == long.class) {
-                    ((Long)_object).getClass();
-                } else if (_class == byte.class) {
-                    ((Byte)_object).getClass();
-                } else if (_class == short.class) {
-                    ((Short)_object).getClass();
-                } else if (_class == float.class) {
-                    ((Float)_object).getClass();
-                } else if (_class == double.class) {
-                    ((Double)_object).getClass();
-                } else if (_class == char.class) {
-                    ((Character)_object).getClass();
-                } else {
-                    ((Boolean)_object).getClass();
+        } else {
+            if (PrimitiveTypeUtil.getOrderClass(paramName_) > 0) {
+                if (PrimitiveTypeUtil.getOrderClass(argClassName_) == 0) {
+                    throw new DynamicCastClassException(_object.getClassName()+SPACE+_class.getName()+RETURN_LINE+_conf.joinPages());
                 }
-            } catch (ClassCastException _0) {
-                throw new DynamicCastClassException(_object.getClass().getName()+SPACE+_class.getName()+RETURN_LINE+_conf.joinPages());
+            } else {
+                String typeNameArg_ = PrimitiveTypeUtil.toPrimitive(new ClassArgumentMatching(argClassName_), true).getName();
+                if (!StringList.quickEq(typeNameArg_, PrimitiveTypeUtil.PRIM_BOOLEAN)) {
+                    throw new DynamicCastClassException(_object.getClassName()+SPACE+_class.getName()+RETURN_LINE+_conf.joinPages());
+                }
             }
-            return;
         }
-        if (_object == null) {
-            return;
-        }
-        if (_class.isInstance(_object)) {
-            return;
-        }
-        throw new NotCastableException(_object.getClass().getName()+SPACE+_class.getName()+RETURN_LINE+_conf.joinPages());
     }
     static void checkSyntax(Configuration _conf,Document _doc, String _html) {
         Element root_ = _doc.getDocumentElement();
@@ -3109,7 +3103,7 @@ final class FormatHtml {
         _conf.getLastPage().setOffset(0);
         Struct o_ = ElUtil.processEl(attribute_, 0, _conf.toContextEl()).getStruct();
         if (o_.isNull()) {
-            o_ = new Struct(EMPTY_STRING);
+            o_ = new StdStruct(EMPTY_STRING);
         }
         //TODO converter
         Text text_ = _doc.createTextNode(ExtractObject.toString(_conf, o_));
@@ -3357,7 +3351,7 @@ final class FormatHtml {
                     throw new DynamicCastClassException();
                 }
             }
-        } catch (RuntimeException _0) {_0.printStackTrace();
+        } catch (RuntimeException _0) {
             throw new BadEnumeratingException(_list, _conf.joinPages());
         }
     }
@@ -3830,7 +3824,7 @@ final class FormatHtml {
             String var_ = forLoopLoc_.getAttribute(ATTRIBUTE_VAR);
             LoopVariable lv_ = _vars.getVal(var_);
             Number element_ = (Number) lv_.getElement();
-            lv_.setElement(PrimitiveTypeUtil.convert(element_.getClass(), element_.longValue()+lv_.getStep()));
+            lv_.setElement(PrimitiveTypeUtil.convert(lv_.getClassName(), element_.longValue()+lv_.getStep()));
             lv_.setIndex(lv_.getIndex() + 1);
         }
     }
@@ -4016,9 +4010,9 @@ final class FormatHtml {
                 throw new DynamicCastClassException(argStep_.getObjectClassName()+RETURN_LINE+_conf.joinPages());
             }
             realFromValue_ = argFrom_.getObject();
-            fromValue_ = (Long)PrimitiveTypeUtil.convert(long.class, realFromValue_);
-            long toValue_ = (Long)PrimitiveTypeUtil.convert(long.class, argTo_.getObject());
-            stepValue_ = (Long)PrimitiveTypeUtil.convert(long.class, argStep_.getObject());
+            fromValue_ = (Long)PrimitiveTypeUtil.convert(PrimitiveTypeUtil.PRIM_LONG, realFromValue_);
+            long toValue_ = (Long)PrimitiveTypeUtil.convert(PrimitiveTypeUtil.PRIM_LONG, argTo_.getObject());
+            stepValue_ = (Long)PrimitiveTypeUtil.convert(PrimitiveTypeUtil.PRIM_LONG, argStep_.getObject());
             if (stepValue_ > 0) {
                 if (fromValue_ > toValue_) {
                     stepValue_ = -stepValue_;
@@ -4099,7 +4093,7 @@ final class FormatHtml {
         if (iterationNb_) {
             int_ = realFromValue_;
         } else if (iterable_.getClass().isArray()) {
-            elt_ = Struct.wrapOrId(Array.get(iterable_, CustList.FIRST_INDEX));
+            elt_ = CustStruct.wrapOrId(Array.get(iterable_, CustList.FIRST_INDEX));
         } else {
             elt_ = ExtractObject.next(_conf, itStr_);
         }
@@ -4113,10 +4107,10 @@ final class FormatHtml {
             if (className_.isEmpty()) {
                 className_ = PrimitiveTypeUtil.PRIM_LONG;
             }
-            Class<?> cl_ = ExtractObject.classForName(_conf, 0, className_);
+            ExtractObject.classForName(_conf, 0, className_);
             lv_.setClassName(ConstClasses.resolve(className_));
             lv_.setIndexClassName(ConstClasses.resolve(indexClassName_));
-            lv_.setElement(PrimitiveTypeUtil.convert(cl_, int_));
+            lv_.setElement(PrimitiveTypeUtil.convert(className_, int_));
             lv_.setStep(stepValue_);
             lv_.setExtendedExpression(EMPTY_STRING);
             varsLoop_.put(var_, lv_);
@@ -4316,14 +4310,14 @@ final class FormatHtml {
         try {
             return _conf.getBuiltBeans().getVal(_beanName);
         } catch (Throwable _0) {
-            throw new InvokeRedinedMethException(_conf.joinPages(), new Struct(_0));
+            throw new InvokeRedinedMethException(_conf.joinPages(), new StdStruct(_0));
         }
     }
     private static int getTabWidth(Configuration _conf) {
         try {
             return _conf.getTabWidth();
         } catch (Throwable _0) {
-            throw new InvokeRedinedMethException(_conf.joinPages(), new Struct(_0));
+            throw new InvokeRedinedMethException(_conf.joinPages(), new StdStruct(_0));
         }
     }
 }

@@ -13,7 +13,7 @@ import code.bean.translator.Translator;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.PrimitiveTypeUtil;
 import code.expressionlanguage.exceptions.InvokeException;
-import code.expressionlanguage.opers.util.Struct;
+import code.expressionlanguage.opers.util.StdStruct;
 import code.formathtml.classes.BeanFour;
 import code.formathtml.classes.BeanOne;
 import code.formathtml.classes.BeanSeven;
@@ -474,7 +474,7 @@ public class HtmlRequestTest {
         setup(conf_);
         conf_.addPage(new ImportingPage(true));
         conf_.getLastPage().setGlobalArgumentObj(bean_);
-        String return_ = (String) HtmlRequest.invokeMethodWithNumbers(conf_, new Struct(bean_), "invokeMethod", Argument.numberToArgument("7L"));
+        String return_ = (String) HtmlRequest.invokeMethodWithNumbers(conf_, StdStruct.wrapStd(bean_), "invokeMethod", Argument.numberToArgument("7L"));
         assertEq("returned value",return_);
         assertEq(1, bean_.getComposite().getStrings().size());
         assertEq("7", bean_.getComposite().getStrings().first());
@@ -488,7 +488,7 @@ public class HtmlRequestTest {
         setup(conf_);
         conf_.addPage(new ImportingPage(true));
         conf_.getLastPage().setGlobalArgumentObj(bean_);
-        String return_ = (String) HtmlRequest.invokeMethodWithNumbers(conf_, new Struct(bean_), "composite.internMethod");
+        String return_ = (String) HtmlRequest.invokeMethodWithNumbers(conf_, StdStruct.wrapStd(bean_), "composite.internMethod");
         assertEq("sample",return_);
     }
 
@@ -500,7 +500,7 @@ public class HtmlRequestTest {
         setup(conf_);
         conf_.addPage(new ImportingPage(true));
         conf_.getLastPage().setGlobalArgumentObj(bean_);
-        HtmlRequest.invokeMethodWithNumbers(conf_, new Struct(bean_), "invokeMethods", Argument.numberToArgument("7L"));
+        HtmlRequest.invokeMethodWithNumbers(conf_, StdStruct.wrapStd(bean_), "invokeMethods", Argument.numberToArgument("7L"));
     }
 
     @Test(expected=InvokeException.class)
@@ -512,7 +512,7 @@ public class HtmlRequestTest {
         setup(conf_);
         conf_.addPage(new ImportingPage(true));
         conf_.getLastPage().setGlobalArgumentObj(bean_);
-        HtmlRequest.invokeMethodWithNumbers(conf_, new Struct(bean_), "invokeMethod", Argument.numberToArgument("7L"));
+        HtmlRequest.invokeMethodWithNumbers(conf_, StdStruct.wrapStd(bean_), "invokeMethod", Argument.numberToArgument("7L"));
     }
 
     @Test(expected=BadAccessException.class)
@@ -523,7 +523,7 @@ public class HtmlRequestTest {
         setup(conf_);
         conf_.addPage(new ImportingPage(true));
         conf_.getLastPage().setGlobalArgumentObj(bean_);
-        HtmlRequest.invokeMethodWithNumbers(conf_, new Struct(bean_), "composite.privateMethod");
+        HtmlRequest.invokeMethodWithNumbers(conf_, StdStruct.wrapStd(bean_), "composite.privateMethod");
     }
 
 

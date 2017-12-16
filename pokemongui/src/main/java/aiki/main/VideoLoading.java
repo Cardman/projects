@@ -11,7 +11,6 @@ import code.maths.LgInt;
 import code.maths.Rate;
 import code.maths.montecarlo.MonteCarloNumber;
 import code.resources.ResourceFiles;
-import code.stream.StreamTextFile;
 import code.util.CustList;
 
 public final class VideoLoading {
@@ -49,7 +48,6 @@ public final class VideoLoading {
                     IMAGES.add(imgs_);
                 }
             } else {
-                StreamTextFile.setShowReadStackTrace(false);
                 CustList<BufferedImage> imgs_ = new CustList<BufferedImage>();
                 int i_ = CustList.FIRST_INDEX;
                 while (true) {
@@ -65,7 +63,6 @@ public final class VideoLoading {
                     i_++;
                 }
                 IMAGES.add(imgs_);
-                StreamTextFile.setShowReadStackTrace(true);
             }
             _initialized_ = true;
         }

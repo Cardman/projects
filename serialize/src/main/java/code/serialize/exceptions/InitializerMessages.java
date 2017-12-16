@@ -23,7 +23,6 @@ final class InitializerMessages {
                 StringMap<String> messages_ = MessagesUtil.getMessages(content_);
                 allMessages_.put(l, messages_);
             } catch (RuntimeException _0) {
-                _0.printStackTrace();
             }
         }
         return allMessages_;

@@ -30,12 +30,12 @@ import code.formathtml.classes.RateEq;
 import code.formathtml.classes.SimpleMathFactory;
 import code.formathtml.exceptions.KeyValueException;
 import code.formathtml.exceptions.RenderingException;
+import code.serialize.ConstClasses;
 import code.sml.Document;
 import code.sml.DocumentBuilder;
 import code.util.StringList;
 import code.util.StringMap;
 import code.util.StringMapObject;
-import code.util.consts.ConstClasses;
 import code.util.consts.Constants;
 import code.util.ints.ListableEntries;
 

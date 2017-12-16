@@ -1,4 +1,5 @@
 package code.expressionlanguage.exceptions;
+import code.expressionlanguage.opers.util.NullStruct;
 import code.expressionlanguage.opers.util.Struct;
 
 public abstract class IndirectException extends RuntimeException {
@@ -6,12 +7,12 @@ public abstract class IndirectException extends RuntimeException {
     private final Struct cause;
 
     public IndirectException() {
-        cause = new Struct();
+        cause = NullStruct.NULL_VALUE;
     }
 
     public IndirectException(String _message) {
         super(_message);
-        cause = new Struct();
+        cause = NullStruct.NULL_VALUE;
     }
 
     public IndirectException(Struct _cause) {

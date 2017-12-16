@@ -42,9 +42,7 @@ public final class ConnectionToServer extends Thread {
                 if (serverSocket.isClosed()) {
                     break;
                 }
-                _0.printStackTrace();
             }catch (RuntimeIOException _0) {
-                _0.printStackTrace();
             }
         }
     }
@@ -61,33 +59,4 @@ public final class ConnectionToServer extends Thread {
         }
         return socket;
     }
-
-//    @Override
-//    public void run(){
-//        while(true){
-//            try {
-//
-//                accept = true;
-//                Socket socket_ = acceptSocket();
-//                //If the server is started without client ==> pause.
-//                serverWindow.gearClient(socket_);
-//                accept = false;
-//                //server side
-//            }catch (SocketException _0) {
-//                if (serverSocket.isClosed()) {
-//                    break;
-//                }
-//                _0.printStackTrace();
-//            }catch (IOException _0) {
-//                _0.printStackTrace();
-//            }
-//        }
-//    }
-//
-//    private Socket acceptSocket() throws IOException {
-//        if (accept) {
-//            socket = serverSocket.accept();
-//        }
-//        return socket;
-//    }
 }

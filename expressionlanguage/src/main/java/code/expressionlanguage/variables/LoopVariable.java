@@ -1,4 +1,6 @@
 package code.expressionlanguage.variables;
+import code.expressionlanguage.opers.util.NullStruct;
+import code.expressionlanguage.opers.util.StdStruct;
 import code.expressionlanguage.opers.util.Struct;
 
 public final class LoopVariable {
@@ -27,7 +29,7 @@ public final class LoopVariable {
 
     private long index;
 
-    private Struct element = new Struct();
+    private Struct element = NullStruct.NULL_VALUE;
 
     private long step;
     
@@ -131,7 +133,7 @@ public final class LoopVariable {
     public void setStruct(Struct _element) {
         element = _element;
         if (element == null) {
-            element = new Struct();
+            element = NullStruct.NULL_VALUE;
         }
     }
 
@@ -142,10 +144,8 @@ public final class LoopVariable {
     public void setElement(Object _element) {
         if (_element instanceof Struct) {
             element = (Struct) _element;
-        } else if (_element == null) {
-            element = new Struct();
         } else {
-            element = new Struct(_element);
+            element = StdStruct.wrapStd(_element);
         }
     }
 
@@ -164,7 +164,7 @@ public final class LoopVariable {
     public void setContainer(Struct _container) {
         container = _container;
         if (_container == null) {
-            container = new Struct();
+            container = NullStruct.NULL_VALUE;
         }
     }    
 

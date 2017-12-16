@@ -10,13 +10,6 @@ import java.io.InputStreamReader;
 import java.io.Reader;
 import java.nio.charset.Charset;
 
-import javax.xml.transform.stream.StreamSource;
-import javax.xml.validation.Schema;
-import javax.xml.validation.SchemaFactory;
-import javax.xml.validation.Validator;
-
-import org.xml.sax.SAXException;
-
 import code.resources.ResourceFiles;
 import code.serialize.SerializeXmlObject;
 import code.sml.Document;
@@ -33,14 +26,9 @@ public final class StreamTextFile {
     public static final String SEPARATEUR = "/";
     private static final String LINE_RETURN = "\n";
     private static final String PROPERTIES_PATTERN = "{0}/{1}/{2}.properties";
-    private static final String WEB_SEPARATOR = "/";
-    private static final String SEPARATOR_HTTP_WEB_PAGE = WEB_SEPARATOR+WEB_SEPARATOR;
-    private static final String XML_SCHEMA = "http:"+SEPARATOR_HTTP_WEB_PAGE+"www.w3.org/2001/XMLSchema";
     private static final String EMPTY_STRING = Constants.EMPTY_STRING;
     private static final String DOT = ".";
     private static final char INVALID_CHARACTER = 65533;
-
-    private static boolean _showReadStackTrace_ = true;
 
     private StreamTextFile() {
     }
@@ -230,10 +218,8 @@ public final class StreamTextFile {
             reader_.close();
             return i_;
         } catch (RuntimeException _0) {
-            _0.printStackTrace();
             return 0;
         } catch (IOException _0) {
-            _0.printStackTrace();
             return 0;
         }
     }
@@ -248,9 +234,6 @@ public final class StreamTextFile {
             }
             return file_;
         } catch (RuntimeException _0) {
-            if (_showReadStackTrace_) {
-                _0.printStackTrace();
-            }
             return null;
         }
     }
@@ -288,34 +271,6 @@ public final class StreamTextFile {
         } catch (IOException _0) {
         }
     }
-    public static boolean validateXml(String _xmlFileName, String _xsdFileName) {
-        SchemaFactory factory_ = SchemaFactory.newInstance(XML_SCHEMA);
-//        FileInputStream fis_ = null;
-        try {
-//            fis_=new FileInputStream(new File(_xsdFileName));
-//            InputSource sourceentree_ = new InputSource(fis_);
-//            SAXSource sourceXsd_ = new SAXSource(sourceentree_);
-            Schema schema_ = factory_.newSchema(new File(_xsdFileName));
-            Validator validator_ = schema_.newValidator();
-            validator_.validate(new StreamSource(new File(_xmlFileName)));
-            return true;
-        } catch (RuntimeException _0) {
-            _0.printStackTrace();
-            return false;
-        } catch (SAXException _0) {
-            _0.printStackTrace();
-            return false;
-        } catch (IOException _0) {
-            _0.printStackTrace();
-            return false;
-        }
-        /*finally {
-            if (fis_ != null) {
-                fis_.close();
-            }
-        }*/
-    }
-
     public static Element contenuDocumentXmlExterne(String _nomFichier) {
         Document doc_ = documentXmlExterne(_nomFichier);
         if (doc_ == null) {
@@ -374,62 +329,10 @@ public final class StreamTextFile {
             bw_.close();
             fw_.close();
         } catch (RuntimeException _0) {
-            _0.printStackTrace();
         } catch (IOException _0) {
-            _0.printStackTrace();
         }
     }
     public static void saveObject(String _fileName, Object _object) {
-//        if (!SecurityManagerUtil.canUseReflection()) {
-//            XMLEncoder encoder_ = null;
-//            try {
-//                encoder_ = new XMLEncoder(new FileOutputStream(_fileName));
-//                encoder_.writeObject(_object);
-//                encoder_.flush();
-//            } catch (FileNotFoundException e) {
-//                e.printStackTrace();
-//            } finally {
-//                if (encoder_ != null) {
-//                    encoder_.close();
-//                }
-//            }
-//            return;
-//        }
         saveTextFile(_fileName, SerializeXmlObject.toXmlString(_object));
-//        try {
-//            DOMSource source_ = SerializeXmlObject.getSource(_object);
-//            StreamResult result_ = new StreamResult(new File(_fileName));
-//            DocumentBuilder.getTransformer(DocumentBuilder.isIndentXmlWhileWriting()).transform(source_, result_);
-//        } catch (ParserConfigurationException ex) {
-//            ex.printStackTrace();
-//        } catch (TransformerConfigurationException e) {
-//            e.printStackTrace();
-//        } catch (TransformerException e) {
-//            e.printStackTrace();
-//        } catch (DOMException e) {
-//            e.printStackTrace();
-//        } catch (NoSuchFieldException e) {
-//            e.printStackTrace();
-//        } catch (SecurityException e) {
-//            e.printStackTrace();
-//        } catch (IllegalAccessException e) {
-//            e.printStackTrace();
-//        } catch (IllegalArgumentException e) {
-//            e.printStackTrace();
-//        } catch (InvocationTargetException e) {
-//            e.printStackTrace();
-//        } catch (NoSuchMethodException e) {
-//            e.printStackTrace();
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-    }
-
-    public static boolean isShowReadStackTrace() {
-        return _showReadStackTrace_;
-    }
-
-    public static void setShowReadStackTrace(boolean _showReadStackTrace) {
-        _showReadStackTrace_ = _showReadStackTrace;
     }
 }

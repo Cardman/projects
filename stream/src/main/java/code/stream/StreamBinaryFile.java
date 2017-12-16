@@ -45,20 +45,17 @@ public final class StreamBinaryFile {
             dest_ = out_.getChannel();
             dest_.transferFrom(src_, CustList.FIRST_INDEX, src_.size());
         } catch (Throwable _0) {
-            _0.printStackTrace();
         } finally {
             if (in_ != null) {
                 try {
                     in_.close();
                 } catch (IOException _0) {
-                    _0.printStackTrace();
                 }
             }
             if (out_ != null) {
                 try {
                     out_.close();
                 } catch (IOException _0) {
-                    _0.printStackTrace();
                 }
             }
         }
@@ -86,10 +83,8 @@ public final class StreamBinaryFile {
             fis_.close();
             return bytes_;
         } catch (RuntimeException _0) {
-            _0.printStackTrace();
             return null;
         } catch (IOException _0) {
-            _0.printStackTrace();
             return null;
         }
     }
@@ -102,9 +97,7 @@ public final class StreamBinaryFile {
             buff_.close();
             fos_.close();
         } catch (RuntimeException _0) {
-            _0.printStackTrace();
         } catch (IOException _0) {
-            _0.printStackTrace();
         }
     }
 }

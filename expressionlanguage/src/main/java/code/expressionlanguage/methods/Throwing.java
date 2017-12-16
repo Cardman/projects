@@ -10,6 +10,7 @@ import code.expressionlanguage.methods.exceptions.BadConstructorCall;
 import code.expressionlanguage.opers.Calculation;
 import code.expressionlanguage.opers.ExpressionLanguage;
 import code.expressionlanguage.opers.OperationNode;
+import code.expressionlanguage.opers.util.StdStruct;
 import code.expressionlanguage.opers.util.Struct;
 import code.sml.Element;
 import code.util.CustList;
@@ -96,7 +97,7 @@ public final class Throwing extends Leaf implements StackableBlock {
         ip_.clearCurrentEls();
         Struct o_ = arg_.getStruct();
         if (o_ == null || o_.isNull()) {
-            o_ = new Struct(new NullPointerException());
+            o_ = new StdStruct(new NullPointerException());
         }
         throw new InvokeException(_cont.joinPages(), o_);
     }

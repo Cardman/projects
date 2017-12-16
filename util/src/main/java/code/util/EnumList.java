@@ -20,12 +20,6 @@ public final class EnumList<T extends Enum<T>> extends AbEqList<T> implements Eq
         super(_elements);
     }
 
-    public EnumList(Class<T> _class) {
-        for (T e: _class.getEnumConstants()) {
-            add(e);
-        }
-    }
-
     @CapacityInit
     public EnumList(CollCapacity _capacity) {
         super(_capacity);

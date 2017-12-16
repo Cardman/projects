@@ -37,7 +37,6 @@ public abstract class BasicServer extends SendReceive {
             close(isr_);
             close(getSocket());
         } catch (Throwable _0) {
-            _0.printStackTrace();
             close(in_);
             close(isr_);
             close(getSocket());

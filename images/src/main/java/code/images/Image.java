@@ -63,7 +63,6 @@ public final class Image {
                 Integer.parseInt(s);
                 nb_ ++;
             } catch (Exception _0) {
-                _0.printStackTrace();
                 return false;
             }
         }
@@ -182,7 +181,6 @@ public final class Image {
                 Integer.parseInt(s);
                 nb_ ++;
             } catch (Exception _0) {
-                _0.printStackTrace();
                 return false;
             }
         }

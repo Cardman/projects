@@ -1,11 +1,13 @@
 package code.formathtml.util;
+import code.expressionlanguage.opers.util.NullStruct;
+import code.expressionlanguage.opers.util.StdStruct;
 import code.expressionlanguage.opers.util.Struct;
 
 public class NodeContainer {
 
-    private Struct object = new Struct();
+    private Struct object = NullStruct.NULL_VALUE;
 
-    private Struct typedField = new Struct();
+    private Struct typedField = NullStruct.NULL_VALUE;
 
     private String access;
 
@@ -29,16 +31,12 @@ public class NodeContainer {
     public void setStruct(Struct _struct) {
         object = _struct;
         if (object == null) {
-            object = new Struct();
+            object = NullStruct.NULL_VALUE;
         }
     }
 
     public void setObject(Object _object) {
-        if (_object == null) {
-            object = new Struct();
-        } else {
-            object = new Struct(_object);
-        }
+        object = StdStruct.wrapStd(_object);
     }
     public Struct getTypedStruct() {
         return typedField;
@@ -46,7 +44,7 @@ public class NodeContainer {
     public void setTypedStruct(Struct _typedField) {
         typedField = _typedField;
         if (typedField == null) {
-            typedField = new Struct();
+            typedField = NullStruct.NULL_VALUE;
         }
     }
 
@@ -55,11 +53,7 @@ public class NodeContainer {
     }
 
     public void setTypedField(Object _typedField) {
-        if (_typedField == null) {
-            typedField = new Struct();
-        } else {
-            typedField = new Struct(_typedField);
-        }
+        typedField = StdStruct.wrapStd(_typedField);
     }
 
     public String getAccess() {

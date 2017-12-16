@@ -292,7 +292,6 @@ public final class ConverterBufferedImage {
             }
             return toBytesGif(images_, hundreds_, loop_);
         } catch (IOException _0) {
-            _0.printStackTrace();
             return null;
         }
     }
@@ -500,7 +499,6 @@ public final class ConverterBufferedImage {
             writer_.endWriteSequence();
             return writer_;
         } catch (IOException _0) {
-            _0.printStackTrace();
             return null;
         }
 
@@ -528,7 +526,6 @@ public final class ConverterBufferedImage {
         try {
             _meta.setFromTree(metaFormatName_, root_);
         } catch (IIOInvalidTreeException _0) {
-            _0.printStackTrace();
         }
     }
     private static IIOMetadataNode getNode(IIOMetadataNode _rootNode, String _nodeName) {
@@ -563,7 +560,6 @@ public final class ConverterBufferedImage {
             bis_.close();
             return reader_;
         } catch (Exception _0) {
-            _0.printStackTrace();
             return null;
         }
     }
@@ -577,7 +573,6 @@ public final class ConverterBufferedImage {
             image_ = ImageIO.read(bis_);
             bis_.close();
         } catch (Exception _0) {
-            _0.printStackTrace();
         }
         return image_;
     }

@@ -16,6 +16,8 @@ import code.expressionlanguage.exceptions.NotArrayException;
 import code.expressionlanguage.methods.util.ArgumentsPair;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.opers.util.ConstructorId;
+import code.expressionlanguage.opers.util.CustStruct;
+import code.expressionlanguage.opers.util.NullStruct;
 import code.expressionlanguage.opers.util.Struct;
 import code.util.CustList;
 import code.util.IdMap;
@@ -195,9 +197,9 @@ public final class ArrOperation extends MethodOperation implements SettableElRes
         }
         Object output_ = Array.get(arrayInst_, index_);
         if (output_ == null) {
-            return new Struct();
+            return NullStruct.NULL_VALUE;
         }
-        return Struct.wrapOrId(output_);
+        return CustStruct.wrapOrId(output_);
     }
     static void setCheckedElement(Struct _array,Object _index, Argument _element, ContextEl _conf) {
         String base_ = PrimitiveTypeUtil.getQuickComponentType(_array.getClassName());
@@ -223,7 +225,7 @@ public final class ArrOperation extends MethodOperation implements SettableElRes
             if (_struct.isJavaObject()) {
                 Array.set(arrayInst_, index_, null);
             } else {
-                Array.set(arrayInst_, index_, new Struct());
+                Array.set(arrayInst_, index_, NullStruct.NULL_VALUE);
             }
             return;
         }

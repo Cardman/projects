@@ -14,6 +14,8 @@ import code.expressionlanguage.opers.Calculation;
 import code.expressionlanguage.opers.ExpressionLanguage;
 import code.expressionlanguage.opers.OperationNode;
 import code.expressionlanguage.opers.util.ClassField;
+import code.expressionlanguage.opers.util.CustStruct;
+import code.expressionlanguage.opers.util.StdStruct;
 import code.expressionlanguage.opers.util.Struct;
 import code.sml.Element;
 import code.util.CustList;
@@ -50,19 +52,13 @@ public final class FieldBlock extends Leaf implements InfoBlock {
     public Struct getDefaultStruct() {
         Object value_ = PrimitiveTypeUtil.defaultValue(className);
         if (value.isEmpty()) {
-            if (value_ == null) {
-                return new Struct();
-            }
-            return new Struct(value_);
+            return StdStruct.wrapStd(value_);
         }
         ExpressionLanguage el_ = getValueEl();
         if (el_.isAlwaysCalculated()) {
             return el_.getConstValue();
         }
-        if (value_ == null) {
-            return new Struct();
-        }
-        return new Struct(value_);
+        return StdStruct.wrapStd(value_);
     }
 
     @Override
@@ -180,11 +176,7 @@ public final class FieldBlock extends Leaf implements InfoBlock {
             Struct struct_;
             if (value.isEmpty()) {
                 Object value_ = PrimitiveTypeUtil.defaultValue(className);
-                if (value_ == null) {
-                    struct_ = new Struct();
-                } else {
-                    struct_ = new Struct(value_);
-                }
+                struct_ = StdStruct.wrapStd(value_);
             } else {
                 ExpressionLanguage el_ = ip_.getCurrentEl(this, CustList.FIRST_INDEX, getValueEl());
                 Argument arg_ = el_.calculateMember(_cont);
@@ -198,7 +190,7 @@ public final class FieldBlock extends Leaf implements InfoBlock {
                 _cont.getClasses().initializeStaticField(staticField_, struct_);
             } else {
                 Argument gl_ = ip_.getGlobalArgument();
-                gl_.getStruct().setStruct(staticField_, struct_);
+                ((CustStruct) gl_.getStruct()).setStruct(staticField_, struct_);
             }
         }
         processBlock(_cont);

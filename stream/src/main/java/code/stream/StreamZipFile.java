@@ -43,7 +43,6 @@ public final class StreamZipFile {
             }
             return files_;
         } catch (Throwable _0) {
-            _0.printStackTrace();
             return null;
         } finally {
             if (zipFile_ != null) {
@@ -66,7 +65,6 @@ public final class StreamZipFile {
             }
             return files_;
         } catch (Throwable _0) {
-            _0.printStackTrace();
             return null;
         } finally {
             if (zipFile_ != null) {
@@ -107,7 +105,6 @@ public final class StreamZipFile {
             zip_.close();
             return files_;
         } catch (Throwable _0) {
-            _0.printStackTrace();
             return null;
         } finally {
             if (zipFile_ != null) {
@@ -151,7 +148,6 @@ public final class StreamZipFile {
             zip_.close();
             fis_.close();
         } catch (Throwable _0) {
-            _0.printStackTrace();
         }
         return classNames_;
     }
@@ -167,7 +163,6 @@ public final class StreamZipFile {
             }
             return files_;
         } catch (Throwable _0) {
-            _0.printStackTrace();
             return null;
         } finally {
             if (zipFile_ != null) {
@@ -205,7 +200,6 @@ public final class StreamZipFile {
             }
             return files_;
         } catch (Throwable _0) {
-            _0.printStackTrace();
             return null;
         } finally {
             if (zipFile_ != null) {
@@ -236,7 +230,6 @@ public final class StreamZipFile {
             }
             return files_;
         } catch (Throwable _0) {
-            _0.printStackTrace();
             return null;
         } finally {
             if (zipFile_ != null) {
@@ -264,7 +257,6 @@ public final class StreamZipFile {
             }
             return files_;
         } catch (Throwable _0) {
-            _0.printStackTrace();
             return null;
         } finally {
             if (zipFile_ != null) {
@@ -291,7 +283,6 @@ public final class StreamZipFile {
             }
             return file_;
         } catch (Throwable _0) {
-            _0.printStackTrace();
             return null;
         } finally {
             if (zipFile_ != null) {
@@ -371,7 +362,6 @@ public final class StreamZipFile {
             //remember close it
             zos_.close();
         }catch(Throwable _0){
-            _0.printStackTrace();
         }
     }
 
@@ -389,7 +379,6 @@ public final class StreamZipFile {
             // remember close it
             zos_.close();
         } catch (Throwable _0) {
-            _0.printStackTrace();
         }
     }
 

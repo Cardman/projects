@@ -37,6 +37,7 @@ import code.expressionlanguage.opers.util.ClassMetaInfo;
 import code.expressionlanguage.opers.util.ClassName;
 import code.expressionlanguage.opers.util.ConstructorId;
 import code.expressionlanguage.opers.util.ConstructorMetaInfo;
+import code.expressionlanguage.opers.util.CustStruct;
 import code.expressionlanguage.opers.util.FieldMetaInfo;
 import code.expressionlanguage.opers.util.MethodId;
 import code.expressionlanguage.opers.util.MethodMetaInfo;
@@ -59,6 +60,7 @@ import code.util.StringList;
 import code.util.StringMap;
 import code.util.exceptions.RuntimeClassNotFoundException;
 import code.util.graphs.Graph;
+import code.util.ints.SimpleIterable;
 
 public final class Classes {
 
@@ -93,6 +95,7 @@ public final class Classes {
     private static final char PRIM = '$';
     private static final char COMMA = ',';
     private static final String LOC_VAR = ";.";
+    private static final String SIMPLE_ITERATOR = "simpleIterator()";
     private static final String ITERATOR = "iterator()";
     private static final String HAS_NEXT = "hasNext()";
     private static final String NEXT = "next()";
@@ -1364,10 +1367,10 @@ public final class Classes {
         exps = ElUtil.getAnalyzedOperations(nateqt_, _context, Calculation.staticCalculation(true));
         String locName_ = page_.getNextTempVar(this);
         LocalVariable locVar_ = new LocalVariable();
-        locVar_.setClassName(Iterable.class.getName());
+        locVar_.setClassName(SimpleIterable.class.getName());
         page_.getLocalVars().put(locName_, locVar_);
         iteratorVar = locName_;
-        String exp_ = locName_ + LOC_VAR + ITERATOR;
+        String exp_ = locName_ + LOC_VAR + SIMPLE_ITERATOR;
         expsIterator = ElUtil.getAnalyzedOperations(exp_, _context, Calculation.staticCalculation(true));
         locName_ = page_.getNextTempVar(this);
         locVar_ = new LocalVariable();
@@ -2017,7 +2020,7 @@ public final class Classes {
                         fields_.put(f.getKey(), inf_.getDefaultStruct());
                     }
                     Struct str_;
-                    str_ = new Struct(enum_, base_, fields_);
+                    str_ = new CustStruct(enum_, base_, fields_);
                     staticFields.put(new ClassField(base_, m_), str_);
                     values_.add(str_);
                     i_++;

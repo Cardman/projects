@@ -41,7 +41,6 @@ public abstract class NetGroupFrame extends GroupFrame implements NetWindow {
             connection.start();
             return;
         } catch (RuntimeException _0) {
-            _0.printStackTrace();
         }
     }
 
@@ -128,7 +127,6 @@ public abstract class NetGroupFrame extends GroupFrame implements NetWindow {
             PrintWriter out_ = new PrintWriter(output_, true);
             out_.println(_text);
         } catch (IOException _0) {
-            _0.printStackTrace();
         }
     }
 

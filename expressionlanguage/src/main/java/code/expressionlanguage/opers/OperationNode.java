@@ -39,6 +39,7 @@ import code.expressionlanguage.opers.util.ConstructorId;
 import code.expressionlanguage.opers.util.ConstructorInfo;
 import code.expressionlanguage.opers.util.ConstructorMetaInfo;
 import code.expressionlanguage.opers.util.ConstrustorIdVarArg;
+import code.expressionlanguage.opers.util.CustStruct;
 import code.expressionlanguage.opers.util.Fcts;
 import code.expressionlanguage.opers.util.FieldInfo;
 import code.expressionlanguage.opers.util.FieldMetaInfo;
@@ -48,10 +49,12 @@ import code.expressionlanguage.opers.util.MethodId;
 import code.expressionlanguage.opers.util.MethodInfo;
 import code.expressionlanguage.opers.util.MethodMetaInfo;
 import code.expressionlanguage.opers.util.MethodModifier;
+import code.expressionlanguage.opers.util.NullStruct;
 import code.expressionlanguage.opers.util.ParametersGroup;
 import code.expressionlanguage.opers.util.Parametrable;
 import code.expressionlanguage.opers.util.Parametrables;
 import code.expressionlanguage.opers.util.SearchingMemberStatus;
+import code.expressionlanguage.opers.util.StdStruct;
 import code.expressionlanguage.opers.util.Struct;
 import code.expressionlanguage.types.NativeTypeUtil;
 import code.serialize.ConverterMethod;
@@ -948,8 +951,6 @@ public abstract class OperationNode {
         return res_;
     }
     static Method getDeclaredMethod(boolean _failIfError, ContextEl _cont, int _varargOnly, boolean _staticContext, ClassArgumentMatching _class, String _name, ClassArgumentMatching... _argsClass) {
-        Class<?> class_ = _class.getClazz();
-        class_ = PrimitiveTypeUtil.toBooleanWrapper(class_, true);
         for (ClassArgumentMatching c:_argsClass) {
             if (c.matchVoid()) {
                 throw new VoidArgumentException(_class.getName()+DOT+_name+RETURN_LINE+_cont.joinPages());
@@ -1252,16 +1253,12 @@ public abstract class OperationNode {
         try {
             Argument a_ = new Argument();
             Object o_ = ConverterMethod.newInstance(_const, adaptedArgs(_const.getParameterTypes(), args_));
-            if (_need != null) {
-                a_.setStruct(new Struct(o_, _need.getStruct()));
-            } else {
-                a_.setStruct(new Struct(o_));
-            }
+            a_.setStruct(new StdStruct(o_));
             return a_;
         } catch (InvokingException _0) {
-            throw new InvokeException(_conf.joinPages(), new Struct(_0.getTarget()));
+            throw new InvokeException(_conf.joinPages(), new StdStruct(_0.getTarget()));
         } catch (Throwable _0) {
-            throw new ErrorCausingException(_conf.joinPages(), new Struct(_0));
+            throw new ErrorCausingException(_conf.joinPages(), new StdStruct(_0));
         }
     }
 
@@ -1271,16 +1268,13 @@ public abstract class OperationNode {
         try {
             Object o_ = ConverterMethod.invokeMethod(_method, _instance, adaptedArgs(_method.getParameterTypes(), args_));
             if (o_ == null) {
-                return new Struct();
+                return NullStruct.NULL_VALUE;
             }
-            if (o_ instanceof Struct) {
-                return (Struct) o_;
-            }
-            return new Struct(o_);
+            return CustStruct.wrapOrId(o_);
         } catch (InvokingException _0) {
-            throw new InvokeException(_cont.joinPages(), new Struct(_0.getTarget()));
+            throw new InvokeException(_cont.joinPages(), new StdStruct(_0.getTarget()));
         } catch (Throwable _0) {
-            throw new ErrorCausingException(_cont.joinPages(), new Struct(_0));
+            throw new ErrorCausingException(_cont.joinPages(), new StdStruct(_0));
         }
     }
     static void sortFct(Parametrables<MethodInfo> _fct, ArgumentsGroup _context) {
@@ -1392,10 +1386,10 @@ public abstract class OperationNode {
                 if (twoPrimExcl_) {
                     return CustList.SWAP_SORT;
                 }
-                toPrOne_ = PrimitiveTypeUtil.toAllPrimitive(one_);
-                toPrTwo_ = PrimitiveTypeUtil.toAllPrimitive(two_);
+                toPrOne_ = PrimitiveTypeUtil.toPrimitive(one_);
+                toPrTwo_ = PrimitiveTypeUtil.toPrimitive(two_);
             } else {
-                ClassArgumentMatching clMatch_ = PrimitiveTypeUtil.toAllPrimitive(selected_, true);
+                ClassArgumentMatching clMatch_ = PrimitiveTypeUtil.toPrimitive(selected_, true);
                 if (clMatch_.isPrimitive()) {
                     if (onePrimExcl_) {
                         return CustList.SWAP_SORT;
@@ -1403,8 +1397,8 @@ public abstract class OperationNode {
                     if (twoPrimExcl_) {
                         return CustList.NO_SWAP_SORT;
                     }
-                    toPrOne_ = PrimitiveTypeUtil.toAllPrimitive(one_);
-                    toPrTwo_ = PrimitiveTypeUtil.toAllPrimitive(two_);
+                    toPrOne_ = PrimitiveTypeUtil.toPrimitive(one_);
+                    toPrTwo_ = PrimitiveTypeUtil.toPrimitive(two_);
                 }
             }
             if (toPrOne_.isAssignableFrom(toPrTwo_, map_, classes_)) {

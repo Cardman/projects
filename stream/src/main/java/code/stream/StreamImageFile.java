@@ -59,7 +59,6 @@ public final class StreamImageFile {
             //remember close it
             zos_.close();
         }catch(IOException _0){
-            _0.printStackTrace();
         }
     }
 
@@ -117,7 +116,6 @@ public final class StreamImageFile {
             string_.deleteCharAt(string_.length() - 1);
 //            string_ = string_.replaceAll(COMMA_END, EMPTY_STRING);
         } catch (IOException _0) {
-            _0.printStackTrace();
         }
         return string_.toString();
     }

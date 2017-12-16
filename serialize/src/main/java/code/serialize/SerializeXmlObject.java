@@ -462,8 +462,6 @@ public final class SerializeXmlObject {
 //        } catch (ClassNotFoundException e_) {
 //            throw e_;
         } catch (ClassFoundException _0) {
-//        } catch (NullPointerException _0) {
-//            _0.printStackTrace();
         } catch (RuntimeException _0) {
             System.err.println(DocumentBuilder.getRowColOfNodeOrAttribute(_xml, _node, 0, EMPTY_STRING, TAB_WIDTH));
             throw _0;
@@ -502,10 +500,8 @@ public final class SerializeXmlObject {
             }
             return xmlString_;
         } catch (RuntimeException _0) {
-            _0.printStackTrace();
             return EMPTY_STRING;
         } catch (Error _0) {
-            _0.printStackTrace();
             return EMPTY_STRING;
         }
     }

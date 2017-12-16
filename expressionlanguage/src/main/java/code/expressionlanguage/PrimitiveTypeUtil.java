@@ -9,19 +9,28 @@ import code.expressionlanguage.methods.PredefinedClasses;
 import code.expressionlanguage.methods.RootBlock;
 import code.expressionlanguage.opers.OperationNode;
 import code.expressionlanguage.opers.util.AssignableFrom;
+import code.expressionlanguage.opers.util.ByteStruct;
+import code.expressionlanguage.opers.util.CharStruct;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.opers.util.ClassMatching;
+import code.expressionlanguage.opers.util.CustStruct;
 import code.expressionlanguage.opers.util.DimComp;
+import code.expressionlanguage.opers.util.DoubleStruct;
+import code.expressionlanguage.opers.util.FloatStruct;
 import code.expressionlanguage.opers.util.IndexesComparator;
+import code.expressionlanguage.opers.util.IntStruct;
+import code.expressionlanguage.opers.util.LongStruct;
+import code.expressionlanguage.opers.util.NullStruct;
+import code.expressionlanguage.opers.util.ShortStruct;
+import code.expressionlanguage.opers.util.StdStruct;
 import code.expressionlanguage.opers.util.Struct;
+import code.serialize.ConstClasses;
 import code.util.CustList;
 import code.util.EntryCust;
 import code.util.Numbers;
 import code.util.StringList;
 import code.util.StringMap;
 import code.util.TreeMap;
-import code.util.consts.ConstClasses;
-import code.util.exceptions.RuntimeClassNotFoundException;
 
 public final class PrimitiveTypeUtil {
     public static final String NO_SUB_CLASS = "";
@@ -79,9 +88,9 @@ public final class PrimitiveTypeUtil {
         Object arrayInst_ = _struct.getInstance();
         Object output_ = Array.get(arrayInst_, _index);
         if (output_ == null) {
-            return new Struct();
+            return NullStruct.NULL_VALUE;
         }
-        return Struct.wrapOrId(output_);
+        return CustStruct.wrapOrId(output_);
     }
     public static Class<?> getPrimitiveClass(String _className) {
         if (!isPrimitive(_className)) {
@@ -90,6 +99,37 @@ public final class PrimitiveTypeUtil {
         return ConstClasses.getPrimitiveClass(_className.substring(PRIM.length()));
     }
 
+    public static boolean isExistentPrimitive(String _className) {
+        if (!isPrimitive(_className)) {
+            return false;
+        }
+        ClassArgumentMatching prim_ = toPrimitive(new ClassArgumentMatching(_className), true);
+        if (prim_.matchClass(PRIM_BOOLEAN)) {
+            return true;
+        }
+        if (prim_.matchClass(PRIM_DOUBLE)) {
+            return true;
+        }
+        if (prim_.matchClass(PRIM_FLOAT)) {
+            return true;
+        }
+        if (prim_.matchClass(PRIM_LONG)) {
+            return true;
+        }
+        if (prim_.matchClass(PRIM_INT)) {
+            return true;
+        }
+        if (prim_.matchClass(PRIM_CHAR)) {
+            return true;
+        }
+        if (prim_.matchClass(PRIM_SHORT)) {
+            return true;
+        }
+        if (prim_.matchClass(PRIM_BYTE)) {
+            return true;
+        }
+        return false;
+    }
     public static boolean isPrimitive(String _className) {
         if (_className.startsWith(PredefinedClasses.ITERABLE)) {
             return false;
@@ -107,7 +147,8 @@ public final class PrimitiveTypeUtil {
         TreeMap<Numbers<Integer>,Struct> indexesArray_;
         indexesArray_ = new TreeMap<Numbers<Integer>,Struct>(new IndexesComparator());
         Struct[] instanceGl_ = new Struct[_dims.first()];
-        Struct output_ = new Struct(instanceGl_, PrimitiveTypeUtil.getPrettyArrayType(_className, _dims.size()));
+        String base_ = getComponentBaseType(_className).getComponent();
+        Struct output_ = new CustStruct(instanceGl_, PrimitiveTypeUtil.getPrettyArrayType(_className, _dims.size()));
         Numbers<Integer> dims_ = new Numbers<Integer>();
         indexesArray_.put(new Numbers<Integer>(), output_);
         int glDim_ = _dims.size();
@@ -117,14 +158,14 @@ public final class PrimitiveTypeUtil {
             glDim_--;
             if (glDim_ == 0) {
                 for (Numbers<Integer> k: dims_.getAllIndexes()) {
-                    indexesArray_.put(k, new Struct());
+                    indexesArray_.put(k, StdStruct.wrapStd(defaultValue(base_)));
                 }
                 continue;
             }
             String formattedClass_ = PrimitiveTypeUtil.getPrettyArrayType(_className, glDim_);
             for (Numbers<Integer> k: dims_.getAllIndexes()) {
                 Struct[] instance_ = new Struct[_dims.get(i_ + 1)];
-                Struct value_ = new Struct(instance_, formattedClass_);
+                Struct value_ = new CustStruct(instance_, formattedClass_);
                 indexesArray_.put(k, value_);
             }
             i_++;
@@ -369,29 +410,30 @@ public final class PrimitiveTypeUtil {
         }
         return compon_;
     }
-    public static Struct convertObject(ClassArgumentMatching _match, Object _obj) {
+    public static Struct convertObject(ClassArgumentMatching _match, Struct _obj) {
+        Object obj_ = _obj.getInstance();
         if (_match.matchClass(PRIM_DOUBLE) || _match.matchClass(Double.class)) {
-            return new Struct(((Number)_obj).doubleValue());
+            return new DoubleStruct(((Number)obj_).doubleValue());
         }
         if (_match.matchClass(PRIM_FLOAT) || _match.matchClass(Float.class)) {
-            return new Struct(((Number)_obj).floatValue());
+            return new FloatStruct(((Number)obj_).floatValue());
         }
         if (_match.matchClass(PRIM_LONG) || _match.matchClass(Long.class)) {
-            return new Struct(((Number)_obj).longValue());
+            return new LongStruct(((Number)obj_).longValue());
         }
         if (_match.matchClass(PRIM_INT) || _match.matchClass(Integer.class)) {
-            return new Struct(((Number)_obj).intValue());
+            return new IntStruct(((Number)obj_).intValue());
         }
         if (_match.matchClass(PRIM_SHORT) || _match.matchClass(Short.class)) {
-            return new Struct(((Number)_obj).shortValue());
+            return new ShortStruct(((Number)obj_).shortValue());
         }
         if (_match.matchClass(PRIM_BYTE) || _match.matchClass(Byte.class)) {
-            return new Struct(((Number)_obj).shortValue());
+            return new ByteStruct(((Number)obj_).byteValue());
         }
         if (_match.matchClass(PRIM_CHAR) || _match.matchClass(Character.class)) {
-            return new Struct(((Character)_obj).charValue());
+            return new CharStruct(((Character)obj_).charValue());
         }
-        return new Struct(_obj);
+        return _obj;
     }
 
     public static String getPrettyArrayClass(String _class) {
@@ -436,10 +478,11 @@ public final class PrimitiveTypeUtil {
         if (a_ == AssignableFrom.NO) {
             return false;
         }
+        ClassArgumentMatching arg_ = new ClassArgumentMatching(_arg);
         DimComp paramComp_ = getQuickComponentBaseType(param_.getName());
         DimComp argComp_ = getQuickComponentBaseType(_arg);
         Class<?> clParam_ = param_.getClazz();
-        Class<?> clArg_ = new ClassArgumentMatching(_arg).getClazz();
+        Class<?> clArg_ = arg_.getClazz();
         boolean array_ = false;
         if (paramComp_.getDim() == argComp_.getDim()) {
             param_ = new ClassArgumentMatching(paramComp_.getComponent());
@@ -447,7 +490,57 @@ public final class PrimitiveTypeUtil {
             clParam_ = param_.getClazz();
             array_ = paramComp_.getDim() > 0 || argComp_.getDim() > 0;
         }
-        return canBeUseAsArgument(clParam_, clArg_, array_);
+        if (clParam_.isAssignableFrom(clArg_)) {
+            return true;
+        }
+        if (!array_) {
+            String typeNameArg_ = PrimitiveTypeUtil.toPrimitive(arg_, true).getName();
+            if (StringList.quickEq(typeNameArg_, PrimitiveTypeUtil.PRIM_BOOLEAN)) {
+                String typeNameParam_ = PrimitiveTypeUtil.toPrimitive(param_, true).getName();
+                if (!StringList.quickEq(typeNameParam_, PrimitiveTypeUtil.PRIM_BOOLEAN)) {
+                    return false;
+                }
+                return true;
+            }
+            ClassArgumentMatching clMatch_ = PrimitiveTypeUtil.toPrimitive(arg_, true);
+            if (clMatch_.isPrimitive()) {
+                if (arg_.isPrimitive()) {
+                    CustList<ClassArgumentMatching> gt_ = PrimitiveTypeUtil.getOrdersGreaterEqThan(clMatch_);
+                    if (isPureNumberClass(clMatch_) && StringList.quickEq(_param, Number.class.getName())) {
+                        return true;
+                    }
+                    ClassArgumentMatching prim_ = PrimitiveTypeUtil.toPrimitive(param_, true);
+                    boolean contained_ = false;
+                    for (ClassArgumentMatching c: gt_) {
+                        if (StringList.quickEq(c.getName(), prim_.getName())) {
+                            contained_ = true;
+                            break;
+                        }
+                    }
+                    if (!contained_) {
+                        return false;
+                    }
+                    return true;
+                }
+                if (!param_.isPrimitive()) {
+                    return false;
+                }
+                CustList<ClassArgumentMatching> gt_ = PrimitiveTypeUtil.getOrdersGreaterEqThan(clMatch_);
+                ClassArgumentMatching prim_ = param_;
+                boolean contained_ = false;
+                for (ClassArgumentMatching c: gt_) {
+                    if (StringList.quickEq(c.getName(), prim_.getName())) {
+                        contained_ = true;
+                        break;
+                    }
+                }
+                if (!contained_) {
+                    return false;
+                }
+                return true;
+            }
+        }
+        return false;
     }
 
     public static AssignableFrom isAssignableFromCust(String _param,String _arg, Classes _classes) {
@@ -490,80 +583,50 @@ public final class PrimitiveTypeUtil {
         return AssignableFrom.MAYBE;
     }
 
-    private static boolean canBeUseAsArgument(Class<?> _param, Class<?> _arg, boolean _array) {
-        if (_param.isAssignableFrom(_arg)) {
-            return true;
-        }
-        if (!_array) {
-            if (_arg == boolean.class || _arg == Boolean.class) {
-                if (!_param.isAssignableFrom(Boolean.class) && _param != boolean.class) {
-                    return false;
-                }
-                return true;
-            }
-            Class<?> clMatch_ = PrimitiveTypeUtil.toPrimitive(_arg, true);
-            if (clMatch_.isPrimitive()) {
-                if (_arg.isPrimitive()) {
-                    CustList<Class<?>> gt_ = PrimitiveTypeUtil.getOrdersGreaterEqThan(clMatch_);
-                    if (isPureNumberClass(clMatch_) && _param == Number.class) {
-                        return true;
-                    }
-                    Class<?> prim_ = PrimitiveTypeUtil.toPrimitive(_param, true);
-                    boolean contained_ = false;
-                    for (Class<?> c: gt_) {
-                        if (c == prim_) {
-                            contained_ = true;
-                            break;
-                        }
-                    }
-                    if (!contained_) {
-                        return false;
-                    }
-                    return true;
-                }
-                if (!_param.isPrimitive()) {
-                    return false;
-                }
-                CustList<Class<?>> gt_ = PrimitiveTypeUtil.getOrdersGreaterEqThan(clMatch_);
-                Class<?> prim_ = _param;
-                boolean contained_ = false;
-                for (Class<?> c: gt_) {
-                    if (c == prim_) {
-                        contained_ = true;
-                        break;
-                    }
-                }
-                if (!contained_) {
-                    return false;
-                }
-                return true;
-            }
-        }
-        return false;
-    }
-    public static CustList<Class<?>> getOrdersGreaterEqThan(Class<?> _class) {
-        CustList<Class<?>> primitives_ = new CustList<Class<?>>();
-        primitives_.add(double.class);
-        primitives_.add(float.class);
-        primitives_.add(long.class);
-        primitives_.add(int.class);
-        primitives_.add(char.class);
-        primitives_.add(short.class);
-        primitives_.add(byte.class);
-        CustList<Class<?>> gt_ = new CustList<Class<?>>();
-        for (Class<?> p: primitives_) {
+    public static CustList<ClassArgumentMatching> getOrdersGreaterEqThan(ClassArgumentMatching _class) {
+        CustList<ClassArgumentMatching> primitives_ = new CustList<ClassArgumentMatching>();
+        primitives_.add(new ClassArgumentMatching(PRIM_DOUBLE));
+        primitives_.add(new ClassArgumentMatching(PRIM_FLOAT));
+        primitives_.add(new ClassArgumentMatching(PRIM_LONG));
+        primitives_.add(new ClassArgumentMatching(PRIM_INT));
+        primitives_.add(new ClassArgumentMatching(PRIM_CHAR));
+        primitives_.add(new ClassArgumentMatching(PRIM_SHORT));
+        primitives_.add(new ClassArgumentMatching(PRIM_BYTE));
+        CustList<ClassArgumentMatching> gt_ = new CustList<ClassArgumentMatching>();
+        for (ClassArgumentMatching p: primitives_) {
             if (getOrderClass(p) >= getOrderClass(_class)) {
                 gt_.add(p);
             }
         }
         return gt_;
     }
+    public static int getOrderClass(String _class) {
+        return getOrderClass(new ClassArgumentMatching(_class));
+    }
     public static int getOrderClass(ClassArgumentMatching _class) {
-        try {
-            return getOrderClass(_class.getClazz());
-        } catch (RuntimeClassNotFoundException _0) {
-            return 0;
+        ClassArgumentMatching class_ = toPrimitive(_class, true);
+        if (class_.matchClass(PRIM_DOUBLE)) {
+            return DOUBLE_CASTING;
         }
+        if (class_.matchClass(PRIM_FLOAT)) {
+            return FLOAT_CASTING;
+        }
+        if (class_.matchClass(PRIM_LONG)) {
+            return LONG_CASTING;
+        }
+        if (class_.matchClass(PRIM_INT)) {
+            return INT_CASTING;
+        }
+        if (class_.matchClass(PRIM_CHAR)) {
+            return CHAR_CASTING;
+        }
+        if (class_.matchClass(PRIM_SHORT)) {
+            return SHORT_CASTING;
+        }
+        if (class_.matchClass(PRIM_BYTE)) {
+            return BYTE_CASTING;
+        }
+        return 0;
     }
     public static boolean isPrimitiveOrWrapper(String _className) {
         if (_className.startsWith(PredefinedClasses.ITERABLE)) {
@@ -581,135 +644,54 @@ public final class PrimitiveTypeUtil {
         return toPrimitive(new ClassArgumentMatching(_className), false) != null;
     }
     public static boolean isPureNumberClass(ClassArgumentMatching _class) {
-        try {
-            return isPureNumberClass(_class.getClazz());
-        } catch (RuntimeClassNotFoundException _0) {
-            return false;
-        }
-    }
-    public static boolean isPureNumberClass(Class<?> _class) {
-        if (_class == double.class) {
+        ClassArgumentMatching out_ = toPrimitive(_class, true);
+        if (out_.matchClass(PRIM_DOUBLE)) {
             return true;
         }
-        if (_class == Double.class) {
+        if (out_.matchClass(PRIM_FLOAT)) {
             return true;
         }
-        if (_class == float.class) {
+        if (out_.matchClass(PRIM_LONG)) {
             return true;
         }
-        if (_class == Float.class) {
+        if (out_.matchClass(PRIM_INT)) {
             return true;
         }
-        if (_class == long.class) {
+        if (out_.matchClass(PRIM_SHORT)) {
             return true;
         }
-        if (_class == Long.class) {
-            return true;
-        }
-        if (_class == int.class) {
-            return true;
-        }
-        if (_class == Integer.class) {
-            return true;
-        }
-        if (_class == short.class) {
-            return true;
-        }
-        if (_class == Short.class) {
-            return true;
-        }
-        if (_class == byte.class) {
-            return true;
-        }
-        if (_class == Byte.class) {
+        if (out_.matchClass(PRIM_BYTE)) {
             return true;
         }
         return false;
     }
-    public static int getOrderClass(Class<?> _class) {
-        if (_class == double.class) {
-            return DOUBLE_CASTING;
-        }
-        if (_class == Double.class) {
-            return DOUBLE_CASTING;
-        }
-        if (_class == float.class) {
-            return FLOAT_CASTING;
-        }
-        if (_class == Float.class) {
-            return FLOAT_CASTING;
-        }
-        if (_class == long.class) {
-            return LONG_CASTING;
-        }
-        if (_class == Long.class) {
-            return LONG_CASTING;
-        }
-        if (_class == int.class) {
-            return INT_CASTING;
-        }
-        if (_class == Integer.class) {
-            return INT_CASTING;
-        }
-        if (_class == char.class) {
-            return CHAR_CASTING;
-        }
-        if (_class == Character.class) {
-            return CHAR_CASTING;
-        }
-        if (_class == short.class) {
-            return SHORT_CASTING;
-        }
-        if (_class == Short.class) {
-            return SHORT_CASTING;
-        }
-        if (_class == byte.class) {
-            return BYTE_CASTING;
-        }
-        if (_class == Byte.class) {
-            return BYTE_CASTING;
-        }
-        return 0;
-    }
-    public static ClassMatching toAllPrimitive(ClassMatching _class) {
+    public static ClassMatching toPrimitive(ClassMatching _class) {
         ClassArgumentMatching cl_ = new ClassArgumentMatching(_class.getClassName());
-        return new ClassMatching(toAllPrimitive(cl_, true).getName());
+        return new ClassMatching(toPrimitive(cl_, true).getName());
     }
-    public static ClassArgumentMatching toAllPrimitive(ClassArgumentMatching _class, boolean _id) {
+    public static ClassArgumentMatching toPrimitive(ClassArgumentMatching _class, boolean _id) {
         if (_class.matchClass(Boolean.class)) {
             return new ClassArgumentMatching(PRIM_BOOLEAN);
         }
-        return toPrimitive(_class, _id);
-    }
-    public static ClassArgumentMatching toPrimitive(ClassArgumentMatching _class, boolean _id) {
-        Class<?> native_;
-        try {
-            native_ = _class.getClazz();
-        } catch (RuntimeClassNotFoundException _0_) {
-            if (_id) {
-                return _class;
-            }
-            return null;
-        }
-        if (native_ == Double.class) {
+        if (_class.matchClass(Double.class)) {
             return new ClassArgumentMatching(PRIM_DOUBLE);
         }
-        if (native_ == Float.class) {
+        if (_class.matchClass(Float.class)) {
             return new ClassArgumentMatching(PRIM_FLOAT);
         }
-        if (native_ == Long.class) {
+        if (_class.matchClass(Long.class)) {
             return new ClassArgumentMatching(PRIM_LONG);
         }
-        if (native_ == Integer.class) {
+        if (_class.matchClass(Integer.class)) {
             return new ClassArgumentMatching(PRIM_INT);
         }
-        if (native_ == Short.class) {
+        if (_class.matchClass(Short.class)) {
             return new ClassArgumentMatching(PRIM_SHORT);
         }
-        if (native_ == Byte.class) {
+        if (_class.matchClass(Byte.class)) {
             return new ClassArgumentMatching(PRIM_BYTE);
         }
-        if (native_ == Character.class) {
+        if (_class.matchClass(Character.class)) {
             return new ClassArgumentMatching(PRIM_CHAR);
         }
         if (_id) {
@@ -717,96 +699,30 @@ public final class PrimitiveTypeUtil {
         }
         return null;
     }
-    public static Class<?> toPrimitive(Class<?> _class, boolean _id) {
-        if (_class == Double.class) {
-            return double.class;
-        }
-        if (_class == Float.class) {
-            return float.class;
-        }
-        if (_class == Long.class) {
-            return long.class;
-        }
-        if (_class == Integer.class) {
-            return int.class;
-        }
-        if (_class == Short.class) {
-            return short.class;
-        }
-        if (_class == Byte.class) {
-            return byte.class;
-        }
-        if (_class == Character.class) {
-            return char.class;
-        }
-        if (_id) {
-            return _class;
-        }
-        return null;
-    }
     public static ClassArgumentMatching toWrapper(ClassArgumentMatching _class, boolean _id) {
-        Class<?> native_;
-        try {
-            native_ = _class.getClazz();
-        } catch (RuntimeClassNotFoundException _0_) {
-            if (_id) {
-                return _class;
-            }
-            return null;
+        if (_class.matchClass(PRIM_BOOLEAN)) {
+            return new ClassArgumentMatching(Boolean.class.getName());
         }
-        if (native_ == double.class) {
+        if (_class.matchClass(PRIM_DOUBLE)) {
             return new ClassArgumentMatching(Double.class.getName());
         }
-        if (native_ == float.class) {
+        if (_class.matchClass(PRIM_FLOAT)) {
             return new ClassArgumentMatching(Float.class.getName());
         }
-        if (native_ == long.class) {
+        if (_class.matchClass(PRIM_LONG)) {
             return new ClassArgumentMatching(Long.class.getName());
         }
-        if (native_ == int.class) {
+        if (_class.matchClass(PRIM_INT)) {
             return new ClassArgumentMatching(Integer.class.getName());
         }
-        if (native_ == char.class) {
+        if (_class.matchClass(PRIM_CHAR)) {
             return new ClassArgumentMatching(Character.class.getName());
         }
-        if (native_ == short.class) {
+        if (_class.matchClass(PRIM_SHORT)) {
             return new ClassArgumentMatching(Short.class.getName());
         }
-        if (native_ == byte.class) {
+        if (_class.matchClass(PRIM_BYTE)) {
             return new ClassArgumentMatching(Byte.class.getName());
-        }
-        if (_id) {
-            return _class;
-        }
-        return null;
-    }
-    public static Class<?> toBooleanWrapper(Class<?> _class, boolean _id) {
-        if (_class == boolean.class) {
-            return Boolean.class;
-        }
-        return toWrapper(_class, _id);
-    }
-    public static Class<?> toWrapper(Class<?> _class, boolean _id) {
-        if (_class == double.class) {
-            return Double.class;
-        }
-        if (_class == float.class) {
-            return Float.class;
-        }
-        if (_class == long.class) {
-            return Long.class;
-        }
-        if (_class == int.class) {
-            return Integer.class;
-        }
-        if (_class == char.class) {
-            return Character.class;
-        }
-        if (_class == short.class) {
-            return Short.class;
-        }
-        if (_class == byte.class) {
-            return Byte.class;
         }
         if (_id) {
             return _class;
@@ -833,50 +749,50 @@ public final class PrimitiveTypeUtil {
             if (StringList.quickEq(_class, PrimitiveTypeUtil.PRIM_BOOLEAN)) {
                 return false;
             }
-            ClassArgumentMatching cl_ = new ClassArgumentMatching(_class);
-            return convert(cl_.getClazz(), 0);
+            return convert(_class, 0);
         }
         return null;
     }
-    public static Object convert(Class<?> _toClass, Object _arg) {
-        Class<?> prim_ = toPrimitive(_toClass, true);
-        if (prim_ == double.class) {
+    public static Object convert(String _toClass, Object _arg) {
+        ClassArgumentMatching class_ = new ClassArgumentMatching(_toClass);
+        ClassArgumentMatching prim_ = toPrimitive(class_, true);
+        if (prim_.matchClass(PRIM_DOUBLE)) {
             if (_arg instanceof Character) {
                 return (double)((Character)_arg).charValue();
             }
             return ((Number)_arg).doubleValue();
         }
-        if (prim_ == float.class) {
+        if (prim_.matchClass(PRIM_FLOAT)) {
             if (_arg instanceof Character) {
                 return (float)((Character)_arg).charValue();
             }
             return ((Number)_arg).floatValue();
         }
-        if (prim_ == long.class) {
+        if (prim_.matchClass(PRIM_LONG)) {
             if (_arg instanceof Character) {
                 return (long)((Character)_arg).charValue();
             }
             return ((Number)_arg).longValue();
         }
-        if (prim_ == int.class) {
+        if (prim_.matchClass(PRIM_INT)) {
             if (_arg instanceof Character) {
                 return (int)((Character)_arg).charValue();
             }
             return ((Number)_arg).intValue();
         }
-        if (prim_ == char.class) {
+        if (prim_.matchClass(PRIM_CHAR)) {
             if (_arg instanceof Character) {
                 return _arg;
             }
             return (char)((Number)_arg).longValue();
         }
-        if (prim_ == short.class) {
+        if (prim_.matchClass(PRIM_SHORT)) {
             if (_arg instanceof Character) {
                 return (short)((Character)_arg).charValue();
             }
             return ((Number)_arg).shortValue();
         }
-        if (prim_ == byte.class) {
+        if (prim_.matchClass(PRIM_BYTE)) {
             if (_arg instanceof Character) {
                 return (byte)((Character)_arg).charValue();
             }
@@ -884,21 +800,21 @@ public final class PrimitiveTypeUtil {
         }
         return null;
     }
-    public static boolean isIntegerType(Class<?> _class) {
-        Class<?> prim_ = toPrimitive(_class, true);
-        if (prim_ == long.class) {
+    public static boolean isIntegerType(ClassArgumentMatching _class) {
+        ClassArgumentMatching prim_ = toPrimitive(_class, true);
+        if (prim_.matchClass(PRIM_LONG)) {
             return true;
         }
-        if (prim_ == int.class) {
+        if (prim_.matchClass(PRIM_INT)) {
             return true;
         }
-        if (prim_ == char.class) {
+        if (prim_.matchClass(PRIM_CHAR)) {
             return true;
         }
-        if (prim_ == short.class) {
+        if (prim_.matchClass(PRIM_SHORT)) {
             return true;
         }
-        if (prim_ == byte.class) {
+        if (prim_.matchClass(PRIM_BYTE)) {
             return true;
         }
         return false;

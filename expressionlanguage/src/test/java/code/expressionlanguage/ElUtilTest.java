@@ -48,6 +48,7 @@ import code.expressionlanguage.exceptions.UnwrappingException;
 import code.expressionlanguage.exceptions.VarargException;
 import code.expressionlanguage.methods.Classes;
 import code.expressionlanguage.opers.util.ClassField;
+import code.expressionlanguage.opers.util.StdStruct;
 import code.expressionlanguage.opers.util.Struct;
 import code.expressionlanguage.variables.LocalVariable;
 import code.expressionlanguage.variables.LoopVariable;
@@ -958,7 +959,7 @@ public class ElUtilTest {
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
         LocalVariable lv_ = new LocalVariable();
         int[] ints_ = new int[2];
-        lv_.setStruct(new Struct(ints_));
+        lv_.setStruct(new StdStruct(ints_));
         lv_.setClassName(ARR_INT);
         localVars_.put("arrays", lv_);
         ContextEl context_ = new ContextEl();
@@ -977,7 +978,7 @@ public class ElUtilTest {
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
         LocalVariable lv_ = new LocalVariable();
         int[][] ints_ = new int[2][2];
-        lv_.setStruct(new Struct(ints_));
+        lv_.setStruct(new StdStruct(ints_));
         lv_.setClassName(ARR_ARR_INT);
         localVars_.put("arrays", lv_);
         ContextEl context_ = new ContextEl();
@@ -1151,7 +1152,7 @@ public class ElUtilTest {
         LocalVariable lv_ = new LocalVariable();
         int[] i_ = new int[1];
         i_[0] = 8;
-        lv_.setStruct(new Struct(i_));
+        lv_.setStruct(new StdStruct(i_));
         lv_.setClassName(ARR_INT);
         localVars_.put("v", lv_);
         context_.getLastPage().getLocalVars().putAllMap(localVars_);
@@ -1170,7 +1171,7 @@ public class ElUtilTest {
         LocalVariable lv_ = new LocalVariable();
         int[] i_ = new int[1];
         i_[0] = 8;
-        lv_.setStruct(new Struct(i_));
+        lv_.setStruct(new StdStruct(i_));
         lv_.setClassName(ARR_INT);
         localVars_.put("v", lv_);
         context_.getLastPage().getLocalVars().putAllMap(localVars_);
@@ -2251,7 +2252,7 @@ public class ElUtilTest {
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
         LocalVariable lv_ = new LocalVariable();
         int[] c_ = new int[1];
-        lv_.setStruct(new Struct(c_));
+        lv_.setStruct(new StdStruct(c_));
         lv_.setClassName(ARR_INT);
         localVars_.put("v", lv_);
         context_.getLastPage().getLocalVars().putAllMap(localVars_);
@@ -2267,7 +2268,7 @@ public class ElUtilTest {
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
         LocalVariable lv_ = new LocalVariable();
         int[][] c_ = new int[1][1];
-        lv_.setStruct(new Struct(c_));
+        lv_.setStruct(new StdStruct(c_));
         lv_.setClassName(ARR_ARR_INT);
         localVars_.put("v", lv_);
         context_.getLastPage().getLocalVars().putAllMap(localVars_);
@@ -2317,7 +2318,7 @@ public class ElUtilTest {
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
         LocalVariable lv_ = new LocalVariable();
         int[] c_ = new int[1];
-        lv_.setStruct(new Struct(c_));
+        lv_.setStruct(new StdStruct(c_));
         lv_.setClassName(ARR_INT);
         localVars_.put("v", lv_);
         context_.getLastPage().getLocalVars().putAllMap(localVars_);
@@ -2333,7 +2334,7 @@ public class ElUtilTest {
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
         LocalVariable lv_ = new LocalVariable();
         int[][] c_ = new int[1][1];
-        lv_.setStruct(new Struct(c_));
+        lv_.setStruct(new StdStruct(c_));
         lv_.setClassName(ARR_ARR_INT);
         localVars_.put("v", lv_);
         context_.getLastPage().getLocalVars().putAllMap(localVars_);
@@ -2349,7 +2350,7 @@ public class ElUtilTest {
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
         LocalVariable lv_ = new LocalVariable();
         int[][] c_ = new int[1][1];
-        lv_.setStruct(new Struct(c_));
+        lv_.setStruct(new StdStruct(c_));
         lv_.setClassName(ARR_ARR_INT);
         localVars_.put("v", lv_);
         context_.getLastPage().getLocalVars().putAllMap(localVars_);
@@ -2365,7 +2366,7 @@ public class ElUtilTest {
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
         LocalVariable lv_ = new LocalVariable();
         int[][] c_ = new int[1][1];
-        lv_.setStruct(new Struct(c_));
+        lv_.setStruct(new StdStruct(c_));
         lv_.setClassName(ARR_ARR_INT);
         localVars_.put("v", lv_);
         context_.getLastPage().getLocalVars().putAllMap(localVars_);
@@ -2420,7 +2421,7 @@ public class ElUtilTest {
         LocalVariable lv_ = new LocalVariable();
         ArrayContainer[] c_ = new ArrayContainer[1];
         c_[0] = new ArrayContainer();
-        lv_.setStruct(new Struct(c_));
+        lv_.setStruct(new StdStruct(c_));
         lv_.setClassName("["+ArrayContainer.class.getName());
         localVars_.put("v", lv_);
         context_.getLastPage().getLocalVars().putAllMap(localVars_);
@@ -2437,7 +2438,7 @@ public class ElUtilTest {
         LocalVariable lv_ = new LocalVariable();
         ArrayContainer[] c_ = new ArrayContainer[1];
         c_[0] = new ArrayContainer();
-        lv_.setStruct(new Struct(c_));
+        lv_.setStruct(new StdStruct(c_));
         lv_.setClassName("["+ArrayContainer.class.getName());
         localVars_.put("v", lv_);
         context_.getLastPage().getLocalVars().putAllMap(localVars_);
@@ -2454,7 +2455,7 @@ public class ElUtilTest {
         LocalVariable lv_ = new LocalVariable();
         ArrayContainer[] c_ = new ArrayContainer[1];
         c_[0] = new ArrayContainer();
-        lv_.setStruct(new Struct(c_));
+        lv_.setStruct(new StdStruct(c_));
         lv_.setClassName("["+ArrayContainer.class.getName());
         localVars_.put("v", lv_);
         context_.getLastPage().getLocalVars().putAllMap(localVars_);
@@ -2510,7 +2511,7 @@ public class ElUtilTest {
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
         LocalVariable lv_ = new LocalVariable();
         ArrayContainer c_ = new ArrayContainer();
-        lv_.setStruct(new Struct(c_));
+        lv_.setStruct(new StdStruct(c_));
         lv_.setClassName(ArrayContainer.class.getName());
         localVars_.put("v", lv_);
         context_.getLastPage().getLocalVars().putAllMap(localVars_);
@@ -2526,7 +2527,7 @@ public class ElUtilTest {
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
         LocalVariable lv_ = new LocalVariable();
         ArrayContainer c_ = new ArrayContainer();
-        lv_.setStruct(new Struct(c_));
+        lv_.setStruct(new StdStruct(c_));
         lv_.setClassName(ArrayContainer.class.getName());
         localVars_.put("v", lv_);
         context_.getLastPage().getLocalVars().putAllMap(localVars_);
@@ -2697,7 +2698,7 @@ public class ElUtilTest {
         LocalVariable lv_ = new LocalVariable();
         ArrayContainer[] c_ = new ArrayContainer[1];
         c_[0] = new ArrayContainer();
-        lv_.setStruct(new Struct(c_));
+        lv_.setStruct(new StdStruct(c_));
         lv_.setClassName("["+ArrayContainer.class.getName());
         localVars_.put("v", lv_);
         lv_ = new LocalVariable();

@@ -55,6 +55,7 @@ import code.expressionlanguage.opers.util.ClassMethodIdReturn;
 import code.expressionlanguage.opers.util.ClassName;
 import code.expressionlanguage.opers.util.ConstructorId;
 import code.expressionlanguage.opers.util.ConstrustorIdVarArg;
+import code.expressionlanguage.opers.util.CustStruct;
 import code.expressionlanguage.opers.util.FieldMetaInfo;
 import code.expressionlanguage.opers.util.MethodId;
 import code.expressionlanguage.opers.util.Struct;
@@ -719,7 +720,7 @@ public final class FctOperation extends InvokingOperation {
                 }
                 str_ = StringList.removeAllSpaces(str_);
                 if (PrimitiveTypeUtil.isPrimitive(str_)) {
-                    if (PrimitiveTypeUtil.getPrimitiveClass(str_) == null) {
+                    if (!PrimitiveTypeUtil.isExistentPrimitive(str_)) {
                         setRelativeOffsetPossibleLastPage(chidren_.first().getIndexInEl()+1, _conf);
                         throw new RuntimeClassNotFoundException(str_+RETURN_LINE+_conf.joinPages());
                     }
@@ -741,7 +742,6 @@ public final class FctOperation extends InvokingOperation {
                 return ArgumentCall.newArgument(arg_);
             }
             if (chidren_.size() == 2) {
-                OperationNode oTwo_ = chidren_.last();
                 Argument objArg_ = _arguments.last();
                 Argument classArg_ = _arguments.first();
                 String paramName_ = (String) classArg_.getObject();
@@ -754,8 +754,8 @@ public final class FctOperation extends InvokingOperation {
                 }
                 String argClassName_ = objArg_.getObjectClassName();
                 ClassArgumentMatching resCl_ = getResultClass();
-                String className_ = oTwo_.getResultClass().getName();
-                if (!resCl_.isPrimitive() || PrimitiveTypeUtil.getPrimitiveClass(className_) == null) {
+                Argument arg_ = new Argument();
+                if (!PrimitiveTypeUtil.isPrimitive(paramName_)) {
                     Mapping mapping_ = new Mapping();
                     mapping_.setArg(argClassName_);
                     paramName_ = _conf.getLastPage().format(paramName_, classes_);
@@ -764,12 +764,22 @@ public final class FctOperation extends InvokingOperation {
                         setRelativeOffsetPossibleLastPage(chidren_.last().getIndexInEl(), _conf);
                         throw new DynamicCastClassException(argClassName_+RETURN_LINE+paramName_+RETURN_LINE+_conf.joinPages());
                     }
-                }
-                Argument arg_ = new Argument();
-                if (objArg_.getStruct().isJavaObject()) {
-                    arg_.setStruct(PrimitiveTypeUtil.convertObject(resCl_, objArg_.getObject()));
-                } else {
                     arg_.setStruct(objArg_.getStruct());
+                } else {
+                    if (PrimitiveTypeUtil.getOrderClass(paramName_) > 0) {
+                        if (PrimitiveTypeUtil.getOrderClass(argClassName_) == 0) {
+                            setRelativeOffsetPossibleLastPage(chidren_.last().getIndexInEl(), _conf);
+                            throw new DynamicCastClassException(argClassName_+RETURN_LINE+paramName_+RETURN_LINE+_conf.joinPages());
+                        }
+                        arg_.setStruct(PrimitiveTypeUtil.convertObject(resCl_, objArg_.getStruct()));
+                    } else {
+                        String typeNameArg_ = PrimitiveTypeUtil.toPrimitive(new ClassArgumentMatching(argClassName_), true).getName();
+                        if (!StringList.quickEq(typeNameArg_, PrimitiveTypeUtil.PRIM_BOOLEAN)) {
+                            setRelativeOffsetPossibleLastPage(chidren_.last().getIndexInEl(), _conf);
+                            throw new DynamicCastClassException(argClassName_+RETURN_LINE+paramName_+RETURN_LINE+_conf.joinPages());
+                        }
+                        arg_.setStruct(objArg_.getStruct());
+                    }
                 }
                 return ArgumentCall.newArgument(arg_);
             }
@@ -947,7 +957,7 @@ public final class FctOperation extends InvokingOperation {
                     }
                     String clArr_ = PrimitiveTypeUtil.getPrettyArrayType(classNameFound_);
                     Argument argres_ = new Argument();
-                    argres_.setStruct(new Struct(o_,clArr_));
+                    argres_.setStruct(new CustStruct(o_,clArr_));
                     return ArgumentCall.newArgument(argres_);
                 }
                 if (methodId_.eq(new MethodId(true, METH_VALUEOF, new EqList<ClassName>(new ClassName(String.class.getName(),false))))) {

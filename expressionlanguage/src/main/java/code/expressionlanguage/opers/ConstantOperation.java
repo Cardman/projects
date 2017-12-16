@@ -32,9 +32,13 @@ import code.expressionlanguage.methods.util.ArgumentsPair;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.opers.util.ClassField;
 import code.expressionlanguage.opers.util.ConstructorId;
+import code.expressionlanguage.opers.util.CustStruct;
 import code.expressionlanguage.opers.util.FieldInfo;
 import code.expressionlanguage.opers.util.FieldResult;
+import code.expressionlanguage.opers.util.IntStruct;
+import code.expressionlanguage.opers.util.LongStruct;
 import code.expressionlanguage.opers.util.SearchingMemberStatus;
+import code.expressionlanguage.opers.util.StdStruct;
 import code.expressionlanguage.opers.util.Struct;
 import code.expressionlanguage.types.NativeTypeUtil;
 import code.expressionlanguage.variables.LocalVariable;
@@ -438,7 +442,7 @@ public final class ConstantOperation extends OperationNode implements SettableEl
             if (!PrimitiveTypeUtil.canBeUseAsArgument(classNameFound_, base_, classes_)) {
                 throw new DynamicCastClassException(base_+RETURN_LINE+classNameFound_+RETURN_LINE+_conf.joinPages());
             }
-            Struct struct_ = arg_.getStruct().getStruct(fieldId, field);
+            Struct struct_ = ((CustStruct) arg_.getStruct()).getStruct(fieldId);
             a_ = new Argument();
             a_.setStruct(struct_);
             return ArgumentCall.newArgument(a_);
@@ -471,7 +475,7 @@ public final class ConstantOperation extends OperationNode implements SettableEl
             String key_ = str_.substring(CustList.FIRST_INDEX, str_.length() - GET_INDEX.length());
             LoopVariable locVar_ = ip_.getVars().getVal(key_);
             a_ = new Argument();
-            a_.setStruct(new Struct(locVar_.getIndex()));
+            a_.setStruct(new LongStruct(locVar_.getIndex()));
             return ArgumentCall.newArgument(a_);
         }
         if (str_.endsWith(GET_ATTRIBUTE)) {
@@ -488,7 +492,7 @@ public final class ConstantOperation extends OperationNode implements SettableEl
                 throw new NullObjectException(_conf.joinPages());
             }
             a_ = new Argument();
-            a_.setStruct(new Struct(Array.getLength(arg_.getObject())));
+            a_.setStruct(new IntStruct(Array.getLength(arg_.getObject())));
             return ArgumentCall.newArgument(a_);
         }
         if (resultCanBeSet()) {
@@ -502,14 +506,10 @@ public final class ConstantOperation extends OperationNode implements SettableEl
         try {
             res_ = ConverterMethod.getField(field, obj_);
         } catch (Throwable _0) {
-            throw new ErrorCausingException(_conf.joinPages(), new Struct(_0));
+            throw new ErrorCausingException(_conf.joinPages(), new StdStruct(_0));
         }
         a_ = new Argument();
-        if (res_ == null) {
-            a_.setStruct(new Struct());
-        } else {
-            a_.setStruct(new Struct(res_));
-        }
+        a_.setStruct(StdStruct.wrapStd(res_));
         return ArgumentCall.newArgument(a_);
     }
 
@@ -556,7 +556,7 @@ public final class ConstantOperation extends OperationNode implements SettableEl
                 if (!PrimitiveTypeUtil.canBeUseAsArgument(classNameFound_, base_, classes_)) {
                     throw new DynamicCastClassException(base_+RETURN_LINE+classNameFound_+RETURN_LINE+_conf.joinPages());
                 }
-                structField_ = argument_.getStruct().getStruct(fieldId, field);
+                structField_ = ((CustStruct) argument_.getStruct()).getStruct(fieldId);
                 if (staticChoiceField) {
                     if (!staticChoiceFieldTemplate) {
                         classNameFound_ = StringList.getAllTypes(classNameFound_).first();
@@ -577,7 +577,7 @@ public final class ConstantOperation extends OperationNode implements SettableEl
             if (fieldMetaInfo.isStaticField()) {
                 classes_.initializeStaticField(fieldId, res_.getStruct());
             } else {
-                argument_.getStruct().setStruct(fieldId, res_.getStruct());
+                ((CustStruct) argument_.getStruct()).setStruct(fieldId, res_.getStruct());
             }
             Argument a_ = res_;
             return a_;
@@ -589,11 +589,7 @@ public final class ConstantOperation extends OperationNode implements SettableEl
         }
         Object obj_ = argument_.getStruct().getInstance();
         Object field_ = ConverterMethod.getField(field, obj_);
-        if (field_ == null) {
-            left_.setStruct(new Struct());
-        } else {
-            left_.setStruct(new Struct(field_));
-        }
+        left_.setStruct(StdStruct.wrapStd(field_));
         if (right_.isNull() && field.getType().isPrimitive()) {
             throw new NullObjectException(_conf.joinPages());
         }

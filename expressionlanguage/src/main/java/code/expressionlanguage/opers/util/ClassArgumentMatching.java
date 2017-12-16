@@ -33,27 +33,16 @@ public final class ClassArgumentMatching {
     }
 
     public boolean isNumericInt() {
-        try {
-            Class<?> clazz_ = getClazz();
-            if (clazz_  == Integer.class) {
-                return true;
-            }
-            if (clazz_ == int.class) {
-                return true;
-            }
-            if (clazz_ == Short.class) {
-                return true;
-            }
-            if (clazz_ == short.class) {
-                return true;
-            }
-            if (clazz_ == Byte.class) {
-                return true;
-            }
-            if (clazz_ == byte.class) {
-                return true;
-            }
-        } catch (RuntimeClassNotFoundException _0) {
+        ClassArgumentMatching cl_ = new ClassArgumentMatching(className);
+        ClassArgumentMatching prim_ = PrimitiveTypeUtil.toPrimitive(cl_, true);
+        if (prim_.matchClass(PrimitiveTypeUtil.PRIM_INT)) {
+            return true;
+        }
+        if (prim_.matchClass(PrimitiveTypeUtil.PRIM_SHORT)) {
+            return true;
+        }
+        if (prim_.matchClass(PrimitiveTypeUtil.PRIM_BYTE)) {
+            return true;
         }
         return false;
     }
@@ -67,11 +56,7 @@ public final class ClassArgumentMatching {
 
     public Class<?> getClassOrNull() {
         try {
-            String className_ = StringList.getAllTypes(className).first();
-            if (PrimitiveTypeUtil.isPrimitive(className_)) {
-                return PrimitiveTypeUtil.getPrimitiveClass(className_);
-            }
-            return PrimitiveTypeUtil.getSingleNativeClass(className_);
+            return getClazz();
         } catch (RuntimeClassNotFoundException _0) {
             return null;
         }

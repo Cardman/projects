@@ -6,6 +6,9 @@ import code.expressionlanguage.AccessValue;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.ElUtil;
 import code.expressionlanguage.methods.Classes;
+import code.expressionlanguage.opers.util.CustStruct;
+import code.expressionlanguage.opers.util.NullStruct;
+import code.expressionlanguage.opers.util.StdStruct;
 import code.expressionlanguage.opers.util.Struct;
 import code.resources.ResourceFiles;
 import code.sml.Document;
@@ -215,41 +218,41 @@ public class Configuration {
             getBuiltBeans().put(e.getKey(), str_);
         }
         for (EntryCust<String, Validator> e: getValidators().entryList()) {
-            Struct str_ = new Struct(e.getValue());
+            Struct str_ = new StdStruct(e.getValue());
             getBuiltValidators().put(e.getKey(), str_);
         }
         for (EntryCust<String, Translator> e: getTranslators().entryList()) {
-            Struct str_ = new Struct(e.getValue());
+            Struct str_ = new StdStruct(e.getValue());
             getBuiltTranslators().put(e.getKey(), str_);
         }
     }
 
     void setupValiatorsTranslators() {
         for (EntryCust<String, Validator> e: getValidators().entryList()) {
-            Struct str_ = new Struct(e.getValue());
+            Struct str_ = new StdStruct(e.getValue());
             getBuiltValidators().put(e.getKey(), str_);
         }
         for (EntryCust<String, Translator> e: getTranslators().entryList()) {
-            Struct str_ = new Struct(e.getValue());
+            Struct str_ = new StdStruct(e.getValue());
             getBuiltTranslators().put(e.getKey(), str_);
         }
     }
 
     Struct newBean(String _language, Object _dataBase, Bean _bean, boolean _set) {
         if (!_set) {
-            return new Struct(_bean);
+            return new StdStruct(_bean);
         }
         addPage(new ImportingPage(false));
         Struct strBean_ = ElUtil.processEl(INSTANCE+_bean.getClassName()+BEGIN_ARGS+END_ARGS, 0, toContextEl()).getStruct();
         if (_dataBase != null) {
-            ExtractObject.setDataBase(this, strBean_, Struct.wrapOrId(_dataBase));
+            ExtractObject.setDataBase(this, strBean_, CustStruct.wrapOrId(_dataBase));
         } else {
-            ExtractObject.setDataBase(this, strBean_, new Struct());
+            ExtractObject.setDataBase(this, strBean_, NullStruct.NULL_VALUE);
         }
         if (_bean == null || _bean.getForms() == null) {
-            ExtractObject.setForms(this, strBean_, new Struct(new StringMapObject()));
+            ExtractObject.setForms(this, strBean_, new StdStruct(new StringMapObject()));
         } else {
-            ExtractObject.setForms(this, strBean_, new Struct(_bean.getForms()));
+            ExtractObject.setForms(this, strBean_, new StdStruct(_bean.getForms()));
         }
         ExtractObject.setLanguage(this, strBean_, _language);
         if (_bean.getScope() != null) {

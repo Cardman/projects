@@ -42,6 +42,7 @@ import code.expressionlanguage.opers.util.ClassMetaInfo;
 import code.expressionlanguage.opers.util.ConstructorId;
 import code.expressionlanguage.opers.util.ConstrustorIdVarArg;
 import code.expressionlanguage.opers.util.DimComp;
+import code.expressionlanguage.opers.util.StdStruct;
 import code.expressionlanguage.opers.util.Struct;
 import code.expressionlanguage.types.NativeTypeUtil;
 import code.serialize.exceptions.BadAccessException;
@@ -403,16 +404,15 @@ public final class InstanceOperation extends InvokingOperation {
                 custClass_ = classes_.getClassMetaInfo(clCurName_.getComponent());
                 if (custClass_ != null) {
                     cust_ = true;
-                    int dim_ = clCurName_.getDim();
-                    instanceClassName_ = PrimitiveTypeUtil.getPrettyArrayType(Struct.class.getName(), dim_);
                 }
             }
             Argument a_ = new Argument();
             if (elts_) {
                 if (cust_) {
-                    Struct[] array_ = new Struct[nbCh_];
-                    String clArr_ = PrimitiveTypeUtil.getPrettyArrayType(realClassName_, args_.length);
-                    Struct str_ = new Struct(array_,clArr_);
+                    Numbers<Integer> dims_;
+                    dims_ = new Numbers<Integer>();
+                    dims_.add(nbCh_);
+                    Struct str_ = PrimitiveTypeUtil.newCustomArray(realClassName_, dims_);
                     for (int i = CustList.FIRST_INDEX; i < nbCh_; i++) {
                         Argument chArg_ = _arguments.get(i);
                         ArrOperation.setCheckedElement(str_, i, chArg_, _conf);
@@ -421,7 +421,7 @@ public final class InstanceOperation extends InvokingOperation {
                     return ArgumentCall.newArgument(a_);
                 }
                 Object array_ = newClassicArray(_conf, instanceClassName_, realClassName_, args_);
-                Struct strArr_ = new Struct(array_);
+                Struct strArr_ = new StdStruct(array_);
                 for (int i = CustList.FIRST_INDEX; i < nbCh_; i++) {
                     Argument chArg_ = _arguments.get(i);
                     ArrOperation.setCheckedElement(strArr_, i, chArg_, _conf);
@@ -438,7 +438,7 @@ public final class InstanceOperation extends InvokingOperation {
                 return ArgumentCall.newArgument(a_);
             } else {
                 Object o_ = newClassicArray(_conf, instanceClassName_, realClassName_, args_);
-                a_.setStruct(new Struct(o_));
+                a_.setStruct(new StdStruct(o_));
                 return ArgumentCall.newArgument(a_);
             }
         }

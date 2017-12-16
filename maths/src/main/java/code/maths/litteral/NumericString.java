@@ -1762,7 +1762,6 @@ final class NumericString implements NumericableString<Rate> {
             num_.evaluateExp(_checkSyntax);
             return num_.getResult();
         } catch (RuntimeException _0) {
-            _0.printStackTrace();
             return new Rate(_default);
         }
     }
@@ -1777,7 +1776,6 @@ final class NumericString implements NumericableString<Rate> {
             }
             return result_;
         } catch (RuntimeException _0) {
-            _0.printStackTrace();
             return _default.absNb();
         }
     }
@@ -1795,7 +1793,6 @@ final class NumericString implements NumericableString<Rate> {
             }
             return result_;
         } catch (RuntimeException _0) {
-            _0.printStackTrace();
             return _default.absNb();
         }
     }

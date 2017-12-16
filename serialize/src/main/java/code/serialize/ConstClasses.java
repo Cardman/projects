@@ -1,4 +1,4 @@
-package code.util.consts;
+package code.serialize;
 import code.util.EntryCust;
 import code.util.StringList;
 import code.util.StringMap;

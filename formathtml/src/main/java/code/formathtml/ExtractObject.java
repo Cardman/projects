@@ -15,11 +15,13 @@ import code.expressionlanguage.Templates;
 import code.expressionlanguage.exceptions.BadExpressionLanguageException;
 import code.expressionlanguage.exceptions.InvokeRedinedMethException;
 import code.expressionlanguage.exceptions.UndefinedVariableException;
+import code.expressionlanguage.opers.util.StdStruct;
 import code.expressionlanguage.opers.util.Struct;
 import code.expressionlanguage.variables.LocalVariable;
 import code.expressionlanguage.variables.LoopVariable;
 import code.formathtml.exceptions.CharacterFormatException;
 import code.formathtml.exceptions.InexistingTranslatorException;
+import code.serialize.ConstClasses;
 import code.serialize.ConverterMethod;
 import code.serialize.exceptions.InvokingException;
 import code.serialize.exceptions.NoSuchDeclaredMethodException;
@@ -31,7 +33,6 @@ import code.util.SimpleItr;
 import code.util.StringList;
 import code.util.StringMap;
 import code.util.StringMapObject;
-import code.util.consts.ConstClasses;
 import code.util.exceptions.NullObjectException;
 import code.util.exceptions.RuntimeClassNotFoundException;
 import code.util.ints.Listable;
@@ -238,7 +239,7 @@ final class ExtractObject {
                     }
                 } catch (Throwable _0) {
                     _conf.getLastPage().setOffset(context_.getNextIndex());
-                    throw new InvokeRedinedMethException(_conf.joinPages(), new Struct(_0));
+                    throw new InvokeRedinedMethException(_conf.joinPages(), new StdStruct(_0));
                 }
                 str_.append(o_);
                 i_ = context_.getNextIndex();
@@ -290,7 +291,7 @@ final class ExtractObject {
                 try {
                     calculateVariables_.append(mathFact_.toString(arg_.getObject()));
                 } catch (Throwable _0) {
-                    throw new InvokeRedinedMethException(_conf.joinPages(), new Struct(_0));
+                    throw new InvokeRedinedMethException(_conf.joinPages(), new StdStruct(_0));
                 }
                 i_ = context_.getNextIndex();
                 continue;
@@ -308,7 +309,7 @@ final class ExtractObject {
             }
             return ret_;
         } catch (Throwable _0) {
-            throw new InvokeRedinedMethException(_conf.joinPages(), new Struct(_0));
+            throw new InvokeRedinedMethException(_conf.joinPages(), new StdStruct(_0));
         }
     }
 
@@ -361,8 +362,7 @@ final class ExtractObject {
     static String classNameForName(Configuration _conf, int _offest, String _className) {
         try {
             if (PrimitiveTypeUtil.isPrimitive(_className)) {
-                Class<?> cl_ = PrimitiveTypeUtil.getPrimitiveClass(_className);
-                if (cl_ == null) {
+                if (!PrimitiveTypeUtil.isExistentPrimitive(_className)) {
                     throw new RuntimeClassNotFoundException(_className+RETURN_LINE+_conf.joinPages());
                 }
                 return _className;
@@ -440,7 +440,7 @@ final class ExtractObject {
     }
 
     static void setLanguage(Configuration _conf, Struct _it, String _scope) {
-        setResult(_conf, 0, SET_LANGUAGE, _it, new Struct(_scope), String.class.getName());
+        setResult(_conf, 0, SET_LANGUAGE, _it, new StdStruct(_scope), String.class.getName());
     }
 
     static String getScope(Configuration _conf, Struct _it) {
@@ -448,7 +448,7 @@ final class ExtractObject {
     }
 
     static void setScope(Configuration _conf, Struct _it, String _scope) {
-        setResult(_conf, 0, SET_SCOPE, _it, new Struct(_scope), String.class.getName());
+        setResult(_conf, 0, SET_SCOPE, _it, new StdStruct(_scope), String.class.getName());
     }
 
     static Struct getForms(Configuration _conf, Struct _it) {
@@ -464,10 +464,7 @@ final class ExtractObject {
             return getResult(_conf, 0, GET_KEY, _it);
         }
         SimpleEntry inst_ = (SimpleEntry) _it.getInstance();
-        if (inst_.getKey() == null) {
-            return new Struct();
-        }
-        Struct out_ = new Struct(inst_.getKey());
+        Struct out_ = StdStruct.wrapStd(inst_.getKey());
         return out_;
     }
 
@@ -476,10 +473,7 @@ final class ExtractObject {
             return getResult(_conf, 0, GET_VALUE, _it);
         }
         SimpleEntry inst_ = (SimpleEntry) _it.getInstance();
-        if (inst_.getValue() == null) {
-            return new Struct();
-        }
-        Struct out_ = new Struct(inst_.getValue());
+        Struct out_ = StdStruct.wrapStd(inst_.getValue());
         return out_;
     }
 
@@ -518,7 +512,7 @@ final class ExtractObject {
             ip_.getLocalVars().removeKey(nameTwo_);
             return ret_;
         } catch (Throwable _0) {
-            throw new InvokeRedinedMethException(_conf.joinPages(), new Struct(_0));
+            throw new InvokeRedinedMethException(_conf.joinPages(), new StdStruct(_0));
         }
     }
     static void checkNullPointer(Configuration _conf, Object _obj) {
@@ -539,7 +533,7 @@ final class ExtractObject {
         try {
             return _obj.getInstance().toString();
         } catch (Throwable _0) {
-            throw new InvokeRedinedMethException(_conf.joinPages(), new Struct(_0));
+            throw new InvokeRedinedMethException(_conf.joinPages(), new StdStruct(_0));
         }
     }
     static Struct iterator(Configuration _conf, Struct _it) {
@@ -547,7 +541,7 @@ final class ExtractObject {
             return getResult(_conf, 0, ITERATOR, _it);
         }
         SimpleIterable inst_ = (SimpleIterable) _it.getInstance();
-        Struct out_ = new Struct(inst_.simpleIterator());
+        Struct out_ = StdStruct.wrapStd(inst_.simpleIterator());
         return out_;
     }
     static boolean hasNext(Configuration _conf, Struct _it) {
@@ -562,7 +556,7 @@ final class ExtractObject {
             return getResult(_conf, 0, NEXT, _it);
         }
         SimpleItr inst_ = (SimpleItr) _it.getInstance();
-        Struct out_ = new Struct(inst_.next());
+        Struct out_ = StdStruct.wrapStd(inst_.next());
         return out_;
     }
     static Struct entryList(Configuration _conf, int _offsIndex, Struct _container) {
@@ -570,7 +564,7 @@ final class ExtractObject {
             return getResult(_conf, 0, ENTRY_LIST, _container);
         }
         SimpleEntries inst_ = (SimpleEntries) _container.getInstance();
-        Struct out_ = new Struct(inst_.entries());
+        Struct out_ = StdStruct.wrapStd(inst_.entries());
         return out_;
     }
 
@@ -593,7 +587,7 @@ final class ExtractObject {
         } catch (Throwable _0) {
             ip_.getLocalVars().removeKey(varName_);
             _conf.getLastPage().addToOffset(_offsIndex);
-            throw new InvokeRedinedMethException(_conf.joinPages(), new Struct(_0));
+            throw new InvokeRedinedMethException(_conf.joinPages(), new StdStruct(_0));
         }
     }
     static void setResult(Configuration _conf, int _offsIndex, String _methodName, Struct _instance, Struct _argument,
@@ -616,7 +610,7 @@ final class ExtractObject {
         } catch (Throwable _0) {
             ip_.getLocalVars().removeKey(varName_);
             _conf.getLastPage().addToOffset(_offsIndex);
-            throw new InvokeRedinedMethException(_conf.joinPages(), new Struct(_0));
+            throw new InvokeRedinedMethException(_conf.joinPages(), new StdStruct(_0));
         }
     }
 
@@ -677,7 +671,7 @@ final class ExtractObject {
             String attribute_ = n.getAttribute(ATTRIBUTE_VALUE);
             if (n.hasAttribute(ATTRIBUTE_QUOTED)) {
                 if (n.hasAttribute(ATTRIBUTE_ESCAPED)) {
-                    objects_.add(escapeParam(_conf, new Struct(attribute_)));
+                    objects_.add(escapeParam(_conf, new StdStruct(attribute_)));
                 } else {
                     objects_.add(attribute_);
                 }
@@ -717,21 +711,21 @@ final class ExtractObject {
         try {
             return _conf.getMessagesFolder();
         } catch (Throwable _0) {
-            throw new InvokeRedinedMethException(_conf.joinPages(), new Struct(_0));
+            throw new InvokeRedinedMethException(_conf.joinPages(), new StdStruct(_0));
         }
     }
     private static MathFactory getMathFactory(Configuration _conf) {
         try {
             return _conf.getMathFactory();
         } catch (Throwable _0) {
-            throw new InvokeRedinedMethException(_conf.joinPages(), new Struct(_0));
+            throw new InvokeRedinedMethException(_conf.joinPages(), new StdStruct(_0));
         }
     }
     static String getProperty(Configuration _conf, String _key) {
         try {
             return _conf.getProperties().getVal(_key);
         } catch (Throwable _0) {
-            throw new InvokeRedinedMethException(_conf.joinPages(), new Struct(_0));
+            throw new InvokeRedinedMethException(_conf.joinPages(), new StdStruct(_0));
         }
     }
 }

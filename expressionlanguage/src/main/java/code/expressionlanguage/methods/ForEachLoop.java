@@ -26,6 +26,7 @@ import code.util.NatTreeMap;
 import code.util.StringList;
 import code.util.StringMap;
 import code.util.exceptions.NullObjectException;
+import code.util.ints.IterableList;
 
 public final class ForEachLoop extends BracedStack implements ForLoop {
 
@@ -128,7 +129,7 @@ public final class ForEachLoop extends BracedStack implements ForLoop {
                 throw new DynamicCastClassException(str_+RETURN_LINE+_cont.joinPages());
             }
         } else {
-            String type_ = Templates.getFullTypeByBases(el_.getResultClass().getName(), Iterable.class.getName(), classes_);
+            String type_ = Templates.getFullTypeByBases(el_.getResultClass().getName(), IterableList.class.getName(), classes_);
             if (type_ == null) {
                 type_ = Templates.getFullTypeByBases(el_.getResultClass().getName(), PredefinedClasses.ITERABLE, classes_);
             }

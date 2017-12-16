@@ -26,8 +26,10 @@ import code.expressionlanguage.opers.util.ClassField;
 import code.expressionlanguage.opers.util.ClassMetaInfo;
 import code.expressionlanguage.opers.util.ClassName;
 import code.expressionlanguage.opers.util.ConstructorId;
+import code.expressionlanguage.opers.util.CustStruct;
 import code.expressionlanguage.opers.util.FieldMetaInfo;
 import code.expressionlanguage.opers.util.MethodId;
+import code.expressionlanguage.opers.util.StdStruct;
 import code.expressionlanguage.opers.util.Struct;
 import code.expressionlanguage.stacks.RemovableVars;
 import code.expressionlanguage.stacks.TryBlockStack;
@@ -56,7 +58,6 @@ public final class ProcessXmlMethod {
     protected static final String ATTRIBUTE_INIT = "init";
     protected static final String ATTRIBUTE_STEP = "step";
     private static final String EMPTY_STRING = "";
-    private static final String RETURN_LINE = "\n";
 
     private ProcessXmlMethod() {
     }
@@ -126,7 +127,7 @@ public final class ProcessXmlMethod {
                 if (!throwException(_cont, realCaught_)) {
                     continue;
                 }
-                throw new InvokeRedinedMethException(new Struct(_0));
+                throw new InvokeRedinedMethException(new StdStruct(_0));
             }
         }
     }
@@ -219,11 +220,7 @@ public final class ProcessXmlMethod {
                     }
                     String fieldDeclClass_ = fieldMeta_.getType();
                     Object o_ = PrimitiveTypeUtil.defaultValue(fieldDeclClass_);
-                    if (o_ == null) {
-                        fields_.put(new ClassField(c, e.getKey()), new Struct());
-                    } else {
-                        fields_.put(new ClassField(c, e.getKey()), new Struct(o_));
-                    }
+                    fields_.put(new ClassField(c, e.getKey()), StdStruct.wrapStd(o_));
                 }
             }
             Struct str_ = null;
@@ -232,13 +229,13 @@ public final class ProcessXmlMethod {
             }
             String fieldName_ = _call.getFieldName();
             if (fieldName_.isEmpty()) {
-                argGl_.setStruct(new Struct(new CustBase(),_class, fields_, str_));
+                argGl_.setStruct(new CustStruct(new CustBase(),_class, fields_, str_));
             } else {
                 Struct enum_ = classes_.getStaticField(new ClassField(_class, fieldName_));
                 if (!enum_.isNull()) {
                     argGl_.setStruct(enum_);
                 } else {
-                    argGl_.setStruct(new Struct(new CustBase(),_class, fields_, str_));
+                    argGl_.setStruct(new CustStruct(new CustBase(),_class, fields_, str_));
                 }
             }
         } else {
@@ -290,7 +287,7 @@ public final class ProcessXmlMethod {
         if (indirect_) {
             custCause_ = ((IndirectException)_t).getCustCause();
         } else {
-            custCause_ = new Struct(_t);
+            custCause_ = new StdStruct(_t);
         }
         while (!_conf.isEmptyPages()) {
             PageEl bkIp_ = _conf.getLastPage();
@@ -499,16 +496,5 @@ public final class ProcessXmlMethod {
         }
         _conf.getLastPage().setReturnedArgument(PrimitiveTypeUtil.defaultValue(root_, _conf.getLastPage().getGlobalArgument()));
         ip_.setNullReadWrite();
-    }
-    static Class<?> classForName(ContextEl _conf, int _offest, String _className) {
-        try {
-            if (PrimitiveTypeUtil.isPrimitive(_className)) {
-                return PrimitiveTypeUtil.getPrimitiveClass(_className);
-            }
-            return PrimitiveTypeUtil.getSingleNativeClass(_className);
-        } catch (Throwable _0) {
-            _conf.getLastPage().addToOffset(_offest);
-            throw new RuntimeClassNotFoundException(_className+RETURN_LINE+_conf.joinPages());
-        }
     }
 }

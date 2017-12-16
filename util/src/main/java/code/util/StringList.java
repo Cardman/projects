@@ -349,10 +349,6 @@ public final class StringList extends AbEqList<String> implements Equallable<Str
         return strBuilder_.toString();
     }
 
-//    public boolean isValid() {
-//        return areInstance(String.class);
-//    }
-
     public static boolean quickEq(String _string1,String _string2) {
         int lenOne_ = _string1.length();
         int lenTwo_ = _string2.length();

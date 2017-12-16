@@ -35,16 +35,12 @@ public final class StreamSoundFile {
             c_.setStream(ais_);
             return c_;
         } catch (RuntimeException _0) {
-            _0.printStackTrace();
             return null;
         } catch (LineUnavailableException _0) {
-            _0.printStackTrace();
             return null;
         } catch (UnsupportedAudioFileException _0) {
-            _0.printStackTrace();
             return null;
         } catch (IOException _0) {
-            _0.printStackTrace();
             return null;
         }
     }
@@ -86,16 +82,12 @@ public final class StreamSoundFile {
             c_.setStream(audioIn_);
             return c_;
         } catch (RuntimeException _0) {
-            _0.printStackTrace();
             return null;
         } catch (LineUnavailableException _0) {
-            _0.printStackTrace();
             return null;
         } catch (UnsupportedAudioFileException _0) {
-            _0.printStackTrace();
             return null;
         } catch (IOException _0) {
-            _0.printStackTrace();
             return null;
         }
     }

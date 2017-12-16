@@ -10,6 +10,8 @@ import code.expressionlanguage.Templates;
 import code.expressionlanguage.exceptions.ErrorCausingException;
 import code.expressionlanguage.exceptions.IndirectException;
 import code.expressionlanguage.exceptions.InvokeRedinedMethException;
+import code.expressionlanguage.opers.util.NullStruct;
+import code.expressionlanguage.opers.util.StdStruct;
 import code.expressionlanguage.opers.util.Struct;
 import code.expressionlanguage.variables.LocalVariable;
 import code.formathtml.exceptions.BadParenthesesException;
@@ -21,6 +23,7 @@ import code.formathtml.util.NodeInformations;
 import code.formathtml.util.ValueChangeEvent;
 import code.images.ConverterBufferedImage;
 import code.resources.ResourceFiles;
+import code.serialize.ConstClasses;
 import code.serialize.ConverterMethod;
 import code.serialize.SerializeXmlObject;
 import code.serialize.exceptions.InexistingValueForEnum;
@@ -40,7 +43,6 @@ import code.util.NumberMap;
 import code.util.Numbers;
 import code.util.StringList;
 import code.util.StringMap;
-import code.util.consts.ConstClasses;
 import code.util.exceptions.RuntimeClassNotFoundException;
 import code.util.ints.Listable;
 import code.util.ints.WithMathFactory;
@@ -424,7 +426,7 @@ public final class Navigation {
             forms_ = ExtractObject.getForms(session, bean_);
             session.removeLastPage();
         } catch (Throwable _0) {
-            forms_ = new Struct();
+            forms_ = NullStruct.NULL_VALUE;
         }
         for (EntryCust<String, Struct> e: session.getBuiltBeans().entryList()) {
             if (!reinitBean(_anchorRef, currentBeanName, e.getKey())) {
@@ -550,7 +552,7 @@ public final class Navigation {
                 try {
                     tempClass_ = ConstClasses.classAliasForNameNotInit(prefix_);
                 } catch (RuntimeClassNotFoundException _0) {
-                    throw new InvokeRedinedMethException(session.joinPages(), new Struct(_0));
+                    throw new InvokeRedinedMethException(session.joinPages(), new StdStruct(_0));
                 }
                 if (Listable.class.isAssignableFrom(tempClass_)) {
                     isList_ = true;
@@ -559,7 +561,7 @@ public final class Navigation {
                 try {
                     tempClass_ = ConstClasses.classAliasForNameNotInit(className_);
                 } catch (RuntimeClassNotFoundException _0) {
-                    throw new InvokeRedinedMethException(session.joinPages(), new Struct(_0));
+                    throw new InvokeRedinedMethException(session.joinPages(), new StdStruct(_0));
                 }
                 if (Listable.class.isAssignableFrom(tempClass_)) {
                     suffix_ = Templates.getTypesByBases(className_, Listable.class.getName(), session.toContextEl().getClasses()).first();
@@ -619,7 +621,7 @@ public final class Navigation {
                 Struct ex_ = _0.getCustCause();
                 throw new InvokeRedinedMethException(session.joinPages(), ex_);
             } catch (Throwable _0) {
-                throw new InvokeRedinedMethException(session.joinPages(), new Struct(_0));
+                throw new InvokeRedinedMethException(session.joinPages(), new StdStruct(_0));
             }
         }
         //begin deleting previous errors
@@ -708,7 +710,7 @@ public final class Navigation {
                     }
                 }
             } catch (Throwable _0) {
-                throw new InvokeRedinedMethException(session.joinPages(), new Struct(_0));
+                throw new InvokeRedinedMethException(session.joinPages(), new StdStruct(_0));
             }
             Struct procObj_ = e.getValue().getStruct();
             session.getLastPage().setGlobalArgumentStruct(procObj_);
@@ -722,7 +724,7 @@ public final class Navigation {
         try {
             class_ = ConstClasses.classAliasForObjectNameNotInit(_className);
         } catch (Throwable _0) {
-            throw new InvokeRedinedMethException(new Struct(_0));
+            throw new InvokeRedinedMethException(new StdStruct(_0));
         }
         if (class_.isEnum()) {
             //Enum
@@ -761,7 +763,7 @@ public final class Navigation {
         try {
             return ConverterMethod.newInstance(_class.getDeclaredConstructor());
         } catch (Throwable _0) {
-            throw new ErrorCausingException(new Struct(_0));
+            throw new ErrorCausingException(new StdStruct(_0));
         }
     }
 
@@ -959,14 +961,14 @@ public final class Navigation {
         try {
             return cases_.getVal(_return.toString());
         } catch (Throwable _0) {
-            throw new InvokeRedinedMethException(session.joinPages(), new Struct(_0));
+            throw new InvokeRedinedMethException(session.joinPages(), new StdStruct(_0));
         }
     }
     private Struct getBean(String _beanName) {
         try {
             return session.getBuiltBeans().getVal(_beanName);
         } catch (Throwable _0) {
-            throw new InvokeRedinedMethException(session.joinPages(), new Struct(_0));
+            throw new InvokeRedinedMethException(session.joinPages(), new StdStruct(_0));
         }
     }
     private Struct getNotNullBean(String _beanName) {
@@ -975,7 +977,7 @@ public final class Navigation {
             b_.getClass();
             return b_;
         } catch (Throwable _0) {
-            throw new InvokeRedinedMethException(session.joinPages(), new Struct(_0));
+            throw new InvokeRedinedMethException(session.joinPages(), new StdStruct(_0));
         }
     }
 

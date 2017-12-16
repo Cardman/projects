@@ -35,7 +35,6 @@ public final class ConverterBufferedImageIo {
             }
             return builder_.toString();
         } catch (Exception _0) {
-            _0.printStackTrace();
             return null;
         }
     }
@@ -75,7 +74,6 @@ public final class ConverterBufferedImageIo {
         try {
             ImageIO.write(_img, _format, _out);
         } catch (IOException _0) {
-            _0.printStackTrace();
         }
     }
 }

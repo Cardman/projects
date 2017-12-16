@@ -1,4 +1,6 @@
 package code.expressionlanguage.variables;
+import code.expressionlanguage.opers.util.NullStruct;
+import code.expressionlanguage.opers.util.StdStruct;
 import code.expressionlanguage.opers.util.Struct;
 
 public final class LocalVariable {
@@ -7,7 +9,7 @@ public final class LocalVariable {
 
     private static final String AS = " as ";
 
-    private Struct element = new Struct();
+    private Struct element = NullStruct.NULL_VALUE;
 
     private String className = Object.class.getName();
 
@@ -27,11 +29,7 @@ public final class LocalVariable {
     }
 
     public void setElement(Object _element) {
-        if (_element == null) {
-            element = new Struct();
-        } else {
-            element = new Struct(_element);
-        }
+        element = StdStruct.wrapStd(_element);
     }
 
     public Struct getStruct() {
@@ -41,7 +39,7 @@ public final class LocalVariable {
     public void setStruct(Struct _element) {
         element = _element;
         if (element == null) {
-            element = new Struct();
+            element = NullStruct.NULL_VALUE;
         }
     }
 

@@ -5,11 +5,13 @@ import java.lang.reflect.Method;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ElUtil;
 import code.expressionlanguage.exceptions.InvokeRedinedMethException;
+import code.expressionlanguage.opers.util.StdStruct;
 import code.expressionlanguage.opers.util.Struct;
 import code.expressionlanguage.variables.LocalVariable;
 import code.formathtml.exceptions.SetterException;
 import code.formathtml.util.NodeContainer;
 import code.formathtml.util.ValueChangeEvent;
+import code.serialize.ConstClasses;
 import code.serialize.ConverterMethod;
 import code.serialize.SerializeXmlObject;
 import code.sml.DocumentBuilder;
@@ -17,7 +19,6 @@ import code.util.CustList;
 import code.util.Numbers;
 import code.util.StringList;
 import code.util.StringMap;
-import code.util.consts.ConstClasses;
 import code.util.exceptions.NullObjectException;
 import code.util.ints.Listable;
 import code.util.ints.ListableEntries;
@@ -121,8 +122,7 @@ final class HtmlRequest {
                     }
                 }
             } catch (Throwable _0) {
-                _0.printStackTrace();
-                throw new InvokeRedinedMethException(_conf.joinPages(), new Struct(_0));
+                throw new InvokeRedinedMethException(_conf.joinPages(), new StdStruct(_0));
             }
         } else {
             String varMethod_ = _nodeContainer.getNodeInformation().getVarMethod();
@@ -159,7 +159,7 @@ final class HtmlRequest {
                 String nameValue_ = ip_.getNextTempVar();
                 lv_ = new LocalVariable();
                 lv_.setClassName(_attribute.getClass().getName());
-                lv_.setStruct(new Struct(_attribute));
+                lv_.setStruct(StdStruct.wrapStd(_attribute));
                 ip_.getLocalVars().put(nameValue_, lv_);
                 String expressionLeft_ = nameVar_ + GET_LOC_VAR + _nodeContainer.getLastToken();
                 String expressionRight_ = nameValue_ + GET_LOC_VAR;

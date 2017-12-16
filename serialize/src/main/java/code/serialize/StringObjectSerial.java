@@ -5,12 +5,10 @@ import code.sml.Attr;
 import code.sml.Document;
 import code.sml.Element;
 import code.sml.NamedNodeMap;
-
 import code.serialize.exceptions.InvokingException;
 import code.serialize.exceptions.NoSuchDeclaredMethodException;
 import code.serialize.exceptions.NoValueException;
 import code.serialize.exceptions.RuntimeInstantiationException;
-import code.util.consts.ConstClasses;
 import code.util.exceptions.RuntimeClassNotFoundException;
 
 final class StringObjectSerial extends PrimitiveSerial {

@@ -3,12 +3,10 @@ import code.sml.Attr;
 import code.sml.Document;
 import code.sml.Element;
 import code.sml.NamedNodeMap;
-
 import code.serialize.exceptions.ClassFoundException;
 import code.serialize.exceptions.InexistingValueForEnum;
 import code.serialize.exceptions.NoAttributeForSerializable;
 import code.util.StringList;
-import code.util.consts.ConstClasses;
 import code.util.exceptions.RuntimeClassNotFoundException;
 
 

@@ -88,7 +88,6 @@ public final class NetCreate {
                 l_.add(n);
             }
         } catch (SocketException _0) {
-            _0.printStackTrace();
         }
         return l_;
     }
@@ -100,12 +99,10 @@ public final class NetCreate {
             serverSocket_.bind(new InetSocketAddress(_ip,_port));
             return serverSocket_;
         } catch (IOException _0) {
-            _0.printStackTrace();
             if (serverSocket_ != null) {
                 try {
                     serverSocket_.close();
                 } catch (IOException _1) {
-                    _1.printStackTrace();
                 }
             }
             return null;

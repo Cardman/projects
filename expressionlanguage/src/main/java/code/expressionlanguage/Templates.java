@@ -72,8 +72,7 @@ public final class Templates {
             if (!custClass_) {
                 try {
                     if (PrimitiveTypeUtil.isPrimitive(baseName_)) {
-                        Class<?> cl_ = PrimitiveTypeUtil.getPrimitiveClass(baseName_);
-                        if (cl_ == null) {
+                        if (!PrimitiveTypeUtil.isExistentPrimitive(baseName_)) {
                             return false;
                         }
                     } else {
@@ -348,7 +347,7 @@ public final class Templates {
         String className_ = types_.first();
         className_ = PrimitiveTypeUtil.getQuickComponentBaseType(className_).getComponent();
         if (PrimitiveTypeUtil.isPrimitive(className_)) {
-            return PrimitiveTypeUtil.getPrimitiveClass(className_) != null;
+            return PrimitiveTypeUtil.isExistentPrimitive(className_);
         }
         if (className_.startsWith(PREFIX_VAR_TYPE)) {
             return _inherit.contains(className_.substring(1));

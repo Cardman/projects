@@ -11,7 +11,7 @@ import code.expressionlanguage.methods.Block;
 import code.expressionlanguage.methods.util.ArgumentsPair;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.opers.util.ConstructorId;
-import code.expressionlanguage.opers.util.Struct;
+import code.expressionlanguage.opers.util.StdStruct;
 import code.util.CustList;
 import code.util.EntryCust;
 import code.util.IdMap;
@@ -63,7 +63,7 @@ public abstract class NumericOperation extends MethodOperation {
         if (convert_) {
             ClassArgumentMatching cl_ = new ClassArgumentMatching(_left.getObjectClassName());
             Argument converted_ = new Argument();
-            converted_.setStruct(PrimitiveTypeUtil.convertObject(cl_, o_.getObject()));
+            converted_.setStruct(PrimitiveTypeUtil.convertObject(cl_, o_.getStruct()));
             o_ = converted_;
         }
         return o_;
@@ -77,7 +77,7 @@ public abstract class NumericOperation extends MethodOperation {
             try {
                 str_.append(_b.getObject());
             } catch (RuntimeException _0) {
-                throw new InvokeRedinedMethException(SECOND+RETURN_LINE+_cont.joinPages(),new Struct(_0));
+                throw new InvokeRedinedMethException(SECOND+RETURN_LINE+_cont.joinPages(),new StdStruct(_0));
             }
             Argument a_ = new Argument();
             a_.setObject(str_.toString());
@@ -88,15 +88,15 @@ public abstract class NumericOperation extends MethodOperation {
             try {
                 str_.append(_a.getObject());
             } catch (RuntimeException _0) {
-                throw new InvokeRedinedMethException(FIRST+RETURN_LINE+_cont.joinPages(),new Struct(_0));
+                throw new InvokeRedinedMethException(FIRST+RETURN_LINE+_cont.joinPages(),new StdStruct(_0));
             }
             str_.append(_b.getObject());
             Argument a_ = new Argument();
             a_.setObject(str_.toString());
             return a_;
         }
-        if (PrimitiveTypeUtil.toPrimitive(_a.getArgClass(), true) == char.class) {
-            if (PrimitiveTypeUtil.toPrimitive(_b.getArgClass(), true) == char.class) {
+        if (StringList.quickEq(PrimitiveTypeUtil.toPrimitive(_a.getArgClass(), true).getName(), PrimitiveTypeUtil.PRIM_CHAR)) {
+            if (StringList.quickEq(PrimitiveTypeUtil.toPrimitive(_b.getArgClass(), true).getName(), PrimitiveTypeUtil.PRIM_CHAR)) {
                 StringBuilder str_ = new StringBuilder();
                 str_.append(_a.getObject());
                 str_.append(_b.getObject());
@@ -151,15 +151,6 @@ public abstract class NumericOperation extends MethodOperation {
         } else if (p_ instanceof Byte) {
             bSix_ = (Byte) p_;
         }
-        int oa_ = PrimitiveTypeUtil.getOrderClass(_a.getArgClass());
-        int ob_ = PrimitiveTypeUtil.getOrderClass(_b.getArgClass());
-        Class<?> arg_;
-        if (oa_ > ob_) {
-            arg_ = _a.getArgClass();
-        } else {
-            arg_ = _b.getArgClass();
-        }
-        arg_ = PrimitiveTypeUtil.toPrimitive(arg_, true);
         Object nb_;
         if (aOne_ != null) {
             if (bOne_ != null) {
@@ -298,15 +289,6 @@ public abstract class NumericOperation extends MethodOperation {
         } else if (p_ instanceof Byte) {
             bSix_ = (Byte) p_;
         }
-        int oa_ = PrimitiveTypeUtil.getOrderClass(_a.getArgClass());
-        int ob_ = PrimitiveTypeUtil.getOrderClass(_b.getArgClass());
-        Class<?> arg_;
-        if (oa_ > ob_) {
-            arg_ = _a.getArgClass();
-        } else {
-            arg_ = _b.getArgClass();
-        }
-        arg_ = PrimitiveTypeUtil.toPrimitive(arg_, true);
         Object nb_;
         if (aOne_ != null) {
             if (bOne_ != null) {
@@ -445,15 +427,6 @@ public abstract class NumericOperation extends MethodOperation {
         } else if (p_ instanceof Byte) {
             bSix_ = (Byte) p_;
         }
-        int oa_ = PrimitiveTypeUtil.getOrderClass(_a.getArgClass());
-        int ob_ = PrimitiveTypeUtil.getOrderClass(_b.getArgClass());
-        Class<?> arg_;
-        if (oa_ > ob_) {
-            arg_ = _a.getArgClass();
-        } else {
-            arg_ = _b.getArgClass();
-        }
-        arg_ = PrimitiveTypeUtil.toPrimitive(arg_, true);
         Object nb_;
         if (aOne_ != null) {
             if (bOne_ != null) {
@@ -605,15 +578,6 @@ public abstract class NumericOperation extends MethodOperation {
                 throw new DivideZeroException(_cont.joinPages());
             }
         }
-        int oa_ = PrimitiveTypeUtil.getOrderClass(_a.getArgClass());
-        int ob_ = PrimitiveTypeUtil.getOrderClass(_b.getArgClass());
-        Class<?> arg_;
-        if (oa_ > ob_) {
-            arg_ = _a.getArgClass();
-        } else {
-            arg_ = _b.getArgClass();
-        }
-        arg_ = PrimitiveTypeUtil.toPrimitive(arg_, true);
         Object nb_;
         if (aOne_ != null) {
             if (bOne_ != null) {
@@ -765,15 +729,6 @@ public abstract class NumericOperation extends MethodOperation {
                 throw new DivideZeroException(_cont.joinPages());
             }
         }
-        int oa_ = PrimitiveTypeUtil.getOrderClass(_a.getArgClass());
-        int ob_ = PrimitiveTypeUtil.getOrderClass(_b.getArgClass());
-        Class<?> arg_;
-        if (oa_ > ob_) {
-            arg_ = _a.getArgClass();
-        } else {
-            arg_ = _b.getArgClass();
-        }
-        arg_ = PrimitiveTypeUtil.toPrimitive(arg_, true);
         Object nb_;
         if (aOne_ != null) {
             if (bOne_ != null) {
@@ -882,7 +837,7 @@ public abstract class NumericOperation extends MethodOperation {
         } else {
             arg_ = _b;
         }
-        int intOrder_ = PrimitiveTypeUtil.getOrderClass(int.class);
+        int intOrder_ = PrimitiveTypeUtil.getOrderClass(PrimitiveTypeUtil.PRIM_INT);
         if (max_ < intOrder_) {
             arg_ = new ClassArgumentMatching(PrimitiveTypeUtil.PRIM_INT);
         }

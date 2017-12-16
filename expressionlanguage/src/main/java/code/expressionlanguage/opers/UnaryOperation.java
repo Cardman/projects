@@ -38,7 +38,7 @@ public final class UnaryOperation extends PrimitiveBoolOperation {
         if (cl_ == null) {
             throw new NotNumberException(clMatch_+RETURN_LINE+_conf.joinPages());
         }
-        int intOrder_ = PrimitiveTypeUtil.getOrderClass(int.class);
+        int intOrder_ = PrimitiveTypeUtil.getOrderClass(PrimitiveTypeUtil.PRIM_INT);
         if (PrimitiveTypeUtil.getOrderClass(cl_) < intOrder_) {
             cl_ = new ClassArgumentMatching(PrimitiveTypeUtil.PRIM_INT);
         }

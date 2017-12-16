@@ -47,7 +47,6 @@ public final class BasicClient extends SendReceive {
                 ThreadInvoker.invokeNow(new LoopClient(window, readObject_, getSocket()));
             }
         } catch (Throwable _0) {
-            _0.printStackTrace();
             SwingUtilities.invokeLater(new Quitting(window, getSocket()));
         }
     }

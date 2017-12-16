@@ -1,4 +1,5 @@
 package code.expressionlanguage.stacks;
+import code.expressionlanguage.opers.util.NullStruct;
 import code.expressionlanguage.opers.util.Struct;
 import code.util.CustList;
 
@@ -14,7 +15,7 @@ public abstract class SwitchStack extends BlockStack implements BreakableStack {
 
     private boolean entered;
 
-    private Struct value = new Struct();
+    private Struct value = NullStruct.NULL_VALUE;
 
     private int visitedBlock = CustList.INDEX_NOT_FOUND_ELT;
 
@@ -51,7 +52,7 @@ public abstract class SwitchStack extends BlockStack implements BreakableStack {
     public void setStruct(Struct _value) {
         value = _value;
         if (value == null) {
-            value = new Struct();
+            value = NullStruct.NULL_VALUE;
         }
     }
 

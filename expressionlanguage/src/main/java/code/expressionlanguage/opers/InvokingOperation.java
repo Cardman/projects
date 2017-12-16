@@ -10,6 +10,8 @@ import code.expressionlanguage.exceptions.DynamicCastClassException;
 import code.expressionlanguage.methods.Classes;
 import code.expressionlanguage.methods.util.TypeVar;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
+import code.expressionlanguage.opers.util.CustStruct;
+import code.expressionlanguage.opers.util.StdStruct;
 import code.expressionlanguage.opers.util.Struct;
 import code.util.CustList;
 import code.util.StringList;
@@ -111,7 +113,7 @@ public abstract class InvokingOperation extends MethodOperation {
                 int len_ = optArgs_.size();
                 Object array_;
                 array_ = InstanceOperation.newClassicArray(_context, g_, g_, new int[]{len_});
-                Struct arr_ = new Struct(array_);
+                Struct arr_ = new StdStruct(array_);
                 for (int i = 0; i < len_; i++) {
                     Argument chArg_ = optArgs_.get(i);
                     ArrOperation.setCheckedElement(arr_, i, chArg_, _context);
@@ -121,7 +123,7 @@ public abstract class InvokingOperation extends MethodOperation {
                 int len_ = optArgs_.size();
                 Struct[] array_ = new Struct[len_];
                 String clArr_ = PrimitiveTypeUtil.getPrettyArrayType(g_);
-                Struct str_ = new Struct(array_,clArr_);
+                Struct str_ = new CustStruct(array_,clArr_);
                 for (int i = CustList.FIRST_INDEX; i < len_; i++) {
                     Argument chArg_ = optArgs_.get(i);
                     ArrOperation.setCheckedElement(str_, i, chArg_, _context);
@@ -155,7 +157,7 @@ public abstract class InvokingOperation extends MethodOperation {
                 int len_ = optArgs_.size();
                 Object array_;
                 array_ = InstanceOperation.newClassicArray(_context, g_, g_, new int[]{len_});
-                Struct arr_ = new Struct(array_);
+                Struct arr_ = new StdStruct(array_);
                 for (int i = 0; i < len_; i++) {
                     Argument chArg_ = optArgs_.get(i);
                     ArrOperation.setCheckedElement(arr_, i, chArg_, _context);
@@ -165,7 +167,7 @@ public abstract class InvokingOperation extends MethodOperation {
                 int len_ = optArgs_.size();
                 Struct[] array_ = new Struct[len_];
                 String clArr_ = PrimitiveTypeUtil.getPrettyArrayType(g_);
-                Struct str_ = new Struct(array_,clArr_);
+                Struct str_ = new CustStruct(array_,clArr_);
                 for (int i = CustList.FIRST_INDEX; i < len_; i++) {
                     Argument chArg_ = optArgs_.get(i);
                     ArrOperation.setCheckedElement(str_, i, chArg_, _context);

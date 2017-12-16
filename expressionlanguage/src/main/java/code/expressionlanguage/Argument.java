@@ -1,4 +1,14 @@
 package code.expressionlanguage;
+import code.expressionlanguage.opers.util.ByteStruct;
+import code.expressionlanguage.opers.util.CharStruct;
+import code.expressionlanguage.opers.util.ClassArgumentMatching;
+import code.expressionlanguage.opers.util.DoubleStruct;
+import code.expressionlanguage.opers.util.FloatStruct;
+import code.expressionlanguage.opers.util.IntStruct;
+import code.expressionlanguage.opers.util.LongStruct;
+import code.expressionlanguage.opers.util.NullStruct;
+import code.expressionlanguage.opers.util.ShortStruct;
+import code.expressionlanguage.opers.util.StdStruct;
 import code.expressionlanguage.opers.util.Struct;
 import code.util.CustList;
 import code.util.Numbers;
@@ -24,7 +34,7 @@ public final class Argument {
 
     private static final String CHAR_SUFFIX = "c";
 
-    private Struct object = new Struct();
+    private Struct object = NullStruct.NULL_VALUE;
 
     public static Argument[] toArgArray(CustList<Argument> _args) {
         int len_ = _args.size();
@@ -191,39 +201,39 @@ public final class Argument {
         }
         Argument a_ = new Argument();
         if (Numbers.checkLong(_nb)) {
-            a_.object = new Struct(value_.longValue());
+            a_.object = new LongStruct(value_.longValue());
             return a_;
         }
         if (Numbers.checkDouble(_nb)) {
-            a_.object = new Struct(value_.doubleValue());
+            a_.object = new DoubleStruct(value_.doubleValue());
             return a_;
         }
         StringList parts_ = StringList.splitInTwo(_nb, _nb.length() - 1);
         if (StringList.quickEq(parts_.last().toLowerCase(), INT_SUFFIX)) {
-            a_.object = new Struct(value_.intValue());
+            a_.object = new IntStruct(value_.intValue());
             return a_;
         }
         if (StringList.quickEq(parts_.last().toLowerCase(), BYTE_SUFFIX)) {
-            a_.object = new Struct(value_.byteValue());
+            a_.object = new ByteStruct(value_.byteValue());
             return a_;
         }
         if (StringList.quickEq(parts_.last().toLowerCase(), LONG_SUFFIX)) {
-            a_.object = new Struct(value_.longValue());
+            a_.object = new LongStruct(value_.longValue());
             return a_;
         }
         if (StringList.quickEq(parts_.last().toLowerCase(), SHORT_SUFFIX)) {
-            a_.object = new Struct(value_.shortValue());
+            a_.object = new ShortStruct(value_.shortValue());
             return a_;
         }
         if (StringList.quickEq(parts_.last().toLowerCase(), FLOAT_SUFFIX)) {
-            a_.object = new Struct(value_.floatValue());
+            a_.object = new FloatStruct(value_.floatValue());
             return a_;
         }
         if (StringList.quickEq(parts_.last().toLowerCase(), DOUBLE_SUFFIX)) {
-            a_.object = new Struct(value_.doubleValue());
+            a_.object = new DoubleStruct(value_.doubleValue());
             return a_;
         }
-        a_.object = new Struct(Character.valueOf((char) value_.longValue()));
+        a_.object = new CharStruct(Character.valueOf((char) value_.longValue()));
         return a_;
     }
 
@@ -234,7 +244,7 @@ public final class Argument {
     public void setStruct(Struct _object) {
         object = _object;
         if (object == null) {
-            object = new Struct();
+            object = NullStruct.NULL_VALUE;
         }
     }
 
@@ -247,11 +257,7 @@ public final class Argument {
     }
 
     public void setObject(Object _object) {
-        if (_object == null) {
-            object = new Struct();
-        } else {
-            object = new Struct(_object);
-        }
+        object = StdStruct.wrapStd(_object);
     }
 
     public String getObjectClassName() {
@@ -262,15 +268,15 @@ public final class Argument {
         return object.isNull() || object.getClassName().startsWith(ARR_PREFIX);
     }
 
-    public Class<?> getArgClass() {
-        return object.getInstance().getClass();
+    public ClassArgumentMatching getArgClass() {
+        return new ClassArgumentMatching(object.getClassName());
     }
 
     public boolean isIntegerType() {
         if (object.isNull()) {
             return false;
         }
-        return PrimitiveTypeUtil.isIntegerType(object.getInstance().getClass());
+        return PrimitiveTypeUtil.isIntegerType(getArgClass());
     }
 
 }

@@ -29,63 +29,6 @@ public final class ResourceFiles {
     private ResourceFiles() {
     }
 
-
-//    public static boolean validateResourcesXml(String _xmlFileName, String _xsdFileName) {
-//        SchemaFactory factory_ = SchemaFactory.newInstance(XML_SCHEMA);
-//        try {
-////            InputSource is_ = new InputSource();
-////            is_.setEncoding(StandardCharsets.UTF_8.name());
-////            is_.setCharacterStream(new StringReader(ressourceFichier(_xsdFileName)));
-////            SAXSource sourceXsd_ = new SAXSource(is_);
-////            Schema schema_ = factory_.newSchema(sourceXsd_);
-//            DOMSource domSourceXsd_ = new DOMSource(XmlParser.parseSax(ResourceFiles.ressourceFichier(_xsdFileName)));
-//            Schema schema_ = factory_.newSchema(domSourceXsd_);
-//            Validator validator_ = schema_.newValidator();
-//            String nomDossierOs_ = StringList.replaceBackSlash(_xmlFileName);
-//            InputStream in_ = null;
-//            try {
-////                in_ = ClassLoader.getSystemResourceAsStream(StreamZipFile.getInsensitiveCaseFileInJar(nomDossierOs_));
-//                in_ = ClassLoader.getSystemResourceAsStream(nomDossierOs_);
-//                validator_.validate(new StreamSource(in_));
-//                return true;
-//            } finally {
-//                if (in_ != null) {
-//                    in_.close();
-//                }
-//            }
-//        } catch (MalformedURLException _0) {
-//            try {
-////                InputSource is_ = new InputSource();
-////                is_.setEncoding(StandardCharsets.UTF_8.name());
-////                is_.setCharacterStream(new StringReader(ressourceFichier(_xsdFileName)));
-////                SAXSource sourceXsd_ = new SAXSource(is_);
-//                DOMSource domSourceXsd_ = new DOMSource(XmlParser.parseSax(ResourceFiles.ressourceFichier(_xsdFileName)));
-//                Schema schema_ = factory_.newSchema(domSourceXsd_);
-//                Validator validator_ = schema_.newValidator();
-//                validator_.validate(new StreamSource(new File(_xmlFileName)));
-//                return true;
-//            } catch (RuntimeException _1) {
-//                _1.printStackTrace();
-//                return false;
-//            } catch (SAXException _1) {
-//                _1.printStackTrace();
-//                return false;
-//            } catch (IOException _1) {
-//                _1.printStackTrace();
-//                return false;
-//            }
-//        } catch (RuntimeException _0) {
-//            _0.printStackTrace();
-//            return false;
-//        } catch (SAXException _0) {
-//            _0.printStackTrace();
-//            return false;
-//        } catch (IOException _0) {
-//            _0.printStackTrace();
-//            return false;
-//        }
-//    }
-
     public static ClipStream resourceSound(String _file) {
         try {
             Clip clip_ = AudioSystem.getClip();
@@ -98,16 +41,12 @@ public final class ResourceFiles {
             c_.setStream(audioIn_);
             return c_;
         } catch (RuntimeException _0) {
-            _0.printStackTrace();
             return null;
         } catch (LineUnavailableException _0) {
-            _0.printStackTrace();
             return null;
         } catch (UnsupportedAudioFileException _0) {
-            _0.printStackTrace();
             return null;
         } catch (IOException _0) {
-            _0.printStackTrace();
             return null;
         }
     }
@@ -168,23 +107,17 @@ public final class ResourceFiles {
             bis_ = new ByteArrayInputStream(data_);
             return ImageIO.read(bis_);
         } catch (RuntimeException _0) {
-            _0.printStackTrace();
             try {
                 return ImageIO.read(new File(_nomFichier));
             } catch (RuntimeException _1) {
-                _1.printStackTrace();
             } catch (IOException _1) {
-                _1.printStackTrace();
             }
             return null;
         } catch (IOException _0) {
-            _0.printStackTrace();
             try {
                 return ImageIO.read(new File(_nomFichier));
             } catch (RuntimeException _1) {
-                _1.printStackTrace();
             } catch (IOException _1) {
-                _1.printStackTrace();
             }
             return null;
         } finally {
@@ -193,9 +126,7 @@ public final class ResourceFiles {
                     bis_.close();
                 }
             } catch (RuntimeException _0) {
-                _0.printStackTrace();
             } catch (IOException _0) {
-                _0.printStackTrace();
             }
         }
     }
@@ -205,7 +136,6 @@ public final class ResourceFiles {
             byte[] data_ = ResourceFiles.resourceFileAsBytes(_nomFichier);
             return new ImageIcon(data_);
         } catch (RuntimeException _0) {
-            _0.printStackTrace();
             return new ImageIcon(_nomFichier);
         }
     }
@@ -236,10 +166,8 @@ public final class ResourceFiles {
             }
             return bytes_;
         } catch (RuntimeException _0) {
-            _0.printStackTrace();
             return null;
         } catch (IOException _0) {
-            _0.printStackTrace();
             return null;
         } finally {
             try {
@@ -250,9 +178,7 @@ public final class ResourceFiles {
                     inputStream_.close();
                 }
             } catch (IOException _0) {
-                _0.printStackTrace();
             } catch (RuntimeException _0) {
-                _0.printStackTrace();
             }
         }
     }

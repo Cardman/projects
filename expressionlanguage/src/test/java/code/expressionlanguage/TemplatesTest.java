@@ -2440,49 +2440,53 @@ public class TemplatesTest {
     @Test
     public void getAllGenericSuperTypes2Test() {
         StringList superTypes_ = Templates.getAllGenericSuperTypes("code.util.ints.Listable", null);
-        assertEq(5, superTypes_.size());
+        assertEq(6, superTypes_.size());
         assertEq("code.util.ints.Listable", superTypes_.get(0));
-        assertEq("java.lang.Iterable<java.lang.Object>", superTypes_.get(1));
+        assertEq("code.util.ints.IterableList<java.lang.Object>", superTypes_.get(1));
         assertEq("code.util.ints.Countable", superTypes_.get(2));
-        assertEq("code.util.ints.SimpleIterable", superTypes_.get(3));
-        assertEq("code.util.ints.SimpleList", superTypes_.get(4));
+        assertEq("code.util.ints.SimpleList", superTypes_.get(3));
+        assertEq("java.lang.Iterable<java.lang.Object>", superTypes_.get(4));
+        assertEq("code.util.ints.SimpleIterable", superTypes_.get(5));
     }
 
     @Test
     public void getAllGenericSuperTypes3Test() {
         StringList superTypes_ = Templates.getAllGenericSuperTypes("code.util.ints.Listable<#U>", null);
-        assertEq(5, superTypes_.size());
+        assertEq(6, superTypes_.size());
         assertEq("code.util.ints.Listable<#U>", superTypes_.get(0));
-        assertEq("java.lang.Iterable<#U>", superTypes_.get(1));
+        assertEq("code.util.ints.IterableList<#U>", superTypes_.get(1));
         assertEq("code.util.ints.Countable", superTypes_.get(2));
-        assertEq("code.util.ints.SimpleIterable", superTypes_.get(3));
-        assertEq("code.util.ints.SimpleList", superTypes_.get(4));
+        assertEq("code.util.ints.SimpleList", superTypes_.get(3));
+        assertEq("java.lang.Iterable<#U>", superTypes_.get(4));
+        assertEq("code.util.ints.SimpleIterable", superTypes_.get(5));
     }
 
     @Test
     public void getAllGenericSuperTypes4Test() {
         StringList superTypes_ = Templates.getAllGenericSuperTypes("code.util.CustList<#U>", null);
-        assertEq(7, superTypes_.size());
+        assertEq(8, superTypes_.size());
         assertEq("code.util.CustList<#U>", superTypes_.get(0));
         assertEq("java.lang.Object", superTypes_.get(1));
         assertEq("code.util.ints.Listable<#U>", superTypes_.get(2));
-        assertEq("java.lang.Iterable<#U>", superTypes_.get(3));
+        assertEq("code.util.ints.IterableList<#U>", superTypes_.get(3));
         assertEq("code.util.ints.Countable", superTypes_.get(4));
-        assertEq("code.util.ints.SimpleIterable", superTypes_.get(5));
-        assertEq("code.util.ints.SimpleList", superTypes_.get(6));
+        assertEq("code.util.ints.SimpleList", superTypes_.get(5));
+        assertEq("java.lang.Iterable<#U>", superTypes_.get(6));
+        assertEq("code.util.ints.SimpleIterable", superTypes_.get(7));
     }
 
     @Test
     public void getAllGenericSuperTypes5Test() {
         StringList superTypes_ = Templates.getAllGenericSuperTypes("code.util.CustList", null);
-        assertEq(7, superTypes_.size());
+        assertEq(8, superTypes_.size());
         assertEq("code.util.CustList", superTypes_.get(0));
         assertEq("java.lang.Object", superTypes_.get(1));
         assertEq("code.util.ints.Listable<java.lang.Object>", superTypes_.get(2));
-        assertEq("java.lang.Iterable<java.lang.Object>", superTypes_.get(3));
+        assertEq("code.util.ints.IterableList<java.lang.Object>", superTypes_.get(3));
         assertEq("code.util.ints.Countable", superTypes_.get(4));
-        assertEq("code.util.ints.SimpleIterable", superTypes_.get(5));
-        assertEq("code.util.ints.SimpleList", superTypes_.get(6));
+        assertEq("code.util.ints.SimpleList", superTypes_.get(5));
+        assertEq("java.lang.Iterable<java.lang.Object>", superTypes_.get(6));
+        assertEq("code.util.ints.SimpleIterable", superTypes_.get(7));
     }
 
     @Test
