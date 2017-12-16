@@ -70,7 +70,6 @@ import code.formathtml.util.ReadWriteHtml;
 import code.formathtml.util.SwitchHtmlStack;
 import code.formathtml.util.TryHtmlStack;
 import code.formathtml.util.VariableInformation;
-import code.images.ConverterBufferedImage;
 import code.serialize.ConstClasses;
 import code.sml.Attr;
 import code.sml.AttributePart;
@@ -265,6 +264,15 @@ final class FormatHtml {
     private static final char APOS = 39;
     private static final String NEXT_COMMENT = "--";
     private static final String END_COMMENT = "--"+GT_TAG;
+
+    private static final StringList AVAILABLE_FORMATS = new StringList("png","jpg","bmp","gif","svg");
+
+    private static final String BASE64 = ";base64,";
+
+    private static final String DATA_IMAGE = "data:image/";
+
+    private static final String IMG_EXT = "png";
+
     private FormatHtml() {
     }
 
@@ -2798,7 +2806,7 @@ final class FormatHtml {
                 if (keep_) {
                     _tag.setAttribute(ATTRIBUTE_SRC, content_);
                 } else {
-                    content_ = ConverterBufferedImage.surroundImage(content_, wrap_);
+                    content_ = surroundImage(content_, wrap_);
                     _tag.setAttribute(ATTRIBUTE_SRC, content_);
                 }
                 _tag.removeAttribute(_conf.getPrefix()+ATTRIBUTE_ENCODE_IMG);
@@ -3083,7 +3091,18 @@ final class FormatHtml {
             }
         }
     }
-
+    private static String surroundImage(String _image, String _format) {
+        String contourChart_ = EMPTY_STRING;
+        StringBuilder sb_ = new StringBuilder();
+        if (AVAILABLE_FORMATS.containsStr(_format)) {
+            sb_.append(DATA_IMAGE+_format+BASE64);
+        } else {
+            sb_.append(DATA_IMAGE+IMG_EXT+BASE64);
+        }
+        sb_.append(_image);
+        contourChart_ = sb_.toString();
+        return contourChart_;
+    }
     private static String getCssHref(Element _link) {
         NamedNodeMap map_ = _link.getAttributes();
         if (!StringList.quickEq(_link.getAttribute(ATTRIBUTE_REL),STYLESHEET)) {

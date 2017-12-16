@@ -2,8 +2,6 @@ package code.formathtml;
 
 import static code.formathtml.EquallableExUtil.assertEq;
 
-import javax.imageio.ImageIO;
-
 import org.junit.BeforeClass;
 import org.junit.Test;
 
@@ -28,7 +26,6 @@ public class ExtractObjectTest {
 
     @BeforeClass
     public static void initialize() {
-        ImageIO.setUseCache(false);
         Constants.setLanguage("LOCALE");
     }
 

@@ -2,8 +2,6 @@ package code.formathtml;
 import static code.formathtml.EquallableExUtil.assertEq;
 import static org.junit.Assert.assertTrue;
 
-import javax.imageio.ImageIO;
-
 import org.junit.BeforeClass;
 import org.junit.Ignore;
 import org.junit.Test;
@@ -62,7 +60,6 @@ public class FormatHtmlTest {
 
     @BeforeClass
     public static void initialize() {
-        ImageIO.setUseCache(false);
         Constants.setLanguage("LOCALE");
     }
 

@@ -8,7 +8,7 @@ import code.images.ConverterBufferedImage;
 import code.resources.BaseSixtyFourUtil;
 import code.util.StringList;
 
-public class DataConnection extends URLConnection {
+class DataConnection extends URLConnection {
 
     private static final StringList AVAILABLE_FORMATS = new StringList("png","jpg","bmp","gif","svg");
     private static final String SUFFIX = ";base64,";

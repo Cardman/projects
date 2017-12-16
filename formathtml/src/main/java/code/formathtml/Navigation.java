@@ -1,5 +1,4 @@
 package code.formathtml;
-import java.awt.image.BufferedImage;
 import java.lang.reflect.Method;
 
 import code.bean.Bean;
@@ -21,7 +20,6 @@ import code.formathtml.exceptions.NavCaseNotFoundException;
 import code.formathtml.util.NodeContainer;
 import code.formathtml.util.NodeInformations;
 import code.formathtml.util.ValueChangeEvent;
-import code.images.ConverterBufferedImage;
 import code.resources.ResourceFiles;
 import code.serialize.ConstClasses;
 import code.serialize.ConverterMethod;
@@ -58,8 +56,6 @@ public final class Navigation {
     private static final String END_TEMP = ">";
 
     private static final String BEG_TEMP = "<";
-
-    private static final String EXT = ".";
 
     private static final String END_PATH = ":";
 
@@ -165,32 +161,13 @@ public final class Navigation {
 
     private String resourcesFolder = EMPTY_STRING;
 
-    public static String toBaseSixtyFour(String _fileName) {
-        BufferedImage bu_ = ResourceFiles.resourceBufferedImage(_fileName);
-        StringList ext_ = StringList.splitStrings(_fileName, EXT);
-        return ConverterBufferedImage.toBaseSixtyFour(bu_, ext_.get(CustList.SECOND_INDEX));
-    }
-
     public void setFiles(StringMap<String> _web, StringMap<String> _images) {
         files = new StringMap<String>();
         for (String f: _web.getKeys()) {
             files.put(f, _web.getVal(f));
         }
         for (String f: _images.getKeys()) {
-            files.put(f, ConverterBufferedImage.toBaseSixtyFour(_images.getVal(f)));
-        }
-    }
-
-    public void setFiles(StringMap<String> _files, String _beginEncoding) {
-        if (_beginEncoding != null) {
-            files = new StringMap<String>();
-            for (String f: _files.getKeys()) {
-                if (!f.startsWith(_beginEncoding)) {
-                    files.put(f, _files.getVal(f));
-                    continue;
-                }
-                files.put(f, ConverterBufferedImage.toBaseSixtyFour(_files.getVal(f)));
-            }
+            files.put(f, _images.getVal(f));
         }
     }
 

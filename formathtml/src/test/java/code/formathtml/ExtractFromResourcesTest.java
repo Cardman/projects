@@ -1,13 +1,9 @@
 package code.formathtml;
 import static code.formathtml.EquallableExUtil.assertEq;
 
-import javax.imageio.ImageIO;
-
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import code.formathtml.Configuration;
-import code.formathtml.ExtractFromResources;
 import code.util.StringMap;
 import code.util.consts.Constants;
 
@@ -18,7 +14,6 @@ public class ExtractFromResourcesTest {
 
     @BeforeClass
     public static void initialize() {
-        ImageIO.setUseCache(false);
         Constants.setLanguage("LOCALE");
     }
 

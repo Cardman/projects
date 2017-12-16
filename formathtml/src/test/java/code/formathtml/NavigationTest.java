@@ -5,9 +5,6 @@ import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
 
-import javax.imageio.ImageIO;
-
-import org.junit.BeforeClass;
 import org.junit.Test;
 
 import code.bean.Bean;
@@ -55,11 +52,6 @@ public class NavigationTest {
     private static final String ENUMS = EnumNumbers.class.getName();
     private static final String RATE = Rate.class.getName();
     private static final String COMPOSITE = Composite.class.getName();
-
-    @BeforeClass
-    public static void initialize() {
-        ImageIO.setUseCache(false);
-    }
 
     @Test
     public void initializeSession1Test() {

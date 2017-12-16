@@ -28,6 +28,23 @@ public final class MethodId implements Equallable<MethodId>, Identifiable {
         classNames = _classNames;
     }
 
+
+    public MethodId(MethodModifier _staticMethod,String _name, StringList _classNames) {
+        this(_staticMethod, _name, _classNames, false);
+    }
+
+    public MethodId(MethodModifier _staticMethod,String _name, StringList _classNames, boolean _vararg) {
+        staticMethod = _staticMethod == MethodModifier.STATIC;
+        name = _name;
+        EqList<ClassName> classNames_ = new EqList<ClassName>();
+        int i_ = CustList.FIRST_INDEX;
+        int c_ = _classNames.size();
+        for (String s: _classNames) {
+            classNames_.add(new ClassName(s, _vararg && i_ == c_ - 1));
+            i_++;
+        }
+        classNames = classNames_;
+    }
     public MethodId(Method _method) {
         staticMethod = Modifier.isStatic(_method.getModifiers());
         name = _method.getName();

@@ -1,6 +1,4 @@
 package aiki.game.fight;
-import javax.imageio.ImageIO;
-
 import aiki.DataBase;
 import aiki.fight.enums.Statistic;
 import aiki.fight.items.Item;
@@ -796,7 +794,6 @@ public class InitializationDataBase {
     }
 
     protected static DataBase initDataBase() {
-        ImageIO.setUseCache(false);
         DataBase data_ = coreDataBase();
         data_.sortEndRound();
         data_.getMap().setPlaces(new NumberMap<Short,Place>());
