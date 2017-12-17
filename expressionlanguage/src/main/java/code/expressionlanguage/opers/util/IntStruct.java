@@ -1,8 +1,9 @@
 package code.expressionlanguage.opers.util;
 
+import code.expressionlanguage.ContextEl;
 import code.util.ObjectMap;
 
-public final class IntStruct implements Struct {
+public final class IntStruct extends Struct {
 
     private final int value;
 
@@ -21,13 +22,8 @@ public final class IntStruct implements Struct {
     }
 
     @Override
-    public String getClassName() {
+    public String getClassName(ContextEl _context) {
         return Integer.class.getName();
-    }
-
-    @Override
-    public String getRealClassName() {
-        return getClassName();
     }
 
     @Override

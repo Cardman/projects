@@ -32,25 +32,26 @@ public final class Templates {
     private Templates() {
     }
 
-    public static boolean correctClassParts(String _className, StringMap<StringList> _mapping, Classes _classes) {
-        if (!existClassParts(_className, _mapping, _classes)) {
+    public static boolean correctClassParts(String _className, StringMap<StringList> _mapping, ContextEl _context) {
+        if (!existClassParts(_className, _mapping, _context)) {
             return false;
         }
-        return isCorrectTemplateAll(_className, _mapping, _classes);
+        return isCorrectTemplateAll(_className, _mapping, _context);
     }
 
-    public static boolean existClassParts(String _className, StringMap<StringList> _mapping, Classes _classes) {
-        if (!isCorrectWrite(_className)) {
+    public static boolean existClassParts(String _className, StringMap<StringList> _mapping, ContextEl _context) {
+        if (!isCorrectWrite(_className, _context)) {
             return false;
         }
         StringList variables_ = _mapping.getKeys();
-        if (!existAllClassParts(_className, variables_, _classes)) {
+        if (!existAllClassParts(_className, variables_, _context)) {
             return false;
         }
         return true;
     }
 
-    public static boolean existAllClassParts(String _className, StringList _variables, Classes _classes) {
+    public static boolean existAllClassParts(String _className, StringList _variables, ContextEl _context) {
+        Classes classes_ = _context.getClasses();
         for (String s: StringList.splitStrings(_className, TEMPLATE_BEGIN,TEMPLATE_SEP,TEMPLATE_END)) {
             if (s.isEmpty()) {
                 continue;
@@ -66,8 +67,8 @@ public final class Templates {
                 continue;
             }
             boolean custClass_ = false;
-            if (_classes != null) {
-                custClass_ = _classes.isCustomType(baseName_);
+            if (classes_ != null) {
+                custClass_ = classes_.isCustomType(baseName_);
             }
             if (!custClass_) {
                 try {
@@ -85,8 +86,8 @@ public final class Templates {
         }
         return true;
     }
-    public static StringList getTypesByBases(String _baseType, String _baseSuperType, Classes _classes) {
-        String generic_ = getGenericTypeByBases(_baseType, _baseSuperType, _classes);
+    public static StringList getTypesByBases(String _baseType, String _baseSuperType, ContextEl _context) {
+        String generic_ = getGenericTypeByBases(_baseType, _baseSuperType, _context);
         if (generic_ == null) {
             return null;
         }
@@ -137,12 +138,13 @@ public final class Templates {
         visitedClasses_.removeDuplicates();
         return visitedClasses_;
     }
-    public static String getFullTypeByBases(String _subType, String _superType, Classes _classes) {
+    public static String getFullTypeByBases(String _subType, String _superType, ContextEl _context) {
         String baseSubType_ = StringList.getAllTypes(_subType).first();
         String baseSuperType_ = StringList.getAllTypes(_superType).first();
-        if (!PrimitiveTypeUtil.canBeUseAsArgument(baseSuperType_, baseSubType_, _classes)) {
+        if (!PrimitiveTypeUtil.canBeUseAsArgument(baseSuperType_, baseSubType_, _context)) {
             return null;
         }
+        Classes classes_ = _context.getClasses();
         StringList curClasses_ = new StringList(_subType);
         StringList visitedClasses_ = new StringList(_subType);
         String generic_ = null;
@@ -153,7 +155,7 @@ public final class Templates {
         }
         if (generic_ == null) {
             for (String c: curClasses_) {
-                if (!correctNbParameters(c, _classes)) {
+                if (!correctNbParameters(c, _context)) {
                     return null;
                 }
             }
@@ -162,10 +164,10 @@ public final class Templates {
                 for (String c: curClasses_) {
                     StringList allTypes_ = StringList.getAllTypes(c);
                     String baseClass_ = allTypes_.first();
-                    String superClass_ = getSuperClassName(baseClass_, _classes);
+                    String superClass_ = getSuperClassName(baseClass_, _context);
                     if (superClass_ != null) {
-                        String geneSuperClass_ = getGenericSuperClassName(c, _classes);
-                        geneSuperClass_ = format(c, geneSuperClass_, _classes);
+                        String geneSuperClass_ = getGenericSuperClassName(c, _context);
+                        geneSuperClass_ = format(c, geneSuperClass_, classes_);
                         if (StringList.quickEq(superClass_, baseSuperType_)) {
                             generic_ = geneSuperClass_;
                             break;
@@ -176,10 +178,10 @@ public final class Templates {
                         }
                     }
                     int i_ = CustList.INDEX_NOT_FOUND_ELT;
-                    for (String s: getSuperInterfaceNames(baseClass_, _classes)) {
+                    for (String s: getSuperInterfaceNames(baseClass_, _context)) {
                         i_++;
-                        String geneSuperInterface_ = getGenericSuperInterfaceName(c, i_, _classes);
-                        geneSuperInterface_ = format(c, geneSuperInterface_, _classes);
+                        String geneSuperInterface_ = getGenericSuperInterfaceName(c, i_, _context);
+                        geneSuperInterface_ = format(c, geneSuperInterface_, classes_);
                         if (StringList.quickEq(s, baseSuperType_)) {
                             generic_ = geneSuperInterface_;
                             break;
@@ -201,8 +203,8 @@ public final class Templates {
         }
         return generic_;
     }
-    static String getGenericTypeByBases(String _baseType, String _baseSuperType, Classes _classes) {
-        if (!PrimitiveTypeUtil.canBeUseAsArgument(_baseSuperType, _baseType, _classes)) {
+    static String getGenericTypeByBases(String _baseType, String _baseSuperType, ContextEl _context) {
+        if (!PrimitiveTypeUtil.canBeUseAsArgument(_baseSuperType, _baseType, _context)) {
             return null;
         }
         StringList curClasses_ = new StringList(_baseType);
@@ -211,9 +213,10 @@ public final class Templates {
         if (StringList.quickEq(_baseSuperType, _baseType)) {
             generic_ = _baseType;
         }
+        Classes classes_ = _context.getClasses();
         if (generic_ == null) {
             for (String c: curClasses_) {
-                if (!correctNbParameters(c, _classes)) {
+                if (!correctNbParameters(c, _context)) {
                     return null;
                 }
             }
@@ -222,10 +225,10 @@ public final class Templates {
                 for (String c: curClasses_) {
                     StringList allTypes_ = StringList.getAllTypes(c);
                     String baseClass_ = allTypes_.first();
-                    String superClass_ = getSuperClassName(baseClass_, _classes);
+                    String superClass_ = getSuperClassName(baseClass_, _context);
                     if (superClass_ != null) {
-                        String geneSuperClass_ = getGenericSuperClassName(c, _classes);
-                        geneSuperClass_ = format(c, geneSuperClass_, _classes);
+                        String geneSuperClass_ = getGenericSuperClassName(c, _context);
+                        geneSuperClass_ = format(c, geneSuperClass_, classes_);
                         if (StringList.quickEq(superClass_, _baseSuperType)) {
                             generic_ = geneSuperClass_;
                             break;
@@ -236,10 +239,10 @@ public final class Templates {
                         }
                     }
                     int i_ = CustList.INDEX_NOT_FOUND_ELT;
-                    for (String s: getSuperInterfaceNames(baseClass_, _classes)) {
+                    for (String s: getSuperInterfaceNames(baseClass_, _context)) {
                         i_++;
-                        String geneSuperInterface_ = getGenericSuperInterfaceName(c, i_, _classes);
-                        geneSuperInterface_ = format(c, geneSuperInterface_, _classes);
+                        String geneSuperInterface_ = getGenericSuperInterfaceName(c, i_, _context);
+                        geneSuperInterface_ = format(c, geneSuperInterface_, classes_);
                         if (StringList.quickEq(s, _baseSuperType)) {
                             generic_ = geneSuperInterface_;
                             break;
@@ -261,7 +264,7 @@ public final class Templates {
         }
         return generic_;
     }
-    public static boolean isCorrectWrite(String _className) {
+    public static boolean isCorrectWrite(String _className, ContextEl _context) {
         StringList current_ = new StringList(_className);
         boolean already_ = false;
         while (true) {
@@ -279,23 +282,21 @@ public final class Templates {
                 if (PrimitiveTypeUtil.isPrimitive(base_) && already_) {
                     return false;
                 }
-                if (PrimitiveTypeUtil.isPrimitive(compo_)) {
-                    if (!StringList.isWord(compo_.substring(PrimitiveTypeUtil.PRIM.length()))) {
-                        return false;
-                    }
-                } else if (!compo_.startsWith(PREFIX_VAR_TYPE)) {
-                    boolean pred_ = false;
-                    if (StringList.quickEq(compo_, PredefinedClasses.ITERABLE)) {
-                        pred_ = true;
-                    } else if (StringList.quickEq(compo_, PredefinedClasses.ITERATOR)) {
-                        pred_ = true;
-                    } else if (StringList.quickEq(compo_, PredefinedClasses.ENUM)) {
-                        pred_ = true;
-                    }
-                    if (!pred_) {
-                        for (String p: StringList.splitStrings(compo_, SEP_CLASS)) {
-                            if (!StringList.isWord(p)) {
-                                return false;
+                if (!PrimitiveTypeUtil.isPrimitive(compo_)) {
+                    if (!compo_.startsWith(PREFIX_VAR_TYPE)) {
+                        boolean pred_ = false;
+                        if (StringList.quickEq(compo_, PredefinedClasses.ITERABLE)) {
+                            pred_ = true;
+                        } else if (StringList.quickEq(compo_, PredefinedClasses.ITERATOR)) {
+                            pred_ = true;
+                        } else if (StringList.quickEq(compo_, PredefinedClasses.ENUM)) {
+                            pred_ = true;
+                        }
+                        if (!pred_) {
+                            for (String p: StringList.splitStrings(compo_, SEP_CLASS)) {
+                                if (!StringList.isWord(p)) {
+                                    return false;
+                                }
                             }
                         }
                     }
@@ -320,8 +321,8 @@ public final class Templates {
             current_ = next_;
         }
     }
-    static boolean isCorrectTemplateAll(String _className, StringMap<StringList> _inherit, Classes _classes) {
-        if (!isCorrectTemplate(_className, _inherit, _classes)) {
+    static boolean isCorrectTemplateAll(String _className, StringMap<StringList> _inherit, ContextEl _context) {
+        if (!isCorrectTemplate(_className, _inherit, _context)) {
             return false;
         }
         StringList current_ = new StringList(_className);
@@ -330,7 +331,7 @@ public final class Templates {
             for (String c: current_) {
                 StringList types_ = StringList.getAllTypes(c);
                 for (String n: types_.mid(1)) {
-                    if (!isCorrectTemplate(n, _inherit, _classes)) {
+                    if (!isCorrectTemplate(n, _inherit, _context)) {
                         return false;
                     }
                     next_.add(n);
@@ -342,7 +343,7 @@ public final class Templates {
             current_ = next_;
         }
     }
-    static boolean isCorrectTemplate(String _className, StringMap<StringList> _inherit, Classes _classes) {
+    static boolean isCorrectTemplate(String _className, StringMap<StringList> _inherit, ContextEl _context) {
         StringList types_ = StringList.getAllTypes(_className);
         String className_ = types_.first();
         className_ = PrimitiveTypeUtil.getQuickComponentBaseType(className_).getComponent();
@@ -352,13 +353,14 @@ public final class Templates {
         if (className_.startsWith(PREFIX_VAR_TYPE)) {
             return _inherit.contains(className_.substring(1));
         }
-        if (!correctNbParameters(_className, _classes)) {
+        if (!correctNbParameters(_className, _context)) {
             return false;
         }
+        Classes classes_ = _context.getClasses();
         int i_ = CustList.FIRST_INDEX;
         EqList<StringList> boundsAll_ = null;
-        if (_classes != null) {
-            RootBlock r_ = _classes.getClassBody(className_);
+        if (classes_ != null) {
+            RootBlock r_ = classes_.getClassBody(className_);
             if (r_ != null) {
                 boundsAll_ = new EqList<StringList>();
                 for (TypeVar t:r_.getParamTypes()) {
@@ -401,13 +403,13 @@ public final class Templates {
                 Mapping m_ = new Mapping();
                 String typeBound_ = e;
                 String ext_ = typeBound_;
-                String param_ = format(_className, ext_, _classes);
+                String param_ = format(_className, ext_, classes_);
                 m_.setParam(param_);
                 boolean ok_ = false;
                 for (String v: bounds_) {
                     m_.setArg(v);
                     m_.setMapping(_inherit);
-                    if (isCorrect(m_, _classes)) {
+                    if (isCorrect(m_, _context)) {
                         ok_ = true;
                         break;
                     }
@@ -577,7 +579,7 @@ public final class Templates {
         }
         return str_.toString();
     }
-    public static boolean isCorrect(Mapping _m, Classes _classes) {
+    public static boolean isCorrect(Mapping _m, ContextEl _context) {
         String arg_ = _m.getArg();
         String param_ = _m.getParam();
         StringMap<StringList> generalMapping_ = _m.getMapping();
@@ -585,7 +587,7 @@ public final class Templates {
         map_.setParam(param_);
         map_.setArg(arg_);
         map_.setMapping(generalMapping_);
-        MappingPairs m_ = getSimpleMapping(map_, _classes);
+        MappingPairs m_ = getSimpleMapping(map_, _context);
         if (m_ == null) {
             return false;
         }
@@ -596,7 +598,7 @@ public final class Templates {
         }
         return true;
     }
-    private static MappingPairs getSimpleMapping(Mapping _m, Classes _classes) {
+    private static MappingPairs getSimpleMapping(Mapping _m, ContextEl _context) {
         String arg_ = _m.getArg();
         String param_ = _m.getParam();
         StringList typesArg_ = StringList.getAllTypes(arg_);
@@ -629,7 +631,7 @@ public final class Templates {
             for (String a: bounds_) {
                 StringList allTypes_ = StringList.getAllTypes(a);
                 String base_ = allTypes_.first();
-                if (PrimitiveTypeUtil.canBeUseAsArgument(baseParam_, base_, _classes)) {
+                if (PrimitiveTypeUtil.canBeUseAsArgument(baseParam_, base_, _context)) {
                     inh_ = true;
                     break;
                 }
@@ -668,6 +670,7 @@ public final class Templates {
             return m_;
         }
 
+        Classes classes_ = _context.getClasses();
         StringList curClasses_ = new StringList(dArg_.getComponent());
         StringList visitedClasses_ = new StringList(dArg_.getComponent());
         String generic_ = null;
@@ -686,7 +689,7 @@ public final class Templates {
                 StringList allTypes_ = StringList.getAllTypes(c);
                 String baseClass_ = allTypes_.first();
                 baseClass_ = PrimitiveTypeUtil.getQuickComponentBaseType(baseClass_).getComponent();
-                if (!correctNbParameters(c, _classes)) {
+                if (!correctNbParameters(c, _context)) {
                     return null;
                 }
             }
@@ -696,10 +699,10 @@ public final class Templates {
                     StringList allTypes_ = StringList.getAllTypes(c);
                     String baseClass_ = allTypes_.first();
                     baseClass_ = PrimitiveTypeUtil.getQuickComponentBaseType(baseClass_).getComponent();
-                    String superClass_ = getSuperClassName(baseClass_, _classes);
+                    String superClass_ = getSuperClassName(baseClass_, _context);
                     if (superClass_ != null) {
-                        String geneSuperClass_ = getGenericSuperClassName(c, _classes);
-                        geneSuperClass_ = format(c, geneSuperClass_, _classes);
+                        String geneSuperClass_ = getGenericSuperClassName(c, _context);
+                        geneSuperClass_ = format(c, geneSuperClass_, classes_);
                         if (StringList.quickEq(superClass_, classParam_)) {
                             generic_ = PrimitiveTypeUtil.getPrettyArrayType(geneSuperClass_, dim_);
                             break;
@@ -710,10 +713,10 @@ public final class Templates {
                         }
                     }
                     int i_ = CustList.INDEX_NOT_FOUND_ELT;
-                    for (String s: getSuperInterfaceNames(baseClass_, _classes)) {
+                    for (String s: getSuperInterfaceNames(baseClass_, _context)) {
                         i_++;
-                        String geneSuperInterface_ = getGenericSuperInterfaceName(c, i_, _classes);
-                        geneSuperInterface_ = format(c, geneSuperInterface_, _classes);
+                        String geneSuperInterface_ = getGenericSuperInterfaceName(c, i_, _context);
+                        geneSuperInterface_ = format(c, geneSuperInterface_, classes_);
                         if (StringList.quickEq(s, classParam_)) {
                             generic_ = PrimitiveTypeUtil.getPrettyArrayType(geneSuperInterface_, dim_);
                             break;
@@ -754,9 +757,10 @@ public final class Templates {
         return m_;
     }
 
-    private static String getSuperClassName(String _className, Classes _classes) {
-        if (_classes != null) {
-            RootBlock r_ = _classes.getClassBody(_className);
+    private static String getSuperClassName(String _className, ContextEl _context) {
+        Classes classes_ = _context.getClasses();
+        if (classes_ != null) {
+            RootBlock r_ = classes_.getClassBody(_className);
             if (r_ instanceof UniqueRootedBlock) {
                 return ((UniqueRootedBlock)r_).getSuperClass();
             }
@@ -771,11 +775,12 @@ public final class Templates {
         return cl_.getName();
     }
 
-    private static String getGenericSuperClassName(String _genericClassName, Classes _classes) {
+    private static String getGenericSuperClassName(String _genericClassName, ContextEl _context) {
         StringList allTypes_ = StringList.getAllTypes(_genericClassName);
         String baseClass_ = allTypes_.first();
-        if (_classes != null) {
-            RootBlock r_ = _classes.getClassBody(baseClass_);
+        Classes classes_ = _context.getClasses();
+        if (classes_ != null) {
+            RootBlock r_ = classes_.getClassBody(baseClass_);
             if (r_ != null) {
                 return ((UniqueRootedBlock)r_).getGenericSuperClass();
             }
@@ -784,9 +789,10 @@ public final class Templates {
         return NativeTypeUtil.getPrettyType(cl_.getGenericSuperclass());
     }
 
-    private static StringList getSuperInterfaceNames(String _className, Classes _classes) {
-        if (_classes != null) {
-            RootBlock r_ = _classes.getClassBody(_className);
+    private static StringList getSuperInterfaceNames(String _className, ContextEl _context) {
+        Classes classes_ = _context.getClasses();
+        if (classes_ != null) {
+            RootBlock r_ = classes_.getClassBody(_className);
             if (r_ instanceof UniqueRootedBlock) {
                 return ((UniqueRootedBlock)r_).getDirectInterfaces();
             }
@@ -802,11 +808,12 @@ public final class Templates {
         return interfaces_;
     }
 
-    private static String getGenericSuperInterfaceName(String _genericClassName, int _index, Classes _classes) {
+    private static String getGenericSuperInterfaceName(String _genericClassName, int _index, ContextEl _context) {
         StringList allTypes_ = StringList.getAllTypes(_genericClassName);
         String baseClass_ = allTypes_.first();
-        if (_classes != null) {
-            RootBlock r_ = _classes.getClassBody(baseClass_);
+        Classes classes_ = _context.getClasses();
+        if (classes_ != null) {
+            RootBlock r_ = classes_.getClassBody(baseClass_);
             if (r_ instanceof UniqueRootedBlock) {
                 return ((UniqueRootedBlock)r_).getDirectGenericInterfaces().get(_index);
             }
@@ -818,32 +825,19 @@ public final class Templates {
         return NativeTypeUtil.getPrettyType(cl_.getGenericInterfaces()[_index]);
     }
 
-    public static boolean correctNbParameters(String _genericClass, Classes _classes) {
+    public static boolean correctNbParameters(String _genericClass, ContextEl _context) {
         StringList params_ = StringList.getAllTypes(_genericClass);
         String base_ = params_.first();
         int nbParams_ = params_.size() - 1;
         String baseArr_ = PrimitiveTypeUtil.getQuickComponentBaseType(base_).getComponent();
-        if (_classes != null) {
-            RootBlock r_ = _classes.getClassBody(baseArr_);
+        Classes classes_ = _context.getClasses();
+        if (classes_ != null) {
+            RootBlock r_ = classes_.getClassBody(baseArr_);
             if (r_ != null) {
                 return r_.getParamTypes().size() == nbParams_;
             }
         }
         Class<?> cl_ = PrimitiveTypeUtil.getSingleNativeClass(baseArr_);
         return cl_.getTypeParameters().length == nbParams_;
-    }
-
-    static boolean correctNbParametersOrBase(String _genericClass, Classes _classes) {
-        StringList params_ = StringList.getAllTypes(_genericClass);
-        String base_ = params_.first();
-        int nbParams_ = params_.size() - 1;
-        if (_classes != null) {
-            RootBlock r_ = _classes.getClassBody(base_);
-            if (r_ != null) {
-                return r_.getParamTypes().size() == nbParams_ || nbParams_ == 0;
-            }
-        }
-        Class<?> cl_ = PrimitiveTypeUtil.getSingleNativeClass(base_);
-        return cl_.getTypeParameters().length == nbParams_ || nbParams_ == 0;
     }
 }

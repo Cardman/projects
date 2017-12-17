@@ -1,8 +1,9 @@
 package code.expressionlanguage.opers.util;
 
+import code.expressionlanguage.ContextEl;
 import code.util.ObjectMap;
 
-public final class BooleanStruct implements Struct {
+public final class BooleanStruct extends Struct {
 
     private final boolean value;
 
@@ -21,13 +22,8 @@ public final class BooleanStruct implements Struct {
     }
 
     @Override
-    public String getClassName() {
+    public String getClassName(ContextEl _context) {
         return Boolean.class.getName();
-    }
-
-    @Override
-    public String getRealClassName() {
-        return getClassName();
     }
 
     @Override

@@ -49,7 +49,7 @@ public final class FieldBlock extends Leaf implements InfoBlock {
         finalField = _el.hasAttribute(ATTRIBUTE_FINAL);
         access = AccessEnum.valueOf(_el.getAttribute(ATTRIBUTE_ACCESS));
     }
-    public Struct getDefaultStruct() {
+    public Struct getDefaultStruct(ContextEl _cont) {
         Object value_ = PrimitiveTypeUtil.defaultValue(className);
         if (value.isEmpty()) {
             return StdStruct.wrapStd(value_);
@@ -127,7 +127,7 @@ public final class FieldBlock extends Leaf implements InfoBlock {
         mapping_.setMapping(vars_);
         mapping_.setArg(opValue.last().getResultClass().getName());
         mapping_.setParam(className);
-        if (!Templates.isCorrect(mapping_, _cont.getClasses())) {
+        if (!Templates.isCorrect(mapping_, _cont)) {
             throw new DynamicCastClassException(_cont.joinPages());
         }
     }

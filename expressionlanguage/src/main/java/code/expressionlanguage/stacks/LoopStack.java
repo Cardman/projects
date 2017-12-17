@@ -23,8 +23,7 @@ public abstract class LoopStack extends BlockStack implements BreakableStack {
 
     private long maxIteration;
 
-    @Override
-    public String toString() {
+    public String getInfos() {
         String iteration_;
         if (iterator != null || index != -1) {
             iteration_ = HAS_NEXT;

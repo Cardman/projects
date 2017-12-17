@@ -2,7 +2,7 @@ package minirts;
 
 import javax.swing.SwingUtilities;
 
-import code.formathtml.images.data.Handler;
+import code.imagesurl.data.Handler;
 
 
 public final class MainClass extends Thread {

@@ -1,8 +1,8 @@
 package code.expressionlanguage.opers.util;
+import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.Mapping;
 import code.expressionlanguage.PrimitiveTypeUtil;
 import code.expressionlanguage.Templates;
-import code.expressionlanguage.methods.Classes;
 import code.util.StringList;
 import code.util.StringMap;
 
@@ -29,15 +29,15 @@ public final class ClassMatching {
         return StringList.quickEq(className, _className.className);
     }
 
-    public boolean isAssignableFrom(ClassMatching _c, StringMap<StringList> _map, Classes _classes) {
+    public boolean isAssignableFrom(ClassMatching _c, StringMap<StringList> _map, ContextEl _context) {
         Mapping map_ = new Mapping();
         map_.setMapping(_map);
         map_.setArg(_c.getClassName());
         map_.setParam(className);
-        return Templates.isCorrect(map_, _classes);
+        return Templates.isCorrect(map_, _context);
     }
 
-    public boolean isPrimitive() {
+    public boolean isPrimitive(ContextEl _context) {
         return PrimitiveTypeUtil.isPrimitive(className);
     }
 

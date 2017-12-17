@@ -1,9 +1,10 @@
 package code.expressionlanguage.opers.util;
 
+import code.expressionlanguage.ContextEl;
 import code.util.EntryCust;
 import code.util.ObjectMap;
 
-public final class CustStruct implements Struct {
+public final class CustStruct extends Struct {
 
     private final Object instance;
 
@@ -26,9 +27,9 @@ public final class CustStruct implements Struct {
 
     public CustStruct(Object _instance, String _className,
             ObjectMap<ClassField,Struct> _fields, Struct _parent) {
-        className = _className;
         instance = _instance;
         fields = _fields;
+        className = _className;
     }
 
     public static Struct wrapOrId(Object _element) {
@@ -90,15 +91,12 @@ public final class CustStruct implements Struct {
     }
 
     @Override
-    public String getClassName() {
+    public String getClassName(ContextEl _contextEl) {
         return className;
     }
 
     @Override
-    public String getRealClassName() {
-        if (instance == null) {
-            return null;
-        }
+    public String getRealClassName(ContextEl _context) {
         return instance.getClass().getName();
     }
 

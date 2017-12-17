@@ -24,4 +24,9 @@ public final class IfBlockStack extends IfStack implements RemovableVars {
         cur_.removeLocalVars(_ip);
         _ip.removeLastBlock();
     }
+    @Override
+    public String getInfos() {
+        // TODO Auto-generated method stub
+        return null;
+    }
 }

@@ -1,8 +1,9 @@
 package code.expressionlanguage.opers.util;
 
+import code.expressionlanguage.ContextEl;
 import code.util.ObjectMap;
 
-public final class DoubleStruct implements Struct {
+public final class DoubleStruct extends Struct {
 
     private final double value;
 
@@ -21,13 +22,8 @@ public final class DoubleStruct implements Struct {
     }
 
     @Override
-    public String getClassName() {
+    public String getClassName(ContextEl _context) {
         return Double.class.getName();
-    }
-
-    @Override
-    public String getRealClassName() {
-        return getClassName();
     }
 
     @Override

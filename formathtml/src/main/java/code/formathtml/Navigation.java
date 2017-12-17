@@ -347,7 +347,7 @@ public final class Navigation {
             ip_.setOffset(_anchorRef.indexOf(CALL_METHOD) + 1);
             Struct bean_ = getNotNullBean(beanName_);
             ip_.setOffset(indexPoint_+1);
-            ip_.setGlobalArgumentStruct(bean_);
+            ip_.setGlobalArgumentStruct(bean_, session);
             Object return_ = HtmlRequest.invokeMethodWithNumbers(
                     session, bean_, methodName_, Argument.toArgArray(args_));
             Struct forms_ = ExtractObject.getForms(session, bean_);
@@ -541,7 +541,7 @@ public final class Navigation {
                     throw new InvokeRedinedMethException(session.joinPages(), new StdStruct(_0));
                 }
                 if (Listable.class.isAssignableFrom(tempClass_)) {
-                    suffix_ = Templates.getTypesByBases(className_, Listable.class.getName(), session.toContextEl().getClasses()).first();
+                    suffix_ = Templates.getTypesByBases(className_, Listable.class.getName(), session.toContextEl()).first();
                     isList_ = true;
                 }
             }
@@ -566,7 +566,7 @@ public final class Navigation {
             String valName_ = ip_.getNextTempVar();
             lv_ = new LocalVariable();
             lv_.setStruct(validator_);
-            lv_.setClassName(validator_.getClassName());
+            lv_.setClassName(validator_.getClassName(session.toContextEl()));
             ip_.getLocalVars().put(valName_, lv_);
             String navName_ = ip_.getNextTempVar();
             lv_ = new LocalVariable();
@@ -677,7 +677,7 @@ public final class Navigation {
                     if (Listable.class.isAssignableFrom(clObj_)){
                         Object list_ = instance(clObj_);
                         String contentClass_;
-                        contentClass_ = Templates.getTypesByBases(clObj_.getName(), Listable.class.getName(), session.toContextEl().getClasses()).first();
+                        contentClass_ = Templates.getTypesByBases(clObj_.getName(), Listable.class.getName(), session.toContextEl()).first();
                         for (String v:v_) {
                             ConverterMethod.invokeMethod(ADD_METHOD, list_, retrieveObjectByClassName(v, contentClass_));
                         }
@@ -690,7 +690,7 @@ public final class Navigation {
                 throw new InvokeRedinedMethException(session.joinPages(), new StdStruct(_0));
             }
             Struct procObj_ = e.getValue().getStruct();
-            session.getLastPage().setGlobalArgumentStruct(procObj_);
+            session.getLastPage().setGlobalArgumentStruct(procObj_, session);
             HtmlRequest.setObject(session, e.getValue(), newObj_, indexes_);
         }
     }

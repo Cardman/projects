@@ -1,4 +1,5 @@
 package code.expressionlanguage.opers.util;
+import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.PrimitiveTypeUtil;
 import code.expressionlanguage.opers.OperationNode;
 import code.util.CustList;
@@ -32,7 +33,7 @@ public final class ClassArgumentMatching {
         return className;
     }
 
-    public boolean isNumericInt() {
+    public boolean isNumericInt(ContextEl _context) {
         ClassArgumentMatching cl_ = new ClassArgumentMatching(className);
         ClassArgumentMatching prim_ = PrimitiveTypeUtil.toPrimitive(cl_, true);
         if (prim_.matchClass(PrimitiveTypeUtil.PRIM_INT)) {
@@ -100,7 +101,7 @@ public final class ClassArgumentMatching {
         variable = _variable;
     }
 
-    public boolean isPrimitive() {
+    public boolean isPrimitive(ContextEl _context) {
         return PrimitiveTypeUtil.isPrimitive(className);
     }
 

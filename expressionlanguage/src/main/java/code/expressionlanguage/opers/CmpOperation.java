@@ -23,9 +23,9 @@ public final class CmpOperation extends PrimitiveBoolOperation {
         super(_index, _importingPage, _indexChild, _m, _op);
     }
 
-    static Argument calculateLower(Argument _a, Argument _b) {
-        if (StringList.quickEq(_a.getObjectClassName(), String.class.getName())) {
-            if (StringList.quickEq(_b.getObjectClassName(), String.class.getName())) {
+    static Argument calculateLower(Argument _a, Argument _b, ContextEl _context) {
+        if (StringList.quickEq(_a.getObjectClassName(_context), String.class.getName())) {
+            if (StringList.quickEq(_b.getObjectClassName(_context), String.class.getName())) {
                 Argument a_ = new Argument();
                 String first_ = (String)_a.getObject();
                 String second_ = (String)_b.getObject();
@@ -199,9 +199,9 @@ public final class CmpOperation extends PrimitiveBoolOperation {
         return a_;
     }
 
-    static Argument calculateGreater(Argument _a, Argument _b) {
-        if (StringList.quickEq(_a.getObjectClassName(), String.class.getName())) {
-            if (StringList.quickEq(_b.getObjectClassName(), String.class.getName())) {
+    static Argument calculateGreater(Argument _a, Argument _b, ContextEl _context) {
+        if (StringList.quickEq(_a.getObjectClassName(_context), String.class.getName())) {
+            if (StringList.quickEq(_b.getObjectClassName(_context), String.class.getName())) {
                 Argument a_ = new Argument();
                 String first_ = (String)_a.getObject();
                 String second_ = (String)_b.getObject();
@@ -395,8 +395,8 @@ public final class CmpOperation extends PrimitiveBoolOperation {
         }
         ClassArgumentMatching classFirst_ = PrimitiveTypeUtil.toPrimitive(first_, true);
         ClassArgumentMatching classSecond_ = PrimitiveTypeUtil.toPrimitive(second_, true);
-        if (classFirst_.isPrimitive()) {
-            if (classSecond_.isPrimitive()) {
+        if (classFirst_.isPrimitive(_conf)) {
+            if (classSecond_.isPrimitive(_conf)) {
                 setResultClass(new ClassArgumentMatching(PrimitiveTypeUtil.PRIM_BOOLEAN));
                 return;
             }
@@ -437,9 +437,9 @@ public final class CmpOperation extends PrimitiveBoolOperation {
         }
         Argument arg_;
         if (StringList.quickEq(useOp_, LOWER)) {
-            arg_ = calculateLower(first_, second_);
+            arg_ = calculateLower(first_, second_, _conf);
         } else {
-            arg_ = calculateGreater(first_, second_);
+            arg_ = calculateGreater(first_, second_, _conf);
         }
         Boolean b_ = (Boolean) arg_.getObject();
         if (complement_) {
@@ -480,9 +480,9 @@ public final class CmpOperation extends PrimitiveBoolOperation {
         }
         Argument arg_;
         if (StringList.quickEq(useOp_, LOWER)) {
-            arg_ = calculateLower(first_, second_);
+            arg_ = calculateLower(first_, second_, _conf);
         } else {
-            arg_ = calculateGreater(first_, second_);
+            arg_ = calculateGreater(first_, second_, _conf);
         }
         Boolean b_ = (Boolean) arg_.getObject();
         if (complement_) {

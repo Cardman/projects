@@ -260,23 +260,23 @@ public final class Argument {
         object = StdStruct.wrapStd(_object);
     }
 
-    public String getObjectClassName() {
-        return object.getClassName();
+    public String getObjectClassName(ContextEl _context) {
+        return object.getClassName(_context);
     }
 
-    public boolean isArrayClass() {
-        return object.isNull() || object.getClassName().startsWith(ARR_PREFIX);
+    public boolean isArrayClass(ContextEl _context) {
+        return object.isNull() || object.getClassName(_context).startsWith(ARR_PREFIX);
     }
 
-    public ClassArgumentMatching getArgClass() {
-        return new ClassArgumentMatching(object.getClassName());
+    public ClassArgumentMatching getArgClass(ContextEl _context) {
+        return new ClassArgumentMatching(object.getClassName(_context));
     }
 
-    public boolean isIntegerType() {
+    public boolean isIntegerType(ContextEl _context) {
         if (object.isNull()) {
             return false;
         }
-        return PrimitiveTypeUtil.isIntegerType(getArgClass());
+        return PrimitiveTypeUtil.isIntegerType(getArgClass(_context));
     }
 
 }

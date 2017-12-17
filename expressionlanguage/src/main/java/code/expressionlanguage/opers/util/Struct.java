@@ -1,17 +1,20 @@
 package code.expressionlanguage.opers.util;
+import code.expressionlanguage.ContextEl;
 import code.util.ObjectMap;
 
-public interface Struct {
+public abstract class Struct {
 
-    public boolean isNull();
+    public abstract boolean isNull();
 
-    public Boolean isJavaObject();
+    public abstract Boolean isJavaObject();
 
-    public String getClassName();
+    public abstract String getClassName(ContextEl _contextEl);
 
-    public String getRealClassName();
+    public String getRealClassName(ContextEl _contextEl) {
+        return getClassName(_contextEl);
+    }
 
-    public Object getInstance();
+    public abstract Object getInstance();
 
-    public ObjectMap<ClassField,Struct> getFields();
+    public abstract ObjectMap<ClassField,Struct> getFields();
 }

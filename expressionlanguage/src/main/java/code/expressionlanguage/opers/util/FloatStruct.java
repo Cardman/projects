@@ -1,8 +1,9 @@
 package code.expressionlanguage.opers.util;
 
+import code.expressionlanguage.ContextEl;
 import code.util.ObjectMap;
 
-public final class FloatStruct implements Struct {
+public final class FloatStruct extends Struct {
 
     private final float value;
 
@@ -21,13 +22,8 @@ public final class FloatStruct implements Struct {
     }
 
     @Override
-    public String getClassName() {
+    public String getClassName(ContextEl _context) {
         return Float.class.getName();
-    }
-
-    @Override
-    public String getRealClassName() {
-        return getClassName();
     }
 
     @Override

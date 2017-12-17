@@ -24,187 +24,216 @@ public class PrimitiveTypeUtilTest {
 
     @Test
     public void canBeUseAsArgument1Test() {
-        assertTrue(PrimitiveTypeUtil.canBeUseAsArgument(PrimitiveTypeUtil.PRIM_BYTE, PrimitiveTypeUtil.PRIM_BYTE, null));
+        ContextEl context_ = simpleContextEl();
+        assertTrue(PrimitiveTypeUtil.canBeUseAsArgument(PrimitiveTypeUtil.PRIM_BYTE, PrimitiveTypeUtil.PRIM_BYTE, context_));
     }
 
     @Test
     public void canBeUseAsArgument2Test() {
-        assertTrue(PrimitiveTypeUtil.canBeUseAsArgument(PrimitiveTypeUtil.PRIM_INT, PrimitiveTypeUtil.PRIM_BYTE, null));
+        ContextEl context_ = simpleContextEl();
+        assertTrue(PrimitiveTypeUtil.canBeUseAsArgument(PrimitiveTypeUtil.PRIM_INT, PrimitiveTypeUtil.PRIM_BYTE, context_));
     }
 
     @Test
     public void canBeUseAsArgument3Test() {
-        assertTrue(PrimitiveTypeUtil.canBeUseAsArgument(Object.class.getName(), PrimitiveTypeUtil.PRIM_BYTE, null));
+        ContextEl context_ = simpleContextEl();
+        assertTrue(PrimitiveTypeUtil.canBeUseAsArgument(Object.class.getName(), PrimitiveTypeUtil.PRIM_BYTE, context_));
     }
 
     @Test
     public void canBeUseAsArgument4Test() {
-        assertTrue(PrimitiveTypeUtil.canBeUseAsArgument(Byte.class.getName(), PrimitiveTypeUtil.PRIM_BYTE, null));
+        ContextEl context_ = simpleContextEl();
+        assertTrue(PrimitiveTypeUtil.canBeUseAsArgument(Byte.class.getName(), PrimitiveTypeUtil.PRIM_BYTE, context_));
     }
 
     @Test
     public void canBeUseAsArgument5Test() {
-        assertTrue(PrimitiveTypeUtil.canBeUseAsArgument(Number.class.getName(), PrimitiveTypeUtil.PRIM_BYTE, null));
+        ContextEl context_ = simpleContextEl();
+        assertTrue(PrimitiveTypeUtil.canBeUseAsArgument(Number.class.getName(), PrimitiveTypeUtil.PRIM_BYTE, context_));
     }
 
     @Test
     public void canBeUseAsArgument6Test() {
-        assertTrue(PrimitiveTypeUtil.canBeUseAsArgument(Number.class.getName(), Byte.class.getName(), null));
+        ContextEl context_ = simpleContextEl();
+        assertTrue(PrimitiveTypeUtil.canBeUseAsArgument(Number.class.getName(), Byte.class.getName(), context_));
     }
 
     @Test
     public void canBeUseAsArgument7Test() {
-        assertTrue(PrimitiveTypeUtil.canBeUseAsArgument(Boolean.class.getName(), PrimitiveTypeUtil.PRIM_BOOLEAN, null));
+        ContextEl context_ = simpleContextEl();
+        assertTrue(PrimitiveTypeUtil.canBeUseAsArgument(Boolean.class.getName(), PrimitiveTypeUtil.PRIM_BOOLEAN, context_));
     }
 
     @Test
     public void canBeUseAsArgument8Test() {
-        assertTrue(PrimitiveTypeUtil.canBeUseAsArgument(PrimitiveTypeUtil.PRIM_BOOLEAN, PrimitiveTypeUtil.PRIM_BOOLEAN, null));
+        ContextEl context_ = simpleContextEl();
+        assertTrue(PrimitiveTypeUtil.canBeUseAsArgument(PrimitiveTypeUtil.PRIM_BOOLEAN, PrimitiveTypeUtil.PRIM_BOOLEAN, context_));
     }
 
     @Test
     public void canBeUseAsArgument9Test() {
+        ContextEl context_ = simpleContextEl();
         String arrObj_ = PrimitiveTypeUtil.getPrettyArrayType(Object.class.getName());
         String arrInt_ = PrimitiveTypeUtil.getPrettyArrayType(PrimitiveTypeUtil.PRIM_INT);
-        assertTrue(!PrimitiveTypeUtil.canBeUseAsArgument(arrObj_, arrInt_, null));
+        assertTrue(!PrimitiveTypeUtil.canBeUseAsArgument(arrObj_, arrInt_, context_));
     }
 
     @Test
     public void canBeUseAsArgument10Test() {
+        ContextEl context_ = simpleContextEl();
         String arrObj_ = PrimitiveTypeUtil.getPrettyArrayType(Integer.class.getName());
         String arrInt_ = PrimitiveTypeUtil.getPrettyArrayType(PrimitiveTypeUtil.PRIM_INT);
-        assertTrue(!PrimitiveTypeUtil.canBeUseAsArgument(arrObj_, arrInt_, null));
+        assertTrue(!PrimitiveTypeUtil.canBeUseAsArgument(arrObj_, arrInt_, context_));
     }
 
     @Test
     public void canBeUseAsArgument11Test() {
+        ContextEl context_ = simpleContextEl();
         String arrObj_ = PrimitiveTypeUtil.getPrettyArrayType(Number.class.getName());
         String arrInt_ = PrimitiveTypeUtil.getPrettyArrayType(PrimitiveTypeUtil.PRIM_INT);
-        assertTrue(!PrimitiveTypeUtil.canBeUseAsArgument(arrObj_, arrInt_, null));
+        assertTrue(!PrimitiveTypeUtil.canBeUseAsArgument(arrObj_, arrInt_, context_));
     }
 
     @Test
     public void canBeUseAsArgument12Test() {
+        ContextEl context_ = simpleContextEl();
         String arrObj_ = PrimitiveTypeUtil.getPrettyArrayType(PrimitiveTypeUtil.PRIM_INT);
         String arrInt_ = PrimitiveTypeUtil.getPrettyArrayType(PrimitiveTypeUtil.PRIM_BYTE);
-        assertTrue(!PrimitiveTypeUtil.canBeUseAsArgument(arrObj_, arrInt_, null));
+        assertTrue(!PrimitiveTypeUtil.canBeUseAsArgument(arrObj_, arrInt_, context_));
     }
 
     @Test
     public void canBeUseAsArgument13Test() {
+        ContextEl context_ = simpleContextEl();
         String arrObj_ = PrimitiveTypeUtil.getPrettyArrayType(Object.class.getName());
         String arrInt_ = PrimitiveTypeUtil.getPrettyArrayType(PrimitiveTypeUtil.PRIM_BYTE);
         arrInt_ = PrimitiveTypeUtil.getPrettyArrayType(arrInt_);
-        assertTrue(PrimitiveTypeUtil.canBeUseAsArgument(arrObj_, arrInt_, null));
+        assertTrue(PrimitiveTypeUtil.canBeUseAsArgument(arrObj_, arrInt_, context_));
     }
 
     @Test
     public void canBeUseAsArgument14Test() {
+        ContextEl context_ = simpleContextEl();
         String arrObj_ = PrimitiveTypeUtil.getPrettyArrayType(Object.class.getName());
         arrObj_ = PrimitiveTypeUtil.getPrettyArrayType(arrObj_);
         String arrInt_ = PrimitiveTypeUtil.getPrettyArrayType(PrimitiveTypeUtil.PRIM_BYTE);
-        assertTrue(!PrimitiveTypeUtil.canBeUseAsArgument(arrObj_, arrInt_, null));
+        assertTrue(!PrimitiveTypeUtil.canBeUseAsArgument(arrObj_, arrInt_, context_));
     }
 
     @Test
     public void canBeUseAsArgument15Test() {
-        assertTrue(PrimitiveTypeUtil.canBeUseAsArgument(Boolean.class.getName(), Boolean.class.getName(), null));
+        ContextEl context_ = simpleContextEl();
+        assertTrue(PrimitiveTypeUtil.canBeUseAsArgument(Boolean.class.getName(), Boolean.class.getName(), context_));
     }
 
     @Test
     public void canBeUseAsArgument16Test() {
-        assertTrue(!PrimitiveTypeUtil.canBeUseAsArgument(Number.class.getName(), Boolean.class.getName(), null));
+        ContextEl context_ = simpleContextEl();
+        assertTrue(!PrimitiveTypeUtil.canBeUseAsArgument(Number.class.getName(), Boolean.class.getName(), context_));
     }
 
     @Test
     public void canBeUseAsArgument17Test() {
+        ContextEl context_ = simpleContextEl();
         String arrObj_ = PrimitiveTypeUtil.getPrettyArrayType(PrimitiveTypeUtil.PRIM_BYTE);
         String arrInt_ = PrimitiveTypeUtil.getPrettyArrayType(PrimitiveTypeUtil.PRIM_INT);
-        assertTrue(!PrimitiveTypeUtil.canBeUseAsArgument(arrObj_, arrInt_, null));
+        assertTrue(!PrimitiveTypeUtil.canBeUseAsArgument(arrObj_, arrInt_, context_));
     }
 
     @Test
     public void canBeUseAsArgument18Test() {
+        ContextEl context_ = simpleContextEl();
         String arrObj_ = PrimitiveTypeUtil.getPrettyArrayType(Long.class.getName());
         String arrInt_ = PrimitiveTypeUtil.getPrettyArrayType(PrimitiveTypeUtil.PRIM_INT);
-        assertTrue(!PrimitiveTypeUtil.canBeUseAsArgument(arrObj_, arrInt_, null));
+        assertTrue(!PrimitiveTypeUtil.canBeUseAsArgument(arrObj_, arrInt_, context_));
     }
 
     @Test
     public void canBeUseAsArgument19Test() {
+        ContextEl context_ = simpleContextEl();
         String arrObj_ = PrimitiveTypeUtil.getPrettyArrayType(Byte.class.getName());
         String arrInt_ = PrimitiveTypeUtil.getPrettyArrayType(PrimitiveTypeUtil.PRIM_INT);
-        assertTrue(!PrimitiveTypeUtil.canBeUseAsArgument(arrObj_, arrInt_, null));
+        assertTrue(!PrimitiveTypeUtil.canBeUseAsArgument(arrObj_, arrInt_, context_));
     }
 
     @Test
     public void canBeUseAsArgument20Test() {
+        ContextEl context_ = simpleContextEl();
         String arrObj_ = PrimitiveTypeUtil.getPrettyArrayType(Number.class.getName());
         String arrInt_ = PrimitiveTypeUtil.getPrettyArrayType(PrimitiveTypeUtil.PRIM_CHAR);
-        assertTrue(!PrimitiveTypeUtil.canBeUseAsArgument(arrObj_, arrInt_, null));
+        assertTrue(!PrimitiveTypeUtil.canBeUseAsArgument(arrObj_, arrInt_, context_));
     }
 
     @Test
     public void canBeUseAsArgument21Test() {
+        ContextEl context_ = simpleContextEl();
         String arrObj_ = PrimitiveTypeUtil.getPrettyArrayType(Character.class.getName());
         String arrInt_ = PrimitiveTypeUtil.getPrettyArrayType(PrimitiveTypeUtil.PRIM_CHAR);
-        assertTrue(!PrimitiveTypeUtil.canBeUseAsArgument(arrObj_, arrInt_, null));
+        assertTrue(!PrimitiveTypeUtil.canBeUseAsArgument(arrObj_, arrInt_, context_));
     }
 
     @Test
     public void canBeUseAsArgument22Test() {
+        ContextEl context_ = simpleContextEl();
         String arrObj_ = PrimitiveTypeUtil.getPrettyArrayType(Object.class.getName());
         String arrInt_ = PrimitiveTypeUtil.getPrettyArrayType(Character.class.getName());
-        assertTrue(PrimitiveTypeUtil.canBeUseAsArgument(arrObj_, arrInt_, null));
+        assertTrue(PrimitiveTypeUtil.canBeUseAsArgument(arrObj_, arrInt_, context_));
     }
 
     @Test
     public void canBeUseAsArgument23Test() {
+        ContextEl context_ = simpleContextEl();
         String arrObj_ = PrimitiveTypeUtil.getPrettyArrayType(Object.class.getName());
         String arrInt_ = PrimitiveTypeUtil.getPrettyArrayType(PrimitiveTypeUtil.PRIM_CHAR);
-        assertTrue(!PrimitiveTypeUtil.canBeUseAsArgument(arrObj_, arrInt_, null));
+        assertTrue(!PrimitiveTypeUtil.canBeUseAsArgument(arrObj_, arrInt_, context_));
     }
 
     @Test
     public void canBeUseAsArgument24Test() {
+        ContextEl context_ = simpleContextEl();
         String arrObj_ = PrimitiveTypeUtil.getPrettyArrayType(Long.class.getName());
         String arrInt_ = PrimitiveTypeUtil.getPrettyArrayType(Integer.class.getName());
-        assertTrue(!PrimitiveTypeUtil.canBeUseAsArgument(arrObj_, arrInt_, null));
+        assertTrue(!PrimitiveTypeUtil.canBeUseAsArgument(arrObj_, arrInt_, context_));
     }
 
     @Test
     public void canBeUseAsArgument25Test() {
+        ContextEl context_ = simpleContextEl();
         String arrObj_ = PrimitiveTypeUtil.PRIM_INT;
         String arrInt_ = Integer.class.getName();
-        assertTrue(PrimitiveTypeUtil.canBeUseAsArgument(arrObj_, arrInt_, null));
+        assertTrue(PrimitiveTypeUtil.canBeUseAsArgument(arrObj_, arrInt_, context_));
     }
 
     @Test
     public void canBeUseAsArgument26Test() {
+        ContextEl context_ = simpleContextEl();
         String arrObj_ = PrimitiveTypeUtil.PRIM_BYTE;
         String arrInt_ = Integer.class.getName();
-        assertTrue(!PrimitiveTypeUtil.canBeUseAsArgument(arrObj_, arrInt_, null));
+        assertTrue(!PrimitiveTypeUtil.canBeUseAsArgument(arrObj_, arrInt_, context_));
     }
 
     @Test
     public void canBeUseAsArgument27Test() {
+        ContextEl context_ = simpleContextEl();
         String arrObj_ = PrimitiveTypeUtil.PRIM_LONG;
         String arrInt_ = Integer.class.getName();
-        assertTrue(PrimitiveTypeUtil.canBeUseAsArgument(arrObj_, arrInt_, null));
+        assertTrue(PrimitiveTypeUtil.canBeUseAsArgument(arrObj_, arrInt_, context_));
     }
 
     @Test
     public void canBeUseAsArgument28Test() {
+        ContextEl context_ = simpleContextEl();
         String arrObj_ = PrimitiveTypeUtil.getPrettyArrayType(PrimitiveTypeUtil.PRIM_INT);
         String arrInt_ = PrimitiveTypeUtil.getPrettyArrayType(Integer.class.getName());
-        assertTrue(!PrimitiveTypeUtil.canBeUseAsArgument(arrObj_, arrInt_, null));
+        assertTrue(!PrimitiveTypeUtil.canBeUseAsArgument(arrObj_, arrInt_, context_));
     }
 
     @Test
     public void canBeUseAsArgument29Test() {
+        ContextEl context_ = simpleContextEl();
         String arrObj_ = Number.class.getName();
         String arrInt_ = PrimitiveTypeUtil.getPrettyArrayType(Integer.class.getName());
-        assertTrue(!PrimitiveTypeUtil.canBeUseAsArgument(arrObj_, arrInt_, null));
+        assertTrue(!PrimitiveTypeUtil.canBeUseAsArgument(arrObj_, arrInt_, context_));
     }
 
     @Test
@@ -222,7 +251,7 @@ public class PrimitiveTypeUtilTest {
         files_.put("pkg/ExFour."+Classes.EXT, xml_);
         ContextEl context_ = unfullValidateOverridingMethods(files_);
         Classes classes_ = context_.getClasses();
-        assertTrue(PrimitiveTypeUtil.canBeUseAsArgument("pkg.ExFour","pkg.ExFour",classes_));
+        assertTrue(PrimitiveTypeUtil.canBeUseAsArgument("pkg.ExFour","pkg.ExFour",context_));
     }
 
     @Test
@@ -240,7 +269,7 @@ public class PrimitiveTypeUtilTest {
         files_.put("pkg/ExFour."+Classes.EXT, xml_);
         ContextEl context_ = unfullValidateOverridingMethods(files_);
         Classes classes_ = context_.getClasses();
-        assertTrue(PrimitiveTypeUtil.canBeUseAsArgument("pkg.ExFour","pkg.ExTwo",classes_));
+        assertTrue(PrimitiveTypeUtil.canBeUseAsArgument("pkg.ExFour","pkg.ExTwo",context_));
     }
 
     @Test
@@ -258,7 +287,7 @@ public class PrimitiveTypeUtilTest {
         files_.put("pkg/ExFour."+Classes.EXT, xml_);
         ContextEl context_ = unfullValidateOverridingMethods(files_);
         Classes classes_ = context_.getClasses();
-        assertTrue(!PrimitiveTypeUtil.canBeUseAsArgument("pkg.ExTwo","pkg.ExFour",classes_));
+        assertTrue(!PrimitiveTypeUtil.canBeUseAsArgument("pkg.ExTwo","pkg.ExFour",context_));
     }
 
     @Test
@@ -276,7 +305,7 @@ public class PrimitiveTypeUtilTest {
         files_.put("pkg/ExFour."+Classes.EXT, xml_);
         ContextEl context_ = unfullValidateOverridingMethods(files_);
         Classes classes_ = context_.getClasses();
-        assertTrue(!PrimitiveTypeUtil.canBeUseAsArgument("pkg.ExTwo",Integer.class.getName(),classes_));
+        assertTrue(!PrimitiveTypeUtil.canBeUseAsArgument("pkg.ExTwo",Integer.class.getName(),context_));
     }
 
     @Test
@@ -294,7 +323,7 @@ public class PrimitiveTypeUtilTest {
         files_.put("pkg/ExFour."+Classes.EXT, xml_);
         ContextEl context_ = unfullValidateOverridingMethods(files_);
         Classes classes_ = context_.getClasses();
-        assertTrue(PrimitiveTypeUtil.canBeUseAsArgument(Number.class.getName(),Integer.class.getName(),classes_));
+        assertTrue(PrimitiveTypeUtil.canBeUseAsArgument(Number.class.getName(),Integer.class.getName(),context_));
     }
 
     @Test
@@ -312,7 +341,7 @@ public class PrimitiveTypeUtilTest {
         files_.put("pkg/ExFour."+Classes.EXT, xml_);
         ContextEl context_ = unfullValidateOverridingMethods(files_);
         Classes classes_ = context_.getClasses();
-        assertTrue(PrimitiveTypeUtil.canBeUseAsArgument("[pkg.ExFour","[pkg.ExFour",classes_));
+        assertTrue(PrimitiveTypeUtil.canBeUseAsArgument("[pkg.ExFour","[pkg.ExFour",context_));
     }
 
     @Test
@@ -330,7 +359,7 @@ public class PrimitiveTypeUtilTest {
         files_.put("pkg/ExFour."+Classes.EXT, xml_);
         ContextEl context_ = unfullValidateOverridingMethods(files_);
         Classes classes_ = context_.getClasses();
-        assertTrue(PrimitiveTypeUtil.canBeUseAsArgument("[pkg.ExFour","[pkg.ExTwo",classes_));
+        assertTrue(PrimitiveTypeUtil.canBeUseAsArgument("[pkg.ExFour","[pkg.ExTwo",context_));
     }
 
     @Test
@@ -348,7 +377,7 @@ public class PrimitiveTypeUtilTest {
         files_.put("pkg/ExFour."+Classes.EXT, xml_);
         ContextEl context_ = unfullValidateOverridingMethods(files_);
         Classes classes_ = context_.getClasses();
-        assertTrue(!PrimitiveTypeUtil.canBeUseAsArgument("[pkg.ExTwo","[pkg.ExFour",classes_));
+        assertTrue(!PrimitiveTypeUtil.canBeUseAsArgument("[pkg.ExTwo","[pkg.ExFour",context_));
     }
 
     @Test
@@ -366,7 +395,7 @@ public class PrimitiveTypeUtilTest {
         files_.put("pkg/ExFour."+Classes.EXT, xml_);
         ContextEl context_ = unfullValidateOverridingMethods(files_);
         Classes classes_ = context_.getClasses();
-        assertTrue(!PrimitiveTypeUtil.canBeUseAsArgument("[pkg.ExTwo","[[pkg.ExTwo",classes_));
+        assertTrue(!PrimitiveTypeUtil.canBeUseAsArgument("[pkg.ExTwo","[[pkg.ExTwo",context_));
     }
 
     @Test
@@ -384,7 +413,7 @@ public class PrimitiveTypeUtilTest {
         files_.put("pkg/ExFour."+Classes.EXT, xml_);
         ContextEl context_ = unfullValidateOverridingMethods(files_);
         Classes classes_ = context_.getClasses();
-        assertTrue(!PrimitiveTypeUtil.canBeUseAsArgument("[[pkg.ExTwo","[pkg.ExTwo",classes_));
+        assertTrue(!PrimitiveTypeUtil.canBeUseAsArgument("[[pkg.ExTwo","[pkg.ExTwo",context_));
     }
 
     @Test
@@ -402,7 +431,7 @@ public class PrimitiveTypeUtilTest {
         files_.put("pkg/ExFour."+Classes.EXT, xml_);
         ContextEl context_ = unfullValidateOverridingMethods(files_);
         Classes classes_ = context_.getClasses();
-        assertTrue(PrimitiveTypeUtil.canBeUseAsArgument("["+Object.class.getName(),"[pkg.ExTwo",classes_));
+        assertTrue(PrimitiveTypeUtil.canBeUseAsArgument("["+Object.class.getName(),"[pkg.ExTwo",context_));
     }
 
     @Test
@@ -420,7 +449,7 @@ public class PrimitiveTypeUtilTest {
         files_.put("pkg/ExFour."+Classes.EXT, xml_);
         ContextEl context_ = unfullValidateOverridingMethods(files_);
         Classes classes_ = context_.getClasses();
-        assertTrue(!PrimitiveTypeUtil.canBeUseAsArgument("[["+Object.class.getName(),"[pkg.ExTwo",classes_));
+        assertTrue(!PrimitiveTypeUtil.canBeUseAsArgument("[["+Object.class.getName(),"[pkg.ExTwo",context_));
     }
 
     @Test
@@ -438,7 +467,7 @@ public class PrimitiveTypeUtilTest {
         files_.put("pkg/ExFour."+Classes.EXT, xml_);
         ContextEl context_ = unfullValidateOverridingMethods(files_);
         Classes classes_ = context_.getClasses();
-        assertTrue(!PrimitiveTypeUtil.canBeUseAsArgument("pkg.ExTwo","[pkg.ExTwo",classes_));
+        assertTrue(!PrimitiveTypeUtil.canBeUseAsArgument("pkg.ExTwo","[pkg.ExTwo",context_));
     }
 
     @Test
@@ -456,7 +485,7 @@ public class PrimitiveTypeUtilTest {
         files_.put("pkg/ExFour."+Classes.EXT, xml_);
         ContextEl context_ = unfullValidateOverridingMethods(files_);
         Classes classes_ = context_.getClasses();
-        assertTrue(PrimitiveTypeUtil.canBeUseAsArgument("pkg.ExTwo",null,classes_));
+        assertTrue(PrimitiveTypeUtil.canBeUseAsArgument("pkg.ExTwo",null,context_));
     }
 
     @Test
@@ -474,7 +503,7 @@ public class PrimitiveTypeUtilTest {
         files_.put("pkg/ExFour."+Classes.EXT, xml_);
         ContextEl context_ = unfullValidateOverridingMethods(files_);
         Classes classes_ = context_.getClasses();
-        assertTrue(PrimitiveTypeUtil.canBeUseAsArgument(Object.class.getName(),null,classes_));
+        assertTrue(PrimitiveTypeUtil.canBeUseAsArgument(Object.class.getName(),null,context_));
     }
 
     @Test
@@ -492,7 +521,7 @@ public class PrimitiveTypeUtilTest {
         files_.put("pkg/ExFour."+Classes.EXT, xml_);
         ContextEl context_ = unfullValidateOverridingMethods(files_);
         Classes classes_ = context_.getClasses();
-        assertTrue(PrimitiveTypeUtil.canBeUseAsArgument(Integer.class.getName(),null,classes_));
+        assertTrue(PrimitiveTypeUtil.canBeUseAsArgument(Integer.class.getName(),null,context_));
     }
 
     @Test
@@ -510,7 +539,7 @@ public class PrimitiveTypeUtilTest {
         files_.put("pkg/ExFour."+Classes.EXT, xml_);
         ContextEl context_ = unfullValidateOverridingMethods(files_);
         Classes classes_ = context_.getClasses();
-        assertTrue(!PrimitiveTypeUtil.canBeUseAsArgument(PrimitiveTypeUtil.PRIM_INT,null,classes_));
+        assertTrue(!PrimitiveTypeUtil.canBeUseAsArgument(PrimitiveTypeUtil.PRIM_INT,null,context_));
     }
 
     @Test
@@ -528,57 +557,67 @@ public class PrimitiveTypeUtilTest {
         files_.put("pkg/ExFour."+Classes.EXT, xml_);
         ContextEl context_ = unfullValidateOverridingMethods(files_);
         Classes classes_ = context_.getClasses();
-        assertTrue(!PrimitiveTypeUtil.canBeUseAsArgument(OperationNode.VOID_RETURN,null,classes_));
+        assertTrue(!PrimitiveTypeUtil.canBeUseAsArgument(OperationNode.VOID_RETURN,null,context_));
     }
 
     @Test
     public void canBeUseAsArgument48Test() {
-        assertTrue(!PrimitiveTypeUtil.canBeUseAsArgument(MyInterface.class.getName(), PrimitiveTypeUtil.PRIM_BYTE, null));
+        ContextEl context_ = simpleContextEl();
+        assertTrue(!PrimitiveTypeUtil.canBeUseAsArgument(MyInterface.class.getName(), PrimitiveTypeUtil.PRIM_BYTE, context_));
     }
 
     @Test
     public void canBeUseAsArgument49Test() {
-        assertTrue(!PrimitiveTypeUtil.canBeUseAsArgument(MyInterface.class.getName(), Byte.class.getName(), null));
+        ContextEl context_ = simpleContextEl();
+        assertTrue(!PrimitiveTypeUtil.canBeUseAsArgument(MyInterface.class.getName(), Byte.class.getName(), context_));
     }
 
     @Test
     public void canBeUseAsArgument50Test() {
-        assertTrue(PrimitiveTypeUtil.canBeUseAsArgument(Object.class.getName(), MyInterface.class.getName(), null));
+        ContextEl context_ = simpleContextEl();
+        assertTrue(PrimitiveTypeUtil.canBeUseAsArgument(Object.class.getName(), MyInterface.class.getName(), context_));
     }
 
     @Test
     public void canBeUseAsArgument51Test() {
-        assertTrue(PrimitiveTypeUtil.canBeUseAsArgument(MyInterface.class.getName(), MyInterface.class.getName(), null));
+        ContextEl context_ = simpleContextEl();
+        assertTrue(PrimitiveTypeUtil.canBeUseAsArgument(MyInterface.class.getName(), MyInterface.class.getName(), context_));
     }
 
     @Test
     public void canBeUseAsArgument52Test() {
-        assertTrue(PrimitiveTypeUtil.canBeUseAsArgument(MyInterface.class.getName(), MyDerivedInterface.class.getName(), null));
+        ContextEl context_ = simpleContextEl();
+        assertTrue(PrimitiveTypeUtil.canBeUseAsArgument(MyInterface.class.getName(), MyDerivedInterface.class.getName(), context_));
     }
 
     @Test
     public void canBeUseAsArgument53Test() {
-        assertTrue(!PrimitiveTypeUtil.canBeUseAsArgument(MyDerivedInterface.class.getName(), MyInterface.class.getName(), null));
+        ContextEl context_ = simpleContextEl();
+        assertTrue(!PrimitiveTypeUtil.canBeUseAsArgument(MyDerivedInterface.class.getName(), MyInterface.class.getName(), context_));
     }
 
     @Test
     public void canBeUseAsArgument54Test() {
-        assertTrue(!PrimitiveTypeUtil.canBeUseAsArgument(MyDerivedInterface.class.getName(), MySecImplClass.class.getName(), null));
+        ContextEl context_ = simpleContextEl();
+        assertTrue(!PrimitiveTypeUtil.canBeUseAsArgument(MyDerivedInterface.class.getName(), MySecImplClass.class.getName(), context_));
     }
 
     @Test
     public void canBeUseAsArgument55Test() {
-        assertTrue(PrimitiveTypeUtil.canBeUseAsArgument(MyDerivedInterface.class.getName(), MyImplClass.class.getName(), null));
+        ContextEl context_ = simpleContextEl();
+        assertTrue(PrimitiveTypeUtil.canBeUseAsArgument(MyDerivedInterface.class.getName(), MyImplClass.class.getName(), context_));
     }
 
     @Test
     public void canBeUseAsArgument56Test() {
-        assertTrue(PrimitiveTypeUtil.canBeUseAsArgument(MyInterface.class.getName(), MyImplClass.class.getName(), null));
+        ContextEl context_ = simpleContextEl();
+        assertTrue(PrimitiveTypeUtil.canBeUseAsArgument(MyInterface.class.getName(), MyImplClass.class.getName(), context_));
     }
 
     @Test
     public void canBeUseAsArgument57Test() {
-        assertTrue(!PrimitiveTypeUtil.canBeUseAsArgument(MyInterface.class.getName(), Object.class.getName(), null));
+        ContextEl context_ = simpleContextEl();
+        assertTrue(!PrimitiveTypeUtil.canBeUseAsArgument(MyInterface.class.getName(), Object.class.getName(), context_));
     }
 
     @Test
@@ -601,7 +640,7 @@ public class PrimitiveTypeUtilTest {
         files_.put("pkg/ExFive."+Classes.EXT, xml_);
         ContextEl context_ = unfullValidateOverridingMethods(files_);
         Classes classes_ = context_.getClasses();
-        assertTrue(!PrimitiveTypeUtil.canBeUseAsArgument("pkg.Ex","pkg.ExFour",classes_));
+        assertTrue(!PrimitiveTypeUtil.canBeUseAsArgument("pkg.Ex","pkg.ExFour",context_));
     }
 
     @Test
@@ -624,7 +663,7 @@ public class PrimitiveTypeUtilTest {
         files_.put("pkg/ExFive."+Classes.EXT, xml_);
         ContextEl context_ = unfullValidateOverridingMethods(files_);
         Classes classes_ = context_.getClasses();
-        assertTrue(PrimitiveTypeUtil.canBeUseAsArgument("pkg.ExFour","pkg.Ex",classes_));
+        assertTrue(PrimitiveTypeUtil.canBeUseAsArgument("pkg.ExFour","pkg.Ex",context_));
     }
 
     @Test
@@ -647,7 +686,7 @@ public class PrimitiveTypeUtilTest {
         files_.put("pkg/ExFive."+Classes.EXT, xml_);
         ContextEl context_ = unfullValidateOverridingMethods(files_);
         Classes classes_ = context_.getClasses();
-        assertTrue(PrimitiveTypeUtil.canBeUseAsArgument("pkg.ExFour","pkg.ExFour",classes_));
+        assertTrue(PrimitiveTypeUtil.canBeUseAsArgument("pkg.ExFour","pkg.ExFour",context_));
     }
 
     @Test
@@ -670,7 +709,7 @@ public class PrimitiveTypeUtilTest {
         files_.put("pkg/ExFive."+Classes.EXT, xml_);
         ContextEl context_ = unfullValidateOverridingMethods(files_);
         Classes classes_ = context_.getClasses();
-        assertTrue(!PrimitiveTypeUtil.canBeUseAsArgument("[pkg.Ex","[pkg.ExFour",classes_));
+        assertTrue(!PrimitiveTypeUtil.canBeUseAsArgument("[pkg.Ex","[pkg.ExFour",context_));
     }
 
     @Test
@@ -693,7 +732,7 @@ public class PrimitiveTypeUtilTest {
         files_.put("pkg/ExFive."+Classes.EXT, xml_);
         ContextEl context_ = unfullValidateOverridingMethods(files_);
         Classes classes_ = context_.getClasses();
-        assertTrue(PrimitiveTypeUtil.canBeUseAsArgument("[pkg.ExFour","[pkg.Ex",classes_));
+        assertTrue(PrimitiveTypeUtil.canBeUseAsArgument("[pkg.ExFour","[pkg.Ex",context_));
     }
 
     @Test
@@ -716,93 +755,107 @@ public class PrimitiveTypeUtilTest {
         files_.put("pkg/ExFive."+Classes.EXT, xml_);
         ContextEl context_ = unfullValidateOverridingMethods(files_);
         Classes classes_ = context_.getClasses();
-        assertTrue(PrimitiveTypeUtil.canBeUseAsArgument("[pkg.ExFour","[pkg.ExFour",classes_));
+        assertTrue(PrimitiveTypeUtil.canBeUseAsArgument("[pkg.ExFour","[pkg.ExFour",context_));
     }
 
     @Test
     public void canBeUseAsArgument64Test() {
-        assertTrue(PrimitiveTypeUtil.canBeUseAsArgument(PrimitiveTypeUtil.PRIM_INT, PrimitiveTypeUtil.PRIM_CHAR, null));
+        ContextEl context_ = simpleContextEl();
+        assertTrue(PrimitiveTypeUtil.canBeUseAsArgument(PrimitiveTypeUtil.PRIM_INT, PrimitiveTypeUtil.PRIM_CHAR, context_));
     }
 
     @Test
     public void canBeUseAsArgument65Test() {
-        assertTrue(!PrimitiveTypeUtil.canBeUseAsArgument(PrimitiveTypeUtil.PRIM_CHAR, PrimitiveTypeUtil.PRIM_INT, null));
+        ContextEl context_ = simpleContextEl();
+        assertTrue(!PrimitiveTypeUtil.canBeUseAsArgument(PrimitiveTypeUtil.PRIM_CHAR, PrimitiveTypeUtil.PRIM_INT, context_));
     }
     
     @Test
     public void canBeUseAsArgument66Test() {
-        assertTrue(!PrimitiveTypeUtil.canBeUseAsArgument(PrimitiveTypeUtil.PRIM_BYTE, PrimitiveTypeUtil.PRIM_INT, null));
+        ContextEl context_ = simpleContextEl();
+        assertTrue(!PrimitiveTypeUtil.canBeUseAsArgument(PrimitiveTypeUtil.PRIM_BYTE, PrimitiveTypeUtil.PRIM_INT, context_));
     }
 
     @Test
     public void canBeUseAsArgument67Test() {
-        assertTrue(!PrimitiveTypeUtil.canBeUseAsArgument(OperationNode.VOID_RETURN, Object.class.getName(), null));
+        ContextEl context_ = simpleContextEl();
+        assertTrue(!PrimitiveTypeUtil.canBeUseAsArgument(OperationNode.VOID_RETURN, Object.class.getName(), context_));
     }
 
     @Test
     public void canBeUseAsArgument68Test() {
-        assertTrue(!PrimitiveTypeUtil.canBeUseAsArgument(Object.class.getName(), OperationNode.VOID_RETURN, null));
+        ContextEl context_ = simpleContextEl();
+        assertTrue(!PrimitiveTypeUtil.canBeUseAsArgument(Object.class.getName(), OperationNode.VOID_RETURN, context_));
     }
 
     @Test
     public void canBeUseAsArgument69Test() {
-        assertTrue(!PrimitiveTypeUtil.canBeUseAsArgument(OperationNode.VOID_RETURN, OperationNode.VOID_RETURN, null));
+        ContextEl context_ = simpleContextEl();
+        assertTrue(!PrimitiveTypeUtil.canBeUseAsArgument(OperationNode.VOID_RETURN, OperationNode.VOID_RETURN, context_));
     }
 
     @Test
     public void canBeUseAsArgument70Test() {
+        ContextEl context_ = simpleContextEl();
         String arrObj_ = Object.class.getName();
         String arrInt_ = PrimitiveTypeUtil.PRIM_CHAR;
-        assertTrue(PrimitiveTypeUtil.canBeUseAsArgument(arrObj_, arrInt_, null));
+        assertTrue(PrimitiveTypeUtil.canBeUseAsArgument(arrObj_, arrInt_, context_));
     }
 
     @Test
     public void canBeUseAsArgument71Test() {
+        ContextEl context_ = simpleContextEl();
         String arrObj_ = Object.class.getName();
         String arrInt_ = PrimitiveTypeUtil.PRIM_INT;
-        assertTrue(PrimitiveTypeUtil.canBeUseAsArgument(arrObj_, arrInt_, null));
+        assertTrue(PrimitiveTypeUtil.canBeUseAsArgument(arrObj_, arrInt_, context_));
     }
 
     @Test
     public void canBeUseAsArgument72Test() {
+        ContextEl context_ = simpleContextEl();
         String arrObj_ = Number.class.getName();
         String arrInt_ = PrimitiveTypeUtil.PRIM_INT;
-        assertTrue(PrimitiveTypeUtil.canBeUseAsArgument(arrObj_, arrInt_, null));
+        assertTrue(PrimitiveTypeUtil.canBeUseAsArgument(arrObj_, arrInt_, context_));
     }
 
     @Test
     public void canBeUseAsArgument73Test() {
+        ContextEl context_ = simpleContextEl();
         String arrObj_ = Boolean.class.getName();
         String arrInt_ = PrimitiveTypeUtil.PRIM_BOOLEAN;
-        assertTrue(PrimitiveTypeUtil.canBeUseAsArgument(arrObj_, arrInt_, null));
+        assertTrue(PrimitiveTypeUtil.canBeUseAsArgument(arrObj_, arrInt_, context_));
     }
 
     @Test
     public void canBeUseAsArgument74Test() {
+        ContextEl context_ = simpleContextEl();
         String arrObj_ = PrimitiveTypeUtil.PRIM_BOOLEAN;
         String arrInt_ = PrimitiveTypeUtil.PRIM_BOOLEAN;
-        assertTrue(PrimitiveTypeUtil.canBeUseAsArgument(arrObj_, arrInt_, null));
+        assertTrue(PrimitiveTypeUtil.canBeUseAsArgument(arrObj_, arrInt_, context_));
     }
 
     @Test
     public void canBeUseAsArgument75Test() {
+        ContextEl context_ = simpleContextEl();
         String arrObj_ = PrimitiveTypeUtil.PRIM_BOOLEAN;
         String arrInt_ = Boolean.class.getName();
-        assertTrue(PrimitiveTypeUtil.canBeUseAsArgument(arrObj_, arrInt_, null));
+        assertTrue(PrimitiveTypeUtil.canBeUseAsArgument(arrObj_, arrInt_, context_));
     }
 
     @Test
     public void getSubclasses1Test() {
+        ContextEl context_ = simpleContextEl();
         StringList classes_ = new StringList(Integer.class.getName(), Number.class.getName());
-        StringList sub_ = PrimitiveTypeUtil.getSubclasses(classes_, null);
+        StringList sub_ = PrimitiveTypeUtil.getSubclasses(classes_, context_);
         assertEq(1, sub_.size());
         assertEq(Integer.class.getName(), sub_.get(0));
     }
 
     @Test
     public void getSubclasses2Test() {
+        ContextEl context_ = simpleContextEl();
         StringList classes_ = new StringList(String.class.getName(), Number.class.getName());
-        StringList sub_ = PrimitiveTypeUtil.getSubclasses(classes_, null);
+        StringList sub_ = PrimitiveTypeUtil.getSubclasses(classes_, context_);
         assertEq(2, sub_.size());
         assertEq(String.class.getName(), sub_.get(0));
         assertEq(Number.class.getName(), sub_.get(1));
@@ -820,7 +873,7 @@ public class PrimitiveTypeUtilTest {
     public void newCustomArray1Test() {
         Numbers<Integer> dims_ = new Numbers<Integer>(1);
         Struct customArray_ = PrimitiveTypeUtil.newCustomArray(CUST_CLASS, dims_);
-        assertEq("["+CUST_CLASS, customArray_.getClassName());
+        assertEq("["+CUST_CLASS, customArray_.getClassName(null));
         Struct[] instance_ = (Struct[]) customArray_.getInstance();
         assertEq(1, instance_.length);
         Struct elt_ = instance_[0];
@@ -831,7 +884,7 @@ public class PrimitiveTypeUtilTest {
     public void newCustomArray2Test() {
         Numbers<Integer> dims_ = new Numbers<Integer>(2);
         Struct customArray_ = PrimitiveTypeUtil.newCustomArray(CUST_CLASS, dims_);
-        assertEq("["+CUST_CLASS, customArray_.getClassName());
+        assertEq("["+CUST_CLASS, customArray_.getClassName(null));
         Struct[] instance_ = (Struct[]) customArray_.getInstance();
         assertEq(2, instance_.length);
         Struct elt_ = instance_[0];
@@ -844,11 +897,11 @@ public class PrimitiveTypeUtilTest {
     public void newCustomArray3Test() {
         Numbers<Integer> dims_ = new Numbers<Integer>(2,3);
         Struct customArray_ = PrimitiveTypeUtil.newCustomArray(CUST_CLASS, dims_);
-        assertEq("[["+CUST_CLASS, customArray_.getClassName());
+        assertEq("[["+CUST_CLASS, customArray_.getClassName(null));
         Struct[] instance_ = (Struct[]) customArray_.getInstance();
         assertEq(2, instance_.length);
         Struct subArray_ = instance_[0];
-        assertEq("["+CUST_CLASS, subArray_.getClassName());
+        assertEq("["+CUST_CLASS, subArray_.getClassName(null));
         Struct[] subInstance_ = (Struct[]) subArray_.getInstance();
         assertEq(3, subInstance_.length);
         Struct elt_ = subInstance_[0];
@@ -858,7 +911,7 @@ public class PrimitiveTypeUtilTest {
         elt_ = subInstance_[2];
         assertTrue(elt_.isNull());
         subArray_ = instance_[1];
-        assertEq("["+CUST_CLASS, subArray_.getClassName());
+        assertEq("["+CUST_CLASS, subArray_.getClassName(null));
         subInstance_ = (Struct[]) subArray_.getInstance();
         assertEq(3, subInstance_.length);
         elt_ = subInstance_[0];
@@ -871,11 +924,17 @@ public class PrimitiveTypeUtilTest {
 
     private ContextEl unfullValidateOverridingMethods(StringMap<String> _files) {
         ContextEl cont_ = new ContextEl();
-        Classes classes_ = new Classes(_files, cont_);
+        Classes classes_ = new Classes();
+        classes_.tryBuildClassesBodies(_files, cont_);
+        assertTrue(classes_.getErrorsDet().toString(), classes_.getErrorsDet().isEmpty());
         cont_.setClasses(classes_);
         assertTrue(classes_.getErrorsDet().toString(), classes_.getErrorsDet().isEmpty());
         classes_.validateInheritingClasses(cont_);
         assertTrue(classes_.getErrorsDet().toString(), classes_.getErrorsDet().isEmpty());
+        return cont_;
+    }
+    private ContextEl simpleContextEl() {
+        ContextEl cont_ = new ContextEl();
         return cont_;
     }
 }

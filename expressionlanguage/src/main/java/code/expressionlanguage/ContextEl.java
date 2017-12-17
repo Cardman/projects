@@ -1,10 +1,11 @@
 package code.expressionlanguage;
 import code.expressionlanguage.exceptions.StackOverFlow;
 import code.expressionlanguage.methods.Classes;
+import code.expressionlanguage.stds.LgNames;
+import code.sml.ElementOffsetsNext;
 import code.util.CustList;
 import code.util.StringList;
 import code.util.ints.MathFactory;
-import code.sml.ElementOffsetsNext;
 
 public final class ContextEl {
     private static final String RETURN_LINE = "\n";
@@ -23,6 +24,8 @@ public final class ContextEl {
     private int stackOverFlow;
 
     private Options options = new Options();
+
+    private transient LgNames standards = new LgNames();
 
     private transient PageEl analyzing;
 
@@ -50,6 +53,7 @@ public final class ContextEl {
 
     public ContextEl(int _stackOverFlow) {
         stackOverFlow = _stackOverFlow;
+        standards.setAliasObject(Object.class.getName());
     }
 
     public Options getOptions() {
@@ -148,16 +152,16 @@ public final class ContextEl {
     }
 
     public String getInfos() {
-        return analyzing.getInfos();
+        return analyzing.getInfos(this);
     }
 
     public String joinPages() {
         StringList l_ = new StringList();
         for (PageEl p: importing) {
-            l_.add(p.getInfos());
+            l_.add(p.getInfos(this));
         }
         if (analyzing != null) {
-            l_.add(analyzing.getInfos());
+            l_.add(analyzing.getInfos(this));
         }
         return l_.join(RETURN_LINE);
     }
@@ -223,5 +227,13 @@ public final class ContextEl {
 
     public void setAmbigous(boolean _ambigous) {
         ambigous = _ambigous;
+    }
+
+    public LgNames getStandards() {
+        return standards;
+    }
+
+    public void setStandards(LgNames _standards) {
+        standards = _standards;
     }
 }

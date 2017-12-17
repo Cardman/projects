@@ -85,7 +85,7 @@ public class ElUtilTest {
 
     @Test
     public void processEl1Test() {
-        ContextEl context_ = new ContextEl();
+        ContextEl context_ = contextEl();
         setupAccessValue(context_);
         addImportingPage(context_);
         Argument arg_ = ElUtil.processEl("$class(\"java.lang.Number\",5)",0, context_);
@@ -95,7 +95,7 @@ public class ElUtilTest {
     }
     @Test
     public void processEl2Test() {
-        ContextEl context_ = new ContextEl();
+        ContextEl context_ = contextEl();
         setupAccessValue(context_);
         addImportingPage(context_);
         Argument arg_ = ElUtil.processEl("$static$java$lang$Long.MAX_VALUE",0, context_);
@@ -106,7 +106,7 @@ public class ElUtilTest {
 
     @Test
     public void processEl3Test() {
-        ContextEl context_ = new ContextEl();
+        ContextEl context_ = contextEl();
         setupAccessValue(context_);
         addImportingPage(context_);
         Argument arg_ = ElUtil.processEl("(1+2)*3",0, context_);
@@ -117,7 +117,7 @@ public class ElUtilTest {
 
     @Test
     public void processEl4Test() {
-        ContextEl context_ = new ContextEl();
+        ContextEl context_ = contextEl();
         setupAccessValue(context_);
         addImportingPage(context_);
         Argument arg_ = ElUtil.processEl("1--1",0, context_);
@@ -128,7 +128,7 @@ public class ElUtilTest {
 
     @Test
     public void processEl5Test() {
-        ContextEl context_ = new ContextEl();
+        ContextEl context_ = contextEl();
         setupAccessValue(context_);
         addImportingPage(context_);
         BeanOne b_ = new BeanOne();
@@ -141,7 +141,7 @@ public class ElUtilTest {
 
     @Test
     public void processEl6Test() {
-        ContextEl context_ = new ContextEl();
+        ContextEl context_ = contextEl();
         setupAccessValue(context_);
         addImportingPage(context_);
         Argument arg_ = ElUtil.processEl("--1",0, context_);
@@ -152,7 +152,7 @@ public class ElUtilTest {
 
     @Test
     public void processEl7Test() {
-        ContextEl context_ = new ContextEl();
+        ContextEl context_ = contextEl();
         setupAccessValue(context_);
         addImportingPage(context_);
         Argument arg_ = ElUtil.processEl("$static$java$lang$Math.abs(-8l)",0, context_);
@@ -163,7 +163,7 @@ public class ElUtilTest {
 
     @Test
     public void processEl8Test() {
-        ContextEl context_ = new ContextEl();
+        ContextEl context_ = contextEl();
         setupAccessValue(context_);
         addImportingPage(context_);
         Argument arg_ = ElUtil.processEl("$static$java$lang$Math.abs(8l)",0, context_);
@@ -174,7 +174,7 @@ public class ElUtilTest {
 
     @Test
     public void processEl9Test() {
-        ContextEl context_ = new ContextEl();
+        ContextEl context_ = contextEl();
         setupAccessValue(context_);
         addImportingPage(context_);
         BeanOne b_ = new BeanOne();
@@ -187,7 +187,7 @@ public class ElUtilTest {
 
     @Test
     public void processEl10Test() {
-        ContextEl context_ = new ContextEl();
+        ContextEl context_ = contextEl();
         setupAccessValue(context_);
         addImportingPage(context_);
         Argument arg_ = ElUtil.processEl("40908c",0, context_);
@@ -198,7 +198,7 @@ public class ElUtilTest {
 
     @Test
     public void processEl11Test() {
-        ContextEl context_ = new ContextEl();
+        ContextEl context_ = contextEl();
         setupAccessValue(context_);
         addImportingPage(context_);
         Argument arg_ = ElUtil.processEl("'\\u9fcb'",0, context_);
@@ -209,7 +209,7 @@ public class ElUtilTest {
 
     @Test
     public void processEl12Test() {
-        ContextEl context_ = new ContextEl();
+        ContextEl context_ = contextEl();
         setupAccessValue(context_);
         addImportingPage(context_);
         Argument arg_ = ElUtil.processEl("'\\\\'",0, context_);
@@ -220,7 +220,7 @@ public class ElUtilTest {
 
     @Test
     public void processEl13Test() {
-        ContextEl context_ = new ContextEl();
+        ContextEl context_ = contextEl();
         setupAccessValue(context_);
         addImportingPage(context_);
         Argument arg_ = ElUtil.processEl("'\\''",0, context_);
@@ -231,7 +231,7 @@ public class ElUtilTest {
 
     @Test
     public void processEl14Test() {
-        ContextEl context_ = new ContextEl();
+        ContextEl context_ = contextEl();
         setupAccessValue(context_);
         addImportingPage(context_);
         Argument arg_ = ElUtil.processEl("'\"'",0, context_);
@@ -242,7 +242,7 @@ public class ElUtilTest {
 
     @Test
     public void processEl15Test() {
-        ContextEl context_ = new ContextEl();
+        ContextEl context_ = contextEl();
         setupAccessValue(context_);
         addImportingPage(context_);
         Argument arg_ = ElUtil.processEl("'\n'",0, context_);
@@ -253,7 +253,7 @@ public class ElUtilTest {
 
     @Test
     public void processEl16Test() {
-        ContextEl context_ = new ContextEl();
+        ContextEl context_ = contextEl();
         setupAccessValue(context_);
         addImportingPage(context_);
         Composite compos_ = new Composite();
@@ -271,7 +271,7 @@ public class ElUtilTest {
 
     @Test
     public void processEl17Test() {
-        ContextEl context_ = new ContextEl();
+        ContextEl context_ = contextEl();
         setupAccessValue(context_);
         addImportingPage(context_);
         Composite compos_ = new Composite();
@@ -289,7 +289,7 @@ public class ElUtilTest {
 
     @Test
     public void processEl18Test() {
-        ContextEl context_ = new ContextEl();
+        ContextEl context_ = contextEl();
         setupAccessValue(context_);
         addImportingPage(context_);
         Argument arg_ = ElUtil.processEl("$instanceof(\"java.lang.Number\",5)",0, context_);
@@ -300,7 +300,7 @@ public class ElUtilTest {
 
     @Test
     public void processEl19Test() {
-        ContextEl context_ = new ContextEl();
+        ContextEl context_ = contextEl();
         setupAccessValue(context_);
         addImportingPage(context_);
         Argument arg_ = ElUtil.processEl("$instanceof(\"java.lang.Number\",'5')",0, context_);
@@ -311,7 +311,7 @@ public class ElUtilTest {
 
     @Test
     public void processEl20Test() {
-        ContextEl context_ = new ContextEl();
+        ContextEl context_ = contextEl();
         setupAccessValue(context_);
         addImportingPage(context_);
         Argument arg_ = ElUtil.processEl("!$instanceof(\"java.lang.Number\",'5')",0, context_);
@@ -323,7 +323,7 @@ public class ElUtilTest {
 
     @Test
     public void processEl21Test() {
-        ContextEl context_ = new ContextEl();
+        ContextEl context_ = contextEl();
         setupAccessValue(context_);
         addImportingPage(context_);
         Argument arg_ = ElUtil.processEl("1+1=2",0, context_);
@@ -334,7 +334,7 @@ public class ElUtilTest {
 
     @Test
     public void processEl22Test() {
-        ContextEl context_ = new ContextEl();
+        ContextEl context_ = contextEl();
         setupAccessValue(context_);
         addImportingPage(context_);
         Argument arg_ = ElUtil.processEl("1+1!=2",0, context_);
@@ -345,7 +345,7 @@ public class ElUtilTest {
 
     @Test
     public void processEl23Test() {
-        ContextEl context_ = new ContextEl();
+        ContextEl context_ = contextEl();
         setupAccessValue(context_);
         addImportingPage(context_);
         Argument arg_ = ElUtil.processEl("1+1=2&1+0=8",0, context_);
@@ -356,7 +356,7 @@ public class ElUtilTest {
 
     @Test
     public void processEl24Test() {
-        ContextEl context_ = new ContextEl();
+        ContextEl context_ = contextEl();
         setupAccessValue(context_);
         addImportingPage(context_);
         Argument arg_ = ElUtil.processEl("1+1!=2|1+7=8",0, context_);
@@ -367,7 +367,7 @@ public class ElUtilTest {
 
     @Test
     public void processEl25Test() {
-        ContextEl context_ = new ContextEl();
+        ContextEl context_ = contextEl();
         setupAccessValue(context_);
         addImportingPage(context_);
         Argument arg_ = ElUtil.processEl("1+1=2&(1+0=8|3*3=9)",0, context_);
@@ -377,7 +377,7 @@ public class ElUtilTest {
     }
     @Test
     public void processEl26Test() {
-        ContextEl context_ = new ContextEl();
+        ContextEl context_ = contextEl();
         setupAccessValue(context_);
         addImportingPage(context_);
         Argument arg_ = ElUtil.processEl("1+1=2|1+6=8&1=1",0, context_);
@@ -388,7 +388,7 @@ public class ElUtilTest {
 
     @Test
     public void processEl27Test() {
-        ContextEl context_ = new ContextEl();
+        ContextEl context_ = contextEl();
         setupAccessValue(context_);
         addImportingPage(context_);
         //CustList worked but is generic so it will take args TODO
@@ -400,7 +400,7 @@ public class ElUtilTest {
 
     @Test
     public void processEl28Test() {
-        ContextEl context_ = new ContextEl();
+        ContextEl context_ = contextEl();
         setupAccessValue(context_);
         addImportingPage(context_);
         BeanOne b_ = new BeanOne();
@@ -413,7 +413,7 @@ public class ElUtilTest {
 
     @Test
     public void processEl29Test() {
-        ContextEl context_ = new ContextEl();
+        ContextEl context_ = contextEl();
         setupAccessValue(context_);
         addImportingPage(context_);
         Argument arg_ = ElUtil.processEl("1+1=2|1/0>8",0, context_);
@@ -424,7 +424,7 @@ public class ElUtilTest {
 
     @Test
     public void processEl30Test() {
-        ContextEl context_ = new ContextEl();
+        ContextEl context_ = contextEl();
         setupAccessValue(context_);
         addImportingPage(context_);
         BeanSeven b_ = new BeanSeven();
@@ -437,7 +437,7 @@ public class ElUtilTest {
 
     @Test
     public void processEl31Test() {
-        ContextEl context_ = new ContextEl();
+        ContextEl context_ = contextEl();
         setupAccessValue(context_);
         addImportingPage(context_);
         Argument arg_ = ElUtil.processEl("$static$java$lang$Math.abs(-8i)",0, context_);
@@ -448,7 +448,7 @@ public class ElUtilTest {
 
     @Test
     public void processEl32Test() {
-        ContextEl context_ = new ContextEl();
+        ContextEl context_ = contextEl();
         setupAccessValue(context_);
         addImportingPage(context_);
         Argument arg_ = ElUtil.processEl("$static$java$lang$Math.abs(8i)",0, context_);
@@ -460,7 +460,7 @@ public class ElUtilTest {
 
     @Test
     public void processEl33Test() {
-        ContextEl context_ = new ContextEl();
+        ContextEl context_ = contextEl();
         setupAccessValue(context_);
         addImportingPage(context_);
         Argument arg_ = ElUtil.processEl("$static$java$lang$Math.abs(-8I)",0, context_);
@@ -471,7 +471,7 @@ public class ElUtilTest {
 
     @Test
     public void processEl34Test() {
-        ContextEl context_ = new ContextEl();
+        ContextEl context_ = contextEl();
         setupAccessValue(context_);
         addImportingPage(context_);
         Argument arg_ = ElUtil.processEl("$static$java$lang$Math.abs(8I)",0, context_);
@@ -483,7 +483,7 @@ public class ElUtilTest {
 
     @Test
     public void processEl35Test() {
-        ContextEl context_ = new ContextEl();
+        ContextEl context_ = contextEl();
         setupAccessValue(context_);
         addImportingPage(context_);
         Argument arg_ = ElUtil.processEl("$static$java$lang$Math.abs(-8L)",0, context_);
@@ -494,7 +494,7 @@ public class ElUtilTest {
 
     @Test
     public void processEl36Test() {
-        ContextEl context_ = new ContextEl();
+        ContextEl context_ = contextEl();
         setupAccessValue(context_);
         addImportingPage(context_);
         Argument arg_ = ElUtil.processEl("$static$java$lang$Math.abs(8L)",0, context_);
@@ -505,7 +505,7 @@ public class ElUtilTest {
 
     @Test
     public void processEl37Test() {
-        ContextEl context_ = new ContextEl();
+        ContextEl context_ = contextEl();
         setupAccessValue(context_);
         addImportingPage(context_);
         Composite b_ = new Composite();
@@ -518,7 +518,7 @@ public class ElUtilTest {
 
     @Test
     public void processEl38Test() {
-        ContextEl context_ = new ContextEl();
+        ContextEl context_ = contextEl();
         setupAccessValue(context_);
         addImportingPage(context_);
         Composite b_ = new Composite();
@@ -531,7 +531,7 @@ public class ElUtilTest {
 
     @Test
     public void processEl39Test() {
-        ContextEl context_ = new ContextEl();
+        ContextEl context_ = contextEl();
         setupAccessValue(context_);
         addImportingPage(context_);
         Argument arg_ = ElUtil.processEl("$instanceof(\"java.lang.Object\",null)",0, context_);
@@ -542,7 +542,7 @@ public class ElUtilTest {
 
     @Test
     public void processEl40Test() {
-        ContextEl context_ = new ContextEl();
+        ContextEl context_ = contextEl();
         setupAccessValue(context_);
         addImportingPage(context_);
         Composite b_ = new Composite();
@@ -555,7 +555,7 @@ public class ElUtilTest {
 
     @Test
     public void processEl41Test() {
-        ContextEl context_ = new ContextEl();
+        ContextEl context_ = contextEl();
         setupAccessValue(context_);
         addImportingPage(context_);
         Composite b_ = new Composite();
@@ -568,7 +568,7 @@ public class ElUtilTest {
 
     @Test
     public void processEl42Test() {
-        ContextEl context_ = new ContextEl();
+        ContextEl context_ = contextEl();
         setupAccessValue(context_);
         addImportingPage(context_);
         Composite b_ = new Composite();
@@ -581,7 +581,7 @@ public class ElUtilTest {
 
     @Test
     public void processEl43Test() {
-        ContextEl context_ = new ContextEl();
+        ContextEl context_ = contextEl();
         setupAccessValue(context_);
         addImportingPage(context_);
         Composite b_ = new Composite();
@@ -594,7 +594,7 @@ public class ElUtilTest {
 
     @Test
     public void processEl44Test() {
-        ContextEl context_ = new ContextEl();
+        ContextEl context_ = contextEl();
         setupAccessValue(context_);
         addImportingPage(context_);
         Composite b_ = new Composite();
@@ -607,7 +607,7 @@ public class ElUtilTest {
 
     @Test
     public void processEl45Test() {
-        ContextEl context_ = new ContextEl();
+        ContextEl context_ = contextEl();
         setupAccessValue(context_);
         addImportingPage(context_);
         Composite b_ = new Composite();
@@ -620,7 +620,7 @@ public class ElUtilTest {
 
     @Test
     public void processEl46Test() {
-        ContextEl context_ = new ContextEl();
+        ContextEl context_ = contextEl();
         setupAccessValue(context_);
         addImportingPage(context_);
         Argument arg_ = ElUtil.processEl("$class(\""+IONE+"\",$new "+MY_IMPL+"()).testOne()",0, context_);
@@ -631,7 +631,7 @@ public class ElUtilTest {
 
     @Test
     public void processEl47Test() {
-        ContextEl context_ = new ContextEl();
+        ContextEl context_ = contextEl();
         setupAccessValue(context_);
         addImportingPage(context_);
         Argument arg_ = ElUtil.processEl("$static$"+MY_IMPL_HAT+".ovOne($new "+MY_IMPL+"())",0, context_);
@@ -642,7 +642,7 @@ public class ElUtilTest {
 
     @Test
     public void processEl48Test() {
-        ContextEl context_ = new ContextEl();
+        ContextEl context_ = contextEl();
         setupAccessValue(context_);
         addImportingPage(context_);
         Argument arg_ = ElUtil.processEl("$new "+INTERNS+"().$new InternStandard()",0, context_);
@@ -652,7 +652,7 @@ public class ElUtilTest {
 
     @Test
     public void processEl49Test() {
-        ContextEl context_ = new ContextEl();
+        ContextEl context_ = contextEl();
         setupAccessValue(context_);
         addImportingPage(context_);
         Argument arg_ = ElUtil.processEl("$new "+INTERNS+"$InternStaticStandard()",0, context_);
@@ -662,7 +662,7 @@ public class ElUtilTest {
 
     @Test
     public void processEl50Test() {
-        ContextEl context_ = new ContextEl();
+        ContextEl context_ = contextEl();
         setupAccessValue(context_);
         addImportingPage(context_);
         Argument arg_ = ElUtil.processEl("$new "+INTERNS+"().$new InternStandardTwo().$new InternStandardOne()",0, context_);
@@ -672,7 +672,7 @@ public class ElUtilTest {
 
     @Test
     public void processEl51Test() {
-        ContextEl context_ = new ContextEl();
+        ContextEl context_ = contextEl();
         setupAccessValue(context_);
         addImportingPage(context_);
         Argument arg_ = ElUtil.processEl("$new "+INTERNS+"$InternStaticStandard$InternStaticStandardThree()",0, context_);
@@ -682,7 +682,7 @@ public class ElUtilTest {
 
     @Test
     public void processEl52Test() {
-        ContextEl context_ = new ContextEl();
+        ContextEl context_ = contextEl();
         setupAccessValue(context_);
         addImportingPage(context_);
         Argument arg_ = ElUtil.processEl("$new "+INTERNS+"$InternStaticStandard().$new InternStaticStandardFour()",0, context_);
@@ -692,7 +692,7 @@ public class ElUtilTest {
 
     @Test
     public void processEl53Test() {
-        ContextEl context_ = new ContextEl();
+        ContextEl context_ = contextEl();
         setupAccessValue(context_);
         addImportingPage(context_);
         Argument arg_ = ElUtil.processEl("$new "+INTERNS+"().$new InternStandardTwo().$new InternStandardThree(1i)",0, context_);
@@ -702,7 +702,7 @@ public class ElUtilTest {
 
     @Test
     public void processEl54Test() {
-        ContextEl context_ = new ContextEl();
+        ContextEl context_ = contextEl();
         setupAccessValue(context_);
         addImportingPage(context_);
         Argument arg_ = ElUtil.processEl("$new "+INTERNS+"().$new InternStandardTwo().$new InternStandardThree(1i).getPrivateInfo()",0, context_);
@@ -713,7 +713,7 @@ public class ElUtilTest {
 
     @Test
     public void processEl55Test() {
-        ContextEl context_ = new ContextEl();
+        ContextEl context_ = contextEl();
         setupAccessValue(context_);
         addImportingPage(context_);
         InternsClasses b_ = new InternsClasses();
@@ -726,7 +726,7 @@ public class ElUtilTest {
 
     @Test
     public void processEl56Test() {
-        ContextEl context_ = new ContextEl();
+        ContextEl context_ = contextEl();
         setupAccessValue(context_);
         addImportingPage(context_);
         Argument arg_ = ElUtil.processEl("$new "+INHERITED_COMPOSITE+"().getPrivateInt()",0, context_);
@@ -737,7 +737,7 @@ public class ElUtilTest {
 
     @Test
     public void processEl57Test() {
-        ContextEl context_ = new ContextEl();
+        ContextEl context_ = contextEl();
         setupAccessValue(context_);
         addImportingPage(context_);
         Composite composite_ = new Composite();
@@ -759,7 +759,7 @@ public class ElUtilTest {
 
     @Test
     public void processEl58Test() {
-        ContextEl context_ = new ContextEl();
+        ContextEl context_ = contextEl();
         setupAccessValue(context_);
         addImportingPage(context_);
         Composite composite_ = new Composite();
@@ -789,7 +789,7 @@ public class ElUtilTest {
 
     @Test
     public void processEl59Test() {
-        ContextEl context_ = new ContextEl();
+        ContextEl context_ = contextEl();
         setupAccessValue(context_);
         addImportingPage(context_);
         Composite composite_ = new Composite();
@@ -831,7 +831,7 @@ public class ElUtilTest {
         lv_.setElement(8);
         lv_.setClassName(PrimitiveTypeUtil.PRIM_LONG);
         localVars_.put("2", lv_);
-        ContextEl context_ = new ContextEl();
+        ContextEl context_ = contextEl();
         setupAccessValue(context_);
         addImportingPage(context_);
         context_.getLastPage().getLocalVars().putAllMap(localVars_);
@@ -858,7 +858,7 @@ public class ElUtilTest {
         lv_.setElement(arr_);
         lv_.setClassName(ARR_LONG);
         localVars_.put("2", lv_);
-        ContextEl context_ = new ContextEl();
+        ContextEl context_ = contextEl();
         setupAccessValue(context_);
         addImportingPage(context_);
         context_.getLastPage().getLocalVars().putAllMap(localVars_);
@@ -880,7 +880,7 @@ public class ElUtilTest {
         lv_.setElement("tout");
         lv_.setClassName(String.class.getName());
         localVars_.put("2", lv_);
-        ContextEl context_ = new ContextEl();
+        ContextEl context_ = contextEl();
         setupAccessValue(context_);
         addImportingPage(context_);
         context_.getLastPage().getLocalVars().putAllMap(localVars_);
@@ -892,7 +892,7 @@ public class ElUtilTest {
 
     @Test
     public void processEl63Test() {
-        ContextEl context_ = new ContextEl();
+        ContextEl context_ = contextEl();
         setupAccessValue(context_);
         addImportingPage(context_);
         Argument arg_ = ElUtil.processEl("$new "+ARR_INT+"(1i)",0, context_);
@@ -904,7 +904,7 @@ public class ElUtilTest {
 
     @Test
     public void processEl64Test() {
-        ContextEl context_ = new ContextEl();
+        ContextEl context_ = contextEl();
         setupAccessValue(context_);
         addImportingPage(context_);
         Argument arg_ = ElUtil.processEl("$new "+ARR_ARR_INT+"(1i)",0, context_);
@@ -916,7 +916,7 @@ public class ElUtilTest {
 
     @Test
     public void processEl65Test() {
-        ContextEl context_ = new ContextEl();
+        ContextEl context_ = contextEl();
         setupAccessValue(context_);
         addImportingPage(context_);
         Argument arg_ = ElUtil.processEl("$new "+ARR_INTEGER+"(2i)",0, context_);
@@ -930,7 +930,7 @@ public class ElUtilTest {
 
     @Test
     public void processEl66Test() {
-        ContextEl context_ = new ContextEl();
+        ContextEl context_ = contextEl();
         setupAccessValue(context_);
         addImportingPage(context_);
         Argument arg_ = ElUtil.processEl("$new "+ARR_ARR_INTEGER+"(2i)",0, context_);
@@ -944,7 +944,7 @@ public class ElUtilTest {
 
     @Test
     public void processEl67Test() {
-        ContextEl context_ = new ContextEl();
+        ContextEl context_ = contextEl();
         Composite composite_ = new Composite();
         setupAccessValue(context_);
         addImportingPage(context_);
@@ -962,7 +962,7 @@ public class ElUtilTest {
         lv_.setStruct(new StdStruct(ints_));
         lv_.setClassName(ARR_INT);
         localVars_.put("arrays", lv_);
-        ContextEl context_ = new ContextEl();
+        ContextEl context_ = contextEl();
         setupAccessValue(context_);
         addImportingPage(context_);
         context_.getLastPage().getLocalVars().putAllMap(localVars_);
@@ -981,7 +981,7 @@ public class ElUtilTest {
         lv_.setStruct(new StdStruct(ints_));
         lv_.setClassName(ARR_ARR_INT);
         localVars_.put("arrays", lv_);
-        ContextEl context_ = new ContextEl();
+        ContextEl context_ = contextEl();
         setupAccessValue(context_);
         addImportingPage(context_);
         context_.getLastPage().getLocalVars().putAllMap(localVars_);
@@ -993,7 +993,7 @@ public class ElUtilTest {
 
     @Test
     public void processEl70Test() {
-        ContextEl context_ = new ContextEl();
+        ContextEl context_ = contextEl();
         setupAccessValue(context_);
         addImportingPage(context_);
         Argument arg_ = ElUtil.processEl("!!false",0, context_);
@@ -1004,7 +1004,7 @@ public class ElUtilTest {
 
     @Test
     public void processEl71Test() {
-        ContextEl context_ = new ContextEl();
+        ContextEl context_ = contextEl();
         setupAccessValue(context_);
         addImportingPage(context_);
         addBeanClass(context_,Byte.class);
@@ -1016,7 +1016,7 @@ public class ElUtilTest {
 
     @Test
     public void processEl72Test() {
-        ContextEl context_ = new ContextEl();
+        ContextEl context_ = contextEl();
         setupAccessValue(context_);
         addImportingPage(context_);
         Argument arg_ = ElUtil.processEl("$static$java$lang$Byte.MAX_VALUE",0, context_);
@@ -1027,7 +1027,7 @@ public class ElUtilTest {
 
     @Test
     public void processEl73Test() {
-        ContextEl context_ = new ContextEl();
+        ContextEl context_ = contextEl();
         setupAccessValue(context_);
         addImportingPage(context_);
         Argument arg_ = ElUtil.processEl("$new "+STRING_LIST+"()",0, context_);
@@ -1038,7 +1038,7 @@ public class ElUtilTest {
 
     @Test
     public void processEl74Test() {
-        ContextEl context_ = new ContextEl();
+        ContextEl context_ = contextEl();
         setupAccessValue(context_);
         addImportingPage(context_);
         addBeanClass(context_,StringList.class);
@@ -1050,7 +1050,7 @@ public class ElUtilTest {
 
     @Test
     public void processEl75Test() {
-        ContextEl context_ = new ContextEl();
+        ContextEl context_ = contextEl();
         setupAccessValue(context_);
         addImportingPage(context_);
         addBeanClass(context_,StringList.class);
@@ -1062,7 +1062,7 @@ public class ElUtilTest {
 
     @Test
     public void processEl76Test() {
-        ContextEl context_ = new ContextEl();
+        ContextEl context_ = contextEl();
         setupAccessValue(context_);
         addImportingPage(context_);
         Argument arg_ = ElUtil.processEl("$new "+INTERNS+"$InternStaticStandard()",0, context_);
@@ -1072,7 +1072,7 @@ public class ElUtilTest {
 
     @Test
     public void processEl77Test() {
-        ContextEl context_ = new ContextEl();
+        ContextEl context_ = contextEl();
         setupAccessValue(context_);
         addImportingPage(context_);
         Argument arg_ = ElUtil.processEl("(\"Hello\\\\\"+\"World\").length()",0, context_);
@@ -1083,7 +1083,7 @@ public class ElUtilTest {
 
     @Test
     public void processEl78Test() {
-        ContextEl context_ = new ContextEl();
+        ContextEl context_ = contextEl();
         setupAccessValue(context_);
         addImportingPage(context_);
         Argument arg_ = ElUtil.processEl("(\"Hello\\\"\"+\"World\").length()",0, context_);
@@ -1094,7 +1094,7 @@ public class ElUtilTest {
 
     @Test
     public void processEl79Test() {
-        ContextEl context_ = new ContextEl();
+        ContextEl context_ = contextEl();
         setupAccessValue(context_);
         addImportingPage(context_);
         Argument arg_ = ElUtil.processEl("(\"Hello\\\\\"+'\\\\').length()",0, context_);
@@ -1104,7 +1104,7 @@ public class ElUtilTest {
     }
     @Test
     public void processEl80Test() {
-        ContextEl context_ = new ContextEl();
+        ContextEl context_ = contextEl();
         setupAccessValue(context_);
         addImportingPage(context_);
         Argument arg_ = ElUtil.processEl("(\"Hello\\\"\"+'\\'').length()",0, context_);
@@ -1115,7 +1115,7 @@ public class ElUtilTest {
 
     @Test
     public void processEl81Test() {
-        ContextEl context_ = new ContextEl();
+        ContextEl context_ = contextEl();
         setupAccessValue(context_);
         addImportingPage(context_);
         Composite composite_ = new Composite();
@@ -1145,7 +1145,7 @@ public class ElUtilTest {
 
     @Test
     public void processEl82Test() {
-        ContextEl context_ = new ContextEl();
+        ContextEl context_ = contextEl();
         setupAccessValue(context_);
         addImportingPage(context_);
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
@@ -1164,7 +1164,7 @@ public class ElUtilTest {
 
     @Test
     public void processEl83Test() {
-        ContextEl context_ = new ContextEl();
+        ContextEl context_ = contextEl();
         setupAccessValue(context_);
         addImportingPage(context_);
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
@@ -1182,7 +1182,7 @@ public class ElUtilTest {
     }
     @Test
     public void processEl84Test() {
-        ContextEl context_ = new ContextEl();
+        ContextEl context_ = contextEl();
         setupAccessValue(context_);
         addImportingPage(context_);
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
@@ -1198,7 +1198,7 @@ public class ElUtilTest {
 
     @Test
     public void processEl85Test() {
-        ContextEl context_ = new ContextEl();
+        ContextEl context_ = contextEl();
         setupAccessValue(context_);
         addImportingPage(context_);
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
@@ -1216,7 +1216,7 @@ public class ElUtilTest {
 
     @Test
     public void processEl86Test() {
-        ContextEl context_ = new ContextEl();
+        ContextEl context_ = contextEl();
         setupAccessValue(context_);
         addImportingPage(context_);
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
@@ -1233,7 +1233,7 @@ public class ElUtilTest {
 
     @Test
     public void processEl87Test() {
-        ContextEl context_ = new ContextEl();
+        ContextEl context_ = contextEl();
         setupAccessValue(context_);
         addImportingPage(context_);
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
@@ -1250,7 +1250,7 @@ public class ElUtilTest {
 
     @Test
     public void processEl88Test() {
-        ContextEl context_ = new ContextEl();
+        ContextEl context_ = contextEl();
         setupAccessValue(context_);
         addImportingPage(context_);
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
@@ -1267,7 +1267,7 @@ public class ElUtilTest {
 
     @Test
     public void processEl89Test() {
-        ContextEl context_ = new ContextEl();
+        ContextEl context_ = contextEl();
         setupAccessValue(context_);
         addImportingPage(context_);
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
@@ -1284,7 +1284,7 @@ public class ElUtilTest {
 
     @Test
     public void processEl90Test() {
-        ContextEl context_ = new ContextEl();
+        ContextEl context_ = contextEl();
         setupAccessValue(context_);
         addImportingPage(context_);
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
@@ -1301,7 +1301,7 @@ public class ElUtilTest {
 
     @Test
     public void processEl91Test() {
-        ContextEl context_ = new ContextEl();
+        ContextEl context_ = contextEl();
         setupAccessValue(context_);
         addImportingPage(context_);
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
@@ -1318,7 +1318,7 @@ public class ElUtilTest {
 
     @Test
     public void processEl92Test() {
-        ContextEl context_ = new ContextEl();
+        ContextEl context_ = contextEl();
         setupAccessValue(context_);
         addImportingPage(context_);
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
@@ -1335,7 +1335,7 @@ public class ElUtilTest {
 
     @Test
     public void processEl93Test() {
-        ContextEl context_ = new ContextEl();
+        ContextEl context_ = contextEl();
         setupAccessValue(context_);
         addImportingPage(context_);
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
@@ -1352,7 +1352,7 @@ public class ElUtilTest {
 
     @Test
     public void processEl94Test() {
-        ContextEl context_ = new ContextEl();
+        ContextEl context_ = contextEl();
         setupAccessValue(context_);
         addImportingPage(context_);
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
@@ -1369,7 +1369,7 @@ public class ElUtilTest {
 
     @Test
     public void processEl95Test() {
-        ContextEl context_ = new ContextEl();
+        ContextEl context_ = contextEl();
         setupAccessValue(context_);
         addImportingPage(context_);
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
@@ -1386,7 +1386,7 @@ public class ElUtilTest {
 
     @Test
     public void processEl96Test() {
-        ContextEl context_ = new ContextEl();
+        ContextEl context_ = contextEl();
         setupAccessValue(context_);
         addImportingPage(context_);
         Argument arg_ = ElUtil.processEl("$new "+ARR_INT+"[](2i)", 0, context_);
@@ -1399,7 +1399,7 @@ public class ElUtilTest {
 
     @Test
     public void processEl97Test() {
-        ContextEl context_ = new ContextEl();
+        ContextEl context_ = contextEl();
         setupAccessValue(context_);
         addImportingPage(context_);
         Argument arg_ = ElUtil.processEl("$new "+ARR_INT+"[](3i,7i)", 0, context_);
@@ -1413,7 +1413,7 @@ public class ElUtilTest {
 
     @Test
     public void processEl98Test() {
-        ContextEl context_ = new ContextEl();
+        ContextEl context_ = contextEl();
         setupAccessValue(context_);
         addImportingPage(context_);
         Argument arg_ = ElUtil.processEl("$new "+ARR_INT+"[]()", 0, context_);
@@ -1425,7 +1425,7 @@ public class ElUtilTest {
 
     @Test
     public void processEl99Test() {
-        ContextEl context_ = new ContextEl();
+        ContextEl context_ = contextEl();
         setupAccessValue(context_);
         addImportingPage(context_);
         Argument arg_ = ElUtil.processEl("$new "+ARR_INTEGER+"[](3i,7i)", 0, context_);
@@ -1439,7 +1439,7 @@ public class ElUtilTest {
 
     @Test
     public void processEl100Test() {
-        ContextEl context_ = new ContextEl();
+        ContextEl context_ = contextEl();
         setupAccessValue(context_);
         addImportingPage(context_);
         Argument arg_ = ElUtil.processEl(" {(1+2)*3+\" hello\"+\" world {every body ;)\"} ", context_, 2 ,'{','}');
@@ -1451,7 +1451,7 @@ public class ElUtilTest {
 
     @Test
     public void processEl101Test() {
-        ContextEl context_ = new ContextEl();
+        ContextEl context_ = contextEl();
         setupAccessValue(context_);
         addImportingPage(context_);
         Argument arg_ = ElUtil.processEl(" {(\"hello \"+\"world\").length()} ", context_, 2 ,'{','}');
@@ -1463,7 +1463,7 @@ public class ElUtilTest {
 
     @Test
     public void processEl102Test() {
-        ContextEl context_ = new ContextEl();
+        ContextEl context_ = contextEl();
         setupAccessValue(context_);
         addImportingPage(context_);
         Composite b_ = new Composite();
@@ -1482,7 +1482,7 @@ public class ElUtilTest {
 
     @Test
     public void processEl103Test() {
-        ContextEl context_ = new ContextEl();
+        ContextEl context_ = contextEl();
         setupAccessValue(context_);
         addImportingPage(context_);
         Composite b_ = new Composite();
@@ -1501,7 +1501,7 @@ public class ElUtilTest {
 
     @Test
     public void processEl104Test() {
-        ContextEl context_ = new ContextEl();
+        ContextEl context_ = contextEl();
         setupAccessValue(context_);
         addImportingPage(context_);
         addBeanClass(context_, InternsClasses.class);
@@ -1520,7 +1520,7 @@ public class ElUtilTest {
         xml_ += "</method>\n";
         xml_ += "</class>\n";
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = new ContextEl();
+        ContextEl cont_ = contextEl();
         files_.put("pkg/Ex."+Classes.EXT, xml_);
         Classes.validateAll(files_, cont_);
         setupAccessValue(cont_);
@@ -1542,7 +1542,7 @@ public class ElUtilTest {
         xml_ += "</method>\n";
         xml_ += "</class>\n";
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = new ContextEl();
+        ContextEl cont_ = contextEl();
         files_.put("pkg/Ex."+Classes.EXT, xml_);
         Classes.validateAll(files_, cont_);
         setupAccessValue(cont_);
@@ -1563,19 +1563,19 @@ public class ElUtilTest {
         xml_ += "</method>\n";
         xml_ += "</class>\n";
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = new ContextEl();
+        ContextEl cont_ = contextEl();
         files_.put("pkg/Ex."+Classes.EXT, xml_);
         Classes.validateAll(files_, cont_);
         setupAccessValue(cont_);
         addImportingPage(cont_);
         Argument arg_ = ElUtil.processEl("$new pkg.Ex()", 0, cont_);
         Struct res_ = arg_.getStruct();
-        assertEq("pkg.Ex",res_.getClassName());
+        assertEq("pkg.Ex",res_.getClassName(cont_));
     }
 
     @Test
     public void processEl108Test() {
-        ContextEl context_ = new ContextEl();
+        ContextEl context_ = contextEl();
         setupAccessValue(context_);
         addImportingPage(context_);
         Argument arg_ = ElUtil.processEl("$new "+IMPL_FOUR+"().method()",0, context_);
@@ -1594,7 +1594,7 @@ public class ElUtilTest {
         xml_ += "</method>\n";
         xml_ += "</class>\n";
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = new ContextEl();
+        ContextEl cont_ = contextEl();
         files_.put("pkg/Ex."+Classes.EXT, xml_);
         Classes.validateAll(files_, cont_);
         setupAccessValue(cont_);
@@ -1616,7 +1616,7 @@ public class ElUtilTest {
         xml_ += "</method>\n";
         xml_ += "</class>\n";
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = new ContextEl();
+        ContextEl cont_ = contextEl();
         files_.put("pkg/Ex."+Classes.EXT, xml_);
         Classes.validateAll(files_, cont_);
         setupAccessValue(cont_);
@@ -1629,7 +1629,7 @@ public class ElUtilTest {
 
     @Test
     public void processEl111Test() {
-        ContextEl context_ = new ContextEl();
+        ContextEl context_ = contextEl();
         setupAccessValue(context_);
         addImportingPage(context_);
         Composite b_ = new Composite();
@@ -1642,7 +1642,7 @@ public class ElUtilTest {
 
     @Test
     public void processEl112Test() {
-        ContextEl context_ = new ContextEl();
+        ContextEl context_ = contextEl();
         setupAccessValue(context_);
         addImportingPage(context_);
         Composite compos_ = new Composite();
@@ -1660,7 +1660,7 @@ public class ElUtilTest {
 
     @Test
     public void processEl113Test() {
-        ContextEl context_ = new ContextEl();
+        ContextEl context_ = contextEl();
         setupAccessValue(context_);
         addImportingPage(context_);
         Composite b_ = new Composite();
@@ -1673,7 +1673,7 @@ public class ElUtilTest {
 
     @Test
     public void processEl114Test() {
-        ContextEl context_ = new ContextEl();
+        ContextEl context_ = contextEl();
         setupAccessValue(context_);
         addImportingPage(context_);
         Composite b_ = new Composite();
@@ -1686,7 +1686,7 @@ public class ElUtilTest {
 
     @Test
     public void processEl115Test() {
-        ContextEl context_ = new ContextEl();
+        ContextEl context_ = contextEl();
         setupAccessValue(context_);
         addImportingPage(context_);
         Composite b_ = new Composite();
@@ -1699,7 +1699,7 @@ public class ElUtilTest {
 
     @Test
     public void processEl116Test() {
-        ContextEl context_ = new ContextEl();
+        ContextEl context_ = contextEl();
         setupAccessValue(context_);
         addImportingPage(context_);
         Composite b_ = new Composite();
@@ -1712,7 +1712,7 @@ public class ElUtilTest {
 
     @Test
     public void processEl117Test() {
-        ContextEl context_ = new ContextEl();
+        ContextEl context_ = contextEl();
         setupAccessValue(context_);
         addImportingPage(context_);
         Composite b_ = new Composite();
@@ -1725,7 +1725,7 @@ public class ElUtilTest {
 
     @Test
     public void processEl118Test() {
-        ContextEl context_ = new ContextEl();
+        ContextEl context_ = contextEl();
         setupAccessValue(context_);
         addImportingPage(context_);
         Composite b_ = new Composite();
@@ -1738,7 +1738,7 @@ public class ElUtilTest {
 
     @Test
     public void processEl119Test() {
-        ContextEl context_ = new ContextEl();
+        ContextEl context_ = contextEl();
         setupAccessValue(context_);
         addImportingPage(context_);
         Argument arg_ = ElUtil.processEl("(1b+2b)*3",0, context_);
@@ -1749,7 +1749,7 @@ public class ElUtilTest {
 
     @Test
     public void processEl120Test() {
-        ContextEl context_ = new ContextEl();
+        ContextEl context_ = contextEl();
         setupAccessValue(context_);
         addImportingPage(context_);
         Argument arg_ = ElUtil.processEl("(1s+2b)*3",0, context_);
@@ -1760,7 +1760,7 @@ public class ElUtilTest {
 
     @Test
     public void processEl121Test() {
-        ContextEl context_ = new ContextEl();
+        ContextEl context_ = contextEl();
         setupAccessValue(context_);
         addImportingPage(context_);
         Argument arg_ = ElUtil.processEl("--1b",0, context_);
@@ -1771,7 +1771,7 @@ public class ElUtilTest {
 
     @Test
     public void processEl122Test() {
-        ContextEl context_ = new ContextEl();
+        ContextEl context_ = contextEl();
         setupAccessValue(context_);
         addImportingPage(context_);
         Argument arg_ = ElUtil.processEl("-1b",0, context_);
@@ -1782,7 +1782,7 @@ public class ElUtilTest {
 
     @Test
     public void processEl123Test() {
-        ContextEl context_ = new ContextEl();
+        ContextEl context_ = contextEl();
         setupAccessValue(context_);
         addImportingPage(context_);
         Argument arg_ = ElUtil.processEl("+1b",0, context_);
@@ -1793,7 +1793,7 @@ public class ElUtilTest {
 
     @Test
     public void processEl124Test() {
-        ContextEl context_ = new ContextEl();
+        ContextEl context_ = contextEl();
         setupAccessValue(context_);
         addImportingPage(context_);
         Argument arg_ = ElUtil.processEl("+-1b",0, context_);
@@ -1804,7 +1804,7 @@ public class ElUtilTest {
 
     @Test
     public void processEl125Test() {
-        ContextEl context_ = new ContextEl();
+        ContextEl context_ = contextEl();
         setupAccessValue(context_);
         addImportingPage(context_);
         Argument arg_ = ElUtil.processEl("-.25e0+.5",0, context_);
@@ -1815,7 +1815,7 @@ public class ElUtilTest {
 
     @Test
     public void processEl126Test() {
-        ContextEl context_ = new ContextEl();
+        ContextEl context_ = contextEl();
         setupAccessValue(context_);
         addImportingPage(context_);
         Argument arg_ = ElUtil.processEl(" {(1+2)*3+\" hello\"+\" world {every body ;)\"}{5*8} ", context_, 2 ,'{','}');
@@ -1835,7 +1835,7 @@ public class ElUtilTest {
 
     @Test
     public void processEl127Test() {
-        ContextEl context_ = new ContextEl();
+        ContextEl context_ = contextEl();
         setupAccessValue(context_);
         addImportingPage(context_);
         Argument arg_ = ElUtil.processEl(" {(\"hello \"+\"world\").length()}{5*8} ", context_, 2 ,'{','}');
@@ -1854,7 +1854,7 @@ public class ElUtilTest {
 
     @Test(expected=NoSuchDeclaredMethodException.class)
     public void processEl1FailTest() {
-        ContextEl context_ = new ContextEl();
+        ContextEl context_ = contextEl();
         setupAccessValue(context_);
         addImportingPage(context_);
         Composite b_ = new Composite();
@@ -1864,7 +1864,7 @@ public class ElUtilTest {
 
     @Test(expected=RuntimeClassNotFoundException.class)
     public void processEl2FailTest() {
-        ContextEl context_ = new ContextEl();
+        ContextEl context_ = contextEl();
         setupAccessValue(context_);
         addImportingPage(context_);
         Composite b_ = new Composite();
@@ -1874,7 +1874,7 @@ public class ElUtilTest {
 
     @Test(expected=NoSuchDeclaredMethodException.class)
     public void processEl3FailTest() {
-        ContextEl context_ = new ContextEl();
+        ContextEl context_ = contextEl();
         setupAccessValue(context_);
         addImportingPage(context_);
         ElUtil.processEl("$static$"+MY_IMPL_HAT+".ovTwo($new "+MY_IMPL+"())",0, context_);
@@ -1887,7 +1887,7 @@ public class ElUtilTest {
         LocalVariable lv_ = new LocalVariable();
         lv_.setClassName(Integer.class.getName());
         localVars_.put("arg", lv_);
-        ContextEl context_ = new ContextEl();
+        ContextEl context_ = contextEl();
         setupAccessValue(context_);
         addImportingPage(context_);
         addBean(context_,new Composite());
@@ -1897,7 +1897,7 @@ public class ElUtilTest {
 
     @Test(expected=IllegalClassConstructorException.class)
     public void processEl5FailTest() {
-        ContextEl context_ = new ContextEl();
+        ContextEl context_ = contextEl();
         setupAccessValue(context_);
         addImportingPage(context_);
         addBean(context_,new Composite());
@@ -1906,7 +1906,7 @@ public class ElUtilTest {
 
     @Test(expected=AbstractClassConstructorException.class)
     public void processEl6FailTest() {
-        ContextEl context_ = new ContextEl();
+        ContextEl context_ = contextEl();
         setupAccessValue(context_);
         addImportingPage(context_);
         addBean(context_,new Composite());
@@ -1915,7 +1915,7 @@ public class ElUtilTest {
 
     @Test(expected=NegativeSizeException.class)
     public void processEl7FailTest() {
-        ContextEl context_ = new ContextEl();
+        ContextEl context_ = contextEl();
         setupAccessValue(context_);
         addImportingPage(context_);
         addBean(context_,new Composite());
@@ -1924,7 +1924,7 @@ public class ElUtilTest {
 
     @Test(expected=NegativeSizeException.class)
     public void processEl8FailTest() {
-        ContextEl context_ = new ContextEl();
+        ContextEl context_ = contextEl();
         setupAccessValue(context_);
         addImportingPage(context_);
         addBean(context_,new Composite());
@@ -1934,7 +1934,7 @@ public class ElUtilTest {
 
     @Test(expected=StaticAccessException.class)
     public void processEl9FailTest() {
-        ContextEl context_ = new ContextEl();
+        ContextEl context_ = contextEl();
         setupAccessValue(context_);
         addImportingPage(context_);
         addBeanClass(context_,Composite.class);
@@ -1943,7 +1943,7 @@ public class ElUtilTest {
 
     @Test(expected=StaticAccessException.class)
     public void processEl10FailTest() {
-        ContextEl context_ = new ContextEl();
+        ContextEl context_ = contextEl();
         setupAccessValue(context_);
         addImportingPage(context_);
         addBeanClass(context_, InternsClasses.class);
@@ -1952,7 +1952,7 @@ public class ElUtilTest {
 
     @Test(expected=NullGlobalObjectException.class)
     public void processEl11FailTest() {
-        ContextEl context_ = new ContextEl();
+        ContextEl context_ = contextEl();
         setupAccessValue(context_);
         addImportingPage(context_);
         ElUtil.processEl("MAX_VALUE",0, context_);
@@ -1960,7 +1960,7 @@ public class ElUtilTest {
     
     @Test(expected=StaticAccessException.class)
     public void processEl12FailTest() {
-        ContextEl context_ = new ContextEl();
+        ContextEl context_ = contextEl();
         setupAccessValue(context_);
         addImportingPage(context_);
         ElUtil.processEl("$static$"+COMPOSITE_HAT+".integer",0, context_);
@@ -1968,7 +1968,7 @@ public class ElUtilTest {
 
     @Test(expected=BadExpressionLanguageException.class)
     public void processEl13FailTest() {
-        ContextEl context_ = new ContextEl();
+        ContextEl context_ = contextEl();
         setupAccessValue(context_);
         addImportingPage(context_);
         ElUtil.processEl("$static$"+COMPOSITE_HAT+".int$$eger",0, context_);
@@ -1976,7 +1976,7 @@ public class ElUtilTest {
 
     @Test(expected=ErrorCausingException.class)
     public void processEl14FailTest() {
-        ContextEl context_ = new ContextEl();
+        ContextEl context_ = contextEl();
         setupAccessValue(context_);
         addImportingPage(context_);
         ElUtil.processEl("$static$"+STRANGE_INIT_HAT+".NOT_READ",0, context_);
@@ -1984,7 +1984,7 @@ public class ElUtilTest {
 
     @Test(expected=ErrorCausingException.class)
     public void processEl15FailTest() {
-        ContextEl context_ = new ContextEl();
+        ContextEl context_ = contextEl();
         setupAccessValue(context_);
         addImportingPage(context_);
         ElUtil.processEl("$static$"+STRANGE_INIT_HAT+".fail()",0, context_);
@@ -1992,7 +1992,7 @@ public class ElUtilTest {
 
     @Test(expected=ErrorCausingException.class)
     public void processEl16FailTest() {
-        ContextEl context_ = new ContextEl();
+        ContextEl context_ = contextEl();
         setupAccessValue(context_);
         addImportingPage(context_);
         ElUtil.processEl("$new "+STRANGE_INIT+"()",0, context_);
@@ -2000,7 +2000,7 @@ public class ElUtilTest {
 
     @Test(expected=InvokeException.class)
     public void processEl17FailTest() {
-        ContextEl context_ = new ContextEl();
+        ContextEl context_ = contextEl();
         setupAccessValue(context_);
         addImportingPage(context_);
         ElUtil.processEl("$static$"+FAIL_METHODS_HAT+".fail()",0, context_);
@@ -2008,7 +2008,7 @@ public class ElUtilTest {
     
     @Test(expected=InvokeException.class)
     public void processEl18FailTest() {
-        ContextEl context_ = new ContextEl();
+        ContextEl context_ = contextEl();
         setupAccessValue(context_);
         addImportingPage(context_);
         ElUtil.processEl("$new "+FAIL_METHODS+"()",0, context_);
@@ -2016,7 +2016,7 @@ public class ElUtilTest {
 
     @Test(expected=NoSuchDeclaredMethodException.class)
     public void processEl19FailTest() {
-        ContextEl context_ = new ContextEl();
+        ContextEl context_ = contextEl();
         setupAccessValue(context_);
         addImportingPage(context_);
         Composite b_ = new Composite();
@@ -2032,7 +2032,7 @@ public class ElUtilTest {
 
     @Test(expected=StaticAccessException.class)
     public void processEl20FailTest() {
-        ContextEl context_ = new ContextEl();
+        ContextEl context_ = contextEl();
         setupAccessValue(context_);
         addImportingPage(context_);
         ElUtil.processEl("$static$"+COMPOSITE_HAT+".getInteger()",0, context_);
@@ -2040,7 +2040,7 @@ public class ElUtilTest {
 
     @Test(expected=SettingMemberException.class)
     public void processEl21FailTest() {
-        ContextEl context_ = new ContextEl();
+        ContextEl context_ = contextEl();
         setupAccessValue(context_);
         addImportingPage(context_);
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
@@ -2054,7 +2054,7 @@ public class ElUtilTest {
 
     @Test(expected=SettingMemberException.class)
     public void processEl22FailTest() {
-        ContextEl context_ = new ContextEl();
+        ContextEl context_ = contextEl();
         setupAccessValue(context_);
         addImportingPage(context_);
         StringMap<LoopVariable> localVars_ = new StringMap<LoopVariable>();
@@ -2068,7 +2068,7 @@ public class ElUtilTest {
 
     @Test(expected=SettingMemberException.class)
     public void processEl23FailTest() {
-        ContextEl context_ = new ContextEl();
+        ContextEl context_ = contextEl();
         setupAccessValue(context_);
         addImportingPage(context_);
         StringMap<LoopVariable> localVars_ = new StringMap<LoopVariable>();
@@ -2082,7 +2082,7 @@ public class ElUtilTest {
 
     @Test(expected=VarargException.class)
     public void processEl24FailTest() {
-        ContextEl context_ = new ContextEl();
+        ContextEl context_ = contextEl();
         setupAccessValue(context_);
         addImportingPage(context_);
         BeanOne b_ = new BeanOne();
@@ -2093,7 +2093,7 @@ public class ElUtilTest {
 
     @Test(expected=VarargException.class)
     public void processEl25FailTest() {
-        ContextEl context_ = new ContextEl();
+        ContextEl context_ = contextEl();
         setupAccessValue(context_);
         addImportingPage(context_);
         Composite composite_ = new Composite();
@@ -2106,7 +2106,7 @@ public class ElUtilTest {
 
     @Test(expected=RuntimeClassNotFoundException.class)
     public void processEl26FailTest() {
-        ContextEl context_ = new ContextEl();
+        ContextEl context_ = contextEl();
         setupAccessValue(context_);
         addImportingPage(context_);
         Composite composite_ = new Composite();
@@ -2119,7 +2119,7 @@ public class ElUtilTest {
 
     @Test(expected=VarargException.class)
     public void processEl27FailTest() {
-        ContextEl context_ = new ContextEl();
+        ContextEl context_ = contextEl();
         setupAccessValue(context_);
         addImportingPage(context_);
         BeanOne b_ = new BeanOne();
@@ -2130,7 +2130,7 @@ public class ElUtilTest {
 
     @Test(expected=NotStringException.class)
     public void processEl28FailTest() {
-        ContextEl context_ = new ContextEl();
+        ContextEl context_ = contextEl();
         setupAccessValue(context_);
         addImportingPage(context_);
         Composite composite_ = new Composite();
@@ -2143,7 +2143,7 @@ public class ElUtilTest {
 
     @Test(expected=VarargException.class)
     public void processEl29FailTest() {
-        ContextEl context_ = new ContextEl();
+        ContextEl context_ = contextEl();
         setupAccessValue(context_);
         addImportingPage(context_);
         Composite composite_ = new Composite();
@@ -2156,7 +2156,7 @@ public class ElUtilTest {
     
     @Test(expected=BadExpressionLanguageException.class)
     public void processEl30FailTest() {
-        ContextEl context_ = new ContextEl();
+        ContextEl context_ = contextEl();
         setupAccessValue(context_);
         addImportingPage(context_);
         Composite composite_ = new Composite();
@@ -2169,7 +2169,7 @@ public class ElUtilTest {
 
     @Test(expected=EmptyPartException.class)
     public void processEl31FailTest() {
-        ContextEl context_ = new ContextEl();
+        ContextEl context_ = contextEl();
         setupAccessValue(context_);
         addImportingPage(context_);
         Composite composite_ = new Composite();
@@ -2182,7 +2182,7 @@ public class ElUtilTest {
 
     @Test(expected=BadNumberValuesException.class)
     public void processEl32FailTest() {
-        ContextEl conf_ = new ContextEl();
+        ContextEl conf_ = contextEl();
         addImportingPage(conf_);
         BeanOne b_ = new BeanOne();
         addBean(conf_, b_);
@@ -2192,7 +2192,7 @@ public class ElUtilTest {
 
     @Test(expected=BadNumberValuesException.class)
     public void processEl33FailTest() {
-        ContextEl conf_ = new ContextEl();
+        ContextEl conf_ = contextEl();
         addImportingPage(conf_);
         BeanOne b_ = new BeanOne();
         addBean(conf_, b_);
@@ -2202,7 +2202,7 @@ public class ElUtilTest {
 
     @Test(expected=BadNumberValuesException.class)
     public void processEl34FailTest() {
-        ContextEl conf_ = new ContextEl();
+        ContextEl conf_ = contextEl();
         addImportingPage(conf_);
         BeanOne b_ = new BeanOne();
         addBean(conf_, b_);
@@ -2212,7 +2212,7 @@ public class ElUtilTest {
 
     @Test
     public void processAffect1Test() {
-        ContextEl context_ = new ContextEl();
+        ContextEl context_ = contextEl();
         setupAccessValue(context_);
         addImportingPage(context_);
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
@@ -2228,7 +2228,7 @@ public class ElUtilTest {
 
     @Test
     public void processAffect2Test() {
-        ContextEl context_ = new ContextEl();
+        ContextEl context_ = contextEl();
         setupAccessValue(context_);
         addImportingPage(context_);
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
@@ -2246,7 +2246,7 @@ public class ElUtilTest {
 
     @Test
     public void processAffect3Test() {
-        ContextEl context_ = new ContextEl();
+        ContextEl context_ = contextEl();
         setupAccessValue(context_);
         addImportingPage(context_);
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
@@ -2262,7 +2262,7 @@ public class ElUtilTest {
 
     @Test
     public void processAffect4Test() {
-        ContextEl context_ = new ContextEl();
+        ContextEl context_ = contextEl();
         setupAccessValue(context_);
         addImportingPage(context_);
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
@@ -2278,7 +2278,7 @@ public class ElUtilTest {
 
     @Test
     public void processAffect5Test() {
-        ContextEl context_ = new ContextEl();
+        ContextEl context_ = contextEl();
         setupAccessValue(context_);
         addImportingPage(context_);
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
@@ -2294,7 +2294,7 @@ public class ElUtilTest {
 
     @Test
     public void processAffect6Test() {
-        ContextEl context_ = new ContextEl();
+        ContextEl context_ = contextEl();
         setupAccessValue(context_);
         addImportingPage(context_);
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
@@ -2312,7 +2312,7 @@ public class ElUtilTest {
 
     @Test
     public void processAffect7Test() {
-        ContextEl context_ = new ContextEl();
+        ContextEl context_ = contextEl();
         setupAccessValue(context_);
         addImportingPage(context_);
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
@@ -2328,7 +2328,7 @@ public class ElUtilTest {
 
     @Test
     public void processAffect8Test() {
-        ContextEl context_ = new ContextEl();
+        ContextEl context_ = contextEl();
         setupAccessValue(context_);
         addImportingPage(context_);
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
@@ -2344,7 +2344,7 @@ public class ElUtilTest {
 
     @Test
     public void processAffect9Test() {
-        ContextEl context_ = new ContextEl();
+        ContextEl context_ = contextEl();
         setupAccessValue(context_);
         addImportingPage(context_);
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
@@ -2360,7 +2360,7 @@ public class ElUtilTest {
 
     @Test
     public void processAffect10Test() {
-        ContextEl context_ = new ContextEl();
+        ContextEl context_ = contextEl();
         setupAccessValue(context_);
         addImportingPage(context_);
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
@@ -2376,7 +2376,7 @@ public class ElUtilTest {
 
     @Test
     public void processAffect11Test() {
-        ContextEl context_ = new ContextEl();
+        ContextEl context_ = contextEl();
         setupAccessValue(context_);
         addImportingPage(context_);
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
@@ -2391,7 +2391,7 @@ public class ElUtilTest {
     }
     @Test
     public void processAffect12Test() {
-        ContextEl context_ = new ContextEl();
+        ContextEl context_ = contextEl();
         setupAccessValue(context_);
         addImportingPage(context_);
         FieldClass c_ = new FieldClass(8);
@@ -2403,7 +2403,7 @@ public class ElUtilTest {
 
     @Test
     public void processAffect13Test() {
-        ContextEl context_ = new ContextEl();
+        ContextEl context_ = contextEl();
         setupAccessValue(context_);
         addImportingPage(context_);
         FieldFieldClass c_ = new FieldFieldClass(new FieldClass(8));
@@ -2414,7 +2414,7 @@ public class ElUtilTest {
 
     @Test
     public void processAffect14Test() {
-        ContextEl context_ = new ContextEl();
+        ContextEl context_ = contextEl();
         setupAccessValue(context_);
         addImportingPage(context_);
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
@@ -2431,7 +2431,7 @@ public class ElUtilTest {
 
     @Test
     public void processAffect15Test() {
-        ContextEl context_ = new ContextEl();
+        ContextEl context_ = contextEl();
         setupAccessValue(context_);
         addImportingPage(context_);
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
@@ -2448,7 +2448,7 @@ public class ElUtilTest {
 
     @Test
     public void processAffect16Test() {
-        ContextEl context_ = new ContextEl();
+        ContextEl context_ = contextEl();
         setupAccessValue(context_);
         addImportingPage(context_);
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
@@ -2465,7 +2465,7 @@ public class ElUtilTest {
 
     @Test
     public void processAffect17Test() {
-        ContextEl context_ = new ContextEl();
+        ContextEl context_ = contextEl();
         setupAccessValue(context_);
         addImportingPage(context_);
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
@@ -2483,7 +2483,7 @@ public class ElUtilTest {
 
     @Test
     public void processAffect18Test() {
-        ContextEl context_ = new ContextEl();
+        ContextEl context_ = contextEl();
         setupAccessValue(context_);
         addImportingPage(context_);
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
@@ -2505,7 +2505,7 @@ public class ElUtilTest {
 
     @Test
     public void processAffect19Test() {
-        ContextEl context_ = new ContextEl();
+        ContextEl context_ = contextEl();
         setupAccessValue(context_);
         addImportingPage(context_);
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
@@ -2521,7 +2521,7 @@ public class ElUtilTest {
 
     @Test
     public void processAffect20Test() {
-        ContextEl context_ = new ContextEl();
+        ContextEl context_ = contextEl();
         setupAccessValue(context_);
         addImportingPage(context_);
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
@@ -2546,7 +2546,7 @@ public class ElUtilTest {
         xml_ += "</method>\n";
         xml_ += "</class>\n";
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = new ContextEl();
+        ContextEl cont_ = contextEl();
         files_.put("pkg/Ex."+Classes.EXT, xml_);
         Classes.validateAll(files_, cont_);
         setupAccessValue(cont_);
@@ -2577,7 +2577,7 @@ public class ElUtilTest {
         xml_ += "</method>\n";
         xml_ += "</class>\n";
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = new ContextEl();
+        ContextEl cont_ = contextEl();
         files_.put("pkg/Ex."+Classes.EXT, xml_);
         Classes.validateAll(files_, cont_);
         setupAccessValue(cont_);
@@ -2599,7 +2599,7 @@ public class ElUtilTest {
 
     @Test(expected=FinalMemberException.class)
     public void processAffect1FailTest() {
-        ContextEl context_ = new ContextEl();
+        ContextEl context_ = contextEl();
         setupAccessValue(context_);
         addImportingPage(context_);
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
@@ -2614,7 +2614,7 @@ public class ElUtilTest {
 
     @Test(expected=SettingMemberException.class)
     public void processAffect2FailTest() {
-        ContextEl context_ = new ContextEl();
+        ContextEl context_ = contextEl();
         setupAccessValue(context_);
         addImportingPage(context_);
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
@@ -2627,7 +2627,7 @@ public class ElUtilTest {
     }
     @Test(expected=DynamicCastClassException.class)
     public void processAffect3FailTest() {
-        ContextEl context_ = new ContextEl();
+        ContextEl context_ = contextEl();
         setupAccessValue(context_);
         addImportingPage(context_);
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
@@ -2642,7 +2642,7 @@ public class ElUtilTest {
 
     @Test(expected=DynamicCastClassException.class)
     public void processAffect4FailTest() {
-        ContextEl context_ = new ContextEl();
+        ContextEl context_ = contextEl();
         setupAccessValue(context_);
         addImportingPage(context_);
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
@@ -2658,7 +2658,7 @@ public class ElUtilTest {
 
     @Test(expected=DynamicCastClassException.class)
     public void processAffect5FailTest() {
-        ContextEl context_ = new ContextEl();
+        ContextEl context_ = contextEl();
         setupAccessValue(context_);
         addImportingPage(context_);
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
@@ -2672,7 +2672,7 @@ public class ElUtilTest {
 
     @Test(expected=NullObjectException.class)
     public void processAffect6FailTest() {
-        ContextEl context_ = new ContextEl();
+        ContextEl context_ = contextEl();
         setupAccessValue(context_);
         addImportingPage(context_);
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
@@ -2691,7 +2691,7 @@ public class ElUtilTest {
 
     @Test(expected=NullObjectException.class)
     public void processAffect7FailTest() {
-        ContextEl context_ = new ContextEl();
+        ContextEl context_ = contextEl();
         setupAccessValue(context_);
         addImportingPage(context_);
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
@@ -2710,7 +2710,7 @@ public class ElUtilTest {
 
     @Test(expected=NullObjectException.class)
     public void processAffect8FailTest() {
-        ContextEl context_ = new ContextEl();
+        ContextEl context_ = contextEl();
         setupAccessValue(context_);
         addImportingPage(context_);
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
@@ -2727,7 +2727,7 @@ public class ElUtilTest {
 
     @Test(expected=SettingMemberException.class)
     public void processAffect9FailTest() {
-        ContextEl context_ = new ContextEl();
+        ContextEl context_ = contextEl();
         setupAccessValue(context_);
         addImportingPage(context_);
         addBean(context_, new BeanOne());
@@ -2745,7 +2745,7 @@ public class ElUtilTest {
 
     @Test(expected=StaticAccessException.class)
     public void processAffect10FailTest() {
-        ContextEl context_ = new ContextEl();
+        ContextEl context_ = contextEl();
         setupAccessValue(context_);
         addImportingPage(context_);
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
@@ -2771,7 +2771,7 @@ public class ElUtilTest {
         xml_ += "</method>\n";
         xml_ += "</class>\n";
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = new ContextEl();
+        ContextEl cont_ = contextEl();
         files_.put("pkg/Ex."+Classes.EXT, xml_);
         Classes.validateAll(files_, cont_);
         setupAccessValue(cont_);
@@ -2788,7 +2788,7 @@ public class ElUtilTest {
 
     @Test(expected=DynamicArrayStoreException.class)
     public void processAffect12FailTest() {
-        ContextEl context_ = new ContextEl();
+        ContextEl context_ = contextEl();
         setupAccessValue(context_);
         addImportingPage(context_);
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
@@ -2820,6 +2820,9 @@ public class ElUtilTest {
         _conf.getLastPage().setGlobalArgument(_bean);
         _conf.getLastPage().setGlobalClass(_bean.getName());
     }
-
+    private ContextEl contextEl() {
+        ContextEl cont_ = new ContextEl();
+        return cont_;
+    }
 
 }

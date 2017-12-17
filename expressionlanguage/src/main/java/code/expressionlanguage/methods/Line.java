@@ -131,8 +131,8 @@ public final class Line extends Leaf implements StackableBlock {
         if (isCallSuper()) {
             String curClass_ = ip_.getGlobalClass();
             String curClassBase_ = StringList.getAllTypes(curClass_).first();
-            String instClass_ = ip_.getGlobalArgument().getObjectClassName();
-            String formatted_ = Templates.getFullTypeByBases(instClass_, curClassBase_, _cont.getClasses());
+            String instClass_ = ip_.getGlobalArgument().getObjectClassName(_cont);
+            String formatted_ = Templates.getFullTypeByBases(instClass_, curClassBase_, _cont);
             ClassMetaInfo meta_ = _cont.getClasses().getClassMetaInfo(curClassBase_);
             String superClass_ = meta_.getSuperClass();
             String baseSuperClass_ = StringList.getAllTypes(superClass_).first();
@@ -144,7 +144,7 @@ public final class Line extends Leaf implements StackableBlock {
                         ConstructorId super_ = new ConstructorId(baseSuperClass_, new EqList<ClassName>());
                         StringList called_ = ip_.getCallingConstr().getCalledConstructors();
                         Argument global_ = ip_.getGlobalArgument();
-                        String generic_ = Templates.getFullTypeByBases(formatted_, i, _cont.getClasses());
+                        String generic_ = Templates.getFullTypeByBases(formatted_, i, _cont);
                         throw new CustomFoundConstructorException(generic_, EMPTY_STRING, called_, super_, global_, new CustList<Argument>(), InstancingStep.USING_SUPER);
                     }
                 }

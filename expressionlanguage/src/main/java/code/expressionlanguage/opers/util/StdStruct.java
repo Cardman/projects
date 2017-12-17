@@ -1,9 +1,10 @@
 package code.expressionlanguage.opers.util;
 
+import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.types.NativeTypeUtil;
 import code.util.ObjectMap;
 
-public final class StdStruct implements Struct {
+public final class StdStruct extends Struct {
 
     private final Object instance;
 
@@ -61,15 +62,12 @@ public final class StdStruct implements Struct {
     }
 
     @Override
-    public String getClassName() {
+    public String getClassName(ContextEl _contextEl) {
         return className;
     }
 
     @Override
-    public String getRealClassName() {
-        if (instance == null) {
-            return null;
-        }
+    public String getRealClassName(ContextEl _contextEl) {
         return instance.getClass().getName();
     }
 

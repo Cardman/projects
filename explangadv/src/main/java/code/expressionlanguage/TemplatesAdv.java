@@ -424,7 +424,7 @@ public final class TemplatesAdv {
             return null;
         }
         if (!baseArrayArg_.startsWith(PREFIX_VAR_TYPE)) {
-            if (!PrimitiveTypeUtil.canBeUseAsArgument(baseParam_, baseArg_, _classes)) {
+            if (!PrimitiveTypeUtil.canBeUseAsArgument(baseParam_, baseArg_, null)) {
                 return null;
             }
         }

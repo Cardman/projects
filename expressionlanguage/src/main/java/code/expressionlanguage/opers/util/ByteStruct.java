@@ -1,8 +1,9 @@
 package code.expressionlanguage.opers.util;
 
+import code.expressionlanguage.ContextEl;
 import code.util.ObjectMap;
 
-public final class ByteStruct implements Struct {
+public final class ByteStruct extends Struct {
 
     private final byte value;
 
@@ -21,13 +22,8 @@ public final class ByteStruct implements Struct {
     }
 
     @Override
-    public String getClassName() {
+    public String getClassName(ContextEl _context) {
         return Byte.class.getName();
-    }
-
-    @Override
-    public String getRealClassName() {
-        return getClassName();
     }
 
     @Override

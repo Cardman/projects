@@ -947,7 +947,9 @@ public class RootBlockTest {
     }
     private static ContextEl unfullValidateOverridingMethods(StringMap<String> _files) {
         ContextEl cont_ = new ContextEl();
-        Classes classes_ = new Classes(_files, cont_);
+        Classes classes_ = new Classes();
+        classes_.tryBuildClassesBodies(_files, cont_);
+        assertTrue(classes_.getErrorsDet().toString(), classes_.getErrorsDet().isEmpty());
         cont_.setClasses(classes_);
         assertTrue(classes_.getErrorsDet().toString(), classes_.getErrorsDet().isEmpty());
         classes_.validateInheritingClasses(cont_);

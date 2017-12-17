@@ -196,7 +196,7 @@ final class ExtractCondition {
             Argument a_ = ElUtil.processEl(conditionWithoutNeg_, 0, _conf.toContextEl());
             Object o_ = a_.getObject();
             if (!(o_ instanceof Boolean)) {
-                throw new DynamicCastClassException(a_.getObjectClassName()+RETURN_LINE+PrimitiveTypeUtil.PRIM_BOOLEAN+RETURN_LINE+_conf.joinPages());
+                throw new DynamicCastClassException(a_.getObjectClassName(_conf.toContextEl())+RETURN_LINE+PrimitiveTypeUtil.PRIM_BOOLEAN+RETURN_LINE+_conf.joinPages());
             }
             Boolean b_ = (Boolean) o_;
             if (nbNeg_%2 == 1) {

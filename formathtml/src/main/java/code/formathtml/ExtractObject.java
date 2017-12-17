@@ -199,7 +199,7 @@ final class ExtractObject {
                             String valName_ = _ip.getNextTempVar();
                             lv_ = new LocalVariable();
                             lv_.setStruct(trloc_);
-                            lv_.setClassName(trloc_.getClassName());
+                            lv_.setClassName(trloc_.getClassName(_conf.toContextEl()));
                             _ip.getLocalVars().put(valName_, lv_);
                             String patName_ = _ip.getNextTempVar();
                             lv_ = new LocalVariable();
@@ -219,7 +219,7 @@ final class ExtractObject {
                             String beanName_ = _ip.getNextTempVar();
                             lv_ = new LocalVariable();
                             lv_.setStruct(bean_);
-                            lv_.setClassName(bean_.getClassName());
+                            lv_.setClassName(bean_.getClassName(_conf.toContextEl()));
                             _ip.getLocalVars().put(beanName_, lv_);
                             String objName_ = _ip.getNextTempVar();
                             lv_ = new LocalVariable();
@@ -497,12 +497,12 @@ final class ExtractObject {
             }
             ImportingPage ip_ = _conf.getLastPage();
             LocalVariable lvOne_ = new LocalVariable();
-            lvOne_.setClassName(ConstClasses.resolve(_objOne.getClassName()));
+            lvOne_.setClassName(ConstClasses.resolve(_objOne.getClassName(_conf.toContextEl())));
             lvOne_.setStruct(_objOne);
             String nameOne_ = ip_.getNextTempVar();
             ip_.getLocalVars().put(nameOne_, lvOne_);
             LocalVariable lvTwo_ = new LocalVariable();
-            lvTwo_.setClassName(ConstClasses.resolve(_objTwo.getClassName()));
+            lvTwo_.setClassName(ConstClasses.resolve(_objTwo.getClassName(_conf.toContextEl())));
             lvTwo_.setStruct(_objTwo);
             String nameTwo_ = ip_.getNextTempVar();
             ip_.getLocalVars().put(nameTwo_, lvTwo_);
@@ -577,7 +577,7 @@ final class ExtractObject {
         String varName_ = ip_.getNextTempVar();
         LocalVariable var_ = new LocalVariable();
         var_.setStruct(_instance);
-        var_.setClassName(_instance.getClassName());
+        var_.setClassName(_instance.getClassName(_conf.toContextEl()));
         ip_.getLocalVars().put(varName_, var_);
         String expression_ = varName_+GET_LOC_VAR+_methodName+NO_PARAM_METHOD;
         try {
@@ -596,7 +596,7 @@ final class ExtractObject {
         String varName_ = ip_.getNextTempVar();
         LocalVariable var_ = new LocalVariable();
         var_.setStruct(_instance);
-        var_.setClassName(_instance.getClassName());
+        var_.setClassName(_instance.getClassName(_conf.toContextEl()));
         ip_.getLocalVars().put(varName_, var_);
         String argName_ = ip_.getNextTempVar();
         var_ = new LocalVariable();

@@ -1,4 +1,4 @@
-package code.formathtml.images;
+package code.imagesurl;
 import java.awt.image.BufferedImage;
 import java.awt.image.RenderedImage;
 import java.io.File;

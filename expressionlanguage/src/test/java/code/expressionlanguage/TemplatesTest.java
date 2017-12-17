@@ -401,45 +401,52 @@ public class TemplatesTest {
 
     @Test
     public void getTypesByBases1Test() {
-        StringList t_ = Templates.getTypesByBases("java.lang.String", "java.lang.Object", null);
+        ContextEl context_ = simpleContextEl();
+        StringList t_ = Templates.getTypesByBases("java.lang.String", "java.lang.Object", context_);
         assertEq(0, t_.size());
     }
     
     @Test
     public void getTypesByBases2Test() {
-        StringList t_ = Templates.getTypesByBases("java.lang.Object", "java.lang.String", null);
+        ContextEl context_ = simpleContextEl();
+        StringList t_ = Templates.getTypesByBases("java.lang.Object", "java.lang.String", context_);
         assertNull(t_);
     }
     
     @Test
     public void getTypesByBases3Test() {
-        StringList t_ = Templates.getTypesByBases(StringList.class.getName(), Listable.class.getName(), null);
+        ContextEl context_ = simpleContextEl();
+        StringList t_ = Templates.getTypesByBases(StringList.class.getName(), Listable.class.getName(), context_);
         assertEq(1, t_.size());
         assertEq("java.lang.String", t_.get(0));
     }
     
     @Test
     public void getTypesByBases4Test() {
-        StringList t_ = Templates.getTypesByBases(StringList.class.getName(), Iterable.class.getName(), null);
+        ContextEl context_ = simpleContextEl();
+        StringList t_ = Templates.getTypesByBases(StringList.class.getName(), Iterable.class.getName(), context_);
         assertEq(1, t_.size());
         assertEq("java.lang.String", t_.get(0));
     }
     
     @Test
     public void getTypesByBases5Test() {
-        StringList t_ = Templates.getTypesByBases(Listable.class.getName(), Iterable.class.getName(), null);
+        ContextEl context_ = simpleContextEl();
+        StringList t_ = Templates.getTypesByBases(Listable.class.getName(), Iterable.class.getName(), context_);
         assertNull(t_);
     }
     
     @Test
     public void getTypesByBases6Test() {
-        StringList t_ = Templates.getTypesByBases("java.lang.String", "java.lang.String", null);
+        ContextEl context_ = simpleContextEl();
+        StringList t_ = Templates.getTypesByBases("java.lang.String", "java.lang.String", context_);
         assertEq(0, t_.size());
     }
     
     @Test
     public void getTypesByBases7Test() {
-        StringList t_ = Templates.getTypesByBases(Listable.class.getName(), Listable.class.getName(), null);
+        ContextEl context_ = simpleContextEl();
+        StringList t_ = Templates.getTypesByBases(Listable.class.getName(), Listable.class.getName(), context_);
         assertEq(0, t_.size());
     }
     
@@ -451,7 +458,7 @@ public class TemplatesTest {
         files_.put("pkg/Ex."+Classes.EXT, xml_);
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
         Classes classes_ = cont_.getClasses();
-        StringList t_ = Templates.getTypesByBases("pkg.Ex", "pkg.Ex", classes_);
+        StringList t_ = Templates.getTypesByBases("pkg.Ex", "pkg.Ex", cont_);
         assertEq(0, t_.size());
     }
     
@@ -465,7 +472,7 @@ public class TemplatesTest {
         files_.put("pkg/ExTwo."+Classes.EXT, xml_);
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
         Classes classes_ = cont_.getClasses();
-        StringList t_ = Templates.getTypesByBases("pkg.ExTwo", "pkg.Ex", classes_);
+        StringList t_ = Templates.getTypesByBases("pkg.ExTwo", "pkg.Ex", cont_);
         assertEq(0, t_.size());
     }
     
@@ -479,49 +486,56 @@ public class TemplatesTest {
         files_.put("pkg/ExTwo."+Classes.EXT, xml_);
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
         Classes classes_ = cont_.getClasses();
-        StringList t_ = Templates.getTypesByBases("pkg.Ex", "pkg.ExTwo", classes_);
+        StringList t_ = Templates.getTypesByBases("pkg.Ex", "pkg.ExTwo", cont_);
         assertNull(t_);
     }
 
     @Test
     public void getGenericTypeByBases1Test() {
-        String t_ = Templates.getFullTypeByBases("java.lang.String", "java.lang.Object", null);
+        ContextEl context_ = simpleContextEl();
+        String t_ = Templates.getFullTypeByBases("java.lang.String", "java.lang.Object", context_);
         assertEq("java.lang.Object", t_);
     }
 
     @Test
     public void getGenericTypeByBases2Test() {
-        String t_ = Templates.getFullTypeByBases("java.lang.Object", "java.lang.String", null);
+        ContextEl context_ = simpleContextEl();
+        String t_ = Templates.getFullTypeByBases("java.lang.Object", "java.lang.String", context_);
         assertNull(t_);
     }
 
     @Test
     public void getGenericTypeByBases3Test() {
-        String t_ = Templates.getFullTypeByBases(StringList.class.getName(), Listable.class.getName(), null);
+        ContextEl context_ = simpleContextEl();
+        String t_ = Templates.getFullTypeByBases(StringList.class.getName(), Listable.class.getName(), context_);
         assertEq("code.util.ints.Listable<java.lang.String>", t_);
     }
 
     @Test
     public void getGenericTypeByBases4Test() {
-        String t_ = Templates.getFullTypeByBases(StringList.class.getName(), Iterable.class.getName(), null);
+        ContextEl context_ = simpleContextEl();
+        String t_ = Templates.getFullTypeByBases(StringList.class.getName(), Iterable.class.getName(), context_);
         assertEq("java.lang.Iterable<java.lang.String>", t_);
     }
 
     @Test
     public void getGenericTypeByBases5Test() {
-        String t_ = Templates.getFullTypeByBases(Listable.class.getName(), Iterable.class.getName(), null);
+        ContextEl context_ = simpleContextEl();
+        String t_ = Templates.getFullTypeByBases(Listable.class.getName(), Iterable.class.getName(), context_);
         assertNull(t_);
     }
 
     @Test
     public void getGenericTypeByBases6Test() {
-        String t_ = Templates.getFullTypeByBases("java.lang.String", "java.lang.String", null);
+        ContextEl context_ = simpleContextEl();
+        String t_ = Templates.getFullTypeByBases("java.lang.String", "java.lang.String", context_);
         assertEq("java.lang.String", t_);
     }
 
     @Test
     public void getGenericTypeByBases7Test() {
-        String t_ = Templates.getFullTypeByBases(Listable.class.getName(), Listable.class.getName(), null);
+        ContextEl context_ = simpleContextEl();
+        String t_ = Templates.getFullTypeByBases(Listable.class.getName(), Listable.class.getName(), context_);
         assertEq("code.util.ints.Listable", t_);
     }
 
@@ -533,7 +547,7 @@ public class TemplatesTest {
         files_.put("pkg/Ex."+Classes.EXT, xml_);
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
         Classes classes_ = cont_.getClasses();
-        String t_ = Templates.getFullTypeByBases("pkg.Ex", "pkg.Ex", classes_);
+        String t_ = Templates.getFullTypeByBases("pkg.Ex", "pkg.Ex", cont_);
         assertEq("pkg.Ex", t_);
     }
 
@@ -547,7 +561,7 @@ public class TemplatesTest {
         files_.put("pkg/ExTwo."+Classes.EXT, xml_);
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
         Classes classes_ = cont_.getClasses();
-        String t_ = Templates.getFullTypeByBases("pkg.ExTwo", "pkg.Ex", classes_);
+        String t_ = Templates.getFullTypeByBases("pkg.ExTwo", "pkg.Ex", cont_);
         assertEq("pkg.Ex", t_);
     }
 
@@ -561,13 +575,14 @@ public class TemplatesTest {
         files_.put("pkg/ExTwo."+Classes.EXT, xml_);
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
         Classes classes_ = cont_.getClasses();
-        String t_ = Templates.getFullTypeByBases("pkg.Ex", "pkg.ExTwo", classes_);
+        String t_ = Templates.getFullTypeByBases("pkg.Ex", "pkg.ExTwo", cont_);
         assertNull(t_);
     }
 
     @Test
     public void getGenericTypeByBases11Test() {
-        String t_ = Templates.getFullTypeByBases(Listable.class.getName()+"<#E>", Iterable.class.getName(), null);
+        ContextEl context_ = simpleContextEl();
+        String t_ = Templates.getFullTypeByBases(Listable.class.getName()+"<#E>", Iterable.class.getName(), context_);
         assertEq("java.lang.Iterable<#E>",t_);
     }
 
@@ -581,7 +596,7 @@ public class TemplatesTest {
         files_.put("pkg/ExTwo."+Classes.EXT, xml_);
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
         Classes classes_ = cont_.getClasses();
-        String t_ = Templates.getFullTypeByBases("pkg.ExTwo<#V>", "pkg.Ex", classes_);
+        String t_ = Templates.getFullTypeByBases("pkg.ExTwo<#V>", "pkg.Ex", cont_);
         assertEq("pkg.Ex<#V>", t_);
     }
 
@@ -595,7 +610,7 @@ public class TemplatesTest {
         files_.put("pkg/ExTwo."+Classes.EXT, xml_);
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
         Classes classes_ = cont_.getClasses();
-        String t_ = Templates.getFullTypeByBases("pkg.ExTwo", "pkg.Ex", classes_);
+        String t_ = Templates.getFullTypeByBases("pkg.ExTwo", "pkg.Ex", cont_);
         assertEq("pkg.Ex<java.lang.Number>", t_);
     }
     @Test
@@ -608,308 +623,351 @@ public class TemplatesTest {
         files_.put("pkg/ExTwo."+Classes.EXT, xml_);
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
         Classes classes_ = cont_.getClasses();
-        String t_ = Templates.getFullTypeByBases("pkg.Ex<#V>", "pkg.Ex", classes_);
+        String t_ = Templates.getFullTypeByBases("pkg.Ex<#V>", "pkg.Ex", cont_);
         assertEq("pkg.Ex<#V>", t_);
     }
     @Test
     public void isCorrectWrite1Test() {
-        assertTrue(Templates.isCorrectWrite("java.lang.String"));
+        ContextEl context_ = simpleContextEl();
+        assertTrue(Templates.isCorrectWrite("java.lang.String", context_));
     }
 
     @Test
     public void isCorrectWrite2Test() {
-        assertTrue(Templates.isCorrectWrite(PrimitiveTypeUtil.PRIM_INT));
+        ContextEl context_ = simpleContextEl();
+        assertTrue(Templates.isCorrectWrite(PrimitiveTypeUtil.PRIM_INT, context_));
     }
 
     @Test
     public void isCorrectWrite3Test() {
-        assertTrue(Templates.isCorrectWrite("[java.lang.String"));
+        ContextEl context_ = simpleContextEl();
+        assertTrue(Templates.isCorrectWrite("[java.lang.String", context_));
     }
 
     @Test
     public void isCorrectWrite4Test() {
-        assertTrue(Templates.isCorrectWrite("["+PrimitiveTypeUtil.PRIM_INT));
+        ContextEl context_ = simpleContextEl();
+        assertTrue(Templates.isCorrectWrite("["+PrimitiveTypeUtil.PRIM_INT, context_));
     }
 
     @Test
     public void isCorrectWrite5Test() {
-        assertTrue(Templates.isCorrectWrite("#E"));
+        ContextEl context_ = simpleContextEl();
+        assertTrue(Templates.isCorrectWrite("#E", context_));
     }
 
     @Test
     public void isCorrectWrite6Test() {
-        assertTrue(Templates.isCorrectWrite("[#E"));
+        ContextEl context_ = simpleContextEl();
+        assertTrue(Templates.isCorrectWrite("[#E", context_));
     }
 
     @Test
     public void isCorrectWrite7Test() {
-        assertTrue(Templates.isCorrectWrite("code.util.CustList<#E>"));
+        ContextEl context_ = simpleContextEl();
+        assertTrue(Templates.isCorrectWrite("code.util.CustList<#E>", context_));
     }
 
     @Test
     public void isCorrectWrite8Test() {
-        assertTrue(Templates.isCorrectWrite("code.util.CustList<[#E>"));
+        ContextEl context_ = simpleContextEl();
+        assertTrue(Templates.isCorrectWrite("code.util.CustList<[#E>", context_));
     }
 
     @Test
     public void isCorrectWrite9Test() {
-        assertTrue(Templates.isCorrectWrite("code.util.CustList<["+PrimitiveTypeUtil.PRIM_INT+">"));
+        ContextEl context_ = simpleContextEl();
+        assertTrue(Templates.isCorrectWrite("code.util.CustList<["+PrimitiveTypeUtil.PRIM_INT+">", context_));
     }
 
     @Test
     public void isCorrectWrite10Test() {
-        assertTrue(Templates.isCorrectWrite("code.util.CustList<java.lang.String>"));
+        ContextEl context_ = simpleContextEl();
+        assertTrue(Templates.isCorrectWrite("code.util.CustList<java.lang.String>", context_));
     }
 
     @Test
     public void isCorrectWrite11Test() {
-        assertTrue(Templates.isCorrectWrite("code.util.CustList<code.util.CustList<java.lang.String>>"));
+        ContextEl context_ = simpleContextEl();
+        assertTrue(Templates.isCorrectWrite("code.util.CustList<code.util.CustList<java.lang.String>>", context_));
     }
 
     @Test
     public void isCorrectWrite12Test() {
-        assertTrue(Templates.isCorrectWrite("code.util.CustList<code.util.CustList<java.lang.String>,java.lang.String>"));
+        ContextEl context_ = simpleContextEl();
+        assertTrue(Templates.isCorrectWrite("code.util.CustList<code.util.CustList<java.lang.String>,java.lang.String>", context_));
     }
 
     @Test
     public void isCorrectWrite13Test() {
-        assertTrue(Templates.isCorrectWrite("code.util.CustList<code.util.CustList<java.lang.String,java.lang.String>>"));
+        ContextEl context_ = simpleContextEl();
+        assertTrue(Templates.isCorrectWrite("code.util.CustList<code.util.CustList<java.lang.String,java.lang.String>>", context_));
     }
 
     @Test
     public void isCorrectWrite14Test() {
-        assertTrue(!Templates.isCorrectWrite("code.util.CustList<code.util.CustList<java.lang.String,java.lang.String>"));
+        ContextEl context_ = simpleContextEl();
+        assertTrue(!Templates.isCorrectWrite("code.util.CustList<code.util.CustList<java.lang.String,java.lang.String>", context_));
     }
 
     @Test
     public void isCorrectWrite15Test() {
-        assertTrue(!Templates.isCorrectWrite("code.util.CustList<code.util.CustList<java.lang.String,java.lang.String>>>"));
+        ContextEl context_ = simpleContextEl();
+        assertTrue(!Templates.isCorrectWrite("code.util.CustList<code.util.CustList<java.lang.String,java.lang.String>>>", context_));
     }
 
     @Test
     public void isCorrectWrite16Test() {
-        assertTrue(!Templates.isCorrectWrite("code.util.CustList<"+PrimitiveTypeUtil.PRIM_INT+">"));
+        ContextEl context_ = simpleContextEl();
+        assertTrue(!Templates.isCorrectWrite("code.util.CustList<"+PrimitiveTypeUtil.PRIM_INT+">", context_));
     }
 
     @Test
     public void isCorrectWrite17Test() {
-        assertTrue(!Templates.isCorrectWrite("code.util.CustList<code.util.CustList<"+PrimitiveTypeUtil.PRIM_INT+",java.lang.String>>"));
+        ContextEl context_ = simpleContextEl();
+        assertTrue(!Templates.isCorrectWrite("code.util.CustList<code.util.CustList<"+PrimitiveTypeUtil.PRIM_INT+",java.lang.String>>", context_));
     }
 
     @Test
     public void isCorrectWrite18Test() {
-        assertTrue(!Templates.isCorrectWrite("code.util.CustList<["+PrimitiveTypeUtil.PRIM_INT+".int>"));
+        ContextEl context_ = simpleContextEl();
+        assertTrue(!Templates.isCorrectWrite("code.util.CustList<["+PrimitiveTypeUtil.PRIM_INT+".int>", context_));
     }
 
     @Test
     public void isCorrectWrite19Test() {
-        assertTrue(!Templates.isCorrectWrite("code.util.CustList<code.util.CustList<["+PrimitiveTypeUtil.PRIM_INT+".int,java.lang.String>>"));
+        ContextEl context_ = simpleContextEl();
+        assertTrue(!Templates.isCorrectWrite("code.util.CustList<code.util.CustList<["+PrimitiveTypeUtil.PRIM_INT+".int,java.lang.String>>", context_));
     }
 
     @Test
     public void isCorrectWrite20Test() {
-        assertTrue(!Templates.isCorrectWrite("code.util.CustList<#E.int>"));
+        ContextEl context_ = simpleContextEl();
+        assertTrue(!Templates.isCorrectWrite("code.util.CustList<#E.int>", context_));
     }
 
     @Test
     public void isCorrectWrite21Test() {
-        assertTrue(!Templates.isCorrectWrite("code.util.CustList<#E<java.lang.String>>"));
+        ContextEl context_ = simpleContextEl();
+        assertTrue(!Templates.isCorrectWrite("code.util.CustList<#E<java.lang.String>>", context_));
     }
 
     @Test
     public void isCorrectWrite22Test() {
-        assertTrue(!Templates.isCorrectWrite("code.util.CustList<,>"));
+        ContextEl context_ = simpleContextEl();
+        assertTrue(!Templates.isCorrectWrite("code.util.CustList<,>", context_));
     }
 
     @Test
     public void isCorrectWrite23Test() {
-        assertTrue(!Templates.isCorrectWrite("code.util.CustList<java.lang;String>"));
+        ContextEl context_ = simpleContextEl();
+        assertTrue(!Templates.isCorrectWrite("code.util.CustList<java.lang;String>", context_));
     }
 
     @Test
     public void isCorrectWrite24Test() {
-        assertTrue(!Templates.isCorrectWrite("code.util.CustList<<java.lang.String>>"));
+        ContextEl context_ = simpleContextEl();
+        assertTrue(!Templates.isCorrectWrite("code.util.CustList<<java.lang.String>>", context_));
     }
     @Test
     public void isCorrect1Test() {
+        ContextEl context_ = simpleContextEl();
         Mapping m_ = new Mapping();
         m_.setArg("java.lang.Object");
         m_.setParam("java.lang.Object");
-        assertTrue(Templates.isCorrect(m_, null));
+        assertTrue(Templates.isCorrect(m_, context_));
     }
 
     @Test
     public void isCorrect2Test() {
+        ContextEl context_ = simpleContextEl();
         Mapping m_ = new Mapping();
         m_.setArg("java.lang.String");
         m_.setParam("java.lang.Object");
-        assertTrue(Templates.isCorrect(m_, null));
+        assertTrue(Templates.isCorrect(m_, context_));
     }
 
     @Test
     public void isCorrect3Test() {
+        ContextEl context_ = simpleContextEl();
         Mapping m_ = new Mapping();
         m_.setArg("java.lang.Object");
         m_.setParam("java.lang.String");
-        assertTrue(!Templates.isCorrect(m_, null));
+        assertTrue(!Templates.isCorrect(m_, context_));
     }
 
     @Test
     public void isCorrect4Test() {
+        ContextEl context_ = simpleContextEl();
         Mapping m_ = new Mapping();
         m_.setArg("java.util.List<java.lang.Object>");
         m_.setParam("java.util.List<java.lang.Object>");
-        assertTrue(Templates.isCorrect(m_, null));
+        assertTrue(Templates.isCorrect(m_, context_));
     }
 
     @Test
     public void isCorrect5Test() {
+        ContextEl context_ = simpleContextEl();
         Mapping m_ = new Mapping();
         m_.setArg("java.util.List<java.lang.String>");
         m_.setParam("java.util.List<java.lang.Object>");
-        assertTrue(!Templates.isCorrect(m_, null));
+        assertTrue(!Templates.isCorrect(m_, context_));
     }
 
     @Test
     public void isCorrect6Test() {
+        ContextEl context_ = simpleContextEl();
         Mapping m_ = new Mapping();
         m_.setArg("java.util.List<java.lang.Object>");
         m_.setParam("java.util.List<java.lang.String>");
-        assertTrue(!Templates.isCorrect(m_, null));
+        assertTrue(!Templates.isCorrect(m_, context_));
     }
 
     @Test
     public void isCorrect7Test() {
+        ContextEl context_ = simpleContextEl();
         Mapping m_ = new Mapping();
         m_.setArg("#E");
         m_.setParam("java.lang.Object");
         StringMap<StringList> t_ = new StringMap<StringList>();
         t_.put("E", new StringList("java.lang.Enum<#E>"));
         m_.setMapping(t_);
-        assertTrue(Templates.isCorrect(m_,null));
+        assertTrue(Templates.isCorrect(m_,context_));
     }
 
     @Test
     public void isCorrect8Test() {
+        ContextEl context_ = simpleContextEl();
         Mapping m_ = new Mapping();
         m_.setArg("#E");
         m_.setParam("java.lang.Number");
         StringMap<StringList> t_ = new StringMap<StringList>();
         t_.put("E", new StringList("java.lang.Integer"));
         m_.setMapping(t_);
-        assertTrue(Templates.isCorrect(m_,null));
+        assertTrue(Templates.isCorrect(m_,context_));
     }
 
     @Test
     public void isCorrect9Test() {
+        ContextEl context_ = simpleContextEl();
         Mapping m_ = new Mapping();
         m_.setArg("#E");
         m_.setParam("[java.lang.Number");
         StringMap<StringList> t_ = new StringMap<StringList>();
         t_.put("E", new StringList("[java.lang.Integer"));
         m_.setMapping(t_);
-        assertTrue(Templates.isCorrect(m_,null));
+        assertTrue(Templates.isCorrect(m_,context_));
     }
 
     @Test
     public void isCorrect10Test() {
+        ContextEl context_ = simpleContextEl();
         Mapping m_ = new Mapping();
         m_.setArg("#E");
         m_.setParam("[java.lang.Number");
         StringMap<StringList> t_ = new StringMap<StringList>();
         t_.put("E", new StringList("java.lang.Integer"));
         m_.setMapping(t_);
-        assertTrue(!Templates.isCorrect(m_,null));
+        assertTrue(!Templates.isCorrect(m_,context_));
     }
 
     @Test
     public void isCorrect11Test() {
+        ContextEl context_ = simpleContextEl();
         Mapping m_ = new Mapping();
         m_.setArg(ENUM_LIST+"<java.lang.Enum<#E>>");
         m_.setParam(CUST_LIST+"<java.lang.Enum<#E>>");
         StringMap<StringList> t_ = new StringMap<StringList>();
         t_.put("E", new StringList("java.lang.Enum<#E>"));
         m_.setMapping(t_);
-        assertTrue(Templates.isCorrect(m_,null));
+        assertTrue(Templates.isCorrect(m_,context_));
     }
 
     @Test
     public void isCorrect12Test() {
+        ContextEl context_ = simpleContextEl();
         Mapping m_ = new Mapping();
         m_.setArg(ENUM_LIST+"<#E>");
         m_.setParam(CUST_LIST+"<#E>");
         StringMap<StringList> t_ = new StringMap<StringList>();
         t_.put("E", new StringList("java.lang.Enum<#E>"));
         m_.setMapping(t_);
-        assertTrue(Templates.isCorrect(m_,null));
+        assertTrue(Templates.isCorrect(m_,context_));
     }
 
     @Test
     public void isCorrect13Test() {
+        ContextEl context_ = simpleContextEl();
         Mapping m_ = new Mapping();
         m_.setArg(ENUM_LIST+"<#F>");
         m_.setParam(CUST_LIST+"<#F>");
         StringMap<StringList> t_ = new StringMap<StringList>();
         t_.put("F", new StringList("java.lang.Enum<#F>"));
         m_.setMapping(t_);
-        assertTrue(Templates.isCorrect(m_,null));
+        assertTrue(Templates.isCorrect(m_,context_));
     }
 
     @Test
     public void isCorrect14Test() {
+        ContextEl context_ = simpleContextEl();
         Mapping m_ = new Mapping();
         m_.setArg("java.util.List<#F>");
         m_.setParam("java.util.Collection<#F>");
         StringMap<StringList> t_ = new StringMap<StringList>();
         t_.put("F", new StringList("java.lang.Enum<#F>"));
         m_.setMapping(t_);
-        assertTrue(Templates.isCorrect(m_,null));
+        assertTrue(Templates.isCorrect(m_,context_));
     }
 
     @Test
     public void isCorrect15Test() {
+        ContextEl context_ = simpleContextEl();
         Mapping m_ = new Mapping();
         m_.setArg(STRING_LIST);
         m_.setParam(CUST_LIST+"<java.lang.String>");
         StringMap<StringList> t_ = new StringMap<StringList>();
         m_.setMapping(t_);
-        assertTrue(Templates.isCorrect(m_,null));
+        assertTrue(Templates.isCorrect(m_,context_));
     }
 
     @Test
     public void isCorrect16Test() {
+        ContextEl context_ = simpleContextEl();
         Mapping m_ = new Mapping();
         m_.setArg(STRING_LIST);
         m_.setParam(CUST_LIST+"<java.lang.Object>");
         StringMap<StringList> t_ = new StringMap<StringList>();
         m_.setMapping(t_);
-        assertTrue(!Templates.isCorrect(m_,null));
+        assertTrue(!Templates.isCorrect(m_,context_));
     }
 
     @Test
     public void isCorrect17Test() {
+        ContextEl context_ = simpleContextEl();
         Mapping m_ = new Mapping();
         m_.setArg("#E");
         m_.setParam("java.lang.Number");
         StringMap<StringList> t_ = new StringMap<StringList>();
         t_.put("E", new StringList("[java.lang.Integer"));
         m_.setMapping(t_);
-        assertTrue(!Templates.isCorrect(m_,null));
+        assertTrue(!Templates.isCorrect(m_,context_));
     }
 
     @Test
     public void isCorrect18Test() {
+        ContextEl context_ = simpleContextEl();
         Mapping m_ = new Mapping();
         m_.setArg("#E");
         m_.setParam("java.io.Serializable");
         StringMap<StringList> t_ = new StringMap<StringList>();
         t_.put("E", new StringList("java.util.ArrayList<java.lang.Object>"));
         m_.setMapping(t_);
-        assertTrue(Templates.isCorrect(m_,null));
+        assertTrue(Templates.isCorrect(m_,context_));
     }
 
     @Test
     public void isCorrect20Test() {
+        ContextEl context_ = simpleContextEl();
         Mapping m_ = new Mapping();
         m_.setArg("#T");
         m_.setParam("#S");
@@ -917,10 +975,11 @@ public class TemplatesTest {
         t_.put("T", new StringList("#S"));
         t_.put("S", new StringList("java.lang.Object"));
         m_.setMapping(t_);
-        assertTrue(Templates.isCorrect(m_,null));
+        assertTrue(Templates.isCorrect(m_,context_));
     }
     @Test
     public void isCorrect21Test() {
+        ContextEl context_ = simpleContextEl();
         Mapping m_ = new Mapping();
         m_.setArg("#S");
         m_.setParam("#T");
@@ -928,31 +987,34 @@ public class TemplatesTest {
         t_.put("T", new StringList("#S"));
         t_.put("S", new StringList("java.lang.Object"));
         m_.setMapping(t_);
-        assertTrue(!Templates.isCorrect(m_,null));
+        assertTrue(!Templates.isCorrect(m_,context_));
     }
 
     @Test
     public void isCorrect22Test() {
+        ContextEl context_ = simpleContextEl();
         Mapping m_ = new Mapping();
         m_.setArg(CUST_LIST+"<java.lang.String>");
         m_.setParam("java.lang.Object");
         StringMap<StringList> t_ = new StringMap<StringList>();
         m_.setMapping(t_);
-        assertTrue(Templates.isCorrect(m_,null));
+        assertTrue(Templates.isCorrect(m_,context_));
     }
 
     @Test
     public void isCorrect23Test() {
+        ContextEl context_ = simpleContextEl();
         Mapping m_ = new Mapping();
         m_.setArg(ARR_STRING);
         m_.setParam(ARR_OBJECT);
         StringMap<StringList> t_ = new StringMap<StringList>();
         m_.setMapping(t_);
-        assertTrue(Templates.isCorrect(m_,null));
+        assertTrue(Templates.isCorrect(m_,context_));
     }
 
     @Test
     public void isCorrect27Test() {
+        ContextEl context_ = simpleContextEl();
         Mapping m_ = new Mapping();
         m_.setArg(CUST_LIST+"<#U>");
         m_.setParam(CUST_LIST+"<#S>");
@@ -960,11 +1022,12 @@ public class TemplatesTest {
         t_.put("U", new StringList("#S"));
         t_.put("S", new StringList("java.lang.Object"));
         m_.setMapping(t_);
-        assertTrue(!Templates.isCorrect(m_,null));
+        assertTrue(!Templates.isCorrect(m_,context_));
     }
 
     @Test
     public void isCorrect33Test() {
+        ContextEl context_ = simpleContextEl();
         Mapping m_ = new Mapping();
         m_.setArg("#T");
         m_.setParam(CUST_LIST+"<#S>");
@@ -973,11 +1036,12 @@ public class TemplatesTest {
         t_.put("U", new StringList(CUST_LIST+"<#S>"));
         t_.put("S", new StringList("java.lang.Object"));
         m_.setMapping(t_);
-        assertTrue(Templates.isCorrect(m_,null));
+        assertTrue(Templates.isCorrect(m_,context_));
     }
 
     @Test
     public void isCorrect34Test() {
+        ContextEl context_ = simpleContextEl();
         Mapping m_ = new Mapping();
         m_.setArg("#T");
         m_.setParam(Listable.class.getName()+"<#S>");
@@ -986,11 +1050,12 @@ public class TemplatesTest {
         t_.put("U", new StringList(CUST_LIST+"<#S>"));
         t_.put("S", new StringList("java.lang.Object"));
         m_.setMapping(t_);
-        assertTrue(Templates.isCorrect(m_,null));
+        assertTrue(Templates.isCorrect(m_,context_));
     }
  
     @Test
     public void isCorrect35Test() {
+        ContextEl context_ = simpleContextEl();
         Mapping m_ = new Mapping();
         m_.setArg("#T");
         m_.setParam(CUST_LIST+"<#S>");
@@ -999,11 +1064,12 @@ public class TemplatesTest {
         t_.put("U", new StringList(Listable.class.getName()+"<#S>"));
         t_.put("S", new StringList("java.lang.Object"));
         m_.setMapping(t_);
-        assertTrue(!Templates.isCorrect(m_,null));
+        assertTrue(!Templates.isCorrect(m_,context_));
     }
 
     @Test
     public void isCorrect36Test() {
+        ContextEl context_ = simpleContextEl();
         Mapping m_ = new Mapping();
         m_.setArg(ARR_VAR_T);
         m_.setParam(ARR_VAR_S);
@@ -1011,11 +1077,12 @@ public class TemplatesTest {
         t_.put("T", new StringList("#S"));
         t_.put("S", new StringList("java.lang.Object"));
         m_.setMapping(t_);
-        assertTrue(Templates.isCorrect(m_,null));
+        assertTrue(Templates.isCorrect(m_,context_));
     }
 
     @Test
     public void isCorrect37Test() {
+        ContextEl context_ = simpleContextEl();
         Mapping m_ = new Mapping();
         m_.setArg(ARR_VAR_S);
         m_.setParam(ARR_VAR_T);
@@ -1023,11 +1090,12 @@ public class TemplatesTest {
         t_.put("T", new StringList("#S"));
         t_.put("S", new StringList("java.lang.Object"));
         m_.setMapping(t_);
-        assertTrue(!Templates.isCorrect(m_,null));
+        assertTrue(!Templates.isCorrect(m_,context_));
     }
 
     @Test
     public void isCorrect38Test() {
+        ContextEl context_ = simpleContextEl();
         Mapping m_ = new Mapping();
         m_.setArg(ARR_VAR_S);
         m_.setParam(ARR_VAR_T);
@@ -1035,11 +1103,12 @@ public class TemplatesTest {
         t_.put("T", new StringList("#S"));
         t_.put("S", new StringList("java.lang.Object"));
         m_.setMapping(t_);
-        assertTrue(!Templates.isCorrect(m_,null));
+        assertTrue(!Templates.isCorrect(m_,context_));
     }
 
     @Test
     public void isCorrect39Test() {
+        ContextEl context_ = simpleContextEl();
         Mapping m_ = new Mapping();
         m_.setArg(ARR_VAR_T);
         m_.setParam(ARR_VAR_S);
@@ -1047,31 +1116,34 @@ public class TemplatesTest {
         t_.put("T", new StringList("#S"));
         t_.put("S", new StringList("java.lang.Object"));
         m_.setMapping(t_);
-        assertTrue(Templates.isCorrect(m_,null));
+        assertTrue(Templates.isCorrect(m_,context_));
     }
     
     @Test
     public void isCorrect46Test() {
+        ContextEl context_ = simpleContextEl();
         Mapping m_ = new Mapping();
         m_.setArg(ARR_ITHREE);
         m_.setParam(ARR_ITWO);
         StringMap<StringList> t_ = new StringMap<StringList>();
         m_.setMapping(t_);
-        assertTrue(Templates.isCorrect(m_,null));
+        assertTrue(Templates.isCorrect(m_,context_));
     }
 
     @Test
     public void isCorrect47Test() {
+        ContextEl context_ = simpleContextEl();
         Mapping m_ = new Mapping();
         m_.setArg("["+MyImpl.class.getName());
         m_.setParam(ARR_ITWO);
         StringMap<StringList> t_ = new StringMap<StringList>();
         m_.setMapping(t_);
-        assertTrue(Templates.isCorrect(m_,null));
+        assertTrue(Templates.isCorrect(m_,context_));
     }
 
     @Test
     public void isCorrect48Test() {
+        ContextEl context_ = simpleContextEl();
         Mapping m_ = new Mapping();
         m_.setArg("#H");
         m_.setParam(CUST_BIG_INT);
@@ -1080,11 +1152,12 @@ public class TemplatesTest {
         t_.put("I", new StringList("#J"));
         t_.put("H", new StringList("#I"));
         m_.setMapping(t_);
-        assertTrue(Templates.isCorrect(m_,null));
+        assertTrue(Templates.isCorrect(m_,context_));
     }
 
     @Test
     public void isCorrect49Test() {
+        ContextEl context_ = simpleContextEl();
         Mapping m_ = new Mapping();
         m_.setArg("#H");
         m_.setParam("#J");
@@ -1093,22 +1166,24 @@ public class TemplatesTest {
         t_.put("I", new StringList("#J"));
         t_.put("H", new StringList("#I"));
         m_.setMapping(t_);
-        assertTrue(Templates.isCorrect(m_,null));
+        assertTrue(Templates.isCorrect(m_,context_));
     }
 
     @Test
     public void isCorrect50Test() {
+        ContextEl context_ = simpleContextEl();
         Mapping m_ = new Mapping();
         m_.setArg("#H");
         m_.setParam(Object.class.getName());
         StringMap<StringList> t_ = new StringMap<StringList>();
         t_.put("H", new StringList());
         m_.setMapping(t_);
-        assertTrue(Templates.isCorrect(m_,null));
+        assertTrue(Templates.isCorrect(m_,context_));
     }
 
     @Test
     public void isCorrect51Test() {
+        ContextEl context_ = simpleContextEl();
         Mapping m_ = new Mapping();
         m_.setArg("#H");
         m_.setParam("#J");
@@ -1119,7 +1194,7 @@ public class TemplatesTest {
         t_.put("L", new StringList("#K"));
         t_.put("H", new StringList("#L","#I"));
         m_.setMapping(t_);
-        assertTrue(Templates.isCorrect(m_,null));
+        assertTrue(Templates.isCorrect(m_,context_));
     }
 
     @Test
@@ -1133,7 +1208,7 @@ public class TemplatesTest {
         Mapping m_ = new Mapping();
         m_.setArg("pkg.Ex");
         m_.setParam("pkg.Ex");
-        assertTrue(Templates.isCorrect(m_, classes_));
+        assertTrue(Templates.isCorrect(m_, cont_));
     }
 
     @Test
@@ -1147,7 +1222,7 @@ public class TemplatesTest {
         Mapping m_ = new Mapping();
         m_.setArg("java.lang.Number");
         m_.setParam("pkg.Ex");
-        assertTrue(!Templates.isCorrect(m_, classes_));
+        assertTrue(!Templates.isCorrect(m_, cont_));
     }
 
     @Test
@@ -1163,7 +1238,7 @@ public class TemplatesTest {
         Mapping m_ = new Mapping();
         m_.setArg("pkg.ExTwo");
         m_.setParam("pkg.Ex");
-        assertTrue(Templates.isCorrect(m_, classes_));
+        assertTrue(Templates.isCorrect(m_, cont_));
     }
 
     @Test
@@ -1179,7 +1254,7 @@ public class TemplatesTest {
         Mapping m_ = new Mapping();
         m_.setArg("pkg.Ex");
         m_.setParam("pkg.ExTwo");
-        assertTrue(!Templates.isCorrect(m_, classes_));
+        assertTrue(!Templates.isCorrect(m_, cont_));
     }
 
     @Test
@@ -1195,7 +1270,7 @@ public class TemplatesTest {
         Mapping m_ = new Mapping();
         m_.setArg("pkg.ExTwo");
         m_.setParam("pkg.Ex");
-        assertTrue(Templates.isCorrect(m_, classes_));
+        assertTrue(Templates.isCorrect(m_, cont_));
     }
 
     @Test
@@ -1211,7 +1286,7 @@ public class TemplatesTest {
         Mapping m_ = new Mapping();
         m_.setArg("pkg.Ex");
         m_.setParam("pkg.ExTwo");
-        assertTrue(!Templates.isCorrect(m_, classes_));
+        assertTrue(!Templates.isCorrect(m_, cont_));
     }
 
     @Test
@@ -1227,7 +1302,7 @@ public class TemplatesTest {
         Mapping m_ = new Mapping();
         m_.setArg("pkg.ExTwo");
         m_.setParam("pkg.Ex");
-        assertTrue(Templates.isCorrect(m_, classes_));
+        assertTrue(Templates.isCorrect(m_, cont_));
     }
 
     @Test
@@ -1243,7 +1318,7 @@ public class TemplatesTest {
         Mapping m_ = new Mapping();
         m_.setArg("pkg.Ex");
         m_.setParam("pkg.ExTwo");
-        assertTrue(!Templates.isCorrect(m_, classes_));
+        assertTrue(!Templates.isCorrect(m_, cont_));
     }
 
     @Test
@@ -1259,7 +1334,7 @@ public class TemplatesTest {
         Mapping m_ = new Mapping();
         m_.setArg("pkg.ExTwo");
         m_.setParam("pkg.Ex");
-        assertTrue(Templates.isCorrect(m_, classes_));
+        assertTrue(Templates.isCorrect(m_, cont_));
     }
 
     @Test
@@ -1275,7 +1350,7 @@ public class TemplatesTest {
         Mapping m_ = new Mapping();
         m_.setArg("pkg.Ex");
         m_.setParam("pkg.ExTwo");
-        assertTrue(!Templates.isCorrect(m_, classes_));
+        assertTrue(!Templates.isCorrect(m_, cont_));
     }
 
     @Test
@@ -1292,7 +1367,7 @@ public class TemplatesTest {
         m_.getMapping().put("T", new StringList("java.lang.Object"));
         m_.setArg("pkg.ExTwo<#T>");
         m_.setParam("pkg.Ex<#T>");
-        assertTrue(Templates.isCorrect(m_, classes_));
+        assertTrue(Templates.isCorrect(m_, cont_));
     }
 
     @Test
@@ -1309,7 +1384,7 @@ public class TemplatesTest {
         m_.getMapping().put("T", new StringList("java.lang.Object"));
         m_.setArg("pkg.Ex<#T>");
         m_.setParam("pkg.ExTwo<#T>");
-        assertTrue(!Templates.isCorrect(m_, classes_));
+        assertTrue(!Templates.isCorrect(m_, cont_));
     }
 
     @Test
@@ -1326,7 +1401,7 @@ public class TemplatesTest {
         m_.getMapping().put("T", new StringList("java.lang.Object"));
         m_.setArg("pkg.ExTwo<#T>");
         m_.setParam("pkg.Ex<#T>");
-        assertTrue(Templates.isCorrect(m_, classes_));
+        assertTrue(Templates.isCorrect(m_, cont_));
     }
 
     @Test
@@ -1343,7 +1418,7 @@ public class TemplatesTest {
         m_.getMapping().put("T", new StringList("java.lang.Object"));
         m_.setArg("pkg.Ex<#T>");
         m_.setParam("pkg.ExTwo<#T>");
-        assertTrue(!Templates.isCorrect(m_, classes_));
+        assertTrue(!Templates.isCorrect(m_, cont_));
     }
 
     @Test
@@ -1360,7 +1435,7 @@ public class TemplatesTest {
         m_.getMapping().put("S", new StringList("java.lang.Object"));
         m_.setArg(ID_LIST+"<#S>");
         m_.setParam(CUST_LIST+"<#S>");
-        assertTrue(Templates.isCorrect(m_, classes_));
+        assertTrue(Templates.isCorrect(m_, cont_));
     }
 
     @Test
@@ -1377,7 +1452,7 @@ public class TemplatesTest {
         m_.getMapping().put("S", new StringList("java.lang.Object"));
         m_.setArg(CUST_LIST+"<#S>");
         m_.setParam(ID_LIST+"<#S>");
-        assertTrue(!Templates.isCorrect(m_, classes_));
+        assertTrue(!Templates.isCorrect(m_, cont_));
     }
 
     @Test
@@ -1394,7 +1469,7 @@ public class TemplatesTest {
         m_.getMapping().put("T", new StringList("[java.lang.Object"));
         m_.setArg("pkg.ExTwo<#T>");
         m_.setParam("pkg.Ex<#T>");
-        assertTrue(Templates.isCorrect(m_, classes_));
+        assertTrue(Templates.isCorrect(m_, cont_));
     }
 
     @Test
@@ -1411,7 +1486,7 @@ public class TemplatesTest {
         m_.getMapping().put("T", new StringList("[java.lang.Object"));
         m_.setArg("pkg.Ex<#T>");
         m_.setParam("pkg.ExTwo<#T>");
-        assertTrue(!Templates.isCorrect(m_, classes_));
+        assertTrue(!Templates.isCorrect(m_, cont_));
     }
 
     @Test
@@ -1429,7 +1504,7 @@ public class TemplatesTest {
         m_.getMapping().put("S", new StringList("[[java.lang.Object"));
         m_.setArg("pkg.Ex<#S>");
         m_.setParam("pkg.ExTwo<#T>");
-        assertTrue(!Templates.isCorrect(m_, classes_));
+        assertTrue(!Templates.isCorrect(m_, cont_));
     }
 
     @Test
@@ -1446,7 +1521,7 @@ public class TemplatesTest {
         m_.getMapping().put("T", new StringList("[java.lang.Object"));
         m_.setArg("[[pkg.ExTwo<#T>");
         m_.setParam("[pkg.Ex<#T>");
-        assertTrue(!Templates.isCorrect(m_, classes_));
+        assertTrue(!Templates.isCorrect(m_, cont_));
     }
 
     @Test
@@ -1463,7 +1538,7 @@ public class TemplatesTest {
         m_.getMapping().put("T", new StringList("[java.lang.Object"));
         m_.setArg("[pkg.Ex<#T>");
         m_.setParam("[[pkg.ExTwo<#T>");
-        assertTrue(!Templates.isCorrect(m_, classes_));
+        assertTrue(!Templates.isCorrect(m_, cont_));
     }
 
     @Test
@@ -1479,7 +1554,7 @@ public class TemplatesTest {
         Mapping m_ = new Mapping();
         m_.setArg("pkg.ExTwo");
         m_.setParam("pkg.Ex<java.lang.Object>");
-        assertTrue(Templates.isCorrect(m_, classes_));
+        assertTrue(Templates.isCorrect(m_, cont_));
     }
 
     @Test
@@ -1496,7 +1571,7 @@ public class TemplatesTest {
         m_.getMapping().put("T", new StringList("java.lang.Object"));
         m_.setArg("pkg.Ex<java.lang.Object>");
         m_.setParam("pkg.ExTwo");
-        assertTrue(!Templates.isCorrect(m_, classes_));
+        assertTrue(!Templates.isCorrect(m_, cont_));
     }
 
     @Test
@@ -1513,261 +1588,303 @@ public class TemplatesTest {
 
     @Test
     public void isCorrectTemplate1Test() {
-        assertTrue(Templates.isCorrectTemplate(ENUM_LIST+"<"+ENUM+">", new StringMap<StringList>(),null));
+        ContextEl context_ = simpleContextEl();
+        assertTrue(Templates.isCorrectTemplate(ENUM_LIST+"<"+ENUM+">", new StringMap<StringList>(),context_));
     }
 
     @Test
     public void isCorrectTemplate2Test() {
-        assertTrue(!Templates.isCorrectTemplate(ENUM_LIST+"<java.lang.String>", new StringMap<StringList>(),null));
+        ContextEl context_ = simpleContextEl();
+        assertTrue(!Templates.isCorrectTemplate(ENUM_LIST+"<java.lang.String>", new StringMap<StringList>(),context_));
     }
 
     @Test
     public void isCorrectTemplate6Test() {
+        ContextEl context_ = simpleContextEl();
         StringMap<StringList> t_ = new StringMap<StringList>();
         t_.put("E", new StringList("java.lang.Object"));
-        assertTrue(Templates.isCorrectTemplate("java.util.List<#E>", t_,null));
+        assertTrue(Templates.isCorrectTemplate("java.util.List<#E>", t_,context_));
     }
 
     @Test
     public void isCorrectTemplate7Test() {
+        ContextEl context_ = simpleContextEl();
         StringMap<StringList> t_ = new StringMap<StringList>();
         t_.put("E", new StringList("java.lang.Object"));
-        assertTrue(!Templates.isCorrectTemplate(ENUM_LIST+"<#E>", t_,null));
+        assertTrue(!Templates.isCorrectTemplate(ENUM_LIST+"<#E>", t_,context_));
     }
 
     @Test
     public void isCorrectTemplate8Test() {
+        ContextEl context_ = simpleContextEl();
         StringMap<StringList> t_ = new StringMap<StringList>();
         t_.put("E", new StringList("java.lang.Enum<#E>"));
-        assertTrue(Templates.isCorrectTemplate(ENUM_LIST+"<#E>", t_,null));
+        assertTrue(Templates.isCorrectTemplate(ENUM_LIST+"<#E>", t_,context_));
     }
 
     @Test
     public void isCorrectTemplate9Test() {
+        ContextEl context_ = simpleContextEl();
         StringMap<StringList> t_ = new StringMap<StringList>();
         t_.put("E", new StringList("java.lang.Enum<#E>",CMP+"<#E>"));
-        assertTrue(Templates.isCorrectTemplate(ENUM_LIST+"<#E>", t_,null));
+        assertTrue(Templates.isCorrectTemplate(ENUM_LIST+"<#E>", t_,context_));
     }
 
     @Test
     public void isCorrectTemplate10Test() {
+        ContextEl context_ = simpleContextEl();
         StringMap<StringList> t_ = new StringMap<StringList>();
         t_.put("E", new StringList(CMP+"<E>","java.lang.Enum<#E>"));
-        assertTrue(Templates.isCorrectTemplate(ENUM_LIST+"<#E>", t_,null));
+        assertTrue(Templates.isCorrectTemplate(ENUM_LIST+"<#E>", t_,context_));
     }
 
     @Test
     public void isCorrectTemplate11Test() {
-        assertTrue(Templates.isCorrectTemplate("java.util.List<java.lang.Object>", new StringMap<StringList>(),null));
+        ContextEl context_ = simpleContextEl();
+        assertTrue(Templates.isCorrectTemplate("java.util.List<java.lang.Object>", new StringMap<StringList>(),context_));
     }
 
     @Test
     public void isCorrectTemplate12Test() {
-        assertTrue(Templates.isCorrectTemplate("java.util.List<java.lang.String>", new StringMap<StringList>(),null));
+        ContextEl context_ = simpleContextEl();
+        assertTrue(Templates.isCorrectTemplate("java.util.List<java.lang.String>", new StringMap<StringList>(),context_));
     }
 
     @Test
     public void isCorrectTemplate13Test() {
-        assertTrue(Templates.isCorrectTemplate("java.util.List<"+ARR_OBJECT+">", new StringMap<StringList>(),null));
+        ContextEl context_ = simpleContextEl();
+        assertTrue(Templates.isCorrectTemplate("java.util.List<"+ARR_OBJECT+">", new StringMap<StringList>(),context_));
     }
 
     @Test
     public void isCorrectTemplate14Test() {
-        assertTrue(Templates.isCorrectTemplate("java.util.List<"+ARR_STRING+">", new StringMap<StringList>(),null));
+        ContextEl context_ = simpleContextEl();
+        assertTrue(Templates.isCorrectTemplate("java.util.List<"+ARR_STRING+">", new StringMap<StringList>(),context_));
     }
 
     @Test
     public void isCorrectTemplate15Test() {
-        assertTrue(Templates.isCorrectTemplate("java.util.List<"+ARR_INT+">", new StringMap<StringList>(),null));
+        ContextEl context_ = simpleContextEl();
+        assertTrue(Templates.isCorrectTemplate("java.util.List<"+ARR_INT+">", new StringMap<StringList>(),context_));
     }
 
     @Test
     public void isCorrectTemplate16Test() {
-        assertTrue(!Templates.isCorrectTemplate(ENUM_LIST+"<"+ARR_OBJECT+">", new StringMap<StringList>(),null));
+        ContextEl context_ = simpleContextEl();
+        assertTrue(!Templates.isCorrectTemplate(ENUM_LIST+"<"+ARR_OBJECT+">", new StringMap<StringList>(),context_));
     }
 
     @Test
     public void isCorrectTemplate17Test() {
-        assertTrue(!Templates.isCorrectTemplate(ENUM_LIST+"<"+ARR_STRING+">", new StringMap<StringList>(),null));
+        ContextEl context_ = simpleContextEl();
+        assertTrue(!Templates.isCorrectTemplate(ENUM_LIST+"<"+ARR_STRING+">", new StringMap<StringList>(),context_));
     }
 
     @Test
     public void isCorrectTemplate18Test() {
-        assertTrue(!Templates.isCorrectTemplate(ENUM_LIST+"<"+ARR_INT+">", new StringMap<StringList>(),null));
+        ContextEl context_ = simpleContextEl();
+        assertTrue(!Templates.isCorrectTemplate(ENUM_LIST+"<"+ARR_INT+">", new StringMap<StringList>(),context_));
     }
 
     @Test
     public void isCorrectTemplate19Test() {
-        assertTrue(!Templates.isCorrectTemplate(ENUM_LIST+"<"+ARR_ENUM+">", new StringMap<StringList>(),null));
+        ContextEl context_ = simpleContextEl();
+        assertTrue(!Templates.isCorrectTemplate(ENUM_LIST+"<"+ARR_ENUM+">", new StringMap<StringList>(),context_));
     }
 
     @Test
     public void isCorrectTemplate20Test() {
+        ContextEl context_ = simpleContextEl();
         StringMap<StringList> t_ = new StringMap<StringList>();
         t_.put("E", new StringList("java.lang.Enum<#E>"));
-        assertTrue(Templates.isCorrectTemplate("java.util.List<"+ARR_VAR_E+">", t_,null));
+        assertTrue(Templates.isCorrectTemplate("java.util.List<"+ARR_VAR_E+">", t_,context_));
     }
 
     @Test
     public void isCorrectTemplate21Test() {
+        ContextEl context_ = simpleContextEl();
         StringMap<StringList> t_ = new StringMap<StringList>();
         t_.put("E", new StringList("java.lang.Enum<#E>"));
-        assertTrue(!Templates.isCorrectTemplate(ENUM_LIST+"<"+ARR_VAR_E+">", t_,null));
+        assertTrue(!Templates.isCorrectTemplate(ENUM_LIST+"<"+ARR_VAR_E+">", t_,context_));
     }
 
     @Test
     public void isCorrectTemplate22Test() {
+        ContextEl context_ = simpleContextEl();
         StringMap<StringList> t_ = new StringMap<StringList>();
-        assertTrue(Templates.isCorrectTemplate(ENUM_MAP+"<"+ENUM+","+CUST_BIG_INT+">", t_,null));
+        assertTrue(Templates.isCorrectTemplate(ENUM_MAP+"<"+ENUM+","+CUST_BIG_INT+">", t_,context_));
     }
 
     @Test
     public void isCorrectTemplate23Test() {
+        ContextEl context_ = simpleContextEl();
         StringMap<StringList> t_ = new StringMap<StringList>();
         t_.put("E", new StringList("java.lang.Enum<#E>"));
-        assertTrue(Templates.isCorrectTemplate(TEMPLATING+"<java.math.BigInteger,"+CUST_BIG_INT+">", t_,null));
+        assertTrue(Templates.isCorrectTemplate(TEMPLATING+"<java.math.BigInteger,"+CUST_BIG_INT+">", t_,context_));
     }
 
     @Test
     public void isCorrectTemplate24Test() {
+        ContextEl context_ = simpleContextEl();
         StringMap<StringList> t_ = new StringMap<StringList>();
         t_.put("E", new StringList("java.lang.Enum<#E>"));
-        assertTrue(!Templates.isCorrectTemplate(TEMPLATING+"<"+CUST_BIG_INT+",java.math.BigInteger>", t_,null));
+        assertTrue(!Templates.isCorrectTemplate(TEMPLATING+"<"+CUST_BIG_INT+",java.math.BigInteger>", t_,context_));
     }
 
     @Test
     public void isCorrectTemplate25Test() {
+        ContextEl context_ = simpleContextEl();
         StringMap<StringList> t_ = new StringMap<StringList>();
-        assertTrue(Templates.isCorrectTemplate(TEMPLATING+"<java.math.BigInteger,"+CUST_BIG_INT+">", t_,null));
+        assertTrue(Templates.isCorrectTemplate(TEMPLATING+"<java.math.BigInteger,"+CUST_BIG_INT+">", t_,context_));
     }
 
     @Test
     public void isCorrectTemplate26Test() {
+        ContextEl context_ = simpleContextEl();
         StringMap<StringList> t_ = new StringMap<StringList>();
-        assertTrue(!Templates.isCorrectTemplate(TEMPLATING+"<"+CUST_BIG_INT+",java.math.BigInteger>", t_,null));
+        assertTrue(!Templates.isCorrectTemplate(TEMPLATING+"<"+CUST_BIG_INT+",java.math.BigInteger>", t_,context_));
     }
 
     @Test
     public void isCorrectTemplate27Test() {
+        ContextEl context_ = simpleContextEl();
         StringMap<StringList> t_ = new StringMap<StringList>();
         t_.put("T", new StringList("java.lang.Enum<#T>"));
-        assertTrue(Templates.isCorrectTemplate("java.util.List<"+ARR_VAR_T+">", t_,null));
+        assertTrue(Templates.isCorrectTemplate("java.util.List<"+ARR_VAR_T+">", t_,context_));
     }
 
     @Test
     public void isCorrectTemplate28Test() {
+        ContextEl context_ = simpleContextEl();
         StringMap<StringList> t_ = new StringMap<StringList>();
         t_.put("F", new StringList("java.lang.Enum<#F>"));
-        assertTrue(Templates.isCorrectTemplate("java.util.List<"+ARR_VAR_F+">", t_,null));
+        assertTrue(Templates.isCorrectTemplate("java.util.List<"+ARR_VAR_F+">", t_,context_));
     }
     @Test
     public void isCorrectTemplate29Test() {
+        ContextEl context_ = simpleContextEl();
         Mapping m_ = new Mapping();
         StringMap<StringList> t_ = new StringMap<StringList>();
         t_.put("T", new StringList("java.lang.Enum<#T>",CMP+"<#T>"));
         m_.setMapping(t_);
-        assertTrue(Templates.isCorrectTemplate(TEMPLATING_BIS+"<#T>", t_, null));
+        assertTrue(Templates.isCorrectTemplate(TEMPLATING_BIS+"<#T>", t_, context_));
     }
 
     @Test
     public void isCorrectTemplate30Test() {
+        ContextEl context_ = simpleContextEl();
         Mapping m_ = new Mapping();
         StringMap<StringList> t_ = new StringMap<StringList>();
         t_.put("T", new StringList("java.lang.Enum<#T>",CMP+"<#T>"));
         m_.setMapping(t_);
-        assertTrue(Templates.isCorrectTemplate(ENUM_LIST+"<#T>", t_, null));
+        assertTrue(Templates.isCorrectTemplate(ENUM_LIST+"<#T>", t_, context_));
     }
     @Test
     public void isCorrectTemplate31Test() {
+        ContextEl context_ = simpleContextEl();
         Mapping m_ = new Mapping();
         StringMap<StringList> t_ = new StringMap<StringList>();
         t_.put("T", new StringList("java.lang.Enum<#T>"));
         m_.setMapping(t_);
-        assertTrue(!Templates.isCorrectTemplate(TEMPLATING_BIS+"<#T>", t_, null));
+        assertTrue(!Templates.isCorrectTemplate(TEMPLATING_BIS+"<#T>", t_, context_));
     }
     
     @Test
     public void isCorrectTemplate32Test() {
-        assertTrue(!Templates.isCorrectTemplate(CMP_LIST+"<"+STRANGE_CMP_LIST+">", new StringMap<StringList>(),null));
+        ContextEl context_ = simpleContextEl();
+        assertTrue(!Templates.isCorrectTemplate(CMP_LIST+"<"+STRANGE_CMP_LIST+">", new StringMap<StringList>(),context_));
     }
 
     @Test
     public void isCorrectTemplate33Test() {
-        assertTrue(Templates.isCorrectTemplate(CMP_LIST+"<"+GOOD_CMP_LIST+">", new StringMap<StringList>(),null));
+        ContextEl context_ = simpleContextEl();
+        assertTrue(Templates.isCorrectTemplate(CMP_LIST+"<"+GOOD_CMP_LIST+">", new StringMap<StringList>(),context_));
     }
 
     @Test
     public void isCorrectTemplate39Test() {
-        assertTrue(!Templates.isCorrectTemplate(ENUM_LIST, new StringMap<StringList>(),null));
+        ContextEl context_ = simpleContextEl();
+        assertTrue(!Templates.isCorrectTemplate(ENUM_LIST, new StringMap<StringList>(),context_));
     }
     
     @Test
     public void isCorrectTemplate40Test() {
+        ContextEl context_ = simpleContextEl();
         StringMap<StringList> t_ = new StringMap<StringList>();
         t_.put("E", new StringList("java.math.BigInteger"));
-        assertTrue(!Templates.isCorrectTemplate(TEMPLATING+"<"+CUST_BIG_INT+",#E>", t_,null));
+        assertTrue(!Templates.isCorrectTemplate(TEMPLATING+"<"+CUST_BIG_INT+",#E>", t_,context_));
     }
     
     @Test
     public void isCorrectTemplate41Test() {
+        ContextEl context_ = simpleContextEl();
         StringMap<StringList> t_ = new StringMap<StringList>();
         t_.put("E", new StringList(CUST_BIG_INT));
-        assertTrue(Templates.isCorrectTemplate(TEMPLATING+"<"+CUST_BIG_INT+",#E>", t_,null));
+        assertTrue(Templates.isCorrectTemplate(TEMPLATING+"<"+CUST_BIG_INT+",#E>", t_,context_));
     }
 
     @Test
     public void isCorrectTemplate42Test() {
+        ContextEl context_ = simpleContextEl();
         StringMap<StringList> t_ = new StringMap<StringList>();
-        assertTrue(!Templates.isCorrectTemplate(TEMPLATING+"<"+CUST_BIG_INT+",#E>", t_,null));
+        assertTrue(!Templates.isCorrectTemplate(TEMPLATING+"<"+CUST_BIG_INT+",#E>", t_,context_));
     }
 
     @Test
     public void isCorrectTemplate43Test() {
-        assertTrue(!Templates.isCorrectTemplate(CMP_LIST+"<"+MY_EQ_CLASS+">", new StringMap<StringList>(),null));
+        ContextEl context_ = simpleContextEl();
+        assertTrue(!Templates.isCorrectTemplate(CMP_LIST+"<"+MY_EQ_CLASS+">", new StringMap<StringList>(),context_));
     }
 
     @Test
     public void isCorrectTemplate44Test() {
-        assertTrue(Templates.isCorrectTemplate(CMP_LIST+"<"+MY_CMP_CLASS+">", new StringMap<StringList>(),null));
+        ContextEl context_ = simpleContextEl();
+        assertTrue(Templates.isCorrectTemplate(CMP_LIST+"<"+MY_CMP_CLASS+">", new StringMap<StringList>(),context_));
     }
 
     @Test
     public void isCorrectTemplate45Test() {
-        assertTrue(!Templates.isCorrectTemplate(CMP_LIST+"<"+CMP+">", new StringMap<StringList>(),null));
+        ContextEl context_ = simpleContextEl();
+        assertTrue(!Templates.isCorrectTemplate(CMP_LIST+"<"+CMP+">", new StringMap<StringList>(),context_));
     }
 
     @Test
     public void isCorrectTemplate46Test() {
-        assertTrue(!Templates.isCorrectTemplate(CUST_SEC_LIST+"<"+AbEqList.class.getName()+">", new StringMap<StringList>(),null));
+        ContextEl context_ = simpleContextEl();
+        assertTrue(!Templates.isCorrectTemplate(CUST_SEC_LIST+"<"+AbEqList.class.getName()+">", new StringMap<StringList>(),context_));
     }
 
     @Test
     public void isCorrectTemplate47Test() {
-        assertTrue(!Templates.isCorrectTemplate(CUST_EQ_LIST+"<"+Cmp.class.getName()+">", new StringMap<StringList>(),null));
+        ContextEl context_ = simpleContextEl();
+        assertTrue(!Templates.isCorrectTemplate(CUST_EQ_LIST+"<"+Cmp.class.getName()+">", new StringMap<StringList>(),context_));
     }
 
     @Test
     public void isCorrectTemplate48Test() {
+        ContextEl context_ = simpleContextEl();
         StringMap<StringList> t_ = new StringMap<StringList>();
         t_.put("E", new StringList(CMP));
-        assertTrue(!Templates.isCorrectTemplate(CUST_EQ_LIST+"<#E>", t_,null));
+        assertTrue(!Templates.isCorrectTemplate(CUST_EQ_LIST+"<#E>", t_,context_));
     }
 
     @Test
     public void isCorrectTemplate49Test() {
+        ContextEl context_ = simpleContextEl();
         StringMap<StringList> t_ = new StringMap<StringList>();
         t_.put("E", new StringList(CMP));
         t_.put("F", new StringList("#E"));
-        assertTrue(!Templates.isCorrectTemplate(CUST_EQ_LIST+"<#F>", t_,null));
+        assertTrue(!Templates.isCorrectTemplate(CUST_EQ_LIST+"<#F>", t_,context_));
     }
 
     @Test
     public void isCorrectTemplate50Test() {
+        ContextEl context_ = simpleContextEl();
         StringMap<StringList> t_ = new StringMap<StringList>();
         t_.put("J", new StringList(CUST_BIG_INT));
         t_.put("I", new StringList("#J"));
         t_.put("H", new StringList("#I"));
-        assertTrue(Templates.isCorrectTemplate(TRANSITIVE_TEMPLATING+"<#J,#I,#H>", t_,null));
+        assertTrue(Templates.isCorrectTemplate(TRANSITIVE_TEMPLATING+"<#J,#I,#H>", t_,context_));
     }
 
     @Test
@@ -1779,7 +1896,7 @@ public class TemplatesTest {
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
         Classes classes_ = cont_.getClasses();
         StringMap<StringList> t_ = new StringMap<StringList>();
-        assertTrue(Templates.isCorrectTemplate("pkg.Ex", t_,classes_));
+        assertTrue(Templates.isCorrectTemplate("pkg.Ex", t_,cont_));
     }
 
     @Test
@@ -1789,9 +1906,8 @@ public class TemplatesTest {
         xml_ = "<enum access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg'/>\n";
         files_.put("pkg/Ex."+Classes.EXT, xml_);
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
-        Classes classes_ = cont_.getClasses();
         StringMap<StringList> t_ = new StringMap<StringList>();
-        assertTrue(Templates.isCorrectTemplate("pkg.Ex", t_,classes_));
+        assertTrue(Templates.isCorrectTemplate("pkg.Ex", t_,cont_));
     }
 
     @Test
@@ -1801,9 +1917,8 @@ public class TemplatesTest {
         xml_ = "<interface access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg'/>\n";
         files_.put("pkg/Ex."+Classes.EXT, xml_);
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
-        Classes classes_ = cont_.getClasses();
         StringMap<StringList> t_ = new StringMap<StringList>();
-        assertTrue(Templates.isCorrectTemplate("pkg.Ex", t_,classes_));
+        assertTrue(Templates.isCorrectTemplate("pkg.Ex", t_,cont_));
     }
 
     @Test
@@ -1813,9 +1928,8 @@ public class TemplatesTest {
         xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg'/>\n";
         files_.put("pkg/Ex."+Classes.EXT, xml_);
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
-        Classes classes_ = cont_.getClasses();
         StringMap<StringList> t_ = new StringMap<StringList>();
-        assertTrue(Templates.isCorrectTemplate("[pkg.Ex", t_,classes_));
+        assertTrue(Templates.isCorrectTemplate("[pkg.Ex", t_,cont_));
     }
 
     @Test
@@ -1827,7 +1941,7 @@ public class TemplatesTest {
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
         Classes classes_ = cont_.getClasses();
         StringMap<StringList> t_ = new StringMap<StringList>();
-        assertTrue(Templates.isCorrectTemplate("[pkg.Ex", t_,classes_));
+        assertTrue(Templates.isCorrectTemplate("[pkg.Ex", t_,cont_));
     }
 
     @Test
@@ -1839,7 +1953,7 @@ public class TemplatesTest {
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
         Classes classes_ = cont_.getClasses();
         StringMap<StringList> t_ = new StringMap<StringList>();
-        assertTrue(Templates.isCorrectTemplate("[pkg.Ex", t_,classes_));
+        assertTrue(Templates.isCorrectTemplate("[pkg.Ex", t_,cont_));
     }
 
     @Test
@@ -1851,7 +1965,7 @@ public class TemplatesTest {
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
         Classes classes_ = cont_.getClasses();
         StringMap<StringList> t_ = new StringMap<StringList>();
-        assertTrue(Templates.isCorrectTemplate("pkg.Ex<java.lang.Object>", t_,classes_));
+        assertTrue(Templates.isCorrectTemplate("pkg.Ex<java.lang.Object>", t_,cont_));
     }
 
     @Test
@@ -1861,9 +1975,8 @@ public class TemplatesTest {
         xml_ = "<interface access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' template='&lt;#T&gt;'/>\n";
         files_.put("pkg/Ex."+Classes.EXT, xml_);
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
-        Classes classes_ = cont_.getClasses();
         StringMap<StringList> t_ = new StringMap<StringList>();
-        assertTrue(Templates.isCorrectTemplate("pkg.Ex<java.lang.Object>", t_,classes_));
+        assertTrue(Templates.isCorrectTemplate("pkg.Ex<java.lang.Object>", t_,cont_));
     }
 
     @Test
@@ -1875,7 +1988,7 @@ public class TemplatesTest {
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
         Classes classes_ = cont_.getClasses();
         StringMap<StringList> t_ = new StringMap<StringList>();
-        assertTrue(Templates.isCorrectTemplate("[pkg.Ex<java.lang.Object>", t_,classes_));
+        assertTrue(Templates.isCorrectTemplate("[pkg.Ex<java.lang.Object>", t_,cont_));
     }
 
     @Test
@@ -1887,7 +2000,7 @@ public class TemplatesTest {
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
         Classes classes_ = cont_.getClasses();
         StringMap<StringList> t_ = new StringMap<StringList>();
-        assertTrue(Templates.isCorrectTemplate("[pkg.Ex<java.lang.Object>", t_,classes_));
+        assertTrue(Templates.isCorrectTemplate("[pkg.Ex<java.lang.Object>", t_,cont_));
     }
 
     @Test
@@ -1900,7 +2013,7 @@ public class TemplatesTest {
         Classes classes_ = cont_.getClasses();
         StringMap<StringList> t_ = new StringMap<StringList>();
         t_.put("E", new StringList("java.lang.Object"));
-        assertTrue(Templates.isCorrectTemplate("[pkg.Ex<#E>", t_,classes_));
+        assertTrue(Templates.isCorrectTemplate("[pkg.Ex<#E>", t_,cont_));
     }
 
     @Test
@@ -1913,7 +2026,7 @@ public class TemplatesTest {
         Classes classes_ = cont_.getClasses();
         StringMap<StringList> t_ = new StringMap<StringList>();
         t_.put("E", new StringList("java.lang.Object"));
-        assertTrue(Templates.isCorrectTemplate("[pkg.Ex<#E>", t_,classes_));
+        assertTrue(Templates.isCorrectTemplate("[pkg.Ex<#E>", t_,cont_));
     }
 
     @Test
@@ -1926,7 +2039,7 @@ public class TemplatesTest {
         Classes classes_ = cont_.getClasses();
         StringMap<StringList> t_ = new StringMap<StringList>();
         t_.put("E", new StringList("java.lang.Integer"));
-        assertTrue(Templates.isCorrectTemplate("[pkg.Ex<#E>", t_,classes_));
+        assertTrue(Templates.isCorrectTemplate("[pkg.Ex<#E>", t_,cont_));
     }
 
     @Test
@@ -1939,7 +2052,7 @@ public class TemplatesTest {
         Classes classes_ = cont_.getClasses();
         StringMap<StringList> t_ = new StringMap<StringList>();
         t_.put("E", new StringList("java.lang.Integer"));
-        assertTrue(Templates.isCorrectTemplate("[pkg.Ex<#E>", t_,classes_));
+        assertTrue(Templates.isCorrectTemplate("[pkg.Ex<#E>", t_,cont_));
     }
 
     @Test
@@ -1952,7 +2065,7 @@ public class TemplatesTest {
         Classes classes_ = cont_.getClasses();
         StringMap<StringList> t_ = new StringMap<StringList>();
         t_.put("E", new StringList("java.lang.Object"));
-        assertTrue(!Templates.isCorrectTemplate("[pkg.Ex<#E>", t_,classes_));
+        assertTrue(!Templates.isCorrectTemplate("[pkg.Ex<#E>", t_,cont_));
     }
 
     @Test
@@ -1965,7 +2078,7 @@ public class TemplatesTest {
         Classes classes_ = cont_.getClasses();
         StringMap<StringList> t_ = new StringMap<StringList>();
         t_.put("E", new StringList("java.lang.Object"));
-        assertTrue(!Templates.isCorrectTemplate("[pkg.Ex<#E>", t_,classes_));
+        assertTrue(!Templates.isCorrectTemplate("[pkg.Ex<#E>", t_,cont_));
     }
 
     @Test
@@ -1977,7 +2090,7 @@ public class TemplatesTest {
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
         Classes classes_ = cont_.getClasses();
         StringMap<StringList> t_ = new StringMap<StringList>();
-        assertTrue(!Templates.isCorrectTemplate("[pkg.Ex<java.lang.Object>", t_,classes_));
+        assertTrue(!Templates.isCorrectTemplate("[pkg.Ex<java.lang.Object>", t_,cont_));
     }
 
     @Test
@@ -1989,7 +2102,7 @@ public class TemplatesTest {
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
         Classes classes_ = cont_.getClasses();
         StringMap<StringList> t_ = new StringMap<StringList>();
-        assertTrue(!Templates.isCorrectTemplate("[pkg.Ex<java.lang.Object>", t_,classes_));
+        assertTrue(!Templates.isCorrectTemplate("[pkg.Ex<java.lang.Object>", t_,cont_));
     }
 
     @Test
@@ -2001,7 +2114,7 @@ public class TemplatesTest {
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
         Classes classes_ = cont_.getClasses();
         StringMap<StringList> t_ = new StringMap<StringList>();
-        assertTrue(Templates.isCorrectTemplate("[pkg.Ex<[java.lang.Integer>", t_,classes_));
+        assertTrue(Templates.isCorrectTemplate("[pkg.Ex<[java.lang.Integer>", t_,cont_));
     }
 
     @Test
@@ -2013,7 +2126,7 @@ public class TemplatesTest {
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
         Classes classes_ = cont_.getClasses();
         StringMap<StringList> t_ = new StringMap<StringList>();
-        assertTrue(Templates.isCorrectTemplate("[pkg.Ex<[java.lang.Integer>", t_,classes_));
+        assertTrue(Templates.isCorrectTemplate("[pkg.Ex<[java.lang.Integer>", t_,cont_));
     }
 
     @Test
@@ -2025,7 +2138,7 @@ public class TemplatesTest {
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
         Classes classes_ = cont_.getClasses();
         StringMap<StringList> t_ = new StringMap<StringList>();
-        assertTrue(!Templates.isCorrectTemplate("[pkg.Ex<[java.lang.Object>", t_,classes_));
+        assertTrue(!Templates.isCorrectTemplate("[pkg.Ex<[java.lang.Object>", t_,cont_));
     }
 
     @Test
@@ -2037,7 +2150,7 @@ public class TemplatesTest {
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
         Classes classes_ = cont_.getClasses();
         StringMap<StringList> t_ = new StringMap<StringList>();
-        assertTrue(!Templates.isCorrectTemplate("[pkg.Ex<[java.lang.Object>", t_,classes_));
+        assertTrue(!Templates.isCorrectTemplate("[pkg.Ex<[java.lang.Object>", t_,cont_));
     }
 
     @Test
@@ -2054,7 +2167,7 @@ public class TemplatesTest {
         Classes classes_ = cont_.getClasses();
         StringMap<StringList> t_ = new StringMap<StringList>();
         t_.put("E", new StringList("pkg.ExTwo"));
-        assertTrue(Templates.isCorrectTemplate("[pkg.Ex<#E>", t_,classes_));
+        assertTrue(Templates.isCorrectTemplate("[pkg.Ex<#E>", t_,cont_));
     }
 
     @Test
@@ -2071,7 +2184,7 @@ public class TemplatesTest {
         Classes classes_ = cont_.getClasses();
         StringMap<StringList> t_ = new StringMap<StringList>();
         t_.put("E", new StringList("pkg.ExTwo"));
-        assertTrue(Templates.isCorrectTemplate("[pkg.Ex<#E>", t_,classes_));
+        assertTrue(Templates.isCorrectTemplate("[pkg.Ex<#E>", t_,cont_));
     }
 
     @Test
@@ -2088,7 +2201,7 @@ public class TemplatesTest {
         Classes classes_ = cont_.getClasses();
         StringMap<StringList> t_ = new StringMap<StringList>();
         t_.put("E", new StringList("pkg.ExTwo"));
-        assertTrue(!Templates.isCorrectTemplate("[pkg.Ex<#E>", t_,classes_));
+        assertTrue(!Templates.isCorrectTemplate("[pkg.Ex<#E>", t_,cont_));
     }
 
     @Test
@@ -2105,7 +2218,7 @@ public class TemplatesTest {
         Classes classes_ = cont_.getClasses();
         StringMap<StringList> t_ = new StringMap<StringList>();
         t_.put("E", new StringList("pkg.ExTwo"));
-        assertTrue(!Templates.isCorrectTemplate("[pkg.Ex<#E>", t_,classes_));
+        assertTrue(!Templates.isCorrectTemplate("[pkg.Ex<#E>", t_,cont_));
     }
 
     @Test
@@ -2121,7 +2234,7 @@ public class TemplatesTest {
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
         Classes classes_ = cont_.getClasses();
         StringMap<StringList> t_ = new StringMap<StringList>();
-        assertTrue(!Templates.isCorrectTemplate("[pkg.Ex<pkg.ExTwo>", t_,classes_));
+        assertTrue(!Templates.isCorrectTemplate("[pkg.Ex<pkg.ExTwo>", t_,cont_));
     }
 
     @Test
@@ -2137,7 +2250,7 @@ public class TemplatesTest {
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
         Classes classes_ = cont_.getClasses();
         StringMap<StringList> t_ = new StringMap<StringList>();
-        assertTrue(!Templates.isCorrectTemplate("[pkg.Ex<pkg.ExTwo>", t_,classes_));
+        assertTrue(!Templates.isCorrectTemplate("[pkg.Ex<pkg.ExTwo>", t_,cont_));
     }
 
     @Test
@@ -2153,7 +2266,7 @@ public class TemplatesTest {
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
         Classes classes_ = cont_.getClasses();
         StringMap<StringList> t_ = new StringMap<StringList>();
-        assertTrue(Templates.isCorrectTemplate("[pkg.Ex<[pkg.ExTwo>", t_,classes_));
+        assertTrue(Templates.isCorrectTemplate("[pkg.Ex<[pkg.ExTwo>", t_,cont_));
     }
 
     @Test
@@ -2169,7 +2282,7 @@ public class TemplatesTest {
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
         Classes classes_ = cont_.getClasses();
         StringMap<StringList> t_ = new StringMap<StringList>();
-        assertTrue(Templates.isCorrectTemplate("[pkg.Ex<[pkg.ExTwo>", t_,classes_));
+        assertTrue(Templates.isCorrectTemplate("[pkg.Ex<[pkg.ExTwo>", t_,cont_));
     }
 
     @Test
@@ -2185,7 +2298,7 @@ public class TemplatesTest {
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
         Classes classes_ = cont_.getClasses();
         StringMap<StringList> t_ = new StringMap<StringList>();
-        assertTrue(!Templates.isCorrectTemplate("[pkg.Ex<[pkg.ExThree>", t_,classes_));
+        assertTrue(!Templates.isCorrectTemplate("[pkg.Ex<[pkg.ExThree>", t_,cont_));
     }
 
     @Test
@@ -2201,7 +2314,7 @@ public class TemplatesTest {
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
         Classes classes_ = cont_.getClasses();
         StringMap<StringList> t_ = new StringMap<StringList>();
-        assertTrue(!Templates.isCorrectTemplate("[pkg.Ex<[pkg.ExThree>", t_,classes_));
+        assertTrue(!Templates.isCorrectTemplate("[pkg.Ex<[pkg.ExThree>", t_,cont_));
     }
 
     @Test
@@ -2215,9 +2328,8 @@ public class TemplatesTest {
         xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExThree' package='pkg'/>\n";
         files_.put("pkg/ExThree."+Classes.EXT, xml_);
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
-        Classes classes_ = cont_.getClasses();
         StringMap<StringList> t_ = new StringMap<StringList>();
-        assertTrue(Templates.isCorrectTemplateAll("java.lang.Object", t_,classes_));
+        assertTrue(Templates.isCorrectTemplateAll("java.lang.Object", t_,cont_));
     }
 
     @Test
@@ -2231,9 +2343,8 @@ public class TemplatesTest {
         xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExThree' package='pkg'/>\n";
         files_.put("pkg/ExThree."+Classes.EXT, xml_);
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
-        Classes classes_ = cont_.getClasses();
         StringMap<StringList> t_ = new StringMap<StringList>();
-        assertTrue(Templates.isCorrectTemplateAll("$int", t_,classes_));
+        assertTrue(Templates.isCorrectTemplateAll("$int", t_,cont_));
     }
 
     @Test
@@ -2247,9 +2358,8 @@ public class TemplatesTest {
         xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExThree' package='pkg'/>\n";
         files_.put("pkg/ExThree."+Classes.EXT, xml_);
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
-        Classes classes_ = cont_.getClasses();
         StringMap<StringList> t_ = new StringMap<StringList>();
-        assertTrue(Templates.isCorrectTemplateAll("[java.lang.Object", t_,classes_));
+        assertTrue(Templates.isCorrectTemplateAll("[java.lang.Object", t_,cont_));
     }
 
     @Test
@@ -2263,9 +2373,8 @@ public class TemplatesTest {
         xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExThree' package='pkg'/>\n";
         files_.put("pkg/ExThree."+Classes.EXT, xml_);
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
-        Classes classes_ = cont_.getClasses();
         StringMap<StringList> t_ = new StringMap<StringList>();
-        assertTrue(Templates.isCorrectTemplateAll("[$int", t_,classes_));
+        assertTrue(Templates.isCorrectTemplateAll("[$int", t_,cont_));
     }
 
     @Test
@@ -2279,9 +2388,8 @@ public class TemplatesTest {
         xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExThree' package='pkg'/>\n";
         files_.put("pkg/ExThree."+Classes.EXT, xml_);
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
-        Classes classes_ = cont_.getClasses();
         StringMap<StringList> t_ = new StringMap<StringList>();
-        assertTrue(Templates.isCorrectTemplateAll(CUST_LIST+"<java.lang.Object>", t_,classes_));
+        assertTrue(Templates.isCorrectTemplateAll(CUST_LIST+"<java.lang.Object>", t_,cont_));
     }
 
     @Test
@@ -2295,9 +2403,8 @@ public class TemplatesTest {
         xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExThree' package='pkg'/>\n";
         files_.put("pkg/ExThree."+Classes.EXT, xml_);
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
-        Classes classes_ = cont_.getClasses();
         StringMap<StringList> t_ = new StringMap<StringList>();
-        assertTrue(Templates.isCorrectTemplateAll(CUST_LIST+"<[java.lang.Object>", t_,classes_));
+        assertTrue(Templates.isCorrectTemplateAll(CUST_LIST+"<[java.lang.Object>", t_,cont_));
     }
 
     @Test
@@ -2311,9 +2418,8 @@ public class TemplatesTest {
         xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExThree' package='pkg'/>\n";
         files_.put("pkg/ExThree."+Classes.EXT, xml_);
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
-        Classes classes_ = cont_.getClasses();
         StringMap<StringList> t_ = new StringMap<StringList>();
-        assertTrue(Templates.isCorrectTemplateAll(CUST_LIST+"<"+CUST_LIST+"<[java.lang.Object>>", t_,classes_));
+        assertTrue(Templates.isCorrectTemplateAll(CUST_LIST+"<"+CUST_LIST+"<[java.lang.Object>>", t_,cont_));
     }
 
     @Test
@@ -2327,9 +2433,8 @@ public class TemplatesTest {
         xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExThree' package='pkg'/>\n";
         files_.put("pkg/ExThree."+Classes.EXT, xml_);
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
-        Classes classes_ = cont_.getClasses();
         StringMap<StringList> t_ = new StringMap<StringList>();
-        assertTrue(!Templates.isCorrectTemplateAll(ENUM_LIST+"<"+ENUM_LIST+"<java.lang.Object>>", t_,classes_));
+        assertTrue(!Templates.isCorrectTemplateAll(ENUM_LIST+"<"+ENUM_LIST+"<java.lang.Object>>", t_,cont_));
     }
 
     @Test
@@ -2343,9 +2448,8 @@ public class TemplatesTest {
         xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExThree' package='pkg'/>\n";
         files_.put("pkg/ExThree."+Classes.EXT, xml_);
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
-        Classes classes_ = cont_.getClasses();
         StringMap<StringList> t_ = new StringMap<StringList>();
-        assertTrue(!Templates.isCorrectTemplateAll(CUST_LIST+"<"+ENUM_LIST+"<java.lang.Object>>", t_,classes_));
+        assertTrue(!Templates.isCorrectTemplateAll(CUST_LIST+"<"+ENUM_LIST+"<java.lang.Object>>", t_,cont_));
     }
 
     @Test
@@ -2359,9 +2463,8 @@ public class TemplatesTest {
         xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExThree' package='pkg'/>\n";
         files_.put("pkg/ExThree."+Classes.EXT, xml_);
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
-        Classes classes_ = cont_.getClasses();
         StringMap<StringList> t_ = new StringMap<StringList>();
-        assertTrue(!Templates.isCorrectTemplateAll(CUST_LIST+"<"+CUST_LIST+"<"+CUST_LIST+">>", t_,classes_));
+        assertTrue(!Templates.isCorrectTemplateAll(CUST_LIST+"<"+CUST_LIST+"<"+CUST_LIST+">>", t_,cont_));
     }
 
     @Test
@@ -2375,9 +2478,8 @@ public class TemplatesTest {
         xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExThree' package='pkg'/>\n";
         files_.put("pkg/ExThree."+Classes.EXT, xml_);
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
-        Classes classes_ = cont_.getClasses();
         StringMap<StringList> t_ = new StringMap<StringList>();
-        assertTrue(Templates.isCorrectTemplateAll(CUST_LIST+"<"+CUST_LIST+"<pkg.ExThree>>", t_,classes_));
+        assertTrue(Templates.isCorrectTemplateAll(CUST_LIST+"<"+CUST_LIST+"<pkg.ExThree>>", t_,cont_));
     }
 
     @Test
@@ -2391,9 +2493,8 @@ public class TemplatesTest {
         xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExThree' package='pkg'/>\n";
         files_.put("pkg/ExThree."+Classes.EXT, xml_);
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
-        Classes classes_ = cont_.getClasses();
         StringMap<StringList> t_ = new StringMap<StringList>();
-        assertTrue(!Templates.isCorrectTemplateAll(CUST_LIST+"<"+CUST_LIST+"<pkg.Ex>>", t_,classes_));
+        assertTrue(!Templates.isCorrectTemplateAll(CUST_LIST+"<"+CUST_LIST+"<pkg.Ex>>", t_,cont_));
     }
 
     @Test
@@ -2407,10 +2508,9 @@ public class TemplatesTest {
         xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExThree' package='pkg'/>\n";
         files_.put("pkg/ExThree."+Classes.EXT, xml_);
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
-        Classes classes_ = cont_.getClasses();
         StringMap<StringList> t_ = new StringMap<StringList>();
         t_.put("E", new StringList("java.lang.Object"));
-        assertTrue(Templates.isCorrectTemplateAll(CUST_LIST+"<"+CUST_LIST+"<#E>>", t_,classes_));
+        assertTrue(Templates.isCorrectTemplateAll(CUST_LIST+"<"+CUST_LIST+"<#E>>", t_,cont_));
     }
 
     @Test
@@ -2424,10 +2524,9 @@ public class TemplatesTest {
         xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExThree' package='pkg'/>\n";
         files_.put("pkg/ExThree."+Classes.EXT, xml_);
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
-        Classes classes_ = cont_.getClasses();
         StringMap<StringList> t_ = new StringMap<StringList>();
         t_.put("E", new StringList("java.lang.Object"));
-        assertTrue(!Templates.isCorrectTemplateAll(CUST_LIST+"<"+CUST_LIST+"<#F>>", t_,classes_));
+        assertTrue(!Templates.isCorrectTemplateAll(CUST_LIST+"<"+CUST_LIST+"<#F>>", t_,cont_));
     }
 
     @Test
@@ -2515,11 +2614,17 @@ public class TemplatesTest {
     }
     private ContextEl unfullValidateOverridingMethods(StringMap<String> _files) {
         ContextEl cont_ = new ContextEl();
-        Classes classes_ = new Classes(_files, cont_);
+        Classes classes_ = new Classes();
+        classes_.tryBuildClassesBodies(_files, cont_);
+        assertTrue(classes_.getErrorsDet().toString(), classes_.getErrorsDet().isEmpty());
         cont_.setClasses(classes_);
         assertTrue(classes_.getErrorsDet().toString(), classes_.getErrorsDet().isEmpty());
         classes_.validateInheritingClasses(cont_);
         assertTrue(classes_.getErrorsDet().toString(), classes_.getErrorsDet().isEmpty());
+        return cont_;
+    }
+    private ContextEl simpleContextEl() {
+        ContextEl cont_ = new ContextEl();
         return cont_;
     }
 }

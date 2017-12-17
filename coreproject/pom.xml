@@ -25,6 +25,7 @@
 		<module>../expressionlanguage</module>
 		<module>../images</module>
 		<module>../formathtml</module>
+		<module>../imagesurl</module>
 		<module>../guicommon</module>
 		<module>../network</module>
 	</modules>

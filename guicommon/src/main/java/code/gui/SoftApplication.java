@@ -1,5 +1,5 @@
 package code.gui;
-import code.formathtml.images.data.Handler;
+import code.imagesurl.data.Handler;
 
 public abstract class SoftApplication extends SoftApplicationCore {
 

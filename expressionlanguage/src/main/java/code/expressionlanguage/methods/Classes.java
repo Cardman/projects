@@ -127,19 +127,219 @@ public final class Classes {
     private CustList<OperationNode> expsHasNextCust;
     private CustList<OperationNode> expsNextCust;
 
-    public Classes(StringMap<String> _files, ContextEl _context) {
+    public Classes(){
         classesBodies = new StringMap<RootBlock>();
-
         errorsDet = new CustList<FoundErrorInterpret>();
-        StringList classesFiles_ = new StringList();
-        StringList classes_ = new StringList();
-
         staticFields = new ObjectMap<ClassField,Struct>();
         values = new StringMap<CustList<Struct>>();
         initializedClasses = new StringMap<Boolean>();
         successfulInitializedClasses = new StringMap<Boolean>();
         classesInheriting = new StringList();
         localVariablesNames = new StringList();
+    }
+    private void processPredefinedClass(String _content, ContextEl _context) {
+        DocumentResult res_ = DocumentBuilder.parseSaxHtmlRowCol(_content);
+        Document doc_ = res_.getDocument();
+        _context.setHtml(_content);
+        _context.setElements(new ElementOffsetsNext(new RowCol(), 0, 0));
+        Element root_ = doc_.getDocumentElement();
+        Block bl_ = Block.createOperationNode(root_, _context, 0, null);
+        int tabWidth_ = _context.getTabWidth();
+        RootBlock cl_ = (RootBlock) bl_;
+        ElementOffsetsNext e_ = _context.getElements();
+        ElementOffsetsNext ne_ = DocumentBuilder.getIndexesOfElementOrAttribute(_content, e_, root_, tabWidth_);
+        processCustomClass(cl_, true, _content, _context, ne_);
+    }
+    private void processCustomClass(RootBlock _root, boolean _predefined, String _content, ContextEl _context, ElementOffsetsNext _elt) {
+        RootBlock bl_ = _root;
+        ElementOffsetsNext ne_ = _elt;
+        bl_.setAttributes(ne_.getAttributes());
+        bl_.setEndHeader(ne_.getEndHeader());
+        bl_.setTabs(ne_.getTabs());
+        bl_.setOffsets(ne_.getOffsets());
+        RootBlock cl_ = bl_;
+        String packageName_;
+        packageName_ = cl_.getPackageName();
+        if (!_predefined) {
+            if (packageName_.isEmpty()) {
+                throw new BadClassNameException(cl_.getFullName());
+            }
+            StringList elements_ = StringList.splitChars(packageName_, DOT);
+            for (String e: elements_) {
+                if (!StringList.isWord(e)) {
+                    throw new BadClassNameException(cl_.getFullName());
+                }
+            }
+            String className_;
+            className_ = cl_.getName();
+            if (!StringList.isWord(className_)) {
+                throw new BadClassNameException(cl_.getFullName());
+            }
+        }
+        String fullDef_ = cl_.getFullDefinition();
+        StringList params_ = StringList.getAllTypes(fullDef_);
+        if (params_ == null) {
+            throw new BadClassNameException(fullDef_);
+        }
+        StringList varTypes_ = new StringList();
+        for (String p: params_.mid(CustList.SECOND_INDEX)) {
+            if (!p.startsWith(Templates.PREFIX_VAR_TYPE)) {
+                throw new BadClassNameException(fullDef_);
+            }
+            String name_ = p.substring(Templates.PREFIX_VAR_TYPE.length());
+            TypeVar type_ = new TypeVar();
+            int indexDef_ = name_.indexOf(Templates.EXTENDS_DEF);
+            StringList parts_ = StringList.splitInTwo(name_, indexDef_);
+            if (!StringList.isWord(parts_.first())) {
+                throw new BadClassNameException(fullDef_);
+            }
+            if (varTypes_.containsStr(parts_.first())) {
+                throw new BadClassNameException(fullDef_);
+            }
+            varTypes_.add(parts_.first());
+            StringList constraints_ = new StringList();
+            if (indexDef_ != CustList.INDEX_NOT_FOUND_ELT) {
+                for (String b: StringList.splitChars(parts_.last().substring(1), Templates.SEP_BOUNDS)) {
+                    if (!isCorrectTemplate(b, _context)) {
+                        throw new BadClassNameException(b);
+                    }
+                    constraints_.add(b);
+                }
+            } else {
+                constraints_.add(Object.class.getName());
+            }
+            type_.setConstraints(constraints_);
+            type_.setName(parts_.first());
+            cl_.getParamTypes().add(type_);
+        }
+        cl_.buildMapParamType();
+        for (String s: cl_.getDirectGenericSuperTypes()) {
+            if (!isCorrectTemplate(s, _context)) {
+                throw new BadClassNameException(s);
+            }
+        }
+        for (TypeVar t: cl_.getParamTypes()) {
+            for (String u: t.getConstraints()) {
+                if (!u.startsWith(Templates.PREFIX_VAR_TYPE)) {
+                    continue;
+                }
+                if (!cl_.getParamTypesMap().contains(u.substring(1))) {
+                    throw new BadClassNameException(u);
+                }
+            }
+        }
+        try {
+            Class<?> clNat_ = PrimitiveTypeUtil.getSingleNativeClass(cl_.getFullName());
+            throw new AlreadyExistingClassException(clNat_.getName());
+        } catch (RuntimeClassNotFoundException _0) {
+        }
+        Block rootBl_ = cl_;
+        CustList<Block> all_ = getSortedDescNodesRoot(rootBl_);
+        for (Block b: all_) {
+            b.setConf(null);
+            b.setupChars(_content);
+            b.setCompleteGroup();
+            b.setNullAssociateElement();
+        }
+        String fullName_ = cl_.getFullName();
+        initializedClasses.put(fullName_, false);
+        classesBodies.put(fullName_, cl_);
+    }
+    private static boolean isCorrectTemplate(String _temp, ContextEl _context) {
+        if (!Templates.isCorrectWrite(_temp, _context)) {
+            return false;
+        }
+        if (PrimitiveTypeUtil.isPrimitive(_temp)) {
+            return false;
+        }
+        for (char c: _temp.toCharArray()) {
+            if (StringList.isWordChar(c)) {
+                continue;
+            }
+            if (c == DOT) {
+                continue;
+            }
+            if (c == LT) {
+                continue;
+            }
+            if (c == GT) {
+                continue;
+            }
+            if (c == COMMA) {
+                continue;
+            }
+            if (c == PREF) {
+                continue;
+            }
+            if (c == PRIM) {
+                continue;
+            }
+            if (c == ARR_BEG) {
+                continue;
+            }
+            return false;
+        }
+        return true;
+    }
+    public CustList<FoundErrorInterpret> getErrorsDet() {
+        return errorsDet;
+    }
+    public static void validateAll(StringMap<String> _files, ContextEl _context) {
+        Classes bk_ = _context.getClasses();
+        Classes classes_ = new Classes();
+        try {
+            classes_.tryBuildClassesBodies(_files, _context);
+            if (!classes_.errorsDet.isEmpty()) {
+                throw new AnalyzingErrorsException(classes_.errorsDet);
+            }
+            _context.setClasses(classes_);
+            classes_.validateInheritingClasses(_context);
+            if (!classes_.errorsDet.isEmpty()) {
+                throw new AnalyzingErrorsException(classes_.errorsDet);
+            }
+            classes_.validateSingleParameterizedClasses(_context);
+            if (!classes_.errorsDet.isEmpty()) {
+                throw new AnalyzingErrorsException(classes_.errorsDet);
+            }
+            classes_.validateIds(_context);
+            if (!classes_.errorsDet.isEmpty()) {
+                throw new AnalyzingErrorsException(classes_.errorsDet);
+            }
+            classes_.validateOverridingInherit(_context);
+            if (!classes_.errorsDet.isEmpty()) {
+                throw new AnalyzingErrorsException(classes_.errorsDet);
+            }
+            classes_.validateClassesAccess(_context);
+            if (!classes_.errorsDet.isEmpty()) {
+                throw new AnalyzingErrorsException(classes_.errorsDet);
+            }
+            classes_.validateLocalVariableNamesId(_context);
+            if (!classes_.errorsDet.isEmpty()) {
+                throw new AnalyzingErrorsException(classes_.errorsDet);
+            }
+            classes_.validateEl(_context);
+            if (!classes_.errorsDet.isEmpty()) {
+                throw new AnalyzingErrorsException(classes_.errorsDet);
+            }
+            classes_.validateReturns(_context);
+            if (!classes_.errorsDet.isEmpty()) {
+                throw new AnalyzingErrorsException(classes_.errorsDet);
+            }
+            _context.setAnalyzing(null);
+        } catch (AnalyzingErrorsException _0) {
+            _context.setClasses(bk_);
+            throw _0;
+        } catch (RuntimeException _0) {
+            _context.setClasses(bk_);
+            throw _0;
+        } catch (Error _0) {
+            _context.setClasses(bk_);
+            throw _0;
+        }
+    }
+    public void tryBuildClassesBodies(StringMap<String> _files, ContextEl _context) {
+        StringList classesFiles_ = new StringList();
+        StringList classes_ = new StringList();
         for (EntryCust<String,String> f: _files.entryList()) {
             String file_ = f.getKey();
             try {
@@ -257,205 +457,6 @@ public final class Classes {
         content_ = PredefinedClasses.getEnumType();
         processPredefinedClass(content_, _context);
         _context.setHtml(EMPTY_STRING);
-    }
-    private void processPredefinedClass(String _content, ContextEl _context) {
-        DocumentResult res_ = DocumentBuilder.parseSaxHtmlRowCol(_content);
-        Document doc_ = res_.getDocument();
-        _context.setHtml(_content);
-        _context.setElements(new ElementOffsetsNext(new RowCol(), 0, 0));
-        Element root_ = doc_.getDocumentElement();
-        Block bl_ = Block.createOperationNode(root_, _context, 0, null);
-        int tabWidth_ = _context.getTabWidth();
-        RootBlock cl_ = (RootBlock) bl_;
-        ElementOffsetsNext e_ = _context.getElements();
-        ElementOffsetsNext ne_ = DocumentBuilder.getIndexesOfElementOrAttribute(_content, e_, root_, tabWidth_);
-        processCustomClass(cl_, true, _content, _context, ne_);
-    }
-    private void processCustomClass(RootBlock _root, boolean _predefined, String _content, ContextEl _context, ElementOffsetsNext _elt) {
-        RootBlock bl_ = _root;
-        ElementOffsetsNext ne_ = _elt;
-        bl_.setAttributes(ne_.getAttributes());
-        bl_.setEndHeader(ne_.getEndHeader());
-        bl_.setTabs(ne_.getTabs());
-        bl_.setOffsets(ne_.getOffsets());
-        RootBlock cl_ = bl_;
-        String packageName_;
-        packageName_ = cl_.getPackageName();
-        if (!_predefined) {
-            if (packageName_.isEmpty()) {
-                throw new BadClassNameException(cl_.getFullName());
-            }
-            StringList elements_ = StringList.splitChars(packageName_, DOT);
-            for (String e: elements_) {
-                if (!StringList.isWord(e)) {
-                    throw new BadClassNameException(cl_.getFullName());
-                }
-            }
-            String className_;
-            className_ = cl_.getName();
-            if (!StringList.isWord(className_)) {
-                throw new BadClassNameException(cl_.getFullName());
-            }
-        }
-        String fullDef_ = cl_.getFullDefinition();
-        StringList params_ = StringList.getAllTypes(fullDef_);
-        if (params_ == null) {
-            throw new BadClassNameException(fullDef_);
-        }
-        StringList varTypes_ = new StringList();
-        for (String p: params_.mid(CustList.SECOND_INDEX)) {
-            if (!p.startsWith(Templates.PREFIX_VAR_TYPE)) {
-                throw new BadClassNameException(fullDef_);
-            }
-            String name_ = p.substring(Templates.PREFIX_VAR_TYPE.length());
-            TypeVar type_ = new TypeVar();
-            int indexDef_ = name_.indexOf(Templates.EXTENDS_DEF);
-            StringList parts_ = StringList.splitInTwo(name_, indexDef_);
-            if (!StringList.isWord(parts_.first())) {
-                throw new BadClassNameException(fullDef_);
-            }
-            if (varTypes_.containsStr(parts_.first())) {
-                throw new BadClassNameException(fullDef_);
-            }
-            varTypes_.add(parts_.first());
-            StringList constraints_ = new StringList();
-            if (indexDef_ != CustList.INDEX_NOT_FOUND_ELT) {
-                for (String b: StringList.splitChars(parts_.last().substring(1), Templates.SEP_BOUNDS)) {
-                    if (!isCorrectTemplate(b)) {
-                        throw new BadClassNameException(b);
-                    }
-                    constraints_.add(b);
-                }
-            } else {
-                constraints_.add(Object.class.getName());
-            }
-            type_.setConstraints(constraints_);
-            type_.setName(parts_.first());
-            cl_.getParamTypes().add(type_);
-        }
-        cl_.buildMapParamType();
-        for (String s: cl_.getDirectGenericSuperTypes()) {
-            if (!isCorrectTemplate(s)) {
-                throw new BadClassNameException(s);
-            }
-        }
-        for (TypeVar t: cl_.getParamTypes()) {
-            for (String u: t.getConstraints()) {
-                if (!u.startsWith(Templates.PREFIX_VAR_TYPE)) {
-                    continue;
-                }
-                if (!cl_.getParamTypesMap().contains(u.substring(1))) {
-                    throw new BadClassNameException(u);
-                }
-            }
-        }
-        try {
-            Class<?> clNat_ = PrimitiveTypeUtil.getSingleNativeClass(cl_.getFullName());
-            throw new AlreadyExistingClassException(clNat_.getName());
-        } catch (RuntimeClassNotFoundException _0) {
-        }
-        Block rootBl_ = cl_;
-        CustList<Block> all_ = getSortedDescNodesRoot(rootBl_);
-        for (Block b: all_) {
-            b.setConf(null);
-            b.setupChars(_content);
-            b.setCompleteGroup();
-            b.setNullAssociateElement();
-        }
-        String fullName_ = cl_.getFullName();
-        initializedClasses.put(fullName_, false);
-        classesBodies.put(fullName_, cl_);
-    }
-    private static boolean isCorrectTemplate(String _temp) {
-        if (!Templates.isCorrectWrite(_temp)) {
-            return false;
-        }
-        if (PrimitiveTypeUtil.isPrimitive(_temp)) {
-            return false;
-        }
-        for (char c: _temp.toCharArray()) {
-            if (StringList.isWordChar(c)) {
-                continue;
-            }
-            if (c == DOT) {
-                continue;
-            }
-            if (c == LT) {
-                continue;
-            }
-            if (c == GT) {
-                continue;
-            }
-            if (c == COMMA) {
-                continue;
-            }
-            if (c == PREF) {
-                continue;
-            }
-            if (c == PRIM) {
-                continue;
-            }
-            if (c == ARR_BEG) {
-                continue;
-            }
-            return false;
-        }
-        return true;
-    }
-    public CustList<FoundErrorInterpret> getErrorsDet() {
-        return errorsDet;
-    }
-    public static void validateAll(StringMap<String> _files, ContextEl _context) {
-        Classes bk_ = _context.getClasses();
-        Classes classes_ = new Classes(_files, _context);
-        if (!classes_.errorsDet.isEmpty()) {
-            throw new AnalyzingErrorsException(classes_.errorsDet);
-        }
-        try {
-            _context.setClasses(classes_);
-            classes_.validateInheritingClasses(_context);
-            if (!classes_.errorsDet.isEmpty()) {
-                throw new AnalyzingErrorsException(classes_.errorsDet);
-            }
-            classes_.validateSingleParameterizedClasses(_context);
-            if (!classes_.errorsDet.isEmpty()) {
-                throw new AnalyzingErrorsException(classes_.errorsDet);
-            }
-            classes_.validateIds(_context);
-            if (!classes_.errorsDet.isEmpty()) {
-                throw new AnalyzingErrorsException(classes_.errorsDet);
-            }
-            classes_.validateOverridingInherit(_context);
-            if (!classes_.errorsDet.isEmpty()) {
-                throw new AnalyzingErrorsException(classes_.errorsDet);
-            }
-            classes_.validateClassesAccess(_context);
-            if (!classes_.errorsDet.isEmpty()) {
-                throw new AnalyzingErrorsException(classes_.errorsDet);
-            }
-            classes_.validateLocalVariableNamesId(_context);
-            if (!classes_.errorsDet.isEmpty()) {
-                throw new AnalyzingErrorsException(classes_.errorsDet);
-            }
-            classes_.validateEl(_context);
-            if (!classes_.errorsDet.isEmpty()) {
-                throw new AnalyzingErrorsException(classes_.errorsDet);
-            }
-            classes_.validateReturns(_context);
-            if (!classes_.errorsDet.isEmpty()) {
-                throw new AnalyzingErrorsException(classes_.errorsDet);
-            }
-            _context.setAnalyzing(null);
-        } catch (AnalyzingErrorsException _0) {
-            _context.setClasses(bk_);
-            throw _0;
-        } catch (RuntimeException _0) {
-            _context.setClasses(bk_);
-            throw _0;
-        } catch (Error _0) {
-            _context.setClasses(bk_);
-            throw _0;
-        }
     }
     public static CustList<Block> getSortedDescNodesRoot(Block _root) {
         CustList<Block> list_ = new CustList<Block>();
@@ -865,8 +866,8 @@ public final class Classes {
             StringList direct_ = bl_.getDirectInterfaces();
             all_.addAllElts(direct_);
             for (String i: direct_) {
-                RootBlock i_ = classesBodies.getVal(i);
-                all_.addAllElts(i_.getAllSuperClasses());
+                InterfaceBlock i_ = (InterfaceBlock) classesBodies.getVal(i);
+                all_.addAllElts(i_.getAllInterfaces());
             }
             StringList needed_ = new StringList();
             for (String s: bl_.getDirectSuperClasses()) {
@@ -885,7 +886,7 @@ public final class Classes {
         for (EntryCust<String, RootBlock> c: classesBodies.entryList()) {
             RootBlock r_ = c.getValue();
             if (r_ instanceof UniqueRootedBlock) {
-                r_.getAllSuperTypes().addAllElts(((UniqueRootedBlock)r_).getAllSuperClasses());
+                r_.getAllSuperTypes().addAllElts(((UniqueRootedBlock)r_).getAllSuperClasses(_context));
                 r_.getAllSuperTypes().addAllElts(((UniqueRootedBlock)r_).getAllInterfaces());
             } else {
                 r_.getAllSuperTypes().addAllElts(((InterfaceBlock)r_).getAllSuperClasses());
@@ -901,7 +902,7 @@ public final class Classes {
                 mapping_.getMapping().put(t.getName(), t.getConstraints());
                 variables_.add(t.getName());
                 for (String b: t.getConstraints()) {
-                    if (!Templates.existAllClassParts(b, variables_, this)) {
+                    if (!Templates.existAllClassParts(b, variables_, _context)) {
                         UnknownClassName un_ = new UnknownClassName();
                         un_.setClassName(b);
                         un_.setFileName(c);
@@ -1025,7 +1026,7 @@ public final class Classes {
             }
             for (TypeVar t: bl_.getParamTypes()) {
                 for (String b: t.getConstraints()) {
-                    if (!Templates.correctClassParts(b, map_, this)) {
+                    if (!Templates.correctClassParts(b, map_, _context)) {
                         UnknownClassName un_ = new UnknownClassName();
                         un_.setClassName(b);
                         un_.setFileName(d_);
@@ -1035,7 +1036,7 @@ public final class Classes {
                 }
             }
             for (String s: bl_.getDirectGenericSuperClasses()) {
-                if (!Templates.correctClassParts(s, map_, _context.getClasses())) {
+                if (!Templates.correctClassParts(s, map_, _context)) {
                     UnknownClassName un_ = new UnknownClassName();
                     un_.setClassName(s);
                     un_.setFileName(d_);
@@ -1266,14 +1267,14 @@ public final class Classes {
     public void validateOverridingInherit(ContextEl _context) {
         PageEl page_ = new PageEl();
         _context.setAnalyzing(page_);
-        for (String c: classesInheriting) {
-            RootBlock bl_ = classesBodies.getVal(c);
+        for (EntryCust<String, RootBlock> c: classesBodies.entryList()) {
+            RootBlock bl_ = c.getValue();
             bl_.setupBasicOverrides(_context);
             bl_.checkCompatibility(_context);
             bl_.checkImplements(_context);
         }
-        for (String c: classesInheriting) {
-            RootBlock bl_ = classesBodies.getVal(c);
+        for (EntryCust<String, RootBlock> c: classesBodies.entryList()) {
+            RootBlock bl_ = c.getValue();
             bl_.checkCompatibilityBounds(_context);
         }
     }
@@ -1290,7 +1291,7 @@ public final class Classes {
                     StringList parts_ = StringList.splitChars(classNameLoc_, LT, GT, ARR_BEG, COMMA, Templates.SEP_BOUNDS, Templates.EXTENDS_DEF);
                     for (String p: parts_) {
                         if (classesBodies.contains(p)) {
-                            if (!canAccessClass(className_, p)) {
+                            if (!canAccessClass(className_, p, _context)) {
                                 BadAccessClass err_ = new BadAccessClass();
                                 err_.setFileName(className_);
                                 err_.setRc(b_.getRowCol(0, _context.getTabWidth(), n.getKey()));
@@ -1417,27 +1418,27 @@ public final class Classes {
         page_.getLocalVars().removeKey(nextVarCust);
     }
 
-    public boolean canAccessField(String _className, String _accessedClass, String _name) {
+    public boolean canAccessField(String _className, String _accessedClass, String _name, ContextEl _context) {
         String baseClass_ = StringList.getAllTypes(_accessedClass).first();
         Block access_ = getClassBody(baseClass_);
         CustList<Block> bl_ = getDirectChildren(access_);
         for (Block b: bl_) {
             if (b instanceof InfoBlock) {
                 if (StringList.quickEq(((InfoBlock)b).getFieldName(), _name)) {
-                    return canAccess(_className,(InfoBlock)b);
+                    return canAccess(_className,(InfoBlock)b, _context);
                 }
             }
         }
         return false;
     }
 
-    public boolean canAccessClass(String _className, String _accessedClass) {
+    public boolean canAccessClass(String _className, String _accessedClass, ContextEl _context) {
         String baseClass_ = StringList.getAllTypes(_accessedClass).first();
         RootBlock access_ = getClassBody(baseClass_);
-        return canAccess(_className, access_);
+        return canAccess(_className, access_, _context);
     }
 
-    public boolean canAccess(String _className, AccessibleBlock _block) {
+    public boolean canAccess(String _className, AccessibleBlock _block, ContextEl _context) {
         if (_block.getAccess() == AccessEnum.PUBLIC) {
             return true;
         }
@@ -1448,7 +1449,7 @@ public final class Classes {
         RootBlock root_ = getClassBody(baseClass_);
         RootBlock belong_ = _block.belong();
         if (_block.getAccess() == AccessEnum.PROTECTED) {
-            if (PrimitiveTypeUtil.canBeUseAsArgument(belong_.getFullName(), baseClass_, this)) {
+            if (PrimitiveTypeUtil.canBeUseAsArgument(belong_.getFullName(), baseClass_, _context)) {
                 return true;
             }
             if (StringList.quickEq(belong_.getPackageName(), root_.getPackageName())) {
@@ -1953,7 +1954,7 @@ public final class Classes {
         String base_ = StringList.getAllTypes(_name).first();
         successfulInitializedClasses.put(base_, true);
     }
-    public void preInitializeStaticFields(String _className) {
+    public void preInitializeStaticFields(String _className, ContextEl _context) {
         String base_ = StringList.getAllTypes(_className).first();
         ObjectMap<ClassField, FieldBlock> fieldsInfos_;
         fieldsInfos_ = new ObjectMap<ClassField, FieldBlock>();
@@ -1968,7 +1969,7 @@ public final class Classes {
                     FieldBlock method_ = (FieldBlock) b;
                     String m_ = method_.getFieldName();
                     if (method_.isStaticField()) {
-                        Struct str_ = method_.getDefaultStruct();
+                        Struct str_ = method_.getDefaultStruct(_context);
                         staticFields.put(new ClassField(base_, m_), str_);
                         continue;
                     }
@@ -2017,7 +2018,7 @@ public final class Classes {
                     fields_ = new ObjectMap<ClassField,Struct>();
                     for (EntryCust<ClassField, FieldBlock> f: fieldsInfos_.entryList()) {
                         FieldBlock inf_ = f.getValue();
-                        fields_.put(f.getKey(), inf_.getDefaultStruct());
+                        fields_.put(f.getKey(), inf_.getDefaultStruct(_context));
                     }
                     Struct str_;
                     str_ = new CustStruct(enum_, base_, fields_);

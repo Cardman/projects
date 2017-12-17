@@ -61,7 +61,7 @@ public abstract class NumericOperation extends MethodOperation {
             convert_ = false;
         }
         if (convert_) {
-            ClassArgumentMatching cl_ = new ClassArgumentMatching(_left.getObjectClassName());
+            ClassArgumentMatching cl_ = new ClassArgumentMatching(_left.getObjectClassName(_conf));
             Argument converted_ = new Argument();
             converted_.setStruct(PrimitiveTypeUtil.convertObject(cl_, o_.getStruct()));
             o_ = converted_;
@@ -95,8 +95,8 @@ public abstract class NumericOperation extends MethodOperation {
             a_.setObject(str_.toString());
             return a_;
         }
-        if (StringList.quickEq(PrimitiveTypeUtil.toPrimitive(_a.getArgClass(), true).getName(), PrimitiveTypeUtil.PRIM_CHAR)) {
-            if (StringList.quickEq(PrimitiveTypeUtil.toPrimitive(_b.getArgClass(), true).getName(), PrimitiveTypeUtil.PRIM_CHAR)) {
+        if (StringList.quickEq(PrimitiveTypeUtil.toPrimitive(_a.getArgClass(_cont), true).getName(), PrimitiveTypeUtil.PRIM_CHAR)) {
+            if (StringList.quickEq(PrimitiveTypeUtil.toPrimitive(_b.getArgClass(_cont), true).getName(), PrimitiveTypeUtil.PRIM_CHAR)) {
                 StringBuilder str_ = new StringBuilder();
                 str_.append(_a.getObject());
                 str_.append(_b.getObject());

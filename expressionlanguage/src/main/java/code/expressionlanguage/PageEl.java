@@ -78,12 +78,12 @@ public final class PageEl {
 
     private String processingAttribute = EMPTY_STRING;
 
-    public String getInfos() {
-        return READ_URL+SEP_KEY_VAL+readUrl+SEP_INFO+getCommonInfosAndRc(getTrace());
+    public String getInfos(ContextEl _context) {
+        return READ_URL+SEP_KEY_VAL+readUrl+SEP_INFO+getCommonInfosAndRc(getTrace(), _context);
     }
 
-    public String getCommonInfosAndRc(RowCol _rc) {
-        return getCommonInfos()+_rc;
+    public String getCommonInfosAndRc(RowCol _rc,ContextEl _context) {
+        return getCommonInfos(_context)+_rc;
     }
 
     public RowCol getTrace() {
@@ -104,12 +104,12 @@ public final class PageEl {
         return rc_;
     }
 
-    private String getCommonInfos() {
+    private String getCommonInfos(ContextEl _context) {
         StringList list_ = new StringList();
         if (globalArgument != null) {
             Object glel_ = globalArgument.getObject();
             if (glel_ != null) {
-                list_.add(BEAN_CLASS+SEP_KEY_VAL+globalArgument.getObjectClassName());
+                list_.add(BEAN_CLASS+SEP_KEY_VAL+globalArgument.getObjectClassName(_context));
             } else {
                 list_.add(BEAN_CLASS+SEP_KEY_VAL+null);
             }
@@ -117,22 +117,26 @@ public final class PageEl {
             list_.add(BEAN_CLASS+SEP_KEY_VAL+null);
         }
         for (EntryCust<String,LoopVariable> e: vars.entryList()) {
-            list_.add(e.getKey()+SEP_KEY_VAL+SEP_INFO+e.getValue());
+            list_.add(e.getKey()+SEP_KEY_VAL+SEP_INFO+e.getValue().getInfos(_context));
         }
         list_.add(LOCAL_VARIABLES);
         for (EntryCust<String,LocalVariable> e: localVars.entryList()) {
-            list_.add(e.getKey()+SEP_KEY_VAL+SEP_INFO+e.getValue());
+            list_.add(e.getKey()+SEP_KEY_VAL+SEP_INFO+e.getValue().getInfos());
         }
         list_.add(CATCH_VARIABLES);
         for (EntryCust<String,LocalVariable> e: catchVars.entryList()) {
-            list_.add(e.getKey()+SEP_KEY_VAL+SEP_INFO+e.getValue());
+            list_.add(e.getKey()+SEP_KEY_VAL+SEP_INFO+e.getValue().getInfos());
         }
         list_.add(PARAMATERS);
         for (EntryCust<String,LocalVariable> e: parameters.entryList()) {
-            list_.add(e.getKey()+SEP_KEY_VAL+SEP_INFO+e.getValue());
+            list_.add(e.getKey()+SEP_KEY_VAL+SEP_INFO+e.getValue().getInfos());
+        }
+        list_.add(SEP_INFO);
+        for (RemovableVars b: blockStacks) {
+            list_.add(b.getInfos());
         }
         String keyMessage_ = EMPTY_STRING;
-        return keyMessage_+SEP_INFO+list_+SEP_INFO+blockStacks.join(SEP_INFO)+SEP_INFO+LINE_COL+SEP_KEY_VAL;
+        return keyMessage_+SEP_INFO+list_.toString()+SEP_INFO+LINE_COL+SEP_KEY_VAL;
     }
 
     public void addToOffset(int _offset) {
@@ -284,18 +288,19 @@ public final class PageEl {
         return _type;
     }
 
-    public String formatVarType(String _varType, Classes _classes) {
+    public String formatVarType(String _varType, ContextEl _cont) {
         if (globalArgument == null) {
             return _varType;
         }
         if (globalArgument.isNull()) {
             return _varType;
         }
-        String objClass_ = globalArgument.getObjectClassName();
+        String objClass_ = globalArgument.getObjectClassName(_cont);
+        Classes classes_ = _cont.getClasses();
         String gl_ = globalClass;
         gl_ = StringList.getAllTypes(gl_).first();
-        gl_ = Templates.getFullTypeByBases(objClass_, gl_, _classes);
-        return Templates.format(gl_, _varType, _classes);
+        gl_ = Templates.getFullTypeByBases(objClass_, gl_, _cont);
+        return Templates.format(gl_, _varType, classes_);
     }
 
     public Argument getGlobalArgument() {

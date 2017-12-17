@@ -118,7 +118,7 @@ public final class ClassBlock extends RootBlock implements UniqueRootedBlock {
                 if (m.isStaticMethod()) {
                     continue;
                 }
-                String formattedSuper_ = Templates.getFullTypeByBases(gene_, s, classesRef_);
+                String formattedSuper_ = Templates.getFullTypeByBases(gene_, s, _context);
                 MethodId id_ = m.getId().format(formattedSuper_, classesRef_);
                 for (String c: classes_) {
                     CustList<MethodBlock> mBases_ = classesRef_.getMethodBodiesById(c, id_);
@@ -157,7 +157,7 @@ public final class ClassBlock extends RootBlock implements UniqueRootedBlock {
                             classesRef_.getErrorsDet().add(err_);
                             //throw ex
                         }
-                    } else if (!Templates.isCorrect(mapping_, classesRef_)) {
+                    } else if (!Templates.isCorrect(mapping_, _context)) {
                         //throw ex
                         BadReturnTypeInherit err_;
                         err_ = new BadReturnTypeInherit();
@@ -316,7 +316,7 @@ public final class ClassBlock extends RootBlock implements UniqueRootedBlock {
         }
         for (EntryCust<ConstructorId, ConstructorMetaInfo> e: m_.entryList()) {
             CustList<ConstructorBlock> formatted_ = _cont.getClasses().getConstructorBodiesById(superClass, e.getKey());
-            if (!_cont.getClasses().canAccess(getFullName(), formatted_.first())) {
+            if (!_cont.getClasses().canAccess(getFullName(), formatted_.first(), _cont)) {
                 continue;
             }
             if (e.getKey().getParametersTypes().isEmpty()) {
@@ -422,5 +422,19 @@ public final class ClassBlock extends RootBlock implements UniqueRootedBlock {
             }
         }
         return allGenericInterfaces_;
+    }
+
+    @Override
+    public StringList getAllSuperClasses(ContextEl _classes) {
+        StringList superClasses_ = new StringList();
+        String current_ = getFullName();
+        String objectAlias_ = _classes.getStandards().getAliasObject();
+        while (!StringList.quickEq(current_, objectAlias_)) {
+            UniqueRootedBlock r_ = (UniqueRootedBlock) _classes.getClasses().getClassBody(current_);
+            String superClass_ = r_.getSuperClass();
+            superClasses_.add(superClass_);
+            current_ = superClass_;
+        }
+        return superClasses_;
     }
 }

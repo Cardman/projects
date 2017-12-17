@@ -57,7 +57,7 @@ public final class Throwing extends Leaf implements StackableBlock {
         opThrow = ElUtil.getAnalyzedOperations(expression, _cont, Calculation.staticCalculation(f_.isStaticContext()));
         OperationNode el_ = opThrow.last();
         String param_ = Throwable.class.getName();
-        if (!PrimitiveTypeUtil.canBeUseAsArgument(param_, el_.getResultClass().getName(), _cont.getClasses())) {
+        if (!PrimitiveTypeUtil.canBeUseAsArgument(param_, el_.getResultClass().getName(), _cont)) {
             throw new BadCatchException(_cont.joinPages());
         }
     }

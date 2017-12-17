@@ -14,7 +14,7 @@ public class ElResolverTest {
 
     @Test
     public void getOperationsSequence1Test() {
-        ContextEl conf_ = new ContextEl();
+        ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
         BeanOne b_ = new BeanOne();
         addBean(conf_, b_);
@@ -37,7 +37,7 @@ public class ElResolverTest {
 
     @Test
     public void getOperationsSequence2Test() {
-        ContextEl conf_ = new ContextEl();
+        ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
         BeanOne b_ = new BeanOne();
         addBean(conf_, b_);
@@ -56,7 +56,7 @@ public class ElResolverTest {
 
     @Test
     public void getOperationsSequence3Test() {
-        ContextEl conf_ = new ContextEl();
+        ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
         BeanOne b_ = new BeanOne();
         addBean(conf_, b_);
@@ -75,7 +75,7 @@ public class ElResolverTest {
 
     @Test
     public void getOperationsSequence4Test() {
-        ContextEl conf_ = new ContextEl();
+        ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
         BeanOne b_ = new BeanOne();
         addBean(conf_, b_);
@@ -94,7 +94,7 @@ public class ElResolverTest {
 
     @Test
     public void getOperationsSequence5Test() {
-        ContextEl conf_ = new ContextEl();
+        ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
         BeanOne b_ = new BeanOne();
         addBean(conf_, b_);
@@ -113,7 +113,7 @@ public class ElResolverTest {
 
     @Test
     public void getOperationsSequence6Test() {
-        ContextEl conf_ = new ContextEl();
+        ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
         BeanOne b_ = new BeanOne();
         addBean(conf_, b_);
@@ -132,7 +132,7 @@ public class ElResolverTest {
 
     @Test
     public void getOperationsSequence7Test() {
-        ContextEl conf_ = new ContextEl();
+        ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
         BeanOne b_ = new BeanOne();
         addBean(conf_, b_);
@@ -151,7 +151,7 @@ public class ElResolverTest {
 
     @Test
     public void getOperationsSequence8Test() {
-        ContextEl conf_ = new ContextEl();
+        ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
         BeanOne b_ = new BeanOne();
         addBean(conf_, b_);
@@ -170,7 +170,7 @@ public class ElResolverTest {
 
     @Test
     public void getOperationsSequence9Test() {
-        ContextEl conf_ = new ContextEl();
+        ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
         BeanOne b_ = new BeanOne();
         addBean(conf_, b_);
@@ -189,7 +189,7 @@ public class ElResolverTest {
 
     @Test
     public void getOperationsSequence10Test() {
-        ContextEl conf_ = new ContextEl();
+        ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
         BeanOne b_ = new BeanOne();
         addBean(conf_, b_);
@@ -208,7 +208,7 @@ public class ElResolverTest {
 
     @Test
     public void getOperationsSequence11Test() {
-        ContextEl conf_ = new ContextEl();
+        ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
         BeanOne b_ = new BeanOne();
         addBean(conf_, b_);
@@ -227,7 +227,7 @@ public class ElResolverTest {
 
     @Test
     public void getOperationsSequence12Test() {
-        ContextEl conf_ = new ContextEl();
+        ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
         BeanOne b_ = new BeanOne();
         addBean(conf_, b_);
@@ -245,7 +245,7 @@ public class ElResolverTest {
 
     @Test
     public void getOperationsSequence13Test() {
-        ContextEl conf_ = new ContextEl();
+        ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
         BeanOne b_ = new BeanOne();
         addBean(conf_, b_);
@@ -266,7 +266,7 @@ public class ElResolverTest {
 
     @Test
     public void getOperationsSequence14Test() {
-        ContextEl conf_ = new ContextEl();
+        ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
         BeanOne b_ = new BeanOne();
         addBean(conf_, b_);
@@ -285,7 +285,7 @@ public class ElResolverTest {
 
     @Test
     public void getOperationsSequence15Test() {
-        ContextEl conf_ = new ContextEl();
+        ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
         BeanOne b_ = new BeanOne();
         addBean(conf_, b_);
@@ -302,7 +302,7 @@ public class ElResolverTest {
 
     @Test
     public void getOperationsSequence16Test() {
-        ContextEl conf_ = new ContextEl();
+        ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
         BeanOne b_ = new BeanOne();
         addBean(conf_, b_);
@@ -319,7 +319,7 @@ public class ElResolverTest {
 
     @Test
     public void getOperationsSequence17Test() {
-        ContextEl conf_ = new ContextEl();
+        ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
         BeanOne b_ = new BeanOne();
         addBean(conf_, b_);
@@ -336,7 +336,7 @@ public class ElResolverTest {
 
     @Test
     public void getOperationsSequence18Test() {
-        ContextEl conf_ = new ContextEl();
+        ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
         BeanOne b_ = new BeanOne();
         addBean(conf_, b_);
@@ -356,7 +356,7 @@ public class ElResolverTest {
 
     @Test
     public void getOperationsSequence19Test() {
-        ContextEl conf_ = new ContextEl();
+        ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
         BeanOne b_ = new BeanOne();
         addBean(conf_, b_);
@@ -376,7 +376,7 @@ public class ElResolverTest {
 
     @Test
     public void getOperationsSequence20Test() {
-        ContextEl conf_ = new ContextEl();
+        ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
         BeanOne b_ = new BeanOne();
         addBean(conf_, b_);
@@ -401,7 +401,7 @@ public class ElResolverTest {
 
     @Test
     public void getOperationsSequence21Test() {
-        ContextEl conf_ = new ContextEl();
+        ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
         BeanOne b_ = new BeanOne();
         addBean(conf_, b_);
@@ -418,7 +418,7 @@ public class ElResolverTest {
 
     @Test
     public void getOperationsSequence22Test() {
-        ContextEl conf_ = new ContextEl();
+        ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
         BeanOne b_ = new BeanOne();
         addBean(conf_, b_);
@@ -435,7 +435,7 @@ public class ElResolverTest {
 
     @Test
     public void getOperationsSequence23Test() {
-        ContextEl conf_ = new ContextEl();
+        ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
         BeanOne b_ = new BeanOne();
         addBean(conf_, b_);
@@ -453,7 +453,7 @@ public class ElResolverTest {
 
     @Test
     public void getOperationsSequence24Test() {
-        ContextEl conf_ = new ContextEl();
+        ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
         BeanOne b_ = new BeanOne();
         addBean(conf_, b_);
@@ -474,7 +474,7 @@ public class ElResolverTest {
 
     @Test
     public void getOperationsSequence25Test() {
-        ContextEl conf_ = new ContextEl();
+        ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
         BeanOne b_ = new BeanOne();
         addBean(conf_, b_);
@@ -498,7 +498,7 @@ public class ElResolverTest {
 
     @Test
     public void getOperationsSequence26Test() {
-        ContextEl conf_ = new ContextEl();
+        ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
         BeanOne b_ = new BeanOne();
         addBean(conf_, b_);
@@ -518,7 +518,7 @@ public class ElResolverTest {
 
     @Test
     public void getOperationsSequence27Test() {
-        ContextEl conf_ = new ContextEl();
+        ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
         BeanOne b_ = new BeanOne();
         addBean(conf_, b_);
@@ -538,7 +538,7 @@ public class ElResolverTest {
 
     @Test
     public void getOperationsSequence28Test() {
-        ContextEl conf_ = new ContextEl();
+        ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
         BeanOne b_ = new BeanOne();
         addBean(conf_, b_);
@@ -557,7 +557,7 @@ public class ElResolverTest {
 
     @Test
     public void getOperationsSequence29Test() {
-        ContextEl conf_ = new ContextEl();
+        ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
         BeanOne b_ = new BeanOne();
         addBean(conf_, b_);
@@ -577,7 +577,7 @@ public class ElResolverTest {
 
     @Test
     public void getOperationsSequence30Test() {
-        ContextEl conf_ = new ContextEl();
+        ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
         BeanOne b_ = new BeanOne();
         addBean(conf_, b_);
@@ -596,7 +596,7 @@ public class ElResolverTest {
 
     @Test
     public void getOperationsSequence31Test() {
-        ContextEl conf_ = new ContextEl();
+        ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
         BeanOne b_ = new BeanOne();
         addBean(conf_, b_);
@@ -615,7 +615,7 @@ public class ElResolverTest {
 
     @Test
     public void getOperationsSequence32Test() {
-        ContextEl conf_ = new ContextEl();
+        ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
         BeanOne b_ = new BeanOne();
         addBean(conf_, b_);
@@ -638,7 +638,7 @@ public class ElResolverTest {
 
     @Test
     public void getOperationsSequence33Test() {
-        ContextEl conf_ = new ContextEl();
+        ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
         BeanOne b_ = new BeanOne();
         addBean(conf_, b_);
@@ -659,7 +659,7 @@ public class ElResolverTest {
 
     @Test
     public void getOperationsSequence34Test() {
-        ContextEl conf_ = new ContextEl();
+        ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
         BeanOne b_ = new BeanOne();
         addBean(conf_, b_);
@@ -681,7 +681,7 @@ public class ElResolverTest {
 
     @Test
     public void getOperationsSequence35Test() {
-        ContextEl conf_ = new ContextEl();
+        ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
         BeanOne b_ = new BeanOne();
         addBean(conf_, b_);
@@ -703,7 +703,7 @@ public class ElResolverTest {
 
     @Test
     public void getOperationsSequence36Test() {
-        ContextEl conf_ = new ContextEl();
+        ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
         BeanOne b_ = new BeanOne();
         addBean(conf_, b_);
@@ -724,7 +724,7 @@ public class ElResolverTest {
 
     @Test
     public void getOperationsSequence37Test() {
-        ContextEl conf_ = new ContextEl();
+        ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
         BeanOne b_ = new BeanOne();
         addBean(conf_, b_);
@@ -745,7 +745,7 @@ public class ElResolverTest {
 
     @Test
     public void getOperationsSequence38Test() {
-        ContextEl conf_ = new ContextEl();
+        ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
         BeanOne b_ = new BeanOne();
         addBean(conf_, b_);
@@ -765,7 +765,7 @@ public class ElResolverTest {
 
     @Test
     public void getOperationsSequence39Test() {
-        ContextEl conf_ = new ContextEl();
+        ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
         BeanOne b_ = new BeanOne();
         addBean(conf_, b_);
@@ -786,7 +786,7 @@ public class ElResolverTest {
 
     @Test
     public void getOperationsSequence40Test() {
-        ContextEl conf_ = new ContextEl();
+        ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
         BeanOne b_ = new BeanOne();
         addBean(conf_, b_);
@@ -806,7 +806,7 @@ public class ElResolverTest {
 
     @Test
     public void getOperationsSequence41Test() {
-        ContextEl conf_ = new ContextEl();
+        ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
         BeanOne b_ = new BeanOne();
         addBean(conf_, b_);
@@ -827,7 +827,7 @@ public class ElResolverTest {
 
     @Test
     public void getOperationsSequence42Test() {
-        ContextEl conf_ = new ContextEl();
+        ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
         BeanOne b_ = new BeanOne();
         addBean(conf_, b_);
@@ -848,7 +848,7 @@ public class ElResolverTest {
 
     @Test
     public void getOperationsSequence43Test() {
-        ContextEl conf_ = new ContextEl();
+        ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
         BeanOne b_ = new BeanOne();
         addBean(conf_, b_);
@@ -869,7 +869,7 @@ public class ElResolverTest {
 
     @Test
     public void getOperationsSequence44Test() {
-        ContextEl conf_ = new ContextEl();
+        ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
         BeanOne b_ = new BeanOne();
         addBean(conf_, b_);
@@ -890,7 +890,7 @@ public class ElResolverTest {
 
     @Test
     public void getOperationsSequence45Test() {
-        ContextEl conf_ = new ContextEl();
+        ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
         BeanOne b_ = new BeanOne();
         addBean(conf_, b_);
@@ -910,7 +910,7 @@ public class ElResolverTest {
 
     @Test
     public void getOperationsSequence46Test() {
-        ContextEl conf_ = new ContextEl();
+        ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
         BeanOne b_ = new BeanOne();
         addBean(conf_, b_);
@@ -930,7 +930,7 @@ public class ElResolverTest {
 
     @Test
     public void getOperationsSequence47Test() {
-        ContextEl conf_ = new ContextEl();
+        ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
         BeanOne b_ = new BeanOne();
         addBean(conf_, b_);
@@ -950,7 +950,7 @@ public class ElResolverTest {
 
     @Test
     public void getOperationsSequence48Test() {
-        ContextEl conf_ = new ContextEl();
+        ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
         BeanOne b_ = new BeanOne();
         addBean(conf_, b_);
@@ -970,7 +970,7 @@ public class ElResolverTest {
 
     @Test
     public void getOperationsSequence49Test() {
-        ContextEl conf_ = new ContextEl();
+        ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
         BeanOne b_ = new BeanOne();
         addBean(conf_, b_);
@@ -990,7 +990,7 @@ public class ElResolverTest {
 
     @Test
     public void getOperationsSequence50Test() {
-        ContextEl conf_ = new ContextEl();
+        ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
         BeanOne b_ = new BeanOne();
         addBean(conf_, b_);
@@ -1010,7 +1010,7 @@ public class ElResolverTest {
 
     @Test
     public void getOperationsSequence51Test() {
-        ContextEl conf_ = new ContextEl();
+        ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
         BeanOne b_ = new BeanOne();
         addBean(conf_, b_);
@@ -1030,7 +1030,7 @@ public class ElResolverTest {
 
     @Test
     public void getOperationsSequence52Test() {
-        ContextEl conf_ = new ContextEl();
+        ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
         BeanOne b_ = new BeanOne();
         addBean(conf_, b_);
@@ -1049,7 +1049,7 @@ public class ElResolverTest {
 
     @Test
     public void getOperationsSequence53Test() {
-        ContextEl conf_ = new ContextEl();
+        ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
         BeanOne b_ = new BeanOne();
         addBean(conf_, b_);
@@ -1068,7 +1068,7 @@ public class ElResolverTest {
 
     @Test
     public void getOperationsSequence54Test() {
-        ContextEl conf_ = new ContextEl();
+        ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
         BeanOne b_ = new BeanOne();
         addBean(conf_, b_);
@@ -1087,7 +1087,7 @@ public class ElResolverTest {
 
     @Test
     public void getOperationsSequence55Test() {
-        ContextEl conf_ = new ContextEl();
+        ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
         BeanOne b_ = new BeanOne();
         addBean(conf_, b_);
@@ -1105,7 +1105,7 @@ public class ElResolverTest {
 
     @Test
     public void getOperationsSequence56Test() {
-        ContextEl conf_ = new ContextEl();
+        ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
         BeanOne b_ = new BeanOne();
         addBean(conf_, b_);
@@ -1122,7 +1122,7 @@ public class ElResolverTest {
 
     @Test
     public void getOperationsSequence57Test() {
-        ContextEl conf_ = new ContextEl();
+        ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
         BeanOne b_ = new BeanOne();
         addBean(conf_, b_);
@@ -1141,7 +1141,7 @@ public class ElResolverTest {
 
     @Test
     public void getOperationsSequence58Test() {
-        ContextEl conf_ = new ContextEl();
+        ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
         BeanOne b_ = new BeanOne();
         addBean(conf_, b_);
@@ -1160,7 +1160,7 @@ public class ElResolverTest {
 
     @Test
     public void getOperationsSequence59Test() {
-        ContextEl conf_ = new ContextEl();
+        ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
         BeanOne b_ = new BeanOne();
         addBean(conf_, b_);
@@ -1179,7 +1179,7 @@ public class ElResolverTest {
 
     @Test
     public void getOperationsSequence60Test() {
-        ContextEl conf_ = new ContextEl();
+        ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
         BeanOne b_ = new BeanOne();
         addBean(conf_, b_);
@@ -1199,7 +1199,7 @@ public class ElResolverTest {
 
     @Test
     public void getOperationsSequence61Test() {
-        ContextEl conf_ = new ContextEl();
+        ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
         BeanOne b_ = new BeanOne();
         addBean(conf_, b_);
@@ -1219,7 +1219,7 @@ public class ElResolverTest {
 
     @Test
     public void getOperationsSequence62Test() {
-        ContextEl conf_ = new ContextEl();
+        ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
         BeanOne b_ = new BeanOne();
         addBean(conf_, b_);
@@ -1239,7 +1239,7 @@ public class ElResolverTest {
 
     @Test
     public void getOperationsSequence63Test() {
-        ContextEl conf_ = new ContextEl();
+        ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
         BeanOne b_ = new BeanOne();
         addBean(conf_, b_);
@@ -1259,7 +1259,7 @@ public class ElResolverTest {
 
     @Test
     public void getOperationsSequence64Test() {
-        ContextEl conf_ = new ContextEl();
+        ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
         BeanOne b_ = new BeanOne();
         addBean(conf_, b_);
@@ -1277,7 +1277,7 @@ public class ElResolverTest {
 
     @Test
     public void getOperationsSequence65Test() {
-        ContextEl conf_ = new ContextEl();
+        ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
         BeanOne b_ = new BeanOne();
         addBean(conf_, b_);
@@ -1295,7 +1295,7 @@ public class ElResolverTest {
 
     @Test
     public void getOperationsSequence66Test() {
-        ContextEl conf_ = new ContextEl();
+        ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
         BeanOne b_ = new BeanOne();
         addBean(conf_, b_);
@@ -1313,7 +1313,7 @@ public class ElResolverTest {
 
     @Test
     public void getOperationsSequence67Test() {
-        ContextEl conf_ = new ContextEl();
+        ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
         BeanOne b_ = new BeanOne();
         addBean(conf_, b_);
@@ -1334,7 +1334,7 @@ public class ElResolverTest {
 
     @Test
     public void getOperationsSequence68Test() {
-        ContextEl conf_ = new ContextEl();
+        ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
         BeanOne b_ = new BeanOne();
         addBean(conf_, b_);
@@ -1355,7 +1355,7 @@ public class ElResolverTest {
 
     @Test
     public void getOperationsSequence69Test() {
-        ContextEl conf_ = new ContextEl();
+        ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
         BeanOne b_ = new BeanOne();
         addBean(conf_, b_);
@@ -1376,7 +1376,7 @@ public class ElResolverTest {
 
     @Test
     public void getOperationsSequence70Test() {
-        ContextEl conf_ = new ContextEl();
+        ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
         BeanOne b_ = new BeanOne();
         addBean(conf_, b_);
@@ -1397,7 +1397,7 @@ public class ElResolverTest {
 
     @Test
     public void getOperationsSequence71Test() {
-        ContextEl conf_ = new ContextEl();
+        ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
         BeanOne b_ = new BeanOne();
         addBean(conf_, b_);
@@ -1422,7 +1422,7 @@ public class ElResolverTest {
 
     @Test
     public void getOperationsSequence72Test() {
-        ContextEl conf_ = new ContextEl();
+        ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
         BeanOne b_ = new BeanOne();
         addBean(conf_, b_);
@@ -1448,7 +1448,7 @@ public class ElResolverTest {
 
     @Test
     public void getOperationsSequence73Test() {
-        ContextEl conf_ = new ContextEl();
+        ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
         BeanOne b_ = new BeanOne();
         addBean(conf_, b_);
@@ -1474,7 +1474,7 @@ public class ElResolverTest {
 
     @Test
     public void getOperationsSequence74Test() {
-        ContextEl conf_ = new ContextEl();
+        ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
         BeanOne b_ = new BeanOne();
         addBean(conf_, b_);
@@ -1495,7 +1495,7 @@ public class ElResolverTest {
 
     @Test
     public void getOperationsSequence75Test() {
-        ContextEl conf_ = new ContextEl();
+        ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
         BeanOne b_ = new BeanOne();
         addBean(conf_, b_);
@@ -1516,7 +1516,7 @@ public class ElResolverTest {
 
     @Test
     public void getOperationsSequence76Test() {
-        ContextEl conf_ = new ContextEl();
+        ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
         BeanOne b_ = new BeanOne();
         addBean(conf_, b_);
@@ -1537,7 +1537,7 @@ public class ElResolverTest {
 
     @Test
     public void getOperationsSequence77Test() {
-        ContextEl conf_ = new ContextEl();
+        ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
         BeanOne b_ = new BeanOne();
         addBean(conf_, b_);
@@ -1559,7 +1559,7 @@ public class ElResolverTest {
     //optional parameter with qualified access
     @Test
     public void getOperationsSequence78Test() {
-        ContextEl conf_ = new ContextEl();
+        ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
         BeanOne b_ = new BeanOne();
         addBean(conf_, b_);
@@ -1580,7 +1580,7 @@ public class ElResolverTest {
 
     @Test
     public void getOperationsSequence79Test() {
-        ContextEl conf_ = new ContextEl();
+        ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
         BeanOne b_ = new BeanOne();
         addBean(conf_, b_);
@@ -1601,7 +1601,7 @@ public class ElResolverTest {
 
     @Test
     public void getOperationsSequence80Test() {
-        ContextEl conf_ = new ContextEl();
+        ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
         BeanOne b_ = new BeanOne();
         addBean(conf_, b_);
@@ -1624,7 +1624,7 @@ public class ElResolverTest {
 
     @Test
     public void getOperationsSequence81Test() {
-        ContextEl conf_ = new ContextEl();
+        ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
         BeanOne b_ = new BeanOne();
         addBean(conf_, b_);
@@ -1645,7 +1645,7 @@ public class ElResolverTest {
 
     @Test
     public void getOperationsSequence82Test() {
-        ContextEl conf_ = new ContextEl();
+        ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
         BeanOne b_ = new BeanOne();
         addBean(conf_, b_);
@@ -1663,7 +1663,7 @@ public class ElResolverTest {
 
     @Test
     public void getOperationsSequence83Test() {
-        ContextEl conf_ = new ContextEl();
+        ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
         BeanOne b_ = new BeanOne();
         addBean(conf_, b_);
@@ -1682,7 +1682,7 @@ public class ElResolverTest {
 
     @Test
     public void getOperationsSequence84Test() {
-        ContextEl conf_ = new ContextEl();
+        ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
         BeanOne b_ = new BeanOne();
         addBean(conf_, b_);
@@ -1701,7 +1701,7 @@ public class ElResolverTest {
 
     @Test
     public void getOperationsSequence85Test() {
-        ContextEl conf_ = new ContextEl();
+        ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
         BeanOne b_ = new BeanOne();
         addBean(conf_, b_);
@@ -1719,7 +1719,7 @@ public class ElResolverTest {
 
     @Test
     public void getOperationsSequence86Test() {
-        ContextEl conf_ = new ContextEl();
+        ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
         BeanOne b_ = new BeanOne();
         addBean(conf_, b_);
@@ -1738,7 +1738,7 @@ public class ElResolverTest {
 
     @Test
     public void getOperationsSequence87Test() {
-        ContextEl conf_ = new ContextEl();
+        ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
         BeanOne b_ = new BeanOne();
         addBean(conf_, b_);
@@ -1758,7 +1758,7 @@ public class ElResolverTest {
 
     @Test
     public void getOperationsSequence88Test() {
-        ContextEl conf_ = new ContextEl();
+        ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
         BeanOne b_ = new BeanOne();
         addBean(conf_, b_);
@@ -1776,7 +1776,7 @@ public class ElResolverTest {
 
     @Test
     public void getOperationsSequence89Test() {
-        ContextEl conf_ = new ContextEl();
+        ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
         BeanOne b_ = new BeanOne();
         addBean(conf_, b_);
@@ -1796,7 +1796,7 @@ public class ElResolverTest {
 
     @Test
     public void getOperationsSequence90Test() {
-        ContextEl conf_ = new ContextEl();
+        ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
         BeanOne b_ = new BeanOne();
         addBean(conf_, b_);
@@ -1816,7 +1816,7 @@ public class ElResolverTest {
 
     @Test
     public void getOperationsSequence91Test() {
-        ContextEl conf_ = new ContextEl();
+        ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
         BeanOne b_ = new BeanOne();
         addBean(conf_, b_);
@@ -1835,7 +1835,7 @@ public class ElResolverTest {
 
     @Test
     public void getOperationsSequence92Test() {
-        ContextEl conf_ = new ContextEl();
+        ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
         BeanOne b_ = new BeanOne();
         addBean(conf_, b_);
@@ -1855,7 +1855,7 @@ public class ElResolverTest {
 
     @Test
     public void getOperationsSequence93Test() {
-        ContextEl conf_ = new ContextEl();
+        ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
         BeanOne b_ = new BeanOne();
         addBean(conf_, b_);
@@ -1874,7 +1874,7 @@ public class ElResolverTest {
 
     @Test
     public void getOperationsSequence94Test() {
-        ContextEl conf_ = new ContextEl();
+        ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
         BeanOne b_ = new BeanOne();
         addBean(conf_, b_);
@@ -1894,7 +1894,7 @@ public class ElResolverTest {
 
     @Test
     public void getOperationsSequence95Test() {
-        ContextEl conf_ = new ContextEl();
+        ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
         BeanOne b_ = new BeanOne();
         addBean(conf_, b_);
@@ -1914,7 +1914,7 @@ public class ElResolverTest {
 
     @Test
     public void getOperationsSequence96Test() {
-        ContextEl conf_ = new ContextEl();
+        ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
         BeanOne b_ = new BeanOne();
         addBean(conf_, b_);
@@ -1933,7 +1933,7 @@ public class ElResolverTest {
 
     @Test
     public void getOperationsSequence97Test() {
-        ContextEl conf_ = new ContextEl();
+        ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
         BeanOne b_ = new BeanOne();
         addBean(conf_, b_);
@@ -1952,7 +1952,7 @@ public class ElResolverTest {
 
     @Test
     public void getOperationsSequence98Test() {
-        ContextEl conf_ = new ContextEl();
+        ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
         BeanOne b_ = new BeanOne();
         addBean(conf_, b_);
@@ -1971,7 +1971,7 @@ public class ElResolverTest {
 
     @Test
     public void getOperationsSequence99Test() {
-        ContextEl conf_ = new ContextEl();
+        ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
         BeanOne b_ = new BeanOne();
         addBean(conf_, b_);
@@ -1990,7 +1990,7 @@ public class ElResolverTest {
 
     @Test
     public void getOperationsSequence100Test() {
-        ContextEl conf_ = new ContextEl();
+        ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
         BeanOne b_ = new BeanOne();
         addBean(conf_, b_);
@@ -2009,7 +2009,7 @@ public class ElResolverTest {
 
     @Test
     public void getOperationsSequence101Test() {
-        ContextEl conf_ = new ContextEl();
+        ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
         BeanOne b_ = new BeanOne();
         addBean(conf_, b_);
@@ -2029,7 +2029,7 @@ public class ElResolverTest {
 
     @Test
     public void getOperationsSequence102Test() {
-        ContextEl conf_ = new ContextEl();
+        ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
         BeanOne b_ = new BeanOne();
         addBean(conf_, b_);
@@ -2048,7 +2048,7 @@ public class ElResolverTest {
 
     @Test
     public void getOperationsSequence103Test() {
-        ContextEl conf_ = new ContextEl();
+        ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
         BeanOne b_ = new BeanOne();
         addBean(conf_, b_);
@@ -2068,7 +2068,7 @@ public class ElResolverTest {
 
     @Test
     public void getOperationsSequence104Test() {
-        ContextEl conf_ = new ContextEl();
+        ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
         BeanOne b_ = new BeanOne();
         addBean(conf_, b_);
@@ -2086,7 +2086,7 @@ public class ElResolverTest {
 
     @Test
     public void getOperationsSequence105Test() {
-        ContextEl conf_ = new ContextEl();
+        ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
         BeanOne b_ = new BeanOne();
         addBean(conf_, b_);
@@ -2105,7 +2105,7 @@ public class ElResolverTest {
 
     @Test
     public void getOperationsSequence106Test() {
-        ContextEl conf_ = new ContextEl();
+        ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
         BeanOne b_ = new BeanOne();
         addBean(conf_, b_);
@@ -2124,7 +2124,7 @@ public class ElResolverTest {
 
     @Test
     public void getOperationsSequence107Test() {
-        ContextEl conf_ = new ContextEl();
+        ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
         BeanOne b_ = new BeanOne();
         addBean(conf_, b_);
@@ -2144,7 +2144,7 @@ public class ElResolverTest {
 
     @Test
     public void getOperationsSequence108Test() {
-        ContextEl conf_ = new ContextEl();
+        ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
         BeanOne b_ = new BeanOne();
         addBean(conf_, b_);
@@ -2167,7 +2167,7 @@ public class ElResolverTest {
 
     @Test
     public void getOperationsSequence109Test() {
-        ContextEl conf_ = new ContextEl();
+        ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
         BeanOne b_ = new BeanOne();
         addBean(conf_, b_);
@@ -2188,7 +2188,7 @@ public class ElResolverTest {
 
     @Test
     public void getOperationsSequence110Test() {
-        ContextEl conf_ = new ContextEl();
+        ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
         BeanOne b_ = new BeanOne();
         addBean(conf_, b_);
@@ -2207,7 +2207,7 @@ public class ElResolverTest {
 
     @Test
     public void getOperationsSequence111Test() {
-        ContextEl conf_ = new ContextEl();
+        ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
         BeanOne b_ = new BeanOne();
         addBean(conf_, b_);
@@ -2227,7 +2227,7 @@ public class ElResolverTest {
 
     @Test
     public void getOperationsSequence112Test() {
-        ContextEl conf_ = new ContextEl();
+        ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
         BeanOne b_ = new BeanOne();
         addBean(conf_, b_);
@@ -2246,7 +2246,7 @@ public class ElResolverTest {
 
     @Test
     public void getOperationsSequence113Test() {
-        ContextEl conf_ = new ContextEl();
+        ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
         BeanOne b_ = new BeanOne();
         addBean(conf_, b_);
@@ -2266,7 +2266,7 @@ public class ElResolverTest {
 
     @Test
     public void getOperationsSequence114Test() {
-        ContextEl conf_ = new ContextEl();
+        ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
         BeanOne b_ = new BeanOne();
         addBean(conf_, b_);
@@ -2285,7 +2285,7 @@ public class ElResolverTest {
 
     @Test
     public void getOperationsSequence115Test() {
-        ContextEl conf_ = new ContextEl();
+        ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
         BeanOne b_ = new BeanOne();
         addBean(conf_, b_);
@@ -2305,7 +2305,7 @@ public class ElResolverTest {
 
     @Test
     public void getOperationsSequence116Test() {
-        ContextEl conf_ = new ContextEl();
+        ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
         BeanOne b_ = new BeanOne();
         addBean(conf_, b_);
@@ -2325,7 +2325,7 @@ public class ElResolverTest {
 
     @Test
     public void getOperationsSequence117Test() {
-        ContextEl conf_ = new ContextEl();
+        ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
         BeanOne b_ = new BeanOne();
         addBean(conf_, b_);
@@ -2345,7 +2345,7 @@ public class ElResolverTest {
 
     @Test
     public void getOperationsSequence118Test() {
-        ContextEl conf_ = new ContextEl();
+        ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
         BeanOne b_ = new BeanOne();
         addBean(conf_, b_);
@@ -2365,7 +2365,7 @@ public class ElResolverTest {
 
     @Test
     public void getOperationsSequence119Test() {
-        ContextEl conf_ = new ContextEl();
+        ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
         BeanOne b_ = new BeanOne();
         addBean(conf_, b_);
@@ -2385,7 +2385,7 @@ public class ElResolverTest {
 
     @Test
     public void getOperationsSequence120Test() {
-        ContextEl conf_ = new ContextEl();
+        ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
         BeanOne b_ = new BeanOne();
         addBean(conf_, b_);
@@ -2405,7 +2405,7 @@ public class ElResolverTest {
 
     @Test
     public void getOperationsSequence121Test() {
-        ContextEl conf_ = new ContextEl();
+        ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
         BeanOne b_ = new BeanOne();
         addBean(conf_, b_);
@@ -2425,7 +2425,7 @@ public class ElResolverTest {
 
     @Test
     public void getOperationsSequence122Test() {
-        ContextEl conf_ = new ContextEl();
+        ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
         BeanOne b_ = new BeanOne();
         addBean(conf_, b_);
@@ -2445,7 +2445,7 @@ public class ElResolverTest {
 
     @Test
     public void getOperationsSequence123Test() {
-        ContextEl conf_ = new ContextEl();
+        ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
         BeanOne b_ = new BeanOne();
         addBean(conf_, b_);
@@ -2465,7 +2465,7 @@ public class ElResolverTest {
 
     @Test
     public void getOperationsSequence124Test() {
-        ContextEl conf_ = new ContextEl();
+        ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
         BeanOne b_ = new BeanOne();
         addBean(conf_, b_);
@@ -2485,7 +2485,7 @@ public class ElResolverTest {
 
     @Test
     public void getOperationsSequence125Test() {
-        ContextEl conf_ = new ContextEl();
+        ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
         BeanOne b_ = new BeanOne();
         addBean(conf_, b_);
@@ -2505,7 +2505,7 @@ public class ElResolverTest {
 
     @Test
     public void getOperationsSequence126Test() {
-        ContextEl conf_ = new ContextEl();
+        ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
         BeanOne b_ = new BeanOne();
         addBean(conf_, b_);
@@ -2525,7 +2525,7 @@ public class ElResolverTest {
 
     @Test
     public void getOperationsSequence127Test() {
-        ContextEl conf_ = new ContextEl();
+        ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
         BeanOne b_ = new BeanOne();
         addBean(conf_, b_);
@@ -2544,7 +2544,7 @@ public class ElResolverTest {
 
     @Test
     public void getOperationsSequence128Test() {
-        ContextEl conf_ = new ContextEl();
+        ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
         String el_ = "1e2";
         Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
@@ -2559,7 +2559,7 @@ public class ElResolverTest {
 
     @Test
     public void getOperationsSequence129Test() {
-        ContextEl conf_ = new ContextEl();
+        ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
         String el_ = "1e-2";
         Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
@@ -2574,7 +2574,7 @@ public class ElResolverTest {
 
     @Test
     public void getOperationsSequence130Test() {
-        ContextEl conf_ = new ContextEl();
+        ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
         String el_ = "1.0e2";
         Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
@@ -2589,7 +2589,7 @@ public class ElResolverTest {
 
     @Test
     public void getOperationsSequence131Test() {
-        ContextEl conf_ = new ContextEl();
+        ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
         String el_ = "1.0e-2";
         Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
@@ -2604,7 +2604,7 @@ public class ElResolverTest {
 
     @Test
     public void getOperationsSequence132Test() {
-        ContextEl conf_ = new ContextEl();
+        ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
         String el_ = "1.e2";
         Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
@@ -2619,7 +2619,7 @@ public class ElResolverTest {
 
     @Test
     public void getOperationsSequence133Test() {
-        ContextEl conf_ = new ContextEl();
+        ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
         String el_ = "1.e-2";
         Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
@@ -2634,7 +2634,7 @@ public class ElResolverTest {
 
     @Test
     public void getOperationsSequence134Test() {
-        ContextEl conf_ = new ContextEl();
+        ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
         String el_ = ".1e2";
         Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
@@ -2649,7 +2649,7 @@ public class ElResolverTest {
 
     @Test
     public void getOperationsSequence135Test() {
-        ContextEl conf_ = new ContextEl();
+        ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
         String el_ = ".1e-2";
         Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
@@ -2664,7 +2664,7 @@ public class ElResolverTest {
 
     @Test
     public void getOperationsSequence136Test() {
-        ContextEl conf_ = new ContextEl();
+        ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
         String el_ = ".1";
         Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
@@ -2679,7 +2679,7 @@ public class ElResolverTest {
 
     @Test
     public void getOperationsSequence137Test() {
-        ContextEl conf_ = new ContextEl();
+        ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
         String el_ = "-.1";
         Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
@@ -2694,7 +2694,7 @@ public class ElResolverTest {
 
     @Test
     public void getOperationsSequence138Test() {
-        ContextEl conf_ = new ContextEl();
+        ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
         String el_ = "-.1e2";
         Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
@@ -2709,7 +2709,7 @@ public class ElResolverTest {
 
     @Test
     public void getOperationsSequence139Test() {
-        ContextEl conf_ = new ContextEl();
+        ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
         String el_ = "-.1e-2";
         Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
@@ -2724,7 +2724,7 @@ public class ElResolverTest {
 
     @Test
     public void getOperationsSequence140Test() {
-        ContextEl conf_ = new ContextEl();
+        ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
         String el_ = "1.";
         Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
@@ -2739,7 +2739,7 @@ public class ElResolverTest {
 
     @Test
     public void getOperationsSequence141Test() {
-        ContextEl conf_ = new ContextEl();
+        ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
         String el_ = "-.1e-2+.5";
         Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
@@ -2756,7 +2756,7 @@ public class ElResolverTest {
 
     @Test
     public void getOperationsSequence142Test() {
-        ContextEl conf_ = new ContextEl();
+        ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
         String el_ = "-.1e-2d";
         Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
@@ -2771,7 +2771,7 @@ public class ElResolverTest {
 
     @Test
     public void getOperationsSequence143Test() {
-        ContextEl conf_ = new ContextEl();
+        ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
         BeanOne b_ = new BeanOne();
         addBean(conf_, b_);
@@ -2794,7 +2794,7 @@ public class ElResolverTest {
 
     @Test
     public void getOperationsSequence144Test() {
-        ContextEl conf_ = new ContextEl();
+        ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
         BeanOne b_ = new BeanOne();
         addBean(conf_, b_);
@@ -2812,7 +2812,7 @@ public class ElResolverTest {
 
     @Test
     public void getOperationsSequence145Test() {
-        ContextEl conf_ = new ContextEl();
+        ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
         BeanOne b_ = new BeanOne();
         addBean(conf_, b_);
@@ -2830,7 +2830,7 @@ public class ElResolverTest {
 
     @Test
     public void getOperationsSequence146Test() {
-        ContextEl conf_ = new ContextEl();
+        ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
         BeanOne b_ = new BeanOne();
         addBean(conf_, b_);
@@ -2848,7 +2848,7 @@ public class ElResolverTest {
 
     @Test
     public void getOperationsSequence147Test() {
-        ContextEl conf_ = new ContextEl();
+        ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
         BeanOne b_ = new BeanOne();
         addBean(conf_, b_);
@@ -2866,7 +2866,7 @@ public class ElResolverTest {
 
     @Test
     public void getOperationsSequence148Test() {
-        ContextEl conf_ = new ContextEl();
+        ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
         BeanOne b_ = new BeanOne();
         addBean(conf_, b_);
@@ -2884,7 +2884,7 @@ public class ElResolverTest {
 
     @Test
     public void checkSyntaxDelimiters1Test() {
-        ContextEl conf_ = new ContextEl();
+        ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
         BeanOne b_ = new BeanOne();
         addBean(conf_, b_);
@@ -2897,7 +2897,7 @@ public class ElResolverTest {
 
     @Test
     public void checkSyntaxDelimiters2Test() {
-        ContextEl conf_ = new ContextEl();
+        ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
         BeanOne b_ = new BeanOne();
         addBean(conf_, b_);
@@ -2910,7 +2910,7 @@ public class ElResolverTest {
 
     @Test
     public void checkSyntaxDelimiters3Test() {
-        ContextEl conf_ = new ContextEl();
+        ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
         BeanOne b_ = new BeanOne();
         addBean(conf_, b_);
@@ -2924,7 +2924,7 @@ public class ElResolverTest {
 
     @Test
     public void checkSyntaxDelimiters4Test() {
-        ContextEl conf_ = new ContextEl();
+        ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
         BeanOne b_ = new BeanOne();
         addBean(conf_, b_);
@@ -2938,7 +2938,7 @@ public class ElResolverTest {
 
     @Test
     public void checkSyntaxDelimiters5Test() {
-        ContextEl conf_ = new ContextEl();
+        ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
         BeanOne b_ = new BeanOne();
         addBean(conf_, b_);
@@ -2952,7 +2952,7 @@ public class ElResolverTest {
 
     @Test
     public void checkSyntaxDelimiters6Test() {
-        ContextEl conf_ = new ContextEl();
+        ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
         BeanOne b_ = new BeanOne();
         addBean(conf_, b_);
@@ -2966,7 +2966,7 @@ public class ElResolverTest {
 
     @Test(expected=BadExpressionLanguageException.class)
     public void checkSyntaxDelimiters1FailTest() {
-        ContextEl conf_ = new ContextEl();
+        ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
         BeanOne b_ = new BeanOne();
         addBean(conf_, b_);
@@ -2976,7 +2976,7 @@ public class ElResolverTest {
 
     @Test(expected=BadExpressionLanguageException.class)
     public void checkSyntaxDelimiters2FailTest() {
-        ContextEl conf_ = new ContextEl();
+        ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
         BeanOne b_ = new BeanOne();
         addBean(conf_, b_);
@@ -2986,7 +2986,7 @@ public class ElResolverTest {
 
     @Test(expected=BadExpressionLanguageException.class)
     public void checkSyntaxDelimiters3FailTest() {
-        ContextEl conf_ = new ContextEl();
+        ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
         BeanOne b_ = new BeanOne();
         addBean(conf_, b_);
@@ -2996,7 +2996,7 @@ public class ElResolverTest {
 
     @Test(expected=BadExpressionLanguageException.class)
     public void checkSyntax1FailTest() {
-        ContextEl conf_ = new ContextEl();
+        ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
         BeanOne b_ = new BeanOne();
         addBean(conf_, b_);
@@ -3006,7 +3006,7 @@ public class ElResolverTest {
 
     @Test(expected=BadExpressionLanguageException.class)
     public void checkSyntax2FailTest() {
-        ContextEl conf_ = new ContextEl();
+        ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
         BeanOne b_ = new BeanOne();
         addBean(conf_, b_);
@@ -3016,7 +3016,7 @@ public class ElResolverTest {
 
     @Test(expected=BadExpressionLanguageException.class)
     public void checkSyntax3FailTest() {
-        ContextEl conf_ = new ContextEl();
+        ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
         BeanOne b_ = new BeanOne();
         addBean(conf_, b_);
@@ -3026,7 +3026,7 @@ public class ElResolverTest {
 
     @Test(expected=BadExpressionLanguageException.class)
     public void checkSyntax4FailTest() {
-        ContextEl conf_ = new ContextEl();
+        ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
         BeanOne b_ = new BeanOne();
         addBean(conf_, b_);
@@ -3036,7 +3036,7 @@ public class ElResolverTest {
 
     @Test(expected=BadExpressionLanguageException.class)
     public void checkSyntax5FailTest() {
-        ContextEl conf_ = new ContextEl();
+        ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
         BeanOne b_ = new BeanOne();
         addBean(conf_, b_);
@@ -3046,7 +3046,7 @@ public class ElResolverTest {
 
     @Test(expected=BadExpressionLanguageException.class)
     public void checkSyntax7FailTest() {
-        ContextEl conf_ = new ContextEl();
+        ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
         BeanOne b_ = new BeanOne();
         addBean(conf_, b_);
@@ -3056,7 +3056,7 @@ public class ElResolverTest {
 
     @Test(expected=BadExpressionLanguageException.class)
     public void checkSyntax8FailTest() {
-        ContextEl conf_ = new ContextEl();
+        ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
         BeanOne b_ = new BeanOne();
         addBean(conf_, b_);
@@ -3066,7 +3066,7 @@ public class ElResolverTest {
 
     @Test(expected=BadExpressionLanguageException.class)
     public void checkSyntax9FailTest() {
-        ContextEl conf_ = new ContextEl();
+        ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
         BeanOne b_ = new BeanOne();
         addBean(conf_, b_);
@@ -3076,7 +3076,7 @@ public class ElResolverTest {
 
     @Test(expected=BadExpressionLanguageException.class)
     public void checkSyntax10FailTest() {
-        ContextEl conf_ = new ContextEl();
+        ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
         BeanOne b_ = new BeanOne();
         addBean(conf_, b_);
@@ -3086,7 +3086,7 @@ public class ElResolverTest {
 
     @Test(expected=BadExpressionLanguageException.class)
     public void checkSyntax11FailTest() {
-        ContextEl conf_ = new ContextEl();
+        ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
         BeanOne b_ = new BeanOne();
         addBean(conf_, b_);
@@ -3096,7 +3096,7 @@ public class ElResolverTest {
 
     @Test(expected=BadExpressionLanguageException.class)
     public void checkSyntax12FailTest() {
-        ContextEl conf_ = new ContextEl();
+        ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
         BeanOne b_ = new BeanOne();
         addBean(conf_, b_);
@@ -3106,7 +3106,7 @@ public class ElResolverTest {
 
     @Test(expected=BadExpressionLanguageException.class)
     public void checkSyntax13FailTest() {
-        ContextEl conf_ = new ContextEl();
+        ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
         BeanOne b_ = new BeanOne();
         addBean(conf_, b_);
@@ -3116,7 +3116,7 @@ public class ElResolverTest {
 
     @Test(expected=BadExpressionLanguageException.class)
     public void checkSyntax14FailTest() {
-        ContextEl conf_ = new ContextEl();
+        ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
         BeanOne b_ = new BeanOne();
         addBean(conf_, b_);
@@ -3126,7 +3126,7 @@ public class ElResolverTest {
 
     @Test(expected=BadExpressionLanguageException.class)
     public void checkSyntax15FailTest() {
-        ContextEl conf_ = new ContextEl();
+        ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
         BeanOne b_ = new BeanOne();
         addBean(conf_, b_);
@@ -3136,7 +3136,7 @@ public class ElResolverTest {
 
     @Test(expected=BadExpressionLanguageException.class)
     public void checkSyntax16FailTest() {
-        ContextEl conf_ = new ContextEl();
+        ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
         BeanOne b_ = new BeanOne();
         addBean(conf_, b_);
@@ -3146,7 +3146,7 @@ public class ElResolverTest {
 
     @Test(expected=BadExpressionLanguageException.class)
     public void checkSyntax17FailTest() {
-        ContextEl conf_ = new ContextEl();
+        ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
         BeanOne b_ = new BeanOne();
         addBean(conf_, b_);
@@ -3156,7 +3156,7 @@ public class ElResolverTest {
 
     @Test(expected=BadExpressionLanguageException.class)
     public void checkSyntax18FailTest() {
-        ContextEl conf_ = new ContextEl();
+        ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
         BeanOne b_ = new BeanOne();
         addBean(conf_, b_);
@@ -3166,7 +3166,7 @@ public class ElResolverTest {
 
     @Test(expected=BadExpressionLanguageException.class)
     public void checkSyntax19FailTest() {
-        ContextEl conf_ = new ContextEl();
+        ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
         BeanOne b_ = new BeanOne();
         addBean(conf_, b_);
@@ -3176,7 +3176,7 @@ public class ElResolverTest {
 
     @Test(expected=BadExpressionLanguageException.class)
     public void checkSyntax20FailTest() {
-        ContextEl conf_ = new ContextEl();
+        ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
         BeanOne b_ = new BeanOne();
         addBean(conf_, b_);
@@ -3186,7 +3186,7 @@ public class ElResolverTest {
 
     @Test(expected=BadExpressionLanguageException.class)
     public void checkSyntax21FailTest() {
-        ContextEl conf_ = new ContextEl();
+        ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
         BeanOne b_ = new BeanOne();
         addBean(conf_, b_);
@@ -3196,7 +3196,7 @@ public class ElResolverTest {
 
     @Test(expected=BadExpressionLanguageException.class)
     public void checkSyntax22FailTest() {
-        ContextEl conf_ = new ContextEl();
+        ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
         BeanOne b_ = new BeanOne();
         addBean(conf_, b_);
@@ -3206,7 +3206,7 @@ public class ElResolverTest {
 
     @Test(expected=BadExpressionLanguageException.class)
     public void checkSyntax23FailTest() {
-        ContextEl conf_ = new ContextEl();
+        ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
         BeanOne b_ = new BeanOne();
         addBean(conf_, b_);
@@ -3216,7 +3216,7 @@ public class ElResolverTest {
 
     @Test(expected=BadExpressionLanguageException.class)
     public void checkSyntax24FailTest() {
-        ContextEl conf_ = new ContextEl();
+        ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
         BeanOne b_ = new BeanOne();
         addBean(conf_, b_);
@@ -3226,7 +3226,7 @@ public class ElResolverTest {
 
     @Test(expected=BadExpressionLanguageException.class)
     public void checkSyntax25FailTest() {
-        ContextEl conf_ = new ContextEl();
+        ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
         BeanOne b_ = new BeanOne();
         addBean(conf_, b_);
@@ -3236,7 +3236,7 @@ public class ElResolverTest {
 
     @Test(expected=BadExpressionLanguageException.class)
     public void checkSyntax26FailTest() {
-        ContextEl conf_ = new ContextEl();
+        ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
         BeanOne b_ = new BeanOne();
         addBean(conf_, b_);
@@ -3246,7 +3246,7 @@ public class ElResolverTest {
 
     @Test(expected=BadExpressionLanguageException.class)
     public void checkSyntax27FailTest() {
-        ContextEl conf_ = new ContextEl();
+        ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
         BeanOne b_ = new BeanOne();
         addBean(conf_, b_);
@@ -3256,7 +3256,7 @@ public class ElResolverTest {
 
     @Test(expected=BadExpressionLanguageException.class)
     public void checkSyntax28FailTest() {
-        ContextEl conf_ = new ContextEl();
+        ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
         BeanOne b_ = new BeanOne();
         addBean(conf_, b_);
@@ -3266,7 +3266,7 @@ public class ElResolverTest {
 
     @Test(expected=BadExpressionLanguageException.class)
     public void checkSyntax29FailTest() {
-        ContextEl conf_ = new ContextEl();
+        ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
         BeanOne b_ = new BeanOne();
         addBean(conf_, b_);
@@ -3276,7 +3276,7 @@ public class ElResolverTest {
 
     @Test(expected=BadExpressionLanguageException.class)
     public void checkSyntax30FailTest() {
-        ContextEl conf_ = new ContextEl();
+        ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
         BeanOne b_ = new BeanOne();
         addBean(conf_, b_);
@@ -3286,7 +3286,7 @@ public class ElResolverTest {
 
     @Test(expected=BadExpressionLanguageException.class)
     public void checkSyntax31FailTest() {
-        ContextEl conf_ = new ContextEl();
+        ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
         BeanOne b_ = new BeanOne();
         addBean(conf_, b_);
@@ -3296,7 +3296,7 @@ public class ElResolverTest {
 
     @Test(expected=BadExpressionLanguageException.class)
     public void checkSyntax32FailTest() {
-        ContextEl conf_ = new ContextEl();
+        ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
         BeanOne b_ = new BeanOne();
         addBean(conf_, b_);
@@ -3306,7 +3306,7 @@ public class ElResolverTest {
 
     @Test(expected=BadExpressionLanguageException.class)
     public void checkSyntax33FailTest() {
-        ContextEl conf_ = new ContextEl();
+        ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
         BeanOne b_ = new BeanOne();
         addBean(conf_, b_);
@@ -3316,7 +3316,7 @@ public class ElResolverTest {
 
     @Test(expected=BadExpressionLanguageException.class)
     public void checkSyntax34FailTest() {
-        ContextEl conf_ = new ContextEl();
+        ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
         BeanOne b_ = new BeanOne();
         addBean(conf_, b_);
@@ -3326,7 +3326,7 @@ public class ElResolverTest {
 
     @Test(expected=BadExpressionLanguageException.class)
     public void checkSyntax35FailTest() {
-        ContextEl conf_ = new ContextEl();
+        ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
         BeanOne b_ = new BeanOne();
         addBean(conf_, b_);
@@ -3336,7 +3336,7 @@ public class ElResolverTest {
 
     @Test(expected=BadExpressionLanguageException.class)
     public void checkSyntax36FailTest() {
-        ContextEl conf_ = new ContextEl();
+        ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
         BeanOne b_ = new BeanOne();
         addBean(conf_, b_);
@@ -3346,7 +3346,7 @@ public class ElResolverTest {
 
     @Test(expected=BadExpressionLanguageException.class)
     public void checkSyntax37FailTest() {
-        ContextEl conf_ = new ContextEl();
+        ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
         BeanOne b_ = new BeanOne();
         addBean(conf_, b_);
@@ -3356,7 +3356,7 @@ public class ElResolverTest {
 
     @Test(expected=BadExpressionLanguageException.class)
     public void checkSyntax38FailTest() {
-        ContextEl conf_ = new ContextEl();
+        ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
         BeanOne b_ = new BeanOne();
         addBean(conf_, b_);
@@ -3366,7 +3366,7 @@ public class ElResolverTest {
 
     @Test(expected=BadExpressionLanguageException.class)
     public void checkSyntax39FailTest() {
-        ContextEl conf_ = new ContextEl();
+        ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
         BeanOne b_ = new BeanOne();
         addBean(conf_, b_);
@@ -3376,7 +3376,7 @@ public class ElResolverTest {
 
     @Test(expected=BadExpressionLanguageException.class)
     public void checkSyntax40FailTest() {
-        ContextEl conf_ = new ContextEl();
+        ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
         BeanOne b_ = new BeanOne();
         addBean(conf_, b_);
@@ -3386,7 +3386,7 @@ public class ElResolverTest {
 
     @Test(expected=BadExpressionLanguageException.class)
     public void checkSyntax41FailTest() {
-        ContextEl conf_ = new ContextEl();
+        ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
         BeanOne b_ = new BeanOne();
         addBean(conf_, b_);
@@ -3396,7 +3396,7 @@ public class ElResolverTest {
 
     @Test(expected=BadExpressionLanguageException.class)
     public void checkSyntax42FailTest() {
-        ContextEl conf_ = new ContextEl();
+        ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
         BeanOne b_ = new BeanOne();
         addBean(conf_, b_);
@@ -3406,7 +3406,7 @@ public class ElResolverTest {
 
     @Test(expected=BadExpressionLanguageException.class)
     public void checkSyntax43FailTest() {
-        ContextEl conf_ = new ContextEl();
+        ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
         BeanOne b_ = new BeanOne();
         addBean(conf_, b_);
@@ -3416,7 +3416,7 @@ public class ElResolverTest {
 
     @Test(expected=BadExpressionLanguageException.class)
     public void checkSyntax44FailTest() {
-        ContextEl conf_ = new ContextEl();
+        ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
         BeanOne b_ = new BeanOne();
         addBean(conf_, b_);
@@ -3426,7 +3426,7 @@ public class ElResolverTest {
 
     @Test(expected=BadExpressionLanguageException.class)
     public void checkSyntax45FailTest() {
-        ContextEl conf_ = new ContextEl();
+        ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
         BeanOne b_ = new BeanOne();
         addBean(conf_, b_);
@@ -3436,7 +3436,7 @@ public class ElResolverTest {
 
     @Test(expected=BadExpressionLanguageException.class)
     public void checkSyntax46FailTest() {
-        ContextEl conf_ = new ContextEl();
+        ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
         BeanOne b_ = new BeanOne();
         addBean(conf_, b_);
@@ -3450,5 +3450,9 @@ public class ElResolverTest {
 
     private static void addBean(ContextEl _conf, Object _bean) {
         _conf.getLastPage().setGlobalArgumentObj(_bean);
+    }
+    private ContextEl contextEl() {
+        ContextEl cont_ = new ContextEl();
+        return cont_;
     }
 }

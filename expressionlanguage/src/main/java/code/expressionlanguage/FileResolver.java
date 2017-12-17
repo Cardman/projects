@@ -9,6 +9,7 @@ public final class FileResolver {
     private static final String COMMENT_MULTI_LINE_BEGIN = "/*";
     private static final String COMMENT_MULTI_LINE_END = "*/";
     private static final String NEW = "$new";
+    private static final char SEP_ENUM_CONST = ',';
     private static final char BEGIN_TEMPLATE = '<';
     private static final char END_TEMPLATE = '>';
     private static final char BEGIN_BLOCK = '{';

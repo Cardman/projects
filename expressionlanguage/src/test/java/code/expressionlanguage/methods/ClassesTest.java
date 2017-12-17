@@ -337,7 +337,9 @@ public class ClassesTest {
         xml_ = "<interface access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg'/>\n";
         files_.put("pkg/Ex."+Classes.EXT, xml_);
         ContextEl cont_ = new ContextEl();
-        Classes classes_ = new Classes(files_, cont_);
+        Classes classes_ = new Classes();
+        classes_.tryBuildClassesBodies(files_, cont_);
+        assertTrue(classes_.getErrorsDet().toString(), classes_.getErrorsDet().isEmpty());
         cont_.setClasses(classes_);
         StringList s_ = classes_.getSortedSuperInterfaces(new StringList("pkg.Ex"));
         assertEq(1, s_.size());
@@ -353,7 +355,9 @@ public class ClassesTest {
         xml_ = "<interface access='"+PUBLIC_ACCESS+"' name='ExTwo' package='pkg'/>\n";
         files_.put("pkg/ExTwo."+Classes.EXT, xml_);
         ContextEl cont_ = new ContextEl();
-        Classes classes_ = new Classes(files_, cont_);
+        Classes classes_ = new Classes();
+        classes_.tryBuildClassesBodies(files_, cont_);
+        assertTrue(classes_.getErrorsDet().toString(), classes_.getErrorsDet().isEmpty());
         cont_.setClasses(classes_);
         StringList s_ = classes_.getSortedSuperInterfaces(new StringList("pkg.Ex"));
         assertEq(2, s_.size());
@@ -372,7 +376,9 @@ public class ClassesTest {
         xml_ = "<interface access='"+PUBLIC_ACCESS+"' name='ExThree' package='pkg'/>\n";
         files_.put("pkg/ExThree."+Classes.EXT, xml_);
         ContextEl cont_ = new ContextEl();
-        Classes classes_ = new Classes(files_, cont_);
+        Classes classes_ = new Classes();
+        classes_.tryBuildClassesBodies(files_, cont_);
+        assertTrue(classes_.getErrorsDet().toString(), classes_.getErrorsDet().isEmpty());
         cont_.setClasses(classes_);
         StringList s_ = classes_.getSortedSuperInterfaces(new StringList("pkg.Ex"));
         assertEq(3, s_.size());
@@ -394,7 +400,9 @@ public class ClassesTest {
         xml_ = "<interface access='"+PUBLIC_ACCESS+"' name='ExFour' package='pkg'/>\n";
         files_.put("pkg/ExFour."+Classes.EXT, xml_);
         ContextEl cont_ = new ContextEl();
-        Classes classes_ = new Classes(files_, cont_);
+        Classes classes_ = new Classes();
+        classes_.tryBuildClassesBodies(files_, cont_);
+        assertTrue(classes_.getErrorsDet().toString(), classes_.getErrorsDet().isEmpty());
         cont_.setClasses(classes_);
         StringList s_ = classes_.getSortedSuperInterfaces(new StringList("pkg.Ex"));
         assertEq(4, s_.size());
@@ -417,7 +425,9 @@ public class ClassesTest {
         xml_ = "<interface access='"+PUBLIC_ACCESS+"' name='ExFour' package='pkg'/>\n";
         files_.put("pkg/ExFour."+Classes.EXT, xml_);
         ContextEl cont_ = new ContextEl();
-        Classes classes_ = new Classes(files_, cont_);
+        Classes classes_ = new Classes();
+        classes_.tryBuildClassesBodies(files_, cont_);
+        assertTrue(classes_.getErrorsDet().toString(), classes_.getErrorsDet().isEmpty());
         cont_.setClasses(classes_);
         StringList s_ = classes_.getSortedSuperInterfaces(new StringList("pkg.Ex"));
         assertEq(4, s_.size());
@@ -442,7 +452,9 @@ public class ClassesTest {
         xml_ = "<interface access='"+PUBLIC_ACCESS+"' name='ExFive' package='pkg' class0='pkg.ExTwo' class1='pkg.ExThree'/>\n";
         files_.put("pkg/ExFive."+Classes.EXT, xml_);
         ContextEl cont_ = new ContextEl();
-        Classes classes_ = new Classes(files_, cont_);
+        Classes classes_ = new Classes();
+        classes_.tryBuildClassesBodies(files_, cont_);
+        assertTrue(classes_.getErrorsDet().toString(), classes_.getErrorsDet().isEmpty());
         cont_.setClasses(classes_);
         StringList s_ = classes_.getSortedSuperInterfaces(new StringList("pkg.Ex","pkg.ExFive"));
         assertEq(5, s_.size());
@@ -474,7 +486,7 @@ public class ClassesTest {
         Classes classes_ = context_.getClasses();
         InterfaceBlock i_ = (InterfaceBlock) classes_.getClassBody("pkg.ExFour");
         ObjectMap<MethodId, StringList> sgn_ = toList(i_.getAllInstanceSignatures(classes_));
-        sgn_ = toList(RootBlock.getAllOverridingMethods(toId(sgn_), classes_));
+        sgn_ = toList(RootBlock.getAllOverridingMethods(toId(sgn_), context_));
         assertEq(1, sgn_.size());
         assertEq(new StringList("pkg.ExFour"),sgn_.getVal(new MethodId(false, "absgetter", new EqList<ClassName>())));
     }
@@ -503,7 +515,7 @@ public class ClassesTest {
         ObjectMap<MethodId, StringList> sgn_ = toList(i_.getAllInstanceSignatures(classes_));
         assertEq(1, sgn_.size());
         assertEq(new StringList("pkg.Ex","pkg.ExFour"),sgn_.getVal(new MethodId(false, "absgetter", new EqList<ClassName>())));
-        sgn_ = toList(RootBlock.getAllOverridingMethods(toId(sgn_), classes_));
+        sgn_ = toList(RootBlock.getAllOverridingMethods(toId(sgn_), context_));
         assertEq(1, sgn_.size());
         assertEq(new StringList("pkg.Ex"),sgn_.getVal(new MethodId(false, "absgetter", new EqList<ClassName>())));
     }
@@ -534,13 +546,15 @@ public class ClassesTest {
         ObjectMap<MethodId, StringList> sgn_ = toList(i_.getAllInstanceSignatures(classes_));
         assertEq(1, sgn_.size());
         assertEq(new StringList("pkg.ExTwo","pkg.ExThree"),sgn_.getVal(new MethodId(false,"absgetter", new EqList<ClassName>())));
-        sgn_ = toList(RootBlock.getAllOverridingMethods(toId(sgn_), classes_));
+        sgn_ = toList(RootBlock.getAllOverridingMethods(toId(sgn_), context_));
         assertEq(1, sgn_.size());
         assertEq(new StringList("pkg.ExTwo","pkg.ExThree"),sgn_.getVal(new MethodId(false,"absgetter", new EqList<ClassName>())));
     }
     private ContextEl unfullValidateOverridingMethods(StringMap<String> _files) {
         ContextEl cont_ = new ContextEl();
-        Classes classes_ = new Classes(_files, cont_);
+        Classes classes_ = new Classes();
+        classes_.tryBuildClassesBodies(_files, cont_);
+        assertTrue(classes_.getErrorsDet().toString(), classes_.getErrorsDet().isEmpty());
         cont_.setClasses(classes_);
         assertTrue(classes_.getErrorsDet().toString(), classes_.getErrorsDet().isEmpty());
         classes_.validateInheritingClasses(cont_);
@@ -553,9 +567,10 @@ public class ClassesTest {
     }
     private ContextEl unfullValidateOverridingClasses(StringMap<String> _files) {
         ContextEl cont_ = new ContextEl();
-        Classes classes_ = new Classes(_files, cont_);
-        cont_.setClasses(classes_);
+        Classes classes_ = new Classes();
+        classes_.tryBuildClassesBodies(_files, cont_);
         assertTrue(classes_.getErrorsDet().toString(), classes_.getErrorsDet().isEmpty());
+        cont_.setClasses(classes_);
         classes_.validateInheritingClasses(cont_);
         assertTrue(classes_.getErrorsDet().toString(), classes_.getErrorsDet().isEmpty());
         classes_.validateSingleParameterizedClasses(cont_);

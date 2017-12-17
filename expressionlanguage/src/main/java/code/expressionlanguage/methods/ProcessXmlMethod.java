@@ -137,7 +137,7 @@ public final class ProcessXmlMethod {
     }
     private static PageEl createInstancingClass(String _class, ContextEl _cont) {
         Classes classes_ = _cont.getClasses();
-        classes_.preInitializeStaticFields(_class);
+        classes_.preInitializeStaticFields(_class, _cont);
         String baseClass_ = StringList.getAllTypes(_class).first();
         RootBlock class_ = classes_.getClassBody(baseClass_);
         Block firstChild_ = class_.getFirstChild();
@@ -322,7 +322,7 @@ public final class ProcessXmlMethod {
                     }
                     CatchEval ca_ = (CatchEval) e;
                     String name_ = ca_.getClassName();
-                    if (PrimitiveTypeUtil.canBeUseAsArgument(name_, custCause_.getClassName(), _conf.getClasses())) {
+                    if (PrimitiveTypeUtil.canBeUseAsArgument(name_, custCause_.getClassName(_conf), _conf)) {
                         catchElt_ = ca_;
                         try_.setVisitedCatch(i_);
                         break;
@@ -414,10 +414,10 @@ public final class ProcessXmlMethod {
         if (implicitConstr_) {
             CallConstructor caller_ = ip_.getCallingConstr();
             boolean calledImpl_ = caller_.isCalledImplicitConstructor();
-            String instClass_ = ip_.getGlobalArgument().getObjectClassName();
+            String instClass_ = ip_.getGlobalArgument().getObjectClassName(_conf);
             String curClass_ = ip_.getGlobalClass();
             String curClassBase_ = StringList.getAllTypes(curClass_).first();
-            String formatted_ = Templates.getFullTypeByBases(instClass_, curClassBase_, _conf.getClasses());
+            String formatted_ = Templates.getFullTypeByBases(instClass_, curClassBase_, _conf);
             RootBlock class_ = _conf.getClasses().getClassBody(curClassBase_);
             if (class_ instanceof UniqueRootedBlock) {
                 UniqueRootedBlock root_ = (UniqueRootedBlock) class_;
@@ -428,7 +428,7 @@ public final class ProcessXmlMethod {
                     StringList called_ = ip_.getCallingConstr().getCalledConstructors();
                     called_.add(superClassBase_);
                     Argument global_ = ip_.getGlobalArgument();
-                    String generic_ = Templates.getFullTypeByBases(formatted_, superClassBase_, _conf.getClasses());
+                    String generic_ = Templates.getFullTypeByBases(formatted_, superClassBase_, _conf);
                     throw new CustomFoundConstructorException(generic_, EMPTY_STRING, called_, super_, global_, new CustList<Argument>(), InstancingStep.USING_SUPER);
                 }
                 for (String i: class_.getAllNeededSortedInterfaces()) {
@@ -437,7 +437,7 @@ public final class ProcessXmlMethod {
                         ConstructorId super_ = new ConstructorId(superClassBase_, new EqList<ClassName>());
                         StringList called_ = ip_.getCallingConstr().getCalledConstructors();
                         Argument global_ = ip_.getGlobalArgument();
-                        String generic_ = Templates.getFullTypeByBases(formatted_, i, _conf.getClasses());
+                        String generic_ = Templates.getFullTypeByBases(formatted_, i, _conf);
                         throw new CustomFoundConstructorException(generic_, EMPTY_STRING, called_, super_, global_, new CustList<Argument>(), InstancingStep.USING_SUPER);
                     }
                 }

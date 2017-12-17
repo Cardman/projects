@@ -62,7 +62,7 @@ public abstract class InvokingOperation extends MethodOperation {
                 String argType_ = o.getResultClass().getName();
                 mapping_.setArg(argType_);
                 mapping_.setMapping(map_);
-                if (!Templates.isCorrect(mapping_, classes_)) {
+                if (!Templates.isCorrect(mapping_, _conf)) {
                     throw new DynamicCastClassException(argType_+RETURN_LINE+name_+RETURN_LINE+_conf.joinPages());
                 }
             }
@@ -104,7 +104,7 @@ public abstract class InvokingOperation extends MethodOperation {
             String g_ = _children.first().getResultClass().getName();
             PageEl page_ = _context.getLastPage();
             Classes classes_ = _context.getClasses();
-            g_ = page_.formatVarType(g_, classes_);
+            g_ = page_.formatVarType(g_, _context);
             boolean native_ = true;
             if (classes_ != null) {
                 native_ = !_context.getClasses().isCustomType(g_);
@@ -148,7 +148,7 @@ public abstract class InvokingOperation extends MethodOperation {
             Argument argRem_ = new Argument();
             PageEl page_ = _context.getLastPage();
             Classes classes_ = _context.getClasses();
-            String g_ = page_.formatVarType(_lastType, classes_) ;
+            String g_ = page_.formatVarType(_lastType, _context) ;
             boolean native_ = true;
             if (classes_ != null) {
                 native_ = !classes_.isCustomType(g_);

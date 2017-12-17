@@ -4114,26 +4114,26 @@ public class DataBase implements WithMathFactory {
 //            variables.addAll(StringList.matchingRegExp(obj_.getMultDamage(), VAR_PREFIX_REG_EXP));
 //            variables.addAll(StringList.matchingRegExp(obj_.getMultPower(), VAR_PREFIX_REG_EXP));
 //            variables.addAll(StringList.matchingRegExp(obj_.getFailStatus().values().join(EMPTY_STRING), VAR_PREFIX_REG_EXP));
-            variables.addAllElts(getVariableWords(obj_.getMultStat().values().join(EMPTY_STRING)));
+            variables.addAllElts(getVariableWords(new StringList(obj_.getMultStat().values()).join(EMPTY_STRING)));
             variables.addAllElts(getVariableWords(obj_.getMultDamage()));
             variables.addAllElts(getVariableWords(obj_.getMultPower()));
-            variables.addAllElts(getVariableWords(obj_.getFailStatus().values().join(EMPTY_STRING)));
+            variables.addAllElts(getVariableWords(new StringList(obj_.getFailStatus().values()).join(EMPTY_STRING)));
 //            functions.addAll(StringList.matchingRegExp(obj_.getMultStat().values().join(EMPTY_STRING), FUNCTION));
 //            functions.addAll(StringList.matchingRegExp(obj_.getMultDamage(), FUNCTION));
 //            functions.addAll(StringList.matchingRegExp(obj_.getMultPower(), FUNCTION));
 //            functions.addAll(StringList.matchingRegExp(obj_.getFailStatus().values().join(EMPTY_STRING), FUNCTION));
-            functions.addAllElts(getFunctionWords(obj_.getMultStat().values().join(EMPTY_STRING)));
+            functions.addAllElts(getFunctionWords(new StringList(obj_.getMultStat().values()).join(EMPTY_STRING)));
             functions.addAllElts(getFunctionWords(obj_.getMultDamage()));
             functions.addAllElts(getFunctionWords(obj_.getMultPower()));
-            functions.addAllElts(getFunctionWords(obj_.getFailStatus().values().join(EMPTY_STRING)));
+            functions.addAllElts(getFunctionWords(new StringList(obj_.getFailStatus().values()).join(EMPTY_STRING)));
 //            keys.addAll(StringList.matchingRegExp(obj_.getMultStat().values().join(EMPTY_STRING), PATTERN_NAME_CONST));
 //            keys.addAll(StringList.matchingRegExp(obj_.getMultDamage(), PATTERN_NAME_CONST));
 //            keys.addAll(StringList.matchingRegExp(obj_.getMultPower(), PATTERN_NAME_CONST));
 //            keys.addAll(StringList.matchingRegExp(obj_.getFailStatus().values().join(EMPTY_STRING), PATTERN_NAME_CONST));
-            keys.addAllElts(getIdentifiers(obj_.getMultStat().values().join(EMPTY_STRING)));
+            keys.addAllElts(getIdentifiers(new StringList(obj_.getMultStat().values()).join(EMPTY_STRING)));
             keys.addAllElts(getIdentifiers(obj_.getMultDamage()));
             keys.addAllElts(getIdentifiers(obj_.getMultPower()));
-            keys.addAllElts(getIdentifiers(obj_.getFailStatus().values().join(EMPTY_STRING)));
+            keys.addAllElts(getIdentifiers(new StringList(obj_.getFailStatus().values()).join(EMPTY_STRING)));
         }
         items.put(_objectName, _object);
     }
@@ -4151,26 +4151,26 @@ public class DataBase implements WithMathFactory {
 //        variables.addAll(StringList.matchingRegExp(_ability.getMultDamage(), VAR_PREFIX_REG_EXP));
 //        variables.addAll(StringList.matchingRegExp(_ability.getMultPower(), VAR_PREFIX_REG_EXP));
 //        variables.addAll(StringList.matchingRegExp(_ability.getFailStatus().values().join(EMPTY_STRING), VAR_PREFIX_REG_EXP));
-        variables.addAllElts(getVariableWords(_ability.getMultStat().values().join(EMPTY_STRING)));
+        variables.addAllElts(getVariableWords(new StringList(_ability.getMultStat().values()).join(EMPTY_STRING)));
         variables.addAllElts(getVariableWords(_ability.getMultDamage()));
         variables.addAllElts(getVariableWords(_ability.getMultPower()));
-        variables.addAllElts(getVariableWords(_ability.getFailStatus().values().join(EMPTY_STRING)));
+        variables.addAllElts(getVariableWords(new StringList(_ability.getFailStatus().values()).join(EMPTY_STRING)));
 //        functions.addAll(StringList.matchingRegExp(_ability.getMultStat().values().join(EMPTY_STRING), FUNCTION));
 //        functions.addAll(StringList.matchingRegExp(_ability.getMultDamage(), FUNCTION));
 //        functions.addAll(StringList.matchingRegExp(_ability.getMultPower(), FUNCTION));
 //        functions.addAll(StringList.matchingRegExp(_ability.getFailStatus().values().join(EMPTY_STRING), FUNCTION));
-        functions.addAllElts(getFunctionWords(_ability.getMultStat().values().join(EMPTY_STRING)));
+        functions.addAllElts(getFunctionWords(new StringList(_ability.getMultStat().values()).join(EMPTY_STRING)));
         functions.addAllElts(getFunctionWords(_ability.getMultDamage()));
         functions.addAllElts(getFunctionWords(_ability.getMultPower()));
-        functions.addAllElts(getFunctionWords(_ability.getFailStatus().values().join(EMPTY_STRING)));
+        functions.addAllElts(getFunctionWords(new StringList(_ability.getFailStatus().values()).join(EMPTY_STRING)));
 //        keys.addAll(StringList.matchingRegExp(_ability.getMultStat().values().join(EMPTY_STRING), PATTERN_NAME_CONST));
 //        keys.addAll(StringList.matchingRegExp(_ability.getMultDamage(), PATTERN_NAME_CONST));
 //        keys.addAll(StringList.matchingRegExp(_ability.getMultPower(), PATTERN_NAME_CONST));
 //        keys.addAll(StringList.matchingRegExp(_ability.getFailStatus().values().join(EMPTY_STRING), PATTERN_NAME_CONST));
-        keys.addAllElts(getIdentifiers(_ability.getMultStat().values().join(EMPTY_STRING)));
+        keys.addAllElts(getIdentifiers(new StringList(_ability.getMultStat().values()).join(EMPTY_STRING)));
         keys.addAllElts(getIdentifiers(_ability.getMultDamage()));
         keys.addAllElts(getIdentifiers(_ability.getMultPower()));
-        keys.addAllElts(getIdentifiers(_ability.getFailStatus().values().join(EMPTY_STRING)));
+        keys.addAllElts(getIdentifiers(new StringList(_ability.getFailStatus().values()).join(EMPTY_STRING)));
         abilities.put(_abilityName, _ability);
     }
 

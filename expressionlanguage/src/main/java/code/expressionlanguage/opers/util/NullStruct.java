@@ -1,8 +1,9 @@
 package code.expressionlanguage.opers.util;
 
+import code.expressionlanguage.ContextEl;
 import code.util.ObjectMap;
 
-public final class NullStruct implements Struct {
+public final class NullStruct extends Struct {
 
     public static final NullStruct NULL_VALUE = new NullStruct();
 
@@ -20,22 +21,17 @@ public final class NullStruct implements Struct {
     }
 
     @Override
-    public String getClassName() {
-        return null;
-    }
-
-    @Override
-    public String getRealClassName() {
-        return null;
-    }
-
-    @Override
     public Object getInstance() {
         return null;
     }
 
     @Override
     public ObjectMap<ClassField, Struct> getFields() {
+        return null;
+    }
+
+    @Override
+    public String getClassName(ContextEl _contextEl) {
         return null;
     }
 }

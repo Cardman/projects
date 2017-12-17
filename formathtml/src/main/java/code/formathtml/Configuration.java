@@ -266,7 +266,7 @@ public class Configuration {
 
     Struct newBean(String _language, Struct _bean) {
         addPage(new ImportingPage(false));
-        Struct strBean_ = ElUtil.processEl(INSTANCE+_bean.getClassName()+BEGIN_ARGS+END_ARGS, 0, toContextEl()).getStruct();
+        Struct strBean_ = ElUtil.processEl(INSTANCE+_bean.getClassName(toContextEl())+BEGIN_ARGS+END_ARGS, 0, toContextEl()).getStruct();
         ExtractObject.setDataBase(this, strBean_, ExtractObject.getDataBase(this, _bean));
         ExtractObject.setForms(this, strBean_, ExtractObject.getForms(this, _bean));
         ExtractObject.setLanguage(this, strBean_, _language);
@@ -393,7 +393,11 @@ public class Configuration {
     }
 
     public final String joinPages() {
-        return importing.join(RETURN_LINE);
+        StringList l_ = new StringList();
+        for (ImportingPage p: importing) {
+            l_.add(p.getInfos(this));
+        }
+        return l_.join(RETURN_LINE);
     }
     public final boolean noPages() {
         return importing.isEmpty();

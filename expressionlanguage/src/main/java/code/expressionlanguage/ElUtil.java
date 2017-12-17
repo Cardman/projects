@@ -95,7 +95,7 @@ public final class ElUtil {
             }
         } else {
             if (clMatchRight_.isVariable()) {
-                if (!clMatchLeft_.isPrimitive()) {
+                if (!clMatchLeft_.isPrimitive(_conf)) {
                     return new ExpLanguages(new ExpressionLanguage(allLeft_), new ExpressionLanguage(allRight_));
                 }
                 throw new PrimitiveTypeException(_conf.joinPages());
@@ -116,7 +116,7 @@ public final class ElUtil {
             mapping_.setMapping(vars_);
             mapping_.setArg(clMatchRight_.getName());
             mapping_.setParam(clMatchLeft_.getName());
-            if (!Templates.isCorrect(mapping_, _conf.getClasses())) {
+            if (!Templates.isCorrect(mapping_, _conf)) {
                 throw new DynamicCastClassException(_conf.joinPages());
             }
         }

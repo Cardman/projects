@@ -1,4 +1,4 @@
-package code.formathtml.images.data;
+package code.imagesurl.data;
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import java.net.URL;

@@ -68,7 +68,7 @@ public final class ArrOperation extends MethodOperation implements SettableElRes
         for (int i = CustList.SECOND_INDEX; i < chidren_.size(); i++) {
             ClassArgumentMatching indexClass_ = chidren_.get(i).getResultClass();
             setRelativeOffsetPossibleLastPage(chidren_.get(i).getIndexInEl(), _conf);
-            if (!indexClass_.isNumericInt()) {
+            if (!indexClass_.isNumericInt(_conf)) {
                 throw new BadIndexTypeException(indexClass_+RETURN_LINE+_conf.joinPages());
             }
             setRelativeOffsetPossibleLastPage(chidren_.get(i-1).getIndexInEl(), _conf);
@@ -159,7 +159,7 @@ public final class ArrOperation extends MethodOperation implements SettableElRes
         Argument left_ = new Argument();
         left_.setStruct(leftObj_);
         Argument right_ = ip_.getRightArgument();
-        String base_ = PrimitiveTypeUtil.getQuickComponentType(_array.getClassName());
+        String base_ = PrimitiveTypeUtil.getQuickComponentType(_array.getClassName(_conf));
         if (PrimitiveTypeUtil.primitiveTypeNullObject(base_, right_.getStruct())) {
             throw new NullObjectException(_conf.joinPages());
         }
@@ -202,7 +202,7 @@ public final class ArrOperation extends MethodOperation implements SettableElRes
         return CustStruct.wrapOrId(output_);
     }
     static void setCheckedElement(Struct _array,Object _index, Argument _element, ContextEl _conf) {
-        String base_ = PrimitiveTypeUtil.getQuickComponentType(_array.getClassName());
+        String base_ = PrimitiveTypeUtil.getQuickComponentType(_array.getClassName(_conf));
         if (PrimitiveTypeUtil.primitiveTypeNullObject(base_, _element.getStruct())) {
             throw new NullObjectException(_conf.joinPages());
         }
@@ -229,12 +229,12 @@ public final class ArrOperation extends MethodOperation implements SettableElRes
             }
             return;
         }
-        String componentType_ = PrimitiveTypeUtil.getQuickComponentType(_struct.getClassName());
-        String elementType_ = _value.getClassName();
+        String componentType_ = PrimitiveTypeUtil.getQuickComponentType(_struct.getClassName(_conf));
+        String elementType_ = _value.getClassName(_conf);
         Mapping mapping_ = new Mapping();
         mapping_.setArg(elementType_);
         mapping_.setParam(componentType_);
-        if (!Templates.isCorrect(mapping_, _conf.getClasses())) {
+        if (!Templates.isCorrect(mapping_, _conf)) {
             throw new DynamicArrayStoreException(componentType_, elementType_, _conf.joinPages());
         }
         if (!_value.isJavaObject()) {

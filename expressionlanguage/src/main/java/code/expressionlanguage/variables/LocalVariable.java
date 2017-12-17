@@ -13,8 +13,7 @@ public final class LocalVariable {
 
     private String className = Object.class.getName();
 
-    @Override
-    public String toString() {
+    public String getInfos() {
         try {
             return element+AS+className+SEP_INFO;
         } catch (Error _0) {

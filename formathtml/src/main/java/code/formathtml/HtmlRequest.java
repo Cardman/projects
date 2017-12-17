@@ -68,7 +68,7 @@ final class HtmlRequest {
         ExtractObject.checkNullPointer(_conf, obj_.getInstance());
         ImportingPage ip_ = _conf.getLastPage();
         Struct current_ = ip_.getGlobalArgument().getStruct();
-        ip_.setGlobalArgumentStruct(obj_);
+        ip_.setGlobalArgumentStruct(obj_, _conf);
         StringList varNames_ = new StringList();
         for (Argument a: _args) {
             String tmp_ = TMP_VAR;
@@ -77,13 +77,13 @@ final class HtmlRequest {
                 i_++;
             }
             LocalVariable locVar_ = new LocalVariable();
-            locVar_.setClassName(ConstClasses.resolve(a.getObjectClassName()));
+            locVar_.setClassName(ConstClasses.resolve(a.getObjectClassName(_conf.toContextEl())));
             locVar_.setStruct(a.getStruct());
             varNames_.add(tmp_+i_+GET_LOC_VAR);
             ip_.getLocalVars().put(tmp_+i_, locVar_);
         }
         Argument arg_ = ElUtil.processEl(commandExtract_+LEFT_PAR+varNames_.join(COMMA)+RIGHT_PAR, 0, _conf.toContextEl());
-        ip_.setGlobalArgumentStruct(current_);
+        ip_.setGlobalArgumentStruct(current_, _conf);
         for (String n: varNames_) {
             ip_.getLocalVars().removeKey(n.substring(0, n.length() - GET_LOC_VAR.length()));
         }
@@ -138,7 +138,7 @@ final class HtmlRequest {
                 ip_.setLookForAttrValue(true);
                 ip_.setOffset(0);
                 Struct current_ = ip_.getGlobalArgument().getStruct();
-                ip_.setGlobalArgumentStruct(obj_);
+                ip_.setGlobalArgumentStruct(obj_, _conf);
                 String tmp_ = ip_.getNextTempVar();
                 LocalVariable locVar_ = new LocalVariable();
                 locVar_.setClassName(ConstClasses.resolve(className_));
@@ -146,13 +146,13 @@ final class HtmlRequest {
                 ip_.getLocalVars().put(tmp_, locVar_);
                 ElUtil.processEl(varMethod_+LEFT_PAR+tmp_+GET_LOC_VAR+RIGHT_PAR, 0, _conf.toContextEl());
                 ip_.getLocalVars().removeKey(tmp_);
-                ip_.setGlobalArgumentStruct(current_);
+                ip_.setGlobalArgumentStruct(current_, _conf);
                 return;
             }
             ImportingPage ip_ = _conf.getLastPage();
             try {
                 LocalVariable lv_ = new LocalVariable();
-                lv_.setClassName(obj_.getClassName());
+                lv_.setClassName(obj_.getClassName(_conf.toContextEl()));
                 lv_.setStruct(obj_);
                 String nameVar_ = ip_.getNextTempVar();
                 ip_.getLocalVars().put(nameVar_, lv_);
@@ -180,7 +180,7 @@ final class HtmlRequest {
             ip_.setLookForAttrValue(false);
             ip_.setOffset(0);
             Struct current_ = ip_.getGlobalArgument().getStruct();
-            ip_.setGlobalArgumentStruct(obj_);
+            ip_.setGlobalArgumentStruct(obj_, _conf);
             String tmp_ = ip_.getNextTempVar();
             LocalVariable locVar_ = new LocalVariable();
             locVar_.setClassName(ValueChangeEvent.class.getName());
@@ -188,7 +188,7 @@ final class HtmlRequest {
             ip_.getLocalVars().put(tmp_, locVar_);
             ElUtil.processEl(method_+LEFT_PAR+tmp_+GET_LOC_VAR+RIGHT_PAR, 0, _conf.toContextEl());
             ip_.getLocalVars().removeKey(tmp_);
-            ip_.setGlobalArgumentStruct(current_);
+            ip_.setGlobalArgumentStruct(current_, _conf);
         }
     }
     private static ValueChangeEvent calculateChange(NodeContainer _nodeContainer,

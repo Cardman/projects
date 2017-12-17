@@ -137,8 +137,7 @@ public final class ForIterativeLoop extends BracedStack implements ForLoop {
         page_.setOffset(0);
         opInit = ElUtil.getAnalyzedOperations(init, _cont, Calculation.staticCalculation(f_.isStaticContext()));
         OperationNode initEl_ = opInit.last();
-        Classes classes_ = _cont.getClasses();
-        if (!PrimitiveTypeUtil.canBeUseAsArgument(className, initEl_.getResultClass().getName(), classes_)) {
+        if (!PrimitiveTypeUtil.canBeUseAsArgument(className, initEl_.getResultClass().getName(), _cont)) {
             String str_ = initEl_.getResultClass().getName();
             throw new DynamicCastClassException(str_+RETURN_LINE+_cont.joinPages());
         }
@@ -146,7 +145,7 @@ public final class ForIterativeLoop extends BracedStack implements ForLoop {
         page_.setOffset(0);
         opExp = ElUtil.getAnalyzedOperations(expression, _cont, Calculation.staticCalculation(f_.isStaticContext()));
         OperationNode expressionEl_ = opExp.last();
-        if (!PrimitiveTypeUtil.canBeUseAsArgument(className, expressionEl_.getResultClass().getName(), classes_)) {
+        if (!PrimitiveTypeUtil.canBeUseAsArgument(className, expressionEl_.getResultClass().getName(), _cont)) {
             String str_ = expressionEl_.getResultClass().getName();
             throw new DynamicCastClassException(str_+RETURN_LINE+_cont.joinPages());
         }
@@ -154,7 +153,7 @@ public final class ForIterativeLoop extends BracedStack implements ForLoop {
         page_.setOffset(0);
         opStep = ElUtil.getAnalyzedOperations(step, _cont, Calculation.staticCalculation(f_.isStaticContext()));
         OperationNode stepEl_ = opStep.last();
-        if (!PrimitiveTypeUtil.canBeUseAsArgument(className, stepEl_.getResultClass().getName(), classes_)) {
+        if (!PrimitiveTypeUtil.canBeUseAsArgument(className, stepEl_.getResultClass().getName(), _cont)) {
             String str_ = stepEl_.getResultClass().getName();
             throw new DynamicCastClassException(str_+RETURN_LINE+_cont.joinPages());
         }
@@ -253,21 +252,21 @@ public final class ForIterativeLoop extends BracedStack implements ForLoop {
         ExpressionLanguage from_ = ip_.getCurrentEl(this, CustList.FIRST_INDEX, getInitEl());
         Argument argFrom_ = from_.calculateMember(_conf);
         if (argFrom_.getObject() == null) {
-            throw new DynamicCastClassException(argFrom_.getObjectClassName()+RETURN_LINE+_conf.joinPages());
+            throw new DynamicCastClassException(argFrom_.getObjectClassName(_conf)+RETURN_LINE+_conf.joinPages());
         }
         ip_.setProcessingAttribute(ATTRIBUTE_EXPRESSION);
         ip_.setOffset(0);
         ExpressionLanguage to_ = ip_.getCurrentEl(this, CustList.SECOND_INDEX, getExpressionEl());
         Argument argTo_ = to_.calculateMember(_conf);
         if (argTo_.getObject() == null) {
-            throw new DynamicCastClassException(argTo_.getObjectClassName()+RETURN_LINE+_conf.joinPages());
+            throw new DynamicCastClassException(argTo_.getObjectClassName(_conf)+RETURN_LINE+_conf.joinPages());
         }
         ip_.setProcessingAttribute(ATTRIBUTE_STEP);
         ip_.setOffset(0);
         ExpressionLanguage step_ = ip_.getCurrentEl(this, CustList.SECOND_INDEX + 1, getStepEl());
         Argument argStep_ = step_.calculateMember(_conf);
         if (argStep_.getObject() == null) {
-            throw new DynamicCastClassException(argStep_.getObjectClassName()+RETURN_LINE+_conf.joinPages());
+            throw new DynamicCastClassException(argStep_.getObjectClassName(_conf)+RETURN_LINE+_conf.joinPages());
         }
         realFromValue_ = argFrom_.getObject();
         ip_.setCurrentBlock(null);

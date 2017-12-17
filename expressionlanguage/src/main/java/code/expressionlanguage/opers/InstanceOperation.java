@@ -112,7 +112,7 @@ public final class InstanceOperation extends InvokingOperation {
             if (!elts_) {
                 for (OperationNode o: chidren_) {
                     setRelativeOffsetPossibleLastPage(o.getIndexInEl()+off_, _conf);
-                    if (!o.getResultClass().isNumericInt()) {
+                    if (!o.getResultClass().isNumericInt(_conf)) {
                         ClassArgumentMatching cl_ = o.getResultClass();
                         throw new BadIndexTypeException(cl_+RETURN_LINE+_conf.joinPages());
                     }
@@ -134,7 +134,7 @@ public final class InstanceOperation extends InvokingOperation {
                     String argType_ = o.getResultClass().getName();
                     mapping_.setArg(argType_);
                     mapping_.setMapping(map_);
-                    if (!Templates.isCorrect(mapping_, classes_)) {
+                    if (!Templates.isCorrect(mapping_, _conf)) {
                         throw new DynamicCastClassException(argType_+RETURN_LINE+eltType_+RETURN_LINE+_conf.joinPages());
                     }
                 }
@@ -224,7 +224,7 @@ public final class InstanceOperation extends InvokingOperation {
             if (glClass_ != null) {
                 curClassBase_ = StringList.getAllTypes(glClass_).first();
             }
-            if (!ctors_.isEmpty() && !classes_.canAccess(curClassBase_, ctors_.first())) {
+            if (!ctors_.isEmpty() && !classes_.canAccess(curClassBase_, ctors_.first(), _conf)) {
                 ConstructorBlock ctr_ = ctors_.first();
                 throw new BadAccessException(ctr_.getId().getSignature()+RETURN_LINE+_conf.joinPages());
             }
@@ -372,7 +372,7 @@ public final class InstanceOperation extends InvokingOperation {
         }
         PageEl page_ = _conf.getLastPage();
         Classes classes_ = _conf.getClasses();
-        realClassName_ = page_.formatVarType(realClassName_, classes_);
+        realClassName_ = page_.formatVarType(realClassName_, _conf);
         if (realClassName_.startsWith(ARR)) {
             int[] args_;
             if (elts_) {
@@ -481,7 +481,7 @@ public final class InstanceOperation extends InvokingOperation {
         String className_ = className;
         PageEl page_ = _conf.getLastPage();
         Classes classes_ = _conf.getClasses();
-        className_ = page_.formatVarType(className_, classes_);
+        className_ = page_.formatVarType(className_, _conf);
         StringList params_ = new StringList();
         for (String c: constId.getParametersTypes()) {
             String class_ = c;

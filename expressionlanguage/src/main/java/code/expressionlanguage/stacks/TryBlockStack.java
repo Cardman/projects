@@ -58,4 +58,10 @@ public final class TryBlockStack extends TryStack implements RemovableVars {
         }
         _ip.removeLastBlock();
     }
+
+    @Override
+    public String getInfos() {
+        // TODO Auto-generated method stub
+        return null;
+    }
 }

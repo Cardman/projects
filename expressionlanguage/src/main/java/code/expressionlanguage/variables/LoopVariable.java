@@ -1,4 +1,5 @@
 package code.expressionlanguage.variables;
+import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.opers.util.NullStruct;
 import code.expressionlanguage.opers.util.StdStruct;
 import code.expressionlanguage.opers.util.Struct;
@@ -11,13 +12,7 @@ public final class LoopVariable {
 
     private static final String STEP = "step";
 
-    private static final String MAP = "map";
-
-    private static final String ARRAY = "array";
-
-    private static final String LIST = "list";
-
-    private static final String SEP_FIELD = ",";
+    private static final String CONTAINER = "container";
 
     private static final String ELEMENT = "element";
 
@@ -35,82 +30,21 @@ public final class LoopVariable {
     
     private Struct container;
 
-    private Object array;
-
-    private Object list;
-
-    private Object map;
-
     private String extendedExpression;
 
     private String className = Object.class.getName();
 
     private String indexClassName = Long.class.getName();
 
-    @Override
-    public String toString() {
+    public String getInfos(ContextEl _context) {
         String lv_ = INDEX+SEP_KEY_VAL+index+AS+indexClassName+SEP_INFO;
         lv_ += ELEMENT+SEP_KEY_VAL+element.getInstance()+AS+className+SEP_INFO;
         lv_ += STEP+SEP_KEY_VAL+step;
         lv_ += SEP_INFO;
-        try {
-            lv_ += ARRAY+SEP_KEY_VAL+array.getClass().getName()+SEP_FIELD+array;
-        } catch (Error _0) {
-            try {
-                lv_ += ARRAY+SEP_KEY_VAL+array;
-            } catch (Error _1) {
-                lv_ += ARRAY+SEP_KEY_VAL;
-            } catch (RuntimeException _1) {
-                lv_ += ARRAY+SEP_KEY_VAL;
-            }
-        } catch (RuntimeException _0) {
-            try {
-                lv_ += ARRAY+SEP_KEY_VAL+array;
-            } catch (Error _1) {
-                lv_ += ARRAY+SEP_KEY_VAL;
-            } catch (RuntimeException _1) {
-                lv_ += ARRAY+SEP_KEY_VAL;
-            }
-        }
-        lv_ += SEP_INFO;
-        try {
-            lv_ += LIST+SEP_KEY_VAL+list.getClass().getName()+SEP_FIELD+list;
-        } catch (Error _0) {
-            try {
-                lv_ += LIST+SEP_KEY_VAL+list;
-            } catch (Error _1) {
-                lv_ += LIST+SEP_KEY_VAL;
-            } catch (RuntimeException _1) {
-                lv_ += LIST+SEP_KEY_VAL;
-            }
-        } catch (RuntimeException _0) {
-            try {
-                lv_ += LIST+SEP_KEY_VAL+list;
-            } catch (Error _1) {
-                lv_ += LIST+SEP_KEY_VAL;
-            } catch (RuntimeException _1) {
-                lv_ += LIST+SEP_KEY_VAL;
-            }
-        }
-        lv_ += SEP_INFO;
-        try {
-            lv_ += MAP+SEP_KEY_VAL+map.getClass().getName()+SEP_FIELD+map;
-        } catch (RuntimeException _0) {
-            try {
-                lv_ += MAP+SEP_KEY_VAL+map;
-            } catch (Error _1) {
-                lv_ += MAP+SEP_KEY_VAL;
-            } catch (RuntimeException _1) {
-                lv_ += MAP+SEP_KEY_VAL;
-            }
-        } catch (Error _0) {
-            try {
-                lv_ += MAP+SEP_KEY_VAL+map;
-            } catch (Error _1) {
-                lv_ += MAP+SEP_KEY_VAL;
-            } catch (RuntimeException _1) {
-                lv_ += MAP+SEP_KEY_VAL;
-            }
+        if (container == null) {
+            lv_ += CONTAINER + SEP_KEY_VAL + container;
+        } else {
+            lv_ += CONTAINER + SEP_KEY_VAL + container.getClassName(_context);
         }
         lv_ += SEP_INFO;
         lv_ += EXTENDED_EXPRESSION+SEP_KEY_VAL+extendedExpression;
@@ -166,30 +100,6 @@ public final class LoopVariable {
         if (_container == null) {
             container = NullStruct.NULL_VALUE;
         }
-    }    
-
-    public Object getArray() {
-        return array;
-    }
-
-    public void setArray(Object _array) {
-        array = _array;
-    }
-
-    public Object getList() {
-        return list;
-    }
-
-    public void setList(Object _list) {
-        list = _list;
-    }
-
-    public Object getMap() {
-        return map;
-    }
-
-    public void setMap(Object _mapCast) {
-        map = _mapCast;
     }
 
     public String getExtendedExpression() {

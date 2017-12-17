@@ -65,12 +65,11 @@ public final class ImportingPage {
         processingHtml = new ProcessingHtml();
     }
 
-    @Override
-    public String toString() {
+    public String getInfos(Configuration _context) {
         StringList list_ = new StringList();
         list_.add(RETURNED_VALUES);
         for (EntryCust<String,LocalVariable> e: returnedValues.entryList()) {
-            list_.add(e.getKey()+SEP_KEY_VAL+SEP_INFO+e.getValue());
+            list_.add(e.getKey()+SEP_KEY_VAL+SEP_INFO+e.getValue().getInfos());
         }
         String keyMessage_ = EMPTY_STRING;
         if (key != null) {
@@ -86,7 +85,7 @@ public final class ImportingPage {
         String attribute_ = pageEl.getProcessingAttribute();
         int tabWidth_ = pageEl.getTabWidth();
         RowCol rc_ = processingHtml.getRowCol(attribute_, off_, tabWidth_);
-        return READ_URL+SEP_KEY_VAL+readUrl+page_+SEP_INFO+keyMessage_+BEAN_NAME+SEP_KEY_VAL+beanName+SEP_INFO+pageEl.getCommonInfosAndRc(rc_)+SEP_INFO+list_;
+        return READ_URL+SEP_KEY_VAL+readUrl+page_+SEP_INFO+keyMessage_+BEAN_NAME+SEP_KEY_VAL+beanName+SEP_INFO+pageEl.getCommonInfosAndRc(rc_, _context.toContextEl())+SEP_INFO+list_;
     }
 
     public PageEl getPageEl() {
@@ -139,8 +138,8 @@ public final class ImportingPage {
         return pageEl.getGlobalArgument();
     }
 
-    public void setGlobalArgumentStruct(Struct _obj) {
-        pageEl.setGlobalClass(_obj.getClassName());
+    public void setGlobalArgumentStruct(Struct _obj, Configuration _context) {
+        pageEl.setGlobalClass(_obj.getClassName(_context.toContextEl()));
         pageEl.setGlobalArgumentStruct(_obj);
     }
 
@@ -149,8 +148,8 @@ public final class ImportingPage {
         pageEl.setGlobalArgumentObj(_obj);
     }
 
-    public void setGlobalArgument(Argument _globalArgument) {
-        pageEl.setGlobalClass(_globalArgument.getStruct().getClassName());
+    public void setGlobalArgument(Argument _globalArgument, Configuration _context) {
+        pageEl.setGlobalClass(_globalArgument.getStruct().getClassName(_context.toContextEl()));
         pageEl.setGlobalArgument(_globalArgument);
     }
 

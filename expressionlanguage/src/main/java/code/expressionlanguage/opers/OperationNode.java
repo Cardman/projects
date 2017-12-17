@@ -25,6 +25,7 @@ import code.expressionlanguage.methods.ConstructorBlock;
 import code.expressionlanguage.methods.InterfaceBlock;
 import code.expressionlanguage.methods.MethodBlock;
 import code.expressionlanguage.methods.RootBlock;
+import code.expressionlanguage.methods.UniqueRootedBlock;
 import code.expressionlanguage.methods.util.ArgumentsPair;
 import code.expressionlanguage.methods.util.TypeVar;
 import code.expressionlanguage.opers.util.ArgumentsGroup;
@@ -376,7 +377,7 @@ public abstract class OperationNode {
                 map_.put(t.getName(), t.getConstraints());
             }
         }
-        if (!Templates.correctClassParts(_className, map_, classes_)) {
+        if (!Templates.correctClassParts(_className, map_, _cont)) {
             if (_setOffset) {
                 setRelativeOffsetPossibleLastPage(_offset, _cont);
             }
@@ -393,8 +394,7 @@ public abstract class OperationNode {
                 map_.put(t.getName(), t.getConstraints());
             }
         }
-        Classes classes_ = _cont.getClasses();
-        if (!Templates.existClassParts(_className, map_, classes_)) {
+        if (!Templates.existClassParts(_className, map_, _cont)) {
             if (_setOffset) {
                 setRelativeOffsetPossibleLastPage(_offset, _cont);
             }
@@ -419,12 +419,14 @@ public abstract class OperationNode {
         RootBlock root_ = classes_.getClassBody(base_);
         StringList classeNames_ = new StringList();
         classeNames_.add(root_.getFullName());
-        classeNames_.addAllElts(root_.getAllSuperClasses());
+        if (root_ instanceof UniqueRootedBlock) {
+            classeNames_.addAllElts(((UniqueRootedBlock) root_).getAllSuperClasses(_cont));
+        }
         for (String s: classeNames_) {
             if (StringList.quickEq(s, Object.class.getName())) {
                 continue;
             }
-            String formatted_ = Templates.getFullTypeByBases(clCurName_, s, classes_);
+            String formatted_ = Templates.getFullTypeByBases(clCurName_, s, _cont);
             ClassMetaInfo custClass_;
             custClass_ = classes_.getClassMetaInfo(s);
             for (EntryCust<String, FieldMetaInfo> e: custClass_.getFields().entryList()) {
@@ -510,7 +512,7 @@ public abstract class OperationNode {
                 }
             }
             CustList<ConstructorBlock> ctors_ = _conf.getClasses().getConstructorBodiesById(clCurName_, ctor_);
-            if (!_conf.getClasses().canAccess(glClass_, ctors_.first())) {
+            if (!_conf.getClasses().canAccess(glClass_, ctors_.first(), _conf)) {
                 continue;
             }
             ClassMatching[] p_ = getParameters(ctor_);
@@ -536,7 +538,7 @@ public abstract class OperationNode {
                 map_.put(t.getName(), t.getConstraints());
             }
         }
-        ArgumentsGroup gr_ = new ArgumentsGroup(classes_, map_, _args);
+        ArgumentsGroup gr_ = new ArgumentsGroup(_conf, map_, _args);
         gr_.setGlobalClass(glClass_);
         Parametrables<ConstructorInfo> signatures_ = new Parametrables<ConstructorInfo>();
         for (ConstructorId m: possibleMethods_) {
@@ -567,7 +569,7 @@ public abstract class OperationNode {
         ConstrustorIdVarArg out_;
         out_ = new ConstrustorIdVarArg();
         if (ctor_.isVararg() && _varargOnly == -1) {
-            if (varArgWrap(classes_, glClass_, clCurName_, ctor_, _args)) {
+            if (varArgWrap(_conf, glClass_, clCurName_, ctor_, _args)) {
                 out_.setVarArgToCall(true);
             }
         }
@@ -620,7 +622,7 @@ public abstract class OperationNode {
                 map_.put(t.getName(), t.getConstraints());
             }
         }
-        ArgumentsGroup gr_ = new ArgumentsGroup(classes_, map_, _args);
+        ArgumentsGroup gr_ = new ArgumentsGroup(_conf, map_, _args);
         gr_.setGlobalClass(glClass_);
         Parametrables<ConstructorInfo> signatures_ = new Parametrables<ConstructorInfo>();
         for (Constructor<?> m: possibleConstructors_) {
@@ -760,15 +762,17 @@ public abstract class OperationNode {
         String clCurName_ = _class.getName();
         String base_ = StringList.getAllTypes(clCurName_).first();
         RootBlock r_ = classes_.getClassBody(base_);
-        StringList classeNames_ = new StringList();
-        classeNames_.add(r_.getFullName());
-        classeNames_.addAllElts(r_.getAllSuperClasses());
         if (_static) {
+            StringList classeNames_ = new StringList();
+            classeNames_.add(r_.getFullName());
+            if (r_ instanceof UniqueRootedBlock) {
+                classeNames_.addAllElts(((UniqueRootedBlock) r_).getAllSuperClasses(_conf));
+            }
             for (String s: classeNames_) {
                 if (StringList.quickEq(s, Object.class.getName())) {
                     continue;
                 }
-                String formatted_ = Templates.getFullTypeByBases(clCurName_, s, classes_);
+                String formatted_ = Templates.getFullTypeByBases(clCurName_, s, _conf);
                 ObjectNotNullMap<ClassMethodId, MethodMetaInfo> methods_;
                 methods_ = getDeclaredCustMethodByType(_conf, _varargOnly, _accessFromSuper, _static, _superClass, clCurName_, new ClassArgumentMatching(formatted_), _name, _argsClass);
                 ClassMethodIdResult res_ = getCustResult(_conf, _varargOnly, methods_, true, _name, _argsClass);
@@ -784,20 +788,19 @@ public abstract class OperationNode {
             res_.setStatus(SearchingMemberStatus.ZERO);
             return res_;
         }
-        boolean correctTemplated_ = Templates.correctNbParameters(clCurName_, classes_);
+        boolean correctTemplated_ = Templates.correctNbParameters(clCurName_, _conf);
         ObjectNotNullMap<ClassMethodId, MethodMetaInfo> methods_;
         methods_ = getDeclaredCustMethodByType(_conf, _varargOnly, _accessFromSuper, _static, _superClass, clCurName_, new ClassArgumentMatching(clCurName_), _name, _argsClass);
         return getCustResult(_conf, _varargOnly, methods_, correctTemplated_, _name, _argsClass);
     }
     private static ClassMethodIdResult getDeclaredCustMethodByInterfaceInherit(ContextEl _conf, boolean _accessFromSuper, int _varargOnly, boolean _static, ClassArgumentMatching _class, String _name, boolean _superClass, ClassArgumentMatching... _argsClass) {
-        Classes classes_ = _conf.getClasses();
         String clCurName_ = _class.getName();
         if (_static) {
             ObjectNotNullMap<ClassMethodId, MethodMetaInfo> methods_;
             methods_ = getDeclaredCustMethodByType(_conf, _varargOnly, _accessFromSuper, _static, _superClass, clCurName_, new ClassArgumentMatching(clCurName_), _name, _argsClass);
             return getCustResult(_conf, _varargOnly, methods_, true, _name, _argsClass);
         }
-        boolean correctTemplated_ = Templates.correctNbParameters(clCurName_, classes_);
+        boolean correctTemplated_ = Templates.correctNbParameters(clCurName_, _conf);
         ObjectNotNullMap<ClassMethodId, MethodMetaInfo> methods_;
         methods_ = getDeclaredCustMethodByType(_conf, _varargOnly, _accessFromSuper, _static, _superClass, clCurName_, new ClassArgumentMatching(clCurName_), _name, _argsClass);
         return getCustResult(_conf, _varargOnly, methods_, correctTemplated_, _name, _argsClass);
@@ -814,7 +817,7 @@ public abstract class OperationNode {
         methods_ = new ObjectNotNullMap<ClassMethodId, MethodMetaInfo>();
         if (_static) {
             for (MethodBlock e: Classes.getMethodBlocks(root_)) {
-                if (!_conf.getClasses().canAccess(glClass_, e)) {
+                if (!_conf.getClasses().canAccess(glClass_, e, _conf)) {
                     continue;
                 }
                 if (e.isStaticMethod()) {
@@ -837,7 +840,7 @@ public abstract class OperationNode {
                     }
                     String formattedClass_;
                     if (_superClass) {
-                        formattedClass_ = Templates.getFullTypeByBases(clCurName_, name_, classes_);
+                        formattedClass_ = Templates.getFullTypeByBases(clCurName_, name_, _conf);
                     } else {
                          String base_ = StringList.getAllTypes(name_).first();
                         if (!StringList.quickEq(base_, root_.getFullName())) {
@@ -847,7 +850,7 @@ public abstract class OperationNode {
                    }
                     MethodId id_ = s.getConstraints();
                     MethodBlock sup_ = classes_.getMethodBodiesById(name_, id_).first();
-                    if (!_conf.getClasses().canAccess(glClass_, sup_)) {
+                    if (!_conf.getClasses().canAccess(glClass_, sup_, _conf)) {
                         continue;
                     }
                     String ret_ = sup_.getReturnType();
@@ -897,7 +900,7 @@ public abstract class OperationNode {
                 map_.put(t.getName(), t.getConstraints());
             }
         }
-        ArgumentsGroup gr_ = new ArgumentsGroup(classes_, map_, _argsClass);
+        ArgumentsGroup gr_ = new ArgumentsGroup(_conf, map_, _argsClass);
         gr_.setGlobalClass(glClass_);
         Parametrables<MethodInfo> signatures_ = new Parametrables<MethodInfo>();
         for (ClassMethodId m: possibleMethods_) {
@@ -942,7 +945,7 @@ public abstract class OperationNode {
         }
         res_.setId(new ClassMethodId(realClass_, id_));
         res_.setStatus(SearchingMemberStatus.UNIQ);
-        if (_varargOnly == -1 && varArgWrap(classes_, glClass_, realClass_, constraints_, _argsClass)) {
+        if (_varargOnly == -1 && varArgWrap(_conf, glClass_, realClass_, constraints_, _argsClass)) {
             res_.setVarArgToCall(true);
         }
         res_.setRealId(constraints_);
@@ -1076,7 +1079,7 @@ public abstract class OperationNode {
                 map_.put(t.getName(), t.getConstraints());
             }
         }
-        ArgumentsGroup gr_ = new ArgumentsGroup(classes_, map_, _argsClass);
+        ArgumentsGroup gr_ = new ArgumentsGroup(_conf, map_, _argsClass);
         gr_.setGlobalClass(glClass_);
         Parametrables<MethodInfo> signatures_ = new Parametrables<MethodInfo>();
         for (Method m: possibleMethods_) {
@@ -1146,7 +1149,7 @@ public abstract class OperationNode {
         int len_ = nbDem_;
         for (int i = CustList.FIRST_INDEX; i < len_; i++) {
             if (_argsClass[i].isVariable()) {
-                if (_params[i].isPrimitive()) {
+                if (_params[i].isPrimitive(_context)) {
                     return false;
                 }
                 continue;
@@ -1157,7 +1160,7 @@ public abstract class OperationNode {
                 map_.getMapping().put(t.getName(), t.getConstraints());
             }
             map_.setParam(Templates.generalFormat(_class, _params[i].getClassName(), classes_));
-            if (!Templates.isCorrect(map_, classes_)) {
+            if (!Templates.isCorrect(map_, _context)) {
                 return false;
             }
         }
@@ -1173,12 +1176,12 @@ public abstract class OperationNode {
             }
             String param_ = _params[last_].getClassName();
             map_.setParam(Templates.generalFormat(_class, param_, classes_));
-            if (Templates.isCorrect(map_, classes_)) {
+            if (Templates.isCorrect(map_, _context)) {
                 return true;
             }
             param_ = PrimitiveTypeUtil.getQuickComponentType(param_);
             map_.setParam(Templates.generalFormat(_class, param_, classes_));
-            return Templates.isCorrect(map_, classes_);
+            return Templates.isCorrect(map_, _context);
         }
         len_ = _argsClass.length;
         Mapping map_ = new Mapping();
@@ -1191,13 +1194,13 @@ public abstract class OperationNode {
         map_.setParam(Templates.generalFormat(_class, param_, classes_));
         for (int i = startOpt_; i < len_; i++) {
             map_.setArg(_argsClass[i].getName());
-            if (!Templates.isCorrect(map_, classes_)) {
+            if (!Templates.isCorrect(map_, _context)) {
                 return false;
             }
         }
         return true;
     }
-    static boolean varArgWrap(Classes _classes, String _globalClass, String _class, Identifiable _id, ClassArgumentMatching..._argsClass) {
+    static boolean varArgWrap(ContextEl _context, String _globalClass, String _class, Identifiable _id, ClassArgumentMatching..._argsClass) {
         if (!_id.isVararg()) {
             return false;
         }
@@ -1205,11 +1208,10 @@ public abstract class OperationNode {
         if (p_.length != _argsClass.length) {
             return true;
         }
-        Classes classes_ = _classes;
         String glClass_ = _globalClass;
         CustList<TypeVar> vars_;
         if (glClass_ != null) {
-            vars_ = Templates.getConstraints(glClass_, classes_);
+            vars_ = Templates.getConstraints(glClass_, _context.getClasses());
         } else {
             vars_ = new CustList<TypeVar>();
         }
@@ -1220,8 +1222,8 @@ public abstract class OperationNode {
             map_.getMapping().put(t.getName(), t.getConstraints());
         }
         map_.setArg(_argsClass[last_].getName());
-        map_.setParam(Templates.generalFormat(_class, param_, classes_));
-        return !Templates.isCorrect(map_, classes_);
+        map_.setParam(Templates.generalFormat(_class, param_, _context.getClasses()));
+        return !Templates.isCorrect(map_, _context);
     }
     static ClassMatching[] getParameters(Identifiable _id) {
         StringList params_ = _id.getParametersTypes();
@@ -1305,7 +1307,8 @@ public abstract class OperationNode {
     }
     static int compare(ArgumentsGroup _context, Parametrable _o1, Parametrable _o2) {
         int len_ = _o1.getParameters().size();
-        Classes classes_ = _context.getClasses();
+        ContextEl context_ = _context.getContext();
+        Classes classes_ = context_.getClasses();
         StringMap<StringList> map_;
         map_ = _context.getMap();
         String glClass_ = _context.getGlobalClass();
@@ -1329,8 +1332,8 @@ public abstract class OperationNode {
                 if (len_ > _o2.getParameters().size()) {
                     return CustList.NO_SWAP_SORT;
                 }
-                boolean varOne_ = varArgWrap(classes_, glClass_, glClassOne_, _o1.getId(), _context.getArgumentsArray());
-                boolean varTwo_ = varArgWrap(classes_, glClass_, glClassTwo_, _o2.getId(), _context.getArgumentsArray());
+                boolean varOne_ = varArgWrap(context_, glClass_, glClassOne_, _o1.getId(), _context.getArgumentsArray());
+                boolean varTwo_ = varArgWrap(context_, glClass_, glClassTwo_, _o2.getId(), _context.getArgumentsArray());
                 if (varOne_ && !varTwo_) {
                     return CustList.SWAP_SORT;
                 }
@@ -1359,10 +1362,10 @@ public abstract class OperationNode {
                 continue;
             }
             if (selected_.isVariable()) {
-                if (one_.isAssignableFrom(two_, map_, classes_)) {
+                if (one_.isAssignableFrom(two_, map_, context_)) {
                     return CustList.SWAP_SORT;
                 }
-                if (two_.isAssignableFrom(one_, map_, classes_)) {
+                if (two_.isAssignableFrom(one_, map_, context_)) {
                     return CustList.NO_SWAP_SORT;
                 }
                 _o1.getParameters().setError(true);
@@ -1373,13 +1376,13 @@ public abstract class OperationNode {
             ClassMatching toPrTwo_ = two_;
             boolean onePrimExcl_ = false;
             boolean twoPrimExcl_ = false;
-            if (one_.isPrimitive() && !two_.isPrimitive()) {
+            if (one_.isPrimitive(context_) && !two_.isPrimitive(context_)) {
                 onePrimExcl_ = true;
             }
-            if (!one_.isPrimitive() && two_.isPrimitive()) {
+            if (!one_.isPrimitive(context_) && two_.isPrimitive(context_)) {
                 twoPrimExcl_ = true;
             }
-            if (selected_.isPrimitive()) {
+            if (selected_.isPrimitive(context_)) {
                 if (onePrimExcl_) {
                     return CustList.NO_SWAP_SORT;
                 }
@@ -1390,7 +1393,7 @@ public abstract class OperationNode {
                 toPrTwo_ = PrimitiveTypeUtil.toPrimitive(two_);
             } else {
                 ClassArgumentMatching clMatch_ = PrimitiveTypeUtil.toPrimitive(selected_, true);
-                if (clMatch_.isPrimitive()) {
+                if (clMatch_.isPrimitive(context_)) {
                     if (onePrimExcl_) {
                         return CustList.SWAP_SORT;
                     }
@@ -1401,10 +1404,10 @@ public abstract class OperationNode {
                     toPrTwo_ = PrimitiveTypeUtil.toPrimitive(two_);
                 }
             }
-            if (toPrOne_.isAssignableFrom(toPrTwo_, map_, classes_)) {
+            if (toPrOne_.isAssignableFrom(toPrTwo_, map_, context_)) {
                 return CustList.SWAP_SORT;
             }
-            if (toPrTwo_.isAssignableFrom(toPrOne_, map_, classes_)) {
+            if (toPrTwo_.isAssignableFrom(toPrOne_, map_, context_)) {
                 return CustList.NO_SWAP_SORT;
             }
             _o1.getParameters().setError(true);
@@ -1414,7 +1417,7 @@ public abstract class OperationNode {
         if (StringList.quickEq(_o2.getReturnType(), _o1.getReturnType())) {
             String baseOne_ = StringList.getAllTypes(glClassOne_).first();
             String baseTwo_ = StringList.getAllTypes(glClassTwo_).first();
-            if (!PrimitiveTypeUtil.canBeUseAsArgument(baseTwo_, baseOne_, classes_)) {
+            if (!PrimitiveTypeUtil.canBeUseAsArgument(baseTwo_, baseOne_, context_)) {
                 return CustList.SWAP_SORT;
             }
             return CustList.NO_SWAP_SORT;
@@ -1423,12 +1426,12 @@ public abstract class OperationNode {
         mapping_.setMapping(map_);
         mapping_.setArg(_o2.getReturnType());
         mapping_.setParam(_o1.getReturnType());
-        if (Templates.isCorrect(mapping_, classes_)) {
+        if (Templates.isCorrect(mapping_, context_)) {
             return CustList.SWAP_SORT;
         }
         mapping_.setArg(_o1.getReturnType());
         mapping_.setParam(_o2.getReturnType());
-        if (Templates.isCorrect(mapping_, classes_)) {
+        if (Templates.isCorrect(mapping_, context_)) {
             return CustList.NO_SWAP_SORT;
         }
         _o1.getParameters().setError(true);

@@ -19,8 +19,7 @@ public abstract class SwitchStack extends BlockStack implements BreakableStack {
 
     private int visitedBlock = CustList.INDEX_NOT_FOUND_ELT;
 
-    @Override
-    public String toString() {
+    public String getInfos() {
         try {
             return HAS_NEXT+SEP_KEY_VAL+value+RETURN_LINE;
         } catch (Error _0) {

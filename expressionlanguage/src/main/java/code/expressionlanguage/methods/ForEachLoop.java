@@ -109,7 +109,6 @@ public final class ForEachLoop extends BracedStack implements ForLoop {
         page_.setOffset(0);
         opList = ElUtil.getAnalyzedOperations(expression, _cont, Calculation.staticCalculation(f_.isStaticContext()));
         OperationNode el_ = opList.last();
-        Classes classes_ = _cont.getClasses();
         if (el_.getResultClass().isArray()) {
             String compo_ = PrimitiveTypeUtil.getQuickComponentType(el_.getResultClass().getName());
             Mapping mapping_ = new Mapping();
@@ -124,14 +123,14 @@ public final class ForEachLoop extends BracedStack implements ForLoop {
                 }
             }
             mapping_.setMapping(vars_);
-            if (!Templates.isCorrect(mapping_, _cont.getClasses())) {
+            if (!Templates.isCorrect(mapping_, _cont)) {
                 String str_ = el_.getResultClass().getName();
                 throw new DynamicCastClassException(str_+RETURN_LINE+_cont.joinPages());
             }
         } else {
-            String type_ = Templates.getFullTypeByBases(el_.getResultClass().getName(), IterableList.class.getName(), classes_);
+            String type_ = Templates.getFullTypeByBases(el_.getResultClass().getName(), IterableList.class.getName(), _cont);
             if (type_ == null) {
-                type_ = Templates.getFullTypeByBases(el_.getResultClass().getName(), PredefinedClasses.ITERABLE, classes_);
+                type_ = Templates.getFullTypeByBases(el_.getResultClass().getName(), PredefinedClasses.ITERABLE, _cont);
             }
             if (type_ != null) {
                 Mapping mapping_ = new Mapping();
@@ -147,7 +146,7 @@ public final class ForEachLoop extends BracedStack implements ForLoop {
                     }
                 }
                 mapping_.setMapping(vars_);
-                if (!Templates.isCorrect(mapping_, _cont.getClasses())) {
+                if (!Templates.isCorrect(mapping_, _cont)) {
                     String str_ = el_.getResultClass().getName();
                     throw new DynamicCastClassException(str_+RETURN_LINE+_cont.joinPages());
                 }
@@ -225,7 +224,7 @@ public final class ForEachLoop extends BracedStack implements ForLoop {
             boolean native_ = its_.isJavaObject();
             String locName_ = _cont.getClasses().getIteratorVar(native_);
             LocalVariable locVar_ = new LocalVariable();
-            locVar_.setClassName(its_.getClassName());
+            locVar_.setClassName(its_.getClassName(_cont));
             locVar_.setStruct(its_);
             _cont.getLastPage().getLocalVars().put(locName_, locVar_);
             ExpressionLanguage dynTwo_ = _cont.getClasses().getEqIterator(native_);
@@ -337,7 +336,7 @@ public final class ForEachLoop extends BracedStack implements ForLoop {
         boolean native_ = strIter_.isJavaObject();
         String locName_ = _conf.getClasses().getHasNextVar(native_);
         LocalVariable locVar_ = new LocalVariable();
-        locVar_.setClassName(strIter_.getClassName());
+        locVar_.setClassName(strIter_.getClassName(_conf));
         locVar_.setStruct(strIter_);
         _conf.getLastPage().getLocalVars().put(locName_, locVar_);
         ExpressionLanguage dynTwo_ = _conf.getClasses().getEqHasNext(native_);
@@ -362,7 +361,7 @@ public final class ForEachLoop extends BracedStack implements ForLoop {
             boolean native_ = iterator_.isJavaObject();
             String locName_ = _conf.getClasses().getNextVar(native_);
             LocalVariable locVar_ = new LocalVariable();
-            locVar_.setClassName(iterator_.getClassName());
+            locVar_.setClassName(iterator_.getClassName(_conf));
             locVar_.setStruct(iterator_);
             _conf.getLastPage().getLocalVars().put(locName_, locVar_);
             ExpressionLanguage dynTwo_ = _conf.getClasses().getEqNext(native_);

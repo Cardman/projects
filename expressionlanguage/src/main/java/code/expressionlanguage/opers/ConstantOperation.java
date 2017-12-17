@@ -182,7 +182,7 @@ public final class ConstantOperation extends OperationNode implements SettableEl
                         }
                         String superClass_ = ((UniqueRootedBlock)root_).getSuperClass();
                         superClass_ = StringList.getAllTypes(superClass_).first();
-                        superClass_ = Templates.getFullTypeByBases(clCurName_, superClass_, classes_);
+                        superClass_ = Templates.getFullTypeByBases(clCurName_, superClass_, _conf);
                         if (StringList.quickEq(superClass_, Object.class.getName())) {
                             throw new NoSuchDeclaredFieldException(key_+RETURN_LINE+_conf.joinPages());
                         }
@@ -202,7 +202,7 @@ public final class ConstantOperation extends OperationNode implements SettableEl
                     if (glClass_ != null) {
                         curClassBase_ = StringList.getAllTypes(glClass_).first();
                     }
-                    if (!_conf.getClasses().canAccessField(curClassBase_, e_.getDeclaringBaseClass(), key_)) {
+                    if (!_conf.getClasses().canAccessField(curClassBase_, e_.getDeclaringBaseClass(), key_, _conf)) {
                         throw new BadAccessException(clCurName_+DOT+key_+RETURN_LINE+_conf.joinPages());
                     }
                     fieldMetaInfo = e_;
@@ -436,10 +436,10 @@ public final class ConstantOperation extends OperationNode implements SettableEl
             if (arg_.isNull()) {
                 throw new NullObjectException(_conf.joinPages());
             }
-            String argClassName_ = arg_.getObjectClassName();
+            String argClassName_ = arg_.getObjectClassName(_conf);
             String classNameFound_ = fieldId.getClassName();
             String base_ = StringList.getAllTypes(argClassName_).first();
-            if (!PrimitiveTypeUtil.canBeUseAsArgument(classNameFound_, base_, classes_)) {
+            if (!PrimitiveTypeUtil.canBeUseAsArgument(classNameFound_, base_, _conf)) {
                 throw new DynamicCastClassException(base_+RETURN_LINE+classNameFound_+RETURN_LINE+_conf.joinPages());
             }
             Struct struct_ = ((CustStruct) arg_.getStruct()).getStruct(fieldId);
@@ -550,24 +550,24 @@ public final class ConstantOperation extends OperationNode implements SettableEl
                 if (argument_.isNull()) {
                     throw new NullObjectException(_conf.joinPages());
                 }
-                String argClassName_ = argument_.getObjectClassName();
+                String argClassName_ = argument_.getObjectClassName(_conf);
                 String classNameFound_ = fieldId.getClassName();
                 String base_ = StringList.getAllTypes(argClassName_).first();
-                if (!PrimitiveTypeUtil.canBeUseAsArgument(classNameFound_, base_, classes_)) {
+                if (!PrimitiveTypeUtil.canBeUseAsArgument(classNameFound_, base_, _conf)) {
                     throw new DynamicCastClassException(base_+RETURN_LINE+classNameFound_+RETURN_LINE+_conf.joinPages());
                 }
                 structField_ = ((CustStruct) argument_.getStruct()).getStruct(fieldId);
                 if (staticChoiceField) {
                     if (!staticChoiceFieldTemplate) {
                         classNameFound_ = StringList.getAllTypes(classNameFound_).first();
-                        classNameFound_ = Templates.getFullTypeByBases(argClassName_, classNameFound_, classes_);
+                        classNameFound_ = Templates.getFullTypeByBases(argClassName_, classNameFound_, _conf);
                         String type_ = fieldMetaInfo.getRealType();
                         type_ = Templates.format(classNameFound_, type_, classes_);
                         Mapping map_ = new Mapping();
-                        map_.setArg(right_.getObjectClassName());
+                        map_.setArg(right_.getObjectClassName(_conf));
                         map_.setParam(type_);
-                        if (!Templates.isCorrect(map_, classes_)) {
-                            throw new DynamicCastClassException(right_.getObjectClassName()+RETURN_LINE+type_+RETURN_LINE+_conf.joinPages());
+                        if (!Templates.isCorrect(map_, _conf)) {
+                            throw new DynamicCastClassException(right_.getObjectClassName(_conf)+RETURN_LINE+type_+RETURN_LINE+_conf.joinPages());
                         }
                     }
                 }
@@ -805,7 +805,7 @@ public final class ConstantOperation extends OperationNode implements SettableEl
                 if (glClass_ != null) {
                     curClassBase_ = StringList.getAllTypes(glClass_).first();
                 }
-                if (!classes_.canAccessClass(curClassBase_, classStr_)) {
+                if (!classes_.canAccessClass(curClassBase_, classStr_, _cont)) {
                     throw new BadAccessException(classStr_+RETURN_LINE+_cont.joinPages());
                 }
                 possibleInitClass = true;

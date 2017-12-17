@@ -64,7 +64,7 @@ public class ProcessXmlMethodTest {
         xml_ += "</method>\n";
         xml_ += "</class>\n";
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = new ContextEl();
+        ContextEl cont_ = contextEl();
         files_.put("pkg/Ex."+Classes.EXT, xml_);
         Classes.validateAll(files_, cont_);
 //        Classes classes_ = new Classes(files_, cont_);
@@ -98,7 +98,7 @@ public class ProcessXmlMethodTest {
         xml_ += "</method>\n";
         xml_ += "</class>\n";
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = new ContextEl();
+        ContextEl cont_ = contextEl();
         files_.put("pkg/Ex."+Classes.EXT, xml_);
         Classes.validateAll(files_, cont_);
         CustList<Argument> args_ = new CustList<Argument>();
@@ -125,7 +125,7 @@ public class ProcessXmlMethodTest {
         xml_ += "</method>\n";
         xml_ += "</class>\n";
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = new ContextEl();
+        ContextEl cont_ = contextEl();
         files_.put("pkg/Ex."+Classes.EXT, xml_);
         Classes.validateAll(files_, cont_);
         CustList<Argument> args_ = new CustList<Argument>();
@@ -153,7 +153,7 @@ public class ProcessXmlMethodTest {
         xml_ += "</method>\n";
         xml_ += "</class>\n";
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = new ContextEl();
+        ContextEl cont_ = contextEl();
         files_.put("pkg/Ex."+Classes.EXT, xml_);
         Classes.validateAll(files_, cont_);
         CustList<Argument> args_ = new CustList<Argument>();
@@ -180,7 +180,7 @@ public class ProcessXmlMethodTest {
         xml_ += "</method>\n";
         xml_ += "</class>\n";
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = new ContextEl();
+        ContextEl cont_ = contextEl();
         files_.put("pkg/Ex."+Classes.EXT, xml_);
         Classes.validateAll(files_, cont_);
         CustList<Argument> args_ = new CustList<Argument>();
@@ -210,7 +210,7 @@ public class ProcessXmlMethodTest {
         xml_ += "</method>\n";
         xml_ += "</class>\n";
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = new ContextEl();
+        ContextEl cont_ = contextEl();
         files_.put("pkg/Ex."+Classes.EXT, xml_);
         Classes.validateAll(files_, cont_);
         CustList<Argument> args_ = new CustList<Argument>();
@@ -238,7 +238,7 @@ public class ProcessXmlMethodTest {
         xml_ += "</method>\n";
         xml_ += "</class>\n";
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = new ContextEl();
+        ContextEl cont_ = contextEl();
         files_.put("pkg/Ex."+Classes.EXT, xml_);
         Classes.validateAll(files_, cont_);
         CustList<Argument> args_ = new CustList<Argument>();
@@ -267,7 +267,7 @@ public class ProcessXmlMethodTest {
         xml_ += "</method>\n";
         xml_ += "</class>\n";
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = new ContextEl();
+        ContextEl cont_ = contextEl();
         files_.put("pkg/Ex."+Classes.EXT, xml_);
         Classes.validateAll(files_, cont_);
         CustList<Argument> args_ = new CustList<Argument>();
@@ -296,7 +296,7 @@ public class ProcessXmlMethodTest {
         xml_ += "</method>\n";
         xml_ += "</class>\n";
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = new ContextEl();
+        ContextEl cont_ = contextEl();
         files_.put("pkg/Ex."+Classes.EXT, xml_);
         Classes.validateAll(files_, cont_);
         CustList<Argument> args_ = new CustList<Argument>();
@@ -326,7 +326,7 @@ public class ProcessXmlMethodTest {
         xml_ += "</method>\n";
         xml_ += "</class>\n";
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = new ContextEl();
+        ContextEl cont_ = contextEl();
         files_.put("pkg/Ex."+Classes.EXT, xml_);
         Classes.validateAll(files_, cont_);
         CustList<Argument> args_ = new CustList<Argument>();
@@ -354,7 +354,7 @@ public class ProcessXmlMethodTest {
         xml_ += "</method>\n";
         xml_ += "</class>\n";
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = new ContextEl();
+        ContextEl cont_ = contextEl();
         files_.put("pkg/Ex."+Classes.EXT, xml_);
         Classes.validateAll(files_, cont_);
         CustList<Argument> args_ = new CustList<Argument>();
@@ -382,7 +382,7 @@ public class ProcessXmlMethodTest {
         xml_ += "</method>\n";
         xml_ += "</class>\n";
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = new ContextEl();
+        ContextEl cont_ = contextEl();
         cont_.setAccessValue(new AccessValueEx());
         files_.put("pkg/Ex."+Classes.EXT, xml_);
         Classes.validateAll(files_, cont_);
@@ -412,7 +412,7 @@ public class ProcessXmlMethodTest {
         xml_ += "</method>\n";
         xml_ += "</class>\n";
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = new ContextEl();
+        ContextEl cont_ = contextEl();
         cont_.setAccessValue(new AccessValueEx());
         files_.put("pkg/Ex."+Classes.EXT, xml_);
         Classes.validateAll(files_, cont_);
@@ -439,7 +439,7 @@ public class ProcessXmlMethodTest {
         xml_ += "</method>\n";
         xml_ += "</class>\n";
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = new ContextEl();
+        ContextEl cont_ = contextEl();
         cont_.setAccessValue(new AccessValueEx());
         files_.put("pkg/Ex."+Classes.EXT, xml_);
         Classes.validateAll(files_, cont_);
@@ -470,7 +470,7 @@ public class ProcessXmlMethodTest {
         xml_ += "</method>\n";
         xml_ += "</class>\n";
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = new ContextEl();
+        ContextEl cont_ = contextEl();
         cont_.setAccessValue(new AccessValueEx());
         files_.put("pkg/Ex."+Classes.EXT, xml_);
         Classes.validateAll(files_, cont_);
@@ -494,7 +494,7 @@ public class ProcessXmlMethodTest {
         xml_ += "</method>\n";
         xml_ += "</class>\n";
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = new ContextEl();
+        ContextEl cont_ = contextEl();
         cont_.setAccessValue(new AccessValueEx());
         files_.put("pkg/Ex."+Classes.EXT, xml_);
         Classes.validateAll(files_, cont_);
@@ -532,7 +532,7 @@ public class ProcessXmlMethodTest {
         xml_ += "</method>\n";
         xml_ += "</class>\n";
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = new ContextEl();
+        ContextEl cont_ = contextEl();
         cont_.setAccessValue(new AccessValueEx());
         files_.put("pkg/Ex."+Classes.EXT, xml_);
         Classes.validateAll(files_, cont_);
@@ -567,7 +567,7 @@ public class ProcessXmlMethodTest {
         xml_ += "</method>\n";
         xml_ += "</class>\n";
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = new ContextEl();
+        ContextEl cont_ = contextEl();
         cont_.setAccessValue(new AccessValueEx());
         files_.put("pkg/Ex."+Classes.EXT, xml_);
         Classes.validateAll(files_, cont_);
@@ -602,7 +602,7 @@ public class ProcessXmlMethodTest {
         xml_ += "</method>\n";
         xml_ += "</class>\n";
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = new ContextEl();
+        ContextEl cont_ = contextEl();
         cont_.setAccessValue(new AccessValueEx());
         files_.put("pkg/Ex."+Classes.EXT, xml_);
         Classes.validateAll(files_, cont_);
@@ -640,7 +640,7 @@ public class ProcessXmlMethodTest {
         xml_ += "</method>\n";
         xml_ += "</class>\n";
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = new ContextEl();
+        ContextEl cont_ = contextEl();
         cont_.setAccessValue(new AccessValueEx());
         files_.put("pkg/Ex."+Classes.EXT, xml_);
         Classes.validateAll(files_, cont_);
@@ -678,7 +678,7 @@ public class ProcessXmlMethodTest {
         xml_ += "</method>\n";
         xml_ += "</class>\n";
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = new ContextEl();
+        ContextEl cont_ = contextEl();
         cont_.setAccessValue(new AccessValueEx());
         files_.put("pkg/Ex."+Classes.EXT, xml_);
         Classes.validateAll(files_, cont_);
@@ -713,7 +713,7 @@ public class ProcessXmlMethodTest {
         xml_ += "</method>\n";
         xml_ += "</class>\n";
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = new ContextEl();
+        ContextEl cont_ = contextEl();
         cont_.setAccessValue(new AccessValueEx());
         files_.put("pkg/Ex."+Classes.EXT, xml_);
         Classes.validateAll(files_, cont_);
@@ -752,7 +752,7 @@ public class ProcessXmlMethodTest {
         xml_ += "</method>\n";
         xml_ += "</class>\n";
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = new ContextEl();
+        ContextEl cont_ = contextEl();
         cont_.setAccessValue(new AccessValueEx());
         files_.put("pkg/Ex."+Classes.EXT, xml_);
         Classes.validateAll(files_, cont_);
@@ -787,7 +787,7 @@ public class ProcessXmlMethodTest {
         xml_ += "</method>\n";
         xml_ += "</class>\n";
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = new ContextEl();
+        ContextEl cont_ = contextEl();
         cont_.setAccessValue(new AccessValueEx());
         files_.put("pkg/Ex."+Classes.EXT, xml_);
         Classes.validateAll(files_, cont_);
@@ -826,7 +826,7 @@ public class ProcessXmlMethodTest {
         xml_ += "</method>\n";
         xml_ += "</class>\n";
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = new ContextEl();
+        ContextEl cont_ = contextEl();
         files_.put("pkg/Ex."+Classes.EXT, xml_);
         Classes.validateAll(files_, cont_);
         CustList<Argument> args_ = new CustList<Argument>();
@@ -854,7 +854,7 @@ public class ProcessXmlMethodTest {
         xml_ += "</method>\n";
         xml_ += "</class>\n";
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = new ContextEl();
+        ContextEl cont_ = contextEl();
         files_.put("pkg/Ex."+Classes.EXT, xml_);
         Classes.validateAll(files_, cont_);
         CustList<Argument> args_ = new CustList<Argument>();
@@ -885,7 +885,7 @@ public class ProcessXmlMethodTest {
         xml_ += "</method>\n";
         xml_ += "</class>\n";
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = new ContextEl();
+        ContextEl cont_ = contextEl();
         files_.put("pkg/Ex."+Classes.EXT, xml_);
         Classes.validateAll(files_, cont_);
         CustList<Argument> args_ = new CustList<Argument>();
@@ -911,7 +911,7 @@ public class ProcessXmlMethodTest {
         xml_ += "</method>\n";
         xml_ += "</class>\n";
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = new ContextEl();
+        ContextEl cont_ = contextEl();
         files_.put("pkg/Ex."+Classes.EXT, xml_);
         Classes.validateAll(files_, cont_);
         CustList<Argument> args_ = new CustList<Argument>();
@@ -943,7 +943,7 @@ public class ProcessXmlMethodTest {
         xml_ += "</method>\n";
         xml_ += "</class>\n";
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = new ContextEl();
+        ContextEl cont_ = contextEl();
         cont_.setAccessValue(new AccessValueEx());
         files_.put("pkg/Ex."+Classes.EXT, xml_);
         Classes.validateAll(files_, cont_);
@@ -976,7 +976,7 @@ public class ProcessXmlMethodTest {
         xml_ += "</method>\n";
         xml_ += "</class>\n";
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = new ContextEl();
+        ContextEl cont_ = contextEl();
         cont_.setAccessValue(new AccessValueEx());
         files_.put("pkg/Ex."+Classes.EXT, xml_);
         Classes.validateAll(files_, cont_);
@@ -1010,7 +1010,7 @@ public class ProcessXmlMethodTest {
         xml_ += "</method>\n";
         xml_ += "</class>\n";
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = new ContextEl();
+        ContextEl cont_ = contextEl();
         cont_.setAccessValue(new AccessValueEx());
         files_.put("pkg/Ex."+Classes.EXT, xml_);
         Classes.validateAll(files_, cont_);
@@ -1044,7 +1044,7 @@ public class ProcessXmlMethodTest {
         xml_ += "</method>\n";
         xml_ += "</class>\n";
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = new ContextEl();
+        ContextEl cont_ = contextEl();
         cont_.setAccessValue(new AccessValueEx());
         files_.put("pkg/Ex."+Classes.EXT, xml_);
         Classes.validateAll(files_, cont_);
@@ -1068,7 +1068,7 @@ public class ProcessXmlMethodTest {
         xml_ += "</method>\n";
         xml_ += "</class>\n";
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = new ContextEl();
+        ContextEl cont_ = contextEl();
         cont_.setAccessValue(new AccessValueEx());
         files_.put("pkg/Ex."+Classes.EXT, xml_);
         Classes.validateAll(files_, cont_);
@@ -1092,7 +1092,7 @@ public class ProcessXmlMethodTest {
         xml_ += "</method>\n";
         xml_ += "</class>\n";
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = new ContextEl();
+        ContextEl cont_ = contextEl();
         cont_.setAccessValue(new AccessValueEx());
         files_.put("pkg/Ex."+Classes.EXT, xml_);
         Classes.validateAll(files_, cont_);
@@ -1116,7 +1116,7 @@ public class ProcessXmlMethodTest {
         xml_ += "</method>\n";
         xml_ += "</class>\n";
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = new ContextEl();
+        ContextEl cont_ = contextEl();
         cont_.setAccessValue(new AccessValueEx());
         files_.put("pkg/Ex."+Classes.EXT, xml_);
         Classes.validateAll(files_, cont_);
@@ -1140,7 +1140,7 @@ public class ProcessXmlMethodTest {
         xml_ += "</method>\n";
         xml_ += "</class>\n";
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = new ContextEl();
+        ContextEl cont_ = contextEl();
         cont_.setAccessValue(new AccessValueEx());
         files_.put("pkg/Ex."+Classes.EXT, xml_);
         Classes.validateAll(files_, cont_);
@@ -1164,7 +1164,7 @@ public class ProcessXmlMethodTest {
         xml_ += "</method>\n";
         xml_ += "</class>\n";
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = new ContextEl();
+        ContextEl cont_ = contextEl();
         cont_.setAccessValue(new AccessValueEx());
         files_.put("pkg/Ex."+Classes.EXT, xml_);
         Classes.validateAll(files_, cont_);
@@ -1188,7 +1188,7 @@ public class ProcessXmlMethodTest {
         xml_ += "</method>\n";
         xml_ += "</class>\n";
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = new ContextEl();
+        ContextEl cont_ = contextEl();
         cont_.setAccessValue(new AccessValueEx());
         files_.put("pkg/Ex."+Classes.EXT, xml_);
         Classes.validateAll(files_, cont_);
@@ -1214,7 +1214,7 @@ public class ProcessXmlMethodTest {
         xml_ += "</method>\n";
         xml_ += "</class>\n";
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = new ContextEl();
+        ContextEl cont_ = contextEl();
         cont_.setAccessValue(new AccessValueEx());
         files_.put("pkg/Ex."+Classes.EXT, xml_);
         Classes.validateAll(files_, cont_);
@@ -1238,7 +1238,7 @@ public class ProcessXmlMethodTest {
         xml_ += "</method>\n";
         xml_ += "</class>\n";
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = new ContextEl();
+        ContextEl cont_ = contextEl();
         cont_.setAccessValue(new AccessValueEx());
         files_.put("pkg/Ex."+Classes.EXT, xml_);
         Classes.validateAll(files_, cont_);
@@ -1260,7 +1260,7 @@ public class ProcessXmlMethodTest {
         xml_ += "</method>\n";
         xml_ += "</class>\n";
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = new ContextEl();
+        ContextEl cont_ = contextEl();
         cont_.setAccessValue(new AccessValueEx());
         files_.put("pkg/Ex."+Classes.EXT, xml_);
         Classes.validateAll(files_, cont_);
@@ -1290,7 +1290,7 @@ public class ProcessXmlMethodTest {
         xml_ += "</method>\n";
         xml_ += "</class>\n";
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = new ContextEl();
+        ContextEl cont_ = contextEl();
         cont_.setAccessValue(new AccessValueEx());
         files_.put("pkg/Ex."+Classes.EXT, xml_);
         Classes.validateAll(files_, cont_);
@@ -1316,7 +1316,7 @@ public class ProcessXmlMethodTest {
         xml_ += "</method>\n";
         xml_ += "</class>\n";
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = new ContextEl();
+        ContextEl cont_ = contextEl();
         cont_.setAccessValue(new AccessValueEx());
         files_.put("pkg/Ex."+Classes.EXT, xml_);
         Classes.validateAll(files_, cont_);
@@ -1342,7 +1342,7 @@ public class ProcessXmlMethodTest {
         xml_ += "</method>\n";
         xml_ += "</class>\n";
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = new ContextEl();
+        ContextEl cont_ = contextEl();
         cont_.setAccessValue(new AccessValueEx());
         files_.put("pkg/Ex."+Classes.EXT, xml_);
         Classes.validateAll(files_, cont_);
@@ -1371,7 +1371,7 @@ public class ProcessXmlMethodTest {
         xml_ += "</method>\n";
         xml_ += "</class>\n";
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = new ContextEl();
+        ContextEl cont_ = contextEl();
         cont_.setAccessValue(new AccessValueEx());
         files_.put("pkg/Ex."+Classes.EXT, xml_);
         Classes.validateAll(files_, cont_);
@@ -1401,7 +1401,7 @@ public class ProcessXmlMethodTest {
         xml_ += "</method>\n";
         xml_ += "</class>\n";
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = new ContextEl();
+        ContextEl cont_ = contextEl();
         cont_.setAccessValue(new AccessValueEx());
         files_.put("pkg/Ex."+Classes.EXT, xml_);
         Classes.validateAll(files_, cont_);
@@ -1425,7 +1425,7 @@ public class ProcessXmlMethodTest {
         xml_ += "</method>\n";
         xml_ += "</class>\n";
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = new ContextEl();
+        ContextEl cont_ = contextEl();
         cont_.setAccessValue(new AccessValueEx());
         files_.put("pkg/Ex."+Classes.EXT, xml_);
         Classes.validateAll(files_, cont_);
@@ -1463,7 +1463,7 @@ public class ProcessXmlMethodTest {
         xml_ += "</method>\n";
         xml_ += "</class>\n";
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = new ContextEl();
+        ContextEl cont_ = contextEl();
         cont_.setAccessValue(new AccessValueEx());
         files_.put("pkg/Ex."+Classes.EXT, xml_);
         Classes.validateAll(files_, cont_);
@@ -1501,7 +1501,7 @@ public class ProcessXmlMethodTest {
         xml_ += "</method>\n";
         xml_ += "</class>\n";
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = new ContextEl();
+        ContextEl cont_ = contextEl();
         cont_.setAccessValue(new AccessValueEx());
         files_.put("pkg/Ex."+Classes.EXT, xml_);
         Classes.validateAll(files_, cont_);
@@ -1539,7 +1539,7 @@ public class ProcessXmlMethodTest {
         xml_ += "</method>\n";
         xml_ += "</class>\n";
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = new ContextEl();
+        ContextEl cont_ = contextEl();
         cont_.setAccessValue(new AccessValueEx());
         files_.put("pkg/Ex."+Classes.EXT, xml_);
         Classes.validateAll(files_, cont_);
@@ -1582,7 +1582,7 @@ public class ProcessXmlMethodTest {
         xml_ += "</method>\n";
         xml_ += "</class>\n";
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = new ContextEl();
+        ContextEl cont_ = contextEl();
         cont_.setAccessValue(new AccessValueEx());
         files_.put("pkg/Ex."+Classes.EXT, xml_);
         Classes.validateAll(files_, cont_);
@@ -1626,7 +1626,7 @@ public class ProcessXmlMethodTest {
         xml_ += "</method>\n";
         xml_ += "</class>\n";
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = new ContextEl();
+        ContextEl cont_ = contextEl();
         cont_.setAccessValue(new AccessValueEx());
         files_.put("pkg/Ex."+Classes.EXT, xml_);
         Classes.validateAll(files_, cont_);
@@ -1672,7 +1672,7 @@ public class ProcessXmlMethodTest {
         xml_ += "</method>\n";
         xml_ += "</class>\n";
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = new ContextEl();
+        ContextEl cont_ = contextEl();
         cont_.setAccessValue(new AccessValueEx());
         files_.put("pkg/Ex."+Classes.EXT, xml_);
         Classes.validateAll(files_, cont_);
@@ -1718,7 +1718,7 @@ public class ProcessXmlMethodTest {
         xml_ += "</method>\n";
         xml_ += "</class>\n";
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = new ContextEl();
+        ContextEl cont_ = contextEl();
         cont_.setAccessValue(new AccessValueEx());
         files_.put("pkg/Ex."+Classes.EXT, xml_);
         Classes.validateAll(files_, cont_);
@@ -1763,7 +1763,7 @@ public class ProcessXmlMethodTest {
         xml_ += "</method>\n";
         xml_ += "</class>\n";
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = new ContextEl();
+        ContextEl cont_ = contextEl();
         cont_.setAccessValue(new AccessValueEx());
         files_.put("pkg/Ex."+Classes.EXT, xml_);
         Classes.validateAll(files_, cont_);
@@ -1809,7 +1809,7 @@ public class ProcessXmlMethodTest {
         xml_ += "</method>\n";
         xml_ += "</class>\n";
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = new ContextEl();
+        ContextEl cont_ = contextEl();
         cont_.setAccessValue(new AccessValueEx());
         files_.put("pkg/Ex."+Classes.EXT, xml_);
         Classes.validateAll(files_, cont_);
@@ -1850,7 +1850,7 @@ public class ProcessXmlMethodTest {
         xml_ += "</method>\n";
         xml_ += "</class>\n";
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = new ContextEl();
+        ContextEl cont_ = contextEl();
         cont_.setAccessValue(new AccessValueEx());
         files_.put("pkg/Ex."+Classes.EXT, xml_);
         Classes.validateAll(files_, cont_);
@@ -1888,7 +1888,7 @@ public class ProcessXmlMethodTest {
         xml_ += "</method>\n";
         xml_ += "</class>\n";
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = new ContextEl();
+        ContextEl cont_ = contextEl();
         cont_.setAccessValue(new AccessValueEx());
         files_.put("pkg/Ex."+Classes.EXT, xml_);
         Classes.validateAll(files_, cont_);
@@ -1926,7 +1926,7 @@ public class ProcessXmlMethodTest {
         xml_ += "</method>\n";
         xml_ += "</class>\n";
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = new ContextEl();
+        ContextEl cont_ = contextEl();
         cont_.setAccessValue(new AccessValueEx());
         files_.put("pkg/Ex."+Classes.EXT, xml_);
         Classes.validateAll(files_, cont_);
@@ -1964,7 +1964,7 @@ public class ProcessXmlMethodTest {
         xml_ += "</method>\n";
         xml_ += "</class>\n";
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = new ContextEl();
+        ContextEl cont_ = contextEl();
         cont_.setAccessValue(new AccessValueEx());
         files_.put("pkg/Ex."+Classes.EXT, xml_);
         Classes.validateAll(files_, cont_);
@@ -1999,7 +1999,7 @@ public class ProcessXmlMethodTest {
         xml_ += "</method>\n";
         xml_ += "</class>\n";
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = new ContextEl();
+        ContextEl cont_ = contextEl();
         cont_.setAccessValue(new AccessValueEx());
         files_.put("pkg/Ex."+Classes.EXT, xml_);
         Classes.validateAll(files_, cont_);
@@ -2034,7 +2034,7 @@ public class ProcessXmlMethodTest {
         xml_ += "</method>\n";
         xml_ += "</class>\n";
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = new ContextEl();
+        ContextEl cont_ = contextEl();
         cont_.setAccessValue(new AccessValueEx());
         files_.put("pkg/Ex."+Classes.EXT, xml_);
         Classes.validateAll(files_, cont_);
@@ -2066,7 +2066,7 @@ public class ProcessXmlMethodTest {
         xml_ += "</method>\n";
         xml_ += "</class>\n";
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = new ContextEl();
+        ContextEl cont_ = contextEl();
         cont_.setAccessValue(new AccessValueEx());
         files_.put("pkg/Ex."+Classes.EXT, xml_);
         Classes.validateAll(files_, cont_);
@@ -2109,7 +2109,7 @@ public class ProcessXmlMethodTest {
         xml_ += "</method>\n";
         xml_ += "</class>\n";
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = new ContextEl();
+        ContextEl cont_ = contextEl();
         cont_.setAccessValue(new AccessValueEx());
         files_.put("pkg/Ex."+Classes.EXT, xml_);
         Classes.validateAll(files_, cont_);
@@ -2146,7 +2146,7 @@ public class ProcessXmlMethodTest {
         xml_ += "</method>\n";
         xml_ += "</class>\n";
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = new ContextEl();
+        ContextEl cont_ = contextEl();
         cont_.setAccessValue(new AccessValueEx());
         files_.put("pkg/Ex."+Classes.EXT, xml_);
         Classes.validateAll(files_, cont_);
@@ -2182,7 +2182,7 @@ public class ProcessXmlMethodTest {
         xml_ += "</method>\n";
         xml_ += "</class>\n";
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = new ContextEl();
+        ContextEl cont_ = contextEl();
         files_.put("pkg/Ex."+Classes.EXT, xml_);
         Classes.validateAll(files_, cont_);
         CustList<Argument> args_ = new CustList<Argument>();
@@ -2209,7 +2209,7 @@ public class ProcessXmlMethodTest {
         xml_ += "</method>\n";
         xml_ += "</class>\n";
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = new ContextEl();
+        ContextEl cont_ = contextEl();
         files_.put("pkg/Ex."+Classes.EXT, xml_);
         Classes.validateAll(files_, cont_);
         CustList<Argument> args_ = new CustList<Argument>();
@@ -2237,7 +2237,7 @@ public class ProcessXmlMethodTest {
         xml_ += "</method>\n";
         xml_ += "</class>\n";
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = new ContextEl();
+        ContextEl cont_ = contextEl();
         files_.put("pkg/Ex."+Classes.EXT, xml_);
         Classes.validateAll(files_, cont_);
         CustList<Argument> args_ = new CustList<Argument>();
@@ -2265,7 +2265,7 @@ public class ProcessXmlMethodTest {
         xml_ += "</method>\n";
         xml_ += "</class>\n";
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = new ContextEl();
+        ContextEl cont_ = contextEl();
         files_.put("pkg/Ex."+Classes.EXT, xml_);
         Classes.validateAll(files_, cont_);
         CustList<Argument> args_ = new CustList<Argument>();
@@ -2294,7 +2294,7 @@ public class ProcessXmlMethodTest {
         xml_ += "</method>\n";
         xml_ += "</class>\n";
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = new ContextEl();
+        ContextEl cont_ = contextEl();
         cont_.setAccessValue(new AccessValueEx());
         files_.put("pkg/Ex."+Classes.EXT, xml_);
         Classes.validateAll(files_, cont_);
@@ -2328,7 +2328,7 @@ public class ProcessXmlMethodTest {
         xml_ += "</method>\n";
         xml_ += "</class>\n";
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = new ContextEl();
+        ContextEl cont_ = contextEl();
         cont_.setAccessValue(new AccessValueEx());
         files_.put("pkg/Ex."+Classes.EXT, xml_);
         Classes.validateAll(files_, cont_);
@@ -2352,7 +2352,7 @@ public class ProcessXmlMethodTest {
         xml_ += "</method>\n";
         xml_ += "</class>\n";
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = new ContextEl();
+        ContextEl cont_ = contextEl();
         files_.put("pkg/Ex."+Classes.EXT, xml_);
         Classes.validateAll(files_, cont_);
 //        Classes classes_ = new Classes(files_, cont_);
@@ -2384,7 +2384,7 @@ public class ProcessXmlMethodTest {
         xml_ += "</method>\n";
         xml_ += "</class>\n";
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = new ContextEl();
+        ContextEl cont_ = contextEl();
         files_.put("pkg/Ex."+Classes.EXT, xml_);
         Classes.validateAll(files_, cont_);
 //        Classes classes_ = new Classes(files_, cont_);
@@ -2428,7 +2428,7 @@ public class ProcessXmlMethodTest {
         xml_ += "</method>\n";
         xml_ += "</class>\n";
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = new ContextEl();
+        ContextEl cont_ = contextEl();
         cont_.setAccessValue(new AccessValueEx());
         files_.put("pkg/Ex."+Classes.EXT, xml_);
         Classes.validateAll(files_, cont_);
@@ -2473,7 +2473,7 @@ public class ProcessXmlMethodTest {
         xml_ += "</method>\n";
         xml_ += "</class>\n";
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = new ContextEl();
+        ContextEl cont_ = contextEl();
         cont_.setAccessValue(new AccessValueEx());
         files_.put("pkg/Ex."+Classes.EXT, xml_);
         Classes.validateAll(files_, cont_);
@@ -2525,7 +2525,7 @@ public class ProcessXmlMethodTest {
         xml_ += "</method>\n";
         xml_ += "</class>\n";
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = new ContextEl();
+        ContextEl cont_ = contextEl();
         cont_.setAccessValue(new AccessValueEx());
         files_.put("pkg/Ex."+Classes.EXT, xml_);
         Classes.validateAll(files_, cont_);
@@ -2581,7 +2581,7 @@ public class ProcessXmlMethodTest {
         xml_ += "</method>\n";
         xml_ += "</class>\n";
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = new ContextEl();
+        ContextEl cont_ = contextEl();
         cont_.setAccessValue(new AccessValueEx());
         files_.put("pkg/Ex."+Classes.EXT, xml_);
         Classes.validateAll(files_, cont_);
@@ -2641,7 +2641,7 @@ public class ProcessXmlMethodTest {
         xml_ += "</method>\n";
         xml_ += "</class>\n";
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = new ContextEl();
+        ContextEl cont_ = contextEl();
         cont_.setAccessValue(new AccessValueEx());
         files_.put("pkg/Ex."+Classes.EXT, xml_);
         Classes.validateAll(files_, cont_);
@@ -2700,7 +2700,7 @@ public class ProcessXmlMethodTest {
         xml_ += "</method>\n";
         xml_ += "</class>\n";
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = new ContextEl();
+        ContextEl cont_ = contextEl();
         cont_.setAccessValue(new AccessValueEx());
         files_.put("pkg/Ex."+Classes.EXT, xml_);
         Classes.validateAll(files_, cont_);
@@ -2763,7 +2763,7 @@ public class ProcessXmlMethodTest {
         xml_ += "</method>\n";
         xml_ += "</class>\n";
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = new ContextEl();
+        ContextEl cont_ = contextEl();
         cont_.setAccessValue(new AccessValueEx());
         files_.put("pkg/Ex."+Classes.EXT, xml_);
         Classes.validateAll(files_, cont_);
@@ -2828,7 +2828,7 @@ public class ProcessXmlMethodTest {
         xml_ += "</method>\n";
         xml_ += "</class>\n";
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = new ContextEl();
+        ContextEl cont_ = contextEl();
         cont_.setAccessValue(new AccessValueEx());
         files_.put("pkg/Ex."+Classes.EXT, xml_);
         Classes.validateAll(files_, cont_);
@@ -2895,7 +2895,7 @@ public class ProcessXmlMethodTest {
         xml_ += "</method>\n";
         xml_ += "</class>\n";
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = new ContextEl();
+        ContextEl cont_ = contextEl();
         cont_.setAccessValue(new AccessValueEx());
         files_.put("pkg/Ex."+Classes.EXT, xml_);
         Classes.validateAll(files_, cont_);
@@ -2962,7 +2962,7 @@ public class ProcessXmlMethodTest {
         xml_ += "</method>\n";
         xml_ += "</class>\n";
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = new ContextEl();
+        ContextEl cont_ = contextEl();
         cont_.setAccessValue(new AccessValueEx());
         files_.put("pkg/Ex."+Classes.EXT, xml_);
         Classes.validateAll(files_, cont_);
@@ -3034,7 +3034,7 @@ public class ProcessXmlMethodTest {
         xml_ += "</method>\n";
         xml_ += "</class>\n";
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = new ContextEl();
+        ContextEl cont_ = contextEl();
         cont_.setAccessValue(new AccessValueEx());
         files_.put("pkg/Ex."+Classes.EXT, xml_);
         Classes.validateAll(files_, cont_);
@@ -3104,7 +3104,7 @@ public class ProcessXmlMethodTest {
         xml_ += "</method>\n";
         xml_ += "</class>\n";
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = new ContextEl();
+        ContextEl cont_ = contextEl();
         cont_.setAccessValue(new AccessValueEx());
         files_.put("pkg/Ex."+Classes.EXT, xml_);
         Classes.validateAll(files_, cont_);
@@ -3200,7 +3200,7 @@ public class ProcessXmlMethodTest {
         xml_ += "</method>\n";
         xml_ += "</class>\n";
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = new ContextEl();
+        ContextEl cont_ = contextEl();
         cont_.setAccessValue(new AccessValueEx());
         files_.put("pkg/Ex."+Classes.EXT, xml_);
         Classes.validateAll(files_, cont_);
@@ -3290,7 +3290,7 @@ public class ProcessXmlMethodTest {
         xml_ += "</method>\n";
         xml_ += "</class>\n";
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = new ContextEl();
+        ContextEl cont_ = contextEl();
         cont_.setAccessValue(new AccessValueEx());
         files_.put("pkg/Ex."+Classes.EXT, xml_);
         Classes.validateAll(files_, cont_);
@@ -3381,7 +3381,7 @@ public class ProcessXmlMethodTest {
         xml_ += "</method>\n";
         xml_ += "</class>\n";
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = new ContextEl();
+        ContextEl cont_ = contextEl();
         cont_.setAccessValue(new AccessValueEx());
         files_.put("pkg/Ex."+Classes.EXT, xml_);
         Classes.validateAll(files_, cont_);
@@ -3466,7 +3466,7 @@ public class ProcessXmlMethodTest {
         xml_ += "</method>\n";
         xml_ += "</class>\n";
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = new ContextEl();
+        ContextEl cont_ = contextEl();
         cont_.setAccessValue(new AccessValueEx());
         files_.put("pkg/Ex."+Classes.EXT, xml_);
         Classes.validateAll(files_, cont_);
@@ -3556,7 +3556,7 @@ public class ProcessXmlMethodTest {
         xml_ += "</method>\n";
         xml_ += "</class>\n";
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = new ContextEl();
+        ContextEl cont_ = contextEl();
         cont_.setAccessValue(new AccessValueEx());
         files_.put("pkg/Ex."+Classes.EXT, xml_);
         Classes.validateAll(files_, cont_);
@@ -3641,7 +3641,7 @@ public class ProcessXmlMethodTest {
         xml_ += "</method>\n";
         xml_ += "</class>\n";
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = new ContextEl();
+        ContextEl cont_ = contextEl();
         cont_.setAccessValue(new AccessValueEx());
         files_.put("pkg/Ex."+Classes.EXT, xml_);
         Classes.validateAll(files_, cont_);
@@ -3687,7 +3687,7 @@ public class ProcessXmlMethodTest {
         xml_ += "</method>\n";
         xml_ += "</class>\n";
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = new ContextEl();
+        ContextEl cont_ = contextEl();
         cont_.setAccessValue(new AccessValueEx());
         files_.put("pkg/Ex."+Classes.EXT, xml_);
         Classes.validateAll(files_, cont_);
@@ -3738,7 +3738,7 @@ public class ProcessXmlMethodTest {
         xml_ += "<method access='"+PUBLIC_ACCESS+"' modifier='static' name='emptymeth' class='"+OperationNode.VOID_RETURN+"'/>\n";
         xml_ += "</class>\n";
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = new ContextEl();
+        ContextEl cont_ = contextEl();
         cont_.setAccessValue(new AccessValueEx());
         files_.put("pkg/Ex."+Classes.EXT, xml_);
         Classes.validateAll(files_, cont_);
@@ -3782,7 +3782,7 @@ public class ProcessXmlMethodTest {
         xml_ += "</method>\n";
         xml_ += "</class>\n";
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = new ContextEl();
+        ContextEl cont_ = contextEl();
         files_.put("pkg/Ex."+Classes.EXT, xml_);
         Classes.validateAll(files_, cont_);
 //        Classes classes_ = new Classes(files_, cont_);
@@ -3808,7 +3808,7 @@ public class ProcessXmlMethodTest {
         xml_ += "</method>\n";
         xml_ += "</class>\n";
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = new ContextEl();
+        ContextEl cont_ = contextEl();
         files_.put("pkg/Ex."+Classes.EXT, xml_);
         xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExTwo' package='pkg'>\n";
         xml_ += "<method access='"+PUBLIC_ACCESS+"' modifier='static' name='exmeth' class='"+PrimitiveTypeUtil.PRIM_INT+"'>\n";
@@ -3859,7 +3859,7 @@ public class ProcessXmlMethodTest {
         xml_ += "</method>\n";
         xml_ += "</class>\n";
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = new ContextEl();
+        ContextEl cont_ = contextEl();
         files_.put("pkg/Ex."+Classes.EXT, xml_);
         xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExTwo' package='pkg'>\n";
         xml_ += "<field access='"+PUBLIC_ACCESS+"' static='' name='myf' class='"+PrimitiveTypeUtil.PRIM_INT+"' value='2i'/>\n";
@@ -3913,7 +3913,7 @@ public class ProcessXmlMethodTest {
         xml_ += "</method>\n";
         xml_ += "</class>\n";
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = new ContextEl();
+        ContextEl cont_ = contextEl();
         files_.put("pkg/Ex."+Classes.EXT, xml_);
         xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExTwo' package='pkg'>\n";
         xml_ += "<field access='"+PUBLIC_ACCESS+"' static='' name='myf' class='"+PrimitiveTypeUtil.PRIM_INT+"' value='2i'/>\n";
@@ -3970,7 +3970,7 @@ public class ProcessXmlMethodTest {
         xml_ += "</method>\n";
         xml_ += "</class>\n";
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = new ContextEl();
+        ContextEl cont_ = contextEl();
         files_.put("pkg/Ex."+Classes.EXT, xml_);
         xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExTwo' package='pkg'>\n";
         xml_ += "<field access='"+PUBLIC_ACCESS+"' static='' name='myf' class='"+PrimitiveTypeUtil.PRIM_INT+"' value='2i'/>\n";
@@ -4030,7 +4030,7 @@ public class ProcessXmlMethodTest {
         xml_ += "</method>\n";
         xml_ += "</class>\n";
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = new ContextEl();
+        ContextEl cont_ = contextEl();
         files_.put("pkg/Ex."+Classes.EXT, xml_);
         xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExTwo' package='pkg'>\n";
         xml_ += "<field access='"+PUBLIC_ACCESS+"' static='' name='myf' class='"+PrimitiveTypeUtil.PRIM_INT+"' value='2i'/>\n";
@@ -4091,7 +4091,7 @@ public class ProcessXmlMethodTest {
         xml_ += "</method>\n";
         xml_ += "</class>\n";
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = new ContextEl();
+        ContextEl cont_ = contextEl();
         files_.put("pkg/Ex."+Classes.EXT, xml_);
         xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExTwo' package='pkg'>\n";
         xml_ += "<field access='"+PUBLIC_ACCESS+"' static='' name='myf' class='"+PrimitiveTypeUtil.PRIM_INT+"' value='2i'/>\n";
@@ -4154,7 +4154,7 @@ public class ProcessXmlMethodTest {
         xml_ += "</method>\n";
         xml_ += "</class>\n";
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = new ContextEl();
+        ContextEl cont_ = contextEl();
         files_.put("pkg/Ex."+Classes.EXT, xml_);
         xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExTwo' package='pkg'>\n";
         xml_ += "<field access='"+PUBLIC_ACCESS+"' static='' name='myf' class='"+PrimitiveTypeUtil.PRIM_INT+"' value='2i'/>\n";
@@ -4220,7 +4220,7 @@ public class ProcessXmlMethodTest {
         xml_ += "</method>\n";
         xml_ += "</class>\n";
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = new ContextEl();
+        ContextEl cont_ = contextEl();
         files_.put("pkg/Ex."+Classes.EXT, xml_);
         xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExTwo' package='pkg' superclass='pkg.Ex'>\n";
         xml_ += "<field access='"+PUBLIC_ACCESS+"' static='' name='myf' class='"+PrimitiveTypeUtil.PRIM_INT+"' value='2i'/>\n";
@@ -4352,7 +4352,7 @@ public class ProcessXmlMethodTest {
         xml_ += "</method>\n";
         xml_ += "</class>\n";
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = new ContextEl();
+        ContextEl cont_ = contextEl();
         cont_.setAccessValue(new AccessValueEx());
         files_.put("pkg/Ex."+Classes.EXT, xml_);
         Classes.validateAll(files_, cont_);
@@ -4446,7 +4446,7 @@ public class ProcessXmlMethodTest {
         xml_ += "</method>\n";
         xml_ += "</class>\n";
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = new ContextEl();
+        ContextEl cont_ = contextEl();
         cont_.setAccessValue(new AccessValueEx());
         files_.put("pkg/Ex."+Classes.EXT, xml_);
         Classes.validateAll(files_, cont_);
@@ -4541,7 +4541,7 @@ public class ProcessXmlMethodTest {
         xml_ += "</method>\n";
         xml_ += "</class>\n";
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = new ContextEl();
+        ContextEl cont_ = contextEl();
         cont_.setAccessValue(new AccessValueEx());
         files_.put("pkg/Ex."+Classes.EXT, xml_);
         Classes.validateAll(files_, cont_);
@@ -4640,7 +4640,7 @@ public class ProcessXmlMethodTest {
         xml_ += "</method>\n";
         xml_ += "</class>\n";
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = new ContextEl();
+        ContextEl cont_ = contextEl();
         cont_.setAccessValue(new AccessValueEx());
         files_.put("pkg/Ex."+Classes.EXT, xml_);
         Classes.validateAll(files_, cont_);
@@ -4739,7 +4739,7 @@ public class ProcessXmlMethodTest {
         xml_ += "</method>\n";
         xml_ += "</class>\n";
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = new ContextEl();
+        ContextEl cont_ = contextEl();
         cont_.setAccessValue(new AccessValueEx());
         files_.put("pkg/Ex."+Classes.EXT, xml_);
         Classes.validateAll(files_, cont_);
@@ -4811,7 +4811,7 @@ public class ProcessXmlMethodTest {
         xml_ += "</method>\n";
         xml_ += "</class>\n";
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = new ContextEl(12);
+        ContextEl cont_ = contextEl(12);
         cont_.setAccessValue(new AccessValueEx());
         files_.put("pkg/Ex."+Classes.EXT, xml_);
         Classes.validateAll(files_, cont_);
@@ -4900,7 +4900,7 @@ public class ProcessXmlMethodTest {
         xml_ += "</method>\n";
         xml_ += "</class>\n";
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = new ContextEl();
+        ContextEl cont_ = contextEl();
         cont_.setAccessValue(new AccessValueEx());
         files_.put("pkg/Ex."+Classes.EXT, xml_);
         Classes.validateAll(files_, cont_);
@@ -5000,7 +5000,7 @@ public class ProcessXmlMethodTest {
         xml_ += "</method>\n";
         xml_ += "</class>\n";
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = new ContextEl();
+        ContextEl cont_ = contextEl();
         cont_.setAccessValue(new AccessValueEx());
         files_.put("pkg/Ex."+Classes.EXT, xml_);
         Classes.validateAll(files_, cont_);
@@ -5019,7 +5019,7 @@ public class ProcessXmlMethodTest {
         xml_ += "</method>\n";
         xml_ += "</class>\n";
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = new ContextEl();
+        ContextEl cont_ = contextEl();
         files_.put("pkg/Ex."+Classes.EXT, xml_);
         xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExTwo' package='pkg'>\n";
         xml_ += "<field access='"+PUBLIC_ACCESS+"' static='' name='myf' class='"+PrimitiveTypeUtil.PRIM_INT+"' value='2i'/>\n";
@@ -5076,7 +5076,7 @@ public class ProcessXmlMethodTest {
         xml_ += "</method>\n";
         xml_ += "</class>\n";
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = new ContextEl();
+        ContextEl cont_ = contextEl();
         files_.put("pkg/Ex."+Classes.EXT, xml_);
         xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExTwo' package='pkg'>\n";
         xml_ += "<field access='"+PUBLIC_ACCESS+"' static='' name='myf' class='"+PrimitiveTypeUtil.PRIM_INT+"' value='2i'/>\n";
@@ -5134,7 +5134,7 @@ public class ProcessXmlMethodTest {
         xml_ += "</method>\n";
         xml_ += "</class>\n";
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = new ContextEl();
+        ContextEl cont_ = contextEl();
         files_.put("pkg/Ex."+Classes.EXT, xml_);
         xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExTwo' package='pkg'>\n";
         xml_ += "<field access='"+PUBLIC_ACCESS+"' static='' name='myf' class='"+PrimitiveTypeUtil.PRIM_INT+"' value='2i'/>\n";
@@ -5197,7 +5197,7 @@ public class ProcessXmlMethodTest {
         xml_ += "</method>\n";
         xml_ += "</class>\n";
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = new ContextEl();
+        ContextEl cont_ = contextEl();
         files_.put("pkg/Ex."+Classes.EXT, xml_);
         xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExTwo' package='pkg'>\n";
         xml_ += "<field access='"+PUBLIC_ACCESS+"' static='' name='myf' class='"+PrimitiveTypeUtil.PRIM_INT+"' value='2i'/>\n";
@@ -5265,7 +5265,7 @@ public class ProcessXmlMethodTest {
         xml_ += "</method>\n";
         xml_ += "</class>\n";
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = new ContextEl();
+        ContextEl cont_ = contextEl();
         files_.put("pkg/Ex."+Classes.EXT, xml_);
         xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExTwo' package='pkg'>\n";
         xml_ += "<field access='"+PUBLIC_ACCESS+"' static='' name='new' class='"+PrimitiveTypeUtil.PRIM_INT+"' value='2i'/>\n";
@@ -5375,7 +5375,7 @@ public class ProcessXmlMethodTest {
         xml_ += "</method>\n";
         xml_ += "</class>\n";
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = new ContextEl(2);
+        ContextEl cont_ = contextEl(2);
         cont_.setAccessValue(new AccessValueEx());
         files_.put("pkg/Ex."+Classes.EXT, xml_);
         Classes.validateAll(files_, cont_);
@@ -5409,7 +5409,7 @@ public class ProcessXmlMethodTest {
     public void initializeClass1Test() {
         String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg'/>\n";
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = new ContextEl(50);
+        ContextEl cont_ = contextEl();
         cont_.setAccessValue(new AccessValueEx());
         files_.put("pkg/Ex."+Classes.EXT, xml_);
         Classes.validateAll(files_, cont_);
@@ -5423,7 +5423,7 @@ public class ProcessXmlMethodTest {
         xml_ += "<element name='ONE'/>\n";
         xml_ += "</enum>\n";
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = new ContextEl(50);
+        ContextEl cont_ = contextEl();
         cont_.setAccessValue(new AccessValueEx());
         files_.put("pkg/Ex."+Classes.EXT, xml_);
         Classes.validateAll(files_, cont_);
@@ -5438,19 +5438,19 @@ public class ProcessXmlMethodTest {
         xml_ += "<field access='"+PUBLIC_ACCESS+"' name='first' class='"+PrimitiveTypeUtil.PRIM_INT+"' value='4i'/>\n";
         xml_ += "</enum>\n";
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = new ContextEl(50);
+        ContextEl cont_ = contextEl();
         cont_.setAccessValue(new AccessValueEx());
         files_.put("pkg/Ex."+Classes.EXT, xml_);
         Classes.validateAll(files_, cont_);
         ProcessXmlMethod.initializeClass("pkg.Ex", cont_);
         assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
         Struct str_ = cont_.getClasses().getStaticField(new ClassField("pkg.Ex", "ONE"));
-        assertEq(CUST_ENUM, str_.getRealClassName());
-        assertEq("pkg.Ex", str_.getClassName());
+        assertEq(CUST_ENUM, str_.getRealClassName(cont_));
+        assertEq("pkg.Ex", str_.getClassName(cont_));
         Struct field_;
         field_ = str_.getFields().getVal(new ClassField("pkg.Ex", "first"));
-        assertEq(INTEGER, field_.getRealClassName());
-        assertEq(INTEGER, field_.getClassName());
+        assertEq(INTEGER, field_.getRealClassName(cont_));
+        assertEq(INTEGER, field_.getClassName(cont_));
         assertEq(4, (Number)field_.getInstance());
     }
 
@@ -5464,19 +5464,19 @@ public class ProcessXmlMethodTest {
         xml_ += "</constructor>\n";
         xml_ += "</enum>\n";
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = new ContextEl(50);
+        ContextEl cont_ = contextEl();
         cont_.setAccessValue(new AccessValueEx());
         files_.put("pkg/Ex."+Classes.EXT, xml_);
         Classes.validateAll(files_, cont_);
         ProcessXmlMethod.initializeClass("pkg.Ex", cont_);
         assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
         Struct str_ = cont_.getClasses().getStaticField(new ClassField("pkg.Ex", "ONE"));
-        assertEq(CUST_ENUM, str_.getRealClassName());
-        assertEq("pkg.Ex", str_.getClassName());
+        assertEq(CUST_ENUM, str_.getRealClassName(cont_));
+        assertEq("pkg.Ex", str_.getClassName(cont_));
         Struct field_;
         field_ = str_.getFields().getVal(new ClassField("pkg.Ex", "first"));
-        assertEq(INTEGER, field_.getRealClassName());
-        assertEq(INTEGER, field_.getClassName());
+        assertEq(INTEGER, field_.getRealClassName(cont_));
+        assertEq(INTEGER, field_.getClassName(cont_));
         assertEq(4, (Number)field_.getInstance());
     }
 
@@ -5494,26 +5494,26 @@ public class ProcessXmlMethodTest {
         xml_ += "</constructor>\n";
         xml_ += "</enum>\n";
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = new ContextEl(50);
+        ContextEl cont_ = contextEl();
         cont_.setAccessValue(new AccessValueEx());
         files_.put("pkg/Ex."+Classes.EXT, xml_);
         Classes.validateAll(files_, cont_);
         ProcessXmlMethod.initializeClass("pkg.Ex", cont_);
         assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
         Struct str_ = cont_.getClasses().getStaticField(new ClassField("pkg.Ex", "ONE"));
-        assertEq(CUST_ENUM, str_.getRealClassName());
-        assertEq("pkg.Ex", str_.getClassName());
+        assertEq(CUST_ENUM, str_.getRealClassName(cont_));
+        assertEq("pkg.Ex", str_.getClassName(cont_));
         Struct field_;
         field_ = str_.getFields().getVal(new ClassField("pkg.Ex", "first"));
-        assertEq(INTEGER, field_.getRealClassName());
-        assertEq(INTEGER, field_.getClassName());
+        assertEq(INTEGER, field_.getRealClassName(cont_));
+        assertEq(INTEGER, field_.getClassName(cont_));
         assertEq(4, (Number)field_.getInstance());
         str_ = cont_.getClasses().getStaticField(new ClassField("pkg.Ex", "TWO"));
-        assertEq(CUST_ENUM, str_.getRealClassName());
-        assertEq("pkg.Ex", str_.getClassName());
+        assertEq(CUST_ENUM, str_.getRealClassName(cont_));
+        assertEq("pkg.Ex", str_.getClassName(cont_));
         field_ = str_.getFields().getVal(new ClassField("pkg.Ex", "first"));
-        assertEq(INTEGER, field_.getRealClassName());
-        assertEq(INTEGER, field_.getClassName());
+        assertEq(INTEGER, field_.getRealClassName(cont_));
+        assertEq(INTEGER, field_.getClassName(cont_));
         assertEq(5, (Number)field_.getInstance());
     }
 
@@ -5531,26 +5531,26 @@ public class ProcessXmlMethodTest {
         xml_ += "</constructor>\n";
         xml_ += "</enum>\n";
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = new ContextEl(50);
+        ContextEl cont_ = contextEl();
         cont_.setAccessValue(new AccessValueEx());
         files_.put("pkg/Ex."+Classes.EXT, xml_);
         Classes.validateAll(files_, cont_);
         ProcessXmlMethod.initializeClass("pkg.Ex", cont_);
         assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
         Struct str_ = cont_.getClasses().getStaticField(new ClassField("pkg.Ex", "ONE"));
-        assertEq(CUST_ENUM, str_.getRealClassName());
-        assertEq("pkg.Ex", str_.getClassName());
+        assertEq(CUST_ENUM, str_.getRealClassName(cont_));
+        assertEq("pkg.Ex", str_.getClassName(cont_));
         Struct field_;
         field_ = str_.getFields().getVal(new ClassField("pkg.Ex", "first"));
-        assertEq(INTEGER, field_.getRealClassName());
-        assertEq(INTEGER, field_.getClassName());
+        assertEq(INTEGER, field_.getRealClassName(cont_));
+        assertEq(INTEGER, field_.getClassName(cont_));
         assertEq(4, (Number)field_.getInstance());
         str_ = cont_.getClasses().getStaticField(new ClassField("pkg.Ex", "TWO"));
-        assertEq(CUST_ENUM, str_.getRealClassName());
-        assertEq("pkg.Ex", str_.getClassName());
+        assertEq(CUST_ENUM, str_.getRealClassName(cont_));
+        assertEq("pkg.Ex", str_.getClassName(cont_));
         field_ = str_.getFields().getVal(new ClassField("pkg.Ex", "first"));
-        assertEq(INTEGER, field_.getRealClassName());
-        assertEq(INTEGER, field_.getClassName());
+        assertEq(INTEGER, field_.getRealClassName(cont_));
+        assertEq(INTEGER, field_.getClassName(cont_));
         assertEq(5, (Number)field_.getInstance());
     }
 
@@ -5558,7 +5558,7 @@ public class ProcessXmlMethodTest {
     public void instanceArgument1Test() {
         String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg'/>\n";
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = new ContextEl(50);
+        ContextEl cont_ = contextEl();
         cont_.setAccessValue(new AccessValueEx());
         files_.put("pkg/Ex."+Classes.EXT, xml_);
         Classes.validateAll(files_, cont_);
@@ -5569,8 +5569,8 @@ public class ProcessXmlMethodTest {
         ret_ = instanceArgument("pkg.Ex", null, id_, args_, cont_);
         assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
         Struct str_ = ret_.getStruct();
-        assertEq(CUST_BASE, str_.getRealClassName());
-        assertEq("pkg.Ex", str_.getClassName());
+        assertEq(CUST_BASE, str_.getRealClassName(cont_));
+        assertEq("pkg.Ex", str_.getClassName(cont_));
     }
 
 
@@ -5580,7 +5580,7 @@ public class ProcessXmlMethodTest {
         xml_ += "<field access='"+PUBLIC_ACCESS+"' name='inst' class='"+PrimitiveTypeUtil.PRIM_INT+"' value='2i'/>\n";
         xml_ += "</class>\n";
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = new ContextEl(50);
+        ContextEl cont_ = contextEl();
         cont_.setAccessValue(new AccessValueEx());
         files_.put("pkg/Ex."+Classes.EXT, xml_);
         Classes.validateAll(files_, cont_);
@@ -5591,12 +5591,12 @@ public class ProcessXmlMethodTest {
         ret_ = instanceArgument("pkg.Ex", null, id_, args_, cont_);
         assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
         Struct str_ = ret_.getStruct();
-        assertEq(CUST_BASE, str_.getRealClassName());
-        assertEq("pkg.Ex", str_.getClassName());
+        assertEq(CUST_BASE, str_.getRealClassName(cont_));
+        assertEq("pkg.Ex", str_.getClassName(cont_));
         Struct field_;
         field_ = str_.getFields().getVal(new ClassField("pkg.Ex", "inst"));
-        assertEq(INTEGER, field_.getRealClassName());
-        assertEq(INTEGER, field_.getClassName());
+        assertEq(INTEGER, field_.getRealClassName(cont_));
+        assertEq(INTEGER, field_.getClassName(cont_));
         assertEq(2, (Number)field_.getInstance());
     }
 
@@ -5606,7 +5606,7 @@ public class ProcessXmlMethodTest {
         xml_ += "<constructor access='"+PUBLIC_ACCESS+"'/>\n";
         xml_ += "</class>\n";
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = new ContextEl(50);
+        ContextEl cont_ = contextEl();
         cont_.setAccessValue(new AccessValueEx());
         files_.put("pkg/Ex."+Classes.EXT, xml_);
         Classes.validateAll(files_, cont_);
@@ -5617,8 +5617,8 @@ public class ProcessXmlMethodTest {
         ret_ = instanceArgument("pkg.Ex", null, id_, args_, cont_);
         assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
         Struct str_ = ret_.getStruct();
-        assertEq(CUST_BASE, str_.getRealClassName());
-        assertEq("pkg.Ex", str_.getClassName());
+        assertEq(CUST_BASE, str_.getRealClassName(cont_));
+        assertEq("pkg.Ex", str_.getClassName(cont_));
     }
 
     @Test
@@ -5630,7 +5630,7 @@ public class ProcessXmlMethodTest {
         xml_ += "</constructor>\n";
         xml_ += "</class>\n";
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = new ContextEl(50);
+        ContextEl cont_ = contextEl();
         cont_.setAccessValue(new AccessValueEx());
         files_.put("pkg/Ex."+Classes.EXT, xml_);
         Classes.validateAll(files_, cont_);
@@ -5645,12 +5645,12 @@ public class ProcessXmlMethodTest {
         ret_ = instanceArgument("pkg.Ex", null, id_, args_, cont_);
         assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
         Struct str_ = ret_.getStruct();
-        assertEq(CUST_BASE, str_.getRealClassName());
-        assertEq("pkg.Ex", str_.getClassName());
+        assertEq(CUST_BASE, str_.getRealClassName(cont_));
+        assertEq("pkg.Ex", str_.getClassName(cont_));
         Struct field_;
         field_ = str_.getFields().getVal(new ClassField("pkg.Ex", "inst"));
-        assertEq(INTEGER, field_.getRealClassName());
-        assertEq(INTEGER, field_.getClassName());
+        assertEq(INTEGER, field_.getRealClassName(cont_));
+        assertEq(INTEGER, field_.getClassName(cont_));
         assertEq(8, (Number)field_.getInstance());
     }
 
@@ -5666,7 +5666,7 @@ public class ProcessXmlMethodTest {
         xml_ += "</constructor>\n";
         xml_ += "</class>\n";
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = new ContextEl(50);
+        ContextEl cont_ = contextEl();
         cont_.setAccessValue(new AccessValueEx());
         files_.put("pkg/Ex."+Classes.EXT, xml_);
         Classes.validateAll(files_, cont_);
@@ -5681,12 +5681,12 @@ public class ProcessXmlMethodTest {
         ret_ = instanceArgument("pkg.Ex", null, id_, args_, cont_);
         assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
         Struct str_ = ret_.getStruct();
-        assertEq(CUST_BASE, str_.getRealClassName());
-        assertEq("pkg.Ex", str_.getClassName());
+        assertEq(CUST_BASE, str_.getRealClassName(cont_));
+        assertEq("pkg.Ex", str_.getClassName(cont_));
         Struct field_;
         field_ = str_.getFields().getVal(new ClassField("pkg.Ex", "inst"));
-        assertEq(INTEGER, field_.getRealClassName());
-        assertEq(INTEGER, field_.getClassName());
+        assertEq(INTEGER, field_.getRealClassName(cont_));
+        assertEq(INTEGER, field_.getClassName(cont_));
         assertEq(8, (Number)field_.getInstance());
     }
 
@@ -5702,7 +5702,7 @@ public class ProcessXmlMethodTest {
         xml_ += "</constructor>\n";
         xml_ += "</class>\n";
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = new ContextEl(50);
+        ContextEl cont_ = contextEl();
         cont_.setAccessValue(new AccessValueEx());
         files_.put("pkg/Ex."+Classes.EXT, xml_);
         Classes.validateAll(files_, cont_);
@@ -5713,12 +5713,12 @@ public class ProcessXmlMethodTest {
         ret_ = instanceArgument("pkg.Ex", null, id_, args_, cont_);
         assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
         Struct str_ = ret_.getStruct();
-        assertEq(CUST_BASE, str_.getRealClassName());
-        assertEq("pkg.Ex", str_.getClassName());
+        assertEq(CUST_BASE, str_.getRealClassName(cont_));
+        assertEq("pkg.Ex", str_.getClassName(cont_));
         Struct field_;
         field_ = str_.getFields().getVal(new ClassField("pkg.Ex", "inst"));
-        assertEq(INTEGER, field_.getRealClassName());
-        assertEq(INTEGER, field_.getClassName());
+        assertEq(INTEGER, field_.getRealClassName(cont_));
+        assertEq(INTEGER, field_.getClassName(cont_));
         assertEq(4, (Number)field_.getInstance());
     }
 
@@ -5739,7 +5739,7 @@ public class ProcessXmlMethodTest {
         xml_ += "</constructor>\n";
         xml_ += "</class>\n";
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = new ContextEl(50);
+        ContextEl cont_ = contextEl();
         cont_.setAccessValue(new AccessValueEx());
         files_.put("pkg/Ex."+Classes.EXT, xml_);
         Classes.validateAll(files_, cont_);
@@ -5750,16 +5750,16 @@ public class ProcessXmlMethodTest {
         ret_ = instanceArgument("pkg.Ex", null, id_, args_, cont_);
         assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
         Struct str_ = ret_.getStruct();
-        assertEq(CUST_BASE, str_.getRealClassName());
-        assertEq("pkg.Ex", str_.getClassName());
+        assertEq(CUST_BASE, str_.getRealClassName(cont_));
+        assertEq("pkg.Ex", str_.getClassName(cont_));
         Struct field_;
         field_ = str_.getFields().getVal(new ClassField("pkg.Ex", "inst"));
-        assertEq(INTEGER, field_.getRealClassName());
-        assertEq(INTEGER, field_.getClassName());
+        assertEq(INTEGER, field_.getRealClassName(cont_));
+        assertEq(INTEGER, field_.getClassName(cont_));
         assertEq(5, (Number)field_.getInstance());
         field_ = str_.getFields().getVal(new ClassField("pkg.Ex", "ance"));
-        assertEq(INTEGER, field_.getRealClassName());
-        assertEq(INTEGER, field_.getClassName());
+        assertEq(INTEGER, field_.getRealClassName(cont_));
+        assertEq(INTEGER, field_.getClassName(cont_));
         assertEq(4, (Number)field_.getInstance());
     }
 
@@ -5782,7 +5782,7 @@ public class ProcessXmlMethodTest {
         xml_ += "</constructor>\n";
         xml_ += "</class>\n";
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = new ContextEl(50);
+        ContextEl cont_ = contextEl();
         cont_.setAccessValue(new AccessValueEx());
         files_.put("pkg/Ex."+Classes.EXT, xml_);
         Classes.validateAll(files_, cont_);
@@ -5793,27 +5793,27 @@ public class ProcessXmlMethodTest {
         ret_ = instanceArgument("pkg.Ex", null, id_, args_, cont_);
         assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
         Struct str_ = ret_.getStruct();
-        assertEq(CUST_BASE, str_.getRealClassName());
-        assertEq("pkg.Ex", str_.getClassName());
+        assertEq(CUST_BASE, str_.getRealClassName(cont_));
+        assertEq("pkg.Ex", str_.getClassName(cont_));
         Struct field_;
         field_ = str_.getFields().getVal(new ClassField("pkg.Ex", "inst"));
-        assertEq(INTEGER, field_.getRealClassName());
-        assertEq(INTEGER, field_.getClassName());
+        assertEq(INTEGER, field_.getRealClassName(cont_));
+        assertEq(INTEGER, field_.getClassName(cont_));
         assertEq(5, (Number)field_.getInstance());
         field_ = str_.getFields().getVal(new ClassField("pkg.Ex", "ance"));
-        assertEq(INTEGER, field_.getRealClassName());
-        assertEq(INTEGER, field_.getClassName());
+        assertEq(INTEGER, field_.getRealClassName(cont_));
+        assertEq(INTEGER, field_.getClassName(cont_));
         assertEq(4, (Number)field_.getInstance());
         field_ = str_.getFields().getVal(new ClassField("pkg.Ex", "field"));
-        assertEq(INTEGER, field_.getRealClassName());
-        assertEq(INTEGER, field_.getClassName());
+        assertEq(INTEGER, field_.getRealClassName(cont_));
+        assertEq(INTEGER, field_.getClassName(cont_));
         assertEq(6, (Number)field_.getInstance());
     }
 
     @Test
     public void instanceArgument9Test() {
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = new ContextEl(50);
+        ContextEl cont_ = contextEl();
         cont_.setAccessValue(new AccessValueEx());
         String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' superclass='pkg.ExTwo'>\n";
         xml_ += "<field access='"+PUBLIC_ACCESS+"' name='inst' class='"+PrimitiveTypeUtil.PRIM_INT+"' value='2i'/>\n";
@@ -5847,31 +5847,31 @@ public class ProcessXmlMethodTest {
         ret_ = instanceArgument("pkg.Ex", null, id_, args_, cont_);
         assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
         Struct str_ = ret_.getStruct();
-        assertEq(CUST_BASE, str_.getRealClassName());
-        assertEq("pkg.Ex", str_.getClassName());
+        assertEq(CUST_BASE, str_.getRealClassName(cont_));
+        assertEq("pkg.Ex", str_.getClassName(cont_));
         Struct field_;
         field_ = str_.getFields().getVal(new ClassField("pkg.Ex", "inst"));
-        assertEq(INTEGER, field_.getRealClassName());
-        assertEq(INTEGER, field_.getClassName());
+        assertEq(INTEGER, field_.getRealClassName(cont_));
+        assertEq(INTEGER, field_.getClassName(cont_));
         assertEq(5, (Number)field_.getInstance());
         field_ = str_.getFields().getVal(new ClassField("pkg.Ex", "ance"));
-        assertEq(INTEGER, field_.getRealClassName());
-        assertEq(INTEGER, field_.getClassName());
+        assertEq(INTEGER, field_.getRealClassName(cont_));
+        assertEq(INTEGER, field_.getClassName(cont_));
         assertEq(4, (Number)field_.getInstance());
         field_ = str_.getFields().getVal(new ClassField("pkg.Ex", "field"));
-        assertEq(INTEGER, field_.getRealClassName());
-        assertEq(INTEGER, field_.getClassName());
+        assertEq(INTEGER, field_.getRealClassName(cont_));
+        assertEq(INTEGER, field_.getClassName(cont_));
         assertEq(6, (Number)field_.getInstance());
         field_ = str_.getFields().getVal(new ClassField("pkg.ExTwo", "sec"));
-        assertEq(INTEGER, field_.getRealClassName());
-        assertEq(INTEGER, field_.getClassName());
+        assertEq(INTEGER, field_.getRealClassName(cont_));
+        assertEq(INTEGER, field_.getClassName(cont_));
         assertEq(7, (Number)field_.getInstance());
     }
 
     @Test
     public void instanceArgument10Test() {
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = new ContextEl(50);
+        ContextEl cont_ = contextEl();
         cont_.setAccessValue(new AccessValueEx());
         String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg'>\n";
         xml_ += "<field access='"+PUBLIC_ACCESS+"' name='inst' class='"+PrimitiveTypeUtil.PRIM_INT+"' value='2i'/>\n";
@@ -5905,27 +5905,27 @@ public class ProcessXmlMethodTest {
         ret_ = instanceArgument("pkg.Ex", null, id_, args_, cont_);
         assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
         Struct str_ = ret_.getStruct();
-        assertEq(CUST_BASE, str_.getRealClassName());
-        assertEq("pkg.Ex", str_.getClassName());
+        assertEq(CUST_BASE, str_.getRealClassName(cont_));
+        assertEq("pkg.Ex", str_.getClassName(cont_));
         Struct field_;
         field_ = str_.getFields().getVal(new ClassField("pkg.Ex", "inst"));
-        assertEq(INTEGER, field_.getRealClassName());
-        assertEq(INTEGER, field_.getClassName());
+        assertEq(INTEGER, field_.getRealClassName(cont_));
+        assertEq(INTEGER, field_.getClassName(cont_));
         assertEq(5, (Number)field_.getInstance());
         field_ = str_.getFields().getVal(new ClassField("pkg.Ex", "ance"));
-        assertEq(INTEGER, field_.getRealClassName());
-        assertEq(INTEGER, field_.getClassName());
+        assertEq(INTEGER, field_.getRealClassName(cont_));
+        assertEq(INTEGER, field_.getClassName(cont_));
         assertEq(4, (Number)field_.getInstance());
         field_ = str_.getFields().getVal(new ClassField("pkg.Ex", "field"));
-        assertEq(INTEGER, field_.getRealClassName());
-        assertEq(INTEGER, field_.getClassName());
+        assertEq(INTEGER, field_.getRealClassName(cont_));
+        assertEq(INTEGER, field_.getClassName(cont_));
         assertEq(6, (Number)field_.getInstance());
     }
 
     @Test
     public void instanceArgument11Test() {
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = new ContextEl(50);
+        ContextEl cont_ = contextEl();
         cont_.setAccessValue(new AccessValueEx());
         String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' superclass='pkg.ExTwo'>\n";
         xml_ += "<field access='"+PUBLIC_ACCESS+"' name='inst' class='"+PrimitiveTypeUtil.PRIM_INT+"' value='2i'/>\n";
@@ -5960,31 +5960,31 @@ public class ProcessXmlMethodTest {
         ret_ = instanceArgument("pkg.Ex", null, id_, args_, cont_);
         assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
         Struct str_ = ret_.getStruct();
-        assertEq(CUST_BASE, str_.getRealClassName());
-        assertEq("pkg.Ex", str_.getClassName());
+        assertEq(CUST_BASE, str_.getRealClassName(cont_));
+        assertEq("pkg.Ex", str_.getClassName(cont_));
         Struct field_;
         field_ = str_.getFields().getVal(new ClassField("pkg.Ex", "inst"));
-        assertEq(INTEGER, field_.getRealClassName());
-        assertEq(INTEGER, field_.getClassName());
+        assertEq(INTEGER, field_.getRealClassName(cont_));
+        assertEq(INTEGER, field_.getClassName(cont_));
         assertEq(5, (Number)field_.getInstance());
         field_ = str_.getFields().getVal(new ClassField("pkg.Ex", "ance"));
-        assertEq(INTEGER, field_.getRealClassName());
-        assertEq(INTEGER, field_.getClassName());
+        assertEq(INTEGER, field_.getRealClassName(cont_));
+        assertEq(INTEGER, field_.getClassName(cont_));
         assertEq(4, (Number)field_.getInstance());
         field_ = str_.getFields().getVal(new ClassField("pkg.Ex", "field"));
-        assertEq(INTEGER, field_.getRealClassName());
-        assertEq(INTEGER, field_.getClassName());
+        assertEq(INTEGER, field_.getRealClassName(cont_));
+        assertEq(INTEGER, field_.getClassName(cont_));
         assertEq(6, (Number)field_.getInstance());
         field_ = str_.getFields().getVal(new ClassField("pkg.ExTwo", "sec"));
-        assertEq(INTEGER, field_.getRealClassName());
-        assertEq(INTEGER, field_.getClassName());
+        assertEq(INTEGER, field_.getRealClassName(cont_));
+        assertEq(INTEGER, field_.getClassName(cont_));
         assertEq(7, (Number)field_.getInstance());
     }
 
     @Test
     public void instanceArgument12Test() {
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = new ContextEl(50);
+        ContextEl cont_ = contextEl();
         cont_.setAccessValue(new AccessValueEx());
         String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' superclass='pkg.ExTwo'>\n";
         xml_ += "</class>\n";
@@ -6004,19 +6004,19 @@ public class ProcessXmlMethodTest {
         ret_ = instanceArgument("pkg.Ex", null, id_, args_, cont_);
         assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
         Struct str_ = ret_.getStruct();
-        assertEq(CUST_BASE, str_.getRealClassName());
-        assertEq("pkg.Ex", str_.getClassName());
+        assertEq(CUST_BASE, str_.getRealClassName(cont_));
+        assertEq("pkg.Ex", str_.getClassName(cont_));
         Struct field_;
         field_ = str_.getFields().getVal(new ClassField("pkg.ExTwo", "sec"));
-        assertEq(INTEGER, field_.getRealClassName());
-        assertEq(INTEGER, field_.getClassName());
+        assertEq(INTEGER, field_.getRealClassName(cont_));
+        assertEq(INTEGER, field_.getClassName(cont_));
         assertEq(8, (Number)field_.getInstance());
     }
 
     @Test
     public void instanceArgument13Test() {
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = new ContextEl(50);
+        ContextEl cont_ = contextEl();
         cont_.setAccessValue(new AccessValueEx());
         String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' superclass='pkg.ExTwo'>\n";
         xml_ += "<constructor access='"+PUBLIC_ACCESS+"'/>\n";
@@ -6037,19 +6037,19 @@ public class ProcessXmlMethodTest {
         ret_ = instanceArgument("pkg.Ex", null, id_, args_, cont_);
         assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
         Struct str_ = ret_.getStruct();
-        assertEq(CUST_BASE, str_.getRealClassName());
-        assertEq("pkg.Ex", str_.getClassName());
+        assertEq(CUST_BASE, str_.getRealClassName(cont_));
+        assertEq("pkg.Ex", str_.getClassName(cont_));
         Struct field_;
         field_ = str_.getFields().getVal(new ClassField("pkg.ExTwo", "sec"));
-        assertEq(INTEGER, field_.getRealClassName());
-        assertEq(INTEGER, field_.getClassName());
+        assertEq(INTEGER, field_.getRealClassName(cont_));
+        assertEq(INTEGER, field_.getClassName(cont_));
         assertEq(8, (Number)field_.getInstance());
     }
 
     @Test
     public void instanceArgument14Test() {
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = new ContextEl(50);
+        ContextEl cont_ = contextEl();
         cont_.setAccessValue(new AccessValueEx());
         String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' superclass='pkg.ExTwo'>\n";
         xml_ += "<field access='"+PUBLIC_ACCESS+"' name='inst' class='"+PrimitiveTypeUtil.PRIM_INT+"' value='2i'/>\n";
@@ -6071,23 +6071,23 @@ public class ProcessXmlMethodTest {
         ret_ = instanceArgument("pkg.Ex", null, id_, args_, cont_);
         assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
         Struct str_ = ret_.getStruct();
-        assertEq(CUST_BASE, str_.getRealClassName());
-        assertEq("pkg.Ex", str_.getClassName());
+        assertEq(CUST_BASE, str_.getRealClassName(cont_));
+        assertEq("pkg.Ex", str_.getClassName(cont_));
         Struct field_;
         field_ = str_.getFields().getVal(new ClassField("pkg.Ex", "inst"));
-        assertEq(INTEGER, field_.getRealClassName());
-        assertEq(INTEGER, field_.getClassName());
+        assertEq(INTEGER, field_.getRealClassName(cont_));
+        assertEq(INTEGER, field_.getClassName(cont_));
         assertEq(2, (Number)field_.getInstance());
         field_ = str_.getFields().getVal(new ClassField("pkg.ExTwo", "sec"));
-        assertEq(INTEGER, field_.getRealClassName());
-        assertEq(INTEGER, field_.getClassName());
+        assertEq(INTEGER, field_.getRealClassName(cont_));
+        assertEq(INTEGER, field_.getClassName(cont_));
         assertEq(8, (Number)field_.getInstance());
     }
 
     @Test
     public void instanceArgument15Test() {
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = new ContextEl(50);
+        ContextEl cont_ = contextEl();
         cont_.setAccessValue(new AccessValueEx());
         String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' superclass='pkg.ExTwo'>\n";
         xml_ += "<field access='"+PUBLIC_ACCESS+"' name='inst' class='"+PrimitiveTypeUtil.PRIM_INT+"' value='2i'/>\n";
@@ -6108,23 +6108,23 @@ public class ProcessXmlMethodTest {
         ret_ = instanceArgument("pkg.Ex", null, id_, args_, cont_);
         assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
         Struct str_ = ret_.getStruct();
-        assertEq(CUST_BASE, str_.getRealClassName());
-        assertEq("pkg.Ex", str_.getClassName());
+        assertEq(CUST_BASE, str_.getRealClassName(cont_));
+        assertEq("pkg.Ex", str_.getClassName(cont_));
         Struct field_;
         field_ = str_.getFields().getVal(new ClassField("pkg.Ex", "inst"));
-        assertEq(INTEGER, field_.getRealClassName());
-        assertEq(INTEGER, field_.getClassName());
+        assertEq(INTEGER, field_.getRealClassName(cont_));
+        assertEq(INTEGER, field_.getClassName(cont_));
         assertEq(2, (Number)field_.getInstance());
         field_ = str_.getFields().getVal(new ClassField("pkg.ExTwo", "sec"));
-        assertEq(INTEGER, field_.getRealClassName());
-        assertEq(INTEGER, field_.getClassName());
+        assertEq(INTEGER, field_.getRealClassName(cont_));
+        assertEq(INTEGER, field_.getClassName(cont_));
         assertEq(8, (Number)field_.getInstance());
     }
 
     @Test
     public void instanceArgument16Test() {
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = new ContextEl(50);
+        ContextEl cont_ = contextEl();
         cont_.setAccessValue(new AccessValueEx());
         String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' superclass='pkg.ExTwo'>\n";
         xml_ += "<field access='"+PUBLIC_ACCESS+"' name='inst' class='"+PrimitiveTypeUtil.PRIM_INT+"' value='2i'/>\n";
@@ -6148,23 +6148,23 @@ public class ProcessXmlMethodTest {
         ret_ = instanceArgument("pkg.Ex", null, id_, args_, cont_);
         assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
         Struct str_ = ret_.getStruct();
-        assertEq(CUST_BASE, str_.getRealClassName());
-        assertEq("pkg.Ex", str_.getClassName());
+        assertEq(CUST_BASE, str_.getRealClassName(cont_));
+        assertEq("pkg.Ex", str_.getClassName(cont_));
         Struct field_;
         field_ = str_.getFields().getVal(new ClassField("pkg.Ex", "inst"));
-        assertEq(INTEGER, field_.getRealClassName());
-        assertEq(INTEGER, field_.getClassName());
+        assertEq(INTEGER, field_.getRealClassName(cont_));
+        assertEq(INTEGER, field_.getClassName(cont_));
         assertEq(2, (Number)field_.getInstance());
         field_ = str_.getFields().getVal(new ClassField("pkg.ExTwo", "sec"));
-        assertEq(INTEGER, field_.getRealClassName());
-        assertEq(INTEGER, field_.getClassName());
+        assertEq(INTEGER, field_.getRealClassName(cont_));
+        assertEq(INTEGER, field_.getClassName(cont_));
         assertEq(24, (Number)field_.getInstance());
     }
 
     @Test
     public void instanceArgument17Test() {
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = new ContextEl(50);
+        ContextEl cont_ = contextEl();
         cont_.setAccessValue(new AccessValueEx());
         String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' superclass='pkg.ExTwo'>\n";
         xml_ += "<field access='"+PUBLIC_ACCESS+"' name='inst' class='"+PrimitiveTypeUtil.PRIM_INT+"' value='2i'/>\n";
@@ -6196,27 +6196,27 @@ public class ProcessXmlMethodTest {
         ret_ = instanceArgument("pkg.Ex", null, id_, args_, cont_);
         assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
         Struct str_ = ret_.getStruct();
-        assertEq(CUST_BASE, str_.getRealClassName());
-        assertEq("pkg.Ex", str_.getClassName());
+        assertEq(CUST_BASE, str_.getRealClassName(cont_));
+        assertEq("pkg.Ex", str_.getClassName(cont_));
         Struct field_;
         field_ = str_.getFields().getVal(new ClassField("pkg.Ex", "inst"));
-        assertEq(INTEGER, field_.getRealClassName());
-        assertEq(INTEGER, field_.getClassName());
+        assertEq(INTEGER, field_.getRealClassName(cont_));
+        assertEq(INTEGER, field_.getClassName(cont_));
         assertEq(2, (Number)field_.getInstance());
         field_ = str_.getFields().getVal(new ClassField("pkg.ExTwo", "sec"));
-        assertEq(INTEGER, field_.getRealClassName());
-        assertEq(INTEGER, field_.getClassName());
+        assertEq(INTEGER, field_.getRealClassName(cont_));
+        assertEq(INTEGER, field_.getClassName(cont_));
         assertEq(24, (Number)field_.getInstance());
         field_ = str_.getFields().getVal(new ClassField("pkg.ExThree", "ance"));
-        assertEq(INTEGER, field_.getRealClassName());
-        assertEq(INTEGER, field_.getClassName());
+        assertEq(INTEGER, field_.getRealClassName(cont_));
+        assertEq(INTEGER, field_.getClassName(cont_));
         assertEq(17, (Number)field_.getInstance());
     }
 
     @Test
     public void instanceArgument18Test() {
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = new ContextEl(50);
+        ContextEl cont_ = contextEl();
         cont_.setAccessValue(new AccessValueEx());
         String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' superclass='pkg.ExTwo'>\n";
         xml_ += "<field access='"+PUBLIC_ACCESS+"' name='inst' class='"+PrimitiveTypeUtil.PRIM_INT+"' value='2i'/>\n";
@@ -6251,27 +6251,27 @@ public class ProcessXmlMethodTest {
         ret_ = instanceArgument("pkg.Ex", null, id_, args_, cont_);
         assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
         Struct str_ = ret_.getStruct();
-        assertEq(CUST_BASE, str_.getRealClassName());
-        assertEq("pkg.Ex", str_.getClassName());
+        assertEq(CUST_BASE, str_.getRealClassName(cont_));
+        assertEq("pkg.Ex", str_.getClassName(cont_));
         Struct field_;
         field_ = str_.getFields().getVal(new ClassField("pkg.Ex", "inst"));
-        assertEq(INTEGER, field_.getRealClassName());
-        assertEq(INTEGER, field_.getClassName());
+        assertEq(INTEGER, field_.getRealClassName(cont_));
+        assertEq(INTEGER, field_.getClassName(cont_));
         assertEq(2, (Number)field_.getInstance());
         field_ = str_.getFields().getVal(new ClassField("pkg.ExTwo", "sec"));
-        assertEq(INTEGER, field_.getRealClassName());
-        assertEq(INTEGER, field_.getClassName());
+        assertEq(INTEGER, field_.getRealClassName(cont_));
+        assertEq(INTEGER, field_.getClassName(cont_));
         assertEq(24, (Number)field_.getInstance());
         field_ = str_.getFields().getVal(new ClassField("pkg.ExThree", "ance"));
-        assertEq(INTEGER, field_.getRealClassName());
-        assertEq(INTEGER, field_.getClassName());
+        assertEq(INTEGER, field_.getRealClassName(cont_));
+        assertEq(INTEGER, field_.getClassName(cont_));
         assertEq(17, (Number)field_.getInstance());
     }
 
     @Test
     public void instanceArgument19Test() {
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = new ContextEl(50);
+        ContextEl cont_ = contextEl();
         cont_.setAccessValue(new AccessValueEx());
         String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' superclass='pkg.ExTwo'>\n";
         xml_ += "<field access='"+PUBLIC_ACCESS+"' name='inst' class='"+PrimitiveTypeUtil.PRIM_INT+"' value='2i'/>\n";
@@ -6308,27 +6308,27 @@ public class ProcessXmlMethodTest {
         ret_ = instanceArgument("pkg.Ex", null, id_, args_, cont_);
         assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
         Struct str_ = ret_.getStruct();
-        assertEq(CUST_BASE, str_.getRealClassName());
-        assertEq("pkg.Ex", str_.getClassName());
+        assertEq(CUST_BASE, str_.getRealClassName(cont_));
+        assertEq("pkg.Ex", str_.getClassName(cont_));
         Struct field_;
         field_ = str_.getFields().getVal(new ClassField("pkg.Ex", "inst"));
-        assertEq(INTEGER, field_.getRealClassName());
-        assertEq(INTEGER, field_.getClassName());
+        assertEq(INTEGER, field_.getRealClassName(cont_));
+        assertEq(INTEGER, field_.getClassName(cont_));
         assertEq(2, (Number)field_.getInstance());
         field_ = str_.getFields().getVal(new ClassField("pkg.ExTwo", "sec"));
-        assertEq(INTEGER, field_.getRealClassName());
-        assertEq(INTEGER, field_.getClassName());
+        assertEq(INTEGER, field_.getRealClassName(cont_));
+        assertEq(INTEGER, field_.getClassName(cont_));
         assertEq(24, (Number)field_.getInstance());
         field_ = str_.getFields().getVal(new ClassField("pkg.ExThree", "ance"));
-        assertEq(INTEGER, field_.getRealClassName());
-        assertEq(INTEGER, field_.getClassName());
+        assertEq(INTEGER, field_.getRealClassName(cont_));
+        assertEq(INTEGER, field_.getClassName(cont_));
         assertEq(34, (Number)field_.getInstance());
     }
 
     @Test
     public void instanceArgument20Test() {
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = new ContextEl(50);
+        ContextEl cont_ = contextEl();
         cont_.setAccessValue(new AccessValueEx());
         String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' superclass='pkg.ExTwo'>\n";
         xml_ += "<field access='"+PUBLIC_ACCESS+"' name='inst' class='"+PrimitiveTypeUtil.PRIM_INT+"' value='2i'/>\n";
@@ -6365,30 +6365,30 @@ public class ProcessXmlMethodTest {
         ret_ = instanceArgument("pkg.Ex", null, id_, args_, cont_);
         assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
         Struct str_ = ret_.getStruct();
-        assertEq(CUST_BASE, str_.getRealClassName());
-        assertEq("pkg.Ex", str_.getClassName());
+        assertEq(CUST_BASE, str_.getRealClassName(cont_));
+        assertEq("pkg.Ex", str_.getClassName(cont_));
         Struct field_;
         field_ = str_.getFields().getVal(new ClassField("pkg.Ex", "inst"));
-        assertEq(INTEGER, field_.getRealClassName());
-        assertEq(INTEGER, field_.getClassName());
+        assertEq(INTEGER, field_.getRealClassName(cont_));
+        assertEq(INTEGER, field_.getClassName(cont_));
         assertEq(2, (Number)field_.getInstance());
         field_ = str_.getFields().getVal(new ClassField("pkg.ExTwo", "sec"));
-        assertEq(INTEGER, field_.getRealClassName());
-        assertEq(INTEGER, field_.getClassName());
+        assertEq(INTEGER, field_.getRealClassName(cont_));
+        assertEq(INTEGER, field_.getClassName(cont_));
         assertEq(24, (Number)field_.getInstance());
         field_ = str_.getFields().getVal(new ClassField("pkg.ExTwo", "third"));
-        assertEq(CUST_BASE, field_.getRealClassName());
-        assertEq("pkg.ExThree", field_.getClassName());
+        assertEq(CUST_BASE, field_.getRealClassName(cont_));
+        assertEq("pkg.ExThree", field_.getClassName(cont_));
         Struct intern_ = field_.getFields().getVal(new ClassField("pkg.ExThree", "ance"));
-        assertEq(INTEGER, intern_.getRealClassName());
-        assertEq(INTEGER, intern_.getClassName());
+        assertEq(INTEGER, intern_.getRealClassName(cont_));
+        assertEq(INTEGER, intern_.getClassName(cont_));
         assertEq(34, (Number)intern_.getInstance());
     }
 
     @Test
     public void instanceArgument21Test() {
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = new ContextEl(50);
+        ContextEl cont_ = contextEl();
         cont_.setAccessValue(new AccessValueEx());
         String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' superclass='pkg.ExTwo'>\n";
         xml_ += "<field access='"+PUBLIC_ACCESS+"' name='inst' class='"+PrimitiveTypeUtil.PRIM_INT+"' value='2i'/>\n";
@@ -6425,30 +6425,30 @@ public class ProcessXmlMethodTest {
         ret_ = instanceArgument("pkg.Ex", null, id_, args_, cont_);
         assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
         Struct str_ = ret_.getStruct();
-        assertEq(CUST_BASE, str_.getRealClassName());
-        assertEq("pkg.Ex", str_.getClassName());
+        assertEq(CUST_BASE, str_.getRealClassName(cont_));
+        assertEq("pkg.Ex", str_.getClassName(cont_));
         Struct field_;
         field_ = str_.getFields().getVal(new ClassField("pkg.Ex", "inst"));
-        assertEq(INTEGER, field_.getRealClassName());
-        assertEq(INTEGER, field_.getClassName());
+        assertEq(INTEGER, field_.getRealClassName(cont_));
+        assertEq(INTEGER, field_.getClassName(cont_));
         assertEq(2, (Number)field_.getInstance());
         field_ = str_.getFields().getVal(new ClassField("pkg.ExTwo", "sec"));
-        assertEq(INTEGER, field_.getRealClassName());
-        assertEq(INTEGER, field_.getClassName());
+        assertEq(INTEGER, field_.getRealClassName(cont_));
+        assertEq(INTEGER, field_.getClassName(cont_));
         assertEq(24, (Number)field_.getInstance());
         field_ = str_.getFields().getVal(new ClassField("pkg.ExTwo", "third"));
-        assertEq(CUST_BASE, field_.getRealClassName());
-        assertEq("pkg.ExThree", field_.getClassName());
+        assertEq(CUST_BASE, field_.getRealClassName(cont_));
+        assertEq("pkg.ExThree", field_.getClassName(cont_));
         Struct intern_ = field_.getFields().getVal(new ClassField("pkg.ExThree", "ance"));
-        assertEq(INTEGER, intern_.getRealClassName());
-        assertEq(INTEGER, intern_.getClassName());
+        assertEq(INTEGER, intern_.getRealClassName(cont_));
+        assertEq(INTEGER, intern_.getClassName(cont_));
         assertEq(17, (Number)intern_.getInstance());
     }
 
     @Test
     public void instanceArgument22Test() {
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = new ContextEl(50);
+        ContextEl cont_ = contextEl();
         cont_.setAccessValue(new AccessValueEx());
         String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' superclass='pkg.ExTwo'>\n";
         xml_ += "<field access='"+PUBLIC_ACCESS+"' name='inst' class='"+PrimitiveTypeUtil.PRIM_INT+"' value='2i'/>\n";
@@ -6488,30 +6488,30 @@ public class ProcessXmlMethodTest {
         ret_ = instanceArgument("pkg.Ex", null, id_, args_, cont_);
         assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
         Struct str_ = ret_.getStruct();
-        assertEq(CUST_BASE, str_.getRealClassName());
-        assertEq("pkg.Ex", str_.getClassName());
+        assertEq(CUST_BASE, str_.getRealClassName(cont_));
+        assertEq("pkg.Ex", str_.getClassName(cont_));
         Struct field_;
         field_ = str_.getFields().getVal(new ClassField("pkg.Ex", "inst"));
-        assertEq(INTEGER, field_.getRealClassName());
-        assertEq(INTEGER, field_.getClassName());
+        assertEq(INTEGER, field_.getRealClassName(cont_));
+        assertEq(INTEGER, field_.getClassName(cont_));
         assertEq(2, (Number)field_.getInstance());
         field_ = str_.getFields().getVal(new ClassField("pkg.ExTwo", "sec"));
-        assertEq(INTEGER, field_.getRealClassName());
-        assertEq(INTEGER, field_.getClassName());
+        assertEq(INTEGER, field_.getRealClassName(cont_));
+        assertEq(INTEGER, field_.getClassName(cont_));
         assertEq(24, (Number)field_.getInstance());
         field_ = str_.getFields().getVal(new ClassField("pkg.ExTwo", "third"));
-        assertEq(CUST_BASE, field_.getRealClassName());
-        assertEq("pkg.ExThree", field_.getClassName());
+        assertEq(CUST_BASE, field_.getRealClassName(cont_));
+        assertEq("pkg.ExThree", field_.getClassName(cont_));
         Struct intern_ = field_.getFields().getVal(new ClassField("pkg.ExThree", "ance"));
-        assertEq(INTEGER, intern_.getRealClassName());
-        assertEq(INTEGER, intern_.getClassName());
+        assertEq(INTEGER, intern_.getRealClassName(cont_));
+        assertEq(INTEGER, intern_.getClassName(cont_));
         assertEq(17, (Number)intern_.getInstance());
     }
 
     @Test
     public void instanceArgument23Test() {
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = new ContextEl(50);
+        ContextEl cont_ = contextEl();
         cont_.setAccessValue(new AccessValueEx());
         String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' superclass='pkg.ExTwo'>\n";
         xml_ += "<field access='"+PUBLIC_ACCESS+"' name='inst' class='"+PrimitiveTypeUtil.PRIM_INT+"' value='2i'/>\n";
@@ -6552,40 +6552,40 @@ public class ProcessXmlMethodTest {
         ret_ = instanceArgument("pkg.Ex", null, id_, args_, cont_);
         assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
         Struct str_ = ret_.getStruct();
-        assertEq(CUST_BASE, str_.getRealClassName());
-        assertEq("pkg.Ex", str_.getClassName());
+        assertEq(CUST_BASE, str_.getRealClassName(cont_));
+        assertEq("pkg.Ex", str_.getClassName(cont_));
         Struct field_;
         field_ = str_.getFields().getVal(new ClassField("pkg.Ex", "inst"));
-        assertEq(INTEGER, field_.getRealClassName());
-        assertEq(INTEGER, field_.getClassName());
+        assertEq(INTEGER, field_.getRealClassName(cont_));
+        assertEq(INTEGER, field_.getClassName(cont_));
         assertTrue(field_.isJavaObject());
         assertEq(2, (Number)field_.getInstance());
         field_ = str_.getFields().getVal(new ClassField("pkg.ExTwo", "sec"));
-        assertEq(INTEGER, field_.getRealClassName());
-        assertEq(INTEGER, field_.getClassName());
+        assertEq(INTEGER, field_.getRealClassName(cont_));
+        assertEq(INTEGER, field_.getClassName(cont_));
         assertTrue(field_.isJavaObject());
         assertEq(24, (Number)field_.getInstance());
         field_ = str_.getFields().getVal(new ClassField("pkg.ExTwo", "third"));
-        assertEq(REAL_ARR_STRUCT, field_.getRealClassName());
-        assertEq(ARR_CUST, field_.getClassName());
+        assertEq(REAL_ARR_STRUCT, field_.getRealClassName(cont_));
+        assertEq(ARR_CUST, field_.getClassName(cont_));
         assertTrue(!field_.isJavaObject());
         assertEq(1, Array.getLength(field_.getInstance()));
         Struct elt_ = (Struct) Array.get(field_.getInstance(), 0);
         Struct intern_ = elt_.getFields().getVal(new ClassField("pkg.ExThree", "ance"));
-        assertEq(INTEGER, intern_.getRealClassName());
-        assertEq(INTEGER, intern_.getClassName());
+        assertEq(INTEGER, intern_.getRealClassName(cont_));
+        assertEq(INTEGER, intern_.getClassName(cont_));
         assertEq(17, (Number)intern_.getInstance());
         assertTrue(intern_.isJavaObject());
 //        Struct intern_ = field_.getFields().getVal(new ClassField("pkg.ExThree", "ance"));
-//        assertEq(INTEGER, intern_.getRealClassName());
-//        assertEq(INTEGER, intern_.getClassName());
+//        assertEq(INTEGER, intern_.getRealClassName(cont_));
+//        assertEq(INTEGER, intern_.getClassName(cont_));
 //        assertEq(17, intern_.getInstance());
     }
 
     @Test
     public void instanceArgument24Test() {
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = new ContextEl(50);
+        ContextEl cont_ = contextEl();
         cont_.setAccessValue(new AccessValueEx());
         String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' superclass='pkg.ExTwo'>\n";
         xml_ += "<field access='"+PUBLIC_ACCESS+"' name='inst' class='"+PrimitiveTypeUtil.PRIM_INT+"' value='2i'/>\n";
@@ -6627,40 +6627,40 @@ public class ProcessXmlMethodTest {
         ret_ = instanceArgument("pkg.Ex", null, id_, args_, cont_);
         assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
         Struct str_ = ret_.getStruct();
-        assertEq(CUST_BASE, str_.getRealClassName());
-        assertEq("pkg.Ex", str_.getClassName());
+        assertEq(CUST_BASE, str_.getRealClassName(cont_));
+        assertEq("pkg.Ex", str_.getClassName(cont_));
         Struct field_;
         field_ = str_.getFields().getVal(new ClassField("pkg.Ex", "inst"));
-        assertEq(INTEGER, field_.getRealClassName());
-        assertEq(INTEGER, field_.getClassName());
+        assertEq(INTEGER, field_.getRealClassName(cont_));
+        assertEq(INTEGER, field_.getClassName(cont_));
         assertEq(2, (Number)field_.getInstance());
         field_ = str_.getFields().getVal(new ClassField("pkg.ExTwo", "sec"));
-        assertEq(INTEGER, field_.getRealClassName());
-        assertEq(INTEGER, field_.getClassName());
+        assertEq(INTEGER, field_.getRealClassName(cont_));
+        assertEq(INTEGER, field_.getClassName(cont_));
         assertEq(24, (Number)field_.getInstance());
         field_ = str_.getFields().getVal(new ClassField("pkg.ExTwo", "fourth"));
-        assertEq(INTEGER, field_.getRealClassName());
-        assertEq(INTEGER, field_.getClassName());
+        assertEq(INTEGER, field_.getRealClassName(cont_));
+        assertEq(INTEGER, field_.getClassName(cont_));
         assertEq(1, (Number)field_.getInstance());
         field_ = str_.getFields().getVal(new ClassField("pkg.ExTwo", "third"));
-        assertEq(REAL_ARR_STRUCT, field_.getRealClassName());
-        assertEq(ARR_CUST, field_.getClassName());
+        assertEq(REAL_ARR_STRUCT, field_.getRealClassName(cont_));
+        assertEq(ARR_CUST, field_.getClassName(cont_));
         assertEq(1, Array.getLength(field_.getInstance()));
         Struct elt_ = (Struct) Array.get(field_.getInstance(), 0);
         Struct intern_ = elt_.getFields().getVal(new ClassField("pkg.ExThree", "ance"));
-        assertEq(INTEGER, intern_.getRealClassName());
-        assertEq(INTEGER, intern_.getClassName());
+        assertEq(INTEGER, intern_.getRealClassName(cont_));
+        assertEq(INTEGER, intern_.getClassName(cont_));
         assertEq(17, (Number)intern_.getInstance());
 //        Struct intern_ = field_.getFields().getVal(new ClassField("pkg.ExThree", "ance"));
-//        assertEq(INTEGER, intern_.getRealClassName());
-//        assertEq(INTEGER, intern_.getClassName());
+//        assertEq(INTEGER, intern_.getRealClassName(cont_));
+//        assertEq(INTEGER, intern_.getClassName(cont_));
 //        assertEq(17, intern_.getInstance());
     }
 
     @Test//
     public void instanceArgument25Test() {
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = new ContextEl(50);
+        ContextEl cont_ = contextEl();
         cont_.setAccessValue(new AccessValueEx());
         String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' superclass='pkg.ExTwo'>\n";
         xml_ += "<field access='"+PUBLIC_ACCESS+"' name='inst' class='"+PrimitiveTypeUtil.PRIM_INT+"' value='2i'/>\n";
@@ -6695,27 +6695,27 @@ public class ProcessXmlMethodTest {
         ret_ = instanceArgument("pkg.Ex", null, id_, args_, cont_);
         assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
         Struct str_ = ret_.getStruct();
-        assertEq(CUST_BASE, str_.getRealClassName());
-        assertEq("pkg.Ex", str_.getClassName());
+        assertEq(CUST_BASE, str_.getRealClassName(cont_));
+        assertEq("pkg.Ex", str_.getClassName(cont_));
         Struct field_;
         field_ = str_.getFields().getVal(new ClassField("pkg.Ex", "inst"));
-        assertEq(INTEGER, field_.getRealClassName());
-        assertEq(INTEGER, field_.getClassName());
+        assertEq(INTEGER, field_.getRealClassName(cont_));
+        assertEq(INTEGER, field_.getClassName(cont_));
         assertEq(2, (Number)field_.getInstance());
         field_ = str_.getFields().getVal(new ClassField("pkg.ExTwo", "sec"));
-        assertEq(INTEGER, field_.getRealClassName());
-        assertEq(INTEGER, field_.getClassName());
+        assertEq(INTEGER, field_.getRealClassName(cont_));
+        assertEq(INTEGER, field_.getClassName(cont_));
         assertEq(24, (Number)field_.getInstance());
         field_ = str_.getFields().getVal(new ClassField("pkg.ExThree", "ance"));
-        assertEq(INTEGER, field_.getRealClassName());
-        assertEq(INTEGER, field_.getClassName());
+        assertEq(INTEGER, field_.getRealClassName(cont_));
+        assertEq(INTEGER, field_.getClassName(cont_));
         assertEq(17, (Number)field_.getInstance());
     }
 
     @Test//
     public void instanceArgument26Test() {
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = new ContextEl(50);
+        ContextEl cont_ = contextEl();
         cont_.setAccessValue(new AccessValueEx());
         String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' superclass='pkg.ExTwo'>\n";
         xml_ += "<field access='"+PUBLIC_ACCESS+"' name='inst' class='"+PrimitiveTypeUtil.PRIM_INT+"' value='2i'/>\n";
@@ -6753,20 +6753,20 @@ public class ProcessXmlMethodTest {
         ret_ = instanceArgument("pkg.Ex", null, id_, args_, cont_);
         assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
         Struct str_ = ret_.getStruct();
-        assertEq(CUST_BASE, str_.getRealClassName());
-        assertEq("pkg.Ex", str_.getClassName());
+        assertEq(CUST_BASE, str_.getRealClassName(cont_));
+        assertEq("pkg.Ex", str_.getClassName(cont_));
         Struct field_;
         field_ = str_.getFields().getVal(new ClassField("pkg.Ex", "inst"));
-        assertEq(INTEGER, field_.getRealClassName());
-        assertEq(INTEGER, field_.getClassName());
+        assertEq(INTEGER, field_.getRealClassName(cont_));
+        assertEq(INTEGER, field_.getClassName(cont_));
         assertEq(2, (Number)field_.getInstance());
         field_ = str_.getFields().getVal(new ClassField("pkg.ExTwo", "sec"));
-        assertEq(INTEGER, field_.getRealClassName());
-        assertEq(INTEGER, field_.getClassName());
+        assertEq(INTEGER, field_.getRealClassName(cont_));
+        assertEq(INTEGER, field_.getClassName(cont_));
         assertEq(24, (Number)field_.getInstance());
         field_ = str_.getFields().getVal(new ClassField("pkg.ExThree", "ance"));
-        assertEq(INTEGER, field_.getRealClassName());
-        assertEq(INTEGER, field_.getClassName());
+        assertEq(INTEGER, field_.getRealClassName(cont_));
+        assertEq(INTEGER, field_.getClassName(cont_));
         assertEq(17, (Number)field_.getInstance());
     }
 
@@ -6774,7 +6774,7 @@ public class ProcessXmlMethodTest {
     @Test
     public void instanceArgument27Test() {
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = new ContextEl(50);
+        ContextEl cont_ = contextEl();
         cont_.setAccessValue(new AccessValueEx());
         String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' superclass='pkg.ExTwo'>\n";
         xml_ += "<field access='"+PUBLIC_ACCESS+"' name='inst' class='"+PrimitiveTypeUtil.PRIM_INT+"' value='2i'/>\n";
@@ -6816,40 +6816,40 @@ public class ProcessXmlMethodTest {
         ret_ = instanceArgument("pkg.Ex", null, id_, args_, cont_);
         assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
         Struct str_ = ret_.getStruct();
-        assertEq(CUST_BASE, str_.getRealClassName());
-        assertEq("pkg.Ex", str_.getClassName());
+        assertEq(CUST_BASE, str_.getRealClassName(cont_));
+        assertEq("pkg.Ex", str_.getClassName(cont_));
         Struct field_;
         field_ = str_.getFields().getVal(new ClassField("pkg.Ex", "inst"));
-        assertEq(INTEGER, field_.getRealClassName());
-        assertEq(INTEGER, field_.getClassName());
+        assertEq(INTEGER, field_.getRealClassName(cont_));
+        assertEq(INTEGER, field_.getClassName(cont_));
         assertEq(2, (Number)field_.getInstance());
         field_ = str_.getFields().getVal(new ClassField("pkg.ExTwo", "sec"));
-        assertEq(INTEGER, field_.getRealClassName());
-        assertEq(INTEGER, field_.getClassName());
+        assertEq(INTEGER, field_.getRealClassName(cont_));
+        assertEq(INTEGER, field_.getClassName(cont_));
         assertEq(24, (Number)field_.getInstance());
         field_ = str_.getFields().getVal(new ClassField("pkg.ExTwo", "fourth"));
-        assertEq(INTEGER, field_.getRealClassName());
-        assertEq(INTEGER, field_.getClassName());
+        assertEq(INTEGER, field_.getRealClassName(cont_));
+        assertEq(INTEGER, field_.getClassName(cont_));
         assertEq(1, (Number)field_.getInstance());
         field_ = str_.getFields().getVal(new ClassField("pkg.ExTwo", "third"));
-        assertEq(REAL_ARR_STRUCT, field_.getRealClassName());
-        assertEq(ARR_CUST, field_.getClassName());
+        assertEq(REAL_ARR_STRUCT, field_.getRealClassName(cont_));
+        assertEq(ARR_CUST, field_.getClassName(cont_));
         assertEq(1, Array.getLength(field_.getInstance()));
         Struct elt_ = (Struct) Array.get(field_.getInstance(), 0);
         Struct intern_ = elt_.getFields().getVal(new ClassField("pkg.ExThree", "ance"));
-        assertEq(INTEGER, intern_.getRealClassName());
-        assertEq(INTEGER, intern_.getClassName());
+        assertEq(INTEGER, intern_.getRealClassName(cont_));
+        assertEq(INTEGER, intern_.getClassName(cont_));
         assertEq(17, (Number)intern_.getInstance());
 //        Struct intern_ = field_.getFields().getVal(new ClassField("pkg.ExThree", "ance"));
-//        assertEq(INTEGER, intern_.getRealClassName());
-//        assertEq(INTEGER, intern_.getClassName());
+//        assertEq(INTEGER, intern_.getRealClassName(cont_));
+//        assertEq(INTEGER, intern_.getClassName(cont_));
 //        assertEq(17, intern_.getInstance());
     }
 
     @Test
     public void instanceArgument28Test() {
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = new ContextEl(50);
+        ContextEl cont_ = contextEl();
         cont_.setAccessValue(new AccessValueEx());
         String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' superclass='pkg.ExTwo'>\n";
         xml_ += "<field access='"+PUBLIC_ACCESS+"' name='inst' class='"+PrimitiveTypeUtil.PRIM_INT+"' value='2i'/>\n";
@@ -6891,34 +6891,34 @@ public class ProcessXmlMethodTest {
         ret_ = instanceArgument("pkg.Ex", null, id_, args_, cont_);
         assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
         Struct str_ = ret_.getStruct();
-        assertEq(CUST_BASE, str_.getRealClassName());
-        assertEq("pkg.Ex", str_.getClassName());
+        assertEq(CUST_BASE, str_.getRealClassName(cont_));
+        assertEq("pkg.Ex", str_.getClassName(cont_));
         assertTrue(!str_.isJavaObject());
         Struct field_;
         field_ = str_.getFields().getVal(new ClassField("pkg.Ex", "inst"));
-        assertEq(INTEGER, field_.getRealClassName());
-        assertEq(INTEGER, field_.getClassName());
+        assertEq(INTEGER, field_.getRealClassName(cont_));
+        assertEq(INTEGER, field_.getClassName(cont_));
         assertEq(2, (Number)field_.getInstance());
         field_ = str_.getFields().getVal(new ClassField("pkg.ExTwo", "sec"));
-        assertEq(INTEGER, field_.getRealClassName());
-        assertEq(INTEGER, field_.getClassName());
+        assertEq(INTEGER, field_.getRealClassName(cont_));
+        assertEq(INTEGER, field_.getClassName(cont_));
         assertEq(24, (Number)field_.getInstance());
         field_ = str_.getFields().getVal(new ClassField("pkg.ExTwo", "fourth"));
-        assertEq(INTEGER, field_.getRealClassName());
-        assertEq(INTEGER, field_.getClassName());
+        assertEq(INTEGER, field_.getRealClassName(cont_));
+        assertEq(INTEGER, field_.getClassName(cont_));
         assertEq(1, (Number)field_.getInstance());
         field_ = str_.getFields().getVal(new ClassField("pkg.ExTwo", "third"));
-        assertEq(REAL_ARR_STRUCT, field_.getRealClassName());
-        assertEq(ARR_ARR_CUST, field_.getClassName());
+        assertEq(REAL_ARR_STRUCT, field_.getRealClassName(cont_));
+        assertEq(ARR_ARR_CUST, field_.getClassName(cont_));
         assertEq(1, Array.getLength(field_.getInstance()));
         Struct subArray_ = (Struct) Array.get(field_.getInstance(), 0);
-        assertEq(ARR_CUST, subArray_.getClassName());
+        assertEq(ARR_CUST, subArray_.getClassName(cont_));
         Struct[] inter_ = (Struct[]) subArray_.getInstance();
         assertEq(1, inter_.length);
         Struct elt_ = inter_[0];
         Struct intern_ = elt_.getFields().getVal(new ClassField("pkg.ExThree", "ance"));
-        assertEq(INTEGER, intern_.getRealClassName());
-        assertEq(INTEGER, intern_.getClassName());
+        assertEq(INTEGER, intern_.getRealClassName(cont_));
+        assertEq(INTEGER, intern_.getClassName(cont_));
         assertEq(17, (Number)intern_.getInstance());
     }
 
@@ -6926,7 +6926,7 @@ public class ProcessXmlMethodTest {
     @Test
     public void instanceArgument29Test() {
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = new ContextEl(50);
+        ContextEl cont_ = contextEl();
         cont_.setAccessValue(new AccessValueEx());
         String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' superclass='pkg.ExTwo'>\n";
         xml_ += "<field access='"+PUBLIC_ACCESS+"' name='inst' class='"+PrimitiveTypeUtil.PRIM_INT+"' value='2i'/>\n";
@@ -6955,30 +6955,30 @@ public class ProcessXmlMethodTest {
         ret_ = instanceArgument("pkg.Ex", null, id_, args_, cont_);
         assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
         Struct str_ = ret_.getStruct();
-        assertEq(CUST_BASE, str_.getRealClassName());
-        assertEq("pkg.Ex", str_.getClassName());
+        assertEq(CUST_BASE, str_.getRealClassName(cont_));
+        assertEq("pkg.Ex", str_.getClassName(cont_));
         Struct field_;
         field_ = str_.getFields().getVal(new ClassField("pkg.Ex", "inst"));
-        assertEq(INTEGER, field_.getRealClassName());
-        assertEq(INTEGER, field_.getClassName());
+        assertEq(INTEGER, field_.getRealClassName(cont_));
+        assertEq(INTEGER, field_.getClassName(cont_));
         assertEq(2, (Number)field_.getInstance());
         field_ = str_.getFields().getVal(new ClassField("pkg.ExTwo", "sec"));
-        assertEq(INTEGER, field_.getRealClassName());
-        assertEq(INTEGER, field_.getClassName());
+        assertEq(INTEGER, field_.getRealClassName(cont_));
+        assertEq(INTEGER, field_.getClassName(cont_));
         assertEq(24, (Number)field_.getInstance());
         field_ = str_.getFields().getVal(new ClassField("pkg.ExTwo", "third"));
-        assertEq(CUST_BASE, field_.getRealClassName());
-        assertEq("pkg.ExThree", field_.getClassName());
+        assertEq(CUST_BASE, field_.getRealClassName(cont_));
+        assertEq("pkg.ExThree", field_.getClassName(cont_));
         Struct intern_ = field_.getFields().getVal(new ClassField("pkg.ExThree", "ance"));
-        assertEq(INTEGER, intern_.getRealClassName());
-        assertEq(INTEGER, intern_.getClassName());
+        assertEq(INTEGER, intern_.getRealClassName(cont_));
+        assertEq(INTEGER, intern_.getClassName(cont_));
         assertEq(17, (Number)intern_.getInstance());
     }
 
     @Test
     public void instanceArgument30Test() {
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = new ContextEl(50);
+        ContextEl cont_ = contextEl();
         cont_.setAccessValue(new AccessValueEx());
         String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' superclass='pkg.ExTwo'>\n";
         xml_ += "<field access='"+PUBLIC_ACCESS+"' name='inst' class='"+PrimitiveTypeUtil.PRIM_INT+"' value='2i'/>\n";
@@ -7017,30 +7017,30 @@ public class ProcessXmlMethodTest {
         ret_ = instanceArgument("pkg.ExTwo", null, id_, args_, cont_);
 //        assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
         Struct str_ = ret_.getStruct();
-        assertEq(CUST_BASE, str_.getRealClassName());
-        assertEq("pkg.ExTwo", str_.getClassName());
+        assertEq(CUST_BASE, str_.getRealClassName(cont_));
+        assertEq("pkg.ExTwo", str_.getClassName(cont_));
         Struct field_;
         field_ = str_.getFields().getVal(new ClassField("pkg.ExTwo", "sec"));
-        assertEq(INTEGER, field_.getRealClassName());
-        assertEq(INTEGER, field_.getClassName());
+        assertEq(INTEGER, field_.getRealClassName(cont_));
+        assertEq(INTEGER, field_.getClassName(cont_));
         assertEq(41, (Number)field_.getInstance());
 //        field_ = str_.getFields().getVal(new ClassField("pkg.ExTwo", "sec"));
-//        assertEq(INTEGER, field_.getRealClassName());
-//        assertEq(INTEGER, field_.getClassName());
+//        assertEq(INTEGER, field_.getRealClassName(cont_));
+//        assertEq(INTEGER, field_.getClassName(cont_));
 //        assertEq(24, (Number)field_.getInstance());
 //        field_ = str_.getFields().getVal(new ClassField("pkg.ExTwo", "third"));
-//        assertEq(CUST_BASE, field_.getRealClassName());
-//        assertEq("pkg.ExThree", field_.getClassName());
+//        assertEq(CUST_BASE, field_.getRealClassName(cont_));
+//        assertEq("pkg.ExThree", field_.getClassName(cont_));
 //        Struct intern_ = field_.getFields().getVal(new ClassField("pkg.ExThree", "ance"));
-//        assertEq(INTEGER, intern_.getRealClassName());
-//        assertEq(INTEGER, intern_.getClassName());
+//        assertEq(INTEGER, intern_.getRealClassName(cont_));
+//        assertEq(INTEGER, intern_.getClassName(cont_));
 //        assertEq(17, (Number)intern_.getInstance());
     }
 
     @Test
     public void instanceArgument31Test() {
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = new ContextEl(50);
+        ContextEl cont_ = contextEl();
         cont_.setAccessValue(new AccessValueEx());
         String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExThree' package='pkg'>\n";
         xml_ += "<field access='"+PUBLIC_ACCESS+"' name='ance' class='"+PrimitiveTypeUtil.PRIM_INT+"' value='17i'/>\n";
@@ -7061,19 +7061,19 @@ public class ProcessXmlMethodTest {
         Argument ret_;
         ret_ = instanceArgument("pkg.ExTwo", null, id_, args_, cont_);
         Struct str_ = ret_.getStruct();
-        assertEq(CUST_BASE, str_.getRealClassName());
-        assertEq("pkg.ExTwo", str_.getClassName());
+        assertEq(CUST_BASE, str_.getRealClassName(cont_));
+        assertEq("pkg.ExTwo", str_.getClassName(cont_));
         Struct field_;
         field_ = str_.getFields().getVal(new ClassField("pkg.ExTwo", "inst"));
-        assertEq(INTEGER, field_.getRealClassName());
-        assertEq(INTEGER, field_.getClassName());
+        assertEq(INTEGER, field_.getRealClassName(cont_));
+        assertEq(INTEGER, field_.getClassName(cont_));
         assertEq(17, (Number)field_.getInstance());
     }
 
     @Test
     public void instanceArgument32Test() {
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = new ContextEl(50);
+        ContextEl cont_ = contextEl();
         cont_.setAccessValue(new AccessValueEx());
         String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExThree' package='pkg'>\n";
         xml_ += "<field access='"+PUBLIC_ACCESS+"' name='three' class='"+PrimitiveTypeUtil.PRIM_INT+"' value='17i'/>\n";
@@ -7099,23 +7099,23 @@ public class ProcessXmlMethodTest {
 //        Argument f_ = ProcessXmlMethod.calculateArgument("pkg.ExThree", getMethodId("doubleValue"), new CustList<Argument>(), cont_);
 //        assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
         Struct str_ = ret_.getStruct();
-        assertEq(CUST_BASE, str_.getRealClassName());
-        assertEq("pkg.ExOne", str_.getClassName());
+        assertEq(CUST_BASE, str_.getRealClassName(cont_));
+        assertEq("pkg.ExOne", str_.getClassName(cont_));
         Struct field_;
 //        field_ = f_.getStruct();
-//        assertEq(INTEGER, field_.getRealClassName());
-//        assertEq(INTEGER, field_.getClassName());
+//        assertEq(INTEGER, field_.getRealClassName(cont_));
+//        assertEq(INTEGER, field_.getClassName(cont_));
 //        assertEq(17, (Number)field_.getInstance());
         field_ = str_.getFields().getVal(new ClassField("pkg.ExOne", "four"));
-        assertEq(INTEGER, field_.getRealClassName());
-        assertEq(INTEGER, field_.getClassName());
+        assertEq(INTEGER, field_.getRealClassName(cont_));
+        assertEq(INTEGER, field_.getClassName(cont_));
         assertEq(17, (Number)field_.getInstance());
 //        field_ = str_.getFields().getVal(new ClassField("pkg.ExTwo", "third"));
-//        assertEq(CUST_BASE, field_.getRealClassName());
-//        assertEq("pkg.ExThree", field_.getClassName());
+//        assertEq(CUST_BASE, field_.getRealClassName(cont_));
+//        assertEq("pkg.ExThree", field_.getClassName(cont_));
 //        Struct intern_ = field_.getFields().getVal(new ClassField("pkg.ExThree", "ance"));
-//        assertEq(INTEGER, intern_.getRealClassName());
-//        assertEq(INTEGER, intern_.getClassName());
+//        assertEq(INTEGER, intern_.getRealClassName(cont_));
+//        assertEq(INTEGER, intern_.getClassName(cont_));
 //        assertEq(17, (Number)intern_.getInstance());
     }
 
@@ -7131,7 +7131,7 @@ public class ProcessXmlMethodTest {
         xml_ += "<field access='"+PUBLIC_ACCESS+"' name='ance' class='"+PrimitiveTypeUtil.PRIM_INT+"' value='2i'/>\n";
         xml_ += "</enum>\n";
         files_.put("pkg/ExEnum."+Classes.EXT, xml_);
-        ContextEl cont_ = new ContextEl(50);
+        ContextEl cont_ = contextEl();
         cont_.setAccessValue(new AccessValueEx());
         Classes.validateAll(files_, cont_);
         CustList<Argument> args_ = new CustList<Argument>();
@@ -7141,16 +7141,16 @@ public class ProcessXmlMethodTest {
         ret_ = instanceArgument("pkg.Ex", null, id_, args_, cont_);
         assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
         Struct str_ = ret_.getStruct();
-        assertEq(CUST_BASE, str_.getRealClassName());
-        assertEq("pkg.Ex", str_.getClassName());
+        assertEq(CUST_BASE, str_.getRealClassName(cont_));
+        assertEq("pkg.Ex", str_.getClassName(cont_));
         Struct field_;
         field_ = str_.getFields().getVal(new ClassField("pkg.Ex", "inst"));
-        assertEq(CUST_ENUM, field_.getRealClassName());
-        assertEq("pkg.ExEnum", field_.getClassName());
+        assertEq(CUST_ENUM, field_.getRealClassName(cont_));
+        assertEq("pkg.ExEnum", field_.getClassName(cont_));
         Struct subField_;
         subField_ = field_.getFields().getVal(new ClassField("pkg.ExEnum", "ance"));
-        assertEq(INTEGER, subField_.getRealClassName());
-        assertEq(INTEGER, subField_.getClassName());
+        assertEq(INTEGER, subField_.getRealClassName(cont_));
+        assertEq(INTEGER, subField_.getClassName(cont_));
         assertEq(2, (Number)subField_.getInstance());
     }
     @Test//
@@ -7165,7 +7165,7 @@ public class ProcessXmlMethodTest {
         xml_ += "<field access='"+PUBLIC_ACCESS+"' name='ance' class='"+PrimitiveTypeUtil.PRIM_INT+"' value='2i'/>\n";
         xml_ += "</class>\n";
         files_.put("pkg/ExEnum."+Classes.EXT, xml_);
-        ContextEl cont_ = new ContextEl(50);
+        ContextEl cont_ = contextEl();
         cont_.setAccessValue(new AccessValueEx());
         Classes.validateAll(files_, cont_);
         CustList<Argument> args_ = new CustList<Argument>();
@@ -7175,16 +7175,16 @@ public class ProcessXmlMethodTest {
         ret_ = instanceArgument("pkg.Ex", null, id_, args_, cont_);
         assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
         Struct str_ = ret_.getStruct();
-        assertEq(CUST_BASE, str_.getRealClassName());
-        assertEq("pkg.Ex", str_.getClassName());
+        assertEq(CUST_BASE, str_.getRealClassName(cont_));
+        assertEq("pkg.Ex", str_.getClassName(cont_));
         Struct field_;
         field_ = str_.getFields().getVal(new ClassField("pkg.Ex", "inst"));
-        assertEq(CUST_BASE, field_.getRealClassName());
-        assertEq("pkg.ExEnum", field_.getClassName());
+        assertEq(CUST_BASE, field_.getRealClassName(cont_));
+        assertEq("pkg.ExEnum", field_.getClassName(cont_));
         Struct subField_;
         subField_ = field_.getFields().getVal(new ClassField("pkg.ExEnum", "ance"));
-        assertEq(INTEGER, subField_.getRealClassName());
-        assertEq(INTEGER, subField_.getClassName());
+        assertEq(INTEGER, subField_.getRealClassName(cont_));
+        assertEq(INTEGER, subField_.getClassName(cont_));
         assertEq(2, (Number)subField_.getInstance());
         assertSame(field_, cont_.getClasses().getStaticField(new ClassField("pkg.ExEnum", "ONE")));
     }
@@ -7192,7 +7192,7 @@ public class ProcessXmlMethodTest {
     @Test
     public void instanceArgument35Test() {
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = new ContextEl();
+        ContextEl cont_ = contextEl();
         String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' superclass='pkg.ExTwo'>\n";
         xml_ += "<field access='"+PUBLIC_ACCESS+"' name='inst' class='"+PrimitiveTypeUtil.PRIM_INT+"' value='2i'/>\n";
         xml_ += "<constructor access='"+PUBLIC_ACCESS+"' class0='"+PrimitiveTypeUtil.PRIM_INT+"' var0='i'>\n";
@@ -7225,23 +7225,23 @@ public class ProcessXmlMethodTest {
         ret_ = instanceArgument("pkg.Ex", null, id_, args_, cont_);
         assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
         Struct str_ = ret_.getStruct();
-        assertEq(CUST_BASE, str_.getRealClassName());
-        assertEq("pkg.Ex", str_.getClassName());
+        assertEq(CUST_BASE, str_.getRealClassName(cont_));
+        assertEq("pkg.Ex", str_.getClassName(cont_));
         Struct field_;
         field_ = str_.getFields().getVal(new ClassField("pkg.Ex", "inst"));
-        assertEq(INTEGER, field_.getRealClassName());
-        assertEq(INTEGER, field_.getClassName());
+        assertEq(INTEGER, field_.getRealClassName(cont_));
+        assertEq(INTEGER, field_.getClassName(cont_));
         assertEq(24, (Number)field_.getInstance());
         field_ = str_.getFields().getVal(new ClassField("pkg.ExTwo", "sec"));
-        assertEq(INTEGER, field_.getRealClassName());
-        assertEq(INTEGER, field_.getClassName());
+        assertEq(INTEGER, field_.getRealClassName(cont_));
+        assertEq(INTEGER, field_.getClassName(cont_));
         assertEq(16, (Number)field_.getInstance());
     }
 
     @Test
     public void instanceArgument36Test() {
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = new ContextEl();
+        ContextEl cont_ = contextEl();
         String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' superclass='pkg.ExTwo'>\n";
         xml_ += "<field access='"+PUBLIC_ACCESS+"' name='inst' class='"+PrimitiveTypeUtil.PRIM_INT+"' value='2i'/>\n";
         xml_ += "<constructor access='"+PUBLIC_ACCESS+"' class0='"+PrimitiveTypeUtil.PRIM_INT+"' var0='i'>\n";
@@ -7274,23 +7274,23 @@ public class ProcessXmlMethodTest {
         ret_ = instanceArgument("pkg.Ex", null, id_, args_, cont_);
         assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
         Struct str_ = ret_.getStruct();
-        assertEq(CUST_BASE, str_.getRealClassName());
-        assertEq("pkg.Ex", str_.getClassName());
+        assertEq(CUST_BASE, str_.getRealClassName(cont_));
+        assertEq("pkg.Ex", str_.getClassName(cont_));
         Struct field_;
         field_ = str_.getFields().getVal(new ClassField("pkg.Ex", "inst"));
-        assertEq(INTEGER, field_.getRealClassName());
-        assertEq(INTEGER, field_.getClassName());
+        assertEq(INTEGER, field_.getRealClassName(cont_));
+        assertEq(INTEGER, field_.getClassName(cont_));
         assertEq(24, (Number)field_.getInstance());
         field_ = str_.getFields().getVal(new ClassField("pkg.ExTwo", "sec"));
-        assertEq(INTEGER, field_.getRealClassName());
-        assertEq(INTEGER, field_.getClassName());
+        assertEq(INTEGER, field_.getRealClassName(cont_));
+        assertEq(INTEGER, field_.getClassName(cont_));
         assertEq(16, (Number)field_.getInstance());
     }
 
     @Test
     public void instanceArgument37Test() {
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = new ContextEl();
+        ContextEl cont_ = contextEl();
         String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' superclass='pkg.ExTwo'>\n";
         xml_ += "<field access='"+PUBLIC_ACCESS+"' name='inst' class='"+PrimitiveTypeUtil.PRIM_INT+"' value='2i'/>\n";
         xml_ += "<constructor access='"+PUBLIC_ACCESS+"' class0='"+PrimitiveTypeUtil.PRIM_INT+"' var0='i'>\n";
@@ -7323,23 +7323,23 @@ public class ProcessXmlMethodTest {
         ret_ = instanceArgument("pkg.Ex", null, id_, args_, cont_);
         assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
         Struct str_ = ret_.getStruct();
-        assertEq(CUST_BASE, str_.getRealClassName());
-        assertEq("pkg.Ex", str_.getClassName());
+        assertEq(CUST_BASE, str_.getRealClassName(cont_));
+        assertEq("pkg.Ex", str_.getClassName(cont_));
         Struct field_;
         field_ = str_.getFields().getVal(new ClassField("pkg.Ex", "inst"));
-        assertEq(INTEGER, field_.getRealClassName());
-        assertEq(INTEGER, field_.getClassName());
+        assertEq(INTEGER, field_.getRealClassName(cont_));
+        assertEq(INTEGER, field_.getClassName(cont_));
         assertEq(24, (Number)field_.getInstance());
         field_ = str_.getFields().getVal(new ClassField("pkg.ExTwo", "sec"));
-        assertEq(INTEGER, field_.getRealClassName());
-        assertEq(INTEGER, field_.getClassName());
+        assertEq(INTEGER, field_.getRealClassName(cont_));
+        assertEq(INTEGER, field_.getClassName(cont_));
         assertEq(16, (Number)field_.getInstance());
     }
 
     @Test
     public void instanceArgument38Test() {
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = new ContextEl();
+        ContextEl cont_ = contextEl();
         String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg'>\n";
         xml_ += "<field access='"+PUBLIC_ACCESS+"' name='inst' class='"+PrimitiveTypeUtil.PRIM_INT+"' value='2i'/>\n";
         xml_ += "<constructor access='"+PUBLIC_ACCESS+"' class0='"+PrimitiveTypeUtil.PRIM_INT+"' var0='i'>\n";
@@ -7367,19 +7367,19 @@ public class ProcessXmlMethodTest {
         ret_ = instanceArgument("pkg.Ex", null, id_, args_, cont_);
         assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
         Struct str_ = ret_.getStruct();
-        assertEq(CUST_BASE, str_.getRealClassName());
-        assertEq("pkg.Ex", str_.getClassName());
+        assertEq(CUST_BASE, str_.getRealClassName(cont_));
+        assertEq("pkg.Ex", str_.getClassName(cont_));
         Struct field_;
         field_ = str_.getFields().getVal(new ClassField("pkg.Ex", "inst"));
-        assertEq(INTEGER, field_.getRealClassName());
-        assertEq(INTEGER, field_.getClassName());
+        assertEq(INTEGER, field_.getRealClassName(cont_));
+        assertEq(INTEGER, field_.getClassName(cont_));
         assertEq(24, (Number)field_.getInstance());
     }
 
     @Test
     public void instanceArgument39Test() {
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = new ContextEl();
+        ContextEl cont_ = contextEl();
         String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg'>\n";
         xml_ += "<field access='"+PRIVATE_ACCESS+"' name='inst' class='"+PrimitiveTypeUtil.PRIM_INT+"' value='2i'/>\n";
         xml_ += "<constructor access='"+PUBLIC_ACCESS+"' class0='"+PrimitiveTypeUtil.PRIM_INT+"' var0='i'>\n";
@@ -7407,19 +7407,19 @@ public class ProcessXmlMethodTest {
         ret_ = instanceArgument("pkg.Ex", null, id_, args_, cont_);
         assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
         Struct str_ = ret_.getStruct();
-        assertEq(CUST_BASE, str_.getRealClassName());
-        assertEq("pkg.Ex", str_.getClassName());
+        assertEq(CUST_BASE, str_.getRealClassName(cont_));
+        assertEq("pkg.Ex", str_.getClassName(cont_));
         Struct field_;
         field_ = str_.getFields().getVal(new ClassField("pkg.Ex", "inst"));
-        assertEq(INTEGER, field_.getRealClassName());
-        assertEq(INTEGER, field_.getClassName());
+        assertEq(INTEGER, field_.getRealClassName(cont_));
+        assertEq(INTEGER, field_.getClassName(cont_));
         assertEq(24, (Number)field_.getInstance());
     }
 
     @Test
     public void instanceArgument40Test() {
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = new ContextEl();
+        ContextEl cont_ = contextEl();
         String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' superclass='pkg.ExTwo'>\n";
         xml_ += "<field access='"+PUBLIC_ACCESS+"' name='inst' class='"+PrimitiveTypeUtil.PRIM_INT+"' value='2i'/>\n";
         xml_ += "<constructor access='"+PUBLIC_ACCESS+"' class0='"+PrimitiveTypeUtil.PRIM_INT+"' var0='i'>\n";
@@ -7455,23 +7455,23 @@ public class ProcessXmlMethodTest {
         ret_ = instanceArgument("pkg.Ex", null, id_, args_, cont_);
         assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
         Struct str_ = ret_.getStruct();
-        assertEq(CUST_BASE, str_.getRealClassName());
-        assertEq("pkg.Ex", str_.getClassName());
+        assertEq(CUST_BASE, str_.getRealClassName(cont_));
+        assertEq("pkg.Ex", str_.getClassName(cont_));
         Struct field_;
         field_ = str_.getFields().getVal(new ClassField("pkg.Ex", "inst"));
-        assertEq(INTEGER, field_.getRealClassName());
-        assertEq(INTEGER, field_.getClassName());
+        assertEq(INTEGER, field_.getRealClassName(cont_));
+        assertEq(INTEGER, field_.getClassName(cont_));
         assertEq(17, (Number)field_.getInstance());
         field_ = str_.getFields().getVal(new ClassField("pkg.ExTwo", "sec"));
-        assertEq(INTEGER, field_.getRealClassName());
-        assertEq(INTEGER, field_.getClassName());
+        assertEq(INTEGER, field_.getRealClassName(cont_));
+        assertEq(INTEGER, field_.getClassName(cont_));
         assertEq(1, (Number)field_.getInstance());
     }
 
     @Test
     public void instanceArgument41Test() {
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = new ContextEl();
+        ContextEl cont_ = contextEl();
         String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' superclass='pkg.ExTwo'>\n";
         xml_ += "<method access='"+PUBLIC_ACCESS+"' modifier='normal' name='getter' class='"+PrimitiveTypeUtil.PRIM_INT+"'>\n";
         xml_ += "<return expression='2i'/>\n";
@@ -7498,19 +7498,19 @@ public class ProcessXmlMethodTest {
         ret_ = instanceArgument("pkg.ExThree", null, id_, args_, cont_);
         assertTrue(cont_.getClasses().isInitialized("pkg.ExThree"));
         Struct str_ = ret_.getStruct();
-        assertEq(CUST_BASE, str_.getRealClassName());
-        assertEq("pkg.ExThree", str_.getClassName());
+        assertEq(CUST_BASE, str_.getRealClassName(cont_));
+        assertEq("pkg.ExThree", str_.getClassName(cont_));
         Struct field_;
         field_ = str_.getFields().getVal(new ClassField("pkg.ExThree", "ance"));
-        assertEq(INTEGER, field_.getRealClassName());
-        assertEq(INTEGER, field_.getClassName());
+        assertEq(INTEGER, field_.getRealClassName(cont_));
+        assertEq(INTEGER, field_.getClassName(cont_));
         assertEq(2, (Number)field_.getInstance());
     }
 
     @Test
     public void instanceArgument42Test() {
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = new ContextEl();
+        ContextEl cont_ = contextEl();
         String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' superclass='pkgtwo.ExTwo'>\n";
         xml_ += "<method access='"+PACKAGE_ACCESS+"' modifier='normal' name='getter' class='"+PrimitiveTypeUtil.PRIM_INT+"'>\n";
         xml_ += "<return expression='2i'/>\n";
@@ -7537,19 +7537,19 @@ public class ProcessXmlMethodTest {
         ret_ = instanceArgument("pkgtwo.ExThree", null, id_, args_, cont_);
         assertTrue(cont_.getClasses().isInitialized("pkgtwo.ExThree"));
         Struct str_ = ret_.getStruct();
-        assertEq(CUST_BASE, str_.getRealClassName());
-        assertEq("pkgtwo.ExThree", str_.getClassName());
+        assertEq(CUST_BASE, str_.getRealClassName(cont_));
+        assertEq("pkgtwo.ExThree", str_.getClassName(cont_));
         Struct field_;
         field_ = str_.getFields().getVal(new ClassField("pkgtwo.ExThree", "ance"));
-        assertEq(INTEGER, field_.getRealClassName());
-        assertEq(INTEGER, field_.getClassName());
+        assertEq(INTEGER, field_.getRealClassName(cont_));
+        assertEq(INTEGER, field_.getClassName(cont_));
         assertEq(5, (Number)field_.getInstance());
     }
 
     @Test
     public void instanceArgument43Test() {
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = new ContextEl();
+        ContextEl cont_ = contextEl();
         String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' superclass='pkgtwo.ExTwo'>\n";
         xml_ += "<method access='"+PUBLIC_ACCESS+"' modifier='normal' name='getter' class='"+PrimitiveTypeUtil.PRIM_INT+"'>\n";
         xml_ += "<return expression='2i'/>\n";
@@ -7576,19 +7576,19 @@ public class ProcessXmlMethodTest {
         ret_ = instanceArgument("pkgtwo.ExThree", null, id_, args_, cont_);
         assertTrue(cont_.getClasses().isInitialized("pkgtwo.ExThree"));
         Struct str_ = ret_.getStruct();
-        assertEq(CUST_BASE, str_.getRealClassName());
-        assertEq("pkgtwo.ExThree", str_.getClassName());
+        assertEq(CUST_BASE, str_.getRealClassName(cont_));
+        assertEq("pkgtwo.ExThree", str_.getClassName(cont_));
         Struct field_;
         field_ = str_.getFields().getVal(new ClassField("pkgtwo.ExThree", "ance"));
-        assertEq(INTEGER, field_.getRealClassName());
-        assertEq(INTEGER, field_.getClassName());
+        assertEq(INTEGER, field_.getRealClassName(cont_));
+        assertEq(INTEGER, field_.getClassName(cont_));
         assertEq(5, (Number)field_.getInstance());
     }
 
     @Test
     public void instanceArgument44Test() {
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = new ContextEl();
+        ContextEl cont_ = contextEl();
         String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' superclass='pkg.ExTwo'>\n";
         xml_ += "<method access='"+PUBLIC_ACCESS+"' modifier='normal' name='superaccess' class='"+PrimitiveTypeUtil.PRIM_INT+"'>\n";
         xml_ += "<return expression='$super$getter()'/>\n";
@@ -7617,19 +7617,19 @@ public class ProcessXmlMethodTest {
         Argument ret_;
         ret_ = instanceArgument("pkg.ExThree", null, id_, args_, cont_);
         Struct str_ = ret_.getStruct();
-        assertEq(CUST_BASE, str_.getRealClassName());
-        assertEq("pkg.ExThree", str_.getClassName());
+        assertEq(CUST_BASE, str_.getRealClassName(cont_));
+        assertEq("pkg.ExThree", str_.getClassName(cont_));
         Struct field_;
         field_ = str_.getFields().getVal(new ClassField("pkg.ExThree", "ance"));
-        assertEq(INTEGER, field_.getRealClassName());
-        assertEq(INTEGER, field_.getClassName());
+        assertEq(INTEGER, field_.getRealClassName(cont_));
+        assertEq(INTEGER, field_.getClassName(cont_));
         assertEq(5, (Number)field_.getInstance());
     }
 
     @Test
     public void instanceArgument45Test() {
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = new ContextEl();
+        ContextEl cont_ = contextEl();
         String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg'>\n";
         xml_ += "<method access='"+PUBLIC_ACCESS+"' modifier='static' name='getter' class='"+PrimitiveTypeUtil.PRIM_INT+"' class0='java.lang.Integer' var0='p'>\n";
         xml_ += "<return expression='p;.;+1i'/>\n";
@@ -7651,18 +7651,18 @@ public class ProcessXmlMethodTest {
         Argument ret_;
         ret_ = instanceArgument("pkg.ExThree", null, id_, args_, cont_);
         Struct str_ = ret_.getStruct();
-        assertEq(CUST_BASE, str_.getRealClassName());
-        assertEq("pkg.ExThree", str_.getClassName());
+        assertEq(CUST_BASE, str_.getRealClassName(cont_));
+        assertEq("pkg.ExThree", str_.getClassName(cont_));
         Struct field_;
         field_ = str_.getFields().getVal(new ClassField("pkg.ExThree", "ance"));
-        assertEq(INTEGER, field_.getRealClassName());
-        assertEq(INTEGER, field_.getClassName());
+        assertEq(INTEGER, field_.getRealClassName(cont_));
+        assertEq(INTEGER, field_.getClassName(cont_));
         assertEq(6, (Number)field_.getInstance());
     }
     @Test
     public void instanceArgument46Test() {
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = new ContextEl();
+        ContextEl cont_ = contextEl();
         String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg'>\n";
         xml_ += "<method access='"+PRIVATE_ACCESS+"' modifier='static' name='getter' class='"+PrimitiveTypeUtil.PRIM_INT+"' class0='java.lang.Integer' var0='p'>\n";
         xml_ += "<return expression='p;.;+1i'/>\n";
@@ -7684,19 +7684,19 @@ public class ProcessXmlMethodTest {
         Argument ret_;
         ret_ = instanceArgument("pkg.ExThree", null, id_, args_, cont_);
         Struct str_ = ret_.getStruct();
-        assertEq(CUST_BASE, str_.getRealClassName());
-        assertEq("pkg.ExThree", str_.getClassName());
+        assertEq(CUST_BASE, str_.getRealClassName(cont_));
+        assertEq("pkg.ExThree", str_.getClassName(cont_));
         Struct field_;
         field_ = str_.getFields().getVal(new ClassField("pkg.ExThree", "ance"));
-        assertEq(INTEGER, field_.getRealClassName());
-        assertEq(INTEGER, field_.getClassName());
+        assertEq(INTEGER, field_.getRealClassName(cont_));
+        assertEq(INTEGER, field_.getClassName(cont_));
         assertEq(7, (Number)field_.getInstance());
     }
 
     @Test
     public void instanceArgument47Test() {
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = new ContextEl();
+        ContextEl cont_ = contextEl();
         String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg'>\n";
         xml_ += "<field access='"+PUBLIC_ACCESS+"' name='inst' class='"+PrimitiveTypeUtil.PRIM_INT+"'/>\n";
         xml_ += "<constructor access='"+PUBLIC_ACCESS+"' class0='java.lang.Integer' var0='p'>\n";
@@ -7719,19 +7719,19 @@ public class ProcessXmlMethodTest {
         Argument ret_;
         ret_ = instanceArgument("pkg.ExThree", null, id_, args_, cont_);
         Struct str_ = ret_.getStruct();
-        assertEq(CUST_BASE, str_.getRealClassName());
-        assertEq("pkg.ExThree", str_.getClassName());
+        assertEq(CUST_BASE, str_.getRealClassName(cont_));
+        assertEq("pkg.ExThree", str_.getClassName(cont_));
         Struct field_;
         field_ = str_.getFields().getVal(new ClassField("pkg.ExThree", "ance"));
-        assertEq(INTEGER, field_.getRealClassName());
-        assertEq(INTEGER, field_.getClassName());
+        assertEq(INTEGER, field_.getRealClassName(cont_));
+        assertEq(INTEGER, field_.getClassName(cont_));
         assertEq(6, (Number)field_.getInstance());
     }
 
     @Test
     public void instanceArgument48Test() {
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = new ContextEl();
+        ContextEl cont_ = contextEl();
         String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg'>\n";
         xml_ += "<field access='"+PUBLIC_ACCESS+"' name='inst' class='"+PrimitiveTypeUtil.PRIM_INT+"'/>\n";
         xml_ += "<constructor access='"+PRIVATE_ACCESS+"' class0='java.lang.Integer' var0='p'>\n";
@@ -7754,19 +7754,19 @@ public class ProcessXmlMethodTest {
         Argument ret_;
         ret_ = instanceArgument("pkg.ExThree", null, id_, args_, cont_);
         Struct str_ = ret_.getStruct();
-        assertEq(CUST_BASE, str_.getRealClassName());
-        assertEq("pkg.ExThree", str_.getClassName());
+        assertEq(CUST_BASE, str_.getRealClassName(cont_));
+        assertEq("pkg.ExThree", str_.getClassName(cont_));
         Struct field_;
         field_ = str_.getFields().getVal(new ClassField("pkg.ExThree", "ance"));
-        assertEq(INTEGER, field_.getRealClassName());
-        assertEq(INTEGER, field_.getClassName());
+        assertEq(INTEGER, field_.getRealClassName(cont_));
+        assertEq(INTEGER, field_.getClassName(cont_));
         assertEq(7, (Number)field_.getInstance());
     }
 
     @Test
     public void instanceArgument49Test() {
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = new ContextEl();
+        ContextEl cont_ = contextEl();
         String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' superclass='pkg.ExTwo'>\n";
         xml_ += "<field access='"+PUBLIC_ACCESS+"' name='inst' class='"+PrimitiveTypeUtil.PRIM_INT+"' value='8i'/>\n";
         xml_ += "<method access='"+PUBLIC_ACCESS+"' modifier='normal' name='superaccess' class='"+PrimitiveTypeUtil.PRIM_INT+"'>\n";
@@ -7797,19 +7797,19 @@ public class ProcessXmlMethodTest {
         Argument ret_;
         ret_ = instanceArgument("pkg.ExThree", null, id_, args_, cont_);
         Struct str_ = ret_.getStruct();
-        assertEq(CUST_BASE, str_.getRealClassName());
-        assertEq("pkg.ExThree", str_.getClassName());
+        assertEq(CUST_BASE, str_.getRealClassName(cont_));
+        assertEq("pkg.ExThree", str_.getClassName(cont_));
         Struct field_;
         field_ = str_.getFields().getVal(new ClassField("pkg.ExThree", "ance"));
-        assertEq(INTEGER, field_.getRealClassName());
-        assertEq(INTEGER, field_.getClassName());
+        assertEq(INTEGER, field_.getRealClassName(cont_));
+        assertEq(INTEGER, field_.getClassName(cont_));
         assertEq(16, (Number)field_.getInstance());
     }
 
     @Test
     public void instanceArgument50Test() {
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = new ContextEl();
+        ContextEl cont_ = contextEl();
         String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' superclass='pkg.ExTwo'>\n";
         xml_ += "<field access='"+PUBLIC_ACCESS+"' name='inst' class='"+PrimitiveTypeUtil.PRIM_INT+"' value='8i'/>\n";
         xml_ += "<method access='"+PUBLIC_ACCESS+"' modifier='normal' name='superaccess' class='"+PrimitiveTypeUtil.PRIM_INT+"'>\n";
@@ -7840,19 +7840,19 @@ public class ProcessXmlMethodTest {
         Argument ret_;
         ret_ = instanceArgument("pkg.ExThree", null, id_, args_, cont_);
         Struct str_ = ret_.getStruct();
-        assertEq(CUST_BASE, str_.getRealClassName());
-        assertEq("pkg.ExThree", str_.getClassName());
+        assertEq(CUST_BASE, str_.getRealClassName(cont_));
+        assertEq("pkg.ExThree", str_.getClassName(cont_));
         Struct field_;
         field_ = str_.getFields().getVal(new ClassField("pkg.ExThree", "ance"));
-        assertEq(INTEGER, field_.getRealClassName());
-        assertEq(INTEGER, field_.getClassName());
+        assertEq(INTEGER, field_.getRealClassName(cont_));
+        assertEq(INTEGER, field_.getClassName(cont_));
         assertEq(5, (Number)field_.getInstance());
     }
 
     @Test
     public void instanceArgument51Test() {
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = new ContextEl();
+        ContextEl cont_ = contextEl();
         String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' superclass='pkg.ExTwo'>\n";
         xml_ += "<field access='"+PUBLIC_ACCESS+"' name='inst' class='"+PrimitiveTypeUtil.PRIM_INT+"' value='8i'/>\n";
         xml_ += "<method access='"+PUBLIC_ACCESS+"' modifier='normal' name='superaccess' class='"+PrimitiveTypeUtil.PRIM_INT+"'>\n";
@@ -7887,19 +7887,19 @@ public class ProcessXmlMethodTest {
         Argument ret_;
         ret_ = instanceArgument("pkg.ExThree", null, id_, args_, cont_);
         Struct str_ = ret_.getStruct();
-        assertEq(CUST_BASE, str_.getRealClassName());
-        assertEq("pkg.ExThree", str_.getClassName());
+        assertEq(CUST_BASE, str_.getRealClassName(cont_));
+        assertEq("pkg.ExThree", str_.getClassName(cont_));
         Struct field_;
         field_ = str_.getFields().getVal(new ClassField("pkg.ExThree", "ance"));
-        assertEq(INTEGER, field_.getRealClassName());
-        assertEq(INTEGER, field_.getClassName());
+        assertEq(INTEGER, field_.getRealClassName(cont_));
+        assertEq(INTEGER, field_.getClassName(cont_));
         assertEq(9, (Number)field_.getInstance());
     }
 
     @Test
     public void instanceArgument52Test() {
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = new ContextEl();
+        ContextEl cont_ = contextEl();
         String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' superclass='pkg.ExTwo'>\n";
         xml_ += "<field access='"+PUBLIC_ACCESS+"' name='inst' class='"+PrimitiveTypeUtil.PRIM_INT+"' value='8i'/>\n";
         xml_ += "<method access='"+PUBLIC_ACCESS+"' modifier='normal' name='superaccess' class='"+PrimitiveTypeUtil.PRIM_INT+"'>\n";
@@ -7931,19 +7931,19 @@ public class ProcessXmlMethodTest {
         Argument ret_;
         ret_ = instanceArgument("pkg.ExThree", null, id_, args_, cont_);
         Struct str_ = ret_.getStruct();
-        assertEq(CUST_BASE, str_.getRealClassName());
-        assertEq("pkg.ExThree", str_.getClassName());
+        assertEq(CUST_BASE, str_.getRealClassName(cont_));
+        assertEq("pkg.ExThree", str_.getClassName(cont_));
         Struct field_;
         field_ = str_.getFields().getVal(new ClassField("pkg.ExThree", "ance"));
-        assertEq(INTEGER, field_.getRealClassName());
-        assertEq(INTEGER, field_.getClassName());
+        assertEq(INTEGER, field_.getRealClassName(cont_));
+        assertEq(INTEGER, field_.getClassName(cont_));
         assertEq(5, (Number)field_.getInstance());
     }
 
     @Test
     public void instanceArgument53Test() {
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = new ContextEl();
+        ContextEl cont_ = contextEl();
         String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' superclass='pkg.ExTwo'>\n";
         xml_ += "<field access='"+PUBLIC_ACCESS+"' name='inst' class='"+PrimitiveTypeUtil.PRIM_INT+"' value='8i'/>\n";
         xml_ += "<method access='"+PUBLIC_ACCESS+"' modifier='normal' name='superaccess' class='"+PrimitiveTypeUtil.PRIM_INT+"'>\n";
@@ -7988,19 +7988,19 @@ public class ProcessXmlMethodTest {
         Argument ret_;
         ret_ = instanceArgument("pkg.ExThree", null, id_, args_, cont_);
         Struct str_ = ret_.getStruct();
-        assertEq(CUST_BASE, str_.getRealClassName());
-        assertEq("pkg.ExThree", str_.getClassName());
+        assertEq(CUST_BASE, str_.getRealClassName(cont_));
+        assertEq("pkg.ExThree", str_.getClassName(cont_));
         Struct field_;
         field_ = str_.getFields().getVal(new ClassField("pkg.ExThree", "ance"));
-        assertEq(INTEGER, field_.getRealClassName());
-        assertEq(INTEGER, field_.getClassName());
+        assertEq(INTEGER, field_.getRealClassName(cont_));
+        assertEq(INTEGER, field_.getClassName(cont_));
         assertEq(9, (Number)field_.getInstance());
     }
 
     @Test
     public void instanceArgument54Test() {
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = new ContextEl();
+        ContextEl cont_ = contextEl();
         String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' superclass='pkg.ExTwo'>\n";
         xml_ += "<field access='"+PUBLIC_ACCESS+"' name='inst' class='"+PrimitiveTypeUtil.PRIM_INT+"' value='8i'/>\n";
         xml_ += "<method access='"+PUBLIC_ACCESS+"' modifier='normal' name='superaccess' class='"+PrimitiveTypeUtil.PRIM_INT+"'>\n";
@@ -8045,19 +8045,19 @@ public class ProcessXmlMethodTest {
         Argument ret_;
         ret_ = instanceArgument("pkg.ExThree", null, id_, args_, cont_);
         Struct str_ = ret_.getStruct();
-        assertEq(CUST_BASE, str_.getRealClassName());
-        assertEq("pkg.ExThree", str_.getClassName());
+        assertEq(CUST_BASE, str_.getRealClassName(cont_));
+        assertEq("pkg.ExThree", str_.getClassName(cont_));
         Struct field_;
         field_ = str_.getFields().getVal(new ClassField("pkg.ExThree", "ance"));
-        assertEq(INTEGER, field_.getRealClassName());
-        assertEq(INTEGER, field_.getClassName());
+        assertEq(INTEGER, field_.getRealClassName(cont_));
+        assertEq(INTEGER, field_.getClassName(cont_));
         assertEq(11, (Number)field_.getInstance());
     }
 
     @Test
     public void instanceArgument55Test() {
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = new ContextEl();
+        ContextEl cont_ = contextEl();
         String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' superclass='pkgtwo.ExTwo'>\n";
         xml_ += "<method access='"+PUBLIC_ACCESS+"' modifier='normal' name='getter' class='"+PrimitiveTypeUtil.PRIM_INT+"'>\n";
         xml_ += "<return expression='2i'/>\n";
@@ -8084,18 +8084,18 @@ public class ProcessXmlMethodTest {
         ret_ = instanceArgument("pkgtwo.ExThree", null, id_, args_, cont_);
         assertTrue(cont_.getClasses().isInitialized("pkgtwo.ExThree"));
         Struct str_ = ret_.getStruct();
-        assertEq(CUST_BASE, str_.getRealClassName());
-        assertEq("pkgtwo.ExThree", str_.getClassName());
+        assertEq(CUST_BASE, str_.getRealClassName(cont_));
+        assertEq("pkgtwo.ExThree", str_.getClassName(cont_));
         Struct field_;
         field_ = str_.getFields().getVal(new ClassField("pkgtwo.ExThree", "ance"));
-        assertEq(INTEGER, field_.getRealClassName());
-        assertEq(INTEGER, field_.getClassName());
+        assertEq(INTEGER, field_.getRealClassName(cont_));
+        assertEq(INTEGER, field_.getClassName(cont_));
         assertEq(5, (Number)field_.getInstance());
     }
     @Test
     public void instanceArgument56Test() {
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = new ContextEl(50);
+        ContextEl cont_ = contextEl();
         cont_.setAccessValue(new AccessValueEx());
         String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' superclass='pkg.ExTwo'>\n";
         xml_ += "<field access='"+PUBLIC_ACCESS+"' name='inst' class='"+PrimitiveTypeUtil.PRIM_INT+"' value='2i'/>\n";
@@ -8139,43 +8139,43 @@ public class ProcessXmlMethodTest {
         ret_ = instanceArgument("pkg.Ex", null, id_, args_, cont_);
         assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
         Struct str_ = ret_.getStruct();
-        assertEq(CUST_BASE, str_.getRealClassName());
-        assertEq("pkg.Ex", str_.getClassName());
+        assertEq(CUST_BASE, str_.getRealClassName(cont_));
+        assertEq("pkg.Ex", str_.getClassName(cont_));
         assertTrue(!str_.isJavaObject());
         Struct field_;
         field_ = str_.getFields().getVal(new ClassField("pkg.Ex", "inst"));
-        assertEq(INTEGER, field_.getRealClassName());
-        assertEq(INTEGER, field_.getClassName());
+        assertEq(INTEGER, field_.getRealClassName(cont_));
+        assertEq(INTEGER, field_.getClassName(cont_));
         assertEq(2, (Number)field_.getInstance());
         field_ = str_.getFields().getVal(new ClassField("pkg.ExTwo", "sec"));
-        assertEq(INTEGER, field_.getRealClassName());
-        assertEq(INTEGER, field_.getClassName());
+        assertEq(INTEGER, field_.getRealClassName(cont_));
+        assertEq(INTEGER, field_.getClassName(cont_));
         assertEq(24, (Number)field_.getInstance());
         field_ = str_.getFields().getVal(new ClassField("pkg.ExTwo", "fourth"));
-        assertEq(INTEGER, field_.getRealClassName());
-        assertEq(INTEGER, field_.getClassName());
+        assertEq(INTEGER, field_.getRealClassName(cont_));
+        assertEq(INTEGER, field_.getClassName(cont_));
         assertEq(1, (Number)field_.getInstance());
         field_ = str_.getFields().getVal(new ClassField("pkg.ExTwo", "elt"));
-        assertEq(CUST_BASE, field_.getRealClassName());
-        assertEq("pkg.ExThree", field_.getClassName());
+        assertEq(CUST_BASE, field_.getRealClassName(cont_));
+        assertEq("pkg.ExThree", field_.getClassName(cont_));
         assertEq(17, (Number)field_.getFields().getVal(new ClassField("pkg.ExThree", "ance")).getInstance());
         field_ = str_.getFields().getVal(new ClassField("pkg.ExTwo", "third"));
-        assertEq(REAL_ARR_OBJECT, field_.getRealClassName());
-        assertEq(ARR_OBJECT, field_.getClassName());
+        assertEq(REAL_ARR_OBJECT, field_.getRealClassName(cont_));
+        assertEq(ARR_OBJECT, field_.getClassName(cont_));
         assertEq(1, Array.getLength(field_.getInstance()));
         Object[] inter_ = (Object[]) field_.getInstance();
         assertEq(1, inter_.length);
         Struct elt_ = (Struct) inter_[0];
-        assertEq("pkg.ExThree", elt_.getClassName());
+        assertEq("pkg.ExThree", elt_.getClassName(cont_));
         Struct intern_ = elt_.getFields().getVal(new ClassField("pkg.ExThree", "ance"));
-        assertEq(INTEGER, intern_.getRealClassName());
-        assertEq(INTEGER, intern_.getClassName());
+        assertEq(INTEGER, intern_.getRealClassName(cont_));
+        assertEq(INTEGER, intern_.getClassName(cont_));
         assertEq(17, (Number)intern_.getInstance());
     }
     @Test
     public void instanceArgument57Test() {
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = new ContextEl(50);
+        ContextEl cont_ = contextEl();
         cont_.setAccessValue(new AccessValueEx());
         String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' superclass='pkg.ExTwo'>\n";
         xml_ += "<field access='"+PUBLIC_ACCESS+"' name='inst' class='"+PrimitiveTypeUtil.PRIM_INT+"' value='2i'/>\n";
@@ -8219,43 +8219,43 @@ public class ProcessXmlMethodTest {
         ret_ = instanceArgument("pkg.Ex", null, id_, args_, cont_);
         assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
         Struct str_ = ret_.getStruct();
-        assertEq(CUST_BASE, str_.getRealClassName());
-        assertEq("pkg.Ex", str_.getClassName());
+        assertEq(CUST_BASE, str_.getRealClassName(cont_));
+        assertEq("pkg.Ex", str_.getClassName(cont_));
         assertTrue(!str_.isJavaObject());
         Struct field_;
         field_ = str_.getFields().getVal(new ClassField("pkg.Ex", "inst"));
-        assertEq(INTEGER, field_.getRealClassName());
-        assertEq(INTEGER, field_.getClassName());
+        assertEq(INTEGER, field_.getRealClassName(cont_));
+        assertEq(INTEGER, field_.getClassName(cont_));
         assertEq(2, (Number)field_.getInstance());
         field_ = str_.getFields().getVal(new ClassField("pkg.ExTwo", "sec"));
-        assertEq(INTEGER, field_.getRealClassName());
-        assertEq(INTEGER, field_.getClassName());
+        assertEq(INTEGER, field_.getRealClassName(cont_));
+        assertEq(INTEGER, field_.getClassName(cont_));
         assertEq(24, (Number)field_.getInstance());
         field_ = str_.getFields().getVal(new ClassField("pkg.ExTwo", "fourth"));
-        assertEq(INTEGER, field_.getRealClassName());
-        assertEq(INTEGER, field_.getClassName());
+        assertEq(INTEGER, field_.getRealClassName(cont_));
+        assertEq(INTEGER, field_.getClassName(cont_));
         assertEq(1, (Number)field_.getInstance());
         field_ = str_.getFields().getVal(new ClassField("pkg.ExTwo", "elt"));
-        assertEq(CUST_BASE, field_.getRealClassName());
-        assertEq("pkg.ExThree", field_.getClassName());
+        assertEq(CUST_BASE, field_.getRealClassName(cont_));
+        assertEq("pkg.ExThree", field_.getClassName(cont_));
         assertEq(17, (Number)field_.getFields().getVal(new ClassField("pkg.ExThree", "ance")).getInstance());
         field_ = str_.getFields().getVal(new ClassField("pkg.ExTwo", "third"));
-        assertEq(REAL_ARR_ARR_OBJECT, field_.getRealClassName());
-        assertEq(ARR_ARR_OBJECT, field_.getClassName());
+        assertEq(REAL_ARR_ARR_OBJECT, field_.getRealClassName(cont_));
+        assertEq(ARR_ARR_OBJECT, field_.getClassName(cont_));
         assertEq(1, Array.getLength(field_.getInstance()));
         Object[][] inter_ = (Object[][]) field_.getInstance();
         assertEq(1, inter_.length);
         Struct elt_ = (Struct) inter_[0][0];
-        assertEq("pkg.ExThree", elt_.getClassName());
+        assertEq("pkg.ExThree", elt_.getClassName(cont_));
         Struct intern_ = elt_.getFields().getVal(new ClassField("pkg.ExThree", "ance"));
-        assertEq(INTEGER, intern_.getRealClassName());
-        assertEq(INTEGER, intern_.getClassName());
+        assertEq(INTEGER, intern_.getRealClassName(cont_));
+        assertEq(INTEGER, intern_.getClassName(cont_));
         assertEq(17, (Number)intern_.getInstance());
     }
     @Test
     public void instanceArgument58Test() {
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = new ContextEl(50);
+        ContextEl cont_ = contextEl();
         cont_.setAccessValue(new AccessValueEx());
         String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' superclass='pkg.ExTwo'>\n";
         xml_ += "<field access='"+PUBLIC_ACCESS+"' name='inst' class='"+PrimitiveTypeUtil.PRIM_INT+"' value='2i'/>\n";
@@ -8299,43 +8299,43 @@ public class ProcessXmlMethodTest {
         ret_ = instanceArgument("pkg.Ex", null, id_, args_, cont_);
         assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
         Struct str_ = ret_.getStruct();
-        assertEq(CUST_BASE, str_.getRealClassName());
-        assertEq("pkg.Ex", str_.getClassName());
+        assertEq(CUST_BASE, str_.getRealClassName(cont_));
+        assertEq("pkg.Ex", str_.getClassName(cont_));
         assertTrue(!str_.isJavaObject());
         Struct field_;
         field_ = str_.getFields().getVal(new ClassField("pkg.Ex", "inst"));
-        assertEq(INTEGER, field_.getRealClassName());
-        assertEq(INTEGER, field_.getClassName());
+        assertEq(INTEGER, field_.getRealClassName(cont_));
+        assertEq(INTEGER, field_.getClassName(cont_));
         assertEq(2, (Number)field_.getInstance());
         field_ = str_.getFields().getVal(new ClassField("pkg.ExTwo", "sec"));
-        assertEq(INTEGER, field_.getRealClassName());
-        assertEq(INTEGER, field_.getClassName());
+        assertEq(INTEGER, field_.getRealClassName(cont_));
+        assertEq(INTEGER, field_.getClassName(cont_));
         assertEq(24, (Number)field_.getInstance());
         field_ = str_.getFields().getVal(new ClassField("pkg.ExTwo", "fourth"));
-        assertEq(INTEGER, field_.getRealClassName());
-        assertEq(INTEGER, field_.getClassName());
+        assertEq(INTEGER, field_.getRealClassName(cont_));
+        assertEq(INTEGER, field_.getClassName(cont_));
         assertEq(1, (Number)field_.getInstance());
         field_ = str_.getFields().getVal(new ClassField("pkg.ExTwo", "elt"));
-        assertEq(CUST_BASE, field_.getRealClassName());
-        assertEq("pkg.ExThree", field_.getClassName());
+        assertEq(CUST_BASE, field_.getRealClassName(cont_));
+        assertEq("pkg.ExThree", field_.getClassName(cont_));
         assertEq(17, (Number)field_.getFields().getVal(new ClassField("pkg.ExThree", "ance")).getInstance());
         field_ = str_.getFields().getVal(new ClassField("pkg.ExTwo", "third"));
-        assertEq(REAL_ARR_OBJECT, field_.getRealClassName());
-        assertEq(ARR_OBJECT, field_.getClassName());
+        assertEq(REAL_ARR_OBJECT, field_.getRealClassName(cont_));
+        assertEq(ARR_OBJECT, field_.getClassName(cont_));
         assertEq(1, Array.getLength(field_.getInstance()));
         Object[] inter_ = (Object[]) field_.getInstance();
         assertEq(1, inter_.length);
         Struct elt_ = (Struct) inter_[0];
-        assertEq("pkg.ExThree", elt_.getClassName());
+        assertEq("pkg.ExThree", elt_.getClassName(cont_));
         Struct intern_ = elt_.getFields().getVal(new ClassField("pkg.ExThree", "ance"));
-        assertEq(INTEGER, intern_.getRealClassName());
-        assertEq(INTEGER, intern_.getClassName());
+        assertEq(INTEGER, intern_.getRealClassName(cont_));
+        assertEq(INTEGER, intern_.getClassName(cont_));
         assertEq(17, (Number)intern_.getInstance());
     }
     @Test
     public void instanceArgument59Test() {
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = new ContextEl(50);
+        ContextEl cont_ = contextEl();
         cont_.setAccessValue(new AccessValueEx());
         String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' superclass='pkg.ExTwo'>\n";
         xml_ += "<field access='"+PUBLIC_ACCESS+"' name='inst' class='"+PrimitiveTypeUtil.PRIM_INT+"' value='2i'/>\n";
@@ -8380,43 +8380,43 @@ public class ProcessXmlMethodTest {
         ret_ = instanceArgument("pkg.Ex", null, id_, args_, cont_);
         assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
         Struct str_ = ret_.getStruct();
-        assertEq(CUST_BASE, str_.getRealClassName());
-        assertEq("pkg.Ex", str_.getClassName());
+        assertEq(CUST_BASE, str_.getRealClassName(cont_));
+        assertEq("pkg.Ex", str_.getClassName(cont_));
         assertTrue(!str_.isJavaObject());
         Struct field_;
         field_ = str_.getFields().getVal(new ClassField("pkg.Ex", "inst"));
-        assertEq(INTEGER, field_.getRealClassName());
-        assertEq(INTEGER, field_.getClassName());
+        assertEq(INTEGER, field_.getRealClassName(cont_));
+        assertEq(INTEGER, field_.getClassName(cont_));
         assertEq(2, (Number)field_.getInstance());
         field_ = str_.getFields().getVal(new ClassField("pkg.ExTwo", "sec"));
-        assertEq(INTEGER, field_.getRealClassName());
-        assertEq(INTEGER, field_.getClassName());
+        assertEq(INTEGER, field_.getRealClassName(cont_));
+        assertEq(INTEGER, field_.getClassName(cont_));
         assertEq(24, (Number)field_.getInstance());
         field_ = str_.getFields().getVal(new ClassField("pkg.ExTwo", "fourth"));
-        assertEq(INTEGER, field_.getRealClassName());
-        assertEq(INTEGER, field_.getClassName());
+        assertEq(INTEGER, field_.getRealClassName(cont_));
+        assertEq(INTEGER, field_.getClassName(cont_));
         assertEq(1, (Number)field_.getInstance());
         field_ = str_.getFields().getVal(new ClassField("pkg.ExTwo", "elt"));
-        assertEq(CUST_BASE, field_.getRealClassName());
-        assertEq("pkg.ExThree", field_.getClassName());
+        assertEq(CUST_BASE, field_.getRealClassName(cont_));
+        assertEq("pkg.ExThree", field_.getClassName(cont_));
         assertEq(17, (Number)field_.getFields().getVal(new ClassField("pkg.ExThree", "ance")).getInstance());
         field_ = str_.getFields().getVal(new ClassField("pkg.ExTwo", "third"));
-        assertEq(REAL_ARR_ARR_OBJECT, field_.getRealClassName());
-        assertEq(ARR_ARR_OBJECT, field_.getClassName());
+        assertEq(REAL_ARR_ARR_OBJECT, field_.getRealClassName(cont_));
+        assertEq(ARR_ARR_OBJECT, field_.getClassName(cont_));
         assertEq(1, Array.getLength(field_.getInstance()));
         Object[][] inter_ = (Object[][]) field_.getInstance();
         assertEq(1, inter_.length);
         Struct elt_ = (Struct) inter_[0][0];
-        assertEq("pkg.ExThree", elt_.getClassName());
+        assertEq("pkg.ExThree", elt_.getClassName(cont_));
         Struct intern_ = elt_.getFields().getVal(new ClassField("pkg.ExThree", "ance"));
-        assertEq(INTEGER, intern_.getRealClassName());
-        assertEq(INTEGER, intern_.getClassName());
+        assertEq(INTEGER, intern_.getRealClassName(cont_));
+        assertEq(INTEGER, intern_.getClassName(cont_));
         assertEq(17, (Number)intern_.getInstance());
     }
     @Test
     public void instanceArgument60Test() {
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = new ContextEl(50);
+        ContextEl cont_ = contextEl();
         cont_.setAccessValue(new AccessValueEx());
         String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' superclass='pkg.ExTwo' class0='pkg.Int3'>\n";
         xml_ += "<field access='"+PUBLIC_ACCESS+"' name='inst' class='"+PrimitiveTypeUtil.PRIM_INT+"' value='2i'/>\n";
@@ -8467,43 +8467,43 @@ public class ProcessXmlMethodTest {
         ret_ = instanceArgument("pkg.Ex", null, id_, args_, cont_);
         assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
         Struct str_ = ret_.getStruct();
-        assertEq(CUST_BASE, str_.getRealClassName());
-        assertEq("pkg.Ex", str_.getClassName());
+        assertEq(CUST_BASE, str_.getRealClassName(cont_));
+        assertEq("pkg.Ex", str_.getClassName(cont_));
         assertTrue(!str_.isJavaObject());
         Struct field_;
         field_ = str_.getFields().getVal(new ClassField("pkg.Ex", "inst"));
-        assertEq(INTEGER, field_.getRealClassName());
-        assertEq(INTEGER, field_.getClassName());
+        assertEq(INTEGER, field_.getRealClassName(cont_));
+        assertEq(INTEGER, field_.getClassName(cont_));
         assertEq(2, (Number)field_.getInstance());
         field_ = str_.getFields().getVal(new ClassField("pkg.ExTwo", "sec"));
-        assertEq(INTEGER, field_.getRealClassName());
-        assertEq(INTEGER, field_.getClassName());
+        assertEq(INTEGER, field_.getRealClassName(cont_));
+        assertEq(INTEGER, field_.getClassName(cont_));
         assertEq(24, (Number)field_.getInstance());
         field_ = str_.getFields().getVal(new ClassField("pkg.ExTwo", "fourth"));
-        assertEq(INTEGER, field_.getRealClassName());
-        assertEq(INTEGER, field_.getClassName());
+        assertEq(INTEGER, field_.getRealClassName(cont_));
+        assertEq(INTEGER, field_.getClassName(cont_));
         assertEq(1, (Number)field_.getInstance());
         field_ = str_.getFields().getVal(new ClassField("pkg.ExTwo", "elt"));
-        assertEq(CUST_BASE, field_.getRealClassName());
-        assertEq("pkg.ExThree", field_.getClassName());
+        assertEq(CUST_BASE, field_.getRealClassName(cont_));
+        assertEq("pkg.ExThree", field_.getClassName(cont_));
         assertEq(17, (Number)field_.getFields().getVal(new ClassField("pkg.ExThree", "ance")).getInstance());
         field_ = str_.getFields().getVal(new ClassField("pkg.ExTwo", "third"));
-        assertEq(REAL_ARR_ARR_OBJECT, field_.getRealClassName());
-        assertEq(ARR_ARR_OBJECT, field_.getClassName());
+        assertEq(REAL_ARR_ARR_OBJECT, field_.getRealClassName(cont_));
+        assertEq(ARR_ARR_OBJECT, field_.getClassName(cont_));
         assertEq(1, Array.getLength(field_.getInstance()));
         Object[][] inter_ = (Object[][]) field_.getInstance();
         assertEq(1, inter_.length);
         Struct elt_ = (Struct) inter_[0][0];
-        assertEq("pkg.ExThree", elt_.getClassName());
+        assertEq("pkg.ExThree", elt_.getClassName(cont_));
         Struct intern_ = elt_.getFields().getVal(new ClassField("pkg.ExThree", "ance"));
-        assertEq(INTEGER, intern_.getRealClassName());
-        assertEq(INTEGER, intern_.getClassName());
+        assertEq(INTEGER, intern_.getRealClassName(cont_));
+        assertEq(INTEGER, intern_.getClassName(cont_));
         assertEq(17, (Number)intern_.getInstance());
     }
     @Test
     public void instanceArgument61Test() {
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = new ContextEl(50);
+        ContextEl cont_ = contextEl();
         cont_.setAccessValue(new AccessValueEx());
         String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' superclass='pkg.ExTwo' class0='pkg.Int3'>\n";
         xml_ += "<field access='"+PUBLIC_ACCESS+"' name='inst' class='"+PrimitiveTypeUtil.PRIM_INT+"' value='2i'/>\n";
@@ -8558,43 +8558,43 @@ public class ProcessXmlMethodTest {
         ret_ = instanceArgument("pkg.Ex", null, id_, args_, cont_);
         assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
         Struct str_ = ret_.getStruct();
-        assertEq(CUST_BASE, str_.getRealClassName());
-        assertEq("pkg.Ex", str_.getClassName());
+        assertEq(CUST_BASE, str_.getRealClassName(cont_));
+        assertEq("pkg.Ex", str_.getClassName(cont_));
         assertTrue(!str_.isJavaObject());
         Struct field_;
         field_ = str_.getFields().getVal(new ClassField("pkg.Ex", "inst"));
-        assertEq(INTEGER, field_.getRealClassName());
-        assertEq(INTEGER, field_.getClassName());
+        assertEq(INTEGER, field_.getRealClassName(cont_));
+        assertEq(INTEGER, field_.getClassName(cont_));
         assertEq(2, (Number)field_.getInstance());
         field_ = str_.getFields().getVal(new ClassField("pkg.ExTwo", "sec"));
-        assertEq(INTEGER, field_.getRealClassName());
-        assertEq(INTEGER, field_.getClassName());
+        assertEq(INTEGER, field_.getRealClassName(cont_));
+        assertEq(INTEGER, field_.getClassName(cont_));
         assertEq(24, (Number)field_.getInstance());
         field_ = str_.getFields().getVal(new ClassField("pkg.ExTwo", "fourth"));
-        assertEq(INTEGER, field_.getRealClassName());
-        assertEq(INTEGER, field_.getClassName());
+        assertEq(INTEGER, field_.getRealClassName(cont_));
+        assertEq(INTEGER, field_.getClassName(cont_));
         assertEq(1, (Number)field_.getInstance());
         field_ = str_.getFields().getVal(new ClassField("pkg.ExTwo", "elt"));
-        assertEq(CUST_BASE, field_.getRealClassName());
-        assertEq("pkg.ExThree", field_.getClassName());
+        assertEq(CUST_BASE, field_.getRealClassName(cont_));
+        assertEq("pkg.ExThree", field_.getClassName(cont_));
         assertEq(17, (Number)field_.getFields().getVal(new ClassField("pkg.ExThree", "ance")).getInstance());
         field_ = str_.getFields().getVal(new ClassField("pkg.ExTwo", "third"));
-        assertEq(REAL_ARR_ARR_OBJECT, field_.getRealClassName());
-        assertEq(ARR_ARR_OBJECT, field_.getClassName());
+        assertEq(REAL_ARR_ARR_OBJECT, field_.getRealClassName(cont_));
+        assertEq(ARR_ARR_OBJECT, field_.getClassName(cont_));
         assertEq(1, Array.getLength(field_.getInstance()));
         Object[][] inter_ = (Object[][]) field_.getInstance();
         assertEq(1, inter_.length);
         Struct elt_ = (Struct) inter_[0][0];
-        assertEq("pkg.ExThree", elt_.getClassName());
+        assertEq("pkg.ExThree", elt_.getClassName(cont_));
         Struct intern_ = elt_.getFields().getVal(new ClassField("pkg.ExThree", "ance"));
-        assertEq(INTEGER, intern_.getRealClassName());
-        assertEq(INTEGER, intern_.getClassName());
+        assertEq(INTEGER, intern_.getRealClassName(cont_));
+        assertEq(INTEGER, intern_.getClassName(cont_));
         assertEq(17, (Number)intern_.getInstance());
     }
     @Test
     public void instanceArgument62Test() {
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = new ContextEl(50);
+        ContextEl cont_ = contextEl();
         cont_.setAccessValue(new AccessValueEx());
         String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' superclass='pkg.ExTwo' class0='pkg.Int3'>\n";
         xml_ += "<field access='"+PUBLIC_ACCESS+"' name='inst' class='"+PrimitiveTypeUtil.PRIM_INT+"' value='2i'/>\n";
@@ -8652,43 +8652,43 @@ public class ProcessXmlMethodTest {
         ret_ = instanceArgument("pkg.Ex", null, id_, args_, cont_);
         assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
         Struct str_ = ret_.getStruct();
-        assertEq(CUST_BASE, str_.getRealClassName());
-        assertEq("pkg.Ex", str_.getClassName());
+        assertEq(CUST_BASE, str_.getRealClassName(cont_));
+        assertEq("pkg.Ex", str_.getClassName(cont_));
         assertTrue(!str_.isJavaObject());
         Struct field_;
         field_ = str_.getFields().getVal(new ClassField("pkg.Ex", "inst"));
-        assertEq(INTEGER, field_.getRealClassName());
-        assertEq(INTEGER, field_.getClassName());
+        assertEq(INTEGER, field_.getRealClassName(cont_));
+        assertEq(INTEGER, field_.getClassName(cont_));
         assertEq(2, (Number)field_.getInstance());
         field_ = str_.getFields().getVal(new ClassField("pkg.ExTwo", "sec"));
-        assertEq(INTEGER, field_.getRealClassName());
-        assertEq(INTEGER, field_.getClassName());
+        assertEq(INTEGER, field_.getRealClassName(cont_));
+        assertEq(INTEGER, field_.getClassName(cont_));
         assertEq(24, (Number)field_.getInstance());
         field_ = str_.getFields().getVal(new ClassField("pkg.ExTwo", "fourth"));
-        assertEq(INTEGER, field_.getRealClassName());
-        assertEq(INTEGER, field_.getClassName());
+        assertEq(INTEGER, field_.getRealClassName(cont_));
+        assertEq(INTEGER, field_.getClassName(cont_));
         assertEq(1, (Number)field_.getInstance());
         field_ = str_.getFields().getVal(new ClassField("pkg.ExTwo", "elt"));
-        assertEq(CUST_BASE, field_.getRealClassName());
-        assertEq("pkg.ExThree", field_.getClassName());
+        assertEq(CUST_BASE, field_.getRealClassName(cont_));
+        assertEq("pkg.ExThree", field_.getClassName(cont_));
         assertEq(17, (Number)field_.getFields().getVal(new ClassField("pkg.ExThree", "ance")).getInstance());
         field_ = str_.getFields().getVal(new ClassField("pkg.ExTwo", "third"));
-        assertEq(REAL_ARR_ARR_OBJECT, field_.getRealClassName());
-        assertEq(ARR_ARR_OBJECT, field_.getClassName());
+        assertEq(REAL_ARR_ARR_OBJECT, field_.getRealClassName(cont_));
+        assertEq(ARR_ARR_OBJECT, field_.getClassName(cont_));
         assertEq(1, Array.getLength(field_.getInstance()));
         Object[][] inter_ = (Object[][]) field_.getInstance();
         assertEq(1, inter_.length);
         Struct elt_ = (Struct) inter_[0][0];
-        assertEq("pkg.ExThree", elt_.getClassName());
+        assertEq("pkg.ExThree", elt_.getClassName(cont_));
         Struct intern_ = elt_.getFields().getVal(new ClassField("pkg.ExThree", "ance"));
-        assertEq(INTEGER, intern_.getRealClassName());
-        assertEq(INTEGER, intern_.getClassName());
+        assertEq(INTEGER, intern_.getRealClassName(cont_));
+        assertEq(INTEGER, intern_.getClassName(cont_));
         assertEq(17, (Number)intern_.getInstance());
     }
     @Test
     public void instanceArgument63Test() {
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = new ContextEl(50);
+        ContextEl cont_ = contextEl();
         cont_.setAccessValue(new AccessValueEx());
         String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' superclass='pkg.ExTwo' class0='pkg.Int3'>\n";
         xml_ += "<field access='"+PUBLIC_ACCESS+"' name='inst' class='"+PrimitiveTypeUtil.PRIM_INT+"' value='2i'/>\n";
@@ -8745,43 +8745,43 @@ public class ProcessXmlMethodTest {
         ret_ = instanceArgument("pkg.Ex", null, id_, args_, cont_);
         assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
         Struct str_ = ret_.getStruct();
-        assertEq(CUST_BASE, str_.getRealClassName());
-        assertEq("pkg.Ex", str_.getClassName());
+        assertEq(CUST_BASE, str_.getRealClassName(cont_));
+        assertEq("pkg.Ex", str_.getClassName(cont_));
         assertTrue(!str_.isJavaObject());
         Struct field_;
         field_ = str_.getFields().getVal(new ClassField("pkg.Ex", "inst"));
-        assertEq(INTEGER, field_.getRealClassName());
-        assertEq(INTEGER, field_.getClassName());
+        assertEq(INTEGER, field_.getRealClassName(cont_));
+        assertEq(INTEGER, field_.getClassName(cont_));
         assertEq(2, (Number)field_.getInstance());
         field_ = str_.getFields().getVal(new ClassField("pkg.ExTwo", "sec"));
-        assertEq(INTEGER, field_.getRealClassName());
-        assertEq(INTEGER, field_.getClassName());
+        assertEq(INTEGER, field_.getRealClassName(cont_));
+        assertEq(INTEGER, field_.getClassName(cont_));
         assertEq(24, (Number)field_.getInstance());
         field_ = str_.getFields().getVal(new ClassField("pkg.ExTwo", "fourth"));
-        assertEq(INTEGER, field_.getRealClassName());
-        assertEq(INTEGER, field_.getClassName());
+        assertEq(INTEGER, field_.getRealClassName(cont_));
+        assertEq(INTEGER, field_.getClassName(cont_));
         assertEq(1, (Number)field_.getInstance());
         field_ = str_.getFields().getVal(new ClassField("pkg.ExTwo", "elt"));
-        assertEq(CUST_BASE, field_.getRealClassName());
-        assertEq("pkg.ExThree", field_.getClassName());
+        assertEq(CUST_BASE, field_.getRealClassName(cont_));
+        assertEq("pkg.ExThree", field_.getClassName(cont_));
         assertEq(17, (Number)field_.getFields().getVal(new ClassField("pkg.ExThree", "ance")).getInstance());
         field_ = str_.getFields().getVal(new ClassField("pkg.ExTwo", "third"));
-        assertEq(REAL_ARR_ARR_OBJECT, field_.getRealClassName());
-        assertEq(ARR_ARR_OBJECT, field_.getClassName());
+        assertEq(REAL_ARR_ARR_OBJECT, field_.getRealClassName(cont_));
+        assertEq(ARR_ARR_OBJECT, field_.getClassName(cont_));
         assertEq(1, Array.getLength(field_.getInstance()));
         Object[][] inter_ = (Object[][]) field_.getInstance();
         assertEq(1, inter_.length);
         Struct elt_ = (Struct) inter_[0][0];
-        assertEq("pkg.ExThree", elt_.getClassName());
+        assertEq("pkg.ExThree", elt_.getClassName(cont_));
         Struct intern_ = elt_.getFields().getVal(new ClassField("pkg.ExThree", "ance"));
-        assertEq(INTEGER, intern_.getRealClassName());
-        assertEq(INTEGER, intern_.getClassName());
+        assertEq(INTEGER, intern_.getRealClassName(cont_));
+        assertEq(INTEGER, intern_.getClassName(cont_));
         assertEq(17, (Number)intern_.getInstance());
     }
     @Test
     public void instanceArgument64Test() {
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = new ContextEl(50);
+        ContextEl cont_ = contextEl();
         cont_.setAccessValue(new AccessValueEx());
         String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' superclass='pkg.ExTwo' class0='pkg.Int3'>\n";
         xml_ += "<field access='"+PUBLIC_ACCESS+"' name='inst' class='"+PrimitiveTypeUtil.PRIM_INT+"' value='2i'/>\n";
@@ -8841,43 +8841,43 @@ public class ProcessXmlMethodTest {
         ret_ = instanceArgument("pkg.Ex", null, id_, args_, cont_);
         assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
         Struct str_ = ret_.getStruct();
-        assertEq(CUST_BASE, str_.getRealClassName());
-        assertEq("pkg.Ex", str_.getClassName());
+        assertEq(CUST_BASE, str_.getRealClassName(cont_));
+        assertEq("pkg.Ex", str_.getClassName(cont_));
         assertTrue(!str_.isJavaObject());
         Struct field_;
         field_ = str_.getFields().getVal(new ClassField("pkg.Ex", "inst"));
-        assertEq(INTEGER, field_.getRealClassName());
-        assertEq(INTEGER, field_.getClassName());
+        assertEq(INTEGER, field_.getRealClassName(cont_));
+        assertEq(INTEGER, field_.getClassName(cont_));
         assertEq(2, (Number)field_.getInstance());
         field_ = str_.getFields().getVal(new ClassField("pkg.ExTwo", "sec"));
-        assertEq(INTEGER, field_.getRealClassName());
-        assertEq(INTEGER, field_.getClassName());
+        assertEq(INTEGER, field_.getRealClassName(cont_));
+        assertEq(INTEGER, field_.getClassName(cont_));
         assertEq(24, (Number)field_.getInstance());
         field_ = str_.getFields().getVal(new ClassField("pkg.ExTwo", "fourth"));
-        assertEq(INTEGER, field_.getRealClassName());
-        assertEq(INTEGER, field_.getClassName());
+        assertEq(INTEGER, field_.getRealClassName(cont_));
+        assertEq(INTEGER, field_.getClassName(cont_));
         assertEq(1, (Number)field_.getInstance());
         field_ = str_.getFields().getVal(new ClassField("pkg.ExTwo", "elt"));
-        assertEq(CUST_BASE, field_.getRealClassName());
-        assertEq("pkg.ExThree", field_.getClassName());
+        assertEq(CUST_BASE, field_.getRealClassName(cont_));
+        assertEq("pkg.ExThree", field_.getClassName(cont_));
         assertEq(17, (Number)field_.getFields().getVal(new ClassField("pkg.ExThree", "ance")).getInstance());
         field_ = str_.getFields().getVal(new ClassField("pkg.ExTwo", "third"));
-        assertEq(REAL_ARR_ARR_OBJECT, field_.getRealClassName());
-        assertEq(ARR_ARR_OBJECT, field_.getClassName());
+        assertEq(REAL_ARR_ARR_OBJECT, field_.getRealClassName(cont_));
+        assertEq(ARR_ARR_OBJECT, field_.getClassName(cont_));
         assertEq(1, Array.getLength(field_.getInstance()));
         Object[][] inter_ = (Object[][]) field_.getInstance();
         assertEq(1, inter_.length);
         Struct elt_ = (Struct) inter_[0][0];
-        assertEq("pkg.ExThree", elt_.getClassName());
+        assertEq("pkg.ExThree", elt_.getClassName(cont_));
         Struct intern_ = elt_.getFields().getVal(new ClassField("pkg.ExThree", "ance"));
-        assertEq(INTEGER, intern_.getRealClassName());
-        assertEq(INTEGER, intern_.getClassName());
+        assertEq(INTEGER, intern_.getRealClassName(cont_));
+        assertEq(INTEGER, intern_.getClassName(cont_));
         assertEq(17, (Number)intern_.getInstance());
     }
     @Test
     public void instanceArgument65Test() {
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = new ContextEl(50);
+        ContextEl cont_ = contextEl();
         cont_.setAccessValue(new AccessValueEx());
         String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' superclass='pkg.ExTwo' class0='pkg.Int3'>\n";
         xml_ += "<field access='"+PUBLIC_ACCESS+"' name='inst' class='"+PrimitiveTypeUtil.PRIM_INT+"' value='2i'/>\n";
@@ -8934,43 +8934,43 @@ public class ProcessXmlMethodTest {
         ret_ = instanceArgument("pkg.Ex", null, id_, args_, cont_);
         assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
         Struct str_ = ret_.getStruct();
-        assertEq(CUST_BASE, str_.getRealClassName());
-        assertEq("pkg.Ex", str_.getClassName());
+        assertEq(CUST_BASE, str_.getRealClassName(cont_));
+        assertEq("pkg.Ex", str_.getClassName(cont_));
         assertTrue(!str_.isJavaObject());
         Struct field_;
         field_ = str_.getFields().getVal(new ClassField("pkg.Ex", "inst"));
-        assertEq(INTEGER, field_.getRealClassName());
-        assertEq(INTEGER, field_.getClassName());
+        assertEq(INTEGER, field_.getRealClassName(cont_));
+        assertEq(INTEGER, field_.getClassName(cont_));
         assertEq(2, (Number)field_.getInstance());
         field_ = str_.getFields().getVal(new ClassField("pkg.ExTwo", "sec"));
-        assertEq(INTEGER, field_.getRealClassName());
-        assertEq(INTEGER, field_.getClassName());
+        assertEq(INTEGER, field_.getRealClassName(cont_));
+        assertEq(INTEGER, field_.getClassName(cont_));
         assertEq(24, (Number)field_.getInstance());
         field_ = str_.getFields().getVal(new ClassField("pkg.ExTwo", "fourth"));
-        assertEq(INTEGER, field_.getRealClassName());
-        assertEq(INTEGER, field_.getClassName());
+        assertEq(INTEGER, field_.getRealClassName(cont_));
+        assertEq(INTEGER, field_.getClassName(cont_));
         assertEq(1, (Number)field_.getInstance());
         field_ = str_.getFields().getVal(new ClassField("pkg.ExTwo", "elt"));
-        assertEq(CUST_BASE, field_.getRealClassName());
-        assertEq("pkg.ExThree", field_.getClassName());
+        assertEq(CUST_BASE, field_.getRealClassName(cont_));
+        assertEq("pkg.ExThree", field_.getClassName(cont_));
         assertEq(17, (Number)field_.getFields().getVal(new ClassField("pkg.ExThree", "ance")).getInstance());
         field_ = str_.getFields().getVal(new ClassField("pkg.ExTwo", "third"));
-        assertEq(REAL_ARR_ARR_OBJECT, field_.getRealClassName());
-        assertEq(ARR_ARR_OBJECT, field_.getClassName());
+        assertEq(REAL_ARR_ARR_OBJECT, field_.getRealClassName(cont_));
+        assertEq(ARR_ARR_OBJECT, field_.getClassName(cont_));
         assertEq(1, Array.getLength(field_.getInstance()));
         Object[][] inter_ = (Object[][]) field_.getInstance();
         assertEq(1, inter_.length);
         Struct elt_ = (Struct) inter_[0][0];
-        assertEq("pkg.ExThree", elt_.getClassName());
+        assertEq("pkg.ExThree", elt_.getClassName(cont_));
         Struct intern_ = elt_.getFields().getVal(new ClassField("pkg.ExThree", "ance"));
-        assertEq(INTEGER, intern_.getRealClassName());
-        assertEq(INTEGER, intern_.getClassName());
+        assertEq(INTEGER, intern_.getRealClassName(cont_));
+        assertEq(INTEGER, intern_.getClassName(cont_));
         assertEq(17, (Number)intern_.getInstance());
     }
     @Test
     public void instanceArgument66Test() {
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = new ContextEl(50);
+        ContextEl cont_ = contextEl();
         cont_.setAccessValue(new AccessValueEx());
         String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' superclass='pkg.ExTwo' class0='pkg.Int3'>\n";
         xml_ += "<field access='"+PUBLIC_ACCESS+"' name='inst' class='"+PrimitiveTypeUtil.PRIM_INT+"' value='2i'/>\n";
@@ -9007,19 +9007,19 @@ public class ProcessXmlMethodTest {
         Argument ret_;
         ret_ = instanceArgument("pkg.ExThree", null, id_, args_, cont_);
         Struct str_ = ret_.getStruct();
-        assertEq(CUST_BASE, str_.getRealClassName());
-        assertEq("pkg.ExThree", str_.getClassName());
+        assertEq(CUST_BASE, str_.getRealClassName(cont_));
+        assertEq("pkg.ExThree", str_.getClassName(cont_));
         assertTrue(!str_.isJavaObject());
         Struct field_;
         field_ = str_.getFields().getVal(new ClassField("pkg.ExThree", "ance"));
-        assertEq(INTEGER, field_.getRealClassName());
-        assertEq(INTEGER, field_.getClassName());
+        assertEq(INTEGER, field_.getRealClassName(cont_));
+        assertEq(INTEGER, field_.getClassName(cont_));
         assertEq(9, (Number)field_.getInstance());
     }
     @Test
     public void instanceArgument67Test() {
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = new ContextEl(50);
+        ContextEl cont_ = contextEl();
         cont_.setAccessValue(new AccessValueEx());
         String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' superclass='pkg.ExTwo' class0='pkg.Int3'>\n";
         xml_ += "<field access='"+PUBLIC_ACCESS+"' name='inst' class='"+PrimitiveTypeUtil.PRIM_INT+"' value='2i'/>\n";
@@ -9058,19 +9058,19 @@ public class ProcessXmlMethodTest {
         Argument ret_;
         ret_ = instanceArgument("pkg.ExThree", null, id_, args_, cont_);
         Struct str_ = ret_.getStruct();
-        assertEq(CUST_BASE, str_.getRealClassName());
-        assertEq("pkg.ExThree", str_.getClassName());
+        assertEq(CUST_BASE, str_.getRealClassName(cont_));
+        assertEq("pkg.ExThree", str_.getClassName(cont_));
         assertTrue(!str_.isJavaObject());
         Struct field_;
         field_ = str_.getFields().getVal(new ClassField("pkg.ExThree", "ance"));
-        assertEq(INTEGER, field_.getRealClassName());
-        assertEq(INTEGER, field_.getClassName());
+        assertEq(INTEGER, field_.getRealClassName(cont_));
+        assertEq(INTEGER, field_.getClassName(cont_));
         assertEq(9, (Number)field_.getInstance());
     }
     @Test
     public void instanceArgument68Test() {
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = new ContextEl(50);
+        ContextEl cont_ = contextEl();
         cont_.setAccessValue(new AccessValueEx());
         String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' superclass='pkg.ExTwo' class0='pkg.Int3'>\n";
         xml_ += "<field access='"+PUBLIC_ACCESS+"' name='inst' class='"+PrimitiveTypeUtil.PRIM_INT+"' value='2i'/>\n";
@@ -9112,19 +9112,19 @@ public class ProcessXmlMethodTest {
         Argument ret_;
         ret_ = instanceArgument("pkg.ExThree", null, id_, args_, cont_);
         Struct str_ = ret_.getStruct();
-        assertEq(CUST_BASE, str_.getRealClassName());
-        assertEq("pkg.ExThree", str_.getClassName());
+        assertEq(CUST_BASE, str_.getRealClassName(cont_));
+        assertEq("pkg.ExThree", str_.getClassName(cont_));
         assertTrue(!str_.isJavaObject());
         Struct field_;
         field_ = str_.getFields().getVal(new ClassField("pkg.ExThree", "ance"));
-        assertEq(INTEGER, field_.getRealClassName());
-        assertEq(INTEGER, field_.getClassName());
+        assertEq(INTEGER, field_.getRealClassName(cont_));
+        assertEq(INTEGER, field_.getClassName(cont_));
         assertEq(10, (Number)field_.getInstance());
     }
     @Test
     public void instanceArgument69Test() {
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = new ContextEl(50);
+        ContextEl cont_ = contextEl();
         cont_.setAccessValue(new AccessValueEx());
         String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' superclass='pkg.ExTwo' class0='pkg.Int3'>\n";
         xml_ += "<field access='"+PUBLIC_ACCESS+"' name='inst' class='"+PrimitiveTypeUtil.PRIM_INT+"' value='2i'/>\n";
@@ -9165,19 +9165,19 @@ public class ProcessXmlMethodTest {
         Argument ret_;
         ret_ = instanceArgument("pkg.ExThree", null, id_, args_, cont_);
         Struct str_ = ret_.getStruct();
-        assertEq(CUST_BASE, str_.getRealClassName());
-        assertEq("pkg.ExThree", str_.getClassName());
+        assertEq(CUST_BASE, str_.getRealClassName(cont_));
+        assertEq("pkg.ExThree", str_.getClassName(cont_));
         assertTrue(!str_.isJavaObject());
         Struct field_;
         field_ = str_.getFields().getVal(new ClassField("pkg.ExThree", "ance"));
-        assertEq(INTEGER, field_.getRealClassName());
-        assertEq(INTEGER, field_.getClassName());
+        assertEq(INTEGER, field_.getRealClassName(cont_));
+        assertEq(INTEGER, field_.getClassName(cont_));
         assertEq(10, (Number)field_.getInstance());
     }
     @Test
     public void instanceArgument70Test() {
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = new ContextEl(50);
+        ContextEl cont_ = contextEl();
         cont_.setAccessValue(new AccessValueEx());
         String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' superclass='pkg.ExTwo' class0='pkg.Int3'>\n";
         xml_ += "<field access='"+PUBLIC_ACCESS+"' name='inst' class='"+PrimitiveTypeUtil.PRIM_INT+"' value='2i'/>\n";
@@ -9218,19 +9218,19 @@ public class ProcessXmlMethodTest {
         Argument ret_;
         ret_ = instanceArgument("pkg.ExThree", null, id_, args_, cont_);
         Struct str_ = ret_.getStruct();
-        assertEq(CUST_BASE, str_.getRealClassName());
-        assertEq("pkg.ExThree", str_.getClassName());
+        assertEq(CUST_BASE, str_.getRealClassName(cont_));
+        assertEq("pkg.ExThree", str_.getClassName(cont_));
         assertTrue(!str_.isJavaObject());
         Struct field_;
         field_ = str_.getFields().getVal(new ClassField("pkg.ExThree", "ance"));
-        assertEq(INTEGER, field_.getRealClassName());
-        assertEq(INTEGER, field_.getClassName());
+        assertEq(INTEGER, field_.getRealClassName(cont_));
+        assertEq(INTEGER, field_.getClassName(cont_));
         assertEq(10, (Number)field_.getInstance());
     }
     @Test
     public void instanceArgument71Test() {
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = new ContextEl(50);
+        ContextEl cont_ = contextEl();
         cont_.setAccessValue(new AccessValueEx());
         String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' superclass='pkg.ExTwo' class0='pkg.Int3'>\n";
         xml_ += "<field access='"+PUBLIC_ACCESS+"' name='inst' class='"+PrimitiveTypeUtil.PRIM_INT+"' value='2i'/>\n";
@@ -9271,19 +9271,19 @@ public class ProcessXmlMethodTest {
         Argument ret_;
         ret_ = instanceArgument("pkg.ExThree", null, id_, args_, cont_);
         Struct str_ = ret_.getStruct();
-        assertEq(CUST_BASE, str_.getRealClassName());
-        assertEq("pkg.ExThree", str_.getClassName());
+        assertEq(CUST_BASE, str_.getRealClassName(cont_));
+        assertEq("pkg.ExThree", str_.getClassName(cont_));
         assertTrue(!str_.isJavaObject());
         Struct field_;
         field_ = str_.getFields().getVal(new ClassField("pkg.ExThree", "ance"));
-        assertEq(INTEGER, field_.getRealClassName());
-        assertEq(INTEGER, field_.getClassName());
+        assertEq(INTEGER, field_.getRealClassName(cont_));
+        assertEq(INTEGER, field_.getClassName(cont_));
         assertEq(10, (Number)field_.getInstance());
     }
     @Test
     public void instanceArgument72Test() {
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = new ContextEl(50);
+        ContextEl cont_ = contextEl();
         cont_.setAccessValue(new AccessValueEx());
         String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' superclass='pkg.ExTwo' class0='pkg.Int3'>\n";
         xml_ += "<field static='' access='"+PUBLIC_ACCESS+"' name='inst' class='"+PrimitiveTypeUtil.PRIM_INT+"' value='2i'/>\n";
@@ -9325,19 +9325,19 @@ public class ProcessXmlMethodTest {
         Argument ret_;
         ret_ = instanceArgument("pkg.ExThree", null, id_, args_, cont_);
         Struct str_ = ret_.getStruct();
-        assertEq(CUST_BASE, str_.getRealClassName());
-        assertEq("pkg.ExThree", str_.getClassName());
+        assertEq(CUST_BASE, str_.getRealClassName(cont_));
+        assertEq("pkg.ExThree", str_.getClassName(cont_));
         assertTrue(!str_.isJavaObject());
         Struct field_;
         field_ = str_.getFields().getVal(new ClassField("pkg.ExThree", "ance"));
-        assertEq(INTEGER, field_.getRealClassName());
-        assertEq(INTEGER, field_.getClassName());
+        assertEq(INTEGER, field_.getRealClassName(cont_));
+        assertEq(INTEGER, field_.getClassName(cont_));
         assertEq(9, (Number)field_.getInstance());
     }
     @Test
     public void instanceArgument73Test() {
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = new ContextEl(50);
+        ContextEl cont_ = contextEl();
         cont_.setAccessValue(new AccessValueEx());
         String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' superclass='pkg.ExTwo' class0='pkg.Int3' class1='pkg.Int2'>\n";
         xml_ += "<field access='"+PUBLIC_ACCESS+"' name='inst' class='"+PrimitiveTypeUtil.PRIM_INT+"' value='2i'/>\n";
@@ -9383,19 +9383,19 @@ public class ProcessXmlMethodTest {
         Argument ret_;
         ret_ = instanceArgument("pkg.ExThree", null, id_, args_, cont_);
         Struct str_ = ret_.getStruct();
-        assertEq(CUST_BASE, str_.getRealClassName());
-        assertEq("pkg.ExThree", str_.getClassName());
+        assertEq(CUST_BASE, str_.getRealClassName(cont_));
+        assertEq("pkg.ExThree", str_.getClassName(cont_));
         assertTrue(!str_.isJavaObject());
         Struct field_;
         field_ = str_.getFields().getVal(new ClassField("pkg.ExThree", "ance"));
-        assertEq(INTEGER, field_.getRealClassName());
-        assertEq(INTEGER, field_.getClassName());
+        assertEq(INTEGER, field_.getRealClassName(cont_));
+        assertEq(INTEGER, field_.getClassName(cont_));
         assertEq(9, (Number)field_.getInstance());
     }
     @Test
     public void instanceArgument74Test() {
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = new ContextEl(50);
+        ContextEl cont_ = contextEl();
         cont_.setAccessValue(new AccessValueEx());
         String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' superclass='pkg.ExTwo' class0='pkg.Int3' class1='pkg.Int2'>\n";
         xml_ += "<field access='"+PUBLIC_ACCESS+"' name='inst' class='"+PrimitiveTypeUtil.PRIM_INT+"' value='2i'/>\n";
@@ -9440,19 +9440,19 @@ public class ProcessXmlMethodTest {
         Argument ret_;
         ret_ = instanceArgument("pkg.ExThree", null, id_, args_, cont_);
         Struct str_ = ret_.getStruct();
-        assertEq(CUST_BASE, str_.getRealClassName());
-        assertEq("pkg.ExThree", str_.getClassName());
+        assertEq(CUST_BASE, str_.getRealClassName(cont_));
+        assertEq("pkg.ExThree", str_.getClassName(cont_));
         assertTrue(!str_.isJavaObject());
         Struct field_;
         field_ = str_.getFields().getVal(new ClassField("pkg.ExThree", "ance"));
-        assertEq(INTEGER, field_.getRealClassName());
-        assertEq(INTEGER, field_.getClassName());
+        assertEq(INTEGER, field_.getRealClassName(cont_));
+        assertEq(INTEGER, field_.getClassName(cont_));
         assertEq(9, (Number)field_.getInstance());
     }
     @Test
     public void instanceArgument75Test() {
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = new ContextEl(50);
+        ContextEl cont_ = contextEl();
         cont_.setAccessValue(new AccessValueEx());
         String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' superclass='pkg.ExTwo'>\n";
         xml_ += "<field access='"+PUBLIC_ACCESS+"' name='inst' class='"+PrimitiveTypeUtil.PRIM_INT+"' value='2i'/>\n";
@@ -9494,24 +9494,24 @@ public class ProcessXmlMethodTest {
         ret_ = instanceArgument("pkg.Ex", null, id_, args_, cont_);
         assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
         Struct str_ = ret_.getStruct();
-        assertEq(CUST_BASE, str_.getRealClassName());
-        assertEq("pkg.Ex", str_.getClassName());
+        assertEq(CUST_BASE, str_.getRealClassName(cont_));
+        assertEq("pkg.Ex", str_.getClassName(cont_));
         Struct field_;
         field_ = str_.getFields().getVal(new ClassField("pkg.Ex", "inst"));
-        assertEq(INTEGER, field_.getRealClassName());
-        assertEq(INTEGER, field_.getClassName());
+        assertEq(INTEGER, field_.getRealClassName(cont_));
+        assertEq(INTEGER, field_.getClassName(cont_));
         assertEq(2, (Number)field_.getInstance());
         field_ = str_.getFields().getVal(new ClassField("pkg.ExTwo", "sec"));
-        assertEq(INTEGER, field_.getRealClassName());
-        assertEq(INTEGER, field_.getClassName());
+        assertEq(INTEGER, field_.getRealClassName(cont_));
+        assertEq(INTEGER, field_.getClassName(cont_));
         assertEq(24, (Number)field_.getInstance());
         field_ = str_.getFields().getVal(new ClassField("pkg.ExTwo", "fourth"));
-        assertEq(INTEGER, field_.getRealClassName());
-        assertEq(INTEGER, field_.getClassName());
+        assertEq(INTEGER, field_.getRealClassName(cont_));
+        assertEq(INTEGER, field_.getClassName(cont_));
         assertEq(1, (Number)field_.getInstance());
         field_ = str_.getFields().getVal(new ClassField("pkg.ExTwo", "third"));
-        assertEq(REAL_ARR_STRUCT, field_.getRealClassName());
-        assertEq(ARR_CUST, field_.getClassName());
+        assertEq(REAL_ARR_STRUCT, field_.getRealClassName(cont_));
+        assertEq(ARR_CUST, field_.getClassName(cont_));
         assertEq(1, Array.getLength(field_.getInstance()));
         Struct elt_ = (Struct) Array.get(field_.getInstance(), 0);
         assertTrue(elt_.isNull());
@@ -9527,7 +9527,7 @@ public class ProcessXmlMethodTest {
         xml_ += "<field access='"+PUBLIC_ACCESS+"' name='ance' class='"+PrimitiveTypeUtil.PRIM_INT+"' value='$classchoice$pkg$Ex$$inst;;;'/>\n";
         xml_ += "</class>\n";
         files_.put("pkg/ExTwo."+Classes.EXT, xml_);
-        ContextEl cont_ = new ContextEl();
+        ContextEl cont_ = contextEl();
         Classes.validateAll(files_, cont_);
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.ExTwo");
@@ -9535,19 +9535,19 @@ public class ProcessXmlMethodTest {
         Argument ret_;
         ret_ = instanceArgument("pkg.ExTwo", null, id_, args_, cont_);
         Struct str_ = ret_.getStruct();
-        assertEq(CUST_BASE, str_.getRealClassName());
-        assertEq("pkg.ExTwo", str_.getClassName());
+        assertEq(CUST_BASE, str_.getRealClassName(cont_));
+        assertEq("pkg.ExTwo", str_.getClassName(cont_));
         Struct field_;
         field_ = str_.getFields().getVal(new ClassField("pkg.ExTwo", "ance"));
-        assertEq(INTEGER, field_.getRealClassName());
-        assertEq(INTEGER, field_.getClassName());
+        assertEq(INTEGER, field_.getRealClassName(cont_));
+        assertEq(INTEGER, field_.getClassName(cont_));
         assertEq(2, (Number)field_.getInstance());
     }
 
     @Test
     public void instanceArgument77Test() {
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = new ContextEl(50);
+        ContextEl cont_ = contextEl();
         cont_.setAccessValue(new AccessValueEx());
         String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' superclass='pkg.ExTwo'>\n";
         xml_ += "<field access='"+PUBLIC_ACCESS+"' name='inst' class='"+PrimitiveTypeUtil.PRIM_INT+"' value='2i'/>\n";
@@ -9586,30 +9586,30 @@ public class ProcessXmlMethodTest {
         ret_ = instanceArgument("pkg.Ex", null, id_, args_, cont_);
         assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
         Struct str_ = ret_.getStruct();
-        assertEq(CUST_BASE, str_.getRealClassName());
-        assertEq("pkg.Ex", str_.getClassName());
+        assertEq(CUST_BASE, str_.getRealClassName(cont_));
+        assertEq("pkg.Ex", str_.getClassName(cont_));
         Struct field_;
         field_ = str_.getFields().getVal(new ClassField("pkg.Ex", "inst"));
-        assertEq(INTEGER, field_.getRealClassName());
-        assertEq(INTEGER, field_.getClassName());
+        assertEq(INTEGER, field_.getRealClassName(cont_));
+        assertEq(INTEGER, field_.getClassName(cont_));
         assertEq(2, (Number)field_.getInstance());
         field_ = str_.getFields().getVal(new ClassField("pkg.ExTwo", "sec"));
-        assertEq(INTEGER, field_.getRealClassName());
-        assertEq(INTEGER, field_.getClassName());
+        assertEq(INTEGER, field_.getRealClassName(cont_));
+        assertEq(INTEGER, field_.getClassName(cont_));
         assertEq(38, (Number)field_.getInstance());
         field_ = str_.getFields().getVal(new ClassField("pkg.ExTwo", "third"));
-        assertEq(CUST_BASE, field_.getRealClassName());
-        assertEq("pkg.ExThree", field_.getClassName());
+        assertEq(CUST_BASE, field_.getRealClassName(cont_));
+        assertEq("pkg.ExThree", field_.getClassName(cont_));
         Struct intern_ = field_.getFields().getVal(new ClassField("pkg.ExThree", "ance"));
-        assertEq(INTEGER, intern_.getRealClassName());
-        assertEq(INTEGER, intern_.getClassName());
+        assertEq(INTEGER, intern_.getRealClassName(cont_));
+        assertEq(INTEGER, intern_.getClassName(cont_));
         assertEq(17, (Number)intern_.getInstance());
     }
 
     @Test
     public void instanceArgument78Test() {
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = new ContextEl(50);
+        ContextEl cont_ = contextEl();
         cont_.setAccessValue(new AccessValueEx());
         String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' superclass='pkg.ExTwo'>\n";
         xml_ += "<field access='"+PUBLIC_ACCESS+"' name='inst' class='"+PrimitiveTypeUtil.PRIM_INT+"' value='2i'/>\n";
@@ -9641,26 +9641,26 @@ public class ProcessXmlMethodTest {
         ret_ = instanceArgument("pkg.Ex", null, id_, args_, cont_);
         assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
         Struct str_ = ret_.getStruct();
-        assertEq(CUST_BASE, str_.getRealClassName());
-        assertEq("pkg.Ex", str_.getClassName());
+        assertEq(CUST_BASE, str_.getRealClassName(cont_));
+        assertEq("pkg.Ex", str_.getClassName(cont_));
         Struct field_;
         field_ = str_.getFields().getVal(new ClassField("pkg.Ex", "inst"));
-        assertEq(INTEGER, field_.getRealClassName());
-        assertEq(INTEGER, field_.getClassName());
+        assertEq(INTEGER, field_.getRealClassName(cont_));
+        assertEq(INTEGER, field_.getClassName(cont_));
         assertEq(2, (Number)field_.getInstance());
         field_ = str_.getFields().getVal(new ClassField("pkg.ExTwo", "sec"));
-        assertEq(INTEGER, field_.getRealClassName());
-        assertEq(INTEGER, field_.getClassName());
+        assertEq(INTEGER, field_.getRealClassName(cont_));
+        assertEq(INTEGER, field_.getClassName(cont_));
         assertEq(38, (Number)field_.getInstance());
         field_ = str_.getFields().getVal(new ClassField("pkg.ExTwo", "third"));
-        assertEq(CUST_BASE, field_.getRealClassName());
-        assertEq("pkg.ExThree", field_.getClassName());
+        assertEq(CUST_BASE, field_.getRealClassName(cont_));
+        assertEq("pkg.ExThree", field_.getClassName(cont_));
     }
 
     @Test
     public void instanceArgument79Test() {
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = new ContextEl(50);
+        ContextEl cont_ = contextEl();
         cont_.setAccessValue(new AccessValueEx());
         String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' superclass='pkg.ExTwo'>\n";
         xml_ += "<field access='"+PUBLIC_ACCESS+"' name='inst' class='"+PrimitiveTypeUtil.PRIM_INT+"' value='sec;;;'/>\n";
@@ -9692,25 +9692,25 @@ public class ProcessXmlMethodTest {
         ret_ = instanceArgument("pkg.Ex", null, id_, args_, cont_);
         assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
         Struct str_ = ret_.getStruct();
-        assertEq(CUST_BASE, str_.getRealClassName());
-        assertEq("pkg.Ex", str_.getClassName());
+        assertEq(CUST_BASE, str_.getRealClassName(cont_));
+        assertEq("pkg.Ex", str_.getClassName(cont_));
         Struct field_;
         field_ = str_.getFields().getVal(new ClassField("pkg.Ex", "inst"));
-        assertEq(INTEGER, field_.getRealClassName());
-        assertEq(INTEGER, field_.getClassName());
+        assertEq(INTEGER, field_.getRealClassName(cont_));
+        assertEq(INTEGER, field_.getClassName(cont_));
         assertEq(38, (Number)field_.getInstance());
         field_ = str_.getFields().getVal(new ClassField("pkg.ExTwo", "sec"));
-        assertEq(INTEGER, field_.getRealClassName());
-        assertEq(INTEGER, field_.getClassName());
+        assertEq(INTEGER, field_.getRealClassName(cont_));
+        assertEq(INTEGER, field_.getClassName(cont_));
         assertEq(38, (Number)field_.getInstance());
         field_ = str_.getFields().getVal(new ClassField("pkg.ExTwo", "third"));
-        assertEq(CUST_BASE, field_.getRealClassName());
-        assertEq("pkg.ExThree", field_.getClassName());
+        assertEq(CUST_BASE, field_.getRealClassName(cont_));
+        assertEq("pkg.ExThree", field_.getClassName(cont_));
     }
     @Test
     public void instanceArgument80Test() {
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = new ContextEl(50);
+        ContextEl cont_ = contextEl();
         cont_.setAccessValue(new AccessValueEx());
         String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' superclass='pkg.ExTwo' class0='pkg.Int3'>\n";
         xml_ += "<field access='"+PUBLIC_ACCESS+"' name='inst' class='"+PrimitiveTypeUtil.PRIM_INT+"' value='2i'/>\n";
@@ -9766,47 +9766,47 @@ public class ProcessXmlMethodTest {
         ret_ = instanceArgument("pkg.Ex", null, id_, args_, cont_);
         assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
         Struct str_ = ret_.getStruct();
-        assertEq(CUST_BASE, str_.getRealClassName());
-        assertEq("pkg.Ex", str_.getClassName());
+        assertEq(CUST_BASE, str_.getRealClassName(cont_));
+        assertEq("pkg.Ex", str_.getClassName(cont_));
         assertTrue(!str_.isJavaObject());
         Struct field_;
         field_ = str_.getFields().getVal(new ClassField("pkg.Ex", "inst"));
-        assertEq(INTEGER, field_.getRealClassName());
-        assertEq(INTEGER, field_.getClassName());
+        assertEq(INTEGER, field_.getRealClassName(cont_));
+        assertEq(INTEGER, field_.getClassName(cont_));
         assertEq(2, (Number)field_.getInstance());
         field_ = str_.getFields().getVal(new ClassField("pkg.ExTwo", "sec"));
-        assertEq(INTEGER, field_.getRealClassName());
-        assertEq(INTEGER, field_.getClassName());
+        assertEq(INTEGER, field_.getRealClassName(cont_));
+        assertEq(INTEGER, field_.getClassName(cont_));
         assertEq(24, (Number)field_.getInstance());
         field_ = str_.getFields().getVal(new ClassField("pkg.ExTwo", "fourth"));
-        assertEq(INTEGER, field_.getRealClassName());
-        assertEq(INTEGER, field_.getClassName());
+        assertEq(INTEGER, field_.getRealClassName(cont_));
+        assertEq(INTEGER, field_.getClassName(cont_));
         assertEq(1, (Number)field_.getInstance());
         field_ = str_.getFields().getVal(new ClassField("pkg.Int3", "common"));
-        assertEq(INTEGER, field_.getRealClassName());
-        assertEq(INTEGER, field_.getClassName());
+        assertEq(INTEGER, field_.getRealClassName(cont_));
+        assertEq(INTEGER, field_.getClassName(cont_));
         assertEq(1, (Number)field_.getInstance());
         field_ = str_.getFields().getVal(new ClassField("pkg.ExTwo", "elt"));
-        assertEq(CUST_BASE, field_.getRealClassName());
-        assertEq("pkg.ExThree", field_.getClassName());
+        assertEq(CUST_BASE, field_.getRealClassName(cont_));
+        assertEq("pkg.ExThree", field_.getClassName(cont_));
         assertEq(17, (Number)field_.getFields().getVal(new ClassField("pkg.ExThree", "ance")).getInstance());
         field_ = str_.getFields().getVal(new ClassField("pkg.ExTwo", "third"));
-        assertEq(REAL_ARR_ARR_OBJECT, field_.getRealClassName());
-        assertEq(ARR_ARR_OBJECT, field_.getClassName());
+        assertEq(REAL_ARR_ARR_OBJECT, field_.getRealClassName(cont_));
+        assertEq(ARR_ARR_OBJECT, field_.getClassName(cont_));
         assertEq(1, Array.getLength(field_.getInstance()));
         Object[][] inter_ = (Object[][]) field_.getInstance();
         assertEq(1, inter_.length);
         Struct elt_ = (Struct) inter_[0][0];
-        assertEq("pkg.ExThree", elt_.getClassName());
+        assertEq("pkg.ExThree", elt_.getClassName(cont_));
         Struct intern_ = elt_.getFields().getVal(new ClassField("pkg.ExThree", "ance"));
-        assertEq(INTEGER, intern_.getRealClassName());
-        assertEq(INTEGER, intern_.getClassName());
+        assertEq(INTEGER, intern_.getRealClassName(cont_));
+        assertEq(INTEGER, intern_.getClassName(cont_));
         assertEq(17, (Number)intern_.getInstance());
     }
     @Test
     public void instanceArgument81Test() {
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = new ContextEl(50);
+        ContextEl cont_ = contextEl();
         cont_.setAccessValue(new AccessValueEx());
         String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' superclass='pkg.ExTwo' class0='pkg.Int3'>\n";
         xml_ += "<field access='"+PUBLIC_ACCESS+"' name='inst' class='"+PrimitiveTypeUtil.PRIM_INT+"' value='2i'/>\n";
@@ -9866,47 +9866,47 @@ public class ProcessXmlMethodTest {
         ret_ = instanceArgument("pkg.Ex", null, id_, args_, cont_);
         assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
         Struct str_ = ret_.getStruct();
-        assertEq(CUST_BASE, str_.getRealClassName());
-        assertEq("pkg.Ex", str_.getClassName());
+        assertEq(CUST_BASE, str_.getRealClassName(cont_));
+        assertEq("pkg.Ex", str_.getClassName(cont_));
         assertTrue(!str_.isJavaObject());
         Struct field_;
         field_ = str_.getFields().getVal(new ClassField("pkg.Ex", "inst"));
-        assertEq(INTEGER, field_.getRealClassName());
-        assertEq(INTEGER, field_.getClassName());
+        assertEq(INTEGER, field_.getRealClassName(cont_));
+        assertEq(INTEGER, field_.getClassName(cont_));
         assertEq(3, (Number)field_.getInstance());
         field_ = str_.getFields().getVal(new ClassField("pkg.ExTwo", "sec"));
-        assertEq(INTEGER, field_.getRealClassName());
-        assertEq(INTEGER, field_.getClassName());
+        assertEq(INTEGER, field_.getRealClassName(cont_));
+        assertEq(INTEGER, field_.getClassName(cont_));
         assertEq(24, (Number)field_.getInstance());
         field_ = str_.getFields().getVal(new ClassField("pkg.ExTwo", "fourth"));
-        assertEq(INTEGER, field_.getRealClassName());
-        assertEq(INTEGER, field_.getClassName());
+        assertEq(INTEGER, field_.getRealClassName(cont_));
+        assertEq(INTEGER, field_.getClassName(cont_));
         assertEq(1, (Number)field_.getInstance());
         field_ = str_.getFields().getVal(new ClassField("pkg.Int3", "common"));
-        assertEq(INTEGER, field_.getRealClassName());
-        assertEq(INTEGER, field_.getClassName());
+        assertEq(INTEGER, field_.getRealClassName(cont_));
+        assertEq(INTEGER, field_.getClassName(cont_));
         assertEq(1, (Number)field_.getInstance());
         field_ = str_.getFields().getVal(new ClassField("pkg.ExTwo", "elt"));
-        assertEq(CUST_BASE, field_.getRealClassName());
-        assertEq("pkg.ExThree", field_.getClassName());
+        assertEq(CUST_BASE, field_.getRealClassName(cont_));
+        assertEq("pkg.ExThree", field_.getClassName(cont_));
         assertEq(17, (Number)field_.getFields().getVal(new ClassField("pkg.ExThree", "ance")).getInstance());
         field_ = str_.getFields().getVal(new ClassField("pkg.ExTwo", "third"));
-        assertEq(REAL_ARR_ARR_OBJECT, field_.getRealClassName());
-        assertEq(ARR_ARR_OBJECT, field_.getClassName());
+        assertEq(REAL_ARR_ARR_OBJECT, field_.getRealClassName(cont_));
+        assertEq(ARR_ARR_OBJECT, field_.getClassName(cont_));
         assertEq(1, Array.getLength(field_.getInstance()));
         Object[][] inter_ = (Object[][]) field_.getInstance();
         assertEq(1, inter_.length);
         Struct elt_ = (Struct) inter_[0][0];
-        assertEq("pkg.ExThree", elt_.getClassName());
+        assertEq("pkg.ExThree", elt_.getClassName(cont_));
         Struct intern_ = elt_.getFields().getVal(new ClassField("pkg.ExThree", "ance"));
-        assertEq(INTEGER, intern_.getRealClassName());
-        assertEq(INTEGER, intern_.getClassName());
+        assertEq(INTEGER, intern_.getRealClassName(cont_));
+        assertEq(INTEGER, intern_.getClassName(cont_));
         assertEq(17, (Number)intern_.getInstance());
     }
     @Test
     public void instanceArgument82Test() {
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = new ContextEl(50);
+        ContextEl cont_ = contextEl();
         cont_.setAccessValue(new AccessValueEx());
         String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' class0='pkg.Int2'>\n";
         xml_ += "<constructor access='"+PUBLIC_ACCESS+"'>\n";
@@ -9942,30 +9942,30 @@ public class ProcessXmlMethodTest {
         Argument ret_;
         ret_ = instanceArgument("pkg.ExThree", null, id_, args_, cont_);
         Struct str_ = ret_.getStruct();
-        assertEq(CUST_BASE, str_.getRealClassName());
-        assertEq("pkg.ExThree", str_.getClassName());
+        assertEq(CUST_BASE, str_.getRealClassName(cont_));
+        assertEq("pkg.ExThree", str_.getClassName(cont_));
         assertTrue(!str_.isJavaObject());
         Struct field_;
         field_ = str_.getFields().getVal(new ClassField("pkg.ExThree", "inst"));
-        assertEq(CUST_BASE, field_.getRealClassName());
-        assertEq("pkg.Ex", field_.getClassName());
+        assertEq(CUST_BASE, field_.getRealClassName(cont_));
+        assertEq("pkg.Ex", field_.getClassName(cont_));
         Struct subField_ = field_.getFields().getVal(new ClassField("pkg.Int3", "common"));
-        assertEq(INTEGER, subField_.getRealClassName());
-        assertEq(INTEGER, subField_.getClassName());
+        assertEq(INTEGER, subField_.getRealClassName(cont_));
+        assertEq(INTEGER, subField_.getClassName(cont_));
         assertEq(2, (Number)subField_.getInstance());
         field_ = str_.getFields().getVal(new ClassField("pkg.ExThree", "ance"));
-        assertEq(CUST_BASE, field_.getRealClassName());
-        assertEq("pkg.Ex", field_.getClassName());
+        assertEq(CUST_BASE, field_.getRealClassName(cont_));
+        assertEq("pkg.Ex", field_.getClassName(cont_));
         subField_ = field_.getFields().getVal(new ClassField("pkg.Int3", "common"));
-        assertEq(INTEGER, subField_.getRealClassName());
-        assertEq(INTEGER, subField_.getClassName());
+        assertEq(INTEGER, subField_.getRealClassName(cont_));
+        assertEq(INTEGER, subField_.getClassName(cont_));
         assertEq(3, (Number)subField_.getInstance());
     }
 
     @Test
     public void instanceArgument83Test() {
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = new ContextEl(50);
+        ContextEl cont_ = contextEl();
         cont_.setAccessValue(new AccessValueEx());
         String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' class0='pkg.Int2'>\n";
         xml_ += "<constructor access='"+PUBLIC_ACCESS+"'>\n";
@@ -10009,30 +10009,30 @@ public class ProcessXmlMethodTest {
         Argument ret_;
         ret_ = instanceArgument("pkg.ExThree", null, id_, args_, cont_);
         Struct str_ = ret_.getStruct();
-        assertEq(CUST_BASE, str_.getRealClassName());
-        assertEq("pkg.ExThree", str_.getClassName());
+        assertEq(CUST_BASE, str_.getRealClassName(cont_));
+        assertEq("pkg.ExThree", str_.getClassName(cont_));
         assertTrue(!str_.isJavaObject());
         Struct field_;
         field_ = str_.getFields().getVal(new ClassField("pkg.ExThree", "inst"));
-        assertEq(CUST_BASE, field_.getRealClassName());
-        assertEq("pkg.Ex", field_.getClassName());
+        assertEq(CUST_BASE, field_.getRealClassName(cont_));
+        assertEq("pkg.Ex", field_.getClassName(cont_));
         Struct subField_ = field_.getFields().getVal(new ClassField("pkg.Int3", "common"));
-        assertEq(INTEGER, subField_.getRealClassName());
-        assertEq(INTEGER, subField_.getClassName());
+        assertEq(INTEGER, subField_.getRealClassName(cont_));
+        assertEq(INTEGER, subField_.getClassName(cont_));
         assertEq(2, (Number)subField_.getInstance());
         field_ = str_.getFields().getVal(new ClassField("pkg.ExThree", "ance"));
-        assertEq(CUST_BASE, field_.getRealClassName());
-        assertEq("pkg.Ex", field_.getClassName());
+        assertEq(CUST_BASE, field_.getRealClassName(cont_));
+        assertEq("pkg.Ex", field_.getClassName(cont_));
         subField_ = field_.getFields().getVal(new ClassField("pkg.Int3", "common"));
-        assertEq(INTEGER, subField_.getRealClassName());
-        assertEq(INTEGER, subField_.getClassName());
+        assertEq(INTEGER, subField_.getRealClassName(cont_));
+        assertEq(INTEGER, subField_.getClassName(cont_));
         assertEq(3, (Number)subField_.getInstance());
     }
 
     @Test
     public void instanceArgument84Test() {
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = new ContextEl(50);
+        ContextEl cont_ = contextEl();
         cont_.setAccessValue(new AccessValueEx());
         String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' class0='pkg.Int2'>\n";
         xml_ += "<constructor access='"+PUBLIC_ACCESS+"'>\n";
@@ -10075,29 +10075,29 @@ public class ProcessXmlMethodTest {
         Argument ret_;
         ret_ = instanceArgument("pkg.ExThree", null, id_, args_, cont_);
         Struct str_ = ret_.getStruct();
-        assertEq(CUST_BASE, str_.getRealClassName());
-        assertEq("pkg.ExThree", str_.getClassName());
+        assertEq(CUST_BASE, str_.getRealClassName(cont_));
+        assertEq("pkg.ExThree", str_.getClassName(cont_));
         assertTrue(!str_.isJavaObject());
         Struct field_;
         field_ = str_.getFields().getVal(new ClassField("pkg.ExThree", "inst"));
-        assertEq(CUST_BASE, field_.getRealClassName());
-        assertEq("pkg.Ex", field_.getClassName());
+        assertEq(CUST_BASE, field_.getRealClassName(cont_));
+        assertEq("pkg.Ex", field_.getClassName(cont_));
         Struct subField_ = field_.getFields().getVal(new ClassField("pkg.Int3", "common"));
-        assertEq(INTEGER, subField_.getRealClassName());
-        assertEq(INTEGER, subField_.getClassName());
+        assertEq(INTEGER, subField_.getRealClassName(cont_));
+        assertEq(INTEGER, subField_.getClassName(cont_));
         assertEq(2, (Number)subField_.getInstance());
         field_ = str_.getFields().getVal(new ClassField("pkg.ExThree", "ance"));
-        assertEq(CUST_BASE, field_.getRealClassName());
-        assertEq("pkg.Ex", field_.getClassName());
+        assertEq(CUST_BASE, field_.getRealClassName(cont_));
+        assertEq("pkg.Ex", field_.getClassName(cont_));
         subField_ = field_.getFields().getVal(new ClassField("pkg.Int3", "common"));
-        assertEq(INTEGER, subField_.getRealClassName());
-        assertEq(INTEGER, subField_.getClassName());
+        assertEq(INTEGER, subField_.getRealClassName(cont_));
+        assertEq(INTEGER, subField_.getClassName(cont_));
         assertEq(3, (Number)subField_.getInstance());
     }
     @Test
     public void instanceArgument85Test() {
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = new ContextEl(50);
+        ContextEl cont_ = contextEl();
         cont_.setAccessValue(new AccessValueEx());
         String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' superclass='pkg.ExTwo' class0='pkg.Int3' class1='pkg.Int'>\n";
         xml_ += "<field access='"+PUBLIC_ACCESS+"' name='inst' class='"+PrimitiveTypeUtil.PRIM_INT+"' value='2i'/>\n";
@@ -10156,43 +10156,43 @@ public class ProcessXmlMethodTest {
         ret_ = instanceArgument("pkg.Ex", null, id_, args_, cont_);
         assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
         Struct str_ = ret_.getStruct();
-        assertEq(CUST_BASE, str_.getRealClassName());
-        assertEq("pkg.Ex", str_.getClassName());
+        assertEq(CUST_BASE, str_.getRealClassName(cont_));
+        assertEq("pkg.Ex", str_.getClassName(cont_));
         assertTrue(!str_.isJavaObject());
         Struct field_;
         field_ = str_.getFields().getVal(new ClassField("pkg.Ex", "inst"));
-        assertEq(INTEGER, field_.getRealClassName());
-        assertEq(INTEGER, field_.getClassName());
+        assertEq(INTEGER, field_.getRealClassName(cont_));
+        assertEq(INTEGER, field_.getClassName(cont_));
         assertEq(2, (Number)field_.getInstance());
         field_ = str_.getFields().getVal(new ClassField("pkg.ExTwo", "sec"));
-        assertEq(INTEGER, field_.getRealClassName());
-        assertEq(INTEGER, field_.getClassName());
+        assertEq(INTEGER, field_.getRealClassName(cont_));
+        assertEq(INTEGER, field_.getClassName(cont_));
         assertEq(24, (Number)field_.getInstance());
         field_ = str_.getFields().getVal(new ClassField("pkg.ExTwo", "fourth"));
-        assertEq(INTEGER, field_.getRealClassName());
-        assertEq(INTEGER, field_.getClassName());
+        assertEq(INTEGER, field_.getRealClassName(cont_));
+        assertEq(INTEGER, field_.getClassName(cont_));
         assertEq(1, (Number)field_.getInstance());
         field_ = str_.getFields().getVal(new ClassField("pkg.ExTwo", "elt"));
-        assertEq(CUST_BASE, field_.getRealClassName());
-        assertEq("pkg.ExThree", field_.getClassName());
+        assertEq(CUST_BASE, field_.getRealClassName(cont_));
+        assertEq("pkg.ExThree", field_.getClassName(cont_));
         assertEq(17, (Number)field_.getFields().getVal(new ClassField("pkg.ExThree", "ance")).getInstance());
         field_ = str_.getFields().getVal(new ClassField("pkg.ExTwo", "third"));
-        assertEq(REAL_ARR_ARR_OBJECT, field_.getRealClassName());
-        assertEq(ARR_ARR_OBJECT, field_.getClassName());
+        assertEq(REAL_ARR_ARR_OBJECT, field_.getRealClassName(cont_));
+        assertEq(ARR_ARR_OBJECT, field_.getClassName(cont_));
         assertEq(1, Array.getLength(field_.getInstance()));
         Object[][] inter_ = (Object[][]) field_.getInstance();
         assertEq(1, inter_.length);
         Struct elt_ = (Struct) inter_[0][0];
-        assertEq("pkg.ExThree", elt_.getClassName());
+        assertEq("pkg.ExThree", elt_.getClassName(cont_));
         Struct intern_ = elt_.getFields().getVal(new ClassField("pkg.ExThree", "ance"));
-        assertEq(INTEGER, intern_.getRealClassName());
-        assertEq(INTEGER, intern_.getClassName());
+        assertEq(INTEGER, intern_.getRealClassName(cont_));
+        assertEq(INTEGER, intern_.getClassName(cont_));
         assertEq(17, (Number)intern_.getInstance());
     }
     @Test
     public void instanceArgument86Test() {
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = new ContextEl(50);
+        ContextEl cont_ = contextEl();
         cont_.setAccessValue(new AccessValueEx());
         String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' superclass='pkg.ExTwo' class0='pkg.Int3' class1='pkg.Int'>\n";
         xml_ += "<field access='"+PUBLIC_ACCESS+"' name='inst' class='"+PrimitiveTypeUtil.PRIM_INT+"' value='2i'/>\n";
@@ -10251,43 +10251,43 @@ public class ProcessXmlMethodTest {
         ret_ = instanceArgument("pkg.Ex", null, id_, args_, cont_);
         assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
         Struct str_ = ret_.getStruct();
-        assertEq(CUST_BASE, str_.getRealClassName());
-        assertEq("pkg.Ex", str_.getClassName());
+        assertEq(CUST_BASE, str_.getRealClassName(cont_));
+        assertEq("pkg.Ex", str_.getClassName(cont_));
         assertTrue(!str_.isJavaObject());
         Struct field_;
         field_ = str_.getFields().getVal(new ClassField("pkg.Ex", "inst"));
-        assertEq(INTEGER, field_.getRealClassName());
-        assertEq(INTEGER, field_.getClassName());
+        assertEq(INTEGER, field_.getRealClassName(cont_));
+        assertEq(INTEGER, field_.getClassName(cont_));
         assertEq(2, (Number)field_.getInstance());
         field_ = str_.getFields().getVal(new ClassField("pkg.ExTwo", "sec"));
-        assertEq(INTEGER, field_.getRealClassName());
-        assertEq(INTEGER, field_.getClassName());
+        assertEq(INTEGER, field_.getRealClassName(cont_));
+        assertEq(INTEGER, field_.getClassName(cont_));
         assertEq(24, (Number)field_.getInstance());
         field_ = str_.getFields().getVal(new ClassField("pkg.ExTwo", "fourth"));
-        assertEq(INTEGER, field_.getRealClassName());
-        assertEq(INTEGER, field_.getClassName());
+        assertEq(INTEGER, field_.getRealClassName(cont_));
+        assertEq(INTEGER, field_.getClassName(cont_));
         assertEq(1, (Number)field_.getInstance());
         field_ = str_.getFields().getVal(new ClassField("pkg.ExTwo", "elt"));
-        assertEq(CUST_BASE, field_.getRealClassName());
-        assertEq("pkg.ExThree", field_.getClassName());
+        assertEq(CUST_BASE, field_.getRealClassName(cont_));
+        assertEq("pkg.ExThree", field_.getClassName(cont_));
         assertEq(17, (Number)field_.getFields().getVal(new ClassField("pkg.ExThree", "ance")).getInstance());
         field_ = str_.getFields().getVal(new ClassField("pkg.ExTwo", "third"));
-        assertEq(REAL_ARR_ARR_OBJECT, field_.getRealClassName());
-        assertEq(ARR_ARR_OBJECT, field_.getClassName());
+        assertEq(REAL_ARR_ARR_OBJECT, field_.getRealClassName(cont_));
+        assertEq(ARR_ARR_OBJECT, field_.getClassName(cont_));
         assertEq(1, Array.getLength(field_.getInstance()));
         Object[][] inter_ = (Object[][]) field_.getInstance();
         assertEq(1, inter_.length);
         Struct elt_ = (Struct) inter_[0][0];
-        assertEq("pkg.ExThree", elt_.getClassName());
+        assertEq("pkg.ExThree", elt_.getClassName(cont_));
         Struct intern_ = elt_.getFields().getVal(new ClassField("pkg.ExThree", "ance"));
-        assertEq(INTEGER, intern_.getRealClassName());
-        assertEq(INTEGER, intern_.getClassName());
+        assertEq(INTEGER, intern_.getRealClassName(cont_));
+        assertEq(INTEGER, intern_.getClassName(cont_));
         assertEq(17, (Number)intern_.getInstance());
     }
     @Test
     public void instanceArgument87Test() {
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = new ContextEl(50);
+        ContextEl cont_ = contextEl();
         cont_.setAccessValue(new AccessValueEx());
         String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' superclass='pkg.ExTwo' class0='pkg.Int3' class1='pkg.Int'>\n";
         xml_ += "<field access='"+PUBLIC_ACCESS+"' name='inst' class='"+PrimitiveTypeUtil.PRIM_INT+"' value='2i'/>\n";
@@ -10344,37 +10344,37 @@ public class ProcessXmlMethodTest {
         ret_ = instanceArgument("pkg.Ex", null, id_, args_, cont_);
         assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
         Struct str_ = ret_.getStruct();
-        assertEq(CUST_BASE, str_.getRealClassName());
-        assertEq("pkg.Ex", str_.getClassName());
+        assertEq(CUST_BASE, str_.getRealClassName(cont_));
+        assertEq("pkg.Ex", str_.getClassName(cont_));
         assertTrue(!str_.isJavaObject());
         Struct field_;
         field_ = str_.getFields().getVal(new ClassField("pkg.Ex", "inst"));
-        assertEq(INTEGER, field_.getRealClassName());
-        assertEq(INTEGER, field_.getClassName());
+        assertEq(INTEGER, field_.getRealClassName(cont_));
+        assertEq(INTEGER, field_.getClassName(cont_));
         assertEq(2, (Number)field_.getInstance());
         field_ = str_.getFields().getVal(new ClassField("pkg.ExTwo", "sec"));
-        assertEq(INTEGER, field_.getRealClassName());
-        assertEq(INTEGER, field_.getClassName());
+        assertEq(INTEGER, field_.getRealClassName(cont_));
+        assertEq(INTEGER, field_.getClassName(cont_));
         assertEq(24, (Number)field_.getInstance());
         field_ = str_.getFields().getVal(new ClassField("pkg.ExTwo", "fourth"));
-        assertEq(INTEGER, field_.getRealClassName());
-        assertEq(INTEGER, field_.getClassName());
+        assertEq(INTEGER, field_.getRealClassName(cont_));
+        assertEq(INTEGER, field_.getClassName(cont_));
         assertEq(1, (Number)field_.getInstance());
         field_ = str_.getFields().getVal(new ClassField("pkg.ExTwo", "elt"));
-        assertEq(CUST_BASE, field_.getRealClassName());
-        assertEq("pkg.ExThree", field_.getClassName());
+        assertEq(CUST_BASE, field_.getRealClassName(cont_));
+        assertEq("pkg.ExThree", field_.getClassName(cont_));
         assertEq(17, (Number)field_.getFields().getVal(new ClassField("pkg.ExThree", "ance")).getInstance());
         field_ = str_.getFields().getVal(new ClassField("pkg.ExTwo", "third"));
-        assertEq(REAL_ARR_ARR_OBJECT, field_.getRealClassName());
-        assertEq(ARR_ARR_OBJECT, field_.getClassName());
+        assertEq(REAL_ARR_ARR_OBJECT, field_.getRealClassName(cont_));
+        assertEq(ARR_ARR_OBJECT, field_.getClassName(cont_));
         assertEq(1, Array.getLength(field_.getInstance()));
         Object[][] inter_ = (Object[][]) field_.getInstance();
         assertEq(1, inter_.length);
         Struct elt_ = (Struct) inter_[0][0];
-        assertEq("pkg.ExThree", elt_.getClassName());
+        assertEq("pkg.ExThree", elt_.getClassName(cont_));
         Struct intern_ = elt_.getFields().getVal(new ClassField("pkg.ExThree", "ance"));
-        assertEq(INTEGER, intern_.getRealClassName());
-        assertEq(INTEGER, intern_.getClassName());
+        assertEq(INTEGER, intern_.getRealClassName(cont_));
+        assertEq(INTEGER, intern_.getClassName(cont_));
         assertEq(17, (Number)intern_.getInstance());
     }
     @Test
@@ -10399,7 +10399,7 @@ public class ProcessXmlMethodTest {
         xml_ += "<field access='"+PUBLIC_ACCESS+"' name='inst' class='$int' value='$static$pkg$Ex.TWO;;;.doubleValue()'/>\n";
         xml_ += "</class>\n";
         files_.put("pkg/ExCont."+Classes.EXT, xml_);
-        ContextEl cont_ = new ContextEl(50);
+        ContextEl cont_ = contextEl();
         cont_.setAccessValue(new AccessValueEx());
         Classes.validateAll(files_, cont_);
         CustList<Argument> args_ = new CustList<Argument>();
@@ -10408,13 +10408,13 @@ public class ProcessXmlMethodTest {
         Argument ret_;
         ret_ = instanceArgument("pkg.ExCont", null, id_, args_, cont_);
         Struct str_ = ret_.getStruct();
-        assertEq(CUST_BASE, str_.getRealClassName());
-        assertEq("pkg.ExCont", str_.getClassName());
+        assertEq(CUST_BASE, str_.getRealClassName(cont_));
+        assertEq("pkg.ExCont", str_.getClassName(cont_));
         assertTrue(!str_.isJavaObject());
         Struct field_;
         field_ = str_.getFields().getVal(new ClassField("pkg.ExCont", "inst"));
-        assertEq(INTEGER, field_.getRealClassName());
-        assertEq(INTEGER, field_.getClassName());
+        assertEq(INTEGER, field_.getRealClassName(cont_));
+        assertEq(INTEGER, field_.getClassName(cont_));
         assertEq(5, (Number)field_.getInstance());
     }
     @Test
@@ -10439,7 +10439,7 @@ public class ProcessXmlMethodTest {
         xml_ += "<field access='"+PUBLIC_ACCESS+"' name='inst' class='$int' value='$static$pkg$Ex.ONE;;;.doubleValue()'/>\n";
         xml_ += "</class>\n";
         files_.put("pkg/ExCont."+Classes.EXT, xml_);
-        ContextEl cont_ = new ContextEl(50);
+        ContextEl cont_ = contextEl();
         cont_.setAccessValue(new AccessValueEx());
         Classes.validateAll(files_, cont_);
         CustList<Argument> args_ = new CustList<Argument>();
@@ -10448,13 +10448,13 @@ public class ProcessXmlMethodTest {
         Argument ret_;
         ret_ = instanceArgument("pkg.ExCont", null, id_, args_, cont_);
         Struct str_ = ret_.getStruct();
-        assertEq(CUST_BASE, str_.getRealClassName());
-        assertEq("pkg.ExCont", str_.getClassName());
+        assertEq(CUST_BASE, str_.getRealClassName(cont_));
+        assertEq("pkg.ExCont", str_.getClassName(cont_));
         assertTrue(!str_.isJavaObject());
         Struct field_;
         field_ = str_.getFields().getVal(new ClassField("pkg.ExCont", "inst"));
-        assertEq(INTEGER, field_.getRealClassName());
-        assertEq(INTEGER, field_.getClassName());
+        assertEq(INTEGER, field_.getRealClassName(cont_));
+        assertEq(INTEGER, field_.getClassName(cont_));
         assertEq(4, (Number)field_.getInstance());
     }
     @Test
@@ -10479,7 +10479,7 @@ public class ProcessXmlMethodTest {
         xml_ += "<field access='"+PUBLIC_ACCESS+"' name='inst' class='java.lang.String' value='$static$pkg$Ex.TWO;;;.name()'/>\n";
         xml_ += "</class>\n";
         files_.put("pkg/ExCont."+Classes.EXT, xml_);
-        ContextEl cont_ = new ContextEl(50);
+        ContextEl cont_ = contextEl();
         cont_.setAccessValue(new AccessValueEx());
         Classes.validateAll(files_, cont_);
         CustList<Argument> args_ = new CustList<Argument>();
@@ -10488,13 +10488,13 @@ public class ProcessXmlMethodTest {
         Argument ret_;
         ret_ = instanceArgument("pkg.ExCont", null, id_, args_, cont_);
         Struct str_ = ret_.getStruct();
-        assertEq(CUST_BASE, str_.getRealClassName());
-        assertEq("pkg.ExCont", str_.getClassName());
+        assertEq(CUST_BASE, str_.getRealClassName(cont_));
+        assertEq("pkg.ExCont", str_.getClassName(cont_));
         assertTrue(!str_.isJavaObject());
         Struct field_;
         field_ = str_.getFields().getVal(new ClassField("pkg.ExCont", "inst"));
-        assertEq(STRING, field_.getRealClassName());
-        assertEq(STRING, field_.getClassName());
+        assertEq(STRING, field_.getRealClassName(cont_));
+        assertEq(STRING, field_.getClassName(cont_));
         assertEq("TWO", field_.getInstance());
     }
     @Test
@@ -10519,7 +10519,7 @@ public class ProcessXmlMethodTest {
         xml_ += "<field access='"+PUBLIC_ACCESS+"' name='inst' class='$int' value='$static$pkg$Ex.TWO;;;.ordinal()'/>\n";
         xml_ += "</class>\n";
         files_.put("pkg/ExCont."+Classes.EXT, xml_);
-        ContextEl cont_ = new ContextEl(50);
+        ContextEl cont_ = contextEl();
         cont_.setAccessValue(new AccessValueEx());
         Classes.validateAll(files_, cont_);
         CustList<Argument> args_ = new CustList<Argument>();
@@ -10528,13 +10528,13 @@ public class ProcessXmlMethodTest {
         Argument ret_;
         ret_ = instanceArgument("pkg.ExCont", null, id_, args_, cont_);
         Struct str_ = ret_.getStruct();
-        assertEq(CUST_BASE, str_.getRealClassName());
-        assertEq("pkg.ExCont", str_.getClassName());
+        assertEq(CUST_BASE, str_.getRealClassName(cont_));
+        assertEq("pkg.ExCont", str_.getClassName(cont_));
         assertTrue(!str_.isJavaObject());
         Struct field_;
         field_ = str_.getFields().getVal(new ClassField("pkg.ExCont", "inst"));
-        assertEq(INTEGER, field_.getRealClassName());
-        assertEq(INTEGER, field_.getClassName());
+        assertEq(INTEGER, field_.getRealClassName(cont_));
+        assertEq(INTEGER, field_.getClassName(cont_));
         assertEq(1, (Number)field_.getInstance());
     }
     @Test
@@ -10559,7 +10559,7 @@ public class ProcessXmlMethodTest {
         xml_ += "<field access='"+PUBLIC_ACCESS+"' name='inst' class='$int' value='$static$pkg$Ex.values().length'/>\n";
         xml_ += "</class>\n";
         files_.put("pkg/ExCont."+Classes.EXT, xml_);
-        ContextEl cont_ = new ContextEl(50);
+        ContextEl cont_ = contextEl();
         cont_.setAccessValue(new AccessValueEx());
         Classes.validateAll(files_, cont_);
         CustList<Argument> args_ = new CustList<Argument>();
@@ -10568,13 +10568,13 @@ public class ProcessXmlMethodTest {
         Argument ret_;
         ret_ = instanceArgument("pkg.ExCont", null, id_, args_, cont_);
         Struct str_ = ret_.getStruct();
-        assertEq(CUST_BASE, str_.getRealClassName());
-        assertEq("pkg.ExCont", str_.getClassName());
+        assertEq(CUST_BASE, str_.getRealClassName(cont_));
+        assertEq("pkg.ExCont", str_.getClassName(cont_));
         assertTrue(!str_.isJavaObject());
         Struct field_;
         field_ = str_.getFields().getVal(new ClassField("pkg.ExCont", "inst"));
-        assertEq(INTEGER, field_.getRealClassName());
-        assertEq(INTEGER, field_.getClassName());
+        assertEq(INTEGER, field_.getRealClassName(cont_));
+        assertEq(INTEGER, field_.getClassName(cont_));
         assertEq(2, (Number)field_.getInstance());
     }
     @Test
@@ -10599,7 +10599,7 @@ public class ProcessXmlMethodTest {
         xml_ += "<field access='"+PUBLIC_ACCESS+"' name='inst' class='pkg.Ex' value='$static$pkg$Ex.valueOf(&quot;ONE&quot;)'/>\n";
         xml_ += "</class>\n";
         files_.put("pkg/ExCont."+Classes.EXT, xml_);
-        ContextEl cont_ = new ContextEl(50);
+        ContextEl cont_ = contextEl();
         cont_.setAccessValue(new AccessValueEx());
         Classes.validateAll(files_, cont_);
         CustList<Argument> args_ = new CustList<Argument>();
@@ -10608,13 +10608,13 @@ public class ProcessXmlMethodTest {
         Argument ret_;
         ret_ = instanceArgument("pkg.ExCont", null, id_, args_, cont_);
         Struct str_ = ret_.getStruct();
-        assertEq(CUST_BASE, str_.getRealClassName());
-        assertEq("pkg.ExCont", str_.getClassName());
+        assertEq(CUST_BASE, str_.getRealClassName(cont_));
+        assertEq("pkg.ExCont", str_.getClassName(cont_));
         assertTrue(!str_.isJavaObject());
         Struct field_;
         field_ = str_.getFields().getVal(new ClassField("pkg.ExCont", "inst"));
-        assertEq(CUST_ENUM, field_.getRealClassName());
-        assertEq("pkg.Ex", field_.getClassName());
+        assertEq(CUST_ENUM, field_.getRealClassName(cont_));
+        assertEq("pkg.Ex", field_.getClassName(cont_));
         assertSame(cont_.getClasses().getStaticField(new ClassField("pkg.Ex", "ONE")), field_);
     }
     @Test
@@ -10639,7 +10639,7 @@ public class ProcessXmlMethodTest {
         xml_ += "<field access='"+PUBLIC_ACCESS+"' name='inst' class='$int' value='$static$pkg$Ex.doubleValue()'/>\n";
         xml_ += "</class>\n";
         files_.put("pkg/ExCont."+Classes.EXT, xml_);
-        ContextEl cont_ = new ContextEl(50);
+        ContextEl cont_ = contextEl();
         cont_.setAccessValue(new AccessValueEx());
         Classes.validateAll(files_, cont_);
         CustList<Argument> args_ = new CustList<Argument>();
@@ -10648,13 +10648,13 @@ public class ProcessXmlMethodTest {
         Argument ret_;
         ret_ = instanceArgument("pkg.ExCont", null, id_, args_, cont_);
         Struct str_ = ret_.getStruct();
-        assertEq(CUST_BASE, str_.getRealClassName());
-        assertEq("pkg.ExCont", str_.getClassName());
+        assertEq(CUST_BASE, str_.getRealClassName(cont_));
+        assertEq("pkg.ExCont", str_.getClassName(cont_));
         assertTrue(!str_.isJavaObject());
         Struct field_;
         field_ = str_.getFields().getVal(new ClassField("pkg.ExCont", "inst"));
-        assertEq(INTEGER, field_.getRealClassName());
-        assertEq(INTEGER, field_.getClassName());
+        assertEq(INTEGER, field_.getRealClassName(cont_));
+        assertEq(INTEGER, field_.getClassName(cont_));
         assertEq(2, (Number) field_.getInstance());
     }
     @Test
@@ -10674,7 +10674,7 @@ public class ProcessXmlMethodTest {
         xml_ += "</method>\n";
         xml_ += "</class>\n";
         files_.put("pkg/Ex."+Classes.EXT, xml_);
-        ContextEl cont_ = new ContextEl(50);
+        ContextEl cont_ = contextEl();
         cont_.setAccessValue(new AccessValueEx());
         Classes.validateAll(files_, cont_);
         CustList<Argument> args_ = new CustList<Argument>();
@@ -10683,13 +10683,13 @@ public class ProcessXmlMethodTest {
         Argument ret_;
         ret_ = instanceArgument("pkg.Ex", null, id_, args_, cont_);
         Struct str_ = ret_.getStruct();
-        assertEq(CUST_BASE, str_.getRealClassName());
-        assertEq("pkg.Ex", str_.getClassName());
+        assertEq(CUST_BASE, str_.getRealClassName(cont_));
+        assertEq("pkg.Ex", str_.getClassName(cont_));
         assertTrue(!str_.isJavaObject());
         Struct field_;
         field_ = str_.getFields().getVal(new ClassField("pkg.Ex", "array"));
-        assertEq(REAL_ARR_OBJECT, field_.getRealClassName());
-        assertEq(ARR_OBJECT, field_.getClassName());
+        assertEq(REAL_ARR_OBJECT, field_.getRealClassName(cont_));
+        assertEq(ARR_OBJECT, field_.getClassName(cont_));
         Object[] array_ = (Object[]) field_.getInstance();
         assertEq(2, (Number) array_[0]);
     }
@@ -10714,7 +10714,7 @@ public class ProcessXmlMethodTest {
         xml_ += "</method>\n";
         xml_ += "</class>\n";
         files_.put("pkg/Ex."+Classes.EXT, xml_);
-        ContextEl cont_ = new ContextEl(50);
+        ContextEl cont_ = contextEl();
         cont_.setAccessValue(new AccessValueEx());
         Classes.validateAll(files_, cont_);
         CustList<Argument> args_ = new CustList<Argument>();
@@ -10723,13 +10723,13 @@ public class ProcessXmlMethodTest {
         Argument ret_;
         ret_ = instanceArgument("pkg.Ex", null, id_, args_, cont_);
         Struct str_ = ret_.getStruct();
-        assertEq(CUST_BASE, str_.getRealClassName());
-        assertEq("pkg.Ex", str_.getClassName());
+        assertEq(CUST_BASE, str_.getRealClassName(cont_));
+        assertEq("pkg.Ex", str_.getClassName(cont_));
         assertTrue(!str_.isJavaObject());
         Struct field_;
         field_ = str_.getFields().getVal(new ClassField("pkg.Ex", "array"));
-        assertEq(REAL_ARR_INTEGER, field_.getRealClassName());
-        assertEq(ARR_INTEGER, field_.getClassName());
+        assertEq(REAL_ARR_INTEGER, field_.getRealClassName(cont_));
+        assertEq(ARR_INTEGER, field_.getClassName(cont_));
         Object[] array_ = (Object[]) field_.getInstance();
         assertEq(15, (Number) array_[0]);
     }
@@ -10754,7 +10754,7 @@ public class ProcessXmlMethodTest {
         xml_ += "</method>\n";
         xml_ += "</class>\n";
         files_.put("pkg/Ex."+Classes.EXT, xml_);
-        ContextEl cont_ = new ContextEl(50);
+        ContextEl cont_ = contextEl();
         cont_.setAccessValue(new AccessValueEx());
         Classes.validateAll(files_, cont_);
         CustList<Argument> args_ = new CustList<Argument>();
@@ -10763,13 +10763,13 @@ public class ProcessXmlMethodTest {
         Argument ret_;
         ret_ = instanceArgument("pkg.Ex", null, id_, args_, cont_);
         Struct str_ = ret_.getStruct();
-        assertEq(CUST_BASE, str_.getRealClassName());
-        assertEq("pkg.Ex", str_.getClassName());
+        assertEq(CUST_BASE, str_.getRealClassName(cont_));
+        assertEq("pkg.Ex", str_.getClassName(cont_));
         assertTrue(!str_.isJavaObject());
         Struct field_;
         field_ = str_.getFields().getVal(new ClassField("pkg.Ex", "array"));
-        assertEq(REAL_ARR_INTEGER, field_.getRealClassName());
-        assertEq(ARR_INTEGER, field_.getClassName());
+        assertEq(REAL_ARR_INTEGER, field_.getRealClassName(cont_));
+        assertEq(ARR_INTEGER, field_.getClassName(cont_));
         Object[] array_ = (Object[]) field_.getInstance();
         assertEq(15, (Number) array_[0]);
     }
@@ -10801,7 +10801,7 @@ public class ProcessXmlMethodTest {
         xml_ += "</method>\n";
         xml_ += "</class>\n";
         files_.put("pkg/Ex."+Classes.EXT, xml_);
-        ContextEl cont_ = new ContextEl(50);
+        ContextEl cont_ = contextEl();
         cont_.setAccessValue(new AccessValueEx());
         Classes.validateAll(files_, cont_);
         CustList<Argument> args_ = new CustList<Argument>();
@@ -10810,13 +10810,13 @@ public class ProcessXmlMethodTest {
         Argument ret_;
         ret_ = instanceArgument("pkg.Ex", null, id_, args_, cont_);
         Struct str_ = ret_.getStruct();
-        assertEq(CUST_BASE, str_.getRealClassName());
-        assertEq("pkg.Ex", str_.getClassName());
+        assertEq(CUST_BASE, str_.getRealClassName(cont_));
+        assertEq("pkg.Ex", str_.getClassName(cont_));
         assertTrue(!str_.isJavaObject());
         Struct field_;
         field_ = str_.getFields().getVal(new ClassField("pkg.Ex", "array"));
-        assertEq(REAL_ARR_INTEGER, field_.getRealClassName());
-        assertEq(ARR_INTEGER, field_.getClassName());
+        assertEq(REAL_ARR_INTEGER, field_.getRealClassName(cont_));
+        assertEq(ARR_INTEGER, field_.getClassName(cont_));
         Object[] array_ = (Object[]) field_.getInstance();
         assertEq(15, (Number) array_[0]);
     }
@@ -10849,7 +10849,7 @@ public class ProcessXmlMethodTest {
         xml_ += "</method>\n";
         xml_ += "</class>\n";
         files_.put("pkg/Ex."+Classes.EXT, xml_);
-        ContextEl cont_ = new ContextEl(50);
+        ContextEl cont_ = contextEl();
         cont_.setAccessValue(new AccessValueEx());
         Classes.validateAll(files_, cont_);
         CustList<Argument> args_ = new CustList<Argument>();
@@ -10858,13 +10858,13 @@ public class ProcessXmlMethodTest {
         Argument ret_;
         ret_ = instanceArgument("pkg.Ex", null, id_, args_, cont_);
         Struct str_ = ret_.getStruct();
-        assertEq(CUST_BASE, str_.getRealClassName());
-        assertEq("pkg.Ex", str_.getClassName());
+        assertEq(CUST_BASE, str_.getRealClassName(cont_));
+        assertEq("pkg.Ex", str_.getClassName(cont_));
         assertTrue(!str_.isJavaObject());
         Struct field_;
         field_ = str_.getFields().getVal(new ClassField("pkg.Ex", "array"));
-        assertEq(REAL_ARR_INTEGER, field_.getRealClassName());
-        assertEq(ARR_INTEGER, field_.getClassName());
+        assertEq(REAL_ARR_INTEGER, field_.getRealClassName(cont_));
+        assertEq(ARR_INTEGER, field_.getClassName(cont_));
         Object[] array_ = (Object[]) field_.getInstance();
         assertEq(15, (Number) array_[0]);
     }
@@ -10898,7 +10898,7 @@ public class ProcessXmlMethodTest {
         xml_ += "</method>\n";
         xml_ += "</class>\n";
         files_.put("pkg/Ex."+Classes.EXT, xml_);
-        ContextEl cont_ = new ContextEl(50);
+        ContextEl cont_ = contextEl();
         cont_.setAccessValue(new AccessValueEx());
         Classes.validateAll(files_, cont_);
         CustList<Argument> args_ = new CustList<Argument>();
@@ -10907,13 +10907,13 @@ public class ProcessXmlMethodTest {
         Argument ret_;
         ret_ = instanceArgument("pkg.Ex", null, id_, args_, cont_);
         Struct str_ = ret_.getStruct();
-        assertEq(CUST_BASE, str_.getRealClassName());
-        assertEq("pkg.Ex", str_.getClassName());
+        assertEq(CUST_BASE, str_.getRealClassName(cont_));
+        assertEq("pkg.Ex", str_.getClassName(cont_));
         assertTrue(!str_.isJavaObject());
         Struct field_;
         field_ = str_.getFields().getVal(new ClassField("pkg.Ex", "array"));
-        assertEq(REAL_ARR_INTEGER, field_.getRealClassName());
-        assertEq(ARR_INTEGER, field_.getClassName());
+        assertEq(REAL_ARR_INTEGER, field_.getRealClassName(cont_));
+        assertEq(ARR_INTEGER, field_.getClassName(cont_));
         Object[] array_ = (Object[]) field_.getInstance();
         assertEq(15, (Number) array_[0]);
     }
@@ -10946,7 +10946,7 @@ public class ProcessXmlMethodTest {
         xml_ += "</method>\n";
         xml_ += "</class>\n";
         files_.put("pkg/Ex."+Classes.EXT, xml_);
-        ContextEl cont_ = new ContextEl(50);
+        ContextEl cont_ = contextEl();
         cont_.setAccessValue(new AccessValueEx());
         Classes.validateAll(files_, cont_);
         CustList<Argument> args_ = new CustList<Argument>();
@@ -10955,13 +10955,13 @@ public class ProcessXmlMethodTest {
         Argument ret_;
         ret_ = instanceArgument("pkg.Ex", null, id_, args_, cont_);
         Struct str_ = ret_.getStruct();
-        assertEq(CUST_BASE, str_.getRealClassName());
-        assertEq("pkg.Ex", str_.getClassName());
+        assertEq(CUST_BASE, str_.getRealClassName(cont_));
+        assertEq("pkg.Ex", str_.getClassName(cont_));
         assertTrue(!str_.isJavaObject());
         Struct field_;
         field_ = str_.getFields().getVal(new ClassField("pkg.Ex", "array"));
-        assertEq(REAL_ARR_INTEGER, field_.getRealClassName());
-        assertEq(ARR_INTEGER, field_.getClassName());
+        assertEq(REAL_ARR_INTEGER, field_.getRealClassName(cont_));
+        assertEq(ARR_INTEGER, field_.getClassName(cont_));
         Object[] array_ = (Object[]) field_.getInstance();
         assertEq(15, (Number) array_[0]);
     }
@@ -10993,7 +10993,7 @@ public class ProcessXmlMethodTest {
         xml_ += "<method access='"+PUBLIC_ACCESS+"' modifier='abstract' name='ordinal' class='"+PrimitiveTypeUtil.PRIM_INT+"'/>\n";
         xml_ += "</interface>\n";
         files_.put("pkg/Int."+Classes.EXT, xml_);
-        ContextEl cont_ = new ContextEl(50);
+        ContextEl cont_ = contextEl();
         cont_.setAccessValue(new AccessValueEx());
         Classes.validateAll(files_, cont_);
         CustList<Argument> args_ = new CustList<Argument>();
@@ -11002,13 +11002,13 @@ public class ProcessXmlMethodTest {
         Argument ret_;
         ret_ = instanceArgument("pkg.ExCont", null, id_, args_, cont_);
         Struct str_ = ret_.getStruct();
-        assertEq(CUST_BASE, str_.getRealClassName());
-        assertEq("pkg.ExCont", str_.getClassName());
+        assertEq(CUST_BASE, str_.getRealClassName(cont_));
+        assertEq("pkg.ExCont", str_.getClassName(cont_));
         assertTrue(!str_.isJavaObject());
         Struct field_;
         field_ = str_.getFields().getVal(new ClassField("pkg.ExCont", "inst"));
-        assertEq(STRING, field_.getRealClassName());
-        assertEq(STRING, field_.getClassName());
+        assertEq(STRING, field_.getRealClassName(cont_));
+        assertEq(STRING, field_.getClassName(cont_));
         assertEq("TWO", field_.getInstance());
     }
     @Test
@@ -11039,7 +11039,7 @@ public class ProcessXmlMethodTest {
         xml_ += "<method access='"+PUBLIC_ACCESS+"' modifier='abstract' name='ordinal' class='"+PrimitiveTypeUtil.PRIM_INT+"'/>\n";
         xml_ += "</interface>\n";
         files_.put("pkg/Int."+Classes.EXT, xml_);
-        ContextEl cont_ = new ContextEl(50);
+        ContextEl cont_ = contextEl();
         cont_.setAccessValue(new AccessValueEx());
         Classes.validateAll(files_, cont_);
         CustList<Argument> args_ = new CustList<Argument>();
@@ -11048,13 +11048,13 @@ public class ProcessXmlMethodTest {
         Argument ret_;
         ret_ = instanceArgument("pkg.ExCont", null, id_, args_, cont_);
         Struct str_ = ret_.getStruct();
-        assertEq(CUST_BASE, str_.getRealClassName());
-        assertEq("pkg.ExCont", str_.getClassName());
+        assertEq(CUST_BASE, str_.getRealClassName(cont_));
+        assertEq("pkg.ExCont", str_.getClassName(cont_));
         assertTrue(!str_.isJavaObject());
         Struct field_;
         field_ = str_.getFields().getVal(new ClassField("pkg.ExCont", "inst"));
-        assertEq(INTEGER, field_.getRealClassName());
-        assertEq(INTEGER, field_.getClassName());
+        assertEq(INTEGER, field_.getRealClassName(cont_));
+        assertEq(INTEGER, field_.getClassName(cont_));
         assertEq(1, (Number)field_.getInstance());
     }
     @Test
@@ -11085,7 +11085,7 @@ public class ProcessXmlMethodTest {
         xml_ += "<method access='"+PUBLIC_ACCESS+"' modifier='abstract' name='ordinal' class='"+PrimitiveTypeUtil.PRIM_INT+"'/>\n";
         xml_ += "</interface>\n";
         files_.put("pkg/Int."+Classes.EXT, xml_);
-        ContextEl cont_ = new ContextEl(50);
+        ContextEl cont_ = contextEl();
         cont_.setAccessValue(new AccessValueEx());
         Classes.validateAll(files_, cont_);
         CustList<Argument> args_ = new CustList<Argument>();
@@ -11094,13 +11094,13 @@ public class ProcessXmlMethodTest {
         Argument ret_;
         ret_ = instanceArgument("pkg.ExCont", null, id_, args_, cont_);
         Struct str_ = ret_.getStruct();
-        assertEq(CUST_BASE, str_.getRealClassName());
-        assertEq("pkg.ExCont", str_.getClassName());
+        assertEq(CUST_BASE, str_.getRealClassName(cont_));
+        assertEq("pkg.ExCont", str_.getClassName(cont_));
         assertTrue(!str_.isJavaObject());
         Struct field_;
         field_ = str_.getFields().getVal(new ClassField("pkg.ExCont", "inst"));
-        assertEq(STRING, field_.getRealClassName());
-        assertEq(STRING, field_.getClassName());
+        assertEq(STRING, field_.getRealClassName(cont_));
+        assertEq(STRING, field_.getClassName(cont_));
         assertEq("TWO", field_.getInstance());
     }
     @Test
@@ -11131,7 +11131,7 @@ public class ProcessXmlMethodTest {
         xml_ += "<method access='"+PUBLIC_ACCESS+"' modifier='abstract' name='ordinal' class='"+PrimitiveTypeUtil.PRIM_INT+"'/>\n";
         xml_ += "</interface>\n";
         files_.put("pkg/Int."+Classes.EXT, xml_);
-        ContextEl cont_ = new ContextEl(50);
+        ContextEl cont_ = contextEl();
         cont_.setAccessValue(new AccessValueEx());
         Classes.validateAll(files_, cont_);
         CustList<Argument> args_ = new CustList<Argument>();
@@ -11140,19 +11140,19 @@ public class ProcessXmlMethodTest {
         Argument ret_;
         ret_ = instanceArgument("pkg.ExCont", null, id_, args_, cont_);
         Struct str_ = ret_.getStruct();
-        assertEq(CUST_BASE, str_.getRealClassName());
-        assertEq("pkg.ExCont", str_.getClassName());
+        assertEq(CUST_BASE, str_.getRealClassName(cont_));
+        assertEq("pkg.ExCont", str_.getClassName(cont_));
         assertTrue(!str_.isJavaObject());
         Struct field_;
         field_ = str_.getFields().getVal(new ClassField("pkg.ExCont", "inst"));
-        assertEq(INTEGER, field_.getRealClassName());
-        assertEq(INTEGER, field_.getClassName());
+        assertEq(INTEGER, field_.getRealClassName(cont_));
+        assertEq(INTEGER, field_.getClassName(cont_));
         assertEq(1, (Number)field_.getInstance());
     }
     @Test
     public void instanceArgument106Test() {
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = new ContextEl();
+        ContextEl cont_ = contextEl();
         String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' superclass='pkgtwo.ExTwo'>\n";
         xml_ += "<method access='"+PUBLIC_ACCESS+"' modifier='normal' name='getter' class='"+PrimitiveTypeUtil.PRIM_INT+"'>\n";
         xml_ += "<return expression='2i'/>\n";
@@ -11179,12 +11179,12 @@ public class ProcessXmlMethodTest {
         ret_ = instanceArgument("pkgtwo.ExThree", null, id_, args_, cont_);
         assertTrue(cont_.getClasses().isInitialized("pkgtwo.ExThree"));
         Struct str_ = ret_.getStruct();
-        assertEq(CUST_BASE, str_.getRealClassName());
-        assertEq("pkgtwo.ExThree", str_.getClassName());
+        assertEq(CUST_BASE, str_.getRealClassName(cont_));
+        assertEq("pkgtwo.ExThree", str_.getClassName(cont_));
         Struct field_;
         field_ = str_.getFields().getVal(new ClassField("pkgtwo.ExThree", "ance"));
-        assertEq(INTEGER, field_.getRealClassName());
-        assertEq(INTEGER, field_.getClassName());
+        assertEq(INTEGER, field_.getRealClassName(cont_));
+        assertEq(INTEGER, field_.getClassName(cont_));
         assertEq(5, (Number)field_.getInstance());
     }
     @Test
@@ -11208,7 +11208,7 @@ public class ProcessXmlMethodTest {
         xml_ += "</method>\n";
         xml_ += "</class>\n";
         files_.put("pkg/Ex."+Classes.EXT, xml_);
-        ContextEl cont_ = new ContextEl(50);
+        ContextEl cont_ = contextEl();
         cont_.setAccessValue(new AccessValueEx());
         Classes.validateAll(files_, cont_);
         CustList<Argument> args_ = new CustList<Argument>();
@@ -11217,13 +11217,13 @@ public class ProcessXmlMethodTest {
         Argument ret_;
         ret_ = instanceArgument("pkg.Ex", null, id_, args_, cont_);
         Struct str_ = ret_.getStruct();
-        assertEq(CUST_BASE, str_.getRealClassName());
-        assertEq("pkg.Ex", str_.getClassName());
+        assertEq(CUST_BASE, str_.getRealClassName(cont_));
+        assertEq("pkg.Ex", str_.getClassName(cont_));
         assertTrue(!str_.isJavaObject());
         Struct field_;
         field_ = str_.getFields().getVal(new ClassField("pkg.Ex", "array"));
-        assertEq(REAL_ARR_INTEGER, field_.getRealClassName());
-        assertEq(ARR_INTEGER, field_.getClassName());
+        assertEq(REAL_ARR_INTEGER, field_.getRealClassName(cont_));
+        assertEq(ARR_INTEGER, field_.getClassName(cont_));
         Object[] array_ = (Object[]) field_.getInstance();
         assertEq(10, (Number) array_[0]);
     }
@@ -11248,7 +11248,7 @@ public class ProcessXmlMethodTest {
         xml_ += "</method>\n";
         xml_ += "</class>\n";
         files_.put("pkg/Ex."+Classes.EXT, xml_);
-        ContextEl cont_ = new ContextEl(50);
+        ContextEl cont_ = contextEl();
         cont_.setAccessValue(new AccessValueEx());
         Classes.validateAll(files_, cont_);
         CustList<Argument> args_ = new CustList<Argument>();
@@ -11257,13 +11257,13 @@ public class ProcessXmlMethodTest {
         Argument ret_;
         ret_ = instanceArgument("pkg.Ex", null, id_, args_, cont_);
         Struct str_ = ret_.getStruct();
-        assertEq(CUST_BASE, str_.getRealClassName());
-        assertEq("pkg.Ex", str_.getClassName());
+        assertEq(CUST_BASE, str_.getRealClassName(cont_));
+        assertEq("pkg.Ex", str_.getClassName(cont_));
         assertTrue(!str_.isJavaObject());
         Struct field_;
         field_ = str_.getFields().getVal(new ClassField("pkg.Ex", "array"));
-        assertEq(REAL_ARR_INTEGER, field_.getRealClassName());
-        assertEq(ARR_INTEGER, field_.getClassName());
+        assertEq(REAL_ARR_INTEGER, field_.getRealClassName(cont_));
+        assertEq(ARR_INTEGER, field_.getClassName(cont_));
         Object[] array_ = (Object[]) field_.getInstance();
         assertEq(2, (Number) array_[0]);
     }
@@ -11288,7 +11288,7 @@ public class ProcessXmlMethodTest {
         xml_ += "</method>\n";
         xml_ += "</class>\n";
         files_.put("pkg/Ex."+Classes.EXT, xml_);
-        ContextEl cont_ = new ContextEl(50);
+        ContextEl cont_ = contextEl();
         cont_.setAccessValue(new AccessValueEx());
         Classes.validateAll(files_, cont_);
         CustList<Argument> args_ = new CustList<Argument>();
@@ -11297,20 +11297,20 @@ public class ProcessXmlMethodTest {
         Argument ret_;
         ret_ = instanceArgument("pkg.Ex", null, id_, args_, cont_);
         Struct str_ = ret_.getStruct();
-        assertEq(CUST_BASE, str_.getRealClassName());
-        assertEq("pkg.Ex", str_.getClassName());
+        assertEq(CUST_BASE, str_.getRealClassName(cont_));
+        assertEq("pkg.Ex", str_.getClassName(cont_));
         assertTrue(!str_.isJavaObject());
         Struct field_;
         field_ = str_.getFields().getVal(new ClassField("pkg.Ex", "array"));
-        assertEq(REAL_ARR_INTEGER, field_.getRealClassName());
-        assertEq(ARR_INTEGER, field_.getClassName());
+        assertEq(REAL_ARR_INTEGER, field_.getRealClassName(cont_));
+        assertEq(ARR_INTEGER, field_.getClassName(cont_));
         Object[] array_ = (Object[]) field_.getInstance();
         assertEq(2, (Number) array_[0]);
     }
     @Test
     public void instanceArgument110Test() {
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = new ContextEl();
+        ContextEl cont_ = contextEl();
         String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' superclass='pkgtwo.ExTwo'>\n";
         xml_ += "</class>\n";
         files_.put("pkg/Ex."+Classes.EXT, xml_);
@@ -11334,18 +11334,18 @@ public class ProcessXmlMethodTest {
         ret_ = instanceArgument("pkgtwo.ExThree", null, id_, args_, cont_);
         assertTrue(cont_.getClasses().isInitialized("pkgtwo.ExThree"));
         Struct str_ = ret_.getStruct();
-        assertEq(CUST_BASE, str_.getRealClassName());
-        assertEq("pkgtwo.ExThree", str_.getClassName());
+        assertEq(CUST_BASE, str_.getRealClassName(cont_));
+        assertEq("pkgtwo.ExThree", str_.getClassName(cont_));
         Struct field_;
         field_ = str_.getFields().getVal(new ClassField("pkgtwo.ExThree", "ance"));
-        assertEq(INTEGER, field_.getRealClassName());
-        assertEq(INTEGER, field_.getClassName());
+        assertEq(INTEGER, field_.getRealClassName(cont_));
+        assertEq(INTEGER, field_.getClassName(cont_));
         assertEq(5, (Number)field_.getInstance());
     }
     @Test(expected=UndefinedConstructorException.class)
     public void validateAll1FailTest() {
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = new ContextEl(50);
+        ContextEl cont_ = contextEl();
         cont_.setAccessValue(new AccessValueEx());
         String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' superclass='pkg.ExTwo'>\n";
         xml_ += "<field access='"+PUBLIC_ACCESS+"' name='inst' class='"+PrimitiveTypeUtil.PRIM_INT+"' value='2i'/>\n";
@@ -11425,5 +11425,14 @@ public class ProcessXmlMethodTest {
             cl_.add(new ClassName(c, var_));
         }
         return new ConstructorId(_name, cl_);
+    }
+    private ContextEl contextEl(int... m) {
+        ContextEl ct_;
+        if (m.length == 0) {
+            ct_ = new ContextEl();
+        } else {
+            ct_ = new ContextEl(m[0]);
+        }
+        return ct_;
     }
 }
