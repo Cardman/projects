@@ -12,8 +12,6 @@ public final class ClassArgumentMatching {
 
     private final String className;
 
-    private boolean variable;
-
     public ClassArgumentMatching(String _className) {
         className = _className;
     }
@@ -69,7 +67,7 @@ public final class ClassArgumentMatching {
     public boolean matchClass(ClassArgumentMatching _class) {
         return StringList.quickEq(className, _class.getName());
     }
-    public boolean matchVoid() {
+    public boolean matchVoid(ContextEl _classes) {
         return StringList.quickEq(className, OperationNode.VOID_RETURN);
     }
     public boolean matchClass(Class<?> _class) {
@@ -94,11 +92,7 @@ public final class ClassArgumentMatching {
     }
 
     public boolean isVariable() {
-        return variable;
-    }
-
-    public void setVariable(boolean _variable) {
-        variable = _variable;
+        return className.isEmpty();
     }
 
     public boolean isPrimitive(ContextEl _context) {

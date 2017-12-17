@@ -1983,7 +1983,7 @@ public final class Classes {
                 continue;
             }
             for (String s: c.getValue().getAllSuperTypes()) {
-                ClassMetaInfo clMetaLoc_ = getClassMetaInfo(s);
+                ClassMetaInfo clMetaLoc_ = getClassMetaInfo(s, _context);
                 if (clMetaLoc_ == null) {
                     continue;
                 }
@@ -2050,7 +2050,7 @@ public final class Classes {
         return false;
     }
 
-    public ClassMetaInfo getClassMetaInfo(String _name) {
+    public ClassMetaInfo getClassMetaInfo(String _name, ContextEl _context) {
         StringList types_ = StringList.getAllTypes(_name);
         String base_ = types_.first();
         for (EntryCust<String, RootBlock> c: classesBodies.entryList()) {

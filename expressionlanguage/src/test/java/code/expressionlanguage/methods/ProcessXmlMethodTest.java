@@ -4988,15 +4988,15 @@ public class ProcessXmlMethodTest {
         xml_ += "<catch var='e' class='java.lang.Exception'>\n";
         xml_ += "<return expression='1i+t;.'/>\n";
         xml_ += "</catch>\n";
-        xml_ += "<catch var='e' class='java.lang.Throwable'>\n";
+        xml_ += "<catch var='e' class='java.lang.Object'>\n";
         xml_ += "<return expression='10i+t;.'/>\n";
         xml_ += "</catch>\n";
         xml_ += "</method>\n";
         xml_ += "<method access='"+PUBLIC_ACCESS+"' modifier='static' name='badMethod' class='"+PrimitiveTypeUtil.PRIM_INT+"'>\n";
         xml_ += "<return expression='1i/0i'/>\n";
         xml_ += "</method>\n";
-        xml_ += "<method access='"+PUBLIC_ACCESS+"' modifier='static' name='exception' class='java.lang.Throwable'>\n";
-        xml_ += "<return expression='$new java.lang.Throwable()'/>\n";
+        xml_ += "<method access='"+PUBLIC_ACCESS+"' modifier='static' name='exception' class='java.lang.Object'>\n";
+        xml_ += "<return expression='$new java.lang.String()'/>\n";
         xml_ += "</method>\n";
         xml_ += "</class>\n";
         StringMap<String> files_ = new StringMap<String>();

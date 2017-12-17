@@ -3,14 +3,12 @@ import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.ElUtil;
 import code.expressionlanguage.PageEl;
-import code.expressionlanguage.PrimitiveTypeUtil;
 import code.expressionlanguage.exceptions.InvokeException;
 import code.expressionlanguage.methods.exceptions.BadCatchException;
 import code.expressionlanguage.methods.exceptions.BadConstructorCall;
 import code.expressionlanguage.opers.Calculation;
 import code.expressionlanguage.opers.ExpressionLanguage;
 import code.expressionlanguage.opers.OperationNode;
-import code.expressionlanguage.opers.util.StdStruct;
 import code.expressionlanguage.opers.util.Struct;
 import code.sml.Element;
 import code.util.CustList;
@@ -55,11 +53,6 @@ public final class Throwing extends Leaf implements StackableBlock {
         }
         page_.setProcessingAttribute(ATTRIBUTE_EXPRESSION);
         opThrow = ElUtil.getAnalyzedOperations(expression, _cont, Calculation.staticCalculation(f_.isStaticContext()));
-        OperationNode el_ = opThrow.last();
-        String param_ = Throwable.class.getName();
-        if (!PrimitiveTypeUtil.canBeUseAsArgument(param_, el_.getResultClass().getName(), _cont)) {
-            throw new BadCatchException(_cont.joinPages());
-        }
     }
 
     @Override
@@ -96,9 +89,6 @@ public final class Throwing extends Leaf implements StackableBlock {
         el_.setCurrentOper(null);
         ip_.clearCurrentEls();
         Struct o_ = arg_.getStruct();
-        if (o_ == null || o_.isNull()) {
-            o_ = new StdStruct(new NullPointerException());
-        }
         throw new InvokeException(_cont.joinPages(), o_);
     }
 }

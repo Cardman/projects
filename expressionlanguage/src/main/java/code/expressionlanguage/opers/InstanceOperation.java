@@ -193,7 +193,7 @@ public final class InstanceOperation extends InvokingOperation {
         ConstrustorIdVarArg ctorRes_ = null;
         if (classes_ != null) {
             ClassMetaInfo custClass_ = null;
-            custClass_ = classes_.getClassMetaInfo(realClassName_);
+            custClass_ = classes_.getClassMetaInfo(realClassName_, _conf);
             if (custClass_ != null) {
                 if (custClass_.isAbstractType() && custClass_.getCategory() != ClassCategory.ENUM) {
                     throw new AbstractClassConstructorException(realClassName_+RETURN_LINE+_conf.joinPages());
@@ -401,7 +401,7 @@ public final class InstanceOperation extends InvokingOperation {
             instanceClassName_ = realClassName_;
             if (classes_ != null) {
                 DimComp clCurName_ = PrimitiveTypeUtil.getQuickComponentBaseType(realClassName_);
-                custClass_ = classes_.getClassMetaInfo(clCurName_.getComponent());
+                custClass_ = classes_.getClassMetaInfo(clCurName_.getComponent(), _conf);
                 if (custClass_ != null) {
                     cust_ = true;
                 }

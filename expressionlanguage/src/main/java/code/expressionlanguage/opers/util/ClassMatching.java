@@ -3,6 +3,7 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.Mapping;
 import code.expressionlanguage.PrimitiveTypeUtil;
 import code.expressionlanguage.Templates;
+import code.expressionlanguage.stds.LgNames;
 import code.util.StringList;
 import code.util.StringMap;
 
@@ -35,6 +36,10 @@ public final class ClassMatching {
         map_.setArg(_c.getClassName());
         map_.setParam(className);
         return Templates.isCorrect(map_, _context);
+    }
+
+    public boolean isAssignableFrom(ClassMatching _c, ContextEl _context) {
+        return LgNames.canBeUseAsArgument(className, _c.getClassName(), _context);
     }
 
     public boolean isPrimitive(ContextEl _context) {

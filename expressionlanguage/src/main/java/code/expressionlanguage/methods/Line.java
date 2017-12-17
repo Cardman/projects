@@ -133,7 +133,7 @@ public final class Line extends Leaf implements StackableBlock {
             String curClassBase_ = StringList.getAllTypes(curClass_).first();
             String instClass_ = ip_.getGlobalArgument().getObjectClassName(_cont);
             String formatted_ = Templates.getFullTypeByBases(instClass_, curClassBase_, _cont);
-            ClassMetaInfo meta_ = _cont.getClasses().getClassMetaInfo(curClassBase_);
+            ClassMetaInfo meta_ = _cont.getClasses().getClassMetaInfo(curClassBase_, _cont);
             String superClass_ = meta_.getSuperClass();
             String baseSuperClass_ = StringList.getAllTypes(superClass_).first();
             if (ip_.getCallingConstr().getCalledConstructors().containsObj(baseSuperClass_)) {

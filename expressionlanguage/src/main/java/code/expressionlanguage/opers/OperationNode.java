@@ -412,7 +412,7 @@ public abstract class OperationNode {
         }
         return resSt_;
     }
-    static FieldResult getDeclaredCustFieldByContext(ContextEl _cont, boolean _static, ClassArgumentMatching _class, boolean _superClass, String _name) {
+    private static FieldResult getDeclaredCustFieldByContext(ContextEl _cont, boolean _static, ClassArgumentMatching _class, boolean _superClass, String _name) {
         String clCurName_ = _class.getName();
         String base_ = StringList.getAllTypes(clCurName_).first();
         Classes classes_ = _cont.getClasses();
@@ -428,7 +428,7 @@ public abstract class OperationNode {
             }
             String formatted_ = Templates.getFullTypeByBases(clCurName_, s, _cont);
             ClassMetaInfo custClass_;
-            custClass_ = classes_.getClassMetaInfo(s);
+            custClass_ = classes_.getClassMetaInfo(s, _cont);
             for (EntryCust<String, FieldMetaInfo> e: custClass_.getFields().entryList()) {
                 if (!StringList.quickEq(e.getKey(), _name)) {
                     continue;
@@ -482,14 +482,14 @@ public abstract class OperationNode {
         }
         ClassMetaInfo custClass_ = null;
         String clCurName_ = _class.getName();
-        custClass_ = classes_.getClassMetaInfo(clCurName_);
+        custClass_ = classes_.getClassMetaInfo(clCurName_, _conf);
         if (custClass_ == null) {
             return null;
         }
         String glClass_ = _conf.getLastPage().getGlobalClass();
         CustList<ConstructorId> possibleMethods_ = new CustList<ConstructorId>();
         for (ClassArgumentMatching c:_args) {
-            if (c.matchVoid()) {
+            if (c.matchVoid(_conf)) {
                 throw new VoidArgumentException(clCurName_+RETURN_LINE+_conf.joinPages());
             }
         }
@@ -580,7 +580,7 @@ public abstract class OperationNode {
     static Constructor<?> getDeclaredConstructor(ContextEl _conf, int _varargOnly, int _offsetIncr, ClassArgumentMatching _class, ClassArgumentMatching..._args) {
         String className_ = _class.getName();
         for (ClassArgumentMatching c:_args) {
-            if (c.matchVoid()) {
+            if (c.matchVoid(_conf)) {
                 throw new VoidArgumentException(className_+RETURN_LINE+_conf.joinPages());
             }
         }
@@ -654,7 +654,7 @@ public abstract class OperationNode {
         String clCurName_ = _class.getName();
         String baseClass_ = StringList.getAllTypes(clCurName_).first();
         for (ClassArgumentMatching c:_argsClass) {
-            if (c.matchVoid()) {
+            if (c.matchVoid(_conf)) {
                 throw new VoidArgumentException(clCurName_+DOT+_name+RETURN_LINE+_conf.joinPages());
             }
         }
@@ -751,7 +751,6 @@ public abstract class OperationNode {
         idRet_.setVarArgToCall(_res.isVarArgToCall());
         CustList<MethodBlock> methods_ = classes_.getMethodBodiesById(realClass_, realId_);
         MethodBlock m_ = methods_.first();
-        idRet_.setMethod(m_);
         idRet_.setReturnType(_res.getReturnType());
         idRet_.setStaticMethod(m_.isStaticMethod());
         idRet_.setAbstractMethod(m_.isAbstractMethod());
@@ -955,7 +954,7 @@ public abstract class OperationNode {
     }
     static Method getDeclaredMethod(boolean _failIfError, ContextEl _cont, int _varargOnly, boolean _staticContext, ClassArgumentMatching _class, String _name, ClassArgumentMatching... _argsClass) {
         for (ClassArgumentMatching c:_argsClass) {
-            if (c.matchVoid()) {
+            if (c.matchVoid(_cont)) {
                 throw new VoidArgumentException(_class.getName()+DOT+_name+RETURN_LINE+_cont.joinPages());
             }
         }
@@ -1724,7 +1723,7 @@ public abstract class OperationNode {
         staticBlock = _staticBlock;
     }
 
-    public final boolean isVoidArg() {
+    public final boolean isVoidArg(ContextEl _context) {
         return StringList.quickEq(resultClass.getName(), OperationNode.VOID_RETURN);
     }
 

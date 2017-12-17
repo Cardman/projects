@@ -15,6 +15,11 @@ public final class StdStruct extends Struct {
         className = NativeTypeUtil.getPrettyType(_instance.getClass());
     }
 
+    public StdStruct(Object _instance, String _className) {
+        instance = _instance;
+        className = _className;
+    }
+
     public static Struct wrapStd(Object _element) {
         if (_element == null) {
             return NullStruct.NULL_VALUE;

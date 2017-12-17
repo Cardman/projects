@@ -250,7 +250,7 @@ public final class ClassBlock extends RootBlock implements UniqueRootedBlock {
     public void validateConstructors(ContextEl _cont) {
         boolean opt_ = optionalCallConstr(_cont);
         String idType_ = getFullName();
-        ClassMetaInfo curMeta_ = _cont.getClasses().getClassMetaInfo(idType_);
+        ClassMetaInfo curMeta_ = _cont.getClasses().getClassMetaInfo(idType_, _cont);
         ObjectNotNullMap<ConstructorId, ConstructorMetaInfo> c_;
         c_ = curMeta_.getConstructors();
         for (EntryCust<ConstructorId, ConstructorMetaInfo> e: c_.entryList()) {
@@ -288,7 +288,7 @@ public final class ClassBlock extends RootBlock implements UniqueRootedBlock {
 
     public AccessEnum getMaximumAccessConstructors(ContextEl _cont) {
         String idType_ = getFullName();
-        ClassMetaInfo curMeta_ = _cont.getClasses().getClassMetaInfo(idType_);
+        ClassMetaInfo curMeta_ = _cont.getClasses().getClassMetaInfo(idType_, _cont);
         ObjectNotNullMap<ConstructorId, ConstructorMetaInfo> c_;
         c_ = curMeta_.getConstructors();
         if (c_.isEmpty()) {
@@ -305,7 +305,7 @@ public final class ClassBlock extends RootBlock implements UniqueRootedBlock {
     }
 
     private boolean optionalCallConstr(ContextEl _cont) {
-        ClassMetaInfo clMeta_ = _cont.getClasses().getClassMetaInfo(superClass);
+        ClassMetaInfo clMeta_ = _cont.getClasses().getClassMetaInfo(superClass, _cont);
         if (clMeta_ == null) {
             return true;
         }

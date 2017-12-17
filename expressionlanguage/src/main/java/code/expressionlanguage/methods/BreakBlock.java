@@ -61,26 +61,7 @@ public final class BreakBlock extends Leaf implements CallingFinally {
 
     @Override
     public void processEl(ContextEl _cont) {
-        PageEl ip_ = _cont.getLastPage();
-        ReadWrite rw_ = ip_.getReadWrite();
-        BreakableBlockStack stack_ = null;
-        while (true) {
-            RemovableVars blStack_ = ip_.getLastStack();
-            if (blStack_ instanceof BreakableBlockStack) {
-                stack_ = (BreakableBlockStack) blStack_;
-                blStack_.getBlock().removeLocalVars(ip_);
-                break;
-            }
-            ip_.setFinallyToProcess(false);
-            blStack_.removeVarAndLoop(ip_);
-            if (ip_.isFinallyToProcess()) {
-                ((TryBlockStack)blStack_).setCalling(this);
-                return;
-            }
-        }
-        Block forLoopLoc_ = stack_.getBlock();
-        rw_.setBlock(forLoopLoc_);
-        stack_.setFinished(true);
+        removeBlockFinally(_cont);
     }
 
     @Override
@@ -90,12 +71,12 @@ public final class BreakBlock extends Leaf implements CallingFinally {
         BreakableBlockStack stack_ = null;
         while (true) {
             RemovableVars bl_ = ip_.getLastStack();
-            ip_.setFinallyToProcess(false);
             if (bl_ instanceof BreakableBlockStack) {
                 stack_ = (BreakableBlockStack) bl_;
                 bl_.getBlock().removeLocalVars(ip_);
                 break;
             }
+            ip_.setFinallyToProcess(false);
             bl_.removeVarAndLoop(ip_);
             if (ip_.isFinallyToProcess()) {
                 ((TryBlockStack)bl_).setCalling(this);

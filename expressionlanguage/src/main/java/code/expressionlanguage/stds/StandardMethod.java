@@ -51,4 +51,7 @@ public final class StandardMethod extends StandardNamedFunction {
     public String getDeclaringType() {
         return declaringType;
     }
+    public String getPrettyString() {
+        return declaringType+"."+getId().getSignature()+":"+getReturnType()+" is "+modifier;
+    }
 }

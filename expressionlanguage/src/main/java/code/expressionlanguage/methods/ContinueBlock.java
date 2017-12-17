@@ -57,24 +57,7 @@ public final class ContinueBlock extends Leaf implements CallingFinally {
 
     @Override
     public void processEl(ContextEl _cont) {
-        PageEl ip_ = _cont.getLastPage();
-        Loop loop_ = null;
-        while (true) {
-            RemovableVars blStack_ = ip_.getLastStack();
-            if (blStack_ instanceof LoopBlockStack) {
-                BracedBlock br_ = blStack_.getBlock();
-                loop_ = (Loop) br_;
-                br_.removeLocalVars(ip_);
-                break;
-            }
-            ip_.setFinallyToProcess(false);
-            blStack_.removeVarAndLoop(ip_);
-            if (ip_.isFinallyToProcess()) {
-                ((TryBlockStack)blStack_).setCalling(this);
-                return;
-            }
-        }
-        loop_.processLastElementLoop(_cont);
+        removeBlockFinally(_cont);
     }
 
     @Override
@@ -83,7 +66,6 @@ public final class ContinueBlock extends Leaf implements CallingFinally {
         Loop loop_ = null;
         while (true) {
             RemovableVars bl_ = ip_.getLastStack();
-            ip_.setFinallyToProcess(false);
             if (bl_ instanceof LoopBlockStack) {
                 BracedBlock br_ = bl_.getBlock();
                 loop_ = (Loop) br_;

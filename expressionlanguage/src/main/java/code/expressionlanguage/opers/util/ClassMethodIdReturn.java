@@ -1,12 +1,10 @@
 package code.expressionlanguage.opers.util;
 
-import code.expressionlanguage.methods.MethodBlock;
 
 public final class ClassMethodIdReturn {
 
     private final boolean foundMethod;
     private ClassMethodId id;
-    private MethodBlock method;
     private MethodId realId;
     private String realClass;
 
@@ -32,14 +30,6 @@ public final class ClassMethodIdReturn {
 
     public void setId(ClassMethodId _id) {
         id = _id;
-    }
-
-    public MethodBlock getMethod() {
-        return method;
-    }
-
-    public void setMethod(MethodBlock _method) {
-        method = _method;
     }
 
     public MethodId getRealId() {

@@ -2,6 +2,7 @@ package code.expressionlanguage.methods;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.CustBase;
+import code.expressionlanguage.Mapping;
 import code.expressionlanguage.PageEl;
 import code.expressionlanguage.PrimitiveTypeUtil;
 import code.expressionlanguage.ReadWrite;
@@ -209,7 +210,7 @@ public final class ProcessXmlMethod {
             ObjectMap<ClassField,Struct> fields_;
             fields_ = new ObjectMap<ClassField,Struct>();
             for (String c: allClasses_) {
-                ClassMetaInfo clMetaLoc_ = classes_.getClassMetaInfo(c);
+                ClassMetaInfo clMetaLoc_ = classes_.getClassMetaInfo(c, _cont);
                 if (clMetaLoc_ == null) {
                     continue;
                 }
@@ -322,7 +323,17 @@ public final class ProcessXmlMethod {
                     }
                     CatchEval ca_ = (CatchEval) e;
                     String name_ = ca_.getClassName();
-                    if (PrimitiveTypeUtil.canBeUseAsArgument(name_, custCause_.getClassName(_conf), _conf)) {
+                    Mapping mapping_ = new Mapping();
+                    String excepClass_ = custCause_.getClassName(_conf);
+                    if (excepClass_ == null) {
+                        catchElt_ = ca_;
+                        try_.setVisitedCatch(i_);
+                        break;
+                    }
+                    mapping_.setArg(excepClass_);
+                    name_ = bkIp_.formatVarType(name_, _conf);
+                    mapping_.setParam(name_);
+                    if (Templates.isCorrect(mapping_, _conf)) {
                         catchElt_ = ca_;
                         try_.setVisitedCatch(i_);
                         break;
@@ -388,7 +399,7 @@ public final class ProcessXmlMethod {
             RootBlock root_ =  _conf.getClasses().getClassBody(curClassBase_);
             if (root_ instanceof UniqueRootedBlock) {
                 String superClass_ = ((UniqueRootedBlock) root_).getSuperClass();
-                ClassMetaInfo s_ = _conf.getClasses().getClassMetaInfo(superClass_);
+                ClassMetaInfo s_ = _conf.getClasses().getClassMetaInfo(superClass_, _conf);
                 if (s_ != null && !_conf.getClasses().isInitialized(superClass_)) {
                     _conf.getClasses().initialize(superClass_);
                     throw new NotInitializedClassException(superClass_);

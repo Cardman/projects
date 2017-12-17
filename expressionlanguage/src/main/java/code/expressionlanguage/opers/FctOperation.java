@@ -37,7 +37,6 @@ import code.expressionlanguage.exceptions.VoidArgumentException;
 import code.expressionlanguage.methods.Classes;
 import code.expressionlanguage.methods.ConstructorBlock;
 import code.expressionlanguage.methods.EnumBlock;
-import code.expressionlanguage.methods.MethodBlock;
 import code.expressionlanguage.methods.PredefinedClasses;
 import code.expressionlanguage.methods.ProcessXmlMethod;
 import code.expressionlanguage.methods.RootBlock;
@@ -397,7 +396,7 @@ public final class FctOperation extends InvokingOperation {
         String clCurName_ = _subType;
         int varargOnly_ = lookOnlyForVarArg();
         for (ClassArgumentMatching c:firstArgs_) {
-            if (c.matchVoid()) {
+            if (c.matchVoid(_conf)) {
                 throw new VoidArgumentException(clCurName_+DOT+trimMeth_+RETURN_LINE+_conf.joinPages());
             }
         }
@@ -507,9 +506,8 @@ public final class FctOperation extends InvokingOperation {
         if (!clMeth_.isFoundMethod()) {
             return;
         }
-        MethodBlock m_ = clMeth_.getMethod();
         if (staticChoiceMethod_) {
-            if (m_.isAbstractMethod()) {
+            if (clMeth_.isAbstractMethod()) {
                 if (_failIfError) {
                     setRelativeOffsetPossibleLastPage(getIndexInEl()+off_, _conf);
                     throw new AbstractMethodException(clMeth_.getId().getConstraints().getSignature()+RETURN_LINE+_conf.joinPages());
@@ -826,7 +824,7 @@ public final class FctOperation extends InvokingOperation {
             }
             ClassMetaInfo custClass_ = null;
             String className_ = arg_.getStruct().getClassName(_conf);
-            custClass_ = classes_.getClassMetaInfo(className_);
+            custClass_ = classes_.getClassMetaInfo(className_, _conf);
             if (custClass_.getCategory() == ClassCategory.ENUM) {
                 if (methodId_.eq(new MethodId(false, METH_NAME, new EqList<ClassName>()))) {
                     CustEnum cen_ = (CustEnum) arg_.getStruct().getInstance();
@@ -940,7 +938,7 @@ public final class FctOperation extends InvokingOperation {
                 InitializatingClass inv_ = new InitializatingClass(classNameFound_);
                 return ArgumentCall.newCall(inv_);
             }
-            custClass_ = classes_.getClassMetaInfo(classNameFound_);
+            custClass_ = classes_.getClassMetaInfo(classNameFound_, _conf);
             if (custClass_.getCategory() == ClassCategory.ENUM) {
                 if (methodId_.eq(new MethodId(true, METH_VALUES, new EqList<ClassName>()))) {
                     CustList<Struct> enums_ = new CustList<Struct>();

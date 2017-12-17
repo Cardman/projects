@@ -69,7 +69,7 @@ public final class SwitchBlock extends BracedStack implements BreakableBlock {
         page_.setProcessingAttribute(ATTRIBUTE_VALUE);
         page_.setOffset(0);
         opValue = ElUtil.getAnalyzedOperations(value, _cont, Calculation.staticCalculation(f_.isStaticContext()));
-        if (opValue.last().isVoidArg()) {
+        if (opValue.last().isVoidArg(_cont)) {
             throw new VoidArgumentException(_cont.joinPages());
         }
     }

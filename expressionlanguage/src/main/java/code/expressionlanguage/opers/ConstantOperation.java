@@ -102,9 +102,7 @@ public final class ConstantOperation extends OperationNode implements SettableEl
             String _fieldName, String _op) {
         analyzeCalculate(_conf);
         if (getArgument() != null) {
-            String str_ = getOperations().getValues().getValue(CustList.FIRST_INDEX).trim();
             setResultClass(new ClassArgumentMatching(argClassName),staticAccess);
-            getResultClass().setVariable(StringList.quickEq(str_, NULL_REF_STRING));
             return;
         }
         analyzeCommon(_conf);
@@ -629,7 +627,7 @@ public final class ConstantOperation extends OperationNode implements SettableEl
             return;
         }
         if (StringList.quickEq(str_, NULL_REF_STRING)) {
-            argClassName = Object.class.getName();
+            argClassName = EMPTY_STRING;
             setSimpleArgument(a_);
             return;
         }

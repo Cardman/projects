@@ -284,15 +284,7 @@ public final class Templates {
                 }
                 if (!PrimitiveTypeUtil.isPrimitive(compo_)) {
                     if (!compo_.startsWith(PREFIX_VAR_TYPE)) {
-                        boolean pred_ = false;
-                        if (StringList.quickEq(compo_, PredefinedClasses.ITERABLE)) {
-                            pred_ = true;
-                        } else if (StringList.quickEq(compo_, PredefinedClasses.ITERATOR)) {
-                            pred_ = true;
-                        } else if (StringList.quickEq(compo_, PredefinedClasses.ENUM)) {
-                            pred_ = true;
-                        }
-                        if (!pred_) {
+                        if (!PredefinedClasses.isPredefined(compo_)) {
                             for (String p: StringList.splitStrings(compo_, SEP_CLASS)) {
                                 if (!StringList.isWord(p)) {
                                     return false;

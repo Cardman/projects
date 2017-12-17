@@ -1,10 +1,8 @@
 package code.expressionlanguage.methods;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.PageEl;
-import code.expressionlanguage.PrimitiveTypeUtil;
 import code.expressionlanguage.ReadWrite;
 import code.expressionlanguage.methods.exceptions.AlreadyDefinedVarException;
-import code.expressionlanguage.methods.exceptions.BadCatchException;
 import code.expressionlanguage.methods.exceptions.BadTryException;
 import code.expressionlanguage.stacks.TryBlockStack;
 import code.expressionlanguage.variables.LocalVariable;
@@ -67,10 +65,6 @@ public final class CatchEval extends BracedStack implements Eval, IncrCurrentGro
         PageEl page_ = _cont.getLastPage();
         page_.setProcessingAttribute(ATTRIBUTE_CLASS);
         page_.setOffset(0);
-        String param_ = Throwable.class.getName();
-        if (!PrimitiveTypeUtil.canBeUseAsArgument(param_, className, _cont)) {
-            throw new BadCatchException(_cont.joinPages());
-        }
         page_.setProcessingAttribute(ATTRIBUTE_VAR);
         page_.setOffset(0);
         if (_cont.getLastPage().getCatchVars().contains(variableName)) {

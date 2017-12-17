@@ -756,7 +756,16 @@ final class FormatHtml {
                         break;
                     }
                     String name_ = e.getAttribute(ATTRIBUTE_CLASS_NAME);
-                    if (PrimitiveTypeUtil.canBeUseAsArgument(name_, custCause_.getClassName(_conf.toContextEl()), _conf.toContextEl())) {
+                    Mapping mapping_ = new Mapping();
+                    String excepClass_ = custCause_.getClassName(_conf.toContextEl());
+                    if (excepClass_ == null) {
+                        catchElt_ = e;
+                        try_.setVisitedCatch(i_);
+                        break;
+                    }
+                    mapping_.setArg(excepClass_);
+                    mapping_.setParam(name_);
+                    if (Templates.isCorrect(mapping_, _conf.toContextEl())) {
                         catchElt_ = e;
                         try_.setVisitedCatch(i_);
                         break;
@@ -941,14 +950,8 @@ final class FormatHtml {
             String el_ = en_.getAttribute(EXPRESSION_ATTRIBUTE);
             ContextEl cont_ = _conf.toContextEl();
             Argument arg_ = ElUtil.processEl(el_, 0, cont_);
-            if (!PrimitiveTypeUtil.canBeUseAsArgument(Throwable.class.getName(), arg_.getObjectClassName(_conf.toContextEl()), cont_)) {
-                throw new InvokeException(_conf.joinPages(), new StdStruct(new NullPointerException()));
-            }
-            Throwable o_ = (Throwable) arg_.getObject();
-            if (o_ == null) {
-                o_ = new NullPointerException();
-            }
-            throw new InvokeException(_conf.joinPages(), new StdStruct(o_));
+            Struct o_ = arg_.getStruct();
+            throw new InvokeException(_conf.joinPages(), o_);
         }
         if (StringList.quickEq(en_.getTagName(),prefix_+TRY_TAG)) {
             rw_.setRead(en_.getFirstChild());
@@ -1511,14 +1514,6 @@ final class FormatHtml {
         }
         return null;
     }
-    static void interruptAfterFinally(ImportingPage _ip) {
-        TryHtmlStack tryStack_ = (TryHtmlStack) _ip.getLastStack();
-        WrapperException t_ = tryStack_.getThrownException();
-        if (t_ != null) {
-            _ip.removeLastBlock();
-            throw t_;
-        }
-    }
     private static ImportingPage removeBlockFinally(Configuration _conf,
             ImportingPage _ip) {
         String prefix_ = _conf.getLastPage().getPrefix();
@@ -2051,10 +2046,7 @@ final class FormatHtml {
                     _conf.getLastPage().setProcessingAttribute(ATTRIBUTE_CLASS_NAME);
                     _conf.getLastPage().setOffset(0);
                     _conf.getLastPage().setLookForAttrValue(false);
-                    Class<?> class_ = ExtractObject.classForName(_conf, 0, className_);
-                    if (!Throwable.class.isAssignableFrom(class_)) {
-                        throw new DynamicCastClassException(class_+RETURN_LINE+_conf.joinPages());
-                    }
+                    ExtractObject.classForName(_conf, 0, className_);
                     String var_ = elt_.getAttribute(ATTRIBUTE_VAR);
                     if (!StringList.isWord(var_)) {
                         throw new BadVariableNameException(var_, _conf.joinPages(), ATTRIBUTE_VAR);
@@ -3712,13 +3704,17 @@ final class FormatHtml {
             return;
         }
         if (isFinallyNode(_conf, par_)) {
-            interruptAfterFinally(_ip);
+            TryHtmlStack tryStack_ = (TryHtmlStack) _ip.getLastStack();
+            WrapperException t_ = tryStack_.getThrownException();
+            if (t_ != null) {
+                _ip.removeLastBlock();
+                throw t_;
+            }
             if (_ip.isReturning()) {
                 _ip.removeLastBlock();
                 removeBlockFinally(_conf, _ip);
                 return;
             }
-            TryHtmlStack tryStack_ = (TryHtmlStack) _ip.getLastStack();
             Element catch_ = tryStack_.getCurrentCatchNode();
             currentNode_ = tryStack_.getWriteNode();
             tryStack_.setVisitedFinally(true);
