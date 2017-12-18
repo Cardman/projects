@@ -1242,7 +1242,7 @@ public class ElUtilTest {
         lv_.setClassName(InternsClasses.class.getName());
         localVars_.put("v", lv_);
         context_.getLastPage().getLocalVars().putAllMap(localVars_);
-        Argument arg_ = ElUtil.processEl("$boolean(1>0,0i,1i)",0, context_);
+        Argument arg_ = ElUtil.processEl("$bool(1>0,0i,1i)",0, context_);
         Object res_ = arg_.getObject();
         assertSame(Integer.class, res_.getClass());
         assertEq(0, (Number)res_);
@@ -1259,7 +1259,7 @@ public class ElUtilTest {
         lv_.setClassName(InternsClasses.class.getName());
         localVars_.put("v", lv_);
         context_.getLastPage().getLocalVars().putAllMap(localVars_);
-        Argument arg_ = ElUtil.processEl("$boolean(1<0,0i,1i)",0, context_);
+        Argument arg_ = ElUtil.processEl("$bool(1<0,0i,1i)",0, context_);
         Object res_ = arg_.getObject();
         assertSame(Integer.class, res_.getClass());
         assertEq(1, (Number)res_);
@@ -1276,7 +1276,7 @@ public class ElUtilTest {
         lv_.setClassName(InternsClasses.class.getName());
         localVars_.put("v", lv_);
         context_.getLastPage().getLocalVars().putAllMap(localVars_);
-        Argument arg_ = ElUtil.processEl("$boolean(1>0,0i,1i/0i)",0, context_);
+        Argument arg_ = ElUtil.processEl("$bool(1>0,0i,1i/0i)",0, context_);
         Object res_ = arg_.getObject();
         assertSame(Integer.class, res_.getClass());
         assertEq(0, (Number)res_);
@@ -1293,7 +1293,7 @@ public class ElUtilTest {
         lv_.setClassName(InternsClasses.class.getName());
         localVars_.put("v", lv_);
         context_.getLastPage().getLocalVars().putAllMap(localVars_);
-        Argument arg_ = ElUtil.processEl("$boolean(1<0,1i/0i,1i)",0, context_);
+        Argument arg_ = ElUtil.processEl("$bool(1<0,1i/0i,1i)",0, context_);
         Object res_ = arg_.getObject();
         assertSame(Integer.class, res_.getClass());
         assertEq(1,(Number) res_);
@@ -1850,6 +1850,17 @@ public class ElUtilTest {
         assertEq(40, (Number) res_);
         nextIndex_ = context_.getNextIndex();
         assertEq(35, nextIndex_);
+    }
+
+    @Test
+    public void processEl128Test() {
+        ContextEl context_ = contextEl();
+        setupAccessValue(context_);
+        addImportingPage(context_);
+        Argument arg_ = ElUtil.processEl("1_0+2*3",0, context_);
+        Object res_ = arg_.getObject();
+        assertSame(Long.class, res_.getClass());
+        assertEq(16L, (Number)res_);
     }
 
     @Test(expected=NoSuchDeclaredMethodException.class)
@@ -2782,7 +2793,6 @@ public class ElUtilTest {
         lv_.setClassName(Integer.class.getName());
         localVars_.put("v", lv_);
         cont_.getLastPage().getLocalVars().putAllMap(localVars_);
-        ElUtil.processAffect("","","","$classchoice$pkg$Ex$$inst;;;", "2i", "=",cont_);
         ElUtil.processAffect("","","","$classchoice$pkg$Ex$$inst;;;", "v;.", "=",cont_);
     }
 

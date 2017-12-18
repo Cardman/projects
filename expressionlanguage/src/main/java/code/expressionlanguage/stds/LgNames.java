@@ -2228,7 +2228,29 @@ public class LgNames {
                 String one_ = (String) _instance;
                 result_.setResult(new IntStruct(one_.length()));
             } else if (StringList.quickEq(name_, lgNames_.getAliasRegionMatches())) {
-                //TODO region matches
+                String one_ = (String) _instance;
+                if (list_.size() == 4) {
+                    Integer two_ = (Integer) argsObj_[0];
+                    String three_ = (String) argsObj_[1];
+                    Integer four_ = (Integer) argsObj_[2];
+                    Integer five_ = (Integer) argsObj_[3];
+                    if (three_ == null) {
+                        result_.setError(lgNames_.getAliasNull());
+                    } else {
+                        result_.setResult(new StdStruct(one_.regionMatches(two_, three_, four_, five_), stringType_));
+                    }
+                } else {
+                    Boolean two_ = (Boolean) argsObj_[1];
+                    Integer three_ = (Integer) argsObj_[2];
+                    String four_ = (String) argsObj_[3];
+                    Integer five_ = (Integer) argsObj_[4];
+                    Integer six_ = (Integer) argsObj_[5];
+                    if (four_ == null) {
+                        result_.setError(lgNames_.getAliasNull());
+                    } else {
+                        result_.setResult(new StdStruct(one_.regionMatches(two_, three_, four_, five_, six_), stringType_));
+                    }
+                }
             } else if (StringList.quickEq(name_, lgNames_.getAliasReplace())) {
                 String one_ = (String) _instance;
                 if (StringList.quickEq(list_.first(), stringType_)){
@@ -2353,6 +2375,71 @@ public class LgNames {
             result_ = lgNames_.getOtherResult(_cont, _instance, _method, argsObj_);
         }
         return result_;
+    }
+    public static boolean isOkLongTen(String _string) {
+        if (_string == null) {
+            return false;
+        }
+        long result_ = 0;
+        boolean negative_ = false;
+        int i_ = 0;
+        int max_ = _string.length();
+        long limit_;
+        long multmin_;
+        int digit_;
+
+        if (max_ > 0) {
+            if (_string.charAt(0) == '-') {
+                negative_ = true;
+                limit_ = Long.MIN_VALUE;
+                i_++;
+            } else {
+                limit_ = -Long.MAX_VALUE;
+            }
+            if (negative_) {
+                multmin_ = MULTMIN_RADIX_TEN;
+            } else {
+                multmin_ = N_MULTMAX_RADIX_TEN;
+            }
+            if (i_ < max_) {
+                char ch_ = _string.charAt(i_);
+                i_++;
+                digit_ = Character.digit(ch_,10);
+                if (digit_ < 0) {
+                    return false;
+                } else {
+                    result_ = -digit_;
+                }
+            }
+            while (i_ < max_) {
+                // Accumulating negatively avoids surprises near MAX_VALUE
+                char ch_ = _string.charAt(i_);
+                i_++;
+                digit_ = Character.digit(ch_,10);
+                if (digit_ < 0) {
+                    return false;
+                }
+                if (result_ < multmin_) {
+                    return false;
+                }
+                result_ *= 10;
+                if (result_ < limit_ + digit_) {
+                    return false;
+                }
+                result_ -= digit_;
+            }
+        } else {
+            return false;
+        }
+        if (negative_) {
+            if (i_ > 1) {
+                return true;
+            } else {
+                return false;
+            }
+        } else {
+            return true;
+        }
     }
     public static Long parseLong(String _string, int _radix) {
         if (_string == null) {

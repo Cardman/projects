@@ -109,7 +109,7 @@ public abstract class OperationNode {
     protected static final String TRUE_STRING = "true";
     protected static final String FALSE_STRING = "false";
     protected static final String INSTANCEOF = "instanceof";
-    protected static final String BOOLEAN = "boolean";
+    protected static final String BOOLEAN = "bool";
     protected static final String CAST = "class";
     protected static final char MIN_ENCODE_DIGIT = '0';
     protected static final char MAX_ENCODE_DIGIT = '9';

@@ -449,24 +449,6 @@ public final class Numbers<T extends Number> extends AbEqList<T> implements Equa
 //        }
 //    }
 
-    public static boolean checkLong(String _number) {
-        try {
-            Long.parseLong(_number);
-            return true;
-        } catch (NumberFormatException _0) {
-            return false;
-        }
-    }
-
-    public static boolean checkDouble(String _number) {
-        try {
-            Double.parseDouble(_number);
-            return true;
-        } catch (NumberFormatException _0) {
-            return false;
-        }
-    }
-
     @Override
     public Numbers<T> getReverse() {
         Numbers<T> list_ = new Numbers<T>(this);

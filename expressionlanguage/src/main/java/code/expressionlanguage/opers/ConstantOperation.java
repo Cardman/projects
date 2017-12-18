@@ -12,6 +12,7 @@ import code.expressionlanguage.InitializatingClass;
 import code.expressionlanguage.Mapping;
 import code.expressionlanguage.OperationsSequence;
 import code.expressionlanguage.PageEl;
+import code.expressionlanguage.ParsedArgument;
 import code.expressionlanguage.PrimitiveTypeUtil;
 import code.expressionlanguage.Templates;
 import code.expressionlanguage.exceptions.BadFormatPathException;
@@ -78,7 +79,6 @@ public final class ConstantOperation extends OperationNode implements SettableEl
 
     private boolean possibleInitClass;
 
-    private String argClassName;
     private ClassField fieldId;
     private FieldInfo fieldMetaInfo;
 
@@ -100,9 +100,256 @@ public final class ConstantOperation extends OperationNode implements SettableEl
     @Override
     public void analyze(CustList<OperationNode> _nodes, ContextEl _conf,
             String _fieldName, String _op) {
-        analyzeCalculate(_conf);
-        if (getArgument() != null) {
-            setResultClass(new ClassArgumentMatching(argClassName),staticAccess);
+        String originalStr_ = getOperations().getValues().getValue(CustList.FIRST_INDEX);
+        String str_ = originalStr_.trim();
+        int off_ = StringList.getFirstPrintableCharIndex(originalStr_);
+        setRelativeOffsetPossibleLastPage(getIndexInEl()+off_, _conf);
+        String argClName_;
+        if (StringList.removeAllSpaces(str_).isEmpty()) {
+            throw new EmptyPartException(_conf.joinPages());
+        }
+        if (isVararg()) {
+            str_ = str_.substring(CustList.SECOND_INDEX);
+            str_ = StringList.removeAllSpaces(str_);
+            Argument a_ = new Argument();
+            checkCorrect(_conf, str_, false, 0);
+            argClName_ = str_;
+            setSimpleArgument(a_);
+            setResultClass(new ClassArgumentMatching(argClName_),staticAccess);
+            return;
+        }
+        Argument a_ = new Argument();
+        if (StringList.quickEq(str_, TRUE_STRING)) {
+            argClName_ = PrimitiveTypeUtil.PRIM_BOOLEAN;
+            a_.setObject(true);
+            setSimpleArgument(a_);
+            setResultClass(new ClassArgumentMatching(argClName_),staticAccess);
+            return;
+        }
+        if (StringList.quickEq(str_, FALSE_STRING)) {
+            argClName_ = PrimitiveTypeUtil.PRIM_BOOLEAN;
+            a_.setObject(false);
+            setSimpleArgument(a_);
+            setResultClass(new ClassArgumentMatching(argClName_),staticAccess);
+            return;
+        }
+        if (StringList.quickEq(str_, NULL_REF_STRING)) {
+            argClName_ = EMPTY_STRING;
+            setSimpleArgument(a_);
+            setResultClass(new ClassArgumentMatching(argClName_),staticAccess);
+            return;
+        }
+        if (str_.startsWith(String.valueOf(DELIMITER_STRING))) {
+            str_ = str_.substring(CustList.SECOND_INDEX, str_.lastIndexOf(DELIMITER_STRING));
+            StringBuilder strBuilder_ = new StringBuilder();
+            StringBuilder unicodeString_ = new StringBuilder();
+            int unicode_ = 0;
+            boolean escaped_ = false;
+            for (char c: str_.toCharArray()) {
+                if (escaped_) {
+                    if (unicode_ > 0) {
+                        unicodeString_.append(c);
+                        if (unicode_ < ElResolver.UNICODE_SIZE) {
+                            unicode_++;
+                        } else {
+                            unicode_ = 0;
+                            escaped_ = false;
+                            int val_ = Integer.parseInt(unicodeString_.toString(), HEX_BASE);
+                            char i_ = (char)val_;
+                            strBuilder_.append(i_);
+                        }
+                        continue;
+                    }
+                    if (c == IND_BOUND) {
+                        strBuilder_.append(BOUND);
+                        escaped_ = false;
+                        continue;
+                    }
+                    if (c == IND_LINE) {
+                        strBuilder_.append(LINE_RETURN);
+                        escaped_ = false;
+                        continue;
+                    }
+                    if (c == IND_FORM) {
+                        strBuilder_.append(FORM);
+                        escaped_ = false;
+                        continue;
+                    }
+                    if (c == IND_LINE_FEED) {
+                        strBuilder_.append(LINE_FEED);
+                        escaped_ = false;
+                        continue;
+                    }
+                    if (c == IND_TAB) {
+                        strBuilder_.append(TAB);
+                        escaped_ = false;
+                        continue;
+                    }
+                    if (c == DELIMITER_STRING) {
+                        strBuilder_.append(DELIMITER_STRING);
+                        escaped_ = false;
+                        continue;
+                    }
+                    if (c == ESCAPE_META_CHAR) {
+                        strBuilder_.append(ESCAPE_META_CHAR);
+                        escaped_ = false;
+                        continue;
+                    }
+                    unicode_ = 1;
+                    unicodeString_ = new StringBuilder();
+                    continue;
+                }
+                if (c == ESCAPE_META_CHAR) {
+                    escaped_ = true;
+                    continue;
+                }
+                strBuilder_.append(c);
+            }
+            argClName_ = String.class.getName();
+            a_.setObject(strBuilder_.toString());
+            setSimpleArgument(a_);
+            setResultClass(new ClassArgumentMatching(argClName_),staticAccess);
+            return;
+        }
+        if (str_.startsWith(String.valueOf(DELIMITER_CHAR))) {
+            if (str_.charAt(str_.length()-1) == CHAR_UPP_SUFFIX) {
+                argClName_ = Character.class.getName();
+            } else if (str_.charAt(str_.length()-1) == CHAR_LOW_SUFFIX) {
+                argClName_ = PrimitiveTypeUtil.PRIM_CHAR;
+            } else {
+                argClName_ = PrimitiveTypeUtil.PRIM_CHAR;
+            }
+            str_ = str_.substring(CustList.SECOND_INDEX, str_.lastIndexOf(DELIMITER_CHAR));
+            StringBuilder strBuilder_ = new StringBuilder();
+            StringBuilder unicodeString_ = new StringBuilder();
+            int unicode_ = 0;
+            boolean escaped_ = false;
+            for (char c: str_.toCharArray()) {
+                if (escaped_) {
+                    if (unicode_ > 0) {
+                        unicodeString_.append(c);
+                        if (unicode_ < ElResolver.UNICODE_SIZE) {
+                            unicode_++;
+                        } else {
+                            unicode_ = 0;
+                            escaped_ = false;
+                            int val_ = Integer.parseInt(unicodeString_.toString(), HEX_BASE);
+                            char i_ = (char)val_;
+                            strBuilder_.append(i_);
+                        }
+                        continue;
+                    }
+                    if (c == IND_BOUND) {
+                        strBuilder_.append(BOUND);
+                        escaped_ = false;
+                        continue;
+                    }
+                    if (c == IND_LINE) {
+                        strBuilder_.append(LINE_RETURN);
+                        escaped_ = false;
+                        continue;
+                    }
+                    if (c == IND_FORM) {
+                        strBuilder_.append(FORM);
+                        escaped_ = false;
+                        continue;
+                    }
+                    if (c == IND_LINE_FEED) {
+                        strBuilder_.append(LINE_FEED);
+                        escaped_ = false;
+                        continue;
+                    }
+                    if (c == IND_TAB) {
+                        strBuilder_.append(TAB);
+                        escaped_ = false;
+                        continue;
+                    }
+                    if (c == DELIMITER_CHAR) {
+                        strBuilder_.append(DELIMITER_CHAR);
+                        escaped_ = false;
+                        continue;
+                    }
+                    if (c == ESCAPE_META_CHAR) {
+                        strBuilder_.append(ESCAPE_META_CHAR);
+                        escaped_ = false;
+                        continue;
+                    }
+                    unicode_ = 1;
+                    unicodeString_ = new StringBuilder();
+                    continue;
+                }
+                if (c == ESCAPE_META_CHAR) {
+                    escaped_ = true;
+                    continue;
+                }
+                strBuilder_.append(c);
+            }
+            a_.setObject(strBuilder_.toString().charAt(0));
+            setSimpleArgument(a_);
+            setResultClass(new ClassArgumentMatching(argClName_),staticAccess);
+            return;
+        }
+        String staticAccess_ = EXTERN_CLASS + STATIC_ACCESS + EXTERN_CLASS;
+        if (str_.startsWith(staticAccess_)) {
+            String type_ = str_.substring(staticAccess_.length());
+            StringBuilder class_ = new StringBuilder();
+            if (type_.startsWith(EMPTY_STRING + EXTERN_CLASS)) {
+                class_.append(type_);
+            } else {
+                for (char p: type_.toCharArray()) {
+                    if (Character.isWhitespace(p)) {
+                        continue;
+                    }
+                    if (StringList.isWordChar(p)) {
+                        class_.append(p);
+                    } else if (p == EXTERN_CLASS){
+                        class_.append(DOT_VAR);
+                    } else {
+                        class_.append(INTERN_CLASS);
+                    }
+                }
+            }
+            String classStr_ = StringList.removeAllSpaces(class_.toString());
+            String base_ = StringList.getAllTypes(classStr_).first();
+            String glClass_ = _conf.getLastPage().getGlobalClass();
+            Classes classes_ = _conf.getClasses();
+            checkExistBase(_conf, false, base_, false, 0);
+            if (classes_ != null && classes_.isCustomType(classStr_)) {
+                String curClassBase_ = null;
+                if (glClass_ != null) {
+                    curClassBase_ = StringList.getAllTypes(glClass_).first();
+                }
+                if (!classes_.canAccessClass(curClassBase_, classStr_, _conf)) {
+                    throw new BadAccessException(classStr_+RETURN_LINE+_conf.joinPages());
+                }
+                possibleInitClass = true;
+            }
+            staticAccess = true;
+            a_ = new Argument();
+            argClName_ = classStr_;
+            setArguments(a_);
+            setResultClass(new ClassArgumentMatching(argClName_),staticAccess);
+            return;
+        }
+        str_ = StringList.removeAllSpaces(str_);
+        boolean processNb_ = true;
+        if (str_.indexOf(GET_VAR) != CustList.INDEX_NOT_FOUND_ELT) {
+            processNb_ = false;
+        } else if (Character.isLetter(str_.charAt(CustList.FIRST_INDEX))) {
+            processNb_ = false;
+        } else if (StringList.quickEq(str_, CURRENT_INTANCE)) {
+            processNb_ = false;
+        }
+        if (processNb_) {
+            ParsedArgument parsed_ = ParsedArgument.parse(str_);
+            String argClassName_ = parsed_.getType();
+            if (argClassName_.isEmpty()) {
+                throw new DynamicNumberFormatException(str_+RETURN_LINE+_conf.joinPages());
+            }
+            Argument arg_ = Argument.createVoid();
+            arg_.setStruct(parsed_.getStruct());
+            setSimpleArgument(arg_);
+            setResultClass(new ClassArgumentMatching(argClassName_),staticAccess);
             return;
         }
         analyzeCommon(_conf);
@@ -596,243 +843,6 @@ public final class ConstantOperation extends OperationNode implements SettableEl
         Argument a_ = res_;
         return a_;
     }
-    private void analyzeCalculate(ContextEl _cont) {
-        String originalStr_ = getOperations().getValues().getValue(CustList.FIRST_INDEX);
-        String str_ = originalStr_.trim();
-        int off_ = StringList.getFirstPrintableCharIndex(originalStr_);
-        setRelativeOffsetPossibleLastPage(getIndexInEl()+off_, _cont);
-        if (StringList.removeAllSpaces(str_).isEmpty()) {
-            throw new EmptyPartException(_cont.joinPages());
-        }
-        if (isVararg()) {
-            str_ = str_.substring(CustList.SECOND_INDEX);
-            str_ = StringList.removeAllSpaces(str_);
-            Argument a_ = new Argument();
-            checkCorrect(_cont, str_, false, 0);
-            argClassName = str_;
-            setSimpleArgument(a_);
-            return;
-        }
-        Argument a_ = new Argument();
-        if (StringList.quickEq(str_, TRUE_STRING)) {
-            argClassName = PrimitiveTypeUtil.PRIM_BOOLEAN;
-            a_.setObject(true);
-            setSimpleArgument(a_);
-            return;
-        }
-        if (StringList.quickEq(str_, FALSE_STRING)) {
-            argClassName = PrimitiveTypeUtil.PRIM_BOOLEAN;
-            a_.setObject(false);
-            setSimpleArgument(a_);
-            return;
-        }
-        if (StringList.quickEq(str_, NULL_REF_STRING)) {
-            argClassName = EMPTY_STRING;
-            setSimpleArgument(a_);
-            return;
-        }
-        if (str_.startsWith(String.valueOf(DELIMITER_STRING))) {
-            str_ = str_.substring(CustList.SECOND_INDEX, str_.lastIndexOf(DELIMITER_STRING));
-            StringBuilder strBuilder_ = new StringBuilder();
-            StringBuilder unicodeString_ = new StringBuilder();
-            int unicode_ = 0;
-            boolean escaped_ = false;
-            for (char c: str_.toCharArray()) {
-                if (escaped_) {
-                    if (unicode_ > 0) {
-                        unicodeString_.append(c);
-                        if (unicode_ < ElResolver.UNICODE_SIZE) {
-                            unicode_++;
-                        } else {
-                            unicode_ = 0;
-                            escaped_ = false;
-                            int val_ = Integer.parseInt(unicodeString_.toString(), HEX_BASE);
-                            char i_ = (char)val_;
-                            strBuilder_.append(i_);
-                        }
-                        continue;
-                    }
-                    if (c == IND_BOUND) {
-                        strBuilder_.append(BOUND);
-                        escaped_ = false;
-                        continue;
-                    }
-                    if (c == IND_LINE) {
-                        strBuilder_.append(LINE_RETURN);
-                        escaped_ = false;
-                        continue;
-                    }
-                    if (c == IND_FORM) {
-                        strBuilder_.append(FORM);
-                        escaped_ = false;
-                        continue;
-                    }
-                    if (c == IND_LINE_FEED) {
-                        strBuilder_.append(LINE_FEED);
-                        escaped_ = false;
-                        continue;
-                    }
-                    if (c == IND_TAB) {
-                        strBuilder_.append(TAB);
-                        escaped_ = false;
-                        continue;
-                    }
-                    if (c == DELIMITER_STRING) {
-                        strBuilder_.append(DELIMITER_STRING);
-                        escaped_ = false;
-                        continue;
-                    }
-                    if (c == ESCAPE_META_CHAR) {
-                        strBuilder_.append(ESCAPE_META_CHAR);
-                        escaped_ = false;
-                        continue;
-                    }
-                    unicode_ = 1;
-                    unicodeString_ = new StringBuilder();
-                    continue;
-                }
-                if (c == ESCAPE_META_CHAR) {
-                    escaped_ = true;
-                    continue;
-                }
-                strBuilder_.append(c);
-            }
-            argClassName = String.class.getName();
-            a_.setObject(strBuilder_.toString());
-            setSimpleArgument(a_);
-            return;
-        }
-        if (str_.startsWith(String.valueOf(DELIMITER_CHAR))) {
-            if (str_.charAt(str_.length()-1) == CHAR_UPP_SUFFIX) {
-                argClassName = Character.class.getName();
-            } else if (str_.charAt(str_.length()-1) == CHAR_LOW_SUFFIX) {
-                argClassName = PrimitiveTypeUtil.PRIM_CHAR;
-            } else {
-                argClassName = PrimitiveTypeUtil.PRIM_CHAR;
-            }
-            str_ = str_.substring(CustList.SECOND_INDEX, str_.lastIndexOf(DELIMITER_CHAR));
-            StringBuilder strBuilder_ = new StringBuilder();
-            StringBuilder unicodeString_ = new StringBuilder();
-            int unicode_ = 0;
-            boolean escaped_ = false;
-            for (char c: str_.toCharArray()) {
-                if (escaped_) {
-                    if (unicode_ > 0) {
-                        unicodeString_.append(c);
-                        if (unicode_ < ElResolver.UNICODE_SIZE) {
-                            unicode_++;
-                        } else {
-                            unicode_ = 0;
-                            escaped_ = false;
-                            int val_ = Integer.parseInt(unicodeString_.toString(), HEX_BASE);
-                            char i_ = (char)val_;
-                            strBuilder_.append(i_);
-                        }
-                        continue;
-                    }
-                    if (c == IND_BOUND) {
-                        strBuilder_.append(BOUND);
-                        escaped_ = false;
-                        continue;
-                    }
-                    if (c == IND_LINE) {
-                        strBuilder_.append(LINE_RETURN);
-                        escaped_ = false;
-                        continue;
-                    }
-                    if (c == IND_FORM) {
-                        strBuilder_.append(FORM);
-                        escaped_ = false;
-                        continue;
-                    }
-                    if (c == IND_LINE_FEED) {
-                        strBuilder_.append(LINE_FEED);
-                        escaped_ = false;
-                        continue;
-                    }
-                    if (c == IND_TAB) {
-                        strBuilder_.append(TAB);
-                        escaped_ = false;
-                        continue;
-                    }
-                    if (c == DELIMITER_CHAR) {
-                        strBuilder_.append(DELIMITER_CHAR);
-                        escaped_ = false;
-                        continue;
-                    }
-                    if (c == ESCAPE_META_CHAR) {
-                        strBuilder_.append(ESCAPE_META_CHAR);
-                        escaped_ = false;
-                        continue;
-                    }
-                    unicode_ = 1;
-                    unicodeString_ = new StringBuilder();
-                    continue;
-                }
-                if (c == ESCAPE_META_CHAR) {
-                    escaped_ = true;
-                    continue;
-                }
-                strBuilder_.append(c);
-            }
-            a_.setObject(strBuilder_.toString().charAt(0));
-            setSimpleArgument(a_);
-            return;
-        }
-        StringList sepWords_ = StringList.getWordsSeparators(str_);
-        if (StringList.quickEq(sepWords_.get(CustList.SECOND_INDEX), STATIC_ACCESS)) {
-            StringList path_ = sepWords_.mid(CustList.SECOND_INDEX + 2);
-            StringBuilder class_ = new StringBuilder();
-            for (String p: path_) {
-                if (StringList.isWord(p)) {
-                    class_.append(p);
-                } else if (StringList.quickEq(p.trim(), String.valueOf(EXTERN_CLASS))){
-                    class_.append(DOT_VAR);
-                } else {
-                    class_.append(INTERN_CLASS);
-                }
-            }
-            String classStr_ = StringList.removeAllSpaces(class_.toString());
-            String base_ = StringList.getAllTypes(classStr_).first();
-            String glClass_ = _cont.getLastPage().getGlobalClass();
-            Classes classes_ = _cont.getClasses();
-            checkExistBase(_cont, false, base_, false, 0);
-            if (classes_ != null && classes_.isCustomType(classStr_)) {
-                //TODO exclude primitive
-                String curClassBase_ = null;
-                if (glClass_ != null) {
-                    curClassBase_ = StringList.getAllTypes(glClass_).first();
-                }
-                if (!classes_.canAccessClass(curClassBase_, classStr_, _cont)) {
-                    throw new BadAccessException(classStr_+RETURN_LINE+_cont.joinPages());
-                }
-                possibleInitClass = true;
-            }
-            staticAccess = true;
-            a_ = new Argument();
-            argClassName = classStr_;
-            setArguments(a_);
-            return;
-        }
-        str_ = StringList.removeAllSpaces(str_);
-        if (str_.indexOf(GET_VAR) != CustList.INDEX_NOT_FOUND_ELT) {
-            return;
-        }
-        if (Character.isLetter(str_.charAt(CustList.FIRST_INDEX))) {
-            return;
-        }
-        if (StringList.quickEq(str_, CURRENT_INTANCE)) {
-            return;
-        }
-        String argClassName_ = Argument.getArgClassNameOf(str_);
-        if (argClassName_.isEmpty()) {
-            throw new DynamicNumberFormatException(str_+RETURN_LINE+_cont.joinPages());
-        }
-        argClassName = argClassName_;
-        Argument arg_ = Argument.numberToArgument(str_);
-        setSimpleArgument(arg_);
-    }
-
     private boolean hasDottedPreviousSibling() {
         if (!(getParent() instanceof DotOperation)) {
             return false;

@@ -47,7 +47,7 @@ public final class ElResolver {
     private static final String VAR_ARG = "vararg";
     private static final String FIRST_OPT = "firstopt";
     private static final String CLASS = "class";
-    private static final String BOOLEAN = "boolean";
+    private static final String BOOLEAN = "bool";
     private static final String INSTANCEOF = "instanceof";
     private static final String THIS = "this";
 
@@ -255,19 +255,12 @@ public final class ElResolver {
                     }
                     if (procWordFirstChar(_string, i_ + 1, STATIC_ACCESS, len_)) {
                         int afterStatic_ = i_ + 1 + STATIC_ACCESS.length();
-                        boolean foundHat_ = false;
-                        while (afterStatic_ < len_) {
-                            if (_string.charAt(afterStatic_) == EXTERN_CLASS) {
-                                foundHat_ = true;
-                                break;
-                            }
-                            if (!Character.isWhitespace(_string.charAt(afterStatic_))) {
+                        if (afterStatic_ < len_) {
+                            if (_string.charAt(afterStatic_) != EXTERN_CLASS) {
                                 _conf.getLastPage().setOffset(afterStatic_);
                                 throw new BadExpressionLanguageException(_string+RETURN_LINE+_conf.joinPages());
                             }
-                            afterStatic_++;
-                        }
-                        if (!foundHat_) {
+                        } else {
                             _conf.getLastPage().setOffset(len_ - 1);
                             throw new BadExpressionLanguageException(_string+RETURN_LINE+_conf.joinPages());
                         }
