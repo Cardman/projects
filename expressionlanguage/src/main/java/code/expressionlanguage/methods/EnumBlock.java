@@ -18,6 +18,7 @@ import code.expressionlanguage.opers.util.ClassName;
 import code.expressionlanguage.opers.util.ConstructorId;
 import code.expressionlanguage.opers.util.ConstructorMetaInfo;
 import code.expressionlanguage.opers.util.MethodId;
+import code.expressionlanguage.stds.LgNames;
 import code.sml.Element;
 import code.sml.RowCol;
 import code.util.CustList;
@@ -64,6 +65,10 @@ public final class EnumBlock extends RootBlock implements UniqueRootedBlock {
 
     @Override
     public void setupBasicOverrides(ContextEl _context) {
+        LgNames stds_ = _context.getStandards();
+        if (_context.getClasses() != null) {
+            
+        }
         for (MethodBlock m: Classes.getMethodBlocks(this)) {
             if (m.getId().eq(new MethodId(false, OperationNode.METH_NAME, new EqList<ClassName>()))) {
                 ReservedMethod r_ = new ReservedMethod();

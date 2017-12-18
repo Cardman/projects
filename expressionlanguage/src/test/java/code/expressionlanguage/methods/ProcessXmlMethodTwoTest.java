@@ -9,6 +9,7 @@ import code.expressionlanguage.AccessValueEx;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.CustBase;
+import code.expressionlanguage.InitializationLgNames;
 import code.expressionlanguage.PrimitiveTypeUtil;
 import code.expressionlanguage.opers.util.ClassField;
 import code.expressionlanguage.opers.util.ClassName;
@@ -1601,6 +1602,7 @@ public class ProcessXmlMethodTwoTest {
         } else {
             ct_ = new ContextEl(m[0]);
         }
+        InitializationLgNames.initAdvStandards(ct_);
         return ct_;
     }
 }

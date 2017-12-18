@@ -18,7 +18,6 @@ import code.expressionlanguage.Templates;
 import code.expressionlanguage.exceptions.ErrorCausingException;
 import code.expressionlanguage.exceptions.InvokeException;
 import code.expressionlanguage.exceptions.StaticAccessException;
-import code.expressionlanguage.exceptions.UnwrappingException;
 import code.expressionlanguage.exceptions.VoidArgumentException;
 import code.expressionlanguage.methods.Classes;
 import code.expressionlanguage.methods.ConstructorBlock;
@@ -57,6 +56,7 @@ import code.expressionlanguage.opers.util.Parametrables;
 import code.expressionlanguage.opers.util.SearchingMemberStatus;
 import code.expressionlanguage.opers.util.StdStruct;
 import code.expressionlanguage.opers.util.Struct;
+import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.types.NativeTypeUtil;
 import code.serialize.ConverterMethod;
 import code.serialize.exceptions.InvokingException;
@@ -1388,10 +1388,10 @@ public abstract class OperationNode {
                 if (twoPrimExcl_) {
                     return CustList.SWAP_SORT;
                 }
-                toPrOne_ = PrimitiveTypeUtil.toPrimitive(one_);
-                toPrTwo_ = PrimitiveTypeUtil.toPrimitive(two_);
+                toPrOne_ = PrimitiveTypeUtil.toPrimitive(one_, context_);
+                toPrTwo_ = PrimitiveTypeUtil.toPrimitive(two_, context_);
             } else {
-                ClassArgumentMatching clMatch_ = PrimitiveTypeUtil.toPrimitive(selected_, true);
+                ClassArgumentMatching clMatch_ = PrimitiveTypeUtil.toPrimitive(selected_, true, context_);
                 if (clMatch_.isPrimitive(context_)) {
                     if (onePrimExcl_) {
                         return CustList.SWAP_SORT;
@@ -1399,8 +1399,8 @@ public abstract class OperationNode {
                     if (twoPrimExcl_) {
                         return CustList.NO_SWAP_SORT;
                     }
-                    toPrOne_ = PrimitiveTypeUtil.toPrimitive(one_);
-                    toPrTwo_ = PrimitiveTypeUtil.toPrimitive(two_);
+                    toPrOne_ = PrimitiveTypeUtil.toPrimitive(one_, context_);
+                    toPrTwo_ = PrimitiveTypeUtil.toPrimitive(two_, context_);
                 }
             }
             if (toPrOne_.isAssignableFrom(toPrTwo_, map_, context_)) {
@@ -1444,12 +1444,16 @@ public abstract class OperationNode {
         }
         StringList traces_ = new StringList();
         for (int i = 0; i < len_; i++) {
-            if (PrimitiveTypeUtil.primitiveTypeNullObject(_params.get(i), _args[i])) {
+            if (PrimitiveTypeUtil.primitiveTypeNullObject(_params.get(i), _args[i], _cont)) {
                 traces_.add(i+RETURN_LINE+_params.get(i)+RETURN_LINE+null);
             }
         }
+        LgNames stds_ = _cont.getStandards();
+        if (_cont.getClasses() != null) {
+            
+        }
         if (!traces_.isEmpty()) {
-            throw new UnwrappingException(traces_.join(SEP_ARG)+RETURN_LINE+_cont.joinPages());
+            throw new InvokeException(new StdStruct(new NullObjectException(traces_.join(SEP_ARG)+RETURN_LINE+_cont.joinPages())));
         }
     }
     static StringList toClassNames(Class<?>[] _params) {
@@ -1574,10 +1578,23 @@ public abstract class OperationNode {
     final int processBooleanValues(Argument _arg, ContextEl _cont) {
         Object o_ = _arg.getObject();
         MethodOperation par_ = getParent();
+        LgNames stds_ = _cont.getStandards();
+        if (_cont.getClasses() != null) {
+            
+        }
         if (o_ == null) {
             if (par_ instanceof QuickOperation) {
                 setRelativeOffsetPossibleLastPage(getIndexInEl(), _cont);
-                throw new NullObjectException(_cont.joinPages());
+                throw new InvokeException(new StdStruct(new NullObjectException(_cont.joinPages())));
+            }
+            boolean ternaryParent_ = false;
+            if (par_ instanceof FctOperation) {
+                FctOperation op_ = (FctOperation) par_;
+                ternaryParent_ = op_.isTernary() && isFirstChild();
+            }
+            if (ternaryParent_) {
+                setRelativeOffsetPossibleLastPage(getIndexInEl(), _cont);
+                throw new InvokeException(new StdStruct(new NullObjectException(_cont.joinPages())));
             }
             return 0;
         }
@@ -1588,7 +1605,7 @@ public abstract class OperationNode {
             boolean ternaryParent_ = false;
             if (par_ instanceof FctOperation) {
                 FctOperation op_ = (FctOperation) par_;
-                ternaryParent_ = op_.isTernary();
+                ternaryParent_ = op_.isTernary() && isFirstChild();
             }
             if (!ternaryParent_) {
                 return 0;
@@ -1724,6 +1741,7 @@ public abstract class OperationNode {
     }
 
     public final boolean isVoidArg(ContextEl _context) {
+        LgNames stds_ = _context.getStandards();
         return StringList.quickEq(resultClass.getName(), OperationNode.VOID_RETURN);
     }
 

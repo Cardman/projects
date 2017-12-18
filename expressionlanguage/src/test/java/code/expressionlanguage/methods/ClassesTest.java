@@ -5,6 +5,7 @@ import static org.junit.Assert.assertTrue;
 import org.junit.Test;
 
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.InitializationLgNames;
 import code.expressionlanguage.PrimitiveTypeUtil;
 import code.expressionlanguage.opers.OperationNode;
 import code.expressionlanguage.opers.util.ClassMethodId;
@@ -337,6 +338,7 @@ public class ClassesTest {
         xml_ = "<interface access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg'/>\n";
         files_.put("pkg/Ex."+Classes.EXT, xml_);
         ContextEl cont_ = new ContextEl();
+        InitializationLgNames.initAdvStandards(cont_);
         Classes classes_ = new Classes();
         classes_.tryBuildClassesBodies(files_, cont_);
         assertTrue(classes_.getErrorsDet().toString(), classes_.getErrorsDet().isEmpty());
@@ -355,6 +357,7 @@ public class ClassesTest {
         xml_ = "<interface access='"+PUBLIC_ACCESS+"' name='ExTwo' package='pkg'/>\n";
         files_.put("pkg/ExTwo."+Classes.EXT, xml_);
         ContextEl cont_ = new ContextEl();
+        InitializationLgNames.initAdvStandards(cont_);
         Classes classes_ = new Classes();
         classes_.tryBuildClassesBodies(files_, cont_);
         assertTrue(classes_.getErrorsDet().toString(), classes_.getErrorsDet().isEmpty());
@@ -376,6 +379,7 @@ public class ClassesTest {
         xml_ = "<interface access='"+PUBLIC_ACCESS+"' name='ExThree' package='pkg'/>\n";
         files_.put("pkg/ExThree."+Classes.EXT, xml_);
         ContextEl cont_ = new ContextEl();
+        InitializationLgNames.initAdvStandards(cont_);
         Classes classes_ = new Classes();
         classes_.tryBuildClassesBodies(files_, cont_);
         assertTrue(classes_.getErrorsDet().toString(), classes_.getErrorsDet().isEmpty());
@@ -400,6 +404,7 @@ public class ClassesTest {
         xml_ = "<interface access='"+PUBLIC_ACCESS+"' name='ExFour' package='pkg'/>\n";
         files_.put("pkg/ExFour."+Classes.EXT, xml_);
         ContextEl cont_ = new ContextEl();
+        InitializationLgNames.initAdvStandards(cont_);
         Classes classes_ = new Classes();
         classes_.tryBuildClassesBodies(files_, cont_);
         assertTrue(classes_.getErrorsDet().toString(), classes_.getErrorsDet().isEmpty());
@@ -425,6 +430,7 @@ public class ClassesTest {
         xml_ = "<interface access='"+PUBLIC_ACCESS+"' name='ExFour' package='pkg'/>\n";
         files_.put("pkg/ExFour."+Classes.EXT, xml_);
         ContextEl cont_ = new ContextEl();
+        InitializationLgNames.initAdvStandards(cont_);
         Classes classes_ = new Classes();
         classes_.tryBuildClassesBodies(files_, cont_);
         assertTrue(classes_.getErrorsDet().toString(), classes_.getErrorsDet().isEmpty());
@@ -452,6 +458,7 @@ public class ClassesTest {
         xml_ = "<interface access='"+PUBLIC_ACCESS+"' name='ExFive' package='pkg' class0='pkg.ExTwo' class1='pkg.ExThree'/>\n";
         files_.put("pkg/ExFive."+Classes.EXT, xml_);
         ContextEl cont_ = new ContextEl();
+        InitializationLgNames.initAdvStandards(cont_);
         Classes classes_ = new Classes();
         classes_.tryBuildClassesBodies(files_, cont_);
         assertTrue(classes_.getErrorsDet().toString(), classes_.getErrorsDet().isEmpty());
@@ -552,6 +559,7 @@ public class ClassesTest {
     }
     private ContextEl unfullValidateOverridingMethods(StringMap<String> _files) {
         ContextEl cont_ = new ContextEl();
+        InitializationLgNames.initAdvStandards(cont_);
         Classes classes_ = new Classes();
         classes_.tryBuildClassesBodies(_files, cont_);
         assertTrue(classes_.getErrorsDet().toString(), classes_.getErrorsDet().isEmpty());
@@ -567,6 +575,7 @@ public class ClassesTest {
     }
     private ContextEl unfullValidateOverridingClasses(StringMap<String> _files) {
         ContextEl cont_ = new ContextEl();
+        InitializationLgNames.initAdvStandards(cont_);
         Classes classes_ = new Classes();
         classes_.tryBuildClassesBodies(_files, cont_);
         assertTrue(classes_.getErrorsDet().toString(), classes_.getErrorsDet().isEmpty());

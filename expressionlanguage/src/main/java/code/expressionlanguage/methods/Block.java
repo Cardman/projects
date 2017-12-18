@@ -231,7 +231,7 @@ public abstract class Block extends Blockable {
                 return;
             }
             Argument global_ = _conf.getLastPage().getGlobalArgument();
-            Argument arg_ = PrimitiveTypeUtil.defaultValue(root_, global_);
+            Argument arg_ = PrimitiveTypeUtil.defaultValue(root_, global_, _conf);
             _conf.getLastPage().setReturnedArgument(arg_);
             ip_.setNullReadWrite();
             return;

@@ -2614,6 +2614,7 @@ public class TemplatesTest {
     }
     private ContextEl unfullValidateOverridingMethods(StringMap<String> _files) {
         ContextEl cont_ = new ContextEl();
+        InitializationLgNames.initAdvStandards(cont_);
         Classes classes_ = new Classes();
         classes_.tryBuildClassesBodies(_files, cont_);
         assertTrue(classes_.getErrorsDet().toString(), classes_.getErrorsDet().isEmpty());
@@ -2625,6 +2626,7 @@ public class TemplatesTest {
     }
     private ContextEl simpleContextEl() {
         ContextEl cont_ = new ContextEl();
+        InitializationLgNames.initAdvStandards(cont_);
         return cont_;
     }
 }

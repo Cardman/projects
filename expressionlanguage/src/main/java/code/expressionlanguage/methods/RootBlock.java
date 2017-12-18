@@ -32,6 +32,7 @@ import code.expressionlanguage.opers.util.ClassName;
 import code.expressionlanguage.opers.util.ConstructorId;
 import code.expressionlanguage.opers.util.MethodId;
 import code.expressionlanguage.opers.util.OverridingRelation;
+import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.types.NativeTypeUtil;
 import code.sml.Element;
 import code.sml.RowCol;
@@ -198,6 +199,10 @@ public abstract class RootBlock extends BracedBlock implements AccessibleBlock {
         EqList<ConstructorId> idConstructors_ = new EqList<ConstructorId>();
         StringList idsField_ = new StringList();
         String className_ = getFullName();
+        LgNames stds_ = _context.getStandards();
+        if (_context.getClasses() != null) {
+            
+        }
         CustList<Block> bl_;
         bl_ = Classes.getDirectChildren(this);
         for (Block b: bl_) {
@@ -374,6 +379,10 @@ public abstract class RootBlock extends BracedBlock implements AccessibleBlock {
 
     final void useSuperTypesOverrides(ContextEl _context) {
         Classes classesRef_ = _context.getClasses();
+        LgNames stds_ = _context.getStandards();
+        if (_context.getClasses() != null) {
+            
+        }
         ObjectMap<MethodId, EqList<ClassMethodId>> allOv_ = getAllInstanceSignatures(classesRef_);
         ObjectMap<MethodId, EqList<ClassMethodId>> allBaseOv_ = getAllOverridingMethods(allOv_, _context);
         ObjectMap<MethodId,CustList<OverridingRelation>> allOverridings_ = new ObjectMap<MethodId,CustList<OverridingRelation>>();

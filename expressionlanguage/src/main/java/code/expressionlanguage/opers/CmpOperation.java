@@ -4,10 +4,12 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.OperationsSequence;
 import code.expressionlanguage.PrimitiveTypeUtil;
 import code.expressionlanguage.exceptions.BadNumberValuesException;
+import code.expressionlanguage.exceptions.InvokeException;
 import code.expressionlanguage.exceptions.NotComparableException;
 import code.expressionlanguage.methods.util.ArgumentsPair;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
-import code.serialize.exceptions.NullFieldException;
+import code.expressionlanguage.opers.util.StdStruct;
+import code.expressionlanguage.stds.LgNames;
 import code.util.CustList;
 import code.util.IdMap;
 import code.util.NatTreeMap;
@@ -24,6 +26,10 @@ public final class CmpOperation extends PrimitiveBoolOperation {
     }
 
     static Argument calculateLower(Argument _a, Argument _b, ContextEl _context) {
+        LgNames stds_ = _context.getStandards();
+        if (_context.getClasses() != null) {
+            
+        }
         if (StringList.quickEq(_a.getObjectClassName(_context), String.class.getName())) {
             if (StringList.quickEq(_b.getObjectClassName(_context), String.class.getName())) {
                 Argument a_ = new Argument();
@@ -80,7 +86,7 @@ public final class CmpOperation extends PrimitiveBoolOperation {
         } else if (p_ instanceof Character) {
             bSeven_ = (Character) p_;
         }
-        Object nb_;
+        boolean nb_;
         if (aOne_ != null) {
             if (bOne_ != null) {
                 nb_ = aOne_< bOne_;
@@ -200,6 +206,10 @@ public final class CmpOperation extends PrimitiveBoolOperation {
     }
 
     static Argument calculateGreater(Argument _a, Argument _b, ContextEl _context) {
+        LgNames stds_ = _context.getStandards();
+        if (_context.getClasses() != null) {
+            
+        }
         if (StringList.quickEq(_a.getObjectClassName(_context), String.class.getName())) {
             if (StringList.quickEq(_b.getObjectClassName(_context), String.class.getName())) {
                 Argument a_ = new Argument();
@@ -256,7 +266,7 @@ public final class CmpOperation extends PrimitiveBoolOperation {
         } else if (p_ instanceof Character) {
             bSeven_ = (Character) p_;
         }
-        Object nb_;
+        boolean nb_;
         if (aOne_ != null) {
             if (bOne_ != null) {
                 nb_ = aOne_> bOne_;
@@ -389,12 +399,16 @@ public final class CmpOperation extends PrimitiveBoolOperation {
         }
         ClassArgumentMatching first_ = chidren_.first().getResultClass();
         ClassArgumentMatching second_ = chidren_.last().getResultClass();
+        LgNames stds_ = _conf.getStandards();
+        if (_conf.getClasses() != null) {
+            
+        }
         if (first_.matchClass(String.class) && second_.matchClass(String.class)) {
             setResultClass(new ClassArgumentMatching(PrimitiveTypeUtil.PRIM_BOOLEAN));
             return;
         }
-        ClassArgumentMatching classFirst_ = PrimitiveTypeUtil.toPrimitive(first_, true);
-        ClassArgumentMatching classSecond_ = PrimitiveTypeUtil.toPrimitive(second_, true);
+        ClassArgumentMatching classFirst_ = PrimitiveTypeUtil.toPrimitive(first_, true, _conf);
+        ClassArgumentMatching classSecond_ = PrimitiveTypeUtil.toPrimitive(second_, true, _conf);
         if (classFirst_.isPrimitive(_conf)) {
             if (classSecond_.isPrimitive(_conf)) {
                 setResultClass(new ClassArgumentMatching(PrimitiveTypeUtil.PRIM_BOOLEAN));
@@ -416,14 +430,18 @@ public final class CmpOperation extends PrimitiveBoolOperation {
         OperationNode opOne_ = chidren_.first();
         OperationNode opTwo_ = chidren_.last();
         Argument first_ = _nodes.getVal(opOne_).getArgument();
+        LgNames stds_ = _conf.getStandards();
+        if (_conf.getClasses() != null) {
+            
+        }
         if (first_.isNull()) {
             setRelativeOffsetPossibleLastPage(opOne_.getIndexInEl(), _conf);
-            throw new NullFieldException(_conf.joinPages());
+            throw new InvokeException(new StdStruct(new NullObjectException(_conf.joinPages())));
         }
         Argument second_ = _nodes.getVal(opTwo_).getArgument();
         if (second_.isNull()) {
             setRelativeOffsetPossibleLastPage(opTwo_.getIndexInEl(), _conf);
-            throw new NullFieldException(_conf.joinPages());
+            throw new InvokeException(new StdStruct(new NullObjectException(_conf.joinPages())));
         }
         boolean complement_ = false;
         String op_ = getOperations().getOperators().values().first().trim();
@@ -459,14 +477,18 @@ public final class CmpOperation extends PrimitiveBoolOperation {
     void calculateCommon(CustList<OperationNode> _nodes, ContextEl _conf, String _op) {
         CustList<OperationNode> chidren_ = getChildrenNodes();
         Argument first_ = chidren_.first().getArgument();
+        LgNames stds_ = _conf.getStandards();
+        if (_conf.getClasses() != null) {
+            
+        }
         if (first_.getObject() == null) {
             setRelativeOffsetPossibleLastPage(chidren_.first().getIndexInEl(), _conf);
-            throw new NullFieldException(_conf.joinPages());
+            throw new InvokeException(new StdStruct(new NullObjectException(_conf.joinPages())));
         }
         Argument second_ = chidren_.last().getArgument();
         if (second_.getObject() == null) {
             setRelativeOffsetPossibleLastPage(chidren_.last().getIndexInEl(), _conf);
-            throw new NullFieldException(_conf.joinPages());
+            throw new InvokeException(new StdStruct(new NullObjectException(_conf.joinPages())));
         }
         boolean complement_ = false;
         String op_ = getOperations().getOperators().values().first().trim();

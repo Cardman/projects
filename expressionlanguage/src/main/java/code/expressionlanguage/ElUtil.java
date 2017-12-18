@@ -81,16 +81,16 @@ public final class ElUtil {
         }
         if (_oper.length() == 2) {
             if (StringList.quickEq(_oper, Block.EQ_PLUS) || StringList.quickEq(_oper, Block.PLUS_EQ)) {
-                if (!PrimitiveTypeUtil.isPureNumberClass(clMatchLeft_)) {
+                if (!PrimitiveTypeUtil.isPureNumberClass(clMatchLeft_, _conf)) {
                     if (!clMatchLeft_.matchClass(String.class)) {
                         throw new DynamicCastClassException(_conf.joinPages());
                     }
-                } else if (!PrimitiveTypeUtil.isPureNumberClass(clMatchRight_)) {
+                } else if (!PrimitiveTypeUtil.isPureNumberClass(clMatchRight_, _conf)) {
                     throw new DynamicCastClassException(_conf.joinPages());
                 }
-            } else if (!PrimitiveTypeUtil.isPureNumberClass(clMatchLeft_)) {
+            } else if (!PrimitiveTypeUtil.isPureNumberClass(clMatchLeft_, _conf)) {
                 throw new DynamicCastClassException(_conf.joinPages());
-            } else if (!PrimitiveTypeUtil.isPureNumberClass(clMatchRight_)) {
+            } else if (!PrimitiveTypeUtil.isPureNumberClass(clMatchRight_, _conf)) {
                 throw new DynamicCastClassException(_conf.joinPages());
             }
         } else {

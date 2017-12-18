@@ -4,7 +4,6 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.ElUtil;
 import code.expressionlanguage.Mapping;
 import code.expressionlanguage.PageEl;
-import code.expressionlanguage.PrimitiveTypeUtil;
 import code.expressionlanguage.Templates;
 import code.expressionlanguage.exceptions.DynamicCastClassException;
 import code.expressionlanguage.methods.exceptions.BadConstructorCall;
@@ -50,15 +49,14 @@ public final class FieldBlock extends Leaf implements InfoBlock {
         access = AccessEnum.valueOf(_el.getAttribute(ATTRIBUTE_ACCESS));
     }
     public Struct getDefaultStruct(ContextEl _cont) {
-        Object value_ = PrimitiveTypeUtil.defaultValue(className);
         if (value.isEmpty()) {
-            return StdStruct.wrapStd(value_);
+            return StdStruct.defaultClass(className, _cont);
         }
         ExpressionLanguage el_ = getValueEl();
         if (el_.isAlwaysCalculated()) {
             return el_.getConstValue();
         }
-        return StdStruct.wrapStd(value_);
+        return StdStruct.defaultClass(className, _cont);
     }
 
     @Override
@@ -175,8 +173,7 @@ public final class FieldBlock extends Leaf implements InfoBlock {
             String name_ = getFieldName();
             Struct struct_;
             if (value.isEmpty()) {
-                Object value_ = PrimitiveTypeUtil.defaultValue(className);
-                struct_ = StdStruct.wrapStd(value_);
+                struct_ = StdStruct.defaultClass(className, _cont);
             } else {
                 ExpressionLanguage el_ = ip_.getCurrentEl(this, CustList.FIRST_INDEX, getValueEl());
                 Argument arg_ = el_.calculateMember(_cont);

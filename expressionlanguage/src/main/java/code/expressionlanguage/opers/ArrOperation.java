@@ -12,13 +12,16 @@ import code.expressionlanguage.exceptions.BadIndexException;
 import code.expressionlanguage.exceptions.BadIndexTypeException;
 import code.expressionlanguage.exceptions.BadNumberValuesException;
 import code.expressionlanguage.exceptions.DynamicArrayStoreException;
+import code.expressionlanguage.exceptions.InvokeException;
 import code.expressionlanguage.exceptions.NotArrayException;
 import code.expressionlanguage.methods.util.ArgumentsPair;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.opers.util.ConstructorId;
 import code.expressionlanguage.opers.util.CustStruct;
 import code.expressionlanguage.opers.util.NullStruct;
+import code.expressionlanguage.opers.util.StdStruct;
 import code.expressionlanguage.opers.util.Struct;
+import code.expressionlanguage.stds.LgNames;
 import code.util.CustList;
 import code.util.IdMap;
 import code.util.NatTreeMap;
@@ -153,6 +156,10 @@ public final class ArrOperation extends MethodOperation implements SettableElRes
 
     void affectArray(Struct _array,Argument _index, int _indexEl, String _op, ContextEl _conf) {
         setRelativeOffsetPossibleLastPage(_indexEl, _conf);
+        LgNames stds_ = _conf.getStandards();
+        if (_conf.getClasses() != null) {
+            
+        }
         Object o_ = _index.getObject();
         PageEl ip_ = _conf.getLastPage();
         Struct leftObj_ = getElement(_array, o_, _conf, _indexEl);
@@ -160,8 +167,8 @@ public final class ArrOperation extends MethodOperation implements SettableElRes
         left_.setStruct(leftObj_);
         Argument right_ = ip_.getRightArgument();
         String base_ = PrimitiveTypeUtil.getQuickComponentType(_array.getClassName(_conf));
-        if (PrimitiveTypeUtil.primitiveTypeNullObject(base_, right_.getStruct())) {
-            throw new NullObjectException(_conf.joinPages());
+        if (PrimitiveTypeUtil.primitiveTypeNullObject(base_, right_.getStruct(), _conf)) {
+            throw new InvokeException(new StdStruct(new NullObjectException(_conf.joinPages())));
         }
         Argument res_;
         res_ = NumericOperation.calculateAffect(left_, _conf, right_, _op);
@@ -169,6 +176,10 @@ public final class ArrOperation extends MethodOperation implements SettableElRes
     }
 
     Argument getArgument(int _maxIndexChildren, ContextEl _conf) {
+        LgNames stds_ = _conf.getStandards();
+        if (_conf.getClasses() != null) {
+            
+        }
         CustList<OperationNode> chidren_ = getChildrenNodes();
         Struct array_;
         array_ = chidren_.first().getArgument().getStruct();
@@ -183,17 +194,21 @@ public final class ArrOperation extends MethodOperation implements SettableElRes
 
     Struct getElement(Struct _struct, Object _index, ContextEl _conf, int _indexEl) {
         setRelativeOffsetPossibleLastPage(_indexEl, _conf);
+        LgNames stds_ = _conf.getStandards();
+        if (_conf.getClasses() != null) {
+            
+        }
         if (_struct.isNull()) {
-            throw new NullObjectException(_conf.joinPages());
+            throw new InvokeException(new StdStruct(new NullObjectException(_conf.joinPages())));
         }
         if (_index == null) {
-            throw new NullObjectException(_conf.joinPages());
+            throw new InvokeException(new StdStruct(new NullObjectException(_conf.joinPages())));
         }
         Object arrayInst_ = _struct.getInstance();
         int len_ = Array.getLength(arrayInst_);
         int index_ = ((Number)_index).intValue();
         if (index_ < 0 || index_ >= len_) {
-            throw new BadIndexException(String.valueOf(index_)+RETURN_LINE+_conf.joinPages());
+            throw new InvokeException(new StdStruct(new BadIndexException(String.valueOf(index_)+RETURN_LINE+_conf.joinPages())));
         }
         Object output_ = Array.get(arrayInst_, index_);
         if (output_ == null) {
@@ -202,24 +217,32 @@ public final class ArrOperation extends MethodOperation implements SettableElRes
         return CustStruct.wrapOrId(output_);
     }
     static void setCheckedElement(Struct _array,Object _index, Argument _element, ContextEl _conf) {
+        LgNames stds_ = _conf.getStandards();
+        if (_conf.getClasses() != null) {
+            
+        }
         String base_ = PrimitiveTypeUtil.getQuickComponentType(_array.getClassName(_conf));
-        if (PrimitiveTypeUtil.primitiveTypeNullObject(base_, _element.getStruct())) {
-            throw new NullObjectException(_conf.joinPages());
+        if (PrimitiveTypeUtil.primitiveTypeNullObject(base_, _element.getStruct(), _conf)) {
+            throw new InvokeException(new StdStruct(new NullObjectException(_conf.joinPages())));
         }
         setElement(_array, _index, _element.getStruct(), _conf);
     }
     static void setElement(Struct _struct, Object _index, Struct _value, ContextEl _conf) {
+        LgNames stds_ = _conf.getStandards();
+        if (_conf.getClasses() != null) {
+            
+        }
         if (_struct.isNull()) {
-            throw new NullObjectException(_conf.joinPages());
+            throw new InvokeException(new StdStruct(new NullObjectException(_conf.joinPages())));
         }
         if (_index == null) {
-            throw new NullObjectException(_conf.joinPages());
+            throw new InvokeException(new StdStruct(new NullObjectException(_conf.joinPages())));
         }
         Object arrayInst_ = _struct.getInstance();
         int len_ = Array.getLength(arrayInst_);
         int index_ = ((Number)_index).intValue();
         if (index_ < 0 || index_ >= len_) {
-            throw new BadIndexException(String.valueOf(index_)+RETURN_LINE+_conf.joinPages());
+            throw new InvokeException(new StdStruct(new BadIndexException(String.valueOf(index_)+RETURN_LINE+_conf.joinPages())));
         }
         if (_value.isNull()) {
             if (_struct.isJavaObject()) {
@@ -235,7 +258,7 @@ public final class ArrOperation extends MethodOperation implements SettableElRes
         mapping_.setArg(elementType_);
         mapping_.setParam(componentType_);
         if (!Templates.isCorrect(mapping_, _conf)) {
-            throw new DynamicArrayStoreException(componentType_, elementType_, _conf.joinPages());
+            throw new InvokeException(new StdStruct(new DynamicArrayStoreException(componentType_, elementType_, _conf.joinPages())));
         }
         if (!_value.isJavaObject()) {
             Array.set(arrayInst_, index_, _value);

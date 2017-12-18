@@ -20,6 +20,7 @@ import code.expressionlanguage.exceptions.DynamicCastClassException;
 import code.expressionlanguage.exceptions.DynamicNumberFormatException;
 import code.expressionlanguage.exceptions.EmptyPartException;
 import code.expressionlanguage.exceptions.ErrorCausingException;
+import code.expressionlanguage.exceptions.InvokeException;
 import code.expressionlanguage.exceptions.NotInitializedClassException;
 import code.expressionlanguage.exceptions.NullGlobalObjectException;
 import code.expressionlanguage.exceptions.SettingMemberException;
@@ -41,6 +42,7 @@ import code.expressionlanguage.opers.util.LongStruct;
 import code.expressionlanguage.opers.util.SearchingMemberStatus;
 import code.expressionlanguage.opers.util.StdStruct;
 import code.expressionlanguage.opers.util.Struct;
+import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.types.NativeTypeUtil;
 import code.expressionlanguage.variables.LocalVariable;
 import code.expressionlanguage.variables.LoopVariable;
@@ -119,6 +121,10 @@ public final class ConstantOperation extends OperationNode implements SettableEl
             return;
         }
         Argument a_ = new Argument();
+        LgNames stds_ = _conf.getStandards();
+        if (_conf.getClasses() != null) {
+            
+        }
         if (StringList.quickEq(str_, TRUE_STRING)) {
             argClName_ = PrimitiveTypeUtil.PRIM_BOOLEAN;
             a_.setObject(true);
@@ -341,7 +347,7 @@ public final class ConstantOperation extends OperationNode implements SettableEl
             processNb_ = false;
         }
         if (processNb_) {
-            ParsedArgument parsed_ = ParsedArgument.parse(str_);
+            ParsedArgument parsed_ = ParsedArgument.parse(str_, _conf);
             String argClassName_ = parsed_.getType();
             if (argClassName_.isEmpty()) {
                 throw new DynamicNumberFormatException(str_+RETURN_LINE+_conf.joinPages());
@@ -545,6 +551,10 @@ public final class ConstantOperation extends OperationNode implements SettableEl
     }
     private void analyzeNativeField(ContextEl _conf, String _key) {
         ClassArgumentMatching cl_ = getPreviousResultClass();
+        LgNames stds_ = _conf.getStandards();
+        if (_conf.getClasses() != null) {
+            
+        }
         if (cl_.isArray()) {
             if (StringList.quickEq(_key, LENGTH)) {
                 setResultClass(new ClassArgumentMatching(PrimitiveTypeUtil.PRIM_INT));
@@ -636,6 +646,10 @@ public final class ConstantOperation extends OperationNode implements SettableEl
 
     ArgumentCall getCommonArgument(Argument _argument, Argument _previous, ContextEl _conf,
             String _op) {
+        LgNames stds_ = _conf.getStandards();
+        if (_conf.getClasses() != null) {
+            
+        }
         if (isPossibleInitClass()) {
             String className_ = getResultClass().getName();
             if (!_conf.getClasses().isInitialized(className_)) {
@@ -679,13 +693,13 @@ public final class ConstantOperation extends OperationNode implements SettableEl
                 return ArgumentCall.newArgument(a_);
             }
             if (arg_.isNull()) {
-                throw new NullObjectException(_conf.joinPages());
+                throw new InvokeException(new StdStruct(new NullObjectException(_conf.joinPages())));
             }
             String argClassName_ = arg_.getObjectClassName(_conf);
             String classNameFound_ = fieldId.getClassName();
             String base_ = StringList.getAllTypes(argClassName_).first();
             if (!PrimitiveTypeUtil.canBeUseAsArgument(classNameFound_, base_, _conf)) {
-                throw new DynamicCastClassException(base_+RETURN_LINE+classNameFound_+RETURN_LINE+_conf.joinPages());
+                throw new InvokeException(new StdStruct(new DynamicCastClassException(base_+RETURN_LINE+classNameFound_+RETURN_LINE+_conf.joinPages())));
             }
             Struct struct_ = ((CustStruct) arg_.getStruct()).getStruct(fieldId);
             a_ = new Argument();
@@ -734,7 +748,7 @@ public final class ConstantOperation extends OperationNode implements SettableEl
         Argument arg_ = _previous;
         if (cl_.isArray()) {
             if (arg_.isNull()) {
-                throw new NullObjectException(_conf.joinPages());
+                throw new InvokeException(new StdStruct(new NullObjectException(_conf.joinPages())));
             }
             a_ = new Argument();
             a_.setStruct(new IntStruct(Array.getLength(arg_.getObject())));
@@ -745,7 +759,7 @@ public final class ConstantOperation extends OperationNode implements SettableEl
         }
         Object obj_ = arg_.getObject();
         if (!Modifier.isStatic(field.getModifiers()) && obj_ == null) {
-            throw new NullObjectException(_conf.joinPages());
+            throw new InvokeException(new StdStruct(new NullObjectException(_conf.joinPages())));
         }
         Object res_;
         try {
@@ -760,7 +774,10 @@ public final class ConstantOperation extends OperationNode implements SettableEl
 
     Argument getCommonSetting(Argument _argument, Argument _previous, ContextEl _conf, String _op) {
         PageEl ip_ = _conf.getLastPage();
-
+        LgNames stds_ = _conf.getStandards();
+        if (_conf.getClasses() != null) {
+            
+        }
         String originalStr_ = getOperations().getValues().getValue(CustList.FIRST_INDEX);
         String str_ = originalStr_.trim();
         int off_ = StringList.getFirstPrintableCharIndex(originalStr_);
@@ -771,8 +788,8 @@ public final class ConstantOperation extends OperationNode implements SettableEl
             Argument left_ = new Argument();
             left_.setStruct(locVar_.getStruct());
             Argument right_ = ip_.getRightArgument();
-            if (PrimitiveTypeUtil.primitiveTypeNullObject(locVar_.getClassName(), right_.getStruct())) {
-                throw new NullObjectException(_conf.joinPages());
+            if (PrimitiveTypeUtil.primitiveTypeNullObject(locVar_.getClassName(), right_.getStruct(), _conf)) {
+                throw new InvokeException(new StdStruct(new NullObjectException(_conf.joinPages())));
             }
             Argument res_;
             res_ = NumericOperation.calculateAffect(left_, _conf, right_, _op);
@@ -785,21 +802,21 @@ public final class ConstantOperation extends OperationNode implements SettableEl
         Argument res_;
         if (fieldId != null) {
             Classes classes_ = _conf.getClasses();
-            if (PrimitiveTypeUtil.primitiveTypeNullObject(fieldMetaInfo.getType(), right_.getStruct())) {
-                throw new NullObjectException(_conf.joinPages());
+            if (PrimitiveTypeUtil.primitiveTypeNullObject(fieldMetaInfo.getType(), right_.getStruct(), _conf)) {
+                throw new InvokeException(new StdStruct(new NullObjectException(_conf.joinPages())));
             }
             Struct structField_ = null;
             if (fieldMetaInfo.isStaticField()) {
                 structField_ = classes_.getStaticField(fieldId);
             } else {
                 if (argument_.isNull()) {
-                    throw new NullObjectException(_conf.joinPages());
+                    throw new InvokeException(new StdStruct(new NullObjectException(_conf.joinPages())));
                 }
                 String argClassName_ = argument_.getObjectClassName(_conf);
                 String classNameFound_ = fieldId.getClassName();
                 String base_ = StringList.getAllTypes(argClassName_).first();
                 if (!PrimitiveTypeUtil.canBeUseAsArgument(classNameFound_, base_, _conf)) {
-                    throw new DynamicCastClassException(base_+RETURN_LINE+classNameFound_+RETURN_LINE+_conf.joinPages());
+                    throw new InvokeException(new StdStruct(new DynamicCastClassException(base_+RETURN_LINE+classNameFound_+RETURN_LINE+_conf.joinPages())));
                 }
                 structField_ = ((CustStruct) argument_.getStruct()).getStruct(fieldId);
                 if (staticChoiceField) {
@@ -812,7 +829,7 @@ public final class ConstantOperation extends OperationNode implements SettableEl
                         map_.setArg(right_.getObjectClassName(_conf));
                         map_.setParam(type_);
                         if (!Templates.isCorrect(map_, _conf)) {
-                            throw new DynamicCastClassException(right_.getObjectClassName(_conf)+RETURN_LINE+type_+RETURN_LINE+_conf.joinPages());
+                            throw new InvokeException(new StdStruct(new DynamicCastClassException(right_.getObjectClassName(_conf)+RETURN_LINE+type_+RETURN_LINE+_conf.joinPages())));
                         }
                     }
                 }
@@ -829,14 +846,14 @@ public final class ConstantOperation extends OperationNode implements SettableEl
         }
         if (!Modifier.isStatic(field.getModifiers())) {
             if (argument_.isNull()) {
-                throw new NullObjectException(_conf.joinPages());
+                throw new InvokeException(new StdStruct(new NullObjectException(_conf.joinPages())));
             }
         }
         Object obj_ = argument_.getStruct().getInstance();
         Object field_ = ConverterMethod.getField(field, obj_);
         left_.setStruct(StdStruct.wrapStd(field_));
         if (right_.isNull() && field.getType().isPrimitive()) {
-            throw new NullObjectException(_conf.joinPages());
+            throw new InvokeException(new StdStruct(new NullObjectException(_conf.joinPages())));
         }
         res_ = NumericOperation.calculateAffect(left_, _conf, right_, _op);
         ConverterMethod.setField(field, obj_, res_.getObject());

@@ -63,7 +63,7 @@ public final class SemiAffectation extends Leaf implements StackableBlock {
         opLeft = ElUtil.getAnalyzedOperations(leftMember, _cont, new Calculation(false, f_.isStaticContext(), EMPTY_STRING, true));
         OperationNode leftEl_ = opLeft.last();
         ClassArgumentMatching clMatchLeft_ = leftEl_.getResultClass();
-        if (!PrimitiveTypeUtil.isPureNumberClass(clMatchLeft_)) {
+        if (!PrimitiveTypeUtil.isPureNumberClass(clMatchLeft_, _cont)) {
             throw new DynamicCastClassException(_cont.joinPages());
         }
         if (!StringList.quickEq(oper, INCR)) {

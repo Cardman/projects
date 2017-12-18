@@ -1,4 +1,5 @@
 package code.expressionlanguage;
+import code.expressionlanguage.opers.util.BooleanStruct;
 import code.expressionlanguage.opers.util.ByteStruct;
 import code.expressionlanguage.opers.util.CharStruct;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
@@ -148,8 +149,15 @@ public final class Argument {
         return object.getInstance();
     }
 
+    public void setObject(Boolean _object) {
+        object = new BooleanStruct(_object);
+    }
     public void setObject(Object _object) {
         object = StdStruct.wrapStd(_object);
+    }
+
+    public void setObject(Object _object, String _alias) {
+        object = StdStruct.wrapStd(_object, _alias);
     }
 
     public String getObjectClassName(ContextEl _context) {
@@ -168,7 +176,7 @@ public final class Argument {
         if (object.isNull()) {
             return false;
         }
-        return PrimitiveTypeUtil.isIntegerType(getArgClass(_context));
+        return PrimitiveTypeUtil.isIntegerType(getArgClass(_context), _context);
     }
 
 }

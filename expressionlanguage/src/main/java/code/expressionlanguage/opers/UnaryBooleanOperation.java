@@ -4,9 +4,12 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.OperationsSequence;
 import code.expressionlanguage.PrimitiveTypeUtil;
 import code.expressionlanguage.exceptions.BadNumberValuesException;
+import code.expressionlanguage.exceptions.InvokeException;
 import code.expressionlanguage.exceptions.NotBooleanException;
 import code.expressionlanguage.methods.util.ArgumentsPair;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
+import code.expressionlanguage.opers.util.StdStruct;
+import code.expressionlanguage.stds.LgNames;
 import code.util.CustList;
 import code.util.IdMap;
 import code.util.NatTreeMap;
@@ -34,6 +37,10 @@ public final class UnaryBooleanOperation extends PrimitiveBoolOperation {
         ClassArgumentMatching clMatch_;
         clMatch_ = chidren_.first().getResultClass();
         setRelativeOffsetPossibleLastPage(getIndexInEl(), _conf);
+        LgNames stds_ = _conf.getStandards();
+        if (_conf.getClasses() != null) {
+            
+        }
         if (!clMatch_.matchClass(PrimitiveTypeUtil.PRIM_BOOLEAN)) {
             if (!clMatch_.matchClass(Boolean.class)) {
                 ClassArgumentMatching cl_ = chidren_.first().getResultClass();
@@ -55,8 +62,12 @@ public final class UnaryBooleanOperation extends PrimitiveBoolOperation {
         Argument arg_ = _nodes.getVal(chidren_.first()).getArgument();
         Object o_ = arg_.getObject();
         setRelativeOffsetPossibleLastPage(getIndexInEl(), _conf);
+        LgNames stds_ = _conf.getStandards();
+        if (_conf.getClasses() != null) {
+            
+        }
         if (o_ == null) {
-            throw new NullObjectException(_conf.joinPages());
+            throw new InvokeException(new StdStruct( new NullObjectException(_conf.joinPages())));
         }
         Boolean b_ = (Boolean) o_;
         b_ = !b_;
@@ -78,8 +89,12 @@ public final class UnaryBooleanOperation extends PrimitiveBoolOperation {
         Argument arg_ = chidren_.first().getArgument();
         Object o_ = arg_.getObject();
         setRelativeOffsetPossibleLastPage(getIndexInEl(), _conf);
+        LgNames stds_ = _conf.getStandards();
+        if (_conf.getClasses() != null) {
+            
+        }
         if (o_ == null) {
-            throw new NullObjectException(_conf.joinPages());
+            throw new InvokeException(new StdStruct(new NullObjectException(_conf.joinPages())));
         }
         Boolean b_ = (Boolean) o_;
         b_ = !b_;

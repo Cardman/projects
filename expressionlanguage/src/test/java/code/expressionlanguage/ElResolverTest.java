@@ -3453,6 +3453,7 @@ public class ElResolverTest {
     }
     private ContextEl contextEl() {
         ContextEl cont_ = new ContextEl();
+        InitializationLgNames.initAdvStandards(cont_);
         return cont_;
     }
 }

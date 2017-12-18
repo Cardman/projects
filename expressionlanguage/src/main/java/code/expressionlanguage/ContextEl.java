@@ -1,6 +1,8 @@
 package code.expressionlanguage;
+import code.expressionlanguage.exceptions.InvokeException;
 import code.expressionlanguage.exceptions.StackOverFlow;
 import code.expressionlanguage.methods.Classes;
+import code.expressionlanguage.opers.util.StdStruct;
 import code.expressionlanguage.stds.LgNames;
 import code.sml.ElementOffsetsNext;
 import code.util.CustList;
@@ -145,8 +147,12 @@ public final class ContextEl {
     }
 
     public void addPage(PageEl _page) {
+        LgNames stds_ = getStandards();
+        if (getClasses() != null) {
+            
+        }
         if (stackOverFlow >= CustList.FIRST_INDEX && stackOverFlow <= importing.size()) {
-            throw new StackOverFlow(joinPages());
+            throw new InvokeException(new StdStruct(new StackOverFlow(joinPages())));
         }
         importing.add(_page);
     }

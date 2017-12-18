@@ -17,11 +17,14 @@ public final class PredefinedClasses {
     private PredefinedClasses() {
     }
     public static boolean isPredefined(String _type, ContextEl _context) {
+        if (_context.getClasses() == null) {
+            return isPredefined(_type);
+        }
         LgNames stds_ = _context.getStandards();
         boolean pred_ = false;
         if (StringList.quickEq(_type, stds_.getAliasIterable())) {
             pred_ = true;
-        } else if (StringList.quickEq(_type, stds_.getAliasIterator())) {
+        } else if (StringList.quickEq(_type, stds_.getAliasIteratorType())) {
             pred_ = true;
         } else if (StringList.quickEq(_type, stds_.getAliasEnum())) {
             pred_ = true;
@@ -30,7 +33,7 @@ public final class PredefinedClasses {
         }
         return pred_;
     }
-    public static boolean isPredefined(String _type) {
+    private static boolean isPredefined(String _type) {
         boolean pred_ = false;
         if (StringList.quickEq(_type, PredefinedClasses.ITERABLE)) {
             pred_ = true;

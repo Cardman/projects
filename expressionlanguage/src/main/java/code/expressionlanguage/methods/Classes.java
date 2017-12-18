@@ -1,6 +1,5 @@
 package code.expressionlanguage.methods;
 import java.lang.reflect.Modifier;
-import java.util.Iterator;
 
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.CustEnum;
@@ -42,6 +41,7 @@ import code.expressionlanguage.opers.util.FieldMetaInfo;
 import code.expressionlanguage.opers.util.MethodId;
 import code.expressionlanguage.opers.util.MethodMetaInfo;
 import code.expressionlanguage.opers.util.Struct;
+import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.variables.LocalVariable;
 import code.sml.Document;
 import code.sml.DocumentBuilder;
@@ -60,7 +60,6 @@ import code.util.StringList;
 import code.util.StringMap;
 import code.util.exceptions.RuntimeClassNotFoundException;
 import code.util.graphs.Graph;
-import code.util.ints.SimpleIterable;
 
 public final class Classes {
 
@@ -117,9 +116,6 @@ public final class Classes {
     private String hasNextVar;
     private String nextVar;
     private CustList<OperationNode> exps;
-    private CustList<OperationNode> expsIterator;
-    private CustList<OperationNode> expsHasNext;
-    private CustList<OperationNode> expsNext;
     private String iteratorVarCust;
     private String hasNextVarCust;
     private String nextVarCust;
@@ -249,7 +245,7 @@ public final class Classes {
         if (!Templates.isCorrectWrite(_temp, _context)) {
             return false;
         }
-        if (PrimitiveTypeUtil.isPrimitive(_temp)) {
+        if (PrimitiveTypeUtil.isPrimitive(_temp, _context)) {
             return false;
         }
         for (char c: _temp.toCharArray()) {
@@ -288,11 +284,11 @@ public final class Classes {
         Classes bk_ = _context.getClasses();
         Classes classes_ = new Classes();
         try {
+            _context.setClasses(classes_);
             classes_.tryBuildClassesBodies(_files, _context);
             if (!classes_.errorsDet.isEmpty()) {
                 throw new AnalyzingErrorsException(classes_.errorsDet);
             }
-            _context.setClasses(classes_);
             classes_.validateInheritingClasses(_context);
             if (!classes_.errorsDet.isEmpty()) {
                 throw new AnalyzingErrorsException(classes_.errorsDet);
@@ -450,13 +446,13 @@ public final class Classes {
                 errorsDet.add(bad_);
             }
         }
-        String content_ = PredefinedClasses.getIterableType();
+        String content_ = PredefinedClasses.getIterableType(_context);
         processPredefinedClass(content_, _context);
-        content_ = PredefinedClasses.getIteratorType();
+        content_ = PredefinedClasses.getIteratorType(_context);
         processPredefinedClass(content_, _context);
-        content_ = PredefinedClasses.getEnumType();
+        content_ = PredefinedClasses.getEnumType(_context);
         processPredefinedClass(content_, _context);
-        content_ = PredefinedClasses.getEnumParamType();
+        content_ = PredefinedClasses.getEnumParamType(_context);
         processPredefinedClass(content_, _context);
         _context.setHtml(EMPTY_STRING);
     }
@@ -1378,26 +1374,8 @@ public final class Classes {
         page_.getLocalVars().put(sixthArg_, new LocalVariable());
         exps = ElUtil.getAnalyzedOperations(nateqt_, _context, Calculation.staticCalculation(true));
         String locName_ = page_.getNextTempVar(this);
+        String exp_;
         LocalVariable locVar_ = new LocalVariable();
-        locVar_.setClassName(SimpleIterable.class.getName());
-        page_.getLocalVars().put(locName_, locVar_);
-        iteratorVar = locName_;
-        String exp_ = locName_ + LOC_VAR + SIMPLE_ITERATOR;
-        expsIterator = ElUtil.getAnalyzedOperations(exp_, _context, Calculation.staticCalculation(true));
-        locName_ = page_.getNextTempVar(this);
-        locVar_ = new LocalVariable();
-        locVar_.setClassName(Iterator.class.getName());
-        page_.getLocalVars().put(locName_, locVar_);
-        hasNextVar = locName_;
-        exp_ = locName_ + LOC_VAR + HAS_NEXT;
-        expsHasNext = ElUtil.getAnalyzedOperations(exp_, _context, Calculation.staticCalculation(true));
-        locName_ = page_.getNextTempVar(this);
-        locVar_ = new LocalVariable();
-        locVar_.setClassName(Iterator.class.getName());
-        page_.getLocalVars().put(locName_, locVar_);
-        nextVar = locName_;
-        exp_ = locName_ + LOC_VAR + NEXT;
-        expsNext = ElUtil.getAnalyzedOperations(exp_, _context, Calculation.staticCalculation(true));
         locName_ = page_.getNextTempVar(this);
         locVar_ = new LocalVariable();
         locVar_.setClassName(PredefinedClasses.ITERABLE);
@@ -1505,24 +1483,15 @@ public final class Classes {
         return nextVarCust;
     }
 
-    public ExpressionLanguage getEqIterator(boolean _native) {
-        if (_native) {
-            return new ExpressionLanguage(expsIterator);
-        }
+    public ExpressionLanguage getEqIterator() {
         return new ExpressionLanguage(expsIteratorCust);
     }
 
-    public ExpressionLanguage getEqHasNext(boolean _native) {
-        if (_native) {
-            return new ExpressionLanguage(expsHasNext);
-        }
+    public ExpressionLanguage getEqHasNext() {
         return new ExpressionLanguage(expsHasNextCust);
     }
 
-    public ExpressionLanguage getEqNext(boolean _native) {
-        if (_native) {
-            return new ExpressionLanguage(expsNext);
-        }
+    public ExpressionLanguage getEqNext() {
         return new ExpressionLanguage(expsNextCust);
     }
 
@@ -1627,6 +1596,10 @@ public final class Classes {
     public void validateReturns(ContextEl _context) {
         PageEl page_ = new PageEl();
         _context.setAnalyzing(page_);
+        LgNames stds_ = _context.getStandards();
+        if (_context.getClasses() != null) {
+            
+        }
         for (EntryCust<String, RootBlock> c: classesBodies.entryList()) {
             String className_ = c.getKey();
             CustList<Block> bl_ = getDirectChildren(c.getValue());
@@ -2064,6 +2037,10 @@ public final class Classes {
     public ClassMetaInfo getClassMetaInfo(String _name, ContextEl _context) {
         StringList types_ = StringList.getAllTypes(_name);
         String base_ = types_.first();
+        LgNames stds_ = _context.getStandards();
+        if (_context.getClasses() != null) {
+            
+        }
         for (EntryCust<String, RootBlock> c: classesBodies.entryList()) {
             ObjectNotNullMap<MethodId, MethodMetaInfo> infos_;
             infos_ = new ObjectNotNullMap<MethodId, MethodMetaInfo>();

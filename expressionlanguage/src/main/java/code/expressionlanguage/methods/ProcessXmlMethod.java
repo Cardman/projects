@@ -18,7 +18,6 @@ import code.expressionlanguage.exceptions.InvokeException;
 import code.expressionlanguage.exceptions.InvokeRedinedMethException;
 import code.expressionlanguage.exceptions.NegativeSizeException;
 import code.expressionlanguage.exceptions.NotInitializedClassException;
-import code.expressionlanguage.exceptions.StackOverFlow;
 import code.expressionlanguage.exceptions.UnwrappingException;
 import code.expressionlanguage.exceptions.WrapperException;
 import code.expressionlanguage.methods.util.CallConstructor;
@@ -220,8 +219,7 @@ public final class ProcessXmlMethod {
                         continue;
                     }
                     String fieldDeclClass_ = fieldMeta_.getType();
-                    Object o_ = PrimitiveTypeUtil.defaultValue(fieldDeclClass_);
-                    fields_.put(new ClassField(c, e.getKey()), StdStruct.wrapStd(o_));
+                    fields_.put(new ClassField(c, e.getKey()), StdStruct.defaultClass(fieldDeclClass_, _cont));
                 }
             }
             Struct str_ = null;
@@ -274,7 +272,7 @@ public final class ProcessXmlMethod {
     private static void addPage(ContextEl _conf, PageEl _page) {
         try {
             _conf.addPage(_page);
-        } catch (StackOverFlow _0) {
+        } catch (InvokeException _0) {
             if (!throwException(_conf, _0)) {
                 return;
             }
@@ -283,13 +281,7 @@ public final class ProcessXmlMethod {
     }
     private static boolean throwException(ContextEl _conf, Throwable _t) {
         CatchEval catchElt_ = null;
-        boolean indirect_ = _t instanceof IndirectException;
-        Struct custCause_;
-        if (indirect_) {
-            custCause_ = ((IndirectException)_t).getCustCause();
-        } else {
-            custCause_ = new StdStruct(_t);
-        }
+        Struct custCause_ = ((IndirectException)_t).getCustCause();
         while (!_conf.isEmptyPages()) {
             PageEl bkIp_ = _conf.getLastPage();
             while (!bkIp_.noBlock()) {
@@ -505,7 +497,7 @@ public final class ProcessXmlMethod {
             ip_.setNullReadWrite();
             return;
         }
-        _conf.getLastPage().setReturnedArgument(PrimitiveTypeUtil.defaultValue(root_, _conf.getLastPage().getGlobalArgument()));
+        _conf.getLastPage().setReturnedArgument(PrimitiveTypeUtil.defaultValue(root_, _conf.getLastPage().getGlobalArgument(), _conf));
         ip_.setNullReadWrite();
     }
 }

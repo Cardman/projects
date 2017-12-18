@@ -361,8 +361,8 @@ final class ExtractObject {
     }
     static String classNameForName(Configuration _conf, int _offest, String _className) {
         try {
-            if (PrimitiveTypeUtil.isPrimitive(_className)) {
-                if (!PrimitiveTypeUtil.isExistentPrimitive(_className)) {
+            if (PrimitiveTypeUtil.isPrimitive(_className, _conf.toContextEl())) {
+                if (!PrimitiveTypeUtil.isExistentPrimitive(_className, _conf.toContextEl())) {
                     throw new RuntimeClassNotFoundException(_className+RETURN_LINE+_conf.joinPages());
                 }
                 return _className;
@@ -387,7 +387,7 @@ final class ExtractObject {
     }
     static Class<?> classForName(Configuration _conf, int _offest, String _className) {
         try {
-            if (PrimitiveTypeUtil.isPrimitive(_className)) {
+            if (PrimitiveTypeUtil.isPrimitive(_className, _conf.toContextEl())) {
                 Class<?> cl_ = PrimitiveTypeUtil.getPrimitiveClass(_className);
                 if (cl_ == null) {
                     throw new RuntimeClassNotFoundException(_className+RETURN_LINE+_conf.joinPages());

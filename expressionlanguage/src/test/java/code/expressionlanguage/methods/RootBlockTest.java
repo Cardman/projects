@@ -7,6 +7,7 @@ import org.junit.Test;
 
 import code.expressionlanguage.AccessValueEx;
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.InitializationLgNames;
 import code.expressionlanguage.opers.OperationNode;
 import code.expressionlanguage.opers.util.ClassMethodId;
 import code.expressionlanguage.opers.util.ClassName;
@@ -947,6 +948,7 @@ public class RootBlockTest {
     }
     private static ContextEl unfullValidateOverridingMethods(StringMap<String> _files) {
         ContextEl cont_ = new ContextEl();
+        InitializationLgNames.initAdvStandards(cont_);
         Classes classes_ = new Classes();
         classes_.tryBuildClassesBodies(_files, cont_);
         assertTrue(classes_.getErrorsDet().toString(), classes_.getErrorsDet().isEmpty());

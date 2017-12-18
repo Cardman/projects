@@ -1864,17 +1864,17 @@ final class FormatHtml {
             LocalVariable loc_ = new LocalVariable();
             loc_.setClassName(ConstClasses.resolve(_className));
             String type_ = _object.getClassName(_conf.toContextEl());
-            if (!PrimitiveTypeUtil.isPrimitiveOrWrapper(type_)) {
+            if (!PrimitiveTypeUtil.isPrimitiveOrWrapper(type_, _conf.toContextEl())) {
                 throw new DynamicCastClassException(type_+SPACE+_className+RETURN_LINE+_conf.joinPages());
             }
-            String typeNameArg_ = PrimitiveTypeUtil.toPrimitive(new ClassArgumentMatching(type_), true).getName();
+            String typeNameArg_ = PrimitiveTypeUtil.toPrimitive(new ClassArgumentMatching(type_), true, _conf.toContextEl()).getName();
             if (StringList.quickEq(typeNameArg_, PrimitiveTypeUtil.PRIM_BOOLEAN)) {
-                String typeNameParam_ = PrimitiveTypeUtil.toPrimitive(clMatch_, true).getName();
+                String typeNameParam_ = PrimitiveTypeUtil.toPrimitive(clMatch_, true, _conf.toContextEl()).getName();
                 if (!StringList.quickEq(typeNameParam_, PrimitiveTypeUtil.PRIM_BOOLEAN)) {
                     throw new DynamicCastClassException(type_+SPACE+_className+RETURN_LINE+_conf.joinPages());
                 }
             } else {
-                if (PrimitiveTypeUtil.getOrderClass(clMatch_) == 0) {
+                if (PrimitiveTypeUtil.getOrderClass(clMatch_, _conf.toContextEl()) == 0) {
                     throw new DynamicCastClassException(type_+SPACE+_className+RETURN_LINE+_conf.joinPages());
                 }
             }
@@ -1898,7 +1898,7 @@ final class FormatHtml {
     }
     static void checkClass(Configuration _conf, ImportingPage _ip, ClassArgumentMatching _class, Struct _object) {
         String paramName_ = _class.getName();
-        if (PrimitiveTypeUtil.primitiveTypeNullObject(paramName_, _object)) {
+        if (PrimitiveTypeUtil.primitiveTypeNullObject(paramName_, _object, _conf.toContextEl())) {
             throw new NotPrimitivableException(_class.getName()+RETURN_LINE+_conf.joinPages());
         }
         if (_object.isNull()) {
@@ -1910,7 +1910,7 @@ final class FormatHtml {
         ContextEl context_ = _conf.toContextEl();
         String argClassName_ = _object.getClassName(context_);
         Classes classes_ = context_.getClasses();
-        if (!PrimitiveTypeUtil.isPrimitive(paramName_)) {
+        if (!PrimitiveTypeUtil.isPrimitive(paramName_, context_)) {
             Mapping mapping_ = new Mapping();
             mapping_.setArg(argClassName_);
             paramName_ = _conf.getLastPage().getPageEl().format(paramName_, classes_);
@@ -1919,12 +1919,12 @@ final class FormatHtml {
                 throw new NotCastableException(_object.getClassName(_conf.toContextEl())+SPACE+_class.getName()+RETURN_LINE+_conf.joinPages());
             }
         } else {
-            if (PrimitiveTypeUtil.getOrderClass(paramName_) > 0) {
-                if (PrimitiveTypeUtil.getOrderClass(argClassName_) == 0) {
+            if (PrimitiveTypeUtil.getOrderClass(paramName_, _conf.toContextEl()) > 0) {
+                if (PrimitiveTypeUtil.getOrderClass(argClassName_, _conf.toContextEl()) == 0) {
                     throw new DynamicCastClassException(_object.getClassName(_conf.toContextEl())+SPACE+_class.getName()+RETURN_LINE+_conf.joinPages());
                 }
             } else {
-                String typeNameArg_ = PrimitiveTypeUtil.toPrimitive(new ClassArgumentMatching(argClassName_), true).getName();
+                String typeNameArg_ = PrimitiveTypeUtil.toPrimitive(new ClassArgumentMatching(argClassName_), true,_conf.toContextEl()).getName();
                 if (!StringList.quickEq(typeNameArg_, PrimitiveTypeUtil.PRIM_BOOLEAN)) {
                     throw new DynamicCastClassException(_object.getClassName(_conf.toContextEl())+SPACE+_class.getName()+RETURN_LINE+_conf.joinPages());
                 }
@@ -3840,7 +3840,7 @@ final class FormatHtml {
             String var_ = forLoopLoc_.getAttribute(ATTRIBUTE_VAR);
             LoopVariable lv_ = _vars.getVal(var_);
             Number element_ = (Number) lv_.getElement();
-            lv_.setElement(PrimitiveTypeUtil.convert(lv_.getClassName(), element_.longValue()+lv_.getStep()));
+            lv_.setElement(PrimitiveTypeUtil.convert(lv_.getClassName(), element_.longValue()+lv_.getStep(), _conf.toContextEl()));
             lv_.setIndex(lv_.getIndex() + 1);
         }
     }
@@ -4024,9 +4024,9 @@ final class FormatHtml {
                 throw new DynamicCastClassException(argStep_.getObjectClassName(_conf.toContextEl())+RETURN_LINE+_conf.joinPages());
             }
             realFromValue_ = argFrom_.getObject();
-            fromValue_ = (Long)PrimitiveTypeUtil.convert(PrimitiveTypeUtil.PRIM_LONG, realFromValue_);
-            long toValue_ = (Long)PrimitiveTypeUtil.convert(PrimitiveTypeUtil.PRIM_LONG, argTo_.getObject());
-            stepValue_ = (Long)PrimitiveTypeUtil.convert(PrimitiveTypeUtil.PRIM_LONG, argStep_.getObject());
+            fromValue_ = (Long)PrimitiveTypeUtil.convert(PrimitiveTypeUtil.PRIM_LONG, realFromValue_, _conf.toContextEl());
+            long toValue_ = (Long)PrimitiveTypeUtil.convert(PrimitiveTypeUtil.PRIM_LONG, argTo_.getObject(), _conf.toContextEl());
+            stepValue_ = (Long)PrimitiveTypeUtil.convert(PrimitiveTypeUtil.PRIM_LONG, argStep_.getObject(), _conf.toContextEl());
             if (stepValue_ > 0) {
                 if (fromValue_ > toValue_) {
                     stepValue_ = -stepValue_;
@@ -4124,7 +4124,7 @@ final class FormatHtml {
             ExtractObject.classForName(_conf, 0, className_);
             lv_.setClassName(ConstClasses.resolve(className_));
             lv_.setIndexClassName(ConstClasses.resolve(indexClassName_));
-            lv_.setElement(PrimitiveTypeUtil.convert(className_, int_));
+            lv_.setElement(PrimitiveTypeUtil.convert(className_, int_, _conf.toContextEl()));
             lv_.setStep(stepValue_);
             lv_.setExtendedExpression(EMPTY_STRING);
             varsLoop_.put(var_, lv_);

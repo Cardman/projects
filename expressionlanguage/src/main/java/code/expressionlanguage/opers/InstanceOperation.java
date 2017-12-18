@@ -44,6 +44,7 @@ import code.expressionlanguage.opers.util.ConstrustorIdVarArg;
 import code.expressionlanguage.opers.util.DimComp;
 import code.expressionlanguage.opers.util.StdStruct;
 import code.expressionlanguage.opers.util.Struct;
+import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.types.NativeTypeUtil;
 import code.serialize.exceptions.BadAccessException;
 import code.util.CustList;
@@ -186,6 +187,10 @@ public final class InstanceOperation extends InvokingOperation {
     void analyzeCtor(CustList<OperationNode> _nodes, ContextEl _conf, String _fieldName, String _op, String _realClassName, CustList<ClassArgumentMatching> _firstArgs, boolean _intern) {
         Classes classes_ = _conf.getClasses();
         String realClassName_ = _realClassName;
+        LgNames stds_ = _conf.getStandards();
+        if (_conf.getClasses() != null) {
+            
+        }
         if (StringList.quickEq(realClassName_, OperationNode.VOID_RETURN)) {
             throw new VoidArgumentException(_conf.joinPages());
         }
@@ -232,7 +237,7 @@ public final class InstanceOperation extends InvokingOperation {
             setResultClass(new ClassArgumentMatching(realClassName_));
             return;
         }
-        if (PrimitiveTypeUtil.isPrimitive(realClassName_)) {
+        if (PrimitiveTypeUtil.isPrimitive(realClassName_, _conf)) {
             throw new PrimitiveTypeException(realClassName_+RETURN_LINE+_conf.joinPages());
         }
         Class<?> cl_;
@@ -354,6 +359,10 @@ public final class InstanceOperation extends InvokingOperation {
 
     ArgumentCall getArgument(Argument _previous,CustList<Argument> _arguments,
             ContextEl _conf, String _op) {
+        LgNames stds_ = _conf.getStandards();
+        if (_conf.getClasses() != null) {
+            
+        }
         CustList<OperationNode> chidren_ = getChildrenNodes();
         int nbCh_ = chidren_.size();
         int off_ = StringList.getFirstPrintableCharIndex(methodName);
@@ -385,11 +394,11 @@ public final class InstanceOperation extends InvokingOperation {
                     Number n_ = (Number)_arguments.get(i_).getObject();
                     setRelativeOffsetPossibleLastPage(o.getIndexInEl()+off_, _conf);
                     if (n_ == null) {
-                        throw new NullObjectException(i_+RETURN_LINE+_conf.joinPages());
+                        throw new InvokeException(new StdStruct(new NullObjectException(i_+RETURN_LINE+_conf.joinPages())));
                     }
                     int dim_ = n_.intValue();
                     if (dim_ < 0) {
-                        throw new NegativeSizeException(String.valueOf(dim_)+RETURN_LINE+i_+RETURN_LINE+_conf.joinPages());
+                        throw new InvokeException(new StdStruct(new NegativeSizeException(String.valueOf(dim_)+RETURN_LINE+i_+RETURN_LINE+_conf.joinPages())));
                     }
                     args_[i_] = dim_;
                     i_++;
@@ -412,7 +421,7 @@ public final class InstanceOperation extends InvokingOperation {
                     Numbers<Integer> dims_;
                     dims_ = new Numbers<Integer>();
                     dims_.add(nbCh_);
-                    Struct str_ = PrimitiveTypeUtil.newCustomArray(realClassName_, dims_);
+                    Struct str_ = PrimitiveTypeUtil.newCustomArray(realClassName_, dims_, _conf);
                     for (int i = CustList.FIRST_INDEX; i < nbCh_; i++) {
                         Argument chArg_ = _arguments.get(i);
                         ArrOperation.setCheckedElement(str_, i, chArg_, _conf);
@@ -434,7 +443,7 @@ public final class InstanceOperation extends InvokingOperation {
                 for (int d: args_) {
                     dims_.add(d);
                 }
-                a_.setStruct(PrimitiveTypeUtil.newCustomArray(realClassName_, dims_));
+                a_.setStruct(PrimitiveTypeUtil.newCustomArray(realClassName_, dims_, _conf));
                 return ArgumentCall.newArgument(a_);
             } else {
                 Object o_ = newClassicArray(_conf, instanceClassName_, realClassName_, args_);
@@ -466,11 +475,15 @@ public final class InstanceOperation extends InvokingOperation {
     }
     ArgumentCall getArg(Argument _previous, Class<?> _class,CustList<Argument> _arguments,
             ContextEl _conf) {
+        LgNames stds_ = _conf.getStandards();
+        if (_conf.getClasses() != null) {
+            
+        }
         Argument needed_ = null;
         if (_class != null && !Modifier.isStatic(_class.getModifiers())) {
             Argument arg_ = _previous;
             if (arg_.isNull()) {
-                throw new NullObjectException(_class.getName()+RETURN_LINE+_conf.joinPages());
+                throw new InvokeException(new StdStruct(new NullObjectException(_class.getName()+RETURN_LINE+_conf.joinPages())));
             }
             needed_ = arg_;
             _arguments.add(CustList.FIRST_INDEX, arg_);
@@ -502,7 +515,7 @@ public final class InstanceOperation extends InvokingOperation {
                 cl_ = PrimitiveTypeUtil.getSingleNativeClass(_instanceClassName);
             }
         } catch (RuntimeClassNotFoundException _0) {
-            throw new RuntimeClassNotFoundException(_realClassName+RETURN_LINE+_conf.joinPages());
+            throw new InvokeException(new StdStruct(new RuntimeClassNotFoundException(_realClassName+RETURN_LINE+_conf.joinPages())));
         }
         return Array.newInstance(cl_, _args);
     }

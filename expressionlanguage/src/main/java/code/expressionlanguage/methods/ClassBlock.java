@@ -15,6 +15,7 @@ import code.expressionlanguage.opers.util.ClassMetaInfo;
 import code.expressionlanguage.opers.util.ConstructorId;
 import code.expressionlanguage.opers.util.ConstructorMetaInfo;
 import code.expressionlanguage.opers.util.MethodId;
+import code.expressionlanguage.stds.LgNames;
 import code.sml.Element;
 import code.sml.RowCol;
 import code.util.CustList;
@@ -111,6 +112,10 @@ public final class ClassBlock extends RootBlock implements UniqueRootedBlock {
         String gene_ = getGenericString();
         StringList classes_ = new StringList(gene_);
         classes_.addAllElts(classNames_);
+        LgNames stds_ = _context.getStandards();
+        if (_context.getClasses() != null) {
+            
+        }
         for (String s: getAllGenericInterfaces(classesRef_)) {
             String base_ = StringList.getAllTypes(s).first();
             RootBlock r_ = classesRef_.getClassBody(base_);

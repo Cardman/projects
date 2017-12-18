@@ -3,12 +3,12 @@ import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.ElUtil;
 import code.expressionlanguage.PageEl;
-import code.expressionlanguage.PrimitiveTypeUtil;
 import code.expressionlanguage.methods.exceptions.BadConditionExpressionException;
 import code.expressionlanguage.methods.exceptions.BadConstructorCall;
 import code.expressionlanguage.opers.Calculation;
 import code.expressionlanguage.opers.ExpressionLanguage;
 import code.expressionlanguage.opers.OperationNode;
+import code.expressionlanguage.stds.LgNames;
 import code.sml.Element;
 import code.util.CustList;
 
@@ -32,8 +32,9 @@ public abstract class Condition extends BracedStack implements StackableBlockGro
         page_.setOffset(0);
         opCondition = ElUtil.getAnalyzedOperations(condition, _cont, Calculation.staticCalculation(f_.isStaticContext()));
         OperationNode elCondition_ = opCondition.last();
-        if (!elCondition_.getResultClass().matchClass(PrimitiveTypeUtil.PRIM_BOOLEAN)) {
-            if (!elCondition_.getResultClass().matchClass(Boolean.class)) {
+        LgNames stds_ = _cont.getStandards();
+        if (!elCondition_.getResultClass().matchClass(stds_.getAliasPrimBoolean())) {
+            if (!elCondition_.getResultClass().matchClass(stds_.getAliasBoolean())) {
                 throw new BadConditionExpressionException(_cont.joinPages());
             }
         }

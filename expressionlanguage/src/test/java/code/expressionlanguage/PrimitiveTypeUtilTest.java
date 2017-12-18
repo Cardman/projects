@@ -863,16 +863,19 @@ public class PrimitiveTypeUtilTest {
 
     @Test
     public void getSubclasses3Test() {
+        ContextEl context_ = simpleContextEl();
         StringList classes_ = new StringList(OperationNode.VOID_RETURN, OperationNode.VOID_RETURN);
-        StringList sub_ = PrimitiveTypeUtil.getSubclasses(classes_, null);
+        StringList sub_ = PrimitiveTypeUtil.getSubclasses(classes_, context_);
         assertEq(1, sub_.size());
         assertEq(OperationNode.VOID_RETURN, sub_.get(0));
     }
 
     @Test
     public void newCustomArray1Test() {
+        ContextEl cont_ = new ContextEl();
+        InitializationLgNames.initAdvStandards(cont_);
         Numbers<Integer> dims_ = new Numbers<Integer>(1);
-        Struct customArray_ = PrimitiveTypeUtil.newCustomArray(CUST_CLASS, dims_);
+        Struct customArray_ = PrimitiveTypeUtil.newCustomArray(CUST_CLASS, dims_, cont_);
         assertEq("["+CUST_CLASS, customArray_.getClassName(null));
         Struct[] instance_ = (Struct[]) customArray_.getInstance();
         assertEq(1, instance_.length);
@@ -882,8 +885,10 @@ public class PrimitiveTypeUtilTest {
 
     @Test
     public void newCustomArray2Test() {
+        ContextEl cont_ = new ContextEl();
+        InitializationLgNames.initAdvStandards(cont_);
         Numbers<Integer> dims_ = new Numbers<Integer>(2);
-        Struct customArray_ = PrimitiveTypeUtil.newCustomArray(CUST_CLASS, dims_);
+        Struct customArray_ = PrimitiveTypeUtil.newCustomArray(CUST_CLASS, dims_, cont_);
         assertEq("["+CUST_CLASS, customArray_.getClassName(null));
         Struct[] instance_ = (Struct[]) customArray_.getInstance();
         assertEq(2, instance_.length);
@@ -895,8 +900,10 @@ public class PrimitiveTypeUtilTest {
 
     @Test
     public void newCustomArray3Test() {
+        ContextEl cont_ = new ContextEl();
+        InitializationLgNames.initAdvStandards(cont_);
         Numbers<Integer> dims_ = new Numbers<Integer>(2,3);
-        Struct customArray_ = PrimitiveTypeUtil.newCustomArray(CUST_CLASS, dims_);
+        Struct customArray_ = PrimitiveTypeUtil.newCustomArray(CUST_CLASS, dims_, cont_);
         assertEq("[["+CUST_CLASS, customArray_.getClassName(null));
         Struct[] instance_ = (Struct[]) customArray_.getInstance();
         assertEq(2, instance_.length);
@@ -924,6 +931,7 @@ public class PrimitiveTypeUtilTest {
 
     private ContextEl unfullValidateOverridingMethods(StringMap<String> _files) {
         ContextEl cont_ = new ContextEl();
+        InitializationLgNames.initAdvStandards(cont_);
         Classes classes_ = new Classes();
         classes_.tryBuildClassesBodies(_files, cont_);
         assertTrue(classes_.getErrorsDet().toString(), classes_.getErrorsDet().isEmpty());
@@ -935,6 +943,7 @@ public class PrimitiveTypeUtilTest {
     }
     private ContextEl simpleContextEl() {
         ContextEl cont_ = new ContextEl();
+        InitializationLgNames.initAdvStandards(cont_);
         return cont_;
     }
 }

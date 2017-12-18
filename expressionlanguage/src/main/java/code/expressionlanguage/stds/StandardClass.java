@@ -16,7 +16,7 @@ public final class StandardClass extends StandardType {
 
     private final boolean finalType;
     private final boolean abstractType;
-    protected StandardClass(String _name,StringMap<StandardField> _fields,
+    public StandardClass(String _name,StringMap<StandardField> _fields,
             CustList<StandardConstructor> _constructors,
             ObjectMap<MethodId, StandardMethod> _methods,
             String _superClass, MethodModifier _modifier) {
@@ -60,7 +60,7 @@ public final class StandardClass extends StandardType {
     @Override
     public StringList getDirectSuperTypes(ContextEl _context) {
         StringList superTypes_ = new StringList();
-        if (!StringList.quickEq(superClass, _context.getStandards().getAliasObject())) {
+        if (!superClass.isEmpty()) {
             superTypes_.add(superClass);
         }
         superTypes_.addAllElts(directInterfaces);

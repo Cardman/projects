@@ -13,6 +13,7 @@ import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.CustBase;
 import code.expressionlanguage.CustEnum;
+import code.expressionlanguage.InitializationLgNames;
 import code.expressionlanguage.PageEl;
 import code.expressionlanguage.PrimitiveTypeUtil;
 import code.expressionlanguage.classes.Ints;
@@ -399,8 +400,8 @@ public class ProcessXmlMethodTest {
         xml_ += "<method access='"+PUBLIC_ACCESS+"' modifier='static' name='exmeth' class='"+PrimitiveTypeUtil.PRIM_INT+"'>\n";
         xml_ += "<declare var='l' class='"+NUMBERS+"'/>\n";
         xml_ += "<affect left='l;.' oper='=' right='$new "+NUMBERS+"()'/>\n";
-        xml_ += "<line expression='l;.add($class(&quot;java.lang.Object&quot;,8i))'/>\n";
-        xml_ += "<line expression='l;.add($class(&quot;java.lang.Object&quot;,2i))'/>\n";
+        xml_ += "<line expression='l;.add(8i)'/>\n";
+        xml_ += "<line expression='l;.add(2i)'/>\n";
         xml_ += "<declare var='t' class='"+PrimitiveTypeUtil.PRIM_INT+"'/>\n";
         xml_ += "<affect left='t;.' oper='=' right='0i'/>\n";
         xml_ += "<foreach class='java.lang.Integer' var='e' expression='l;.'>\n";
@@ -429,8 +430,8 @@ public class ProcessXmlMethodTest {
         xml_ += "<method access='"+PUBLIC_ACCESS+"' modifier='static' name='exmeth' class='"+PrimitiveTypeUtil.PRIM_INT+"'>\n";
         xml_ += "<declare var='l' class='"+NUMBERS+"'/>\n";
         xml_ += "<affect left='l;.' oper='=' right='$new "+NUMBERS+"()'/>\n";
-        xml_ += "<line expression='l;.add($class(&quot;java.lang.Object&quot;,8i))'/>\n";
-        xml_ += "<line expression='l;.add($class(&quot;java.lang.Object&quot;,2i))'/>\n";
+        xml_ += "<line expression='l;.add(8i)'/>\n";
+        xml_ += "<line expression='l;.add(2i)'/>\n";
         xml_ += "<declare var='t' class='"+PrimitiveTypeUtil.PRIM_INT+"'/>\n";
         xml_ += "<affect left='t;.' oper='=' right='0i'/>\n";
 //        xml_ += "<line expression='t;.add(class(&quot;java.lang.Object&quot;,2i))'/>\n";
@@ -456,8 +457,8 @@ public class ProcessXmlMethodTest {
         xml_ += "<method access='"+PUBLIC_ACCESS+"' modifier='static' name='exmeth' class='"+PrimitiveTypeUtil.PRIM_INT+"'>\n";
         xml_ += "<declare var='l' class='"+NUMBERS+"'/>\n";
         xml_ += "<affect left='l;.' oper='=' right='$new "+NUMBERS+"()'/>\n";
-        xml_ += "<line expression='l;.add($class(&quot;java.lang.Object&quot;,8i))'/>\n";
-        xml_ += "<line expression='l;.add($class(&quot;java.lang.Object&quot;,2i))'/>\n";
+        xml_ += "<line expression='l;.add(8i)'/>\n";
+        xml_ += "<line expression='l;.add(2i)'/>\n";
         xml_ += "<declare var='t' class='"+PrimitiveTypeUtil.PRIM_INT+"'/>\n";
         xml_ += "<affect left='t;.' oper='=' right='0i'/>\n";
         xml_ += "<foreach class='java.lang.Integer' var='e' expression='l;.'>\n";
@@ -2421,9 +2422,9 @@ public class ProcessXmlMethodTest {
         xml_ += "<declare var='t' class='"+NUMBERS+"'/>\n";
         xml_ += "<affect left='t;.' oper='=' right='$new "+NUMBERS+"()'/>\n";
 //        xml_ += "<line expression='t;.add(class(&quot;java.lang.Object&quot;,8i))'/>\n";
-        xml_ += "<line expression='t;.add($class(&quot;java.lang.Object&quot;,8i))'/>\n";
+        xml_ += "<line expression='t;.add(8i)'/>\n";
 //        xml_ += "<line expression='t;.add(class(&quot;java.lang.Object&quot;,2i))'/>\n";
-        xml_ += "<line expression='t;.add($class(&quot;java.lang.Object&quot;,2i))'/>\n";
+        xml_ += "<line expression='t;.add(2i)'/>\n";
         xml_ += "<return expression='t;.'/>\n";
         xml_ += "</method>\n";
         xml_ += "</class>\n";
@@ -3083,9 +3084,7 @@ public class ProcessXmlMethodTest {
         xml_ += "<method access='"+PUBLIC_ACCESS+"' modifier='static' name='exmethlist' class='"+NUMBERS+"'>\n";
         xml_ += "<declare var='t' class='"+NUMBERS+"'/>\n";
         xml_ += "<affect left='t;.' oper='=' right='$new "+NUMBERS+"()'/>\n";
-//        xml_ += "<line expression='t;.add(class(&quot;java.lang.Object&quot;,8i))'/>\n";
         xml_ += "<line expression='t;.add(8i)'/>\n";
-//        xml_ += "<line expression='t;.add(class(&quot;java.lang.Object&quot;,2i))'/>\n";
         xml_ += "<line expression='t;.add(2i)'/>\n";
         xml_ += "<line expression='t;.add(1i)'/>\n";
         xml_ += "<return expression='t;.'/>\n";
@@ -3099,7 +3098,7 @@ public class ProcessXmlMethodTest {
         xml_ += "</if>\n";
         xml_ += "<return expression='l;.;*factrec(l;.;-1i)'/>\n";
         xml_ += "</method>\n";
-        xml_ += "<method access='"+PUBLIC_ACCESS+"' modifier='static' name='addelt' class='"+OperationNode.VOID_RETURN+"' class0='"+CUST+"' var0='l' class1='java.lang.Object' var1='e'>\n";
+        xml_ += "<method access='"+PUBLIC_ACCESS+"' modifier='static' name='addelt' class='"+OperationNode.VOID_RETURN+"' class0='"+CUST+"' var0='l' class1='$int' var1='e'>\n";
         xml_ += "<line expression='l;.;add(e;.;)'/>\n";
         xml_ += "</method>\n";
         xml_ += "</class>\n";
@@ -3117,7 +3116,7 @@ public class ProcessXmlMethodTest {
 //        cont_.setClasses(classes_);
 //        classes_.validateEl(cont_);
         CustList<Argument> args_ = new CustList<Argument>();
-        MethodId id_ = getMethodId("addelt", CUST, "java.lang.Object");
+        MethodId id_ = getMethodId("addelt", CUST, "$int");
         Argument v_ = new Argument();
         Ints l_ = new Ints();
         v_.setObject(l_);
@@ -3184,7 +3183,7 @@ public class ProcessXmlMethodTest {
         xml_ += "</if>\n";
         xml_ += "<return expression='l;.;*factrec(l;.;-1i)'/>\n";
         xml_ += "</method>\n";
-        xml_ += "<method access='"+PUBLIC_ACCESS+"' modifier='static' name='addelt' class='"+OperationNode.VOID_RETURN+"' class0='"+CUST+"' var0='l' class1='java.lang.Object' var1='e'>\n";
+        xml_ += "<method access='"+PUBLIC_ACCESS+"' modifier='static' name='addelt' class='"+OperationNode.VOID_RETURN+"' class0='"+CUST+"' var0='l' class1='$int' var1='e'>\n";
         xml_ += "<line expression='l;.;add(e;.;)'/>\n";
         xml_ += "</method>\n";
         xml_ += "<method access='"+PUBLIC_ACCESS+"' modifier='static' name='catching' class='"+PrimitiveTypeUtil.PRIM_INT+"'>\n";
@@ -3270,7 +3269,7 @@ public class ProcessXmlMethodTest {
         xml_ += "</if>\n";
         xml_ += "<return expression='l;.;*factrec(l;.;-1i)'/>\n";
         xml_ += "</method>\n";
-        xml_ += "<method access='"+PUBLIC_ACCESS+"' modifier='static' name='addelt' class='"+OperationNode.VOID_RETURN+"' class0='"+CUST+"' var0='l' class1='java.lang.Object' var1='e'>\n";
+        xml_ += "<method access='"+PUBLIC_ACCESS+"' modifier='static' name='addelt' class='"+OperationNode.VOID_RETURN+"' class0='"+CUST+"' var0='l' class1='$int' var1='e'>\n";
         xml_ += "<line expression='l;.;add(e;.;)'/>\n";
         xml_ += "</method>\n";
         xml_ += "<method access='"+PUBLIC_ACCESS+"' modifier='static' name='catching' class='"+PrimitiveTypeUtil.PRIM_INT+"'>\n";
@@ -3361,7 +3360,7 @@ public class ProcessXmlMethodTest {
         xml_ += "</if>\n";
         xml_ += "<return expression='l;.;*factrec(l;.;-1i)'/>\n";
         xml_ += "</method>\n";
-        xml_ += "<method access='"+PUBLIC_ACCESS+"' modifier='static' name='addelt' class='"+OperationNode.VOID_RETURN+"' class0='"+CUST+"' var0='l' class1='java.lang.Object' var1='e'>\n";
+        xml_ += "<method access='"+PUBLIC_ACCESS+"' modifier='static' name='addelt' class='"+OperationNode.VOID_RETURN+"' class0='"+CUST+"' var0='l' class1='$int' var1='e'>\n";
         xml_ += "<line expression='l;.;add(e;.;)'/>\n";
         xml_ += "</method>\n";
         xml_ += "<method access='"+PUBLIC_ACCESS+"' modifier='static' name='catching' class='"+PrimitiveTypeUtil.PRIM_INT+"'>\n";
@@ -3450,7 +3449,7 @@ public class ProcessXmlMethodTest {
         xml_ += "</if>\n";
         xml_ += "<return expression='l;.;*factrec(l;.;-1i)'/>\n";
         xml_ += "</method>\n";
-        xml_ += "<method access='"+PUBLIC_ACCESS+"' modifier='static' name='addelt' class='"+OperationNode.VOID_RETURN+"' class0='"+CUST+"' var0='l' class1='java.lang.Object' var1='e'>\n";
+        xml_ += "<method access='"+PUBLIC_ACCESS+"' modifier='static' name='addelt' class='"+OperationNode.VOID_RETURN+"' class0='"+CUST+"' var0='l' class1='$int' var1='e'>\n";
         xml_ += "<line expression='l;.;add(e;.;)'/>\n";
         xml_ += "</method>\n";
         xml_ += "<method access='"+PUBLIC_ACCESS+"' modifier='static' name='catching' class='"+PrimitiveTypeUtil.PRIM_INT+"'>\n";
@@ -3537,7 +3536,7 @@ public class ProcessXmlMethodTest {
         xml_ += "</if>\n";
         xml_ += "<return expression='l;.;*factrec(l;.;-1i)'/>\n";
         xml_ += "</method>\n";
-        xml_ += "<method access='"+PUBLIC_ACCESS+"' modifier='static' name='addelt' class='"+OperationNode.VOID_RETURN+"' class0='"+CUST+"' var0='l' class1='java.lang.Object' var1='e'>\n";
+        xml_ += "<method access='"+PUBLIC_ACCESS+"' modifier='static' name='addelt' class='"+OperationNode.VOID_RETURN+"' class0='"+CUST+"' var0='l' class1='$int' var1='e'>\n";
         xml_ += "<line expression='l;.;add(e;.;)'/>\n";
         xml_ += "</method>\n";
         xml_ += "<method access='"+PUBLIC_ACCESS+"' modifier='static' name='catching' class='"+PrimitiveTypeUtil.PRIM_INT+"'>\n";
@@ -3626,7 +3625,7 @@ public class ProcessXmlMethodTest {
         xml_ += "</if>\n";
         xml_ += "<return expression='l;.;*factrec(l;.;-1i)'/>\n";
         xml_ += "</method>\n";
-        xml_ += "<method access='"+PUBLIC_ACCESS+"' modifier='static' name='addelt' class='"+OperationNode.VOID_RETURN+"' class0='"+CUST+"' var0='l' class1='java.lang.Object' var1='e'>\n";
+        xml_ += "<method access='"+PUBLIC_ACCESS+"' modifier='static' name='addelt' class='"+OperationNode.VOID_RETURN+"' class0='"+CUST+"' var0='l' class1='$int' var1='e'>\n";
         xml_ += "<line expression='l;.;add(e;.;)'/>\n";
         xml_ += "</method>\n";
         xml_ += "<method access='"+PUBLIC_ACCESS+"' modifier='static' name='catching' class='"+PrimitiveTypeUtil.PRIM_INT+"'>\n";
@@ -3680,9 +3679,9 @@ public class ProcessXmlMethodTest {
         xml_ += "<declare var='t' class='"+NUMBERS+"'/>\n";
         xml_ += "<affect left='t;.' oper='=' right='$new "+NUMBERS+"()'/>\n";
 //        xml_ += "<line expression='t;.add(class(&quot;java.lang.Object&quot;,8i))'/>\n";
-        xml_ += "<line expression='t;.add($class(&quot;java.lang.Object&quot;,8i))'/>\n";
+        xml_ += "<line expression='t;.add(8i)'/>\n";
 //        xml_ += "<line expression='t;.add(class(&quot;java.lang.Object&quot;,2i))'/>\n";
-        xml_ += "<line expression='t;.add($class(&quot;java.lang.Object&quot;,2i))'/>\n";
+        xml_ += "<line expression='t;.add(2i)'/>\n";
         xml_ += "<return expression='t;.'/>\n";
         xml_ += "</method>\n";
         xml_ += "</class>\n";
@@ -3726,9 +3725,9 @@ public class ProcessXmlMethodTest {
         xml_ += "<declare var='t' class='"+NUMBERS+"'/>\n";
         xml_ += "<affect left='t;.' oper='=' right='$new "+NUMBERS+"()'/>\n";
 //        xml_ += "<line expression='t;.add(class(&quot;java.lang.Object&quot;,8i))'/>\n";
-        xml_ += "<line expression='t;.add($class(&quot;java.lang.Object&quot;,8i))'/>\n";
+        xml_ += "<line expression='t;.add(8i)'/>\n";
 //        xml_ += "<line expression='t;.add(class(&quot;java.lang.Object&quot;,2i))'/>\n";
-        xml_ += "<line expression='t;.add($class(&quot;java.lang.Object&quot;,2i))'/>\n";
+        xml_ += "<line expression='t;.add(2i)'/>\n";
         xml_ += "<return expression='t;.'/>\n";
         xml_ += "</method>\n";
         xml_ += "<method access='"+PUBLIC_ACCESS+"' modifier='static' name='calling' class='"+PrimitiveTypeUtil.PRIM_INT+"'>\n";
@@ -4329,7 +4328,7 @@ public class ProcessXmlMethodTest {
         xml_ += "</if>\n";
         xml_ += "<return expression='l;.;*factrec(l;.;-1i)'/>\n";
         xml_ += "</method>\n";
-        xml_ += "<method access='"+PUBLIC_ACCESS+"' modifier='static' name='addelt' class='"+OperationNode.VOID_RETURN+"' class0='"+CUST+"' var0='l' class1='java.lang.Object' var1='e'>\n";
+        xml_ += "<method access='"+PUBLIC_ACCESS+"' modifier='static' name='addelt' class='"+OperationNode.VOID_RETURN+"' class0='"+CUST+"' var0='l' class1='$int' var1='e'>\n";
         xml_ += "<line expression='l;.;add(e;.;)'/>\n";
         xml_ += "</method>\n";
         xml_ += "<method access='"+PUBLIC_ACCESS+"' modifier='static' name='catching' class='"+PrimitiveTypeUtil.PRIM_INT+"'>\n";
@@ -4422,7 +4421,7 @@ public class ProcessXmlMethodTest {
         xml_ += "</if>\n";
         xml_ += "<return expression='l;.;*factrec(l;.;-1i)'/>\n";
         xml_ += "</method>\n";
-        xml_ += "<method access='"+PUBLIC_ACCESS+"' modifier='static' name='addelt' class='"+OperationNode.VOID_RETURN+"' class0='"+CUST+"' var0='l' class1='java.lang.Object' var1='e'>\n";
+        xml_ += "<method access='"+PUBLIC_ACCESS+"' modifier='static' name='addelt' class='"+OperationNode.VOID_RETURN+"' class0='"+CUST+"' var0='l' class1='$int' var1='e'>\n";
         xml_ += "<line expression='l;.;add(e;.;)'/>\n";
         xml_ += "</method>\n";
         xml_ += "<method access='"+PUBLIC_ACCESS+"' modifier='static' name='catching' class='"+PrimitiveTypeUtil.PRIM_INT+"'>\n";
@@ -4516,7 +4515,7 @@ public class ProcessXmlMethodTest {
         xml_ += "</if>\n";
         xml_ += "<return expression='l;.;*factrec(l;.;-1i)'/>\n";
         xml_ += "</method>\n";
-        xml_ += "<method access='"+PUBLIC_ACCESS+"' modifier='static' name='addelt' class='"+OperationNode.VOID_RETURN+"' class0='"+CUST+"' var0='l' class1='java.lang.Object' var1='e'>\n";
+        xml_ += "<method access='"+PUBLIC_ACCESS+"' modifier='static' name='addelt' class='"+OperationNode.VOID_RETURN+"' class0='"+CUST+"' var0='l' class1='$int' var1='e'>\n";
         xml_ += "<line expression='l;.;add(e;.;)'/>\n";
         xml_ += "</method>\n";
         xml_ += "<method access='"+PUBLIC_ACCESS+"' modifier='static' name='catching' class='"+PrimitiveTypeUtil.PRIM_INT+"'>\n";
@@ -4612,7 +4611,7 @@ public class ProcessXmlMethodTest {
         xml_ += "</if>\n";
         xml_ += "<return expression='l;.;*factrec(l;.;-1i)'/>\n";
         xml_ += "</method>\n";
-        xml_ += "<method access='"+PUBLIC_ACCESS+"' modifier='static' name='addelt' class='"+OperationNode.VOID_RETURN+"' class0='"+CUST+"' var0='l' class1='java.lang.Object' var1='e'>\n";
+        xml_ += "<method access='"+PUBLIC_ACCESS+"' modifier='static' name='addelt' class='"+OperationNode.VOID_RETURN+"' class0='"+CUST+"' var0='l' class1='$int' var1='e'>\n";
         xml_ += "<line expression='l;.;add(e;.;)'/>\n";
         xml_ += "</method>\n";
         xml_ += "<method access='"+PUBLIC_ACCESS+"' modifier='static' name='catching' class='"+PrimitiveTypeUtil.PRIM_INT+"'>\n";
@@ -4710,7 +4709,7 @@ public class ProcessXmlMethodTest {
         xml_ += "</if>\n";
         xml_ += "<return expression='l;.;*factrec(l;.;-1i)'/>\n";
         xml_ += "</method>\n";
-        xml_ += "<method access='"+PUBLIC_ACCESS+"' modifier='static' name='addelt' class='"+OperationNode.VOID_RETURN+"' class0='"+CUST+"' var0='l' class1='java.lang.Object' var1='e'>\n";
+        xml_ += "<method access='"+PUBLIC_ACCESS+"' modifier='static' name='addelt' class='"+OperationNode.VOID_RETURN+"' class0='"+CUST+"' var0='l' class1='$int' var1='e'>\n";
         xml_ += "<line expression='l;.;add(e;.;)'/>\n";
         xml_ += "</method>\n";
         xml_ += "<method access='"+PUBLIC_ACCESS+"' modifier='static' name='catching' class='"+PrimitiveTypeUtil.PRIM_INT+"'>\n";
@@ -4876,7 +4875,7 @@ public class ProcessXmlMethodTest {
         xml_ += "</if>\n";
         xml_ += "<return expression='l;.;*factrec(l;.;-1i)'/>\n";
         xml_ += "</method>\n";
-        xml_ += "<method access='"+PUBLIC_ACCESS+"' modifier='static' name='addelt' class='"+OperationNode.VOID_RETURN+"' class0='"+CUST+"' var0='l' class1='java.lang.Object' var1='e'>\n";
+        xml_ += "<method access='"+PUBLIC_ACCESS+"' modifier='static' name='addelt' class='"+OperationNode.VOID_RETURN+"' class0='"+CUST+"' var0='l' class1='$int' var1='e'>\n";
         xml_ += "<line expression='l;.;add(e;.;)'/>\n";
         xml_ += "</method>\n";
         xml_ += "<method access='"+PUBLIC_ACCESS+"' modifier='static' name='catching' class='"+PrimitiveTypeUtil.PRIM_INT+"'>\n";
@@ -4970,7 +4969,7 @@ public class ProcessXmlMethodTest {
         xml_ += "</if>\n";
         xml_ += "<return expression='l;.;*factrec(l;.;-1i)'/>\n";
         xml_ += "</method>\n";
-        xml_ += "<method access='"+PUBLIC_ACCESS+"' modifier='static' name='addelt' class='"+OperationNode.VOID_RETURN+"' class0='"+CUST+"' var0='l' class1='java.lang.Object' var1='e'>\n";
+        xml_ += "<method access='"+PUBLIC_ACCESS+"' modifier='static' name='addelt' class='"+OperationNode.VOID_RETURN+"' class0='"+CUST+"' var0='l' class1='$int' var1='e'>\n";
         xml_ += "<line expression='l;.;add(e;.;)'/>\n";
         xml_ += "</method>\n";
         xml_ += "<method access='"+PUBLIC_ACCESS+"' modifier='static' name='catching' class='"+PrimitiveTypeUtil.PRIM_INT+"'>\n";
@@ -11479,6 +11478,7 @@ public class ProcessXmlMethodTest {
         } else {
             ct_ = new ContextEl(m[0]);
         }
+        InitializationLgNames.initAdvStandards(ct_);
         return ct_;
     }
 }

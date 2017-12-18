@@ -28,6 +28,8 @@ public abstract class StandardType {
 
     private final ObjectMap<MethodId, EqList<ClassMethodId>> allOverridingMethods;
 
+    private String iterative = "";
+
     protected StandardType(String _name,
             StringMap<StandardField> _fields,
             CustList<StandardConstructor> _constructors,
@@ -53,9 +55,6 @@ public abstract class StandardType {
                 StandardType stdType_ = _classes.getStandards().getStandards().getVal(baseType_);
                 StringList superTypes_ = stdType_.getDirectSuperTypes(_classes);
                 for (String t: superTypes_) {
-                    if (t.isEmpty()) {
-                        continue;
-                    }
                     String format_ = t;
                     list_.add(format_);
                     next_.add(format_);
@@ -428,5 +427,11 @@ public abstract class StandardType {
 
     public ObjectMap<MethodId, StandardMethod> getMethods() {
         return methods;
+    }
+    public String getIterative() {
+        return iterative;
+    }
+    public void setIterative(String _iterative) {
+        iterative = _iterative;
     }
 }

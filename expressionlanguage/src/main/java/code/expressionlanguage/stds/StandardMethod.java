@@ -13,7 +13,7 @@ public final class StandardMethod extends StandardNamedFunction {
 
     private final String declaringType;
 
-    protected StandardMethod(String _name, StringList _parametersTypes,
+    public StandardMethod(String _name, StringList _parametersTypes,
             String _returnType, boolean _varargs, MethodModifier _modifier, String _declaringType) {
         super(_name, _parametersTypes, _returnType, _varargs);
         modifier = _modifier;

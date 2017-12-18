@@ -7,6 +7,7 @@ import code.expressionlanguage.exceptions.BadNumberValuesException;
 import code.expressionlanguage.exceptions.NotBooleanException;
 import code.expressionlanguage.methods.util.ArgumentsPair;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
+import code.expressionlanguage.stds.LgNames;
 import code.util.CustList;
 import code.util.IdMap;
 import code.util.exceptions.NullObjectException;
@@ -30,6 +31,10 @@ public abstract class QuickOperation extends PrimitiveBoolOperation {
         if (chidren_.size() < 2) {
             setRelativeOffsetPossibleLastPage(getIndexInEl(), _conf);
             throw new BadNumberValuesException(_conf.joinPages());
+        }
+        LgNames stds_ = _conf.getStandards();
+        if (_conf.getClasses() != null) {
+            
         }
         for (OperationNode o: chidren_) {
             ClassArgumentMatching clMatch_;

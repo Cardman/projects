@@ -34,7 +34,11 @@ public final class ParsedArgument {
 
     private String type = UNEXPECTED_TYPE;
 
-    public static ParsedArgument parse(String _nb) {
+    public static ParsedArgument parse(String _nb, ContextEl _context) {
+        LgNames stds_ = _context.getStandards();
+        if (_context.getClasses() != null) {
+            
+        }
         String nb_ = extractFromSuffix(_nb);
         Long longValue_ = LgNames.parseLongTen(nb_);
         if (!or(LgNames.isValidDouble(nb_), longValue_ == null)) {

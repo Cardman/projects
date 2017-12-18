@@ -4,9 +4,12 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.OperationsSequence;
 import code.expressionlanguage.PrimitiveTypeUtil;
 import code.expressionlanguage.exceptions.BadNumberValuesException;
+import code.expressionlanguage.exceptions.InvokeException;
 import code.expressionlanguage.exceptions.NotNumberException;
 import code.expressionlanguage.methods.util.ArgumentsPair;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
+import code.expressionlanguage.opers.util.StdStruct;
+import code.expressionlanguage.stds.LgNames;
 import code.util.CustList;
 import code.util.IdMap;
 import code.util.NatTreeMap;
@@ -33,13 +36,17 @@ public final class UnaryOperation extends PrimitiveBoolOperation {
             throw new BadNumberValuesException(_conf.joinPages());
         }
         ClassArgumentMatching clMatch_ = chidren_.first().getResultClass();
-        ClassArgumentMatching cl_ = PrimitiveTypeUtil.toPrimitive(clMatch_, true);
+        ClassArgumentMatching cl_ = PrimitiveTypeUtil.toPrimitive(clMatch_, true, _conf);
         setRelativeOffsetPossibleLastPage(getIndexInEl(), _conf);
         if (cl_ == null) {
             throw new NotNumberException(clMatch_+RETURN_LINE+_conf.joinPages());
         }
-        int intOrder_ = PrimitiveTypeUtil.getOrderClass(PrimitiveTypeUtil.PRIM_INT);
-        if (PrimitiveTypeUtil.getOrderClass(cl_) < intOrder_) {
+        LgNames stds_ = _conf.getStandards();
+        if (_conf.getClasses() != null) {
+            
+        }
+        int intOrder_ = PrimitiveTypeUtil.getOrderClass(PrimitiveTypeUtil.PRIM_INT, _conf);
+        if (PrimitiveTypeUtil.getOrderClass(cl_, _conf) < intOrder_) {
             cl_ = new ClassArgumentMatching(PrimitiveTypeUtil.PRIM_INT);
         }
         setResultClass(cl_);
@@ -81,8 +88,12 @@ public final class UnaryOperation extends PrimitiveBoolOperation {
         Argument out_ = new Argument();
         Object o_ = _in.getObject();
         setRelativeOffsetPossibleLastPage(getIndexInEl(), _conf);
+        LgNames stds_ = _conf.getStandards();
+        if (_conf.getClasses() != null) {
+            
+        }
         if (o_ == null) {
-            throw new NullObjectException(_conf.joinPages());
+            throw new InvokeException(new StdStruct(new NullObjectException(_conf.joinPages())));
         }
         int key_ = getOperations().getOperators().firstKey();
         if (StringList.quickEq(getOperations().getOperators().getVal(key_).trim(), UNARY_MINUS)) {

@@ -11,6 +11,8 @@ import code.expressionlanguage.methods.UniqueRootedBlock;
 import code.expressionlanguage.methods.util.TypeVar;
 import code.expressionlanguage.opers.OperationNode;
 import code.expressionlanguage.opers.util.DimComp;
+import code.expressionlanguage.stds.LgNames;
+import code.expressionlanguage.stds.StandardType;
 import code.expressionlanguage.types.NativeTypeUtil;
 import code.util.CustList;
 import code.util.EqList;
@@ -52,6 +54,7 @@ public final class Templates {
 
     public static boolean existAllClassParts(String _className, StringList _variables, ContextEl _context) {
         Classes classes_ = _context.getClasses();
+        LgNames stds_ = _context.getStandards();
         for (String s: StringList.splitStrings(_className, TEMPLATE_BEGIN,TEMPLATE_SEP,TEMPLATE_END)) {
             if (s.isEmpty()) {
                 continue;
@@ -68,12 +71,12 @@ public final class Templates {
             }
             boolean custClass_ = false;
             if (classes_ != null) {
-                custClass_ = classes_.isCustomType(baseName_);
+                custClass_ = classes_.isCustomType(baseName_) || _context.getStandards().getStandards().contains(baseName_);
             }
             if (!custClass_) {
                 try {
-                    if (PrimitiveTypeUtil.isPrimitive(baseName_)) {
-                        if (!PrimitiveTypeUtil.isExistentPrimitive(baseName_)) {
+                    if (PrimitiveTypeUtil.isPrimitive(baseName_, _context)) {
+                        if (!PrimitiveTypeUtil.isExistentPrimitive(baseName_, _context)) {
                             return false;
                         }
                     } else {
@@ -137,6 +140,18 @@ public final class Templates {
         }
         visitedClasses_.removeDuplicates();
         return visitedClasses_;
+    }
+    public static String getFullTypeByStds(String _subType, ContextEl _context) {
+        String baseSubType_ = _subType;
+        LgNames lgNames_ = _context.getStandards();
+        StandardType std_ = lgNames_.getStandards().getVal(baseSubType_);
+        if (std_ == null) {
+            return null;
+        }
+        if (std_.getIterative().isEmpty()) {
+            return null;
+        }
+        return lgNames_.getAliasIterable()+TEMPLATE_BEGIN+std_.getIterative()+TEMPLATE_END;
     }
     public static String getFullTypeByBases(String _subType, String _superType, ContextEl _context) {
         String baseSubType_ = StringList.getAllTypes(_subType).first();
@@ -279,12 +294,12 @@ public final class Templates {
                     return false;
                 }
                 String compo_ = PrimitiveTypeUtil.getQuickComponentBaseType(base_).getComponent();
-                if (PrimitiveTypeUtil.isPrimitive(base_) && already_) {
+                if (PrimitiveTypeUtil.isPrimitive(base_, _context) && already_) {
                     return false;
                 }
-                if (!PrimitiveTypeUtil.isPrimitive(compo_)) {
+                if (!PrimitiveTypeUtil.isPrimitive(compo_, _context)) {
                     if (!compo_.startsWith(PREFIX_VAR_TYPE)) {
-                        if (!PredefinedClasses.isPredefined(compo_)) {
+                        if (!PredefinedClasses.isPredefined(compo_, _context)) {
                             for (String p: StringList.splitStrings(compo_, SEP_CLASS)) {
                                 if (!StringList.isWord(p)) {
                                     return false;
@@ -339,8 +354,8 @@ public final class Templates {
         StringList types_ = StringList.getAllTypes(_className);
         String className_ = types_.first();
         className_ = PrimitiveTypeUtil.getQuickComponentBaseType(className_).getComponent();
-        if (PrimitiveTypeUtil.isPrimitive(className_)) {
-            return PrimitiveTypeUtil.isExistentPrimitive(className_);
+        if (PrimitiveTypeUtil.isPrimitive(className_, _context)) {
+            return true;
         }
         if (className_.startsWith(PREFIX_VAR_TYPE)) {
             return _inherit.contains(className_.substring(1));
@@ -634,7 +649,7 @@ public final class Templates {
             MappingPairs m_ = new MappingPairs();
             return m_;
         }
-        if (PrimitiveTypeUtil.isPrimitive(baseArrayArg_)) {
+        if (PrimitiveTypeUtil.isPrimitive(baseArrayArg_, _context)) {
             return null;
         }
         for (String a: bounds_) {

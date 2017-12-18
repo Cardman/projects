@@ -15,6 +15,7 @@ import code.expressionlanguage.opers.ExpressionLanguage;
 import code.expressionlanguage.opers.OperationNode;
 import code.expressionlanguage.stacks.RemovableVars;
 import code.expressionlanguage.stacks.TryBlockStack;
+import code.expressionlanguage.stds.LgNames;
 import code.sml.Element;
 import code.util.CustList;
 import code.util.NatTreeMap;
@@ -73,6 +74,10 @@ public final class ReturnMehod extends Leaf implements CallingFinally {
         page_.setOffset(0);
         if (getNextSibling() != null) {
             throw new BadReturnException(_cont.joinPages());
+        }
+        LgNames stds_ = _cont.getStandards();
+        if (_cont.getClasses() != null) {
+            
         }
         String retType_ = OperationNode.VOID_RETURN;
         BracedBlock par_ = getParent();

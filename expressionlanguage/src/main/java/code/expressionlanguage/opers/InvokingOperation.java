@@ -13,6 +13,7 @@ import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.opers.util.CustStruct;
 import code.expressionlanguage.opers.util.StdStruct;
 import code.expressionlanguage.opers.util.Struct;
+import code.expressionlanguage.stds.LgNames;
 import code.util.CustList;
 import code.util.StringList;
 import code.util.StringMap;
@@ -79,6 +80,10 @@ public abstract class InvokingOperation extends MethodOperation {
     }
 
     static CustList<Argument> listArguments(CustList<OperationNode> _children, int _natVararg, String _lastType, CustList<Argument> _nodes, ContextEl _context) {
+        LgNames stds_ = _context.getStandards();
+        if (_context.getClasses() != null) {
+            
+        }
         if (!_children.isEmpty() && _children.first().isVararg()) {
             CustList<Argument> firstArgs_ = new CustList<Argument>();
             CustList<Argument> optArgs_ = new CustList<Argument>();

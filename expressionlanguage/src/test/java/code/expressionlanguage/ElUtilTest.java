@@ -32,19 +32,16 @@ import code.expressionlanguage.classes.StrangeInit;
 import code.expressionlanguage.exceptions.AbstractClassConstructorException;
 import code.expressionlanguage.exceptions.BadExpressionLanguageException;
 import code.expressionlanguage.exceptions.BadNumberValuesException;
-import code.expressionlanguage.exceptions.DynamicArrayStoreException;
 import code.expressionlanguage.exceptions.DynamicCastClassException;
 import code.expressionlanguage.exceptions.EmptyPartException;
 import code.expressionlanguage.exceptions.ErrorCausingException;
 import code.expressionlanguage.exceptions.FinalMemberException;
 import code.expressionlanguage.exceptions.IllegalClassConstructorException;
 import code.expressionlanguage.exceptions.InvokeException;
-import code.expressionlanguage.exceptions.NegativeSizeException;
 import code.expressionlanguage.exceptions.NotStringException;
 import code.expressionlanguage.exceptions.NullGlobalObjectException;
 import code.expressionlanguage.exceptions.SettingMemberException;
 import code.expressionlanguage.exceptions.StaticAccessException;
-import code.expressionlanguage.exceptions.UnwrappingException;
 import code.expressionlanguage.exceptions.VarargException;
 import code.expressionlanguage.methods.Classes;
 import code.expressionlanguage.opers.util.ClassField;
@@ -55,7 +52,6 @@ import code.expressionlanguage.variables.LoopVariable;
 import code.serialize.exceptions.NoSuchDeclaredMethodException;
 import code.util.StringList;
 import code.util.StringMap;
-import code.util.exceptions.NullObjectException;
 import code.util.exceptions.RuntimeClassNotFoundException;
 
 @SuppressWarnings("static-method")
@@ -1892,7 +1888,7 @@ public class ElUtilTest {
     }
 
 
-    @Test(expected=UnwrappingException.class)
+    @Test(expected=InvokeException.class)
     public void processEl4FailTest() {
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
         LocalVariable lv_ = new LocalVariable();
@@ -1924,7 +1920,7 @@ public class ElUtilTest {
         ElUtil.processEl("$new "+ABSTRACT+"()",0, context_);
     }
 
-    @Test(expected=NegativeSizeException.class)
+    @Test(expected=InvokeException.class)
     public void processEl7FailTest() {
         ContextEl context_ = contextEl();
         setupAccessValue(context_);
@@ -1933,7 +1929,7 @@ public class ElUtilTest {
         ElUtil.processEl("$new "+ARR_INT+"(-1i)",0, context_);
     }
 
-    @Test(expected=NegativeSizeException.class)
+    @Test(expected=InvokeException.class)
     public void processEl8FailTest() {
         ContextEl context_ = contextEl();
         setupAccessValue(context_);
@@ -2681,7 +2677,7 @@ public class ElUtilTest {
         ElUtil.processAffect("","","","v;.", "\"12i\"", "=",context_);
     }
 
-    @Test(expected=NullObjectException.class)
+    @Test(expected=InvokeException.class)
     public void processAffect6FailTest() {
         ContextEl context_ = contextEl();
         setupAccessValue(context_);
@@ -2700,7 +2696,7 @@ public class ElUtilTest {
         ElUtil.processAffect("","","","v;.integer", "v2;.", "=",context_);
     }
 
-    @Test(expected=NullObjectException.class)
+    @Test(expected=InvokeException.class)
     public void processAffect7FailTest() {
         ContextEl context_ = contextEl();
         setupAccessValue(context_);
@@ -2719,7 +2715,7 @@ public class ElUtilTest {
         ElUtil.processAffect("","","","v;.[0i].getCompo()[0i].getArray()[0i]", "v2;.", "=",context_);
     }
 
-    @Test(expected=NullObjectException.class)
+    @Test(expected=InvokeException.class)
     public void processAffect8FailTest() {
         ContextEl context_ = contextEl();
         setupAccessValue(context_);
@@ -2771,7 +2767,7 @@ public class ElUtilTest {
         ElUtil.processAffect("","","","v;.", "$this", "=",context_);
     }
 
-    @Test(expected=NullObjectException.class)
+    @Test(expected=InvokeException.class)
     public void processAffect11FailTest() {
         String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg'>\n";
         xml_ += "<field static='' access='"+PUBLIC_ACCESS+"' name='inst' class='"+PrimitiveTypeUtil.PRIM_INT+"'/>\n";
@@ -2796,7 +2792,7 @@ public class ElUtilTest {
         ElUtil.processAffect("","","","$classchoice$pkg$Ex$$inst;;;", "v;.", "=",cont_);
     }
 
-    @Test(expected=DynamicArrayStoreException.class)
+    @Test(expected=InvokeException.class)
     public void processAffect12FailTest() {
         ContextEl context_ = contextEl();
         setupAccessValue(context_);
@@ -2832,6 +2828,7 @@ public class ElUtilTest {
     }
     private ContextEl contextEl() {
         ContextEl cont_ = new ContextEl();
+        InitializationLgNames.initAdvStandards(cont_);
         return cont_;
     }
 

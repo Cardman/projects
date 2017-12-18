@@ -2,6 +2,7 @@ package code.expressionlanguage.opers.util;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.PrimitiveTypeUtil;
 import code.expressionlanguage.opers.OperationNode;
+import code.expressionlanguage.stds.LgNames;
 import code.util.CustList;
 import code.util.StringList;
 import code.util.exceptions.RuntimeClassNotFoundException;
@@ -33,7 +34,11 @@ public final class ClassArgumentMatching {
 
     public boolean isNumericInt(ContextEl _context) {
         ClassArgumentMatching cl_ = new ClassArgumentMatching(className);
-        ClassArgumentMatching prim_ = PrimitiveTypeUtil.toPrimitive(cl_, true);
+        LgNames stds_ = _context.getStandards();
+        if (_context.getClasses() != null) {
+            
+        }
+        ClassArgumentMatching prim_ = PrimitiveTypeUtil.toPrimitive(cl_, true, _context);
         if (prim_.matchClass(PrimitiveTypeUtil.PRIM_INT)) {
             return true;
         }
@@ -68,6 +73,7 @@ public final class ClassArgumentMatching {
         return StringList.quickEq(className, _class.getName());
     }
     public boolean matchVoid(ContextEl _classes) {
+        LgNames stds_ = _classes.getStandards();
         return StringList.quickEq(className, OperationNode.VOID_RETURN);
     }
     public boolean matchClass(Class<?> _class) {
@@ -96,7 +102,7 @@ public final class ClassArgumentMatching {
     }
 
     public boolean isPrimitive(ContextEl _context) {
-        return PrimitiveTypeUtil.isPrimitive(className);
+        return PrimitiveTypeUtil.isPrimitive(className, _context);
     }
 
     public String getName() {

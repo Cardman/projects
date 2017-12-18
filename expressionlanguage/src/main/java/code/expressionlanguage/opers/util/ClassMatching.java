@@ -43,7 +43,7 @@ public final class ClassMatching {
     }
 
     public boolean isPrimitive(ContextEl _context) {
-        return PrimitiveTypeUtil.isPrimitive(className);
+        return PrimitiveTypeUtil.isPrimitive(className, _context);
     }
 
     public String getClassName() {

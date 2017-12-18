@@ -6,6 +6,7 @@ import code.expressionlanguage.PrimitiveTypeUtil;
 import code.expressionlanguage.exceptions.BadNumberValuesException;
 import code.expressionlanguage.methods.util.ArgumentsPair;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
+import code.expressionlanguage.stds.LgNames;
 import code.util.CustList;
 import code.util.IdMap;
 import code.util.NatTreeMap;
@@ -18,7 +19,7 @@ public final class EqOperation extends PrimitiveBoolOperation {
         super(_index, _importingPage, _indexChild, _m, _op);
     }
 
-    static Argument calculateEq(Argument _a, Argument _b) {
+    static Argument calculateEq(Argument _a, Argument _b, ContextEl _context) {
         Argument a_ = new Argument();
         Object first_ = _a.getObject();
         Object second_ = _b.getObject();
@@ -170,6 +171,10 @@ public final class EqOperation extends PrimitiveBoolOperation {
             setRelativeOffsetPossibleLastPage(getIndexInEl(), _conf);
             throw new BadNumberValuesException(_conf.joinPages());
         }
+        LgNames stds_ = _conf.getStandards();
+        if (_conf.getClasses() != null) {
+            
+        }
         setResultClass(new ClassArgumentMatching(PrimitiveTypeUtil.PRIM_BOOLEAN));
     }
 
@@ -192,7 +197,7 @@ public final class EqOperation extends PrimitiveBoolOperation {
         if (StringList.quickEq(op_, DIFF)) {
             complement_ = true;
         }
-        Argument arg_ = calculateEq(first_, second_);
+        Argument arg_ = calculateEq(first_, second_, _conf);
         if (complement_) {
             Boolean b_ = (Boolean) arg_.getObject();
             b_ = !b_;
@@ -217,7 +222,7 @@ public final class EqOperation extends PrimitiveBoolOperation {
         if (StringList.quickEq(op_, DIFF)) {
             complement_ = true;
         }
-        Argument arg_ = calculateEq(first_, second_);
+        Argument arg_ = calculateEq(first_, second_, _conf);
         if (complement_) {
             Boolean b_ = (Boolean) arg_.getObject();
             b_ = !b_;
