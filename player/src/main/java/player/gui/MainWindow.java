@@ -52,6 +52,7 @@ public class MainWindow extends GroupFrame {
     private static final String CANNOT_READ_MESSAGE_WAV = "cannotReadMessageWav";
     private static final String RESOURCES_FOLDER = "resources_player";
     private static final String XML_HEADER = "<?xml";
+    private static final String XML_END_HEADER = "?>";
     private static final String WPL_HEADER = "<?wpl";
     private static final String SEC = " s ";
     private static final String MIN = " m ";
@@ -179,7 +180,7 @@ public class MainWindow extends GroupFrame {
         if (clipStream == null) {
             noSong ++;
             if (_click && random.isSelected()) {
-                songsList = new StringList(songs.getText().split(LINE_RETURN));
+                songsList = StringList.splitStrings(songs.getText(), LINE_RETURN);
                 songsList.removeAllString(EMPTY);
                 StringList songsList_ = new StringList();
                 for (Object o: AbMonteCarlo.suffledElts(songsList.toArray())) {
@@ -187,7 +188,7 @@ public class MainWindow extends GroupFrame {
                 }
                 songsList = songsList_;
             } else if (_click) {
-                songsList = new StringList(songs.getText().split(LINE_RETURN));
+                songsList = StringList.splitStrings(songs.getText(), LINE_RETURN);
                 songsList.removeAllString(EMPTY);
             }
             if (noSong >= songsList.size()) {
@@ -229,6 +230,13 @@ public class MainWindow extends GroupFrame {
                     //.wpl
                     String txt_ = StreamTextFile.contentsOfFile(songsList.get(noSong));
                     txt_ = StringList.replace(txt_, WPL_HEADER, XML_HEADER);
+                    int endHeader_ = txt_.indexOf(XML_END_HEADER);
+                    if (endHeader_ < 0) {
+                        endHeader_ = 0;
+                    } else {
+                        endHeader_ += 2;
+                    }
+                    txt_ = txt_.substring(endHeader_);
                     StringBuilder escapedXml_ = new StringBuilder();
                     for (char c: txt_.toCharArray()) {
                         if (c >= LIMIT_ASCII) {

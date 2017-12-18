@@ -87,6 +87,9 @@ public final class PrimitiveTypeUtil {
         if (_className.startsWith(_stds.getAliasEnum())) {
             return false;
         }
+        if (_className.startsWith(_stds.getAliasEnumParam())) {
+            return false;
+        }
         return _instance.isNull();
     }
     public static boolean primitiveTypeNullObject(String _className, Struct _instance) {
@@ -100,6 +103,9 @@ public final class PrimitiveTypeUtil {
             return false;
         }
         if (_className.startsWith(PredefinedClasses.ENUM)) {
+            return false;
+        }
+        if (_className.startsWith(PredefinedClasses.ENUM_PARAM)) {
             return false;
         }
         return _instance.isNull();
@@ -194,6 +200,9 @@ public final class PrimitiveTypeUtil {
         if (_className.startsWith(_stds.getAliasEnum())) {
             return false;
         }
+        if (_className.startsWith(_stds.getAliasEnumParam())) {
+            return false;
+        }
         return toWrapper(new ClassArgumentMatching(_className), false, _stds) != null;
     }
     public static boolean isPrimitive(String _className) {
@@ -204,6 +213,9 @@ public final class PrimitiveTypeUtil {
             return false;
         }
         if (_className.startsWith(PredefinedClasses.ENUM)) {
+            return false;
+        }
+        if (_className.startsWith(PredefinedClasses.ENUM_PARAM)) {
             return false;
         }
         return toWrapper(new ClassArgumentMatching(_className), false) != null;
@@ -783,6 +795,9 @@ public final class PrimitiveTypeUtil {
         if (_className.startsWith(PredefinedClasses.ENUM)) {
             return false;
         }
+        if (_className.startsWith(PredefinedClasses.ENUM_PARAM)) {
+            return false;
+        }
         if (isPrimitive(_className)) {
             return true;
         }
@@ -799,6 +814,9 @@ public final class PrimitiveTypeUtil {
             return false;
         }
         if (_className.startsWith(_stds.getAliasEnum())) {
+            return false;
+        }
+        if (_className.startsWith(_stds.getAliasEnumParam())) {
             return false;
         }
         if (isPrimitive(_className, _stds)) {

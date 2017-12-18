@@ -25,4 +25,7 @@ public final class StandardConstructor extends StandardNamedFunction {
         return new ConstructorId(_className, pTypes_);
     }
 
+    public String getPrettyString(String _className) {
+        return getId(_className).getSignature();
+    }
 }

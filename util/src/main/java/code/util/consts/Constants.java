@@ -1,6 +1,4 @@
 package code.util.consts;
-import java.util.Locale;
-
 import code.util.CustList;
 import code.util.StringList;
 
@@ -43,7 +41,6 @@ public final class Constants {
     }
 
     public static void setSystemLanguage(String _language) {
-        Locale.setDefault(new Locale(_language));
         setLanguage(_language);
     }
 

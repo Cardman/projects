@@ -1002,14 +1002,6 @@ public abstract class RootBlock extends BracedBlock implements AccessibleBlock {
                 continue;
             }
             UniqueRootedBlock subClassBlock_ = (UniqueRootedBlock) c;
-            if (subClassBlock_ instanceof EnumBlock) {
-                if (_realId.eq(new MethodId(false, OperationNode.METH_NAME, new EqList<ClassName>()))) {
-                    continue;
-                }
-                if (_realId.eq(new MethodId(false, OperationNode.METH_ORDINAL, new EqList<ClassName>()))) {
-                    continue;
-                }
-            }
             StringList allBaseClasses_ = new StringList(name_);
             allBaseClasses_.addAllElts(subClassBlock_.getAllSuperClasses(_conf));
             boolean foundConcrete_ = false;
@@ -1160,14 +1152,6 @@ public abstract class RootBlock extends BracedBlock implements AccessibleBlock {
                 continue;
             }
             UniqueRootedBlock subClassBlock_ = (UniqueRootedBlock) classes_.getClassBody(name_);
-            if (subClassBlock_ instanceof EnumBlock) {
-                if (_realId.eq(new MethodId(false, OperationNode.METH_NAME, new EqList<ClassName>()))) {
-                    continue;
-                }
-                if (_realId.eq(new MethodId(false, OperationNode.METH_ORDINAL, new EqList<ClassName>()))) {
-                    continue;
-                }
-            }
             StringList allBaseClasses_ = new StringList(name_);
             allBaseClasses_.addAllElts(subClassBlock_.getAllSuperClasses(_conf));
             for (String s: allBaseClasses_) {

@@ -33,11 +33,6 @@ public final class StandardInterface extends StandardType {
     }
 
     @Override
-    public StringList getAllSuperClasses(ContextEl _context) {
-        return getAllSuperTypes(_context);
-    }
-
-    @Override
     public StringList getDirectSuperTypes(ContextEl _context) {
         return getDirectInterfaces(_context);
     }

@@ -84,14 +84,15 @@ public final class Argument {
 
     public static Argument numberToArgument(String _nb) {
         String nb_ = extractFromSuffix(_nb);
+        Long longValue_ = LgNames.parseLongTen(nb_);
         Number value_;
-        if (LgNames.isOkLongTen(nb_)) {
-            value_ = Long.parseLong(nb_);
+        if (longValue_ != null) {
+            value_ = longValue_;
         } else {
             value_ = Double.parseDouble(nb_);
         }
         Argument a_ = new Argument();
-        if (LgNames.isOkLongTen(StringList.removeChars(_nb, '_'))) {
+        if (StringList.quickEq(nb_, StringList.removeChars(_nb, '_'))) {
             a_.object = new LongStruct(value_.longValue());
             return a_;
         }

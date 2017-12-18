@@ -36,14 +36,15 @@ public final class ParsedArgument {
 
     public static ParsedArgument parse(String _nb) {
         String nb_ = extractFromSuffix(_nb);
-        if (!or(LgNames.isValidDouble(nb_), LgNames.isOkLongTen(nb_))) {
+        Long longValue_ = LgNames.parseLongTen(nb_);
+        if (!or(LgNames.isValidDouble(nb_), longValue_ == null)) {
             return new ParsedArgument();
         }
         ParsedArgument out_ = new ParsedArgument();
         if (StringList.quickEq(nb_, removeUnderscores(_nb))) {
-            if (LgNames.isOkLongTen(nb_)) {
+            if (longValue_ != null) {
                 out_.type = Long.class.getName();
-                out_.object = new LongStruct(Long.parseLong(nb_));
+                out_.object = new LongStruct(longValue_);
                 return out_;
             }
             out_.type = Double.class.getName();
@@ -53,9 +54,9 @@ public final class ParsedArgument {
         String parts_ = StringList.splitInTwo(_nb, _nb.length() - 1).last();
         boolean long_ = false;
         Number value_;
-        if (LgNames.isOkLongTen(nb_)) {
+        if (longValue_ != null) {
             long_ = true;
-            value_ = Long.parseLong(nb_);
+            value_ = longValue_;
         } else {
             value_ = Double.parseDouble(nb_);
         }

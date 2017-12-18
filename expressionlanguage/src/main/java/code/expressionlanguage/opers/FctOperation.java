@@ -401,7 +401,7 @@ public final class FctOperation extends InvokingOperation {
             }
         }
         String baseClass_ = StringList.getAllTypes(clCurName_).first();
-        if (StringList.quickEq(baseClass_, PredefinedClasses.ENUM)) {
+        if (StringList.quickEq(baseClass_, PredefinedClasses.ENUM) || StringList.quickEq(baseClass_, PredefinedClasses.ENUM_PARAM)) {
             if (StringList.quickEq(trimMeth_, METH_NAME) && firstArgs_.isEmpty()) {
                 if (isStaticAccess()) {
                     if (_failIfError) {

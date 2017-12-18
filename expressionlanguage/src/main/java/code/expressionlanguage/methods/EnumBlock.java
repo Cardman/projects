@@ -59,7 +59,7 @@ public final class EnumBlock extends RootBlock implements UniqueRootedBlock {
             directInterfaces.add(_el.getAttribute(ATTRIBUTE_CLASS+i_));
             i_++;
         }
-        directInterfaces.add(PredefinedClasses.ENUM);
+        directInterfaces.add(PredefinedClasses.ENUM_PARAM+LT+getFullName()+GT);
     }
 
     @Override

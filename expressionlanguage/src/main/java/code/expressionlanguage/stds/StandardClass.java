@@ -37,13 +37,15 @@ public final class StandardClass extends StandardType {
     public boolean isAbstractType() {
         return abstractType;
     }
-    @Override
     public StringList getAllSuperClasses(ContextEl _context) {
+        String current_ = getName();
+        String objectAlias_ = _context.getStandards().getAliasObject();
         StringList superClasses_ = new StringList();
-        for (String s: getAllSuperTypes(_context)) {
-            if (_context.getStandards().getStandards().getVal(s) instanceof StandardClass) {
-                superClasses_.add(s);
-            }
+        while (!StringList.quickEq(current_, objectAlias_)) {
+            StandardClass r_ = (StandardClass) _context.getStandards().getStandards().getVal(current_);
+            String superClass_ = r_.getSuperClass();
+            superClasses_.add(superClass_);
+            current_ = superClass_;
         }
         return superClasses_;
     }

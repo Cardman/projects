@@ -41,4 +41,8 @@ public final class StandardField {
     public AccessEnum getAccess() {
         return access;
     }
+
+    public String getPrettyString(String _className) {
+        return _className+" "+className+" "+fieldName;
+    }
 }

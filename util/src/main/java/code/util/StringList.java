@@ -1,7 +1,6 @@
 package code.util;
 import code.util.annot.CapacityInit;
 import code.util.comparators.NaturalComparator;
-import code.util.exceptions.NullReplacingException;
 import code.util.ints.Equallable;
 import code.util.ints.Listable;
 import code.util.ints.ListableEntries;
@@ -586,6 +585,13 @@ public final class StringList extends AbEqList<String> implements Equallable<Str
         return splitChars(_string, _chars).join(EMPTY_STRING);
     }
 
+    public static String replaceMult(String _string, Replacement... _strings) {
+        StringMap<String> rep_ = new StringMap<String>();
+        for (Replacement r: _strings) {
+            rep_.put(r.getOldString(), r.getNewString());
+        }
+        return replaceMultiple(_string, rep_);
+    }
     /**Not empty _old string*/
     public static String replaceMultiple(String _string, ListableEntries<String,String> _strings) {
         Listable<String> keys_ = _strings.getKeys();
@@ -607,15 +613,36 @@ public final class StringList extends AbEqList<String> implements Equallable<Str
         return parts_.join(CustList.EMPTY_STRING);
     }
 
-    public static String replaceNotNull(String _string, String _old, String _new) {
-        if (_new == null) {
-            throw new NullReplacingException();
-        }
-        return replace(_string, _old, _new);
-    }
-
     /**Not empty _old string*/
     public static String replace(String _string, String _old, String _new) {
+        if (_old == null) {
+            return _string;
+        }
+        if (_new == null) {
+            if (_old.isEmpty()) {
+                StringList list_ = new StringList();
+                for (char c: _string.toCharArray()) {
+                    list_.add(String.valueOf(c));
+                }
+                return list_.join(EMPTY_STRING);
+            }
+            StringBuilder list_ = new StringBuilder();
+            int i_ = FIRST_INDEX;
+            int len_ = _string.length();
+            int index_ = INDEX_NOT_FOUND_ELT;
+            while (i_ < len_) {
+                index_ = _string.indexOf(_old, i_);
+                if (index_ < 0) {
+                    break;
+                }
+                list_.append(_string.substring(i_, index_));
+                i_ = index_ + _old.length();
+            }
+            if (i_ <= len_) {
+                list_.append(_string.substring(i_));
+            }
+            return list_.toString();
+        }
         if (_old.isEmpty()) {
             StringList list_ = new StringList();
             list_.add(_new);
@@ -1449,6 +1476,26 @@ public final class StringList extends AbEqList<String> implements Equallable<Str
     public static StringList splitChars(String _string, Character... _separators) {
         StringList l_ = new StringList();
         CharList cs_ = new CharList(_separators);
+        int len_ = _string.length();
+        StringBuilder str_ = new StringBuilder();
+        for (int i = FIRST_INDEX; i < len_; i++) {
+            if (cs_.containsChar(_string.charAt(i))) {
+                l_.add(str_.toString());
+                str_ = new StringBuilder();
+            } else {
+                str_.append(_string.charAt(i));
+            }
+        }
+        l_.add(str_.toString());
+        return l_;
+    }
+
+    public static StringList splitCharsArr(String _string, char... _separators) {
+        StringList l_ = new StringList();
+        CharList cs_ = new CharList();
+        for (char c: _separators) {
+            cs_.add(c);
+        }
         int len_ = _string.length();
         StringBuilder str_ = new StringBuilder();
         for (int i = FIRST_INDEX; i < len_; i++) {

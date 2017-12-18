@@ -456,6 +456,8 @@ public final class Classes {
         processPredefinedClass(content_, _context);
         content_ = PredefinedClasses.getEnumType();
         processPredefinedClass(content_, _context);
+        content_ = PredefinedClasses.getEnumParamType();
+        processPredefinedClass(content_, _context);
         _context.setHtml(EMPTY_STRING);
     }
     public static CustList<Block> getSortedDescNodesRoot(Block _root) {
@@ -733,8 +735,17 @@ public final class Classes {
                         enum_.setRc(new RowCol());
                         errorsDet.add(enum_);
                     }
-                    if (!(bl_ instanceof EnumBlock)) {
+                    if (!(bl_ instanceof EnumBlock) && !StringList.quickEq(bl_.getFullName(), PredefinedClasses.ENUM_PARAM)) {
                         if (StringList.quickEq(super_.getFullName(), PredefinedClasses.ENUM)) {
+                            BadInheritedClass enum_;
+                            enum_ = new BadInheritedClass();
+                            String n_ = s;
+                            enum_.setClassName(n_);
+                            enum_.setFileName(d_);
+                            enum_.setRc(new RowCol());
+                            errorsDet.add(enum_);
+                        }
+                        if (StringList.quickEq(super_.getFullName(), PredefinedClasses.ENUM_PARAM)) {
                             BadInheritedClass enum_;
                             enum_ = new BadInheritedClass();
                             String n_ = s;

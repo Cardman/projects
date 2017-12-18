@@ -11342,6 +11342,52 @@ public class ProcessXmlMethodTest {
         assertEq(INTEGER, field_.getClassName(cont_));
         assertEq(5, (Number)field_.getInstance());
     }
+    @Test
+    public void instanceArgument111Test() {
+        String xml_ = "<enum access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' class0='pkg.Int'>\n";
+        xml_ += "<element name='ONE' value='4i'/>\n";
+        xml_ += "<element name='TWO'/>\n";
+        xml_ += "<field access='"+PUBLIC_ACCESS+"' name='first' class='"+PrimitiveTypeUtil.PRIM_INT+"'/>\n";
+        xml_ += "<constructor access='"+PUBLIC_ACCESS+"' var0='i' class0='"+PrimitiveTypeUtil.PRIM_INT+"'>\n";
+        xml_ += "<affect left='first;;;' oper='=' right='i;.;'/>\n";
+        xml_ += "</constructor>\n";
+        xml_ += "<constructor access='"+PUBLIC_ACCESS+"'>\n";
+        xml_ += "<affect left='first;;;' oper='=' right='5i'/>\n";
+        xml_ += "</constructor>\n";
+        xml_ += "<method access='"+PUBLIC_ACCESS+"' modifier='final' name='doubleValue' class='"+PrimitiveTypeUtil.PRIM_INT+"'>\n";
+        xml_ += "<return expression='first;;;'/>\n";
+        xml_ += "</method>\n";
+        xml_ += "</enum>\n";
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex."+Classes.EXT, xml_);
+        xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExCont' package='pkg'>\n";
+        xml_ += "<field access='"+PUBLIC_ACCESS+"' name='pre' class='$Enum&lt;pkg.Ex&gt;' value='$static$pkg$Ex.TWO;;;'/>\n";
+        xml_ += "<field access='"+PUBLIC_ACCESS+"' name='inst' class='java.lang.String' value='pre;;;name()'/>\n";
+        xml_ += "</class>\n";
+        files_.put("pkg/ExCont."+Classes.EXT, xml_);
+        xml_ = "<interface access='"+PUBLIC_ACCESS+"' name='Int' package='pkg'>\n";
+        xml_ += "<method access='"+PUBLIC_ACCESS+"' modifier='abstract' name='name' class='java.lang.String'/>\n";
+        xml_ += "<method access='"+PUBLIC_ACCESS+"' modifier='abstract' name='ordinal' class='"+PrimitiveTypeUtil.PRIM_INT+"'/>\n";
+        xml_ += "</interface>\n";
+        files_.put("pkg/Int."+Classes.EXT, xml_);
+        ContextEl cont_ = contextEl();
+        cont_.setAccessValue(new AccessValueEx());
+        Classes.validateAll(files_, cont_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        ConstructorId id_ = getConstructorId("pkg.ExCont");
+        ProcessXmlMethod.initializeClass("pkg.ExCont", cont_);
+        Argument ret_;
+        ret_ = instanceArgument("pkg.ExCont", null, id_, args_, cont_);
+        Struct str_ = ret_.getStruct();
+        assertEq(CUST_BASE, str_.getRealClassName(cont_));
+        assertEq("pkg.ExCont", str_.getClassName(cont_));
+        assertTrue(!str_.isJavaObject());
+        Struct field_;
+        field_ = str_.getFields().getVal(new ClassField("pkg.ExCont", "inst"));
+        assertEq(STRING, field_.getRealClassName(cont_));
+        assertEq(STRING, field_.getClassName(cont_));
+        assertEq("TWO", field_.getInstance());
+    }
     @Test(expected=UndefinedConstructorException.class)
     public void validateAll1FailTest() {
         StringMap<String> files_ = new StringMap<String>();

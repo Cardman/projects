@@ -38,9 +38,6 @@ public abstract class StandardType {
         methods = _methods;
         allOverridingMethods = new ObjectMap<MethodId, EqList<ClassMethodId>>();
     }
-
-    public abstract StringList getAllSuperClasses(ContextEl _context);
-
     /** Copy the list*/
     public abstract StringList getDirectSuperClasses(ContextEl _context);
     public abstract StringList getDirectSuperTypes(ContextEl _context);
@@ -52,10 +49,13 @@ public abstract class StandardType {
         while (true) {
             StringList next_ = new StringList();
             for (String c: current_) {
-                String baseType_ = StringList.getAllTypes(c).first();
+                String baseType_ = c;
                 StandardType stdType_ = _classes.getStandards().getStandards().getVal(baseType_);
                 StringList superTypes_ = stdType_.getDirectSuperTypes(_classes);
                 for (String t: superTypes_) {
+                    if (t.isEmpty()) {
+                        continue;
+                    }
                     String format_ = t;
                     list_.add(format_);
                     next_.add(format_);
@@ -135,7 +135,7 @@ public abstract class StandardType {
                 for (OverridingRelation p: newpairs_) {
                     pairs_.add(p);
                     String superType_ = p.getSupMethod().getClassName();
-                    String superTypeId_ = StringList.getAllTypes(superType_).first();
+                    String superTypeId_ = superType_;
                     if (!visited_.containsStr(superTypeId_)) {
                         next_.add(p.getSupMethod());
                         visited_.add(superTypeId_);
@@ -245,7 +245,7 @@ public abstract class StandardType {
                 if (!LgNames.canBeUseAsArgument(baseClassFound_, s, _conf)) {
                     continue;
                 }
-                StandardType r_ = classes_.getStandards().getVal(s);
+                StandardClass r_ = (StandardClass) classes_.getStandards().getVal(s);
                 String gene_ = r_.getName();
                 MethodId l_ = _realId;
                 ObjectMap<MethodId, EqList<ClassMethodId>> ov_ = r_.getAllOverridingMethods();
@@ -381,6 +381,27 @@ public abstract class StandardType {
         } else {
             _map.put(_key, new EqList<ClassMethodId>(_class));
         }
+    }
+    public String getPrettyString() {
+        StringBuilder str_ = new StringBuilder();
+        str_.append(getName());
+        str_.append(" is ");
+        str_.append(getClass().getName());
+        str_.append("\n");
+        for (StandardField f: fields.values()) {
+            str_.append(f.getPrettyString(getName()));
+            str_.append("\n");
+        }
+        str_.append("\n");
+        for (StandardConstructor c: constructors) {
+            str_.append(c.getPrettyString(getName()));
+            str_.append("\n");
+        }
+        for (StandardMethod m: methods.values()) {
+            str_.append(m.getPrettyString());
+            str_.append("\n");
+        }
+        return str_.toString();
     }
     public StringMap<StandardField> getFields() {
         return fields;
