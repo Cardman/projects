@@ -373,7 +373,7 @@ public abstract class OperationNode {
         Classes classes_ = _cont.getClasses();
         String glClass_ = _cont.getLastPage().getGlobalClass();
         if (!isStaticBlock()) {
-            for (TypeVar t: Templates.getConstraints(glClass_, classes_)) {
+            for (TypeVar t: Templates.getConstraints(glClass_, _cont)) {
                 map_.put(t.getName(), t.getConstraints());
             }
         }
@@ -390,7 +390,7 @@ public abstract class OperationNode {
         if (_allowVarTypes) {
             Classes classes_ = _cont.getClasses();
             String glClass_ = _cont.getLastPage().getGlobalClass();
-            for (TypeVar t: Templates.getConstraints(glClass_, classes_)) {
+            for (TypeVar t: Templates.getConstraints(glClass_, _cont)) {
                 map_.put(t.getName(), t.getConstraints());
             }
         }
@@ -445,7 +445,7 @@ public abstract class OperationNode {
                 FieldResult r_ = new FieldResult();
                 String formattedType_ = e.getValue().getType();
                 String realType_ = formattedType_;
-                formattedType_ = Templates.generalFormat(formatted_, formattedType_, classes_);
+                formattedType_ = Templates.generalFormat(formatted_, formattedType_, _cont);
                 FieldInfo f_ = new FieldInfo(_name, formatted_, formattedType_, realType_, _static, e.getValue().isFinalField());
                 r_.setId(f_);
                 r_.setStatus(SearchingMemberStatus.UNIQ);
@@ -534,7 +534,7 @@ public abstract class OperationNode {
         StringMap<StringList> map_;
         map_ = new StringMap<StringList>();
         if (glClass_ != null) {
-            for (TypeVar t: Templates.getConstraints(glClass_, classes_)) {
+            for (TypeVar t: Templates.getConstraints(glClass_, _conf)) {
                 map_.put(t.getName(), t.getConstraints());
             }
         }
@@ -574,7 +574,7 @@ public abstract class OperationNode {
             }
         }
         out_.setRealId(ctor_);
-        out_.setConstId(ctor_.format(clCurName_, classes_));
+        out_.setConstId(ctor_.format(clCurName_, _conf));
         return out_;
     }
     static Constructor<?> getDeclaredConstructor(ContextEl _conf, int _varargOnly, int _offsetIncr, ClassArgumentMatching _class, ClassArgumentMatching..._args) {
@@ -618,7 +618,7 @@ public abstract class OperationNode {
         map_ = new StringMap<StringList>();
         String glClass_ = _conf.getLastPage().getGlobalClass();
         if (glClass_ != null) {
-            for (TypeVar t: Templates.getConstraints(glClass_, classes_)) {
+            for (TypeVar t: Templates.getConstraints(glClass_, _conf)) {
                 map_.put(t.getName(), t.getConstraints());
             }
         }
@@ -853,7 +853,7 @@ public abstract class OperationNode {
                         continue;
                     }
                     String ret_ = sup_.getReturnType();
-                    ret_ = Templates.generalFormat(formattedClass_, ret_, classes_);
+                    ret_ = Templates.generalFormat(formattedClass_, ret_, _conf);
                     MethodMetaInfo info_ = new MethodMetaInfo(formattedClass_, id_, MethodModifier.NORMAL, ret_);
                     ClassMethodId clId_ = new ClassMethodId(formattedClass_, id_);
                     methods_.put(clId_, info_);
@@ -895,7 +895,7 @@ public abstract class OperationNode {
         StringMap<StringList> map_;
         map_ = new StringMap<StringList>();
         if (glClass_ != null) {
-            for (TypeVar t: Templates.getConstraints(glClass_, classes_)) {
+            for (TypeVar t: Templates.getConstraints(glClass_, _conf)) {
                 map_.put(t.getName(), t.getConstraints());
             }
         }
@@ -935,11 +935,11 @@ public abstract class OperationNode {
         MethodId id_;
         String realClass_;
         if (!_correctTemplated) {
-            realClass_ = Templates.getGenericString(baseClassName_, classes_);
+            realClass_ = Templates.getGenericString(baseClassName_, _conf);
             id_ = constraints_;
         } else {
             realClass_ = baseClassName_;
-            id_ = constraints_.format(baseClassName_, classes_);
+            id_ = constraints_.format(baseClassName_, _conf);
             res_.setCorrectTemplated(true);
         }
         res_.setId(new ClassMethodId(realClass_, id_));
@@ -1007,7 +1007,7 @@ public abstract class OperationNode {
     }
     static ClassMethodIdResult getDeclaredMethodLoop(ContextEl _cont, int _varargOnly, boolean _static, ClassArgumentMatching _class,
             String _name, ClassArgumentMatching... _argsClass) {
-        StringList classNames_ = Templates.getAllGenericSuperTypes(_class.getName(), _cont.getClasses());
+        StringList classNames_ = Templates.getAllGenericSuperTypes(_class.getName(), _cont);
         for (String c: classNames_) {
             Class<?> cl_ = PrimitiveTypeUtil.getSingleNativeClass(c);
             CustList<Method> possibleMethods_ = new CustList<Method>(cl_.getDeclaredMethods());
@@ -1074,7 +1074,7 @@ public abstract class OperationNode {
         map_ = new StringMap<StringList>();
         String glClass_ = _conf.getLastPage().getGlobalClass();
         if (glClass_ != null) {
-            for (TypeVar t: Templates.getConstraints(glClass_, classes_)) {
+            for (TypeVar t: Templates.getConstraints(glClass_, _conf)) {
                 map_.put(t.getName(), t.getConstraints());
             }
         }
@@ -1141,7 +1141,7 @@ public abstract class OperationNode {
         String glClass_ = _context.getLastPage().getGlobalClass();
         CustList<TypeVar> vars_;
         if (glClass_ != null) {
-            vars_ = Templates.getConstraints(glClass_, classes_);
+            vars_ = Templates.getConstraints(glClass_, _context);
         } else {
             vars_ = new CustList<TypeVar>();
         }
@@ -1158,7 +1158,7 @@ public abstract class OperationNode {
             for (TypeVar t: vars_) {
                 map_.getMapping().put(t.getName(), t.getConstraints());
             }
-            map_.setParam(Templates.generalFormat(_class, _params[i].getClassName(), classes_));
+            map_.setParam(Templates.generalFormat(_class, _params[i].getClassName(), _context));
             if (!Templates.isCorrect(map_, _context)) {
                 return false;
             }
@@ -1174,12 +1174,12 @@ public abstract class OperationNode {
                 map_.getMapping().put(t.getName(), t.getConstraints());
             }
             String param_ = _params[last_].getClassName();
-            map_.setParam(Templates.generalFormat(_class, param_, classes_));
+            map_.setParam(Templates.generalFormat(_class, param_, _context));
             if (Templates.isCorrect(map_, _context)) {
                 return true;
             }
             param_ = PrimitiveTypeUtil.getQuickComponentType(param_);
-            map_.setParam(Templates.generalFormat(_class, param_, classes_));
+            map_.setParam(Templates.generalFormat(_class, param_, _context));
             return Templates.isCorrect(map_, _context);
         }
         len_ = _argsClass.length;
@@ -1190,7 +1190,7 @@ public abstract class OperationNode {
         for (TypeVar t: vars_) {
             map_.getMapping().put(t.getName(), t.getConstraints());
         }
-        map_.setParam(Templates.generalFormat(_class, param_, classes_));
+        map_.setParam(Templates.generalFormat(_class, param_, _context));
         for (int i = startOpt_; i < len_; i++) {
             map_.setArg(_argsClass[i].getName());
             if (!Templates.isCorrect(map_, _context)) {
@@ -1210,7 +1210,7 @@ public abstract class OperationNode {
         String glClass_ = _globalClass;
         CustList<TypeVar> vars_;
         if (glClass_ != null) {
-            vars_ = Templates.getConstraints(glClass_, _context.getClasses());
+            vars_ = Templates.getConstraints(glClass_, _context);
         } else {
             vars_ = new CustList<TypeVar>();
         }
@@ -1221,7 +1221,7 @@ public abstract class OperationNode {
             map_.getMapping().put(t.getName(), t.getConstraints());
         }
         map_.setArg(_argsClass[last_].getName());
-        map_.setParam(Templates.generalFormat(_class, param_, _context.getClasses()));
+        map_.setParam(Templates.generalFormat(_class, param_, _context));
         return !Templates.isCorrect(map_, _context);
     }
     static ClassMatching[] getParameters(Identifiable _id) {
@@ -1355,8 +1355,8 @@ public abstract class OperationNode {
                 paramTwo_ = StringList.replace(paramTwo_, VARARG_SUFFIX, EMPTY_STRING);
                 paramTwo_ = PrimitiveTypeUtil.getPrettyArrayType(paramTwo_);
             }
-            one_ = new ClassMatching(Templates.generalFormat(glClassOne_, paramOne_, classes_));
-            two_ = new ClassMatching(Templates.generalFormat(glClassTwo_, paramTwo_, classes_));
+            one_ = new ClassMatching(Templates.generalFormat(glClassOne_, paramOne_, context_));
+            two_ = new ClassMatching(Templates.generalFormat(glClassTwo_, paramTwo_, context_));
             if (one_.matchClass(two_)) {
                 continue;
             }

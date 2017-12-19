@@ -274,7 +274,7 @@ public final class PageEl {
         globalClass = _globalClass;
     }
 
-    public String format(String _type, Classes _classes) {
+    public String format(String _type, ContextEl _context) {
         boolean static_ = false;
         Argument gl_ = globalArgument;
         if (gl_ == null) {
@@ -283,7 +283,7 @@ public final class PageEl {
             static_ = true;
         }
         if (!static_) {
-            return Templates.format(globalClass, _type, _classes);
+            return Templates.format(globalClass, _type, _context);
         }
         return _type;
     }
@@ -296,11 +296,10 @@ public final class PageEl {
             return _varType;
         }
         String objClass_ = globalArgument.getObjectClassName(_cont);
-        Classes classes_ = _cont.getClasses();
         String gl_ = globalClass;
         gl_ = StringList.getAllTypes(gl_).first();
         gl_ = Templates.getFullTypeByBases(objClass_, gl_, _cont);
-        return Templates.format(gl_, _varType, classes_);
+        return Templates.format(gl_, _varType, _cont);
     }
 
     public Argument getGlobalArgument() {

@@ -123,7 +123,7 @@ public final class InstanceOperation extends InvokingOperation {
                 map_ = new StringMap<StringList>();
                 String glClass_ = _conf.getLastPage().getGlobalClass();
                 if (glClass_ != null) {
-                    for (TypeVar t: Templates.getConstraints(glClass_, classes_)) {
+                    for (TypeVar t: Templates.getConstraints(glClass_, _conf)) {
                         map_.put(t.getName(), t.getConstraints());
                     }
                 }
@@ -498,7 +498,7 @@ public final class InstanceOperation extends InvokingOperation {
         StringList params_ = new StringList();
         for (String c: constId.getParametersTypes()) {
             String class_ = c;
-            class_ = Templates.format(className_, class_, classes_);
+            class_ = Templates.format(className_, class_, _conf);
             params_.add(class_);
         }
         checkArgumentsForInvoking(_conf, naturalVararg > -1, params_, getObjects(Argument.toArgArray(_arguments)));

@@ -52,7 +52,7 @@ public abstract class InvokingOperation extends MethodOperation {
             String glClass_ = _conf.getLastPage().getGlobalClass();
             Classes classes_ = _conf.getClasses();
             if (glClass_ != null) {
-                for (TypeVar t: Templates.getConstraints(glClass_, classes_)) {
+                for (TypeVar t: Templates.getConstraints(glClass_, _conf)) {
                     map_.put(t.getName(), t.getConstraints());
                 }
             }

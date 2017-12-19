@@ -102,13 +102,14 @@ public final class Templates {
         }
         return args_;
     }
-    public static StringList getAllGenericSuperTypes(String _className, Classes _classes) {
+    public static StringList getAllGenericSuperTypes(String _className, ContextEl _context) {
         StringList types_ = StringList.getAllTypes(_className);
         String className_ = types_.first();
-        if (_classes != null) {
-            RootBlock root_ = _classes.getClassBody(className_);
+        Classes classes_ = _context.getClasses();
+        if (classes_ != null) {
+            RootBlock root_ = classes_.getClassBody(className_);
             if (root_ != null) {
-                return root_.getAllGenericSuperTypes(_classes);
+                return root_.getAllGenericSuperTypes(_context);
             }
         }
         StringList curClasses_ = new StringList(_className);
@@ -122,13 +123,13 @@ public final class Templates {
                 Class<?> superClass_ = cl_.getSuperclass();
                 if (superClass_ != null) {
                     String geneSuperClass_ = NativeTypeUtil.getPrettyType(cl_.getGenericSuperclass());
-                    geneSuperClass_ = generalFormat(c, geneSuperClass_, _classes);
+                    geneSuperClass_ = generalFormat(c, geneSuperClass_, _context);
                     nextClasses_.add(geneSuperClass_);
                     visitedClasses_.add(geneSuperClass_);
                 }
                 for (Type s: cl_.getGenericInterfaces()) {
                     String geneSuperInterface_ = NativeTypeUtil.getPrettyType(s);
-                    geneSuperInterface_ = generalFormat(c, geneSuperInterface_, _classes);
+                    geneSuperInterface_ = generalFormat(c, geneSuperInterface_, _context);
                     nextClasses_.add(geneSuperInterface_);
                     visitedClasses_.add(geneSuperInterface_);
                 }
@@ -182,7 +183,7 @@ public final class Templates {
                     String superClass_ = getSuperClassName(baseClass_, _context);
                     if (superClass_ != null) {
                         String geneSuperClass_ = getGenericSuperClassName(c, _context);
-                        geneSuperClass_ = format(c, geneSuperClass_, classes_);
+                        geneSuperClass_ = format(c, geneSuperClass_, _context);
                         if (StringList.quickEq(superClass_, baseSuperType_)) {
                             generic_ = geneSuperClass_;
                             break;
@@ -196,7 +197,7 @@ public final class Templates {
                     for (String s: getSuperInterfaceNames(baseClass_, _context)) {
                         i_++;
                         String geneSuperInterface_ = getGenericSuperInterfaceName(c, i_, _context);
-                        geneSuperInterface_ = format(c, geneSuperInterface_, classes_);
+                        geneSuperInterface_ = format(c, geneSuperInterface_, _context);
                         if (StringList.quickEq(s, baseSuperType_)) {
                             generic_ = geneSuperInterface_;
                             break;
@@ -243,7 +244,7 @@ public final class Templates {
                     String superClass_ = getSuperClassName(baseClass_, _context);
                     if (superClass_ != null) {
                         String geneSuperClass_ = getGenericSuperClassName(c, _context);
-                        geneSuperClass_ = format(c, geneSuperClass_, classes_);
+                        geneSuperClass_ = format(c, geneSuperClass_, _context);
                         if (StringList.quickEq(superClass_, _baseSuperType)) {
                             generic_ = geneSuperClass_;
                             break;
@@ -257,7 +258,7 @@ public final class Templates {
                     for (String s: getSuperInterfaceNames(baseClass_, _context)) {
                         i_++;
                         String geneSuperInterface_ = getGenericSuperInterfaceName(c, i_, _context);
-                        geneSuperInterface_ = format(c, geneSuperInterface_, classes_);
+                        geneSuperInterface_ = format(c, geneSuperInterface_, _context);
                         if (StringList.quickEq(s, _baseSuperType)) {
                             generic_ = geneSuperInterface_;
                             break;
@@ -410,7 +411,7 @@ public final class Templates {
                 Mapping m_ = new Mapping();
                 String typeBound_ = e;
                 String ext_ = typeBound_;
-                String param_ = format(_className, ext_, classes_);
+                String param_ = format(_className, ext_, _context);
                 m_.setParam(param_);
                 boolean ok_ = false;
                 for (String v: bounds_) {
@@ -428,19 +429,20 @@ public final class Templates {
         }
         return true;
     }
-    public static String generalFormat(String _first, String _second, Classes _classes) {
+    public static String generalFormat(String _first, String _second, ContextEl _classes) {
         StringMap<String> varTypes_ = getVarTypes(_first, false, _classes);
         return getFormattedType(_second, varTypes_);
     }
-    public static String format(String _first, String _second, Classes _classes) {
-        StringMap<String> varTypes_ = getVarTypes(_first, true, _classes);
+    public static String format(String _first, String _second, ContextEl _context) {
+        StringMap<String> varTypes_ = getVarTypes(_first, true, _context);
         return getFormattedType(_second, varTypes_);
     }
-    public static String getGenericString(String _className, Classes _classes) {
+    public static String getGenericString(String _className, ContextEl _classes) {
         StringList types_ = StringList.getAllTypes(_className);
         String className_ = PrimitiveTypeUtil.getQuickComponentBaseType(types_.first()).getComponent();
-        if (_classes != null) {
-            RootBlock root_ = _classes.getClassBody(className_);
+        Classes classes_ = _classes.getClasses();
+        if (classes_ != null) {
+            RootBlock root_ = classes_.getClassBody(className_);
             if (root_ != null) {
                 return root_.getGenericString();
             }
@@ -459,11 +461,12 @@ public final class Templates {
         generic_.append(TEMPLATE_END);
         return generic_.toString();
     }
-    public static CustList<TypeVar> getConstraints(String _className, Classes _classes) {
+    public static CustList<TypeVar> getConstraints(String _className, ContextEl _context) {
         StringList types_ = StringList.getAllTypes(_className);
         String className_ = PrimitiveTypeUtil.getQuickComponentBaseType(types_.first()).getComponent();
-        if (_classes != null) {
-            RootBlock root_ = _classes.getClassBody(className_);
+        Classes classes_ = _context.getClasses();
+        if (classes_ != null) {
+            RootBlock root_ = classes_.getClassBody(className_);
             if (root_ != null) {
                 return root_.getParamTypes();
             }
@@ -485,11 +488,12 @@ public final class Templates {
         }
         return vars_;
     }
-    static StringMap<String> getVarTypes(String _className, boolean _checkExact,Classes _classes) {
+    static StringMap<String> getVarTypes(String _className, boolean _checkExact,ContextEl _context) {
         StringList types_ = StringList.getAllTypes(_className);
         String className_ = PrimitiveTypeUtil.getQuickComponentBaseType(types_.first()).getComponent();
-        if (_classes != null) {
-            RootBlock root_ = _classes.getClassBody(className_);
+        Classes classes_ = _context.getClasses();
+        if (classes_ != null) {
+            RootBlock root_ = classes_.getClassBody(className_);
             if (root_ != null) {
                 StringMap<String> varTypes_ = new StringMap<String>();
                 CustList<TypeVar> typeVar_ = root_.getParamTypes();
@@ -520,7 +524,7 @@ public final class Templates {
         Class<?> cl_ = PrimitiveTypeUtil.getSingleNativeClass(className_);
         int i_ = CustList.FIRST_INDEX;
         StringMap<String> varTypes_ = new StringMap<String>();
-        CustList<TypeVar> typeVar_ = getConstraints(className_, _classes);
+        CustList<TypeVar> typeVar_ = getConstraints(className_, _context);
         if (cl_.getTypeParameters().length != types_.size() - 1 && !_checkExact) {
             Mapping map_ = new Mapping();
             for (TypeVar t: typeVar_) {
@@ -709,7 +713,7 @@ public final class Templates {
                     String superClass_ = getSuperClassName(baseClass_, _context);
                     if (superClass_ != null) {
                         String geneSuperClass_ = getGenericSuperClassName(c, _context);
-                        geneSuperClass_ = format(c, geneSuperClass_, classes_);
+                        geneSuperClass_ = format(c, geneSuperClass_, _context);
                         if (StringList.quickEq(superClass_, classParam_)) {
                             generic_ = PrimitiveTypeUtil.getPrettyArrayType(geneSuperClass_, dim_);
                             break;
@@ -723,7 +727,7 @@ public final class Templates {
                     for (String s: getSuperInterfaceNames(baseClass_, _context)) {
                         i_++;
                         String geneSuperInterface_ = getGenericSuperInterfaceName(c, i_, _context);
-                        geneSuperInterface_ = format(c, geneSuperInterface_, classes_);
+                        geneSuperInterface_ = format(c, geneSuperInterface_, _context);
                         if (StringList.quickEq(s, classParam_)) {
                             generic_ = PrimitiveTypeUtil.getPrettyArrayType(geneSuperInterface_, dim_);
                             break;

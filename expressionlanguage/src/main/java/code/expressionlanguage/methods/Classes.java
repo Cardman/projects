@@ -1056,7 +1056,7 @@ public final class Classes {
     public void validateSingleParameterizedClasses(ContextEl _context) {
         for (EntryCust<String, RootBlock> i: classesBodies.entryList()) {
             RootBlock r_ = i.getValue();
-            StringList genericSuperTypes_ = r_.getAllGenericSuperTypes(this);
+            StringList genericSuperTypes_ = r_.getAllGenericSuperTypes(_context);
             StringMap<StringList> baseParams_ = getBaseParams(genericSuperTypes_);
             for (EntryCust<String, StringList> e: baseParams_.entryList()) {
                 if (e.getValue().size() > 1) {
@@ -1773,10 +1773,10 @@ public final class Classes {
         }
         return methods_;
     }
-    public CustList<MethodBlock> getMethodBodiesByFormattedId(String _genericClassName, MethodId _id) {
-        return getMethodBodiesByFormattedId(_id.isStaticMethod(), _genericClassName, _id.getName(), _id.getParametersTypes(), _id.isVararg());
+    public CustList<MethodBlock> getMethodBodiesByFormattedId(ContextEl _context, String _genericClassName, MethodId _id) {
+        return getMethodBodiesByFormattedId(_context, _id.isStaticMethod(), _genericClassName, _id.getName(), _id.getParametersTypes(), _id.isVararg());
     }
-    CustList<MethodBlock> getMethodBodiesByFormattedId(boolean _static, String _genericClassName, String _methodName, StringList _parametersTypes, boolean _vararg) {
+    CustList<MethodBlock> getMethodBodiesByFormattedId(ContextEl _context, boolean _static, String _genericClassName, String _methodName, StringList _parametersTypes, boolean _vararg) {
         CustList<MethodBlock> methods_ = new CustList<MethodBlock>();
         StringList types_ = StringList.getAllTypes(_genericClassName);
         String base_ = types_.first();
@@ -1812,7 +1812,7 @@ public final class Classes {
                 }
                 boolean all_ = true;
                 for (int i = CustList.FIRST_INDEX; i < nbParams_; i++) {
-                    String type_ = Templates.format(_genericClassName, list_.get(i).getName(), this);
+                    String type_ = Templates.format(_genericClassName, list_.get(i).getName(), _context);
                     if (!StringList.quickEq(type_, _parametersTypes.get(i))) {
                         all_ = false;
                         break;
@@ -1875,10 +1875,10 @@ public final class Classes {
         return methods_;
     }
 
-    public CustList<ConstructorBlock> getConstructorBodiesByFormattedId(String _genericClassName, ConstructorId _id) {
-        return getConstructorBodiesByFormattedId(_genericClassName, _id.getParametersTypes(), _id.isVararg());
+    public CustList<ConstructorBlock> getConstructorBodiesByFormattedId(ContextEl _context, String _genericClassName, ConstructorId _id) {
+        return getConstructorBodiesByFormattedId(_context, _genericClassName, _id.getParametersTypes(), _id.isVararg());
     }
-    private CustList<ConstructorBlock> getConstructorBodiesByFormattedId(String _genericClassName, StringList _parametersTypes, boolean _vararg) {
+    private CustList<ConstructorBlock> getConstructorBodiesByFormattedId(ContextEl _context, String _genericClassName, StringList _parametersTypes, boolean _vararg) {
         CustList<ConstructorBlock> methods_ = new CustList<ConstructorBlock>();
         StringList types_ = StringList.getAllTypes(_genericClassName);
         String base_ = types_.first();
@@ -1908,7 +1908,7 @@ public final class Classes {
                 }
                 boolean all_ = true;
                 for (int i = CustList.FIRST_INDEX; i < nbParams_; i++) {
-                    String type_ = Templates.format(_genericClassName, list_.get(i).getName(), this);
+                    String type_ = Templates.format(_genericClassName, list_.get(i).getName(), _context);
                     if (!StringList.quickEq(type_, _parametersTypes.get(i))) {
                         all_ = false;
                         break;

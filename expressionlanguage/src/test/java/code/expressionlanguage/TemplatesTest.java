@@ -66,58 +66,66 @@ public class TemplatesTest {
 
     @Test
     public void format1Test() {
+        ContextEl context_ = simpleContextEl();
         String first_ = String.class.getName();
         String second_ = Integer.class.getName();
-        assertEq(second_,Templates.format(first_, second_, null));
+        assertEq(second_,Templates.format(first_, second_, context_));
     }
 
     @Test
     public void format2Test() {
+        ContextEl context_ = simpleContextEl();
         String first_ = CUST_LIST+"<"+String.class.getName()+">";
         String second_ = Integer.class.getName();
-        assertEq(second_,Templates.format(first_, second_, null));
+        assertEq(second_,Templates.format(first_, second_, context_));
     }
 
     @Test
     public void format3Test() {
+        ContextEl context_ = simpleContextEl();
         String first_ = CUST_LIST+"<E>";
         String second_ = Integer.class.getName();
-        assertEq(second_,Templates.format(first_, second_, null));
+        assertEq(second_,Templates.format(first_, second_, context_));
     }
 
     @Test
     public void format4Test() {
+        ContextEl context_ = simpleContextEl();
         String first_ = CUST_LIST+"<#E>";
         String second_ = Integer.class.getName();
-        assertEq(second_,Templates.format(first_, second_, null));
+        assertEq(second_,Templates.format(first_, second_, context_));
     }
 
     @Test
     public void format5Test() {
+        ContextEl context_ = simpleContextEl();
         String first_ = CUST_LIST+"<"+Integer.class.getName()+">";
         String second_ = "T";
-        assertEq("T",Templates.format(first_, second_, null));
+        assertEq("T",Templates.format(first_, second_, context_));
     }
 
     @Test
     public void format6Test() {
+        ContextEl context_ = simpleContextEl();
         String first_ = CUST_LIST+"<"+Integer.class.getName()+">";
         String second_ = "#T";
-        assertEq(Integer.class.getName(),Templates.format(first_, second_, null));
+        assertEq(Integer.class.getName(),Templates.format(first_, second_, context_));
     }
 
     @Test
     public void format7Test() {
+        ContextEl context_ = simpleContextEl();
         String first_ = CUST_LIST+"<#E>";
         String second_ = "T";
-        assertEq("T",Templates.format(first_, second_, null));
+        assertEq("T",Templates.format(first_, second_, context_));
     }
 
     @Test
     public void format8Test() {
+        ContextEl context_ = simpleContextEl();
         String first_ = CUST_LIST+"<#E>";
         String second_ = "#T";
-        assertEq("#E",Templates.format(first_, second_, null));
+        assertEq("#E",Templates.format(first_, second_, context_));
     }
 
     @Test
@@ -131,7 +139,7 @@ public class TemplatesTest {
         assertTrue(classes_.getErrorsDet().toString(), classes_.getErrorsDet().isEmpty());
         String first_ = "pkg.Ex<#E>";
         String second_ = "#T";
-        assertEq("#E",Templates.format(first_, second_, classes_));
+        assertEq("#E",Templates.format(first_, second_, cont_));
     }
 
     @Test
@@ -145,7 +153,7 @@ public class TemplatesTest {
         assertTrue(classes_.getErrorsDet().toString(), classes_.getErrorsDet().isEmpty());
         String first_ = "pkg.Ex<java.lang.String>";
         String second_ = "#T";
-        assertEq("java.lang.String",Templates.format(first_, second_, classes_));
+        assertEq("java.lang.String",Templates.format(first_, second_, cont_));
     }
 
     @Test
@@ -159,7 +167,7 @@ public class TemplatesTest {
         assertTrue(classes_.getErrorsDet().toString(), classes_.getErrorsDet().isEmpty());
         String first_ = "pkg.Ex<java.lang.String,java.lang.Object>";
         String second_ = "#U";
-        assertEq("java.lang.Object",Templates.format(first_, second_, classes_));
+        assertEq("java.lang.Object",Templates.format(first_, second_, cont_));
     }
 
     @Test
@@ -173,7 +181,7 @@ public class TemplatesTest {
         assertTrue(classes_.getErrorsDet().toString(), classes_.getErrorsDet().isEmpty());
         String first_ = "pkg.Ex<java.lang.String,java.lang.Object>";
         String second_ = "#T";
-        assertEq("java.lang.String",Templates.format(first_, second_, classes_));
+        assertEq("java.lang.String",Templates.format(first_, second_, cont_));
     }
 
     @Test
@@ -187,7 +195,7 @@ public class TemplatesTest {
         assertTrue(classes_.getErrorsDet().toString(), classes_.getErrorsDet().isEmpty());
         String first_ = CUST_LIST+"<java.lang.Object>";
         String second_ = "#T";
-        assertEq("java.lang.Object",Templates.format(first_, second_, classes_));
+        assertEq("java.lang.Object",Templates.format(first_, second_, cont_));
     }
 
     @Test
@@ -201,7 +209,7 @@ public class TemplatesTest {
         assertTrue(classes_.getErrorsDet().toString(), classes_.getErrorsDet().isEmpty());
         String first_ = "pkg.Ex<java.lang.String,java.lang.Object>";
         String second_ = "#V";
-        assertEq("#V",Templates.format(first_, second_, classes_));
+        assertEq("#V",Templates.format(first_, second_, cont_));
     }
 
     @Test
@@ -215,63 +223,71 @@ public class TemplatesTest {
         assertTrue(classes_.getErrorsDet().toString(), classes_.getErrorsDet().isEmpty());
         String first_ = "pkg.Ex<java.lang.String,java.lang.Object>";
         String second_ = "code.util.CustList<#V>";
-        assertEq("code.util.CustList<#V>",Templates.format(first_, second_, classes_));
+        assertEq("code.util.CustList<#V>",Templates.format(first_, second_, cont_));
     }
 
     @Test
     public void generalFormat1Test() {
+        ContextEl context_ = simpleContextEl();
         String first_ = String.class.getName();
         String second_ = Integer.class.getName();
-        assertEq(second_,Templates.generalFormat(first_, second_, null));
+        assertEq(second_,Templates.generalFormat(first_, second_, context_));
     }
 
     @Test
     public void generalFormat2Test() {
+        ContextEl context_ = simpleContextEl();
         String first_ = CUST_LIST+"<"+String.class.getName()+">";
         String second_ = Integer.class.getName();
-        assertEq(second_,Templates.generalFormat(first_, second_, null));
+        assertEq(second_,Templates.generalFormat(first_, second_, context_));
     }
 
     @Test
     public void generalFormat3Test() {
+        ContextEl context_ = simpleContextEl();
         String first_ = CUST_LIST+"<E>";
         String second_ = Integer.class.getName();
-        assertEq(second_,Templates.generalFormat(first_, second_, null));
+        assertEq(second_,Templates.generalFormat(first_, second_, context_));
     }
 
     @Test
     public void generalFormat4Test() {
+        ContextEl context_ = simpleContextEl();
         String first_ = CUST_LIST+"<#E>";
         String second_ = Integer.class.getName();
-        assertEq(second_,Templates.generalFormat(first_, second_, null));
+        assertEq(second_,Templates.generalFormat(first_, second_, context_));
     }
 
     @Test
     public void generalFormat5Test() {
+        ContextEl context_ = simpleContextEl();
         String first_ = CUST_LIST+"<"+Integer.class.getName()+">";
         String second_ = "T";
-        assertEq("T",Templates.generalFormat(first_, second_, null));
+        assertEq("T",Templates.generalFormat(first_, second_, context_));
     }
 
     @Test
     public void generalFormat6Test() {
+        ContextEl context_ = simpleContextEl();
         String first_ = CUST_LIST+"<"+Integer.class.getName()+">";
         String second_ = "#T";
-        assertEq(Integer.class.getName(),Templates.generalFormat(first_, second_, null));
+        assertEq(Integer.class.getName(),Templates.generalFormat(first_, second_, context_));
     }
 
     @Test
     public void generalFormat7Test() {
+        ContextEl context_ = simpleContextEl();
         String first_ = CUST_LIST+"<#E>";
         String second_ = "T";
-        assertEq("T",Templates.generalFormat(first_, second_, null));
+        assertEq("T",Templates.generalFormat(first_, second_, context_));
     }
 
     @Test
     public void generalFormat8Test() {
+        ContextEl context_ = simpleContextEl();
         String first_ = CUST_LIST+"<#E>";
         String second_ = "#T";
-        assertEq("#E",Templates.generalFormat(first_, second_, null));
+        assertEq("#E",Templates.generalFormat(first_, second_, context_));
     }
 
     @Test
@@ -285,7 +301,7 @@ public class TemplatesTest {
         assertTrue(classes_.getErrorsDet().toString(), classes_.getErrorsDet().isEmpty());
         String first_ = "pkg.Ex<#E>";
         String second_ = "#T";
-        assertEq("#E",Templates.generalFormat(first_, second_, classes_));
+        assertEq("#E",Templates.generalFormat(first_, second_, cont_));
     }
 
     @Test
@@ -299,7 +315,7 @@ public class TemplatesTest {
         assertTrue(classes_.getErrorsDet().toString(), classes_.getErrorsDet().isEmpty());
         String first_ = "pkg.Ex<java.lang.String>";
         String second_ = "#T";
-        assertEq("java.lang.String",Templates.generalFormat(first_, second_, classes_));
+        assertEq("java.lang.String",Templates.generalFormat(first_, second_, cont_));
     }
 
     @Test
@@ -313,7 +329,7 @@ public class TemplatesTest {
         assertTrue(classes_.getErrorsDet().toString(), classes_.getErrorsDet().isEmpty());
         String first_ = "pkg.Ex<java.lang.String,java.lang.Object>";
         String second_ = "#U";
-        assertEq("java.lang.Object",Templates.generalFormat(first_, second_, classes_));
+        assertEq("java.lang.Object",Templates.generalFormat(first_, second_, cont_));
     }
 
     @Test
@@ -327,7 +343,7 @@ public class TemplatesTest {
         assertTrue(classes_.getErrorsDet().toString(), classes_.getErrorsDet().isEmpty());
         String first_ = "pkg.Ex<java.lang.String,java.lang.Object>";
         String second_ = "#T";
-        assertEq("java.lang.String",Templates.generalFormat(first_, second_, classes_));
+        assertEq("java.lang.String",Templates.generalFormat(first_, second_, cont_));
     }
 
     @Test
@@ -341,7 +357,7 @@ public class TemplatesTest {
         assertTrue(classes_.getErrorsDet().toString(), classes_.getErrorsDet().isEmpty());
         String first_ = CUST_LIST+"<java.lang.Object>";
         String second_ = "#T";
-        assertEq("java.lang.Object",Templates.generalFormat(first_, second_, classes_));
+        assertEq("java.lang.Object",Templates.generalFormat(first_, second_, cont_));
     }
 
     @Test
@@ -355,7 +371,7 @@ public class TemplatesTest {
         assertTrue(classes_.getErrorsDet().toString(), classes_.getErrorsDet().isEmpty());
         String first_ = "pkg.Ex<java.lang.String,java.lang.Object>";
         String second_ = "#V";
-        assertEq("#V",Templates.generalFormat(first_, second_, classes_));
+        assertEq("#V",Templates.generalFormat(first_, second_, cont_));
     }
 
     @Test
@@ -369,7 +385,7 @@ public class TemplatesTest {
         assertTrue(classes_.getErrorsDet().toString(), classes_.getErrorsDet().isEmpty());
         String first_ = "pkg.Ex<java.lang.String,java.lang.Object>";
         String second_ = "code.util.CustList<#V>";
-        assertEq("code.util.CustList<#V>",Templates.generalFormat(first_, second_, classes_));
+        assertEq("code.util.CustList<#V>",Templates.generalFormat(first_, second_, cont_));
     }
 
     @Test
@@ -383,7 +399,7 @@ public class TemplatesTest {
         assertTrue(classes_.getErrorsDet().toString(), classes_.getErrorsDet().isEmpty());
         String first_ = "pkg.Ex";
         String second_ = "code.util.CustList<#T>";
-        assertEq("code.util.CustList<java.lang.Number>",Templates.generalFormat(first_, second_, classes_));
+        assertEq("code.util.CustList<java.lang.Number>",Templates.generalFormat(first_, second_, cont_));
     }
     @Test
     public void generalFormat17Test() {
@@ -396,7 +412,7 @@ public class TemplatesTest {
         assertTrue(classes_.getErrorsDet().toString(), classes_.getErrorsDet().isEmpty());
         String first_ = "code.util.CustList";
         String second_ = "pkg.Ex<#T,#T>";
-        assertEq("pkg.Ex<java.lang.Object,java.lang.Object>",Templates.generalFormat(first_, second_, classes_));
+        assertEq("pkg.Ex<java.lang.Object,java.lang.Object>",Templates.generalFormat(first_, second_, cont_));
     }
 
     @Test
@@ -2531,14 +2547,16 @@ public class TemplatesTest {
 
     @Test
     public void getAllGenericSuperTypes1Test() {
-        StringList superTypes_ = Templates.getAllGenericSuperTypes("java.lang.Iterable", null);
+        ContextEl context_ = simpleContextEl();
+        StringList superTypes_ = Templates.getAllGenericSuperTypes("java.lang.Iterable", context_);
         assertEq(1, superTypes_.size());
         assertEq("java.lang.Iterable", superTypes_.get(0));
     }
 
     @Test
     public void getAllGenericSuperTypes2Test() {
-        StringList superTypes_ = Templates.getAllGenericSuperTypes("code.util.ints.Listable", null);
+        ContextEl context_ = simpleContextEl();
+        StringList superTypes_ = Templates.getAllGenericSuperTypes("code.util.ints.Listable", context_);
         assertEq(6, superTypes_.size());
         assertEq("code.util.ints.Listable", superTypes_.get(0));
         assertEq("code.util.ints.IterableList<java.lang.Object>", superTypes_.get(1));
@@ -2550,7 +2568,8 @@ public class TemplatesTest {
 
     @Test
     public void getAllGenericSuperTypes3Test() {
-        StringList superTypes_ = Templates.getAllGenericSuperTypes("code.util.ints.Listable<#U>", null);
+        ContextEl context_ = simpleContextEl();
+        StringList superTypes_ = Templates.getAllGenericSuperTypes("code.util.ints.Listable<#U>", context_);
         assertEq(6, superTypes_.size());
         assertEq("code.util.ints.Listable<#U>", superTypes_.get(0));
         assertEq("code.util.ints.IterableList<#U>", superTypes_.get(1));
@@ -2562,7 +2581,8 @@ public class TemplatesTest {
 
     @Test
     public void getAllGenericSuperTypes4Test() {
-        StringList superTypes_ = Templates.getAllGenericSuperTypes("code.util.CustList<#U>", null);
+        ContextEl context_ = simpleContextEl();
+        StringList superTypes_ = Templates.getAllGenericSuperTypes("code.util.CustList<#U>", context_);
         assertEq(8, superTypes_.size());
         assertEq("code.util.CustList<#U>", superTypes_.get(0));
         assertEq("java.lang.Object", superTypes_.get(1));
@@ -2576,7 +2596,8 @@ public class TemplatesTest {
 
     @Test
     public void getAllGenericSuperTypes5Test() {
-        StringList superTypes_ = Templates.getAllGenericSuperTypes("code.util.CustList", null);
+        ContextEl context_ = simpleContextEl();
+        StringList superTypes_ = Templates.getAllGenericSuperTypes("code.util.CustList", context_);
         assertEq(8, superTypes_.size());
         assertEq("code.util.CustList", superTypes_.get(0));
         assertEq("java.lang.Object", superTypes_.get(1));
@@ -2596,7 +2617,7 @@ public class TemplatesTest {
         files_.put("pkg/Ex."+Classes.EXT, xml_);
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
         Classes classes_ = cont_.getClasses();
-        StringList superTypes_ = Templates.getAllGenericSuperTypes("pkg.Ex<#E>", classes_);
+        StringList superTypes_ = Templates.getAllGenericSuperTypes("pkg.Ex<#E>", cont_);
         assertEq(0, superTypes_.size());
     }
 
@@ -2608,7 +2629,7 @@ public class TemplatesTest {
         files_.put("pkg/Ex."+Classes.EXT, xml_);
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
         Classes classes_ = cont_.getClasses();
-        StringList superTypes_ = Templates.getAllGenericSuperTypes("java.lang.Object", classes_);
+        StringList superTypes_ = Templates.getAllGenericSuperTypes("java.lang.Object", cont_);
         assertEq(1, superTypes_.size());
         assertEq("java.lang.Object", superTypes_.get(0));
     }

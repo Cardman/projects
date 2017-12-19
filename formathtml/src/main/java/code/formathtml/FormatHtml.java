@@ -1913,7 +1913,7 @@ final class FormatHtml {
         if (!PrimitiveTypeUtil.isPrimitive(paramName_, context_)) {
             Mapping mapping_ = new Mapping();
             mapping_.setArg(argClassName_);
-            paramName_ = _conf.getLastPage().getPageEl().format(paramName_, classes_);
+            paramName_ = _conf.getLastPage().getPageEl().format(paramName_, context_);
             mapping_.setParam(paramName_);
             if (!Templates.isCorrect(mapping_, context_)) {
                 throw new NotCastableException(_object.getClassName(_conf.toContextEl())+SPACE+_class.getName()+RETURN_LINE+_conf.joinPages());

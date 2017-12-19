@@ -210,7 +210,7 @@ public final class FctOperation extends InvokingOperation {
             superConstructorCall = true;
             CustList<ClassArgumentMatching> firstArgs_ = listClasses(chidren_, _conf);
             UniqueRootedBlock unique_ =(UniqueRootedBlock) _conf.getClasses().getClassBody(base_);
-            String superClass_ = Templates.format(clCurName_, unique_.getGenericSuperClass(), classes_);
+            String superClass_ = Templates.format(clCurName_, unique_.getGenericSuperClass(), _conf);
             ConstrustorIdVarArg ctorRes_;
             ctorRes_ = getDeclaredCustConstructor(_conf, varargOnly_, new ClassArgumentMatching(superClass_), ClassArgumentMatching.toArgArray(firstArgs_));
             if (ctorRes_ != null) {
@@ -681,7 +681,7 @@ public final class FctOperation extends InvokingOperation {
                 String base_ = StringList.getAllTypes(gl_).first();
                 gl_ = Templates.getFullTypeByBases(clCurName_, gl_, _conf);
                 UniqueRootedBlock unique_ =(UniqueRootedBlock) _conf.getClasses().getClassBody(base_);
-                String superClass_ = Templates.format(gl_, unique_.getGenericSuperClass(), classes_);
+                String superClass_ = Templates.format(gl_, unique_.getGenericSuperClass(), _conf);
                 String superClassBase_ = StringList.getAllTypes(superClass_).first();
                 CustList<Argument> firstArgs_ = listArguments(chidren_, naturalVararg, lastType, _arguments, _conf);
                 StringList called_ = _conf.getLastPage().getCallingConstr().getCalledConstructors();
@@ -765,7 +765,7 @@ public final class FctOperation extends InvokingOperation {
                 if (!PrimitiveTypeUtil.isPrimitive(paramName_, _conf)) {
                     Mapping mapping_ = new Mapping();
                     mapping_.setArg(argClassName_);
-                    paramName_ = _conf.getLastPage().format(paramName_, classes_);
+                    paramName_ = _conf.getLastPage().format(paramName_, _conf);
                     mapping_.setParam(paramName_);
                     if (!Templates.isCorrect(mapping_, _conf)) {
                         setRelativeOffsetPossibleLastPage(chidren_.last().getIndexInEl(), _conf);
@@ -855,7 +855,7 @@ public final class FctOperation extends InvokingOperation {
                 if (!superAccessMethod) {
                     String argClassName_ = arg_.getObjectClassName(_conf);
                     if (staticChoiceMethodTemplate) {
-                        classNameFound_ = Templates.format(argClassName_, classNameFound_, classes_);
+                        classNameFound_ = Templates.format(argClassName_, classNameFound_, _conf);
                         Mapping map_ = new Mapping();
                         map_.setArg(argClassName_);
                         map_.setParam(classNameFound_);
@@ -872,7 +872,7 @@ public final class FctOperation extends InvokingOperation {
                             throw new InvokeException(new StdStruct(new DynamicCastClassException(baseArgClassName_+RETURN_LINE+classNameFound_+RETURN_LINE+_conf.joinPages())));
                         }
                         classNameFound_ = Templates.getFullTypeByBases(argClassName_, classNameFound_, _conf);
-                        methodId_ = realId.format(classNameFound_, classes_);
+                        methodId_ = realId.format(classNameFound_, _conf);
                         if (!methodId_.isVararg()) {
                             lastType_ = EMPTY_STRING;
                             naturalVararg_ = -1;
@@ -918,7 +918,7 @@ public final class FctOperation extends InvokingOperation {
                 firstArgs_ = listArguments(chidren_, naturalVararg_, lastType_, _arguments, _conf);
                 classNameFound_ = classMethodId.getClassName();
                 String argClassName_ = arg_.getObjectClassName(_conf);
-                argClassName_ = Templates.getGenericString(argClassName_, classes_);
+                argClassName_ = Templates.getGenericString(argClassName_, _conf);
                 String base_ = StringList.getAllTypes(argClassName_).first();
                 classNameFound_ = StringList.getAllTypes(classNameFound_).first();
                 MethodId id_ = classMethodId.getConstraints();

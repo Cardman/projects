@@ -158,12 +158,13 @@ public final class InterfaceBlock extends RootBlock {
     }
 
     @Override
-    public StringList getAllGenericSuperClasses(Classes _classes) {
+    public StringList getAllGenericSuperClasses(ContextEl _classes) {
+        Classes classes_ = _classes.getClasses();
         StringList allSuperTypes_ = getAllGenericSuperTypes(_classes);
         StringList allGenericSuperClasses_ = new StringList();
         for (String s: allSuperTypes_) {
             String base_ = StringList.getAllTypes(s).first();
-            if (_classes.getClassBody(base_) instanceof InterfaceBlock) {
+            if (classes_.getClassBody(base_) instanceof InterfaceBlock) {
                 allGenericSuperClasses_.add(s);
             }
         }
@@ -171,7 +172,7 @@ public final class InterfaceBlock extends RootBlock {
     }
 
     @Override
-    public StringList getAllGenericInterfaces(Classes _classes) {
+    public StringList getAllGenericInterfaces(ContextEl _classes) {
         return getAllGenericSuperClasses(_classes);
     }
     @Override

@@ -45,7 +45,8 @@ public final class InitializationLgNames {
         _lgNames.setAliasBadSize("$badSize");
 //        _lgNames.setAliasError("$error");
         _lgNames.setAliasError("java.lang.Exception");
-        _lgNames.setAliasCast("$badCast");
+//        _lgNames.setAliasCast("$badCast");
+        _lgNames.setAliasCast("code.expressionlanguage.exceptions.DynamicCastClassException");
 //        _lgNames.setAliasDivisionZero("$divZero");
         _lgNames.setAliasDivisionZero("code.expressionlanguage.exceptions.DivideZeroException");
         _lgNames.setAliasNbFormat("badFormat");

@@ -824,7 +824,7 @@ public final class ConstantOperation extends OperationNode implements SettableEl
                         classNameFound_ = StringList.getAllTypes(classNameFound_).first();
                         classNameFound_ = Templates.getFullTypeByBases(argClassName_, classNameFound_, _conf);
                         String type_ = fieldMetaInfo.getRealType();
-                        type_ = Templates.format(classNameFound_, type_, classes_);
+                        type_ = Templates.format(classNameFound_, type_, _conf);
                         Mapping map_ = new Mapping();
                         map_.setArg(right_.getObjectClassName(_conf));
                         map_.setParam(type_);

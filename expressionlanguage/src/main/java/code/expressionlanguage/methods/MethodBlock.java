@@ -62,23 +62,24 @@ public final class MethodBlock extends NamedFunctionBlock {
         return declaringType;
     }
 
-    public MethodId getFormattedId(String _genericClass, Classes _classes) {
+    public MethodId getFormattedId(String _genericClass, ContextEl _context) {
         String name_ = getName();
         StringList types_ = getParametersTypes();
         int len_ = types_.size();
         EqList<ClassName> pTypes_ = new EqList<ClassName>();
         for (int i = CustList.FIRST_INDEX; i < len_; i++) {
             String n_ = types_.get(i);
-            String formatted_ = Templates.format(_genericClass, n_, _classes);
+            String formatted_ = Templates.format(_genericClass, n_, _context);
             pTypes_.add(new ClassName(formatted_, i + 1 == len_ && isVarargs()));
         }
         return new MethodId(isStaticMethod(), name_, pTypes_);
     }
 
-    public MethodId getFormattedId(Classes _classes) {
+    public MethodId getFormattedId(ContextEl _context) {
         String className_ = declaringType;
         StringList vars_ = new StringList();
-        for (TypeVar t: _classes.getClassBody(className_).getParamTypes()) {
+        Classes classes_ = _context.getClasses();
+        for (TypeVar t: classes_.getClassBody(className_).getParamTypes()) {
             vars_.add(Templates.PREFIX_VAR_TYPE+t.getName());
         }
         String current_;
@@ -93,7 +94,7 @@ public final class MethodBlock extends NamedFunctionBlock {
         EqList<ClassName> pTypes_ = new EqList<ClassName>();
         for (int i = CustList.FIRST_INDEX; i < len_; i++) {
             String n_ = types_.get(i);
-            String formatted_ = Templates.format(current_, n_, _classes);
+            String formatted_ = Templates.format(current_, n_, _context);
             pTypes_.add(new ClassName(formatted_, i + 1 == len_ && isVarargs()));
         }
         return new MethodId(isStaticMethod(), name_, pTypes_);

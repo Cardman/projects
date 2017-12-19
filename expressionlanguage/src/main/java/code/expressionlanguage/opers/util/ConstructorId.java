@@ -1,8 +1,8 @@
 package code.expressionlanguage.opers.util;
 import java.lang.reflect.Constructor;
 
+import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.Templates;
-import code.expressionlanguage.methods.Classes;
 import code.util.CustList;
 import code.util.EqList;
 import code.util.StringList;
@@ -37,7 +37,7 @@ public final class ConstructorId implements Equallable<ConstructorId>, Identifia
         }
     }
 
-    public ConstructorId format(String _genericClass, Classes _classes) {
+    public ConstructorId format(String _genericClass, ContextEl _classes) {
         StringList types_ = getParametersTypes();
         int len_ = types_.size();
         EqList<ClassName> pTypes_ = new EqList<ClassName>();

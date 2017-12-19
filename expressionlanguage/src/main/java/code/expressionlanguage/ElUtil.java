@@ -108,7 +108,7 @@ public final class ElUtil {
                 buildMap_ = false;
             }
             if (buildMap_) {
-                for (TypeVar t: Templates.getConstraints(page_.getGlobalClass(), _conf.getClasses())) {
+                for (TypeVar t: Templates.getConstraints(page_.getGlobalClass(), _conf)) {
                     vars_.put(t.getName(), t.getConstraints());
                 }
             }

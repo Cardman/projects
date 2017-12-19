@@ -1,6 +1,7 @@
 package code.expressionlanguage.opers;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.CustomError;
 import code.expressionlanguage.OperationsSequence;
 import code.expressionlanguage.PrimitiveTypeUtil;
 import code.expressionlanguage.exceptions.BadNumberValuesException;
@@ -115,10 +116,10 @@ public abstract class NumericOperation extends MethodOperation {
             }
         }
         if (_a.getObject() == null) {
-            throw new InvokeException(new StdStruct(new NullObjectException(FIRST+RETURN_LINE+_cont.joinPages()),null_));
+            throw new InvokeException(new StdStruct(new CustomError(FIRST+RETURN_LINE+_cont.joinPages()),null_));
         }
         if (_b.getObject() == null) {
-            throw new InvokeException(new StdStruct(new NullObjectException(SECOND+RETURN_LINE+_cont.joinPages()),null_));
+            throw new InvokeException(new StdStruct(new CustomError(SECOND+RETURN_LINE+_cont.joinPages()),null_));
         }
         Object o_ = _a.getObject();
         Double aOne_ = null;
@@ -260,10 +261,10 @@ public abstract class NumericOperation extends MethodOperation {
             null_ = NullObjectException.class.getName();
         }
         if (_a.getObject() == null) {
-            throw new InvokeException(new StdStruct(new NullObjectException(FIRST+RETURN_LINE+_cont.joinPages()),null_));
+            throw new InvokeException(new StdStruct(new CustomError(FIRST+RETURN_LINE+_cont.joinPages()),null_));
         }
         if (_b.getObject() == null) {
-            throw new InvokeException(new StdStruct(new NullObjectException(SECOND+RETURN_LINE+_cont.joinPages()),null_));
+            throw new InvokeException(new StdStruct(new CustomError(SECOND+RETURN_LINE+_cont.joinPages()),null_));
         }
         Object o_ = _a.getObject();
         Double aOne_ = null;
@@ -405,10 +406,10 @@ public abstract class NumericOperation extends MethodOperation {
             null_ = NullObjectException.class.getName();
         }
         if (_a.getObject() == null) {
-            throw new InvokeException(new StdStruct(new NullObjectException(FIRST+RETURN_LINE+_cont.joinPages()),null_));
+            throw new InvokeException(new StdStruct(new CustomError(FIRST+RETURN_LINE+_cont.joinPages()),null_));
         }
         if (_b.getObject() == null) {
-            throw new InvokeException(new StdStruct(new NullObjectException(SECOND+RETURN_LINE+_cont.joinPages()),null_));
+            throw new InvokeException(new StdStruct(new CustomError(SECOND+RETURN_LINE+_cont.joinPages()),null_));
         }
         Object o_ = _a.getObject();
         Double aOne_ = null;
@@ -554,10 +555,10 @@ public abstract class NumericOperation extends MethodOperation {
             null_ = NullObjectException.class.getName();
         }
         if (_a.getObject() == null) {
-            throw new InvokeException(new StdStruct(new NullObjectException(FIRST+RETURN_LINE+_cont.joinPages()),null_));
+            throw new InvokeException(new StdStruct(new CustomError(FIRST+RETURN_LINE+_cont.joinPages()),null_));
         }
         if (_b.getObject() == null) {
-            throw new InvokeException(new StdStruct(new NullObjectException(SECOND+RETURN_LINE+_cont.joinPages()),null_));
+            throw new InvokeException(new StdStruct(new CustomError(SECOND+RETURN_LINE+_cont.joinPages()),null_));
         }
         Object o_ = _a.getObject();
         Double aOne_ = null;
@@ -593,22 +594,22 @@ public abstract class NumericOperation extends MethodOperation {
         } else if (p_ instanceof Long) {
             bThree_ = (Long) p_;
             if (bThree_.longValue() == 0) {
-                throw new InvokeException(new StdStruct(new DivideZeroException(_cont.joinPages()), div_));
+                throw new InvokeException(new StdStruct(new CustomError(_cont.joinPages()), div_));
             }
         } else if (p_ instanceof Integer) {
             bFour_ = (Integer) p_;
             if (bFour_.longValue() == 0) {
-                throw new InvokeException(new StdStruct(new DivideZeroException(_cont.joinPages()), div_));
+                throw new InvokeException(new StdStruct(new CustomError(_cont.joinPages()), div_));
             }
         } else if (p_ instanceof Short) {
             bFive_ = (Short) p_;
             if (bFive_.longValue() == 0) {
-                throw new InvokeException(new StdStruct(new DivideZeroException(_cont.joinPages()), div_));
+                throw new InvokeException(new StdStruct(new CustomError(_cont.joinPages()), div_));
             }
         } else if (p_ instanceof Byte) {
             bSix_ = (Byte) p_;
             if (bSix_.longValue() == 0) {
-                throw new InvokeException(new StdStruct(new DivideZeroException(_cont.joinPages()), div_));
+                throw new InvokeException(new StdStruct(new CustomError(_cont.joinPages()), div_));
             }
         }
         Object nb_;
@@ -715,10 +716,10 @@ public abstract class NumericOperation extends MethodOperation {
             null_ = NullObjectException.class.getName();
         }
         if (_a.getObject() == null) {
-            throw new InvokeException(new StdStruct(new NullObjectException(FIRST+RETURN_LINE+_cont.joinPages()),null_));
+            throw new InvokeException(new StdStruct(new CustomError(FIRST+RETURN_LINE+_cont.joinPages()),null_));
         }
         if (_b.getObject() == null) {
-            throw new InvokeException(new StdStruct(new NullObjectException(SECOND+RETURN_LINE+_cont.joinPages()),null_));
+            throw new InvokeException(new StdStruct(new CustomError(SECOND+RETURN_LINE+_cont.joinPages()),null_));
         }
         Object o_ = _a.getObject();
         Double aOne_ = null;
@@ -754,22 +755,22 @@ public abstract class NumericOperation extends MethodOperation {
         } else if (p_ instanceof Long) {
             bThree_ = (Long) p_;
             if (bThree_.longValue() == 0) {
-                throw new InvokeException(new StdStruct(new DivideZeroException(_cont.joinPages()),div_));
+                throw new InvokeException(new StdStruct(new CustomError(_cont.joinPages()),div_));
             }
         } else if (p_ instanceof Integer) {
             bFour_ = (Integer) p_;
             if (bFour_.longValue() == 0) {
-                throw new InvokeException(new StdStruct(new DivideZeroException(_cont.joinPages()),div_));
+                throw new InvokeException(new StdStruct(new CustomError(_cont.joinPages()),div_));
             }
         } else if (p_ instanceof Short) {
             bFive_ = (Short) p_;
             if (bFive_.longValue() == 0) {
-                throw new InvokeException(new StdStruct(new DivideZeroException(_cont.joinPages()),div_));
+                throw new InvokeException(new StdStruct(new CustomError(_cont.joinPages()),div_));
             }
         } else if (p_ instanceof Byte) {
             bSix_ = (Byte) p_;
             if (bSix_.longValue() == 0) {
-                throw new InvokeException(new StdStruct(new DivideZeroException(_cont.joinPages()),div_));
+                throw new InvokeException(new StdStruct(new CustomError(_cont.joinPages()),div_));
             }
         }
         Object nb_;

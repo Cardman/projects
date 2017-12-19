@@ -68,7 +68,7 @@ public final class ClassBlock extends RootBlock implements UniqueRootedBlock {
     @Override
     public void setupBasicOverrides(ContextEl _context) {
         Classes classesRef_ = _context.getClasses();
-        StringList classNames_ = getAllGenericSuperClasses(classesRef_);
+        StringList classNames_ = getAllGenericSuperClasses(_context);
         String fullName_ = getFullName();
         for (String b: getCustomDirectSuperClasses()) {
             ClassBlock bBl_ = (ClassBlock) classesRef_.getClassBody(b);
@@ -94,7 +94,7 @@ public final class ClassBlock extends RootBlock implements UniqueRootedBlock {
             }
             ConstructorBlock c_ = (ConstructorBlock) b;
             for (String s: classNames_) {
-                if (classesRef_.getConstructorBodiesByFormattedId(s, c_.getId()).size() > 1) {
+                if (classesRef_.getConstructorBodiesByFormattedId(_context, s, c_.getId()).size() > 1) {
                     DuplicateParamMethod duplicate_ = new DuplicateParamMethod();
                     duplicate_.setFileName(getFullName());
                     duplicate_.setRc(new RowCol());
@@ -116,7 +116,7 @@ public final class ClassBlock extends RootBlock implements UniqueRootedBlock {
         if (_context.getClasses() != null) {
             
         }
-        for (String s: getAllGenericInterfaces(classesRef_)) {
+        for (String s: getAllGenericInterfaces(_context)) {
             String base_ = StringList.getAllTypes(s).first();
             RootBlock r_ = classesRef_.getClassBody(base_);
             for (MethodBlock m: Classes.getMethodBlocks(r_)) {
@@ -124,7 +124,7 @@ public final class ClassBlock extends RootBlock implements UniqueRootedBlock {
                     continue;
                 }
                 String formattedSuper_ = Templates.getFullTypeByBases(gene_, s, _context);
-                MethodId id_ = m.getId().format(formattedSuper_, classesRef_);
+                MethodId id_ = m.getId().format(formattedSuper_, _context);
                 for (String c: classes_) {
                     CustList<MethodBlock> mBases_ = classesRef_.getMethodBodiesById(c, id_);
                     if (mBases_.isEmpty()) {
@@ -144,8 +144,8 @@ public final class ClassBlock extends RootBlock implements UniqueRootedBlock {
                     }
                     String retBase_ = m.getReturnType();
                     String retDerive_ = mBase_.getReturnType();
-                    String formattedRetDer_ = Templates.format(c, retDerive_, classesRef_);
-                    String formattedRetBase_ = Templates.format(s, retBase_, classesRef_);
+                    String formattedRetDer_ = Templates.format(c, retDerive_, _context);
+                    String formattedRetBase_ = Templates.format(s, retBase_, _context);
                     Mapping mapping_ = new Mapping();
                     mapping_.getMapping().putAllMap(vars_);
                     mapping_.setArg(formattedRetDer_);
@@ -404,12 +404,13 @@ public final class ClassBlock extends RootBlock implements UniqueRootedBlock {
     }
 
     @Override
-    public StringList getAllGenericSuperClasses(Classes _classes) {
+    public StringList getAllGenericSuperClasses(ContextEl _classes) {
         StringList allSuperTypes_ = getAllGenericSuperTypes(_classes);
         StringList allGenericSuperClasses_ = new StringList();
+        Classes classes_ = _classes.getClasses();
         for (String s: allSuperTypes_) {
             String base_ = StringList.getAllTypes(s).first();
-            if (_classes.getClassBody(base_) instanceof ClassBlock) {
+            if (classes_.getClassBody(base_) instanceof ClassBlock) {
                 allGenericSuperClasses_.add(s);
             }
         }
@@ -417,12 +418,13 @@ public final class ClassBlock extends RootBlock implements UniqueRootedBlock {
     }
 
     @Override
-    public StringList getAllGenericInterfaces(Classes _classes) {
+    public StringList getAllGenericInterfaces(ContextEl _classes) {
         StringList allSuperTypes_ = getAllGenericSuperTypes(_classes);
+        Classes classes_ = _classes.getClasses();
         StringList allGenericInterfaces_ = new StringList();
         for (String s: allSuperTypes_) {
             String base_ = StringList.getAllTypes(s).first();
-            if (_classes.getClassBody(base_) instanceof InterfaceBlock) {
+            if (classes_.getClassBody(base_) instanceof InterfaceBlock) {
                 allGenericInterfaces_.add(s);
             }
         }

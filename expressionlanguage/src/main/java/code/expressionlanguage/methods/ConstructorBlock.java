@@ -52,7 +52,7 @@ public final class ConstructorBlock extends NamedFunctionBlock {
         }
         return new ConstructorId(name_, pTypes_);
     }
-    public ConstructorId getFormattedId(String _genericClass, Classes _classes) {
+    public ConstructorId getFormattedId(String _genericClass, ContextEl _classes) {
         String name_ = Templates.format(_genericClass, getName(), _classes);
         StringList types_ = getParametersTypes();
         int len_ = types_.size();

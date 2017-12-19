@@ -2,8 +2,8 @@ package code.expressionlanguage.opers.util;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 
+import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.Templates;
-import code.expressionlanguage.methods.Classes;
 import code.util.CustList;
 import code.util.EqList;
 import code.util.StringList;
@@ -102,14 +102,14 @@ public final class MethodId implements Equallable<MethodId>, Identifiable {
         return true;
     }
     
-    public MethodId format(String _genericClass, Classes _classes) {
+    public MethodId format(String _genericClass, ContextEl _context) {
         String name_ = getName();
         StringList types_ = getParametersTypes();
         int len_ = types_.size();
         EqList<ClassName> pTypes_ = new EqList<ClassName>();
         for (int i = CustList.FIRST_INDEX; i < len_; i++) {
             String n_ = types_.get(i);
-            String formatted_ = Templates.format(_genericClass, n_, _classes);
+            String formatted_ = Templates.format(_genericClass, n_, _context);
             pTypes_.add(new ClassName(formatted_, i + 1 == len_ && isVararg()));
         }
         return new MethodId(isStaticMethod(), name_, pTypes_);
