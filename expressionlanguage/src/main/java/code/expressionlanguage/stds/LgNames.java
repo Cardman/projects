@@ -4,9 +4,10 @@ import java.io.UnsupportedEncodingException;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.CustomError;
 import code.expressionlanguage.PrimitiveTypeUtil;
+import code.expressionlanguage.exceptions.InvokeException;
 import code.expressionlanguage.exceptions.StaticAccessException;
-import code.expressionlanguage.exceptions.UnwrappingException;
 import code.expressionlanguage.exceptions.VoidArgumentException;
 import code.expressionlanguage.opers.util.ArgumentsGroup;
 import code.expressionlanguage.opers.util.AssignableFrom;
@@ -56,6 +57,7 @@ import code.util.Replacement;
 import code.util.StringList;
 import code.util.StringMap;
 import code.util.comparators.ComparatorBoolean;
+import code.util.exceptions.NullObjectException;
 
 public class LgNames {
     protected static final String EMPTY_STRING = "";
@@ -81,6 +83,7 @@ public class LgNames {
     private String aliasCompare;
     private String aliasEquals;
     private String aliasToString;
+    private String aliasAbs;
     private String aliasValueOf;
     private String aliasMaxValueField;
     private String aliasMinValueField;
@@ -101,6 +104,7 @@ public class LgNames {
     private String aliasNbFormat;
     private String aliasBadEncode;
     private String aliasBadIndex;
+    private String aliasSof;
 
     private String aliasPrimBoolean;
     private String aliasPrimByte;
@@ -110,6 +114,7 @@ public class LgNames {
     private String aliasPrimLong;
     private String aliasPrimFloat;
     private String aliasPrimDouble;
+    private String aliasMath;
     private String aliasBoolean;
     private String aliasByte;
     private String aliasShort;
@@ -269,6 +274,12 @@ public class LgNames {
         methods_ = new ObjectMap<MethodId, StandardMethod>();
         constructors_ = new CustList<StandardConstructor>();
         fields_ = new StringMap<StandardField>();
+        stdcl_ = new StandardClass(aliasSof, fields_, constructors_, methods_, aliasError, MethodModifier.NORMAL);
+        std_ = stdcl_;
+        standards.put(aliasSof, std_);
+        methods_ = new ObjectMap<MethodId, StandardMethod>();
+        constructors_ = new CustList<StandardConstructor>();
+        fields_ = new StringMap<StandardField>();
         stdcl_ = new StandardClass(aliasBadEncode, fields_, constructors_, methods_, aliasError, MethodModifier.NORMAL);
         std_ = stdcl_;
         standards.put(aliasBadEncode, std_);
@@ -322,6 +333,17 @@ public class LgNames {
         constructors_.add(ctor_);
         std_ = new StandardClass(aliasBoolean, fields_, constructors_, methods_, aliasObject, MethodModifier.FINAL);
         standards.put(aliasBoolean, std_);
+        constructors_ = new CustList<StandardConstructor>();
+        fields_ = new StringMap<StandardField>();
+        methods_ = new ObjectMap<MethodId, StandardMethod>();
+        params_ = new StringList(aliasPrimInteger);
+        method_ = new StandardMethod(aliasAbs, params_, aliasPrimInteger, false, MethodModifier.STATIC, aliasMath);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList(aliasPrimLong);
+        method_ = new StandardMethod(aliasAbs, params_, aliasPrimLong, false, MethodModifier.STATIC, aliasMath);
+        methods_.put(method_.getId(), method_);
+        std_ = new StandardClass(aliasMath, fields_, constructors_, methods_, aliasObject, MethodModifier.FINAL);
+        standards.put(aliasMath, std_);
         constructors_ = new CustList<StandardConstructor>();
         numbersConstructors(constructors_, aliasPrimByte);
         methods_ = new ObjectMap<MethodId, StandardMethod>();
@@ -1647,9 +1669,17 @@ public class LgNames {
         ClassArgumentMatching arg_ = new ClassArgumentMatching(_arg);
         DimComp paramComp_ = PrimitiveTypeUtil.getQuickComponentBaseType(param_.getName());
         DimComp argComp_ = PrimitiveTypeUtil.getQuickComponentBaseType(_arg);
+        String objAlias_ = _context.getStandards().getAliasObject();
+        if (StringList.quickEq(paramComp_.getComponent(), objAlias_)) {
+            if (paramComp_.getDim() > argComp_.getDim()) {
+                return false;
+            }
+            return true;
+        }
         if (paramComp_.getDim() != argComp_.getDim()) {
             return false;
         }
+        boolean array_ = paramComp_.getDim() > 0;
         param_ = new ClassArgumentMatching(paramComp_.getComponent());
         arg_ = new ClassArgumentMatching(argComp_.getComponent());
         if (StringList.quickEq(param_.getName(),arg_.getName())) {
@@ -1688,19 +1718,21 @@ public class LgNames {
             if (!param_.isPrimitive(_context)) {
                 return false;
             }
-            CustList<ClassArgumentMatching> gt_ = PrimitiveTypeUtil.getOrdersGreaterEqThan(clMatch_, _context);
-            ClassArgumentMatching prim_ = param_;
-            boolean contained_ = false;
-            for (ClassArgumentMatching c: gt_) {
-                if (StringList.quickEq(c.getName(), prim_.getName())) {
-                    contained_ = true;
-                    break;
+            if (!array_) {
+                CustList<ClassArgumentMatching> gt_ = PrimitiveTypeUtil.getOrdersGreaterEqThan(clMatch_, _context);
+                ClassArgumentMatching prim_ = param_;
+                boolean contained_ = false;
+                for (ClassArgumentMatching c: gt_) {
+                    if (StringList.quickEq(c.getName(), prim_.getName())) {
+                        contained_ = true;
+                        break;
+                    }
                 }
+                if (!contained_) {
+                    return false;
+                }
+                return true;
             }
-            if (!contained_) {
-                return false;
-            }
-            return true;
         }
         return false;
     }
@@ -1808,6 +1840,7 @@ public class LgNames {
         checkArgumentsForInvoking(_cont, _natvararg, list_, args_);
         LgNames lgNames_ = _cont.getStandards();
         Object[] argsObj_ = adaptedArgs(list_, _cont, _cont.getStandards(), args_);
+        String mathType_ = lgNames_.getAliasMath();
         String booleanType_ = lgNames_.getAliasBoolean();
         String charType_ = lgNames_.getAliasCharacter();
         String nbType_ = lgNames_.getAliasNumber();
@@ -1825,7 +1858,15 @@ public class LgNames {
         if (null_) {
             return result_;
         }
-        if (StringList.quickEq(type_, booleanType_)) {
+        if (StringList.quickEq(type_, mathType_)) {
+            if (StringList.quickEq(name_, lgNames_.getAliasAbs())) {
+                if (argsObj_[0] instanceof Long) {
+                    result_.setResult(new LongStruct(Math.abs((Long) argsObj_[0])));
+                } else {
+                    result_.setResult(new IntStruct(Math.abs((Integer) argsObj_[0])));
+                }
+            }
+        } else if (StringList.quickEq(type_, booleanType_)) {
             if (StringList.quickEq(name_, lgNames_.getAliasBooleanValue())) {
                 result_.setResult(new BooleanStruct(((Boolean)instance_).booleanValue()));
             } else if (StringList.quickEq(name_, lgNames_.getAliasCompare())) {
@@ -3346,8 +3387,15 @@ public class LgNames {
                 traces_.add(i+RETURN_LINE+_params.get(i)+RETURN_LINE+null);
             }
         }
+        LgNames stds_ = _cont.getStandards();
+        String null_;
+        if (_cont.getClasses() != null) {
+            null_ = stds_.getAliasNullPe();
+        } else {
+            null_ = NullObjectException.class.getName();
+        }
         if (!traces_.isEmpty()) {
-            throw new UnwrappingException(traces_.join(SEP_ARG)+RETURN_LINE+_cont.joinPages());
+            throw new InvokeException(new StdStruct(new CustomError(traces_.join(SEP_ARG)+RETURN_LINE+_cont.joinPages()),null_));
         }
     }
     static Struct[] getObjects(Argument... _args) {
@@ -3656,11 +3704,23 @@ public class LgNames {
     public void setAliasBadIndex(String _aliasBadIndex) {
         aliasBadIndex = _aliasBadIndex;
     }
+    public String getAliasSof() {
+        return aliasSof;
+    }
+    public void setAliasSof(String _aliasSof) {
+        aliasSof = _aliasSof;
+    }
     public String getAliasPrimBoolean() {
         return aliasPrimBoolean;
     }
     public void setAliasPrimBoolean(String _aliasPrimBoolean) {
         aliasPrimBoolean = _aliasPrimBoolean;
+    }
+    public String getAliasMath() {
+        return aliasMath;
+    }
+    public void setAliasMath(String _aliasMath) {
+        aliasMath = _aliasMath;
     }
     public String getAliasPrimByte() {
         return aliasPrimByte;
@@ -4237,6 +4297,12 @@ public class LgNames {
     }
     public void setAliasSetNewString(String _aliasSetNewString) {
         aliasSetNewString = _aliasSetNewString;
+    }
+    public String getAliasAbs() {
+        return aliasAbs;
+    }
+    public void setAliasAbs(String _aliasAbs) {
+        aliasAbs = _aliasAbs;
     }
     public void setStandards(StringMap<StandardType> _standards) {
         standards = _standards;

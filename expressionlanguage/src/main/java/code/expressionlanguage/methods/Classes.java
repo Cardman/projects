@@ -1,6 +1,4 @@
 package code.expressionlanguage.methods;
-import java.lang.reflect.Modifier;
-
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.CustEnum;
 import code.expressionlanguage.ElUtil;
@@ -42,6 +40,9 @@ import code.expressionlanguage.opers.util.MethodId;
 import code.expressionlanguage.opers.util.MethodMetaInfo;
 import code.expressionlanguage.opers.util.Struct;
 import code.expressionlanguage.stds.LgNames;
+import code.expressionlanguage.stds.StandardClass;
+import code.expressionlanguage.stds.StandardInterface;
+import code.expressionlanguage.stds.StandardType;
 import code.expressionlanguage.variables.LocalVariable;
 import code.sml.Document;
 import code.sml.DocumentBuilder;
@@ -58,7 +59,6 @@ import code.util.ObjectMap;
 import code.util.ObjectNotNullMap;
 import code.util.StringList;
 import code.util.StringMap;
-import code.util.exceptions.RuntimeClassNotFoundException;
 import code.util.graphs.Graph;
 
 public final class Classes {
@@ -156,6 +156,7 @@ public final class Classes {
         RootBlock cl_ = bl_;
         String packageName_;
         packageName_ = cl_.getPackageName();
+        LgNames lgNames_ = _context.getStandards();
         if (!_predefined) {
             if (packageName_.isEmpty()) {
                 throw new BadClassNameException(cl_.getFullName());
@@ -224,10 +225,11 @@ public final class Classes {
                 }
             }
         }
-        try {
-            Class<?> clNat_ = PrimitiveTypeUtil.getSingleNativeClass(cl_.getFullName());
-            throw new AlreadyExistingClassException(clNat_.getName());
-        } catch (RuntimeClassNotFoundException _0) {
+        if (lgNames_.getStandards().contains(cl_.getFullName())) {
+            throw new AlreadyExistingClassException(cl_.getFullName());
+        }
+        if (PrimitiveTypeUtil.isPrimitive(cl_.getFullName(), _context)) {
+            throw new AlreadyExistingClassException(cl_.getFullName());
         }
         Block rootBl_ = cl_;
         CustList<Block> all_ = getSortedDescNodesRoot(rootBl_);
@@ -899,6 +901,7 @@ public final class Classes {
                 r_.getAllSuperTypes().addAllElts(((InterfaceBlock)r_).getAllSuperClasses());
             }
         }
+        LgNames stds_ = _context.getStandards();
         for (EntryCust<String, RootBlock> s: classesBodies.entryList()) {
             String c = s.getKey();
             RootBlock dBl_ = s.getValue();
@@ -974,19 +977,16 @@ public final class Classes {
                         for (String b: upperNotObj_) {
                             StringList baseParamsUpp_ = StringList.getAllTypes(b);
                             String base_ = PrimitiveTypeUtil.getQuickComponentBaseType(baseParamsUpp_.first()).getComponent();
-                            Class<?> cl_ = PrimitiveTypeUtil.getSingleNativeClass(base_);
-                            if (cl_.isInterface()) {
+                            StandardType type_ = stds_.getStandards().getVal(base_);
+                            if (type_ instanceof StandardInterface) {
                                 continue;
                             }
-                            if (cl_.isEnum()) {
+                            StandardClass class_ = (StandardClass) type_;
+                            if (class_.isFinalType()) {
                                 nbFinal_++;
-                                continue;
                             }
-                            if (Modifier.isAbstract(cl_.getModifiers())) {
+                            if (class_.isAbstractType()) {
                                 nbAbs_++;
-                            }
-                            if (Modifier.isFinal(cl_.getModifiers())) {
-                                nbFinal_++;
                             }
                         }
                     } else {

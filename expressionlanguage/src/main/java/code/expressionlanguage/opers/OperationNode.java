@@ -9,6 +9,7 @@ import java.lang.reflect.Type;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.CustomError;
 import code.expressionlanguage.ElResolver;
 import code.expressionlanguage.ElUtil;
 import code.expressionlanguage.Mapping;
@@ -1449,11 +1450,14 @@ public abstract class OperationNode {
             }
         }
         LgNames stds_ = _cont.getStandards();
+        String null_;
         if (_cont.getClasses() != null) {
-            
+            null_ = stds_.getAliasNullPe();
+        } else {
+            null_ = NullObjectException.class.getName();
         }
         if (!traces_.isEmpty()) {
-            throw new InvokeException(new StdStruct(new NullObjectException(traces_.join(SEP_ARG)+RETURN_LINE+_cont.joinPages())));
+            throw new InvokeException(new StdStruct(new CustomError(traces_.join(SEP_ARG)+RETURN_LINE+_cont.joinPages()),null_));
         }
     }
     static StringList toClassNames(Class<?>[] _params) {
@@ -1579,13 +1583,16 @@ public abstract class OperationNode {
         Object o_ = _arg.getObject();
         MethodOperation par_ = getParent();
         LgNames stds_ = _cont.getStandards();
+        String null_;
         if (_cont.getClasses() != null) {
-            
+            null_ = stds_.getAliasNullPe();
+        } else {
+            null_ = NullObjectException.class.getName();
         }
         if (o_ == null) {
             if (par_ instanceof QuickOperation) {
                 setRelativeOffsetPossibleLastPage(getIndexInEl(), _cont);
-                throw new InvokeException(new StdStruct(new NullObjectException(_cont.joinPages())));
+                throw new InvokeException(new StdStruct(new CustomError(_cont.joinPages()),null_));
             }
             boolean ternaryParent_ = false;
             if (par_ instanceof FctOperation) {
@@ -1594,7 +1601,7 @@ public abstract class OperationNode {
             }
             if (ternaryParent_) {
                 setRelativeOffsetPossibleLastPage(getIndexInEl(), _cont);
-                throw new InvokeException(new StdStruct(new NullObjectException(_cont.joinPages())));
+                throw new InvokeException(new StdStruct(new CustomError(_cont.joinPages()),null_));
             }
             return 0;
         }

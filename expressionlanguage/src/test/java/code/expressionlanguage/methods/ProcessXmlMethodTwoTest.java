@@ -33,7 +33,7 @@ public class ProcessXmlMethodTwoTest {
     private static final String CUST_ITER_PATH = CUST_PKG+"/CustIter."+Classes.EXT;
     private static final String CUST_LIST_PATH = CUST_PKG+"/CustList."+Classes.EXT;
     private static final String INTEGER = Integer.class.getName();
-    private static final String REAL_ARR_NUMBER = Number[].class.getName();
+    private static final String REAL_ARR_NUMBER = Struct[].class.getName();
     private static final String CUST_BASE = CustBase.class.getName();
     @Test
     public void instanceArgument95Test() {
@@ -102,9 +102,9 @@ public class ProcessXmlMethodTwoTest {
         subField_ = field_.getFields().getVal(new ClassField("pkg.ExTwo", "inst"));
         assertEq(REAL_ARR_NUMBER, subField_.getRealClassName(cont_));
         assertEq(ARR_NUMBER, subField_.getClassName(cont_));
-        Number[] nbs_ = (Number[]) subField_.getInstance();
+        Struct[] nbs_ = (Struct[]) subField_.getInstance();
         assertEq(1, nbs_.length);
-        assertEq(8, nbs_[0]);
+        assertEq(8, (Number) nbs_[0].getInstance());
     }
     @Test
     public void instanceArgument97Test() {

@@ -25,30 +25,32 @@ public final class StdStruct extends Struct {
         if (_context.getClasses() == null) {
             return defaultClass(_element);
         }
-        Object def_ = PrimitiveTypeUtil.defaultValue(_element, _context);
-        if (def_ instanceof Double) {
-            return new DoubleStruct((Double) def_);
-        }
-        if (def_ instanceof Float) {
-            return new FloatStruct((Float) def_);
-        }
-        if (def_ instanceof Long) {
-            return new LongStruct((Long) def_);
-        }
-        if (def_ instanceof Integer) {
-            return new IntStruct((Integer) def_);
-        }
-        if (def_ instanceof Character) {
-            return new CharStruct((Character) def_);
-        }
-        if (def_ instanceof Short) {
-            return new ShortStruct((Short) def_);
-        }
-        if (def_ instanceof Byte) {
-            return new ByteStruct((Byte) def_);
-        }
-        if (def_ instanceof Boolean) {
-            return new BooleanStruct((Boolean) def_);
+        if (PrimitiveTypeUtil.isPrimitive(_element, _context)) {
+            Object def_ = PrimitiveTypeUtil.defaultValue(_element, _context);
+            if (def_ instanceof Double) {
+                return new DoubleStruct((Double) def_);
+            }
+            if (def_ instanceof Float) {
+                return new FloatStruct((Float) def_);
+            }
+            if (def_ instanceof Long) {
+                return new LongStruct((Long) def_);
+            }
+            if (def_ instanceof Integer) {
+                return new IntStruct((Integer) def_);
+            }
+            if (def_ instanceof Character) {
+                return new CharStruct((Character) def_);
+            }
+            if (def_ instanceof Short) {
+                return new ShortStruct((Short) def_);
+            }
+            if (def_ instanceof Byte) {
+                return new ByteStruct((Byte) def_);
+            }
+            if (def_ instanceof Boolean) {
+                return new BooleanStruct((Boolean) def_);
+            }
         }
         return NullStruct.NULL_VALUE;
     }

@@ -148,11 +148,14 @@ public final class ContextEl {
 
     public void addPage(PageEl _page) {
         LgNames stds_ = getStandards();
+        String sof_;
         if (getClasses() != null) {
-            
+            sof_ = stds_.getAliasSof();
+        } else {
+            sof_ = StackOverFlow.class.getName();
         }
         if (stackOverFlow >= CustList.FIRST_INDEX && stackOverFlow <= importing.size()) {
-            throw new InvokeException(new StdStruct(new StackOverFlow(joinPages())));
+            throw new InvokeException(new StdStruct(new CustomError(joinPages()),sof_));
         }
         importing.add(_page);
     }

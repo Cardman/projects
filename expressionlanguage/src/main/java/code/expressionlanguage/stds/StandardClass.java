@@ -67,7 +67,7 @@ public final class StandardClass extends StandardType {
         return superTypes_;
     }
     @Override
-    protected boolean mustImplement() {
+    public boolean mustImplement() {
         return !isAbstractType();
     }
     public StringList getAllInterfaces(ContextEl _conf) {

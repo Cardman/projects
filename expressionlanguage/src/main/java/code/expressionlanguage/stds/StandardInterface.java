@@ -38,7 +38,7 @@ public final class StandardInterface extends StandardType {
     }
 
     @Override
-    protected boolean mustImplement() {
+    public boolean mustImplement() {
         return false;
     }
 }

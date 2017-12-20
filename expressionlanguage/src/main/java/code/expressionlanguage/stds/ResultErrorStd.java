@@ -6,7 +6,7 @@ public final class ResultErrorStd {
 
     private Struct result;
 
-    private Object error;
+    private String error;
 
     public Struct getResult() {
         return result;
@@ -16,11 +16,11 @@ public final class ResultErrorStd {
         result = _result;
     }
 
-    public Object getError() {
+    public String getError() {
         return error;
     }
 
-    public void setError(Object _error) {
+    public void setError(String _error) {
         error = _error;
     }
 }

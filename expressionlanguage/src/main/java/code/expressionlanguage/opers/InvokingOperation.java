@@ -112,7 +112,8 @@ public abstract class InvokingOperation extends MethodOperation {
             g_ = page_.formatVarType(g_, _context);
             boolean native_ = true;
             if (classes_ != null) {
-                native_ = !_context.getClasses().isCustomType(g_);
+//                native_ = !_context.getClasses().isCustomType(g_);
+                native_ = false;
             }
             if (native_) {
                 int len_ = optArgs_.size();
@@ -156,7 +157,8 @@ public abstract class InvokingOperation extends MethodOperation {
             String g_ = page_.formatVarType(_lastType, _context) ;
             boolean native_ = true;
             if (classes_ != null) {
-                native_ = !classes_.isCustomType(g_);
+//                native_ = !classes_.isCustomType(g_);
+                native_ = false;
             }
             if (native_) {
                 int len_ = optArgs_.size();

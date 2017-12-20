@@ -1,6 +1,7 @@
 package code.expressionlanguage.methods;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.CustomError;
 import code.expressionlanguage.ElUtil;
 import code.expressionlanguage.PageEl;
 import code.expressionlanguage.PrimitiveTypeUtil;
@@ -242,9 +243,7 @@ public final class ForIterativeLoop extends BracedStack implements ForLoop {
 
     void processLoop(ContextEl _conf) {
         LgNames stds_ = _conf.getStandards();
-        if (_conf.getClasses() != null) {
-            
-        }
+        String null_ = stds_.getAliasNullPe();
         PageEl ip_ = _conf.getLastPage();
         StringMap<LoopVariable> varsLoop_ = ip_.getVars();
         String var_ = getVariableName();
@@ -258,22 +257,22 @@ public final class ForIterativeLoop extends BracedStack implements ForLoop {
         ip_.setOffset(0);
         ExpressionLanguage from_ = ip_.getCurrentEl(this, CustList.FIRST_INDEX, getInitEl());
         Argument argFrom_ = from_.calculateMember(_conf);
-        if (argFrom_.getObject() == null) {
-            throw new InvokeException(new StdStruct(new DynamicCastClassException(argFrom_.getObjectClassName(_conf)+RETURN_LINE+_conf.joinPages())));
+        if (argFrom_.isNull()) {
+            throw new InvokeException(new StdStruct(new CustomError(argFrom_.getObjectClassName(_conf)+RETURN_LINE+_conf.joinPages()),null_));
         }
         ip_.setProcessingAttribute(ATTRIBUTE_EXPRESSION);
         ip_.setOffset(0);
         ExpressionLanguage to_ = ip_.getCurrentEl(this, CustList.SECOND_INDEX, getExpressionEl());
         Argument argTo_ = to_.calculateMember(_conf);
-        if (argTo_.getObject() == null) {
-            throw new InvokeException(new StdStruct(new DynamicCastClassException(argTo_.getObjectClassName(_conf)+RETURN_LINE+_conf.joinPages())));
+        if (argTo_.isNull()) {
+            throw new InvokeException(new StdStruct(new CustomError(argTo_.getObjectClassName(_conf)+RETURN_LINE+_conf.joinPages()),null_));
         }
         ip_.setProcessingAttribute(ATTRIBUTE_STEP);
         ip_.setOffset(0);
         ExpressionLanguage step_ = ip_.getCurrentEl(this, CustList.SECOND_INDEX + 1, getStepEl());
         Argument argStep_ = step_.calculateMember(_conf);
-        if (argStep_.getObject() == null) {
-            throw new InvokeException(new StdStruct(new DynamicCastClassException(argStep_.getObjectClassName(_conf)+RETURN_LINE+_conf.joinPages())));
+        if (argStep_.isNull()) {
+            throw new InvokeException(new StdStruct(new CustomError(argStep_.getObjectClassName(_conf)+RETURN_LINE+_conf.joinPages()),null_));
         }
         realFromValue_ = argFrom_.getObject();
         ip_.setCurrentBlock(null);

@@ -6,7 +6,6 @@ import static org.junit.Assert.assertTrue;
 import org.junit.Test;
 
 import code.expressionlanguage.classes.MyDerivedInterface;
-import code.expressionlanguage.classes.MyImplClass;
 import code.expressionlanguage.classes.MyInterface;
 import code.expressionlanguage.classes.MySecImplClass;
 import code.expressionlanguage.methods.Classes;
@@ -21,7 +20,6 @@ public class PrimitiveTypeUtilTest {
 
     private static final String CUST_CLASS = "pkg.CustClass";
     private static final String PUBLIC_ACCESS = "PUBLIC";
-
     @Test
     public void canBeUseAsArgument1Test() {
         ContextEl context_ = simpleContextEl();
@@ -75,7 +73,7 @@ public class PrimitiveTypeUtilTest {
         ContextEl context_ = simpleContextEl();
         String arrObj_ = PrimitiveTypeUtil.getPrettyArrayType(Object.class.getName());
         String arrInt_ = PrimitiveTypeUtil.getPrettyArrayType(PrimitiveTypeUtil.PRIM_INT);
-        assertTrue(!PrimitiveTypeUtil.canBeUseAsArgument(arrObj_, arrInt_, context_));
+        assertTrue(PrimitiveTypeUtil.canBeUseAsArgument(arrObj_, arrInt_, context_));
     }
 
     @Test
@@ -83,7 +81,7 @@ public class PrimitiveTypeUtilTest {
         ContextEl context_ = simpleContextEl();
         String arrObj_ = PrimitiveTypeUtil.getPrettyArrayType(Integer.class.getName());
         String arrInt_ = PrimitiveTypeUtil.getPrettyArrayType(PrimitiveTypeUtil.PRIM_INT);
-        assertTrue(!PrimitiveTypeUtil.canBeUseAsArgument(arrObj_, arrInt_, context_));
+        assertTrue(PrimitiveTypeUtil.canBeUseAsArgument(arrObj_, arrInt_, context_));
     }
 
     @Test
@@ -99,7 +97,7 @@ public class PrimitiveTypeUtilTest {
         ContextEl context_ = simpleContextEl();
         String arrObj_ = PrimitiveTypeUtil.getPrettyArrayType(PrimitiveTypeUtil.PRIM_INT);
         String arrInt_ = PrimitiveTypeUtil.getPrettyArrayType(PrimitiveTypeUtil.PRIM_BYTE);
-        assertTrue(!PrimitiveTypeUtil.canBeUseAsArgument(arrObj_, arrInt_, context_));
+        assertTrue(PrimitiveTypeUtil.canBeUseAsArgument(arrObj_, arrInt_, context_));
     }
 
     @Test
@@ -145,7 +143,7 @@ public class PrimitiveTypeUtilTest {
         ContextEl context_ = simpleContextEl();
         String arrObj_ = PrimitiveTypeUtil.getPrettyArrayType(Long.class.getName());
         String arrInt_ = PrimitiveTypeUtil.getPrettyArrayType(PrimitiveTypeUtil.PRIM_INT);
-        assertTrue(!PrimitiveTypeUtil.canBeUseAsArgument(arrObj_, arrInt_, context_));
+        assertTrue(PrimitiveTypeUtil.canBeUseAsArgument(arrObj_, arrInt_, context_));
     }
 
     @Test
@@ -169,7 +167,7 @@ public class PrimitiveTypeUtilTest {
         ContextEl context_ = simpleContextEl();
         String arrObj_ = PrimitiveTypeUtil.getPrettyArrayType(Character.class.getName());
         String arrInt_ = PrimitiveTypeUtil.getPrettyArrayType(PrimitiveTypeUtil.PRIM_CHAR);
-        assertTrue(!PrimitiveTypeUtil.canBeUseAsArgument(arrObj_, arrInt_, context_));
+        assertTrue(PrimitiveTypeUtil.canBeUseAsArgument(arrObj_, arrInt_, context_));
     }
 
     @Test
@@ -185,7 +183,7 @@ public class PrimitiveTypeUtilTest {
         ContextEl context_ = simpleContextEl();
         String arrObj_ = PrimitiveTypeUtil.getPrettyArrayType(Object.class.getName());
         String arrInt_ = PrimitiveTypeUtil.getPrettyArrayType(PrimitiveTypeUtil.PRIM_CHAR);
-        assertTrue(!PrimitiveTypeUtil.canBeUseAsArgument(arrObj_, arrInt_, context_));
+        assertTrue(PrimitiveTypeUtil.canBeUseAsArgument(arrObj_, arrInt_, context_));
     }
 
     @Test
@@ -587,7 +585,7 @@ public class PrimitiveTypeUtilTest {
     @Test
     public void canBeUseAsArgument52Test() {
         ContextEl context_ = simpleContextEl();
-        assertTrue(PrimitiveTypeUtil.canBeUseAsArgument(MyInterface.class.getName(), MyDerivedInterface.class.getName(), context_));
+        assertTrue(PrimitiveTypeUtil.canBeUseAsArgument(Number.class.getName(), Integer.class.getName(), context_));
     }
 
     @Test
@@ -605,13 +603,13 @@ public class PrimitiveTypeUtilTest {
     @Test
     public void canBeUseAsArgument55Test() {
         ContextEl context_ = simpleContextEl();
-        assertTrue(PrimitiveTypeUtil.canBeUseAsArgument(MyDerivedInterface.class.getName(), MyImplClass.class.getName(), context_));
+        assertTrue(PrimitiveTypeUtil.canBeUseAsArgument(CharSequence.class.getName(), String.class.getName(), context_));
     }
 
     @Test
     public void canBeUseAsArgument56Test() {
         ContextEl context_ = simpleContextEl();
-        assertTrue(PrimitiveTypeUtil.canBeUseAsArgument(MyInterface.class.getName(), MyImplClass.class.getName(), context_));
+        assertTrue(PrimitiveTypeUtil.canBeUseAsArgument(CharSequence.class.getName(), CharSequence.class.getName(), context_));
     }
 
     @Test
@@ -944,6 +942,8 @@ public class PrimitiveTypeUtilTest {
     private ContextEl simpleContextEl() {
         ContextEl cont_ = new ContextEl();
         InitializationLgNames.initAdvStandards(cont_);
+        Classes classes_ = new Classes();
+        cont_.setClasses(classes_);
         return cont_;
     }
 }

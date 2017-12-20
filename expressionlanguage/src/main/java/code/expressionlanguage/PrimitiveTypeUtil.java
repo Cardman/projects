@@ -234,7 +234,6 @@ public final class PrimitiveTypeUtil {
         TreeMap<Numbers<Integer>,Struct> indexesArray_;
         indexesArray_ = new TreeMap<Numbers<Integer>,Struct>(new IndexesComparator());
         Struct[] instanceGl_ = new Struct[_dims.first()];
-        String base_ = getQuickComponentBaseType(_className).getComponent();
         Struct output_ = new CustStruct(instanceGl_, PrimitiveTypeUtil.getPrettyArrayType(_className, _dims.size()));
         Numbers<Integer> dims_ = new Numbers<Integer>();
         indexesArray_.put(new Numbers<Integer>(), output_);
@@ -245,7 +244,7 @@ public final class PrimitiveTypeUtil {
             glDim_--;
             if (glDim_ == 0) {
                 for (Numbers<Integer> k: dims_.getAllIndexes()) {
-                    indexesArray_.put(k, StdStruct.defaultClass(base_, _cont));
+                    indexesArray_.put(k, StdStruct.defaultClass(_className, _cont));
                 }
                 continue;
             }

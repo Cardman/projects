@@ -2,9 +2,11 @@ package code.expressionlanguage.types;
 
 import static code.expressionlanguage.EquallableElUtil.assertEq;
 
+import org.junit.Ignore;
 import org.junit.Test;
 
 @SuppressWarnings("static-method")
+@Ignore
 public class NativeTypeUtilTest {
 
     @Test

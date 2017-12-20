@@ -149,8 +149,17 @@ public final class Argument {
         return object.getInstance();
     }
 
+    public void setObject(Character _object) {
+        object = new CharStruct(_object);
+    }
     public void setObject(Boolean _object) {
         object = new BooleanStruct(_object);
+    }
+    public void setObject(String _object, String _alias) {
+        object = StdStruct.wrapStd(_object, _alias);
+    }
+    public void setObject(Number _object) {
+        object = StdStruct.wrapStd(_object);
     }
     public void setObject(Object _object) {
         object = StdStruct.wrapStd(_object);

@@ -371,7 +371,7 @@ public abstract class StandardType {
         }
         return eq_;
     }
-    protected abstract boolean mustImplement();
+    public abstract boolean mustImplement();
 
     protected static void addClass(ObjectMap<MethodId, EqList<ClassMethodId>> _map, MethodId _key, ClassMethodId _class) {
         if (_map.contains(_key)) {

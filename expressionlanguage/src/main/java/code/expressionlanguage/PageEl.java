@@ -313,7 +313,7 @@ public final class PageEl {
 
     public void setGlobalArgumentObj(Object _obj) {
         Argument arg_ = new Argument();
-        arg_.setObject(_obj);
+        arg_.setObject(_obj, _obj.getClass().getName());
         globalArgument = arg_;
     }
 

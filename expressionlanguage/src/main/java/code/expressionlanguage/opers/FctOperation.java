@@ -7,6 +7,7 @@ import code.expressionlanguage.Argument;
 import code.expressionlanguage.ArgumentCall;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.CustEnum;
+import code.expressionlanguage.CustomError;
 import code.expressionlanguage.InitializatingClass;
 import code.expressionlanguage.InvokingConstructor;
 import code.expressionlanguage.InvokingMethod;
@@ -59,6 +60,7 @@ import code.expressionlanguage.opers.util.MethodId;
 import code.expressionlanguage.opers.util.StdStruct;
 import code.expressionlanguage.opers.util.Struct;
 import code.expressionlanguage.stds.LgNames;
+import code.expressionlanguage.stds.ResultErrorStd;
 import code.expressionlanguage.types.NativeTypeUtil;
 import code.serialize.exceptions.BadAccessException;
 import code.serialize.exceptions.NoSuchDeclaredMethodException;
@@ -352,33 +354,42 @@ public final class FctOperation extends InvokingOperation {
         if (StringList.quickEq(clCurName_, OperationNode.VOID_RETURN)) {
             throw new VoidArgumentException(_conf.joinPages());
         }
-        if (clCurName_.startsWith(Templates.PREFIX_VAR_TYPE)) {
-            String glClass_ = _conf.getLastPage().getGlobalClass();
-            String curClassBase_ = StringList.getAllTypes(glClass_).first();
-            RootBlock gl_ = classes_.getClassBody(curClassBase_);
-            StringMap<StringList> mapping_ = new StringMap<StringList>();
-            for (TypeVar t: gl_.getParamTypes()) {
-                mapping_.put(t.getName(), t.getConstraints());
-            }
-            for (String u:Mapping.getAllUpperBounds(mapping_, clCurName_.substring(1))) {
-                String baseUpper_ = StringList.getAllTypes(u).first();
-                if (!classes_.isCustomType(baseUpper_)) {
-                    analyzeNativeClass(_conf, u, false);
-                } else {
-                    analyzeCustomClass(_conf, u, false);
-                }
-                if (foundBound) {
-                    return;
-                }
-            }
-            throw new NoSuchDeclaredMethodException(trimMeth_+RETURN_LINE+_conf.joinPages());
-        }
         if (classes_ != null) {
+            if (clCurName_.startsWith(Templates.PREFIX_VAR_TYPE)) {
+                String glClass_ = _conf.getLastPage().getGlobalClass();
+                String curClassBase_ = StringList.getAllTypes(glClass_).first();
+                RootBlock gl_ = classes_.getClassBody(curClassBase_);
+                StringMap<StringList> mapping_ = new StringMap<StringList>();
+                for (TypeVar t: gl_.getParamTypes()) {
+                    mapping_.put(t.getName(), t.getConstraints());
+                }
+                for (String u:Mapping.getAllUpperBounds(mapping_, clCurName_.substring(1))) {
+                    String baseUpper_ = StringList.getAllTypes(u).first();
+                    if (!classes_.isCustomType(baseUpper_)) {
+                        analyzeStandardClass(_conf, u, false);
+                    } else {
+                        analyzeCustomClass(_conf, u, false);
+                    }
+                    if (foundBound) {
+                        return;
+                    }
+                }
+                throw new NoSuchDeclaredMethodException(trimMeth_+RETURN_LINE+_conf.joinPages());
+            }
             if (classes_.isCustomType(clCurName_)) {
                 analyzeCustomClass(_conf, clCurName_, true);
                 return;
             }
+            analyzeStandardClass(_conf, clCurName_, true);
+            return;
         }
+        
+//        if (classes_ != null) {
+//            if (classes_.isCustomType(clCurName_)) {
+//                analyzeCustomClass(_conf, clCurName_, true);
+//                return;
+//            }
+//        }
         if (firstArgs_.isEmpty()) {
             if (StringList.quickEq(trimMeth_, GET_CLASS)) {
                 setResultClass(new ClassArgumentMatching(NativeTypeUtil.getPrettyType(ClassMetaInfo.class)));
@@ -549,6 +560,78 @@ public final class FctOperation extends InvokingOperation {
         setResultClass(new ClassArgumentMatching(clMeth_.getReturnType()));
         foundBound = true;
     }
+    private void analyzeStandardClass(ContextEl _conf, String _subType, boolean _failIfError) {
+        Classes classes_ = _conf.getClasses();
+        CustList<OperationNode> chidren_ = getChildrenNodes();
+        int off_ = StringList.getFirstPrintableCharIndex(methodName);
+        setRelativeOffsetPossibleLastPage(getIndexInEl()+off_, _conf);
+        String trimMeth_ = methodName.trim();
+        CustList<ClassArgumentMatching> firstArgs_ = listClasses(chidren_, _conf);
+        String clCurName_ = _subType;
+        int varargOnly_ = lookOnlyForVarArg();
+        for (ClassArgumentMatching c:firstArgs_) {
+            if (c.matchVoid(_conf)) {
+                throw new VoidArgumentException(clCurName_+DOT+trimMeth_+RETURN_LINE+_conf.joinPages());
+            }
+        }
+        LgNames stds_ = _conf.getStandards();
+        boolean superClassAccess_ = true;
+        boolean staticChoiceMethod_ = false;
+        boolean superAccessMethod_ = false;
+        boolean accessFromSuper_ = false;
+        if (trimMeth_.contains(STATIC_CALL)) {
+            StringList classMethod_ = StringList.splitStrings(trimMeth_, STATIC_CALL);
+            trimMeth_ = classMethod_.last();
+            staticChoiceMethod_ = true;
+            superClassAccess_ = false;
+        } else if (trimMeth_.startsWith(EXTERN_CLASS+SUPER_ACCESS+EXTERN_CLASS)) {
+            trimMeth_ = trimMeth_.substring((EXTERN_CLASS+SUPER_ACCESS+EXTERN_CLASS).length());
+            staticChoiceMethod_ = true;
+            superAccessMethod_ = true;
+            accessFromSuper_ = true;
+        } else if (trimMeth_.startsWith(EXTERN_CLASS+CURRENT+EXTERN_CLASS)) {
+            trimMeth_ = trimMeth_.substring((EXTERN_CLASS+CURRENT+EXTERN_CLASS).length());
+            staticChoiceMethod_ = true;
+            superAccessMethod_ = true;
+        }
+        ClassMethodIdReturn clMeth_ = LgNames.getDeclaredCustMethod(_failIfError, _conf, varargOnly_, isStaticAccess(), new ClassArgumentMatching(clCurName_), trimMeth_, superClassAccess_, accessFromSuper_, ClassArgumentMatching.toArgArray(firstArgs_));
+        if (!clMeth_.isFoundMethod()) {
+            return;
+        }
+        if (staticChoiceMethod_) {
+            if (clMeth_.isAbstractMethod()) {
+                if (_failIfError) {
+                    setRelativeOffsetPossibleLastPage(getIndexInEl()+off_, _conf);
+                    throw new AbstractMethodException(clMeth_.getId().getConstraints().getSignature()+RETURN_LINE+_conf.joinPages());
+                }
+                return;
+            }
+            if (superAccessMethod_) {
+                String foundClass_ = clMeth_.getRealClass();
+                foundClass_ = StringList.getAllTypes(foundClass_).first();
+                MethodId id_ = clMeth_.getRealId();
+                classMethodId = new ClassMethodId(foundClass_, id_);
+            } else {
+                classMethodId = clMeth_.getId();
+            }
+        } else {
+            String foundClass_ = clMeth_.getRealClass();
+            foundClass_ = StringList.getAllTypes(foundClass_).first();
+            MethodId id_ = clMeth_.getRealId();
+            classMethodId = new ClassMethodId(foundClass_, id_);
+        }
+        realId = clMeth_.getRealId();
+        if (clMeth_.isVarArgToCall()) {
+            StringList paramtTypes_ = clMeth_.getId().getConstraints().getParametersTypes();
+            naturalVararg = paramtTypes_.size() - 1;
+            lastType = paramtTypes_.last();
+        }
+        superAccessMethod = superAccessMethod_;
+        staticChoiceMethod = staticChoiceMethod_;
+        staticMethod = clMeth_.isStaticMethod();
+        setResultClass(new ClassArgumentMatching(clMeth_.getReturnType()));
+        foundBound = true;
+    }
     private void analyzeNativeClass(ContextEl _conf, String _subType, boolean _failIfError) {
         int off_ = StringList.getFirstPrintableCharIndex(methodName);
         if (PrimitiveTypeUtil.isPrimitive(_subType, _conf)) {
@@ -662,6 +745,19 @@ public final class FctOperation extends InvokingOperation {
         if (StringList.quickEq(trimMeth_, EXTERN_CLASS+FIRST_OPT)) {
             return ArgumentCall.newArgument(_arguments.first());
         }
+        LgNames stds_ = _conf.getStandards();
+        String null_;
+        String cast_;
+        String stringType_;
+        if (_conf.getClasses() != null) {
+            null_ = stds_.getAliasNullPe();
+            cast_ = stds_.getAliasCast();
+            stringType_ = stds_.getAliasString();
+        } else {
+            null_ = NullObjectException.class.getName();
+            cast_ = DynamicCastClassException.class.getName();
+            stringType_ = String.class.getName();
+        }
         if (constId != null) {
             if (StringList.quickEq(trimMeth_,EXTERN_CLASS+CURRENT)) {
                 Argument arg_ = _conf.getLastPage().getGlobalArgument();
@@ -723,7 +819,7 @@ public final class FctOperation extends InvokingOperation {
                 String str_ = (String) _arguments.first().getObject();
                 if (str_ == null) {
                     setRelativeOffsetPossibleLastPage(chidren_.first().getIndexInEl()+1, _conf);
-                    throw new InvokeException(new StdStruct(new NullObjectException(_conf.joinPages())));
+                    throw new InvokeException(new StdStruct(new CustomError(_conf.joinPages()),null_));
                 }
                 str_ = StringList.removeAllSpaces(str_);
                 if (PrimitiveTypeUtil.isPrimitive(str_, _conf)) {
@@ -753,7 +849,7 @@ public final class FctOperation extends InvokingOperation {
                 Argument classArg_ = _arguments.first();
                 String paramName_ = (String) classArg_.getObject();
                 if (PrimitiveTypeUtil.primitiveTypeNullObject(paramName_, objArg_.getStruct(), _conf)) {
-                    throw new InvokeException(new StdStruct(new NullObjectException(_conf.joinPages())));
+                    throw new InvokeException(new StdStruct(new CustomError(_conf.joinPages()),null_));
                 }
                 if (objArg_.isNull()) {
                     Argument arg_ = new Argument();
@@ -769,21 +865,21 @@ public final class FctOperation extends InvokingOperation {
                     mapping_.setParam(paramName_);
                     if (!Templates.isCorrect(mapping_, _conf)) {
                         setRelativeOffsetPossibleLastPage(chidren_.last().getIndexInEl(), _conf);
-                        throw new InvokeException(new StdStruct(new DynamicCastClassException(argClassName_+RETURN_LINE+paramName_+RETURN_LINE+_conf.joinPages())));
+                        throw new InvokeException(new StdStruct(new CustomError(argClassName_+RETURN_LINE+paramName_+RETURN_LINE+_conf.joinPages()),cast_));
                     }
                     arg_.setStruct(objArg_.getStruct());
                 } else {
                     if (PrimitiveTypeUtil.getOrderClass(paramName_, _conf) > 0) {
                         if (PrimitiveTypeUtil.getOrderClass(argClassName_, _conf) == 0) {
                             setRelativeOffsetPossibleLastPage(chidren_.last().getIndexInEl(), _conf);
-                            throw new InvokeException(new StdStruct(new DynamicCastClassException(argClassName_+RETURN_LINE+paramName_+RETURN_LINE+_conf.joinPages())));
+                            throw new InvokeException(new StdStruct(new CustomError(argClassName_+RETURN_LINE+paramName_+RETURN_LINE+_conf.joinPages()),cast_));
                         }
                         arg_.setStruct(PrimitiveTypeUtil.convertObject(resCl_, objArg_.getStruct(), _conf));
                     } else {
                         String typeNameArg_ = PrimitiveTypeUtil.toPrimitive(new ClassArgumentMatching(argClassName_), true, _conf).getName();
                         if (!StringList.quickEq(typeNameArg_, PrimitiveTypeUtil.PRIM_BOOLEAN)) {
                             setRelativeOffsetPossibleLastPage(chidren_.last().getIndexInEl(), _conf);
-                            throw new InvokeException(new StdStruct(new DynamicCastClassException(argClassName_+RETURN_LINE+paramName_+RETURN_LINE+_conf.joinPages())));
+                            throw new InvokeException(new StdStruct(new CustomError(argClassName_+RETURN_LINE+paramName_+RETURN_LINE+_conf.joinPages()),cast_));
                         }
                         arg_.setStruct(objArg_.getStruct());
                     }
@@ -807,7 +903,7 @@ public final class FctOperation extends InvokingOperation {
             firstArgs_ = listArguments(chidren_, naturalVararg, lastType, _arguments, _conf);
             Object obj_ = arg_.getObject();
             if (!staticMethod && obj_ == null) {
-                throw new InvokeException(new StdStruct(new NullObjectException(_conf.joinPages())));
+                throw new InvokeException(new StdStruct(new CustomError(_conf.joinPages()),null_));
             }
             if (firstArgs_.isEmpty()) {
                 if (StringList.quickEq(trimMeth_, GET_CLASS)) {
@@ -827,9 +923,20 @@ public final class FctOperation extends InvokingOperation {
         String lastType_ = lastType;
         int naturalVararg_ = naturalVararg;
         String classNameFound_;
+        String baseCl_ = StringList.getAllTypes(classMethodId.getClassName()).first();
+        if (!classes_.isCustomType(baseCl_)) {
+            firstArgs_ = listArguments(chidren_, naturalVararg_, lastType_, _arguments, _conf);
+            ResultErrorStd res_ = LgNames.invokeMethod(_conf, naturalVararg > -1, classMethodId, arg_.getStruct(), Argument.toArgArray(firstArgs_));
+            if (res_.getError() != null) {
+                throw new InvokeException(new StdStruct(new CustomError(_conf.joinPages()),res_.getError()));
+            }
+            Argument argRes_ = new Argument();
+            argRes_.setStruct(res_.getResult());
+            return ArgumentCall.newArgument(argRes_);
+        }
         if (!staticMethod) {
             if (arg_.isNull()) {
-                throw new InvokeException(new StdStruct(new NullObjectException(_conf.joinPages())));
+                throw new InvokeException(new StdStruct(new CustomError(_conf.joinPages()),null_));
             }
             ClassMetaInfo custClass_ = null;
             String className_ = arg_.getStruct().getClassName(_conf);
@@ -839,7 +946,7 @@ public final class FctOperation extends InvokingOperation {
                     CustEnum cen_ = (CustEnum) arg_.getStruct().getInstance();
                     String name_ = cen_.name();
                     Argument argres_ = new Argument();
-                    argres_.setObject(name_);
+                    argres_.setObject(name_,stringType_);
                     return ArgumentCall.newArgument(argres_);
                 }
                 if (methodId_.eq(new MethodId(false, METH_ORDINAL, new EqList<ClassName>()))) {
@@ -861,7 +968,7 @@ public final class FctOperation extends InvokingOperation {
                         map_.setParam(classNameFound_);
                         if (!Templates.isCorrect(map_, _conf)) {
                             setRelativeOffsetPossibleLastPage(chidren_.last().getIndexInEl(), _conf);
-                            throw new InvokeException(new StdStruct(new DynamicCastClassException(argClassName_+RETURN_LINE+classNameFound_+RETURN_LINE+_conf.joinPages())));
+                            throw new InvokeException(new StdStruct(new CustomError(argClassName_+RETURN_LINE+classNameFound_+RETURN_LINE+_conf.joinPages()),cast_));
                         }
                         firstArgs_ = listArguments(chidren_, naturalVararg_, lastType_, _arguments, _conf);
                     } else {
@@ -869,7 +976,7 @@ public final class FctOperation extends InvokingOperation {
                         String baseArgClassName_ = StringList.getAllTypes(argClassName_).first();
                         if (!PrimitiveTypeUtil.canBeUseAsArgument(classNameFound_, baseArgClassName_, _conf)) {
                             setRelativeOffsetPossibleLastPage(chidren_.last().getIndexInEl(), _conf);
-                            throw new InvokeException(new StdStruct(new DynamicCastClassException(baseArgClassName_+RETURN_LINE+classNameFound_+RETURN_LINE+_conf.joinPages())));
+                            throw new InvokeException(new StdStruct(new CustomError(baseArgClassName_+RETURN_LINE+classNameFound_+RETURN_LINE+_conf.joinPages()),cast_));
                         }
                         classNameFound_ = Templates.getFullTypeByBases(argClassName_, classNameFound_, _conf);
                         methodId_ = realId.format(classNameFound_, _conf);
@@ -905,7 +1012,7 @@ public final class FctOperation extends InvokingOperation {
                             map_.setParam(type_);
                             if (!Templates.isCorrect(map_, _conf)) {
                                 setRelativeOffsetPossibleLastPage(chidren_.last().getIndexInEl(), _conf);
-                                throw new InvokeException(new StdStruct(new DynamicCastClassException(argClassName_+RETURN_LINE+classNameFound_+RETURN_LINE+_conf.joinPages())));
+                                throw new InvokeException(new StdStruct(new CustomError(argClassName_+RETURN_LINE+classNameFound_+RETURN_LINE+_conf.joinPages()),cast_));
                             }
                         }
                         indexType_++;

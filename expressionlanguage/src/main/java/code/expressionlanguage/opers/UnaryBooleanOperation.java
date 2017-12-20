@@ -1,6 +1,7 @@
 package code.expressionlanguage.opers;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.CustomError;
 import code.expressionlanguage.OperationsSequence;
 import code.expressionlanguage.PrimitiveTypeUtil;
 import code.expressionlanguage.exceptions.BadNumberValuesException;
@@ -63,11 +64,14 @@ public final class UnaryBooleanOperation extends PrimitiveBoolOperation {
         Object o_ = arg_.getObject();
         setRelativeOffsetPossibleLastPage(getIndexInEl(), _conf);
         LgNames stds_ = _conf.getStandards();
+        String null_;
         if (_conf.getClasses() != null) {
-            
+            null_ = stds_.getAliasNullPe();
+        } else {
+            null_ = NullObjectException.class.getName();
         }
         if (o_ == null) {
-            throw new InvokeException(new StdStruct( new NullObjectException(_conf.joinPages())));
+            throw new InvokeException(new StdStruct(new CustomError(_conf.joinPages()),null_));
         }
         Boolean b_ = (Boolean) o_;
         b_ = !b_;
@@ -90,11 +94,14 @@ public final class UnaryBooleanOperation extends PrimitiveBoolOperation {
         Object o_ = arg_.getObject();
         setRelativeOffsetPossibleLastPage(getIndexInEl(), _conf);
         LgNames stds_ = _conf.getStandards();
+        String null_;
         if (_conf.getClasses() != null) {
-            
+            null_ = stds_.getAliasNullPe();
+        } else {
+            null_ = NullObjectException.class.getName();
         }
         if (o_ == null) {
-            throw new InvokeException(new StdStruct(new NullObjectException(_conf.joinPages())));
+            throw new InvokeException(new StdStruct(new CustomError(_conf.joinPages()),null_));
         }
         Boolean b_ = (Boolean) o_;
         b_ = !b_;

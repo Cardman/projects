@@ -1,9 +1,5 @@
 package code.expressionlanguage.methods;
 
-import java.lang.reflect.Method;
-import java.lang.reflect.Modifier;
-import java.lang.reflect.Type;
-
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.Mapping;
 import code.expressionlanguage.PrimitiveTypeUtil;
@@ -33,7 +29,8 @@ import code.expressionlanguage.opers.util.ConstructorId;
 import code.expressionlanguage.opers.util.MethodId;
 import code.expressionlanguage.opers.util.OverridingRelation;
 import code.expressionlanguage.stds.LgNames;
-import code.expressionlanguage.types.NativeTypeUtil;
+import code.expressionlanguage.stds.StandardMethod;
+import code.expressionlanguage.stds.StandardType;
 import code.sml.Element;
 import code.sml.RowCol;
 import code.util.CustList;
@@ -653,6 +650,7 @@ public abstract class RootBlock extends BracedBlock implements AccessibleBlock {
             vars_.put(t.getName(), t.getConstraints());
             mapping_.getMapping().put(t.getName(), t.getConstraints());
         }
+        LgNames stds_ = _context.getStandards();
         for (TypeVar t: getParamTypes()) {
             StringList upper_ = mapping_.getAllUpperBounds(t.getName());
             for (String c: upper_) {
@@ -675,26 +673,13 @@ public abstract class RootBlock extends BracedBlock implements AccessibleBlock {
                         }
                     }
                 } else {
-                    Class<?> clBound_ = PrimitiveTypeUtil.getSingleNativeClass(base_);
-                    for (Method m: clBound_.getMethods()) {
-                        if (Modifier.isStatic(m.getModifiers())) {
+                    StandardType clBound_ = stds_.getStandards().getVal(base_);
+                    for (StandardMethod m: clBound_.getMethods().values()) {
+                        if (m.isStaticMethod()) {
                             continue;
                         }
-                        EqList<ClassName> types_ = new EqList<ClassName>();
-                        EqList<ClassName> realTypes_ = new EqList<ClassName>();
-                        int len_ = m.getParameterTypes().length;
-                        int nbParams_ = m.getTypeParameters().length;
-                        for (int i = 0; i < len_; i++) {
-                            Class<?> cl_ = m.getParameterTypes()[i];
-                            String defaultName_ = cl_.getName();
-                            Type p_ = m.getGenericParameterTypes()[i];
-                            String alias_ = NativeTypeUtil.getFormattedType(defaultName_, p_.toString(), nbParams_, p_);
-                            String formatted_ = Templates.format(c, alias_, _context);
-                            types_.add(new ClassName(formatted_, i + 1 == len_ && m.isVarArgs()));
-                            realTypes_.add(new ClassName(alias_, i + 1 == len_ && m.isVarArgs()));
-                        }
-                        MethodId id_ = new MethodId(false, m.getName(), types_);
-                        MethodId realId_ = new MethodId(false, m.getName(), realTypes_);
+                        MethodId id_ = m.getId();
+                        MethodId realId_ = m.getId();
                         addClass(signatures_, id_, new ClassMethodId(c, realId_));
                     }
                 }
@@ -1254,6 +1239,7 @@ public abstract class RootBlock extends BracedBlock implements AccessibleBlock {
         Classes classesRef_ = _context.getClasses();
         ObjectMap<MethodId, EqList<ClassMethodId>> output_;
         output_ = new ObjectMap<MethodId, EqList<ClassMethodId>>();
+        LgNames stds_ = _context.getStandards();
         for (EntryCust<MethodId, EqList<ClassMethodId>> e: _methodIds.entryList()) {
             MethodId cst_ = e.getKey();
             EqList<ClassMethodId> classes_ = e.getValue();
@@ -1307,33 +1293,17 @@ public abstract class RootBlock extends BracedBlock implements AccessibleBlock {
             for (ClassMethodId s: e.getValue()) {
                 String name_ = s.getClassName();
                 String base_ = StringList.getAllTypes(name_).first();
-                if (classesRef_.getClassBody(base_) == null) {
-                    Class<?> clBound_ = PrimitiveTypeUtil.getSingleNativeClass(base_);
-                    for (Method m: clBound_.getMethods()) {
-                        if (Modifier.isStatic(m.getModifiers())) {
+                if (!classesRef_.isCustomType(base_)) {
+                    StandardType clBound_ = stds_.getStandards().getVal(base_);
+                    for (StandardMethod m: clBound_.getMethods().values()) {
+                        if (m.isStaticMethod()) {
                             continue;
                         }
-                        EqList<ClassName> types_ = new EqList<ClassName>();
-                        int len_ = m.getParameterTypes().length;
-                        int nbParams_ = m.getTypeParameters().length;
-                        for (int i = 0; i < len_; i++) {
-                            Class<?> cl_ = m.getParameterTypes()[i];
-                            String defaultName_ = cl_.getName();
-                            Type p_ = m.getGenericParameterTypes()[i];
-                            String alias_ = NativeTypeUtil.getFormattedType(defaultName_, p_.toString(), nbParams_, p_);
-                            String formatted_ = Templates.format(name_, alias_, _context);
-                            types_.add(new ClassName(formatted_, i + 1 == len_ && m.isVarArgs()));
-                        }
-                        MethodId id_ = new MethodId(false, m.getName(), types_);
+                        MethodId id_ = m.getId();
                         if (!id_.eq(cst_)) {
                             continue;
                         }
-                        Class<?> cl_ = m.getReturnType();
-                        String defaultName_ = cl_.getName();
-                        Type returnType_ = m.getGenericReturnType();
-                        String alias_ = NativeTypeUtil.getFormattedType(defaultName_, returnType_.toString(), nbParams_, returnType_);
-                        String formatted_ = Templates.format(name_, alias_, _context);
-                        retClasses_.add(formatted_);
+                        retClasses_.add(m.getReturnType());
                     }
                     continue;
                 }

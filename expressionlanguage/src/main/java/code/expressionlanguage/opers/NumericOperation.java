@@ -76,10 +76,13 @@ public abstract class NumericOperation extends MethodOperation {
     static Argument calculateSum(Argument _a, ContextEl _cont, Argument _b) {
         LgNames stds_ = _cont.getStandards();
         String null_;
+        String stringType_;
         if (_cont.getClasses() != null) {
             null_ = stds_.getAliasNullPe();
+            stringType_ = stds_.getAliasString();
         } else {
             null_ = NullObjectException.class.getName();
+            stringType_ = stds_.getAliasString();
         }
         if (_a.getObject() instanceof String) {
             StringBuilder str_ = new StringBuilder();
@@ -90,7 +93,7 @@ public abstract class NumericOperation extends MethodOperation {
                 throw new InvokeException(new StdStruct(new InvokeRedinedMethException(SECOND+RETURN_LINE+_cont.joinPages(),new StdStruct(_0))));
             }
             Argument a_ = new Argument();
-            a_.setObject(str_.toString());
+            a_.setObject(str_.toString(),stringType_);
             return a_;
         }
         if (_b.getObject() instanceof String) {
@@ -102,7 +105,7 @@ public abstract class NumericOperation extends MethodOperation {
             }
             str_.append(_b.getObject());
             Argument a_ = new Argument();
-            a_.setObject(str_.toString());
+            a_.setObject(str_.toString(),stringType_);
             return a_;
         }
         if (StringList.quickEq(PrimitiveTypeUtil.toPrimitive(_a.getArgClass(_cont), true, _cont).getName(), PrimitiveTypeUtil.PRIM_CHAR)) {
@@ -111,7 +114,7 @@ public abstract class NumericOperation extends MethodOperation {
                 str_.append(_a.getObject());
                 str_.append(_b.getObject());
                 Argument a_ = new Argument();
-                a_.setObject(str_.toString());
+                a_.setObject(str_.toString(),stringType_);
                 return a_;
             }
         }
@@ -161,7 +164,7 @@ public abstract class NumericOperation extends MethodOperation {
         } else if (p_ instanceof Byte) {
             bSix_ = (Byte) p_;
         }
-        Object nb_;
+        Number nb_;
         if (aOne_ != null) {
             if (bOne_ != null) {
                 nb_ = aOne_+ bOne_;
@@ -306,7 +309,7 @@ public abstract class NumericOperation extends MethodOperation {
         } else if (p_ instanceof Byte) {
             bSix_ = (Byte) p_;
         }
-        Object nb_;
+        Number nb_;
         if (aOne_ != null) {
             if (bOne_ != null) {
                 nb_ = aOne_- bOne_;
@@ -451,7 +454,7 @@ public abstract class NumericOperation extends MethodOperation {
         } else if (p_ instanceof Byte) {
             bSix_ = (Byte) p_;
         }
-        Object nb_;
+        Number nb_;
         if (aOne_ != null) {
             if (bOne_ != null) {
                 nb_ = aOne_* bOne_;
@@ -612,7 +615,7 @@ public abstract class NumericOperation extends MethodOperation {
                 throw new InvokeException(new StdStruct(new CustomError(_cont.joinPages()), div_));
             }
         }
-        Object nb_;
+        Number nb_;
         if (aOne_ != null) {
             if (bOne_ != null) {
                 nb_ = aOne_/ bOne_;
@@ -773,7 +776,7 @@ public abstract class NumericOperation extends MethodOperation {
                 throw new InvokeException(new StdStruct(new CustomError(_cont.joinPages()),div_));
             }
         }
-        Object nb_;
+        Number nb_;
         if (aOne_ != null) {
             if (bOne_ != null) {
                 nb_ = aOne_% bOne_;

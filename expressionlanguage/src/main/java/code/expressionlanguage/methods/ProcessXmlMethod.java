@@ -124,6 +124,7 @@ public final class ProcessXmlMethod {
                 if (_0 instanceof WrapperException) {
                     realCaught_ = ((WrapperException)_0).getWrapped();
                 }
+                _0.printStackTrace();
                 if (!throwException(_cont, realCaught_)) {
                     continue;
                 }

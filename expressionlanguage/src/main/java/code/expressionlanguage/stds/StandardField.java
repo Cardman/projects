@@ -14,7 +14,7 @@ public final class StandardField {
 
     private final AccessEnum access = AccessEnum.PUBLIC;
 
-    protected StandardField(String _fieldName, String _className,
+    public StandardField(String _fieldName, String _className,
             boolean _staticField, boolean _finalField) {
         fieldName = _fieldName;
         className = _className;

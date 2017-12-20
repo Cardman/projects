@@ -92,7 +92,7 @@ public final class ClassArgumentMatching {
                 cls_.add(c);
             }
             return cls_;
-        } catch (RuntimeClassNotFoundException _0) {
+        } catch (Throwable _0) {
             return new CustList<Class<?>>();
         }
     }
