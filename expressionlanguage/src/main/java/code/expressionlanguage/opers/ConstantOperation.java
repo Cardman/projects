@@ -6,6 +6,7 @@ import java.lang.reflect.Type;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ArgumentCall;
+import code.expressionlanguage.ConstType;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.CustomError;
 import code.expressionlanguage.ElResolver;
@@ -70,8 +71,6 @@ public final class ConstantOperation extends OperationNode implements SettableEl
     private static final String LINE_FEED = "\r";
     private static final String LINE_RETURN = "\n";
     private static final String FORM = "\f";
-    private static final char CHAR_UPP_SUFFIX = 'C';
-    private static final char CHAR_LOW_SUFFIX = 'c';
     private static final byte HEX_BASE = 16;
 
     private boolean variable;
@@ -89,21 +88,20 @@ public final class ConstantOperation extends OperationNode implements SettableEl
 
     private Field field;
 
-    private boolean dottedPrevious;
     private boolean staticChoiceFieldTemplate;
     private boolean staticChoiceField;
 
     private boolean catString;
-    private boolean catChars;
 
-    public ConstantOperation(int _index, ContextEl _importingPage, int _indexChild, MethodOperation _m, OperationsSequence _op) {
-        super(_index, _importingPage, _indexChild, _m, _op);
+    public ConstantOperation(int _index, int _indexChild, MethodOperation _m, OperationsSequence _op) {
+        super(_index, _indexChild, _m, _op);
     }
 
     @Override
     public void analyze(CustList<OperationNode> _nodes, ContextEl _conf,
             String _fieldName, String _op) {
-        String originalStr_ = getOperations().getValues().getValue(CustList.FIRST_INDEX);
+        OperationsSequence op_ = getOperations();
+        String originalStr_ = op_.getValues().getValue(CustList.FIRST_INDEX);
         String str_ = originalStr_.trim();
         int off_ = StringList.getFirstPrintableCharIndex(originalStr_);
         setRelativeOffsetPossibleLastPage(getIndexInEl()+off_, _conf);
@@ -125,27 +123,27 @@ public final class ConstantOperation extends OperationNode implements SettableEl
         LgNames stds_ = _conf.getStandards();
         String stringType_;
         stringType_ = stds_.getAliasString();
-        if (StringList.quickEq(str_, TRUE_STRING)) {
+        if (op_.getConstType() == ConstType.TRUE_CST) {
             argClName_ = stds_.getAliasPrimBoolean();
             a_.setObject(true);
             setSimpleArgument(a_);
             setResultClass(new ClassArgumentMatching(argClName_),staticAccess);
             return;
         }
-        if (StringList.quickEq(str_, FALSE_STRING)) {
+        if (op_.getConstType() == ConstType.FALSE_CST) {
             argClName_ = stds_.getAliasPrimBoolean();
             a_.setObject(false);
             setSimpleArgument(a_);
             setResultClass(new ClassArgumentMatching(argClName_),staticAccess);
             return;
         }
-        if (StringList.quickEq(str_, NULL_REF_STRING)) {
+        if (op_.getConstType() == ConstType.NULL_CST) {
             argClName_ = EMPTY_STRING;
             setSimpleArgument(a_);
             setResultClass(new ClassArgumentMatching(argClName_),staticAccess);
             return;
         }
-        if (str_.startsWith(String.valueOf(DELIMITER_STRING))) {
+        if (op_.getConstType() == ConstType.STRING) {
             str_ = str_.substring(CustList.SECOND_INDEX, str_.lastIndexOf(DELIMITER_STRING));
             StringBuilder strBuilder_ = new StringBuilder();
             StringBuilder unicodeString_ = new StringBuilder();
@@ -160,7 +158,7 @@ public final class ConstantOperation extends OperationNode implements SettableEl
                         } else {
                             unicode_ = 0;
                             escaped_ = false;
-                            int val_ = Integer.parseInt(unicodeString_.toString(), HEX_BASE);
+                            int val_ = LgNames.parseLong(unicodeString_.toString(), HEX_BASE).intValue();
                             char i_ = (char)val_;
                             strBuilder_.append(i_);
                         }
@@ -216,14 +214,8 @@ public final class ConstantOperation extends OperationNode implements SettableEl
             setResultClass(new ClassArgumentMatching(stringType_),staticAccess);
             return;
         }
-        if (str_.startsWith(String.valueOf(DELIMITER_CHAR))) {
-            if (str_.charAt(str_.length()-1) == CHAR_UPP_SUFFIX) {
-                argClName_ = stds_.getAliasCharacter();
-            } else if (str_.charAt(str_.length()-1) == CHAR_LOW_SUFFIX) {
-                argClName_ = stds_.getAliasPrimChar();
-            } else {
-                argClName_ = stds_.getAliasPrimChar();
-            }
+        if (op_.getConstType() == ConstType.CHARACTER) {
+            argClName_ = stds_.getAliasPrimChar();
             str_ = str_.substring(CustList.SECOND_INDEX, str_.lastIndexOf(DELIMITER_CHAR));
             StringBuilder strBuilder_ = new StringBuilder();
             StringBuilder unicodeString_ = new StringBuilder();
@@ -238,7 +230,7 @@ public final class ConstantOperation extends OperationNode implements SettableEl
                         } else {
                             unicode_ = 0;
                             escaped_ = false;
-                            int val_ = Integer.parseInt(unicodeString_.toString(), HEX_BASE);
+                            int val_ = LgNames.parseLong(unicodeString_.toString(), HEX_BASE).intValue();
                             char i_ = (char)val_;
                             strBuilder_.append(i_);
                         }
@@ -294,8 +286,8 @@ public final class ConstantOperation extends OperationNode implements SettableEl
             setResultClass(new ClassArgumentMatching(argClName_),staticAccess);
             return;
         }
-        String staticAccess_ = EXTERN_CLASS + STATIC_ACCESS + EXTERN_CLASS;
-        if (str_.startsWith(staticAccess_)) {
+        if (op_.getConstType() == ConstType.STATIC_ACCESS) {
+            String staticAccess_ = EXTERN_CLASS + STATIC_ACCESS + EXTERN_CLASS;
             String type_ = str_.substring(staticAccess_.length());
             StringBuilder class_ = new StringBuilder();
             if (type_.startsWith(EMPTY_STRING + EXTERN_CLASS)) {
@@ -337,15 +329,7 @@ public final class ConstantOperation extends OperationNode implements SettableEl
             return;
         }
         str_ = StringList.removeAllSpaces(str_);
-        boolean processNb_ = true;
-        if (str_.indexOf(GET_VAR) != CustList.INDEX_NOT_FOUND_ELT) {
-            processNb_ = false;
-        } else if (Character.isLetter(str_.charAt(CustList.FIRST_INDEX))) {
-            processNb_ = false;
-        } else if (StringList.quickEq(str_, CURRENT_INTANCE)) {
-            processNb_ = false;
-        }
-        if (processNb_) {
+        if (op_.getConstType() == ConstType.INTEGER || op_.getConstType() == ConstType.FLOAT_NUMBER) {
             ParsedArgument parsed_ = ParsedArgument.parse(str_, _conf);
             String argClassName_ = parsed_.getType();
             if (argClassName_.isEmpty()) {
@@ -357,23 +341,7 @@ public final class ConstantOperation extends OperationNode implements SettableEl
             setResultClass(new ClassArgumentMatching(argClassName_),staticAccess);
             return;
         }
-        analyzeCommon(_conf);
-        if (dottedPrevious) {
-            setRelativeOffsetPossibleLastPage(getIndexInEl(), _conf);
-            throw new SettingMemberException(_conf.joinPages());
-        }
-    }
-
-    void analyzeCommon(ContextEl _conf) {
-        String originalStr_ = getOperations().getValues().getValue(CustList.FIRST_INDEX);
-        String str_ = originalStr_.trim();
-        PageEl ip_ = _conf.getLastPage();
-        LgNames stds_ = _conf.getStandards();
-        String stringType_;
-        String charType_;
-        stringType_ = stds_.getAliasString();
-        charType_ = stds_.getAliasCharacter();
-        if (StringList.quickEq(str_, CURRENT_INTANCE)) {
+        if (op_.getConstType() == ConstType.THIS_KEYWORD) {
             if (isStaticAccess()) {
                 throw new StaticAccessException(_conf.joinPages());
             }
@@ -384,7 +352,8 @@ public final class ConstantOperation extends OperationNode implements SettableEl
             setResultClass(new ClassArgumentMatching(arg_));
             return;
         }
-        if (str_.endsWith(GET_FIELD)) {
+        PageEl ip_ = _conf.getLastPage();
+        if (op_.getConstType() == ConstType.CUST_FIELD || op_.getConstType() == ConstType.CLASSCHOICE_KEYWORD || op_.getConstType() == ConstType.SUPER_KEYWORD) {
             Classes classes_ = _conf.getClasses();
             needGlobalArgument();
             ClassArgumentMatching cl_ = getPreviousResultClass();
@@ -469,9 +438,6 @@ public final class ConstantOperation extends OperationNode implements SettableEl
                         if (StringList.quickEq(c_, stringType_)) {
                             catString = true;
                         }
-                        if (StringList.quickEq(c_, charType_)) {
-                            catChars = true;
-                        }
                     }
                     fieldId = new ClassField(e_.getDeclaringBaseClass(), e_.getName());
                     setResultClass(new ClassArgumentMatching(c_));
@@ -485,79 +451,77 @@ public final class ConstantOperation extends OperationNode implements SettableEl
             analyzeNativeField(_conf, key_);
             return;
         }
-        if (str_.endsWith(GET_PARAM)) {
-            if (getParent() == null) {
-                immutablePart = true;
+        if (op_.getConstType() == ConstType.VARIABLE) {
+            if (isIntermediateDotted()) {
+                setRelativeOffsetPossibleLastPage(getIndexInEl(), _conf);
+                throw new SettingMemberException(_conf.joinPages());
             }
-            dottedPrevious = hasDottedPreviousSibling();
-            String key_ = str_.substring(CustList.FIRST_INDEX, str_.length() - GET_PARAM.length());
-            LocalVariable locVar_ = ip_.getParameters().getVal(key_);
-            if (locVar_ != null) {
-                String paramType_ = locVar_.getClassName();
-                if (paramType_.endsWith(VARARG_SUFFIX)) {
-                    paramType_ = StringList.replace(paramType_, VARARG_SUFFIX, EMPTY_STRING);
-                    paramType_ = PrimitiveTypeUtil.getPrettyArrayType(paramType_);
+            if (str_.endsWith(GET_PARAM)) {
+                if (getParent() == null) {
+                    immutablePart = true;
                 }
-                setResultClass(new ClassArgumentMatching(paramType_));
-                return;
-            }
-            throw new UndefinedVariableException(_conf.joinPages(), key_, PARAMETER);
-        }
-        if (str_.endsWith(GET_CATCH_VAR)) {
-            if (getParent() == null) {
-                immutablePart = true;
-            }
-            dottedPrevious = hasDottedPreviousSibling();
-            String key_ = str_.substring(CustList.FIRST_INDEX, str_.length() - GET_CATCH_VAR.length());
-            LocalVariable locVar_ = ip_.getCatchVars().getVal(key_);
-            if (locVar_ != null) {
-                setResultClass(new ClassArgumentMatching(locVar_.getClassName()));
-                return;
-            }
-            throw new UndefinedVariableException(_conf.joinPages(), key_, CATCH_VARIABLE);
-        }
-        if (str_.endsWith(GET_LOC_VAR)) {
-            dottedPrevious = hasDottedPreviousSibling();
-            String key_ = str_.substring(CustList.FIRST_INDEX, str_.length() - GET_LOC_VAR.length());
-            LocalVariable locVar_ = ip_.getLocalVars().getVal(key_);
-            if (locVar_ != null) {
-                String c_ = locVar_.getClassName();
-                if (StringList.quickEq(c_, stringType_)) {
-                    catString = true;
+                String key_ = str_.substring(CustList.FIRST_INDEX, str_.length() - GET_PARAM.length());
+                LocalVariable locVar_ = ip_.getParameters().getVal(key_);
+                if (locVar_ != null) {
+                    String paramType_ = locVar_.getClassName();
+                    if (paramType_.endsWith(VARARG_SUFFIX)) {
+                        paramType_ = StringList.replace(paramType_, VARARG_SUFFIX, EMPTY_STRING);
+                        paramType_ = PrimitiveTypeUtil.getPrettyArrayType(paramType_);
+                    }
+                    setResultClass(new ClassArgumentMatching(paramType_));
+                    return;
                 }
-                if (StringList.quickEq(c_, charType_)) {
-                    catChars = true;
+                throw new UndefinedVariableException(_conf.joinPages(), key_, PARAMETER);
+            }
+            if (str_.endsWith(GET_CATCH_VAR)) {
+                if (getParent() == null) {
+                    immutablePart = true;
                 }
-                setResultClass(new ClassArgumentMatching(c_));
-                return;
+                String key_ = str_.substring(CustList.FIRST_INDEX, str_.length() - GET_CATCH_VAR.length());
+                LocalVariable locVar_ = ip_.getCatchVars().getVal(key_);
+                if (locVar_ != null) {
+                    setResultClass(new ClassArgumentMatching(locVar_.getClassName()));
+                    return;
+                }
+                throw new UndefinedVariableException(_conf.joinPages(), key_, CATCH_VARIABLE);
             }
-            throw new UndefinedVariableException(_conf.joinPages(), key_, LOCAL_VARIABLE);
-        }
-        if (str_.endsWith(GET_INDEX)) {
-            if (getParent() == null) {
-                immutablePart = true;
+            if (str_.endsWith(GET_LOC_VAR)) {
+                String key_ = str_.substring(CustList.FIRST_INDEX, str_.length() - GET_LOC_VAR.length());
+                LocalVariable locVar_ = ip_.getLocalVars().getVal(key_);
+                if (locVar_ != null) {
+                    String c_ = locVar_.getClassName();
+                    if (StringList.quickEq(c_, stringType_)) {
+                        catString = true;
+                    }
+                    setResultClass(new ClassArgumentMatching(c_));
+                    return;
+                }
+                throw new UndefinedVariableException(_conf.joinPages(), key_, LOCAL_VARIABLE);
             }
-            dottedPrevious = hasDottedPreviousSibling();
-            String key_ = str_.substring(CustList.FIRST_INDEX, str_.length() - GET_INDEX.length());
-            LoopVariable locVar_ = ip_.getVars().getVal(key_);
-            if (locVar_ != null) {
-                setResultClass(new ClassArgumentMatching(locVar_.getIndexClassName()));
-                return;
+            if (str_.endsWith(GET_INDEX)) {
+                if (getParent() == null) {
+                    immutablePart = true;
+                }
+                String key_ = str_.substring(CustList.FIRST_INDEX, str_.length() - GET_INDEX.length());
+                LoopVariable locVar_ = ip_.getVars().getVal(key_);
+                if (locVar_ != null) {
+                    setResultClass(new ClassArgumentMatching(locVar_.getIndexClassName()));
+                    return;
+                }
+                throw new UndefinedVariableException(_conf.joinPages(), key_, INDEX);
             }
-            throw new UndefinedVariableException(_conf.joinPages(), key_, INDEX);
-        }
-        if (str_.endsWith(GET_ATTRIBUTE)) {
-            if (getParent() == null) {
-                immutablePart = true;
+            if (str_.endsWith(GET_ATTRIBUTE)) {
+                if (getParent() == null) {
+                    immutablePart = true;
+                }
+                String key_ = str_.substring(CustList.FIRST_INDEX, str_.length() - GET_ATTRIBUTE.length());
+                LoopVariable locVar_ = ip_.getVars().getVal(key_);
+                if (locVar_ != null) {
+                    setResultClass(new ClassArgumentMatching(locVar_.getClassName()));
+                    return;
+                }
+                throw new UndefinedVariableException(_conf.joinPages(), key_, ATTRIBUTE);
             }
-            dottedPrevious = hasDottedPreviousSibling();
-            String key_ = str_.substring(CustList.FIRST_INDEX, str_.length() - GET_ATTRIBUTE.length());
-            LoopVariable locVar_ = ip_.getVars().getVal(key_);
-            if (locVar_ != null) {
-                setResultClass(new ClassArgumentMatching(locVar_.getClassName()));
-                return;
-            }
-            throw new UndefinedVariableException(_conf.joinPages(), key_, ATTRIBUTE);
         }
         needGlobalArgument();
         ClassArgumentMatching cl_ = getPreviousResultClass();
@@ -566,13 +530,12 @@ public final class ConstantOperation extends OperationNode implements SettableEl
         }
         analyzeNativeField(_conf, str_);
     }
+
     private void analyzeNativeField(ContextEl _conf, String _key) {
         ClassArgumentMatching cl_ = getPreviousResultClass();
         LgNames stds_ = _conf.getStandards();
         String stringType_;
-        String charType_;
         stringType_ = stds_.getAliasString();
-        charType_ = stds_.getAliasCharacter();
         if (cl_.isArray()) {
             if (StringList.quickEq(_key, LENGTH)) {
                 setResultClass(new ClassArgumentMatching(stds_.getAliasPrimInteger()));
@@ -592,7 +555,6 @@ public final class ConstantOperation extends OperationNode implements SettableEl
             if (str_.contains(STATIC_CALL)) {
                 StringList classMethod_ = StringList.splitStrings(str_, STATIC_CALL);
                 key_ = classMethod_.last();
-                key_ = key_.substring(CustList.FIRST_INDEX, key_.length() - GET_FIELD.length());
                 superClassAccess_ = false;
                 r_ = LgNames.getDeclaredCustField(_conf, isStaticAccess(), new ClassArgumentMatching(clCurName_), superClassAccess_, key_);
             } else if (str_.startsWith(EXTERN_CLASS+SUPER_ACCESS+EXTERN_CLASS)) {
@@ -609,7 +571,7 @@ public final class ConstantOperation extends OperationNode implements SettableEl
                 cl_ = new ClassArgumentMatching(superClass_);
                 r_ = LgNames.getDeclaredCustField(_conf, isStaticAccess(), cl_, superClassAccess_, key_);
             } else {
-                key_ = str_.substring(CustList.FIRST_INDEX, str_.length());
+                key_ = str_;
                 superClassAccess_ = root_ instanceof StandardInterface;
                 r_ = LgNames.getDeclaredCustField(_conf, isStaticAccess(), cl_, superClassAccess_, key_);
             }
@@ -625,9 +587,6 @@ public final class ConstantOperation extends OperationNode implements SettableEl
                 }
                 if (StringList.quickEq(c_, stringType_)) {
                     catString = true;
-                }
-                if (StringList.quickEq(c_, charType_)) {
-                    catChars = true;
                 }
             }
             fieldId = new ClassField(e_.getDeclaringBaseClass(), e_.getName());
@@ -890,7 +849,7 @@ public final class ConstantOperation extends OperationNode implements SettableEl
                 throw new InvokeException(new StdStruct(new CustomError(_conf.joinPages()),null_));
             }
             Argument res_;
-            res_ = NumericOperation.calculateAffect(left_, _conf, right_, _op, catChars, catString);
+            res_ = NumericOperation.calculateAffect(left_, _conf, right_, _op, catString);
             locVar_.setStruct(res_.getStruct());
             return res_;
         }
@@ -935,7 +894,7 @@ public final class ConstantOperation extends OperationNode implements SettableEl
                     }
                 }
                 left_.setStruct(structField_);
-                res_ = NumericOperation.calculateAffect(left_, _conf, right_, _op, catChars, catString);
+                res_ = NumericOperation.calculateAffect(left_, _conf, right_, _op, catString);
                 if (fieldMetaInfo.isStaticField()) {
                     classes_.initializeStaticField(fieldId, res_.getStruct());
                 } else {
@@ -959,7 +918,7 @@ public final class ConstantOperation extends OperationNode implements SettableEl
             }
             structField_ = result_.getResult();
             left_.setStruct(structField_);
-            res_ = NumericOperation.calculateAffect(left_, _conf, right_, _op, catChars, catString);
+            res_ = NumericOperation.calculateAffect(left_, _conf, right_, _op, catString);
             result_ = LgNames.setField(_conf, fieldId, argument_.getStruct(), res_.getStruct());
             if (result_.getError() != null) {
                 throw new InvokeException(new StdStruct(new CustomError(_conf.joinPages()),result_.getError()));
@@ -978,16 +937,10 @@ public final class ConstantOperation extends OperationNode implements SettableEl
         if (right_.isNull() && field.getType().isPrimitive()) {
             throw new InvokeException(new StdStruct(new CustomError(_conf.joinPages()),null_));
         }
-        res_ = NumericOperation.calculateAffect(left_, _conf, right_, _op, catChars, catString);
+        res_ = NumericOperation.calculateAffect(left_, _conf, right_, _op, catString);
         ConverterMethod.setField(field, obj_, res_.getObject());
         Argument a_ = res_;
         return a_;
-    }
-    private boolean hasDottedPreviousSibling() {
-        if (!(getParent() instanceof DotOperation)) {
-            return false;
-        }
-        return getPreviousSibling() != null;
     }
 
     @Override

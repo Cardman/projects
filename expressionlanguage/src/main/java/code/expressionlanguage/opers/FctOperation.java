@@ -106,9 +106,9 @@ public final class FctOperation extends InvokingOperation {
 
     private int naturalVararg = -1;
 
-    public FctOperation(int _index, ContextEl _importingPage,
+    public FctOperation(int _index,
             int _indexChild, MethodOperation _m, OperationsSequence _op) {
-        super(_index, _importingPage, _indexChild, _m, _op);
+        super(_index, _indexChild, _m, _op);
         methodName = getOperations().getFctName();
     }
 

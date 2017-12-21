@@ -1,5 +1,4 @@
 package code.expressionlanguage.opers;
-import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.ElUtil;
 import code.expressionlanguage.OperationsSequence;
 import code.util.CustList;
@@ -11,8 +10,8 @@ public abstract class MethodOperation extends OperationNode {
 
     private NatTreeMap<Integer,String> children;
 
-    public MethodOperation(int _index, ContextEl _importingPage, int _indexChild, MethodOperation _m, OperationsSequence _op) {
-        super(_index, _importingPage, _indexChild, _m, _op);
+    public MethodOperation(int _index, int _indexChild, MethodOperation _m, OperationsSequence _op) {
+        super(_index, _indexChild, _m, _op);
         children = new NatTreeMap<Integer,String>();
         calculateChildren();
     }
@@ -25,7 +24,6 @@ public abstract class MethodOperation extends OperationNode {
         while (true) {
             OperationNode sibling_ = child_.getNextSibling();
             if (sibling_ == null) {
-                _child.setPreviousSibling(child_);
                 child_.setNextSibling(_child);
                 return;
             }

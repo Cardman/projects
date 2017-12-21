@@ -1,6 +1,7 @@
 package code.expressionlanguage.classes;
 
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.PrimitiveTypeUtil;
 import code.expressionlanguage.opers.util.BooleanStruct;
 import code.expressionlanguage.opers.util.ClassField;
 import code.expressionlanguage.opers.util.ClassMethodId;
@@ -33,8 +34,14 @@ public class CustLgNames extends LgNames {
     private String aliasComposite = "code.expressionlanguage.classes.Composite";
     private String aliasInheritedComposite = "code.expressionlanguage.classes.InheritedComposite";
     private String aliasFailMethods = "code.expressionlanguage.classes.FailMethods";
+    private String aliasNotRead = "NOT_READ";
+    private String aliasStrangeInit = "code.expressionlanguage.classes.StrangeInit";
     private String aliasFail = "fail";
     private String aliasBeanOne = "code.expressionlanguage.classes.BeanOne";
+    private String aliasArrayContainer = "code.expressionlanguage.classes.ArrayContainer";
+    private String aliasArrayBis = "code.expressionlanguage.classes.ArrayBis";
+    private String aliasGetArray = "getArray";
+    private String aliasGetCompo = "getCompo";
     private String aliasInts = "code.expressionlanguage.classes.Ints";
     private String aliasAdd = "add";
     private String aliasSize = "size";
@@ -206,6 +213,16 @@ public class CustLgNames extends LgNames {
         std_ = stdcl_;
         getStandards().put(aliasFailMethods, std_);
         methods_ = new ObjectMap<MethodId, StandardMethod>();
+        params_ = new StringList();
+        method_ = new StandardMethod(aliasFail, params_, getAliasPrimInteger(), false, MethodModifier.STATIC, aliasStrangeInit);
+        methods_.put(method_.getId(), method_);
+        fields_ = new StringMap<StandardField>();
+        fields_.put(aliasNotRead, new StandardField(aliasNotRead, getAliasString(), true, true));
+        constructors_ = new CustList<StandardConstructor>();
+        stdcl_ = new StandardClass(aliasStrangeInit, fields_, constructors_, methods_, getAliasObject(), MethodModifier.FINAL);
+        std_ = stdcl_;
+        getStandards().put(aliasStrangeInit, std_);
+        methods_ = new ObjectMap<MethodId, StandardMethod>();
         fields_ = new StringMap<StandardField>();
         field_ = new StandardField(aliasCompositeField, aliasComposite, false, false);
         fields_.put(aliasCompositeField, field_);
@@ -213,6 +230,25 @@ public class CustLgNames extends LgNames {
         stdcl_ = new StandardClass(aliasBeanOne, fields_, constructors_, methods_, getAliasObject(), MethodModifier.FINAL);
         std_ = stdcl_;
         getStandards().put(aliasBeanOne, std_);
+        methods_ = new ObjectMap<MethodId, StandardMethod>();
+        params_ = new StringList();
+        method_ = new StandardMethod(aliasGetArray, params_, PrimitiveTypeUtil.getPrettyArrayType(getAliasPrimInteger()), false, MethodModifier.NORMAL, aliasArrayBis);
+        methods_.put(method_.getId(), method_);
+        constructors_ = new CustList<StandardConstructor>();
+        stdcl_ = new StandardClass(aliasArrayBis, fields_, constructors_, methods_, getAliasObject(), MethodModifier.FINAL);
+        std_ = stdcl_;
+        getStandards().put(aliasArrayBis, std_);
+        methods_ = new ObjectMap<MethodId, StandardMethod>();
+        params_ = new StringList();
+        method_ = new StandardMethod(aliasGetArray, params_, PrimitiveTypeUtil.getPrettyArrayType(getAliasPrimInteger()), false, MethodModifier.NORMAL, aliasArrayContainer);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList();
+        method_ = new StandardMethod(aliasGetCompo, params_, PrimitiveTypeUtil.getPrettyArrayType(aliasArrayBis), false, MethodModifier.NORMAL, aliasArrayContainer);
+        methods_.put(method_.getId(), method_);
+        constructors_ = new CustList<StandardConstructor>();
+        stdcl_ = new StandardClass(aliasArrayContainer, fields_, constructors_, methods_, getAliasObject(), MethodModifier.FINAL);
+        std_ = stdcl_;
+        getStandards().put(aliasArrayContainer, std_);
         //aliasComposite
         //aliasSimpleIteratorType
     }
@@ -406,6 +442,56 @@ public class CustLgNames extends LgNames {
                 return res_;
             }
         }
+        if (StringList.quickEq(_method.getClassName(), aliasStrangeInit)) {
+            if (StringList.quickEq(_method.getConstraints().getName(), aliasFail)) {
+                try {
+                    StrangeInit.fail();
+                    res_.setResult(NullStruct.NULL_VALUE);
+                } catch (Throwable _0) {
+                    res_.setError(getAliasError());
+                }
+                return res_;
+            }
+        }
+        if (StringList.quickEq(_method.getClassName(), aliasArrayBis)) {
+            ArrayBis one_ = (ArrayBis) instance_;
+            int[] bytes_ = one_.getArray();
+            Struct[] wrap_ = new Struct[bytes_.length];
+            int i_ = CustList.FIRST_INDEX;
+            for (int b: bytes_) {
+                wrap_[i_] = new IntStruct(b);
+                i_++;
+            }
+            String ret_ = PrimitiveTypeUtil.getPrettyArrayType(getAliasPrimInteger());
+            res_.setResult(new StdStruct(wrap_, ret_));
+            return res_;
+        }
+        if (StringList.quickEq(_method.getClassName(), aliasArrayContainer)) {
+            if (StringList.quickEq(_method.getConstraints().getName(), aliasGetArray)) {
+                ArrayContainer one_ = (ArrayContainer) instance_;
+                int[] bytes_ = one_.getArray();
+                Struct[] wrap_ = new Struct[bytes_.length];
+                int i_ = CustList.FIRST_INDEX;
+                for (int b: bytes_) {
+                    wrap_[i_] = new IntStruct(b);
+                    i_++;
+                }
+                String ret_ = PrimitiveTypeUtil.getPrettyArrayType(getAliasPrimInteger());
+                res_.setResult(new StdStruct(wrap_, ret_));
+                return res_;
+            }
+            ArrayContainer one_ = (ArrayContainer) instance_;
+            ArrayBis[] bytes_ = one_.getCompo();
+            Struct[] wrap_ = new Struct[bytes_.length];
+            int i_ = CustList.FIRST_INDEX;
+            for (ArrayBis b: bytes_) {
+                wrap_[i_] = new StdStruct(b,aliasArrayBis);
+                i_++;
+            }
+            String ret_ = PrimitiveTypeUtil.getPrettyArrayType(aliasArrayBis);
+            res_.setResult(new StdStruct(wrap_, ret_));
+            return res_;
+        }
         return super.getOtherResult(_cont, _instance, _method, _args);
     }
     @Override
@@ -428,6 +514,22 @@ public class CustLgNames extends LgNames {
             res_.setResult(new StdStruct(new InheritedComposite(), aliasPickableList));
             return res_;
         }
+        if (StringList.quickEq(_method.getName(), aliasFailMethods)) {
+            try {
+                res_.setResult(new StdStruct(new FailMethods(), aliasFailMethods));
+            } catch (Throwable _0) {
+                res_.setError(getAliasError());
+            }
+            return res_;
+        }
+        if (StringList.quickEq(_method.getName(), aliasStrangeInit)) {
+            try {
+                res_.setResult(new StdStruct(new StrangeInit(), aliasStrangeInit));
+            } catch (Throwable _0) {
+                res_.setError(getAliasError());
+            }
+            return res_;
+        }
         return super.getOtherResult(_cont, _method, _args);
     }
     @Override
@@ -447,6 +549,17 @@ public class CustLgNames extends LgNames {
                 BeanOne cpt_ = (BeanOne) _instance.getInstance();
                 res_.setResult(new StdStruct(cpt_.getComposite(), aliasComposite));
                 return res_;
+            }
+        }
+        if (StringList.quickEq(_classField.getClassName(), aliasStrangeInit)) {
+            if (StringList.quickEq(_classField.getFieldName(), aliasNotRead)) {
+                try {
+                    res_.setResult(new StdStruct(StrangeInit.NOT_READ, getAliasString()));
+                    return res_;
+                } catch (Throwable _0_) {
+                    res_.setError(getAliasError());
+                    return res_;
+                }
             }
         }
         return super.getOtherResult(_cont, _classField, _instance);

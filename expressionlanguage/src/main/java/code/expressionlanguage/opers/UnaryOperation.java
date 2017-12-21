@@ -19,9 +19,9 @@ import code.util.exceptions.NullObjectException;
 
 public final class UnaryOperation extends PrimitiveBoolOperation {
 
-    public UnaryOperation(int _index, ContextEl _importingPage,
+    public UnaryOperation(int _index,
             int _indexChild, MethodOperation _m, OperationsSequence _op) {
-        super(_index, _importingPage, _indexChild, _m, _op);
+        super(_index, _indexChild, _m, _op);
     }
 
     @Override

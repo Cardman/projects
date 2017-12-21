@@ -47,20 +47,14 @@ public final class ElUtil {
         page_.setProcessingAttribute(_attrLeft);
         Delimiters dLeft_ = ElResolver.checkSyntax(_left, _conf, CustList.FIRST_INDEX);
         OperationsSequence opTwoLeft_ = ElResolver.getOperationsSequence(CustList.FIRST_INDEX, _left, _conf, dLeft_);
-        OperationNode opLeft_ = OperationNode.createOperationNode(CustList.FIRST_INDEX, _conf, CustList.FIRST_INDEX, null, opTwoLeft_);
-        CustList<OperationNode> allLeft_ = getOperationNodes(opLeft_);
-        for (OperationNode o: allLeft_) {
-            o.setConf(null);
-        }
+        OperationNode opLeft_ = OperationNode.createOperationNode(CustList.FIRST_INDEX, CustList.FIRST_INDEX, null, opTwoLeft_);
+        CustList<OperationNode> allLeft_ = getOperationNodes(opLeft_, _conf);
         page_.setOffset(0);
         page_.setProcessingAttribute(_attrRight);
         Delimiters dRight_ = ElResolver.checkSyntax(_right, _conf, CustList.FIRST_INDEX);
         OperationsSequence opTwoRight_ = ElResolver.getOperationsSequence(CustList.FIRST_INDEX, _right, _conf, dRight_);
-        OperationNode opRight_ = OperationNode.createOperationNode(CustList.FIRST_INDEX, _conf, CustList.FIRST_INDEX, null, opTwoRight_);
-        CustList<OperationNode> allRight_ = getOperationNodes(opRight_);
-        for (OperationNode o: allRight_) {
-            o.setConf(null);
-        }
+        OperationNode opRight_ = OperationNode.createOperationNode(CustList.FIRST_INDEX, CustList.FIRST_INDEX, null, opTwoRight_);
+        CustList<OperationNode> allRight_ = getOperationNodes(opRight_, _conf);
         page_.setOffset(0);
         page_.setProcessingAttribute(_attrLeft);
         analyzeSetting(true, allLeft_, _conf);
@@ -208,11 +202,8 @@ public final class ElUtil {
         String el_ = _el.substring(d_.getIndexBegin(), d_.getIndexEnd()+1);
         _conf.setNextIndex(d_.getIndexEnd()+2);
         OperationsSequence opTwo_ = ElResolver.getOperationsSequence(_minIndex, el_, _conf, d_);
-        OperationNode op_ = OperationNode.createOperationNode(_minIndex, _conf, CustList.FIRST_INDEX, null, opTwo_);
-        CustList<OperationNode> all_ = getOperationNodes(op_);
-        for (OperationNode o: all_) {
-            o.setConf(null);
-        }
+        OperationNode op_ = OperationNode.createOperationNode(_minIndex, CustList.FIRST_INDEX, null, opTwo_);
+        CustList<OperationNode> all_ = getOperationNodes(op_, _conf);
         analyze(all_, _conf);
         calculate(all_, _conf, EMPTY_STRING);
         Argument arg_ = op_.getArgument();
@@ -222,11 +213,8 @@ public final class ElUtil {
     public static CustList<OperationNode> getAnalyzedOperations(String _el, ContextEl _conf, Calculation _calcul) {
         Delimiters d_ = ElResolver.checkSyntax(_el, _conf, CustList.FIRST_INDEX);
         OperationsSequence opTwo_ = ElResolver.getOperationsSequence(CustList.FIRST_INDEX, _el, _conf, d_);
-        OperationNode op_ = OperationNode.createOperationNode(CustList.FIRST_INDEX, _conf, CustList.FIRST_INDEX, null, opTwo_);
-        CustList<OperationNode> all_ = getOperationNodes(op_);
-        for (OperationNode o: all_) {
-            o.setConf(null);
-        }
+        OperationNode op_ = OperationNode.createOperationNode(CustList.FIRST_INDEX, CustList.FIRST_INDEX, null, opTwo_);
+        CustList<OperationNode> all_ = getOperationNodes(op_, _conf);
         boolean staticContext_ = _calcul.isStaticAcces();
         boolean hiddenVarTypes_ = _calcul.isStaticBlock();
         String fieldName_ = _calcul.getFieldName();
@@ -245,20 +233,17 @@ public final class ElUtil {
         Delimiters d_ = ElResolver.checkSyntax(_el, _conf, _index);
         String el_ = _el.substring(_index);
         OperationsSequence opTwo_ = ElResolver.getOperationsSequence(_index, el_, _conf, d_);
-        OperationNode op_ = OperationNode.createOperationNode(_index, _conf, CustList.FIRST_INDEX, null, opTwo_);
-        CustList<OperationNode> all_ = getOperationNodes(op_);
-        for (OperationNode o: all_) {
-            o.setConf(null);
-        }
+        OperationNode op_ = OperationNode.createOperationNode(_index, CustList.FIRST_INDEX, null, opTwo_);
+        CustList<OperationNode> all_ = getOperationNodes(op_, _conf);
         analyze(all_, _conf);
         calculate(all_, _conf, EMPTY_STRING);
         Argument arg_  = op_.getArgument();
         return arg_;
     }
 
-    static CustList<OperationNode> getOperationNodes(OperationNode _root) {
+    private static CustList<OperationNode> getOperationNodes(OperationNode _root, ContextEl _context) {
         CustList<OperationNode> all_ = new CustList<OperationNode>();
-        for (OperationNode s: getSortedDescNodes(_root)) {
+        for (OperationNode s: getSortedDescNodes(_root, _context)) {
             all_.add(s);
         }
         int order_ = 0;
@@ -306,7 +291,7 @@ public final class ElUtil {
         all_.sortElts(new ComparatorOrder());
         return all_;
     }
-    public static CustList<OperationNode> getSortedDescNodes(OperationNode _root) {
+    private static CustList<OperationNode> getSortedDescNodes(OperationNode _root, ContextEl _context) {
         CustList<OperationNode> list_ = new CustList<OperationNode>();
         if (_root == null) {
             return list_;
@@ -317,18 +302,18 @@ public final class ElUtil {
                 break;
             }
             list_.add(c_);
-            c_ = getNext(c_, _root);
+            c_ = getNext(c_, _root, _context);
         }
         return list_;
     }
 
-    public static OperationNode getNext(OperationNode _current, OperationNode _root) {
-        OperationNode next_ = createFirstChild(_current);
+    private static OperationNode getNext(OperationNode _current, OperationNode _root, ContextEl _context) {
+        OperationNode next_ = createFirstChild(_current, _context);
         if (next_ != null) {
             ((MethodOperation) _current).appendChild(next_);
             return next_;
         }
-        next_ = createNextSibling(_current);
+        next_ = createNextSibling(_current, _context);
         if (next_ != null) {
             next_.getParent().appendChild(next_);
             return next_;
@@ -338,7 +323,7 @@ public final class ElUtil {
             return null;
         }
         if (next_ != null) {
-            OperationNode nextAfter_ = createNextSibling(next_);
+            OperationNode nextAfter_ = createNextSibling(next_, _context);
             while (nextAfter_ == null) {
                 OperationNode par_ = next_.getParent();
                 if (par_ == _root) {
@@ -347,7 +332,7 @@ public final class ElUtil {
                 if (par_ == null) {
                     break;
                 }
-                nextAfter_ = createNextSibling(par_);
+                nextAfter_ = createNextSibling(par_, _context);
                 next_ = par_;
             }
             if (nextAfter_ != null) {
@@ -357,7 +342,7 @@ public final class ElUtil {
         }
         return null;
     }
-    private static OperationNode createFirstChild(OperationNode _block) {
+    private static OperationNode createFirstChild(OperationNode _block, ContextEl _context) {
         if (!(_block instanceof MethodOperation)) {
             return null;
         }
@@ -370,11 +355,11 @@ public final class ElUtil {
         int curKey_ = block_.getChildren().getKey(0);
         d_.setChildOffest(curKey_);
         int offset_ = block_.getIndexInEl()+curKey_;
-        OperationsSequence r_ = ElResolver.getOperationsSequence(offset_, value_, block_.getConf(), d_);
-        return OperationNode.createOperationNode(offset_, block_.getConf(), CustList.FIRST_INDEX, block_, r_);
+        OperationsSequence r_ = ElResolver.getOperationsSequence(offset_, value_, _context, d_);
+        return OperationNode.createOperationNode(offset_, CustList.FIRST_INDEX, block_, r_);
     }
 
-    private static OperationNode createNextSibling(OperationNode _block) {
+    private static OperationNode createNextSibling(OperationNode _block, ContextEl _context) {
         MethodOperation p_ = _block.getParent();
         if (p_ == null) {
             return null;
@@ -388,8 +373,8 @@ public final class ElUtil {
         int curKey_ = children_.getKey(_block.getIndexChild() + 1);
         d_.setChildOffest(curKey_);
         int offset_ = p_.getIndexInEl()+curKey_;
-        OperationsSequence r_ = ElResolver.getOperationsSequence(offset_, value_, _block.getConf(), d_);
-        return OperationNode.createOperationNode(offset_, _block.getConf(), _block.getIndexChild() + 1, p_, r_);
+        OperationsSequence r_ = ElResolver.getOperationsSequence(offset_, value_, _context, d_);
+        return OperationNode.createOperationNode(offset_, _block.getIndexChild() + 1, p_, r_);
     }
     public static CustList<OperationNode> getDirectChildren(OperationNode _element) {
         CustList<OperationNode> list_ = new CustList<OperationNode>();

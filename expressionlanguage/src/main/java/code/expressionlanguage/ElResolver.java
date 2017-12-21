@@ -39,6 +39,7 @@ public final class ElResolver {
     private static final char GET_VAR = ';';
     private static final char DOT_VAR = '.';
     private static final char EXP = 'e';
+    private static final String GET_FIELD = ";;;";
     private static final char EXTERN_CLASS = '$';
     private static final String CLASS_CHOICE = "classchoice";
     private static final String INSTANCE = "new";
@@ -50,6 +51,9 @@ public final class ElResolver {
     private static final String BOOLEAN = "bool";
     private static final String INSTANCEOF = "instanceof";
     private static final String THIS = "this";
+    private static final String NULL_REF_STRING = "null";
+    private static final String TRUE_STRING = "true";
+    private static final String FALSE_STRING = "false";
 
     private static final char MIN_ENCODE_DIGIT = '0';
     private static final char MAX_ENCODE_DIGIT = '9';
@@ -176,7 +180,6 @@ public final class ElResolver {
         }
         i_ = _minIndex;
         int nbChars_ = 0;
-        int beginCharString_ = 0;
         while (i_ < len_) {
             char curChar_ = _string.charAt(i_);
             if (constChar_) {
@@ -193,7 +196,7 @@ public final class ElResolver {
                     throw new BadExpressionLanguageException(_string+RETURN_LINE+_conf.joinPages());
                 }
                 if (!res_.isPart()) {
-                    d_.getDelimitersStringsChars().put(beginCharString_-_minIndex, i_-_minIndex);
+                    d_.getDelStringsChars().add(i_);
                     constChar_ = false;
                     i_++;
                     continue;
@@ -218,7 +221,7 @@ public final class ElResolver {
                     throw new BadExpressionLanguageException(_string+RETURN_LINE+_conf.joinPages());
                 }
                 if (!res_.isPart()) {
-                    d_.getDelimitersStringsChars().put(beginCharString_-_minIndex, i_-_minIndex);
+                    d_.getDelStringsChars().add(i_);
                     constString_ = false;
                     i_++;
                     continue;
@@ -500,11 +503,11 @@ public final class ElResolver {
             if (curChar_ == DELIMITER_CHAR) {
                 constChar_ = true;
                 nbChars_ = 0;
-                beginCharString_ = i_;
+                d_.getDelStringsChars().add(i_);
             }
             if (curChar_ == DELIMITER_STRING) {
                 constString_ = true;
-                beginCharString_ = i_;
+                d_.getDelStringsChars().add(i_);
             }
             if (curChar_ == GET_VAR && parsBrackets_.isEmpty()) {
                 foundSemiColumn_ = true;
@@ -537,7 +540,6 @@ public final class ElResolver {
                     _conf.getLastPage().setOffset(i_);
                     throw new BadExpressionLanguageException(_string+RETURN_LINE+_conf.joinPages());
                 }
-                d_.getCallings().put(parsBrackets_.lastKey()-_minIndex, i_-_minIndex);
                 parsBrackets_.removeKey(parsBrackets_.lastKey());
             }
             if (curChar_ == ARR_LEFT) {
@@ -552,7 +554,6 @@ public final class ElResolver {
                     _conf.getLastPage().setOffset(i_);
                     throw new BadExpressionLanguageException(_string+RETURN_LINE+_conf.joinPages());
                 }
-                d_.getCallings().put(parsBrackets_.lastKey()-_minIndex, i_-_minIndex);
                 parsBrackets_.removeKey(parsBrackets_.lastKey());
             }
             if (curChar_ == SEP_ARG) {
@@ -930,9 +931,6 @@ public final class ElResolver {
         operators_ = new NatTreeMap<Integer,String>();
         NatTreeMap<Integer,Character> parsBrackets_;
         parsBrackets_ = new NatTreeMap<Integer,Character>();
-        boolean constString_ = false;
-        boolean constChar_ = false;
-        boolean escapedMeta_ = false;
         int prioMax_ = FCT_OPER_PRIO;
         int prio_ = prioMax_;
         int len_ = _string.length();
@@ -973,14 +971,17 @@ public final class ElResolver {
                 }
                 if (staticAccess_) {
                     OperationsSequence op_ = new OperationsSequence();
+                    op_.setConstType(ConstType.STATIC_ACCESS);
                     op_.setOperators(new NatTreeMap<Integer, String>());
                     op_.setupValues(_string);
                     op_.setDelimiter(_d);
                     return op_;
                 }
             }
-            if (StringList.quickEq(_string.substring(firstPrintChar_ + 1, len_), THIS)) {
+            String sub_ = _string.substring(firstPrintChar_ + 1, len_);
+            if (StringList.quickEq(sub_, THIS)) {
                 OperationsSequence op_ = new OperationsSequence();
+                op_.setConstType(ConstType.THIS_KEYWORD);
                 op_.setOperators(new NatTreeMap<Integer, String>());
                 op_.setupValues(_string);
                 op_.setDelimiter(_d);
@@ -1014,6 +1015,7 @@ public final class ElResolver {
                 }
                 if (!hatMethod_) {
                     OperationsSequence op_ = new OperationsSequence();
+                    op_.setConstType(ConstType.SUPER_KEYWORD);
                     op_.setOperators(new NatTreeMap<Integer, String>());
                     op_.setupValues(_string);
                     op_.setDelimiter(_d);
@@ -1044,6 +1046,7 @@ public final class ElResolver {
                 }
                 if (!hatMethod_) {
                     OperationsSequence op_ = new OperationsSequence();
+                    op_.setConstType(ConstType.CLASSCHOICE_KEYWORD);
                     op_.setOperators(new NatTreeMap<Integer, String>());
                     op_.setupValues(_string);
                     op_.setDelimiter(_d);
@@ -1051,8 +1054,34 @@ public final class ElResolver {
                 }
             }
         }
+        String sub_ = _string.substring(firstPrintChar_, lastPrintChar_ + 1);
+        if (StringList.quickEq(sub_, TRUE_STRING)) {
+            OperationsSequence op_ = new OperationsSequence();
+            op_.setConstType(ConstType.TRUE_CST);
+            op_.setOperators(new NatTreeMap<Integer, String>());
+            op_.setupValues(_string);
+            op_.setDelimiter(_d);
+            return op_;
+        }
+        if (StringList.quickEq(sub_, FALSE_STRING)) {
+            OperationsSequence op_ = new OperationsSequence();
+            op_.setConstType(ConstType.FALSE_CST);
+            op_.setOperators(new NatTreeMap<Integer, String>());
+            op_.setupValues(_string);
+            op_.setDelimiter(_d);
+            return op_;
+        }
+        if (StringList.quickEq(sub_, NULL_REF_STRING)) {
+            OperationsSequence op_ = new OperationsSequence();
+            op_.setConstType(ConstType.NULL_CST);
+            op_.setOperators(new NatTreeMap<Integer, String>());
+            op_.setupValues(_string);
+            op_.setDelimiter(_d);
+            return op_;
+        }
         if (isIntegerNumber(_string, firstPrintChar_, lastPrintChar_)) {
             OperationsSequence op_ = new OperationsSequence();
+            op_.setConstType(ConstType.INTEGER);
             op_.setOperators(new NatTreeMap<Integer, String>());
             op_.setupValues(_string);
             op_.setDelimiter(_d);
@@ -1060,6 +1089,15 @@ public final class ElResolver {
         }
         if (isFloatingNumber(_string, firstPrintChar_, lastPrintChar_)) {
             OperationsSequence op_ = new OperationsSequence();
+            op_.setConstType(ConstType.FLOAT_NUMBER);
+            op_.setOperators(new NatTreeMap<Integer, String>());
+            op_.setupValues(_string);
+            op_.setDelimiter(_d);
+            return op_;
+        }
+        if (isCustomField(_string, firstPrintChar_, lastPrintChar_)) {
+            OperationsSequence op_ = new OperationsSequence();
+            op_.setConstType(ConstType.CUST_FIELD);
             op_.setOperators(new NatTreeMap<Integer, String>());
             op_.setupValues(_string);
             op_.setDelimiter(_d);
@@ -1067,6 +1105,7 @@ public final class ElResolver {
         }
         if (isVariable(_string, firstPrintChar_, lastPrintChar_)) {
             OperationsSequence op_ = new OperationsSequence();
+            op_.setConstType(ConstType.VARIABLE);
             op_.setOperators(new NatTreeMap<Integer, String>());
             op_.setupValues(_string);
             op_.setDelimiter(_d);
@@ -1074,24 +1113,31 @@ public final class ElResolver {
         }
         if (isWord(_string, firstPrintChar_, lastPrintChar_)) {
             OperationsSequence op_ = new OperationsSequence();
+            op_.setConstType(ConstType.WORD);
             op_.setOperators(new NatTreeMap<Integer, String>());
             op_.setupValues(_string);
             op_.setDelimiter(_d);
             return op_;
         }
-        if (isConstant(_string, firstPrintChar_, lastPrintChar_, DELIMITER_CHAR)) {
-            OperationsSequence op_ = new OperationsSequence();
-            op_.setOperators(new NatTreeMap<Integer, String>());
-            op_.setupValues(_string);
-            op_.setDelimiter(_d);
-            return op_;
-        }
-        if (isConstant(_string, firstPrintChar_, lastPrintChar_, DELIMITER_STRING)) {
-            OperationsSequence op_ = new OperationsSequence();
-            op_.setOperators(new NatTreeMap<Integer, String>());
-            op_.setupValues(_string);
-            op_.setDelimiter(_d);
-            return op_;
+        int before_ = _d.getDelStringsChars().indexOfObj(firstPrintChar_+_offset);
+        int after_ = _d.getDelStringsChars().indexOfObj(lastPrintChar_+_offset);
+        if (before_ + 1 == after_) {
+            if (_string.charAt(firstPrintChar_) == DELIMITER_CHAR) {
+                OperationsSequence op_ = new OperationsSequence();
+                op_.setConstType(ConstType.CHARACTER);
+                op_.setOperators(new NatTreeMap<Integer, String>());
+                op_.setupValues(_string);
+                op_.setDelimiter(_d);
+                return op_;
+            }
+            if (_string.charAt(firstPrintChar_) == DELIMITER_STRING) {
+                OperationsSequence op_ = new OperationsSequence();
+                op_.setConstType(ConstType.STRING);
+                op_.setOperators(new NatTreeMap<Integer, String>());
+                op_.setupValues(_string);
+                op_.setDelimiter(_d);
+                return op_;
+            }
         }
         while (true) {
             if (!StringList.isWordChar(_string.charAt(i_))) {
@@ -1129,51 +1175,17 @@ public final class ElResolver {
         }
         boolean useFct_ = false;
         String fctName_ = EMPTY_STRING;
+        int quoted_ = 0;
         while (i_ < len_) {
             char curChar_ = _string.charAt(i_);
-            if (constChar_) {
-                if (!escapedMeta_) {
-                    if (curChar_ == ESCAPE_META_CHAR) {
-                        escapedMeta_ = true;
-                        i_++;
-                        continue;
-                    }
-                    if (curChar_ == DELIMITER_CHAR) {
-                        constChar_ = false;
-                        i_++;
-                        continue;
-                    }
-                    i_++;
-                    continue;
-                }
-                escapedMeta_ = false;
+            if (_d.getDelStringsChars().containsObj(i_+_offset)) {
+                quoted_++;
                 i_++;
                 continue;
             }
-            if (constString_) {
-                if (!escapedMeta_) {
-                    if (curChar_ == ESCAPE_META_CHAR) {
-                        escapedMeta_ = true;
-                        i_++;
-                        continue;
-                    }
-                    if (curChar_ == DELIMITER_STRING) {
-                        constString_ = false;
-                        i_++;
-                        continue;
-                    }
-                    i_++;
-                    continue;
-                }
-                escapedMeta_ = false;
+            if (quoted_ % 2 == 1) {
                 i_++;
                 continue;
-            }
-            if (curChar_ == DELIMITER_CHAR) {
-                constChar_ = true;
-            }
-            if (curChar_ == DELIMITER_STRING) {
-                constString_ = true;
             }
             if (StringList.isWordChar(curChar_)) {
                 while (i_ < len_) {
@@ -1206,11 +1218,11 @@ public final class ElResolver {
                     if (parsBrackets_.isEmpty()) {
                         if (ARR_OPER_PRIO < prio_) {
                             prio_ = ARR_OPER_PRIO;
-                            operators_.clear();
                             useFct_ = false;
                             fctName_ = EMPTY_STRING;
                         }
                         if (ARR_OPER_PRIO <= prio_) {
+                            operators_.clear();
                             operators_.put(i_, ARR);
                         }
                     }
@@ -1231,10 +1243,10 @@ public final class ElResolver {
                     if (curChar_ == DOT_VAR) {
                         builtOperator_ += DOT_VAR;
                         if (prio_ > DOT_PRIO) {
-                            clearOperators_ = true;
                             prio_ = DOT_PRIO;
                         }
                         if (prio_ == DOT_PRIO) {
+                            clearOperators_ = true;
                             foundOperator_ = true;
                         }
                     }
@@ -1257,6 +1269,17 @@ public final class ElResolver {
                             increment_ = getIncrement(_string, nextChar_ == EQ_CHAR, i_+1, lastPrintChar_);
                         }
                     }
+                    if (curChar_ == EQ_CHAR) {
+                        builtOperator_ += EQ_CHAR;
+                        if (prio_ > EQ_PRIO) {
+                            clearOperators_ = true;
+                            prio_ = EQ_PRIO;
+                        }
+                        if (prio_ == EQ_PRIO) {
+                            foundOperator_ = true;
+                        }
+                        increment_ = getIncrement(_string, false, i_+1, lastPrintChar_);
+                    }
                     int prioOpMult_ = 0;
                     if (curChar_ == MINUS_CHAR || curChar_ == PLUS_CHAR) {
                         prioOpMult_ = ADD_PRIO;
@@ -1264,8 +1287,6 @@ public final class ElResolver {
                         prioOpMult_ = MULT_PRIO;
                     } else if (curChar_ == AND_CHAR) {
                         prioOpMult_ = AND_PRIO;
-                    } else if (curChar_ == EQ_CHAR) {
-                        prioOpMult_ = EQ_PRIO;
                     } else if (curChar_ == OR_CHAR) {
                         prioOpMult_ = OR_PRIO;
                     }
@@ -1278,10 +1299,10 @@ public final class ElResolver {
                             }
                         } else {
                             if (prio_ > prioOpMult_) {
-                                clearOperators_ = true;
                                 prio_ = prioOpMult_;
                             }
                             if (prio_ == prioOpMult_) {
+                                clearOperators_ = true;
                                 foundOperator_ = true;
                             }
                         }
@@ -1403,6 +1424,16 @@ public final class ElResolver {
         }
         return true;
     }
+    static boolean isCustomField(String _string, int _from, int _to) {
+        int i_ = _from;
+        while (i_ <= _to) {
+            if (!StringList.isWordChar(_string.charAt(i_))) {
+                return StringList.quickEq(_string.substring(i_, _to +1),GET_FIELD);
+            }
+            i_++;
+        }
+        return false;
+    }
     static boolean isVariable(String _string, int _from, int _to) {
         int i_ = _from;
         boolean var_ = false;
@@ -1435,32 +1466,6 @@ public final class ElResolver {
                 return false;
             }
             i_++;
-        }
-        return true;
-    }
-    static boolean isConstant(String _string, int _from, int _to, char _delimiter) {
-        int i_ = _from;
-        if (_string.charAt(i_) != _delimiter) {
-            return false;
-        }
-        i_++;
-        boolean escaped_ = false;
-        while (i_ < _to) {
-            if (escaped_) {
-                i_++;
-                escaped_ = false;
-                continue;
-            }
-            if (_string.charAt(i_) == ESCAPE_META_CHAR) {
-                escaped_ = true;
-            }
-            if (_string.charAt(i_) == _delimiter) {
-                return false;
-            }
-            i_++;
-        }
-        if (_string.charAt(_to) != _delimiter) {
-            return false;
         }
         return true;
     }

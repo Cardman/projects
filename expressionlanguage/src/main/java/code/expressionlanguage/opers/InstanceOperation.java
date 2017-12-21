@@ -74,9 +74,9 @@ public final class InstanceOperation extends InvokingOperation {
 
     private String lastType = EMPTY_STRING;
 
-    public InstanceOperation(int _index, ContextEl _importingPage,
+    public InstanceOperation(int _index,
             int _indexChild, MethodOperation _m, OperationsSequence _op) {
-        super(_index, _importingPage, _indexChild, _m, _op);
+        super(_index, _indexChild, _m, _op);
         methodName = getOperations().getFctName();
     }
 

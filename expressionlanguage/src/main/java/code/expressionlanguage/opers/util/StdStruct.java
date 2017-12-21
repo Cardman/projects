@@ -1,6 +1,7 @@
 package code.expressionlanguage.opers.util;
 
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.CustomError;
 import code.expressionlanguage.PrimitiveTypeUtil;
 import code.expressionlanguage.types.NativeTypeUtil;
 import code.util.ObjectMap;
@@ -17,6 +18,11 @@ public final class StdStruct extends Struct {
     }
 
     public StdStruct(Object _instance, String _className) {
+        instance = _instance;
+        className = _className;
+    }
+
+    public StdStruct(CustomError _instance, String _className) {
         instance = _instance;
         className = _className;
     }

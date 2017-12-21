@@ -22,9 +22,9 @@ public final class CmpOperation extends PrimitiveBoolOperation {
 
     private boolean stringCompare;
 
-    public CmpOperation(int _index, ContextEl _importingPage,
+    public CmpOperation(int _index,
             int _indexChild, MethodOperation _m, OperationsSequence _op) {
-        super(_index, _importingPage, _indexChild, _m, _op);
+        super(_index, _indexChild, _m, _op);
     }
 
     static Argument calculateLower(Argument _a, boolean _strCmp, Argument _b, ContextEl _context) {

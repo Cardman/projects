@@ -108,8 +108,6 @@ public abstract class Block extends Blockable {
 
     private BracedBlock parent;
 
-    private ContextEl conf;
-
     private final int indexChild;
     private int indexGroup;
 
@@ -132,10 +130,9 @@ public abstract class Block extends Blockable {
 
     private StringMap<NatTreeMap<Integer,Integer>> encoded;
 
-    Block(Element _el, ContextEl _importingPage, int _indexChild, BracedBlock _m) {
+    Block(Element _el,int _indexChild, BracedBlock _m) {
         associateElement = _el;
         parent = _m;
-        conf = _importingPage;
         indexChild = _indexChild;
         searching = new SearchingReturnThrow();
     }
@@ -741,12 +738,6 @@ public abstract class Block extends Blockable {
         RowCol rc_ = getRowColBeginElt(_conf.getHtml(), 0, _conf.getTabWidth(), _el);
         throw new UnknownBlockException(_el.getTagName(), rc_);
     }
-    protected final ContextEl getConf() {
-        return conf;
-    }
-    public final void setConf(ContextEl _conf) {
-        conf = _conf;
-    }
     public final Element getAssociateElement() {
         return associateElement;
     }
@@ -772,16 +763,16 @@ public abstract class Block extends Blockable {
     public final int getIndexChild() {
         return indexChild;
     }
-    public final void setupMetrics() {
-        String html_ = getConf().getHtml();
-        int tabWidth_ = getConf().getTabWidth();
-        ElementOffsetsNext e_ = getConf().getElements();
+    public final void setupMetrics(ContextEl _context) {
+        String html_ = _context.getHtml();
+        int tabWidth_ = _context.getTabWidth();
+        ElementOffsetsNext e_ = _context.getElements();
         ElementOffsetsNext ne_ = DocumentBuilder.getIndexesOfElementOrAttribute(html_, e_, associateElement, tabWidth_);
         setAttributes(ne_.getAttributes());
         setEndHeader(ne_.getEndHeader());
         setTabs(ne_.getTabs());
         setOffsets(ne_.getOffsets());
-        getConf().setElements(ne_);
+        _context.setElements(ne_);
     }
     final void setNextSibling(Block _nextSibling) {
         nextSibling = _nextSibling;

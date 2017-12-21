@@ -253,13 +253,11 @@ public class ElResolverTest {
         Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
         NatTreeMap<Integer,String> opers_ = seq_.getOperators();
-        assertEq(2, opers_.size());
-        assertEq("+", opers_.getVal(31));
+        assertEq(1, opers_.size());
         assertEq("-", opers_.getVal(33));
         NatTreeMap<Integer,String> values_ = seq_.getValues();
-        assertEq(3, values_.size());
-        assertEq("abs($vararg(\""+ARR_INT+"\"),'[').abs(4,3)", values_.getVal(0));
-        assertEq("8", values_.getVal(32));
+        assertEq(2, values_.size());
+        assertEq("abs($vararg(\""+ARR_INT+"\"),'[').abs(4,3)+8", values_.getVal(0));
         assertEq("9", values_.getVal(34));
         assertEq(ElResolver.ADD_PRIO, seq_.getPriority());
     }
@@ -482,16 +480,13 @@ public class ElResolverTest {
         Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
         NatTreeMap<Integer,String> opers_ = seq_.getOperators();
-        assertEq(4, opers_.size());
-        assertEq("[", opers_.getVal(8));
-        assertEq("]", opers_.getVal(11));
+        assertEq(2, opers_.size());
         assertEq("[", opers_.getVal(12));
         assertEq("]", opers_.getVal(14));
         assertEq(9, seq_.getPriority());
         NatTreeMap<Integer,String> values_ = seq_.getValues();
-        assertEq(3, values_.size());
-        assertEq("abs(4,3)", values_.getVal(0));
-        assertEq("14", values_.getVal(9));
+        assertEq(2, values_.size());
+        assertEq("abs(4,3)[14]", values_.getVal(0));
         assertEq("5", values_.getVal(13));
         assertEq(ElResolver.ARR_OPER_PRIO, seq_.getPriority());
     }
@@ -623,13 +618,11 @@ public class ElResolverTest {
         Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
         NatTreeMap<Integer,String> opers_ = seq_.getOperators();
-        assertEq(2, opers_.size());
-        assertEq("", opers_.getVal(5));
+        assertEq(1, opers_.size());
         assertEq(".", opers_.getVal(11));
         NatTreeMap<Integer,String> values_ = seq_.getValues();
-        assertEq(3, values_.size());
-        assertEq("var;.", values_.getVal(0));
-        assertEq("call()", values_.getVal(5));
+        assertEq(2, values_.size());
+        assertEq("var;.call()", values_.getVal(0));
         assertEq("call()", values_.getVal(12));
     
         assertEq(ElResolver.DOT_PRIO, seq_.getPriority());
@@ -646,13 +639,11 @@ public class ElResolverTest {
         Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
         NatTreeMap<Integer,String> opers_ = seq_.getOperators();
-        assertEq(2, opers_.size());
-        assertEq("", opers_.getVal(6));
+        assertEq(1, opers_.size());
         assertEq(".", opers_.getVal(12));
         NatTreeMap<Integer,String> values_ = seq_.getValues();
-        assertEq(3, values_.size());
-        assertEq("var;.;", values_.getVal(0));
-        assertEq("call()", values_.getVal(6));
+        assertEq(2, values_.size());
+        assertEq("var;.;call()", values_.getVal(0));
         assertEq("call()", values_.getVal(13));
         assertEq(ElResolver.DOT_PRIO, seq_.getPriority());
     }
@@ -667,13 +658,11 @@ public class ElResolverTest {
         Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
         NatTreeMap<Integer,String> opers_ = seq_.getOperators();
-        assertEq(2, opers_.size());
-        assertEq("", opers_.getVal(5));
+        assertEq(1, opers_.size());
         assertEq(".", opers_.getVal(11));
         NatTreeMap<Integer,String> values_ = seq_.getValues();
-        assertEq(3, values_.size());
-        assertEq("var;;", values_.getVal(0));
-        assertEq("call()", values_.getVal(5));
+        assertEq(2, values_.size());
+        assertEq("var;;call()", values_.getVal(0));
         assertEq("call()", values_.getVal(12));
     
         assertEq(ElResolver.DOT_PRIO, seq_.getPriority());
@@ -689,13 +678,11 @@ public class ElResolverTest {
         Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
         NatTreeMap<Integer,String> opers_ = seq_.getOperators();
-        assertEq(2, opers_.size());
-        assertEq("", opers_.getVal(4));
+        assertEq(1, opers_.size());
         assertEq(".", opers_.getVal(10));
         NatTreeMap<Integer,String> values_ = seq_.getValues();
-        assertEq(3, values_.size());
-        assertEq("var;", values_.getVal(0));
-        assertEq("call()", values_.getVal(4));
+        assertEq(2, values_.size());
+        assertEq("var;call()", values_.getVal(0));
         assertEq("call()", values_.getVal(11));
     
         assertEq(ElResolver.DOT_PRIO, seq_.getPriority());
@@ -2153,13 +2140,11 @@ public class ElResolverTest {
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
         NatTreeMap<Integer,String> opers_ = seq_.getOperators();
 //        assertEq(0, opers_.size());
-        assertEq(2, opers_.size());
-        assertEq("", opers_.getVal(3));
+        assertEq(1, opers_.size());
         assertEq(".", opers_.getVal(7));
         NatTreeMap<Integer,String> values_ = seq_.getValues();
-        assertEq(3, values_.size());
-        assertEq("v;.", values_.getVal(0));
-        assertEq("news", values_.getVal(3));
+        assertEq(2, values_.size());
+        assertEq("v;.news", values_.getVal(0));
         assertEq("a()", values_.getVal(8));
     
         assertEq(ElResolver.DOT_PRIO, seq_.getPriority());
@@ -2890,7 +2875,9 @@ public class ElResolverTest {
         addBean(conf_, b_);
         String el_ = "{6*('\\u9fcb'+8)}";
         Delimiters d_ = ElResolver.checkSyntaxDelimiters(el_, conf_, 1, '{', '}');
-        assertEq(10, d_.getDelimitersStringsChars().getVal(3).intValue());
+        assertEq(2, d_.getDelStringsChars().size());
+        assertEq(4, d_.getDelStringsChars().first().intValue());
+        assertEq(11, d_.getDelStringsChars().last().intValue());
         assertEq(1, d_.getIndexBegin());
         assertEq(14, d_.getIndexEnd());
     }
@@ -2903,7 +2890,9 @@ public class ElResolverTest {
         addBean(conf_, b_);
         String el_ = "`6*('\\u9fcb'+8)`";
         Delimiters d_ = ElResolver.checkSyntaxDelimiters(el_, conf_, 1, '`', '`');
-        assertEq(10, d_.getDelimitersStringsChars().getVal(3).intValue());
+        assertEq(2, d_.getDelStringsChars().size());
+        assertEq(4, d_.getDelStringsChars().first().intValue());
+        assertEq(11, d_.getDelStringsChars().last().intValue());
         assertEq(1, d_.getIndexBegin());
         assertEq(14, d_.getIndexEnd());
     }
@@ -2916,8 +2905,9 @@ public class ElResolverTest {
         addBean(conf_, b_);
         String el_ = "`6*('`'+8)`";
         Delimiters d_ = ElResolver.checkSyntaxDelimiters(el_, conf_, 1, '`', '`');
-//        assertEq(9, ElResolver.checkSyntaxDelimiters(el_, conf_, 1, '`', '`').getIndexEnd());
-        assertEq(5, d_.getDelimitersStringsChars().getVal(3).intValue());
+        assertEq(2, d_.getDelStringsChars().size());
+        assertEq(4, d_.getDelStringsChars().first().intValue());
+        assertEq(6, d_.getDelStringsChars().last().intValue());
         assertEq(1, d_.getIndexBegin());
         assertEq(9, d_.getIndexEnd());
     }
@@ -2930,8 +2920,9 @@ public class ElResolverTest {
         addBean(conf_, b_);
         String el_ = "{6*('}'+8)}";
         Delimiters d_ = ElResolver.checkSyntaxDelimiters(el_, conf_, 1, '{', '}');
-//        assertEq(9, ElResolver.checkSyntaxDelimiters(el_, conf_, 1, '{', '}').getIndexEnd());
-        assertEq(5, d_.getDelimitersStringsChars().getVal(3).intValue());
+        assertEq(2, d_.getDelStringsChars().size());
+        assertEq(4, d_.getDelStringsChars().first().intValue());
+        assertEq(6, d_.getDelStringsChars().last().intValue());
         assertEq(1, d_.getIndexBegin());
         assertEq(9, d_.getIndexEnd());
     }
@@ -2944,8 +2935,9 @@ public class ElResolverTest {
         addBean(conf_, b_);
         String el_ = " {6*('\\u9fcb'+8)}";
         Delimiters d_ = ElResolver.checkSyntaxDelimiters(el_, conf_, 2, '{', '}');
-        assertEq(10, d_.getDelimitersStringsChars().getVal(3).intValue());
-        assertEq(13, d_.getCallings().getVal(2).intValue());
+        assertEq(2, d_.getDelStringsChars().size());
+        assertEq(5, d_.getDelStringsChars().first().intValue());
+        assertEq(12, d_.getDelStringsChars().last().intValue());
         assertEq(2, d_.getIndexBegin());
         assertEq(15, d_.getIndexEnd());
     }
@@ -2958,8 +2950,9 @@ public class ElResolverTest {
         addBean(conf_, b_);
         String el_ = " {6*(\"//\"+8)}";
         Delimiters d_ = ElResolver.checkSyntaxDelimiters(el_, conf_, 2, '{', '}');
-        assertEq(6, d_.getDelimitersStringsChars().getVal(3).intValue());
-        assertEq(9, d_.getCallings().getVal(2).intValue());
+        assertEq(2, d_.getDelStringsChars().size());
+        assertEq(5, d_.getDelStringsChars().first().intValue());
+        assertEq(8, d_.getDelStringsChars().last().intValue());
         assertEq(2, d_.getIndexBegin());
         assertEq(11, d_.getIndexEnd());
     }

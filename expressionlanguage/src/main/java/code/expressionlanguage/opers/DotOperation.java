@@ -2,7 +2,6 @@ package code.expressionlanguage.opers;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.OperationsSequence;
-import code.expressionlanguage.exceptions.BadNumberValuesException;
 import code.expressionlanguage.methods.util.ArgumentsPair;
 import code.expressionlanguage.opers.util.ConstructorId;
 import code.util.CustList;
@@ -12,9 +11,9 @@ import code.util.exceptions.NullObjectException;
 
 public final class DotOperation extends MethodOperation {
 
-    public DotOperation(int _index, ContextEl _importingPage,
+    public DotOperation(int _index,
             int _indexChild, MethodOperation _m, OperationsSequence _op) {
-        super(_index, _importingPage, _indexChild, _m, _op);
+        super(_index, _indexChild, _m, _op);
     }
 
     @Override
@@ -25,10 +24,6 @@ public final class DotOperation extends MethodOperation {
 
     void analyzeCommon(CustList<OperationNode> _nodes, ContextEl _conf, String _op) {
         CustList<OperationNode> chidren_ = getChildrenNodes();
-        if (chidren_.size() < 2) {
-            setRelativeOffsetPossibleLastPage(getIndexInEl(), _conf);
-            throw new BadNumberValuesException(_conf.joinPages());
-        }
         setResultClass(chidren_.last().getResultClass());
     }
 

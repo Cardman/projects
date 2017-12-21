@@ -1305,7 +1305,6 @@ public class ElUtilTest {
         context_.getLastPage().getLocalVars().putAllMap(localVars_);
         Argument arg_ = ElUtil.processEl("$new "+ARR_INT+"(1i)[0i]",0, context_);
         Object res_ = arg_.getObject();
-        //TODO check
         assertSame(Integer.class, res_.getClass());
         assertEq(0, (Number)res_);
     }
@@ -1916,16 +1915,14 @@ public class ElUtilTest {
         ElUtil.processEl("$static$"+COMPOSITE_HAT+".int$$eger",0, context_);
     }
 
-    @Ignore
-    @Test(expected=ErrorCausingException.class)
+    @Test(expected=InvokeException.class)
     public void processEl14FailTest() {
         ContextEl context_ = contextEl();
         addImportingPage(context_);
         ElUtil.processEl("$static$"+STRANGE_INIT_HAT+".NOT_READ",0, context_);
     }
 
-    @Ignore
-    @Test(expected=ErrorCausingException.class)
+    @Test(expected=InvokeException.class)
     public void processEl15FailTest() {
         ContextEl context_ = contextEl();
         addImportingPage(context_);
@@ -1940,15 +1937,13 @@ public class ElUtilTest {
         ElUtil.processEl("$new "+STRANGE_INIT+"()",0, context_);
     }
 
-    @Ignore
     @Test(expected=InvokeException.class)
     public void processEl17FailTest() {
         ContextEl context_ = contextEl();
         addImportingPage(context_);
         ElUtil.processEl("$static$"+FAIL_METHODS_HAT+".fail()",0, context_);
     }
-    
-    @Ignore
+
     @Test(expected=InvokeException.class)
     public void processEl18FailTest() {
         ContextEl context_ = contextEl();
@@ -2360,14 +2355,14 @@ public class ElUtilTest {
         addImportingPage(context_);
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
         LocalVariable lv_ = new LocalVariable();
-        ArrayContainer[] c_ = new ArrayContainer[1];
-        c_[0] = new ArrayContainer();
-        lv_.setStruct(new StdStruct(c_));
+        Struct[] c_ = new Struct[1];
+        c_[0] = new StdStruct(new ArrayContainer(),ArrayContainer.class.getName());
+        lv_.setStruct(new CustStruct(c_, "["+ArrayContainer.class.getName()));
         lv_.setClassName("["+ArrayContainer.class.getName());
         localVars_.put("v", lv_);
         context_.getLastPage().getLocalVars().putAllMap(localVars_);
         ElUtil.processAffect("","","","v;.[0i].array[0i]", "1i", "=",context_);
-        assertEq(1, c_[0].getArray()[0]);
+        assertEq(1,((ArrayContainer)c_[0].getInstance()).getArray()[0]);
     }
 
     @Ignore
@@ -2377,14 +2372,14 @@ public class ElUtilTest {
         addImportingPage(context_);
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
         LocalVariable lv_ = new LocalVariable();
-        ArrayContainer[] c_ = new ArrayContainer[1];
-        c_[0] = new ArrayContainer();
-        lv_.setStruct(new StdStruct(c_));
+        Struct[] c_ = new Struct[1];
+        c_[0] = new StdStruct(new ArrayContainer(),ArrayContainer.class.getName());
+        lv_.setStruct(new CustStruct(c_, "["+ArrayContainer.class.getName()));
         lv_.setClassName("["+ArrayContainer.class.getName());
         localVars_.put("v", lv_);
         context_.getLastPage().getLocalVars().putAllMap(localVars_);
         ElUtil.processAffect("","","","v;.[0i].getArray()[0i]", "1i", "=",context_);
-        assertEq(1, c_[0].getArray()[0]);
+        assertEq(1,((ArrayContainer)c_[0].getInstance()).getArray()[0]);
     }
 
     @Ignore
@@ -2394,14 +2389,14 @@ public class ElUtilTest {
         addImportingPage(context_);
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
         LocalVariable lv_ = new LocalVariable();
-        ArrayContainer[] c_ = new ArrayContainer[1];
-        c_[0] = new ArrayContainer();
-        lv_.setStruct(new StdStruct(c_));
+        Struct[] c_ = new Struct[1];
+        c_[0] = new StdStruct(new ArrayContainer(),ArrayContainer.class.getName());
+        lv_.setStruct(new CustStruct(c_, "["+ArrayContainer.class.getName()));
         lv_.setClassName("["+ArrayContainer.class.getName());
         localVars_.put("v", lv_);
         context_.getLastPage().getLocalVars().putAllMap(localVars_);
         ElUtil.processAffect("","","","v;.[0i].getCompo()[0i].getArray()[0i]", "1i", "=",context_);
-        assertEq(1, c_[0].getCompo()[0].getArray()[0]);
+        assertEq(1, ((ArrayContainer)c_[0].getInstance()).getCompo()[0].getArray()[0]);
     }
 
     @Ignore
@@ -2452,7 +2447,7 @@ public class ElUtilTest {
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
         LocalVariable lv_ = new LocalVariable();
         ArrayContainer c_ = new ArrayContainer();
-        lv_.setStruct(new StdStruct(c_));
+        lv_.setStruct(new StdStruct(c_,ArrayContainer.class.getName()));
         lv_.setClassName(ArrayContainer.class.getName());
         localVars_.put("v", lv_);
         context_.getLastPage().getLocalVars().putAllMap(localVars_);
@@ -2468,7 +2463,7 @@ public class ElUtilTest {
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
         LocalVariable lv_ = new LocalVariable();
         ArrayContainer c_ = new ArrayContainer();
-        lv_.setStruct(new StdStruct(c_));
+        lv_.setStruct(new StdStruct(c_,ArrayContainer.class.getName()));
         lv_.setClassName(ArrayContainer.class.getName());
         localVars_.put("v", lv_);
         context_.getLastPage().getLocalVars().putAllMap(localVars_);

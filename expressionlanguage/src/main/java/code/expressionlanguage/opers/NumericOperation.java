@@ -4,7 +4,6 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.CustomError;
 import code.expressionlanguage.OperationsSequence;
 import code.expressionlanguage.PrimitiveTypeUtil;
-import code.expressionlanguage.exceptions.BadNumberValuesException;
 import code.expressionlanguage.exceptions.InvokeException;
 import code.expressionlanguage.exceptions.InvokeRedinedMethException;
 import code.expressionlanguage.exceptions.NotNumberException;
@@ -16,28 +15,28 @@ import code.expressionlanguage.opers.util.ResultOperand;
 import code.expressionlanguage.opers.util.StdStruct;
 import code.expressionlanguage.stds.LgNames;
 import code.util.CustList;
-import code.util.EntryCust;
 import code.util.IdMap;
 import code.util.NatTreeMap;
 import code.util.StringList;
+import code.util.exceptions.NullObjectException;
 
 public abstract class NumericOperation extends MethodOperation {
 
     private static final String FIRST = "first";
     private static final String SECOND = "second";
 
-    public NumericOperation(int _index, ContextEl _importingPage,
+    public NumericOperation(int _index,
             int _indexChild, MethodOperation _m, OperationsSequence _op) {
-        super(_index, _importingPage, _indexChild, _m, _op);
+        super(_index, _indexChild, _m, _op);
     }
 
-    static Argument calculateAffect(Argument _left,ContextEl _conf, Argument _right, String _op, boolean _catChars, boolean _catString) {
+    static Argument calculateAffect(Argument _left,ContextEl _conf, Argument _right, String _op, boolean _catString) {
         Argument o_;
         boolean convert_ = true;
         if (StringList.quickEq(_op, Block.PLUS_EQ)) {
-            o_ = NumericOperation.calculateSum(_left, _conf, _right, _catChars, _catString);
+            o_ = NumericOperation.calculateSum(_left, _conf, _right, false, _catString);
         } else if (StringList.quickEq(_op, Block.EQ_PLUS)) {
-            o_ = NumericOperation.calculateSum(_right, _conf, _left, _catChars, _catString);
+            o_ = NumericOperation.calculateSum(_right, _conf, _left, false, _catString);
         } else if (StringList.quickEq(_op, Block.MINUS_EQ)) {
             o_ = NumericOperation.calculateDiff(_left, _conf, _right);
         } else if (StringList.quickEq(_op, Block.EQ_MINUS)) {
@@ -862,21 +861,14 @@ public abstract class NumericOperation extends MethodOperation {
 
     final void analyzeCommon(CustList<OperationNode> _nodes, ContextEl _conf, String _op) {
         CustList<OperationNode> chidren_ = getChildrenNodes();
-        if (chidren_.size() < 2) {
-            setRelativeOffsetPossibleLastPage(getIndexInEl(), _conf);
-            throw new BadNumberValuesException(_conf.joinPages());
-        }
         ClassArgumentMatching a_ = chidren_.first().getResultClass();
         ResultOperand r_;
-        int i_ = CustList.SECOND_INDEX;
-        for (EntryCust<Integer, String> e: getOperations().getOperators().entryList()) {
-            ClassArgumentMatching c_ = chidren_.get(i_).getResultClass();
-            setRelativeOffsetPossibleLastPage(getIndexInEl()+e.getKey(), _conf);
-            r_ = analyzeOper(a_, e.getValue(), c_, _conf);
-            setCatenize(r_);
-            a_ = r_.getResult();
-            i_++;
-        }
+        NatTreeMap<Integer, String> ops_ = getOperations().getOperators();
+        ClassArgumentMatching c_ = chidren_.last().getResultClass();
+        setRelativeOffsetPossibleLastPage(getIndexInEl()+ops_.firstKey(), _conf);
+        r_ = analyzeOper(a_, ops_.firstValue(), c_, _conf);
+        setCatenize(r_);
+        a_ = r_.getResult();
         setResultClass(a_);
     }
     abstract ResultOperand analyzeOper(ClassArgumentMatching _a, String _op, ClassArgumentMatching _b, ContextEl _cont);
@@ -894,16 +886,13 @@ public abstract class NumericOperation extends MethodOperation {
         CustList<OperationNode> chidren_ = getChildrenNodes();
         OperationNode o_ = chidren_.first();
         Argument a_ = _nodes.getVal(o_).getArgument();
+        NatTreeMap<Integer, String> ops_ = getOperations().getOperators();
+        o_ = chidren_.last();
+        Argument c_ = _nodes.getVal(o_).getArgument();
+        setRelativeOffsetPossibleLastPage(getIndexInEl()+ops_.firstKey(), _conf);
         Argument r_;
-        int i_ = CustList.SECOND_INDEX;
-        for (EntryCust<Integer, String> e: getOperations().getOperators().entryList()) {
-            o_ = chidren_.get(i_);
-            Argument c_ = _nodes.getVal(o_).getArgument();
-            setRelativeOffsetPossibleLastPage(getIndexInEl()+e.getKey(), _conf);
-            r_ = calculateOper(a_, e.getValue(), c_, _conf);
-            a_ = r_;
-            i_++;
-        }
+        r_ = calculateOper(a_, ops_.firstValue(), c_, _conf);
+        a_ = r_;
         setSimpleArgument(a_, _conf, _nodes);
         return a_;
     }
@@ -918,15 +907,12 @@ public abstract class NumericOperation extends MethodOperation {
     final void calculateCommon(CustList<OperationNode> _nodes, ContextEl _conf, String _op) {
         CustList<OperationNode> chidren_ = getChildrenNodes();
         Argument a_ = chidren_.first().getArgument();
+        NatTreeMap<Integer, String> ops_ = getOperations().getOperators();
+        Argument c_ = chidren_.last().getArgument();
+        setRelativeOffsetPossibleLastPage(getIndexInEl()+ops_.firstKey(), _conf);
         Argument r_;
-        int i_ = CustList.SECOND_INDEX;
-        for (EntryCust<Integer, String> e: getOperations().getOperators().entryList()) {
-            Argument c_ = chidren_.get(i_).getArgument();
-            setRelativeOffsetPossibleLastPage(getIndexInEl()+e.getKey(), _conf);
-            r_ = calculateOper(a_, e.getValue(), c_, _conf);
-            a_ = r_;
-            i_++;
-        }
+        r_ = calculateOper(a_, ops_.firstValue(), c_, _conf);
+        a_ = r_;
         setSimpleArgument(a_, _conf);
     }
 

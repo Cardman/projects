@@ -182,8 +182,6 @@ public abstract class OperationNode {
 
     private MethodOperation parent;
 
-    private OperationNode previousSibling;
-
     private OperationNode nextSibling;
 
     private Argument previousArgument;
@@ -196,8 +194,6 @@ public abstract class OperationNode {
 
     private int order = CustList.INDEX_NOT_FOUND_ELT;
 
-    private ContextEl conf;
-
     private final int indexChild;
 
     private boolean vararg;
@@ -209,11 +205,10 @@ public abstract class OperationNode {
     private boolean staticAccess;
     private boolean staticBlock;
 
-    OperationNode(int _indexInEl, ContextEl _importingPage, int _indexChild, MethodOperation _m, OperationsSequence _op) {
+    OperationNode(int _indexInEl, int _indexChild, MethodOperation _m, OperationsSequence _op) {
         parent = _m;
         indexInEl = _indexInEl;
         operations = _op;
-        conf = _importingPage;
         indexChild = _indexChild;
     }
 
@@ -232,74 +227,80 @@ public abstract class OperationNode {
         _cont.getLastPage().addToOffset(_offset);
     }
 
-    public static OperationNode createOperationNode(int _index, ContextEl _conf,
+    public static OperationNode createOperationNode(int _index,
             int _indexChild, MethodOperation _m, OperationsSequence _op) {
         if (_op.getOperators().isEmpty()) {
-            return new ConstantOperation(_index, _conf, _indexChild, _m, _op);
+            return new ConstantOperation(_index, _indexChild, _m, _op);
         }
         if (_op.getPriority() == ElResolver.FCT_OPER_PRIO) {
             String fctName_ = _op.getFctName().trim();
             if (fctName_.isEmpty()) {
-                return new IdOperation(_index, _conf, _indexChild, _m, _op);
+                return new IdOperation(_index, _indexChild, _m, _op);
             }
             if (fctName_.startsWith(EXTERN_CLASS+INSTANCE)) {
-                return new InstanceOperation(_index, _conf, _indexChild, _m, _op);
+                return new InstanceOperation(_index, _indexChild, _m, _op);
             }
-            return new FctOperation(_index, _conf, _indexChild, _m, _op);
+            return new FctOperation(_index, _indexChild, _m, _op);
         }
         if (_op.getPriority() == ElResolver.ARR_OPER_PRIO) {
-            return new ArrOperation(_index, _conf, _indexChild, _m, _op);
+            return new ArrOperation(_index, _indexChild, _m, _op);
         }
         if (_op.getPriority() == ElResolver.DOT_PRIO) {
-            return new DotOperation(_index, _conf, _indexChild, _m, _op);
+            return new DotOperation(_index, _indexChild, _m, _op);
         }
         if (_op.getPriority() == ElResolver.UNARY_PRIO) {
             int key_ = _op.getOperators().firstKey();
             if (StringList.quickEq(_op.getOperators().getVal(key_).trim(), NEG_BOOL)) {
-                return new UnaryBooleanOperation(_index, _conf, _indexChild, _m, _op);
+                return new UnaryBooleanOperation(_index, _indexChild, _m, _op);
             }
-            return new UnaryOperation(_index, _conf, _indexChild, _m, _op);
+            return new UnaryOperation(_index, _indexChild, _m, _op);
         }
         if (_op.getPriority() == ElResolver.MULT_PRIO) {
-            return new MultOperation(_index, _conf, _indexChild, _m, _op);
+            return new MultOperation(_index, _indexChild, _m, _op);
         }
         if (_op.getPriority() == ElResolver.ADD_PRIO) {
-            return new AddOperation(_index, _conf, _indexChild, _m, _op);
+            return new AddOperation(_index, _indexChild, _m, _op);
         }
         if (_op.getPriority() == ElResolver.CMP_PRIO) {
-            return new CmpOperation(_index, _conf, _indexChild, _m, _op);
+            return new CmpOperation(_index, _indexChild, _m, _op);
         }
         if (_op.getPriority() == ElResolver.EQ_PRIO) {
-            return new EqOperation(_index, _conf, _indexChild, _m, _op);
+            return new EqOperation(_index, _indexChild, _m, _op);
         }
         if (_op.getPriority() == ElResolver.AND_PRIO) {
-            return new AndOperation(_index, _conf, _indexChild, _m, _op);
+            return new AndOperation(_index, _indexChild, _m, _op);
         }
         if (_op.getPriority() == ElResolver.OR_PRIO) {
-            return new OrOperation(_index, _conf, _indexChild, _m, _op);
+            return new OrOperation(_index, _indexChild, _m, _op);
         }
         return null;
     }
 
     final boolean isIntermediateDotted() {
         MethodOperation par_ = getParent();
-        if (par_ instanceof ArrOperation && isFirstChild()) {
-            return par_.isSimpleIntermediateDotted();
+        OperationNode cur_ = this;
+        MethodOperation curPar_ = par_;
+        boolean intermediate_ = false;
+        while (true) {
+            if (curPar_ instanceof ArrOperation) {
+                if (cur_.isFirstChild()) {
+                    cur_ = curPar_;
+                    curPar_ = curPar_.getParent();
+                    continue;
+                }
+            }
+            if (curPar_ instanceof DotOperation) {
+                if (!cur_.isFirstChild()) {
+                    intermediate_ = true;
+                }
+            }
+            break;
         }
-        return isSimpleIntermediateDotted();
-    }
-
-    final boolean isSimpleIntermediateDotted() {
-        MethodOperation par_ = getParent();
-        return !isFirstChild() && par_ instanceof DotOperation;
+        return intermediate_;
     }
 
     final boolean isFirstChild() {
         return getIndexChild() == CustList.FIRST_INDEX;
-    }
-
-    final boolean isAnalyzed() {
-        return resultClass != null;
     }
 
     public final boolean isCalculated(IdMap<OperationNode, ArgumentsPair> _nodes) {
@@ -349,9 +350,6 @@ public abstract class OperationNode {
     }
     final void setNextSibling(OperationNode _nextSibling) {
         nextSibling = _nextSibling;
-    }
-    final void setPreviousSibling(OperationNode _previousSibling) {
-        previousSibling = _previousSibling;
     }
     static boolean canBeUsed(AccessibleObject _field, ContextEl _conf) {
         if (_field instanceof Member) {
@@ -1631,14 +1629,6 @@ public abstract class OperationNode {
         order = _order;
     }
 
-    public final void setConf(ContextEl _conf) {
-        conf = _conf;
-    }
-
-    public final ContextEl getConf() {
-        return conf;
-    }
-
     public final boolean isVararg() {
         return vararg;
     }
@@ -1772,13 +1762,13 @@ public abstract class OperationNode {
             return null;
         }
         if (n_ instanceof ArrOperation) {
-            return n_.getFirstChild();
+            OperationNode child_ = n_.getFirstChild();
+            while (child_ instanceof ArrOperation) {
+                child_ = child_.getFirstChild();
+            }
+            return child_;
         }
         return n_;
-    }
-
-    protected final OperationNode getPreviousSibling() {
-        return previousSibling;
     }
 
     public final boolean isNeedGlobalArgument() {

@@ -16,9 +16,9 @@ public final class AddOperation extends NumericOperation {
     private boolean catString;
     private boolean catChars;
 
-    public AddOperation(int _index, ContextEl _importingPage,
+    public AddOperation(int _index,
             int _indexChild, MethodOperation _m, OperationsSequence _op) {
-        super(_index, _importingPage, _indexChild, _m, _op);
+        super(_index, _indexChild, _m, _op);
     }
 
     static Argument addOne(Argument _arg, ContextEl _cont) {

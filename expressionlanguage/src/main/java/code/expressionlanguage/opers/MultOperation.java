@@ -9,9 +9,9 @@ import code.util.StringList;
 
 public final class MultOperation extends NumericOperation {
 
-    public MultOperation(int _index, ContextEl _importingPage,
+    public MultOperation(int _index,
             int _indexChild, MethodOperation _m, OperationsSequence _op) {
-        super(_index, _importingPage, _indexChild, _m, _op);
+        super(_index, _indexChild, _m, _op);
     }
 
     /**@throws NullObjectException*/

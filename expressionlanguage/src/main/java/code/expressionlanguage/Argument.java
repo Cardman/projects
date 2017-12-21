@@ -154,7 +154,7 @@ public final class Argument {
         object = new BooleanStruct(_object);
     }
     public void setObject(String _object, String _alias) {
-        object = StdStruct.wrapStd(_object, _alias);
+        object = new StdStruct(_object, _alias);
     }
     public void setObject(Byte _object) {
         object = new ByteStruct(_object);

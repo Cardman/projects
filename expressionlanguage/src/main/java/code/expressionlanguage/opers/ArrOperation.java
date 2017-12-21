@@ -9,8 +9,8 @@ import code.expressionlanguage.OperationsSequence;
 import code.expressionlanguage.PageEl;
 import code.expressionlanguage.PrimitiveTypeUtil;
 import code.expressionlanguage.Templates;
+import code.expressionlanguage.exceptions.BadIndexException;
 import code.expressionlanguage.exceptions.BadIndexTypeException;
-import code.expressionlanguage.exceptions.BadNumberValuesException;
 import code.expressionlanguage.exceptions.InvokeException;
 import code.expressionlanguage.exceptions.NotArrayException;
 import code.expressionlanguage.methods.util.ArgumentsPair;
@@ -25,17 +25,17 @@ import code.util.CustList;
 import code.util.IdMap;
 import code.util.NatTreeMap;
 import code.util.StringList;
+import code.util.exceptions.NullObjectException;
 
 public final class ArrOperation extends MethodOperation implements SettableElResult {
 
     private boolean variable;
 
     private boolean catString;
-    private boolean catChars;
 
-    public ArrOperation(int _index, ContextEl _importingPage,
+    public ArrOperation(int _index,
             int _indexChild, MethodOperation _m, OperationsSequence _op) {
-        super(_index, _importingPage, _indexChild, _m, _op);
+        super(_index, _indexChild, _m, _op);
     }
 
     @Override
@@ -65,34 +65,23 @@ public final class ArrOperation extends MethodOperation implements SettableElRes
 
     void analyzeCommon(ContextEl _conf) {
         CustList<OperationNode> chidren_ = getChildrenNodes();
-        if (chidren_.size() < 2) {
-            setRelativeOffsetPossibleLastPage(getIndexInEl(), _conf);
-            throw new BadNumberValuesException(_conf.joinPages());
-        }
         ClassArgumentMatching class_ = chidren_.first().getResultClass();
-        for (int i = CustList.SECOND_INDEX; i < chidren_.size(); i++) {
-            ClassArgumentMatching indexClass_ = chidren_.get(i).getResultClass();
-            setRelativeOffsetPossibleLastPage(chidren_.get(i).getIndexInEl(), _conf);
-            if (!indexClass_.isNumericInt(_conf)) {
-                throw new BadIndexTypeException(indexClass_+RETURN_LINE+_conf.joinPages());
-            }
-            setRelativeOffsetPossibleLastPage(chidren_.get(i-1).getIndexInEl(), _conf);
-            if (!class_.isArray()) {
-                throw new NotArrayException(class_+RETURN_LINE+_conf.joinPages());
-            }
-            class_ = new ClassArgumentMatching(PrimitiveTypeUtil.getQuickComponentType(class_.getName()));
+        ClassArgumentMatching indexClass_ = chidren_.last().getResultClass();
+        setRelativeOffsetPossibleLastPage(chidren_.last().getIndexInEl(), _conf);
+        if (!indexClass_.isNumericInt(_conf)) {
+            throw new BadIndexTypeException(indexClass_+RETURN_LINE+_conf.joinPages());
         }
+        setRelativeOffsetPossibleLastPage(chidren_.first().getIndexInEl(), _conf);
+        if (!class_.isArray()) {
+            throw new NotArrayException(class_+RETURN_LINE+_conf.joinPages());
+        }
+        class_ = new ClassArgumentMatching(PrimitiveTypeUtil.getQuickComponentType(class_.getName()));
         LgNames stds_ = _conf.getStandards();
         String stringType_;
-        String charType_;
         stringType_ = stds_.getAliasString();
-        charType_ = stds_.getAliasCharacter();
         if (resultCanBeSet()) {
             if (StringList.quickEq(class_.getName(), stringType_)) {
                 catString = true;
-            }
-            if (StringList.quickEq(class_.getName(), charType_)) {
-                catChars = true;
             }
         }
         setResultClass(class_);
@@ -185,7 +174,7 @@ public final class ArrOperation extends MethodOperation implements SettableElRes
             throw new InvokeException(new StdStruct(new CustomError(_conf.joinPages()),null_));
         }
         Argument res_;
-        res_ = NumericOperation.calculateAffect(left_, _conf, right_, _op, catChars, catString);
+        res_ = NumericOperation.calculateAffect(left_, _conf, right_, _op, catString);
         setElement(_array, o_, res_.getStruct(), _conf);
     }
 

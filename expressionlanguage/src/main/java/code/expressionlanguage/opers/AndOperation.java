@@ -1,13 +1,12 @@
 package code.expressionlanguage.opers;
-import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.OperationsSequence;
 import code.util.NatTreeMap;
 
 public final class AndOperation extends QuickOperation {
 
-    public AndOperation(int _index, ContextEl _importingPage,
+    public AndOperation(int _index,
             int _indexChild, MethodOperation _m, OperationsSequence _op) {
-        super(_index, _importingPage, _indexChild, _m, _op);
+        super(_index, _indexChild, _m, _op);
     }
 
     @Override

@@ -9,7 +9,7 @@ public abstract class BracedBlock extends Block implements BracedBlockInt {
 
     BracedBlock(Element _el, ContextEl _importingPage, int _indexChild,
             BracedBlock _m) {
-        super(_el, _importingPage, _indexChild, _m);
+        super(_el, _indexChild, _m);
     }
 
     public final void appendChild(Block _child) {

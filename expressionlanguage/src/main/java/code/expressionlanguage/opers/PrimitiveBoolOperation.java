@@ -1,5 +1,4 @@
 package code.expressionlanguage.opers;
-import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.OperationsSequence;
 import code.expressionlanguage.opers.util.ConstructorId;
 
@@ -7,9 +6,9 @@ import code.expressionlanguage.opers.util.ConstructorId;
 public abstract class PrimitiveBoolOperation extends MethodOperation {
 
     public PrimitiveBoolOperation(int _index,
-            ContextEl _importingPage, int _indexChild, MethodOperation _m,
+            int _indexChild, MethodOperation _m,
             OperationsSequence _op) {
-        super(_index, _importingPage, _indexChild, _m, _op);
+        super(_index, _indexChild, _m, _op);
     }
 
     @Override

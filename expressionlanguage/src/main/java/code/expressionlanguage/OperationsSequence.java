@@ -4,7 +4,7 @@ import code.util.NatTreeMap;
 
 public final class OperationsSequence {
 
-    private static final char ARR_RIGHT = ']';
+    private ConstType constType = ConstType.NOTHING;
 
     private String fctName = "";
 
@@ -60,17 +60,10 @@ public final class OperationsSequence {
             return;
         }
         if (priority == ElResolver.ARR_OPER_PRIO) {
-            int i_ = CustList.SECOND_INDEX;
-            int nbKeys_ = operators.size();
-            while (i_ < nbKeys_) {
-                beginValuePart_ = endValuePart_ + operators.getValue(i_-1).length();
-                endValuePart_ = operators.getKey(i_);
-                str_ = _string.substring(beginValuePart_, endValuePart_);
-                if (_string.charAt(endValuePart_) == ARR_RIGHT) {
-                    values.put(beginValuePart_, str_);
-                }
-                i_++;
-            }
+            beginValuePart_ = endValuePart_ + operators.getValue(0).length();
+            endValuePart_ = operators.getKey(1);
+            str_ = _string.substring(beginValuePart_, endValuePart_);
+            values.put(beginValuePart_, str_);
             return;
         }
         int i_ = CustList.SECOND_INDEX;
@@ -85,6 +78,14 @@ public final class OperationsSequence {
         beginValuePart_ = endValuePart_ + operators.lastValue().length();
         str_ = _string.substring(beginValuePart_);
         values.put(beginValuePart_, str_);
+    }
+
+    public ConstType getConstType() {
+        return constType;
+    }
+
+    public void setConstType(ConstType _constType) {
+        constType = _constType;
     }
 
     public String getFctName() {

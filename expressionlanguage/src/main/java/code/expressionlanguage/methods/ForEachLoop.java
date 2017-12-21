@@ -44,6 +44,8 @@ public final class ForEachLoop extends BracedStack implements ForLoop {
 
     private CustList<OperationNode> opList;
 
+    private Boolean nativeCmp;
+
     public ForEachLoop(Element _el, ContextEl _importingPage, int _indexChild,
             BracedBlock _m) {
         super(_el, _importingPage, _indexChild, _m);
@@ -135,6 +137,9 @@ public final class ForEachLoop extends BracedStack implements ForLoop {
             String type_ = Templates.getFullTypeByStds(el_.getResultClass().getName(), _cont);
             if (type_ == null) {
                 type_ = Templates.getFullTypeByBases(el_.getResultClass().getName(), PredefinedClasses.ITERABLE, _cont);
+                nativeCmp = false;
+            } else {
+                nativeCmp = true;
             }
             if (type_ != null) {
                 Mapping mapping_ = new Mapping();
@@ -229,7 +234,7 @@ public final class ForEachLoop extends BracedStack implements ForLoop {
                 finished_ = true;
             }
         } else {
-            boolean native_ = its_.isJavaObject();
+            boolean native_ = nativeCmp;
             if (native_) {
                 String next_ = stds_.getAliasSimpleIterator();
                 ClassMethodId clMeth_ = new ClassMethodId(EMPTY_STRING, new MethodId(MethodModifier.NORMAL, next_, new StringList()));
@@ -352,11 +357,8 @@ public final class ForEachLoop extends BracedStack implements ForLoop {
         PageEl ip_ = _conf.getLastPage();
         LoopBlockStack l_ = (LoopBlockStack) ip_.getLastStack();
         Struct strIter_ = l_.getStructIterator();
-        boolean native_ = strIter_.isJavaObject();
+        boolean native_ = nativeCmp;
         LgNames stds_ = _conf.getStandards();
-        if (_conf.getClasses() != null) {
-            
-        }
         if (native_) {
             String next_ = stds_.getAliasHasNext();
             ClassMethodId clMeth_ = new ClassMethodId(EMPTY_STRING, new MethodId(MethodModifier.NORMAL, next_, new StringList()));
@@ -393,7 +395,7 @@ public final class ForEachLoop extends BracedStack implements ForLoop {
         Struct element_;
         OperationNode el_ = opList.last();
         if (!el_.getResultClass().isArray()) {
-            boolean native_ = iterator_.isJavaObject();
+            boolean native_ = nativeCmp;
             if (native_) {
                 String next_ = stds_.getAliasNext();
                 ClassMethodId clMeth_ = new ClassMethodId(EMPTY_STRING, new MethodId(MethodModifier.NORMAL, next_, new StringList()));

@@ -233,9 +233,8 @@ public final class Classes {
             throw new AlreadyExistingClassException(cl_.getFullName());
         }
         Block rootBl_ = cl_;
-        CustList<Block> all_ = getSortedDescNodesRoot(rootBl_);
+        CustList<Block> all_ = getSortedDescNodesRoot(rootBl_, _context);
         for (Block b: all_) {
-            b.setConf(null);
             b.setupChars(_content);
             b.setCompleteGroup();
             b.setNullAssociateElement();
@@ -459,7 +458,7 @@ public final class Classes {
         processPredefinedClass(content_, _context);
         _context.setHtml(EMPTY_STRING);
     }
-    public static CustList<Block> getSortedDescNodesRoot(Block _root) {
+    public static CustList<Block> getSortedDescNodesRoot(Block _root, ContextEl _context) {
         CustList<Block> list_ = new CustList<Block>();
         if (_root == null) {
             return list_;
@@ -470,18 +469,18 @@ public final class Classes {
                 break;
             }
             list_.add(c_);
-            Block next_ = createFirstChild(c_);
+            Block next_ = createFirstChild(c_, _context);
             if (next_ != null) {
-                next_.setupMetrics();
+                next_.setupMetrics(_context);
                 ((BracedBlock) c_).appendChild(next_);
                 c_ = next_;
                 continue;
             }
-            next_ = createNextSibling(c_);
+            next_ = createNextSibling(c_, _context);
             if (next_ != null) {
                 next_.getParent().appendChild(next_);
                 c_.setupNextSiblingGroup();
-                next_.setupMetrics();
+                next_.setupMetrics(_context);
                 c_ = next_;
                 continue;
             }
@@ -491,7 +490,7 @@ public final class Classes {
                 continue;
             }
             if (next_ != null) {
-                Block nextAfter_ = createNextSibling(next_);
+                Block nextAfter_ = createNextSibling(next_, _context);
                 while (nextAfter_ == null) {
                     Block par_ = next_.getParent();
                     if (par_ == _root) {
@@ -500,13 +499,13 @@ public final class Classes {
                     if (par_ == null) {
                         break;
                     }
-                    nextAfter_ = createNextSibling(par_);
+                    nextAfter_ = createNextSibling(par_, _context);
                     next_ = par_;
                 }
                 if (nextAfter_ != null) {
                     nextAfter_.getParent().appendChild(nextAfter_);
                     next_.setupNextSiblingGroup();
-                    nextAfter_.setupMetrics();
+                    nextAfter_.setupMetrics(_context);
                     c_ = nextAfter_;
                     continue;
                 }
@@ -537,7 +536,7 @@ public final class Classes {
         return list_;
     }
 
-    private static Block createFirstChild(Block _block) {
+    private static Block createFirstChild(Block _block, ContextEl _context) {
         if (!(_block instanceof BracedBlock)) {
             return null;
         }
@@ -554,10 +553,10 @@ public final class Classes {
             return null;
         }
         Element eltFirst_ = (Element) first_;
-        return Block.createOperationNode(eltFirst_, block_.getConf(), CustList.FIRST_INDEX, block_);
+        return Block.createOperationNode(eltFirst_, _context, CustList.FIRST_INDEX, block_);
     }
 
-    private static Block createNextSibling(Block _block) {
+    private static Block createNextSibling(Block _block, ContextEl _context) {
         BracedBlock p_ = _block.getParent();
         if (p_ == null) {
             return null;
@@ -573,7 +572,7 @@ public final class Classes {
             return null;
         }
         Element next_ = (Element) n_;
-        return Block.createOperationNode(next_, _block.getConf(), _block.getIndexChild() + 1, p_);
+        return Block.createOperationNode(next_, _context, _block.getIndexChild() + 1, p_);
     }
     public static Block getNext(Block _current, Block _root) {
         Block n_ = _current.getFirstChild();

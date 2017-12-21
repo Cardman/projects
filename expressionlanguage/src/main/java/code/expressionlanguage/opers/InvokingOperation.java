@@ -19,10 +19,9 @@ import code.util.StringMap;
 
 public abstract class InvokingOperation extends MethodOperation {
 
-    public InvokingOperation(int _index,
-            ContextEl _importingPage, int _indexChild, MethodOperation _m,
+    public InvokingOperation(int _index, int _indexChild, MethodOperation _m,
             OperationsSequence _op) {
-        super(_index, _importingPage, _indexChild, _m, _op);
+        super(_index, _indexChild, _m, _op);
     }
 
     CustList<ClassArgumentMatching> listClasses(CustList<OperationNode> _children, ContextEl _conf) {
