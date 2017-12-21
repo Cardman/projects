@@ -43,10 +43,6 @@ public abstract class MethodOperation extends OperationNode {
     abstract void calculateChildren();
 
     @Override
-    final boolean isFirstChild() {
-        return getIndexChild() == CustList.FIRST_INDEX;
-    }
-    @Override
     public final OperationNode getFirstChild() {
         return firstChild;
     }

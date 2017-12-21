@@ -71,7 +71,6 @@ import code.util.IdMap;
 import code.util.ObjectNotNullMap;
 import code.util.StringList;
 import code.util.StringMap;
-import code.util.exceptions.NullObjectException;
 import code.util.exceptions.RuntimeClassNotFoundException;
 
 public abstract class OperationNode {
@@ -295,7 +294,9 @@ public abstract class OperationNode {
         return !isFirstChild() && par_ instanceof DotOperation;
     }
 
-    abstract boolean isFirstChild();
+    final boolean isFirstChild() {
+        return getIndexChild() == CustList.FIRST_INDEX;
+    }
 
     final boolean isAnalyzed() {
         return resultClass != null;
@@ -371,7 +372,6 @@ public abstract class OperationNode {
     final void checkCorrect(ContextEl _cont, String _className,boolean _setOffset, int _offset) {
         StringMap<StringList> map_;
         map_ = new StringMap<StringList>();
-        Classes classes_ = _cont.getClasses();
         String glClass_ = _cont.getLastPage().getGlobalClass();
         if (!isStaticBlock()) {
             for (TypeVar t: Templates.getConstraints(glClass_, _cont)) {
@@ -389,7 +389,6 @@ public abstract class OperationNode {
         StringMap<StringList> map_;
         map_ = new StringMap<StringList>();
         if (_allowVarTypes) {
-            Classes classes_ = _cont.getClasses();
             String glClass_ = _cont.getLastPage().getGlobalClass();
             for (TypeVar t: Templates.getConstraints(glClass_, _cont)) {
                 map_.put(t.getName(), t.getConstraints());
@@ -420,11 +419,12 @@ public abstract class OperationNode {
         RootBlock root_ = classes_.getClassBody(base_);
         StringList classeNames_ = new StringList();
         classeNames_.add(root_.getFullName());
+        String objectType_ = _cont.getStandards().getAliasObject();
         if (root_ instanceof UniqueRootedBlock) {
             classeNames_.addAllElts(((UniqueRootedBlock) root_).getAllSuperClasses(_cont));
         }
         for (String s: classeNames_) {
-            if (StringList.quickEq(s, Object.class.getName())) {
+            if (StringList.quickEq(s, objectType_)) {
                 continue;
             }
             String formatted_ = Templates.getFullTypeByBases(clCurName_, s, _cont);
@@ -585,7 +585,6 @@ public abstract class OperationNode {
                 throw new VoidArgumentException(className_+RETURN_LINE+_conf.joinPages());
             }
         }
-        Classes classes_ = _conf.getClasses();
         CustList<Constructor<?>> possibleConstructors_ = new CustList<Constructor<?>>();
         for (Constructor<?> m: _class.getClazz().getDeclaredConstructors()) {
             if (_varargOnly > -1) {
@@ -760,6 +759,7 @@ public abstract class OperationNode {
     private static ClassMethodIdResult getDeclaredCustMethodByClassInherit(ContextEl _conf, boolean _accessFromSuper, int _varargOnly, boolean _static, ClassArgumentMatching _class, String _name, boolean _superClass, ClassArgumentMatching... _argsClass) {
         Classes classes_ = _conf.getClasses();
         String clCurName_ = _class.getName();
+        String objectType_ = _conf.getStandards().getAliasObject();
         String base_ = StringList.getAllTypes(clCurName_).first();
         RootBlock r_ = classes_.getClassBody(base_);
         if (_static) {
@@ -769,7 +769,7 @@ public abstract class OperationNode {
                 classeNames_.addAllElts(((UniqueRootedBlock) r_).getAllSuperClasses(_conf));
             }
             for (String s: classeNames_) {
-                if (StringList.quickEq(s, Object.class.getName())) {
+                if (StringList.quickEq(s, objectType_)) {
                     continue;
                 }
                 String formatted_ = Templates.getFullTypeByBases(clCurName_, s, _conf);
@@ -809,6 +809,7 @@ public abstract class OperationNode {
             getDeclaredCustMethodByType(ContextEl _conf, int _varargOnly, boolean _accessFromSuper,
             boolean _static, boolean _superClass, String _fromClass, ClassArgumentMatching _class, String _name, ClassArgumentMatching... _argsClass) {
         Classes classes_ = _conf.getClasses();
+        LgNames stds_ = _conf.getStandards();
         String clCurName_ = _class.getName();
         String glClass_ = _conf.getLastPage().getGlobalClass();
         String baseCurName_ = StringList.getAllTypes(clCurName_).first();
@@ -822,7 +823,7 @@ public abstract class OperationNode {
                 }
                 if (e.isStaticMethod()) {
                     MethodId id_ = e.getId();
-                    String returnType_ = e.getReturnType();
+                    String returnType_ = e.getReturnType(stds_);
                     MethodMetaInfo info_ = new MethodMetaInfo(clCurName_, id_, MethodModifier.STATIC, returnType_);
                     ClassMethodId clId_ = new ClassMethodId(clCurName_, id_);
                     methods_.put(clId_, info_);
@@ -853,7 +854,7 @@ public abstract class OperationNode {
                     if (!_conf.getClasses().canAccess(glClass_, sup_, _conf)) {
                         continue;
                     }
-                    String ret_ = sup_.getReturnType();
+                    String ret_ = sup_.getReturnType(stds_);
                     ret_ = Templates.generalFormat(formattedClass_, ret_, _conf);
                     MethodMetaInfo info_ = new MethodMetaInfo(formattedClass_, id_, MethodModifier.NORMAL, ret_);
                     ClassMethodId clId_ = new ClassMethodId(formattedClass_, id_);
@@ -867,7 +868,6 @@ public abstract class OperationNode {
             ObjectNotNullMap<ClassMethodId, MethodMetaInfo> _methods,
             boolean _correctTemplated,
             String _name, ClassArgumentMatching... _argsClass) {
-        Classes classes_ = _conf.getClasses();
         CustList<ClassMethodId> possibleMethods_ = new CustList<ClassMethodId>();
         String glClass_ = _conf.getLastPage().getGlobalClass();
         for (EntryCust<ClassMethodId, MethodMetaInfo> e: _methods.entryList()) {
@@ -1025,7 +1025,6 @@ public abstract class OperationNode {
     private static ClassMethodIdResult getResult(ContextEl _conf, int _varargOnly, boolean _static, String _class,
             CustList<Method> _methods,
             String _name, ClassArgumentMatching... _argsClass) {
-        Classes classes_ = _conf.getClasses();
         CustList<Method> possibleMethods_ = new CustList<Method>();
         for (Method m: _methods) {
             if (_static) {
@@ -1138,7 +1137,6 @@ public abstract class OperationNode {
                 }
             }
         }
-        Classes classes_ = _context.getClasses();
         String glClass_ = _context.getLastPage().getGlobalClass();
         CustList<TypeVar> vars_;
         if (glClass_ != null) {
@@ -1308,7 +1306,6 @@ public abstract class OperationNode {
     static int compare(ArgumentsGroup _context, Parametrable _o1, Parametrable _o2) {
         int len_ = _o1.getParameters().size();
         ContextEl context_ = _context.getContext();
-        Classes classes_ = context_.getClasses();
         StringMap<StringList> map_;
         map_ = _context.getMap();
         String glClass_ = _context.getGlobalClass();
@@ -1451,11 +1448,7 @@ public abstract class OperationNode {
         }
         LgNames stds_ = _cont.getStandards();
         String null_;
-        if (_cont.getClasses() != null) {
-            null_ = stds_.getAliasNullPe();
-        } else {
-            null_ = NullObjectException.class.getName();
-        }
+        null_ = stds_.getAliasNullPe();
         if (!traces_.isEmpty()) {
             throw new InvokeException(new StdStruct(new CustomError(traces_.join(SEP_ARG)+RETURN_LINE+_cont.joinPages()),null_));
         }
@@ -1584,11 +1577,7 @@ public abstract class OperationNode {
         MethodOperation par_ = getParent();
         LgNames stds_ = _cont.getStandards();
         String null_;
-        if (_cont.getClasses() != null) {
-            null_ = stds_.getAliasNullPe();
-        } else {
-            null_ = NullObjectException.class.getName();
-        }
+        null_ = stds_.getAliasNullPe();
         if (o_ == null) {
             if (par_ instanceof QuickOperation) {
                 setRelativeOffsetPossibleLastPage(getIndexInEl(), _cont);
@@ -1749,7 +1738,7 @@ public abstract class OperationNode {
 
     public final boolean isVoidArg(ContextEl _context) {
         LgNames stds_ = _context.getStandards();
-        return StringList.quickEq(resultClass.getName(), OperationNode.VOID_RETURN);
+        return StringList.quickEq(resultClass.getName(), stds_.getAliasVoid());
     }
 
     public final ClassArgumentMatching getResultClass() {

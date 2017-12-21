@@ -1,7 +1,6 @@
 package code.expressionlanguage.methods;
 
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.PrimitiveTypeUtil;
 import code.expressionlanguage.stds.LgNames;
 import code.util.StringList;
 
@@ -77,34 +76,6 @@ public final class PredefinedClasses {
         String type_ = stds_.getAliasEnumParam();
         String typeSup_ = stds_.getAliasEnum();
         String iterable_ = "<interface access='"+PUBLIC_ACCESS+"' name='"+type_+"' template='&lt;#T:"+type_+"&lt;#T&gt;&gt;' class0='"+typeSup_+"'>\n";
-        iterable_ += "</interface>\n";
-        return iterable_;
-    }
-    public static String getIterableType() {
-        String iterable_ = "<interface access='"+PUBLIC_ACCESS+"' name='"+ITERABLE+"' template='&lt;#T&gt;'>\n";
-        iterable_ += "<method access='"+PUBLIC_ACCESS+"' modifier='abstract' name='iterator' class='"+ITERATOR+"&lt;#T&gt;'/>\n";
-        iterable_ += "</interface>\n";
-        return iterable_;
-    }
-
-    public static String getIteratorType() {
-        String iterable_ = "<interface access='"+PUBLIC_ACCESS+"' name='"+ITERATOR+"' template='&lt;#T&gt;'>\n";
-        iterable_ += "<method access='"+PUBLIC_ACCESS+"' modifier='abstract' name='next' class='#T'/>\n";
-        iterable_ += "<method access='"+PUBLIC_ACCESS+"' modifier='abstract' name='hasNext' class='"+PrimitiveTypeUtil.PRIM_BOOLEAN+"'/>\n";
-        iterable_ += "</interface>\n";
-        return iterable_;
-    }
-
-    public static String getEnumType() {
-        String iterable_ = "<interface access='"+PUBLIC_ACCESS+"' name='"+ENUM+"'>\n";
-        iterable_ += "<method access='"+PUBLIC_ACCESS+"' modifier='abstract' name='name' class='java.lang.String'/>\n";
-        iterable_ += "<method access='"+PUBLIC_ACCESS+"' modifier='abstract' name='ordinal' class='"+PrimitiveTypeUtil.PRIM_INT+"'/>\n";
-        iterable_ += "</interface>\n";
-        return iterable_;
-    }
-
-    public static String getEnumParamType() {
-        String iterable_ = "<interface access='"+PUBLIC_ACCESS+"' name='"+ENUM_PARAM+"' template='&lt;#T:"+ENUM_PARAM+"&lt;#T&gt;&gt;' class0='"+ENUM+"'>\n";
         iterable_ += "</interface>\n";
         return iterable_;
     }

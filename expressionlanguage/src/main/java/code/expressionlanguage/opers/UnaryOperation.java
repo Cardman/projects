@@ -43,12 +43,9 @@ public final class UnaryOperation extends PrimitiveBoolOperation {
             throw new NotNumberException(clMatch_+RETURN_LINE+_conf.joinPages());
         }
         LgNames stds_ = _conf.getStandards();
-        if (_conf.getClasses() != null) {
-            
-        }
-        int intOrder_ = PrimitiveTypeUtil.getOrderClass(PrimitiveTypeUtil.PRIM_INT, _conf);
+        int intOrder_ = PrimitiveTypeUtil.getOrderClass(stds_.getAliasPrimInteger(), _conf);
         if (PrimitiveTypeUtil.getOrderClass(cl_, _conf) < intOrder_) {
-            cl_ = new ClassArgumentMatching(PrimitiveTypeUtil.PRIM_INT);
+            cl_ = new ClassArgumentMatching(stds_.getAliasPrimInteger());
         }
         setResultClass(cl_);
     }
@@ -91,11 +88,7 @@ public final class UnaryOperation extends PrimitiveBoolOperation {
         setRelativeOffsetPossibleLastPage(getIndexInEl(), _conf);
         LgNames stds_ = _conf.getStandards();
         String null_;
-        if (_conf.getClasses() != null) {
-            null_ = stds_.getAliasNullPe();
-        } else {
-            null_ = NullObjectException.class.getName();
-        }
+        null_ = stds_.getAliasNullPe();
         if (o_ == null) {
             throw new InvokeException(new StdStruct(new CustomError(_conf.joinPages()),null_));
         }

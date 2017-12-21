@@ -56,14 +56,14 @@ public final class ForIterativeLoop extends BracedStack implements ForLoop {
         eq = _el.hasAttribute(ATTRIBUTE_EQ);
         String classIndex_ = _el.getAttribute(ATTRIBUTE_CLASS_INDEX);
         if (classIndex_.isEmpty()) {
-            classIndex_ = Long.class.getName();
+            classIndex_ = _importingPage.getStandards().getAliasLong();
         }
         classIndexName = classIndex_;
         setAlwaysSkipped(true);
     }
 
     @Override
-    public NatTreeMap<String,String> getClassNames() {
+    public NatTreeMap<String,String> getClassNames(LgNames _stds) {
         NatTreeMap<String,String> tr_ = new NatTreeMap<String,String>();
         tr_.put(ATTRIBUTE_CLASS, className);
         tr_.put(ATTRIBUTE_CLASS_INDEX, classIndexName);
@@ -258,21 +258,21 @@ public final class ForIterativeLoop extends BracedStack implements ForLoop {
         ExpressionLanguage from_ = ip_.getCurrentEl(this, CustList.FIRST_INDEX, getInitEl());
         Argument argFrom_ = from_.calculateMember(_conf);
         if (argFrom_.isNull()) {
-            throw new InvokeException(new StdStruct(new CustomError(argFrom_.getObjectClassName(_conf)+RETURN_LINE+_conf.joinPages()),null_));
+            throw new InvokeException(new StdStruct(new CustomError(_conf.joinPages()),null_));
         }
         ip_.setProcessingAttribute(ATTRIBUTE_EXPRESSION);
         ip_.setOffset(0);
         ExpressionLanguage to_ = ip_.getCurrentEl(this, CustList.SECOND_INDEX, getExpressionEl());
         Argument argTo_ = to_.calculateMember(_conf);
         if (argTo_.isNull()) {
-            throw new InvokeException(new StdStruct(new CustomError(argTo_.getObjectClassName(_conf)+RETURN_LINE+_conf.joinPages()),null_));
+            throw new InvokeException(new StdStruct(new CustomError(RETURN_LINE+_conf.joinPages()),null_));
         }
         ip_.setProcessingAttribute(ATTRIBUTE_STEP);
         ip_.setOffset(0);
         ExpressionLanguage step_ = ip_.getCurrentEl(this, CustList.SECOND_INDEX + 1, getStepEl());
         Argument argStep_ = step_.calculateMember(_conf);
         if (argStep_.isNull()) {
-            throw new InvokeException(new StdStruct(new CustomError(argStep_.getObjectClassName(_conf)+RETURN_LINE+_conf.joinPages()),null_));
+            throw new InvokeException(new StdStruct(new CustomError(RETURN_LINE+_conf.joinPages()),null_));
         }
         realFromValue_ = argFrom_.getObject();
         ip_.setCurrentBlock(null);
@@ -339,7 +339,7 @@ public final class ForIterativeLoop extends BracedStack implements ForLoop {
         className_ = getClassName();
         lv_.setClassName(className_);
         lv_.setIndexClassName(indexClassName_);
-        lv_.setElement(PrimitiveTypeUtil.convert(className_, int_, _conf));
+        lv_.setElement((Number)PrimitiveTypeUtil.convert(className_, int_, _conf));
         lv_.setStep(stepValue_);
         lv_.setExtendedExpression(EMPTY_STRING);
         varsLoop_.put(var_, lv_);
@@ -381,9 +381,9 @@ public final class ForIterativeLoop extends BracedStack implements ForLoop {
         _conf.getLastPage().setOffset(0);
         String var_ = getVariableName();
         LoopVariable lv_ = _vars.getVal(var_);
-        Number element_ = (Number) lv_.getElement();
-        Object o_ = element_.longValue()+lv_.getStep();
-        o_ = PrimitiveTypeUtil.convert(className, o_, _conf);
+        Number element_ = (Number) lv_.getStruct().getInstance();
+        Number o_ = element_.longValue()+lv_.getStep();
+        o_ = (Number) PrimitiveTypeUtil.convert(className, o_, _conf);
         lv_.setElement(o_);
         lv_.setIndex(lv_.getIndex() + 1);
     }

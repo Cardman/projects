@@ -142,9 +142,6 @@ public class TemplatesTest {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex."+Classes.EXT, xml_);
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
-        cont_.setAccessValue(new AccessValueEx());
-        Classes classes_ = cont_.getClasses();
-        assertTrue(classes_.getErrorsDet().toString(), classes_.getErrorsDet().isEmpty());
         String first_ = "pkg.Ex<#E>";
         String second_ = "#T";
         assertEq("#E",Templates.format(first_, second_, cont_));
@@ -156,9 +153,6 @@ public class TemplatesTest {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex."+Classes.EXT, xml_);
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
-        cont_.setAccessValue(new AccessValueEx());
-        Classes classes_ = cont_.getClasses();
-        assertTrue(classes_.getErrorsDet().toString(), classes_.getErrorsDet().isEmpty());
         String first_ = "pkg.Ex<java.lang.String>";
         String second_ = "#T";
         assertEq("java.lang.String",Templates.format(first_, second_, cont_));
@@ -170,9 +164,6 @@ public class TemplatesTest {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex."+Classes.EXT, xml_);
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
-        cont_.setAccessValue(new AccessValueEx());
-        Classes classes_ = cont_.getClasses();
-        assertTrue(classes_.getErrorsDet().toString(), classes_.getErrorsDet().isEmpty());
         String first_ = "pkg.Ex<java.lang.String,java.lang.Object>";
         String second_ = "#U";
         assertEq("java.lang.Object",Templates.format(first_, second_, cont_));
@@ -184,9 +175,6 @@ public class TemplatesTest {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex."+Classes.EXT, xml_);
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
-        cont_.setAccessValue(new AccessValueEx());
-        Classes classes_ = cont_.getClasses();
-        assertTrue(classes_.getErrorsDet().toString(), classes_.getErrorsDet().isEmpty());
         String first_ = "pkg.Ex<java.lang.String,java.lang.Object>";
         String second_ = "#T";
         assertEq("java.lang.String",Templates.format(first_, second_, cont_));
@@ -198,9 +186,6 @@ public class TemplatesTest {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex."+Classes.EXT, xml_);
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
-        cont_.setAccessValue(new AccessValueEx());
-        Classes classes_ = cont_.getClasses();
-        assertTrue(classes_.getErrorsDet().toString(), classes_.getErrorsDet().isEmpty());
         String first_ = "pkg.Ex<java.lang.String,java.lang.Object>";
         String second_ = "#T";
         assertEq("java.lang.String",Templates.format(first_, second_, cont_));
@@ -212,9 +197,6 @@ public class TemplatesTest {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex."+Classes.EXT, xml_);
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
-        cont_.setAccessValue(new AccessValueEx());
-        Classes classes_ = cont_.getClasses();
-        assertTrue(classes_.getErrorsDet().toString(), classes_.getErrorsDet().isEmpty());
         String first_ = "pkg.Ex<java.lang.String,java.lang.Object>";
         String second_ = "#V";
         assertEq("#V",Templates.format(first_, second_, cont_));
@@ -226,9 +208,6 @@ public class TemplatesTest {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex."+Classes.EXT, xml_);
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
-        cont_.setAccessValue(new AccessValueEx());
-        Classes classes_ = cont_.getClasses();
-        assertTrue(classes_.getErrorsDet().toString(), classes_.getErrorsDet().isEmpty());
         String first_ = "pkg.Ex<java.lang.String,java.lang.Object>";
         String second_ = "code.util.CustList<#V>";
         assertEq("code.util.CustList<#V>",Templates.format(first_, second_, cont_));
@@ -311,9 +290,6 @@ public class TemplatesTest {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex."+Classes.EXT, xml_);
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
-        cont_.setAccessValue(new AccessValueEx());
-        Classes classes_ = cont_.getClasses();
-        assertTrue(classes_.getErrorsDet().toString(), classes_.getErrorsDet().isEmpty());
         String first_ = "pkg.Ex<#E>";
         String second_ = "#T";
         assertEq("#E",Templates.generalFormat(first_, second_, cont_));
@@ -325,9 +301,6 @@ public class TemplatesTest {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex."+Classes.EXT, xml_);
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
-        cont_.setAccessValue(new AccessValueEx());
-        Classes classes_ = cont_.getClasses();
-        assertTrue(classes_.getErrorsDet().toString(), classes_.getErrorsDet().isEmpty());
         String first_ = "pkg.Ex<java.lang.String>";
         String second_ = "#T";
         assertEq("java.lang.String",Templates.generalFormat(first_, second_, cont_));
@@ -339,9 +312,6 @@ public class TemplatesTest {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex."+Classes.EXT, xml_);
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
-        cont_.setAccessValue(new AccessValueEx());
-        Classes classes_ = cont_.getClasses();
-        assertTrue(classes_.getErrorsDet().toString(), classes_.getErrorsDet().isEmpty());
         String first_ = "pkg.Ex<java.lang.String,java.lang.Object>";
         String second_ = "#U";
         assertEq("java.lang.Object",Templates.generalFormat(first_, second_, cont_));
@@ -353,9 +323,6 @@ public class TemplatesTest {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex."+Classes.EXT, xml_);
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
-        cont_.setAccessValue(new AccessValueEx());
-        Classes classes_ = cont_.getClasses();
-        assertTrue(classes_.getErrorsDet().toString(), classes_.getErrorsDet().isEmpty());
         String first_ = "pkg.Ex<java.lang.String,java.lang.Object>";
         String second_ = "#T";
         assertEq("java.lang.String",Templates.generalFormat(first_, second_, cont_));
@@ -367,9 +334,6 @@ public class TemplatesTest {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex."+Classes.EXT, xml_);
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
-        cont_.setAccessValue(new AccessValueEx());
-        Classes classes_ = cont_.getClasses();
-        assertTrue(classes_.getErrorsDet().toString(), classes_.getErrorsDet().isEmpty());
         String first_ = "pkg.Ex<java.lang.String,java.lang.Object>";
         String second_ = "#T";
         assertEq("java.lang.String",Templates.generalFormat(first_, second_, cont_));
@@ -381,9 +345,6 @@ public class TemplatesTest {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex."+Classes.EXT, xml_);
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
-        cont_.setAccessValue(new AccessValueEx());
-        Classes classes_ = cont_.getClasses();
-        assertTrue(classes_.getErrorsDet().toString(), classes_.getErrorsDet().isEmpty());
         String first_ = "pkg.Ex<java.lang.String,java.lang.Object>";
         String second_ = "#V";
         assertEq("#V",Templates.generalFormat(first_, second_, cont_));
@@ -395,9 +356,6 @@ public class TemplatesTest {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex."+Classes.EXT, xml_);
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
-        cont_.setAccessValue(new AccessValueEx());
-        Classes classes_ = cont_.getClasses();
-        assertTrue(classes_.getErrorsDet().toString(), classes_.getErrorsDet().isEmpty());
         String first_ = "pkg.Ex<java.lang.String,java.lang.Object>";
         String second_ = "code.util.CustList<#V>";
         assertEq("code.util.CustList<#V>",Templates.generalFormat(first_, second_, cont_));
@@ -409,9 +367,6 @@ public class TemplatesTest {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex."+Classes.EXT, xml_);
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
-        cont_.setAccessValue(new AccessValueEx());
-        Classes classes_ = cont_.getClasses();
-        assertTrue(classes_.getErrorsDet().toString(), classes_.getErrorsDet().isEmpty());
         String first_ = "pkg.Ex";
         String second_ = "code.util.CustList<#T>";
         assertEq("code.util.CustList<java.lang.Number>",Templates.generalFormat(first_, second_, cont_));
@@ -424,23 +379,18 @@ public class TemplatesTest {
         xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExTwo' package='pkg' template='&lt;#T:java.lang.Number,#U&gt;'/>\n";
         files_.put("pkg/ExTwo."+Classes.EXT, xml_);
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
-        cont_.setAccessValue(new AccessValueEx());
-        Classes classes_ = cont_.getClasses();
-        assertTrue(classes_.getErrorsDet().toString(), classes_.getErrorsDet().isEmpty());
         String first_ = "pkg.ExTwo";
         String second_ = "pkg.Ex<#T,#T>";
         assertEq("pkg.Ex<java.lang.Number,java.lang.Number>",Templates.generalFormat(first_, second_, cont_));
     }
 
-    @Ignore
     @Test
     public void getTypesByBases1Test() {
         ContextEl context_ = simpleContextEl();
         StringList t_ = Templates.getTypesByBases("java.lang.String", "java.lang.Object", context_);
         assertEq(0, t_.size());
     }
-    
-    @Ignore
+
     @Test
     public void getTypesByBases2Test() {
         ContextEl context_ = simpleContextEl();
@@ -474,7 +424,6 @@ public class TemplatesTest {
         assertNull(t_);
     }
     
-    @Ignore
     @Test
     public void getTypesByBases6Test() {
         ContextEl context_ = simpleContextEl();
@@ -497,7 +446,6 @@ public class TemplatesTest {
         xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg'/>\n";
         files_.put("pkg/Ex."+Classes.EXT, xml_);
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
-        Classes classes_ = cont_.getClasses();
         StringList t_ = Templates.getTypesByBases("pkg.Ex", "pkg.Ex", cont_);
         assertEq(0, t_.size());
     }
@@ -511,7 +459,6 @@ public class TemplatesTest {
         xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExTwo' package='pkg' superclass='pkg.Ex'/>\n";
         files_.put("pkg/ExTwo."+Classes.EXT, xml_);
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
-        Classes classes_ = cont_.getClasses();
         StringList t_ = Templates.getTypesByBases("pkg.ExTwo", "pkg.Ex", cont_);
         assertEq(0, t_.size());
     }
@@ -525,7 +472,6 @@ public class TemplatesTest {
         xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExTwo' package='pkg' superclass='pkg.Ex'/>\n";
         files_.put("pkg/ExTwo."+Classes.EXT, xml_);
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
-        Classes classes_ = cont_.getClasses();
         StringList t_ = Templates.getTypesByBases("pkg.Ex", "pkg.ExTwo", cont_);
         assertNull(t_);
     }
@@ -590,7 +536,6 @@ public class TemplatesTest {
         xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg'/>\n";
         files_.put("pkg/Ex."+Classes.EXT, xml_);
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
-        Classes classes_ = cont_.getClasses();
         String t_ = Templates.getFullTypeByBases("pkg.Ex", "pkg.Ex", cont_);
         assertEq("pkg.Ex", t_);
     }
@@ -604,7 +549,6 @@ public class TemplatesTest {
         xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExTwo' package='pkg' superclass='pkg.Ex'/>\n";
         files_.put("pkg/ExTwo."+Classes.EXT, xml_);
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
-        Classes classes_ = cont_.getClasses();
         String t_ = Templates.getFullTypeByBases("pkg.ExTwo", "pkg.Ex", cont_);
         assertEq("pkg.Ex", t_);
     }
@@ -618,7 +562,6 @@ public class TemplatesTest {
         xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExTwo' package='pkg' superclass='pkg.Ex'/>\n";
         files_.put("pkg/ExTwo."+Classes.EXT, xml_);
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
-        Classes classes_ = cont_.getClasses();
         String t_ = Templates.getFullTypeByBases("pkg.Ex", "pkg.ExTwo", cont_);
         assertNull(t_);
     }
@@ -640,7 +583,6 @@ public class TemplatesTest {
         xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExTwo' package='pkg' superclass='pkg.Ex&lt;#U&gt;' template='&lt;#U&gt;'/>\n";
         files_.put("pkg/ExTwo."+Classes.EXT, xml_);
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
-        Classes classes_ = cont_.getClasses();
         String t_ = Templates.getFullTypeByBases("pkg.ExTwo<#V>", "pkg.Ex", cont_);
         assertEq("pkg.Ex<#V>", t_);
     }
@@ -654,7 +596,6 @@ public class TemplatesTest {
         xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExTwo' package='pkg' superclass='pkg.Ex&lt;java.lang.Number&gt;'/>\n";
         files_.put("pkg/ExTwo."+Classes.EXT, xml_);
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
-        Classes classes_ = cont_.getClasses();
         String t_ = Templates.getFullTypeByBases("pkg.ExTwo", "pkg.Ex", cont_);
         assertEq("pkg.Ex<java.lang.Number>", t_);
     }
@@ -667,7 +608,6 @@ public class TemplatesTest {
         xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExTwo' package='pkg' superclass='pkg.Ex&lt;#U&gt;' template='&lt;#U&gt;'/>\n";
         files_.put("pkg/ExTwo."+Classes.EXT, xml_);
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
-        Classes classes_ = cont_.getClasses();
         String t_ = Templates.getFullTypeByBases("pkg.Ex<#V>", "pkg.Ex", cont_);
         assertEq("pkg.Ex<#V>", t_);
     }
@@ -1259,7 +1199,6 @@ public class TemplatesTest {
         xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg'/>\n";
         files_.put("pkg/Ex."+Classes.EXT, xml_);
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
-        Classes classes_ = cont_.getClasses();
         Mapping m_ = new Mapping();
         m_.setArg("pkg.Ex");
         m_.setParam("pkg.Ex");
@@ -1273,7 +1212,6 @@ public class TemplatesTest {
         xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg'/>\n";
         files_.put("pkg/Ex."+Classes.EXT, xml_);
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
-        Classes classes_ = cont_.getClasses();
         Mapping m_ = new Mapping();
         m_.setArg("java.lang.Number");
         m_.setParam("pkg.Ex");
@@ -1289,7 +1227,6 @@ public class TemplatesTest {
         xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExTwo' package='pkg' superclass='pkg.Ex'/>\n";
         files_.put("pkg/ExTwo."+Classes.EXT, xml_);
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
-        Classes classes_ = cont_.getClasses();
         Mapping m_ = new Mapping();
         m_.setArg("pkg.ExTwo");
         m_.setParam("pkg.Ex");
@@ -1305,7 +1242,6 @@ public class TemplatesTest {
         xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExTwo' package='pkg' superclass='pkg.Ex'/>\n";
         files_.put("pkg/ExTwo."+Classes.EXT, xml_);
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
-        Classes classes_ = cont_.getClasses();
         Mapping m_ = new Mapping();
         m_.setArg("pkg.Ex");
         m_.setParam("pkg.ExTwo");
@@ -1321,7 +1257,6 @@ public class TemplatesTest {
         xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExTwo' package='pkg' class0='pkg.Ex'/>\n";
         files_.put("pkg/ExTwo."+Classes.EXT, xml_);
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
-        Classes classes_ = cont_.getClasses();
         Mapping m_ = new Mapping();
         m_.setArg("pkg.ExTwo");
         m_.setParam("pkg.Ex");
@@ -1337,7 +1272,6 @@ public class TemplatesTest {
         xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExTwo' package='pkg' class0='pkg.Ex'/>\n";
         files_.put("pkg/ExTwo."+Classes.EXT, xml_);
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
-        Classes classes_ = cont_.getClasses();
         Mapping m_ = new Mapping();
         m_.setArg("pkg.Ex");
         m_.setParam("pkg.ExTwo");
@@ -1353,7 +1287,6 @@ public class TemplatesTest {
         xml_ = "<interface access='"+PUBLIC_ACCESS+"' name='ExTwo' package='pkg' class0='pkg.Ex'/>\n";
         files_.put("pkg/ExTwo."+Classes.EXT, xml_);
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
-        Classes classes_ = cont_.getClasses();
         Mapping m_ = new Mapping();
         m_.setArg("pkg.ExTwo");
         m_.setParam("pkg.Ex");
@@ -1369,7 +1302,6 @@ public class TemplatesTest {
         xml_ = "<interface access='"+PUBLIC_ACCESS+"' name='ExTwo' package='pkg' class0='pkg.Ex'/>\n";
         files_.put("pkg/ExTwo."+Classes.EXT, xml_);
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
-        Classes classes_ = cont_.getClasses();
         Mapping m_ = new Mapping();
         m_.setArg("pkg.Ex");
         m_.setParam("pkg.ExTwo");
@@ -1385,7 +1317,6 @@ public class TemplatesTest {
         xml_ = "<enum access='"+PUBLIC_ACCESS+"' name='ExTwo' package='pkg' class0='pkg.Ex'/>\n";
         files_.put("pkg/ExTwo."+Classes.EXT, xml_);
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
-        Classes classes_ = cont_.getClasses();
         Mapping m_ = new Mapping();
         m_.setArg("pkg.ExTwo");
         m_.setParam("pkg.Ex");
@@ -1401,7 +1332,6 @@ public class TemplatesTest {
         xml_ = "<enum access='"+PUBLIC_ACCESS+"' name='ExTwo' package='pkg' class0='pkg.Ex'/>\n";
         files_.put("pkg/ExTwo."+Classes.EXT, xml_);
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
-        Classes classes_ = cont_.getClasses();
         Mapping m_ = new Mapping();
         m_.setArg("pkg.Ex");
         m_.setParam("pkg.ExTwo");
@@ -1417,7 +1347,6 @@ public class TemplatesTest {
         xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExTwo' package='pkg' class0='pkg.Ex&lt;#E&gt;' template='&lt;#E&gt;'/>\n";
         files_.put("pkg/ExTwo."+Classes.EXT, xml_);
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
-        Classes classes_ = cont_.getClasses();
         Mapping m_ = new Mapping();
         m_.getMapping().put("T", new StringList("java.lang.Object"));
         m_.setArg("pkg.ExTwo<#T>");
@@ -1434,7 +1363,6 @@ public class TemplatesTest {
         xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExTwo' package='pkg' class0='pkg.Ex&lt;#E&gt;' template='&lt;#E&gt;'/>\n";
         files_.put("pkg/ExTwo."+Classes.EXT, xml_);
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
-        Classes classes_ = cont_.getClasses();
         Mapping m_ = new Mapping();
         m_.getMapping().put("T", new StringList("java.lang.Object"));
         m_.setArg("pkg.Ex<#T>");
@@ -1451,7 +1379,6 @@ public class TemplatesTest {
         xml_ = "<interface access='"+PUBLIC_ACCESS+"' name='ExTwo' package='pkg' class0='pkg.Ex&lt;#E&gt;' template='&lt;#E&gt;'/>\n";
         files_.put("pkg/ExTwo."+Classes.EXT, xml_);
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
-        Classes classes_ = cont_.getClasses();
         Mapping m_ = new Mapping();
         m_.getMapping().put("T", new StringList("java.lang.Object"));
         m_.setArg("pkg.ExTwo<#T>");
@@ -1468,7 +1395,6 @@ public class TemplatesTest {
         xml_ = "<interface access='"+PUBLIC_ACCESS+"' name='ExTwo' package='pkg' class0='pkg.Ex&lt;#E&gt;' template='&lt;#E&gt;'/>\n";
         files_.put("pkg/ExTwo."+Classes.EXT, xml_);
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
-        Classes classes_ = cont_.getClasses();
         Mapping m_ = new Mapping();
         m_.getMapping().put("T", new StringList("java.lang.Object"));
         m_.setArg("pkg.Ex<#T>");
@@ -1485,7 +1411,6 @@ public class TemplatesTest {
         xml_ = "<interface access='"+PUBLIC_ACCESS+"' name='ExTwo' package='pkg' class0='pkg.Ex&lt;#E&gt;' template='&lt;#E&gt;'/>\n";
         files_.put("pkg/ExTwo."+Classes.EXT, xml_);
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
-        Classes classes_ = cont_.getClasses();
         Mapping m_ = new Mapping();
         m_.getMapping().put("S", new StringList("java.lang.Object"));
         m_.setArg("pkg.ExTwo<#S>");
@@ -1502,7 +1427,6 @@ public class TemplatesTest {
         xml_ = "<interface access='"+PUBLIC_ACCESS+"' name='ExTwo' package='pkg' class0='pkg.Ex&lt;#E&gt;' template='&lt;#E&gt;'/>\n";
         files_.put("pkg/ExTwo."+Classes.EXT, xml_);
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
-        Classes classes_ = cont_.getClasses();
         Mapping m_ = new Mapping();
         m_.getMapping().put("S", new StringList("java.lang.Object"));
         m_.setArg(CUST_LIST+"<#S>");
@@ -1519,7 +1443,6 @@ public class TemplatesTest {
         xml_ = "<interface access='"+PUBLIC_ACCESS+"' name='ExTwo' package='pkg' class0='pkg.Ex&lt;#E&gt;' template='&lt;#E:[java.lang.Object&gt;'/>\n";
         files_.put("pkg/ExTwo."+Classes.EXT, xml_);
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
-        Classes classes_ = cont_.getClasses();
         Mapping m_ = new Mapping();
         m_.getMapping().put("T", new StringList("[java.lang.Object"));
         m_.setArg("pkg.ExTwo<#T>");
@@ -1536,7 +1459,6 @@ public class TemplatesTest {
         xml_ = "<interface access='"+PUBLIC_ACCESS+"' name='ExTwo' package='pkg' class0='pkg.Ex&lt;#E&gt;' template='&lt;#E:[java.lang.Object&gt;'/>\n";
         files_.put("pkg/ExTwo."+Classes.EXT, xml_);
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
-        Classes classes_ = cont_.getClasses();
         Mapping m_ = new Mapping();
         m_.getMapping().put("T", new StringList("[java.lang.Object"));
         m_.setArg("pkg.Ex<#T>");
@@ -1553,7 +1475,6 @@ public class TemplatesTest {
         xml_ = "<interface access='"+PUBLIC_ACCESS+"' name='ExTwo' package='pkg' class0='pkg.Ex&lt;#E&gt;' template='&lt;#E:[java.lang.Object&gt;'/>\n";
         files_.put("pkg/ExTwo."+Classes.EXT, xml_);
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
-        Classes classes_ = cont_.getClasses();
         Mapping m_ = new Mapping();
         m_.getMapping().put("T", new StringList("[java.lang.Object"));
         m_.getMapping().put("S", new StringList("[[java.lang.Object"));
@@ -1571,7 +1492,6 @@ public class TemplatesTest {
         xml_ = "<interface access='"+PUBLIC_ACCESS+"' name='ExTwo' package='pkg' class0='pkg.Ex&lt;#E&gt;' template='&lt;#E&gt;'/>\n";
         files_.put("pkg/ExTwo."+Classes.EXT, xml_);
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
-        Classes classes_ = cont_.getClasses();
         Mapping m_ = new Mapping();
         m_.getMapping().put("T", new StringList("[java.lang.Object"));
         m_.setArg("[[pkg.ExTwo<#T>");
@@ -1588,7 +1508,6 @@ public class TemplatesTest {
         xml_ = "<interface access='"+PUBLIC_ACCESS+"' name='ExTwo' package='pkg' class0='pkg.Ex&lt;#E&gt;' template='&lt;#E&gt;'/>\n";
         files_.put("pkg/ExTwo."+Classes.EXT, xml_);
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
-        Classes classes_ = cont_.getClasses();
         Mapping m_ = new Mapping();
         m_.getMapping().put("T", new StringList("[java.lang.Object"));
         m_.setArg("[pkg.Ex<#T>");
@@ -1605,7 +1524,6 @@ public class TemplatesTest {
         xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExTwo' package='pkg' class0='pkg.Ex&lt;java.lang.Object&gt;'/>\n";
         files_.put("pkg/ExTwo."+Classes.EXT, xml_);
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
-        Classes classes_ = cont_.getClasses();
         Mapping m_ = new Mapping();
         m_.setArg("pkg.ExTwo");
         m_.setParam("pkg.Ex<java.lang.Object>");
@@ -1621,7 +1539,6 @@ public class TemplatesTest {
         xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExTwo' package='pkg' class0='pkg.Ex&lt;java.lang.Object&gt;'/>\n";
         files_.put("pkg/ExTwo."+Classes.EXT, xml_);
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
-        Classes classes_ = cont_.getClasses();
         Mapping m_ = new Mapping();
         m_.getMapping().put("T", new StringList("java.lang.Object"));
         m_.setArg("pkg.Ex<java.lang.Object>");
@@ -1991,7 +1908,6 @@ public class TemplatesTest {
         xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg'/>\n";
         files_.put("pkg/Ex."+Classes.EXT, xml_);
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
-        Classes classes_ = cont_.getClasses();
         StringMap<StringList> t_ = new StringMap<StringList>();
         assertTrue(Templates.isCorrectTemplate("pkg.Ex", t_,cont_));
     }
@@ -2036,7 +1952,6 @@ public class TemplatesTest {
         xml_ = "<enum access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg'/>\n";
         files_.put("pkg/Ex."+Classes.EXT, xml_);
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
-        Classes classes_ = cont_.getClasses();
         StringMap<StringList> t_ = new StringMap<StringList>();
         assertTrue(Templates.isCorrectTemplate("[pkg.Ex", t_,cont_));
     }
@@ -2048,7 +1963,6 @@ public class TemplatesTest {
         xml_ = "<interface access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg'/>\n";
         files_.put("pkg/Ex."+Classes.EXT, xml_);
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
-        Classes classes_ = cont_.getClasses();
         StringMap<StringList> t_ = new StringMap<StringList>();
         assertTrue(Templates.isCorrectTemplate("[pkg.Ex", t_,cont_));
     }
@@ -2060,7 +1974,6 @@ public class TemplatesTest {
         xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' template='&lt;#T&gt;'/>\n";
         files_.put("pkg/Ex."+Classes.EXT, xml_);
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
-        Classes classes_ = cont_.getClasses();
         StringMap<StringList> t_ = new StringMap<StringList>();
         assertTrue(Templates.isCorrectTemplate("pkg.Ex<java.lang.Object>", t_,cont_));
     }
@@ -2083,7 +1996,6 @@ public class TemplatesTest {
         xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' template='&lt;#T&gt;'/>\n";
         files_.put("pkg/Ex."+Classes.EXT, xml_);
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
-        Classes classes_ = cont_.getClasses();
         StringMap<StringList> t_ = new StringMap<StringList>();
         assertTrue(Templates.isCorrectTemplate("[pkg.Ex<java.lang.Object>", t_,cont_));
     }
@@ -2095,7 +2007,6 @@ public class TemplatesTest {
         xml_ = "<interface access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' template='&lt;#T&gt;'/>\n";
         files_.put("pkg/Ex."+Classes.EXT, xml_);
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
-        Classes classes_ = cont_.getClasses();
         StringMap<StringList> t_ = new StringMap<StringList>();
         assertTrue(Templates.isCorrectTemplate("[pkg.Ex<java.lang.Object>", t_,cont_));
     }
@@ -2107,7 +2018,6 @@ public class TemplatesTest {
         xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' template='&lt;#T&gt;'/>\n";
         files_.put("pkg/Ex."+Classes.EXT, xml_);
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
-        Classes classes_ = cont_.getClasses();
         StringMap<StringList> t_ = new StringMap<StringList>();
         t_.put("E", new StringList("java.lang.Object"));
         assertTrue(Templates.isCorrectTemplate("[pkg.Ex<#E>", t_,cont_));
@@ -2120,7 +2030,6 @@ public class TemplatesTest {
         xml_ = "<interface access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' template='&lt;#T&gt;'/>\n";
         files_.put("pkg/Ex."+Classes.EXT, xml_);
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
-        Classes classes_ = cont_.getClasses();
         StringMap<StringList> t_ = new StringMap<StringList>();
         t_.put("E", new StringList("java.lang.Object"));
         assertTrue(Templates.isCorrectTemplate("[pkg.Ex<#E>", t_,cont_));
@@ -2133,7 +2042,6 @@ public class TemplatesTest {
         xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' template='&lt;#T:java.lang.Number&gt;'/>\n";
         files_.put("pkg/Ex."+Classes.EXT, xml_);
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
-        Classes classes_ = cont_.getClasses();
         StringMap<StringList> t_ = new StringMap<StringList>();
         t_.put("E", new StringList("java.lang.Integer"));
         assertTrue(Templates.isCorrectTemplate("[pkg.Ex<#E>", t_,cont_));
@@ -2146,7 +2054,6 @@ public class TemplatesTest {
         xml_ = "<interface access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' template='&lt;#T:java.lang.Number&gt;'/>\n";
         files_.put("pkg/Ex."+Classes.EXT, xml_);
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
-        Classes classes_ = cont_.getClasses();
         StringMap<StringList> t_ = new StringMap<StringList>();
         t_.put("E", new StringList("java.lang.Integer"));
         assertTrue(Templates.isCorrectTemplate("[pkg.Ex<#E>", t_,cont_));
@@ -2159,7 +2066,6 @@ public class TemplatesTest {
         xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' template='&lt;#T:java.lang.Number&gt;'/>\n";
         files_.put("pkg/Ex."+Classes.EXT, xml_);
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
-        Classes classes_ = cont_.getClasses();
         StringMap<StringList> t_ = new StringMap<StringList>();
         t_.put("E", new StringList("java.lang.Object"));
         assertTrue(!Templates.isCorrectTemplate("[pkg.Ex<#E>", t_,cont_));
@@ -2172,7 +2078,6 @@ public class TemplatesTest {
         xml_ = "<interface access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' template='&lt;#T:java.lang.Number&gt;'/>\n";
         files_.put("pkg/Ex."+Classes.EXT, xml_);
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
-        Classes classes_ = cont_.getClasses();
         StringMap<StringList> t_ = new StringMap<StringList>();
         t_.put("E", new StringList("java.lang.Object"));
         assertTrue(!Templates.isCorrectTemplate("[pkg.Ex<#E>", t_,cont_));
@@ -2185,7 +2090,6 @@ public class TemplatesTest {
         xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' template='&lt;#T:java.lang.Number&gt;'/>\n";
         files_.put("pkg/Ex."+Classes.EXT, xml_);
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
-        Classes classes_ = cont_.getClasses();
         StringMap<StringList> t_ = new StringMap<StringList>();
         assertTrue(!Templates.isCorrectTemplate("[pkg.Ex<java.lang.Object>", t_,cont_));
     }
@@ -2197,7 +2101,6 @@ public class TemplatesTest {
         xml_ = "<interface access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' template='&lt;#T:java.lang.Number&gt;'/>\n";
         files_.put("pkg/Ex."+Classes.EXT, xml_);
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
-        Classes classes_ = cont_.getClasses();
         StringMap<StringList> t_ = new StringMap<StringList>();
         assertTrue(!Templates.isCorrectTemplate("[pkg.Ex<java.lang.Object>", t_,cont_));
     }
@@ -2209,7 +2112,6 @@ public class TemplatesTest {
         xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' template='&lt;#T:[java.lang.Number&gt;'/>\n";
         files_.put("pkg/Ex."+Classes.EXT, xml_);
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
-        Classes classes_ = cont_.getClasses();
         StringMap<StringList> t_ = new StringMap<StringList>();
         assertTrue(Templates.isCorrectTemplate("[pkg.Ex<[java.lang.Integer>", t_,cont_));
     }
@@ -2221,7 +2123,6 @@ public class TemplatesTest {
         xml_ = "<interface access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' template='&lt;#T:[java.lang.Number&gt;'/>\n";
         files_.put("pkg/Ex."+Classes.EXT, xml_);
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
-        Classes classes_ = cont_.getClasses();
         StringMap<StringList> t_ = new StringMap<StringList>();
         assertTrue(Templates.isCorrectTemplate("[pkg.Ex<[java.lang.Integer>", t_,cont_));
     }
@@ -2233,7 +2134,6 @@ public class TemplatesTest {
         xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' template='&lt;#T:[java.lang.Number&gt;'/>\n";
         files_.put("pkg/Ex."+Classes.EXT, xml_);
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
-        Classes classes_ = cont_.getClasses();
         StringMap<StringList> t_ = new StringMap<StringList>();
         assertTrue(!Templates.isCorrectTemplate("[pkg.Ex<[java.lang.Object>", t_,cont_));
     }
@@ -2245,7 +2145,6 @@ public class TemplatesTest {
         xml_ = "<interface access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' template='&lt;#T:[java.lang.Number&gt;'/>\n";
         files_.put("pkg/Ex."+Classes.EXT, xml_);
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
-        Classes classes_ = cont_.getClasses();
         StringMap<StringList> t_ = new StringMap<StringList>();
         assertTrue(!Templates.isCorrectTemplate("[pkg.Ex<[java.lang.Object>", t_,cont_));
     }
@@ -2261,7 +2160,6 @@ public class TemplatesTest {
         xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExThree' package='pkg'/>\n";
         files_.put("pkg/ExThree."+Classes.EXT, xml_);
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
-        Classes classes_ = cont_.getClasses();
         StringMap<StringList> t_ = new StringMap<StringList>();
         t_.put("E", new StringList("pkg.ExTwo"));
         assertTrue(Templates.isCorrectTemplate("[pkg.Ex<#E>", t_,cont_));
@@ -2278,7 +2176,6 @@ public class TemplatesTest {
         xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExThree' package='pkg'/>\n";
         files_.put("pkg/ExThree."+Classes.EXT, xml_);
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
-        Classes classes_ = cont_.getClasses();
         StringMap<StringList> t_ = new StringMap<StringList>();
         t_.put("E", new StringList("pkg.ExTwo"));
         assertTrue(Templates.isCorrectTemplate("[pkg.Ex<#E>", t_,cont_));
@@ -2295,7 +2192,6 @@ public class TemplatesTest {
         xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExThree' package='pkg' superclass='pkg.ExTwo'/>\n";
         files_.put("pkg/ExThree."+Classes.EXT, xml_);
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
-        Classes classes_ = cont_.getClasses();
         StringMap<StringList> t_ = new StringMap<StringList>();
         t_.put("E", new StringList("pkg.ExTwo"));
         assertTrue(!Templates.isCorrectTemplate("[pkg.Ex<#E>", t_,cont_));
@@ -2312,7 +2208,6 @@ public class TemplatesTest {
         xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExThree' package='pkg' superclass='pkg.ExTwo'/>\n";
         files_.put("pkg/ExThree."+Classes.EXT, xml_);
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
-        Classes classes_ = cont_.getClasses();
         StringMap<StringList> t_ = new StringMap<StringList>();
         t_.put("E", new StringList("pkg.ExTwo"));
         assertTrue(!Templates.isCorrectTemplate("[pkg.Ex<#E>", t_,cont_));
@@ -2329,7 +2224,6 @@ public class TemplatesTest {
         xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExThree' package='pkg' superclass='pkg.ExTwo'/>\n";
         files_.put("pkg/ExThree."+Classes.EXT, xml_);
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
-        Classes classes_ = cont_.getClasses();
         StringMap<StringList> t_ = new StringMap<StringList>();
         assertTrue(!Templates.isCorrectTemplate("[pkg.Ex<pkg.ExTwo>", t_,cont_));
     }
@@ -2345,7 +2239,6 @@ public class TemplatesTest {
         xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExThree' package='pkg' superclass='pkg.ExTwo'/>\n";
         files_.put("pkg/ExThree."+Classes.EXT, xml_);
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
-        Classes classes_ = cont_.getClasses();
         StringMap<StringList> t_ = new StringMap<StringList>();
         assertTrue(!Templates.isCorrectTemplate("[pkg.Ex<pkg.ExTwo>", t_,cont_));
     }
@@ -2361,7 +2254,6 @@ public class TemplatesTest {
         xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExThree' package='pkg'/>\n";
         files_.put("pkg/ExThree."+Classes.EXT, xml_);
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
-        Classes classes_ = cont_.getClasses();
         StringMap<StringList> t_ = new StringMap<StringList>();
         assertTrue(Templates.isCorrectTemplate("[pkg.Ex<[pkg.ExTwo>", t_,cont_));
     }
@@ -2377,7 +2269,6 @@ public class TemplatesTest {
         xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExThree' package='pkg'/>\n";
         files_.put("pkg/ExThree."+Classes.EXT, xml_);
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
-        Classes classes_ = cont_.getClasses();
         StringMap<StringList> t_ = new StringMap<StringList>();
         assertTrue(Templates.isCorrectTemplate("[pkg.Ex<[pkg.ExTwo>", t_,cont_));
     }
@@ -2393,7 +2284,6 @@ public class TemplatesTest {
         xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExThree' package='pkg'/>\n";
         files_.put("pkg/ExThree."+Classes.EXT, xml_);
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
-        Classes classes_ = cont_.getClasses();
         StringMap<StringList> t_ = new StringMap<StringList>();
         assertTrue(!Templates.isCorrectTemplate("[pkg.Ex<[pkg.ExThree>", t_,cont_));
     }
@@ -2409,7 +2299,6 @@ public class TemplatesTest {
         xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExThree' package='pkg'/>\n";
         files_.put("pkg/ExThree."+Classes.EXT, xml_);
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
-        Classes classes_ = cont_.getClasses();
         StringMap<StringList> t_ = new StringMap<StringList>();
         assertTrue(!Templates.isCorrectTemplate("[pkg.Ex<[pkg.ExThree>", t_,cont_));
     }
@@ -2696,7 +2585,6 @@ public class TemplatesTest {
         assertEq("code.util.ints.SimpleIterable", superTypes_.get(7));
     }
 
-    @Ignore
     @Test
     public void getAllGenericSuperTypes6Test() {
         StringMap<String> files_ = new StringMap<String>();
@@ -2704,12 +2592,10 @@ public class TemplatesTest {
         xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' template='&lt;#T:[java.lang.Number&gt;'/>\n";
         files_.put("pkg/Ex."+Classes.EXT, xml_);
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
-        Classes classes_ = cont_.getClasses();
         StringList superTypes_ = Templates.getAllGenericSuperTypes("pkg.Ex<#E>", cont_);
         assertEq(0, superTypes_.size());
     }
 
-    @Ignore
     @Test
     public void getAllGenericSuperTypes7Test() {
         StringMap<String> files_ = new StringMap<String>();

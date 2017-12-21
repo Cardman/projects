@@ -19,7 +19,7 @@ public final class StatisticType implements Equallable<StatisticType> {
 
     public StatisticType(String _str) {
         StringList elements_ = StringList.splitChars(_str, SEPARATOR);
-        statistic = Statistic.valueOf(elements_.first());
+        statistic = Statistic.getStatisticByName(elements_.first());
         type = elements_.last();
     }
 

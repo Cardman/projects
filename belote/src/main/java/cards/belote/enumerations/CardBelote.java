@@ -1,6 +1,7 @@
 package cards.belote.enumerations;
 import code.format.Format;
 import code.util.EnumList;
+import code.util.StringList;
 import code.util.consts.Constants;
 import cards.belote.BidBeloteSuit;
 import cards.consts.CardChar;
@@ -222,7 +223,7 @@ public enum CardBelote {
     }
 
     public String getImageFileName(String _ext) {
-        return name().toUpperCase()+_ext;
+        return StringList.toUpperCase(name())+_ext;
     }
 
     public boolean vientAvant(CardBelote _c,boolean _decroissant,Order _ordre,EnumList<Suit> _couleurs) {

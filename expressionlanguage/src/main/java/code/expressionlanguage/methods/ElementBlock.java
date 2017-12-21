@@ -10,6 +10,7 @@ import code.expressionlanguage.opers.ExpressionLanguage;
 import code.expressionlanguage.opers.OperationNode;
 import code.expressionlanguage.opers.util.ClassField;
 import code.expressionlanguage.opers.util.Struct;
+import code.expressionlanguage.stds.LgNames;
 import code.sml.Element;
 import code.util.CustList;
 import code.util.NatTreeMap;
@@ -99,7 +100,7 @@ public final class ElementBlock extends Leaf implements InfoBlock{
     }
 
     @Override
-    public NatTreeMap<String, String> getClassNames() {
+    public NatTreeMap<String, String> getClassNames(LgNames _stds) {
         NatTreeMap<String,String> tr_ = new NatTreeMap<String,String>();
         tr_.put(ATTRIBUTE_CLASS, getClassName());
         return tr_;

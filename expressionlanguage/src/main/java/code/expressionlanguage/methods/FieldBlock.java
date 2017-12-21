@@ -16,6 +16,7 @@ import code.expressionlanguage.opers.util.ClassField;
 import code.expressionlanguage.opers.util.CustStruct;
 import code.expressionlanguage.opers.util.StdStruct;
 import code.expressionlanguage.opers.util.Struct;
+import code.expressionlanguage.stds.LgNames;
 import code.sml.Element;
 import code.util.CustList;
 import code.util.NatTreeMap;
@@ -46,7 +47,7 @@ public final class FieldBlock extends Leaf implements InfoBlock {
         value = _el.getAttribute(ATTRIBUTE_VALUE);
         staticField = _el.hasAttribute(ATTRIBUTE_STATIC);
         finalField = _el.hasAttribute(ATTRIBUTE_FINAL);
-        access = AccessEnum.valueOf(_el.getAttribute(ATTRIBUTE_ACCESS));
+        access = AccessEnum.getAccessByName(_el.getAttribute(ATTRIBUTE_ACCESS));
     }
     public Struct getDefaultStruct(ContextEl _cont) {
         if (value.isEmpty()) {
@@ -136,7 +137,7 @@ public final class FieldBlock extends Leaf implements InfoBlock {
     }
 
     @Override
-    public NatTreeMap<String, String> getClassNames() {
+    public NatTreeMap<String, String> getClassNames(LgNames _stds) {
         NatTreeMap<String,String> tr_ = new NatTreeMap<String,String>();
         tr_.put(ATTRIBUTE_CLASS, className);
         return tr_;

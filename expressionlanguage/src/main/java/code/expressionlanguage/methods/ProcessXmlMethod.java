@@ -10,8 +10,6 @@ import code.expressionlanguage.Templates;
 import code.expressionlanguage.exceptions.BadIndexException;
 import code.expressionlanguage.exceptions.CustomFoundConstructorException;
 import code.expressionlanguage.exceptions.CustomFoundMethodException;
-import code.expressionlanguage.exceptions.DivideZeroException;
-import code.expressionlanguage.exceptions.DynamicCastClassException;
 import code.expressionlanguage.exceptions.ErrorCausingException;
 import code.expressionlanguage.exceptions.IndirectException;
 import code.expressionlanguage.exceptions.InvokeException;
@@ -39,7 +37,6 @@ import code.util.EntryCust;
 import code.util.EqList;
 import code.util.ObjectMap;
 import code.util.StringList;
-import code.util.exceptions.NullObjectException;
 import code.util.exceptions.RuntimeClassNotFoundException;
 
 public final class ProcessXmlMethod {
@@ -124,7 +121,6 @@ public final class ProcessXmlMethod {
                 if (_0 instanceof WrapperException) {
                     realCaught_ = ((WrapperException)_0).getWrapped();
                 }
-                _0.printStackTrace();
                 if (!throwException(_cont, realCaught_)) {
                     continue;
                 }
@@ -362,7 +358,6 @@ public final class ProcessXmlMethod {
         return true;
     }
     /**@throws InvokeRedinedMethException
-    @throws DivideZeroException
     @throws BadIndexException
     @throws NegativeSizeException
     @throws ErrorCausingException
@@ -426,7 +421,8 @@ public final class ProcessXmlMethod {
             if (class_ instanceof UniqueRootedBlock) {
                 UniqueRootedBlock root_ = (UniqueRootedBlock) class_;
                 String superClassBase_ = root_.getSuperClass();
-                if (!calledImpl_ && !StringList.quickEq(superClassBase_, Object.class.getName())) {
+                String objectClassName_ = _conf.getStandards().getAliasObject();
+                if (!calledImpl_ && !StringList.quickEq(superClassBase_, objectClassName_)) {
                     ip_.getCallingConstr().setCalledImplicitConstructor(true);
                     ConstructorId super_ = new ConstructorId(superClassBase_, new EqList<ClassName>());
                     StringList called_ = ip_.getCallingConstr().getCalledConstructors();

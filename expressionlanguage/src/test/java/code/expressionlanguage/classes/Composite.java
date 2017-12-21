@@ -1,5 +1,4 @@
 package code.expressionlanguage.classes;
-import code.expressionlanguage.AccEl;
 import code.util.StringList;
 import code.util.StringMap;
 import code.util.TreeMap;
@@ -7,39 +6,28 @@ import code.util.TreeMap;
 @SuppressWarnings("static-method")
 public class Composite {
 
-    @AccEl
+
     private int integer;
 
     private int privateInt;
 
-    @AccEl
+
     private StringList strings;
 
-    @AccEl
+
     private TreeMap<String,Integer> tree;
 
-    @AccEl
+
     private StringMap<Integer> map;
 
-    @AccEl
+
     private MyMap<String, Integer> myMap;
 
-    @AccEl
+
     private String string;
-
-    @AccEl
-    private char myChar = 't';
-
-    @AccEl
-    private boolean displayed = true;
 
     public Composite() {
         this(0);
-    }
-
-    @AccEl
-    private Composite(String _string) {
-        string = _string;
     }
 
     private Composite(int _privateInt) {
@@ -183,13 +171,6 @@ public class Composite {
         map = _map;
     }
 
-    @AccEl
-    private StringList keys() {
-        StringList list_ = new StringList(map.getKeys());
-        list_.sort();
-        return list_;
-    }
-
     public MyMap<String, Integer> getMyMap() {
         return myMap;
     }
@@ -198,7 +179,7 @@ public class Composite {
         myMap = _myMap;
     }
 
-    @AccEl
+
     String internMethod() {
         return "sample";
     }

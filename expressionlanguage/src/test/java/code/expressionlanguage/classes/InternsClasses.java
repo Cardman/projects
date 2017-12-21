@@ -1,10 +1,6 @@
 package code.expressionlanguage.classes;
-import code.expressionlanguage.AccEl;
 
 public class InternsClasses {
-
-    @AccEl
-    private String news = "";
 
     public class InternStandard {
 

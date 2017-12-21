@@ -4,6 +4,7 @@ import code.expressionlanguage.PageEl;
 import code.expressionlanguage.ReadWrite;
 import code.expressionlanguage.methods.exceptions.BadCatchException;
 import code.expressionlanguage.stacks.TryBlockStack;
+import code.expressionlanguage.stds.LgNames;
 import code.sml.Element;
 import code.util.NatTreeMap;
 
@@ -15,7 +16,7 @@ public final class TryEval extends BracedStack implements Eval, IncrCurrentGroup
     }
 
     @Override
-    public NatTreeMap<String,String> getClassNames() {
+    public NatTreeMap<String,String> getClassNames(LgNames _stds) {
         NatTreeMap<String,String> tr_ = new NatTreeMap<String,String>();
         return tr_;
     }

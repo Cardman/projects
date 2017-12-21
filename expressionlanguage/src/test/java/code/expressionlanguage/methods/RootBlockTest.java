@@ -5,7 +5,6 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
-import code.expressionlanguage.AccessValueEx;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.InitializationLgNames;
 import code.expressionlanguage.opers.OperationNode;
@@ -34,7 +33,6 @@ public class RootBlockTest {
         xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExTwo' package='pkg' template='&lt;#T&gt;' superclass='pkg.Ex&lt;#T&gt;'/>\n";
         files_.put("pkg/ExTwo."+Classes.EXT, xml_);
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
-        cont_.setAccessValue(new AccessValueEx());
         Classes classes_ = cont_.getClasses();
         StringList superTypes_ = classes_.getClassBody("pkg.ExTwo").getAllGenericSuperTypes(cont_);
         assertEq(1, superTypes_.size());
@@ -52,7 +50,6 @@ public class RootBlockTest {
         xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExThree' package='pkg' template='&lt;#S&gt;' superclass='pkg.ExTwo&lt;#S&gt;'/>\n";
         files_.put("pkg/ExThree."+Classes.EXT, xml_);
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
-        cont_.setAccessValue(new AccessValueEx());
         Classes classes_ = cont_.getClasses();
         StringList superTypes_ = classes_.getClassBody("pkg.ExThree").getAllGenericSuperTypes(cont_);
         assertEq(2, superTypes_.size());
@@ -71,7 +68,6 @@ public class RootBlockTest {
         xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExThree' package='pkg' superclass='pkg.ExTwo&lt;java.lang.String&gt;'/>\n";
         files_.put("pkg/ExThree."+Classes.EXT, xml_);
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
-        cont_.setAccessValue(new AccessValueEx());
         Classes classes_ = cont_.getClasses();
         StringList superTypes_ = classes_.getClassBody("pkg.ExThree").getAllGenericSuperTypes(cont_);
         assertEq(2, superTypes_.size());
@@ -92,7 +88,6 @@ public class RootBlockTest {
         xml_ = "<interface access='"+PUBLIC_ACCESS+"' name='ExFour' package='pkg' class0='pkg.ExTwo&lt;java.lang.String&gt;' class1='pkg.ExThree&lt;java.lang.String&gt;'/>\n";
         files_.put("pkg/ExFour."+Classes.EXT, xml_);
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
-        cont_.setAccessValue(new AccessValueEx());
         Classes classes_ = cont_.getClasses();
         StringList superTypes_ = classes_.getClassBody("pkg.ExFour").getAllGenericSuperTypes(cont_);
         assertEq(4, superTypes_.size());
@@ -115,7 +110,6 @@ public class RootBlockTest {
         xml_ = "<interface access='"+PUBLIC_ACCESS+"' name='ExFour' package='pkg' class0='pkg.ExTwo&lt;java.lang.Number&gt;' class1='pkg.ExThree&lt;java.lang.String&gt;'/>\n";
         files_.put("pkg/ExFour."+Classes.EXT, xml_);
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
-        cont_.setAccessValue(new AccessValueEx());
         Classes classes_ = cont_.getClasses();
         StringList superTypes_ = classes_.getClassBody("pkg.ExFour").getAllGenericSuperTypes(cont_);
         assertEq(4, superTypes_.size());

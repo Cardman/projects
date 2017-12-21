@@ -1,6 +1,4 @@
 package code.expressionlanguage.methods;
-import java.lang.reflect.Array;
-
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.CustomError;
 import code.expressionlanguage.ElUtil;
@@ -54,14 +52,14 @@ public final class ForEachLoop extends BracedStack implements ForLoop {
         expression = _el.getAttribute(ATTRIBUTE_EXPRESSION);
         String classIndex_ = _el.getAttribute(ATTRIBUTE_CLASS_INDEX);
         if (classIndex_.isEmpty()) {
-            classIndex_ = Long.class.getName();
+            classIndex_ = _importingPage.getStandards().getAliasLong();
         }
         classIndexName = classIndex_;
         setAlwaysSkipped(true);
     }
 
     @Override
-    public NatTreeMap<String,String> getClassNames() {
+    public NatTreeMap<String,String> getClassNames(LgNames _stds) {
         NatTreeMap<String,String> tr_ = new NatTreeMap<String,String>();
         tr_.put(ATTRIBUTE_CLASS, className);
         tr_.put(ATTRIBUTE_CLASS_INDEX, classIndexName);
@@ -163,6 +161,7 @@ public final class ForEachLoop extends BracedStack implements ForLoop {
         }
         LoopVariable lv_ = new LoopVariable();
         lv_.setClassName(className);
+        lv_.setIndexClassName(_cont.getStandards().getAliasLong());
         _cont.getLastPage().getVars().put(variableName, lv_);
     }
 
@@ -224,8 +223,8 @@ public final class ForEachLoop extends BracedStack implements ForLoop {
         boolean finished_ = false;
         OperationNode el_ = opList.last();
         if (el_.getResultClass().isArray()) {
-            Object it_ = its_.getInstance();
-            length_ = Array.getLength(it_);
+            Struct[] it_ = (Struct[]) its_.getInstance();
+            length_ = it_.length;
             if (length_ == CustList.SIZE_EMPTY) {
                 finished_ = true;
             }
@@ -414,7 +413,7 @@ public final class ForEachLoop extends BracedStack implements ForLoop {
                 element_ = dyn_.calculateMember(_conf).getStruct();
             }
         } else {
-            element_ = PrimitiveTypeUtil.getElement(lv_.getContainer(), (int) _l.getIndex());
+            element_ = ((Struct[])lv_.getContainer().getInstance())[(int) _l.getIndex()];
         }
         if (PrimitiveTypeUtil.primitiveTypeNullObject(getClassName(), element_, _conf)) {
             throw new InvokeException(new StdStruct(new CustomError(_conf.joinPages()),null_));

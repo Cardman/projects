@@ -5,6 +5,7 @@ import code.expressionlanguage.methods.util.TypeVar;
 import code.expressionlanguage.opers.util.ClassName;
 import code.expressionlanguage.opers.util.MethodId;
 import code.expressionlanguage.opers.util.MethodModifier;
+import code.expressionlanguage.stds.LgNames;
 import code.sml.Element;
 import code.util.CustList;
 import code.util.EqList;
@@ -52,9 +53,9 @@ public final class MethodBlock extends NamedFunctionBlock {
     }
 
     @Override
-    public NatTreeMap<String,String> getClassNames() {
-        NatTreeMap<String,String> tr_ = super.getClassNames();
-        tr_.put(ATTRIBUTE_CLASS, getReturnType());
+    public NatTreeMap<String,String> getClassNames(LgNames _stds) {
+        NatTreeMap<String,String> tr_ = super.getClassNames(_stds);
+        tr_.put(ATTRIBUTE_CLASS, getReturnType(_stds));
         return tr_;
     }
 

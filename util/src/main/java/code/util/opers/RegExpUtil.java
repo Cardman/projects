@@ -122,9 +122,9 @@ public final class RegExpUtil {
 
     public static StringList filterIgnoreCase(StringList _list,String _regExp) {
         StringList list_ = new StringList();
-        Pattern patt_ = Pattern.compile(_regExp.toUpperCase());
+        Pattern patt_ = Pattern.compile(StringList.toUpperCase(_regExp));
         for (String s: _list) {
-            if (!patt_.matcher(s.toUpperCase()).find()) {
+            if (!patt_.matcher(StringList.toUpperCase(s)).find()) {
                 continue;
             }
             list_.add(s);

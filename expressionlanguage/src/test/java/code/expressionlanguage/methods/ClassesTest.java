@@ -343,7 +343,7 @@ public class ClassesTest {
         classes_.tryBuildClassesBodies(files_, cont_);
         assertTrue(classes_.getErrorsDet().toString(), classes_.getErrorsDet().isEmpty());
         cont_.setClasses(classes_);
-        StringList s_ = classes_.getSortedSuperInterfaces(new StringList("pkg.Ex"));
+        StringList s_ = classes_.getSortedSuperInterfaces(new StringList("pkg.Ex"),cont_);
         assertEq(1, s_.size());
         assertEq("pkg.Ex", s_.first());
     }
@@ -362,7 +362,7 @@ public class ClassesTest {
         classes_.tryBuildClassesBodies(files_, cont_);
         assertTrue(classes_.getErrorsDet().toString(), classes_.getErrorsDet().isEmpty());
         cont_.setClasses(classes_);
-        StringList s_ = classes_.getSortedSuperInterfaces(new StringList("pkg.Ex"));
+        StringList s_ = classes_.getSortedSuperInterfaces(new StringList("pkg.Ex"),cont_);
         assertEq(2, s_.size());
         assertEq("pkg.ExTwo", s_.first());
         assertEq("pkg.Ex", s_.last());
@@ -384,7 +384,7 @@ public class ClassesTest {
         classes_.tryBuildClassesBodies(files_, cont_);
         assertTrue(classes_.getErrorsDet().toString(), classes_.getErrorsDet().isEmpty());
         cont_.setClasses(classes_);
-        StringList s_ = classes_.getSortedSuperInterfaces(new StringList("pkg.Ex"));
+        StringList s_ = classes_.getSortedSuperInterfaces(new StringList("pkg.Ex"),cont_);
         assertEq(3, s_.size());
         assertEq("pkg.ExTwo", s_.first());
         assertEq("pkg.ExThree", s_.get(1));
@@ -409,7 +409,7 @@ public class ClassesTest {
         classes_.tryBuildClassesBodies(files_, cont_);
         assertTrue(classes_.getErrorsDet().toString(), classes_.getErrorsDet().isEmpty());
         cont_.setClasses(classes_);
-        StringList s_ = classes_.getSortedSuperInterfaces(new StringList("pkg.Ex"));
+        StringList s_ = classes_.getSortedSuperInterfaces(new StringList("pkg.Ex"),cont_);
         assertEq(4, s_.size());
         assertEq("pkg.ExTwo", s_.first());
         assertEq("pkg.ExThree", s_.get(1));
@@ -435,7 +435,7 @@ public class ClassesTest {
         classes_.tryBuildClassesBodies(files_, cont_);
         assertTrue(classes_.getErrorsDet().toString(), classes_.getErrorsDet().isEmpty());
         cont_.setClasses(classes_);
-        StringList s_ = classes_.getSortedSuperInterfaces(new StringList("pkg.Ex"));
+        StringList s_ = classes_.getSortedSuperInterfaces(new StringList("pkg.Ex"),cont_);
         assertEq(4, s_.size());
         assertEq("pkg.ExFour", s_.first());
         assertEq("pkg.ExTwo", s_.get(1));
@@ -463,7 +463,7 @@ public class ClassesTest {
         classes_.tryBuildClassesBodies(files_, cont_);
         assertTrue(classes_.getErrorsDet().toString(), classes_.getErrorsDet().isEmpty());
         cont_.setClasses(classes_);
-        StringList s_ = classes_.getSortedSuperInterfaces(new StringList("pkg.Ex","pkg.ExFive"));
+        StringList s_ = classes_.getSortedSuperInterfaces(new StringList("pkg.Ex","pkg.ExFive"),cont_);
         assertEq(5, s_.size());
         assertEq("pkg.ExFour", s_.first());
         assertEq("pkg.ExTwo", s_.get(1));

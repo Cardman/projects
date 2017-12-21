@@ -1,7 +1,6 @@
 package code.expressionlanguage.opers.util;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.PrimitiveTypeUtil;
-import code.expressionlanguage.opers.OperationNode;
 import code.expressionlanguage.stds.LgNames;
 import code.util.CustList;
 import code.util.StringList;
@@ -35,17 +34,17 @@ public final class ClassArgumentMatching {
     public boolean isNumericInt(ContextEl _context) {
         ClassArgumentMatching cl_ = new ClassArgumentMatching(className);
         LgNames stds_ = _context.getStandards();
-        if (_context.getClasses() != null) {
-            
-        }
+        String intPr_ = stds_.getAliasPrimInteger();
+        String shortPr_ = stds_.getAliasPrimShort();
+        String bytePr_ = stds_.getAliasPrimByte();
         ClassArgumentMatching prim_ = PrimitiveTypeUtil.toPrimitive(cl_, true, _context);
-        if (prim_.matchClass(PrimitiveTypeUtil.PRIM_INT)) {
+        if (prim_.matchClass(intPr_)) {
             return true;
         }
-        if (prim_.matchClass(PrimitiveTypeUtil.PRIM_SHORT)) {
+        if (prim_.matchClass(shortPr_)) {
             return true;
         }
-        if (prim_.matchClass(PrimitiveTypeUtil.PRIM_BYTE)) {
+        if (prim_.matchClass(bytePr_)) {
             return true;
         }
         return false;
@@ -74,7 +73,11 @@ public final class ClassArgumentMatching {
     }
     public boolean matchVoid(ContextEl _classes) {
         LgNames stds_ = _classes.getStandards();
-        return StringList.quickEq(className, OperationNode.VOID_RETURN);
+        return StringList.quickEq(className, stds_.getAliasVoid());
+    }
+    public boolean matchVoid(LgNames _classes) {
+        LgNames stds_ = _classes;
+        return StringList.quickEq(className, stds_.getAliasVoid());
     }
     public boolean matchClass(Class<?> _class) {
         return StringList.quickEq(className, _class.getName());
@@ -84,21 +87,25 @@ public final class ClassArgumentMatching {
         return StringList.quickEq(className, _class);
     }
 
-    public CustList<Class<?>> getDeclaredClasses() {
-        try {
-            Class<?> cl_ = PrimitiveTypeUtil.getSingleNativeClass(className);
-            CustList<Class<?>> cls_ = new CustList<Class<?>>();
-            for (Class<?> c: cl_.getDeclaredClasses()) {
-                cls_.add(c);
-            }
-            return cls_;
-        } catch (Throwable _0) {
-            return new CustList<Class<?>>();
-        }
-    }
+//    public CustList<Class<?>> getDeclaredClasses() {
+//        try {
+//            Class<?> cl_ = PrimitiveTypeUtil.getSingleNativeClass(className);
+//            CustList<Class<?>> cls_ = new CustList<Class<?>>();
+//            for (Class<?> c: cl_.getDeclaredClasses()) {
+//                cls_.add(c);
+//            }
+//            return cls_;
+//        } catch (Throwable _0) {
+//            return new CustList<Class<?>>();
+//        }
+//    }
 
     public boolean isVariable() {
         return className.isEmpty();
+    }
+
+    public boolean isPrimitive(LgNames _context) {
+        return PrimitiveTypeUtil.isPrimitive(className, _context);
     }
 
     public boolean isPrimitive(ContextEl _context) {

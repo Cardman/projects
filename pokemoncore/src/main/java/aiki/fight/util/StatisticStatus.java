@@ -16,7 +16,7 @@ public final class StatisticStatus implements Equallable<StatisticStatus> {
 
     public StatisticStatus(String _str) {
         StringList elements_ = StringList.splitChars(_str, SEPARATOR);
-        statistic = Statistic.valueOf(elements_.first());
+        statistic = Statistic.getStatisticByName(elements_.first());
         status = elements_.last();
     }
 

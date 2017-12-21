@@ -1,6 +1,7 @@
 package aiki.fight.enums;
 import code.serialize.CheckedData;
 import code.util.EnumList;
+import code.util.StringList;
 import code.util.ints.Listable;
 
 @CheckedData
@@ -70,6 +71,14 @@ public enum Statistic {
             list_.add(s);
         }
         return list_;
+    }
+    public static Statistic getStatisticByName(String _env) {
+        for (Statistic e: values()) {
+            if (StringList.quickEq(e.name(), _env)) {
+                return e;
+            }
+        }
+        return null;
     }
     public boolean isWithBaseStatistic() {
         return withBaseStatistic;

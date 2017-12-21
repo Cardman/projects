@@ -15,31 +15,25 @@ import code.util.CustList;
 import code.util.IdMap;
 import code.util.NatTreeMap;
 import code.util.StringList;
-import code.util.exceptions.NullObjectException;
 
 public final class CmpOperation extends PrimitiveBoolOperation {
 
     private static final int EQ_CMP = 0;
+
+    private boolean stringCompare;
 
     public CmpOperation(int _index, ContextEl _importingPage,
             int _indexChild, MethodOperation _m, OperationsSequence _op) {
         super(_index, _importingPage, _indexChild, _m, _op);
     }
 
-    static Argument calculateLower(Argument _a, Argument _b, ContextEl _context) {
-        LgNames stds_ = _context.getStandards();
-        if (_context.getClasses() != null) {
-            
-        }
-        if (StringList.quickEq(_a.getObjectClassName(_context), String.class.getName())) {
-            if (StringList.quickEq(_b.getObjectClassName(_context), String.class.getName())) {
-                Argument a_ = new Argument();
-                String first_ = (String)_a.getObject();
-                String second_ = (String)_b.getObject();
-                a_.setObject(first_.compareTo(second_) < EQ_CMP);
-                return a_;
-            }
-
+    static Argument calculateLower(Argument _a, boolean _strCmp, Argument _b, ContextEl _context) {
+        if (_strCmp) {
+            Argument a_ = new Argument();
+            String first_ = (String)_a.getObject();
+            String second_ = (String)_b.getObject();
+            a_.setObject(first_.compareTo(second_) < EQ_CMP);
+            return a_;
         }
         Object o_ = _a.getObject();
         Double aOne_ = null;
@@ -206,20 +200,13 @@ public final class CmpOperation extends PrimitiveBoolOperation {
         return a_;
     }
 
-    static Argument calculateGreater(Argument _a, Argument _b, ContextEl _context) {
-        LgNames stds_ = _context.getStandards();
-        if (_context.getClasses() != null) {
-            
-        }
-        if (StringList.quickEq(_a.getObjectClassName(_context), String.class.getName())) {
-            if (StringList.quickEq(_b.getObjectClassName(_context), String.class.getName())) {
-                Argument a_ = new Argument();
-                String first_ = (String)_a.getObject();
-                String second_ = (String)_b.getObject();
-                a_.setObject(first_.compareTo(second_) > EQ_CMP);
-                return a_;
-            }
-
+    static Argument calculateGreater(Argument _a, boolean _strCmp, Argument _b, ContextEl _context) {
+        if (_strCmp) {
+            Argument a_ = new Argument();
+            String first_ = (String)_a.getObject();
+            String second_ = (String)_b.getObject();
+            a_.setObject(first_.compareTo(second_) > EQ_CMP);
+            return a_;
         }
         Object o_ = _a.getObject();
         Double aOne_ = null;
@@ -401,18 +388,17 @@ public final class CmpOperation extends PrimitiveBoolOperation {
         ClassArgumentMatching first_ = chidren_.first().getResultClass();
         ClassArgumentMatching second_ = chidren_.last().getResultClass();
         LgNames stds_ = _conf.getStandards();
-        if (_conf.getClasses() != null) {
-            
-        }
-        if (first_.matchClass(String.class) && second_.matchClass(String.class)) {
-            setResultClass(new ClassArgumentMatching(PrimitiveTypeUtil.PRIM_BOOLEAN));
+        String stringType_ = stds_.getAliasString();
+        if (first_.matchClass(stringType_) && second_.matchClass(stringType_)) {
+            stringCompare = true;
+            setResultClass(new ClassArgumentMatching(stds_.getAliasPrimBoolean()));
             return;
         }
         ClassArgumentMatching classFirst_ = PrimitiveTypeUtil.toPrimitive(first_, true, _conf);
         ClassArgumentMatching classSecond_ = PrimitiveTypeUtil.toPrimitive(second_, true, _conf);
         if (classFirst_.isPrimitive(_conf)) {
             if (classSecond_.isPrimitive(_conf)) {
-                setResultClass(new ClassArgumentMatching(PrimitiveTypeUtil.PRIM_BOOLEAN));
+                setResultClass(new ClassArgumentMatching(stds_.getAliasPrimBoolean()));
                 return;
             }
         }
@@ -433,11 +419,7 @@ public final class CmpOperation extends PrimitiveBoolOperation {
         Argument first_ = _nodes.getVal(opOne_).getArgument();
         LgNames stds_ = _conf.getStandards();
         String null_;
-        if (_conf.getClasses() != null) {
-            null_ = stds_.getAliasNullPe();
-        } else {
-            null_ = NullObjectException.class.getName();
-        }
+        null_ = stds_.getAliasNullPe();
         if (first_.isNull()) {
             setRelativeOffsetPossibleLastPage(opOne_.getIndexInEl(), _conf);
             throw new InvokeException(new StdStruct(new CustomError(_conf.joinPages()),null_));
@@ -459,9 +441,9 @@ public final class CmpOperation extends PrimitiveBoolOperation {
         }
         Argument arg_;
         if (StringList.quickEq(useOp_, LOWER)) {
-            arg_ = calculateLower(first_, second_, _conf);
+            arg_ = calculateLower(first_, stringCompare, second_, _conf);
         } else {
-            arg_ = calculateGreater(first_, second_, _conf);
+            arg_ = calculateGreater(first_, stringCompare, second_, _conf);
         }
         Boolean b_ = (Boolean) arg_.getObject();
         if (complement_) {
@@ -483,11 +465,7 @@ public final class CmpOperation extends PrimitiveBoolOperation {
         Argument first_ = chidren_.first().getArgument();
         LgNames stds_ = _conf.getStandards();
         String null_;
-        if (_conf.getClasses() != null) {
-            null_ = stds_.getAliasNullPe();
-        } else {
-            null_ = NullObjectException.class.getName();
-        }
+        null_ = stds_.getAliasNullPe();
         if (first_.getObject() == null) {
             setRelativeOffsetPossibleLastPage(chidren_.first().getIndexInEl(), _conf);
             throw new InvokeException(new StdStruct(new CustomError(_conf.joinPages()),null_));
@@ -509,9 +487,9 @@ public final class CmpOperation extends PrimitiveBoolOperation {
         }
         Argument arg_;
         if (StringList.quickEq(useOp_, LOWER)) {
-            arg_ = calculateLower(first_, second_, _conf);
+            arg_ = calculateLower(first_, stringCompare, second_, _conf);
         } else {
-            arg_ = calculateGreater(first_, second_, _conf);
+            arg_ = calculateGreater(first_, stringCompare, second_, _conf);
         }
         Boolean b_ = (Boolean) arg_.getObject();
         if (complement_) {

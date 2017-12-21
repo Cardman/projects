@@ -1,13 +1,10 @@
 package code.expressionlanguage;
-import java.lang.reflect.Array;
-
 import code.expressionlanguage.methods.Block;
 import code.expressionlanguage.methods.Classes;
 import code.expressionlanguage.methods.ConstructorBlock;
 import code.expressionlanguage.methods.MethodBlock;
 import code.expressionlanguage.methods.PredefinedClasses;
 import code.expressionlanguage.methods.RootBlock;
-import code.expressionlanguage.opers.OperationNode;
 import code.expressionlanguage.opers.util.AssignableFrom;
 import code.expressionlanguage.opers.util.ByteStruct;
 import code.expressionlanguage.opers.util.CharStruct;
@@ -20,7 +17,6 @@ import code.expressionlanguage.opers.util.FloatStruct;
 import code.expressionlanguage.opers.util.IndexesComparator;
 import code.expressionlanguage.opers.util.IntStruct;
 import code.expressionlanguage.opers.util.LongStruct;
-import code.expressionlanguage.opers.util.NullStruct;
 import code.expressionlanguage.opers.util.ShortStruct;
 import code.expressionlanguage.opers.util.StdStruct;
 import code.expressionlanguage.opers.util.Struct;
@@ -71,9 +67,6 @@ public final class PrimitiveTypeUtil {
     }
 
     public static boolean primitiveTypeNullObject(String _className, Struct _instance, ContextEl _context) {
-        if (_context.getClasses() == null) {
-            return primitiveTypeNullObject(_className, _instance);
-        }
         return primitiveTypeNullObject(_className, _instance, _context.getStandards());
     }
 
@@ -95,32 +88,6 @@ public final class PrimitiveTypeUtil {
         }
         return _instance.isNull();
     }
-    public static boolean primitiveTypeNullObject(String _className, Struct _instance) {
-        if (!isPrimitive(_className)) {
-            return false;
-        }
-        if (_className.startsWith(PredefinedClasses.ITERABLE)) {
-            return false;
-        }
-        if (_className.startsWith(PredefinedClasses.ITERATOR)) {
-            return false;
-        }
-        if (_className.startsWith(PredefinedClasses.ENUM)) {
-            return false;
-        }
-        if (_className.startsWith(PredefinedClasses.ENUM_PARAM)) {
-            return false;
-        }
-        return _instance.isNull();
-    }
-    public static Struct getElement(Struct _struct, int _index) {
-        Object arrayInst_ = _struct.getInstance();
-        Object output_ = Array.get(arrayInst_, _index);
-        if (output_ == null) {
-            return NullStruct.NULL_VALUE;
-        }
-        return CustStruct.wrapOrId(output_);
-    }
     public static Class<?> getPrimitiveClass(String _className) {
         if (!isPrimitive(_className)) {
             return null;
@@ -129,9 +96,6 @@ public final class PrimitiveTypeUtil {
     }
 
     public static boolean isExistentPrimitive(String _className, ContextEl _context) {
-        if (_context.getClasses() == null) {
-            return isExistentPrimitive(_className);
-        }
         return isExistentPrimitive(_className, _context.getStandards());
     }
     public static boolean isExistentPrimitive(String _className, LgNames _stds) {
@@ -162,41 +126,7 @@ public final class PrimitiveTypeUtil {
         }
         return false;
     }
-    public static boolean isExistentPrimitive(String _className) {
-        if (!isPrimitive(_className)) {
-            return false;
-        }
-        ClassArgumentMatching prim_ = toPrimitive(new ClassArgumentMatching(_className), true);
-        if (prim_.matchClass(PRIM_BOOLEAN)) {
-            return true;
-        }
-        if (prim_.matchClass(PRIM_DOUBLE)) {
-            return true;
-        }
-        if (prim_.matchClass(PRIM_FLOAT)) {
-            return true;
-        }
-        if (prim_.matchClass(PRIM_LONG)) {
-            return true;
-        }
-        if (prim_.matchClass(PRIM_INT)) {
-            return true;
-        }
-        if (prim_.matchClass(PRIM_CHAR)) {
-            return true;
-        }
-        if (prim_.matchClass(PRIM_SHORT)) {
-            return true;
-        }
-        if (prim_.matchClass(PRIM_BYTE)) {
-            return true;
-        }
-        return false;
-    }
     public static boolean isPrimitive(String _className, ContextEl _context) {
-        if (_context.getClasses() == null) {
-            return isPrimitive(_className);
-        }
         return isPrimitive(_className, _context.getStandards());
     }
     public static boolean isPrimitive(String _className, LgNames _stds) {
@@ -276,12 +206,10 @@ public final class PrimitiveTypeUtil {
     public static StringList getSubclasses(StringList _classNames, ContextEl _context) {
         StringList types_ = new StringList();
         LgNames stds_ = _context.getStandards();
-        if (_context.getClasses() != null) {
-            
-        }
+        String voidType_ = stds_.getAliasVoid();
         for (String i: _classNames) {
             boolean sub_ = true;
-            if (StringList.quickEq(i, OperationNode.VOID_RETURN)) {
+            if (StringList.quickEq(i, voidType_)) {
                 for (String j: _classNames) {
                     if (!StringList.quickEq(i, j)) {
                         sub_ = false;
@@ -313,9 +241,7 @@ public final class PrimitiveTypeUtil {
         boolean hasPrim_ = false;
         boolean hasObj_ = false;
         LgNames stds_ = _classes.getStandards();
-        if (_classes.getClasses() != null) {
-            
-        }
+        String voidType_ = stds_.getAliasVoid();
         for (String i: _classNames) {
             if (isPrimitive(i, _classes)) {
                 hasPrim_ = true;
@@ -330,7 +256,7 @@ public final class PrimitiveTypeUtil {
         mapping_.getMapping().putAllMap(_vars);
         for (String i: _classNames) {
             boolean sub_ = true;
-            if (StringList.quickEq(i, OperationNode.VOID_RETURN)) {
+            if (StringList.quickEq(i, voidType_)) {
                 for (String j: _classNames) {
                     if (!StringList.quickEq(i, j)) {
                         sub_ = false;
@@ -441,11 +367,12 @@ public final class PrimitiveTypeUtil {
 
     static boolean isArrayAssignable(String _arrArg, String _arrParam, ContextEl _classes) {
         Classes classes_ = _classes.getClasses();
+        LgNames stds_ = _classes.getStandards();
         DimComp dArg_ = PrimitiveTypeUtil.getQuickComponentBaseType(_arrArg);
         String a_ = dArg_.getComponent();
         DimComp dPar_ = PrimitiveTypeUtil.getQuickComponentBaseType(_arrParam);
         String className_ = dPar_.getComponent();
-        if (StringList.quickEq(className_, Object.class.getName())) {
+        if (StringList.quickEq(className_, stds_.getAliasObject())) {
             if (dPar_.getDim() > dArg_.getDim()) {
                 return false;
             }
@@ -506,9 +433,6 @@ public final class PrimitiveTypeUtil {
         return compon_;
     }
     public static Struct convertObject(ClassArgumentMatching _match, Struct _obj, ContextEl _context) {
-        if (_context.getClasses() == null) {
-            return convertObject(_match, _obj);
-        }
         return convertObject(_match, _obj, _context.getStandards());
     }
     public static Struct convertObject(ClassArgumentMatching _match, Struct _obj, LgNames _stds) {
@@ -536,31 +460,6 @@ public final class PrimitiveTypeUtil {
         }
         return _obj;
     }
-    public static Struct convertObject(ClassArgumentMatching _match, Struct _obj) {
-        Object obj_ = _obj.getInstance();
-        if (_match.matchClass(PRIM_DOUBLE) || _match.matchClass(Double.class)) {
-            return new DoubleStruct(((Number)obj_).doubleValue());
-        }
-        if (_match.matchClass(PRIM_FLOAT) || _match.matchClass(Float.class)) {
-            return new FloatStruct(((Number)obj_).floatValue());
-        }
-        if (_match.matchClass(PRIM_LONG) || _match.matchClass(Long.class)) {
-            return new LongStruct(((Number)obj_).longValue());
-        }
-        if (_match.matchClass(PRIM_INT) || _match.matchClass(Integer.class)) {
-            return new IntStruct(((Number)obj_).intValue());
-        }
-        if (_match.matchClass(PRIM_SHORT) || _match.matchClass(Short.class)) {
-            return new ShortStruct(((Number)obj_).shortValue());
-        }
-        if (_match.matchClass(PRIM_BYTE) || _match.matchClass(Byte.class)) {
-            return new ByteStruct(((Number)obj_).byteValue());
-        }
-        if (_match.matchClass(PRIM_CHAR) || _match.matchClass(Character.class)) {
-            return new CharStruct(((Character)obj_).charValue());
-        }
-        return _obj;
-    }
 
     public static String getAliasArrayClass(Class<?> _class) {
         String className_ = _class.getName();
@@ -579,10 +478,7 @@ public final class PrimitiveTypeUtil {
     }
     public static boolean canBeUseAsArgument(String _param, String _arg, ContextEl _context) {
         LgNames stds_ = _context.getStandards();
-        if (_context.getClasses() != null) {
-            
-        }
-        if (StringList.quickEq(_param, OperationNode.VOID_RETURN)) {
+        if (StringList.quickEq(_param, stds_.getAliasVoid())) {
             return false;
         }
         ClassArgumentMatching param_ = new ClassArgumentMatching(_param);
@@ -592,7 +488,7 @@ public final class PrimitiveTypeUtil {
             }
             return true;
         }
-        if (StringList.quickEq(_arg, OperationNode.VOID_RETURN)) {
+        if (StringList.quickEq(_arg, stds_.getAliasVoid())) {
             return false;
         }
         AssignableFrom a_ = isAssignableFromCust(_param, _arg, _context);
@@ -670,8 +566,9 @@ public final class PrimitiveTypeUtil {
 
     static AssignableFrom isAssignableFromCust(String _param,String _arg, ContextEl _classes) {
         Classes classes_ = _classes.getClasses();
+        LgNames stds_ = _classes.getStandards();
         if (classes_ != null) {
-            if (StringList.quickEq(_param, Object.class.getName())) {
+            if (StringList.quickEq(_param, stds_.getAliasObject())) {
                 return AssignableFrom.YES;
             }
             DimComp dPar_ = PrimitiveTypeUtil.getQuickComponentBaseType(_param);
@@ -681,7 +578,7 @@ public final class PrimitiveTypeUtil {
             String a_ = dArg_.getComponent();
             RootBlock clArgBl_ = classes_.getClassBody(a_);
             if (clArgBl_ != null) {
-                if (clParBl_ == null && !StringList.quickEq(p_, Object.class.getName())) {
+                if (clParBl_ == null && !StringList.quickEq(p_, stds_.getAliasObject())) {
                     return AssignableFrom.NO;
                 }
                 if (dArg_.getDim() > 0 && dPar_.getDim() > 0) {
@@ -705,12 +602,12 @@ public final class PrimitiveTypeUtil {
             if (clParBl_ != null) {
                 return AssignableFrom.NO;
             }
-            if (LgNames.canBeUseAsArgument(_param, _arg, _classes)) {
+            if (LgNames.canBeUseAsArgument(_param, _arg, _classes.getStandards())) {
                 return AssignableFrom.YES;
             }
             return AssignableFrom.NO;
         }
-        if (StringList.quickEq(_param, Object.class.getName())) {
+        if (StringList.quickEq(_param, stds_.getAliasObject())) {
             return AssignableFrom.YES;
         }
         return AssignableFrom.MAYBE;
@@ -719,7 +616,7 @@ public final class PrimitiveTypeUtil {
     public static CustList<ClassArgumentMatching> getOrdersGreaterEqThan(ClassArgumentMatching _class, ContextEl _context) {
         return getOrdersGreaterEqThan(_class, _context.getStandards());
     }
-    static CustList<ClassArgumentMatching> getOrdersGreaterEqThan(ClassArgumentMatching _class, LgNames _stds) {
+    public static CustList<ClassArgumentMatching> getOrdersGreaterEqThan(ClassArgumentMatching _class, LgNames _stds) {
         CustList<ClassArgumentMatching> primitives_ = new CustList<ClassArgumentMatching>();
         primitives_.add(new ClassArgumentMatching(_stds.getAliasPrimDouble()));
         primitives_.add(new ClassArgumentMatching(_stds.getAliasPrimFloat()));
@@ -754,22 +651,13 @@ public final class PrimitiveTypeUtil {
         }
         return gt_;
     }
-    public static int getOrderClass(String _class) {
-        return getOrderClass(new ClassArgumentMatching(_class));
-    }
     public static int getOrderClass(String _class, ContextEl _context) {
-        if (_context.getClasses() == null) {
-            return getOrderClass(_class);
-        }
         return getOrderClass(_class, _context.getStandards());
     }
     public static int getOrderClass(String _class, LgNames _stds) {
         return getOrderClass(new ClassArgumentMatching(_class), _stds);
     }
     public static int getOrderClass(ClassArgumentMatching _class, ContextEl _context) {
-        if (_context.getClasses() == null) {
-            return getOrderClass(_class);
-        }
         return getOrderClass(_class, _context.getStandards());
     }
     public static int getOrderClass(ClassArgumentMatching _class, LgNames _stds) {
@@ -822,28 +710,7 @@ public final class PrimitiveTypeUtil {
         }
         return 0;
     }
-    public static boolean isPrimitiveOrWrapper(String _className) {
-        if (_className.startsWith(PredefinedClasses.ITERABLE)) {
-            return false;
-        }
-        if (_className.startsWith(PredefinedClasses.ITERATOR)) {
-            return false;
-        }
-        if (_className.startsWith(PredefinedClasses.ENUM)) {
-            return false;
-        }
-        if (_className.startsWith(PredefinedClasses.ENUM_PARAM)) {
-            return false;
-        }
-        if (isPrimitive(_className)) {
-            return true;
-        }
-        return toPrimitive(new ClassArgumentMatching(_className), false) != null;
-    }
     public static boolean isPrimitiveOrWrapper(String _className, ContextEl _context) {
-        if (_context.getClasses() == null) {
-            return isPrimitiveOrWrapper(_className);
-        }
         return isPrimitiveOrWrapper(_className, _context.getStandards());
     }
     public static boolean isPrimitiveOrWrapper(String _className, LgNames _stds) {
@@ -865,9 +732,6 @@ public final class PrimitiveTypeUtil {
         return toPrimitive(new ClassArgumentMatching(_className), false, _stds) != null;
     }
     public static boolean isPureNumberClass(ClassArgumentMatching _class, ContextEl _context) {
-        if (_context.getClasses() == null) {
-            return isPureNumberClass(_class);
-        }
         return isPureNumberClass(_class, _context.getStandards());
     }
     public static boolean isPureNumberClass(ClassArgumentMatching _class, LgNames _stds) {
@@ -919,19 +783,9 @@ public final class PrimitiveTypeUtil {
         return new ClassMatching(toPrimitive(cl_, true, _stds).getName()); 
     }
     public static ClassMatching toPrimitive(ClassMatching _class, ContextEl _context) {
-        if (_context.getClasses() == null) {
-            return toPrimitive(_class);
-        }
         return toPrimitive(_class, _context.getStandards());
     }
-    public static ClassMatching toPrimitive(ClassMatching _class) {
-        ClassArgumentMatching cl_ = new ClassArgumentMatching(_class.getClassName());
-        return new ClassMatching(toPrimitive(cl_, true).getName());
-    }
     public static ClassArgumentMatching toPrimitive(ClassArgumentMatching _class, boolean _id, ContextEl _context) {
-        if (_context.getClasses() == null) {
-            return toPrimitive(_class, _id);
-        }
         return toPrimitive(_class, _id, _context.getStandards());
     }
     public static ClassArgumentMatching toPrimitive(ClassArgumentMatching _class, boolean _id, LgNames _stds) {
@@ -995,9 +849,6 @@ public final class PrimitiveTypeUtil {
         return null;
     }
     static ClassArgumentMatching toWrapper(ClassArgumentMatching _class, boolean _id, ContextEl _context) {
-        if (_context.getClasses() == null) {
-            return toWrapper(_class, _id);
-        }
         return toWrapper(_class, _id, _context.getStandards());
     }
     static ClassArgumentMatching toWrapper(ClassArgumentMatching _class, boolean _id, LgNames _stds) {
@@ -1061,104 +912,12 @@ public final class PrimitiveTypeUtil {
         return null;
     }
 
-    static Argument defaultValue(Block _block, Argument _global) {
-        if (_block instanceof MethodBlock) {
-            MethodBlock m_ = (MethodBlock) _block;
-            Object v_ = defaultValue(m_.getReturnType());
-            Argument a_ = new Argument();
-            a_.setObject(v_);
-            return a_;
-        }
-        if (_block instanceof ConstructorBlock) {
-            return _global;
-        }
-        return Argument.createVoid();
-    }
-
-    public static Object defaultValue(String _class) {
-        if (isPrimitive(_class)) {
-            if (StringList.quickEq(_class, PrimitiveTypeUtil.PRIM_BOOLEAN)) {
-                return false;
-            }
-            return convert(_class, 0);
-        }
-        return null;
-    }
-    public static Object convert(String _toClass, Object _arg) {
-        ClassArgumentMatching class_ = new ClassArgumentMatching(_toClass);
-        ClassArgumentMatching prim_ = toPrimitive(class_, true);
-        if (prim_.matchClass(PRIM_DOUBLE)) {
-            if (_arg instanceof Character) {
-                return (double)((Character)_arg).charValue();
-            }
-            return ((Number)_arg).doubleValue();
-        }
-        if (prim_.matchClass(PRIM_FLOAT)) {
-            if (_arg instanceof Character) {
-                return (float)((Character)_arg).charValue();
-            }
-            return ((Number)_arg).floatValue();
-        }
-        if (prim_.matchClass(PRIM_LONG)) {
-            if (_arg instanceof Character) {
-                return (long)((Character)_arg).charValue();
-            }
-            return ((Number)_arg).longValue();
-        }
-        if (prim_.matchClass(PRIM_INT)) {
-            if (_arg instanceof Character) {
-                return (int)((Character)_arg).charValue();
-            }
-            return ((Number)_arg).intValue();
-        }
-        if (prim_.matchClass(PRIM_CHAR)) {
-            if (_arg instanceof Character) {
-                return _arg;
-            }
-            return (char)((Number)_arg).longValue();
-        }
-        if (prim_.matchClass(PRIM_SHORT)) {
-            if (_arg instanceof Character) {
-                return (short)((Character)_arg).charValue();
-            }
-            return ((Number)_arg).shortValue();
-        }
-        if (prim_.matchClass(PRIM_BYTE)) {
-            if (_arg instanceof Character) {
-                return (byte)((Character)_arg).charValue();
-            }
-            return ((Number)_arg).byteValue();
-        }
-        return null;
-    }
-    public static boolean isIntegerType(ClassArgumentMatching _class) {
-        ClassArgumentMatching prim_ = toPrimitive(_class, true);
-        if (prim_.matchClass(PRIM_LONG)) {
-            return true;
-        }
-        if (prim_.matchClass(PRIM_INT)) {
-            return true;
-        }
-        if (prim_.matchClass(PRIM_CHAR)) {
-            return true;
-        }
-        if (prim_.matchClass(PRIM_SHORT)) {
-            return true;
-        }
-        if (prim_.matchClass(PRIM_BYTE)) {
-            return true;
-        }
-        return false;
-    }
-
     public static Argument defaultValue(Block _block, Argument _global, ContextEl _context) {
-        if (_context.getClasses() == null) {
-            return defaultValue(_block, _global);
-        }
         if (_block instanceof MethodBlock) {
             MethodBlock m_ = (MethodBlock) _block;
             Argument a_ = new Argument();
-            a_.setStruct(StdStruct.defaultClass(m_.getReturnType(), _context));
+            LgNames stds_ = _context.getStandards();
+            a_.setStruct(StdStruct.defaultClass(m_.getReturnType(stds_), _context));
             return a_;
         }
         if (_block instanceof ConstructorBlock) {
@@ -1168,9 +927,6 @@ public final class PrimitiveTypeUtil {
     }
 
     public static Object defaultValue(String _class, ContextEl _context) {
-        if (_context.getClasses() == null) {
-            return defaultValue(_class);
-        }
         return defaultValue(_class, _context.getStandards());
     }
 
@@ -1184,9 +940,6 @@ public final class PrimitiveTypeUtil {
         return null;
     }
     public static Object convert(String _toClass, Object _arg, ContextEl _context) {
-        if (_context.getClasses() == null) {
-            return convert(_toClass, _arg);
-        }
         return convert(_toClass, _arg, _context.getStandards());
     }
     public static Object convert(String _toClass, Object _arg, LgNames _stds) {
@@ -1237,9 +990,6 @@ public final class PrimitiveTypeUtil {
         return null;
     }
     public static boolean isIntegerType(ClassArgumentMatching _class, ContextEl _context) {
-        if (_context.getClasses() == null) {
-            return isIntegerType(_class);
-        }
         return isIntegerType(_class, _context.getStandards());
     }
     public static boolean isIntegerType(ClassArgumentMatching _class, LgNames _stds) {

@@ -23,7 +23,7 @@ public final class LongStruct extends Struct {
 
     @Override
     public String getClassName(ContextEl _context) {
-        return Long.class.getName();
+        return _context.getStandards().getAliasLong();
     }
 
     @Override

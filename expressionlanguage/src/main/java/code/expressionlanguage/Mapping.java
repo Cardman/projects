@@ -12,11 +12,11 @@ public class Mapping {
     private String param;
     private StringMap<StringList> mapping = new StringMap<StringList>();
 
-    public boolean isCyclic() {
+    public boolean isCyclic(String _objectClassName) {
         Graph<ClassEdge> graph_ = new Graph<ClassEdge>();
         for (EntryCust<String, StringList> e: mapping.entryList()) {
             for (String s: e.getValue()) {
-                if (StringList.quickEq(s, Object.class.getName())) {
+                if (StringList.quickEq(s, _objectClassName)) {
                     graph_.addSegment(new ClassEdge(e.getKey()), new ClassEdge(s));
                     continue;
                 }
@@ -28,11 +28,11 @@ public class Mapping {
         }
         return graph_.hasCycle();
     }
-    public StringList getAllUpperBounds(String _className) {
-        return getAllUpperBounds(mapping, _className);
+    public StringList getAllUpperBounds(String _className, String _objectClassName) {
+        return getAllUpperBounds(mapping, _className, _objectClassName);
     }
 
-    public static StringList getAllUpperBounds(StringMap<StringList> _mapping, String _className) {
+    public static StringList getAllUpperBounds(StringMap<StringList> _mapping, String _className, String _objectClassName) {
         StringList visitedBounds_ = new StringList();
         StringList currentBounds_ = new StringList(_className);
         while (true) {
@@ -52,7 +52,7 @@ public class Mapping {
             }
             if (nextBounds_.isEmpty()) {
                 if (visitedBounds_.isEmpty()) {
-                    visitedBounds_.add(Object.class.getName());
+                    visitedBounds_.add(_objectClassName);
                 }
                 return visitedBounds_;
             }

@@ -13,6 +13,7 @@ import code.expressionlanguage.opers.OperationNode;
 import code.expressionlanguage.opers.util.ClassMetaInfo;
 import code.expressionlanguage.opers.util.ClassName;
 import code.expressionlanguage.opers.util.ConstructorId;
+import code.expressionlanguage.stds.LgNames;
 import code.sml.Element;
 import code.util.CustList;
 import code.util.EqList;
@@ -40,7 +41,7 @@ public final class Line extends Leaf implements StackableBlock {
     }
 
     @Override
-    public NatTreeMap<String,String> getClassNames() {
+    public NatTreeMap<String,String> getClassNames(LgNames _stds) {
         NatTreeMap<String,String> tr_ = new NatTreeMap<String,String>();
         return tr_;
     }

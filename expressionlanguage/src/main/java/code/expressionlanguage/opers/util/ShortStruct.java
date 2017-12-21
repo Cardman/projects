@@ -23,7 +23,7 @@ public final class ShortStruct extends Struct {
 
     @Override
     public String getClassName(ContextEl _context) {
-        return Short.class.getName();
+        return _context.getStandards().getAliasShort();
     }
 
     @Override

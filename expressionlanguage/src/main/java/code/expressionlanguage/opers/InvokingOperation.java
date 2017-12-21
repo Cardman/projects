@@ -13,7 +13,6 @@ import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.opers.util.CustStruct;
 import code.expressionlanguage.opers.util.StdStruct;
 import code.expressionlanguage.opers.util.Struct;
-import code.expressionlanguage.stds.LgNames;
 import code.util.CustList;
 import code.util.StringList;
 import code.util.StringMap;
@@ -50,7 +49,6 @@ public abstract class InvokingOperation extends MethodOperation {
             StringMap<StringList> map_;
             map_ = new StringMap<StringList>();
             String glClass_ = _conf.getLastPage().getGlobalClass();
-            Classes classes_ = _conf.getClasses();
             if (glClass_ != null) {
                 for (TypeVar t: Templates.getConstraints(glClass_, _conf)) {
                     map_.put(t.getName(), t.getConstraints());
@@ -80,10 +78,6 @@ public abstract class InvokingOperation extends MethodOperation {
     }
 
     static CustList<Argument> listArguments(CustList<OperationNode> _children, int _natVararg, String _lastType, CustList<Argument> _nodes, ContextEl _context) {
-        LgNames stds_ = _context.getStandards();
-        if (_context.getClasses() != null) {
-            
-        }
         if (!_children.isEmpty() && _children.first().isVararg()) {
             CustList<Argument> firstArgs_ = new CustList<Argument>();
             CustList<Argument> optArgs_ = new CustList<Argument>();
@@ -112,7 +106,6 @@ public abstract class InvokingOperation extends MethodOperation {
             g_ = page_.formatVarType(g_, _context);
             boolean native_ = true;
             if (classes_ != null) {
-//                native_ = !_context.getClasses().isCustomType(g_);
                 native_ = false;
             }
             if (native_) {
@@ -157,7 +150,6 @@ public abstract class InvokingOperation extends MethodOperation {
             String g_ = page_.formatVarType(_lastType, _context) ;
             boolean native_ = true;
             if (classes_ != null) {
-//                native_ = !classes_.isCustomType(g_);
                 native_ = false;
             }
             if (native_) {

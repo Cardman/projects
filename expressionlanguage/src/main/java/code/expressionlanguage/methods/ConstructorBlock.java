@@ -3,9 +3,9 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.PageEl;
 import code.expressionlanguage.Templates;
 import code.expressionlanguage.methods.util.InstancingStep;
-import code.expressionlanguage.opers.OperationNode;
 import code.expressionlanguage.opers.util.ClassName;
 import code.expressionlanguage.opers.util.ConstructorId;
+import code.expressionlanguage.stds.LgNames;
 import code.sml.Element;
 import code.util.CustList;
 import code.util.EqList;
@@ -141,8 +141,8 @@ public final class ConstructorBlock extends NamedFunctionBlock {
     }
 
     @Override
-    public String getReturnType() {
-        return OperationNode.VOID_RETURN;
+    public String getReturnType(LgNames _stds) {
+        return _stds.getAliasVoid();
     }
 
     @Override

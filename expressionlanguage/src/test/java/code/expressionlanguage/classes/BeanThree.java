@@ -1,20 +1,19 @@
 package code.expressionlanguage.classes;
-import code.expressionlanguage.AccEl;
 import code.util.CustList;
 import code.util.Numbers;
 
 public class BeanThree {
 
-    @AccEl
+
     private Numbers<Integer> numbers = new Numbers<Integer>();
 
-    @AccEl
+
     private int index = CustList.INDEX_NOT_FOUND_ELT;
 
-    @AccEl
+
     private Numbers<Integer> numbersTwo = new Numbers<Integer>();
 
-    @AccEl
+
     private int indexTwo = CustList.INDEX_NOT_FOUND_ELT;
 
     public int getIndex() {

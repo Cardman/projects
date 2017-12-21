@@ -23,7 +23,7 @@ public final class DoubleStruct extends Struct {
 
     @Override
     public String getClassName(ContextEl _context) {
-        return Double.class.getName();
+        return _context.getStandards().getAliasDouble();
     }
 
     @Override

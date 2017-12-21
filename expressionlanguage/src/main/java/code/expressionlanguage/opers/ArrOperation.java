@@ -9,10 +9,8 @@ import code.expressionlanguage.OperationsSequence;
 import code.expressionlanguage.PageEl;
 import code.expressionlanguage.PrimitiveTypeUtil;
 import code.expressionlanguage.Templates;
-import code.expressionlanguage.exceptions.BadIndexException;
 import code.expressionlanguage.exceptions.BadIndexTypeException;
 import code.expressionlanguage.exceptions.BadNumberValuesException;
-import code.expressionlanguage.exceptions.DynamicArrayStoreException;
 import code.expressionlanguage.exceptions.InvokeException;
 import code.expressionlanguage.exceptions.NotArrayException;
 import code.expressionlanguage.methods.util.ArgumentsPair;
@@ -26,11 +24,14 @@ import code.expressionlanguage.stds.LgNames;
 import code.util.CustList;
 import code.util.IdMap;
 import code.util.NatTreeMap;
-import code.util.exceptions.NullObjectException;
+import code.util.StringList;
 
 public final class ArrOperation extends MethodOperation implements SettableElResult {
 
     private boolean variable;
+
+    private boolean catString;
+    private boolean catChars;
 
     public ArrOperation(int _index, ContextEl _importingPage,
             int _indexChild, MethodOperation _m, OperationsSequence _op) {
@@ -80,6 +81,19 @@ public final class ArrOperation extends MethodOperation implements SettableElRes
                 throw new NotArrayException(class_+RETURN_LINE+_conf.joinPages());
             }
             class_ = new ClassArgumentMatching(PrimitiveTypeUtil.getQuickComponentType(class_.getName()));
+        }
+        LgNames stds_ = _conf.getStandards();
+        String stringType_;
+        String charType_;
+        stringType_ = stds_.getAliasString();
+        charType_ = stds_.getAliasCharacter();
+        if (resultCanBeSet()) {
+            if (StringList.quickEq(class_.getName(), stringType_)) {
+                catString = true;
+            }
+            if (StringList.quickEq(class_.getName(), charType_)) {
+                catChars = true;
+            }
         }
         setResultClass(class_);
     }
@@ -159,11 +173,7 @@ public final class ArrOperation extends MethodOperation implements SettableElRes
         setRelativeOffsetPossibleLastPage(_indexEl, _conf);
         LgNames stds_ = _conf.getStandards();
         String null_;
-        if (_conf.getClasses() != null) {
-            null_ = stds_.getAliasNullPe();
-        } else {
-            null_ = NullObjectException.class.getName();
-        }
+        null_ = stds_.getAliasNullPe();
         Object o_ = _index.getObject();
         PageEl ip_ = _conf.getLastPage();
         Struct leftObj_ = getElement(_array, o_, _conf, _indexEl);
@@ -175,7 +185,7 @@ public final class ArrOperation extends MethodOperation implements SettableElRes
             throw new InvokeException(new StdStruct(new CustomError(_conf.joinPages()),null_));
         }
         Argument res_;
-        res_ = NumericOperation.calculateAffect(left_, _conf, right_, _op);
+        res_ = NumericOperation.calculateAffect(left_, _conf, right_, _op, catChars, catString);
         setElement(_array, o_, res_.getStruct(), _conf);
     }
 
@@ -197,13 +207,8 @@ public final class ArrOperation extends MethodOperation implements SettableElRes
         LgNames stds_ = _conf.getStandards();
         String null_;
         String badIndex_;
-        if (_conf.getClasses() != null) {
-            null_ = stds_.getAliasNullPe();
-            badIndex_ = stds_.getAliasBadIndex();
-        } else {
-            null_ = NullObjectException.class.getName();
-            badIndex_ = BadIndexException.class.getName();
-        }
+        null_ = stds_.getAliasNullPe();
+        badIndex_ = stds_.getAliasBadIndex();
         if (_struct.isNull()) {
             throw new InvokeException(new StdStruct(new CustomError(_conf.joinPages()),null_));
         }
@@ -234,11 +239,7 @@ public final class ArrOperation extends MethodOperation implements SettableElRes
     static void setCheckedElement(Struct _array,Object _index, Argument _element, ContextEl _conf) {
         LgNames stds_ = _conf.getStandards();
         String null_;
-        if (_conf.getClasses() != null) {
-            null_ = stds_.getAliasNullPe();
-        } else {
-            null_ = NullObjectException.class.getName();
-        }
+        null_ = stds_.getAliasNullPe();
         String base_ = PrimitiveTypeUtil.getQuickComponentType(_array.getClassName(_conf));
         if (PrimitiveTypeUtil.primitiveTypeNullObject(base_, _element.getStruct(), _conf)) {
             throw new InvokeException(new StdStruct(new CustomError(_conf.joinPages()),null_));
@@ -250,15 +251,9 @@ public final class ArrOperation extends MethodOperation implements SettableElRes
         String null_;
         String badIndex_;
         String store_;
-        if (_conf.getClasses() != null) {
-            null_ = stds_.getAliasNullPe();
-            badIndex_ = stds_.getAliasBadIndex();
-            store_ = stds_.getAliasStore();
-        } else {
-            null_ = NullObjectException.class.getName();
-            badIndex_ = BadIndexException.class.getName();
-            store_ = DynamicArrayStoreException.class.getName();
-        }
+        null_ = stds_.getAliasNullPe();
+        badIndex_ = stds_.getAliasBadIndex();
+        store_ = stds_.getAliasStore();
         if (_struct.isNull()) {
             throw new InvokeException(new StdStruct(new CustomError(_conf.joinPages()),null_));
         }

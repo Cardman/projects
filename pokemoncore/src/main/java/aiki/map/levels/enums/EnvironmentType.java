@@ -1,6 +1,7 @@
 package aiki.map.levels.enums;
 import code.serialize.CheckedData;
 import code.util.EnumList;
+import code.util.StringList;
 import code.util.ints.Listable;
 
 
@@ -33,6 +34,14 @@ public enum EnvironmentType {
             }
         }
         return true;
+    }
+    public static EnvironmentType getEnvByName(String _env) {
+        for (EnvironmentType e: values()) {
+            if (StringList.quickEq(e.name(), _env)) {
+                return e;
+            }
+        }
+        return null;
     }
     public static EnumList<EnvironmentType> getEnvironments() {
         return new EnumList<EnvironmentType>(values());

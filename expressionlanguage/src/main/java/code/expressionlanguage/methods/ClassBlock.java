@@ -10,7 +10,6 @@ import code.expressionlanguage.methods.util.BadReturnTypeInherit;
 import code.expressionlanguage.methods.util.ConstructorEdge;
 import code.expressionlanguage.methods.util.DuplicateParamMethod;
 import code.expressionlanguage.methods.util.TypeVar;
-import code.expressionlanguage.opers.OperationNode;
 import code.expressionlanguage.opers.util.ClassMetaInfo;
 import code.expressionlanguage.opers.util.ConstructorId;
 import code.expressionlanguage.opers.util.ConstructorMetaInfo;
@@ -52,7 +51,7 @@ public final class ClassBlock extends RootBlock implements UniqueRootedBlock {
         super(_el, _importingPage, _indexChild, _m);
         String superClass_ = _el.getAttribute(ATTRIBUTE_SUPER_CLASS);
         if (superClass_.trim().isEmpty()) {
-            superClass_ = Object.class.getName();
+            superClass_ = _importingPage.getStandards().getAliasObject();
         }
         superClass = superClass_;
         int i_ = CustList.FIRST_INDEX;
@@ -70,7 +69,7 @@ public final class ClassBlock extends RootBlock implements UniqueRootedBlock {
         Classes classesRef_ = _context.getClasses();
         StringList classNames_ = getAllGenericSuperClasses(_context);
         String fullName_ = getFullName();
-        for (String b: getCustomDirectSuperClasses()) {
+        for (String b: getCustomDirectSuperClasses(_context)) {
             ClassBlock bBl_ = (ClassBlock) classesRef_.getClassBody(b);
             AccessEnum acc_ = bBl_.getMaximumAccessConstructors(_context);
             if (acc_.ordinal() <= AccessEnum.PROTECTED.ordinal()) {
@@ -113,9 +112,7 @@ public final class ClassBlock extends RootBlock implements UniqueRootedBlock {
         StringList classes_ = new StringList(gene_);
         classes_.addAllElts(classNames_);
         LgNames stds_ = _context.getStandards();
-        if (_context.getClasses() != null) {
-            
-        }
+        String void_ = stds_.getAliasVoid();
         for (String s: getAllGenericInterfaces(_context)) {
             String base_ = StringList.getAllTypes(s).first();
             RootBlock r_ = classesRef_.getClassBody(base_);
@@ -142,16 +139,16 @@ public final class ClassBlock extends RootBlock implements UniqueRootedBlock {
                         err_.setId(m.getId());
                         classesRef_.getErrorsDet().add(err_);
                     }
-                    String retBase_ = m.getReturnType();
-                    String retDerive_ = mBase_.getReturnType();
+                    String retBase_ = m.getReturnType(stds_);
+                    String retDerive_ = mBase_.getReturnType(stds_);
                     String formattedRetDer_ = Templates.format(c, retDerive_, _context);
                     String formattedRetBase_ = Templates.format(s, retBase_, _context);
                     Mapping mapping_ = new Mapping();
                     mapping_.getMapping().putAllMap(vars_);
                     mapping_.setArg(formattedRetDer_);
                     mapping_.setParam(formattedRetBase_);
-                    if (StringList.quickEq(retBase_, OperationNode.VOID_RETURN)) {
-                        if (!StringList.quickEq(retDerive_, OperationNode.VOID_RETURN)) {
+                    if (StringList.quickEq(retBase_, void_)) {
+                        if (!StringList.quickEq(retDerive_, void_)) {
                             BadReturnTypeInherit err_;
                             err_ = new BadReturnTypeInherit();
                             err_.setFileName(getFullName());
@@ -180,9 +177,9 @@ public final class ClassBlock extends RootBlock implements UniqueRootedBlock {
     }
 
     @Override
-    public StringList getDirectGenericSuperTypes() {
+    public StringList getDirectGenericSuperTypes(ContextEl _classes) {
         StringList superTypes_ = new StringList();
-        if (!StringList.quickEq(superClass, Object.class.getName())) {
+        if (!StringList.quickEq(superClass, _classes.getStandards().getAliasObject())) {
             superTypes_.add(superClass);
         }
         superTypes_.addAllElts(directInterfaces);
@@ -332,7 +329,7 @@ public final class ClassBlock extends RootBlock implements UniqueRootedBlock {
     }
 
     @Override
-    public NatTreeMap<String,String> getClassNames() {
+    public NatTreeMap<String,String> getClassNames(LgNames _stds) {
         NatTreeMap<String,String> tr_ = new NatTreeMap<String,String>();
         tr_.put(ATTRIBUTE_NAME, getFullDefinition());
         tr_.put(ATTRIBUTE_SUPER_CLASS, superClass);
@@ -365,14 +362,14 @@ public final class ClassBlock extends RootBlock implements UniqueRootedBlock {
     }
 
     @Override
-    public StringList getDirectGenericSuperClasses() {
+    public StringList getDirectGenericSuperClasses(ContextEl _classes) {
         StringList classes_ = new StringList();
         classes_.add(superClass);
         return classes_;
     }
 
     @Override
-    public StringList getDirectSuperClasses() {
+    public StringList getDirectSuperClasses(ContextEl _classes) {
         StringList classes_ = new StringList();
         int index_ = superClass.indexOf(LT);
         if (index_ > CustList.INDEX_NOT_FOUND_ELT) {

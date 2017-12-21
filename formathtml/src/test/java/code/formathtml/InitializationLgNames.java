@@ -1,23 +1,13 @@
-package code.expressionlanguage;
+package code.formathtml;
 
-import code.expressionlanguage.classes.CustLgNames;
 import code.expressionlanguage.stds.LgNames;
 
 public final class InitializationLgNames {
 
-    public static LgNames initStandards(ContextEl _context) {
+    public static LgNames initStandards() {
         LgNames lgNames_ = new LgNames();
         basicStandards(lgNames_);
         lgNames_.build();
-        _context.setStandards(lgNames_);
-        lgNames_.setupOverrides();
-        return lgNames_;
-    }
-    public static LgNames initAdvStandards(ContextEl _context) {
-        LgNames lgNames_ = new CustLgNames();
-        basicStandards(lgNames_);
-        lgNames_.build();
-        _context.setStandards(lgNames_);
         lgNames_.setupOverrides();
         return lgNames_;
     }
@@ -54,7 +44,8 @@ public final class InitializationLgNames {
 //        _lgNames.setAliasDivisionZero("$divZero");
         _lgNames.setAliasDivisionZero("code.expressionlanguage.exceptions.DivideZeroException");
         //_lgNames.setAliasSof("$sofe");
-        _lgNames.setAliasMath("$math");
+        //_lgNames.setAliasMath("$math");
+        _lgNames.setAliasMath("java.lang.Math");
         _lgNames.setAliasAbs("abs");
         _lgNames.setAliasMod("mod");
         _lgNames.setAliasQuot("quot");

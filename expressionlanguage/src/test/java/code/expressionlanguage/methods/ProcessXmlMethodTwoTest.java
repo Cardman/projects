@@ -5,7 +5,6 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
-import code.expressionlanguage.AccessValueEx;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.CustBase;
@@ -47,7 +46,6 @@ public class ProcessXmlMethodTwoTest {
         xml_ += "</class>\n";
         files_.put("pkg/ExTwo."+Classes.EXT, xml_);
         ContextEl cont_ = contextEl();
-        cont_.setAccessValue(new AccessValueEx());
         Classes.validateAll(files_, cont_);
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
@@ -83,7 +81,6 @@ public class ProcessXmlMethodTwoTest {
         xml_ += "</class>\n";
         files_.put("pkg/ExTwo."+Classes.EXT, xml_);
         ContextEl cont_ = contextEl();
-        cont_.setAccessValue(new AccessValueEx());
         Classes.validateAll(files_, cont_);
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
@@ -127,7 +124,6 @@ public class ProcessXmlMethodTwoTest {
         xml_ += "</class>\n";
         files_.put("pkg/ExTwo."+Classes.EXT, xml_);
         ContextEl cont_ = contextEl();
-        cont_.setAccessValue(new AccessValueEx());
         Classes.validateAll(files_, cont_);
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
@@ -171,7 +167,6 @@ public class ProcessXmlMethodTwoTest {
         xml_ += "</class>\n";
         files_.put("pkg/ExThree."+Classes.EXT, xml_);
         ContextEl cont_ = contextEl();
-        cont_.setAccessValue(new AccessValueEx());
         Classes.validateAll(files_, cont_);
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
@@ -211,7 +206,6 @@ public class ProcessXmlMethodTwoTest {
         xml_ += "</class>\n";
         files_.put("pkg/ExTwo."+Classes.EXT, xml_);
         ContextEl cont_ = contextEl();
-        cont_.setAccessValue(new AccessValueEx());
         Classes.validateAll(files_, cont_);
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
@@ -251,7 +245,6 @@ public class ProcessXmlMethodTwoTest {
         xml_ += "</class>\n";
         files_.put("pkg/ExThree."+Classes.EXT, xml_);
         ContextEl cont_ = contextEl();
-        cont_.setAccessValue(new AccessValueEx());
         Classes.validateAll(files_, cont_);
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
@@ -296,7 +289,6 @@ public class ProcessXmlMethodTwoTest {
         xml_ += "</class>\n";
         files_.put("pkg/ExFour."+Classes.EXT, xml_);
         ContextEl cont_ = contextEl();
-        cont_.setAccessValue(new AccessValueEx());
         Classes.validateAll(files_, cont_);
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
@@ -336,7 +328,6 @@ public class ProcessXmlMethodTwoTest {
         xml_ += "</class>\n";
         files_.put("pkg/ExThree."+Classes.EXT, xml_);
         ContextEl cont_ = contextEl();
-        cont_.setAccessValue(new AccessValueEx());
         Classes.validateAll(files_, cont_);
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
@@ -376,7 +367,6 @@ public class ProcessXmlMethodTwoTest {
         xml_ += "</class>\n";
         files_.put("pkg/ExThree."+Classes.EXT, xml_);
         ContextEl cont_ = contextEl();
-        cont_.setAccessValue(new AccessValueEx());
         Classes.validateAll(files_, cont_);
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
@@ -417,7 +407,6 @@ public class ProcessXmlMethodTwoTest {
         xml_ += "</class>\n";
         files_.put("pkg/ExThree."+Classes.EXT, xml_);
         ContextEl cont_ = contextEl();
-        cont_.setAccessValue(new AccessValueEx());
         Classes.validateAll(files_, cont_);
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
@@ -458,7 +447,6 @@ public class ProcessXmlMethodTwoTest {
         xml_ += "</class>\n";
         files_.put("pkg/ExThree."+Classes.EXT, xml_);
         ContextEl cont_ = contextEl();
-        cont_.setAccessValue(new AccessValueEx());
         Classes.validateAll(files_, cont_);
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
@@ -498,7 +486,6 @@ public class ProcessXmlMethodTwoTest {
         xml_ += "</class>\n";
         files_.put("pkg/ExThree."+Classes.EXT, xml_);
         ContextEl cont_ = contextEl();
-        cont_.setAccessValue(new AccessValueEx());
         Classes.validateAll(files_, cont_);
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
@@ -539,7 +526,6 @@ public class ProcessXmlMethodTwoTest {
         xml_ += "</class>\n";
         files_.put("pkg/ExThree."+Classes.EXT, xml_);
         ContextEl cont_ = contextEl();
-        cont_.setAccessValue(new AccessValueEx());
         Classes.validateAll(files_, cont_);
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
@@ -576,7 +562,6 @@ public class ProcessXmlMethodTwoTest {
         xml_ += "</interface>\n";
         files_.put("pkg/Int."+Classes.EXT, xml_);
         ContextEl cont_ = contextEl();
-        cont_.setAccessValue(new AccessValueEx());
         Classes.validateAll(files_, cont_);
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
@@ -616,7 +601,6 @@ public class ProcessXmlMethodTwoTest {
         xml_ += "</interface>\n";
         files_.put("pkg/Int."+Classes.EXT, xml_);
         ContextEl cont_ = contextEl();
-        cont_.setAccessValue(new AccessValueEx());
         Classes.validateAll(files_, cont_);
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
@@ -663,7 +647,6 @@ public class ProcessXmlMethodTwoTest {
         xml_ += "</class>\n";
         files_.put("pkg/ExThree."+Classes.EXT, xml_);
         ContextEl cont_ = contextEl();
-        cont_.setAccessValue(new AccessValueEx());
         Classes.validateAll(files_, cont_);
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
@@ -710,7 +693,6 @@ public class ProcessXmlMethodTwoTest {
         xml_ += "</class>\n";
         files_.put("pkg/ExThree."+Classes.EXT, xml_);
         ContextEl cont_ = contextEl();
-        cont_.setAccessValue(new AccessValueEx());
         Classes.validateAll(files_, cont_);
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
@@ -757,7 +739,6 @@ public class ProcessXmlMethodTwoTest {
         xml_ += "</class>\n";
         files_.put("pkg/ExThree."+Classes.EXT, xml_);
         ContextEl cont_ = contextEl();
-        cont_.setAccessValue(new AccessValueEx());
         Classes.validateAll(files_, cont_);
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
@@ -803,7 +784,6 @@ public class ProcessXmlMethodTwoTest {
         xml_ += "</class>\n";
         files_.put("pkg/ExThree."+Classes.EXT, xml_);
         ContextEl cont_ = contextEl();
-        cont_.setAccessValue(new AccessValueEx());
         Classes.validateAll(files_, cont_);
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
@@ -837,7 +817,6 @@ public class ProcessXmlMethodTwoTest {
         xml_ += "</class>\n";
         files_.put("pkg/ExTwo."+Classes.EXT, xml_);
         ContextEl cont_ = contextEl();
-        cont_.setAccessValue(new AccessValueEx());
         Classes.validateAll(files_, cont_);
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
@@ -881,7 +860,6 @@ public class ProcessXmlMethodTwoTest {
         xml_ += "</class>\n";
         files_.put("pkg/CustNb."+Classes.EXT, xml_);
         ContextEl cont_ = contextEl();
-        cont_.setAccessValue(new AccessValueEx());
         Classes.validateAll(files_, cont_);
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
@@ -930,7 +908,6 @@ public class ProcessXmlMethodTwoTest {
         xml_ += "</class>\n";
         files_.put("pkg/CustInt."+Classes.EXT, xml_);
         ContextEl cont_ = contextEl();
-        cont_.setAccessValue(new AccessValueEx());
         Classes.validateAll(files_, cont_);
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
@@ -983,7 +960,6 @@ public class ProcessXmlMethodTwoTest {
         xml_ += "</class>\n";
         files_.put("pkg/CustInt."+Classes.EXT, xml_);
         ContextEl cont_ = contextEl();
-        cont_.setAccessValue(new AccessValueEx());
         Classes.validateAll(files_, cont_);
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
@@ -1037,7 +1013,6 @@ public class ProcessXmlMethodTwoTest {
         xml_ += "</class>\n";
         files_.put("pkg/CustInt."+Classes.EXT, xml_);
         ContextEl cont_ = contextEl();
-        cont_.setAccessValue(new AccessValueEx());
         Classes.validateAll(files_, cont_);
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
@@ -1083,7 +1058,6 @@ public class ProcessXmlMethodTwoTest {
         xml_ += "<field access='"+PUBLIC_ACCESS+"' name='ance' class='"+PrimitiveTypeUtil.PRIM_INT+"' value='inst;;;superaccess()'/>\n";
         xml_ += "</class>\n";
         files_.put("pkg/ExThree."+Classes.EXT, xml_);
-        cont_.setAccessValue(new AccessValueEx());
         Classes.validateAll(files_, cont_);
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.ExThree");
@@ -1126,7 +1100,6 @@ public class ProcessXmlMethodTwoTest {
         xml_ += "</class>\n";
         files_.put("pkg/ExFour."+Classes.EXT, xml_);
         ContextEl cont_ = contextEl();
-        cont_.setAccessValue(new AccessValueEx());
         Classes.validateAll(files_, cont_);
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
@@ -1172,7 +1145,6 @@ public class ProcessXmlMethodTwoTest {
         files_.put(CUST_ITER_PATH, getCustomIterator());
         files_.put(CUST_LIST_PATH, getCustomList());
         ContextEl cont_ = contextEl();
-        cont_.setAccessValue(new AccessValueEx());
         Classes.validateAll(files_, cont_);
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
@@ -1211,7 +1183,6 @@ public class ProcessXmlMethodTwoTest {
         files_.put(CUST_ITER_PATH, getCustomIterator());
         files_.put(CUST_LIST_PATH, getCustomList());
         ContextEl cont_ = contextEl();
-        cont_.setAccessValue(new AccessValueEx());
         Classes.validateAll(files_, cont_);
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
@@ -1255,7 +1226,6 @@ public class ProcessXmlMethodTwoTest {
         files_.put(CUST_ITER_PATH, getCustomIterator());
         files_.put(CUST_LIST_PATH, getCustomList());
         ContextEl cont_ = contextEl();
-        cont_.setAccessValue(new AccessValueEx());
         Classes.validateAll(files_, cont_);
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
@@ -1288,7 +1258,6 @@ public class ProcessXmlMethodTwoTest {
         files_.put(CUST_ITER_PATH, getCustomIterator());
         files_.put(CUST_LIST_PATH, getCustomList());
         ContextEl cont_ = contextEl();
-        cont_.setAccessValue(new AccessValueEx());
         Classes.validateAll(files_, cont_);
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
@@ -1322,7 +1291,6 @@ public class ProcessXmlMethodTwoTest {
         files_.put(CUST_ITER_PATH, getCustomIterator());
         files_.put(CUST_LIST_PATH, getCustomList());
         ContextEl cont_ = contextEl();
-        cont_.setAccessValue(new AccessValueEx());
         Classes.validateAll(files_, cont_);
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
@@ -1363,7 +1331,6 @@ public class ProcessXmlMethodTwoTest {
         xml_ += "</class>\n";
         files_.put("pkg/ExTwo."+Classes.EXT, xml_);
         ContextEl cont_ = contextEl();
-        cont_.setAccessValue(new AccessValueEx());
         Classes.validateAll(files_, cont_);
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
@@ -1416,7 +1383,6 @@ public class ProcessXmlMethodTwoTest {
         xml_ += "</class>\n";
         files_.put("pkg/ExThree."+Classes.EXT, xml_);
         ContextEl cont_ = contextEl();
-        cont_.setAccessValue(new AccessValueEx());
         Classes.validateAll(files_, cont_);
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
@@ -1467,7 +1433,6 @@ public class ProcessXmlMethodTwoTest {
         xml_ += "</class>\n";
         files_.put("pkg/ExThree."+Classes.EXT, xml_);
         ContextEl cont_ = contextEl();
-        cont_.setAccessValue(new AccessValueEx());
         Classes.validateAll(files_, cont_);
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");

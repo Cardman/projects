@@ -34,7 +34,7 @@ public class ExtractConditionTest {
         bean_.getComposite().getStrings().add("FIRST");
         bean_.getComposite().getStrings().add("SECOND");
         bean_.getComposite().setInteger(5);
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
         conf_.setMessagesFolder(folder_);
@@ -66,7 +66,7 @@ public class ExtractConditionTest {
         files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
         BeanOne bean_ = new BeanOne();
         bean_.getComposite().setInteger(5);
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
         conf_.setMessagesFolder(folder_);
@@ -102,7 +102,7 @@ public class ExtractConditionTest {
         bean_.getComposite().getStrings().add("FIRST");
         bean_.getComposite().getStrings().add("SECOND");
         bean_.getComposite().setInteger(5);
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
         conf_.setMessagesFolder(folder_);
@@ -134,7 +134,7 @@ public class ExtractConditionTest {
         files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
         BeanOne bean_ = new BeanOne();
         bean_.getComposite().setInteger(5);
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
         conf_.setMessagesFolder(folder_);
@@ -166,7 +166,7 @@ public class ExtractConditionTest {
         bean_.getComposite().getStrings().add("FIRST");
         bean_.getComposite().getStrings().add("SECOND");
         bean_.getComposite().setInteger(5);
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
         conf_.setMessagesFolder(folder_);
@@ -199,7 +199,7 @@ public class ExtractConditionTest {
         BeanOne bean_ = new BeanOne();
         bean_.getComposite().getStrings().add("FIRST");
         bean_.getComposite().setInteger(5);
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
         conf_.setMessagesFolder(folder_);
@@ -235,7 +235,7 @@ public class ExtractConditionTest {
         bean_.getComposite().setInteger(5);
         bean_.getComposites().get(0).setStrings(new StringList("F"));
         bean_.getComposites().get(1).setStrings(new StringList("S"));
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
         conf_.setMessagesFolder(folder_);
@@ -268,7 +268,7 @@ public class ExtractConditionTest {
         bean_.getComposite().setInteger(5);
         bean_.getTree().put("ONE", 1);
         bean_.getTree().put("TWO", 2);
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
         conf_.setMessagesFolder(folder_);
@@ -299,7 +299,7 @@ public class ExtractConditionTest {
         bean_.getComposite().getStrings().add("FIRST");
         bean_.getComposite().getStrings().add("SECOND");
         bean_.getComposite().setInteger(5);
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
         conf_.setMessagesFolder(folder_);
@@ -332,7 +332,7 @@ public class ExtractConditionTest {
         BeanOne bean_ = new BeanOne();
         bean_.getComposite().getStrings().add("FIRST");
         bean_.getComposite().setInteger(5);
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
         conf_.setMessagesFolder(folder_);
@@ -366,7 +366,7 @@ public class ExtractConditionTest {
         BeanOne bean_ = new BeanOne();
         bean_.getComposite().getStrings().add("FIRST");
         bean_.getComposite().setInteger(5);
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
         conf_.setMessagesFolder(folder_);
@@ -398,7 +398,7 @@ public class ExtractConditionTest {
         BeanOne bean_ = new BeanOne();
         bean_.getComposite().getStrings().add("FIRST");
         bean_.getComposite().setInteger(5);
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
         conf_.setMessagesFolder(folder_);
@@ -435,7 +435,7 @@ public class ExtractConditionTest {
         BeanOne bean_ = new BeanOne();
         bean_.getComposite().getStrings().add("FIRST");
         bean_.getComposite().setInteger(5);
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
         conf_.setMessagesFolder(folder_);
@@ -467,7 +467,7 @@ public class ExtractConditionTest {
         BeanOne bean_ = new BeanOne();
         bean_.getComposite().getStrings().add("FIRST");
         bean_.getComposite().setInteger(5);
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
         conf_.setMessagesFolder(folder_);
@@ -503,7 +503,7 @@ public class ExtractConditionTest {
         BeanOne bean_ = new BeanOne();
         bean_.getComposite().getStrings().add("FIRST");
         bean_.getComposite().setInteger(5);
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
         conf_.setMessagesFolder(folder_);
@@ -520,6 +520,12 @@ public class ExtractConditionTest {
         ip_.getReturnedValues().put("e", localVariable_);
         Element elt_ = getElement(doc_, "c:ifdefretval", 0);
         ExtractCondition.evaluateGenericCondition(elt_, conf_, ip_);
+    }
+
+    private static Configuration newConfiguration() {
+        Configuration conf_ = new Configuration();
+        conf_.setStandards(InitializationLgNames.initStandards());
+        return conf_;
     }
 
     private static Element getElement(Document _doc, String _tag, int _index) {

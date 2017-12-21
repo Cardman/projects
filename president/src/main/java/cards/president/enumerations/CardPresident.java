@@ -1,6 +1,7 @@
 package cards.president.enumerations;
 import code.format.Format;
 import code.util.EnumList;
+import code.util.StringList;
 import code.util.consts.Constants;
 import cards.consts.CardChar;
 import cards.consts.Suit;
@@ -198,6 +199,6 @@ public enum CardPresident {
     }
 
     public String getImageFileName(String _ext) {
-        return name().toUpperCase()+_ext;
+        return StringList.toUpperCase(name())+_ext;
     }
 }

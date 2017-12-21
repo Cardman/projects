@@ -23,7 +23,7 @@ public final class BooleanStruct extends Struct {
 
     @Override
     public String getClassName(ContextEl _context) {
-        return Boolean.class.getName();
+        return _context.getStandards().getAliasBoolean();
     }
 
     @Override

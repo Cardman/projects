@@ -2,7 +2,6 @@ package code.expressionlanguage.opers;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.OperationsSequence;
-import code.expressionlanguage.PrimitiveTypeUtil;
 import code.expressionlanguage.exceptions.BadNumberValuesException;
 import code.expressionlanguage.exceptions.NotBooleanException;
 import code.expressionlanguage.methods.util.ArgumentsPair;
@@ -33,15 +32,14 @@ public abstract class QuickOperation extends PrimitiveBoolOperation {
             throw new BadNumberValuesException(_conf.joinPages());
         }
         LgNames stds_ = _conf.getStandards();
-        if (_conf.getClasses() != null) {
-            
-        }
+        String booleanPrimType_ = stds_.getAliasPrimBoolean();
+        String booleanType_ = stds_.getAliasBoolean();
         for (OperationNode o: chidren_) {
             ClassArgumentMatching clMatch_;
             clMatch_ = o.getResultClass();
             setRelativeOffsetPossibleLastPage(o.getIndexInEl(), _conf);
-            if (!clMatch_.matchClass(PrimitiveTypeUtil.PRIM_BOOLEAN)) {
-                if (!clMatch_.matchClass(Boolean.class)) {
+            if (!clMatch_.matchClass(booleanPrimType_)) {
+                if (!clMatch_.matchClass(booleanType_)) {
                     ClassArgumentMatching cl_ = o.getResultClass();
                     throw new NotBooleanException(cl_+RETURN_LINE+_conf.joinPages());
                 }

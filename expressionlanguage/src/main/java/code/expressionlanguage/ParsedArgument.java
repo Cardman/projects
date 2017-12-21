@@ -36,9 +36,20 @@ public final class ParsedArgument {
 
     public static ParsedArgument parse(String _nb, ContextEl _context) {
         LgNames stds_ = _context.getStandards();
-        if (_context.getClasses() != null) {
-            
-        }
+        String doubleType_ = stds_.getAliasDouble();
+        String doublePrimType_ = stds_.getAliasPrimDouble();
+        String floatType_ = stds_.getAliasFloat();
+        String floatPrimType_ = stds_.getAliasPrimFloat();
+        String longType_ = stds_.getAliasLong();
+        String longPrimType_ = stds_.getAliasPrimLong();
+        String intType_ = stds_.getAliasInteger();
+        String intPrimType_ = stds_.getAliasPrimInteger();
+        String charType_ = stds_.getAliasCharacter();
+        String charPrimType_ = stds_.getAliasPrimChar();
+        String shortType_ = stds_.getAliasShort();
+        String shortPrimType_ = stds_.getAliasPrimShort();
+        String byteType_ = stds_.getAliasByte();
+        String bytePrimType_ = stds_.getAliasPrimByte();
         String nb_ = extractFromSuffix(_nb);
         Long longValue_ = LgNames.parseLongTen(nb_);
         if (!or(LgNames.isValidDouble(nb_), longValue_ == null)) {
@@ -47,11 +58,11 @@ public final class ParsedArgument {
         ParsedArgument out_ = new ParsedArgument();
         if (StringList.quickEq(nb_, removeUnderscores(_nb))) {
             if (longValue_ != null) {
-                out_.type = Long.class.getName();
+                out_.type = longType_;
                 out_.object = new LongStruct(longValue_);
                 return out_;
             }
-            out_.type = Double.class.getName();
+            out_.type = doubleType_;
             out_.object = new DoubleStruct(Double.parseDouble(nb_));
             return out_;
         }
@@ -64,80 +75,80 @@ public final class ParsedArgument {
         } else {
             value_ = Double.parseDouble(nb_);
         }
-        if (StringList.quickEq(parts_.toLowerCase(), INT_SUFFIX) && long_) {
+        if (StringList.quickEq(StringList.toLowerCase(parts_), INT_SUFFIX) && long_) {
             if (!checkedLongBounds(value_.longValue(), Integer.MIN_VALUE, Integer.MAX_VALUE)) {
                 return out_;
             }
             if (StringList.quickEq(parts_, INT_SUFFIX)) {
-                out_.type = PrimitiveTypeUtil.PRIM_INT;
+                out_.type = intPrimType_;
             } else {
-                out_.type = Integer.class.getName();
+                out_.type = intType_;
             }
             out_.object = new IntStruct(value_.intValue());
             return out_;
         }
-        if (StringList.quickEq(parts_.toLowerCase(), BYTE_SUFFIX) && long_) {
+        if (StringList.quickEq(StringList.toLowerCase(parts_), BYTE_SUFFIX) && long_) {
             if (!checkedLongBounds(value_.longValue(), Byte.MIN_VALUE, Byte.MAX_VALUE)) {
                 return out_;
             }
             if (StringList.quickEq(parts_, BYTE_SUFFIX)) {
-                out_.type = PrimitiveTypeUtil.PRIM_BYTE;
+                out_.type = bytePrimType_;
             } else {
-                out_.type = Byte.class.getName();
+                out_.type = byteType_;
             }
             out_.object = new ByteStruct(value_.byteValue());
             return out_;
         }
-        if (StringList.quickEq(parts_.toLowerCase(), LONG_SUFFIX) && long_) {
+        if (StringList.quickEq(StringList.toLowerCase(parts_), LONG_SUFFIX) && long_) {
             if (StringList.quickEq(parts_, LONG_SUFFIX)) {
-                out_.type = PrimitiveTypeUtil.PRIM_LONG;
+                out_.type = longPrimType_;
             } else {
-                out_.type = Long.class.getName();
+                out_.type = longType_;
             }
             out_.object = new LongStruct(value_.longValue());
             return out_;
         }
-        if (StringList.quickEq(parts_.toLowerCase(), SHORT_SUFFIX) && long_) {
+        if (StringList.quickEq(StringList.toLowerCase(parts_), SHORT_SUFFIX) && long_) {
             if (!checkedLongBounds(value_.longValue(), Short.MIN_VALUE, Short.MAX_VALUE)) {
                 return out_;
             }
             if (StringList.quickEq(parts_, SHORT_SUFFIX)) {
-                out_.type = PrimitiveTypeUtil.PRIM_SHORT;
+                out_.type = shortPrimType_;
             } else {
-                out_.type = Short.class.getName();
+                out_.type = shortType_;
             }
             out_.object = new ShortStruct(value_.shortValue());
             return out_;
         }
-        if (StringList.quickEq(parts_.toLowerCase(), CHAR_SUFFIX) && long_) {
+        if (StringList.quickEq(StringList.toLowerCase(parts_), CHAR_SUFFIX) && long_) {
             if (!checkedLongBounds(value_.longValue(), Character.MIN_VALUE, Character.MAX_VALUE)) {
                 return out_;
             }
             if (StringList.quickEq(parts_, CHAR_SUFFIX)) {
-                out_.type = PrimitiveTypeUtil.PRIM_CHAR;
+                out_.type = charPrimType_;
             } else {
-                out_.type = Character.class.getName();
+                out_.type = charType_;
             }
             out_.object = new CharStruct(Character.valueOf((char) value_.longValue()));
             return out_;
         }
-        if (StringList.quickEq(parts_.toLowerCase(), FLOAT_SUFFIX)) {
+        if (StringList.quickEq(StringList.toLowerCase(parts_), FLOAT_SUFFIX)) {
             if (!checkedDoubleBounds(value_.doubleValue(), Float.MIN_VALUE, Float.MAX_VALUE)) {
                 return out_;
             }
             if (StringList.quickEq(parts_, FLOAT_SUFFIX)) {
-                out_.type = PrimitiveTypeUtil.PRIM_FLOAT;
+                out_.type = floatPrimType_;
             } else {
-                out_.type = Float.class.getName();
+                out_.type = floatType_;
             }
             out_.object = new FloatStruct(value_.floatValue());
             return out_;
         }
-        if (StringList.quickEq(parts_.toLowerCase(), DOUBLE_SUFFIX)) {
+        if (StringList.quickEq(StringList.toLowerCase(parts_), DOUBLE_SUFFIX)) {
             if (StringList.quickEq(parts_, DOUBLE_SUFFIX)) {
-                out_.type = PrimitiveTypeUtil.PRIM_DOUBLE;
+                out_.type = doublePrimType_;
             } else {
-                out_.type = Double.class.getName();
+                out_.type = doubleType_;
             }
             out_.object = new DoubleStruct(value_.doubleValue());
             return out_;
@@ -168,25 +179,25 @@ public final class ParsedArgument {
 
     static String extractFromSuffix(String _nb) {
         boolean sub_ = false;
-        if (_nb.toLowerCase().endsWith(INT_SUFFIX)) {
+        if (StringList.toLowerCase(_nb).endsWith(INT_SUFFIX)) {
             sub_ = true;
         }
-        if (_nb.toLowerCase().endsWith(BYTE_SUFFIX)) {
+        if (StringList.toLowerCase(_nb).endsWith(BYTE_SUFFIX)) {
             sub_ = true;
         }
-        if (_nb.toLowerCase().endsWith(LONG_SUFFIX)) {
+        if (StringList.toLowerCase(_nb).endsWith(LONG_SUFFIX)) {
             sub_ = true;
         }
-        if (_nb.toLowerCase().endsWith(SHORT_SUFFIX)) {
+        if (StringList.toLowerCase(_nb).endsWith(SHORT_SUFFIX)) {
             sub_ = true;
         }
-        if (_nb.toLowerCase().endsWith(FLOAT_SUFFIX)) {
+        if (StringList.toLowerCase(_nb).endsWith(FLOAT_SUFFIX)) {
             sub_ = true;
         }
-        if (_nb.toLowerCase().endsWith(DOUBLE_SUFFIX)) {
+        if (StringList.toLowerCase(_nb).endsWith(DOUBLE_SUFFIX)) {
             sub_ = true;
         }
-        if (_nb.toLowerCase().endsWith(CHAR_SUFFIX)) {
+        if (StringList.toLowerCase(_nb).endsWith(CHAR_SUFFIX)) {
             sub_ = true;
         }
         String nb_ = StringList.removeChars(_nb, '_');

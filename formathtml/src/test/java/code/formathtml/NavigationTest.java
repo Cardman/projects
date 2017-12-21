@@ -71,7 +71,7 @@ public class NavigationTest {
         BeanTwo beanTwo_ = new BeanTwo();
         //beanTwo_.setClassName(BeanTwo.class.getName());
         beanTwo_.setScope("session");
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setPrefix("c");
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
@@ -83,7 +83,7 @@ public class NavigationTest {
         conf_.getProperties().put("msg_example", relative_);
         conf_.setTranslators(new StringMap<Translator>());
         conf_.getTranslators().put("trans", new MyTranslator());
-        Navigation nav_ = new Navigation();
+        Navigation nav_ = newNavigation();
         nav_.setLanguage(locale_);
         nav_.setSession(conf_);
         nav_.setFiles(files_);
@@ -117,7 +117,7 @@ public class NavigationTest {
         BeanTwo beanTwo_ = new BeanTwo();
         //beanTwo_.setClassName(BeanTwo.class.getName());
         beanTwo_.setScope("session");
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setPrefix("c");
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
@@ -129,7 +129,7 @@ public class NavigationTest {
         conf_.getProperties().put("msg_example", relative_);
         conf_.setTranslators(new StringMap<Translator>());
         conf_.getTranslators().put("trans", new MyTranslator());
-        Navigation nav_ = new Navigation();
+        Navigation nav_ = newNavigation();
         nav_.setLanguage(locale_);
         nav_.setSession(conf_);
         nav_.setFiles(files_);
@@ -163,7 +163,7 @@ public class NavigationTest {
         BeanTwo beanTwo_ = new BeanTwo();
         //beanTwo_.setClassName(BeanTwo.class.getName());
         beanTwo_.setScope("session");
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
         conf_.getBeans().put("bean_two", beanTwo_);
@@ -174,7 +174,7 @@ public class NavigationTest {
         conf_.getProperties().put("msg_example", relative_);
         conf_.setTranslators(new StringMap<Translator>());
         conf_.getTranslators().put("trans", new MyTranslator());
-        Navigation nav_ = new Navigation();
+        Navigation nav_ = newNavigation();
         nav_.setLanguage(locale_);
         nav_.setSession(conf_);
         nav_.setFiles(files_);
@@ -206,7 +206,7 @@ public class NavigationTest {
         BeanTwo beanTwo_ = new BeanTwo();
         //beanTwo_.setClassName(BeanTwo.class.getName());
         beanTwo_.setScope("session");
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
         conf_.getBeans().put("bean_two", beanTwo_);
@@ -217,7 +217,7 @@ public class NavigationTest {
         conf_.getProperties().put("msg_example", relative_);
         conf_.setTranslators(new StringMap<Translator>());
         conf_.getTranslators().put("trans", new MyTranslator());
-        Navigation nav_ = new Navigation();
+        Navigation nav_ = newNavigation();
         nav_.setLanguage(locale_);
         nav_.setSession(conf_);
         nav_.setFiles(files_);
@@ -249,7 +249,7 @@ public class NavigationTest {
         BeanTwo beanTwo_ = new BeanTwo();
         //beanTwo_.setClassName(BeanTwo.class.getName());
         beanTwo_.setScope("session");
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
         conf_.getBeans().put("bean_two", beanTwo_);
@@ -260,7 +260,7 @@ public class NavigationTest {
         conf_.getProperties().put("msg_example", relative_);
         conf_.setTranslators(new StringMap<Translator>());
         conf_.getTranslators().put("trans", new MyTranslator());
-        Navigation nav_ = new Navigation();
+        Navigation nav_ = newNavigation();
         nav_.setLanguage(locale_);
         nav_.setSession(conf_);
         nav_.setFiles(files_);
@@ -292,7 +292,7 @@ public class NavigationTest {
         BeanTwo beanTwo_ = new BeanTwo();
         //beanTwo_.setClassName(BeanTwo.class.getName());
         beanTwo_.setScope("session");
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
         conf_.getBeans().put("bean_two", beanTwo_);
@@ -303,7 +303,7 @@ public class NavigationTest {
         conf_.getProperties().put("msg_example", relative_);
         conf_.setTranslators(new StringMap<Translator>());
         conf_.getTranslators().put("trans", new MyTranslator());
-        Navigation nav_ = new Navigation();
+        Navigation nav_ = newNavigation();
         nav_.setLanguage(locale_);
         nav_.setSession(conf_);
         nav_.setFiles(files_);
@@ -335,7 +335,7 @@ public class NavigationTest {
         BeanTwo beanTwo_ = new BeanTwo();
         //beanTwo_.setClassName(BeanTwo.class.getName());
         beanTwo_.setScope("session");
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
         conf_.getBeans().put("bean_two", beanTwo_);
@@ -346,7 +346,7 @@ public class NavigationTest {
         conf_.getProperties().put("msg_example", relative_);
         conf_.setTranslators(new StringMap<Translator>());
         conf_.getTranslators().put("trans", new MyTranslator());
-        Navigation nav_ = new Navigation();
+        Navigation nav_ = newNavigation();
         nav_.setLanguage(locale_);
         nav_.setSession(conf_);
         nav_.setFiles(files_);
@@ -378,7 +378,7 @@ public class NavigationTest {
         BeanTwo beanTwo_ = new BeanTwo();
         //beanTwo_.setClassName(BeanTwo.class.getName());
         beanTwo_.setScope("session");
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setPrefix("c");
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
@@ -390,7 +390,7 @@ public class NavigationTest {
         conf_.getProperties().put("msg_example", relative_);
         conf_.setTranslators(new StringMap<Translator>());
         conf_.getTranslators().put("trans", new MyTranslator());
-        Navigation nav_ = new Navigation();
+        Navigation nav_ = newNavigation();
         nav_.setLanguage(locale_);
         nav_.setSession(conf_);
         nav_.setFiles(files_);
@@ -427,7 +427,7 @@ public class NavigationTest {
         BeanTwo beanTwo_ = new BeanTwo();
         //beanTwo_.setClassName(BeanTwo.class.getName());
         beanTwo_.setScope("request");
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setPrefix("c");
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
@@ -439,7 +439,7 @@ public class NavigationTest {
         conf_.getProperties().put("msg_example", relative_);
         conf_.setTranslators(new StringMap<Translator>());
         conf_.getTranslators().put("trans", new MyTranslator());
-        Navigation nav_ = new Navigation();
+        Navigation nav_ = newNavigation();
         nav_.setLanguage(locale_);
         nav_.setSession(conf_);
         nav_.setFiles(files_);
@@ -476,7 +476,7 @@ public class NavigationTest {
         BeanTwo beanTwo_ = new BeanTwo();
         //beanTwo_.setClassName(BeanTwo.class.getName());
         beanTwo_.setScope("request");
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setPrefix("c");
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
@@ -491,7 +491,7 @@ public class NavigationTest {
         conf_.setNavigation(new StringMap<StringMap<String>>());
         conf_.getNavigation().put("bean_one.goToPage", new StringMap<String>());
         conf_.getNavigation().getVal("bean_one.goToPage").put("page", "page2.html");
-        Navigation nav_ = new Navigation();
+        Navigation nav_ = newNavigation();
         nav_.setLanguage(locale_);
         nav_.setSession(conf_);
         nav_.setFiles(files_);
@@ -528,7 +528,7 @@ public class NavigationTest {
         BeanTwo beanTwo_ = new BeanTwo();
         //beanTwo_.setClassName(BeanTwo.class.getName());
         beanTwo_.setScope("request");
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setPrefix("c");
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
@@ -543,7 +543,7 @@ public class NavigationTest {
         conf_.setNavigation(new StringMap<StringMap<String>>());
         conf_.getNavigation().put("bean_one.goToNullPage", new StringMap<String>());
 
-        Navigation nav_ = new Navigation();
+        Navigation nav_ = newNavigation();
         nav_.setLanguage(locale_);
         nav_.setSession(conf_);
         nav_.setFiles(files_);
@@ -580,7 +580,7 @@ public class NavigationTest {
         BeanTwo beanTwo_ = new BeanTwo();
         //beanTwo_.setClassName(BeanTwo.class.getName());
         beanTwo_.setScope("request");
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setPrefix("c");
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
@@ -595,7 +595,7 @@ public class NavigationTest {
         conf_.setNavigation(new StringMap<StringMap<String>>());
         conf_.getNavigation().put("bean_one.goToPage()", new StringMap<String>());
         conf_.getNavigation().getVal("bean_one.goToPage()").put("page4", "page2.html");
-        Navigation nav_ = new Navigation();
+        Navigation nav_ = newNavigation();
         nav_.setLanguage(locale_);
         nav_.setSession(conf_);
         nav_.setFiles(files_);
@@ -632,7 +632,7 @@ public class NavigationTest {
         BeanTwo beanTwo_ = new BeanTwo();
         //beanTwo_.setClassName(BeanTwo.class.getName());
         beanTwo_.setScope("request");
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setPrefix("c");
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
@@ -647,7 +647,7 @@ public class NavigationTest {
         conf_.setNavigation(new StringMap<StringMap<String>>());
         conf_.getNavigation().put("bean_one.goToNullPage", new StringMap<String>());
 
-        Navigation nav_ = new Navigation();
+        Navigation nav_ = newNavigation();
         nav_.setLanguage(locale_);
         nav_.setSession(conf_);
         nav_.setFiles(files_);
@@ -684,7 +684,7 @@ public class NavigationTest {
         BeanTwo beanTwo_ = new BeanTwo();
         //beanTwo_.setClassName(BeanTwo.class.getName());
         beanTwo_.setScope("request");
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setPrefix("c");
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
@@ -699,7 +699,7 @@ public class NavigationTest {
         conf_.setNavigation(new StringMap<StringMap<String>>());
         conf_.getNavigation().put("bean_one.goToPage()", new StringMap<String>());
         conf_.getNavigation().getVal("bean_one.goToPage()").put("page_", "page2.html");
-        Navigation nav_ = new Navigation();
+        Navigation nav_ = newNavigation();
         nav_.setLanguage(locale_);
         nav_.setSession(conf_);
         nav_.setFiles(files_);
@@ -736,7 +736,7 @@ public class NavigationTest {
         BeanTwo beanTwo_ = new BeanTwo();
         //beanTwo_.setClassName(BeanTwo.class.getName());
         beanTwo_.setScope("request");
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setPrefix("c");
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
@@ -751,7 +751,7 @@ public class NavigationTest {
         conf_.setNavigation(new StringMap<StringMap<String>>());
         conf_.getNavigation().put("bean_one.goToPage()", new StringMap<String>());
         conf_.getNavigation().getVal("bean_one.goToPage()").put("page_", "page2.html");
-        Navigation nav_ = new Navigation();
+        Navigation nav_ = newNavigation();
         nav_.setLanguage(locale_);
         nav_.setSession(conf_);
         nav_.setFiles(files_);
@@ -789,7 +789,7 @@ public class NavigationTest {
         BeanTwo beanTwo_ = new BeanTwo();
         //beanTwo_.setClassName(BeanTwo.class.getName());
         beanTwo_.setScope("request");
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setPrefix("c");
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
@@ -804,7 +804,7 @@ public class NavigationTest {
         conf_.setNavigation(new StringMap<StringMap<String>>());
         conf_.getNavigation().put("bean_one.goToPage()", new StringMap<String>());
         conf_.getNavigation().getVal("bean_one.goToPage()").put("page_", "page2.html");
-        Navigation nav_ = new Navigation();
+        Navigation nav_ = newNavigation();
         nav_.setLanguage(locale_);
         nav_.setSession(conf_);
         nav_.setFiles(files_);
@@ -841,7 +841,7 @@ public class NavigationTest {
         BeanTwo beanTwo_ = new BeanTwo();
         //beanTwo_.setClassName(BeanTwo.class.getName());
         beanTwo_.setScope("session");
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setPrefix("c");
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
@@ -853,7 +853,7 @@ public class NavigationTest {
         conf_.getProperties().put("msg_example", relative_);
         conf_.setTranslators(new StringMap<Translator>());
         conf_.getTranslators().put("trans", new MyTranslator());
-        Navigation nav_ = new Navigation();
+        Navigation nav_ = newNavigation();
         nav_.setLanguage(locale_);
         nav_.setSession(conf_);
         nav_.setFiles(files_);
@@ -890,7 +890,7 @@ public class NavigationTest {
         BeanTwo beanTwo_ = new BeanTwo();
         //beanTwo_.setClassName(BeanTwo.class.getName());
         beanTwo_.setScope("session");
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setPrefix("c");
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
@@ -902,7 +902,7 @@ public class NavigationTest {
         conf_.getProperties().put("msg_example", relative_);
         conf_.setTranslators(new StringMap<Translator>());
         conf_.getTranslators().put("trans", new MyTranslator());
-        Navigation nav_ = new Navigation();
+        Navigation nav_ = newNavigation();
         nav_.setLanguage(locale_);
         nav_.setSession(conf_);
         nav_.setFiles(files_);
@@ -940,7 +940,7 @@ public class NavigationTest {
         BeanTwo beanTwo_ = new BeanTwo();
         //beanTwo_.setClassName(BeanTwo.class.getName());
         beanTwo_.setScope("request");
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setPrefix("c");
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
@@ -955,7 +955,7 @@ public class NavigationTest {
         conf_.setNavigation(new StringMap<StringMap<String>>());
         conf_.getNavigation().put("bean_one.goToPage()", new StringMap<String>());
         conf_.getNavigation().getVal("bean_one.goToPage()").put("page_", "page2.html");
-        Navigation nav_ = new Navigation();
+        Navigation nav_ = newNavigation();
         nav_.setLanguage(locale_);
         nav_.setSession(conf_);
         nav_.setFiles(files_);
@@ -992,7 +992,7 @@ public class NavigationTest {
 //        BeanTwo beanTwo_ = new BeanTwo();
         //beanTwo_.setClassName(BeanTwo.class.getName());
 //        beanTwo_.setScope("request");
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setPrefix("c");
         conf_.setBeans(new StringMap<Bean>());
 //        conf_.getBeans().put("bean_one", bean_);
@@ -1007,7 +1007,7 @@ public class NavigationTest {
         conf_.setNavigation(new StringMap<StringMap<String>>());
 //        conf_.getNavigation().put("bean_one.goToPage()", new Map<String,String>());
 //        conf_.getNavigation().getVal("bean_one.goToPage()").put("page_", "page2.html");
-        Navigation nav_ = new Navigation();
+        Navigation nav_ = newNavigation();
         nav_.setLanguage(locale_);
         nav_.setSession(conf_);
         nav_.setFiles(files_);
@@ -1041,7 +1041,7 @@ public class NavigationTest {
         BeanTwo beanTwo_ = new BeanTwo();
         //beanTwo_.setClassName(BeanTwo.class.getName());
         beanTwo_.setScope("request");
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setPrefix("c");
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_seven", bean_);
@@ -1056,7 +1056,7 @@ public class NavigationTest {
         conf_.setNavigation(new StringMap<StringMap<String>>());
         conf_.getNavigation().put("bean_seven.goTwoArgs(,)", new StringMap<String>());
         conf_.getNavigation().getVal("bean_seven.goTwoArgs(,)").put("bean12", "page2.html");
-        Navigation nav_ = new Navigation();
+        Navigation nav_ = newNavigation();
         nav_.setLanguage(locale_);
         nav_.setSession(conf_);
         nav_.setFiles(files_);
@@ -1093,7 +1093,7 @@ public class NavigationTest {
         BeanTwo beanTwo_ = new BeanTwo();
         //beanTwo_.setClassName(BeanTwo.class.getName());
         beanTwo_.setScope("request");
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setPrefix("c");
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
@@ -1109,7 +1109,7 @@ public class NavigationTest {
         conf_.getNavigation().put("bean_two.go", new StringMap<String>());
         conf_.getNavigation().getVal("bean_two.go").put("change", "page1.html");
         conf_.getNavigation().getVal("bean_two.go").put("no_change", "page2.html");
-        Navigation nav_ = new Navigation();
+        Navigation nav_ = newNavigation();
         nav_.setLanguage(locale_);
         nav_.setSession(conf_);
         nav_.setFiles(files_);
@@ -1173,7 +1173,7 @@ public class NavigationTest {
         BeanTwo beanTwo_ = new BeanTwo();
         //beanTwo_.setClassName(BeanTwo.class.getName());
         beanTwo_.setScope("session");
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setPrefix("c");
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
@@ -1189,7 +1189,7 @@ public class NavigationTest {
         conf_.getNavigation().put("bean_two.go", new StringMap<String>());
         conf_.getNavigation().getVal("bean_two.go").put("change", "page1.html");
         conf_.getNavigation().getVal("bean_two.go").put("no_change", "page2.html");
-        Navigation nav_ = new Navigation();
+        Navigation nav_ = newNavigation();
         nav_.setLanguage(locale_);
         nav_.setSession(conf_);
         nav_.setFiles(files_);
@@ -1253,7 +1253,7 @@ public class NavigationTest {
         BeanTwo beanTwo_ = new BeanTwo();
         //beanTwo_.setClassName(BeanTwo.class.getName());
         beanTwo_.setScope("request");
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setPrefix("c");
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
@@ -1269,7 +1269,7 @@ public class NavigationTest {
         conf_.getNavigation().put("bean_two.go", new StringMap<String>());
         conf_.getNavigation().getVal("bean_two.go").put("change", "page1.html");
         conf_.getNavigation().getVal("bean_two.go").put("no_change", "page2.html");
-        Navigation nav_ = new Navigation();
+        Navigation nav_ = newNavigation();
         nav_.setLanguage(locale_);
         nav_.setSession(conf_);
         nav_.setFiles(files_);
@@ -1332,7 +1332,7 @@ public class NavigationTest {
         BeanTwo beanTwo_ = new BeanTwo();
         //beanTwo_.setClassName(BeanTwo.class.getName());
         beanTwo_.setScope("request");
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setPrefix("c");
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
@@ -1349,7 +1349,7 @@ public class NavigationTest {
         conf_.getNavigation().put("bean_two.go", new StringMap<String>());
         conf_.getNavigation().getVal("bean_two.go").put("change", "page1.html");
         conf_.getNavigation().getVal("bean_two.go").put("no_change", "page2.html");
-        Navigation nav_ = new Navigation();
+        Navigation nav_ = newNavigation();
         nav_.setLanguage(locale_);
         nav_.setSession(conf_);
         nav_.setFiles(files_);
@@ -1403,7 +1403,7 @@ public class NavigationTest {
         BeanTwo beanTwo_ = new BeanTwo();
         //beanTwo_.setClassName(BeanTwo.class.getName());
         beanTwo_.setScope("request");
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setPrefix("c");
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
@@ -1420,7 +1420,7 @@ public class NavigationTest {
         conf_.getNavigation().put("bean_two.go", new StringMap<String>());
         conf_.getNavigation().getVal("bean_two.go").put("change", "page1.html");
         conf_.getNavigation().getVal("bean_two.go").put("no_change", "page2.html");
-        Navigation nav_ = new Navigation();
+        Navigation nav_ = newNavigation();
         nav_.setLanguage(locale_);
         nav_.setSession(conf_);
         nav_.setFiles(files_);
@@ -1474,7 +1474,7 @@ public class NavigationTest {
         BeanTwo beanTwo_ = new BeanTwo();
         //beanTwo_.setClassName(BeanTwo.class.getName());
         beanTwo_.setScope("session");
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setPrefix("c");
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
@@ -1491,7 +1491,7 @@ public class NavigationTest {
         conf_.getNavigation().put("bean_two.go", new StringMap<String>());
         conf_.getNavigation().getVal("bean_two.go").put("change", "page1.html");
         conf_.getNavigation().getVal("bean_two.go").put("no_change", "page2.html");
-        Navigation nav_ = new Navigation();
+        Navigation nav_ = newNavigation();
         nav_.setLanguage(locale_);
         nav_.setSession(conf_);
         nav_.setFiles(files_);
@@ -1555,7 +1555,7 @@ public class NavigationTest {
         BeanTwo beanTwo_ = new BeanTwo();
         //beanTwo_.setClassName(BeanTwo.class.getName());
         beanTwo_.setScope("request");
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setPrefix("c");
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
@@ -1571,7 +1571,7 @@ public class NavigationTest {
         conf_.getNavigation().put("bean_two.go", new StringMap<String>());
         conf_.getNavigation().getVal("bean_two.go").put("change", "page1.html");
         conf_.getNavigation().getVal("bean_two.go").put("no_change", "page2.html");
-        Navigation nav_ = new Navigation();
+        Navigation nav_ = newNavigation();
         nav_.setLanguage(locale_);
         nav_.setSession(conf_);
         nav_.setFiles(files_);
@@ -1635,7 +1635,7 @@ public class NavigationTest {
         BeanTwo beanTwo_ = new BeanTwo();
         //beanTwo_.setClassName(BeanTwo.class.getName());
         beanTwo_.setScope("request");
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setPrefix("c");
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
@@ -1652,7 +1652,7 @@ public class NavigationTest {
         conf_.getNavigation().put("bean_two.go", new StringMap<String>());
         conf_.getNavigation().getVal("bean_two.go").put("change", "page1.html");
         conf_.getNavigation().getVal("bean_two.go").put("no_change", "page2.html");
-        Navigation nav_ = new Navigation();
+        Navigation nav_ = newNavigation();
         nav_.setLanguage(locale_);
         nav_.setSession(conf_);
         nav_.setFiles(files_);
@@ -1706,7 +1706,7 @@ public class NavigationTest {
         BeanTwo beanTwo_ = new BeanTwo();
         //beanTwo_.setClassName(BeanTwo.class.getName());
         beanTwo_.setScope("request");
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setPrefix("c");
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
@@ -1722,7 +1722,7 @@ public class NavigationTest {
         conf_.getNavigation().put("bean_two.go", new StringMap<String>());
         conf_.getNavigation().getVal("bean_two.go").put("change", "page1.html");
         conf_.getNavigation().getVal("bean_two.go").put("no_change", "page2.html");
-        Navigation nav_ = new Navigation();
+        Navigation nav_ = newNavigation();
         nav_.setLanguage(locale_);
         nav_.setSession(conf_);
         nav_.setFiles(files_);
@@ -1785,7 +1785,7 @@ public class NavigationTest {
         BeanTwo beanTwo_ = new BeanTwo();
         //beanTwo_.setClassName(BeanTwo.class.getName());
         beanTwo_.setScope("request");
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setPrefix("c");
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
@@ -1801,7 +1801,7 @@ public class NavigationTest {
         conf_.getNavigation().put("bean_two.go", new StringMap<String>());
         conf_.getNavigation().getVal("bean_two.go").put("change", "page1.html");
         conf_.getNavigation().getVal("bean_two.go").put("no_change", "page2.html");
-        Navigation nav_ = new Navigation();
+        Navigation nav_ = newNavigation();
         nav_.setLanguage(locale_);
         nav_.setSession(conf_);
         nav_.setFiles(files_);
@@ -1864,7 +1864,7 @@ public class NavigationTest {
         BeanTwo beanTwo_ = new BeanTwo();
         //beanTwo_.setClassName(BeanTwo.class.getName());
         beanTwo_.setScope("request");
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setPrefix("c");
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
@@ -1880,7 +1880,7 @@ public class NavigationTest {
         conf_.getNavigation().put("bean_two.go", new StringMap<String>());
         conf_.getNavigation().getVal("bean_two.go").put("change", "page1.html");
         conf_.getNavigation().getVal("bean_two.go").put("no_change", "page2.html");
-        Navigation nav_ = new Navigation();
+        Navigation nav_ = newNavigation();
         nav_.setLanguage(locale_);
         nav_.setSession(conf_);
         nav_.setFiles(files_);
@@ -1943,7 +1943,7 @@ public class NavigationTest {
         BeanTwo beanTwo_ = new BeanTwo();
         //beanTwo_.setClassName(BeanTwo.class.getName());
         beanTwo_.setScope("request");
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setPrefix("c");
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
@@ -1959,7 +1959,7 @@ public class NavigationTest {
         conf_.getNavigation().put("bean_two.go", new StringMap<String>());
         conf_.getNavigation().getVal("bean_two.go").put("change", "page1.html");
         conf_.getNavigation().getVal("bean_two.go").put("no_change", "page2.html");
-        Navigation nav_ = new Navigation();
+        Navigation nav_ = newNavigation();
         nav_.setLanguage(locale_);
         nav_.setSession(conf_);
         nav_.setFiles(files_);
@@ -2022,7 +2022,7 @@ public class NavigationTest {
         BeanTwo beanTwo_ = new BeanTwo();
         //beanTwo_.setClassName(BeanTwo.class.getName());
         beanTwo_.setScope("request");
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setPrefix("c");
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
@@ -2038,7 +2038,7 @@ public class NavigationTest {
         conf_.getNavigation().put("bean_two.go", new StringMap<String>());
         conf_.getNavigation().getVal("bean_two.go").put("change", "page1.html");
         conf_.getNavigation().getVal("bean_two.go").put("no_change", "page2.html");
-        Navigation nav_ = new Navigation();
+        Navigation nav_ = newNavigation();
         nav_.setLanguage(locale_);
         nav_.setSession(conf_);
         nav_.setFiles(files_);
@@ -2104,7 +2104,7 @@ public class NavigationTest {
         BeanTwo beanTwo_ = new BeanTwo();
         //beanTwo_.setClassName(BeanTwo.class.getName());
         beanTwo_.setScope("request");
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setPrefix("c");
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
@@ -2120,7 +2120,7 @@ public class NavigationTest {
         conf_.getNavigation().put("bean_two.go", new StringMap<String>());
         conf_.getNavigation().getVal("bean_two.go").put("change", "page1.html");
         conf_.getNavigation().getVal("bean_two.go").put("no_change", "page2.html");
-        Navigation nav_ = new Navigation();
+        Navigation nav_ = newNavigation();
         nav_.setLanguage(locale_);
         nav_.setSession(conf_);
         nav_.setFiles(files_);
@@ -2185,7 +2185,7 @@ public class NavigationTest {
         BeanTwo beanTwo_ = new BeanTwo();
         //beanTwo_.setClassName(BeanTwo.class.getName());
         beanTwo_.setScope("request");
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setPrefix("c");
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
@@ -2201,7 +2201,7 @@ public class NavigationTest {
         conf_.getNavigation().put("bean_two.go", new StringMap<String>());
         conf_.getNavigation().getVal("bean_two.go").put("change", "page1.html");
         conf_.getNavigation().getVal("bean_two.go").put("no_change", "page2.html");
-        Navigation nav_ = new Navigation();
+        Navigation nav_ = newNavigation();
         nav_.setLanguage(locale_);
         nav_.setSession(conf_);
         nav_.setFiles(files_);
@@ -2263,7 +2263,7 @@ public class NavigationTest {
         BeanTwo beanTwo_ = new BeanTwo();
         //beanTwo_.setClassName(BeanTwo.class.getName());
         beanTwo_.setScope("request");
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setPrefix("c");
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
@@ -2279,7 +2279,7 @@ public class NavigationTest {
         conf_.getNavigation().put("bean_two.go", new StringMap<String>());
         conf_.getNavigation().getVal("bean_two.go").put("change", "page1.html");
         conf_.getNavigation().getVal("bean_two.go").put("no_change", "page2.html");
-        Navigation nav_ = new Navigation();
+        Navigation nav_ = newNavigation();
         nav_.setLanguage(locale_);
         nav_.setSession(conf_);
         nav_.setFiles(files_);
@@ -2341,7 +2341,7 @@ public class NavigationTest {
         BeanTwo beanTwo_ = new BeanTwo();
         //beanTwo_.setClassName(BeanTwo.class.getName());
         beanTwo_.setScope("request");
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setPrefix("c");
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
@@ -2357,7 +2357,7 @@ public class NavigationTest {
         conf_.getNavigation().put("bean_two.go", new StringMap<String>());
         conf_.getNavigation().getVal("bean_two.go").put("change", "page1.html");
         conf_.getNavigation().getVal("bean_two.go").put("no_change", "page2.html");
-        Navigation nav_ = new Navigation();
+        Navigation nav_ = newNavigation();
         nav_.setLanguage(locale_);
         nav_.setSession(conf_);
         nav_.setFiles(files_);
@@ -2419,7 +2419,7 @@ public class NavigationTest {
         BeanTwo beanTwo_ = new BeanTwo();
         //beanTwo_.setClassName(BeanTwo.class.getName());
         beanTwo_.setScope("request");
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setPrefix("c");
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
@@ -2435,7 +2435,7 @@ public class NavigationTest {
         conf_.getNavigation().put("bean_two.go", new StringMap<String>());
         conf_.getNavigation().getVal("bean_two.go").put("change", "page1.html");
         conf_.getNavigation().getVal("bean_two.go").put("no_change", "page2.html");
-        Navigation nav_ = new Navigation();
+        Navigation nav_ = newNavigation();
         nav_.setLanguage(locale_);
         nav_.setSession(conf_);
         nav_.setFiles(files_);
@@ -2498,7 +2498,7 @@ public class NavigationTest {
         BeanTwo beanTwo_ = new BeanTwo();
         //beanTwo_.setClassName(BeanTwo.class.getName());
         beanTwo_.setScope("request");
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setPrefix("c");
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
@@ -2514,7 +2514,7 @@ public class NavigationTest {
         conf_.getNavigation().put("bean_two.go", new StringMap<String>());
         conf_.getNavigation().getVal("bean_two.go").put("change", "page1.html");
         conf_.getNavigation().getVal("bean_two.go").put("no_change", "page2.html");
-        Navigation nav_ = new Navigation();
+        Navigation nav_ = newNavigation();
         nav_.setLanguage(locale_);
         nav_.setSession(conf_);
         nav_.setFiles(files_);
@@ -2578,7 +2578,7 @@ public class NavigationTest {
         BeanTwo beanTwo_ = new BeanTwo();
         //beanTwo_.setClassName(BeanTwo.class.getName());
         beanTwo_.setScope("request");
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setPrefix("c");
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
@@ -2595,7 +2595,7 @@ public class NavigationTest {
         conf_.getNavigation().put("bean_two.go", new StringMap<String>());
         conf_.getNavigation().getVal("bean_two.go").put("change", "page1.html");
         conf_.getNavigation().getVal("bean_two.go").put("no_change", "page2.html");
-        Navigation nav_ = new Navigation();
+        Navigation nav_ = newNavigation();
         nav_.setLanguage(locale_);
         nav_.setSession(conf_);
         nav_.setFiles(files_);
@@ -2658,7 +2658,7 @@ public class NavigationTest {
         BeanTwo beanTwo_ = new BeanTwo();
         //beanTwo_.setClassName(BeanTwo.class.getName());
         beanTwo_.setScope("request");
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setPrefix("c");
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
@@ -2675,7 +2675,7 @@ public class NavigationTest {
         conf_.getNavigation().put("bean_two.go", new StringMap<String>());
         conf_.getNavigation().getVal("bean_two.go").put("change", "page1.html");
         conf_.getNavigation().getVal("bean_two.go").put("no_change", "page2.html");
-        Navigation nav_ = new Navigation();
+        Navigation nav_ = newNavigation();
         nav_.setLanguage(locale_);
         nav_.setSession(conf_);
         nav_.setFiles(files_);
@@ -2738,7 +2738,7 @@ public class NavigationTest {
         BeanTwo beanTwo_ = new BeanTwo();
         //beanTwo_.setClassName(BeanTwo.class.getName());
         beanTwo_.setScope("request");
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setPrefix("c");
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
@@ -2754,7 +2754,7 @@ public class NavigationTest {
         conf_.getNavigation().put("bean_two.go", new StringMap<String>());
         conf_.getNavigation().getVal("bean_two.go").put("change", "page1.html");
         conf_.getNavigation().getVal("bean_two.go").put("no_change", "page2.html");
-        Navigation nav_ = new Navigation();
+        Navigation nav_ = newNavigation();
         nav_.setLanguage(locale_);
         nav_.setSession(conf_);
         nav_.setFiles(files_);
@@ -2817,7 +2817,7 @@ public class NavigationTest {
         BeanTwo beanTwo_ = new BeanTwo();
         //beanTwo_.setClassName(BeanTwo.class.getName());
         beanTwo_.setScope("request");
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setPrefix("c");
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
@@ -2834,7 +2834,7 @@ public class NavigationTest {
         conf_.getNavigation().put("bean_two.go", new StringMap<String>());
         conf_.getNavigation().getVal("bean_two.go").put("change", "page1.html");
         conf_.getNavigation().getVal("bean_two.go").put("no_change", "page2.html");
-        Navigation nav_ = new Navigation();
+        Navigation nav_ = newNavigation();
         nav_.setLanguage(locale_);
         nav_.setSession(conf_);
         nav_.setFiles(files_);
@@ -2897,7 +2897,7 @@ public class NavigationTest {
         BeanTwo beanTwo_ = new BeanTwo();
         //beanTwo_.setClassName(BeanTwo.class.getName());
         beanTwo_.setScope("request");
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setPrefix("c");
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
@@ -2914,7 +2914,7 @@ public class NavigationTest {
         conf_.getNavigation().put("bean_two.go", new StringMap<String>());
         conf_.getNavigation().getVal("bean_two.go").put("change", "page1.html");
         conf_.getNavigation().getVal("bean_two.go").put("no_change", "page2.html");
-        Navigation nav_ = new Navigation();
+        Navigation nav_ = newNavigation();
         nav_.setLanguage(locale_);
         nav_.setSession(conf_);
         nav_.setFiles(files_);
@@ -2977,7 +2977,7 @@ public class NavigationTest {
         BeanTwo beanTwo_ = new BeanTwo();
         //beanTwo_.setClassName(BeanTwo.class.getName());
         beanTwo_.setScope("request");
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setPrefix("c");
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
@@ -2994,7 +2994,7 @@ public class NavigationTest {
         conf_.getNavigation().put("bean_two.go", new StringMap<String>());
         conf_.getNavigation().getVal("bean_two.go").put("change", "page1.html");
         conf_.getNavigation().getVal("bean_two.go").put("no_change", "page2.html");
-        Navigation nav_ = new Navigation();
+        Navigation nav_ = newNavigation();
         nav_.setLanguage(locale_);
         nav_.setSession(conf_);
         nav_.setFiles(files_);
@@ -3057,7 +3057,7 @@ public class NavigationTest {
         BeanTwo beanTwo_ = new BeanTwo();
         //beanTwo_.setClassName(BeanTwo.class.getName());
         beanTwo_.setScope("request");
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setPrefix("c");
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
@@ -3074,7 +3074,7 @@ public class NavigationTest {
         conf_.getNavigation().put("bean_two.go", new StringMap<String>());
         conf_.getNavigation().getVal("bean_two.go").put("change", "page1.html");
         conf_.getNavigation().getVal("bean_two.go").put("no_change", "page2.html");
-        Navigation nav_ = new Navigation();
+        Navigation nav_ = newNavigation();
         nav_.setLanguage(locale_);
         nav_.setSession(conf_);
         nav_.setFiles(files_);
@@ -3128,7 +3128,7 @@ public class NavigationTest {
         BeanTwo beanTwo_ = new BeanTwo();
         //beanTwo_.setClassName(BeanTwo.class.getName());
         beanTwo_.setScope("request");
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setPrefix("c");
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
@@ -3145,7 +3145,7 @@ public class NavigationTest {
         conf_.getNavigation().put("bean_two.go", new StringMap<String>());
         conf_.getNavigation().getVal("bean_two.go").put("change", "page1.html");
         conf_.getNavigation().getVal("bean_two.go").put("no_change", "page2.html");
-        Navigation nav_ = new Navigation();
+        Navigation nav_ = newNavigation();
         nav_.setLanguage(locale_);
         nav_.setSession(conf_);
         nav_.setFiles(files_);
@@ -3199,7 +3199,7 @@ public class NavigationTest {
         BeanTwo beanTwo_ = new BeanTwo();
         //beanTwo_.setClassName(BeanTwo.class.getName());
         beanTwo_.setScope("request");
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setPrefix("c");
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
@@ -3216,7 +3216,7 @@ public class NavigationTest {
         conf_.getNavigation().put("bean_two.go", new StringMap<String>());
         conf_.getNavigation().getVal("bean_two.go").put("change", "page1.html");
         conf_.getNavigation().getVal("bean_two.go").put("no_change", "page2.html");
-        Navigation nav_ = new Navigation();
+        Navigation nav_ = newNavigation();
         nav_.setLanguage(locale_);
         nav_.setSession(conf_);
         nav_.setFiles(files_);
@@ -3281,7 +3281,7 @@ public class NavigationTest {
         BeanTwo beanTwo_ = new BeanTwo();
         //beanTwo_.setClassName(BeanTwo.class.getName());
         beanTwo_.setScope("request");
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setPrefix("c");
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
@@ -3298,7 +3298,7 @@ public class NavigationTest {
         conf_.getNavigation().put("bean_two.go", new StringMap<String>());
         conf_.getNavigation().getVal("bean_two.go").put("change", "page1.html");
         conf_.getNavigation().getVal("bean_two.go").put("no_change", "page2.html");
-        Navigation nav_ = new Navigation();
+        Navigation nav_ = newNavigation();
         nav_.setLanguage(locale_);
         nav_.setSession(conf_);
         nav_.setFiles(files_);
@@ -3364,7 +3364,7 @@ public class NavigationTest {
         BeanTwo beanTwo_ = new BeanTwo();
         //beanTwo_.setClassName(BeanTwo.class.getName());
         beanTwo_.setScope("request");
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setPrefix("c");
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
@@ -3381,7 +3381,7 @@ public class NavigationTest {
         conf_.getNavigation().put("bean_two.go", new StringMap<String>());
         conf_.getNavigation().getVal("bean_two.go").put("change", "page1.html");
         conf_.getNavigation().getVal("bean_two.go").put("no_change", "page2.html");
-        Navigation nav_ = new Navigation();
+        Navigation nav_ = newNavigation();
         nav_.setLanguage(locale_);
         nav_.setSession(conf_);
         nav_.setFiles(files_);
@@ -3447,7 +3447,7 @@ public class NavigationTest {
         BeanTwo beanTwo_ = new BeanTwo();
         //beanTwo_.setClassName(BeanTwo.class.getName());
         beanTwo_.setScope("request");
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setPrefix("c");
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
@@ -3464,7 +3464,7 @@ public class NavigationTest {
         conf_.getNavigation().put("bean_two.go", new StringMap<String>());
         conf_.getNavigation().getVal("bean_two.go").put("change", "page1.html");
         conf_.getNavigation().getVal("bean_two.go").put("no_change", "page2.html");
-        Navigation nav_ = new Navigation();
+        Navigation nav_ = newNavigation();
         nav_.setLanguage(locale_);
         nav_.setSession(conf_);
         nav_.setFiles(files_);
@@ -3530,7 +3530,7 @@ public class NavigationTest {
         BeanTwo beanTwo_ = new BeanTwo();
         //beanTwo_.setClassName(BeanTwo.class.getName());
         beanTwo_.setScope("request");
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setPrefix("c");
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
@@ -3547,7 +3547,7 @@ public class NavigationTest {
         conf_.getNavigation().put("bean_two.go", new StringMap<String>());
         conf_.getNavigation().getVal("bean_two.go").put("change", "page1.html");
         conf_.getNavigation().getVal("bean_two.go").put("no_change", "page2.html");
-        Navigation nav_ = new Navigation();
+        Navigation nav_ = newNavigation();
         nav_.setLanguage(locale_);
         nav_.setSession(conf_);
         nav_.setFiles(files_);
@@ -3620,7 +3620,7 @@ public class NavigationTest {
         BeanTwo beanTwo_ = new BeanTwo();
         //beanTwo_.setClassName(BeanTwo.class.getName());
         beanTwo_.setScope("request");
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setPrefix("c");
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
@@ -3637,7 +3637,7 @@ public class NavigationTest {
         conf_.getNavigation().put("bean_two.go", new StringMap<String>());
         conf_.getNavigation().getVal("bean_two.go").put("change", "page1.html");
         conf_.getNavigation().getVal("bean_two.go").put("no_change", "page2.html");
-        Navigation nav_ = new Navigation();
+        Navigation nav_ = newNavigation();
         nav_.setLanguage(locale_);
         nav_.setSession(conf_);
         nav_.setFiles(files_);
@@ -3710,7 +3710,7 @@ public class NavigationTest {
         BeanTwo beanTwo_ = new BeanTwo();
         //beanTwo_.setClassName(BeanTwo.class.getName());
         beanTwo_.setScope("request");
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setPrefix("c");
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
@@ -3727,7 +3727,7 @@ public class NavigationTest {
         conf_.getNavigation().put("bean_two.go", new StringMap<String>());
         conf_.getNavigation().getVal("bean_two.go").put("change", "page1.html");
         conf_.getNavigation().getVal("bean_two.go").put("no_change", "page2.html");
-        Navigation nav_ = new Navigation();
+        Navigation nav_ = newNavigation();
         nav_.setLanguage(locale_);
         nav_.setSession(conf_);
         nav_.setFiles(files_);
@@ -3788,7 +3788,7 @@ public class NavigationTest {
         BeanTwo beanTwo_ = new BeanTwo();
         //beanTwo_.setClassName(BeanTwo.class.getName());
         beanTwo_.setScope("request");
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setPrefix("c");
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
@@ -3805,7 +3805,7 @@ public class NavigationTest {
         conf_.getNavigation().put("bean_two.go", new StringMap<String>());
         conf_.getNavigation().getVal("bean_two.go").put("change", "page1.html");
         conf_.getNavigation().getVal("bean_two.go").put("no_change", "page2.html");
-        Navigation nav_ = new Navigation();
+        Navigation nav_ = newNavigation();
         nav_.setLanguage(locale_);
         nav_.setSession(conf_);
         nav_.setFiles(files_);
@@ -3876,7 +3876,7 @@ public class NavigationTest {
         BeanTwo beanTwo_ = new BeanTwo();
         //beanTwo_.setClassName(BeanTwo.class.getName());
         beanTwo_.setScope("request");
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setPrefix("c");
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
@@ -3895,7 +3895,7 @@ public class NavigationTest {
         conf_.getNavigation().put("bean_two.go()", new StringMap<String>());
         conf_.getNavigation().getVal("bean_two.go()").put("change", "page1.html");
         conf_.getNavigation().getVal("bean_two.go()").put("no_change", "page2.html");
-        Navigation nav_ = new Navigation();
+        Navigation nav_ = newNavigation();
         nav_.setLanguage(locale_);
         nav_.setSession(conf_);
         nav_.setFiles(files_);
@@ -3958,7 +3958,7 @@ public class NavigationTest {
         BeanTwo beanTwo_ = new BeanTwo();
         //beanTwo_.setClassName(BeanTwo.class.getName());
         beanTwo_.setScope("request");
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setPrefix("c");
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
@@ -3977,7 +3977,7 @@ public class NavigationTest {
         conf_.getNavigation().put("bean_two.go()", new StringMap<String>());
         conf_.getNavigation().getVal("bean_two.go()").put("change", "page1.html");
         conf_.getNavigation().getVal("bean_two.go()").put("no_change", "page2.html");
-        Navigation nav_ = new Navigation();
+        Navigation nav_ = newNavigation();
         nav_.setLanguage(locale_);
         nav_.setSession(conf_);
         nav_.setFiles(files_);
@@ -4041,7 +4041,7 @@ public class NavigationTest {
         BeanTwo beanTwo_ = new BeanTwo();
         //beanTwo_.setClassName(BeanTwo.class.getName());
         beanTwo_.setScope("request");
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setPrefix("c");
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
@@ -4060,7 +4060,7 @@ public class NavigationTest {
         conf_.getNavigation().put("bean_two.go()", new StringMap<String>());
         conf_.getNavigation().getVal("bean_two.go()").put("change", "page1.html");
         conf_.getNavigation().getVal("bean_two.go()").put("no_change", "page2.html");
-        Navigation nav_ = new Navigation();
+        Navigation nav_ = newNavigation();
         nav_.setLanguage(locale_);
         nav_.setSession(conf_);
         nav_.setFiles(files_);
@@ -4113,7 +4113,7 @@ public class NavigationTest {
         BeanTwo beanTwo_ = new BeanTwo();
         //beanTwo_.setClassName(BeanTwo.class.getName());
         beanTwo_.setScope("request");
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setPrefix("c");
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
@@ -4132,7 +4132,7 @@ public class NavigationTest {
         conf_.getNavigation().put("bean_two.go()", new StringMap<String>());
         conf_.getNavigation().getVal("bean_two.go()").put("change", "page1.html");
         conf_.getNavigation().getVal("bean_two.go()").put("no_change", "page2.html");
-        Navigation nav_ = new Navigation();
+        Navigation nav_ = newNavigation();
         nav_.setLanguage(locale_);
         nav_.setSession(conf_);
         nav_.setFiles(files_);
@@ -4196,7 +4196,7 @@ public class NavigationTest {
         BeanTwo beanTwo_ = new BeanTwo();
         //beanTwo_.setClassName(BeanTwo.class.getName());
         beanTwo_.setScope("request");
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setPrefix("c");
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
@@ -4215,7 +4215,7 @@ public class NavigationTest {
         conf_.getNavigation().put("bean_two.go()", new StringMap<String>());
         conf_.getNavigation().getVal("bean_two.go()").put("change", "page1.html");
         conf_.getNavigation().getVal("bean_two.go()").put("no_change", "page2.html");
-        Navigation nav_ = new Navigation();
+        Navigation nav_ = newNavigation();
         nav_.setLanguage(locale_);
         nav_.setSession(conf_);
         nav_.setFiles(files_);
@@ -4279,7 +4279,7 @@ public class NavigationTest {
         BeanTwo beanTwo_ = new BeanTwo();
         //beanTwo_.setClassName(BeanTwo.class.getName());
         beanTwo_.setScope("request");
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setPrefix("c");
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
@@ -4298,7 +4298,7 @@ public class NavigationTest {
         conf_.getNavigation().put("bean_two.go()", new StringMap<String>());
         conf_.getNavigation().getVal("bean_two.go()").put("change", "page1.html");
         conf_.getNavigation().getVal("bean_two.go()").put("no_change", "page2.html");
-        Navigation nav_ = new Navigation();
+        Navigation nav_ = newNavigation();
         nav_.setLanguage(locale_);
         nav_.setSession(conf_);
         nav_.setFiles(files_);
@@ -4363,7 +4363,7 @@ public class NavigationTest {
         BeanTwo beanTwo_ = new BeanTwo();
         //beanTwo_.setClassName(BeanTwo.class.getName());
         beanTwo_.setScope("request");
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setPrefix("c");
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
@@ -4382,7 +4382,7 @@ public class NavigationTest {
         conf_.getNavigation().put("bean_two.go()", new StringMap<String>());
         conf_.getNavigation().getVal("bean_two.go()").put("change", "page1.html");
         conf_.getNavigation().getVal("bean_two.go()").put("no_change", "page2.html");
-        Navigation nav_ = new Navigation();
+        Navigation nav_ = newNavigation();
         nav_.setLanguage(locale_);
         nav_.setSession(conf_);
         nav_.setFiles(files_);
@@ -4446,7 +4446,7 @@ public class NavigationTest {
         BeanTwo beanTwo_ = new BeanTwo();
         //beanTwo_.setClassName(BeanTwo.class.getName());
         beanTwo_.setScope("request");
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setPrefix("c");
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
@@ -4462,7 +4462,7 @@ public class NavigationTest {
         conf_.getNavigation().put("bean_two.go", new StringMap<String>());
         conf_.getNavigation().getVal("bean_two.go").put("change", "page1.html");
         conf_.getNavigation().getVal("bean_two.go").put("no_change", "page2.html");
-        Navigation nav_ = new Navigation();
+        Navigation nav_ = newNavigation();
         nav_.setLanguage(locale_);
         nav_.setSession(conf_);
         nav_.setFiles(files_);
@@ -4512,7 +4512,7 @@ public class NavigationTest {
         BeanTwo beanTwo_ = new BeanTwo();
         //beanTwo_.setClassName(BeanTwo.class.getName());
         beanTwo_.setScope("request");
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setPrefix("c");
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
@@ -4529,7 +4529,7 @@ public class NavigationTest {
         conf_.getNavigation().put("bean_two.go", new StringMap<String>());
         conf_.getNavigation().getVal("bean_two.go").put("change", "page1.html");
         conf_.getNavigation().getVal("bean_two.go").put("no_change", "page2.html");
-        Navigation nav_ = new Navigation();
+        Navigation nav_ = newNavigation();
         nav_.setLanguage(locale_);
         nav_.setSession(conf_);
         nav_.setFiles(files_);
@@ -4592,7 +4592,7 @@ public class NavigationTest {
         BeanTwo beanTwo_ = new BeanTwo();
         //beanTwo_.setClassName(BeanTwo.class.getName());
         beanTwo_.setScope("request");
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setPrefix("c");
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
@@ -4609,7 +4609,7 @@ public class NavigationTest {
         conf_.getNavigation().put("bean_two.go", new StringMap<String>());
         conf_.getNavigation().getVal("bean_two.go").put("change", "page1.html");
         conf_.getNavigation().getVal("bean_two.go").put("no_change", "page2.html");
-        Navigation nav_ = new Navigation();
+        Navigation nav_ = newNavigation();
         nav_.setLanguage(locale_);
         nav_.setSession(conf_);
         nav_.setFiles(files_);
@@ -4663,7 +4663,7 @@ public class NavigationTest {
         BeanTwo beanTwo_ = new BeanTwo();
         //beanTwo_.setClassName(BeanTwo.class.getName());
         beanTwo_.setScope("session");
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setPrefix("c");
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
@@ -4679,7 +4679,7 @@ public class NavigationTest {
         conf_.getNavigation().put("bean_two.go", new StringMap<String>());
         conf_.getNavigation().getVal("bean_two.go").put("change", "page1.html");
         conf_.getNavigation().getVal("bean_two.go").put("no_change", "page2.html");
-        Navigation nav_ = new Navigation();
+        Navigation nav_ = newNavigation();
         nav_.setLanguage(locale_);
         nav_.setSession(conf_);
         nav_.setFiles(files_);
@@ -4743,7 +4743,7 @@ public class NavigationTest {
         BeanTwo beanTwo_ = new BeanTwo();
         //beanTwo_.setClassName(BeanTwo.class.getName());
         beanTwo_.setScope("session");
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setPrefix("c");
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
@@ -4759,7 +4759,7 @@ public class NavigationTest {
         conf_.getNavigation().put("bean_two.go", new StringMap<String>());
         conf_.getNavigation().getVal("bean_two.go").put("change", "page1.html");
         conf_.getNavigation().getVal("bean_two.go").put("no_change", "page2.html");
-        Navigation nav_ = new Navigation();
+        Navigation nav_ = newNavigation();
         nav_.setLanguage(locale_);
         nav_.setSession(conf_);
         nav_.setFiles(files_);
@@ -4824,7 +4824,7 @@ public class NavigationTest {
         BeanTwo beanTwo_ = new BeanTwo();
         //beanTwo_.setClassName(BeanTwo.class.getName());
         beanTwo_.setScope("request");
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setPrefix("c");
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
@@ -4841,7 +4841,7 @@ public class NavigationTest {
         conf_.getNavigation().put("bean_two.go", new StringMap<String>());
         conf_.getNavigation().getVal("bean_two.go").put("change", "page1.html");
         conf_.getNavigation().getVal("bean_two.go").put("no_change", "page2.html");
-        Navigation nav_ = new Navigation();
+        Navigation nav_ = newNavigation();
         nav_.setLanguage(locale_);
         nav_.setSession(conf_);
         nav_.setFiles(files_);
@@ -4899,7 +4899,7 @@ public class NavigationTest {
         BeanThree bean_ = new BeanThree();
         //bean_.setClassName(BeanThree.class.getName());
         bean_.setScope("session");
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setPrefix("c");
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_three", bean_);
@@ -4914,7 +4914,7 @@ public class NavigationTest {
 //        conf_.getNavigation().put("bean_two.go", new Map<String,String>());
 //        conf_.getNavigation().getVal("bean_two.go").put("change", "page1.html");
 //        conf_.getNavigation().getVal("bean_two.go").put("no_change", "page2.html");
-        Navigation nav_ = new Navigation();
+        Navigation nav_ = newNavigation();
         nav_.setLanguage(locale_);
         nav_.setSession(conf_);
         nav_.setFiles(files_);
@@ -4969,7 +4969,7 @@ public class NavigationTest {
         BeanTwo beanTwo_ = new BeanTwo();
         //beanTwo_.setClassName(BeanTwo.class.getName());
         beanTwo_.setScope("request");
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setPrefix("c");
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
@@ -4986,7 +4986,7 @@ public class NavigationTest {
         conf_.getNavigation().put("bean_two.go", new StringMap<String>());
         conf_.getNavigation().getVal("bean_two.go").put("change", "page1.html");
         conf_.getNavigation().getVal("bean_two.go").put("no_change", "page2.html");
-        Navigation nav_ = new Navigation();
+        Navigation nav_ = newNavigation();
         nav_.setLanguage(locale_);
         nav_.setLanguage(locale_);
         nav_.setSession(conf_);
@@ -5041,7 +5041,7 @@ public class NavigationTest {
         BeanTwo beanTwo_ = new BeanTwo();
         //beanTwo_.setClassName(BeanTwo.class.getName());
         beanTwo_.setScope("request");
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setPrefix("c");
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
@@ -5057,7 +5057,7 @@ public class NavigationTest {
         conf_.getNavigation().put("bean_two.go", new StringMap<String>());
         conf_.getNavigation().getVal("bean_two.go").put("change", "page1.html");
         conf_.getNavigation().getVal("bean_two.go").put("no_change", "page2.html");
-        Navigation nav_ = new Navigation();
+        Navigation nav_ = newNavigation();
         nav_.setLanguage(locale_);
         nav_.setSession(conf_);
         nav_.setFiles(files_);
@@ -5121,7 +5121,7 @@ public class NavigationTest {
         BeanTwo beanTwo_ = new BeanTwo();
         //beanTwo_.setClassName(BeanTwo.class.getName());
         beanTwo_.setScope("request");
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setPrefix("c");
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
@@ -5137,7 +5137,7 @@ public class NavigationTest {
         conf_.getNavigation().put("bean_two.go", new StringMap<String>());
         conf_.getNavigation().getVal("bean_two.go").put("change", "page1.html");
         conf_.getNavigation().getVal("bean_two.go").put("no_change", "page2.html");
-        Navigation nav_ = new Navigation();
+        Navigation nav_ = newNavigation();
         nav_.setLanguage(locale_);
         nav_.setSession(conf_);
         nav_.setFiles(files_);
@@ -5184,7 +5184,7 @@ public class NavigationTest {
         BeanThree bean_ = new BeanThree();
         //bean_.setClassName(BeanThree.class.getName());
         bean_.setScope("session");
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setPrefix("c");
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_three", bean_);
@@ -5199,7 +5199,7 @@ public class NavigationTest {
 //        conf_.getNavigation().put("bean_two.go", new Map<String,String>());
 //        conf_.getNavigation().getVal("bean_two.go").put("change", "page1.html");
 //        conf_.getNavigation().getVal("bean_two.go").put("no_change", "page2.html");
-        Navigation nav_ = new Navigation();
+        Navigation nav_ = newNavigation();
         nav_.setLanguage(locale_);
         nav_.setSession(conf_);
         nav_.setFiles(files_);
@@ -5248,7 +5248,7 @@ public class NavigationTest {
         BeanThree bean_ = new BeanThree();
         //bean_.setClassName(BeanThree.class.getName());
         bean_.setScope("session");
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setPrefix("c");
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_three", bean_);
@@ -5264,7 +5264,7 @@ public class NavigationTest {
 //        conf_.getNavigation().put("bean_two.go", new Map<String,String>());
 //        conf_.getNavigation().getVal("bean_two.go").put("change", "page1.html");
 //        conf_.getNavigation().getVal("bean_two.go").put("no_change", "page2.html");
-        Navigation nav_ = new Navigation();
+        Navigation nav_ = newNavigation();
         nav_.setLanguage(locale_);
         nav_.setSession(conf_);
         nav_.setFiles(files_);
@@ -5313,7 +5313,7 @@ public class NavigationTest {
         BeanThree bean_ = new BeanThree();
         //bean_.setClassName(BeanThree.class.getName());
         bean_.setScope("session");
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setPrefix("c");
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_three", bean_);
@@ -5329,7 +5329,7 @@ public class NavigationTest {
 //        conf_.getNavigation().put("bean_two.go", new Map<String,String>());
 //        conf_.getNavigation().getVal("bean_two.go").put("change", "page1.html");
 //        conf_.getNavigation().getVal("bean_two.go").put("no_change", "page2.html");
-        Navigation nav_ = new Navigation();
+        Navigation nav_ = newNavigation();
         nav_.setLanguage(locale_);
         nav_.setSession(conf_);
         nav_.setFiles(files_);
@@ -5383,7 +5383,7 @@ public class NavigationTest {
         BeanTwo beanTwo_ = new BeanTwo();
         //beanTwo_.setClassName(BeanTwo.class.getName());
         beanTwo_.setScope("session");
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setPrefix("c");
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
@@ -5399,7 +5399,7 @@ public class NavigationTest {
         conf_.getNavigation().put("bean_two.go", new StringMap<String>());
         conf_.getNavigation().getVal("bean_two.go").put("change", "page1.html");
         conf_.getNavigation().getVal("bean_two.go").put("no_change", "page2.html");
-        Navigation nav_ = new Navigation();
+        Navigation nav_ = newNavigation();
         nav_.setLanguage(locale_);
         nav_.setSession(conf_);
         nav_.setFiles(files_);
@@ -5463,7 +5463,7 @@ public class NavigationTest {
         BeanFive beanTwo_ = new BeanFive();
         //beanTwo_.setClassName(BeanTwo.class.getName());
         beanTwo_.setScope("request");
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setPrefix("c");
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
@@ -5479,7 +5479,7 @@ public class NavigationTest {
         conf_.getNavigation().put("bean_two.go", new StringMap<String>());
         conf_.getNavigation().getVal("bean_two.go").put("change", "page1.html");
         conf_.getNavigation().getVal("bean_two.go").put("no_change", "page2.html");
-        Navigation nav_ = new Navigation();
+        Navigation nav_ = newNavigation();
         nav_.setLanguage(locale_);
         nav_.setSession(conf_);
         nav_.setFiles(files_);
@@ -5541,7 +5541,7 @@ public class NavigationTest {
         BeanFive beanTwo_ = new BeanFive();
         //beanTwo_.setClassName(BeanTwo.class.getName());
         beanTwo_.setScope("request");
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setPrefix("c");
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
@@ -5558,7 +5558,7 @@ public class NavigationTest {
         conf_.getNavigation().put("bean_two.go", new StringMap<String>());
         conf_.getNavigation().getVal("bean_two.go").put("change", "page1.html");
         conf_.getNavigation().getVal("bean_two.go").put("no_change", "page2.html");
-        Navigation nav_ = new Navigation();
+        Navigation nav_ = newNavigation();
         nav_.setLanguage(locale_);
         nav_.setSession(conf_);
         nav_.setFiles(files_);
@@ -5620,7 +5620,7 @@ public class NavigationTest {
         BeanFive beanTwo_ = new BeanFive();
         //beanTwo_.setClassName(BeanTwo.class.getName());
         beanTwo_.setScope("request");
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setPrefix("c");
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
@@ -5637,7 +5637,7 @@ public class NavigationTest {
         conf_.getNavigation().put("bean_two.go", new StringMap<String>());
         conf_.getNavigation().getVal("bean_two.go").put("change", "page1.html");
         conf_.getNavigation().getVal("bean_two.go").put("no_change", "page2.html");
-        Navigation nav_ = new Navigation();
+        Navigation nav_ = newNavigation();
         nav_.setLanguage(locale_);
         nav_.setSession(conf_);
         nav_.setFiles(files_);
@@ -5687,7 +5687,7 @@ public class NavigationTest {
         BeanFive beanTwo_ = new BeanFive();
         //beanTwo_.setClassName(BeanTwo.class.getName());
         beanTwo_.setScope("request");
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setPrefix("c");
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
@@ -5703,7 +5703,7 @@ public class NavigationTest {
         conf_.getNavigation().put("bean_two.go", new StringMap<String>());
         conf_.getNavigation().getVal("bean_two.go").put("change", "page1.html");
         conf_.getNavigation().getVal("bean_two.go").put("no_change", "page2.html");
-        Navigation nav_ = new Navigation();
+        Navigation nav_ = newNavigation();
         nav_.setLanguage(locale_);
         nav_.setSession(conf_);
         nav_.setFiles(files_);
@@ -5765,7 +5765,7 @@ public class NavigationTest {
         BeanFive beanTwo_ = new BeanFive();
         //beanTwo_.setClassName(BeanTwo.class.getName());
         beanTwo_.setScope("request");
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setPrefix("c");
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
@@ -5782,7 +5782,7 @@ public class NavigationTest {
         conf_.getNavigation().put("bean_two.go", new StringMap<String>());
         conf_.getNavigation().getVal("bean_two.go").put("change", "page1.html");
         conf_.getNavigation().getVal("bean_two.go").put("no_change", "page2.html");
-        Navigation nav_ = new Navigation();
+        Navigation nav_ = newNavigation();
         nav_.setLanguage(locale_);
         nav_.setSession(conf_);
         nav_.setFiles(files_);
@@ -5844,7 +5844,7 @@ public class NavigationTest {
         BeanFive beanTwo_ = new BeanFive();
         //beanTwo_.setClassName(BeanTwo.class.getName());
         beanTwo_.setScope("request");
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setPrefix("c");
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
@@ -5861,7 +5861,7 @@ public class NavigationTest {
         conf_.getNavigation().put("bean_two.go", new StringMap<String>());
         conf_.getNavigation().getVal("bean_two.go").put("change", "page1.html");
         conf_.getNavigation().getVal("bean_two.go").put("no_change", "page2.html");
-        Navigation nav_ = new Navigation();
+        Navigation nav_ = newNavigation();
         nav_.setLanguage(locale_);
         nav_.setSession(conf_);
         nav_.setFiles(files_);
@@ -5911,7 +5911,7 @@ public class NavigationTest {
         BeanFive beanTwo_ = new BeanFive();
         //beanTwo_.setClassName(BeanTwo.class.getName());
         beanTwo_.setScope("request");
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setPrefix("c");
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
@@ -5928,7 +5928,7 @@ public class NavigationTest {
         conf_.getNavigation().put("bean_two.go", new StringMap<String>());
         conf_.getNavigation().getVal("bean_two.go").put("change", "page1.html");
         conf_.getNavigation().getVal("bean_two.go").put("no_change", "page2.html");
-        Navigation nav_ = new Navigation();
+        Navigation nav_ = newNavigation();
         nav_.setLanguage(locale_);
         nav_.setSession(conf_);
         nav_.setFiles(files_);
@@ -5990,7 +5990,7 @@ public class NavigationTest {
         BeanFive beanTwo_ = new BeanFive();
         //beanTwo_.setClassName(BeanTwo.class.getName());
         beanTwo_.setScope("request");
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setPrefix("c");
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
@@ -6007,7 +6007,7 @@ public class NavigationTest {
         conf_.getNavigation().put("bean_two.go", new StringMap<String>());
         conf_.getNavigation().getVal("bean_two.go").put("change", "page1.html");
         conf_.getNavigation().getVal("bean_two.go").put("no_change", "page2.html");
-        Navigation nav_ = new Navigation();
+        Navigation nav_ = newNavigation();
         nav_.setLanguage(locale_);
         nav_.setSession(conf_);
         nav_.setFiles(files_);
@@ -6069,7 +6069,7 @@ public class NavigationTest {
         BeanTwo beanTwo_ = new BeanTwo();
         //beanTwo_.setClassName(BeanTwo.class.getName());
         beanTwo_.setScope("request");
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setPrefix("c");
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
@@ -6086,7 +6086,7 @@ public class NavigationTest {
         conf_.getNavigation().put("bean_two.goTextArea", new StringMap<String>());
         conf_.getNavigation().getVal("bean_two.goTextArea").put("change", "page1.html");
         conf_.getNavigation().getVal("bean_two.goTextArea").put("no_change", "page2.html");
-        Navigation nav_ = new Navigation();
+        Navigation nav_ = newNavigation();
         nav_.setLanguage(locale_);
         nav_.setSession(conf_);
         nav_.setFiles(files_);
@@ -6149,7 +6149,7 @@ public class NavigationTest {
         BeanTwo beanTwo_ = new BeanTwo();
         //beanTwo_.setClassName(BeanTwo.class.getName());
         beanTwo_.setScope("request");
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setPrefix("c");
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
@@ -6166,7 +6166,7 @@ public class NavigationTest {
         conf_.getNavigation().put("bean_two.go", new StringMap<String>());
         conf_.getNavigation().getVal("bean_two.go").put("change", "page1.html");
         conf_.getNavigation().getVal("bean_two.go").put("no_change", "page2.html");
-        Navigation nav_ = new Navigation();
+        Navigation nav_ = newNavigation();
         nav_.setLanguage(locale_);
         nav_.setSession(conf_);
         nav_.setFiles(files_);
@@ -6231,7 +6231,7 @@ public class NavigationTest {
         BeanTwo beanTwo_ = new BeanTwo();
         //beanTwo_.setClassName(BeanTwo.class.getName());
         beanTwo_.setScope("request");
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setPrefix("c");
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
@@ -6248,7 +6248,7 @@ public class NavigationTest {
         conf_.getNavigation().put("bean_two.goTextArea", new StringMap<String>());
         conf_.getNavigation().getVal("bean_two.goTextArea").put("change", "page1.html");
         conf_.getNavigation().getVal("bean_two.goTextArea").put("no_change", "page2.html");
-        Navigation nav_ = new Navigation();
+        Navigation nav_ = newNavigation();
         nav_.setLanguage(locale_);
         nav_.setSession(conf_);
         nav_.setFiles(files_);
@@ -6311,7 +6311,7 @@ public class NavigationTest {
         BeanTwo beanTwo_ = new BeanTwo();
         //beanTwo_.setClassName(BeanTwo.class.getName());
         beanTwo_.setScope("request");
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setPrefix("c");
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
@@ -6328,7 +6328,7 @@ public class NavigationTest {
         conf_.getNavigation().put("bean_two.goTextArea", new StringMap<String>());
         conf_.getNavigation().getVal("bean_two.goTextArea").put("change", "page1.html");
         conf_.getNavigation().getVal("bean_two.goTextArea").put("no_change", "page2.html");
-        Navigation nav_ = new Navigation();
+        Navigation nav_ = newNavigation();
         nav_.setLanguage(locale_);
         nav_.setSession(conf_);
         nav_.setFiles(files_);
@@ -6391,7 +6391,7 @@ public class NavigationTest {
         BeanTwo beanTwo_ = new BeanTwo();
         //beanTwo_.setClassName(BeanTwo.class.getName());
         beanTwo_.setScope("request");
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setPrefix("c");
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
@@ -6408,7 +6408,7 @@ public class NavigationTest {
         conf_.getNavigation().put("bean_two.goTextArea", new StringMap<String>());
         conf_.getNavigation().getVal("bean_two.goTextArea").put("change", "page1.html");
         conf_.getNavigation().getVal("bean_two.goTextArea").put("no_change", "page2.html");
-        Navigation nav_ = new Navigation();
+        Navigation nav_ = newNavigation();
         nav_.setLanguage(locale_);
         nav_.setSession(conf_);
         nav_.setFiles(files_);
@@ -6454,7 +6454,7 @@ public class NavigationTest {
         BeanSix bean_ = new BeanSix();
         //bean_.setClassName(BeanThree.class.getName());
         bean_.setScope("session");
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setPrefix("c");
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_six", bean_);
@@ -6469,7 +6469,7 @@ public class NavigationTest {
 //        conf_.getNavigation().put("bean_two.go", new Map<String,String>());
 //        conf_.getNavigation().getVal("bean_two.go").put("change", "page1.html");
 //        conf_.getNavigation().getVal("bean_two.go").put("no_change", "page2.html");
-        Navigation nav_ = new Navigation();
+        Navigation nav_ = newNavigation();
         nav_.setLanguage(locale_);
         nav_.setSession(conf_);
         nav_.setFiles(files_);
@@ -6518,7 +6518,7 @@ public class NavigationTest {
         BeanSix bean_ = new BeanSix();
         //bean_.setClassName(BeanThree.class.getName());
         bean_.setScope("session");
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setPrefix("c");
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_six", bean_);
@@ -6533,7 +6533,7 @@ public class NavigationTest {
 //        conf_.getNavigation().put("bean_two.go", new Map<String,String>());
 //        conf_.getNavigation().getVal("bean_two.go").put("change", "page1.html");
 //        conf_.getNavigation().getVal("bean_two.go").put("no_change", "page2.html");
-        Navigation nav_ = new Navigation();
+        Navigation nav_ = newNavigation();
         nav_.setLanguage(locale_);
         nav_.setSession(conf_);
         nav_.setFiles(files_);
@@ -6582,7 +6582,7 @@ public class NavigationTest {
         BeanSix bean_ = new BeanSix();
         //bean_.setClassName(BeanThree.class.getName());
         bean_.setScope("session");
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setPrefix("c");
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_six", bean_);
@@ -6597,7 +6597,7 @@ public class NavigationTest {
 //        conf_.getNavigation().put("bean_two.go", new Map<String,String>());
 //        conf_.getNavigation().getVal("bean_two.go").put("change", "page1.html");
 //        conf_.getNavigation().getVal("bean_two.go").put("no_change", "page2.html");
-        Navigation nav_ = new Navigation();
+        Navigation nav_ = newNavigation();
         nav_.setLanguage(locale_);
         nav_.setSession(conf_);
         nav_.setFiles(files_);
@@ -6651,7 +6651,7 @@ public class NavigationTest {
         BeanFive beanTwo_ = new BeanFive();
         //beanTwo_.setClassName(BeanTwo.class.getName());
         beanTwo_.setScope("request");
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setPrefix("c");
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
@@ -6667,7 +6667,7 @@ public class NavigationTest {
         conf_.getNavigation().put("bean_two.go", new StringMap<String>());
         conf_.getNavigation().getVal("bean_two.go").put("change", "page1.html");
         conf_.getNavigation().getVal("bean_two.go").put("no_change", "page2.html");
-        Navigation nav_ = new Navigation();
+        Navigation nav_ = newNavigation();
         nav_.setLanguage(locale_);
         nav_.setSession(conf_);
         nav_.setFiles(files_);
@@ -6725,7 +6725,7 @@ public class NavigationTest {
         BeanFive beanTwo_ = new BeanFive();
         //beanTwo_.setClassName(BeanTwo.class.getName());
         beanTwo_.setScope("request");
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setPrefix("c");
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
@@ -6741,7 +6741,7 @@ public class NavigationTest {
         conf_.getNavigation().put("bean_two.go", new StringMap<String>());
         conf_.getNavigation().getVal("bean_two.go").put("change", "page1.html");
         conf_.getNavigation().getVal("bean_two.go").put("no_change", "page2.html");
-        Navigation nav_ = new Navigation();
+        Navigation nav_ = newNavigation();
         nav_.setLanguage(locale_);
         nav_.setSession(conf_);
         nav_.setFiles(files_);
@@ -6794,7 +6794,7 @@ public class NavigationTest {
         BeanSix bean_ = new BeanSix();
         //bean_.setClassName(BeanThree.class.getName());
         bean_.setScope("session");
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setPrefix("c");
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_six", bean_);
@@ -6809,7 +6809,7 @@ public class NavigationTest {
 //        conf_.getNavigation().put("bean_two.go", new Map<String,String>());
 //        conf_.getNavigation().getVal("bean_two.go").put("change", "page1.html");
 //        conf_.getNavigation().getVal("bean_two.go").put("no_change", "page2.html");
-        Navigation nav_ = new Navigation();
+        Navigation nav_ = newNavigation();
         nav_.setLanguage(locale_);
         nav_.setSession(conf_);
         nav_.setFiles(files_);
@@ -6858,7 +6858,7 @@ public class NavigationTest {
         BeanSix bean_ = new BeanSix();
         //bean_.setClassName(BeanThree.class.getName());
         bean_.setScope("session");
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setPrefix("c");
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_six", bean_);
@@ -6873,7 +6873,7 @@ public class NavigationTest {
 //        conf_.getNavigation().put("bean_two.go", new Map<String,String>());
 //        conf_.getNavigation().getVal("bean_two.go").put("change", "page1.html");
 //        conf_.getNavigation().getVal("bean_two.go").put("no_change", "page2.html");
-        Navigation nav_ = new Navigation();
+        Navigation nav_ = newNavigation();
         nav_.setLanguage(locale_);
         nav_.setSession(conf_);
         nav_.setFiles(files_);
@@ -6922,7 +6922,7 @@ public class NavigationTest {
         BeanSix bean_ = new BeanSix();
         //bean_.setClassName(BeanThree.class.getName());
         bean_.setScope("session");
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setPrefix("c");
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_six", bean_);
@@ -6937,7 +6937,7 @@ public class NavigationTest {
 //        conf_.getNavigation().put("bean_two.go", new Map<String,String>());
 //        conf_.getNavigation().getVal("bean_two.go").put("change", "page1.html");
 //        conf_.getNavigation().getVal("bean_two.go").put("no_change", "page2.html");
-        Navigation nav_ = new Navigation();
+        Navigation nav_ = newNavigation();
         nav_.setLanguage(locale_);
         nav_.setSession(conf_);
         nav_.setFiles(files_);
@@ -6988,7 +6988,7 @@ public class NavigationTest {
         bean_.getComposite().getStrings().add("FIRST");
         bean_.getComposite().getStrings().add("SECOND");
         bean_.getComposite().setInteger(5);
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setPrefix("c");
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
@@ -6999,7 +6999,7 @@ public class NavigationTest {
         conf_.setTranslators(new StringMap<Translator>());
         conf_.getTranslators().put("trans", new MyTranslator());
         conf_.setNavigation(new StringMap<StringMap<String>>());
-        Navigation nav_ = new Navigation();
+        Navigation nav_ = newNavigation();
         nav_.setLanguage(locale_);
         nav_.setSession(conf_);
         nav_.setFiles(files_);
@@ -7062,7 +7062,7 @@ public class NavigationTest {
         bean_.getComposite().getStrings().add("FIRST");
         bean_.getComposite().getStrings().add("SECOND");
         bean_.getComposite().setInteger(5);
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setPrefix("c");
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
@@ -7073,7 +7073,7 @@ public class NavigationTest {
         conf_.setTranslators(new StringMap<Translator>());
         conf_.getTranslators().put("trans", new MyTranslator());
         conf_.setNavigation(new StringMap<StringMap<String>>());
-        Navigation nav_ = new Navigation();
+        Navigation nav_ = newNavigation();
         nav_.setLanguage(locale_);
         nav_.setSession(conf_);
         nav_.setFiles(files_);
@@ -7136,7 +7136,7 @@ public class NavigationTest {
         bean_.getComposite().getStrings().add("FIRST");
         bean_.getComposite().getStrings().add("SECOND");
         bean_.getComposite().setInteger(5);
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setPrefix("c");
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_seven", bean_);
@@ -7147,7 +7147,7 @@ public class NavigationTest {
         conf_.setTranslators(new StringMap<Translator>());
         conf_.getTranslators().put("trans", new MyTranslator());
         conf_.setNavigation(new StringMap<StringMap<String>>());
-        Navigation nav_ = new Navigation();
+        Navigation nav_ = newNavigation();
         nav_.setLanguage(locale_);
         nav_.setSession(conf_);
         nav_.setFiles(files_);
@@ -7210,7 +7210,7 @@ public class NavigationTest {
         bean_.getComposite().getStrings().add("FIRST");
         bean_.getComposite().getStrings().add("SECOND");
         bean_.getComposite().setInteger(5);
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setPrefix("c");
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_seven", bean_);
@@ -7221,7 +7221,7 @@ public class NavigationTest {
         conf_.setTranslators(new StringMap<Translator>());
         conf_.getTranslators().put("trans", new MyTranslator());
         conf_.setNavigation(new StringMap<StringMap<String>>());
-        Navigation nav_ = new Navigation();
+        Navigation nav_ = newNavigation();
         nav_.setLanguage(locale_);
         nav_.setSession(conf_);
         nav_.setFiles(files_);
@@ -7284,7 +7284,7 @@ public class NavigationTest {
         bean_.getComposite().getStrings().add("FIRST");
         bean_.getComposite().getStrings().add("SECOND");
         bean_.getComposite().setInteger(5);
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setPrefix("c");
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_seven", bean_);
@@ -7295,7 +7295,7 @@ public class NavigationTest {
         conf_.setTranslators(new StringMap<Translator>());
         conf_.getTranslators().put("trans", new MyTranslator());
         conf_.setNavigation(new StringMap<StringMap<String>>());
-        Navigation nav_ = new Navigation();
+        Navigation nav_ = newNavigation();
         nav_.setLanguage(locale_);
         nav_.setSession(conf_);
         nav_.setFiles(files_);
@@ -7361,7 +7361,7 @@ public class NavigationTest {
         BeanTwo beanTwo_ = new BeanTwo();
         //beanTwo_.setClassName(BeanTwo.class.getName());
         beanTwo_.setScope("request");
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setPrefix("c");
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
@@ -7378,7 +7378,7 @@ public class NavigationTest {
         conf_.getNavigation().put("bean_two.go", new StringMap<String>());
         conf_.getNavigation().getVal("bean_two.go").put("change", "page1.html");
         conf_.getNavigation().getVal("bean_two.go").put("no_change", "page2.html");
-        Navigation nav_ = new Navigation();
+        Navigation nav_ = newNavigation();
         nav_.setLanguage(locale_);
         nav_.setSession(conf_);
         nav_.setFiles(files_);
@@ -7436,7 +7436,7 @@ public class NavigationTest {
         bean_.getComposite().getStrings().add("FIRST");
         bean_.getComposite().getStrings().add("SECOND");
         bean_.getComposite().setInteger(5);
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setPrefix("c");
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_seven", bean_);
@@ -7447,7 +7447,7 @@ public class NavigationTest {
         conf_.setTranslators(new StringMap<Translator>());
         conf_.getTranslators().put("trans", new MyTranslator());
         conf_.setNavigation(new StringMap<StringMap<String>>());
-        Navigation nav_ = new Navigation();
+        Navigation nav_ = newNavigation();
         nav_.setLanguage(locale_);
         nav_.setSession(conf_);
         nav_.setFiles(files_);
@@ -7513,7 +7513,7 @@ public class NavigationTest {
         bean_.getComposite().setInteger(5);
         bean_.getComposites().get(0).setStrings(new StringList("F"));
         bean_.getComposites().get(1).setStrings(new StringList("S"));
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setPrefix("c");
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_seven", bean_);
@@ -7525,7 +7525,7 @@ public class NavigationTest {
         conf_.getTranslators().put("trans", new MyTranslator());
         conf_.setMathFactory(new SimpleMathFactory());
         conf_.setNavigation(new StringMap<StringMap<String>>());
-        Navigation nav_ = new Navigation();
+        Navigation nav_ = newNavigation();
         nav_.setLanguage(locale_);
         nav_.setSession(conf_);
         nav_.setFiles(files_);
@@ -7595,7 +7595,7 @@ public class NavigationTest {
         files_.put("page1.html", html_);
         BeanEight bean_ = new BeanEight();
         bean_.setScope("session");
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setPrefix("c");
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_seven", bean_);
@@ -7610,7 +7610,7 @@ public class NavigationTest {
         conf_.getNavigation().put("bean_seven.setup", new StringMap<String>());
         conf_.getNavigation().getVal("bean_seven.setup").put("change", "page1.html");
         SimpleDataBase d_ = new SimpleDataBase();
-        Navigation nav_ = new Navigation();
+        Navigation nav_ = newNavigation();
         nav_.setLanguage(locale_);
         nav_.setSession(conf_);
         nav_.setFiles(files_);
@@ -7856,7 +7856,7 @@ public class NavigationTest {
         files_.put("page1.html", html_);
         BeanEight bean_ = new BeanEight();
         bean_.setScope("session");
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setPrefix("c");
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_seven", bean_);
@@ -7870,7 +7870,7 @@ public class NavigationTest {
         conf_.setNavigation(new StringMap<StringMap<String>>());
         conf_.getNavigation().put("bean_seven.setup", new StringMap<String>());
         conf_.getNavigation().getVal("bean_seven.setup").put("change", "page1.html");
-        Navigation nav_ = new Navigation();
+        Navigation nav_ = newNavigation();
         nav_.setLanguage(locale_);
         nav_.setSession(conf_);
         nav_.setFiles(files_);
@@ -8288,7 +8288,7 @@ public class NavigationTest {
         BeanTwo beanTwo_ = new BeanTwo();
         //beanTwo_.setClassName(BeanTwo.class.getName());
         beanTwo_.setScope("request");
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setPrefix("c");
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
@@ -8304,7 +8304,7 @@ public class NavigationTest {
         conf_.getNavigation().put("bean_two.go", new StringMap<String>());
         conf_.getNavigation().getVal("bean_two.go").put("change", "page1.html");
         conf_.getNavigation().getVal("bean_two.go").put("no_change", "page2.html");
-        Navigation nav_ = new Navigation();
+        Navigation nav_ = newNavigation();
         nav_.setLanguage(locale_);
         nav_.setSession(conf_);
         nav_.setFiles(files_);
@@ -8346,7 +8346,7 @@ public class NavigationTest {
         BeanTwo beanTwo_ = new BeanTwo();
         //beanTwo_.setClassName(BeanTwo.class.getName());
         beanTwo_.setScope("request");
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setPrefix("c");
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
@@ -8362,7 +8362,7 @@ public class NavigationTest {
         conf_.getNavigation().put("bean_two.go", new StringMap<String>());
         conf_.getNavigation().getVal("bean_two.go").put("change", "page1.html");
         conf_.getNavigation().getVal("bean_two.go").put("no_change", "page2.html");
-        Navigation nav_ = new Navigation();
+        Navigation nav_ = newNavigation();
         nav_.setLanguage(locale_);
         nav_.setSession(conf_);
         nav_.setFiles(files_);
@@ -8402,7 +8402,7 @@ public class NavigationTest {
         BeanTwo beanTwo_ = new BeanTwo();
         //beanTwo_.setClassName(BeanTwo.class.getName());
         beanTwo_.setScope("request");
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setPrefix("c");
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
@@ -8421,7 +8421,7 @@ public class NavigationTest {
         conf_.getNavigation().put("bean_two.go()", new StringMap<String>());
         conf_.getNavigation().getVal("bean_two.go()").put("change", "page1.html");
         conf_.getNavigation().getVal("bean_two.go()").put("no_change", "page2.html");
-        Navigation nav_ = new Navigation();
+        Navigation nav_ = newNavigation();
         nav_.setLanguage(locale_);
         nav_.setSession(conf_);
         nav_.setFiles(files_);
@@ -8448,7 +8448,7 @@ public class NavigationTest {
         BeanTwo beanTwo_ = new BeanTwo();
         //beanTwo_.setClassName(BeanTwo.class.getName());
         beanTwo_.setScope("request");
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setPrefix("c");
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
@@ -8465,7 +8465,7 @@ public class NavigationTest {
         conf_.getNavigation().put("bean_two.go", new StringMap<String>());
         conf_.getNavigation().getVal("bean_two.go").put("change", "page1.html");
         conf_.getNavigation().getVal("bean_two.go").put("no_change", "page2.html");
-        Navigation nav_ = new Navigation();
+        Navigation nav_ = newNavigation();
         nav_.setLanguage(locale_);
         nav_.setSession(conf_);
         nav_.setFiles(files_);
@@ -8506,7 +8506,7 @@ public class NavigationTest {
 //        BeanTwo beanTwo_ = new BeanTwo();
 //        //beanTwo_.setClassName(BeanTwo.class.getName());
 //        beanTwo_.setScope("request");
-//        Configuration conf_ = new Configuration();
+//        Configuration conf_ = newConfiguration();
 //        conf_.setBeans(new Map<String,Bean>());
 //        conf_.getBeans().put("bean_one", bean_);
 //        conf_.getBeans().put("bean_two", beanTwo_);
@@ -8521,7 +8521,7 @@ public class NavigationTest {
 //        conf_.getNavigation().put("bean_two.go", new Map<String,String>());
 //        conf_.getNavigation().getVal("bean_two.go").put("change", "page1.html");
 //        conf_.getNavigation().getVal("bean_two.go").put("no_change", "page2.html");
-//        Navigation nav_ = new Navigation();
+//        Navigation nav_ = newNavigation();
 //        nav_.setLanguage(locale_);
 //        nav_.setSession(conf_);
 //        nav_.setFiles(files_);
@@ -8548,7 +8548,7 @@ public class NavigationTest {
         BeanTwo beanTwo_ = new BeanTwo();
         //beanTwo_.setClassName(BeanTwo.class.getName());
         beanTwo_.setScope("request");
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setPrefix("c");
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
@@ -8564,7 +8564,7 @@ public class NavigationTest {
         conf_.getNavigation().put("bean_two.go", new StringMap<String>());
         conf_.getNavigation().getVal("bean_two.go").put("change", "page1.html");
         conf_.getNavigation().getVal("bean_two.go").put("no_change", "page2.html");
-        Navigation nav_ = new Navigation();
+        Navigation nav_ = newNavigation();
         nav_.setLanguage(locale_);
         nav_.setSession(conf_);
         nav_.setFiles(files_);
@@ -8604,7 +8604,7 @@ public class NavigationTest {
         BeanTwo beanTwo_ = new BeanTwo();
         //beanTwo_.setClassName(BeanTwo.class.getName());
         beanTwo_.setScope("request");
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
         conf_.getBeans().put("bean_two", beanTwo_);
@@ -8619,7 +8619,7 @@ public class NavigationTest {
         conf_.getNavigation().put("bean_two.go", new StringMap<String>());
         conf_.getNavigation().getVal("bean_two.go").put("change", "page1.html");
         conf_.getNavigation().getVal("bean_two.go").put("no_change", "page2.html");
-        Navigation nav_ = new Navigation();
+        Navigation nav_ = newNavigation();
         nav_.setLanguage(locale_);
         nav_.setSession(conf_);
         nav_.setFiles(files_);
@@ -8654,5 +8654,17 @@ public class NavigationTest {
 
     private static void assertXmlEqualNoPrefix(String _htmlExp, String _htmlRes) {
         assertTrue(DocumentBuilder.equalsDocs(_htmlExp, _htmlRes));
+    }
+
+    private static Navigation newNavigation() {
+        Navigation nav_ = new Navigation();
+        nav_.getSession().setStandards(InitializationLgNames.initStandards());
+        return nav_;
+    }
+
+    private static Configuration newConfiguration() {
+        Configuration conf_ = new Configuration();
+        conf_.setStandards(InitializationLgNames.initStandards());
+        return conf_;
     }
 }

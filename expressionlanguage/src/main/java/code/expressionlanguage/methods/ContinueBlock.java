@@ -5,6 +5,7 @@ import code.expressionlanguage.methods.exceptions.BadTagContinueException;
 import code.expressionlanguage.stacks.LoopBlockStack;
 import code.expressionlanguage.stacks.RemovableVars;
 import code.expressionlanguage.stacks.TryBlockStack;
+import code.expressionlanguage.stds.LgNames;
 import code.sml.Element;
 import code.util.NatTreeMap;
 
@@ -17,7 +18,7 @@ public final class ContinueBlock extends Leaf implements CallingFinally {
     }
 
     @Override
-    public NatTreeMap<String,String> getClassNames() {
+    public NatTreeMap<String,String> getClassNames(LgNames _stds) {
         NatTreeMap<String,String> tr_ = new NatTreeMap<String,String>();
         return tr_;
     }

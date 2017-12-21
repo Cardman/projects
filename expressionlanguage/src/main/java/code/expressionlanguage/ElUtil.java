@@ -2,7 +2,6 @@ package code.expressionlanguage;
 import code.expressionlanguage.exceptions.BadIndexException;
 import code.expressionlanguage.exceptions.CustomFoundConstructorException;
 import code.expressionlanguage.exceptions.CustomFoundMethodException;
-import code.expressionlanguage.exceptions.DivideZeroException;
 import code.expressionlanguage.exceptions.DynamicCastClassException;
 import code.expressionlanguage.exceptions.ErrorCausingException;
 import code.expressionlanguage.exceptions.FinalMemberException;
@@ -33,7 +32,6 @@ import code.util.IdMap;
 import code.util.NatTreeMap;
 import code.util.StringList;
 import code.util.StringMap;
-import code.util.exceptions.NullObjectException;
 import code.util.exceptions.RuntimeClassNotFoundException;
 
 public final class ElUtil {
@@ -82,7 +80,7 @@ public final class ElUtil {
         if (_oper.length() == 2) {
             if (StringList.quickEq(_oper, Block.EQ_PLUS) || StringList.quickEq(_oper, Block.PLUS_EQ)) {
                 if (!PrimitiveTypeUtil.isPureNumberClass(clMatchLeft_, _conf)) {
-                    if (!clMatchLeft_.matchClass(String.class)) {
+                    if (!clMatchLeft_.matchClass(_conf.getStandards().getAliasString())) {
                         throw new DynamicCastClassException(_conf.joinPages());
                     }
                 } else if (!PrimitiveTypeUtil.isPureNumberClass(clMatchRight_, _conf)) {
@@ -431,7 +429,6 @@ public final class ElUtil {
         }
     }
     /**@throws InvokeRedinedMethException
-    @throws DivideZeroException
     @throws BadIndexException
     @throws NegativeSizeException
     @throws ErrorCausingException
@@ -453,7 +450,6 @@ public final class ElUtil {
     }
     /**@throws InvokeRedinedMethException
     @throws CustomFoundMethodException
-    @throws DivideZeroException
     @throws BadIndexException
     @throws NegativeSizeException
     @throws ErrorCausingException
@@ -493,7 +489,6 @@ public final class ElUtil {
     }
     /**@throws InvokeRedinedMethException
     @throws CustomFoundMethodException
-    @throws DivideZeroException
     @throws BadIndexException
     @throws NegativeSizeException
     @throws ErrorCausingException

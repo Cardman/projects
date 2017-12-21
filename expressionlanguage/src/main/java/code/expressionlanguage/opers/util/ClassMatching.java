@@ -39,7 +39,11 @@ public final class ClassMatching {
     }
 
     public boolean isAssignableFrom(ClassMatching _c, ContextEl _context) {
-        return LgNames.canBeUseAsArgument(className, _c.getClassName(), _context);
+        return LgNames.canBeUseAsArgument(className, _c.getClassName(), _context.getStandards());
+    }
+
+    public boolean isPrimitive(LgNames _context) {
+        return PrimitiveTypeUtil.isPrimitive(className, _context);
     }
 
     public boolean isPrimitive(ContextEl _context) {

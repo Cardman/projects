@@ -22,16 +22,14 @@ public final class EquallableElUtil {
         Assert.assertTrue(_expected+DIFF+_result, _expected.charValue() == _result.charValue());
     }
 
-    public static void assertEq(boolean _expected, Object _result) {
+    public static void assertEq(boolean _expected, boolean _result) {
         Assert.assertNotNull(_result);
-        Assert.assertSame(Boolean.class,_result.getClass());
-        Assert.assertTrue(_expected+DIFF+_result, _expected == ((Boolean)_result).booleanValue());
+        Assert.assertTrue(_expected+DIFF+_result, _expected == _result);
     }
 
-    public static void assertEq(String _expected, Object _result) {
+    public static void assertEq(String _expected, String _result) {
         Assert.assertNotNull(_result);
-        Assert.assertSame(String.class,_result.getClass());
-        Assert.assertTrue(_expected+DIFF+_result, StringList.quickEq(_expected, (String)_result));
+        Assert.assertTrue(_expected+DIFF+_result, StringList.quickEq(_expected, _result));
     }
 
     public static void assertEq(MethodId _expected, MethodId _result) {

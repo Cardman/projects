@@ -57,7 +57,6 @@ import code.util.Replacement;
 import code.util.StringList;
 import code.util.StringMap;
 import code.util.comparators.ComparatorBoolean;
-import code.util.exceptions.NullObjectException;
 
 public class LgNames {
     protected static final String EMPTY_STRING = "";
@@ -84,6 +83,8 @@ public class LgNames {
     private String aliasEquals;
     private String aliasToString;
     private String aliasAbs;
+    private String aliasQuot;
+    private String aliasMod;
     private String aliasValueOf;
     private String aliasMaxValueField;
     private String aliasMinValueField;
@@ -341,6 +342,18 @@ public class LgNames {
         methods_.put(method_.getId(), method_);
         params_ = new StringList(aliasPrimLong);
         method_ = new StandardMethod(aliasAbs, params_, aliasPrimLong, false, MethodModifier.STATIC, aliasMath);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList(aliasPrimInteger,aliasPrimInteger);
+        method_ = new StandardMethod(aliasQuot, params_, aliasPrimInteger, false, MethodModifier.STATIC, aliasMath);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList(aliasPrimLong,aliasPrimLong);
+        method_ = new StandardMethod(aliasQuot, params_, aliasPrimLong, false, MethodModifier.STATIC, aliasMath);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList(aliasPrimInteger,aliasPrimInteger);
+        method_ = new StandardMethod(aliasMod, params_, aliasPrimInteger, false, MethodModifier.STATIC, aliasMath);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList(aliasPrimLong,aliasPrimLong);
+        method_ = new StandardMethod(aliasMod, params_, aliasPrimLong, false, MethodModifier.STATIC, aliasMath);
         methods_.put(method_.getId(), method_);
         std_ = new StandardClass(aliasMath, fields_, constructors_, methods_, aliasObject, MethodModifier.FINAL);
         standards.put(aliasMath, std_);
@@ -860,9 +873,9 @@ public class LgNames {
         standards.put(aliasStringBuilder, std_);
         buildOther();
     }
-    public void setupOverrides(ContextEl _context) {
+    public void setupOverrides() {
         for (StandardType t: standards.values()) {
-            t.buildOverridingMethods(_context);
+            t.buildOverridingMethods(this);
         }
     }
     public static FieldResult getDeclaredCustField(ContextEl _cont, boolean _staticContext, ClassArgumentMatching _class, boolean _superClass, String _name) {
@@ -884,7 +897,7 @@ public class LgNames {
         StringList classeNames_ = new StringList();
         classeNames_.add(root_.getName());
         if (root_ instanceof StandardClass) {
-            classeNames_.addAllElts(((StandardClass) root_).getAllSuperClasses(_cont));
+            classeNames_.addAllElts(((StandardClass) root_).getAllSuperClasses(classes_));
         }
         for (String s: classeNames_) {
             if (StringList.quickEq(s, classes_.getAliasObject())) {
@@ -943,7 +956,7 @@ public class LgNames {
             }
             ClassMethodIdResult resStatic_ = getDeclaredCustMethodByInterfaceInherit(_conf, _accessFromSuper, _varargOnly, true, _class, _name, _superClass, _argsClass);
             if (foundInst_) {
-                return toFoundMethod(_conf, resInst_);
+                return toFoundMethod(classes_, resInst_);
             }
             if (!_staticContext && _conf.isAmbigous() && _failIfError) {
                 String trace_ = clCurName_+DOT+_name+PAR_LEFT;
@@ -956,7 +969,7 @@ public class LgNames {
                 throw new NoSuchDeclaredMethodException(trace_+RETURN_LINE+_conf.joinPages());
             }
             if (resStatic_.getStatus() == SearchingMemberStatus.UNIQ) {
-                return toFoundMethod(_conf, resStatic_);
+                return toFoundMethod(classes_, resStatic_);
             }
             if (_staticContext && resInst_.getStatus() == SearchingMemberStatus.UNIQ && _failIfError) {
                 //static access
@@ -980,7 +993,7 @@ public class LgNames {
         }
         ClassMethodIdResult resStatic_ = getDeclaredCustMethodByClassInherit(_conf, _accessFromSuper, _varargOnly, true, _class, _name, _superClass, _argsClass);
         if (foundInst_) {
-            return toFoundMethod(_conf, resInst_);
+            return toFoundMethod(classes_, resInst_);
         }
         if (!_staticContext && _conf.isAmbigous()) {
             clCurName_ = _class.getName();
@@ -994,7 +1007,7 @@ public class LgNames {
             throw new NoSuchDeclaredMethodException(trace_+RETURN_LINE+_conf.joinPages());
         }
         if (resStatic_.getStatus() == SearchingMemberStatus.UNIQ) {
-            return toFoundMethod(_conf, resStatic_);
+            return toFoundMethod(classes_, resStatic_);
         }
         if (!_failIfError) {
             return new ClassMethodIdReturn(false);
@@ -1020,7 +1033,6 @@ public class LgNames {
         if (custClass_ == null) {
             return null;
         }
-        String glClass_ = _conf.getLastPage().getGlobalClass();
         CustList<ConstructorId> possibleMethods_ = new CustList<ConstructorId>();
         for (ClassArgumentMatching c:_args) {
             if (c.matchVoid(_conf)) {
@@ -1064,7 +1076,6 @@ public class LgNames {
         StringMap<StringList> map_;
         map_ = new StringMap<StringList>();
         ArgumentsGroup gr_ = new ArgumentsGroup(_conf, map_, _args);
-        gr_.setGlobalClass(glClass_);
         Parametrables<ConstructorInfo> signatures_ = new Parametrables<ConstructorInfo>();
         for (ConstructorId m: possibleMethods_) {
             ParametersGroup p_ = new ParametersGroup();
@@ -1094,7 +1105,7 @@ public class LgNames {
         ConstrustorIdVarArg out_;
         out_ = new ConstrustorIdVarArg();
         if (ctor_.isVararg() && _varargOnly == -1) {
-            if (varArgWrap(_conf, glClass_, clCurName_, ctor_, _args)) {
+            if (varArgWrap(_conf, clCurName_, ctor_, _args)) {
                 out_.setVarArgToCall(true);
             }
         }
@@ -1102,8 +1113,8 @@ public class LgNames {
         out_.setConstId(ctor_);
         return out_;
     }
-    private static ClassMethodIdReturn toFoundMethod(ContextEl _conf, ClassMethodIdResult _res){
-        LgNames classes_ = _conf.getStandards();
+    private static ClassMethodIdReturn toFoundMethod(LgNames _conf, ClassMethodIdResult _res){
+        LgNames classes_ = _conf;
         ClassMethodIdReturn idRet_ = new ClassMethodIdReturn(true);
         ClassMethodId idCl_ = _res.getId();
         String clCurName_ = idCl_.getClassName();
@@ -1130,7 +1141,7 @@ public class LgNames {
             StringList classeNames_ = new StringList();
             classeNames_.add(base_);
             if (r_ instanceof StandardClass) {
-                classeNames_.addAllElts(((StandardClass) r_).getAllSuperClasses(_conf));
+                classeNames_.addAllElts(((StandardClass) r_).getAllSuperClasses(classes_));
             }
             for (String s: classeNames_) {
                 if (StringList.quickEq(s, classes_.getAliasObject())) {
@@ -1221,7 +1232,6 @@ public class LgNames {
             ObjectNotNullMap<ClassMethodId, MethodMetaInfo> _methods,
             String _name, ClassArgumentMatching... _argsClass) {
         CustList<ClassMethodId> possibleMethods_ = new CustList<ClassMethodId>();
-        String glClass_ = _conf.getLastPage().getGlobalClass();
         for (EntryCust<ClassMethodId, MethodMetaInfo> e: _methods.entryList()) {
             ClassMethodId key_ = e.getKey();
             MethodId id_ = key_.getConstraints();
@@ -1248,7 +1258,6 @@ public class LgNames {
         StringMap<StringList> map_;
         map_ = new StringMap<StringList>();
         ArgumentsGroup gr_ = new ArgumentsGroup(_conf, map_, _argsClass);
-        gr_.setGlobalClass(glClass_);
         Parametrables<MethodInfo> signatures_ = new Parametrables<MethodInfo>();
         for (ClassMethodId m: possibleMethods_) {
             ParametersGroup p_ = new ParametersGroup();
@@ -1287,7 +1296,7 @@ public class LgNames {
         res_.setCorrectTemplated(true);
         res_.setId(new ClassMethodId(realClass_, id_));
         res_.setStatus(SearchingMemberStatus.UNIQ);
-        if (_varargOnly == -1 && varArgWrap(_conf, glClass_, realClass_, constraints_, _argsClass)) {
+        if (_varargOnly == -1 && varArgWrap(_conf, realClass_, constraints_, _argsClass)) {
             res_.setVarArgToCall(true);
         }
         res_.setRealId(constraints_);
@@ -1296,6 +1305,7 @@ public class LgNames {
         return res_;
     }
     static boolean isPossibleMethod(ContextEl _context, String _class, int _varargOnly, boolean _vararg, ClassMatching[] _params, ClassArgumentMatching..._argsClass) {
+        LgNames stds_ = _context.getStandards();
         int startOpt_ = _argsClass.length;
         boolean checkOnlyDem_ = true;
         int nbDem_ = _params.length;
@@ -1326,7 +1336,7 @@ public class LgNames {
                 }
                 continue;
             }
-            if (!canBeUseAsArgument(_params[i].getClassName(), _argsClass[i].getName(), _context)) {
+            if (!canBeUseAsArgument(_params[i].getClassName(), _argsClass[i].getName(), stds_)) {
                 return false;
             }
         }
@@ -1336,24 +1346,25 @@ public class LgNames {
         if (_params.length == _argsClass.length) {
             int last_ = _params.length - 1;
             String param_ = _params[last_].getClassName();
-            if (canBeUseAsArgument(param_, _argsClass[last_].getName(), _context)) {
+            if (canBeUseAsArgument(param_, _argsClass[last_].getName(), stds_)) {
                 return true;
             }
             param_ = PrimitiveTypeUtil.getQuickComponentType(param_);
-            return canBeUseAsArgument(param_, _argsClass[last_].getName(), _context);
+            return canBeUseAsArgument(param_, _argsClass[last_].getName(), stds_);
         }
         len_ = _argsClass.length;
         int last_ = _params.length - 1;
         String param_ = _params[last_].getClassName();
         param_ = PrimitiveTypeUtil.getQuickComponentType(param_);
         for (int i = startOpt_; i < len_; i++) {
-            if (!canBeUseAsArgument(param_, _argsClass[i].getName(), _context)) {
+            if (!canBeUseAsArgument(param_, _argsClass[i].getName(), stds_)) {
                 return false;
             }
         }
         return true;
     }
-    static boolean varArgWrap(ContextEl _context, String _globalClass, String _class, Identifiable _id, ClassArgumentMatching..._argsClass) {
+    static boolean varArgWrap(ContextEl _context, String _class, Identifiable _id, ClassArgumentMatching..._argsClass) {
+        LgNames stds_ = _context.getStandards();
         if (!_id.isVararg()) {
             return false;
         }
@@ -1363,7 +1374,7 @@ public class LgNames {
         }
         int last_ = p_.length - 1;
         String param_ = p_[last_].getClassName();
-        return !canBeUseAsArgument(param_, _argsClass[last_].getName(), _context);
+        return !canBeUseAsArgument(param_, _argsClass[last_].getName(), stds_);
     }
     static ClassMatching[] getParameters(Identifiable _id) {
         StringList params_ = _id.getParametersTypes();
@@ -1418,7 +1429,7 @@ public class LgNames {
     static int compare(ArgumentsGroup _context, Parametrable _o1, Parametrable _o2) {
         int len_ = _o1.getParameters().size();
         ContextEl context_ = _context.getContext();
-        String glClass_ = _context.getGlobalClass();
+        LgNames stds_ = context_.getStandards();
         String glClassOne_ = _o1.getClassName();
         String glClassTwo_ = _o2.getClassName();
         if (_o1.isVararg()) {
@@ -1439,8 +1450,8 @@ public class LgNames {
                 if (len_ > _o2.getParameters().size()) {
                     return CustList.NO_SWAP_SORT;
                 }
-                boolean varOne_ = varArgWrap(context_, glClass_, glClassOne_, _o1.getId(), _context.getArgumentsArray());
-                boolean varTwo_ = varArgWrap(context_, glClass_, glClassTwo_, _o2.getId(), _context.getArgumentsArray());
+                boolean varOne_ = varArgWrap(context_, glClassOne_, _o1.getId(), _context.getArgumentsArray());
+                boolean varTwo_ = varArgWrap(context_, glClassTwo_, _o2.getId(), _context.getArgumentsArray());
                 if (varOne_ && !varTwo_) {
                     return CustList.SWAP_SORT;
                 }
@@ -1524,15 +1535,15 @@ public class LgNames {
         if (StringList.quickEq(_o2.getReturnType(), _o1.getReturnType())) {
             String baseOne_ = glClassOne_;
             String baseTwo_ = glClassTwo_;
-            if (!canBeUseAsArgument(baseTwo_, baseOne_, context_)) {
+            if (!canBeUseAsArgument(baseTwo_, baseOne_, stds_)) {
                 return CustList.SWAP_SORT;
             }
             return CustList.NO_SWAP_SORT;
         }
-        if (canBeUseAsArgument(_o1.getReturnType(), _o2.getReturnType(), context_)) {
+        if (canBeUseAsArgument(_o1.getReturnType(), _o2.getReturnType(), stds_)) {
             return CustList.SWAP_SORT;
         }
-        if (canBeUseAsArgument(_o2.getReturnType(), _o1.getReturnType(), context_)) {
+        if (canBeUseAsArgument(_o2.getReturnType(), _o1.getReturnType(), stds_)) {
             return CustList.SWAP_SORT;
         }
         _o1.getParameters().setError(true);
@@ -1643,8 +1654,8 @@ public class LgNames {
         method_ = new StandardMethod(aliasCompare, params_, aliasPrimInteger, false, MethodModifier.STATIC, _owner);
         _methods.put(new MethodId(MethodModifier.STATIC, aliasCompareTo, params_), method_);
     }
-    public static boolean canBeUseAsArgument(String _param, String _arg, ContextEl _context) {
-        String aliasVoid_ = _context.getStandards().getAliasVoid();
+    public static boolean canBeUseAsArgument(String _param, String _arg, LgNames _context) {
+        String aliasVoid_ = _context.getAliasVoid();
         if (StringList.quickEq(_param, aliasVoid_)) {
             return false;
         }
@@ -1669,7 +1680,7 @@ public class LgNames {
         ClassArgumentMatching arg_ = new ClassArgumentMatching(_arg);
         DimComp paramComp_ = PrimitiveTypeUtil.getQuickComponentBaseType(param_.getName());
         DimComp argComp_ = PrimitiveTypeUtil.getQuickComponentBaseType(_arg);
-        String objAlias_ = _context.getStandards().getAliasObject();
+        String objAlias_ = _context.getAliasObject();
         if (StringList.quickEq(paramComp_.getComponent(), objAlias_)) {
             if (paramComp_.getDim() > argComp_.getDim()) {
                 return false;
@@ -1685,8 +1696,8 @@ public class LgNames {
         if (StringList.quickEq(param_.getName(),arg_.getName())) {
             return true;
         }
-        String aliasPrimBool_ = _context.getStandards().getAliasPrimBoolean();
-        String aliasNumber_ = _context.getStandards().getAliasNumber();
+        String aliasPrimBool_ = _context.getAliasPrimBoolean();
+        String aliasNumber_ = _context.getAliasNumber();
         String typeNameArg_ = PrimitiveTypeUtil.toPrimitive(arg_, true, _context).getName();
         if (StringList.quickEq(typeNameArg_, aliasPrimBool_)) {
             String typeNameParam_ = PrimitiveTypeUtil.toPrimitive(param_, true, _context).getName();
@@ -1737,8 +1748,8 @@ public class LgNames {
         return false;
     }
     /** Only "object" classes are used as arguments */
-    public static StringList getSubclasses(StringList _classNames, ContextEl _classes) {
-        String aliasVoid_ = _classes.getStandards().getAliasVoid();
+    public static StringList getSubclasses(StringList _classNames, LgNames _classes) {
+        String aliasVoid_ = _classes.getAliasVoid();
         StringList types_ = new StringList();
         for (String i: _classNames) {
             boolean sub_ = true;
@@ -1770,17 +1781,17 @@ public class LgNames {
         types_.removeDuplicates();
         return types_;
     }
-    static AssignableFrom isAssignableFromCust(String _param,String _arg, ContextEl _context) {
-        String aliasObject_ = _context.getStandards().getAliasObject();
+    static AssignableFrom isAssignableFromCust(String _param,String _arg, LgNames _context) {
+        String aliasObject_ = _context.getAliasObject();
         if (StringList.quickEq(_param, aliasObject_)) {
             return AssignableFrom.YES;
         }
         DimComp dPar_ = PrimitiveTypeUtil.getQuickComponentBaseType(_param);
         String p_ = dPar_.getComponent();
-        StandardType clParBl_ = _context.getStandards().getStandards().getVal(p_);
+        StandardType clParBl_ = _context.getStandards().getVal(p_);
         DimComp dArg_ = PrimitiveTypeUtil.getQuickComponentBaseType(_arg);
         String a_ = dArg_.getComponent();
-        StandardType clArgBl_ = _context.getStandards().getStandards().getVal(a_);
+        StandardType clArgBl_ = _context.getStandards().getVal(a_);
         if (clArgBl_ != null) {
             if (clParBl_ != null) {
                 if (dArg_.getDim() > 0 && dPar_.getDim() > 0) {
@@ -1804,8 +1815,8 @@ public class LgNames {
         }
         return AssignableFrom.MAYBE;
     }
-    static boolean isArrayAssignable(String _arrArg, String _arrParam, ContextEl _context) {
-        String aliasObject_ = _context.getStandards().getAliasObject();
+    static boolean isArrayAssignable(String _arrArg, String _arrParam, LgNames _context) {
+        String aliasObject_ = _context.getAliasObject();
         DimComp dArg_ = PrimitiveTypeUtil.getQuickComponentBaseType(_arrArg);
         String a_ = dArg_.getComponent();
         DimComp dPar_ = PrimitiveTypeUtil.getQuickComponentBaseType(_arrParam);
@@ -1819,7 +1830,7 @@ public class LgNames {
         if (dPar_.getDim() != dArg_.getDim()) {
             return false;
         }
-        StandardType clArgBl_ = _context.getStandards().getStandards().getVal(a_);
+        StandardType clArgBl_ = _context.getStandards().getVal(a_);
         if (clArgBl_.getAllSuperTypes(_context).containsObj(className_)) {
             return true;
         }
@@ -1848,6 +1859,7 @@ public class LgNames {
         String stringBuilderType_ = lgNames_.getAliasStringBuilder();
         String replType_ = lgNames_.getAliasReplacement();
         String booleanPrimType_ = lgNames_.getAliasPrimBoolean();
+        String divZero_ = lgNames_.getAliasDivisionZero();
         boolean null_ = false;
         if (!_method.getConstraints().isStaticMethod()) {
             if (instance_ == null) {
@@ -1864,6 +1876,42 @@ public class LgNames {
                     result_.setResult(new LongStruct(Math.abs((Long) argsObj_[0])));
                 } else {
                     result_.setResult(new IntStruct(Math.abs((Integer) argsObj_[0])));
+                }
+            } else if (StringList.quickEq(name_, lgNames_.getAliasMod())) {
+                if (argsObj_[0] instanceof Long) {
+                    Long num_ = (Long) argsObj_[0];
+                    Long den_ = (Long) argsObj_[1];
+                    if (den_.longValue() == 0) {
+                        result_.setError(divZero_);
+                    } else {
+                        result_.setResult(new LongStruct(Numbers.mod(num_, den_)));
+                    }
+                } else {
+                    Integer num_ = (Integer) argsObj_[0];
+                    Integer den_ = (Integer) argsObj_[1];
+                    if (den_.longValue() == 0) {
+                        result_.setError(divZero_);
+                    } else {
+                        result_.setResult(new IntStruct(Numbers.mod(num_, den_)));
+                    }
+                }
+            } else if (StringList.quickEq(name_, lgNames_.getAliasQuot())) {
+                if (argsObj_[0] instanceof Long) {
+                    Long num_ = (Long) argsObj_[0];
+                    Long den_ = (Long) argsObj_[1];
+                    if (den_.longValue() == 0) {
+                        result_.setError(divZero_);
+                    } else {
+                        result_.setResult(new LongStruct(Numbers.quot(num_, den_)));
+                    }
+                } else {
+                    Integer num_ = (Integer) argsObj_[0];
+                    Integer den_ = (Integer) argsObj_[1];
+                    if (den_.longValue() == 0) {
+                        result_.setError(divZero_);
+                    } else {
+                        result_.setResult(new IntStruct(Numbers.quot(num_, den_)));
+                    }
                 }
             }
         } else if (StringList.quickEq(type_, booleanType_)) {
@@ -2549,20 +2597,10 @@ public class LgNames {
                 }
             } else if (StringList.quickEq(name_, lgNames_.getAliasToLowerCase())) {
                 String one_ = (String) instance_;
-                int len_ = one_.length();
-                StringBuilder str_ = new StringBuilder(len_);
-                for (int i = CustList.FIRST_INDEX; i <len_; i++) {
-                    str_.append(Character.toLowerCase(one_.charAt(i)));
-                }
-                result_.setResult(new StdStruct(str_.toString(),stringType_));
+                result_.setResult(new StdStruct(StringList.toLowerCase(one_),stringType_));
             } else if (StringList.quickEq(name_, lgNames_.getAliasToUpperCase())) {
                 String one_ = (String) instance_;
-                int len_ = one_.length();
-                StringBuilder str_ = new StringBuilder(len_);
-                for (int i = CustList.FIRST_INDEX; i <len_; i++) {
-                    str_.append(Character.toUpperCase(one_.charAt(i)));
-                }
-                result_.setResult(new StdStruct(str_.toString(),stringType_));
+                result_.setResult(new StdStruct(StringList.toUpperCase(one_),stringType_));
             } else if (StringList.quickEq(name_, lgNames_.getAliasToCharArray())) {
                 String one_ = (String) instance_;
                 char[] bytes_ = one_.toCharArray();
@@ -3388,12 +3426,7 @@ public class LgNames {
             }
         }
         LgNames stds_ = _cont.getStandards();
-        String null_;
-        if (_cont.getClasses() != null) {
-            null_ = stds_.getAliasNullPe();
-        } else {
-            null_ = NullObjectException.class.getName();
-        }
+        String null_ = stds_.getAliasNullPe();
         if (!traces_.isEmpty()) {
             throw new InvokeException(new StdStruct(new CustomError(traces_.join(SEP_ARG)+RETURN_LINE+_cont.joinPages()),null_));
         }
@@ -4303,6 +4336,18 @@ public class LgNames {
     }
     public void setAliasAbs(String _aliasAbs) {
         aliasAbs = _aliasAbs;
+    }
+    public String getAliasQuot() {
+        return aliasQuot;
+    }
+    public void setAliasQuot(String _aliasQuot) {
+        aliasQuot = _aliasQuot;
+    }
+    public String getAliasMod() {
+        return aliasMod;
+    }
+    public void setAliasMod(String _aliasMod) {
+        aliasMod = _aliasMod;
     }
     public void setStandards(StringMap<StandardType> _standards) {
         standards = _standards;

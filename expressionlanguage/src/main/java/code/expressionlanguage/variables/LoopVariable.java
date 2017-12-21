@@ -32,9 +32,9 @@ public final class LoopVariable {
 
     private String extendedExpression;
 
-    private String className = Object.class.getName();
+    private String className;
 
-    private String indexClassName = Long.class.getName();
+    private String indexClassName;
 
     public String getInfos(ContextEl _context) {
         String lv_ = INDEX+SEP_KEY_VAL+index+AS+indexClassName+SEP_INFO;
@@ -70,9 +70,9 @@ public final class LoopVariable {
             element = NullStruct.NULL_VALUE;
         }
     }
-
-    public Object getElement() {
-        return element.getInstance();
+    
+    public void setElement(Number _element) {
+        element = StdStruct.wrapStd(_element);
     }
 
     public void setElement(Object _element) {

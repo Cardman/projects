@@ -23,7 +23,7 @@ public final class ByteStruct extends Struct {
 
     @Override
     public String getClassName(ContextEl _context) {
-        return Byte.class.getName();
+        return _context.getStandards().getAliasByte();
     }
 
     @Override

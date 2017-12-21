@@ -2,7 +2,6 @@ package code.expressionlanguage.opers;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.OperationsSequence;
-import code.expressionlanguage.PrimitiveTypeUtil;
 import code.expressionlanguage.exceptions.BadNumberValuesException;
 import code.expressionlanguage.methods.util.ArgumentsPair;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
@@ -102,34 +101,6 @@ public final class EqOperation extends PrimitiveBoolOperation {
         return a_;
     }
 
-    /*static boolean canUsePrimitiveEq(Object _o) {
-        if (_o instanceof Double) {
-            return true;
-        }
-        if (_o instanceof Float) {
-            return true;
-        }
-        if (_o instanceof Long) {
-            return true;
-        }
-        if (_o instanceof Integer) {
-            return true;
-        }
-        if (_o instanceof Short) {
-            return true;
-        }
-        if (_o instanceof Byte) {
-            return true;
-        }
-        if (_o instanceof Character) {
-            return true;
-        }
-        if (_o instanceof Boolean) {
-            return true;
-        }
-        return false;
-    }*/
-
     static boolean canUsePrimitiveFloattingPointEq(Object _o) {
         if (_o instanceof Double) {
             return true;
@@ -172,10 +143,7 @@ public final class EqOperation extends PrimitiveBoolOperation {
             throw new BadNumberValuesException(_conf.joinPages());
         }
         LgNames stds_ = _conf.getStandards();
-        if (_conf.getClasses() != null) {
-            
-        }
-        setResultClass(new ClassArgumentMatching(PrimitiveTypeUtil.PRIM_BOOLEAN));
+        setResultClass(new ClassArgumentMatching(stds_.getAliasPrimBoolean()));
     }
 
     @Override

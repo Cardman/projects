@@ -1,6 +1,7 @@
 package code.expressionlanguage.methods;
 
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.stds.LgNames;
 import code.sml.Element;
 import code.util.CustList;
 import code.util.NatTreeMap;
@@ -42,7 +43,7 @@ public abstract class NamedFunctionBlock extends MemberCallingsBlock implements 
             i_++;
         }
         varargs = varargs_;
-        access = AccessEnum.valueOf(_el.getAttribute(ATTRIBUTE_ACCESS));
+        access = AccessEnum.getAccessByName(_el.getAttribute(ATTRIBUTE_ACCESS));
         returnType = _el.getAttribute(ATTRIBUTE_CLASS);
         parametersNames = new StringList();
         i_ = CustList.FIRST_INDEX;
@@ -54,7 +55,7 @@ public abstract class NamedFunctionBlock extends MemberCallingsBlock implements 
 
 
     @Override
-    public NatTreeMap<String,String> getClassNames() {
+    public NatTreeMap<String,String> getClassNames(LgNames _stds) {
         NatTreeMap<String,String> tr_ = new NatTreeMap<String,String>();
         StringList l_ = getParametersTypes();
         int i_ = 0;
@@ -76,7 +77,7 @@ public abstract class NamedFunctionBlock extends MemberCallingsBlock implements 
     }
 
     @Override
-    public String getReturnType() {
+    public String getReturnType(LgNames _stds) {
         return returnType;
     }
 

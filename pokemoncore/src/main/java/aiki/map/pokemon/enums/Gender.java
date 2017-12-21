@@ -1,6 +1,7 @@
 package aiki.map.pokemon.enums;
 import code.serialize.CheckedData;
 import code.util.EnumList;
+import code.util.StringList;
 import code.util.ints.Listable;
 
 @CheckedData
@@ -38,5 +39,13 @@ public enum Gender {
             }
         }
         return true;
+    }
+    public static Gender getGenderByName(String _env) {
+        for (Gender e: values()) {
+            if (StringList.quickEq(e.name(), _env)) {
+                return e;
+            }
+        }
+        return null;
     }
 }

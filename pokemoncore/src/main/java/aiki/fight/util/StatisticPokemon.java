@@ -16,7 +16,7 @@ public final class StatisticPokemon implements Equallable<StatisticPokemon> {
 
     public StatisticPokemon(String _str) {
         StringList elements_ = StringList.splitChars(_str, SEPARATOR);
-        statistic = Statistic.valueOf(elements_.first());
+        statistic = Statistic.getStatisticByName(elements_.first());
         pokemon = elements_.last();
     }
 

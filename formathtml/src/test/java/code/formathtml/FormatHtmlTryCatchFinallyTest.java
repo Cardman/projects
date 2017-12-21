@@ -5,7 +5,6 @@ import org.junit.Test;
 
 import code.bean.Bean;
 import code.bean.translator.Translator;
-import code.expressionlanguage.exceptions.DivideZeroException;
 import code.expressionlanguage.methods.exceptions.BadTryException;
 import code.formathtml.classes.BeanOne;
 import code.formathtml.classes.MyTranslator;
@@ -17,7 +16,8 @@ import code.util.StringMap;
 @SuppressWarnings("static-method")
 public class FormatHtmlTryCatchFinallyTest {
 
-    private static final String DIV_ZERO = DivideZeroException.class.getName();
+    private static final String DIV_ZERO = "code.expressionlanguage.exceptions.DivideZeroException";
+    private static final String EXCEPTION = "java.lang.Exception";
 
     @Test
     public void processHtml189Test() {
@@ -34,7 +34,7 @@ public class FormatHtmlTryCatchFinallyTest {
         bean_.getComposite().setInteger(5);
         bean_.getTree().put("ONE", 1);
         bean_.getTree().put("TWO", 2);
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
         conf_.setMessagesFolder(folder_);
@@ -68,7 +68,7 @@ public class FormatHtmlTryCatchFinallyTest {
         bean_.getComposite().setInteger(5);
         bean_.getTree().put("ONE", 1);
         bean_.getTree().put("TWO", 2);
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
         conf_.setMessagesFolder(folder_);
@@ -102,7 +102,7 @@ public class FormatHtmlTryCatchFinallyTest {
         bean_.getComposite().setInteger(5);
         bean_.getTree().put("ONE", 1);
         bean_.getTree().put("TWO", 2);
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
         conf_.setMessagesFolder(folder_);
@@ -127,7 +127,7 @@ public class FormatHtmlTryCatchFinallyTest {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
-        String html_ = "<html xmlns:c='javahtml'><body><c:try><c:try><c:throw expression='$new java.io.IOException()'/></c:try><c:finally>END BLOCK</c:finally></c:try><c:catch className='java.io.IOException' var='e'>Divide Zero</c:catch></body></html>";
+        String html_ = "<html xmlns:c='javahtml'><body><c:try><c:try><c:throw expression='$new java.lang.String()'/></c:try><c:finally>END BLOCK</c:finally></c:try><c:catch className='java.lang.String' var='e'>Divide Zero</c:catch></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
         BeanOne bean_ = new BeanOne();
@@ -136,7 +136,7 @@ public class FormatHtmlTryCatchFinallyTest {
         bean_.getComposite().setInteger(5);
         bean_.getTree().put("ONE", 1);
         bean_.getTree().put("TWO", 2);
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
         conf_.setMessagesFolder(folder_);
@@ -170,7 +170,7 @@ public class FormatHtmlTryCatchFinallyTest {
         bean_.getComposite().setInteger(5);
         bean_.getTree().put("ONE", 1);
         bean_.getTree().put("TWO", 2);
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
         conf_.setMessagesFolder(folder_);
@@ -205,7 +205,7 @@ public class FormatHtmlTryCatchFinallyTest {
         bean_.getComposite().setInteger(5);
         bean_.getTree().put("ONE", 1);
         bean_.getTree().put("TWO", 2);
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
         conf_.setMessagesFolder(folder_);
@@ -230,7 +230,7 @@ public class FormatHtmlTryCatchFinallyTest {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
-        String html_ = "<html xmlns:c='javahtml'><body><c:try><c:try>{1/0}</c:try><c:catch className='"+DIV_ZERO+"' var='e'>END BLOCK<c:throw expression='$new java.io.IOException()'/></c:catch></c:try><c:catch className='java.lang.Exception' var='e'>Divide Zero</c:catch><c:finally>OUTER</c:finally></body></html>";
+        String html_ = "<html xmlns:c='javahtml'><body><c:try><c:try>{1/0}</c:try><c:catch className='"+DIV_ZERO+"' var='e'>END BLOCK<c:throw expression='$new java.lang.String()'/></c:catch></c:try><c:catch className='java.lang.CharSequence' var='e'>Divide Zero</c:catch><c:finally>OUTER</c:finally></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
         BeanOne bean_ = new BeanOne();
@@ -239,7 +239,7 @@ public class FormatHtmlTryCatchFinallyTest {
         bean_.getComposite().setInteger(5);
         bean_.getTree().put("ONE", 1);
         bean_.getTree().put("TWO", 2);
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
         conf_.setMessagesFolder(folder_);
@@ -265,8 +265,7 @@ public class FormatHtmlTryCatchFinallyTest {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
-        String html_ = "<html xmlns:c='javahtml'><body><c:try><c:try>{1/0}</c:try><c:finally>END BLOCK<c:throw expression='$new java.io.IOException()'/></c:finally></c:try><c:catch className='java.lang.Exception' var='e'>{e;..getClass().getName()}</c:catch><c:finally>OUTER</c:finally></body></html>";
-//        String html_ = "<html xmlns:c='javahtml'><body><c:try><c:try>{1/0}</c:try><c:finally>END BLOCK{1/0}</c:finally></c:try><c:catch className='java.lang.Exception' var='e'>{e;..getClass().getName()}</c:catch><c:finally>OUTER</c:finally></body></html>";
+        String html_ = "<html xmlns:c='javahtml'><body><c:try><c:try>{1/0}</c:try><c:finally>END BLOCK<c:throw expression='$new java.lang.String()'/></c:finally></c:try><c:catch className='java.lang.CharSequence' var='e'>{e;..getClass().getName()}</c:catch><c:finally>OUTER</c:finally></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
         BeanOne bean_ = new BeanOne();
@@ -275,7 +274,7 @@ public class FormatHtmlTryCatchFinallyTest {
         bean_.getComposite().setInteger(5);
         bean_.getTree().put("ONE", 1);
         bean_.getTree().put("TWO", 2);
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
         conf_.setMessagesFolder(folder_);
@@ -291,7 +290,7 @@ public class FormatHtmlTryCatchFinallyTest {
         String render_ = FormatHtml.processHtml(doc_, "bean_one", conf_, locale_, files_);
 //        assertXMLEqualNoPrefix("<html><body><c:tmp>ONE - <c:tmp>1;</c:tmp><br/></c:tmp><c:tmp>THREE - <c:tmp>4;</c:tmp><c:tmp>5;</c:tmp><c:tmp>6;</c:tmp><br/></c:tmp><c:tmp>TWO - <c:tmp>2;</c:tmp><c:tmp>3;</c:tmp><br/></c:tmp></body></html>", render_);
 //        assertXMLEqualRuntime("<html xmlns:c='javahtml' xmlns='javahtml'><body><c_tmp>ONE - <c_tmp>1;</c_tmp><br/></c_tmp><c_tmp>THREE - <c_tmp>4;</c_tmp><c_tmp>5;</c_tmp><c_tmp>6;</c_tmp><br/></c_tmp><c_tmp>TWO - <c_tmp>2;</c_tmp><c_tmp>3;</c_tmp><br/></c_tmp></body></html>", render_);
-        assertXmlEqualRuntime("<html xmlns:c='javahtml'><body>END BLOCKjava.io.IOExceptionOUTER</body></html>", render_);
+        assertXmlEqualRuntime("<html xmlns:c='javahtml'><body>END BLOCKjava.lang.StringOUTER</body></html>", render_);
     }
 
     @Test
@@ -300,8 +299,7 @@ public class FormatHtmlTryCatchFinallyTest {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
-        String html_ = "<html xmlns:c='javahtml'><body><c:try><c:try>{1/0}</c:try><c:finally>END BLOCK{1/0}</c:finally></c:try><c:catch className='java.lang.Exception' var='e'>{e;..getClass().getName()}</c:catch><c:finally>OUTER</c:finally></body></html>";
-//        String html_ = "<html xmlns:c='javahtml'><body><c:try><c:try>{1/0}</c:try><c:finally>END BLOCK{1/0}</c:finally></c:try><c:catch className='java.lang.Exception' var='e'>{e;..getClass().getName()}</c:catch><c:finally>OUTER</c:finally></body></html>";
+        String html_ = "<html xmlns:c='javahtml'><body><c:try><c:try>{1/0}</c:try><c:finally>END BLOCK{1/0}</c:finally></c:try><c:catch className='"+EXCEPTION+"' var='e'>{e;..getClass().getName()}</c:catch><c:finally>OUTER</c:finally></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
         BeanOne bean_ = new BeanOne();
@@ -310,7 +308,7 @@ public class FormatHtmlTryCatchFinallyTest {
         bean_.getComposite().setInteger(5);
         bean_.getTree().put("ONE", 1);
         bean_.getTree().put("TWO", 2);
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
         conf_.setMessagesFolder(folder_);
@@ -344,7 +342,7 @@ public class FormatHtmlTryCatchFinallyTest {
         bean_.getComposite().setInteger(5);
         bean_.getTree().put("ONE", 1);
         bean_.getTree().put("TWO", 2);
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
         conf_.setMessagesFolder(folder_);
@@ -378,7 +376,7 @@ public class FormatHtmlTryCatchFinallyTest {
         bean_.getComposite().setInteger(5);
         bean_.getTree().put("ONE", 1);
         bean_.getTree().put("TWO", 2);
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
         conf_.setMessagesFolder(folder_);
@@ -412,7 +410,7 @@ public class FormatHtmlTryCatchFinallyTest {
         bean_.getComposite().setInteger(5);
         bean_.getTree().put("ONE", 1);
         bean_.getTree().put("TWO", 2);
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
         conf_.setMessagesFolder(folder_);
@@ -446,7 +444,7 @@ public class FormatHtmlTryCatchFinallyTest {
         bean_.getComposite().setInteger(5);
         bean_.getTree().put("ONE", 1);
         bean_.getTree().put("TWO", 2);
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
         conf_.setMessagesFolder(folder_);
@@ -480,7 +478,7 @@ public class FormatHtmlTryCatchFinallyTest {
         bean_.getComposite().setInteger(5);
         bean_.getTree().put("ONE", 1);
         bean_.getTree().put("TWO", 2);
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
         conf_.setMessagesFolder(folder_);
@@ -505,8 +503,7 @@ public class FormatHtmlTryCatchFinallyTest {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
-        String html_ = "<html xmlns:c='javahtml'><body><c:try><c:try>{1/0}</c:try><c:catch className='java.lang.Exception' var='e'><c:throw expression='e;..'/></c:catch><c:finally>END BLOCK{1/0}</c:finally></c:try><c:catch className='java.lang.Exception' var='e'>{e;..getClass().getName()}</c:catch><c:finally>OUTER</c:finally></body></html>";
-//        String html_ = "<html xmlns:c='javahtml'><body><c:try><c:try>{1/0}</c:try><c:finally>END BLOCK{1/0}</c:finally></c:try><c:catch className='java.lang.Exception' var='e'>{e;..getClass().getName()}</c:catch><c:finally>OUTER</c:finally></body></html>";
+        String html_ = "<html xmlns:c='javahtml'><body><c:try><c:try>{1/0}</c:try><c:catch className='"+EXCEPTION+"' var='e'><c:throw expression='e;..'/></c:catch><c:finally>END BLOCK{1/0}</c:finally></c:try><c:catch className='"+EXCEPTION+"' var='e'>{e;..getClass().getName()}</c:catch><c:finally>OUTER</c:finally></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
         BeanOne bean_ = new BeanOne();
@@ -515,7 +512,7 @@ public class FormatHtmlTryCatchFinallyTest {
         bean_.getComposite().setInteger(5);
         bean_.getTree().put("ONE", 1);
         bean_.getTree().put("TWO", 2);
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
         conf_.setMessagesFolder(folder_);
@@ -541,8 +538,7 @@ public class FormatHtmlTryCatchFinallyTest {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
-        String html_ = "<html xmlns:c='javahtml'><body><c:try><c:try>{1/0}</c:try><c:catch className='java.lang.Exception' var='e'><c:throw expression='e;..'/></c:catch></c:try><c:catch className='java.lang.Exception' var='e'>{e;..getClass().getName()}</c:catch><c:finally>OUTER</c:finally></body></html>";
-//        String html_ = "<html xmlns:c='javahtml'><body><c:try><c:try>{1/0}</c:try><c:finally>END BLOCK{1/0}</c:finally></c:try><c:catch className='java.lang.Exception' var='e'>{e;..getClass().getName()}</c:catch><c:finally>OUTER</c:finally></body></html>";
+        String html_ = "<html xmlns:c='javahtml'><body><c:try><c:try>{1/0}</c:try><c:catch className='"+EXCEPTION+"' var='e'><c:throw expression='e;..'/></c:catch></c:try><c:catch className='"+EXCEPTION+"' var='e'>{e;..getClass().getName()}</c:catch><c:finally>OUTER</c:finally></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
         BeanOne bean_ = new BeanOne();
@@ -551,7 +547,7 @@ public class FormatHtmlTryCatchFinallyTest {
         bean_.getComposite().setInteger(5);
         bean_.getTree().put("ONE", 1);
         bean_.getTree().put("TWO", 2);
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
         conf_.setMessagesFolder(folder_);
@@ -576,9 +572,7 @@ public class FormatHtmlTryCatchFinallyTest {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
-//        String html_ = "<html xmlns:c='javahtml'><body><c:try><c:try>{1/0}</c:try><c:catch className='java.lang.Exception' var='e'><c:throw expression='e;..'/></c:catch><c:finally>END BLOCK{class(\"java.lang.String\",8i)}</c:finally></c:try><c:catch className='java.lang.Exception' var='e'>{e;..getClass().getName()}</c:catch><c:finally>OUTER</c:finally></body></html>";
-        String html_ = "<html xmlns:c='javahtml'><body><c:try><c:try>{1/0}</c:try><c:catch className='java.lang.Exception' var='e'><c:throw expression='e;..'/></c:catch><c:finally>END BLOCK{$class(\"java.lang.String\",8i)}</c:finally></c:try><c:catch className='java.lang.Exception' var='e'>{e;..getClass().getName()}</c:catch><c:finally>OUTER</c:finally></body></html>";
-//        String html_ = "<html xmlns:c='javahtml'><body><c:try><c:try>{1/0}</c:try><c:finally>END BLOCK{1/0}</c:finally></c:try><c:catch className='java.lang.Exception' var='e'>{e;..getClass().getName()}</c:catch><c:finally>OUTER</c:finally></body></html>";
+        String html_ = "<html xmlns:c='javahtml'><body><c:try><c:try>{1/0}</c:try><c:catch className='"+EXCEPTION+"' var='e'><c:throw expression='e;..'/></c:catch><c:finally>END BLOCK{$class(\"java.lang.String\",8i)}</c:finally></c:try><c:catch className='"+EXCEPTION+"' var='e'>{e;..getClass().getName()}</c:catch><c:finally>OUTER</c:finally></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
         BeanOne bean_ = new BeanOne();
@@ -587,7 +581,7 @@ public class FormatHtmlTryCatchFinallyTest {
         bean_.getComposite().setInteger(5);
         bean_.getTree().put("ONE", 1);
         bean_.getTree().put("TWO", 2);
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
         conf_.setMessagesFolder(folder_);
@@ -612,9 +606,7 @@ public class FormatHtmlTryCatchFinallyTest {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
-//        String html_ = "<html xmlns:c='javahtml'><body><c:try><c:try>{1/0}</c:try><c:catch className='java.lang.Exception' var='e'>{class(\"java.lang.String\",8i)}</c:catch></c:try><c:catch className='java.lang.Exception' var='e'>{e;..getClass().getName()}</c:catch><c:finally>OUTER</c:finally></body></html>";
-        String html_ = "<html xmlns:c='javahtml'><body><c:try><c:try>{1/0}</c:try><c:catch className='java.lang.Exception' var='e'>{$class(\"java.lang.String\",8i)}</c:catch></c:try><c:catch className='java.lang.Exception' var='e'>{e;..getClass().getName()}</c:catch><c:finally>OUTER</c:finally></body></html>";
-//        String html_ = "<html xmlns:c='javahtml'><body><c:try><c:try>{1/0}</c:try><c:finally>END BLOCK{1/0}</c:finally></c:try><c:catch className='java.lang.Exception' var='e'>{e;..getClass().getName()}</c:catch><c:finally>OUTER</c:finally></body></html>";
+        String html_ = "<html xmlns:c='javahtml'><body><c:try><c:try>{1/0}</c:try><c:catch className='"+EXCEPTION+"' var='e'>{$class(\"java.lang.String\",8i)}</c:catch></c:try><c:catch className='"+EXCEPTION+"' var='e'>{e;..getClass().getName()}</c:catch><c:finally>OUTER</c:finally></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
         BeanOne bean_ = new BeanOne();
@@ -623,7 +615,7 @@ public class FormatHtmlTryCatchFinallyTest {
         bean_.getComposite().setInteger(5);
         bean_.getTree().put("ONE", 1);
         bean_.getTree().put("TWO", 2);
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
         conf_.setMessagesFolder(folder_);
@@ -648,9 +640,7 @@ public class FormatHtmlTryCatchFinallyTest {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
-//        String html_ = "<html xmlns:c='javahtml'><body><c:try><c:try>{1/0}</c:try><c:catch className='java.lang.Exception' var='e'>EXCEPTION</c:catch><c:finally>{class(\"java.lang.String\",8i)}</c:finally></c:try><c:catch className='java.lang.Exception' var='e'>{e;..getClass().getName()}</c:catch><c:finally>OUTER</c:finally></body></html>";
-        String html_ = "<html xmlns:c='javahtml'><body><c:try><c:try>{1/0}</c:try><c:catch className='java.lang.Exception' var='e'>EXCEPTION</c:catch><c:finally>{$class(\"java.lang.String\",8i)}</c:finally></c:try><c:catch className='java.lang.Exception' var='e'>{e;..getClass().getName()}</c:catch><c:finally>OUTER</c:finally></body></html>";
-//        String html_ = "<html xmlns:c='javahtml'><body><c:try><c:try>{1/0}</c:try><c:finally>END BLOCK{1/0}</c:finally></c:try><c:catch className='java.lang.Exception' var='e'>{e;..getClass().getName()}</c:catch><c:finally>OUTER</c:finally></body></html>";
+        String html_ = "<html xmlns:c='javahtml'><body><c:try><c:try>{1/0}</c:try><c:catch className='"+EXCEPTION+"' var='e'>EXCEPTION</c:catch><c:finally>{$class(\"java.lang.String\",8i)}</c:finally></c:try><c:catch className='"+EXCEPTION+"' var='e'>{e;..getClass().getName()}</c:catch><c:finally>OUTER</c:finally></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
         BeanOne bean_ = new BeanOne();
@@ -659,7 +649,7 @@ public class FormatHtmlTryCatchFinallyTest {
         bean_.getComposite().setInteger(5);
         bean_.getTree().put("ONE", 1);
         bean_.getTree().put("TWO", 2);
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
         conf_.setMessagesFolder(folder_);
@@ -693,7 +683,7 @@ public class FormatHtmlTryCatchFinallyTest {
         bean_.getComposite().setInteger(5);
         bean_.getTree().put("ONE", 1);
         bean_.getTree().put("TWO", 2);
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
         conf_.setMessagesFolder(folder_);
@@ -727,7 +717,7 @@ public class FormatHtmlTryCatchFinallyTest {
         bean_.getComposite().setInteger(5);
         bean_.getTree().put("ONE", 1);
         bean_.getTree().put("TWO", 2);
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
         conf_.setMessagesFolder(folder_);
@@ -761,7 +751,7 @@ public class FormatHtmlTryCatchFinallyTest {
         bean_.getComposite().setInteger(5);
         bean_.getTree().put("ONE", 1);
         bean_.getTree().put("TWO", 2);
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
         conf_.setMessagesFolder(folder_);
@@ -795,7 +785,7 @@ public class FormatHtmlTryCatchFinallyTest {
         bean_.getComposite().setInteger(5);
         bean_.getTree().put("ONE", 1);
         bean_.getTree().put("TWO", 2);
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
         conf_.setMessagesFolder(folder_);
@@ -829,7 +819,7 @@ public class FormatHtmlTryCatchFinallyTest {
         bean_.getComposite().setInteger(5);
         bean_.getTree().put("ONE", 1);
         bean_.getTree().put("TWO", 2);
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
         conf_.setMessagesFolder(folder_);
@@ -854,7 +844,7 @@ public class FormatHtmlTryCatchFinallyTest {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
-        String html_ = "<html xmlns:c='javahtml'><body><c:try><c:try>{1/0}</c:try><c:catch className='"+DIV_ZERO+"' var='e'>END BLOCK<c:throw expression='$new java.io.IOException()'/></c:catch></c:try><c:catch className='"+DIV_ZERO+"' var='e'>Divide Zero</c:catch><c:finally>OUTER</c:finally></body></html>";
+        String html_ = "<html xmlns:c='javahtml'><body><c:try><c:try>{1/0}</c:try><c:catch className='"+DIV_ZERO+"' var='e'>END BLOCK<c:throw expression='$new java.lang.String()'/></c:catch></c:try><c:catch className='"+DIV_ZERO+"' var='e'>Divide Zero</c:catch><c:finally>OUTER</c:finally></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
         BeanOne bean_ = new BeanOne();
@@ -863,7 +853,7 @@ public class FormatHtmlTryCatchFinallyTest {
         bean_.getComposite().setInteger(5);
         bean_.getTree().put("ONE", 1);
         bean_.getTree().put("TWO", 2);
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
         conf_.setMessagesFolder(folder_);
@@ -886,5 +876,11 @@ public class FormatHtmlTryCatchFinallyTest {
 
     private static void assertXmlEqualRuntime(String _htmlExp, String _htmlRes) {
         assertTrue(DocumentBuilder.equalsDocs(_htmlExp, _htmlRes));
+    }
+
+    private static Configuration newConfiguration() {
+        Configuration conf_ = new Configuration();
+        conf_.setStandards(InitializationLgNames.initStandards());
+        return conf_;
     }
 }

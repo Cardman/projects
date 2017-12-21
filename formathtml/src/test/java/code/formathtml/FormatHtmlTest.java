@@ -76,7 +76,7 @@ public class FormatHtmlTest {
         bean_.getComposite().getStrings().add("FIRST");
         bean_.getComposite().getStrings().add("SECOND");
         bean_.getComposite().setInteger(5);
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
         conf_.setMessagesFolder(folder_);
@@ -107,7 +107,7 @@ public class FormatHtmlTest {
         bean_.getComposite().getStrings().add("FIRST");
         bean_.getComposite().getStrings().add("SECOND");
         bean_.getComposite().setInteger(5);
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
         conf_.setMessagesFolder(folder_);
@@ -138,7 +138,7 @@ public class FormatHtmlTest {
         bean_.getComposite().getStrings().add("FIRST");
         bean_.getComposite().getStrings().add("SECOND");
         bean_.getComposite().setInteger(5);
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
         conf_.setMessagesFolder(folder_);
@@ -169,7 +169,7 @@ public class FormatHtmlTest {
         bean_.getComposite().getStrings().add("FIRST");
         bean_.getComposite().getStrings().add("SECOND");
         bean_.getComposite().setInteger(5);
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
         conf_.setMessagesFolder(folder_);
@@ -201,7 +201,7 @@ public class FormatHtmlTest {
         bean_.getComposite().getStrings().add("FIRST");
         bean_.getComposite().getStrings().add("SECOND");
         bean_.getComposite().setInteger(5);
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
         conf_.setMessagesFolder(folder_);
@@ -235,7 +235,7 @@ public class FormatHtmlTest {
         bean_.getComposite().setInteger(5);
         bean_.getTree().put("ONE", 1);
         bean_.getTree().put("TWO", 2);
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
         conf_.setMessagesFolder(folder_);
@@ -269,7 +269,7 @@ public class FormatHtmlTest {
         bean_.getComposite().setInteger(5);
         bean_.getTree().put("ONE", 1);
         bean_.getTree().put("TWO", 2);
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
         conf_.setMessagesFolder(folder_);
@@ -301,7 +301,7 @@ public class FormatHtmlTest {
         bean_.getComposite().getStrings().add("FIRST");
         bean_.getComposite().getStrings().add("SECOND");
         bean_.getComposite().setInteger(5);
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
         conf_.setMessagesFolder(folder_);
@@ -333,7 +333,7 @@ public class FormatHtmlTest {
         bean_.getComposite().getStrings().add("FIRST");
         bean_.getComposite().getStrings().add("SECOND");
         bean_.getComposite().setInteger(5);
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
         conf_.setMessagesFolder(folder_);
@@ -363,7 +363,7 @@ public class FormatHtmlTest {
         bean_.getComposite().getStrings().add("FIRST");
         bean_.getComposite().getStrings().add("SECOND");
         bean_.getComposite().setInteger(5);
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
         conf_.setMessagesFolder(folder_);
@@ -394,7 +394,7 @@ public class FormatHtmlTest {
         bean_.getComposite().getStrings().add("FIRST");
         bean_.getComposite().getStrings().add("SECOND");
         bean_.getComposite().setInteger(5);
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
         conf_.setMessagesFolder(folder_);
@@ -425,7 +425,7 @@ public class FormatHtmlTest {
         bean_.getComposite().getStrings().add("FIRST");
         bean_.getComposite().getStrings().add("SECOND");
         bean_.getComposite().setInteger(5);
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
         conf_.setMessagesFolder(folder_);
@@ -456,7 +456,7 @@ public class FormatHtmlTest {
         bean_.getComposite().getStrings().add("FIRST");
         bean_.getComposite().getStrings().add("SECOND");
         bean_.getComposite().setInteger(5);
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
         conf_.setMessagesFolder(folder_);
@@ -487,7 +487,7 @@ public class FormatHtmlTest {
         bean_.getComposite().getStrings().add("FIRST");
         bean_.getComposite().getStrings().add("SECOND");
         bean_.getComposite().setInteger(5);
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
         conf_.setMessagesFolder(folder_);
@@ -518,7 +518,7 @@ public class FormatHtmlTest {
         bean_.getComposite().getStrings().add("FIRST");
         bean_.getComposite().getStrings().add("SECOND");
         bean_.getComposite().setInteger(5);
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
         conf_.setMessagesFolder(folder_);
@@ -552,7 +552,7 @@ public class FormatHtmlTest {
         bean_.getComposite().setInteger(5);
         bean_.getMap().put("ONE", 1);
         bean_.getMap().put("TWO", 2);
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
         conf_.setMessagesFolder(folder_);
@@ -587,7 +587,7 @@ public class FormatHtmlTest {
         bean_.getComposite().setInteger(5);
         bean_.getMap().put("ONE", 1);
         bean_.getMap().put("TWO", 2);
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
         conf_.setMessagesFolder(folder_);
@@ -618,7 +618,7 @@ public class FormatHtmlTest {
         bean_.getComposite().getStrings().add("FIRST");
         bean_.getComposite().getStrings().add("SECOND");
         bean_.getComposite().setInteger(5);
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
         conf_.setMessagesFolder(folder_);
@@ -650,7 +650,7 @@ public class FormatHtmlTest {
         bean_.getTree().put("ONE", 1);
         bean_.getTree().put("TWO", 2);
         bean_.getComposite().setInteger(5);
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
         conf_.setMessagesFolder(folder_);
@@ -680,7 +680,7 @@ public class FormatHtmlTest {
         bean_.getComposite().getStrings().add("FIRST");
         bean_.getComposite().getStrings().add("SECOND");
         bean_.getComposite().setInteger(5);
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
         conf_.setMessagesFolder(folder_);
@@ -713,7 +713,7 @@ public class FormatHtmlTest {
         bean_.getTree().put("ONE", 1);
         bean_.getTree().put("TWO", 2);
         bean_.getComposite().setInteger(5);
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
         conf_.setMessagesFolder(folder_);
@@ -746,7 +746,7 @@ public class FormatHtmlTest {
         bean_.getTree().put("ONE", 1);
         bean_.getTree().put("TWO", 2);
         bean_.getComposite().setInteger(5);
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
         conf_.setMessagesFolder(folder_);
@@ -779,7 +779,7 @@ public class FormatHtmlTest {
         bean_.getTree().put("ONE", 1);
         bean_.getTree().put("TWO", 2);
         bean_.getComposite().setInteger(5);
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
         conf_.setMessagesFolder(folder_);
@@ -811,7 +811,7 @@ public class FormatHtmlTest {
         bean_.getTree().put("ONE", 1);
         bean_.getTree().put("TWO", 2);
         bean_.getComposite().setInteger(5);
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
         conf_.setMessagesFolder(folder_);
@@ -844,7 +844,7 @@ public class FormatHtmlTest {
         bean_.getTree().put("ONE", 1);
         bean_.getTree().put("TWO", 2);
         bean_.getComposite().setInteger(5);
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
         conf_.setMessagesFolder(folder_);
@@ -875,7 +875,7 @@ public class FormatHtmlTest {
         bean_.getComposite().getStrings().add("FIRST");
         bean_.getComposite().getStrings().add("SECOND");
         bean_.getComposite().setInteger(5);
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
         conf_.setMessagesFolder(folder_);
@@ -909,7 +909,7 @@ public class FormatHtmlTest {
         bean_.getComposite().setInteger(5);
         bean_.getTree().put("ONE", 1);
         bean_.getTree().put("TWO", 2);
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
         conf_.setMessagesFolder(folder_);
@@ -943,7 +943,7 @@ public class FormatHtmlTest {
         bean_.getComposite().setInteger(5);
         bean_.getTree().put("ONE", 1);
         bean_.getTree().put("TWO", 2);
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
         conf_.setMessagesFolder(folder_);
@@ -977,7 +977,7 @@ public class FormatHtmlTest {
         bean_.getComposite().setInteger(5);
         bean_.getTree().put("ONE", 1);
         bean_.getTree().put("TWO", 2);
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
         conf_.setMessagesFolder(folder_);
@@ -1009,7 +1009,7 @@ public class FormatHtmlTest {
         bean_.getComposite().getStrings().add("FIRST");
         bean_.getComposite().getStrings().add("SECOND");
         bean_.getComposite().setInteger(5);
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
         conf_.setMessagesFolder(folder_);
@@ -1039,7 +1039,7 @@ public class FormatHtmlTest {
         bean_.getComposite().getStrings().add("FIRST");
         bean_.getComposite().getStrings().add("SECOND");
         bean_.getComposite().setInteger(5);
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
         conf_.setMessagesFolder(folder_);
@@ -1071,7 +1071,7 @@ public class FormatHtmlTest {
         bean_.getMap().put(null, 0);
         bean_.getMap().put("TWO", 1);
         bean_.getComposite().setInteger(5);
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
         conf_.setMessagesFolder(folder_);
@@ -1103,7 +1103,7 @@ public class FormatHtmlTest {
         bean_.getMap().put(null, 0);
         bean_.getMap().put("TWO", 1);
         bean_.getComposite().setInteger(5);
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
         conf_.setMessagesFolder(folder_);
@@ -1133,7 +1133,7 @@ public class FormatHtmlTest {
         bean_.getComposite().getStrings().add("FIRST");
         bean_.getComposite().getStrings().add("SECOND");
         bean_.getComposite().setInteger(5);
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
         conf_.setMessagesFolder(folder_);
@@ -1163,7 +1163,7 @@ public class FormatHtmlTest {
         bean_.getComposite().getStrings().add("FIRST");
         bean_.getComposite().getStrings().add("SECOND");
         bean_.getComposite().setInteger(5);
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
         conf_.setMessagesFolder(folder_);
@@ -1194,7 +1194,7 @@ public class FormatHtmlTest {
         bean_.getComposite().getStrings().add("FIRST");
         bean_.getComposite().getStrings().add("SECOND");
         bean_.getComposite().setInteger(5);
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
         conf_.setMessagesFolder(folder_);
@@ -1225,7 +1225,7 @@ public class FormatHtmlTest {
         bean_.getComposite().getStrings().add("FIRST");
         bean_.getComposite().getStrings().add("SECOND");
         bean_.getComposite().setInteger(5);
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
         conf_.setMessagesFolder(folder_);
@@ -1256,7 +1256,7 @@ public class FormatHtmlTest {
         bean_.getComposite().getStrings().add("FIRST");
         bean_.getComposite().getStrings().add("SECOND");
         bean_.getComposite().setInteger(5);
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
         conf_.setMessagesFolder(folder_);
@@ -1287,7 +1287,7 @@ public class FormatHtmlTest {
         bean_.getComposite().getStrings().add("FIRST");
         bean_.getComposite().getStrings().add("SECOND");
         bean_.getComposite().setInteger(5);
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
         conf_.setMessagesFolder(folder_);
@@ -1318,7 +1318,7 @@ public class FormatHtmlTest {
         bean_.getComposite().getStrings().add("FIRST");
         bean_.getComposite().getStrings().add("SECOND");
         bean_.getComposite().setInteger(5);
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
         conf_.setMessagesFolder(folder_);
@@ -1349,7 +1349,7 @@ public class FormatHtmlTest {
         bean_.getComposite().getStrings().add("FIRST");
         bean_.getComposite().getStrings().add("SECOND");
         bean_.getComposite().setInteger(5);
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
         conf_.setMessagesFolder(folder_);
@@ -1381,7 +1381,7 @@ public class FormatHtmlTest {
         bean_.getTree().put("ONE", 1);
         bean_.getTree().put("TWO", 2);
         bean_.getComposite().setInteger(5);
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
         conf_.setMessagesFolder(folder_);
@@ -1411,7 +1411,7 @@ public class FormatHtmlTest {
         bean_.getComposite().getStrings().add("FIRST");
         bean_.getComposite().getStrings().add("SECOND");
         bean_.getComposite().setInteger(5);
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
         conf_.setMessagesFolder(folder_);
@@ -1444,7 +1444,7 @@ public class FormatHtmlTest {
         bean_.getTree().put("ONE", 1);
         bean_.getTree().put("TWO", 2);
         bean_.getComposite().setInteger(5);
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
         conf_.setMessagesFolder(folder_);
@@ -1477,7 +1477,7 @@ public class FormatHtmlTest {
         bean_.getTree().put("ONE", 1);
         bean_.getTree().put("TWO", 2);
         bean_.getComposite().setInteger(5);
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
         conf_.setMessagesFolder(folder_);
@@ -1510,7 +1510,7 @@ public class FormatHtmlTest {
         bean_.getTree().put("ONE", 1);
         bean_.getTree().put("TWO", 2);
         bean_.getComposite().setInteger(5);
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
         conf_.setMessagesFolder(folder_);
@@ -1543,7 +1543,7 @@ public class FormatHtmlTest {
         bean_.getTree().put("ONE", 1);
         bean_.getTree().put("TWO", 2);
         bean_.getComposite().setInteger(5);
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
         conf_.setMessagesFolder(folder_);
@@ -1576,7 +1576,7 @@ public class FormatHtmlTest {
         bean_.getTree().put("ONE", 1);
         bean_.getTree().put("TWO", 2);
         bean_.getComposite().setInteger(5);
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
         conf_.setMessagesFolder(folder_);
@@ -1607,7 +1607,7 @@ public class FormatHtmlTest {
         bean_.getComposite().getStrings().add("FIRST");
         bean_.getComposite().getStrings().add("SECOND");
         bean_.getComposite().setInteger(5);
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
         conf_.setMessagesFolder(folder_);
@@ -1636,7 +1636,7 @@ public class FormatHtmlTest {
         bean_.getComposite().getStrings().add("FIRST");
         bean_.getComposite().getStrings().add("SECOND");
         bean_.getComposite().setInteger(5);
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
         conf_.setMessagesFolder(folder_);
@@ -1666,7 +1666,7 @@ public class FormatHtmlTest {
         bean_.getComposite().getStrings().add("FIRST");
         bean_.getComposite().getStrings().add("SECOND");
         bean_.getComposite().setInteger(5);
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
         conf_.setMessagesFolder(folder_);
@@ -1694,7 +1694,7 @@ public class FormatHtmlTest {
         files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
         BeanOne bean_ = new BeanOne();
         bean_.getComposite().setInteger(5);
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
         conf_.setMessagesFolder(folder_);
@@ -1724,7 +1724,7 @@ public class FormatHtmlTest {
         files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
         BeanOne bean_ = new BeanOne();
         bean_.getComposite().setInteger(5);
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
         conf_.setMessagesFolder(folder_);
@@ -1755,7 +1755,7 @@ public class FormatHtmlTest {
         BeanOne bean_ = new BeanOne();
         bean_.getComposite().getStrings().add("FIRST");
         bean_.getComposite().setInteger(5);
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
         conf_.setMessagesFolder(folder_);
@@ -1783,7 +1783,7 @@ public class FormatHtmlTest {
         files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
         BeanOne bean_ = new BeanOne();
         bean_.getComposite().setInteger(5);
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
         conf_.setMessagesFolder(folder_);
@@ -1811,7 +1811,7 @@ public class FormatHtmlTest {
         files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
         BeanOne bean_ = new BeanOne();
         bean_.getComposite().setInteger(5);
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
         conf_.setMessagesFolder(folder_);
@@ -1840,7 +1840,7 @@ public class FormatHtmlTest {
         BeanOne bean_ = new BeanOne();
         bean_.getComposite().getStrings().add("FIRST");
         bean_.getComposite().setInteger(5);
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
         conf_.setMessagesFolder(folder_);
@@ -1869,7 +1869,7 @@ public class FormatHtmlTest {
         BeanOne bean_ = new BeanOne();
         bean_.getComposite().getStrings().add("FIRST");
         bean_.getComposite().setInteger(5);
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
         conf_.setMessagesFolder(folder_);
@@ -1896,7 +1896,7 @@ public class FormatHtmlTest {
         files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
         BeanOne bean_ = new BeanOne();
         bean_.getComposite().setInteger(5);
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
         conf_.setMessagesFolder(folder_);
@@ -1926,7 +1926,7 @@ public class FormatHtmlTest {
         files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
         BeanOne bean_ = new BeanOne();
         bean_.getComposite().setInteger(5);
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
         conf_.setMessagesFolder(folder_);
@@ -1956,7 +1956,7 @@ public class FormatHtmlTest {
         files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
         BeanOne bean_ = new BeanOne();
         bean_.getComposite().setInteger(5);
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
         conf_.setMessagesFolder(folder_);
@@ -1988,7 +1988,7 @@ public class FormatHtmlTest {
         bean_.getComposite().getStrings().add("FIRST");
         bean_.getComposite().getStrings().add("SECOND");
         bean_.getComposite().setInteger(5);
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
         conf_.setMessagesFolder(folder_);
@@ -2016,7 +2016,7 @@ public class FormatHtmlTest {
         files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
         BeanOne bean_ = new BeanOne();
         bean_.getComposite().setInteger(5);
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
         conf_.setMessagesFolder(folder_);
@@ -2049,7 +2049,7 @@ public class FormatHtmlTest {
         bean_.getComposite().getStrings().add("FIRST");
         bean_.getComposite().getStrings().add("SECOND");
         bean_.getComposite().setInteger(5);
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
         conf_.setMessagesFolder(folder_);
@@ -2079,7 +2079,7 @@ public class FormatHtmlTest {
         files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
         BeanOne bean_ = new BeanOne();
         bean_.getComposite().setInteger(5);
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
         conf_.setMessagesFolder(folder_);
@@ -2111,7 +2111,7 @@ public class FormatHtmlTest {
         bean_.getComposite().getStrings().add("FIRST");
         bean_.getComposite().getStrings().add("SECOND");
         bean_.getComposite().setInteger(5);
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
         conf_.setMessagesFolder(folder_);
@@ -2143,7 +2143,7 @@ public class FormatHtmlTest {
         bean_.getComposite().getStrings().add("FIRST");
         bean_.getComposite().getStrings().add("SECOND");
         bean_.getComposite().setInteger(5);
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
         conf_.setMessagesFolder(folder_);
@@ -2175,7 +2175,7 @@ public class FormatHtmlTest {
         bean_.getComposite().getStrings().add("FIRST");
         bean_.getComposite().getStrings().add("SECOND");
         bean_.getComposite().setInteger(5);
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
         conf_.setMessagesFolder(folder_);
@@ -2207,7 +2207,7 @@ public class FormatHtmlTest {
         bean_.getComposite().getStrings().add("FIRST");
         bean_.getComposite().getStrings().add("SECOND");
         bean_.getComposite().setInteger(5);
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
         conf_.setMessagesFolder(folder_);
@@ -2239,7 +2239,7 @@ public class FormatHtmlTest {
         bean_.getComposite().getStrings().add("FIRST");
         bean_.getComposite().getStrings().add("SECOND");
         bean_.getComposite().setInteger(5);
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
         conf_.setMessagesFolder(folder_);
@@ -2271,7 +2271,7 @@ public class FormatHtmlTest {
         bean_.getComposite().getStrings().add("FIRST");
         bean_.getComposite().getStrings().add("SECOND");
         bean_.getComposite().setInteger(5);
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
         conf_.setMessagesFolder(folder_);
@@ -2303,7 +2303,7 @@ public class FormatHtmlTest {
         bean_.getComposite().getStrings().add("FIRST");
         bean_.getComposite().getStrings().add("SECOND");
         bean_.getComposite().setInteger(5);
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
         conf_.setMessagesFolder(folder_);
@@ -2333,7 +2333,7 @@ public class FormatHtmlTest {
         bean_.getComposite().getStrings().add("FIRST");
         bean_.getComposite().getStrings().add("SECOND");
         bean_.getComposite().setInteger(5);
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
         conf_.setMessagesFolder(folder_);
@@ -2365,7 +2365,7 @@ public class FormatHtmlTest {
         bean_.getComposite().getStrings().add("FIRST");
         bean_.getComposite().getStrings().add("SECOND");
         bean_.getComposite().setInteger(5);
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
         conf_.setMessagesFolder(folder_);
@@ -2396,7 +2396,7 @@ public class FormatHtmlTest {
         bean_.getComposite().getStrings().add("FIRST");
         bean_.getComposite().getStrings().add("SECOND");
         bean_.getComposite().setInteger(5);
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
         conf_.setMessagesFolder(folder_);
@@ -2427,7 +2427,7 @@ public class FormatHtmlTest {
         bean_.getComposite().getStrings().add("FIRST");
         bean_.getComposite().getStrings().add("SECOND");
         bean_.getComposite().setInteger(5);
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
         conf_.setMessagesFolder(folder_);
@@ -2459,7 +2459,7 @@ public class FormatHtmlTest {
         bean_.getComposite().setInteger(5);
         bean_.getTree().put("ONE", 1);
         bean_.getTree().put("TWO", 2);
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
         conf_.setMessagesFolder(folder_);
@@ -2495,7 +2495,7 @@ public class FormatHtmlTest {
         bean_.getComposite().setInteger(5);
         bean_.getTree().put("ONE", 1);
         bean_.getTree().put("TWO", 2);
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
         conf_.setMessagesFolder(folder_);
@@ -2529,7 +2529,7 @@ public class FormatHtmlTest {
         bean_.getComposite().setInteger(5);
         bean_.getTree().put("ONE", 1);
         bean_.getTree().put("TWO", 2);
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
         conf_.setMessagesFolder(folder_);
@@ -2564,7 +2564,7 @@ public class FormatHtmlTest {
         bean_.getComposite().setInteger(5);
         bean_.getTree().put("ONE", 1);
         bean_.getTree().put("TWO", 2);
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
         conf_.setMessagesFolder(folder_);
@@ -2596,7 +2596,7 @@ public class FormatHtmlTest {
         bean_.getComposite().setInteger(5);
         bean_.getTree().put("ONE", 1);
         bean_.getTree().put("TWO", 2);
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
         conf_.setMessagesFolder(folder_);
@@ -2626,7 +2626,7 @@ public class FormatHtmlTest {
         bean_.getComposite().setInteger(5);
         bean_.getTree().put("ONE", 1);
         bean_.getTree().put("TWO", 2);
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
         conf_.setMessagesFolder(folder_);
@@ -2655,7 +2655,7 @@ public class FormatHtmlTest {
         bean_.getComposite().getStrings().add("FIRST");
         bean_.getComposite().getStrings().add("SECOND");
         bean_.getComposite().setInteger(5);
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
         conf_.setMessagesFolder(folder_);
@@ -2685,7 +2685,7 @@ public class FormatHtmlTest {
         bean_.getComposite().getStrings().add("FIRST");
         bean_.getComposite().getStrings().add("SECOND");
         bean_.getComposite().setInteger(5);
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
         conf_.setMessagesFolder(folder_);
@@ -2715,7 +2715,7 @@ public class FormatHtmlTest {
         bean_.getComposite().getStrings().add("FIRST");
         bean_.getComposite().getStrings().add("SECOND");
         bean_.getComposite().setInteger(5);
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
         conf_.setMessagesFolder(folder_);
@@ -2745,7 +2745,7 @@ public class FormatHtmlTest {
         bean_.getComposite().getStrings().add("FIRST");
         bean_.getComposite().getStrings().add("SECOND");
         bean_.getComposite().setInteger(5);
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
         conf_.setMessagesFolder(folder_);
@@ -2775,7 +2775,7 @@ public class FormatHtmlTest {
         bean_.getComposite().getStrings().add("FIRST");
         bean_.getComposite().getStrings().add("SECOND");
         bean_.getComposite().setInteger(5);
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
         conf_.setMessagesFolder(folder_);
@@ -2805,7 +2805,7 @@ public class FormatHtmlTest {
         bean_.getComposite().getStrings().add("FIRST");
         bean_.getComposite().getStrings().add("SECOND");
         bean_.getComposite().setInteger(5);
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
         conf_.setMessagesFolder(folder_);
@@ -2835,7 +2835,7 @@ public class FormatHtmlTest {
         bean_.getComposite().getStrings().add("FIRST");
         bean_.getComposite().getStrings().add("SECOND");
         bean_.getComposite().setInteger(5);
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
         conf_.setMessagesFolder(folder_);
@@ -2865,7 +2865,7 @@ public class FormatHtmlTest {
         bean_.getComposite().getStrings().add("FIRST");
         bean_.getComposite().getStrings().add("SECOND");
         bean_.getComposite().setInteger(5);
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
         conf_.setMessagesFolder(folder_);
@@ -2895,7 +2895,7 @@ public class FormatHtmlTest {
         bean_.getComposite().getStrings().add("FIRST");
         bean_.getComposite().getStrings().add("SECOND");
         bean_.getComposite().setInteger(5);
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
         conf_.setMessagesFolder(folder_);
@@ -2925,7 +2925,7 @@ public class FormatHtmlTest {
         bean_.getComposite().getStrings().add("FIRST");
         bean_.getComposite().getStrings().add("SECOND");
         bean_.getComposite().setInteger(5);
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
         conf_.setMessagesFolder(folder_);
@@ -2955,7 +2955,7 @@ public class FormatHtmlTest {
         bean_.getComposite().getStrings().add("FIRST");
         bean_.getComposite().getStrings().add("SECOND");
         bean_.getComposite().setInteger(5);
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
         conf_.setMessagesFolder(folder_);
@@ -2988,7 +2988,7 @@ public class FormatHtmlTest {
         bean_.getComposite().setInteger(5);
         bean_.getComposites().get(0).setStrings(new StringList("F"));
         bean_.getComposites().get(1).setStrings(new StringList("S"));
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
         conf_.setMessagesFolder(folder_);
@@ -3020,7 +3020,7 @@ public class FormatHtmlTest {
         bean_.getComposite().setInteger(5);
         bean_.getComposites().get(0).setStrings(new StringList("F"));
         bean_.getComposites().get(1).setStrings(new StringList("S"));
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
         conf_.setMessagesFolder(folder_);
@@ -3052,7 +3052,7 @@ public class FormatHtmlTest {
         bean_.getComposite().setInteger(5);
         bean_.getComposites().get(0).setStrings(new StringList("F"));
         bean_.getComposites().get(1).setStrings(new StringList("S"));
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
         conf_.setMessagesFolder(folder_);
@@ -3084,7 +3084,7 @@ public class FormatHtmlTest {
         bean_.getComposite().setInteger(5);
         bean_.getComposites().get(0).setStrings(new StringList("F"));
         bean_.getComposites().get(1).setStrings(new StringList("S"));
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
         conf_.setMessagesFolder(folder_);
@@ -3116,7 +3116,7 @@ public class FormatHtmlTest {
         bean_.getComposite().setInteger(5);
         bean_.getComposites().get(0).setStrings(new StringList("F"));
         bean_.getComposites().get(1).setStrings(new StringList("S"));
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
         conf_.setMessagesFolder(folder_);
@@ -3147,7 +3147,7 @@ public class FormatHtmlTest {
         bean_.getComposite().setInteger(5);
         bean_.getComposites().get(0).setStrings(new StringList("F"));
         bean_.getComposites().get(1).setStrings(new StringList("S"));
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
         conf_.setMessagesFolder(folder_);
@@ -3179,7 +3179,7 @@ public class FormatHtmlTest {
         bean_.getComposite().setInteger(5);
         bean_.getComposites().get(0).setStrings(new StringList("F"));
         bean_.getComposites().get(1).setStrings(new StringList("S"));
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
         conf_.setMessagesFolder(folder_);
@@ -3211,7 +3211,7 @@ public class FormatHtmlTest {
         bean_.getComposite().setInteger(5);
         bean_.getComposites().get(0).setStrings(new StringList("F"));
         bean_.getComposites().get(1).setStrings(new StringList("S"));
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
         conf_.setMessagesFolder(folder_);
@@ -3243,7 +3243,7 @@ public class FormatHtmlTest {
         bean_.getComposite().setInteger(5);
         bean_.getComposites().get(0).setStrings(new StringList("F"));
         bean_.getComposites().get(1).setStrings(new StringList("S"));
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
         conf_.setMessagesFolder(folder_);
@@ -3275,7 +3275,7 @@ public class FormatHtmlTest {
         bean_.getComposite().setInteger(5);
         bean_.getComposites().get(0).setStrings(new StringList("F"));
         bean_.getComposites().get(1).setStrings(new StringList("S"));
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
         conf_.setMessagesFolder(folder_);
@@ -3307,7 +3307,7 @@ public class FormatHtmlTest {
         bean_.getComposite().setInteger(5);
         bean_.getComposites().get(0).setStrings(new StringList("F"));
         bean_.getComposites().get(1).setStrings(new StringList("S"));
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
         conf_.setMessagesFolder(folder_);
@@ -3339,7 +3339,7 @@ public class FormatHtmlTest {
         bean_.getComposite().setInteger(5);
         bean_.getComposites().get(0).setStrings(new StringList("F"));
         bean_.getComposites().get(1).setStrings(new StringList("S"));
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
         conf_.setMessagesFolder(folder_);
@@ -3371,7 +3371,7 @@ public class FormatHtmlTest {
         bean_.getComposite().setInteger(5);
         bean_.getComposites().get(0).setStrings(new StringList("F"));
         bean_.getComposites().get(1).setStrings(new StringList("S"));
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
         conf_.setMessagesFolder(folder_);
@@ -3404,7 +3404,7 @@ public class FormatHtmlTest {
         bean_.getComposite().setInteger(5);
         bean_.getComposites().get(0).setStrings(new StringList("F"));
         bean_.getComposites().get(1).setStrings(new StringList("S"));
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
         conf_.setMessagesFolder(folder_);
@@ -3437,7 +3437,7 @@ public class FormatHtmlTest {
         bean_.getComposite().setInteger(5);
         bean_.getTree().put("ONE", 1);
         bean_.getTree().put("TWO", 2);
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
         conf_.setMessagesFolder(folder_);
@@ -3472,7 +3472,7 @@ public class FormatHtmlTest {
         bean_.getComposite().setInteger(5);
         bean_.getTree().put("ONE", 1);
         bean_.getTree().put("TWO", 2);
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
         conf_.setMessagesFolder(folder_);
@@ -3507,7 +3507,7 @@ public class FormatHtmlTest {
         bean_.getComposite().setInteger(5);
         bean_.getTree().put("ONE", 1);
         bean_.getTree().put("TWO", 2);
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
         conf_.setMessagesFolder(folder_);
@@ -3541,7 +3541,7 @@ public class FormatHtmlTest {
         bean_.getComposite().setInteger(5);
         bean_.getTree().put("ONE", 1);
         bean_.getTree().put("TWO", 2);
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
         conf_.setMessagesFolder(folder_);
@@ -3576,7 +3576,7 @@ public class FormatHtmlTest {
         bean_.getComposite().setInteger(5);
         bean_.getTree().put("ONE", 1);
         bean_.getTree().put("TWO", 2);
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
         conf_.setMessagesFolder(folder_);
@@ -3611,7 +3611,7 @@ public class FormatHtmlTest {
         bean_.getComposite().setInteger(5);
         bean_.getTree().put("ONE", 1);
         bean_.getTree().put("TWO", 2);
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
         conf_.setMessagesFolder(folder_);
@@ -3646,7 +3646,7 @@ public class FormatHtmlTest {
         bean_.getComposite().setInteger(5);
         bean_.getTree().put("ONE", 1);
         bean_.getTree().put("TWO", 2);
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
         conf_.setMessagesFolder(folder_);
@@ -3681,7 +3681,7 @@ public class FormatHtmlTest {
         bean_.getComposite().setInteger(5);
         bean_.getTree().put("ONE", 1);
         bean_.getTree().put("TWO", 2);
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
         conf_.setMessagesFolder(folder_);
@@ -3716,7 +3716,7 @@ public class FormatHtmlTest {
         bean_.getComposite().setInteger(5);
         bean_.getTree().put("ONE", 1);
         bean_.getTree().put("TWO", 2);
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
         conf_.setMessagesFolder(folder_);
@@ -3751,7 +3751,7 @@ public class FormatHtmlTest {
         bean_.getComposite().setInteger(5);
         bean_.getTree().put("ONE", 1);
         bean_.getTree().put("TWO", 2);
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
         conf_.setMessagesFolder(folder_);
@@ -3786,7 +3786,7 @@ public class FormatHtmlTest {
         bean_.getComposite().setInteger(5);
         bean_.getTree().put("ONE", 1);
         bean_.getTree().put("TWO", 2);
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
         conf_.setMessagesFolder(folder_);
@@ -3821,7 +3821,7 @@ public class FormatHtmlTest {
         bean_.getComposite().setInteger(5);
         bean_.getTree().put("ONE", 1);
         bean_.getTree().put("TWO", 2);
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
         conf_.setMessagesFolder(folder_);
@@ -3856,7 +3856,7 @@ public class FormatHtmlTest {
         bean_.getComposite().setInteger(5);
         bean_.getTree().put("ONE", 1);
         bean_.getTree().put("TWO", 2);
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
         conf_.setMessagesFolder(folder_);
@@ -3891,7 +3891,7 @@ public class FormatHtmlTest {
         bean_.getComposite().setInteger(5);
         bean_.getTree().put("ONE", 1);
         bean_.getTree().put("TWO", 2);
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
         conf_.setMessagesFolder(folder_);
@@ -3926,7 +3926,7 @@ public class FormatHtmlTest {
         bean_.getComposite().setInteger(5);
         bean_.getTree().put("ONE", 1);
         bean_.getTree().put("TWO", 2);
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
         conf_.setMessagesFolder(folder_);
@@ -3961,7 +3961,7 @@ public class FormatHtmlTest {
         bean_.getComposite().setInteger(5);
         bean_.getTree().put("ONE", 1);
         bean_.getTree().put("TWO", 2);
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
         conf_.setMessagesFolder(folder_);
@@ -3996,7 +3996,7 @@ public class FormatHtmlTest {
         bean_.getComposite().setInteger(5);
         bean_.getTree().put("ONE", 1);
         bean_.getTree().put("TWO", 2);
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
         conf_.setMessagesFolder(folder_);
@@ -4031,7 +4031,7 @@ public class FormatHtmlTest {
         bean_.getComposite().setInteger(5);
         bean_.getTree().put("ONE", 1);
         bean_.getTree().put("TWO", 2);
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
         conf_.setMessagesFolder(folder_);
@@ -4065,7 +4065,7 @@ public class FormatHtmlTest {
         bean_.getComposite().setInteger(5);
         bean_.getTree().put("ONE", 1);
         bean_.getTree().put("TWO", 2);
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
         conf_.setMessagesFolder(folder_);
@@ -4099,7 +4099,7 @@ public class FormatHtmlTest {
         bean_.getComposite().setInteger(5);
         bean_.getTree().put("ONE", 1);
         bean_.getTree().put("TWO", 2);
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
         conf_.setMessagesFolder(folder_);
@@ -4134,7 +4134,7 @@ public class FormatHtmlTest {
         bean_.getComposite().setInteger(5);
         bean_.getTree().put("ONE", 1);
         bean_.getTree().put("TWO", 2);
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
         conf_.setMessagesFolder(folder_);
@@ -4166,7 +4166,7 @@ public class FormatHtmlTest {
         bean_.getComposite().getStrings().add("FIRST");
         bean_.getComposite().getStrings().add("SECOND");
         bean_.getComposite().setInteger(5);
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
         conf_.setMessagesFolder(folder_);
@@ -4198,7 +4198,7 @@ public class FormatHtmlTest {
         bean_.getComposite().getStrings().add("FIRST");
         bean_.getComposite().getStrings().add("SECOND");
         bean_.getComposite().setInteger(5);
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
         conf_.setMessagesFolder(folder_);
@@ -4229,7 +4229,7 @@ public class FormatHtmlTest {
         bean_.getComposite().getStrings().add("FIRST");
         bean_.getComposite().getStrings().add("SECOND");
         bean_.getComposite().setInteger(5);
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
         conf_.setMessagesFolder(folder_);
@@ -4261,7 +4261,7 @@ public class FormatHtmlTest {
         bean_.getComposite().setInteger(5);
         bean_.getTree().put("ONE", 1);
         bean_.getTree().put("TWO", 2);
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
         conf_.setMessagesFolder(folder_);
@@ -4292,7 +4292,7 @@ public class FormatHtmlTest {
         bean_.getComposite().setInteger(5);
         bean_.getTree().put("ONE", 1);
         bean_.getTree().put("TWO", 2);
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
         conf_.setMessagesFolder(folder_);
@@ -4320,7 +4320,7 @@ public class FormatHtmlTest {
         bean_.getComposite().getStrings().add("FIRST");
         bean_.getComposite().getStrings().add("SECOND");
         bean_.getComposite().setInteger(5);
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
         conf_.setMessagesFolder(folder_);
@@ -4350,7 +4350,7 @@ public class FormatHtmlTest {
         bean_.getComposite().getStrings().add("FIRST");
         bean_.getComposite().getStrings().add("SECOND");
         bean_.getComposite().setInteger(5);
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
         conf_.setMessagesFolder(folder_);
@@ -4379,7 +4379,7 @@ public class FormatHtmlTest {
         bean_.getComposite().getStrings().add("FIRST");
         bean_.getComposite().getStrings().add("SECOND");
         bean_.getComposite().setInteger(5);
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
         conf_.setMessagesFolder(folder_);
@@ -4411,7 +4411,7 @@ public class FormatHtmlTest {
         bean_.getTree().put("TWO", 2);
         BeanTwo beanTwo_ = new BeanTwo();
         beanTwo_.setTypedString("EXAMPLE");
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
         conf_.getBeans().put("bean_two", beanTwo_);
@@ -4447,7 +4447,7 @@ public class FormatHtmlTest {
         bean_.getTree().put("ONE", 1);
         bean_.getTree().put("TWO", 2);
         BeanTwo beanTwo_ = new BeanTwo();
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
         conf_.getBeans().put("bean_two", beanTwo_);
@@ -4484,7 +4484,7 @@ public class FormatHtmlTest {
         bean_.getTree().put("TWO", 2);
         BeanTwo beanTwo_ = new BeanTwo();
         beanTwo_.setChecked(true);
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
         conf_.getBeans().put("bean_two", beanTwo_);
@@ -4521,7 +4521,7 @@ public class FormatHtmlTest {
         bean_.getTree().put("TWO", 2);
         BeanTwo beanTwo_ = new BeanTwo();
         beanTwo_.setChecked(false);
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
         conf_.getBeans().put("bean_two", beanTwo_);
@@ -4558,7 +4558,7 @@ public class FormatHtmlTest {
         bean_.getTree().put("TWO", 2);
         BeanTwo beanTwo_ = new BeanTwo();
         beanTwo_.setChecked(false);
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
         conf_.getBeans().put("bean_two", beanTwo_);
@@ -4595,7 +4595,7 @@ public class FormatHtmlTest {
         bean_.getTree().put("TWO", 2);
         BeanTwo beanTwo_ = new BeanTwo();
         beanTwo_.setChecked(false);
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
         conf_.getBeans().put("bean_two", beanTwo_);
@@ -4633,7 +4633,7 @@ public class FormatHtmlTest {
         BeanTwo beanTwo_ = new BeanTwo();
         beanTwo_.setChecked(false);
         beanTwo_.setTypedString("TYPED");
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
         conf_.getBeans().put("bean_two", beanTwo_);
@@ -4671,7 +4671,7 @@ public class FormatHtmlTest {
         bean_.getTree().put("TWO", 2);
         BeanTwo beanTwo_ = new BeanTwo();
         beanTwo_.setTypedString("EXAMPLE");
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
         conf_.getBeans().put("bean_two", beanTwo_);
@@ -4709,7 +4709,7 @@ public class FormatHtmlTest {
         bean_.getTree().put("TWO", 2);
         BeanTwo beanTwo_ = new BeanTwo();
         beanTwo_.setTypedString("EXAMPLE");
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
         conf_.getBeans().put("bean_two", beanTwo_);
@@ -4747,7 +4747,7 @@ public class FormatHtmlTest {
         bean_.getTree().put("ONE", 1);
         bean_.getTree().put("TWO", 2);
         BeanTwo beanTwo_ = new BeanTwo();
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
         conf_.getBeans().put("bean_two", beanTwo_);
@@ -4784,7 +4784,7 @@ public class FormatHtmlTest {
         bean_.getTree().put("ONE", 1);
         bean_.getTree().put("TWO", 2);
         BeanTwo beanTwo_ = new BeanTwo();
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
         conf_.getBeans().put("bean_two", beanTwo_);
@@ -4823,7 +4823,7 @@ public class FormatHtmlTest {
         bean_.getTree().put("ONE", 1);
         bean_.getTree().put("TWO", 2);
         BeanTwo beanTwo_ = new BeanTwo();
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
         conf_.getBeans().put("bean_two", beanTwo_);
@@ -4862,7 +4862,7 @@ public class FormatHtmlTest {
         bean_.getTree().put("ONE", 1);
         bean_.getTree().put("TWO", 2);
         BeanTwo beanTwo_ = new BeanTwo();
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
         conf_.getBeans().put("bean_two", beanTwo_);
@@ -4901,7 +4901,7 @@ public class FormatHtmlTest {
         bean_.getTree().put("ONE", 1);
         bean_.getTree().put("TWO", 2);
         BeanTwo beanTwo_ = new BeanTwo();
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
         conf_.getBeans().put("bean_two", beanTwo_);
@@ -4942,7 +4942,7 @@ public class FormatHtmlTest {
         bean_.getTree().put("ONE", 1);
         bean_.getTree().put("TWO", 2);
         BeanTwo beanTwo_ = new BeanTwo();
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
         conf_.getBeans().put("bean_two", beanTwo_);
@@ -4981,7 +4981,7 @@ public class FormatHtmlTest {
         bean_.getTree().put("ONE", 1);
         bean_.getTree().put("TWO", 2);
         BeanTwo beanTwo_ = new BeanTwo();
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
         conf_.getBeans().put("bean_two", beanTwo_);
@@ -5020,7 +5020,7 @@ public class FormatHtmlTest {
         bean_.getTree().put("ONE", 1);
         bean_.getTree().put("TWO", 2);
         BeanTwo beanTwo_ = new BeanTwo();
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
         conf_.getBeans().put("bean_two", beanTwo_);
@@ -5060,7 +5060,7 @@ public class FormatHtmlTest {
         bean_.getTree().put("ONE", 1);
         bean_.getTree().put("TWO", 2);
         BeanTwo beanTwo_ = new BeanTwo();
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
         conf_.getBeans().put("bean_two", beanTwo_);
@@ -5099,7 +5099,7 @@ public class FormatHtmlTest {
         bean_.getTree().put("ONE", 1);
         bean_.getTree().put("TWO", 2);
         BeanTwo beanTwo_ = new BeanTwo();
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
         conf_.getBeans().put("bean_two", beanTwo_);
@@ -5138,7 +5138,7 @@ public class FormatHtmlTest {
         bean_.getTree().put("ONE", 1);
         bean_.getTree().put("TWO", 2);
         BeanTwo beanTwo_ = new BeanTwo();
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
         conf_.getBeans().put("bean_two", beanTwo_);
@@ -5178,7 +5178,7 @@ public class FormatHtmlTest {
         bean_.getTree().put("ONE", 1);
         bean_.getTree().put("TWO", 2);
         BeanTwo beanTwo_ = new BeanTwo();
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
         conf_.getBeans().put("bean_two", beanTwo_);
@@ -5217,7 +5217,7 @@ public class FormatHtmlTest {
         bean_.getTree().put("ONE", 1);
         bean_.getTree().put("TWO", 2);
         BeanTwo beanTwo_ = new BeanTwo();
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
         conf_.getBeans().put("bean_two", beanTwo_);
@@ -5258,7 +5258,7 @@ public class FormatHtmlTest {
         bean_.getTree().put("ONE", 1);
         bean_.getTree().put("TWO", 2);
         BeanTwo beanTwo_ = new BeanTwo();
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
         conf_.getBeans().put("bean_two", beanTwo_);
@@ -5297,7 +5297,7 @@ public class FormatHtmlTest {
         bean_.getTree().put("ONE", 1);
         bean_.getTree().put("TWO", 2);
         BeanTwo beanTwo_ = new BeanTwo();
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
         conf_.getBeans().put("bean_two", beanTwo_);
@@ -5336,7 +5336,7 @@ public class FormatHtmlTest {
         bean_.getTree().put("ONE", 1);
         bean_.getTree().put("TWO", 2);
         BeanTwo beanTwo_ = new BeanTwo();
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
         conf_.getBeans().put("bean_two", beanTwo_);
@@ -5376,7 +5376,7 @@ public class FormatHtmlTest {
         bean_.getTree().put("ONE", 1);
         bean_.getTree().put("TWO", 2);
         BeanTwo beanTwo_ = new BeanTwo();
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
         conf_.getBeans().put("bean_two", beanTwo_);
@@ -5415,7 +5415,7 @@ public class FormatHtmlTest {
         bean_.getTree().put("ONE", 1);
         bean_.getTree().put("TWO", 2);
         BeanTwo beanTwo_ = new BeanTwo();
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
         conf_.getBeans().put("bean_two", beanTwo_);
@@ -5454,7 +5454,7 @@ public class FormatHtmlTest {
         bean_.getTree().put("ONE", 1);
         bean_.getTree().put("TWO", 2);
         BeanTwo beanTwo_ = new BeanTwo();
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
         conf_.getBeans().put("bean_two", beanTwo_);
@@ -5493,7 +5493,7 @@ public class FormatHtmlTest {
         bean_.getTree().put("ONE", 1);
         bean_.getTree().put("TWO", 2);
         BeanTwo beanTwo_ = new BeanTwo();
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
         conf_.getBeans().put("bean_two", beanTwo_);
@@ -5535,7 +5535,7 @@ public class FormatHtmlTest {
         bean_.getTree().put("TWO", 2);
         BeanTwo beanTwo_ = new BeanTwo();
         beanTwo_.setTypedString("TITLE");
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
         conf_.getBeans().put("bean_two", beanTwo_);
@@ -5576,7 +5576,7 @@ public class FormatHtmlTest {
         bean_.getTree().put("TWO", 2);
         BeanTwo beanTwo_ = new BeanTwo();
         beanTwo_.setTypedString("TITLE");
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
         conf_.getBeans().put("bean_two", beanTwo_);
@@ -5616,7 +5616,7 @@ public class FormatHtmlTest {
         bean_.getTree().put("ONE", 1);
         bean_.getTree().put("TWO", 2);
         BeanTwo beanTwo_ = new BeanTwo();
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
         conf_.getBeans().put("bean_two", beanTwo_);
@@ -5657,7 +5657,7 @@ public class FormatHtmlTest {
         bean_.getTree().put("ONE", 1);
         bean_.getTree().put("TWO", 2);
         BeanTwo beanTwo_ = new BeanTwo();
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
         conf_.getBeans().put("bean_two", beanTwo_);
@@ -5699,7 +5699,7 @@ public class FormatHtmlTest {
         bean_.getTree().put("TWO", 2);
         BeanTwo beanTwo_ = new BeanTwo();
         beanTwo_.setTypedString("TITLE");
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
         conf_.getBeans().put("bean_two", beanTwo_);
@@ -5741,7 +5741,7 @@ public class FormatHtmlTest {
         bean_.getTree().put("TWO", 2);
         BeanTwo beanTwo_ = new BeanTwo();
         beanTwo_.setTypedString("TITLE");
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
         conf_.getBeans().put("bean_two", beanTwo_);
@@ -5783,7 +5783,7 @@ public class FormatHtmlTest {
         bean_.getTree().put("TWO", 2);
         BeanTwo beanTwo_ = new BeanTwo();
         beanTwo_.setTypedString("TITLE");
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
         conf_.getBeans().put("bean_two", beanTwo_);
@@ -5823,7 +5823,7 @@ public class FormatHtmlTest {
         BeanThree bean_ = new BeanThree();
         //bean_.setClassName(BeanThree.class.getName());
         bean_.setScope("session");
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_three", bean_);
         conf_.setMessagesFolder(folder_);
@@ -5874,7 +5874,7 @@ public class FormatHtmlTest {
         BeanSix bean_ = new BeanSix();
         //bean_.setClassName(BeanThree.class.getName());
         bean_.setScope("session");
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_six", bean_);
         conf_.setMessagesFolder(folder_);
@@ -5917,7 +5917,7 @@ public class FormatHtmlTest {
         BeanSix bean_ = new BeanSix();
         //bean_.setClassName(BeanThree.class.getName());
         bean_.setScope("session");
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_six", bean_);
         conf_.setMessagesFolder(folder_);
@@ -5959,7 +5959,7 @@ public class FormatHtmlTest {
         BeanSix bean_ = new BeanSix();
         //bean_.setClassName(BeanThree.class.getName());
         bean_.setScope("session");
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_six", bean_);
         conf_.setMessagesFolder(folder_);
@@ -6005,7 +6005,7 @@ public class FormatHtmlTest {
         bean_.getTree().put("TWO", 2);
         BeanTwo beanTwo_ = new BeanTwo();
         beanTwo_.setTypedString("TITLE");
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
         conf_.getBeans().put("bean_two", beanTwo_);
@@ -6045,7 +6045,7 @@ public class FormatHtmlTest {
         bean_.getComposite().getStrings().add("FIRST");
         bean_.getComposite().getStrings().add("SECOND");
         bean_.getComposite().setInteger(5);
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
         conf_.setMessagesFolder(folder_);
@@ -6084,7 +6084,7 @@ public class FormatHtmlTest {
         bean_.getComposite().getStrings().add("FIRST");
         bean_.getComposite().getStrings().add("SECOND");
         bean_.getComposite().setInteger(5);
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
         conf_.setMessagesFolder(folder_);
@@ -6124,7 +6124,7 @@ public class FormatHtmlTest {
         bean_.getComposite().getStrings().add("FIRST");
         bean_.getComposite().getStrings().add("SECOND");
         bean_.getComposite().setInteger(5);
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
         conf_.setMessagesFolder(folder_);
@@ -6166,7 +6166,7 @@ public class FormatHtmlTest {
         bean_.getComposite().getStrings().add("FIRST");
         bean_.getComposite().getStrings().add("SECOND");
         bean_.getComposite().setInteger(5);
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
         conf_.setMessagesFolder(folder_);
@@ -6207,7 +6207,7 @@ public class FormatHtmlTest {
         bean_.getComposite().getStrings().add("FIRST");
         bean_.getComposite().getStrings().add("SECOND");
         bean_.getComposite().setInteger(5);
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
         conf_.setMessagesFolder(folder_);
@@ -6247,7 +6247,7 @@ public class FormatHtmlTest {
         bean_.getComposite().getStrings().add("FIRST");
         bean_.getComposite().getStrings().add("SECOND");
         bean_.getComposite().setInteger(5);
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
         conf_.setMessagesFolder(folder_);
@@ -6286,7 +6286,7 @@ public class FormatHtmlTest {
         bean_.getComposite().getStrings().add("FIRST");
         bean_.getComposite().getStrings().add("SECOND");
         bean_.getComposite().setInteger(5);
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
         conf_.setMessagesFolder(folder_);
@@ -6321,7 +6321,7 @@ public class FormatHtmlTest {
         String html_ = "<html c:bean=\"bean_two\" xmlns:c='javahtml'><body><form><textarea name=\"typedString\" c:varValue=\"typedString\"/></form></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setBeans(new StringMap<Bean>());
         BeanTwo beanTwo_ = new BeanTwo();
         beanTwo_.setChecked(false);
@@ -6364,7 +6364,7 @@ public class FormatHtmlTest {
         bean_.getComposite().getStrings().add("FIRST");
         bean_.getComposite().getStrings().add("SECOND");
         bean_.getComposite().setInteger(5);
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
         conf_.setMessagesFolder(folder_);
@@ -6405,7 +6405,7 @@ public class FormatHtmlTest {
         bean_.getComposite().getStrings().add("FIRST");
         bean_.getComposite().getStrings().add("SECOND");
         bean_.getComposite().setInteger(5);
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
         conf_.setMessagesFolder(folder_);
@@ -6446,7 +6446,7 @@ public class FormatHtmlTest {
         bean_.getComposite().getStrings().add("FIRST");
         bean_.getComposite().getStrings().add("SECOND");
         bean_.getComposite().setInteger(5);
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
         conf_.setMessagesFolder(folder_);
@@ -6487,7 +6487,7 @@ public class FormatHtmlTest {
         bean_.getComposite().getStrings().add("FIRST");
         bean_.getComposite().getStrings().add("SECOND");
         bean_.getComposite().setInteger(5);
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
         conf_.setMessagesFolder(folder_);
@@ -6529,7 +6529,7 @@ public class FormatHtmlTest {
         bean_.getComposite().getStrings().add("FIRST");
         bean_.getComposite().getStrings().add("SECOND");
         bean_.getComposite().setInteger(5);
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
         conf_.setMessagesFolder(folder_);
@@ -6570,7 +6570,7 @@ public class FormatHtmlTest {
         bean_.getComposite().getStrings().add("FIRST");
         bean_.getComposite().getStrings().add("SECOND");
         bean_.getComposite().setInteger(5);
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
         conf_.setMessagesFolder(folder_);
@@ -6612,7 +6612,7 @@ public class FormatHtmlTest {
         bean_.getComposite().getStrings().add("FIRST");
         bean_.getComposite().getStrings().add("SECOND");
         bean_.getComposite().setInteger(5);
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
         conf_.setMessagesFolder(folder_);
@@ -6654,7 +6654,7 @@ public class FormatHtmlTest {
         bean_.getComposite().getStrings().add("FIRST");
         bean_.getComposite().getStrings().add("SECOND");
         bean_.getComposite().setInteger(5);
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
         conf_.setMessagesFolder(folder_);
@@ -6697,7 +6697,7 @@ public class FormatHtmlTest {
         bean_.getComposite().getStrings().add("FIRST");
         bean_.getComposite().getStrings().add("SECOND");
         bean_.getComposite().setInteger(5);
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
         conf_.setMessagesFolder(folder_);
@@ -6740,7 +6740,7 @@ public class FormatHtmlTest {
         bean_.getComposite().getStrings().add("FIRST");
         bean_.getComposite().getStrings().add("SECOND");
         bean_.getComposite().setInteger(5);
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
         conf_.setMessagesFolder(folder_);
@@ -6784,7 +6784,7 @@ public class FormatHtmlTest {
         bean_.getComposite().getStrings().add("FIRST");
         bean_.getComposite().getStrings().add("SECOND");
         bean_.getComposite().setInteger(5);
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
         conf_.setMessagesFolder(folder_);
@@ -6829,7 +6829,7 @@ public class FormatHtmlTest {
         bean_.getComposite().getStrings().add("FIRST");
         bean_.getComposite().getStrings().add("SECOND");
         bean_.getComposite().setInteger(5);
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
         conf_.setMessagesFolder(folder_);
@@ -6874,7 +6874,7 @@ public class FormatHtmlTest {
         bean_.getComposite().getStrings().add("FIRST");
         bean_.getComposite().getStrings().add("SECOND");
         bean_.getComposite().setInteger(5);
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
         conf_.setMessagesFolder(folder_);
@@ -6919,7 +6919,7 @@ public class FormatHtmlTest {
         bean_.getComposite().getStrings().add("FIRST");
         bean_.getComposite().getStrings().add("SECOND");
         bean_.getComposite().setInteger(5);
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
         conf_.setMessagesFolder(folder_);
@@ -6964,7 +6964,7 @@ public class FormatHtmlTest {
         bean_.getComposite().getStrings().add("FIRST");
         bean_.getComposite().getStrings().add("SECOND");
         bean_.getComposite().setInteger(5);
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
         conf_.setMessagesFolder(folder_);
@@ -7010,7 +7010,7 @@ public class FormatHtmlTest {
         bean_.getComposite().getStrings().add("FIRST");
         bean_.getComposite().getStrings().add("SECOND");
         bean_.getComposite().setInteger(5);
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
         conf_.setMessagesFolder(folder_);
@@ -7057,7 +7057,7 @@ public class FormatHtmlTest {
         bean_.getComposite().getStrings().add("FIRST");
         bean_.getComposite().getStrings().add("SECOND");
         bean_.getComposite().setInteger(5);
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
         conf_.setMessagesFolder(folder_);
@@ -7103,7 +7103,7 @@ public class FormatHtmlTest {
         bean_.getComposite().getStrings().add("FIRST");
         bean_.getComposite().getStrings().add("SECOND");
         bean_.getComposite().setInteger(5);
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
         conf_.setMessagesFolder(folder_);
@@ -7148,7 +7148,7 @@ public class FormatHtmlTest {
         bean_.getComposite().getStrings().add("FIRST");
         bean_.getComposite().getStrings().add("SECOND");
         bean_.getComposite().setInteger(5);
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
         conf_.setMessagesFolder(folder_);
@@ -7195,7 +7195,7 @@ public class FormatHtmlTest {
         bean_.getComposite().getStrings().add("SECOND");
         bean_.getComposite().getStrings().add("blue");
         bean_.getComposite().setInteger(5);
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
         conf_.setMessagesFolder(folder_);
@@ -7239,7 +7239,7 @@ public class FormatHtmlTest {
         bean_.getComposite().getStrings().add("FIRST");
         bean_.getComposite().getStrings().add("SECOND");
         bean_.getComposite().setInteger(5);
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
         conf_.setMessagesFolder(folder_);
@@ -7285,7 +7285,7 @@ public class FormatHtmlTest {
         bean_.getComposite().getStrings().add("FIRST");
         bean_.getComposite().getStrings().add("SECOND");
         bean_.getComposite().setInteger(5);
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
         conf_.setMessagesFolder(folder_);
@@ -7331,7 +7331,7 @@ public class FormatHtmlTest {
         bean_.getComposite().getStrings().add("FIRST");
         bean_.getComposite().getStrings().add("SECOND");
         bean_.getComposite().setInteger(5);
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
         conf_.setMessagesFolder(folder_);
@@ -7375,7 +7375,7 @@ public class FormatHtmlTest {
         bean_.getComposite().getStrings().add("FIRST");
         bean_.getComposite().getStrings().add("SECOND");
         bean_.getComposite().setInteger(5);
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
         conf_.setMessagesFolder(folder_);
@@ -7422,7 +7422,7 @@ public class FormatHtmlTest {
         bean_.getComposite().getStrings().add("FIRST");
         bean_.getComposite().getStrings().add("SECOND");
         bean_.getComposite().setInteger(5);
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
         conf_.setMessagesFolder(folder_);
@@ -7468,7 +7468,7 @@ public class FormatHtmlTest {
         bean_.getComposite().getStrings().add("FIRST");
         bean_.getComposite().getStrings().add("SECOND");
         bean_.getComposite().setInteger(5);
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
         conf_.setMessagesFolder(folder_);
@@ -7514,7 +7514,7 @@ public class FormatHtmlTest {
         bean_.getComposite().getStrings().add("FIRST");
         bean_.getComposite().getStrings().add("SECOND");
         bean_.getComposite().setInteger(5);
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
         conf_.setMessagesFolder(folder_);
@@ -7547,7 +7547,7 @@ public class FormatHtmlTest {
         bean_.getTree().put("TWO", 2);
         BeanTwo beanTwo_ = new BeanTwo();
         beanTwo_.setTypedString("TITLE");
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
         conf_.getBeans().put("bean_two", beanTwo_);
@@ -7581,7 +7581,7 @@ public class FormatHtmlTest {
         bean_.getTree().put("TWO", 2);
         BeanTwo beanTwo_ = new BeanTwo();
         beanTwo_.setTypedString("TITLE");
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
         conf_.getBeans().put("bean_two", beanTwo_);
@@ -7614,7 +7614,7 @@ public class FormatHtmlTest {
         bean_.getTree().put("TWO", 2);
         BeanTwo beanTwo_ = new BeanTwo();
         beanTwo_.setTypedString("TITLE");
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
         conf_.getBeans().put("bean_two", beanTwo_);
@@ -7648,7 +7648,7 @@ public class FormatHtmlTest {
         bean_.getTree().put("TWO", 2);
         BeanTwo beanTwo_ = new BeanTwo();
         beanTwo_.setTypedString("TITLE");
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
         conf_.getBeans().put("bean_two", beanTwo_);
@@ -7681,7 +7681,7 @@ public class FormatHtmlTest {
         bean_.getTree().put("TWO", 2);
         BeanTwo beanTwo_ = new BeanTwo();
         beanTwo_.setTypedString("TITLE");
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
         conf_.getBeans().put("bean_two", beanTwo_);
@@ -7714,7 +7714,7 @@ public class FormatHtmlTest {
         bean_.getTree().put("TWO", 2);
         BeanTwo beanTwo_ = new BeanTwo();
         beanTwo_.setTypedString("TITLE");
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
         conf_.getBeans().put("bean_two", beanTwo_);
@@ -7746,7 +7746,7 @@ public class FormatHtmlTest {
         bean_.getTree().put("TWO", 2);
         BeanTwo beanTwo_ = new BeanTwo();
         beanTwo_.setTypedString("TITLE");
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
         conf_.getBeans().put("bean_two", beanTwo_);
@@ -7780,7 +7780,7 @@ public class FormatHtmlTest {
         BeanTwo beanTwo_ = new BeanTwo();
         beanTwo_.setTypedString("TITLE");
         beanTwo_.setForms(new StringMapObject());
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
         conf_.getBeans().put("bean_two", beanTwo_);
@@ -7815,7 +7815,7 @@ public class FormatHtmlTest {
         BeanTwo beanTwo_ = new BeanTwo();
         beanTwo_.setTypedString("TITLE");
         beanTwo_.setForms(new StringMapObject());
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
         conf_.getBeans().put("bean_two", beanTwo_);
@@ -7853,7 +7853,7 @@ public class FormatHtmlTest {
         BeanTwo beanTwo_ = new BeanTwo();
         beanTwo_.setTypedString("TITLE");
         beanTwo_.setForms(new StringMapObject());
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
         conf_.getBeans().put("bean_two", beanTwo_);
@@ -7891,7 +7891,7 @@ public class FormatHtmlTest {
         BeanTwo beanTwo_ = new BeanTwo();
         beanTwo_.setTypedString("TITLE");
         beanTwo_.setForms(new StringMapObject());
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
         conf_.getBeans().put("bean_two", beanTwo_);
@@ -7930,7 +7930,7 @@ public class FormatHtmlTest {
         BeanTwo beanTwo_ = new BeanTwo();
         beanTwo_.setTypedString("TITLE");
         beanTwo_.setForms(new StringMapObject());
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
         conf_.getBeans().put("bean_two", beanTwo_);
@@ -7971,7 +7971,7 @@ public class FormatHtmlTest {
         BeanTwo beanTwo_ = new BeanTwo();
         beanTwo_.setTypedString("TITLE");
         beanTwo_.setForms(new StringMapObject());
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
         conf_.getBeans().put("bean_two", beanTwo_);
@@ -8009,7 +8009,7 @@ public class FormatHtmlTest {
         BeanTwo beanTwo_ = new BeanTwo();
         beanTwo_.setTypedString("TITLE");
         beanTwo_.setForms(new StringMapObject());
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
         conf_.getBeans().put("bean_two", beanTwo_);
@@ -8049,7 +8049,7 @@ public class FormatHtmlTest {
         BeanTwo beanTwo_ = new BeanTwo();
         beanTwo_.setTypedString("TITLE");
         beanTwo_.setForms(new StringMapObject());
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
         conf_.getBeans().put("bean_two", beanTwo_);
@@ -8089,7 +8089,7 @@ public class FormatHtmlTest {
         BeanTwo beanTwo_ = new BeanTwo();
         beanTwo_.setTypedString("TITLE");
         beanTwo_.setForms(new StringMapObject());
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
         conf_.getBeans().put("bean_two", beanTwo_);
@@ -8128,7 +8128,7 @@ public class FormatHtmlTest {
         BeanTwo beanTwo_ = new BeanTwo();
         beanTwo_.setTypedString("TITLE");
         beanTwo_.setForms(new StringMapObject());
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
         conf_.getBeans().put("bean_two", beanTwo_);
@@ -8168,7 +8168,7 @@ public class FormatHtmlTest {
         BeanTwo beanTwo_ = new BeanTwo();
         beanTwo_.setTypedString("TITLE");
         beanTwo_.setForms(new StringMapObject());
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
         conf_.getBeans().put("bean_two", beanTwo_);
@@ -8209,7 +8209,7 @@ public class FormatHtmlTest {
         BeanTwo beanTwo_ = new BeanTwo();
         beanTwo_.setTypedString("TITLE");
         beanTwo_.setForms(new StringMapObject());
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
         conf_.getBeans().put("bean_two", beanTwo_);
@@ -8250,7 +8250,7 @@ public class FormatHtmlTest {
         BeanTwo beanTwo_ = new BeanTwo();
         beanTwo_.setTypedString("TITLE");
         beanTwo_.setForms(new StringMapObject());
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
         conf_.getBeans().put("bean_two", beanTwo_);
@@ -8290,7 +8290,7 @@ public class FormatHtmlTest {
         BeanTwo beanTwo_ = new BeanTwo();
         beanTwo_.setTypedString("TITLE");
         beanTwo_.setForms(new StringMapObject());
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
         conf_.getBeans().put("bean_two", beanTwo_);
@@ -8330,7 +8330,7 @@ public class FormatHtmlTest {
         BeanTwo beanTwo_ = new BeanTwo();
         beanTwo_.setTypedString("TITLE");
         beanTwo_.setForms(new StringMapObject());
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
         conf_.getBeans().put("bean_two", beanTwo_);
@@ -8367,7 +8367,7 @@ public class FormatHtmlTest {
         BeanTwo beanTwo_ = new BeanTwo();
         beanTwo_.setTypedString("TITLE");
         beanTwo_.setForms(new StringMapObject());
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
         conf_.getBeans().put("bean_two", beanTwo_);
@@ -8405,7 +8405,7 @@ public class FormatHtmlTest {
         BeanTwo beanTwo_ = new BeanTwo();
         beanTwo_.setTypedString("TITLE");
         beanTwo_.setForms(new StringMapObject());
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
         conf_.getBeans().put("bean_two", beanTwo_);
@@ -8446,7 +8446,7 @@ public class FormatHtmlTest {
         BeanTwo beanTwo_ = new BeanTwo();
         beanTwo_.setTypedString("TITLE");
         beanTwo_.setForms(new StringMapObject());
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
         conf_.getBeans().put("bean_two", beanTwo_);
@@ -8485,7 +8485,7 @@ public class FormatHtmlTest {
         BeanTwo beanTwo_ = new BeanTwo();
         beanTwo_.setTypedString("TITLE");
         beanTwo_.setForms(new StringMapObject());
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
         conf_.getBeans().put("bean_two", beanTwo_);
@@ -8524,7 +8524,7 @@ public class FormatHtmlTest {
         BeanTwo beanTwo_ = new BeanTwo();
         beanTwo_.setTypedString("TITLE");
         beanTwo_.setForms(new StringMapObject());
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
         conf_.getBeans().put("bean_two", beanTwo_);
@@ -8563,7 +8563,7 @@ public class FormatHtmlTest {
         BeanTwo beanTwo_ = new BeanTwo();
         beanTwo_.setTypedString("TITLE");
         beanTwo_.setForms(new StringMapObject());
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
         conf_.getBeans().put("bean_two", beanTwo_);
@@ -8595,7 +8595,7 @@ public class FormatHtmlTest {
         bean_.getComposite().setInteger(5);
         bean_.getComposites().get(0).setStrings(new StringList("F"));
         bean_.getComposites().get(1).setStrings(new StringList("S"));
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
         conf_.setMessagesFolder(folder_);
@@ -8628,7 +8628,7 @@ public class FormatHtmlTest {
         bean_.getComposite().setInteger(5);
         bean_.getComposites().get(0).setStrings(new StringList("F"));
         bean_.getComposites().get(1).setStrings(new StringList("S"));
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
         conf_.setMessagesFolder(folder_);
@@ -8661,7 +8661,7 @@ public class FormatHtmlTest {
         bean_.getComposite().setInteger(5);
         bean_.getComposites().get(0).setStrings(new StringList("F"));
         bean_.getComposites().get(1).setStrings(new StringList("S"));
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
         conf_.setMessagesFolder(folder_);
@@ -8695,7 +8695,7 @@ public class FormatHtmlTest {
         bean_.getComposite().setInteger(5);
         bean_.getComposites().get(0).setStrings(new StringList("F"));
         bean_.getComposites().get(1).setStrings(new StringList("S"));
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
         conf_.setMessagesFolder(folder_);
@@ -8728,7 +8728,7 @@ public class FormatHtmlTest {
         bean_.getComposite().setInteger(5);
         bean_.getComposites().get(0).setStrings(new StringList("F"));
         bean_.getComposites().get(1).setStrings(new StringList("S"));
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_seven", bean_);
         conf_.setMessagesFolder(folder_);
@@ -8761,7 +8761,7 @@ public class FormatHtmlTest {
         bean_.getComposite().setInteger(5);
         bean_.getComposites().get(0).setStrings(new StringList("F"));
         bean_.getComposites().get(1).setStrings(new StringList("S"));
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_seven", bean_);
         conf_.setMessagesFolder(folder_);
@@ -8795,7 +8795,7 @@ public class FormatHtmlTest {
         bean_.getComposite().setInteger(5);
         bean_.getComposites().get(0).setStrings(new StringList("F"));
         bean_.getComposites().get(1).setStrings(new StringList("S"));
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_seven", bean_);
         conf_.setMessagesFolder(folder_);
@@ -8828,7 +8828,7 @@ public class FormatHtmlTest {
         bean_.getComposite().setInteger(5);
         bean_.getComposites().get(0).setStrings(new StringList("F"));
         bean_.getComposites().get(1).setStrings(new StringList("S"));
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
         conf_.setMessagesFolder(folder_);
@@ -8862,7 +8862,7 @@ public class FormatHtmlTest {
         bean_.getComposite().setInteger(5);
         bean_.getComposites().get(0).setStrings(new StringList("F"));
         bean_.getComposites().get(1).setStrings(new StringList("S"));
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
         conf_.setMessagesFolder(folder_);
@@ -8895,7 +8895,7 @@ public class FormatHtmlTest {
         bean_.getComposite().setInteger(5);
         bean_.getComposites().get(0).setStrings(new StringList("F"));
         bean_.getComposites().get(1).setStrings(new StringList("S"));
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
         conf_.setMessagesFolder(folder_);
@@ -8929,7 +8929,7 @@ public class FormatHtmlTest {
         bean_.getComposite().setInteger(5);
         bean_.getComposites().get(0).setStrings(new StringList("F"));
         bean_.getComposites().get(1).setStrings(new StringList("S"));
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
         conf_.setMessagesFolder(folder_);
@@ -8962,7 +8962,7 @@ public class FormatHtmlTest {
         bean_.getComposite().setInteger(5);
         bean_.getComposites().get(0).setStrings(new StringList("F"));
         bean_.getComposites().get(1).setStrings(new StringList("S"));
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
         conf_.setMessagesFolder(folder_);
@@ -8995,7 +8995,7 @@ public class FormatHtmlTest {
         bean_.getComposite().setInteger(5);
         bean_.getComposites().get(0).setStrings(new StringList("F"));
         bean_.getComposites().get(1).setStrings(new StringList("S"));
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
         conf_.setMessagesFolder(folder_);
@@ -9028,7 +9028,7 @@ public class FormatHtmlTest {
         bean_.getComposite().setInteger(5);
         bean_.getComposites().get(0).setStrings(new StringList("F"));
         bean_.getComposites().get(1).setStrings(new StringList("S"));
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_seven", bean_);
         conf_.setMessagesFolder(folder_);
@@ -9061,7 +9061,7 @@ public class FormatHtmlTest {
         bean_.getComposite().setInteger(5);
         bean_.getComposites().get(0).setStrings(new StringList("F"));
         bean_.getComposites().get(1).setStrings(new StringList("S"));
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_seven", bean_);
         conf_.setMessagesFolder(folder_);
@@ -9094,7 +9094,7 @@ public class FormatHtmlTest {
         bean_.getComposite().setInteger(5);
         bean_.getComposites().get(0).setStrings(new StringList("F"));
         bean_.getComposites().get(1).setStrings(new StringList("S"));
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_seven", bean_);
         conf_.setMessagesFolder(folder_);
@@ -9128,7 +9128,7 @@ public class FormatHtmlTest {
         bean_.getComposite().setInteger(5);
         bean_.getComposites().get(0).setStrings(new StringList("F"));
         bean_.getComposites().get(1).setStrings(new StringList("S"));
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
         conf_.setMessagesFolder(folder_);
@@ -9162,7 +9162,7 @@ public class FormatHtmlTest {
         bean_.getComposite().setInteger(5);
         bean_.getComposites().get(0).setStrings(new StringList("F"));
         bean_.getComposites().get(1).setStrings(new StringList("S"));
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
         conf_.setMessagesFolder(folder_);
@@ -9201,7 +9201,7 @@ public class FormatHtmlTest {
         BeanTwo beanTwo_ = new BeanTwo();
         beanTwo_.setTypedString("TITLE");
         beanTwo_.setForms(new StringMapObject());
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
         conf_.getBeans().put("bean_two", beanTwo_);
@@ -9232,7 +9232,7 @@ public class FormatHtmlTest {
         bean_.getComposite().setInteger(5);
         bean_.getComposites().get(0).setStrings(new StringList("F"));
         bean_.getComposites().get(1).setStrings(new StringList("S"));
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
         conf_.setMessagesFolder(folder_);
@@ -9265,7 +9265,7 @@ public class FormatHtmlTest {
         bean_.getComposite().setInteger(5);
         bean_.getComposites().get(0).setStrings(new StringList("F"));
         bean_.getComposites().get(1).setStrings(new StringList("S"));
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
         conf_.setMessagesFolder(folder_);
@@ -9305,7 +9305,7 @@ public class FormatHtmlTest {
         BeanTwo beanTwo_ = new BeanTwo();
         beanTwo_.setTypedString("TITLE");
         beanTwo_.setForms(new StringMapObject());
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
         conf_.getBeans().put("bean_two", beanTwo_);
@@ -9346,7 +9346,7 @@ public class FormatHtmlTest {
         BeanTwo beanTwo_ = new BeanTwo();
         beanTwo_.setTypedString("TITLE");
         beanTwo_.setForms(new StringMapObject());
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
         conf_.getBeans().put("bean_two", beanTwo_);
@@ -9386,7 +9386,7 @@ public class FormatHtmlTest {
         BeanTwo beanTwo_ = new BeanTwo();
         beanTwo_.setTypedString("TITLE");
         beanTwo_.setForms(new StringMapObject());
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
         conf_.getBeans().put("bean_two", beanTwo_);
@@ -9419,7 +9419,7 @@ public class FormatHtmlTest {
         bean_.getComposite().setInteger(5);
         bean_.getComposites().get(0).setStrings(new StringList("F"));
         bean_.getComposites().get(1).setStrings(new StringList("S"));
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
         conf_.setMessagesFolder(folder_);
@@ -9451,7 +9451,7 @@ public class FormatHtmlTest {
         bean_.getComposite().setInteger(5);
         bean_.getComposites().get(0).setStrings(new StringList("F"));
         bean_.getComposites().get(1).setStrings(new StringList("S"));
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
         conf_.setMessagesFolder(folder_);
@@ -9483,7 +9483,7 @@ public class FormatHtmlTest {
         bean_.getComposite().setInteger(5);
         bean_.getComposites().get(0).setStrings(new StringList("F"));
         bean_.getComposites().get(1).setStrings(new StringList("S"));
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
         conf_.setMessagesFolder(folder_);
@@ -9515,7 +9515,7 @@ public class FormatHtmlTest {
         bean_.getComposite().setInteger(5);
         bean_.getComposites().get(0).setStrings(new StringList("F"));
         bean_.getComposites().get(1).setStrings(new StringList("S"));
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
         conf_.setMessagesFolder(folder_);
@@ -9548,7 +9548,7 @@ public class FormatHtmlTest {
         bean_.getComposite().setInteger(5);
         bean_.getComposites().get(0).setStrings(new StringList("F"));
         bean_.getComposites().get(1).setStrings(new StringList("S"));
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_one", bean_);
         conf_.setMessagesFolder(folder_);
@@ -9604,7 +9604,7 @@ public class FormatHtmlTest {
 //        bean_.getComposite().setInteger(5);
 //        bean_.getComposites().get(0).setStrings(new StringList("F"));
 //        bean_.getComposites().get(1).setStrings(new StringList("S"));
-//        Configuration conf_ = new Configuration();
+//        Configuration conf_ = newConfiguration();
 //        conf_.setBeans(new StringMap<Bean>());
 //        conf_.getBeans().put("bean_seven", bean_);
 //        conf_.setMessagesFolder(folder_);
@@ -9623,4 +9623,9 @@ public class FormatHtmlTest {
         assertTrue(DocumentBuilder.equalsDocs(_htmlExp, _htmlRes));
     }
 
+    private static Configuration newConfiguration() {
+        Configuration conf_ = new Configuration();
+        conf_.setStandards(InitializationLgNames.initStandards());
+        return conf_;
+    }
 }

@@ -49,7 +49,7 @@ public final class ReturnMehod extends Leaf implements CallingFinally {
     }
 
     @Override
-    public NatTreeMap<String,String> getClassNames() {
+    public NatTreeMap<String,String> getClassNames(LgNames _stds) {
         NatTreeMap<String,String> tr_ = new NatTreeMap<String,String>();
         return tr_;
     }
@@ -76,23 +76,20 @@ public final class ReturnMehod extends Leaf implements CallingFinally {
             throw new BadReturnException(_cont.joinPages());
         }
         LgNames stds_ = _cont.getStandards();
-        if (_cont.getClasses() != null) {
-            
-        }
-        String retType_ = OperationNode.VOID_RETURN;
+        String retType_ = stds_.getAliasVoid();
         BracedBlock par_ = getParent();
         while (par_ != null) {
             if (par_ instanceof Returnable) {
                 Returnable meth_ = null;
                 meth_ = (Returnable) par_;
-                retType_ = meth_.getReturnType();
+                retType_ = meth_.getReturnType(stds_);
                 break;
             }
             par_ = par_.getParent();
         }
         page_.setProcessingAttribute(ATTRIBUTE_EXPRESSION);
         page_.setOffset(0);
-        if (StringList.quickEq(retType_, OperationNode.VOID_RETURN)) {
+        if (StringList.quickEq(retType_, stds_.getAliasVoid())) {
             if (!expression.isEmpty()) {
                 throw new BadReturnException(_cont.joinPages());
             }

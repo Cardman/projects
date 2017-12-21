@@ -23,7 +23,7 @@ public final class FloatStruct extends Struct {
 
     @Override
     public String getClassName(ContextEl _context) {
-        return Float.class.getName();
+        return _context.getStandards().getAliasFloat();
     }
 
     @Override

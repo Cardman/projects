@@ -1922,13 +1922,6 @@ public class DataBase implements WithMathFactory {
                         }
                     }
                 }
-//                try {
-//                    Statistic st_ = Statistic.valueOf(s);
-//                    if (translatedStatistics.getVal(l).contains(st_)) {
-//                        tr_.add(translatedStatistics.getVal(l).getVal(st_));
-//                    }
-//                } catch (Exception e_) {
-//                }
                 for (Gender g : Gender.values()) {
                     if (StringList.quickEq(s, g.name())) {
                         if (translatedGenders.getVal(l).contains(g)) {
@@ -1937,13 +1930,6 @@ public class DataBase implements WithMathFactory {
                         }
                     }
                 }
-//                try {
-//                    Gender st_ = Gender.valueOf(s);
-//                    if (translatedGenders.getVal(l).contains(st_)) {
-//                        tr_.add(translatedGenders.getVal(l).getVal(st_));
-//                    }
-//                } catch (Exception e_) {
-//                }
                 tr_.removeDuplicates();
                 if (tr_.size() > DataBase.ONE_POSSIBLE_CHOICE) {
                     throw new DataException();
@@ -2211,7 +2197,7 @@ public class DataBase implements WithMathFactory {
         }
         StringList listCopy_ = new StringList();
         for (String s: listRelativePaths_) {
-            listCopy_.add(s.toUpperCase());
+            listCopy_.add(StringList.toUpperCase(s));
         }
         int sizeListCopy_ = listCopy_.size();
         listCopy_.removeDuplicates();
@@ -2231,7 +2217,7 @@ public class DataBase implements WithMathFactory {
             n_ = removeExtension(n_);
             filesNames_.add(n_);
             PokemonData f_ = (PokemonData) SerializeXmlObject.newObjectFromXmlString(files_.getVal(common_+f));
-            completeMembers(n_.toUpperCase(), f_);
+            completeMembers(StringList.toUpperCase(n_), f_);
         }
         checkCaseOfFiles(POKEDEX_FOLDER, filesNames_);
         calculateAvgPound();
@@ -2246,7 +2232,7 @@ public class DataBase implements WithMathFactory {
             n_ = removeExtension(n_);
             filesNames_.add(n_);
             MoveData move_ = (MoveData) SerializeXmlObject.newObjectFromXmlString(files_.getVal(common_+f));
-            completeMembers(n_.toUpperCase(), move_);
+            completeMembers(StringList.toUpperCase(n_), move_);
         }
         _perCentLoading_ = 10;
         checkCaseOfFiles(MOVES_FOLDER, filesNames_);
@@ -2255,7 +2241,7 @@ public class DataBase implements WithMathFactory {
             if (l.startsWith(CT)) {
                 StringList infos_=StringList.splitChars(l, TAB_CHAR);
                 short cle_=Short.parseShort(infos_.first().substring(2));
-                tm.put(cle_, infos_.get(1).toUpperCase());
+                tm.put(cle_, StringList.toUpperCase(infos_.get(1)));
                 LgInt price_;
                 if (LgInt.isValid(infos_.get(2))) {
                     price_ = new LgInt(infos_.get(2));
@@ -2272,7 +2258,7 @@ public class DataBase implements WithMathFactory {
             if (l.startsWith(CS)) {
                 StringList infos_=StringList.splitChars(l, TAB_CHAR);
                 short cle_=Short.parseShort(infos_.first().substring(2));
-                hm.put(cle_, infos_.get(1).toUpperCase());
+                hm.put(cle_, StringList.toUpperCase(infos_.get(1)));
             }
         }
         filesNames_.clear();
@@ -2286,7 +2272,7 @@ public class DataBase implements WithMathFactory {
             n_ = removeExtension(n_);
             filesNames_.add(n_);
             Item o_ = (Item) SerializeXmlObject.newObjectFromXmlString(files_.getVal(common_+f));
-            completeMembers(n_.toUpperCase(), o_);
+            completeMembers(StringList.toUpperCase(n_), o_);
         }
         checkCaseOfFiles(ITEMS_FOLDER, filesNames_);
         filesNames_.clear();
@@ -2300,7 +2286,7 @@ public class DataBase implements WithMathFactory {
             n_ = removeExtension(n_);
             filesNames_.add(n_);
             AbilityData ab_ = (AbilityData) SerializeXmlObject.newObjectFromXmlString(files_.getVal(common_+f));
-            completeMembers(n_.toUpperCase(), ab_);
+            completeMembers(StringList.toUpperCase(n_), ab_);
         }
         checkCaseOfFiles(ABILITIES_FOLDER, filesNames_);
         filesNames_.clear();
@@ -2314,7 +2300,7 @@ public class DataBase implements WithMathFactory {
             n_ = removeExtension(n_);
             filesNames_.add(n_);
             Status st_ = (Status) SerializeXmlObject.newObjectFromXmlString(files_.getVal(common_+f));
-            completeMembers(n_.toUpperCase(), st_);
+            completeMembers(StringList.toUpperCase(n_), st_);
         }
         checkCaseOfFiles(STATUS_FOLDER, filesNames_);
         _perCentLoading_ = 15;
@@ -2376,8 +2362,8 @@ public class DataBase implements WithMathFactory {
             }
             StringList infos_ = StringList.splitChars(l, TAB_CHAR);
             StringList keyStrings_ = StringList.splitStrings(infos_.first(), SEPARATOR_KEY_HEROS);
-            EnvironmentType env_ = EnvironmentType.valueOf(keyStrings_.first());
-            Sex sex_ = Sex.valueOf(keyStrings_.last());
+            EnvironmentType env_ = EnvironmentType.getEnvByName(keyStrings_.first());
+            Sex sex_ = Sex.getSexByName(keyStrings_.last());
             frontHeros.put(new ImageHeroKey(env_, sex_), infos_.last());
         }
         backHeros = new ObjectMap<ImageHeroKey,String>();
@@ -2387,8 +2373,8 @@ public class DataBase implements WithMathFactory {
             }
             StringList infos_ = StringList.splitChars(l, TAB_CHAR);
             StringList keyStrings_ = StringList.splitStrings(infos_.first(), SEPARATOR_KEY_HEROS);
-            EnvironmentType env_ = EnvironmentType.valueOf(keyStrings_.first());
-            Sex sex_ = Sex.valueOf(keyStrings_.last());
+            EnvironmentType env_ = EnvironmentType.getEnvByName(keyStrings_.first());
+            Sex sex_ = Sex.getSexByName(keyStrings_.last());
             backHeros.put(new ImageHeroKey(env_, sex_), infos_.last());
         }
         overWorldHeros = new ObjectMap<ImageHeroKey,String>();
@@ -2398,9 +2384,9 @@ public class DataBase implements WithMathFactory {
             }
             StringList infos_ = StringList.splitChars(l, TAB_CHAR);
             StringList keyStrings_ = StringList.splitStrings(infos_.first(), SEPARATOR_KEY_HEROS);
-            EnvironmentType env_ = EnvironmentType.valueOf(keyStrings_.first());
-            Direction dir_ = Direction.valueOf(keyStrings_.get(CustList.SECOND_INDEX));
-            Sex sex_ = Sex.valueOf(keyStrings_.last());
+            EnvironmentType env_ = EnvironmentType.getEnvByName(keyStrings_.first());
+            Direction dir_ = Direction.getDirectionByName(keyStrings_.get(CustList.SECOND_INDEX));
+            Sex sex_ = Sex.getSexByName(keyStrings_.last());
             overWorldHeros.put(new ImageHeroKey(env_, dir_, sex_), infos_.last());
         }
 //        images_ = listRelativePaths_.filterIgnoreCase(BEGIN_REG_EXP+HERO_FOLDER+SEPARATOR_FILES+NOT_EMPTY_STRING);
@@ -2426,7 +2412,7 @@ public class DataBase implements WithMathFactory {
             String n_ = StringList.skipStringUntil(s,SEPARATOR_FILES);
             n_ = removeExtension(n_);
             filesNames_.add(n_);
-            maxiPkBack.put(n_.toUpperCase(), files_.getVal(common_ + s));
+            maxiPkBack.put(StringList.toUpperCase(n_), files_.getVal(common_ + s));
         }
         checkCaseOfFiles(EMPTY_STRING, filesNames_);
         filesNames_.clear();
@@ -2438,7 +2424,7 @@ public class DataBase implements WithMathFactory {
             String n_ = StringList.skipStringUntil(s,SEPARATOR_FILES);
             n_ = removeExtension(n_);
             filesNames_.add(n_);
-            maxiPkFront.put(n_.toUpperCase(), files_.getVal(common_ + s));
+            maxiPkFront.put(StringList.toUpperCase(n_), files_.getVal(common_ + s));
         }
         checkCaseOfFiles(EMPTY_STRING, filesNames_);
         filesNames_.clear();
@@ -2450,7 +2436,7 @@ public class DataBase implements WithMathFactory {
             String n_ = StringList.skipStringUntil(s,SEPARATOR_FILES);
             n_ = removeExtension(n_);
             filesNames_.add(n_);
-            miniPk.put(n_.toUpperCase(), files_.getVal(common_ + s));
+            miniPk.put(StringList.toUpperCase(n_), files_.getVal(common_ + s));
         }
         checkCaseOfFiles(EMPTY_STRING, filesNames_);
         _perCentLoading_ = 25;
@@ -2466,7 +2452,7 @@ public class DataBase implements WithMathFactory {
             String n_ = StringList.skipStringUntil(s,SEPARATOR_FILES);
             n_ = removeExtension(n_);
             filesNames_.add(n_);
-            miniItems.put(n_.toUpperCase(), files_.getVal(common_ + s));
+            miniItems.put(StringList.toUpperCase(n_), files_.getVal(common_ + s));
         }
         checkCaseOfFiles(EMPTY_STRING, filesNames_);
 
@@ -2482,7 +2468,7 @@ public class DataBase implements WithMathFactory {
             //String n_ = s.replaceAll(BEGIN_REG_EXP+TYPES_IMAGES_FOLDER+SEPARATOR_FILES, EMPTY_STRING);
             n_ = removeExtension(n_);
             filesNames_.add(n_);
-            typesImages.put(n_.toUpperCase(), files_.getVal(common_ + s));
+            typesImages.put(StringList.toUpperCase(n_), files_.getVal(common_ + s));
         }
         checkCaseOfFiles(EMPTY_STRING, filesNames_);
 
@@ -2593,19 +2579,19 @@ public class DataBase implements WithMathFactory {
             }
 //            valeur_.setSecond(Short.parseShort(infos_.last()));
             law_.checkEvents();
-            lawsDamageRate.put(DifficultyModelLaw.valueOf(infos_.first()),new LawNumber(law_, Short.parseShort(infos_.last())));
+            lawsDamageRate.put(DifficultyModelLaw.getModelByName(infos_.first()),new LawNumber(law_, Short.parseShort(infos_.last())));
         }
         expGrowth = new EnumMap<ExpType,String>();
         StringList courbes_ = StringList.splitChars(files_.getVal(common_ + COURBE_PTS_EXP), RETURN_LINE_CHAR);
         for (String l: courbes_) {
             StringList infos_ = StringList.splitChars(l, TAB_CHAR);
-            expGrowth.put(ExpType.valueOf(infos_.first()), infos_.get(1));
+            expGrowth.put(ExpType.getExpTypeByName(infos_.first()), infos_.get(1));
         }
         rates = new EnumMap<DifficultyWinPointsFight,String>();
         StringList rates_ = StringList.splitChars(files_.getVal(common_ + RATE_WON_POINTS), RETURN_LINE_CHAR);
         for (String l: rates_) {
             StringList infos_ = StringList.splitChars(l, TAB_CHAR);
-            rates.put(DifficultyWinPointsFight.valueOf(infos_.first()), infos_.get(1));
+            rates.put(DifficultyWinPointsFight.getDiffWonPtsByName(infos_.first()), infos_.get(1));
         }
         typesColors = new StringMap<String>();
         StringList colorTypes_ = StringList.splitChars(files_.getVal(common_ + TYPES_COLOR_CODE+IMG_FILES_RES_EXT_TXT), RETURN_LINE_CHAR);
@@ -2640,7 +2626,7 @@ public class DataBase implements WithMathFactory {
             EnumMap<Gender,String> genders_ = new EnumMap<Gender, String>();
             for (String l2_: StringList.splitChars(files_.getVal(common_ + fileName_), RETURN_LINE_CHAR)) {
                 StringList infos_ = StringList.splitChars(l2_, TAB_CHAR);
-                genders_.put(Gender.valueOf(infos_.first()), DocumentBuilder.transformSpecialChars(infos_.last()));
+                genders_.put(Gender.getGenderByName(infos_.first()), DocumentBuilder.transformSpecialChars(infos_.last()));
             }
             translatedGenders.put(l, genders_);
             fileName_ = TRANSLATION_FOLDER+SEPARATOR_FILES;
@@ -2649,7 +2635,7 @@ public class DataBase implements WithMathFactory {
             EnumMap<SelectedBoolean,String> booleans_ = new EnumMap<SelectedBoolean, String>();
             for (String l2_: StringList.splitChars(files_.getVal(common_ + fileName_), RETURN_LINE_CHAR)) {
                 StringList infos_ = StringList.splitChars(l2_, TAB_CHAR);
-                booleans_.put(SelectedBoolean.valueOf(infos_.first()), DocumentBuilder.transformSpecialChars(infos_.last()));
+                booleans_.put(SelectedBoolean.getBoolByName(infos_.first()), DocumentBuilder.transformSpecialChars(infos_.last()));
             }
             translatedBooleans.put(l, booleans_);
             fileName_ = TRANSLATION_FOLDER+SEPARATOR_FILES;
@@ -2658,7 +2644,7 @@ public class DataBase implements WithMathFactory {
             EnumMap<DifficultyWinPointsFight, String> diffWinPts_ = new EnumMap<DifficultyWinPointsFight, String>();
             for (String l2_: StringList.splitChars(files_.getVal(common_ + fileName_), RETURN_LINE_CHAR)) {
                 StringList infos_ = StringList.splitChars(l2_, TAB_CHAR);
-                diffWinPts_.put(DifficultyWinPointsFight.valueOf(infos_.first()), DocumentBuilder.transformSpecialChars(infos_.last()));
+                diffWinPts_.put(DifficultyWinPointsFight.getDiffWonPtsByName(infos_.first()), DocumentBuilder.transformSpecialChars(infos_.last()));
             }
             translatedDiffWinPts.put(l, diffWinPts_);
             fileName_ = TRANSLATION_FOLDER+SEPARATOR_FILES;
@@ -2667,7 +2653,7 @@ public class DataBase implements WithMathFactory {
             EnumMap<DifficultyModelLaw, String> diffLaw_ = new EnumMap<DifficultyModelLaw, String>();
             for (String l2_: StringList.splitChars(files_.getVal(common_ + fileName_), RETURN_LINE_CHAR)) {
                 StringList infos_ = StringList.splitChars(l2_, TAB_CHAR);
-                diffLaw_.put(DifficultyModelLaw.valueOf(infos_.first()), DocumentBuilder.transformSpecialChars(infos_.last()));
+                diffLaw_.put(DifficultyModelLaw.getModelByName(infos_.first()), DocumentBuilder.transformSpecialChars(infos_.last()));
             }
             translatedDiffModelLaw.put(l, diffLaw_);
             fileName_ = TRANSLATION_FOLDER+SEPARATOR_FILES;
@@ -2676,7 +2662,7 @@ public class DataBase implements WithMathFactory {
             EnumMap<EnvironmentType,String> environments_ = new EnumMap<EnvironmentType, String>();
             for (String l2_: StringList.splitChars(files_.getVal(common_ + fileName_), RETURN_LINE_CHAR)) {
                 StringList infos_ = StringList.splitChars(l2_, TAB_CHAR);
-                environments_.put(EnvironmentType.valueOf(infos_.first()), DocumentBuilder.transformSpecialChars(infos_.last()));
+                environments_.put(EnvironmentType.getEnvByName(infos_.first()), DocumentBuilder.transformSpecialChars(infos_.last()));
             }
             translatedEnvironment.put(l, environments_);
             fileName_ = TRANSLATION_FOLDER+SEPARATOR_FILES;
@@ -2685,7 +2671,7 @@ public class DataBase implements WithMathFactory {
             EnumMap<Statistic,String> statistics_ = new EnumMap<Statistic, String>();
             for (String l2_: StringList.splitChars(files_.getVal(common_ + fileName_), RETURN_LINE_CHAR)) {
                 StringList infos_ = StringList.splitChars(l2_, TAB_CHAR);
-                statistics_.put(Statistic.valueOf(infos_.first()), DocumentBuilder.transformSpecialChars(infos_.last()));
+                statistics_.put(Statistic.getStatisticByName(infos_.first()), DocumentBuilder.transformSpecialChars(infos_.last()));
             }
             translatedStatistics.put(l, statistics_);
             fileName_ = TRANSLATION_FOLDER+SEPARATOR_FILES;
@@ -2694,7 +2680,7 @@ public class DataBase implements WithMathFactory {
             EnumMap<TargetChoice,String> targets_ = new EnumMap<TargetChoice, String>();
             for (String l2_: StringList.splitChars(files_.getVal(common_ + fileName_), RETURN_LINE_CHAR)) {
                 StringList infos_ = StringList.splitChars(l2_, TAB_CHAR);
-                targets_.put(TargetChoice.valueOf(infos_.first()), DocumentBuilder.transformSpecialChars(infos_.last()));
+                targets_.put(TargetChoice.getTargetChoiceByName(infos_.first()), DocumentBuilder.transformSpecialChars(infos_.last()));
             }
             translatedTargets.put(l, targets_);
             fileName_ = TRANSLATION_FOLDER+SEPARATOR_FILES;
@@ -2850,7 +2836,7 @@ public class DataBase implements WithMathFactory {
             if (f_.isEmpty()) {
                 continue;
             }
-            animStatis.put(f_.toUpperCase(), files_.getVal(common_ + f));
+            animStatis.put(StringList.toUpperCase(f_), files_.getVal(common_ + f));
         }
 //        for (String f: listRelativePaths_.filterIgnoreCase(BEGIN_REG_EXP+ANIM_STATUS+SEPARATOR_FILES)) {}
         for (String f: listRelativePaths_.filterBeginIgnoreCase(ANIM_STATUS+SEPARATOR_FILES)) {
@@ -2860,7 +2846,7 @@ public class DataBase implements WithMathFactory {
             if (f_.isEmpty()) {
                 continue;
             }
-            animStatus.put(f_.toUpperCase(), files_.getVal(common_ + f));
+            animStatus.put(StringList.toUpperCase(f_), files_.getVal(common_ + f));
         }
         animAbsorb = files_.getVal(common_ + ANIM_ABSORB);
         _perCentLoading_ = 40;
@@ -2878,7 +2864,7 @@ public class DataBase implements WithMathFactory {
             if (l.startsWith(CT)) {
                 StringList infos_=StringList.splitChars(l, TAB_CHAR);
                 short cle_=Short.parseShort(infos_.first().substring(2));
-                tm.put(cle_, infos_.get(1).toUpperCase());
+                tm.put(cle_, StringList.toUpperCase(infos_.get(1)));
                 LgInt price_;
                 if (LgInt.isValid(infos_.get(2))) {
                     price_ = new LgInt(infos_.get(2));
@@ -2895,7 +2881,7 @@ public class DataBase implements WithMathFactory {
             if (l.startsWith(CS)) {
                 StringList infos_=StringList.splitChars(l, TAB_CHAR);
                 short cle_=Short.parseShort(infos_.first().substring(2));
-                hm.put(cle_, infos_.get(1).toUpperCase());
+                hm.put(cle_, StringList.toUpperCase(infos_.get(1)));
             }
         }
         frontHeros = new ObjectMap<ImageHeroKey,String>();
@@ -2905,8 +2891,8 @@ public class DataBase implements WithMathFactory {
             }
             StringList infos_ = StringList.splitChars(l, TAB_CHAR);
             StringList keyStrings_ = StringList.splitStrings(infos_.first(), SEPARATOR_KEY_HEROS);
-            EnvironmentType env_ = EnvironmentType.valueOf(keyStrings_.first());
-            Sex sex_ = Sex.valueOf(keyStrings_.last());
+            EnvironmentType env_ = EnvironmentType.getEnvByName(keyStrings_.first());
+            Sex sex_ = Sex.getSexByName(keyStrings_.last());
             frontHeros.put(new ImageHeroKey(env_, sex_), infos_.last());
         }
         backHeros = new ObjectMap<ImageHeroKey,String>();
@@ -2916,8 +2902,8 @@ public class DataBase implements WithMathFactory {
             }
             StringList infos_ = StringList.splitChars(l, TAB_CHAR);
             StringList keyStrings_ = StringList.splitStrings(infos_.first(), SEPARATOR_KEY_HEROS);
-            EnvironmentType env_ = EnvironmentType.valueOf(keyStrings_.first());
-            Sex sex_ = Sex.valueOf(keyStrings_.last());
+            EnvironmentType env_ = EnvironmentType.getEnvByName(keyStrings_.first());
+            Sex sex_ = Sex.getSexByName(keyStrings_.last());
             backHeros.put(new ImageHeroKey(env_, sex_), infos_.last());
         }
         overWorldHeros = new ObjectMap<ImageHeroKey,String>();
@@ -2927,9 +2913,9 @@ public class DataBase implements WithMathFactory {
             }
             StringList infos_ = StringList.splitChars(l, TAB_CHAR);
             StringList keyStrings_ = StringList.splitStrings(infos_.first(), SEPARATOR_KEY_HEROS);
-            EnvironmentType env_ = EnvironmentType.valueOf(keyStrings_.first());
-            Direction dir_ = Direction.valueOf(keyStrings_.get(CustList.SECOND_INDEX));
-            Sex sex_ = Sex.valueOf(keyStrings_.last());
+            EnvironmentType env_ = EnvironmentType.getEnvByName(keyStrings_.first());
+            Direction dir_ = Direction.getDirectionByName(keyStrings_.get(CustList.SECOND_INDEX));
+            Sex sex_ = Sex.getSexByName(keyStrings_.last());
             overWorldHeros.put(new ImageHeroKey(env_, dir_, sex_), infos_.last());
         }
         imageTmHm = ResourceFiles.ressourceFichier(common_ + IMAGE_TM_HM_FILES+IMG_FILES_RES_EXT_TXT);
@@ -3043,7 +3029,7 @@ public class DataBase implements WithMathFactory {
             }
 //            valeur_.setSecond(Short.parseShort(infos_.last()));
             law_.checkEvents();
-            lawsDamageRate.put(DifficultyModelLaw.valueOf(infos_.first()),new LawNumber(law_, Short.parseShort(infos_.last())));
+            lawsDamageRate.put(DifficultyModelLaw.getModelByName(infos_.first()),new LawNumber(law_, Short.parseShort(infos_.last())));
         }
         expGrowth = new EnumMap<ExpType,String>();
         StringList courbes_ = StringList.splitChars(ResourceFiles.ressourceFichier(common_ + COURBE_PTS_EXP), RETURN_LINE_CHAR);
@@ -3052,7 +3038,7 @@ public class DataBase implements WithMathFactory {
                 continue;
             }
             StringList infos_ = StringList.splitChars(l, TAB_CHAR);
-            expGrowth.put(ExpType.valueOf(infos_.first()), infos_.get(1));
+            expGrowth.put(ExpType.getExpTypeByName(infos_.first()), infos_.get(1));
         }
         rates = new EnumMap<DifficultyWinPointsFight,String>();
         StringList rates_ = StringList.splitChars(ResourceFiles.ressourceFichier(common_ + RATE_WON_POINTS), RETURN_LINE_CHAR);
@@ -3061,7 +3047,7 @@ public class DataBase implements WithMathFactory {
                 continue;
             }
             StringList infos_ = StringList.splitChars(l, TAB_CHAR);
-            rates.put(DifficultyWinPointsFight.valueOf(infos_.first()), infos_.get(1));
+            rates.put(DifficultyWinPointsFight.getDiffWonPtsByName(infos_.first()), infos_.get(1));
         }
         typesColors = new StringMap<String>();
         rates_ = StringList.splitChars(ResourceFiles.ressourceFichier(common_ + TYPES_COLOR_CODE+IMG_FILES_RES_EXT_TXT), RETURN_LINE_CHAR);
@@ -3101,7 +3087,7 @@ public class DataBase implements WithMathFactory {
                     continue;
                 }
                 StringList infos_ = StringList.splitChars(l2_, TAB_CHAR);
-                genders_.put(Gender.valueOf(infos_.first()), DocumentBuilder.transformSpecialChars(infos_.last()));
+                genders_.put(Gender.getGenderByName(infos_.first()), DocumentBuilder.transformSpecialChars(infos_.last()));
             }
             translatedGenders.put(l, genders_);
             fileName_ = TRANSLATION_FOLDER+SEPARATOR_FILES;
@@ -3113,7 +3099,7 @@ public class DataBase implements WithMathFactory {
                     continue;
                 }
                 StringList infos_ = StringList.splitChars(l2_, TAB_CHAR);
-                booleans_.put(SelectedBoolean.valueOf(infos_.first()), DocumentBuilder.transformSpecialChars(infos_.last()));
+                booleans_.put(SelectedBoolean.getBoolByName(infos_.first()), DocumentBuilder.transformSpecialChars(infos_.last()));
             }
             translatedBooleans.put(l, booleans_);
             fileName_ = TRANSLATION_FOLDER+SEPARATOR_FILES;
@@ -3125,7 +3111,7 @@ public class DataBase implements WithMathFactory {
                     continue;
                 }
                 StringList infos_ = StringList.splitChars(l2_, TAB_CHAR);
-                diffWinPts_.put(DifficultyWinPointsFight.valueOf(infos_.first()), DocumentBuilder.transformSpecialChars(infos_.last()));
+                diffWinPts_.put(DifficultyWinPointsFight.getDiffWonPtsByName(infos_.first()), DocumentBuilder.transformSpecialChars(infos_.last()));
             }
             translatedDiffWinPts.put(l, diffWinPts_);
             fileName_ = TRANSLATION_FOLDER+SEPARATOR_FILES;
@@ -3137,7 +3123,7 @@ public class DataBase implements WithMathFactory {
                     continue;
                 }
                 StringList infos_ = StringList.splitChars(l2_, TAB_CHAR);
-                diffLaw_.put(DifficultyModelLaw.valueOf(infos_.first()), DocumentBuilder.transformSpecialChars(infos_.last()));
+                diffLaw_.put(DifficultyModelLaw.getModelByName(infos_.first()), DocumentBuilder.transformSpecialChars(infos_.last()));
             }
             translatedDiffModelLaw.put(l, diffLaw_);
             fileName_ = TRANSLATION_FOLDER+SEPARATOR_FILES;
@@ -3149,7 +3135,7 @@ public class DataBase implements WithMathFactory {
                     continue;
                 }
                 StringList infos_ = StringList.splitChars(l2_, TAB_CHAR);
-                environments_.put(EnvironmentType.valueOf(infos_.first()), DocumentBuilder.transformSpecialChars(infos_.last()));
+                environments_.put(EnvironmentType.getEnvByName(infos_.first()), DocumentBuilder.transformSpecialChars(infos_.last()));
             }
             translatedEnvironment.put(l, environments_);
             fileName_ = TRANSLATION_FOLDER+SEPARATOR_FILES;
@@ -3161,7 +3147,7 @@ public class DataBase implements WithMathFactory {
                     continue;
                 }
                 StringList infos_ = StringList.splitChars(l2_, TAB_CHAR);
-                statistics_.put(Statistic.valueOf(infos_.first()), DocumentBuilder.transformSpecialChars(infos_.last()));
+                statistics_.put(Statistic.getStatisticByName(infos_.first()), DocumentBuilder.transformSpecialChars(infos_.last()));
             }
             translatedStatistics.put(l, statistics_);
             fileName_ = TRANSLATION_FOLDER+SEPARATOR_FILES;
@@ -3173,7 +3159,7 @@ public class DataBase implements WithMathFactory {
                     continue;
                 }
                 StringList infos_ = StringList.splitChars(l2_, TAB_CHAR);
-                targets_.put(TargetChoice.valueOf(infos_.first()), DocumentBuilder.transformSpecialChars(infos_.last()));
+                targets_.put(TargetChoice.getTargetChoiceByName(infos_.first()), DocumentBuilder.transformSpecialChars(infos_.last()));
             }
             translatedTargets.put(l, targets_);
             fileName_ = TRANSLATION_FOLDER+SEPARATOR_FILES;
@@ -3316,7 +3302,7 @@ public class DataBase implements WithMathFactory {
             String n_ = POKEDEX_FOLDER+SEPARATOR_FILES+f+FILES_RES_EXT;
             filesNames_.add(f);
             PokemonData f_ = (PokemonData) SerializeXmlObject.newObjectFromXmlString(ResourceFiles.ressourceFichier(common_+n_));
-            completeMembers(f.toUpperCase(), f_);
+            completeMembers(StringList.toUpperCase(f), f_);
         }
         checkCaseOfFiles(POKEDEX_FOLDER, filesNames_);
         calculateAvgPound();
@@ -3325,7 +3311,7 @@ public class DataBase implements WithMathFactory {
             String n_ = MOVES_FOLDER+SEPARATOR_FILES+f+FILES_RES_EXT;
             filesNames_.add(n_);
             MoveData move_ = (MoveData) SerializeXmlObject.newObjectFromXmlString(ResourceFiles.ressourceFichier(common_+n_));
-            completeMembers(f.toUpperCase(), move_);
+            completeMembers(StringList.toUpperCase(f), move_);
         }
         checkCaseOfFiles(MOVES_FOLDER, filesNames_);
         filesNames_.clear();
@@ -3333,7 +3319,7 @@ public class DataBase implements WithMathFactory {
             String n_ = ITEMS_FOLDER+SEPARATOR_FILES+f+FILES_RES_EXT;
             filesNames_.add(n_);
             Item o_ = (Item) SerializeXmlObject.newObjectFromXmlString(ResourceFiles.ressourceFichier(common_+n_));
-            completeMembers(f.toUpperCase(), o_);
+            completeMembers(StringList.toUpperCase(f), o_);
         }
         checkCaseOfFiles(ITEMS_FOLDER, filesNames_);
         filesNames_.clear();
@@ -3341,7 +3327,7 @@ public class DataBase implements WithMathFactory {
             String n_ = ABILITIES_FOLDER+SEPARATOR_FILES+f+FILES_RES_EXT;
             filesNames_.add(n_);
             AbilityData ab_ = (AbilityData) SerializeXmlObject.newObjectFromXmlString(ResourceFiles.ressourceFichier(common_+n_));
-            completeMembers(f.toUpperCase(), ab_);
+            completeMembers(StringList.toUpperCase(f), ab_);
         }
         checkCaseOfFiles(ABILITIES_FOLDER, filesNames_);
         filesNames_.clear();
@@ -3349,7 +3335,7 @@ public class DataBase implements WithMathFactory {
             String n_ = STATUS_FOLDER+SEPARATOR_FILES+f+FILES_RES_EXT;
             filesNames_.add(n_);
             Status st_ = (Status) SerializeXmlObject.newObjectFromXmlString(ResourceFiles.ressourceFichier(common_+n_));
-            completeMembers(f.toUpperCase(), st_);
+            completeMembers(StringList.toUpperCase(f), st_);
         }
         checkCaseOfFiles(STATUS_FOLDER, filesNames_);
         completeVariables();
@@ -3733,7 +3719,7 @@ public class DataBase implements WithMathFactory {
         StringList filesNamesWithSameCase_;
         filesNamesWithSameCase_ = new StringList();
         for (String s: _files) {
-            String upperCase_ = s.toUpperCase();
+            String upperCase_ = StringList.toUpperCase(s);
             if (filesNamesWithSameCase_.containsObj(upperCase_)) {
                 String name_ = _folderName+SEPARATOR_FILES+upperCase_;
                 if (!filesWithSameNameDifferentCase.containsObj(name_)) {
@@ -7298,7 +7284,7 @@ public class DataBase implements WithMathFactory {
                 objDisplay_.add(translatedCategories.getVal(_language).getVal(elts_.get(j).toString()));
             }
             if (StringList.quickEq(types_.get(j - 1),STATIS_FORMULA)) {
-                objDisplay_.add(translatedStatistics.getVal(_language).getVal(Statistic.valueOf(elts_.get(j).toString())));
+                objDisplay_.add(translatedStatistics.getVal(_language).getVal(Statistic.getStatisticByName(elts_.get(j).toString())));
             }
             if (StringList.quickEq(types_.get(j - 1),STATUS_FORMULA)) {
                 objDisplay_.add(translatedStatus.getVal(_language).getVal(elts_.get(j).toString()));
@@ -7355,13 +7341,6 @@ public class DataBase implements WithMathFactory {
                 }
             }
         }
-//        try {
-//            Statistic st_ = Statistic.valueOf(_key);
-//            if (translatedStatistics.getVal(_language).contains(st_)) {
-//                return translatedStatistics.getVal(_language).getVal(st_);
-//            }
-//        } catch (Exception e_) {
-//        }
         for (Gender g: Gender.values()) {
             if (StringList.quickEq(_key, g.name())) {
                 if (translatedGenders.getVal(_language).contains(g)) {
@@ -7369,13 +7348,6 @@ public class DataBase implements WithMathFactory {
                 }
             }
         }
-//        try {
-//            Gender st_ = Gender.valueOf(_key);
-//            if (translatedGenders.getVal(_language).contains(st_)) {
-//                return translatedGenders.getVal(_language).getVal(st_);
-//            }
-//        } catch (Exception e_) {
-//        }
         return EMPTY_STRING;
     }
     public short ppCopiedMove(String _move) {

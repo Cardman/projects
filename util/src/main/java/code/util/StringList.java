@@ -71,6 +71,24 @@ public final class StringList extends AbEqList<String> implements Equallable<Str
         super(_capacity);
     }
 
+    public static String toLowerCase(String _string) {
+        int len_ = _string.length();
+        StringBuilder str_ = new StringBuilder(len_);
+        for (int i = FIRST_INDEX; i < len_; i++) {
+            str_.append(Character.toLowerCase(_string.charAt(i)));
+        }
+        return str_.toString();
+    }
+
+    public static String toUpperCase(String _string) {
+        int len_ = _string.length();
+        StringBuilder str_ = new StringBuilder(len_);
+        for (int i = FIRST_INDEX; i < len_; i++) {
+            str_.append(Character.toUpperCase(_string.charAt(i)));
+        }
+        return str_.toString();
+    }
+
     public static boolean equalsSet(StringList _list1,StringList _list2) {
         for (String c: _list2) {
             boolean contains_ = false;
@@ -843,9 +861,9 @@ public final class StringList extends AbEqList<String> implements Equallable<Str
 
     public StringList filterBeginIgnoreCase(String _regExp) {
         StringList list_ = new StringList();
-        String patt_ = _regExp.toUpperCase();
+        String patt_ = toUpperCase(_regExp);
         for (String s: this) {
-            if (!s.toUpperCase().startsWith(patt_)) {
+            if (!toUpperCase(s).startsWith(patt_)) {
                 continue;
             }
             list_.add(s);
@@ -855,12 +873,12 @@ public final class StringList extends AbEqList<String> implements Equallable<Str
 
     public StringList filterStrictBeginIgnoreCase(String _regExp) {
         StringList list_ = new StringList();
-        String patt_ = _regExp.toUpperCase();
+        String patt_ = toUpperCase(_regExp);
         for (String s: this) {
-            if (!s.toUpperCase().startsWith(patt_)) {
+            if (!toUpperCase(s).startsWith(patt_)) {
                 continue;
             }
-            if (quickEq(s.toUpperCase(),patt_)) {
+            if (quickEq(toUpperCase(s),patt_)) {
                 continue;
             }
             list_.add(s);

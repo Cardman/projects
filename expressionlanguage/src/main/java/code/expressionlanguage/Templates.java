@@ -9,7 +9,6 @@ import code.expressionlanguage.methods.PredefinedClasses;
 import code.expressionlanguage.methods.RootBlock;
 import code.expressionlanguage.methods.UniqueRootedBlock;
 import code.expressionlanguage.methods.util.TypeVar;
-import code.expressionlanguage.opers.OperationNode;
 import code.expressionlanguage.opers.util.DimComp;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.stds.StandardClass;
@@ -57,12 +56,7 @@ public final class Templates {
     public static boolean existAllClassParts(String _className, StringList _variables, ContextEl _context) {
         Classes classes_ = _context.getClasses();
         LgNames stds_ = _context.getStandards();
-        String void_;
-        if (classes_ != null) {
-            void_ = stds_.getAliasVoid();
-        } else {
-            void_ = OperationNode.VOID_RETURN;
-        }
+        String void_ = stds_.getAliasVoid();
         for (String s: StringList.splitStrings(_className, TEMPLATE_BEGIN,TEMPLATE_SEP,TEMPLATE_END)) {
             if (s.isEmpty()) {
                 continue;
@@ -124,7 +118,7 @@ public final class Templates {
             }
             StandardType type_ = _context.getStandards().getStandards().getVal(className_);
             StringList visitedClasses_ = new StringList(_className);
-            visitedClasses_.addAllElts(type_.getAllSuperTypes(_context));
+            visitedClasses_.addAllElts(type_.getAllSuperTypes(_context.getStandards()));
             return visitedClasses_;
         }
         StringList curClasses_ = new StringList(_className);
@@ -296,6 +290,7 @@ public final class Templates {
     public static boolean isCorrectWrite(String _className, ContextEl _context) {
         StringList current_ = new StringList(_className);
         boolean already_ = false;
+        StringMap<StandardType> stds_ = _context.getStandards().getStandards();
         while (true) {
             StringList next_ = new StringList();
             for (String c: current_) {
@@ -313,10 +308,12 @@ public final class Templates {
                 }
                 if (!PrimitiveTypeUtil.isPrimitive(compo_, _context)) {
                     if (!compo_.startsWith(PREFIX_VAR_TYPE)) {
-                        if (!PredefinedClasses.isPredefined(compo_, _context)) {
-                            for (String p: StringList.splitStrings(compo_, SEP_CLASS)) {
-                                if (!StringList.isWord(p)) {
-                                    return false;
+                        if (!stds_.contains(compo_)) {
+                            if (!PredefinedClasses.isPredefined(compo_, _context)) {
+                                for (String p: StringList.splitStrings(compo_, SEP_CLASS)) {
+                                    if (!StringList.isWord(p)) {
+                                        return false;
+                                    }
                                 }
                             }
                         }
@@ -521,7 +518,7 @@ public final class Templates {
                         map_.getMapping().put(t.getName(), t.getConstraints());
                     }
                     for (TypeVar t: typeVar_) {
-                        StringList bounds_ = map_.getAllUpperBounds(t.getName());
+                        StringList bounds_ = map_.getAllUpperBounds(t.getName(), objType_);
                         if (bounds_.size() == 1) {
                             varTypes_.put(t.getName(), bounds_.first());
                         } else {
@@ -550,7 +547,7 @@ public final class Templates {
                 map_.getMapping().put(t.getName(), t.getConstraints());
             }
             for (TypeVar t: typeVar_) {
-                StringList bounds_ = map_.getAllUpperBounds(t.getName());
+                StringList bounds_ = map_.getAllUpperBounds(t.getName(), Object.class.getName());
                 if (bounds_.size() == 1) {
                     varTypes_.put(t.getName(), bounds_.first());
                 } else {
@@ -649,8 +646,9 @@ public final class Templates {
             return null;
         }
         StringList bounds_ = new StringList();
+        String objType_ = _context.getStandards().getAliasObject();
         if (baseArrayArg_.startsWith(PREFIX_VAR_TYPE)) {
-            for (String a: _m.getAllUpperBounds(baseArrayArg_)) {
+            for (String a: _m.getAllUpperBounds(baseArrayArg_, objType_)) {
                 bounds_.add(PrimitiveTypeUtil.getPrettyArrayType(a, dArg_.getDim()));
             }
         } else {
@@ -703,7 +701,7 @@ public final class Templates {
         StringList visitedClasses_ = new StringList(dArg_.getComponent());
         String generic_ = null;
         if (baseArg_.startsWith(PREFIX_VAR_TYPE)) {
-            curClasses_ = _m.getAllUpperBounds(baseArg_.substring(1));
+            curClasses_ = _m.getAllUpperBounds(baseArg_.substring(1), objType_);
             visitedClasses_ = new StringList(curClasses_);
             for (String c: curClasses_) {
                 if (StringList.quickEq(c, param_)) {
@@ -843,13 +841,13 @@ public final class Templates {
                 return ((UniqueRootedBlock)r_).getDirectInterfaces();
             }
             if (r_ instanceof InterfaceBlock) {
-                return ((InterfaceBlock)r_).getDirectSuperClasses();
+                return ((InterfaceBlock)r_).getDirectSuperClasses(_context);
             }
             StandardType type_ = _context.getStandards().getStandards().getVal(_className);
             if (type_ instanceof StandardClass) {
                 return ((StandardClass)type_).getDirectInterfaces();
             }
-            return ((StandardInterface)type_).getDirectSuperClasses(_context);
+            return ((StandardInterface)type_).getDirectSuperClasses();
         }
         Class<?> cl_ = PrimitiveTypeUtil.getSingleNativeClass(_className);
         StringList interfaces_ = new StringList();
@@ -869,13 +867,13 @@ public final class Templates {
                 return ((UniqueRootedBlock)r_).getDirectGenericInterfaces().get(_index);
             }
             if (r_ instanceof InterfaceBlock) {
-                return ((InterfaceBlock)r_).getDirectGenericSuperClasses().get(_index);
+                return ((InterfaceBlock)r_).getDirectGenericSuperClasses(_context).get(_index);
             }
             StandardType type_ = _context.getStandards().getStandards().getVal(baseClass_);
             if (type_ instanceof StandardClass) {
                 return ((StandardClass)type_).getDirectInterfaces().get(_index);
             }
-            return ((StandardInterface)type_).getDirectSuperClasses(_context).get(_index);
+            return ((StandardInterface)type_).getDirectSuperClasses().get(_index);
         }
         Class<?> cl_ = PrimitiveTypeUtil.getSingleNativeClass(baseClass_);
         return NativeTypeUtil.getPrettyType(cl_.getGenericInterfaces()[_index]);

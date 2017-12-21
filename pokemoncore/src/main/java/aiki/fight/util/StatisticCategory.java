@@ -19,7 +19,7 @@ public final class StatisticCategory implements Equallable<StatisticCategory> {
 
     public StatisticCategory(String _str) {
         StringList elements_ = StringList.splitChars(_str, SEPARATOR);
-        statistic = Statistic.valueOf(elements_.first());
+        statistic = Statistic.getStatisticByName(elements_.first());
         category = elements_.last();
     }
 

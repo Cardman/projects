@@ -28,7 +28,7 @@ public final class PlaceInterConnect implements Equallable<PlaceInterConnect> {
     public PlaceInterConnect(String _str) {
         StringList elements_ = StringList.splitChars(_str, SEPARATOR);
         source = new Point(elements_.first());
-        dir = Direction.valueOf(elements_.last());
+        dir = Direction.getDirectionByName(elements_.last());
     }
 
     @FromAndToString

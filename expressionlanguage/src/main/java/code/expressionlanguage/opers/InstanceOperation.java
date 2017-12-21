@@ -23,7 +23,6 @@ import code.expressionlanguage.exceptions.EmptyArrayDimensionsException;
 import code.expressionlanguage.exceptions.ErrorCausingException;
 import code.expressionlanguage.exceptions.IllegalClassConstructorException;
 import code.expressionlanguage.exceptions.InvokeException;
-import code.expressionlanguage.exceptions.NegativeSizeException;
 import code.expressionlanguage.exceptions.NotArrayException;
 import code.expressionlanguage.exceptions.NotInitializedClassException;
 import code.expressionlanguage.exceptions.NullGlobalObjectException;
@@ -55,7 +54,6 @@ import code.util.NatTreeMap;
 import code.util.Numbers;
 import code.util.StringList;
 import code.util.StringMap;
-import code.util.exceptions.NullObjectException;
 import code.util.exceptions.RuntimeClassNotFoundException;
 
 public final class InstanceOperation extends InvokingOperation {
@@ -89,7 +87,6 @@ public final class InstanceOperation extends InvokingOperation {
     }
 
     void analyzeCommon(CustList<OperationNode> _nodes, ContextEl _conf, String _fieldName, String _op) {
-        Classes classes_ = _conf.getClasses();
         CustList<OperationNode> chidren_ = getChildrenNodes();
         int off_ = StringList.getFirstPrintableCharIndex(methodName);
         setRelativeOffsetPossibleLastPage(getIndexInEl()+off_, _conf);
@@ -156,24 +153,24 @@ public final class InstanceOperation extends InvokingOperation {
         boolean intern_ = true;
         if (!isIntermediateDotted()) {
             intern_ = false;
-            if (StringList.isWord(realClassName_)) {
-                needGlobalArgument();
-                ClassArgumentMatching arg_ = getPreviousResultClass();
-                if (arg_ == null) {
-                    throw new NullGlobalObjectException(realClassName_+RETURN_LINE+_conf.joinPages());
-                }
-                //TODO wrap getDeclaredClasses
-                for (Class<?> c:arg_.getDeclaredClasses()) {
-                    if (StringList.quickEq(c.getSimpleName(), realClassName_)) {
-                        intern_ = true;
-                        if (!Modifier.isStatic(c.getModifiers())) {
-                            firstArgs_.add(CustList.FIRST_INDEX, arg_);
-                        }
-                        realClassName_ = arg_.getName()+INTERN_CLASS+realClassName_;
-                        break;
-                    }
-                }
-            }
+//            if (StringList.isWord(realClassName_)) {
+//                needGlobalArgument();
+//                ClassArgumentMatching arg_ = getPreviousResultClass();
+//                if (arg_ == null) {
+//                    throw new NullGlobalObjectException(realClassName_+RETURN_LINE+_conf.joinPages());
+//                }
+//                //TODO wrap getDeclaredClasses
+//                for (Class<?> c:arg_.getDeclaredClasses()) {
+//                    if (StringList.quickEq(c.getSimpleName(), realClassName_)) {
+//                        intern_ = true;
+//                        if (!Modifier.isStatic(c.getModifiers())) {
+//                            firstArgs_.add(CustList.FIRST_INDEX, arg_);
+//                        }
+//                        realClassName_ = arg_.getName()+INTERN_CLASS+realClassName_;
+//                        break;
+//                    }
+//                }
+//            }
             analyzeCtor(_nodes, _conf, _fieldName, _op, realClassName_, firstArgs_, intern_);
             return;
         }
@@ -190,10 +187,7 @@ public final class InstanceOperation extends InvokingOperation {
         Classes classes_ = _conf.getClasses();
         String realClassName_ = _realClassName;
         LgNames stds_ = _conf.getStandards();
-        if (_conf.getClasses() != null) {
-            
-        }
-        if (StringList.quickEq(realClassName_, OperationNode.VOID_RETURN)) {
+        if (StringList.quickEq(realClassName_, stds_.getAliasVoid())) {
             throw new VoidArgumentException(_conf.joinPages());
         }
         int varargOnly_ = lookOnlyForVarArg();
@@ -380,13 +374,8 @@ public final class InstanceOperation extends InvokingOperation {
         LgNames stds_ = _conf.getStandards();
         String null_;
         String size_;
-        if (_conf.getClasses() != null) {
-            null_ = stds_.getAliasNullPe();
-            size_ = stds_.getAliasBadSize();
-        } else {
-            null_ = NullObjectException.class.getName();
-            size_ = NegativeSizeException.class.getName();
-        }
+        null_ = stds_.getAliasNullPe();
+        size_ = stds_.getAliasBadSize();
         CustList<OperationNode> chidren_ = getChildrenNodes();
         int nbCh_ = chidren_.size();
         int off_ = StringList.getFirstPrintableCharIndex(methodName);
@@ -430,14 +419,8 @@ public final class InstanceOperation extends InvokingOperation {
             }
             realClassName_ = realClassName_.substring(ARR.length());
             boolean cust_ = false;
-//            ClassMetaInfo custClass_ = null;
             instanceClassName_ = realClassName_;
             if (classes_ != null) {
-//                DimComp clCurName_ = PrimitiveTypeUtil.getQuickComponentBaseType(realClassName_);
-//                custClass_ = classes_.getClassMetaInfo(clCurName_.getComponent(), _conf);
-//                if (custClass_ != null) {
-//                    cust_ = true;
-//                }
                 cust_ = true;
             }
             Argument a_ = new Argument();
@@ -488,37 +471,33 @@ public final class InstanceOperation extends InvokingOperation {
         }
         CustList<Argument> firstArgs_ = listArguments(chidren_, naturalVararg, lastType, _arguments, _conf);
         if (!isIntermediateDotted()) {
-            Class<?> class_ = null;
-            if (StringList.isWord(realClassName_)) {
-                for (Class<?> c:getPreviousResultClass().getDeclaredClasses()) {
-                    if (StringList.quickEq(c.getSimpleName(), realClassName_)) {
-                        class_ = c;
-                        break;
-                    }
-                }
-            }
-            return getArg(_previous, class_, firstArgs_, _conf);
+//            Class<?> class_ = null;
+//            if (StringList.isWord(realClassName_)) {
+//                for (Class<?> c:getPreviousResultClass().getDeclaredClasses()) {
+//                    if (StringList.quickEq(c.getSimpleName(), realClassName_)) {
+//                        class_ = c;
+//                        break;
+//                    }
+//                }
+//            }
+            return getArg(_previous, firstArgs_, _conf);
         }
-        return getArg(_previous, contructor.getDeclaringClass(), firstArgs_, _conf);
+        return getArg(_previous, firstArgs_, _conf);
     }
-    ArgumentCall getArg(Argument _previous, Class<?> _class,CustList<Argument> _arguments,
+    ArgumentCall getArg(Argument _previous, CustList<Argument> _arguments,
             ContextEl _conf) {
         LgNames stds_ = _conf.getStandards();
-        String null_;
-        if (_conf.getClasses() != null) {
-            null_ = stds_.getAliasNullPe();
-        } else {
-            null_ = NullObjectException.class.getName();
-        }
+//        String null_;
+//        null_ = stds_.getAliasNullPe();
         Argument needed_ = null;
-        if (_class != null && !Modifier.isStatic(_class.getModifiers())) {
-            Argument arg_ = _previous;
-            if (arg_.isNull()) {
-                throw new InvokeException(new StdStruct(new CustomError(_class.getName()+RETURN_LINE+_conf.joinPages()),null_));
-            }
-            needed_ = arg_;
-            _arguments.add(CustList.FIRST_INDEX, arg_);
-        }
+//        if (_class != null && !Modifier.isStatic(_class.getModifiers())) {
+//            Argument arg_ = _previous;
+//            if (arg_.isNull()) {
+//                throw new InvokeException(new StdStruct(new CustomError(_class.getName()+RETURN_LINE+_conf.joinPages()),null_));
+//            }
+//            needed_ = arg_;
+//            _arguments.add(CustList.FIRST_INDEX, arg_);
+//        }
         if (constId == null) {
             return ArgumentCall.newArgument(newInstance(_conf, needed_, 0, naturalVararg > -1, contructor, Argument.toArgArray(_arguments)));
         }

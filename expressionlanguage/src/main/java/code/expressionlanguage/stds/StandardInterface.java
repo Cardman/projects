@@ -1,6 +1,5 @@
 package code.expressionlanguage.stds;
 
-import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.opers.util.MethodId;
 import code.util.CustList;
 import code.util.ObjectMap;
@@ -23,18 +22,18 @@ public final class StandardInterface extends StandardType {
     }
 
     @Override
-    public StringList getDirectSuperClasses(ContextEl _context) {
-        return getDirectInterfaces(_context);
+    public StringList getDirectSuperClasses() {
+        return getDirectInterfaces();
     }
 
     @Override
-    public StringList getDirectInterfaces(ContextEl _context) {
+    public StringList getDirectInterfaces() {
         return new StringList(superInterfaces);
     }
 
     @Override
-    public StringList getDirectSuperTypes(ContextEl _context) {
-        return getDirectInterfaces(_context);
+    public StringList getDirectSuperTypes() {
+        return getDirectInterfaces();
     }
 
     @Override

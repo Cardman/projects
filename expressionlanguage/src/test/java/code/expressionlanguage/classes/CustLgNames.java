@@ -58,7 +58,6 @@ public class CustLgNames extends LgNames {
     public void buildOther() {
         StringMap<StandardField> fields_;
         StandardField field_;
-        StringList noTypes_ = new StringList();
         StringList params_;
         StandardMethod method_;
         CustList<StandardConstructor> constructors_;
@@ -263,7 +262,7 @@ public class CustLgNames extends LgNames {
                 res_.setResult(new IntStruct(((GeneObjects)instance_).size()));
                 return res_;
             }
-            
+
         }
         if (StringList.quickEq(_method.getClassName(), aliasPickableList)) {
             if (StringList.quickEq(_method.getConstraints().getName(), aliasGetList)) {

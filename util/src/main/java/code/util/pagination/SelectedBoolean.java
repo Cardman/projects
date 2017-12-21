@@ -1,4 +1,5 @@
 package code.util.pagination;
+import code.util.StringList;
 import code.util.ints.Listable;
 
 public enum SelectedBoolean {
@@ -38,6 +39,14 @@ public enum SelectedBoolean {
             }
         }
         return true;
+    }
+    public static SelectedBoolean getBoolByName(String _env) {
+        for (SelectedBoolean e: values()) {
+            if (StringList.quickEq(e.name(), _env)) {
+                return e;
+            }
+        }
+        return null;
     }
     public boolean isSelected() {
         return selected;

@@ -1,5 +1,6 @@
 package aiki.fight.moves.enums;
 import code.serialize.CheckedData;
+import code.util.StringList;
 import code.util.ints.Listable;
 
 
@@ -50,6 +51,14 @@ public enum TargetChoice {
             }
         }
         return true;
+    }
+    public static TargetChoice getTargetChoiceByName(String _env) {
+        for (TargetChoice e: values()) {
+            if (StringList.quickEq(e.name(), _env)) {
+                return e;
+            }
+        }
+        return null;
     }
     public boolean isWithChoice() {
         return withChoice;

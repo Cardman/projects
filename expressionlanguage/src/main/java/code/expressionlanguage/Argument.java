@@ -17,8 +17,6 @@ import code.util.StringList;
 
 public final class Argument {
 
-    private static final String ARR_PREFIX = "[";
-
     private static final String DOUBLE_SUFFIX = "d";
 
     private static final String FLOAT_SUFFIX = "f";
@@ -52,25 +50,25 @@ public final class Argument {
 
     static String extractFromSuffix(String _nb) {
         boolean sub_ = false;
-        if (_nb.toLowerCase().endsWith(INT_SUFFIX)) {
+        if (StringList.toLowerCase(_nb).endsWith(INT_SUFFIX)) {
             sub_ = true;
         }
-        if (_nb.toLowerCase().endsWith(BYTE_SUFFIX)) {
+        if (StringList.toLowerCase(_nb).endsWith(BYTE_SUFFIX)) {
             sub_ = true;
         }
-        if (_nb.toLowerCase().endsWith(LONG_SUFFIX)) {
+        if (StringList.toLowerCase(_nb).endsWith(LONG_SUFFIX)) {
             sub_ = true;
         }
-        if (_nb.toLowerCase().endsWith(SHORT_SUFFIX)) {
+        if (StringList.toLowerCase(_nb).endsWith(SHORT_SUFFIX)) {
             sub_ = true;
         }
-        if (_nb.toLowerCase().endsWith(FLOAT_SUFFIX)) {
+        if (StringList.toLowerCase(_nb).endsWith(FLOAT_SUFFIX)) {
             sub_ = true;
         }
-        if (_nb.toLowerCase().endsWith(DOUBLE_SUFFIX)) {
+        if (StringList.toLowerCase(_nb).endsWith(DOUBLE_SUFFIX)) {
             sub_ = true;
         }
-        if (_nb.toLowerCase().endsWith(CHAR_SUFFIX)) {
+        if (StringList.toLowerCase(_nb).endsWith(CHAR_SUFFIX)) {
             sub_ = true;
         }
         String nb_ = StringList.removeChars(_nb, '_');
@@ -102,27 +100,27 @@ public final class Argument {
             return a_;
         }
         StringList parts_ = StringList.splitInTwo(_nb, _nb.length() - 1);
-        if (StringList.quickEq(parts_.last().toLowerCase(), INT_SUFFIX)) {
+        if (StringList.quickEq(StringList.toLowerCase(parts_.last()), INT_SUFFIX)) {
             a_.object = new IntStruct(value_.intValue());
             return a_;
         }
-        if (StringList.quickEq(parts_.last().toLowerCase(), BYTE_SUFFIX)) {
+        if (StringList.quickEq(StringList.toLowerCase(parts_.last()), BYTE_SUFFIX)) {
             a_.object = new ByteStruct(value_.byteValue());
             return a_;
         }
-        if (StringList.quickEq(parts_.last().toLowerCase(), LONG_SUFFIX)) {
+        if (StringList.quickEq(StringList.toLowerCase(parts_.last()), LONG_SUFFIX)) {
             a_.object = new LongStruct(value_.longValue());
             return a_;
         }
-        if (StringList.quickEq(parts_.last().toLowerCase(), SHORT_SUFFIX)) {
+        if (StringList.quickEq(StringList.toLowerCase(parts_.last()), SHORT_SUFFIX)) {
             a_.object = new ShortStruct(value_.shortValue());
             return a_;
         }
-        if (StringList.quickEq(parts_.last().toLowerCase(), FLOAT_SUFFIX)) {
+        if (StringList.quickEq(StringList.toLowerCase(parts_.last()), FLOAT_SUFFIX)) {
             a_.object = new FloatStruct(value_.floatValue());
             return a_;
         }
-        if (StringList.quickEq(parts_.last().toLowerCase(), DOUBLE_SUFFIX)) {
+        if (StringList.quickEq(StringList.toLowerCase(parts_.last()), DOUBLE_SUFFIX)) {
             a_.object = new DoubleStruct(value_.doubleValue());
             return a_;
         }
@@ -158,8 +156,38 @@ public final class Argument {
     public void setObject(String _object, String _alias) {
         object = StdStruct.wrapStd(_object, _alias);
     }
+    public void setObject(Byte _object) {
+        object = new ByteStruct(_object);
+    }
+    public void setObject(Short _object) {
+        object = new ShortStruct(_object);
+    }
+    public void setObject(Integer _object) {
+        object = new IntStruct(_object);
+    }
+    public void setObject(Long _object) {
+        object = new LongStruct(_object);
+    }
+    public void setObject(Float _object) {
+        object = new FloatStruct(_object);
+    }
+    public void setObject(Double _object) {
+        object = new DoubleStruct(_object);
+    }
     public void setObject(Number _object) {
-        object = StdStruct.wrapStd(_object);
+        if (_object instanceof Byte) {
+            setObject((Byte)_object);
+        } else if (_object instanceof Short) {
+            setObject((Short)_object);
+        } else if (_object instanceof Integer) {
+            setObject((Integer)_object);
+        } else if (_object instanceof Long) {
+            setObject((Long)_object);
+        } else if (_object instanceof Float) {
+            setObject((Float)_object);
+        } else {
+            setObject((Double)_object);
+        }
     }
     public void setObject(Object _object) {
         object = StdStruct.wrapStd(_object);
@@ -171,10 +199,6 @@ public final class Argument {
 
     public String getObjectClassName(ContextEl _context) {
         return object.getClassName(_context);
-    }
-
-    public boolean isArrayClass(ContextEl _context) {
-        return object.isNull() || object.getClassName(_context).startsWith(ARR_PREFIX);
     }
 
     public ClassArgumentMatching getArgClass(ContextEl _context) {

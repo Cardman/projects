@@ -1,6 +1,7 @@
 package cards.tarot.enumerations;
 import code.format.Format;
 import code.util.EnumList;
+import code.util.StringList;
 import code.util.consts.Constants;
 import cards.consts.CardChar;
 import cards.consts.Suit;
@@ -250,7 +251,7 @@ public enum CardTarot {
     }
 
     public String getImageFileName(String _ext) {
-        return name().toUpperCase()+_ext;
+        return StringList.toUpperCase(name())+_ext;
     }
     public boolean vientAvant(CardTarot _c,boolean _decroissant,EnumList<Suit> _couleurs) {
         byte forceCouleur_=forceCouleurDansUnTri(_couleurs);

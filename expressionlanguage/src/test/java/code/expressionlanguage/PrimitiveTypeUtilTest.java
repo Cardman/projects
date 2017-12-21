@@ -248,7 +248,6 @@ public class PrimitiveTypeUtilTest {
         xml_ += "</class>\n";
         files_.put("pkg/ExFour."+Classes.EXT, xml_);
         ContextEl context_ = unfullValidateOverridingMethods(files_);
-        Classes classes_ = context_.getClasses();
         assertTrue(PrimitiveTypeUtil.canBeUseAsArgument("pkg.ExFour","pkg.ExFour",context_));
     }
 
@@ -266,7 +265,6 @@ public class PrimitiveTypeUtilTest {
         xml_ += "</class>\n";
         files_.put("pkg/ExFour."+Classes.EXT, xml_);
         ContextEl context_ = unfullValidateOverridingMethods(files_);
-        Classes classes_ = context_.getClasses();
         assertTrue(PrimitiveTypeUtil.canBeUseAsArgument("pkg.ExFour","pkg.ExTwo",context_));
     }
 
@@ -284,7 +282,6 @@ public class PrimitiveTypeUtilTest {
         xml_ += "</class>\n";
         files_.put("pkg/ExFour."+Classes.EXT, xml_);
         ContextEl context_ = unfullValidateOverridingMethods(files_);
-        Classes classes_ = context_.getClasses();
         assertTrue(!PrimitiveTypeUtil.canBeUseAsArgument("pkg.ExTwo","pkg.ExFour",context_));
     }
 
@@ -302,7 +299,6 @@ public class PrimitiveTypeUtilTest {
         xml_ += "</class>\n";
         files_.put("pkg/ExFour."+Classes.EXT, xml_);
         ContextEl context_ = unfullValidateOverridingMethods(files_);
-        Classes classes_ = context_.getClasses();
         assertTrue(!PrimitiveTypeUtil.canBeUseAsArgument("pkg.ExTwo",Integer.class.getName(),context_));
     }
 
@@ -320,7 +316,6 @@ public class PrimitiveTypeUtilTest {
         xml_ += "</class>\n";
         files_.put("pkg/ExFour."+Classes.EXT, xml_);
         ContextEl context_ = unfullValidateOverridingMethods(files_);
-        Classes classes_ = context_.getClasses();
         assertTrue(PrimitiveTypeUtil.canBeUseAsArgument(Number.class.getName(),Integer.class.getName(),context_));
     }
 
@@ -338,7 +333,6 @@ public class PrimitiveTypeUtilTest {
         xml_ += "</class>\n";
         files_.put("pkg/ExFour."+Classes.EXT, xml_);
         ContextEl context_ = unfullValidateOverridingMethods(files_);
-        Classes classes_ = context_.getClasses();
         assertTrue(PrimitiveTypeUtil.canBeUseAsArgument("[pkg.ExFour","[pkg.ExFour",context_));
     }
 
@@ -356,7 +350,6 @@ public class PrimitiveTypeUtilTest {
         xml_ += "</class>\n";
         files_.put("pkg/ExFour."+Classes.EXT, xml_);
         ContextEl context_ = unfullValidateOverridingMethods(files_);
-        Classes classes_ = context_.getClasses();
         assertTrue(PrimitiveTypeUtil.canBeUseAsArgument("[pkg.ExFour","[pkg.ExTwo",context_));
     }
 
@@ -374,7 +367,6 @@ public class PrimitiveTypeUtilTest {
         xml_ += "</class>\n";
         files_.put("pkg/ExFour."+Classes.EXT, xml_);
         ContextEl context_ = unfullValidateOverridingMethods(files_);
-        Classes classes_ = context_.getClasses();
         assertTrue(!PrimitiveTypeUtil.canBeUseAsArgument("[pkg.ExTwo","[pkg.ExFour",context_));
     }
 
@@ -392,7 +384,6 @@ public class PrimitiveTypeUtilTest {
         xml_ += "</class>\n";
         files_.put("pkg/ExFour."+Classes.EXT, xml_);
         ContextEl context_ = unfullValidateOverridingMethods(files_);
-        Classes classes_ = context_.getClasses();
         assertTrue(!PrimitiveTypeUtil.canBeUseAsArgument("[pkg.ExTwo","[[pkg.ExTwo",context_));
     }
 
@@ -410,7 +401,6 @@ public class PrimitiveTypeUtilTest {
         xml_ += "</class>\n";
         files_.put("pkg/ExFour."+Classes.EXT, xml_);
         ContextEl context_ = unfullValidateOverridingMethods(files_);
-        Classes classes_ = context_.getClasses();
         assertTrue(!PrimitiveTypeUtil.canBeUseAsArgument("[[pkg.ExTwo","[pkg.ExTwo",context_));
     }
 
@@ -428,7 +418,6 @@ public class PrimitiveTypeUtilTest {
         xml_ += "</class>\n";
         files_.put("pkg/ExFour."+Classes.EXT, xml_);
         ContextEl context_ = unfullValidateOverridingMethods(files_);
-        Classes classes_ = context_.getClasses();
         assertTrue(PrimitiveTypeUtil.canBeUseAsArgument("["+Object.class.getName(),"[pkg.ExTwo",context_));
     }
 
@@ -446,7 +435,6 @@ public class PrimitiveTypeUtilTest {
         xml_ += "</class>\n";
         files_.put("pkg/ExFour."+Classes.EXT, xml_);
         ContextEl context_ = unfullValidateOverridingMethods(files_);
-        Classes classes_ = context_.getClasses();
         assertTrue(!PrimitiveTypeUtil.canBeUseAsArgument("[["+Object.class.getName(),"[pkg.ExTwo",context_));
     }
 
@@ -464,7 +452,6 @@ public class PrimitiveTypeUtilTest {
         xml_ += "</class>\n";
         files_.put("pkg/ExFour."+Classes.EXT, xml_);
         ContextEl context_ = unfullValidateOverridingMethods(files_);
-        Classes classes_ = context_.getClasses();
         assertTrue(!PrimitiveTypeUtil.canBeUseAsArgument("pkg.ExTwo","[pkg.ExTwo",context_));
     }
 
@@ -482,7 +469,6 @@ public class PrimitiveTypeUtilTest {
         xml_ += "</class>\n";
         files_.put("pkg/ExFour."+Classes.EXT, xml_);
         ContextEl context_ = unfullValidateOverridingMethods(files_);
-        Classes classes_ = context_.getClasses();
         assertTrue(PrimitiveTypeUtil.canBeUseAsArgument("pkg.ExTwo",null,context_));
     }
 
@@ -500,7 +486,6 @@ public class PrimitiveTypeUtilTest {
         xml_ += "</class>\n";
         files_.put("pkg/ExFour."+Classes.EXT, xml_);
         ContextEl context_ = unfullValidateOverridingMethods(files_);
-        Classes classes_ = context_.getClasses();
         assertTrue(PrimitiveTypeUtil.canBeUseAsArgument(Object.class.getName(),null,context_));
     }
 
@@ -518,7 +503,6 @@ public class PrimitiveTypeUtilTest {
         xml_ += "</class>\n";
         files_.put("pkg/ExFour."+Classes.EXT, xml_);
         ContextEl context_ = unfullValidateOverridingMethods(files_);
-        Classes classes_ = context_.getClasses();
         assertTrue(PrimitiveTypeUtil.canBeUseAsArgument(Integer.class.getName(),null,context_));
     }
 
@@ -536,7 +520,6 @@ public class PrimitiveTypeUtilTest {
         xml_ += "</class>\n";
         files_.put("pkg/ExFour."+Classes.EXT, xml_);
         ContextEl context_ = unfullValidateOverridingMethods(files_);
-        Classes classes_ = context_.getClasses();
         assertTrue(!PrimitiveTypeUtil.canBeUseAsArgument(PrimitiveTypeUtil.PRIM_INT,null,context_));
     }
 
@@ -554,7 +537,6 @@ public class PrimitiveTypeUtilTest {
         xml_ += "</class>\n";
         files_.put("pkg/ExFour."+Classes.EXT, xml_);
         ContextEl context_ = unfullValidateOverridingMethods(files_);
-        Classes classes_ = context_.getClasses();
         assertTrue(!PrimitiveTypeUtil.canBeUseAsArgument(OperationNode.VOID_RETURN,null,context_));
     }
 
@@ -637,7 +619,6 @@ public class PrimitiveTypeUtilTest {
         xml_ = "<interface access='"+PUBLIC_ACCESS+"' name='ExFive' package='pkg' class0='pkg.ExTwo' class1='pkg.ExThree'/>\n";
         files_.put("pkg/ExFive."+Classes.EXT, xml_);
         ContextEl context_ = unfullValidateOverridingMethods(files_);
-        Classes classes_ = context_.getClasses();
         assertTrue(!PrimitiveTypeUtil.canBeUseAsArgument("pkg.Ex","pkg.ExFour",context_));
     }
 
@@ -660,7 +641,6 @@ public class PrimitiveTypeUtilTest {
         xml_ = "<interface access='"+PUBLIC_ACCESS+"' name='ExFive' package='pkg' class0='pkg.ExTwo' class1='pkg.ExThree'/>\n";
         files_.put("pkg/ExFive."+Classes.EXT, xml_);
         ContextEl context_ = unfullValidateOverridingMethods(files_);
-        Classes classes_ = context_.getClasses();
         assertTrue(PrimitiveTypeUtil.canBeUseAsArgument("pkg.ExFour","pkg.Ex",context_));
     }
 
@@ -683,7 +663,6 @@ public class PrimitiveTypeUtilTest {
         xml_ = "<interface access='"+PUBLIC_ACCESS+"' name='ExFive' package='pkg' class0='pkg.ExTwo' class1='pkg.ExThree'/>\n";
         files_.put("pkg/ExFive."+Classes.EXT, xml_);
         ContextEl context_ = unfullValidateOverridingMethods(files_);
-        Classes classes_ = context_.getClasses();
         assertTrue(PrimitiveTypeUtil.canBeUseAsArgument("pkg.ExFour","pkg.ExFour",context_));
     }
 
@@ -706,7 +685,6 @@ public class PrimitiveTypeUtilTest {
         xml_ = "<interface access='"+PUBLIC_ACCESS+"' name='ExFive' package='pkg' class0='pkg.ExTwo' class1='pkg.ExThree'/>\n";
         files_.put("pkg/ExFive."+Classes.EXT, xml_);
         ContextEl context_ = unfullValidateOverridingMethods(files_);
-        Classes classes_ = context_.getClasses();
         assertTrue(!PrimitiveTypeUtil.canBeUseAsArgument("[pkg.Ex","[pkg.ExFour",context_));
     }
 
@@ -729,7 +707,6 @@ public class PrimitiveTypeUtilTest {
         xml_ = "<interface access='"+PUBLIC_ACCESS+"' name='ExFive' package='pkg' class0='pkg.ExTwo' class1='pkg.ExThree'/>\n";
         files_.put("pkg/ExFive."+Classes.EXT, xml_);
         ContextEl context_ = unfullValidateOverridingMethods(files_);
-        Classes classes_ = context_.getClasses();
         assertTrue(PrimitiveTypeUtil.canBeUseAsArgument("[pkg.ExFour","[pkg.Ex",context_));
     }
 
@@ -752,7 +729,6 @@ public class PrimitiveTypeUtilTest {
         xml_ = "<interface access='"+PUBLIC_ACCESS+"' name='ExFive' package='pkg' class0='pkg.ExTwo' class1='pkg.ExThree'/>\n";
         files_.put("pkg/ExFive."+Classes.EXT, xml_);
         ContextEl context_ = unfullValidateOverridingMethods(files_);
-        Classes classes_ = context_.getClasses();
         assertTrue(PrimitiveTypeUtil.canBeUseAsArgument("[pkg.ExFour","[pkg.ExFour",context_));
     }
 

@@ -179,6 +179,7 @@ public final class Classes {
             throw new BadClassNameException(fullDef_);
         }
         StringList varTypes_ = new StringList();
+        String objectClassName_ = _context.getStandards().getAliasObject();
         for (String p: params_.mid(CustList.SECOND_INDEX)) {
             if (!p.startsWith(Templates.PREFIX_VAR_TYPE)) {
                 throw new BadClassNameException(fullDef_);
@@ -203,14 +204,14 @@ public final class Classes {
                     constraints_.add(b);
                 }
             } else {
-                constraints_.add(Object.class.getName());
+                constraints_.add(objectClassName_);
             }
             type_.setConstraints(constraints_);
             type_.setName(parts_.first());
             cl_.getParamTypes().add(type_);
         }
         cl_.buildMapParamType();
-        for (String s: cl_.getDirectGenericSuperTypes()) {
+        for (String s: cl_.getDirectGenericSuperTypes(_context)) {
             if (!isCorrectTemplate(s, _context)) {
                 throw new BadClassNameException(s);
             }
@@ -698,13 +699,14 @@ public final class Classes {
         _context.setAnalyzing(page_);
         Graph<ClassEdge> inherit_;
         inherit_ = new Graph<ClassEdge>();
+        String objectClassName_ = _context.getStandards().getAliasObject();
         for (EntryCust<String, RootBlock> c: classesBodies.entryList()) {
             String d_ = c.getKey();
             RootBlock bl_ = c.getValue();
             boolean int_ = bl_ instanceof InterfaceBlock;
-            for (String s: bl_.getDirectSuperClasses()) {
+            for (String s: bl_.getDirectSuperClasses(_context)) {
                 if (!classesBodies.contains(s)) {
-                    if (!StringList.quickEq(s, Object.class.getName())) {
+                    if (!StringList.quickEq(s, objectClassName_)) {
                         UnknownClassName undef_;
                         undef_ = new UnknownClassName();
                         undef_.setClassName(s);
@@ -786,7 +788,7 @@ public final class Classes {
                     continue;
                 }
                 String key_ = c.getKey();
-                StringList loc_ = breadthFirst(key_);
+                StringList loc_ = breadthFirst(key_, _context);
                 for (String s: loc_) {
                     if (!allInterfaces_.containsStr(s)) {
                         allInterfaces_.add(s);
@@ -802,11 +804,11 @@ public final class Classes {
                     continue;
                 }
                 UniqueRootedBlock unique_ = (UniqueRootedBlock) bl_;
-                if (!StringList.quickEq(unique_.getSuperClass(), Object.class.getName())) {
+                if (!StringList.quickEq(unique_.getSuperClass(), objectClassName_)) {
                     continue;
                 }
                 String key_ = c.getKey();
-                StringList loc_ = breadthFirst(key_);
+                StringList loc_ = breadthFirst(key_, _context);
                 for (String s: loc_) {
                     if (!allOthers_.containsStr(s)) {
                         allOthers_.add(s);
@@ -851,7 +853,7 @@ public final class Classes {
             for (ClassEdge c: elts_) {
                 classesInheriting.add(c.getId());
             }
-            classesInheriting.removeAllObj(Object.class.getName());
+            classesInheriting.removeAllObj(objectClassName_);
             if (!errorsDet.isEmpty()) {
                 return;
             }
@@ -859,10 +861,10 @@ public final class Classes {
         for (String c: classesInheriting) {
             RootBlock dBl_ = classesBodies.getVal(c);
             StringList all_ = dBl_.getAllSuperClasses();
-            StringList direct_ = dBl_.getDirectSuperClasses();
+            StringList direct_ = dBl_.getDirectSuperClasses(_context);
             all_.addAllElts(direct_);
             for (String b: direct_) {
-                if (StringList.quickEq(b, Object.class.getName())) {
+                if (StringList.quickEq(b, objectClassName_)) {
                     continue;
                 }
                 RootBlock bBl_ = classesBodies.getVal(b);
@@ -879,16 +881,16 @@ public final class Classes {
                 all_.addAllElts(i_.getAllInterfaces());
             }
             StringList needed_ = new StringList();
-            for (String s: bl_.getDirectSuperClasses()) {
-                if (!StringList.quickEq(s, Object.class.getName())) {
+            for (String s: bl_.getDirectSuperClasses(_context)) {
+                if (!StringList.quickEq(s, objectClassName_)) {
                     RootBlock super_ = classesBodies.getVal(s);
                     all_.addAllElts(super_.getAllInterfaces());
                     needed_.addAllElts(super_.getAllSortedInterfaces());
                 }
             }
-            all_.removeAllObj(Object.class.getName());
+            all_.removeAllObj(objectClassName_);
             all_.removeDuplicates();
-            bl_.getAllSortedInterfaces().addAllElts(getSortedSuperInterfaces(all_));
+            bl_.getAllSortedInterfaces().addAllElts(getSortedSuperInterfaces(all_,_context));
             bl_.getAllNeededSortedInterfaces().addAllElts(bl_.getAllSortedInterfaces());
             bl_.getAllNeededSortedInterfaces().removeAllElements(needed_);
         }
@@ -925,7 +927,7 @@ public final class Classes {
             if (!ok_) {
                 continue;
             }
-            if (mapping_.isCyclic()) {
+            if (mapping_.isCyclic(objectClassName_)) {
                 BadInheritedClass b_;
                 b_ = new BadInheritedClass();
                 //TODO better message
@@ -938,7 +940,7 @@ public final class Classes {
             for (TypeVar t: dBl_.getParamTypes()) {
                 boolean existNative_ = false;
                 boolean existCustom_ = false;
-                StringList upper_ = mapping_.getAllUpperBounds(t.getName());
+                StringList upper_ = mapping_.getAllUpperBounds(t.getName(),objectClassName_);
                 StringList upperNotObj_ = new StringList();
                 for (String b: upper_) {
                     StringList baseParams_ = StringList.getAllTypes(b);
@@ -1042,7 +1044,7 @@ public final class Classes {
                     }
                 }
             }
-            for (String s: bl_.getDirectGenericSuperClasses()) {
+            for (String s: bl_.getDirectGenericSuperClasses(_context)) {
                 if (!Templates.correctClassParts(s, map_, _context)) {
                     UnknownClassName un_ = new UnknownClassName();
                     un_.setClassName(s);
@@ -1085,7 +1087,7 @@ public final class Classes {
         return baseParams_;
     }
 
-    public StringList getSortedSuperInterfaces(StringList _already, String _interface) {
+    public StringList getSortedSuperInterfaces(StringList _already, String _interface, ContextEl _context) {
         StringList superInterfaces_ = new StringList(_interface);
         StringList currentInterfaces_ = new StringList(_interface);
         while (true) {
@@ -1093,7 +1095,7 @@ public final class Classes {
             for (String c: currentInterfaces_) {
                 String baseClass_ = StringList.getAllTypes(c).first();
                 RootBlock int_ = getClassBody(baseClass_);
-                StringList directSuperInterfaces_ = int_.getCustomDirectSuperClasses();
+                StringList directSuperInterfaces_ = int_.getCustomDirectSuperClasses(_context);
                 for (String s:directSuperInterfaces_) {
                     superInterfaces_.add(s);
                     nextInterfaces_.add(s);
@@ -1115,7 +1117,7 @@ public final class Classes {
         }
         return superInterfacesSet_;
     }
-    public StringList breadthFirst(String _parent) {
+    public StringList breadthFirst(String _parent, ContextEl _context) {
 
         StringList all_ = new StringList();
         StringList nodeQueue_ = new StringList();
@@ -1126,7 +1128,7 @@ public final class Classes {
             nodeQueue_.remove(0);
             all_.add(current_);
             RootBlock info_ = getClassBody(current_);
-            StringList direct_ = info_.getDirectSubTypes(this);
+            StringList direct_ = info_.getDirectSubTypes(_context);
             for (String child : direct_) {
                 nodeQueue_.add(child);
             }
@@ -1140,7 +1142,7 @@ public final class Classes {
         return unique_;
     }
 
-    public StringList getSortedSuperInterfaces(StringList _interfaces) {
+    public StringList getSortedSuperInterfaces(StringList _interfaces, ContextEl _context) {
         StringList sortedSuperInterfaces_ = new StringList();
         for (String i: _interfaces) {
             StringList superInterfaces_ = new StringList(i);
@@ -1150,7 +1152,7 @@ public final class Classes {
                 for (String c: currentInterfaces_) {
                     String baseClass_ = StringList.getAllTypes(c).first();
                     RootBlock int_ = getClassBody(baseClass_);
-                    StringList directSuperInterfaces_ = int_.getCustomDirectSuperClasses();
+                    StringList directSuperInterfaces_ = int_.getCustomDirectSuperClasses(_context);
                     for (String s:directSuperInterfaces_) {
                         if (superInterfaces_.containsStr(s)) {
                             continue;
@@ -1171,7 +1173,7 @@ public final class Classes {
             for (String s: superInterfaces_) {
                 String baseClass_ = StringList.getAllTypes(s).first();
                 RootBlock int_ = getClassBody(baseClass_);
-                StringList directSuperInterfaces_ = int_.getCustomDirectSuperClasses();
+                StringList directSuperInterfaces_ = int_.getCustomDirectSuperClasses(_context);
                 InterfaceNode current_ = is_.getVal(s);
                 for (String r: directSuperInterfaces_) {
                     InterfaceNode intNode_ = is_.getVal(r);
@@ -1288,12 +1290,13 @@ public final class Classes {
     public void validateClassesAccess(ContextEl _context) {
         PageEl page_ = new PageEl();
         _context.setAnalyzing(page_);
+        LgNames stds_ = _context.getStandards();
         for (EntryCust<String, RootBlock> c: classesBodies.entryList()) {
             String className_ = c.getKey();
             CustList<Block> bl_ = getSortedDescNodes(c.getValue());
             for (Block e: bl_) {
                 Block b_ = e;
-                for (EntryCust<String, String> n: b_.getClassNames().entryList()) {
+                for (EntryCust<String, String> n: b_.getClassNames(stds_).entryList()) {
                     String classNameLoc_ = n.getValue();
                     StringList parts_ = StringList.splitChars(classNameLoc_, LT, GT, ARR_BEG, COMMA, Templates.SEP_BOUNDS, Templates.EXTENDS_DEF);
                     for (String p: parts_) {
@@ -1370,8 +1373,12 @@ public final class Classes {
         localVariablesNames.add(sixthArg_);
         String nateqt_ = StringList.simpleFormat(NAT_EQ_FORMAT, fifthArg_, sixthArg_);
         natEqEl = new EqualsEl(fifthArg_, sixthArg_);
-        page_.getLocalVars().put(fifthArg_, new LocalVariable());
-        page_.getLocalVars().put(sixthArg_, new LocalVariable());
+        LocalVariable lc_ = new LocalVariable();
+        lc_.setClassName(_context.getStandards().getAliasObject());
+        page_.getLocalVars().put(fifthArg_, lc_);
+        lc_ = new LocalVariable();
+        lc_.setClassName(_context.getStandards().getAliasObject());
+        page_.getLocalVars().put(sixthArg_, lc_);
         exps = ElUtil.getAnalyzedOperations(nateqt_, _context, Calculation.staticCalculation(true));
         String locName_ = page_.getNextTempVar(this);
         String exp_;
@@ -1597,9 +1604,7 @@ public final class Classes {
         PageEl page_ = new PageEl();
         _context.setAnalyzing(page_);
         LgNames stds_ = _context.getStandards();
-        if (_context.getClasses() != null) {
-            
-        }
+        String void_ = stds_.getAliasVoid();
         for (EntryCust<String, RootBlock> c: classesBodies.entryList()) {
             String className_ = c.getKey();
             CustList<Block> bl_ = getDirectChildren(c.getValue());
@@ -1719,12 +1724,12 @@ public final class Classes {
                         String n_ = types_.get(i);
                         pTypes_.add(new ClassName(n_, i + 1 == len_ && method_.isVarargs()));
                     }
-                    if (!r_.isExitable() && !StringList.quickEq(method_.getReturnType(), OperationNode.VOID_RETURN)) {
+                    if (!r_.isExitable() && !StringList.quickEq(method_.getReturnType(stds_), void_)) {
                         MissingReturnMethod miss_ = new MissingReturnMethod();
                         miss_.setRc(method_.getRowCol(0, _context.getTabWidth(), EMPTY_STRING));
                         miss_.setFileName(className_);
                         miss_.setId(method_.getSignature());
-                        miss_.setReturning(method_.getReturnType());
+                        miss_.setReturning(method_.getReturnType(stds_));
                         errorsDet.add(miss_);
                     }
                     for (Block d: all_) {
@@ -2038,9 +2043,7 @@ public final class Classes {
         StringList types_ = StringList.getAllTypes(_name);
         String base_ = types_.first();
         LgNames stds_ = _context.getStandards();
-        if (_context.getClasses() != null) {
-            
-        }
+        String void_ = stds_.getAliasVoid();
         for (EntryCust<String, RootBlock> c: classesBodies.entryList()) {
             ObjectNotNullMap<MethodId, MethodMetaInfo> infos_;
             infos_ = new ObjectNotNullMap<MethodId, MethodMetaInfo>();
@@ -2068,20 +2071,19 @@ public final class Classes {
                 if (b instanceof MethodBlock) {
                     MethodBlock method_ = (MethodBlock) b;
                     MethodId id_ = method_.getId();
-                    String ret_ = method_.getReturnType();
+                    String ret_ = method_.getReturnType(stds_);
                     MethodMetaInfo met_ = new MethodMetaInfo(method_.getDeclaringType(), id_, method_.getModifier(), ret_);
                     infos_.put(id_, met_);
                 }
                 if (b instanceof ConstructorBlock) {
                     ConstructorBlock method_ = (ConstructorBlock) b;
                     ConstructorId id_ = method_.getGenericId();
-                    String ret_ = OperationNode.VOID_RETURN;
-                    ConstructorMetaInfo met_ = new ConstructorMetaInfo(ret_);
+                    ConstructorMetaInfo met_ = new ConstructorMetaInfo(void_);
                     infosConst_.put(id_, met_);
                 }
             }
             if (clblock_ instanceof InterfaceBlock) {
-                return new ClassMetaInfo(_name, ((InterfaceBlock)clblock_).getDirectGenericSuperClasses(), infosFields_,infos_, infosConst_, ClassCategory.INTERFACE);
+                return new ClassMetaInfo(_name, ((InterfaceBlock)clblock_).getDirectGenericSuperClasses(_context), infosFields_,infos_, infosConst_, ClassCategory.INTERFACE);
             }
             ClassCategory cat_ = ClassCategory.CLASS;
             if (clblock_ instanceof EnumBlock) {

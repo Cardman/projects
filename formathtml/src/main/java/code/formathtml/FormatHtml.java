@@ -9,7 +9,6 @@ import code.expressionlanguage.PrimitiveTypeUtil;
 import code.expressionlanguage.Templates;
 import code.expressionlanguage.exceptions.BadExpressionLanguageException;
 import code.expressionlanguage.exceptions.BadIndexException;
-import code.expressionlanguage.exceptions.DivideZeroException;
 import code.expressionlanguage.exceptions.DynamicCastClassException;
 import code.expressionlanguage.exceptions.DynamicNumberFormatException;
 import code.expressionlanguage.exceptions.ErrorCausingException;
@@ -19,7 +18,6 @@ import code.expressionlanguage.exceptions.InvokeRedinedMethException;
 import code.expressionlanguage.exceptions.NegativeSizeException;
 import code.expressionlanguage.exceptions.UnwrappingException;
 import code.expressionlanguage.exceptions.WrapperException;
-import code.expressionlanguage.methods.Classes;
 import code.expressionlanguage.methods.exceptions.AlreadyDefinedVarException;
 import code.expressionlanguage.methods.exceptions.BadCaseException;
 import code.expressionlanguage.methods.exceptions.BadCatchException;
@@ -120,7 +118,6 @@ final class FormatHtml {
     static final String GET_KEY = "!key";
 
     static final String TMP_VAR = "tmpvar";
-    private static final String SEP_PREFIX = ":";
     private static final String GET_ENTRY = "!";
     private static final String ATTRIBUTE_SRC = "src";
     private static final String ATTRIBUTE_ENCODE_IMG = "wrap";
@@ -277,9 +274,6 @@ final class FormatHtml {
     }
 
     private static String addToRoot(Configuration _conf, String _prefix, String _body) {
-        if (!_prefix.isEmpty()) {
-            return LT_BEGIN_TAG+TMP_BLOCK_TAG+SPACE+XMLNS+SEP_PREFIX+_prefix.substring(CustList.FIRST_INDEX, _prefix.length()-1)+EQUALS+QUOT+_conf.getNamespaceUri()+QUOT+GT_TAG+_body+LT_END_TAG+TMP_BLOCK_TAG+GT_TAG;
-        }
         return LT_BEGIN_TAG+TMP_BLOCK_TAG+GT_TAG+_body+LT_END_TAG+TMP_BLOCK_TAG+GT_TAG;
     }
 
@@ -691,6 +685,7 @@ final class FormatHtml {
                 if (!throwException(_conf, realCaught_)) {
                     continue;
                 }
+                _0.printStackTrace();
                 throw new RenderingException(new StdStruct(_0));
             }
         }
@@ -805,7 +800,6 @@ final class FormatHtml {
     }
 
     /**@throws InvokeRedinedMethException
-    @throws DivideZeroException
     @throws BadIndexException
     @throws NegativeSizeException
     @throws ErrorCausingException
@@ -1909,7 +1903,6 @@ final class FormatHtml {
         _ip.setOffset(0);
         ContextEl context_ = _conf.toContextEl();
         String argClassName_ = _object.getClassName(context_);
-        Classes classes_ = context_.getClasses();
         if (!PrimitiveTypeUtil.isPrimitive(paramName_, context_)) {
             Mapping mapping_ = new Mapping();
             mapping_.setArg(argClassName_);
@@ -3807,7 +3800,7 @@ final class FormatHtml {
             LoopVariable lv_ = _vars.getVal(var_);
             Struct iterator_ = _l.getStructIterator();
             if (iterator_ != null) {
-                lv_.setElement(ExtractObject.next(_conf, iterator_));
+                lv_.setStruct(ExtractObject.next(_conf, iterator_));
             } else {
                 lv_.setElement(Array.get(lv_.getContainer().getInstance(), (int) _l.getIndex()));
             }
@@ -3819,10 +3812,10 @@ final class FormatHtml {
             _conf.getLastPage().setLookForAttrValue(false);
             _conf.getLastPage().setOffset(0);
             LoopVariable lv_ = _vars.getVal(key_);
-            Object k_;
+            Struct k_;
             Struct entry_ = ExtractObject.next(_conf, _l.getStructIterator());
             k_ = ExtractObject.getKey(_conf, entry_);
-            lv_.setElement(k_);
+            lv_.setStruct(k_);
             lv_.setIndex(lv_.getIndex() + 1);
             String value_ = forLoopLoc_.getAttribute(ATTRIBUTE_VALUE);
             lv_ = _vars.getVal(value_);
@@ -3830,7 +3823,7 @@ final class FormatHtml {
             _conf.getLastPage().setProcessingAttribute(ATTRIBUTE_VALUE);
             _conf.getLastPage().setLookForAttrValue(false);
             _conf.getLastPage().setOffset(0);
-            lv_.setElement(ExtractObject.getValue(_conf, entry_));
+            lv_.setStruct(ExtractObject.getValue(_conf, entry_));
             lv_.setIndex(lv_.getIndex() + 1);
         } else {
             _conf.getLastPage().setProcessingNode(forLoopLoc_);
@@ -3839,8 +3832,8 @@ final class FormatHtml {
             _conf.getLastPage().setOffset(0);
             String var_ = forLoopLoc_.getAttribute(ATTRIBUTE_VAR);
             LoopVariable lv_ = _vars.getVal(var_);
-            Number element_ = (Number) lv_.getElement();
-            lv_.setElement(PrimitiveTypeUtil.convert(lv_.getClassName(), element_.longValue()+lv_.getStep(), _conf.toContextEl()));
+            Number element_ = (Number) lv_.getStruct().getInstance();
+            lv_.setElement((Number)PrimitiveTypeUtil.convert(lv_.getClassName(), element_.longValue()+lv_.getStep(), _conf.toContextEl()));
             lv_.setIndex(lv_.getIndex() + 1);
         }
     }
@@ -4006,21 +3999,21 @@ final class FormatHtml {
             _ip.setLookForAttrValue(true);
             _ip.setOffset(0);
             Argument argFrom_ = ElUtil.processEl(from_, 0, _conf.toContextEl());
-            if (!argFrom_.isIntegerType(_conf.toContextEl()) || argFrom_.getObject() == null) {
+            if (!argFrom_.isIntegerType(_conf.toContextEl())) {
                 throw new DynamicCastClassException(argFrom_.getObjectClassName(_conf.toContextEl())+RETURN_LINE+_conf.joinPages());
             }
             _ip.setProcessingAttribute(ATTRIBUTE_TO);
             _ip.setLookForAttrValue(true);
             _ip.setOffset(0);
             Argument argTo_ = ElUtil.processEl(to_, 0, _conf.toContextEl());
-            if (!argTo_.isIntegerType(_conf.toContextEl()) || argTo_.getObject() == null) {
+            if (!argTo_.isIntegerType(_conf.toContextEl())) {
                 throw new DynamicCastClassException(argTo_.getObjectClassName(_conf.toContextEl())+RETURN_LINE+_conf.joinPages());
             }
             _ip.setProcessingAttribute(ATTRIBUTE_STEP);
             _ip.setLookForAttrValue(true);
             _ip.setOffset(0);
             Argument argStep_ = ElUtil.processEl(step_, 0, _conf.toContextEl());
-            if (!argStep_.isIntegerType(_conf.toContextEl()) || argStep_.getObject() == null) {
+            if (!argStep_.isIntegerType(_conf.toContextEl())) {
                 throw new DynamicCastClassException(argStep_.getObjectClassName(_conf.toContextEl())+RETURN_LINE+_conf.joinPages());
             }
             realFromValue_ = argFrom_.getObject();
@@ -4113,6 +4106,9 @@ final class FormatHtml {
         }
         String indexClassName_;
         indexClassName_ = currentForNode_.getAttribute(ATTRIBUTE_INDEX_CLASS_NAME);
+        if (indexClassName_.isEmpty()) {
+            indexClassName_ = _conf.getStandards().getAliasLong();
+        }
         ExtractObject.checkClassNotEmptyName(_conf, 0, indexClassName_);
         String className_;
         if (iterationNb_) {
@@ -4124,7 +4120,7 @@ final class FormatHtml {
             ExtractObject.classForName(_conf, 0, className_);
             lv_.setClassName(ConstClasses.resolve(className_));
             lv_.setIndexClassName(ConstClasses.resolve(indexClassName_));
-            lv_.setElement(PrimitiveTypeUtil.convert(className_, int_, _conf.toContextEl()));
+            lv_.setElement((Number)PrimitiveTypeUtil.convert(className_, int_, _conf.toContextEl()));
             lv_.setStep(stepValue_);
             lv_.setExtendedExpression(EMPTY_STRING);
             varsLoop_.put(var_, lv_);
@@ -4134,7 +4130,7 @@ final class FormatHtml {
             ExtractObject.checkClassNotEmptyName(_conf, 0, className_);
             lv_.setClassName(ConstClasses.resolve(className_));
             lv_.setIndexClassName(ConstClasses.resolve(indexClassName_));
-            lv_.setElement(elt_);
+            lv_.setStruct(elt_);
             lv_.setContainer(container_);
             lv_.setExtendedExpression(EMPTY_STRING);
             varsLoop_.put(var_, lv_);
@@ -4144,7 +4140,7 @@ final class FormatHtml {
             ExtractObject.checkClassNotEmptyName(_conf, 0, className_);
             lv_.setClassName(ConstClasses.resolve(className_));
             lv_.setIndexClassName(ConstClasses.resolve(indexClassName_));
-            lv_.setElement(ExtractObject.getKey(_conf, elt_));
+            lv_.setStruct(ExtractObject.getKey(_conf, elt_));
             lv_.setContainer(container_);
             lv_.setExtendedExpression(listMethod_+GET_KEY);
             varsLoop_.put(key_, lv_);
@@ -4153,7 +4149,7 @@ final class FormatHtml {
             ExtractObject.checkClassNotEmptyName(_conf, 0, className_);
             lv_.setClassName(ConstClasses.resolve(className_));
             lv_.setIndexClassName(ConstClasses.resolve(indexClassName_));
-            lv_.setElement(ExtractObject.getValue(_conf, elt_));
+            lv_.setStruct(ExtractObject.getValue(_conf, elt_));
             lv_.setContainer(container_);
             lv_.setExtendedExpression(listMethod_+GET_VALUE);
             varsLoop_.put(value_, lv_);

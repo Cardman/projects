@@ -6,7 +6,6 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
-import code.expressionlanguage.AccessValueEx;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.CustBase;
@@ -384,7 +383,6 @@ public class ProcessXmlMethodTest {
         xml_ += "</class>\n";
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextEl();
-        cont_.setAccessValue(new AccessValueEx());
         files_.put("pkg/Ex."+Classes.EXT, xml_);
         Classes.validateAll(files_, cont_);
         CustList<Argument> args_ = new CustList<Argument>();
@@ -414,7 +412,6 @@ public class ProcessXmlMethodTest {
         xml_ += "</class>\n";
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextEl();
-        cont_.setAccessValue(new AccessValueEx());
         files_.put("pkg/Ex."+Classes.EXT, xml_);
         Classes.validateAll(files_, cont_);
         CustList<Argument> args_ = new CustList<Argument>();
@@ -441,7 +438,6 @@ public class ProcessXmlMethodTest {
         xml_ += "</class>\n";
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextEl();
-        cont_.setAccessValue(new AccessValueEx());
         files_.put("pkg/Ex."+Classes.EXT, xml_);
         Classes.validateAll(files_, cont_);
         CustList<Argument> args_ = new CustList<Argument>();
@@ -472,7 +468,6 @@ public class ProcessXmlMethodTest {
         xml_ += "</class>\n";
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextEl();
-        cont_.setAccessValue(new AccessValueEx());
         files_.put("pkg/Ex."+Classes.EXT, xml_);
         Classes.validateAll(files_, cont_);
         CustList<Argument> args_ = new CustList<Argument>();
@@ -496,7 +491,6 @@ public class ProcessXmlMethodTest {
         xml_ += "</class>\n";
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextEl();
-        cont_.setAccessValue(new AccessValueEx());
         files_.put("pkg/Ex."+Classes.EXT, xml_);
         Classes.validateAll(files_, cont_);
 //        Classes classes_ = new Classes(files_, cont_);
@@ -534,7 +528,6 @@ public class ProcessXmlMethodTest {
         xml_ += "</class>\n";
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextEl();
-        cont_.setAccessValue(new AccessValueEx());
         files_.put("pkg/Ex."+Classes.EXT, xml_);
         Classes.validateAll(files_, cont_);
 //        Classes classes_ = new Classes(files_, cont_);
@@ -569,7 +562,6 @@ public class ProcessXmlMethodTest {
         xml_ += "</class>\n";
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextEl();
-        cont_.setAccessValue(new AccessValueEx());
         files_.put("pkg/Ex."+Classes.EXT, xml_);
         Classes.validateAll(files_, cont_);
 //        Classes classes_ = new Classes(files_, cont_);
@@ -604,7 +596,6 @@ public class ProcessXmlMethodTest {
         xml_ += "</class>\n";
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextEl();
-        cont_.setAccessValue(new AccessValueEx());
         files_.put("pkg/Ex."+Classes.EXT, xml_);
         Classes.validateAll(files_, cont_);
 //        Classes classes_ = new Classes(files_, cont_);
@@ -642,7 +633,6 @@ public class ProcessXmlMethodTest {
         xml_ += "</class>\n";
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextEl();
-        cont_.setAccessValue(new AccessValueEx());
         files_.put("pkg/Ex."+Classes.EXT, xml_);
         Classes.validateAll(files_, cont_);
 //        Classes classes_ = new Classes(files_, cont_);
@@ -680,7 +670,6 @@ public class ProcessXmlMethodTest {
         xml_ += "</class>\n";
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextEl();
-        cont_.setAccessValue(new AccessValueEx());
         files_.put("pkg/Ex."+Classes.EXT, xml_);
         Classes.validateAll(files_, cont_);
 //        Classes classes_ = new Classes(files_, cont_);
@@ -715,7 +704,6 @@ public class ProcessXmlMethodTest {
         xml_ += "</class>\n";
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextEl();
-        cont_.setAccessValue(new AccessValueEx());
         files_.put("pkg/Ex."+Classes.EXT, xml_);
         Classes.validateAll(files_, cont_);
 //        Classes classes_ = new Classes(files_, cont_);
@@ -754,7 +742,6 @@ public class ProcessXmlMethodTest {
         xml_ += "</class>\n";
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextEl();
-        cont_.setAccessValue(new AccessValueEx());
         files_.put("pkg/Ex."+Classes.EXT, xml_);
         Classes.validateAll(files_, cont_);
 //        Classes classes_ = new Classes(files_, cont_);
@@ -789,7 +776,6 @@ public class ProcessXmlMethodTest {
         xml_ += "</class>\n";
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextEl();
-        cont_.setAccessValue(new AccessValueEx());
         files_.put("pkg/Ex."+Classes.EXT, xml_);
         Classes.validateAll(files_, cont_);
 //        Classes classes_ = new Classes(files_, cont_);
@@ -945,7 +931,6 @@ public class ProcessXmlMethodTest {
         xml_ += "</class>\n";
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextEl();
-        cont_.setAccessValue(new AccessValueEx());
         files_.put("pkg/Ex."+Classes.EXT, xml_);
         Classes.validateAll(files_, cont_);
         CustList<Argument> args_ = new CustList<Argument>();
@@ -978,7 +963,6 @@ public class ProcessXmlMethodTest {
         xml_ += "</class>\n";
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextEl();
-        cont_.setAccessValue(new AccessValueEx());
         files_.put("pkg/Ex."+Classes.EXT, xml_);
         Classes.validateAll(files_, cont_);
         CustList<Argument> args_ = new CustList<Argument>();
@@ -1012,7 +996,6 @@ public class ProcessXmlMethodTest {
         xml_ += "</class>\n";
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextEl();
-        cont_.setAccessValue(new AccessValueEx());
         files_.put("pkg/Ex."+Classes.EXT, xml_);
         Classes.validateAll(files_, cont_);
         CustList<Argument> args_ = new CustList<Argument>();
@@ -1046,7 +1029,6 @@ public class ProcessXmlMethodTest {
         xml_ += "</class>\n";
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextEl();
-        cont_.setAccessValue(new AccessValueEx());
         files_.put("pkg/Ex."+Classes.EXT, xml_);
         Classes.validateAll(files_, cont_);
         CustList<Argument> args_ = new CustList<Argument>();
@@ -1070,7 +1052,6 @@ public class ProcessXmlMethodTest {
         xml_ += "</class>\n";
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextEl();
-        cont_.setAccessValue(new AccessValueEx());
         files_.put("pkg/Ex."+Classes.EXT, xml_);
         Classes.validateAll(files_, cont_);
         CustList<Argument> args_ = new CustList<Argument>();
@@ -1094,7 +1075,6 @@ public class ProcessXmlMethodTest {
         xml_ += "</class>\n";
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextEl();
-        cont_.setAccessValue(new AccessValueEx());
         files_.put("pkg/Ex."+Classes.EXT, xml_);
         Classes.validateAll(files_, cont_);
         CustList<Argument> args_ = new CustList<Argument>();
@@ -1118,7 +1098,6 @@ public class ProcessXmlMethodTest {
         xml_ += "</class>\n";
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextEl();
-        cont_.setAccessValue(new AccessValueEx());
         files_.put("pkg/Ex."+Classes.EXT, xml_);
         Classes.validateAll(files_, cont_);
         CustList<Argument> args_ = new CustList<Argument>();
@@ -1142,7 +1121,6 @@ public class ProcessXmlMethodTest {
         xml_ += "</class>\n";
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextEl();
-        cont_.setAccessValue(new AccessValueEx());
         files_.put("pkg/Ex."+Classes.EXT, xml_);
         Classes.validateAll(files_, cont_);
         CustList<Argument> args_ = new CustList<Argument>();
@@ -1166,7 +1144,6 @@ public class ProcessXmlMethodTest {
         xml_ += "</class>\n";
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextEl();
-        cont_.setAccessValue(new AccessValueEx());
         files_.put("pkg/Ex."+Classes.EXT, xml_);
         Classes.validateAll(files_, cont_);
         CustList<Argument> args_ = new CustList<Argument>();
@@ -1190,7 +1167,6 @@ public class ProcessXmlMethodTest {
         xml_ += "</class>\n";
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextEl();
-        cont_.setAccessValue(new AccessValueEx());
         files_.put("pkg/Ex."+Classes.EXT, xml_);
         Classes.validateAll(files_, cont_);
         CustList<Argument> args_ = new CustList<Argument>();
@@ -1216,7 +1192,6 @@ public class ProcessXmlMethodTest {
         xml_ += "</class>\n";
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextEl();
-        cont_.setAccessValue(new AccessValueEx());
         files_.put("pkg/Ex."+Classes.EXT, xml_);
         Classes.validateAll(files_, cont_);
         CustList<Argument> args_ = new CustList<Argument>();
@@ -1240,7 +1215,6 @@ public class ProcessXmlMethodTest {
         xml_ += "</class>\n";
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextEl();
-        cont_.setAccessValue(new AccessValueEx());
         files_.put("pkg/Ex."+Classes.EXT, xml_);
         Classes.validateAll(files_, cont_);
         CustList<Argument> args_ = new CustList<Argument>();
@@ -1262,7 +1236,6 @@ public class ProcessXmlMethodTest {
         xml_ += "</class>\n";
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextEl();
-        cont_.setAccessValue(new AccessValueEx());
         files_.put("pkg/Ex."+Classes.EXT, xml_);
         Classes.validateAll(files_, cont_);
         CustList<Argument> args_ = new CustList<Argument>();
@@ -1292,7 +1265,6 @@ public class ProcessXmlMethodTest {
         xml_ += "</class>\n";
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextEl();
-        cont_.setAccessValue(new AccessValueEx());
         files_.put("pkg/Ex."+Classes.EXT, xml_);
         Classes.validateAll(files_, cont_);
         CustList<Argument> args_ = new CustList<Argument>();
@@ -1318,7 +1290,6 @@ public class ProcessXmlMethodTest {
         xml_ += "</class>\n";
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextEl();
-        cont_.setAccessValue(new AccessValueEx());
         files_.put("pkg/Ex."+Classes.EXT, xml_);
         Classes.validateAll(files_, cont_);
         CustList<Argument> args_ = new CustList<Argument>();
@@ -1344,7 +1315,6 @@ public class ProcessXmlMethodTest {
         xml_ += "</class>\n";
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextEl();
-        cont_.setAccessValue(new AccessValueEx());
         files_.put("pkg/Ex."+Classes.EXT, xml_);
         Classes.validateAll(files_, cont_);
         CustList<Argument> args_ = new CustList<Argument>();
@@ -1373,7 +1343,6 @@ public class ProcessXmlMethodTest {
         xml_ += "</class>\n";
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextEl();
-        cont_.setAccessValue(new AccessValueEx());
         files_.put("pkg/Ex."+Classes.EXT, xml_);
         Classes.validateAll(files_, cont_);
         CustList<Argument> args_ = new CustList<Argument>();
@@ -1403,7 +1372,6 @@ public class ProcessXmlMethodTest {
         xml_ += "</class>\n";
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextEl();
-        cont_.setAccessValue(new AccessValueEx());
         files_.put("pkg/Ex."+Classes.EXT, xml_);
         Classes.validateAll(files_, cont_);
         CustList<Argument> args_ = new CustList<Argument>();
@@ -1427,7 +1395,6 @@ public class ProcessXmlMethodTest {
         xml_ += "</class>\n";
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextEl();
-        cont_.setAccessValue(new AccessValueEx());
         files_.put("pkg/Ex."+Classes.EXT, xml_);
         Classes.validateAll(files_, cont_);
         CustList<Argument> args_ = new CustList<Argument>();
@@ -1465,7 +1432,6 @@ public class ProcessXmlMethodTest {
         xml_ += "</class>\n";
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextEl();
-        cont_.setAccessValue(new AccessValueEx());
         files_.put("pkg/Ex."+Classes.EXT, xml_);
         Classes.validateAll(files_, cont_);
         CustList<Argument> args_ = new CustList<Argument>();
@@ -1503,7 +1469,6 @@ public class ProcessXmlMethodTest {
         xml_ += "</class>\n";
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextEl();
-        cont_.setAccessValue(new AccessValueEx());
         files_.put("pkg/Ex."+Classes.EXT, xml_);
         Classes.validateAll(files_, cont_);
         CustList<Argument> args_ = new CustList<Argument>();
@@ -1541,7 +1506,6 @@ public class ProcessXmlMethodTest {
         xml_ += "</class>\n";
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextEl();
-        cont_.setAccessValue(new AccessValueEx());
         files_.put("pkg/Ex."+Classes.EXT, xml_);
         Classes.validateAll(files_, cont_);
         CustList<Argument> args_ = new CustList<Argument>();
@@ -1584,7 +1548,6 @@ public class ProcessXmlMethodTest {
         xml_ += "</class>\n";
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextEl();
-        cont_.setAccessValue(new AccessValueEx());
         files_.put("pkg/Ex."+Classes.EXT, xml_);
         Classes.validateAll(files_, cont_);
         CustList<Argument> args_ = new CustList<Argument>();
@@ -1628,7 +1591,6 @@ public class ProcessXmlMethodTest {
         xml_ += "</class>\n";
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextEl();
-        cont_.setAccessValue(new AccessValueEx());
         files_.put("pkg/Ex."+Classes.EXT, xml_);
         Classes.validateAll(files_, cont_);
         CustList<Argument> args_ = new CustList<Argument>();
@@ -1674,7 +1636,6 @@ public class ProcessXmlMethodTest {
         xml_ += "</class>\n";
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextEl();
-        cont_.setAccessValue(new AccessValueEx());
         files_.put("pkg/Ex."+Classes.EXT, xml_);
         Classes.validateAll(files_, cont_);
         CustList<Argument> args_ = new CustList<Argument>();
@@ -1720,7 +1681,6 @@ public class ProcessXmlMethodTest {
         xml_ += "</class>\n";
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextEl();
-        cont_.setAccessValue(new AccessValueEx());
         files_.put("pkg/Ex."+Classes.EXT, xml_);
         Classes.validateAll(files_, cont_);
         CustList<Argument> args_ = new CustList<Argument>();
@@ -1765,7 +1725,6 @@ public class ProcessXmlMethodTest {
         xml_ += "</class>\n";
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextEl();
-        cont_.setAccessValue(new AccessValueEx());
         files_.put("pkg/Ex."+Classes.EXT, xml_);
         Classes.validateAll(files_, cont_);
         CustList<Argument> args_ = new CustList<Argument>();
@@ -1811,7 +1770,6 @@ public class ProcessXmlMethodTest {
         xml_ += "</class>\n";
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextEl();
-        cont_.setAccessValue(new AccessValueEx());
         files_.put("pkg/Ex."+Classes.EXT, xml_);
         Classes.validateAll(files_, cont_);
         CustList<Argument> args_ = new CustList<Argument>();
@@ -1852,7 +1810,6 @@ public class ProcessXmlMethodTest {
         xml_ += "</class>\n";
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextEl();
-        cont_.setAccessValue(new AccessValueEx());
         files_.put("pkg/Ex."+Classes.EXT, xml_);
         Classes.validateAll(files_, cont_);
         CustList<Argument> args_ = new CustList<Argument>();
@@ -1890,7 +1847,6 @@ public class ProcessXmlMethodTest {
         xml_ += "</class>\n";
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextEl();
-        cont_.setAccessValue(new AccessValueEx());
         files_.put("pkg/Ex."+Classes.EXT, xml_);
         Classes.validateAll(files_, cont_);
         CustList<Argument> args_ = new CustList<Argument>();
@@ -1928,7 +1884,6 @@ public class ProcessXmlMethodTest {
         xml_ += "</class>\n";
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextEl();
-        cont_.setAccessValue(new AccessValueEx());
         files_.put("pkg/Ex."+Classes.EXT, xml_);
         Classes.validateAll(files_, cont_);
         CustList<Argument> args_ = new CustList<Argument>();
@@ -1966,7 +1921,6 @@ public class ProcessXmlMethodTest {
         xml_ += "</class>\n";
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextEl();
-        cont_.setAccessValue(new AccessValueEx());
         files_.put("pkg/Ex."+Classes.EXT, xml_);
         Classes.validateAll(files_, cont_);
         CustList<Argument> args_ = new CustList<Argument>();
@@ -2001,7 +1955,6 @@ public class ProcessXmlMethodTest {
         xml_ += "</class>\n";
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextEl();
-        cont_.setAccessValue(new AccessValueEx());
         files_.put("pkg/Ex."+Classes.EXT, xml_);
         Classes.validateAll(files_, cont_);
         CustList<Argument> args_ = new CustList<Argument>();
@@ -2036,7 +1989,6 @@ public class ProcessXmlMethodTest {
         xml_ += "</class>\n";
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextEl();
-        cont_.setAccessValue(new AccessValueEx());
         files_.put("pkg/Ex."+Classes.EXT, xml_);
         Classes.validateAll(files_, cont_);
         CustList<Argument> args_ = new CustList<Argument>();
@@ -2068,7 +2020,6 @@ public class ProcessXmlMethodTest {
         xml_ += "</class>\n";
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextEl();
-        cont_.setAccessValue(new AccessValueEx());
         files_.put("pkg/Ex."+Classes.EXT, xml_);
         Classes.validateAll(files_, cont_);
 //        Classes classes_ = new Classes(files_, cont_);
@@ -2111,7 +2062,6 @@ public class ProcessXmlMethodTest {
         xml_ += "</class>\n";
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextEl();
-        cont_.setAccessValue(new AccessValueEx());
         files_.put("pkg/Ex."+Classes.EXT, xml_);
         Classes.validateAll(files_, cont_);
 //        Classes classes_ = new Classes(files_, cont_);
@@ -2148,7 +2098,6 @@ public class ProcessXmlMethodTest {
         xml_ += "</class>\n";
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextEl();
-        cont_.setAccessValue(new AccessValueEx());
         files_.put("pkg/Ex."+Classes.EXT, xml_);
         Classes.validateAll(files_, cont_);
 //        Classes classes_ = new Classes(files_, cont_);
@@ -2296,7 +2245,6 @@ public class ProcessXmlMethodTest {
         xml_ += "</class>\n";
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextEl();
-        cont_.setAccessValue(new AccessValueEx());
         files_.put("pkg/Ex."+Classes.EXT, xml_);
         Classes.validateAll(files_, cont_);
         CustList<Argument> args_ = new CustList<Argument>();
@@ -2330,7 +2278,6 @@ public class ProcessXmlMethodTest {
         xml_ += "</class>\n";
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextEl();
-        cont_.setAccessValue(new AccessValueEx());
         files_.put("pkg/Ex."+Classes.EXT, xml_);
         Classes.validateAll(files_, cont_);
         CustList<Argument> args_ = new CustList<Argument>();
@@ -2430,7 +2377,6 @@ public class ProcessXmlMethodTest {
         xml_ += "</class>\n";
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextEl();
-        cont_.setAccessValue(new AccessValueEx());
         files_.put("pkg/Ex."+Classes.EXT, xml_);
         Classes.validateAll(files_, cont_);
 //        Classes classes_ = new Classes(files_, cont_);
@@ -2475,7 +2421,6 @@ public class ProcessXmlMethodTest {
         xml_ += "</class>\n";
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextEl();
-        cont_.setAccessValue(new AccessValueEx());
         files_.put("pkg/Ex."+Classes.EXT, xml_);
         Classes.validateAll(files_, cont_);
 //        Classes classes_ = new Classes(files_, cont_);
@@ -2527,7 +2472,6 @@ public class ProcessXmlMethodTest {
         xml_ += "</class>\n";
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextEl();
-        cont_.setAccessValue(new AccessValueEx());
         files_.put("pkg/Ex."+Classes.EXT, xml_);
         Classes.validateAll(files_, cont_);
 //        Classes classes_ = new Classes(files_, cont_);
@@ -2583,7 +2527,6 @@ public class ProcessXmlMethodTest {
         xml_ += "</class>\n";
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextEl();
-        cont_.setAccessValue(new AccessValueEx());
         files_.put("pkg/Ex."+Classes.EXT, xml_);
         Classes.validateAll(files_, cont_);
 //        Classes classes_ = new Classes(files_, cont_);
@@ -2643,7 +2586,6 @@ public class ProcessXmlMethodTest {
         xml_ += "</class>\n";
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextEl();
-        cont_.setAccessValue(new AccessValueEx());
         files_.put("pkg/Ex."+Classes.EXT, xml_);
         Classes.validateAll(files_, cont_);
 //        Classes classes_ = new Classes(files_, cont_);
@@ -2702,7 +2644,6 @@ public class ProcessXmlMethodTest {
         xml_ += "</class>\n";
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextEl();
-        cont_.setAccessValue(new AccessValueEx());
         files_.put("pkg/Ex."+Classes.EXT, xml_);
         Classes.validateAll(files_, cont_);
 //        Classes classes_ = new Classes(files_, cont_);
@@ -2765,7 +2706,6 @@ public class ProcessXmlMethodTest {
         xml_ += "</class>\n";
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextEl();
-        cont_.setAccessValue(new AccessValueEx());
         files_.put("pkg/Ex."+Classes.EXT, xml_);
         Classes.validateAll(files_, cont_);
 //        Classes classes_ = new Classes(files_, cont_);
@@ -2830,7 +2770,6 @@ public class ProcessXmlMethodTest {
         xml_ += "</class>\n";
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextEl();
-        cont_.setAccessValue(new AccessValueEx());
         files_.put("pkg/Ex."+Classes.EXT, xml_);
         Classes.validateAll(files_, cont_);
 //        Classes classes_ = new Classes(files_, cont_);
@@ -2897,7 +2836,6 @@ public class ProcessXmlMethodTest {
         xml_ += "</class>\n";
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextEl();
-        cont_.setAccessValue(new AccessValueEx());
         files_.put("pkg/Ex."+Classes.EXT, xml_);
         Classes.validateAll(files_, cont_);
 //        Classes classes_ = new Classes(files_, cont_);
@@ -2964,7 +2902,6 @@ public class ProcessXmlMethodTest {
         xml_ += "</class>\n";
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextEl();
-        cont_.setAccessValue(new AccessValueEx());
         files_.put("pkg/Ex."+Classes.EXT, xml_);
         Classes.validateAll(files_, cont_);
 //        Classes classes_ = new Classes(files_, cont_);
@@ -3036,7 +2973,6 @@ public class ProcessXmlMethodTest {
         xml_ += "</class>\n";
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextEl();
-        cont_.setAccessValue(new AccessValueEx());
         files_.put("pkg/Ex."+Classes.EXT, xml_);
         Classes.validateAll(files_, cont_);
         CustList<Argument> args_ = new CustList<Argument>();
@@ -3105,7 +3041,6 @@ public class ProcessXmlMethodTest {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextEl();
         CustLgNames custLgNames_ = (CustLgNames) cont_.getStandards();
-        cont_.setAccessValue(new AccessValueEx());
         files_.put("pkg/Ex."+Classes.EXT, xml_);
         Classes.validateAll(files_, cont_);
 //        Classes classes_ = new Classes(files_, cont_);
@@ -3201,7 +3136,6 @@ public class ProcessXmlMethodTest {
         xml_ += "</class>\n";
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextEl();
-        cont_.setAccessValue(new AccessValueEx());
         files_.put("pkg/Ex."+Classes.EXT, xml_);
         Classes.validateAll(files_, cont_);
 //        Classes classes_ = new Classes(files_, cont_);
@@ -3291,7 +3225,6 @@ public class ProcessXmlMethodTest {
         xml_ += "</class>\n";
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextEl();
-        cont_.setAccessValue(new AccessValueEx());
         files_.put("pkg/Ex."+Classes.EXT, xml_);
         Classes.validateAll(files_, cont_);
 //        Classes classes_ = new Classes(files_, cont_);
@@ -3382,7 +3315,6 @@ public class ProcessXmlMethodTest {
         xml_ += "</class>\n";
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextEl();
-        cont_.setAccessValue(new AccessValueEx());
         files_.put("pkg/Ex."+Classes.EXT, xml_);
         Classes.validateAll(files_, cont_);
 //        Classes classes_ = new Classes(files_, cont_);
@@ -3467,7 +3399,6 @@ public class ProcessXmlMethodTest {
         xml_ += "</class>\n";
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextEl();
-        cont_.setAccessValue(new AccessValueEx());
         files_.put("pkg/Ex."+Classes.EXT, xml_);
         Classes.validateAll(files_, cont_);
 //        Classes classes_ = new Classes(files_, cont_);
@@ -3557,7 +3488,6 @@ public class ProcessXmlMethodTest {
         xml_ += "</class>\n";
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextEl();
-        cont_.setAccessValue(new AccessValueEx());
         files_.put("pkg/Ex."+Classes.EXT, xml_);
         Classes.validateAll(files_, cont_);
 //        Classes classes_ = new Classes(files_, cont_);
@@ -3642,7 +3572,6 @@ public class ProcessXmlMethodTest {
         xml_ += "</class>\n";
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextEl();
-        cont_.setAccessValue(new AccessValueEx());
         files_.put("pkg/Ex."+Classes.EXT, xml_);
         Classes.validateAll(files_, cont_);
 //        Classes classes_ = new Classes(files_, cont_);
@@ -3688,7 +3617,6 @@ public class ProcessXmlMethodTest {
         xml_ += "</class>\n";
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextEl();
-        cont_.setAccessValue(new AccessValueEx());
         files_.put("pkg/Ex."+Classes.EXT, xml_);
         Classes.validateAll(files_, cont_);
 //        Classes classes_ = new Classes(files_, cont_);
@@ -3739,7 +3667,6 @@ public class ProcessXmlMethodTest {
         xml_ += "</class>\n";
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextEl();
-        cont_.setAccessValue(new AccessValueEx());
         files_.put("pkg/Ex."+Classes.EXT, xml_);
         Classes.validateAll(files_, cont_);
 //        Classes classes_ = new Classes(files_, cont_);
@@ -4353,7 +4280,6 @@ public class ProcessXmlMethodTest {
         xml_ += "</class>\n";
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextEl();
-        cont_.setAccessValue(new AccessValueEx());
         files_.put("pkg/Ex."+Classes.EXT, xml_);
         Classes.validateAll(files_, cont_);
 //        Classes classes_ = new Classes(files_, cont_);
@@ -4447,7 +4373,6 @@ public class ProcessXmlMethodTest {
         xml_ += "</class>\n";
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextEl();
-        cont_.setAccessValue(new AccessValueEx());
         files_.put("pkg/Ex."+Classes.EXT, xml_);
         Classes.validateAll(files_, cont_);
 //        Classes classes_ = new Classes(files_, cont_);
@@ -4542,7 +4467,6 @@ public class ProcessXmlMethodTest {
         xml_ += "</class>\n";
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextEl();
-        cont_.setAccessValue(new AccessValueEx());
         files_.put("pkg/Ex."+Classes.EXT, xml_);
         Classes.validateAll(files_, cont_);
 //        Classes classes_ = new Classes(files_, cont_);
@@ -4641,7 +4565,6 @@ public class ProcessXmlMethodTest {
         xml_ += "</class>\n";
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextEl();
-        cont_.setAccessValue(new AccessValueEx());
         files_.put("pkg/Ex."+Classes.EXT, xml_);
         Classes.validateAll(files_, cont_);
 //        Classes classes_ = new Classes(files_, cont_);
@@ -4740,7 +4663,6 @@ public class ProcessXmlMethodTest {
         xml_ += "</class>\n";
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextEl();
-        cont_.setAccessValue(new AccessValueEx());
         files_.put("pkg/Ex."+Classes.EXT, xml_);
         Classes.validateAll(files_, cont_);
 //        Classes classes_ = new Classes(files_, cont_);
@@ -4812,7 +4734,6 @@ public class ProcessXmlMethodTest {
         xml_ += "</class>\n";
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextEl(12);
-        cont_.setAccessValue(new AccessValueEx());
         files_.put("pkg/Ex."+Classes.EXT, xml_);
         Classes.validateAll(files_, cont_);
         CustList<Argument> args_ = new CustList<Argument>();
@@ -4901,7 +4822,6 @@ public class ProcessXmlMethodTest {
         xml_ += "</class>\n";
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextEl();
-        cont_.setAccessValue(new AccessValueEx());
         files_.put("pkg/Ex."+Classes.EXT, xml_);
         Classes.validateAll(files_, cont_);
 //        Classes classes_ = new Classes(files_, cont_);
@@ -5001,7 +4921,6 @@ public class ProcessXmlMethodTest {
         xml_ += "</class>\n";
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextEl();
-        cont_.setAccessValue(new AccessValueEx());
         files_.put("pkg/Ex."+Classes.EXT, xml_);
         Classes.validateAll(files_, cont_);
         CustList<Argument> args_ = new CustList<Argument>();
@@ -5376,7 +5295,6 @@ public class ProcessXmlMethodTest {
         xml_ += "</class>\n";
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextEl(2);
-        cont_.setAccessValue(new AccessValueEx());
         files_.put("pkg/Ex."+Classes.EXT, xml_);
         Classes.validateAll(files_, cont_);
         CustList<Argument> args_ = new CustList<Argument>();
@@ -5410,7 +5328,6 @@ public class ProcessXmlMethodTest {
         String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg'/>\n";
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextEl();
-        cont_.setAccessValue(new AccessValueEx());
         files_.put("pkg/Ex."+Classes.EXT, xml_);
         Classes.validateAll(files_, cont_);
         ProcessXmlMethod.initializeClass("pkg.Ex", cont_);
@@ -5424,7 +5341,6 @@ public class ProcessXmlMethodTest {
         xml_ += "</enum>\n";
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextEl();
-        cont_.setAccessValue(new AccessValueEx());
         files_.put("pkg/Ex."+Classes.EXT, xml_);
         Classes.validateAll(files_, cont_);
         ProcessXmlMethod.initializeClass("pkg.Ex", cont_);
@@ -5439,7 +5355,6 @@ public class ProcessXmlMethodTest {
         xml_ += "</enum>\n";
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextEl();
-        cont_.setAccessValue(new AccessValueEx());
         files_.put("pkg/Ex."+Classes.EXT, xml_);
         Classes.validateAll(files_, cont_);
         ProcessXmlMethod.initializeClass("pkg.Ex", cont_);
@@ -5465,7 +5380,6 @@ public class ProcessXmlMethodTest {
         xml_ += "</enum>\n";
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextEl();
-        cont_.setAccessValue(new AccessValueEx());
         files_.put("pkg/Ex."+Classes.EXT, xml_);
         Classes.validateAll(files_, cont_);
         ProcessXmlMethod.initializeClass("pkg.Ex", cont_);
@@ -5495,7 +5409,6 @@ public class ProcessXmlMethodTest {
         xml_ += "</enum>\n";
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextEl();
-        cont_.setAccessValue(new AccessValueEx());
         files_.put("pkg/Ex."+Classes.EXT, xml_);
         Classes.validateAll(files_, cont_);
         ProcessXmlMethod.initializeClass("pkg.Ex", cont_);
@@ -5532,7 +5445,6 @@ public class ProcessXmlMethodTest {
         xml_ += "</enum>\n";
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextEl();
-        cont_.setAccessValue(new AccessValueEx());
         files_.put("pkg/Ex."+Classes.EXT, xml_);
         Classes.validateAll(files_, cont_);
         ProcessXmlMethod.initializeClass("pkg.Ex", cont_);
@@ -5559,7 +5471,6 @@ public class ProcessXmlMethodTest {
         String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg'/>\n";
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextEl();
-        cont_.setAccessValue(new AccessValueEx());
         files_.put("pkg/Ex."+Classes.EXT, xml_);
         Classes.validateAll(files_, cont_);
         CustList<Argument> args_ = new CustList<Argument>();
@@ -5581,7 +5492,6 @@ public class ProcessXmlMethodTest {
         xml_ += "</class>\n";
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextEl();
-        cont_.setAccessValue(new AccessValueEx());
         files_.put("pkg/Ex."+Classes.EXT, xml_);
         Classes.validateAll(files_, cont_);
         CustList<Argument> args_ = new CustList<Argument>();
@@ -5607,7 +5517,6 @@ public class ProcessXmlMethodTest {
         xml_ += "</class>\n";
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextEl();
-        cont_.setAccessValue(new AccessValueEx());
         files_.put("pkg/Ex."+Classes.EXT, xml_);
         Classes.validateAll(files_, cont_);
         CustList<Argument> args_ = new CustList<Argument>();
@@ -5631,7 +5540,6 @@ public class ProcessXmlMethodTest {
         xml_ += "</class>\n";
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextEl();
-        cont_.setAccessValue(new AccessValueEx());
         files_.put("pkg/Ex."+Classes.EXT, xml_);
         Classes.validateAll(files_, cont_);
         CustList<Argument> args_ = new CustList<Argument>();
@@ -5667,7 +5575,6 @@ public class ProcessXmlMethodTest {
         xml_ += "</class>\n";
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextEl();
-        cont_.setAccessValue(new AccessValueEx());
         files_.put("pkg/Ex."+Classes.EXT, xml_);
         Classes.validateAll(files_, cont_);
         CustList<Argument> args_ = new CustList<Argument>();
@@ -5703,7 +5610,6 @@ public class ProcessXmlMethodTest {
         xml_ += "</class>\n";
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextEl();
-        cont_.setAccessValue(new AccessValueEx());
         files_.put("pkg/Ex."+Classes.EXT, xml_);
         Classes.validateAll(files_, cont_);
         CustList<Argument> args_ = new CustList<Argument>();
@@ -5740,7 +5646,6 @@ public class ProcessXmlMethodTest {
         xml_ += "</class>\n";
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextEl();
-        cont_.setAccessValue(new AccessValueEx());
         files_.put("pkg/Ex."+Classes.EXT, xml_);
         Classes.validateAll(files_, cont_);
         CustList<Argument> args_ = new CustList<Argument>();
@@ -5783,7 +5688,6 @@ public class ProcessXmlMethodTest {
         xml_ += "</class>\n";
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextEl();
-        cont_.setAccessValue(new AccessValueEx());
         files_.put("pkg/Ex."+Classes.EXT, xml_);
         Classes.validateAll(files_, cont_);
         CustList<Argument> args_ = new CustList<Argument>();
@@ -5814,7 +5718,6 @@ public class ProcessXmlMethodTest {
     public void instanceArgument9Test() {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextEl();
-        cont_.setAccessValue(new AccessValueEx());
         String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' superclass='pkg.ExTwo'>\n";
         xml_ += "<field access='"+PUBLIC_ACCESS+"' name='inst' class='"+PrimitiveTypeUtil.PRIM_INT+"' value='2i'/>\n";
         xml_ += "<field access='"+PUBLIC_ACCESS+"' name='ance' class='"+PrimitiveTypeUtil.PRIM_INT+"' value='3i'/>\n";
@@ -5872,7 +5775,6 @@ public class ProcessXmlMethodTest {
     public void instanceArgument10Test() {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextEl();
-        cont_.setAccessValue(new AccessValueEx());
         String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg'>\n";
         xml_ += "<field access='"+PUBLIC_ACCESS+"' name='inst' class='"+PrimitiveTypeUtil.PRIM_INT+"' value='2i'/>\n";
         xml_ += "<field access='"+PUBLIC_ACCESS+"' name='ance' class='"+PrimitiveTypeUtil.PRIM_INT+"' value='3i'/>\n";
@@ -5926,7 +5828,6 @@ public class ProcessXmlMethodTest {
     public void instanceArgument11Test() {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextEl();
-        cont_.setAccessValue(new AccessValueEx());
         String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' superclass='pkg.ExTwo'>\n";
         xml_ += "<field access='"+PUBLIC_ACCESS+"' name='inst' class='"+PrimitiveTypeUtil.PRIM_INT+"' value='2i'/>\n";
         xml_ += "<field access='"+PUBLIC_ACCESS+"' name='ance' class='"+PrimitiveTypeUtil.PRIM_INT+"' value='3i'/>\n";
@@ -5985,7 +5886,6 @@ public class ProcessXmlMethodTest {
     public void instanceArgument12Test() {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextEl();
-        cont_.setAccessValue(new AccessValueEx());
         String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' superclass='pkg.ExTwo'>\n";
         xml_ += "</class>\n";
         files_.put("pkg/Ex."+Classes.EXT, xml_);
@@ -6017,7 +5917,6 @@ public class ProcessXmlMethodTest {
     public void instanceArgument13Test() {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextEl();
-        cont_.setAccessValue(new AccessValueEx());
         String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' superclass='pkg.ExTwo'>\n";
         xml_ += "<constructor access='"+PUBLIC_ACCESS+"'/>\n";
         xml_ += "</class>\n";
@@ -6050,7 +5949,6 @@ public class ProcessXmlMethodTest {
     public void instanceArgument14Test() {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextEl();
-        cont_.setAccessValue(new AccessValueEx());
         String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' superclass='pkg.ExTwo'>\n";
         xml_ += "<field access='"+PUBLIC_ACCESS+"' name='inst' class='"+PrimitiveTypeUtil.PRIM_INT+"' value='2i'/>\n";
         xml_ += "<constructor access='"+PUBLIC_ACCESS+"'/>\n";
@@ -6088,7 +5986,6 @@ public class ProcessXmlMethodTest {
     public void instanceArgument15Test() {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextEl();
-        cont_.setAccessValue(new AccessValueEx());
         String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' superclass='pkg.ExTwo'>\n";
         xml_ += "<field access='"+PUBLIC_ACCESS+"' name='inst' class='"+PrimitiveTypeUtil.PRIM_INT+"' value='2i'/>\n";
         xml_ += "</class>\n";
@@ -6125,7 +6022,6 @@ public class ProcessXmlMethodTest {
     public void instanceArgument16Test() {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextEl();
-        cont_.setAccessValue(new AccessValueEx());
         String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' superclass='pkg.ExTwo'>\n";
         xml_ += "<field access='"+PUBLIC_ACCESS+"' name='inst' class='"+PrimitiveTypeUtil.PRIM_INT+"' value='2i'/>\n";
         xml_ += "</class>\n";
@@ -6165,7 +6061,6 @@ public class ProcessXmlMethodTest {
     public void instanceArgument17Test() {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextEl();
-        cont_.setAccessValue(new AccessValueEx());
         String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' superclass='pkg.ExTwo'>\n";
         xml_ += "<field access='"+PUBLIC_ACCESS+"' name='inst' class='"+PrimitiveTypeUtil.PRIM_INT+"' value='2i'/>\n";
         xml_ += "</class>\n";
@@ -6217,7 +6112,6 @@ public class ProcessXmlMethodTest {
     public void instanceArgument18Test() {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextEl();
-        cont_.setAccessValue(new AccessValueEx());
         String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' superclass='pkg.ExTwo'>\n";
         xml_ += "<field access='"+PUBLIC_ACCESS+"' name='inst' class='"+PrimitiveTypeUtil.PRIM_INT+"' value='2i'/>\n";
         xml_ += "</class>\n";
@@ -6272,7 +6166,6 @@ public class ProcessXmlMethodTest {
     public void instanceArgument19Test() {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextEl();
-        cont_.setAccessValue(new AccessValueEx());
         String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' superclass='pkg.ExTwo'>\n";
         xml_ += "<field access='"+PUBLIC_ACCESS+"' name='inst' class='"+PrimitiveTypeUtil.PRIM_INT+"' value='2i'/>\n";
         xml_ += "</class>\n";
@@ -6329,7 +6222,6 @@ public class ProcessXmlMethodTest {
     public void instanceArgument20Test() {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextEl();
-        cont_.setAccessValue(new AccessValueEx());
         String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' superclass='pkg.ExTwo'>\n";
         xml_ += "<field access='"+PUBLIC_ACCESS+"' name='inst' class='"+PrimitiveTypeUtil.PRIM_INT+"' value='2i'/>\n";
         xml_ += "</class>\n";
@@ -6389,7 +6281,6 @@ public class ProcessXmlMethodTest {
     public void instanceArgument21Test() {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextEl();
-        cont_.setAccessValue(new AccessValueEx());
         String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' superclass='pkg.ExTwo'>\n";
         xml_ += "<field access='"+PUBLIC_ACCESS+"' name='inst' class='"+PrimitiveTypeUtil.PRIM_INT+"' value='2i'/>\n";
         xml_ += "</class>\n";
@@ -6449,7 +6340,6 @@ public class ProcessXmlMethodTest {
     public void instanceArgument22Test() {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextEl();
-        cont_.setAccessValue(new AccessValueEx());
         String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' superclass='pkg.ExTwo'>\n";
         xml_ += "<field access='"+PUBLIC_ACCESS+"' name='inst' class='"+PrimitiveTypeUtil.PRIM_INT+"' value='2i'/>\n";
         xml_ += "</class>\n";
@@ -6512,7 +6402,6 @@ public class ProcessXmlMethodTest {
     public void instanceArgument23Test() {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextEl();
-        cont_.setAccessValue(new AccessValueEx());
         String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' superclass='pkg.ExTwo'>\n";
         xml_ += "<field access='"+PUBLIC_ACCESS+"' name='inst' class='"+PrimitiveTypeUtil.PRIM_INT+"' value='2i'/>\n";
         xml_ += "</class>\n";
@@ -6586,7 +6475,6 @@ public class ProcessXmlMethodTest {
     public void instanceArgument24Test() {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextEl();
-        cont_.setAccessValue(new AccessValueEx());
         String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' superclass='pkg.ExTwo'>\n";
         xml_ += "<field access='"+PUBLIC_ACCESS+"' name='inst' class='"+PrimitiveTypeUtil.PRIM_INT+"' value='2i'/>\n";
         xml_ += "</class>\n";
@@ -6661,7 +6549,6 @@ public class ProcessXmlMethodTest {
     public void instanceArgument25Test() {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextEl();
-        cont_.setAccessValue(new AccessValueEx());
         String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' superclass='pkg.ExTwo'>\n";
         xml_ += "<field access='"+PUBLIC_ACCESS+"' name='inst' class='"+PrimitiveTypeUtil.PRIM_INT+"' value='2i'/>\n";
         xml_ += "</class>\n";
@@ -6716,7 +6603,6 @@ public class ProcessXmlMethodTest {
     public void instanceArgument26Test() {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextEl();
-        cont_.setAccessValue(new AccessValueEx());
         String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' superclass='pkg.ExTwo'>\n";
         xml_ += "<field access='"+PUBLIC_ACCESS+"' name='inst' class='"+PrimitiveTypeUtil.PRIM_INT+"' value='2i'/>\n";
         xml_ += "</class>\n";
@@ -6775,7 +6661,6 @@ public class ProcessXmlMethodTest {
     public void instanceArgument27Test() {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextEl();
-        cont_.setAccessValue(new AccessValueEx());
         String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' superclass='pkg.ExTwo'>\n";
         xml_ += "<field access='"+PUBLIC_ACCESS+"' name='inst' class='"+PrimitiveTypeUtil.PRIM_INT+"' value='2i'/>\n";
         xml_ += "</class>\n";
@@ -6850,7 +6735,6 @@ public class ProcessXmlMethodTest {
     public void instanceArgument28Test() {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextEl();
-        cont_.setAccessValue(new AccessValueEx());
         String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' superclass='pkg.ExTwo'>\n";
         xml_ += "<field access='"+PUBLIC_ACCESS+"' name='inst' class='"+PrimitiveTypeUtil.PRIM_INT+"' value='2i'/>\n";
         xml_ += "</class>\n";
@@ -6927,7 +6811,6 @@ public class ProcessXmlMethodTest {
     public void instanceArgument29Test() {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextEl();
-        cont_.setAccessValue(new AccessValueEx());
         String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' superclass='pkg.ExTwo'>\n";
         xml_ += "<field access='"+PUBLIC_ACCESS+"' name='inst' class='"+PrimitiveTypeUtil.PRIM_INT+"' value='2i'/>\n";
         xml_ += "</class>\n";
@@ -6979,7 +6862,6 @@ public class ProcessXmlMethodTest {
     public void instanceArgument30Test() {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextEl();
-        cont_.setAccessValue(new AccessValueEx());
         String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' superclass='pkg.ExTwo'>\n";
         xml_ += "<field access='"+PUBLIC_ACCESS+"' name='inst' class='"+PrimitiveTypeUtil.PRIM_INT+"' value='2i'/>\n";
         xml_ += "</class>\n";
@@ -7041,7 +6923,6 @@ public class ProcessXmlMethodTest {
     public void instanceArgument31Test() {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextEl();
-        cont_.setAccessValue(new AccessValueEx());
         String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExThree' package='pkg'>\n";
         xml_ += "<field access='"+PUBLIC_ACCESS+"' name='ance' class='"+PrimitiveTypeUtil.PRIM_INT+"' value='17i'/>\n";
         xml_ += "<method access='"+PUBLIC_ACCESS+"' modifier='normal' name='doubleValue' class='"+PrimitiveTypeUtil.PRIM_INT+"'>\n";
@@ -7074,7 +6955,6 @@ public class ProcessXmlMethodTest {
     public void instanceArgument32Test() {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextEl();
-        cont_.setAccessValue(new AccessValueEx());
         String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='ExThree' package='pkg'>\n";
         xml_ += "<field access='"+PUBLIC_ACCESS+"' name='three' class='"+PrimitiveTypeUtil.PRIM_INT+"' value='17i'/>\n";
         xml_ += "</class>\n";
@@ -7132,7 +7012,6 @@ public class ProcessXmlMethodTest {
         xml_ += "</enum>\n";
         files_.put("pkg/ExEnum."+Classes.EXT, xml_);
         ContextEl cont_ = contextEl();
-        cont_.setAccessValue(new AccessValueEx());
         Classes.validateAll(files_, cont_);
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
@@ -7166,7 +7045,6 @@ public class ProcessXmlMethodTest {
         xml_ += "</class>\n";
         files_.put("pkg/ExEnum."+Classes.EXT, xml_);
         ContextEl cont_ = contextEl();
-        cont_.setAccessValue(new AccessValueEx());
         Classes.validateAll(files_, cont_);
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
@@ -7212,7 +7090,6 @@ public class ProcessXmlMethodTest {
         xml_ += "</method>\n";
         xml_ += "</class>\n";
         files_.put("pkg/ExTwo."+Classes.EXT, xml_);
-        cont_.setAccessValue(new AccessValueEx());
         Classes.validateAll(files_, cont_);
         CustList<Argument> args_ = new CustList<Argument>();
         Argument arg_;
@@ -7261,7 +7138,6 @@ public class ProcessXmlMethodTest {
         xml_ += "</method>\n";
         xml_ += "</class>\n";
         files_.put("pkg/ExTwo."+Classes.EXT, xml_);
-        cont_.setAccessValue(new AccessValueEx());
         Classes.validateAll(files_, cont_);
         CustList<Argument> args_ = new CustList<Argument>();
         Argument arg_;
@@ -7310,7 +7186,6 @@ public class ProcessXmlMethodTest {
         xml_ += "</method>\n";
         xml_ += "</class>\n";
         files_.put("pkg/ExTwo."+Classes.EXT, xml_);
-        cont_.setAccessValue(new AccessValueEx());
         Classes.validateAll(files_, cont_);
         CustList<Argument> args_ = new CustList<Argument>();
         Argument arg_;
@@ -7354,7 +7229,6 @@ public class ProcessXmlMethodTest {
         xml_ += "</method>\n";
         xml_ += "</class>\n";
         files_.put("pkg/ExTwo."+Classes.EXT, xml_);
-        cont_.setAccessValue(new AccessValueEx());
         Classes.validateAll(files_, cont_);
         CustList<Argument> args_ = new CustList<Argument>();
         Argument arg_;
@@ -7394,7 +7268,6 @@ public class ProcessXmlMethodTest {
         xml_ += "</method>\n";
         xml_ += "</class>\n";
         files_.put("pkg/ExTwo."+Classes.EXT, xml_);
-        cont_.setAccessValue(new AccessValueEx());
         Classes.validateAll(files_, cont_);
         CustList<Argument> args_ = new CustList<Argument>();
         Argument arg_;
@@ -7442,7 +7315,6 @@ public class ProcessXmlMethodTest {
         xml_ += "</method>\n";
         xml_ += "</class>\n";
         files_.put("pkg/ExTwo."+Classes.EXT, xml_);
-        cont_.setAccessValue(new AccessValueEx());
         Classes.validateAll(files_, cont_);
         CustList<Argument> args_ = new CustList<Argument>();
         Argument arg_;
@@ -7489,7 +7361,6 @@ public class ProcessXmlMethodTest {
         xml_ += "<field access='"+PUBLIC_ACCESS+"' name='ance' class='"+PrimitiveTypeUtil.PRIM_INT+"' value='inst;;;getter()'/>\n";
         xml_ += "</class>\n";
         files_.put("pkg/ExThree."+Classes.EXT, xml_);
-        cont_.setAccessValue(new AccessValueEx());
         Classes.validateAll(files_, cont_);
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.ExThree");
@@ -7528,7 +7399,6 @@ public class ProcessXmlMethodTest {
         xml_ += "<field access='"+PUBLIC_ACCESS+"' name='ance' class='"+PrimitiveTypeUtil.PRIM_INT+"' value='inst;;;getter()'/>\n";
         xml_ += "</class>\n";
         files_.put("pkgtwo/ExThree."+Classes.EXT, xml_);
-        cont_.setAccessValue(new AccessValueEx());
         Classes.validateAll(files_, cont_);
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkgtwo.ExThree");
@@ -7567,7 +7437,6 @@ public class ProcessXmlMethodTest {
         xml_ += "<field access='"+PUBLIC_ACCESS+"' name='ance' class='"+PrimitiveTypeUtil.PRIM_INT+"' value='inst;;;getter()'/>\n";
         xml_ += "</class>\n";
         files_.put("pkgtwo/ExThree."+Classes.EXT, xml_);
-        cont_.setAccessValue(new AccessValueEx());
         Classes.validateAll(files_, cont_);
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkgtwo.ExThree");
@@ -7609,7 +7478,6 @@ public class ProcessXmlMethodTest {
         xml_ += "<field access='"+PUBLIC_ACCESS+"' name='ance' class='"+PrimitiveTypeUtil.PRIM_INT+"' value='inst;;;superaccess()'/>\n";
         xml_ += "</class>\n";
         files_.put("pkg/ExThree."+Classes.EXT, xml_);
-        cont_.setAccessValue(new AccessValueEx());
         Classes.validateAll(files_, cont_);
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.ExThree");
@@ -7643,7 +7511,6 @@ public class ProcessXmlMethodTest {
         xml_ += "<field access='"+PUBLIC_ACCESS+"' name='ance' class='"+PrimitiveTypeUtil.PRIM_INT+"' value='$static$pkg$Ex.getter(5i)'/>\n";
         xml_ += "</class>\n";
         files_.put("pkg/ExThree."+Classes.EXT, xml_);
-        cont_.setAccessValue(new AccessValueEx());
         Classes.validateAll(files_, cont_);
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.ExThree");
@@ -7676,7 +7543,6 @@ public class ProcessXmlMethodTest {
         xml_ += "<field access='"+PUBLIC_ACCESS+"' name='ance' class='"+PrimitiveTypeUtil.PRIM_INT+"' value='$static$pkg$Ex.getter(5i)'/>\n";
         xml_ += "</class>\n";
         files_.put("pkg/ExThree."+Classes.EXT, xml_);
-        cont_.setAccessValue(new AccessValueEx());
         Classes.validateAll(files_, cont_);
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.ExThree");
@@ -7711,7 +7577,6 @@ public class ProcessXmlMethodTest {
         xml_ += "<field access='"+PUBLIC_ACCESS+"' name='ance' class='"+PrimitiveTypeUtil.PRIM_INT+"' value='$new pkg.Ex(5i).inst;;;'/>\n";
         xml_ += "</class>\n";
         files_.put("pkg/ExThree."+Classes.EXT, xml_);
-        cont_.setAccessValue(new AccessValueEx());
         Classes.validateAll(files_, cont_);
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.ExThree");
@@ -7746,7 +7611,6 @@ public class ProcessXmlMethodTest {
         xml_ += "<field access='"+PUBLIC_ACCESS+"' name='ance' class='"+PrimitiveTypeUtil.PRIM_INT+"' value='$new pkg.Ex(5i).inst;;;'/>\n";
         xml_ += "</class>\n";
         files_.put("pkg/ExThree."+Classes.EXT, xml_);
-        cont_.setAccessValue(new AccessValueEx());
         Classes.validateAll(files_, cont_);
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.ExThree");
@@ -7789,7 +7653,6 @@ public class ProcessXmlMethodTest {
         xml_ += "<field access='"+PUBLIC_ACCESS+"' name='ance' class='"+PrimitiveTypeUtil.PRIM_INT+"' value='inst;;;superaccess()'/>\n";
         xml_ += "</class>\n";
         files_.put("pkg/ExThree."+Classes.EXT, xml_);
-        cont_.setAccessValue(new AccessValueEx());
         Classes.validateAll(files_, cont_);
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.ExThree");
@@ -7832,7 +7695,6 @@ public class ProcessXmlMethodTest {
         xml_ += "<field access='"+PUBLIC_ACCESS+"' name='ance' class='"+PrimitiveTypeUtil.PRIM_INT+"' value='inst;;;superaccess()'/>\n";
         xml_ += "</class>\n";
         files_.put("pkg/ExThree."+Classes.EXT, xml_);
-        cont_.setAccessValue(new AccessValueEx());
         Classes.validateAll(files_, cont_);
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.ExThree");
@@ -7879,7 +7741,6 @@ public class ProcessXmlMethodTest {
         xml_ += "<field access='"+PUBLIC_ACCESS+"' name='ance' class='"+PrimitiveTypeUtil.PRIM_INT+"' value='inst;;;absgetter()'/>\n";
         xml_ += "</class>\n";
         files_.put("pkg/ExThree."+Classes.EXT, xml_);
-        cont_.setAccessValue(new AccessValueEx());
         Classes.validateAll(files_, cont_);
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.ExThree");
@@ -7923,7 +7784,6 @@ public class ProcessXmlMethodTest {
         xml_ += "<field access='"+PUBLIC_ACCESS+"' name='ance' class='"+PrimitiveTypeUtil.PRIM_INT+"' value='inst;;;superaccess()'/>\n";
         xml_ += "</class>\n";
         files_.put("pkg/ExThree."+Classes.EXT, xml_);
-        cont_.setAccessValue(new AccessValueEx());
         Classes.validateAll(files_, cont_);
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.ExThree");
@@ -7980,7 +7840,6 @@ public class ProcessXmlMethodTest {
         xml_ += "<field access='"+PUBLIC_ACCESS+"' name='ance' class='"+PrimitiveTypeUtil.PRIM_INT+"' value='inst;;;absgetter()'/>\n";
         xml_ += "</class>\n";
         files_.put("pkg/ExThree."+Classes.EXT, xml_);
-        cont_.setAccessValue(new AccessValueEx());
         Classes.validateAll(files_, cont_);
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.ExThree");
@@ -8037,7 +7896,6 @@ public class ProcessXmlMethodTest {
         xml_ += "<field access='"+PUBLIC_ACCESS+"' name='ance' class='"+PrimitiveTypeUtil.PRIM_INT+"' value='inst;;;absgetter()'/>\n";
         xml_ += "</class>\n";
         files_.put("pkg/ExThree."+Classes.EXT, xml_);
-        cont_.setAccessValue(new AccessValueEx());
         Classes.validateAll(files_, cont_);
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.ExThree");
@@ -8075,7 +7933,6 @@ public class ProcessXmlMethodTest {
         xml_ += "<field access='"+PUBLIC_ACCESS+"' name='ance' class='"+PrimitiveTypeUtil.PRIM_INT+"' value='inst;;;getter()'/>\n";
         xml_ += "</class>\n";
         files_.put("pkgtwo/ExThree."+Classes.EXT, xml_);
-        cont_.setAccessValue(new AccessValueEx());
         Classes.validateAll(files_, cont_);
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkgtwo.ExThree");
@@ -8096,7 +7953,6 @@ public class ProcessXmlMethodTest {
     public void instanceArgument56Test() {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextEl();
-        cont_.setAccessValue(new AccessValueEx());
         String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' superclass='pkg.ExTwo'>\n";
         xml_ += "<field access='"+PUBLIC_ACCESS+"' name='inst' class='"+PrimitiveTypeUtil.PRIM_INT+"' value='2i'/>\n";
         xml_ += "</class>\n";
@@ -8176,7 +8032,6 @@ public class ProcessXmlMethodTest {
     public void instanceArgument57Test() {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextEl();
-        cont_.setAccessValue(new AccessValueEx());
         String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' superclass='pkg.ExTwo'>\n";
         xml_ += "<field access='"+PUBLIC_ACCESS+"' name='inst' class='"+PrimitiveTypeUtil.PRIM_INT+"' value='2i'/>\n";
         xml_ += "</class>\n";
@@ -8256,7 +8111,6 @@ public class ProcessXmlMethodTest {
     public void instanceArgument58Test() {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextEl();
-        cont_.setAccessValue(new AccessValueEx());
         String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' superclass='pkg.ExTwo'>\n";
         xml_ += "<field access='"+PUBLIC_ACCESS+"' name='inst' class='"+PrimitiveTypeUtil.PRIM_INT+"' value='2i'/>\n";
         xml_ += "</class>\n";
@@ -8336,7 +8190,6 @@ public class ProcessXmlMethodTest {
     public void instanceArgument59Test() {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextEl();
-        cont_.setAccessValue(new AccessValueEx());
         String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' superclass='pkg.ExTwo'>\n";
         xml_ += "<field access='"+PUBLIC_ACCESS+"' name='inst' class='"+PrimitiveTypeUtil.PRIM_INT+"' value='2i'/>\n";
         xml_ += "</class>\n";
@@ -8417,7 +8270,6 @@ public class ProcessXmlMethodTest {
     public void instanceArgument60Test() {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextEl();
-        cont_.setAccessValue(new AccessValueEx());
         String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' superclass='pkg.ExTwo' class0='pkg.Int3'>\n";
         xml_ += "<field access='"+PUBLIC_ACCESS+"' name='inst' class='"+PrimitiveTypeUtil.PRIM_INT+"' value='2i'/>\n";
         xml_ += "</class>\n";
@@ -8504,7 +8356,6 @@ public class ProcessXmlMethodTest {
     public void instanceArgument61Test() {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextEl();
-        cont_.setAccessValue(new AccessValueEx());
         String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' superclass='pkg.ExTwo' class0='pkg.Int3'>\n";
         xml_ += "<field access='"+PUBLIC_ACCESS+"' name='inst' class='"+PrimitiveTypeUtil.PRIM_INT+"' value='2i'/>\n";
         xml_ += "</class>\n";
@@ -8595,7 +8446,6 @@ public class ProcessXmlMethodTest {
     public void instanceArgument62Test() {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextEl();
-        cont_.setAccessValue(new AccessValueEx());
         String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' superclass='pkg.ExTwo' class0='pkg.Int3'>\n";
         xml_ += "<field access='"+PUBLIC_ACCESS+"' name='inst' class='"+PrimitiveTypeUtil.PRIM_INT+"' value='2i'/>\n";
         xml_ += "<method access='"+PUBLIC_ACCESS+"' modifier='normal' name='doubleValue' class='"+PrimitiveTypeUtil.PRIM_INT+"'>\n";
@@ -8689,7 +8539,6 @@ public class ProcessXmlMethodTest {
     public void instanceArgument63Test() {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextEl();
-        cont_.setAccessValue(new AccessValueEx());
         String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' superclass='pkg.ExTwo' class0='pkg.Int3'>\n";
         xml_ += "<field access='"+PUBLIC_ACCESS+"' name='inst' class='"+PrimitiveTypeUtil.PRIM_INT+"' value='2i'/>\n";
         xml_ += "<method access='"+PUBLIC_ACCESS+"' modifier='normal' name='doubleValue' class='"+PrimitiveTypeUtil.PRIM_INT+"'>\n";
@@ -8782,7 +8631,6 @@ public class ProcessXmlMethodTest {
     public void instanceArgument64Test() {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextEl();
-        cont_.setAccessValue(new AccessValueEx());
         String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' superclass='pkg.ExTwo' class0='pkg.Int3'>\n";
         xml_ += "<field access='"+PUBLIC_ACCESS+"' name='inst' class='"+PrimitiveTypeUtil.PRIM_INT+"' value='2i'/>\n";
         xml_ += "<method access='"+PUBLIC_ACCESS+"' modifier='normal' name='doubleValue' class='"+PrimitiveTypeUtil.PRIM_INT+"'>\n";
@@ -8878,7 +8726,6 @@ public class ProcessXmlMethodTest {
     public void instanceArgument65Test() {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextEl();
-        cont_.setAccessValue(new AccessValueEx());
         String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' superclass='pkg.ExTwo' class0='pkg.Int3'>\n";
         xml_ += "<field access='"+PUBLIC_ACCESS+"' name='inst' class='"+PrimitiveTypeUtil.PRIM_INT+"' value='2i'/>\n";
         xml_ += "</class>\n";
@@ -8971,7 +8818,6 @@ public class ProcessXmlMethodTest {
     public void instanceArgument66Test() {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextEl();
-        cont_.setAccessValue(new AccessValueEx());
         String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' superclass='pkg.ExTwo' class0='pkg.Int3'>\n";
         xml_ += "<field access='"+PUBLIC_ACCESS+"' name='inst' class='"+PrimitiveTypeUtil.PRIM_INT+"' value='2i'/>\n";
         xml_ += "</class>\n";
@@ -9020,7 +8866,6 @@ public class ProcessXmlMethodTest {
     public void instanceArgument67Test() {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextEl();
-        cont_.setAccessValue(new AccessValueEx());
         String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' superclass='pkg.ExTwo' class0='pkg.Int3'>\n";
         xml_ += "<field access='"+PUBLIC_ACCESS+"' name='inst' class='"+PrimitiveTypeUtil.PRIM_INT+"' value='2i'/>\n";
         xml_ += "</class>\n";
@@ -9071,7 +8916,6 @@ public class ProcessXmlMethodTest {
     public void instanceArgument68Test() {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextEl();
-        cont_.setAccessValue(new AccessValueEx());
         String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' superclass='pkg.ExTwo' class0='pkg.Int3'>\n";
         xml_ += "<field access='"+PUBLIC_ACCESS+"' name='inst' class='"+PrimitiveTypeUtil.PRIM_INT+"' value='2i'/>\n";
         xml_ += "</class>\n";
@@ -9125,7 +8969,6 @@ public class ProcessXmlMethodTest {
     public void instanceArgument69Test() {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextEl();
-        cont_.setAccessValue(new AccessValueEx());
         String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' superclass='pkg.ExTwo' class0='pkg.Int3'>\n";
         xml_ += "<field access='"+PUBLIC_ACCESS+"' name='inst' class='"+PrimitiveTypeUtil.PRIM_INT+"' value='2i'/>\n";
         xml_ += "</class>\n";
@@ -9178,7 +9021,6 @@ public class ProcessXmlMethodTest {
     public void instanceArgument70Test() {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextEl();
-        cont_.setAccessValue(new AccessValueEx());
         String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' superclass='pkg.ExTwo' class0='pkg.Int3'>\n";
         xml_ += "<field access='"+PUBLIC_ACCESS+"' name='inst' class='"+PrimitiveTypeUtil.PRIM_INT+"' value='2i'/>\n";
         xml_ += "</class>\n";
@@ -9231,7 +9073,6 @@ public class ProcessXmlMethodTest {
     public void instanceArgument71Test() {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextEl();
-        cont_.setAccessValue(new AccessValueEx());
         String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' superclass='pkg.ExTwo' class0='pkg.Int3'>\n";
         xml_ += "<field access='"+PUBLIC_ACCESS+"' name='inst' class='"+PrimitiveTypeUtil.PRIM_INT+"' value='2i'/>\n";
         xml_ += "<method access='"+PUBLIC_ACCESS+"' modifier='normal' name='doubleValue' class='"+PrimitiveTypeUtil.PRIM_INT+"'>\n";
@@ -9284,7 +9125,6 @@ public class ProcessXmlMethodTest {
     public void instanceArgument72Test() {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextEl();
-        cont_.setAccessValue(new AccessValueEx());
         String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' superclass='pkg.ExTwo' class0='pkg.Int3'>\n";
         xml_ += "<field static='' access='"+PUBLIC_ACCESS+"' name='inst' class='"+PrimitiveTypeUtil.PRIM_INT+"' value='2i'/>\n";
         xml_ += "<method access='"+PUBLIC_ACCESS+"' modifier='normal' name='doubleValue' class='"+PrimitiveTypeUtil.PRIM_INT+"'>\n";
@@ -9338,7 +9178,6 @@ public class ProcessXmlMethodTest {
     public void instanceArgument73Test() {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextEl();
-        cont_.setAccessValue(new AccessValueEx());
         String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' superclass='pkg.ExTwo' class0='pkg.Int3' class1='pkg.Int2'>\n";
         xml_ += "<field access='"+PUBLIC_ACCESS+"' name='inst' class='"+PrimitiveTypeUtil.PRIM_INT+"' value='2i'/>\n";
         xml_ += "<method access='"+PUBLIC_ACCESS+"' modifier='normal' name='doubleValue' class='"+PrimitiveTypeUtil.PRIM_INT+"'>\n";
@@ -9396,7 +9235,6 @@ public class ProcessXmlMethodTest {
     public void instanceArgument74Test() {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextEl();
-        cont_.setAccessValue(new AccessValueEx());
         String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' superclass='pkg.ExTwo' class0='pkg.Int3' class1='pkg.Int2'>\n";
         xml_ += "<field access='"+PUBLIC_ACCESS+"' name='inst' class='"+PrimitiveTypeUtil.PRIM_INT+"' value='2i'/>\n";
         xml_ += "<method access='"+PUBLIC_ACCESS+"' modifier='normal' name='doubleValue' class='"+PrimitiveTypeUtil.PRIM_INT+"'>\n";
@@ -9453,7 +9291,6 @@ public class ProcessXmlMethodTest {
     public void instanceArgument75Test() {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextEl();
-        cont_.setAccessValue(new AccessValueEx());
         String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' superclass='pkg.ExTwo'>\n";
         xml_ += "<field access='"+PUBLIC_ACCESS+"' name='inst' class='"+PrimitiveTypeUtil.PRIM_INT+"' value='2i'/>\n";
         xml_ += "</class>\n";
@@ -9548,7 +9385,6 @@ public class ProcessXmlMethodTest {
     public void instanceArgument77Test() {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextEl();
-        cont_.setAccessValue(new AccessValueEx());
         String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' superclass='pkg.ExTwo'>\n";
         xml_ += "<field access='"+PUBLIC_ACCESS+"' name='inst' class='"+PrimitiveTypeUtil.PRIM_INT+"' value='2i'/>\n";
         xml_ += "</class>\n";
@@ -9610,7 +9446,6 @@ public class ProcessXmlMethodTest {
     public void instanceArgument78Test() {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextEl();
-        cont_.setAccessValue(new AccessValueEx());
         String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' superclass='pkg.ExTwo'>\n";
         xml_ += "<field access='"+PUBLIC_ACCESS+"' name='inst' class='"+PrimitiveTypeUtil.PRIM_INT+"' value='2i'/>\n";
         xml_ += "</class>\n";
@@ -9661,7 +9496,6 @@ public class ProcessXmlMethodTest {
     public void instanceArgument79Test() {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextEl();
-        cont_.setAccessValue(new AccessValueEx());
         String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' superclass='pkg.ExTwo'>\n";
         xml_ += "<field access='"+PUBLIC_ACCESS+"' name='inst' class='"+PrimitiveTypeUtil.PRIM_INT+"' value='sec;;;'/>\n";
         xml_ += "</class>\n";
@@ -9711,7 +9545,6 @@ public class ProcessXmlMethodTest {
     public void instanceArgument80Test() {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextEl();
-        cont_.setAccessValue(new AccessValueEx());
         String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' superclass='pkg.ExTwo' class0='pkg.Int3'>\n";
         xml_ += "<field access='"+PUBLIC_ACCESS+"' name='inst' class='"+PrimitiveTypeUtil.PRIM_INT+"' value='2i'/>\n";
         xml_ += "</class>\n";
@@ -9807,7 +9640,6 @@ public class ProcessXmlMethodTest {
     public void instanceArgument81Test() {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextEl();
-        cont_.setAccessValue(new AccessValueEx());
         String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' superclass='pkg.ExTwo' class0='pkg.Int3'>\n";
         xml_ += "<field access='"+PUBLIC_ACCESS+"' name='inst' class='"+PrimitiveTypeUtil.PRIM_INT+"' value='2i'/>\n";
         xml_ += "<constructor access='"+PUBLIC_ACCESS+"'>\n";
@@ -9907,7 +9739,6 @@ public class ProcessXmlMethodTest {
     public void instanceArgument82Test() {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextEl();
-        cont_.setAccessValue(new AccessValueEx());
         String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' class0='pkg.Int2'>\n";
         xml_ += "<constructor access='"+PUBLIC_ACCESS+"'>\n";
         xml_ += "</constructor>\n";
@@ -9966,7 +9797,6 @@ public class ProcessXmlMethodTest {
     public void instanceArgument83Test() {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextEl();
-        cont_.setAccessValue(new AccessValueEx());
         String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' class0='pkg.Int2'>\n";
         xml_ += "<constructor access='"+PUBLIC_ACCESS+"'>\n";
         xml_ += "</constructor>\n";
@@ -10033,7 +9863,6 @@ public class ProcessXmlMethodTest {
     public void instanceArgument84Test() {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextEl();
-        cont_.setAccessValue(new AccessValueEx());
         String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' class0='pkg.Int2'>\n";
         xml_ += "<constructor access='"+PUBLIC_ACCESS+"'>\n";
         xml_ += "</constructor>\n";
@@ -10098,7 +9927,6 @@ public class ProcessXmlMethodTest {
     public void instanceArgument85Test() {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextEl();
-        cont_.setAccessValue(new AccessValueEx());
         String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' superclass='pkg.ExTwo' class0='pkg.Int3' class1='pkg.Int'>\n";
         xml_ += "<field access='"+PUBLIC_ACCESS+"' name='inst' class='"+PrimitiveTypeUtil.PRIM_INT+"' value='2i'/>\n";
         xml_ += "</class>\n";
@@ -10193,7 +10021,6 @@ public class ProcessXmlMethodTest {
     public void instanceArgument86Test() {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextEl();
-        cont_.setAccessValue(new AccessValueEx());
         String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' superclass='pkg.ExTwo' class0='pkg.Int3' class1='pkg.Int'>\n";
         xml_ += "<field access='"+PUBLIC_ACCESS+"' name='inst' class='"+PrimitiveTypeUtil.PRIM_INT+"' value='2i'/>\n";
         xml_ += "</class>\n";
@@ -10288,7 +10115,6 @@ public class ProcessXmlMethodTest {
     public void instanceArgument87Test() {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextEl();
-        cont_.setAccessValue(new AccessValueEx());
         String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' superclass='pkg.ExTwo' class0='pkg.Int3' class1='pkg.Int'>\n";
         xml_ += "<field access='"+PUBLIC_ACCESS+"' name='inst' class='"+PrimitiveTypeUtil.PRIM_INT+"' value='2i'/>\n";
         xml_ += "</class>\n";
@@ -10400,7 +10226,6 @@ public class ProcessXmlMethodTest {
         xml_ += "</class>\n";
         files_.put("pkg/ExCont."+Classes.EXT, xml_);
         ContextEl cont_ = contextEl();
-        cont_.setAccessValue(new AccessValueEx());
         Classes.validateAll(files_, cont_);
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.ExCont");
@@ -10440,7 +10265,6 @@ public class ProcessXmlMethodTest {
         xml_ += "</class>\n";
         files_.put("pkg/ExCont."+Classes.EXT, xml_);
         ContextEl cont_ = contextEl();
-        cont_.setAccessValue(new AccessValueEx());
         Classes.validateAll(files_, cont_);
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.ExCont");
@@ -10480,7 +10304,6 @@ public class ProcessXmlMethodTest {
         xml_ += "</class>\n";
         files_.put("pkg/ExCont."+Classes.EXT, xml_);
         ContextEl cont_ = contextEl();
-        cont_.setAccessValue(new AccessValueEx());
         Classes.validateAll(files_, cont_);
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.ExCont");
@@ -10495,7 +10318,7 @@ public class ProcessXmlMethodTest {
         field_ = str_.getFields().getVal(new ClassField("pkg.ExCont", "inst"));
         assertEq(STRING, field_.getRealClassName(cont_));
         assertEq(STRING, field_.getClassName(cont_));
-        assertEq("TWO", field_.getInstance());
+        assertEq("TWO", (String)field_.getInstance());
     }
     @Test
     public void instanceArgument91Test() {
@@ -10520,7 +10343,6 @@ public class ProcessXmlMethodTest {
         xml_ += "</class>\n";
         files_.put("pkg/ExCont."+Classes.EXT, xml_);
         ContextEl cont_ = contextEl();
-        cont_.setAccessValue(new AccessValueEx());
         Classes.validateAll(files_, cont_);
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.ExCont");
@@ -10560,7 +10382,6 @@ public class ProcessXmlMethodTest {
         xml_ += "</class>\n";
         files_.put("pkg/ExCont."+Classes.EXT, xml_);
         ContextEl cont_ = contextEl();
-        cont_.setAccessValue(new AccessValueEx());
         Classes.validateAll(files_, cont_);
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.ExCont");
@@ -10600,7 +10421,6 @@ public class ProcessXmlMethodTest {
         xml_ += "</class>\n";
         files_.put("pkg/ExCont."+Classes.EXT, xml_);
         ContextEl cont_ = contextEl();
-        cont_.setAccessValue(new AccessValueEx());
         Classes.validateAll(files_, cont_);
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.ExCont");
@@ -10640,7 +10460,6 @@ public class ProcessXmlMethodTest {
         xml_ += "</class>\n";
         files_.put("pkg/ExCont."+Classes.EXT, xml_);
         ContextEl cont_ = contextEl();
-        cont_.setAccessValue(new AccessValueEx());
         Classes.validateAll(files_, cont_);
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.ExCont");
@@ -10675,7 +10494,6 @@ public class ProcessXmlMethodTest {
         xml_ += "</class>\n";
         files_.put("pkg/Ex."+Classes.EXT, xml_);
         ContextEl cont_ = contextEl();
-        cont_.setAccessValue(new AccessValueEx());
         Classes.validateAll(files_, cont_);
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
@@ -10715,7 +10533,6 @@ public class ProcessXmlMethodTest {
         xml_ += "</class>\n";
         files_.put("pkg/Ex."+Classes.EXT, xml_);
         ContextEl cont_ = contextEl();
-        cont_.setAccessValue(new AccessValueEx());
         Classes.validateAll(files_, cont_);
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
@@ -10755,7 +10572,6 @@ public class ProcessXmlMethodTest {
         xml_ += "</class>\n";
         files_.put("pkg/Ex."+Classes.EXT, xml_);
         ContextEl cont_ = contextEl();
-        cont_.setAccessValue(new AccessValueEx());
         Classes.validateAll(files_, cont_);
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
@@ -10802,7 +10618,6 @@ public class ProcessXmlMethodTest {
         xml_ += "</class>\n";
         files_.put("pkg/Ex."+Classes.EXT, xml_);
         ContextEl cont_ = contextEl();
-        cont_.setAccessValue(new AccessValueEx());
         Classes.validateAll(files_, cont_);
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
@@ -10850,7 +10665,6 @@ public class ProcessXmlMethodTest {
         xml_ += "</class>\n";
         files_.put("pkg/Ex."+Classes.EXT, xml_);
         ContextEl cont_ = contextEl();
-        cont_.setAccessValue(new AccessValueEx());
         Classes.validateAll(files_, cont_);
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
@@ -10899,7 +10713,6 @@ public class ProcessXmlMethodTest {
         xml_ += "</class>\n";
         files_.put("pkg/Ex."+Classes.EXT, xml_);
         ContextEl cont_ = contextEl();
-        cont_.setAccessValue(new AccessValueEx());
         Classes.validateAll(files_, cont_);
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
@@ -10947,7 +10760,6 @@ public class ProcessXmlMethodTest {
         xml_ += "</class>\n";
         files_.put("pkg/Ex."+Classes.EXT, xml_);
         ContextEl cont_ = contextEl();
-        cont_.setAccessValue(new AccessValueEx());
         Classes.validateAll(files_, cont_);
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
@@ -10994,7 +10806,6 @@ public class ProcessXmlMethodTest {
         xml_ += "</interface>\n";
         files_.put("pkg/Int."+Classes.EXT, xml_);
         ContextEl cont_ = contextEl();
-        cont_.setAccessValue(new AccessValueEx());
         Classes.validateAll(files_, cont_);
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.ExCont");
@@ -11009,7 +10820,7 @@ public class ProcessXmlMethodTest {
         field_ = str_.getFields().getVal(new ClassField("pkg.ExCont", "inst"));
         assertEq(STRING, field_.getRealClassName(cont_));
         assertEq(STRING, field_.getClassName(cont_));
-        assertEq("TWO", field_.getInstance());
+        assertEq("TWO",(String) field_.getInstance());
     }
     @Test
     public void instanceArgument103Test() {
@@ -11040,7 +10851,6 @@ public class ProcessXmlMethodTest {
         xml_ += "</interface>\n";
         files_.put("pkg/Int."+Classes.EXT, xml_);
         ContextEl cont_ = contextEl();
-        cont_.setAccessValue(new AccessValueEx());
         Classes.validateAll(files_, cont_);
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.ExCont");
@@ -11086,7 +10896,6 @@ public class ProcessXmlMethodTest {
         xml_ += "</interface>\n";
         files_.put("pkg/Int."+Classes.EXT, xml_);
         ContextEl cont_ = contextEl();
-        cont_.setAccessValue(new AccessValueEx());
         Classes.validateAll(files_, cont_);
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.ExCont");
@@ -11101,7 +10910,7 @@ public class ProcessXmlMethodTest {
         field_ = str_.getFields().getVal(new ClassField("pkg.ExCont", "inst"));
         assertEq(STRING, field_.getRealClassName(cont_));
         assertEq(STRING, field_.getClassName(cont_));
-        assertEq("TWO", field_.getInstance());
+        assertEq("TWO", (String)field_.getInstance());
     }
     @Test
     public void instanceArgument105Test() {
@@ -11132,7 +10941,6 @@ public class ProcessXmlMethodTest {
         xml_ += "</interface>\n";
         files_.put("pkg/Int."+Classes.EXT, xml_);
         ContextEl cont_ = contextEl();
-        cont_.setAccessValue(new AccessValueEx());
         Classes.validateAll(files_, cont_);
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.ExCont");
@@ -11170,7 +10978,6 @@ public class ProcessXmlMethodTest {
         xml_ += "<field access='"+PUBLIC_ACCESS+"' name='ance' class='"+PrimitiveTypeUtil.PRIM_INT+"' value='inst;;;$this$getter()'/>\n";
         xml_ += "</class>\n";
         files_.put("pkgtwo/ExThree."+Classes.EXT, xml_);
-        cont_.setAccessValue(new AccessValueEx());
         Classes.validateAll(files_, cont_);
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkgtwo.ExThree");
@@ -11209,7 +11016,6 @@ public class ProcessXmlMethodTest {
         xml_ += "</class>\n";
         files_.put("pkg/Ex."+Classes.EXT, xml_);
         ContextEl cont_ = contextEl();
-        cont_.setAccessValue(new AccessValueEx());
         Classes.validateAll(files_, cont_);
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
@@ -11249,7 +11055,6 @@ public class ProcessXmlMethodTest {
         xml_ += "</class>\n";
         files_.put("pkg/Ex."+Classes.EXT, xml_);
         ContextEl cont_ = contextEl();
-        cont_.setAccessValue(new AccessValueEx());
         Classes.validateAll(files_, cont_);
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
@@ -11289,7 +11094,6 @@ public class ProcessXmlMethodTest {
         xml_ += "</class>\n";
         files_.put("pkg/Ex."+Classes.EXT, xml_);
         ContextEl cont_ = contextEl();
-        cont_.setAccessValue(new AccessValueEx());
         Classes.validateAll(files_, cont_);
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
@@ -11325,7 +11129,6 @@ public class ProcessXmlMethodTest {
         xml_ += "<field access='"+PUBLIC_ACCESS+"' name='ance' class='"+PrimitiveTypeUtil.PRIM_INT+"' value='inst;;;getter()'/>\n";
         xml_ += "</class>\n";
         files_.put("pkgtwo/ExThree."+Classes.EXT, xml_);
-        cont_.setAccessValue(new AccessValueEx());
         Classes.validateAll(files_, cont_);
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkgtwo.ExThree");
@@ -11371,7 +11174,6 @@ public class ProcessXmlMethodTest {
         xml_ += "</interface>\n";
         files_.put("pkg/Int."+Classes.EXT, xml_);
         ContextEl cont_ = contextEl();
-        cont_.setAccessValue(new AccessValueEx());
         Classes.validateAll(files_, cont_);
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.ExCont");
@@ -11386,13 +11188,12 @@ public class ProcessXmlMethodTest {
         field_ = str_.getFields().getVal(new ClassField("pkg.ExCont", "inst"));
         assertEq(STRING, field_.getRealClassName(cont_));
         assertEq(STRING, field_.getClassName(cont_));
-        assertEq("TWO", field_.getInstance());
+        assertEq("TWO", (String)field_.getInstance());
     }
     @Test(expected=UndefinedConstructorException.class)
     public void validateAll1FailTest() {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextEl();
-        cont_.setAccessValue(new AccessValueEx());
         String xml_ = "<class access='"+PUBLIC_ACCESS+"' name='Ex' package='pkg' superclass='pkg.ExTwo'>\n";
         xml_ += "<field access='"+PUBLIC_ACCESS+"' name='inst' class='"+PrimitiveTypeUtil.PRIM_INT+"' value='2i'/>\n";
         xml_ += "</class>\n";

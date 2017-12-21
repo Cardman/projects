@@ -1,5 +1,6 @@
 package aiki.map.enums;
 import code.serialize.CheckedData;
+import code.util.StringList;
 
 
 @CheckedData
@@ -20,6 +21,14 @@ public enum Direction {
                 continue;
             }
             return d;
+        }
+        return null;
+    }
+    public static Direction getDirectionByName(String _env) {
+        for (Direction e: values()) {
+            if (StringList.quickEq(e.name(), _env)) {
+                return e;
+            }
         }
         return null;
     }

@@ -11,7 +11,7 @@ public final class LocalVariable {
 
     private Struct element = NullStruct.NULL_VALUE;
 
-    private String className = Object.class.getName();
+    private String className;
 
     public String getInfos() {
         try {

@@ -10,6 +10,7 @@ import code.expressionlanguage.opers.util.CustStruct;
 import code.expressionlanguage.opers.util.NullStruct;
 import code.expressionlanguage.opers.util.StdStruct;
 import code.expressionlanguage.opers.util.Struct;
+import code.expressionlanguage.stds.LgNames;
 import code.resources.ResourceFiles;
 import code.sml.Document;
 import code.util.CustList;
@@ -53,8 +54,6 @@ public class Configuration {
 
     private int tabWidth = DEFAULT_TAB_WIDTH;
 
-    private String namespaceUri;
-
     private AccessValue accessValue = new HtmlAccessValue();
 
     private String filesConfName;
@@ -65,6 +64,7 @@ public class Configuration {
     private StringMap<String> lateTranslators = new StringMap<String>();
 
     private String prefix = EMPTY_STRING;
+    private LgNames standards;
 
     private final transient StringMap<Struct> builtBeans = new StringMap<Struct>();
     private final transient StringMap<Struct> builtValidators = new StringMap<Struct>();
@@ -84,15 +84,6 @@ public class Configuration {
 
     private transient volatile boolean interrupt;
 
-    public Configuration() {
-        if (namespaceUri == null) {
-            namespaceUri = EMPTY_STRING;
-        }
-        if (namespaceUri.isEmpty()) {
-            namespaceUri = FormatHtml.NAMESPACE_URI;
-        }
-    }
-
     public final void init() {
         htmlPage = new HtmlPage();
         document = null;
@@ -101,12 +92,6 @@ public class Configuration {
             prefix = EMPTY_STRING;
         } else {
             prefix += SEP;
-        }
-        if (namespaceUri == null) {
-            namespaceUri = EMPTY_STRING;
-        }
-        if (namespaceUri.isEmpty()) {
-            namespaceUri = FormatHtml.NAMESPACE_URI;
         }
         if (accessValue == null) {
             accessValue = new HtmlAccessValue();
@@ -117,6 +102,12 @@ public class Configuration {
         if (lateTranslators == null) {
             lateTranslators = new StringMap<String>();
         }
+        if (standards == null) {
+            standards = new LgNames();
+            DefaultInitialization.basicStandards(standards);
+        }
+        standards.build();
+        standards.setupOverrides();
     }
 
     public final void setupClasses(StringMap<String> _files) {
@@ -287,6 +278,7 @@ public class Configuration {
             return context;
         }
         ContextEl context_ = new ContextEl();
+        context_.setStandards(standards);
         context_.setAccessValue(accessValue);
         context_.setCurrentUrl(currentUrl);
         context_.setHtml(html);
@@ -450,14 +442,6 @@ public class Configuration {
         prefix = _prefix + SEP;
     }
 
-    public final String getNamespaceUri() {
-        return namespaceUri;
-    }
-
-    public void setNamespaceUri(String _namespaceUri) {
-        namespaceUri = _namespaceUri;
-    }
-
     public boolean isInterrupt() {
         return interrupt;
     }
@@ -508,5 +492,13 @@ public class Configuration {
 
     public StringMap<Struct> getBuiltTranslators() {
         return builtTranslators;
+    }
+
+    public final LgNames getStandards() {
+        return standards;
+    }
+
+    public final void setStandards(LgNames _standards) {
+        standards = _standards;
     }
 }

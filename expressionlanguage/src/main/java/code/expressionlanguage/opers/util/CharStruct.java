@@ -23,7 +23,7 @@ public final class CharStruct extends Struct {
 
     @Override
     public String getClassName(ContextEl _context) {
-        return Character.class.getName();
+        return _context.getStandards().getAliasCharacter();
     }
 
     @Override

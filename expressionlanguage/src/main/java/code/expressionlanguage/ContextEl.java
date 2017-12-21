@@ -1,6 +1,5 @@
 package code.expressionlanguage;
 import code.expressionlanguage.exceptions.InvokeException;
-import code.expressionlanguage.exceptions.StackOverFlow;
 import code.expressionlanguage.methods.Classes;
 import code.expressionlanguage.opers.util.StdStruct;
 import code.expressionlanguage.stds.LgNames;
@@ -55,7 +54,6 @@ public final class ContextEl {
 
     public ContextEl(int _stackOverFlow) {
         stackOverFlow = _stackOverFlow;
-        standards.setAliasObject(Object.class.getName());
     }
 
     public Options getOptions() {
@@ -148,12 +146,7 @@ public final class ContextEl {
 
     public void addPage(PageEl _page) {
         LgNames stds_ = getStandards();
-        String sof_;
-        if (getClasses() != null) {
-            sof_ = stds_.getAliasSof();
-        } else {
-            sof_ = StackOverFlow.class.getName();
-        }
+        String sof_ = stds_.getAliasSof();
         if (stackOverFlow >= CustList.FIRST_INDEX && stackOverFlow <= importing.size()) {
             throw new InvokeException(new StdStruct(new CustomError(joinPages()),sof_));
         }

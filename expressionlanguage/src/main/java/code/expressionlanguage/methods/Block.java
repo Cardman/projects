@@ -8,6 +8,7 @@ import code.expressionlanguage.methods.exceptions.UnknownBlockException;
 import code.expressionlanguage.methods.util.CallConstructor;
 import code.expressionlanguage.methods.util.ParentStackBlock;
 import code.expressionlanguage.methods.util.SearchingReturnThrow;
+import code.expressionlanguage.stds.LgNames;
 import code.sml.DocumentBuilder;
 import code.sml.Element;
 import code.sml.ElementOffsetsNext;
@@ -641,7 +642,7 @@ public abstract class Block extends Blockable {
         return indexInGroup;
     }
 
-    public abstract NatTreeMap<String,String> getClassNames();
+    public abstract NatTreeMap<String,String> getClassNames(LgNames _stds);
     public static Block createOperationNode(Element _el, ContextEl _conf,
             int _indexChild, BracedBlock _m) {
         if (StringList.quickEq(_el.getTagName(),TAG_AFFECT)) {

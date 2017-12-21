@@ -21,7 +21,14 @@ public enum Sex {
         }
         return null;
     }
-
+    public static Sex getSexByName(String _env) {
+        for (Sex e: values()) {
+            if (StringList.quickEq(e.name(), _env)) {
+                return e;
+            }
+        }
+        return null;
+    }
     public Gender getGender() {
         return gender;
     }

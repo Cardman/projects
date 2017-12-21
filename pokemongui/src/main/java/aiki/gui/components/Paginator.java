@@ -115,7 +115,7 @@ public abstract class Paginator extends JPanel{
         StringMap<String> map_ = ExtractFromFiles.getMessagesFromLocaleClass(Resources.MESSAGES_FOLDER, Constants.getLanguage(), ACCESS_SEARCH);
         messagesSearchMode.clear();
         for (String k: map_.getKeys()) {
-            messagesSearchMode.put(SearchingMode.valueOf(k), map_.getVal(k));
+            messagesSearchMode.put(SearchingMode.getSearchingModeByName(k), map_.getVal(k));
         }
     }
 

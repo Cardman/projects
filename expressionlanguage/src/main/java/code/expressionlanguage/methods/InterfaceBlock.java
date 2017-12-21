@@ -2,6 +2,7 @@ package code.expressionlanguage.methods;
 
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.methods.util.UnexpectedTagName;
+import code.expressionlanguage.stds.LgNames;
 import code.sml.Element;
 import code.sml.RowCol;
 import code.util.CustList;
@@ -60,7 +61,7 @@ public final class InterfaceBlock extends RootBlock {
     }
 
     @Override
-    public StringList getDirectGenericSuperTypes() {
+    public StringList getDirectGenericSuperTypes(ContextEl _classes) {
         return new StringList(superInterfaces);
     }
 
@@ -75,7 +76,7 @@ public final class InterfaceBlock extends RootBlock {
     }
 
     @Override
-    public NatTreeMap<String,String> getClassNames() {
+    public NatTreeMap<String,String> getClassNames(LgNames _stds) {
         NatTreeMap<String,String> tr_ = new NatTreeMap<String,String>();
         tr_.put(ATTRIBUTE_NAME, getFullDefinition());
         int i_ = 0;
@@ -107,16 +108,16 @@ public final class InterfaceBlock extends RootBlock {
     }
 
     @Override
-    public StringList getDirectGenericSuperClasses() {
+    public StringList getDirectGenericSuperClasses(ContextEl _classes) {
         StringList classes_ = new StringList(superInterfaces);
         if (superInterfaces.isEmpty()) {
-            classes_.add(Object.class.getName());
+            classes_.add(_classes.getStandards().getAliasObject());
         }
         return classes_;
     }
 
     @Override
-    public StringList getDirectSuperClasses() {
+    public StringList getDirectSuperClasses(ContextEl _classes) {
         StringList classes_ = new StringList();
         for (String s: superInterfaces) {
             int index_ = s.indexOf(LT);
@@ -127,7 +128,7 @@ public final class InterfaceBlock extends RootBlock {
             }
         }
         if (superInterfaces.isEmpty()) {
-            classes_.add(Object.class.getName());
+            classes_.add(_classes.getStandards().getAliasObject());
         }
         return classes_;
     }

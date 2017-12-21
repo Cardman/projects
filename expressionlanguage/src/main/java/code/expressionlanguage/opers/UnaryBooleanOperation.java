@@ -3,7 +3,6 @@ import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.CustomError;
 import code.expressionlanguage.OperationsSequence;
-import code.expressionlanguage.PrimitiveTypeUtil;
 import code.expressionlanguage.exceptions.BadNumberValuesException;
 import code.expressionlanguage.exceptions.InvokeException;
 import code.expressionlanguage.exceptions.NotBooleanException;
@@ -39,16 +38,15 @@ public final class UnaryBooleanOperation extends PrimitiveBoolOperation {
         clMatch_ = chidren_.first().getResultClass();
         setRelativeOffsetPossibleLastPage(getIndexInEl(), _conf);
         LgNames stds_ = _conf.getStandards();
-        if (_conf.getClasses() != null) {
-            
-        }
-        if (!clMatch_.matchClass(PrimitiveTypeUtil.PRIM_BOOLEAN)) {
-            if (!clMatch_.matchClass(Boolean.class)) {
+        String booleanPrimType_ = stds_.getAliasPrimBoolean();
+        String booleanType_ = stds_.getAliasBoolean();
+        if (!clMatch_.matchClass(booleanPrimType_)) {
+            if (!clMatch_.matchClass(booleanType_)) {
                 ClassArgumentMatching cl_ = chidren_.first().getResultClass();
                 throw new NotBooleanException(String.valueOf(cl_)+RETURN_LINE+_conf.joinPages());
             }
         }
-        setResultClass(new ClassArgumentMatching(PrimitiveTypeUtil.PRIM_BOOLEAN));
+        setResultClass(new ClassArgumentMatching(booleanPrimType_));
     }
 
     @Override
@@ -65,11 +63,7 @@ public final class UnaryBooleanOperation extends PrimitiveBoolOperation {
         setRelativeOffsetPossibleLastPage(getIndexInEl(), _conf);
         LgNames stds_ = _conf.getStandards();
         String null_;
-        if (_conf.getClasses() != null) {
-            null_ = stds_.getAliasNullPe();
-        } else {
-            null_ = NullObjectException.class.getName();
-        }
+        null_ = stds_.getAliasNullPe();
         if (o_ == null) {
             throw new InvokeException(new StdStruct(new CustomError(_conf.joinPages()),null_));
         }
@@ -95,11 +89,7 @@ public final class UnaryBooleanOperation extends PrimitiveBoolOperation {
         setRelativeOffsetPossibleLastPage(getIndexInEl(), _conf);
         LgNames stds_ = _conf.getStandards();
         String null_;
-        if (_conf.getClasses() != null) {
-            null_ = stds_.getAliasNullPe();
-        } else {
-            null_ = NullObjectException.class.getName();
-        }
+        null_ = stds_.getAliasNullPe();
         if (o_ == null) {
             throw new InvokeException(new StdStruct(new CustomError(_conf.joinPages()),null_));
         }

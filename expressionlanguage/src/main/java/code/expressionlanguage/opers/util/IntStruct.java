@@ -23,7 +23,7 @@ public final class IntStruct extends Struct {
 
     @Override
     public String getClassName(ContextEl _context) {
-        return Integer.class.getName();
+        return _context.getStandards().getAliasInteger();
     }
 
     @Override

@@ -166,7 +166,7 @@ public class MapLevelBean extends CommonBean {
                 continue;
             }
             String dirStr_ = s.substring(PROPONE_LINK_VAR.length());
-            Direction dir_ = Direction.valueOf(dirStr_);
+            Direction dir_ = Direction.getDirectionByName(dirStr_);
             dirs.put(dir_, b_);
         }
     }

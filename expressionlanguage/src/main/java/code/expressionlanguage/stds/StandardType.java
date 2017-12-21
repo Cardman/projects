@@ -1,6 +1,5 @@
 package code.expressionlanguage.stds;
 
-import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.methods.AccessEnum;
 import code.expressionlanguage.methods.Classes;
 import code.expressionlanguage.opers.util.ClassMethodId;
@@ -41,19 +40,19 @@ public abstract class StandardType {
         allOverridingMethods = new ObjectMap<MethodId, EqList<ClassMethodId>>();
     }
     /** Copy the list*/
-    public abstract StringList getDirectSuperClasses(ContextEl _context);
-    public abstract StringList getDirectSuperTypes(ContextEl _context);
+    public abstract StringList getDirectSuperClasses();
+    public abstract StringList getDirectSuperTypes();
 
-    public abstract StringList getDirectInterfaces(ContextEl _context);
-    public final StringList getAllSuperTypes(ContextEl _classes) {
+    public abstract StringList getDirectInterfaces();
+    public final StringList getAllSuperTypes(LgNames _classes) {
         StringList list_ = new StringList();
         StringList current_ = new StringList(getName());
         while (true) {
             StringList next_ = new StringList();
             for (String c: current_) {
                 String baseType_ = c;
-                StandardType stdType_ = _classes.getStandards().getStandards().getVal(baseType_);
-                StringList superTypes_ = stdType_.getDirectSuperTypes(_classes);
+                StandardType stdType_ = _classes.getStandards().getVal(baseType_);
+                StringList superTypes_ = stdType_.getDirectSuperTypes();
                 for (String t: superTypes_) {
                     String format_ = t;
                     list_.add(format_);
@@ -69,7 +68,7 @@ public abstract class StandardType {
     }
     public static ObjectMap<MethodId, EqList<ClassMethodId>> getAllOverridingMethods(
             ObjectMap<MethodId, EqList<ClassMethodId>> _methodIds,
-            ContextEl _classes) {
+            LgNames _classes) {
         ObjectMap<MethodId, EqList<ClassMethodId>> map_;
         map_ = new ObjectMap<MethodId, EqList<ClassMethodId>>();
         for (EntryCust<MethodId, EqList<ClassMethodId>> e: _methodIds.entryList()) {
@@ -88,8 +87,7 @@ public abstract class StandardType {
         }
         return map_;
     }
-    public void buildOverridingMethods(ContextEl _context) {
-        LgNames classesRef_ = _context.getStandards();
+    public void buildOverridingMethods(LgNames _context) {
         ObjectMap<MethodId, EqList<ClassMethodId>> allOv_ = getAllInstanceSignatures(_context);
         ObjectMap<MethodId, EqList<ClassMethodId>> allBaseOv_ = getAllOverridingMethods(allOv_, _context);
         ObjectMap<MethodId,CustList<OverridingRelation>> allOverridings_ = new ObjectMap<MethodId,CustList<OverridingRelation>>();
@@ -114,11 +112,11 @@ public abstract class StandardType {
                 for (ClassMethodId c: current_) {
                     String templClass_ = c.getClassName();
                     String typeName_ = templClass_;
-                    StandardType root_ = classesRef_.getStandards().getVal(typeName_);
+                    StandardType root_ = _context.getStandards().getVal(typeName_);
                     for (String u:root_.getAllSuperTypes(_context)) {
                         String superType_ = u;
                         String superTypeName_ = u;
-                        StandardType super_ = classesRef_.getStandards().getVal(superTypeName_);
+                        StandardType super_ = _context.getStandards().getVal(superTypeName_);
                         for (StandardMethod m: super_.getMethods().values()) {
                             MethodId f_ = m.getId();
                             if (f_.eq(c.getConstraints())) {
@@ -195,7 +193,7 @@ public abstract class StandardType {
             }
         }
     }
-    public final ObjectMap<MethodId, EqList<ClassMethodId>> getAllInstanceSignatures(ContextEl _classes) {
+    public final ObjectMap<MethodId, EqList<ClassMethodId>> getAllInstanceSignatures(LgNames _classes) {
         ObjectMap<MethodId, EqList<ClassMethodId>> map_;
         map_ = new ObjectMap<MethodId, EqList<ClassMethodId>>();
         for (StandardMethod b: methods.values()) {
@@ -206,7 +204,7 @@ public abstract class StandardType {
         }
         for (String s: getAllSuperTypes(_classes)) {
             String base_ = StringList.getAllTypes(s).first();
-            StandardType b_ = _classes.getStandards().getStandards().getVal(base_);
+            StandardType b_ = _classes.getStandards().getVal(base_);
             for (StandardMethod b: b_.methods.values()) {
                 if (b.isStaticMethod()) {
                     continue;
@@ -224,9 +222,9 @@ public abstract class StandardType {
         }
         return map_;
     }
-    public final StringMap<ClassMethodId> getConcreteMethodsToCall(MethodId _realId, ContextEl _conf) {
+    public final StringMap<ClassMethodId> getConcreteMethodsToCall(MethodId _realId, LgNames _conf) {
         StringMap<ClassMethodId> eq_ = new StringMap<ClassMethodId>();
-        LgNames classes_ = _conf.getStandards();
+        LgNames classes_ = _conf;
         String baseClassFound_ = getName();
         for (StandardType c: classes_.getStandards().values()) {
             String name_ = c.getName();

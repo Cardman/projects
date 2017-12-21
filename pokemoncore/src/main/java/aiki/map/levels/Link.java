@@ -26,7 +26,7 @@ public final class Link {
         StringList list_ = StringList.splitChars(_string, SEPARATOR);
         name = list_.first();
         if (_string.indexOf(SEPARATOR) != _string.lastIndexOf(SEPARATOR)) {
-            dir = Direction.valueOf(list_.get(CustList.SECOND_INDEX));
+            dir = Direction.getDirectionByName(list_.get(CustList.SECOND_INDEX));
         }
         coords = new Coords(list_.last());
     }

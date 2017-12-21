@@ -1,5 +1,6 @@
 package aiki.game.params.enums;
 import code.serialize.CheckedData;
+import code.util.StringList;
 import code.util.ints.Listable;
 
 
@@ -32,5 +33,13 @@ public enum DifficultyModelLaw {
             }
         }
         return true;
+    }
+    public static DifficultyModelLaw getModelByName(String _env) {
+        for (DifficultyModelLaw e: values()) {
+            if (StringList.quickEq(e.name(), _env)) {
+                return e;
+            }
+        }
+        return null;
     }
 }

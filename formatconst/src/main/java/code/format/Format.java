@@ -103,7 +103,7 @@ public final class Format {
     }
 
     public static String getClassProperties(String _class) {
-        return StringList.replace(_class, DOT, ResourceFiles.SEPARATEUR).toLowerCase()+DOT+PROPERTIES;
+        return StringList.toLowerCase(StringList.replace(_class, DOT, ResourceFiles.SEPARATEUR))+DOT+PROPERTIES;
     }
 
     private static String keepOnlyWordCharsDot(String _string) {

@@ -25,7 +25,7 @@ public class ExtractFromResourcesTest {
         String content_ = "one=Description one\ntwo_lignes=Description\n\t2";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setMessagesFolder(folder_);
         StringMap<String> messages_ = ExtractFromResources.getInnerMessagesFromLocaleClass(conf_, locale_, relative_, files_);
         assertEq(2, messages_.size());
@@ -41,7 +41,7 @@ public class ExtractFromResourcesTest {
         String content_ = "\tone=Description one\ntwo_lignes=Description 2";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(folder_+"/"+locale_+"/"+relative_+".properties", content_);
-        Configuration conf_ = new Configuration();
+        Configuration conf_ = newConfiguration();
         conf_.setMessagesFolder(folder_);
         StringMap<String> messages_ = ExtractFromResources.getInnerMessagesFromLocaleClass(conf_, locale_, relative_, files_);
         assertEq(1, messages_.size());
@@ -105,4 +105,9 @@ public class ExtractFromResourcesTest {
         assertEq("<html><body><a href=\"\"/><form action=\"\"/><a href=\"file:html/pages/LOCALE/index.html\"/><a command=\"html/pages/LOCALE/index.html\"/><form action=\"file:html/pages/LOCALE/index.html\"/><form command=\"html/pages/LOCALE/index.html\"/><br></body></html>",res_);
     }
 
+    private static Configuration newConfiguration() {
+        Configuration conf_ = new Configuration();
+        conf_.setStandards(InitializationLgNames.initStandards());
+        return conf_;
+    }
 }

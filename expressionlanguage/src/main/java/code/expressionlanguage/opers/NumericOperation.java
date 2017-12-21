@@ -5,7 +5,6 @@ import code.expressionlanguage.CustomError;
 import code.expressionlanguage.OperationsSequence;
 import code.expressionlanguage.PrimitiveTypeUtil;
 import code.expressionlanguage.exceptions.BadNumberValuesException;
-import code.expressionlanguage.exceptions.DivideZeroException;
 import code.expressionlanguage.exceptions.InvokeException;
 import code.expressionlanguage.exceptions.InvokeRedinedMethException;
 import code.expressionlanguage.exceptions.NotNumberException;
@@ -13,6 +12,7 @@ import code.expressionlanguage.methods.Block;
 import code.expressionlanguage.methods.util.ArgumentsPair;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.opers.util.ConstructorId;
+import code.expressionlanguage.opers.util.ResultOperand;
 import code.expressionlanguage.opers.util.StdStruct;
 import code.expressionlanguage.stds.LgNames;
 import code.util.CustList;
@@ -20,7 +20,6 @@ import code.util.EntryCust;
 import code.util.IdMap;
 import code.util.NatTreeMap;
 import code.util.StringList;
-import code.util.exceptions.NullObjectException;
 
 public abstract class NumericOperation extends MethodOperation {
 
@@ -32,13 +31,13 @@ public abstract class NumericOperation extends MethodOperation {
         super(_index, _importingPage, _indexChild, _m, _op);
     }
 
-    static Argument calculateAffect(Argument _left,ContextEl _conf, Argument _right, String _op) {
+    static Argument calculateAffect(Argument _left,ContextEl _conf, Argument _right, String _op, boolean _catChars, boolean _catString) {
         Argument o_;
         boolean convert_ = true;
         if (StringList.quickEq(_op, Block.PLUS_EQ)) {
-            o_ = NumericOperation.calculateSum(_left, _conf, _right);
+            o_ = NumericOperation.calculateSum(_left, _conf, _right, _catChars, _catString);
         } else if (StringList.quickEq(_op, Block.EQ_PLUS)) {
-            o_ = NumericOperation.calculateSum(_right, _conf, _left);
+            o_ = NumericOperation.calculateSum(_right, _conf, _left, _catChars, _catString);
         } else if (StringList.quickEq(_op, Block.MINUS_EQ)) {
             o_ = NumericOperation.calculateDiff(_left, _conf, _right);
         } else if (StringList.quickEq(_op, Block.EQ_MINUS)) {
@@ -73,20 +72,19 @@ public abstract class NumericOperation extends MethodOperation {
     }
     /**@throws InvokeRedinedMethException
     @throws NullObjectException*/
-    static Argument calculateSum(Argument _a, ContextEl _cont, Argument _b) {
+    static Argument calculateSum(Argument _a, ContextEl _cont, Argument _b, boolean _catChars, boolean _catString) {
         LgNames stds_ = _cont.getStandards();
         String null_;
         String stringType_;
-        if (_cont.getClasses() != null) {
-            null_ = stds_.getAliasNullPe();
-            stringType_ = stds_.getAliasString();
-        } else {
-            null_ = NullObjectException.class.getName();
-            stringType_ = stds_.getAliasString();
-        }
-        if (_a.getObject() instanceof String) {
+        null_ = stds_.getAliasNullPe();
+        stringType_ = stds_.getAliasString();
+        if (_catString) {
             StringBuilder str_ = new StringBuilder();
-            str_.append(_a.getObject());
+            try {
+                str_.append(_a.getObject());
+            } catch (RuntimeException _0) {
+                throw new InvokeException(new StdStruct(new InvokeRedinedMethException(SECOND+RETURN_LINE+_cont.joinPages(),new StdStruct(_0))));
+            }
             try {
                 str_.append(_b.getObject());
             } catch (RuntimeException _0) {
@@ -96,27 +94,13 @@ public abstract class NumericOperation extends MethodOperation {
             a_.setObject(str_.toString(),stringType_);
             return a_;
         }
-        if (_b.getObject() instanceof String) {
+        if (_catChars) {
             StringBuilder str_ = new StringBuilder();
-            try {
-                str_.append(_a.getObject());
-            } catch (RuntimeException _0) {
-                throw new InvokeException(new StdStruct(new InvokeRedinedMethException(FIRST+RETURN_LINE+_cont.joinPages(),new StdStruct(_0))));
-            }
+            str_.append(_a.getObject());
             str_.append(_b.getObject());
             Argument a_ = new Argument();
             a_.setObject(str_.toString(),stringType_);
             return a_;
-        }
-        if (StringList.quickEq(PrimitiveTypeUtil.toPrimitive(_a.getArgClass(_cont), true, _cont).getName(), PrimitiveTypeUtil.PRIM_CHAR)) {
-            if (StringList.quickEq(PrimitiveTypeUtil.toPrimitive(_b.getArgClass(_cont), true, _cont).getName(), PrimitiveTypeUtil.PRIM_CHAR)) {
-                StringBuilder str_ = new StringBuilder();
-                str_.append(_a.getObject());
-                str_.append(_b.getObject());
-                Argument a_ = new Argument();
-                a_.setObject(str_.toString(),stringType_);
-                return a_;
-            }
         }
         if (_a.getObject() == null) {
             throw new InvokeException(new StdStruct(new CustomError(FIRST+RETURN_LINE+_cont.joinPages()),null_));
@@ -258,11 +242,7 @@ public abstract class NumericOperation extends MethodOperation {
     static Argument calculateDiff(Argument _a, ContextEl _cont, Argument _b) {
         LgNames stds_ = _cont.getStandards();
         String null_;
-        if (_cont.getClasses() != null) {
-            null_ = stds_.getAliasNullPe();
-        } else {
-            null_ = NullObjectException.class.getName();
-        }
+        null_ = stds_.getAliasNullPe();
         if (_a.getObject() == null) {
             throw new InvokeException(new StdStruct(new CustomError(FIRST+RETURN_LINE+_cont.joinPages()),null_));
         }
@@ -403,11 +383,7 @@ public abstract class NumericOperation extends MethodOperation {
     static Argument calculateMult(Argument _a, ContextEl _cont, Argument _b) {
         LgNames stds_ = _cont.getStandards();
         String null_;
-        if (_cont.getClasses() != null) {
-            null_ = stds_.getAliasNullPe();
-        } else {
-            null_ = NullObjectException.class.getName();
-        }
+        null_ = stds_.getAliasNullPe();
         if (_a.getObject() == null) {
             throw new InvokeException(new StdStruct(new CustomError(FIRST+RETURN_LINE+_cont.joinPages()),null_));
         }
@@ -544,19 +520,12 @@ public abstract class NumericOperation extends MethodOperation {
         a_.setObject(nb_);
         return a_;
     }
-    /**@throws DivideZeroException
-    @throws NullObjectException*/
     static Argument calculateDiv(Argument _a, ContextEl _cont, Argument _b) {
         LgNames stds_ = _cont.getStandards();
         String div_;
         String null_;
-        if (_cont.getClasses() != null) {
-            div_ = stds_.getAliasDivisionZero();
-            null_ = stds_.getAliasNullPe();
-        } else {
-            div_ = DivideZeroException.class.getName();
-            null_ = NullObjectException.class.getName();
-        }
+        div_ = stds_.getAliasDivisionZero();
+        null_ = stds_.getAliasNullPe();
         if (_a.getObject() == null) {
             throw new InvokeException(new StdStruct(new CustomError(FIRST+RETURN_LINE+_cont.joinPages()),null_));
         }
@@ -705,19 +674,12 @@ public abstract class NumericOperation extends MethodOperation {
         a_.setObject(nb_);
         return a_;
     }
-    /**@throws DivideZeroException
-    @throws NullObjectException*/
     static Argument calculateMod(Argument _a, ContextEl _cont, Argument _b) {
         LgNames stds_ = _cont.getStandards();
         String div_;
         String null_;
-        if (_cont.getClasses() != null) {
-            div_ = stds_.getAliasDivisionZero();
-            null_ = stds_.getAliasNullPe();
-        } else {
-            div_ = DivideZeroException.class.getName();
-            null_ = NullObjectException.class.getName();
-        }
+        div_ = stds_.getAliasDivisionZero();
+        null_ = stds_.getAliasNullPe();
         if (_a.getObject() == null) {
             throw new InvokeException(new StdStruct(new CustomError(FIRST+RETURN_LINE+_cont.joinPages()),null_));
         }
@@ -885,12 +847,9 @@ public abstract class NumericOperation extends MethodOperation {
             arg_ = _b;
         }
         LgNames stds_ = _cont.getStandards();
-        if (_cont.getClasses() != null) {
-            
-        }
-        int intOrder_ = PrimitiveTypeUtil.getOrderClass(PrimitiveTypeUtil.PRIM_INT, _cont);
+        int intOrder_ = PrimitiveTypeUtil.getOrderClass(stds_.getAliasPrimInteger(), _cont);
         if (max_ < intOrder_) {
-            arg_ = new ClassArgumentMatching(PrimitiveTypeUtil.PRIM_INT);
+            arg_ = new ClassArgumentMatching(stds_.getAliasPrimInteger());
         }
         return PrimitiveTypeUtil.toPrimitive(arg_, true, _cont);
     }
@@ -908,18 +867,19 @@ public abstract class NumericOperation extends MethodOperation {
             throw new BadNumberValuesException(_conf.joinPages());
         }
         ClassArgumentMatching a_ = chidren_.first().getResultClass();
-        ClassArgumentMatching r_;
+        ResultOperand r_;
         int i_ = CustList.SECOND_INDEX;
         for (EntryCust<Integer, String> e: getOperations().getOperators().entryList()) {
             ClassArgumentMatching c_ = chidren_.get(i_).getResultClass();
             setRelativeOffsetPossibleLastPage(getIndexInEl()+e.getKey(), _conf);
             r_ = analyzeOper(a_, e.getValue(), c_, _conf);
-            a_ = r_;
+            setCatenize(r_);
+            a_ = r_.getResult();
             i_++;
         }
         setResultClass(a_);
     }
-    abstract ClassArgumentMatching analyzeOper(ClassArgumentMatching _a, String _op, ClassArgumentMatching _b, ContextEl _cont);
+    abstract ResultOperand analyzeOper(ClassArgumentMatching _a, String _op, ClassArgumentMatching _b, ContextEl _cont);
     abstract Argument calculateOper(Argument _a, String _op, Argument _b, ContextEl _cont);
 
     @Override
@@ -948,7 +908,6 @@ public abstract class NumericOperation extends MethodOperation {
         return a_;
     }
     /**@throws InvokeRedinedMethException
-    @throws DivideZeroException
     @throws NullObjectException*/
     @Override
     public final void calculate(CustList<OperationNode> _nodes, ContextEl _conf,
@@ -995,4 +954,5 @@ public abstract class NumericOperation extends MethodOperation {
         NatTreeMap<Integer, String> vs_ = getOperations().getValues();
         getChildren().putAllMap(vs_);
     }
+    abstract void setCatenize(ResultOperand _res);
 }
